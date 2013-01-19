@@ -1,0 +1,138 @@
+@canvasWidth: 1056px;
+@canvasHeight: 400px;
+@headerHeight: 100px;
+@toolsHeight: 100px;
+
+@separatorWidth: 50px;
+@hoverSeparatorWidth: 100px;
+
+html {
+  height: 100%;
+}
+body {
+  margin: 0;
+  padding: 0;
+
+  height: 100%;
+
+  overflow: hidden;
+}
+
+header {
+  width: @canvasWidth;
+  height: @headerHeight;
+  margin: 0 auto;
+
+  position: absolute;
+  top: 0;
+
+  left: 50%;
+  margin-left: -@canvasWidth / 2;
+}
+
+#street-section-canvas {
+  position: absolute;
+
+  display: block;
+
+  left: 50%;
+  margin-left: -@canvasWidth / 2;
+
+  top: 50%;
+  margin-top: -@canvasHeight / 2;
+
+  width: @canvasWidth;
+  height: @canvasHeight;
+
+  overflow: hidden;
+
+  outline: 1px solid black;
+}
+
+#tools {
+  position: absolute;
+  width: @canvasWidth;
+  height: @toolsHeight;
+  margin: 0 auto;
+  bottom: 0;
+  left: 50%;
+
+  text-align: center;
+
+  margin-left: -@canvasWidth / 2;
+}
+
+#editable-street-canvas {
+  width: 10000px;
+  margin-left: -5000px + @canvasWidth / 2;
+  height: @canvasHeight;
+  text-align: center;
+}
+
+#editable-street-section {
+  height: @canvasHeight;
+  text-align: center;
+}
+.segment {
+  display: inline-block;
+  height: @canvasHeight;
+  outline: 1px solid white;
+
+  cursor: -webkit-grab;
+
+  -webkit-transition: width 100ms, margin-left 100ms;
+}
+
+.segment[type='sidewalk'] {
+  background: red;
+}
+.segment[type='bike-lane'] {
+  background: blue;
+}
+.segment[type='road'] {
+  background: green;
+}
+.segment.dragged-out {
+  opacity: 0;
+}
+.segment.collapsed {
+  width: 0 !important;
+}
+
+.segment[type='separator'] {
+  //background: rgba(0, 255, 0, .5) !important;
+  outline: 2px solid gray;
+  background: transparent;
+  outline: none;
+
+  position: absolute;
+
+  -webkit-transition: width 100ms;
+
+  pointer-events: none;
+}
+
+
+.segment.dragging {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  opacity: .75;
+
+  pointer-events: none;
+}
+
+#editable-street-section.dragging,
+#editable-street-section.dragging * {
+  cursor: move;  
+}
+#editable-street-section.dragging > div[type='separator'] {
+  pointer-events: auto;
+}
+#editable-street-section.dragging > div[type='separator'].hover {
+  width: @hoverSeparatorWidth;
+}
+#editable-street-section.dragging > div[type='separator'].hover + div {
+  margin-left: @hoverSeparatorWidth - @separatorWidth;
+}
