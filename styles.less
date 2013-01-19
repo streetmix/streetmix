@@ -107,11 +107,8 @@ header {
 
   position: absolute;
 
-  -webkit-transition: width 100ms;
-
   pointer-events: none;
 }
-
 
 .segment.dragging {
   position: absolute;
@@ -129,6 +126,7 @@ header {
 }
 #editable-street-section.dragging > div[type='separator'] {
   pointer-events: auto;
+  -webkit-transition: width 100ms;
 }
 #editable-street-section.dragging > div[type='separator'].hover {
   width: @hoverSeparatorWidth;

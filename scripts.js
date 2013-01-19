@@ -41,6 +41,8 @@ var main = (function(){
     originalDraggedOut: false
   };
 
+  var WIDTH_RESIZE_DELAY = 100;
+
   function _recalculateSeparators() {
     //console.log('Recalculating…');
 
@@ -199,7 +201,10 @@ var main = (function(){
       var el = _createSegment('separator');
       document.querySelector('#editable-street-section').insertBefore(el, draggingStatus.originalEl);
 
-      draggingStatus.originalEl.parentNode.removeChild(draggingStatus.originalEl);
+      draggingStatus.originalEl.style.width = 0;
+      window.setTimeout(function() {
+        draggingStatus.originalEl.parentNode.removeChild(draggingStatus.originalEl);
+      }, WIDTH_RESIZE_DELAY);
 
       _recalculateSeparators();
 
