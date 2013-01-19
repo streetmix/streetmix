@@ -9,8 +9,7 @@ A web-based Street Section builder, inspired by [Blockee][].
 TODO
 
 ## <a name="demo"></a>Demo
-You can see a running version of the application at
-TODO
+You can see a running version of the application at http://codeforamerica.github.com/streetmix/
 
 ## <a name="installation"></a>Installation
 TODO
