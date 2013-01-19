@@ -147,7 +147,7 @@ header {
 
   cursor: -webkit-grab;
 
-  -webkit-transition: width 100ms, margin-left 100ms;
+  -webkit-transition: width 100ms;
 }
 
 .segment[type='sidewalk'] {
@@ -183,7 +183,7 @@ header {
 
   opacity: .75;
 
-  z-index: 100;
+  z-index: 5000;
 
   pointer-events: none;
 }
@@ -192,6 +192,10 @@ header {
 #editable-street-section.dragging * {
   cursor: move;  
 }
+#editable-street-section.dragging .segment {
+  -webkit-transition: width 100ms, margin-left 100ms;
+}
+
 #editable-street-section.dragging > div[type='separator'] {
   pointer-events: auto;
   -webkit-transition: width 100ms;
