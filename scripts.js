@@ -19,9 +19,7 @@ var main = (function(){
   var segments = [
     { type: "sidewalk", width: 12 },
     { type: "bike-lane", width: 16 },
-    { type: "bike-lane", width: 16 },
     { type: "road", width: 16 },
-    { type: "bike-lane", width: 16 },
     { type: "sidewalk", width: 12 },
   ];
 

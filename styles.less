@@ -45,6 +45,23 @@ header {
   height: @canvasHeight;
 
   overflow: hidden;
+  z-index: 10;
+}
+#street-section-sky {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  margin-top: -@canvasHeight / 2 - 1000px;
+  height: @canvasHeight;
+
+  background: url(images/sky.png);
+  background-size: 250px 400px;
+
+  background-repeat: repeat-x;
+  background-position: 0 0;  
+
+  border-top: 1001px solid rgb(179, 205, 209);
 }
 #street-section-left-building {
   display: block;
@@ -110,7 +127,6 @@ header {
 .segment {
   display: inline-block;
   height: @canvasHeight;
-  outline: 1px solid white;
 
   cursor: -webkit-grab;
 
@@ -134,7 +150,6 @@ header {
 }
 
 .segment[type='separator'] {
-  //background: rgba(0, 255, 0, .5) !important;
   outline: 2px solid gray;
   background: transparent;
   outline: none;
