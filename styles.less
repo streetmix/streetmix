@@ -63,6 +63,21 @@ header {
 
   border-top: 1001px solid rgb(179, 205, 209);
 }
+#street-section-dirt {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  margin-top: -@canvasHeight / 2 + @canvasHeight - 80;
+  height: @canvasHeight;
+
+  background: url(images/texture_dirt.png);
+  background-size: 120px 120px;
+
+  background-repeat: repeat-x;
+  background-position: 0 0;  
+
+}
 #street-section-left-building {
   display: block;
   position: absolute;
@@ -109,6 +124,8 @@ header {
   left: 50%;
 
   text-align: center;
+
+  z-index: 2000;
 
   margin-left: -@canvasWidth / 2;
 }
@@ -165,6 +182,8 @@ header {
   top: 0;
 
   opacity: .75;
+
+  z-index: 100;
 
   pointer-events: none;
 }
