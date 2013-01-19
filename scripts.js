@@ -100,16 +100,9 @@ var main = (function(){
     if (!el.classList.contains('segment')) {
       return;
     }
-    /*while (el && el.id != 'editable-street-section') {
-      el = el.parentNode;
-    }
-    if (el.id != 'editable-street-section') {
-      return;
-    }*/
 
     draggingStatus.active = true;
     document.querySelector('#editable-street-section').classList.add('dragging');
-
 
     draggingStatus.originalEl = event.target;
 
@@ -126,8 +119,8 @@ var main = (function(){
       draggingStatus.originalWidth = draggingStatus.originalEl.offsetWidth / WIDTH_TOOL_MULTIPLIER * WIDTH_MULTIPLIER;      
     }
 
-    draggingStatus.elX = event.pageX;
-    draggingStatus.elY = event.pageY;
+    draggingStatus.elX = event.pageX - event.offsetX;
+    draggingStatus.elY = event.pageY - event.offsetY;
 
     draggingStatus.mouseX = event.pageX;
     draggingStatus.mouseY = event.pageY;
