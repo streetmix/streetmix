@@ -1,5 +1,5 @@
 @canvasWidth: 1056px;
-@canvasHeight: 400px;
+@canvasHeight: 480px;
 @headerHeight: 100px;
 @toolsHeight: 100px;
 
@@ -45,8 +45,42 @@ header {
   height: @canvasHeight;
 
   overflow: hidden;
+}
+#street-section-left-building {
+  display: block;
+  position: absolute;
 
-  outline: 1px solid black;
+  z-index: 1000;
+
+  left: 50%;
+  margin-left: -@canvasWidth / 2 - 120px;
+
+  top: 50%;
+  margin-top: -@canvasHeight / 2;
+
+  width: 120px;
+  height: @canvasHeight;
+  background: url(images/building_commercial.png);
+  background-size: 120px 480px;
+}
+#street-section-right-building {
+  display: block;
+  position: absolute;
+
+  z-index: 1000;
+
+  left: 50%;
+  margin-left: @canvasWidth / 2;
+
+  top: 50%;
+  margin-top: -@canvasHeight / 2;
+
+  width: 120px;
+  height: @canvasHeight;
+  background: url(images/building_commercial.png);
+  background-size: 120px 480px;
+
+  -webkit-transform: scaleX(-1);
 }
 
 #tools {
