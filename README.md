@@ -39,7 +39,7 @@ Here are some ways *you* can contribute:
 * by reviewing patches
 * [financially][]
 
-[issues]: https://github.com/codeforamerica/cfa_template/issues
+[issues]: https://github.com/codeforamerica/streetmix/issues
 [financially]: https://secure.codeforamerica.org/page/contribute
 
 ## <a name="issues"></a>Submitting an Issue
@@ -68,7 +68,7 @@ bug report should include a pull request with failing specs.
 ## <a name="copyright"></a>Copyright
 Copyright (c) 2013 Code for America. See [LICENSE][] for details.
 
-[license]: https://github.com/codeforamerica/cfa_template/blob/master/LICENSE.md
+[license]: https://github.com/codeforamerica/streetmix/blob/master/LICENSE.md
 
-[![Code for America Tracker](http://stats.codeforamerica.org/codeforamerica/cfa_template.png)][tracker]
+[![Code for America Tracker](http://stats.codeforamerica.org/codeforamerica/streetmix.png)](http://stats.codeforamerica.org/projects/streetmix)
 
