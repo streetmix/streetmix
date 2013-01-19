@@ -183,8 +183,12 @@ var main = (function(){
       var el = document.createElement('div');
       el.classList.add('segment');
       el.setAttribute('type', draggingStatus.originalType);
-      el.style.width = draggingStatus.originalWidth + 'px';
+      el.style.width = 50 + 'px';
       document.querySelector('#editable-street-section').insertBefore(el, placeEl);
+
+      window.setTimeout(function() {
+        el.style.width = draggingStatus.originalWidth + 'px';
+      }, 0);
 
       _recalculateSeparators();
     } else {
