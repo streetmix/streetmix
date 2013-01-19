@@ -172,9 +172,10 @@ var main = (function(){
     draggingStatus.active = false;
     document.querySelector('#editable-street-section').classList.remove('dragging');
 
+    var placeEl = document.querySelector('#editable-street-section [type="separator"].hover');
+
     draggingStatus.el.parentNode.removeChild(draggingStatus.el);
 
-    var placeEl = document.querySelector('#editable-street-section [type="separator"].hover');
 
     if (placeEl) {
       var el = _createSegment('separator');
@@ -192,7 +193,15 @@ var main = (function(){
 
       _recalculateSeparators();
     } else {
+
       _dragOutOriginalIfNecessary();
+      /*
+      if ((draggingStatus.type == DRAGGING_TYPE_MOVE) && (draggingStatus.originalDraggedOut)) {
+        //alert(1);
+        return;
+      } else {
+        _dragOutOriginalIfNecessary();
+      }*/
     }
 
     event.preventDefault();
