@@ -169,6 +169,13 @@ var main = (function(){
     if (!draggingStatus.active) {
       return;
     }
+
+    var el = event.target;
+    while (el && (el.id != 'editable-street-canvas')) {
+      el = el.parentNode;
+    }
+    var withinCanvas = !!el;
+
     draggingStatus.active = false;
     document.querySelector('#editable-street-section').classList.remove('dragging');
 
@@ -193,15 +200,18 @@ var main = (function(){
 
       _recalculateSeparators();
     } else {
-
-      _dragOutOriginalIfNecessary();
-      /*
-      if ((draggingStatus.type == DRAGGING_TYPE_MOVE) && (draggingStatus.originalDraggedOut)) {
-        //alert(1);
-        return;
-      } else {
+      if (!withinCanvas) {
         _dragOutOriginalIfNecessary();
-      }*/
+      } else {
+        draggingStatus.originalEl.classList.remove('dragged-out');
+
+        var el = _createSegment('separator');
+        document.querySelector('#editable-street-section').insertBefore(el, draggingStatus.originalEl);
+
+        var el = _createSegment('separator');
+        document.querySelector('#editable-street-section').insertBefore(el, draggingStatus.originalEl.nextSibling);
+
+      }
     }
 
     event.preventDefault();
