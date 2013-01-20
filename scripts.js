@@ -117,7 +117,7 @@ var main = (function(){
     }
   }
 
-  function _createSegment(type, width) {
+  function _createSegment(type, width, name) {
     var el = document.createElement('div');
     el.classList.add('segment');
     el.setAttribute('type', type);
@@ -130,7 +130,7 @@ var main = (function(){
       el.addEventListener('mouseover', _onSeparatorMouseOver, false);
       el.addEventListener('mouseout', _onSeparatorMouseOut, false);
     } else {
-      el.innerHTML = '<span class="name">Test</span><span class="width">12\'</span>';
+      //el.innerHTML = '<span class="name">' + 'aa' + '</span><span class="width">' + (width / 12) + '\'</span>';
     }
     return el;
   }
@@ -142,7 +142,7 @@ var main = (function(){
     for (var i in segments) {
       var segment = segments[i];
 
-      var el = _createSegment(segment.type, segment.width * WIDTH_MULTIPLIER);
+      var el = _createSegment(segment.type, segment.width * WIDTH_MULTIPLIER, segment.name);
       document.querySelector('#editable-street-section').appendChild(el);
 
       var el = _createSegment('separator');
