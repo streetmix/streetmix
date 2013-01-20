@@ -147,6 +147,11 @@ var main = (function(){
     draggingStatus.elX = event.pageX - event.offsetX;
     draggingStatus.elY = event.pageY - event.offsetY;
 
+    if (draggingStatus.type == DRAGGING_TYPE_CREATE) {
+      draggingStatus.elY -= 300;
+      draggingStatus.elX -= draggingStatus.originalWidth / 3;
+    }
+
     draggingStatus.mouseX = event.pageX;
     draggingStatus.mouseY = event.pageY;
 
