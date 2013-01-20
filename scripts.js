@@ -5,25 +5,17 @@ var main = (function(){
   var WIDTH_TOOL_MULTIPLIER = 4; // 12 pixels per foot
 
   var SEGMENT_TYPES = {
-    "drive-lane-inbound": {
-      name: 'Drive lane',
-      subname: 'Inbound',
-      defaultWidth: 10,
+    "sidewalk": {
+      name: 'Sidewalk',
+      defaultWidth: 6,
     },
-    "drive-lane-outbound": {
-      name: 'Drive lane',
-      subname: 'Outbound',
-      defaultWidth: 10,
+    "sidewalk-tree": {
+      name: 'Sidewalk w/ a tree',
+      defaultWidth: 6,
     },
-    "bus-lane-inbound": {
-      name: 'Bus lane',
-      subname: 'Inbound',
-      defaultWidth: 12,
-    },
-    "bus-lane-outbound": {
-      name: 'Bus lane',
-      subname: 'Outbound',
-      defaultWidth: 12,
+    "planting-strip": {
+      name: 'Planting strip',
+      defaultWidth: 4,
     },
     "bike-lane-inbound": {
       name: 'Bike lane',
@@ -39,28 +31,43 @@ var main = (function(){
       name: 'Parking lane',
       defaultWidth: 8,
     },
+    "drive-lane-inbound": {
+      name: 'Drive lane',
+      subname: 'Inbound',
+      defaultWidth: 10,
+    },
+    "drive-lane-outbound": {
+      name: 'Drive lane',
+      subname: 'Outbound',
+      defaultWidth: 10,
+    },
     "turn-lane": {
       name: 'Turn lane',
       defaultWidth: 10,
     },
-    "sidewalk": {
-      name: 'Sidewalk',
-      defaultWidth: 6,
+    "bus-lane-inbound": {
+      name: 'Bus lane',
+      subname: 'Inbound',
+      defaultWidth: 12,
     },
-    "planting-strip": {
-      name: 'Planting strip',
+    "bus-lane-outbound": {
+      name: 'Bus lane',
+      subname: 'Outbound',
+      defaultWidth: 12,
+    },
+    "small-median": {
+      name: 'Small median',
       defaultWidth: 4,
     },
   };
 
   var segments = [
-    { type: "sidewalk", width: 6 },
+    { type: "sidewalk-tree", width: 6 },
     { type: "planting-strip", width: 4 },
     { type: "parking-lane", width: 8 },
     { type: "bike-lane-inbound", width: 6 },
+    { type: "small-median", width: 4 },
     { type: "bike-lane-outbound", width: 6 },
-    { type: "bus-lane-inbound", width: 12 },
-    { type: "bus-lane-outbound", width: 12 },
     { type: "turn-lane", width: 10 },
     { type: "parking-lane", width: 8 },
     { type: "planting-strip", width: 4 },

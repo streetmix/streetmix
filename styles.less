@@ -161,8 +161,6 @@ header {
   position: relative;
 
   -webkit-transition: width 100ms;
-
-  //outline: 1px solid white;
 }
 
 .segment[type='drive-lane-inbound'] {
@@ -225,6 +223,18 @@ header {
   background-position: -268px 252px;
   background-size: 1070px 211px;
 }
+.segment[type='small-median'] {
+  background: url(images/StreetMix-SmallMedian-06.png);
+  background-repeat: no-repeat;
+  background-position: -10px 252px;
+  background-size: 154px 211px;
+}
+.segment[type='sidewalk-tree'] {
+  background: url(images/StreetMix-SmallMedian-06.png);
+  background-repeat: no-repeat;
+  background-position: -68px 252px;
+  background-size: 154px 211px;
+}
 
 
 .segment.dragged-out {
@@ -280,6 +290,15 @@ header {
   background-position-x: -268 / 3px;
   background-size: 1070 / 3px 211 / 3px;
 }
+.segment.tool[type='small-median'] {
+  background-position: -10 / 3px 252 / 3px;
+  background-size: 154 / 3px 211 / 3px;
+}
+.segment.tool[type='sidewalk-tree'] {
+  background-position: -68 / 3px 252 / 3px;
+  background-size: 154 / 3px 211 / 3px;
+}
+
 
 .segment[type='separator'] {
   background: transparent;
