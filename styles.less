@@ -48,7 +48,7 @@ header {
   margin-top: -@canvasHeight / 2;
 
   width: @canvasWidth;
-  height: @canvasHeight;
+  height: @canvasHeight + 40;
 
   overflow: hidden;
   z-index: 10;
@@ -66,6 +66,8 @@ header {
 
   background-repeat: repeat-x;
   background-position: 0 0;  
+
+  //-webkit-filter: hue-rotate(240deg);
 
   border-top: 1001px solid rgb(179, 205, 209);
 }
@@ -318,7 +320,7 @@ header {
 
   pointer-events: none;
 
-  //outline: 1px solid black;
+  outline: 1px dashed black;
 
   -webkit-filter: drop-shadow(0 5px 15px rgba(0, 0, 0, .5));
 }
@@ -327,8 +329,11 @@ header {
   position: absolute;
   left: 0;
   right: 0;
-  top: 0;
-  color: white;
+  top: @canvasHeight - 5;
+  color: rgb(160, 160, 160);
+
+  font-family: Arial, sans-serif;
+  font-size: 12px;
 
   pointer-events: none;
 }
@@ -337,10 +342,17 @@ header {
   position: absolute;
   left: 0;
   right: 0;
-  top: 20px;
-  color: white;
+  top: @canvasHeight - 25;
+  color: rgb(160, 160, 160);
+
+  font-family: Arial, sans-serif;
+  font-size: 12px;  
 
   pointer-events: none;  
+}
+.segment.tool .name,
+.segment.tool .width {
+  display: none;
 }
 
 #editable-street-section.dragging,

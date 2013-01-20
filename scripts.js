@@ -117,7 +117,7 @@ var main = (function(){
     }
   }
 
-  function _createSegment(type, width, name) {
+  function _createSegment(type, width) {
     var el = document.createElement('div');
     el.classList.add('segment');
     el.setAttribute('type', type);
@@ -130,7 +130,9 @@ var main = (function(){
       el.addEventListener('mouseover', _onSeparatorMouseOver, false);
       el.addEventListener('mouseout', _onSeparatorMouseOut, false);
     } else {
-      //el.innerHTML = '<span class="name">' + 'aa' + '</span><span class="width">' + (width / 12) + '\'</span>';
+      el.innerHTML = 
+          '<span class="name">' + SEGMENT_TYPES[type].name + '</span>' +
+          '<span class="width">' + (width / 12) + '\'</span>';
     }
     return el;
   }
@@ -249,13 +251,12 @@ var main = (function(){
     if (placeEl) {
       var el = _createSegment('separator');
       document.querySelector('#editable-street-section').insertBefore(el, placeEl);
-
-      var el = document.createElement('div');
-      el.classList.add('segment');
-      el.setAttribute('type', draggingStatus.originalType);
-      el.style.width = 50 + 'px';
+      
+      var el = _createSegment(draggingStatus.originalType, draggingStatus.originalWidth);
       document.querySelector('#editable-street-section').insertBefore(el, placeEl);
 
+      // animation
+      el.style.width = 50 + 'px';
       window.setTimeout(function() {
         el.style.width = draggingStatus.originalWidth + 'px';
       }, 0);
