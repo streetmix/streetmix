@@ -62,15 +62,18 @@ var main = (function(){
   };
 
   var segments = [
+    { type: "sidewalk", width: 6 },
     { type: "sidewalk-tree", width: 6 },
-    { type: "planting-strip", width: 4 },
-    { type: "parking-lane", width: 8 },
     { type: "bike-lane-inbound", width: 6 },
-    { type: "small-median", width: 4 },
     { type: "bike-lane-outbound", width: 6 },
-    { type: "turn-lane", width: 10 },
-    { type: "parking-lane", width: 8 },
     { type: "planting-strip", width: 4 },
+    //{ type: "small-median", width: 4 },
+    { type: "drive-lane-inbound", width: 10 },
+    { type: "drive-lane-inbound", width: 10 },
+    { type: "drive-lane-outbound", width: 10 },
+    { type: "drive-lane-outbound", width: 10 },
+    { type: "parking-lane", width: 8 },
+    { type: "sidewalk-tree", width: 6 },
     { type: "sidewalk", width: 6 },
   ];
 
