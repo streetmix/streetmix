@@ -16,6 +16,11 @@ body {
   height: 100%;
 
   overflow: hidden;
+
+  background: rgb(53, 45, 39);
+
+  //background: -webkit-radial-gradient(red, blue);
+  //background-position: 50% 100%;
 }
 
 header {
@@ -127,6 +132,11 @@ header {
   bottom: 0;
   left: 50%;
 
+  background: rgb(150, 220, 150);
+
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, .25);
+  border-radius: 10px 10px 0 0;
+
   text-align: center;
 
   z-index: 2000;
@@ -214,6 +224,7 @@ header {
 .segment.tool {
   background-size: 332px 70px;
   background-position-y: 37px !important;
+  margin: 0 5px;
 }
 
 .segment.tool[type='drive-lane-inbound'] {
@@ -255,7 +266,9 @@ header {
 
   pointer-events: none;
 
-  outline: 1px solid black;
+  //outline: 1px solid black;
+
+  -webkit-filter: drop-shadow(0 5px 15px rgba(0, 0, 0, .5));
 }
 
 .segment .name {
