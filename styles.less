@@ -241,8 +241,6 @@ header {
 
   position: absolute;
 
-  background: rgba(0, 255, 0, .2);
-
   pointer-events: none;
 }
 
@@ -290,6 +288,10 @@ header {
 }
 #editable-street-section.dragging .segment {
   -webkit-transition: width 100ms, margin-left 100ms;
+}
+
+#editable-street-section.dragging > div:not([type='separator']) {
+  pointer-events: none;
 }
 
 #editable-street-section.dragging > div[type='separator'] {
