@@ -5,21 +5,30 @@ var main = (function(){
   var WIDTH_TOOL_MULTIPLIER = 4; // 12 pixels per foot
 
   var SEGMENT_TYPES = {
+    "car-lane-inbound": {
+      name: 'Car lane',
+      subname: 'Inbound',
+      defaultWidth: 16,
+    }
+    "car-lane-outbound": {
+      name: 'Car lane',
+      subname: 'Outbound',
+      defaultWidth: 16,
+    }
     "sidewalk": {
+      name: 'Sidewalk',
       defaultWidth: 12,
     },
     "bike-lane": {
+      name: 'Bike lane',
       defaultWidth: 16,
     },
-    "road": {
-      defaultWidth: 16,
-    }
   };
 
   var segments = [
     { type: "sidewalk", width: 12 },
     { type: "bike-lane", width: 16 },
-    { type: "road", width: 16 },
+    { type: "drive-lane", width: 10 },
     { type: "sidewalk", width: 12 },
   ];
 
@@ -71,9 +80,12 @@ var main = (function(){
       el.style.width = width + 'px';
     }
 
+
     if (type == 'separator') {
       el.addEventListener('mouseover', _onSeparatorMouseOver, false);
       el.addEventListener('mouseout', _onSeparatorMouseOut, false);
+    } else {
+      el.innerHTML = '<span class="name">Test</span><span class="width">12\'</span>';
     }
     return el;
   }

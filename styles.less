@@ -151,17 +151,22 @@ header {
 
   cursor: -webkit-grab;
 
+  position: relative;
+
   -webkit-transition: width 100ms;
 }
 
 .segment[type='sidewalk'] {
-  background: red;
+  //background: red;
 }
 .segment[type='bike-lane'] {
-  background: blue;
+  //background: blue;
 }
-.segment[type='road'] {
-  background: green;
+.segment[type='drive-lane'] {
+  background: url(images/StreetMix-CarsBuses-03.png);
+  background-repeat: no-repeat;
+  background-position: -23px 252px;
+  background-size: 997px 211px;
 }
 .segment.dragged-out {
   opacity: 0;
@@ -190,6 +195,30 @@ header {
   z-index: 5000;
 
   pointer-events: none;
+}
+
+.segment .name {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  color: white;
+
+  display: none;
+
+  pointer-events: none;
+}
+
+.segment .width {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 20px;
+  color: white;
+
+  display: none;  
+
+  pointer-events: none;  
 }
 
 #editable-street-section.dragging,
