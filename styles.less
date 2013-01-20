@@ -154,6 +154,8 @@ header {
   position: relative;
 
   -webkit-transition: width 100ms;
+
+  //outline: 1px solid white;
 }
 
 .segment[type='sidewalk'] {
@@ -162,12 +164,46 @@ header {
 .segment[type='bike-lane'] {
   //background: blue;
 }
-.segment[type='drive-lane'] {
+.segment[type='drive-lane-inbound'] {
   background: url(images/StreetMix-CarsBuses-03.png);
   background-repeat: no-repeat;
   background-position: -23px 252px;
   background-size: 997px 211px;
 }
+.segment[type='drive-lane-outbound'] {
+  background: url(images/StreetMix-CarsBuses-03.png);
+  background-repeat: no-repeat;
+  background-position: -155px 252px;
+  background-size: 997px 211px;
+}
+.segment[type='parking-lane'] {
+  background: url(images/StreetMix-CarsBuses-03.png);
+  background-repeat: no-repeat;
+  background-position: -292px 252px;
+  background-size: 997px 211px;
+}
+.segment[type='turn-lane'] {
+  background: url(images/StreetMix-CarsBuses-03.png);
+  background-repeat: no-repeat;
+  background-position: -410px 252px;
+  background-size: 997px 211px;
+}
+.segment[type='bus-lane-inbound'] {
+  background: url(images/StreetMix-CarsBuses-03.png);
+  background-repeat: no-repeat;
+  background-position: -541px 252px;
+  background-size: 997px 211px;
+}
+.segment[type='bus-lane-outbound'] {
+  background: url(images/StreetMix-CarsBuses-03.png);
+  background-repeat: no-repeat;
+  background-position: -705px 252px;
+  background-size: 997px 211px;
+}
+
+  // 240 504 731 1014 1326 1653 
+
+
 .segment.dragged-out {
   opacity: 0;
 }
@@ -175,12 +211,37 @@ header {
   width: 0 !important;
 }
 
+.segment.tool {
+  background-size: 332px 70px;
+  background-position-y: 37px !important;
+}
+
+.segment.tool[type='drive-lane-inbound'] {
+  background-position-x: -23 / 3px;
+}
+.segment.tool[type='drive-lane-outbound'] {
+  background-position-x: -155 / 3px;
+}
+.segment.tool[type='parking-lane'] {
+  background-position-x: -292 / 3px;
+}
+.segment.tool[type='turn-lane'] {
+  background-position-x: -410 / 3px;
+}
+.segment.tool[type='bus-lane-inbound'] {
+  background-position-x: -541 / 3px;
+}
+.segment.tool[type='bus-lane-outbound'] {
+  background-position-x: -705 / 3px;
+}
+
 .segment[type='separator'] {
-  outline: 2px solid gray;
   background: transparent;
   outline: none;
 
   position: absolute;
+
+  background: rgba(0, 255, 0, .2);
 
   pointer-events: none;
 }
@@ -195,6 +256,8 @@ header {
   z-index: 5000;
 
   pointer-events: none;
+
+  outline: 1px solid black;
 }
 
 .segment .name {

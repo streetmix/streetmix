@@ -5,31 +5,44 @@ var main = (function(){
   var WIDTH_TOOL_MULTIPLIER = 4; // 12 pixels per foot
 
   var SEGMENT_TYPES = {
-    "car-lane-inbound": {
-      name: 'Car lane',
+    "drive-lane-inbound": {
+      name: 'Drive lane',
       subname: 'Inbound',
-      defaultWidth: 16,
-    }
-    "car-lane-outbound": {
-      name: 'Car lane',
+      defaultWidth: 10,
+    },
+    "drive-lane-outbound": {
+      name: 'Drive lane',
       subname: 'Outbound',
-      defaultWidth: 16,
-    }
-    "sidewalk": {
-      name: 'Sidewalk',
+      defaultWidth: 10,
+    },
+    "bus-lane-inbound": {
+      name: 'Bus lane',
+      subname: 'Inbound',
       defaultWidth: 12,
     },
-    "bike-lane": {
-      name: 'Bike lane',
-      defaultWidth: 16,
+    "bus-lane-outbound": {
+      name: 'Bus lane',
+      subname: 'Outbound',
+      defaultWidth: 12,
     },
+    "parking-lane": {
+      name: 'Parking lane',
+      defaultWidth: 8,
+    },
+    "turn-lane": {
+      name: 'Turn lane',
+      defaultWidth: 10,
+    }
   };
 
   var segments = [
-    { type: "sidewalk", width: 12 },
-    { type: "bike-lane", width: 16 },
-    { type: "drive-lane", width: 10 },
-    { type: "sidewalk", width: 12 },
+    { type: "parking-lane", width: 8 },
+    { type: "drive-lane-inbound", width: 10 },
+    { type: "drive-lane-outbound", width: 10 },
+    { type: "bus-lane-inbound", width: 12 },
+    { type: "bus-lane-outbound", width: 12 },
+    { type: "turn-lane", width: 10 },
+    { type: "parking-lane", width: 8 },
   ];
 
   var DRAGGING_TYPE_MOVE = 1;
@@ -237,6 +250,7 @@ var main = (function(){
       draggingStatus.originalEl.style.width = 0;
       window.setTimeout(function() {
         draggingStatus.originalEl.parentNode.removeChild(draggingStatus.originalEl);
+        _recalculateSeparators();
       }, WIDTH_RESIZE_DELAY);
 
       _recalculateSeparators();
