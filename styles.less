@@ -97,7 +97,7 @@ header {
   margin-left: -@canvasWidth / 2 - 120px;
 
   top: 50%;
-  margin-top: -@canvasHeight / 2;
+  margin-top: -@canvasHeight / 2 + 40px;
 
   width: 120px;
   height: @canvasHeight;
@@ -114,7 +114,7 @@ header {
   margin-left: @canvasWidth / 2;
 
   top: 50%;
-  margin-top: -@canvasHeight / 2;
+  margin-top: -@canvasHeight / 2 + 40px;
 
   width: 120px;
   height: @canvasHeight;
@@ -168,12 +168,6 @@ header {
   //outline: 1px solid white;
 }
 
-.segment[type='sidewalk'] {
-  //background: red;
-}
-.segment[type='bike-lane'] {
-  //background: blue;
-}
 .segment[type='drive-lane-inbound'] {
   background: url(images/StreetMix-CarsBuses-03.png);
   background-repeat: no-repeat;
@@ -210,8 +204,30 @@ header {
   background-position: -705px 252px;
   background-size: 997px 211px;
 }
-
-  // 240 504 731 1014 1326 1653 
+.segment[type='sidewalk'] {
+  background: url(images/StreetMix-SidewalkMedian-04.png);
+  background-repeat: no-repeat;
+  background-position: -24px 252px;
+  background-size: 175px 211px;
+}
+.segment[type='planting-strip'] {
+  background: url(images/StreetMix-SidewalkMedian-04.png);
+  background-repeat: no-repeat;
+  background-position: -105px 252px;
+  background-size: 175px 211px;
+}
+.segment[type='bike-lane-inbound'] {
+  background: url(images/StreetMix-NextBatch-05.png);
+  background-repeat: no-repeat;
+  background-position: -344px 252px;
+  background-size: 1070px 211px;
+}
+.segment[type='bike-lane-outbound'] {
+  background: url(images/StreetMix-NextBatch-05.png);
+  background-repeat: no-repeat;
+  background-position: -268px 252px;
+  background-size: 1070px 211px;
+}
 
 
 .segment.dragged-out {
@@ -244,6 +260,23 @@ header {
 }
 .segment.tool[type='bus-lane-outbound'] {
   background-position-x: -705 / 3px;
+}
+.segment.tool[type='sidewalk'] {
+  background-position-x: -24 / 3px;
+  background-size: 175 / 3px 211 / 3px;
+
+}
+.segment.tool[type='planting-strip'] {
+  background-position-x: -105 / 3px;
+  background-size: 175 / 3px 211 / 3px;
+}
+.segment.tool[type='bike-lane-inbound'] {
+  background-position-x: -344 / 3px;
+  background-size: 1070 / 3px 211 / 3px;
+}
+.segment.tool[type='bike-lane-outbound'] {
+  background-position-x: -268 / 3px;
+  background-size: 1070 / 3px 211 / 3px;
 }
 
 .segment[type='separator'] {

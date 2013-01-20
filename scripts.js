@@ -25,6 +25,16 @@ var main = (function(){
       subname: 'Outbound',
       defaultWidth: 12,
     },
+    "bike-lane-inbound": {
+      name: 'Bike lane',
+      subname: 'Inbound',
+      defaultWidth: 6,
+    },
+    "bike-lane-outbound": {
+      name: 'Bike lane',
+      subname: 'Outbound',
+      defaultWidth: 6,
+    },
     "parking-lane": {
       name: 'Parking lane',
       defaultWidth: 8,
@@ -32,17 +42,29 @@ var main = (function(){
     "turn-lane": {
       name: 'Turn lane',
       defaultWidth: 10,
-    }
+    },
+    "sidewalk": {
+      name: 'Sidewalk',
+      defaultWidth: 6,
+    },
+    "planting-strip": {
+      name: 'Planting strip',
+      defaultWidth: 4,
+    },
   };
 
   var segments = [
+    { type: "sidewalk", width: 6 },
+    { type: "planting-strip", width: 4 },
     { type: "parking-lane", width: 8 },
-    { type: "drive-lane-inbound", width: 10 },
-    { type: "drive-lane-outbound", width: 10 },
+    { type: "bike-lane-inbound", width: 6 },
+    { type: "bike-lane-outbound", width: 6 },
     { type: "bus-lane-inbound", width: 12 },
     { type: "bus-lane-outbound", width: 12 },
     { type: "turn-lane", width: 10 },
     { type: "parking-lane", width: 8 },
+    { type: "planting-strip", width: 4 },
+    { type: "sidewalk", width: 6 },
   ];
 
   var DRAGGING_TYPE_MOVE = 1;
