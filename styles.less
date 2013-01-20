@@ -67,10 +67,24 @@ header {
   background-repeat: repeat-x;
   background-position: 0 0;  
 
-  //-webkit-filter: hue-rotate(240deg);
-
   border-top: 1001px solid rgb(179, 205, 209);
+
+  -webkit-animation-name: sky-move, sky-hue;
+  -webkit-animation-duration: 30s, 120s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
 }
+
+@-webkit-keyframes sky-move {
+ from { background-position-x: 0; }
+ to { background-position-x: -250px; }
+}
+
+@-webkit-keyframes sky-hue {
+ from { -webkit-filter: hue-rotate(0); }
+ to { -webkit-filter: hue-rotate(360deg); }
+}
+
 #street-section-dirt {
   position: absolute;
   left: 0;
