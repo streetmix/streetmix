@@ -12,7 +12,7 @@ A fun, web-based street section builder, inspired by [Blockee][].
 A "section" is shortened way of saying "cross-section view", a type of 2D non-perspectival drawing commonly used in engineering and architecture to show what something looks like when you slice it in two pieces and then look at one slice head-on, to see how it is (or should be) assembled. Similarly, a street section is a cross section view of a street, showing the widths and placement of vehicle lanes, bike lanes, sidewalks, trees, street furniture or accessories (like benches or street lamps), as well as engineering information like how the road is sloped to facilitate drainage, or the locations of underground utilities. Although sections can be simplified line drawings, urban designers and landscape architects have created very colorful illustrative street sections, removing most of the engineering particulars to communicate how a street could be designed to feel safe, walkable or habitable.
 
 ![diagram1](https://raw.github.com/codeforamerica/streetmix/master/doc/thumb_section_marketstreet.png)
-![diagram2](http://https://raw.github.com/codeforamerica/streetmix/master/doc/thumb_section_2ndstreetcycles.png)
+![diagram2](https://raw.github.com/codeforamerica/streetmix/master/doc/thumb_section_2ndstreetcycles.png)
 ![diagram3](https://raw.github.com/codeforamerica/streetmix/master/doc/thumb_section_illus.jpg)
 
 #### Why does Streetmix exist?
