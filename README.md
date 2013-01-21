@@ -9,28 +9,31 @@ A fun, web-based street section builder, inspired by [Blockee][].
 
 #### What are street sections?
 
-A "section" is shortened way of saying "cross-section view", a type of 2D non-perspectival drawing commonly used in engineering and architecture to show what something looks like when you slice it in two pieces and then look at one slice head-on, showing how something is (or should be) assembled. Similarly, a street section would be a cross section view of a street, showing the widths and placement of vehicle lanes, bike lanes, sidewalks, trees, street furniture or accessories (like benches or street lamps), as well as engineering information like how the road is sloped to facilitate drainage, or the locations of underground utilities. Although sections can be simplified line drawings, urban designers and landscape architects have started creating very colorful illustrative street sections, and by removing most of the engineering particulars, they can work very well for communicating how a street should be designed to feel safe, walkable or habitable.
+A "section" is shortened way of saying "cross-section view", a type of 2D non-perspectival drawing commonly used in engineering and architecture to show what something looks like when you slice it in two pieces and then look at one slice head-on, to see how it is (or should be) assembled. Similarly, a street section is a cross section view of a street, showing the widths and placement of vehicle lanes, bike lanes, sidewalks, trees, street furniture or accessories (like benches or street lamps), as well as engineering information like how the road is sloped to facilitate drainage, or the locations of underground utilities. Although sections can be simplified line drawings, urban designers and landscape architects have created very colorful illustrative street sections, removing most of the engineering particulars to communicate how a street could be designed to feel safe, walkable or habitable.
 
-(TO DO: Add examples of street sections.)
+![diagram1](https://raw.github.com/codeforamerica/streetmix/master/doc/thumb_section_marketstreet.png)
+![diagram2](http://https://raw.github.com/codeforamerica/streetmix/master/doc/thumb_section_2ndstreetcycles.png)
+![diagram3](https://raw.github.com/codeforamerica/streetmix/master/doc/thumb_section_illus.jpg)
 
 #### Why does Streetmix exist?
 
 In community meetings, one engagement activity is to create cut-out sheets of paper depicting different street components (like bike lanes, sidewalks, trees, etc.) and allow community members to reassemble them into their desired street structure. Planners and city officials can then take this feedback to determine a course of action for future plans. By creating an web-based version of this activity, planners can reach a wider audience than they could at meetings alone, and allow community members to share and edit each other's creations.
 
-In addition, Streetmix is designed to contribute to the national conversation around [Complete Streets][completestreets].
+In addition, one of the goals of Streetmix is to be part of the national conversation around [Complete Streets][completestreets].
 
 [completestreets]: http://www.smartgrowthamerica.org/complete-streets/complete-streets-fundamentals
 
 #### Why the name "Streetmix"?
 
-"Streets" + "remix" :)
+"Streets" + "remix" :-)
 
 #### How did this project start?
 
 Streetmix was started as a Code for America hackathon project in January 2013. 
 
 ## <a name="screenshots"></a>Screenshot
-TODO
+
+![screenshot](https://raw.github.com/codeforamerica/streetmix/master/doc/screenshot.jpg)
 
 ## <a name="demo"></a>Demo
 You can see a running version of the application at http://codeforamerica.github.com/streetmix/
