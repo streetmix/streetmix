@@ -3,6 +3,13 @@ streetmix
 
 A fun, web-based street section builder, inspired by [Blockee][].
 
+Streetmix has had a total development time of about five hours, so it is a:
+* proof of concept
+* work in progress
+* pre-release alpha
+
+We appreciate all the feedback and excitement we've received on our project so far, so we'll continue working on it here at Code for America Labs to get all the features we want to include! To join the conversation, please check out our [GitHub issue tracker][issues] or shoot an e-mail to our project team at streetmix@codeforamerica.org.
+
 [blockee]: http://blockee.org/
 
 ## <a name="about"></a>About
