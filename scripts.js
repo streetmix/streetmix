@@ -1,3 +1,13 @@
+/*
+ * StreetMix
+ *
+ * Front-end (mostly) by Marcin Wichary, Code for America fellow in 2013.
+ *
+ * Note: This code is really gnarly. It’s been done under a lot of time 
+ * pressure and there’s a lot of shortcut and tech debt. It might be improved
+ * later if there’s time later.
+ */
+
 var main = (function(){
   var main = {};
 
