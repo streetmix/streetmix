@@ -40,7 +40,7 @@ In addition, one of the goals of Streetmix is to be part of the national convers
 Streetmix was started as a [Code for America][cfa] hackathon project in January 2013.  The team comprised of 2013 Code for America fellows [Ans Bradford][ans], [Lou Huang][louh], [Katie Lewis][katie], [Ezra Spier][ahhrrr] and [Marcin Wichary][mwichary].
 
 [cfa]: http://codeforamerica.org/
-[ahrrr]: https://github.com/ahhrrr
+[ahhrrr]: https://github.com/ahhrrr
 [louh]: https://github.com/louh
 [mwichary]: https://github.com/mwichary
 [ans]: https://github.com/anselmbradford
