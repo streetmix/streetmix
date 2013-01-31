@@ -51,7 +51,7 @@ Streetmix was started as a [Code for America][cfa] hackathon project in January 
 ![screenshot](https://raw.github.com/codeforamerica/streetmix/master/doc/screenshot.jpg)
 
 ## <a name="demo"></a>Demo
-You can see a running version of the application at http://codeforamerica.github.com/streetmix/
+You can see a running version of the application at http://streetmix.net/
 
 ## <a name="installation"></a>Installation
 TODO
