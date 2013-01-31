@@ -26,9 +26,10 @@ A "section" is shortened way of saying "cross-section view", a type of 2D non-pe
 
 In community meetings, one engagement activity is to create cut-out sheets of paper depicting different street components (like bike lanes, sidewalks, trees, etc.) and allow community members to reassemble them into their desired street structure. Planners and city officials can then take this feedback to determine a course of action for future plans. By creating an web-based version of this activity, planners can reach a wider audience than they could at meetings alone, and allow community members to share and edit each other's creations.
 
-In addition, one of the goals of Streetmix is to be part of the national conversation around [Complete Streets][completestreets].
+In addition, one of the goals of Streetmix is to be part of the national conversation around [Complete Streets][completestreets], or the Project for Public Spaces' [Rightsizing Streets Guide][rightsize].
 
 [completestreets]: http://www.smartgrowthamerica.org/complete-streets/complete-streets-fundamentals
+[rightsizing]: http://www.pps.org/reference/rightsizing/
 
 #### Why the name "Streetmix"?
 
@@ -36,7 +37,9 @@ In addition, one of the goals of Streetmix is to be part of the national convers
 
 #### How did this project start?
 
-Streetmix was started as a Code for America hackathon project in January 2013. 
+Streetmix was started as a [Code for America][cfa] hackathon project in January 2013.  The team comprised of 2013 Code for America fellows Ans Bradford, Lou Huang, Katie Lewis, Ezra Spier and Marcin Wichary.
+
+[cfa]: http://codeforamerica.org/
 
 ## <a name="screenshots"></a>Screenshot
 
