@@ -190,8 +190,6 @@ var main = (function(){
       draggingStatus.originalWidth = draggingStatus.originalEl.offsetWidth / WIDTH_TOOL_MULTIPLIER * WIDTH_MULTIPLIER;      
     }
 
-    console.log(event.pageX, event);
-
     draggingStatus.elX = event.pageX - (event.offsetX || event.layerX);
     draggingStatus.elY = event.pageY - (event.offsetY || event.layerY);
 
