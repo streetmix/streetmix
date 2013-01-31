@@ -175,6 +175,8 @@ header {
   position: relative;
 
   -webkit-transition: width 100ms;
+  -moz-transition: width 100ms;
+  transition: width 100ms;
 }
 
 .segment[type='drive-lane-inbound'] {
@@ -260,7 +262,6 @@ header {
 
 .segment.tool {
   background-size: 332px 70px;
-  background-position-y: 15px !important;
   margin: 0 5px;
   height: 80px;
   margin-top: 17px;
@@ -268,51 +269,48 @@ header {
   background-color: rgba(25, 25, 25, 0.5);
   box-shadow: 0px 0px 10px rgba(50, 50, 50, 0.75);
 }
-
 .segment.tool[type='drive-lane-inbound'] {
-  background-position-x: -23 / 3px;
+  background-position: (-23 / 3px) 15px;
 }
 .segment.tool[type='drive-lane-outbound'] {
-  background-position-x: -155 / 3px;
+  background-position: (-155 / 3px) 15px;
 }
 .segment.tool[type='parking-lane'] {
-  background-position-x: -292 / 3px;
+  background-position: (-292 / 3px) 15px;
 }
 .segment.tool[type='turn-lane'] {
-  background-position-x: -410 / 3px;
+  background-position: (-410 / 3px) 15px;
 }
 .segment.tool[type='bus-lane-inbound'] {
-  background-position-x: -541 / 3px;
+  background-position: (-541 / 3px) 15px;
 }
 .segment.tool[type='bus-lane-outbound'] {
-  background-position-x: -705 / 3px;
+  background-position: (-705 / 3px) 15px;
 }
 .segment.tool[type='sidewalk'] {
-  background-position-x: -24 / 3px;
+  background-position: (-24 / 3px) 15px;
   background-size: 175 / 3px 211 / 3px;
-
 }
 .segment.tool[type='planting-strip'] {
-  background-position-x: -105 / 3px;
+  background-position: (-105 / 3px) 15px;
   background-size: 175 / 3px 211 / 3px;
 }
 .segment.tool[type='bike-lane-inbound'] {
-  background-position-x: -344 / 3px;
+  background-position: (-344 / 3px) 15px;
   background-size: 1070 / 3px 211 / 3px;
 }
 .segment.tool[type='bike-lane-outbound'] {
-  background-position-x: -268 / 3px;
-  background-size: 1070 / 3px 211 / 3px;
+  background-position: (-268 / 3px) 15px;
+  background-size: (1070 / 3px) (211 / 3px);
 }
 .segment.tool[type='small-median'] {
-  background-position: -10 / 3px 252 / 3px;
-  background-size: 154 / 3px 211 / 3px;
+  background-position: (-10 / 3px) (15px);
+  background-size: (154 / 3px) (211 / 3px);
 }
 .segment.tool[type='sidewalk-tree'] {
-  background-position: -68 / 3px 252 / 3px;
-  background-size: 154 / 3px 211 / 3px;
+  background-position: (-68 / 3px) (15px);
+  background-size: (154 / 3px) (211 / 3px);
 }
-
 
 .segment[type='separator'] {
   background: transparent;
@@ -337,6 +335,8 @@ header {
   outline: 1px dashed black;
 
   -webkit-filter: drop-shadow(0 5px 15px rgba(0, 0, 0, .5));
+  -moz-filter: drop-shadow(0 5px 15px rgba(0, 0, 0, .5));
+  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, .5));
 }
 
 .segment .name {
@@ -375,6 +375,8 @@ header {
 }
 #editable-street-section.dragging .segment {
   -webkit-transition: width 100ms, margin-left 100ms;
+  -moz-transition: width 100ms, margin-left 100ms;
+  transition: width 100ms, margin-left 100ms;
 }
 
 #editable-street-section.dragging > div:not([type='separator']) {
