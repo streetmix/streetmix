@@ -14,80 +14,121 @@ var main = (function(){
   var main = {};
 
   var WIDTH_MULTIPLIER = 12; // 12 pixels per foot
-  var WIDTH_TOOL_MULTIPLIER = 4; // 12 pixels per foot
+  var WIDTH_TOOL_MULTIPLIER = 4;
+
+  var TILE_SIZE = 12; // pixels
+  var CANVAS_HEIGHT = 480;
+  var CANVAS_BASELINE = CANVAS_HEIGHT - 35;
 
   var SEGMENT_TYPES = {
     "sidewalk": {
       name: 'Sidewalk',
       defaultWidth: 6,
+      defaultHeight: 15,
+      tileX: 0,
+      tileY: 0
     },
     "sidewalk-tree": {
       name: 'Sidewalk w/ a tree',
       defaultWidth: 6,
+      defaultHeight: 15,
+      tileX: 10,
+      tileY: 0
     },
     "planting-strip": {
       name: 'Planting strip',
       defaultWidth: 4,
+      defaultHeight: 15,
+      tileX: 6,
+      tileY: 0
     },
     "bike-lane-inbound": {
       name: 'Bike lane',
       subname: 'Inbound',
       defaultWidth: 6,
+      defaultHeight: 15,
+      tileX: 82,
+      tileY: 0
     },
     "bike-lane-outbound": {
       name: 'Bike lane',
       subname: 'Outbound',
       defaultWidth: 6,
+      defaultHeight: 15,
+      tileX: 88,
+      tileY: 0
     },
     "parking-lane": {
       name: 'Parking lane',
       defaultWidth: 8,
+      defaultHeight: 15,
+      tileX: 40,
+      tileY: 0
     },
     "drive-lane-inbound": {
       name: 'Drive lane',
       subname: 'Inbound',
       defaultWidth: 10,
+      defaultHeight: 15,
+      tileX: 20,
+      tileY: 0
     },
     "drive-lane-outbound": {
       name: 'Drive lane',
       subname: 'Outbound',
       defaultWidth: 10,
+      defaultHeight: 15,
+      tileX: 30,
+      tileY: 0
     },
     "turn-lane": {
       name: 'Turn lane',
       defaultWidth: 10,
+      defaultHeight: 15,
+      tileX: 72,
+      tileY: 0
     },
     "bus-lane-inbound": {
       name: 'Bus lane',
       subname: 'Inbound',
       defaultWidth: 12,
+      defaultHeight: 15,
+      tileX: 48,
+      tileY: 0
     },
     "bus-lane-outbound": {
       name: 'Bus lane',
       subname: 'Outbound',
       defaultWidth: 12,
+      defaultHeight: 15,
+      tileX: 60,
+      tileY: 0
     },
     "small-median": {
       name: 'Small median',
       defaultWidth: 4,
+      defaultHeight: 15,
+      tileX: 16,
+      tileY: 0
     },
   };
 
-  var segments = [
-    { type: "sidewalk", width: 6 },
-    { type: "sidewalk-tree", width: 6 },
-    { type: "bike-lane-inbound", width: 6 },
-    //{ type: "small-median", width: 4 },
-    { type: "drive-lane-inbound", width: 10 },
-    { type: "drive-lane-inbound", width: 10 },
-    { type: "planting-strip", width: 4 },
-    { type: "drive-lane-outbound", width: 10 },
-    { type: "drive-lane-outbound", width: 10 },
-    { type: "bike-lane-outbound", width: 6 },
-    { type: "parking-lane", width: 8 },
-    { type: "sidewalk-tree", width: 6 },
-    { type: "sidewalk", width: 6 },
-  ];
+  var data = {
+    segments: [
+      { type: "sidewalk", width: 6 },
+      { type: "sidewalk-tree", width: 6 },
+      { type: "bike-lane-inbound", width: 6 },
+      { type: "drive-lane-inbound", width: 10 },
+      { type: "drive-lane-inbound", width: 10 },
+      { type: "planting-strip", width: 4 },
+      { type: "drive-lane-outbound", width: 10 },
+      { type: "drive-lane-outbound", width: 10 },
+      { type: "bike-lane-outbound", width: 6 },
+      { type: "parking-lane", width: 8 },
+      { type: "sidewalk-tree", width: 6 },
+      { type: "sidewalk", width: 6 }
+    ]
+  };
 
   var DRAGGING_TYPE_MOVE = 1;
   var DRAGGING_TYPE_CREATE = 2;
@@ -108,14 +149,10 @@ var main = (function(){
   var WIDTH_RESIZE_DELAY = 100;
 
   function _recalculateSeparators() {
-    //console.log('Recalculating…');
-
     var els = document.querySelectorAll('#editable-street-section [type="separator"]');
     for (var i = 0, el; el = els[i]; i++) {
       var prevWidth = el.previousSibling ? el.previousSibling.offsetWidth : 0;
       var nextWidth = el.nextSibling ? el.nextSibling.offsetWidth : 0;
-
-      //console.log(prevWidth, nextWidth);
 
       if (i == 0) {
         prevWidth = 2000;
@@ -129,32 +166,50 @@ var main = (function(){
     }
   }
 
-  function _createSegment(type, width) {
+  function _setSegmentContents(el, type, isTool) {
+    var bkPositionX = -(SEGMENT_TYPES[type].tileX * TILE_SIZE);
+    var bkPositionY = 
+        CANVAS_BASELINE - SEGMENT_TYPES[type].defaultHeight * TILE_SIZE;
+
+    if (isTool) {
+      bkPositionX = bkPositionX / WIDTH_MULTIPLIER * WIDTH_TOOL_MULTIPLIER;
+      bkPositionY = bkPositionY / WIDTH_MULTIPLIER * WIDTH_TOOL_MULTIPLIER - 70;
+    }
+
+    el.style.backgroundPosition = 
+        bkPositionX + 'px ' + bkPositionY + 'px';
+  }
+
+  function _createSegment(type, width, isTool) {
     var el = document.createElement('div');
     el.classList.add('segment');
     el.setAttribute('type', type);
+
     if (width) {
       el.style.width = width + 'px';
     }
-
 
     if (type == 'separator') {
       el.addEventListener('mouseover', _onSeparatorMouseOver, false);
       el.addEventListener('mouseout', _onSeparatorMouseOut, false);
     } else {
-      el.innerHTML = 
-          '<span class="name">' + SEGMENT_TYPES[type].name + '</span>' +
-          '<span class="width">' + (width / 12) + '\'</span>';
+      _setSegmentContents(el, type, isTool);
+
+      if (!isTool) {
+        el.innerHTML = 
+            '<span class="name">' + SEGMENT_TYPES[type].name + '</span>' +
+            '<span class="width">' + (width / TILE_SIZE) + '\'</span>';
+      }
     }
     return el;
   }
 
-  function _createSegmentDom() {
+  function _createDomFromData() {
     var el = _createSegment('separator');
     document.querySelector('#editable-street-section').appendChild(el);
 
-    for (var i in segments) {
-      var segment = segments[i];
+    for (var i in data.segments) {
+      var segment = data.segments[i];
 
       var el = _createSegment(segment.type, segment.width * WIDTH_MULTIPLIER, segment.name);
       document.querySelector('#editable-street-section').appendChild(el);
@@ -164,6 +219,27 @@ var main = (function(){
     }
 
     _recalculateSeparators();
+  }
+
+  function _segmentsChanged() {
+    _createDataFromDom();
+  }
+
+  function _createDataFromDom() {
+    var els = document.querySelectorAll('#editable-street-section > .segment');
+
+    var data = [];
+
+    for (var i = 0, el; el = els[i]; i++) {
+      if (el.getAttribute('type') != 'separator') {
+
+        var segment = {};
+        segment.type = el.getAttribute('type');
+        segment.width = el.offsetWidth / TILE_SIZE;
+
+        data.push(segment);
+      }
+    }
   }
 
   function _onBodyMouseDown(event) {
@@ -187,7 +263,7 @@ var main = (function(){
     if (draggingStatus.type == DRAGGING_TYPE_MOVE) {
       draggingStatus.originalWidth = draggingStatus.originalEl.offsetWidth;
     } else {
-      draggingStatus.originalWidth = draggingStatus.originalEl.offsetWidth / WIDTH_TOOL_MULTIPLIER * WIDTH_MULTIPLIER;      
+      draggingStatus.originalWidth = draggingStatus.originalEl.offsetWidth / WIDTH_TOOL_MULTIPLIER * WIDTH_MULTIPLIER;
     }
 
     draggingStatus.elX = event.pageX - (event.offsetX || event.layerX);
@@ -205,6 +281,7 @@ var main = (function(){
     draggingStatus.el.classList.add('segment');
     draggingStatus.el.classList.add('dragging');
     draggingStatus.el.setAttribute('type', draggingStatus.originalType);
+    _setSegmentContents(draggingStatus.el, draggingStatus.originalType);
     draggingStatus.el.style.width = draggingStatus.originalWidth + 'px';
     document.body.appendChild(draggingStatus.el);
 
@@ -255,10 +332,10 @@ var main = (function(){
     draggingStatus.active = false;
     document.querySelector('#editable-street-section').classList.remove('dragging');
 
-    var placeEl = document.querySelector('#editable-street-section [type="separator"].hover');
+    var placeEl = 
+        document.querySelector('#editable-street-section [type="separator"].hover');
 
     draggingStatus.el.parentNode.removeChild(draggingStatus.el);
-
 
     if (placeEl) {
       var el = _createSegment('separator');
@@ -274,6 +351,7 @@ var main = (function(){
       }, 0);
 
       _recalculateSeparators();
+      _segmentsChanged();
     } else {
       if (!withinCanvas) {
         _dragOutOriginalIfNecessary();
@@ -281,10 +359,12 @@ var main = (function(){
         draggingStatus.originalEl.classList.remove('dragged-out');
 
         var el = _createSegment('separator');
-        document.querySelector('#editable-street-section').insertBefore(el, draggingStatus.originalEl);
+        document.querySelector('#editable-street-section').insertBefore(el, 
+            draggingStatus.originalEl);
 
         var el = _createSegment('separator');
-        document.querySelector('#editable-street-section').insertBefore(el, draggingStatus.originalEl.nextSibling);
+        document.querySelector('#editable-street-section').insertBefore(el, 
+            draggingStatus.originalEl.nextSibling);
 
       }
     }
@@ -293,17 +373,21 @@ var main = (function(){
   }
 
   function _dragOutOriginalIfNecessary() {
-    if ((draggingStatus.type == DRAGGING_TYPE_MOVE) && draggingStatus.originalDraggedOut) {
+    if ((draggingStatus.type == DRAGGING_TYPE_MOVE) && 
+        draggingStatus.originalDraggedOut) {
       var el = _createSegment('separator');
-      document.querySelector('#editable-street-section').insertBefore(el, draggingStatus.originalEl);
+      document.querySelector('#editable-street-section').insertBefore(el, 
+          draggingStatus.originalEl);
 
       draggingStatus.originalEl.style.width = 0;
       window.setTimeout(function() {
         draggingStatus.originalEl.parentNode.removeChild(draggingStatus.originalEl);
         _recalculateSeparators();
+        _segmentsChanged();
       }, WIDTH_RESIZE_DELAY);
 
       _recalculateSeparators();
+      _segmentsChanged();
 
       draggingStatus.originalDraggedOut = false;
     }
@@ -321,7 +405,7 @@ var main = (function(){
   function _createTools() {
     for (var i in SEGMENT_TYPES) {
       var segmentType = SEGMENT_TYPES[i];
-      var el = _createSegment(i, segmentType.defaultWidth * WIDTH_TOOL_MULTIPLIER);
+      var el = _createSegment(i, segmentType.defaultWidth * WIDTH_TOOL_MULTIPLIER, true);
 
       el.classList.add('tool');
 
@@ -332,7 +416,7 @@ var main = (function(){
   main.init = function(){
     _createTools();
 
-    _createSegmentDom();
+    _createDomFromData();
 
     window.addEventListener('mousedown', _onBodyMouseDown, false);
     window.addEventListener('mousemove', _onBodyMouseMove, false);
