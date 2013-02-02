@@ -41,29 +41,37 @@ header {
   z-index: 10000;
 }
 
-#street-section-canvas {
+#street-section {
   position: absolute;
-
   display: block;
+  left: 0;
+  right: 0;
 
+  z-index: 5;
+
+  top: 0;
+
+  bottom: 20px;
+  height: @canvasHeight + 40;
+}
+#street-section-canvas {
+  z-index: 10;
+  position: absolute;
+  display: block;
   left: 50%;
   margin-left: -@canvasWidth / 2;
 
-  top: 50%;
-  margin-top: -@canvasHeight / 2 - 20;
+  top: 0;
 
   width: @canvasWidth;
   height: @canvasHeight + 40;
-
-  overflow: hidden;
-  z-index: 10;
 }
 #street-section-sky {
   position: absolute;
   left: 0;
   right: 0;
-  top: 50%;
-  margin-top: -@canvasHeight / 2 - 1020px;
+  top: 0;
+  margin-top: -1020px;
   height: @canvasHeight;
 
   background: @skyColour;
@@ -146,8 +154,7 @@ header {
   position: absolute;
   left: 0;
   right: 0;
-  top: 50%;
-  margin-top: -@canvasHeight / 2 + @canvasHeight - 100;
+  top: @canvasHeight - 80;
   height: @canvasHeight;
 
   background: url(../images/dirt.png);
@@ -166,8 +173,7 @@ header {
   left: 50%;
   margin-left: -@canvasWidth / 2 - 120px;
 
-  top: 50%;
-  margin-top: -@canvasHeight / 2 + 20px;
+  top: 40px;
 
   width: 120px;
   height: @canvasHeight - 75px;
@@ -183,8 +189,7 @@ header {
   left: 50%;
   margin-left: @canvasWidth / 2;
 
-  top: 50%;
-  margin-top: -@canvasHeight / 2 + 20px;
+  top: 40px;
 
   width: 120px;
   height: @canvasHeight - 75px;

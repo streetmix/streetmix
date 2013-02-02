@@ -499,11 +499,34 @@ var main = (function(){
     }
   }
 
+  function _onResize() {
+    var viewportWidth = window.innerWidth;
+    var viewportHeight = window.innerHeight;
+
+    var streetSectionHeight = document.querySelector('#street-section').offsetHeight;
+
+    var toolsTop = document.querySelector('#tools').offsetTop;
+
+    var pos = 
+      (viewportHeight - streetSectionHeight) / 2;
+
+    if (pos + document.querySelector('#street-section').offsetHeight > 
+      toolsTop - 20) {
+      pos = toolsTop - 20 - streetSectionHeight;
+    }
+
+    document.querySelector('#street-section').style.top = pos + 'px';
+  }
+
   main.init = function(){
     _createTools();
 
     _createDomFromData();
     _segmentsChanged();
+
+    _onResize();
+
+    window.addEventListener('resize', _onResize, false);
 
     window.addEventListener('mousedown', _onBodyMouseDown, false);
     window.addEventListener('mousemove', _onBodyMouseMove, false);
