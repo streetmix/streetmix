@@ -298,7 +298,7 @@ var main = (function(){
     }
 
     draggingStatus.active = true;
-    document.querySelector('#editable-street-section').classList.add('dragging');
+    document.body.classList.add('dragging');
 
     draggingStatus.originalEl = el;
 
@@ -339,7 +339,7 @@ var main = (function(){
         draggingStatus.el.classList.add('warning');
       }
     }
-    
+
     draggingStatus.el.style.left = draggingStatus.elX + 'px';
     draggingStatus.el.style.top = draggingStatus.elY + 'px';
 
@@ -394,7 +394,7 @@ var main = (function(){
     var withinCanvas = !!el;
 
     draggingStatus.active = false;
-    document.querySelector('#editable-street-section').classList.remove('dragging');
+    document.body.classList.remove('dragging');
 
     var placeEl = 
         document.querySelector('#editable-street-section [type="separator"].hover');
