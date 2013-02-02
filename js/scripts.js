@@ -20,6 +20,11 @@ var main = (function(){
   var CANVAS_HEIGHT = 480;
   var CANVAS_BASELINE = CANVAS_HEIGHT - 35;
 
+  var DRAGGING_TYPE_MOVE = 1;
+  var DRAGGING_TYPE_CREATE = 2;
+
+  var WIDTH_RESIZE_DELAY = 100;
+
   var SEGMENT_INFO = {
     "sidewalk": {
       name: 'Sidewalk',
@@ -114,6 +119,10 @@ var main = (function(){
   };
 
   var data = {
+    // TODO: unhardcode
+    streetWidth: 88,
+    occupiedWidth: null,
+
     segments: [
       { type: "sidewalk", width: 6 },
       { type: "sidewalk-tree", width: 6 },
@@ -130,9 +139,6 @@ var main = (function(){
     ]
   };
 
-  var DRAGGING_TYPE_MOVE = 1;
-  var DRAGGING_TYPE_CREATE = 2;
-
   var draggingStatus = {
     type: null,
     active: false,
@@ -145,8 +151,6 @@ var main = (function(){
     originalWidth: null,
     originalDraggedOut: false
   };
-
-  var WIDTH_RESIZE_DELAY = 100;
 
   function _recalculateSeparators() {
     var els = document.querySelectorAll('#editable-street-section [type="separator"]');
@@ -216,6 +220,7 @@ var main = (function(){
 
     if (width) {
       el.style.width = width + 'px';
+      el.setAttribute('width', width / TILE_SIZE);
     }
 
     if (type == 'separator') {
@@ -250,23 +255,34 @@ var main = (function(){
     _recalculateSeparators();
   }
 
+  function _recalculateWidth() {
+    data.occupiedWidth = 0;
+
+    for (var i in data.segments) {
+      var segment = data.segments[i];
+
+      data.occupiedWidth += segment.width;
+    }   
+  }
+
   function _segmentsChanged() {
     _createDataFromDom();
+    _recalculateWidth();
   }
 
   function _createDataFromDom() {
     var els = document.querySelectorAll('#editable-street-section > .segment');
 
-    var data = [];
+    data.segments = [];
 
     for (var i = 0, el; el = els[i]; i++) {
       if (el.getAttribute('type') != 'separator') {
 
         var segment = {};
         segment.type = el.getAttribute('type');
-        segment.width = el.offsetWidth / TILE_SIZE;
+        segment.width = parseInt(el.getAttribute('width'));
 
-        data.push(segment);
+        data.segments.push(segment);
       }
     }
   }
@@ -318,6 +334,11 @@ var main = (function(){
     draggingStatus.el.style.width = draggingStatus.originalWidth + 'px';
     document.body.appendChild(draggingStatus.el);
 
+    if (data.occupiedWidth + (draggingStatus.originalWidth / TILE_SIZE) > data.streetWidth) {
+      draggingStatus.el.classList.add('warning');
+    }
+
+
     draggingStatus.el.style.left = draggingStatus.elX + 'px';
     draggingStatus.el.style.top = draggingStatus.elY + 'px';
 
@@ -352,6 +373,14 @@ var main = (function(){
     }
   }
 
+  function flashWarning() {
+    document.querySelector('#warning').classList.add('active');
+
+    window.setTimeout(function() {
+      document.querySelector('#warning').classList.remove('active');
+    }, 0);
+  }
+
   function _onBodyMouseUp(event) {
     if (!draggingStatus.active) {
       return;
@@ -370,6 +399,14 @@ var main = (function(){
         document.querySelector('#editable-street-section [type="separator"].hover');
 
     draggingStatus.el.parentNode.removeChild(draggingStatus.el);
+
+    // Doesn’t fit
+    if (placeEl && draggingStatus.el.classList.contains('warning')) {
+      placeEl = false;
+      withinCanvas = false;
+
+      flashWarning();
+    }
 
     if (placeEl) {
       var el = _createSegment('separator');
@@ -459,6 +496,7 @@ var main = (function(){
     _createTools();
 
     _createDomFromData();
+    _segmentsChanged();
 
     window.addEventListener('mousedown', _onBodyMouseDown, false);
     window.addEventListener('mousemove', _onBodyMouseMove, false);

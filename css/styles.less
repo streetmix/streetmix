@@ -299,10 +299,9 @@ header {
   pointer-events: none;
 
   background: rgba(0, 0, 0, .05);
-
-/*  -webkit-filter: drop-shadow(0 5px 15px rgba(0, 0, 0, .5));
-  -moz-filter: drop-shadow(0 5px 15px rgba(0, 0, 0, .5));
-  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, .5));*/
+}
+.segment.dragging.warning {
+  background: rgba(255, 0, 0, .1);
 }
 
 .segment .name {
@@ -367,4 +366,28 @@ header {
   width: 40px;
   height: 10px;
   z-index: 10000;
+}
+
+
+#warning {
+  position: fixed;
+  z-index: 99999;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+
+  opacity: 0;
+
+  background: rgb(255, 0, 0);
+  -webkit-transition: opacity 500ms;
+  -webkit-transition-delay: 100ms;
+  -moz-transition: opacity 500ms;
+  -moz-transition-delay: 100ms;
+}
+#warning.active {
+  opacity: .2;
+  -webkit-transition: none;
+  -moz-transition: none;
 }
