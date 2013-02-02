@@ -342,25 +342,27 @@ header {
 body.dragging,
 body.dragging * {
   cursor: move;  
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
 }
-#editable-street-section.dragging .segment {
+body.dragging #editable-street-section .segment {
   -webkit-transition: width 100ms, margin-left 100ms;
   -moz-transition: width 100ms, margin-left 100ms;
   transition: width 100ms, margin-left 100ms;
 }
 
-#editable-street-section.dragging > div:not([type='separator']) {
+body.dragging #editable-street-section > div:not([type='separator']) {
   pointer-events: none;
 }
 
-#editable-street-section.dragging > div[type='separator'] {
+body.dragging #editable-street-section > div[type='separator'] {
   pointer-events: auto;
   -webkit-transition: width 100ms;
 }
-#editable-street-section.dragging > div[type='separator'].hover {
+body.dragging #editable-street-section > div[type='separator'].hover {
   width: @hoverSeparatorWidth;
 }
-#editable-street-section.dragging > div[type='separator'].hover + div {
+body.dragging #editable-street-section > div[type='separator'].hover + div {
   margin-left: @hoverSeparatorWidth - @separatorWidth;
 }
 
