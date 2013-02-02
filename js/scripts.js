@@ -334,11 +334,12 @@ var main = (function(){
     draggingStatus.el.style.width = draggingStatus.originalWidth + 'px';
     document.body.appendChild(draggingStatus.el);
 
-    if (data.occupiedWidth + (draggingStatus.originalWidth / TILE_SIZE) > data.streetWidth) {
-      draggingStatus.el.classList.add('warning');
+    if (draggingStatus.type == DRAGGING_TYPE_CREATE) {
+      if (data.occupiedWidth + (draggingStatus.originalWidth / TILE_SIZE) > data.streetWidth) {
+        draggingStatus.el.classList.add('warning');
+      }
     }
-
-
+    
     draggingStatus.el.style.left = draggingStatus.elX + 'px';
     draggingStatus.el.style.top = draggingStatus.elY + 'px';
 
@@ -398,8 +399,6 @@ var main = (function(){
     var placeEl = 
         document.querySelector('#editable-street-section [type="separator"].hover');
 
-    draggingStatus.el.parentNode.removeChild(draggingStatus.el);
-
     // Doesn’t fit
     if (placeEl && draggingStatus.el.classList.contains('warning')) {
       placeEl = false;
@@ -431,6 +430,9 @@ var main = (function(){
 
       _recalculateSeparators();
       _segmentsChanged();
+
+      draggingStatus.el.parentNode.removeChild(draggingStatus.el);
+
     } else {
       if (!withinCanvas) {
         _dragOutOriginalIfNecessary();
@@ -446,6 +448,11 @@ var main = (function(){
             draggingStatus.originalEl.nextSibling);
 
       }
+
+      draggingStatus.el.classList.add('poof');
+      window.setTimeout(function() {
+        draggingStatus.el.parentNode.removeChild(draggingStatus.el);
+      }, 250);
     }
 
     event.preventDefault();

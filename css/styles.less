@@ -304,6 +304,12 @@ header {
   background: rgba(255, 0, 0, .1);
 }
 
+.segment.poof {
+  -webkit-transition: -webkit-transform 250ms, opacity 250ms;
+  opacity: 0;
+  -webkit-transform: scaleX(0);
+}
+
 .segment .name {
   position: absolute;
   left: 0;
