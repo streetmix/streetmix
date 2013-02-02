@@ -9,6 +9,8 @@
 @tilesetWidth: 2622px; // retina
 @tilesetHeight: 384px;
 
+@skyColour: rgb(179, 205, 209);
+
 html {
   height: 100%;
 }
@@ -64,13 +66,9 @@ header {
   margin-top: -@canvasHeight / 2 - 1020px;
   height: @canvasHeight;
 
-  background: url(images/sky.png);
-  background-size: 250px 400px;
+  background: @skyColour;
 
-  background-repeat: repeat-x;
-  background-position: 0 0;  
-
-  border-top: 1001px solid rgb(179, 205, 209);
+  border-top: 1001px solid @skyColour;
 
   /*-webkit-animation-name: sky-move, sky-hue;
   -webkit-animation-duration: 30s, 120s;
@@ -78,14 +76,74 @@ header {
   -webkit-animation-timing-function: linear;*/
 }
 
-@-webkit-keyframes sky-move {
- from { background-position-x: 0; }
- to { background-position-x: -250px; }
+#street-section-sky .rear-clouds {
+  position: absolute;  
+
+  background: url(images/sky_rear.png);
+  background-size: 250px 120px;
+
+  background-repeat: repeat-x;
+  background-position: 0 0;    
+
+  left: 0;
+  top: 0;
+  width: 100% + 250px;
+  height: 120px;
+
+  -webkit-animation-name: rear-clouds-move;
+  -webkit-animation-duration: 50s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+
+  -moz-animation-name: rear-clouds-move;
+  -moz-animation-duration: 50s;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
 }
 
-@-webkit-keyframes sky-hue {
- from { -webkit-filter: hue-rotate(0); }
- to { -webkit-filter: hue-rotate(360deg); }
+@-webkit-keyframes rear-clouds-move {
+ from { -webkit-transform: translateX(0); }
+ to { -webkit-transform: translateX(-250px); }
+}
+@keyframes rear-clouds-move {
+ from { -moz-transform: translateX(0); }
+ to { -moz-transform: translateX(-250px); }
+}
+
+#street-section-sky .front-clouds {
+  position: absolute;  
+
+  background: url(images/sky_front.png);
+  background-size: 250px 280px;
+
+  background-repeat: repeat-x;
+  background-position: 0 0;  
+
+  opacity: .5;  
+
+  left: 0;
+  top: 120px;
+  width: 100%;
+  height: 280px;
+
+  -webkit-animation-name: front-clouds-move;
+  -webkit-animation-duration: 20s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+
+  -moz-animation-name: front-clouds-move;
+  -moz-animation-duration: 20s;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+}
+
+@-webkit-keyframes front-clouds-move {
+ from { -webkit-transform: translateX(0); }
+ to { -webkit-transform: translateX(-250px); }
+}
+@keyframes front-clouds-move {
+ from { -moz-transform: translateX(0); }
+ to { -moz-transform: translateX(-250px); }
 }
 
 #street-section-dirt {
