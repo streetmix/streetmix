@@ -181,9 +181,29 @@ header {
   -moz-transition: width 100ms;
   transition: width 100ms;
 
-  background-image: url(images/tiles.png);
-  background-repeat: no-repeat;
-  background-size: (@tilesetWidth / 2) (@tilesetHeight / 2);
+  -webkit-transition: background 250ms;
+  -moz-transition: background 250ms;
+  transition: background 250ms;
+}
+.segment:hover {
+  -webkit-transition: background 100ms;
+  -moz-transition: background 100ms;
+  transition: background 100ms;
+
+  background: rgba(255, 255, 255, .2);
+}
+
+.segment .image {
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+}
+.segment .image img {
+  position: absolute;
+  width: @tilesetWidth / 2;
+  pointer-events: none;
 }
 
 .segment.dragged-out {
@@ -201,11 +221,11 @@ header {
   border-radius: 5px;
   background-color: rgba(25, 25, 25, 0.5);
   box-shadow: 0px 0px 10px rgba(50, 50, 50, 0.75);
-
-  background-image: url(images/tiles.png);
-  background-repeat: no-repeat;
-  background-size: (@tilesetWidth / 2 / 3) (@tilesetHeight / 2 / 3);
 }
+.segment.tool .image img {
+  width: @tilesetWidth / 2 / 3;
+}
+
 
 .segment[type='separator'] {
   background: transparent;
@@ -227,11 +247,11 @@ header {
 
   pointer-events: none;
 
-  outline: 1px dashed black;
+  background: rgba(0, 0, 0, .05);
 
-  -webkit-filter: drop-shadow(0 5px 15px rgba(0, 0, 0, .5));
+/*  -webkit-filter: drop-shadow(0 5px 15px rgba(0, 0, 0, .5));
   -moz-filter: drop-shadow(0 5px 15px rgba(0, 0, 0, .5));
-  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, .5));
+  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, .5));*/
 }
 
 .segment .name {

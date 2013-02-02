@@ -20,7 +20,7 @@ var main = (function(){
   var CANVAS_HEIGHT = 480;
   var CANVAS_BASELINE = CANVAS_HEIGHT - 35;
 
-  var SEGMENT_TYPES = {
+  var SEGMENT_INFO = {
     "sidewalk": {
       name: 'Sidewalk',
       defaultWidth: 6,
@@ -167,17 +167,46 @@ var main = (function(){
   }
 
   function _setSegmentContents(el, type, isTool) {
-    var bkPositionX = -(SEGMENT_TYPES[type].tileX * TILE_SIZE);
+    var segmentInfo = SEGMENT_INFO[type];
+
+    var realWidth = segmentInfo.realWidth || segmentInfo.defaultWidth;
+
+    var tileOffsetX = segmentInfo.tileOffsetX || 0;
+    var tileOffsetY = segmentInfo.tileOffsetY || 0;
+
+    var multiplier = isTool ? (WIDTH_TOOL_MULTIPLIER / WIDTH_MULTIPLIER) : 1;
+
+    var bkPositionX = 
+        -((segmentInfo.tileX + tileOffsetX) * TILE_SIZE) * multiplier;
     var bkPositionY = 
-        CANVAS_BASELINE - SEGMENT_TYPES[type].defaultHeight * TILE_SIZE;
+        (CANVAS_BASELINE - segmentInfo.defaultHeight * TILE_SIZE -
+        (segmentInfo.tileY + tileOffsetY) * TILE_SIZE) * multiplier;
 
     if (isTool) {
-      bkPositionX = bkPositionX / WIDTH_MULTIPLIER * WIDTH_TOOL_MULTIPLIER;
-      bkPositionY = bkPositionY / WIDTH_MULTIPLIER * WIDTH_TOOL_MULTIPLIER - 70;
+      // TODO move to CSS
+      bkPositionY -= 70;
     }
 
-    el.style.backgroundPosition = 
-        bkPositionX + 'px ' + bkPositionY + 'px';
+    var width = realWidth * TILE_SIZE * multiplier;
+    var height = CANVAS_HEIGHT * multiplier;
+
+    var left = -tileOffsetX * TILE_SIZE * multiplier;
+    var top = -tileOffsetY * TILE_SIZE * multiplier;
+
+    var wrapperEl = document.createElement('div');
+    wrapperEl.classList.add('image');
+    wrapperEl.style.left = left + 'px';
+    wrapperEl.style.top = top + 'px';
+    wrapperEl.style.width = width + 'px';
+    wrapperEl.style.height = height + 'px';
+
+    var imgEl = document.createElement('img');
+    imgEl.src = 'images/tiles.png';
+    imgEl.style.left = bkPositionX + 'px';
+    imgEl.style.top = bkPositionY + 'px';
+
+    wrapperEl.appendChild(imgEl);
+    el.appendChild(wrapperEl);
   }
 
   function _createSegment(type, width, isTool) {
@@ -196,8 +225,8 @@ var main = (function(){
       _setSegmentContents(el, type, isTool);
 
       if (!isTool) {
-        el.innerHTML = 
-            '<span class="name">' + SEGMENT_TYPES[type].name + '</span>' +
+        el.innerHTML += 
+            '<span class="name">' + SEGMENT_INFO[type].name + '</span>' +
             '<span class="width">' + (width / TILE_SIZE) + '\'</span>';
       }
     }
@@ -244,6 +273,10 @@ var main = (function(){
 
   function _onBodyMouseDown(event) {
     var el = event.target;
+
+    /*while (el && !el.classList.contains('segment')) {
+      el = el.parentNode;
+    }*/
     if (!el.classList.contains('segment')) {
       return;
     }
@@ -251,7 +284,7 @@ var main = (function(){
     draggingStatus.active = true;
     document.querySelector('#editable-street-section').classList.add('dragging');
 
-    draggingStatus.originalEl = event.target;
+    draggingStatus.originalEl = el;
 
     if (draggingStatus.originalEl.classList.contains('tool')) {
       draggingStatus.type = DRAGGING_TYPE_CREATE;
@@ -304,6 +337,7 @@ var main = (function(){
 
   function _onBodyMouseMove(event) {
     if (draggingStatus.active) {
+
       var deltaX = event.pageX - draggingStatus.mouseX;
       var deltaY = event.pageY - draggingStatus.mouseY;
 
@@ -403,8 +437,8 @@ var main = (function(){
   }
 
   function _createTools() {
-    for (var i in SEGMENT_TYPES) {
-      var segmentType = SEGMENT_TYPES[i];
+    for (var i in SEGMENT_INFO) {
+      var segmentType = SEGMENT_INFO[i];
       var el = _createSegment(i, segmentType.defaultWidth * WIDTH_TOOL_MULTIPLIER, true);
 
       el.classList.add('tool');
