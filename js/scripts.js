@@ -379,9 +379,17 @@ var main = (function(){
       document.querySelector('#editable-street-section').insertBefore(el, placeEl);
 
       // animation
+      // TODO: Move all to CSS
       el.style.width = 50 + 'px';
+      el.style.left = (-(draggingStatus.originalWidth - 50) / 2) + 'px';
+      el.style.webkitTransform = 'scaleX(.8)';
+      el.style.MozTransform = 'scaleX(.8)';
+
       window.setTimeout(function() {
         el.style.width = draggingStatus.originalWidth + 'px';
+        el.style.left = 0;
+        el.style.webkitTransform = 'none';
+        el.style.MozTransform = 'none';
       }, 0);
 
       _recalculateSeparators();

@@ -119,7 +119,7 @@ header {
 
   left: 0;
   top: 120px;
-  width: 100%;
+  width: 100% + 250px;
   height: 280px;
 
   -webkit-animation-name: front-clouds-move;
@@ -231,13 +231,9 @@ header {
 
   position: relative;
 
-  -webkit-transition: width 100ms;
-  -moz-transition: width 100ms;
-  transition: width 100ms;
-
-  -webkit-transition: background 250ms;
-  -moz-transition: background 250ms;
-  transition: background 250ms;
+  -webkit-transition: background 250ms, width 150ms, left 150ms, -webkit-transform 150ms;
+  -moz-transition: background 250ms, width 150ms, left 150ms, -moz-transform 150ms;
+  transition: background 250ms, width 150ms, left 150ms, transform 150ms;
 }
 .segment:hover {
   -webkit-transition: background 100ms;
