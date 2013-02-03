@@ -240,7 +240,7 @@ var main = (function(){
     var el = document.createElement('div');
     el.classList.add('segment');
     el.setAttribute('type', type);
-
+    
     if (width) {
       el.style.width = width + 'px';
       el.setAttribute('width', width / TILE_SIZE);
@@ -266,6 +266,10 @@ var main = (function(){
         var innerEl = document.createElement('span');
         innerEl.classList.add('grid');
         el.appendChild(innerEl);
+      }
+      else
+      {
+      	el.setAttribute('title', type);
       }
     }
     return el;
@@ -409,7 +413,7 @@ var main = (function(){
     }
   }
 
-  function flashWarning() {
+  function _flashWarning() {
     document.querySelector('#warning').classList.add('active');
 
     window.setTimeout(function() {
@@ -439,7 +443,7 @@ var main = (function(){
       placeEl = false;
       withinCanvas = false;
 
-      flashWarning();
+      _flashWarning();
     }
 
     if (placeEl) {
