@@ -217,8 +217,7 @@ var main = (function(){
     var el = document.createElement('div');
     el.classList.add('segment');
     el.setAttribute('type', type);
-    el.setAttribute('title', type);
-
+    
     if (width) {
       el.style.width = width + 'px';
       el.setAttribute('width', width / TILE_SIZE);
@@ -234,6 +233,10 @@ var main = (function(){
         el.innerHTML += 
             '<span class="name">' + SEGMENT_INFO[type].name + '</span>' +
             '<span class="width">' + (width / TILE_SIZE) + '\'</span>';
+      }
+      else
+      {
+      	el.setAttribute('title', type);
       }
     }
     return el;
