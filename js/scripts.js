@@ -572,6 +572,8 @@ var main = (function(){
     for (var i in DEFAULT_SEGMENTS[data.streetWidth]) {
       data.segments.push(DEFAULT_SEGMENTS[data.streetWidth][i]);
     }
+
+    data.modified = false;
   }
 
   function _onStreetWidthChange(event) {
