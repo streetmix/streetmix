@@ -39,6 +39,8 @@ header {
   background: url(../images/ui/title.png) center center no-repeat;
 
   z-index: 10000;
+  
+  pointer-events: none;
 }
 
 #street-section {
@@ -277,6 +279,15 @@ header {
   border-radius: 5px;
   background-color: rgba(25, 25, 25, 0.5);
 }
+
+.segment.tool:hover {
+  -webkit-transition: background 100ms;
+  -moz-transition: background 100ms;
+  transition: background 100ms;
+
+  background: rgba(0, 0, 0, .2);
+}
+
 .segment.tool .image img {
   width: @tilesetWidth / 2 / 3;
 }
