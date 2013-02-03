@@ -217,6 +217,7 @@ var main = (function(){
     var el = document.createElement('div');
     el.classList.add('segment');
     el.setAttribute('type', type);
+    el.setAttribute('title', type);
 
     if (width) {
       el.style.width = width + 'px';
