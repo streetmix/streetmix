@@ -119,7 +119,6 @@ var main = (function(){
   };
 
   var data = {
-    // TODO: unhardcode
     streetWidth: 88,
     occupiedWidth: null,
 
@@ -499,6 +498,17 @@ var main = (function(){
     }
   }
 
+  function _resizeStreetWidth() {
+    var width = data.streetWidth * TILE_SIZE;
+
+    document.querySelector('#street-section-canvas').style.width = width + 'px';
+    document.querySelector('#street-section-canvas').style.marginLeft = 
+        (-width / 2) + 'px';
+
+    document.querySelector('#editable-street-canvas').style.marginLeft = 
+        (-5000 + width / 2) + 'px';
+  }
+
   function _onResize() {
     var viewportWidth = window.innerWidth;
     var viewportHeight = window.innerHeight;
@@ -519,6 +529,8 @@ var main = (function(){
   }
 
   main.init = function(){
+    _resizeStreetWidth();
+
     _createTools();
 
     _createDomFromData();
