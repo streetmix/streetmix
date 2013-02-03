@@ -118,11 +118,27 @@ var main = (function(){
     },
   };
 
-  var data = {
-    streetWidth: 88,
-    occupiedWidth: null,
-
-    segments: [
+  var DEFAULT_SEGMENTS = {
+    40: [
+      { type: "sidewalk", width: 6 },
+      { type: "planting-strip", width: 4 },
+      { type: "drive-lane-inbound", width: 10 },
+      { type: "drive-lane-outbound", width: 10 },
+      { type: "planting-strip", width: 4 },
+      { type: "sidewalk", width: 6 }
+    ],
+    60: [
+      { type: "sidewalk", width: 6 },
+      { type: "sidewalk-tree", width: 6 },
+      { type: "bike-lane-inbound", width: 6 },
+      { type: "drive-lane-inbound", width: 10 },
+      { type: "drive-lane-outbound", width: 10 },
+      { type: "planting-strip", width: 4 },
+      { type: "bike-lane-outbound", width: 6 },
+      { type: "sidewalk-tree", width: 6 },
+      { type: "sidewalk", width: 6 }
+    ],
+    80: [
       { type: "sidewalk", width: 6 },
       { type: "sidewalk-tree", width: 6 },
       { type: "bike-lane-inbound", width: 6 },
@@ -132,10 +148,18 @@ var main = (function(){
       { type: "drive-lane-outbound", width: 10 },
       { type: "drive-lane-outbound", width: 10 },
       { type: "bike-lane-outbound", width: 6 },
-      { type: "parking-lane", width: 8 },
       { type: "sidewalk-tree", width: 6 },
       { type: "sidewalk", width: 6 }
     ]
+  }
+
+  var data = {
+    streetWidth: 80,
+    occupiedWidth: null,
+
+    modified: false,
+
+    segments: []
   };
 
   var draggingStatus = {
@@ -248,6 +272,8 @@ var main = (function(){
   }
 
   function _createDomFromData() {
+    document.querySelector('#editable-street-section').innerHTML = '';
+
     var el = _createSegment('separator');
     document.querySelector('#editable-street-section').appendChild(el);
 
@@ -440,6 +466,8 @@ var main = (function(){
       _recalculateSeparators();
       _segmentsChanged();
 
+      data.modified = true;
+
       draggingStatus.el.parentNode.removeChild(draggingStatus.el);
 
     } else {
@@ -538,8 +566,52 @@ var main = (function(){
     document.querySelector('#street-section').style.top = pos + 'px';
   }
 
+  function _getDefaultSegments() {
+    data.segments = [];
+
+    for (var i in DEFAULT_SEGMENTS[data.streetWidth]) {
+      data.segments.push(DEFAULT_SEGMENTS[data.streetWidth][i]);
+    }
+  }
+
+  function _onStreetWidthChange(event) {
+    var el = event.target;
+    var newStreetWidth = el.value;
+
+    var replaceWithDefault = false;
+
+    if (newStreetWidth == data.streetWidth) {
+      return;
+    }
+
+    if (!data.modified) {
+      replaceWithDefault = true;
+    } else if (data.occupiedWidth > newStreetWidth) {
+      var reply = confirm(
+          'Your segments are too wide for that type of street. ' +
+          'Do you want to replace them with a default ' + newStreetWidth + '\' street?');
+
+      if (!reply) {
+        return;
+      } 
+
+      replaceWithDefault = true;
+    }
+
+    data.streetWidth = newStreetWidth;
+    _resizeStreetWidth();
+
+    if (replaceWithDefault) {
+      _getDefaultSegments();
+    }
+    _createDomFromData();
+    _segmentsChanged();
+  }
+
   main.init = function(){
     _resizeStreetWidth();
+
+    _getDefaultSegments();
 
     _createTools();
 
@@ -547,6 +619,8 @@ var main = (function(){
     _segmentsChanged();
 
     _onResize();
+
+    document.querySelector('#street-width').addEventListener('change', _onStreetWidthChange, false);
 
     window.addEventListener('resize', _onResize, false);
 

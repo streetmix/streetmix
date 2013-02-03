@@ -39,6 +39,18 @@ header {
   z-index: 10000;
 }
 
+header .options {
+  height: 30px;
+  width: 400px;
+  margin: 0 auto;
+  margin-top: 100px;
+  text-align: center;
+
+  color: white;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+}
+
 #street-section {
   position: absolute;
   display: block;
@@ -59,6 +71,9 @@ header {
   left: 50%;
 
   top: 0;
+
+  -webkit-transition: width 500ms, margin-left 500ms;
+
 
   height: @canvasHeight + 40;
 }
@@ -360,6 +375,10 @@ header {
   color: rgb(200, 200, 200);
 }
 
+#street-width option {
+  font-family: 'Arial', sans-serif;
+  font-size: 12px;  
+}
 
 .segment.tool .name,
 .segment.tool .width {
