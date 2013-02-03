@@ -229,9 +229,19 @@ var main = (function(){
       _setSegmentContents(el, type, isTool);
 
       if (!isTool) {
-        el.innerHTML += 
-            '<span class="name">' + SEGMENT_INFO[type].name + '</span>' +
-            '<span class="width">' + (width / TILE_SIZE) + '\'</span>';
+        var innerEl = document.createElement('span');
+        innerEl.classList.add('name');
+        innerEl.innerHTML = SEGMENT_INFO[type].name;
+        el.appendChild(innerEl);
+
+        var innerEl = document.createElement('span');
+        innerEl.classList.add('width');
+        innerEl.innerHTML = width / TILE_SIZE + '\'';
+        el.appendChild(innerEl);
+
+        var innerEl = document.createElement('span');
+        innerEl.classList.add('grid');
+        el.appendChild(innerEl);
       }
     }
     return el;

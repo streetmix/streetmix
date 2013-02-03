@@ -8,6 +8,8 @@
 @tilesetWidth: 2622px; // retina
 @tilesetHeight: 384px;
 
+@tileSize: 12px;
+
 @skyColour: rgb(179, 205, 209);
 
 html {
@@ -149,14 +151,13 @@ header {
   left: 0;
   right: 0;
   top: @canvasHeight - 80;
-  height: @canvasHeight;
+  height: 80px;
 
   background: url(../images/dirt.png);
   background-size: 120px 120px;
 
   background-repeat: repeat-x;
   background-position: 0 0;  
-
 }
 #street-section-left-building {
   display: block;
@@ -218,7 +219,7 @@ header {
 }
 .segment {
   display: inline-block;
-  height: @canvasHeight;
+  height: @canvasHeight - 40;
 
   cursor: -webkit-grab;
   cursor: -moz-grab;
@@ -302,31 +303,64 @@ header {
   -webkit-transform: scaleX(0);
 }
 
-.segment .name {
+.segment .grid {
   position: absolute;
   left: 0;
   right: 0;
-  top: @canvasHeight - 5;
+  height: 10px;
+  top: @canvasHeight - 35;
+
+  background: -webkit-linear-gradient(0deg, rgb(140, 140, 140), transparent 8.333%);
+  background-size: @tileSize 100%;
+  background-repeat: repeat-x;
+
+
+}
+
+.segment .name {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  top: @canvasHeight + 10;
   color: rgb(160, 160, 160);
+
+  z-index: 100;
+
+  word-wrap: break-word;
 
   font-family: Arial, sans-serif;
   font-size: 12px;
 
+  height: 50px;
+
   pointer-events: none;
+}
+.segment:hover .name {
+  color: rgb(200, 200, 200);
 }
 
 .segment .width {
   position: absolute;
   left: 0;
-  right: 0;
-  top: @canvasHeight - 25;
+  right: -1px;
+  border-left: 1px solid rgb(80, 80, 80);
+  border-right: 1px solid rgb(80, 80, 80);
+  top: @canvasHeight - 35;
+  height: 80px;
+  line-height: 58px;
   color: rgb(160, 160, 160);
 
-  font-family: Arial, sans-serif;
-  font-size: 12px;  
+  font-family: 'Times New Roman', sans-serif;
+  font-size: 16px;  
+  font-style: italic;
 
   pointer-events: none;  
 }
+.segment:hover .width {
+  color: rgb(200, 200, 200);
+}
+
+
 .segment.tool .name,
 .segment.tool .width {
   display: none;
