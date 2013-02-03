@@ -1,5 +1,5 @@
 @canvasHeight: 480px;
-@headerHeight: 100px;
+@headerHeight: 150px;
 @toolsHeight: 100px;
 
 @separatorWidth: 50px;
@@ -34,11 +34,9 @@ header {
   height: @headerHeight;
   margin: 0 auto;
 
-  background: url(../images/ui/title.png) center center no-repeat;
+  background: url(../images/ui/title.png) center 20px no-repeat;
 
   z-index: 10000;
-  
-  pointer-events: none;
 }
 
 header .options {
@@ -65,7 +63,11 @@ header .options {
 
   bottom: 20px;
   height: @canvasHeight + 40;
+
+  -webkit-user-select: none;
+  user-select: none;
 }
+
 #street-section-canvas {
   z-index: 10;
   position: absolute;
@@ -222,6 +224,9 @@ header .options {
   text-align: center;
 
   z-index: 2000;
+
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 #editable-street-canvas {

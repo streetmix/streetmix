@@ -25,6 +25,8 @@ var main = (function(){
 
   var WIDTH_RESIZE_DELAY = 100;
 
+  var STREET_WIDTH_ADAPTIVE = -1;
+
   var SEGMENT_INFO = {
     "sidewalk": {
       name: 'Sidewalk',
@@ -302,6 +304,10 @@ var main = (function(){
 
       data.occupiedWidth += segment.width;
     }   
+
+    if (data.streetWidth == STREET_WIDTH_ADAPTIVE) {
+      _resizeStreetWidth();
+    }
   }
 
   function _segmentsChanged() {
@@ -374,7 +380,8 @@ var main = (function(){
     document.body.appendChild(draggingStatus.el);
 
     if (draggingStatus.type == DRAGGING_TYPE_CREATE) {
-      if (data.occupiedWidth + (draggingStatus.originalWidth / TILE_SIZE) > data.streetWidth) {
+      if ((data.streetWidth != STREET_WIDTH_ADAPTIVE) && 
+          (data.occupiedWidth + (draggingStatus.originalWidth / TILE_SIZE) > data.streetWidth)) {
         draggingStatus.el.classList.add('warning');
       }
     }
@@ -541,7 +548,13 @@ var main = (function(){
   }
 
   function _resizeStreetWidth() {
-    var width = data.streetWidth * TILE_SIZE;
+    if (data.streetWidth == STREET_WIDTH_ADAPTIVE) {
+      var width = data.occupiedWidth;
+    } else {
+      var width = data.streetWidth;
+    }
+
+    width *= TILE_SIZE;
 
     document.querySelector('#street-section-canvas').style.width = width + 'px';
     document.querySelector('#street-section-canvas').style.marginLeft = 
@@ -607,7 +620,7 @@ var main = (function(){
     data.streetWidth = newStreetWidth;
     _resizeStreetWidth();
 
-    if (replaceWithDefault) {
+    if (replaceWithDefault && (data.streetWidth != STREET_WIDTH_ADAPTIVE)) {
       _getDefaultSegments();
     }
     _createDomFromData();
