@@ -11,6 +11,7 @@
 */
 
 var main = (function(){
+"use strict";
   var main = {};
 
   var WIDTH_MULTIPLIER = 12; // 12 pixels per foot
