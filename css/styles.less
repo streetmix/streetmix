@@ -199,21 +199,22 @@ header .options {
   display: inline-block;
   height: @canvasHeight + 45;
 
-  cursor: -webkit-grab;
-  cursor: -moz-grab;
-
   position: relative;
 
   -webkit-transition: background 250ms, width 150ms, left 150ms, -webkit-transform 150ms;
   -moz-transition: background 250ms, width 150ms, left 150ms, -moz-transform 150ms;
   transition: background 250ms, width 150ms, left 150ms, transform 150ms;
 }
-.segment:hover {
+.segment:not(.unmovable):hover {
   -webkit-transition: background 100ms;
   -moz-transition: background 100ms;
   transition: background 100ms;
 
   background: rgba(255, 255, 255, .2);
+}
+.segment:not(.unmovable) {
+  cursor: -webkit-grab;
+  cursor: -moz-grab;  
 }
 
 .segment .image {

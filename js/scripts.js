@@ -266,10 +266,15 @@ var main = (function(){
     el.appendChild(wrapperEl);
   }
 
-  function _createSegment(type, width, isTool) {
+  // TODO pass segment object instead of bits and pieces
+  function _createSegment(type, width, isUnmovable, isTool) {
     var el = document.createElement('div');
     el.classList.add('segment');
     el.setAttribute('type', type);
+
+    if (isUnmovable) {
+      el.classList.add('unmovable');
+    }
     
     if (width) {
       el.style.width = (width * visualZoom) + 'px';
@@ -314,7 +319,8 @@ var main = (function(){
     for (var i in data.segments) {
       var segment = data.segments[i];
 
-      var el = _createSegment(segment.type, segment.width * WIDTH_MULTIPLIER, segment.name);
+      var el = _createSegment(segment.type, segment.width * WIDTH_MULTIPLIER, 
+          segment.unmovable);
       document.querySelector('#editable-street-section').appendChild(el);
 
       var el = _createSegment('separator');
@@ -366,7 +372,7 @@ var main = (function(){
     /*while (el && !el.classList.contains('segment')) {
       el = el.parentNode;
     }*/
-    if (!el.classList.contains('segment')) {
+    if (!el.classList.contains('segment') || el.classList.contains('unmovable')) {
       return;
     }
 
@@ -567,7 +573,7 @@ var main = (function(){
   function _createTools() {
     for (var i in SEGMENT_INFO) {
       var segmentType = SEGMENT_INFO[i];
-      var el = _createSegment(i, segmentType.defaultWidth * WIDTH_TOOL_MULTIPLIER, true);
+      var el = _createSegment(i, segmentType.defaultWidth * WIDTH_TOOL_MULTIPLIER, false, true);
 
       el.classList.add('tool');
 
