@@ -181,7 +181,7 @@ var main = (function(){
     originalDraggedOut: false
   };
 
-  var visualZoom = 1.0;
+  var visualZoom = 1;
 
   function _recalculateSeparators() {
     var els = document.querySelectorAll('#editable-street-section [type="separator"]');
@@ -228,28 +228,37 @@ var main = (function(){
     var left = -tileOffsetX * TILE_SIZE * multiplier;
     var top = -tileOffsetY * TILE_SIZE * multiplier;
 
-    var wrapperEl = document.createElement('div');
-    wrapperEl.classList.add('image');
-    wrapperEl.style.left = (left * visualZoom) + 'px';
-    wrapperEl.style.top = (top * visualZoom) + 'px';
-    wrapperEl.style.width = (width * visualZoom) + 'px';
-    wrapperEl.style.height = (height * visualZoom) + 'px';
-
-    var width = TILESET_WIDTH / 2;
-    var height = TILESET_HEIGHT / 2;
-
-    if (isTool) {
-      width /= WIDTH_MULTIPLIER / WIDTH_TOOL_MULTIPLIER;
-      height /= WIDTH_MULTIPLIER / WIDTH_TOOL_MULTIPLIER;
+    if (!isTool) {
+      width *= visualZoom;
+      height *= visualZoom;
     }
 
-    width *= visualZoom;
-    height *= visualZoom;
+    var wrapperEl = document.createElement('div');
+    wrapperEl.classList.add('image');
+    if (!isTool) {
+      wrapperEl.style.left = (left * visualZoom) + 'px';
+      wrapperEl.style.top = (top * visualZoom) + 'px';
+    }
+    wrapperEl.style.width = width + 'px';
+    wrapperEl.style.height = height + 'px';
+
+    var imgWidth = TILESET_WIDTH / 2;
+    var imgHeight = TILESET_HEIGHT / 2;
+
+    if (isTool) {
+      imgWidth /= WIDTH_MULTIPLIER / WIDTH_TOOL_MULTIPLIER;
+      imgHeight /= WIDTH_MULTIPLIER / WIDTH_TOOL_MULTIPLIER;
+    }
+
+    if (!isTool) {
+      imgWidth *= visualZoom;
+      imgHeight *= visualZoom;
+    }
 
     var imgEl = document.createElement('img');
     imgEl.src = 'images/tiles.png';
-    imgEl.style.width = width + 'px';
-    imgEl.style.height = height + 'px';
+    imgEl.style.width = imgWidth + 'px';
+    imgEl.style.height = imgHeight + 'px';
     imgEl.style.left = (bkPositionX * visualZoom) + 'px';
     imgEl.style.top = (bkPositionY * visualZoom) + 'px';
 
