@@ -28,6 +28,9 @@ var main = (function(){
 
   var STREET_WIDTH_ADAPTIVE = -1;
 
+  var TILESET_WIDTH = 2622;
+  var TILESET_HEIGHT = 384;
+
   var SEGMENT_INFO = {
     "sidewalk": {
       name: 'Sidewalk',
@@ -178,6 +181,8 @@ var main = (function(){
     originalDraggedOut: false
   };
 
+  var visualZoom = 1.0;
+
   function _recalculateSeparators() {
     var els = document.querySelectorAll('#editable-street-section [type="separator"]');
     for (var i = 0, el; el = els[i]; i++) {
@@ -190,9 +195,9 @@ var main = (function(){
         nextWidth = 2000;
       }
 
-      el.style.width = (prevWidth / 2 + nextWidth / 2 + 2 + 100) + 'px';
-      el.style.marginLeft = (-prevWidth / 2 - 1) + 'px';
-      el.style.marginRight = (-nextWidth / 2 - 1 - 100) + 'px';
+      el.style.width = ((prevWidth / 2 + nextWidth / 2 + 2 + 100) * visualZoom) + 'px';
+      el.style.marginLeft = ((-prevWidth / 2 - 1) * visualZoom) + 'px';
+      el.style.marginRight = ((-nextWidth / 2 - 1 - 100) * visualZoom) + 'px';
     }
   }
 
@@ -225,15 +230,28 @@ var main = (function(){
 
     var wrapperEl = document.createElement('div');
     wrapperEl.classList.add('image');
-    wrapperEl.style.left = left + 'px';
-    wrapperEl.style.top = top + 'px';
-    wrapperEl.style.width = width + 'px';
-    wrapperEl.style.height = height + 'px';
+    wrapperEl.style.left = (left * visualZoom) + 'px';
+    wrapperEl.style.top = (top * visualZoom) + 'px';
+    wrapperEl.style.width = (width * visualZoom) + 'px';
+    wrapperEl.style.height = (height * visualZoom) + 'px';
+
+    var width = TILESET_WIDTH / 2;
+    var height = TILESET_HEIGHT / 2;
+
+    if (isTool) {
+      width /= WIDTH_MULTIPLIER / WIDTH_TOOL_MULTIPLIER;
+      height /= WIDTH_MULTIPLIER / WIDTH_TOOL_MULTIPLIER;
+    }
+
+    width *= visualZoom;
+    height *= visualZoom;
 
     var imgEl = document.createElement('img');
     imgEl.src = 'images/tiles.png';
-    imgEl.style.left = bkPositionX + 'px';
-    imgEl.style.top = bkPositionY + 'px';
+    imgEl.style.width = width + 'px';
+    imgEl.style.height = height + 'px';
+    imgEl.style.left = (bkPositionX * visualZoom) + 'px';
+    imgEl.style.top = (bkPositionY * visualZoom) + 'px';
 
     wrapperEl.appendChild(imgEl);
     el.appendChild(wrapperEl);
@@ -245,7 +263,7 @@ var main = (function(){
     el.setAttribute('type', type);
     
     if (width) {
-      el.style.width = width + 'px';
+      el.style.width = (width * visualZoom) + 'px';
       el.setAttribute('width', width / TILE_SIZE);
     }
 
@@ -557,12 +575,13 @@ var main = (function(){
 
     width *= TILE_SIZE;
 
-    document.querySelector('#street-section-canvas').style.width = width + 'px';
+    document.querySelector('#street-section-canvas').style.width = 
+        (width * visualZoom) + 'px';
     document.querySelector('#street-section-canvas').style.marginLeft = 
-        (-width / 2) + 'px';
+        ((-width / 2) * visualZoom) + 'px';
 
     document.querySelector('#editable-street-canvas').style.marginLeft = 
-        (-5000 + width / 2) + 'px';
+        (-5000 + (width / 2) * visualZoom) + 'px';
   }
 
   function _onResize() {
