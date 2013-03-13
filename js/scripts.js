@@ -604,7 +604,7 @@ var main = (function(){
       return;
     }
 
-    if (!data.modified) {
+    if (!data.modified || newStreetWidth == STREET_WIDTH_ADAPTIVE) {
       replaceWithDefault = true;
     } else if (data.occupiedWidth > newStreetWidth) {
       var reply = confirm(
