@@ -78,7 +78,6 @@ header .options {
 
   -webkit-transition: width 500ms, margin-left 500ms;
 
-
   height: @canvasHeight + 40;
 }
 #street-section-sky {
@@ -178,39 +177,35 @@ header .options {
   background-repeat: repeat-x;
   background-position: 0 0;  
 }
-#street-section-left-building {
-  display: block;
-  position: absolute;
+#street-section-left-building,
+#street-section-right-building {
 
-  z-index: 1000;
-
-  left: -90px;
-
-  top: 40px;
-
-  width: 120px;
-  height: @canvasHeight - 75px;
-  background: url(../images/building-commercial.png);
-  background-size: 120px 480px;
-
-  pointer-events: none;
 }
+
+#street-section-left-building,
 #street-section-right-building {
   display: block;
   position: absolute;
 
   z-index: 1000;
 
-  right: -90px;
-
   top: 40px;
 
   width: 120px;
   height: @canvasHeight - 75px;
-  background: url(../images/building-commercial-flip.png);
   background-size: 120px 480px;
 
-  pointer-events: none;
+  pointer-events: none;  
+}
+#street-section-left-building {
+  left: -90px;
+
+  background-image: url(../images/building-commercial.png);
+}
+#street-section-right-building {
+  right: -90px;
+
+  background-image: url(../images/building-commercial-flip.png);
 }
 
 #tools {
