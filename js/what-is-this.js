@@ -208,10 +208,12 @@ var whatIsThis = (function(){
     infoEl.style.opacity = .5;
     document.body.appendChild(infoEl);
 
-    teaserEl = document.createElement('div');  
-    teaserEl.id = 'what-is-this-teaser';
-    teaserEl.innerHTML = 'What is this?';
-    document.body.appendChild(teaserEl);
+    // THIS IS A QUICK HACK: Removed the teaser element, fires when ? image is clicked now
+    // teaserEl = document.createElement('div');  
+    // teaserEl.id = 'what-is-this-teaser';
+    // teaserEl.innerHTML = 'What is this?';
+    // document.body.appendChild(teaserEl);
+    teaserEl = document.getElementById('what-is-this');
 
     shieldEl = document.createElement('div');  
     shieldEl.id = 'what-is-this-shield';

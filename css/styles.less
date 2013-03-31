@@ -51,6 +51,42 @@ header .options {
   font-size: 12px;
 }
 
+header .toolbar {
+  height: 24px;
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  ul {
+    margin: 0;
+    list-style-type: none;
+    float: right;
+    li {
+      width: 24px;
+      height: 24px;
+      margin-left: 18px;
+      float: left;
+      a {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      #settings {
+        background: url('../images/ui/buttons.png') 0px 0px no-repeat;
+      }
+      #share {
+        background: url('../images/ui/buttons.png') -24px 0px no-repeat;
+      }
+      #what-is-this {
+        background: url('../images/ui/buttons.png') -48px 0px no-repeat;
+      }
+    }
+  }
+}
+#what-is-this-teaser {
+  // hack: removal of old teaser
+  display: none;
+}
+
 #street-section {
   position: absolute;
   display: block;
