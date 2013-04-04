@@ -1219,9 +1219,10 @@ var main = (function(){
   }
 
   function _onBodyKeyDown(event) {
-    //console.log(event.keyCode);
+    console.log(event.keyCode);
     switch (event.keyCode) {
       case 39: // right arrow
+      case 187: // = (or, plus)
         if (document.activeElement == document.body) {
           if (segmentHoveredEl) {
             _incrementSegmentWidth(segmentHoveredEl, true);
@@ -1230,6 +1231,7 @@ var main = (function(){
         }
         break;
       case 37: // left arrow
+      case 189: // minus
         if (document.activeElement == document.body) {
           if (segmentHoveredEl) {
             _incrementSegmentWidth(segmentHoveredEl, false);
