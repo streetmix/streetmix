@@ -42,7 +42,7 @@ header {
   font-size: 12px;  
 
   background: desaturate(darken(@skyColour, 5%), 10%);
-  width: 471px;
+  width: 511px;
   padding: 10px 10px;
 
   border-radius: 0 0 10px 10px;
@@ -53,9 +53,58 @@ header {
 
 header .options {
   height: 30px;
-  width: 250px;
+  width: 285px;
   float: left;
   text-align: center;
+  padding-right: 10px;
+}
+
+
+.options .width {
+  margin-top: 14px;
+  float: left;
+  width: 50%;
+  text-align: left;
+}
+
+#street-width {
+  text-align: right;
+
+  font-family: 'Times New Roman', serif;
+  font-style: italic;
+  font-size: 14px;
+}
+#street-width option {
+  text-align: right;
+  font-family: 'Arial', sans-serif;
+  font-size: 12px;  
+}
+#used-width,
+#remaining-width {
+  display: inline-block;
+  text-align: left;
+  width: 50px;
+
+  font-family: 'Times New Roman', serif;
+  font-style: italic;
+  font-size: 14px;
+}
+
+#remaining {
+  text-align: right;
+}
+
+#remaining[type="over"] {
+  color: rgb(180, 40, 40);
+}
+#remaining[type="over"] .room {
+  display: none;
+}
+#remaining[type="zero"] {
+  opacity: 0;
+}
+#remaining[type="room"] .over {
+  display: none;
 }
 
 header .sizes {
@@ -621,12 +670,6 @@ body .segment:not(.unmovable).hover .drag-handle:hover {
 }
 .segment.outside .width {
   color: @warningColour;
-}
-
-
-#street-width option {
-  font-family: 'Arial', sans-serif;
-  font-size: 12px;  
 }
 
 .segment.tool .name,

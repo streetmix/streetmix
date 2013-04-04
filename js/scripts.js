@@ -223,6 +223,7 @@ var main = (function(){
   var data = {
     streetWidth: 80,
     occupiedWidth: null,
+    remainingWidth: null,
 
     modified: false,
 
@@ -655,6 +656,9 @@ var main = (function(){
 
     if (data.streetWidth == STREET_WIDTH_ADAPTIVE) {
       _resizeStreetWidth();
+      data.remainingWidth = 0;
+    } else {
+      data.remainingWidth = (data.streetWidth - data.occupiedWidth);
     }
 
     var position = data.streetWidth / 2 - data.occupiedWidth / 2;
@@ -671,6 +675,19 @@ var main = (function(){
       position += data.segments[i].width;
     }
 
+    if (data.remainingWidth == 0) {
+      document.querySelector('#remaining').setAttribute('type', 'zero');
+    } else if (data.remainingWidth > 0) {
+      document.querySelector('#remaining').setAttribute('type', 'room');
+    } else {
+      document.querySelector('#remaining').setAttribute('type', 'over');      
+    }
+
+    document.querySelector('#used-width').innerHTML = 
+        _prettifyWidth(data.occupiedWidth * TILE_SIZE);
+
+    document.querySelector('#remaining-width').innerHTML = 
+        _prettifyWidth(Math.abs(data.remainingWidth) * TILE_SIZE);
   }
 
   function _segmentsChanged() {
