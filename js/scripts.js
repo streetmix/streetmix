@@ -677,14 +677,8 @@ var main = (function(){
     }
   }
 
-  function _onBodyMouseDown(event) {
+  function _handleSegmentMoveStart(event) {
     var el = event.target;
-
-    _loseAnyFocus();
-
-    if (!el.classList.contains('segment') || el.classList.contains('unmovable')) {
-      return;
-    }
 
     draggingActive = true;
     draggingType = DRAGGING_TYPE_SEGMENT_MOVE;
@@ -745,11 +739,23 @@ var main = (function(){
       }
       segmentDraggingStatus.originalDraggedOut = true;
     }
+  }
+
+  function _onBodyMouseDown(event) {
+    var el = event.target;
+
+    _loseAnyFocus();
+
+    if (!el.classList.contains('segment') || el.classList.contains('unmovable')) {
+      return;
+    }
+
+    _handleSegmentMoveStart(event);
 
     event.preventDefault();
   }
 
-  function _onBodyMouseMove(event) {
+  function _handleSegmentMoveDragging(event) {
     if (draggingActive && draggingType == DRAGGING_TYPE_SEGMENT_MOVE) {
 
       var deltaX = event.pageX - segmentDraggingStatus.mouseX;
@@ -766,6 +772,18 @@ var main = (function(){
     }
   }
 
+  function _onBodyMouseMove(event) {
+    if (!draggingActive) {
+      return;
+    }
+
+    switch (draggingType) {
+      case DRAGGING_TYPE_SEGMENT_MOVE:
+        _handleSegmentMoveDragging(event);
+        break;
+    }
+  }
+
   function _flashWarning() {
     document.querySelector('#warning').classList.add('active');
 
@@ -774,11 +792,7 @@ var main = (function(){
     }, 0);
   }
 
-  function _onBodyMouseUp(event) {
-    if (!draggingActive) {
-      return;
-    }
-
+  function _handleSegmentMoveEnd(event) {
     var el = event.target;
     while (el && (el.id != 'editable-street-canvas')) {
       el = el.parentNode;
@@ -850,6 +864,18 @@ var main = (function(){
           segmentDraggingStatus.el.parentNode.removeChild(segmentDraggingStatus.el);
         }
       }, 250);
+    }
+  }
+
+  function _onBodyMouseUp(event) {
+    if (!draggingActive) {
+      return;
+    }
+
+    switch (draggingType) {
+      case DRAGGING_TYPE_SEGMENT_MOVE:
+        _handleSegmentMoveEnd(event);
+        break;
     }
 
     event.preventDefault();
