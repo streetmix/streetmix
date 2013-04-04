@@ -283,7 +283,6 @@ var main = (function(){
     var left = -tileOffsetX * TILE_SIZE * multiplier;
     var top = -tileOffsetY * TILE_SIZE * multiplier;
 
-
     if (!isTool) {
       // center properly
       var segmentRealWidth = segmentWidth / TILE_SIZE;
@@ -423,7 +422,7 @@ var main = (function(){
     return width;
   }
 
-  function _resizeSegment(el, width) {
+  function _resizeSegment(el, width, isTool) {
     var width = _normalizeSegmentWidth(width / TILE_SIZE) * TILE_SIZE;
 
     el.style.width = (width * visualZoom) + 'px';
@@ -434,7 +433,7 @@ var main = (function(){
       widthEl.innerHTML = width / TILE_SIZE + '\'';
     }
 
-    _setSegmentContents(el, el.getAttribute('type'), width);
+    _setSegmentContents(el, el.getAttribute('type'), width, isTool);
   }
 
   // TODO pass segment object instead of bits and pieces
@@ -488,7 +487,7 @@ var main = (function(){
     }
 
     if (width) {
-      _resizeSegment(el, width);
+      _resizeSegment(el, width, isTool);
     }    
     return el;
   }
@@ -737,7 +736,9 @@ var main = (function(){
 
       draggingStatus.el.classList.add('poof');
       window.setTimeout(function() {
-        draggingStatus.el.parentNode.removeChild(draggingStatus.el);
+        if (draggingStatus.el && draggingStatus.el.parentNode) {
+          draggingStatus.el.parentNode.removeChild(draggingStatus.el);
+        }
       }, 250);
     }
 
