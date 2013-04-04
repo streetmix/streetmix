@@ -494,6 +494,10 @@ body.segment-resize-dragging * {
   top: 170px;
   width: 10px;
   height: 100px;
+  line-height: 100px;
+  font-size: 50px;
+  font-family: 'Tahoma';
+  color: white;
 
   background: radial-gradient(circle, white 20%, transparent 20%),
               radial-gradient(circle, white 20%, transparent 20%) 50px 50px;
@@ -515,9 +519,13 @@ body.segment-resize-dragging * {
 }
 .segment .drag-handle.left {
   left: -5px;
+  text-align: left;
+  text-indent: -5px;
 }
 .segment .drag-handle.right {
   right: -5px;
+  text-align: right;
+  text-indent: -3px;
 }
 body .segment:not(.unmovable):hover .drag-handle,
 body .segment:not(.unmovable).hover .drag-handle {

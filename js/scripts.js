@@ -568,12 +568,14 @@ var main = (function(){
         dragHandleEl.classList.add('drag-handle');
         dragHandleEl.classList.add('left');
         dragHandleEl.segmentEl = el;
+        dragHandleEl.innerHTML = '‹';
         el.appendChild(dragHandleEl);
 
         var dragHandleEl = document.createElement('span');
         dragHandleEl.classList.add('drag-handle');
         dragHandleEl.classList.add('right');
         dragHandleEl.segmentEl = el;
+        dragHandleEl.innerHTML = '›';
         el.appendChild(dragHandleEl);
 
         var widthEditCanvasEl = document.createElement('span');
