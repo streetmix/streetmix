@@ -39,16 +39,50 @@ header {
   z-index: 10000;
 }
 
+header {
+  color: white;
+  font-family: Arial, sans-serif;
+  font-size: 12px;  
+
+  width: 460px;
+}
+
 header .options {
   height: 30px;
   width: 400px;
   margin: 0 auto;
   margin-top: 100px;
   text-align: center;
+}
 
-  color: white;
-  font-family: Arial, sans-serif;
-  font-size: 12px;
+header .sizes {
+  width: 400px;
+  margin: 0 auto;
+  margin-top: 20px;
+
+  pointer-events: none;
+  /*outline: 1px solid red;*/
+}
+header .sizes ul {
+  margin-left: 40px;
+  list-style: none;
+}
+header .sizes .name {
+  width: 80px;
+  display: inline-block;
+}
+header .sizes .width {
+  width: 30px;
+  display: inline-block;
+  text-align: right;
+}
+header .sizes .bar {
+  display: inline-block;
+  height: 4px;
+  margin-left: 5px;
+  background: white;
+  position: relative;
+  top: -2px;
 }
 
 #street-section {
@@ -301,8 +335,6 @@ header .options {
   background: -webkit-linear-gradient(0deg, rgb(140, 140, 140), transparent 8.333%);
   background-size: @tileSize 100%;
   background-repeat: repeat-x;
-
-
 }
 
 .segment .name {
@@ -319,12 +351,40 @@ header .options {
   font-family: Arial, sans-serif;
   font-size: 12px;
 
-  height: 50px;
+  height: 40px;
+  overflow: hidden;
 
   pointer-events: none;
 }
 .segment:hover .name {
   color: rgb(200, 200, 200);
+}
+
+.segment .width-edit {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: @canvasHeight - 35 + 15;
+  z-index: 50000;
+  text-align: center;
+
+  line-height: 25px;
+  height: 25px;
+  border: none;
+
+  font-family: 'Times New Roman', sans-serif;
+  font-size: 16px;  
+  font-style: italic;  
+
+  opacity: 0;
+}
+.segment .width-edit:hover {
+  opacity: .5;
+}
+.segment .width-edit:focus {
+  outline: none;
+
+  opacity: 1;
 }
 
 .segment .width {

@@ -31,27 +31,58 @@ var main = (function(){
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
 
+  var MIN_SEGMENT_WIDTH = 2;
+  var MAX_SEGMENT_WIDTH = 50;
+  var SEGMENT_WIDTH_RESOLUTION = .5;
+
+  var SEGMENT_OWNER_CAR = 'car';
+  var SEGMENT_OWNER_BIKE = 'bike';
+  var SEGMENT_OWNER_PEDESTRIAN = 'pedestrian';
+  var SEGMENT_OWNER_PUBLIC_TRANSIT = 'public-transit';
+  var SEGMENT_OWNER_NATURE = 'nature';
+
+  var SEGMENT_OWNERS = {
+    'pedestrian': {
+      owner: SEGMENT_OWNER_PEDESTRIAN
+    },
+    'bike': {
+      owner: SEGMENT_OWNER_BIKE
+    },
+    'public-transit': {
+      owner: SEGMENT_OWNER_PUBLIC_TRANSIT
+    },
+    'car': {
+      owner: SEGMENT_OWNER_CAR
+    },
+    'nature': {
+      owner: SEGMENT_OWNER_NATURE
+    }
+  };
+
   var SEGMENT_INFO = {
-    "sidewalk": {
+    'sidewalk': {
       name: 'Sidewalk',
       defaultWidth: 6,
       defaultHeight: 15,
       tileX: 0,
-      tileY: 0
+      tileY: 0,
+      owner: SEGMENT_OWNER_PEDESTRIAN
     },
     "sidewalk-tree": {
       name: 'Sidewalk w/ a tree',
       defaultWidth: 6,
       defaultHeight: 15,
       tileX: 10,
-      tileY: 0
+      tileY: 0,
+      owner: SEGMENT_OWNER_NATURE
     },
     "planting-strip": {
       name: 'Planting strip',
       defaultWidth: 4,
       defaultHeight: 15,
       tileX: 6,
-      tileY: 0
+      tileY: 0,
+      owner: SEGMENT_OWNER_NATURE
     },
     "bike-lane-inbound": {
       name: 'Bike lane',
@@ -59,7 +90,8 @@ var main = (function(){
       defaultWidth: 6,
       defaultHeight: 15,
       tileX: 82,
-      tileY: 0
+      tileY: 0,
+      owner: SEGMENT_OWNER_BIKE
     },
     "bike-lane-outbound": {
       name: 'Bike lane',
@@ -67,14 +99,16 @@ var main = (function(){
       defaultWidth: 6,
       defaultHeight: 15,
       tileX: 88,
-      tileY: 0
+      tileY: 0,
+      owner: SEGMENT_OWNER_BIKE
     },
     "parking-lane": {
       name: 'Parking lane',
       defaultWidth: 8,
       defaultHeight: 15,
       tileX: 40,
-      tileY: 0
+      tileY: 0,
+      owner: SEGMENT_OWNER_CAR
     },
     "drive-lane-inbound": {
       name: 'Drive lane',
@@ -82,7 +116,8 @@ var main = (function(){
       defaultWidth: 10,
       defaultHeight: 15,
       tileX: 20,
-      tileY: 0
+      tileY: 0,
+      owner: SEGMENT_OWNER_CAR
     },
     "drive-lane-outbound": {
       name: 'Drive lane',
@@ -90,14 +125,16 @@ var main = (function(){
       defaultWidth: 10,
       defaultHeight: 15,
       tileX: 30,
-      tileY: 0
+      tileY: 0,
+      owner: SEGMENT_OWNER_CAR
     },
     "turn-lane": {
       name: 'Turn lane',
       defaultWidth: 10,
       defaultHeight: 15,
       tileX: 72,
-      tileY: 0
+      tileY: 0,
+      owner: SEGMENT_OWNER_CAR
     },
     "bus-lane-inbound": {
       name: 'Bus lane',
@@ -105,7 +142,8 @@ var main = (function(){
       defaultWidth: 12,
       defaultHeight: 15,
       tileX: 48,
-      tileY: 0
+      tileY: 0,
+      owner: SEGMENT_OWNER_PUBLIC_TRANSIT
     },
     "bus-lane-outbound": {
       name: 'Bus lane',
@@ -113,14 +151,16 @@ var main = (function(){
       defaultWidth: 12,
       defaultHeight: 15,
       tileX: 60,
-      tileY: 0
+      tileY: 0,
+      owner: SEGMENT_OWNER_PUBLIC_TRANSIT
     },
     "small-median": {
       name: 'Small median',
       defaultWidth: 4,
       defaultHeight: 15,
       tileX: 16,
-      tileY: 0
+      tileY: 0,
+      owner: SEGMENT_OWNER_CAR
     },
   };
 
@@ -144,6 +184,7 @@ var main = (function(){
       { type: "sidewalk-tree", width: 6 },
       { type: "sidewalk", width: 6 }
     ],
+    /*
     80: [
       { type: "sidewalk", width: 6 },
       { type: "sidewalk-tree", width: 6 },
@@ -152,6 +193,20 @@ var main = (function(){
       { type: "drive-lane-inbound", width: 10 },
       { type: "planting-strip", width: 4 },
       { type: "drive-lane-outbound", width: 10 },
+      { type: "drive-lane-outbound", width: 10 },
+      { type: "bike-lane-outbound", width: 6 },
+      { type: "sidewalk-tree", width: 6 },
+      { type: "sidewalk", width: 6 }
+    ]
+    */
+    80: [
+      { type: "sidewalk", width: 6 },
+      { type: "sidewalk-tree", width: 6 },
+      { type: "bike-lane-inbound", width: 6 },
+      { type: "drive-lane-inbound", width: 10 },
+      { type: "drive-lane-inbound", width: 10 },
+      { type: "planting-strip", width: 2 },
+      { type: "planting-strip", width: 4 },
       { type: "drive-lane-outbound", width: 10 },
       { type: "bike-lane-outbound", width: 6 },
       { type: "sidewalk-tree", width: 6 },
@@ -266,6 +321,108 @@ var main = (function(){
     el.appendChild(wrapperEl);
   }
 
+  var widthEditHeld = false;
+  var resizeSegmentTimerId = -1;
+
+  function _onWidthEditClick(event) {
+    var el = event.target;
+
+    el.hold = true;
+    widthEditHeld = true;
+
+    if (document.activeElement != el) {
+      el.select();
+    }
+  }
+
+  function _onWidthEditMouseOver(event) {
+    if (!widthEditHeld) {
+      event.target.focus();
+      event.target.select();
+    }
+  }
+  function _onWidthEditMouseOut(event) {
+    var el = event.target;
+    if (!widthEditHeld) {
+      _loseAnyFocus();
+    }
+  }
+
+  function _loseAnyFocus() {
+    document.body.focus();
+  }
+
+  function _onWidthEditFocus(event) {
+    var el = event.target;
+
+    el.oldValue = el.value;
+  }
+
+  function _onWidthEditBlur(event) {
+    var el = event.target;
+
+    el.hold = false;
+    widthEditHeld = false;
+  }
+
+  function widthEditInputChanged(el, immediate) {
+    window.clearTimeout(resizeSegmentTimerId);
+
+    var width = el.value;
+
+    if (width) {
+      var segmentEl = el.segmentEl;
+
+      resizeSegmentTimerId = window.setTimeout(function() {
+        _resizeSegment(segmentEl, width * TILE_SIZE);
+      }, immediate ? 0 : 200);
+    }
+  }
+
+  function _onWidthEditInput(event) {
+    widthEditInputChanged(event.target, false);
+  }
+
+  function _onWidthEditKeyDown(event) {
+    var el = event.target;
+
+    switch (event.keyCode) {
+      case 13: // enter
+        _loseAnyFocus();
+        break;
+      case 27: // Esc
+        el.value = el.oldValue;
+        widthEditInputChanged(el, true);
+        _loseAnyFocus();
+        break;
+    }
+  }
+
+  function _normalizeSegmentWidth(width) {
+    if (width < MIN_SEGMENT_WIDTH) {
+      width = MIN_SEGMENT_WIDTH;
+    }
+    if (width > MAX_SEGMENT_WIDTH) {
+      width = MAX_SEGMENT_WIDTH;
+    }    
+
+    width = Math.round(width / SEGMENT_WIDTH_RESOLUTION) * SEGMENT_WIDTH_RESOLUTION;
+
+    return width;
+  }
+
+  function _resizeSegment(el, width) {
+    var width = _normalizeSegmentWidth(width / TILE_SIZE) * TILE_SIZE;
+
+    el.style.width = (width * visualZoom) + 'px';
+    el.setAttribute('width', width / TILE_SIZE);
+
+    var widthEl = el.querySelector('span.width');
+    if (widthEl) {
+      widthEl.innerHTML = width / TILE_SIZE + '\'';
+    }
+  }
+
   // TODO pass segment object instead of bits and pieces
   function _createSegment(type, width, isUnmovable, isTool) {
     var el = document.createElement('div');
@@ -276,11 +433,6 @@ var main = (function(){
       el.classList.add('unmovable');
     }
     
-    if (width) {
-      el.style.width = (width * visualZoom) + 'px';
-      el.setAttribute('width', width / TILE_SIZE);
-    }
-
     if (type == 'separator') {
       el.addEventListener('mouseover', _onSeparatorMouseOver, false);
       el.addEventListener('mouseout', _onSeparatorMouseOut, false);
@@ -295,18 +447,35 @@ var main = (function(){
 
         var innerEl = document.createElement('span');
         innerEl.classList.add('width');
-        innerEl.innerHTML = width / TILE_SIZE + '\'';
+        //innerEl.innerHTML = width / TILE_SIZE + '\'';
+        el.appendChild(innerEl);
+
+        var innerEl = document.createElement('input');
+        innerEl.setAttribute('type', 'text');
+        innerEl.classList.add('width-edit');
+        innerEl.segmentEl = el;
+        innerEl.value = width / TILE_SIZE;
+
+        innerEl.addEventListener('click', _onWidthEditClick, false);
+        innerEl.addEventListener('focus', _onWidthEditFocus, false);
+        innerEl.addEventListener('blur', _onWidthEditBlur, false);
+        innerEl.addEventListener('input', _onWidthEditInput, false);
+        innerEl.addEventListener('mouseover', _onWidthEditMouseOver, false);
+        innerEl.addEventListener('mouseout', _onWidthEditMouseOut, false);
+        innerEl.addEventListener('keydown', _onWidthEditKeyDown, false);
         el.appendChild(innerEl);
 
         var innerEl = document.createElement('span');
         innerEl.classList.add('grid');
         el.appendChild(innerEl);
-      }
-      else
-      {
-      	el.setAttribute('title', type);
+      } else {
+      	el.setAttribute('title', SEGMENT_INFO[type].name);
       }
     }
+
+    if (width) {
+      _resizeSegment(el, width);
+    }    
     return el;
   }
 
@@ -347,6 +516,7 @@ var main = (function(){
   function _segmentsChanged() {
     _createDataFromDom();
     _recalculateWidth();
+    _recalculateOwnerWidths();
   }
 
   function _createDataFromDom() {
@@ -366,12 +536,32 @@ var main = (function(){
     }
   }
 
+  function _recalculateOwnerWidths() {
+    var ownerWidths = {};
+
+    for (var id in SEGMENT_OWNERS) {
+      ownerWidths[id] = 0;
+    }
+
+    for (var i in data.segments) {
+      var segment = data.segments[i];
+
+      ownerWidths[SEGMENT_INFO[segment.type].owner] += segment.width;
+    }   
+
+    for (var id in SEGMENT_OWNERS) {
+      var el = document.querySelector('header .sizes [owner-id="' + id + '"]');
+
+      el.querySelector('.width').innerHTML = ownerWidths[id];
+      el.querySelector('.bar').style.width = (ownerWidths[id] * 3) + 'px';
+    }
+  }
+
   function _onBodyMouseDown(event) {
     var el = event.target;
 
-    /*while (el && !el.classList.contains('segment')) {
-      el = el.parentNode;
-    }*/
+    _loseAnyFocus();
+
     if (!el.classList.contains('segment') || el.classList.contains('unmovable')) {
       return;
     }
@@ -662,7 +852,21 @@ var main = (function(){
     _segmentsChanged();
   }
 
+  function _prepareUI() {
+    for (var id in SEGMENT_OWNERS) {
+      var el = document.createElement('li');
+
+      el.setAttribute('owner-id', id);
+
+      el.innerHTML = '<span class="name">' + id + '</span><span class="width"></span><span class="bar"></span>';
+
+      document.querySelector('header .sizes ul').appendChild(el);
+    }
+  }
+ 
   main.init = function(){
+    _prepareUI();
+
     _resizeStreetWidth();
 
     _getDefaultSegments();
