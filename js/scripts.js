@@ -203,7 +203,7 @@ var main = (function(){
       { type: "sidewalk", width: 6 },
       { type: "sidewalk-tree", width: 6 },
       { type: "bike-lane-inbound", width: 6 },
-      { type: "drive-lane-inbound", width: 10 },
+      { type: "drive-lane-inbound", width: 15 },
       { type: "drive-lane-inbound", width: 10 },
       { type: "planting-strip", width: 2 },
       { type: "planting-strip", width: 4 },
@@ -256,7 +256,7 @@ var main = (function(){
     }
   }
 
-  function _setSegmentContents(el, type, isTool) {
+  function _setSegmentContents(el, type, segmentWidth, isTool) {
     var segmentInfo = SEGMENT_INFO[type];
 
     var realWidth = segmentInfo.realWidth || segmentInfo.defaultWidth;
@@ -283,7 +283,12 @@ var main = (function(){
     var left = -tileOffsetX * TILE_SIZE * multiplier;
     var top = -tileOffsetY * TILE_SIZE * multiplier;
 
+
     if (!isTool) {
+      // center properly
+      var segmentRealWidth = segmentWidth / TILE_SIZE;
+      left += (segmentRealWidth - realWidth) * TILE_SIZE / 2;
+
       width *= visualZoom;
       height *= visualZoom;
     }
@@ -316,6 +321,11 @@ var main = (function(){
     imgEl.style.height = imgHeight + 'px';
     imgEl.style.left = (bkPositionX * visualZoom) + 'px';
     imgEl.style.top = (bkPositionY * visualZoom) + 'px';
+
+    var currentEl = el.querySelector('.image');
+    if (currentEl) {
+      currentEl.parentNode.removeChild(currentEl);
+    }
 
     wrapperEl.appendChild(imgEl);
     el.appendChild(wrapperEl);
@@ -360,6 +370,8 @@ var main = (function(){
 
   function _onWidthEditBlur(event) {
     var el = event.target;
+
+    widthEditInputChanged(el, true);
 
     el.hold = false;
     widthEditHeld = false;
@@ -421,6 +433,8 @@ var main = (function(){
     if (widthEl) {
       widthEl.innerHTML = width / TILE_SIZE + '\'';
     }
+
+    _setSegmentContents(el, el.getAttribute('type'), width);
   }
 
   // TODO pass segment object instead of bits and pieces
@@ -437,7 +451,7 @@ var main = (function(){
       el.addEventListener('mouseover', _onSeparatorMouseOver, false);
       el.addEventListener('mouseout', _onSeparatorMouseOut, false);
     } else {
-      _setSegmentContents(el, type, isTool);
+      _setSegmentContents(el, type, width, isTool);
 
       if (!isTool) {
         var innerEl = document.createElement('span');
