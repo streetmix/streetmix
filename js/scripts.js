@@ -562,7 +562,6 @@ var main = (function(){
 
         var innerEl = document.createElement('span');
         innerEl.classList.add('width');
-        //innerEl.innerHTML = width / TILE_SIZE + '\'';
         el.appendChild(innerEl);
 
         var dragHandleEl = document.createElement('span');

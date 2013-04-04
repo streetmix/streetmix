@@ -494,7 +494,10 @@ body.segment-resize-dragging * {
   top: 170px;
   width: 10px;
   height: 100px;
-  background: rgba(255, 255, 255, .2);  
+
+  background: radial-gradient(circle, white 20%, transparent 20%),
+              radial-gradient(circle, white 20%, transparent 20%) 50px 50px;
+  background-size: 10px 10px;
 }
 
 .segment .drag-handle {
@@ -517,16 +520,19 @@ body.segment-resize-dragging * {
 body .segment:not(.unmovable):hover .drag-handle,
 body .segment:not(.unmovable).hover .drag-handle {
   pointer-events: auto;
-  opacity: 1;
+  opacity: .5;
 
 }
 body .segment:not(.unmovable):hover .drag-handle:hover,
 body .segment:not(.unmovable).hover .drag-handle:hover {
-  background: yellow;
+  opacity: 1;
+}
+
+body.segment-resize-dragging .segment .drag-handle {
+  opacity: 0 !important;
 }
 
 .drag-handle.floating {
-  outline: 1px solid red;
   opacity: 1;
   left: 0;
   top: 0;
@@ -585,7 +591,7 @@ body .segment:not(.unmovable).hover .drag-handle:hover {
   position: absolute;
   left: 0;
   right: 0;
-  top: @canvasHeight - 35 + 10;
+  top: @canvasHeight - 35 + 9;
   height: 30px;
   padding-top: 5px;
   z-index: 150000;
@@ -649,7 +655,8 @@ body .segment:not(.unmovable).hover .drag-handle:hover {
 
   line-height: 25px;
   height: 25px;
-  border: none;
+  border: 1px solid transparent;
+  border-radius: 2px;
 
   font-family: 'Times New Roman', sans-serif;
   font-size: 16px;  
@@ -668,7 +675,11 @@ body .segment:not(.unmovable).hover .drag-handle:hover {
   outline: none;
 
   color: black;
-  background: white;
+  border-right-color: white;
+  border-bottom-color: white;
+  border-left-color: rgb(100, 100, 100);
+  border-top-color: rgb(100, 100, 100);
+  background: rgb(230, 230, 230);
   opacity: 1;
 }
 .segment:not(.unmovable).outside .width-edit {
