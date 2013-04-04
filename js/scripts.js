@@ -21,8 +21,11 @@ var main = (function(){
   var CANVAS_HEIGHT = 480;
   var CANVAS_BASELINE = CANVAS_HEIGHT - 35;
 
-  var DRAGGING_TYPE_MOVE = 1;
-  var DRAGGING_TYPE_CREATE = 2;
+  var DRAGGING_TYPE_SEGMENT_MOVE = 1;
+  var DRAGGING_TYPE_SEGMENT_RESIZE = 2;
+
+  var SEGMENT_DRAGGING_TYPE_MOVE = 1;
+  var SEGMENT_DRAGGING_TYPE_CREATE = 2;
 
   var WIDTH_RESIZE_DELAY = 100;
 
@@ -225,6 +228,9 @@ var main = (function(){
 
     segments: []
   };
+
+  var draggingActive = false;
+  var draggingType;
 
   var segmentDraggingStatus = {
     type: null,
@@ -680,19 +686,21 @@ var main = (function(){
       return;
     }
 
-    segmentDraggingStatus.active = true;
+    draggingActive = true;
+    draggingType = DRAGGING_TYPE_SEGMENT_MOVE;
     document.body.classList.add('dragging');
+    document.body.classList.add('segment-move-dragging');
 
     segmentDraggingStatus.originalEl = el;
 
     if (segmentDraggingStatus.originalEl.classList.contains('tool')) {
-      segmentDraggingStatus.type = DRAGGING_TYPE_CREATE;
+      segmentDraggingStatus.type = SEGMENT_DRAGGING_TYPE_CREATE;
     } else {
-      segmentDraggingStatus.type = DRAGGING_TYPE_MOVE;      
+      segmentDraggingStatus.type = SEGMENT_DRAGGING_TYPE_MOVE;      
     }
 
     segmentDraggingStatus.originalType = segmentDraggingStatus.originalEl.getAttribute('type');
-    if (segmentDraggingStatus.type == DRAGGING_TYPE_MOVE) {
+    if (segmentDraggingStatus.type == SEGMENT_DRAGGING_TYPE_MOVE) {
       segmentDraggingStatus.originalWidth = segmentDraggingStatus.originalEl.offsetWidth;
     } else {
       segmentDraggingStatus.originalWidth = segmentDraggingStatus.originalEl.offsetWidth / WIDTH_TOOL_MULTIPLIER * WIDTH_MULTIPLIER;
@@ -701,7 +709,7 @@ var main = (function(){
     segmentDraggingStatus.elX = event.pageX - (event.offsetX || event.layerX);
     segmentDraggingStatus.elY = event.pageY - (event.offsetY || event.layerY);
 
-    if (segmentDraggingStatus.type == DRAGGING_TYPE_CREATE) {
+    if (segmentDraggingStatus.type == SEGMENT_DRAGGING_TYPE_CREATE) {
       segmentDraggingStatus.elY -= 300;
       segmentDraggingStatus.elX -= segmentDraggingStatus.originalWidth / 3;
     }
@@ -717,7 +725,7 @@ var main = (function(){
     segmentDraggingStatus.el.style.width = segmentDraggingStatus.originalWidth + 'px';
     document.body.appendChild(segmentDraggingStatus.el);
 
-    if (segmentDraggingStatus.type == DRAGGING_TYPE_CREATE) {
+    if (segmentDraggingStatus.type == SEGMENT_DRAGGING_TYPE_CREATE) {
       if ((data.streetWidth != STREET_WIDTH_ADAPTIVE) && 
           (data.occupiedWidth + (segmentDraggingStatus.originalWidth / TILE_SIZE) > data.streetWidth)) {
         segmentDraggingStatus.el.classList.add('warning');
@@ -727,7 +735,7 @@ var main = (function(){
     segmentDraggingStatus.el.style.left = segmentDraggingStatus.elX + 'px';
     segmentDraggingStatus.el.style.top = segmentDraggingStatus.elY + 'px';
 
-    if (segmentDraggingStatus.type == DRAGGING_TYPE_MOVE) {
+    if (segmentDraggingStatus.type == SEGMENT_DRAGGING_TYPE_MOVE) {
       segmentDraggingStatus.originalEl.classList.add('dragged-out');
       if (segmentDraggingStatus.originalEl.previousSibling) {
         segmentDraggingStatus.originalEl.previousSibling.parentNode.removeChild(segmentDraggingStatus.originalEl.previousSibling);
@@ -742,7 +750,7 @@ var main = (function(){
   }
 
   function _onBodyMouseMove(event) {
-    if (segmentDraggingStatus.active) {
+    if (draggingActive && draggingType == DRAGGING_TYPE_SEGMENT_MOVE) {
 
       var deltaX = event.pageX - segmentDraggingStatus.mouseX;
       var deltaY = event.pageY - segmentDraggingStatus.mouseY;
@@ -767,7 +775,7 @@ var main = (function(){
   }
 
   function _onBodyMouseUp(event) {
-    if (!segmentDraggingStatus.active) {
+    if (!draggingActive) {
       return;
     }
 
@@ -777,8 +785,9 @@ var main = (function(){
     }
     var withinCanvas = !!el;
 
-    segmentDraggingStatus.active = false;
+    draggingActive = false;
     document.body.classList.remove('dragging');
+    document.body.classList.remove('segment-move-dragging');
 
     var placeEl = 
         document.querySelector('#editable-street-section [type="separator"].hover');
@@ -847,7 +856,7 @@ var main = (function(){
   }
 
   function _dragOutOriginalIfNecessary() {
-    if ((segmentDraggingStatus.type == DRAGGING_TYPE_MOVE) && 
+    if ((segmentDraggingStatus.type == SEGMENT_DRAGGING_TYPE_MOVE) && 
         segmentDraggingStatus.originalDraggedOut) {
       var el = _createSegment('separator');
       document.querySelector('#editable-street-section').insertBefore(el, 

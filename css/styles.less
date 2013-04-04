@@ -517,24 +517,24 @@ body.dragging * {
   cursor: -webkit-grabbing;
   cursor: -moz-grabbing;
 }
-body.dragging #editable-street-section .segment {
+body.segment-move-dragging #editable-street-section .segment {
   -webkit-transition: width 100ms, margin-left 100ms;
   -moz-transition: width 100ms, margin-left 100ms;
   transition: width 100ms, margin-left 100ms;
 }
 
-body.dragging #editable-street-section > div:not([type='separator']) {
+body.segment-move-dragging #editable-street-section > div:not([type='separator']) {
   pointer-events: none;
 }
 
-body.dragging #editable-street-section > div[type='separator'] {
+body.segment-move-dragging #editable-street-section > div[type='separator'] {
   pointer-events: auto;
   -webkit-transition: width 100ms;
 }
-body.dragging #editable-street-section > div[type='separator'].hover {
+body.segment-move-dragging #editable-street-section > div[type='separator'].hover {
   width: @hoverSeparatorWidth;
 }
-body.dragging #editable-street-section > div[type='separator'].hover + div {
+body.segment-move-dragging #editable-street-section > div[type='separator'].hover + div {
   margin-left: @hoverSeparatorWidth - @separatorWidth;
 }
 
