@@ -829,8 +829,7 @@ var main = (function(){
     segmentMoveDragging.el.classList.add('segment');
     segmentMoveDragging.el.classList.add('dragging');
     segmentMoveDragging.el.setAttribute('type', segmentMoveDragging.originalType);
-    _setSegmentContents(segmentMoveDragging.el, segmentMoveDragging.originalType);
-    segmentMoveDragging.el.style.width = segmentMoveDragging.originalWidth + 'px';
+    _setSegmentContents(segmentMoveDragging.el, segmentMoveDragging.originalType, segmentMoveDragging.originalWidth);
     document.body.appendChild(segmentMoveDragging.el);
 
     segmentMoveDragging.el.style.left = segmentMoveDragging.elX + 'px';
