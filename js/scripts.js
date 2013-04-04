@@ -232,7 +232,13 @@ var main = (function(){
   var draggingActive = false;
   var draggingType;
 
-  var segmentDraggingStatus = {
+  var segmentResizeDragging = {
+    floatingEl: null,
+    mouseX: null,
+    mouseY: null
+  };
+
+  var segmentMoveDragging = {
     type: null,
     active: false,
     mouseX: null,
@@ -677,12 +683,38 @@ var main = (function(){
     }
   }
 
+  function _getElAbsolutePos(el) {
+    var pos = [0, 0];
+
+    do {
+      pos[0] += el.offsetLeft;
+      pos[1] += el.offsetTop;
+
+      el = el.offsetParent;
+    } while (el);
+
+    return pos;
+  }
+
   function _handleSegmentResizeStart(event) {
     var el = event.target;
 
     draggingActive = true;
     draggingType = DRAGGING_TYPE_SEGMENT_RESIZE;
     document.body.classList.add('segment-resize-dragging');
+
+    var pos = _getElAbsolutePos(el);
+
+    segmentResizeDragging.floatingEl = document.createElement('div');
+    segmentResizeDragging.floatingEl.classList.add('drag-handle');
+    segmentResizeDragging.floatingEl.classList.add('floating');
+
+    segmentResizeDragging.floatingEl.style.left = pos[0] + 'px';
+    segmentResizeDragging.floatingEl.style.top = pos[1] + 'px';
+    document.body.appendChild(segmentResizeDragging.floatingEl);
+
+    segmentResizeDragging.mouseX = event.pageX;
+    segmentResizeDragging.mouseY = event.pageY;
   }
 
   function _handleSegmentMoveStart(event) {
@@ -692,59 +724,59 @@ var main = (function(){
     draggingType = DRAGGING_TYPE_SEGMENT_MOVE;
     document.body.classList.add('segment-move-dragging');
 
-    segmentDraggingStatus.originalEl = el;
+    segmentMoveDragging.originalEl = el;
 
-    if (segmentDraggingStatus.originalEl.classList.contains('tool')) {
-      segmentDraggingStatus.type = SEGMENT_DRAGGING_TYPE_CREATE;
+    if (segmentMoveDragging.originalEl.classList.contains('tool')) {
+      segmentMoveDragging.type = SEGMENT_DRAGGING_TYPE_CREATE;
     } else {
-      segmentDraggingStatus.type = SEGMENT_DRAGGING_TYPE_MOVE;      
+      segmentMoveDragging.type = SEGMENT_DRAGGING_TYPE_MOVE;      
     }
 
-    segmentDraggingStatus.originalType = segmentDraggingStatus.originalEl.getAttribute('type');
-    if (segmentDraggingStatus.type == SEGMENT_DRAGGING_TYPE_MOVE) {
-      segmentDraggingStatus.originalWidth = segmentDraggingStatus.originalEl.offsetWidth;
+    segmentMoveDragging.originalType = segmentMoveDragging.originalEl.getAttribute('type');
+    if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_MOVE) {
+      segmentMoveDragging.originalWidth = segmentMoveDragging.originalEl.offsetWidth;
     } else {
-      segmentDraggingStatus.originalWidth = segmentDraggingStatus.originalEl.offsetWidth / WIDTH_TOOL_MULTIPLIER * WIDTH_MULTIPLIER;
+      segmentMoveDragging.originalWidth = segmentMoveDragging.originalEl.offsetWidth / WIDTH_TOOL_MULTIPLIER * WIDTH_MULTIPLIER;
     }
 
-    segmentDraggingStatus.elX = event.pageX - (event.offsetX || event.layerX);
-    segmentDraggingStatus.elY = event.pageY - (event.offsetY || event.layerY);
+    segmentMoveDragging.elX = event.pageX - (event.offsetX || event.layerX);
+    segmentMoveDragging.elY = event.pageY - (event.offsetY || event.layerY);
 
-    if (segmentDraggingStatus.type == SEGMENT_DRAGGING_TYPE_CREATE) {
-      segmentDraggingStatus.elY -= 300;
-      segmentDraggingStatus.elX -= segmentDraggingStatus.originalWidth / 3;
+    if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_CREATE) {
+      segmentMoveDragging.elY -= 300;
+      segmentMoveDragging.elX -= segmentMoveDragging.originalWidth / 3;
     }
 
-    segmentDraggingStatus.mouseX = event.pageX;
-    segmentDraggingStatus.mouseY = event.pageY;
+    segmentMoveDragging.mouseX = event.pageX;
+    segmentMoveDragging.mouseY = event.pageY;
 
-    segmentDraggingStatus.el = document.createElement('div');
-    segmentDraggingStatus.el.classList.add('segment');
-    segmentDraggingStatus.el.classList.add('dragging');
-    segmentDraggingStatus.el.setAttribute('type', segmentDraggingStatus.originalType);
-    _setSegmentContents(segmentDraggingStatus.el, segmentDraggingStatus.originalType);
-    segmentDraggingStatus.el.style.width = segmentDraggingStatus.originalWidth + 'px';
-    document.body.appendChild(segmentDraggingStatus.el);
+    segmentMoveDragging.el = document.createElement('div');
+    segmentMoveDragging.el.classList.add('segment');
+    segmentMoveDragging.el.classList.add('dragging');
+    segmentMoveDragging.el.setAttribute('type', segmentMoveDragging.originalType);
+    _setSegmentContents(segmentMoveDragging.el, segmentMoveDragging.originalType);
+    segmentMoveDragging.el.style.width = segmentMoveDragging.originalWidth + 'px';
+    document.body.appendChild(segmentMoveDragging.el);
 
-    if (segmentDraggingStatus.type == SEGMENT_DRAGGING_TYPE_CREATE) {
+    if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_CREATE) {
       if ((data.streetWidth != STREET_WIDTH_ADAPTIVE) && 
-          (data.occupiedWidth + (segmentDraggingStatus.originalWidth / TILE_SIZE) > data.streetWidth)) {
-        segmentDraggingStatus.el.classList.add('warning');
+          (data.occupiedWidth + (segmentMoveDragging.originalWidth / TILE_SIZE) > data.streetWidth)) {
+        segmentMoveDragging.el.classList.add('warning');
       }
     }
 
-    segmentDraggingStatus.el.style.left = segmentDraggingStatus.elX + 'px';
-    segmentDraggingStatus.el.style.top = segmentDraggingStatus.elY + 'px';
+    segmentMoveDragging.el.style.left = segmentMoveDragging.elX + 'px';
+    segmentMoveDragging.el.style.top = segmentMoveDragging.elY + 'px';
 
-    if (segmentDraggingStatus.type == SEGMENT_DRAGGING_TYPE_MOVE) {
-      segmentDraggingStatus.originalEl.classList.add('dragged-out');
-      if (segmentDraggingStatus.originalEl.previousSibling) {
-        segmentDraggingStatus.originalEl.previousSibling.parentNode.removeChild(segmentDraggingStatus.originalEl.previousSibling);
+    if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_MOVE) {
+      segmentMoveDragging.originalEl.classList.add('dragged-out');
+      if (segmentMoveDragging.originalEl.previousSibling) {
+        segmentMoveDragging.originalEl.previousSibling.parentNode.removeChild(segmentMoveDragging.originalEl.previousSibling);
       }
-      if (segmentDraggingStatus.originalEl.nextSibling) {
-        segmentDraggingStatus.originalEl.nextSibling.parentNode.removeChild(segmentDraggingStatus.originalEl.nextSibling);
+      if (segmentMoveDragging.originalEl.nextSibling) {
+        segmentMoveDragging.originalEl.nextSibling.parentNode.removeChild(segmentMoveDragging.originalEl.nextSibling);
       }
-      segmentDraggingStatus.originalDraggedOut = true;
+      segmentMoveDragging.originalDraggedOut = true;
     }
   }
 
@@ -767,17 +799,17 @@ var main = (function(){
   }
 
   function _handleSegmentMoveDragging(event) {
-    var deltaX = event.pageX - segmentDraggingStatus.mouseX;
-    var deltaY = event.pageY - segmentDraggingStatus.mouseY;
+    var deltaX = event.pageX - segmentMoveDragging.mouseX;
+    var deltaY = event.pageY - segmentMoveDragging.mouseY;
 
-    segmentDraggingStatus.elX += deltaX;
-    segmentDraggingStatus.elY += deltaY;
+    segmentMoveDragging.elX += deltaX;
+    segmentMoveDragging.elY += deltaY;
 
-    segmentDraggingStatus.el.style.left = segmentDraggingStatus.elX + 'px';
-    segmentDraggingStatus.el.style.top = segmentDraggingStatus.elY + 'px';
+    segmentMoveDragging.el.style.left = segmentMoveDragging.elX + 'px';
+    segmentMoveDragging.el.style.top = segmentMoveDragging.elY + 'px';
 
-    segmentDraggingStatus.mouseX = event.pageX;
-    segmentDraggingStatus.mouseY = event.pageY;
+    segmentMoveDragging.mouseX = event.pageX;
+    segmentMoveDragging.mouseY = event.pageY;
   }
 
   function _handleSegmentResizeDragging(event) {
@@ -820,7 +852,7 @@ var main = (function(){
         document.querySelector('#editable-street-section [type="separator"].hover');
 
     // Doesn’t fit
-    if (placeEl && segmentDraggingStatus.el.classList.contains('warning')) {
+    if (placeEl && segmentMoveDragging.el.classList.contains('warning')) {
       placeEl = false;
       withinCanvas = false;
 
@@ -831,18 +863,18 @@ var main = (function(){
       var el = _createSegment('separator');
       document.querySelector('#editable-street-section').insertBefore(el, placeEl);
       
-      var el = _createSegment(segmentDraggingStatus.originalType, segmentDraggingStatus.originalWidth);
+      var el = _createSegment(segmentMoveDragging.originalType, segmentMoveDragging.originalWidth);
       document.querySelector('#editable-street-section').insertBefore(el, placeEl);
 
       // animation
       // TODO: Move all to CSS
       el.style.width = 50 + 'px';
-      el.style.left = (-(segmentDraggingStatus.originalWidth - 50) / 2) + 'px';
+      el.style.left = (-(segmentMoveDragging.originalWidth - 50) / 2) + 'px';
       el.style.webkitTransform = 'scaleX(.8)';
       el.style.MozTransform = 'scaleX(.8)';
 
       window.setTimeout(function() {
-        el.style.width = segmentDraggingStatus.originalWidth + 'px';
+        el.style.width = segmentMoveDragging.originalWidth + 'px';
         el.style.left = 0;
         el.style.webkitTransform = 'none';
         el.style.MozTransform = 'none';
@@ -853,28 +885,28 @@ var main = (function(){
 
       data.modified = true;
 
-      segmentDraggingStatus.el.parentNode.removeChild(segmentDraggingStatus.el);
+      segmentMoveDragging.el.parentNode.removeChild(segmentMoveDragging.el);
 
     } else {
       if (!withinCanvas) {
         _dragOutOriginalIfNecessary();
       } else {
-        segmentDraggingStatus.originalEl.classList.remove('dragged-out');
+        segmentMoveDragging.originalEl.classList.remove('dragged-out');
 
         var el = _createSegment('separator');
         document.querySelector('#editable-street-section').insertBefore(el, 
-            segmentDraggingStatus.originalEl);
+            segmentMoveDragging.originalEl);
 
         var el = _createSegment('separator');
         document.querySelector('#editable-street-section').insertBefore(el, 
-            segmentDraggingStatus.originalEl.nextSibling);
+            segmentMoveDragging.originalEl.nextSibling);
 
       }
 
-      segmentDraggingStatus.el.classList.add('poof');
+      segmentMoveDragging.el.classList.add('poof');
       window.setTimeout(function() {
-        if (segmentDraggingStatus.el && segmentDraggingStatus.el.parentNode) {
-          segmentDraggingStatus.el.parentNode.removeChild(segmentDraggingStatus.el);
+        if (segmentMoveDragging.el && segmentMoveDragging.el.parentNode) {
+          segmentMoveDragging.el.parentNode.removeChild(segmentMoveDragging.el);
         }
       }, 250);
     }
@@ -883,6 +915,8 @@ var main = (function(){
   function _handleSegmentResizeEnd(event) {
     draggingActive = false;
     document.body.classList.remove('segment-resize-dragging');
+
+    segmentResizeDragging.floatingEl.parentNode.removeChild(segmentResizeDragging.floatingEl);
   }
 
   function _onBodyMouseUp(event) {
@@ -903,15 +937,15 @@ var main = (function(){
   }
 
   function _dragOutOriginalIfNecessary() {
-    if ((segmentDraggingStatus.type == SEGMENT_DRAGGING_TYPE_MOVE) && 
-        segmentDraggingStatus.originalDraggedOut) {
+    if ((segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_MOVE) && 
+        segmentMoveDragging.originalDraggedOut) {
       var el = _createSegment('separator');
       document.querySelector('#editable-street-section').insertBefore(el, 
-          segmentDraggingStatus.originalEl);
+          segmentMoveDragging.originalEl);
 
-      segmentDraggingStatus.originalEl.style.width = 0;
+      segmentMoveDragging.originalEl.style.width = 0;
       window.setTimeout(function() {
-        segmentDraggingStatus.originalEl.parentNode.removeChild(segmentDraggingStatus.originalEl);
+        segmentMoveDragging.originalEl.parentNode.removeChild(segmentMoveDragging.originalEl);
         _recalculateSeparators();
         _segmentsChanged();
       }, WIDTH_RESIZE_DELAY);
@@ -919,7 +953,7 @@ var main = (function(){
       _recalculateSeparators();
       _segmentsChanged();
 
-      segmentDraggingStatus.originalDraggedOut = false;
+      segmentMoveDragging.originalDraggedOut = false;
     }
   }
 

@@ -336,16 +336,16 @@ body.segment-resize-dragging * {
   cursor: col-resize !important; 
 }
 
-
-
-.segment .drag-handle {
+.drag-handle {
   position: absolute;
   display: block;
   top: 170px;
   width: 10px;
   height: 100px;
-  background: rgba(255, 255, 255, .2);
+  background: rgba(255, 255, 255, .2);  
+}
 
+.segment .drag-handle {
   z-index: 10000;
 
   pointer-events: none;
@@ -370,6 +370,19 @@ body:not(.segment-resize-dragging) .segment:not(.unmovable):hover .drag-handle {
 body:not(.segment-resize-dragging) .segment:not(.unmovable):hover .drag-handle:hover {
   background: yellow;
 }
+
+.drag-handle.floating {
+  outline: 1px solid red;
+  opacity: 1;
+  left: 0;
+  top: 0;
+  margin: 0;
+  width: 30px;
+  height: 120px;
+  pointer-events: none;
+  z-index: 50000;
+}
+
 
 
 .segment .grid {
