@@ -249,6 +249,11 @@ header .sizes .bar {
   -moz-transition: width 150ms, left 150ms, -moz-transform 150ms;
   transition: width 150ms, left 150ms, transform 150ms;
 }
+.segment.immediate-resize {
+  -webkit-transition: none;
+  -moz-transition: none;
+  transition: none;
+}
 .segment:not(.unmovable):hover,
 .segment:not(.unmovable).hover {
   background: rgba(255, 255, 255, .2);

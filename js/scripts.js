@@ -406,10 +406,10 @@ var main = (function(){
       var segmentEl = el.segmentEl;
 
       if (immediate) {
-        _resizeSegment(segmentEl, width * TILE_SIZE, false);
+        _resizeSegment(segmentEl, width * TILE_SIZE, false, false, true);
       } else {
         resizeSegmentTimerId = window.setTimeout(function() {
-          _resizeSegment(segmentEl, width * TILE_SIZE, false);
+          _resizeSegment(segmentEl, width * TILE_SIZE, false, false, true);
         }, 200);
       }
     }
@@ -473,7 +473,7 @@ var main = (function(){
     width -= SEGMENT_WIDTH_CLICK_INCREMENT;
     width = _normalizeSegmentWidth(width);
 
-    _resizeSegment(segmentEl, width * TILE_SIZE, true);
+    _resizeSegment(segmentEl, width * TILE_SIZE, true, false, false);
   }
 
   function _onWidthIncrementClick(event) {
@@ -486,11 +486,19 @@ var main = (function(){
     width += SEGMENT_WIDTH_CLICK_INCREMENT;
     width = _normalizeSegmentWidth(width);
 
-    _resizeSegment(segmentEl, width * TILE_SIZE, true);
+    _resizeSegment(segmentEl, width * TILE_SIZE, true, false, false);
   }
 
-  function _resizeSegment(el, width, updateEdit, isTool, initial) {
+  function _resizeSegment(el, width, updateEdit, isTool, immediate) {
     var width = _normalizeSegmentWidth(width / TILE_SIZE) * TILE_SIZE;
+
+    if (immediate) {
+      el.classList.add('immediate-resize');
+
+      window.setTimeout(function() {
+        el.classList.remove('immediate-resize');
+      }, 100);
+    }
 
     el.style.width = (width * visualZoom) + 'px';
     el.setAttribute('width', width / TILE_SIZE);
@@ -608,7 +616,7 @@ var main = (function(){
     }
 
     if (width) {
-      _resizeSegment(el, width, true, isTool);
+      _resizeSegment(el, width, true, isTool, true);
     }    
     return el;
   }
@@ -847,10 +855,7 @@ var main = (function(){
 
     var width = segmentResizeDragging.origWidth + deltaFromOriginal / TILE_SIZE * 2;
 
-    //console.log(width);
-
-    _resizeSegment(segmentResizeDragging.segmentEl, width * TILE_SIZE, true, false, false);
-  //  function _resizeSegment(el, width, updateEdit, isTool, initial) {
+    _resizeSegment(segmentResizeDragging.segmentEl, width * TILE_SIZE, true, false, true);
 
     segmentResizeDragging.mouseX = event.pageX;
     segmentResizeDragging.mouseY = event.pageY;
