@@ -533,6 +533,16 @@ var main = (function(){
         //innerEl.innerHTML = width / TILE_SIZE + '\'';
         el.appendChild(innerEl);
 
+        var dragHandleEl = document.createElement('span');
+        dragHandleEl.classList.add('drag-handle');
+        dragHandleEl.classList.add('left');
+        el.appendChild(dragHandleEl);
+
+        var dragHandleEl = document.createElement('span');
+        dragHandleEl.classList.add('drag-handle');
+        dragHandleEl.classList.add('right');
+        el.appendChild(dragHandleEl);
+
         var widthEditCanvasEl = document.createElement('span');
         widthEditCanvasEl.classList.add('width-edit-canvas');
 

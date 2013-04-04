@@ -331,6 +331,40 @@ header .sizes .bar {
   -webkit-transform: scaleX(0);
 }
 
+.segment .drag-handle {
+  position: absolute;
+  display: block;
+  top: 150px;
+  width: 10px;
+  height: 100px;
+  background: red;
+
+  z-index: 10000;
+
+  pointer-events: none;
+  opacity: 0;
+
+  cursor: col-resize;
+
+  margin: -10px;
+  border: 10px solid transparent;
+}
+.segment .drag-handle.left {
+  left: -5px;
+}
+.segment .drag-handle.right {
+  right: -5px;
+}
+.segment:not(.unmovable):hover .drag-handle {
+  pointer-events: auto;
+  opacity: 1;
+
+}
+.segment:not(.unmovable):hover .drag-handle:hover {
+  background: yellow;
+}
+
+
 .segment .grid {
   position: absolute;
   left: 0;
