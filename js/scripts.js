@@ -638,6 +638,8 @@ var main = (function(){
           segment.unmovable);
       document.querySelector('#editable-street-section').appendChild(el);
 
+      data.segments[i].el = el;
+
       var el = _createSegment('separator');
       document.querySelector('#editable-street-section').appendChild(el);
     }
@@ -1099,15 +1101,15 @@ var main = (function(){
     var el = event.target;
     var newStreetWidth = el.value;
 
-    var replaceWithDefault = false;
+    //var replaceWithDefault = false;
 
     if (newStreetWidth == data.streetWidth) {
       return;
     }
 
-    if (!data.modified || newStreetWidth == STREET_WIDTH_ADAPTIVE) {
-      replaceWithDefault = true;
-    } else if (data.occupiedWidth > newStreetWidth) {
+    //if (!data.modified || newStreetWidth == STREET_WIDTH_ADAPTIVE) {
+      //replaceWithDefault = true;
+    /*} else if (data.occupiedWidth > newStreetWidth) {
       var reply = confirm(
           'Your segments are too wide for that type of street. ' +
           'Do you want to replace them with a default ' + newStreetWidth + '\' street?');
@@ -1117,16 +1119,20 @@ var main = (function(){
       } 
 
       replaceWithDefault = true;
-    }
+    }*/
 
     data.streetWidth = newStreetWidth;
     _resizeStreetWidth();
 
-    if (replaceWithDefault && (data.streetWidth != STREET_WIDTH_ADAPTIVE)) {
-      _getDefaultSegments();
-    }
+    initializing = true;
+
+    //if (replaceWithDefault && (data.streetWidth != STREET_WIDTH_ADAPTIVE)) {
+      //_getDefaultSegments();
+    //}
     _createDomFromData();
     _segmentsChanged();
+
+    initializing = false;    
   }
 
   function _prepareUI() {
@@ -1155,9 +1161,9 @@ var main = (function(){
     _createDomFromData();
     _segmentsChanged();
 
-    _onResize();
+    initializing = false;    
 
-    initializing = false;
+    _onResize();
 
     document.querySelector('#street-width').addEventListener('change', _onStreetWidthChange, false);
 
