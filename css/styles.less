@@ -34,34 +34,25 @@ header {
   height: @headerHeight;
   margin: 0 auto;
 
-  background: url(../images/ui/title.png) center 20px no-repeat;
-
   z-index: 10000;
-}
 
-header {
   color: white;
   font-family: Arial, sans-serif;
   font-size: 12px;  
-
-  width: 460px;
 }
 
 header .options {
   height: 30px;
   width: 400px;
   margin: 0 auto;
-  margin-top: 100px;
+  margin-top: 20px;
   text-align: center;
 }
 
 header .sizes {
   width: 400px;
   margin: 0 auto;
-  margin-top: 20px;
-
   pointer-events: none;
-  /*outline: 1px solid red;*/
 }
 header .sizes ul {
   margin-left: 40px;
@@ -215,18 +206,37 @@ header .sizes .bar {
   right: 100px;
   height: @toolsHeight;
   bottom: 0;
+  padding-right: 10px;
 
   background: url(../images/toolbox-bk.png);
 
   box-shadow: 0 -2px 8px rgba(0, 0, 0, .25);
   border-radius: 10px 10px 0 0;
 
-  text-align: center;
+  text-align: right;
 
   z-index: 2000;
 
   -webkit-user-select: none;
   user-select: none;
+}
+#tools h1 {
+  position: absolute;
+  left: 0;
+  top: 25px;
+  display: block;
+  width: 360px;
+  height: 45px;
+  padding: 0;
+  margin: 0;
+
+  pointer-events: none;
+
+  text-align: left;
+  text-indent: -9999px;
+
+  background: url(../images/ui/title-dark.png) 0 0 no-repeat;
+  background-size: 360px 45px;
 }
 
 #editable-street-canvas {

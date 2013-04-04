@@ -90,7 +90,7 @@ var whatIsThis = (function(){
     cssCode.push('#what-is-this-teaser {');
     cssCode.push('  background: white;');
     cssCode.push('  box-sizing: border-box;');
-    cssCode.push('  width: 115px;');
+    cssCode.push('  width: 40px;');
     cssCode.push('  height: 45px;');
     cssCode.push('  line-height: 52px;');
     cssCode.push('  left: auto;');
@@ -210,7 +210,7 @@ var whatIsThis = (function(){
 
     teaserEl = document.createElement('div');  
     teaserEl.id = 'what-is-this-teaser';
-    teaserEl.innerHTML = 'What is this?';
+    teaserEl.innerHTML = '?';
     document.body.appendChild(teaserEl);
 
     shieldEl = document.createElement('div');  
