@@ -613,10 +613,12 @@ body.segment-resize-dragging .segment .drag-handle {
 .segment:not(.unmovable).hover .width-edit-canvas {
   pointer-events: auto;
 
-  //margin: -20px;
-  //border: 20px solid transparent;
+  margin: -20px;
+  border: 20px solid transparent;
 
   .background-dirt-highlight;
+
+  background-clip: content-box;
 }
 
 .segment .width-edit-canvas .decrement,

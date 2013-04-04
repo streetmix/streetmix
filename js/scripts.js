@@ -528,7 +528,7 @@ var main = (function(){
       if (width < MIN_WIDTH_EDIT_CANVAS_WIDTH) {
         widthEditCanvasEl.style.width = MIN_WIDTH_EDIT_CANVAS_WIDTH + 'px';
         widthEditCanvasEl.style.marginLeft = 
-            (width - MIN_WIDTH_EDIT_CANVAS_WIDTH) / 2 + 'px';
+            ((width - MIN_WIDTH_EDIT_CANVAS_WIDTH) / 2 - 20) + 'px';
       } else {
         widthEditCanvasEl.style.width = '';
         widthEditCanvasEl.style.marginLeft = '';
