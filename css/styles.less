@@ -69,8 +69,6 @@ header .options {
 }
 
 #street-width {
-  text-align: right;
-
   font-family: 'Times New Roman', serif;
   font-style: italic;
   font-size: 14px;
@@ -763,6 +761,24 @@ body.segment-move-dragging #editable-street-section > div[type='separator'].hove
   z-index: 10000;
 }
 
+#loading {
+  position: fixed;
+  z-index: 9999999;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  padding-top: 400px;
+
+  background: rgba(255, 255, 255, .8);
+
+  font-size: 16px;
+  font-family: Arial;
+  text-align: center;
+}
+#loading.hidden {
+  display: none;
+}
 
 #warning {
   position: fixed;
