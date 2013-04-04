@@ -34,6 +34,7 @@ var main = (function(){
   var MIN_SEGMENT_WIDTH = 2;
   var MAX_SEGMENT_WIDTH = 50;
   var SEGMENT_WIDTH_RESOLUTION = .5;
+  var SEGMENT_WIDTH_CLICK_INCREMENT = SEGMENT_WIDTH_RESOLUTION;
 
   var SEGMENT_OWNER_CAR = 'car';
   var SEGMENT_OWNER_BIKE = 'bike';
@@ -385,10 +386,10 @@ var main = (function(){
       var segmentEl = el.segmentEl;
 
       if (immediate) {
-        _resizeSegment(segmentEl, width * TILE_SIZE);
+        _resizeSegment(segmentEl, width * TILE_SIZE, false);
       } else {
         resizeSegmentTimerId = window.setTimeout(function() {
-          _resizeSegment(segmentEl, width * TILE_SIZE);
+          _resizeSegment(segmentEl, width * TILE_SIZE, false);
         }, 200);
       }
     }
@@ -442,7 +443,33 @@ var main = (function(){
     return widthText;
   }
 
-  function _resizeSegment(el, width, isTool) {
+  function _onWidthDecrementClick(event) {
+    var el = event.target;
+
+    var segmentEl = el.segmentEl;
+
+    var width = parseFloat(segmentEl.getAttribute('width'));
+
+    width -= SEGMENT_WIDTH_CLICK_INCREMENT;
+    width = _normalizeSegmentWidth(width);
+
+    _resizeSegment(segmentEl, width * TILE_SIZE, true);
+  }
+
+  function _onWidthIncrementClick(event) {
+    var el = event.target;
+
+    var segmentEl = el.segmentEl;
+
+    var width = parseFloat(segmentEl.getAttribute('width'));
+
+    width += SEGMENT_WIDTH_CLICK_INCREMENT;
+    width = _normalizeSegmentWidth(width);
+
+    _resizeSegment(segmentEl, width * TILE_SIZE, true);
+  }
+
+  function _resizeSegment(el, width, updateEdit, isTool, initial) {
     var width = _normalizeSegmentWidth(width / TILE_SIZE) * TILE_SIZE;
 
     el.style.width = (width * visualZoom) + 'px';
@@ -454,6 +481,13 @@ var main = (function(){
     }
 
     _setSegmentContents(el, el.getAttribute('type'), width, isTool);
+
+    if (updateEdit) {
+      var editEl = el.querySelector('.width-edit');
+      if (editEl) {
+        editEl.value = width / TILE_SIZE;
+      }
+    }
   }
 
   // TODO pass segment object instead of bits and pieces
@@ -483,6 +517,16 @@ var main = (function(){
         //innerEl.innerHTML = width / TILE_SIZE + '\'';
         el.appendChild(innerEl);
 
+        var widthEditCanvasEl = document.createElement('span');
+        widthEditCanvasEl.classList.add('width-edit-canvas');
+
+        var innerEl = document.createElement('button');
+        innerEl.classList.add('decrement');
+        innerEl.innerHTML = '–';
+        innerEl.segmentEl = el;
+        innerEl.addEventListener('click', _onWidthDecrementClick, false);
+        widthEditCanvasEl.appendChild(innerEl);        
+
         var innerEl = document.createElement('input');
         innerEl.setAttribute('type', 'text');
         innerEl.classList.add('width-edit');
@@ -496,7 +540,18 @@ var main = (function(){
         innerEl.addEventListener('mouseover', _onWidthEditMouseOver, false);
         innerEl.addEventListener('mouseout', _onWidthEditMouseOut, false);
         innerEl.addEventListener('keydown', _onWidthEditKeyDown, false);
-        el.appendChild(innerEl);
+        widthEditCanvasEl.appendChild(innerEl);
+
+        var innerEl = document.createElement('button');
+        innerEl.classList.add('increment');
+        innerEl.innerHTML = '+';
+        innerEl.segmentEl = el;
+        innerEl.addEventListener('click', _onWidthIncrementClick, false);
+        widthEditCanvasEl.appendChild(innerEl);        
+
+
+
+        el.appendChild(widthEditCanvasEl);
 
         var innerEl = document.createElement('span');
         innerEl.classList.add('grid');
@@ -507,7 +562,7 @@ var main = (function(){
     }
 
     if (width) {
-      _resizeSegment(el, width, isTool);
+      _resizeSegment(el, width, true, isTool);
     }    
     return el;
   }

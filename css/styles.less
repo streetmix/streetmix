@@ -359,13 +359,47 @@ header .sizes .bar {
 .segment:hover .name {
   color: rgb(200, 200, 200);
 }
-
-.segment .width-edit {
+.segment .width-edit-canvas {
   position: absolute;
   left: 0;
   right: 0;
   top: @canvasHeight - 35 + 15;
   z-index: 50000;
+}
+
+.segment .width-edit-canvas .decrement,
+.segment .width-edit-canvas .increment {
+  width: 30px;
+  height: 25px;
+  line-height: 25px;
+  vertical-align: top;
+
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  border: none;
+  color: white;
+
+  cursor: pointer;
+
+  opacity: 0;
+}
+.segment:not(.unmovable):hover .decrement,
+.segment:not(.unmovable):hover .increment {
+  opacity: 1;
+}
+.segment:not(.unmovable):hover .decrement:hover,
+.segment:not(.unmovable):hover .increment:hover {
+  opacity: 1;
+  outline: 1px solid red;
+}
+.segment:not(.unmovable):hover .decrement:active,
+.segment:not(.unmovable):hover .increment:active {
+  color: red;
+}
+
+.segment .width-edit {
+  width: 50px;
   text-align: center;
 
   line-height: 25px;
@@ -378,10 +412,10 @@ header .sizes .bar {
 
   opacity: 0;
 }
-.segment .width-edit:hover {
-  opacity: .5;
+.segment:not(.unmovable):hover .width-edit {
+  //opacity: .5;
 }
-.segment .width-edit:focus {
+.segment .width-edit-canvas .width-edit:focus {
   outline: none;
 
   opacity: 1;
