@@ -167,7 +167,7 @@ header .sizes .bar {
   background-position: 0 0;  
 }
 .background-dirt-highlight {
-  background: -webkit-linear-gradient(rgba(255, 255, 255, .25), rgba(255, 255, 255, .25)), url(../images/dirt.png);
+  background: -webkit-linear-gradient(rgba(255, 255, 255, .24), rgba(255, 255, 255, .24)), url(../images/dirt.png);
   background-size: auto, 120px 120px;
   background-repeat: auto, repeat-x;
   background-position: auto, 0 0;
@@ -369,10 +369,11 @@ header .sizes .bar {
   position: absolute;
   left: 0;
   right: 0;
-  top: @canvasHeight - 35 + 15;
+  top: @canvasHeight - 35 + 10;
+  height: 30px;
+  padding-top: 5px;
   z-index: 150000;
   white-space: nowrap;
-
 
   pointer-events: none;
 }

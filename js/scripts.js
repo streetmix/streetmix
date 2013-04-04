@@ -540,6 +540,7 @@ var main = (function(){
         innerEl.classList.add('decrement');
         innerEl.innerHTML = '–';
         innerEl.segmentEl = el;
+        innerEl.tabIndex = -1;
         innerEl.addEventListener('click', _onWidthDecrementClick, false);
         widthEditCanvasEl.appendChild(innerEl);        
 
@@ -562,6 +563,7 @@ var main = (function(){
         innerEl.classList.add('increment');
         innerEl.innerHTML = '+';
         innerEl.segmentEl = el;
+        innerEl.tabIndex = -1;
         innerEl.addEventListener('click', _onWidthIncrementClick, false);
         widthEditCanvasEl.appendChild(innerEl);        
 
