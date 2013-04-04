@@ -677,12 +677,19 @@ var main = (function(){
     }
   }
 
+  function _handleSegmentResizeStart(event) {
+    var el = event.target;
+
+    draggingActive = true;
+    draggingType = DRAGGING_TYPE_SEGMENT_RESIZE;
+    document.body.classList.add('segment-resize-dragging');
+  }
+
   function _handleSegmentMoveStart(event) {
     var el = event.target;
 
     draggingActive = true;
     draggingType = DRAGGING_TYPE_SEGMENT_MOVE;
-    document.body.classList.add('dragging');
     document.body.classList.add('segment-move-dragging');
 
     segmentDraggingStatus.originalEl = el;
@@ -746,30 +753,34 @@ var main = (function(){
 
     _loseAnyFocus();
 
-    if (!el.classList.contains('segment') || el.classList.contains('unmovable')) {
-      return;
-    }
+    if (el.classList.contains('drag-handle')) {
+      _handleSegmentResizeStart(event);
+    } else {
+      if (!el.classList.contains('segment') || el.classList.contains('unmovable')) {
+        return;
+      }
 
-    _handleSegmentMoveStart(event);
+      _handleSegmentMoveStart(event);
+    }
 
     event.preventDefault();
   }
 
   function _handleSegmentMoveDragging(event) {
-    if (draggingActive && draggingType == DRAGGING_TYPE_SEGMENT_MOVE) {
+    var deltaX = event.pageX - segmentDraggingStatus.mouseX;
+    var deltaY = event.pageY - segmentDraggingStatus.mouseY;
 
-      var deltaX = event.pageX - segmentDraggingStatus.mouseX;
-      var deltaY = event.pageY - segmentDraggingStatus.mouseY;
+    segmentDraggingStatus.elX += deltaX;
+    segmentDraggingStatus.elY += deltaY;
 
-      segmentDraggingStatus.elX += deltaX;
-      segmentDraggingStatus.elY += deltaY;
+    segmentDraggingStatus.el.style.left = segmentDraggingStatus.elX + 'px';
+    segmentDraggingStatus.el.style.top = segmentDraggingStatus.elY + 'px';
 
-      segmentDraggingStatus.el.style.left = segmentDraggingStatus.elX + 'px';
-      segmentDraggingStatus.el.style.top = segmentDraggingStatus.elY + 'px';
+    segmentDraggingStatus.mouseX = event.pageX;
+    segmentDraggingStatus.mouseY = event.pageY;
+  }
 
-      segmentDraggingStatus.mouseX = event.pageX;
-      segmentDraggingStatus.mouseY = event.pageY;
-    }
+  function _handleSegmentResizeDragging(event) {
   }
 
   function _onBodyMouseMove(event) {
@@ -780,6 +791,9 @@ var main = (function(){
     switch (draggingType) {
       case DRAGGING_TYPE_SEGMENT_MOVE:
         _handleSegmentMoveDragging(event);
+        break;
+      case DRAGGING_TYPE_SEGMENT_RESIZE:
+        _handleSegmentResizeDragging(event);
         break;
     }
   }
@@ -800,7 +814,6 @@ var main = (function(){
     var withinCanvas = !!el;
 
     draggingActive = false;
-    document.body.classList.remove('dragging');
     document.body.classList.remove('segment-move-dragging');
 
     var placeEl = 
@@ -867,6 +880,11 @@ var main = (function(){
     }
   }
 
+  function _handleSegmentResizeEnd(event) {
+    draggingActive = false;
+    document.body.classList.remove('segment-resize-dragging');
+  }
+
   function _onBodyMouseUp(event) {
     if (!draggingActive) {
       return;
@@ -875,6 +893,9 @@ var main = (function(){
     switch (draggingType) {
       case DRAGGING_TYPE_SEGMENT_MOVE:
         _handleSegmentMoveEnd(event);
+        break;
+      case DRAGGING_TYPE_SEGMENT_RESIZE:
+        _handleSegmentResizeEnd(event);
         break;
     }
 
