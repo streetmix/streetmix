@@ -1239,9 +1239,11 @@ var main = (function(){
         break;
       case 8: // backspace
       case 46: // Delete
-        if (segmentHoveredEl && segmentHoveredEl.parentNode) {
-          segmentHoveredEl.parentNode.removeChild(segmentHoveredEl);
-          _segmentsChanged();
+        if (document.activeElement == document.body) {
+          if (segmentHoveredEl && segmentHoveredEl.parentNode) {
+            segmentHoveredEl.parentNode.removeChild(segmentHoveredEl);
+            _segmentsChanged();
+          }
         }
         event.preventDefault();
         break;
