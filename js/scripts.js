@@ -1003,7 +1003,10 @@ var main = (function(){
     draggingActive = false;
     document.body.classList.remove('segment-resize-dragging');
 
-    segmentResizeDragging.floatingEl.parentNode.removeChild(segmentResizeDragging.floatingEl);
+    var el = segmentResizeDragging.floatingEl;
+    window.setTimeout(function() {
+      el.parentNode.removeChild(el);
+    }, 250);
   
     segmentResizeDragging.segmentEl.classList.remove('hover');
 }
