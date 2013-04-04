@@ -456,7 +456,7 @@ var main = (function(){
     var width = width / TILE_SIZE;
 
     if (width - Math.floor(width) == .5) {
-      var widthText = Math.floor(width) + '½';
+      var widthText = (Math.floor(width) ? Math.floor(width) : '') + '½';
     } else {
       var widthText = width;
     }
