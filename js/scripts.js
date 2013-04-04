@@ -895,7 +895,7 @@ var main = (function(){
     document.body.classList.remove('segment-move-dragging');
 
     var placeEl = 
-        document.querySelector('#editable-street-section [type="separator"].hover');
+        document.querySelector('#editable-street-section [type="separator"].hovered-over');
 
     // Doesn’t fit
     if (placeEl && segmentMoveDragging.el.classList.contains('warning')) {
@@ -1008,10 +1008,10 @@ var main = (function(){
   function _onSeparatorMouseOver(event) {
     _dragOutOriginalIfNecessary();
 
-    event.target.classList.add('hover');
+    event.target.classList.add('hovered-over');
   }
   function _onSeparatorMouseOut(event) {
-    event.target.classList.remove('hover');
+    event.target.classList.remove('hovered-over');
   }
 
   function _createTools() {
