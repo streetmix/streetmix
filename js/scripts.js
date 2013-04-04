@@ -233,6 +233,8 @@ var main = (function(){
   var draggingActive = false;
   var draggingType;
 
+  var imgEl;
+
   var segmentResizeDragging = {
     segmentEl: null,
     floatingEl: null,
@@ -294,10 +296,10 @@ var main = (function(){
     var multiplier = isTool ? (WIDTH_TOOL_MULTIPLIER / WIDTH_MULTIPLIER) : 1;
 
     var bkPositionX = 
-        -((segmentInfo.tileX + tileOffsetX) * TILE_SIZE) * multiplier;
+        -((segmentInfo.tileX + tileOffsetX) * TILE_SIZE);// * multiplier;
     var bkPositionY = 
         (CANVAS_BASELINE - segmentInfo.defaultHeight * TILE_SIZE -
-        (segmentInfo.tileY + tileOffsetY) * TILE_SIZE) * multiplier;
+        (segmentInfo.tileY + tileOffsetY) * TILE_SIZE);// * multiplier;
 
     if (isTool) {
       // TODO move to CSS
@@ -315,9 +317,40 @@ var main = (function(){
       var segmentRealWidth = segmentWidth / TILE_SIZE;
       left += (segmentRealWidth - realWidth) * TILE_SIZE / 2;
 
-      width *= visualZoom;
-      height *= visualZoom;
+      //width *= visualZoom;
+      //height *= visualZoom;
     }
+
+    var retinaMultiplier = window.devicePixelRatio;
+
+    var canvasEl = document.createElement('canvas');
+    canvasEl.classList.add('image');
+    canvasEl.width = segmentWidth * retinaMultiplier;
+    canvasEl.height = height * retinaMultiplier;
+
+    canvasEl.style.width = segmentWidth + 'px';
+    canvasEl.style.height = height + 'px';
+    var ctx = canvasEl.getContext('2d');
+
+    //ctx.fillRect(left, top, width, height);
+
+    var realHeight = segmentInfo.defaultHeight * TILE_SIZE;
+
+
+
+    console.log(isTool, -bkPositionX, bkPositionY, width, realHeight, '/', left, top, width, realHeight);
+    ctx.drawImage(imgEl, 
+      -Math.floor(bkPositionX * 2), 0/*Math.floor(bkPositionY / 2)*/, Math.floor(width * 2), Math.floor(realHeight * 2), 
+      Math.floor(left) * retinaMultiplier, (265 + Math.floor(top)) * retinaMultiplier, Math.floor(width) * retinaMultiplier, Math.floor(realHeight) * retinaMultiplier);
+    //ctx.drawImage(imgEl, left, top, width, height);
+
+    var currentEl = el.querySelector('canvas');
+    if (currentEl) {
+      currentEl.parentNode.removeChild(currentEl);
+    }
+    el.appendChild(canvasEl);
+
+    /*
 
     var wrapperEl = document.createElement('div');
     wrapperEl.classList.add('image');
@@ -354,7 +387,7 @@ var main = (function(){
     }
 
     wrapperEl.appendChild(imgEl);
-    el.appendChild(wrapperEl);
+    el.appendChild(wrapperEl);*/
   }
 
   function _onWidthEditClick(event) {
@@ -1167,10 +1200,8 @@ var main = (function(){
       document.querySelector('header .sizes ul').appendChild(el);
     }
   }
- 
-  main.init = function(){
-    initializing = true;
 
+  function _onImagesLoaded() {
     _prepareUI();
 
     _resizeStreetWidth();
@@ -1192,7 +1223,15 @@ var main = (function(){
 
     window.addEventListener('mousedown', _onBodyMouseDown, false);
     window.addEventListener('mousemove', _onBodyMouseMove, false);
-    window.addEventListener('mouseup', _onBodyMouseUp, false);
+    window.addEventListener('mouseup', _onBodyMouseUp, false);    
+  }
+ 
+  main.init = function(){
+    initializing = true;
+
+    imgEl = document.createElement('img');
+    imgEl.addEventListener('load', _onImagesLoaded, false);
+    imgEl.src = 'images/tiles.png';
   }
 
   return main;
