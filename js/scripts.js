@@ -695,7 +695,7 @@ var main = (function(){
       var el = document.querySelector('header .sizes [owner-id="' + id + '"]');
 
       el.querySelector('.width').innerHTML = _prettifyWidth(ownerWidths[id] * TILE_SIZE);
-      el.querySelector('.bar').style.width = (ownerWidths[id] * 3) + 'px';
+      //el.querySelector('.bar').style.width = (ownerWidths[id] * 3) + 'px';
     }
   }
 
@@ -1112,7 +1112,7 @@ var main = (function(){
 
       el.setAttribute('owner-id', id);
 
-      el.innerHTML = '<span class="icon" type="' + id + '"></span><span class="width"></span><span class="bar"></span>';
+      el.innerHTML = '<span class="icon" type="' + id + '"></span><span class="width"></span>';
 
       document.querySelector('header .sizes ul').appendChild(el);
     }

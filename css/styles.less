@@ -40,8 +40,8 @@ header {
   font-size: 12px;  
 
   background: desaturate(darken(@skyColour, 5%), 10%);
-  width: 541px;
-  padding: 10px 20px;
+  width: 471px;
+  padding: 10px 10px;
 
   border-radius: 0 0 10px 10px;
 
@@ -58,31 +58,37 @@ header .options {
 
 header .sizes {
   border-left: 1px solid rgba(0, 0, 0, .1);
-  width: 270px;
-  padding-left: 20px;
+  width: 200px;
+  padding-left: 10px;
   margin: -10px 0;
+  margin-bottom: -5px;
   float: left;
   pointer-events: none;
 }
 header .sizes ul {
   padding: 0;
+  margin: 0;
+  margin-top: 10px;
   list-style: none;
 }
 header .sizes li {
-  margin: -3px 0;
+  width: 40px;
+  height: 60px;
+  float: left;
 }
 header .sizes .icon {
   width: 25px;
   height: 25px;
-  display: inline-block;
+  display: block;
+  margin: 0 auto;
   background-repeat: no-repeat;
-  background-position: 50% 50%;
+  background-position: 50% 100%;
   -webkit-filter: invert(100%) drop-shadow(0 1px 1px rgba(0, 0, 0, .3));
   -webkit-transform: translateZ(0); // prevents fuzzy retina
 }
 header .sizes .icon[type='pedestrian'] {
   background-image: url(../images/ui/icons/noun_project_2.svg);
-  background-size: 17px / 2;
+  background-size: 16px / 2;
 }
 header .sizes .icon[type='bike'] {
   background-image: url(../images/ui/icons/noun_project_536.svg);
@@ -103,9 +109,9 @@ header .sizes .icon[type='nature'] {
 header .sizes .width {
   width: 40px;
   display: inline-block;
-  text-align: right;
+  text-align: center;
   position: relative;
-  top: -10px;
+  top: 8px;
 
   font-family: 'Times New Roman', serif;
   font-style: italic;
