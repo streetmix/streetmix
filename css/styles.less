@@ -295,6 +295,8 @@ header .sizes .bar {
   background-size: 120px 480px;
 
   pointer-events: none;  
+
+  -webkit-transition: opacity 250ms;
 }
 #street-section-left-building {
   left: -90px;
@@ -306,6 +308,29 @@ header .sizes .bar {
 
   background-image: url(../images/building-commercial-flip.png);
 }
+body.street-overflows #street-section-left-building,
+body.street-overflows #street-section-right-building {
+  opacity: .5;
+}
+body.street-overflows #street-section-left-building::after {
+  content: '';
+  width: 1px;
+  position: absolute;
+  left: 88px;
+  top: -20px;
+  bottom: -20px;
+  border-right: 1px solid red;
+}
+body.street-overflows #street-section-right-building::after {
+  content: '';
+  width: 1px;
+  position: absolute;
+  left: 28px;
+  top: -20px;
+  bottom: -20px;
+  border-right: 1px solid red;
+}
+
 
 #tools {
   position: absolute;

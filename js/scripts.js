@@ -681,10 +681,16 @@ var main = (function(){
 
     if (data.remainingWidth == 0) {
       document.querySelector('#remaining').setAttribute('type', 'zero');
+
+      document.body.classList.remove('street-overflows');
     } else if (data.remainingWidth > 0) {
       document.querySelector('#remaining').setAttribute('type', 'room');
+
+      document.body.classList.remove('street-overflows');
     } else {
       document.querySelector('#remaining').setAttribute('type', 'over');      
+
+      document.body.classList.add('street-overflows');
     }
 
     document.querySelector('#used-width').innerHTML = 
