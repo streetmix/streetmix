@@ -490,6 +490,20 @@ var main = (function(){
         editEl.value = width / TILE_SIZE;
       }
     }
+
+    var widthEditCanvasEl = el.querySelector('.width-edit-canvas');
+
+    if (widthEditCanvasEl) {
+      if (width < MIN_WIDTH_EDIT_CANVAS_WIDTH) {
+        widthEditCanvasEl.style.width = MIN_WIDTH_EDIT_CANVAS_WIDTH + 'px';
+        widthEditCanvasEl.style.marginLeft = 
+            (width - MIN_WIDTH_EDIT_CANVAS_WIDTH) / 2 + 'px';
+      } else {
+        widthEditCanvasEl.style.width = '';
+        widthEditCanvasEl.style.marginLeft = '';
+      }
+    }
+
   }
 
   // TODO pass segment object instead of bits and pieces
@@ -522,12 +536,6 @@ var main = (function(){
         var widthEditCanvasEl = document.createElement('span');
         widthEditCanvasEl.classList.add('width-edit-canvas');
 
-        if (width < MIN_WIDTH_EDIT_CANVAS_WIDTH) {
-          widthEditCanvasEl.style.width = MIN_WIDTH_EDIT_CANVAS_WIDTH + 'px';
-          widthEditCanvasEl.style.marginLeft = 
-              (width - MIN_WIDTH_EDIT_CANVAS_WIDTH) / 2 + 'px';
-        }
-
         var innerEl = document.createElement('button');
         innerEl.classList.add('decrement');
         innerEl.innerHTML = '–';
@@ -556,8 +564,6 @@ var main = (function(){
         innerEl.segmentEl = el;
         innerEl.addEventListener('click', _onWidthIncrementClick, false);
         widthEditCanvasEl.appendChild(innerEl);        
-
-
 
         el.appendChild(widthEditCanvasEl);
 
