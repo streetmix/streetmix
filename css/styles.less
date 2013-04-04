@@ -12,6 +12,8 @@
 
 @skyColour: rgb(179, 205, 209);
 
+@warningColour: rgb(220, 0, 0);
+
 html {
   height: 100%;
 }
@@ -328,6 +330,12 @@ header .sizes .bar {
   cursor: -moz-grab;  
 }
 
+.segment.outside .image {
+  -webkit-filter: grayscale(100%);
+  opacity: .2;
+  -webkit-transform: translateZ(0);
+}
+
 .segment .image {
   overflow: hidden;
   position: absolute;
@@ -392,9 +400,6 @@ header .sizes .bar {
   pointer-events: none;
 
   background: rgba(0, 0, 0, .05);
-}
-.segment.dragging.warning {
-  background: rgba(255, 0, 0, .1);
 }
 
 .segment.poof {
@@ -466,7 +471,7 @@ body .segment:not(.unmovable).hover .drag-handle:hover {
   height: 10px;
   top: @canvasHeight - 35;
 
-  background: -webkit-linear-gradient(0deg, rgb(140, 140, 140), transparent 8.333%);
+  background-image: -webkit-linear-gradient(0deg, rgb(140, 140, 140), transparent 8.333%);
   background-size: @tileSize 100%;
   background-repeat: repeat-x;
 }
@@ -489,6 +494,9 @@ body .segment:not(.unmovable).hover .drag-handle:hover {
   overflow: hidden;
 
   pointer-events: none;
+}
+.segment.outside .name {
+  color: @warningColour;
 }
 .segment:hover .name,
 .segment.hover .name {
@@ -600,6 +608,10 @@ body .segment:not(.unmovable).hover .drag-handle:hover {
 
   pointer-events: none;  
 }
+.segment.outside .width {
+  color: @warningColour;
+}
+
 .segment:hover .width,
 .segment.hover .width {
   color: rgb(200, 200, 200);

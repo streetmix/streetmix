@@ -653,6 +653,19 @@ var main = (function(){
     if (data.streetWidth == STREET_WIDTH_ADAPTIVE) {
       _resizeStreetWidth();
     }
+
+    var position = data.streetWidth / 2 - data.occupiedWidth / 2;
+
+    for (var i in data.segments) {
+      if (((position < 0) || ((position + data.segments[i].width) > data.streetWidth)) && (data.streetWidth != STREET_WIDTH_ADAPTIVE)) {
+        data.segments[i].el.classList.add('outside');
+      } else {
+        data.segments[i].el.classList.remove('outside');
+      }
+
+      position += data.segments[i].width;
+    }
+
   }
 
   function _segmentsChanged() {
@@ -672,6 +685,7 @@ var main = (function(){
         var segment = {};
         segment.type = el.getAttribute('type');
         segment.width = parseFloat(el.getAttribute('width'));
+        segment.el = el;
 
         data.segments.push(segment);
       }
@@ -785,13 +799,6 @@ var main = (function(){
     segmentMoveDragging.el.style.width = segmentMoveDragging.originalWidth + 'px';
     document.body.appendChild(segmentMoveDragging.el);
 
-    if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_CREATE) {
-      if ((data.streetWidth != STREET_WIDTH_ADAPTIVE) && 
-          (data.occupiedWidth + (segmentMoveDragging.originalWidth / TILE_SIZE) > data.streetWidth)) {
-        segmentMoveDragging.el.classList.add('warning');
-      }
-    }
-
     segmentMoveDragging.el.style.left = segmentMoveDragging.elX + 'px';
     segmentMoveDragging.el.style.top = segmentMoveDragging.elY + 'px';
 
@@ -896,14 +903,6 @@ var main = (function(){
 
     var placeEl = 
         document.querySelector('#editable-street-section [type="separator"].hovered-over');
-
-    // Doesn’t fit
-    if (placeEl && segmentMoveDragging.el.classList.contains('warning')) {
-      placeEl = false;
-      withinCanvas = false;
-
-      _flashWarning();
-    }
 
     if (placeEl) {
       var el = _createSegment('separator');
