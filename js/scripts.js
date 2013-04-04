@@ -379,7 +379,7 @@ var main = (function(){
   function widthEditInputChanged(el, immediate) {
     window.clearTimeout(resizeSegmentTimerId);
 
-    var width = el.value;
+    var width = parseFloat(el.value);
 
     if (width) {
       var segmentEl = el.segmentEl;
@@ -400,6 +400,7 @@ var main = (function(){
     switch (event.keyCode) {
       case 13: // enter
         _loseAnyFocus();
+        el.value = el.segmentEl.getAttribute('width');
         break;
       case 27: // Esc
         el.value = el.oldValue;
