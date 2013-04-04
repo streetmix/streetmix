@@ -732,6 +732,8 @@ var main = (function(){
     segmentResizeDragging.origX = segmentResizeDragging.elX;
     segmentResizeDragging.origWidth = parseFloat(el.segmentEl.getAttribute('width'));
     segmentResizeDragging.segmentEl = el.segmentEl;
+
+    segmentResizeDragging.segmentEl.classList.add('hover');
   }
 
   function _handleSegmentMoveStart(event) {
@@ -956,7 +958,9 @@ var main = (function(){
     document.body.classList.remove('segment-resize-dragging');
 
     segmentResizeDragging.floatingEl.parentNode.removeChild(segmentResizeDragging.floatingEl);
-  }
+  
+    segmentResizeDragging.segmentEl.classList.remove('hover');
+}
 
   function _onBodyMouseUp(event) {
     if (!draggingActive) {
