@@ -423,6 +423,20 @@ var main = (function(){
     return width;
   }
 
+  function _prettifyWidth(width) {
+    var width = width / TILE_SIZE;
+
+    if (width - Math.floor(width) == .5) {
+      var widthText = Math.floor(width) + '½';
+    } else {
+      var widthText = width;
+    }
+
+    widthText += '\'';
+
+    return widthText;
+  }
+
   function _resizeSegment(el, width, isTool) {
     var width = _normalizeSegmentWidth(width / TILE_SIZE) * TILE_SIZE;
 
@@ -431,7 +445,7 @@ var main = (function(){
 
     var widthEl = el.querySelector('span.width');
     if (widthEl) {
-      widthEl.innerHTML = width / TILE_SIZE + '\'';
+      widthEl.innerHTML = _prettifyWidth(width);
     }
 
     _setSegmentContents(el, el.getAttribute('type'), width, isTool);
