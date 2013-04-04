@@ -493,7 +493,9 @@ var main = (function(){
   }
 
   function _resizeSegment(el, width, updateEdit, isTool, immediate) {
-    var width = _normalizeSegmentWidth(width / TILE_SIZE) * TILE_SIZE;
+    if (!isTool) {
+      var width = _normalizeSegmentWidth(width / TILE_SIZE) * TILE_SIZE;
+    }
 
     if (immediate) {
       el.classList.add('immediate-resize');
@@ -934,7 +936,8 @@ var main = (function(){
       var el = _createSegment('separator');
       document.querySelector('#editable-street-section').insertBefore(el, placeEl);
       
-      var el = _createSegment(segmentMoveDragging.originalType, segmentMoveDragging.originalWidth);
+      var el = _createSegment(segmentMoveDragging.originalType, 
+          segmentMoveDragging.originalWidth);
       document.querySelector('#editable-street-section').insertBefore(el, placeEl);
 
       // animation
