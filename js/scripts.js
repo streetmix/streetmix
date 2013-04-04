@@ -72,6 +72,10 @@ var main = (function(){
       defaultHeight: 15,
       tileX: 0,
       tileY: 0,
+      repeatWidth: 1,
+      repeatHeight: 15,
+      repeatX: 0,
+      repeatY: 0,
       owner: SEGMENT_OWNER_PEDESTRIAN
     },
     "sidewalk-tree": {
@@ -80,6 +84,10 @@ var main = (function(){
       defaultHeight: 15,
       tileX: 10,
       tileY: 0,
+      repeatWidth: 1,
+      repeatHeight: 15,
+      repeatX: 0,
+      repeatY: 0,
       owner: SEGMENT_OWNER_NATURE
     },
     "planting-strip": {
@@ -88,6 +96,10 @@ var main = (function(){
       defaultHeight: 15,
       tileX: 6,
       tileY: 0,
+      repeatWidth: 1,
+      repeatHeight: 15,
+      repeatX: 6,
+      repeatY: 0,
       owner: SEGMENT_OWNER_NATURE
     },
     "bike-lane-inbound": {
@@ -97,6 +109,10 @@ var main = (function(){
       defaultHeight: 15,
       tileX: 82,
       tileY: 0,
+      repeatWidth: 1,
+      repeatHeight: 15,
+      repeatX: 30,
+      repeatY: 0,
       owner: SEGMENT_OWNER_BIKE
     },
     "bike-lane-outbound": {
@@ -106,6 +122,10 @@ var main = (function(){
       defaultHeight: 15,
       tileX: 88,
       tileY: 0,
+      repeatWidth: 1,
+      repeatHeight: 15,
+      repeatX: 30,
+      repeatY: 0,
       owner: SEGMENT_OWNER_BIKE
     },
     "parking-lane": {
@@ -114,6 +134,10 @@ var main = (function(){
       defaultHeight: 15,
       tileX: 40,
       tileY: 0,
+      repeatWidth: 1,
+      repeatHeight: 15,
+      repeatX: 30,
+      repeatY: 0,
       owner: SEGMENT_OWNER_CAR
     },
     "drive-lane-inbound": {
@@ -123,10 +147,10 @@ var main = (function(){
       defaultHeight: 15,
       tileX: 20,
       tileY: 0,
-      bkWidth: 1,
-      bkHeight: 15,
-      bkX: 20,
-      bkY: 0,
+      repeatWidth: 1,
+      repeatHeight: 15,
+      repeatX: 30,
+      repeatY: 0,
       owner: SEGMENT_OWNER_CAR
     },
     "drive-lane-outbound": {
@@ -136,6 +160,10 @@ var main = (function(){
       defaultHeight: 15,
       tileX: 30,
       tileY: 0,
+      repeatWidth: 1,
+      repeatHeight: 15,
+      repeatX: 30,
+      repeatY: 0,
       owner: SEGMENT_OWNER_CAR
     },
     "turn-lane": {
@@ -144,6 +172,10 @@ var main = (function(){
       defaultHeight: 15,
       tileX: 72,
       tileY: 0,
+      repeatWidth: 1,
+      repeatHeight: 15,
+      repeatX: 30,
+      repeatY: 0,
       owner: SEGMENT_OWNER_CAR
     },
     "bus-lane-inbound": {
@@ -153,6 +185,10 @@ var main = (function(){
       defaultHeight: 15,
       tileX: 48,
       tileY: 0,
+      repeatWidth: 1,
+      repeatHeight: 15,
+      repeatX: 30,
+      repeatY: 0,
       owner: SEGMENT_OWNER_PUBLIC_TRANSIT
     },
     "bus-lane-outbound": {
@@ -162,6 +198,10 @@ var main = (function(){
       defaultHeight: 15,
       tileX: 60,
       tileY: 0,
+      repeatWidth: 1,
+      repeatHeight: 15,
+      repeatX: 30,
+      repeatY: 0,
       owner: SEGMENT_OWNER_PUBLIC_TRANSIT
     },
     "small-median": {
@@ -170,6 +210,10 @@ var main = (function(){
       defaultHeight: 15,
       tileX: 16,
       tileY: 0,
+      repeatWidth: 1,
+      repeatHeight: 15,
+      repeatX: 16,
+      repeatY: 0,
       owner: SEGMENT_OWNER_CAR
     },
   };
@@ -194,7 +238,6 @@ var main = (function(){
       { type: "sidewalk-tree", width: 6 },
       { type: "sidewalk", width: 6 }
     ],
-    /*
     80: [
       { type: "sidewalk", width: 6 },
       { type: "sidewalk-tree", width: 6 },
@@ -203,20 +246,6 @@ var main = (function(){
       { type: "drive-lane-inbound", width: 10 },
       { type: "planting-strip", width: 4 },
       { type: "drive-lane-outbound", width: 10 },
-      { type: "drive-lane-outbound", width: 10 },
-      { type: "bike-lane-outbound", width: 6 },
-      { type: "sidewalk-tree", width: 6 },
-      { type: "sidewalk", width: 6 }
-    ]
-    */
-    80: [
-      { type: "sidewalk", width: 6 },
-      { type: "sidewalk-tree", width: 6 },
-      { type: "bike-lane-inbound", width: 6 },
-      { type: "drive-lane-inbound", width: 24.5 },
-      { type: "drive-lane-inbound", width: 10 },
-      { type: "planting-strip", width: 2 },
-      { type: "planting-strip", width: 4 },
       { type: "drive-lane-outbound", width: 10 },
       { type: "bike-lane-outbound", width: 6 },
       { type: "sidewalk-tree", width: 6 },
@@ -237,7 +266,9 @@ var main = (function(){
   var draggingActive = false;
   var draggingType;
 
-  var imgEl;
+  var tilesImage;
+
+  var segmentHoveredEl;
 
   var segmentResizeDragging = {
     segmentEl: null,
@@ -300,15 +331,10 @@ var main = (function(){
     var multiplier = isTool ? (WIDTH_TOOL_MULTIPLIER / WIDTH_MULTIPLIER) : 1;
 
     var bkPositionX = 
-        -((segmentInfo.tileX + tileOffsetX) * TILE_SIZE);// * multiplier;
+        ((segmentInfo.tileX + tileOffsetX) * TILE_SIZE);// * multiplier;
     var bkPositionY = 
         (CANVAS_BASELINE - segmentInfo.defaultHeight * TILE_SIZE -
         (segmentInfo.tileY + tileOffsetY) * TILE_SIZE);// * multiplier;
-
-    /*if (isTool) {
-      // TODO move to CSS
-      bkPositionY += 300;
-    }*/
 
     var width = realWidth * TILE_SIZE;
     var height = CANVAS_HEIGHT;
@@ -320,9 +346,6 @@ var main = (function(){
       // center properly
       var segmentRealWidth = segmentWidth / TILE_SIZE;
       left += (segmentRealWidth - realWidth) * TILE_SIZE / 2;
-
-      //width *= visualZoom;
-      //height *= visualZoom;
     }
 
     var retinaMultiplier = window.devicePixelRatio;
@@ -336,21 +359,38 @@ var main = (function(){
     canvasEl.style.height = height + 'px';
     var ctx = canvasEl.getContext('2d');
 
-    //ctx.fillRect(left, top, width, height);
-
     var realHeight = segmentInfo.defaultHeight * TILE_SIZE;
 
-    //console.log(isTool, -bkPositionX, bkPositionY, width, realHeight, '/', left, top, width, realHeight);
-    ctx.drawImage(imgEl, 
-      -bkPositionX * 2, 0, width * 2, realHeight * 2, 
+    ctx.drawImage(tilesImage, 
+      bkPositionX * 2, 
+      0, 
+      width * 2, 
+      realHeight * 2, 
       left * retinaMultiplier, 
       ((isTool ? 20 : 265) + top) * retinaMultiplier, 
       width * retinaMultiplier * multiplier, 
       realHeight * retinaMultiplier * multiplier);
-    //ctx.drawImage(imgEl, left, top, width, height);
 
-    if (segmentInfo.bkX) {
-      //console.log('a');
+    if (!isTool) {
+      if (segmentInfo.repeatWidth) {
+
+        var repeatPositionX = ((segmentInfo.repeatX) * TILE_SIZE);
+        var width = (segmentInfo.repeatWidth * TILE_SIZE);
+
+        var count = Math.floor((segmentWidth) / width + 1);
+
+        for (var i = 0; i < count; i++) {
+          ctx.drawImage(tilesImage, 
+            repeatPositionX * 2, 
+            0, 
+            width * 2, 
+            realHeight * 2, 
+            i * TILE_SIZE * retinaMultiplier, 
+            ((isTool ? 20 : 265) + top) * retinaMultiplier, 
+            width * retinaMultiplier * multiplier, 
+            realHeight * retinaMultiplier * multiplier);
+        }
+      }
     }
 
 /*      bkWidth: 1,
@@ -364,45 +404,6 @@ var main = (function(){
       currentEl.parentNode.removeChild(currentEl);
     }
     el.appendChild(canvasEl);
-
-    /*
-
-    var wrapperEl = document.createElement('div');
-    wrapperEl.classList.add('image');
-    if (!isTool) {
-      wrapperEl.style.left = (left * visualZoom) + 'px';
-      wrapperEl.style.top = (top * visualZoom) + 'px';
-    }
-    wrapperEl.style.width = width + 'px';
-    wrapperEl.style.height = height + 'px';
-
-    var imgWidth = TILESET_WIDTH / 2;
-    var imgHeight = TILESET_HEIGHT / 2;
-
-    if (isTool) {
-      imgWidth /= WIDTH_MULTIPLIER / WIDTH_TOOL_MULTIPLIER;
-      imgHeight /= WIDTH_MULTIPLIER / WIDTH_TOOL_MULTIPLIER;
-    }
-
-    if (!isTool) {
-      imgWidth *= visualZoom;
-      imgHeight *= visualZoom;
-    }
-
-    var imgEl = document.createElement('img');
-    imgEl.src = 'images/tiles.png';
-    imgEl.style.width = imgWidth + 'px';
-    imgEl.style.height = imgHeight + 'px';
-    imgEl.style.left = (bkPositionX * visualZoom) + 'px';
-    imgEl.style.top = (bkPositionY * visualZoom) + 'px';
-
-    var currentEl = el.querySelector('.image');
-    if (currentEl) {
-      currentEl.parentNode.removeChild(currentEl);
-    }
-
-    wrapperEl.appendChild(imgEl);
-    el.appendChild(wrapperEl);*/
   }
 
   function _onWidthEditClick(event) {
@@ -514,17 +515,25 @@ var main = (function(){
     return widthText;
   }
 
+  function _incrementSegmentWidth(segmentEl, add) {
+    var width = parseFloat(segmentEl.getAttribute('width'));
+
+    if (add) {
+      width += SEGMENT_WIDTH_CLICK_INCREMENT;
+    } else {      
+      width -= SEGMENT_WIDTH_CLICK_INCREMENT;
+    }
+    width = _normalizeSegmentWidth(width);
+
+    _resizeSegment(segmentEl, width * TILE_SIZE, true, false, false);
+  }
+
   function _onWidthDecrementClick(event) {
     var el = event.target;
 
     var segmentEl = el.segmentEl;
 
-    var width = parseFloat(segmentEl.getAttribute('width'));
-
-    width -= SEGMENT_WIDTH_CLICK_INCREMENT;
-    width = _normalizeSegmentWidth(width);
-
-    _resizeSegment(segmentEl, width * TILE_SIZE, true, false, false);
+    _incrementSegmentWidth(segmentEl, false);
   }
 
   function _onWidthIncrementClick(event) {
@@ -532,12 +541,7 @@ var main = (function(){
 
     var segmentEl = el.segmentEl;
 
-    var width = parseFloat(segmentEl.getAttribute('width'));
-
-    width += SEGMENT_WIDTH_CLICK_INCREMENT;
-    width = _normalizeSegmentWidth(width);
-
-    _resizeSegment(segmentEl, width * TILE_SIZE, true, false, false);
+    _incrementSegmentWidth(segmentEl, true);
   }
 
   function _resizeSegment(el, width, updateEdit, isTool, immediate) {
@@ -600,6 +604,9 @@ var main = (function(){
       el.addEventListener('mouseover', _onSeparatorMouseOver, false);
       el.addEventListener('mouseout', _onSeparatorMouseOut, false);
     } else {
+      el.addEventListener('mouseover', _onSegmentMouseOver, false);
+      el.addEventListener('mouseout', _onSegmentMouseOut, false);
+
       _setSegmentContents(el, type, width, isTool);
 
       if (!isTool) {
@@ -980,9 +987,6 @@ var main = (function(){
     }
     var withinCanvas = !!el;
 
-    draggingActive = false;
-    document.body.classList.remove('segment-move-dragging');
-
     var placeEl = 
         document.querySelector('#editable-street-section [type="separator"].hovered-over');
 
@@ -1005,7 +1009,8 @@ var main = (function(){
 
       // animation
       // TODO: Move all to CSS
-      el.style.width = 50 + 'px';
+      
+      /*el.style.width = 50 + 'px';
       el.style.left = (-(width - 50) / 2) + 'px';
       el.style.webkitTransform = 'scaleX(.8)';
       el.style.MozTransform = 'scaleX(.8)';
@@ -1015,7 +1020,7 @@ var main = (function(){
         el.style.left = 0;
         el.style.webkitTransform = 'none';
         el.style.MozTransform = 'none';
-      }, 0);
+      }, 0);*/
 
       _recalculateSeparators();
       _segmentsChanged();
@@ -1023,7 +1028,6 @@ var main = (function(){
       data.modified = true;
 
       segmentMoveDragging.el.parentNode.removeChild(segmentMoveDragging.el);
-
     } else {
       if (!withinCanvas) {
         _dragOutOriginalIfNecessary();
@@ -1047,6 +1051,9 @@ var main = (function(){
         }
       }, 250);
     }
+
+    draggingActive = false;
+    document.body.classList.remove('segment-move-dragging');
   }
 
   function _handleSegmentResizeEnd(event) {
@@ -1097,6 +1104,20 @@ var main = (function(){
 
       segmentMoveDragging.originalDraggedOut = false;
     }
+  }
+
+  function _onSegmentMouseOver(event) {
+    var el = event.target;
+
+    while (el && !el.classList.contains('segment')) {
+      el = el.parentNode;
+    }
+    if (el) {
+      segmentHoveredEl = el;
+    }
+  }
+  function _onSegmentMouseOut(event) {
+    segmentHoveredEl = null;
   }
 
   function _onSeparatorMouseOver(event) {
@@ -1170,34 +1191,15 @@ var main = (function(){
     var el = event.target;
     var newStreetWidth = el.value;
 
-    //var replaceWithDefault = false;
-
     if (newStreetWidth == data.streetWidth) {
       return;
     }
-
-    //if (!data.modified || newStreetWidth == STREET_WIDTH_ADAPTIVE) {
-      //replaceWithDefault = true;
-    /*} else if (data.occupiedWidth > newStreetWidth) {
-      var reply = confirm(
-          'Your segments are too wide for that type of street. ' +
-          'Do you want to replace them with a default ' + newStreetWidth + '\' street?');
-
-      if (!reply) {
-        return;
-      } 
-
-      replaceWithDefault = true;
-    }*/
 
     data.streetWidth = newStreetWidth;
     _resizeStreetWidth();
 
     initializing = true;
 
-    //if (replaceWithDefault && (data.streetWidth != STREET_WIDTH_ADAPTIVE)) {
-      //_getDefaultSegments();
-    //}
     _createDomFromData();
     _segmentsChanged();
 
@@ -1213,6 +1215,36 @@ var main = (function(){
       el.innerHTML = '<span class="icon" type="' + id + '"></span><span class="width"></span>';
 
       document.querySelector('header .sizes ul').appendChild(el);
+    }
+  }
+
+  function _onBodyKeyDown(event) {
+    //console.log(event.keyCode);
+    switch (event.keyCode) {
+      case 39: // right arrow
+        if (document.activeElement == document.body) {
+          if (segmentHoveredEl) {
+            _incrementSegmentWidth(segmentHoveredEl, true);
+          }
+          event.preventDefault();
+        }
+        break;
+      case 37: // left arrow
+        if (document.activeElement == document.body) {
+          if (segmentHoveredEl) {
+            _incrementSegmentWidth(segmentHoveredEl, false);
+          }
+          event.preventDefault();
+        }
+        break;
+      case 8: // backspace
+      case 46: // Delete
+        if (segmentHoveredEl && segmentHoveredEl.parentNode) {
+          segmentHoveredEl.parentNode.removeChild(segmentHoveredEl);
+          _segmentsChanged();
+        }
+        event.preventDefault();
+        break;
     }
   }
 
@@ -1238,15 +1270,17 @@ var main = (function(){
 
     window.addEventListener('mousedown', _onBodyMouseDown, false);
     window.addEventListener('mousemove', _onBodyMouseMove, false);
-    window.addEventListener('mouseup', _onBodyMouseUp, false);    
+    window.addEventListener('mouseup', _onBodyMouseUp, false); 
+
+    window.addEventListener('keydown', _onBodyKeyDown, false);   
   }
  
   main.init = function(){
     initializing = true;
 
-    imgEl = document.createElement('img');
-    imgEl.addEventListener('load', _onImagesLoaded, false);
-    imgEl.src = 'images/tiles.png';
+    tilesImage = document.createElement('img');
+    tilesImage.addEventListener('load', _onImagesLoaded, false);
+    tilesImage.src = 'images/tiles.png';
   }
 
   return main;
