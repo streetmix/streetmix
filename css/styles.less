@@ -31,7 +31,6 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  height: @headerHeight;
   margin: 0 auto;
 
   z-index: 10000;
@@ -39,41 +38,87 @@ header {
   color: white;
   font-family: Arial, sans-serif;
   font-size: 12px;  
+
+  background: rgba(0, 0, 0, .1);
+  width: 500px;
+  padding: 10px 20px;
+
+  border-radius: 0 0 10px 10px;
+
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
 }
 
 header .options {
   height: 30px;
-  width: 400px;
-  margin: 0 auto;
-  margin-top: 20px;
-  text-align: center;
+  width: 300px;
+  float: left;
+  text-align: left;
 }
 
 header .sizes {
-  width: 400px;
-  margin: 0 auto;
+  width: 200px;
+  margin: -10px 0;
+  float: left;
   pointer-events: none;
 }
 header .sizes ul {
-  margin-left: 40px;
+  padding: 0;
   list-style: none;
 }
-header .sizes .name {
-  width: 80px;
+header .sizes li {
+  margin: -3px 0;
+}
+header .sizes .icon {
+  width: 25px;
+  height: 25px;
   display: inline-block;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  -webkit-filter: invert(100%) drop-shadow(0 1px 1px rgba(0, 0, 0, .3));
+  -webkit-transform: translateZ(0); // prevents fuzzy retina
+}
+header .sizes .icon[type='pedestrian'] {
+  background-image: url(../images/ui/icons/noun_project_2.svg);
+  background-size: 17px / 2;
+}
+header .sizes .icon[type='bike'] {
+  background-image: url(../images/ui/icons/noun_project_536.svg);
+  background-size: 45px / 2;
+}
+header .sizes .icon[type='public-transit'] {
+  background-image: url(../images/ui/icons/noun_project_97.svg);
+  background-size: 35px / 2;
+}
+header .sizes .icon[type='car'] {
+  background-image: url(../images/ui/icons/noun_project_72.svg);
+  background-size: 35px / 2;
+}
+header .sizes .icon[type='nature'] {
+  background-image: url(../images/ui/icons/noun_project_13130.svg);
+  background-size: 40px / 2;
 }
 header .sizes .width {
-  width: 30px;
+  width: 40px;
   display: inline-block;
   text-align: right;
+  position: relative;
+  top: -10px;
+
+  font-family: 'Times New Roman', serif;
+  font-style: italic;
+  font-size: 14px;
+  line-height: 0;
 }
 header .sizes .bar {
   display: inline-block;
   height: 4px;
-  margin-left: 5px;
+  margin-left: 8px;
   background: white;
   position: relative;
-  top: -2px;
+  top: -10px;
+
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .3);
 }
 
 #street-section {

@@ -209,7 +209,7 @@ var main = (function(){
       { type: "sidewalk", width: 6 },
       { type: "sidewalk-tree", width: 6 },
       { type: "bike-lane-inbound", width: 6 },
-      { type: "drive-lane-inbound", width: 15 },
+      { type: "drive-lane-inbound", width: 14.5 },
       { type: "drive-lane-inbound", width: 10 },
       { type: "planting-strip", width: 2 },
       { type: "planting-strip", width: 4 },
@@ -671,7 +671,7 @@ var main = (function(){
 
         var segment = {};
         segment.type = el.getAttribute('type');
-        segment.width = parseInt(el.getAttribute('width'));
+        segment.width = parseFloat(el.getAttribute('width'));
 
         data.segments.push(segment);
       }
@@ -694,7 +694,7 @@ var main = (function(){
     for (var id in SEGMENT_OWNERS) {
       var el = document.querySelector('header .sizes [owner-id="' + id + '"]');
 
-      el.querySelector('.width').innerHTML = ownerWidths[id];
+      el.querySelector('.width').innerHTML = _prettifyWidth(ownerWidths[id] * TILE_SIZE);
       el.querySelector('.bar').style.width = (ownerWidths[id] * 3) + 'px';
     }
   }
@@ -1112,7 +1112,7 @@ var main = (function(){
 
       el.setAttribute('owner-id', id);
 
-      el.innerHTML = '<span class="name">' + id + '</span><span class="width"></span><span class="bar"></span>';
+      el.innerHTML = '<span class="icon" type="' + id + '"></span><span class="width"></span><span class="bar"></span>';
 
       document.querySelector('header .sizes ul').appendChild(el);
     }
