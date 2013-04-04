@@ -12,7 +12,7 @@
 
 @skyColour: rgb(179, 205, 209);
 
-@warningColour: rgb(220, 0, 0);
+@warningColour: rgb(220, 80, 80);
 
 html {
   height: 100%;
@@ -495,12 +495,16 @@ body .segment:not(.unmovable).hover .drag-handle:hover {
 
   pointer-events: none;
 }
-.segment.outside .name {
-  color: @warningColour;
-}
 .segment:hover .name,
 .segment.hover .name {
   color: rgb(200, 200, 200);
+}
+.segment.outside .name {
+  color: @warningColour;
+}
+.segment:hover.outside .name,
+.segment.hover.outside .name {
+  color: lighten(@warningColour, 10%);
 }
 .segment .width-edit-canvas {
   position: absolute;
@@ -585,11 +589,14 @@ body .segment:not(.unmovable).hover .drag-handle:hover {
 .segment .width-edit-canvas .width-edit:focus {
   outline: none;
 
-
   color: black;
   background: white;
   opacity: 1;
 }
+.segment:not(.unmovable).outside .width-edit {
+  color: lighten(@warningColour, 10%);
+}
+
 
 .segment .width {
   position: absolute;
@@ -608,14 +615,14 @@ body .segment:not(.unmovable).hover .drag-handle:hover {
 
   pointer-events: none;  
 }
-.segment.outside .width {
-  color: @warningColour;
-}
-
 .segment:hover .width,
 .segment.hover .width {
   color: rgb(200, 200, 200);
 }
+.segment.outside .width {
+  color: @warningColour;
+}
+
 
 #street-width option {
   font-family: 'Arial', sans-serif;

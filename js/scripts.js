@@ -257,7 +257,12 @@ var main = (function(){
     originalDraggedOut: false
   };
 
+  var initializing = false;
+
   var visualZoom = 1;
+
+  var widthEditHeld = false;
+  var resizeSegmentTimerId = -1;
 
   function _recalculateSeparators() {
     var els = document.querySelectorAll('#editable-street-section [type="separator"]');
@@ -350,9 +355,6 @@ var main = (function(){
     wrapperEl.appendChild(imgEl);
     el.appendChild(wrapperEl);
   }
-
-  var widthEditHeld = false;
-  var resizeSegmentTimerId = -1;
 
   function _onWidthEditClick(event) {
     var el = event.target;
@@ -530,6 +532,7 @@ var main = (function(){
       }
     }
 
+    _segmentsChanged();
   }
 
   // TODO pass segment object instead of bits and pieces
@@ -657,10 +660,12 @@ var main = (function(){
     var position = data.streetWidth / 2 - data.occupiedWidth / 2;
 
     for (var i in data.segments) {
-      if (((position < 0) || ((position + data.segments[i].width) > data.streetWidth)) && (data.streetWidth != STREET_WIDTH_ADAPTIVE)) {
-        data.segments[i].el.classList.add('outside');
-      } else {
-        data.segments[i].el.classList.remove('outside');
+      if (data.segments[i].el) {
+        if (((position < 0) || ((position + data.segments[i].width) > data.streetWidth)) && (data.streetWidth != STREET_WIDTH_ADAPTIVE)) {
+          data.segments[i].el.classList.add('outside');
+        } else {
+          data.segments[i].el.classList.remove('outside');
+        }
       }
 
       position += data.segments[i].width;
@@ -669,7 +674,9 @@ var main = (function(){
   }
 
   function _segmentsChanged() {
-    _createDataFromDom();
+    if (!initializing) {
+      _createDataFromDom();
+    }
     _recalculateWidth();
     _recalculateOwnerWidths();
   }
@@ -1118,6 +1125,8 @@ var main = (function(){
   }
  
   main.init = function(){
+    initializing = true;
+
     _prepareUI();
 
     _resizeStreetWidth();
@@ -1130,6 +1139,8 @@ var main = (function(){
     _segmentsChanged();
 
     _onResize();
+
+    initializing = false;
 
     document.querySelector('#street-width').addEventListener('change', _onStreetWidthChange, false);
 
