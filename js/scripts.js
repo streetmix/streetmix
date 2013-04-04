@@ -384,9 +384,13 @@ var main = (function(){
     if (width) {
       var segmentEl = el.segmentEl;
 
-      resizeSegmentTimerId = window.setTimeout(function() {
+      if (immediate) {
         _resizeSegment(segmentEl, width * TILE_SIZE);
-      }, immediate ? 0 : 200);
+      } else {
+        resizeSegmentTimerId = window.setTimeout(function() {
+          _resizeSegment(segmentEl, width * TILE_SIZE);
+        }, 200);
+      }
     }
   }
 
@@ -399,6 +403,7 @@ var main = (function(){
 
     switch (event.keyCode) {
       case 13: // enter
+        widthEditInputChanged(el, true);
         _loseAnyFocus();
         el.value = el.segmentEl.getAttribute('width');
         break;
