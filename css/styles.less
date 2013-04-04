@@ -160,6 +160,19 @@ header .sizes .bar {
   height: 280px;
 }
 
+.background-dirt {
+  background: url(../images/dirt.png);
+  background-size: 120px 120px;
+  background-repeat: repeat-x;
+  background-position: 0 0;  
+}
+.background-dirt-highlight {
+  background: -webkit-linear-gradient(rgba(255, 255, 255, .25), rgba(255, 255, 255, .25)), url(../images/dirt.png);
+  background-size: auto, 120px 120px;
+  background-repeat: auto, repeat-x;
+  background-position: auto, 0 0;
+}
+
 #street-section-dirt {
   position: absolute;
   left: 0;
@@ -167,11 +180,8 @@ header .sizes .bar {
   top: @canvasHeight - 80;
   height: 80px;
 
-  background: url(../images/dirt.png);
-  background-size: 120px 120px;
+  .background-dirt;
 
-  background-repeat: repeat-x;
-  background-position: 0 0;  
 }
 #street-section-left-building,
 #street-section-right-building {
@@ -235,15 +245,11 @@ header .sizes .bar {
 
   position: relative;
 
-  -webkit-transition: background 250ms, width 150ms, left 150ms, -webkit-transform 150ms;
-  -moz-transition: background 250ms, width 150ms, left 150ms, -moz-transform 150ms;
-  transition: background 250ms, width 150ms, left 150ms, transform 150ms;
+  -webkit-transition: width 150ms, left 150ms, -webkit-transform 150ms;
+  -moz-transition: width 150ms, left 150ms, -moz-transform 150ms;
+  transition: width 150ms, left 150ms, transform 150ms;
 }
 .segment:not(.unmovable):hover {
-  -webkit-transition: background 100ms;
-  -moz-transition: background 100ms;
-  transition: background 100ms;
-
   background: rgba(255, 255, 255, .2);
 }
 .segment:not(.unmovable) {
@@ -364,7 +370,15 @@ header .sizes .bar {
   left: 0;
   right: 0;
   top: @canvasHeight - 35 + 15;
-  z-index: 50000;
+  z-index: 150000;
+  white-space: nowrap;
+
+  pointer-events: none;
+}
+.segment:not(.unmovable):hover .width-edit-canvas {
+  pointer-events: auto;
+
+  .background-dirt-highlight;
 }
 
 .segment .width-edit-canvas .decrement,
@@ -413,11 +427,17 @@ header .sizes .bar {
   opacity: 0;
 }
 .segment:not(.unmovable):hover .width-edit {
-  //opacity: .5;
+  opacity: 1;
+
+  color: white;
+  background: transparent;
 }
 .segment .width-edit-canvas .width-edit:focus {
   outline: none;
 
+
+  color: black;
+  background: white;
   opacity: 1;
 }
 

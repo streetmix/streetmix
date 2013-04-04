@@ -31,6 +31,8 @@ var main = (function(){
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
 
+  var MIN_WIDTH_EDIT_CANVAS_WIDTH = 120;
+
   var MIN_SEGMENT_WIDTH = 2;
   var MAX_SEGMENT_WIDTH = 50;
   var SEGMENT_WIDTH_RESOLUTION = .5;
@@ -519,6 +521,12 @@ var main = (function(){
 
         var widthEditCanvasEl = document.createElement('span');
         widthEditCanvasEl.classList.add('width-edit-canvas');
+
+        if (width < MIN_WIDTH_EDIT_CANVAS_WIDTH) {
+          widthEditCanvasEl.style.width = MIN_WIDTH_EDIT_CANVAS_WIDTH + 'px';
+          widthEditCanvasEl.style.marginLeft = 
+              (width - MIN_WIDTH_EDIT_CANVAS_WIDTH) / 2 + 'px';
+        }
 
         var innerEl = document.createElement('button');
         innerEl.classList.add('decrement');
