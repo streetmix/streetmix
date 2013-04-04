@@ -123,6 +123,10 @@ var main = (function(){
       defaultHeight: 15,
       tileX: 20,
       tileY: 0,
+      bkWidth: 1,
+      bkHeight: 15,
+      bkX: 20,
+      bkY: 0,
       owner: SEGMENT_OWNER_CAR
     },
     "drive-lane-outbound": {
@@ -209,7 +213,7 @@ var main = (function(){
       { type: "sidewalk", width: 6 },
       { type: "sidewalk-tree", width: 6 },
       { type: "bike-lane-inbound", width: 6 },
-      { type: "drive-lane-inbound", width: 14.5 },
+      { type: "drive-lane-inbound", width: 24.5 },
       { type: "drive-lane-inbound", width: 10 },
       { type: "planting-strip", width: 2 },
       { type: "planting-strip", width: 4 },
@@ -301,13 +305,13 @@ var main = (function(){
         (CANVAS_BASELINE - segmentInfo.defaultHeight * TILE_SIZE -
         (segmentInfo.tileY + tileOffsetY) * TILE_SIZE);// * multiplier;
 
-    if (isTool) {
+    /*if (isTool) {
       // TODO move to CSS
-      bkPositionY -= 70;
-    }
+      bkPositionY += 300;
+    }*/
 
-    var width = realWidth * TILE_SIZE * multiplier;
-    var height = CANVAS_HEIGHT * multiplier;
+    var width = realWidth * TILE_SIZE;
+    var height = CANVAS_HEIGHT;
 
     var left = -tileOffsetX * TILE_SIZE * multiplier;
     var top = -tileOffsetY * TILE_SIZE * multiplier;
@@ -336,13 +340,24 @@ var main = (function(){
 
     var realHeight = segmentInfo.defaultHeight * TILE_SIZE;
 
-
-
-    console.log(isTool, -bkPositionX, bkPositionY, width, realHeight, '/', left, top, width, realHeight);
+    //console.log(isTool, -bkPositionX, bkPositionY, width, realHeight, '/', left, top, width, realHeight);
     ctx.drawImage(imgEl, 
-      -Math.floor(bkPositionX * 2), 0/*Math.floor(bkPositionY / 2)*/, Math.floor(width * 2), Math.floor(realHeight * 2), 
-      Math.floor(left) * retinaMultiplier, (265 + Math.floor(top)) * retinaMultiplier, Math.floor(width) * retinaMultiplier, Math.floor(realHeight) * retinaMultiplier);
+      -bkPositionX * 2, 0, width * 2, realHeight * 2, 
+      left * retinaMultiplier, 
+      ((isTool ? 20 : 265) + top) * retinaMultiplier, 
+      width * retinaMultiplier * multiplier, 
+      realHeight * retinaMultiplier * multiplier);
     //ctx.drawImage(imgEl, left, top, width, height);
+
+    if (segmentInfo.bkX) {
+      //console.log('a');
+    }
+
+/*      bkWidth: 1,
+      bkHeight: 15,
+      bkX: 20,
+      bkY: 0,*/
+
 
     var currentEl = el.querySelector('canvas');
     if (currentEl) {
