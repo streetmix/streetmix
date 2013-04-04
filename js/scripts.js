@@ -939,22 +939,31 @@ var main = (function(){
         document.querySelector('#editable-street-section [type="separator"].hovered-over');
 
     if (placeEl) {
+      var width = segmentMoveDragging.originalWidth;
+
+      if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_CREATE) {
+        if ((data.remainingWidth > 0) && (width > data.remainingWidth * TILE_SIZE)) {
+          if (data.remainingWidth > MIN_SEGMENT_WIDTH) {
+            width = _normalizeSegmentWidth(data.remainingWidth) * TILE_SIZE;
+          }
+        }
+      }
+
       var el = _createSegment('separator');
       document.querySelector('#editable-street-section').insertBefore(el, placeEl);
       
-      var el = _createSegment(segmentMoveDragging.originalType, 
-          segmentMoveDragging.originalWidth);
+      var el = _createSegment(segmentMoveDragging.originalType, width);
       document.querySelector('#editable-street-section').insertBefore(el, placeEl);
 
       // animation
       // TODO: Move all to CSS
       el.style.width = 50 + 'px';
-      el.style.left = (-(segmentMoveDragging.originalWidth - 50) / 2) + 'px';
+      el.style.left = (-(width - 50) / 2) + 'px';
       el.style.webkitTransform = 'scaleX(.8)';
       el.style.MozTransform = 'scaleX(.8)';
 
       window.setTimeout(function() {
-        el.style.width = segmentMoveDragging.originalWidth + 'px';
+        el.style.width = width + 'px';
         el.style.left = 0;
         el.style.webkitTransform = 'none';
         el.style.MozTransform = 'none';
