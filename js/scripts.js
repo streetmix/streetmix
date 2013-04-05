@@ -63,19 +63,29 @@ var main = (function(){
 
   var SEGMENT_OWNERS = {
     'pedestrian': {
-      owner: SEGMENT_OWNER_PEDESTRIAN
+      owner: SEGMENT_OWNER_PEDESTRIAN,
+      imageUrl: 'images/ui/icons/noun_project_2.svg',
+      imageSize: .8
     },
     'bike': {
-      owner: SEGMENT_OWNER_BIKE
+      owner: SEGMENT_OWNER_BIKE,
+      imageUrl: 'images/ui/icons/noun_project_536.svg',
+      imageSize: 1.1
     },
     'public-transit': {
-      owner: SEGMENT_OWNER_PUBLIC_TRANSIT
+      owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
+      imageUrl: 'images/ui/icons/noun_project_97.svg',
+      imageSize: .8
     },
     'car': {
-      owner: SEGMENT_OWNER_CAR
+      owner: SEGMENT_OWNER_CAR,
+      imageUrl: 'images/ui/icons/noun_project_72.svg',
+      imageSize: .8
     },
     'nature': {
-      owner: SEGMENT_OWNER_NATURE
+      owner: SEGMENT_OWNER_NATURE,
+      imageUrl: 'images/ui/icons/noun_project_13130.svg',
+      imageSize: .8
     }
   };
 
@@ -843,12 +853,12 @@ var main = (function(){
       }
     }
 
-    var width = data.streetWidth;
+    var maxWidth = data.streetWidth;
     if (data.occupiedWidth > data.streetWidth) {
-      width = data.occupiedWidth;
+      maxWidth = data.occupiedWidth;
     }
 
-    var multiplier = chartWidth / width;
+    var multiplier = chartWidth / maxWidth;
 
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
@@ -858,42 +868,92 @@ var main = (function(){
     var bottom = 70;
 
     _drawLine(ctx, left, 20, left, bottom);
-    if (width > data.streetWidth) {
+    if (maxWidth > data.streetWidth) {
       _drawLine(ctx, left + data.streetWidth * multiplier, 20, left + data.streetWidth * multiplier, 40);
 
+      ctx.save();
       ctx.strokeStyle = 'red';
       ctx.fillStyle = 'red';
       _drawArrowLine(ctx, 
-        left + data.streetWidth * multiplier, 30, left + width * multiplier, 30, _prettifyWidth(-data.remainingWidth * TILE_SIZE));
+        left + data.streetWidth * multiplier, 30, left + maxWidth * multiplier, 30, _prettifyWidth(-data.remainingWidth * TILE_SIZE));
+      ctx.restore();
     }
 
-    ctx.strokeStyle = 'black';
-    ctx.fillStyle = 'black';
-    _drawLine(ctx, left + width * multiplier, 20, left + width * multiplier, bottom);
+    _drawLine(ctx, left + maxWidth * multiplier, 20, left + maxWidth * multiplier, bottom);
     _drawArrowLine(ctx, 
         left, 30, left + data.streetWidth * multiplier, 30);
   
     var x = left;
 
     for (var id in SEGMENT_OWNERS) {
-
       if (ownerWidths[id] > 0) {
         var width = ownerWidths[id] * multiplier;
 
         _drawArrowLine(ctx, x, 60, x + width, 60, _prettifyWidth(ownerWidths[id] * TILE_SIZE));
         _drawLine(ctx, x + width, 50, x + width, 70);
 
+        var imageWidth = images[SEGMENT_OWNERS[id].imageUrl].width / 5 * SEGMENT_OWNERS[id].imageSize;
+        var imageHeight = images[SEGMENT_OWNERS[id].imageUrl].height / 5 * SEGMENT_OWNERS[id].imageSize;
+
+        ctx.drawImage(images[SEGMENT_OWNERS[id].imageUrl], 
+            0, 
+            0, 
+            images[SEGMENT_OWNERS[id].imageUrl].width, 
+            images[SEGMENT_OWNERS[id].imageUrl].height, 
+            (x + width / 2 - imageWidth / 2) * retinaMultiplier, 
+            (80 - imageHeight) * retinaMultiplier,
+            imageWidth * retinaMultiplier, 
+            imageHeight * retinaMultiplier);
+
         x += width;
       }
     }
 
     if (data.occupiedWidth < data.streetWidth) {
+      ctx.save();
       ctx.strokeStyle = 'rgb(100, 100, 100)';
       ctx.fillStyle = 'rgb(100, 100, 100)';
       ctx.setLineDash([15, 10]);
       _drawArrowLine(ctx, x, 60, left + data.streetWidth * multiplier, 60, 'unused');
-
+      ctx.restore();
     }
+
+    x = left + maxWidth * multiplier;
+
+    for (var id in SEGMENT_OWNERS) {
+      if (ownerWidths[id] == 0) {
+        var width = EMPTY_WIDTH;
+
+        ctx.fillStyle = 'rgb(100, 100, 100)';
+        ctx.strokeStyle = 'rgb(100, 100, 100)';
+
+        //ctx.save();
+        _drawArrowLine(ctx, x, 60, x + width, 60, '–');
+        //ctx.restore();
+        _drawLine(ctx, x + width, 50, x + width, 70);
+
+        var imageWidth = images[SEGMENT_OWNERS[id].imageUrl].width / 5 * SEGMENT_OWNERS[id].imageSize;
+        var imageHeight = images[SEGMENT_OWNERS[id].imageUrl].height / 5 * SEGMENT_OWNERS[id].imageSize;
+
+        ctx.save();
+        ctx.globalAlpha = .5;
+        //ctx.globalCompositeOperation = "lighter";
+        ctx.drawImage(images[SEGMENT_OWNERS[id].imageUrl], 
+            0, 
+            0, 
+            images[SEGMENT_OWNERS[id].imageUrl].width, 
+            images[SEGMENT_OWNERS[id].imageUrl].height, 
+            (x + width / 2 - imageWidth / 2) * retinaMultiplier, 
+            (80 - imageHeight) * retinaMultiplier,
+            imageWidth * retinaMultiplier, 
+            imageHeight * retinaMultiplier);
+        ctx.restore();
+        
+        x += width;
+      }
+    }
+
+
 
     document.querySelector('#street-width-canvas').style.left = CHART_MARGIN + 'px';
     document.querySelector('#street-width-canvas').style.width = (data.streetWidth * multiplier) + 'px';
