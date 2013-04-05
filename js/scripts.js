@@ -1274,7 +1274,7 @@ var main = (function(){
 
     window.addEventListener('keydown', _onBodyKeyDown, false);   
 
-    document.querySelector('#loading').classList.add('hidden');
+    //document.querySelector('#loading').classList.add('hidden');
   }
  
   main.init = function(){
