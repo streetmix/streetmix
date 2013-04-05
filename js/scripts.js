@@ -14,7 +14,7 @@ var main = (function(){
 "use strict";
   var main = {};
 
-  var TILE_IMAGE_VERSION = 2;
+  var TILE_IMAGE_VERSION = 3;
 
   var WIDTH_MULTIPLIER = 12; // 12 pixels per foot
   var WIDTH_TOOL_MULTIPLIER = 4;
