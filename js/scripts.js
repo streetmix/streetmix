@@ -14,6 +14,8 @@ var main = (function(){
 "use strict";
   var main = {};
 
+  var TILE_IMAGE_VERSION = 2;
+
   var WIDTH_MULTIPLIER = 12; // 12 pixels per foot
   var WIDTH_TOOL_MULTIPLIER = 4;
 
@@ -1280,7 +1282,7 @@ var main = (function(){
 
     tilesImage = document.createElement('img');
     tilesImage.addEventListener('load', _onImagesLoaded, false);
-    tilesImage.src = 'images/tiles.png';
+    tilesImage.src = 'images/tiles.png?v' + TILE_IMAGE_VERSION;
   }
 
   return main;
