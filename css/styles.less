@@ -484,11 +484,7 @@ body.segment-resize-dragging * {
   line-height: 100px;
   font-size: 50px;
   font-family: 'Tahoma';
-  color: white;
-
-  background: radial-gradient(circle, white 20%, transparent 20%),
-              radial-gradient(circle, white 20%, transparent 20%) 50px 50px;
-  background-size: 10px 10px;
+  color: rgba(255, 255, 255, .4);
 }
 
 .segment .drag-handle {
@@ -501,6 +497,7 @@ body.segment-resize-dragging * {
 
   margin: -10px;
   border: 10px solid transparent;
+  outline: 1px solid rgba(255, 255, 255, .4);
 }
 .segment .drag-handle.left {
   left: -5px;
@@ -515,12 +512,13 @@ body.segment-resize-dragging * {
 body .segment:not(.unmovable):hover .drag-handle,
 body .segment:not(.unmovable).hover .drag-handle {
   pointer-events: auto;
-  opacity: .5;
-
+  opacity: 1;
 }
 body .segment:not(.unmovable):hover .drag-handle:hover,
 body .segment:not(.unmovable).hover .drag-handle:hover {
   opacity: 1;
+  outline: 1px solid rgba(255, 255, 255, .8);
+  color: rgba(255, 255, 255, .8);
 }
 
 body.segment-resize-dragging .segment .drag-handle {
@@ -536,6 +534,8 @@ body.segment-resize-dragging .segment .drag-handle {
   height: 120px;
   pointer-events: none;
   z-index: 50000;
+
+  outline: 1px solid rgba(255, 255, 255, .8);
 }
 
 
@@ -609,15 +609,14 @@ body.segment-resize-dragging .segment .drag-handle {
 .segment .width-edit-canvas .decrement,
 .segment .width-edit-canvas .increment {
   width: 30px;
-  height: 30px;
-  line-height: 26px;
+  height: 29px;
+  line-height: 25px;
   vertical-align: top;
 
   background: transparent;
   padding: 0;
-  margin: 0;
-  border: 1px solid transparent;
-  border-radius: 2px;
+  margin: 0 1px;
+  border: 1px solid rgba(255, 255, 255, .2);
   color: white;
 
   cursor: pointer;
@@ -652,8 +651,7 @@ body.segment-resize-dragging .segment .drag-handle {
 
   line-height: 25px;
   height: 25px;
-  border: 1px solid transparent;
-  border-radius: 2px;
+  border: 1px solid rgba(255, 255, 255, .2);
 
   font-family: 'Times New Roman', sans-serif;
   font-size: 16px;  
@@ -739,15 +737,6 @@ body.segment-move-dragging #editable-street-section > div[type='separator'].hove
 }
 body.segment-move-dragging #editable-street-section > div[type='separator'].hovered-over + div {
   margin-left: @hoverSeparatorWidth - @separatorWidth;
-}
-
-#pi {
-  position: absolute;
-  right: 10px;
-  bottom: 15px;
-  width: 40px;
-  height: 10px;
-  z-index: 10000;
 }
 
 #loading {
