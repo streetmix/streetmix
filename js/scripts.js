@@ -272,6 +272,8 @@ var main = (function(){
 
   var segmentHoveredEl;
 
+  var retinaMultiplier;
+
   var segmentResizeDragging = {
     segmentEl: null,
     floatingEl: null,
@@ -349,8 +351,6 @@ var main = (function(){
       var segmentRealWidth = segmentWidth / TILE_SIZE;
       left += (segmentRealWidth - realWidth) * TILE_SIZE / 2;
     }
-
-    var retinaMultiplier = window.devicePixelRatio;
 
     var canvasEl = document.createElement('canvas');
     canvasEl.classList.add('image');
@@ -731,6 +731,7 @@ var main = (function(){
       position += data.segments[i].width;
     }
 
+/*
     if (data.remainingWidth == 0) {
       document.querySelector('#remaining').setAttribute('type', 'zero');
 
@@ -749,7 +750,7 @@ var main = (function(){
         _prettifyWidth(data.occupiedWidth * TILE_SIZE);
 
     document.querySelector('#remaining-width').innerHTML = 
-        _prettifyWidth(Math.abs(data.remainingWidth) * TILE_SIZE);
+        _prettifyWidth(Math.abs(data.remainingWidth) * TILE_SIZE);*/
   }
 
   function _segmentsChanged() {
@@ -778,6 +779,115 @@ var main = (function(){
     }
   }
 
+  function _drawLine(ctx, x1, y1, x2, y2) {
+    x1 *= retinaMultiplier;
+    y1 *= retinaMultiplier;
+    x2 *= retinaMultiplier;
+    y2 *= retinaMultiplier;
+
+    ctx.beginPath(); 
+    ctx.moveTo(x1, y1); 
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+  }
+
+  function _drawArrowLine(ctx, x1, y1, x2, y2, text) {
+    var ARROW_SIZE = 5;
+
+    _drawLine(ctx, x1, y1, x2, y2);
+    _drawLine(ctx, x1, y1, x1 + ARROW_SIZE, y2 - ARROW_SIZE);
+    _drawLine(ctx, x1, y1, x1 + ARROW_SIZE, y2 + ARROW_SIZE);
+    _drawLine(ctx, x2, y2, x2 - ARROW_SIZE, y2 - ARROW_SIZE);
+    _drawLine(ctx, x2, y2, x2 - ARROW_SIZE, y2 + ARROW_SIZE);
+
+    if (text) {
+      ctx.font = (12 * retinaMultiplier) + 'px Arial';
+      ctx.textAlign = 'center';
+      ctx.fillText(text, (x1 + x2) / 2 * retinaMultiplier, y1 * retinaMultiplier - 10);      
+    }
+  }
+
+  function _updateWidthChart(ownerWidths) {
+    var ctx = document.querySelector('#width-chart').getContext('2d');
+
+    var EMPTY_WIDTH = 40;
+
+    var CHART_MARGIN = 20;
+
+    var chartWidth = 500;
+    var canvasWidth = document.querySelector('#width-chart').offsetWidth;
+    var canvasHeight = document.querySelector('#width-chart').offsetHeight;
+
+    document.querySelector('#width-chart').width = canvasWidth * retinaMultiplier;
+    document.querySelector('#width-chart').height = canvasHeight * retinaMultiplier;
+
+    chartWidth -= CHART_MARGIN * 2;
+
+    var left = (canvasWidth - chartWidth) / 2;
+
+    for (var id in SEGMENT_OWNERS) {
+      if (ownerWidths[id] == 0) {
+        chartWidth -= EMPTY_WIDTH;
+      }
+    }
+
+    var width = data.streetWidth;
+    if (data.occupiedWidth > data.streetWidth) {
+      width = data.occupiedWidth;
+    }
+
+    var multiplier = chartWidth / width;
+
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+    ctx.strokeStyle = 'black';
+    ctx.lineWidth = 1;
+
+    var bottom = 70;
+
+    _drawLine(ctx, left, 20, left, bottom);
+    if (width > data.streetWidth) {
+      _drawLine(ctx, left + data.streetWidth * multiplier, 20, left + data.streetWidth * multiplier, 40);
+
+      ctx.strokeStyle = 'red';
+      ctx.fillStyle = 'red';
+      _drawArrowLine(ctx, 
+        left + data.streetWidth * multiplier, 30, left + width * multiplier, 30, _prettifyWidth(-data.remainingWidth * TILE_SIZE));
+    }
+
+    ctx.strokeStyle = 'black';
+    ctx.fillStyle = 'black';
+    _drawLine(ctx, left + width * multiplier, 20, left + width * multiplier, bottom);
+    _drawArrowLine(ctx, 
+        left, 30, left + data.streetWidth * multiplier, 30);
+  
+    var x = left;
+
+    for (var id in SEGMENT_OWNERS) {
+
+      if (ownerWidths[id] > 0) {
+        var width = ownerWidths[id] * multiplier;
+
+        _drawArrowLine(ctx, x, 60, x + width, 60, _prettifyWidth(ownerWidths[id] * TILE_SIZE));
+        _drawLine(ctx, x + width, 50, x + width, 70);
+
+        x += width;
+      }
+    }
+
+    if (data.occupiedWidth < data.streetWidth) {
+      ctx.strokeStyle = 'rgb(100, 100, 100)';
+      ctx.fillStyle = 'rgb(100, 100, 100)';
+      ctx.setLineDash([15, 10]);
+      _drawArrowLine(ctx, x, 60, left + data.streetWidth * multiplier, 60, 'unused');
+
+    }
+
+    document.querySelector('#street-width-canvas').style.left = CHART_MARGIN + 'px';
+    document.querySelector('#street-width-canvas').style.width = (data.streetWidth * multiplier) + 'px';
+
+  }
+
   function _recalculateOwnerWidths() {
     var ownerWidths = {};
 
@@ -791,12 +901,14 @@ var main = (function(){
       ownerWidths[SEGMENT_INFO[segment.type].owner] += segment.width;
     }   
 
-    for (var id in SEGMENT_OWNERS) {
+    _updateWidthChart(ownerWidths);
+
+/*    for (var id in SEGMENT_OWNERS) {
       var el = document.querySelector('header .sizes [owner-id="' + id + '"]');
 
       el.querySelector('.width').innerHTML = _prettifyWidth(ownerWidths[id] * TILE_SIZE);
       //el.querySelector('.bar').style.width = (ownerWidths[id] * 3) + 'px';
-    }
+    }*/
   }
 
   function _getElAbsolutePos(el) {
@@ -1203,7 +1315,7 @@ var main = (function(){
   }
 
   function _prepareUI() {
-    for (var id in SEGMENT_OWNERS) {
+    /*for (var id in SEGMENT_OWNERS) {
       var el = document.createElement('li');
 
       el.setAttribute('owner-id', id);
@@ -1211,7 +1323,7 @@ var main = (function(){
       el.innerHTML = '<span class="icon" type="' + id + '"></span><span class="width"></span>';
 
       document.querySelector('header .sizes ul').appendChild(el);
-    }
+    }*/
   }
 
   function _onBodyKeyDown(event) {
@@ -1249,6 +1361,8 @@ var main = (function(){
   }
 
   function _onImagesLoaded() {
+    retinaMultiplier = window.devicePixelRatio;
+
     _prepareUI();
 
     _resizeStreetWidth();

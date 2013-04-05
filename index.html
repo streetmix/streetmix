@@ -42,8 +42,10 @@
 
   <header>
     <div class='inside'>
-      <div class='options'>
-        <label for='street-width'>Building-to-building width:</label>
+
+      <canvas id='width-chart'></canvas>
+
+      <div id='street-width-canvas'>
         <select id='street-width'>
           <option value='40'>40'</option>
           <option value='60'>60'</option>
@@ -51,19 +53,6 @@
           <option disabled></option>
           <option value='-1'>Adaptive</option>
         </select>
-        <div class='width'>
-          Used width: <span id='used-width'></span>
-        </div>
-        <div id='remaining' class='width' type=''>
-          <span class='room'>Room:</span>
-          <span class='over'>Overflow:</span>
-          <span id='remaining-width'></span>
-        </div>
-      </div>
-
-      <div class='sizes'>
-        <ul>
-        </ul>
       </div>
     </div>
   </header>
