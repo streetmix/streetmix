@@ -111,7 +111,7 @@ var main = (function(){
       tileY: 0,
       repeatWidth: 1,
       repeatHeight: 15,
-      repeatX: 30,
+      repeatX: 82,
       repeatY: 0,
       owner: SEGMENT_OWNER_BIKE
     },
@@ -124,7 +124,7 @@ var main = (function(){
       tileY: 0,
       repeatWidth: 1,
       repeatHeight: 15,
-      repeatX: 30,
+      repeatX: 88,
       repeatY: 0,
       owner: SEGMENT_OWNER_BIKE
     },
