@@ -361,6 +361,28 @@ var main = (function(){
 
     var realHeight = segmentInfo.defaultHeight * TILE_SIZE;
 
+    if (!isTool) {
+      if (segmentInfo.repeatWidth) {
+
+        var repeatPositionX = ((segmentInfo.repeatX) * TILE_SIZE);
+        var w = (segmentInfo.repeatWidth * TILE_SIZE);
+
+        var count = Math.floor((segmentWidth) / w + 1);
+
+        for (var i = 0; i < count; i++) {
+          ctx.drawImage(tilesImage, 
+            repeatPositionX * 2, 
+            0, 
+            w * 2, 
+            realHeight * 2, 
+            i * TILE_SIZE * retinaMultiplier, 
+            ((isTool ? 20 : 265) + top) * retinaMultiplier, 
+            w * retinaMultiplier * multiplier, 
+            realHeight * retinaMultiplier * multiplier);
+        }
+      }      
+    }
+
     ctx.drawImage(tilesImage, 
       bkPositionX * 2, 
       0, 
@@ -370,34 +392,6 @@ var main = (function(){
       ((isTool ? 20 : 265) + top) * retinaMultiplier, 
       width * retinaMultiplier * multiplier, 
       realHeight * retinaMultiplier * multiplier);
-
-    if (!isTool) {
-      if (segmentInfo.repeatWidth) {
-
-        var repeatPositionX = ((segmentInfo.repeatX) * TILE_SIZE);
-        var width = (segmentInfo.repeatWidth * TILE_SIZE);
-
-        var count = Math.floor((segmentWidth) / width + 1);
-
-        for (var i = 0; i < count; i++) {
-          ctx.drawImage(tilesImage, 
-            repeatPositionX * 2, 
-            0, 
-            width * 2, 
-            realHeight * 2, 
-            i * TILE_SIZE * retinaMultiplier, 
-            ((isTool ? 20 : 265) + top) * retinaMultiplier, 
-            width * retinaMultiplier * multiplier, 
-            realHeight * retinaMultiplier * multiplier);
-        }
-      }
-    }
-
-/*      bkWidth: 1,
-      bkHeight: 15,
-      bkX: 20,
-      bkY: 0,*/
-
 
     var currentEl = el.querySelector('canvas');
     if (currentEl) {
