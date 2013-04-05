@@ -288,47 +288,33 @@ header .sizes .bar {
 
   top: 40px;
 
-  width: 120px;
+  width: 130px;
   height: @canvasHeight - 75px;
-  background-size: 120px 480px;
 
   pointer-events: none;  
+
+  background-size: 520px 480px;
+  background-repeat: no-repeat;
 
   -webkit-transition: opacity 250ms;
 }
 #street-section-left-building {
-  left: -90px;
+  left: -95px;
 
   background-image: url(../images/building-commercial.png);
 }
 #street-section-right-building {
-  right: -90px;
+  right: -95px;
 
-  background-image: url(../images/building-commercial-flip.png);
+  background-image: url(../images/building-commercial.png);
+  background-position: -130px 0;
 }
-body.street-overflows #street-section-left-building,
+body.street-overflows #street-section-left-building {
+  background-position: -260px 0;
+}
 body.street-overflows #street-section-right-building {
-  opacity: .5;
+  background-position: -390px 0;
 }
-body.street-overflows #street-section-left-building::after {
-  content: '';
-  width: 1px;
-  position: absolute;
-  left: 88px;
-  top: -20px;
-  bottom: -20px;
-  border-right: 1px solid red;
-}
-body.street-overflows #street-section-right-building::after {
-  content: '';
-  width: 1px;
-  position: absolute;
-  left: 28px;
-  top: -20px;
-  bottom: -20px;
-  border-right: 1px solid red;
-}
-
 
 #tools {
   position: absolute;

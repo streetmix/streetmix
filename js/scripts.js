@@ -1219,7 +1219,7 @@ var main = (function(){
   }
 
   function _onBodyKeyDown(event) {
-    console.log(event.keyCode);
+    //console.log(event.keyCode);
     switch (event.keyCode) {
       case 39: // right arrow
       case 187: // = (or, plus)
@@ -1246,8 +1246,8 @@ var main = (function(){
             segmentHoveredEl.parentNode.removeChild(segmentHoveredEl);
             _segmentsChanged();
           }
+          event.preventDefault();
         }
-        event.preventDefault();
         break;
     }
   }
