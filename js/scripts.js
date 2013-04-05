@@ -16,6 +16,18 @@ var main = (function(){
 
   var TILE_IMAGE_VERSION = 3;
 
+  var IMAGES_TO_BE_LOADED = [
+    'images/tiles.png',
+    'images/ui/icons/noun_project_2.svg',
+    'images/ui/icons/noun_project_536.svg',
+    'images/ui/icons/noun_project_97.svg',
+    'images/ui/icons/noun_project_72.svg',
+    'images/ui/icons/noun_project_13130.svg'
+  ];
+
+  var images;
+  var imagesRemaining;
+
   var WIDTH_MULTIPLIER = 12; // 12 pixels per foot
   var WIDTH_TOOL_MULTIPLIER = 4;
 
@@ -268,7 +280,7 @@ var main = (function(){
   var draggingActive = false;
   var draggingType;
 
-  var tilesImage;
+  //var tilesImage;
 
   var segmentHoveredEl;
 
@@ -372,7 +384,7 @@ var main = (function(){
         var count = Math.floor((segmentWidth) / w + 1);
 
         for (var i = 0; i < count; i++) {
-          ctx.drawImage(tilesImage, 
+          ctx.drawImage(images['images/tiles.png'], 
             repeatPositionX * 2, 
             0, 
             w * 2, 
@@ -385,7 +397,7 @@ var main = (function(){
       }      
     }
 
-    ctx.drawImage(tilesImage, 
+    ctx.drawImage(images['images/tiles.png'], 
       bkPositionX * 2, 
       0, 
       width * 2, 
@@ -1390,13 +1402,28 @@ var main = (function(){
 
     document.querySelector('#loading').classList.add('hidden');
   }
+
+  function _onImageLoaded() {
+    imagesRemaining--;
+
+    if (imagesRemaining == 0) {
+      _onImagesLoaded();
+    }
+  }
  
-  main.init = function(){
+  main.init = function() {
     initializing = true;
 
-    tilesImage = document.createElement('img');
-    tilesImage.addEventListener('load', _onImagesLoaded, false);
-    tilesImage.src = 'images/tiles.png?v' + TILE_IMAGE_VERSION;
+    images = [];
+
+    imagesRemaining = IMAGES_TO_BE_LOADED.length;
+
+    for (var i in IMAGES_TO_BE_LOADED) {
+      var url = IMAGES_TO_BE_LOADED[i];
+      images[url] = document.createElement('img');
+      images[url].addEventListener('load', _onImageLoaded, false);
+      images[url].src = url + '?v' + TILE_IMAGE_VERSION;
+    }
   }
 
   return main;
