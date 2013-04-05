@@ -318,18 +318,19 @@ body.street-overflows #street-section-right-building {
 
 #tools {
   position: absolute;
-  left: 100px;
-  right: 100px;
+  left: 0;
+  right: 0;
   height: @toolsHeight;
   bottom: 0;
   padding-right: 10px;
+  padding-left: 350px;
 
   background: url(../images/toolbox-bk.png);
 
-  box-shadow: 0 -2px 8px rgba(0, 0, 0, .25);
-  border-radius: 10px 10px 0 0;
+  border-top: 1px solid darken(rgb(255, 240, 150), 40%);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, .4);
 
-  text-align: right;
+  text-align: center;
 
   z-index: 2000;
 
