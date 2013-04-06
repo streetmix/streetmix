@@ -810,10 +810,13 @@ var main = (function(){
   function _drawArrowLine(ctx, x1, y1, x2, y2, text) {
     var ARROW_SIZE = 5;
 
+    x1 += 2;
+    x2 -= 2;
+
     _drawLine(ctx, x1, y1, x2, y2);
-    _drawLine(ctx, x1 - ARROW_SIZE, y1 + ARROW_SIZE, x1 + ARROW_SIZE, y2 - ARROW_SIZE);
+    //_drawLine(ctx, x1 - ARROW_SIZE, y1 + ARROW_SIZE, x1 + ARROW_SIZE, y2 - ARROW_SIZE);
+    //_drawLine(ctx, x2 - ARROW_SIZE, y2 + ARROW_SIZE, x2 + ARROW_SIZE, y2 - ARROW_SIZE);
     //_drawLine(ctx, x1, y1, x1 + ARROW_SIZE, y2 + ARROW_SIZE);
-    _drawLine(ctx, x2 - ARROW_SIZE, y2 + ARROW_SIZE, x2 + ARROW_SIZE, y2 - ARROW_SIZE);
     //_drawLine(ctx, x2, y2, x2 - ARROW_SIZE, y2 + ARROW_SIZE);
 
     if (text) {
