@@ -753,26 +753,20 @@ var main = (function(){
       position += data.segments[i].width;
     }
 
-/*
-    if (data.remainingWidth == 0) {
-      document.querySelector('#remaining').setAttribute('type', 'zero');
 
+    if (data.remainingWidth == 0) {
       document.body.classList.remove('street-overflows');
     } else if (data.remainingWidth > 0) {
-      document.querySelector('#remaining').setAttribute('type', 'room');
-
       document.body.classList.remove('street-overflows');
     } else {
-      document.querySelector('#remaining').setAttribute('type', 'over');      
-
       document.body.classList.add('street-overflows');
     }
 
-    document.querySelector('#used-width').innerHTML = 
-        _prettifyWidth(data.occupiedWidth * TILE_SIZE);
-
-    document.querySelector('#remaining-width').innerHTML = 
-        _prettifyWidth(Math.abs(data.remainingWidth) * TILE_SIZE);*/
+    if (data.streetWidth == STREET_WIDTH_ADAPTIVE) {
+      document.querySelector('#street-width-option-adaptive').innerHTML = 'Adaptive (' + _prettifyWidth(TILE_SIZE * data.occupiedWidth) + ')';
+    } else {
+      document.querySelector('#street-width-option-adaptive').innerHTML = 'Adaptive';
+    }
   }
 
   function _segmentsChanged() {
@@ -817,10 +811,10 @@ var main = (function(){
     var ARROW_SIZE = 5;
 
     _drawLine(ctx, x1, y1, x2, y2);
-    _drawLine(ctx, x1, y1, x1 + ARROW_SIZE, y2 - ARROW_SIZE);
-    _drawLine(ctx, x1, y1, x1 + ARROW_SIZE, y2 + ARROW_SIZE);
-    _drawLine(ctx, x2, y2, x2 - ARROW_SIZE, y2 - ARROW_SIZE);
-    _drawLine(ctx, x2, y2, x2 - ARROW_SIZE, y2 + ARROW_SIZE);
+    _drawLine(ctx, x1 - ARROW_SIZE, y1 + ARROW_SIZE, x1 + ARROW_SIZE, y2 - ARROW_SIZE);
+    //_drawLine(ctx, x1, y1, x1 + ARROW_SIZE, y2 + ARROW_SIZE);
+    _drawLine(ctx, x2 - ARROW_SIZE, y2 + ARROW_SIZE, x2 + ARROW_SIZE, y2 - ARROW_SIZE);
+    //_drawLine(ctx, x2, y2, x2 - ARROW_SIZE, y2 + ARROW_SIZE);
 
     if (text) {
       ctx.font = (12 * retinaMultiplier) + 'px Arial';
@@ -854,7 +848,10 @@ var main = (function(){
     }
 
     var maxWidth = data.streetWidth;
-    if (data.occupiedWidth > data.streetWidth) {
+
+    if (data.streetWidth == STREET_WIDTH_ADAPTIVE) {
+      maxWidth = data.occupiedWidth;
+    } else if (data.occupiedWidth > data.streetWidth) {
       maxWidth = data.occupiedWidth;
     }
 
@@ -868,7 +865,7 @@ var main = (function(){
     var bottom = 70;
 
     _drawLine(ctx, left, 20, left, bottom);
-    if (maxWidth > data.streetWidth) {
+    if ((maxWidth > data.streetWidth) && (data.streetWidth != STREET_WIDTH_ADAPTIVE)) {
       _drawLine(ctx, left + data.streetWidth * multiplier, 20, left + data.streetWidth * multiplier, 40);
 
       ctx.save();
@@ -881,7 +878,7 @@ var main = (function(){
 
     _drawLine(ctx, left + maxWidth * multiplier, 20, left + maxWidth * multiplier, bottom);
     _drawArrowLine(ctx, 
-        left, 30, left + data.streetWidth * multiplier, 30);
+        left, 30, left + ((data.streetWidth == STREET_WIDTH_ADAPTIVE) ? data.occupiedWidth : data.streetWidth) * multiplier, 30);
   
     var x = left;
 
