@@ -808,16 +808,10 @@ var main = (function(){
   }
 
   function _drawArrowLine(ctx, x1, y1, x2, y2, text) {
-    var ARROW_SIZE = 5;
-
     x1 += 2;
     x2 -= 2;
 
     _drawLine(ctx, x1, y1, x2, y2);
-    //_drawLine(ctx, x1 - ARROW_SIZE, y1 + ARROW_SIZE, x1 + ARROW_SIZE, y2 - ARROW_SIZE);
-    //_drawLine(ctx, x2 - ARROW_SIZE, y2 + ARROW_SIZE, x2 + ARROW_SIZE, y2 - ARROW_SIZE);
-    //_drawLine(ctx, x1, y1, x1 + ARROW_SIZE, y2 + ARROW_SIZE);
-    //_drawLine(ctx, x2, y2, x2 - ARROW_SIZE, y2 + ARROW_SIZE);
 
     if (text) {
       ctx.font = (12 * retinaMultiplier) + 'px Arial';
@@ -914,7 +908,7 @@ var main = (function(){
       ctx.strokeStyle = 'rgb(100, 100, 100)';
       ctx.fillStyle = 'rgb(100, 100, 100)';
       ctx.setLineDash([15, 10]);
-      _drawArrowLine(ctx, x, 60, left + data.streetWidth * multiplier, 60, 'unused');
+      _drawArrowLine(ctx, x, 60, left + data.streetWidth * multiplier, 60, _prettifyWidth(data.remainingWidth * TILE_SIZE));
       ctx.restore();
     }
 
