@@ -84,7 +84,7 @@ header .inside {
   top: 0;
 
   bottom: 20px;
-  height: @canvasHeight + 40;
+  height: @canvasHeight + 65;
 
   -webkit-user-select: none;
   user-select: none;
@@ -260,7 +260,7 @@ body.street-overflows #street-section-right-building {
 }
 .segment {
   display: inline-block;
-  height: @canvasHeight + 45;
+  height: @canvasHeight + 85;
 
   position: relative;
 
@@ -472,6 +472,16 @@ body.segment-resize-dragging .segment .drag-handle {
 .segment.hover.outside .name {
   color: lighten(@warningColour, 10%);
 }
+
+.segment .commands {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: @canvasHeight - 35 + 80;
+  height: 30px;
+  z-index: 150000;
+  white-space: nowrap;
+}
 .segment .width-edit-canvas {
   position: absolute;
   left: 0;
@@ -496,8 +506,7 @@ body.segment-resize-dragging .segment .drag-handle {
   background-clip: content-box;
 }
 
-.segment .width-edit-canvas .decrement,
-.segment .width-edit-canvas .increment {
+.segment button {
   width: 30px;
   height: 29px;
   line-height: 25px;
@@ -513,12 +522,14 @@ body.segment-resize-dragging .segment .drag-handle {
 
   opacity: 0;
 }
+.segment:hover .close,
 .segment:not(.unmovable):hover .decrement,
 .segment:not(.unmovable):hover .increment,
 .segment:not(.unmovable).hover .decrement,
 .segment:not(.unmovable).hover .increment {
   opacity: 1;
 }
+.segment:hover .close:hover,
 .segment:not(.unmovable):hover .decrement:hover,
 .segment:not(.unmovable):hover .increment:hover,
 .segment:not(.unmovable).hover .decrement:hover,
@@ -526,10 +537,7 @@ body.segment-resize-dragging .segment .drag-handle {
   opacity: 1;
   border-color: rgb(220, 220, 220);
 }
-.segment:not(.unmovable):hover .decrement:active,
-.segment:not(.unmovable):hover .increment:active,
-.segment:not(.unmovable).hover .decrement:active,
-.segment:not(.unmovable).hover .increment:active {
+.segment button:active {
   background: rgba(0, 0, 0, .5);
   color: rgb(220, 220, 220);
   border-color: rgb(180, 180, 180);

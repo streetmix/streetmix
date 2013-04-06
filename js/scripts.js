@@ -651,6 +651,21 @@ var main = (function(){
         dragHandleEl.innerHTML = '›';
         el.appendChild(dragHandleEl);
 
+
+        var commandsEl = document.createElement('span');
+        commandsEl.classList.add('commands');
+        var innerEl = document.createElement('button');
+        innerEl.classList.add('close');
+        innerEl.innerHTML = '×';
+        innerEl.segmentEl = el;
+        innerEl.tabIndex = -1;
+        innerEl.setAttribute('title', 'Remove segment');
+        innerEl.addEventListener('click', _onRemoveButtonClick, false);
+        commandsEl.appendChild(innerEl);        
+
+        el.appendChild(commandsEl);
+
+
         var widthEditCanvasEl = document.createElement('span');
         widthEditCanvasEl.classList.add('width-edit-canvas');
 
@@ -1423,6 +1438,15 @@ var main = (function(){
           event.preventDefault();
         }
         break;
+    }
+  }
+
+  function _onRemoveButtonClick(event) {
+    var el = event.target.segmentEl;
+
+    if (el) {
+      el.parentNode.removeChild(el);
+      _segmentsChanged();
     }
   }
 
