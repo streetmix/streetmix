@@ -276,6 +276,10 @@ body.street-overflows #street-section-right-building {
 .segment:not(.unmovable):hover,
 .segment:not(.unmovable).hover {
   background: rgba(255, 255, 255, .2);
+
+  .name {
+    opacity: 0;
+  }
 }
 .segment:not(.unmovable) {
   cursor: -webkit-grab;
@@ -475,12 +479,15 @@ body.segment-resize-dragging .segment .drag-handle {
 
 .segment .commands {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: @canvasHeight - 35 + 80;
-  height: 30px;
+  left: 50%;
+  width: 30px;
+  margin-left: -15px;
+  top: @canvasHeight - 35 + 40;
+  height: 65px;
   z-index: 150000;
-  white-space: nowrap;
+  //white-space: nowrap;
+  //outline: 1px solid red;
+  padding-top: 10px;
 }
 .segment .width-edit-canvas {
   position: absolute;
@@ -523,6 +530,7 @@ body.segment-resize-dragging .segment .drag-handle {
   opacity: 0;
 }
 .segment:hover .close,
+.segment:hover .info,
 .segment:not(.unmovable):hover .decrement,
 .segment:not(.unmovable):hover .increment,
 .segment:not(.unmovable).hover .decrement,
@@ -530,6 +538,7 @@ body.segment-resize-dragging .segment .drag-handle {
   opacity: 1;
 }
 .segment:hover .close:hover,
+.segment:hover .info:hover,
 .segment:not(.unmovable):hover .decrement:hover,
 .segment:not(.unmovable):hover .increment:hover,
 .segment:not(.unmovable).hover .decrement:hover,
@@ -543,6 +552,15 @@ body.segment-resize-dragging .segment .drag-handle {
   border-color: rgb(180, 180, 180);
 }
 .segment button.close {
+  margin-top: 5px;
+}
+.segment button.info {
+  font-size: 16px;
+  font-style: italic;
+  font-family: serif;
+}
+.segment button.close,
+.segment button.info {
   max-width: 95%;
 }
 

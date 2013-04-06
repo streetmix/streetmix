@@ -654,6 +654,16 @@ var main = (function(){
 
         var commandsEl = document.createElement('span');
         commandsEl.classList.add('commands');
+
+        var innerEl = document.createElement('button');
+        innerEl.classList.add('info');
+        innerEl.innerHTML = 'i';
+        innerEl.segmentEl = el;
+        innerEl.tabIndex = -1;
+        //innerEl.setAttribute('title', 'Remove segment');
+        //innerEl.addEventListener('click', _onRemoveButtonClick, false);
+        commandsEl.appendChild(innerEl);        
+
         var innerEl = document.createElement('button');
         innerEl.classList.add('close');
         innerEl.innerHTML = '×';
