@@ -55,6 +55,8 @@ var main = (function(){
   var SEGMENT_WIDTH_RESOLUTION = .5;
   var SEGMENT_WIDTH_CLICK_INCREMENT = SEGMENT_WIDTH_RESOLUTION;
 
+  var SEGMENT_WARNING_OUTSIDE = 1;
+
   var SEGMENT_OWNER_CAR = 'car';
   var SEGMENT_OWNER_BIKE = 'bike';
   var SEGMENT_OWNER_PEDESTRIAN = 'pedestrian';
@@ -643,7 +645,17 @@ var main = (function(){
     html += '<button class="close">×</button>';
 
     html += '<h1>' + SEGMENT_INFO[segmentEl.getAttribute('type')].name + '</h1>';
-    html += '<section class="content"><img src="images/info-bubble-examples/bike-lane.jpg">Etizzle sizzle urna ut nisl. Tellivizzle quizzle arcu. Own yo’ pulvinar, ipsizzle shut the shizzle up bizzle we gonna chung, nulla purizzle izzle brizzle, shizzle my nizzle crocodizzle nizzle metus nulla izzle izzle. Vivamus ullamcorpizzle, tortor et varizzle owned, mah nizzle black break yo neck, yall crackalackin, izzle shiz leo elizzle fizzle dolizzle. Maurizzle aliquet, orci vel mah nizzle yippiyo, sizzle cool luctus fizzle, izzle bibendizzle enizzle dizzle yippiyo nisl. Nullizzle phat velizzle shiznit get down get down eleifend dawg. Phasellizzle nec nibh. Curabitizzle nizzle velit boom shackalack uhuh ... yih! sodalizzle facilisizzle. Maecenas things nulla, iaculizzle check it out, pot sed, rizzle a, erizzle. Nulla vitae turpis fo shizzle my nizzle nibh get down get down nizzle. Nizzle pulvinar consectetizzle velizzle. Aliquizzle mofo volutpizzle. Nunc ut leo izzle shit get down get down faucibus. Crizzle nizzle lacizzle the bizzle shizznit condimentizzle ultricies. Ut nisl. Fo shizzle my nizzle izzle fo shizzle mah nizzle fo rizzle, mah home g-dizzle. Integer laorizzle nizzle away mi. Crunk at turpizzle.</section>';
+    html += '<section class="content">';
+    html += '<p class="photo"><img src="images/info-bubble-examples/bike-lane.jpg"></p>';
+
+    var segment = data.segments[parseInt(segmentEl.dataNo)];
+
+    if (segment.warnings[SEGMENT_WARNING_OUTSIDE]) {
+      html += '<p class="warning">This segment doesn’t fit within the street.</p>';
+    }
+
+    html += '<p class="description">Etizzle sizzle urna ut nisl. Tellivizzle quizzle arcu. Own yo’ pulvinar, ipsizzle shut the shizzle up bizzle we gonna chung, nulla purizzle izzle brizzle, shizzle my nizzle crocodizzle nizzle metus nulla izzle izzle. Vivamus ullamcorpizzle, tortor et varizzle owned, mah nizzle black break yo neck, yall crackalackin, izzle shiz leo elizzle fizzle dolizzle. Maurizzle aliquet, orci vel mah nizzle yippiyo, sizzle cool luctus fizzle, izzle bibendizzle enizzle dizzle yippiyo nisl. Nullizzle phat velizzle shiznit get down get down eleifend dawg. Phasellizzle nec nibh. Curabitizzle nizzle velit boom shackalack uhuh ... yih! sodalizzle facilisizzle. Maecenas things nulla, iaculizzle check it out, pot sed, rizzle a, erizzle. Nulla vitae turpis fo shizzle my nizzle nibh get down get down nizzle. Nizzle pulvinar consectetizzle velizzle. Aliquizzle mofo volutpizzle. Nunc ut leo izzle shit get down get down faucibus. Crizzle nizzle lacizzle the bizzle shizznit condimentizzle ultricies. Ut nisl. Fo shizzle my nizzle izzle fo shizzle mah nizzle fo rizzle, mah home g-dizzle. Integer laorizzle nizzle away mi. Crunk at turpizzle.</p>';
+    html += '</section>';
 
     infoBubbleEl.innerHTML = html;
 
@@ -843,12 +855,29 @@ var main = (function(){
       document.querySelector('#editable-street-section').appendChild(el);
 
       data.segments[i].el = el;
+      data.segments[i].el.dataNo = i;
 
       var el = _createSegment('separator');
       document.querySelector('#editable-street-section').appendChild(el);
     }
 
     _recalculateSeparators();
+  }
+
+  function _applyWarningsToSegments() {
+    for (var i in data.segments) {
+      var segment = data.segments[i];
+
+      if (segment.el) {
+        if (segment.warnings[SEGMENT_WARNING_OUTSIDE]) {
+          segment.el.classList.add('outside');
+          segment.el.classList.add('warning');
+        } else {
+          segment.el.classList.remove('outside');
+          segment.el.classList.remove('warning');          
+        }
+      }
+    }
   }
 
   function _recalculateWidth() {
@@ -872,9 +901,11 @@ var main = (function(){
     for (var i in data.segments) {
       if (data.segments[i].el) {
         if (((position < 0) || ((position + data.segments[i].width) > data.streetWidth)) && (data.streetWidth != STREET_WIDTH_ADAPTIVE)) {
-          data.segments[i].el.classList.add('outside');
+          data.segments[i].warnings[SEGMENT_WARNING_OUTSIDE] = true;
+          if (i == 0) { console.log(true); }
         } else {
-          data.segments[i].el.classList.remove('outside');
+          data.segments[i].warnings[SEGMENT_WARNING_OUTSIDE] = false;
+          if (i == 0) { console.log(false); }
         }
       }
 
@@ -895,6 +926,8 @@ var main = (function(){
     } else {
       document.querySelector('#street-width-option-adaptive').innerHTML = 'Adaptive';
     }
+
+    _applyWarningsToSegments();
   }
 
   function _segmentsChanged() {
@@ -917,6 +950,11 @@ var main = (function(){
         segment.type = el.getAttribute('type');
         segment.width = parseFloat(el.getAttribute('width'));
         segment.el = el;
+
+        segment.warnings = [];
+        /*if (el.classList.contains('outside')) {
+          segment.warnings[SEGMENT_WARNING_OUTSIDE] = true;
+        }*/
 
         data.segments.push(segment);
       }
@@ -1498,7 +1536,10 @@ var main = (function(){
     data.segments = [];
 
     for (var i in DEFAULT_SEGMENTS[data.streetWidth]) {
-      data.segments.push(DEFAULT_SEGMENTS[data.streetWidth][i]);
+      var segment = DEFAULT_SEGMENTS[data.streetWidth][i];
+      segment.warnings = [];
+
+      data.segments.push(segment);
     }
 
     data.modified = false;

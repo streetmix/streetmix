@@ -469,11 +469,11 @@ body.segment-resize-dragging .segment .drag-handle {
 .segment.hover .name {
   color: rgb(200, 200, 200);
 }
-.segment.outside .name {
+.segment.warning .name {
   color: @warningColour;
 }
-.segment:hover.outside .name,
-.segment.hover.outside .name {
+.segment:hover.warning .name,
+.segment.hover.warning .name {
   color: lighten(@warningColour, 10%);
 }
 
@@ -606,7 +606,7 @@ body.info-bubble-visible .segment .width-edit-canvas {
   background: rgb(230, 230, 230);
   opacity: 1;
 }
-.segment:not(.unmovable).outside .width-edit {
+.segment:not(.unmovable).warning .width-edit {
   color: lighten(@warningColour, 10%);
 }
 
@@ -632,7 +632,7 @@ body.info-bubble-visible .segment .width-edit-canvas {
 .segment.hover .width {
   color: rgb(200, 200, 200);
 }
-.segment.outside .width {
+.segment.warning .width {
   color: @warningColour;
 }
 
@@ -762,6 +762,10 @@ body.segment-move-dragging #editable-street-section > div[type='separator'].hove
 
     & img {
       max-width: 100%;
+    }
+
+    & .warning {
+      color: rgb(180, 0, 0);
     }
   }
 
