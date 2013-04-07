@@ -376,13 +376,26 @@ var main = (function(){
       left += (segmentRealWidth - realWidth) * TILE_SIZE / 2;
     }
 
+/*    if (type == 'drive-lane-inbound') {
+      console.log(realWidth * TILE_SIZE, segmentWidth);
+    }*/
+
+    var maxWidth = segmentWidth;
+    if (maxWidth < realWidth * TILE_SIZE) {
+      maxWidth = realWidth * TILE_SIZE;
+
+      left = 0;
+    }
+
     var canvasEl = document.createElement('canvas');
     canvasEl.classList.add('image');
-    canvasEl.width = segmentWidth * retinaMultiplier;
+    canvasEl.width = maxWidth * retinaMultiplier;
     canvasEl.height = height * retinaMultiplier;
-
-    canvasEl.style.width = segmentWidth + 'px';
+    canvasEl.style.width = maxWidth + 'px';
     canvasEl.style.height = height + 'px';
+
+    canvasEl.style.left = ((segmentWidth - maxWidth) / 2) + 'px';
+
     var ctx = canvasEl.getContext('2d');
 
     var realHeight = segmentInfo.defaultHeight * TILE_SIZE;
