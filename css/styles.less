@@ -505,7 +505,6 @@ body.segment-resize-dragging .segment .drag-handle {
 
   margin: -20px;
   border: 20px solid transparent;
-  //border-bottom-width: 5px;
 
   .background-dirt-highlight;
 
@@ -715,8 +714,6 @@ body.segment-move-dragging #editable-street-section > div[type='separator'].hove
   position: absolute;
   width: 200px;
   height: 400px;
-  //left: 20px;
-  //top: 50px;
 
   border-radius: 4px;
 
@@ -731,5 +728,28 @@ body.segment-move-dragging #editable-street-section > div[type='separator'].hove
   &.visible {
     pointer-events: auto;
     opacity: 1;
+  }
+
+  & .close {
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    width: 30px;
+    height: 29px;
+    line-height: 25px;
+    vertical-align: top;
+
+    background: transparent;
+    padding: 0;
+    margin: 0 1px;
+    border: 1px solid rgba(255, 255, 255, .2);
+    color: rgb(150, 150, 150);
+
+    cursor: pointer;
+
+    &:hover {
+      color: black;
+    }
   }
 }

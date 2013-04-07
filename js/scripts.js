@@ -613,8 +613,6 @@ var main = (function(){
   function _moveInfoBubble(segmentEl) {
     var infoBubbleEl = document.querySelector('#info-bubble');
 
-    //segmentEl.style.outline = '1px solid red';
-
     var infoBubbleWidth = infoBubbleEl.offsetWidth;
     var infoBubbleHeight = infoBubbleEl.offsetHeight;
 
@@ -630,6 +628,12 @@ var main = (function(){
     infoBubbleEl.style.left = left + 'px';
     infoBubbleEl.style.height = infoBubbleHeight + 'px';
     infoBubbleEl.style.top = (top + 480 - infoBubbleHeight) + 'px';
+
+    var html = '';
+    html += '<button class="close">×</button>';
+    infoBubbleEl.innerHTML = html;
+
+    infoBubbleEl.querySelector('.close').addEventListener('click', _hideInfoBubble, false);
 
     var el = document.querySelector('.segment.hover');
     if (el) {
@@ -1030,11 +1034,8 @@ var main = (function(){
       }
     }
 
-
-
     document.querySelector('#street-width-canvas').style.left = CHART_MARGIN + 'px';
     document.querySelector('#street-width-canvas').style.width = (data.streetWidth * multiplier) + 'px';
-
   }
 
   function _recalculateOwnerWidths() {
@@ -1164,6 +1165,18 @@ var main = (function(){
     var el = event.target;
 
     _loseAnyFocus();
+
+
+    var el = event.target;
+    while (el && (el.id != 'info-bubble')) {
+      el = el.parentNode;
+    }
+    var withinInfoBubble = !!el;
+
+    if (withinInfoBubble) {
+      return;
+    }
+
     _hideInfoBubble();
 
     if (el.classList.contains('drag-handle')) {
