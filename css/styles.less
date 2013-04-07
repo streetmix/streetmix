@@ -484,9 +484,7 @@ body.segment-resize-dragging .segment .drag-handle {
   margin-left: -15px;
   top: @canvasHeight - 35 + 38;
   height: 65px;
-  z-index: 150000;
-  //white-space: nowrap;
-  //outline: 1px solid red;
+  z-index: 150001;
   padding-top: 10px;
 }
 .segment .width-edit-canvas {
@@ -507,6 +505,7 @@ body.segment-resize-dragging .segment .drag-handle {
 
   margin: -20px;
   border: 20px solid transparent;
+  //border-bottom-width: 5px;
 
   .background-dirt-highlight;
 
@@ -529,16 +528,20 @@ body.segment-resize-dragging .segment .drag-handle {
 
   opacity: 0;
 }
-.segment:hover .close,
+.segment:hover .remove,
 .segment:hover .info,
+.segment.hover .remove,
+.segment.hover .info,
 .segment:not(.unmovable):hover .decrement,
 .segment:not(.unmovable):hover .increment,
 .segment:not(.unmovable).hover .decrement,
 .segment:not(.unmovable).hover .increment {
   opacity: 1;
 }
-.segment:hover .close:hover,
+.segment:hover .remove:hover,
 .segment:hover .info:hover,
+.segment.hover .remove:hover,
+.segment.hover .info:hover,
 .segment:not(.unmovable):hover .decrement:hover,
 .segment:not(.unmovable):hover .increment:hover,
 .segment:not(.unmovable).hover .decrement:hover,
@@ -552,17 +555,23 @@ body.segment-resize-dragging .segment .drag-handle {
   color: rgb(220, 220, 220);
   border-color: rgb(180, 180, 180);
 }
-.segment button.close {
+.segment button.remove {
   margin-top: 5px;
 }
 .segment button.info {
   font-size: 16px;
   font-style: italic;
   font-family: serif;
+  z-index: 99999999;
 }
-.segment button.close,
+.segment button.remove,
 .segment button.info {
   max-width: 95%;
+}
+
+body.info-bubble-visible .segment button.remove,
+body.info-bubble-visible .segment .width-edit-canvas {
+  display: none;
 }
 
 .segment .width-edit {
@@ -699,4 +708,28 @@ body.segment-move-dragging #editable-street-section > div[type='separator'].hove
   opacity: .2;
   -webkit-transition: none;
   -moz-transition: none;
+}
+
+
+#info-bubble {
+  position: absolute;
+  width: 200px;
+  height: 400px;
+  //left: 20px;
+  //top: 50px;
+
+  border-radius: 4px;
+
+  z-index: 99999999;
+
+  background: rgba(255, 255, 255, .95);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, .25);
+
+  pointer-events: none;
+  opacity: 0;
+
+  &.visible {
+    pointer-events: auto;
+    opacity: 1;
+  }
 }

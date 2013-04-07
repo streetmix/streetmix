@@ -328,6 +328,8 @@ var main = (function(){
   var widthEditHeld = false;
   var resizeSegmentTimerId = -1;
 
+  var infoBubbleVisible = false;
+
   function _recalculateSeparators() {
     var els = document.querySelectorAll('#editable-street-section [type="separator"]');
     for (var i = 0, el; el = els[i]; i++) {
@@ -608,6 +610,62 @@ var main = (function(){
     _segmentsChanged();
   }
 
+  function _moveInfoBubble(segmentEl) {
+    var infoBubbleEl = document.querySelector('#info-bubble');
+
+    //segmentEl.style.outline = '1px solid red';
+
+    var infoBubbleWidth = infoBubbleEl.offsetWidth;
+    var infoBubbleHeight = infoBubbleEl.offsetHeight;
+
+    if (infoBubbleHeight > 450) {
+      infoBubbleHeight = 450;
+    }
+
+    var pos = _getElAbsolutePos(segmentEl);
+
+    var left = (pos[0] + segmentEl.offsetWidth / 2) - (infoBubbleWidth / 2);
+    var top = pos[1];
+
+    infoBubbleEl.style.left = left + 'px';
+    infoBubbleEl.style.height = infoBubbleHeight + 'px';
+    infoBubbleEl.style.top = (top + 480 - infoBubbleHeight) + 'px';
+
+    var el = document.querySelector('.segment.hover');
+    if (el) {
+      el.classList.remove('hover');
+    }
+
+    segmentEl.classList.add('hover');
+  }
+
+  function _hideInfoBubble() {
+    var el = document.querySelector('.segment.hover');
+    if (el) {
+      el.classList.remove('hover');
+    }
+
+    var infoBubbleEl = document.querySelector('#info-bubble');
+    infoBubbleEl.classList.remove('visible');
+    infoBubbleVisible = false;
+
+    document.body.classList.remove('info-bubble-visible');
+  }
+
+
+  function _onInfoButtonClick(event) {
+    var el = event.target;
+
+    var segmentEl = el.segmentEl;
+
+    _moveInfoBubble(segmentEl);
+
+    var infoBubbleEl = document.querySelector('#info-bubble');
+    infoBubbleEl.classList.add('visible');
+    infoBubbleVisible = true;
+    document.body.classList.add('info-bubble-visible');
+  }
+
   // TODO pass segment object instead of bits and pieces
   function _createSegment(type, width, isUnmovable, isTool) {
     var el = document.createElement('div');
@@ -661,11 +719,11 @@ var main = (function(){
         innerEl.segmentEl = el;
         innerEl.tabIndex = -1;
         //innerEl.setAttribute('title', 'Remove segment');
-        //innerEl.addEventListener('click', _onRemoveButtonClick, false);
+        innerEl.addEventListener('click', _onInfoButtonClick, false);
         commandsEl.appendChild(innerEl);        
 
         var innerEl = document.createElement('button');
-        innerEl.classList.add('close');
+        innerEl.classList.add('remove');
         innerEl.innerHTML = '×';
         innerEl.segmentEl = el;
         innerEl.tabIndex = -1;
@@ -1106,6 +1164,7 @@ var main = (function(){
     var el = event.target;
 
     _loseAnyFocus();
+    _hideInfoBubble();
 
     if (el.classList.contains('drag-handle')) {
       _handleSegmentResizeStart(event);
@@ -1314,6 +1373,10 @@ var main = (function(){
     if (el) {
       segmentHoveredEl = el;
     }
+
+    if (infoBubbleVisible) {
+      _moveInfoBubble(segmentHoveredEl);
+    }
   }
   function _onSegmentMouseOut(event) {
     segmentHoveredEl = null;
@@ -1447,6 +1510,12 @@ var main = (function(){
           }
           event.preventDefault();
         }
+        break;
+      case 27: // Esc
+        if (infoBubbleVisible) {
+          _hideInfoBubble();
+        }
+        event.preventDefault();
         break;
     }
   }
