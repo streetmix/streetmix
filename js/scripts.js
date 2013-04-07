@@ -658,16 +658,19 @@ var main = (function(){
 
 
   function _onInfoButtonClick(event) {
-    var el = event.target;
+    if (infoBubbleVisible) {
+      _hideInfoBubble();
+    } else {
+      var el = event.target;
+      var segmentEl = el.segmentEl;
 
-    var segmentEl = el.segmentEl;
+      _moveInfoBubble(segmentEl);
 
-    _moveInfoBubble(segmentEl);
-
-    var infoBubbleEl = document.querySelector('#info-bubble');
-    infoBubbleEl.classList.add('visible');
-    infoBubbleVisible = true;
-    document.body.classList.add('info-bubble-visible');
+      var infoBubbleEl = document.querySelector('#info-bubble');
+      infoBubbleEl.classList.add('visible');
+      infoBubbleVisible = true;
+      document.body.classList.add('info-bubble-visible');
+    }
   }
 
   // TODO pass segment object instead of bits and pieces
@@ -1177,7 +1180,9 @@ var main = (function(){
       return;
     }
 
-    _hideInfoBubble();
+    if (!el.classList.contains('info')) {
+      _hideInfoBubble();
+    }
 
     if (el.classList.contains('drag-handle')) {
       _handleSegmentResizeStart(event);
