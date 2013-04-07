@@ -486,7 +486,6 @@ body.segment-resize-dragging .segment .drag-handle {
   height: 65px;
   z-index: 150001;
   padding-top: 10px;
-  max-width: 100%;
 }
 .segment .width-edit-canvas {
   position: absolute;
@@ -555,7 +554,7 @@ body.segment-resize-dragging .segment .drag-handle {
   color: rgb(220, 220, 220);
   border-color: rgb(180, 180, 180);
 }
-.segment button.remove {
+.segment button.info {
   margin-top: 5px;
 }
 .segment button.info {
@@ -564,14 +563,15 @@ body.segment-resize-dragging .segment .drag-handle {
   font-family: serif;
   z-index: 99999999;
 }
-.segment button.remove,
+/*.segment button.remove,
 .segment button.info {
   max-width: 95%;
-}
+}*/
 
 body.info-bubble-visible .segment button.remove,
 body.info-bubble-visible .segment .width-edit-canvas {
-  display: none;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .segment .width-edit {
@@ -714,7 +714,7 @@ body.segment-move-dragging #editable-street-section > div[type='separator'].hove
 #info-bubble {
   position: absolute;
   width: 200px;
-  height: 400px;
+  height: 450px;
 
   border-radius: 4px;
 

@@ -616,10 +616,6 @@ var main = (function(){
     var infoBubbleWidth = infoBubbleEl.offsetWidth;
     var infoBubbleHeight = infoBubbleEl.offsetHeight;
 
-    if (infoBubbleHeight > 450) {
-      infoBubbleHeight = 450;
-    }
-
     var pos = _getElAbsolutePos(segmentEl);
 
     var left = (pos[0] + segmentEl.offsetWidth / 2) - (infoBubbleWidth / 2);
@@ -627,7 +623,7 @@ var main = (function(){
 
     infoBubbleEl.style.left = left + 'px';
     infoBubbleEl.style.height = infoBubbleHeight + 'px';
-    infoBubbleEl.style.top = (top + 480 - infoBubbleHeight) + 'px';
+    infoBubbleEl.style.top = (top + 510 - infoBubbleHeight) + 'px';
 
     var html = '';
     html += '<button class="close">×</button>';
@@ -747,23 +743,23 @@ var main = (function(){
         commandsEl.classList.add('commands');
 
         var innerEl = document.createElement('button');
-        innerEl.classList.add('info');
-        innerEl.innerHTML = 'i';
-        innerEl.segmentEl = el;
-        innerEl.tabIndex = -1;
-        //innerEl.setAttribute('title', 'Remove segment');
-        innerEl.addEventListener('mouseover', _onInfoButtonMouseOver, false);
-        innerEl.addEventListener('mouseout', _onInfoButtonMouseOut, false);
-        innerEl.addEventListener('click', _onInfoButtonClick, false);
-        commandsEl.appendChild(innerEl);        
-
-        var innerEl = document.createElement('button');
         innerEl.classList.add('remove');
         innerEl.innerHTML = '×';
         innerEl.segmentEl = el;
         innerEl.tabIndex = -1;
         innerEl.setAttribute('title', 'Remove segment');
         innerEl.addEventListener('click', _onRemoveButtonClick, false);
+        commandsEl.appendChild(innerEl);        
+
+        var innerEl = document.createElement('button');
+        innerEl.classList.add('info');
+        innerEl.innerHTML = 'i';
+        innerEl.segmentEl = el;
+        innerEl.tabIndex = -1;
+        //innerEl.setAttribute('title', 'Remove segment');
+        //innerEl.addEventListener('mouseover', _onInfoButtonMouseOver, false);
+        //innerEl.addEventListener('mouseout', _onInfoButtonMouseOut, false);
+        innerEl.addEventListener('click', _onInfoButtonClick, false);
         commandsEl.appendChild(innerEl);        
 
         el.appendChild(commandsEl);
