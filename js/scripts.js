@@ -631,6 +631,10 @@ var main = (function(){
 
     var html = '';
     html += '<button class="close">×</button>';
+
+    html += '<h1>' + SEGMENT_INFO[segmentEl.getAttribute('type')].name + '</h1>';
+    html += '<section class="content"><img src="images/info-bubble-examples/bike-lane.jpg">Etizzle sizzle urna ut nisl. Tellivizzle quizzle arcu. Own yo’ pulvinar, ipsizzle shut the shizzle up bizzle we gonna chung, nulla purizzle izzle brizzle, shizzle my nizzle crocodizzle nizzle metus nulla izzle izzle. Vivamus ullamcorpizzle, tortor et varizzle owned, mah nizzle black break yo neck, yall crackalackin, izzle shiz leo elizzle fizzle dolizzle. Maurizzle aliquet, orci vel mah nizzle yippiyo, sizzle cool luctus fizzle, izzle bibendizzle enizzle dizzle yippiyo nisl. Nullizzle phat velizzle shiznit get down get down eleifend dawg. Phasellizzle nec nibh. Curabitizzle nizzle velit boom shackalack uhuh ... yih! sodalizzle facilisizzle. Maecenas things nulla, iaculizzle check it out, pot sed, rizzle a, erizzle. Nulla vitae turpis fo shizzle my nizzle nibh get down get down nizzle. Nizzle pulvinar consectetizzle velizzle. Aliquizzle mofo volutpizzle. Nunc ut leo izzle shit get down get down faucibus. Crizzle nizzle lacizzle the bizzle shizznit condimentizzle ultricies. Ut nisl. Fo shizzle my nizzle izzle fo shizzle mah nizzle fo rizzle, mah home g-dizzle. Integer laorizzle nizzle away mi. Crunk at turpizzle.</section>';
+
     infoBubbleEl.innerHTML = html;
 
     infoBubbleEl.querySelector('.close').addEventListener('click', _hideInfoBubble, false);
@@ -656,20 +660,42 @@ var main = (function(){
     document.body.classList.remove('info-bubble-visible');
   }
 
+  var infoButtonHoverTimerId = -1;
+
+  function _onInfoButtonMouseOver(event) {
+    var el = event.target;
+    var segmentEl = el.segmentEl;
+
+    window.clearTimeout(infoButtonHoverTimerId);
+
+    infoButtonHoverTimerId = window.setTimeout(function() { _showInfoBubble(segmentEl); }, 600);
+  }
+
+  function _onInfoButtonMouseOut(event) {
+    window.clearTimeout(infoButtonHoverTimerId);    
+  }
+
+  function _showInfoBubble(segmentEl) {
+    window.clearTimeout(infoButtonHoverTimerId);
+
+    _moveInfoBubble(segmentEl);
+
+    var infoBubbleEl = document.querySelector('#info-bubble');
+    infoBubbleEl.classList.add('visible');
+    infoBubbleVisible = true;
+    document.body.classList.add('info-bubble-visible');
+  }
 
   function _onInfoButtonClick(event) {
+    window.clearTimeout(infoButtonHoverTimerId);
+
     if (infoBubbleVisible) {
       _hideInfoBubble();
     } else {
       var el = event.target;
       var segmentEl = el.segmentEl;
 
-      _moveInfoBubble(segmentEl);
-
-      var infoBubbleEl = document.querySelector('#info-bubble');
-      infoBubbleEl.classList.add('visible');
-      infoBubbleVisible = true;
-      document.body.classList.add('info-bubble-visible');
+      _showInfoBubble(segmentEl);
     }
   }
 
@@ -726,6 +752,8 @@ var main = (function(){
         innerEl.segmentEl = el;
         innerEl.tabIndex = -1;
         //innerEl.setAttribute('title', 'Remove segment');
+        innerEl.addEventListener('mouseover', _onInfoButtonMouseOver, false);
+        innerEl.addEventListener('mouseout', _onInfoButtonMouseOut, false);
         innerEl.addEventListener('click', _onInfoButtonClick, false);
         commandsEl.appendChild(innerEl);        
 
@@ -1169,12 +1197,11 @@ var main = (function(){
 
     _loseAnyFocus();
 
-
-    var el = event.target;
-    while (el && (el.id != 'info-bubble')) {
-      el = el.parentNode;
+    var topEl = event.target;
+    while (topEl && (topEl.id != 'info-bubble')) {
+      topEl = topEl.parentNode;
     }
-    var withinInfoBubble = !!el;
+    var withinInfoBubble = !!topEl;
 
     if (withinInfoBubble) {
       return;

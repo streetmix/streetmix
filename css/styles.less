@@ -486,6 +486,7 @@ body.segment-resize-dragging .segment .drag-handle {
   height: 65px;
   z-index: 150001;
   padding-top: 10px;
+  max-width: 100%;
 }
 .segment .width-edit-canvas {
   position: absolute;
@@ -730,7 +731,42 @@ body.segment-move-dragging #editable-street-section > div[type='separator'].hove
     opacity: 1;
   }
 
+  & h1 {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    padding: 0 10px;
+    margin: 0;
+
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+ 
+    font-weight: bold;
+  }
+
+  & .content {
+    position: absolute;
+
+    top: 30px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-y: scroll;
+
+    padding: 0 10px;
+
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.4;
+
+    & img {
+      max-width: 100%;
+    }
+  }
+
   & .close {
+    z-index: 1000;
     position: absolute;
     right: 0;
     top: 0;
