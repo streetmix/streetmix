@@ -381,12 +381,13 @@ var main = (function(){
     }*/
 
     var maxWidth = segmentWidth;
-    if (maxWidth < realWidth * TILE_SIZE) {
-      maxWidth = realWidth * TILE_SIZE;
+    if (!isTool) {
+      if (maxWidth < realWidth * TILE_SIZE) {
+        maxWidth = realWidth * TILE_SIZE;
 
-      left = 0;
+        left = 0;
+      }
     }
-
     var canvasEl = document.createElement('canvas');
     canvasEl.classList.add('image');
     canvasEl.width = maxWidth * retinaMultiplier;
