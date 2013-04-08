@@ -557,6 +557,16 @@ body.segment-resize-dragging .segment .drag-handle {
 .segment button.info {
   margin-top: 5px;
 }
+.segment button.info::after {
+  content: 'i';
+}
+.segment.warning button.info {
+  color: lighten(@warningColour, 10%);  
+}
+.segment.warning button.info::after {
+  content: '!';
+}
+
 .segment button.info {
   font-size: 16px;
   font-style: italic;
@@ -605,7 +615,6 @@ body.info-bubble-visible .segment .width-edit-canvas {
 .segment:not(.unmovable).warning .width-edit {
   color: lighten(@warningColour, 10%);
 }
-
 
 .segment .width {
   position: absolute;
@@ -710,7 +719,7 @@ body.segment-move-dragging #editable-street-section > div[type='separator'].hove
 #info-bubble {
   position: absolute;
   width: 300px;
-  height: 450px;
+  height: 500px;
 
   border-radius: 4px;
 
@@ -721,6 +730,12 @@ body.segment-move-dragging #editable-street-section > div[type='separator'].hove
 
   pointer-events: none;
   opacity: 0;
+
+  -webkit-transition: left 175ms;
+
+  &.no-move-transition {
+    -webkit-transition: none;
+  }
 
   &.visible {
     pointer-events: auto;
@@ -763,9 +778,12 @@ body.segment-move-dragging #editable-street-section > div[type='separator'].hove
       max-width: 100%;
     }
     & .warning {
-      color: rgb(180, 0, 0);
-      border-top: 1px solid rgb(180, 0, 0);
-      border-bottom: 1px solid rgb(180, 0, 0);
+      background: rgb(180, 0, 0);
+
+      margin: 0 -15px;
+      padding: 0 15px;
+
+      color: white;
       padding-top: 10px;
       padding-bottom: 10px;
     }

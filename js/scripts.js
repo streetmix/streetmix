@@ -700,12 +700,16 @@ var main = (function(){
   var infoButtonHoverTimerId = -1;
 
   function _onInfoButtonMouseOver(event) {
+    if (!infoBubbleVisible) {
+      return;
+    }
+
     var el = event.target;
     var segmentEl = el.segmentEl;
 
     window.clearTimeout(infoButtonHoverTimerId);
 
-    infoButtonHoverTimerId = window.setTimeout(function() { _showInfoBubble(segmentEl); }, 600);
+    infoButtonHoverTimerId = window.setTimeout(function() { _showInfoBubble(segmentEl); }, 250);
   }
 
   function _onInfoButtonMouseOut(event) {
@@ -715,12 +719,19 @@ var main = (function(){
   function _showInfoBubble(segmentEl) {
     window.clearTimeout(infoButtonHoverTimerId);
 
+    if (!infoBubbleVisible) {
+      var infoBubbleEl = document.querySelector('#info-bubble');
+      infoBubbleEl.classList.add('visible');
+      infoBubbleEl.classList.add('no-move-transition');
+      infoBubbleVisible = true;
+      document.body.classList.add('info-bubble-visible');
+    }
+
     _moveInfoBubble(segmentEl);
 
-    var infoBubbleEl = document.querySelector('#info-bubble');
-    infoBubbleEl.classList.add('visible');
-    infoBubbleVisible = true;
-    document.body.classList.add('info-bubble-visible');
+    window.setTimeout(function() {
+      infoBubbleEl.classList.remove('no-move-transition');
+    }, 0);
   }
 
   function _onInfoButtonClick(event) {
@@ -794,12 +805,12 @@ var main = (function(){
 
         var innerEl = document.createElement('button');
         innerEl.classList.add('info');
-        innerEl.innerHTML = 'i';
+        //innerEl.innerHTML = 'i';
         innerEl.segmentEl = el;
         innerEl.tabIndex = -1;
         //innerEl.setAttribute('title', 'Remove segment');
-        //innerEl.addEventListener('mouseover', _onInfoButtonMouseOver, false);
-        //innerEl.addEventListener('mouseout', _onInfoButtonMouseOut, false);
+        innerEl.addEventListener('mouseover', _onInfoButtonMouseOver, false);
+        innerEl.addEventListener('mouseout', _onInfoButtonMouseOut, false);
         innerEl.addEventListener('click', _onInfoButtonClick, false);
         commandsEl.appendChild(innerEl);        
 
@@ -970,6 +981,12 @@ var main = (function(){
     }
     _recalculateWidth();
     _recalculateOwnerWidths();
+
+    for (var i in data.segments) {
+      if (data.segments[i].el) {
+        data.segments[i].el.dataNo = i;
+      }
+    }
   }
 
   function _createDataFromDom() {
@@ -1501,9 +1518,9 @@ var main = (function(){
       segmentHoveredEl = el;
     }
 
-    if (infoBubbleVisible) {
+    /*if (infoBubbleVisible) {
       _moveInfoBubble(segmentHoveredEl);
-    }
+    }*/
   }
   function _onSegmentMouseOut(event) {
     segmentHoveredEl = null;
