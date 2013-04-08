@@ -56,6 +56,8 @@ var main = (function(){
   var SEGMENT_WIDTH_CLICK_INCREMENT = SEGMENT_WIDTH_RESOLUTION;
 
   var SEGMENT_WARNING_OUTSIDE = 1;
+  var SEGMENT_WARNING_WIDTH_TOO_SMALL = 2;
+  var SEGMENT_WARNING_WIDTH_TOO_LARGE = 3;
 
   var SEGMENT_OWNER_CAR = 'car';
   var SEGMENT_OWNER_BIKE = 'bike';
@@ -170,6 +172,8 @@ var main = (function(){
       name: 'Drive lane',
       subname: 'Inbound',
       defaultWidth: 10,
+      minWidth: 8,
+      maxWidth: 15,
       defaultHeight: 15,
       tileX: 20,
       tileY: 0,
@@ -183,6 +187,8 @@ var main = (function(){
       name: 'Drive lane',
       subname: 'Outbound',
       defaultWidth: 10,
+      minWidth: 8,
+      maxWidth: 15,
       defaultHeight: 15,
       tileX: 30,
       tileY: 0,
@@ -650,6 +656,18 @@ var main = (function(){
       html += 'Resize the segment or remove other segments.';
       html += '</p>';
     }
+    if (segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL]) {
+      html += '<p class="warning">';
+      html += '<strong>This segment is not wide enough.</strong> ';
+      html += 'Drive lanes under 8" lorem ipsum.';
+      html += '</p>';
+    }
+    if (segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE]) {
+      html += '<p class="warning">';
+      html += '<strong>This segment is too wide.</strong> ';
+      html += 'Drive lanes over 15" lorem ipsum.';
+      html += '</p>';
+    }
     html += '<p class="photo"><img src="images/info-bubble-examples/bike-lane.jpg"></p>';
     html += '<p class="description">Etizzle sizzle urna ut nisl. Tellivizzle quizzle arcu. Own yo’ pulvinar, ipsizzle shut the shizzle up bizzle we gonna chung, nulla purizzle izzle brizzle, shizzle my nizzle crocodizzle nizzle metus nulla izzle izzle. Vivamus ullamcorpizzle, tortor et varizzle owned, mah nizzle black break yo neck, yall crackalackin, izzle shiz leo elizzle fizzle dolizzle. Maurizzle aliquet, orci vel mah nizzle yippiyo, sizzle cool luctus fizzle, izzle bibendizzle enizzle dizzle yippiyo nisl. Nullizzle phat velizzle shiznit get down get down eleifend dawg. Phasellizzle nec nibh. Curabitizzle nizzle velit boom shackalack uhuh ... yih! sodalizzle facilisizzle. Maecenas things nulla, iaculizzle check it out, pot sed, rizzle a, erizzle. Nulla vitae turpis fo shizzle my nizzle nibh get down get down nizzle. Nizzle pulvinar consectetizzle velizzle. Aliquizzle mofo volutpizzle. Nunc ut leo izzle shit get down get down faucibus. Crizzle nizzle lacizzle the bizzle shizznit condimentizzle ultricies. Ut nisl. Fo shizzle my nizzle izzle fo shizzle mah nizzle fo rizzle, mah home g-dizzle. Integer laorizzle nizzle away mi. Crunk at turpizzle.</p>';
     html += '</section>';
@@ -866,12 +884,18 @@ var main = (function(){
       var segment = data.segments[i];
 
       if (segment.el) {
+        if (segment.warnings[SEGMENT_WARNING_OUTSIDE] || 
+            segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] ||
+            segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE]) {
+          segment.el.classList.add('warning');          
+        } else {
+          segment.el.classList.remove('warning');                    
+        }
+
         if (segment.warnings[SEGMENT_WARNING_OUTSIDE]) {
           segment.el.classList.add('outside');
-          segment.el.classList.add('warning');
         } else {
           segment.el.classList.remove('outside');
-          segment.el.classList.remove('warning');          
         }
       }
     }
@@ -896,11 +920,26 @@ var main = (function(){
     var position = data.streetWidth / 2 - data.occupiedWidth / 2;
 
     for (var i in data.segments) {
-      if (data.segments[i].el) {
-        if (((position < 0) || ((position + data.segments[i].width) > data.streetWidth)) && (data.streetWidth != STREET_WIDTH_ADAPTIVE)) {
-          data.segments[i].warnings[SEGMENT_WARNING_OUTSIDE] = true;
+      var segment = data.segments[i];
+      var segmentInfo = SEGMENT_INFO[segment.type];
+
+      if (segment.el) {
+        if (((position < 0) || ((position + segment.width) > data.streetWidth)) && (data.streetWidth != STREET_WIDTH_ADAPTIVE)) {
+          segment.warnings[SEGMENT_WARNING_OUTSIDE] = true;
         } else {
-          data.segments[i].warnings[SEGMENT_WARNING_OUTSIDE] = false;
+          segment.warnings[SEGMENT_WARNING_OUTSIDE] = false;
+        }
+
+        if (segmentInfo.minWidth && segment.width < segmentInfo.minWidth) {
+          segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = true;
+        } else {
+          segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = false;          
+        }
+
+        if (segmentInfo.maxWidth && segment.width > segmentInfo.maxWidth) {
+          segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = true;
+        } else {
+          segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = false;          
         }
       }
 
