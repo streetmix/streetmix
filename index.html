@@ -46,12 +46,25 @@
       <canvas id='width-chart'></canvas>
 
       <div id='street-width-canvas'>
-        <select id='street-width'>
+        <select id='street-width-no-custom'>
           <option value='40'>40'</option>
           <option value='60'>60'</option>
           <option selected value='80'>80'</option>
           <option disabled></option>
-          <option value='-1' id='street-width-option-adaptive'>Adaptive</option>
+          <option value='-2'>Custom…</option>
+          <option disabled></option>
+          <option value='-1' class='street-width-option-adaptive'>Adaptive</option>
+        </select>
+
+        <select id='street-width-custom' style='display: none'>
+          <option value='40'>40'</option>
+          <option value='60'>60'</option>
+          <option selected value='80'>80'</option>
+          <option disabled></option>
+          <option id='street-width-option-custom'></option>
+          <option value='-2'>Custom…</option>
+          <option disabled></option>
+          <option value='-1' class='street-width-option-adaptive'>Adaptive</option>
         </select>
       </div>
     </div>

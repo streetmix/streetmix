@@ -44,6 +44,10 @@ var main = (function(){
   var WIDTH_RESIZE_DELAY = 100;
 
   var STREET_WIDTH_ADAPTIVE = -1;
+  var STREET_WIDTH_CUSTOM = -2;
+
+  var MIN_CUSTOM_STREET_WIDTH = 10;
+  var MAX_CUSTOM_STREET_WIDTH = 200;
 
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
@@ -967,9 +971,11 @@ var main = (function(){
     }
 
     if (data.streetWidth == STREET_WIDTH_ADAPTIVE) {
-      document.querySelector('#street-width-option-adaptive').innerHTML = 'Adaptive (' + _prettifyWidth(TILE_SIZE * data.occupiedWidth) + ')';
+      document.querySelector('#street-width-custom .street-width-option-adaptive').innerHTML = 'Adaptive (' + _prettifyWidth(TILE_SIZE * data.occupiedWidth) + ')';
+      document.querySelector('#street-width-no-custom .street-width-option-adaptive').innerHTML = 'Adaptive (' + _prettifyWidth(TILE_SIZE * data.occupiedWidth) + ')';
     } else {
-      document.querySelector('#street-width-option-adaptive').innerHTML = 'Adaptive';
+      document.querySelector('#street-width-custom .street-width-option-adaptive').innerHTML = 'Adaptive';
+      document.querySelector('#street-width-no-custom .street-width-option-adaptive').innerHTML = 'Adaptive';
     }
 
     _applyWarningsToSegments();
@@ -1604,6 +1610,27 @@ var main = (function(){
       return;
     }
 
+    if (newStreetWidth == STREET_WIDTH_CUSTOM) {
+      var width = prompt("Enter the new street width (from " + 
+          MIN_CUSTOM_STREET_WIDTH + "' to " + MAX_CUSTOM_STREET_WIDTH +"'):");
+
+      width = parseInt(width);
+
+      if ((width < MIN_CUSTOM_STREET_WIDTH) || (width > MAX_CUSTOM_STREET_WIDTH)) {
+        return;
+      }
+
+      document.querySelector('#street-width-option-custom').innerHTML = width + "'";
+      document.querySelector('#street-width-option-custom').value = width;
+
+      document.querySelector('#street-width-custom').value = width;
+
+      document.querySelector('#street-width-custom').style.display = '';
+      document.querySelector('#street-width-no-custom').style.display = 'none';
+
+      newStreetWidth = width;
+    }
+
     data.streetWidth = newStreetWidth;
     _resizeStreetWidth();
 
@@ -1631,6 +1658,10 @@ var main = (function(){
     switch (event.keyCode) {
       case 39: // right arrow
       case 187: // = (or, plus)
+        if (event.metaKey || event.ctrlKey || event.altKey) {
+          return;
+        }
+
         if (document.activeElement == document.body) {
           if (segmentHoveredEl) {
             _incrementSegmentWidth(segmentHoveredEl, true);
@@ -1640,6 +1671,10 @@ var main = (function(){
         break;
       case 37: // left arrow
       case 189: // minus
+        if (event.metaKey || event.ctrlKey || event.altKey) {
+          return;
+        }
+
         if (document.activeElement == document.body) {
           if (segmentHoveredEl) {
             _incrementSegmentWidth(segmentHoveredEl, false);
@@ -1649,6 +1684,10 @@ var main = (function(){
         break;
       case 8: // backspace
       case 46: // Delete
+        if (event.metaKey || event.ctrlKey || event.altKey) {
+          return;
+        }
+
         if (document.activeElement == document.body) {
           if (segmentHoveredEl && segmentHoveredEl.parentNode) {
             segmentHoveredEl.parentNode.removeChild(segmentHoveredEl);
@@ -1693,7 +1732,8 @@ var main = (function(){
 
     _onResize();
 
-    document.querySelector('#street-width').addEventListener('change', _onStreetWidthChange, false);
+    document.querySelector('#street-width-custom').addEventListener('change', _onStreetWidthChange, false);
+    document.querySelector('#street-width-no-custom').addEventListener('change', _onStreetWidthChange, false);
 
     window.addEventListener('resize', _onResize, false);
 
