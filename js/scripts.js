@@ -1232,6 +1232,28 @@ var main = (function(){
     segmentResizeDragging.segmentEl = el.segmentEl;
 
     segmentResizeDragging.segmentEl.classList.add('hover');
+
+    var segmentInfo = SEGMENT_INFO[el.segmentEl.getAttribute('type')];
+
+    if (segmentInfo.minWidth) {
+      var guideEl = document.createElement('div');
+      guideEl.classList.add('guide');
+
+      var width = segmentInfo.minWidth * TILE_SIZE;
+      guideEl.style.width = width + 'px';
+      guideEl.style.marginLeft = (-width / 2) + 'px';
+      el.segmentEl.appendChild(guideEl);
+    }
+
+    if (segmentInfo.maxWidth) {
+      var guideEl = document.createElement('div');
+      guideEl.classList.add('guide');
+
+      var width = segmentInfo.maxWidth * TILE_SIZE;
+      guideEl.style.width = width + 'px';
+      guideEl.style.marginLeft = (-width / 2) + 'px';
+      el.segmentEl.appendChild(guideEl);
+    }
   }
 
   function _handleSegmentMoveStart(event) {
@@ -1466,7 +1488,12 @@ var main = (function(){
     }, 250);
   
     segmentResizeDragging.segmentEl.classList.remove('hover');
-}
+
+    var guideEl;
+    while (guideEl = segmentResizeDragging.segmentEl.querySelector('.guide')) {
+      guideEl.parentNode.removeChild(guideEl);
+    }
+  }
 
   function _onBodyMouseUp(event) {
     if (!draggingActive) {
