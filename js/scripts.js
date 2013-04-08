@@ -43,8 +43,7 @@ var main = (function(){
 
   var WIDTH_RESIZE_DELAY = 100;
 
-  var STREET_WIDTH_ADAPTIVE = -1;
-  var STREET_WIDTH_CUSTOM = -2;
+  var STREET_WIDTH_CUSTOM = -1;
 
   var MIN_CUSTOM_STREET_WIDTH = 10;
   var MAX_CUSTOM_STREET_WIDTH = 200;
@@ -925,12 +924,7 @@ var main = (function(){
       data.occupiedWidth += segment.width;
     }   
 
-    if (data.streetWidth == STREET_WIDTH_ADAPTIVE) {
-      _resizeStreetWidth();
-      data.remainingWidth = 0;
-    } else {
-      data.remainingWidth = (data.streetWidth - data.occupiedWidth);
-    }
+    data.remainingWidth = (data.streetWidth - data.occupiedWidth);
 
     var position = data.streetWidth / 2 - data.occupiedWidth / 2;
 
@@ -939,7 +933,7 @@ var main = (function(){
       var segmentInfo = SEGMENT_INFO[segment.type];
 
       if (segment.el) {
-        if (((position < 0) || ((position + segment.width) > data.streetWidth)) && (data.streetWidth != STREET_WIDTH_ADAPTIVE)) {
+        if ((position < 0) || ((position + segment.width) > data.streetWidth)) {
           segment.warnings[SEGMENT_WARNING_OUTSIDE] = true;
         } else {
           segment.warnings[SEGMENT_WARNING_OUTSIDE] = false;
@@ -968,14 +962,6 @@ var main = (function(){
       document.body.classList.remove('street-overflows');
     } else {
       document.body.classList.add('street-overflows');
-    }
-
-    if (data.streetWidth == STREET_WIDTH_ADAPTIVE) {
-      document.querySelector('#street-width-custom .street-width-option-adaptive').innerHTML = 'Adaptive (' + _prettifyWidth(TILE_SIZE * data.occupiedWidth) + ')';
-      document.querySelector('#street-width-no-custom .street-width-option-adaptive').innerHTML = 'Adaptive (' + _prettifyWidth(TILE_SIZE * data.occupiedWidth) + ')';
-    } else {
-      document.querySelector('#street-width-custom .street-width-option-adaptive').innerHTML = 'Adaptive';
-      document.querySelector('#street-width-no-custom .street-width-option-adaptive').innerHTML = 'Adaptive';
     }
 
     _applyWarningsToSegments();
@@ -1068,10 +1054,7 @@ var main = (function(){
     }
 
     var maxWidth = data.streetWidth;
-
-    if (data.streetWidth == STREET_WIDTH_ADAPTIVE) {
-      maxWidth = data.occupiedWidth;
-    } else if (data.occupiedWidth > data.streetWidth) {
+    if (data.occupiedWidth > data.streetWidth) {
       maxWidth = data.occupiedWidth;
     }
 
@@ -1085,7 +1068,7 @@ var main = (function(){
     var bottom = 70;
 
     _drawLine(ctx, left, 20, left, bottom);
-    if ((maxWidth > data.streetWidth) && (data.streetWidth != STREET_WIDTH_ADAPTIVE)) {
+    if (maxWidth > data.streetWidth) {
       _drawLine(ctx, left + data.streetWidth * multiplier, 20, left + data.streetWidth * multiplier, 40);
 
       ctx.save();
@@ -1098,7 +1081,7 @@ var main = (function(){
 
     _drawLine(ctx, left + maxWidth * multiplier, 20, left + maxWidth * multiplier, bottom);
     _drawArrowLine(ctx, 
-        left, 30, left + ((data.streetWidth == STREET_WIDTH_ADAPTIVE) ? data.occupiedWidth : data.streetWidth) * multiplier, 30);
+        left, 30, left + data.streetWidth * multiplier, 30);
   
     var x = left;
 
@@ -1553,13 +1536,7 @@ var main = (function(){
   }
 
   function _resizeStreetWidth() {
-    if (data.streetWidth == STREET_WIDTH_ADAPTIVE) {
-      var width = data.occupiedWidth;
-    } else {
-      var width = data.streetWidth;
-    }
-
-    width *= TILE_SIZE;
+    var width = data.streetWidth * TILE_SIZE;
 
     document.querySelector('#street-section-canvas').style.width = 
         (width * visualZoom) + 'px';
