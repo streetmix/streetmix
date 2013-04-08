@@ -563,10 +563,6 @@ body.segment-resize-dragging .segment .drag-handle {
   font-family: serif;
   z-index: 99999999;
 }
-/*.segment button.remove,
-.segment button.info {
-  max-width: 95%;
-}*/
 
 body.info-bubble-visible .segment button.remove,
 body.info-bubble-visible .segment .width-edit-canvas {
@@ -713,7 +709,7 @@ body.segment-move-dragging #editable-street-section > div[type='separator'].hove
 
 #info-bubble {
   position: absolute;
-  width: 200px;
+  width: 300px;
   height: 450px;
 
   border-radius: 4px;
@@ -736,7 +732,7 @@ body.segment-move-dragging #editable-street-section > div[type='separator'].hove
     top: 10px;
     left: 0;
     right: 0;
-    padding: 0 10px;
+    padding: 0 15px;
     margin: 0;
 
     font-family: Arial, sans-serif;
@@ -754,18 +750,24 @@ body.segment-move-dragging #editable-street-section > div[type='separator'].hove
     right: 0;
     overflow-y: scroll;
 
-    padding: 0 10px;
+    padding: 0 15px;
 
     font-family: Arial, sans-serif;
     font-size: 12px;
     line-height: 1.4;
 
+    & p {
+      margin: 10px 0;
+    }
     & img {
       max-width: 100%;
     }
-
     & .warning {
       color: rgb(180, 0, 0);
+      border-top: 1px solid rgb(180, 0, 0);
+      border-bottom: 1px solid rgb(180, 0, 0);
+      padding-top: 10px;
+      padding-bottom: 10px;
     }
   }
 

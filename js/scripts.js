@@ -378,10 +378,6 @@ var main = (function(){
       left += (segmentRealWidth - realWidth) * TILE_SIZE / 2;
     }
 
-/*    if (type == 'drive-lane-inbound') {
-      console.log(realWidth * TILE_SIZE, segmentWidth);
-    }*/
-
     var maxWidth = segmentWidth;
     if (!isTool) {
       if (maxWidth < realWidth * TILE_SIZE) {
@@ -641,19 +637,20 @@ var main = (function(){
     infoBubbleEl.style.height = infoBubbleHeight + 'px';
     infoBubbleEl.style.top = (top + 510 - infoBubbleHeight) + 'px';
 
+    var segment = data.segments[parseInt(segmentEl.dataNo)];
+
     var html = '';
     html += '<button class="close">×</button>';
 
     html += '<h1>' + SEGMENT_INFO[segmentEl.getAttribute('type')].name + '</h1>';
     html += '<section class="content">';
-    html += '<p class="photo"><img src="images/info-bubble-examples/bike-lane.jpg"></p>';
-
-    var segment = data.segments[parseInt(segmentEl.dataNo)];
-
     if (segment.warnings[SEGMENT_WARNING_OUTSIDE]) {
-      html += '<p class="warning">This segment doesn’t fit within the street.</p>';
+      html += '<p class="warning">';
+      html += '<strong>This segment doesn’t fit within the street.</strong> ';
+      html += 'Resize the segment or remove other segments.';
+      html += '</p>';
     }
-
+    html += '<p class="photo"><img src="images/info-bubble-examples/bike-lane.jpg"></p>';
     html += '<p class="description">Etizzle sizzle urna ut nisl. Tellivizzle quizzle arcu. Own yo’ pulvinar, ipsizzle shut the shizzle up bizzle we gonna chung, nulla purizzle izzle brizzle, shizzle my nizzle crocodizzle nizzle metus nulla izzle izzle. Vivamus ullamcorpizzle, tortor et varizzle owned, mah nizzle black break yo neck, yall crackalackin, izzle shiz leo elizzle fizzle dolizzle. Maurizzle aliquet, orci vel mah nizzle yippiyo, sizzle cool luctus fizzle, izzle bibendizzle enizzle dizzle yippiyo nisl. Nullizzle phat velizzle shiznit get down get down eleifend dawg. Phasellizzle nec nibh. Curabitizzle nizzle velit boom shackalack uhuh ... yih! sodalizzle facilisizzle. Maecenas things nulla, iaculizzle check it out, pot sed, rizzle a, erizzle. Nulla vitae turpis fo shizzle my nizzle nibh get down get down nizzle. Nizzle pulvinar consectetizzle velizzle. Aliquizzle mofo volutpizzle. Nunc ut leo izzle shit get down get down faucibus. Crizzle nizzle lacizzle the bizzle shizznit condimentizzle ultricies. Ut nisl. Fo shizzle my nizzle izzle fo shizzle mah nizzle fo rizzle, mah home g-dizzle. Integer laorizzle nizzle away mi. Crunk at turpizzle.</p>';
     html += '</section>';
 
@@ -902,10 +899,8 @@ var main = (function(){
       if (data.segments[i].el) {
         if (((position < 0) || ((position + data.segments[i].width) > data.streetWidth)) && (data.streetWidth != STREET_WIDTH_ADAPTIVE)) {
           data.segments[i].warnings[SEGMENT_WARNING_OUTSIDE] = true;
-          if (i == 0) { console.log(true); }
         } else {
           data.segments[i].warnings[SEGMENT_WARNING_OUTSIDE] = false;
-          if (i == 0) { console.log(false); }
         }
       }
 
@@ -1577,7 +1572,6 @@ var main = (function(){
   }
 
   function _onBodyKeyDown(event) {
-    //console.log(event.keyCode);
     switch (event.keyCode) {
       case 39: // right arrow
       case 187: // = (or, plus)
