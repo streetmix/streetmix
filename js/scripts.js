@@ -100,6 +100,7 @@ var main = (function(){
     'sidewalk': {
       name: 'Sidewalk',
       defaultWidth: 6,
+      minWidth: 6,
       defaultHeight: 15,
       tileX: 0,
       tileY: 0,
@@ -162,6 +163,8 @@ var main = (function(){
     "parking-lane": {
       name: 'Parking lane',
       defaultWidth: 8,
+      minWidth: 8,
+      maxWidth: 10,
       defaultHeight: 15,
       tileX: 40,
       tileY: 0,
@@ -175,8 +178,8 @@ var main = (function(){
       name: 'Drive lane',
       subname: 'Inbound',
       defaultWidth: 10,
-      minWidth: 8,
-      maxWidth: 15,
+      minWidth: 9,
+      maxWidth: 12,
       defaultHeight: 15,
       tileX: 20,
       tileY: 0,
@@ -190,8 +193,8 @@ var main = (function(){
       name: 'Drive lane',
       subname: 'Outbound',
       defaultWidth: 10,
-      minWidth: 8,
-      maxWidth: 15,
+      minWidth: 9,
+      maxWidth: 12,
       defaultHeight: 15,
       tileX: 30,
       tileY: 0,
@@ -204,6 +207,8 @@ var main = (function(){
     "turn-lane": {
       name: 'Turn lane',
       defaultWidth: 10,
+      minWidth: 9,
+      maxWidth: 12,
       defaultHeight: 15,
       tileX: 72,
       tileY: 0,
@@ -217,6 +222,8 @@ var main = (function(){
       name: 'Bus lane',
       subname: 'Inbound',
       defaultWidth: 12,
+      minWidth: 9,
+      maxWidth: 12,
       defaultHeight: 15,
       tileX: 48,
       tileY: 0,
@@ -230,6 +237,8 @@ var main = (function(){
       name: 'Bus lane',
       subname: 'Outbound',
       defaultWidth: 12,
+      minWidth: 9,
+      maxWidth: 12,
       defaultHeight: 15,
       tileX: 60,
       tileY: 0,
@@ -939,13 +948,13 @@ var main = (function(){
           segment.warnings[SEGMENT_WARNING_OUTSIDE] = false;
         }
 
-        if (segmentInfo.minWidth && segment.width < segmentInfo.minWidth) {
+        if (segmentInfo.minWidth && (segment.width < segmentInfo.minWidth)) {
           segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = true;
         } else {
           segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = false;          
         }
 
-        if (segmentInfo.maxWidth && segment.width > segmentInfo.maxWidth) {
+        if (segmentInfo.maxWidth && (segment.width > segmentInfo.maxWidth)) {
           segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = true;
         } else {
           segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = false;          
