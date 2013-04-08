@@ -281,6 +281,20 @@ body.street-overflows #street-section-right-building {
     opacity: 0;
   }
 }
+body.segment-resize-dragging .segment:not(.unmovable).hover {
+  border-left: 1px dashed rgba(0, 0, 0, .5);
+  margin-left: -1px;
+  border-right: 1px dashed rgba(0, 0, 0, .5);
+  margin-right: -1px;
+
+  button.remove,
+  button.increment,
+  button.decrement,
+  button.info {
+    opacity: 0;
+  }
+}
+
 .segment:not(.unmovable) {
   cursor: -webkit-grab;
   cursor: -moz-grab;  
@@ -525,6 +539,8 @@ body.segment-resize-dragging .segment .drag-handle {
   cursor: pointer;
 
   opacity: 0;
+
+  -webkit-transition: opacity 150ms;
 }
 .segment:hover .remove,
 .segment:hover .info,

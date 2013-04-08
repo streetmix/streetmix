@@ -14,7 +14,7 @@ var main = (function(){
 "use strict";
   var main = {};
 
-  var TILE_IMAGE_VERSION = 3;
+  var TILE_IMAGE_VERSION = 4;
 
   var IMAGES_TO_BE_LOADED = [
     'images/tiles.png',
