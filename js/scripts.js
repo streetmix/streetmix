@@ -1539,7 +1539,7 @@ var main = (function(){
       _segmentsChanged();
 
       segmentMoveDragging.el.parentNode.removeChild(segmentMoveDragging.el);
-    } else {
+    } else {            
       if (!withinCanvas) {
         _dragOutOriginalIfNecessary();
       } else {
@@ -1555,7 +1555,7 @@ var main = (function(){
 
       }
 
-      _removeSegment(segmentMoveDragging.el);
+      segmentMoveDragging.el.parentNode.removeChild(segmentMoveDragging.el);
     }
 
     draggingActive = false;
