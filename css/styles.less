@@ -738,6 +738,34 @@ body.segment-move-dragging #editable-street-section > div[type='separator'].hove
   -moz-transition: none;
 }
 
+#status-message {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  height: 20px;
+  padding: 10px 0;
+  z-index: 200000;
+  text-align: center;
+  pointer-events: none;
+
+  -webkit-transform: translateY(-60px);
+  -webkit-transition: -webkit-transform 2500ms;
+
+  &.visible {
+    -webkit-transform: translateY(0);
+    -webkit-transition: -webkit-transform 250ms;
+    pointer-events: auto;
+  }
+
+  & > div {
+    background: white;
+    padding: 5px 20px;
+    display: inline-block;
+    font-family: sans-serif;
+    font-size: 14px;
+  }
+}
 
 #info-bubble {
   position: absolute;
