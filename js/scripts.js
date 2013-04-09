@@ -1011,6 +1011,8 @@ var main = (function(){
 
       _updateUndoButtons();
       lastData = _trimNonUserData();
+
+      _hideStatusMessage();
     } else {
 
     }
@@ -1029,6 +1031,8 @@ var main = (function(){
 
       _updateUndoButtons();
       lastData = _trimNonUserData();
+
+      _hideStatusMessage();
     } else {
 
     }
@@ -1538,13 +1542,6 @@ var main = (function(){
 
       }
 
-      /*segmentMoveDragging.el.classList.add('poof');
-      window.setTimeout(function() {
-        if (segmentMoveDragging.el && segmentMoveDragging.el.parentNode) {
-          segmentMoveDragging.el.parentNode.removeChild(segmentMoveDragging.el);
-        }
-      }, 250);*/
-
       _removeSegment(segmentMoveDragging.el);
     }
 
@@ -1736,7 +1733,9 @@ var main = (function(){
       el.parentNode.removeChild(el);
       _segmentsChanged();
 
-      _showStatusMessage('The segment has been deleted.');
+      _showStatusMessage('The segment has been deleted. <button>Undo</button>');
+
+      document.querySelector('#status-message button').addEventListener('click', _undo, false);
     }
   } 
 

@@ -761,12 +761,12 @@ body.segment-move-dragging #editable-street-section > div[type='separator'].hove
   text-align: center;
   pointer-events: none;
 
-  -webkit-transform: translateY(-60px);
-  -webkit-transition: -webkit-transform 2500ms;
+  opacity: 0;
+  -webkit-transition: opacity 200ms;
 
   &.visible {
-    -webkit-transform: translateY(0);
-    -webkit-transition: -webkit-transform 200ms;
+    opacity: 1;
+    -webkit-transition: opacity 200ms;
     pointer-events: auto;
   }
 
