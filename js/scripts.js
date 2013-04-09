@@ -302,15 +302,16 @@ var main = (function(){
     occupiedWidth: null,
     remainingWidth: null,
 
-    modified: false,
-
     segments: []
   };
 
+  var lastData;
+  var undoStack = [];
+  var undoPosition = 0;
+  var doNotCreateUndo = false;
+
   var draggingActive = false;
   var draggingType;
-
-  //var tilesImage;
 
   var segmentHoveredEl;
 
@@ -594,7 +595,7 @@ var main = (function(){
     _incrementSegmentWidth(segmentEl, true);
   }
 
-  function _resizeSegment(el, width, updateEdit, isTool, immediate) {
+  function _resizeSegment(el, width, updateEdit, isTool, immediate, initial) {
     if (!isTool) {
       var width = _normalizeSegmentWidth(width / TILE_SIZE) * TILE_SIZE;
     }
@@ -637,7 +638,9 @@ var main = (function(){
       }
     }
 
-    _segmentsChanged();
+    if (!initial) {
+      _segmentsChanged();
+    }
   }
 
   function _moveInfoBubble(segmentEl) {
@@ -874,7 +877,7 @@ var main = (function(){
     }
 
     if (width) {
-      _resizeSegment(el, width, true, isTool, true);
+      _resizeSegment(el, width, true, isTool, true, true);
     }    
     return el;
   }
@@ -987,6 +990,71 @@ var main = (function(){
       if (data.segments[i].el) {
         data.segments[i].el.dataNo = i;
       }
+    }
+
+    _createUndoIfNecessary();
+
+    _updateUndoButtons();
+  }
+
+  function _undo() {
+    if (_isUndoAvailable()) {
+      undoStack[undoPosition] = _trimNonUserData();
+      undoPosition--;
+      data = undoStack[undoPosition];
+
+      doNotCreateUndo = true;
+      _createDomFromData();
+      _segmentsChanged();
+      _resizeStreetWidth();
+      doNotCreateUndo = false;
+
+      _updateUndoButtons();
+      lastData = _trimNonUserData();
+    } else {
+
+    }
+  }
+
+  function _redo() {
+    if (_isRedoAvailable()) {
+      undoPosition++;
+      data = undoStack[undoPosition];
+
+      doNotCreateUndo = true;
+      _createDomFromData();
+      _segmentsChanged();
+      _resizeStreetWidth();
+      doNotCreateUndo = false;
+
+      _updateUndoButtons();
+      lastData = _trimNonUserData();
+    } else {
+
+    }
+
+  }
+
+  function _createUndoIfNecessary() {
+    if (doNotCreateUndo) {
+      return;
+    }
+
+    var currentData = _trimNonUserData();
+
+    if (JSON.stringify(currentData) != JSON.stringify(lastData)) {
+
+      // This removes future undos in case we undo a few times and then do
+      // something undoable.
+      undoStack = undoStack.splice(0, undoPosition);
+      undoStack[undoPosition] = lastData;
+
+      undoPosition++;
+      console.log('YES undoPosition now', undoPosition);
+
+      lastData = currentData;
+
+      _updateUndoButtons();
     }
   }
 
@@ -1203,6 +1271,8 @@ var main = (function(){
   }
 
   function _handleSegmentResizeStart(event) {
+    doNotCreateUndo = true;
+
     var el = event.target;
 
     draggingActive = true;
@@ -1257,6 +1327,8 @@ var main = (function(){
   }
 
   function _handleSegmentMoveStart(event) {
+    doNotCreateUndo = true;
+
     var el = event.target;
 
     draggingActive = true;
@@ -1403,6 +1475,8 @@ var main = (function(){
   }
 
   function _handleSegmentMoveEnd(event) {
+    doNotCreateUndo = false;
+
     var el = event.target;
     while (el && (el.id != 'editable-street-canvas')) {
       el = el.parentNode;
@@ -1447,8 +1521,6 @@ var main = (function(){
       _recalculateSeparators();
       _segmentsChanged();
 
-      data.modified = true;
-
       segmentMoveDragging.el.parentNode.removeChild(segmentMoveDragging.el);
     } else {
       if (!withinCanvas) {
@@ -1466,12 +1538,14 @@ var main = (function(){
 
       }
 
-      segmentMoveDragging.el.classList.add('poof');
+      /*segmentMoveDragging.el.classList.add('poof');
       window.setTimeout(function() {
         if (segmentMoveDragging.el && segmentMoveDragging.el.parentNode) {
           segmentMoveDragging.el.parentNode.removeChild(segmentMoveDragging.el);
         }
-      }, 250);
+      }, 250);*/
+
+      _removeSegment(segmentMoveDragging.el);
     }
 
     draggingActive = false;
@@ -1479,6 +1553,10 @@ var main = (function(){
   }
 
   function _handleSegmentResizeEnd(event) {
+    doNotCreateUndo = false;
+
+    _segmentsChanged();
+
     draggingActive = false;
     document.body.classList.remove('segment-resize-dragging');
 
@@ -1611,8 +1689,6 @@ var main = (function(){
 
       data.segments.push(segment);
     }
-
-    data.modified = false;
   }
 
   function _onStreetWidthChange(event) {
@@ -1734,7 +1810,13 @@ var main = (function(){
 
     initializing = false;    
 
+    doNotCreateUndo = false;
+    lastData = _trimNonUserData();
+
     _onResize();
+
+    document.querySelector('#undo').addEventListener('click', _undo, false);
+    document.querySelector('#redo').addEventListener('click', _redo, false);
 
     document.querySelector('#street-width-custom').addEventListener('change', _onStreetWidthChange, false);
     document.querySelector('#street-width-no-custom').addEventListener('change', _onStreetWidthChange, false);
@@ -1772,9 +1854,50 @@ var main = (function(){
   function _hideStatusMessage() {
     document.querySelector('#status-message').classList.remove('visible');
   }
+
+  // Copies only the data necessary for save/undo.
+  function _trimNonUserData() {
+    var newData = {};
+
+    newData.streetWidth = data.streetWidth;
+
+    newData.segments = [];
+
+    for (var i in data.segments) {
+      var segment = {};
+      segment.type = data.segments[i].type;
+      segment.width = data.segments[i].width;
+
+      newData.segments.push(segment);
+    }
+
+    return newData;
+  }
+
+  function _isUndoAvailable() {
+    if (undoPosition > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function _isRedoAvailable() {
+    if (undoPosition < undoStack.length - 1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function _updateUndoButtons() {
+    document.querySelector('#undo').disabled = !_isUndoAvailable();
+    document.querySelector('#redo').disabled = !_isRedoAvailable();
+  }
  
   main.init = function() {
     initializing = true;
+    doNotCreateUndo = true;
 
     images = [];
 
