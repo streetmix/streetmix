@@ -14,7 +14,7 @@ var main = (function(){
 "use strict";
   var main = {};
 
-  var TILE_IMAGE_VERSION = 5;
+  var TILE_IMAGE_VERSION = 6;
 
   var IMAGES_TO_BE_LOADED = [
     'images/tiles.png',
@@ -100,13 +100,14 @@ var main = (function(){
     'sidewalk': {
       name: 'Sidewalk',
       defaultWidth: 6,
+      realWidth: 4,
       minWidth: 6,
       defaultHeight: 15,
-      tileX: 0 + 1,
+      tileX: 3,
       tileY: 0,
       repeatWidth: 1,
       repeatHeight: 15,
-      repeatX: 0 + 1,
+      repeatX: 1,
       repeatY: 0,
       owner: SEGMENT_OWNER_PEDESTRIAN
     },
@@ -114,23 +115,24 @@ var main = (function(){
       name: 'Sidewalk w/ a tree',
       defaultWidth: 6,
       defaultHeight: 15,
-      tileX: 10 + 3,
+      tileX: 13,
       tileY: 0,
       repeatWidth: 1,
       repeatHeight: 15,
-      repeatX: 0 + 1,
+      repeatX: 1,
       repeatY: 0,
       owner: SEGMENT_OWNER_NATURE
     },
     "planting-strip": {
       name: 'Planting strip',
       defaultWidth: 4,
+      realWidth: 0,
       defaultHeight: 15,
-      tileX: 6 + 2,
+      tileX: 8,
       tileY: 0,
-      repeatWidth: 1,
+      repeatWidth: 4,
       repeatHeight: 15,
-      repeatX: 6 + 2,
+      repeatX: 8,
       repeatY: 0,
       owner: SEGMENT_OWNER_NATURE
     },
@@ -138,12 +140,13 @@ var main = (function(){
       name: 'Bike lane',
       subname: 'Inbound',
       defaultWidth: 6,
+      realWidth: 4,
       defaultHeight: 15,
-      tileX: 82 + 11,
+      tileX: 92,
       tileY: 0,
       repeatWidth: 1,
       repeatHeight: 15,
-      repeatX: 82 + 11,
+      repeatX: 90,
       repeatY: 0,
       owner: SEGMENT_OWNER_BIKE
     },
@@ -151,12 +154,13 @@ var main = (function(){
       name: 'Bike lane',
       subname: 'Outbound',
       defaultWidth: 6,
+      realWidth: 4,
       defaultHeight: 15,
-      tileX: 88 + 12,
+      tileX: 97,
       tileY: 0,
       repeatWidth: 1,
       repeatHeight: 15,
-      repeatX: 88 + 12,
+      repeatX: 90,
       repeatY: 0,
       owner: SEGMENT_OWNER_BIKE
     },
@@ -164,28 +168,33 @@ var main = (function(){
       name: 'Parking lane',
       defaultWidth: 8,
       minWidth: 8,
+      realWidth: 8,
       maxWidth: 10,
       defaultHeight: 15,
-      tileX: 40 + 7,
+      tileX: 50,
       tileY: 0,
       repeatWidth: 1,
       repeatHeight: 15,
-      repeatX: 30 + 6,
+      repeatX: 26,
       repeatY: 0,
+      leftX: 46,
+      leftHeight: 15,
+      leftWidth: 3,
       owner: SEGMENT_OWNER_CAR
     },
     "drive-lane-inbound": {
       name: 'Drive lane',
       subname: 'Inbound',
       defaultWidth: 10,
+      realWidth: 8,
       minWidth: 9,
       maxWidth: 12,
       defaultHeight: 15,
-      tileX: 20 + 5,
+      tileX: 28,
       tileY: 0,
       repeatWidth: 1,
       repeatHeight: 15,
-      repeatX: 30 + 6,
+      repeatX: 26,
       repeatY: 0,
       owner: SEGMENT_OWNER_CAR
     },
@@ -193,28 +202,30 @@ var main = (function(){
       name: 'Drive lane',
       subname: 'Outbound',
       defaultWidth: 10,
+      realWidth: 8,
       minWidth: 9,
       maxWidth: 12,
       defaultHeight: 15,
-      tileX: 30 + 6,
+      tileX: 37,
       tileY: 0,
       repeatWidth: 1,
       repeatHeight: 15,
-      repeatX: 30 + 6,
+      repeatX: 26,
       repeatY: 0,
       owner: SEGMENT_OWNER_CAR
     },
     "turn-lane": {
       name: 'Turn lane',
       defaultWidth: 10,
+      realWidth: 8,
       minWidth: 9,
       maxWidth: 12,
       defaultHeight: 15,
-      tileX: 72 + 10,
+      tileX: 81,
       tileY: 0,
       repeatWidth: 1,
       repeatHeight: 15,
-      repeatX: 30 + 6,
+      repeatX: 26,
       repeatY: 0,
       owner: SEGMENT_OWNER_CAR
     },
@@ -222,14 +233,15 @@ var main = (function(){
       name: 'Bus lane',
       subname: 'Inbound',
       defaultWidth: 12,
+      realWidth: 10,
       minWidth: 9,
       maxWidth: 12,
       defaultHeight: 15,
-      tileX: 48 + 8,
+      tileX: 59,
       tileY: 0,
       repeatWidth: 1,
       repeatHeight: 15,
-      repeatX: 30 + 6,
+      repeatX: 26,
       repeatY: 0,
       owner: SEGMENT_OWNER_PUBLIC_TRANSIT
     },
@@ -237,26 +249,28 @@ var main = (function(){
       name: 'Bus lane',
       subname: 'Outbound',
       defaultWidth: 12,
+      realWidth: 10,
       minWidth: 9,
       maxWidth: 12,
       defaultHeight: 15,
-      tileX: 60 + 9,
+      tileX: 70,
       tileY: 0,
       repeatWidth: 1,
       repeatHeight: 15,
-      repeatX: 30 + 6,
+      repeatX: 26,
       repeatY: 0,
       owner: SEGMENT_OWNER_PUBLIC_TRANSIT
     },
     "small-median": {
       name: 'Small median',
       defaultWidth: 4,
+      realWidth: 3,
       defaultHeight: 15,
-      tileX: 16 + 4,
+      tileX: 22,
       tileY: 0,
       repeatWidth: 1,
       repeatHeight: 15,
-      repeatX: 16 + 4,
+      repeatX: 20,
       repeatY: 0,
       owner: SEGMENT_OWNER_CAR
     },
@@ -372,7 +386,11 @@ var main = (function(){
   function _setSegmentContents(el, type, segmentWidth, isTool) {
     var segmentInfo = SEGMENT_INFO[type];
 
-    var realWidth = segmentInfo.realWidth || segmentInfo.defaultWidth;
+    if (typeof segmentInfo.realWidth != 'undefined') {
+      var realWidth = segmentInfo.realWidth;
+    } else {
+      var realWidth = segmentInfo.defaultWidth;
+    }
 
     var tileOffsetX = segmentInfo.tileOffsetX || 0;
     var tileOffsetY = segmentInfo.tileOffsetY || 0;
@@ -391,12 +409,11 @@ var main = (function(){
     var left = -tileOffsetX * TILE_SIZE * multiplier;
     var top = -tileOffsetY * TILE_SIZE * multiplier;
 
-    if (!isTool) {
-      // center properly
-      var segmentRealWidth = segmentWidth / TILE_SIZE;
-      left += (segmentRealWidth - realWidth) * TILE_SIZE / 2;
-    }
+    // center properly
+    var segmentRealWidth = segmentWidth / TILE_SIZE / multiplier;
+    left += (segmentRealWidth - realWidth) * TILE_SIZE / 2;
 
+    // sticking out
     var maxWidth = segmentWidth;
     if (!isTool) {
       if (maxWidth < realWidth * TILE_SIZE) {
@@ -418,26 +435,38 @@ var main = (function(){
 
     var realHeight = segmentInfo.defaultHeight * TILE_SIZE;
 
-    if (!isTool) {
-      if (segmentInfo.repeatWidth) {
+    if (segmentInfo.repeatWidth) {
+      var repeatPositionX = segmentInfo.repeatX * TILE_SIZE;
+      var w = segmentInfo.repeatWidth * TILE_SIZE * multiplier;
 
-        var repeatPositionX = ((segmentInfo.repeatX) * TILE_SIZE);
-        var w = (segmentInfo.repeatWidth * TILE_SIZE);
+      var count = Math.floor((segmentWidth) / w + 1);
 
-        var count = Math.floor((segmentWidth) / w + 1);
+      for (var i = 0; i < count; i++) {
+        ctx.drawImage(images['images/tiles.png'], 
+          repeatPositionX * 2, 
+          0, 
+          w * 2, 
+          realHeight * 2, 
+          (-(segmentWidth - maxWidth) + (i * segmentInfo.repeatWidth) * TILE_SIZE * retinaMultiplier) * multiplier, 
+          ((isTool ? 20 : 265) + top) * retinaMultiplier, 
+          w * retinaMultiplier, 
+          realHeight * retinaMultiplier * multiplier);
+      }
+    }      
 
-        for (var i = 0; i < count; i++) {
-          ctx.drawImage(images['images/tiles.png'], 
-            repeatPositionX * 2, 
-            0, 
-            w * 2, 
-            realHeight * 2, 
-            i * TILE_SIZE * retinaMultiplier, 
-            ((isTool ? 20 : 265) + top) * retinaMultiplier, 
-            w * retinaMultiplier * multiplier, 
-            realHeight * retinaMultiplier * multiplier);
-        }
-      }      
+    if (segmentInfo.leftWidth) {
+      var leftPositionX = segmentInfo.leftX * TILE_SIZE;
+      var w = segmentInfo.leftWidth * TILE_SIZE * multiplier;
+      ctx.drawImage(images['images/tiles.png'], 
+        leftPositionX * 2, 
+        0, 
+        w * 2, 
+        realHeight * 2, 
+        -(segmentWidth - maxWidth) * multiplier * retinaMultiplier, 
+        ((isTool ? 20 : 265) + top) * retinaMultiplier, 
+        w * retinaMultiplier, 
+        realHeight * retinaMultiplier * multiplier);
+
     }
 
     ctx.drawImage(images['images/tiles.png'], 
@@ -445,7 +474,7 @@ var main = (function(){
       0, 
       width * 2, 
       realHeight * 2, 
-      left * retinaMultiplier, 
+      left * retinaMultiplier * multiplier, 
       ((isTool ? 20 : 265) + top) * retinaMultiplier, 
       width * retinaMultiplier * multiplier, 
       realHeight * retinaMultiplier * multiplier);
