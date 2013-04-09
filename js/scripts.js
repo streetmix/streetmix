@@ -1318,7 +1318,20 @@ var main = (function(){
       el.segmentEl.appendChild(guideEl);
     }
 
-    if (segmentInfo.maxWidth) {
+    var remainingWidth = 
+        data.remainingWidth + parseFloat(el.segmentEl.getAttribute('width'));
+
+    if (remainingWidth && 
+        ((!segmentInfo.minWidth) || (remainingWidth >= segmentInfo.minWidth)) && 
+        ((!segmentInfo.maxWidth) || (remainingWidth <= segmentInfo.maxWidth))) {
+      var guideEl = document.createElement('div');
+      guideEl.classList.add('guide');
+
+      var width = remainingWidth * TILE_SIZE;
+      guideEl.style.width = width + 'px';
+      guideEl.style.marginLeft = (-width / 2) + 'px';
+      el.segmentEl.appendChild(guideEl);
+    } else if (segmentInfo.maxWidth) {
       var guideEl = document.createElement('div');
       guideEl.classList.add('guide');
 
@@ -1327,6 +1340,7 @@ var main = (function(){
       guideEl.style.marginLeft = (-width / 2) + 'px';
       el.segmentEl.appendChild(guideEl);
     }
+
   }
 
   function _handleSegmentMoveStart(event) {
