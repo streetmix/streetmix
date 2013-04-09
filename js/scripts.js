@@ -1014,7 +1014,7 @@ var main = (function(){
 
       _hideStatusMessage();
     } else {
-
+      _showStatusMessage('Nothing to undo.')
     }
   }
 
@@ -1034,7 +1034,7 @@ var main = (function(){
 
       _hideStatusMessage();
     } else {
-
+      _showStatusMessage('Nothing to redo.')
     }
 
   }
@@ -1054,7 +1054,6 @@ var main = (function(){
       undoStack[undoPosition] = lastData;
 
       undoPosition++;
-      console.log('YES undoPosition now', undoPosition);
 
       lastData = currentData;
 
@@ -1740,6 +1739,8 @@ var main = (function(){
   } 
 
   function _onBodyKeyDown(event) {
+    //console.log(event.keyCode);
+
     switch (event.keyCode) {
       case 39: // right arrow
       case 187: // = (or, plus)
@@ -1784,6 +1785,21 @@ var main = (function(){
         }
         event.preventDefault();
         break;
+      case 90: // Z
+        if (!event.shiftKey && (event.metaKey || event.ctrlKey)) {
+          _undo();
+          event.preventDefault();
+        } else if (event.shiftKey && (event.metaKey || event.ctrlKey)) {
+          _redo();
+          event.preventDefault();
+        }
+        break;
+      case 89: // Y
+        if (event.metaKey || event.ctrlKey) {
+          _redo();
+          event.preventDefault();
+        }   
+        break;   
     }
   }
 
