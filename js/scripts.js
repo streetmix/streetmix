@@ -537,6 +537,7 @@ var main = (function(){
       event.target.select();
     }
   }
+
   function _onWidthEditMouseOut(event) {
     var el = event.target;
     if (!widthEditHeld) {
@@ -557,13 +558,13 @@ var main = (function(){
   function _onWidthEditBlur(event) {
     var el = event.target;
 
-    widthEditInputChanged(el, true);
+    _widthEditInputChanged(el, true);
 
     el.hold = false;
     widthEditHeld = false;
   }
 
-  function widthEditInputChanged(el, immediate) {
+  function _widthEditInputChanged(el, immediate) {
     window.clearTimeout(resizeSegmentTimerId);
 
     var width = parseFloat(el.value);
@@ -582,7 +583,7 @@ var main = (function(){
   }
 
   function _onWidthEditInput(event) {
-    widthEditInputChanged(event.target, false);
+    _widthEditInputChanged(event.target, false);
   }
 
   function _onWidthEditKeyDown(event) {
@@ -590,13 +591,13 @@ var main = (function(){
 
     switch (event.keyCode) {
       case 13: // enter
-        widthEditInputChanged(el, true);
+        _widthEditInputChanged(el, true);
         _loseAnyFocus();
         el.value = el.segmentEl.getAttribute('width');
         break;
       case 27: // Esc
         el.value = el.oldValue;
-        widthEditInputChanged(el, true);
+        _widthEditInputChanged(el, true);
         _loseAnyFocus();
         break;
     }
