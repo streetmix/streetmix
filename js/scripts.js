@@ -575,6 +575,7 @@ var main = (function(){
       if (immediate) {
         _resizeSegment(segmentEl, width * TILE_SIZE, false, false, true);
       } else {
+        // TODO const
         resizeSegmentTimerId = window.setTimeout(function() {
           _resizeSegment(segmentEl, width * TILE_SIZE, false, false, true);
         }, 200);
@@ -1881,6 +1882,22 @@ var main = (function(){
     }
   }
 
+  function _addEventListeners() {
+    document.querySelector('#undo').addEventListener('click', _undo, false);
+    document.querySelector('#redo').addEventListener('click', _redo, false);
+
+    document.querySelector('#street-width-custom').addEventListener('change', _onStreetWidthChange, false);
+    document.querySelector('#street-width-no-custom').addEventListener('change', _onStreetWidthChange, false);
+
+    window.addEventListener('resize', _onResize, false);
+
+    window.addEventListener('mousedown', _onBodyMouseDown, false);
+    window.addEventListener('mousemove', _onBodyMouseMove, false);
+    window.addEventListener('mouseup', _onBodyMouseUp, false); 
+
+    window.addEventListener('keydown', _onBodyKeyDown, false);       
+  }
+
   function _onImagesLoaded() {
     retinaMultiplier = window.devicePixelRatio;
 
@@ -1900,19 +1917,7 @@ var main = (function(){
 
     _onResize();
 
-    document.querySelector('#undo').addEventListener('click', _undo, false);
-    document.querySelector('#redo').addEventListener('click', _redo, false);
-
-    document.querySelector('#street-width-custom').addEventListener('change', _onStreetWidthChange, false);
-    document.querySelector('#street-width-no-custom').addEventListener('change', _onStreetWidthChange, false);
-
-    window.addEventListener('resize', _onResize, false);
-
-    window.addEventListener('mousedown', _onBodyMouseDown, false);
-    window.addEventListener('mousemove', _onBodyMouseMove, false);
-    window.addEventListener('mouseup', _onBodyMouseUp, false); 
-
-    window.addEventListener('keydown', _onBodyKeyDown, false);   
+    _addEventListeners();
 
     document.querySelector('#loading').classList.add('hidden');
   }
