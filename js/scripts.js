@@ -102,7 +102,7 @@ var main = (function(){
       defaultWidth: 6,
       centerWidth: 4,
       minWidth: 6,
-      defaultHeight: 15,
+      centerHeight: 15,
       tileX: 3,
       tileY: 0,
       repeat: { x: 1, y: 0, width: 1, height: 15 },
@@ -112,7 +112,7 @@ var main = (function(){
       name: 'Sidewalk w/ a tree',
       defaultWidth: 4,
       centerWidth: 6,
-      defaultHeight: 15,
+      centerHeight: 15,
       tileX: 13,
       tileY: 0,
       repeat: { x: 1, y: 0, width: 1, height: 15 },
@@ -122,7 +122,7 @@ var main = (function(){
       name: 'Sidewalk w/ a lamp',
       defaultWidth: 4,
       centerWidth: 0,
-      defaultHeight: 15,
+      centerHeight: 15,
       tileX: 102,
       tileY: 0,
 
@@ -135,7 +135,7 @@ var main = (function(){
       name: 'Sidewalk w/ a lamp',
       defaultWidth: 6,
       centerWidth: 0,
-      defaultHeight: 15,
+      centerHeight: 15,
       tileX: 102,
       tileY: 0,
 
@@ -148,7 +148,7 @@ var main = (function(){
       name: 'Planting strip',
       defaultWidth: 4,
       centerWidth: 0,
-      defaultHeight: 15,
+      centerHeight: 15,
       tileX: 8,
       tileY: 0,
 
@@ -160,7 +160,7 @@ var main = (function(){
       subname: 'Inbound',
       defaultWidth: 6,
       centerWidth: 4,
-      defaultHeight: 15,
+      centerHeight: 15,
       tileX: 92,
       tileY: 0,
       repeat: { x: 90, y: 0, width: 1, height: 15 },
@@ -171,7 +171,7 @@ var main = (function(){
       subname: 'Outbound',
       defaultWidth: 6,
       centerWidth: 4,
-      defaultHeight: 15,
+      centerHeight: 15,
       tileX: 97,
       tileY: 0,
 
@@ -184,7 +184,7 @@ var main = (function(){
       minWidth: 8,
       centerWidth: 8,
       maxWidth: 10,
-      defaultHeight: 15,
+      centerHeight: 15,
       tileX: 50,
       tileY: 0,
       repeat: { x: 26, y: 0, width: 1, height: 15 },
@@ -198,7 +198,7 @@ var main = (function(){
       centerWidth: 8,
       minWidth: 9,
       maxWidth: 12,
-      defaultHeight: 15,
+      centerHeight: 15,
       tileX: 28,
       tileY: 0,
       repeat: { x: 26, y: 0, width: 1, height: 15 },
@@ -211,7 +211,7 @@ var main = (function(){
       centerWidth: 8,
       minWidth: 9,
       maxWidth: 12,
-      defaultHeight: 15,
+      centerHeight: 15,
       tileX: 37,
       tileY: 0,
       repeat: { x: 26, y: 0, width: 1, height: 15 },
@@ -223,7 +223,7 @@ var main = (function(){
       centerWidth: 8,
       minWidth: 9,
       maxWidth: 12,
-      defaultHeight: 15,
+      centerHeight: 15,
       tileX: 81,
       tileY: 0,
       repeat: { x: 26, y: 0, width: 1, height: 15 },
@@ -236,7 +236,7 @@ var main = (function(){
       centerWidth: 10,
       minWidth: 9,
       maxWidth: 12,
-      defaultHeight: 15,
+      centerHeight: 15,
       tileX: 59,
       tileY: 0,
       repeat: { x: 26, y: 0, width: 1, height: 15 },
@@ -249,7 +249,7 @@ var main = (function(){
       centerWidth: 10,
       minWidth: 9,
       maxWidth: 12,
-      defaultHeight: 15,
+      centerHeight: 15,
       tileX: 70,
       tileY: 0,
       repeat: { x: 26, y: 0, width: 1, height: 15 },
@@ -259,7 +259,7 @@ var main = (function(){
       name: 'Small median',
       defaultWidth: 4,
       centerWidth: 3,
-      defaultHeight: 15,
+      centerHeight: 15,
       tileX: 22,
       tileY: 0,
       repeat: { x: 20, y: 0, width: 1, height: 15 },
@@ -389,7 +389,7 @@ var main = (function(){
 
     var bkPositionX = (segmentInfo.tileX) * TILE_SIZE;
     var bkPositionY = 
-        CANVAS_BASELINE - segmentInfo.defaultHeight * TILE_SIZE -
+        CANVAS_BASELINE - segmentInfo.centerHeight * TILE_SIZE -
         segmentInfo.tileY * TILE_SIZE;
 
     var width = realWidth * TILE_SIZE;
@@ -445,7 +445,7 @@ var main = (function(){
 
     var ctx = canvasEl.getContext('2d');
 
-    var realHeight = segmentInfo.defaultHeight * TILE_SIZE;
+    var realHeight = segmentInfo.centerHeight * TILE_SIZE;
 
     if (segmentInfo.repeat) {
       var repeatPositionX = segmentInfo.repeat.x * TILE_SIZE;
