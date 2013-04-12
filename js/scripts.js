@@ -331,8 +331,6 @@ var main = (function(){
 
   var initializing = false;
 
-  var visualZoom = 1;
-
   var widthEditHeld = false;
   var resizeSegmentTimerId = -1;
 
@@ -350,9 +348,9 @@ var main = (function(){
         nextWidth = 2000;
       }
 
-      el.style.width = ((prevWidth / 2 + nextWidth / 2 + 2 + 100) * visualZoom) + 'px';
-      el.style.marginLeft = ((-prevWidth / 2 - 1) * visualZoom) + 'px';
-      el.style.marginRight = ((-nextWidth / 2 - 1 - 100) * visualZoom) + 'px';
+      el.style.width = ((prevWidth / 2 + nextWidth / 2 + 2 + 100)) + 'px';
+      el.style.marginLeft = ((-prevWidth / 2 - 1)) + 'px';
+      el.style.marginRight = ((-nextWidth / 2 - 1 - 100)) + 'px';
     }
   }
 
@@ -665,7 +663,7 @@ var main = (function(){
       }, 100);
     }
 
-    el.style.width = (width * visualZoom) + 'px';
+    el.style.width = width + 'px';
     el.setAttribute('width', width / TILE_SIZE);
 
     var widthEl = el.querySelector('span.width');
@@ -1731,12 +1729,12 @@ var main = (function(){
     var width = data.streetWidth * TILE_SIZE;
 
     document.querySelector('#street-section-canvas').style.width = 
-        (width * visualZoom) + 'px';
+        (width) + 'px';
     document.querySelector('#street-section-canvas').style.marginLeft = 
-        ((-width / 2) * visualZoom) + 'px';
+        ((-width / 2)) + 'px';
 
     document.querySelector('#editable-street-canvas').style.marginLeft = 
-        (-5000 + (width / 2) * visualZoom) + 'px';
+        (-5000 + (width / 2)) + 'px';
   }
 
   function _onResize() {
