@@ -1488,17 +1488,14 @@ var main = (function(){
 
     segmentMoveDragging.originalEl = el;
 
+    segmentMoveDragging.originalType = segmentMoveDragging.originalEl.getAttribute('type');
+
     if (segmentMoveDragging.originalEl.classList.contains('tool')) {
       segmentMoveDragging.type = SEGMENT_DRAGGING_TYPE_CREATE;
+      segmentMoveDragging.originalWidth = SEGMENT_INFO[segmentMoveDragging.originalType].defaultWidth * TILE_SIZE;
     } else {
       segmentMoveDragging.type = SEGMENT_DRAGGING_TYPE_MOVE;      
-    }
-
-    segmentMoveDragging.originalType = segmentMoveDragging.originalEl.getAttribute('type');
-    if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_MOVE) {
       segmentMoveDragging.originalWidth = segmentMoveDragging.originalEl.offsetWidth;
-    } else {
-      segmentMoveDragging.originalWidth = segmentMoveDragging.originalEl.offsetWidth / WIDTH_TOOL_MULTIPLIER * WIDTH_MULTIPLIER;
     }
 
     segmentMoveDragging.elX = event.pageX - (event.offsetX || event.layerX);
