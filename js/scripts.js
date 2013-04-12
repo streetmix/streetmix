@@ -1421,7 +1421,7 @@ var main = (function(){
     segmentMoveDragging.elY = event.pageY - (event.offsetY || event.layerY);
 
     if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_CREATE) {
-      segmentMoveDragging.elY -= 300;
+      segmentMoveDragging.elY -= 340;
       segmentMoveDragging.elX -= segmentMoveDragging.originalWidth / 3;
     }
 
