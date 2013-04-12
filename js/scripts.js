@@ -450,15 +450,17 @@ var main = (function(){
           w = segmentWidth - (count - 1) * w;
         }
 
-        ctx.drawImage(images['images/tiles.png'], 
-          repeatPositionX * 2, 
-          0, 
-          w * 2, 
-          realHeight * 2, 
-          (repeatStartX + (i * segmentInfo.graphics.repeat.width) * TILE_SIZE) * retinaMultiplier * multiplier, 
-          ((isTool ? 20 : 265) + top) * retinaMultiplier, 
-          w * retinaMultiplier, 
-          realHeight * retinaMultiplier * multiplier);
+        if (w > 0) {
+          ctx.drawImage(images['images/tiles.png'], 
+            repeatPositionX * 2, 
+            0, 
+            w * 2, 
+            realHeight * 2, 
+            (repeatStartX + (i * segmentInfo.graphics.repeat.width) * TILE_SIZE) * retinaMultiplier * multiplier, 
+            ((isTool ? 20 : 265) + top) * retinaMultiplier, 
+            w * retinaMultiplier, 
+            realHeight * retinaMultiplier * multiplier);
+        }
       }
     }      
 
@@ -500,16 +502,17 @@ var main = (function(){
         realHeight * retinaMultiplier * multiplier);
     }
 
-    ctx.drawImage(images['images/tiles.png'], 
-      bkPositionX * 2, 
-      0, 
-      width * 2, 
-      realHeight * 2, 
-      left * retinaMultiplier * multiplier, 
-      ((isTool ? 20 : 265) + top) * retinaMultiplier, 
-      width * retinaMultiplier * multiplier, 
-      realHeight * retinaMultiplier * multiplier);
-
+    if (width > 0) {
+      ctx.drawImage(images['images/tiles.png'], 
+        bkPositionX * 2, 
+        0, 
+        width * 2, 
+        realHeight * 2, 
+        left * retinaMultiplier * multiplier, 
+        ((isTool ? 20 : 265) + top) * retinaMultiplier, 
+        width * retinaMultiplier * multiplier, 
+        realHeight * retinaMultiplier * multiplier);
+    }
     var currentEl = el.querySelector('canvas');
     if (currentEl) {
       currentEl.parentNode.removeChild(currentEl);
