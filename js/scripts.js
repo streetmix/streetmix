@@ -105,10 +105,7 @@ var main = (function(){
       defaultHeight: 15,
       tileX: 3,
       tileY: 0,
-      repeatWidth: 1,
-      repeatHeight: 15,
-      repeatX: 1,
-      repeatY: 0,
+      repeat: { x: 1, y: 0, width: 1, height: 15 },
       owner: SEGMENT_OWNER_PEDESTRIAN
     },
     "sidewalk-tree": {
@@ -117,10 +114,7 @@ var main = (function(){
       defaultHeight: 15,
       tileX: 13,
       tileY: 0,
-      repeatWidth: 1,
-      repeatHeight: 15,
-      repeatX: 1,
-      repeatY: 0,
+      repeat: { x: 1, y: 0, width: 1, height: 15 },
       owner: SEGMENT_OWNER_NATURE
     },
     "sidewalk-lamp-left": {
@@ -130,11 +124,8 @@ var main = (function(){
       defaultHeight: 15,
       tileX: 102,
       tileY: 0,
-      repeatWidth: 1,
-      repeatHeight: 15,
-      repeatX: 1,
-      repeatY: 0,
 
+      repeat: { x: 1, y: 0, width: 1, height: 15 },
       left: { x: 107, offsetX: -2, width: 4, height: 15 },
 
       owner: SEGMENT_OWNER_PEDESTRIAN
@@ -146,11 +137,8 @@ var main = (function(){
       defaultHeight: 15,
       tileX: 102,
       tileY: 0,
-      repeatWidth: 1,
-      repeatHeight: 15,
-      repeatX: 1,
-      repeatY: 0,
 
+      repeat: { x: 1, y: 0, width: 1, height: 15 },
       right: { x: 102, offsetX: -2, width: 4, height: 15 },
 
       owner: SEGMENT_OWNER_PEDESTRIAN
@@ -162,10 +150,8 @@ var main = (function(){
       defaultHeight: 15,
       tileX: 8,
       tileY: 0,
-      repeatWidth: 4,
-      repeatHeight: 15,
-      repeatX: 8,
-      repeatY: 0,
+
+      repeat: { x: 8, y: 0, width: 4, height: 15 },
       owner: SEGMENT_OWNER_NATURE
     },
     "bike-lane-inbound": {
@@ -176,10 +162,7 @@ var main = (function(){
       defaultHeight: 15,
       tileX: 92,
       tileY: 0,
-      repeatWidth: 1,
-      repeatHeight: 15,
-      repeatX: 90,
-      repeatY: 0,
+      repeat: { x: 90, y: 0, width: 1, height: 15 },
       owner: SEGMENT_OWNER_BIKE
     },
     "bike-lane-outbound": {
@@ -190,10 +173,8 @@ var main = (function(){
       defaultHeight: 15,
       tileX: 97,
       tileY: 0,
-      repeatWidth: 1,
-      repeatHeight: 15,
-      repeatX: 90,
-      repeatY: 0,
+
+      repeat: { x: 90, y: 0, width: 1, height: 15 },
       owner: SEGMENT_OWNER_BIKE
     },
     "parking-lane": {
@@ -205,11 +186,7 @@ var main = (function(){
       defaultHeight: 15,
       tileX: 50,
       tileY: 0,
-      repeatWidth: 1,
-      repeatHeight: 15,
-      repeatX: 26,
-      repeatY: 0,
-
+      repeat: { x: 26, y: 0, width: 1, height: 15 },
       left: { x: 46, width: 3, height: 15 },
       owner: SEGMENT_OWNER_CAR
     },
@@ -223,10 +200,7 @@ var main = (function(){
       defaultHeight: 15,
       tileX: 28,
       tileY: 0,
-      repeatWidth: 1,
-      repeatHeight: 15,
-      repeatX: 26,
-      repeatY: 0,
+      repeat: { x: 26, y: 0, width: 1, height: 15 },
       owner: SEGMENT_OWNER_CAR
     },
     "drive-lane-outbound": {
@@ -239,10 +213,7 @@ var main = (function(){
       defaultHeight: 15,
       tileX: 37,
       tileY: 0,
-      repeatWidth: 1,
-      repeatHeight: 15,
-      repeatX: 26,
-      repeatY: 0,
+      repeat: { x: 26, y: 0, width: 1, height: 15 },
       owner: SEGMENT_OWNER_CAR
     },
     "turn-lane": {
@@ -254,10 +225,7 @@ var main = (function(){
       defaultHeight: 15,
       tileX: 81,
       tileY: 0,
-      repeatWidth: 1,
-      repeatHeight: 15,
-      repeatX: 26,
-      repeatY: 0,
+      repeat: { x: 26, y: 0, width: 1, height: 15 },
       owner: SEGMENT_OWNER_CAR
     },
     "bus-lane-inbound": {
@@ -270,10 +238,7 @@ var main = (function(){
       defaultHeight: 15,
       tileX: 59,
       tileY: 0,
-      repeatWidth: 1,
-      repeatHeight: 15,
-      repeatX: 26,
-      repeatY: 0,
+      repeat: { x: 26, y: 0, width: 1, height: 15 },
       owner: SEGMENT_OWNER_PUBLIC_TRANSIT
     },
     "bus-lane-outbound": {
@@ -286,10 +251,7 @@ var main = (function(){
       defaultHeight: 15,
       tileX: 70,
       tileY: 0,
-      repeatWidth: 1,
-      repeatHeight: 15,
-      repeatX: 26,
-      repeatY: 0,
+      repeat: { x: 26, y: 0, width: 1, height: 15 },
       owner: SEGMENT_OWNER_PUBLIC_TRANSIT
     },
     "small-median": {
@@ -299,10 +261,7 @@ var main = (function(){
       defaultHeight: 15,
       tileX: 22,
       tileY: 0,
-      repeatWidth: 1,
-      repeatHeight: 15,
-      repeatX: 20,
-      repeatY: 0,
+      repeat: { x: 20, y: 0, width: 1, height: 15 },
       owner: SEGMENT_OWNER_CAR
     },
   };
@@ -487,9 +446,9 @@ var main = (function(){
 
     var realHeight = segmentInfo.defaultHeight * TILE_SIZE;
 
-    if (segmentInfo.repeatWidth) {
-      var repeatPositionX = segmentInfo.repeatX * TILE_SIZE;
-      var w = segmentInfo.repeatWidth * TILE_SIZE * multiplier;
+    if (segmentInfo.repeat) {
+      var repeatPositionX = segmentInfo.repeat.x * TILE_SIZE;
+      var w = segmentInfo.repeat.width * TILE_SIZE * multiplier;
 
       var count = Math.floor((segmentWidth) / w + 1);
 
@@ -511,7 +470,7 @@ var main = (function(){
           0, 
           w * 2, 
           realHeight * 2, 
-          (repeatStartX + (i * segmentInfo.repeatWidth) * TILE_SIZE) * retinaMultiplier * multiplier, 
+          (repeatStartX + (i * segmentInfo.repeat.width) * TILE_SIZE) * retinaMultiplier * multiplier, 
           ((isTool ? 20 : 265) + top) * retinaMultiplier, 
           w * retinaMultiplier, 
           realHeight * retinaMultiplier * multiplier);
