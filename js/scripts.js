@@ -336,6 +336,7 @@ var main = (function(){
   var resizeSegmentTimerId = -1;
 
   var infoBubbleVisible = false;
+  var infoButtonHoverTimerId = -1;
 
   function _recalculateSeparators() {
     var els = document.querySelectorAll('#editable-street-section [type="separator"]');
@@ -770,8 +771,6 @@ var main = (function(){
     document.body.classList.remove('info-bubble-visible');
   }
 
-  var infoButtonHoverTimerId = -1;
-
   function _onInfoButtonMouseOver(event) {
     if (!infoBubbleVisible) {
       return;
@@ -878,17 +877,14 @@ var main = (function(){
 
         var innerEl = document.createElement('button');
         innerEl.classList.add('info');
-        //innerEl.innerHTML = 'i';
         innerEl.segmentEl = el;
         innerEl.tabIndex = -1;
-        //innerEl.setAttribute('title', 'Remove segment');
         innerEl.addEventListener('mouseover', _onInfoButtonMouseOver, false);
         innerEl.addEventListener('mouseout', _onInfoButtonMouseOut, false);
         innerEl.addEventListener('click', _onInfoButtonClick, false);
         commandsEl.appendChild(innerEl);        
 
         el.appendChild(commandsEl);
-
 
         var widthEditCanvasEl = document.createElement('span');
         widthEditCanvasEl.classList.add('width-edit-canvas');
@@ -1133,9 +1129,6 @@ var main = (function(){
         segment.el = el;
 
         segment.warnings = [];
-        /*if (el.classList.contains('outside')) {
-          segment.warnings[SEGMENT_WARNING_OUTSIDE] = true;
-        }*/
 
         data.segments.push(segment);
       }
@@ -1265,9 +1258,7 @@ var main = (function(){
         ctx.fillStyle = 'rgb(100, 100, 100)';
         ctx.strokeStyle = 'rgb(100, 100, 100)';
 
-        //ctx.save();
         _drawArrowLine(ctx, x, 60, x + width, 60, '–');
-        //ctx.restore();
         _drawLine(ctx, x + width, 50, x + width, 70);
 
         var imageWidth = images[SEGMENT_OWNERS[id].imageUrl].width / 5 * SEGMENT_OWNERS[id].imageSize;
@@ -1275,7 +1266,6 @@ var main = (function(){
 
         ctx.save();
         ctx.globalAlpha = .5;
-        //ctx.globalCompositeOperation = "lighter";
         ctx.drawImage(images[SEGMENT_OWNERS[id].imageUrl], 
             0, 
             0, 
@@ -1291,8 +1281,10 @@ var main = (function(){
       }
     }
 
-    document.querySelector('#street-width-canvas').style.left = CHART_MARGIN + 'px';
-    document.querySelector('#street-width-canvas').style.width = (data.streetWidth * multiplier) + 'px';
+    document.querySelector('#street-width-canvas').style.left = 
+        CHART_MARGIN + 'px';
+    document.querySelector('#street-width-canvas').style.width = 
+        (data.streetWidth * multiplier) + 'px';
   }
 
   function _recalculateOwnerWidths() {
@@ -1309,13 +1301,6 @@ var main = (function(){
     }   
 
     _updateWidthChart(ownerWidths);
-
-/*    for (var id in SEGMENT_OWNERS) {
-      var el = document.querySelector('header .sizes [owner-id="' + id + '"]');
-
-      el.querySelector('.width').innerHTML = _prettifyWidth(ownerWidths[id] * TILE_SIZE);
-      //el.querySelector('.bar').style.width = (ownerWidths[id] * 3) + 'px';
-    }*/
   }
 
   function _getElAbsolutePos(el) {
@@ -1398,7 +1383,6 @@ var main = (function(){
       guideEl.style.marginLeft = (-width / 2) + 'px';
       el.segmentEl.appendChild(guideEl);
     }
-
   }
 
   function _handleSegmentMoveStart(event) {
@@ -1685,11 +1669,8 @@ var main = (function(){
     if (el) {
       segmentHoveredEl = el;
     }
-
-    /*if (infoBubbleVisible) {
-      _moveInfoBubble(segmentHoveredEl);
-    }*/
   }
+
   function _onSegmentMouseOut(event) {
     segmentHoveredEl = null;
   }
@@ -1699,6 +1680,7 @@ var main = (function(){
 
     event.target.classList.add('hovered-over');
   }
+
   function _onSeparatorMouseOut(event) {
     event.target.classList.remove('hovered-over');
   }
@@ -1736,6 +1718,7 @@ var main = (function(){
     document.querySelector('#street-section-canvas').style.marginLeft = 
         ((-width / 2)) + 'px';
 
+    // TODO make const
     document.querySelector('#editable-street-canvas').style.marginLeft = 
         (-5000 + (width / 2)) + 'px';
   }
@@ -1816,12 +1799,14 @@ var main = (function(){
 
       _showStatusMessage('The segment has been deleted. <button>Undo</button>');
 
-      document.querySelector('#status-message button').addEventListener('click', _undo, false);
+      document.querySelector('#status-message button').
+          addEventListener('click', _undo, false);
     }
   } 
 
   function _onBodyKeyDown(event) {
     switch (event.keyCode) {
+      // TODO make const
       case 39: // right arrow
       case 187: // = (or, plus)
         if (event.metaKey || event.ctrlKey || event.altKey) {
