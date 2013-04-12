@@ -218,14 +218,14 @@ body.street-overflows #street-section-right-building {
   background-position: -390px 0;
 }
 
-#tools {
+footer {
   position: absolute;
   left: 0;
   right: 0;
   height: @toolsHeight;
   bottom: 0;
   padding-right: 10px;
-  padding-left: 350px;
+  padding-left: 450px;
 
   background: url(../images/toolbox-bk.png);
 
@@ -239,6 +239,14 @@ body.street-overflows #street-section-right-building {
   -webkit-user-select: none;
   user-select: none;
 }
+#tools {
+  white-space: nowrap;
+
+  height: @toolsHeight;
+
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
 
 #undo {
   position: absolute;
@@ -251,7 +259,7 @@ body.street-overflows #street-section-right-building {
   top: 52px;
 }
 
-#tools h1 {
+footer h1 {
   position: absolute;
   left: 0;
   top: 25px;

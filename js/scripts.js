@@ -1744,7 +1744,7 @@ var main = (function(){
 
     var streetSectionHeight = document.querySelector('#street-section').offsetHeight;
 
-    var toolsTop = document.querySelector('#tools').offsetTop;
+    var toolsTop = document.querySelector('footer').offsetTop;
 
     var pos = (viewportHeight - streetSectionHeight) / 2;
 
