@@ -99,125 +99,123 @@ var main = (function(){
   var SEGMENT_INFO = {
     'sidewalk': {
       name: 'Sidewalk',
+      owner: SEGMENT_OWNER_PEDESTRIAN,
       defaultWidth: 6,
       minWidth: 6,
       center: { x: 3, y: 0, width: 4, height: 15 },
       repeat: { x: 1, y: 0, width: 1, height: 15 },
-      owner: SEGMENT_OWNER_PEDESTRIAN
     },
     "sidewalk-tree": {
       name: 'Sidewalk w/ a tree',
+      owner: SEGMENT_OWNER_NATURE,
       defaultWidth: 4,
       center: { x: 13, y: 0, width: 6, height: 15 },
       repeat: { x: 1, y: 0, width: 1, height: 15 },
-      owner: SEGMENT_OWNER_NATURE
     },
     "sidewalk-lamp-left": {
       name: 'Sidewalk w/ a lamp',
+      owner: SEGMENT_OWNER_PEDESTRIAN,
       defaultWidth: 4,
       center: { width: 0, height: 15 },
       repeat: { x: 1, y: 0, width: 1, height: 15 },
       left: { x: 107, offsetX: -2, width: 4, height: 15 },
-
-      owner: SEGMENT_OWNER_PEDESTRIAN
     },
     "sidewalk-lamp-right": {
       name: 'Sidewalk w/ a lamp',
+      owner: SEGMENT_OWNER_PEDESTRIAN,
       defaultWidth: 6,
       center: { width: 0, height: 15 },
       repeat: { x: 1, y: 0, width: 1, height: 15 },
       right: { x: 102, offsetX: -2, width: 4, height: 15 },
-
-      owner: SEGMENT_OWNER_PEDESTRIAN
     },
     "planting-strip": {
       name: 'Planting strip',
+      owner: SEGMENT_OWNER_NATURE,
       defaultWidth: 4,
       center: { width: 0, height: 15 },
       repeat: { x: 8, y: 0, width: 4, height: 15 },
-      owner: SEGMENT_OWNER_NATURE
     },
     "bike-lane-inbound": {
       name: 'Bike lane',
       subname: 'Inbound',
+      owner: SEGMENT_OWNER_BIKE,
       defaultWidth: 6,
       center: { x: 92, y: 0, width: 4, height: 15 },
       repeat: { x: 90, y: 0, width: 1, height: 15 },
-      owner: SEGMENT_OWNER_BIKE
     },
     "bike-lane-outbound": {
       name: 'Bike lane',
       subname: 'Outbound',
+      owner: SEGMENT_OWNER_BIKE,
       defaultWidth: 6,
       center: { x: 97, y: 0, width: 4, height: 15 },
       repeat: { x: 90, y: 0, width: 1, height: 15 },
-      owner: SEGMENT_OWNER_BIKE
     },
     "parking-lane": {
       name: 'Parking lane',
+      owner: SEGMENT_OWNER_CAR,
       defaultWidth: 8,
       minWidth: 8,
       maxWidth: 10,
       center: { x: 50, y: 0, width: 8, height: 15 },
       repeat: { x: 26, y: 0, width: 1, height: 15 },
       left: { x: 46, width: 3, height: 15 },
-      owner: SEGMENT_OWNER_CAR
     },
     "drive-lane-inbound": {
       name: 'Drive lane',
       subname: 'Inbound',
+      owner: SEGMENT_OWNER_CAR,
       defaultWidth: 10,
       minWidth: 9,
       maxWidth: 12,
       center: { x: 28, y: 0, width: 8, height: 15 },
       repeat: { x: 26, y: 0, width: 1, height: 15 },
-      owner: SEGMENT_OWNER_CAR
     },
     "drive-lane-outbound": {
       name: 'Drive lane',
       subname: 'Outbound',
+      owner: SEGMENT_OWNER_CAR,
       defaultWidth: 10,
       minWidth: 9,
       maxWidth: 12,
       center: { x: 37, y: 0, width: 8, height: 15 },
       repeat: { x: 26, y: 0, width: 1, height: 15 },
-      owner: SEGMENT_OWNER_CAR
     },
     "turn-lane": {
       name: 'Turn lane',
+      owner: SEGMENT_OWNER_CAR,
       defaultWidth: 10,
       minWidth: 9,
       maxWidth: 12,
       center: { x: 81, y: 0, width: 8, height: 15 },
       repeat: { x: 26, y: 0, width: 1, height: 15 },
-      owner: SEGMENT_OWNER_CAR
     },
     "bus-lane-inbound": {
       name: 'Bus lane',
       subname: 'Inbound',
+      owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
       defaultWidth: 12,
       minWidth: 9,
       maxWidth: 12,
       center: { x: 59, y: 0, width: 10, height: 15 },
       repeat: { x: 26, y: 0, width: 1, height: 15 },
-      owner: SEGMENT_OWNER_PUBLIC_TRANSIT
     },
     "bus-lane-outbound": {
       name: 'Bus lane',
       subname: 'Outbound',
+      owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
       defaultWidth: 12,
       minWidth: 9,
       maxWidth: 12,
       center: { x: 70, y: 0, width: 10, height: 15 },
       repeat: { x: 26, y: 0, width: 1, height: 15 },
-      owner: SEGMENT_OWNER_PUBLIC_TRANSIT
     },
     "small-median": {
       name: 'Small median',
+      owner: SEGMENT_OWNER_CAR,
       defaultWidth: 4,
       center: { x: 22, y: 0, width: 3, height: 15 },
       repeat: { x: 20, y: 0, width: 1, height: 15 },
-      owner: SEGMENT_OWNER_CAR
     },
   };
 
