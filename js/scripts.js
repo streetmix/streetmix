@@ -458,6 +458,7 @@ var main = (function(){
             w * 2, 
             realHeight * 2, 
             (repeatStartX + (i * segmentInfo.graphics.repeat.width) * TILE_SIZE) * retinaMultiplier * multiplier, 
+            // TODO const
             ((isTool ? 20 : 265) + top) * retinaMultiplier, 
             w * retinaMultiplier, 
             realHeight * retinaMultiplier * multiplier);
@@ -476,6 +477,7 @@ var main = (function(){
         w * 2, 
         realHeight * 2, 
         0 * multiplier * retinaMultiplier, 
+        // TODO const
         ((isTool ? 20 : 265) + top) * retinaMultiplier, 
         w * multiplier * retinaMultiplier, 
         realHeight * retinaMultiplier * multiplier);
@@ -498,6 +500,7 @@ var main = (function(){
         w * 2, 
         realHeight * 2, 
         rightTargetX * retinaMultiplier, 
+        // TODO const
         ((isTool ? 20 : 265) + top) * retinaMultiplier, 
         w * retinaMultiplier * multiplier, 
         realHeight * retinaMultiplier * multiplier);
@@ -510,6 +513,7 @@ var main = (function(){
         width * 2, 
         realHeight * 2, 
         left * retinaMultiplier * multiplier, 
+        // TODO const
         ((isTool ? 20 : 265) + top) * retinaMultiplier, 
         width * retinaMultiplier * multiplier, 
         realHeight * retinaMultiplier * multiplier);
@@ -590,6 +594,7 @@ var main = (function(){
   function _onWidthEditKeyDown(event) {
     var el = event.target;
 
+    // TODO const
     switch (event.keyCode) {
       case 13: // enter
         _widthEditInputChanged(el, true);
@@ -668,6 +673,7 @@ var main = (function(){
     if (immediate) {
       el.classList.add('immediate-resize');
 
+      // TODO const
       window.setTimeout(function() {
         el.classList.remove('immediate-resize');
       }, 100);
@@ -787,6 +793,7 @@ var main = (function(){
 
     window.clearTimeout(infoButtonHoverTimerId);
 
+    // TODO const
     infoButtonHoverTimerId = window.setTimeout(function() { _showInfoBubble(segmentEl); }, 250);
   }
 
@@ -1107,7 +1114,6 @@ var main = (function(){
     var currentData = _trimNonUserData();
 
     if (JSON.stringify(currentData) != JSON.stringify(lastData)) {
-
       // This removes future undos in case we undo a few times and then do
       // something undoable.
       undoStack = undoStack.splice(0, undoPosition);
@@ -1495,7 +1501,8 @@ var main = (function(){
     var deltaX = event.pageX - segmentResizeDragging.mouseX;
     var deltaY = event.pageY - segmentResizeDragging.mouseY;
 
-    var deltaFromOriginal = segmentResizeDragging.elX - segmentResizeDragging.origX;
+    var deltaFromOriginal = 
+        segmentResizeDragging.elX - segmentResizeDragging.origX;
 
     if (!segmentResizeDragging.right) {
       deltaFromOriginal = -deltaFromOriginal;
@@ -1503,9 +1510,11 @@ var main = (function(){
 
     segmentResizeDragging.elX += deltaX;
 
-    segmentResizeDragging.floatingEl.style.left = segmentResizeDragging.elX + 'px';
+    segmentResizeDragging.floatingEl.style.left = 
+        segmentResizeDragging.elX + 'px';
 
-    var width = segmentResizeDragging.origWidth + deltaFromOriginal / TILE_SIZE * 2;
+    var width = 
+        segmentResizeDragging.origWidth + deltaFromOriginal / TILE_SIZE * 2;
 
     _resizeSegment(segmentResizeDragging.segmentEl, width * TILE_SIZE, true, false, true);
 
@@ -1615,6 +1624,7 @@ var main = (function(){
     draggingActive = false;
     document.body.classList.remove('segment-resize-dragging');
 
+    // TODO const
     var el = segmentResizeDragging.floatingEl;
     window.setTimeout(function() {
       el.parentNode.removeChild(el);
@@ -1724,7 +1734,6 @@ var main = (function(){
     document.querySelector('#street-section-canvas').style.marginLeft = 
         ((-width / 2)) + 'px';
 
-    // TODO make const
     document.querySelector('#editable-street-canvas').style.marginLeft = 
         (-CANVAS_WIDTH / 2 + width / 2) + 'px';
   }
