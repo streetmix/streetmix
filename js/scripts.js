@@ -100,7 +100,7 @@ var main = (function(){
     'sidewalk': {
       name: 'Sidewalk',
       defaultWidth: 6,
-      realWidth: 4,
+      centerWidth: 4,
       minWidth: 6,
       defaultHeight: 15,
       tileX: 3,
@@ -111,6 +111,7 @@ var main = (function(){
     "sidewalk-tree": {
       name: 'Sidewalk w/ a tree',
       defaultWidth: 4,
+      centerWidth: 6,
       defaultHeight: 15,
       tileX: 13,
       tileY: 0,
@@ -120,7 +121,7 @@ var main = (function(){
     "sidewalk-lamp-left": {
       name: 'Sidewalk w/ a lamp',
       defaultWidth: 4,
-      realWidth: 0,
+      centerWidth: 0,
       defaultHeight: 15,
       tileX: 102,
       tileY: 0,
@@ -133,7 +134,7 @@ var main = (function(){
     "sidewalk-lamp-right": {
       name: 'Sidewalk w/ a lamp',
       defaultWidth: 6,
-      realWidth: 0,
+      centerWidth: 0,
       defaultHeight: 15,
       tileX: 102,
       tileY: 0,
@@ -146,7 +147,7 @@ var main = (function(){
     "planting-strip": {
       name: 'Planting strip',
       defaultWidth: 4,
-      realWidth: 0,
+      centerWidth: 0,
       defaultHeight: 15,
       tileX: 8,
       tileY: 0,
@@ -158,7 +159,7 @@ var main = (function(){
       name: 'Bike lane',
       subname: 'Inbound',
       defaultWidth: 6,
-      realWidth: 4,
+      centerWidth: 4,
       defaultHeight: 15,
       tileX: 92,
       tileY: 0,
@@ -169,7 +170,7 @@ var main = (function(){
       name: 'Bike lane',
       subname: 'Outbound',
       defaultWidth: 6,
-      realWidth: 4,
+      centerWidth: 4,
       defaultHeight: 15,
       tileX: 97,
       tileY: 0,
@@ -181,7 +182,7 @@ var main = (function(){
       name: 'Parking lane',
       defaultWidth: 8,
       minWidth: 8,
-      realWidth: 8,
+      centerWidth: 8,
       maxWidth: 10,
       defaultHeight: 15,
       tileX: 50,
@@ -194,7 +195,7 @@ var main = (function(){
       name: 'Drive lane',
       subname: 'Inbound',
       defaultWidth: 10,
-      realWidth: 8,
+      centerWidth: 8,
       minWidth: 9,
       maxWidth: 12,
       defaultHeight: 15,
@@ -207,7 +208,7 @@ var main = (function(){
       name: 'Drive lane',
       subname: 'Outbound',
       defaultWidth: 10,
-      realWidth: 8,
+      centerWidth: 8,
       minWidth: 9,
       maxWidth: 12,
       defaultHeight: 15,
@@ -219,7 +220,7 @@ var main = (function(){
     "turn-lane": {
       name: 'Turn lane',
       defaultWidth: 10,
-      realWidth: 8,
+      centerWidth: 8,
       minWidth: 9,
       maxWidth: 12,
       defaultHeight: 15,
@@ -232,7 +233,7 @@ var main = (function(){
       name: 'Bus lane',
       subname: 'Inbound',
       defaultWidth: 12,
-      realWidth: 10,
+      centerWidth: 10,
       minWidth: 9,
       maxWidth: 12,
       defaultHeight: 15,
@@ -245,7 +246,7 @@ var main = (function(){
       name: 'Bus lane',
       subname: 'Outbound',
       defaultWidth: 12,
-      realWidth: 10,
+      centerWidth: 10,
       minWidth: 9,
       maxWidth: 12,
       defaultHeight: 15,
@@ -257,7 +258,7 @@ var main = (function(){
     "small-median": {
       name: 'Small median',
       defaultWidth: 4,
-      realWidth: 3,
+      centerWidth: 3,
       defaultHeight: 15,
       tileX: 22,
       tileY: 0,
@@ -378,8 +379,8 @@ var main = (function(){
   function _setSegmentContents(el, type, segmentWidth, isTool) {
     var segmentInfo = SEGMENT_INFO[type];
 
-    if (typeof segmentInfo.realWidth != 'undefined') {
-      var realWidth = segmentInfo.realWidth;
+    if (typeof segmentInfo.centerWidth != 'undefined') {
+      var realWidth = segmentInfo.centerWidth;
     } else {
       var realWidth = segmentInfo.defaultWidth;
     }
