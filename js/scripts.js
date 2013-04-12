@@ -100,32 +100,22 @@ var main = (function(){
     'sidewalk': {
       name: 'Sidewalk',
       defaultWidth: 6,
-      centerWidth: 4,
       minWidth: 6,
-      centerHeight: 15,
-      tileX: 3,
-      tileY: 0,
+      center: { x: 3, y: 0, width: 4, height: 15 },
       repeat: { x: 1, y: 0, width: 1, height: 15 },
       owner: SEGMENT_OWNER_PEDESTRIAN
     },
     "sidewalk-tree": {
       name: 'Sidewalk w/ a tree',
       defaultWidth: 4,
-      centerWidth: 6,
-      centerHeight: 15,
-      tileX: 13,
-      tileY: 0,
+      center: { x: 13, y: 0, width: 6, height: 15 },
       repeat: { x: 1, y: 0, width: 1, height: 15 },
       owner: SEGMENT_OWNER_NATURE
     },
     "sidewalk-lamp-left": {
       name: 'Sidewalk w/ a lamp',
       defaultWidth: 4,
-      centerWidth: 0,
-      centerHeight: 15,
-      tileX: 102,
-      tileY: 0,
-
+      center: { x: 102, y: 0, width: 0, height: 15 },
       repeat: { x: 1, y: 0, width: 1, height: 15 },
       left: { x: 107, offsetX: -2, width: 4, height: 15 },
 
@@ -134,11 +124,7 @@ var main = (function(){
     "sidewalk-lamp-right": {
       name: 'Sidewalk w/ a lamp',
       defaultWidth: 6,
-      centerWidth: 0,
-      centerHeight: 15,
-      tileX: 102,
-      tileY: 0,
-
+      center: { x: 102, y: 0, width: 0, height: 15 },
       repeat: { x: 1, y: 0, width: 1, height: 15 },
       right: { x: 102, offsetX: -2, width: 4, height: 15 },
 
@@ -147,10 +133,7 @@ var main = (function(){
     "planting-strip": {
       name: 'Planting strip',
       defaultWidth: 4,
-      centerWidth: 0,
-      centerHeight: 15,
-      tileX: 8,
-      tileY: 0,
+      center: { x: 8, y: 0, width: 0, height: 15 },
 
       repeat: { x: 8, y: 0, width: 4, height: 15 },
       owner: SEGMENT_OWNER_NATURE
@@ -159,10 +142,7 @@ var main = (function(){
       name: 'Bike lane',
       subname: 'Inbound',
       defaultWidth: 6,
-      centerWidth: 4,
-      centerHeight: 15,
-      tileX: 92,
-      tileY: 0,
+      center: { x: 92, y: 0, width: 4, height: 15 },
       repeat: { x: 90, y: 0, width: 1, height: 15 },
       owner: SEGMENT_OWNER_BIKE
     },
@@ -170,11 +150,7 @@ var main = (function(){
       name: 'Bike lane',
       subname: 'Outbound',
       defaultWidth: 6,
-      centerWidth: 4,
-      centerHeight: 15,
-      tileX: 97,
-      tileY: 0,
-
+      center: { x: 97, y: 0, width: 4, height: 15 },
       repeat: { x: 90, y: 0, width: 1, height: 15 },
       owner: SEGMENT_OWNER_BIKE
     },
@@ -182,11 +158,8 @@ var main = (function(){
       name: 'Parking lane',
       defaultWidth: 8,
       minWidth: 8,
-      centerWidth: 8,
       maxWidth: 10,
-      centerHeight: 15,
-      tileX: 50,
-      tileY: 0,
+      center: { x: 50, y: 0, width: 8, height: 15 },
       repeat: { x: 26, y: 0, width: 1, height: 15 },
       left: { x: 46, width: 3, height: 15 },
       owner: SEGMENT_OWNER_CAR
@@ -195,12 +168,9 @@ var main = (function(){
       name: 'Drive lane',
       subname: 'Inbound',
       defaultWidth: 10,
-      centerWidth: 8,
       minWidth: 9,
       maxWidth: 12,
-      centerHeight: 15,
-      tileX: 28,
-      tileY: 0,
+      center: { x: 28, y: 0, width: 8, height: 15 },
       repeat: { x: 26, y: 0, width: 1, height: 15 },
       owner: SEGMENT_OWNER_CAR
     },
@@ -208,24 +178,18 @@ var main = (function(){
       name: 'Drive lane',
       subname: 'Outbound',
       defaultWidth: 10,
-      centerWidth: 8,
       minWidth: 9,
       maxWidth: 12,
-      centerHeight: 15,
-      tileX: 37,
-      tileY: 0,
+      center: { x: 37, y: 0, width: 8, height: 15 },
       repeat: { x: 26, y: 0, width: 1, height: 15 },
       owner: SEGMENT_OWNER_CAR
     },
     "turn-lane": {
       name: 'Turn lane',
       defaultWidth: 10,
-      centerWidth: 8,
       minWidth: 9,
       maxWidth: 12,
-      centerHeight: 15,
-      tileX: 81,
-      tileY: 0,
+      center: { x: 81, y: 0, width: 8, height: 15 },
       repeat: { x: 26, y: 0, width: 1, height: 15 },
       owner: SEGMENT_OWNER_CAR
     },
@@ -233,12 +197,9 @@ var main = (function(){
       name: 'Bus lane',
       subname: 'Inbound',
       defaultWidth: 12,
-      centerWidth: 10,
       minWidth: 9,
       maxWidth: 12,
-      centerHeight: 15,
-      tileX: 59,
-      tileY: 0,
+      center: { x: 59, y: 0, width: 10, height: 15 },
       repeat: { x: 26, y: 0, width: 1, height: 15 },
       owner: SEGMENT_OWNER_PUBLIC_TRANSIT
     },
@@ -246,22 +207,16 @@ var main = (function(){
       name: 'Bus lane',
       subname: 'Outbound',
       defaultWidth: 12,
-      centerWidth: 10,
       minWidth: 9,
       maxWidth: 12,
-      centerHeight: 15,
-      tileX: 70,
-      tileY: 0,
+      center: { x: 70, y: 0, width: 10, height: 15 },
       repeat: { x: 26, y: 0, width: 1, height: 15 },
       owner: SEGMENT_OWNER_PUBLIC_TRANSIT
     },
     "small-median": {
       name: 'Small median',
       defaultWidth: 4,
-      centerWidth: 3,
-      centerHeight: 15,
-      tileX: 22,
-      tileY: 0,
+      center: { x: 22, y: 0, width: 3, height: 15 },
       repeat: { x: 20, y: 0, width: 1, height: 15 },
       owner: SEGMENT_OWNER_CAR
     },
@@ -379,18 +334,18 @@ var main = (function(){
   function _setSegmentContents(el, type, segmentWidth, isTool) {
     var segmentInfo = SEGMENT_INFO[type];
 
-    if (typeof segmentInfo.centerWidth != 'undefined') {
-      var realWidth = segmentInfo.centerWidth;
+    if (segmentInfo.center && typeof segmentInfo.center.width != 'undefined') {
+      var realWidth = segmentInfo.center.width;
     } else {
       var realWidth = segmentInfo.defaultWidth;
     }
 
     var multiplier = isTool ? (WIDTH_TOOL_MULTIPLIER / WIDTH_MULTIPLIER) : 1;
 
-    var bkPositionX = (segmentInfo.tileX) * TILE_SIZE;
+    var bkPositionX = (segmentInfo.center.x) * TILE_SIZE;
     var bkPositionY = 
-        CANVAS_BASELINE - segmentInfo.centerHeight * TILE_SIZE -
-        segmentInfo.tileY * TILE_SIZE;
+        CANVAS_BASELINE - segmentInfo.center.height * TILE_SIZE -
+        segmentInfo.center.y * TILE_SIZE;
 
     var width = realWidth * TILE_SIZE;
     var height = CANVAS_HEIGHT;
@@ -445,7 +400,7 @@ var main = (function(){
 
     var ctx = canvasEl.getContext('2d');
 
-    var realHeight = segmentInfo.centerHeight * TILE_SIZE;
+    var realHeight = segmentInfo.center.height * TILE_SIZE;
 
     if (segmentInfo.repeat) {
       var repeatPositionX = segmentInfo.repeat.x * TILE_SIZE;
