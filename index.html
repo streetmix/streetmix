@@ -38,89 +38,91 @@
   </script>
 </head>
 <body tabindex='1'>
-  <div id='warning'></div>
-  <div id='loading'>Loading…</div>
+  <div id='wrapper'>
+    <div id='warning'></div>
+    <div id='loading'>Loading…</div>
 
-  <header>
-    <div class='inside'>
+    <header>
+      <div class='inside'>
 
-      <canvas id='width-chart'></canvas>
+        <canvas id='width-chart'></canvas>
 
-      <div id='street-width-canvas'>
-        <select id='street-width-no-custom'>
-          <option disabled>Building-to-building width:</option>
-          <option value='40'>40'</option>
-          <option value='60'>60'</option>
-          <option selected value='80'>80'</option>
-          <option value='-1'>Custom…</option>
-        </select>
+        <div id='street-width-canvas'>
+          <select id='street-width-no-custom'>
+            <option disabled>Building-to-building width:</option>
+            <option value='40'>40'</option>
+            <option value='60'>60'</option>
+            <option selected value='80'>80'</option>
+            <option value='-1'>Custom…</option>
+          </select>
 
-        <select id='street-width-custom' style='display: none'>
-          <option disabled>Building-to-building width:</option>
-          <option value='40'>40'</option>
-          <option value='60'>60'</option>
-          <option selected value='80'>80'</option>
-          <option id='street-width-option-custom'></option>
-          <option value='-1'>Custom…</option>
-        </select>
+          <select id='street-width-custom' style='display: none'>
+            <option disabled>Building-to-building width:</option>
+            <option value='40'>40'</option>
+            <option value='60'>60'</option>
+            <option selected value='80'>80'</option>
+            <option id='street-width-option-custom'></option>
+            <option value='-1'>Custom…</option>
+          </select>
+        </div>
       </div>
+    </header>
+
+    <div id='status-message'>
+      <div>The segment has been deleted.</div>
     </div>
-  </header>
 
-  <div id='status-message'>
-    <div>The segment has been deleted.</div>
-  </div>
+    <div id='info-bubble'></div>
 
-  <div id='info-bubble'></div>
-
-  <section id='street-section'>
-    <section id='street-section-canvas'>
-      <section id='street-section-left-building'></section>
-      <section id='street-section-right-building'></section>
-      <div id='editable-street-canvas'>
-        <div id='editable-street-section'></div>
-      </div>
+    <section id='street-section'>
+      <section id='street-section-canvas'>
+        <section id='street-section-left-building'></section>
+        <section id='street-section-right-building'></section>
+        <div id='editable-street-canvas'>
+          <div id='editable-street-section'></div>
+        </div>
+      </section>
+      <section id='street-section-sky'>
+        <div class='rear-clouds'></div>
+        <div class='front-clouds'></div>
+      </section>
+      <section id='street-section-dirt'></section>
     </section>
-    <section id='street-section-sky'>
-      <div class='rear-clouds'></div>
-      <div class='front-clouds'></div>
+
+    <section id='tools'>
+      <h1>StreetMix</h1>
+
+      <button id='undo'>Undo</button>
+      <button id='redo'>Redo</button>
     </section>
-    <section id='street-section-dirt'></section>
-  </section>
 
-  <section id='tools'>
-    <h1>StreetMix</h1>
-
-    <button id='undo'>Undo</button>
-    <button id='redo'>Redo</button>
-  </section>
-
-  <div id='what-is-this-content' style='display: none'>
-    <p>
-      <img style='width: 480px; height: 60px; margin: 12px 0; margin-left: -8px' src='images/ui/title-dark.png'>
-    </p>
-    <p>
-    <strong>StreetMix</strong> is an interactive <a href="https://github.com/codeforamerica/streetmix#what-are-street-sections">street section</a> builder,
-      put together as a labs project by a group of 
-      2013 <a href='http://www.codeforamerica.org'>Code for America</a> fellows.
-    </p>
-    <p>
-      This app is a work in progress, and in a very early stage. Stay tuned 
-      and send us your thoughts!
-    </p>
-    <p>
-      <a href='https://github.com/codeforamerica/streetmix#readme'>More information</a>
-      ·
-      <a href='http://www.theatlanticcities.com/commute/2013/01/digital-mixing-board-your-street/4555/'><em>The Atlantic Cities</em> write-up</a>
-    <br>
-      <a href='mailto:streetmix@codeforamerica.org'>Contact via email</a>
-      ·
-      <a href='http://twitter.com/streetmixapp'>Contact via Twitter</a>
-    <br>
-      <a href='https://github.com/codeforamerica/streetmix'>View source code</a>
-      ·
-      <a href='https://github.com/codeforamerica/streetmix/issues'>File a bug/suggestion</a>
-    </p>
+    <div id='what-is-this-content' style='display: none'>
+      <p>
+        <img style='width: 480px; height: 60px; margin: 12px 0; margin-left: -8px' src='images/ui/title-dark.png'>
+      </p>
+      <p>
+      <strong>StreetMix</strong> is an interactive <a href="https://github.com/codeforamerica/streetmix#what-are-street-sections">street section</a> builder,
+        put together as a labs project by a group of 
+        2013 <a href='http://www.codeforamerica.org'>Code for America</a> fellows.
+      </p>
+      <p>
+        This app is a work in progress, and in a very early stage. Stay tuned 
+        and send us your thoughts!
+      </p>
+      <p>
+        <a href='https://github.com/codeforamerica/streetmix#readme'>More information</a>
+        ·
+        <a href='http://www.theatlanticcities.com/commute/2013/01/digital-mixing-board-your-street/4555/'><em>The Atlantic Cities</em> write-up</a>
+      <br>
+        <a href='mailto:streetmix@codeforamerica.org'>Contact via email</a>
+        ·
+        <a href='http://twitter.com/streetmixapp'>Contact via Twitter</a>
+      <br>
+        <a href='https://github.com/codeforamerica/streetmix'>View source code</a>
+        ·
+        <a href='https://github.com/codeforamerica/streetmix/issues'>File a bug/suggestion</a>
+      </p>
+    </div>
   </div>
   <script src='js/what-is-this.js'></script>
 

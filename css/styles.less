@@ -28,6 +28,16 @@ body {
   background: rgb(53, 45, 39);
 }
 
+/* Prevents the horizontal scrollbar from appearing on the iPad. */
+#wrapper {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
 header {
   position: absolute;
   top: 0;
