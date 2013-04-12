@@ -304,6 +304,7 @@ var main = (function(){
   var draggingType;
 
   var segmentHoveredEl;
+  var separatorHoveredEl;
 
   var touchSupport;
   var retinaMultiplier;
@@ -344,8 +345,25 @@ var main = (function(){
   function _recalculateSeparators() {
     var els = document.querySelectorAll('#editable-street-section [type="separator"]');
     for (var i = 0, el; el = els[i]; i++) {
-      var prevWidth = el.previousSibling ? el.previousSibling.offsetWidth : 0;
-      var nextWidth = el.nextSibling ? el.nextSibling.offsetWidth : 0;
+
+      var prevWidth = 0;
+      var prevEl = el.previousSibling;
+      while (prevEl && prevEl.classList.contains('about-to-be-gone')) {
+        //console.log('!');
+        prevEl = prevEl.previousSibling;
+      }
+      var prevWidth = prevEl ? prevEl.offsetWidth : 0;
+
+      var nextWidth = 0;
+      var nextEl = el.nextSibling;
+      while (nextEl && nextEl.classList.contains('about-to-be-gone')) {
+        //console.log('@');
+        nextEl = nextEl.previousSibling;
+      }
+      var nextWidth = nextEl ? nextEl.offsetWidth : 0;
+
+      //var prevWidth = el.previousSibling ? el.previousSibling.offsetWidth : 0;
+      //var nextWidth = el.nextSibling ? el.nextSibling.offsetWidth : 0;
 
       if (i == 0) {
         prevWidth = SEPARATOR_EDGE_WIDTH;
@@ -843,11 +861,11 @@ var main = (function(){
     }
     
     if (type == 'separator') {
-      el.addEventListener('mouseover', _onSeparatorMouseOver, false);
-      el.addEventListener('mouseout', _onSeparatorMouseOut, false);
+      //el.addEventListener('mouseover', _onSeparatorMouseOver, false);
+      //el.addEventListener('mouseout', _onSeparatorMouseOut, false);
     } else {
-      el.addEventListener('mouseover', _onSegmentMouseOver, false);
-      el.addEventListener('mouseout', _onSegmentMouseOut, false);
+      //el.addEventListener('mouseover', _onSegmentMouseOver, false);
+      //el.addEventListener('mouseout', _onSegmentMouseOut, false);
 
       _setSegmentContents(el, type, width, isTool);
 
@@ -1256,7 +1274,9 @@ var main = (function(){
       ctx.save();
       ctx.strokeStyle = 'rgb(100, 100, 100)';
       ctx.fillStyle = 'rgb(100, 100, 100)';
-      ctx.setLineDash([15, 10]);
+      if (ctx.setLineDash) {
+        ctx.setLineDash([15, 10]);
+      }
       _drawArrowLine(ctx, x, 60, left + data.streetWidth * multiplier, 60, _prettifyWidth(data.remainingWidth * TILE_SIZE));
       ctx.restore();
     }
@@ -1400,6 +1420,14 @@ var main = (function(){
   function _handleSegmentMoveStart(event) {
     doNotCreateUndo = true;
 
+    if (event.touches && event.touches[0]) {
+      var x = event.touches[0].pageX;
+      var y = event.touches[0].pageY;
+    } else {
+      var x = event.pageX;
+      var y = event.pageY;
+    }    
+
     var el = event.target;
 
     draggingActive = true;
@@ -1418,16 +1446,16 @@ var main = (function(){
       segmentMoveDragging.originalWidth = segmentMoveDragging.originalEl.offsetWidth;
     }
 
-    segmentMoveDragging.elX = event.pageX - (event.offsetX || event.layerX);
-    segmentMoveDragging.elY = event.pageY - (event.offsetY || event.layerY);
+    segmentMoveDragging.elX = x - (event.offsetX || event.layerX);
+    segmentMoveDragging.elY = y - (event.offsetY || event.layerY);
 
     if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_CREATE) {
       segmentMoveDragging.elY -= 340;
       segmentMoveDragging.elX -= segmentMoveDragging.originalWidth / 3;
     }
 
-    segmentMoveDragging.mouseX = event.pageX;
-    segmentMoveDragging.mouseY = event.pageY;
+    segmentMoveDragging.mouseX = x;
+    segmentMoveDragging.mouseY = y;
 
     segmentMoveDragging.el = document.createElement('div');
     segmentMoveDragging.el.classList.add('segment');
@@ -1484,8 +1512,29 @@ var main = (function(){
   }
 
   function _handleSegmentMoveDragging(event) {
-    var deltaX = event.pageX - segmentMoveDragging.mouseX;
-    var deltaY = event.pageY - segmentMoveDragging.mouseY;
+    if (event.touches && event.touches[0]) {
+      var x = event.touches[0].pageX;
+      var y = event.touches[0].pageY;
+    } else {
+      var x = event.pageX;
+      var y = event.pageY;
+    }
+
+    var el = document.elementFromPoint(x, y);
+
+    if (separatorHoveredEl && (el != separatorHoveredEl)) {
+      _separatorMouseOut(separatorHoveredEl);
+    }
+    if (el && el.classList.contains('segment') && 
+        (el.getAttribute('type') == 'separator')) {
+      separatorHoveredEl = el;
+      _separatorMouseOver(separatorHoveredEl);
+    }
+
+    // ----
+
+    var deltaX = x - segmentMoveDragging.mouseX;
+    var deltaY = y - segmentMoveDragging.mouseY;
 
     segmentMoveDragging.elX += deltaX;
     segmentMoveDragging.elY += deltaY;
@@ -1493,8 +1542,8 @@ var main = (function(){
     segmentMoveDragging.el.style.left = segmentMoveDragging.elX + 'px';
     segmentMoveDragging.el.style.top = segmentMoveDragging.elY + 'px';
 
-    segmentMoveDragging.mouseX = event.pageX;
-    segmentMoveDragging.mouseY = event.pageY;
+    segmentMoveDragging.mouseX = x;
+    segmentMoveDragging.mouseY = y;
   }
 
   function _handleSegmentResizeDragging(event) {
@@ -1535,6 +1584,8 @@ var main = (function(){
         _handleSegmentResizeDragging(event);
         break;
     }
+
+    event.preventDefault();
   }
 
   function _flashWarning() {
@@ -1548,6 +1599,13 @@ var main = (function(){
   function _handleSegmentMoveEnd(event) {
     doNotCreateUndo = false;
 
+    if (!segmentMoveDragging.originalDraggedOut) {
+      console.log('a');
+      segmentMoveDragging.originalEl.parentNode.removeChild(segmentMoveDragging.originalEl);
+      _recalculateSeparators();
+      _segmentsChanged();
+    }
+
     var el = event.target;
     while (el && (el.id != 'editable-street-canvas')) {
       el = el.parentNode;
@@ -1558,6 +1616,7 @@ var main = (function(){
         document.querySelector('#editable-street-section [type="separator"].hovered-over');
 
     if (placeEl) {
+      console.log('place');
       var width = segmentMoveDragging.originalWidth;
 
       if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_CREATE) {
@@ -1661,14 +1720,21 @@ var main = (function(){
       var el = _createSegment('separator');
       document.querySelector('#editable-street-section').insertBefore(el, 
           segmentMoveDragging.originalEl);
+      
+      //segmentMoveDragging.originalEl.parentNode.removeChild(segmentMoveDragging.originalEl);
 
       segmentMoveDragging.originalEl.style.width = 0;
-      window.setTimeout(function() {
-        segmentMoveDragging.originalEl.parentNode.removeChild(segmentMoveDragging.originalEl);
-        _recalculateSeparators();
-        _segmentsChanged();
-      }, WIDTH_RESIZE_DELAY);
-
+      segmentMoveDragging.originalEl.classList.add('about-to-be-gone');
+      /*window.setTimeout(function() {
+        console.log(segmentMoveDragging.originalEl);
+        console.log(segmentMoveDragging.originalEl.parentNode);
+        console.log(segmentMoveDragging.originalEl.parentNode.removeChild);
+        console.log('a');
+        console.log(segmentMoveDragging.originalEl);
+        //_recalculateSeparators();
+        //_segmentsChanged();
+      }, WIDTH_RESIZE_DELAY * 10000);*/
+      
       _recalculateSeparators();
       _segmentsChanged();
 
@@ -1691,14 +1757,22 @@ var main = (function(){
     segmentHoveredEl = null;
   }
 
-  function _onSeparatorMouseOver(event) {
+  function _separatorMouseOver(el) {
     _dragOutOriginalIfNecessary();
 
-    event.target.classList.add('hovered-over');
+    el.classList.add('hovered-over');
+  }
+
+  function _separatorMouseOut(el) {
+    el.classList.remove('hovered-over');    
+  }
+
+  function _onSeparatorMouseOver(event) {
+    _separatorMouseOver(event.target);
   }
 
   function _onSeparatorMouseOut(event) {
-    event.target.classList.remove('hovered-over');
+    _separatorMouseOut(event.target);
   }
 
   function _createTools() {
