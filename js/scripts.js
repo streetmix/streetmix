@@ -375,11 +375,10 @@ var main = (function(){
         CANVAS_BASELINE - (segmentInfo.graphics.center.height || 0) * TILE_SIZE -
         (segmentInfo.graphics.center.y || 0) * TILE_SIZE;
 
-    var width = realWidth * TILE_SIZE;
-    var height = CANVAS_HEIGHT;
-
     var left = 0;
     var top = 0;
+    var width = realWidth * TILE_SIZE;
+    var height = CANVAS_HEIGHT;
 
     // center properly
     var segmentRealWidth = segmentWidth / TILE_SIZE / multiplier;
