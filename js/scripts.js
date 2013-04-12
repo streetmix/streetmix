@@ -37,6 +37,9 @@ var main = (function(){
   var CANVAS_HEIGHT = 480;
   var CANVAS_BASELINE = CANVAS_HEIGHT - 35;
 
+  var SEPARATOR_WIDTH = 100;
+  var SEPARATOR_EDGE_WIDTH = 2000;
+
   var DRAGGING_TYPE_SEGMENT_MOVE = 1;
   var DRAGGING_TYPE_SEGMENT_RESIZE = 2;
 
@@ -341,14 +344,14 @@ var main = (function(){
       var nextWidth = el.nextSibling ? el.nextSibling.offsetWidth : 0;
 
       if (i == 0) {
-        prevWidth = 2000;
+        prevWidth = SEPARATOR_EDGE_WIDTH;
       } else if (i == els.length - 1) {
-        nextWidth = 2000;
+        nextWidth = SEPARATOR_EDGE_WIDTH;
       }
 
-      el.style.width = ((prevWidth / 2 + nextWidth / 2 + 2 + 100)) + 'px';
+      el.style.width = ((prevWidth / 2 + nextWidth / 2 + 2 + SEPARATOR_WIDTH)) + 'px';
       el.style.marginLeft = ((-prevWidth / 2 - 1)) + 'px';
-      el.style.marginRight = ((-nextWidth / 2 - 1 - 100)) + 'px';
+      el.style.marginRight = ((-nextWidth / 2 - 1 - SEPARATOR_WIDTH)) + 'px';
     }
   }
 
@@ -399,7 +402,6 @@ var main = (function(){
       canvasLeft -= z;
       maxWidth += z;
     }
-
 
     if (segmentInfo.graphics.right && segmentInfo.graphics.right.offsetX < 0) {
       canvasOffsetX = -segmentInfo.graphics.right.offsetX * TILE_SIZE;
