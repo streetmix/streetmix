@@ -1596,11 +1596,37 @@ var main = (function(){
     }, 0);
   }
 
+  function _removeTouchSegmentFadeouts() {
+    var els = document.querySelectorAll('.fade-out-end');
+    for (var i = 0, el; el = els[i]; i++) {
+      el.classList.remove('fade-out-end');
+    }
+  }
+
+  function _createTouchSegmentFadeout(el) {
+    if (touchSupport) {
+      _removeTouchSegmentFadeouts();
+
+      window.clearTimeout(el.fadeoutTimerId);
+      el.classList.remove('fade-out-end');
+      el.classList.add('fade-out-start');
+
+      window.setTimeout(function() {
+        el.classList.remove('fade-out-start');
+        el.classList.add('fade-out-end');
+      }, 0);
+
+      el.fadeoutTimerId = window.setTimeout(function() {
+        el.classList.remove('fade-out-end');
+      }, 5000);
+    }
+  }
+
   function _handleSegmentMoveEnd(event) {
     doNotCreateUndo = false;
 
     if (!segmentMoveDragging.originalDraggedOut) {
-      console.log('a');
+      //console.log('a');
       segmentMoveDragging.originalEl.parentNode.removeChild(segmentMoveDragging.originalEl);
       _recalculateSeparators();
       _segmentsChanged();
@@ -1616,7 +1642,7 @@ var main = (function(){
         document.querySelector('#editable-street-section [type="separator"].hovered-over');
 
     if (placeEl) {
-      console.log('place');
+      //console.log('place');
       var width = segmentMoveDragging.originalWidth;
 
       if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_CREATE) {
@@ -1652,10 +1678,14 @@ var main = (function(){
       _segmentsChanged();
 
       segmentMoveDragging.el.parentNode.removeChild(segmentMoveDragging.el);
+
+      _createTouchSegmentFadeout(el);
     } else {            
       if (!withinCanvas) {
         _dragOutOriginalIfNecessary();
       } else {
+        _createTouchSegmentFadeout(segmentMoveDragging.originalEl);
+
         segmentMoveDragging.originalEl.classList.remove('dragged-out');
 
         var el = _createSegment('separator');

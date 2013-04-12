@@ -442,13 +442,26 @@ body.segment-resize-dragging * {
   text-align: right;
   text-indent: -3px;
 }
-body .segment:not(.unmovable):AAhover .drag-handle,
+body .segment:not(.unmovable):hover .drag-handle,
 body .segment:not(.unmovable).hover .drag-handle {
   pointer-events: auto;
   opacity: 1;
 }
-body .segment:not(.unmovable):AAhover .drag-handle:AAhover,
-body .segment:not(.unmovable).hover .drag-handle:AAhover {
+
+body .segment:not(.unmovable).fade-out-start .drag-handle {
+  pointer-events: auto;
+  opacity: 1;
+  -webkit-transition: opacity 0;
+}
+body .segment:not(.unmovable).fade-out-end .drag-handle {
+  pointer-events: auto;
+  opacity: 0;
+  -webkit-transition: opacity 5000ms;
+}
+
+
+body .segment:not(.unmovable):hover .drag-handle:hover,
+body .segment:not(.unmovable).hover .drag-handle:hover {
   opacity: 1;
   outline: 1px solid rgba(255, 255, 255, .8);
   color: rgba(255, 255, 255, .8);
