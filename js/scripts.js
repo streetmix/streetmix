@@ -430,14 +430,17 @@ var main = (function(){
 
       var count = Math.floor((segmentWidth) / w + 1);
 
-      var repeatStartX = -(segmentWidth - maxWidth) - canvasOffsetX;
+      if (segmentWidth < maxWidth) {
+        var repeatStartX = -canvasLeft;
+      } else {
+        var repeatStartX = -(segmentWidth - maxWidth) - canvasOffsetX;
+      }
 
       if (isTool) {
         repeatStartX = 0;
       }
 
       for (var i = 0; i < count; i++) {
-
         // remainder
         if (i == count - 1) {
           w = segmentWidth - (count - 1) * w;
