@@ -1460,14 +1460,24 @@ var main = (function(){
     segmentMoveDragging.elY = pos[1];
 
 
-
     //console.log(event.offsetX, event.offsetY);
     //console.log(event.layerX, event.layerY);
 
     if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_CREATE) {
+      // TODO const
       segmentMoveDragging.elY -= 340;
       segmentMoveDragging.elX -= segmentMoveDragging.originalWidth / 3;
     }
+
+    if (touchSupport) {
+      // TODO const
+      if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_CREATE) {
+        segmentMoveDragging.elY -= 100;      
+      } else {
+        segmentMoveDragging.elY -= 50;      
+      }
+    }
+
 
     segmentMoveDragging.mouseX = x;
     segmentMoveDragging.mouseY = y;
@@ -1479,7 +1489,7 @@ var main = (function(){
     _setSegmentContents(segmentMoveDragging.el, segmentMoveDragging.originalType, segmentMoveDragging.originalWidth);
     document.body.appendChild(segmentMoveDragging.el);
 
-    console.log('z', segmentMoveDragging.elX, segmentMoveDragging.elY);
+    //console.log('z', segmentMoveDragging.elX, segmentMoveDragging.elY);
 
     segmentMoveDragging.el.style.left = segmentMoveDragging.elX + 'px';
     segmentMoveDragging.el.style.top = segmentMoveDragging.elY + 'px';
@@ -1567,7 +1577,7 @@ var main = (function(){
     segmentMoveDragging.mouseX = x;
     segmentMoveDragging.mouseY = y;
 
-    console.log(x, y);
+    //console.log(x, y);
 
     //console.log('a', segmentMoveDragging.elX, segmentMoveDragging.elY);
   }
