@@ -27,7 +27,6 @@ var main = (function(){
     'images/ui/icons/noun_project_13130.svg'
   ];
 
-  var WIDTH_MULTIPLIER = 12; // 12 pixels per foot
   var WIDTH_TOOL_MULTIPLIER = 4;
 
   var TILE_SIZE = 12; // pixels
@@ -367,7 +366,7 @@ var main = (function(){
       var realWidth = segmentInfo.defaultWidth;
     }
 
-    var multiplier = isTool ? (WIDTH_TOOL_MULTIPLIER / WIDTH_MULTIPLIER) : 1;
+    var multiplier = isTool ? (WIDTH_TOOL_MULTIPLIER / TILE_SIZE) : 1;
 
     var bkPositionX = (segmentInfo.graphics.center.x || 0) * TILE_SIZE;
     var bkPositionY = 
@@ -951,7 +950,7 @@ var main = (function(){
     for (var i in data.segments) {
       var segment = data.segments[i];
 
-      var el = _createSegment(segment.type, segment.width * WIDTH_MULTIPLIER, 
+      var el = _createSegment(segment.type, segment.width * TILE_SIZE, 
           segment.unmovable);
       document.querySelector('#editable-street-section').appendChild(el);
 
@@ -1886,8 +1885,10 @@ var main = (function(){
     document.querySelector('#undo').addEventListener('click', _undo, false);
     document.querySelector('#redo').addEventListener('click', _redo, false);
 
-    document.querySelector('#street-width-custom').addEventListener('change', _onStreetWidthChange, false);
-    document.querySelector('#street-width-no-custom').addEventListener('change', _onStreetWidthChange, false);
+    document.querySelector('#street-width-custom').
+        addEventListener('change', _onStreetWidthChange, false);
+    document.querySelector('#street-width-no-custom').
+        addEventListener('change', _onStreetWidthChange, false);
 
     window.addEventListener('resize', _onResize, false);
 
