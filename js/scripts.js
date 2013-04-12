@@ -27,9 +27,6 @@ var main = (function(){
     'images/ui/icons/noun_project_13130.svg'
   ];
 
-  var images;
-  var imagesRemaining;
-
   var WIDTH_MULTIPLIER = 12; // 12 pixels per foot
   var WIDTH_TOOL_MULTIPLIER = 4;
 
@@ -47,6 +44,7 @@ var main = (function(){
   var SEGMENT_DRAGGING_TYPE_CREATE = 2;
 
   var WIDTH_RESIZE_DELAY = 100;
+  var STATUS_MESSAGE_HIDE_DELAY = 5000;
 
   var STREET_WIDTH_CUSTOM = -1;
   var MIN_CUSTOM_STREET_WIDTH = 10;
@@ -117,16 +115,6 @@ var main = (function(){
         repeat: { x: 1, y: 0, width: 1, height: 15 }
       }
     },
-    "sidewalk-lamp-left": {
-      name: 'Sidewalk w/ a lamp',
-      owner: SEGMENT_OWNER_PEDESTRIAN,
-      defaultWidth: 4,
-      graphics: {
-        center: { width: 0, height: 15 },
-        repeat: { x: 1, y: 0, width: 1, height: 15 },
-        left: { x: 107, offsetX: -2, width: 4, height: 15 }
-      }
-    },
     "sidewalk-lamp-right": {
       name: 'Sidewalk w/ a lamp',
       owner: SEGMENT_OWNER_PEDESTRIAN,
@@ -135,6 +123,16 @@ var main = (function(){
         center: { width: 0, height: 15 },
         repeat: { x: 1, y: 0, width: 1, height: 15 },
         right: { x: 102, offsetX: -2, width: 4, height: 15 }
+      }
+    },
+    "sidewalk-lamp-left": {
+      name: 'Sidewalk w/ a lamp',
+      owner: SEGMENT_OWNER_PEDESTRIAN,
+      defaultWidth: 4,
+      graphics: {
+        center: { width: 0, height: 15 },
+        repeat: { x: 1, y: 0, width: 1, height: 15 },
+        left: { x: 107, offsetX: -2, width: 4, height: 15 }
       }
     },
     "planting-strip": {
@@ -292,6 +290,9 @@ var main = (function(){
 
     segments: []
   };
+
+  var images;
+  var imagesRemaining;  
 
   var lastData;
   var undoStack = [];
@@ -1066,9 +1067,9 @@ var main = (function(){
       _updateUndoButtons();
       lastData = _trimNonUserData();
 
-      _hideStatusMessage();
+      _statusMessage.hide();
     } else {
-      _showStatusMessage('Nothing to undo.')
+      _statusMessage.show('Nothing to undo.')
     }
   }
 
@@ -1086,9 +1087,9 @@ var main = (function(){
       _updateUndoButtons();
       lastData = _trimNonUserData();
 
-      _hideStatusMessage();
+      _statusMessage.hide();
     } else {
-      _showStatusMessage('Nothing to redo.')
+      _statusMessage.show('Nothing to redo.')
     }
 
   }
@@ -1797,7 +1798,7 @@ var main = (function(){
       el.parentNode.removeChild(el);
       _segmentsChanged();
 
-      _showStatusMessage('The segment has been deleted. <button>Undo</button>');
+      _statusMessage.show('The segment has been deleted. <button>Undo</button>');
 
       document.querySelector('#status-message button').
           addEventListener('click', _undo, false);
@@ -1920,20 +1921,23 @@ var main = (function(){
     }
   }
 
-  var statusMessageTimerId = -1;
+  var _statusMessage = {
+    timerId: -1,
 
-  function _showStatusMessage(text) {
-    window.clearTimeout(statusMessageTimerId);
+    show: function(text) {
+      window.clearTimeout(_statusMessage.timerId);
 
-    document.querySelector('#status-message > div').innerHTML = text;
-    document.querySelector('#status-message').classList.add('visible');
+      document.querySelector('#status-message > div').innerHTML = text;
+      document.querySelector('#status-message').classList.add('visible');
 
-    statusMessageTimerId = window.setTimeout(_hideStatusMessage, 5000);
-  }
+      _statusMessage.timerId = 
+          window.setTimeout(_statusMessage.hide, STATUS_MESSAGE_HIDE_DELAY);
+    },
 
-  function _hideStatusMessage() {
-    document.querySelector('#status-message').classList.remove('visible');
-  }
+    hide: function() {
+      document.querySelector('#status-message').classList.remove('visible');
+    }
+  };
 
   // Copies only the data necessary for save/undo.
   function _trimNonUserData() {
