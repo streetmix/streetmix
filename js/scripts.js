@@ -113,7 +113,7 @@ var main = (function(){
     },
     "sidewalk-tree": {
       name: 'Sidewalk w/ a tree',
-      defaultWidth: 6,
+      defaultWidth: 4,
       defaultHeight: 15,
       tileX: 13,
       tileY: 0,
@@ -125,7 +125,7 @@ var main = (function(){
     },
     "sidewalk-lamp-left": {
       name: 'Sidewalk w/ a lamp',
-      defaultWidth: 6,
+      defaultWidth: 4,
       realWidth: 0,
       defaultHeight: 15,
       tileX: 102,
@@ -134,10 +134,9 @@ var main = (function(){
       repeatHeight: 15,
       repeatX: 1,
       repeatY: 0,
-      leftX: 107,
-      leftOffsetX: -2,
-      leftWidth: 4,      
-      leftHeight: 15,
+
+      left: { x: 107, offsetX: -2, width: 4, height: 15 },
+
       owner: SEGMENT_OWNER_PEDESTRIAN
     },
     "sidewalk-lamp-right": {
@@ -151,10 +150,8 @@ var main = (function(){
       repeatHeight: 15,
       repeatX: 1,
       repeatY: 0,
-      rightX: 102,
-      rightOffsetX: -2,
-      rightWidth: 4,      
-      rightHeight: 15,
+
+      right: { x: 102, offsetX: -2, width: 4, height: 15 },
 
       owner: SEGMENT_OWNER_PEDESTRIAN
     },
@@ -212,9 +209,8 @@ var main = (function(){
       repeatHeight: 15,
       repeatX: 26,
       repeatY: 0,
-      leftX: 46,
-      leftHeight: 15,
-      leftWidth: 3,
+
+      left: { x: 46, width: 3, height: 15 },
       owner: SEGMENT_OWNER_CAR
     },
     "drive-lane-inbound": {
@@ -460,16 +456,16 @@ var main = (function(){
 
     var canvasOffsetX = 0;
 
-    if (segmentInfo.leftOffsetX < 0) {
-      var z = -segmentInfo.leftOffsetX * TILE_SIZE;
+    if (segmentInfo.left && segmentInfo.left.offsetX < 0) {
+      var z = -segmentInfo.left.offsetX * TILE_SIZE;
 
       canvasLeft -= z;
       maxWidth += z;
     }
 
 
-    if (segmentInfo.rightOffsetX < 0) {
-      canvasOffsetX = -segmentInfo.rightOffsetX * TILE_SIZE;
+    if (segmentInfo.right && segmentInfo.right.offsetX < 0) {
+      canvasOffsetX = -segmentInfo.right.offsetX * TILE_SIZE;
 
       maxWidth += canvasOffsetX;
     }
@@ -522,10 +518,10 @@ var main = (function(){
       }
     }      
 
-    if (segmentInfo.leftWidth) {
-      var leftPositionX = segmentInfo.leftX * TILE_SIZE;
+    if (segmentInfo.left) {
+      var leftPositionX = segmentInfo.left.x * TILE_SIZE;
 
-      var w = segmentInfo.leftWidth * TILE_SIZE;
+      var w = segmentInfo.left.width * TILE_SIZE;
 
       ctx.drawImage(images['images/tiles.png'], 
         leftPositionX * 2, 
@@ -538,15 +534,15 @@ var main = (function(){
         realHeight * retinaMultiplier * multiplier);
     }
 
-    if (segmentInfo.rightWidth) {
-      var rightPositionX = segmentInfo.rightX * TILE_SIZE;
+    if (segmentInfo.right) {
+      var rightPositionX = segmentInfo.right.x * TILE_SIZE;
 
-      var w = segmentInfo.rightWidth * TILE_SIZE;
+      var w = segmentInfo.right.width * TILE_SIZE;
 
       var rightTargetX = maxWidth - w;
 
       if (isTool) {
-        rightTargetX -= segmentInfo.rightOffsetX * TILE_SIZE * multiplier;
+        rightTargetX -= segmentInfo.right.offsetX * TILE_SIZE * multiplier;
       }
 
       ctx.drawImage(images['images/tiles.png'], 
@@ -1771,11 +1767,8 @@ var main = (function(){
 
       var width = segmentInfo.defaultWidth + 1;
 
-      if (segmentInfo.leftOffsetX) {
-        width -= segmentInfo.leftOffsetX;
-      }
-      if (segmentInfo.rightOffsetX) {
-        width -= segmentInfo.rightOffsetX; // debug
+      if (segmentInfo.left && segmentInfo.left.offsetX) {
+        width -= segmentInfo.left.offsetX;
       }
 
       var el = _createSegment(i, 
