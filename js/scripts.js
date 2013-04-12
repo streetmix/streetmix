@@ -333,17 +333,17 @@ var main = (function(){
     ],
     80: [
       { type: "sidewalk", width: 6 },
-      { type: "sidewalk-tree", width: 6 },
+      { type: "sidewalk-tree", width: 4 },
+      { type: "sidewalk-lamp-right", width: 2 },
       { type: "bike-lane-inbound", width: 6 },
-      { type: "sidewalk-lamp-right", width: 4 },
       { type: "drive-lane-inbound", width: 10 },
-//      { type: "drive-lane-inbound", width: 10 },
-      { type: "sidewalk-lamp-left", width: 4 },
+      { type: "drive-lane-inbound", width: 10 },
       { type: "planting-strip", width: 4 },
       { type: "drive-lane-outbound", width: 10 },
       { type: "drive-lane-outbound", width: 10 },
       { type: "bike-lane-outbound", width: 6 },
-      { type: "sidewalk-tree", width: 6 },
+      { type: "sidewalk-lamp-left", width: 2 },
+      { type: "sidewalk-tree", width: 4 },
       { type: "sidewalk", width: 6 }
     ]
   }
@@ -421,10 +421,6 @@ var main = (function(){
   }
 
   function _setSegmentContents(el, type, segmentWidth, isTool) {
-    if (type.substr(0, 13) == 'sidewalk-lamp') { // debug
-      //el.style.outline = '1px dashed red';
-    }
-
     var segmentInfo = SEGMENT_INFO[type];
 
     if (typeof segmentInfo.realWidth != 'undefined') {
@@ -433,22 +429,18 @@ var main = (function(){
       var realWidth = segmentInfo.defaultWidth;
     }
 
-    //var tileOffsetX = segmentInfo.tileOffsetX || 0;
-    //var tileOffsetY = segmentInfo.tileOffsetY || 0;
-
     var multiplier = isTool ? (WIDTH_TOOL_MULTIPLIER / WIDTH_MULTIPLIER) : 1;
 
-    var bkPositionX = 
-        ((segmentInfo.tileX/* + tileOffsetX*/) * TILE_SIZE);// * multiplier;
+    var bkPositionX = (segmentInfo.tileX) * TILE_SIZE;
     var bkPositionY = 
-        (CANVAS_BASELINE - segmentInfo.defaultHeight * TILE_SIZE -
-        (segmentInfo.tileY/* + tileOffsetY*/) * TILE_SIZE);// * multiplier;
+        CANVAS_BASELINE - segmentInfo.defaultHeight * TILE_SIZE -
+        segmentInfo.tileY * TILE_SIZE;
 
     var width = realWidth * TILE_SIZE;
     var height = CANVAS_HEIGHT;
 
-    var left = 0;//-tileOffsetX * TILE_SIZE * multiplier;
-    var top = 0;//-tileOffsetY * TILE_SIZE * multiplier;
+    var left = 0;
+    var top = 0;
 
     // center properly
     var segmentRealWidth = segmentWidth / TILE_SIZE / multiplier;
@@ -479,7 +471,6 @@ var main = (function(){
     if (segmentInfo.rightOffsetX < 0) {
       canvasOffsetX = -segmentInfo.rightOffsetX * TILE_SIZE;
 
-      //canvasLeft -= canvasOffsetX;
       maxWidth += canvasOffsetX;
     }
 
@@ -494,11 +485,6 @@ var main = (function(){
       canvasEl.style.left = canvasLeft + 'px';
     } else {
       canvasEl.style.left = 0;
-    }
-
-    if (type.substr(0, 13) == 'sidewalk-lamp') { // debug
-      //canvasEl.style.outline = '1px dashed rgba(255, 0, 0, .2)';
-      //canvasEl.style.background = 'rgba(255, 0, 0, .2)';
     }
 
     var ctx = canvasEl.getContext('2d');
