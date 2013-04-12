@@ -30,6 +30,7 @@ var main = (function(){
   var WIDTH_TOOL_MULTIPLIER = 4;
 
   var TILE_SIZE = 12; // pixels
+  var CANVAS_WIDTH = 10000;
   var CANVAS_HEIGHT = 480;
   var CANVAS_BASELINE = CANVAS_HEIGHT - 35;
 
@@ -1725,7 +1726,7 @@ var main = (function(){
 
     // TODO make const
     document.querySelector('#editable-street-canvas').style.marginLeft = 
-        (-5000 + (width / 2)) + 'px';
+        (-CANVAS_WIDTH / 2 + width / 2) + 'px';
   }
 
   function _onResize() {
