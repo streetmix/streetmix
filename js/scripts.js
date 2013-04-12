@@ -115,7 +115,7 @@ var main = (function(){
     "sidewalk-lamp-left": {
       name: 'Sidewalk w/ a lamp',
       defaultWidth: 4,
-      center: { x: 102, y: 0, width: 0, height: 15 },
+      center: { width: 0, height: 15 },
       repeat: { x: 1, y: 0, width: 1, height: 15 },
       left: { x: 107, offsetX: -2, width: 4, height: 15 },
 
@@ -124,7 +124,7 @@ var main = (function(){
     "sidewalk-lamp-right": {
       name: 'Sidewalk w/ a lamp',
       defaultWidth: 6,
-      center: { x: 102, y: 0, width: 0, height: 15 },
+      center: { width: 0, height: 15 },
       repeat: { x: 1, y: 0, width: 1, height: 15 },
       right: { x: 102, offsetX: -2, width: 4, height: 15 },
 
@@ -133,8 +133,7 @@ var main = (function(){
     "planting-strip": {
       name: 'Planting strip',
       defaultWidth: 4,
-      center: { x: 8, y: 0, width: 0, height: 15 },
-
+      center: { width: 0, height: 15 },
       repeat: { x: 8, y: 0, width: 4, height: 15 },
       owner: SEGMENT_OWNER_NATURE
     },
@@ -342,10 +341,10 @@ var main = (function(){
 
     var multiplier = isTool ? (WIDTH_TOOL_MULTIPLIER / WIDTH_MULTIPLIER) : 1;
 
-    var bkPositionX = (segmentInfo.center.x) * TILE_SIZE;
+    var bkPositionX = (segmentInfo.center.x || 0) * TILE_SIZE;
     var bkPositionY = 
-        CANVAS_BASELINE - segmentInfo.center.height * TILE_SIZE -
-        segmentInfo.center.y * TILE_SIZE;
+        CANVAS_BASELINE - (segmentInfo.center.height || 0) * TILE_SIZE -
+        (segmentInfo.center.y || 0) * TILE_SIZE;
 
     var width = realWidth * TILE_SIZE;
     var height = CANVAS_HEIGHT;
@@ -400,7 +399,7 @@ var main = (function(){
 
     var ctx = canvasEl.getContext('2d');
 
-    var realHeight = segmentInfo.center.height * TILE_SIZE;
+    var realHeight = (segmentInfo.center.height || 0) * TILE_SIZE;
 
     if (segmentInfo.repeat) {
       var repeatPositionX = segmentInfo.repeat.x * TILE_SIZE;
