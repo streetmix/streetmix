@@ -1537,6 +1537,7 @@ var main = (function(){
       var y = event.pageY;
     }
 
+    // iPad bug or I’m stupid
     if ((x == 0) && (y == 0)) {
       return;
     }
@@ -1572,8 +1573,16 @@ var main = (function(){
   }
 
   function _handleSegmentResizeDragging(event) {
-    var deltaX = event.pageX - segmentResizeDragging.mouseX;
-    var deltaY = event.pageY - segmentResizeDragging.mouseY;
+    var x = event.pageX;
+    var y = event.pageY;
+
+    // iPad bug or I’m stupid
+    if ((x == 0) && (y == 0)) {
+      return;
+    }
+
+    var deltaX = x - segmentResizeDragging.mouseX;
+    var deltaY = y - segmentResizeDragging.mouseY;
 
     var deltaFromOriginal = 
         segmentResizeDragging.elX - segmentResizeDragging.origX;
