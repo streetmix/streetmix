@@ -44,6 +44,7 @@ var main = (function(){
 
   var WIDTH_RESIZE_DELAY = 100;
   var STATUS_MESSAGE_HIDE_DELAY = 5000;
+  var WIDTH_EDIT_INPUT_DELAY = 200;
 
   var STREET_WIDTH_CUSTOM = -1;
   var MIN_CUSTOM_STREET_WIDTH = 10;
@@ -574,10 +575,9 @@ var main = (function(){
       if (immediate) {
         _resizeSegment(segmentEl, width * TILE_SIZE, false, false, true);
       } else {
-        // TODO const
         resizeSegmentTimerId = window.setTimeout(function() {
           _resizeSegment(segmentEl, width * TILE_SIZE, false, false, true);
-        }, 200);
+        }, WIDTH_EDIT_INPUT_DELAY);
       }
     }
   }
