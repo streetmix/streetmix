@@ -123,6 +123,41 @@ var main = (function(){
       repeatY: 0,
       owner: SEGMENT_OWNER_NATURE
     },
+    "sidewalk-lamp-left": {
+      name: 'Sidewalk w/ a lamp',
+      defaultWidth: 6,
+      realWidth: 0,
+      defaultHeight: 15,
+      tileX: 102,
+      tileY: 0,
+      repeatWidth: 1,
+      repeatHeight: 15,
+      repeatX: 1,
+      repeatY: 0,
+      leftX: 107,
+      leftOffsetX: -2,
+      leftWidth: 4,      
+      leftHeight: 15,
+      owner: SEGMENT_OWNER_PEDESTRIAN
+    },
+    "sidewalk-lamp-right": {
+      name: 'Sidewalk w/ a lamp',
+      defaultWidth: 6,
+      realWidth: 0,
+      defaultHeight: 15,
+      tileX: 102,
+      tileY: 0,
+      repeatWidth: 1,
+      repeatHeight: 15,
+      repeatX: 1,
+      repeatY: 0,
+      rightX: 102,
+      rightOffsetX: -2,
+      rightWidth: 4,      
+      rightHeight: 15,
+
+      owner: SEGMENT_OWNER_PEDESTRIAN
+    },
     "planting-strip": {
       name: 'Planting strip',
       defaultWidth: 4,
@@ -300,8 +335,10 @@ var main = (function(){
       { type: "sidewalk", width: 6 },
       { type: "sidewalk-tree", width: 6 },
       { type: "bike-lane-inbound", width: 6 },
+      { type: "sidewalk-lamp-right", width: 4 },
       { type: "drive-lane-inbound", width: 10 },
-      { type: "drive-lane-inbound", width: 10 },
+//      { type: "drive-lane-inbound", width: 10 },
+      { type: "sidewalk-lamp-left", width: 4 },
       { type: "planting-strip", width: 4 },
       { type: "drive-lane-outbound", width: 10 },
       { type: "drive-lane-outbound", width: 10 },
@@ -384,6 +421,10 @@ var main = (function(){
   }
 
   function _setSegmentContents(el, type, segmentWidth, isTool) {
+    if (type.substr(0, 13) == 'sidewalk-lamp') { // debug
+      //el.style.outline = '1px dashed red';
+    }
+
     var segmentInfo = SEGMENT_INFO[type];
 
     if (typeof segmentInfo.realWidth != 'undefined') {
@@ -392,22 +433,22 @@ var main = (function(){
       var realWidth = segmentInfo.defaultWidth;
     }
 
-    var tileOffsetX = segmentInfo.tileOffsetX || 0;
-    var tileOffsetY = segmentInfo.tileOffsetY || 0;
+    //var tileOffsetX = segmentInfo.tileOffsetX || 0;
+    //var tileOffsetY = segmentInfo.tileOffsetY || 0;
 
     var multiplier = isTool ? (WIDTH_TOOL_MULTIPLIER / WIDTH_MULTIPLIER) : 1;
 
     var bkPositionX = 
-        ((segmentInfo.tileX + tileOffsetX) * TILE_SIZE);// * multiplier;
+        ((segmentInfo.tileX/* + tileOffsetX*/) * TILE_SIZE);// * multiplier;
     var bkPositionY = 
         (CANVAS_BASELINE - segmentInfo.defaultHeight * TILE_SIZE -
-        (segmentInfo.tileY + tileOffsetY) * TILE_SIZE);// * multiplier;
+        (segmentInfo.tileY/* + tileOffsetY*/) * TILE_SIZE);// * multiplier;
 
     var width = realWidth * TILE_SIZE;
     var height = CANVAS_HEIGHT;
 
-    var left = -tileOffsetX * TILE_SIZE * multiplier;
-    var top = -tileOffsetY * TILE_SIZE * multiplier;
+    var left = 0;//-tileOffsetX * TILE_SIZE * multiplier;
+    var top = 0;//-tileOffsetY * TILE_SIZE * multiplier;
 
     // center properly
     var segmentRealWidth = segmentWidth / TILE_SIZE / multiplier;
@@ -422,6 +463,26 @@ var main = (function(){
         left = 0;
       }
     }
+
+    var canvasLeft = (segmentWidth - maxWidth) / 2;
+
+    var canvasOffsetX = 0;
+
+    if (segmentInfo.leftOffsetX < 0) {
+      var z = -segmentInfo.leftOffsetX * TILE_SIZE;
+
+      canvasLeft -= z;
+      maxWidth += z;
+    }
+
+
+    if (segmentInfo.rightOffsetX < 0) {
+      canvasOffsetX = -segmentInfo.rightOffsetX * TILE_SIZE;
+
+      //canvasLeft -= canvasOffsetX;
+      maxWidth += canvasOffsetX;
+    }
+
     var canvasEl = document.createElement('canvas');
     canvasEl.classList.add('image');
     canvasEl.width = maxWidth * retinaMultiplier;
@@ -429,7 +490,12 @@ var main = (function(){
     canvasEl.style.width = maxWidth + 'px';
     canvasEl.style.height = height + 'px';
 
-    canvasEl.style.left = ((segmentWidth - maxWidth) / 2) + 'px';
+    canvasEl.style.left = canvasLeft + 'px';
+
+    if (type.substr(0, 13) == 'sidewalk-lamp') { // debug
+      //canvasEl.style.outline = '1px dashed rgba(255, 0, 0, .2)';
+      //canvasEl.style.background = 'rgba(255, 0, 0, .2)';
+    }
 
     var ctx = canvasEl.getContext('2d');
 
@@ -442,12 +508,18 @@ var main = (function(){
       var count = Math.floor((segmentWidth) / w + 1);
 
       for (var i = 0; i < count; i++) {
+
+        // remainder
+        if (i == count - 1) {
+          w = segmentWidth - (count - 1) * w;
+        }
+
         ctx.drawImage(images['images/tiles.png'], 
           repeatPositionX * 2, 
           0, 
           w * 2, 
           realHeight * 2, 
-          (-(segmentWidth - maxWidth) + (i * segmentInfo.repeatWidth) * TILE_SIZE * retinaMultiplier) * multiplier, 
+          (-(segmentWidth - maxWidth) - canvasOffsetX + (i * segmentInfo.repeatWidth) * TILE_SIZE) * retinaMultiplier * multiplier, 
           ((isTool ? 20 : 265) + top) * retinaMultiplier, 
           w * retinaMultiplier, 
           realHeight * retinaMultiplier * multiplier);
@@ -456,17 +528,32 @@ var main = (function(){
 
     if (segmentInfo.leftWidth) {
       var leftPositionX = segmentInfo.leftX * TILE_SIZE;
+
       var w = segmentInfo.leftWidth * TILE_SIZE * multiplier;
       ctx.drawImage(images['images/tiles.png'], 
         leftPositionX * 2, 
         0, 
         w * 2, 
         realHeight * 2, 
-        -(segmentWidth - maxWidth) * multiplier * retinaMultiplier, 
+        0 * multiplier * retinaMultiplier, 
         ((isTool ? 20 : 265) + top) * retinaMultiplier, 
         w * retinaMultiplier, 
         realHeight * retinaMultiplier * multiplier);
+    }
 
+    if (segmentInfo.rightWidth) {
+      var rightPositionX = segmentInfo.rightX * TILE_SIZE;
+
+      var w = segmentInfo.rightWidth * TILE_SIZE * multiplier;
+      ctx.drawImage(images['images/tiles.png'], 
+        rightPositionX * 2, 
+        0, 
+        w * 2, 
+        realHeight * 2, 
+        maxWidth * multiplier * retinaMultiplier - w * retinaMultiplier, 
+        ((isTool ? 20 : 265) + top) * retinaMultiplier, 
+        w * retinaMultiplier, 
+        realHeight * retinaMultiplier * multiplier);
     }
 
     ctx.drawImage(images['images/tiles.png'], 
@@ -1680,7 +1767,10 @@ var main = (function(){
   function _createTools() {
     for (var i in SEGMENT_INFO) {
       var segmentType = SEGMENT_INFO[i];
-      var el = _createSegment(i, segmentType.defaultWidth * WIDTH_TOOL_MULTIPLIER, false, true);
+      var el = _createSegment(i, 
+        (segmentType.defaultWidth + 1) * WIDTH_TOOL_MULTIPLIER, 
+        false, 
+        true);
 
       el.classList.add('tool');
 
