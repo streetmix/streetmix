@@ -1898,8 +1898,12 @@ var main = (function(){
     window.addEventListener('keydown', _onBodyKeyDown, false);       
   }
 
+  function _inspectSystem() {
+    retinaMultiplier = window.devicePixelRatio;    
+  }
+
   function _onImagesLoaded() {
-    retinaMultiplier = window.devicePixelRatio;
+    _inspectSystem();
 
     _resizeStreetWidth();
 
