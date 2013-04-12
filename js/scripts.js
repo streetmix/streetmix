@@ -1366,7 +1366,7 @@ var main = (function(){
         data.remainingWidth + parseFloat(el.segmentEl.getAttribute('width'));
 
     if (remainingWidth && 
-        ((!segmentInfo.minWidth) || (remainingWidth >= segmentInfo.minWidth)) && 
+        (((!segmentInfo.minWidth) && (remainingWidth >= MIN_SEGMENT_WIDTH)) || (remainingWidth >= segmentInfo.minWidth)) && 
         ((!segmentInfo.maxWidth) || (remainingWidth <= segmentInfo.maxWidth))) {
       var guideEl = document.createElement('div');
       guideEl.classList.add('guide');
