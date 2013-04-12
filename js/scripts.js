@@ -119,7 +119,7 @@ var main = (function(){
     "sidewalk-lamp-right": {
       name: 'Sidewalk w/ a lamp',
       owner: SEGMENT_OWNER_PEDESTRIAN,
-      defaultWidth: 6,
+      defaultWidth: 4,
       graphics: {
         center: { width: 0, height: 15 },
         repeat: { x: 1, y: 0, width: 1, height: 15 },
@@ -305,6 +305,7 @@ var main = (function(){
 
   var segmentHoveredEl;
 
+  var touchSupport;
   var retinaMultiplier;
 
   var segmentResizeDragging = {
@@ -1905,16 +1906,19 @@ var main = (function(){
     window.addEventListener('mousemove', _onBodyMouseMove, false);
     window.addEventListener('mouseup', _onBodyMouseUp, false); 
 
+    window.addEventListener('touchstart', _onBodyMouseDown, false);
+    window.addEventListener('touchmove', _onBodyMouseMove, false);
+    window.addEventListener('touchend', _onBodyMouseUp, false); 
+
     window.addEventListener('keydown', _onBodyKeyDown, false);       
   }
 
   function _inspectSystem() {
+    touchSupport = Modernizr.touch;
     retinaMultiplier = window.devicePixelRatio;    
   }
 
   function _onImagesLoaded() {
-    _inspectSystem();
-
     _resizeStreetWidth();
 
     _getDefaultSegments();
@@ -2005,6 +2009,8 @@ var main = (function(){
   main.init = function() {
     initializing = true;
     doNotCreateUndo = true;
+
+    _inspectSystem();
 
     images = [];
 
