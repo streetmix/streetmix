@@ -864,8 +864,8 @@ var main = (function(){
       //el.addEventListener('mouseover', _onSeparatorMouseOver, false);
       //el.addEventListener('mouseout', _onSeparatorMouseOut, false);
     } else {
-      //el.addEventListener('mouseover', _onSegmentMouseOver, false);
-      //el.addEventListener('mouseout', _onSegmentMouseOut, false);
+      el.addEventListener('mouseover', _onSegmentMouseOver, false);
+      el.addEventListener('mouseout', _onSegmentMouseOut, false);
 
       _setSegmentContents(el, type, width, isTool);
 
@@ -1446,8 +1446,23 @@ var main = (function(){
       segmentMoveDragging.originalWidth = segmentMoveDragging.originalEl.offsetWidth;
     }
 
-    segmentMoveDragging.elX = x - (event.offsetX || event.layerX);
-    segmentMoveDragging.elY = y - (event.offsetY || event.layerY);
+    var pos = _getElAbsolutePos(el);
+
+/*    var offsetX = event.offsetX || event.layerX;
+    var offsetY = event.offsetY || event.layerY;
+
+    var offsetX = x - pos[0];
+    var offsetY = y - pos[1];
+
+    console.log(x, y);*/
+
+    segmentMoveDragging.elX = pos[0];
+    segmentMoveDragging.elY = pos[1];
+
+
+
+    //console.log(event.offsetX, event.offsetY);
+    //console.log(event.layerX, event.layerY);
 
     if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_CREATE) {
       segmentMoveDragging.elY -= 340;
@@ -1463,6 +1478,8 @@ var main = (function(){
     segmentMoveDragging.el.setAttribute('type', segmentMoveDragging.originalType);
     _setSegmentContents(segmentMoveDragging.el, segmentMoveDragging.originalType, segmentMoveDragging.originalWidth);
     document.body.appendChild(segmentMoveDragging.el);
+
+    console.log('z', segmentMoveDragging.elX, segmentMoveDragging.elY);
 
     segmentMoveDragging.el.style.left = segmentMoveDragging.elX + 'px';
     segmentMoveDragging.el.style.top = segmentMoveDragging.elY + 'px';
@@ -1520,6 +1537,10 @@ var main = (function(){
       var y = event.pageY;
     }
 
+    if ((x == 0) && (y == 0)) {
+      return;
+    }
+
     var el = document.elementFromPoint(x, y);
 
     if (separatorHoveredEl && (el != separatorHoveredEl)) {
@@ -1544,6 +1565,10 @@ var main = (function(){
 
     segmentMoveDragging.mouseX = x;
     segmentMoveDragging.mouseY = y;
+
+    console.log(x, y);
+
+    //console.log('a', segmentMoveDragging.elX, segmentMoveDragging.elY);
   }
 
   function _handleSegmentResizeDragging(event) {

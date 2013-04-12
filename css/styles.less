@@ -303,7 +303,7 @@ footer h1 {
   -moz-transition: none;
   transition: none;
 }
-.segment:not(.unmovable):AAhover,
+.segment:not(.unmovable):hover,
 .segment:not(.unmovable).hover {
   background: rgba(255, 255, 255, .2);
 
@@ -359,7 +359,7 @@ body.segment-resize-dragging .segment:not(.unmovable).hover {
   background-color: rgba(25, 25, 25, 0.5);
 }
 
-.segment.tool:AAhover,
+.segment.tool:hover,
 .segment.tool.hover {
   -webkit-transition: background 100ms;
   -moz-transition: background 100ms;
@@ -456,7 +456,8 @@ body .segment:not(.unmovable).fade-out-start .drag-handle {
 body .segment:not(.unmovable).fade-out-end .drag-handle {
   pointer-events: auto;
   opacity: 0;
-  -webkit-transition: opacity 5000ms;
+  -webkit-transition: opacity 3000ms;
+  -webkit-transition-delay: 2000ms;
 }
 
 
@@ -527,14 +528,14 @@ body.segment-resize-dragging .segment .drag-handle {
 
   pointer-events: none;
 }
-.segment:AAhover .name,
+.segment:hover .name,
 .segment.hover .name {
   color: rgb(200, 200, 200);
 }
 .segment.warning .name {
   color: @warningColour;
 }
-.segment:AAhover.warning .name,
+.segment:hover.warning .name,
 .segment.hover.warning .name {
   color: lighten(@warningColour, 10%);
 }
@@ -561,7 +562,7 @@ body.segment-resize-dragging .segment .drag-handle {
 
   pointer-events: none;
 }
-.segment:not(.unmovable):AAhover .width-edit-canvas,
+.segment:not(.unmovable):hover .width-edit-canvas,
 .segment:not(.unmovable).hover .width-edit-canvas {
   pointer-events: auto;
 
@@ -589,24 +590,24 @@ body.segment-resize-dragging .segment .drag-handle {
 
   opacity: 0;
 }
-.segment:AAhover .remove,
-.segment:AAhover .info,
+.segment:hover .remove,
+.segment:hover .info,
 .segment.hover .remove,
 .segment.hover .info,
-.segment:not(.unmovable):AAhover .decrement,
-.segment:not(.unmovable):AAhover .increment,
+.segment:not(.unmovable):hover .decrement,
+.segment:not(.unmovable):hover .increment,
 .segment:not(.unmovable).hover .decrement,
 .segment:not(.unmovable).hover .increment {
   opacity: 1;
 }
-.segment:AAhover .remove:AAhover,
-.segment:AAhover .info:AAhover,
-.segment.hover .remove:AAhover,
-.segment.hover .info:AAhover,
-.segment:not(.unmovable):AAhover .decrement:AAhover,
-.segment:not(.unmovable):AAhover .increment:AAhover,
-.segment:not(.unmovable).hover .decrement:AAhover,
-.segment:not(.unmovable).hover .increment:AAhover {
+.segment:hover .remove:hover,
+.segment:hover .info:hover,
+.segment.hover .remove:hover,
+.segment.hover .info:hover,
+.segment:not(.unmovable):hover .decrement:hover,
+.segment:not(.unmovable):hover .increment:hover,
+.segment:not(.unmovable).hover .decrement:hover,
+.segment:not(.unmovable).hover .increment:hover {
   opacity: 1;
   border-color: rgb(220, 220, 220);
   color: rgb(220, 220, 220);
@@ -656,7 +657,7 @@ body.info-bubble-visible .segment .width-edit-canvas {
 
   opacity: 0;
 }
-.segment:not(.unmovable):AAhover .width-edit,
+.segment:not(.unmovable):hover .width-edit,
 .segment:not(.unmovable).hover .width-edit {
   opacity: 1;
 
@@ -695,7 +696,7 @@ body.info-bubble-visible .segment .width-edit-canvas {
 
   pointer-events: none;  
 }
-.segment:AAhover .width,
+.segment:hover .width,
 .segment.hover .width {
   color: rgb(200, 200, 200);
 }
@@ -896,7 +897,7 @@ body.segment-move-dragging #editable-street-section > div[type='separator'].hove
 
     cursor: pointer;
 
-    &:AAhover {
+    &:hover {
       color: black;
     }
   }
