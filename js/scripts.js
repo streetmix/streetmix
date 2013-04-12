@@ -102,54 +102,68 @@ var main = (function(){
       owner: SEGMENT_OWNER_PEDESTRIAN,
       defaultWidth: 6,
       minWidth: 6,
-      center: { x: 3, y: 0, width: 4, height: 15 },
-      repeat: { x: 1, y: 0, width: 1, height: 15 },
+      graphics: {
+        center: { x: 3, y: 0, width: 4, height: 15 },
+        repeat: { x: 1, y: 0, width: 1, height: 15 }
+      }
     },
     "sidewalk-tree": {
       name: 'Sidewalk w/ a tree',
       owner: SEGMENT_OWNER_NATURE,
       defaultWidth: 4,
-      center: { x: 13, y: 0, width: 6, height: 15 },
-      repeat: { x: 1, y: 0, width: 1, height: 15 },
+      graphics: {
+        center: { x: 13, y: 0, width: 6, height: 15 },
+        repeat: { x: 1, y: 0, width: 1, height: 15 }
+      }
     },
     "sidewalk-lamp-left": {
       name: 'Sidewalk w/ a lamp',
       owner: SEGMENT_OWNER_PEDESTRIAN,
       defaultWidth: 4,
-      center: { width: 0, height: 15 },
-      repeat: { x: 1, y: 0, width: 1, height: 15 },
-      left: { x: 107, offsetX: -2, width: 4, height: 15 },
+      graphics: {
+        center: { width: 0, height: 15 },
+        repeat: { x: 1, y: 0, width: 1, height: 15 },
+        left: { x: 107, offsetX: -2, width: 4, height: 15 }
+      }
     },
     "sidewalk-lamp-right": {
       name: 'Sidewalk w/ a lamp',
       owner: SEGMENT_OWNER_PEDESTRIAN,
       defaultWidth: 6,
-      center: { width: 0, height: 15 },
-      repeat: { x: 1, y: 0, width: 1, height: 15 },
-      right: { x: 102, offsetX: -2, width: 4, height: 15 },
+      graphics: {
+        center: { width: 0, height: 15 },
+        repeat: { x: 1, y: 0, width: 1, height: 15 },
+        right: { x: 102, offsetX: -2, width: 4, height: 15 }
+      }
     },
     "planting-strip": {
       name: 'Planting strip',
       owner: SEGMENT_OWNER_NATURE,
       defaultWidth: 4,
-      center: { width: 0, height: 15 },
-      repeat: { x: 8, y: 0, width: 4, height: 15 },
+      graphics: {
+        center: { width: 0, height: 15 },
+        repeat: { x: 8, y: 0, width: 4, height: 15 }
+      }
     },
     "bike-lane-inbound": {
       name: 'Bike lane',
       subname: 'Inbound',
       owner: SEGMENT_OWNER_BIKE,
       defaultWidth: 6,
-      center: { x: 92, y: 0, width: 4, height: 15 },
-      repeat: { x: 90, y: 0, width: 1, height: 15 },
+      graphics: {
+        center: { x: 92, y: 0, width: 4, height: 15 },
+        repeat: { x: 90, y: 0, width: 1, height: 15 }
+      }
     },
     "bike-lane-outbound": {
       name: 'Bike lane',
       subname: 'Outbound',
       owner: SEGMENT_OWNER_BIKE,
       defaultWidth: 6,
-      center: { x: 97, y: 0, width: 4, height: 15 },
-      repeat: { x: 90, y: 0, width: 1, height: 15 },
+      graphics: {
+        center: { x: 97, y: 0, width: 4, height: 15 },
+        repeat: { x: 90, y: 0, width: 1, height: 15 }
+      }
     },
     "parking-lane": {
       name: 'Parking lane',
@@ -157,9 +171,11 @@ var main = (function(){
       defaultWidth: 8,
       minWidth: 8,
       maxWidth: 10,
-      center: { x: 50, y: 0, width: 8, height: 15 },
-      repeat: { x: 26, y: 0, width: 1, height: 15 },
-      left: { x: 46, width: 3, height: 15 },
+      graphics: {
+        center: { x: 50, y: 0, width: 8, height: 15 },
+        repeat: { x: 26, y: 0, width: 1, height: 15 },
+        left: { x: 46, width: 3, height: 15 }
+      }
     },
     "drive-lane-inbound": {
       name: 'Drive lane',
@@ -168,8 +184,10 @@ var main = (function(){
       defaultWidth: 10,
       minWidth: 9,
       maxWidth: 12,
-      center: { x: 28, y: 0, width: 8, height: 15 },
-      repeat: { x: 26, y: 0, width: 1, height: 15 },
+      graphics: {
+        center: { x: 28, y: 0, width: 8, height: 15 },
+        repeat: { x: 26, y: 0, width: 1, height: 15 }
+      }
     },
     "drive-lane-outbound": {
       name: 'Drive lane',
@@ -178,8 +196,10 @@ var main = (function(){
       defaultWidth: 10,
       minWidth: 9,
       maxWidth: 12,
-      center: { x: 37, y: 0, width: 8, height: 15 },
-      repeat: { x: 26, y: 0, width: 1, height: 15 },
+      graphics: {
+        center: { x: 37, y: 0, width: 8, height: 15 },
+        repeat: { x: 26, y: 0, width: 1, height: 15 }
+      }
     },
     "turn-lane": {
       name: 'Turn lane',
@@ -187,8 +207,10 @@ var main = (function(){
       defaultWidth: 10,
       minWidth: 9,
       maxWidth: 12,
-      center: { x: 81, y: 0, width: 8, height: 15 },
-      repeat: { x: 26, y: 0, width: 1, height: 15 },
+      graphics: {
+        center: { x: 81, y: 0, width: 8, height: 15 },
+        repeat: { x: 26, y: 0, width: 1, height: 15 }
+      }
     },
     "bus-lane-inbound": {
       name: 'Bus lane',
@@ -197,8 +219,10 @@ var main = (function(){
       defaultWidth: 12,
       minWidth: 9,
       maxWidth: 12,
-      center: { x: 59, y: 0, width: 10, height: 15 },
-      repeat: { x: 26, y: 0, width: 1, height: 15 },
+      graphics: {
+        center: { x: 59, y: 0, width: 10, height: 15 },
+        repeat: { x: 26, y: 0, width: 1, height: 15 }
+      }
     },
     "bus-lane-outbound": {
       name: 'Bus lane',
@@ -207,15 +231,19 @@ var main = (function(){
       defaultWidth: 12,
       minWidth: 9,
       maxWidth: 12,
-      center: { x: 70, y: 0, width: 10, height: 15 },
-      repeat: { x: 26, y: 0, width: 1, height: 15 },
+      graphics: {
+        center: { x: 70, y: 0, width: 10, height: 15 },
+        repeat: { x: 26, y: 0, width: 1, height: 15 }
+      }
     },
     "small-median": {
       name: 'Small median',
       owner: SEGMENT_OWNER_CAR,
       defaultWidth: 4,
-      center: { x: 22, y: 0, width: 3, height: 15 },
-      repeat: { x: 20, y: 0, width: 1, height: 15 },
+      graphics: {
+        center: { x: 22, y: 0, width: 3, height: 15 },
+        repeat: { x: 20, y: 0, width: 1, height: 15 }
+      }
     },
   };
 
@@ -331,18 +359,19 @@ var main = (function(){
   function _setSegmentContents(el, type, segmentWidth, isTool) {
     var segmentInfo = SEGMENT_INFO[type];
 
-    if (segmentInfo.center && typeof segmentInfo.center.width != 'undefined') {
-      var realWidth = segmentInfo.center.width;
+    if (segmentInfo.graphics.center && 
+        typeof segmentInfo.graphics.center.width != 'undefined') {
+      var realWidth = segmentInfo.graphics.center.width;
     } else {
       var realWidth = segmentInfo.defaultWidth;
     }
 
     var multiplier = isTool ? (WIDTH_TOOL_MULTIPLIER / WIDTH_MULTIPLIER) : 1;
 
-    var bkPositionX = (segmentInfo.center.x || 0) * TILE_SIZE;
+    var bkPositionX = (segmentInfo.graphics.center.x || 0) * TILE_SIZE;
     var bkPositionY = 
-        CANVAS_BASELINE - (segmentInfo.center.height || 0) * TILE_SIZE -
-        (segmentInfo.center.y || 0) * TILE_SIZE;
+        CANVAS_BASELINE - (segmentInfo.graphics.center.height || 0) * TILE_SIZE -
+        (segmentInfo.graphics.center.y || 0) * TILE_SIZE;
 
     var width = realWidth * TILE_SIZE;
     var height = CANVAS_HEIGHT;
@@ -368,16 +397,16 @@ var main = (function(){
 
     var canvasOffsetX = 0;
 
-    if (segmentInfo.left && segmentInfo.left.offsetX < 0) {
-      var z = -segmentInfo.left.offsetX * TILE_SIZE;
+    if (segmentInfo.graphics.left && segmentInfo.graphics.left.offsetX < 0) {
+      var z = -segmentInfo.graphics.left.offsetX * TILE_SIZE;
 
       canvasLeft -= z;
       maxWidth += z;
     }
 
 
-    if (segmentInfo.right && segmentInfo.right.offsetX < 0) {
-      canvasOffsetX = -segmentInfo.right.offsetX * TILE_SIZE;
+    if (segmentInfo.graphics.right && segmentInfo.graphics.right.offsetX < 0) {
+      canvasOffsetX = -segmentInfo.graphics.right.offsetX * TILE_SIZE;
 
       maxWidth += canvasOffsetX;
     }
@@ -397,11 +426,11 @@ var main = (function(){
 
     var ctx = canvasEl.getContext('2d');
 
-    var realHeight = (segmentInfo.center.height || 0) * TILE_SIZE;
+    var realHeight = (segmentInfo.graphics.center.height || 0) * TILE_SIZE;
 
-    if (segmentInfo.repeat) {
-      var repeatPositionX = segmentInfo.repeat.x * TILE_SIZE;
-      var w = segmentInfo.repeat.width * TILE_SIZE * multiplier;
+    if (segmentInfo.graphics.repeat) {
+      var repeatPositionX = segmentInfo.graphics.repeat.x * TILE_SIZE;
+      var w = segmentInfo.graphics.repeat.width * TILE_SIZE * multiplier;
 
       var count = Math.floor((segmentWidth) / w + 1);
 
@@ -423,17 +452,17 @@ var main = (function(){
           0, 
           w * 2, 
           realHeight * 2, 
-          (repeatStartX + (i * segmentInfo.repeat.width) * TILE_SIZE) * retinaMultiplier * multiplier, 
+          (repeatStartX + (i * segmentInfo.graphics.repeat.width) * TILE_SIZE) * retinaMultiplier * multiplier, 
           ((isTool ? 20 : 265) + top) * retinaMultiplier, 
           w * retinaMultiplier, 
           realHeight * retinaMultiplier * multiplier);
       }
     }      
 
-    if (segmentInfo.left) {
-      var leftPositionX = segmentInfo.left.x * TILE_SIZE;
+    if (segmentInfo.graphics.left) {
+      var leftPositionX = segmentInfo.graphics.left.x * TILE_SIZE;
 
-      var w = segmentInfo.left.width * TILE_SIZE;
+      var w = segmentInfo.graphics.left.width * TILE_SIZE;
 
       ctx.drawImage(images['images/tiles.png'], 
         leftPositionX * 2, 
@@ -446,15 +475,15 @@ var main = (function(){
         realHeight * retinaMultiplier * multiplier);
     }
 
-    if (segmentInfo.right) {
-      var rightPositionX = segmentInfo.right.x * TILE_SIZE;
+    if (segmentInfo.graphics.right) {
+      var rightPositionX = segmentInfo.graphics.right.x * TILE_SIZE;
 
-      var w = segmentInfo.right.width * TILE_SIZE;
+      var w = segmentInfo.graphics.right.width * TILE_SIZE;
 
       var rightTargetX = maxWidth - w;
 
       if (isTool) {
-        rightTargetX -= segmentInfo.right.offsetX * TILE_SIZE * multiplier;
+        rightTargetX -= segmentInfo.graphics.right.offsetX * TILE_SIZE * multiplier;
       }
 
       ctx.drawImage(images['images/tiles.png'], 
@@ -1679,8 +1708,12 @@ var main = (function(){
 
       var width = segmentInfo.defaultWidth + 1;
 
-      if (segmentInfo.left && segmentInfo.left.offsetX) {
-        width -= segmentInfo.left.offsetX;
+      if (segmentInfo.graphics.center && (width < (segmentInfo.graphics.center.width + 1))) {
+        width = segmentInfo.graphics.center.width + 1;
+      }
+
+      if (segmentInfo.graphics.left && segmentInfo.graphics.left.offsetX) {
+        width -= segmentInfo.graphics.left.offsetX;
       }
 
       var el = _createSegment(i, 
