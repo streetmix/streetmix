@@ -14,7 +14,9 @@ var main = (function(){
 "use strict";
   var main = {};
 
-  var TILE_IMAGE_VERSION = 6;
+  var TILESET_IMAGE_VERSION = 7;
+  var TILESET_WIDTH = 2622;
+  var TILESET_HEIGHT = 384;
 
   var IMAGES_TO_BE_LOADED = [
     'images/tiles.png',
@@ -44,12 +46,8 @@ var main = (function(){
   var WIDTH_RESIZE_DELAY = 100;
 
   var STREET_WIDTH_CUSTOM = -1;
-
   var MIN_CUSTOM_STREET_WIDTH = 10;
   var MAX_CUSTOM_STREET_WIDTH = 200;
-
-  var TILESET_WIDTH = 2622;
-  var TILESET_HEIGHT = 384;
 
   var MIN_WIDTH_EDIT_CANVAS_WIDTH = 120;
 
@@ -282,7 +280,7 @@ var main = (function(){
       { type: "sidewalk-tree", width: 4 },
       { type: "sidewalk", width: 6 }
     ]
-  }
+  };
 
   var data = {
     streetWidth: 80,
@@ -1745,8 +1743,7 @@ var main = (function(){
 
     var toolsTop = document.querySelector('#tools').offsetTop;
 
-    var pos = 
-      (viewportHeight - streetSectionHeight) / 2;
+    var pos = (viewportHeight - streetSectionHeight) / 2;
 
     if (pos + document.querySelector('#street-section').offsetHeight > 
       toolsTop - 20) {
@@ -1819,8 +1816,6 @@ var main = (function(){
   } 
 
   function _onBodyKeyDown(event) {
-    //console.log(event.keyCode);
-
     switch (event.keyCode) {
       case 39: // right arrow
       case 187: // = (or, plus)
@@ -2002,7 +1997,7 @@ var main = (function(){
       var url = IMAGES_TO_BE_LOADED[i];
       images[url] = document.createElement('img');
       images[url].addEventListener('load', _onImageLoaded, false);
-      images[url].src = url + '?v' + TILE_IMAGE_VERSION;
+      images[url].src = url + '?v' + TILESET_IMAGE_VERSION;
     }
   }
 
