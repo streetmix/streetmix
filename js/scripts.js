@@ -34,9 +34,6 @@ var main = (function(){
   var CANVAS_HEIGHT = 480;
   var CANVAS_BASELINE = CANVAS_HEIGHT - 35;
 
-  var SEPARATOR_WIDTH = 100;
-  var SEPARATOR_EDGE_WIDTH = 2000;
-
   var DRAGGING_TYPE_SEGMENT_MOVE = 1;
   var DRAGGING_TYPE_SEGMENT_RESIZE = 2;
 
@@ -304,7 +301,6 @@ var main = (function(){
   var draggingType;
 
   var segmentHoveredEl;
-  var separatorHoveredEl;
 
   var touchSupport;
   var retinaMultiplier;
@@ -342,48 +338,7 @@ var main = (function(){
   var infoBubbleVisible = false;
   var infoButtonHoverTimerId = -1;
 
-  function _recalculateSeparators() {
-    //console.log('recalculate separators');
-
-    var els = document.querySelectorAll('#editable-street-section [type="separator"]');
-
-    console.log('recalculate separators', els.length);
-
-    for (var i = 0, el; el = els[i]; i++) {
-
-      var prevWidth = 0;
-      var prevEl = el.previousSibling;
-      while (prevEl && prevEl.classList.contains('about-to-be-gone')) {
-        //console.log('!');
-        prevEl = prevEl.previousSibling;
-      }
-      var prevWidth = prevEl ? prevEl.offsetWidth : 0;
-
-      var nextWidth = 0;
-      var nextEl = el.nextSibling;
-      while (nextEl && nextEl.classList.contains('about-to-be-gone')) {
-        //console.log('@');
-        nextEl = nextEl.previousSibling;
-      }
-      var nextWidth = nextEl ? nextEl.offsetWidth : 0;
-
-      //var prevWidth = el.previousSibling ? el.previousSibling.offsetWidth : 0;
-      //var nextWidth = el.nextSibling ? el.nextSibling.offsetWidth : 0;
-
-      if (i == 0) {
-        prevWidth = SEPARATOR_EDGE_WIDTH;
-      } else if (i == els.length - 1) {
-        nextWidth = SEPARATOR_EDGE_WIDTH;
-      }
-
-      //console.log(prevWidth, nextWidth);
-
-      el.style.width = ((prevWidth / 2 + nextWidth / 2 + 2 + SEPARATOR_WIDTH)) + 'px';
-      el.style.marginLeft = ((-prevWidth / 2 - 1)) + 'px';
-      el.style.marginRight = ((-nextWidth / 2 - 1 - SEPARATOR_WIDTH)) + 'px';
-    }
-  }
-
+ 
   function _setSegmentContents(el, type, segmentWidth, isTool) {
     var segmentInfo = SEGMENT_INFO[type];
 
@@ -867,105 +822,100 @@ var main = (function(){
       el.classList.add('unmovable');
     }
     
-    if (type == 'separator') {
-      //el.addEventListener('mouseover', _onSeparatorMouseOver, false);
-      //el.addEventListener('mouseout', _onSeparatorMouseOut, false);
+    el.addEventListener('mouseover', _onSegmentMouseOver, false);
+    el.addEventListener('mouseout', _onSegmentMouseOut, false);
+
+    _setSegmentContents(el, type, width, isTool);
+
+    if (!isTool) {
+      var innerEl = document.createElement('span');
+      innerEl.classList.add('name');
+      innerEl.innerHTML = SEGMENT_INFO[type].name;
+      el.appendChild(innerEl);
+
+      var innerEl = document.createElement('span');
+      innerEl.classList.add('width');
+      el.appendChild(innerEl);
+
+      var dragHandleEl = document.createElement('span');
+      dragHandleEl.classList.add('drag-handle');
+      dragHandleEl.classList.add('left');
+      dragHandleEl.segmentEl = el;
+      dragHandleEl.innerHTML = '‹';
+      el.appendChild(dragHandleEl);
+
+      var dragHandleEl = document.createElement('span');
+      dragHandleEl.classList.add('drag-handle');
+      dragHandleEl.classList.add('right');
+      dragHandleEl.segmentEl = el;
+      dragHandleEl.innerHTML = '›';
+      el.appendChild(dragHandleEl);
+
+
+      var commandsEl = document.createElement('span');
+      commandsEl.classList.add('commands');
+
+      var innerEl = document.createElement('button');
+      innerEl.classList.add('remove');
+      innerEl.innerHTML = '×';
+      innerEl.segmentEl = el;
+      innerEl.tabIndex = -1;
+      innerEl.setAttribute('title', 'Remove segment');
+      innerEl.addEventListener('click', _onRemoveButtonClick, false);
+      commandsEl.appendChild(innerEl);        
+
+      var innerEl = document.createElement('button');
+      innerEl.classList.add('info');
+      innerEl.segmentEl = el;
+      innerEl.tabIndex = -1;
+      innerEl.addEventListener('mouseover', _onInfoButtonMouseOver, false);
+      innerEl.addEventListener('mouseout', _onInfoButtonMouseOut, false);
+      innerEl.addEventListener('click', _onInfoButtonClick, false);
+      commandsEl.appendChild(innerEl);        
+
+      el.appendChild(commandsEl);
+
+      var widthEditCanvasEl = document.createElement('span');
+      widthEditCanvasEl.classList.add('width-edit-canvas');
+
+      var innerEl = document.createElement('button');
+      innerEl.classList.add('decrement');
+      innerEl.innerHTML = '–';
+      innerEl.segmentEl = el;
+      innerEl.tabIndex = -1;
+      innerEl.addEventListener('click', _onWidthDecrementClick, false);
+      widthEditCanvasEl.appendChild(innerEl);        
+
+      var innerEl = document.createElement('input');
+      innerEl.setAttribute('type', 'text');
+      innerEl.classList.add('width-edit');
+      innerEl.segmentEl = el;
+      innerEl.value = width / TILE_SIZE;
+
+      innerEl.addEventListener('click', _onWidthEditClick, false);
+      innerEl.addEventListener('focus', _onWidthEditFocus, false);
+      innerEl.addEventListener('blur', _onWidthEditBlur, false);
+      innerEl.addEventListener('input', _onWidthEditInput, false);
+      innerEl.addEventListener('mouseover', _onWidthEditMouseOver, false);
+      innerEl.addEventListener('mouseout', _onWidthEditMouseOut, false);
+      innerEl.addEventListener('keydown', _onWidthEditKeyDown, false);
+      widthEditCanvasEl.appendChild(innerEl);
+
+      var innerEl = document.createElement('button');
+      innerEl.classList.add('increment');
+      innerEl.innerHTML = '+';
+      innerEl.segmentEl = el;
+      innerEl.tabIndex = -1;
+      innerEl.addEventListener('click', _onWidthIncrementClick, false);
+      widthEditCanvasEl.appendChild(innerEl);        
+
+      el.appendChild(widthEditCanvasEl);
+
+      var innerEl = document.createElement('span');
+      innerEl.classList.add('grid');
+      el.appendChild(innerEl);
     } else {
-      el.addEventListener('mouseover', _onSegmentMouseOver, false);
-      el.addEventListener('mouseout', _onSegmentMouseOut, false);
-
-      _setSegmentContents(el, type, width, isTool);
-
-      if (!isTool) {
-        var innerEl = document.createElement('span');
-        innerEl.classList.add('name');
-        innerEl.innerHTML = SEGMENT_INFO[type].name;
-        el.appendChild(innerEl);
-
-        var innerEl = document.createElement('span');
-        innerEl.classList.add('width');
-        el.appendChild(innerEl);
-
-        var dragHandleEl = document.createElement('span');
-        dragHandleEl.classList.add('drag-handle');
-        dragHandleEl.classList.add('left');
-        dragHandleEl.segmentEl = el;
-        dragHandleEl.innerHTML = '‹';
-        el.appendChild(dragHandleEl);
-
-        var dragHandleEl = document.createElement('span');
-        dragHandleEl.classList.add('drag-handle');
-        dragHandleEl.classList.add('right');
-        dragHandleEl.segmentEl = el;
-        dragHandleEl.innerHTML = '›';
-        el.appendChild(dragHandleEl);
-
-
-        var commandsEl = document.createElement('span');
-        commandsEl.classList.add('commands');
-
-        var innerEl = document.createElement('button');
-        innerEl.classList.add('remove');
-        innerEl.innerHTML = '×';
-        innerEl.segmentEl = el;
-        innerEl.tabIndex = -1;
-        innerEl.setAttribute('title', 'Remove segment');
-        innerEl.addEventListener('click', _onRemoveButtonClick, false);
-        commandsEl.appendChild(innerEl);        
-
-        var innerEl = document.createElement('button');
-        innerEl.classList.add('info');
-        innerEl.segmentEl = el;
-        innerEl.tabIndex = -1;
-        innerEl.addEventListener('mouseover', _onInfoButtonMouseOver, false);
-        innerEl.addEventListener('mouseout', _onInfoButtonMouseOut, false);
-        innerEl.addEventListener('click', _onInfoButtonClick, false);
-        commandsEl.appendChild(innerEl);        
-
-        el.appendChild(commandsEl);
-
-        var widthEditCanvasEl = document.createElement('span');
-        widthEditCanvasEl.classList.add('width-edit-canvas');
-
-        var innerEl = document.createElement('button');
-        innerEl.classList.add('decrement');
-        innerEl.innerHTML = '–';
-        innerEl.segmentEl = el;
-        innerEl.tabIndex = -1;
-        innerEl.addEventListener('click', _onWidthDecrementClick, false);
-        widthEditCanvasEl.appendChild(innerEl);        
-
-        var innerEl = document.createElement('input');
-        innerEl.setAttribute('type', 'text');
-        innerEl.classList.add('width-edit');
-        innerEl.segmentEl = el;
-        innerEl.value = width / TILE_SIZE;
-
-        innerEl.addEventListener('click', _onWidthEditClick, false);
-        innerEl.addEventListener('focus', _onWidthEditFocus, false);
-        innerEl.addEventListener('blur', _onWidthEditBlur, false);
-        innerEl.addEventListener('input', _onWidthEditInput, false);
-        innerEl.addEventListener('mouseover', _onWidthEditMouseOver, false);
-        innerEl.addEventListener('mouseout', _onWidthEditMouseOut, false);
-        innerEl.addEventListener('keydown', _onWidthEditKeyDown, false);
-        widthEditCanvasEl.appendChild(innerEl);
-
-        var innerEl = document.createElement('button');
-        innerEl.classList.add('increment');
-        innerEl.innerHTML = '+';
-        innerEl.segmentEl = el;
-        innerEl.tabIndex = -1;
-        innerEl.addEventListener('click', _onWidthIncrementClick, false);
-        widthEditCanvasEl.appendChild(innerEl);        
-
-        el.appendChild(widthEditCanvasEl);
-
-        var innerEl = document.createElement('span');
-        innerEl.classList.add('grid');
-        el.appendChild(innerEl);
-      } else {
-      	el.setAttribute('title', SEGMENT_INFO[type].name);
-      }
+    	el.setAttribute('title', SEGMENT_INFO[type].name);
     }
 
     if (width) {
@@ -977,9 +927,6 @@ var main = (function(){
   function _createDomFromData() {
     document.querySelector('#editable-street-section').innerHTML = '';
 
-    var el = _createSegment('separator');
-    document.querySelector('#editable-street-section').appendChild(el);
-
     for (var i in data.segments) {
       var segment = data.segments[i];
 
@@ -989,12 +936,7 @@ var main = (function(){
 
       data.segments[i].el = el;
       data.segments[i].el.dataNo = i;
-
-      var el = _createSegment('separator');
-      document.querySelector('#editable-street-section').appendChild(el);
     }
-
-    _recalculateSeparators();
   }
 
   function _applyWarningsToSegments() {
@@ -1158,17 +1100,14 @@ var main = (function(){
     data.segments = [];
 
     for (var i = 0, el; el = els[i]; i++) {
-      if (el.getAttribute('type') != 'separator') {
+      var segment = {};
+      segment.type = el.getAttribute('type');
+      segment.width = parseFloat(el.getAttribute('width'));
+      segment.el = el;
 
-        var segment = {};
-        segment.type = el.getAttribute('type');
-        segment.width = parseFloat(el.getAttribute('width'));
-        segment.el = el;
+      segment.warnings = [];
 
-        segment.warnings = [];
-
-        data.segments.push(segment);
-      }
+      data.segments.push(segment);
     }
   }
 
@@ -1429,8 +1368,6 @@ var main = (function(){
 
     doNotCreateUndo = true;
 
-    _removeHoveredSeparator();
-
     if (event.touches && event.touches[0]) {
       var x = event.touches[0].pageX;
       var y = event.touches[0].pageY;
@@ -1551,14 +1488,6 @@ var main = (function(){
     event.preventDefault();
   }
 
-  function _removeHoveredSeparator() {
-    if (separatorHoveredEl) {
-      _separatorMouseOut(separatorHoveredEl);
-
-      separatorHoveredEl = null;
-    }
-  }
-
   function _handleSegmentMoveDragging(event) {
     if (event.touches && event.touches[0]) {
       var x = event.touches[0].pageX;
@@ -1575,22 +1504,6 @@ var main = (function(){
 
     var el = document.elementFromPoint(x, y);
 
-    _removeHoveredSeparator();
-
-    //console.log(el);
-
-    if (el && el.classList.contains('segment') && 
-        (el.getAttribute('type') == 'separator')) {
-      separatorHoveredEl = el;
-      _separatorMouseOver(separatorHoveredEl);
-
-      //console.log('+');
-      //console.log('in', el);
-
-      //el.style.outline = '1px solid red';
-    } else {
-      console.log('-');
-    }
 
     // ----
 
@@ -1700,8 +1613,6 @@ var main = (function(){
 
     doNotCreateUndo = false;
 
-    _recalculateSeparators();
-
     if (!segmentMoveDragging.originalDraggedOut && (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_MOVE)) {
       console.log('remove');
       segmentMoveDragging.originalEl.parentNode.removeChild(segmentMoveDragging.originalEl);
@@ -1713,11 +1624,6 @@ var main = (function(){
       el = el.parentNode;
     }
     var withinCanvas = !!el;
-
-    //console.log(separatorHoveredEl);
-
-    //var placeEl = separatorHoveredEl;
-        //document.querySelector('#editable-street-section [type="separator"].hovered-over');
 
     var placeEl = document.elementFromPoint(event.pageX, event.pageY);
 
@@ -1732,37 +1638,10 @@ var main = (function(){
           }
         }
       }
-
-      //console.log(placeEl.parentNode);
-      //console.log(placeEl.previousSibling);
-      //console.log(placeEl.nextSibling);
-
-      console.log('add new separators + el');/*
-          placeEl.previousSibling.getAttribute('type'),
-          placeEl.nextSibling.getAttribute('type'));*/
-
-      var el = _createSegment('separator');
-      document.querySelector('#editable-street-section').insertBefore(el, placeEl);
       
       var el = _createSegment(segmentMoveDragging.originalType, width);
       document.querySelector('#editable-street-section').insertBefore(el, placeEl);
 
-      // animation
-      // TODO: Move all to CSS
-      
-      /*el.style.width = 50 + 'px';
-      el.style.left = (-(width - 50) / 2) + 'px';
-      el.style.webkitTransform = 'scaleX(.8)';
-      el.style.MozTransform = 'scaleX(.8)';
-
-      window.setTimeout(function() {
-        el.style.width = width + 'px';
-        el.style.left = 0;
-        el.style.webkitTransform = 'none';
-        el.style.MozTransform = 'none';
-      }, 0);*/
-
-      _recalculateSeparators();
       _segmentsChanged();
 
       segmentMoveDragging.el.parentNode.removeChild(segmentMoveDragging.el);
@@ -1775,26 +1654,6 @@ var main = (function(){
         _createTouchSegmentFadeout(segmentMoveDragging.originalEl);
 
         segmentMoveDragging.originalEl.classList.remove('dragged-out');
-
-        //console.log('add new separators 2');
-        console.log('add new separators 2', 
-            segmentMoveDragging.originalEl.previousSibling && segmentMoveDragging.originalEl.previousSibling.getAttribute('type'),
-            segmentMoveDragging.originalEl.nextSibling && segmentMoveDragging.originalEl.nextSibling.getAttribute('type'));
-
-        //console.log('before', );
-        //console.log('after', segmentMoveDragging.originalEl.nextSibling.getAttribute('type'));
-
-        if (segmentMoveDragging.originalEl.previousSibling && segmentMoveDragging.originalEl.previousSibling.getAttribute('type') != 'separator') {
-          var el = _createSegment('separator');
-          document.querySelector('#editable-street-section').insertBefore(el, 
-              segmentMoveDragging.originalEl);
-        }
-
-        if (segmentMoveDragging.originalEl.nextSibling && segmentMoveDragging.originalEl.nextSibling.getAttribute('type') != 'separator') {
-          var el = _createSegment('separator');
-          document.querySelector('#editable-street-section').insertBefore(el, 
-              segmentMoveDragging.originalEl.nextSibling);
-        }
       }
 
       segmentMoveDragging.el.parentNode.removeChild(segmentMoveDragging.el);
@@ -1824,8 +1683,6 @@ var main = (function(){
     while (guideEl = segmentResizeDragging.segmentEl.querySelector('.guide')) {
       guideEl.parentNode.removeChild(guideEl);
     }
-
-    _recalculateSeparators();
   }
 
   function _onBodyMouseUp(event) {
@@ -1856,33 +1713,10 @@ var main = (function(){
       if (segmentMoveDragging.originalEl.previousSibling) {
         segmentMoveDragging.originalEl.previousSibling.parentNode.removeChild(segmentMoveDragging.originalEl.previousSibling);
       }
-      /*if (segmentMoveDragging.originalEl.nextSibling) {
-        segmentMoveDragging.originalEl.nextSibling.parentNode.removeChild(segmentMoveDragging.originalEl.nextSibling);
-      }
-
-      //_recalculateSeparators();
-
-      var el = _createSegment('separator');
-      document.querySelector('#editable-street-section').insertBefore(el, 
-          segmentMoveDragging.originalEl);*/
-      
-      //_recalculateSeparators();
-
-      //segmentMoveDragging.originalEl.parentNode.removeChild(segmentMoveDragging.originalEl);
 
       segmentMoveDragging.originalEl.style.width = 0;
       segmentMoveDragging.originalEl.classList.add('about-to-be-gone');
-      /*window.setTimeout(function() {
-        console.log(segmentMoveDragging.originalEl);
-        console.log(segmentMoveDragging.originalEl.parentNode);
-        console.log(segmentMoveDragging.originalEl.parentNode.removeChild);
-        console.log('a');
-        console.log(segmentMoveDragging.originalEl);
-        //_recalculateSeparators();
-        //_segmentsChanged();
-      }, WIDTH_RESIZE_DELAY * 10000);*/
-      
-      _recalculateSeparators();
+
       _segmentsChanged();
 
       segmentMoveDragging.originalDraggedOut = false;
@@ -1902,24 +1736,6 @@ var main = (function(){
 
   function _onSegmentMouseOut(event) {
     segmentHoveredEl = null;
-  }
-
-  function _separatorMouseOver(el) {
-    //console.log('separator mouse over');
-    el.classList.add('hovered-over');
-    _dragOutOriginalIfNecessary();
-  }
-
-  function _separatorMouseOut(el) {
-    el.classList.remove('hovered-over');    
-  }
-
-  function _onSeparatorMouseOver(event) {
-    _separatorMouseOver(event.target);
-  }
-
-  function _onSeparatorMouseOut(event) {
-    _separatorMouseOut(event.target);
   }
 
   function _createTools() {

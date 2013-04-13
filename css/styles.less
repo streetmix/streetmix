@@ -2,9 +2,6 @@
 @headerHeight: 150px;
 @toolsHeight: 100px;
 
-@separatorWidth: 50px;
-@hoverSeparatorWidth: 100px;
-
 @tilesetWidth: 2622px; // retina
 @tilesetHeight: 384px;
 
@@ -366,18 +363,6 @@ body.segment-resize-dragging .segment:not(.unmovable).hover {
   background: rgba(0, 0, 0, .2);
 }
 
-.segment[type='separator'] {
-  background: transparent !important;
-
-  position: absolute;
-
-  pointer-events: none;
-
-  background: rgba(0, 240, 0, .2) !important;
-
-  -webkit-transition: none !important;
-}
-
 .segment.dragging {
   position: absolute;
   left: 0;
@@ -724,19 +709,8 @@ body.segment-move-dragging #editable-street-section .segment {
   transition: width 100ms, margin-left 100ms;
 }
 
-body.segment-move-dragging #editable-street-section > div:not([type='separator']) {
+body.segment-move-dragging #editable-street-section > div {
   pointer-events: none;
-}
-
-body.segment-move-dragging #editable-street-section > div[type='separator'] {
-  pointer-events: auto;
-  -webkit-transition: width 100ms;
-}
-body.segment-move-dragging #editable-street-section > div[type='separator'].hovered-over {
-  width: @hoverSeparatorWidth;
-}
-body.segment-move-dragging #editable-street-section > div[type='separator'].hovered-over + div {
-  margin-left: @hoverSeparatorWidth - @separatorWidth;
 }
 
 #loading {
