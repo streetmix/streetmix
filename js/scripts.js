@@ -15,6 +15,7 @@ var main = (function(){
   var TILESET_IMAGE_VERSION = 7;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
+  var TILESET_POINTPERPIXEL = 2.0;
 
   var IMAGES_TO_BE_LOADED = [
     'images/tiles.png',
@@ -390,10 +391,9 @@ var main = (function(){
       return;
     }
 
-    // TODO Const
     ctx.drawImage(images['images/tiles.png'],
-        sx * 2, sy * 2, 
-        sw * 2, sh * 2,
+        sx * TILESET_POINTPERPIXEL, sy * TILESET_POINTPERPIXEL, 
+        sw * TILESET_POINTPERPIXEL, sh * TILESET_POINTPERPIXEL,
         dx * system.hiDpi, dy * system.hiDpi, 
         dw * system.hiDpi, dh * system.hiDpi);
   }
