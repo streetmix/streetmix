@@ -330,7 +330,6 @@ var main = (function(){
     elY: null,
     originalEl: null,
     originalWidth: null,
-    originalDraggedOut: false
   };
 
   var initializing = false;
@@ -1504,13 +1503,10 @@ var main = (function(){
 
     if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_MOVE) {
       segmentMoveDragging.originalEl.classList.add('dragged-out');
-      segmentMoveDragging.originalDraggedOut = true;
     }
 
     segmentMoveDragging.segmentBeforeEl = null;
     segmentMoveDragging.segmentAfterEl = null;
-
-    //_dragOutOriginalIfNecessary();
   }
 
   function _onBodyMouseDown(event) {
@@ -1592,9 +1588,6 @@ var main = (function(){
       segmentMoveDragging.el.style.top = segmentMoveDragging.elY + 'px';
     }
 
-//    segmentMoveDragging.el.style.left = segmentMoveDragging.elX + 'px';
-//    segmentMoveDragging.el.style.top = segmentMoveDragging.elY + 'px';
-
     segmentMoveDragging.mouseX = x;
     segmentMoveDragging.mouseY = y;
 
@@ -1604,11 +1597,6 @@ var main = (function(){
   function _handleSegmentResizeDragging(event) {
     var x = event.pageX;
     var y = event.pageY;
-
-    // iPad bug or I’m stupid
-    if ((x == 0) && (y == 0)) {
-      return;
-    }
 
     var deltaX = x - segmentResizeDragging.mouseX;
     var deltaY = y - segmentResizeDragging.mouseY;
@@ -1786,18 +1774,6 @@ var main = (function(){
     event.preventDefault();
   }
 
-  function _dragOutOriginalIfNecessary() {
-    if ((segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_MOVE) && 
-        segmentMoveDragging.originalDraggedOut) {
-
-      segmentMoveDragging.originalEl.style.width = 0;
-      
-      _segmentsChanged();
-
-      segmentMoveDragging.originalDraggedOut = false;
-    }
-  }
-
   function _onSegmentMouseOver(event) {
     var el = event.target;
 
@@ -1845,11 +1821,6 @@ var main = (function(){
         (width) + 'px';
 
     _onResize();
-    /*document.querySelector('#street-section-canvas').style.marginLeft = 
-        ((-width / 2)) + 'px';
-
-    document.querySelector('#editable-street-canvas').style.marginLeft = 
-        (-CANVAS_WIDTH / 2 + width / 2) + 'px';*/
   }
 
   function _onResize() {
