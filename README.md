@@ -53,8 +53,40 @@ Streetmix was started as a [Code for America][cfa] hackathon project in January 
 ## <a name="demo"></a>Demo
 You can see a running version of the application at http://streetmix.net/
 
-## <a name="installation"></a>Installation
-TODO
+## <a name="development-setup"></a>Development Setup
+
+### On Mac OS X 10
+
+#### First-time setup
+
+1) Download and install [Node.js](http://nodejs.org/).
+
+2) Clone this remote repository to a folder on your computer. The rest of these instructions will refer to this folder as `$PROJECT_ROOT`.
+
+    git clone $REMOTE_REPOSITORY_URL $PROJECT_ROOT
+
+3) Install project dependencies.
+
+    cd $PROJECT_ROOT
+    npm install
+
+#### Every time you sync `$PROJECT_ROOT` with this remote repository.
+
+1) Update project dependencies.
+
+    cd $PROJECT_ROOT
+    npm install
+
+#### HOWTO: Start the application
+
+1) Start the web server.
+
+    cd $PROJECT_ROOT
+    node server.js
+
+2) Load the application in your web browser.
+
+    open http://localhost:8000
 
 ## <a name="usage"></a>Usage
 TODO
