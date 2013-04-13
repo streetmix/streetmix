@@ -45,15 +45,15 @@ var main = (function(){
   var WIDTH_EDIT_INPUT_DELAY = 200;
 
   var STREET_WIDTH_CUSTOM = -1;
+
   var MIN_CUSTOM_STREET_WIDTH = 10;
   var MAX_CUSTOM_STREET_WIDTH = 200;
-
-  var MIN_WIDTH_EDIT_CANVAS_WIDTH = 120;
-
   var MIN_SEGMENT_WIDTH = 2;
   var MAX_SEGMENT_WIDTH = 150;
   var SEGMENT_WIDTH_RESOLUTION = .5;
   var SEGMENT_WIDTH_CLICK_INCREMENT = SEGMENT_WIDTH_RESOLUTION;
+
+  var MIN_WIDTH_EDIT_CANVAS_WIDTH = 120;
 
   var SEGMENT_WARNING_OUTSIDE = 1;
   var SEGMENT_WARNING_WIDTH_TOO_SMALL = 2;
@@ -290,12 +290,12 @@ var main = (function(){
   };
 
   var images;
-  var imagesRemaining;  
+  var imagesToBeLoaded;  
 
   var lastData;
   var undoStack = [];
   var undoPosition = 0;
-  var doNotCreateUndo = false;
+  var createUndo = true;
 
   var draggingType = DRAGGING_TYPE_NONE;
 
@@ -1099,11 +1099,11 @@ var main = (function(){
       undoPosition--;
       data = undoStack[undoPosition];
 
-      doNotCreateUndo = true;
+      createUndo = false;
       _createDomFromData();
       _segmentsChanged();
       _resizeStreetWidth();
-      doNotCreateUndo = false;
+      createUndo = true;
 
       _updateUndoButtons();
       lastData = _trimNonUserData();
@@ -1119,11 +1119,11 @@ var main = (function(){
       undoPosition++;
       data = undoStack[undoPosition];
 
-      doNotCreateUndo = true;
+      createUndo = false;
       _createDomFromData();
       _segmentsChanged();
       _resizeStreetWidth();
-      doNotCreateUndo = false;
+      createUndo = true;
 
       _updateUndoButtons();
       lastData = _trimNonUserData();
@@ -1136,7 +1136,7 @@ var main = (function(){
   }
 
   function _createUndoIfNecessary() {
-    if (doNotCreateUndo) {
+    if (!createUndo) {
       return;
     }
 
@@ -1357,7 +1357,7 @@ var main = (function(){
   }
 
   function _handleSegmentResizeStart(event) {
-    doNotCreateUndo = true;
+    createUndo = false;
 
     var el = event.target;
 
@@ -1453,7 +1453,7 @@ var main = (function(){
   }  
 
   function _handleSegmentMoveStart(event) {
-    doNotCreateUndo = true;
+    createUndo = false;
 
     if (event.touches && event.touches[0]) {
       var x = event.touches[0].pageX;
@@ -1692,7 +1692,7 @@ var main = (function(){
   }
 
   function _handleSegmentMoveEnd(event) {
-    doNotCreateUndo = false;
+    createUndo = true;
 
     var el = document.elementFromPoint(draggingMove.mouseX, draggingMove.mouseY);
     while (el && (el.id != 'editable-street-section')) {
@@ -1767,7 +1767,7 @@ var main = (function(){
   }
 
   function _handleSegmentResizeEnd(event) {
-    doNotCreateUndo = false;
+    createUndo = true;
 
     _segmentsChanged();
 
@@ -2122,7 +2122,7 @@ var main = (function(){
 
     initializing = false;    
 
-    doNotCreateUndo = false;
+    createUndo = true;
     lastData = _trimNonUserData();
 
     _onResize();
@@ -2164,9 +2164,9 @@ var main = (function(){
   }
 
   function _onImageLoaded() {
-    imagesRemaining--;
+    imagesToBeLoaded--;
 
-    if (imagesRemaining == 0) {
+    if (imagesToBeLoaded == 0) {
       _onImagesLoaded();
     }
   }
@@ -2231,13 +2231,12 @@ var main = (function(){
  
   main.init = function() {
     initializing = true;
-    doNotCreateUndo = true;
+    createUndo = false;
 
     _inspectSystem();
 
     images = [];
-
-    imagesRemaining = IMAGES_TO_BE_LOADED.length;
+    imagesToBeLoaded = IMAGES_TO_BE_LOADED.length;
 
     for (var i in IMAGES_TO_BE_LOADED) {
       var url = IMAGES_TO_BE_LOADED[i];
