@@ -1736,10 +1736,11 @@ var main = (function(){
     }
     var withinCanvas = !!el;
 
-    var placeEl = document.elementFromPoint(event.pageX, event.pageY);
+    if (segmentMoveDragging.segmentBeforeEl || segmentMoveDragging.segmentAfterEl) {
+    //var placeEl = document.elementFromPoint(event.pageX, event.pageY);
 
-    if (placeEl) {
-      console.log('place', placeEl);
+    //if (placeEl) {
+      //console.log('place', placeEl);
       var width = segmentMoveDragging.originalWidth;
 
       if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_CREATE) {
@@ -1750,10 +1751,29 @@ var main = (function(){
         }
       }
       
-      var el = _createSegment(segmentMoveDragging.originalType, width);
-      document.querySelector('#editable-street-section').insertBefore(el, placeEl);
+      //console.log(width);
 
+      var newEl = _createSegment(segmentMoveDragging.originalType, width);
+
+      newEl.classList.add('create');
+
+      if (segmentMoveDragging.segmentBeforeEl) {
+        document.querySelector('#editable-street-section').
+            insertBefore(newEl, segmentMoveDragging.segmentBeforeEl);
+      } else {
+        document.querySelector('#editable-street-section').
+            insertBefore(newEl, segmentMoveDragging.segmentAfterEl.nextSibling);
+      }
+
+      segmentMoveDragging.segmentBeforeEl = null;
+      segmentMoveDragging.segmentAfterEl = null;
+
+      _repositionSegments();
       _segmentsChanged();
+
+      window.setTimeout(function() {
+        newEl.classList.remove('create');
+      }, 100);
 
       segmentMoveDragging.el.parentNode.removeChild(segmentMoveDragging.el);
 
