@@ -34,8 +34,8 @@ var main = (function(){
   var CANVAS_BASELINE = CANVAS_HEIGHT - 35;
 
   var DRAGGING_TYPE_NONE = 0;
-  var DRAGGING_TYPE_SEGMENT_MOVE = 1;
-  var DRAGGING_TYPE_SEGMENT_RESIZE = 2;
+  var DRAGGING_TYPE_MOVE = 1;
+  var DRAGGING_TYPE_RESIZE = 2;
 
   var SEGMENT_DRAGGING_TYPE_MOVE = 1;
   var SEGMENT_DRAGGING_TYPE_CREATE = 2;
@@ -1363,10 +1363,10 @@ var main = (function(){
     document.body.classList.remove('segment-resize-dragging');
 
     switch (draggingType) {
-      case DRAGGING_TYPE_SEGMENT_RESIZE:
+      case DRAGGING_TYPE_RESIZE:
         document.body.classList.add('segment-resize-dragging');
         break;
-      case DRAGGING_TYPE_SEGMENT_MOVE:
+      case DRAGGING_TYPE_MOVE:
         document.body.classList.add('segment-move-dragging');
         break;
     }
@@ -1377,7 +1377,7 @@ var main = (function(){
 
     var el = event.target;
 
-    _changeDraggingType(DRAGGING_TYPE_SEGMENT_RESIZE);
+    _changeDraggingType(DRAGGING_TYPE_RESIZE);
 
     var pos = _getElAbsolutePos(el);
 
@@ -1480,7 +1480,7 @@ var main = (function(){
 
     var el = event.target;
 
-    _changeDraggingType(DRAGGING_TYPE_SEGMENT_MOVE);
+    _changeDraggingType(DRAGGING_TYPE_MOVE);
 
     draggingMove.origEl = el;
 
@@ -1660,10 +1660,10 @@ var main = (function(){
       return;
     }
     switch (draggingType) {
-      case DRAGGING_TYPE_SEGMENT_MOVE:
+      case DRAGGING_TYPE_MOVE:
         _handledraggingMove(event);
         break;
-      case DRAGGING_TYPE_SEGMENT_RESIZE:
+      case DRAGGING_TYPE_RESIZE:
         _handledraggingResize(event);
         break;
     }
@@ -1805,10 +1805,10 @@ var main = (function(){
     }
 
     switch (draggingType) {
-      case DRAGGING_TYPE_SEGMENT_MOVE:
+      case DRAGGING_TYPE_MOVE:
         _handleSegmentMoveEnd(event);
         break;
-      case DRAGGING_TYPE_SEGMENT_RESIZE:
+      case DRAGGING_TYPE_RESIZE:
         _handleSegmentResizeEnd(event);
         break;
     }
