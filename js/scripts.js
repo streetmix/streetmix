@@ -1720,7 +1720,12 @@ var main = (function(){
 
       if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_CREATE) {
         if ((data.remainingWidth > 0) && (width > data.remainingWidth * TILE_SIZE)) {
-          if (data.remainingWidth > MIN_SEGMENT_WIDTH) {
+
+          var segmentMinWidth = 
+              SEGMENT_INFO[segmentMoveDragging.originalType].minWidth || 0;
+
+          if ((data.remainingWidth >= MIN_SEGMENT_WIDTH) && 
+              (data.remainingWidth >= segmentMinWidth)) {
             width = _normalizeSegmentWidth(data.remainingWidth) * TILE_SIZE;
           }
         }
