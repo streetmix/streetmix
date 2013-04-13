@@ -61,6 +61,17 @@ var main = (function(){
   var SEGMENT_WARNING_WIDTH_TOO_SMALL = 2;
   var SEGMENT_WARNING_WIDTH_TOO_LARGE = 3;
 
+  var KEY_LEFT_ARROW = 37;
+  var KEY_RIGHT_ARROW = 39;
+  var KEY_ENTER = 13;
+  var KEY_BACKSPACE = 8;
+  var KEY_DELETE = 46;
+  var KEY_ESC = 27;
+  var KEY_Y = 89;
+  var KEY_Z = 90;
+  var KEY_EQUAL = 187; // = or +
+  var KEY_MINUS = 189;
+
   var CSS_TRANSFORMS = ['webkitTransform', 'MozTransform', 'transform'];
 
   var SEGMENT_OWNER_CAR = 'car';
@@ -607,14 +618,13 @@ var main = (function(){
   function _onWidthEditKeyDown(event) {
     var el = event.target;
 
-    // TODO const
     switch (event.keyCode) {
-      case 13: // enter
+      case KEY_ENTER:
         _widthEditInputChanged(el, true);
         _loseAnyFocus();
         el.value = el.segmentEl.getAttribute('width');
         break;
-      case 27: // Esc
+      case KEY_ESC:
         el.value = el.oldValue;
         _widthEditInputChanged(el, true);
         _loseAnyFocus();
@@ -1959,9 +1969,8 @@ var main = (function(){
 
   function _onBodyKeyDown(event) {
     switch (event.keyCode) {
-      // TODO make const
-      case 39: // right arrow
-      case 187: // = (or, plus)
+      case KEY_RIGHT_ARROW:
+      case KEY_EQUAL:
         if (event.metaKey || event.ctrlKey || event.altKey) {
           return;
         }
@@ -1973,8 +1982,8 @@ var main = (function(){
           event.preventDefault();
         }
         break;
-      case 37: // left arrow
-      case 189: // minus
+      case KEY_LEFT_ARROW:
+      case KEY_MINUS:
         if (event.metaKey || event.ctrlKey || event.altKey) {
           return;
         }
@@ -1986,8 +1995,8 @@ var main = (function(){
           event.preventDefault();
         }
         break;
-      case 8: // backspace
-      case 46: // Delete
+      case KEY_BACKSPACE:
+      case KEY_DELETE:
         if (event.metaKey || event.ctrlKey || event.altKey) {
           return;
         }
@@ -1997,13 +2006,13 @@ var main = (function(){
           event.preventDefault();
         }
         break;
-      case 27: // Esc
+      case KEY_ESC:
         if (infoBubbleVisible) {
           _hideInfoBubble();
         }
         event.preventDefault();
         break;
-      case 90: // Z
+      case KEY_Z:
         if (!event.shiftKey && (event.metaKey || event.ctrlKey)) {
           _undo();
           event.preventDefault();
@@ -2012,7 +2021,7 @@ var main = (function(){
           event.preventDefault();
         }
         break;
-      case 89: // Y
+      case KEY_Y:
         if (event.metaKey || event.ctrlKey) {
           _redo();
           event.preventDefault();
