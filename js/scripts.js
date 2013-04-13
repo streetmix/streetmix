@@ -1902,6 +1902,8 @@ var main = (function(){
 
     document.querySelector('#street-section-canvas').style.width = 
         (width) + 'px';
+
+    _onResize();
     /*document.querySelector('#street-section-canvas').style.marginLeft = 
         ((-width / 2)) + 'px';
 
