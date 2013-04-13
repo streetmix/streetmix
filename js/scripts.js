@@ -385,6 +385,19 @@ var main = (function(){
 
   // -------------------------------------------------------------------------
 
+  function _drawSegmentImage(ctx, sx, sy, sw, sh, dx, dy, dw, dh) {
+    if (!sw || !sh || !dw || !dh) {
+      return;
+    }
+
+    // TODO Const
+    ctx.drawImage(images['images/tiles.png'],
+        sx * 2, sy * 2, 
+        sw * 2, sh * 2,
+        dx * system.hiDpi, dy * system.hiDpi, 
+        dw * system.hiDpi, dh * system.hiDpi);
+  }
+
   function _setSegmentContents(el, type, segmentWidth, isTool) {
     var segmentInfo = SEGMENT_INFO[type];
 
@@ -477,18 +490,16 @@ var main = (function(){
           w = segmentWidth - (count - 1) * w;
         }
 
-        if (w > 0) {
-          ctx.drawImage(images['images/tiles.png'], 
-            repeatPositionX * 2, 
-            0, 
-            w * 2, 
-            realHeight * 2, 
-            (repeatStartX + (i * segmentInfo.graphics.repeat.width) * TILE_SIZE) * system.hiDpi * multiplier, 
-            // TODO const
-            ((isTool ? 20 : 265) + top) * system.hiDpi, 
-            w * system.hiDpi, 
-            realHeight * system.hiDpi * multiplier);
-        }
+        _drawSegmentImage(ctx,
+          repeatPositionX, 
+          0, 
+          w, 
+          realHeight, 
+          (repeatStartX + (i * segmentInfo.graphics.repeat.width) * TILE_SIZE) * multiplier, 
+          // TODO const
+          ((isTool ? 20 : 265) + top), 
+          w, 
+          realHeight * multiplier);
       }
     }      
 
@@ -497,16 +508,16 @@ var main = (function(){
 
       var w = segmentInfo.graphics.left.width * TILE_SIZE;
 
-      ctx.drawImage(images['images/tiles.png'], 
-        leftPositionX * 2, 
-        0, 
-        w * 2, 
-        realHeight * 2, 
-        0 * multiplier * system.hiDpi, 
-        // TODO const
-        ((isTool ? 20 : 265) + top) * system.hiDpi, 
-        w * multiplier * system.hiDpi, 
-        realHeight * system.hiDpi * multiplier);
+      _drawSegmentImage(ctx,
+          leftPositionX, 
+          0, 
+          w, 
+          realHeight, 
+          0,
+          // TODO const
+          ((isTool ? 20 : 265) + top), 
+          w * multiplier, 
+          realHeight * multiplier);
     }
 
     if (segmentInfo.graphics.right) {
@@ -520,30 +531,29 @@ var main = (function(){
         rightTargetX -= segmentInfo.graphics.right.offsetX * TILE_SIZE * multiplier;
       }
 
-      ctx.drawImage(images['images/tiles.png'], 
-        rightPositionX * 2, 
+      _drawSegmentImage(ctx,
+        rightPositionX, 
         0, 
-        w * 2, 
-        realHeight * 2, 
-        rightTargetX * system.hiDpi, 
+        w, 
+        realHeight, 
+        rightTargetX, 
         // TODO const
-        ((isTool ? 20 : 265) + top) * system.hiDpi, 
-        w * system.hiDpi * multiplier, 
-        realHeight * system.hiDpi * multiplier);
+        (isTool ? 20 : 265) + top, 
+        w * multiplier, 
+        realHeight * multiplier);
     }
 
-    if (width > 0) {
-      ctx.drawImage(images['images/tiles.png'], 
-        bkPositionX * 2, 
-        0, 
-        width * 2, 
-        realHeight * 2, 
-        left * system.hiDpi * multiplier, 
-        // TODO const
-        ((isTool ? 20 : 265) + top) * system.hiDpi, 
-        width * system.hiDpi * multiplier, 
-        realHeight * system.hiDpi * multiplier);
-    }
+    _drawSegmentImage(ctx,
+      bkPositionX,
+      0, 
+      width, 
+      realHeight, 
+      left * multiplier, 
+      // TODO const
+      (isTool ? 20 : 265) + top, 
+      width * multiplier, 
+      realHeight * multiplier);
+
     var currentEl = el.querySelector('canvas');
     _removeElFromDom(currentEl);
     el.appendChild(canvasEl);
