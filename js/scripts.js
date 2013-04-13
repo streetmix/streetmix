@@ -948,17 +948,20 @@ var main = (function(){
   var SEGMENT_DRAG_HOLE = 40;
 
   function _repositionSegments() {
-    var occupiedWidth = data.occupiedWidth;
+    console.log('reposition segments');
+    
+
+    /*var occupiedWidth = data.occupiedWidth;
 
     if (draggingActive && draggingType == DRAGGING_TYPE_SEGMENT_MOVE) {
       if (segmentMoveDragging.segmentBeforeEl || segmentMoveDragging.segmentAfterEl) {
         occupiedWidth += SEGMENT_DRAG_HOLE * 2 / TILE_SIZE;
       }
-    }
+    }*/
 
     //console.log(data.occupiedWidth, occupiedWidth);
 
-    var left = (data.streetWidth - occupiedWidth) / 2 * TILE_SIZE;
+    var left = 0;//(data.streetWidth - occupiedWidth) / 2 * TILE_SIZE;
 
     for (var i in data.segments) {
       var el = data.segments[i].el;
@@ -971,8 +974,12 @@ var main = (function(){
         }
       }
 
-      el.style.left = left + 'px';
-      var width = parseFloat(el.getAttribute('width')) * TILE_SIZE;
+      //el.style.left = left + 'px';
+      if (el.classList.contains('dragged-out')) {
+        var width = 0;
+      } else {
+        var width = parseFloat(el.getAttribute('width')) * TILE_SIZE;
+      }
 
       el.savedLeft = left; // so we don’t have to use offsetLeft
       el.savedWidth = width;
@@ -986,6 +993,17 @@ var main = (function(){
           left += SEGMENT_DRAG_HOLE;
         }
       }
+    }
+
+    var occupiedWidth = left;
+
+    var mainLeft = (data.streetWidth * TILE_SIZE - occupiedWidth) / 2;
+
+    for (var i in data.segments) {
+      var el = data.segments[i].el;
+
+      el.savedLeft += mainLeft;
+      el.style.left = el.savedLeft + 'px';
     }
   }
 
@@ -1799,17 +1817,8 @@ var main = (function(){
     if ((segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_MOVE) && 
         segmentMoveDragging.originalDraggedOut) {
 
-      console.log('drag out…', 
-          segmentMoveDragging.originalEl.previousSibling.getAttribute('type'),
-          segmentMoveDragging.originalEl.nextSibling.getAttribute('type'));
-
-      if (segmentMoveDragging.originalEl.previousSibling) {
-        segmentMoveDragging.originalEl.previousSibling.parentNode.removeChild(segmentMoveDragging.originalEl.previousSibling);
-      }
-
       segmentMoveDragging.originalEl.style.width = 0;
-      segmentMoveDragging.originalEl.classList.add('about-to-be-gone');
-
+      
       _segmentsChanged();
 
       segmentMoveDragging.originalDraggedOut = false;
