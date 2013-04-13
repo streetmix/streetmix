@@ -1667,14 +1667,6 @@ var main = (function(){
     event.preventDefault();
   }
 
-  function _flashWarning() {
-    document.querySelector('#warning').classList.add('active');
-
-    window.setTimeout(function() {
-      document.querySelector('#warning').classList.remove('active');
-    }, 0);
-  }
-
   function _removeTouchSegmentFadeouts() {
     var els = document.querySelectorAll('.fade-out-end');
     for (var i = 0, el; el = els[i]; i++) {
