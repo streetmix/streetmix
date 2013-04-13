@@ -329,6 +329,7 @@ var main = (function(){
     elY: null,
     originalEl: null,
     originalWidth: null,
+    shadowElementVisible: false
   };
 
   var initializing = false;
@@ -1466,14 +1467,14 @@ var main = (function(){
       segmentMoveDragging.elX -= segmentMoveDragging.originalWidth / 3;
     }
 
-    if (touchSupport) {
+   /* if (touchSupport) {
       // TODO const
       if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_CREATE) {
         segmentMoveDragging.elY -= 100;      
       } else {
         segmentMoveDragging.elY -= 50;      
       }
-    }
+    }*/
 
     segmentMoveDragging.mouseX = x;
     segmentMoveDragging.mouseY = y;
@@ -1499,7 +1500,68 @@ var main = (function(){
 
     segmentMoveDragging.segmentBeforeEl = null;
     segmentMoveDragging.segmentAfterEl = null;
+
+    segmentMoveDragging.shadowElementVisible = false;
+
+    segmentMoveDragging.el.classList.add('first-drag-move');
   }
+
+
+  function _handleSegmentMoveDragging(event) {
+    var x = event.pageX;
+    var y = event.pageY;
+
+    var deltaX = x - segmentMoveDragging.mouseX;
+    var deltaY = y - segmentMoveDragging.mouseY;
+
+    segmentMoveDragging.elX += deltaX;
+    segmentMoveDragging.elY += deltaY;
+
+    if (!segmentMoveDragging.shadowElementVisible) {
+      segmentMoveDragging.shadowElementVisible = true;
+
+      if (touchSupport) {
+        // TODO const
+        if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_CREATE) {
+          segmentMoveDragging.elY -= 100;      
+        } else {
+          segmentMoveDragging.elY -= 50;      
+        }
+      }
+
+      window.setTimeout(function() {
+        segmentMoveDragging.el.classList.remove('first-drag-move');      
+      }, 100);
+    }    
+
+    if (useCssTransform) {
+      segmentMoveDragging.el.style[useCssTransform] = 
+          'translate(' + segmentMoveDragging.elX + 'px, ' + segmentMoveDragging.elY + 'px)';
+
+      var deg = deltaX;
+
+      if (deg > 20) {
+        deg = 20;
+      }
+      if (deg < -20) {
+        deg = -20;
+      }
+
+      if (useCssTransform) {
+        segmentMoveDragging.el.querySelector('canvas').style[useCssTransform] = 
+            'rotateZ(' + deg + 'deg)';
+      }
+    } else {
+      segmentMoveDragging.el.style.left = segmentMoveDragging.elX + 'px';
+      segmentMoveDragging.el.style.top = segmentMoveDragging.elY + 'px';
+    }
+
+    segmentMoveDragging.mouseX = x;
+    segmentMoveDragging.mouseY = y;
+
+    _makeSpaceBetweenSegments(x, y);
+  }
+
 
   function _onBodyMouseDown(event) {
     var el = event.target;
@@ -1560,44 +1622,6 @@ var main = (function(){
       segmentMoveDragging.segmentAfterEl = selectedSegmentAfter;
       _repositionSegments();
     }
-  }
-
-  function _handleSegmentMoveDragging(event) {
-    var x = event.pageX;
-    var y = event.pageY;
-
-    var deltaX = x - segmentMoveDragging.mouseX;
-    var deltaY = y - segmentMoveDragging.mouseY;
-
-    segmentMoveDragging.elX += deltaX;
-    segmentMoveDragging.elY += deltaY;
-
-    if (useCssTransform) {
-      segmentMoveDragging.el.style[useCssTransform] = 
-          'translate(' + segmentMoveDragging.elX + 'px, ' + segmentMoveDragging.elY + 'px)';
-
-      var deg = deltaX;
-
-      if (deg > 20) {
-        deg = 20;
-      }
-      if (deg < -20) {
-        deg = -20;
-      }
-
-      if (useCssTransform) {
-        segmentMoveDragging.el.querySelector('canvas').style[useCssTransform] = 
-            'rotateZ(' + deg + 'deg)';
-      }
-    } else {
-      segmentMoveDragging.el.style.left = segmentMoveDragging.elX + 'px';
-      segmentMoveDragging.el.style.top = segmentMoveDragging.elY + 'px';
-    }
-
-    segmentMoveDragging.mouseX = x;
-    segmentMoveDragging.mouseY = y;
-
-    _makeSpaceBetweenSegments(x, y);
   }
 
   function _handleSegmentResizeDragging(event) {
