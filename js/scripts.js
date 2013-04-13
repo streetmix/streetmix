@@ -1744,7 +1744,9 @@ var main = (function(){
       console.log('remove');
       //_dragOutOriginalIfNecessary();
       //segmentMoveDragging.el.parentNode.removeChild(segmentMoveDragging.el);
-      segmentMoveDragging.originalEl.parentNode.removeChild(segmentMoveDragging.originalEl);
+      if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_MOVE) {
+        segmentMoveDragging.originalEl.parentNode.removeChild(segmentMoveDragging.originalEl);
+      }
         //segmentMoveDragging.originalEl.classList.remove('dragged-out');
       //segmentMoveDragging.originalEl.classList.remove('dragged-out');
 
@@ -1781,8 +1783,11 @@ var main = (function(){
         newEl.classList.remove('create');
       }, 100);
 
-      var draggedOutEl = document.querySelector('.segment.dragged-out');
-      draggedOutEl.parentNode.removeChild(draggedOutEl);
+
+      if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_MOVE) {
+        var draggedOutEl = document.querySelector('.segment.dragged-out');
+        draggedOutEl.parentNode.removeChild(draggedOutEl);
+      }
 
       _createTouchSegmentFadeout(el);
     } else {            
