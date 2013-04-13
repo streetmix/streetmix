@@ -336,6 +336,7 @@ body.segment-resize-dragging .segment:not(.unmovable).hover {
   position: absolute;
   left: 0;
   top: 0;
+
   pointer-events: none;
 }
 .segment .image img {
@@ -346,9 +347,6 @@ body.segment-resize-dragging .segment:not(.unmovable).hover {
 
 .segment.dragged-out {
   opacity: 0;
-}
-.segment.collapsed {
-  width: 0 !important;
 }
 
 .segment.tool {
@@ -368,17 +366,16 @@ body.segment-resize-dragging .segment:not(.unmovable).hover {
   background: rgba(0, 0, 0, .2);
 }
 
-.segment.tool .image img {
-  width: @tilesetWidth / 2 / 3;
-}
-
-
 .segment[type='separator'] {
   background: transparent !important;
 
   position: absolute;
 
   pointer-events: none;
+
+  background: rgba(0, 240, 0, .2) !important;
+
+  -webkit-transition: none !important;
 }
 
 .segment.dragging {
@@ -566,8 +563,14 @@ body.segment-resize-dragging .segment .drag-handle {
 .segment:not(.unmovable).hover .width-edit-canvas {
   pointer-events: auto;
 
-  margin: -20px;
-  border: 20px solid transparent;
+  margin-left: -20px;
+  border-left: 20px solid transparent;
+
+  margin-right: -20px;
+  border-right: 20px solid transparent;
+
+  margin-bottom: -20px;
+  border-bottom: 20px solid transparent;
 
   .background-dirt-highlight;
 

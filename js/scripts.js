@@ -343,7 +343,12 @@ var main = (function(){
   var infoButtonHoverTimerId = -1;
 
   function _recalculateSeparators() {
+    //console.log('recalculate separators');
+
     var els = document.querySelectorAll('#editable-street-section [type="separator"]');
+
+    console.log('recalculate separators', els.length);
+
     for (var i = 0, el; el = els[i]; i++) {
 
       var prevWidth = 0;
@@ -370,6 +375,8 @@ var main = (function(){
       } else if (i == els.length - 1) {
         nextWidth = SEPARATOR_EDGE_WIDTH;
       }
+
+      //console.log(prevWidth, nextWidth);
 
       el.style.width = ((prevWidth / 2 + nextWidth / 2 + 2 + SEPARATOR_WIDTH)) + 'px';
       el.style.marginLeft = ((-prevWidth / 2 - 1)) + 'px';
@@ -1418,7 +1425,11 @@ var main = (function(){
   }
 
   function _handleSegmentMoveStart(event) {
+    console.log('MOVE START');
+
     doNotCreateUndo = true;
+
+    _removeHoveredSeparator();
 
     if (event.touches && event.touches[0]) {
       var x = event.touches[0].pageX;
@@ -1430,6 +1441,8 @@ var main = (function(){
 
     var el = event.target;
 
+    //console.log(el);
+
     draggingActive = true;
     draggingType = DRAGGING_TYPE_SEGMENT_MOVE;
     document.body.classList.add('segment-move-dragging');
@@ -1440,10 +1453,12 @@ var main = (function(){
 
     if (segmentMoveDragging.originalEl.classList.contains('tool')) {
       segmentMoveDragging.type = SEGMENT_DRAGGING_TYPE_CREATE;
-      segmentMoveDragging.originalWidth = SEGMENT_INFO[segmentMoveDragging.originalType].defaultWidth * TILE_SIZE;
+      segmentMoveDragging.originalWidth = 
+          SEGMENT_INFO[segmentMoveDragging.originalType].defaultWidth * TILE_SIZE;
     } else {
       segmentMoveDragging.type = SEGMENT_DRAGGING_TYPE_MOVE;      
-      segmentMoveDragging.originalWidth = segmentMoveDragging.originalEl.offsetWidth;
+      segmentMoveDragging.originalWidth = 
+          segmentMoveDragging.originalEl.offsetWidth;
     }
 
     var pos = _getElAbsolutePos(el);
@@ -1478,7 +1493,6 @@ var main = (function(){
       }
     }
 
-
     segmentMoveDragging.mouseX = x;
     segmentMoveDragging.mouseY = y;
 
@@ -1496,14 +1510,10 @@ var main = (function(){
 
     if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_MOVE) {
       segmentMoveDragging.originalEl.classList.add('dragged-out');
-      if (segmentMoveDragging.originalEl.previousSibling) {
-        segmentMoveDragging.originalEl.previousSibling.parentNode.removeChild(segmentMoveDragging.originalEl.previousSibling);
-      }
-      if (segmentMoveDragging.originalEl.nextSibling) {
-        segmentMoveDragging.originalEl.nextSibling.parentNode.removeChild(segmentMoveDragging.originalEl.nextSibling);
-      }
       segmentMoveDragging.originalDraggedOut = true;
     }
+
+    //_dragOutOriginalIfNecessary();
   }
 
   function _onBodyMouseDown(event) {
@@ -1528,14 +1538,25 @@ var main = (function(){
     if (el.classList.contains('drag-handle')) {
       _handleSegmentResizeStart(event);
     } else {
-      if (!el.classList.contains('segment') || el.classList.contains('unmovable')) {
+      if (!el.classList.contains('segment') || 
+          el.classList.contains('unmovable')) {
         return;
       }
+
+      console.log(el);
 
       _handleSegmentMoveStart(event);
     }
 
     event.preventDefault();
+  }
+
+  function _removeHoveredSeparator() {
+    if (separatorHoveredEl) {
+      _separatorMouseOut(separatorHoveredEl);
+
+      separatorHoveredEl = null;
+    }
   }
 
   function _handleSegmentMoveDragging(event) {
@@ -1554,13 +1575,21 @@ var main = (function(){
 
     var el = document.elementFromPoint(x, y);
 
-    if (separatorHoveredEl && (el != separatorHoveredEl)) {
-      _separatorMouseOut(separatorHoveredEl);
-    }
+    _removeHoveredSeparator();
+
+    //console.log(el);
+
     if (el && el.classList.contains('segment') && 
         (el.getAttribute('type') == 'separator')) {
       separatorHoveredEl = el;
       _separatorMouseOver(separatorHoveredEl);
+
+      //console.log('+');
+      //console.log('in', el);
+
+      //el.style.outline = '1px solid red';
+    } else {
+      console.log('-');
     }
 
     // ----
@@ -1667,12 +1696,15 @@ var main = (function(){
   }
 
   function _handleSegmentMoveEnd(event) {
+    console.log('MOVE END');
+
     doNotCreateUndo = false;
 
+    _recalculateSeparators();
+
     if (!segmentMoveDragging.originalDraggedOut && (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_MOVE)) {
-      //console.log('a');
-      //segmentMoveDragging.originalEl.parentNode.removeChild(segmentMoveDragging.originalEl);
-      _recalculateSeparators();
+      console.log('remove');
+      segmentMoveDragging.originalEl.parentNode.removeChild(segmentMoveDragging.originalEl);
       _segmentsChanged();
     }
 
@@ -1682,11 +1714,15 @@ var main = (function(){
     }
     var withinCanvas = !!el;
 
-    var placeEl = 
-        document.querySelector('#editable-street-section [type="separator"].hovered-over');
+    //console.log(separatorHoveredEl);
+
+    //var placeEl = separatorHoveredEl;
+        //document.querySelector('#editable-street-section [type="separator"].hovered-over');
+
+    var placeEl = document.elementFromPoint(event.pageX, event.pageY);
 
     if (placeEl) {
-      //console.log('place');
+      console.log('place', placeEl);
       var width = segmentMoveDragging.originalWidth;
 
       if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_CREATE) {
@@ -1696,6 +1732,14 @@ var main = (function(){
           }
         }
       }
+
+      //console.log(placeEl.parentNode);
+      //console.log(placeEl.previousSibling);
+      //console.log(placeEl.nextSibling);
+
+      console.log('add new separators + el');/*
+          placeEl.previousSibling.getAttribute('type'),
+          placeEl.nextSibling.getAttribute('type'));*/
 
       var el = _createSegment('separator');
       document.querySelector('#editable-street-section').insertBefore(el, placeEl);
@@ -1732,14 +1776,25 @@ var main = (function(){
 
         segmentMoveDragging.originalEl.classList.remove('dragged-out');
 
-        var el = _createSegment('separator');
-        document.querySelector('#editable-street-section').insertBefore(el, 
-            segmentMoveDragging.originalEl);
+        //console.log('add new separators 2');
+        console.log('add new separators 2', 
+            segmentMoveDragging.originalEl.previousSibling && segmentMoveDragging.originalEl.previousSibling.getAttribute('type'),
+            segmentMoveDragging.originalEl.nextSibling && segmentMoveDragging.originalEl.nextSibling.getAttribute('type'));
 
-        var el = _createSegment('separator');
-        document.querySelector('#editable-street-section').insertBefore(el, 
-            segmentMoveDragging.originalEl.nextSibling);
+        //console.log('before', );
+        //console.log('after', segmentMoveDragging.originalEl.nextSibling.getAttribute('type'));
 
+        if (segmentMoveDragging.originalEl.previousSibling && segmentMoveDragging.originalEl.previousSibling.getAttribute('type') != 'separator') {
+          var el = _createSegment('separator');
+          document.querySelector('#editable-street-section').insertBefore(el, 
+              segmentMoveDragging.originalEl);
+        }
+
+        if (segmentMoveDragging.originalEl.nextSibling && segmentMoveDragging.originalEl.nextSibling.getAttribute('type') != 'separator') {
+          var el = _createSegment('separator');
+          document.querySelector('#editable-street-section').insertBefore(el, 
+              segmentMoveDragging.originalEl.nextSibling);
+        }
       }
 
       segmentMoveDragging.el.parentNode.removeChild(segmentMoveDragging.el);
@@ -1769,6 +1824,8 @@ var main = (function(){
     while (guideEl = segmentResizeDragging.segmentEl.querySelector('.guide')) {
       guideEl.parentNode.removeChild(guideEl);
     }
+
+    _recalculateSeparators();
   }
 
   function _onBodyMouseUp(event) {
@@ -1791,10 +1848,26 @@ var main = (function(){
   function _dragOutOriginalIfNecessary() {
     if ((segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_MOVE) && 
         segmentMoveDragging.originalDraggedOut) {
+
+      console.log('drag out…', 
+          segmentMoveDragging.originalEl.previousSibling.getAttribute('type'),
+          segmentMoveDragging.originalEl.nextSibling.getAttribute('type'));
+
+      if (segmentMoveDragging.originalEl.previousSibling) {
+        segmentMoveDragging.originalEl.previousSibling.parentNode.removeChild(segmentMoveDragging.originalEl.previousSibling);
+      }
+      /*if (segmentMoveDragging.originalEl.nextSibling) {
+        segmentMoveDragging.originalEl.nextSibling.parentNode.removeChild(segmentMoveDragging.originalEl.nextSibling);
+      }
+
+      //_recalculateSeparators();
+
       var el = _createSegment('separator');
       document.querySelector('#editable-street-section').insertBefore(el, 
-          segmentMoveDragging.originalEl);
+          segmentMoveDragging.originalEl);*/
       
+      //_recalculateSeparators();
+
       //segmentMoveDragging.originalEl.parentNode.removeChild(segmentMoveDragging.originalEl);
 
       segmentMoveDragging.originalEl.style.width = 0;
@@ -1832,9 +1905,9 @@ var main = (function(){
   }
 
   function _separatorMouseOver(el) {
-    _dragOutOriginalIfNecessary();
-
+    //console.log('separator mouse over');
     el.classList.add('hovered-over');
+    _dragOutOriginalIfNecessary();
   }
 
   function _separatorMouseOut(el) {
