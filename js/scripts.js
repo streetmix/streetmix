@@ -2104,6 +2104,10 @@ var main = (function(){
         break;
       }
     }
+
+    if (touchSupport) {
+      document.body.classList.add('touch-support');
+    }
   }
 
   function _onImagesLoaded() {
