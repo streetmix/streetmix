@@ -2124,19 +2124,11 @@ var main = (function(){
   }
 
   function _isUndoAvailable() {
-    if (undoPosition > 0) {
-      return true;
-    } else {
-      return false;
-    }
+    return undoPosition > 0;
   }
 
   function _isRedoAvailable() {
-    if (undoPosition < undoStack.length - 1) {
-      return true;
-    } else {
-      return false;
-    }
+    return undoPosition < undoStack.length - 1;
   }
 
   function _updateUndoButtons() {
@@ -2150,25 +2142,18 @@ var main = (function(){
 
   function _onImagesLoaded() {
     _resizeStreetWidth();
-
     _getDefaultSegments();
-
     _createTools();
-
     _createDomFromData();
     _segmentsChanged();
 
     initializing = false;    
-
     createUndo = true;
     lastData = _trimNonUserData();
 
     _onResize();
-
     _addEventListeners();
-
     _hideLoadingScreen();
-
     _startAnimation();
   }
 
