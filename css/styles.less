@@ -329,12 +329,6 @@ body.segment-resize-dragging .segment:not(.unmovable).hover {
   cursor: -moz-grab;  
 }
 
-.segment.outside .image {
-  -webkit-filter: grayscale(100%);
-  opacity: .2;
-  -webkit-transform: translateZ(0);
-}
-
 .segment .image {
   overflow: hidden;
   position: absolute;
@@ -343,6 +337,14 @@ body.segment-resize-dragging .segment:not(.unmovable).hover {
 
   pointer-events: none;
 }
+.segment.outside .image {
+  -webkit-filter: grayscale(100%);
+  opacity: .2 !important;
+
+  -webkit-transition: none;  
+}
+
+
 .segment .image img {
   position: absolute;
   width: @tilesetWidth / 2;

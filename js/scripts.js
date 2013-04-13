@@ -2128,6 +2128,10 @@ var main = (function(){
         el.style.opacity = 1;
         el.style.webkitTransform = 'none';
       }, el, 300 + Math.random() * 50);
+
+      _createTimeout(function(el) {
+        el.style.webkitTransition = '';
+      }, el, 2000);
     }
   }
 
