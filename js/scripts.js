@@ -1380,8 +1380,8 @@ var main = (function(){
     segmentResizeDragging.mouseX = event.pageX;
     segmentResizeDragging.mouseY = event.pageY;
 
-    segmentResizeDragging.elX = event.pageX - (event.offsetX || event.layerX);
-    segmentResizeDragging.elY = event.pageY - (event.offsetY || event.layerY);    
+    segmentResizeDragging.elX = pos[0];
+    segmentResizeDragging.elY = pos[1];
 
     segmentResizeDragging.origX = segmentResizeDragging.elX;
     segmentResizeDragging.origWidth = parseFloat(el.segmentEl.getAttribute('width'));
@@ -1424,6 +1424,34 @@ var main = (function(){
       el.segmentEl.appendChild(guideEl);
     }
   }
+
+  function _handleSegmentResizeDragging(event) {
+    var x = event.pageX;
+    var y = event.pageY;
+
+    var deltaX = x - segmentResizeDragging.mouseX;
+    var deltaY = y - segmentResizeDragging.mouseY;
+
+    var deltaFromOriginal = 
+        segmentResizeDragging.elX - segmentResizeDragging.origX;
+
+    if (!segmentResizeDragging.right) {
+      deltaFromOriginal = -deltaFromOriginal;
+    }
+
+    segmentResizeDragging.elX += deltaX;
+
+    segmentResizeDragging.floatingEl.style.left = 
+        segmentResizeDragging.elX + 'px';
+
+    var width = 
+        segmentResizeDragging.origWidth + deltaFromOriginal / TILE_SIZE * 2;
+
+    _resizeSegment(segmentResizeDragging.segmentEl, width * TILE_SIZE, true, false, true);
+
+    segmentResizeDragging.mouseX = event.pageX;
+    segmentResizeDragging.mouseY = event.pageY;
+  }  
 
   function _handleSegmentMoveStart(event) {
     doNotCreateUndo = true;
@@ -1622,34 +1650,6 @@ var main = (function(){
       segmentMoveDragging.segmentAfterEl = selectedSegmentAfter;
       _repositionSegments();
     }
-  }
-
-  function _handleSegmentResizeDragging(event) {
-    var x = event.pageX;
-    var y = event.pageY;
-
-    var deltaX = x - segmentResizeDragging.mouseX;
-    var deltaY = y - segmentResizeDragging.mouseY;
-
-    var deltaFromOriginal = 
-        segmentResizeDragging.elX - segmentResizeDragging.origX;
-
-    if (!segmentResizeDragging.right) {
-      deltaFromOriginal = -deltaFromOriginal;
-    }
-
-    segmentResizeDragging.elX += deltaX;
-
-    segmentResizeDragging.floatingEl.style.left = 
-        segmentResizeDragging.elX + 'px';
-
-    var width = 
-        segmentResizeDragging.origWidth + deltaFromOriginal / TILE_SIZE * 2;
-
-    _resizeSegment(segmentResizeDragging.segmentEl, width * TILE_SIZE, true, false, true);
-
-    segmentResizeDragging.mouseX = event.pageX;
-    segmentResizeDragging.mouseY = event.pageY;
   }
 
   function _onBodyMouseMove(event) {
