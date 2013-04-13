@@ -101,8 +101,7 @@ header .inside {
   z-index: 10;
   position: absolute;
   display: block;
-  left: 50%;
-
+  left: 0;
   top: 0;
 
   -webkit-transition: width 500ms, margin-left 500ms;
@@ -275,21 +274,18 @@ footer h1 {
   background-size: 360px 45px;
 }
 
-#editable-street-canvas {
-  width: 10000px;
-  height: @canvasHeight;
-  text-align: center;
-}
-
 #editable-street-section {
+  position: absolute;
   height: @canvasHeight;
-  text-align: center;
+  text-align: left;
 }
 .segment {
-  display: inline-block;
   height: @canvasHeight + 85;
 
-  position: relative;
+  text-align: center;
+
+  display: block;
+  position: absolute;
 
   -webkit-transition: width 150ms, left 150ms, -webkit-transform 150ms;
   -moz-transition: width 150ms, left 150ms, -moz-transform 150ms;
@@ -299,6 +295,10 @@ footer h1 {
   -webkit-transition: none;
   -moz-transition: none;
   transition: none;
+}
+.segment.tool {
+  display: inline-block;
+  position: relative;
 }
 .segment:not(.unmovable):hover,
 .segment:not(.unmovable).hover {

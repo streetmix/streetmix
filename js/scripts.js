@@ -937,6 +937,20 @@ var main = (function(){
       data.segments[i].el = el;
       data.segments[i].el.dataNo = i;
     }
+
+    _repositionSegments();
+  }
+
+  function _repositionSegments() {
+    var left = 0;
+
+    for (var i in data.segments) {
+      var el = data.segments[i].el;
+
+      el.style.left = left + 'px';
+
+      left += parseFloat(el.getAttribute('width')) * TILE_SIZE;
+    }
   }
 
   function _applyWarningsToSegments() {
@@ -1029,6 +1043,8 @@ var main = (function(){
     _createUndoIfNecessary();
 
     _updateUndoButtons();
+
+    _repositionSegments();
   }
 
   function _undo() {
@@ -1620,7 +1636,7 @@ var main = (function(){
     }
 
     var el = event.target;
-    while (el && (el.id != 'editable-street-canvas')) {
+    while (el && (el.id != 'editable-street-section')) {
       el = el.parentNode;
     }
     var withinCanvas = !!el;
@@ -1768,11 +1784,11 @@ var main = (function(){
 
     document.querySelector('#street-section-canvas').style.width = 
         (width) + 'px';
-    document.querySelector('#street-section-canvas').style.marginLeft = 
+    /*document.querySelector('#street-section-canvas').style.marginLeft = 
         ((-width / 2)) + 'px';
 
     document.querySelector('#editable-street-canvas').style.marginLeft = 
-        (-CANVAS_WIDTH / 2 + width / 2) + 'px';
+        (-CANVAS_WIDTH / 2 + width / 2) + 'px';*/
   }
 
   function _onResize() {
@@ -1791,6 +1807,10 @@ var main = (function(){
     }
 
     document.querySelector('#street-section').style.top = pos + 'px';
+
+    //console.log(((viewportWidth - data.streetWidth * TILE_SIZE) / 2));
+    document.querySelector('#street-section-canvas').style.left = 
+      ((viewportWidth - data.streetWidth * TILE_SIZE) / 2) + 'px';
   }
 
   function _getDefaultSegments() {
