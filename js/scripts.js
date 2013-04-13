@@ -1495,31 +1495,22 @@ var main = (function(){
       segmentMoveDragging.elX -= segmentMoveDragging.originalWidth / 3;
     }
 
-   /* if (touchSupport) {
-      // TODO const
-      if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_CREATE) {
-        segmentMoveDragging.elY -= 100;      
-      } else {
-        segmentMoveDragging.elY -= 50;      
-      }
-    }*/
-
     segmentMoveDragging.mouseX = x;
     segmentMoveDragging.mouseY = y;
 
-    segmentMoveDragging.el = document.createElement('div');
-    segmentMoveDragging.el.classList.add('segment');
-    segmentMoveDragging.el.classList.add('dragging');
-    segmentMoveDragging.el.setAttribute('type', segmentMoveDragging.originalType);
-    _setSegmentContents(segmentMoveDragging.el, segmentMoveDragging.originalType, segmentMoveDragging.originalWidth);
-    document.body.appendChild(segmentMoveDragging.el);
+    segmentMoveDragging.floatingEl = document.createElement('div');
+    segmentMoveDragging.floatingEl.classList.add('segment');
+    segmentMoveDragging.floatingEl.classList.add('floating');
+    segmentMoveDragging.floatingEl.setAttribute('type', segmentMoveDragging.originalType);
+    _setSegmentContents(segmentMoveDragging.floatingEl, segmentMoveDragging.originalType, segmentMoveDragging.originalWidth);
+    document.body.appendChild(segmentMoveDragging.floatingEl);
 
     if (useCssTransform) {
-      segmentMoveDragging.el.style[useCssTransform] = 
+      segmentMoveDragging.floatingEl.style[useCssTransform] = 
           'translate(' + segmentMoveDragging.elX + 'px, ' + segmentMoveDragging.elY + 'px)';
     } else {
-      segmentMoveDragging.el.style.left = segmentMoveDragging.elX + 'px';
-      segmentMoveDragging.el.style.top = segmentMoveDragging.elY + 'px';
+      segmentMoveDragging.floatingEl.style.left = segmentMoveDragging.elX + 'px';
+      segmentMoveDragging.floatingEl.style.top = segmentMoveDragging.elY + 'px';
     }
 
     if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_MOVE) {
@@ -1531,7 +1522,7 @@ var main = (function(){
 
     segmentMoveDragging.shadowElementVisible = false;
 
-    segmentMoveDragging.el.classList.add('first-drag-move');
+    segmentMoveDragging.floatingEl.classList.add('first-drag-move');
   }
 
 
@@ -1558,12 +1549,12 @@ var main = (function(){
       }
 
       window.setTimeout(function() {
-        segmentMoveDragging.el.classList.remove('first-drag-move');      
+        segmentMoveDragging.floatingEl.classList.remove('first-drag-move');      
       }, 100);
     }    
 
     if (useCssTransform) {
-      segmentMoveDragging.el.style[useCssTransform] = 
+      segmentMoveDragging.floatingEl.style[useCssTransform] = 
           'translate(' + segmentMoveDragging.elX + 'px, ' + segmentMoveDragging.elY + 'px)';
 
       var deg = deltaX;
@@ -1576,12 +1567,12 @@ var main = (function(){
       }
 
       if (useCssTransform) {
-        segmentMoveDragging.el.querySelector('canvas').style[useCssTransform] = 
+        segmentMoveDragging.floatingEl.querySelector('canvas').style[useCssTransform] = 
             'rotateZ(' + deg + 'deg)';
       }
     } else {
-      segmentMoveDragging.el.style.left = segmentMoveDragging.elX + 'px';
-      segmentMoveDragging.el.style.top = segmentMoveDragging.elY + 'px';
+      segmentMoveDragging.floatingEl.style.left = segmentMoveDragging.elX + 'px';
+      segmentMoveDragging.floatingEl.style.top = segmentMoveDragging.elY + 'px';
     }
 
     segmentMoveDragging.mouseX = x;
@@ -1759,7 +1750,7 @@ var main = (function(){
       segmentMoveDragging.originalEl.classList.remove('dragged-out');
     }
 
-    segmentMoveDragging.el.parentNode.removeChild(segmentMoveDragging.el);
+    segmentMoveDragging.floatingEl.parentNode.removeChild(segmentMoveDragging.floatingEl);
 
     segmentMoveDragging.segmentBeforeEl = null;
     segmentMoveDragging.segmentAfterEl = null;

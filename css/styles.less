@@ -372,7 +372,7 @@ body:not(.touch-support) .segment.tool:hover,
   background: rgba(0, 0, 0, .2);
 }
 
-.segment.dragging {
+.segment.floating {
   position: absolute;
   left: 0;
   top: 0;
@@ -387,15 +387,9 @@ body:not(.touch-support) .segment.tool:hover,
 
   -webkit-transition: none !important;
 }
-.segment.dragging.first-drag-move {
+.segment.floating.first-drag-move {
   -webkit-transition: left 250ms, top 250ms, -webkit-transform 250ms !important;
 }
-
-/*.segment.poof {
-  -webkit-transition: -webkit-transform 250ms, opacity 250ms;
-  opacity: 0;
-  -webkit-transform: scaleX(0);
-}*/
 
 body.segment-resize-dragging,
 body.segment-resize-dragging * {
