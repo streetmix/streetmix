@@ -1669,9 +1669,9 @@ var main = (function(){
   function _handleSegmentMoveEnd(event) {
     doNotCreateUndo = false;
 
-    if (!segmentMoveDragging.originalDraggedOut) {
+    if (!segmentMoveDragging.originalDraggedOut && (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_MOVE)) {
       //console.log('a');
-      segmentMoveDragging.originalEl.parentNode.removeChild(segmentMoveDragging.originalEl);
+      //segmentMoveDragging.originalEl.parentNode.removeChild(segmentMoveDragging.originalEl);
       _recalculateSeparators();
       _segmentsChanged();
     }
