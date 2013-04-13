@@ -346,6 +346,28 @@ var main = (function(){
   var retinaMultiplier;
   var useCssTransform;
 
+  // HELPER FUNCTIONS
+  // -------------------------------------------------------------------------
+
+  function _createTimeout(fn, data, delay) {
+    window.setTimeout(function() { fn.call(null, data); }, delay);
+  }
+
+  function _getElAbsolutePos(el) {
+    var pos = [0, 0];
+
+    do {
+      pos[0] += el.offsetLeft + (el.cssTransformLeft || 0);
+      pos[1] += el.offsetTop + (el.cssTransformTop || 0);
+
+      el = el.offsetParent;
+    } while (el);
+
+    return pos;
+  }
+
+  // -------------------------------------------------------------------------
+
   function _setSegmentContents(el, type, segmentWidth, isTool) {
     var segmentInfo = SEGMENT_INFO[type];
 
@@ -1341,19 +1363,6 @@ var main = (function(){
     _updateWidthChart(ownerWidths);
   }
 
-  function _getElAbsolutePos(el) {
-    var pos = [0, 0];
-
-    do {
-      pos[0] += el.offsetLeft + (el.cssTransformLeft || 0);
-      pos[1] += el.offsetTop + (el.cssTransformTop || 0);
-
-      el = el.offsetParent;
-    } while (el);
-
-    return pos;
-  }
-
   function _changeDraggingType(newDraggingType) {
     draggingType = newDraggingType;
 
@@ -2055,10 +2064,6 @@ var main = (function(){
     if (touchSupport) {
       document.body.classList.add('touch-support');
     }
-  }
-
-  function _createTimeout(fn, data, delay) {
-    window.setTimeout(function() { fn.call(null, data); }, delay);
   }
 
   function _startAnimation() {
