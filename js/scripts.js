@@ -305,7 +305,7 @@ var main = (function(){
   var retinaMultiplier;
   var useCssTransform;
 
-  var segmentResizeDragging = {
+  var draggingResize = {
     segmentEl: null,
     floatingEl: null,
     mouseX: null,
@@ -317,7 +317,7 @@ var main = (function(){
     right: false
   };
 
-  var segmentMoveDragging = {
+  var draggingMove = {
     type: null,
     active: false,
     segmentBeforeEl: null,
@@ -327,9 +327,9 @@ var main = (function(){
     el: null,
     elX: null,
     elY: null,
-    originalEl: null,
-    originalWidth: null,
-    shadowElementVisible: false
+    origEl: null,
+    origWidth: null,
+    floatingElVisible: false
   };
 
   var initializing = false;
@@ -953,10 +953,10 @@ var main = (function(){
     for (var i in data.segments) {
       var el = data.segments[i].el;
 
-      if (el == segmentMoveDragging.segmentBeforeEl) {
+      if (el == draggingMove.segmentBeforeEl) {
         left += SEGMENT_DRAG_HOLE;
 
-        if (!segmentMoveDragging.segmentAfterEl) {
+        if (!draggingMove.segmentAfterEl) {
           left += SEGMENT_DRAG_HOLE;
         }
       }
@@ -972,10 +972,10 @@ var main = (function(){
 
       left += width;
 
-      if (el == segmentMoveDragging.segmentAfterEl) {
+      if (el == draggingMove.segmentAfterEl) {
         left += SEGMENT_DRAG_HOLE;
 
-        if (!segmentMoveDragging.segmentBeforeEl) {
+        if (!draggingMove.segmentBeforeEl) {
           left += SEGMENT_DRAG_HOLE;
         }
       }
@@ -1367,27 +1367,27 @@ var main = (function(){
 
     var pos = _getElAbsolutePos(el);
 
-    segmentResizeDragging.right = el.classList.contains('right');
+    draggingResize.right = el.classList.contains('right');
 
-    segmentResizeDragging.floatingEl = document.createElement('div');
-    segmentResizeDragging.floatingEl.classList.add('drag-handle');
-    segmentResizeDragging.floatingEl.classList.add('floating');
+    draggingResize.floatingEl = document.createElement('div');
+    draggingResize.floatingEl.classList.add('drag-handle');
+    draggingResize.floatingEl.classList.add('floating');
 
-    segmentResizeDragging.floatingEl.style.left = pos[0] + 'px';
-    segmentResizeDragging.floatingEl.style.top = pos[1] + 'px';
-    document.body.appendChild(segmentResizeDragging.floatingEl);
+    draggingResize.floatingEl.style.left = pos[0] + 'px';
+    draggingResize.floatingEl.style.top = pos[1] + 'px';
+    document.body.appendChild(draggingResize.floatingEl);
 
-    segmentResizeDragging.mouseX = event.pageX;
-    segmentResizeDragging.mouseY = event.pageY;
+    draggingResize.mouseX = event.pageX;
+    draggingResize.mouseY = event.pageY;
 
-    segmentResizeDragging.elX = pos[0];
-    segmentResizeDragging.elY = pos[1];
+    draggingResize.elX = pos[0];
+    draggingResize.elY = pos[1];
 
-    segmentResizeDragging.origX = segmentResizeDragging.elX;
-    segmentResizeDragging.origWidth = parseFloat(el.segmentEl.getAttribute('width'));
-    segmentResizeDragging.segmentEl = el.segmentEl;
+    draggingResize.origX = draggingResize.elX;
+    draggingResize.origWidth = parseFloat(el.segmentEl.getAttribute('width'));
+    draggingResize.segmentEl = el.segmentEl;
 
-    segmentResizeDragging.segmentEl.classList.add('hover');
+    draggingResize.segmentEl.classList.add('hover');
 
     var segmentInfo = SEGMENT_INFO[el.segmentEl.getAttribute('type')];
 
@@ -1425,32 +1425,32 @@ var main = (function(){
     }
   }
 
-  function _handleSegmentResizeDragging(event) {
+  function _handledraggingResize(event) {
     var x = event.pageX;
     var y = event.pageY;
 
-    var deltaX = x - segmentResizeDragging.mouseX;
-    var deltaY = y - segmentResizeDragging.mouseY;
+    var deltaX = x - draggingResize.mouseX;
+    var deltaY = y - draggingResize.mouseY;
 
     var deltaFromOriginal = 
-        segmentResizeDragging.elX - segmentResizeDragging.origX;
+        draggingResize.elX - draggingResize.origX;
 
-    if (!segmentResizeDragging.right) {
+    if (!draggingResize.right) {
       deltaFromOriginal = -deltaFromOriginal;
     }
 
-    segmentResizeDragging.elX += deltaX;
+    draggingResize.elX += deltaX;
 
-    segmentResizeDragging.floatingEl.style.left = 
-        segmentResizeDragging.elX + 'px';
+    draggingResize.floatingEl.style.left = 
+        draggingResize.elX + 'px';
 
     var width = 
-        segmentResizeDragging.origWidth + deltaFromOriginal / TILE_SIZE * 2;
+        draggingResize.origWidth + deltaFromOriginal / TILE_SIZE * 2;
 
-    _resizeSegment(segmentResizeDragging.segmentEl, width * TILE_SIZE, true, false, true);
+    _resizeSegment(draggingResize.segmentEl, width * TILE_SIZE, true, false, true);
 
-    segmentResizeDragging.mouseX = event.pageX;
-    segmentResizeDragging.mouseY = event.pageY;
+    draggingResize.mouseX = event.pageX;
+    draggingResize.mouseY = event.pageY;
   }  
 
   function _handleSegmentMoveStart(event) {
@@ -1470,92 +1470,92 @@ var main = (function(){
     draggingType = DRAGGING_TYPE_SEGMENT_MOVE;
     document.body.classList.add('segment-move-dragging');
 
-    segmentMoveDragging.originalEl = el;
+    draggingMove.origEl = el;
 
-    segmentMoveDragging.originalType = segmentMoveDragging.originalEl.getAttribute('type');
+    draggingMove.originalType = draggingMove.origEl.getAttribute('type');
 
-    if (segmentMoveDragging.originalEl.classList.contains('tool')) {
-      segmentMoveDragging.type = SEGMENT_DRAGGING_TYPE_CREATE;
-      segmentMoveDragging.originalWidth = 
-          SEGMENT_INFO[segmentMoveDragging.originalType].defaultWidth * TILE_SIZE;
+    if (draggingMove.origEl.classList.contains('tool')) {
+      draggingMove.type = SEGMENT_DRAGGING_TYPE_CREATE;
+      draggingMove.origWidth = 
+          SEGMENT_INFO[draggingMove.originalType].defaultWidth * TILE_SIZE;
     } else {
-      segmentMoveDragging.type = SEGMENT_DRAGGING_TYPE_MOVE;      
-      segmentMoveDragging.originalWidth = 
-          segmentMoveDragging.originalEl.offsetWidth;
+      draggingMove.type = SEGMENT_DRAGGING_TYPE_MOVE;      
+      draggingMove.origWidth = 
+          draggingMove.origEl.offsetWidth;
     }
 
     var pos = _getElAbsolutePos(el);
 
-    segmentMoveDragging.elX = pos[0];
-    segmentMoveDragging.elY = pos[1];
+    draggingMove.elX = pos[0];
+    draggingMove.elY = pos[1];
 
-    if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_CREATE) {
+    if (draggingMove.type == SEGMENT_DRAGGING_TYPE_CREATE) {
       // TODO const
-      segmentMoveDragging.elY -= 340;
-      segmentMoveDragging.elX -= segmentMoveDragging.originalWidth / 3;
+      draggingMove.elY -= 340;
+      draggingMove.elX -= draggingMove.origWidth / 3;
     }
 
-    segmentMoveDragging.mouseX = x;
-    segmentMoveDragging.mouseY = y;
+    draggingMove.mouseX = x;
+    draggingMove.mouseY = y;
 
-    segmentMoveDragging.floatingEl = document.createElement('div');
-    segmentMoveDragging.floatingEl.classList.add('segment');
-    segmentMoveDragging.floatingEl.classList.add('floating');
-    segmentMoveDragging.floatingEl.setAttribute('type', segmentMoveDragging.originalType);
-    _setSegmentContents(segmentMoveDragging.floatingEl, segmentMoveDragging.originalType, segmentMoveDragging.originalWidth);
-    document.body.appendChild(segmentMoveDragging.floatingEl);
+    draggingMove.floatingEl = document.createElement('div');
+    draggingMove.floatingEl.classList.add('segment');
+    draggingMove.floatingEl.classList.add('floating');
+    draggingMove.floatingEl.setAttribute('type', draggingMove.originalType);
+    _setSegmentContents(draggingMove.floatingEl, draggingMove.originalType, draggingMove.origWidth);
+    document.body.appendChild(draggingMove.floatingEl);
 
     if (useCssTransform) {
-      segmentMoveDragging.floatingEl.style[useCssTransform] = 
-          'translate(' + segmentMoveDragging.elX + 'px, ' + segmentMoveDragging.elY + 'px)';
+      draggingMove.floatingEl.style[useCssTransform] = 
+          'translate(' + draggingMove.elX + 'px, ' + draggingMove.elY + 'px)';
     } else {
-      segmentMoveDragging.floatingEl.style.left = segmentMoveDragging.elX + 'px';
-      segmentMoveDragging.floatingEl.style.top = segmentMoveDragging.elY + 'px';
+      draggingMove.floatingEl.style.left = draggingMove.elX + 'px';
+      draggingMove.floatingEl.style.top = draggingMove.elY + 'px';
     }
 
-    if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_MOVE) {
-      segmentMoveDragging.originalEl.classList.add('dragged-out');
+    if (draggingMove.type == SEGMENT_DRAGGING_TYPE_MOVE) {
+      draggingMove.origEl.classList.add('dragged-out');
     }
 
-    segmentMoveDragging.segmentBeforeEl = null;
-    segmentMoveDragging.segmentAfterEl = null;
+    draggingMove.segmentBeforeEl = null;
+    draggingMove.segmentAfterEl = null;
 
-    segmentMoveDragging.shadowElementVisible = false;
+    draggingMove.floatingElVisible = false;
 
-    segmentMoveDragging.floatingEl.classList.add('first-drag-move');
+    draggingMove.floatingEl.classList.add('first-drag-move');
   }
 
 
-  function _handleSegmentMoveDragging(event) {
+  function _handledraggingMove(event) {
     var x = event.pageX;
     var y = event.pageY;
 
-    var deltaX = x - segmentMoveDragging.mouseX;
-    var deltaY = y - segmentMoveDragging.mouseY;
+    var deltaX = x - draggingMove.mouseX;
+    var deltaY = y - draggingMove.mouseY;
 
-    segmentMoveDragging.elX += deltaX;
-    segmentMoveDragging.elY += deltaY;
+    draggingMove.elX += deltaX;
+    draggingMove.elY += deltaY;
 
-    if (!segmentMoveDragging.shadowElementVisible) {
-      segmentMoveDragging.shadowElementVisible = true;
+    if (!draggingMove.floatingElVisible) {
+      draggingMove.floatingElVisible = true;
 
       if (touchSupport) {
         // TODO const
-        if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_CREATE) {
-          segmentMoveDragging.elY -= 100;      
+        if (draggingMove.type == SEGMENT_DRAGGING_TYPE_CREATE) {
+          draggingMove.elY -= 100;      
         } else {
-          segmentMoveDragging.elY -= 50;      
+          draggingMove.elY -= 50;      
         }
       }
 
       window.setTimeout(function() {
-        segmentMoveDragging.floatingEl.classList.remove('first-drag-move');      
+        draggingMove.floatingEl.classList.remove('first-drag-move');      
       }, 100);
     }    
 
     if (useCssTransform) {
-      segmentMoveDragging.floatingEl.style[useCssTransform] = 
-          'translate(' + segmentMoveDragging.elX + 'px, ' + segmentMoveDragging.elY + 'px)';
+      draggingMove.floatingEl.style[useCssTransform] = 
+          'translate(' + draggingMove.elX + 'px, ' + draggingMove.elY + 'px)';
 
       var deg = deltaX;
 
@@ -1567,16 +1567,16 @@ var main = (function(){
       }
 
       if (useCssTransform) {
-        segmentMoveDragging.floatingEl.querySelector('canvas').style[useCssTransform] = 
+        draggingMove.floatingEl.querySelector('canvas').style[useCssTransform] = 
             'rotateZ(' + deg + 'deg)';
       }
     } else {
-      segmentMoveDragging.floatingEl.style.left = segmentMoveDragging.elX + 'px';
-      segmentMoveDragging.floatingEl.style.top = segmentMoveDragging.elY + 'px';
+      draggingMove.floatingEl.style.left = draggingMove.elX + 'px';
+      draggingMove.floatingEl.style.top = draggingMove.elY + 'px';
     }
 
-    segmentMoveDragging.mouseX = x;
-    segmentMoveDragging.mouseY = y;
+    draggingMove.mouseX = x;
+    draggingMove.mouseY = y;
 
     _makeSpaceBetweenSegments(x, y);
   }
@@ -1635,10 +1635,10 @@ var main = (function(){
       }
     }
 
-    if ((selectedSegmentBefore != segmentMoveDragging.segmentBeforeEl) ||
-        (selectedSegmentAfter != segmentMoveDragging.segmentAfterEl)) {
-      segmentMoveDragging.segmentBeforeEl = selectedSegmentBefore;
-      segmentMoveDragging.segmentAfterEl = selectedSegmentAfter;
+    if ((selectedSegmentBefore != draggingMove.segmentBeforeEl) ||
+        (selectedSegmentAfter != draggingMove.segmentAfterEl)) {
+      draggingMove.segmentBeforeEl = selectedSegmentBefore;
+      draggingMove.segmentAfterEl = selectedSegmentAfter;
       _repositionSegments();
     }
   }
@@ -1649,10 +1649,10 @@ var main = (function(){
     }
     switch (draggingType) {
       case DRAGGING_TYPE_SEGMENT_MOVE:
-        _handleSegmentMoveDragging(event);
+        _handledraggingMove(event);
         break;
       case DRAGGING_TYPE_SEGMENT_RESIZE:
-        _handleSegmentResizeDragging(event);
+        _handledraggingResize(event);
         break;
     }
 
@@ -1696,24 +1696,24 @@ var main = (function(){
   function _handleSegmentMoveEnd(event) {
     doNotCreateUndo = false;
 
-    var el = document.elementFromPoint(segmentMoveDragging.mouseX, segmentMoveDragging.mouseY);
+    var el = document.elementFromPoint(draggingMove.mouseX, draggingMove.mouseY);
     while (el && (el.id != 'editable-street-section')) {
       el = el.parentNode;
     }
     var withinCanvas = !!el;
 
     if (!withinCanvas) {
-      if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_MOVE) {
-        segmentMoveDragging.originalEl.parentNode.removeChild(segmentMoveDragging.originalEl);
+      if (draggingMove.type == SEGMENT_DRAGGING_TYPE_MOVE) {
+        draggingMove.origEl.parentNode.removeChild(draggingMove.origEl);
       }
-    } else if (segmentMoveDragging.segmentBeforeEl || segmentMoveDragging.segmentAfterEl) {
-      var width = segmentMoveDragging.originalWidth;
+    } else if (draggingMove.segmentBeforeEl || draggingMove.segmentAfterEl) {
+      var width = draggingMove.origWidth;
 
-      if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_CREATE) {
+      if (draggingMove.type == SEGMENT_DRAGGING_TYPE_CREATE) {
         if ((data.remainingWidth > 0) && (width > data.remainingWidth * TILE_SIZE)) {
 
           var segmentMinWidth = 
-              SEGMENT_INFO[segmentMoveDragging.originalType].minWidth || 0;
+              SEGMENT_INFO[draggingMove.originalType].minWidth || 0;
 
           if ((data.remainingWidth >= MIN_SEGMENT_WIDTH) && 
               (data.remainingWidth >= segmentMinWidth)) {
@@ -1722,38 +1722,38 @@ var main = (function(){
         }
       }
       
-      var newEl = _createSegment(segmentMoveDragging.originalType, width);
+      var newEl = _createSegment(draggingMove.originalType, width);
 
       newEl.classList.add('create');
 
-      if (segmentMoveDragging.segmentBeforeEl) {
+      if (draggingMove.segmentBeforeEl) {
         document.querySelector('#editable-street-section').
-            insertBefore(newEl, segmentMoveDragging.segmentBeforeEl);
+            insertBefore(newEl, draggingMove.segmentBeforeEl);
       } else {
         document.querySelector('#editable-street-section').
-            insertBefore(newEl, segmentMoveDragging.segmentAfterEl.nextSibling);
+            insertBefore(newEl, draggingMove.segmentAfterEl.nextSibling);
       }
 
       window.setTimeout(function() {
         newEl.classList.remove('create');
       }, 100);
 
-      if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_MOVE) {
+      if (draggingMove.type == SEGMENT_DRAGGING_TYPE_MOVE) {
         var draggedOutEl = document.querySelector('.segment.dragged-out');
         draggedOutEl.parentNode.removeChild(draggedOutEl);
       }
 
       _createTouchSegmentFadeout(newEl);
     } else {            
-      _createTouchSegmentFadeout(segmentMoveDragging.originalEl);
+      _createTouchSegmentFadeout(draggingMove.origEl);
 
-      segmentMoveDragging.originalEl.classList.remove('dragged-out');
+      draggingMove.origEl.classList.remove('dragged-out');
     }
 
-    segmentMoveDragging.floatingEl.parentNode.removeChild(segmentMoveDragging.floatingEl);
+    draggingMove.floatingEl.parentNode.removeChild(draggingMove.floatingEl);
 
-    segmentMoveDragging.segmentBeforeEl = null;
-    segmentMoveDragging.segmentAfterEl = null;
+    draggingMove.segmentBeforeEl = null;
+    draggingMove.segmentAfterEl = null;
     _repositionSegments();
     _segmentsChanged();
 
@@ -1777,16 +1777,16 @@ var main = (function(){
     document.body.classList.remove('segment-resize-dragging');
 
     // TODO const
-    var el = segmentResizeDragging.floatingEl;
+    var el = draggingResize.floatingEl;
     window.setTimeout(function() {
       el.parentNode.removeChild(el);
     }, 250);
   
-    segmentResizeDragging.segmentEl.classList.remove('hover');
+    draggingResize.segmentEl.classList.remove('hover');
 
-    _removeGuides(segmentResizeDragging.segmentEl);
+    _removeGuides(draggingResize.segmentEl);
  
-    _createTouchSegmentFadeout(segmentResizeDragging.segmentEl);
+    _createTouchSegmentFadeout(draggingResize.segmentEl);
   }
 
   function _onBodyMouseUp(event) {
