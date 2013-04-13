@@ -2057,30 +2057,6 @@ var main = (function(){
     }
   }
 
-  function _onImagesLoaded() {
-    _resizeStreetWidth();
-
-    _getDefaultSegments();
-
-    _createTools();
-
-    _createDomFromData();
-    _segmentsChanged();
-
-    initializing = false;    
-
-    createUndo = true;
-    lastData = _trimNonUserData();
-
-    _onResize();
-
-    _addEventListeners();
-
-    document.querySelector('#loading').classList.add('hidden');
-
-    _startAnimation();
-  }
-
   function _createTimeout(fn, data, delay) {
     window.setTimeout(function() { fn.call(null, data); }, delay);
   }
@@ -2107,14 +2083,6 @@ var main = (function(){
       _createTimeout(function(el) {
         el.style.webkitTransition = '';
       }, el, 2000);
-    }
-  }
-
-  function _onImageLoaded() {
-    imagesToBeLoaded--;
-
-    if (imagesToBeLoaded == 0) {
-      _onImagesLoaded();
     }
   }
 
@@ -2175,13 +2143,44 @@ var main = (function(){
     document.querySelector('#undo').disabled = !_isUndoAvailable();
     document.querySelector('#redo').disabled = !_isRedoAvailable();
   }
- 
-  main.init = function() {
-    initializing = true;
-    createUndo = false;
 
-    _inspectSystem();
+  function _hideLoadingScreen() {
+    document.querySelector('#loading').classList.add('hidden');
+  }
 
+  function _onImagesLoaded() {
+    _resizeStreetWidth();
+
+    _getDefaultSegments();
+
+    _createTools();
+
+    _createDomFromData();
+    _segmentsChanged();
+
+    initializing = false;    
+
+    createUndo = true;
+    lastData = _trimNonUserData();
+
+    _onResize();
+
+    _addEventListeners();
+
+    _hideLoadingScreen();
+
+    _startAnimation();
+  }
+
+  function _onImageLoaded() {
+    imagesToBeLoaded--;
+
+    if (imagesToBeLoaded == 0) {
+      _onImagesLoaded();
+    }
+  }
+
+  function _loadImages() {
     images = [];
     imagesToBeLoaded = IMAGES_TO_BE_LOADED.length;
 
@@ -2190,7 +2189,15 @@ var main = (function(){
       images[url] = document.createElement('img');
       images[url].addEventListener('load', _onImageLoaded, false);
       images[url].src = url + '?v' + TILESET_IMAGE_VERSION;
-    }
+    }    
+  }
+ 
+  main.init = function() {
+    initializing = true;
+    createUndo = false;
+
+    _inspectSystem();
+    _loadImages();
   }
 
   return main;
