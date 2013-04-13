@@ -1556,10 +1556,8 @@ var main = (function(){
   }
 
   function _handleSegmentMoveDragging(event) {
-      var x = event.pageX;
-      var y = event.pageY;
-
-    // ----
+    var x = event.pageX;
+    var y = event.pageY;
 
     var deltaX = x - segmentMoveDragging.mouseX;
     var deltaY = y - segmentMoveDragging.mouseY;
@@ -1613,7 +1611,6 @@ var main = (function(){
     if (!draggingActive) {
       return;
     }
-
     switch (draggingType) {
       case DRAGGING_TYPE_SEGMENT_MOVE:
         _handleSegmentMoveDragging(event);
@@ -2008,14 +2005,15 @@ var main = (function(){
 
     window.addEventListener('resize', _onResize, false);
 
-    window.addEventListener('mousedown', _onBodyMouseDown, false);
-    window.addEventListener('mousemove', _onBodyMouseMove, false);
-    window.addEventListener('mouseup', _onBodyMouseUp, false); 
-
-    window.addEventListener('touchstart', _onBodyMouseDown, false);
-    window.addEventListener('touchmove', _onBodyMouseMove, false);
-    window.addEventListener('touchend', _onBodyMouseUp, false); 
-
+    if (!touchSupport) {
+      window.addEventListener('mousedown', _onBodyMouseDown, false);
+      window.addEventListener('mousemove', _onBodyMouseMove, false);
+      window.addEventListener('mouseup', _onBodyMouseUp, false); 
+    } else {
+      window.addEventListener('touchstart', _onBodyMouseDown, false);
+      window.addEventListener('touchmove', _onBodyMouseMove, false);
+      window.addEventListener('touchend', _onBodyMouseUp, false); 
+    }
     window.addEventListener('keydown', _onBodyKeyDown, false);       
   }
 
