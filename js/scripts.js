@@ -33,6 +33,7 @@ var main = (function(){
   var CANVAS_HEIGHT = 480;
   var CANVAS_BASELINE = CANVAS_HEIGHT - 35;
 
+  var DRAGGING_TYPE_NONE = 0;
   var DRAGGING_TYPE_SEGMENT_MOVE = 1;
   var DRAGGING_TYPE_SEGMENT_RESIZE = 2;
 
@@ -296,8 +297,7 @@ var main = (function(){
   var undoPosition = 0;
   var doNotCreateUndo = false;
 
-  var draggingActive = false;
-  var draggingType;
+  var draggingType = DRAGGING_TYPE_NONE;
 
   var segmentHoveredEl;
 
@@ -1361,7 +1361,6 @@ var main = (function(){
 
     var el = event.target;
 
-    draggingActive = true;
     draggingType = DRAGGING_TYPE_SEGMENT_RESIZE;
     document.body.classList.add('segment-resize-dragging');
 
@@ -1466,7 +1465,6 @@ var main = (function(){
 
     var el = event.target;
 
-    draggingActive = true;
     draggingType = DRAGGING_TYPE_SEGMENT_MOVE;
     document.body.classList.add('segment-move-dragging');
 
@@ -1644,7 +1642,7 @@ var main = (function(){
   }
 
   function _onBodyMouseMove(event) {
-    if (!draggingActive) {
+    if (draggingType == DRAGGING_TYPE_NONE) {
       return;
     }
     switch (draggingType) {
@@ -1757,7 +1755,7 @@ var main = (function(){
     _repositionSegments();
     _segmentsChanged();
 
-    draggingActive = false;
+    draggingType = DRAGGING_TYPE_NONE;
     document.body.classList.remove('segment-move-dragging');
   }
 
@@ -1773,7 +1771,7 @@ var main = (function(){
 
     _segmentsChanged();
 
-    draggingActive = false;
+    draggingType = DRAGGING_TYPE_NONE;
     document.body.classList.remove('segment-resize-dragging');
 
     // TODO const
@@ -1790,7 +1788,7 @@ var main = (function(){
   }
 
   function _onBodyMouseUp(event) {
-    if (!draggingActive) {
+    if (draggingType == DRAGGING_TYPE_NONE) {
       return;
     }
 
