@@ -291,22 +291,6 @@ var main = (function(){
     segments: []
   };
 
-  var images;
-  var imagesToBeLoaded;  
-
-  var lastData;
-  var undoStack = [];
-  var undoPosition = 0;
-  var createUndo = true;
-
-  var draggingType = DRAGGING_TYPE_NONE;
-
-  var segmentHoveredEl;
-
-  var touchSupport;
-  var retinaMultiplier;
-  var useCssTransform;
-
   var draggingResize = {
     segmentEl: null,
     floatingEl: null,
@@ -344,7 +328,22 @@ var main = (function(){
 
   var streetSectionCanvasLeft;
 
- 
+  var images;
+  var imagesToBeLoaded;  
+
+  var lastData;
+  var undoStack = [];
+  var undoPosition = 0;
+  var createUndo = true;
+
+  var draggingType = DRAGGING_TYPE_NONE;
+
+  var segmentHoveredEl;
+
+  var touchSupport;
+  var retinaMultiplier;
+  var useCssTransform;
+  
   function _setSegmentContents(el, type, segmentWidth, isTool) {
     var segmentInfo = SEGMENT_INFO[type];
 
