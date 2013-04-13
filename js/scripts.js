@@ -1195,6 +1195,7 @@ var main = (function(){
   function _updateWidthChart(ownerWidths) {
     var ctx = document.querySelector('#width-chart').getContext('2d');
 
+    // TODO move up
     var EMPTY_WIDTH = 40;
 
     var CHART_MARGIN = 20;
@@ -1274,6 +1275,7 @@ var main = (function(){
 
     if (data.occupiedWidth < data.streetWidth) {
       ctx.save();
+      // TODO const
       ctx.strokeStyle = 'rgb(100, 100, 100)';
       ctx.fillStyle = 'rgb(100, 100, 100)';
       if (ctx.setLineDash) {
@@ -1433,7 +1435,7 @@ var main = (function(){
     }
   }
 
-  function _handledraggingResize(event) {
+  function _handleSegmentResizeMove(event) {
     var x = event.pageX;
     var y = event.pageY;
 
@@ -1532,7 +1534,7 @@ var main = (function(){
   }
 
 
-  function _handledraggingMove(event) {
+  function _handleSegmentMoveMove(event) {
     var x = event.pageX;
     var y = event.pageY;
 
@@ -1655,10 +1657,10 @@ var main = (function(){
     }
     switch (draggingType) {
       case DRAGGING_TYPE_MOVE:
-        _handledraggingMove(event);
+        _handleSegmentMoveMove(event);
         break;
       case DRAGGING_TYPE_RESIZE:
-        _handledraggingResize(event);
+        _handleSegmentResizeMove(event);
         break;
     }
 
