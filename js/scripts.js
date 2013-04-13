@@ -353,6 +353,12 @@ var main = (function(){
     window.setTimeout(function() { fn.call(null, data); }, delay);
   }
 
+  function _removeElFromDom(el) {
+    if (el && el.parentNode) {
+      el.parentNode.removeChild(el);
+    }
+  }
+
   function _getElAbsolutePos(el) {
     var pos = [0, 0];
 
@@ -409,10 +415,10 @@ var main = (function(){
     var canvasOffsetX = 0;
 
     if (segmentInfo.graphics.left && segmentInfo.graphics.left.offsetX < 0) {
-      var z = -segmentInfo.graphics.left.offsetX * TILE_SIZE;
+      var leftOffset = -segmentInfo.graphics.left.offsetX * TILE_SIZE;
 
-      canvasLeft -= z;
-      maxWidth += z;
+      canvasLeft -= leftOffset;
+      maxWidth += leftOffset;
     }
 
     if (segmentInfo.graphics.right && segmentInfo.graphics.right.offsetX < 0) {
@@ -528,9 +534,7 @@ var main = (function(){
         realHeight * retinaMultiplier * multiplier);
     }
     var currentEl = el.querySelector('canvas');
-    if (currentEl) {
-      currentEl.parentNode.removeChild(currentEl);
-    }
+    _removeElFromDom(currentEl);
     el.appendChild(canvasEl);
   }
 
@@ -1715,7 +1719,7 @@ var main = (function(){
 
     if (!withinCanvas) {
       if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
-        draggingMove.origEl.parentNode.removeChild(draggingMove.origEl);
+        _removeElFromDom(draggingMove.origEl);
       }
     } else if (draggingMove.segmentBeforeEl || draggingMove.segmentAfterEl) {
       var width = draggingMove.origWidth;
@@ -1751,7 +1755,7 @@ var main = (function(){
 
       if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
         var draggedOutEl = document.querySelector('.segment.dragged-out');
-        draggedOutEl.parentNode.removeChild(draggedOutEl);
+        _removeElFromDom(draggedOutEl);
       }
 
       _createTouchSegmentFadeout(newEl);
@@ -1761,7 +1765,7 @@ var main = (function(){
       draggingMove.origEl.classList.remove('dragged-out');
     }
 
-    draggingMove.floatingEl.parentNode.removeChild(draggingMove.floatingEl);
+    _removeElFromDom(draggingMove.floatingEl);
 
     draggingMove.segmentBeforeEl = null;
     draggingMove.segmentAfterEl = null;
@@ -1774,7 +1778,7 @@ var main = (function(){
   function _removeGuides(el) {
     var guideEl;
     while (guideEl = el.querySelector('.guide')) {
-      guideEl.parentNode.removeChild(guideEl);
+      _removeElFromDom(guideEl);
     }
   }
 
@@ -1788,7 +1792,7 @@ var main = (function(){
     // TODO const
     var el = draggingResize.floatingEl;
     window.setTimeout(function() {
-      el.parentNode.removeChild(el);
+      _removeElFromDom(el);
     }, 250);
   
     draggingResize.segmentEl.classList.remove('hover');
@@ -1943,7 +1947,7 @@ var main = (function(){
 
   function _removeSegment(el) {
     if (el && el.parentNode) {
-      el.parentNode.removeChild(el);
+      _removeElFromDom(el);
       _segmentsChanged();
 
       _statusMessage.show('The segment has been deleted. <button>Undo</button>');
