@@ -61,6 +61,8 @@ var main = (function(){
   var SEGMENT_WARNING_WIDTH_TOO_SMALL = 2;
   var SEGMENT_WARNING_WIDTH_TOO_LARGE = 3;
 
+  var CSS_TRANSFORMS = ['webkitTransform', 'MozTransform', 'transform'];
+
   var SEGMENT_OWNER_CAR = 'car';
   var SEGMENT_OWNER_BIKE = 'bike';
   var SEGMENT_OWNER_PEDESTRIAN = 'pedestrian';
@@ -1788,11 +1790,9 @@ var main = (function(){
   }
 
   function _onBodyMouseUp(event) {
-    if (draggingType == DRAGGING_TYPE_NONE) {
-      return;
-    }
-
     switch (draggingType) {
+      case DRAGGING_TYPE_NONE:
+        return;
       case DRAGGING_TYPE_MOVE:
         _handleSegmentMoveEnd(event);
         break;
@@ -1847,8 +1847,7 @@ var main = (function(){
   function _resizeStreetWidth() {
     var width = data.streetWidth * TILE_SIZE;
 
-    document.querySelector('#street-section-canvas').style.width = 
-        (width) + 'px';
+    document.querySelector('#street-section-canvas').style.width = width + 'px';
 
     _onResize();
   }
@@ -1857,12 +1856,14 @@ var main = (function(){
     var viewportWidth = window.innerWidth;
     var viewportHeight = window.innerHeight;
 
-    var streetSectionHeight = document.querySelector('#street-section').offsetHeight;
+    var streetSectionHeight = 
+        document.querySelector('#street-section').offsetHeight;
 
     var toolsTop = document.querySelector('footer').offsetTop;
 
     var pos = (viewportHeight - streetSectionHeight) / 2;
 
+    // TODO const
     if (pos + document.querySelector('#street-section').offsetHeight > 
       toolsTop - 20) {
       pos = toolsTop - 20 - streetSectionHeight;
@@ -1870,7 +1871,8 @@ var main = (function(){
 
     document.querySelector('#street-section').style.top = pos + 'px';
 
-    streetSectionCanvasLeft = ((viewportWidth - data.streetWidth * TILE_SIZE) / 2);
+    streetSectionCanvasLeft = 
+        ((viewportWidth - data.streetWidth * TILE_SIZE) / 2);
 
     document.querySelector('#street-section-canvas').style.left = 
       streetSectionCanvasLeft + 'px';
@@ -1942,62 +1944,9 @@ var main = (function(){
     }
   } 
 
-  function _cheesy3dEffect() {
-
-    var el = document.querySelector('#street-section');
-
-    el.parentNode.style.webkitPerspective = 2000;
-    el.parentNode.style.webkitTransformStyle = 'preserve-3d';
-
-    el.style.webkitTransition = '-webkit-transform 1500ms';
-    el.style.webkitTransform = 'rotateX(-30deg) rotateY(-20deg) translateX(-200px) translateZ(-500px)';
-    el.style.webkitTransformOrigin = '50% 100%';
-
-    var owners = ['pedestrian', 'bike', 'nature', 'public-transit', 'car'];
-
-    var ownerWidths = [0, 0, 0, 0, 0];
-
-    for (var i in data.segments) {
-      var el = data.segments[i].el;
-
-      var owner = owners.indexOf(SEGMENT_INFO[data.segments[i].type].owner);
-
-      var extrude = (4 - owner) * 100;
-
-      //el.style.zIndex = 50000000;
-
-      el.style.webkitTransition = '-webkit-transform ' + (1000 + Math.random() * 200) + 'ms';
-      el.style.webkitTransitionDelay = (1000 + Math.random() * 200) + 'ms';
-
-      el.parentNode.style.webkitPerspective = 1000;
-      el.parentNode.style.webkitPerspectiveOrigin = '50% -50%';
-      el.parentNode.style.webkitTransformStyle = 'preserve-3d';
-
-      el.style.webkitTransform = 'translateX(' + el.savedLeft + 'px) translateZ(' + extrude + 'px)';
-
-      el.extrude = extrude;
-      el.newX = ownerWidths[owner];
-
-      _createTimeout(function(el) { 
-        el.style.webkitTransform = 'translateX(' + el.newX + 'px) translateZ(' + el.extrude + 'px)';
-        el.style.webkitTransitionDelay = 0;
-
-      }, el, 2500 + Math.random() * 200);
-
-      ownerWidths[owner] += el.savedWidth;
-    }
-  }
-
   function _onBodyKeyDown(event) {
     switch (event.keyCode) {
       // TODO make const
-
-      case 82:
-        if (event.metaKey || event.ctrlKey || event.altKey) {
-          return;
-        }
-        _cheesy3dEffect();
-        break;
       case 39: // right arrow
       case 187: // = (or, plus)
         if (event.metaKey || event.ctrlKey || event.altKey) {
@@ -2089,8 +2038,6 @@ var main = (function(){
     }
     window.addEventListener('keydown', _onBodyKeyDown, false);       
   }
-
-  var CSS_TRANSFORMS = ['webkitTransform', 'MozTransform', 'transform'];
 
   function _inspectSystem() {
     touchSupport = Modernizr.touch;
