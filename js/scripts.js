@@ -942,7 +942,7 @@ var main = (function(){
   }
 
   function _repositionSegments() {
-    var left = 0;
+    var left = (data.streetWidth - data.occupiedWidth) / 2 * TILE_SIZE;
 
     for (var i in data.segments) {
       var el = data.segments[i].el;
