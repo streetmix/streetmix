@@ -532,30 +532,21 @@ var main = (function(){
       }
 
       _drawSegmentImage(ctx,
-        rightPositionX, 
-        0, 
-        w, 
-        realHeight, 
+        rightPositionX, 0, w, realHeight, 
         rightTargetX, 
         // TODO const
         (isTool ? 20 : 265) + top, 
-        w * multiplier, 
-        realHeight * multiplier);
+        w * multiplier, realHeight * multiplier);
     }
 
     _drawSegmentImage(ctx,
-      bkPositionX,
-      0, 
-      width, 
-      realHeight, 
+      bkPositionX, 0, width, realHeight, 
       left * multiplier, 
       // TODO const
       (isTool ? 20 : 265) + top, 
-      width * multiplier, 
-      realHeight * multiplier);
+      width * multiplier, realHeight * multiplier);
 
-    var currentEl = el.querySelector('canvas');
-    _removeElFromDom(currentEl);
+    _removeElFromDom(el.querySelector('canvas'));
     el.appendChild(canvasEl);
   }
 
