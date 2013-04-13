@@ -37,8 +37,10 @@ var main = (function(){
   var DRAGGING_TYPE_MOVE = 1;
   var DRAGGING_TYPE_RESIZE = 2;
 
-  var SEGMENT_DRAGGING_TYPE_MOVE = 1;
-  var SEGMENT_DRAGGING_TYPE_CREATE = 2;
+  var DRAGGING_TYPE_MOVE_TRANSFER = 1;
+  var DRAGGING_TYPE_MOVE_CREATE = 2;
+
+  var DRAGGING_MOVE_HOLE_WIDTH = 40;
 
   var WIDTH_RESIZE_DELAY = 100;
   var STATUS_MESSAGE_HIDE_DELAY = 5000;
@@ -945,8 +947,6 @@ var main = (function(){
     _repositionSegments();
   }
 
-  var SEGMENT_DRAG_HOLE = 40;
-
   function _repositionSegments() {
     var left = 0;
 
@@ -954,10 +954,10 @@ var main = (function(){
       var el = data.segments[i].el;
 
       if (el == draggingMove.segmentBeforeEl) {
-        left += SEGMENT_DRAG_HOLE;
+        left += DRAGGING_MOVE_HOLE_WIDTH;
 
         if (!draggingMove.segmentAfterEl) {
-          left += SEGMENT_DRAG_HOLE;
+          left += DRAGGING_MOVE_HOLE_WIDTH;
         }
       }
 
@@ -973,10 +973,10 @@ var main = (function(){
       left += width;
 
       if (el == draggingMove.segmentAfterEl) {
-        left += SEGMENT_DRAG_HOLE;
+        left += DRAGGING_MOVE_HOLE_WIDTH;
 
         if (!draggingMove.segmentBeforeEl) {
-          left += SEGMENT_DRAG_HOLE;
+          left += DRAGGING_MOVE_HOLE_WIDTH;
         }
       }
     }
@@ -1487,11 +1487,11 @@ var main = (function(){
     draggingMove.originalType = draggingMove.origEl.getAttribute('type');
 
     if (draggingMove.origEl.classList.contains('tool')) {
-      draggingMove.type = SEGMENT_DRAGGING_TYPE_CREATE;
+      draggingMove.type = DRAGGING_TYPE_MOVE_CREATE;
       draggingMove.origWidth = 
           SEGMENT_INFO[draggingMove.originalType].defaultWidth * TILE_SIZE;
     } else {
-      draggingMove.type = SEGMENT_DRAGGING_TYPE_MOVE;      
+      draggingMove.type = DRAGGING_TYPE_MOVE_TRANSFER;      
       draggingMove.origWidth = 
           draggingMove.origEl.offsetWidth;
     }
@@ -1501,7 +1501,7 @@ var main = (function(){
     draggingMove.elX = pos[0];
     draggingMove.elY = pos[1];
 
-    if (draggingMove.type == SEGMENT_DRAGGING_TYPE_CREATE) {
+    if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
       // TODO const
       draggingMove.elY -= 340;
       draggingMove.elX -= draggingMove.origWidth / 3;
@@ -1525,7 +1525,7 @@ var main = (function(){
       draggingMove.floatingEl.style.top = draggingMove.elY + 'px';
     }
 
-    if (draggingMove.type == SEGMENT_DRAGGING_TYPE_MOVE) {
+    if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
       draggingMove.origEl.classList.add('dragged-out');
     }
 
@@ -1553,7 +1553,7 @@ var main = (function(){
 
       if (touchSupport) {
         // TODO const
-        if (draggingMove.type == SEGMENT_DRAGGING_TYPE_CREATE) {
+        if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
           draggingMove.elY -= 100;      
         } else {
           draggingMove.elY -= 50;      
@@ -1715,13 +1715,13 @@ var main = (function(){
     var withinCanvas = !!el;
 
     if (!withinCanvas) {
-      if (draggingMove.type == SEGMENT_DRAGGING_TYPE_MOVE) {
+      if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
         draggingMove.origEl.parentNode.removeChild(draggingMove.origEl);
       }
     } else if (draggingMove.segmentBeforeEl || draggingMove.segmentAfterEl) {
       var width = draggingMove.origWidth;
 
-      if (draggingMove.type == SEGMENT_DRAGGING_TYPE_CREATE) {
+      if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
         if ((data.remainingWidth > 0) && (width > data.remainingWidth * TILE_SIZE)) {
 
           var segmentMinWidth = 
@@ -1750,7 +1750,7 @@ var main = (function(){
         newEl.classList.remove('create');
       }, 100);
 
-      if (draggingMove.type == SEGMENT_DRAGGING_TYPE_MOVE) {
+      if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
         var draggedOutEl = document.querySelector('.segment.dragged-out');
         draggedOutEl.parentNode.removeChild(draggedOutEl);
       }
