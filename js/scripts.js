@@ -351,9 +351,11 @@ var main = (function(){
 
   var segmentHoveredEl;
 
-  var touchSupport;
-  var retinaMultiplier;
-  var useCssTransform;
+  var system = {
+    touchSupport: false,
+    hiDpi: 1.0,
+    cssTransform: false
+  };
 
   // HELPER FUNCTIONS
   // -------------------------------------------------------------------------
@@ -438,8 +440,8 @@ var main = (function(){
 
     var canvasEl = document.createElement('canvas');
     canvasEl.classList.add('image');
-    canvasEl.width = maxWidth * retinaMultiplier;
-    canvasEl.height = height * retinaMultiplier;
+    canvasEl.width = maxWidth * system.hiDpi;
+    canvasEl.height = height * system.hiDpi;
     canvasEl.style.width = maxWidth + 'px';
     canvasEl.style.height = height + 'px';
 
@@ -481,11 +483,11 @@ var main = (function(){
             0, 
             w * 2, 
             realHeight * 2, 
-            (repeatStartX + (i * segmentInfo.graphics.repeat.width) * TILE_SIZE) * retinaMultiplier * multiplier, 
+            (repeatStartX + (i * segmentInfo.graphics.repeat.width) * TILE_SIZE) * system.hiDpi * multiplier, 
             // TODO const
-            ((isTool ? 20 : 265) + top) * retinaMultiplier, 
-            w * retinaMultiplier, 
-            realHeight * retinaMultiplier * multiplier);
+            ((isTool ? 20 : 265) + top) * system.hiDpi, 
+            w * system.hiDpi, 
+            realHeight * system.hiDpi * multiplier);
         }
       }
     }      
@@ -500,11 +502,11 @@ var main = (function(){
         0, 
         w * 2, 
         realHeight * 2, 
-        0 * multiplier * retinaMultiplier, 
+        0 * multiplier * system.hiDpi, 
         // TODO const
-        ((isTool ? 20 : 265) + top) * retinaMultiplier, 
-        w * multiplier * retinaMultiplier, 
-        realHeight * retinaMultiplier * multiplier);
+        ((isTool ? 20 : 265) + top) * system.hiDpi, 
+        w * multiplier * system.hiDpi, 
+        realHeight * system.hiDpi * multiplier);
     }
 
     if (segmentInfo.graphics.right) {
@@ -523,11 +525,11 @@ var main = (function(){
         0, 
         w * 2, 
         realHeight * 2, 
-        rightTargetX * retinaMultiplier, 
+        rightTargetX * system.hiDpi, 
         // TODO const
-        ((isTool ? 20 : 265) + top) * retinaMultiplier, 
-        w * retinaMultiplier * multiplier, 
-        realHeight * retinaMultiplier * multiplier);
+        ((isTool ? 20 : 265) + top) * system.hiDpi, 
+        w * system.hiDpi * multiplier, 
+        realHeight * system.hiDpi * multiplier);
     }
 
     if (width > 0) {
@@ -536,11 +538,11 @@ var main = (function(){
         0, 
         width * 2, 
         realHeight * 2, 
-        left * retinaMultiplier * multiplier, 
+        left * system.hiDpi * multiplier, 
         // TODO const
-        ((isTool ? 20 : 265) + top) * retinaMultiplier, 
-        width * retinaMultiplier * multiplier, 
-        realHeight * retinaMultiplier * multiplier);
+        ((isTool ? 20 : 265) + top) * system.hiDpi, 
+        width * system.hiDpi * multiplier, 
+        realHeight * system.hiDpi * multiplier);
     }
     var currentEl = el.querySelector('canvas');
     _removeElFromDom(currentEl);
@@ -1027,8 +1029,8 @@ var main = (function(){
 
       el.savedLeft += mainLeft;
 
-      if (useCssTransform) {
-        el.style[useCssTransform] = 'translateX(' + el.savedLeft + 'px)';
+      if (system.cssTransform) {
+        el.style[system.cssTransform] = 'translateX(' + el.savedLeft + 'px)';
         el.cssTransformLeft = el.savedLeft;
       } else {
         el.style.left = el.savedLeft + 'px';
@@ -1204,10 +1206,10 @@ var main = (function(){
   }
 
   function _drawLine(ctx, x1, y1, x2, y2) {
-    x1 *= retinaMultiplier;
-    y1 *= retinaMultiplier;
-    x2 *= retinaMultiplier;
-    y2 *= retinaMultiplier;
+    x1 *= system.hiDpi;
+    y1 *= system.hiDpi;
+    x2 *= system.hiDpi;
+    y2 *= system.hiDpi;
 
     ctx.beginPath(); 
     ctx.moveTo(x1, y1); 
@@ -1222,9 +1224,9 @@ var main = (function(){
     _drawLine(ctx, x1, y1, x2, y2);
 
     if (text) {
-      ctx.font = (12 * retinaMultiplier) + 'px Arial';
+      ctx.font = (12 * system.hiDpi) + 'px Arial';
       ctx.textAlign = 'center';
-      ctx.fillText(text, (x1 + x2) / 2 * retinaMultiplier, y1 * retinaMultiplier - 10);      
+      ctx.fillText(text, (x1 + x2) / 2 * system.hiDpi, y1 * system.hiDpi - 10);      
     }
   }
 
@@ -1240,8 +1242,8 @@ var main = (function(){
     var canvasWidth = document.querySelector('#width-chart').offsetWidth;
     var canvasHeight = document.querySelector('#width-chart').offsetHeight;
 
-    document.querySelector('#width-chart').width = canvasWidth * retinaMultiplier;
-    document.querySelector('#width-chart').height = canvasHeight * retinaMultiplier;
+    document.querySelector('#width-chart').width = canvasWidth * system.hiDpi;
+    document.querySelector('#width-chart').height = canvasHeight * system.hiDpi;
 
     chartWidth -= CHART_MARGIN * 2;
 
@@ -1300,10 +1302,10 @@ var main = (function(){
             0, 
             images[SEGMENT_OWNERS[id].imageUrl].width, 
             images[SEGMENT_OWNERS[id].imageUrl].height, 
-            (x + width / 2 - imageWidth / 2) * retinaMultiplier, 
-            (80 - imageHeight) * retinaMultiplier,
-            imageWidth * retinaMultiplier, 
-            imageHeight * retinaMultiplier);
+            (x + width / 2 - imageWidth / 2) * system.hiDpi, 
+            (80 - imageHeight) * system.hiDpi,
+            imageWidth * system.hiDpi, 
+            imageHeight * system.hiDpi);
 
         x += width;
       }
@@ -1343,10 +1345,10 @@ var main = (function(){
             0, 
             images[SEGMENT_OWNERS[id].imageUrl].width, 
             images[SEGMENT_OWNERS[id].imageUrl].height, 
-            (x + width / 2 - imageWidth / 2) * retinaMultiplier, 
-            (80 - imageHeight) * retinaMultiplier,
-            imageWidth * retinaMultiplier, 
-            imageHeight * retinaMultiplier);
+            (x + width / 2 - imageWidth / 2) * system.hiDpi, 
+            (80 - imageHeight) * system.hiDpi,
+            imageWidth * system.hiDpi, 
+            imageHeight * system.hiDpi);
         ctx.restore();
         
         x += width;
@@ -1536,8 +1538,8 @@ var main = (function(){
     _setSegmentContents(draggingMove.floatingEl, draggingMove.originalType, draggingMove.origWidth);
     document.body.appendChild(draggingMove.floatingEl);
 
-    if (useCssTransform) {
-      draggingMove.floatingEl.style[useCssTransform] = 
+    if (system.cssTransform) {
+      draggingMove.floatingEl.style[system.cssTransform] = 
           'translate(' + draggingMove.elX + 'px, ' + draggingMove.elY + 'px)';
     } else {
       draggingMove.floatingEl.style.left = draggingMove.elX + 'px';
@@ -1570,7 +1572,7 @@ var main = (function(){
     if (!draggingMove.floatingElVisible) {
       draggingMove.floatingElVisible = true;
 
-      if (touchSupport) {
+      if (system.touchSupport) {
         // TODO const
         if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
           draggingMove.elY -= 100;      
@@ -1584,8 +1586,8 @@ var main = (function(){
       }, 100);
     }    
 
-    if (useCssTransform) {
-      draggingMove.floatingEl.style[useCssTransform] = 
+    if (system.cssTransform) {
+      draggingMove.floatingEl.style[system.cssTransform] = 
           'translate(' + draggingMove.elX + 'px, ' + draggingMove.elY + 'px)';
 
       var deg = deltaX;
@@ -1597,8 +1599,8 @@ var main = (function(){
         deg = -20;
       }
 
-      if (useCssTransform) {
-        draggingMove.floatingEl.querySelector('canvas').style[useCssTransform] = 
+      if (system.cssTransform) {
+        draggingMove.floatingEl.querySelector('canvas').style[system.cssTransform] = 
             'rotateZ(' + deg + 'deg)';
       }
     } else {
@@ -1698,7 +1700,7 @@ var main = (function(){
   }
 
   function _createTouchSegmentFadeout(el) {
-    if (touchSupport) {
+    if (system.touchSupport) {
       _removeTouchSegmentFadeouts();
 
       window.clearTimeout(el.fadeoutTimerId);
@@ -2047,7 +2049,7 @@ var main = (function(){
 
     window.addEventListener('resize', _onResize, false);
 
-    if (!touchSupport) {
+    if (!system.touchSupport) {
       window.addEventListener('mousedown', _onBodyMouseDown, false);
       window.addEventListener('mousemove', _onBodyMouseMove, false);
       window.addEventListener('mouseup', _onBodyMouseUp, false); 
@@ -2060,19 +2062,19 @@ var main = (function(){
   }
 
   function _inspectSystem() {
-    touchSupport = Modernizr.touch;
-    retinaMultiplier = window.devicePixelRatio;    
+    system.touchSupport = Modernizr.touch;
+    system.hiDpi = window.devicePixelRatio;    
 
-    useCssTransform = false;
+    system.cssTransform = false;
     var el = document.createElement('div');
     for (var i in CSS_TRANSFORMS) {
       if (typeof el.style[CSS_TRANSFORMS[i]] != 'undefined') {
-        useCssTransform = CSS_TRANSFORMS[i];
+        system.cssTransform = CSS_TRANSFORMS[i];
         break;
       }
     }
 
-    if (touchSupport) {
+    if (system.touchSupport) {
       document.body.classList.add('touch-support');
     }
   }
