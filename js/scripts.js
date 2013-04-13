@@ -1962,8 +1962,6 @@ var main = (function(){
 
       ownerWidths[owner] += el.savedWidth;
     }
-
-    console.log(ownerWidths);
   }
 
   function _onBodyKeyDown(event) {
@@ -1971,6 +1969,9 @@ var main = (function(){
       // TODO make const
 
       case 82:
+        if (event.metaKey || event.ctrlKey || event.altKey) {
+          return;
+        }
         _cheesy3dEffect();
         break;
       case 39: // right arrow
