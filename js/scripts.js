@@ -948,20 +948,7 @@ var main = (function(){
   var SEGMENT_DRAG_HOLE = 40;
 
   function _repositionSegments() {
-    console.log('reposition segments');
-    
-
-    /*var occupiedWidth = data.occupiedWidth;
-
-    if (draggingActive && draggingType == DRAGGING_TYPE_SEGMENT_MOVE) {
-      if (segmentMoveDragging.segmentBeforeEl || segmentMoveDragging.segmentAfterEl) {
-        occupiedWidth += SEGMENT_DRAG_HOLE * 2 / TILE_SIZE;
-      }
-    }*/
-
-    //console.log(data.occupiedWidth, occupiedWidth);
-
-    var left = 0;//(data.streetWidth - occupiedWidth) / 2 * TILE_SIZE;
+    var left = 0;
 
     for (var i in data.segments) {
       var el = data.segments[i].el;
@@ -974,7 +961,6 @@ var main = (function(){
         }
       }
 
-      //el.style.left = left + 'px';
       if (el.classList.contains('dragged-out')) {
         var width = 0;
       } else {
@@ -1037,8 +1023,6 @@ var main = (function(){
 
       data.occupiedWidth += segment.width;
     }   
-
-    //console.log(data.segments.length, data.occupiedWidth);
 
     data.remainingWidth = (data.streetWidth - data.occupiedWidth);
 
@@ -1436,8 +1420,6 @@ var main = (function(){
   }
 
   function _handleSegmentMoveStart(event) {
-    console.log('MOVE START');
-
     doNotCreateUndo = true;
 
     if (event.touches && event.touches[0]) {
@@ -1449,8 +1431,6 @@ var main = (function(){
     }    
 
     var el = event.target;
-
-    //console.log(el);
 
     draggingActive = true;
     draggingType = DRAGGING_TYPE_SEGMENT_MOVE;
@@ -1472,20 +1452,8 @@ var main = (function(){
 
     var pos = _getElAbsolutePos(el);
 
-/*    var offsetX = event.offsetX || event.layerX;
-    var offsetY = event.offsetY || event.layerY;
-
-    var offsetX = x - pos[0];
-    var offsetY = y - pos[1];
-
-    console.log(x, y);*/
-
     segmentMoveDragging.elX = pos[0];
     segmentMoveDragging.elY = pos[1];
-
-
-    //console.log(event.offsetX, event.offsetY);
-    //console.log(event.layerX, event.layerY);
 
     if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_CREATE) {
       // TODO const
@@ -1512,13 +1480,8 @@ var main = (function(){
     _setSegmentContents(segmentMoveDragging.el, segmentMoveDragging.originalType, segmentMoveDragging.originalWidth);
     document.body.appendChild(segmentMoveDragging.el);
 
-    //console.log('z', segmentMoveDragging.elX, segmentMoveDragging.elY);
-
     segmentMoveDragging.el.style.left = segmentMoveDragging.elX + 'px';
     segmentMoveDragging.el.style.top = segmentMoveDragging.elY + 'px';
-
-    //segmentMoveDragging.el.style.webkitTransform = 
-    //    'translate(' + segmentMoveDragging.elX + 'px, ' + segmentMoveDragging.elY + 'px)';
 
     if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_MOVE) {
       segmentMoveDragging.originalEl.classList.add('dragged-out');
@@ -1558,8 +1521,6 @@ var main = (function(){
         return;
       }
 
-      console.log(el);
-
       _handleSegmentMoveStart(event);
     }
 
@@ -1586,12 +1547,8 @@ var main = (function(){
       }
     }
 
-    //console.log(left, selectedSegment);
-
     if ((selectedSegmentBefore != segmentMoveDragging.segmentBeforeEl) ||
         (selectedSegmentAfter != segmentMoveDragging.segmentAfterEl)) {
-      //selectedSegmentBefore.style.opacity = .2;
-
       segmentMoveDragging.segmentBeforeEl = selectedSegmentBefore;
       segmentMoveDragging.segmentAfterEl = selectedSegmentAfter;
       _repositionSegments();
@@ -1599,22 +1556,8 @@ var main = (function(){
   }
 
   function _handleSegmentMoveDragging(event) {
-    /*if (event.touches && event.touches[0]) {
-      var x = event.touches[0].pageX;
-      var y = event.touches[0].pageY;
-    } else {*/
       var x = event.pageX;
       var y = event.pageY;
-    //}
-
-    // iPad bug or I’m stupid
-    /*if ((x == 0) && (y == 0)) {
-      return;
-    }*/
-
-    //var el = document.elementFromPoint(x, y);
-
-    //console.log(x - streetSectionCanvasLeft);
 
     // ----
 
@@ -1631,10 +1574,6 @@ var main = (function(){
     segmentMoveDragging.mouseY = y;
 
     _makeSpaceBetweenSegments(x, y);
-
-    //console.log(x, y);
-
-    //console.log('a', segmentMoveDragging.elX, segmentMoveDragging.elY);
   }
 
   function _handleSegmentResizeDragging(event) {
@@ -1722,41 +1661,25 @@ var main = (function(){
   }
 
   function _handleSegmentMoveEnd(event) {
-    console.log('MOVE END');
-
     doNotCreateUndo = false;
 
     if (!segmentMoveDragging.originalDraggedOut && (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_MOVE)) {
-      console.log('remove');
       segmentMoveDragging.originalEl.parentNode.removeChild(segmentMoveDragging.originalEl);
       _segmentsChanged();
     }
 
     var el = document.elementFromPoint(segmentMoveDragging.mouseX, segmentMoveDragging.mouseY);
-    //console.log(event);
-
-    //var el = event.target;
     while (el && (el.id != 'editable-street-section')) {
       el = el.parentNode;
     }
     var withinCanvas = !!el;
-    console.log('within', withinCanvas, event.pageX, event.pageY);
 
     if (!withinCanvas) {
-      console.log('remove');
-      //_dragOutOriginalIfNecessary();
-      //segmentMoveDragging.el.parentNode.removeChild(segmentMoveDragging.el);
       if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_MOVE) {
         segmentMoveDragging.originalEl.parentNode.removeChild(segmentMoveDragging.originalEl);
       }
-        //segmentMoveDragging.originalEl.classList.remove('dragged-out');
-      //segmentMoveDragging.originalEl.classList.remove('dragged-out');
 
     } else if (segmentMoveDragging.segmentBeforeEl || segmentMoveDragging.segmentAfterEl) {
-    //var placeEl = document.elementFromPoint(event.pageX, event.pageY);
-
-    //if (placeEl) {
-      //console.log('place', placeEl);
       var width = segmentMoveDragging.originalWidth;
 
       if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_CREATE) {
@@ -1767,8 +1690,6 @@ var main = (function(){
         }
       }
       
-      //console.log(width);
-
       var newEl = _createSegment(segmentMoveDragging.originalType, width);
 
       newEl.classList.add('create');
@@ -1793,18 +1714,9 @@ var main = (function(){
 
       _createTouchSegmentFadeout(el);
     } else {            
-      console.log('click');
-      /*if (!withinCanvas) {
-        console.log('not within');
-        _dragOutOriginalIfNecessary();
-      } else {
-        console.log('within');*/
-        _createTouchSegmentFadeout(segmentMoveDragging.originalEl);
+      _createTouchSegmentFadeout(segmentMoveDragging.originalEl);
 
-        segmentMoveDragging.originalEl.classList.remove('dragged-out');
-      //}
-
-      //segmentMoveDragging.el.parentNode.removeChild(segmentMoveDragging.el);
+      segmentMoveDragging.originalEl.classList.remove('dragged-out');
     }
 
     segmentMoveDragging.el.parentNode.removeChild(segmentMoveDragging.el);
@@ -1943,7 +1855,6 @@ var main = (function(){
 
     streetSectionCanvasLeft = ((viewportWidth - data.streetWidth * TILE_SIZE) / 2);
 
-    //console.log(((viewportWidth - data.streetWidth * TILE_SIZE) / 2));
     document.querySelector('#street-section-canvas').style.left = 
       streetSectionCanvasLeft + 'px';
 
