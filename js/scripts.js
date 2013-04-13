@@ -1926,7 +1926,7 @@ var main = (function(){
     el.parentNode.style.webkitTransformStyle = 'preserve-3d';
 
     el.style.webkitTransition = '-webkit-transform 1500ms';
-    el.style.webkitTransform = 'rotateX(-30deg) translateZ(-500px)';
+    el.style.webkitTransform = 'rotateX(-30deg) rotateY(-20deg) translateX(-200px) translateZ(-500px)';
     el.style.webkitTransformOrigin = '50% 100%';
 
     var owners = ['pedestrian', 'bike', 'nature', 'public-transit', 'car'];
