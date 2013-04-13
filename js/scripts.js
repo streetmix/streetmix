@@ -1747,7 +1747,7 @@ var main = (function(){
         draggedOutEl.parentNode.removeChild(draggedOutEl);
       }
 
-      _createTouchSegmentFadeout(el);
+      _createTouchSegmentFadeout(newEl);
     } else {            
       _createTouchSegmentFadeout(segmentMoveDragging.originalEl);
 
@@ -1763,6 +1763,13 @@ var main = (function(){
 
     draggingActive = false;
     document.body.classList.remove('segment-move-dragging');
+  }
+
+  function _removeGuides(el) {
+    var guideEl;
+    while (guideEl = el.querySelector('.guide')) {
+      guideEl.parentNode.removeChild(guideEl);
+    }
   }
 
   function _handleSegmentResizeEnd(event) {
@@ -1781,10 +1788,9 @@ var main = (function(){
   
     segmentResizeDragging.segmentEl.classList.remove('hover');
 
-    var guideEl;
-    while (guideEl = segmentResizeDragging.segmentEl.querySelector('.guide')) {
-      guideEl.parentNode.removeChild(guideEl);
-    }
+    _removeGuides(segmentResizeDragging.segmentEl);
+ 
+    _createTouchSegmentFadeout(segmentResizeDragging.segmentEl);
   }
 
   function _onBodyMouseUp(event) {
