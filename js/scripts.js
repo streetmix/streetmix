@@ -1038,6 +1038,8 @@ var main = (function(){
       data.occupiedWidth += segment.width;
     }   
 
+    //console.log(data.segments.length, data.occupiedWidth);
+
     data.remainingWidth = (data.streetWidth - data.occupiedWidth);
 
     var position = data.streetWidth / 2 - data.occupiedWidth / 2;
@@ -1741,7 +1743,7 @@ var main = (function(){
     if (!withinCanvas) {
       console.log('remove');
       //_dragOutOriginalIfNecessary();
-      segmentMoveDragging.el.parentNode.removeChild(segmentMoveDragging.el);
+      //segmentMoveDragging.el.parentNode.removeChild(segmentMoveDragging.el);
       segmentMoveDragging.originalEl.parentNode.removeChild(segmentMoveDragging.originalEl);
         //segmentMoveDragging.originalEl.classList.remove('dragged-out');
       //segmentMoveDragging.originalEl.classList.remove('dragged-out');
@@ -1779,7 +1781,8 @@ var main = (function(){
         newEl.classList.remove('create');
       }, 100);
 
-      segmentMoveDragging.el.parentNode.removeChild(segmentMoveDragging.el);
+      var draggedOutEl = document.querySelector('.segment.dragged-out');
+      draggedOutEl.parentNode.removeChild(draggedOutEl);
 
       _createTouchSegmentFadeout(el);
     } else {            
@@ -1794,8 +1797,11 @@ var main = (function(){
         segmentMoveDragging.originalEl.classList.remove('dragged-out');
       //}
 
-      segmentMoveDragging.el.parentNode.removeChild(segmentMoveDragging.el);
+      //segmentMoveDragging.el.parentNode.removeChild(segmentMoveDragging.el);
     }
+
+    segmentMoveDragging.el.parentNode.removeChild(segmentMoveDragging.el);
+
 
     segmentMoveDragging.segmentBeforeEl = null;
     segmentMoveDragging.segmentAfterEl = null;
