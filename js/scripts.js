@@ -1582,6 +1582,17 @@ var main = (function(){
     if (useCssTransform) {
       segmentMoveDragging.el.style[useCssTransform] = 
           'translate(' + segmentMoveDragging.elX + 'px, ' + segmentMoveDragging.elY + 'px)';
+
+      var deg = deltaX;
+
+      if (deg > 20) {
+        deg = 20;
+      }
+      if (deg < -20) {
+        deg = -20;
+      }
+
+      segmentMoveDragging.el.querySelector('canvas').style.webkitTransform = 'rotateZ(' + deg + 'deg)';
     } else {
       segmentMoveDragging.el.style.left = segmentMoveDragging.elX + 'px';
       segmentMoveDragging.el.style.top = segmentMoveDragging.elY + 'px';
@@ -2042,6 +2053,33 @@ var main = (function(){
     _addEventListeners();
 
     document.querySelector('#loading').classList.add('hidden');
+
+    _startAnimation();
+  }
+
+  function _createTimeout(fn, data, delay) {
+    window.setTimeout(function() { fn.call(null, data); }, delay);
+  }
+
+  function _startAnimation() {
+    for (var i in data.segments) {
+      var el = data.segments[i].el.querySelector('canvas');
+
+      el.style.opacity = 0;
+
+      var deg = (parseInt(i) - data.segments.length / 2) * 20;
+
+      el.style.webkitTransform = 'rotateZ(' + deg + 'deg)';
+      el.style.webkitTransformOrigin = '50% 150%';
+
+      el.parentNode.style.webkitPerspectiveOrigin = '50% 50%';
+
+      _createTimeout(function(el) { 
+        el.style.webkitTransition = '-webkit-transform 800ms, opacity 800ms';
+        el.style.opacity = 1;
+        el.style.webkitTransform = 'none';
+      }, el, 300 + Math.random() * 50);
+    }
   }
 
   function _onImageLoaded() {
