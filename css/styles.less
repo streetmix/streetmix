@@ -268,6 +268,8 @@ footer h1 {
   position: absolute;
   height: @canvasHeight;
   text-align: left;
+
+  -webkit-transform: translateZ(0);
 }
 .segment {
   height: @canvasHeight + 85;
@@ -703,9 +705,9 @@ body.segment-move-dragging * {
   cursor: -moz-grabbing !important;
 }
 body.segment-move-dragging #editable-street-section .segment {
-  -webkit-transition: left 100ms;
-  -moz-transition: left 100ms;
-  transition: left 100ms;
+  -webkit-transition: left 100ms, -webkit-transform 100ms;
+  -moz-transition: left 100ms, -moz-transform 100ms;
+  transition: left 100ms, moz-transform 100ms;
 }
 
 body.segment-move-dragging #editable-street-section > div {

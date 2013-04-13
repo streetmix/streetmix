@@ -304,6 +304,7 @@ var main = (function(){
 
   var touchSupport;
   var retinaMultiplier;
+  var useCssTransform;
 
   var segmentResizeDragging = {
     segmentEl: null,
@@ -989,7 +990,13 @@ var main = (function(){
       var el = data.segments[i].el;
 
       el.savedLeft += mainLeft;
-      el.style.left = el.savedLeft + 'px';
+
+      if (useCssTransform) {
+        el.style[useCssTransform] = 'translateX(' + el.savedLeft + 'px)';
+        el.cssTransformLeft = el.savedLeft;
+      } else {
+        el.style.left = el.savedLeft + 'px';
+      }
     }
   }
 
@@ -1340,9 +1347,16 @@ var main = (function(){
   function _getElAbsolutePos(el) {
     var pos = [0, 0];
 
+    /*if (useCssTransform) {
+      var st = window.getComputedStyle(el, null);
+      console.log(st);
+
+      console.log(st.getPropertyValue('webkitTransform'));
+    }*/
+
     do {
-      pos[0] += el.offsetLeft;
-      pos[1] += el.offsetTop;
+      pos[0] += el.offsetLeft + (el.cssTransformLeft || 0);
+      pos[1] += el.offsetTop + (el.cssTransformTop || 0);
 
       el = el.offsetParent;
     } while (el);
@@ -1480,8 +1494,13 @@ var main = (function(){
     _setSegmentContents(segmentMoveDragging.el, segmentMoveDragging.originalType, segmentMoveDragging.originalWidth);
     document.body.appendChild(segmentMoveDragging.el);
 
-    segmentMoveDragging.el.style.left = segmentMoveDragging.elX + 'px';
-    segmentMoveDragging.el.style.top = segmentMoveDragging.elY + 'px';
+    if (useCssTransform) {
+      segmentMoveDragging.el.style[useCssTransform] = 
+          'translate(' + segmentMoveDragging.elX + 'px, ' + segmentMoveDragging.elY + 'px)';
+    } else {
+      segmentMoveDragging.el.style.left = segmentMoveDragging.elX + 'px';
+      segmentMoveDragging.el.style.top = segmentMoveDragging.elY + 'px';
+    }
 
     if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_MOVE) {
       segmentMoveDragging.originalEl.classList.add('dragged-out');
@@ -1565,8 +1584,16 @@ var main = (function(){
     segmentMoveDragging.elX += deltaX;
     segmentMoveDragging.elY += deltaY;
 
-    segmentMoveDragging.el.style.left = segmentMoveDragging.elX + 'px';
-    segmentMoveDragging.el.style.top = segmentMoveDragging.elY + 'px';
+    if (useCssTransform) {
+      segmentMoveDragging.el.style[useCssTransform] = 
+          'translate(' + segmentMoveDragging.elX + 'px, ' + segmentMoveDragging.elY + 'px)';
+    } else {
+      segmentMoveDragging.el.style.left = segmentMoveDragging.elX + 'px';
+      segmentMoveDragging.el.style.top = segmentMoveDragging.elY + 'px';
+    }
+
+//    segmentMoveDragging.el.style.left = segmentMoveDragging.elX + 'px';
+//    segmentMoveDragging.el.style.top = segmentMoveDragging.elY + 'px';
 
     segmentMoveDragging.mouseX = x;
     segmentMoveDragging.mouseY = y;
@@ -1660,11 +1687,6 @@ var main = (function(){
   function _handleSegmentMoveEnd(event) {
     doNotCreateUndo = false;
 
-    if (!segmentMoveDragging.originalDraggedOut && (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_MOVE)) {
-      segmentMoveDragging.originalEl.parentNode.removeChild(segmentMoveDragging.originalEl);
-      _segmentsChanged();
-    }
-
     var el = document.elementFromPoint(segmentMoveDragging.mouseX, segmentMoveDragging.mouseY);
     while (el && (el.id != 'editable-street-section')) {
       el = el.parentNode;
@@ -1675,7 +1697,6 @@ var main = (function(){
       if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_MOVE) {
         segmentMoveDragging.originalEl.parentNode.removeChild(segmentMoveDragging.originalEl);
       }
-
     } else if (segmentMoveDragging.segmentBeforeEl || segmentMoveDragging.segmentAfterEl) {
       var width = segmentMoveDragging.originalWidth;
 
@@ -1703,7 +1724,6 @@ var main = (function(){
         newEl.classList.remove('create');
       }, 100);
 
-
       if (segmentMoveDragging.type == SEGMENT_DRAGGING_TYPE_MOVE) {
         var draggedOutEl = document.querySelector('.segment.dragged-out');
         draggedOutEl.parentNode.removeChild(draggedOutEl);
@@ -1717,7 +1737,6 @@ var main = (function(){
     }
 
     segmentMoveDragging.el.parentNode.removeChild(segmentMoveDragging.el);
-
 
     segmentMoveDragging.segmentBeforeEl = null;
     segmentMoveDragging.segmentAfterEl = null;
@@ -2017,9 +2036,20 @@ var main = (function(){
     window.addEventListener('keydown', _onBodyKeyDown, false);       
   }
 
+  var CSS_TRANSFORMS = ['webkitTransform', 'MozTransform', 'transform'];
+
   function _inspectSystem() {
     touchSupport = Modernizr.touch;
     retinaMultiplier = window.devicePixelRatio;    
+
+    useCssTransform = false;
+    var el = document.createElement('div');
+    for (var i in CSS_TRANSFORMS) {
+      if (typeof el.style[CSS_TRANSFORMS[i]] != 'undefined') {
+        useCssTransform = CSS_TRANSFORMS[i];
+        break;
+      }
+    }
   }
 
   function _onImagesLoaded() {
