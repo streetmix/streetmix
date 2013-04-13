@@ -4,11 +4,9 @@
  * Front-end (mostly) by Marcin Wichary, Code for America fellow in 2013.
  *
  * Note: This code is really gnarly. It’s been done under a lot of time 
- * pressure and there’s a lot of shortcut and tech debt.
- * 
- * We are planning to work on this much more, but probably no sooner than
- * March in the earnest.
-*/
+ * pressure and there’s a lot of shortcut and tech debt. Slowly going through
+ * this all.
+ */
 
 var main = (function(){
 "use strict";
