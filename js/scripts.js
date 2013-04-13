@@ -867,14 +867,14 @@ var main = (function(){
       innerEl.addEventListener('click', _onRemoveButtonClick, false);
       commandsEl.appendChild(innerEl);        
 
-      var innerEl = document.createElement('button');
+      /*var innerEl = document.createElement('button');
       innerEl.classList.add('info');
       innerEl.segmentEl = el;
       innerEl.tabIndex = -1;
       innerEl.addEventListener('mouseover', _onInfoButtonMouseOver, false);
       innerEl.addEventListener('mouseout', _onInfoButtonMouseOut, false);
       innerEl.addEventListener('click', _onInfoButtonClick, false);
-      commandsEl.appendChild(innerEl);        
+      commandsEl.appendChild(innerEl); */
 
       el.appendChild(commandsEl);
 
@@ -1345,13 +1345,6 @@ var main = (function(){
   function _getElAbsolutePos(el) {
     var pos = [0, 0];
 
-    /*if (useCssTransform) {
-      var st = window.getComputedStyle(el, null);
-      console.log(st);
-
-      console.log(st.getPropertyValue('webkitTransform'));
-    }*/
-
     do {
       pos[0] += el.offsetLeft + (el.cssTransformLeft || 0);
       pos[1] += el.offsetTop + (el.cssTransformTop || 0);
@@ -1592,7 +1585,10 @@ var main = (function(){
         deg = -20;
       }
 
-      segmentMoveDragging.el.querySelector('canvas').style.webkitTransform = 'rotateZ(' + deg + 'deg)';
+      if (useCssTransform) {
+        segmentMoveDragging.el.querySelector('canvas').style[useCssTransform] = 
+            'rotateZ(' + deg + 'deg)';
+      }
     } else {
       segmentMoveDragging.el.style.left = segmentMoveDragging.elX + 'px';
       segmentMoveDragging.el.style.top = segmentMoveDragging.elY + 'px';
