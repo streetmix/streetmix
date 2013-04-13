@@ -1356,13 +1356,28 @@ var main = (function(){
     return pos;
   }
 
+  function _changeDraggingType(newDraggingType) {
+    draggingType = newDraggingType;
+
+    document.body.classList.remove('segment-move-dragging');
+    document.body.classList.remove('segment-resize-dragging');
+
+    switch (draggingType) {
+      case DRAGGING_TYPE_SEGMENT_RESIZE:
+        document.body.classList.add('segment-resize-dragging');
+        break;
+      case DRAGGING_TYPE_SEGMENT_MOVE:
+        document.body.classList.add('segment-move-dragging');
+        break;
+    }
+  }
+
   function _handleSegmentResizeStart(event) {
     createUndo = false;
 
     var el = event.target;
 
-    draggingType = DRAGGING_TYPE_SEGMENT_RESIZE;
-    document.body.classList.add('segment-resize-dragging');
+    _changeDraggingType(DRAGGING_TYPE_SEGMENT_RESIZE);
 
     var pos = _getElAbsolutePos(el);
 
@@ -1465,8 +1480,7 @@ var main = (function(){
 
     var el = event.target;
 
-    draggingType = DRAGGING_TYPE_SEGMENT_MOVE;
-    document.body.classList.add('segment-move-dragging');
+    _changeDraggingType(DRAGGING_TYPE_SEGMENT_MOVE);
 
     draggingMove.origEl = el;
 
@@ -1755,8 +1769,7 @@ var main = (function(){
     _repositionSegments();
     _segmentsChanged();
 
-    draggingType = DRAGGING_TYPE_NONE;
-    document.body.classList.remove('segment-move-dragging');
+    _changeDraggingType(DRAGGING_TYPE_NONE);
   }
 
   function _removeGuides(el) {
@@ -1771,8 +1784,7 @@ var main = (function(){
 
     _segmentsChanged();
 
-    draggingType = DRAGGING_TYPE_NONE;
-    document.body.classList.remove('segment-resize-dragging');
+    _changeDraggingType(DRAGGING_TYPE_NONE);
 
     // TODO const
     var el = draggingResize.floatingEl;
