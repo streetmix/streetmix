@@ -343,7 +343,7 @@ var main = (function(){
   var touchSupport;
   var retinaMultiplier;
   var useCssTransform;
-  
+
   function _setSegmentContents(el, type, segmentWidth, isTool) {
     var segmentInfo = SEGMENT_INFO[type];
 
@@ -686,6 +686,7 @@ var main = (function(){
     if (widthEditCanvasEl) {
       if (width < MIN_WIDTH_EDIT_CANVAS_WIDTH) {
         widthEditCanvasEl.style.width = MIN_WIDTH_EDIT_CANVAS_WIDTH + 'px';
+        // TODO const
         widthEditCanvasEl.style.marginLeft = 
             ((width - MIN_WIDTH_EDIT_CANVAS_WIDTH) / 2 - 20) + 'px';
       } else {
@@ -712,6 +713,7 @@ var main = (function(){
 
     infoBubbleEl.style.left = left + 'px';
     infoBubbleEl.style.height = infoBubbleHeight + 'px';
+    // TODO const
     infoBubbleEl.style.top = (top + 510 - infoBubbleHeight) + 'px';
 
     var segment = data.segments[parseInt(segmentEl.dataNo)];
@@ -779,7 +781,8 @@ var main = (function(){
     window.clearTimeout(infoButtonHoverTimerId);
 
     // TODO const
-    infoButtonHoverTimerId = window.setTimeout(function() { _showInfoBubble(segmentEl); }, 250);
+    infoButtonHoverTimerId = 
+        window.setTimeout(function() { _showInfoBubble(segmentEl); }, 250);
   }
 
   function _onInfoButtonMouseOut(event) {
@@ -855,7 +858,6 @@ var main = (function(){
       dragHandleEl.segmentEl = el;
       dragHandleEl.innerHTML = '›';
       el.appendChild(dragHandleEl);
-
 
       var commandsEl = document.createElement('span');
       commandsEl.classList.add('commands');
@@ -1076,6 +1078,7 @@ var main = (function(){
     if (!initializing) {
       _createDataFromDom();
     }
+
     _recalculateWidth();
     _recalculateOwnerWidths();
 
@@ -1086,16 +1089,23 @@ var main = (function(){
     }
 
     _createUndoIfNecessary();
-
     _updateUndoButtons();
 
     _repositionSegments();
   }
 
-  function _undo() {
-    if (_isUndoAvailable()) {
-      undoStack[undoPosition] = _trimNonUserData();
-      undoPosition--;
+  function _undoRedo(undo) {
+    if (undo && !_isUndoAvailable()) {
+      _statusMessage.show('Nothing to undo.');
+    } else if (!undo && !_isRedoAvailable()) {
+      _statusMessage.show('Nothing to redo.');     
+    } else {
+      if (undo) {
+        undoStack[undoPosition] = _trimNonUserData();
+        undoPosition--;
+      } else {
+        undoPosition++;
+      }
       data = undoStack[undoPosition];
 
       createUndo = false;
@@ -1108,30 +1118,15 @@ var main = (function(){
       lastData = _trimNonUserData();
 
       _statusMessage.hide();
-    } else {
-      _statusMessage.show('Nothing to undo.')
     }
   }
 
+  function _undo() {
+    _undoRedo(true);
+  }
+
   function _redo() {
-    if (_isRedoAvailable()) {
-      undoPosition++;
-      data = undoStack[undoPosition];
-
-      createUndo = false;
-      _createDomFromData();
-      _segmentsChanged();
-      _resizeStreetWidth();
-      createUndo = true;
-
-      _updateUndoButtons();
-      lastData = _trimNonUserData();
-
-      _statusMessage.hide();
-    } else {
-      _statusMessage.show('Nothing to redo.')
-    }
-
+    _undoRedo(false);
   }
 
   function _createUndoIfNecessary() {
