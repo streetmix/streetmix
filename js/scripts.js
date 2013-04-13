@@ -1732,13 +1732,15 @@ var main = (function(){
       _segmentsChanged();
     }
 
-    var el = event.target;
+    var el = document.elementFromPoint(segmentMoveDragging.mouseX, segmentMoveDragging.mouseY);
+    //console.log(event);
+
+    //var el = event.target;
     while (el && (el.id != 'editable-street-section')) {
       el = el.parentNode;
     }
     var withinCanvas = !!el;
-    console.log('within', withinCanvas);
-
+    console.log('within', withinCanvas, event.pageX, event.pageY);
 
     if (!withinCanvas) {
       console.log('remove');
