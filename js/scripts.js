@@ -30,7 +30,6 @@ var main = (function(){
   var WIDTH_TOOL_MULTIPLIER = 4;
 
   var TILE_SIZE = 12; // pixels
-  var CANVAS_WIDTH = 10000;
   var CANVAS_HEIGHT = 480;
   var CANVAS_BASELINE = CANVAS_HEIGHT - 35;
 
