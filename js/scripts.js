@@ -1918,9 +1918,61 @@ var main = (function(){
     }
   } 
 
+  function _cheesy3dEffect() {
+
+    var el = document.querySelector('#street-section');
+
+    el.parentNode.style.webkitPerspective = 2000;
+    el.parentNode.style.webkitTransformStyle = 'preserve-3d';
+
+    el.style.webkitTransition = '-webkit-transform 1500ms';
+    el.style.webkitTransform = 'rotateX(-30deg) translateZ(-500px)';
+    el.style.webkitTransformOrigin = '50% 100%';
+
+    var owners = ['pedestrian', 'bike', 'nature', 'public-transit', 'car'];
+
+    var ownerWidths = [0, 0, 0, 0, 0];
+
+    for (var i in data.segments) {
+      var el = data.segments[i].el;
+
+      var owner = owners.indexOf(SEGMENT_INFO[data.segments[i].type].owner);
+
+      var extrude = (4 - owner) * 100;
+
+      //el.style.zIndex = 50000000;
+
+      el.style.webkitTransition = '-webkit-transform ' + (1000 + Math.random() * 200) + 'ms';
+      el.style.webkitTransitionDelay = (1000 + Math.random() * 200) + 'ms';
+
+      el.parentNode.style.webkitPerspective = 1000;
+      el.parentNode.style.webkitPerspectiveOrigin = '50% -50%';
+      el.parentNode.style.webkitTransformStyle = 'preserve-3d';
+
+      el.style.webkitTransform = 'translateX(' + el.savedLeft + 'px) translateZ(' + extrude + 'px)';
+
+      el.extrude = extrude;
+      el.newX = ownerWidths[owner];
+
+      _createTimeout(function(el) { 
+        el.style.webkitTransform = 'translateX(' + el.newX + 'px) translateZ(' + el.extrude + 'px)';
+        el.style.webkitTransitionDelay = 0;
+
+      }, el, 2500 + Math.random() * 200);
+
+      ownerWidths[owner] += el.savedWidth;
+    }
+
+    console.log(ownerWidths);
+  }
+
   function _onBodyKeyDown(event) {
     switch (event.keyCode) {
       // TODO make const
+
+      case 82:
+        _cheesy3dEffect();
+        break;
       case 39: // right arrow
       case 187: // = (or, plus)
         if (event.metaKey || event.ctrlKey || event.altKey) {
