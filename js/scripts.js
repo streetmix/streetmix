@@ -1735,8 +1735,18 @@ var main = (function(){
       el = el.parentNode;
     }
     var withinCanvas = !!el;
+    console.log('within', withinCanvas);
 
-    if (segmentMoveDragging.segmentBeforeEl || segmentMoveDragging.segmentAfterEl) {
+
+    if (!withinCanvas) {
+      console.log('remove');
+      //_dragOutOriginalIfNecessary();
+      segmentMoveDragging.el.parentNode.removeChild(segmentMoveDragging.el);
+      segmentMoveDragging.originalEl.parentNode.removeChild(segmentMoveDragging.originalEl);
+        //segmentMoveDragging.originalEl.classList.remove('dragged-out');
+      //segmentMoveDragging.originalEl.classList.remove('dragged-out');
+
+    } else if (segmentMoveDragging.segmentBeforeEl || segmentMoveDragging.segmentAfterEl) {
     //var placeEl = document.elementFromPoint(event.pageX, event.pageY);
 
     //if (placeEl) {
@@ -1765,12 +1775,6 @@ var main = (function(){
             insertBefore(newEl, segmentMoveDragging.segmentAfterEl.nextSibling);
       }
 
-      segmentMoveDragging.segmentBeforeEl = null;
-      segmentMoveDragging.segmentAfterEl = null;
-
-      _repositionSegments();
-      _segmentsChanged();
-
       window.setTimeout(function() {
         newEl.classList.remove('create');
       }, 100);
@@ -1779,16 +1783,24 @@ var main = (function(){
 
       _createTouchSegmentFadeout(el);
     } else {            
-      if (!withinCanvas) {
+      console.log('click');
+      /*if (!withinCanvas) {
+        console.log('not within');
         _dragOutOriginalIfNecessary();
       } else {
+        console.log('within');*/
         _createTouchSegmentFadeout(segmentMoveDragging.originalEl);
 
         segmentMoveDragging.originalEl.classList.remove('dragged-out');
-      }
+      //}
 
       segmentMoveDragging.el.parentNode.removeChild(segmentMoveDragging.el);
     }
+
+    segmentMoveDragging.segmentBeforeEl = null;
+    segmentMoveDragging.segmentAfterEl = null;
+    _repositionSegments();
+    _segmentsChanged();
 
     draggingActive = false;
     document.body.classList.remove('segment-move-dragging');
@@ -1919,6 +1931,9 @@ var main = (function(){
     //console.log(((viewportWidth - data.streetWidth * TILE_SIZE) / 2));
     document.querySelector('#street-section-canvas').style.left = 
       streetSectionCanvasLeft + 'px';
+
+    document.querySelector('#editable-street-section').style.width = 
+      (data.streetWidth * TILE_SIZE) + 'px';
   }
 
   function _getDefaultSegments() {
