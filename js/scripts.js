@@ -16,6 +16,7 @@ var main = (function(){
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
   var TILESET_POINT_PER_PIXEL = 2.0;
+  var TILE_SIZE = 12; // pixels
 
   var IMAGES_TO_BE_LOADED = [
     'images/tiles.png',
@@ -28,7 +29,6 @@ var main = (function(){
 
   var WIDTH_TOOL_MULTIPLIER = 4;
 
-  var TILE_SIZE = 12; // pixels
   var CANVAS_HEIGHT = 480;
   var CANVAS_BASELINE = CANVAS_HEIGHT - 35;
 
@@ -1839,18 +1839,28 @@ var main = (function(){
     for (var i in SEGMENT_INFO) {
       var segmentInfo = SEGMENT_INFO[i];
 
-      var width = segmentInfo.defaultWidth + 1;
+      var width = segmentInfo.defaultWidth;
+
+      if (segmentInfo.realWidth > segmentInfo.defaultWidth) {
+        width = segmentInfo.realWidth;
+      }
 
       if (segmentInfo.graphics.center && (width < (segmentInfo.graphics.center.width + 1))) {
-        width = segmentInfo.graphics.center.width + 1;
+        width = segmentInfo.graphics.center.width;
       }
 
       if (segmentInfo.graphics.left && segmentInfo.graphics.left.offsetX) {
         width -= segmentInfo.graphics.left.offsetX;
       }
+      if (segmentInfo.graphics.right && segmentInfo.graphics.right.offsetX) {
+        width -= segmentInfo.graphics.right.offsetX;
+      }
+
+      // TODO const
+      width += 4;
 
       var el = _createSegment(i, 
-        width * WIDTH_TOOL_MULTIPLIER, 
+        width * TILE_SIZE / WIDTH_TOOL_MULTIPLIER, 
         false, 
         true);
 
