@@ -491,10 +491,7 @@ var main = (function(){
         }
 
         _drawSegmentImage(ctx,
-          repeatPositionX, 
-          0, 
-          w, 
-          realHeight, 
+          repeatPositionX, 0, w, realHeight, 
           (repeatStartX + (i * segmentInfo.graphics.repeat.width) * TILE_SIZE) * multiplier, 
           // TODO const
           ((isTool ? 20 : 265) + top), 
@@ -509,15 +506,11 @@ var main = (function(){
       var w = segmentInfo.graphics.left.width * TILE_SIZE;
 
       _drawSegmentImage(ctx,
-          leftPositionX, 
-          0, 
-          w, 
-          realHeight, 
+          leftPositionX, 0, w, realHeight, 
           0,
           // TODO const
           ((isTool ? 20 : 265) + top), 
-          w * multiplier, 
-          realHeight * multiplier);
+          w * multiplier, realHeight * multiplier);
     }
 
     if (segmentInfo.graphics.right) {
