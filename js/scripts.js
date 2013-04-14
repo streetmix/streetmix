@@ -1627,6 +1627,10 @@ var main = (function(){
     draggingMove.mouseY = y;
 
     _makeSpaceBetweenSegments(x, y);
+
+    if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
+      document.querySelector('#trashcan').classList.add('visible');
+    }
   }
 
 
@@ -1804,6 +1808,8 @@ var main = (function(){
     draggingMove.segmentAfterEl = null;
     _repositionSegments();
     _segmentsChanged();
+
+    document.querySelector('#trashcan').classList.remove('visible');
 
     _changeDraggingType(DRAGGING_TYPE_NONE);
   }

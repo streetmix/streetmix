@@ -215,6 +215,36 @@ footer {
 
   overflow-x: scroll;
   overflow-y: hidden;
+
+  position: relative;
+}
+#trashcan {
+  position: absolute;
+  left: 40px;
+  right: 40px;
+  top: 6px;
+  height: @toolsHeight - 2 * 8px;
+  line-height: @toolsHeight - 2 * 8px;
+  z-index: 5000;
+  border: 3px dashed rgb(150, 150, 150);
+  border-radius: 20px;
+
+  text-align: center;
+
+  color: rgb(150, 150, 150);
+  font-size: 24px;
+  font-weight: bold;
+  font-family: sans-serif;
+
+  background: rgb(220, 220, 220);
+
+  pointer-events: none;
+  opacity: 0;
+  -webkit-transition: opacity 100ms;
+}
+#trashcan.visible {
+  -webkit-transition: opacity 250ms;
+  opacity: 1;
 }
 
 #undo {
