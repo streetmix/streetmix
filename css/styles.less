@@ -540,6 +540,7 @@ body:not(.touch-support) .segment:hover.warning .name,
   pointer-events: none;
 }
 body:not(.touch-support) .segment:not(.unmovable):hover .width-edit-canvas,
+.segment:not(.unmovable).fade-out-end .width-edit-canvas,
 .segment:not(.unmovable).hover .width-edit-canvas {
   pointer-events: auto;
 
@@ -552,9 +553,13 @@ body:not(.touch-support) .segment:not(.unmovable):hover .width-edit-canvas,
   margin-bottom: -20px;
   border-bottom: 20px solid transparent;
 
-  .background-dirt-highlight;
-
   background-clip: content-box;
+}
+
+body:not(.touch-support) .segment:not(.unmovable):hover .width-edit-canvas,
+.segment:not(.unmovable).hover .width-edit-canvas {
+  // TODO:; I hate this hack.
+  .background-dirt-highlight;
 }
 
 .segment button {
@@ -563,7 +568,7 @@ body:not(.touch-support) .segment:not(.unmovable):hover .width-edit-canvas,
   line-height: 25px;
   vertical-align: top;
 
-  background: transparent;
+  background: @backgroundDirtColour;
   padding: 0;
   margin: 0 1px;
   border: 1px solid rgba(255, 255, 255, .2);
@@ -639,6 +644,10 @@ body.info-bubble-visible .segment .width-edit-canvas {
   font-style: italic;  
 
   opacity: 0;
+}
+.segment .width-edit-placeholder {
+  width: 40px;
+  display: inline-block;
 }
 body:not(.touch-support) .segment:not(.unmovable):hover .width-edit,
 .segment:not(.unmovable).hover .width-edit {
@@ -720,7 +729,7 @@ body.segment-move-dragging #editable-street-section > div {
 }
 .segment:not(.unmovable).fade-out-end .drag-handle,
 .segment:not(.unmovable).fade-out-end .remove,
-.segment:not(.unmovable).fade-out-start .width-edit-canvas,
+.segment:not(.unmovable).fade-out-end .width-edit-canvas,
 .segment:not(.unmovable).fade-out-end .decrement,
 .segment:not(.unmovable).fade-out-end .increment {
   pointer-events: auto;

@@ -903,7 +903,11 @@ var main = (function(){
       innerEl.segmentEl = el;
       innerEl.tabIndex = -1;
       innerEl.setAttribute('title', 'Remove segment');
-      innerEl.addEventListener('click', _onRemoveButtonClick, false);
+      if (system.touch) {      
+        innerEl.addEventListener('touchstart', _onRemoveButtonClick, false);
+      } else {
+        innerEl.addEventListener('click', _onRemoveButtonClick, false);        
+      }
       commandsEl.appendChild(innerEl);        
 
       /*var innerEl = document.createElement('button');
@@ -932,19 +936,24 @@ var main = (function(){
       }
       widthEditCanvasEl.appendChild(innerEl);        
 
-      var innerEl = document.createElement('input');
-      innerEl.setAttribute('type', 'text');
-      innerEl.classList.add('width-edit');
-      innerEl.segmentEl = el;
-      innerEl.value = width / TILE_SIZE;
+      if (!system.touch) {
+        var innerEl = document.createElement('input');
+        innerEl.setAttribute('type', 'text');
+        innerEl.classList.add('width-edit');
+        innerEl.segmentEl = el;
+        innerEl.value = width / TILE_SIZE;
 
-      innerEl.addEventListener('click', _onWidthEditClick, false);
-      innerEl.addEventListener('focus', _onWidthEditFocus, false);
-      innerEl.addEventListener('blur', _onWidthEditBlur, false);
-      innerEl.addEventListener('input', _onWidthEditInput, false);
-      innerEl.addEventListener('mouseover', _onWidthEditMouseOver, false);
-      innerEl.addEventListener('mouseout', _onWidthEditMouseOut, false);
-      innerEl.addEventListener('keydown', _onWidthEditKeyDown, false);
+        innerEl.addEventListener('click', _onWidthEditClick, false);
+        innerEl.addEventListener('focus', _onWidthEditFocus, false);
+        innerEl.addEventListener('blur', _onWidthEditBlur, false);
+        innerEl.addEventListener('input', _onWidthEditInput, false);
+        innerEl.addEventListener('mouseover', _onWidthEditMouseOver, false);
+        innerEl.addEventListener('mouseout', _onWidthEditMouseOut, false);
+        innerEl.addEventListener('keydown', _onWidthEditKeyDown, false);
+      } else {
+        var innerEl = document.createElement('span');
+        innerEl.classList.add('width-edit-placeholder');
+      }
       widthEditCanvasEl.appendChild(innerEl);
 
       var innerEl = document.createElement('button');
