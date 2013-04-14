@@ -354,7 +354,7 @@ var main = (function(){
   var segmentHoveredEl;
 
   var system = {
-    touchSupport: false,
+    touch: false,
     hiDpi: 1.0,
     cssTransform: false
   };
@@ -673,6 +673,7 @@ var main = (function(){
     var segmentEl = el.segmentEl;
 
     _incrementSegmentWidth(segmentEl, false);
+    _createTouchSegmentFadeout(segmentEl);
   }
 
   function _onWidthIncrementClick(event) {
@@ -681,6 +682,7 @@ var main = (function(){
     var segmentEl = el.segmentEl;
 
     _incrementSegmentWidth(segmentEl, true);
+    _createTouchSegmentFadeout(segmentEl);
   }
 
   function _resizeSegment(el, width, updateEdit, isTool, immediate, initial) {
@@ -923,7 +925,11 @@ var main = (function(){
       innerEl.innerHTML = '–';
       innerEl.segmentEl = el;
       innerEl.tabIndex = -1;
-      innerEl.addEventListener('click', _onWidthDecrementClick, false);
+      if (system.touch) {
+        innerEl.addEventListener('touchstart', _onWidthDecrementClick, false);
+      } else {
+        innerEl.addEventListener('click', _onWidthDecrementClick, false);        
+      }
       widthEditCanvasEl.appendChild(innerEl);        
 
       var innerEl = document.createElement('input');
@@ -946,7 +952,11 @@ var main = (function(){
       innerEl.innerHTML = '+';
       innerEl.segmentEl = el;
       innerEl.tabIndex = -1;
-      innerEl.addEventListener('click', _onWidthIncrementClick, false);
+      if (system.touch) {
+        innerEl.addEventListener('touchstart', _onWidthIncrementClick, false);
+      } else {
+        innerEl.addEventListener('click', _onWidthIncrementClick, false);        
+      }
       widthEditCanvasEl.appendChild(innerEl);        
 
       el.appendChild(widthEditCanvasEl);
@@ -1565,7 +1575,7 @@ var main = (function(){
     if (!draggingMove.floatingElVisible) {
       draggingMove.floatingElVisible = true;
 
-      if (system.touchSupport) {
+      if (system.touch) {
         // TODO const
         if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
           draggingMove.elY -= 100;      
@@ -1693,7 +1703,7 @@ var main = (function(){
   }
 
   function _createTouchSegmentFadeout(el) {
-    if (system.touchSupport) {
+    if (system.touch) {
       _removeTouchSegmentFadeouts();
 
       window.clearTimeout(el.fadeoutTimerId);
@@ -2056,7 +2066,7 @@ var main = (function(){
 
     window.addEventListener('resize', _onResize, false);
 
-    if (!system.touchSupport) {
+    if (!system.touch) {
       window.addEventListener('mousedown', _onBodyMouseDown, false);
       window.addEventListener('mousemove', _onBodyMouseMove, false);
       window.addEventListener('mouseup', _onBodyMouseUp, false); 
@@ -2069,7 +2079,7 @@ var main = (function(){
   }
 
   function _inspectSystem() {
-    system.touchSupport = Modernizr.touch;
+    system.touch = Modernizr.touch;
     system.hiDpi = window.devicePixelRatio;    
 
     system.cssTransform = false;
@@ -2081,7 +2091,7 @@ var main = (function(){
       }
     }
 
-    if (system.touchSupport) {
+    if (system.touch) {
       document.body.classList.add('touch-support');
     }
   }

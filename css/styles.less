@@ -479,7 +479,7 @@ body.segment-resize-dragging .segment .drag-handle {
   left: 0;
   right: 0;
   height: 10px;
-  top: @canvasHeight - 35;
+  top: @canvasBaseline;
 
   background-image: -webkit-linear-gradient(0deg, rgb(140, 140, 140), transparent 8.333%);
   background-size: @tileSize 100%;
@@ -522,7 +522,7 @@ body:not(.touch-support) .segment:hover.warning .name,
   left: 50%;
   width: 30px;
   margin-left: -15px;
-  top: @canvasHeight - 35 + 38;
+  top: @canvasBaseline + 38;
   height: 65px;
   z-index: 150001;
   padding-top: 10px;
@@ -531,7 +531,7 @@ body:not(.touch-support) .segment:hover.warning .name,
   position: absolute;
   left: 0;
   right: 0;
-  top: @canvasHeight - 35 + 4;
+  top: @canvasBaseline + 4;
   height: 30px;
   padding-top: 10px;
   z-index: 150000;
@@ -668,7 +668,7 @@ body:not(.touch-support) .segment:not(.unmovable):hover .width-edit,
   right: -1px;
   border-left: 1px solid rgb(80, 80, 80);
   border-right: 1px solid rgb(80, 80, 80);
-  top: @canvasHeight - 35;
+  top: @canvasBaseline;
   height: 80px;
   line-height: 58px;
   color: rgb(160, 160, 160);
@@ -710,13 +710,19 @@ body.segment-move-dragging #editable-street-section > div {
 
 
 .segment:not(.unmovable).fade-out-start .drag-handle,
-.segment:not(.unmovable).fade-out-start .remove {
+.segment:not(.unmovable).fade-out-start .remove,
+.segment:not(.unmovable).fade-out-start .width-edit-canvas,
+.segment:not(.unmovable).fade-out-start .decrement,
+.segment:not(.unmovable).fade-out-start .increment {
   pointer-events: auto;
   opacity: 1;
   -webkit-transition: opacity 0;
 }
 .segment:not(.unmovable).fade-out-end .drag-handle,
-.segment:not(.unmovable).fade-out-end .remove {
+.segment:not(.unmovable).fade-out-end .remove,
+.segment:not(.unmovable).fade-out-start .width-edit-canvas,
+.segment:not(.unmovable).fade-out-end .decrement,
+.segment:not(.unmovable).fade-out-end .increment {
   pointer-events: auto;
   opacity: 0;
   -webkit-transition: opacity @touchFadeOutTime;
