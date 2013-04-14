@@ -30,7 +30,8 @@ var main = (function(){
   var WIDTH_TOOL_MULTIPLIER = 4;
 
   var CANVAS_HEIGHT = 480;
-  var CANVAS_BASELINE = CANVAS_HEIGHT - 35;
+  var CANVAS_GROUND = 35;
+  var CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND;
 
   var DRAGGING_TYPE_NONE = 0;
   var DRAGGING_TYPE_MOVE = 1;
@@ -1896,6 +1897,12 @@ var main = (function(){
     }
 
     document.querySelector('#street-section').style.top = pos + 'px';
+
+    if (pos < 0) {
+      pos = 0;
+    }
+    document.querySelector('#street-section-sky').style.paddingTop = pos + 'px';
+    document.querySelector('#street-section-sky').style.marginTop = -pos + 'px';
 
     streetSectionCanvasLeft = 
         ((viewportWidth - data.streetWidth * TILE_SIZE) / 2);

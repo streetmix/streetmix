@@ -1,4 +1,6 @@
 @canvasHeight: 480px;
+@canvasGround: 35px;
+@canvasBaseline: @canvasHeight - @canvasGround;
 @headerHeight: 150px;
 @toolsHeight: 100px;
 
@@ -97,22 +99,15 @@ header .inside {
   left: 0;
   top: 0;
 
-  //-webkit-transition: width 500ms, left 500ms;
-
   height: @canvasHeight + 40;
 }
 #street-section-sky {
   position: absolute;
   left: 0;
   right: 0;
-  top: 19px;
-  margin-top: -1020px;
-  height: @canvasHeight;
-
+  top: 0;
+  height: @canvasBaseline;
   background: @skyColour;
-
-  // TODO: remove this hack
-  border-top: 1001px solid @skyColour;
 }
 
 #street-section-sky .rear-clouds {
@@ -218,7 +213,6 @@ footer {
 
   background: url(../images/toolbox-bk.png);
 
-  border-top: 1px solid darken(rgb(255, 240, 150), 40%);
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, .4);
 
   text-align: center;
