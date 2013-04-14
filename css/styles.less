@@ -405,7 +405,8 @@ body.segment-resize-dragging * {
   color: rgba(255, 255, 255, .4);
 }
 
-body:not(.touch-support) .segment:hover {
+body:not(.touch-support) .segment:hover,
+body.touch-support .segment.fade-out-end {
   z-index: 999999;
 }
 
