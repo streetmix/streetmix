@@ -713,6 +713,11 @@ var main = (function(){
       var editEl = el.querySelector('.width-edit');
       if (editEl) {
         editEl.value = width / TILE_SIZE;
+      } else {
+        var editEl = el.querySelector('.width-edit-placeholder');
+        if (editEl) {
+          editEl.innerHTML = width / TILE_SIZE;
+        }
       }
     }
 

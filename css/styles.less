@@ -616,13 +616,13 @@ body.info-bubble-visible .segment .width-edit-canvas {
   pointer-events: none;
 }
 
-.segment .width-edit {
+.segment .width-edit,
+.segment .width-edit-placeholder {
   width: 50px;
   text-align: center;
 
   line-height: 25px;
   height: 25px;
-  border: 1px solid rgba(255, 255, 255, .2);
 
   font-family: 'Times New Roman', sans-serif;
   font-size: 16px;  
@@ -630,9 +630,13 @@ body.info-bubble-visible .segment .width-edit-canvas {
 
   opacity: 0;
 }
+.segment .width-edit {
+  border: 1px solid rgba(255, 255, 255, .2);
+}
 .segment .width-edit-placeholder {
-  width: 40px;
   display: inline-block;
+  border: 2px solid transparent;
+  color: white;
 }
 body:not(.touch-support) .segment:not(.unmovable):hover .width-edit,
 .segment:not(.unmovable).hover .width-edit {
@@ -653,7 +657,8 @@ body:not(.touch-support) .segment:not(.unmovable):hover .width-edit,
   background: rgb(230, 230, 230) !important;
   opacity: 1;
 }
-.segment:not(.unmovable).warning .width-edit {
+.segment:not(.unmovable).warning .width-edit,
+.segment:not(.unmovable).warning .width-edit-placeholder {
   color: lighten(@warningColour, 10%) !important;
 }
 
@@ -707,6 +712,7 @@ body.segment-move-dragging #editable-street-section > div {
 .segment:not(.unmovable).fade-out-start .drag-handle,
 .segment:not(.unmovable).fade-out-start .remove,
 .segment:not(.unmovable).fade-out-start .width-edit-canvas,
+.segment:not(.unmovable).fade-out-start .width-edit-placeholder,
 .segment:not(.unmovable).fade-out-start .decrement,
 .segment:not(.unmovable).fade-out-start .increment {
   pointer-events: auto;
@@ -716,6 +722,7 @@ body.segment-move-dragging #editable-street-section > div {
 .segment:not(.unmovable).fade-out-end .drag-handle,
 .segment:not(.unmovable).fade-out-end .remove,
 .segment:not(.unmovable).fade-out-end .width-edit-canvas,
+.segment:not(.unmovable).fade-out-end .width-edit-placeholder,
 .segment:not(.unmovable).fade-out-end .decrement,
 .segment:not(.unmovable).fade-out-end .increment {
   pointer-events: auto;
