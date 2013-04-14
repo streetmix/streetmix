@@ -728,6 +728,10 @@ body.segment-move-dragging #editable-street-section > div {
   -webkit-transition: opacity @touchFadeOutTime;
   -webkit-transition-delay: @touchFadeOutDelay;
 }
+.segment:not(.unmovable).fade-out-start .name,
+.segment:not(.unmovable).fade-out-end .name {
+  opacity: 0;
+}
 
 
 #loading {
