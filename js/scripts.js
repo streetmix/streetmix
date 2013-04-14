@@ -351,7 +351,8 @@ var main = (function(){
 
   var draggingType = DRAGGING_TYPE_NONE;
 
-  var segmentHoveredEl;
+  var mouseX;
+  var mouseY;
 
   var system = {
     touch: false,
@@ -870,9 +871,6 @@ var main = (function(){
       el.classList.add('unmovable');
     }
     
-    el.addEventListener('mouseover', _onSegmentMouseOver, false);
-    el.addEventListener('mouseout', _onSegmentMouseOut, false);
-
     _setSegmentContents(el, type, width, isTool);
 
     if (!isTool) {
@@ -1694,9 +1692,13 @@ var main = (function(){
   }
 
   function _onBodyMouseMove(event) {
+    mouseX = event.pageX;
+    mouseY = event.pageY;
+
     if (draggingType == DRAGGING_TYPE_NONE) {
       return;
     }
+
     switch (draggingType) {
       case DRAGGING_TYPE_MOVE:
         _handleSegmentMoveMove(event);
@@ -1848,21 +1850,6 @@ var main = (function(){
     event.preventDefault();
   }
 
-  function _onSegmentMouseOver(event) {
-    var el = event.target;
-
-    while (el && !el.classList.contains('segment')) {
-      el = el.parentNode;
-    }
-    if (el) {
-      segmentHoveredEl = el;
-    }
-  }
-
-  function _onSegmentMouseOut(event) {
-    segmentHoveredEl = null;
-  }
-
   function _createTools() {
     for (var i in SEGMENT_INFO) {
       var segmentInfo = SEGMENT_INFO[i];
@@ -2001,6 +1988,19 @@ var main = (function(){
     }
   } 
 
+  function _getHoveredSegmentEl() {
+    var el = document.elementFromPoint(mouseX, mouseY);
+    while (el && el.classList && !el.classList.contains('segment')) {
+      el = el.parentNode;
+    }
+
+    if (el.classList && el.classList.contains('segment')) {
+      return el;
+    } else {
+      return null;
+    }
+  }
+
   function _onBodyKeyDown(event) {
     switch (event.keyCode) {
       case KEY_RIGHT_ARROW:
@@ -2010,6 +2010,7 @@ var main = (function(){
         }
 
         if (document.activeElement == document.body) {
+          var segmentHoveredEl = _getHoveredSegmentEl();
           if (segmentHoveredEl) {
             _incrementSegmentWidth(segmentHoveredEl, true);
           }
@@ -2023,6 +2024,7 @@ var main = (function(){
         }
 
         if (document.activeElement == document.body) {
+          var segmentHoveredEl = _getHoveredSegmentEl();
           if (segmentHoveredEl) {
             _incrementSegmentWidth(segmentHoveredEl, false);
           }
@@ -2036,6 +2038,7 @@ var main = (function(){
         }
 
         if (document.activeElement == document.body) {
+          var segmentHoveredEl = _getHoveredSegmentEl();
           _removeSegment(segmentHoveredEl);
           event.preventDefault();
         }
