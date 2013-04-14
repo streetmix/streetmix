@@ -419,7 +419,7 @@ var main = (function(){
     var left = 0;
     var top = 0;
     var width = realWidth * TILE_SIZE;
-    var height = CANVAS_HEIGHT;
+    var height = CANVAS_BASELINE;
 
     // center properly
     var segmentRealWidth = segmentWidth / TILE_SIZE / multiplier;

@@ -142,19 +142,6 @@ header .inside {
   height: 280px;
 }
 
-.background-dirt {
-  background: url(../images/dirt.png);
-  background-size: 120px 120px;
-  background-repeat: repeat-x;
-  background-position: 0 0;  
-}
-.background-dirt-highlight {
-  background: -webkit-linear-gradient(rgba(255, 255, 255, .24), rgba(255, 255, 255, .24)), url(../images/dirt.png);
-  background-size: auto, 120px 120px;
-  background-repeat: auto, repeat-x;
-  background-position: auto, 0 0;
-}
-
 #street-section-dirt {
   position: absolute;
   left: 0;
@@ -162,8 +149,7 @@ header .inside {
   top: @canvasHeight - 80;
   height: 80px;
 
-  .background-dirt;
-
+  background: @backgroundDirtColour;
 }
 #street-section-left-building,
 #street-section-right-building {
@@ -304,13 +290,14 @@ body:not(.segment-resize-dragging) .segment {
   display: inline-block;
   position: relative;
 }
-body:not(.touch-support) .segment:not(.unmovable):hover,
-.segment:not(.unmovable).hover {
-  background: rgba(255, 255, 255, .2);
+body:not(.touch-support) .segment:not(.unmovable):hover .name,
+.segment:not(.unmovable).hover .name {
+  opacity: 0;
+}
 
-  .name {
-    opacity: 0;
-  }
+body:not(.touch-support) .segment:not(.unmovable):hover canvas,
+.segment:not(.unmovable).hover canvas {
+  background: rgba(255, 255, 255, .2);
 }
 body.segment-resize-dragging .segment:not(.unmovable).hover {
   button.remove,
@@ -554,13 +541,8 @@ body:not(.touch-support) .segment:not(.unmovable):hover .width-edit-canvas,
   margin-bottom: -20px;
   border-bottom: 20px solid transparent;
 
+  background: @backgroundDirtColour;  
   background-clip: content-box;
-}
-
-body:not(.touch-support) .segment:not(.unmovable):hover .width-edit-canvas,
-.segment:not(.unmovable).hover .width-edit-canvas {
-  // TODO:; I hate this hack.
-  .background-dirt-highlight;
 }
 
 .segment button {
@@ -655,21 +637,22 @@ body:not(.touch-support) .segment:not(.unmovable):hover .width-edit,
   opacity: 1;
 
   color: white;
-  background: transparent;
+
+  background: @backgroundDirtColour;
 }
 .segment .width-edit-canvas .width-edit:focus {
   outline: none;
 
-  color: black;
+  color: black !important;
   border-right-color: white;
   border-bottom-color: white;
   border-left-color: rgb(100, 100, 100);
   border-top-color: rgb(100, 100, 100);
-  background: rgb(230, 230, 230);
+  background: rgb(230, 230, 230) !important;
   opacity: 1;
 }
 .segment:not(.unmovable).warning .width-edit {
-  color: lighten(@warningColour, 10%);
+  color: lighten(@warningColour, 10%) !important;
 }
 
 .segment .width {
