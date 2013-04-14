@@ -1531,7 +1531,8 @@ var main = (function(){
     draggingMove.floatingEl.classList.add('first-drag-move');
     draggingMove.floatingEl.setAttribute('type', draggingMove.originalType);
     draggingMove.floatingElVisible = false;
-    _setSegmentContents(draggingMove.floatingEl, draggingMove.originalType, draggingMove.origWidth);
+    _setSegmentContents(draggingMove.floatingEl, 
+        draggingMove.originalType, draggingMove.origWidth);
     document.body.appendChild(draggingMove.floatingEl);
 
     if (system.cssTransform) {
