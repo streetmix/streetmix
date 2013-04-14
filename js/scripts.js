@@ -1528,7 +1528,9 @@ var main = (function(){
     draggingMove.floatingEl = document.createElement('div');
     draggingMove.floatingEl.classList.add('segment');
     draggingMove.floatingEl.classList.add('floating');
+    draggingMove.floatingEl.classList.add('first-drag-move');
     draggingMove.floatingEl.setAttribute('type', draggingMove.originalType);
+    draggingMove.floatingElVisible = false;
     _setSegmentContents(draggingMove.floatingEl, draggingMove.originalType, draggingMove.origWidth);
     document.body.appendChild(draggingMove.floatingEl);
 
@@ -1546,12 +1548,7 @@ var main = (function(){
 
     draggingMove.segmentBeforeEl = null;
     draggingMove.segmentAfterEl = null;
-
-    draggingMove.floatingElVisible = false;
-
-    draggingMove.floatingEl.classList.add('first-drag-move');
   }
-
 
   function _handleSegmentMoveMove(event) {
     var x = event.pageX;
