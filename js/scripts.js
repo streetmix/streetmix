@@ -1749,7 +1749,7 @@ var main = (function(){
       if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
         _removeElFromDom(draggingMove.origEl);
       }
-    } else if (draggingMove.segmentBeforeEl || draggingMove.segmentAfterEl) {
+    } else if (draggingMove.segmentBeforeEl || draggingMove.segmentAfterEl || (data.segments.length == 0)) {
       var width = draggingMove.origWidth;
 
       if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
@@ -1772,9 +1772,12 @@ var main = (function(){
       if (draggingMove.segmentBeforeEl) {
         document.querySelector('#editable-street-section').
             insertBefore(newEl, draggingMove.segmentBeforeEl);
-      } else {
+      } else if (draggingMove.segmentAfterEl) {
         document.querySelector('#editable-street-section').
             insertBefore(newEl, draggingMove.segmentAfterEl.nextSibling);
+      } else {
+        // empty street
+        document.querySelector('#editable-street-section').appendChild(newEl);
       }
 
       window.setTimeout(function() {
