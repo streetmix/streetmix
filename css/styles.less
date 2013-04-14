@@ -11,6 +11,9 @@
 
 @warningColour: rgb(220, 80, 80);
 
+@touchFadeOutTime: 3000ms;
+@touchFadeOutDelay: 2000ms;
+
 html {
   height: 100%;
 }
@@ -448,8 +451,8 @@ body:not(.touch-support)  .segment:not(.unmovable):hover .drag-handle,
 .segment:not(.unmovable).fade-out-end .drag-handle {
   pointer-events: auto;
   opacity: 0;
-  -webkit-transition: opacity 3000ms;
-  -webkit-transition-delay: 2000ms;
+  -webkit-transition: opacity @touchFadeOutTime;
+  -webkit-transition-delay: @touchFadeOutDelay;
 }
 
 
