@@ -308,6 +308,8 @@ body.segment-resize-dragging .segment:not(.unmovable).hover {
   }
 }
 
+
+
 .segment:not(.unmovable) {
   cursor: -webkit-grab;
   cursor: -moz-grab;  
@@ -725,6 +727,14 @@ body.segment-move-dragging #editable-street-section > div {
 .segment:not(.unmovable).fade-out-end .name {
   opacity: 0;
 }
+
+body.touch-support .segment button {
+  pointer-events: none;
+}
+body.touch-support .segment.fade-out-end button {
+  pointer-events: auto;
+} 
+
 
 
 #loading {
