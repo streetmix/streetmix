@@ -15,7 +15,7 @@ var main = (function(){
   var TILESET_IMAGE_VERSION = 7;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
-  var TILESET_POINTPERPIXEL = 2.0;
+  var TILESET_POINT_PER_PIXEL = 2.0;
 
   var IMAGES_TO_BE_LOADED = [
     'images/tiles.png',
@@ -392,8 +392,8 @@ var main = (function(){
     }
 
     ctx.drawImage(images['images/tiles.png'],
-        sx * TILESET_POINTPERPIXEL, sy * TILESET_POINTPERPIXEL, 
-        sw * TILESET_POINTPERPIXEL, sh * TILESET_POINTPERPIXEL,
+        sx * TILESET_POINT_PER_PIXEL, sy * TILESET_POINT_PER_PIXEL, 
+        sw * TILESET_POINT_PER_PIXEL, sh * TILESET_POINT_PER_PIXEL,
         dx * system.hiDpi, dy * system.hiDpi, 
         dw * system.hiDpi, dh * system.hiDpi);
   }
