@@ -18,9 +18,9 @@ We appreciate all the feedback and excitement we've received on our project so f
 
 A "section" is shortened way of saying "cross-section view", a type of 2D non-perspectival drawing commonly used in engineering and architecture to show what something looks like when you slice it in two pieces and then look at one slice head-on, to see how it is (or should be) assembled. Similarly, a street section is a cross section view of a street, showing the widths and placement of vehicle lanes, bike lanes, sidewalks, trees, street furniture or accessories (like benches or street lamps), as well as engineering information like how the road is sloped to facilitate drainage, or the locations of underground utilities. Although sections can be simplified line drawings, urban designers and landscape architects have created very colorful illustrative street sections, removing most of the engineering particulars to communicate how a street could be designed to feel safe, walkable or habitable.
 
-![diagram1](https://raw.github.com/codeforamerica/streetmix/master/doc/thumb_section_marketstreet.png "Existing conditions section of Market Street, from the Better Market Street Plan, San Francisco")
-![diagram2](https://raw.github.com/codeforamerica/streetmix/master/doc/thumb_section_2ndstreetcycles.png "Proposed one-way cycletrack design of Second Street, from the Great Second Street Plan, San Francisco")
-![diagram3](https://raw.github.com/codeforamerica/streetmix/master/doc/thumb_section_illus.jpg "Example of an illustrative section, courtesy of Lou Huang")
+![diagram1](https://raw.github.com/codeforamerica/streetmix/master/public/doc/thumb_section_marketstreet.png "Existing conditions section of Market Street, from the Better Market Street Plan, San Francisco")
+![diagram2](https://raw.github.com/codeforamerica/streetmix/master/public/doc/thumb_section_2ndstreetcycles.png "Proposed one-way cycletrack design of Second Street, from the Great Second Street Plan, San Francisco")
+![diagram3](https://raw.github.com/codeforamerica/streetmix/master/public/doc/thumb_section_illus.jpg "Example of an illustrative section, courtesy of Lou Huang")
 
 #### Why does Streetmix exist?
 
@@ -48,13 +48,45 @@ Streetmix was started as a [Code for America][cfa] hackathon project in January 
 
 ## <a name="screenshots"></a>Screenshot
 
-![screenshot](https://raw.github.com/codeforamerica/streetmix/master/doc/screenshot.jpg)
+![screenshot](https://raw.github.com/codeforamerica/streetmix/master/public/doc/screenshot.jpg)
 
 ## <a name="demo"></a>Demo
 You can see a running version of the application at http://streetmix.net/
 
-## <a name="installation"></a>Installation
-TODO
+## <a name="development-setup"></a>Development Setup
+
+### On Mac OS X 10
+
+#### First-time setup
+
+1) Download and install [Node.js](http://nodejs.org/).
+
+2) Clone this remote repository to a folder on your computer. The rest of these instructions will refer to this folder as `$PROJECT_ROOT`.
+
+    git clone $REMOTE_REPOSITORY_URL $PROJECT_ROOT
+
+3) Install project dependencies.
+
+    cd $PROJECT_ROOT
+    npm install
+
+#### Every time you sync `$PROJECT_ROOT` with this remote repository.
+
+1) Update project dependencies.
+
+    cd $PROJECT_ROOT
+    npm install
+
+#### HOWTO: Start the application
+
+1) Start the web server.
+
+    cd $PROJECT_ROOT
+    node server.js
+
+2) Load the application in your web browser.
+
+    open http://localhost:8000
 
 ## <a name="usage"></a>Usage
 TODO

@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+  - "0.10"
+
+env:
+  global:
+    - secure: "O/FizXArxzBl3sDs9TbRCwScjQqUbNjKE50fhCS2Zb5xo4X9lx3FGImVzHRw\n9ouTD4LZTT176PxTsGawy4ciS9OA8ukcLnpyOjS4lBzVpxfRB/XXcpN+AXvf\naDI+VPkYqNrh/YeAPxJvAI0xLMwgV27lFA0aA579jlnCFB24mgU="
+
+after_success:
+  - wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+  - git remote add heroku git@heroku.com:streetmix-staging.git
+  - echo "Host heroku.com" >> ~/.ssh/config
+  - echo "   StrictHostKeyChecking no" >> ~/.ssh/config
+  - echo "   CheckHostIP no" >> ~/.ssh/config
+  - echo "   UserKnownHostsFile=/dev/null" >> ~/.ssh/config
+  - heroku keys:clear
+  - yes | heroku keys:add
+  - yes | git push heroku master
