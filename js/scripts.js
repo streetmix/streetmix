@@ -1706,6 +1706,7 @@ var main = (function(){
         el.classList.add('fade-out-end');
       }, 0);
 
+      // TODO const
       el.fadeoutTimerId = window.setTimeout(function() {
         el.classList.remove('fade-out-end');
       }, 5000);
@@ -1954,10 +1955,7 @@ var main = (function(){
       _removeElFromDom(el);
       _segmentsChanged();
 
-      _statusMessage.show('The segment has been deleted. <button>Undo</button>');
-
-      document.querySelector('#status-message button').
-          addEventListener('click', _undo, false);
+      _statusMessage.show('The segment has been deleted.', true);
     }
   } 
 
@@ -2101,10 +2099,18 @@ var main = (function(){
   var _statusMessage = {
     timerId: -1,
 
-    show: function(text) {
+    show: function(text, undo) {
       window.clearTimeout(_statusMessage.timerId);
 
       document.querySelector('#status-message > div').innerHTML = text;
+
+      if (undo) {
+        var buttonEl = document.createElement('button');
+        buttonEl.innerHTML = 'Undo';
+        buttonEl.addEventListener('click', _undo, false);
+        document.querySelector('#status-message > div').appendChild(buttonEl);
+      }
+
       document.querySelector('#status-message').classList.add('visible');
 
       _statusMessage.timerId = 
