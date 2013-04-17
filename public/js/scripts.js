@@ -1,5 +1,5 @@
 /*
- * StreetMix
+ * Streetmix
  *
  * Front-end (mostly) by Marcin Wichary, Code for America fellow in 2013.
  *
@@ -228,7 +228,7 @@ var main = (function(){
       name: 'Bus lane',
       subname: 'Inbound',
       owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
-      defaultWidth: 12,
+      defaultWidth: 10,
       minWidth: 9,
       maxWidth: 12,
       graphics: {
@@ -240,7 +240,7 @@ var main = (function(){
       name: 'Bus lane',
       subname: 'Outbound',
       owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
-      defaultWidth: 12,
+      defaultWidth: 10,
       minWidth: 9,
       maxWidth: 12,
       graphics: {
