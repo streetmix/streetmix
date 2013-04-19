@@ -25,7 +25,6 @@ app.all('*', function(req, res, next) {
 
 app.use(express.static(__dirname + '/public'))
 
-var port = process.env.PORT || 8000
-app.listen(port, null, null, function() {
-  console.log('Listening on port ' + port)
+app.listen(config.port, null, null, function() {
+  console.log('Listening on port ' + config.port)
 });
