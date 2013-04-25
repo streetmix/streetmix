@@ -1961,17 +1961,13 @@ var main = (function(){
       var width = prompt("Enter the new street width (from " + 
           MIN_CUSTOM_STREET_WIDTH + "' to " + MAX_CUSTOM_STREET_WIDTH +"'):");
 
-      if (!width) {
+      width = parseInt(width);
+
+      if (!width || (width < MIN_CUSTOM_STREET_WIDTH) || (width > MAX_CUSTOM_STREET_WIDTH)) {
         document.querySelector('#street-width-custom').value = data.streetWidth;
         document.querySelector('#street-width-no-custom').value = data.streetWidth;
 
         _focusThePage();
-        return;
-      }
-
-      width = parseInt(width);
-
-      if ((width < MIN_CUSTOM_STREET_WIDTH) || (width > MAX_CUSTOM_STREET_WIDTH)) {
         return;
       }
 
