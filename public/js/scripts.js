@@ -12,7 +12,7 @@ var main = (function(){
 "use strict";
   var main = {};
 
-  var TILESET_IMAGE_VERSION = 7;
+  var TILESET_IMAGE_VERSION = 11;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
   var TILESET_POINT_PER_PIXEL = 2.0;
@@ -115,8 +115,8 @@ var main = (function(){
       defaultWidth: 6,
       minWidth: 6,
       graphics: {
-        center: { x: 3, y: 0, width: 4, height: 15 },
-        repeat: { x: 1, y: 0, width: 1, height: 15 }
+        center: { x: 3, y: 5, width: 4, height: 15 },
+        repeat: { x: 1, y: 5, width: 1, height: 15 }
       }
     },
     "sidewalk-tree": {
@@ -124,28 +124,40 @@ var main = (function(){
       owner: SEGMENT_OWNER_NATURE,
       defaultWidth: 4,
       graphics: {
-        center: { x: 13, y: 0, width: 6, height: 15 },
-        repeat: { x: 1, y: 0, width: 1, height: 15 }
+        center: { x: 13, y: 5, width: 6, height: 15 },
+        repeat: { x: 1, y: 5, width: 1, height: 15 }
       }
     },
     "sidewalk-lamp-right": {
       name: 'Sidewalk w/ a lamp',
+      group: 'sidewalk',
       owner: SEGMENT_OWNER_PEDESTRIAN,
       defaultWidth: 4,
       graphics: {
         center: { width: 0, height: 15 },
-        repeat: { x: 1, y: 0, width: 1, height: 15 },
-        right: { x: 102, offsetX: -2, width: 4, height: 15 }
+        repeat: { x: 1, y: 5, width: 1, height: 15 },
+        right: { x: 102, y: 0, offsetX: -2, offsetY: -5, width: 4, height: 20 }
+      }
+    },
+    "sidewalk-lamp-both": {
+      name: 'Sidewalk w/ a lamp',
+      group: 'sidewalk',
+      owner: SEGMENT_OWNER_PEDESTRIAN,
+      defaultWidth: 6,
+      graphics: {
+        center: { x: 150, y: 0, offsetY: -5, width: 6, height: 20 },
+        repeat: { x: 1, y: 5, width: 1, height: 15 },
       }
     },
     "sidewalk-lamp-left": {
       name: 'Sidewalk w/ a lamp',
+      group: 'sidewalk',
       owner: SEGMENT_OWNER_PEDESTRIAN,
       defaultWidth: 4,
       graphics: {
         center: { width: 0, height: 15 },
-        repeat: { x: 1, y: 0, width: 1, height: 15 },
-        left: { x: 107, offsetX: -2, width: 4, height: 15 }
+        repeat: { x: 1, y: 5, width: 1, height: 15 },
+        left: { x: 107, y: 0, offsetX: -2, offsetY: -5, width: 4, height: 20 }
       }
     },
     "planting-strip": {
@@ -154,7 +166,7 @@ var main = (function(){
       defaultWidth: 4,
       graphics: {
         center: { width: 0, height: 15 },
-        repeat: { x: 8, y: 0, width: 4, height: 15 }
+        repeat: { x: 8, y: 5, width: 4, height: 15 }
       }
     },
     "bike-lane-inbound": {
@@ -163,8 +175,8 @@ var main = (function(){
       owner: SEGMENT_OWNER_BIKE,
       defaultWidth: 6,
       graphics: {
-        center: { x: 92, y: 0, width: 4, height: 15 },
-        repeat: { x: 90, y: 0, width: 1, height: 15 }
+        center: { x: 92, y: 5, width: 4, height: 15 },
+        repeat: { x: 90, y: 5, width: 1, height: 15 }
       }
     },
     "bike-lane-outbound": {
@@ -173,8 +185,8 @@ var main = (function(){
       owner: SEGMENT_OWNER_BIKE,
       defaultWidth: 6,
       graphics: {
-        center: { x: 97, y: 0, width: 4, height: 15 },
-        repeat: { x: 90, y: 0, width: 1, height: 15 }
+        center: { x: 97, y: 5, width: 4, height: 15 },
+        repeat: { x: 90, y: 5, width: 1, height: 15 }
       }
     },
     "parking-lane": {
@@ -184,9 +196,9 @@ var main = (function(){
       minWidth: 8,
       maxWidth: 10,
       graphics: {
-        center: { x: 50, y: 0, width: 8, height: 15 },
-        repeat: { x: 26, y: 0, width: 1, height: 15 },
-        left: { x: 46, width: 3, height: 15 }
+        center: { x: 50, y: 5, width: 8, height: 15 },
+        repeat: { x: 26, y: 5, width: 1, height: 15 },
+        left: { x: 46, y: 5, width: 3, height: 15 }
       }
     },
     "drive-lane-inbound": {
@@ -197,8 +209,8 @@ var main = (function(){
       minWidth: 9,
       maxWidth: 12,
       graphics: {
-        center: { x: 28, y: 0, width: 8, height: 15 },
-        repeat: { x: 26, y: 0, width: 1, height: 15 }
+        center: { x: 28, y: 5, width: 8, height: 15 },
+        repeat: { x: 26, y: 5, width: 1, height: 15 }
       }
     },
     "drive-lane-outbound": {
@@ -209,8 +221,8 @@ var main = (function(){
       minWidth: 9,
       maxWidth: 12,
       graphics: {
-        center: { x: 37, y: 0, width: 8, height: 15 },
-        repeat: { x: 26, y: 0, width: 1, height: 15 }
+        center: { x: 37, y: 5, width: 8, height: 15 },
+        repeat: { x: 26, y: 5, width: 1, height: 15 }
       }
     },
     "turn-lane": {
@@ -220,8 +232,8 @@ var main = (function(){
       minWidth: 9,
       maxWidth: 12,
       graphics: {
-        center: { x: 81, y: 0, width: 8, height: 15 },
-        repeat: { x: 26, y: 0, width: 1, height: 15 }
+        center: { x: 81, y: 5, width: 8, height: 15 },
+        repeat: { x: 26, y: 5, width: 1, height: 15 }
       }
     },
     "bus-lane-inbound": {
@@ -232,8 +244,8 @@ var main = (function(){
       minWidth: 9,
       maxWidth: 12,
       graphics: {
-        center: { x: 59, y: 0, width: 10, height: 15 },
-        repeat: { x: 26, y: 0, width: 1, height: 15 }
+        center: { x: 59, y: 5, width: 10, height: 15 },
+        repeat: { x: 26, y: 5, width: 1, height: 15 }
       }
     },
     "bus-lane-outbound": {
@@ -244,8 +256,8 @@ var main = (function(){
       minWidth: 9,
       maxWidth: 12,
       graphics: {
-        center: { x: 70, y: 0, width: 10, height: 15 },
-        repeat: { x: 26, y: 0, width: 1, height: 15 }
+        center: { x: 70, y: 5, width: 10, height: 15 },
+        repeat: { x: 26, y: 5, width: 1, height: 15 }
       }
     },
     "small-median": {
@@ -253,8 +265,8 @@ var main = (function(){
       owner: SEGMENT_OWNER_CAR,
       defaultWidth: 4,
       graphics: {
-        center: { x: 22, y: 0, width: 3, height: 15 },
-        repeat: { x: 20, y: 0, width: 1, height: 15 }
+        center: { x: 22, y: 5, width: 3, height: 15 },
+        repeat: { x: 20, y: 5, width: 1, height: 15 }
       }
     },
   };
@@ -286,7 +298,7 @@ var main = (function(){
       { type: "bike-lane-inbound", width: 6 },
       { type: "drive-lane-inbound", width: 10 },
       { type: "drive-lane-inbound", width: 10 },
-      { type: "planting-strip", width: 4 },
+      { type: "sidewalk-lamp-both", width: 4 },
       { type: "drive-lane-outbound", width: 10 },
       { type: "drive-lane-outbound", width: 10 },
       { type: "bike-lane-outbound", width: 6 },
@@ -400,7 +412,7 @@ var main = (function(){
         dw * system.hiDpi, dh * system.hiDpi);
   }
 
-  function _setSegmentContents(el, type, segmentWidth, isTool) {
+ function _setSegmentContents(el, type, segmentWidth, isTool) {
     var segmentInfo = SEGMENT_INFO[type];
 
     if (segmentInfo.graphics.center && 
@@ -413,12 +425,9 @@ var main = (function(){
     var multiplier = isTool ? (WIDTH_TOOL_MULTIPLIER / TILE_SIZE) : 1;
 
     var bkPositionX = (segmentInfo.graphics.center.x || 0) * TILE_SIZE;
-    var bkPositionY = 
-        CANVAS_BASELINE - (segmentInfo.graphics.center.height || 0) * TILE_SIZE -
-        (segmentInfo.graphics.center.y || 0) * TILE_SIZE;
+    var bkPositionY = (segmentInfo.graphics.center.y || 0) * TILE_SIZE;
 
     var left = 0;
-    var top = 0;
     var width = realWidth * TILE_SIZE;
     var height = CANVAS_BASELINE;
 
@@ -456,6 +465,7 @@ var main = (function(){
     var hoverBkEl = document.createElement('div');
     hoverBkEl.classList.add('hover-bk');
 
+
     var canvasEl = document.createElement('canvas');
     canvasEl.classList.add('image');
     canvasEl.width = maxWidth * system.hiDpi;
@@ -471,10 +481,9 @@ var main = (function(){
 
     var ctx = canvasEl.getContext('2d');
 
-    var realHeight = (segmentInfo.graphics.center.height || 0) * TILE_SIZE;
-
     if (segmentInfo.graphics.repeat) {
       var repeatPositionX = segmentInfo.graphics.repeat.x * TILE_SIZE;
+      var repeatPositionY = (segmentInfo.graphics.repeat.y || 0) * TILE_SIZE;
       var w = segmentInfo.graphics.repeat.width * TILE_SIZE * multiplier;
 
       var count = Math.floor((segmentWidth) / w + 1);
@@ -496,53 +505,59 @@ var main = (function(){
         }
 
         _drawSegmentImage(ctx,
-          repeatPositionX, 0, w, realHeight, 
+          repeatPositionX, repeatPositionY, 
+          w, segmentInfo.graphics.repeat.height * TILE_SIZE, 
           (repeatStartX + (i * segmentInfo.graphics.repeat.width) * TILE_SIZE) * multiplier, 
           // TODO const
-          ((isTool ? 20 : 265) + top), 
+          (isTool ? 20 : 265) + (multiplier * TILE_SIZE * (segmentInfo.graphics.repeat.offsetY || 0)), 
           w, 
-          realHeight * multiplier);
+          segmentInfo.graphics.repeat.height * TILE_SIZE * multiplier);
       }
     }      
 
     if (segmentInfo.graphics.left) {
       var leftPositionX = segmentInfo.graphics.left.x * TILE_SIZE;
+      var leftPositionY = (segmentInfo.graphics.left.y || 0) * TILE_SIZE;
 
       var w = segmentInfo.graphics.left.width * TILE_SIZE;
 
       _drawSegmentImage(ctx,
-          leftPositionX, 0, w, realHeight, 
+          leftPositionX, leftPositionY, 
+          w, segmentInfo.graphics.left.height * TILE_SIZE, 
           0,
           // TODO const
-          ((isTool ? 20 : 265) + top), 
-          w * multiplier, realHeight * multiplier);
+          (isTool ? 20 : 265) + (multiplier * TILE_SIZE * (segmentInfo.graphics.left.offsetY || 0)), 
+          w * multiplier, segmentInfo.graphics.left.height * TILE_SIZE * multiplier);
     }
 
     if (segmentInfo.graphics.right) {
       var rightPositionX = segmentInfo.graphics.right.x * TILE_SIZE;
+      var rightPositionY = (segmentInfo.graphics.right.y || 0) * TILE_SIZE;
 
       var w = segmentInfo.graphics.right.width * TILE_SIZE;
 
-      var rightTargetX = maxWidth - w;
+      var rightTargetX = maxWidth - segmentInfo.graphics.right.width * TILE_SIZE * multiplier;
 
       if (isTool) {
-        rightTargetX -= segmentInfo.graphics.right.offsetX * TILE_SIZE * multiplier;
+        rightTargetX += (segmentInfo.graphics.right.offsetX || 0) * TILE_SIZE;
       }
 
       _drawSegmentImage(ctx,
-        rightPositionX, 0, w, realHeight, 
-        rightTargetX, 
+        rightPositionX, rightPositionY, 
+        w, segmentInfo.graphics.right.height * TILE_SIZE,
+        rightTargetX,
         // TODO const
-        (isTool ? 20 : 265) + top, 
-        w * multiplier, realHeight * multiplier);
+        (isTool ? 20 : 265) + (multiplier * TILE_SIZE * (segmentInfo.graphics.right.offsetY || 0)), 
+        w * multiplier, segmentInfo.graphics.right.height * TILE_SIZE * multiplier);
     }
 
     _drawSegmentImage(ctx,
-      bkPositionX, 0, width, realHeight, 
+      bkPositionX, bkPositionY, 
+      width, segmentInfo.graphics.center.height * TILE_SIZE, 
       left * multiplier, 
       // TODO const
-      (isTool ? 20 : 265) + top, 
-      width * multiplier, realHeight * multiplier);
+      (isTool ? 20 : 265) + (multiplier * TILE_SIZE * (segmentInfo.graphics.center.offsetY || 0)), 
+      width * multiplier, segmentInfo.graphics.center.height * TILE_SIZE * multiplier);
 
     _removeElFromDom(el.querySelector('canvas'));
     el.appendChild(canvasEl);
@@ -550,6 +565,7 @@ var main = (function(){
     _removeElFromDom(el.querySelector('.hover-bk'));
     el.appendChild(hoverBkEl);
   }
+
 
   function _onWidthEditClick(event) {
     var el = event.target;
