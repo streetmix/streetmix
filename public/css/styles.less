@@ -304,10 +304,10 @@ body:not(.segment-resize-dragging) .segment {
   -moz-transition: width 150ms, left 150ms, -moz-transform 150ms;
   transition: width 150ms, left 150ms, transform 150ms;
 }
-.segment.immediate-resize {
-  -webkit-transition: none;
-  -moz-transition: none;
-  transition: none;
+body.immediate-segment-resize .segment {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  transition: none !important;
 }
 
 .segment.create {

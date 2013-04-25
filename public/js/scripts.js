@@ -687,7 +687,7 @@ var main = (function(){
     }
     width = _normalizeSegmentWidth(width);
 
-    _resizeSegment(segmentEl, width * TILE_SIZE, true, false, false);
+    _resizeSegment(segmentEl, width * TILE_SIZE, true, false, true);
   }
 
   function _onWidthDecrementClick(event) {
@@ -714,11 +714,11 @@ var main = (function(){
     }
 
     if (immediate) {
-      el.classList.add('immediate-resize');
+      document.body.classList.add('immediate-segment-resize');
 
       // TODO const
       window.setTimeout(function() {
-        el.classList.remove('immediate-resize');
+        document.body.classList.remove('immediate-segment-resize');
       }, 100);
     }
 
