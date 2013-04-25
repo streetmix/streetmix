@@ -453,6 +453,9 @@ var main = (function(){
       maxWidth += canvasOffsetX;
     }
 
+    var hoverBkEl = document.createElement('div');
+    hoverBkEl.classList.add('hover-bk');
+
     var canvasEl = document.createElement('canvas');
     canvasEl.classList.add('image');
     canvasEl.width = maxWidth * system.hiDpi;
@@ -543,6 +546,9 @@ var main = (function(){
 
     _removeElFromDom(el.querySelector('canvas'));
     el.appendChild(canvasEl);
+
+    _removeElFromDom(el.querySelector('.hover-bk'));
+    el.appendChild(hoverBkEl);
   }
 
   function _onWidthEditClick(event) {

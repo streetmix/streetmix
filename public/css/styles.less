@@ -327,10 +327,25 @@ body:not(.touch-support) .segment:not(.unmovable):hover .name,
   opacity: 0;
 }
 
-body:not(.touch-support) .segment:not(.unmovable):hover canvas,
-.segment:not(.unmovable).hover canvas {
+body:not(.touch-support) .segment:not(.unmovable):hover .hover-bk,
+.segment:not(.unmovable).hover .hover-bk {
   background: rgba(255, 255, 255, .2);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: -1;
+  height: @canvasBaseline;
+  pointer-events: none;
+
 }
+
+body:not(.touch-support) .segment:not(.tool):not(.unmovable):hover .hover-bk,
+.segment:not(.tool):not(.unmovable).hover .hover-bk {
+  top: 10px;
+  height: @canvasBaseline - 10px;
+}
+
 body.segment-resize-dragging .segment:not(.unmovable).hover {
   button.remove,
   button.increment,
