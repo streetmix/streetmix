@@ -1945,6 +1945,10 @@ var main = (function(){
     }
   }
 
+  function _focusThePage() {
+    document.body.focus();
+  }
+
   function _onStreetWidthChange(event) {
     var el = event.target;
     var newStreetWidth = el.value;
@@ -1956,6 +1960,14 @@ var main = (function(){
     if (newStreetWidth == STREET_WIDTH_CUSTOM) {
       var width = prompt("Enter the new street width (from " + 
           MIN_CUSTOM_STREET_WIDTH + "' to " + MAX_CUSTOM_STREET_WIDTH +"'):");
+
+      if (!width) {
+        document.querySelector('#street-width-custom').value = data.streetWidth;
+        document.querySelector('#street-width-no-custom').value = data.streetWidth;
+
+        _focusThePage();
+        return;
+      }
 
       width = parseInt(width);
 
@@ -1982,7 +1994,9 @@ var main = (function(){
     _createDomFromData();
     _segmentsChanged();
 
-    initializing = false;    
+    initializing = false; 
+
+    _focusThePage();   
   }
 
   function _removeSegment(el) {
