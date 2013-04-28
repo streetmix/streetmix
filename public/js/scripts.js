@@ -87,7 +87,7 @@ var main = (function(){
   var SETTINGS_UNITS_METRIC = 2;
 
   var IMPERIAL_METRIC_MULTIPLIER = 30 / 100;
-  var IMPERIAL_REMAINDERS = {
+  var IMPERIAL_VULGAR_FRACTIONS = {
     .125: '⅛',
     .25: '¼',
     .375: '⅜',
@@ -637,14 +637,16 @@ var main = (function(){
 
     _widthEditInputChanged(el, true);
 
-    switch (data.settings.units) {
+    /*switch (data.settings.units) {
       case SETTINGS_UNITS_IMPERIAL:
         el.realValue = el.value;
         break;
       case SETTINGS_UNITS_METRIC:
         el.realValue = el.value / IMPERIAL_METRIC_MULTIPLIER;
         break;
-    }
+    }*/
+    //console.log(el.segmentEl.getAttribute('width'));
+    el.realValue = parseFloat(el.segmentEl.getAttribute('width'));
     el.value = _prettifyWidth(el.realValue, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP);
 
     el.hold = false;
@@ -672,6 +674,8 @@ var main = (function(){
           width * TILE_SIZE, false, false, true);
         }, WIDTH_EDIT_INPUT_DELAY);
       }
+    } else {
+      
     }
   }
 
@@ -728,10 +732,14 @@ var main = (function(){
     switch (data.settings.units) {
       case SETTINGS_UNITS_IMPERIAL:
         var widthText = width;
-        if (IMPERIAL_REMAINDERS[remainder]) {
-          var widthText = 
-              (Math.floor(width) ? Math.floor(width) : '') + IMPERIAL_REMAINDERS[remainder];      
+
+        if (purpose != PRETTIFY_WIDTH_INPUT) {
+          if (IMPERIAL_VULGAR_FRACTIONS[remainder]) {
+            var widthText = 
+                (Math.floor(width) ? Math.floor(width) : '') + IMPERIAL_VULGAR_FRACTIONS[remainder];      
+          }
         }
+
         switch (purpose) {
           case PRETTIFY_WIDTH_OUTPUT_NO_MARKUP:
             widthText += '\'';
