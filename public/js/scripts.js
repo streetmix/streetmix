@@ -135,7 +135,7 @@ var main = (function(){
       defaultWidth: 4,
       zIndex: -1,
       graphics: {
-        center: { x: 158, y: 0, width: 12, height: 20, offsetY: -5 },
+        center: { x: 158, y: 0, width: 11, height: 20, offsetY: -5 },
         repeat: { x: 1, y: 5, width: 1, height: 15 }
       }
     },
