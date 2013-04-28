@@ -58,9 +58,15 @@ var main = (function(){
   var RESIZE_TYPE_DRAGGING = 2;
   var RESIZE_TYPE_TYPING = 3;
 
-  var SEGMENT_WIDTH_RESOLUTION = .25;
-  var SEGMENT_WIDTH_CLICK_INCREMENT = .5;
-  var SEGMENT_WIDTH_DRAGGING_RESOLUTION = .5;
+  var SEGMENT_WIDTH_RESOLUTION_IMPERIAL = .25;
+  var SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL = .5;
+  var SEGMENT_WIDTH_DRAGGING_RESOLUTION_IMPERIAL = .5;
+
+  var IMPERIAL_METRIC_MULTIPLIER = 30 / 100;
+
+  var SEGMENT_WIDTH_RESOLUTION_METRIC = .1 / IMPERIAL_METRIC_MULTIPLIER;
+  var SEGMENT_WIDTH_CLICK_INCREMENT_METRIC = .2 / IMPERIAL_METRIC_MULTIPLIER;
+  var SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC = .2 / IMPERIAL_METRIC_MULTIPLIER;
 
   var MIN_WIDTH_EDIT_CANVAS_WIDTH = 120;
 
@@ -86,7 +92,6 @@ var main = (function(){
   var SETTINGS_UNITS_IMPERIAL = 1;
   var SETTINGS_UNITS_METRIC = 2;
 
-  var IMPERIAL_METRIC_MULTIPLIER = 30 / 100;
   var IMPERIAL_VULGAR_FRACTIONS = {
     '.125': '⅛',
     '.25': '¼',
@@ -400,6 +405,11 @@ var main = (function(){
     hiDpi: 1.0,
     cssTransform: false
   };
+
+  var segmentWidthResolution;
+  var segmentWidthClickIncrement;
+  var segmentWidthDraggingResolution;
+
 
   // HELPER FUNCTIONS
   // -------------------------------------------------------------------------
@@ -740,10 +750,10 @@ var main = (function(){
       case RESIZE_TYPE_INITIAL:
       case RESIZE_TYPE_TYPING:
       case RESIZE_TYPE_INCREMENT:
-        var resolution = SEGMENT_WIDTH_RESOLUTION;
+        var resolution = segmentWidthResolution;
         break;
       case RESIZE_TYPE_DRAGGING:
-        var resolution = SEGMENT_WIDTH_DRAGGING_RESOLUTION;
+        var resolution = segmentWidthDraggingResolution;
         break;
     }
 
@@ -808,9 +818,9 @@ var main = (function(){
     var width = parseFloat(segmentEl.getAttribute('width'));
 
     if (precise) {
-      var increment = SEGMENT_WIDTH_RESOLUTION;
+      var increment = segmentWidthResolution;
     } else {
-      var increment = SEGMENT_WIDTH_CLICK_INCREMENT;
+      var increment = segmentWidthClickIncrement;
     }
 
     if (!add) {
@@ -2385,6 +2395,15 @@ var main = (function(){
   }
 
   function _updateUnits() {
+    _propagateSettings();
+
+    for (var i in data.segments) {
+      var oldWidth = data.segments[i].width;
+      data.segments[i].width = 
+          _normalizeSegmentWidth(data.segments[i].width, RESIZE_TYPE_INITIAL);
+      console.log(oldWidth, data.segments[i].width);
+    }
+    
     createUndo = false;
     _createDomFromData();
     _segmentsChanged();
@@ -2399,7 +2418,6 @@ var main = (function(){
 
   function _onMenuMetric(event) {
     data.settings.units = SETTINGS_UNITS_METRIC;
-
     _updateUnits();
 
     event.preventDefault();
@@ -2411,6 +2429,23 @@ var main = (function(){
     _updateUnits();
 
     event.preventDefault();
+  }
+
+  function _propagateSettings() {
+    switch (data.settings.units) {
+      case SETTINGS_UNITS_IMPERIAL:
+        segmentWidthResolution = SEGMENT_WIDTH_RESOLUTION_IMPERIAL;
+        segmentWidthClickIncrement = SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL;
+        segmentWidthDraggingResolution = SEGMENT_WIDTH_DRAGGING_RESOLUTION_IMPERIAL;
+        break;
+      case SETTINGS_UNITS_METRIC:
+        segmentWidthResolution = SEGMENT_WIDTH_RESOLUTION_METRIC;
+        segmentWidthClickIncrement = SEGMENT_WIDTH_CLICK_INCREMENT_METRIC;
+        segmentWidthDraggingResolution = SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC;
+        break;
+    }
+
+    _updateOptionsMenu();
   }
 
   function _updateOptionsMenu() {
@@ -2429,7 +2464,7 @@ var main = (function(){
 
   function _onImagesLoaded() {
     _loadSettings();
-    _updateOptionsMenu();
+    _propagateSettings();
     _resizeStreetWidth();
     _getDefaultSegments();
     _createTools();
