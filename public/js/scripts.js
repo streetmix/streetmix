@@ -79,6 +79,16 @@ var main = (function(){
   var KEY_EQUAL = 187; // = or +
   var KEY_MINUS = 189;
 
+  var IMPERIAL_REMAINDERS = {
+    .125: '⅛',
+    .25: '¼',
+    .375: '⅜',
+    .5: '½',
+    .625: '⅝',
+    .75: '¾',
+    .875: '⅞'
+  };  
+
   var CSS_TRANSFORMS = ['webkitTransform', 'MozTransform', 'transform'];
 
   var SEGMENT_OWNER_CAR = 'car';
@@ -686,10 +696,13 @@ var main = (function(){
   function _prettifyWidth(width) {
     var width = width / TILE_SIZE;
 
-    if (width - Math.floor(width) == .5) {
-      var widthText = (Math.floor(width) ? Math.floor(width) : '') + '½';
-    } else {
-      var widthText = width;
+    var remainder = width - Math.floor(width);
+
+    var widthText = width;
+
+    if (IMPERIAL_REMAINDERS[remainder]) {
+      var widthText = 
+          (Math.floor(width) ? Math.floor(width) : '') + IMPERIAL_REMAINDERS[remainder];      
     }
 
     widthText += '\'';
