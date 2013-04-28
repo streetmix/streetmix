@@ -624,13 +624,17 @@ var main = (function(){
   function _onWidthEditFocus(event) {
     var el = event.target;
 
-    el.oldValue = el.value;
+    el.oldValue = el.realValue;
+    el.value = el.realValue;
   }
 
   function _onWidthEditBlur(event) {
     var el = event.target;
 
     _widthEditInputChanged(el, true);
+
+    el.realValue = el.value;
+    el.value = _prettifyWidth(el.realValue);
 
     el.hold = false;
     widthEditHeld = false;
@@ -803,11 +807,12 @@ var main = (function(){
 
       var editEl = el.querySelector('.width-edit');
       if (editEl) {
-        editEl.value = value;
+        editEl.realValue = value;
+        editEl.value = _prettifyWidth(value);
       } else {
         var editEl = el.querySelector('.width-edit-placeholder');
         if (editEl) {
-          editEl.innerHTML = value;
+          editEl.innerHTML = _prettifyWidth(value);
         }
       }
     }
@@ -2036,10 +2041,6 @@ var main = (function(){
     }
   }
 
-  function _focusThePage() {
-    document.body.focus();
-  }
-
   function _onStreetWidthChange(event) {
     var el = event.target;
     var newStreetWidth = el.value;
@@ -2058,7 +2059,7 @@ var main = (function(){
         document.querySelector('#street-width-custom').value = data.streetWidth;
         document.querySelector('#street-width-no-custom').value = data.streetWidth;
 
-        _focusThePage();
+        _loseAnyFocus();
         return;
       }
 
@@ -2083,7 +2084,7 @@ var main = (function(){
 
     initializing = false; 
 
-    _focusThePage();   
+    _loseAnyFocus();   
   }
 
   function _removeSegment(el) {
