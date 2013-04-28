@@ -335,7 +335,7 @@ var main = (function(){
     remainingWidth: null,
 
     settings: {
-      units: SETTINGS_UNITS_METRIC
+      units: SETTINGS_UNITS_IMPERIAL
     },
 
     segments: []
@@ -704,7 +704,7 @@ var main = (function(){
   }
 
   function _prettifyWidth(width) {
-    var width = width / TILE_SIZE;
+    //var width = width / TILE_SIZE;
 
     var remainder = width - Math.floor(width);
 
@@ -793,19 +793,21 @@ var main = (function(){
 
     var widthEl = el.querySelector('span.width');
     if (widthEl) {
-      widthEl.innerHTML = _prettifyWidth(width);
+      widthEl.innerHTML = _prettifyWidth(width / TILE_SIZE);
     }
 
     _setSegmentContents(el, el.getAttribute('type'), width, isTool);
 
     if (updateEdit) {
+      var value = width / TILE_SIZE;
+
       var editEl = el.querySelector('.width-edit');
       if (editEl) {
-        editEl.value = width / TILE_SIZE;
+        editEl.value = value;
       } else {
         var editEl = el.querySelector('.width-edit-placeholder');
         if (editEl) {
-          editEl.innerHTML = width / TILE_SIZE;
+          editEl.innerHTML = value;
         }
       }
     }
@@ -1382,7 +1384,7 @@ var main = (function(){
       ctx.strokeStyle = 'red';
       ctx.fillStyle = 'red';
       _drawArrowLine(ctx, 
-        left + data.streetWidth * multiplier, 30, left + maxWidth * multiplier, 30, _prettifyWidth(-data.remainingWidth * TILE_SIZE));
+        left + data.streetWidth * multiplier, 30, left + maxWidth * multiplier, 30, _prettifyWidth(-data.remainingWidth));
       ctx.restore();
     }
 
@@ -1396,7 +1398,7 @@ var main = (function(){
       if (ownerWidths[id] > 0) {
         var width = ownerWidths[id] * multiplier;
 
-        _drawArrowLine(ctx, x, 60, x + width, 60, _prettifyWidth(ownerWidths[id] * TILE_SIZE));
+        _drawArrowLine(ctx, x, 60, x + width, 60, _prettifyWidth(ownerWidths[id]));
         _drawLine(ctx, x + width, 50, x + width, 70);
 
         var imageWidth = images[SEGMENT_OWNERS[id].imageUrl].width / 5 * SEGMENT_OWNERS[id].imageSize;
@@ -1424,7 +1426,7 @@ var main = (function(){
       if (ctx.setLineDash) {
         ctx.setLineDash([15, 10]);
       }
-      _drawArrowLine(ctx, x, 60, left + data.streetWidth * multiplier, 60, _prettifyWidth(data.remainingWidth * TILE_SIZE));
+      _drawArrowLine(ctx, x, 60, left + data.streetWidth * multiplier, 60, _prettifyWidth(data.remainingWidth));
       ctx.restore();
     }
 
