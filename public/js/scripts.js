@@ -2115,6 +2115,46 @@ var main = (function(){
     }
   }
 
+  var DEFAULT_STREET_WIDTHS = [40, 60, 80];
+
+  function _createStreetWidthOption(width) {
+    var el = document.createElement('option');
+    el.value = width;
+    el.innerHTML = _prettifyWidth(width, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP);
+    return el;
+  }
+
+  function _buildStreetWidthMenu() {
+    document.querySelector('#street-width').innerHTML = '';
+
+    var el = document.createElement('option');
+    el.disabled = true;
+    el.innerHTML = 'Building-to-building width:';
+    document.querySelector('#street-width').appendChild(el);      
+
+    for (var i in DEFAULT_STREET_WIDTHS) {
+      var el = _createStreetWidthOption(DEFAULT_STREET_WIDTHS[i]);
+      document.querySelector('#street-width').appendChild(el);
+    }
+
+    if (DEFAULT_STREET_WIDTHS.indexOf(parseFloat(data.streetWidth)) == -1) {
+
+      var el = document.createElement('option');
+      el.disabled = true;
+      document.querySelector('#street-width').appendChild(el);      
+
+      var el = _createStreetWidthOption(data.streetWidth);
+      document.querySelector('#street-width').appendChild(el);      
+    }
+
+    var el = document.createElement('option');
+    el.value = STREET_WIDTH_CUSTOM;
+    el.innerHTML = 'Custom…';
+    document.querySelector('#street-width').appendChild(el);  
+
+    document.querySelector('#street-width').value = data.streetWidth;    
+  }
+
   function _onStreetWidthChange(event) {
     var el = event.target;
     var newStreetWidth = el.value;
@@ -2127,28 +2167,22 @@ var main = (function(){
       var width = prompt("Enter the new street width (from " + 
           MIN_CUSTOM_STREET_WIDTH + "' to " + MAX_CUSTOM_STREET_WIDTH +"'):");
 
-      width = parseInt(width);
+      if (width) {
+        width = _normalizeSegmentWidth(_processWidthInput(width), RESIZE_TYPE_INITIAL);
+      }
 
       if (!width || (width < MIN_CUSTOM_STREET_WIDTH) || (width > MAX_CUSTOM_STREET_WIDTH)) {
-        document.querySelector('#street-width-custom').value = data.streetWidth;
-        document.querySelector('#street-width-no-custom').value = data.streetWidth;
+        _buildStreetWidthMenu();
 
         _loseAnyFocus();
         return;
       }
 
-      document.querySelector('#street-width-option-custom').innerHTML = width + "'";
-      document.querySelector('#street-width-option-custom').value = width;
-
-      document.querySelector('#street-width-custom').value = width;
-
-      document.querySelector('#street-width-custom').style.display = '';
-      document.querySelector('#street-width-no-custom').style.display = 'none';
-
       newStreetWidth = width;
     }
 
     data.streetWidth = newStreetWidth;
+    _buildStreetWidthMenu();
     _resizeStreetWidth();
 
     initializing = true;
@@ -2261,9 +2295,7 @@ var main = (function(){
     document.querySelector('#undo').addEventListener('click', _undo, false);
     document.querySelector('#redo').addEventListener('click', _redo, false);
 
-    document.querySelector('#street-width-custom').
-        addEventListener('change', _onStreetWidthChange, false);
-    document.querySelector('#street-width-no-custom').
+    document.querySelector('#street-width').
         addEventListener('change', _onStreetWidthChange, false);
 
     window.addEventListener('resize', _onResize, false);
@@ -2398,18 +2430,18 @@ var main = (function(){
     _propagateSettings();
 
     for (var i in data.segments) {
-      var oldWidth = data.segments[i].width;
       data.segments[i].width = 
           _normalizeSegmentWidth(data.segments[i].width, RESIZE_TYPE_INITIAL);
-      console.log(oldWidth, data.segments[i].width);
     }
-    
+
     createUndo = false;
+    data.streetWidth = _normalizeSegmentWidth(data.streetWidth, RESIZE_TYPE_INITIAL);
     _createDomFromData();
     _segmentsChanged();
     _resizeStreetWidth();
     createUndo = true;      
 
+    _buildStreetWidthMenu();
     _updateOptionsMenu();
     _hideMenus();
 
@@ -2475,6 +2507,7 @@ var main = (function(){
     createUndo = true;
     lastData = _trimNonUserData();
 
+    _buildStreetWidthMenu();
     _onResize();
     _addEventListeners();
     _hideLoadingScreen();
