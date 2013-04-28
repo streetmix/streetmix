@@ -637,15 +637,6 @@ var main = (function(){
 
     _widthEditInputChanged(el, true);
 
-    /*switch (data.settings.units) {
-      case SETTINGS_UNITS_IMPERIAL:
-        el.realValue = el.value;
-        break;
-      case SETTINGS_UNITS_METRIC:
-        el.realValue = el.value / IMPERIAL_METRIC_MULTIPLIER;
-        break;
-    }*/
-    //console.log(el.segmentEl.getAttribute('width'));
     el.realValue = parseFloat(el.segmentEl.getAttribute('width'));
     el.value = _prettifyWidth(el.realValue, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP);
 
@@ -653,14 +644,44 @@ var main = (function(){
     widthEditHeld = false;
   }
 
+  function _processWidthInput(widthInput) {
+    widthInput = widthInput.replace(/ /g, '');
+
+    var width = parseFloat(widthInput);
+
+    if (width) {
+      // Default unit
+      switch (data.settings.units) {
+        case SETTINGS_UNITS_METRIC:
+          var multiplier = 1 / IMPERIAL_METRIC_MULTIPLIER;
+          break;
+        case SETTINGS_UNITS_IMPERIAL:
+          var multiplier = 1;
+          break;
+      }
+
+      // Overwritten units
+      // TODO make array
+      if (widthInput.match(/[\d\.]m$/)) {
+        var multiplier = 1 / IMPERIAL_METRIC_MULTIPLIER;
+      } else if (widthInput.match(/[\d\.]cm$/)) {
+        var multiplier = 1 / 100 / IMPERIAL_METRIC_MULTIPLIER;
+      } else if (widthInput.match(/[\d\.]\"$/)) {
+        var multiplier = 1 / 12;
+      } else if (widthInput.match(/[\d\.]\'$/)) {
+        var multiplier = 1;
+      }
+
+      width *= multiplier;
+    }
+
+    return width;
+  }
+
   function _widthEditInputChanged(el, immediate) {
     window.clearTimeout(resizeSegmentTimerId);
 
-    var width = parseFloat(el.value);
-
-    if (data.settings.units == SETTINGS_UNITS_METRIC) {
-      width /= IMPERIAL_METRIC_MULTIPLIER;
-    }
+    var width = _processWidthInput(el.value);
 
     if (width) {
       var segmentEl = el.segmentEl;
@@ -751,7 +772,7 @@ var main = (function(){
         break;
       case SETTINGS_UNITS_METRIC:
         // TODO const
-        var widthText = '' + (width * IMPERIAL_METRIC_MULTIPLIER).toPrecision(3);
+        var widthText = '' + (width * IMPERIAL_METRIC_MULTIPLIER).toFixed(3);
 
         if (widthText.substr(0, 2) == '0.') {
           widthText = widthText.substr(1);
