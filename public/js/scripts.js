@@ -1282,7 +1282,13 @@ var main = (function(){
       data.occupiedWidth += segment.width;
     }   
 
-    data.remainingWidth = (data.streetWidth - data.occupiedWidth);
+    data.remainingWidth = data.streetWidth - data.occupiedWidth;
+
+    // TODO const
+    // Rounding problems :·(
+    if (Math.abs(data.remainingWidth) < .01) {
+      data.remainingWidth = 0;
+    }
 
     var position = data.streetWidth / 2 - data.occupiedWidth / 2;
 
@@ -1531,7 +1537,7 @@ var main = (function(){
       }
     }
 
-    if (data.occupiedWidth < data.streetWidth) {
+    if (data.remainingWidth) {
       ctx.save();
       // TODO const
       ctx.strokeStyle = 'rgb(100, 100, 100)';
