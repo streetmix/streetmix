@@ -2154,31 +2154,6 @@ var main = (function(){
     }
   }
 
-  function _startAnimation() {
-    for (var i in data.segments) {
-      var el = data.segments[i].el.querySelector('canvas');
-
-      el.style.opacity = 0;
-
-      var deg = (parseInt(i) - data.segments.length / 2) * 20;
-
-      el.style.webkitTransform = 'rotateZ(' + deg + 'deg)';
-      el.style.webkitTransformOrigin = '50% 150%';
-
-      el.parentNode.style.webkitPerspectiveOrigin = '50% 50%';
-
-      _createTimeout(function(el) { 
-        el.style.webkitTransition = '-webkit-transform 800ms, opacity 800ms';
-        el.style.opacity = 1;
-        el.style.webkitTransform = 'none';
-      }, el, 300 + Math.random() * 50);
-
-      _createTimeout(function(el) {
-        el.style.webkitTransition = '';
-      }, el, 2000);
-    }
-  }
-
   var _statusMessage = {
     timerId: -1,
 
@@ -2255,7 +2230,6 @@ var main = (function(){
     _onResize();
     _addEventListeners();
     _hideLoadingScreen();
-    _startAnimation();
   }
 
   function _onImageLoaded() {
