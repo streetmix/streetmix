@@ -1798,14 +1798,16 @@ var main = (function(){
     _loseAnyFocus();
 
     var topEl = event.target;
-    while (topEl && (topEl.id != 'info-bubble')) {
+    while (topEl && (topEl.id != 'info-bubble') && (topEl.id != 'options-menu')) {
       topEl = topEl.parentNode;
     }
-    var withinInfoBubble = !!topEl;
+    var withinInfoBubbleOrMenu = !!topEl;
 
-    if (withinInfoBubble) {
+    if (withinInfoBubbleOrMenu) {
       return;
     }
+
+    _hideMenus();
 
     if (!el.classList.contains('info')) {
       _hideInfoBubble();
@@ -2265,7 +2267,11 @@ var main = (function(){
       window.addEventListener('touchmove', _onBodyMouseMove, false);
       window.addEventListener('touchend', _onBodyMouseUp, false); 
     }
-    window.addEventListener('keydown', _onBodyKeyDown, false);       
+    window.addEventListener('keydown', _onBodyKeyDown, false);  
+
+    document.querySelector('#options-menu-button').addEventListener('click', _onMenuClick);
+    document.querySelector('#options-menu-imperial').addEventListener('click', _onMenuImperial);
+    document.querySelector('#options-menu-metric').addEventListener('click', _onMenuMetric);
   }
 
   function _inspectSystem() {
@@ -2348,7 +2354,64 @@ var main = (function(){
     document.querySelector('#loading').classList.add('hidden');
   }
 
+  function _onMenuClick() {
+    var el = document.querySelector('#options-menu');
+
+    if (!el.classList.contains('visible')) {
+      el.classList.add('visible');
+    } else {
+      _hideMenus();
+    }
+  }
+
+  function _hideMenus() {
+    document.querySelector('#options-menu').classList.remove('visible');
+  }
+
+  function _updateUnits() {
+    createUndo = false;
+    _createDomFromData();
+    _segmentsChanged();
+    _resizeStreetWidth();
+    createUndo = true;      
+
+    _updateOptionsMenu();
+    _hideMenus();
+
+  }
+
+  function _onMenuMetric(event) {
+    data.settings.units = SETTINGS_UNITS_METRIC;
+
+    _updateUnits();
+
+    event.preventDefault();
+  }
+
+  function _onMenuImperial(event) {
+    data.settings.units = SETTINGS_UNITS_IMPERIAL;
+
+    _updateUnits();
+
+    event.preventDefault();
+  }
+
+  function _updateOptionsMenu() {
+    switch (data.settings.units) {
+      case SETTINGS_UNITS_IMPERIAL:
+        // TODO should be proper attribute
+        document.querySelector('#options-menu-imperial').classList.add('disabled');
+        document.querySelector('#options-menu-metric').classList.remove('disabled');
+        break;
+      case SETTINGS_UNITS_METRIC:
+        document.querySelector('#options-menu-imperial').classList.remove('disabled');
+        document.querySelector('#options-menu-metric').classList.add('disabled');
+        break;
+    }
+  }
+
   function _onImagesLoaded() {
+    _updateOptionsMenu();
     _resizeStreetWidth();
     _getDefaultSegments();
     _createTools();
