@@ -1235,7 +1235,7 @@ var main = (function(){
 
     var occupiedWidth = left;
 
-    var mainLeft = parseInt((data.streetWidth * TILE_SIZE - occupiedWidth) / 2);
+    var mainLeft = Math.round((data.streetWidth * TILE_SIZE - occupiedWidth) / 2);
 
     for (var i in data.segments) {
       var el = data.segments[i].el;
