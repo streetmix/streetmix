@@ -12,7 +12,7 @@ var main = (function(){
 "use strict";
   var main = {};
 
-  var TILESET_IMAGE_VERSION = 12;
+  var TILESET_IMAGE_VERSION = 13;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
   var TILESET_POINT_PER_PIXEL = 2.0;
@@ -909,7 +909,7 @@ var main = (function(){
 
     if (!isTool) {
       el.style.zIndex = SEGMENT_INFO[type].zIndex;
-      
+
       var innerEl = document.createElement('span');
       innerEl.classList.add('name');
       innerEl.innerHTML = SEGMENT_INFO[type].name;
