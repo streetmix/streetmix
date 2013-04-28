@@ -2127,6 +2127,8 @@ var main = (function(){
 
       data.segments.push(segment);
     }
+
+    _normalizeAllSegmentWidths();
   }
 
   var DEFAULT_STREET_WIDTHS = [40, 60, 80];
@@ -2440,13 +2442,17 @@ var main = (function(){
     window.localStorage['settings'] = JSON.stringify(settings);
   }
 
-  function _updateUnits() {
-    _propagateSettings();
-
+  function _normalizeAllSegmentWidths() {
     for (var i in data.segments) {
       data.segments[i].width = 
           _normalizeSegmentWidth(data.segments[i].width, RESIZE_TYPE_INITIAL);
     }
+  }
+
+  function _updateUnits() {
+    _propagateSettings();
+
+    _normalizeAllSegmentWidths();
 
     createUndo = false;
     data.streetWidth = _normalizeSegmentWidth(data.streetWidth, RESIZE_TYPE_INITIAL);
