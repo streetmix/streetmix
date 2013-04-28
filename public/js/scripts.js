@@ -697,15 +697,19 @@ var main = (function(){
     return widthText;
   }
 
-  function _incrementSegmentWidth(segmentEl, add) {
+  function _incrementSegmentWidth(segmentEl, add, precise) {
     var width = parseFloat(segmentEl.getAttribute('width'));
 
-    if (add) {
-      width += SEGMENT_WIDTH_CLICK_INCREMENT;
-    } else {      
-      width -= SEGMENT_WIDTH_CLICK_INCREMENT;
+    if (precise) {
+      var increment = SEGMENT_WIDTH_RESOLUTION;
+    } else {
+      var increment = SEGMENT_WIDTH_CLICK_INCREMENT;
     }
-    width = _normalizeSegmentWidth(width, RESIZE_TYPE_INCREMENT);
+
+    if (!add) {
+      increment = -increment;
+    }
+    width = _normalizeSegmentWidth(width + increment, RESIZE_TYPE_INCREMENT);
 
     _resizeSegment(segmentEl, RESIZE_TYPE_INCREMENT,
         width * TILE_SIZE, true, false, true);
@@ -713,19 +717,19 @@ var main = (function(){
 
   function _onWidthDecrementClick(event) {
     var el = event.target;
-
     var segmentEl = el.segmentEl;
-
-    _incrementSegmentWidth(segmentEl, false);
+    var precise = event.shiftKey;
+    
+    _incrementSegmentWidth(segmentEl, false, precise);
     _createTouchSegmentFadeout(segmentEl);
   }
 
   function _onWidthIncrementClick(event) {
     var el = event.target;
-
     var segmentEl = el.segmentEl;
+    var precise = event.shiftKey;
 
-    _incrementSegmentWidth(segmentEl, true);
+    _incrementSegmentWidth(segmentEl, true, precise);
     _createTouchSegmentFadeout(segmentEl);
   }
 
