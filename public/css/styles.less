@@ -16,6 +16,8 @@
 @touchFadeOutTime: 3000ms;
 @touchFadeOutDelay: 2000ms;
 
+
+
 html {
   height: 100%;
 }
@@ -57,6 +59,11 @@ header .inside {
   height: 100px;
   margin: 0 auto;
   position: relative;
+}
+
+.width-font {
+  font-family: Arial, sans-serif;
+  font-size: 12px;  
 }
 
 #width-chart {
@@ -671,12 +678,10 @@ body.info-bubble-visible .segment .width-edit-canvas {
   width: 50px;
   text-align: center;
 
-  line-height: 25px;
+  line-height: 24px;
   height: 25px;
 
-  font-family: 'Times New Roman', sans-serif;
-  font-size: 16px;  
-  font-style: italic;  
+  .width-font;
 
   opacity: 0;
 }
@@ -692,9 +697,12 @@ body:not(.touch-support) .segment:not(.unmovable):hover .width-edit,
 .segment:not(.unmovable).hover .width-edit {
   opacity: 1;
 
-  color: white;
-
-  background: @backgroundDirtColour;
+  border-right-color: rgb(180, 180, 180);
+  border-bottom-color: rgb(180, 180, 180);
+  border-left-color: rgb(100, 100, 100);
+  border-top-color: rgb(100, 100, 100);
+  background: rgb(160, 160, 160);
+  color: black;
 }
 .segment .width-edit-canvas .width-edit:focus {
   outline: none;
@@ -723,9 +731,7 @@ body:not(.touch-support) .segment:not(.unmovable):hover .width-edit,
   line-height: 58px;
   color: rgb(160, 160, 160);
 
-  font-family: 'Times New Roman', sans-serif;
-  font-size: 16px;  
-  font-style: italic;
+  .width-font;
 
   overflow: hidden;
 
