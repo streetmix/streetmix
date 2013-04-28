@@ -1537,7 +1537,7 @@ var main = (function(){
       }
     }
 
-    if (data.remainingWidth) {
+    if (data.remainingWidth > 0) {
       ctx.save();
       // TODO const
       ctx.strokeStyle = 'rgb(100, 100, 100)';
