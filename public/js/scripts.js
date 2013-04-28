@@ -906,9 +906,10 @@ var main = (function(){
     
     _setSegmentContents(el, type, width, isTool);
 
-    el.style.zIndex = SEGMENT_INFO[type].zIndex;
 
     if (!isTool) {
+      el.style.zIndex = SEGMENT_INFO[type].zIndex;
+      
       var innerEl = document.createElement('span');
       innerEl.classList.add('name');
       innerEl.innerHTML = SEGMENT_INFO[type].name;
