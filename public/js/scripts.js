@@ -350,7 +350,7 @@ var main = (function(){
   };
 
   var data = {
-    streetWidth: 80,
+    streetWidth: null,
     occupiedWidth: null,
     remainingWidth: null,
 
@@ -748,6 +748,21 @@ var main = (function(){
         _loseAnyFocus();
         break;
     }
+  }
+
+  function _normalizeStreetWidth(width) {
+    if (width < MIN_CUSTOM_STREET_WIDTH) {
+      width = MIN_CUSTOM_STREET_WIDTH;
+    } else if (width > MAX_CUSTOM_STREET_WIDTH) {
+      width = MAX_CUSTOM_STREET_WIDTH;
+    }
+
+    var resolution = segmentWidthResolution;
+
+    width = 
+        Math.round(width / resolution) * resolution;
+
+    return width;    
   }
 
   function _normalizeSegmentWidth(width, resizeType) {
@@ -2128,8 +2143,9 @@ var main = (function(){
   function _getDefaultSegments() {
     data.segments = [];
 
-    for (var i in DEFAULT_SEGMENTS[data.streetWidth]) {
-      var segment = DEFAULT_SEGMENTS[data.streetWidth][i];
+    // TODO const
+    for (var i in DEFAULT_SEGMENTS[80]) {
+      var segment = DEFAULT_SEGMENTS[80][i];
       segment.warnings = [];
 
       data.segments.push(segment);
@@ -2153,15 +2169,19 @@ var main = (function(){
     var el = document.createElement('option');
     el.disabled = true;
     el.innerHTML = 'Building-to-building width:';
-    document.querySelector('#street-width').appendChild(el);      
+    document.querySelector('#street-width').appendChild(el);  
+
+    var widths = [];    
 
     for (var i in DEFAULT_STREET_WIDTHS) {
-      var el = _createStreetWidthOption(DEFAULT_STREET_WIDTHS[i]);
+      var width = _normalizeStreetWidth(DEFAULT_STREET_WIDTHS[i]);
+      var el = _createStreetWidthOption(width);
       document.querySelector('#street-width').appendChild(el);
+
+      widths.push(width);
     }
 
-    if (DEFAULT_STREET_WIDTHS.indexOf(parseFloat(data.streetWidth)) == -1) {
-
+    if (widths.indexOf(parseFloat(data.streetWidth)) == -1) {
       var el = document.createElement('option');
       el.disabled = true;
       document.querySelector('#street-width').appendChild(el);      
@@ -2188,23 +2208,31 @@ var main = (function(){
 
     if (newStreetWidth == STREET_WIDTH_CUSTOM) {
       var width = prompt("Enter the new street width (from " + 
-          MIN_CUSTOM_STREET_WIDTH + "' to " + MAX_CUSTOM_STREET_WIDTH +"'):");
+          _prettifyWidth(MIN_CUSTOM_STREET_WIDTH, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP) + 
+          " to " + 
+          _prettifyWidth(MAX_CUSTOM_STREET_WIDTH, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP) + 
+          "):");
 
       if (width) {
-        width = _normalizeSegmentWidth(_processWidthInput(width), RESIZE_TYPE_INITIAL);
+        width = _normalizeStreetWidth(_processWidthInput(width));
       }
 
-      if (!width || (width < MIN_CUSTOM_STREET_WIDTH) || (width > MAX_CUSTOM_STREET_WIDTH)) {
+      if (!width) {
         _buildStreetWidthMenu();
 
         _loseAnyFocus();
         return;
       }
 
+      if (width < MIN_CUSTOM_STREET_WIDTH) {
+        width = MIN_CUSTOM_STREET_WIDTH;
+      } else if (width > MAX_CUSTOM_STREET_WIDTH) {
+        width = MAX_CUSTOM_STREET_WIDTH;
+      }
       newStreetWidth = width;
     }
 
-    data.streetWidth = newStreetWidth;
+    data.streetWidth = _normalizeStreetWidth(newStreetWidth);
     _buildStreetWidthMenu();
     _resizeStreetWidth();
 
@@ -2525,6 +2553,10 @@ var main = (function(){
   function _onImagesLoaded() {
     _loadSettings();
     _propagateSettings();
+
+    // TODO const
+    data.streetWidth = _normalizeStreetWidth(80);
+
     _resizeStreetWidth();
     _getDefaultSegments();
     _createTools();
