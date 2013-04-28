@@ -88,13 +88,13 @@ var main = (function(){
 
   var IMPERIAL_METRIC_MULTIPLIER = 30 / 100;
   var IMPERIAL_VULGAR_FRACTIONS = {
-    .125: '⅛',
-    .25: '¼',
-    .375: '⅜',
-    .5: '½',
-    .625: '⅝',
-    .75: '¾',
-    .875: '⅞'
+    '.125': '⅛',
+    '.25': '¼',
+    '.375': '⅜',
+    '.5': '½',
+    '.625': '⅝',
+    '.75': '¾',
+    '.875': '⅞'
   };  
 
   var CSS_TRANSFORMS = ['webkitTransform', 'MozTransform', 'transform'];
@@ -647,6 +647,12 @@ var main = (function(){
   function _processWidthInput(widthInput) {
     widthInput = widthInput.replace(/ /g, '');
 
+    for (var i in IMPERIAL_VULGAR_FRACTIONS) {
+      if (widthInput.indexOf(IMPERIAL_VULGAR_FRACTIONS[i]) != -1) {
+        widthInput = widthInput.replace(new RegExp(IMPERIAL_VULGAR_FRACTIONS[i]), i);
+      }
+    }
+
     var width = parseFloat(widthInput);
 
     if (width) {
@@ -755,9 +761,9 @@ var main = (function(){
         var widthText = width;
 
         if (purpose != PRETTIFY_WIDTH_INPUT) {
-          if (IMPERIAL_VULGAR_FRACTIONS[remainder]) {
+          if (IMPERIAL_VULGAR_FRACTIONS[('' + remainder).substr(1)]) {
             var widthText = 
-                (Math.floor(width) ? Math.floor(width) : '') + IMPERIAL_VULGAR_FRACTIONS[remainder];      
+                (Math.floor(width) ? Math.floor(width) : '') + IMPERIAL_VULGAR_FRACTIONS[('' + remainder).substr(1)];      
           }
         }
 
