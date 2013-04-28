@@ -79,6 +79,10 @@ var main = (function(){
   var KEY_EQUAL = 187; // = or +
   var KEY_MINUS = 189;
 
+  var PRETTIFY_WIDTH_OUTPUT_MARKUP = 1;
+  var PRETTIFY_WIDTH_OUTPUT_NO_MARKUP = 2;
+  var PRETTIFY_WIDTH_INPUT = 3;
+
   var SETTINGS_UNITS_IMPERIAL = 1;
   var SETTINGS_UNITS_METRIC = 2;
 
@@ -625,7 +629,7 @@ var main = (function(){
     var el = event.target;
 
     el.oldValue = el.realValue;
-    el.value = el.realValue;
+    el.value = _prettifyWidth(el.realValue, PRETTIFY_WIDTH_INPUT);
   }
 
   function _onWidthEditBlur(event) {
@@ -633,8 +637,15 @@ var main = (function(){
 
     _widthEditInputChanged(el, true);
 
-    el.realValue = el.value;
-    el.value = _prettifyWidth(el.realValue);
+    switch (data.settings.units) {
+      case SETTINGS_UNITS_IMPERIAL:
+        el.realValue = el.value;
+        break;
+      case SETTINGS_UNITS_METRIC:
+        el.realValue = el.value / IMPERIAL_METRIC_MULTIPLIER;
+        break;
+    }
+    el.value = _prettifyWidth(el.realValue, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP);
 
     el.hold = false;
     widthEditHeld = false;
@@ -644,6 +655,10 @@ var main = (function(){
     window.clearTimeout(resizeSegmentTimerId);
 
     var width = parseFloat(el.value);
+
+    if (data.settings.units == SETTINGS_UNITS_METRIC) {
+      width /= IMPERIAL_METRIC_MULTIPLIER;
+    }
 
     if (width) {
       var segmentEl = el.segmentEl;
@@ -671,7 +686,7 @@ var main = (function(){
       case KEY_ENTER:
         _widthEditInputChanged(el, true);
         _loseAnyFocus();
-        el.value = el.segmentEl.getAttribute('width');
+        el.value = _prettifyWidth(el.segmentEl.getAttribute('width'), PRETTIFY_WIDTH_INPUT);
         el.focus();
         el.select();
         break;
@@ -707,9 +722,7 @@ var main = (function(){
     return width;
   }
 
-  function _prettifyWidth(width) {
-    //var width = width / TILE_SIZE;
-
+  function _prettifyWidth(width, purpose) {
     var remainder = width - Math.floor(width);
 
     switch (data.settings.units) {
@@ -719,7 +732,14 @@ var main = (function(){
           var widthText = 
               (Math.floor(width) ? Math.floor(width) : '') + IMPERIAL_REMAINDERS[remainder];      
         }
-        widthText += '\'';
+        switch (purpose) {
+          case PRETTIFY_WIDTH_OUTPUT_NO_MARKUP:
+            widthText += '\'';
+            break;
+          case PRETTIFY_WIDTH_OUTPUT_MARKUP:
+            widthText += '<wbr>\'';
+            break;
+        }
         break;
       case SETTINGS_UNITS_METRIC:
         // TODO const
@@ -735,7 +755,14 @@ var main = (function(){
           widthText = widthText.substr(0, widthText.length - 1);
         }
 
-        widthText += '<wbr> m';
+        switch (purpose) {
+          case PRETTIFY_WIDTH_OUTPUT_NO_MARKUP:
+            widthText += ' m';
+            break;
+          case PRETTIFY_WIDTH_OUTPUT_MARKUP:
+            widthText += '<wbr> m';          
+            break;
+        }
         break;
     }
 
@@ -797,7 +824,7 @@ var main = (function(){
 
     var widthEl = el.querySelector('span.width');
     if (widthEl) {
-      widthEl.innerHTML = _prettifyWidth(width / TILE_SIZE);
+      widthEl.innerHTML = _prettifyWidth(width / TILE_SIZE, PRETTIFY_WIDTH_OUTPUT_MARKUP);
     }
 
     _setSegmentContents(el, el.getAttribute('type'), width, isTool);
@@ -808,11 +835,11 @@ var main = (function(){
       var editEl = el.querySelector('.width-edit');
       if (editEl) {
         editEl.realValue = value;
-        editEl.value = _prettifyWidth(value);
+        editEl.value = _prettifyWidth(value, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP);
       } else {
         var editEl = el.querySelector('.width-edit-placeholder');
         if (editEl) {
-          editEl.innerHTML = _prettifyWidth(value);
+          editEl.innerHTML = _prettifyWidth(value, PRETTIFY_WIDTH_OUTPUT_MARKUP);
         }
       }
     }
@@ -1389,7 +1416,7 @@ var main = (function(){
       ctx.strokeStyle = 'red';
       ctx.fillStyle = 'red';
       _drawArrowLine(ctx, 
-        left + data.streetWidth * multiplier, 30, left + maxWidth * multiplier, 30, _prettifyWidth(-data.remainingWidth));
+        left + data.streetWidth * multiplier, 30, left + maxWidth * multiplier, 30, _prettifyWidth(-data.remainingWidth, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP));
       ctx.restore();
     }
 
@@ -1403,7 +1430,7 @@ var main = (function(){
       if (ownerWidths[id] > 0) {
         var width = ownerWidths[id] * multiplier;
 
-        _drawArrowLine(ctx, x, 60, x + width, 60, _prettifyWidth(ownerWidths[id]));
+        _drawArrowLine(ctx, x, 60, x + width, 60, _prettifyWidth(ownerWidths[id], PRETTIFY_WIDTH_OUTPUT_NO_MARKUP));
         _drawLine(ctx, x + width, 50, x + width, 70);
 
         var imageWidth = images[SEGMENT_OWNERS[id].imageUrl].width / 5 * SEGMENT_OWNERS[id].imageSize;
@@ -1431,7 +1458,7 @@ var main = (function(){
       if (ctx.setLineDash) {
         ctx.setLineDash([15, 10]);
       }
-      _drawArrowLine(ctx, x, 60, left + data.streetWidth * multiplier, 60, _prettifyWidth(data.remainingWidth));
+      _drawArrowLine(ctx, x, 60, left + data.streetWidth * multiplier, 60, _prettifyWidth(data.remainingWidth, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP));
       ctx.restore();
     }
 
