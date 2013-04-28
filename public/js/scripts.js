@@ -354,11 +354,11 @@ var main = (function(){
     occupiedWidth: null,
     remainingWidth: null,
 
-    settings: {
-      units: null
-    },
-
     segments: []
+  };
+
+  var settings = {
+    units: null
   };
 
   var draggingResize = {
@@ -678,7 +678,7 @@ var main = (function(){
 
     if (width) {
       // Default unit
-      switch (data.settings.units) {
+      switch (settings.units) {
         case SETTINGS_UNITS_METRIC:
           var multiplier = 1 / IMPERIAL_METRIC_MULTIPLIER;
           break;
@@ -777,7 +777,7 @@ var main = (function(){
   function _prettifyWidth(width, purpose) {
     var remainder = width - Math.floor(width);
 
-    switch (data.settings.units) {
+    switch (settings.units) {
       case SETTINGS_UNITS_IMPERIAL:
         var widthText = width;
 
@@ -2425,19 +2425,19 @@ var main = (function(){
   }
 
   function _loadSettings() {
-    var settings = window.localStorage['settings'];
-    if (settings) {
-      data.settings = JSON.parse(window.localStorage['settings']);
+    var savedSettings = window.localStorage['settings'];
+    if (savedSettings) {
+      settings = JSON.parse(window.localStorage['settings']);
 
       // TODO validate settings here
     } else {
-      data.settings = {};
-      data.settings.units = SETTINGS_UNITS_IMPERIAL;
+      settings = {};
+      settings.units = SETTINGS_UNITS_IMPERIAL;
     }
   }
 
   function _saveSettings() {
-    window.localStorage['settings'] = JSON.stringify(data.settings);
+    window.localStorage['settings'] = JSON.stringify(settings);
   }
 
   function _updateUnits() {
@@ -2463,14 +2463,14 @@ var main = (function(){
   }
 
   function _onMenuMetric(event) {
-    data.settings.units = SETTINGS_UNITS_METRIC;
+    settings.units = SETTINGS_UNITS_METRIC;
     _updateUnits();
 
     event.preventDefault();
   }
 
   function _onMenuImperial(event) {
-    data.settings.units = SETTINGS_UNITS_IMPERIAL;
+    settings.units = SETTINGS_UNITS_IMPERIAL;
 
     _updateUnits();
 
@@ -2478,7 +2478,7 @@ var main = (function(){
   }
 
   function _propagateSettings() {
-    switch (data.settings.units) {
+    switch (settings.units) {
       case SETTINGS_UNITS_IMPERIAL:
         segmentWidthResolution = SEGMENT_WIDTH_RESOLUTION_IMPERIAL;
         segmentWidthClickIncrement = SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL;
@@ -2495,7 +2495,7 @@ var main = (function(){
   }
 
   function _updateOptionsMenu() {
-    switch (data.settings.units) {
+    switch (settings.units) {
       case SETTINGS_UNITS_IMPERIAL:
         // TODO should be proper attribute
         document.querySelector('#options-menu-imperial').classList.add('disabled');
