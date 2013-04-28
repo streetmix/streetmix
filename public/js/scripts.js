@@ -122,6 +122,7 @@ var main = (function(){
     "sidewalk-tree": {
       name: 'Sidewalk w/ a small tree',
       owner: SEGMENT_OWNER_NATURE,
+      zIndex: -1,
       defaultWidth: 4,
       graphics: {
         center: { x: 13, y: 5, width: 6, height: 15 },
@@ -132,6 +133,7 @@ var main = (function(){
       name: 'Sidewalk w/ a big tree',
       owner: SEGMENT_OWNER_NATURE,
       defaultWidth: 4,
+      zIndex: -1,
       graphics: {
         center: { x: 157, y: 0, width: 12, offsetX: -4, offsetY: -5, height: 20 },
         repeat: { x: 1, y: 5, width: 1, height: 15 }
@@ -903,6 +905,8 @@ var main = (function(){
     }
     
     _setSegmentContents(el, type, width, isTool);
+
+    el.style.zIndex = SEGMENT_INFO[type].zIndex;
 
     if (!isTool) {
       var innerEl = document.createElement('span');
