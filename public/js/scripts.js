@@ -668,6 +668,8 @@ var main = (function(){
         _widthEditInputChanged(el, true);
         _loseAnyFocus();
         el.value = el.segmentEl.getAttribute('width');
+        el.focus();
+        el.select();
         break;
       case KEY_ESC:
         el.value = el.oldValue;
@@ -1030,7 +1032,7 @@ var main = (function(){
         innerEl.setAttribute('type', 'text');
         innerEl.classList.add('width-edit');
         innerEl.segmentEl = el;
-        innerEl.value = width / TILE_SIZE;
+        //innerEl.value = width / TILE_SIZE;
 
         innerEl.addEventListener('click', _onWidthEditClick, false);
         innerEl.addEventListener('focus', _onWidthEditFocus, false);
