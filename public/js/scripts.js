@@ -339,7 +339,7 @@ var main = (function(){
     remainingWidth: null,
 
     settings: {
-      units: SETTINGS_UNITS_IMPERIAL
+      units: null
     },
 
     segments: []
@@ -2368,6 +2368,22 @@ var main = (function(){
     document.querySelector('#options-menu').classList.remove('visible');
   }
 
+  function _loadSettings() {
+    var settings = window.localStorage['settings'];
+    if (settings) {
+      data.settings = JSON.parse(window.localStorage['settings']);
+
+      // TODO validate settings here
+    } else {
+      data.settings = {};
+      data.settings.units = SETTINGS_UNITS_IMPERIAL;
+    }
+  }
+
+  function _saveSettings() {
+    window.localStorage['settings'] = JSON.stringify(data.settings);
+  }
+
   function _updateUnits() {
     createUndo = false;
     _createDomFromData();
@@ -2378,6 +2394,7 @@ var main = (function(){
     _updateOptionsMenu();
     _hideMenus();
 
+    _saveSettings();
   }
 
   function _onMenuMetric(event) {
@@ -2411,6 +2428,7 @@ var main = (function(){
   }
 
   function _onImagesLoaded() {
+    _loadSettings();
     _updateOptionsMenu();
     _resizeStreetWidth();
     _getDefaultSegments();
