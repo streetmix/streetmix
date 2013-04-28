@@ -2115,7 +2115,7 @@ var main = (function(){
         if (document.activeElement == document.body) {
           var segmentHoveredEl = _getHoveredSegmentEl();
           if (segmentHoveredEl) {
-            _incrementSegmentWidth(segmentHoveredEl, true);
+            _incrementSegmentWidth(segmentHoveredEl, true, event.shiftKey);
           }
           event.preventDefault();
         }
@@ -2129,7 +2129,7 @@ var main = (function(){
         if (document.activeElement == document.body) {
           var segmentHoveredEl = _getHoveredSegmentEl();
           if (segmentHoveredEl) {
-            _incrementSegmentWidth(segmentHoveredEl, false);
+            _incrementSegmentWidth(segmentHoveredEl, false, event.shiftKey);
           }
           event.preventDefault();
         }
