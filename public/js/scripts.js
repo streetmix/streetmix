@@ -79,6 +79,10 @@ var main = (function(){
   var KEY_EQUAL = 187; // = or +
   var KEY_MINUS = 189;
 
+  var SETTINGS_UNITS_IMPERIAL = 1;
+  var SETTINGS_UNITS_METRIC = 2;
+
+  var IMPERIAL_METRIC_MULTIPLIER = 30 / 100;
   var IMPERIAL_REMAINDERS = {
     .125: '⅛',
     .25: '¼',
@@ -329,6 +333,10 @@ var main = (function(){
     streetWidth: 80,
     occupiedWidth: null,
     remainingWidth: null,
+
+    settings: {
+      units: SETTINGS_UNITS_METRIC
+    },
 
     segments: []
   };
@@ -698,14 +706,32 @@ var main = (function(){
 
     var remainder = width - Math.floor(width);
 
-    var widthText = width;
+    switch (data.settings.units) {
+      case SETTINGS_UNITS_IMPERIAL:
+        var widthText = width;
+        if (IMPERIAL_REMAINDERS[remainder]) {
+          var widthText = 
+              (Math.floor(width) ? Math.floor(width) : '') + IMPERIAL_REMAINDERS[remainder];      
+        }
+        widthText += '\'';
+        break;
+      case SETTINGS_UNITS_METRIC:
+        // TODO const
+        var widthText = '' + (width * IMPERIAL_METRIC_MULTIPLIER).toPrecision(3);
 
-    if (IMPERIAL_REMAINDERS[remainder]) {
-      var widthText = 
-          (Math.floor(width) ? Math.floor(width) : '') + IMPERIAL_REMAINDERS[remainder];      
+        if (widthText.substr(0, 2) == '0.') {
+          widthText = widthText.substr(1);
+        }
+        while (widthText.substr(widthText.length - 1) == '0') {
+          widthText = widthText.substr(0, widthText.length - 1);
+        }
+        if (widthText.substr(widthText.length - 1) == '.') {
+          widthText = widthText.substr(0, widthText.length - 1);
+        }
+
+        widthText += '<wbr> m';
+        break;
     }
-
-    widthText += '\'';
 
     return widthText;
   }
