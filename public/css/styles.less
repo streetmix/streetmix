@@ -327,6 +327,11 @@ body:not(.touch-support) .segment:not(.unmovable):hover .name,
   opacity: 0;
 }
 
+.segment:not(.unmovable):hover,
+.segment:not(.unmovable).hover {
+  z-index: 5000 !important;
+}
+
 body:not(.touch-support) .segment:not(.unmovable):hover .hover-bk,
 .segment:not(.unmovable).hover .hover-bk {
   background: rgba(255, 255, 255, .2);

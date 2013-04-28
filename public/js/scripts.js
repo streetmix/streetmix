@@ -12,7 +12,7 @@ var main = (function(){
 "use strict";
   var main = {};
 
-  var TILESET_IMAGE_VERSION = 11;
+  var TILESET_IMAGE_VERSION = 13;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
   var TILESET_POINT_PER_PIXEL = 2.0;
@@ -150,11 +150,22 @@ var main = (function(){
       }
     },
     "sidewalk-tree": {
-      name: 'Sidewalk w/ a tree',
+      name: 'Sidewalk w/ a small tree',
       owner: SEGMENT_OWNER_NATURE,
+      zIndex: -1,
       defaultWidth: 4,
       graphics: {
         center: { x: 13, y: 5, width: 6, height: 15 },
+        repeat: { x: 1, y: 5, width: 1, height: 15 }
+      }
+    },
+    "sidewalk-tree-big": {
+      name: 'Sidewalk w/ a big tree',
+      owner: SEGMENT_OWNER_NATURE,
+      defaultWidth: 4,
+      zIndex: -1,
+      graphics: {
+        center: { x: 158, y: 0, width: 11, height: 20, offsetY: -5 },
         repeat: { x: 1, y: 5, width: 1, height: 15 }
       }
     },
@@ -323,7 +334,7 @@ var main = (function(){
     ],
     80: [
       { type: "sidewalk", width: 6 },
-      { type: "sidewalk-tree", width: 4 },
+      { type: "sidewalk-tree-big", width: 4 },
       { type: "sidewalk-lamp-right", width: 2 },
       { type: "bike-lane-inbound", width: 6 },
       { type: "drive-lane-inbound", width: 10 },
@@ -333,7 +344,7 @@ var main = (function(){
       { type: "drive-lane-outbound", width: 10 },
       { type: "bike-lane-outbound", width: 6 },
       { type: "sidewalk-lamp-left", width: 2 },
-      { type: "sidewalk-tree", width: 4 },
+      { type: "sidewalk-tree-big", width: 4 },
       { type: "sidewalk", width: 6 }
     ]
   };
@@ -1040,7 +1051,10 @@ var main = (function(){
     
     _setSegmentContents(el, type, width, isTool);
 
+
     if (!isTool) {
+      el.style.zIndex = SEGMENT_INFO[type].zIndex;
+
       var innerEl = document.createElement('span');
       innerEl.classList.add('name');
       innerEl.innerHTML = SEGMENT_INFO[type].name;
