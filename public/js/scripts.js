@@ -1357,6 +1357,13 @@ var main = (function(){
     }
   }
 
+  function _clearUndoStack() {
+    undoStack = [];
+    undoPosition = 0;
+
+    _updateUndoButtons();
+  }
+
   function _undo() {
     _undoRedo(true);
   }
@@ -2465,6 +2472,7 @@ var main = (function(){
     _updateOptionsMenu();
     _hideMenus();
 
+    _clearUndoStack();
     _saveSettings();
   }
 
