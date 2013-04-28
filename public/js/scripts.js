@@ -52,8 +52,15 @@ var main = (function(){
   var MAX_CUSTOM_STREET_WIDTH = 200;
   var MIN_SEGMENT_WIDTH = 2;
   var MAX_SEGMENT_WIDTH = 150;
-  var SEGMENT_WIDTH_RESOLUTION = .5;
-  var SEGMENT_WIDTH_CLICK_INCREMENT = SEGMENT_WIDTH_RESOLUTION;
+
+  var RESIZE_TYPE_INITIAL = 0;
+  var RESIZE_TYPE_INCREMENT = 1;
+  var RESIZE_TYPE_DRAGGING = 2;
+  var RESIZE_TYPE_TYPING = 3;
+
+  var SEGMENT_WIDTH_RESOLUTION = .25;
+  var SEGMENT_WIDTH_CLICK_INCREMENT = .5;
+  var SEGMENT_WIDTH_DRAGGING_RESOLUTION = .5;
 
   var MIN_WIDTH_EDIT_CANVAS_WIDTH = 120;
 
@@ -620,10 +627,12 @@ var main = (function(){
       var segmentEl = el.segmentEl;
 
       if (immediate) {
-        _resizeSegment(segmentEl, width * TILE_SIZE, false, false, true);
+        _resizeSegment(segmentEl, RESIZE_TYPE_TYPING, 
+            width * TILE_SIZE, false, false, true);
       } else {
         resizeSegmentTimerId = window.setTimeout(function() {
-          _resizeSegment(segmentEl, width * TILE_SIZE, false, false, true);
+          _resizeSegment(segmentEl, RESIZE_TYPE_TYPING,
+          width * TILE_SIZE, false, false, true);
         }, WIDTH_EDIT_INPUT_DELAY);
       }
     }
@@ -650,15 +659,26 @@ var main = (function(){
     }
   }
 
-  function _normalizeSegmentWidth(width) {
+  function _normalizeSegmentWidth(width, resizeType) {
     if (width < MIN_SEGMENT_WIDTH) {
       width = MIN_SEGMENT_WIDTH;
-    }
-    if (width > MAX_SEGMENT_WIDTH) {
+    } else if (width > MAX_SEGMENT_WIDTH) {
       width = MAX_SEGMENT_WIDTH;
     }    
 
-    width = Math.round(width / SEGMENT_WIDTH_RESOLUTION) * SEGMENT_WIDTH_RESOLUTION;
+    switch (resizeType) {
+      case RESIZE_TYPE_INITIAL:
+      case RESIZE_TYPE_TYPING:
+      case RESIZE_TYPE_INCREMENT:
+        var resolution = SEGMENT_WIDTH_RESOLUTION;
+        break;
+      case RESIZE_TYPE_DRAGGING:
+        var resolution = SEGMENT_WIDTH_DRAGGING_RESOLUTION;
+        break;
+    }
+
+    width = 
+        Math.round(width / resolution) * resolution;
 
     return width;
   }
@@ -685,9 +705,10 @@ var main = (function(){
     } else {      
       width -= SEGMENT_WIDTH_CLICK_INCREMENT;
     }
-    width = _normalizeSegmentWidth(width);
+    width = _normalizeSegmentWidth(width, RESIZE_TYPE_INCREMENT);
 
-    _resizeSegment(segmentEl, width * TILE_SIZE, true, false, true);
+    _resizeSegment(segmentEl, RESIZE_TYPE_INCREMENT,
+        width * TILE_SIZE, true, false, true);
   }
 
   function _onWidthDecrementClick(event) {
@@ -708,9 +729,9 @@ var main = (function(){
     _createTouchSegmentFadeout(segmentEl);
   }
 
-  function _resizeSegment(el, width, updateEdit, isTool, immediate, initial) {
+  function _resizeSegment(el, resizeType, width, updateEdit, isTool, immediate, initial) {
     if (!isTool) {
-      var width = _normalizeSegmentWidth(width / TILE_SIZE) * TILE_SIZE;
+      var width = _normalizeSegmentWidth(width / TILE_SIZE, resizeType) * TILE_SIZE;
     }
 
     if (immediate) {
@@ -1003,7 +1024,7 @@ var main = (function(){
     }
 
     if (width) {
-      _resizeSegment(el, width, true, isTool, true, true);
+      _resizeSegment(el, RESIZE_TYPE_INITIAL, width, true, isTool, true, true);
     }    
     return el;
   }
@@ -1521,7 +1542,8 @@ var main = (function(){
     var width = 
         draggingResize.origWidth + deltaFromOriginal / TILE_SIZE * 2;
 
-    _resizeSegment(draggingResize.segmentEl, width * TILE_SIZE, true, false, true);
+    _resizeSegment(draggingResize.segmentEl, RESIZE_TYPE_DRAGGING,
+        width * TILE_SIZE, true, false, true);
 
     draggingResize.mouseX = event.pageX;
     draggingResize.mouseY = event.pageY;
@@ -1788,7 +1810,7 @@ var main = (function(){
 
           if ((data.remainingWidth >= MIN_SEGMENT_WIDTH) && 
               (data.remainingWidth >= segmentMinWidth)) {
-            width = _normalizeSegmentWidth(data.remainingWidth) * TILE_SIZE;
+            width = _normalizeSegmentWidth(data.remainingWidth, RESIZE_TYPE_INITIAL) * TILE_SIZE;
           }
         }
       }
