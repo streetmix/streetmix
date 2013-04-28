@@ -1219,8 +1219,8 @@ var main = (function(){
         var width = parseFloat(el.getAttribute('width')) * TILE_SIZE;
       }
 
-      el.savedLeft = left; // so we don’t have to use offsetLeft
-      el.savedWidth = width;
+      el.savedLeft = parseInt(left); // so we don’t have to use offsetLeft
+      el.savedWidth = parseInt(width);
 
       left += width;
 
@@ -1235,7 +1235,7 @@ var main = (function(){
 
     var occupiedWidth = left;
 
-    var mainLeft = (data.streetWidth * TILE_SIZE - occupiedWidth) / 2;
+    var mainLeft = parseInt((data.streetWidth * TILE_SIZE - occupiedWidth) / 2);
 
     for (var i in data.segments) {
       var el = data.segments[i].el;
