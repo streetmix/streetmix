@@ -951,6 +951,7 @@ body.touch-support .segment.fade-out-end button {
 }
 
 
+<<<<<<< HEAD
 #menu {
   z-index: 500000;
   display: block;
@@ -1009,10 +1010,6 @@ body.touch-support .segment.fade-out-end button {
 
   padding: 2px 0;
 
-  &.visible {
-    display: block;
-  }
-
   & > a {
     text-decoration: none;
     color: black;
@@ -1036,4 +1033,28 @@ body.touch-support .segment.fade-out-end button {
 
 #options-menu {
   right: 70px;
+}
+
+#debug {
+  position: fixed;
+  top: 10px;
+  bottom: 10px;
+  right: 10px;
+  left: 10px;
+  z-index: 9999999;
+  background: white;
+
+  display: none;
+
+  &.visible {
+    display: block;
+  }
+
+  & > textarea {
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    right: 10px;
+    left: 10px;
+  }
 }
