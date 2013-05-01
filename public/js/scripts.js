@@ -64,9 +64,10 @@ var main = (function(){
 
   var IMPERIAL_METRIC_MULTIPLIER = 30 / 100;
 
-  var SEGMENT_WIDTH_RESOLUTION_METRIC = .1 / IMPERIAL_METRIC_MULTIPLIER;
-  var SEGMENT_WIDTH_CLICK_INCREMENT_METRIC = .2 / IMPERIAL_METRIC_MULTIPLIER;
-  var SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC = .2 / IMPERIAL_METRIC_MULTIPLIER;
+  // don't use const because of rounding problems
+  var SEGMENT_WIDTH_RESOLUTION_METRIC = 1 / 3; // .1 / IMPERIAL_METRIC_MULTIPLER
+  var SEGMENT_WIDTH_CLICK_INCREMENT_METRIC = 2 / 3; // .2 / IMPERIAL_METRIC_MULTIPLER
+  var SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC = 2 / 3; // .2 / IMPERIAL_METRIC_MULTIPLER
 
   var MIN_WIDTH_EDIT_CANVAS_WIDTH = 120;
 
@@ -2491,12 +2492,22 @@ var main = (function(){
   }
 
   function _updateUnits() {
+    var fullStreet = data.remainingWidth == 0;
+
     _propagateSettings();
 
     _normalizeAllSegmentWidths();
 
     createUndo = false;
-    data.streetWidth = _normalizeSegmentWidth(data.streetWidth, RESIZE_TYPE_INITIAL);
+    
+    if (fullStreet) {
+      data.streetWidth = 0;
+      for (var i in data.segments) {
+        data.streetWidth += data.segments[i].width;
+      }
+    } else {
+      data.streetWidth = _normalizeStreetWidth(data.streetWidth);
+    }
     _createDomFromData();
     _segmentsChanged();
     _resizeStreetWidth();
@@ -2508,6 +2519,7 @@ var main = (function(){
 
     _clearUndoStack();
     _saveSettings();
+
   }
 
   function _onMenuMetric(event) {
