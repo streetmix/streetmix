@@ -2499,26 +2499,39 @@ var main = (function(){
     }
   }
 
-  function _updateUnits() {
-    var fullStreet = (data.remainingWidth == 0);
+  function _updateUnits(newUnits) {
+    data.settings.units = newUnits;
+
+    // If the user converts and then straight converts back, we just reach
+    // to undo stack instead of double conversion (which could be lossy).
+    if (undoStack[undoPosition - 1] && 
+        (undoStack[undoPosition - 1].settings.units == newUnits)) {
+      var fromUndo = true;
+    } else {
+      var fromUndo = false;
+    }
 
     _propagateSettings();
 
-    _normalizeAllSegmentWidths();
-
     createUndo = false;
+    if (!fromUndo) {
+      _normalizeAllSegmentWidths();
 
-    if (fullStreet) {
-      data.streetWidth = 0;
-      for (var i in data.segments) {
-        data.streetWidth += data.segments[i].width;
+      if (data.remainingWidth == 0) {
+        data.streetWidth = 0;
+        for (var i in data.segments) {
+          data.streetWidth += data.segments[i].width;
+        }
+      } else {
+        data.streetWidth = _normalizeStreetWidth(data.streetWidth);
       }
     } else {
-      data.streetWidth = _normalizeStreetWidth(data.streetWidth);
+      data = undoStack[undoPosition - 1];
     }
     _createDomFromData();
     _segmentsChanged();
     _resizeStreetWidth();
+
     createUndo = true;      
 
     _buildStreetWidthMenu();
@@ -2530,16 +2543,13 @@ var main = (function(){
   }
 
   function _onMenuMetric(event) {
-    data.settings.units = SETTINGS_UNITS_METRIC;
-    _updateUnits();
+    _updateUnits(SETTINGS_UNITS_METRIC);
 
     event.preventDefault();
   }
 
   function _onMenuImperial(event) {
-    data.settings.units = SETTINGS_UNITS_IMPERIAL;
-
-    _updateUnits();
+    _updateUnits(SETTINGS_UNITS_IMPERIAL);
 
     event.preventDefault();
   }
