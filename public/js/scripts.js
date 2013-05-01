@@ -356,13 +356,9 @@ var main = (function(){
     occupiedWidth: null,
     remainingWidth: null,
 
-<<<<<<< HEAD
     settings: {
       units: null
     },
-=======
-    settings: null,
->>>>>>> tactical-ui-fixes
 
     segments: []
   };
