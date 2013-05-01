@@ -355,11 +355,11 @@ var main = (function(){
     occupiedWidth: null,
     remainingWidth: null,
 
-    segments: []
-  };
+    settings: {
+      units: null
+    },
 
-  var settings = {
-    units: null
+    segments: []
   };
 
   var draggingResize = {
@@ -679,7 +679,7 @@ var main = (function(){
 
     if (width) {
       // Default unit
-      switch (settings.units) {
+      switch (data.settings.units) {
         case SETTINGS_UNITS_METRIC:
           var multiplier = 1 / IMPERIAL_METRIC_MULTIPLIER;
           break;
@@ -793,7 +793,7 @@ var main = (function(){
   function _prettifyWidth(width, purpose) {
     var remainder = width - Math.floor(width);
 
-    switch (settings.units) {
+    switch (data.settings.units) {
       case SETTINGS_UNITS_IMPERIAL:
         var widthText = width;
 
@@ -1367,9 +1367,14 @@ var main = (function(){
       data = undoStack[undoPosition];
 
       createUndo = false;
+      _propagateSettings();
+      _buildStreetWidthMenu();
+      _updateOptionsMenu();
+
       _createDomFromData();
       _segmentsChanged();
       _resizeStreetWidth();
+
       createUndo = true;
 
       _updateUndoButtons();
@@ -2424,6 +2429,9 @@ var main = (function(){
 
     newData.streetWidth = data.streetWidth;
 
+    newData.settings = {};
+    newData.settings.units = data.settings.units;
+
     newData.segments = [];
 
     for (var i in data.segments) {
@@ -2471,17 +2479,17 @@ var main = (function(){
   function _loadSettings() {
     var savedSettings = window.localStorage['settings'];
     if (savedSettings) {
-      settings = JSON.parse(window.localStorage['settings']);
+      data.settings = JSON.parse(window.localStorage['settings']);
 
       // TODO validate settings here
     } else {
-      settings = {};
-      settings.units = SETTINGS_UNITS_IMPERIAL;
+      data.settings = {};
+      data.settings.units = SETTINGS_UNITS_IMPERIAL;
     }
   }
 
   function _saveSettings() {
-    window.localStorage['settings'] = JSON.stringify(settings);
+    window.localStorage['settings'] = JSON.stringify(data.settings);
   }
 
   function _normalizeAllSegmentWidths() {
@@ -2492,14 +2500,14 @@ var main = (function(){
   }
 
   function _updateUnits() {
-    var fullStreet = data.remainingWidth == 0;
+    var fullStreet = (data.remainingWidth == 0);
 
     _propagateSettings();
 
     _normalizeAllSegmentWidths();
 
     createUndo = false;
-    
+
     if (fullStreet) {
       data.streetWidth = 0;
       for (var i in data.segments) {
@@ -2517,20 +2525,19 @@ var main = (function(){
     _updateOptionsMenu();
     _hideMenus();
 
-    _clearUndoStack();
+    _createUndoIfNecessary();
     _saveSettings();
-
   }
 
   function _onMenuMetric(event) {
-    settings.units = SETTINGS_UNITS_METRIC;
+    data.settings.units = SETTINGS_UNITS_METRIC;
     _updateUnits();
 
     event.preventDefault();
   }
 
   function _onMenuImperial(event) {
-    settings.units = SETTINGS_UNITS_IMPERIAL;
+    data.settings.units = SETTINGS_UNITS_IMPERIAL;
 
     _updateUnits();
 
@@ -2538,7 +2545,7 @@ var main = (function(){
   }
 
   function _propagateSettings() {
-    switch (settings.units) {
+    switch (data.settings.units) {
       case SETTINGS_UNITS_IMPERIAL:
         segmentWidthResolution = SEGMENT_WIDTH_RESOLUTION_IMPERIAL;
         segmentWidthClickIncrement = SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL;
@@ -2555,7 +2562,7 @@ var main = (function(){
   }
 
   function _updateOptionsMenu() {
-    switch (settings.units) {
+    switch (data.settings.units) {
       case SETTINGS_UNITS_IMPERIAL:
         // TODO should be proper attribute
         document.querySelector('#options-menu-imperial').classList.add('disabled');
