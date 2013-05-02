@@ -789,6 +789,9 @@ var main = (function(){
     width = 
         Math.round(width / resolution) * resolution;
 
+    // TODO const
+    width = parseFloat(width.toFixed(5));
+
     return width;
   }
 
@@ -1286,7 +1289,6 @@ var main = (function(){
     }   
 
     data.remainingWidth = data.streetWidth - data.occupiedWidth;
-
     // TODO const
     // Rounding problems :·(
     if (Math.abs(data.remainingWidth) < .01) {
@@ -1300,7 +1302,8 @@ var main = (function(){
       var segmentInfo = SEGMENT_INFO[segment.type];
 
       if (segment.el) {
-        if ((position < 0) || ((position + segment.width) > data.streetWidth)) {
+        if ((data.remainingWidth < 0) && 
+            ((position < 0) || ((position + segment.width) > data.streetWidth))) {
           segment.warnings[SEGMENT_WARNING_OUTSIDE] = true;
         } else {
           segment.warnings[SEGMENT_WARNING_OUTSIDE] = false;
@@ -1323,9 +1326,7 @@ var main = (function(){
     }
 
 
-    if (data.remainingWidth == 0) {
-      document.body.classList.remove('street-overflows');
-    } else if (data.remainingWidth > 0) {
+    if (data.remainingWidth >= 0) {
       document.body.classList.remove('street-overflows');
     } else {
       document.body.classList.add('street-overflows');
