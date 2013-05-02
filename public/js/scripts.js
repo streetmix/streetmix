@@ -81,6 +81,7 @@ var main = (function(){
   var KEY_BACKSPACE = 8;
   var KEY_DELETE = 46;
   var KEY_ESC = 27;
+  var KEY_D = 68;
   var KEY_Y = 89;
   var KEY_Z = 90;
   var KEY_EQUAL = 187; // = or +
@@ -1850,11 +1851,15 @@ var main = (function(){
     }
   }
 
+  function _hideDebug() {
+    document.querySelector('#debug').classList.remove('visible');
+  }
 
   function _onBodyMouseDown(event) {
     var el = event.target;
 
     _loseAnyFocus();
+    _hideDebug();
 
     var topEl = event.target;
     while (topEl && (topEl.id != 'info-bubble') && (topEl.id != 'options-menu')) {
@@ -2324,6 +2329,7 @@ var main = (function(){
         }
         break;
       case KEY_ESC:
+        _hideDebug();
         if (infoBubbleVisible) {
           _hideInfoBubble();
         }
@@ -2344,6 +2350,34 @@ var main = (function(){
           event.preventDefault();
         }   
         break;   
+      case KEY_D:
+        if (event.shiftKey && (document.activeElement == document.body)) {
+
+          // deep object copy
+          var debugData = jQuery.extend(true, {}, data);
+          var debugUndo = jQuery.extend(true, {}, undoStack);
+
+          for (var i in debugData.segments) {
+            delete debugData.segments[i].el;
+          }
+
+          for (var j in debugUndo) {
+            for (var i in debugUndo[j].segments) {
+              delete debugUndo[j].segments[i].el;
+            }
+          }
+
+          var debugText = 
+              'DATA:\n' + JSON.stringify(debugData, null, 2) +
+              '\n\nUNDO:\n' + JSON.stringify(debugUndo, null, 2);
+
+          document.querySelector('#debug').classList.add('visible');
+          document.querySelector('#debug > textarea').innerHTML = debugText;
+          document.querySelector('#debug > textarea').focus();
+          document.querySelector('#debug > textarea').select();
+          event.preventDefault();
+        }
+        break;
     }
   }
 
