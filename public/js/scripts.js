@@ -668,6 +668,7 @@ var main = (function(){
 
   function _processWidthInput(widthInput) {
     widthInput = widthInput.replace(/ /g, '');
+    widthInput = widthInput.replace(/,/g, '.');
 
     for (var i in IMPERIAL_VULGAR_FRACTIONS) {
       if (widthInput.indexOf(IMPERIAL_VULGAR_FRACTIONS[i]) != -1) {
