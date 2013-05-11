@@ -1,10 +1,13 @@
 var express = require('express'),
     lessMiddleware = require('less-middleware'),
-    config = require('config');
+    config = require('config'),
+    controllers = require('./app/controllers')
 
 var app = express()
 
 app.use(express.compress())
+app.use(express.cookieParser())
+app.use(express.cookieSession({ secret: 'seger handrail' }))
 
 app.use(lessMiddleware({
   src: __dirname + '/public',
@@ -24,6 +27,9 @@ app.all('*', function(req, res, next) {
 })
 
 app.use(express.static(__dirname + '/public'))
+
+app.get('/twitter-sign-in', controllers.twitter_sign_in.get)
+app.get(config.twitter.oauth_callback_uri, controllers.twitter_sign_in_callback.get)
 
 app.listen(config.port, null, null, function() {
   console.log('Listening on port ' + config.port)

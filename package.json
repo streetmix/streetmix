@@ -1,14 +1,18 @@
 {
-    "name": "streetmix",
-    "version": "0.0.1",
-    "private": false,
-    "dependencies": {
-        "express": "3.0.6",
-        "less-middleware": "0.1.9",
-        "config": "0.4.23"
-    },
-    "engines": {
-        "node": "0.10.x",
-        "npm": "1.2.x"
-    }
+  "name": "streetmix",
+  "version": "0.0.1",
+  "private": false,
+  "dependencies": {
+    "express": "3.0.6",
+    "compound": "1.1.7-1",
+    "config": "0.4.23",
+    "less-middleware": "0.1.9",
+    "oauth": "0.9.10",
+    "requireindex": "1.0.0",
+    "sprintf": "0.1.1"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.2.x"
+  }
 }
