@@ -8,6 +8,7 @@
     "config": "0.4.23",
     "less-middleware": "0.1.9",
     "oauth": "0.9.10",
+    "request": "2.21.0",
     "requireindex": "1.0.0",
     "sprintf": "0.1.1"
   },

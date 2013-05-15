@@ -12,5 +12,6 @@ module.exports = {
     oauth_version: '1.0A',
     oauth_callback_uri: '/twitter-sign-in-callback',
     oauth_signature_method: 'HMAC-SHA1'
-  }
+  },
+  restapi_baseuri: 'http://localhost:8080'
 }

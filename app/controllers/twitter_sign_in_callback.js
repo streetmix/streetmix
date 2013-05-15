@@ -1,9 +1,10 @@
 var config = require('config'),
+    request = require('request'),
     oauth = require('../../lib/oauth.js')
 
 var oauthAccessTokenHandler = function(req, res) {
 
-  return function(err, oauth_token, oauth_token_secret, results) {
+  return function(err, oauth_access_token, oauth_token_secret, results) {
     if (err) {
       console.error('Error obtaining access token from Twitter:')
       console.log(err)
@@ -12,20 +13,30 @@ var oauthAccessTokenHandler = function(req, res) {
       return
     }
     
-    req.session.oauth.access_token = oauth_token
-    req.session.oauth.access_token_secret = oauth_token_secret
-    console.log(results)
-    console.log(req.session)
-    console.log(req.cookies)
-    
-    // TODO: Call new user API
-    
-    // Redirect user back to main page
-    res.redirect('/?msg=Signed in!')
-    return
+    // Call REST API to sign-in via Twitter
+    var apiRequestBody = {
+      twitter: {
+        user_id: results.user_id,
+        screen_name: results.screen_name,
+        oauth_token: oauth_access_token,
+        oauth_token_secret: oauth_token_secret
+      }
+    }
+    request.post({ url: config.restapi_baseuri + '/v1/users', json: apiRequestBody }, function(err, response, body) {
+      if (err) {
+        console.error('Error from API when signing in: ' + err)
+        res.redirect('/?msg=Could not sign-in')
+        return
+      }
+
+      // Redirect user back to main page
+      res.cookie('user_id', body.id)
+      res.redirect('/')
+      
+    })
     
   }
-
+  
 }
 
 exports.get = function(req, res) {
