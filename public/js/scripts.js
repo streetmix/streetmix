@@ -2683,17 +2683,17 @@ var main = (function(){
     var signInCookie = $.cookie(SIGN_IN_COOKIE_NAME);
 
     if (signInCookie) {
-      console.log('delete cookie, create local storage');
+      //console.log('delete cookie, create local storage');
       signInData = { id: signInCookie };
       $.removeCookie(SIGN_IN_COOKIE_NAME);
 
       window.localStorage[LOCAL_STORAGE_SIGN_IN_ID] = JSON.stringify(signInData);
     } else {
       if (window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
-        console.log('read from local storage');
+        //console.log('read from local storage');
         signInData = JSON.parse(window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]);
       } else {
-        console.log('not signed in');
+        //console.log('not signed in');
       }
     }
 
@@ -2706,6 +2706,14 @@ var main = (function(){
     _signInLoaded();
   }
 
+  function _signOut() {
+    $.removeCookie(SIGN_IN_COOKIE_NAME);
+
+    window.localStorage.removeItem(LOCAL_STORAGE_SIGN_IN_ID);
+
+    location.href = '/';
+  }
+
   function _createSignInUI() {
     if (signedIn) {
       var el = document.createElement('span');
@@ -2714,9 +2722,10 @@ var main = (function(){
       document.querySelector('#sign-in-link').appendChild(el);
 
       var el = document.createElement('a');
-      el.href = '#TEST';
+      el.href = '/';
       el.classList.add('command');
       el.innerHTML = 'Sign out';
+      el.addEventListener('click', _signOut);
       document.querySelector('#sign-in-link').appendChild(el);
     } else {
       var el = document.createElement('a');
