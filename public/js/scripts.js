@@ -353,6 +353,9 @@ var main = (function(){
 
   var SIGN_IN_COOKIE_NAME = 'user_id';
 
+  var LOCAL_STORAGE_SETTINGS_ID = 'settings';
+  var LOCAL_STORAGE_SIGN_IN_ID = 'sign-in';
+  
   var data = {
     streetWidth: null,
     occupiedWidth: null,
@@ -2519,10 +2522,9 @@ var main = (function(){
   }
 
   function _loadSettings() {
-    // TODO const
-    var savedSettings = window.localStorage['settings'];
+    var savedSettings = window.localStorage[LOCAL_STORAGE_SETTINGS_ID];
     if (savedSettings) {
-      data.settings = JSON.parse(window.localStorage['settings']);
+      data.settings = JSON.parse(window.localStorage[LOCAL_STORAGE_SETTINGS_ID]);
 
       // TODO validate settings here
     } else {
@@ -2532,7 +2534,7 @@ var main = (function(){
   }
 
   function _saveSettings() {
-    window.localStorage['settings'] = JSON.stringify(data.settings);
+    window.localStorage[LOCAL_STORAGE_SETTINGS_ID] = JSON.stringify(data.settings);
   }
 
   function _normalizeAllSegmentWidths() {
@@ -2678,8 +2680,6 @@ var main = (function(){
   function _loadSignIn() {
     signInLoaded = false;
 
-    // process sign cookie
-
     var signInCookie = $.cookie(SIGN_IN_COOKIE_NAME);
 
     if (signInCookie) {
@@ -2687,23 +2687,11 @@ var main = (function(){
       signInData = { id: signInCookie };
       $.removeCookie(SIGN_IN_COOKIE_NAME);
 
-      window.localStorage['sign-in'] = JSON.stringify(signInData);
-
-/*          var savedSettings = window.localStorage['settings'];
-    if (savedSettings) {
-      data.settings = JSON.parse(window.localStorage['settings']);
-
-      // TODO validate settings here
+      window.localStorage[LOCAL_STORAGE_SIGN_IN_ID] = JSON.stringify(signInData);
     } else {
-      data.settings = {};
-      data.settings.units = SETTINGS_UNITS_IMPERIAL;
-    }*/
-
-    } else {
-      // TODO const
-      if (window.localStorage['sign-in']) {
+      if (window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
         console.log('read from local storage');
-        signInData = JSON.parse(window.localStorage['sign-in']);
+        signInData = JSON.parse(window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]);
       }
     }
 
