@@ -355,7 +355,7 @@ var main = (function(){
 
   var LOCAL_STORAGE_SETTINGS_ID = 'settings';
   var LOCAL_STORAGE_SIGN_IN_ID = 'sign-in';
-  
+
   var data = {
     streetWidth: null,
     occupiedWidth: null,
@@ -2692,6 +2692,8 @@ var main = (function(){
       if (window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
         console.log('read from local storage');
         signInData = JSON.parse(window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]);
+      } else {
+        console.log('not signed in');
       }
     }
 
@@ -2708,15 +2710,18 @@ var main = (function(){
     if (signedIn) {
       var el = document.createElement('span');
       el.innerHTML = signInData.id;
+      el.classList.add('id');
       document.querySelector('#sign-in-link').appendChild(el);
 
       var el = document.createElement('a');
       el.href = '#TEST';
+      el.classList.add('command');
       el.innerHTML = 'Sign out';
       document.querySelector('#sign-in-link').appendChild(el);
     } else {
       var el = document.createElement('a');
       el.href = '/twitter-sign-in';
+      el.classList.add('command');
       el.innerHTML = 'Sign in';
       document.querySelector('#sign-in-link').appendChild(el);
     }
