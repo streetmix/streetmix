@@ -1902,8 +1902,6 @@ var main = (function(){
     event.preventDefault();
   }
 
-
-
   function _makeSpaceBetweenSegments(x, y) {
     var left = x - streetSectionCanvasLeft;
 
