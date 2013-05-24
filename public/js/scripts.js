@@ -351,6 +351,8 @@ var main = (function(){
     ]
   };
 
+  var SIGN_IN_COOKIE_NAME = 'user_id';
+
   var data = {
     streetWidth: null,
     occupiedWidth: null,
@@ -2517,6 +2519,7 @@ var main = (function(){
   }
 
   function _loadSettings() {
+    // TODO const
     var savedSettings = window.localStorage['settings'];
     if (savedSettings) {
       data.settings = JSON.parse(window.localStorage['settings']);
@@ -2675,22 +2678,58 @@ var main = (function(){
   function _loadSignIn() {
     signInLoaded = false;
 
-    signedIn = false;
+    // process sign cookie
+
+    var signInCookie = $.cookie(SIGN_IN_COOKIE_NAME);
+
+    if (signInCookie) {
+      console.log('delete cookie, create local storage');
+      signInData = { id: signInCookie };
+      $.removeCookie(SIGN_IN_COOKIE_NAME);
+
+      window.localStorage['sign-in'] = JSON.stringify(signInData);
+
+/*          var savedSettings = window.localStorage['settings'];
+    if (savedSettings) {
+      data.settings = JSON.parse(window.localStorage['settings']);
+
+      // TODO validate settings here
+    } else {
+      data.settings = {};
+      data.settings.units = SETTINGS_UNITS_IMPERIAL;
+    }*/
+
+    } else {
+      // TODO const
+      if (window.localStorage['sign-in']) {
+        console.log('read from local storage');
+        signInData = JSON.parse(window.localStorage['sign-in']);
+      }
+    }
+
+    if (signInData && signInData.id) {
+      signedIn = true;  
+    } else {
+      signedIn = false;
+    }
+
     _signInLoaded();
   }
 
   function _createSignInUI() {
     if (signedIn) {
+      var el = document.createElement('span');
+      el.innerHTML = signInData.id;
+      document.querySelector('#sign-in-link').appendChild(el);
+
       var el = document.createElement('a');
       el.href = '#TEST';
       el.innerHTML = 'Sign out';
-
       document.querySelector('#sign-in-link').appendChild(el);
     } else {
       var el = document.createElement('a');
       el.href = '/twitter-sign-in';
       el.innerHTML = 'Sign in';
-
       document.querySelector('#sign-in-link').appendChild(el);
     }
   }
