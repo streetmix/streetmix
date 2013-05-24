@@ -403,6 +403,8 @@ var main = (function(){
   var images;
   var imagesToBeLoaded;  
 
+  var signInLoaded = false;
+
   var lastData;
   var undoStack = [];
   var undoPosition = 0;
@@ -2621,7 +2623,7 @@ var main = (function(){
     }
   }
 
-  function _onImagesLoaded() {
+  function _onEverythingLoaded() {
     _loadSettings();
     _propagateSettings();
 
@@ -2644,12 +2646,16 @@ var main = (function(){
     _hideLoadingScreen();
   }
 
+  function _checkIfEverythingIsLoaded() {
+    if (imagesToBeLoaded == 0) {
+      _onEverythingLoaded();
+    }
+  }
+
   function _onImageLoaded() {
     imagesToBeLoaded--;
 
-    if (imagesToBeLoaded == 0) {
-      _onImagesLoaded();
-    }
+    _checkIfEverythingIsLoaded();
   }
 
   function _loadImages() {
@@ -2663,12 +2669,21 @@ var main = (function(){
       images[url].src = url + '?v' + TILESET_IMAGE_VERSION;
     }    
   }
+
+  function _loadSignIn() {
+    signInLoaded = false;
+
+    signInLoaded = true;
+
+    _checkIfEverythingIsLoaded();
+  }
  
   main.init = function() {
     initializing = true;
     createUndo = false;
 
     _inspectSystem();
+    _loadSignIn();
     _loadImages();
   }
 
