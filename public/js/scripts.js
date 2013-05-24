@@ -403,7 +403,9 @@ var main = (function(){
   var images;
   var imagesToBeLoaded;  
 
+  var signedIn = false;
   var signInLoaded = false;
+  var signInData = {};
 
   var lastData;
   var undoStack = [];
@@ -2673,7 +2675,30 @@ var main = (function(){
   function _loadSignIn() {
     signInLoaded = false;
 
+    signedIn = false;
+    _signInLoaded();
+  }
+
+  function _createSignInUI() {
+    if (signedIn) {
+      var el = document.createElement('a');
+      el.href = '#TEST';
+      el.innerHTML = 'Sign out';
+
+      document.querySelector('#sign-in-link').appendChild(el);
+    } else {
+      var el = document.createElement('a');
+      el.href = '/twitter-sign-in';
+      el.innerHTML = 'Sign in';
+
+      document.querySelector('#sign-in-link').appendChild(el);
+    }
+  }
+
+  function _signInLoaded() {
     signInLoaded = true;
+
+    _createSignInUI();
 
     _checkIfEverythingIsLoaded();
   }
