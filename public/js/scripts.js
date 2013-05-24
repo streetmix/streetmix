@@ -56,7 +56,8 @@ var main = (function(){
   var RESIZE_TYPE_INITIAL = 0;
   var RESIZE_TYPE_INCREMENT = 1;
   var RESIZE_TYPE_DRAGGING = 2;
-  var RESIZE_TYPE_TYPING = 3;
+  var RESIZE_TYPE_PRECISE_DRAGGING = 3;
+  var RESIZE_TYPE_TYPING = 4;
 
   var SEGMENT_WIDTH_RESOLUTION_IMPERIAL = .25;
   var SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL = .5;
@@ -779,6 +780,7 @@ var main = (function(){
       case RESIZE_TYPE_INITIAL:
       case RESIZE_TYPE_TYPING:
       case RESIZE_TYPE_INCREMENT:
+      case RESIZE_TYPE_PRECISE_DRAGGING:
         var resolution = segmentWidthResolution;
         break;
       case RESIZE_TYPE_DRAGGING:
@@ -1717,7 +1719,15 @@ var main = (function(){
     var width = 
         draggingResize.origWidth + deltaFromOriginal / TILE_SIZE * 2;
 
-    _resizeSegment(draggingResize.segmentEl, RESIZE_TYPE_DRAGGING,
+    var precise = event.shiftKey;
+
+    if (precise) {
+      var resizeType = RESIZE_TYPE_PRECISE_DRAGGING;
+    } else {
+      var resizeType = RESIZE_TYPE_DRAGGING;
+    }
+
+    _resizeSegment(draggingResize.segmentEl, resizeType,
         width * TILE_SIZE, true, false, true);
 
     draggingResize.mouseX = event.pageX;
