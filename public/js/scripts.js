@@ -2765,7 +2765,7 @@ var main = (function(){
   function _receiveSignInDetails(data) {
     signInData.details = {
       username: data.username,
-      profileImageUrl: data.profile_image_uri
+      profileImageUrl: data.profileImageUri
     }
 
     _saveSignInData();
