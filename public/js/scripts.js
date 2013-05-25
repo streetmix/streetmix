@@ -2535,7 +2535,6 @@ var main = (function(){
       // TODO validate and fill in settings here
       // TODO should get from defaults
       if (typeof data.settings.unitsSelectedManually === 'undefined') {
-        console.log('fill');
         data.settings.unitsSelectedManually = false;
       }
     } else {
