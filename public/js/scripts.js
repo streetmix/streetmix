@@ -2675,7 +2675,7 @@ var main = (function(){
   }
 
   function _checkIfEverythingIsLoaded() {
-    if (imagesToBeLoaded == 0) {
+    if ((imagesToBeLoaded == 0) && signInLoaded) {
       _onEverythingLoaded();
     }
   }
@@ -2698,6 +2698,10 @@ var main = (function(){
     }    
   }
 
+  function _saveSignInData() {
+    window.localStorage[LOCAL_STORAGE_SIGN_IN_ID] = JSON.stringify(signInData);
+  }
+
   function _loadSignIn() {
     signInLoaded = false;
 
@@ -2712,7 +2716,7 @@ var main = (function(){
       console.log(signInData);
       $.removeCookie(SIGN_IN_TOKEN_COOKIE);
 
-      window.localStorage[LOCAL_STORAGE_SIGN_IN_ID] = JSON.stringify(signInData);
+      _saveSignInData();
     } else {
       if (window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
         console.log('read from local storage');
@@ -2732,9 +2736,6 @@ var main = (function(){
       } else {
         _getSignInDetails();
       }
-      //console.log(signInData);
-      //if (signInData.username)
-
     } else {
       signedIn = false;
       _signInLoaded();
@@ -2754,6 +2755,13 @@ var main = (function(){
   function _receiveSignInDetails(data) {
     console.log('Received!');
     console.log(data);
+
+    signInData.details = {
+      username: data.username,
+      profileImageUrl: data.profile_image_uri
+    }
+
+    _saveSignInData();
 
     signedIn = true;
     _signInLoaded();
@@ -2777,7 +2785,7 @@ var main = (function(){
   function _createSignInUI() {
     if (signedIn) {
       var el = document.createElement('span');
-      el.innerHTML = signInData.token;
+      el.innerHTML = signInData.details.username;
       el.classList.add('id');
       document.querySelector('#sign-in-link').appendChild(el);
 
