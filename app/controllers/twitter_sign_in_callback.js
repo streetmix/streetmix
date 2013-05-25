@@ -16,8 +16,8 @@ var oauthAccessTokenHandler = function(req, res) {
     // Call REST API to sign-in via Twitter
     var apiRequestBody = {
       twitter: {
-        user_id: results.user_id,
-        screen_name: results.screen_name,
+        userId: results.user_id,
+        screenName: results.screen_name,
         oauthAccessTokenKey: oauth_access_token_key,
         oauthAccessTokenSecret: oauth_access_token_secret
       }
@@ -30,6 +30,7 @@ var oauthAccessTokenHandler = function(req, res) {
       }
 
       // Redirect user back to main page
+      res.cookie('user_id', body.id)
       res.cookie('login_token', body.loginToken)
       res.redirect('/')
       
