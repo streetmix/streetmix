@@ -71,6 +71,7 @@ var main = (function(){
   var SEGMENT_WIDTH_DRAGGING_RESOLUTION_IMPERIAL = .5;
 
   var IMPERIAL_METRIC_MULTIPLIER = 30 / 100;
+  var IMPERIAL_COUNTRY_CODES = ['US'];
 
   // don't use const because of rounding problems
   var SEGMENT_WIDTH_RESOLUTION_METRIC = 1 / 3; // .1 / IMPERIAL_METRIC_MULTIPLER
@@ -367,7 +368,8 @@ var main = (function(){
     remainingWidth: null,
 
     settings: {
-      units: null
+      units: null,
+      unitsSelectedManually: null
     },
 
     segments: []
@@ -2479,6 +2481,7 @@ var main = (function(){
 
     newData.settings = {};
     newData.settings.units = data.settings.units;
+    newData.settings.unitsSelectedManually = data.settings.unitsSelectedManually;
 
     newData.segments = [];
 
@@ -2529,11 +2532,21 @@ var main = (function(){
     if (savedSettings) {
       data.settings = JSON.parse(window.localStorage[LOCAL_STORAGE_SETTINGS_ID]);
 
-      // TODO validate settings here
+      // TODO validate and fill in settings here
+      // TODO should get from defaults
+      if (typeof data.settings.unitsSelectedManually === 'undefined') {
+        console.log('fill');
+        data.settings.unitsSelectedManually = false;
+      }
     } else {
+
+      // TODO Default settings, should probably live elsewhere
       data.settings = {};
       data.settings.units = SETTINGS_UNITS_IMPERIAL;
+      data.settings.unitsSelectedManually = false;
     }
+
+    _saveSettings();
   }
 
   function _saveSettings() {
@@ -2548,7 +2561,13 @@ var main = (function(){
     }
   }
 
-  function _updateUnits(newUnits) {
+  function _updateUnits(newUnits, manually) {
+    data.settings.unitsSelectedManually = manually;
+
+    if (data.settings.units == newUnits) {
+      return;
+    }
+
     data.settings.units = newUnits;
 
     // If the user converts and then straight converts back, we just reach
@@ -2592,13 +2611,13 @@ var main = (function(){
   }
 
   function _onMenuMetric(event) {
-    _updateUnits(SETTINGS_UNITS_METRIC);
+    _updateUnits(SETTINGS_UNITS_METRIC, true);
 
     event.preventDefault();
   }
 
   function _onMenuImperial(event) {
-    _updateUnits(SETTINGS_UNITS_IMPERIAL);
+    _updateUnits(SETTINGS_UNITS_IMPERIAL, true);
 
     event.preventDefault();
   }
@@ -2608,12 +2627,14 @@ var main = (function(){
       case SETTINGS_UNITS_IMPERIAL:
         segmentWidthResolution = SEGMENT_WIDTH_RESOLUTION_IMPERIAL;
         segmentWidthClickIncrement = SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL;
-        segmentWidthDraggingResolution = SEGMENT_WIDTH_DRAGGING_RESOLUTION_IMPERIAL;
+        segmentWidthDraggingResolution = 
+            SEGMENT_WIDTH_DRAGGING_RESOLUTION_IMPERIAL;
         break;
       case SETTINGS_UNITS_METRIC:
         segmentWidthResolution = SEGMENT_WIDTH_RESOLUTION_METRIC;
         segmentWidthClickIncrement = SEGMENT_WIDTH_CLICK_INCREMENT_METRIC;
-        segmentWidthDraggingResolution = SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC;
+        segmentWidthDraggingResolution = 
+            SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC;
         break;
     }
 
@@ -2635,7 +2656,6 @@ var main = (function(){
   }
 
   function _onImagesLoaded() {
-    _loadSettings();
     _propagateSettings();
 
     data.streetWidth = _normalizeStreetWidth(DEFAULT_STREET_WIDTH);
@@ -2675,12 +2695,39 @@ var main = (function(){
       images[url].src = url + '?v' + TILESET_IMAGE_VERSION;
     }    
   }
+
+  function _detectUnitType() {
+    if (!data.settings.unitsSelectedManually) {
+      //console.log('detecting units…');
+
+      $.ajax({
+        // TODO const
+        url: 'http://freegeoip.net/json/'
+      }).done(_receiveUnitType);
+    } else {
+      //console.log('units selected, no need for detection');
+    }
+  }
+
+  function _receiveUnitType(info) {
+    //console.log('detected!');
+    if (info && info.country_code && !data.settings.unitsSelectedManually) {
+      if (IMPERIAL_COUNTRY_CODES.indexOf(info.country_code) != -1) {
+        _updateUnits(SETTINGS_UNITS_IMPERIAL, false);
+      } else {
+        _updateUnits(SETTINGS_UNITS_METRIC, false);
+      }
+    }
+  }
  
   main.init = function() {
     initializing = true;
     createUndo = false;
 
     _inspectSystem();
+    _loadSettings();
+    // TODO only make it work for new streets
+    _detectUnitType();
     _loadImages();
   }
 
