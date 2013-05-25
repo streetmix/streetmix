@@ -2707,30 +2707,20 @@ var main = (function(){
 
     var signInCookie = $.cookie(SIGN_IN_TOKEN_COOKIE);
 
-    //console.log('cookie', signInCookie);
-
     if (signInCookie) {
-      //console.log('delete cookie, create local storage');
       signInData = { token: signInCookie };
 
-      //console.log(signInData);
       $.removeCookie(SIGN_IN_TOKEN_COOKIE);
 
       _saveSignInData();
     } else {
       if (window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
-        //console.log('read from local storage');
         signInData = JSON.parse(window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]);
-      } else {
-        //console.log('not signed in');
       }
     }
 
     if (signInData && signInData.token) {
-      //console.log('some data');
-
       if (signInData.details) {
-        //console.log('all data');
         signedIn = true;
         _signInLoaded();
       } else {
@@ -2748,14 +2738,9 @@ var main = (function(){
     jQuery.ajax({
       url: 'http://localhost:8080/v1/users/' + signInData.token
     }).done(_receiveSignInDetails).fail(_noSignInDetails);
-    //jquery.
-      //signedIn = true;
   }
 
   function _receiveSignInDetails(data) {
-    //console.log('Received!');
-    //console.log(data);
-
     signInData.details = {
       username: data.username,
       profileImageUrl: data.profile_image_uri
@@ -2768,17 +2753,29 @@ var main = (function(){
   }
 
   function _noSignInDetails() {    
-    //console.log('Failed!');
-
     signedIn = false;
     _signInLoaded();
   }
 
-  function _signOut() {
+  function _signOut(event) {
     $.removeCookie(SIGN_IN_TOKEN_COOKIE);
-
     window.localStorage.removeItem(LOCAL_STORAGE_SIGN_IN_ID);
 
+    _sendSignOutToServer();
+
+    event.preventDefault();
+  }
+
+  function _sendSignOutToServer() {
+    // TODO const and productionize
+    jQuery.ajax({
+      url: 'http://localhost:8080/v1/users/' + signInData.token + '/login-token',
+      type: 'DELETE'
+    }).done(_receiveSignOutConfirmationFromServer)
+    .fail(_receiveSignOutConfirmationFromServer);
+  }
+
+  function _receiveSignOutConfirmationFromServer() {
     location.href = '/';
   }
 
