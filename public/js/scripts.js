@@ -35,10 +35,13 @@ var main = (function(){
   var CANVAS_GROUND = 35;
   var CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND;
 
-  var SEGMENT_Y_TOOL = 20;
-  var SEGMENT_Y_NON_TOOL = 265;
+  var SEGMENT_Y_NORMAL = 265;
+  var SEGMENT_Y_PALETTE = 20;
+  var PALETTE_EXTRA_SEGMENT_PADDING = 4;
 
-  var TOOL_EXTRA_WIDTH = 4;
+  var WIDTH_CHART_WIDTH = 500;
+  var WIDTH_CHART_EMPTY_OWNER_WIDTH = 40;
+  var WIDTH_CHART_MARGIN = 20;
 
   var DRAGGING_TYPE_NONE = 0;
   var DRAGGING_TYPE_MOVE = 1;
@@ -497,7 +500,7 @@ var main = (function(){
     var bkPositionY = (segmentInfo.graphics.center.y || 0) * TILE_SIZE;
 
     var left = 0;
-    var top = isTool ? SEGMENT_Y_TOOL : SEGMENT_Y_NON_TOOL;
+    var top = isTool ? SEGMENT_Y_PALETTE : SEGMENT_Y_NORMAL;
     var width = realWidth * TILE_SIZE;
     var height = CANVAS_BASELINE;
 
@@ -1075,7 +1078,6 @@ var main = (function(){
     }
   }
 
-  // TODO pass segment object instead of bits and pieces
   function _createSegment(type, width, isUnmovable, isTool) {
     var el = document.createElement('div');
     el.classList.add('segment');
@@ -1483,25 +1485,20 @@ var main = (function(){
   function _updateWidthChart(ownerWidths) {
     var ctx = document.querySelector('#width-chart').getContext('2d');
 
-    // TODO move up
-    var EMPTY_WIDTH = 40;
-
-    var CHART_MARGIN = 20;
-
-    var chartWidth = 500;
+    var chartWidth = WIDTH_CHART_WIDTH;
     var canvasWidth = document.querySelector('#width-chart').offsetWidth;
     var canvasHeight = document.querySelector('#width-chart').offsetHeight;
 
     document.querySelector('#width-chart').width = canvasWidth * system.hiDpi;
     document.querySelector('#width-chart').height = canvasHeight * system.hiDpi;
 
-    chartWidth -= CHART_MARGIN * 2;
+    chartWidth -= WIDTH_CHART_MARGIN * 2;
 
     var left = (canvasWidth - chartWidth) / 2;
 
     for (var id in SEGMENT_OWNERS) {
       if (ownerWidths[id] == 0) {
-        chartWidth -= EMPTY_WIDTH;
+        chartWidth -= WIDTH_CHART_EMPTY_OWNER_WIDTH;
       }
     }
 
@@ -1524,6 +1521,7 @@ var main = (function(){
       _drawLine(ctx, left + data.streetWidth * multiplier, 20, left + data.streetWidth * multiplier, 40);
 
       ctx.save();
+      // TODO const
       ctx.strokeStyle = 'red';
       ctx.fillStyle = 'red';
       _drawArrowLine(ctx, 
@@ -1577,7 +1575,7 @@ var main = (function(){
 
     for (var id in SEGMENT_OWNERS) {
       if (ownerWidths[id] == 0) {
-        var width = EMPTY_WIDTH;
+        var width = WIDTH_CHART_EMPTY_OWNER_WIDTH;
 
         ctx.fillStyle = 'rgb(100, 100, 100)';
         ctx.strokeStyle = 'rgb(100, 100, 100)';
@@ -1606,7 +1604,7 @@ var main = (function(){
     }
 
     document.querySelector('#street-width-canvas').style.left = 
-        CHART_MARGIN + 'px';
+        WIDTH_CHART_MARGIN + 'px';
     document.querySelector('#street-width-canvas').style.width = 
         (data.streetWidth * multiplier) + 'px';
   }
@@ -2122,7 +2120,7 @@ var main = (function(){
         width -= segmentInfo.graphics.right.offsetX;
       }
 
-      width += TOOL_EXTRA_WIDTH;
+      width += PALETTE_EXTRA_SEGMENT_PADDING;
 
       var el = _createSegment(i, 
         width * TILE_SIZE / WIDTH_TOOL_MULTIPLIER, 
@@ -2613,13 +2611,11 @@ var main = (function(){
 
   function _onMenuMetric(event) {
     _updateUnits(SETTINGS_UNITS_METRIC, true);
-
     event.preventDefault();
   }
 
   function _onMenuImperial(event) {
     _updateUnits(SETTINGS_UNITS_IMPERIAL, true);
-
     event.preventDefault();
   }
 
