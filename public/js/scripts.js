@@ -48,6 +48,9 @@ var main = (function(){
 
   var STREET_WIDTH_CUSTOM = -1;
 
+  var DEFAULT_STREET_WIDTH = 80;
+  var DEFAULT_STREET_WIDTHS = [40, 60, 80];
+
   var MIN_CUSTOM_STREET_WIDTH = 10;
   var MAX_CUSTOM_STREET_WIDTH = 200;
   var MIN_SEGMENT_WIDTH = 2;
@@ -2170,9 +2173,8 @@ var main = (function(){
   function _getDefaultSegments() {
     data.segments = [];
 
-    // TODO const
-    for (var i in DEFAULT_SEGMENTS[80]) {
-      var segment = DEFAULT_SEGMENTS[80][i];
+    for (var i in DEFAULT_SEGMENTS[DEFAULT_STREET_WIDTH]) {
+      var segment = DEFAULT_SEGMENTS[DEFAULT_STREET_WIDTH][i];
       segment.warnings = [];
 
       data.segments.push(segment);
@@ -2180,8 +2182,6 @@ var main = (function(){
 
     _normalizeAllSegmentWidths();
   }
-
-  var DEFAULT_STREET_WIDTHS = [40, 60, 80];
 
   function _createStreetWidthOption(width) {
     var el = document.createElement('option');
