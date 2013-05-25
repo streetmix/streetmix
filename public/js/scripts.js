@@ -12,6 +12,7 @@ var main = (function(){
 "use strict";
   var main = {};
 
+<<<<<<< HEAD
   // TODO all of the below in an array?
   var ENVIRONMENT_LOCAL = 0;
   var ENVIRONMENT_STAGING = 1;
@@ -24,6 +25,9 @@ var main = (function(){
   var API_URL_LOCAL = 'http://localhost:8080/';
   var API_URL_STAGING = 'https://streetmix-api-staging.herokuapp.com/';
   var API_URL_PRODUCTION = 'https://streetmix-api.herokuapp.com/';
+=======
+  var IP_GEOCODING_API_URL = 'http://freegeoip.net/json/';
+>>>>>>> tactical-ui-fixes
 
   var TILESET_IMAGE_VERSION = 13;
   var TILESET_WIDTH = 2622;
@@ -46,7 +50,13 @@ var main = (function(){
   var CANVAS_GROUND = 35;
   var CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND;
 
-  var TOOL_EXTRA_WIDTH = 4;
+  var SEGMENT_Y_NORMAL = 265;
+  var SEGMENT_Y_PALETTE = 20;
+  var PALETTE_EXTRA_SEGMENT_PADDING = 4;
+
+  var WIDTH_CHART_WIDTH = 500;
+  var WIDTH_CHART_EMPTY_OWNER_WIDTH = 40;
+  var WIDTH_CHART_MARGIN = 20;
 
   var DRAGGING_TYPE_NONE = 0;
   var DRAGGING_TYPE_MOVE = 1;
@@ -514,6 +524,7 @@ var main = (function(){
     var bkPositionY = (segmentInfo.graphics.center.y || 0) * TILE_SIZE;
 
     var left = 0;
+    var top = isTool ? SEGMENT_Y_PALETTE : SEGMENT_Y_NORMAL;
     var width = realWidth * TILE_SIZE;
     var height = CANVAS_BASELINE;
 
@@ -594,8 +605,7 @@ var main = (function(){
           repeatPositionX, repeatPositionY, 
           w, segmentInfo.graphics.repeat.height * TILE_SIZE, 
           (repeatStartX + (i * segmentInfo.graphics.repeat.width) * TILE_SIZE) * multiplier, 
-          // TODO const
-          (isTool ? 20 : 265) + (multiplier * TILE_SIZE * (segmentInfo.graphics.repeat.offsetY || 0)), 
+          top + (multiplier * TILE_SIZE * (segmentInfo.graphics.repeat.offsetY || 0)), 
           w, 
           segmentInfo.graphics.repeat.height * TILE_SIZE * multiplier);
       }
@@ -611,8 +621,7 @@ var main = (function(){
           leftPositionX, leftPositionY, 
           w, segmentInfo.graphics.left.height * TILE_SIZE, 
           0,
-          // TODO const
-          (isTool ? 20 : 265) + (multiplier * TILE_SIZE * (segmentInfo.graphics.left.offsetY || 0)), 
+          top + (multiplier * TILE_SIZE * (segmentInfo.graphics.left.offsetY || 0)), 
           w * multiplier, segmentInfo.graphics.left.height * TILE_SIZE * multiplier);
     }
 
@@ -632,8 +641,7 @@ var main = (function(){
         rightPositionX, rightPositionY, 
         w, segmentInfo.graphics.right.height * TILE_SIZE,
         rightTargetX,
-        // TODO const
-        (isTool ? 20 : 265) + (multiplier * TILE_SIZE * (segmentInfo.graphics.right.offsetY || 0)), 
+        top + (multiplier * TILE_SIZE * (segmentInfo.graphics.right.offsetY || 0)), 
         w * multiplier, segmentInfo.graphics.right.height * TILE_SIZE * multiplier);
     }
 
@@ -641,8 +649,7 @@ var main = (function(){
       bkPositionX, bkPositionY, 
       width, segmentInfo.graphics.center.height * TILE_SIZE, 
       left * multiplier, 
-      // TODO const
-      (isTool ? 20 : 265) + (multiplier * TILE_SIZE * (segmentInfo.graphics.center.offsetY || 0)), 
+      top + (multiplier * TILE_SIZE * (segmentInfo.graphics.center.offsetY || 0)), 
       width * multiplier, segmentInfo.graphics.center.height * TILE_SIZE * multiplier);
 
     _removeElFromDom(el.querySelector('canvas'));
@@ -1095,7 +1102,6 @@ var main = (function(){
     }
   }
 
-  // TODO pass segment object instead of bits and pieces
   function _createSegment(type, width, isUnmovable, isTool) {
     var el = document.createElement('div');
     el.classList.add('segment');
@@ -1503,25 +1509,20 @@ var main = (function(){
   function _updateWidthChart(ownerWidths) {
     var ctx = document.querySelector('#width-chart').getContext('2d');
 
-    // TODO move up
-    var EMPTY_WIDTH = 40;
-
-    var CHART_MARGIN = 20;
-
-    var chartWidth = 500;
+    var chartWidth = WIDTH_CHART_WIDTH;
     var canvasWidth = document.querySelector('#width-chart').offsetWidth;
     var canvasHeight = document.querySelector('#width-chart').offsetHeight;
 
     document.querySelector('#width-chart').width = canvasWidth * system.hiDpi;
     document.querySelector('#width-chart').height = canvasHeight * system.hiDpi;
 
-    chartWidth -= CHART_MARGIN * 2;
+    chartWidth -= WIDTH_CHART_MARGIN * 2;
 
     var left = (canvasWidth - chartWidth) / 2;
 
     for (var id in SEGMENT_OWNERS) {
       if (ownerWidths[id] == 0) {
-        chartWidth -= EMPTY_WIDTH;
+        chartWidth -= WIDTH_CHART_EMPTY_OWNER_WIDTH;
       }
     }
 
@@ -1544,6 +1545,7 @@ var main = (function(){
       _drawLine(ctx, left + data.streetWidth * multiplier, 20, left + data.streetWidth * multiplier, 40);
 
       ctx.save();
+      // TODO const
       ctx.strokeStyle = 'red';
       ctx.fillStyle = 'red';
       _drawArrowLine(ctx, 
@@ -1597,7 +1599,7 @@ var main = (function(){
 
     for (var id in SEGMENT_OWNERS) {
       if (ownerWidths[id] == 0) {
-        var width = EMPTY_WIDTH;
+        var width = WIDTH_CHART_EMPTY_OWNER_WIDTH;
 
         ctx.fillStyle = 'rgb(100, 100, 100)';
         ctx.strokeStyle = 'rgb(100, 100, 100)';
@@ -1626,7 +1628,7 @@ var main = (function(){
     }
 
     document.querySelector('#street-width-canvas').style.left = 
-        CHART_MARGIN + 'px';
+        WIDTH_CHART_MARGIN + 'px';
     document.querySelector('#street-width-canvas').style.width = 
         (data.streetWidth * multiplier) + 'px';
   }
@@ -2142,7 +2144,7 @@ var main = (function(){
         width -= segmentInfo.graphics.right.offsetX;
       }
 
-      width += TOOL_EXTRA_WIDTH;
+      width += PALETTE_EXTRA_SEGMENT_PADDING;
 
       var el = _createSegment(i, 
         width * TILE_SIZE / WIDTH_TOOL_MULTIPLIER, 
@@ -2577,7 +2579,6 @@ var main = (function(){
       // TODO validate and fill in settings here
       // TODO should get from defaults
       if (typeof data.settings.unitsSelectedManually === 'undefined') {
-        console.log('fill');
         data.settings.unitsSelectedManually = false;
       }
     } else {
@@ -2654,13 +2655,11 @@ var main = (function(){
 
   function _onMenuMetric(event) {
     _updateUnits(SETTINGS_UNITS_METRIC, true);
-
     event.preventDefault();
   }
 
   function _onMenuImperial(event) {
     _updateUnits(SETTINGS_UNITS_IMPERIAL, true);
-
     event.preventDefault();
   }
 
@@ -2855,19 +2854,11 @@ var main = (function(){
 
   function _detectUnitType() {
     if (!data.settings.unitsSelectedManually) {
-      //console.log('detecting units…');
-
-      $.ajax({
-        // TODO const
-        url: 'http://freegeoip.net/json/'
-      }).done(_receiveUnitType);
-    } else {
-      //console.log('units selected, no need for detection');
+      $.ajax({ url: IP_GEOCODING_API_URL }).done(_receiveUnitType);
     }
   }
 
   function _receiveUnitType(info) {
-    //console.log('detected!');
     if (info && info.country_code && !data.settings.unitsSelectedManually) {
       if (IMPERIAL_COUNTRY_CODES.indexOf(info.country_code) != -1) {
         _updateUnits(SETTINGS_UNITS_IMPERIAL, false);
