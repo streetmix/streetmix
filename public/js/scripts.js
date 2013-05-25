@@ -12,6 +12,18 @@ var main = (function(){
 "use strict";
   var main = {};
 
+  var ENVIRONMENT_LOCAL = 0;
+  var ENVIRONMENT_STAGING = 1;
+  var ENVIRONMENT_PRODUCTION = 2;
+
+  var SITE_URL_LOCAL = 'http://localhost:8080/';
+  var SITE_URL_STAGING = 'http://streetmix-staging.herokuapp.com/';
+  var SITE_URL_PRODUCTION = 'http://streetmix.net/';
+
+  var API_URL_LOCAL = 'http://localhost:8080/';
+  var API_URL_STAGING = 'https://streetmix-api-staging.herokuapp.com/';
+  var API_URL_PRODUCTION = 'https://streetmix-api.herokuapp.com/';
+
   var TILESET_IMAGE_VERSION = 13;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
@@ -359,7 +371,7 @@ var main = (function(){
     ]
   };
 
-  var SIGN_IN_COOKIE_NAME = 'user_id';
+  var SIGN_IN_TOKEN_COOKIE = 'user_id';
 
   var LOCAL_STORAGE_SETTINGS_ID = 'settings';
   var LOCAL_STORAGE_SIGN_IN_ID = 'sign-in';
@@ -2689,34 +2701,73 @@ var main = (function(){
   function _loadSignIn() {
     signInLoaded = false;
 
-    var signInCookie = $.cookie(SIGN_IN_COOKIE_NAME);
+    var signInCookie = $.cookie(SIGN_IN_TOKEN_COOKIE);
+
+    console.log('cookie', signInCookie);
 
     if (signInCookie) {
-      //console.log('delete cookie, create local storage');
-      signInData = { id: signInCookie };
-      $.removeCookie(SIGN_IN_COOKIE_NAME);
+      console.log('delete cookie, create local storage');
+      signInData = { token: signInCookie };
+
+      console.log(signInData);
+      $.removeCookie(SIGN_IN_TOKEN_COOKIE);
 
       window.localStorage[LOCAL_STORAGE_SIGN_IN_ID] = JSON.stringify(signInData);
     } else {
       if (window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
-        //console.log('read from local storage');
+        console.log('read from local storage');
         signInData = JSON.parse(window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]);
       } else {
-        //console.log('not signed in');
+        console.log('not signed in');
       }
     }
 
-    if (signInData && signInData.id) {
-      signedIn = true;  
+    if (signInData && signInData.token) {
+      console.log('some data');
+
+      if (signInData.details) {
+        console.log('all data');
+        signedIn = true;
+        _signInLoaded();
+      } else {
+        _getSignInDetails();
+      }
+      //console.log(signInData);
+      //if (signInData.username)
+
     } else {
       signedIn = false;
+      _signInLoaded();
     }
+  }
 
+  function _getSignInDetails() {
+    // TODO const
+    // TODO productionize
+    jQuery.ajax({
+      url: 'http://localhost:8080/v1/users/' + signInData.token
+    }).done(_receiveSignInDetails).fail(_noSignInDetails);
+    //jquery.
+      //signedIn = true;
+  }
+
+  function _receiveSignInDetails(data) {
+    console.log('Received!');
+    console.log(data);
+
+    signedIn = true;
+    _signInLoaded();
+  }
+
+  function _noSignInDetails() {    
+    console.log('Failed!');
+
+    signedIn = false;
     _signInLoaded();
   }
 
   function _signOut() {
-    $.removeCookie(SIGN_IN_COOKIE_NAME);
+    $.removeCookie(SIGN_IN_TOKEN_COOKIE);
 
     window.localStorage.removeItem(LOCAL_STORAGE_SIGN_IN_ID);
 
@@ -2726,7 +2777,7 @@ var main = (function(){
   function _createSignInUI() {
     if (signedIn) {
       var el = document.createElement('span');
-      el.innerHTML = signInData.id;
+      el.innerHTML = signInData.token;
       el.classList.add('id');
       document.querySelector('#sign-in-link').appendChild(el);
 
