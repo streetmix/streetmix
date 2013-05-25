@@ -33,6 +33,8 @@ var main = (function(){
   var CANVAS_GROUND = 35;
   var CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND;
 
+  var TOOL_EXTRA_WIDTH = 4;
+
   var DRAGGING_TYPE_NONE = 0;
   var DRAGGING_TYPE_MOVE = 1;
   var DRAGGING_TYPE_RESIZE = 2;
@@ -2113,8 +2115,7 @@ var main = (function(){
         width -= segmentInfo.graphics.right.offsetX;
       }
 
-      // TODO const
-      width += 4;
+      width += TOOL_EXTRA_WIDTH;
 
       var el = _createSegment(i, 
         width * TILE_SIZE / WIDTH_TOOL_MULTIPLIER, 
@@ -2633,8 +2634,7 @@ var main = (function(){
     _loadSettings();
     _propagateSettings();
 
-    // TODO const
-    data.streetWidth = _normalizeStreetWidth(80);
+    data.streetWidth = _normalizeStreetWidth(DEFAULT_STREET_WIDTH);
 
     _resizeStreetWidth();
     _getDefaultSegments();
