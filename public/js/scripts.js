@@ -2762,14 +2762,8 @@ var main = (function(){
     }).done(_receiveSignInDetails).fail(_noSignInDetails);
   }
 
-  function _receiveSignInDetails(data) {
-    //console.log(data);
-
-    signInData.details = {
-      username: data.username,
-      profileImageUrl: data.profileImageUri
-    }
-
+  function _receiveSignInDetails(details) {
+    signInData.details = details;
     _saveSignInData();
 
     signedIn = true;
