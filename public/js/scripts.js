@@ -371,7 +371,7 @@ var main = (function(){
     ]
   };
 
-  var SIGN_IN_TOKEN_COOKIE = 'user_id';
+  var SIGN_IN_TOKEN_COOKIE = 'login_token';
 
   var LOCAL_STORAGE_SETTINGS_ID = 'settings';
   var LOCAL_STORAGE_SIGN_IN_ID = 'sign-in';
