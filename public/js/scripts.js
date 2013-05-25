@@ -381,6 +381,7 @@ var main = (function(){
     ]
   };
 
+  var USER_ID_COOKIE = 'user_id';
   var SIGN_IN_TOKEN_COOKIE = 'login_token';
 
   var LOCAL_STORAGE_SETTINGS_ID = 'settings';
@@ -2747,11 +2748,13 @@ var main = (function(){
     signInLoaded = false;
 
     var signInCookie = $.cookie(SIGN_IN_TOKEN_COOKIE);
+    var userIdCookie = $.cookie(USER_ID_COOKIE);
 
-    if (signInCookie) {
-      signInData = { token: signInCookie };
+    if (signInCookie && userIdCookie) {
+      signInData = { token: signInCookie, userId: userIdCookie };
 
       $.removeCookie(SIGN_IN_TOKEN_COOKIE);
+      $.removeCookie(USER_ID_COOKIE);
 
       _saveSignInData();
     } else {
@@ -2776,7 +2779,7 @@ var main = (function(){
   function _getSignInDetails() {
     // TODO const
     jQuery.ajax({
-      url: system.apiUrl + 'v1/users/' + signInData.token
+      url: system.apiUrl + 'v1/users/' + signInData.userId
     }).done(_receiveSignInDetails).fail(_noSignInDetails);
   }
 
