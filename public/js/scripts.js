@@ -2784,6 +2784,11 @@ var main = (function(){
 
   function _createSignInUI() {
     if (signedIn) {
+      var el = document.createElement('img');
+      el.src = signInData.details.profileImageUrl;
+      el.classList.add('avatar');
+      document.querySelector('#sign-in-link').appendChild(el);
+
       var el = document.createElement('span');
       el.innerHTML = signInData.details.username;
       el.classList.add('id');
