@@ -2805,11 +2805,16 @@ var main = (function(){
     event.preventDefault();
   }
 
+  function _makeAuthHeader() {
+    return 'Streetmix realm="" loginToken="' + signInData.token + '"'
+  }
+
   function _sendSignOutToServer() {
     jQuery.ajax({
       // TODO const
-      url: system.apiUrl + 'v1/users/' + signInData.token + '/login-token',
-      type: 'DELETE'
+      url: system.apiUrl + 'v1/users/' + signInData.userId + '/login-token',
+      type: 'DELETE',
+      headers: { 'Authorization': _makeAuthHeader() }
     }).done(_receiveSignOutConfirmationFromServer)
     .fail(_receiveSignOutConfirmationFromServer);
   }
