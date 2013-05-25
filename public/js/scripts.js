@@ -12,6 +12,8 @@ var main = (function(){
 "use strict";
   var main = {};
 
+  var IP_GEOCODING_API_URL = 'http://freegeoip.net/json/';
+
   var TILESET_IMAGE_VERSION = 13;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
@@ -2697,19 +2699,11 @@ var main = (function(){
 
   function _detectUnitType() {
     if (!data.settings.unitsSelectedManually) {
-      //console.log('detecting units…');
-
-      $.ajax({
-        // TODO const
-        url: 'http://freegeoip.net/json/'
-      }).done(_receiveUnitType);
-    } else {
-      //console.log('units selected, no need for detection');
+      $.ajax({ url: IP_GEOCODING_API_URL }).done(_receiveUnitType);
     }
   }
 
   function _receiveUnitType(info) {
-    //console.log('detected!');
     if (info && info.country_code && !data.settings.unitsSelectedManually) {
       if (IMPERIAL_COUNTRY_CODES.indexOf(info.country_code) != -1) {
         _updateUnits(SETTINGS_UNITS_IMPERIAL, false);
