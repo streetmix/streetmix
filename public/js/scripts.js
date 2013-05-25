@@ -48,6 +48,8 @@ var main = (function(){
   var STATUS_MESSAGE_HIDE_DELAY = 5000;
   var WIDTH_EDIT_INPUT_DELAY = 200;
 
+  var TOUCH_SEGMENT_FADEOUT_DELAY = 5000;
+
   var STREET_WIDTH_CUSTOM = -1;
 
   var DEFAULT_STREET_WIDTH = 80;
@@ -1973,10 +1975,9 @@ var main = (function(){
         el.classList.add('fade-out-end');
       }, 0);
 
-      // TODO const
       el.fadeoutTimerId = window.setTimeout(function() {
         el.classList.remove('fade-out-end');
-      }, 5000);
+      }, TOUCH_SEGMENT_FADEOUT_DELAY);
     }
   }
 
