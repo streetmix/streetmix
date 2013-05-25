@@ -359,6 +359,8 @@ var main = (function(){
     ]
   };
 
+  var LOCAL_STORAGE_SETTINGS_ID = 'settings';
+
   var data = {
     streetWidth: null,
     occupiedWidth: null,
@@ -2523,9 +2525,9 @@ var main = (function(){
   }
 
   function _loadSettings() {
-    var savedSettings = window.localStorage['settings'];
+    var savedSettings = window.localStorage[LOCAL_STORAGE_SETTINGS_ID];
     if (savedSettings) {
-      data.settings = JSON.parse(window.localStorage['settings']);
+      data.settings = JSON.parse(window.localStorage[LOCAL_STORAGE_SETTINGS_ID]);
 
       // TODO validate settings here
     } else {
@@ -2535,7 +2537,8 @@ var main = (function(){
   }
 
   function _saveSettings() {
-    window.localStorage['settings'] = JSON.stringify(data.settings);
+    window.localStorage[LOCAL_STORAGE_SETTINGS_ID] = 
+        JSON.stringify(data.settings);
   }
 
   function _normalizeAllSegmentWidths() {
