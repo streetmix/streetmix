@@ -12,11 +12,12 @@ var main = (function(){
 "use strict";
   var main = {};
 
+  // TODO all of the below in an array?
   var ENVIRONMENT_LOCAL = 0;
   var ENVIRONMENT_STAGING = 1;
   var ENVIRONMENT_PRODUCTION = 2;
 
-  var SITE_URL_LOCAL = 'http://localhost:8080/';
+  var SITE_URL_LOCAL = 'http://localhost:8000/';
   var SITE_URL_STAGING = 'http://streetmix-staging.herokuapp.com/';
   var SITE_URL_PRODUCTION = 'http://streetmix.net/';
 
@@ -443,6 +444,8 @@ var main = (function(){
   var mouseY;
 
   var system = {
+    environment: ENVIRONMENT_LOCAL,
+    apiUrl: null,
     touch: false,
     hiDpi: 1.0,
     cssTransform: false
@@ -2446,9 +2449,33 @@ var main = (function(){
     document.querySelector('#options-menu-metric').addEventListener('click', _onMenuMetric);
   }
 
+  function _determineEnvironment() {
+    var url = location.href;
+
+    if (url.substr(0, SITE_URL_LOCAL.length) == SITE_URL_LOCAL) {
+      system.environment = ENVIRONMENT_LOCAL;
+      system.apiUrl = API_URL_LOCAL;
+    } else if (url.substr(0, SITE_URL_STAGING.length) == SITE_URL_STAGING) {
+      system.environment = ENVIRONMENT_STAGING;
+      system.apiUrl = API_URL_STAGING;
+    } else if (url.substr(0, SITE_URL_PRODUCTION.length) == SITE_URL_PRODUCTION) {
+      system.environment = ENVIRONMENT_PRODUCTION;
+      system.apiUrl = API_URL_PRODUCTION;
+    }
+
+    console.log('environment', system.environment);
+    console.log('api url', system.apiUrl);
+  }
+
   function _inspectSystem() {
+    _determineEnvironment();
+
     system.touch = Modernizr.touch;
     system.hiDpi = window.devicePixelRatio;    
+
+    if (system.touch) {
+      document.body.classList.add('touch-support');
+    }
 
     system.cssTransform = false;
     var el = document.createElement('div');
@@ -2457,10 +2484,6 @@ var main = (function(){
         system.cssTransform = CSS_TRANSFORMS[i];
         break;
       }
-    }
-
-    if (system.touch) {
-      document.body.classList.add('touch-support');
     }
   }
 
@@ -2734,9 +2757,8 @@ var main = (function(){
 
   function _getSignInDetails() {
     // TODO const
-    // TODO productionize
     jQuery.ajax({
-      url: 'http://localhost:8080/v1/users/' + signInData.token
+      url: system.apiUrl + 'v1/users/' + signInData.token
     }).done(_receiveSignInDetails).fail(_noSignInDetails);
   }
 
@@ -2767,9 +2789,9 @@ var main = (function(){
   }
 
   function _sendSignOutToServer() {
-    // TODO const and productionize
     jQuery.ajax({
-      url: 'http://localhost:8080/v1/users/' + signInData.token + '/login-token',
+      // TODO const
+      url: system.apiUrl + 'v1/users/' + signInData.token + '/login-token',
       type: 'DELETE'
     }).done(_receiveSignOutConfirmationFromServer)
     .fail(_receiveSignOutConfirmationFromServer);
