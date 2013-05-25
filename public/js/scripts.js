@@ -2463,8 +2463,8 @@ var main = (function(){
       system.apiUrl = API_URL_PRODUCTION;
     }
 
-    console.log('environment', system.environment);
-    console.log('api url', system.apiUrl);
+    //console.log('environment', system.environment);
+    //console.log('api url', system.apiUrl);
   }
 
   function _inspectSystem() {
@@ -2762,12 +2762,8 @@ var main = (function(){
     }).done(_receiveSignInDetails).fail(_noSignInDetails);
   }
 
-  function _receiveSignInDetails(data) {
-    signInData.details = {
-      username: data.username,
-      profileImageUrl: data.profileImageUri
-    }
-
+  function _receiveSignInDetails(details) {
+    signInData.details = details;
     _saveSignInData();
 
     signedIn = true;
