@@ -4,7 +4,7 @@ var config = require('config'),
 
 var oauthAccessTokenHandler = function(req, res) {
 
-  return function(err, oauth_access_token, oauth_token_secret, results) {
+  return function(err, oauth_access_token_key, oauth_access_token_secret, results) {
     if (err) {
       console.error('Error obtaining access token from Twitter:')
       console.log(err)
@@ -18,8 +18,8 @@ var oauthAccessTokenHandler = function(req, res) {
       twitter: {
         user_id: results.user_id,
         screen_name: results.screen_name,
-        oauth_token: oauth_access_token,
-        oauth_token_secret: oauth_token_secret
+        oauthAccessTokenKey: oauth_access_token_key,
+        oauthAccessTokenSecret: oauth_access_token_secret
       }
     }
     request.post({ url: config.restapi_baseuri + '/v1/users', json: apiRequestBody }, function(err, response, body) {
