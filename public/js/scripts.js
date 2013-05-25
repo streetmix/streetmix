@@ -35,6 +35,9 @@ var main = (function(){
   var CANVAS_GROUND = 35;
   var CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND;
 
+  var SEGMENT_Y_TOOL = 20;
+  var SEGMENT_Y_NON_TOOL = 265;
+
   var TOOL_EXTRA_WIDTH = 4;
 
   var DRAGGING_TYPE_NONE = 0;
@@ -494,6 +497,7 @@ var main = (function(){
     var bkPositionY = (segmentInfo.graphics.center.y || 0) * TILE_SIZE;
 
     var left = 0;
+    var top = isTool ? SEGMENT_Y_TOOL : SEGMENT_Y_NON_TOOL;
     var width = realWidth * TILE_SIZE;
     var height = CANVAS_BASELINE;
 
@@ -574,8 +578,7 @@ var main = (function(){
           repeatPositionX, repeatPositionY, 
           w, segmentInfo.graphics.repeat.height * TILE_SIZE, 
           (repeatStartX + (i * segmentInfo.graphics.repeat.width) * TILE_SIZE) * multiplier, 
-          // TODO const
-          (isTool ? 20 : 265) + (multiplier * TILE_SIZE * (segmentInfo.graphics.repeat.offsetY || 0)), 
+          top + (multiplier * TILE_SIZE * (segmentInfo.graphics.repeat.offsetY || 0)), 
           w, 
           segmentInfo.graphics.repeat.height * TILE_SIZE * multiplier);
       }
@@ -591,8 +594,7 @@ var main = (function(){
           leftPositionX, leftPositionY, 
           w, segmentInfo.graphics.left.height * TILE_SIZE, 
           0,
-          // TODO const
-          (isTool ? 20 : 265) + (multiplier * TILE_SIZE * (segmentInfo.graphics.left.offsetY || 0)), 
+          top + (multiplier * TILE_SIZE * (segmentInfo.graphics.left.offsetY || 0)), 
           w * multiplier, segmentInfo.graphics.left.height * TILE_SIZE * multiplier);
     }
 
@@ -612,8 +614,7 @@ var main = (function(){
         rightPositionX, rightPositionY, 
         w, segmentInfo.graphics.right.height * TILE_SIZE,
         rightTargetX,
-        // TODO const
-        (isTool ? 20 : 265) + (multiplier * TILE_SIZE * (segmentInfo.graphics.right.offsetY || 0)), 
+        top + (multiplier * TILE_SIZE * (segmentInfo.graphics.right.offsetY || 0)), 
         w * multiplier, segmentInfo.graphics.right.height * TILE_SIZE * multiplier);
     }
 
@@ -621,8 +622,7 @@ var main = (function(){
       bkPositionX, bkPositionY, 
       width, segmentInfo.graphics.center.height * TILE_SIZE, 
       left * multiplier, 
-      // TODO const
-      (isTool ? 20 : 265) + (multiplier * TILE_SIZE * (segmentInfo.graphics.center.offsetY || 0)), 
+      top + (multiplier * TILE_SIZE * (segmentInfo.graphics.center.offsetY || 0)), 
       width * multiplier, segmentInfo.graphics.center.height * TILE_SIZE * multiplier);
 
     _removeElFromDom(el.querySelector('canvas'));
