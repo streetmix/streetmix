@@ -352,7 +352,7 @@ var main = (function(){
     ]
   };
 
-  var SIGN_IN_COOKIE_NAME = 'user_id';
+  var SIGN_IN_COOKIE_NAME = 'login_token';
 
   var LOCAL_STORAGE_SETTINGS_ID = 'settings';
   var LOCAL_STORAGE_SIGN_IN_ID = 'sign-in';
