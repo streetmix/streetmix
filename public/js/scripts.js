@@ -2707,30 +2707,30 @@ var main = (function(){
 
     var signInCookie = $.cookie(SIGN_IN_TOKEN_COOKIE);
 
-    console.log('cookie', signInCookie);
+    //console.log('cookie', signInCookie);
 
     if (signInCookie) {
-      console.log('delete cookie, create local storage');
+      //console.log('delete cookie, create local storage');
       signInData = { token: signInCookie };
 
-      console.log(signInData);
+      //console.log(signInData);
       $.removeCookie(SIGN_IN_TOKEN_COOKIE);
 
       _saveSignInData();
     } else {
       if (window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
-        console.log('read from local storage');
+        //console.log('read from local storage');
         signInData = JSON.parse(window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]);
       } else {
-        console.log('not signed in');
+        //console.log('not signed in');
       }
     }
 
     if (signInData && signInData.token) {
-      console.log('some data');
+      //console.log('some data');
 
       if (signInData.details) {
-        console.log('all data');
+        //console.log('all data');
         signedIn = true;
         _signInLoaded();
       } else {
@@ -2753,8 +2753,8 @@ var main = (function(){
   }
 
   function _receiveSignInDetails(data) {
-    console.log('Received!');
-    console.log(data);
+    //console.log('Received!');
+    //console.log(data);
 
     signInData.details = {
       username: data.username,
@@ -2768,7 +2768,7 @@ var main = (function(){
   }
 
   function _noSignInDetails() {    
-    console.log('Failed!');
+    //console.log('Failed!');
 
     signedIn = false;
     _signInLoaded();
