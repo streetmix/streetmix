@@ -12,7 +12,6 @@ var main = (function(){
 "use strict";
   var main = {};
 
-<<<<<<< HEAD
   // TODO all of the below in an array?
   var ENVIRONMENT_LOCAL = 0;
   var ENVIRONMENT_STAGING = 1;
@@ -25,9 +24,8 @@ var main = (function(){
   var API_URL_LOCAL = 'http://localhost:8080/';
   var API_URL_STAGING = 'https://streetmix-api-staging.herokuapp.com/';
   var API_URL_PRODUCTION = 'https://streetmix-api.herokuapp.com/';
-=======
+
   var IP_GEOCODING_API_URL = 'http://freegeoip.net/json/';
->>>>>>> tactical-ui-fixes
 
   var TILESET_IMAGE_VERSION = 13;
   var TILESET_WIDTH = 2622;
