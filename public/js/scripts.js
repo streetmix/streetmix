@@ -87,12 +87,23 @@ var main = (function(){
   var RESIZE_TYPE_PRECISE_DRAGGING = 3;
   var RESIZE_TYPE_TYPING = 4;
 
+  var IMPERIAL_METRIC_MULTIPLIER = 30 / 100;
+  var IMPERIAL_COUNTRY_CODES = ['US'];
+
+  var WIDTH_INPUT_CONVERSION = [
+    { text: 'm', multiplier: 1 / IMPERIAL_METRIC_MULTIPLIER },
+    { text: 'cm', multiplier: 1 / 100 / IMPERIAL_METRIC_MULTIPLIER },
+    { text: '"', multiplier: 1 / 12 },
+    { text: 'inch', multiplier: 1 / 12 },
+    { text: 'inches', multiplier: 1 / 12 },
+    { text: '\'', multiplier: 1 },
+    { text: 'ft', multiplier: 1 },
+    { text: 'feet', multiplier: 1 }
+  ];
+
   var SEGMENT_WIDTH_RESOLUTION_IMPERIAL = .25;
   var SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL = .5;
   var SEGMENT_WIDTH_DRAGGING_RESOLUTION_IMPERIAL = .5;
-
-  var IMPERIAL_METRIC_MULTIPLIER = 30 / 100;
-  var IMPERIAL_COUNTRY_CODES = ['US'];
 
   // don't use const because of rounding problems
   var SEGMENT_WIDTH_RESOLUTION_METRIC = 1 / 3; // .1 / IMPERIAL_METRIC_MULTIPLER
@@ -730,16 +741,12 @@ var main = (function(){
           break;
       }
 
-      // Overwritten units
-      // TODO make array
-      if (widthInput.match(/[\d\.]m$/)) {
-        var multiplier = 1 / IMPERIAL_METRIC_MULTIPLIER;
-      } else if (widthInput.match(/[\d\.]cm$/)) {
-        var multiplier = 1 / 100 / IMPERIAL_METRIC_MULTIPLIER;
-      } else if (widthInput.match(/[\d\.]\"$/)) {
-        var multiplier = 1 / 12;
-      } else if (widthInput.match(/[\d\.]\'$/)) {
-        var multiplier = 1;
+      for (var i in WIDTH_INPUT_CONVERSION) {
+        if (widthInput.match(new RegExp("[\\d\\.]" + 
+              WIDTH_INPUT_CONVERSION[i].text + "$"))) {
+          var multiplier = WIDTH_INPUT_CONVERSION[i].multiplier;
+          break;
+        }
       }
 
       width *= multiplier;
@@ -2583,8 +2590,7 @@ var main = (function(){
   function _loadSettings() {
     var savedSettings = window.localStorage[LOCAL_STORAGE_SETTINGS_ID];
     if (savedSettings) {
-      data.settings = 
-          JSON.parse(window.localStorage[LOCAL_STORAGE_SETTINGS_ID]);
+      data.settings = JSON.parse(savedSettings);
     } else {
       data.settings = {};
     }
@@ -2686,7 +2692,6 @@ var main = (function(){
   function _updateOptionsMenu() {
     switch (data.settings.units) {
       case SETTINGS_UNITS_IMPERIAL:
-        // TODO should be proper attribute
         document.querySelector('#options-menu-imperial').classList.add('disabled');
         document.querySelector('#options-menu-metric').classList.remove('disabled');
         break;
@@ -2761,7 +2766,6 @@ var main = (function(){
       signInData = { token: signInCookie, userId: userIdCookie };
 
       _removeSignInCookies();
-
       _saveSignInData();
     } else {
       if (window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
