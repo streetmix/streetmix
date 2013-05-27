@@ -13,6 +13,8 @@
 @skyColour: rgb(169, 204, 219);
 @warningColour: rgb(220, 80, 80);
 
+@lightTextColour: rgb(240, 240, 240);
+
 @touchFadeOutTime: 3000ms;
 @touchFadeOutDelay: 2000ms;
 
@@ -822,7 +824,7 @@ body.touch-support .segment.fade-out-end button {
   line-height: 100vh;
 
   background: @skyColour;
-  color: rgb(240, 240, 240);
+  color: @lightTextColour;
   text-shadow: @textShadow;
 
   font-size: 16px;
@@ -965,7 +967,7 @@ body.touch-support .segment.fade-out-end button {
   right: 74px;
   top: 8px;
 
-  color: rgb(240, 240, 240);
+  color: @lightTextColour;
   text-shadow: @textShadow;
 
   font-family: sans-serif;
@@ -983,7 +985,7 @@ body.touch-support .segment.fade-out-end button {
   & .avatar {
     width: 20px;
     height: 20px;
-    outline: 1px solid rgb(240, 240, 240);
+    outline: 1px solid @lightTextColour;
     margin-right: 6px;
     vertical-align: middle;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .5);
@@ -1004,7 +1006,7 @@ body.touch-support .segment.fade-out-end button {
     padding: 10px;
     margin: -10px;
 
-    color: rgb(240, 240, 240);
+    color: @lightTextColour;
     text-shadow: @textShadow;
 
     font-family: sans-serif;
