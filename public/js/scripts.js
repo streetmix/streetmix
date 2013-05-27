@@ -2744,6 +2744,11 @@ var main = (function(){
     window.localStorage[LOCAL_STORAGE_SIGN_IN_ID] = JSON.stringify(signInData);
   }
 
+  function _removeSignInCookies() {
+    $.removeCookie(SIGN_IN_TOKEN_COOKIE);
+    $.removeCookie(USER_ID_COOKIE);
+  }
+
   function _loadSignIn() {
     signInLoaded = false;
 
@@ -2753,8 +2758,7 @@ var main = (function(){
     if (signInCookie && userIdCookie) {
       signInData = { token: signInCookie, userId: userIdCookie };
 
-      $.removeCookie(SIGN_IN_TOKEN_COOKIE);
-      $.removeCookie(USER_ID_COOKIE);
+      _removeSignInCookies();
 
       _saveSignInData();
     } else {
@@ -2797,15 +2801,14 @@ var main = (function(){
   }
 
   function _signOut(event) {
-    $.removeCookie(SIGN_IN_TOKEN_COOKIE);
+    _removeSignInCookies();
     window.localStorage.removeItem(LOCAL_STORAGE_SIGN_IN_ID);
-
     _sendSignOutToServer();
 
     event.preventDefault();
   }
 
-  function _makeAuthHeader() {
+  function _getAuthHeader() {
     return 'Streetmix realm="" loginToken="' + signInData.token + '"'
   }
 
@@ -2814,7 +2817,7 @@ var main = (function(){
       // TODO const
       url: system.apiUrl + 'v1/users/' + signInData.userId + '/login-token',
       type: 'DELETE',
-      headers: { 'Authorization': _makeAuthHeader() }
+      headers: { 'Authorization': _getAuthHeader() }
     }).done(_receiveSignOutConfirmationFromServer)
     .fail(_receiveSignOutConfirmationFromServer);
   }
