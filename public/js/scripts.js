@@ -39,6 +39,8 @@ var main = (function(){
   var SEGMENT_Y_PALETTE = 20;
   var PALETTE_EXTRA_SEGMENT_PADDING = 4;
 
+  var PALETTE_DRAG_OFFSET_Y = -340;
+
   var WIDTH_CHART_WIDTH = 500;
   var WIDTH_CHART_EMPTY_OWNER_WIDTH = 40;
   var WIDTH_CHART_MARGIN = 20;
@@ -1370,7 +1372,6 @@ var main = (function(){
 
     _createUndoIfNecessary();
     _updateUndoButtons();
-
     _repositionSegments();
   }
 
@@ -1392,16 +1393,12 @@ var main = (function(){
       _propagateSettings();
       _buildStreetWidthMenu();
       _updateOptionsMenu();
-
       _createDomFromData();
       _segmentsChanged();
       _resizeStreetWidth();
-
       createUndo = true;
-
       _updateUndoButtons();
       lastData = _trimNonUserData();
-
       _statusMessage.hide();
     }
   }
@@ -1409,7 +1406,6 @@ var main = (function(){
   function _clearUndoStack() {
     undoStack = [];
     undoPosition = 0;
-
     _updateUndoButtons();
   }
 
@@ -1433,7 +1429,6 @@ var main = (function(){
       // something undoable.
       undoStack = undoStack.splice(0, undoPosition);
       undoStack[undoPosition] = lastData;
-
       undoPosition++;
 
       lastData = currentData;
@@ -1452,9 +1447,7 @@ var main = (function(){
       segment.type = el.getAttribute('type');
       segment.width = parseFloat(el.getAttribute('width'));
       segment.el = el;
-
       segment.warnings = [];
-
       data.segments.push(segment);
     }
   }
@@ -1520,18 +1513,22 @@ var main = (function(){
 
     _drawLine(ctx, left, 20, left, bottom);
     if (maxWidth > data.streetWidth) {
-      _drawLine(ctx, left + data.streetWidth * multiplier, 20, left + data.streetWidth * multiplier, 40);
+      _drawLine(ctx, left + data.streetWidth * multiplier, 20, 
+          left + data.streetWidth * multiplier, 40);
 
       ctx.save();
       // TODO const
       ctx.strokeStyle = 'red';
       ctx.fillStyle = 'red';
       _drawArrowLine(ctx, 
-        left + data.streetWidth * multiplier, 30, left + maxWidth * multiplier, 30, _prettifyWidth(-data.remainingWidth, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP));
+        left + data.streetWidth * multiplier, 30, 
+        left + maxWidth * multiplier, 30, 
+        _prettifyWidth(-data.remainingWidth, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP));
       ctx.restore();
     }
 
-    _drawLine(ctx, left + maxWidth * multiplier, 20, left + maxWidth * multiplier, bottom);
+    _drawLine(ctx, left + maxWidth * multiplier, 20, 
+        left + maxWidth * multiplier, bottom);
     _drawArrowLine(ctx, 
         left, 30, left + data.streetWidth * multiplier, 30);
   
@@ -1541,7 +1538,8 @@ var main = (function(){
       if (ownerWidths[id] > 0) {
         var width = ownerWidths[id] * multiplier;
 
-        _drawArrowLine(ctx, x, 60, x + width, 60, _prettifyWidth(ownerWidths[id], PRETTIFY_WIDTH_OUTPUT_NO_MARKUP));
+        _drawArrowLine(ctx, x, 60, x + width, 60, 
+            _prettifyWidth(ownerWidths[id], PRETTIFY_WIDTH_OUTPUT_NO_MARKUP));
         _drawLine(ctx, x + width, 50, x + width, 70);
 
         var imageWidth = images[SEGMENT_OWNERS[id].imageUrl].width / 5 * SEGMENT_OWNERS[id].imageSize;
@@ -1717,21 +1715,15 @@ var main = (function(){
     var deltaX = x - draggingResize.mouseX;
     var deltaY = y - draggingResize.mouseY;
 
-    var deltaFromOriginal = 
-        draggingResize.elX - draggingResize.origX;
-
+    var deltaFromOriginal = draggingResize.elX - draggingResize.origX;
     if (!draggingResize.right) {
       deltaFromOriginal = -deltaFromOriginal;
     }
 
     draggingResize.elX += deltaX;
+    draggingResize.floatingEl.style.left = draggingResize.elX + 'px';
 
-    draggingResize.floatingEl.style.left = 
-        draggingResize.elX + 'px';
-
-    var width = 
-        draggingResize.origWidth + deltaFromOriginal / TILE_SIZE * 2;
-
+    var width = draggingResize.origWidth + deltaFromOriginal / TILE_SIZE * 2;
     var precise = event.shiftKey;
 
     if (precise) {
@@ -1782,8 +1774,7 @@ var main = (function(){
     draggingMove.elY = pos[1];
 
     if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
-      // TODO const
-      draggingMove.elY -= 340;
+      draggingMove.elY += PALETTE_DRAG_OFFSET_Y;
       draggingMove.elX -= draggingMove.origWidth / 3;
     }
 
