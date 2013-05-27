@@ -39,7 +39,9 @@ var main = (function(){
   var SEGMENT_Y_PALETTE = 20;
   var PALETTE_EXTRA_SEGMENT_PADDING = 4;
 
-  var PALETTE_DRAG_OFFSET_Y = -340;
+  var DRAG_OFFSET_Y_PALETTE = -340;
+  var DRAG_OFFSET_Y_TOUCH_PALETTE = -100;
+  var DRAG_OFFSET_Y_TOUCH = -50;
 
   var WIDTH_CHART_WIDTH = 500;
   var WIDTH_CHART_EMPTY_OWNER_WIDTH = 40;
@@ -1774,7 +1776,7 @@ var main = (function(){
     draggingMove.elY = pos[1];
 
     if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
-      draggingMove.elY += PALETTE_DRAG_OFFSET_Y;
+      draggingMove.elY += DRAG_OFFSET_Y_PALETTE;
       draggingMove.elX -= draggingMove.origWidth / 3;
     }
 
@@ -1823,9 +1825,9 @@ var main = (function(){
       if (system.touch) {
         // TODO const
         if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
-          draggingMove.elY -= 100;      
+          draggingMove.elY += DRAG_OFFSET_Y_TOUCH_PALETTE;
         } else {
-          draggingMove.elY -= 50;      
+          draggingMove.elY += DRAG_OFFSET_Y_TOUCH;
         }
       }
 
