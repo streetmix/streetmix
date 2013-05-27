@@ -1823,7 +1823,6 @@ var main = (function(){
       draggingMove.floatingElVisible = true;
 
       if (system.touch) {
-        // TODO const
         if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
           draggingMove.elY += DRAG_OFFSET_Y_TOUCH_PALETTE;
         } else {
@@ -1867,7 +1866,7 @@ var main = (function(){
     }
   }
 
-  function _hideDebug() {
+  function _hideDebugInfo() {
     document.querySelector('#debug').classList.remove('visible');
   }
 
@@ -1875,7 +1874,7 @@ var main = (function(){
     var el = event.target;
 
     _loseAnyFocus();
-    _hideDebug();
+    _hideDebugInfo();
 
     var topEl = event.target;
     while (topEl && (topEl.id != 'info-bubble') && (topEl.id != 'options-menu')) {
@@ -2295,6 +2294,32 @@ var main = (function(){
     }
   }
 
+  function _showDebugInfo() {
+    // deep object copy
+    var debugData = jQuery.extend(true, {}, data);
+    var debugUndo = jQuery.extend(true, {}, undoStack);
+
+    for (var i in debugData.segments) {
+      delete debugData.segments[i].el;
+    }
+
+    for (var j in debugUndo) {
+      for (var i in debugUndo[j].segments) {
+        delete debugUndo[j].segments[i].el;
+      }
+    }
+
+    var debugText = 
+        'DATA:\n' + JSON.stringify(debugData, null, 2) +
+        '\n\nUNDO:\n' + JSON.stringify(debugUndo, null, 2);
+
+    document.querySelector('#debug').classList.add('visible');
+    document.querySelector('#debug > textarea').innerHTML = debugText;
+    document.querySelector('#debug > textarea').focus();
+    document.querySelector('#debug > textarea').select();
+    event.preventDefault();
+  }
+
   function _onBodyKeyDown(event) {
     switch (event.keyCode) {
       case KEY_RIGHT_ARROW:
@@ -2338,7 +2363,7 @@ var main = (function(){
         }
         break;
       case KEY_ESC:
-        _hideDebug();
+        _hideDebugInfo();
         if (infoBubbleVisible) {
           _hideInfoBubble();
         }
@@ -2361,29 +2386,7 @@ var main = (function(){
         break;   
       case KEY_D:
         if (event.shiftKey && (document.activeElement == document.body)) {
-
-          // deep object copy
-          var debugData = jQuery.extend(true, {}, data);
-          var debugUndo = jQuery.extend(true, {}, undoStack);
-
-          for (var i in debugData.segments) {
-            delete debugData.segments[i].el;
-          }
-
-          for (var j in debugUndo) {
-            for (var i in debugUndo[j].segments) {
-              delete debugUndo[j].segments[i].el;
-            }
-          }
-
-          var debugText = 
-              'DATA:\n' + JSON.stringify(debugData, null, 2) +
-              '\n\nUNDO:\n' + JSON.stringify(debugUndo, null, 2);
-
-          document.querySelector('#debug').classList.add('visible');
-          document.querySelector('#debug > textarea').innerHTML = debugText;
-          document.querySelector('#debug > textarea').focus();
-          document.querySelector('#debug > textarea').select();
+          _showDebugInfo();
           event.preventDefault();
         }
         break;
