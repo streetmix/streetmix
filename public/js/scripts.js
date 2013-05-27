@@ -58,6 +58,8 @@ var main = (function(){
 
   var TOUCH_SEGMENT_FADEOUT_DELAY = 5000;
 
+  var MAX_DRAG_DEGREE = 20;
+
   var STREET_WIDTH_CUSTOM = -1;
 
   var DEFAULT_STREET_WIDTH = 80;
@@ -1836,6 +1838,7 @@ var main = (function(){
         }
       }
 
+      // TODO const
       window.setTimeout(function() {
         draggingMove.floatingEl.classList.remove('first-drag-move');      
       }, 100);
@@ -1847,11 +1850,10 @@ var main = (function(){
 
       var deg = deltaX;
 
-      if (deg > 20) {
-        deg = 20;
-      }
-      if (deg < -20) {
-        deg = -20;
+      if (deg > MAX_DRAG_DEGREE) {
+        deg = MAX_DRAG_DEGREE;
+      } else if (deg < -MAX_DRAG_DEGREE) {
+        deg = -MAX_DRAG_DEGREE;
       }
 
       if (system.cssTransform) {
