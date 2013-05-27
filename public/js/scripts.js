@@ -92,6 +92,7 @@ var main = (function(){
 
   var NORMALIZE_PRECISION = 5;
   var METRIC_PRECISION = 3;
+  var WIDTH_ROUNDING = .01;
 
   var SEGMENT_WARNING_OUTSIDE = 1;
   var SEGMENT_WARNING_WIDTH_TOO_SMALL = 2;
@@ -1309,9 +1310,8 @@ var main = (function(){
     }   
 
     data.remainingWidth = data.streetWidth - data.occupiedWidth;
-    // TODO const
     // Rounding problems :·(
-    if (Math.abs(data.remainingWidth) < .01) {
+    if (Math.abs(data.remainingWidth) < WIDTH_ROUNDING) {
       data.remainingWidth = 0;
     }
 
@@ -1344,7 +1344,6 @@ var main = (function(){
 
       position += data.segments[i].width;
     }
-
 
     if (data.remainingWidth >= 0) {
       document.body.classList.remove('street-overflows');
