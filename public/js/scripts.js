@@ -1043,7 +1043,7 @@ var main = (function(){
 
     infoBubbleEl.innerHTML = html;
 
-    infoBubbleEl.querySelector('.close').addEventListener('click', _hideInfoBubble, false);
+    infoBubbleEl.querySelector('.close').addEventListener('click', _hideInfoBubble);
 
     var el = document.querySelector('.segment.hover');
     if (el) {
@@ -1164,9 +1164,9 @@ var main = (function(){
       innerEl.tabIndex = -1;
       innerEl.setAttribute('title', 'Remove segment');
       if (system.touch) {      
-        innerEl.addEventListener('touchstart', _onRemoveButtonClick, false);
+        innerEl.addEventListener('touchstart', _onRemoveButtonClick);
       } else {
-        innerEl.addEventListener('click', _onRemoveButtonClick, false);        
+        innerEl.addEventListener('click', _onRemoveButtonClick);        
       }
       commandsEl.appendChild(innerEl);        
 
@@ -1174,9 +1174,9 @@ var main = (function(){
       innerEl.classList.add('info');
       innerEl.segmentEl = el;
       innerEl.tabIndex = -1;
-      innerEl.addEventListener('mouseover', _onInfoButtonMouseOver, false);
-      innerEl.addEventListener('mouseout', _onInfoButtonMouseOut, false);
-      innerEl.addEventListener('click', _onInfoButtonClick, false);
+      innerEl.addEventListener('mouseover', _onInfoButtonMouseOver);
+      innerEl.addEventListener('mouseout', _onInfoButtonMouseOut);
+      innerEl.addEventListener('click', _onInfoButtonClick);
       commandsEl.appendChild(innerEl); */
 
       el.appendChild(commandsEl);
@@ -1190,9 +1190,9 @@ var main = (function(){
       innerEl.segmentEl = el;
       innerEl.tabIndex = -1;
       if (system.touch) {
-        innerEl.addEventListener('touchstart', _onWidthDecrementClick, false);
+        innerEl.addEventListener('touchstart', _onWidthDecrementClick);
       } else {
-        innerEl.addEventListener('click', _onWidthDecrementClick, false);        
+        innerEl.addEventListener('click', _onWidthDecrementClick);        
       }
       widthEditCanvasEl.appendChild(innerEl);        
 
@@ -1203,13 +1203,13 @@ var main = (function(){
         innerEl.segmentEl = el;
         //innerEl.value = width / TILE_SIZE;
 
-        innerEl.addEventListener('click', _onWidthEditClick, false);
-        innerEl.addEventListener('focus', _onWidthEditFocus, false);
-        innerEl.addEventListener('blur', _onWidthEditBlur, false);
-        innerEl.addEventListener('input', _onWidthEditInput, false);
-        innerEl.addEventListener('mouseover', _onWidthEditMouseOver, false);
-        innerEl.addEventListener('mouseout', _onWidthEditMouseOut, false);
-        innerEl.addEventListener('keydown', _onWidthEditKeyDown, false);
+        innerEl.addEventListener('click', _onWidthEditClick);
+        innerEl.addEventListener('focus', _onWidthEditFocus);
+        innerEl.addEventListener('blur', _onWidthEditBlur);
+        innerEl.addEventListener('input', _onWidthEditInput);
+        innerEl.addEventListener('mouseover', _onWidthEditMouseOver);
+        innerEl.addEventListener('mouseout', _onWidthEditMouseOut);
+        innerEl.addEventListener('keydown', _onWidthEditKeyDown);
       } else {
         var innerEl = document.createElement('span');
         innerEl.classList.add('width-edit-placeholder');
@@ -1222,9 +1222,9 @@ var main = (function(){
       innerEl.segmentEl = el;
       innerEl.tabIndex = -1;
       if (system.touch) {
-        innerEl.addEventListener('touchstart', _onWidthIncrementClick, false);
+        innerEl.addEventListener('touchstart', _onWidthIncrementClick);
       } else {
-        innerEl.addEventListener('click', _onWidthIncrementClick, false);        
+        innerEl.addEventListener('click', _onWidthIncrementClick);        
       }
       widthEditCanvasEl.appendChild(innerEl);        
 
@@ -2432,24 +2432,24 @@ var main = (function(){
   }
 
   function _addEventListeners() {
-    document.querySelector('#undo').addEventListener('click', _undo, false);
-    document.querySelector('#redo').addEventListener('click', _redo, false);
+    document.querySelector('#undo').addEventListener('click', _undo);
+    document.querySelector('#redo').addEventListener('click', _redo);
 
     document.querySelector('#street-width').
-        addEventListener('change', _onStreetWidthChange, false);
+        addEventListener('change', _onStreetWidthChange);
 
-    window.addEventListener('resize', _onResize, false);
+    window.addEventListener('resize', _onResize);
 
     if (!system.touch) {
-      window.addEventListener('mousedown', _onBodyMouseDown, false);
-      window.addEventListener('mousemove', _onBodyMouseMove, false);
-      window.addEventListener('mouseup', _onBodyMouseUp, false); 
+      window.addEventListener('mousedown', _onBodyMouseDown);
+      window.addEventListener('mousemove', _onBodyMouseMove);
+      window.addEventListener('mouseup', _onBodyMouseUp); 
     } else {
-      window.addEventListener('touchstart', _onBodyMouseDown, false);
-      window.addEventListener('touchmove', _onBodyMouseMove, false);
-      window.addEventListener('touchend', _onBodyMouseUp, false); 
+      window.addEventListener('touchstart', _onBodyMouseDown);
+      window.addEventListener('touchmove', _onBodyMouseMove);
+      window.addEventListener('touchend', _onBodyMouseUp); 
     }
-    window.addEventListener('keydown', _onBodyKeyDown, false);  
+    window.addEventListener('keydown', _onBodyKeyDown);  
 
     document.querySelector('#options-menu-button').addEventListener('click', _onMenuClick);
     document.querySelector('#options-menu-imperial').addEventListener('click', _onMenuImperial);
@@ -2505,7 +2505,7 @@ var main = (function(){
       if (undo) {
         var buttonEl = document.createElement('button');
         buttonEl.innerHTML = 'Undo';
-        buttonEl.addEventListener('click', _undo, false);
+        buttonEl.addEventListener('click', _undo);
         document.querySelector('#status-message > div').appendChild(buttonEl);
       }
 
@@ -2739,7 +2739,7 @@ var main = (function(){
     for (var i in IMAGES_TO_BE_LOADED) {
       var url = IMAGES_TO_BE_LOADED[i];
       images[url] = document.createElement('img');
-      images[url].addEventListener('load', _onImageLoaded, false);
+      images[url].addEventListener('load', _onImageLoaded);
       images[url].src = url + '?v' + TILESET_IMAGE_VERSION;
     }    
   }

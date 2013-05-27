@@ -13,8 +13,12 @@
 @skyColour: rgb(169, 204, 219);
 @warningColour: rgb(220, 80, 80);
 
+@lightTextColour: rgb(240, 240, 240);
+
 @touchFadeOutTime: 3000ms;
 @touchFadeOutDelay: 2000ms;
+
+@textShadow: 0 1px 1px rgba(0, 0, 0, .5);
 
 html {
   height: 100%;
@@ -48,7 +52,7 @@ header {
 
   background: -webkit-linear-gradient(rgba(0, 0, 0, .2), transparent);
 
-  text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+  text-shadow: @textShadow;
 
   text-align: center;
 }
@@ -816,9 +820,12 @@ body.touch-support .segment.fade-out-end button {
   top: 0;
   bottom: 0;
   right: 0;
-  padding-top: 150px;
+  line-height: 300px;
+  line-height: 100vh;
 
-  background: rgba(255, 255, 255, 1);
+  background: @skyColour;
+  color: @lightTextColour;
+  text-shadow: @textShadow;
 
   font-size: 16px;
   font-family: Arial;
@@ -960,8 +967,8 @@ body.touch-support .segment.fade-out-end button {
   right: 74px;
   top: 8px;
 
-  color: rgb(240, 240, 240);
-  text-shadow: 0 1px 1px rgba(0, 0, 0, .5);
+  color: @lightTextColour;
+  text-shadow: @textShadow;
 
   font-family: sans-serif;
   font-size: 13px;
@@ -978,7 +985,7 @@ body.touch-support .segment.fade-out-end button {
   & .avatar {
     width: 20px;
     height: 20px;
-    outline: 1px solid rgb(240, 240, 240);
+    outline: 1px solid @lightTextColour;
     margin-right: 6px;
     vertical-align: middle;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .5);
@@ -993,18 +1000,18 @@ body.touch-support .segment.fade-out-end button {
     appearance: none;
     -webkit-appearance: none;
 
-    color: rgb(240, 240, 240);
-    text-shadow: 0 1px 1px rgba(0, 0, 0, .5);
-
-    font-family: sans-serif;
-    font-size: 13px;
-    
     border: none;
     background: transparent;
 
     padding: 10px;
     margin: -10px;
 
+    color: @lightTextColour;
+    text-shadow: @textShadow;
+
+    font-family: sans-serif;
+    font-size: 13px;
+    
     cursor: pointer;
 
     &::after {
