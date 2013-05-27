@@ -88,6 +88,10 @@ var main = (function(){
   var SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC = 2 / 3; // .2 / IMPERIAL_METRIC_MULTIPLER
 
   var MIN_WIDTH_EDIT_CANVAS_WIDTH = 120;
+  var WIDTH_EDIT_MARGIN = 20;
+
+  var NORMALIZE_PRECISION = 5;
+  var METRIC_PRECISION = 3;
 
   var SEGMENT_WARNING_OUTSIDE = 1;
   var SEGMENT_WARNING_WIDTH_TOO_SMALL = 2;
@@ -805,11 +809,8 @@ var main = (function(){
         break;
     }
 
-    width = 
-        Math.round(width / resolution) * resolution;
-
-    // TODO const
-    width = parseFloat(width.toFixed(5));
+    width = Math.round(width / resolution) * resolution;
+    width = parseFloat(width.toFixed(NORMALIZE_PRECISION));
 
     return width;
   }
@@ -824,7 +825,8 @@ var main = (function(){
         if (purpose != PRETTIFY_WIDTH_INPUT) {
           if (IMPERIAL_VULGAR_FRACTIONS[('' + remainder).substr(1)]) {
             var widthText = 
-                (Math.floor(width) ? Math.floor(width) : '') + IMPERIAL_VULGAR_FRACTIONS[('' + remainder).substr(1)];      
+                (Math.floor(width) ? Math.floor(width) : '') + 
+                IMPERIAL_VULGAR_FRACTIONS[('' + remainder).substr(1)];      
           }
         }
 
@@ -838,8 +840,8 @@ var main = (function(){
         }
         break;
       case SETTINGS_UNITS_METRIC:
-        // TODO const
-        var widthText = '' + (width * IMPERIAL_METRIC_MULTIPLIER).toFixed(3);
+        var widthText = '' + 
+            (width * IMPERIAL_METRIC_MULTIPLIER).toFixed(METRIC_PRECISION);
 
         if (widthText.substr(0, 2) == '0.') {
           widthText = widthText.substr(1);
@@ -903,7 +905,8 @@ var main = (function(){
 
   function _resizeSegment(el, resizeType, width, updateEdit, isTool, immediate, initial) {
     if (!isTool) {
-      var width = _normalizeSegmentWidth(width / TILE_SIZE, resizeType) * TILE_SIZE;
+      var width = 
+          _normalizeSegmentWidth(width / TILE_SIZE, resizeType) * TILE_SIZE;
     }
 
     if (immediate) {
@@ -919,7 +922,8 @@ var main = (function(){
 
     var widthEl = el.querySelector('span.width');
     if (widthEl) {
-      widthEl.innerHTML = _prettifyWidth(width / TILE_SIZE, PRETTIFY_WIDTH_OUTPUT_MARKUP);
+      widthEl.innerHTML = 
+          _prettifyWidth(width / TILE_SIZE, PRETTIFY_WIDTH_OUTPUT_MARKUP);
     }
 
     _setSegmentContents(el, el.getAttribute('type'), width, isTool);
@@ -944,9 +948,8 @@ var main = (function(){
     if (widthEditCanvasEl) {
       if (width < MIN_WIDTH_EDIT_CANVAS_WIDTH) {
         widthEditCanvasEl.style.width = MIN_WIDTH_EDIT_CANVAS_WIDTH + 'px';
-        // TODO const
         widthEditCanvasEl.style.marginLeft = 
-            ((width - MIN_WIDTH_EDIT_CANVAS_WIDTH) / 2 - 20) + 'px';
+            ((width - MIN_WIDTH_EDIT_CANVAS_WIDTH) / 2 - WIDTH_EDIT_MARGIN) + 'px';
       } else {
         widthEditCanvasEl.style.width = '';
         widthEditCanvasEl.style.marginLeft = '';
