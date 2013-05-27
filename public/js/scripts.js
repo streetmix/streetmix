@@ -52,11 +52,10 @@ var main = (function(){
 
   var DRAGGING_MOVE_HOLE_WIDTH = 40;
 
-  var WIDTH_RESIZE_DELAY = 100;
   var STATUS_MESSAGE_HIDE_DELAY = 5000;
   var WIDTH_EDIT_INPUT_DELAY = 200;
-
   var TOUCH_SEGMENT_FADEOUT_DELAY = 5000;
+  var SHORT_DELAY = 100;
 
   var MAX_DRAG_DEGREE = 20;
 
@@ -910,10 +909,9 @@ var main = (function(){
     if (immediate) {
       document.body.classList.add('immediate-segment-resize');
 
-      // TODO const
       window.setTimeout(function() {
         document.body.classList.remove('immediate-segment-resize');
-      }, 100);
+      }, SHORT_DELAY);
     }
 
     el.style.width = width + 'px';
@@ -1838,10 +1836,9 @@ var main = (function(){
         }
       }
 
-      // TODO const
       window.setTimeout(function() {
         draggingMove.floatingEl.classList.remove('first-drag-move');      
-      }, 100);
+      }, SHORT_DELAY);
     }    
 
     if (system.cssTransform) {
@@ -2033,7 +2030,7 @@ var main = (function(){
 
       window.setTimeout(function() {
         newEl.classList.remove('create');
-      }, 100);
+      }, SHORT_DELAY);
 
       if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
         var draggedOutEl = document.querySelector('.segment.dragged-out');
