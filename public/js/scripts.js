@@ -2452,7 +2452,7 @@ var main = (function(){
     document.querySelector('#options-menu-metric').addEventListener('click', _onMenuMetric);
   }
 
-  function _determineEnvironment() {
+  function _detectEnvironment() {
     var url = location.href;
 
     if (url.substr(0, SITE_URL_LOCAL.length) == SITE_URL_LOCAL) {
@@ -2470,8 +2470,8 @@ var main = (function(){
     //console.log('api url', system.apiUrl);
   }
 
-  function _inspectSystem() {
-    _determineEnvironment();
+  function _detectSystemCapabilities() {
+    _detectEnvironment();
 
     system.touch = Modernizr.touch;
     system.hiDpi = window.devicePixelRatio;    
@@ -2570,24 +2570,26 @@ var main = (function(){
     document.querySelector('#options-menu').classList.remove('visible');
   }
 
+  function _fillOutDefaultSettings() {
+    if (typeof data.settings.units === 'undefined') {
+      data.settings.units = SETTINGS_UNITS_IMPERIAL;
+    }
+
+    if (typeof data.settings.unitsSelectedManually === 'undefined') {
+      data.settings.unitsSelectedManually = false;
+    }
+  }
+
   function _loadSettings() {
     var savedSettings = window.localStorage[LOCAL_STORAGE_SETTINGS_ID];
     if (savedSettings) {
-      data.settings = JSON.parse(window.localStorage[LOCAL_STORAGE_SETTINGS_ID]);
-
-      // TODO validate and fill in settings here
-      // TODO should get from defaults
-      if (typeof data.settings.unitsSelectedManually === 'undefined') {
-        data.settings.unitsSelectedManually = false;
-      }
+      data.settings = 
+          JSON.parse(window.localStorage[LOCAL_STORAGE_SETTINGS_ID]);
     } else {
-
-      // TODO Default settings, should probably live elsewhere
       data.settings = {};
-      data.settings.units = SETTINGS_UNITS_IMPERIAL;
-      data.settings.unitsSelectedManually = false;
     }
 
+    _fillOutDefaultSettings();
     _saveSettings();
   }
 
@@ -2855,9 +2857,7 @@ var main = (function(){
 
   function _signInLoaded() {
     signInLoaded = true;
-
     _createSignInUI();
-
     _checkIfEverythingIsLoaded();
   }
 
@@ -2881,7 +2881,7 @@ var main = (function(){
     initializing = true;
     createUndo = false;
 
-    _inspectSystem();
+    _detectSystemCapabilities();
     _loadSettings();
 
     // Asynchronously loading…
