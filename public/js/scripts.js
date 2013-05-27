@@ -52,6 +52,10 @@ var main = (function(){
   var SEGMENT_Y_PALETTE = 20;
   var PALETTE_EXTRA_SEGMENT_PADDING = 4;
 
+  var DRAG_OFFSET_Y_PALETTE = -340;
+  var DRAG_OFFSET_Y_TOUCH_PALETTE = -100;
+  var DRAG_OFFSET_Y_TOUCH = -50;
+
   var WIDTH_CHART_WIDTH = 500;
   var WIDTH_CHART_EMPTY_OWNER_WIDTH = 40;
   var WIDTH_CHART_MARGIN = 20;
@@ -65,11 +69,12 @@ var main = (function(){
 
   var DRAGGING_MOVE_HOLE_WIDTH = 40;
 
-  var WIDTH_RESIZE_DELAY = 100;
   var STATUS_MESSAGE_HIDE_DELAY = 5000;
   var WIDTH_EDIT_INPUT_DELAY = 200;
-
   var TOUCH_SEGMENT_FADEOUT_DELAY = 5000;
+  var SHORT_DELAY = 100;
+
+  var MAX_DRAG_DEGREE = 20;
 
   var STREET_WIDTH_CUSTOM = -1;
 
@@ -111,6 +116,11 @@ var main = (function(){
   var SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC = 2 / 3; // .2 / IMPERIAL_METRIC_MULTIPLER
 
   var MIN_WIDTH_EDIT_CANVAS_WIDTH = 120;
+  var WIDTH_EDIT_MARGIN = 20;
+
+  var NORMALIZE_PRECISION = 5;
+  var METRIC_PRECISION = 3;
+  var WIDTH_ROUNDING = .01;
 
   var SEGMENT_WARNING_OUTSIDE = 1;
   var SEGMENT_WARNING_WIDTH_TOO_SMALL = 2;
@@ -834,11 +844,8 @@ var main = (function(){
         break;
     }
 
-    width = 
-        Math.round(width / resolution) * resolution;
-
-    // TODO const
-    width = parseFloat(width.toFixed(5));
+    width = Math.round(width / resolution) * resolution;
+    width = parseFloat(width.toFixed(NORMALIZE_PRECISION));
 
     return width;
   }
@@ -853,7 +860,8 @@ var main = (function(){
         if (purpose != PRETTIFY_WIDTH_INPUT) {
           if (IMPERIAL_VULGAR_FRACTIONS[('' + remainder).substr(1)]) {
             var widthText = 
-                (Math.floor(width) ? Math.floor(width) : '') + IMPERIAL_VULGAR_FRACTIONS[('' + remainder).substr(1)];      
+                (Math.floor(width) ? Math.floor(width) : '') + 
+                IMPERIAL_VULGAR_FRACTIONS[('' + remainder).substr(1)];      
           }
         }
 
@@ -867,8 +875,8 @@ var main = (function(){
         }
         break;
       case SETTINGS_UNITS_METRIC:
-        // TODO const
-        var widthText = '' + (width * IMPERIAL_METRIC_MULTIPLIER).toFixed(3);
+        var widthText = '' + 
+            (width * IMPERIAL_METRIC_MULTIPLIER).toFixed(METRIC_PRECISION);
 
         if (widthText.substr(0, 2) == '0.') {
           widthText = widthText.substr(1);
@@ -932,16 +940,16 @@ var main = (function(){
 
   function _resizeSegment(el, resizeType, width, updateEdit, isTool, immediate, initial) {
     if (!isTool) {
-      var width = _normalizeSegmentWidth(width / TILE_SIZE, resizeType) * TILE_SIZE;
+      var width = 
+          _normalizeSegmentWidth(width / TILE_SIZE, resizeType) * TILE_SIZE;
     }
 
     if (immediate) {
       document.body.classList.add('immediate-segment-resize');
 
-      // TODO const
       window.setTimeout(function() {
         document.body.classList.remove('immediate-segment-resize');
-      }, 100);
+      }, SHORT_DELAY);
     }
 
     el.style.width = width + 'px';
@@ -949,7 +957,8 @@ var main = (function(){
 
     var widthEl = el.querySelector('span.width');
     if (widthEl) {
-      widthEl.innerHTML = _prettifyWidth(width / TILE_SIZE, PRETTIFY_WIDTH_OUTPUT_MARKUP);
+      widthEl.innerHTML = 
+          _prettifyWidth(width / TILE_SIZE, PRETTIFY_WIDTH_OUTPUT_MARKUP);
     }
 
     _setSegmentContents(el, el.getAttribute('type'), width, isTool);
@@ -974,9 +983,8 @@ var main = (function(){
     if (widthEditCanvasEl) {
       if (width < MIN_WIDTH_EDIT_CANVAS_WIDTH) {
         widthEditCanvasEl.style.width = MIN_WIDTH_EDIT_CANVAS_WIDTH + 'px';
-        // TODO const
         widthEditCanvasEl.style.marginLeft = 
-            ((width - MIN_WIDTH_EDIT_CANVAS_WIDTH) / 2 - 20) + 'px';
+            ((width - MIN_WIDTH_EDIT_CANVAS_WIDTH) / 2 - WIDTH_EDIT_MARGIN) + 'px';
       } else {
         widthEditCanvasEl.style.width = '';
         widthEditCanvasEl.style.marginLeft = '';
@@ -1336,9 +1344,8 @@ var main = (function(){
     }   
 
     data.remainingWidth = data.streetWidth - data.occupiedWidth;
-    // TODO const
     // Rounding problems :·(
-    if (Math.abs(data.remainingWidth) < .01) {
+    if (Math.abs(data.remainingWidth) < WIDTH_ROUNDING) {
       data.remainingWidth = 0;
     }
 
@@ -1372,7 +1379,6 @@ var main = (function(){
       position += data.segments[i].width;
     }
 
-
     if (data.remainingWidth >= 0) {
       document.body.classList.remove('street-overflows');
     } else {
@@ -1398,7 +1404,6 @@ var main = (function(){
 
     _createUndoIfNecessary();
     _updateUndoButtons();
-
     _repositionSegments();
   }
 
@@ -1420,16 +1425,12 @@ var main = (function(){
       _propagateSettings();
       _buildStreetWidthMenu();
       _updateOptionsMenu();
-
       _createDomFromData();
       _segmentsChanged();
       _resizeStreetWidth();
-
       createUndo = true;
-
       _updateUndoButtons();
       lastData = _trimNonUserData();
-
       _statusMessage.hide();
     }
   }
@@ -1437,7 +1438,6 @@ var main = (function(){
   function _clearUndoStack() {
     undoStack = [];
     undoPosition = 0;
-
     _updateUndoButtons();
   }
 
@@ -1461,7 +1461,6 @@ var main = (function(){
       // something undoable.
       undoStack = undoStack.splice(0, undoPosition);
       undoStack[undoPosition] = lastData;
-
       undoPosition++;
 
       lastData = currentData;
@@ -1480,9 +1479,7 @@ var main = (function(){
       segment.type = el.getAttribute('type');
       segment.width = parseFloat(el.getAttribute('width'));
       segment.el = el;
-
       segment.warnings = [];
-
       data.segments.push(segment);
     }
   }
@@ -1548,18 +1545,22 @@ var main = (function(){
 
     _drawLine(ctx, left, 20, left, bottom);
     if (maxWidth > data.streetWidth) {
-      _drawLine(ctx, left + data.streetWidth * multiplier, 20, left + data.streetWidth * multiplier, 40);
+      _drawLine(ctx, left + data.streetWidth * multiplier, 20, 
+          left + data.streetWidth * multiplier, 40);
 
       ctx.save();
       // TODO const
       ctx.strokeStyle = 'red';
       ctx.fillStyle = 'red';
       _drawArrowLine(ctx, 
-        left + data.streetWidth * multiplier, 30, left + maxWidth * multiplier, 30, _prettifyWidth(-data.remainingWidth, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP));
+        left + data.streetWidth * multiplier, 30, 
+        left + maxWidth * multiplier, 30, 
+        _prettifyWidth(-data.remainingWidth, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP));
       ctx.restore();
     }
 
-    _drawLine(ctx, left + maxWidth * multiplier, 20, left + maxWidth * multiplier, bottom);
+    _drawLine(ctx, left + maxWidth * multiplier, 20, 
+        left + maxWidth * multiplier, bottom);
     _drawArrowLine(ctx, 
         left, 30, left + data.streetWidth * multiplier, 30);
   
@@ -1569,7 +1570,8 @@ var main = (function(){
       if (ownerWidths[id] > 0) {
         var width = ownerWidths[id] * multiplier;
 
-        _drawArrowLine(ctx, x, 60, x + width, 60, _prettifyWidth(ownerWidths[id], PRETTIFY_WIDTH_OUTPUT_NO_MARKUP));
+        _drawArrowLine(ctx, x, 60, x + width, 60, 
+            _prettifyWidth(ownerWidths[id], PRETTIFY_WIDTH_OUTPUT_NO_MARKUP));
         _drawLine(ctx, x + width, 50, x + width, 70);
 
         var imageWidth = images[SEGMENT_OWNERS[id].imageUrl].width / 5 * SEGMENT_OWNERS[id].imageSize;
@@ -1745,21 +1747,15 @@ var main = (function(){
     var deltaX = x - draggingResize.mouseX;
     var deltaY = y - draggingResize.mouseY;
 
-    var deltaFromOriginal = 
-        draggingResize.elX - draggingResize.origX;
-
+    var deltaFromOriginal = draggingResize.elX - draggingResize.origX;
     if (!draggingResize.right) {
       deltaFromOriginal = -deltaFromOriginal;
     }
 
     draggingResize.elX += deltaX;
+    draggingResize.floatingEl.style.left = draggingResize.elX + 'px';
 
-    draggingResize.floatingEl.style.left = 
-        draggingResize.elX + 'px';
-
-    var width = 
-        draggingResize.origWidth + deltaFromOriginal / TILE_SIZE * 2;
-
+    var width = draggingResize.origWidth + deltaFromOriginal / TILE_SIZE * 2;
     var precise = event.shiftKey;
 
     if (precise) {
@@ -1810,8 +1806,7 @@ var main = (function(){
     draggingMove.elY = pos[1];
 
     if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
-      // TODO const
-      draggingMove.elY -= 340;
+      draggingMove.elY += DRAG_OFFSET_Y_PALETTE;
       draggingMove.elX -= draggingMove.origWidth / 3;
     }
 
@@ -1858,17 +1853,16 @@ var main = (function(){
       draggingMove.floatingElVisible = true;
 
       if (system.touch) {
-        // TODO const
         if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
-          draggingMove.elY -= 100;      
+          draggingMove.elY += DRAG_OFFSET_Y_TOUCH_PALETTE;
         } else {
-          draggingMove.elY -= 50;      
+          draggingMove.elY += DRAG_OFFSET_Y_TOUCH;
         }
       }
 
       window.setTimeout(function() {
         draggingMove.floatingEl.classList.remove('first-drag-move');      
-      }, 100);
+      }, SHORT_DELAY);
     }    
 
     if (system.cssTransform) {
@@ -1877,11 +1871,10 @@ var main = (function(){
 
       var deg = deltaX;
 
-      if (deg > 20) {
-        deg = 20;
-      }
-      if (deg < -20) {
-        deg = -20;
+      if (deg > MAX_DRAG_DEGREE) {
+        deg = MAX_DRAG_DEGREE;
+      } else if (deg < -MAX_DRAG_DEGREE) {
+        deg = -MAX_DRAG_DEGREE;
       }
 
       if (system.cssTransform) {
@@ -1903,7 +1896,7 @@ var main = (function(){
     }
   }
 
-  function _hideDebug() {
+  function _hideDebugInfo() {
     document.querySelector('#debug').classList.remove('visible');
   }
 
@@ -1911,7 +1904,7 @@ var main = (function(){
     var el = event.target;
 
     _loseAnyFocus();
-    _hideDebug();
+    _hideDebugInfo();
 
     var topEl = event.target;
     while (topEl && (topEl.id != 'info-bubble') && (topEl.id != 'options-menu')) {
@@ -2061,7 +2054,7 @@ var main = (function(){
 
       window.setTimeout(function() {
         newEl.classList.remove('create');
-      }, 100);
+      }, SHORT_DELAY);
 
       if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
         var draggedOutEl = document.querySelector('.segment.dragged-out');
@@ -2331,6 +2324,32 @@ var main = (function(){
     }
   }
 
+  function _showDebugInfo() {
+    // deep object copy
+    var debugData = jQuery.extend(true, {}, data);
+    var debugUndo = jQuery.extend(true, {}, undoStack);
+
+    for (var i in debugData.segments) {
+      delete debugData.segments[i].el;
+    }
+
+    for (var j in debugUndo) {
+      for (var i in debugUndo[j].segments) {
+        delete debugUndo[j].segments[i].el;
+      }
+    }
+
+    var debugText = 
+        'DATA:\n' + JSON.stringify(debugData, null, 2) +
+        '\n\nUNDO:\n' + JSON.stringify(debugUndo, null, 2);
+
+    document.querySelector('#debug').classList.add('visible');
+    document.querySelector('#debug > textarea').innerHTML = debugText;
+    document.querySelector('#debug > textarea').focus();
+    document.querySelector('#debug > textarea').select();
+    event.preventDefault();
+  }
+
   function _onBodyKeyDown(event) {
     switch (event.keyCode) {
       case KEY_RIGHT_ARROW:
@@ -2374,7 +2393,7 @@ var main = (function(){
         }
         break;
       case KEY_ESC:
-        _hideDebug();
+        _hideDebugInfo();
         if (infoBubbleVisible) {
           _hideInfoBubble();
         }
@@ -2397,29 +2416,7 @@ var main = (function(){
         break;   
       case KEY_D:
         if (event.shiftKey && (document.activeElement == document.body)) {
-
-          // deep object copy
-          var debugData = jQuery.extend(true, {}, data);
-          var debugUndo = jQuery.extend(true, {}, undoStack);
-
-          for (var i in debugData.segments) {
-            delete debugData.segments[i].el;
-          }
-
-          for (var j in debugUndo) {
-            for (var i in debugUndo[j].segments) {
-              delete debugUndo[j].segments[i].el;
-            }
-          }
-
-          var debugText = 
-              'DATA:\n' + JSON.stringify(debugData, null, 2) +
-              '\n\nUNDO:\n' + JSON.stringify(debugUndo, null, 2);
-
-          document.querySelector('#debug').classList.add('visible');
-          document.querySelector('#debug > textarea').innerHTML = debugText;
-          document.querySelector('#debug > textarea').focus();
-          document.querySelector('#debug > textarea').select();
+          _showDebugInfo();
           event.preventDefault();
         }
         break;
