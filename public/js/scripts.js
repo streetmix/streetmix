@@ -2171,6 +2171,22 @@ var main = (function(){
     _onResize();
   }
 
+  function _resizeStreetName() {
+    var streetNameCanvasWidth = 
+        document.querySelector('#street-name-canvas').offsetWidth;
+    var streetNameWidth = 
+        document.querySelector('#street-name').offsetWidth;
+
+    if (streetNameWidth > streetNameCanvasWidth) {
+      var multiplier = streetNameCanvasWidth / streetNameWidth;
+    } else {
+      var multiplier = 1.0;
+    }
+
+    document.querySelector('#street-name').style[system.cssTransform] = 
+        'scale(' + multiplier + ')';
+  }
+
   function _onResize() {
     var viewportWidth = window.innerWidth;
     var viewportHeight = window.innerHeight;
@@ -2204,6 +2220,8 @@ var main = (function(){
 
     document.querySelector('#editable-street-section').style.width = 
       (data.streetWidth * TILE_SIZE) + 'px';
+
+    _resizeStreetName();
   }
 
   function _getDefaultSegments() {
@@ -2440,6 +2458,7 @@ var main = (function(){
 
   function _updateStreetName() {
     document.querySelector('#street-name > div').innerHTML = data.name;
+    _resizeStreetName();
   }
 
   function _askForStreetName() {
