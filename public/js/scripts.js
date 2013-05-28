@@ -1433,6 +1433,7 @@ var main = (function(){
       _createDomFromData();
       _segmentsChanged();
       _resizeStreetWidth();
+      _updateStreetName();
       createUndo = true;
       _updateUndoButtons();
       lastData = _trimNonUserData();
@@ -2445,9 +2446,10 @@ var main = (function(){
 
     if (newName) {
       data.name = newName;
-    }
 
-    _updateStreetName();
+      _updateStreetName();
+      _createUndoIfNecessary();
+    }
   }
 
   function _addEventListeners() {
