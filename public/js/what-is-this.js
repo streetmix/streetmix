@@ -66,7 +66,6 @@ var whatIsThis = (function(){
     cssCode.push('}');
     _addCssCode(cssCode.join('\n'));
 
-
     cssCode = [];
     cssCode.push('#what-is-this-info {');
     cssCode.push('  background: white;');
@@ -88,15 +87,22 @@ var whatIsThis = (function(){
 
     cssCode = [];
     cssCode.push('#what-is-this-teaser {');
-    cssCode.push('  background: white;');
+    cssCode.push('  background: rgba(0, 0, 0, .7);');
+    cssCode.push('  color: rgb(210, 210, 210);');
+    cssCode.push('  box-shadow: 0 2px 5px rgba(0, 0, 0, .2);');
+    cssCode.push('  text-shadow: 0 1px 1px black;');
     cssCode.push('  box-sizing: border-box;');
-    cssCode.push('  width: 40px;');
+    cssCode.push('  width: 170px;');
     cssCode.push('  height: 45px;');
     cssCode.push('  line-height: 52px;');
-    cssCode.push('  left: auto;');
-    cssCode.push('  right: 20px;');
+    cssCode.push('  left: 20px;');
+    cssCode.push('  margin-left: 0;');
     cssCode.push('  top: -50px;');
     cssCode.push('  padding: 0;');
+    cssCode.push('  padding-left: 8px;');
+    cssCode.push('  letter-spacing: 8px;');
+    cssCode.push('  text-transform: uppercase;');
+    cssCode.push('  font-weight: bold;');
     cssCode.push('  -webkit-user-select: none;');
     cssCode.push('  user-select: none;');
     cssCode.push('  text-align: center;');
@@ -109,7 +115,7 @@ var whatIsThis = (function(){
 
     cssCode = [];
     cssCode.push('#what-is-this-teaser:hover {');
-    cssCode.push('  background: rgb(247, 232, 214);');
+    cssCode.push('  background: rgba(0, 0, 0, .9);');
     cssCode.push('}');
     _addCssCode(cssCode.join('\n'));
 
@@ -210,7 +216,7 @@ var whatIsThis = (function(){
 
     teaserEl = document.createElement('div');  
     teaserEl.id = 'what-is-this-teaser';
-    teaserEl.innerHTML = '?';
+    teaserEl.innerHTML = 'Streetmix';
     document.body.appendChild(teaserEl);
 
     shieldEl = document.createElement('div');  
