@@ -76,6 +76,8 @@ var main = (function(){
 
   var MAX_DRAG_DEGREE = 20;
 
+  var MAX_STREET_NAME_WIDTH = 30;
+
   var STREET_WIDTH_CUSTOM = -1;
 
   var DEFAULT_NAME = 'Market';
@@ -2461,11 +2463,19 @@ var main = (function(){
     _resizeStreetName();
   }
 
+  function _normalizeStreetName(name) {
+    if (name.length > MAX_STREET_NAME_WIDTH) {
+      name = name.substr(0, MAX_STREET_NAME_WIDTH) + '…';
+    }
+
+    return name;
+  }
+
   function _askForStreetName() {
     var newName = prompt('New street name:', data.name);
 
     if (newName) {
-      data.name = newName;
+      data.name = _normalizeStreetName(newName);
 
       _updateStreetName();
       _createUndoIfNecessary();
