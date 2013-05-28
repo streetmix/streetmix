@@ -462,7 +462,9 @@ var main = (function(){
   var streetSectionCanvasLeft;
 
   var images;
-  var imagesToBeLoaded;  
+  var imagesToBeLoaded;
+
+  var bodyLoaded;  
 
   var signedIn = false;
   var signInLoaded = false;
@@ -2434,7 +2436,23 @@ var main = (function(){
     }
   }
 
+  function _updateStreetName() {
+    document.querySelector('#street-name > div').innerHTML = data.name;
+  }
+
+  function _askForStreetName() {
+    var newName = prompt('New street name:', data.name);
+
+    if (newName) {
+      data.name = newName;
+    }
+
+    _updateStreetName();
+  }
+
   function _addEventListeners() {
+    document.querySelector('#street-name').addEventListener('click', _askForStreetName);
+
     document.querySelector('#undo').addEventListener('click', _undo);
     document.querySelector('#redo').addEventListener('click', _redo);
 
@@ -2710,6 +2728,7 @@ var main = (function(){
     data.streetWidth = _normalizeStreetWidth(DEFAULT_STREET_WIDTH);
 
     _resizeStreetWidth();
+    _updateStreetName();
     _getDefaultSegments();
     _createTools();
     _createDomFromData();
@@ -2726,7 +2745,7 @@ var main = (function(){
   }
 
   function _checkIfEverythingIsLoaded() {
-    if ((imagesToBeLoaded == 0) && signInLoaded) {
+    if ((imagesToBeLoaded == 0) && signInLoaded && bodyLoaded) {
       _onEverythingLoaded();
     }
   }
@@ -2882,8 +2901,17 @@ var main = (function(){
       }
     }
   }
+
+  function _onBodyLoad() {
+    bodyLoaded = true;
+
+    _checkIfEverythingIsLoaded();
+  }
  
   main.init = function() {
+    bodyLoaded = false;
+    window.addEventListener('load', _onBodyLoad);
+
     initializing = true;
     createUndo = false;
 

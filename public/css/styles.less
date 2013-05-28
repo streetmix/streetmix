@@ -1139,6 +1139,8 @@ body.touch-support .segment.fade-out-end button {
   color: rgb(80, 80, 80);
   padding: 3px * @streetNameSize;
 
+  white-space: nowrap;
+
   cursor: pointer;
 
   & > div {
@@ -1150,7 +1152,7 @@ body.touch-support .segment.fade-out-end button {
     letter-spacing: 10px * @streetNameSize;
     padding-right: 20px * @streetNameSize;
 
-    font-family: Interstate;
+    font-family: Interstate, sans-serif;
     font-size: 40px * @streetNameSize;
     line-height: 30px * @streetNameSize;
     text-transform: uppercase;
@@ -1162,7 +1164,7 @@ body.touch-support .segment.fade-out-end button {
       border-color: black;
     }
     &::after {
-      content: 'Click to edit';
+      content: 'Click to change';
       color: black;
 
       left: 50%;
