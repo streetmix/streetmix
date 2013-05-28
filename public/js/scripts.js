@@ -464,7 +464,8 @@ var main = (function(){
   var images;
   var imagesToBeLoaded;
 
-  var bodyLoaded;  
+  var bodyLoaded;
+  var readyStateCompleteLoaded;  
 
   var signedIn = false;
   var signInLoaded = false;
@@ -2747,7 +2748,7 @@ var main = (function(){
   }
 
   function _checkIfEverythingIsLoaded() {
-    if ((imagesToBeLoaded == 0) && signInLoaded && bodyLoaded) {
+    if ((imagesToBeLoaded == 0) && signInLoaded && bodyLoaded && readyStateCompleteLoaded) {
       _onEverythingLoaded();
     }
   }
@@ -2909,8 +2910,19 @@ var main = (function(){
 
     _checkIfEverythingIsLoaded();
   }
+
+  function _onReadyStateChange() {
+    if (document.readyState === 'complete') {
+      readyStateCompleteLoaded = true;
+
+      _checkIfEverythingIsLoaded();
+    }
+  }
  
   main.init = function() {
+    readyStateCompleteLoaded = false;
+    document.addEventListener('readystatechange', _onReadyStateChange);
+
     bodyLoaded = false;
     window.addEventListener('load', _onBodyLoad);
 
