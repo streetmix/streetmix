@@ -71,6 +71,8 @@ header .inside {
 #width-chart {
   width: 500px;
   height: 100px;
+
+  display: none;
 }
 #street-width-canvas {
   position: absolute;
@@ -204,7 +206,7 @@ footer {
   height: @toolsHeight;
   bottom: 0;
   padding-right: 10px;
-  padding-left: 10px;
+  padding-left: 240px;
 
   background: url(../images/toolbox-bk.png);
 
@@ -256,17 +258,37 @@ footer {
   opacity: 1;
 }
 
-#undo {
+#commands {
   position: absolute;
   left: 10px;
-  top: 5px;
+  top: 12px;
+  width: 250px;
+  bottom: 10px;
+
+  z-index: 100000;
+
+  & .street-width {
+    font-family: sans-serif;
+    font-size: 12px;
+
+    position: absolute;
+    top: 55px;
+
+    pointer-events: auto;
+  }
+}
+
+#undo {
+  position: absolute;
+  left: 40px;
+  top: 0;
   width: 70px;
   height: 45px;
 }
 #redo {
   position: absolute;
-  left: 10px;
-  top: 52px;
+  left: 117px;
+  top: 0;
   width: 70px;
   height: 45px;
 }

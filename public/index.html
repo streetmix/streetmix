@@ -62,7 +62,7 @@
       <canvas id='width-chart'></canvas>
 
       <div id='street-width-canvas'>
-        <select id='street-width'></select>
+        <!-- <select id='street-width'></select> -->
       </div>
     </div>
   </header>
@@ -85,8 +85,14 @@
   </section>
 
   <footer>
-    <button id='undo'>Undo</button>
-    <button id='redo'>Redo</button>
+    <div id='commands'>
+      <button id='undo'>Undo</button>
+      <button id='redo'>Redo</button>
+
+      <div class='street-width'>
+        Street width: <select id='street-width'></select>
+      </div>
+    </div>
 
     <div id='tools'>
       <div id='trashcan'>Drag here to remove</div>
