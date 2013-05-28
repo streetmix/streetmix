@@ -2931,7 +2931,7 @@ var main = (function(){
   }
 
   function _onReadyStateChange() {
-    if (document.readyState === 'complete') {
+    if (document.readyState == 'complete') {
       readyStateCompleteLoaded = true;
 
       _checkIfEverythingIsLoaded();

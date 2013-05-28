@@ -1136,7 +1136,7 @@ body.touch-support .segment.fade-out-end button {
 #street-name {
   display: inline-block;
   background: white;
-  color: rgb(80, 80, 80);
+  color: black;
   padding: 3px * @streetNameSize;
 
   white-space: nowrap;
@@ -1151,7 +1151,7 @@ body.touch-support .segment.fade-out-end button {
 
   & > div {
     border-radius: 10px * @streetNameSize;
-    border: 3px * @streetNameSize solid rgb(80, 80, 80);
+    border: 3px * @streetNameSize solid black;
     padding: 10px * @streetNameSize 30px * @streetNameSize;
     padding-top: 12px * @streetNameSize;
     padding-bottom: 5px * @streetNameSize;
@@ -1165,13 +1165,10 @@ body.touch-support .segment.fade-out-end button {
   }
 
   &:hover {
-    color: black;
-    & > div {
-      border-color: black;
-    }
+    text-shadow: 0 0 2px black;
     &::after {
       content: 'Click to change';
-      color: black;
+      text-shadow: none;
 
       left: 50%;
       top: 60px * @streetNameSize;
