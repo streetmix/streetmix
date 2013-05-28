@@ -25,7 +25,10 @@
 
 @textShadow: 0 1px 1px rgba(0, 0, 0, .5);
 
-@streetNameSize: 1.2;
+@streetNameSize: 1.4;
+@streetNameTop: 20px;
+@streetNameConnectorWidth: 100px;
+
 
 html {
   height: 100%;
@@ -366,7 +369,6 @@ body:not(.touch-support) .segment:not(.unmovable):hover .hover-bk,
   z-index: -1;
   height: @canvasBaseline;
   pointer-events: none;
-
 }
 
 body:not(.touch-support) .segment:not(.tool):not(.unmovable):hover .hover-bk,
@@ -1110,9 +1112,6 @@ body.touch-support .segment.fade-out-end button {
   }
 }
 
-@streetNameTop: 10px;
-@streetNameConnectorWidth: 100px;
-
 #street-name-canvas {
   position: absolute;
   left: 240px;
@@ -1152,5 +1151,6 @@ body.touch-support .segment.fade-out-end button {
     font-family: Interstate;
     font-size: 40px * @streetNameSize;
     line-height: 30px * @streetNameSize;
+    text-transform: uppercase;
   }
 }
