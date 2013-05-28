@@ -80,7 +80,7 @@ var main = (function(){
 
   var STREET_WIDTH_CUSTOM = -1;
 
-  var DEFAULT_NAME = 'Market';
+  var DEFAULT_NAME = 'Market St';
   var DEFAULT_STREET_WIDTH = 80;
   var DEFAULT_STREET_WIDTHS = [40, 60, 80];
 
