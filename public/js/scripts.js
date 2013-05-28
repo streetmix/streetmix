@@ -78,6 +78,7 @@ var main = (function(){
 
   var STREET_WIDTH_CUSTOM = -1;
 
+  var DEFAULT_NAME = 'Market';
   var DEFAULT_STREET_WIDTH = 80;
   var DEFAULT_STREET_WIDTHS = [40, 60, 80];
 
@@ -412,6 +413,8 @@ var main = (function(){
     streetWidth: null,
     occupiedWidth: null,
     remainingWidth: null,
+
+    name: null,
 
     settings: {
       units: null,
@@ -2525,6 +2528,7 @@ var main = (function(){
     var newData = {};
 
     newData.streetWidth = data.streetWidth;
+    newData.name = data.name;
 
     newData.settings = {};
     newData.settings.units = data.settings.units;
@@ -2702,6 +2706,7 @@ var main = (function(){
   function _onEverythingLoaded() {
     _propagateSettings();
 
+    data.name = DEFAULT_NAME;
     data.streetWidth = _normalizeStreetWidth(DEFAULT_STREET_WIDTH);
 
     _resizeStreetWidth();
