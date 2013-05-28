@@ -1,3 +1,8 @@
+@font-face {
+  font-family: Interstate;
+  src: url(../fonts/interstate-bold.ttf);
+}
+
 @canvasHeight: 480px;
 @canvasGround: 35px;
 @canvasBaseline: @canvasHeight - @canvasGround;
@@ -19,6 +24,8 @@
 @touchFadeOutDelay: 2000ms;
 
 @textShadow: 0 1px 1px rgba(0, 0, 0, .5);
+
+@streetNameSize: 1.2;
 
 html {
   height: 100%;
@@ -1100,5 +1107,50 @@ body.touch-support .segment.fade-out-end button {
     bottom: 10px;
     right: 10px;
     left: 10px;
+  }
+}
+
+@streetNameTop: 10px;
+@streetNameConnectorWidth: 100px;
+
+#street-name-canvas {
+  position: absolute;
+  left: 240px;
+  right: 240px;
+  top: @streetNameTop;
+  z-index: 100000;
+  text-align: center;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    margin-left: -@streetNameConnectorWidth / 2;
+    width: @streetNameConnectorWidth;
+    top: -@streetNameTop;
+    height: @streetNameTop;
+    background: rgb(200, 200, 200);
+    box-shadow: inset 0 -2px 2px rgba(0, 0, 0, .2);
+  };
+}
+
+#street-name {
+  display: inline-block;
+  background: white;
+  color: black;
+  padding: 3px * @streetNameSize;
+
+  & > div {
+    border-radius: 10px * @streetNameSize;
+    border: 3px * @streetNameSize solid black;
+    padding: 10px * @streetNameSize 30px * @streetNameSize;
+    padding-top: 12px * @streetNameSize;
+    padding-bottom: 5px * @streetNameSize;
+    letter-spacing: 10px * @streetNameSize;
+    padding-right: 20px * @streetNameSize;
+
+    font-family: Interstate;
+    font-size: 40px * @streetNameSize;
+    line-height: 30px * @streetNameSize;
   }
 }
