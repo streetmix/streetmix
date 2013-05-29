@@ -2551,9 +2551,11 @@ var main = (function(){
     }
     window.addEventListener('keydown', _onBodyKeyDown);  
 
-    document.querySelector('#options-menu-button').addEventListener('click', _onMenuClick);
+    document.querySelector('#options-menu-button').addEventListener('click', _onOptionsMenuClick);
     document.querySelector('#options-menu-imperial').addEventListener('click', _onMenuImperial);
     document.querySelector('#options-menu-metric').addEventListener('click', _onMenuMetric);
+
+    document.querySelector('#share-menu-button').addEventListener('click', _onShareMenuClick);
   }
 
   function _detectEnvironment() {
@@ -2667,7 +2669,7 @@ var main = (function(){
     document.querySelector('#loading').classList.add('hidden');
   }
 
-  function _onMenuClick() {
+  function _onOptionsMenuClick() {
     var el = document.querySelector('#options-menu');
 
     if (!el.classList.contains('visible')) {
@@ -2679,6 +2681,17 @@ var main = (function(){
 
   function _hideMenus() {
     document.querySelector('#options-menu').classList.remove('visible');
+    document.querySelector('#share-menu').classList.remove('visible');
+  }
+
+  function _onShareMenuClick() {
+    var el = document.querySelector('#share-menu');
+
+    if (!el.classList.contains('visible')) {
+      el.classList.add('visible');
+    } else {
+      _hideMenus();
+    }
   }
 
   function _fillOutDefaultSettings() {
