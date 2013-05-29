@@ -2,6 +2,8 @@
 @canvasGround: 35px;
 @canvasBaseline: @canvasHeight - @canvasGround;
 
+@streetSectionHorizontalPadding: 100px;
+
 @toolsHeight: 100px;
 
 @tilesetWidth: 2622px; // retina
@@ -20,6 +22,8 @@
 
 @textShadow: 0 1px 1px rgba(0, 0, 0, .5);
 
+@fontFamily: Arial, sans-serif;
+
 html {
   height: 100%;
 }
@@ -34,37 +38,37 @@ body {
   background: @backgroundDirtColour;
 }
 
+body,
+button,
+input,
+select,
+option {
+  font-family: @fontFamily;
+}
+
 header {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  margin: 0 auto;
 
   z-index: 100000;
 
-  color: white;
-  font-family: Arial, sans-serif;
-  font-size: 12px;  
-
-  padding: 10px;
   padding-top: 20px;
 
   background: -webkit-linear-gradient(rgba(0, 0, 0, .2), transparent);
 
   text-shadow: @textShadow;
 
-  text-align: center;
-}
-header .inside {
-  width: 500px;
-  height: 100px;
-  margin: 0 auto;
-  position: relative;
+  .inside {
+    width: 500px;
+    height: 100px;
+    margin: 0 auto;
+    position: relative;
+  }
 }
 
 .width-font {
-  font-family: Arial, sans-serif;
   font-size: 12px;  
 }
 
@@ -117,38 +121,35 @@ header .inside {
   top: 0;
   height: @canvasBaseline;
   background: @skyColour;
-}
 
-#street-section-sky .rear-clouds {
-  position: absolute;  
+  .rear-clouds,
+  .front-clouds {
+    position: absolute;  
 
-  background: url(../images/sky-rear.png);
-  background-size: 250px 120px;
+    background-repeat: repeat-x;
+    background-position: 0 0;    
 
-  background-repeat: repeat-x;
-  background-position: 0 0;    
+    left: 0;
+    width: 100%;
+  }
 
-  left: 0;
-  bottom: 325px;
-  width: 100%;
-  height: 120px;
-}
+  .rear-clouds {
+    background-image: url(../images/sky-rear.png);
+    background-size: 250px 120px;
 
-#street-section-sky .front-clouds {
-  position: absolute;  
+    bottom: 325px;
+    height: 120px;
+  }
 
-  background: url(../images/sky-front.png);
-  background-size: 250px 280px;
+  .front-clouds {
+    background-image: url(../images/sky-front.png);
+    background-size: 250px 280px;
 
-  background-repeat: repeat-x;
-  background-position: 0 0;  
+    opacity: .5;  
 
-  opacity: .5;  
-
-  left: 0;
-  bottom: 45px;
-  width: 100%;
-  height: 280px;
+    bottom: 45px;
+    height: 280px;
+  }
 }
 
 #street-section-dirt {
@@ -243,17 +244,17 @@ footer {
   color: rgb(150, 150, 150);
   font-size: 24px;
   font-weight: bold;
-  font-family: sans-serif;
 
   background: rgb(220, 220, 220);
 
   pointer-events: none;
   opacity: 0;
   -webkit-transition: opacity 100ms;
-}
-#trashcan.visible {
-  -webkit-transition: opacity 250ms;
-  opacity: 1;
+
+  .visible {
+    -webkit-transition: opacity 250ms;
+    opacity: 1;
+  }
 }
 
 #undo {
@@ -295,10 +296,9 @@ footer h1 {
   height: @canvasHeight + 80;
   text-align: left;
 
-  // TODO const
-  margin-left: -100px;
-  padding-left: 100px;
-  padding-right: 100px;
+  margin-left: -@streetSectionHorizontalPadding;
+  padding-left: @streetSectionHorizontalPadding;
+  padding-right: @streetSectionHorizontalPadding;
 
   -webkit-transform: translateZ(0);
 }
@@ -309,8 +309,6 @@ footer h1 {
 
   display: block;
   position: absolute;
-
-  -webkit-perspective: 200;
 }
 
 body:not(.segment-resize-dragging) .segment {
@@ -335,7 +333,12 @@ body.immediate-segment-resize .segment {
   position: relative;
 
   overflow: hidden;
+
+  margin: 12px 5px;
+  height: 80px;
+  background-color: rgba(25, 25, 25, .5);
 }
+
 body:not(.touch-support) .segment:not(.unmovable):hover .name,
 .segment:not(.unmovable).hover .name {
   opacity: 0;
@@ -356,7 +359,6 @@ body:not(.touch-support) .segment:not(.unmovable):hover .hover-bk,
   z-index: -1;
   height: @canvasBaseline;
   pointer-events: none;
-
 }
 
 body:not(.touch-support) .segment:not(.tool):not(.unmovable):hover .hover-bk,
@@ -386,6 +388,12 @@ body.segment-resize-dragging .segment:not(.unmovable).hover {
   top: 0;
 
   pointer-events: none;
+
+  img {
+    position: absolute;
+    width: @tilesetWidth / 2;
+    pointer-events: none;
+  }
 }
 
 .segment.outside .image {
@@ -395,22 +403,8 @@ body.segment-resize-dragging .segment:not(.unmovable).hover {
   -webkit-transition: none;  
 }
 
-.segment .image img {
-  position: absolute;
-  width: @tilesetWidth / 2;
-  pointer-events: none;
-}
-
 .segment.dragged-out {
   opacity: 0;
-}
-
-.segment.tool {
-  background-size: 332px 70px;
-  margin: 0 5px;
-  height: 80px;
-  margin-top: 12px;
-  background-color: rgba(25, 25, 25, 0.5);
 }
 
 body:not(.touch-support) .segment.tool:hover,
@@ -433,10 +427,9 @@ body:not(.touch-support) .segment.tool:hover,
 
   pointer-events: none;
 
-  background: rgba(0, 0, 0, .05);
-
   -webkit-transition: none !important;
 }
+
 .segment.floating.first-drag-move {
   -webkit-transition: left 250ms, top 250ms, -webkit-transform 250ms !important;
 }
@@ -474,17 +467,31 @@ body.touch-support .segment.fade-out-end {
   margin: -10px;
   border: 10px solid transparent;
   outline: 1px solid rgba(255, 255, 255, .4);
+
+  &.left {
+    left: -5px;
+    text-align: left;
+    text-indent: -5px;
+  }
+  &.right {
+    right: -5px;
+    text-align: right;
+    text-indent: -3px;
+  }
+  &.floating {
+    opacity: 1;
+    left: 0;
+    top: 0;
+    margin: 0;
+    width: 30px;
+    height: 120px;
+    pointer-events: none;
+    z-index: 50000;
+
+    outline: 1px solid rgba(255, 255, 255, .8);
+  }  
 }
-.segment .drag-handle.left {
-  left: -5px;
-  text-align: left;
-  text-indent: -5px;
-}
-.segment .drag-handle.right {
-  right: -5px;
-  text-align: right;
-  text-indent: -3px;
-}
+
 body:not(.touch-support)  .segment:not(.unmovable):hover .drag-handle,
 .segment:not(.unmovable).hover .drag-handle {
   pointer-events: auto;
@@ -500,19 +507,6 @@ body:not(.touch-support) .segment:not(.unmovable):hover .drag-handle:hover,
 
 body.segment-resize-dragging .segment .drag-handle {
   opacity: 0 !important;
-}
-
-.drag-handle.floating {
-  opacity: 1;
-  left: 0;
-  top: 0;
-  margin: 0;
-  width: 30px;
-  height: 120px;
-  pointer-events: none;
-  z-index: 50000;
-
-  outline: 1px solid rgba(255, 255, 255, .8);
 }
 
 .segment .guide {
@@ -551,7 +545,6 @@ body.segment-resize-dragging .segment .drag-handle {
 
   word-wrap: break-word;
 
-  font-family: Arial, sans-serif;
   font-size: 12px;
 
   height: 30px;
@@ -616,6 +609,8 @@ body:not(.touch-support) .segment:not(.unmovable):hover .width-edit-canvas,
   height: 29px;
   line-height: 25px;
   vertical-align: top;
+
+  font-size: 14px;
 
   background: @backgroundDirtColour;
   padding: 0;
@@ -828,7 +823,6 @@ body.touch-support .segment.fade-out-end button {
   text-shadow: @textShadow;
 
   font-size: 16px;
-  font-family: Arial;
   text-align: center;
 }
 #loading.hidden {
@@ -861,7 +855,6 @@ body.touch-support .segment.fade-out-end button {
     padding-right: 0;
     display: inline-block;
     color: white;
-    font-family: sans-serif;
     font-size: 14px;
   }
 
@@ -876,7 +869,6 @@ body.touch-support .segment.fade-out-end button {
     margin-left: 10px;
     margin-right: 10px;
 
-    font-family: sans-serif;
     font-size: 14px;
 
     cursor: pointer;
@@ -920,7 +912,6 @@ body.touch-support .segment.fade-out-end button {
     padding: 0 15px;
     margin: 0;
 
-    font-family: Arial, sans-serif;
     font-size: 12px;
  
     font-weight: bold;
@@ -937,7 +928,6 @@ body.touch-support .segment.fade-out-end button {
 
     padding: 0 15px;
 
-    font-family: Arial, sans-serif;
     font-size: 12px;
     line-height: 1.4;
 
@@ -994,7 +984,6 @@ body.touch-support .segment.fade-out-end button {
   color: @lightTextColour;
   text-shadow: @textShadow;
 
-  font-family: sans-serif;
   font-size: 13px;
 
   a {
@@ -1033,13 +1022,12 @@ body.touch-support .segment.fade-out-end button {
     color: @lightTextColour;
     text-shadow: @textShadow;
 
-    font-family: sans-serif;
     font-size: 13px;
 
     cursor: pointer;
 
     &::after {
-      font-family: Verdana;
+      font-family: 'Verdana';
       content: ' ▼';
       padding-left: 5px;
       font-size: 11px;
@@ -1061,7 +1049,6 @@ body.touch-support .segment.fade-out-end button {
   background: white;
   top: 30px;
 
-  font-family: sans-serif;
   font-size: 13px;
 
   box-shadow: 0 2px 2px rgba(0, 0, 0, .2);
