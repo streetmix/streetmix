@@ -2884,18 +2884,22 @@ var main = (function(){
     console.log(signInCookie, userIdCookie);
 
     if (signInCookie && userIdCookie) {
+      console.log('new cookies present');
       signInData = { token: signInCookie, userId: userIdCookie };
 
       _removeSignInCookies();
       _saveSignInData();
     } else {
       if (window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
+        console.log('loaded from local storage');
         signInData = JSON.parse(window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]);
       }
     }
 
     if (signInData && signInData.token) {
+      console.log('got token');
       if (signInData.details) {
+        console.log('got details');
         signedIn = true;
         _signInLoaded();
       } else {
