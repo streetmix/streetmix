@@ -74,6 +74,8 @@ var main = (function(){
   var TOUCH_SEGMENT_FADEOUT_DELAY = 5000;
   var SHORT_DELAY = 100;
 
+  var SAVE_CHANGES_DELAY = 500;
+
   var MAX_DRAG_DEGREE = 20;
 
   var MAX_STREET_NAME_WIDTH = 30;
@@ -468,6 +470,9 @@ var main = (function(){
 
   var bodyLoaded;
   var readyStateCompleteLoaded;  
+
+  var saveChangesTimerId = -1;
+  var saveChangesIncomplete = false;
 
   var signedIn = false;
   var signInLoaded = false;
@@ -1410,7 +1415,7 @@ var main = (function(){
       }
     }
 
-    _createUndoIfNecessary();
+    _saveChangesIfAny();
     _updateUndoButtons();
     _repositionSegments();
   }
@@ -1458,7 +1463,35 @@ var main = (function(){
     _undoRedo(false);
   }
 
-  function _createUndoIfNecessary() {
+  function _createNewUndo() {
+    // This removes future undos in case we undo a few times and then do
+    // something undoable.
+    undoStack = undoStack.splice(0, undoPosition);
+    undoStack[undoPosition] = lastData;
+    undoPosition++;
+  }
+
+  function _saveChangesToServer() {
+    console.log('save…');
+
+    saveChangesIncomplete = false;
+  }
+
+  function _clearScheduledSavingChangesToServer() {
+    window.clearTimeout(saveChangesTimerId);
+  }
+
+  function _scheduleSavingChangesToServer() {
+    console.log('schedule save…');
+
+    saveChangesIncomplete = true;
+
+    _clearScheduledSavingChangesToServer();
+
+    saveChangesTimerId = window.setTimeout(_saveChangesToServer, SAVE_CHANGES_DELAY);
+  }
+
+  function _saveChangesIfAny() {
     if (ignoreStreetChanges) {
       return;
     }
@@ -1466,11 +1499,8 @@ var main = (function(){
     var currentData = _trimNonUserData();
 
     if (JSON.stringify(currentData) != JSON.stringify(lastData)) {
-      // This removes future undos in case we undo a few times and then do
-      // something undoable.
-      undoStack = undoStack.splice(0, undoPosition);
-      undoStack[undoPosition] = lastData;
-      undoPosition++;
+      _createNewUndo();
+      _scheduleSavingChangesToServer();
 
       lastData = currentData;
 
@@ -2478,7 +2508,7 @@ var main = (function(){
       data.name = _normalizeStreetName(newName);
 
       _updateStreetName();
-      _createUndoIfNecessary();
+      _saveChangesIfAny();
     }
   }
 
@@ -2713,7 +2743,7 @@ var main = (function(){
     _updateOptionsMenu();
     _hideMenus();
 
-    _createUndoIfNecessary();
+    _saveChangesIfAny();
     _saveSettings();
   }
 
