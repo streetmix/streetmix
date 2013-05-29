@@ -1438,6 +1438,7 @@ var main = (function(){
       _propagateSettings();
       _buildStreetWidthMenu();
       _updateOptionsMenu();
+      _updateShareMenu();
       _createDomFromData();
       _segmentsChanged();
       _resizeStreetWidth();
@@ -1961,7 +1962,8 @@ var main = (function(){
     _hideDebugInfo();
 
     var topEl = event.target;
-    while (topEl && (topEl.id != 'info-bubble') && (topEl.id != 'options-menu')) {
+    // TODO nasty
+    while (topEl && (topEl.id != 'info-bubble') && (topEl.id != 'options-menu') && (topEl.id != 'share-menu')) {
       topEl = topEl.parentNode;
     }
     var withinInfoBubbleOrMenu = !!topEl;
@@ -2527,7 +2529,13 @@ var main = (function(){
     }
   }
 
+  function _onWindowBlur() {
+    _hideMenus();
+  }
+
   function _addEventListeners() {
+    window.addEventListener('blur', _onWindowBlur);
+
     window.addEventListener('beforeunload', _onWindowBeforeUnload);
 
     document.querySelector('#street-name').addEventListener('click', _askForStreetName);
@@ -2806,6 +2814,21 @@ var main = (function(){
     _updateOptionsMenu();
   }
 
+  function _updateShareMenu() {
+    var el = document.querySelector('#share-via-twitter');
+
+    var text = 'Check out Streetmix, a Web-based street builder!';
+
+    if (system.environment == ENVIRONMENT_PRODUCTION) {
+      var url = location.href;
+    } else {
+      var url = SITE_URL_PRODUCTION;
+    }
+
+    el.href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + 
+        '&url=' + encodeURIComponent(url);
+  }
+
   function _updateOptionsMenu() {
     switch (data.settings.units) {
       case SETTINGS_UNITS_IMPERIAL:
@@ -2831,6 +2854,7 @@ var main = (function(){
     _createTools();
     _createDomFromData();
     _segmentsChanged();
+    _updateShareMenu();
 
     initializing = false;    
     ignoreStreetChanges = false;
