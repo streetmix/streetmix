@@ -476,7 +476,7 @@ var main = (function(){
   var lastData;
   var undoStack = [];
   var undoPosition = 0;
-  var createUndo = true;
+  var ignoreStreetChanges = false;
 
   var draggingType = DRAGGING_TYPE_NONE;
 
@@ -1429,7 +1429,7 @@ var main = (function(){
       }
       data = undoStack[undoPosition];
 
-      createUndo = false;
+      ignoreStreetChanges = true;
       _propagateSettings();
       _buildStreetWidthMenu();
       _updateOptionsMenu();
@@ -1437,7 +1437,7 @@ var main = (function(){
       _segmentsChanged();
       _resizeStreetWidth();
       _updateStreetName();
-      createUndo = true;
+      ignoreStreetChanges = false;
       _updateUndoButtons();
       lastData = _trimNonUserData();
       _statusMessage.hide();
@@ -1459,7 +1459,7 @@ var main = (function(){
   }
 
   function _createUndoIfNecessary() {
-    if (!createUndo) {
+    if (ignoreStreetChanges) {
       return;
     }
 
@@ -1683,7 +1683,7 @@ var main = (function(){
   }
 
   function _handleSegmentResizeStart(event) {
-    createUndo = false;
+    ignoreStreetChanges = true;
 
     var el = event.target;
 
@@ -1781,7 +1781,7 @@ var main = (function(){
   }  
 
   function _handleSegmentMoveStart(event) {
-    createUndo = false;
+    ignoreStreetChanges = true;
 
     if (event.touches && event.touches[0]) {
       var x = event.touches[0].pageX;
@@ -2018,7 +2018,7 @@ var main = (function(){
   }
 
   function _handleSegmentMoveEnd(event) {
-    createUndo = true;
+    ignoreStreetChanges = false;
 
     var el = document.elementFromPoint(draggingMove.mouseX, draggingMove.mouseY);
     while (el && (el.id != 'editable-street-section')) {
@@ -2097,7 +2097,7 @@ var main = (function(){
   }
 
   function _handleSegmentResizeEnd(event) {
-    createUndo = true;
+    ignoreStreetChanges = false;
 
     _segmentsChanged();
 
@@ -2688,7 +2688,7 @@ var main = (function(){
 
     _propagateSettings();
 
-    createUndo = false;
+    ignoreStreetChanges = true;
     if (!fromUndo) {
       _normalizeAllSegmentWidths();
 
@@ -2707,7 +2707,7 @@ var main = (function(){
     _segmentsChanged();
     _resizeStreetWidth();
 
-    createUndo = true;      
+    ignoreStreetChanges = false;      
 
     _buildStreetWidthMenu();
     _updateOptionsMenu();
@@ -2773,7 +2773,7 @@ var main = (function(){
     _segmentsChanged();
 
     initializing = false;    
-    createUndo = true;
+    ignoreStreetChanges = false;
     lastData = _trimNonUserData();
 
     _buildStreetWidthMenu();
@@ -2962,7 +2962,7 @@ var main = (function(){
     window.addEventListener('load', _onBodyLoad);
 
     initializing = true;
-    createUndo = false;
+    ignoreStreetChanges = true;
 
     _detectSystemCapabilities();
     _loadSettings();
