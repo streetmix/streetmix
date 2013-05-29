@@ -2562,6 +2562,12 @@ var main = (function(){
         document.querySelector('#status-message > div').appendChild(buttonEl);
       }
 
+      var el = document.createElement('button');
+      el.classList.add('close');
+      el.addEventListener('click', _statusMessage.hide);
+      el.innerHTML = '×';
+      document.querySelector('#status-message > div').appendChild(el);      
+
       document.querySelector('#status-message').classList.add('visible');
 
       _statusMessage.timerId = 
