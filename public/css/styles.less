@@ -998,6 +998,27 @@ body.touch-support .segment.fade-out-end button {
 
   font-size: 13px;
 
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      display: inline-block;
+      padding: 0;
+      margin: 0;
+
+      &:not(:last-child)::after {
+        content: '·';
+        margin-right: 5px;
+      }
+    }
+  }
+
+  #identity:not(.visible) {
+    display: none;
+  }
+
   a {
     color: inherit;
     text-decoration: none;
@@ -1016,12 +1037,7 @@ body.touch-support .segment.fade-out-end button {
     box-shadow: 0 1px 1px rgba(0, 0, 0, .5);
   }
 
-  .id::after,
-  .command::after {
-    content: ' | ';
-  }
-
-  & > button {
+  button {
     appearance: none;
     -webkit-appearance: none;
 

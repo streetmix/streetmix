@@ -2868,6 +2868,8 @@ var main = (function(){
     var signInCookie = $.cookie(SIGN_IN_TOKEN_COOKIE);
     var userIdCookie = $.cookie(USER_ID_COOKIE);
 
+    console.log(signInCookie, userIdCookie);
+
     if (signInCookie && userIdCookie) {
       signInData = { token: signInCookie, userId: userIdCookie };
 
@@ -2943,12 +2945,14 @@ var main = (function(){
       var el = document.createElement('img');
       el.src = signInData.details.profileImageUrl;
       el.classList.add('avatar');
-      document.querySelector('#sign-in-link').appendChild(el);
+      document.querySelector('#identity').appendChild(el);
 
       var el = document.createElement('span');
       el.innerHTML = signInData.details.username;
       el.classList.add('id');
-      document.querySelector('#sign-in-link').appendChild(el);
+      document.querySelector('#identity').appendChild(el);
+
+      document.querySelector('#identity').classList.add('visible');
 
       var el = document.createElement('a');
       el.href = '/';
@@ -2962,6 +2966,8 @@ var main = (function(){
       el.classList.add('command');
       el.innerHTML = 'Sign in';
       document.querySelector('#sign-in-link').appendChild(el);
+
+      document.querySelector('#identity').classList.remove('visible');
     }
   }
 
