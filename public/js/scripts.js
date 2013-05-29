@@ -2504,7 +2504,7 @@ var main = (function(){
   }
 
   function _updateStreetName() {
-    document.querySelector('#street-name > div').innerHTML = data.name;
+    $('#street-name > div').text(data.name);
     _resizeStreetName();
   }
 
