@@ -1474,7 +1474,7 @@ var main = (function(){
   function _saveChangesToServer() {
     console.log('save…');
 
-    saveChangesIncomplete = false;
+    //saveChangesIncomplete = false;
   }
 
   function _clearScheduledSavingChangesToServer() {
@@ -1488,7 +1488,8 @@ var main = (function(){
 
     _clearScheduledSavingChangesToServer();
 
-    saveChangesTimerId = window.setTimeout(_saveChangesToServer, SAVE_CHANGES_DELAY);
+    saveChangesTimerId = 
+        window.setTimeout(_saveChangesToServer, SAVE_CHANGES_DELAY);
   }
 
   function _saveChangesIfAny() {
@@ -1506,6 +1507,20 @@ var main = (function(){
 
       _updateUndoButtons();
     }
+  }
+
+  function _checkIfEverythingHasBeenSaved() {
+    if (saveChangesIncomplete) {
+      _saveChangesToServer();
+
+      return 'Your changes have not been saved yet. Please wait and close the page in a little while to allow the changes to be saved.';
+    } else {
+      return null;
+    }
+  }
+
+  function _onWindowBeforeUnload() {
+    return _checkIfEverythingHasBeenSaved();
   }
 
   function _createDataFromDom() {
@@ -2513,6 +2528,8 @@ var main = (function(){
   }
 
   function _addEventListeners() {
+    window.addEventListener('beforeunload', _onWindowBeforeUnload);
+
     document.querySelector('#street-name').addEventListener('click', _askForStreetName);
 
     document.querySelector('#undo').addEventListener('click', _undo);
