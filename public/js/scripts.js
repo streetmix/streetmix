@@ -2925,7 +2925,7 @@ var main = (function(){
   }
 
   function _onEverythingLoaded() {
-    _prepareEmptyStreet();
+    _prepareDefaultStreet();
 
     _resizeStreetWidth();
     _updateStreetName();
