@@ -386,7 +386,7 @@ var main = (function(){
   };
 
   var DEFAULT_SEGMENTS = {
-    false: [
+    false: [ // Right-hand traffic
       { type: "sidewalk", width: 6 },
       { type: "sidewalk-tree-big", width: 4 },
       { type: "sidewalk-lamp-right", width: 2 },
@@ -401,7 +401,7 @@ var main = (function(){
       { type: "sidewalk-tree-big", width: 4 },
       { type: "sidewalk", width: 6 }
     ],
-    true: [
+    true: [ // Left-hand traffic
       { type: "sidewalk", width: 6 },
       { type: "sidewalk-tree-big", width: 4 },
       { type: "sidewalk-lamp-right", width: 2 },
