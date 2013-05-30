@@ -421,13 +421,17 @@ var main = (function(){
   // ------------------------------------------------------------------------
 
   var street = {
-    width: null,
-    occupiedWidth: null, // don't save
-    remainingWidth: null, // don't save
-
+    id: null,
+    creatorId: null,
     name: null,
 
-    segments: []
+    width: null,
+    occupiedWidth: null, // Can be recreated, do not save
+    remainingWidth: null, // Can be recreated, do not save
+
+    segments: [],
+
+    units: null
   };
 
   var lastStreet;
@@ -765,7 +769,7 @@ var main = (function(){
 
     if (width) {
       // Default unit
-      switch (settings.units) {
+      switch (street.units) {
         case SETTINGS_UNITS_METRIC:
           var multiplier = 1 / IMPERIAL_METRIC_MULTIPLIER;
           break;
@@ -876,7 +880,7 @@ var main = (function(){
   function _prettifyWidth(width, purpose) {
     var remainder = width - Math.floor(width);
 
-    switch (settings.units) {
+    switch (street.units) {
       case SETTINGS_UNITS_IMPERIAL:
         var widthText = width;
 
@@ -1445,7 +1449,7 @@ var main = (function(){
       street = undoStack[undoPosition];
 
       ignoreStreetChanges = true;
-      _propagateSettings();
+      _propagateUnits();
       _buildStreetWidthMenu();
       _updateOptionsMenu();
       _updateShareMenu();
@@ -2667,6 +2671,10 @@ var main = (function(){
     newData.width = street.width;
     newData.name = street.name;
 
+    newData.id = street.id;
+    newData.creatorId = street.creatorId;
+    newData.units = street.units;
+
     newData.segments = [];
 
     for (var i in street.segments) {
@@ -2763,22 +2771,23 @@ var main = (function(){
   function _updateUnits(newUnits, manually) {
     settings.unitsSelectedManually = manually;
 
-    if (settings.units == newUnits) {
+    if (street.units == newUnits) {
       return;
     }
 
+    street.units = newUnits;
     settings.units = newUnits;
 
     // If the user converts and then straight converts back, we just reach
     // to undo stack instead of double conversion (which could be lossy).
     if (undoStack[undoPosition - 1] && 
-        (undoStack[undoPosition - 1].settings.units == newUnits)) {
+        (undoStack[undoPosition - 1].units == newUnits)) {
       var fromUndo = true;
     } else {
       var fromUndo = false;
     }
 
-    _propagateSettings();
+    _propagateUnits();
 
     ignoreStreetChanges = true;
     if (!fromUndo) {
@@ -2793,7 +2802,7 @@ var main = (function(){
         street.width = _normalizeStreetWidth(street.width);
       }
     } else {
-      data = undoStack[undoPosition - 1];
+      street = undoStack[undoPosition - 1];
     }
     _createDomFromData();
     _segmentsChanged();
@@ -2819,8 +2828,8 @@ var main = (function(){
     event.preventDefault();
   }
 
-  function _propagateSettings() {
-    switch (settings.units) {
+  function _propagateUnits() {
+    switch (street.units) {
       case SETTINGS_UNITS_IMPERIAL:
         segmentWidthResolution = SEGMENT_WIDTH_RESOLUTION_IMPERIAL;
         segmentWidthClickIncrement = SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL;
@@ -2885,7 +2894,7 @@ var main = (function(){
   }
 
   function _updateOptionsMenu() {
-    switch (settings.units) {
+    switch (street.units) {
       case SETTINGS_UNITS_IMPERIAL:
         document.querySelector('#options-menu-imperial').classList.add('disabled');
         document.querySelector('#options-menu-metric').classList.remove('disabled');
@@ -2898,8 +2907,8 @@ var main = (function(){
   }
 
   function _onEverythingLoaded() {
-    _propagateSettings();
-
+    street.units = settings.units;
+    _propagateUnits();
     street.name = DEFAULT_NAME;
     street.width = _normalizeStreetWidth(DEFAULT_STREET_WIDTH);
 
