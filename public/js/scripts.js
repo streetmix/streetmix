@@ -416,7 +416,7 @@ var main = (function(){
   var LOCAL_STORAGE_SIGN_IN_ID = 'sign-in';
 
   // only undoable
-  var data = {
+  var street = {
     streetWidth: null,
     occupiedWidth: null, // don't save
     remainingWidth: null, // don't save
@@ -1028,7 +1028,7 @@ var main = (function(){
     // TODO const
     infoBubbleEl.style.top = (top + 510 - infoBubbleHeight) + 'px';
 
-    var segment = data.segments[parseInt(segmentEl.dataNo)];
+    var segment = street.segments[parseInt(segmentEl.dataNo)];
 
     var html = '';
     html += '<button class="close">×</button>';
@@ -1262,15 +1262,15 @@ var main = (function(){
   function _createDomFromData() {
     document.querySelector('#editable-street-section').innerHTML = '';
 
-    for (var i in data.segments) {
-      var segment = data.segments[i];
+    for (var i in street.segments) {
+      var segment = street.segments[i];
 
       var el = _createSegment(segment.type, segment.width * TILE_SIZE, 
           segment.unmovable);
       document.querySelector('#editable-street-section').appendChild(el);
 
-      data.segments[i].el = el;
-      data.segments[i].el.dataNo = i;
+      street.segments[i].el = el;
+      street.segments[i].el.dataNo = i;
     }
 
     _repositionSegments();
@@ -1279,8 +1279,8 @@ var main = (function(){
   function _repositionSegments() {
     var left = 0;
 
-    for (var i in data.segments) {
-      var el = data.segments[i].el;
+    for (var i in street.segments) {
+      var el = street.segments[i].el;
 
       if (el == draggingMove.segmentBeforeEl) {
         left += DRAGGING_MOVE_HOLE_WIDTH;
@@ -1312,10 +1312,10 @@ var main = (function(){
 
     var occupiedWidth = left;
 
-    var mainLeft = Math.round((data.streetWidth * TILE_SIZE - occupiedWidth) / 2);
+    var mainLeft = Math.round((street.streetWidth * TILE_SIZE - occupiedWidth) / 2);
 
-    for (var i in data.segments) {
-      var el = data.segments[i].el;
+    for (var i in street.segments) {
+      var el = street.segments[i].el;
 
       el.savedLeft += mainLeft;
 
@@ -1329,8 +1329,8 @@ var main = (function(){
   }
 
   function _applyWarningsToSegments() {
-    for (var i in data.segments) {
-      var segment = data.segments[i];
+    for (var i in street.segments) {
+      var segment = street.segments[i];
 
       if (segment.el) {
         if (segment.warnings[SEGMENT_WARNING_OUTSIDE] || 
@@ -1351,29 +1351,29 @@ var main = (function(){
   }
 
   function _recalculateWidth() {
-    data.occupiedWidth = 0;
+    street.occupiedWidth = 0;
 
-    for (var i in data.segments) {
-      var segment = data.segments[i];
+    for (var i in street.segments) {
+      var segment = street.segments[i];
 
-      data.occupiedWidth += segment.width;
+      street.occupiedWidth += segment.width;
     }   
 
-    data.remainingWidth = data.streetWidth - data.occupiedWidth;
+    street.remainingWidth = street.streetWidth - street.occupiedWidth;
     // Rounding problems :·(
-    if (Math.abs(data.remainingWidth) < WIDTH_ROUNDING) {
-      data.remainingWidth = 0;
+    if (Math.abs(street.remainingWidth) < WIDTH_ROUNDING) {
+      street.remainingWidth = 0;
     }
 
-    var position = data.streetWidth / 2 - data.occupiedWidth / 2;
+    var position = street.streetWidth / 2 - street.occupiedWidth / 2;
 
-    for (var i in data.segments) {
-      var segment = data.segments[i];
+    for (var i in street.segments) {
+      var segment = street.segments[i];
       var segmentInfo = SEGMENT_INFO[segment.type];
 
       if (segment.el) {
-        if ((data.remainingWidth < 0) && 
-            ((position < 0) || ((position + segment.width) > data.streetWidth))) {
+        if ((street.remainingWidth < 0) && 
+            ((position < 0) || ((position + segment.width) > street.streetWidth))) {
           segment.warnings[SEGMENT_WARNING_OUTSIDE] = true;
         } else {
           segment.warnings[SEGMENT_WARNING_OUTSIDE] = false;
@@ -1392,10 +1392,10 @@ var main = (function(){
         }
       }
 
-      position += data.segments[i].width;
+      position += street.segments[i].width;
     }
 
-    if (data.remainingWidth >= 0) {
+    if (street.remainingWidth >= 0) {
       document.body.classList.remove('street-overflows');
     } else {
       document.body.classList.add('street-overflows');
@@ -1412,9 +1412,9 @@ var main = (function(){
     _recalculateWidth();
     _recalculateOwnerWidths();
 
-    for (var i in data.segments) {
-      if (data.segments[i].el) {
-        data.segments[i].el.dataNo = i;
+    for (var i in street.segments) {
+      if (street.segments[i].el) {
+        street.segments[i].el.dataNo = i;
       }
     }
 
@@ -1530,7 +1530,7 @@ var main = (function(){
   function _createDataFromDom() {
     var els = document.querySelectorAll('#editable-street-section > .segment');
 
-    data.segments = [];
+    street.segments = [];
 
     for (var i = 0, el; el = els[i]; i++) {
       var segment = {};
@@ -1538,7 +1538,7 @@ var main = (function(){
       segment.width = parseFloat(el.getAttribute('width'));
       segment.el = el;
       segment.warnings = [];
-      data.segments.push(segment);
+      street.segments.push(segment);
     }
   }
 
@@ -1587,9 +1587,9 @@ var main = (function(){
       }
     }
 
-    var maxWidth = data.streetWidth;
-    if (data.occupiedWidth > data.streetWidth) {
-      maxWidth = data.occupiedWidth;
+    var maxWidth = street.streetWidth;
+    if (street.occupiedWidth > street.streetWidth) {
+      maxWidth = street.occupiedWidth;
     }
 
     var multiplier = chartWidth / maxWidth;
@@ -1602,25 +1602,25 @@ var main = (function(){
     var bottom = 70;
 
     _drawLine(ctx, left, 20, left, bottom);
-    if (maxWidth > data.streetWidth) {
-      _drawLine(ctx, left + data.streetWidth * multiplier, 20, 
-          left + data.streetWidth * multiplier, 40);
+    if (maxWidth > street.streetWidth) {
+      _drawLine(ctx, left + street.streetWidth * multiplier, 20, 
+          left + street.streetWidth * multiplier, 40);
 
       ctx.save();
       // TODO const
       ctx.strokeStyle = 'red';
       ctx.fillStyle = 'red';
       _drawArrowLine(ctx, 
-        left + data.streetWidth * multiplier, 30, 
+        left + street.streetWidth * multiplier, 30, 
         left + maxWidth * multiplier, 30, 
-        _prettifyWidth(-data.remainingWidth, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP));
+        _prettifyWidth(-street.remainingWidth, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP));
       ctx.restore();
     }
 
     _drawLine(ctx, left + maxWidth * multiplier, 20, 
         left + maxWidth * multiplier, bottom);
     _drawArrowLine(ctx, 
-        left, 30, left + data.streetWidth * multiplier, 30);
+        left, 30, left + street.streetWidth * multiplier, 30);
   
     var x = left;
 
@@ -1649,7 +1649,7 @@ var main = (function(){
       }
     }
 
-    if (data.remainingWidth > 0) {
+    if (street.remainingWidth > 0) {
       ctx.save();
       // TODO const
       ctx.strokeStyle = 'rgb(100, 100, 100)';
@@ -1657,7 +1657,7 @@ var main = (function(){
       if (ctx.setLineDash) {
         ctx.setLineDash([15, 10]);
       }
-      _drawArrowLine(ctx, x, 60, left + data.streetWidth * multiplier, 60, _prettifyWidth(data.remainingWidth, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP));
+      _drawArrowLine(ctx, x, 60, left + street.streetWidth * multiplier, 60, _prettifyWidth(street.remainingWidth, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP));
       ctx.restore();
     }
 
@@ -1696,7 +1696,7 @@ var main = (function(){
     document.querySelector('#street-width-canvas').style.left = 
         WIDTH_CHART_MARGIN + 'px';
     document.querySelector('#street-width-canvas').style.width = 
-        (data.streetWidth * multiplier) + 'px';
+        (street.streetWidth * multiplier) + 'px';
   }
 
   function _recalculateOwnerWidths() {
@@ -1706,8 +1706,8 @@ var main = (function(){
       ownerWidths[id] = 0;
     }
 
-    for (var i in data.segments) {
-      var segment = data.segments[i];
+    for (var i in street.segments) {
+      var segment = street.segments[i];
 
       ownerWidths[SEGMENT_INFO[segment.type].owner] += segment.width;
     }   
@@ -1775,7 +1775,7 @@ var main = (function(){
     }
 
     var remainingWidth = 
-        data.remainingWidth + parseFloat(el.segmentEl.getAttribute('width'));
+        street.remainingWidth + parseFloat(el.segmentEl.getAttribute('width'));
 
     if (remainingWidth && 
         (((!segmentInfo.minWidth) && (remainingWidth >= MIN_SEGMENT_WIDTH)) || (remainingWidth >= segmentInfo.minWidth)) && 
@@ -2003,8 +2003,8 @@ var main = (function(){
     var selectedSegmentBefore = null;
     var selectedSegmentAfter = null;
 
-    for (var i in data.segments) {
-      var segment = data.segments[i];
+    for (var i in street.segments) {
+      var segment = street.segments[i];
 
       if (!selectedSegmentBefore && ((segment.el.savedLeft + segment.el.savedWidth / 2) > left)) {
         selectedSegmentBefore = segment.el;
@@ -2082,18 +2082,18 @@ var main = (function(){
       if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
         _removeElFromDom(draggingMove.origEl);
       }
-    } else if (draggingMove.segmentBeforeEl || draggingMove.segmentAfterEl || (data.segments.length == 0)) {
+    } else if (draggingMove.segmentBeforeEl || draggingMove.segmentAfterEl || (street.segments.length == 0)) {
       var width = draggingMove.origWidth;
 
       if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
-        if ((data.remainingWidth > 0) && (width > data.remainingWidth * TILE_SIZE)) {
+        if ((street.remainingWidth > 0) && (width > street.remainingWidth * TILE_SIZE)) {
 
           var segmentMinWidth = 
               SEGMENT_INFO[draggingMove.originalType].minWidth || 0;
 
-          if ((data.remainingWidth >= MIN_SEGMENT_WIDTH) && 
-              (data.remainingWidth >= segmentMinWidth)) {
-            width = _normalizeSegmentWidth(data.remainingWidth, RESIZE_TYPE_INITIAL) * TILE_SIZE;
+          if ((street.remainingWidth >= MIN_SEGMENT_WIDTH) && 
+              (street.remainingWidth >= segmentMinWidth)) {
+            width = _normalizeSegmentWidth(street.remainingWidth, RESIZE_TYPE_INITIAL) * TILE_SIZE;
           }
         }
       }
@@ -2218,7 +2218,7 @@ var main = (function(){
   }
 
   function _resizeStreetWidth() {
-    var width = data.streetWidth * TILE_SIZE;
+    var width = street.streetWidth * TILE_SIZE;
 
     document.querySelector('#street-section-canvas').style.width = width + 'px';
 
@@ -2267,25 +2267,25 @@ var main = (function(){
     document.querySelector('#street-section-sky').style.marginTop = -pos + 'px';
 
     streetSectionCanvasLeft = 
-        ((viewportWidth - data.streetWidth * TILE_SIZE) / 2);
+        ((viewportWidth - street.streetWidth * TILE_SIZE) / 2);
 
     document.querySelector('#street-section-canvas').style.left = 
       streetSectionCanvasLeft + 'px';
 
     document.querySelector('#editable-street-section').style.width = 
-      (data.streetWidth * TILE_SIZE) + 'px';
+      (street.streetWidth * TILE_SIZE) + 'px';
 
     _resizeStreetName();
   }
 
   function _getDefaultSegments() {
-    data.segments = [];
+    street.segments = [];
 
     for (var i in DEFAULT_SEGMENTS[DEFAULT_STREET_WIDTH]) {
       var segment = DEFAULT_SEGMENTS[DEFAULT_STREET_WIDTH][i];
       segment.warnings = [];
 
-      data.segments.push(segment);
+      street.segments.push(segment);
     }
 
     _normalizeAllSegmentWidths();
@@ -2316,12 +2316,12 @@ var main = (function(){
       widths.push(width);
     }
 
-    if (widths.indexOf(parseFloat(data.streetWidth)) == -1) {
+    if (widths.indexOf(parseFloat(street.streetWidth)) == -1) {
       var el = document.createElement('option');
       el.disabled = true;
       document.querySelector('#street-width').appendChild(el);      
 
-      var el = _createStreetWidthOption(data.streetWidth);
+      var el = _createStreetWidthOption(street.streetWidth);
       document.querySelector('#street-width').appendChild(el);      
     }
 
@@ -2330,14 +2330,14 @@ var main = (function(){
     el.innerHTML = 'Custom…';
     document.querySelector('#street-width').appendChild(el);  
 
-    document.querySelector('#street-width').value = data.streetWidth;    
+    document.querySelector('#street-width').value = street.streetWidth;    
   }
 
   function _onStreetWidthChange(event) {
     var el = event.target;
     var newStreetWidth = el.value;
 
-    if (newStreetWidth == data.streetWidth) {
+    if (newStreetWidth == street.streetWidth) {
       return;
     }
 
@@ -2367,7 +2367,7 @@ var main = (function(){
       newStreetWidth = width;
     }
 
-    data.streetWidth = _normalizeStreetWidth(newStreetWidth);
+    street.streetWidth = _normalizeStreetWidth(newStreetWidth);
     _buildStreetWidthMenu();
     _resizeStreetWidth();
 
@@ -2405,11 +2405,11 @@ var main = (function(){
 
   function _showDebugInfo() {
     // deep object copy
-    var debugData = jQuery.extend(true, {}, data);
+    var debugStreetData = jQuery.extend(true, {}, street);
     var debugUndo = jQuery.extend(true, {}, undoStack);
 
-    for (var i in debugData.segments) {
-      delete debugData.segments[i].el;
+    for (var i in debugStreetData.segments) {
+      delete debugStreetData.segments[i].el;
     }
 
     for (var j in debugUndo) {
@@ -2419,7 +2419,7 @@ var main = (function(){
     }
 
     var debugText = 
-        'DATA:\n' + JSON.stringify(debugData, null, 2) +
+        'DATA:\n' + JSON.stringify(debugStreetData, null, 2) +
         '\n\nUNDO:\n' + JSON.stringify(debugUndo, null, 2);
 
     document.querySelector('#debug').classList.add('visible');
@@ -2511,7 +2511,7 @@ var main = (function(){
   }
 
   function _updateStreetName() {
-    $('#street-name > div').text(data.name);
+    $('#street-name > div').text(street.name);
     _resizeStreetName();
   }
 
@@ -2524,10 +2524,10 @@ var main = (function(){
   }
 
   function _askForStreetName() {
-    var newName = prompt('New street name:', data.name);
+    var newName = prompt('New street name:', street.name);
 
     if (newName) {
-      data.name = _normalizeStreetName(newName);
+      street.name = _normalizeStreetName(newName);
 
       _updateStreetName();
       _saveChangesIfAny();
@@ -2645,15 +2645,15 @@ var main = (function(){
   function _trimNonUserData() {
     var newData = {};
 
-    newData.streetWidth = data.streetWidth;
-    newData.name = data.name;
+    newData.streetWidth = street.streetWidth;
+    newData.name = street.name;
 
     newData.segments = [];
 
-    for (var i in data.segments) {
+    for (var i in street.segments) {
       var segment = {};
-      segment.type = data.segments[i].type;
-      segment.width = data.segments[i].width;
+      segment.type = street.segments[i].type;
+      segment.width = street.segments[i].width;
 
       newData.segments.push(segment);
     }
@@ -2735,9 +2735,9 @@ var main = (function(){
   }
 
   function _normalizeAllSegmentWidths() {
-    for (var i in data.segments) {
-      data.segments[i].width = 
-          _normalizeSegmentWidth(data.segments[i].width, RESIZE_TYPE_INITIAL);
+    for (var i in street.segments) {
+      street.segments[i].width = 
+          _normalizeSegmentWidth(street.segments[i].width, RESIZE_TYPE_INITIAL);
     }
   }
 
@@ -2765,13 +2765,13 @@ var main = (function(){
     if (!fromUndo) {
       _normalizeAllSegmentWidths();
 
-      if (data.remainingWidth == 0) {
-        data.streetWidth = 0;
-        for (var i in data.segments) {
-          data.streetWidth += data.segments[i].width;
+      if (street.remainingWidth == 0) {
+        street.streetWidth = 0;
+        for (var i in street.segments) {
+          street.streetWidth += street.segments[i].width;
         }
       } else {
-        data.streetWidth = _normalizeStreetWidth(data.streetWidth);
+        street.streetWidth = _normalizeStreetWidth(street.streetWidth);
       }
     } else {
       data = undoStack[undoPosition - 1];
@@ -2881,8 +2881,8 @@ var main = (function(){
   function _onEverythingLoaded() {
     _propagateSettings();
 
-    data.name = DEFAULT_NAME;
-    data.streetWidth = _normalizeStreetWidth(DEFAULT_STREET_WIDTH);
+    street.name = DEFAULT_NAME;
+    street.streetWidth = _normalizeStreetWidth(DEFAULT_STREET_WIDTH);
 
     _resizeStreetWidth();
     _updateStreetName();
