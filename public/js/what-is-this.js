@@ -288,13 +288,13 @@ var whatIsThis = (function(){
     _addCss();  
     _addHtml();    
 
-    if (webStorageProxy.getItem( (LOCAL_STORAGE_NAME + location.href)) == 'true') {
+    if (webStorageProxy.getItem( (LOCAL_STORAGE_NAME + location.host)) == 'true') {
       _showTeaser();
     } else {
       _showInfoWithDelay();
     }
     
-    webStorageProxy.setItem( (LOCAL_STORAGE_NAME + location.href) , true);
+    webStorageProxy.setItem( (LOCAL_STORAGE_NAME + location.host) , true);
   }
 
   whatIsThis.init = function() {
