@@ -441,11 +441,14 @@ var main = (function(){
   var ignoreStreetChanges = false;  
 
   var settings = {
+    lastStreetId: null,
     units: null,
     unitsSelectedManually: null
   };
 
   // ------------------------------------------------------------------------
+
+  var draggingType = DRAGGING_TYPE_NONE;
 
   var draggingResize = {
     segmentEl: null,
@@ -496,8 +499,6 @@ var main = (function(){
   var signedIn = false;
   var signInLoaded = false;
   var signInData = {};
-
-  var draggingType = DRAGGING_TYPE_NONE;
 
   var mouseX;
   var mouseY;
@@ -1479,14 +1480,14 @@ var main = (function(){
   }
 
   function _createNewUndo() {
-    // This removes future undos in case we undo a few times and then do
+    // This removes future undo path in case we undo a few times and then do
     // something undoable.
     undoStack = undoStack.splice(0, undoPosition);
     undoStack[undoPosition] = lastStreet;
     undoPosition++;
   }
 
-  function _prepareServerData() {
+  function _prepareServerJson() {
     var data = {};
 
     data.street = _trimNonUserData();
@@ -1499,7 +1500,7 @@ var main = (function(){
   function _saveChangesToServer() {
     console.log('save…');
 
-    var data = _prepareServerData();
+    var json = _prepareServerJson();
 
     //saveChangesIncomplete = false;
   }
@@ -2906,15 +2907,28 @@ var main = (function(){
     }
   }
 
-  function _onEverythingLoaded() {
+  function _prepareDefaultStreet() {
     street.units = settings.units;
     _propagateUnits();
     street.name = DEFAULT_NAME;
     street.width = _normalizeStreetWidth(DEFAULT_STREET_WIDTH);
 
+    _getDefaultSegments();    
+  }
+
+  function _prepareEmptyStreet() {
+    street.units = settings.units;
+    _propagateUnits();
+
+    street.name = DEFAULT_NAME;
+    street.width = _normalizeStreetWidth(DEFAULT_STREET_WIDTH);
+  }
+
+  function _onEverythingLoaded() {
+    _prepareEmptyStreet();
+
     _resizeStreetWidth();
     _updateStreetName();
-    _getDefaultSegments();
     _createTools();
     _createDomFromData();
     _segmentsChanged();
