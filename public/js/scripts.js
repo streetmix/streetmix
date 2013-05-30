@@ -417,7 +417,7 @@ var main = (function(){
 
   // only undoable
   var street = {
-    streetWidth: null,
+    width: null,
     occupiedWidth: null, // don't save
     remainingWidth: null, // don't save
 
@@ -1312,7 +1312,7 @@ var main = (function(){
 
     var occupiedWidth = left;
 
-    var mainLeft = Math.round((street.streetWidth * TILE_SIZE - occupiedWidth) / 2);
+    var mainLeft = Math.round((street.width * TILE_SIZE - occupiedWidth) / 2);
 
     for (var i in street.segments) {
       var el = street.segments[i].el;
@@ -1359,13 +1359,13 @@ var main = (function(){
       street.occupiedWidth += segment.width;
     }   
 
-    street.remainingWidth = street.streetWidth - street.occupiedWidth;
+    street.remainingWidth = street.width - street.occupiedWidth;
     // Rounding problems :·(
     if (Math.abs(street.remainingWidth) < WIDTH_ROUNDING) {
       street.remainingWidth = 0;
     }
 
-    var position = street.streetWidth / 2 - street.occupiedWidth / 2;
+    var position = street.width / 2 - street.occupiedWidth / 2;
 
     for (var i in street.segments) {
       var segment = street.segments[i];
@@ -1373,7 +1373,7 @@ var main = (function(){
 
       if (segment.el) {
         if ((street.remainingWidth < 0) && 
-            ((position < 0) || ((position + segment.width) > street.streetWidth))) {
+            ((position < 0) || ((position + segment.width) > street.width))) {
           segment.warnings[SEGMENT_WARNING_OUTSIDE] = true;
         } else {
           segment.warnings[SEGMENT_WARNING_OUTSIDE] = false;
@@ -1587,8 +1587,8 @@ var main = (function(){
       }
     }
 
-    var maxWidth = street.streetWidth;
-    if (street.occupiedWidth > street.streetWidth) {
+    var maxWidth = street.width;
+    if (street.occupiedWidth > street.width) {
       maxWidth = street.occupiedWidth;
     }
 
@@ -1602,16 +1602,16 @@ var main = (function(){
     var bottom = 70;
 
     _drawLine(ctx, left, 20, left, bottom);
-    if (maxWidth > street.streetWidth) {
-      _drawLine(ctx, left + street.streetWidth * multiplier, 20, 
-          left + street.streetWidth * multiplier, 40);
+    if (maxWidth > street.width) {
+      _drawLine(ctx, left + street.width * multiplier, 20, 
+          left + street.width * multiplier, 40);
 
       ctx.save();
       // TODO const
       ctx.strokeStyle = 'red';
       ctx.fillStyle = 'red';
       _drawArrowLine(ctx, 
-        left + street.streetWidth * multiplier, 30, 
+        left + street.width * multiplier, 30, 
         left + maxWidth * multiplier, 30, 
         _prettifyWidth(-street.remainingWidth, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP));
       ctx.restore();
@@ -1620,7 +1620,7 @@ var main = (function(){
     _drawLine(ctx, left + maxWidth * multiplier, 20, 
         left + maxWidth * multiplier, bottom);
     _drawArrowLine(ctx, 
-        left, 30, left + street.streetWidth * multiplier, 30);
+        left, 30, left + street.width * multiplier, 30);
   
     var x = left;
 
@@ -1657,7 +1657,7 @@ var main = (function(){
       if (ctx.setLineDash) {
         ctx.setLineDash([15, 10]);
       }
-      _drawArrowLine(ctx, x, 60, left + street.streetWidth * multiplier, 60, _prettifyWidth(street.remainingWidth, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP));
+      _drawArrowLine(ctx, x, 60, left + street.width * multiplier, 60, _prettifyWidth(street.remainingWidth, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP));
       ctx.restore();
     }
 
@@ -1696,7 +1696,7 @@ var main = (function(){
     document.querySelector('#street-width-canvas').style.left = 
         WIDTH_CHART_MARGIN + 'px';
     document.querySelector('#street-width-canvas').style.width = 
-        (street.streetWidth * multiplier) + 'px';
+        (street.width * multiplier) + 'px';
   }
 
   function _recalculateOwnerWidths() {
@@ -2218,7 +2218,7 @@ var main = (function(){
   }
 
   function _resizeStreetWidth() {
-    var width = street.streetWidth * TILE_SIZE;
+    var width = street.width * TILE_SIZE;
 
     document.querySelector('#street-section-canvas').style.width = width + 'px';
 
@@ -2267,13 +2267,13 @@ var main = (function(){
     document.querySelector('#street-section-sky').style.marginTop = -pos + 'px';
 
     streetSectionCanvasLeft = 
-        ((viewportWidth - street.streetWidth * TILE_SIZE) / 2);
+        ((viewportWidth - street.width * TILE_SIZE) / 2);
 
     document.querySelector('#street-section-canvas').style.left = 
       streetSectionCanvasLeft + 'px';
 
     document.querySelector('#editable-street-section').style.width = 
-      (street.streetWidth * TILE_SIZE) + 'px';
+      (street.width * TILE_SIZE) + 'px';
 
     _resizeStreetName();
   }
@@ -2316,12 +2316,12 @@ var main = (function(){
       widths.push(width);
     }
 
-    if (widths.indexOf(parseFloat(street.streetWidth)) == -1) {
+    if (widths.indexOf(parseFloat(street.width)) == -1) {
       var el = document.createElement('option');
       el.disabled = true;
       document.querySelector('#street-width').appendChild(el);      
 
-      var el = _createStreetWidthOption(street.streetWidth);
+      var el = _createStreetWidthOption(street.width);
       document.querySelector('#street-width').appendChild(el);      
     }
 
@@ -2330,14 +2330,14 @@ var main = (function(){
     el.innerHTML = 'Custom…';
     document.querySelector('#street-width').appendChild(el);  
 
-    document.querySelector('#street-width').value = street.streetWidth;    
+    document.querySelector('#street-width').value = street.width;    
   }
 
   function _onStreetWidthChange(event) {
     var el = event.target;
     var newStreetWidth = el.value;
 
-    if (newStreetWidth == street.streetWidth) {
+    if (newStreetWidth == street.width) {
       return;
     }
 
@@ -2367,7 +2367,7 @@ var main = (function(){
       newStreetWidth = width;
     }
 
-    street.streetWidth = _normalizeStreetWidth(newStreetWidth);
+    street.width = _normalizeStreetWidth(newStreetWidth);
     _buildStreetWidthMenu();
     _resizeStreetWidth();
 
@@ -2645,7 +2645,7 @@ var main = (function(){
   function _trimNonUserData() {
     var newData = {};
 
-    newData.streetWidth = street.streetWidth;
+    newData.width = street.width;
     newData.name = street.name;
 
     newData.segments = [];
@@ -2766,12 +2766,12 @@ var main = (function(){
       _normalizeAllSegmentWidths();
 
       if (street.remainingWidth == 0) {
-        street.streetWidth = 0;
+        street.width = 0;
         for (var i in street.segments) {
-          street.streetWidth += street.segments[i].width;
+          street.width += street.segments[i].width;
         }
       } else {
-        street.streetWidth = _normalizeStreetWidth(street.streetWidth);
+        street.width = _normalizeStreetWidth(street.width);
       }
     } else {
       data = undoStack[undoPosition - 1];
@@ -2882,7 +2882,7 @@ var main = (function(){
     _propagateSettings();
 
     street.name = DEFAULT_NAME;
-    street.streetWidth = _normalizeStreetWidth(DEFAULT_STREET_WIDTH);
+    street.width = _normalizeStreetWidth(DEFAULT_STREET_WIDTH);
 
     _resizeStreetWidth();
     _updateStreetName();
