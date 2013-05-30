@@ -33,6 +33,10 @@ var main = (function(){
   var URL_NEW_STREET = 'new';
   var URL_NO_USER = '-';
 
+  var MODE_CONTINUE = 0;
+  var MODE_NEW_STREET = 1;
+  var MODE_404 = 2;
+
   var TILESET_IMAGE_VERSION = 13;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
@@ -459,6 +463,8 @@ var main = (function(){
   var leftHandTraffic = false;
 
   // ------------------------------------------------------------------------
+
+  var mode;
 
   var draggingType = DRAGGING_TYPE_NONE;
 
@@ -2924,7 +2930,11 @@ var main = (function(){
   }
 
   function _onEverythingLoaded() {
-    _prepareDefaultStreet();
+    if (mode == MODE_NEW_STREET) {
+      _prepareEmptyStreet();
+    } else {
+      _prepareDefaultStreet();
+    }
 
     _resizeStreetWidth();
     _updateStreetName();
@@ -3162,8 +3172,12 @@ var main = (function(){
 
     if (!url) {
       // Continue where we left off… or start with a default (demo) street
+
+      mode = MODE_CONTINUE;
     } else if ((urlParts.length == 1) && (urlParts[0] == URL_NEW_STREET)) {
       // New street
+
+      mode = MODE_NEW_STREET;
     } else if ((urlParts.length == 1) && urlParts[0]) {
       // User gallery
     } else if ((urlParts.length == 2) && (urlParts[0] == URL_NO_USER) && urlParts[1]) {
@@ -3175,6 +3189,8 @@ var main = (function(){
       // Existing street by a signed in person
 
     } else {
+      mode = MODE_404;
+
       // 404: bad URL
     }
   }
