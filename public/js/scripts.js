@@ -2688,6 +2688,8 @@ var main = (function(){
   }
 
   function _hideMenus() {
+    _loseAnyFocus();
+
     document.querySelector('#options-menu').classList.remove('visible');
     document.querySelector('#share-menu').classList.remove('visible');
   }
@@ -2697,6 +2699,9 @@ var main = (function(){
 
     if (!el.classList.contains('visible')) {
       el.classList.add('visible');
+
+      document.querySelector('#share-via-link').focus();
+      document.querySelector('#share-via-link').select();
     } else {
       _hideMenus();
     }
@@ -2814,19 +2819,28 @@ var main = (function(){
     _updateOptionsMenu();
   }
 
-  function _updateShareMenu() {
+  function _updateTwitterLink(url) {
     var el = document.querySelector('#share-via-twitter');
 
     var text = 'Check out Streetmix, a Web-based street builder!';
 
+    el.href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + 
+        '&url=' + encodeURIComponent(url);
+  }
+
+  function _updateNakedLink(url) {
+    document.querySelector('#share-via-link').value = url;
+  }
+
+  function _updateShareMenu() {
     if (system.environment == ENVIRONMENT_PRODUCTION) {
       var url = location.href;
     } else {
       var url = SITE_URL_PRODUCTION;
     }
 
-    el.href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + 
-        '&url=' + encodeURIComponent(url);
+    _updateNakedLink(url);
+    _updateTwitterLink(url);
   }
 
   function _updateOptionsMenu() {
