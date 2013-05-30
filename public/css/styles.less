@@ -1095,7 +1095,10 @@ body.touch-support .segment.fade-out-end button {
     color: black;
     display: block;
 
+    position: relative;
+
     padding: 8px 20px;
+    padding-left: 30px;
     padding-right: 40px;
 
     &.disabled {
@@ -1119,15 +1122,25 @@ body.touch-support .segment.fade-out-end button {
   min-width: 250px;
 }
 
+#share-via-twitter::before {
+  content: '';
+  position: absolute;
+  left: 9px;
+  top: 9px;
+  width: 16px;
+  height: 12px;
+  background: url(../images/share-icons/twitter-32.png) 0 50% no-repeat;
+  background-size: 16px 12px;
+}
+
 #share-via-link-canvas {
-  margin-left: 20px;
+  margin-left: 30px;
   margin-right: 10px;
   margin-top: 5px;
 
   color: rgb(128, 128, 128);
   font-size: 11px;
 }
-
 #share-via-link {
   font-size: 13px;
   line-height: 18px;
