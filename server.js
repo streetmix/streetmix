@@ -31,6 +31,12 @@ app.use(express.static(__dirname + '/public'))
 app.get('/twitter-sign-in', controllers.twitter_sign_in.get)
 app.get(config.twitter.oauth_callback_uri, controllers.twitter_sign_in_callback.get)
 
+// Catch-all
+app.use(function(req, res) {
+  res.sendfile(__dirname + '/public/index.html')
+})
+
+
 app.listen(config.port, null, null, function() {
   console.log('Listening on port ' + config.port)
 });

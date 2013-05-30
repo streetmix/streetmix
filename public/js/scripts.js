@@ -37,14 +37,14 @@ var main = (function(){
   var TILE_SIZE = 12; // pixels
 
   var IMAGES_TO_BE_LOADED = [
-    'images/tiles.png',
-    'images/ui/icons/noun_project_2.svg',
-    'images/ui/icons/noun_project_536.svg',
-    'images/ui/icons/noun_project_97.svg',
-    'images/ui/icons/noun_project_72.svg',
-    'images/ui/icons/noun_project_13130.svg',
-    'images/share-icons/facebook-29.png',
-    'images/share-icons/twitter-32.png'
+    '/images/tiles.png',
+    '/images/ui/icons/noun_project_2.svg',
+    '/images/ui/icons/noun_project_536.svg',
+    '/images/ui/icons/noun_project_97.svg',
+    '/images/ui/icons/noun_project_72.svg',
+    '/images/ui/icons/noun_project_13130.svg',
+    '/images/share-icons/facebook-29.png',
+    '/images/share-icons/twitter-32.png'
   ];
 
   var WIDTH_TOOL_MULTIPLIER = 4;
@@ -186,27 +186,27 @@ var main = (function(){
   var SEGMENT_OWNERS = {
     'car': {
       owner: SEGMENT_OWNER_CAR,
-      imageUrl: 'images/ui/icons/noun_project_72.svg',
+      imageUrl: '/images/ui/icons/noun_project_72.svg',
       imageSize: .8
     },
     'public-transit': {
       owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
-      imageUrl: 'images/ui/icons/noun_project_97.svg',
+      imageUrl: '/images/ui/icons/noun_project_97.svg',
       imageSize: .8
     },
     'bike': {
       owner: SEGMENT_OWNER_BIKE,
-      imageUrl: 'images/ui/icons/noun_project_536.svg',
+      imageUrl: '/images/ui/icons/noun_project_536.svg',
       imageSize: 1.1
     },
     'pedestrian': {
       owner: SEGMENT_OWNER_PEDESTRIAN,
-      imageUrl: 'images/ui/icons/noun_project_2.svg',
+      imageUrl: '/images/ui/icons/noun_project_2.svg',
       imageSize: .8
     },
     'nature': {
       owner: SEGMENT_OWNER_NATURE,
-      imageUrl: 'images/ui/icons/noun_project_13130.svg',
+      imageUrl: '/images/ui/icons/noun_project_13130.svg',
       imageSize: .8
     }
   };
@@ -559,7 +559,7 @@ var main = (function(){
       return;
     }
 
-    ctx.drawImage(images['images/tiles.png'],
+    ctx.drawImage(images['/images/tiles.png'],
         sx * TILESET_POINT_PER_PIXEL, sy * TILESET_POINT_PER_PIXEL, 
         sw * TILESET_POINT_PER_PIXEL, sh * TILESET_POINT_PER_PIXEL,
         dx * system.hiDpi, dy * system.hiDpi, 
@@ -1075,7 +1075,7 @@ var main = (function(){
       html += 'Drive lanes over 15" lorem ipsum.';
       html += '</p>';
     }
-    html += '<p class="photo"><img src="images/info-bubble-examples/bike-lane.jpg"></p>';
+    html += '<p class="photo"><img src="/images/info-bubble-examples/bike-lane.jpg"></p>';
     html += '<p class="description">Etizzle sizzle urna ut nisl. Tellivizzle quizzle arcu. Own yo’ pulvinar, ipsizzle shut the shizzle up bizzle we gonna chung, nulla purizzle izzle brizzle, shizzle my nizzle crocodizzle nizzle metus nulla izzle izzle. Vivamus ullamcorpizzle, tortor et varizzle owned, mah nizzle black break yo neck, yall crackalackin, izzle shiz leo elizzle fizzle dolizzle. Maurizzle aliquet, orci vel mah nizzle yippiyo, sizzle cool luctus fizzle, izzle bibendizzle enizzle dizzle yippiyo nisl. Nullizzle phat velizzle shiznit get down get down eleifend dawg. Phasellizzle nec nibh. Curabitizzle nizzle velit boom shackalack uhuh ... yih! sodalizzle facilisizzle. Maecenas things nulla, iaculizzle check it out, pot sed, rizzle a, erizzle. Nulla vitae turpis fo shizzle my nizzle nibh get down get down nizzle. Nizzle pulvinar consectetizzle velizzle. Aliquizzle mofo volutpizzle. Nunc ut leo izzle shit get down get down faucibus. Crizzle nizzle lacizzle the bizzle shizznit condimentizzle ultricies. Ut nisl. Fo shizzle my nizzle izzle fo shizzle mah nizzle fo rizzle, mah home g-dizzle. Integer laorizzle nizzle away mi. Crunk at turpizzle.</p>';
     html += '</section>';
 
