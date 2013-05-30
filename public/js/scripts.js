@@ -415,14 +415,14 @@ var main = (function(){
 
   var data = {
     streetWidth: null,
-    occupiedWidth: null,
-    remainingWidth: null,
+    occupiedWidth: null, // don't save
+    remainingWidth: null, // don't save
 
     name: null,
 
     settings: {
       units: null,
-      unitsSelectedManually: null
+      unitsSelectedManually: null // don't save
     },
 
     segments: []
