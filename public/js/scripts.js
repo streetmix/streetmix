@@ -2863,6 +2863,10 @@ var main = (function(){
     _updateNakedLink(url);
     _updateTwitterLink(url);
     _updateFacebookLink(url);
+
+    if (!signedIn) {
+      document.querySelector('#sign-in-promo').classList.add('visible');
+    }
   }
 
   function _updateOptionsMenu() {

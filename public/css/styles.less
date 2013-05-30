@@ -1120,7 +1120,7 @@ body.touch-support .segment.fade-out-end button {
 }
 #share-menu {
   right: 85px;
-  min-width: 250px;
+  min-width: 300px;
 }
 
 #share-via-twitter::before {
@@ -1151,6 +1151,26 @@ body.touch-support .segment.fade-out-end button {
 
   color: rgb(128, 128, 128);
   font-size: 11px;
+}
+#sign-in-promo {
+  width: 300px;
+  text-align: center;
+
+  color: rgb(128, 128, 128);
+  font-size: 13px;
+  line-height: 18px;
+  padding: 15px 40px;
+  border-bottom: 1px solid rgb(224, 224, 224);
+  margin-bottom: 15px;
+
+  display: none;
+
+  a {
+    color: inherit;
+  }
+  &.visible {
+    display: block;
+  }
 }
 #share-via-link {
   font-size: 13px;
