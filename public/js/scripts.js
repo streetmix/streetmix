@@ -41,7 +41,9 @@ var main = (function(){
     'images/ui/icons/noun_project_536.svg',
     'images/ui/icons/noun_project_97.svg',
     'images/ui/icons/noun_project_72.svg',
-    'images/ui/icons/noun_project_13130.svg'
+    'images/ui/icons/noun_project_13130.svg',
+    'images/share-icons/facebook-29.png',
+    'images/share-icons/twitter-32.png'
   ];
 
   var WIDTH_TOOL_MULTIPLIER = 4;
@@ -415,7 +417,9 @@ var main = (function(){
   var LOCAL_STORAGE_SETTINGS_ID = 'settings';
   var LOCAL_STORAGE_SIGN_IN_ID = 'sign-in';
 
-  // only undoable
+  // Saved data
+  // ------------------------------------------------------------------------
+
   var street = {
     width: null,
     occupiedWidth: null, // don't save
@@ -426,10 +430,18 @@ var main = (function(){
     segments: []
   };
 
+  var lastStreet;
+  
+  var undoStack = [];
+  var undoPosition = 0;
+  var ignoreStreetChanges = false;  
+
   var settings = {
     units: null,
     unitsSelectedManually: null
   };
+
+  // ------------------------------------------------------------------------
 
   var draggingResize = {
     segmentEl: null,
@@ -480,11 +492,6 @@ var main = (function(){
   var signedIn = false;
   var signInLoaded = false;
   var signInData = {};
-
-  var lastStreet;
-  var undoStack = [];
-  var undoPosition = 0;
-  var ignoreStreetChanges = false;
 
   var draggingType = DRAGGING_TYPE_NONE;
 
@@ -1475,8 +1482,20 @@ var main = (function(){
     undoPosition++;
   }
 
+  function _prepareServerData() {
+    var data = {};
+
+    data.street = _trimNonUserData();
+    data.undoStack = undoStack;
+    data.undoPosition = undoPosition;
+
+    return data;
+  }
+
   function _saveChangesToServer() {
     console.log('save…');
+
+    var data = _prepareServerData();
 
     //saveChangesIncomplete = false;
   }
