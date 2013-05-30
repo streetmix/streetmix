@@ -481,7 +481,7 @@ var main = (function(){
   var signInLoaded = false;
   var signInData = {};
 
-  var lastData;
+  var lastStreet;
   var undoStack = [];
   var undoPosition = 0;
   var ignoreStreetChanges = false;
@@ -1435,7 +1435,7 @@ var main = (function(){
       } else {
         undoPosition++;
       }
-      data = undoStack[undoPosition];
+      street = undoStack[undoPosition];
 
       ignoreStreetChanges = true;
       _propagateSettings();
@@ -1448,7 +1448,7 @@ var main = (function(){
       _updateStreetName();
       ignoreStreetChanges = false;
       _updateUndoButtons();
-      lastData = _trimNonUserData();
+      lastStreet = _trimNonUserData();
       _statusMessage.hide();
     }
   }
@@ -1471,7 +1471,7 @@ var main = (function(){
     // This removes future undos in case we undo a few times and then do
     // something undoable.
     undoStack = undoStack.splice(0, undoPosition);
-    undoStack[undoPosition] = lastData;
+    undoStack[undoPosition] = lastStreet;
     undoPosition++;
   }
 
@@ -1503,11 +1503,11 @@ var main = (function(){
 
     var currentData = _trimNonUserData();
 
-    if (JSON.stringify(currentData) != JSON.stringify(lastData)) {
+    if (JSON.stringify(currentData) != JSON.stringify(lastStreet)) {
       _createNewUndo();
       _scheduleSavingChangesToServer();
 
-      lastData = currentData;
+      lastStreet = currentData;
 
       _updateUndoButtons();
     }
@@ -2894,7 +2894,7 @@ var main = (function(){
 
     initializing = false;    
     ignoreStreetChanges = false;
-    lastData = _trimNonUserData();
+    lastStreet = _trimNonUserData();
 
     _buildStreetWidthMenu();
     _onResize();
