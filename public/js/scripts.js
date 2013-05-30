@@ -85,6 +85,8 @@ var main = (function(){
   var MAX_STREET_NAME_WIDTH = 30;
 
   var STREET_WIDTH_CUSTOM = -1;
+  var STREET_WIDTH_SWITCH_TO_METRIC = -2;
+  var STREET_WIDTH_SWITCH_TO_IMPERIAL = -3;
 
   var DEFAULT_NAME = 'Market St';
   var DEFAULT_STREET_WIDTH = 80;
@@ -1452,7 +1454,6 @@ var main = (function(){
       ignoreStreetChanges = true;
       _propagateUnits();
       _buildStreetWidthMenu();
-      _updateOptionsMenu();
       _updateShareMenu();
       _createDomFromData();
       _segmentsChanged();
@@ -1991,7 +1992,7 @@ var main = (function(){
     var topEl = event.target;
     // TODO nasty
     while (topEl && (topEl.id != 'info-bubble') && 
-      (topEl.id != 'options-menu') && (topEl.id != 'share-menu')) {
+      (topEl.id != 'share-menu')) {
       topEl = topEl.parentNode;
     }
 
@@ -2354,7 +2355,29 @@ var main = (function(){
     el.innerHTML = 'Custom…';
     document.querySelector('#street-width').appendChild(el);  
 
-    document.querySelector('#street-width').value = street.width;    
+    var el = document.createElement('option');
+    el.disabled = true;
+    document.querySelector('#street-width').appendChild(el);  
+
+    var el = document.createElement('option');
+    el.value = STREET_WIDTH_SWITCH_TO_IMPERIAL;
+    el.id = 'switch-to-imperial-units';
+    el.innerHTML = 'Switch to imperial units (feet)';
+    if (street.units == SETTINGS_UNITS_IMPERIAL) {
+      el.disabled = true;
+    }
+    document.querySelector('#street-width').appendChild(el);  
+
+    var el = document.createElement('option');
+    el.value = STREET_WIDTH_SWITCH_TO_METRIC;
+    el.id = 'switch-to-metric-units';
+    el.innerHTML = 'Switch to metric units';
+    if (street.units == SETTINGS_UNITS_METRIC) {
+      el.disabled = true;
+    }
+    document.querySelector('#street-width').appendChild(el);  
+
+    document.querySelector('#street-width').value = street.width;   
   }
 
   function _onStreetWidthChange(event) {
@@ -2363,9 +2386,13 @@ var main = (function(){
 
     if (newStreetWidth == street.width) {
       return;
-    }
-
-    if (newStreetWidth == STREET_WIDTH_CUSTOM) {
+    } else if (newStreetWidth == STREET_WIDTH_SWITCH_TO_METRIC) {
+      _updateUnits(SETTINGS_UNITS_METRIC, true);
+      return;
+    } else if (newStreetWidth == STREET_WIDTH_SWITCH_TO_IMPERIAL) {
+      _updateUnits(SETTINGS_UNITS_IMPERIAL, true);
+      return;
+    } else if (newStreetWidth == STREET_WIDTH_CUSTOM) {
       var width = prompt("Enter the new street width (from " + 
           _prettifyWidth(MIN_CUSTOM_STREET_WIDTH, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP) + 
           " to " + 
@@ -2588,10 +2615,6 @@ var main = (function(){
     }
     window.addEventListener('keydown', _onBodyKeyDown);  
 
-    document.querySelector('#options-menu-button').addEventListener('click', _onOptionsMenuClick);
-    document.querySelector('#options-menu-imperial').addEventListener('click', _onMenuImperial);
-    document.querySelector('#options-menu-metric').addEventListener('click', _onMenuMetric);
-
     document.querySelector('#share-menu-button').addEventListener('click', _onShareMenuClick);
   }
 
@@ -2706,20 +2729,9 @@ var main = (function(){
     document.querySelector('#loading').classList.add('hidden');
   }
 
-  function _onOptionsMenuClick() {
-    var el = document.querySelector('#options-menu');
-
-    if (!el.classList.contains('visible')) {
-      el.classList.add('visible');
-    } else {
-      _hideMenus();
-    }
-  }
-
   function _hideMenus() {
     _loseAnyFocus();
 
-    document.querySelector('#options-menu').classList.remove('visible');
     document.querySelector('#share-menu').classList.remove('visible');
   }
 
@@ -2812,21 +2824,10 @@ var main = (function(){
     ignoreStreetChanges = false;      
 
     _buildStreetWidthMenu();
-    _updateOptionsMenu();
     _hideMenus();
 
     _saveChangesIfAny();
     _saveSettings();
-  }
-
-  function _onMenuMetric(event) {
-    _updateUnits(SETTINGS_UNITS_METRIC, true);
-    event.preventDefault();
-  }
-
-  function _onMenuImperial(event) {
-    _updateUnits(SETTINGS_UNITS_IMPERIAL, true);
-    event.preventDefault();
   }
 
   function _propagateUnits() {
@@ -2845,7 +2846,7 @@ var main = (function(){
         break;
     }
 
-    _updateOptionsMenu();
+    _buildStreetWidthMenu();
   }
 
   function _getPageTitle() {
@@ -2891,19 +2892,6 @@ var main = (function(){
 
     if (!signedIn) {
       document.querySelector('#sign-in-promo').classList.add('visible');
-    }
-  }
-
-  function _updateOptionsMenu() {
-    switch (street.units) {
-      case SETTINGS_UNITS_IMPERIAL:
-        document.querySelector('#options-menu-imperial').classList.add('disabled');
-        document.querySelector('#options-menu-metric').classList.remove('disabled');
-        break;
-      case SETTINGS_UNITS_METRIC:
-        document.querySelector('#options-menu-imperial').classList.remove('disabled');
-        document.querySelector('#options-menu-metric').classList.add('disabled');
-        break;
     }
   }
 
