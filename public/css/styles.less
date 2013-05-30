@@ -1,6 +1,6 @@
 @font-face {
-  font-family: Interstate;
-  src: url(../fonts/roadgeek-2000-series-f.ttf);
+  font-family: 'Open DIN';
+  src: url(../fonts/open-din-schriftene-engshrift.otf);
 }
 
 @canvasHeight: 480px;
@@ -27,7 +27,7 @@
 
 @textShadow: 0 1px 1px rgba(0, 0, 0, .5);
 
-@streetNameSize: 1.2;
+@streetNameSize: 1.5;
 @streetNameTop: 12px;
 @streetNameConnectorWidth: 100px;
 
@@ -1002,6 +1002,7 @@ body.touch-support .segment.fade-out-end button {
     list-style: none;
     padding: 0;
     margin: 0;
+    line-height: 18px;
 
     li {
       display: inline-block;
@@ -1228,13 +1229,13 @@ body.touch-support .segment.fade-out-end button {
     padding: 10px * @streetNameSize 30px * @streetNameSize;
     padding-top: 8px * @streetNameSize;
     padding-bottom: 9px * @streetNameSize;
-    letter-spacing: 10px * @streetNameSize;
-    padding-right: 20px * @streetNameSize;
+    //letter-spacing: 10px * @streetNameSize;
+    //padding-right: 20px * @streetNameSize;
 
-    font-family: Interstate, sans-serif;
+    font-family: 'Open DIN', sans-serif;
     font-size: 40px * @streetNameSize;
     line-height: 30px * @streetNameSize;
-    text-transform: uppercase;
+    //text-transform: uppercase;
   }
 
   &:hover {

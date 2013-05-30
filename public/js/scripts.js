@@ -1965,9 +1965,11 @@ var main = (function(){
 
     var topEl = event.target;
     // TODO nasty
-    while (topEl && (topEl.id != 'info-bubble') && (topEl.id != 'options-menu') && (topEl.id != 'share-menu')) {
+    while (topEl && (topEl.id != 'info-bubble') && 
+      (topEl.id != 'options-menu') && (topEl.id != 'share-menu')) {
       topEl = topEl.parentNode;
     }
+
     var withinInfoBubbleOrMenu = !!topEl;
 
     if (withinInfoBubbleOrMenu) {
