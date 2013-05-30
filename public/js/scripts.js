@@ -30,6 +30,9 @@ var main = (function(){
 
   var FACEBOOK_APP_ID = '162729607241489';
 
+  var URL_NEW_STREET = 'new';
+  var URL_NO_USER = '-';
+
   var TILESET_IMAGE_VERSION = 13;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
@@ -3142,19 +3145,54 @@ var main = (function(){
       _checkIfEverythingIsLoaded();
     }
   }
+
+  function _processUrl() {
+    var url = location.pathname;
+
+    // Remove heading slash
+    if (!url) {
+      url = '/';
+    }
+    url = url.substr(1);
+
+    // Remove trailing slashes
+    url = url.replace(/\/+$/, '');
+
+    var urlParts = url.split(/\//);
+
+    if (!url) {
+      // Continue where we left off… or start with a default (demo) street
+    } else if ((urlParts.length == 1) && (urlParts[0] == URL_NEW_STREET)) {
+      // New street
+    } else if ((urlParts.length == 1) && urlParts[0]) {
+      // User gallery
+    } else if ((urlParts.length == 2) && (urlParts[0] == URL_NO_USER) && urlParts[1]) {
+      // TODO add is integer urlParts[1];
+      // Existing street by an anonymous person
+
+    } else if ((urlParts.length >= 2) && urlParts[0] && urlParts[1]) {
+      // TODO add is integer urlParts[1];
+      // Existing street by a signed in person
+
+    } else {
+      // 404: bad URL
+    }
+  }
  
   main.init = function() {
+    initializing = true;
+    ignoreStreetChanges = true;
+
     readyStateCompleteLoaded = false;
     document.addEventListener('readystatechange', _onReadyStateChange);
 
     bodyLoaded = false;
     window.addEventListener('load', _onBodyLoad);
 
-    initializing = true;
-    ignoreStreetChanges = true;
-
     _detectSystemCapabilities();
     _loadSettings();
+
+    _processUrl();
 
     // Asynchronously loading…
 
