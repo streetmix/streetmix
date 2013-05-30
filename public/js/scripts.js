@@ -26,6 +26,7 @@ var main = (function(){
   var API_URL_PRODUCTION = 'https://streetmix-api.herokuapp.com/';
 
   var IP_GEOCODING_API_URL = 'http://freegeoip.net/json/';
+  var IP_GEOCODING_TIMEOUT = 1000; // After this time, we don’t wait any more
 
   var FACEBOOK_APP_ID = '162729607241489';
 
@@ -104,7 +105,15 @@ var main = (function(){
   var RESIZE_TYPE_TYPING = 4;
 
   var IMPERIAL_METRIC_MULTIPLIER = 30 / 100;
-  var IMPERIAL_COUNTRY_CODES = ['US'];
+  var COUNTRIES_IMPERIAL_UNITS = ['US'];
+  var COUNTRIES_LEFT_HAND_TRAFFIC = 
+      ['GG', 'AI', 'AG', 'AU', 'BS', 'BD', 'BB', 'BM', 'BT', 'BW', 'BN',
+       'KY', 'CX', 'CC', 'CK', 'CY', 'DM', 'TL', 'FK', 'FJ', 'GD', 'GG',
+       'GY', 'HK', 'IN', 'ID', 'IE', 'IM', 'JM', 'JP', 'JE', 'KE', 'KI',
+       'LS', 'MO', 'MW', 'MY', 'MV', 'MT', 'MU', 'MS', 'MZ', 'NA', 'NR',
+       'NP', 'NZ', 'NU', 'NF', 'PK', 'PG', 'PN', 'SH', 'KN', 'LC', 'VC',
+       'WS', 'SC', 'SG', 'SB', 'ZA', 'LK', 'SR', 'SZ', 'TZ', 'TH', 'TK',
+       'TO', 'TT', 'TC', 'TV', 'UG', 'GB', 'VG', 'VI', 'ZM', 'ZW'];
 
   var WIDTH_INPUT_CONVERSION = [
     { text: 'm', multiplier: 1 / IMPERIAL_METRIC_MULTIPLIER },
@@ -377,26 +386,7 @@ var main = (function(){
   };
 
   var DEFAULT_SEGMENTS = {
-    40: [
-      { type: "sidewalk", width: 6 },
-      { type: "planting-strip", width: 4 },
-      { type: "drive-lane-inbound", width: 10 },
-      { type: "drive-lane-outbound", width: 10 },
-      { type: "planting-strip", width: 4 },
-      { type: "sidewalk", width: 6 }
-    ],
-    60: [
-      { type: "sidewalk", width: 6 },
-      { type: "sidewalk-tree", width: 6 },
-      { type: "bike-lane-inbound", width: 6 },
-      { type: "drive-lane-inbound", width: 10 },
-      { type: "drive-lane-outbound", width: 10 },
-      { type: "planting-strip", width: 4 },
-      { type: "bike-lane-outbound", width: 6 },
-      { type: "sidewalk-tree", width: 6 },
-      { type: "sidewalk", width: 6 }
-    ],
-    80: [
+    false: [
       { type: "sidewalk", width: 6 },
       { type: "sidewalk-tree-big", width: 4 },
       { type: "sidewalk-lamp-right", width: 2 },
@@ -407,6 +397,21 @@ var main = (function(){
       { type: "drive-lane-outbound", width: 10 },
       { type: "drive-lane-outbound", width: 10 },
       { type: "bike-lane-outbound", width: 6 },
+      { type: "sidewalk-lamp-left", width: 2 },
+      { type: "sidewalk-tree-big", width: 4 },
+      { type: "sidewalk", width: 6 }
+    ],
+    true: [
+      { type: "sidewalk", width: 6 },
+      { type: "sidewalk-tree-big", width: 4 },
+      { type: "sidewalk-lamp-right", width: 2 },
+      { type: "bike-lane-outbound", width: 6 },
+      { type: "drive-lane-outbound", width: 10 },
+      { type: "drive-lane-outbound", width: 10 },
+      { type: "sidewalk-lamp-both", width: 4 },
+      { type: "drive-lane-inbound", width: 10 },
+      { type: "drive-lane-inbound", width: 10 },
+      { type: "bike-lane-inbound", width: 6 },
       { type: "sidewalk-lamp-left", width: 2 },
       { type: "sidewalk-tree-big", width: 4 },
       { type: "sidewalk", width: 6 }
@@ -447,6 +452,8 @@ var main = (function(){
     units: null,
     unitsSelectedManually: null
   };
+
+  var leftHandTraffic = false;
 
   // ------------------------------------------------------------------------
 
@@ -494,6 +501,7 @@ var main = (function(){
 
   var bodyLoaded;
   var readyStateCompleteLoaded;  
+  var countryLoaded;
 
   var saveChangesTimerId = -1;
   var saveChangesIncomplete = false;
@@ -1538,7 +1546,7 @@ var main = (function(){
     }
   }
 
-  function _checkIfEverythingHasBeenSaved() {
+  function _checkIfChangesSaved() {
     if (saveChangesIncomplete) {
       _saveChangesToServer();
 
@@ -1549,7 +1557,7 @@ var main = (function(){
   }
 
   function _onWindowBeforeUnload() {
-    return _checkIfEverythingHasBeenSaved();
+    return _checkIfChangesSaved();
   }
 
   function _createDataFromDom() {
@@ -2306,8 +2314,8 @@ var main = (function(){
   function _getDefaultSegments() {
     street.segments = [];
 
-    for (var i in DEFAULT_SEGMENTS[DEFAULT_STREET_WIDTH]) {
-      var segment = DEFAULT_SEGMENTS[DEFAULT_STREET_WIDTH][i];
+    for (var i in DEFAULT_SEGMENTS[leftHandTraffic]) {
+      var segment = DEFAULT_SEGMENTS[leftHandTraffic][i];
       segment.warnings = [];
 
       street.segments.push(segment);
@@ -2933,7 +2941,8 @@ var main = (function(){
   }
 
   function _checkIfEverythingIsLoaded() {
-    if ((imagesToBeLoaded == 0) && signInLoaded && bodyLoaded && readyStateCompleteLoaded) {
+    if ((imagesToBeLoaded == 0) && signInLoaded && bodyLoaded && 
+        readyStateCompleteLoaded && countryLoaded) {
       _onEverythingLoaded();
     }
   }
@@ -3078,20 +3087,46 @@ var main = (function(){
     _checkIfEverythingIsLoaded();
   }
 
-  function _detectUnitType() {
-    if (!settings.unitsSelectedManually) {
-      $.ajax({ url: IP_GEOCODING_API_URL }).done(_receiveUnitType);
+  function _detectCountry() {
+    countryLoaded = false;
+
+    $.ajax({ url: IP_GEOCODING_API_URL }).done(_receiveCountry);
+
+    window.setTimeout(_detectCountryTimeout, IP_GEOCODING_TIMEOUT);
+  }
+
+  function _detectCountryTimeout() {
+    if (!countryLoaded) {
+      console.log('time out!');
+
+      countryLoaded = true;
+      _checkIfEverythingIsLoaded();
     }
   }
 
-  function _receiveUnitType(info) {
-    if (info && info.country_code && !settings.unitsSelectedManually) {
-      if (IMPERIAL_COUNTRY_CODES.indexOf(info.country_code) != -1) {
-        _updateUnits(SETTINGS_UNITS_IMPERIAL, false);
+  function _receiveCountry(info) {
+    console.log('receive country');
+
+    if (countryLoaded) {
+      console.log('too late');
+      // Already loaded, discard results
+      return;
+    }
+
+    if (info && info.country_code) {
+      if (COUNTRIES_IMPERIAL_UNITS.indexOf(info.country_code) != -1) {
+        settings.units = SETTINGS_UNITS_IMPERIAL;
       } else {
-        _updateUnits(SETTINGS_UNITS_METRIC, false);
+        settings.units = SETTINGS_UNITS_METRIC;
+      }
+
+      if (COUNTRIES_LEFT_HAND_TRAFFIC.indexOf(info.country_code) != -1) {
+        leftHandTraffic = true;
       }
     }
+
+    countryLoaded = true;
+    _checkIfEverythingIsLoaded();
   }
 
   function _onBodyLoad() {
@@ -3123,9 +3158,9 @@ var main = (function(){
 
     // Asynchronously loading…
 
-    // …detecting unit type from IP (if not previously manually selected)
+    // …detecting country from IP for units and left/right-hand driving
     // TODO only make it work for new streets
-    _detectUnitType();
+    _detectCountry();
 
     // …sign in info from our API (if not previously cached)
     _loadSignIn();
@@ -3134,7 +3169,7 @@ var main = (function(){
     _loadImages();
 
     // Note that we are waiting for sign in and image info to show the page,
-    // but not for unit info.
+    // but we give up on country info if it’s more than 1000ms.
   }
 
   return main;
