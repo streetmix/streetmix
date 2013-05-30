@@ -27,6 +27,8 @@ var main = (function(){
 
   var IP_GEOCODING_API_URL = 'http://freegeoip.net/json/';
 
+  var FACEBOOK_APP_ID = '162729607241489';
+
   var TILESET_IMAGE_VERSION = 13;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
@@ -2819,6 +2821,23 @@ var main = (function(){
     _updateOptionsMenu();
   }
 
+  function _getPageTitle() {
+    return 'Streetmix';
+  }
+
+  function _updateFacebookLink(url) {
+    var el = document.querySelector('#share-via-facebook');
+
+    var text = 'Check out Streetmix, a Web-based street builder!';
+
+    el.href = 'https://www.facebook.com/dialog/feed?' +
+        'app_id=' + FACEBOOK_APP_ID +
+        '&redirect_uri=' + encodeURIComponent(url) + 
+        '&link=' + encodeURIComponent(url) + 
+        '&name=' + encodeURIComponent(_getPageTitle()) +
+        '&description=' + encodeURIComponent(text);
+  }
+
   function _updateTwitterLink(url) {
     var el = document.querySelector('#share-via-twitter');
 
@@ -2841,6 +2860,7 @@ var main = (function(){
 
     _updateNakedLink(url);
     _updateTwitterLink(url);
+    _updateFacebookLink(url);
   }
 
   function _updateOptionsMenu() {
