@@ -415,6 +415,7 @@ var main = (function(){
   var LOCAL_STORAGE_SETTINGS_ID = 'settings';
   var LOCAL_STORAGE_SIGN_IN_ID = 'sign-in';
 
+  // only undoable
   var data = {
     streetWidth: null,
     occupiedWidth: null, // don't save
@@ -422,12 +423,12 @@ var main = (function(){
 
     name: null,
 
-    settings: {
-      units: null,
-      unitsSelectedManually: null // don't save
-    },
-
     segments: []
+  };
+
+  var settings = {
+    units: null,
+    unitsSelectedManually: null
   };
 
   var draggingResize = {
@@ -757,7 +758,7 @@ var main = (function(){
 
     if (width) {
       // Default unit
-      switch (data.settings.units) {
+      switch (settings.units) {
         case SETTINGS_UNITS_METRIC:
           var multiplier = 1 / IMPERIAL_METRIC_MULTIPLIER;
           break;
@@ -868,7 +869,7 @@ var main = (function(){
   function _prettifyWidth(width, purpose) {
     var remainder = width - Math.floor(width);
 
-    switch (data.settings.units) {
+    switch (settings.units) {
       case SETTINGS_UNITS_IMPERIAL:
         var widthText = width;
 
@@ -2647,10 +2648,6 @@ var main = (function(){
     newData.streetWidth = data.streetWidth;
     newData.name = data.name;
 
-    newData.settings = {};
-    newData.settings.units = data.settings.units;
-    newData.settings.unitsSelectedManually = data.settings.unitsSelectedManually;
-
     newData.segments = [];
 
     for (var i in data.segments) {
@@ -2712,21 +2709,21 @@ var main = (function(){
   }
 
   function _fillOutDefaultSettings() {
-    if (typeof data.settings.units === 'undefined') {
-      data.settings.units = SETTINGS_UNITS_IMPERIAL;
+    if (typeof settings.units === 'undefined') {
+      settings.units = SETTINGS_UNITS_IMPERIAL;
     }
 
-    if (typeof data.settings.unitsSelectedManually === 'undefined') {
-      data.settings.unitsSelectedManually = false;
+    if (typeof settings.unitsSelectedManually === 'undefined') {
+      settings.unitsSelectedManually = false;
     }
   }
 
   function _loadSettings() {
     var savedSettings = window.localStorage[LOCAL_STORAGE_SETTINGS_ID];
     if (savedSettings) {
-      data.settings = JSON.parse(savedSettings);
+      settings = JSON.parse(savedSettings);
     } else {
-      data.settings = {};
+      settings = {};
     }
 
     _fillOutDefaultSettings();
@@ -2734,8 +2731,7 @@ var main = (function(){
   }
 
   function _saveSettings() {
-    window.localStorage[LOCAL_STORAGE_SETTINGS_ID] = 
-        JSON.stringify(data.settings);
+    window.localStorage[LOCAL_STORAGE_SETTINGS_ID] = JSON.stringify(settings);
   }
 
   function _normalizeAllSegmentWidths() {
@@ -2746,13 +2742,13 @@ var main = (function(){
   }
 
   function _updateUnits(newUnits, manually) {
-    data.settings.unitsSelectedManually = manually;
+    settings.unitsSelectedManually = manually;
 
-    if (data.settings.units == newUnits) {
+    if (settings.units == newUnits) {
       return;
     }
 
-    data.settings.units = newUnits;
+    settings.units = newUnits;
 
     // If the user converts and then straight converts back, we just reach
     // to undo stack instead of double conversion (which could be lossy).
@@ -2805,7 +2801,7 @@ var main = (function(){
   }
 
   function _propagateSettings() {
-    switch (data.settings.units) {
+    switch (settings.units) {
       case SETTINGS_UNITS_IMPERIAL:
         segmentWidthResolution = SEGMENT_WIDTH_RESOLUTION_IMPERIAL;
         segmentWidthClickIncrement = SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL;
@@ -2870,7 +2866,7 @@ var main = (function(){
   }
 
   function _updateOptionsMenu() {
-    switch (data.settings.units) {
+    switch (settings.units) {
       case SETTINGS_UNITS_IMPERIAL:
         document.querySelector('#options-menu-imperial').classList.add('disabled');
         document.querySelector('#options-menu-metric').classList.remove('disabled');
@@ -3053,13 +3049,13 @@ var main = (function(){
   }
 
   function _detectUnitType() {
-    if (!data.settings.unitsSelectedManually) {
+    if (!settings.unitsSelectedManually) {
       $.ajax({ url: IP_GEOCODING_API_URL }).done(_receiveUnitType);
     }
   }
 
   function _receiveUnitType(info) {
-    if (info && info.country_code && !data.settings.unitsSelectedManually) {
+    if (info && info.country_code && !settings.unitsSelectedManually) {
       if (IMPERIAL_COUNTRY_CODES.indexOf(info.country_code) != -1) {
         _updateUnits(SETTINGS_UNITS_IMPERIAL, false);
       } else {
