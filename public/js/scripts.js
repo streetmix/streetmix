@@ -2612,7 +2612,7 @@ var main = (function(){
   }
 
   function _updatePageTitle() {
-    // TODO const
+    // TODO const/interpolate
     var title = street.name;
 
     if (street.creatorId) {
