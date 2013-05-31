@@ -37,6 +37,7 @@ var main = (function(){
   var MODE_NEW_STREET = 1;
   var MODE_EXISTING_STREET = 2;
   var MODE_404 = 3;
+  var MODE_SIGN_OUT_SCREEN = 4;
 
   var TILESET_IMAGE_VERSION = 13;
   var TILESET_WIDTH = 2622;
@@ -2580,6 +2581,22 @@ var main = (function(){
     }
   }
 
+  function _updateSiteUrl() {
+    var url = '/';
+
+    if (signedIn) {
+      url += signInData.userId;
+    } else {
+      url += URL_NO_USER;
+    }
+
+    url += '/';
+
+    url += street.id;
+
+    window.history.replaceState(null, null, url);
+  }
+
   function _updatePageTitle() {
     // TODO const
     var title = street.name;
@@ -2970,6 +2987,7 @@ var main = (function(){
     ignoreStreetChanges = false;
     lastStreet = _trimNonUserData();
 
+    _updateSiteUrl();
     _buildStreetWidthMenu();
     _onResize();
     _addEventListeners();
@@ -3256,6 +3274,8 @@ var main = (function(){
   function _receiveNewStreetFeedback(data) {
     console.log('received new street', data);
 
+    street.id = data.id;
+
     serverContacted = true;
     _checkIfEverythingIsLoaded();
   }
@@ -3335,7 +3355,6 @@ var main = (function(){
 
     // Note that we are waiting for sign in and image info to show the page,
     // but we give up on country info if it’s more than 1000ms.
-
   }
 
   return main;
