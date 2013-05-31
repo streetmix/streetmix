@@ -2661,7 +2661,15 @@ var main = (function(){
     _hideMenus();
   }
 
+  function _onStorageChange() {
+    if (signedIn && !window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
+      //alert('signed out!');
+    }
+  }
+
   function _addEventListeners() {
+    window.addEventListener('storage', _onStorageChange);
+
     document.querySelector('#sign-out-link').addEventListener('click', _signOut);
 
     window.addEventListener('blur', _onWindowBlur);
