@@ -35,7 +35,8 @@ var main = (function(){
 
   var MODE_CONTINUE = 0;
   var MODE_NEW_STREET = 1;
-  var MODE_404 = 2;
+  var MODE_EXISTING_STREET = 2;
+  var MODE_404 = 3;
 
   var TILESET_IMAGE_VERSION = 13;
   var TILESET_WIDTH = 2622;
@@ -511,6 +512,7 @@ var main = (function(){
   var bodyLoaded;
   var readyStateCompleteLoaded;  
   var countryLoaded;
+  var serverContacted;
 
   var saveChangesTimerId = -1;
   var saveChangesIncomplete = false;
@@ -2955,7 +2957,7 @@ var main = (function(){
 
   function _checkIfEverythingIsLoaded() {
     if ((imagesToBeLoaded == 0) && signInLoaded && bodyLoaded && 
-        readyStateCompleteLoaded && countryLoaded) {
+        readyStateCompleteLoaded && countryLoaded && serverContacted) {
       _onEverythingLoaded();
     }
   }
@@ -3098,6 +3100,15 @@ var main = (function(){
     signInLoaded = true;
     _createSignInUI();
     _checkIfEverythingIsLoaded();
+
+    switch (mode) {
+      case MODE_NEW_STREET:
+        _createNewStreetOnServer();
+        break;
+      case MODE_EXISTING_STREET:
+        _getStreetFromServer();
+        break;
+    }
   }
 
   function _detectCountry() {
@@ -3180,18 +3191,88 @@ var main = (function(){
       mode = MODE_NEW_STREET;
     } else if ((urlParts.length == 1) && urlParts[0]) {
       // User gallery
+
+      mode = MODE_404;
     } else if ((urlParts.length == 2) && (urlParts[0] == URL_NO_USER) && urlParts[1]) {
       // TODO add is integer urlParts[1];
       // Existing street by an anonymous person
 
+      street.creatorId = null;
+      street.id = urlParts[1];
+
+      mode = MODE_EXISTING_STREET;
     } else if ((urlParts.length >= 2) && urlParts[0] && urlParts[1]) {
       // TODO add is integer urlParts[1];
       // Existing street by a signed in person
 
+      street.creatorId = urlParts[0];
+      street.id = urlParts[1];
+
+      mode = MODE_EXISTING_STREET;
     } else {
       mode = MODE_404;
 
       // 404: bad URL
+    }
+  }
+
+  function _createNewStreetOnServer() {
+    //console.log('z');
+
+    jQuery.ajax({
+      // TODO const
+      url: system.apiUrl + 'v1/streets',
+      type: 'POST',
+      headers: { 'Authorization': _getAuthHeader() }
+    }).done(_receiveNewStreetFeedback)
+    .fail(_failNewStreetFeedback);
+  }
+
+  function _receiveNewStreetFeedback(data) {
+    console.log('received new street', data);
+  }
+
+  function _failNewStreetFeedback() {
+    console.log('failed new street!');
+    // TODO handle this
+  }
+
+  function _getStreetFromServer() {
+    jQuery.ajax({
+      // TODO const
+      url: system.apiUrl + 'v1/streets/' + street.id,
+      type: 'GET',
+      headers: { 'Authorization': _getAuthHeader() }
+    }).done(_receiveStreet)
+    .fail(_failReceiveStreet);
+  }
+
+  function _receiveStreet() {
+
+  }
+
+  function _failReceiveStreet(data) {
+
+    // TODO 500 etc.
+
+    if (data.status == 404) {
+      mode = MODE_404;
+      // TODO rest?
+    } else {
+      console.log(data, error);
+    }
+  }
+
+  function _processMode() {
+    serverContacted = true;
+
+    switch (mode) {
+      case MODE_NEW_STREET:
+        serverContacted = false;
+        break;
+      case MODE_EXISTING_STREET:
+        serverContacted = false;
+        break;
     }
   }
  
@@ -3209,6 +3290,7 @@ var main = (function(){
     _loadSettings();
 
     _processUrl();
+    _processMode();
 
     // Asynchronously loading…
 
@@ -3216,7 +3298,8 @@ var main = (function(){
     // TODO only make it work for new streets
     _detectCountry();
 
-    // …sign in info from our API (if not previously cached)
+    // …sign in info from our API (if not previously cached) – and subsequent
+    // street data if necessary (depending on the mode)
     _loadSignIn();
 
     // …images
@@ -3224,6 +3307,7 @@ var main = (function(){
 
     // Note that we are waiting for sign in and image info to show the page,
     // but we give up on country info if it’s more than 1000ms.
+
   }
 
   return main;
