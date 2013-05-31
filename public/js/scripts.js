@@ -2580,9 +2580,24 @@ var main = (function(){
     }
   }
 
+  function _updatePageTitle() {
+    // TODO const
+    var title = street.name;
+
+    if (street.creatorId) {
+      title += '(by ' + street.creatorId + ')';
+    }
+
+    title += ' – Streetmix';
+
+    document.title = title;
+  }
+
   function _updateStreetName() {
     $('#street-name > div').text(street.name);
     _resizeStreetName();
+
+    _updatePageTitle();
   }
 
   function _normalizeStreetName(name) {
@@ -2869,7 +2884,7 @@ var main = (function(){
   }
 
   function _getPageTitle() {
-    return 'Streetmix';
+    return street.name + '– Streetmix';
   }
 
   function _updateFacebookLink(url) {
@@ -3073,7 +3088,7 @@ var main = (function(){
       document.querySelector('#identity').appendChild(el);
 
       var el = document.createElement('span');
-      el.innerHTML = signInData.userId;
+      el.innerHTML = signInData.details.username;
       el.classList.add('id');
       document.querySelector('#identity').appendChild(el);
 
@@ -3230,6 +3245,9 @@ var main = (function(){
 
   function _receiveNewStreetFeedback(data) {
     console.log('received new street', data);
+
+    serverContacted = true;
+    _checkIfEverythingIsLoaded();
   }
 
   function _failNewStreetFeedback() {
