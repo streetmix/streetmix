@@ -1531,6 +1531,7 @@ var main = (function(){
       url: system.apiUrl + 'v1/streets/' + street.id,
       data: transmission,
       type: 'PUT',
+      contentType: 'application/json',
       headers: { 'Authorization': _getAuthHeader() }
     })//.done(_receiveSignOutConfirmationFromServer)
     //.fail(_receiveSignOutConfirmationFromServer);
