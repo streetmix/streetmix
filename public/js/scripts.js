@@ -2595,7 +2595,7 @@ var main = (function(){
     }
   }
 
-  function _updateSiteUrl() {
+  function _updatePageUrl() {
     var url = '/';
 
     if (signedIn) {
@@ -2609,8 +2609,9 @@ var main = (function(){
     url += street.id;
 
     if (signedIn) {
-      // TODO slug will go here
-      url += '/slug';
+      var slug = street.name;
+      slug = slug.toLowerCase().replace(/ /g, '-');
+      url += '/' + encodeURIComponent(slug);
     }
 
     window.history.replaceState(null, null, url);
@@ -2633,6 +2634,7 @@ var main = (function(){
     $('#street-name > div').text(street.name);
     _resizeStreetName();
 
+    _updatePageUrl();
     _updatePageTitle();
   }
 
@@ -3028,7 +3030,7 @@ var main = (function(){
     ignoreStreetChanges = false;
     lastStreet = _trimNonUserData();
 
-    _updateSiteUrl();
+    _updatePageUrl();
     _buildStreetWidthMenu();
     _onResize();
     _addEventListeners();
