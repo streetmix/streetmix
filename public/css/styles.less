@@ -1009,9 +1009,10 @@ body.touch-support .segment.fade-out-end button {
       padding: 0;
       margin: 0;
 
-      &:not(:last-child)::after {
-        content: ' ·';
-        margin-right: 5px;
+      &:not(:last-child):not(#identity)::after {
+        content: '·';
+        margin-left: 5px;
+        margin-right: 8px;
       }
     }
   }
@@ -1032,7 +1033,7 @@ body.touch-support .segment.fade-out-end button {
   & .avatar {
     width: 20px;
     height: 20px;
-    outline: 1px solid @lightTextColour;
+    border: 1px solid @lightTextColour;
     margin-right: 6px;
     vertical-align: middle;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .5);
@@ -1076,7 +1077,7 @@ body.touch-support .segment.fade-out-end button {
   z-index: 9999999;
   position: absolute;
   background: white;
-  top: 30px;
+  top: 32px;
 
   font-size: 13px;
 

@@ -2026,7 +2026,7 @@ var main = (function(){
     var topEl = event.target;
     // TODO nasty
     while (topEl && (topEl.id != 'info-bubble') && 
-      (topEl.id != 'share-menu')) {
+      (topEl.id != 'share-menu') && (topEl.id != 'identity-menu')) {
       topEl = topEl.parentNode;
     }
 
@@ -2655,6 +2655,8 @@ var main = (function(){
   }
 
   function _addEventListeners() {
+    document.querySelector('#sign-out-link').addEventListener('click', _signOut);
+
     window.addEventListener('blur', _onWindowBlur);
 
     window.addEventListener('beforeunload', _onWindowBeforeUnload);
@@ -2680,7 +2682,12 @@ var main = (function(){
     }
     window.addEventListener('keydown', _onBodyKeyDown);  
 
-    document.querySelector('#share-menu-button').addEventListener('click', _onShareMenuClick);
+    document.querySelector('#share-menu-button').
+        addEventListener('click', _onShareMenuClick);
+    if (document.querySelector('#identity-menu-button')) {
+      document.querySelector('#identity-menu-button').
+          addEventListener('click', _onIdentityMenuClick);
+    }
   }
 
   function _detectEnvironment() {
@@ -2798,6 +2805,7 @@ var main = (function(){
     _loseAnyFocus();
 
     document.querySelector('#share-menu').classList.remove('visible');
+    document.querySelector('#identity-menu').classList.remove('visible');
   }
 
   function _onShareMenuClick() {
@@ -2808,6 +2816,20 @@ var main = (function(){
 
       document.querySelector('#share-via-link').focus();
       document.querySelector('#share-via-link').select();
+    } else {
+      _hideMenus();
+    }
+  }
+
+  function _onIdentityMenuClick() {
+    var el = document.querySelector('#identity-menu');
+
+    if (!el.classList.contains('visible')) {
+
+      var pos = _getElAbsolutePos(document.querySelector('#identity'));
+      el.style.left = pos[0] + 'px';
+
+      el.classList.add('visible');
     } else {
       _hideMenus();
     }
@@ -3129,19 +3151,20 @@ var main = (function(){
       el.classList.add('avatar');
       document.querySelector('#identity').appendChild(el);
 
-      var el = document.createElement('span');
+      var el = document.createElement('button');
       el.innerHTML = signInData.userId;
       el.classList.add('id');
+      el.id = 'identity-menu-button';
       document.querySelector('#identity').appendChild(el);
 
       document.querySelector('#identity').classList.add('visible');
 
-      var el = document.createElement('a');
+      /*var el = document.createElement('a');
       el.href = '/';
       el.classList.add('command');
       el.innerHTML = 'Sign out';
       el.addEventListener('click', _signOut);
-      document.querySelector('#sign-in-link').appendChild(el);
+      document.querySelector('#sign-in-link').appendChild(el);*/
     } else {
       var el = document.createElement('a');
       el.href = '/twitter-sign-in';
