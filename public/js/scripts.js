@@ -2608,6 +2608,11 @@ var main = (function(){
 
     url += street.id;
 
+    if (signedIn) {
+      // TODO slug will go here
+      url += '/slug';
+    }
+
     window.history.replaceState(null, null, url);
   }
 
