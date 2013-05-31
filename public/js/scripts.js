@@ -1508,7 +1508,7 @@ var main = (function(){
     undoPosition++;
   }
 
-  function _prepareServerJson() {
+  function _prepareServerStreetData() {
     var data = {};
 
     data.street = _trimNonUserData();
@@ -1521,7 +1521,21 @@ var main = (function(){
   function _saveChangesToServer() {
     console.log('save…');
 
-    var json = _prepareServerJson();
+    var transmission = {
+      name: street.name,
+      data: _prepareServerStreetData()
+    }
+
+    jQuery.ajax({
+      // TODO const
+      url: system.apiUrl + 'v1/streets/' + street.id,
+      data: transmission,
+      type: 'PUT',
+      headers: { 'Authorization': _getAuthHeader() }
+    })//.done(_receiveSignOutConfirmationFromServer)
+    //.fail(_receiveSignOutConfirmationFromServer);
+
+    // TODO better fail at street saving
 
     //saveChangesIncomplete = false;
   }
@@ -3295,8 +3309,8 @@ var main = (function(){
     .fail(_failReceiveStreet);
   }
 
-  function _receiveStreet() {
-
+  function _receiveStreet(data) {
+    console.log('received street', data);
   }
 
   function _failReceiveStreet(data) {
