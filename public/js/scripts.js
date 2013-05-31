@@ -3094,7 +3094,7 @@ var main = (function(){
       document.querySelector('#identity').appendChild(el);
 
       var el = document.createElement('span');
-      el.innerHTML = signInData.details.username;
+      el.innerHTML = signInData.userId;
       el.classList.add('id');
       document.querySelector('#identity').appendChild(el);
 
