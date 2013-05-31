@@ -3219,7 +3219,8 @@ var main = (function(){
     _buildStreetWidthMenu();
     _onResize();
     _addEventListeners();
-    _hideLoadingScreen();
+
+    window.setTimeout(_hideLoadingScreen, 0);
   }
 
   function _checkIfEverythingIsLoaded() {
