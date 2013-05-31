@@ -98,7 +98,7 @@ var main = (function(){
   var STREET_WIDTH_SWITCH_TO_METRIC = -2;
   var STREET_WIDTH_SWITCH_TO_IMPERIAL = -3;
 
-  var DEFAULT_NAME = 'Market St';
+  var DEFAULT_NAME = 'Unnamed St';
   var DEFAULT_STREET_WIDTH = 80;
   var DEFAULT_STREET_WIDTHS = [40, 60, 80];
 
