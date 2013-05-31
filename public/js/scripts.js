@@ -1572,7 +1572,7 @@ var main = (function(){
       _statusMessage.show('Nothing to redo.');     
     } else {
       if (undo) {
-        undoStack[undoPosition] = _trimNonUserData();
+        undoStack[undoPosition] = _trimStreetData();
         undoPosition--;
       } else {
         undoPosition++;
@@ -1589,7 +1589,7 @@ var main = (function(){
       _updateStreetName();
       ignoreStreetChanges = false;
       _updateUndoButtons();
-      lastStreet = _trimNonUserData();
+      lastStreet = _trimStreetData();
       _statusMessage.hide();
     }
   }
@@ -1619,11 +1619,20 @@ var main = (function(){
   function _prepareServerStreetData() {
     var data = {};
 
-    data.street = _trimNonUserData();
+    data.street = _trimStreetData();
     data.undoStack = undoStack;
     data.undoPosition = undoPosition;
 
     return data;
+  }
+
+  function _unpackServerStreetData(transmission) {
+    street = transmission.data.street;
+
+    undoStack = transmission.data.undoStack;
+    undoPosition = transmission.data.undoPosition;
+
+    //console.log(street);
   }
 
   function _saveChangesToServer() {
@@ -1634,6 +1643,10 @@ var main = (function(){
       data: _prepareServerStreetData()
     }
 
+    transmission = JSON.stringify(transmission);
+
+    //console.log(transmission);
+
     jQuery.ajax({
       // TODO const
       url: system.apiUrl + 'v1/streets/' + street.id,
@@ -1641,12 +1654,14 @@ var main = (function(){
       type: 'PUT',
       contentType: 'application/json',
       headers: { 'Authorization': _getAuthHeader() }
-    })//.done(_receiveSignOutConfirmationFromServer)
+    }).done(_confirmSaveChangesToServer);
     //.fail(_receiveSignOutConfirmationFromServer);
 
     // TODO better fail at street saving
+  }
 
-    //saveChangesIncomplete = false;
+  function _confirmSaveChangesToServer() {
+    saveChangesIncomplete = false;
   }
 
   function _clearScheduledSavingChangesToServer() {
@@ -1669,7 +1684,7 @@ var main = (function(){
       return;
     }
 
-    var currentData = _trimNonUserData();
+    var currentData = _trimStreetData();
 
     if (JSON.stringify(currentData) != JSON.stringify(lastStreet)) {
       _createNewUndo();
@@ -1709,7 +1724,36 @@ var main = (function(){
     return variantArray;
   }
 
+  // Copies only the data necessary for save/undo.
+  function _trimStreetData() {
+    var newData = {};
+
+    newData.width = street.width;
+    newData.name = street.name;
+
+    newData.id = street.id;
+    newData.creatorId = street.creatorId;
+    newData.units = street.units;
+
+    newData.segments = [];
+
+    for (var i in street.segments) {
+      var segment = {};
+      segment.type = street.segments[i].type;
+      segment.variantString = street.segments[i].variantString;
+      segment.width = street.segments[i].width;
+
+      newData.segments.push(segment);
+    }
+
+    return newData;
+  }  
+
+  // TODO this function should not exist; all the data should be in street. 
+  // object to begin with
   function _createDataFromDom() {
+    //console.log('data from dom');
+
     var els = document.querySelectorAll('#editable-street-section > .segment');
 
     street.segments = [];
@@ -2745,8 +2789,8 @@ var main = (function(){
   function _updatePageUrl() {
     var url = '/';
 
-    if (signedIn) {
-      url += signInData.userId;
+    if (street.creatorId) {
+      url += street.creatorId;
     } else {
       url += URL_NO_USER;
     }
@@ -2755,7 +2799,7 @@ var main = (function(){
 
     url += street.id;
 
-    if (signedIn) {
+    if (street.creatorId) {
       var slug = street.name;
       slug = slug.toLowerCase().replace(/ /g, '-');
       url += '/' + encodeURIComponent(slug);
@@ -2922,30 +2966,6 @@ var main = (function(){
     }
   };
 
-  // Copies only the data necessary for save/undo.
-  function _trimNonUserData() {
-    var newData = {};
-
-    newData.width = street.width;
-    newData.name = street.name;
-
-    newData.id = street.id;
-    newData.creatorId = street.creatorId;
-    newData.units = street.units;
-
-    newData.segments = [];
-
-    for (var i in street.segments) {
-      var segment = {};
-      segment.type = street.segments[i].type;
-      segment.variantString = street.segments[i].variantString;
-      segment.width = street.segments[i].width;
-
-      newData.segments.push(segment);
-    }
-
-    return newData;
-  }
 
   function _isUndoAvailable() {
     return undoPosition > 0;
@@ -3146,6 +3166,8 @@ var main = (function(){
   }
 
   function _prepareDefaultStreet() {
+    console.log('DEFAULT STREET');
+
     street.units = settings.units;
     _propagateUnits();
     street.name = DEFAULT_NAME;
@@ -3158,6 +3180,8 @@ var main = (function(){
   }
 
   function _prepareEmptyStreet() {
+    console.log('EMPTY STREET');
+
     street.units = settings.units;
     _propagateUnits();
 
@@ -3169,10 +3193,15 @@ var main = (function(){
   }
 
   function _onEverythingLoaded() {
-    if (mode == MODE_NEW_STREET) {
-      _prepareEmptyStreet();
-    } else {
-      _prepareDefaultStreet();
+    switch (mode) {
+      case MODE_NEW_STREET:
+        _prepareEmptyStreet();
+        break;
+      case MODE_EXISTING_STREET:
+        // TODO stupid… backfilling non-existent structures
+        //_createDomFromData();
+        //_createDataFromDom();
+        break;
     }
 
     _resizeStreetWidth();
@@ -3184,7 +3213,7 @@ var main = (function(){
 
     initializing = false;    
     ignoreStreetChanges = false;
-    lastStreet = _trimNonUserData();
+    lastStreet = _trimStreetData();
 
     _updatePageUrl();
     _buildStreetWidthMenu();
@@ -3490,6 +3519,7 @@ var main = (function(){
   }
 
   function _getStreetFromServer() {
+    console.log('try to get street from server');
     jQuery.ajax({
       // TODO const
       url: system.apiUrl + 'v1/streets/' + street.id,
@@ -3499,12 +3529,28 @@ var main = (function(){
     .fail(_failReceiveStreet);
   }
 
-  function _receiveStreet(data) {
-    console.log('received street', data);
+  function _receiveStreet(transmission) {
+    console.log('received street', transmission);
+
+    _unpackServerStreetData(transmission);
+
+    console.log('.');
+    //console.log(street);
+
+    _propagateUnits();
+
+    // TODO this is stupid, only here to fill some structures
+    _createDomFromData();
+    _createDataFromDom();
+
+    console.log(street);
+
+    serverContacted = true;
+    _checkIfEverythingIsLoaded();
   }
 
   function _failReceiveStreet(data) {
-
+    console.log('fail to get street');
     // TODO 500 etc.
 
     if (data.status == 404) {
