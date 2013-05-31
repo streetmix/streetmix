@@ -2466,8 +2466,14 @@ var main = (function(){
     _loseAnyFocus();   
   }
 
-  function _removeSegment(el) {
-    if (el && el.parentNode) {
+  function _removeSegment(el, all) {
+    if (all) {
+      street.segments = [];
+      _createDomFromData();
+      _segmentsChanged();
+
+      _statusMessage.show('All segments have been deleted.', true);
+    } else if (el && el.parentNode) {
       _removeElFromDom(el);
       _segmentsChanged();
 
@@ -2552,7 +2558,7 @@ var main = (function(){
 
         if (document.activeElement == document.body) {
           var segmentHoveredEl = _getHoveredSegmentEl();
-          _removeSegment(segmentHoveredEl);
+          _removeSegment(segmentHoveredEl, event.shiftKey);
           event.preventDefault();
         }
         break;
@@ -2591,7 +2597,7 @@ var main = (function(){
     var el = event.target.segmentEl;
 
     if (el) {
-      _removeSegment(el);
+      _removeSegment(el, event.shiftKey);
     }
   }
 
