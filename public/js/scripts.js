@@ -3069,7 +3069,11 @@ var main = (function(){
   }
 
   function _getAuthHeader() {
-    return 'Streetmix realm="" loginToken="' + signInData.token + '"'
+    if (signInData.token) {
+      return 'Streetmix realm="" loginToken="' + signInData.token + '"'
+    } else {
+      return '';
+    }
   }
 
   function _sendSignOutToServer() {
