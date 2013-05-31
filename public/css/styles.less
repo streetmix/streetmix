@@ -9,7 +9,7 @@
 
 @streetSectionHorizontalPadding: 100px;
 
-@toolsHeight: 100px;
+@paletteHeight: 100px;
 
 @tilesetWidth: 2622px; // retina
 @tilesetHeight: 384px;
@@ -213,7 +213,7 @@ footer {
   position: absolute;
   left: 0;
   right: 0;
-  height: @toolsHeight;
+  height: @paletteHeight;
   bottom: 0;
   padding-right: 10px;
   padding-left: 240px;
@@ -229,10 +229,10 @@ footer {
   -webkit-user-select: none;
   user-select: none;
 }
-#tools {
+#palette {
   white-space: nowrap;
 
-  height: @toolsHeight;
+  height: @paletteHeight;
 
   overflow-x: scroll;
   overflow-y: hidden;
@@ -244,8 +244,8 @@ footer {
   left: 40px;
   right: 40px;
   top: 6px;
-  height: @toolsHeight - 2 * 8px;
-  line-height: @toolsHeight - 2 * 8px;
+  height: @paletteHeight - 2 * 8px;
+  line-height: @paletteHeight - 2 * 8px;
   z-index: 5000;
   border: 3px dashed rgb(150, 150, 150);
   border-radius: 20px;
@@ -340,7 +340,7 @@ body.immediate-segment-resize .segment {
   transition: none !important;
 }
 
-.segment.tool {
+.segment.palette {
   display: inline-block;
   position: relative;
 
@@ -373,8 +373,8 @@ body:not(.touch-support) .segment:not(.unmovable):hover .hover-bk,
   pointer-events: none;
 }
 
-body:not(.touch-support) .segment:not(.tool):not(.unmovable):hover .hover-bk,
-.segment:not(.tool):not(.unmovable).hover .hover-bk {
+body:not(.touch-support) .segment:not(.palette):not(.unmovable):hover .hover-bk,
+.segment:not(.palette):not(.unmovable).hover .hover-bk {
   top: 10px;
   height: @canvasBaseline - 10px;
 }
@@ -419,8 +419,8 @@ body.segment-resize-dragging .segment:not(.unmovable).hover {
   opacity: 0;
 }
 
-body:not(.touch-support) .segment.tool:hover,
-.segment.tool.hover {
+body:not(.touch-support) .segment.palette:hover,
+.segment.palette.hover {
   -webkit-transition: background 100ms;
   -moz-transition: background 100ms;
   transition: background 100ms;
@@ -763,8 +763,8 @@ body:not(.touch-support) .segment:hover .width,
   color: @warningColour;
 }
 
-.segment.tool .name,
-.segment.tool .width {
+.segment.palette .name,
+.segment.palette .width {
   display: none;
 }
 

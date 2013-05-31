@@ -56,7 +56,7 @@ var main = (function(){
     '/images/share-icons/twitter-32.png'
   ];
 
-  var WIDTH_TOOL_MULTIPLIER = 4;
+  var WIDTH_PALETTE_MULTIPLIER = 4;
 
   var CANVAS_HEIGHT = 480;
   var CANVAS_GROUND = 35;
@@ -220,176 +220,257 @@ var main = (function(){
     }
   };
 
+  var VARIANTS = {
+    'direction': ['inbound', 'outbound'],
+    'tree-size': ['small', 'big'],
+    'lamp-orientation': ['left', 'both', 'right'],
+    'parking-lane-orientation': ['left', 'right'],
+    'turn-lane-orientation': ['left', 'right'],
+  };
+
   var SEGMENT_INFO = {
     'sidewalk': {
       name: 'Sidewalk',
       owner: SEGMENT_OWNER_PEDESTRIAN,
       defaultWidth: 6,
-      minWidth: 6,
-      graphics: {
-        center: { x: 3, y: 5, width: 4, height: 15 },
-        repeat: { x: 1, y: 5, width: 1, height: 15 }
+      variants: [''],
+      details: {
+        '': {
+          minWidth: 6,
+          graphics: {
+            center: { x: 3, y: 5, width: 4, height: 15 },
+            repeat: { x: 1, y: 5, width: 1, height: 15 }
+          }          
+        }
       }
     },
-    "sidewalk-tree": {
-      name: 'Sidewalk w/ a small tree',
+    'sidewalk-tree': {
+      name: 'Sidewalk w/ a tree',
       owner: SEGMENT_OWNER_NATURE,
       zIndex: -1,
       defaultWidth: 4,
-      graphics: {
-        center: { x: 13, y: 5, width: 6, height: 15 },
-        repeat: { x: 1, y: 5, width: 1, height: 15 }
+      variants: ['tree-size'],
+      details: {
+        'small': {
+          graphics: {
+            center: { x: 13, y: 5, width: 6, height: 15 },
+            repeat: { x: 1, y: 5, width: 1, height: 15 }
+          }
+        },
+        'big': {
+          graphics: {
+            center: { x: 158, y: 0, width: 11, height: 20, offsetY: -5 },
+            repeat: { x: 1, y: 5, width: 1, height: 15 }
+          }
+        }
       }
     },
-    "sidewalk-tree-big": {
-      name: 'Sidewalk w/ a big tree',
-      owner: SEGMENT_OWNER_NATURE,
-      defaultWidth: 4,
-      zIndex: -1,
-      graphics: {
-        center: { x: 158, y: 0, width: 11, height: 20, offsetY: -5 },
-        repeat: { x: 1, y: 5, width: 1, height: 15 }
-      }
-    },
-    "sidewalk-lamp-right": {
+    'sidewalk-lamp': {
       name: 'Sidewalk w/ a lamp',
-      group: 'sidewalk',
       owner: SEGMENT_OWNER_PEDESTRIAN,
       defaultWidth: 4,
-      graphics: {
-        center: { width: 0, height: 15 },
-        repeat: { x: 1, y: 5, width: 1, height: 15 },
-        right: { x: 102, y: 0, offsetX: -2, offsetY: -5, width: 4, height: 20 }
+      variants: ['lamp-orientation'],
+      details: {
+        'right': {
+          graphics: {
+            center: { width: 0, height: 15 },
+            repeat: { x: 1, y: 5, width: 1, height: 15 },
+            right: { x: 102, y: 0, offsetX: -2, offsetY: -5, width: 4, height: 20 }
+          }
+        },
+        'both': {
+          graphics: {
+            center: { x: 150, y: 0, offsetY: -5, width: 6, height: 20 },
+            repeat: { x: 1, y: 5, width: 1, height: 15 },
+          }          
+        },
+        'left': {
+          graphics: {
+            center: { width: 0, height: 15 },
+            repeat: { x: 1, y: 5, width: 1, height: 15 },
+            left: { x: 107, y: 0, offsetX: -2, offsetY: -5, width: 4, height: 20 }
+          }
+        }
       }
     },
-    "sidewalk-lamp-both": {
-      name: 'Sidewalk w/ a lamp',
-      group: 'sidewalk',
-      owner: SEGMENT_OWNER_PEDESTRIAN,
-      defaultWidth: 6,
-      graphics: {
-        center: { x: 150, y: 0, offsetY: -5, width: 6, height: 20 },
-        repeat: { x: 1, y: 5, width: 1, height: 15 },
-      }
-    },
-    "sidewalk-lamp-left": {
-      name: 'Sidewalk w/ a lamp',
-      group: 'sidewalk',
-      owner: SEGMENT_OWNER_PEDESTRIAN,
-      defaultWidth: 4,
-      graphics: {
-        center: { width: 0, height: 15 },
-        repeat: { x: 1, y: 5, width: 1, height: 15 },
-        left: { x: 107, y: 0, offsetX: -2, offsetY: -5, width: 4, height: 20 }
-      }
-    },
-    "planting-strip": {
+    'planting-strip': {
       name: 'Planting strip',
       owner: SEGMENT_OWNER_NATURE,
       defaultWidth: 4,
-      graphics: {
-        center: { width: 0, height: 15 },
-        repeat: { x: 8, y: 5, width: 4, height: 15 }
+      variants: [''],
+      details: {
+        '': {
+          graphics: {
+            center: { width: 0, height: 15 },
+            repeat: { x: 8, y: 5, width: 4, height: 15 }
+          }          
+        }
       }
     },
-    "bike-lane-inbound": {
+    'bike-lane': {
       name: 'Bike lane',
-      subname: 'Inbound',
       owner: SEGMENT_OWNER_BIKE,
       defaultWidth: 6,
-      graphics: {
-        center: { x: 92, y: 5, width: 4, height: 15 },
-        repeat: { x: 90, y: 5, width: 1, height: 15 }
+      variants: ['direction'],
+      details: {
+        'inbound': {
+          graphics: {
+            center: { x: 92, y: 5, width: 4, height: 15 },
+            repeat: { x: 90, y: 5, width: 1, height: 15 }
+          }
+        },
+        'outbound': {
+          graphics: {
+            center: { x: 97, y: 5, width: 4, height: 15 },
+            repeat: { x: 90, y: 5, width: 1, height: 15 }
+          }
+        }
       }
     },
-    "bike-lane-outbound": {
-      name: 'Bike lane',
-      subname: 'Outbound',
-      owner: SEGMENT_OWNER_BIKE,
-      defaultWidth: 6,
-      graphics: {
-        center: { x: 97, y: 5, width: 4, height: 15 },
-        repeat: { x: 90, y: 5, width: 1, height: 15 }
-      }
-    },
-    "parking-lane": {
-      name: 'Parking lane',
-      owner: SEGMENT_OWNER_CAR,
-      defaultWidth: 8,
-      minWidth: 8,
-      maxWidth: 10,
-      graphics: {
-        center: { x: 50, y: 5, width: 8, height: 15 },
-        repeat: { x: 26, y: 5, width: 1, height: 15 },
-        left: { x: 46, y: 5, width: 3, height: 15 }
-      }
-    },
-    "drive-lane-inbound": {
+    'drive-lane': {
       name: 'Drive lane',
-      subname: 'Inbound',
       owner: SEGMENT_OWNER_CAR,
       defaultWidth: 10,
-      minWidth: 9,
-      maxWidth: 12,
-      graphics: {
-        center: { x: 28, y: 5, width: 8, height: 15 },
-        repeat: { x: 26, y: 5, width: 1, height: 15 }
+      variants: ['direction'],
+      details: {
+        'inbound': {
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: { x: 28, y: 5, width: 8, height: 15 },
+            repeat: { x: 26, y: 5, width: 1, height: 15 }
+          }          
+        },
+        'outbound': {
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: { x: 37, y: 5, width: 8, height: 15 },
+            repeat: { x: 26, y: 5, width: 1, height: 15 }
+          }          
+        }
       }
     },
-    "drive-lane-outbound": {
-      name: 'Drive lane',
-      subname: 'Outbound',
-      owner: SEGMENT_OWNER_CAR,
-      defaultWidth: 10,
-      minWidth: 9,
-      maxWidth: 12,
-      graphics: {
-        center: { x: 37, y: 5, width: 8, height: 15 },
-        repeat: { x: 26, y: 5, width: 1, height: 15 }
-      }
-    },
-    "turn-lane": {
+    'turn-lane': {
       name: 'Turn lane',
       owner: SEGMENT_OWNER_CAR,
       defaultWidth: 10,
-      minWidth: 9,
-      maxWidth: 12,
-      graphics: {
-        center: { x: 81, y: 5, width: 8, height: 15 },
-        repeat: { x: 26, y: 5, width: 1, height: 15 }
+      variants: ['direction', 'turn-lane-orientation'],
+      details: {
+        'inbound|left': {
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: { x: 123, y: 5, width: 8, height: 15 },
+            repeat: { x: 26, y: 5, width: 1, height: 15 }
+          }          
+        },
+        'inbound|right': {
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: { x: 81, y: 5, width: 8, height: 15 },
+            repeat: { x: 26, y: 5, width: 1, height: 15 }
+          }          
+        },
+        'outbound|left': {
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: { x: 132, y: 5, width: 8, height: 15 },
+            repeat: { x: 26, y: 5, width: 1, height: 15 }
+          }          
+        },
+        'outbound|right': {
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: { x: 141, y: 5, width: 8, height: 15 },
+            repeat: { x: 26, y: 5, width: 1, height: 15 }
+          }          
+        }
       }
     },
-    "bus-lane-inbound": {
+    'parking-lane': {
+      name: 'Parking lane',
+      owner: SEGMENT_OWNER_CAR,
+      defaultWidth: 8,
+      variants: ['direction', 'parking-lane-orientation'],
+      details: {
+        'inbound|left': {
+          minWidth: 8,
+          maxWidth: 10,
+          graphics: {
+            center: { x: 50, y: 5, width: 8, height: 15 },
+            repeat: { x: 26, y: 5, width: 1, height: 15 },
+            right: { x: 112, y: 5, width: 2, height: 15 }
+          }
+        },
+        'inbound|right': {
+          minWidth: 8,
+          maxWidth: 10,
+          graphics: {
+            center: { x: 50, y: 5, width: 8, height: 15 },
+            repeat: { x: 26, y: 5, width: 1, height: 15 },
+            left: { x: 46, y: 5, width: 2, height: 15 }
+          }
+        },
+        'outbound|left': {
+          minWidth: 8,
+          maxWidth: 10,
+          graphics: {
+            center: { x: 115, y: 5, width: 8, height: 15 },
+            repeat: { x: 26, y: 5, width: 1, height: 15 },
+            right: { x: 112, y: 5, width: 2, height: 15 }
+          }
+        },
+        'outbound|right': {
+          minWidth: 8,
+          maxWidth: 10,
+          graphics: {
+            center: { x: 115, y: 5, width: 8, height: 15 },
+            repeat: { x: 26, y: 5, width: 1, height: 15 },
+            left: { x: 46, y: 5, width: 2, height: 15 }
+          }
+        }
+      }      
+    },
+    'bus-lane': {
       name: 'Bus lane',
-      subname: 'Inbound',
       owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
       defaultWidth: 10,
-      minWidth: 9,
-      maxWidth: 12,
-      graphics: {
-        center: { x: 59, y: 5, width: 10, height: 15 },
-        repeat: { x: 26, y: 5, width: 1, height: 15 }
+      variants: ['direction'],
+      details: {
+        'inbound': {
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: { x: 59, y: 5, width: 10, height: 15 },
+            repeat: { x: 26, y: 5, width: 1, height: 15 }
+          }
+        },
+        'outbound': {
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: { x: 70, y: 5, width: 10, height: 15 },
+            repeat: { x: 26, y: 5, width: 1, height: 15 }
+          }
+        }
       }
     },
-    "bus-lane-outbound": {
-      name: 'Bus lane',
-      subname: 'Outbound',
-      owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
-      defaultWidth: 10,
-      minWidth: 9,
-      maxWidth: 12,
-      graphics: {
-        center: { x: 70, y: 5, width: 10, height: 15 },
-        repeat: { x: 26, y: 5, width: 1, height: 15 }
-      }
-    },
-    "small-median": {
+    'small-median': {
       name: 'Small median',
       owner: SEGMENT_OWNER_CAR,
       defaultWidth: 4,
-      graphics: {
-        center: { x: 22, y: 5, width: 3, height: 15 },
-        repeat: { x: 20, y: 5, width: 1, height: 15 }
+      variants: [''],
+      details: {
+        '': {
+          graphics: {
+            center: { x: 22, y: 5, width: 3, height: 15 },
+            repeat: { x: 20, y: 5, width: 1, height: 15 }
+          }          
+        }
       }
     },
   };
@@ -397,32 +478,32 @@ var main = (function(){
   var DEFAULT_SEGMENTS = {
     false: [ // Right-hand traffic
       { type: "sidewalk", width: 6 },
-      { type: "sidewalk-tree-big", width: 4 },
-      { type: "sidewalk-lamp-right", width: 2 },
-      { type: "bike-lane-inbound", width: 6 },
-      { type: "drive-lane-inbound", width: 10 },
-      { type: "drive-lane-inbound", width: 10 },
-      { type: "sidewalk-lamp-both", width: 4 },
-      { type: "drive-lane-outbound", width: 10 },
-      { type: "drive-lane-outbound", width: 10 },
-      { type: "bike-lane-outbound", width: 6 },
-      { type: "sidewalk-lamp-left", width: 2 },
-      { type: "sidewalk-tree-big", width: 4 },
+      { type: "sidewalk-tree", variant: { 'tree-size': 'big' }, width: 4 },
+      { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'right' }, width: 2 },
+      { type: "bike-lane", variant: { 'direction': 'inbound' }, width: 6 },
+      { type: "drive-lane", variant: { 'direction': 'inbound' }, width: 10 },
+      { type: "drive-lane", variant: { 'direction': 'inbound' }, width: 10 },
+      { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'both' }, width: 4 },
+      { type: "drive-lane", variant: { 'direction': 'outbound' }, width: 10 },
+      { type: "drive-lane", variant: { 'direction': 'outbound' }, width: 10 },
+      { type: "bike-lane", variant: { 'direction': 'outbound' }, width: 6 },
+      { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'left' }, width: 2 },
+      { type: "sidewalk-tree", variant: { 'tree-size': 'big' }, width: 4 },
       { type: "sidewalk", width: 6 }
     ],
     true: [ // Left-hand traffic
       { type: "sidewalk", width: 6 },
-      { type: "sidewalk-tree-big", width: 4 },
-      { type: "sidewalk-lamp-right", width: 2 },
-      { type: "bike-lane-outbound", width: 6 },
-      { type: "drive-lane-outbound", width: 10 },
-      { type: "drive-lane-outbound", width: 10 },
-      { type: "sidewalk-lamp-both", width: 4 },
-      { type: "drive-lane-inbound", width: 10 },
-      { type: "drive-lane-inbound", width: 10 },
-      { type: "bike-lane-inbound", width: 6 },
-      { type: "sidewalk-lamp-left", width: 2 },
-      { type: "sidewalk-tree-big", width: 4 },
+      { type: "sidewalk-tree", variant: { 'tree-size': 'big' }, width: 4 },
+      { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'right' }, width: 2 },
+      { type: "bike-lane", variant: { 'direction': 'outbound' }, width: 6 },
+      { type: "drive-lane", variant: { 'direction': 'outbound' }, width: 10 },
+      { type: "drive-lane", variant: { 'direction': 'outbound' }, width: 10 },
+      { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'both' }, width: 4 },
+      { type: "drive-lane", variant: { 'direction': 'inbound' }, width: 10 },
+      { type: "drive-lane", variant: { 'direction': 'inbound' }, width: 10 },
+      { type: "bike-lane", variant: { 'direction': 'inbound' }, width: 6 },
+      { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'left' }, width: 2 },
+      { type: "sidewalk-tree", variant: { 'tree-size': 'big' }, width: 4 },
       { type: "sidewalk", width: 6 }
     ]
   };
@@ -477,8 +558,11 @@ var main = (function(){
     mouseY: null,
     elX: null,
     elY: null,
+    // TODO unify names
     origX: null,
     origWidth: null,
+    originalType: null,
+    originalVariantString: null,
     right: false
   };
 
@@ -578,23 +662,26 @@ var main = (function(){
         dw * system.hiDpi, dh * system.hiDpi);
   }
 
- function _setSegmentContents(el, type, segmentWidth, isTool) {
+ function _setSegmentContents(el, type, variantString, segmentWidth, palette) {
     var segmentInfo = SEGMENT_INFO[type];
+    var variantInfo = SEGMENT_INFO[type].details[variantString];
 
-    if (segmentInfo.graphics.center && 
-        typeof segmentInfo.graphics.center.width != 'undefined') {
-      var realWidth = segmentInfo.graphics.center.width;
+    //console.log('a', variantString);
+
+    if (variantInfo.graphics.center && 
+        typeof variantInfo.graphics.center.width != 'undefined') {
+      var realWidth = variantInfo.graphics.center.width;
     } else {
       var realWidth = segmentInfo.defaultWidth;
     }
 
-    var multiplier = isTool ? (WIDTH_TOOL_MULTIPLIER / TILE_SIZE) : 1;
+    var multiplier = palette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1;
 
-    var bkPositionX = (segmentInfo.graphics.center.x || 0) * TILE_SIZE;
-    var bkPositionY = (segmentInfo.graphics.center.y || 0) * TILE_SIZE;
+    var bkPositionX = (variantInfo.graphics.center.x || 0) * TILE_SIZE;
+    var bkPositionY = (variantInfo.graphics.center.y || 0) * TILE_SIZE;
 
     var left = 0;
-    var top = isTool ? SEGMENT_Y_PALETTE : SEGMENT_Y_NORMAL;
+    var top = palette ? SEGMENT_Y_PALETTE : SEGMENT_Y_NORMAL;
     var width = realWidth * TILE_SIZE;
     var height = CANVAS_BASELINE;
 
@@ -604,7 +691,7 @@ var main = (function(){
 
     // sticking out
     var maxWidth = segmentWidth;
-    if (!isTool) {
+    if (!palette) {
       if (maxWidth < realWidth * TILE_SIZE) {
         maxWidth = realWidth * TILE_SIZE;
 
@@ -616,15 +703,15 @@ var main = (function(){
 
     var canvasOffsetX = 0;
 
-    if (segmentInfo.graphics.left && segmentInfo.graphics.left.offsetX < 0) {
-      var leftOffset = -segmentInfo.graphics.left.offsetX * TILE_SIZE;
+    if (variantInfo.graphics.left && variantInfo.graphics.left.offsetX < 0) {
+      var leftOffset = -variantInfo.graphics.left.offsetX * TILE_SIZE;
 
       canvasLeft -= leftOffset;
       maxWidth += leftOffset;
     }
 
-    if (segmentInfo.graphics.right && segmentInfo.graphics.right.offsetX < 0) {
-      canvasOffsetX = -segmentInfo.graphics.right.offsetX * TILE_SIZE;
+    if (variantInfo.graphics.right && variantInfo.graphics.right.offsetX < 0) {
+      canvasOffsetX = -variantInfo.graphics.right.offsetX * TILE_SIZE;
 
       maxWidth += canvasOffsetX;
     }
@@ -640,7 +727,7 @@ var main = (function(){
     canvasEl.style.width = maxWidth + 'px';
     canvasEl.style.height = height + 'px';
 
-    if (!isTool) {
+    if (!palette) {
       canvasEl.style.left = canvasLeft + 'px';
     } else {
       canvasEl.style.left = 0;
@@ -648,10 +735,10 @@ var main = (function(){
 
     var ctx = canvasEl.getContext('2d');
 
-    if (segmentInfo.graphics.repeat) {
-      var repeatPositionX = segmentInfo.graphics.repeat.x * TILE_SIZE;
-      var repeatPositionY = (segmentInfo.graphics.repeat.y || 0) * TILE_SIZE;
-      var w = segmentInfo.graphics.repeat.width * TILE_SIZE * multiplier;
+    if (variantInfo.graphics.repeat) {
+      var repeatPositionX = variantInfo.graphics.repeat.x * TILE_SIZE;
+      var repeatPositionY = (variantInfo.graphics.repeat.y || 0) * TILE_SIZE;
+      var w = variantInfo.graphics.repeat.width * TILE_SIZE * multiplier;
 
       var count = Math.floor((segmentWidth) / w + 1);
 
@@ -661,7 +748,7 @@ var main = (function(){
         var repeatStartX = -(segmentWidth - maxWidth) - canvasOffsetX;
       }
 
-      if (isTool) {
+      if (palette) {
         repeatStartX = 0;
       }
 
@@ -673,54 +760,54 @@ var main = (function(){
 
         _drawSegmentImage(ctx,
           repeatPositionX, repeatPositionY, 
-          w, segmentInfo.graphics.repeat.height * TILE_SIZE, 
-          (repeatStartX + (i * segmentInfo.graphics.repeat.width) * TILE_SIZE) * multiplier, 
-          top + (multiplier * TILE_SIZE * (segmentInfo.graphics.repeat.offsetY || 0)), 
+          w, variantInfo.graphics.repeat.height * TILE_SIZE, 
+          (repeatStartX + (i * variantInfo.graphics.repeat.width) * TILE_SIZE) * multiplier, 
+          top + (multiplier * TILE_SIZE * (variantInfo.graphics.repeat.offsetY || 0)), 
           w, 
-          segmentInfo.graphics.repeat.height * TILE_SIZE * multiplier);
+          variantInfo.graphics.repeat.height * TILE_SIZE * multiplier);
       }
     }      
 
-    if (segmentInfo.graphics.left) {
-      var leftPositionX = segmentInfo.graphics.left.x * TILE_SIZE;
-      var leftPositionY = (segmentInfo.graphics.left.y || 0) * TILE_SIZE;
+    if (variantInfo.graphics.left) {
+      var leftPositionX = variantInfo.graphics.left.x * TILE_SIZE;
+      var leftPositionY = (variantInfo.graphics.left.y || 0) * TILE_SIZE;
 
-      var w = segmentInfo.graphics.left.width * TILE_SIZE;
+      var w = variantInfo.graphics.left.width * TILE_SIZE;
 
       _drawSegmentImage(ctx,
           leftPositionX, leftPositionY, 
-          w, segmentInfo.graphics.left.height * TILE_SIZE, 
+          w, variantInfo.graphics.left.height * TILE_SIZE, 
           0,
-          top + (multiplier * TILE_SIZE * (segmentInfo.graphics.left.offsetY || 0)), 
-          w * multiplier, segmentInfo.graphics.left.height * TILE_SIZE * multiplier);
+          top + (multiplier * TILE_SIZE * (variantInfo.graphics.left.offsetY || 0)), 
+          w * multiplier, variantInfo.graphics.left.height * TILE_SIZE * multiplier);
     }
 
-    if (segmentInfo.graphics.right) {
-      var rightPositionX = segmentInfo.graphics.right.x * TILE_SIZE;
-      var rightPositionY = (segmentInfo.graphics.right.y || 0) * TILE_SIZE;
+    if (variantInfo.graphics.right) {
+      var rightPositionX = variantInfo.graphics.right.x * TILE_SIZE;
+      var rightPositionY = (variantInfo.graphics.right.y || 0) * TILE_SIZE;
 
-      var w = segmentInfo.graphics.right.width * TILE_SIZE;
+      var w = variantInfo.graphics.right.width * TILE_SIZE;
 
-      var rightTargetX = maxWidth - segmentInfo.graphics.right.width * TILE_SIZE * multiplier;
+      var rightTargetX = maxWidth - variantInfo.graphics.right.width * TILE_SIZE * multiplier;
 
-      if (isTool) {
-        rightTargetX += (segmentInfo.graphics.right.offsetX || 0) * TILE_SIZE;
+      if (palette) {
+        rightTargetX += (variantInfo.graphics.right.offsetX || 0) * TILE_SIZE;
       }
 
       _drawSegmentImage(ctx,
         rightPositionX, rightPositionY, 
-        w, segmentInfo.graphics.right.height * TILE_SIZE,
+        w, variantInfo.graphics.right.height * TILE_SIZE,
         rightTargetX,
-        top + (multiplier * TILE_SIZE * (segmentInfo.graphics.right.offsetY || 0)), 
-        w * multiplier, segmentInfo.graphics.right.height * TILE_SIZE * multiplier);
+        top + (multiplier * TILE_SIZE * (variantInfo.graphics.right.offsetY || 0)), 
+        w * multiplier, variantInfo.graphics.right.height * TILE_SIZE * multiplier);
     }
 
     _drawSegmentImage(ctx,
       bkPositionX, bkPositionY, 
-      width, segmentInfo.graphics.center.height * TILE_SIZE, 
+      width, variantInfo.graphics.center.height * TILE_SIZE, 
       left * multiplier, 
-      top + (multiplier * TILE_SIZE * (segmentInfo.graphics.center.offsetY || 0)), 
-      width * multiplier, segmentInfo.graphics.center.height * TILE_SIZE * multiplier);
+      top + (multiplier * TILE_SIZE * (variantInfo.graphics.center.offsetY || 0)), 
+      width * multiplier, variantInfo.graphics.center.height * TILE_SIZE * multiplier);
 
     _removeElFromDom(el.querySelector('canvas'));
     el.appendChild(canvasEl);
@@ -988,8 +1075,8 @@ var main = (function(){
     _createTouchSegmentFadeout(segmentEl);
   }
 
-  function _resizeSegment(el, resizeType, width, updateEdit, isTool, immediate, initial) {
-    if (!isTool) {
+  function _resizeSegment(el, resizeType, width, updateEdit, palette, immediate, initial) {
+    if (!palette) {
       var width = 
           _normalizeSegmentWidth(width / TILE_SIZE, resizeType) * TILE_SIZE;
     }
@@ -1011,7 +1098,8 @@ var main = (function(){
           _prettifyWidth(width / TILE_SIZE, PRETTIFY_WIDTH_OUTPUT_MARKUP);
     }
 
-    _setSegmentContents(el, el.getAttribute('type'), width, isTool);
+    _setSegmentContents(el, el.getAttribute('type'), 
+      el.getAttribute('variant-string'), width, palette);
 
     if (updateEdit) {
       var value = width / TILE_SIZE;
@@ -1166,19 +1254,31 @@ var main = (function(){
     }
   }
 
-  function _createSegment(type, width, isUnmovable, isTool) {
+  function _getVariantString(variant) {
+    var string = '';
+    for (var i in variant) {
+      // TODO const
+      string += variant[i] + '|';
+    }
+
+    string = string.substr(0, string.length - 1);
+    return string;
+  }
+
+  function _createSegment(type, variantString, width, isUnmovable, palette) {
     var el = document.createElement('div');
     el.classList.add('segment');
     el.setAttribute('type', type);
+    el.setAttribute('variant-string', variantString);
 
     if (isUnmovable) {
       el.classList.add('unmovable');
     }
     
-    _setSegmentContents(el, type, width, isTool);
+    //console.log('variant string', variantString);
+    _setSegmentContents(el, type, variantString, width, palette);
 
-
-    if (!isTool) {
+    if (!palette) {
       el.style.zIndex = SEGMENT_INFO[type].zIndex;
 
       var innerEl = document.createElement('span');
@@ -1288,10 +1388,15 @@ var main = (function(){
     }
 
     if (width) {
-      _resizeSegment(el, RESIZE_TYPE_INITIAL, width, true, isTool, true, true);
+      _resizeSegment(el, RESIZE_TYPE_INITIAL, width, true, palette, true, true);
     }    
     return el;
   }
+
+  function _createSegmentDom(segment) {
+    return _createSegment(segment.type, segment.variantString, 
+        segment.width * TILE_SIZE, segment.unmovable);
+  }  
 
   function _createDomFromData() {
     document.querySelector('#editable-street-section').innerHTML = '';
@@ -1299,12 +1404,11 @@ var main = (function(){
     for (var i in street.segments) {
       var segment = street.segments[i];
 
-      var el = _createSegment(segment.type, segment.width * TILE_SIZE, 
-          segment.unmovable);
+      var el = _createSegmentDom(segment);
       document.querySelector('#editable-street-section').appendChild(el);
 
-      street.segments[i].el = el;
-      street.segments[i].el.dataNo = i;
+      segment.el = el;
+      segment.el.dataNo = i;
     }
 
     _repositionSegments();
@@ -1404,6 +1508,7 @@ var main = (function(){
     for (var i in street.segments) {
       var segment = street.segments[i];
       var segmentInfo = SEGMENT_INFO[segment.type];
+      var variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString];
 
       if (segment.el) {
         if ((street.remainingWidth < 0) && 
@@ -1413,13 +1518,13 @@ var main = (function(){
           segment.warnings[SEGMENT_WARNING_OUTSIDE] = false;
         }
 
-        if (segmentInfo.minWidth && (segment.width < segmentInfo.minWidth)) {
+        if (variantInfo.minWidth && (segment.width < variantInfo.minWidth)) {
           segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = true;
         } else {
           segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = false;          
         }
 
-        if (segmentInfo.maxWidth && (segment.width > segmentInfo.maxWidth)) {
+        if (variantInfo.maxWidth && (segment.width > variantInfo.maxWidth)) {
           segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = true;
         } else {
           segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = false;          
@@ -1587,6 +1692,20 @@ var main = (function(){
     return _checkIfChangesSaved();
   }
 
+  function _getVariantArray(segment, variantString) {
+    var variantArray = {};
+    // TODO const
+    var variantSplit = variantString.split('|');
+
+    for (var i in SEGMENT_INFO[segment.type].variants) {
+      var variantName = SEGMENT_INFO[segment.type].variants[i];
+
+      variantArray[variantName] = variantSplit[i];
+    }
+
+    return variantArray;
+  }
+
   function _createDataFromDom() {
     var els = document.querySelectorAll('#editable-street-section > .segment');
 
@@ -1595,6 +1714,8 @@ var main = (function(){
     for (var i = 0, el; el = els[i]; i++) {
       var segment = {};
       segment.type = el.getAttribute('type');
+      segment.variantString = el.getAttribute('variant-string');
+      segment.variant = _getVariantArray(segment, segment.variantString);
       segment.width = parseFloat(el.getAttribute('width'));
       segment.el = el;
       segment.warnings = [];
@@ -1823,12 +1944,13 @@ var main = (function(){
     draggingResize.segmentEl.classList.add('hover');
 
     var segmentInfo = SEGMENT_INFO[el.segmentEl.getAttribute('type')];
+    var variantInfo = SEGMENT_INFO[el.segmentEl.getAttribute('type')].details[el.segmentEl.getAttribute('variant-string')];
 
-    if (segmentInfo.minWidth) {
+    if (variantInfo.minWidth) {
       var guideEl = document.createElement('div');
       guideEl.classList.add('guide');
 
-      var width = segmentInfo.minWidth * TILE_SIZE;
+      var width = variantInfo.minWidth * TILE_SIZE;
       guideEl.style.width = width + 'px';
       guideEl.style.marginLeft = (-width / 2) + 'px';
       el.segmentEl.appendChild(guideEl);
@@ -1838,8 +1960,8 @@ var main = (function(){
         street.remainingWidth + parseFloat(el.segmentEl.getAttribute('width'));
 
     if (remainingWidth && 
-        (((!segmentInfo.minWidth) && (remainingWidth >= MIN_SEGMENT_WIDTH)) || (remainingWidth >= segmentInfo.minWidth)) && 
-        ((!segmentInfo.maxWidth) || (remainingWidth <= segmentInfo.maxWidth))) {
+        (((!variantInfo.minWidth) && (remainingWidth >= MIN_SEGMENT_WIDTH)) || (remainingWidth >= variantInfo.minWidth)) && 
+        ((!variantInfo.maxWidth) || (remainingWidth <= variantInfo.maxWidth))) {
       var guideEl = document.createElement('div');
       guideEl.classList.add('guide');
 
@@ -1847,11 +1969,11 @@ var main = (function(){
       guideEl.style.width = width + 'px';
       guideEl.style.marginLeft = (-width / 2) + 'px';
       el.segmentEl.appendChild(guideEl);
-    } else if (segmentInfo.maxWidth) {
+    } else if (variantInfo.maxWidth) {
       var guideEl = document.createElement('div');
       guideEl.classList.add('guide');
 
-      var width = segmentInfo.maxWidth * TILE_SIZE;
+      var width = variantInfo.maxWidth * TILE_SIZE;
       guideEl.style.width = width + 'px';
       guideEl.style.marginLeft = (-width / 2) + 'px';
       el.segmentEl.appendChild(guideEl);
@@ -1907,8 +2029,10 @@ var main = (function(){
     draggingMove.origEl = el;
 
     draggingMove.originalType = draggingMove.origEl.getAttribute('type');
+    draggingMove.originalVariantString = 
+        draggingMove.origEl.getAttribute('variant-string');
 
-    if (draggingMove.origEl.classList.contains('tool')) {
+    if (draggingMove.origEl.classList.contains('palette')) {
       draggingMove.type = DRAGGING_TYPE_MOVE_CREATE;
       draggingMove.origWidth = 
           SEGMENT_INFO[draggingMove.originalType].defaultWidth * TILE_SIZE;
@@ -1936,9 +2060,13 @@ var main = (function(){
     draggingMove.floatingEl.classList.add('floating');
     draggingMove.floatingEl.classList.add('first-drag-move');
     draggingMove.floatingEl.setAttribute('type', draggingMove.originalType);
+    draggingMove.floatingEl.setAttribute('variant-string', 
+        draggingMove.originalVariantString);
     draggingMove.floatingElVisible = false;
     _setSegmentContents(draggingMove.floatingEl, 
-        draggingMove.originalType, draggingMove.origWidth);
+        draggingMove.originalType, 
+        draggingMove.originalVariantString, 
+        draggingMove.origWidth);
     document.body.appendChild(draggingMove.floatingEl);
 
     if (system.cssTransform) {
@@ -2158,7 +2286,8 @@ var main = (function(){
         }
       }
       
-      var newEl = _createSegment(draggingMove.originalType, width);
+      var newEl = _createSegment(draggingMove.originalType, 
+          draggingMove.originalVariantString, width);
 
       newEl.classList.add('create');
 
@@ -2243,37 +2372,44 @@ var main = (function(){
     event.preventDefault();
   }
 
-  function _createTools() {
+  function _createPalette() {
     for (var i in SEGMENT_INFO) {
       var segmentInfo = SEGMENT_INFO[i];
 
-      var width = segmentInfo.defaultWidth;
+      // TODO hack
+      for (var j in segmentInfo.details) {
+        var variantName = j;
+        var variantInfo = segmentInfo.details[variantName];
 
-      if (segmentInfo.realWidth > segmentInfo.defaultWidth) {
-        width = segmentInfo.realWidth;
+        var width = segmentInfo.defaultWidth;
+
+        if (variantInfo.realWidth > variantInfo.defaultWidth) {
+          width = variantInfo.realWidth;
+        }
+
+        if (variantInfo.graphics.center && (width < (variantInfo.graphics.center.width + 1))) {
+          width = variantInfo.graphics.center.width;
+        }
+
+        if (variantInfo.graphics.left && variantInfo.graphics.left.offsetX) {
+          width -= variantInfo.graphics.left.offsetX;
+        }
+        if (variantInfo.graphics.right && variantInfo.graphics.right.offsetX) {
+          width -= variantInfo.graphics.right.offsetX;
+        }
+
+        width += PALETTE_EXTRA_SEGMENT_PADDING;
+
+        var el = _createSegment(i, 
+          variantName,
+          width * TILE_SIZE / WIDTH_PALETTE_MULTIPLIER, 
+          false, 
+          true);
+
+        el.classList.add('palette');
+
+        document.querySelector('#palette').appendChild(el);
       }
-
-      if (segmentInfo.graphics.center && (width < (segmentInfo.graphics.center.width + 1))) {
-        width = segmentInfo.graphics.center.width;
-      }
-
-      if (segmentInfo.graphics.left && segmentInfo.graphics.left.offsetX) {
-        width -= segmentInfo.graphics.left.offsetX;
-      }
-      if (segmentInfo.graphics.right && segmentInfo.graphics.right.offsetX) {
-        width -= segmentInfo.graphics.right.offsetX;
-      }
-
-      width += PALETTE_EXTRA_SEGMENT_PADDING;
-
-      var el = _createSegment(i, 
-        width * TILE_SIZE / WIDTH_TOOL_MULTIPLIER, 
-        false, 
-        true);
-
-      el.classList.add('tool');
-
-      document.querySelector('#tools').appendChild(el);
     }
   }
 
@@ -2308,14 +2444,14 @@ var main = (function(){
     var streetSectionHeight = 
         document.querySelector('#street-section').offsetHeight;
 
-    var toolsTop = document.querySelector('footer').offsetTop;
+    var paletteTop = document.querySelector('footer').offsetTop;
 
     var pos = (viewportHeight - streetSectionHeight) / 2;
 
     // TODO const
     if (pos + document.querySelector('#street-section').offsetHeight > 
-      toolsTop - 20) {
-      pos = toolsTop - 20 - streetSectionHeight;
+      paletteTop - 20) {
+      pos = paletteTop - 20 - streetSectionHeight;
     }
 
     document.querySelector('#street-section').style.top = pos + 'px';
@@ -2344,6 +2480,7 @@ var main = (function(){
     for (var i in DEFAULT_SEGMENTS[leftHandTraffic]) {
       var segment = DEFAULT_SEGMENTS[leftHandTraffic][i];
       segment.warnings = [];
+      segment.variantString = _getVariantString(segment.variant);
 
       street.segments.push(segment);
     }
@@ -2798,6 +2935,7 @@ var main = (function(){
     for (var i in street.segments) {
       var segment = {};
       segment.type = street.segments[i].type;
+      segment.variantString = street.segments[i].variantString;
       segment.width = street.segments[i].width;
 
       newData.segments.push(segment);
@@ -3036,7 +3174,7 @@ var main = (function(){
 
     _resizeStreetWidth();
     _updateStreetName();
-    _createTools();
+    _createPalette();
     _createDomFromData();
     _segmentsChanged();
     _updateShareMenu();
