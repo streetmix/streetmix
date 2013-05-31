@@ -2585,7 +2585,7 @@ var main = (function(){
     var title = street.name;
 
     if (street.creatorId) {
-      title += '(by ' + street.creatorId + ')';
+      title += ' (by ' + street.creatorId + ')';
     }
 
     title += ' – Streetmix';
@@ -2934,6 +2934,9 @@ var main = (function(){
     _propagateUnits();
     street.name = DEFAULT_NAME;
     street.width = _normalizeStreetWidth(DEFAULT_STREET_WIDTH);
+    if (signedIn) {
+      street.creatorId = signInData.userId;
+    }
 
     _getDefaultSegments();    
   }
@@ -2944,6 +2947,9 @@ var main = (function(){
 
     street.name = DEFAULT_NAME;
     street.width = _normalizeStreetWidth(DEFAULT_STREET_WIDTH);
+    if (signedIn) {
+      street.creatorId = signInData.userId;
+    }
   }
 
   function _onEverythingLoaded() {
