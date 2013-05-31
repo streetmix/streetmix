@@ -39,6 +39,8 @@ var main = (function(){
   var MODE_404 = 3;
   var MODE_SIGN_OUT_SCREEN = 4;
 
+  var ERROR_TYPE_404 = 1;
+
   var TILESET_IMAGE_VERSION = 13;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
@@ -548,6 +550,7 @@ var main = (function(){
   // ------------------------------------------------------------------------
 
   var mode;
+  var abortEverything;
 
   var draggingType = DRAGGING_TYPE_NONE;
 
@@ -3191,6 +3194,10 @@ var main = (function(){
   }
 
   function _checkIfEverythingIsLoaded() {
+    if (abortEverything) {
+      return;
+    }
+
     if ((imagesToBeLoaded == 0) && signInLoaded && bodyLoaded && 
         readyStateCompleteLoaded && countryLoaded && serverContacted) {
       _onEverythingLoaded();
@@ -3502,16 +3509,45 @@ var main = (function(){
 
     if (data.status == 404) {
       mode = MODE_404;
+      _processMode();
       // TODO rest?
     } else {
       console.log(data, error);
     }
   }
 
+  function _goHome() {
+    location.href = '/';
+  }
+
+  function _showError(errorType) {
+    switch (errorType) {
+      case ERROR_TYPE_404:
+        var title = 'Page not found';
+        var description = 'Oh, boy. There is no page with this address!<br><button class="home">Go to the homepage</button>';
+        // TODO go to homepage
+        break;
+    }
+
+    document.querySelector('#error h1').innerHTML = title;
+    document.querySelector('#error .description').innerHTML = description;
+
+    var el = document.querySelector('#error .home');
+    if (el) {
+      el.addEventListener('click', _goHome);
+    }
+
+    document.querySelector('#error').classList.add('visible');
+  }
+
   function _processMode() {
     serverContacted = true;
 
     switch (mode) {
+      case MODE_404:
+        _showError(ERROR_TYPE_404);
+        abortEverything = true;
+        break;
       case MODE_NEW_STREET:
         serverContacted = false;
         break;
@@ -3536,6 +3572,10 @@ var main = (function(){
 
     _processUrl();
     _processMode();
+
+    if (abortEverything) {
+      return;
+    }
 
     // Asynchronously loading…
 
