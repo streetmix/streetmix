@@ -1664,7 +1664,7 @@ var main = (function(){
     //console.log(street);
   }
 
-  function _saveChangesToServer() {
+  function _saveChangesToServer(initial) {
     console.log('save…');
 
     var transmission = {
@@ -1676,6 +1676,12 @@ var main = (function(){
 
     transmission = JSON.stringify(transmission);
 
+    if (initial) {
+      var doneFunc = _confirmSaveChangesToServerInitial;
+    } else {
+      var doneFunc = _confirmSaveChangesToServer;
+    }
+
     jQuery.ajax({
       // TODO const
       url: system.apiUrl + 'v1/streets/' + street.id,
@@ -1683,7 +1689,7 @@ var main = (function(){
       type: 'PUT',
       contentType: 'application/json',
       headers: { 'Authorization': _getAuthHeader() }
-    }).done(_confirmSaveChangesToServer);
+    }).done(doneFunc);
     //.fail(_receiveSignOutConfirmationFromServer);
 
     // TODO better fail at street saving
@@ -1691,6 +1697,13 @@ var main = (function(){
 
   function _confirmSaveChangesToServer() {
     saveChangesIncomplete = false;
+  }
+
+  function _confirmSaveChangesToServerInitial() {
+    saveChangesIncomplete = false;
+
+    serverContacted = true;
+    _checkIfEverythingIsLoaded();
   }
 
   function _clearScheduledSavingChangesToServer() {
@@ -1705,7 +1718,7 @@ var main = (function(){
     _clearScheduledSavingChangesToServer();
 
     saveChangesTimerId = 
-        window.setTimeout(_saveChangesToServer, SAVE_CHANGES_DELAY);
+        window.setTimeout(function() { _saveChangesToServer(false); }, SAVE_CHANGES_DELAY);
   }
 
   function _saveChangesIfAny() {
@@ -1727,7 +1740,7 @@ var main = (function(){
 
   function _checkIfChangesSaved() {
     if (saveChangesIncomplete) {
-      _saveChangesToServer();
+      _saveChangesToServer(false);
 
       return 'Your changes have not been saved yet. Please wait and close the page in a little while to allow the changes to be saved.';
     } else {
@@ -3194,7 +3207,7 @@ var main = (function(){
   }
 
   function _prepareDefaultStreet() {
-    console.log('DEFAULT STREET');
+    //console.log('DEFAULT STREET');
 
     street.units = settings.units;
     _propagateUnits();
@@ -3208,7 +3221,7 @@ var main = (function(){
   }
 
   function _prepareEmptyStreet() {
-    console.log('EMPTY STREET');
+    //console.log('EMPTY STREET');
 
     street.units = settings.units;
     _propagateUnits();
@@ -3223,7 +3236,7 @@ var main = (function(){
   function _onEverythingLoaded() {
     switch (mode) {
       case MODE_NEW_STREET:
-        _prepareEmptyStreet();
+        // 
         break;
       case MODE_EXISTING_STREET:
         // TODO stupid… backfilling non-existent structures
@@ -3260,6 +3273,7 @@ var main = (function(){
 
     if ((imagesToBeLoaded == 0) && signInLoaded && bodyLoaded && 
         readyStateCompleteLoaded && countryLoaded && serverContacted) {
+      //console.log('YES');
       _onEverythingLoaded();
     }
   }
@@ -3406,9 +3420,7 @@ var main = (function(){
   }
 
   function _signInLoaded() {
-    signInLoaded = true;
     _createSignInUI();
-    _checkIfEverythingIsLoaded();
 
     switch (mode) {
       case MODE_NEW_STREET:
@@ -3418,6 +3430,9 @@ var main = (function(){
         _getStreetFromServer();
         break;
     }
+
+    signInLoaded = true;
+    _checkIfEverythingIsLoaded();
   }
 
   function _detectCountry() {
@@ -3542,8 +3557,8 @@ var main = (function(){
 
     street.id = data.id;
 
-    serverContacted = true;
-    _checkIfEverythingIsLoaded();
+    _prepareEmptyStreet();
+    _saveChangesToServer(true);
   }
 
   function _failNewStreetFeedback() {
