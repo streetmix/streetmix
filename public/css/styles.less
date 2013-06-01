@@ -1304,7 +1304,7 @@ body.touch-support .segment.fade-out-end button {
   }
 }
 
-#new-street-choice {
+#new-street-choices {
   position: absolute;
   top: 110px;
   height: 20px;
@@ -1333,30 +1333,29 @@ body.touch-support .segment.fade-out-end button {
       padding-right: 0;
     }
   }
-  button {
+  input[type='radio'] {
+    -webkit-appearance: none;
     appearance: none;
     border: none;
     background: none;
     padding: 0;
     margin: 0;
-
+  }
+  label {
     cursor: pointer;
 
     font-size: 13px;
-
-    &.selected {
-      color: rgb(0, 100, 200);
-      font-weight: bold;
-    }
-    &:not(.selected) {
-      text-decoration: underline;
-    }
-
     &:hover {
       color: black;
     }
   }
-
+  input[type='radio']:checked + label {
+    color: rgb(0, 100, 200);
+    font-weight: bold;    
+  }
+  input[type='radio']:not(:checked) + label {
+    text-decoration: underline;
+  }
   &:not(.visible) {
     display: none;
   }

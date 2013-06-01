@@ -131,7 +131,7 @@ var main = (function(){
   var RESIZE_TYPE_TYPING = 4;
 
   var IMPERIAL_METRIC_MULTIPLIER = 30 / 100;
-  var COUNTRIES_IMPERIAL_UNITS = ['XX']; // DEBUG
+  var COUNTRIES_IMPERIAL_UNITS = ['US']; // DEBUG
   var COUNTRIES_LEFT_HAND_TRAFFIC = 
       ['GG', 'AI', 'AG', 'AU', 'BS', 'BD', 'BB', 'BM', 'BT', 'BW', 'BN',
        'KY', 'CX', 'CC', 'CK', 'CY', 'DM', 'TL', 'FK', 'FJ', 'GD', 'GG',
@@ -1798,6 +1798,7 @@ var main = (function(){
     var currentData = _trimStreetData();
 
     if (JSON.stringify(currentData) != JSON.stringify(lastStreet)) {
+      _hideNewStreetChoices();
       _createNewUndo();
       _scheduleSavingChangesToServer();
 
@@ -2981,7 +2982,52 @@ var main = (function(){
     }
   }
 
+  function _onNewStreetDefaultClick() {
+    ignoreStreetChanges = true;
+    _prepareDefaultStreet();
+
+    _resizeStreetWidth();
+    _updateStreetName();
+    _createDomFromData();
+    _segmentsChanged();
+    _updateShareMenu();
+
+    ignoreStreetChanges = false;
+    lastStreet = _trimStreetData();
+
+  }
+
+  function _onNewStreetEmptyClick() {
+    ignoreStreetChanges = true;
+    _prepareEmptyStreet();
+
+    _resizeStreetWidth();
+    _updateStreetName();
+    _createDomFromData();
+    _segmentsChanged();
+    _updateShareMenu();
+
+    ignoreStreetChanges = false;
+    lastStreet = _trimStreetData();
+  }
+
+  function _onNewStreetLastClick() {
+
+  }
+
+  function _showNewStreetChoices() {
+    document.querySelector('#new-street-choices').classList.add('visible');
+  }
+
+  function _hideNewStreetChoices() {
+    document.querySelector('#new-street-choices').classList.remove('visible');
+  }
+
   function _addEventListeners() {
+    document.querySelector('#new-street-default').addEventListener('click', _onNewStreetDefaultClick);
+    document.querySelector('#new-street-empty').addEventListener('click', _onNewStreetEmptyClick);
+    document.querySelector('#new-street-last').addEventListener('click', _onNewStreetLastClick);
+
     window.addEventListener('storage', _onStorageChange);
 
     document.querySelector('#sign-out-link').addEventListener('click', _signOut);
@@ -3325,12 +3371,14 @@ var main = (function(){
     if (signedIn) {
       street.creatorId = signInData.userId;
     }
+
+    street.segments = [];
   }
 
   function _onEverythingLoaded() {
     switch (mode) {
       case MODE_NEW_STREET:
-        // 
+        _showNewStreetChoices();
         break;
       case MODE_EXISTING_STREET:
         // TODO stupid… backfilling non-existent structures
