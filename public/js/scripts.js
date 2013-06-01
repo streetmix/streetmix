@@ -106,7 +106,7 @@ var main = (function(){
   var TOUCH_SEGMENT_FADEOUT_DELAY = 5000;
   var SHORT_DELAY = 100;
 
-  var SAVE_CHANGES_DELAY = 500;
+  var SAVE_STREET_DELAY = 500;
 
   var MAX_DRAG_DEGREE = 20;
 
@@ -623,8 +623,8 @@ var main = (function(){
   var countryLoaded;
   var serverContacted;
 
-  var saveChangesTimerId = -1;
-  var saveChangesIncomplete = false;
+  var saveStreetTimerId = -1;
+  var saveStreetIncomplete = false;
   var remixOnFirstEdit = false;
 
   var signedIn = false;
@@ -1587,7 +1587,7 @@ var main = (function(){
       }
     }
 
-    _saveChangesIfAny();
+    _saveStreetToServerIfNecessary();
     _updateUndoButtons();
     _repositionSegments();
   }
@@ -1619,7 +1619,7 @@ var main = (function(){
       lastStreet = _trimStreetData();
       _statusMessage.hide();
 
-      _scheduleSavingChangesToServer();
+      _scheduleSavingStreetToServer();
     }
   }
 
@@ -1688,15 +1688,15 @@ var main = (function(){
     return JSON.stringify(transmission);
   }
 
-  function _saveChangesToServer(initial) {
+  function _saveStreetToServer(initial) {
     console.log('save…');
 
     var transmission = _getServerTransmission();
 
     if (initial) {
-      var doneFunc = _confirmSaveChangesToServerInitial;
+      var doneFunc = _confirmSaveStreetToServerInitial;
     } else {
-      var doneFunc = _confirmSaveChangesToServer;
+      var doneFunc = _confirmSaveStreetToServer;
     }
 
     jQuery.ajax({
@@ -1712,19 +1712,19 @@ var main = (function(){
     // TODO better fail at street saving
   }
 
-  function _confirmSaveChangesToServer() {
-    saveChangesIncomplete = false;
+  function _confirmSaveStreetToServer() {
+    saveStreetIncomplete = false;
   }
 
-  function _confirmSaveChangesToServerInitial() {
-    saveChangesIncomplete = false;
+  function _confirmSaveStreetToServerInitial() {
+    saveStreetIncomplete = false;
 
     serverContacted = true;
     _checkIfEverythingIsLoaded();
   }
 
-  function _clearScheduledSavingChangesToServer() {
-    window.clearTimeout(saveChangesTimerId);
+  function _clearScheduledSavingStreetToServer() {
+    window.clearTimeout(saveStreetTimerId);
   }
 
   function _remixStreet() {
@@ -1792,29 +1792,30 @@ var main = (function(){
 
     _updateStreetName();
 
-    _saveChangesToServer(false);
+    _saveStreetToServer(false);
   }
 
   function _failRemixedStreetFeedback() {
     // TODO fail here 
   }
 
-  function _scheduleSavingChangesToServer() {
+  function _scheduleSavingStreetToServer() {
     console.log('schedule save…');
 
-    saveChangesIncomplete = true;
+    saveStreetIncomplete = true;
 
-    _clearScheduledSavingChangesToServer();
+    _clearScheduledSavingStreetToServer();
 
     if (remixOnFirstEdit) {
       _remixStreet();
     } else {
-      saveChangesTimerId = 
-          window.setTimeout(function() { _saveChangesToServer(false); }, SAVE_CHANGES_DELAY);
+      saveStreetTimerId = 
+          window.setTimeout(function() { _saveStreetToServer(false); }, SAVE_STREET_DELAY);
     }
   }
 
-  function _saveChangesIfAny() {
+
+  function _saveStreetToServerIfNecessary() {
     if (ignoreStreetChanges) {
       return;
     }
@@ -1824,7 +1825,7 @@ var main = (function(){
     if (JSON.stringify(currentData) != JSON.stringify(lastStreet)) {
       _hideNewStreetChoices();
       _createNewUndo();
-      _scheduleSavingChangesToServer();
+      _scheduleSavingStreetToServer();
 
       lastStreet = currentData;
 
@@ -1833,8 +1834,8 @@ var main = (function(){
   }
 
   function _checkIfChangesSaved() {
-    if (saveChangesIncomplete) {
-      _saveChangesToServer(false);
+    if (saveStreetIncomplete) {
+      _saveStreetToServer(false);
 
       return 'Your changes have not been saved yet. Please wait and close the page in a little while to allow the changes to be saved.';
     } else {
@@ -2995,7 +2996,7 @@ var main = (function(){
       street.name = _normalizeStreetName(newName);
 
       _updateStreetName();
-      _saveChangesIfAny();
+      _saveStreetToServerIfNecessary();
     }
   }
 
@@ -3332,7 +3333,7 @@ var main = (function(){
     _buildStreetWidthMenu();
     _hideMenus();
 
-    _saveChangesIfAny();
+    _saveStreetToServerIfNecessary();
     _saveSettings();
   }
 
@@ -3776,7 +3777,7 @@ var main = (function(){
     } else {
       _prepareDefaultStreet();
     }
-    _saveChangesToServer(true);
+    _saveStreetToServer(true);
   }
 
   function _failNewStreetFeedback() {
