@@ -32,14 +32,17 @@ var main = (function(){
 
   var STREET_NAME_REMIX_SUFFIX = '(remixed)';
 
-  // TODO replace the URLs from index.html dynamically
+  // TODO replace the URLs in index.html dynamically
   var URL_SIGN_IN = 'twitter-sign-in';
+  var URL_SIGN_IN_CALLBACK = 'twitter-sign-in-callback';
   var URL_NEW_STREET = 'new';
   var URL_NO_USER = '-';
 
   // Since URLs like “streetmix.net/new” are reserved, but we still want
   // @new to be able to use Streetmix, we prefix any reserved URLs with ~
-  var RESERVED_URLS = [URL_SIGN_IN, URL_NEW_STREET, 'help', 'gallery', 'streets'];
+  var RESERVED_URLS = 
+      [URL_SIGN_IN, URL_SIGN_IN_CALLBACK, URL_NEW_STREET, 
+      'help', 'gallery', 'streets'];
   var URL_RESERVED_PREFIX = '~';
 
   var MODE_CONTINUE = 0;
