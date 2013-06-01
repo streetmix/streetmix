@@ -1757,8 +1757,12 @@ var main = (function(){
   }
 
   function _updateLastStreetInfo() {
+    console.log('update');
+
     settings.lastStreetId = street.id;
     settings.lastStreetCreatorId = street.creatorId;
+
+    _saveSettings();
   }
 
   function _setStreetId(newId) {
@@ -3206,15 +3210,20 @@ var main = (function(){
       settings.units = SETTINGS_UNITS_IMPERIAL;
     }
     if (typeof settings.lastStreetId === 'undefined') {
+      console.log('FILL');
       settings.lastStreetId = null;
     }
     if (typeof settings.lastStreetCreatorId === 'undefined') {
+      console.log('FILL');
       settings.lastStreetCreatorId = null;
     }
   }
 
   function _loadSettings() {
+    console.log('load settings');
     var savedSettings = window.localStorage[LOCAL_STORAGE_SETTINGS_ID];
+
+    console.log(savedSettings);
 
     if (savedSettings) {
       settings = JSON.parse(savedSettings);
@@ -3236,6 +3245,7 @@ var main = (function(){
   }
 
   function _saveSettings() {
+    console.log('save', JSON.stringify(_trimSettings()));
     window.localStorage[LOCAL_STORAGE_SETTINGS_ID] = 
         JSON.stringify(_trimSettings());
   }
@@ -3586,11 +3596,21 @@ var main = (function(){
   function _signInLoaded() {
     _createSignInUI();
 
+    if (mode == MODE_CONTINUE) {
+      if (settings.lastStreetId) {
+        street.creatorId = settings.lastStreetCreatorId;
+        street.id = settings.lastStreetId;
+      } else {
+        mode = MODE_NEW_STREET;
+      }
+    }
+
     switch (mode) {
       case MODE_NEW_STREET:
         _createNewStreetOnServer();
         break;
       case MODE_EXISTING_STREET:
+      case MODE_CONTINUE:
         _getStreetFromServer();
         break;
     }
@@ -3719,7 +3739,7 @@ var main = (function(){
 
     _setStreetId(data.id);
 
-    _prepareEmptyStreet();
+    _prepareDefaultStreet();
     _saveChangesToServer(true);
   }
 
@@ -3849,6 +3869,9 @@ var main = (function(){
         abortEverything = true;
         break;
       case MODE_NEW_STREET:
+        serverContacted = false;
+        break;
+      case MODE_CONTINUE:
         serverContacted = false;
         break;
       case MODE_EXISTING_STREET:
