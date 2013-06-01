@@ -3232,10 +3232,26 @@ var main = (function(){
     return street.name + '– Streetmix';
   }
 
+  function _getSharingMessage() {
+    var message = '';
+
+    if (signedIn) {
+      if (street.creatorId == signInData.userId) {
+        message = 'Check out my street, ' + street.name + ', on Streetmix!';
+      } else {
+        message = 'Check out ' + street.name + ' street by @' + street.creatorId + ' on Streetmix!';
+      }
+    } else {
+      message = 'Check out ' + street.name + ' street on Streetmix!';
+    }
+
+    return message;
+  }
+
   function _updateFacebookLink(url) {
     var el = document.querySelector('#share-via-facebook');
 
-    var text = 'Check out Streetmix, a Web-based street builder!';
+    var text = _getSharingMessage();
 
     el.href = 'https://www.facebook.com/dialog/feed?' +
         'app_id=' + FACEBOOK_APP_ID +
@@ -3248,7 +3264,7 @@ var main = (function(){
   function _updateTwitterLink(url) {
     var el = document.querySelector('#share-via-twitter');
 
-    var text = 'Check out Streetmix, a Web-based street builder!';
+    var text = _getSharingMessage();
 
     el.href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + 
         '&url=' + encodeURIComponent(url);
