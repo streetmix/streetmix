@@ -691,8 +691,6 @@ var main = (function(){
     var segmentInfo = SEGMENT_INFO[type];
     var variantInfo = SEGMENT_INFO[type].details[variantString];
 
-    //console.log('a', variantString);
-
     if (variantInfo.graphics.center && 
         typeof variantInfo.graphics.center.width != 'undefined') {
       var realWidth = variantInfo.graphics.center.width;
@@ -1300,7 +1298,6 @@ var main = (function(){
       el.classList.add('unmovable');
     }
     
-    //console.log('variant string', variantString);
     _setSegmentContents(el, type, variantString, width, palette);
 
     if (!palette) {
@@ -1651,7 +1648,7 @@ var main = (function(){
   }
 
   function _unpackServerStreetData(transmission) {
-    console.log('unpack server street data');
+    // console.log('unpack server street data');
 
     //console.log(transmission);
 
@@ -1661,10 +1658,6 @@ var main = (function(){
     undoPosition = transmission.data.undoPosition;
 
     _updateStreetId(transmission.id);
-
-    //undoStack[undoPosition] = street;
-
-    //console.log(street);
   }
 
   // TODO combine with _packServerStreetData()
@@ -1859,8 +1852,6 @@ var main = (function(){
   // TODO this function should not exist; all the data should be in street. 
   // object to begin with
   function _createDataFromDom() {
-    //console.log('data from dom');
-
     var els = document.querySelectorAll('#editable-street-section > .segment');
 
     street.segments = [];
@@ -3030,9 +3021,6 @@ var main = (function(){
       system.environment = ENVIRONMENT_PRODUCTION;
       system.apiUrl = API_URL_PRODUCTION;
     }
-
-    //console.log('environment', system.environment);
-    //console.log('api url', system.apiUrl);
   }
 
   function _detectSystemCapabilities() {
@@ -3287,8 +3275,6 @@ var main = (function(){
   }
 
   function _prepareDefaultStreet() {
-    //console.log('DEFAULT STREET');
-
     street.units = settings.units;
     _propagateUnits();
     street.name = DEFAULT_NAME;
@@ -3301,8 +3287,6 @@ var main = (function(){
   }
 
   function _prepareEmptyStreet() {
-    //console.log('EMPTY STREET');
-
     street.units = settings.units;
     _propagateUnits();
 
@@ -3342,8 +3326,6 @@ var main = (function(){
     _addEventListeners();
 
     window.setTimeout(_hideLoadingScreen, 0);
-
-    console.log(undoPosition, undoStack);
   }
 
   function _checkIfEverythingIsLoaded() {
@@ -3353,7 +3335,6 @@ var main = (function(){
 
     if ((imagesToBeLoaded == 0) && signInLoaded && bodyLoaded && 
         readyStateCompleteLoaded && countryLoaded && serverContacted) {
-      //console.log('YES');
       _onEverythingLoaded();
     }
   }
@@ -3391,8 +3372,6 @@ var main = (function(){
     var signInCookie = $.cookie(SIGN_IN_TOKEN_COOKIE);
     var userIdCookie = $.cookie(USER_ID_COOKIE);
 
-    console.log('cookies', signInCookie, userIdCookie);
-
     if (signInCookie && userIdCookie) {
       signInData = { token: signInCookie, userId: userIdCookie };
 
@@ -3400,9 +3379,7 @@ var main = (function(){
       _saveSignInData();
     } else {
       if (window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
-        console.log('from local storage');
         signInData = JSON.parse(window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]);
-        console.log(signInData);
       }
     }
 
@@ -3529,18 +3506,13 @@ var main = (function(){
 
   function _detectCountryTimeout() {
     if (!countryLoaded) {
-      //console.log('time out!');
-
       countryLoaded = true;
       _checkIfEverythingIsLoaded();
     }
   }
 
   function _receiveCountry(info) {
-    //console.log('receive country');
-
     if (countryLoaded) {
-      console.log('too late to receive country');
       // Already loaded, discard results
       return;
     }
@@ -3640,7 +3612,7 @@ var main = (function(){
   }
 
   function _receiveNewStreetFeedback(data) {
-    console.log('received new street', data);
+    //console.log('received new street', data);
 
     _updateStreetId(data.id);
 
