@@ -35,7 +35,9 @@ var main = (function(){
   var URL_NEW_STREET = 'new';
   var URL_NO_USER = '-';
 
-  var RESERVED_URLS = [URL_SIGN_IN, URL_NEW_STREET];
+  // Since URLs like “streetmix.net/new” are reserved, but we still want
+  // @new to be able to use Streetmix, we prefix any reserved URLs with ~
+  var RESERVED_URLS = [URL_SIGN_IN, URL_NEW_STREET, 'help', 'gallery', 'streets'];
   var URL_RESERVED_PREFIX = '~';
 
   var MODE_CONTINUE = 0;
