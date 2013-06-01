@@ -109,6 +109,8 @@ var main = (function(){
 
   var MAX_STREET_NAME_WIDTH = 30;
 
+  var UNDO_LIMIT = 100;
+
   var STREET_WIDTH_CUSTOM = -1;
   var STREET_WIDTH_SWITCH_TO_METRIC = -2;
   var STREET_WIDTH_SWITCH_TO_IMPERIAL = -3;
@@ -1629,12 +1631,22 @@ var main = (function(){
     _undoRedo(false);
   }
 
+  function _trimUndoStack() {
+    // TODO optimize
+    while (undoPosition >= UNDO_LIMIT) {
+      undoPosition--;
+      undoStack = undoStack.slice(1);
+    }
+  }
+
   function _createNewUndo() {
     // This removes future undo path in case we undo a few times and then do
     // something undoable.
     undoStack = undoStack.splice(0, undoPosition);
     undoStack[undoPosition] = _clone(lastStreet);
     undoPosition++;
+
+    _trimUndoStack();
   }
 
   function _packServerStreetData() {
