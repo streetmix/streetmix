@@ -3294,7 +3294,21 @@ var main = (function(){
     }
   }
 
-  function _fillOutDefaultSettings() {
+  function _mergeAndFillDefaultSettings(secondSettings) {
+    // Merge with local settings
+
+    if (!settings.newStreetPreference) {
+      settings.newStreetPreference = secondSettings.newStreetPreference;
+    }
+    if (typeof settings.lastStreetId === 'undefined') {
+      settings.lastStreetId = secondSettings.lastStreetId;
+    }
+    if (typeof settings.lastStreetCreatorId === 'undefined') {
+      settings.lastStreetCreatorId = secondSettings.lastStreetCreatorId;
+    }
+
+    // Provide defaults if the above failed
+
     if (!settings.newStreetPreference) {
       settings.newStreetPreference = NEW_STREET_DEFAULT;
     }
@@ -3307,20 +3321,33 @@ var main = (function(){
   }
 
   function _loadSettings() {
-    var localSettings = window.localStorage[LOCAL_STORAGE_SETTINGS_ID];
+    if (signedIn && signInData.details) {
+      var serverSettings = signInData.details.data;
+    } else {
+      var serverSettings = {};
+    }
 
-    console.log('loaded local settings', localSettings);
+    // TODO handle better if corrupted
+    if (window.localStorage[LOCAL_STORAGE_SETTINGS_ID]) {
+      var localSettings = JSON.parse(window.localStorage[LOCAL_STORAGE_SETTINGS_ID]);
+    } else {
+      var localSettings = {};
+    }
 
-    if (localSettings) {
-      settings = JSON.parse(localSettings);
+    console.log('server settings', serverSettings);
+    console.log('local settings', localSettings);
+
+    if (serverSettings) {
+      settings = serverSettings;
     } else {
       settings = {};
     }
 
-    _fillOutDefaultSettings();
-    _saveSettings();
+    _mergeAndFillDefaultSettings(localSettings);
 
-    console.log('proper settings', settings);
+    console.log('FINAL settings', settings);
+
+    _saveSettings();
   }
 
   function _trimSettings() {
@@ -3337,7 +3364,7 @@ var main = (function(){
   function _saveSettings() {
     if (initializing) {
       //console.log('NO');
-      return;
+      //return;
     }
 
     console.log('save settings', JSON.stringify(_trimSettings()));
