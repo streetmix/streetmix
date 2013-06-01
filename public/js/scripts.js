@@ -30,6 +30,9 @@ var main = (function(){
 
   var FACEBOOK_APP_ID = '162729607241489';
 
+  // TODO replace the URLs from index.html dynamically
+  var URL_SIGN_IN = '/twitter-sign-in';
+
   var URL_NEW_STREET = 'new';
   var URL_NO_USER = '-';
 
@@ -3390,7 +3393,7 @@ var main = (function(){
       document.querySelector('#sign-in-link').appendChild(el);*/
     } else {
       var el = document.createElement('a');
-      el.href = '/twitter-sign-in';
+      el.href = URL_SIGN_IN;
       el.classList.add('command');
       el.innerHTML = 'Sign in';
       document.querySelector('#sign-in-link').appendChild(el);
