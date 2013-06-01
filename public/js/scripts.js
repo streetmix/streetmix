@@ -40,9 +40,10 @@ var main = (function(){
   var MODE_NEW_STREET = 1;
   var MODE_EXISTING_STREET = 2;
   var MODE_404 = 3;
-  var MODE_SIGN_OUT_SCREEN = 4;
+  var MODE_SIGN_OUT = 4;
 
   var ERROR_TYPE_404 = 1;
+  var ERROR_TYPE_SIGN_OUT = 2;
 
   var TILESET_IMAGE_VERSION = 13;
   var TILESET_WIDTH = 2622;
@@ -3249,7 +3250,7 @@ var main = (function(){
 
     window.setTimeout(_hideLoadingScreen, 0);
 
-    console.log(undoPosition, undoStack);
+    //console.log(undoPosition, undoStack);
   }
 
   function _checkIfEverythingIsLoaded() {
@@ -3367,7 +3368,9 @@ var main = (function(){
   }
 
   function _receiveSignOutConfirmationFromServer() {
-    location.href = '/';
+    //location.href = '/';
+    mode = MODE_SIGN_OUT;
+    _processMode();
   }
 
   function _createSignInUI() {
@@ -3564,7 +3567,7 @@ var main = (function(){
 
     _unpackServerStreetData(transmission);
 
-    console.log('.');
+    //console.log('.');
     //console.log(street);
 
     _propagateUnits();
@@ -3573,7 +3576,7 @@ var main = (function(){
     _createDomFromData();
     _createDataFromDom();
 
-    console.log(street);
+    //console.log(street);
 
     serverContacted = true;
     _checkIfEverythingIsLoaded();
@@ -3596,12 +3599,20 @@ var main = (function(){
     location.href = '/';
   }
 
+  function _goSignIn() {
+    location.href = URL_SIGN_IN;
+  }
+
   function _showError(errorType) {
     switch (errorType) {
       case ERROR_TYPE_404:
         var title = 'Page not found';
         var description = 'Oh, boy. There is no page with this address!<br><button class="home">Go to the homepage</button>';
         // TODO go to homepage
+        break;
+      case ERROR_TYPE_SIGN_OUT:
+        var title = 'You’ve been signed out.';
+        var description = '<button class="sign-in">Sign in again</button> <button class="home">Go to the homepage</button>';
         break;
     }
 
@@ -3613,6 +3624,11 @@ var main = (function(){
       el.addEventListener('click', _goHome);
     }
 
+    var el = document.querySelector('#error .sign-in');
+    if (el) {
+      el.addEventListener('click', _goSignIn);
+    }
+
     document.querySelector('#error').classList.add('visible');
   }
 
@@ -3622,6 +3638,10 @@ var main = (function(){
     switch (mode) {
       case MODE_404:
         _showError(ERROR_TYPE_404);
+        abortEverything = true;
+        break;
+      case MODE_SIGN_OUT:
+        _showError(ERROR_TYPE_SIGN_OUT);
         abortEverything = true;
         break;
       case MODE_NEW_STREET:
