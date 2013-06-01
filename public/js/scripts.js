@@ -31,7 +31,7 @@ var main = (function(){
   var FACEBOOK_APP_ID = '162729607241489';
 
   // TODO replace the URLs from index.html dynamically
-  var URL_SIGN_IN = '/twitter-sign-in';
+  var URL_SIGN_IN = 'twitter-sign-in';
   var URL_NEW_STREET = 'new';
   var URL_NO_USER = '-';
 
@@ -2874,6 +2874,16 @@ var main = (function(){
     $('#street-name > div').text(street.name);
     _resizeStreetName();
 
+    if (street.creatorId && (street.creatorId != signInData.userId)) {
+      // TODO const
+      var html = "By <a target='_new' href='https://twitter.com/" + 
+          street.creatorId + "'>" + street.creatorId + "</a>";
+
+      document.querySelector('#street-attribution').innerHTML = html;
+      document.querySelector('#street-attribution').classList.add('visible');
+    } else {
+      document.querySelector('#street-attribution').classList.remove('visible');      
+    }
     _updatePageUrl();
     _updatePageTitle();
   }
@@ -3319,6 +3329,8 @@ var main = (function(){
     var signInCookie = $.cookie(SIGN_IN_TOKEN_COOKIE);
     var userIdCookie = $.cookie(USER_ID_COOKIE);
 
+    console.log('cookies', signInCookie, userIdCookie);
+
     if (signInCookie && userIdCookie) {
       signInData = { token: signInCookie, userId: userIdCookie };
 
@@ -3326,7 +3338,9 @@ var main = (function(){
       _saveSignInData();
     } else {
       if (window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
+        console.log('from local storage');
         signInData = JSON.parse(window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]);
+        console.log(signInData);
       }
     }
 
@@ -3453,7 +3467,7 @@ var main = (function(){
 
   function _detectCountryTimeout() {
     if (!countryLoaded) {
-      console.log('time out!');
+      //console.log('time out!');
 
       countryLoaded = true;
       _checkIfEverythingIsLoaded();
@@ -3461,10 +3475,10 @@ var main = (function(){
   }
 
   function _receiveCountry(info) {
-    console.log('receive country');
+    //console.log('receive country');
 
     if (countryLoaded) {
-      console.log('too late');
+      console.log('too late to receive country');
       // Already loaded, discard results
       return;
     }

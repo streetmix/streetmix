@@ -25,7 +25,8 @@
 @touchFadeOutTime: 3000ms;
 @touchFadeOutDelay: 2000ms;
 
-@textShadow: 0 1px 1px rgba(0, 0, 0, .5);
+@textShadow: 0 1px 1px rgba(0, 0, 0, .5), 
+             0 0 3px rgba(0, 0, 0, .5);
 
 @streetNameSize: 1.5;
 @streetNameTop: 12px;
@@ -1268,13 +1269,19 @@ body.touch-support .segment.fade-out-end button {
   }
 
   &:hover {
-    text-shadow: 0 0 2px black;
+    color: rgb(220, 220, 220);
+
+    & > div {
+      border-color: rgb(220, 220, 220);
+    }
+
     &::after {
+      color: black;
       content: 'Click to rename';
       text-shadow: none;
 
       left: 50%;
-      top: 60px * @streetNameSize;
+      top: 24px * @streetNameSize;
       width: 100px;
       margin-left: -50px;
       position: absolute;
@@ -1285,3 +1292,20 @@ body.touch-support .segment.fade-out-end button {
     }
   }
 }
+
+#street-attribution {
+  margin-top: 7px;
+
+  color: black;
+  font-size: 13px;
+
+  a {
+    color: inherit;
+  }
+
+  &:not(.visible) {
+    display: none;
+  }
+}
+
+
