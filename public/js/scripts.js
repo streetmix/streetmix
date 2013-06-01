@@ -93,7 +93,7 @@ var main = (function(){
 
   var DRAGGING_MOVE_HOLE_WIDTH = 40;
 
-  var STATUS_MESSAGE_HIDE_DELAY = 5000;
+  var STATUS_MESSAGE_HIDE_DELAY = 15000;
   var WIDTH_EDIT_INPUT_DELAY = 200;
   var TOUCH_SEGMENT_FADEOUT_DELAY = 5000;
   var SHORT_DELAY = 100;
@@ -612,6 +612,7 @@ var main = (function(){
 
   var saveChangesTimerId = -1;
   var saveChangesIncomplete = false;
+  var remixOnFirstEdit = false;
 
   var signedIn = false;
   var signInLoaded = false;
@@ -1641,15 +1642,6 @@ var main = (function(){
     data.undoStack = _clone(undoStack);
     data.undoPosition = undoPosition;
 
-    // This will be data.street by definition, so we don’t need to send that.
-    // data.undoStack[undoPosition] = null;
-
-    //console.log(data.undoStack);
-
-    //undoPosition[]
-
-    //undoStack[undoPosition];
-
     return data;
   }
 
@@ -1663,22 +1655,27 @@ var main = (function(){
     undoStack = _clone(transmission.data.undoStack);
     undoPosition = transmission.data.undoPosition;
 
+    _updateStreetId(transmission.id);
+
     //undoStack[undoPosition] = street;
 
     //console.log(street);
   }
 
-  function _saveChangesToServer(initial) {
-    console.log('save…');
-
+  // TODO combine with _packServerStreetData()
+  function _getServerTransmission() {
     var transmission = {
       name: street.name,
       data: _packServerStreetData()
     }
 
-    //console.log(transmission);
+    return JSON.stringify(transmission);
+  }
 
-    transmission = JSON.stringify(transmission);
+  function _saveChangesToServer(initial) {
+    console.log('save…');
+
+    var transmission = _getServerTransmission();
 
     if (initial) {
       var doneFunc = _confirmSaveChangesToServerInitial;
@@ -1714,6 +1711,59 @@ var main = (function(){
     window.clearTimeout(saveChangesTimerId);
   }
 
+  function _remixStreet() {
+    if (signedIn) {
+      _statusMessage.show('You are now editing a copy of the original street. The copy has been put in your gallery.');
+    } else {
+      if (street.creatorId) {
+        _statusMessage.show('You are now editing a copy of the original street.');
+      }
+    }
+
+    if (signedIn) {
+      street.creatorId = signInData.userId;
+    } else {
+      street.creatorId = null;
+    }
+
+    // TODO const
+    street.name += ' (remixed)';
+
+    _updateStreetName();
+
+    var transmission = _getServerTransmission();
+
+    jQuery.ajax({
+      // TODO const
+      url: system.apiUrl + 'v1/streets',
+      type: 'POST',
+      data: transmission,
+      contentType: 'application/json',
+      headers: { 'Authorization': _getAuthHeader() }
+    }).done(_receiveRemixedStreetFeedback)
+    .fail(_failRemixedStreetFeedback);
+
+    remixOnFirstEdit = false;
+  }
+
+  function _updateStreetId(newId) {
+    street.id = newId;
+
+    for (var i in undoStack) {
+      undoStack[i].id = newId;
+    }
+  }
+
+  function _receiveRemixedStreetFeedback(data) {
+    _updateStreetId(data.id);
+
+    _updateStreetName();
+  }
+
+  function _failRemixedStreetFeedback() {
+    // TODO fail here 
+  }
+
   function _scheduleSavingChangesToServer() {
     console.log('schedule save…');
 
@@ -1721,8 +1771,12 @@ var main = (function(){
 
     _clearScheduledSavingChangesToServer();
 
-    saveChangesTimerId = 
-        window.setTimeout(function() { _saveChangesToServer(false); }, SAVE_CHANGES_DELAY);
+    if (remixOnFirstEdit) {
+      _remixStreet();
+    } else {
+      saveChangesTimerId = 
+          window.setTimeout(function() { _saveChangesToServer(false); }, SAVE_CHANGES_DELAY);
+    }
   }
 
   function _saveChangesIfAny() {
@@ -2515,7 +2569,7 @@ var main = (function(){
   }
 
   function _resizeStreetName() {
-    var streetNameCanvasWidth = 
+    /*var streetNameCanvasWidth = 
         document.querySelector('#street-name-canvas').offsetWidth;
     var streetNameWidth = 
         document.querySelector('#street-name').offsetWidth;
@@ -2527,7 +2581,7 @@ var main = (function(){
     }
 
     document.querySelector('#street-name').style[system.cssTransform] = 
-        'scale(' + multiplier + ')';
+        'scale(' + multiplier + ')';*/
   }
 
   function _onResize() {
@@ -2876,7 +2930,7 @@ var main = (function(){
 
     if (street.creatorId && (street.creatorId != signInData.userId)) {
       // TODO const
-      var html = "By <a target='_new' href='https://twitter.com/" + 
+      var html = "by <a target='_new' href='https://twitter.com/" + 
           street.creatorId + "'>" + street.creatorId + "</a>";
 
       document.querySelector('#street-attribution').innerHTML = html;
@@ -3281,7 +3335,7 @@ var main = (function(){
 
     window.setTimeout(_hideLoadingScreen, 0);
 
-    //console.log(undoPosition, undoStack);
+    console.log(undoPosition, undoStack);
   }
 
   function _checkIfEverythingIsLoaded() {
@@ -3568,8 +3622,6 @@ var main = (function(){
   }
 
   function _createNewStreetOnServer() {
-    //console.log('z');
-
     jQuery.ajax({
       // TODO const
       url: system.apiUrl + 'v1/streets',
@@ -3582,7 +3634,7 @@ var main = (function(){
   function _receiveNewStreetFeedback(data) {
     console.log('received new street', data);
 
-    street.id = data.id;
+    _updateStreetId(data.id);
 
     _prepareEmptyStreet();
     _saveChangesToServer(true);
@@ -3608,6 +3660,12 @@ var main = (function(){
     console.log('received street', transmission);
 
     _unpackServerStreetData(transmission);
+
+    if (!signedIn || (street.creatorId != signInData.userId)) {
+      remixOnFirstEdit = true;
+    } else {
+      remixOnFirstEdit = false;
+    }
 
     //console.log('.');
     //console.log(street);
