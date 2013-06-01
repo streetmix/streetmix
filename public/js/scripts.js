@@ -1711,9 +1711,9 @@ var main = (function(){
 
   function _remixStreet() {
     if (signedIn) {
-      _statusMessage.show('You are now editing a just-made copy of the original street. The copy has been put in your gallery.');
+      _statusMessage.show('Now editing a freshly-made copy of the original street. The copy has been put in your gallery.');
     } else {
-      _statusMessage.show('You are now editing a just-made copy of the original street.');
+      _statusMessage.show('Now editing a freshly-made copy of the original street. <a href="/' + URL_SIGN_IN + '">Sign in</a> to start your own gallery of streets.');
     }
 
     if (signedIn) {
