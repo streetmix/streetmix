@@ -556,6 +556,7 @@ var main = (function(){
 
   var settings = {
     lastStreetId: null,
+    lastStreetUserId: null,
     units: null
   };
 
@@ -2792,6 +2793,7 @@ var main = (function(){
   function _showDebugInfo() {
     var debugStreetData = _clone(street);
     var debugUndo = _clone(undoStack);
+    var _debugSettings = _clone(settings);
 
     for (var i in debugStreetData.segments) {
       delete debugStreetData.segments[i].el;
@@ -2805,6 +2807,7 @@ var main = (function(){
 
     var debugText = 
         'DATA:\n' + JSON.stringify(debugStreetData, null, 2) +
+        'SETTINGS:\n' + JSON.stringify(debugSettings, null, 2) +
         '\n\nUNDO:\n' + JSON.stringify(debugUndo, null, 2);
 
     document.querySelector('#debug').classList.add('visible');
