@@ -131,7 +131,7 @@ var main = (function(){
   var RESIZE_TYPE_TYPING = 4;
 
   var IMPERIAL_METRIC_MULTIPLIER = 30 / 100;
-  var COUNTRIES_IMPERIAL_UNITS = ['US'];
+  var COUNTRIES_IMPERIAL_UNITS = ['XX']; // DEBUG
   var COUNTRIES_LEFT_HAND_TRAFFIC = 
       ['GG', 'AI', 'AG', 'AU', 'BS', 'BD', 'BB', 'BM', 'BT', 'BW', 'BN',
        'KY', 'CX', 'CC', 'CK', 'CY', 'DM', 'TL', 'FK', 'FJ', 'GD', 'GG',
@@ -139,7 +139,7 @@ var main = (function(){
        'LS', 'MO', 'MW', 'MY', 'MV', 'MT', 'MU', 'MS', 'MZ', 'NA', 'NR',
        'NP', 'NZ', 'NU', 'NF', 'PK', 'PG', 'PN', 'SH', 'KN', 'LC', 'VC',
        'WS', 'SC', 'SG', 'SB', 'ZA', 'LK', 'SR', 'SZ', 'TZ', 'TH', 'TK',
-       'TO', 'TT', 'TC', 'TV', 'UG', 'GB', 'VG', 'VI', 'ZM', 'ZW'];
+       'TO', 'TT', 'TC', 'TV', 'UG', 'GB', 'VG', 'VI', 'ZM', 'ZW', 'US']; // DEBUG
 
   var WIDTH_INPUT_CONVERSION = [
     { text: 'm', multiplier: 1 / IMPERIAL_METRIC_MULTIPLIER },
@@ -556,8 +556,7 @@ var main = (function(){
 
   var settings = {
     lastStreetId: null,
-    units: null,
-    unitsSelectedManually: null
+    units: null
   };
 
   var leftHandTraffic = false;
@@ -2716,10 +2715,10 @@ var main = (function(){
     if (newStreetWidth == street.width) {
       return;
     } else if (newStreetWidth == STREET_WIDTH_SWITCH_TO_METRIC) {
-      _updateUnits(SETTINGS_UNITS_METRIC, true);
+      _updateUnits(SETTINGS_UNITS_METRIC);
       return;
     } else if (newStreetWidth == STREET_WIDTH_SWITCH_TO_IMPERIAL) {
-      _updateUnits(SETTINGS_UNITS_IMPERIAL, true);
+      _updateUnits(SETTINGS_UNITS_IMPERIAL);
       return;
     } else if (newStreetWidth == STREET_WIDTH_CUSTOM) {
       var width = prompt("Enter the new street width (from " + 
@@ -2941,7 +2940,7 @@ var main = (function(){
     if (street.creatorId && (street.creatorId != signInData.userId)) {
       // TODO const
       var html = "by <div class='avatar'></div>" +
-          "<a target='_new' href='https://twitter.com/" + 
+          "<a target='_blank' href='https://twitter.com/" + 
           street.creatorId + "'>" + street.creatorId + "</a>";
 
       document.querySelector('#street-attribution').innerHTML = html;
@@ -3143,14 +3142,11 @@ var main = (function(){
     if (typeof settings.units === 'undefined') {
       settings.units = SETTINGS_UNITS_IMPERIAL;
     }
-
-    if (typeof settings.unitsSelectedManually === 'undefined') {
-      settings.unitsSelectedManually = false;
-    }
   }
 
   function _loadSettings() {
     var savedSettings = window.localStorage[LOCAL_STORAGE_SETTINGS_ID];
+
     if (savedSettings) {
       settings = JSON.parse(savedSettings);
     } else {
@@ -3161,8 +3157,16 @@ var main = (function(){
     _saveSettings();
   }
 
+  function _trimSettings() {
+    var data = {};
+
+    data.lastStreetId = settings.lastStreetId;
+
+    return data;
+  }
+
   function _saveSettings() {
-    window.localStorage[LOCAL_STORAGE_SETTINGS_ID] = JSON.stringify(settings);
+    window.localStorage[LOCAL_STORAGE_SETTINGS_ID] = JSON.stringify(_trimSettings());
   }
 
   function _normalizeAllSegmentWidths() {
@@ -3172,9 +3176,7 @@ var main = (function(){
     }
   }
 
-  function _updateUnits(newUnits, manually) {
-    settings.unitsSelectedManually = manually;
-
+  function _updateUnits(newUnits) {
     if (street.units == newUnits) {
       return;
     }
@@ -3806,7 +3808,11 @@ var main = (function(){
 
     // …detecting country from IP for units and left/right-hand driving
     // TODO only make it work for new streets
-    _detectCountry();
+    if (mode == MODE_NEW_STREET) {
+      _detectCountry();
+    } else {
+      countryLoaded = true;
+    }
 
     // …sign in info from our API (if not previously cached) – and subsequent
     // street data if necessary (depending on the mode)

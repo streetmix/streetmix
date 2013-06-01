@@ -903,7 +903,7 @@ body.touch-support .segment.fade-out-end button {
       color: white;
     }
   }
-  
+
   a {
     color: inherit;
   }
@@ -1297,6 +1297,64 @@ body.touch-support .segment.fade-out-end button {
 
   a {
     color: inherit;
+  }
+
+  &:not(.visible) {
+    display: none;
+  }
+}
+
+#new-street-choice {
+  position: absolute;
+  top: 110px;
+  height: 20px;
+  left: 0;
+  right: 0;
+  z-index: 999999;
+
+  text-align: center;
+  font-size: 13px;
+
+  color: rgb(64, 64, 64);
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  li {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+
+    &:not(:last-child)::after {
+      content: '·';
+      margin-right: 5px;
+      padding-right: 0;
+    }
+  }
+  button {
+    appearance: none;
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    &.selected {
+      color: rgb(0, 100, 200);
+      font-weight: bold;
+    }
+    &:not(.selected) {
+      text-decoration: underline;
+    }
+
+    &:hover {
+      color: black;
+    }
   }
 
   &:not(.visible) {
