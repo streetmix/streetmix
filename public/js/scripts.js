@@ -2993,6 +2993,13 @@ var main = (function(){
     }
   }
 
+  function _onWindowFocus() {
+    // Save settings on window focus, so the last edited street is the one you’re
+    // currently looking at (in case you’re looking at many streets in various
+    // tabs)
+    _saveSettings();
+  }
+
   function _onWindowBlur() {
     _hideMenus();
   }
@@ -3053,6 +3060,7 @@ var main = (function(){
 
     document.querySelector('#sign-out-link').addEventListener('click', _signOut);
 
+    window.addEventListener('focus', _onWindowFocus);
     window.addEventListener('blur', _onWindowBlur);
 
     window.addEventListener('beforeunload', _onWindowBeforeUnload);
@@ -3245,7 +3253,7 @@ var main = (function(){
   }
 
   function _saveSettings() {
-    console.log('save', JSON.stringify(_trimSettings()));
+    console.log('save settings', JSON.stringify(_trimSettings()));
     window.localStorage[LOCAL_STORAGE_SETTINGS_ID] = 
         JSON.stringify(_trimSettings());
   }
