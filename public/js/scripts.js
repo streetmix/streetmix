@@ -1669,7 +1669,7 @@ var main = (function(){
     undoStack = _clone(transmission.data.undoStack);
     undoPosition = transmission.data.undoPosition;
 
-    _updateStreetId(transmission.id);
+    _setStreetId(transmission.id);
   }
 
   // TODO combine with _packServerStreetData()
@@ -1756,16 +1756,29 @@ var main = (function(){
     remixOnFirstEdit = false;
   }
 
-  function _updateStreetId(newId) {
+  function _updateLastStreetInfo() {
+    settings.lastStreetId = street.id;
+    settings.lastStreetCreatorId = street.creatorId;
+  }
+
+  function _setStreetId(newId) {
     street.id = newId;
 
     for (var i in undoStack) {
       undoStack[i].id = newId;
     }
+
+    _updateLastStreetInfo();
+  }
+
+  function _setStreetCreatorId(newId) {
+    street.creatorId = newId;
+
+    _updateLastStreetInfo();
   }
 
   function _receiveRemixedStreetFeedback(data) {
-    _updateStreetId(data.id);
+    _setStreetId(data.id);
 
     _updateStreetName();
 
@@ -2793,7 +2806,7 @@ var main = (function(){
   function _showDebugInfo() {
     var debugStreetData = _clone(street);
     var debugUndo = _clone(undoStack);
-    var _debugSettings = _clone(settings);
+    var debugSettings = _clone(settings);
 
     for (var i in debugStreetData.segments) {
       delete debugStreetData.segments[i].el;
@@ -2807,7 +2820,7 @@ var main = (function(){
 
     var debugText = 
         'DATA:\n' + JSON.stringify(debugStreetData, null, 2) +
-        'SETTINGS:\n' + JSON.stringify(debugSettings, null, 2) +
+        '\n\nSETTINGS:\n' + JSON.stringify(debugSettings, null, 2) +
         '\n\nUNDO:\n' + JSON.stringify(debugUndo, null, 2);
 
     document.querySelector('#debug').classList.add('visible');
@@ -2952,6 +2965,7 @@ var main = (function(){
     } else {
       document.querySelector('#street-attribution').classList.remove('visible');      
     }
+
     _updatePageUrl();
     _updatePageTitle();
   }
@@ -3191,6 +3205,12 @@ var main = (function(){
     if (typeof settings.units === 'undefined') {
       settings.units = SETTINGS_UNITS_IMPERIAL;
     }
+    if (typeof settings.lastStreetId === 'undefined') {
+      settings.lastStreetId = null;
+    }
+    if (typeof settings.lastStreetCreatorId === 'undefined') {
+      settings.lastStreetCreatorId = null;
+    }
   }
 
   function _loadSettings() {
@@ -3209,13 +3229,15 @@ var main = (function(){
   function _trimSettings() {
     var data = {};
 
+    data.lastStreetCreatorId = settings.lastStreetCreatorId;
     data.lastStreetId = settings.lastStreetId;
 
     return data;
   }
 
   function _saveSettings() {
-    window.localStorage[LOCAL_STORAGE_SETTINGS_ID] = JSON.stringify(_trimSettings());
+    window.localStorage[LOCAL_STORAGE_SETTINGS_ID] = 
+        JSON.stringify(_trimSettings());
   }
 
   function _normalizeAllSegmentWidths() {
@@ -3359,7 +3381,7 @@ var main = (function(){
     street.name = DEFAULT_NAME;
     street.width = _normalizeStreetWidth(DEFAULT_STREET_WIDTH);
     if (signedIn) {
-      street.creatorId = signInData.userId;
+      _setStreetCreatorId(signInData.userId);
     }
 
     _getDefaultSegments();    
@@ -3372,7 +3394,7 @@ var main = (function(){
     street.name = DEFAULT_NAME;
     street.width = _normalizeStreetWidth(DEFAULT_STREET_WIDTH);
     if (signedIn) {
-      street.creatorId = signInData.userId;
+      _setStreetCreatorId(signInData.userId);
     }
 
     street.segments = [];
@@ -3695,7 +3717,7 @@ var main = (function(){
   function _receiveNewStreetFeedback(data) {
     //console.log('received new street', data);
 
-    _updateStreetId(data.id);
+    _setStreetId(data.id);
 
     _prepareEmptyStreet();
     _saveChangesToServer(true);
