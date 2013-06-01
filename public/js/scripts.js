@@ -1726,7 +1726,8 @@ var main = (function(){
       street.creatorId = null;
     }
 
-    if (street.name.substr(street.name.length - STREET_NAME_REMIX_SUFFIX.length, STREET_NAME_REMIX_SUFFIX.length) != STREET_NAME_REMIX_SUFFIX) {
+    if (street.name.substr(street.name.length - STREET_NAME_REMIX_SUFFIX.length, 
+        STREET_NAME_REMIX_SUFFIX.length) != STREET_NAME_REMIX_SUFFIX) {
       street.name += ' ' + STREET_NAME_REMIX_SUFFIX;
     }
 
@@ -2933,7 +2934,8 @@ var main = (function(){
 
     if (street.creatorId && (street.creatorId != signInData.userId)) {
       // TODO const
-      var html = "by <a target='_new' href='https://twitter.com/" + 
+      var html = "by <div class='avatar'></div>" +
+          "<a target='_new' href='https://twitter.com/" + 
           street.creatorId + "'>" + street.creatorId + "</a>";
 
       document.querySelector('#street-attribution').innerHTML = html;
@@ -3468,8 +3470,8 @@ var main = (function(){
 
   function _createSignInUI() {
     if (signedIn) {
-      var el = document.createElement('img');
-      el.src = signInData.details.profileImageUrl;
+      var el = document.createElement('div');
+      el.style.backgroundImage = 'url(' + signInData.details.profileImageUrl + ')';
       el.classList.add('avatar');
       document.querySelector('#identity').appendChild(el);
 
@@ -3659,6 +3661,22 @@ var main = (function(){
     .fail(_failReceiveStreet);
   }
 
+  function _fetchStreetCreatorAvatar() {
+    console.log('fetch street creator avatar');
+
+    // TODO const
+    jQuery.ajax({
+      url: system.apiUrl + 'v1/users/' + street.creatorId
+    }).done(_receiveStreetCreatorAvatar);
+  }
+
+  function _receiveStreetCreatorAvatar(details) {
+    if (details.profileImageUrl) {
+      document.querySelector('#street-attribution .avatar').style.backgroundImage = 
+          'url(' + details.profileImageUrl + ')';
+    }
+  }
+
   function _receiveStreet(transmission) {
     console.log('received street', transmission);
 
@@ -3666,6 +3684,11 @@ var main = (function(){
 
     if (!signedIn || (street.creatorId != signInData.userId)) {
       remixOnFirstEdit = true;
+
+      if (street.creatorId) {
+        _fetchStreetCreatorAvatar();
+      }
+
     } else {
       remixOnFirstEdit = false;
     }
