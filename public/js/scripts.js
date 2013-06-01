@@ -32,9 +32,11 @@ var main = (function(){
 
   // TODO replace the URLs from index.html dynamically
   var URL_SIGN_IN = '/twitter-sign-in';
-
   var URL_NEW_STREET = 'new';
   var URL_NO_USER = '-';
+
+  var RESERVED_URLS = [URL_SIGN_IN, URL_NEW_STREET];
+  var URL_RESERVED_PREFIX = '~';
 
   var MODE_CONTINUE = 0;
   var MODE_NEW_STREET = 1;
@@ -2831,6 +2833,10 @@ var main = (function(){
     var url = '/';
 
     if (street.creatorId) {
+      if (RESERVED_URLS.indexOf(street.creatorId) != -1) {
+        url += URL_RESERVED_PREFIX;
+      }
+
       url += street.creatorId;
     } else {
       url += URL_NO_USER;
@@ -3410,7 +3416,7 @@ var main = (function(){
       document.querySelector('#sign-in-link').appendChild(el);*/
     } else {
       var el = document.createElement('a');
-      el.href = URL_SIGN_IN;
+      el.href = '/' + URL_SIGN_IN;
       el.classList.add('command');
       el.innerHTML = 'Sign in';
       document.querySelector('#sign-in-link').appendChild(el);
@@ -3530,6 +3536,11 @@ var main = (function(){
       // Existing street by a signed in person
 
       street.creatorId = urlParts[0];
+
+      if (street.creatorId.charAt(0) == URL_RESERVED_PREFIX) {
+        street.creatorId = street.creatorId.substr(1);
+      }
+
       street.id = urlParts[1];
 
       mode = MODE_EXISTING_STREET;
@@ -3615,7 +3626,7 @@ var main = (function(){
   }
 
   function _goSignIn() {
-    location.href = URL_SIGN_IN;
+    location.href = '/' + URL_SIGN_IN;
   }
 
   function _showError(errorType) {
