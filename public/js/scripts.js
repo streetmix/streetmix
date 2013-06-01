@@ -54,6 +54,9 @@ var main = (function(){
   var ERROR_TYPE_404 = 1;
   var ERROR_TYPE_SIGN_OUT = 2;
 
+  var NEW_STREET_DEFAULT = 1;
+  var NEW_STREET_EMPTY = 2;
+
   var TILESET_IMAGE_VERSION = 13;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
@@ -557,7 +560,10 @@ var main = (function(){
   var settings = {
     lastStreetId: null,
     lastStreetUserId: null,
-    units: null
+    newStreetPreference: null,
+
+    // remove from here since this is not saved
+    units: null,
   };
 
   var leftHandTraffic = false;
@@ -3011,6 +3017,9 @@ var main = (function(){
   }
 
   function _onNewStreetDefaultClick() {
+    settings.newStreetPreference = NEW_STREET_DEFAULT;
+    _saveSettings();
+
     ignoreStreetChanges = true;
     _prepareDefaultStreet();
 
@@ -3026,6 +3035,9 @@ var main = (function(){
   }
 
   function _onNewStreetEmptyClick() {
+    settings.newStreetPreference = NEW_STREET_EMPTY;
+    _saveSettings();
+
     ignoreStreetChanges = true;
     _prepareEmptyStreet();
 
@@ -3044,6 +3056,15 @@ var main = (function(){
   }
 
   function _showNewStreetChoices() {
+    switch (settings.newStreetPreference) {
+      case NEW_STREET_EMPTY:
+        document.querySelector('#new-street-empty').checked = true;
+        break;
+      case NEW_STREET_DEFAULT:
+        document.querySelector('#new-street-default').checked = true;
+        break;
+    }
+
     document.querySelector('#new-street-choices').classList.add('visible');
   }
 
@@ -3217,12 +3238,13 @@ var main = (function(){
     if (typeof settings.units === 'undefined') {
       settings.units = SETTINGS_UNITS_IMPERIAL;
     }
+    if (typeof settings.newStreetPreference === 'undefined') {
+      settings.newStreetPreference = NEW_STREET_DEFAULT;
+    }
     if (typeof settings.lastStreetId === 'undefined') {
-      console.log('FILL');
       settings.lastStreetId = null;
     }
     if (typeof settings.lastStreetCreatorId === 'undefined') {
-      console.log('FILL');
       settings.lastStreetCreatorId = null;
     }
   }
@@ -3248,6 +3270,8 @@ var main = (function(){
 
     data.lastStreetCreatorId = settings.lastStreetCreatorId;
     data.lastStreetId = settings.lastStreetId;
+
+    data.newStreetPreference = settings.newStreetPreference;
 
     return data;
   }
@@ -3747,7 +3771,11 @@ var main = (function(){
 
     _setStreetId(data.id);
 
-    _prepareDefaultStreet();
+    if (settings.newStreetPreference == NEW_STREET_EMPTY) {
+      _prepareEmptyStreet();
+    } else {
+      _prepareDefaultStreet();
+    }
     _saveChangesToServer(true);
   }
 
