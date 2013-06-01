@@ -651,6 +651,14 @@ var main = (function(){
     return pos;
   }
 
+  function _clone(obj) {
+    if (jQuery.isArray(obj)) {
+      return jQuery.extend(true, [], obj);
+    } else {  
+      return jQuery.extend(true, {}, obj);
+    }
+  }
+
   // -------------------------------------------------------------------------
 
   function _drawSegmentImage(ctx, sx, sy, sw, sh, dx, dy, dw, dh) {
@@ -1577,7 +1585,7 @@ var main = (function(){
       } else {
         undoPosition++;
       }
-      street = undoStack[undoPosition];
+      street = _clone(undoStack[undoPosition]);
 
       ignoreStreetChanges = true;
       _propagateUnits();
@@ -1591,6 +1599,8 @@ var main = (function(){
       _updateUndoButtons();
       lastStreet = _trimStreetData();
       _statusMessage.hide();
+
+      _scheduleSavingChangesToServer();
     }
   }
 
@@ -1612,25 +1622,40 @@ var main = (function(){
     // This removes future undo path in case we undo a few times and then do
     // something undoable.
     undoStack = undoStack.splice(0, undoPosition);
-    undoStack[undoPosition] = lastStreet;
+    undoStack[undoPosition] = _clone(lastStreet);
     undoPosition++;
   }
 
-  function _prepareServerStreetData() {
+  function _packServerStreetData() {
     var data = {};
 
     data.street = _trimStreetData();
-    data.undoStack = undoStack;
+    data.undoStack = _clone(undoStack);
     data.undoPosition = undoPosition;
+
+    // This will be data.street by definition, so we don’t need to send that.
+    // data.undoStack[undoPosition] = null;
+
+    //console.log(data.undoStack);
+
+    //undoPosition[]
+
+    //undoStack[undoPosition];
 
     return data;
   }
 
   function _unpackServerStreetData(transmission) {
-    street = transmission.data.street;
+    console.log('unpack server street data');
 
-    undoStack = transmission.data.undoStack;
+    //console.log(transmission);
+
+    street = _clone(transmission.data.street);
+
+    undoStack = _clone(transmission.data.undoStack);
     undoPosition = transmission.data.undoPosition;
+
+    //undoStack[undoPosition] = street;
 
     //console.log(street);
   }
@@ -1640,12 +1665,12 @@ var main = (function(){
 
     var transmission = {
       name: street.name,
-      data: _prepareServerStreetData()
+      data: _packServerStreetData()
     }
 
-    transmission = JSON.stringify(transmission);
-
     //console.log(transmission);
+
+    transmission = JSON.stringify(transmission);
 
     jQuery.ajax({
       // TODO const
@@ -2680,9 +2705,8 @@ var main = (function(){
   }
 
   function _showDebugInfo() {
-    // deep object copy
-    var debugStreetData = jQuery.extend(true, {}, street);
-    var debugUndo = jQuery.extend(true, {}, undoStack);
+    var debugStreetData = _clone(street);
+    var debugUndo = _clone(undoStack);
 
     for (var i in debugStreetData.segments) {
       delete debugStreetData.segments[i].el;
@@ -3085,7 +3109,7 @@ var main = (function(){
         street.width = _normalizeStreetWidth(street.width);
       }
     } else {
-      street = undoStack[undoPosition - 1];
+      street = _clone(undoStack[undoPosition - 1]);
     }
     _createDomFromData();
     _segmentsChanged();
@@ -3221,6 +3245,8 @@ var main = (function(){
     _addEventListeners();
 
     window.setTimeout(_hideLoadingScreen, 0);
+
+    console.log(undoPosition, undoStack);
   }
 
   function _checkIfEverythingIsLoaded() {
