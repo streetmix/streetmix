@@ -1732,7 +1732,7 @@ var main = (function(){
       return;
     }
 
-    var transmission = _trimSettings();
+    var transmission = JSON.stringify({ data: _trimSettings() });
 
     if (initial) {
       //var doneFunc = _confirmSaveSettingsToServerInitial;
@@ -2715,7 +2715,7 @@ var main = (function(){
     _resizeStreetName();
   }
 
-  function _getDefaultSegments() {
+  function _fillDefaultSegments() {
     street.segments = [];
 
     for (var i in DEFAULT_SEGMENTS[leftHandTraffic]) {
@@ -3336,7 +3336,7 @@ var main = (function(){
 
   function _saveSettings() {
     if (initializing) {
-      console.log('NO');
+      //console.log('NO');
       return;
     }
 
@@ -3491,7 +3491,7 @@ var main = (function(){
       _setStreetCreatorId(signInData.userId);
     }
 
-    _getDefaultSegments();    
+    _fillDefaultSegments();    
   }
 
   function _prepareEmptyStreet() {
@@ -3594,26 +3594,32 @@ var main = (function(){
     }
 
     if (signInData && signInData.token) {
+      _fetchSignInDetails();
+/*
       if (signInData.details) {
         signedIn = true;
         _signInLoaded();
       } else {
-        _getSignInDetails();
-      }
+        _fetchSignInDetails();
+      }*/
     } else {
       signedIn = false;
       _signInLoaded();
     }
   }
 
-  function _getSignInDetails() {
+  function _fetchSignInDetails() {
     // TODO const
     jQuery.ajax({
       url: system.apiUrl + 'v1/users/' + signInData.userId
     }).done(_receiveSignInDetails).fail(_noSignInDetails);
+
+    console.log(system.apiUrl + 'v1/users/' + signInData.userId);
   }
 
   function _receiveSignInDetails(details) {
+    console.log('receive sign in details', details);
+
     signInData.details = details;
     _saveSignInData();
 
@@ -3710,7 +3716,7 @@ var main = (function(){
         break;
       case MODE_EXISTING_STREET:
       case MODE_CONTINUE:
-        _getStreetFromServer();
+        _fetchStreetFromServer();
         break;
     }
 
@@ -3851,7 +3857,7 @@ var main = (function(){
     // TODO handle this
   }
 
-  function _getStreetFromServer() {
+  function _fetchStreetFromServer() {
     console.log('try to get street from server');
     jQuery.ajax({
       // TODO const
