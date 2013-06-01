@@ -30,6 +30,8 @@ var main = (function(){
 
   var FACEBOOK_APP_ID = '162729607241489';
 
+  var STREET_NAME_REMIX_SUFFIX = '(remixed)';
+
   // TODO replace the URLs from index.html dynamically
   var URL_SIGN_IN = 'twitter-sign-in';
   var URL_NEW_STREET = 'new';
@@ -1713,11 +1715,9 @@ var main = (function(){
 
   function _remixStreet() {
     if (signedIn) {
-      _statusMessage.show('You are now editing a copy of the original street. The copy has been put in your gallery.');
+      _statusMessage.show('You are now editing a just-made copy of the original street. The copy has been put in your gallery.');
     } else {
-      if (street.creatorId) {
-        _statusMessage.show('You are now editing a copy of the original street.');
-      }
+      _statusMessage.show('You are now editing a just-made copy of the original street.');
     }
 
     if (signedIn) {
@@ -1726,8 +1726,9 @@ var main = (function(){
       street.creatorId = null;
     }
 
-    // TODO const
-    street.name += ' (remixed)';
+    if (street.name.substr(street.name.length - STREET_NAME_REMIX_SUFFIX.length, STREET_NAME_REMIX_SUFFIX.length) != STREET_NAME_REMIX_SUFFIX) {
+      street.name += ' ' + STREET_NAME_REMIX_SUFFIX;
+    }
 
     _updateStreetName();
 
@@ -1758,6 +1759,8 @@ var main = (function(){
     _updateStreetId(data.id);
 
     _updateStreetName();
+
+    _saveChangesToServer(false);
   }
 
   function _failRemixedStreetFeedback() {
