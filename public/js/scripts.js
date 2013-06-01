@@ -45,11 +45,11 @@ var main = (function(){
       'help', 'gallery', 'streets'];
   var URL_RESERVED_PREFIX = '~';
 
-  var MODE_CONTINUE = 0;
-  var MODE_NEW_STREET = 1;
-  var MODE_EXISTING_STREET = 2;
-  var MODE_404 = 3;
-  var MODE_SIGN_OUT = 4;
+  var MODE_CONTINUE = 1;
+  var MODE_NEW_STREET = 2;
+  var MODE_EXISTING_STREET = 3;
+  var MODE_404 = 4;
+  var MODE_SIGN_OUT = 5;
 
   var ERROR_TYPE_404 = 1;
   var ERROR_TYPE_SIGN_OUT = 2;
@@ -107,6 +107,7 @@ var main = (function(){
   var SHORT_DELAY = 100;
 
   var SAVE_STREET_DELAY = 500;
+  var SAVE_SETTINGS_DELAY = 500;
 
   var MAX_DRAG_DEGREE = 20;
 
@@ -560,11 +561,10 @@ var main = (function(){
   var settings = {
     lastStreetId: null,
     lastStreetUserId: null,
-    newStreetPreference: null,
-
-    // remove from here since this is not saved
-    units: null,
+    newStreetPreference: null
   };
+
+  var units = SETTINGS_UNITS_IMPERIAL;
 
   var leftHandTraffic = false;
 
@@ -626,6 +626,8 @@ var main = (function(){
   var saveStreetTimerId = -1;
   var saveStreetIncomplete = false;
   var remixOnFirstEdit = false;
+  var saveSettingsTimerId = -1;
+  var saveSettingsIncomplete = false;
 
   var signedIn = false;
   var signInLoaded = false;
@@ -1688,8 +1690,9 @@ var main = (function(){
     return JSON.stringify(transmission);
   }
 
+
   function _saveStreetToServer(initial) {
-    console.log('save…');
+    console.log('save street to server…');
 
     var transmission = _getServerTransmission();
 
@@ -1723,8 +1726,53 @@ var main = (function(){
     _checkIfEverythingIsLoaded();
   }
 
+
+  function _saveSettingsToServer(initial) {
+    if (!signedIn) {
+      return;
+    }
+
+    var transmission = _trimSettings();
+
+    if (initial) {
+      //var doneFunc = _confirmSaveSettingsToServerInitial;
+    } else {
+      var doneFunc = _confirmSaveSettingsToServer;
+    }
+    
+    console.log('save settings to server…', transmission);
+
+    jQuery.ajax({
+      // TODO const
+      url: system.apiUrl + 'v1/users/' + signInData.userId,
+      data: transmission,
+      type: 'PUT',
+      contentType: 'application/json',
+      headers: { 'Authorization': _getAuthHeader() }
+    }).done(doneFunc);
+    //.fail(_receiveSignOutConfirmationFromServer);
+
+    // TODO better fail at saving
+  }
+
+  function _confirmSaveSettingsToServer() {
+    saveSettingsIncomplete = false;
+  }
+
+  /*function _confirmSaveSettingsToServerInitial() {
+    saveSettingsIncomplete = false;
+
+    serverContacted = true;
+    _checkIfEverythingIsLoaded();
+  }*/
+
+
   function _clearScheduledSavingStreetToServer() {
     window.clearTimeout(saveStreetTimerId);
+  }
+
+  function _clearScheduledSavingSettingsToServer() {
+    window.clearTimeout(saveSettingsTimerId);
   }
 
   function _remixStreet() {
@@ -1814,6 +1862,16 @@ var main = (function(){
     }
   }
 
+  function _scheduleSavingSettingsToServer() {
+    console.log('schedule [settings] save…');
+
+    saveSettingsIncomplete = true;
+
+    _clearScheduledSavingSettingsToServer();
+
+    saveSettingsTimerId = 
+        window.setTimeout(function() { _saveSettingsToServer(false); }, SAVE_SETTINGS_DELAY);
+  }
 
   function _saveStreetToServerIfNecessary() {
     if (ignoreStreetChanges) {
@@ -1834,8 +1892,9 @@ var main = (function(){
   }
 
   function _checkIfChangesSaved() {
-    if (saveStreetIncomplete) {
+    if (saveStreetIncomplete || saveSettingsIncomplete) {
       _saveStreetToServer(false);
+      _saveSettingsToServer(false);
 
       return 'Your changes have not been saved yet. Please wait and close the page in a little while to allow the changes to be saved.';
     } else {
@@ -3236,10 +3295,7 @@ var main = (function(){
   }
 
   function _fillOutDefaultSettings() {
-    if (typeof settings.units === 'undefined') {
-      settings.units = SETTINGS_UNITS_IMPERIAL;
-    }
-    if (typeof settings.newStreetPreference === 'undefined') {
+    if (!settings.newStreetPreference) {
       settings.newStreetPreference = NEW_STREET_DEFAULT;
     }
     if (typeof settings.lastStreetId === 'undefined') {
@@ -3251,19 +3307,20 @@ var main = (function(){
   }
 
   function _loadSettings() {
-    console.log('load settings');
-    var savedSettings = window.localStorage[LOCAL_STORAGE_SETTINGS_ID];
+    var localSettings = window.localStorage[LOCAL_STORAGE_SETTINGS_ID];
 
-    console.log(savedSettings);
+    console.log('loaded local settings', localSettings);
 
-    if (savedSettings) {
-      settings = JSON.parse(savedSettings);
+    if (localSettings) {
+      settings = JSON.parse(localSettings);
     } else {
       settings = {};
     }
 
     _fillOutDefaultSettings();
     _saveSettings();
+
+    console.log('proper settings', settings);
   }
 
   function _trimSettings() {
@@ -3278,9 +3335,16 @@ var main = (function(){
   }
 
   function _saveSettings() {
+    if (initializing) {
+      console.log('NO');
+      return;
+    }
+
     console.log('save settings', JSON.stringify(_trimSettings()));
     window.localStorage[LOCAL_STORAGE_SETTINGS_ID] = 
         JSON.stringify(_trimSettings());
+
+    _scheduleSavingSettingsToServer();  
   }
 
   function _normalizeAllSegmentWidths() {
@@ -3295,8 +3359,8 @@ var main = (function(){
       return;
     }
 
+    units = newUnits;
     street.units = newUnits;
-    settings.units = newUnits;
 
     // If the user converts and then straight converts back, we just reach
     // to undo stack instead of double conversion (which could be lossy).
@@ -3419,7 +3483,7 @@ var main = (function(){
   }
 
   function _prepareDefaultStreet() {
-    street.units = settings.units;
+    street.units = units;
     _propagateUnits();
     street.name = DEFAULT_NAME;
     street.width = _normalizeStreetWidth(DEFAULT_STREET_WIDTH);
@@ -3431,7 +3495,7 @@ var main = (function(){
   }
 
   function _prepareEmptyStreet() {
-    street.units = settings.units;
+    street.units = units;
     _propagateUnits();
 
     street.name = DEFAULT_NAME;
@@ -3627,6 +3691,8 @@ var main = (function(){
   }
 
   function _signInLoaded() {
+    _loadSettings();
+
     _createSignInUI();
 
     if (mode == MODE_CONTINUE) {
@@ -3675,9 +3741,9 @@ var main = (function(){
 
     if (info && info.country_code) {
       if (COUNTRIES_IMPERIAL_UNITS.indexOf(info.country_code) != -1) {
-        settings.units = SETTINGS_UNITS_IMPERIAL;
+        units = SETTINGS_UNITS_IMPERIAL;
       } else {
-        settings.units = SETTINGS_UNITS_METRIC;
+        units = SETTINGS_UNITS_METRIC;
       }
 
       if (COUNTRIES_LEFT_HAND_TRAFFIC.indexOf(info.country_code) != -1) {
@@ -3928,7 +3994,6 @@ var main = (function(){
     window.addEventListener('load', _onBodyLoad);
 
     _detectSystemCapabilities();
-    _loadSettings();
 
     _processUrl();
     _processMode();
@@ -3936,6 +4001,7 @@ var main = (function(){
     if (abortEverything) {
       return;
     }
+
 
     // Asynchronously loading…
 
