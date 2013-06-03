@@ -63,11 +63,14 @@ option {
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  overflow: hidden;  
 }
 
 body.gallery-visible #main-screen {
-  top: @galleryHeight;
+  -webkit-transform: translateY(@galleryHeight);
+  -moz-transform: translateY(@galleryHeight);
+  -o-transform: translateY(@galleryHeight);
+  transform: translateY(@galleryHeight);
 }
 
 #gallery {
@@ -78,11 +81,16 @@ body.gallery-visible #main-screen {
   height: @galleryHeight;
 
   overflow: hidden;
-  display: none;
-
   overflow-x: scroll;
 
   background: white;
+
+  pointer-events: none;
+
+  -webkit-transform: translateY(-@galleryHeight);
+  -moz-transform: translateY(-@galleryHeight);
+  -o-transform: translateY(-@galleryHeight);
+  transform: translateY(-@galleryHeight);  
 
   .streets {
     list-style: none;
@@ -124,6 +132,14 @@ body.gallery-visible #main-screen {
   }
 }
 
+#main-screen, 
+#gallery {
+  -webkit-transition: -webkit-transform 250ms;
+  -moz-transition: -moz-transform 250ms;
+  -o-transition: -o-transform 250ms;
+  transition: transform 250ms;  
+}
+
 #gallery-shield {
   z-index: 999999999999;
 
@@ -138,7 +154,14 @@ body.gallery-visible #main-screen {
   cursor: pointer;
 }
 
-body.gallery-visible #gallery,
+body.gallery-visible #gallery {
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -o-transform: translateY(0);
+  transform: translateY(0);  
+
+  pointer-events: auto;
+}
 body.gallery-visible #gallery-shield {
   display: block;
 }
