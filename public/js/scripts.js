@@ -3638,7 +3638,8 @@ var main = (function(){
   function _fetchSignInDetails() {
     // TODO const
     jQuery.ajax({
-      url: system.apiUrl + 'v1/users/' + signInData.userId
+      url: system.apiUrl + 'v1/users/' + signInData.userId,
+      headers: { 'Authorization': _getAuthHeader() }
     }).done(_receiveSignInDetails).fail(_noSignInDetails);
 
     console.log(system.apiUrl + 'v1/users/' + signInData.userId);
