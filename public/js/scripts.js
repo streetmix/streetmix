@@ -541,6 +541,7 @@ var main = (function(){
   var street = {
     id: null,
     creatorId: null,
+    remixId: null, // id of the street the current street is remixed from (could be null)
     name: null,
 
     width: null,
@@ -1782,19 +1783,6 @@ var main = (function(){
       _statusMessage.show('Now editing a freshly-made copy of the original street. <a href="/' + URL_SIGN_IN + '">Sign in</a> to start your own gallery of streets.');
     }
 
-    if (signedIn) {
-      street.creatorId = signInData.userId;
-    } else {
-      street.creatorId = null;
-    }
-
-    if (street.name.substr(street.name.length - STREET_NAME_REMIX_SUFFIX.length, 
-        STREET_NAME_REMIX_SUFFIX.length) != STREET_NAME_REMIX_SUFFIX) {
-      street.name += ' ' + STREET_NAME_REMIX_SUFFIX;
-    }
-
-    _updateStreetName();
-
     var transmission = _getServerTransmission();
 
     jQuery.ajax({
@@ -1811,7 +1799,7 @@ var main = (function(){
   }
 
   function _updateLastStreetInfo() {
-    console.log('update');
+    //console.log('update');
 
     settings.lastStreetId = street.id;
     settings.lastStreetCreatorId = street.creatorId;
@@ -1836,6 +1824,21 @@ var main = (function(){
   }
 
   function _receiveRemixedStreetFeedback(data) {
+    if (signedIn) {
+      street.creatorId = signInData.userId;
+    } else {
+      street.creatorId = null;
+    }
+
+    street.remixId = street.id;
+
+    if (street.name.substr(street.name.length - STREET_NAME_REMIX_SUFFIX.length, 
+        STREET_NAME_REMIX_SUFFIX.length) != STREET_NAME_REMIX_SUFFIX) {
+      street.name += ' ' + STREET_NAME_REMIX_SUFFIX;
+    }
+
+    _updateStreetName();
+
     _setStreetId(data.id);
 
     _updateStreetName();
@@ -1861,13 +1864,13 @@ var main = (function(){
           window.setTimeout(function() { _saveStreetToServer(false); }, SAVE_STREET_DELAY);
     }
   }
-  
+
   function _scheduleSavingSettingsToServer() {
     if (!signedIn) {
       return;
     }
 
-    console.log('schedule [settings] save!');
+    //console.log('schedule [settings] save!');
 
     saveSettingsIncomplete = true;
 
@@ -1933,6 +1936,7 @@ var main = (function(){
 
     newData.id = street.id;
     newData.creatorId = street.creatorId;
+    newData.remixId = street.remixId;
     newData.units = street.units;
 
     newData.segments = [];
@@ -3015,7 +3019,7 @@ var main = (function(){
     // TODO const/interpolate
     var title = street.name;
 
-    if (street.creatorId) {
+    if (street.creatorId && (!signedIn || (signInData.userId != street.creatorId))) {
       title += ' (by ' + street.creatorId + ')';
     }
 
@@ -3064,7 +3068,7 @@ var main = (function(){
   }
 
   function _onWindowFocus() {
-    console.log('WINDOW FOCUS');
+    //console.log('WINDOW FOCUS');
 
     // Save settings on window focus, so the last edited street is the one you’re
     // currently looking at (in case you’re looking at many streets in various
@@ -3073,7 +3077,7 @@ var main = (function(){
   }
 
   function _onWindowBlur() {
-    console.log('WINDOW BLUR');
+    //console.log('WINDOW BLUR');
     _hideMenus();
   }
 
@@ -3374,7 +3378,7 @@ var main = (function(){
       //return;
     }
 
-    console.log('save settings', JSON.stringify(_trimSettings()));
+    //console.log('save settings', JSON.stringify(_trimSettings()));
     window.localStorage[LOCAL_STORAGE_SETTINGS_ID] = 
         JSON.stringify(_trimSettings());
 
