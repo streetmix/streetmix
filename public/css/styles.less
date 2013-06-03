@@ -106,27 +106,34 @@ body.gallery-visible #main-screen {
 
     & > li {
       display: inline-block;
+    
+      & > a {
+        display: inline-block;
 
-      vertical-align: top;
+        color: black;
+        text-decoration: none;
 
-      width: 150px;
-      margin: 10px;
-      background: rgb(240, 240, 240);
-      padding: 5px 10px;
-      text-align: center;
-      white-space: normal;
-      height: @galleryHeight - 30px;
+        vertical-align: top;
 
-      cursor: pointer;
+        width: 150px;
+        margin: 10px;
+        background: rgb(240, 240, 240);
+        padding: 5px 10px;
+        text-align: center;
+        white-space: normal;
+        height: @galleryHeight - 30px;
 
-      font-size: 13px;
+        cursor: pointer;
 
-      &:hover {
-        background: rgb(230, 230, 230);
-      }
+        font-size: 13px;
 
-      &.selected {
-        background: rgb(210, 210, 210);
+        &:hover {
+          background: rgb(230, 230, 230);
+        }
+
+        &.selected {
+          background: rgb(210, 210, 210);
+        }
       }
     }
   }

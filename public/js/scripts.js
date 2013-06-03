@@ -3022,7 +3022,7 @@ var main = (function(){
     }
   }
 
-  function _updatePageUrl() {
+  function _getStreetUrl(street) {
     var url = '/';
 
     if (street.creatorId) {
@@ -3044,6 +3044,12 @@ var main = (function(){
       slug = slug.toLowerCase().replace(/ /g, '-');
       url += '/' + encodeURIComponent(slug);
     }
+
+    return url;
+  }
+
+  function _updatePageUrl() {
+    var url = _getStreetUrl(street);
 
     window.history.replaceState(null, null, url);
   }
@@ -3269,6 +3275,10 @@ var main = (function(){
   }
 
   function _onGalleryStreetClick(event) {
+    if (event.shiftKey || event.ctrlKey || event.metaKey) {
+      return;
+    }
+
     var els = document.querySelectorAll('#gallery .streets .selected');
     for (var i = 0, el; el = els[i]; i++) {
       el.classList.remove('selected');
@@ -3280,6 +3290,8 @@ var main = (function(){
     el.classList.add('selected');
 
     _fetchGalleryStreet(id);
+
+    event.preventDefault();
   }
 
   function _receiveGalleryData(transmission) {
@@ -3289,15 +3301,24 @@ var main = (function(){
       var galleryStreet = transmission.streets[i];
 
       var el = document.createElement('li');
-      el.innerHTML = galleryStreet.name;
 
-      el.streetId = galleryStreet.id;
+      var anchorEl = document.createElement('a');
+
+      galleryStreet.creatorId = signInData.userId;
+
+      console.log(galleryStreet);
+
+      anchorEl.href = _getStreetUrl(galleryStreet);
+      anchorEl.innerHTML = galleryStreet.name;
+      anchorEl.streetId = galleryStreet.id;
 
       if (street.id == galleryStreet.id) {
-        el.classList.add('selected');
+        anchorEl.classList.add('selected');
       }
 
-      el.addEventListener('click', _onGalleryStreetClick);
+      anchorEl.addEventListener('click', _onGalleryStreetClick);
+
+      el.appendChild(anchorEl);
 
       document.querySelector('#gallery .streets').appendChild(el);
     }
