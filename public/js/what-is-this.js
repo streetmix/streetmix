@@ -212,16 +212,16 @@ var whatIsThis = (function(){
     infoEl.id = 'what-is-this-info';
     // TODO: Remove from here into CSS
     infoEl.style.opacity = .5;
-    document.body.appendChild(infoEl);
+    document.querySelector('#main-screen').appendChild(infoEl);
 
     teaserEl = document.createElement('div');  
     teaserEl.id = 'what-is-this-teaser';
     teaserEl.innerHTML = 'Streetmix';
-    document.body.appendChild(teaserEl);
+    document.querySelector('#main-screen').appendChild(teaserEl);
 
     shieldEl = document.createElement('div');  
     shieldEl.id = 'what-is-this-shield';
-    document.body.appendChild(shieldEl);
+    document.querySelector('#main-screen').appendChild(shieldEl);
     shieldEl.addEventListener('click', whatIsThis.hideInfo, false);
     
     teaserEl.addEventListener('click', _showInfo, false);

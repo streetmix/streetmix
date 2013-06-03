@@ -56,94 +56,102 @@
     </div>
   </div>
 
-  <nav id='menu'>
-    <ul>
-      <li id='identity'>
-      <li>
-        <span id='sign-in-link'></span>
-      <li>
-        <a target='_blank' href='/new'>New street</a>
-      <li>
-        <button id='share-menu-button'>Share</button>
-    </ul>
-  </nav>
-
-  <div id='identity-menu' class='menu'>
-    <a href='#'>Your street gallery</a>
-    <a id='sign-out-link' href='#'>Sign out</a>
-  </div>
-
-  <div id='share-menu' class='menu'>
-    <div id='sign-in-promo'>
-      <a href='/twitter-sign-in?redirectUri=/just-signed-in'>Sign in with Twitter</a> for nicer
-      links to your streets and your personal street gallery 
-    </div>
-    <div id='share-via-link-canvas'>
-      Copy and paste this link to share:
-      <input id='share-via-link' type='text' value='http://streetmix.net/TEST'>
-    </div>
-    <a id='share-via-twitter' href='#' target='_blank'>Share using Twitter</a>
-    <a id='share-via-facebook' href='#'>Share using Facebook</a>
-  </div>
-
-  <header>
-    <div class='inside'>
-
-      <canvas id='width-chart'></canvas>
-
-      <div id='street-width-canvas'>
-        <!-- <select id='street-width'></select> -->
-      </div>
-    </div>
-  </header>
-
-  <div id='status-message'><div></div></div>
-
-  <div id='info-bubble'></div>
-
-  <div id='street-name-canvas'>
-    <div id='street-name'><div></div></div>
-    <div id='street-attribution'></div>
-  </div>
-
-  <div id='new-street-menu'>
-    <ul>
-      <li>
-        <input type='radio' name='new-street' id='new-street-default'><label for='new-street-default'>Start with an example street</label>
-      <li>
-        <input type='radio' name='new-street' id='new-street-empty'><label for='new-street-empty'>Start with an empty street</label>
-      <li>
-        <input type='radio' name='new-street' id='new-street-last'><label for='new-street-last'>Start with a copy of last street</label>
+  <div id='gallery'>
+    <ul class='streets'>
     </ul>
   </div>
 
-  <section id='street-section'>
-    <section id='street-section-canvas'>
-      <section id='street-section-left-building'></section>
-      <section id='street-section-right-building'></section>
-      <div id='editable-street-section'></div>
-    </section>
-    <section id='street-section-sky'>
-      <div class='rear-clouds'></div>
-      <div class='front-clouds'></div>
-    </section>
-    <section id='street-section-dirt'></section>
-  </section>
+  <div id='main-screen'>
+    <nav id='menu'>
+      <ul>
+        <li id='identity'>
+        <li>
+          <span id='sign-in-link'></span>
+        <li id='gallery-link'>
+          <button id='gallery-button'>Your streets</button>
+        <li>
+          <a target='_blank' href='/new'>New street</a>
+        <li>
+          <button id='share-menu-button'>Share</button>
+      </ul>
+    </nav>
 
-  <footer>
-    <div id='commands'>
-      <button id='undo'>Undo</button>
-      <button id='redo'>Redo</button>
+    <div id='identity-menu' class='menu'>
+      <a id='sign-out-link' href='#'>Sign out</a>
+    </div>
 
-      <div class='street-width'>
-        Street width: <select id='street-width'></select>
+    <div id='share-menu' class='menu'>
+      <div id='sign-in-promo'>
+        <a href='/twitter-sign-in?redirectUri=/just-signed-in'>Sign in with Twitter</a> for nicer
+        links to your streets and your personal street gallery 
       </div>
+      <div id='share-via-link-canvas'>
+        Copy and paste this link to share:
+        <input id='share-via-link' type='text' value='http://streetmix.net/TEST'>
+      </div>
+      <a id='share-via-twitter' href='#' target='_blank'>Share using Twitter</a>
+      <a id='share-via-facebook' href='#'>Share using Facebook</a>
     </div>
 
-    <div id='palette'>
-      <div id='trashcan'>Drag here to remove</div>
+    <header>
+      <div class='inside'>
+
+        <canvas id='width-chart'></canvas>
+
+        <div id='street-width-canvas'>
+          <!-- <select id='street-width'></select> -->
+        </div>
+      </div>
+    </header>
+
+    <div id='status-message'><div></div></div>
+
+    <div id='info-bubble'></div>
+
+    <div id='street-name-canvas'>
+      <div id='street-name'><div></div></div>
+      <div id='street-attribution'></div>
     </div>
-  </footer>
+
+    <div id='new-street-menu'>
+      <ul>
+        <li>
+          <input type='radio' name='new-street' id='new-street-default'><label for='new-street-default'>Start with an example street</label>
+        <li>
+          <input type='radio' name='new-street' id='new-street-empty'><label for='new-street-empty'>Start with an empty street</label>
+        <li>
+          <input type='radio' name='new-street' id='new-street-last'><label for='new-street-last'>Start with a copy of last street</label>
+      </ul>
+    </div>
+
+    <section id='street-section'>
+      <section id='street-section-canvas'>
+        <section id='street-section-left-building'></section>
+        <section id='street-section-right-building'></section>
+        <div id='editable-street-section'></div>
+      </section>
+      <section id='street-section-sky'>
+        <div class='rear-clouds'></div>
+        <div class='front-clouds'></div>
+      </section>
+      <section id='street-section-dirt'></section>
+    </section>
+
+    <footer>
+      <div id='commands'>
+        <button id='undo'>Undo</button>
+        <button id='redo'>Redo</button>
+
+        <div class='street-width'>
+          Street width: <select id='street-width'></select>
+        </div>
+      </div>
+
+      <div id='palette'>
+        <div id='trashcan'>Drag here to remove</div>
+      </div>
+    </footer>
+  </div>
 
   <div id='what-is-this-content' style='display: none'>
     <p>

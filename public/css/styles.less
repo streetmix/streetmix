@@ -10,6 +10,7 @@
 @streetSectionHorizontalPadding: 100px;
 
 @paletteHeight: 100px;
+@galleryHeight: 150px;
 
 @tilesetWidth: 2622px; // retina
 @tilesetHeight: 384px;
@@ -54,6 +55,77 @@ input,
 select,
 option {
   font-family: @fontFamily;
+}
+
+#main-screen {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body.gallery-visible #main-screen {
+  top: @galleryHeight;
+}
+
+#gallery {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: @galleryHeight;
+
+  overflow: hidden;
+  display: none;
+
+  overflow-x: scroll;
+
+  background: white;
+
+  .streets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    white-space: nowrap;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: @galleryHeight;
+
+    & > li {
+      display: inline-block;
+
+      vertical-align: top;
+
+      width: 150px;
+      margin: 10px;
+      background: rgb(240, 240, 240);
+      padding: 5px 10px;
+      text-align: center;
+      white-space: normal;
+      height: @galleryHeight - 30px;
+
+      cursor: pointer;
+
+      font-size: 13px;
+
+      &:hover {
+        background: rgb(230, 230, 230);
+      }
+
+      &.selected {
+        background: rgb(210, 210, 210);
+      }
+    }
+  }
+}
+
+body.gallery-visible #gallery {
+  display: block;
 }
 
 header {
@@ -1034,7 +1106,8 @@ body.touch-support .segment.fade-out-end button {
     }
   }
 
-  #identity:not(.visible) {
+  #identity:not(.visible),
+  #gallery-link:not(.visible) {
     display: none;
   }
 
@@ -1064,7 +1137,7 @@ body.touch-support .segment.fade-out-end button {
     
     cursor: pointer;
 
-    &::after {
+    &:not(#gallery-button)::after {
       font-family: 'Verdana';
       content: ' ▼';
       padding-left: 5px;

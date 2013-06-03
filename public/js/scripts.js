@@ -1921,9 +1921,20 @@ var main = (function(){
   }
 
   function _checkIfChangesSaved() {
-    if (saveStreetIncomplete || saveSettingsIncomplete) {
-      _saveStreetToServer(false);
-      _saveSettingsToServer(false);
+    // don’t do for settings deliberately
+
+    if (saveStreetIncomplete) {
+
+      if (saveStreetIncomplete) {
+        console.log('save street incomplete');
+
+        _saveStreetToServer(false);
+      }
+      /*if (saveSettingsIncomplete) {
+        console.log('save settings incomplete');
+
+        _saveSettingsToServer(false);
+      }*/
 
       return 'Your changes have not been saved yet. Please wait and close the page in a little while to allow the changes to be saved.';
     } else {
@@ -3208,12 +3219,112 @@ var main = (function(){
     document.querySelector('#new-street-menu').classList.remove('visible');
   }
 
+  function _fetchGalleryData() {
+    jQuery.ajax({
+      // TODO const
+      url: system.apiUrl + 'v1/users/' + signInData.userId + '/streets',
+      type: 'GET',
+      headers: { 'Authorization': _getAuthHeader() }
+    }).done(_receiveGalleryData);
+  }
+
+  function _fetchGalleryStreet(streetId) {
+    //console.log('try to get street from server');
+
+    console.log('fetching', streetId);
+
+    jQuery.ajax({
+      // TODO const
+      url: system.apiUrl + 'v1/streets/' + streetId,
+      type: 'GET',
+      headers: { 'Authorization': _getAuthHeader() }
+    }).done(_receiveGalleryStreet)
+    .fail(_failReceiveGalleryStreet);
+  }
+
+  function _failReceiveGalleryStreet() {
+    //alert(1);
+  }
+
+  // TODO similar to receiveLastStreet
+  function _receiveGalleryStreet(transmission) {
+    ignoreStreetChanges = true;
+
+    _unpackServerStreetData(transmission);
+
+    _propagateUnits();
+
+    // TODO this is stupid, only here to fill some structures
+    _createDomFromData();
+    _createDataFromDom();
+
+    _resizeStreetWidth();
+    _updateStreetName();
+    _createDomFromData();
+    _segmentsChanged();
+    _updateShareMenu();
+
+    ignoreStreetChanges = false;
+    lastStreet = _trimStreetData();
+  }
+
+  function _onGalleryStreetClick(event) {
+    var els = document.querySelectorAll('#gallery .streets .selected');
+    for (var i = 0, el; el = els[i]; i++) {
+      el.classList.remove('selected');
+    }
+
+    var el = event.target;
+    var id = el.streetId;
+
+    el.classList.add('selected');
+
+    _fetchGalleryStreet(id);
+  }
+
+  function _receiveGalleryData(transmission) {
+    document.querySelector('#gallery .streets').innerHTML = '';
+
+    for (var i in transmission.streets) {
+      var galleryStreet = transmission.streets[i];
+
+      var el = document.createElement('li');
+      el.innerHTML = galleryStreet.name;
+
+      el.streetId = galleryStreet.id;
+
+      if (street.id == galleryStreet.id) {
+        el.classList.add('selected');
+      }
+
+      el.addEventListener('click', _onGalleryStreetClick);
+
+      document.querySelector('#gallery .streets').appendChild(el);
+    }
+  }
+
+  function _showGallery() {
+    document.body.classList.add('gallery-visible');
+
+    _fetchGalleryData();
+  }
+
+  function _toggleGallery() {
+    if (document.body.classList.contains('gallery-visible')) {
+      document.body.classList.remove('gallery-visible');
+    } else {
+      _showGallery();
+    }
+  }
+
   function _addEventListeners() {
     document.querySelector('#new-street-default').addEventListener('click', _onNewStreetDefaultClick);
     document.querySelector('#new-street-empty').addEventListener('click', _onNewStreetEmptyClick);
     document.querySelector('#new-street-last').addEventListener('click', _onNewStreetLastClick);
 
     window.addEventListener('storage', _onStorageChange);
+
+    document.querySelector('#gallery-button').addEventListener('click', _toggleGallery);
 
     document.querySelector('#sign-out-link').addEventListener('click', _signOut);
 
@@ -3794,6 +3905,8 @@ var main = (function(){
       document.querySelector('#identity').appendChild(el);
 
       document.querySelector('#identity').classList.add('visible');
+
+      document.querySelector('#gallery-link').classList.add('visible');
 
       /*var el = document.createElement('a');
       el.href = '/';
