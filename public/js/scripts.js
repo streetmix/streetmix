@@ -3309,15 +3309,21 @@ var main = (function(){
     _fetchGalleryData();
   }
 
+  function _hideGallery() {
+    document.body.classList.remove('gallery-visible');
+  }
+
   function _toggleGallery() {
     if (document.body.classList.contains('gallery-visible')) {
-      document.body.classList.remove('gallery-visible');
+      _hideGallery();
     } else {
       _showGallery();
     }
   }
 
   function _addEventListeners() {
+    document.querySelector('#gallery-shield').addEventListener('click', _hideGallery);
+
     document.querySelector('#new-street-default').addEventListener('click', _onNewStreetDefaultClick);
     document.querySelector('#new-street-empty').addEventListener('click', _onNewStreetEmptyClick);
     document.querySelector('#new-street-last').addEventListener('click', _onNewStreetLastClick);

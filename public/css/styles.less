@@ -124,7 +124,22 @@ body.gallery-visible #main-screen {
   }
 }
 
-body.gallery-visible #gallery {
+#gallery-shield {
+  z-index: 999999999999;
+
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+
+  display: none;
+
+  cursor: pointer;
+}
+
+body.gallery-visible #gallery,
+body.gallery-visible #gallery-shield {
   display: block;
 }
 
