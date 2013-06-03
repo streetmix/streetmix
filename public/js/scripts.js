@@ -3325,6 +3325,8 @@ var main = (function(){
   }
 
   function _showGallery() {
+    _statusMessage.hide();
+
     document.body.classList.add('gallery-visible');
 
     _fetchGalleryData();
