@@ -16,6 +16,7 @@ var oauthRequestTokenHandler = function(req, res) {
     req.session.oauth = {}
     req.session.oauth.request_token = oauth_token
     req.session.oauth.request_token_secret = oauth_token_secret
+    req.session.oauth.redirect_uri = req.query.redirectUri || '/'
 
     // Redirect user to Twitter sign-in flow
     res.redirect(sprintf(config.twitter.oauth_authenticate_uri, oauth_token))

@@ -29,10 +29,10 @@ var oauthAccessTokenHandler = function(req, res) {
         return
       }
 
-      // Redirect user back to main page
+      // Redirect user 
       res.cookie('user_id', body.id)
       res.cookie('login_token', body.loginToken)
-      res.redirect('/')
+      res.redirect(req.session.oauth.redirect_uri)
       
     })
     
