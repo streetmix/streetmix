@@ -1304,7 +1304,7 @@ body.touch-support .segment.fade-out-end button {
   }
 }
 
-#new-street-choices {
+#new-street-menu {
   position: absolute;
   top: 110px;
   height: 20px;
@@ -1327,10 +1327,14 @@ body.touch-support .segment.fade-out-end button {
     padding: 0;
     margin: 0;
 
-    &:not(:last-child)::after {
+    &:not(:first-child)::before {
       content: '·';
-      margin-right: 5px;
-      padding-right: 0;
+      margin-left: 5px;
+      padding-left: 0;
+    }
+
+    &:nth-child(3):not(.visible) {
+      display: none;
     }
   }
   input[type='radio'] {

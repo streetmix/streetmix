@@ -566,6 +566,7 @@ var main = (function(){
   var settings = {
     lastStreetId: null,
     lastStreetUserId: null,
+    originalLastStreetId: null, // Do not save
     newStreetPreference: null
   };
 
@@ -1677,7 +1678,7 @@ var main = (function(){
     return data;
   }
 
-  function _unpackServerStreetData(transmission) {
+  function _unpackServerStreetData(transmission, id) {
     // console.log('unpack server street data');
 
     //console.log(transmission);
@@ -1687,7 +1688,11 @@ var main = (function(){
     undoStack = _clone(transmission.data.undoStack);
     undoPosition = transmission.data.undoPosition;
 
-    _setStreetId(transmission.id);
+    if (id) {
+      _setStreetId(id);
+    } else {
+      _setStreetId(transmission.id);
+    }
   }
 
   // TODO combine with _packServerStreetData()
@@ -1834,6 +1839,13 @@ var main = (function(){
     _updateLastStreetInfo();
   }
 
+  function _addRemixSuffixToName() {
+    if (street.name.substr(street.name.length - STREET_NAME_REMIX_SUFFIX.length, 
+        STREET_NAME_REMIX_SUFFIX.length) != STREET_NAME_REMIX_SUFFIX) {
+      street.name += ' ' + STREET_NAME_REMIX_SUFFIX;
+    }
+  }
+
   function _receiveRemixedStreetFeedback(data) {
     if (signedIn) {
       street.creatorId = signInData.userId;
@@ -1844,12 +1856,9 @@ var main = (function(){
     street.remixId = street.id;
 
     if (!promoteStreet) {
-      if (street.name.substr(street.name.length - STREET_NAME_REMIX_SUFFIX.length, 
-          STREET_NAME_REMIX_SUFFIX.length) != STREET_NAME_REMIX_SUFFIX) {
-        street.name += ' ' + STREET_NAME_REMIX_SUFFIX;
-      }
+      _addRemixSuffixToName();
     }
-    
+
     _updateStreetName();
 
     _setStreetId(data.id);
@@ -1901,7 +1910,7 @@ var main = (function(){
     var currentData = _trimStreetData();
 
     if (JSON.stringify(currentData) != JSON.stringify(lastStreet)) {
-      _hideNewStreetChoices();
+      _hideNewStreetMenu();
       _createNewUndo();
       _scheduleSavingStreetToServer();
 
@@ -3116,6 +3125,7 @@ var main = (function(){
     ignoreStreetChanges = false;
     lastStreet = _trimStreetData();
 
+    _saveStreetToServer(false);
   }
 
   function _onNewStreetEmptyClick() {
@@ -3133,13 +3143,49 @@ var main = (function(){
 
     ignoreStreetChanges = false;
     lastStreet = _trimStreetData();
+
+    _saveStreetToServer(false);
   }
 
   function _onNewStreetLastClick() {
 
+    jQuery.ajax({
+      // TODO const
+      url: system.apiUrl + 'v1/streets/' + settings.originalLastStreetId,
+      type: 'GET',
+      headers: { 'Authorization': _getAuthHeader() }
+    }).done(_receiveLastStreet);
+    //.fail(_failReceiveStreet);
   }
 
-  function _showNewStreetChoices() {
+  function _receiveLastStreet(transmission) {
+    console.log('received last street', transmission);
+
+    ignoreStreetChanges = true;
+
+    _unpackServerStreetData(transmission, street.id);
+    street.remixId = settings.originalLastStreetId;
+    _addRemixSuffixToName();
+
+    _propagateUnits();
+
+    // TODO this is stupid, only here to fill some structures
+    _createDomFromData();
+    _createDataFromDom();
+
+    _resizeStreetWidth();
+    _updateStreetName();
+    _createDomFromData();
+    _segmentsChanged();
+    _updateShareMenu();
+
+    ignoreStreetChanges = false;
+    lastStreet = _trimStreetData();
+
+    _saveStreetToServer(false);
+  }
+
+  function _showNewStreetMenu() {
     switch (settings.newStreetPreference) {
       case NEW_STREET_EMPTY:
         document.querySelector('#new-street-empty').checked = true;
@@ -3149,11 +3195,17 @@ var main = (function(){
         break;
     }
 
-    document.querySelector('#new-street-choices').classList.add('visible');
+    if (settings.originalLastStreetId && settings.originalLastStreetId != street.id) {
+      document.querySelector('#new-street-last').parentNode.classList.add('visible');
+    }
+
+    //console.log('last street id', settings.originalLastStreetId);
+
+    document.querySelector('#new-street-menu').classList.add('visible');
   }
 
-  function _hideNewStreetChoices() {
-    document.querySelector('#new-street-choices').classList.remove('visible');
+  function _hideNewStreetMenu() {
+    document.querySelector('#new-street-menu').classList.remove('visible');
   }
 
   function _addEventListeners() {
@@ -3373,6 +3425,8 @@ var main = (function(){
       settings.lastStreetCreatorId = localSettings.lastStreetCreatorId;
     }
 
+    settings.originalLastStreetId = settings.lastStreetId;
+
     console.log('FINAL settings', settings);
 
     _saveSettings();
@@ -3565,7 +3619,7 @@ var main = (function(){
   function _onEverythingLoaded() {
     switch (mode) {
       case MODE_NEW_STREET:
-        _showNewStreetChoices();
+        _showNewStreetMenu();
         break;
       case MODE_EXISTING_STREET:
       case MODE_JUST_SIGNED_IN:
@@ -3938,6 +3992,7 @@ var main = (function(){
 
   function _fetchStreetFromServer() {
     console.log('try to get street from server');
+
     jQuery.ajax({
       // TODO const
       url: system.apiUrl + 'v1/streets/' + street.id,
