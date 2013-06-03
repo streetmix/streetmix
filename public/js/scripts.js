@@ -1861,9 +1861,13 @@ var main = (function(){
           window.setTimeout(function() { _saveStreetToServer(false); }, SAVE_STREET_DELAY);
     }
   }
-
+  
   function _scheduleSavingSettingsToServer() {
-    console.log('schedule [settings] save…');
+    if (!signedIn) {
+      return;
+    }
+
+    console.log('schedule [settings] save!');
 
     saveSettingsIncomplete = true;
 
@@ -3060,6 +3064,8 @@ var main = (function(){
   }
 
   function _onWindowFocus() {
+    console.log('WINDOW FOCUS');
+
     // Save settings on window focus, so the last edited street is the one you’re
     // currently looking at (in case you’re looking at many streets in various
     // tabs)
@@ -3067,6 +3073,7 @@ var main = (function(){
   }
 
   function _onWindowBlur() {
+    console.log('WINDOW BLUR');
     _hideMenus();
   }
 
