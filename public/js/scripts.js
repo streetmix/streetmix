@@ -47,9 +47,10 @@ var main = (function(){
 
   var MODE_CONTINUE = 1;
   var MODE_NEW_STREET = 2;
-  var MODE_EXISTING_STREET = 3;
-  var MODE_404 = 4;
-  var MODE_SIGN_OUT = 5;
+  var MODE_JUST_SIGNED_IN = 3;
+  var MODE_EXISTING_STREET = 4;
+  var MODE_404 = 5;
+  var MODE_SIGN_OUT = 6;
 
   var ERROR_TYPE_404 = 1;
   var ERROR_TYPE_SIGN_OUT = 2;
@@ -633,6 +634,10 @@ var main = (function(){
   var signedIn = false;
   var signInLoaded = false;
   var signInData = {};
+
+  // Auto “promote” (remix) the street if you just signed in and the street
+  // was anonymous
+  var promoteStreet = false;
 
   var mouseX;
   var mouseY;
@@ -1778,10 +1783,12 @@ var main = (function(){
   }
 
   function _remixStreet() {
-    if (signedIn) {
-      _statusMessage.show('Now editing a freshly-made copy of the original street. The copy has been put in your gallery.');
-    } else {
-      _statusMessage.show('Now editing a freshly-made copy of the original street. <a href="/' + URL_SIGN_IN + '">Sign in</a> to start your own gallery of streets.');
+    if (!promoteStreet) {
+      if (signedIn) {
+        _statusMessage.show('Now editing a freshly-made copy of the original street. The copy has been put in your gallery.');
+      } else {
+        _statusMessage.show('Now editing a freshly-made copy of the original street. <a href="/' + URL_SIGN_IN + '">Sign in</a> to start your own gallery of streets.');
+      }
     }
 
     var transmission = _getServerTransmission();
@@ -3334,6 +3341,7 @@ var main = (function(){
 
   function _loadSettings() {
     if (signedIn && signInData.details) {
+      console.log('YES');
       var serverSettings = signInData.details.data;
     } else {
       var serverSettings = {};
@@ -3552,6 +3560,7 @@ var main = (function(){
         _showNewStreetChoices();
         break;
       case MODE_EXISTING_STREET:
+      case MODE_JUST_SIGNED_IN:
         // TODO stupid… backfilling non-existent structures
         //_createDomFromData();
         //_createDataFromDom();
@@ -3575,6 +3584,10 @@ var main = (function(){
     _addEventListeners();
 
     window.setTimeout(_hideLoadingScreen, 0);
+
+    if (promoteStreet) {
+      _remixStreet();
+    }
   }
 
   function _checkIfEverythingIsLoaded() {
@@ -3741,10 +3754,14 @@ var main = (function(){
 
     _createSignInUI();
 
-    if (mode == MODE_CONTINUE) {
+    if ((mode == MODE_CONTINUE) || (mode == MODE_JUST_SIGNED_IN)) {
       if (settings.lastStreetId) {
         street.creatorId = settings.lastStreetCreatorId;
         street.id = settings.lastStreetId;
+
+        if ((mode == MODE_JUST_SIGNED_IN) && (!street.creatorId)) {
+          promoteStreet = true;
+        }
       } else {
         mode = MODE_NEW_STREET;
       }
@@ -3837,6 +3854,10 @@ var main = (function(){
       // New street
 
       mode = MODE_NEW_STREET;
+    } else if ((urlParts.length == 1) && (urlParts[0] == URL_SIGN_IN_CALLBACK)) {
+      // Coming back from a successful sign in
+
+      mode = MODE_JUST_SIGNED_IN;
     } else if ((urlParts.length == 1) && urlParts[0]) {
       // User gallery
 
