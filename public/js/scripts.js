@@ -976,6 +976,7 @@ var main = (function(){
       case KEY_ESC:
         el.value = el.oldValue;
         _widthEditInputChanged(el, true);
+        _hideMenus();
         _loseAnyFocus();
         break;
     }
