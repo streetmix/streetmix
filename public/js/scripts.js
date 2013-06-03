@@ -35,13 +35,16 @@ var main = (function(){
   // TODO replace the URLs in index.html dynamically
   var URL_SIGN_IN = 'twitter-sign-in';
   var URL_SIGN_IN_CALLBACK = 'twitter-sign-in-callback';
+  var URL_JUST_SIGNED_IN = 'just-signed-in';
   var URL_NEW_STREET = 'new';
   var URL_NO_USER = '-';
+
+  var URL_SIGN_IN_REDIRECT = URL_SIGN_IN + '?redirectUri=' + URL_JUST_SIGNED_IN;
 
   // Since URLs like “streetmix.net/new” are reserved, but we still want
   // @new to be able to use Streetmix, we prefix any reserved URLs with ~
   var RESERVED_URLS = 
-      [URL_SIGN_IN, URL_SIGN_IN_CALLBACK, URL_NEW_STREET, 
+      [URL_SIGN_IN, URL_SIGN_IN_CALLBACK, URL_NEW_STREET, URL_JUST_SIGNED_IN, 
       'help', 'gallery', 'streets'];
   var URL_RESERVED_PREFIX = '~';
 
@@ -1840,11 +1843,13 @@ var main = (function(){
 
     street.remixId = street.id;
 
-    if (street.name.substr(street.name.length - STREET_NAME_REMIX_SUFFIX.length, 
-        STREET_NAME_REMIX_SUFFIX.length) != STREET_NAME_REMIX_SUFFIX) {
-      street.name += ' ' + STREET_NAME_REMIX_SUFFIX;
+    if (!promoteStreet) {
+      if (street.name.substr(street.name.length - STREET_NAME_REMIX_SUFFIX.length, 
+          STREET_NAME_REMIX_SUFFIX.length) != STREET_NAME_REMIX_SUFFIX) {
+        street.name += ' ' + STREET_NAME_REMIX_SUFFIX;
+      }
     }
-
+    
     _updateStreetName();
 
     _setStreetId(data.id);
@@ -3341,7 +3346,6 @@ var main = (function(){
 
   function _loadSettings() {
     if (signedIn && signInData.details) {
-      console.log('YES');
       var serverSettings = signInData.details.data;
     } else {
       var serverSettings = {};
@@ -3357,13 +3361,17 @@ var main = (function(){
     console.log('server settings', serverSettings);
     console.log('local settings', localSettings);
 
+    settings = {};
+
     if (serverSettings) {
       settings = serverSettings;
-    } else {
-      settings = {};
-    }
-
+    } 
     _mergeAndFillDefaultSettings(localSettings);
+
+    if (mode == MODE_JUST_SIGNED_IN) {
+      settings.lastStreetId = localSettings.lastStreetId;
+      settings.lastStreetCreatorId = localSettings.lastStreetCreatorId;
+    }
 
     console.log('FINAL settings', settings);
 
@@ -3586,6 +3594,7 @@ var main = (function(){
     window.setTimeout(_hideLoadingScreen, 0);
 
     if (promoteStreet) {
+      //console.log('would promote now');
       _remixStreet();
     }
   }
@@ -3667,7 +3676,7 @@ var main = (function(){
       headers: { 'Authorization': _getAuthHeader() }
     }).done(_receiveSignInDetails).fail(_noSignInDetails);
 
-    console.log(system.apiUrl + 'v1/users/' + signInData.userId);
+    //console.log(system.apiUrl + 'v1/users/' + signInData.userId);
   }
 
   function _receiveSignInDetails(details) {
@@ -3740,7 +3749,7 @@ var main = (function(){
       document.querySelector('#sign-in-link').appendChild(el);*/
     } else {
       var el = document.createElement('a');
-      el.href = '/' + URL_SIGN_IN;
+      el.href = '/' + URL_SIGN_IN_REDIRECT;
       el.classList.add('command');
       el.innerHTML = 'Sign in';
       document.querySelector('#sign-in-link').appendChild(el);
@@ -3755,13 +3764,22 @@ var main = (function(){
     _createSignInUI();
 
     if ((mode == MODE_CONTINUE) || (mode == MODE_JUST_SIGNED_IN)) {
+      //console.log('inside', mode == MODE_JUST_SIGNED_IN);
       if (settings.lastStreetId) {
+        //console.log('further inside…');
         street.creatorId = settings.lastStreetCreatorId;
         street.id = settings.lastStreetId;
 
+        console.log('!');
+        console.log(mode == MODE_JUST_SIGNED_IN);
+        console.log(street);
+
         if ((mode == MODE_JUST_SIGNED_IN) && (!street.creatorId)) {
           promoteStreet = true;
+          console.log('promoting!');
         }
+        
+        mode = MODE_CONTINUE;
       } else {
         mode = MODE_NEW_STREET;
       }
@@ -3854,7 +3872,7 @@ var main = (function(){
       // New street
 
       mode = MODE_NEW_STREET;
-    } else if ((urlParts.length == 1) && (urlParts[0] == URL_SIGN_IN_CALLBACK)) {
+    } else if ((urlParts.length == 1) && (urlParts[0] == URL_JUST_SIGNED_IN)) {
       // Coming back from a successful sign in
 
       mode = MODE_JUST_SIGNED_IN;
@@ -3994,7 +4012,7 @@ var main = (function(){
   }
 
   function _goSignIn() {
-    location.href = '/' + URL_SIGN_IN;
+    location.href = '/' + URL_SIGN_IN_REDIRECT;
   }
 
   function _showError(errorType) {
@@ -4042,6 +4060,9 @@ var main = (function(){
         serverContacted = false;
         break;
       case MODE_CONTINUE:
+        serverContacted = false;
+        break;
+      case MODE_JUST_SIGNED_IN:
         serverContacted = false;
         break;
       case MODE_EXISTING_STREET:
