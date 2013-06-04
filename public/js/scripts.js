@@ -3080,7 +3080,8 @@ var main = (function(){
       // TODO const
       var html = "by <div class='avatar'></div>" +
           "<a target='_blank' href='https://twitter.com/" + 
-          street.creatorId + "'>" + street.creatorId + "</a>";
+          street.creatorId + "'>" + street.creatorId + "</a> · " +
+          _formatDate(moment(street.updatedAt));
 
       document.querySelector('#street-attribution').innerHTML = html;
       document.querySelector('#street-attribution').classList.add('visible');
