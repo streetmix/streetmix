@@ -3297,6 +3297,10 @@ var main = (function(){
     event.preventDefault();
   }
 
+  function _formatDate(date) {
+    return date.format('MMM D, YYYY');
+  }
+
   function _receiveGalleryData(transmission) {
     document.querySelector('#gallery .streets').innerHTML = '';
 
@@ -3309,7 +3313,7 @@ var main = (function(){
 
       galleryStreet.creatorId = signInData.userId;
 
-      console.log(galleryStreet);
+      //console.log(galleryStreet);
 
       anchorEl.href = _getStreetUrl(galleryStreet);
       anchorEl.innerHTML = galleryStreet.name;
@@ -3320,6 +3324,14 @@ var main = (function(){
       }
 
       anchorEl.addEventListener('click', _onGalleryStreetClick);
+
+      var date = moment(galleryStreet.updatedAt);
+
+      var dateEl = document.createElement('span');
+      dateEl.classList.add('date');
+      dateEl.innerHTML = _formatDate(date);
+
+      anchorEl.appendChild(dateEl);
 
       el.appendChild(anchorEl);
 
