@@ -139,7 +139,7 @@ var main = (function(){
   var RESIZE_TYPE_TYPING = 4;
 
   var IMPERIAL_METRIC_MULTIPLIER = 30 / 100;
-  var COUNTRIES_IMPERIAL_UNITS = ['US']; // DEBUG
+  var COUNTRIES_IMPERIAL_UNITS = ['US'];
   var COUNTRIES_LEFT_HAND_TRAFFIC = 
       ['GG', 'AI', 'AG', 'AU', 'BS', 'BD', 'BB', 'BM', 'BT', 'BW', 'BN',
        'KY', 'CX', 'CC', 'CK', 'CY', 'DM', 'TL', 'FK', 'FJ', 'GD', 'GG',
@@ -147,7 +147,7 @@ var main = (function(){
        'LS', 'MO', 'MW', 'MY', 'MV', 'MT', 'MU', 'MS', 'MZ', 'NA', 'NR',
        'NP', 'NZ', 'NU', 'NF', 'PK', 'PG', 'PN', 'SH', 'KN', 'LC', 'VC',
        'WS', 'SC', 'SG', 'SB', 'ZA', 'LK', 'SR', 'SZ', 'TZ', 'TH', 'TK',
-       'TO', 'TT', 'TC', 'TV', 'UG', 'GB', 'VG', 'VI', 'ZM', 'ZW', 'US']; // DEBUG
+       'TO', 'TT', 'TC', 'TV', 'UG', 'GB', 'VG', 'VI', 'ZM', 'ZW'];
 
   var WIDTH_INPUT_CONVERSION = [
     { text: 'm', multiplier: 1 / IMPERIAL_METRIC_MULTIPLIER },
@@ -545,6 +545,7 @@ var main = (function(){
   var street = {
     id: null,
     creatorId: null,
+    namespacedId: null,
     remixId: null, // id of the street the current street is remixed from (could be null)
     name: null,
 
@@ -565,6 +566,7 @@ var main = (function(){
 
   var settings = {
     lastStreetId: null,
+    lastStreetNamespacedId: null,
     lastStreetUserId: null,
     originalLastStreetId: null, // Do not save
     newStreetPreference: null
@@ -1678,7 +1680,7 @@ var main = (function(){
     return data;
   }
 
-  function _unpackServerStreetData(transmission, id) {
+  function _unpackServerStreetData(transmission, id, namespacedId) {
     // console.log('unpack server street data');
 
     //console.log(transmission);
@@ -1689,9 +1691,9 @@ var main = (function(){
     undoPosition = transmission.data.undoPosition;
 
     if (id) {
-      _setStreetId(id);
+      _setStreetId(id, namespacedId);
     } else {
-      _setStreetId(transmission.id);
+      _setStreetId(transmission.id, transmission.namespacedId);
     }
   }
 
@@ -1818,13 +1820,15 @@ var main = (function(){
     //console.log('update');
 
     settings.lastStreetId = street.id;
+    settings.lastStreetNamespacedId = street.namespacedId;
     settings.lastStreetCreatorId = street.creatorId;
 
     _saveSettings();
   }
 
-  function _setStreetId(newId) {
+  function _setStreetId(newId, newNamespacedId) {
     street.id = newId;
+    street.namespacedId = newNamespacedId;
 
     for (var i in undoStack) {
       undoStack[i].id = newId;
@@ -1861,7 +1865,7 @@ var main = (function(){
 
     _updateStreetName();
 
-    _setStreetId(data.id);
+    _setStreetId(data.id, data.namespacedId);
 
     _updateStreetName();
 
@@ -1968,6 +1972,7 @@ var main = (function(){
     newData.name = street.name;
 
     newData.id = street.id;
+    newData.namespacedId = street.namespacedId;
     newData.creatorId = street.creatorId;
     newData.remixId = street.remixId;
     newData.units = street.units;
@@ -3037,7 +3042,7 @@ var main = (function(){
 
     url += '/';
 
-    url += street.id;
+    url += street.namespacedId;
 
     if (street.creatorId) {
       var slug = street.name;
@@ -3180,7 +3185,7 @@ var main = (function(){
 
     ignoreStreetChanges = true;
 
-    _unpackServerStreetData(transmission, street.id);
+    _unpackServerStreetData(transmission, street.id, street.namespacedId);
     street.remixId = settings.originalLastStreetId;
     _addRemixSuffixToName();
 
@@ -3235,8 +3240,6 @@ var main = (function(){
   }
 
   function _fetchGalleryStreet(streetId) {
-    //console.log('try to get street from server');
-
     console.log('fetching', streetId);
 
     jQuery.ajax({
@@ -3519,6 +3522,9 @@ var main = (function(){
     if (typeof settings.lastStreetId === 'undefined') {
       settings.lastStreetId = secondSettings.lastStreetId;
     }
+    if (typeof settings.lastStreetNamespacedId === 'undefined') {
+      settings.lastStreetNamespacedId = secondSettings.lastStreetNamespacedId;
+    }
     if (typeof settings.lastStreetCreatorId === 'undefined') {
       settings.lastStreetCreatorId = secondSettings.lastStreetCreatorId;
     }
@@ -3530,6 +3536,9 @@ var main = (function(){
     }
     if (typeof settings.lastStreetId === 'undefined') {
       settings.lastStreetId = null;
+    }
+    if (typeof settings.lastStreetNamespacedId === 'undefined') {
+      settings.lastStreetNamespacedId = null;
     }
     if (typeof settings.lastStreetCreatorId === 'undefined') {
       settings.lastStreetCreatorId = null;
@@ -3561,7 +3570,9 @@ var main = (function(){
     _mergeAndFillDefaultSettings(localSettings);
 
     if (mode == MODE_JUST_SIGNED_IN) {
+      console.log('just signed in!');
       settings.lastStreetId = localSettings.lastStreetId;
+      settings.lastStreetNamespacedId = localSettings.lastStreetNamespacedId;
       settings.lastStreetCreatorId = localSettings.lastStreetCreatorId;
     }
 
@@ -3575,8 +3586,9 @@ var main = (function(){
   function _trimSettings() {
     var data = {};
 
-    data.lastStreetCreatorId = settings.lastStreetCreatorId;
     data.lastStreetId = settings.lastStreetId;
+    data.lastStreetNamespacedId = settings.lastStreetNamespacedId;
+    data.lastStreetCreatorId = settings.lastStreetCreatorId;
 
     data.newStreetPreference = settings.newStreetPreference;
 
@@ -3965,14 +3977,15 @@ var main = (function(){
         //console.log('further inside…');
         street.creatorId = settings.lastStreetCreatorId;
         street.id = settings.lastStreetId;
+        street.namespacedId = settings.lastStreetNamespacedId;
 
-        console.log('!');
-        console.log(mode == MODE_JUST_SIGNED_IN);
-        console.log(street);
+        //console.log('!');
+        //console.log(mode == MODE_JUST_SIGNED_IN);
+        //console.log(street);
 
         if ((mode == MODE_JUST_SIGNED_IN) && (!street.creatorId)) {
           promoteStreet = true;
-          console.log('promoting!');
+          //console.log('promoting!');
         }
         
         mode = MODE_CONTINUE;
@@ -4072,6 +4085,7 @@ var main = (function(){
       // Coming back from a successful sign in
 
       mode = MODE_JUST_SIGNED_IN;
+      console.log('just signed in pt. 1');
     } else if ((urlParts.length == 1) && urlParts[0]) {
       // User gallery
 
@@ -4081,7 +4095,7 @@ var main = (function(){
       // Existing street by an anonymous person
 
       street.creatorId = null;
-      street.id = urlParts[1];
+      street.namespacedId = urlParts[1];
 
       mode = MODE_EXISTING_STREET;
     } else if ((urlParts.length >= 2) && urlParts[0] && urlParts[1]) {
@@ -4094,7 +4108,7 @@ var main = (function(){
         street.creatorId = street.creatorId.substr(1);
       }
 
-      street.id = urlParts[1];
+      street.namespacedId = urlParts[1];
 
       mode = MODE_EXISTING_STREET;
     } else {
@@ -4110,14 +4124,14 @@ var main = (function(){
       url: system.apiUrl + 'v1/streets',
       type: 'POST',
       headers: { 'Authorization': _getAuthHeader() }
-    }).done(_receiveNewStreetFeedback)
+    }).done(_receiveNewStreet)
     .fail(_failNewStreetFeedback);
   }
 
-  function _receiveNewStreetFeedback(data) {
-    //console.log('received new street', data);
+  function _receiveNewStreet(data) {
+    console.log('received new street', data);
 
-    _setStreetId(data.id);
+    _setStreetId(data.id, data.namespacedId);
 
     if (settings.newStreetPreference == NEW_STREET_EMPTY) {
       _prepareEmptyStreet();
@@ -4133,13 +4147,22 @@ var main = (function(){
   }
 
   function _fetchStreetFromServer() {
-    console.log('try to get street from server');
+    if (street.creatorId) {
+      var url = system.apiUrl + 'v1/streets?namespacedId=' + 
+          encodeURIComponent(street.namespacedId) + '&creatorId=' +
+          encodeURIComponent(street.creatorId);
+    } else {
+      var url = system.apiUrl + 'v1/streets?namespacedId=' + 
+          encodeURIComponent(street.namespacedId);    
+    }
+
+    console.log('try to get street from server', url);
 
     jQuery.ajax({
       // TODO const
-      url: system.apiUrl + 'v1/streets/' + street.id,
+      url: url,
       type: 'GET',
-      headers: { 'Authorization': _getAuthHeader() }
+      //headers: { 'Authorization': _getAuthHeader() }
     }).done(_receiveStreet)
     .fail(_failReceiveStreet);
   }
