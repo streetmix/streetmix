@@ -54,10 +54,14 @@ var main = (function(){
   var MODE_EXISTING_STREET = 4;
   var MODE_404 = 5;
   var MODE_SIGN_OUT = 6;
+  var MODE_FORCE_RELOAD_SIGN_IN = 7;
+  var MODE_FORCE_RELOAD_SIGN_OUT = 8;
 
   var ERROR_TYPE_404 = 1;
   var ERROR_TYPE_SIGN_OUT = 2;
   var ERROR_TYPE_NO_STREET = 3; // for gallery if you delete the street you were looking at
+  var ERROR_FORCE_RELOAD_SIGN_IN = 4;
+  var ERROR_FORCE_RELOAD_SIGN_OUT = 5;
 
   var NEW_STREET_DEFAULT = 1;
   var NEW_STREET_EMPTY = 2;
@@ -3158,7 +3162,11 @@ var main = (function(){
 
   function _onStorageChange() {
     if (signedIn && !window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
-      //alert('signed out!');
+      mode = MODE_FORCE_RELOAD_SIGN_OUT;
+      _processMode();
+    } else if (!signedIn && window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
+      mode = MODE_FORCE_RELOAD_SIGN_IN;
+      _processMode();      
     }
   }
 
@@ -4403,6 +4411,10 @@ var main = (function(){
     }
   }
 
+  function _goReload() {
+    location.reload();
+  }
+
   function _goHome() {
     location.href = '/';
   }
@@ -4433,6 +4445,14 @@ var main = (function(){
       case ERROR_TYPE_NO_STREET:
         title = 'No street selected';
         break;
+      case ERROR_FORCE_RELOAD_SIGN_OUT:
+        title = 'You signed out in another window';
+        description = 'Please reload this page before continuing.<br><button class="reload">Reload the page</button>';
+        break;
+      case ERROR_FORCE_RELOAD_SIGN_IN:
+        title = 'You signed in in another window';
+        description = 'Please reload this page before continuing.<br><button class="reload">Reload the page</button>';
+        break;
     }
 
     document.querySelector('#error h1').innerHTML = title;
@@ -4446,6 +4466,11 @@ var main = (function(){
     var el = document.querySelector('#error .sign-in');
     if (el) {
       el.addEventListener('click', _goSignIn);
+    }
+
+    var el = document.querySelector('#error .reload');
+    if (el) {
+      el.addEventListener('click', _goReload);
     }
 
     document.querySelector('#error').classList.add('visible');
@@ -4469,6 +4494,14 @@ var main = (function(){
         break;
       case MODE_SIGN_OUT:
         _showError(ERROR_TYPE_SIGN_OUT);
+        abortEverything = true;
+        break;
+      case MODE_FORCE_RELOAD_SIGN_OUT:
+        _showError(ERROR_FORCE_RELOAD_SIGN_OUT);
+        abortEverything = true;
+        break;
+      case MODE_FORCE_RELOAD_SIGN_IN:
+        _showError(ERROR_FORCE_RELOAD_SIGN_IN);
         abortEverything = true;
         break;
       case MODE_NEW_STREET:
