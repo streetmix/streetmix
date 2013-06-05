@@ -3044,6 +3044,16 @@ var main = (function(){
     }
   }
 
+  function _normalizeSlug(slug) {
+    slug = slug.toLowerCase();
+    slug = slug.replace(/ /g, '-');
+    slug = slug.replace(/-{2,}/, '-');
+    slug = slug.replace(/^[-]+|[-]+$/g, '');
+    slug = slug.replace(/[^a-zA-Z0-9\-]/g, '');
+
+    return slug;
+  }
+
   function _getStreetUrl(street) {
     var url = '/';
 
@@ -3062,8 +3072,7 @@ var main = (function(){
     url += street.namespacedId;
 
     if (street.creatorId) {
-      var slug = street.name;
-      slug = slug.toLowerCase().replace(/ /g, '-');
+      var slug = _normalizeSlug(street.name);
       url += '/' + encodeURIComponent(slug);
     }
 
