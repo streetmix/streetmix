@@ -3950,19 +3950,18 @@ var main = (function(){
       }
     }
 
-    if (signInData && signInData.token) {
-      // _fetchSignInDetails();
+    if (signInData && signInData.token && signInData.userId) {
+      _fetchSignInDetails();
 
-      // THIS BLOCK WAS COMMENTED OUT FOR A REASON. UNCOMMENTING IT NOW TO
-      // SEE IF IT CAUSES TROUBLE
-      // 
-      // TODO figure out why you commented it out in the first place, Marcin
-      if (signInData.details) {
+      // This block was commented out because caching username causes 
+      // failures when the database is cleared. TODO Perhaps we should
+      // be handling this more deftly.
+      /*if (signInData.details) {
         signedIn = true;
         _signInLoaded();
       } else {
         _fetchSignInDetails();
-      }
+      }*/
 
     } else {
       signedIn = false;
@@ -3976,7 +3975,7 @@ var main = (function(){
       url: system.apiUrl + 'v1/users/' + signInData.userId,
       dataType: 'json',
       headers: { 'Authorization': _getAuthHeader() }
-    }).done(_receiveSignInDetails).fail(_noSignInDetails);
+    }).done(_receiveSignInDetails).fail(_errorReceiveSignInDetails);
 
     //console.log(system.apiUrl + 'v1/users/' + signInData.userId);
   }
@@ -3991,7 +3990,12 @@ var main = (function(){
     _signInLoaded();
   }
 
-  function _noSignInDetails() {    
+  function _errorReceiveSignInDetails() {   
+    // Fail silently
+
+    signInData = {};
+    _saveSignInData();
+
     signedIn = false;
     _signInLoaded();
   }
@@ -4247,7 +4251,7 @@ var main = (function(){
           encodeURIComponent(street.namespacedId);    
     }
 
-    console.log('try to get street from server', url);
+    console.log('try to get street from server', '|' + url + '|');
 
     jQuery.ajax({
       // TODO const
@@ -4255,8 +4259,7 @@ var main = (function(){
       dataType: 'json',
       type: 'GET',
       //headers: { 'Authorization': _getAuthHeader() }
-    }).done(_receiveStreet)
-    .fail(_failReceiveStreet);
+    }).done(_receiveStreet).fail(_errorReceiveStreet);
   }
 
   function _fetchStreetCreatorAvatar() {
@@ -4307,16 +4310,23 @@ var main = (function(){
     _checkIfEverythingIsLoaded();
   }
 
-  function _failReceiveStreet(data) {
-    console.log('fail to get street');
-    // TODO 500 etc.
+  function _errorReceiveStreet(data) {
+    console.log('failed to receive street!');
 
-    if (data.status == 404) {
-      mode = MODE_404;
-      _processMode();
-      // TODO rest?
+    if (mode == MODE_CONTINUE) {
+      _goNewStreet();
     } else {
-      console.log(data, error);
+      // TODO finish this
+      if (data.status == 404) {
+        mode = MODE_404;
+        _processMode();
+        // TODO rest?
+      } else {
+        mode = MODE_404;
+        _processMode();
+
+        console.log(data, error);
+      }
     }
   }
 
@@ -4326,6 +4336,11 @@ var main = (function(){
 
   function _goSignIn() {
     location.href = '/' + URL_SIGN_IN_REDIRECT;
+  }
+
+  function _goNewStreet() {
+    //alert('go new street!');
+    location.href = '/' + URL_NEW_STREET;
   }
 
   function _showError(errorType) {
