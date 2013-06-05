@@ -1681,9 +1681,11 @@ var main = (function(){
   }
 
   function _unpackServerStreetData(transmission, id, namespacedId) {
-    // console.log('unpack server street data');
+    console.log('unpack server street data', transmission);
 
     //console.log(transmission);
+
+    //console.log(jQuery.type(transmission));
 
     street = _clone(transmission.data.street);
 
@@ -1723,6 +1725,7 @@ var main = (function(){
       // TODO const
       url: system.apiUrl + 'v1/streets/' + street.id,
       data: transmission,
+      dataType: 'json',
       type: 'PUT',
       contentType: 'application/json',
       headers: { 'Authorization': _getAuthHeader() }
@@ -1763,6 +1766,7 @@ var main = (function(){
       // TODO const
       url: system.apiUrl + 'v1/users/' + signInData.userId,
       data: transmission,
+      dataType: 'json',
       type: 'PUT',
       contentType: 'application/json',
       headers: { 'Authorization': _getAuthHeader() }
@@ -1808,6 +1812,7 @@ var main = (function(){
       url: system.apiUrl + 'v1/streets',
       type: 'POST',
       data: transmission,
+      dataType: 'json',
       contentType: 'application/json',
       headers: { 'Authorization': _getAuthHeader() }
     }).done(_receiveRemixedStreetFeedback)
@@ -3175,6 +3180,7 @@ var main = (function(){
     jQuery.ajax({
       // TODO const
       url: system.apiUrl + 'v1/streets/' + settings.originalLastStreetId,
+      dataType: 'json',
       type: 'GET',
       headers: { 'Authorization': _getAuthHeader() }
     }).done(_receiveLastStreet);
@@ -3235,6 +3241,7 @@ var main = (function(){
     jQuery.ajax({
       // TODO const
       url: system.apiUrl + 'v1/users/' + signInData.userId + '/streets',
+      dataType: 'json',
       type: 'GET',
       headers: { 'Authorization': _getAuthHeader() }
     }).done(_receiveGalleryData);
@@ -3246,6 +3253,7 @@ var main = (function(){
     jQuery.ajax({
       // TODO const
       url: system.apiUrl + 'v1/streets/' + streetId,
+      dataType: 'json',
       type: 'GET',
       headers: { 'Authorization': _getAuthHeader() }
     }).done(_receiveGalleryStreet)
@@ -3892,6 +3900,7 @@ var main = (function(){
     // TODO const
     jQuery.ajax({
       url: system.apiUrl + 'v1/users/' + signInData.userId,
+      dataType: 'json',
       headers: { 'Authorization': _getAuthHeader() }
     }).done(_receiveSignInDetails).fail(_noSignInDetails);
 
@@ -3933,6 +3942,7 @@ var main = (function(){
     jQuery.ajax({
       // TODO const
       url: system.apiUrl + 'v1/users/' + signInData.userId + '/login-token',
+      dataType: 'json',
       type: 'DELETE',
       headers: { 'Authorization': _getAuthHeader() }
     }).done(_receiveSignOutConfirmationFromServer)
@@ -4136,6 +4146,7 @@ var main = (function(){
       // TODO const
       url: system.apiUrl + 'v1/streets',
       type: 'POST',
+      dataType: 'json',
       headers: { 'Authorization': _getAuthHeader() }
     }).done(_receiveNewStreet)
     .fail(_failNewStreetFeedback);
@@ -4174,6 +4185,7 @@ var main = (function(){
     jQuery.ajax({
       // TODO const
       url: url,
+      dataType: 'json',
       type: 'GET',
       //headers: { 'Authorization': _getAuthHeader() }
     }).done(_receiveStreet)
@@ -4185,6 +4197,7 @@ var main = (function(){
 
     // TODO const
     jQuery.ajax({
+      dataType: 'json',
       url: system.apiUrl + 'v1/users/' + street.creatorId
     }).done(_receiveStreetCreatorAvatar);
   }
