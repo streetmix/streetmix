@@ -3336,11 +3336,24 @@ var main = (function(){
         _showError(ERROR_TYPE_NO_STREET);
       }
 
+      _sendDeleteStreetToServer(el.streetId);
+
       _removeElFromDom(el);
     }
 
     event.preventDefault();
     event.stopPropagation();
+  }
+
+  function _sendDeleteStreetToServer(id) {
+    jQuery.ajax({
+      // TODO const
+      url: system.apiUrl + 'v1/streets/' + id,
+      dataType: 'json',
+      type: 'DELETE',
+      headers: { 'Authorization': _getAuthHeader() }
+    })/*.done(_receiveSignOutConfirmationFromServer)
+    .fail(_receiveSignOutConfirmationFromServer);*/
   }
 
   function _receiveGalleryData(transmission) {
