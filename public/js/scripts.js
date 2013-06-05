@@ -57,6 +57,7 @@ var main = (function(){
 
   var ERROR_TYPE_404 = 1;
   var ERROR_TYPE_SIGN_OUT = 2;
+  var ERROR_TYPE_NO_STREET = 3; // for gallery if you delete the street you were looking at
 
   var NEW_STREET_DEFAULT = 1;
   var NEW_STREET_EMPTY = 2;
@@ -580,6 +581,7 @@ var main = (function(){
 
   var mode;
   var abortEverything;
+  var currentErrorType;
 
   var draggingType = DRAGGING_TYPE_NONE;
 
@@ -3273,6 +3275,8 @@ var main = (function(){
   function _receiveGalleryStreet(transmission) {
     ignoreStreetChanges = true;
 
+    _hideError();
+
     _unpackServerStreetData(transmission);
 
     _propagateUnits();
@@ -3323,10 +3327,15 @@ var main = (function(){
 
     // TODO escape name
     if (confirm(prompt)) {
+      if (el.streetId == street.id) {
+        _showError(ERROR_TYPE_NO_STREET);
+      }
 
+      _removeElFromDom(el);
     }
 
     event.preventDefault();
+    event.stopPropagation();
   }
 
   function _receiveGalleryData(transmission) {
@@ -3348,7 +3357,7 @@ var main = (function(){
 
       galleryStreet.creatorId = signInData.userId;
 
-      console.log(galleryStreet);
+      //console.log(galleryStreet);
 
       anchorEl.href = _getStreetUrl(galleryStreet);
       anchorEl.innerHTML = galleryStreet.name;
@@ -3390,7 +3399,9 @@ var main = (function(){
   }
 
   function _hideGallery() {
-    document.body.classList.remove('gallery-visible');
+    if (currentErrorType != ERROR_TYPE_NO_STREET) {
+      document.body.classList.remove('gallery-visible');
+    }
   }
 
   function _toggleGallery() {
@@ -4348,15 +4359,21 @@ var main = (function(){
   }
 
   function _showError(errorType) {
+    var title = '';
+    var description = '';
+
     switch (errorType) {
       case ERROR_TYPE_404:
-        var title = 'Page not found';
-        var description = 'Oh, boy. There is no page with this address!<br><button class="home">Go to the homepage</button>';
+        title = 'Page not found';
+        description = 'Oh, boy. There is no page with this address!<br><button class="home">Go to the homepage</button>';
         // TODO go to homepage
         break;
       case ERROR_TYPE_SIGN_OUT:
-        var title = 'You’ve been signed out.';
-        var description = '<button class="sign-in">Sign in again</button> <button class="home">Go to the homepage</button>';
+        title = 'You’ve been signed out.';
+        description = '<button class="sign-in">Sign in again</button> <button class="home">Go to the homepage</button>';
+        break;
+      case ERROR_TYPE_NO_STREET:
+        title = 'No street selected';
         break;
     }
 
@@ -4374,6 +4391,14 @@ var main = (function(){
     }
 
     document.querySelector('#error').classList.add('visible');
+
+    currentErrorType = errorType;
+  }
+
+  function _hideError() {
+    document.querySelector('#error').classList.remove('visible');    
+
+    currentErrorType = null;
   }
 
   function _processMode() {
