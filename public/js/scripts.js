@@ -1814,7 +1814,7 @@ var main = (function(){
       dataType: 'json',
       contentType: 'application/json',
       headers: { 'Authorization': _getAuthHeader() }
-    }).done(_receiveRemixedStreetFeedback);
+    }).done(_receiveRemixedStreet);
     //.fail(_errorReceiveRemixedStreetFeedback);
 
     remixOnFirstEdit = false;
@@ -1854,7 +1854,13 @@ var main = (function(){
     }
   }
 
-  function _receiveRemixedStreetFeedback(data) {
+  function _updateUndoStackCreator() {
+    for (var i in undoStack) {
+      undoStack[i].creatorId = street.creatorId;
+    }
+  }
+
+  function _receiveRemixedStreet(data) {
     if (!promoteStreet) {
       if (signedIn) {
         _statusMessage.show('Now editing a freshly-made copy of the original street. The copy has been put in your gallery.');
@@ -1870,6 +1876,8 @@ var main = (function(){
     }
 
     street.originalStreetId = street.id;
+
+    _updateUndoStackCreator();
 
     if (!promoteStreet) {
       _addRemixSuffixToName();
