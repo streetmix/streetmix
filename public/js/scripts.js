@@ -2998,8 +2998,13 @@ var main = (function(){
         break;
       case KEY_ESC:
         _hideDebugInfo();
-        if (infoBubbleVisible) {
-          _hideInfoBubble();
+
+        if (document.body.classList.contains('gallery-visible')) {
+          _hideGallery();
+        } else {
+          if (infoBubbleVisible) {
+            _hideInfoBubble();
+          }
         }
         event.preventDefault();
         break;
