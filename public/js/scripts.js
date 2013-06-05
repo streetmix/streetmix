@@ -3450,6 +3450,16 @@ var main = (function(){
   }
 
   function _sendDeleteStreetToServer(id) {
+    // Prevents new street submenu from showing the last street
+    if (settings.lastStreetId == id) {
+      settings.lastStreetId = null;
+      settings.lastStreetCreatorId = null;
+      settings.lastStreetNamespacedId = null;
+      
+      _saveSettings();
+      _saveSettingsToServer();
+    }
+
     jQuery.ajax({
       // TODO const
       url: system.apiUrl + 'v1/streets/' + id,
