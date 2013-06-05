@@ -3951,14 +3951,19 @@ var main = (function(){
     }
 
     if (signInData && signInData.token) {
-      _fetchSignInDetails();
-/*
+      // _fetchSignInDetails();
+
+      // THIS BLOCK WAS COMMENTED OUT FOR A REASON. UNCOMMENTING IT NOW TO
+      // SEE IF IT CAUSES TROUBLE
+      // 
+      // TODO figure out why you commented it out in the first place, Marcin
       if (signInData.details) {
         signedIn = true;
         _signInLoaded();
       } else {
         _fetchSignInDetails();
-      }*/
+      }
+
     } else {
       signedIn = false;
       _signInLoaded();
