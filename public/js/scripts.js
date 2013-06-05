@@ -3099,6 +3099,8 @@ var main = (function(){
   }
 
   function _normalizeStreetName(name) {
+    name = jQuery.trim(name);
+
     if (name.length > MAX_STREET_NAME_WIDTH) {
       name = name.substr(0, MAX_STREET_NAME_WIDTH) + '…';
     }
@@ -3310,8 +3312,29 @@ var main = (function(){
     return date.format('MMM D, YYYY');
   }
 
+  function _onDeleteGalleryStreet(event) {
+    var el = event.target.parentNode;
+    var name = el.streetName;
+
+    var prompt = 'Are you sure you want to permanently delete ' + name + '?';
+
+    // TODO escape name
+    if (confirm(prompt)) {
+
+    }
+
+    event.preventDefault();
+  }
+
   function _receiveGalleryData(transmission) {
     document.querySelector('#gallery .streets').innerHTML = '';
+
+    var el = document.createElement('li');
+    var newEl = document.createElement('a');
+    newEl.innerHTML = 'New street';
+    newEl.href = '/' + URL_NEW_STREET;
+    el.appendChild(newEl);
+    document.querySelector('#gallery .streets').appendChild(el);
 
     for (var i in transmission.streets) {
       var galleryStreet = transmission.streets[i];
@@ -3322,10 +3345,12 @@ var main = (function(){
 
       galleryStreet.creatorId = signInData.userId;
 
-      //console.log(galleryStreet);
+      console.log(galleryStreet);
 
       anchorEl.href = _getStreetUrl(galleryStreet);
       anchorEl.innerHTML = galleryStreet.name;
+      
+      anchorEl.streetName = galleryStreet.name;
       anchorEl.streetId = galleryStreet.id;
 
       if (street.id == galleryStreet.id) {
@@ -3339,11 +3364,16 @@ var main = (function(){
       var dateEl = document.createElement('span');
       dateEl.classList.add('date');
       dateEl.innerHTML = _formatDate(date);
-
       anchorEl.appendChild(dateEl);
 
-      el.appendChild(anchorEl);
+      var removeEl = document.createElement('button');
+      removeEl.classList.add('remove');
+      removeEl.addEventListener('click', _onDeleteGalleryStreet);
+      removeEl.innerHTML = '×';
+      removeEl.title = 'Delete the street';
+      anchorEl.appendChild(removeEl);
 
+      el.appendChild(anchorEl);
       document.querySelector('#gallery .streets').appendChild(el);
     }
   }
@@ -3971,13 +4001,6 @@ var main = (function(){
       document.querySelector('#identity').classList.add('visible');
 
       document.querySelector('#gallery-link').classList.add('visible');
-
-      /*var el = document.createElement('a');
-      el.href = '/';
-      el.classList.add('command');
-      el.innerHTML = 'Sign out';
-      el.addEventListener('click', _signOut);
-      document.querySelector('#sign-in-link').appendChild(el);*/
     } else {
       var el = document.createElement('a');
       el.href = '/' + URL_SIGN_IN_REDIRECT;

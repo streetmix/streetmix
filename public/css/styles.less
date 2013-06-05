@@ -138,8 +138,41 @@ body.gallery-visible #main-screen {
           display: block;
         }
 
+        button {
+          position: absolute;
+          width: 30px;
+          height: 29px;
+          line-height: 25px;
+          vertical-align: top;
+
+          font-size: 14px;
+
+          background: white;
+          padding: 0;
+          margin: 0 1px;
+          border: 1px solid rgb(120, 120, 120);
+          color: rgb(120, 120, 120);
+
+          cursor: pointer;
+
+          &.remove {
+            top: -3px;
+            right: -3px;
+
+            opacity: 0;
+          }
+          &:hover {
+            border-color: black;
+            color: black;
+          }
+        }
+
         &:hover {
           background: rgb(230, 230, 230);
+
+          button.remove {
+            opacity: 1;
+          }
         }
 
         &.selected {
