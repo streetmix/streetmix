@@ -1879,7 +1879,15 @@ var main = (function(){
 
     _updateUndoStackCreator();
 
-    if (!promoteStreet) {
+    if (undoStack[undoPosition - 1] && (undoStack[undoPosition - 1].name != street.name)) {
+      // The street was remixed as a result of editing its name. Don’t be
+      // a douche and add (remixed) to it then.
+      var dontAddSuffix = true;
+    } else {
+      var dontAddSuffix = false;
+    }
+
+    if (!promoteStreet && !dontAddSuffix) {
       _addRemixSuffixToName();
     }
 
