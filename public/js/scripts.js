@@ -3225,10 +3225,7 @@ var main = (function(){
     }
   }
 
-  function _onNewStreetDefaultClick() {
-    settings.newStreetPreference = NEW_STREET_DEFAULT;
-    _saveSettings();
-
+  function _makeDefaultStreet() {
     ignoreStreetChanges = true;
     _prepareDefaultStreet();
 
@@ -3242,6 +3239,13 @@ var main = (function(){
     lastStreet = _trimStreetData();
 
     _saveStreetToServer(false);
+  }
+
+  function _onNewStreetDefaultClick() {
+    settings.newStreetPreference = NEW_STREET_DEFAULT;
+    _saveSettings();
+
+    _makeDefaultStreet();
   }
 
   function _onNewStreetEmptyClick() {
@@ -3264,6 +3268,11 @@ var main = (function(){
   }
 
   function _onNewStreetLastClick() {
+    _fetchLastStreet();
+  }
+
+  function _fetchLastStreet() {
+    _showBlockingShield();
 
     jQuery.ajax({
       // TODO const
@@ -3271,8 +3280,16 @@ var main = (function(){
       dataType: 'json',
       type: 'GET',
       headers: { 'Authorization': _getAuthHeader() }
-    }).done(_receiveLastStreet);
-    //.fail(_failReceiveStreet);
+    }).done(_receiveLastStreet)
+    .fail(_errorReceiveLastStreet);
+  }
+
+  function _errorReceiveLastStreet() {
+    document.querySelector('#new-street-default').checked = true;
+    _makeDefaultStreet();
+
+    _hideBlockingShield();
+    _statusMessage.show('There was an error loading last street.');
   }
 
   function _receiveLastStreet(transmission) {
@@ -3300,6 +3317,7 @@ var main = (function(){
     lastStreet = _trimStreetData();
 
     _saveStreetToServer(false);
+    _hideBlockingShield();
   }
 
   function _showNewStreetMenu() {
@@ -3407,10 +3425,11 @@ var main = (function(){
   }
 
   function _showBlockingShield(message) {
-    if (message) {
-      document.querySelector('#blocking-shield > div').innerHTML = message;
+    if (!message) {
+      message = 'Loading…';
     }
 
+    document.querySelector('#blocking-shield > div').innerHTML = message;
     document.querySelector('#blocking-shield').classList.add('visible');
 
     _clearBlockingShieldTimer();
