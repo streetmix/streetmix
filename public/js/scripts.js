@@ -546,7 +546,7 @@ var main = (function(){
     id: null,
     creatorId: null,
     namespacedId: null,
-    remixId: null, // id of the street the current street is remixed from (could be null)
+    originalStreetId: null, // id of the street the current street is remixed from (could be null)
     name: null,
 
     width: null,
@@ -568,7 +568,7 @@ var main = (function(){
     lastStreetId: null,
     lastStreetNamespacedId: null,
     lastStreetUserId: null,
-    originalLastStreetId: null, // Do not save
+    priorLastStreetId: null, // Do not save
     newStreetPreference: null
   };
 
@@ -1670,24 +1670,13 @@ var main = (function(){
     _trimUndoStack();
   }
 
-  function _packServerStreetData() {
-    var data = {};
-
-    data.street = _trimStreetData();
-    data.undoStack = _clone(undoStack);
-    data.undoPosition = undoPosition;
-
-    return data;
-  }
-
   function _unpackServerStreetData(transmission, id, namespacedId) {
     console.log('unpack server street data', transmission);
 
-    //console.log(transmission);
-
-    //console.log(jQuery.type(transmission));
-
     street = _clone(transmission.data.street);
+
+    street.originalStreetId = transmission.originalStreetId;
+    street.name = transmission.name;
 
     undoStack = _clone(transmission.data.undoStack);
     undoPosition = transmission.data.undoPosition;
@@ -1699,21 +1688,31 @@ var main = (function(){
     }
   }
 
-  // TODO combine with _packServerStreetData()
-  function _getServerTransmission() {
+  function _packServerStreetData() {
+    var data = {};
+
+    data.street = _trimStreetData();
+
+    // Those go above data in the structure, so they need to be cleared here
+    delete data.street.name;
+    delete data.street.originalStreetId;
+
+    data.undoStack = _clone(undoStack);
+    data.undoPosition = undoPosition;
+
     var transmission = {
       name: street.name,
-      data: _packServerStreetData()
+      originalStreetId: street.originalStreetId,
+      data: data
     }
 
     return JSON.stringify(transmission);
   }
 
-
   function _saveStreetToServer(initial) {
     console.log('save street to server…');
 
-    var transmission = _getServerTransmission();
+    var transmission = _packServerStreetData();
 
     if (initial) {
       var doneFunc = _confirmSaveStreetToServerInitial;
@@ -1805,7 +1804,7 @@ var main = (function(){
       }
     }
 
-    var transmission = _getServerTransmission();
+    var transmission = _packServerStreetData();
 
     jQuery.ajax({
       // TODO const
@@ -1862,7 +1861,7 @@ var main = (function(){
       street.creatorId = null;
     }
 
-    street.remixId = street.id;
+    street.originalStreetId = street.id;
 
     if (!promoteStreet) {
       _addRemixSuffixToName();
@@ -1979,7 +1978,7 @@ var main = (function(){
     newData.id = street.id;
     newData.namespacedId = street.namespacedId;
     newData.creatorId = street.creatorId;
-    newData.remixId = street.remixId;
+    newData.originalStreetId = street.originalStreetId;
     newData.units = street.units;
 
     newData.segments = [];
@@ -3185,7 +3184,7 @@ var main = (function(){
 
     jQuery.ajax({
       // TODO const
-      url: system.apiUrl + 'v1/streets/' + settings.originalLastStreetId,
+      url: system.apiUrl + 'v1/streets/' + settings.priorLastStreetId,
       dataType: 'json',
       type: 'GET',
       headers: { 'Authorization': _getAuthHeader() }
@@ -3199,7 +3198,7 @@ var main = (function(){
     ignoreStreetChanges = true;
 
     _unpackServerStreetData(transmission, street.id, street.namespacedId);
-    street.remixId = settings.originalLastStreetId;
+    street.originalStreetId = settings.priorLastStreetId;
     _addRemixSuffixToName();
 
     _propagateUnits();
@@ -3230,11 +3229,11 @@ var main = (function(){
         break;
     }
 
-    if (settings.originalLastStreetId && settings.originalLastStreetId != street.id) {
+    if (settings.priorLastStreetId && settings.priorLastStreetId != street.id) {
       document.querySelector('#new-street-last').parentNode.classList.add('visible');
     }
 
-    //console.log('last street id', settings.originalLastStreetId);
+    //console.log('last street id', settings.priorLastStreetId);
 
     document.querySelector('#new-street-menu').classList.add('visible');
   }
@@ -3556,7 +3555,7 @@ var main = (function(){
       _hideMenus();
     }
   }
-  
+
   function _onShareMenuClick() {
     var el = document.querySelector('#share-menu');
 
@@ -3647,7 +3646,7 @@ var main = (function(){
       settings.lastStreetCreatorId = localSettings.lastStreetCreatorId;
     }
 
-    settings.originalLastStreetId = settings.lastStreetId;
+    settings.priorLastStreetId = settings.lastStreetId;
 
     console.log('FINAL settings', settings);
 
