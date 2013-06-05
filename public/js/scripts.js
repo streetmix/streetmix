@@ -3062,6 +3062,8 @@ var main = (function(){
     var url = _getStreetUrl(street);
 
     window.history.replaceState(null, null, url);
+
+    _updateShareMenu();
   }
 
   function _updatePageTitle() {
@@ -3757,8 +3759,8 @@ var main = (function(){
 
     var text = _getSharingMessage();
 
-    el.href = 'https://www.facebook.com/dialog/feed?' +
-        'app_id=' + FACEBOOK_APP_ID +
+    el.href = 'https://www.facebook.com/dialog/feed' +
+        '?app_id=' + FACEBOOK_APP_ID +
         '&redirect_uri=' + encodeURIComponent(url) + 
         '&link=' + encodeURIComponent(url) + 
         '&name=' + encodeURIComponent(_getPageTitle()) +
@@ -3770,7 +3772,8 @@ var main = (function(){
 
     var text = _getSharingMessage();
 
-    el.href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + 
+    el.href = 'https://twitter.com/intent/tweet' + 
+        '?text=' + encodeURIComponent(text) + 
         '&url=' + encodeURIComponent(url);
   }
 
