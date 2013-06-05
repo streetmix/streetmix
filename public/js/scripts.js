@@ -62,6 +62,7 @@ var main = (function(){
   var ERROR_TYPE_NO_STREET = 3; // for gallery if you delete the street you were looking at
   var ERROR_FORCE_RELOAD_SIGN_IN = 4;
   var ERROR_FORCE_RELOAD_SIGN_OUT = 5;
+  var ERROR_STREET_DELETED_ELSEWHERE = 6;
 
   var NEW_STREET_DEFAULT = 1;
   var NEW_STREET_EMPTY = 2;
@@ -626,6 +627,8 @@ var main = (function(){
 
   var infoBubbleVisible = false;
   var infoButtonHoverTimerId = -1;
+
+  var galleryVisible = false;
 
   var streetSectionCanvasLeft;
 
@@ -1957,8 +1960,7 @@ var main = (function(){
   function _checkIfChangesSaved() {
     // don’t do for settings deliberately
 
-    if (saveStreetIncomplete) {
-
+    if (saveStreetIncomplete && !abortEverything) {
       if (saveStreetIncomplete) {
         console.log('save street incomplete');
 
@@ -1970,7 +1972,7 @@ var main = (function(){
         _saveSettingsToServer(false);
       }*/
 
-      return 'Your changes have not been saved yet. Please wait and close the page in a little while to allow the changes to be saved.';
+      return 'Your changes have not been saved yet. Please return to the page, check your Internet connection, and wait a little while to allow the changes to be saved.';
     } else {
       return null;
     }
@@ -3162,16 +3164,53 @@ var main = (function(){
     }
   }
 
-  function _onWindowFocus() {
-    //console.log('WINDOW FOCUS');
+  function _fetchStreetForVerification() {
+    var url = _getFetchStreetUrl();
 
-    // Save settings on window focus, so the last edited street is the one you’re
-    // currently looking at (in case you’re looking at many streets in various
-    // tabs)
-    _saveSettings();
+    console.log('verifying street', '|' + url + '|');
+
+    jQuery.ajax({
+      url: url,
+      dataType: 'json',
+      type: 'GET',
+    }).done(_receiveStreetForVerification).fail(_errorReceiveStreetForVerification);
+  }
+
+  function _receiveStreetForVerification() {
+
+  }
+
+  function _errorReceiveStreetForVerification(data) {
+    if (signedIn && (data.status == 404)) {
+      // Means street was deleted
+
+      _showError(ERROR_STREET_DELETED_ELSEWHERE);
+      abortEverything = true;
+    }
+  }
+
+  function _onWindowFocus() {
+    if (abortEverything) {
+      return;
+    }
+
+    if (!galleryVisible) {
+      //console.log('WINDOW FOCUS');
+
+      _fetchStreetForVerification();
+
+      // Save settings on window focus, so the last edited street is the one you’re
+      // currently looking at (in case you’re looking at many streets in various
+      // tabs)
+      _saveSettings();
+    }
   }
 
   function _onWindowBlur() {
+    if (abortEverything) {
+      return;
+    }
+
     //console.log('WINDOW BLUR');
     _hideMenus();
   }
@@ -3392,7 +3431,8 @@ var main = (function(){
     var el = event.target.parentNode;
     var name = el.streetName;
 
-    var prompt = 'Are you sure you want to permanently delete ' + name + '?';
+    var prompt = 
+      'Are you sure you want to permanently delete ' + name + '? This cannot be undone.';
 
     // TODO escape name
     if (confirm(prompt)) {
@@ -3473,6 +3513,8 @@ var main = (function(){
   }
 
   function _showGallery() {
+    galleryVisible = true;
+
     _statusMessage.hide();
 
     document.body.classList.add('gallery-visible');
@@ -3482,7 +3524,11 @@ var main = (function(){
 
   function _hideGallery() {
     if (currentErrorType != ERROR_TYPE_NO_STREET) {
+      galleryVisible = false;
+
       document.body.classList.remove('gallery-visible');
+
+      _onWindowFocus();
     }
   }
 
@@ -4338,7 +4384,8 @@ var main = (function(){
     // TODO handle this
   }
 
-  function _fetchStreetFromServer() {
+  function _getFetchStreetUrl() {
+    // TODO const
     if (street.creatorId) {
       var url = system.apiUrl + 'v1/streets?namespacedId=' + 
           encodeURIComponent(street.namespacedId) + '&creatorId=' +
@@ -4348,14 +4395,18 @@ var main = (function(){
           encodeURIComponent(street.namespacedId);    
     }
 
+    return url;    
+  }
+
+  function _fetchStreetFromServer() {
+    var url = _getFetchStreetUrl();
+
     console.log('try to get street from server', '|' + url + '|');
 
     jQuery.ajax({
-      // TODO const
       url: url,
       dataType: 'json',
       type: 'GET',
-      //headers: { 'Authorization': _getAuthHeader() }
     }).done(_receiveStreet).fail(_errorReceiveStreet);
   }
 
@@ -4468,6 +4519,10 @@ var main = (function(){
       case ERROR_FORCE_RELOAD_SIGN_IN:
         title = 'You signed in in another window';
         description = 'Please reload this page before continuing.<br><button class="reload">Reload the page</button>';
+        break;
+      case ERROR_STREET_DELETED_ELSEWHERE:
+        title = 'This street has been deleted elsewhere';
+        description = 'This street has been deleted in another browser.<br><button class="home">Go to the homepage</button>';
         break;
     }
 
