@@ -1798,13 +1798,7 @@ var main = (function(){
   }
 
   function _remixStreet() {
-    if (!promoteStreet) {
-      if (signedIn) {
-        _statusMessage.show('Now editing a freshly-made copy of the original street. The copy has been put in your gallery.');
-      } else {
-        _statusMessage.show('Now editing a freshly-made copy of the original street. <a href="/' + URL_SIGN_IN + '">Sign in</a> to start your own gallery of streets.');
-      }
-    }
+    _showBlockingShield('Remixing…');
 
     var transmission = _packServerStreetData();
 
@@ -1816,8 +1810,8 @@ var main = (function(){
       dataType: 'json',
       contentType: 'application/json',
       headers: { 'Authorization': _getAuthHeader() }
-    }).done(_receiveRemixedStreetFeedback)
-    .fail(_failRemixedStreetFeedback);
+    }).done(_receiveRemixedStreetFeedback);
+    //.fail(_errorReceiveRemixedStreetFeedback);
 
     remixOnFirstEdit = false;
   }
@@ -1857,6 +1851,14 @@ var main = (function(){
   }
 
   function _receiveRemixedStreetFeedback(data) {
+    if (!promoteStreet) {
+      if (signedIn) {
+        _statusMessage.show('Now editing a freshly-made copy of the original street. The copy has been put in your gallery.');
+      } else {
+        _statusMessage.show('Now editing a freshly-made copy of the original street. <a href="/' + URL_SIGN_IN + '">Sign in</a> to start your own gallery of streets.');
+      }
+    }
+
     if (signedIn) {
       street.creatorId = signInData.userId;
     } else {
@@ -1876,6 +1878,8 @@ var main = (function(){
     _updateStreetName();
 
     _saveStreetToServer(false);
+
+    _hideBlockingShield();
   }
 
   function _failRemixedStreetFeedback() {
@@ -3322,6 +3326,33 @@ var main = (function(){
 
   function _formatDate(date) {
     return date.format('MMM D, YYYY');
+  }
+
+  var blockingShieldTimerId = -1;
+
+  function _clearBlockingShieldTimer() {
+    window.clearTimeout(blockingShieldTimerId);
+  }
+
+  function _showBlockingShield(message) {
+    if (message) {
+      document.querySelector('#blocking-shield > div').innerHTML = message;
+    }
+
+    document.querySelector('#blocking-shield').classList.add('visible');
+
+    _clearBlockingShieldTimer();
+
+    window.setTimeout(function() {
+      document.querySelector('#blocking-shield').classList.add('darken');
+    }, 0);
+  }
+
+  function _hideBlockingShield() {
+    _clearBlockingShieldTimer();
+
+    document.querySelector('#blocking-shield').classList.remove('visible');
+    document.querySelector('#blocking-shield').classList.remove('darken');
   }
 
   function _onDeleteGalleryStreet(event) {

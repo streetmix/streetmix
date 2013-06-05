@@ -1016,6 +1016,50 @@ body.touch-support .segment.fade-out-end button {
   display: none;
 }
 
+#blocking-shield {
+  z-index: 99999999 - 1;
+
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: table;
+
+  font-size: 16px;
+
+  & > div {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+  }  
+
+  background: transparent;
+  color: transparent;
+
+  &.darken {
+    -webkit-transition: background 1000ms, color 1000ms;
+    -moz-transition: background 1000ms, color 1000ms;
+    transition: background 1000ms, color 1000ms;
+
+    -webkit-transition-delay: 1000ms;
+    -moz-transition-delay: 1000ms;
+    transition-delay: 1000ms;
+
+    background: rgba(0, 0, 0, .4);
+    color: white;
+  }
+
+  cursor: wait;
+  & * {
+    cursor: wait;
+  }
+}
+
+#blocking-shield:not(.visible) {
+  display: none;
+}
+
 #status-message {
   position: absolute;
   top: 130px;
