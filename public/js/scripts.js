@@ -2447,7 +2447,9 @@ var main = (function(){
     var topEl = event.target;
     // TODO nasty
     while (topEl && (topEl.id != 'info-bubble') && 
-      (topEl.id != 'share-menu') && (topEl.id != 'identity-menu')) {
+      (topEl.id != 'share-menu') && 
+      (topEl.id != 'feedback-menu') && 
+      (topEl.id != 'identity-menu')) {
       topEl = topEl.parentNode;
     }
 
@@ -3441,6 +3443,8 @@ var main = (function(){
 
     document.querySelector('#share-menu-button').
         addEventListener('click', _onShareMenuClick);
+    document.querySelector('#feedback-menu-button').
+        addEventListener('click', _onFeedbackMenuClick);
     if (document.querySelector('#identity-menu-button')) {
       document.querySelector('#identity-menu-button').
           addEventListener('click', _onIdentityMenuClick);
@@ -3536,9 +3540,23 @@ var main = (function(){
     _loseAnyFocus();
 
     document.querySelector('#share-menu').classList.remove('visible');
+    document.querySelector('#feedback-menu').classList.remove('visible');
     document.querySelector('#identity-menu').classList.remove('visible');
   }
 
+  function _onFeedbackMenuClick() {
+    var el = document.querySelector('#feedback-menu');
+
+    if (!el.classList.contains('visible')) {
+      el.classList.add('visible');
+
+      //document.querySelector('#share-via-link').focus();
+      //document.querySelector('#share-via-link').select();
+    } else {
+      _hideMenus();
+    }
+  }
+  
   function _onShareMenuClick() {
     var el = document.querySelector('#share-menu');
 
@@ -3781,12 +3799,18 @@ var main = (function(){
     document.querySelector('#share-via-link').value = url;
   }
 
-  function _updateShareMenu() {
+  function _getSharingUrl() {
     if (system.environment == ENVIRONMENT_PRODUCTION) {
       var url = location.href;
     } else {
       var url = SITE_URL_PRODUCTION;
     }
+
+    return url;
+  }
+
+  function _updateShareMenu() {
+    var url = _getSharingUrl();
 
     _updateNakedLink(url);
     _updateTwitterLink(url);
@@ -3795,6 +3819,18 @@ var main = (function(){
     if (!signedIn) {
       document.querySelector('#sign-in-promo').classList.add('visible');
     }
+  }
+
+  function _updateFeedbackMenu() {
+    var el = document.querySelector('#feedback-via-twitter');
+
+    // TODO const
+    var text = '@streetmixapp';
+    var url = _getSharingUrl();
+
+    el.href = 'https://twitter.com/intent/tweet' + 
+        '?text=' + encodeURIComponent(text) + 
+        '&url=' + encodeURIComponent(url);    
   }
 
   function _prepareDefaultStreet() {
@@ -3841,6 +3877,7 @@ var main = (function(){
     _createDomFromData();
     _segmentsChanged();
     _updateShareMenu();
+    _updateFeedbackMenu();
 
     initializing = false;    
     ignoreStreetChanges = false;
@@ -4361,7 +4398,6 @@ var main = (function(){
     if (abortEverything) {
       return;
     }
-
 
     // Asynchronously loading…
 
