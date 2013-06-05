@@ -4018,7 +4018,7 @@ var main = (function(){
       url: system.apiUrl + 'v1/users/' + signInData.userId + '/login-token',
       dataType: 'json',
       type: 'DELETE',
-      headers: { 'Authorization': _getAuthHeader() }
+      //headers: { 'Authorization': _getAuthHeader() }
     }).done(_receiveSignOutConfirmationFromServer)
     .fail(_receiveSignOutConfirmationFromServer);
   }
