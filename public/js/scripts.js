@@ -37,6 +37,7 @@ var main = (function(){
   var URL_SIGN_IN_CALLBACK = 'twitter-sign-in-callback';
   var URL_JUST_SIGNED_IN = 'just-signed-in';
   var URL_NEW_STREET = 'new';
+  var URL_NEW_STREET_COPY_LAST = 'copy-last';
   var URL_NO_USER = '-';
 
   var URL_SIGN_IN_REDIRECT = URL_SIGN_IN + '?redirectUri=' + URL_JUST_SIGNED_IN;
@@ -44,18 +45,21 @@ var main = (function(){
   // Since URLs like “streetmix.net/new” are reserved, but we still want
   // @new to be able to use Streetmix, we prefix any reserved URLs with ~
   var RESERVED_URLS = 
-      [URL_SIGN_IN, URL_SIGN_IN_CALLBACK, URL_NEW_STREET, URL_JUST_SIGNED_IN, 
+      [URL_SIGN_IN, URL_SIGN_IN_CALLBACK, 
+      URL_NEW_STREET, URL_NEW_STREET_COPY_LAST,
+      URL_JUST_SIGNED_IN, 
       'help', 'gallery', 'streets'];
   var URL_RESERVED_PREFIX = '~';
 
   var MODE_CONTINUE = 1;
   var MODE_NEW_STREET = 2;
-  var MODE_JUST_SIGNED_IN = 3;
-  var MODE_EXISTING_STREET = 4;
-  var MODE_404 = 5;
-  var MODE_SIGN_OUT = 6;
-  var MODE_FORCE_RELOAD_SIGN_IN = 7;
-  var MODE_FORCE_RELOAD_SIGN_OUT = 8;
+  var MODE_NEW_STREET_COPY_LAST = 3;
+  var MODE_JUST_SIGNED_IN = 4;
+  var MODE_EXISTING_STREET = 5;
+  var MODE_404 = 6;
+  var MODE_SIGN_OUT = 7;
+  var MODE_FORCE_RELOAD_SIGN_IN = 8;
+  var MODE_FORCE_RELOAD_SIGN_OUT = 9;
 
   var ERROR_TYPE_404 = 1;
   var ERROR_TYPE_SIGN_OUT = 2;
@@ -3334,8 +3338,6 @@ var main = (function(){
       document.querySelector('#new-street-last').parentNode.classList.add('visible');
     }
 
-    //console.log('last street id', settings.priorLastStreetId);
-
     document.querySelector('#new-street-menu').classList.add('visible');
   }
 
@@ -3496,6 +3498,13 @@ var main = (function(){
     var newEl = document.createElement('a');
     newEl.innerHTML = 'New street';
     newEl.href = '/' + URL_NEW_STREET;
+    el.appendChild(newEl);
+    document.querySelector('#gallery .streets').appendChild(el);
+
+    var el = document.createElement('li');
+    var newEl = document.createElement('a');
+    newEl.innerHTML = 'Make a copy of the current street';
+    newEl.href = '/' + URL_NEW_STREET_COPY_LAST;
     el.appendChild(newEl);
     document.querySelector('#gallery .streets').appendChild(el);
 
@@ -4030,11 +4039,8 @@ var main = (function(){
       case MODE_NEW_STREET:
         _showNewStreetMenu();
         break;
-      case MODE_EXISTING_STREET:
-      case MODE_JUST_SIGNED_IN:
-        // TODO stupid… backfilling non-existent structures
-        //_createDomFromData();
-        //_createDataFromDom();
+      case MODE_NEW_STREET_COPY_LAST:
+        _onNewStreetLastClick();
         break;
     }
 
@@ -4262,6 +4268,7 @@ var main = (function(){
 
     switch (mode) {
       case MODE_NEW_STREET:
+      case MODE_NEW_STREET_COPY_LAST:
         _createNewStreetOnServer();
         break;
       case MODE_EXISTING_STREET:
@@ -4347,6 +4354,10 @@ var main = (function(){
       // New street
 
       mode = MODE_NEW_STREET;
+    } else if ((urlParts.length == 1) && (urlParts[0] == URL_NEW_STREET_COPY_LAST)) {
+      // New street (but start with copying last street)
+
+      mode = MODE_NEW_STREET_COPY_LAST;
     } else if ((urlParts.length == 1) && (urlParts[0] == URL_JUST_SIGNED_IN)) {
       // Coming back from a successful sign in
 
@@ -4607,6 +4618,9 @@ var main = (function(){
       case MODE_NEW_STREET:
         serverContacted = false;
         break;
+      case MODE_NEW_STREET_COPY_LAST:
+        serverContacted = false;
+        break;
       case MODE_CONTINUE:
         serverContacted = false;
         break;
@@ -4642,7 +4656,7 @@ var main = (function(){
 
     // …detecting country from IP for units and left/right-hand driving
     // TODO only make it work for new streets
-    if (mode == MODE_NEW_STREET) {
+    if ((mode == MODE_NEW_STREET) || (mode == MODE_NEW_STREET_COPY_LAST)) {
       _detectCountry();
     } else {
       countryLoaded = true;
