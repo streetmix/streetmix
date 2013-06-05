@@ -4001,6 +4001,10 @@ var main = (function(){
   }
 
   function _signOut(event) {
+    settings.lastStreetId = null;
+    settings.lastStreetNamespacedId = null;
+    settings.lastStreetCreatorId = null;
+
     _removeSignInCookies();
     window.localStorage.removeItem(LOCAL_STORAGE_SIGN_IN_ID);
     _sendSignOutToServer();
