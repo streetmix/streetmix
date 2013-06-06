@@ -1727,6 +1727,12 @@ var main = (function(){
   var nonblockingAjaxRequests = {};
   var nonblockingAjaxRequestCount = 0;
 
+  var nonblockingAjaxRequestTimer = 0;
+
+  var NON_BLOCKING_AJAX_REQUEST_TIME = [10, 500, 1000, 5000];
+  var NON_BLOCKING_AJAX_REQUEST_BACKOFF_MULTIPLIER = 5000; // Five seconds
+  var NON_BLOCKING_AJAX_REQUEST_BACKOFF_RANGE = 60; // From five seconds to five minutes
+
   function _debugOutput() {
     console.log(nonblockingAjaxRequestCount + ' requests…');
 
@@ -1740,6 +1746,8 @@ var main = (function(){
   }
 
   function _newNonblockingAjaxRequest(request, allowToClosePage) {
+    nonblockingAjaxRequestTimer = 0;
+
     console.log('new request added…');
     var signature = _getAjaxRequestSignature(request);
 
@@ -1751,20 +1759,40 @@ var main = (function(){
 
     _debugOutput();
 
-    _sendNextNonblockingAjaxRequest();
+    _scheduleNextNonblockingAjaxRequest();
   }
 
   function _sendNextNonblockingAjaxRequest() {
     if (nonblockingAjaxRequestCount) {
-      console.log('trying to send next…');
       // TODO hack
       for (var i in nonblockingAjaxRequests) {
         var request = nonblockingAjaxRequests[i].request;
         break;
       }
-      jQuery.ajax(request).done(function (data) {
+
+      console.log('sending…');
+
+      jQuery.ajax(request).done(function(data) {
         _successNonblockingAjaxRequest(data, _getAjaxRequestSignature(request));
       });
+
+      _scheduleNextNonblockingAjaxRequest();
+    }
+  }
+
+  function _scheduleNextNonblockingAjaxRequest() {
+    if (nonblockingAjaxRequestCount) {
+      if (nonblockingAjaxRequestTimer < NON_BLOCKING_AJAX_REQUEST_TIME.length) {
+        var time = NON_BLOCKING_AJAX_REQUEST_TIME[nonblockingAjaxRequestTimer];
+      } else {
+        var time = Math.floor(Math.random() * NON_BLOCKING_AJAX_REQUEST_BACKOFF_RANGE) * NON_BLOCKING_AJAX_REQUEST_BACKOFF_MULTIPLIER; 
+      }
+
+      console.log('trying to send next… at time: ', time);
+
+      window.setTimeout(_sendNextNonblockingAjaxRequest, time);
+
+      nonblockingAjaxRequestTimer++;
     } else {
       console.log('nothing more to send!');
 
@@ -1773,13 +1801,15 @@ var main = (function(){
   }
 
   function _successNonblockingAjaxRequest(data, signature) {
+    nonblockingAjaxRequestTimer = 0;
+    nonblockingAjaxRequestCount--;
+
     console.log('SUCCESS!', signature);
 
     delete nonblockingAjaxRequests[signature];
-    nonblockingAjaxRequestCount--;
     //console.log(data, textStatus, jqXHR);
 
-    _sendNextNonblockingAjaxRequest();
+    _scheduleNextNonblockingAjaxRequest();
   }
 
   function _saveStreetToServer(initial) {
@@ -2075,7 +2105,8 @@ var main = (function(){
     }
 
     if (showWarning) {
-      _sendNextNonblockingAjaxRequest();
+      nonblockingAjaxRequestTimer = 0;
+      _scheduleNextNonblockingAjaxRequest();
 
       return 'Your changes have not been saved yet. Please return to the page, check your Internet connection, and wait a little while to allow the changes to be saved.';
     } else {
