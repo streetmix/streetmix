@@ -1841,7 +1841,6 @@ var main = (function(){
         contentType: 'application/json',
         headers: { 'Authorization': _getAuthHeader() }
       }).done(_confirmSaveStreetToServerInitial);
-      //var doneFunc = ;
     } else {
       _newNonblockingAjaxRequest({
         // TODO const
@@ -1852,20 +1851,8 @@ var main = (function(){
         contentType: 'application/json',
         headers: { 'Authorization': _getAuthHeader() }
       }, false);
-      // non blocking
-
-      //var doneFunc = _confirmSaveStreetToServer;
     }
-
-
-    //.fail(_receiveSignOutConfirmationFromServer);
-
-    // TODO better fail at street saving
   }
-
-/*  function _confirmSaveStreetToServer() {
-    saveStreetIncomplete = false;
-  }*/
 
   function _confirmSaveStreetToServerInitial() {
     saveStreetIncomplete = false;
@@ -3420,8 +3407,6 @@ var main = (function(){
   }
 
   function _fetchLastStreet() {
-    //_showBlockingShield();
-
     _newBlockingAjaxRequest('Loading…', 
         {
           // TODO const
@@ -3431,23 +3416,11 @@ var main = (function(){
           headers: { 'Authorization': _getAuthHeader() }
         }, _receiveLastStreet, _cancelReceiveLastStreet
     );
-
-/*    jQuery.ajax({
-      // TODO const
-      url: system.apiUrl + 'v1/streets/' + settings.priorLastStreetId,
-      dataType: 'json',
-      type: 'GET',
-      headers: { 'Authorization': _getAuthHeader() }
-    }).done(_receiveLastStreet)
-    .fail(_errorReceiveLastStreet);*/
   }
 
   function _cancelReceiveLastStreet() {
     document.querySelector('#new-street-default').checked = true;
     _makeDefaultStreet();
-
-    //_hideBlockingShield();
-    //_statusMessage.show('There was an error loading last street.');
   }
 
   function _receiveLastStreet(transmission) {
