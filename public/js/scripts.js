@@ -3709,7 +3709,7 @@ var main = (function(){
   }
 
   function _receiveGalleryData(transmission) {
-    console.log('receive gallery data', transmission);
+    //console.log('receive gallery data', transmission);
 
     document.querySelector('#gallery .loading').classList.remove('visible');
 
@@ -3736,7 +3736,7 @@ var main = (function(){
 
       galleryStreet.creatorId = signInData.userId;
 
-      console.log(galleryStreet);
+      //console.log(galleryStreet);
 
       anchorEl.href = _getStreetUrl(galleryStreet);
       anchorEl.innerHTML = galleryStreet.name;
