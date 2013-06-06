@@ -1620,6 +1620,22 @@ var main = (function(){
     _repositionSegments();
   }
 
+  function _updateEverything() {
+    ignoreStreetChanges = true;
+    _propagateUnits();
+    _buildStreetWidthMenu();
+    _updateShareMenu();
+    _createDomFromData();
+    _segmentsChanged();
+    _resizeStreetWidth();
+    _updateStreetName();
+    ignoreStreetChanges = false;
+    _updateUndoButtons();
+    lastStreet = _trimStreetData();
+
+    _scheduleSavingStreetToServer();
+  }
+
   function _undoRedo(undo) {
     if (undo && !_isUndoAvailable()) {
       _statusMessage.show('Nothing to undo.');
@@ -1634,20 +1650,8 @@ var main = (function(){
       }
       street = _clone(undoStack[undoPosition]);
 
-      ignoreStreetChanges = true;
-      _propagateUnits();
-      _buildStreetWidthMenu();
-      _updateShareMenu();
-      _createDomFromData();
-      _segmentsChanged();
-      _resizeStreetWidth();
-      _updateStreetName();
-      ignoreStreetChanges = false;
-      _updateUndoButtons();
-      lastStreet = _trimStreetData();
+      _updateEverything();
       _statusMessage.hide();
-
-      _scheduleSavingStreetToServer();
     }
   }
 
@@ -1683,13 +1687,19 @@ var main = (function(){
     _trimUndoStack();
   }
 
-  function _unpackServerStreetData(transmission, id, namespacedId) {
-    //console.log('unpack server street data', transmission);
-
-    street = _clone(transmission.data.street);
+  function _unpackStreetDataFromServerTransmission(transmission) {
+    var street = _clone(transmission.data.street);
 
     street.originalStreetId = transmission.originalStreetId;
     street.name = transmission.name;
+
+    return street;
+  }
+
+  function _unpackServerStreetData(transmission, id, namespacedId) {
+    //console.log('unpack server street data', transmission);
+
+    street = _unpackStreetDataFromServerTransmission(transmission);
 
     undoStack = _clone(transmission.data.undoStack);
     undoPosition = transmission.data.undoPosition;
@@ -3311,8 +3321,39 @@ var main = (function(){
     }).done(_receiveStreetForVerification).fail(_errorReceiveStreetForVerification);
   }
 
-  function _receiveStreetForVerification() {
+  // Compare two objects regardless of the order of their properties
+  function equalObject(obj1, obj2) {
+    
+    function _equalObject(o1, o2) {
+      return JSON.stringify(o1)
+          === JSON.stringify($.extend(true, {}, o1, o2));
+    }
 
+    //console.log(_equalObject(obj1, obj2));
+    //console.log(_equalObject(obj2, obj1));
+
+    return _equalObject(obj1, obj2) && _equalObject(obj2, obj1);
+  }
+
+  function _receiveStreetForVerification(transmission) {
+    //console.log('verify');
+
+    var localStreetData = _trimStreetData();
+    var serverStreetData = _unpackStreetDataFromServerTransmission(transmission);
+
+    console.log(JSON.stringify(localStreetData));
+    console.log(JSON.stringify(serverStreetData));
+
+    if (!equalObject(localStreetData, serverStreetData)) {
+      _statusMessage.show('Your street was reloaded from the server as it was modified elsewhere.');
+
+      _unpackServerStreetData(transmission);
+      //street = 
+
+      _updateEverything();
+    } else {
+      //console.log('equal');
+    }
   }
 
   function _errorReceiveStreetForVerification(data) {
