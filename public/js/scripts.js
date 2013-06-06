@@ -1837,7 +1837,7 @@ var main = (function(){
 
     //console.log('SUCCESS!', signature);
 
-    console.log('signature', signature);
+    //console.log('signature', signature);
     delete nonblockingAjaxRequests[signature];
     //console.log(data, textStatus, jqXHR);
 
