@@ -3478,7 +3478,16 @@ var main = (function(){
       dataType: 'json',
       type: 'GET',
       headers: { 'Authorization': _getAuthHeader() }
-    }).done(_receiveGalleryData);
+    }).done(_receiveGalleryData).fail(_errorReceiveGalleryData);
+  }
+
+  function _errorReceiveGalleryData() {
+    document.querySelector('#gallery .loading').classList.remove('visible');
+    document.querySelector('#gallery .error-loading').classList.add('visible');    
+  }
+
+  function _repeatReceiveGalleryData() {
+    _loadGalleryContents();
   }
 
   function _fetchGalleryStreet(streetId) {
@@ -3614,7 +3623,7 @@ var main = (function(){
   }
 
   function _receiveGalleryData(transmission) {
-    document.querySelector('#gallery .streets').innerHTML = '';
+    document.querySelector('#gallery .loading').classList.remove('visible');
 
     var el = document.createElement('li');
     var newEl = document.createElement('a');
@@ -3672,6 +3681,14 @@ var main = (function(){
     }
   }
 
+  function _loadGalleryContents() {
+    document.querySelector('#gallery .streets').innerHTML = '';
+    document.querySelector('#gallery .loading').classList.add('visible');
+    document.querySelector('#gallery .error-loading').classList.remove('visible');
+
+    _fetchGalleryData();  
+  }
+
   function _showGallery() {
     galleryVisible = true;
 
@@ -3679,7 +3696,7 @@ var main = (function(){
 
     document.body.classList.add('gallery-visible');
 
-    _fetchGalleryData();
+    _loadGalleryContents();
   }
 
   function _hideGallery() {
@@ -3701,6 +3718,8 @@ var main = (function(){
   }
 
   function _addEventListeners() {
+    document.querySelector('#gallery-try-again').addEventListener('click', _repeatReceiveGalleryData);
+
     document.querySelector('#no-connection-try-again').addEventListener('click', _nonblockingAjaxTryAgain);
 
     document.querySelector('#blocking-shield-cancel').addEventListener('click', _blockingCancel);

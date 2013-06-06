@@ -181,6 +181,41 @@ body.gallery-visible #main-screen {
       }
     }
   }
+
+  .loading {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: @galleryHeight;
+    line-height: @galleryHeight;
+    text-align: center;
+    z-index: 10000;
+    display: none;
+
+    &.visible {
+      display: block;
+    }
+  }
+
+  .error-loading {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: @galleryHeight;
+
+    text-align: center;
+    z-index: 10001;
+
+    margin-top: 65px;
+
+    display: none;
+
+    &.visible {
+      display: block;
+    }
+  }
 }
 
 #main-screen, 
