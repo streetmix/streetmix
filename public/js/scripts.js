@@ -4597,27 +4597,27 @@ var main = (function(){
 
     switch (errorType) {
       case ERROR_TYPE_404:
-        title = 'Page not found';
+        title = 'Page not found.';
         description = 'Oh, boy. There is no page with this address!<br><button class="home">Go to the homepage</button>';
         // TODO go to homepage
         break;
       case ERROR_TYPE_SIGN_OUT:
-        title = 'You’ve been signed out.';
+        title = 'You are now signed out.';
         description = '<button class="sign-in">Sign in again</button> <button class="home">Go to the homepage</button>';
         break;
       case ERROR_TYPE_NO_STREET:
-        title = 'No street selected';
+        title = 'No street selected.';
         break;
       case ERROR_FORCE_RELOAD_SIGN_OUT:
-        title = 'You signed out in another window';
+        title = 'You signed out in another window.';
         description = 'Please reload this page before continuing.<br><button class="reload">Reload the page</button>';
         break;
       case ERROR_FORCE_RELOAD_SIGN_IN:
-        title = 'You signed in in another window';
+        title = 'You signed in in another window.';
         description = 'Please reload this page before continuing.<br><button class="reload">Reload the page</button>';
         break;
       case ERROR_STREET_DELETED_ELSEWHERE:
-        title = 'This street has been deleted elsewhere';
+        title = 'This street has been deleted elsewhere.';
         description = 'This street has been deleted in another browser.<br><button class="home">Go to the homepage</button>';
         break;
     }
