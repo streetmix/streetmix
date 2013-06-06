@@ -1884,6 +1884,8 @@ var main = (function(){
         headers: { 'Authorization': _getAuthHeader() }
       }).done(_confirmSaveStreetToServerInitial);
     } else {
+      //console.log('output', transmission);
+
       _newNonblockingAjaxRequest({
         // TODO const
         url: system.apiUrl + 'v1/streets/' + street.id,
@@ -1933,6 +1935,8 @@ var main = (function(){
   function _successBlockingAjaxRequest(data) {
     _hideBlockingShield();
 
+    blockingAjaxRequestInProgress = false;
+
     blockingAjaxRequestDoneFunc(data);
   }
 
@@ -1957,6 +1961,8 @@ var main = (function(){
   function _blockingCancel() {
     _hideBlockingShield();
 
+    blockingAjaxRequestInProgress = false;
+
     blockingAjaxRequestCancelFunc();
   }
 
@@ -1965,8 +1971,12 @@ var main = (function(){
   var blockingAjaxRequestDoneFunc;
   var blockingAjaxRequestCancelFunc;
 
+  var blockingAjaxRequestInProgress = false;
+
   function _newBlockingAjaxRequest(message, request, doneFunc, cancelFunc) {
     _showBlockingShield(message);
+
+    blockingAjaxRequestInProgress = true;
 
     blockingAjaxRequest = request;
     blockingAjaxRequestDoneFunc = doneFunc;
@@ -1979,8 +1989,31 @@ var main = (function(){
   function _remixStreet() {
     remixOnFirstEdit = false;
 
+    if (signedIn) {
+      street.creatorId = signInData.userId;
+    } else {
+      street.creatorId = null;
+    }
+
+    street.originalStreetId = street.id;
+
+    _updateUndoStackCreator();
+
+    if (undoStack[undoPosition - 1] && (undoStack[undoPosition - 1].name != street.name)) {
+      // The street was remixed as a result of editing its name. Don’t be
+      // a douche and add (remixed) to it then.
+      var dontAddSuffix = true;
+    } else {
+      var dontAddSuffix = false;
+    }
+
+    if (!promoteStreet && !dontAddSuffix) {
+      _addRemixSuffixToName();
+    }
+
     var transmission = _packServerStreetData();
 
+    //console.log('Z');
     _newBlockingAjaxRequest('Remixing…', 
         {
           // TODO const
@@ -2043,32 +2076,7 @@ var main = (function(){
       }
     }
 
-    if (signedIn) {
-      street.creatorId = signInData.userId;
-    } else {
-      street.creatorId = null;
-    }
-
-    street.originalStreetId = street.id;
-
-    _updateUndoStackCreator();
-
-    if (undoStack[undoPosition - 1] && (undoStack[undoPosition - 1].name != street.name)) {
-      // The street was remixed as a result of editing its name. Don’t be
-      // a douche and add (remixed) to it then.
-      var dontAddSuffix = true;
-    } else {
-      var dontAddSuffix = false;
-    }
-
-    if (!promoteStreet && !dontAddSuffix) {
-      _addRemixSuffixToName();
-    }
-
-    _updateStreetName();
-
     _setStreetId(data.id, data.namespacedId);
-
     _updateStreetName();
 
     _saveStreetToServer(false);
@@ -3340,7 +3348,7 @@ var main = (function(){
 
   function _fetchStreetForVerification() {
     // Don’t do it with any network services pending
-    if (nonblockingAjaxRequestCount) {
+    if (nonblockingAjaxRequestCount || blockingAjaxRequestInProgress) {
       return;
     }
 
@@ -3374,8 +3382,12 @@ var main = (function(){
 
     if (!_equalObject(localStreetData, serverStreetData)) {
       console.log('NOT EQUAL');
+      console.log('-');
       console.log(JSON.stringify(localStreetData));
+      console.log('-');
       console.log(JSON.stringify(serverStreetData));
+      console.log('-');
+      console.log(transmission);
 
       _statusMessage.show('Your street was reloaded from the server as it was modified elsewhere.');
 
