@@ -3174,6 +3174,7 @@ var main = (function(){
         break;
       case KEY_ESC:
         _hideDebugInfo();
+        whatIsThis.hideInfo();
 
         if (document.body.classList.contains('gallery-visible')) {
           _hideGallery();
