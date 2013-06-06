@@ -1074,10 +1074,19 @@ body.touch-support .segment.fade-out-end button {
     opacity: 1;
     pointer-events: auto;
   }
+  #blocking-shield-cancel {
+    display: none;
+  }
+  &.show-cancel #blocking-shield-cancel {
+    display: inline-block;
+  }
 
   cursor: wait;
   & * {
     cursor: wait;
+  }
+  & button {
+    cursor: auto;
   }
 }
 

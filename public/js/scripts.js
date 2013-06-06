@@ -1815,6 +1815,10 @@ var main = (function(){
   }
 
   function _errorBlockingAjaxRequest() {
+    if (blockingAjaxRequestCancelFunc) {
+      document.querySelector('#blocking-shield').classList.add('show-cancel');      
+    }
+
     document.querySelector('#blocking-shield').classList.add('show-try-again');
 
     _darkenBlockingShield();
@@ -1822,20 +1826,29 @@ var main = (function(){
 
   function _blockingTryAgain() {
     document.querySelector('#blocking-shield').classList.remove('show-try-again');
+    document.querySelector('#blocking-shield').classList.remove('show-cancel');
 
     jQuery.ajax(blockingAjaxRequest).
         done(_successBlockingAjaxRequest).fail(_errorBlockingAjaxRequest);
   }
 
+  function _blockingCancel() {
+    _hideBlockingShield();
+
+    blockingAjaxRequestCancelFunc();
+  }
+
   // TODO move up
   var blockingAjaxRequest;
   var blockingAjaxRequestDoneFunc;
+  var blockingAjaxRequestCancelFunc;
 
-  function _blockingAjaxRequest(message, request, doneFunc, failFunc) {
+  function _blockingAjaxRequest(message, request, doneFunc, cancelFunc) {
     _showBlockingShield(message);
 
     blockingAjaxRequest = request;
     blockingAjaxRequestDoneFunc = doneFunc;
+    blockingAjaxRequestCancelFunc = cancelFunc;
 
     jQuery.ajax(blockingAjaxRequest).
         done(_successBlockingAjaxRequest).fail(_errorBlockingAjaxRequest);
@@ -1857,25 +1870,6 @@ var main = (function(){
           headers: { 'Authorization': _getAuthHeader() }
         }, _receiveRemixedStreet
     );
-
-    /*
-    _showBlockingShield('Remixing…');
-
-    var transmission = _packServerStreetData();
-
-    jQuery.ajax({
-      // TODO const
-      url: system.apiUrl + 'v1/streets',
-      type: 'POST',
-      data: transmission,
-      dataType: 'json',
-      contentType: 'application/json',
-      headers: { 'Authorization': _getAuthHeader() }
-    }).done(_receiveRemixedStreet);
-    //.fail(_errorReceiveRemixedStreet);
-
-    remixOnFirstEdit = false;
-    */    
   }
 
   function _updateLastStreetInfo() {
@@ -3327,24 +3321,34 @@ var main = (function(){
   }
 
   function _fetchLastStreet() {
-    _showBlockingShield();
+    //_showBlockingShield();
 
-    jQuery.ajax({
+    _blockingAjaxRequest('Loading…', 
+        {
+          // TODO const
+          url: system.apiUrl + 'v1/streets/' + settings.priorLastStreetId,
+          dataType: 'json',
+          type: 'GET',
+          headers: { 'Authorization': _getAuthHeader() }
+        }, _receiveLastStreet, _cancelReceiveLastStreet
+    );
+
+/*    jQuery.ajax({
       // TODO const
       url: system.apiUrl + 'v1/streets/' + settings.priorLastStreetId,
       dataType: 'json',
       type: 'GET',
       headers: { 'Authorization': _getAuthHeader() }
     }).done(_receiveLastStreet)
-    .fail(_errorReceiveLastStreet);
+    .fail(_errorReceiveLastStreet);*/
   }
 
-  function _errorReceiveLastStreet() {
+  function _cancelReceiveLastStreet() {
     document.querySelector('#new-street-default').checked = true;
     _makeDefaultStreet();
 
-    _hideBlockingShield();
-    _statusMessage.show('There was an error loading last street.');
+    //_hideBlockingShield();
+    //_statusMessage.show('There was an error loading last street.');
   }
 
   function _receiveLastStreet(transmission) {
@@ -3372,7 +3376,7 @@ var main = (function(){
     lastStreet = _trimStreetData();
 
     _saveStreetToServer(false);
-    _hideBlockingShield();
+    //_hideBlockingShield();
   }
 
   function _showNewStreetMenu() {
@@ -3493,6 +3497,7 @@ var main = (function(){
     document.querySelector('#blocking-shield').classList.remove('darken');
     document.querySelector('#blocking-shield').classList.remove('darken-immediately');
     document.querySelector('#blocking-shield').classList.remove('show-try-again');
+    document.querySelector('#blocking-shield').classList.remove('show-cancel');
   }
 
   function _onDeleteGalleryStreet(event) {
@@ -3626,6 +3631,7 @@ var main = (function(){
   }
 
   function _addEventListeners() {
+    document.querySelector('#blocking-shield-cancel').addEventListener('click', _blockingCancel);
     document.querySelector('#blocking-shield-try-again').addEventListener('click', _blockingTryAgain);
     document.querySelector('#gallery-shield').addEventListener('click', _hideGallery);
 
