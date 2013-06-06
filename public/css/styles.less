@@ -1094,7 +1094,8 @@ body.touch-support .segment.fade-out-end button {
   display: none;
 }
 
-#status-message {
+#status-message,
+#no-connection-message {
   position: absolute;
   top: 130px;
   left: 0;
@@ -1118,7 +1119,6 @@ body.touch-support .segment.fade-out-end button {
     background: rgb(32, 32, 32);
     outline: 1px solid black;
     padding: 5px 20px;
-    padding-right: 0;
     display: inline-block;
     color: white;
     font-size: 14px;
@@ -1148,6 +1148,14 @@ body.touch-support .segment.fade-out-end button {
   a {
     color: inherit;
   }
+}
+
+#status-message > div {
+  padding-right: 0; // for close box
+}
+
+body.no-connection-message-visible #status-message {
+  top: 160px;
 }
 
 #info-bubble {

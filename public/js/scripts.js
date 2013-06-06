@@ -1786,6 +1786,8 @@ var main = (function(){
         var time = NON_BLOCKING_AJAX_REQUEST_TIME[nonblockingAjaxRequestTimer];
       } else {
         var time = Math.floor(Math.random() * NON_BLOCKING_AJAX_REQUEST_BACKOFF_RANGE) * NON_BLOCKING_AJAX_REQUEST_BACKOFF_MULTIPLIER; 
+
+        _noConnectionMessage.show();
       }
 
       console.log('trying to send next… at time: ', time);
@@ -1801,6 +1803,8 @@ var main = (function(){
   }
 
   function _successNonblockingAjaxRequest(data, signature) {
+    _noConnectionMessage.hide();
+
     nonblockingAjaxRequestTimer = 0;
     nonblockingAjaxRequestCount--;
 
@@ -3801,6 +3805,20 @@ var main = (function(){
       }
     }
   }
+
+  var _noConnectionMessage = {
+    visible: false,
+
+    show: function() {
+      document.querySelector('#no-connection-message').classList.add('visible');
+      document.body.classList.add('no-connection-message-visible');
+    },
+
+    hide: function() {
+      document.querySelector('#no-connection-message').classList.remove('visible');
+      document.body.classList.remove('no-connection-message-visible');
+    }
+  };
 
   var _statusMessage = {
     timerId: -1,
