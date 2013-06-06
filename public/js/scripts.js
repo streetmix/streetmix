@@ -4769,6 +4769,7 @@ var main = (function(){
     } else if ((urlParts.length == 1) && urlParts[0]) {
       // User gallery
 
+      console.log('_processUrl()');
       mode = MODE_404;
     } else if ((urlParts.length == 2) && (urlParts[0] == URL_NO_USER) && urlParts[1]) {
       // TODO add is integer urlParts[1];
@@ -4792,6 +4793,7 @@ var main = (function(){
 
       mode = MODE_EXISTING_STREET;
     } else {
+      console.log('_processUrl() weird url');
       mode = MODE_404;
 
       // 404: bad URL
@@ -4910,10 +4912,12 @@ var main = (function(){
     } else {
       // TODO finish this
       if (data.status == 404) {
+        console.log('_error receive street 1', data);
         mode = MODE_404;
         _processMode();
         // TODO rest?
       } else {
+        console.log('_error receive street 2', data);
         mode = MODE_404;
         _processMode();
       }
