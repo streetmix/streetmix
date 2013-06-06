@@ -1038,16 +1038,41 @@ body.touch-support .segment.fade-out-end button {
   color: transparent;
 
   &.darken {
-    -webkit-transition: background 1000ms, color 1000ms;
-    -moz-transition: background 1000ms, color 1000ms;
-    transition: background 1000ms, color 1000ms;
+    -webkit-transition: background 1500ms, color 1500ms;
+    -moz-transition: background 1500ms, color 1500ms;
+    transition: background 1500ms, color 1500ms;
 
-    -webkit-transition-delay: 1000ms;
-    -moz-transition-delay: 1000ms;
-    transition-delay: 1000ms;
+    -webkit-transition-delay: 800ms;
+    -moz-transition-delay: 800ms;
+    transition-delay: 800ms;
 
-    background: rgba(0, 0, 0, .4);
+    background: rgba(0, 0, 0, .6);
     color: white;
+  }
+
+  &.darken-immediately {
+    -webkit-transition: none;
+    -moz-transition: none;
+    transition: none;
+
+    background: rgba(0, 0, 0, .6);
+    color: white;
+  }
+
+  .try-again {
+    margin-top: 20px;
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+
+    opacity: 0;
+    pointer-events: none;
+  }
+  &.show-try-again .try-again {
+    opacity: 1;
+    pointer-events: auto;
   }
 
   cursor: wait;

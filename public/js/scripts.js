@@ -1808,7 +1808,57 @@ var main = (function(){
     window.clearTimeout(saveSettingsTimerId);
   }
 
+  function _successBlockingAjaxRequest(data) {
+    _hideBlockingShield();
+
+    blockingAjaxRequestDoneFunc(data);
+  }
+
+  function _errorBlockingAjaxRequest() {
+    document.querySelector('#blocking-shield').classList.add('show-try-again');
+
+    _darkenBlockingShield();
+  }
+
+  function _blockingTryAgain() {
+    document.querySelector('#blocking-shield').classList.remove('show-try-again');
+
+    jQuery.ajax(blockingAjaxRequest).
+        done(_successBlockingAjaxRequest).fail(_errorBlockingAjaxRequest);
+  }
+
+  // TODO move up
+  var blockingAjaxRequest;
+  var blockingAjaxRequestDoneFunc;
+
+  function _blockingAjaxRequest(message, request, doneFunc, failFunc) {
+    _showBlockingShield(message);
+
+    blockingAjaxRequest = request;
+    blockingAjaxRequestDoneFunc = doneFunc;
+
+    jQuery.ajax(blockingAjaxRequest).
+        done(_successBlockingAjaxRequest).fail(_errorBlockingAjaxRequest);
+  }
+
   function _remixStreet() {
+    remixOnFirstEdit = false;
+
+    var transmission = _packServerStreetData();
+
+    _blockingAjaxRequest('Remixing…', 
+        {
+          // TODO const
+          url: system.apiUrl + 'v1/streets',
+          type: 'POST',
+          data: transmission,
+          dataType: 'json',
+          contentType: 'application/json',
+          headers: { 'Authorization': _getAuthHeader() }
+        }, _receiveRemixedStreet
+    );
+
+    /*
     _showBlockingShield('Remixing…');
 
     var transmission = _packServerStreetData();
@@ -1822,9 +1872,10 @@ var main = (function(){
       contentType: 'application/json',
       headers: { 'Authorization': _getAuthHeader() }
     }).done(_receiveRemixedStreet);
-    //.fail(_errorReceiveRemixedStreetFeedback);
+    //.fail(_errorReceiveRemixedStreet);
 
     remixOnFirstEdit = false;
+    */    
   }
 
   function _updateLastStreetInfo() {
@@ -1906,7 +1957,7 @@ var main = (function(){
 
     _saveStreetToServer(false);
 
-    _hideBlockingShield();
+    //_hideBlockingShield();
   }
 
   function _failRemixedStreetFeedback() {
@@ -3420,32 +3471,28 @@ var main = (function(){
     return date.format('MMM D, YYYY');
   }
 
-  var blockingShieldTimerId = -1;
-
-  function _clearBlockingShieldTimer() {
-    window.clearTimeout(blockingShieldTimerId);
-  }
-
   function _showBlockingShield(message) {
     if (!message) {
       message = 'Loading…';
     }
 
-    document.querySelector('#blocking-shield > div').innerHTML = message;
+    document.querySelector('#blocking-shield .message').innerHTML = message;
     document.querySelector('#blocking-shield').classList.add('visible');
-
-    _clearBlockingShieldTimer();
 
     window.setTimeout(function() {
       document.querySelector('#blocking-shield').classList.add('darken');
     }, 0);
   }
 
-  function _hideBlockingShield() {
-    _clearBlockingShieldTimer();
+  function _darkenBlockingShield(message) {
+    document.querySelector('#blocking-shield').classList.add('darken-immediately');
+  }
 
+  function _hideBlockingShield() {
     document.querySelector('#blocking-shield').classList.remove('visible');
     document.querySelector('#blocking-shield').classList.remove('darken');
+    document.querySelector('#blocking-shield').classList.remove('darken-immediately');
+    document.querySelector('#blocking-shield').classList.remove('show-try-again');
   }
 
   function _onDeleteGalleryStreet(event) {
@@ -3579,6 +3626,7 @@ var main = (function(){
   }
 
   function _addEventListeners() {
+    document.querySelector('#blocking-shield-try-again').addEventListener('click', _blockingTryAgain);
     document.querySelector('#gallery-shield').addEventListener('click', _hideGallery);
 
     document.querySelector('#new-street-default').addEventListener('click', _onNewStreetDefaultClick);
@@ -4451,7 +4499,7 @@ var main = (function(){
   }
 
   function _fetchStreetCreatorAvatar() {
-    console.log('fetch street creator avatar');
+    //console.log('fetch street creator avatar');
 
     // TODO const
     jQuery.ajax({
@@ -4461,6 +4509,8 @@ var main = (function(){
   }
 
   function _receiveStreetCreatorAvatar(details) {
+    //console.log('receive street creator avatar');
+
     if (details.profileImageUrl) {
       document.querySelector('#street-attribution .avatar').style.backgroundImage = 
           'url(' + details.profileImageUrl + ')';
@@ -4499,7 +4549,7 @@ var main = (function(){
   }
 
   function _errorReceiveStreet(data) {
-    console.log('failed to receive street!');
+    console.log('failed to receive street!', data.status, data);
 
     if (mode == MODE_CONTINUE) {
       _goNewStreet();
