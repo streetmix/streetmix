@@ -3448,7 +3448,6 @@ var main = (function(){
     lastStreet = _trimStreetData();
 
     _saveStreetToServer(false);
-    //_hideBlockingShield();
   }
 
   function _showNewStreetMenu() {
