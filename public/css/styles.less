@@ -53,6 +53,7 @@ body,
 button,
 input,
 select,
+textarea,
 option {
   font-family: @fontFamily;
 }
@@ -1415,6 +1416,49 @@ body.no-connection-message-visible #status-message {
   right: 105px;
   min-width: 350px;
 }
+
+#feedback-form {
+  padding-left: 30px;
+  padding-right: 10px;
+  margin-top: 5px;
+
+  height: 305px;
+
+  color: rgb(128, 128, 128);
+  font-size: 11px;
+
+  //border-bottom: 1px solid rgb(224, 224, 224);
+  //padding-bottom: 5px;
+
+  #feedback-form-message {
+    margin-top: 3px;
+    height: 200px;
+
+    font-size: 13px;
+    line-height: 18px;
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+
+    outline: none;
+  }
+
+  #feedback-form-email {
+    font-size: 13px;
+    line-height: 18px;
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+
+    outline: none;    
+  }
+
+  #feedback-form-send {
+    padding: 8px 5px;
+    width: 100%;
+  }
+}
+
 
 #share-via-twitter::before {
   content: '';

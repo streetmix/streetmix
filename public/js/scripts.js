@@ -3983,6 +3983,8 @@ var main = (function(){
 
     if (!el.classList.contains('visible')) {
       el.classList.add('visible');
+
+      document.querySelector('#feedback-form-message').focus();
     } else {
       _hideMenus();
     }
