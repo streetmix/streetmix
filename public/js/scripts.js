@@ -28,7 +28,9 @@ var main = (function(){
   var IP_GEOCODING_API_URL = 'http://freegeoip.net/json/';
   var IP_GEOCODING_TIMEOUT = 1000; // After this time, we don’t wait any more
 
-  var FACEBOOK_APP_ID = '162729607241489';
+  var FACEBOOK_APP_ID_PRODUCTION = '162729607241489';
+  var FACEBOOK_APP_ID_STAGING = '175861739245183';
+  var FACEBOOK_APP_ID_LOCAL = '204327799717656';
 
   var STREET_NAME_REMIX_SUFFIX = '(remixed)';
 
@@ -4200,8 +4202,20 @@ var main = (function(){
 
     var text = _getSharingMessage();
 
+    switch (system.environment) {
+      case ENVIRONMENT_PRODUCTION:
+        var appId = FACEBOOK_APP_ID_PRODUCTION;
+        break;
+      case ENVIRONMENT_STAGING:
+        var appId = FACEBOOK_APP_ID_STAGING;
+        break;
+      case ENVIRONMENT_LOCAL:
+        var appId = FACEBOOK_APP_ID_LOCAL;
+        break;
+    }
+
     el.href = 'https://www.facebook.com/dialog/feed' +
-        '?app_id=' + FACEBOOK_APP_ID +
+        '?app_id=' + encodeURIComponent(appId) +
         '&redirect_uri=' + encodeURIComponent(url) + 
         '&link=' + encodeURIComponent(url) + 
         '&name=' + encodeURIComponent(_getPageTitle()) +
@@ -4223,11 +4237,7 @@ var main = (function(){
   }
 
   function _getSharingUrl() {
-    if (system.environment == ENVIRONMENT_PRODUCTION) {
-      var url = location.href;
-    } else {
-      var url = SITE_URL_PRODUCTION;
-    }
+    var url = location.href;
 
     return url;
   }
