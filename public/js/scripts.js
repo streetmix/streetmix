@@ -67,6 +67,7 @@ var main = (function(){
   var ERROR_FORCE_RELOAD_SIGN_IN = 4;
   var ERROR_FORCE_RELOAD_SIGN_OUT = 5;
   var ERROR_STREET_DELETED_ELSEWHERE = 6;
+  var ERROR_NEW_STREET_SERVER_FAILURE = 7;
 
   var NEW_STREET_DEFAULT = 1;
   var NEW_STREET_EMPTY = 2;
@@ -3420,10 +3421,10 @@ var main = (function(){
       type: 'GET',
       headers: { 'Authorization': _getAuthHeader() }
     }).done(_receiveGalleryStreet)
-    .fail(_failReceiveGalleryStreet);
+    .fail(_errorReceiveGalleryStreet);
   }
 
-  function _failReceiveGalleryStreet() {
+  function _errorReceiveGalleryStreet() {
     //alert(1);
   }
 
@@ -4457,7 +4458,7 @@ var main = (function(){
       dataType: 'json',
       headers: { 'Authorization': _getAuthHeader() }
     }).done(_receiveNewStreet)
-    .fail(_failNewStreetFeedback);
+    .fail(_errorReceiveNewStreet);
   }
 
   function _receiveNewStreet(data) {
@@ -4473,9 +4474,11 @@ var main = (function(){
     _saveStreetToServer(true);
   }
 
-  function _failNewStreetFeedback() {
-    console.log('failed new street!');
-    // TODO handle this
+  function _errorReceiveNewStreet() {
+    //console.log('failed new street!');
+
+    _showError(ERROR_NEW_STREET_SERVER_FAILURE);
+    abortEverything = true;
   }
 
   function _getFetchStreetUrl() {
@@ -4620,6 +4623,11 @@ var main = (function(){
         title = 'This street has been deleted elsewhere.';
         description = 'This street has been deleted in another browser.<br><button class="home">Go to the homepage</button>';
         break;
+      case ERROR_NEW_STREET_SERVER_FAILURE:
+        title = 'Having trouble…';
+        description = 'We’re having trouble loading Streetmix.<br><button class="new">Try again</button>';
+        break;
+
     }
 
     document.querySelector('#error h1').innerHTML = title;
@@ -4638,6 +4646,11 @@ var main = (function(){
     var el = document.querySelector('#error .reload');
     if (el) {
       el.addEventListener('click', _goReload);
+    }
+
+    var el = document.querySelector('#error .new');
+    if (el) {
+      el.addEventListener('click', _goNewStreet);
     }
 
     document.querySelector('#error').classList.add('visible');
