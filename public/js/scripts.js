@@ -1762,6 +1762,14 @@ var main = (function(){
     _scheduleNextNonblockingAjaxRequest();
   }
 
+  function _nonblockingAjaxTryAgain() {
+    _noConnectionMessage.hide();
+
+    nonblockingAjaxRequestTimer = 0;
+
+    _scheduleNextNonblockingAjaxRequest();
+  }
+
   function _sendNextNonblockingAjaxRequest() {
     if (nonblockingAjaxRequestCount) {
       // TODO hack
@@ -3721,6 +3729,8 @@ var main = (function(){
   }
 
   function _addEventListeners() {
+    document.querySelector('#no-connection-try-again').addEventListener('click', _nonblockingAjaxTryAgain);
+
     document.querySelector('#blocking-shield-cancel').addEventListener('click', _blockingCancel);
     document.querySelector('#blocking-shield-try-again').addEventListener('click', _blockingTryAgain);
     document.querySelector('#gallery-shield').addEventListener('click', _hideGallery);
