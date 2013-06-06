@@ -649,7 +649,6 @@ var main = (function(){
   var saveStreetIncomplete = false;
   var remixOnFirstEdit = false;
   var saveSettingsTimerId = -1;
-  var saveSettingsIncomplete = false;
 
   var signedIn = false;
   var signInLoaded = false;
@@ -1723,34 +1722,108 @@ var main = (function(){
     return JSON.stringify(transmission);
   }
 
+  // TODO move
+
+  var nonblockingAjaxRequests = {};
+  var nonblockingAjaxRequestCount = 0;
+
+  function _debugOutput() {
+    console.log(nonblockingAjaxRequestCount + ' requests…');
+
+    for (var i in nonblockingAjaxRequests) {
+      console.log('    …' + _getAjaxRequestSignature(nonblockingAjaxRequests[i].request));
+    }
+  }
+
+  function _getAjaxRequestSignature(request) {
+    return request.type + ' ' + request.url;
+  }
+
+  function _newNonblockingAjaxRequest(request, allowToClosePage) {
+    console.log('new request added…');
+    var signature = _getAjaxRequestSignature(request);
+
+    if (!nonblockingAjaxRequests[signature]) {
+      nonblockingAjaxRequestCount++;
+    }
+    nonblockingAjaxRequests[signature] = 
+        { request: request, allowToClosePage: allowToClosePage };
+
+    _debugOutput();
+
+    _sendNextNonblockingAjaxRequest();
+  }
+
+  function _sendNextNonblockingAjaxRequest() {
+    if (nonblockingAjaxRequestCount) {
+      console.log('trying to send next…');
+      // TODO hack
+      for (var i in nonblockingAjaxRequests) {
+        var request = nonblockingAjaxRequests[i].request;
+        break;
+      }
+      jQuery.ajax(request).done(function (data) {
+        _successNonblockingAjaxRequest(data, _getAjaxRequestSignature(request));
+      });
+    } else {
+      console.log('nothing more to send!');
+
+      saveStreetIncomplete = false;
+    }
+  }
+
+  function _successNonblockingAjaxRequest(data, signature) {
+    console.log('SUCCESS!', signature);
+
+    delete nonblockingAjaxRequests[signature];
+    nonblockingAjaxRequestCount--;
+    //console.log(data, textStatus, jqXHR);
+
+    _sendNextNonblockingAjaxRequest();
+  }
+
   function _saveStreetToServer(initial) {
     console.log('save street to server…');
 
     var transmission = _packServerStreetData();
 
     if (initial) {
-      var doneFunc = _confirmSaveStreetToServerInitial;
+      // blocking
+
+      jQuery.ajax({
+        // TODO const
+        url: system.apiUrl + 'v1/streets/' + street.id,
+        data: transmission,
+        dataType: 'json',
+        type: 'PUT',
+        contentType: 'application/json',
+        headers: { 'Authorization': _getAuthHeader() }
+      }).done(_confirmSaveStreetToServerInitial);
+      //var doneFunc = ;
     } else {
-      var doneFunc = _confirmSaveStreetToServer;
+      _newNonblockingAjaxRequest({
+        // TODO const
+        url: system.apiUrl + 'v1/streets/' + street.id,
+        data: transmission,
+        dataType: 'json',
+        type: 'PUT',
+        contentType: 'application/json',
+        headers: { 'Authorization': _getAuthHeader() }
+      }, false);
+      // non blocking
+
+      //var doneFunc = _confirmSaveStreetToServer;
     }
 
-    jQuery.ajax({
-      // TODO const
-      url: system.apiUrl + 'v1/streets/' + street.id,
-      data: transmission,
-      dataType: 'json',
-      type: 'PUT',
-      contentType: 'application/json',
-      headers: { 'Authorization': _getAuthHeader() }
-    }).done(doneFunc);
+
     //.fail(_receiveSignOutConfirmationFromServer);
 
     // TODO better fail at street saving
   }
 
-  function _confirmSaveStreetToServer() {
+/*  function _confirmSaveStreetToServer() {
     saveStreetIncomplete = false;
-  }
+  }*/
 
   function _confirmSaveStreetToServerInitial() {
     saveStreetIncomplete = false;
@@ -1760,22 +1833,14 @@ var main = (function(){
   }
 
 
-  function _saveSettingsToServer(initial) {
+  function _saveSettingsToServer() {
     if (!signedIn) {
       return;
     }
 
     var transmission = JSON.stringify({ data: _trimSettings() });
 
-    if (initial) {
-      //var doneFunc = _confirmSaveSettingsToServerInitial;
-    } else {
-      var doneFunc = _confirmSaveSettingsToServer;
-    }
-    
-    console.log('save settings to server…', transmission);
-
-    jQuery.ajax({
+    _newNonblockingAjaxRequest({
       // TODO const
       url: system.apiUrl + 'v1/users/' + signInData.userId,
       data: transmission,
@@ -1783,23 +1848,8 @@ var main = (function(){
       type: 'PUT',
       contentType: 'application/json',
       headers: { 'Authorization': _getAuthHeader() }
-    }).done(doneFunc);
-    //.fail(_receiveSignOutConfirmationFromServer);
-
-    // TODO better fail at saving
+    }, true);
   }
-
-  function _confirmSaveSettingsToServer() {
-    saveSettingsIncomplete = false;
-  }
-
-  /*function _confirmSaveSettingsToServerInitial() {
-    saveSettingsIncomplete = false;
-
-    serverContacted = true;
-    _checkIfEverythingIsLoaded();
-  }*/
-
 
   function _clearScheduledSavingStreetToServer() {
     window.clearTimeout(saveStreetTimerId);
@@ -1844,7 +1894,7 @@ var main = (function(){
   var blockingAjaxRequestDoneFunc;
   var blockingAjaxRequestCancelFunc;
 
-  function _blockingAjaxRequest(message, request, doneFunc, cancelFunc) {
+  function _newBlockingAjaxRequest(message, request, doneFunc, cancelFunc) {
     _showBlockingShield(message);
 
     blockingAjaxRequest = request;
@@ -1860,7 +1910,7 @@ var main = (function(){
 
     var transmission = _packServerStreetData();
 
-    _blockingAjaxRequest('Remixing…', 
+    _newBlockingAjaxRequest('Remixing…', 
         {
           // TODO const
           url: system.apiUrl + 'v1/streets',
@@ -1981,12 +2031,12 @@ var main = (function(){
 
     //console.log('schedule [settings] save!');
 
-    saveSettingsIncomplete = true;
+    // saveSettingsIncomplete = true;
 
     _clearScheduledSavingSettingsToServer();
 
     saveSettingsTimerId = 
-        window.setTimeout(function() { _saveSettingsToServer(false); }, SAVE_SETTINGS_DELAY);
+        window.setTimeout(function() { _saveSettingsToServer(); }, SAVE_SETTINGS_DELAY);
   }
 
   function _saveStreetToServerIfNecessary() {
@@ -2010,17 +2060,22 @@ var main = (function(){
   function _checkIfChangesSaved() {
     // don’t do for settings deliberately
 
-    if (saveStreetIncomplete && !abortEverything) {
-      if (saveStreetIncomplete) {
-        console.log('save street incomplete');
+    if (abortEverything) {
+      return null;
+    }
 
-        _saveStreetToServer(false);
+    var showWarning = false;
+
+    if (saveStreetIncomplete) {
+      showWarning = true;
+    } else for (var i in nonblockingAjaxRequests) {
+      if (!nonblockingAjaxRequests[i].allowToClosePage) {
+        showWarning = true;
       }
-      /*if (saveSettingsIncomplete) {
-        console.log('save settings incomplete');
+    }
 
-        _saveSettingsToServer(false);
-      }*/
+    if (showWarning) {
+      _sendNextNonblockingAjaxRequest();
 
       return 'Your changes have not been saved yet. Please return to the page, check your Internet connection, and wait a little while to allow the changes to be saved.';
     } else {
@@ -3217,7 +3272,7 @@ var main = (function(){
   function _fetchStreetForVerification() {
     var url = _getFetchStreetUrl();
 
-    console.log('verifying street', '|' + url + '|');
+    //console.log('verifying street', '|' + url + '|');
 
     jQuery.ajax({
       url: url,
@@ -3324,7 +3379,7 @@ var main = (function(){
   function _fetchLastStreet() {
     //_showBlockingShield();
 
-    _blockingAjaxRequest('Loading…', 
+    _newBlockingAjaxRequest('Loading…', 
         {
           // TODO const
           url: system.apiUrl + 'v1/streets/' + settings.priorLastStreetId,
@@ -3534,14 +3589,13 @@ var main = (function(){
       _saveSettingsToServer();
     }
 
-    jQuery.ajax({
+    _newNonblockingAjaxRequest({
       // TODO const
       url: system.apiUrl + 'v1/streets/' + id,
       dataType: 'json',
       type: 'DELETE',
       headers: { 'Authorization': _getAuthHeader() }
-    })/*.done(_receiveSignOutConfirmationFromServer)
-    .fail(_receiveSignOutConfirmationFromServer);*/
+    }, false);
   }
 
   function _receiveGalleryData(transmission) {
@@ -3872,7 +3926,7 @@ var main = (function(){
     _mergeAndFillDefaultSettings(localSettings);
 
     if (mode == MODE_JUST_SIGNED_IN) {
-      console.log('just signed in!');
+      //console.log('just signed in!');
       settings.lastStreetId = localSettings.lastStreetId;
       settings.lastStreetNamespacedId = localSettings.lastStreetNamespacedId;
       settings.lastStreetCreatorId = localSettings.lastStreetCreatorId;
@@ -4417,7 +4471,7 @@ var main = (function(){
       // Coming back from a successful sign in
 
       mode = MODE_JUST_SIGNED_IN;
-      console.log('just signed in pt. 1');
+      //console.log('just signed in pt. 1');
     } else if ((urlParts.length == 1) && urlParts[0]) {
       // User gallery
 
