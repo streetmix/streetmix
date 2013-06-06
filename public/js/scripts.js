@@ -1808,11 +1808,15 @@ var main = (function(){
 
         var query = jQuery.ajax(request.request).done(function(data) {
           _successNonblockingAjaxRequest(data, request);
-        });
+        }).fail(_tempFail);
       }
       
       _scheduleNextNonblockingAjaxRequest();
     }
+  }
+
+  function _tempFail(error) {
+    console.log('FAIL!!!', error);
   }
 
   function _scheduleNextNonblockingAjaxRequest() {
@@ -3368,10 +3372,11 @@ var main = (function(){
     var localStreetData = _trimStreetData();
     var serverStreetData = _unpackStreetDataFromServerTransmission(transmission);
 
-    //console.log(localStreetData);
-    //console.log(serverStreetData);
-
     if (!_equalObject(localStreetData, serverStreetData)) {
+      console.log('NOT EQUAL');
+      console.log(JSON.stringify(localStreetData));
+      console.log(JSON.stringify(serverStreetData));
+
       _statusMessage.show('Your street was reloaded from the server as it was modified elsewhere.');
 
       _unpackServerStreetData(transmission);
