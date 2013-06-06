@@ -4458,13 +4458,17 @@ var main = (function(){
       url: system.apiUrl + 'v1/users/' + signInData.userId + '/login-token',
       dataType: 'json',
       type: 'DELETE',
-      //headers: { 'Authorization': _getAuthHeader() }
+      headers: { 'Authorization': _getAuthHeader() }
     }).done(_receiveSignOutConfirmationFromServer)
-    .fail(_receiveSignOutConfirmationFromServer);
+    .fail(_errorReceiveSignOutConfirmationFromServer);
   }
 
-  function _receiveSignOutConfirmationFromServer() {
-    //location.href = '/';
+    function _receiveSignOutConfirmationFromServer() {
+      mode = MODE_SIGN_OUT;
+      _processMode();
+    }
+
+    function _errorReceiveSignOutConfirmationFromServer() {
     mode = MODE_SIGN_OUT;
     _processMode();
   }
