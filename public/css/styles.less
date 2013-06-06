@@ -58,6 +58,13 @@ option {
   font-family: @fontFamily;
 }
 
+input[type='text'],
+input[type='email'],
+textarea {
+  border: 1px solid rgb(200, 200, 200);
+  padding: 3px;
+}
+
 #main-screen {
   position: absolute;
   left: 0;
@@ -459,10 +466,10 @@ footer {
 
   pointer-events: none;
   opacity: 0;
-  -webkit-transition: opacity 100ms;
+  //-webkit-transition: opacity 100ms;
 
   &.visible {
-    -webkit-transition: opacity 250ms;
+    //-webkit-transition: opacity 250ms;
     opacity: 1;
   }
 }
@@ -1429,6 +1436,29 @@ body.no-connection-message-visible #status-message {
 
   //border-bottom: 1px solid rgb(224, 224, 224);
   //padding-bottom: 5px;
+
+  position: relative;
+
+  .loading,
+  .thank-you {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 305px;
+
+    background: white;
+    text-align: center;
+
+    font-size: 13px;
+    line-height: 305px;
+
+    display: none;
+
+    &.visible {
+      display: block;
+    }
+  }
 
   #feedback-form-message {
     margin-top: 3px;

@@ -551,6 +551,8 @@ var main = (function(){
 
   var LOCAL_STORAGE_SETTINGS_ID = 'settings';
   var LOCAL_STORAGE_SIGN_IN_ID = 'sign-in';
+  var LOCAL_STORAGE_FEEDBACK_BACKUP = 'feedback-backup';
+  var LOCAL_STORAGE_FEEDBACK_EMAIL_BACKUP = 'feedback-email-backup';
 
   // Saved data
   // ------------------------------------------------------------------------
@@ -1759,7 +1761,7 @@ var main = (function(){
     return request.type + ' ' + request.url;
   }
 
-  function _newNonblockingAjaxRequest(request, allowToClosePage) {
+  function _newNonblockingAjaxRequest(request, allowToClosePage, doneFunc) {
     nonblockingAjaxRequestTimer = 0;
 
     //console.log('new request added…');
@@ -1769,7 +1771,8 @@ var main = (function(){
       nonblockingAjaxRequestCount++;
     }
     nonblockingAjaxRequests[signature] = 
-        { request: request, allowToClosePage: allowToClosePage };
+        { request: request, allowToClosePage: allowToClosePage, 
+          doneFunc: doneFunc };
 
     //_debugOutput();
 
@@ -1788,14 +1791,14 @@ var main = (function(){
     if (nonblockingAjaxRequestCount) {
       // TODO hack
       for (var i in nonblockingAjaxRequests) {
-        var request = nonblockingAjaxRequests[i].request;
+        var request = nonblockingAjaxRequests[i];
         break;
       }
 
       //console.log('sending…');
 
-      jQuery.ajax(request).done(function(data) {
-        _successNonblockingAjaxRequest(data, _getAjaxRequestSignature(request));
+      var query = jQuery.ajax(request.request).done(function(data) {
+        _successNonblockingAjaxRequest(data, request);
       });
 
       _scheduleNextNonblockingAjaxRequest();
@@ -1824,7 +1827,9 @@ var main = (function(){
     }
   }
 
-  function _successNonblockingAjaxRequest(data, signature) {
+  function _successNonblockingAjaxRequest(data, request) {
+    var signature = _getAjaxRequestSignature(request.request);
+
     _noConnectionMessage.hide();
 
     nonblockingAjaxRequestTimer = 0;
@@ -1834,6 +1839,10 @@ var main = (function(){
 
     delete nonblockingAjaxRequests[signature];
     //console.log(data, textStatus, jqXHR);
+
+    if (request.doneFunc) {
+      request.doneFunc();
+    }
 
     _scheduleNextNonblockingAjaxRequest();
   }
@@ -2044,12 +2053,6 @@ var main = (function(){
     _updateStreetName();
 
     _saveStreetToServer(false);
-
-    //_hideBlockingShield();
-  }
-
-  function _failRemixedStreetFeedback() {
-    // TODO fail here 
   }
 
   function _scheduleSavingStreetToServer() {
@@ -3809,26 +3812,75 @@ var main = (function(){
     }
   }
 
-  function _updateFeedbackForm() {
+  function _isFeedbackFormMessagePresent() {
     var message = document.querySelector('#feedback-form-message').value;
-
     message = jQuery.trim(message);
 
-    console.log('message', message);
+    return message.length > 0;
+  }
 
-    if (message) {
+  function _updateFeedbackForm() {
+    if (_isFeedbackFormMessagePresent()) {
       document.querySelector('#feedback-form-send').disabled = false;
     } else {
       document.querySelector('#feedback-form-send').disabled = true;
     }
   }
 
+  function _onFeedbackFormEmailKeyDown(event) {
+    if (event.keyCode == KEY_ENTER) {
+      _feedbackFormSend();
+    }
+  }
+
+  function _feedbackFormSend() {
+    if (_isFeedbackFormMessagePresent()) {
+
+      document.querySelector('#feedback-form .loading').classList.add('visible');
+
+      var transmission = {
+        message: 'Test',
+        from: 'mwichary@codeforamerica.org'
+      };
+
+      _newNonblockingAjaxRequest({
+        // TODO const
+        url: system.apiUrl + 'v1/feedback',
+        data: transmission,
+        dataType: 'json',
+        type: 'POST',
+        contentType: 'application/json',
+        //headers: { 'Authorization': _getAuthHeader() }
+      }, true, _feedbackFormSuccess);
+    }
+  }
+
+  function _feedbackFormSuccess() {
+    document.querySelector('#feedback-form .loading').classList.remove('visible');
+    document.querySelector('#feedback-form .thank-you').classList.add('visible');
+
+    // TODO better remove
+    window.localStorage[LOCAL_STORAGE_FEEDBACK_BACKUP] = '';
+    window.localStorage[LOCAL_STORAGE_FEEDBACK_EMAIL_BACKUP] = '';
+
+    // TODO const
+    window.setTimeout(_hideMenus, 2500);
+  }
+
   function _onFeedbackFormInput() {
+    window.localStorage[LOCAL_STORAGE_FEEDBACK_BACKUP] = 
+        document.querySelector('#feedback-form-message').value;
+    window.localStorage[LOCAL_STORAGE_FEEDBACK_EMAIL_BACKUP] = 
+        document.querySelector('#feedback-form-email').value;
+
     _updateFeedbackForm();
   }
 
   function _addEventListeners() {
     document.querySelector('#feedback-form-message').addEventListener('input', _onFeedbackFormInput, false);
+    document.querySelector('#feedback-form-email').addEventListener('input', _onFeedbackFormInput, false);
+    document.querySelector('#feedback-form-email').addEventListener('keydown', _onFeedbackFormEmailKeyDown, false);
+    document.querySelector('#feedback-form-send').addEventListener('click', _feedbackFormSend, false);
 
     document.querySelector('#gallery-try-again').addEventListener('click', _repeatReceiveGalleryData);
 
@@ -3998,15 +4050,31 @@ var main = (function(){
     document.querySelector('#identity-menu').classList.remove('visible');
   }
 
+  function _prepareFeedbackForm() {
+    document.querySelector('#feedback-form-message').focus();
+    
+    if (window.localStorage[LOCAL_STORAGE_FEEDBACK_BACKUP]) {
+      document.querySelector('#feedback-form-message').value = 
+          window.localStorage[LOCAL_STORAGE_FEEDBACK_BACKUP];
+    }
+    if (window.localStorage[LOCAL_STORAGE_FEEDBACK_EMAIL_BACKUP]) {
+      document.querySelector('#feedback-form-email').value = 
+          window.localStorage[LOCAL_STORAGE_FEEDBACK_EMAIL_BACKUP];
+    }
+
+    _updateFeedbackForm();
+
+    document.querySelector('#feedback-form .loading').classList.remove('visible');
+    document.querySelector('#feedback-form .thank-you').classList.remove('visible');
+  }
+
   function _onFeedbackMenuClick() {
     var el = document.querySelector('#feedback-menu');
 
     if (!el.classList.contains('visible')) {
-      _updateFeedbackForm();
-
       el.classList.add('visible');
 
-      document.querySelector('#feedback-form-message').focus();
+      _prepareFeedbackForm();
     } else {
       _hideMenus();
     }
