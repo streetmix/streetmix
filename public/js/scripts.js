@@ -22,8 +22,8 @@ var main = (function(){
   var SITE_URL_PRODUCTION = 'http://streetmix.net/';
 
   var API_URL_LOCAL = 'http://localhost:8080/';
-  var API_URL_STAGING = 'https://streetmix-api-staging.herokuapp.com/';
-  var API_URL_PRODUCTION = 'https://streetmix-api.herokuapp.com/';
+  var API_URL_STAGING = 'http://streetmix-api-staging.herokuapp.com/';
+  var API_URL_PRODUCTION = 'http://streetmix-api.herokuapp.com/';
 
   var IP_GEOCODING_API_URL = 'http://freegeoip.net/json/';
   var IP_GEOCODING_TIMEOUT = 1000; // After this time, we don’t wait any more
