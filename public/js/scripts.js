@@ -3369,21 +3369,15 @@ var main = (function(){
   }
 
   function _onWindowFocus() {
-    console.log('WINDOW FOCUS');
-
     if (abortEverything) {
       return;
     }
 
     if (ignoreWindowFocus) {
-      console.log('ignored');
-      //ignoreNextWindowFocus = false;
       return;
     }
 
     if (!galleryVisible) {
-      //console.log('WINDOW FOCUS');
-
       _fetchStreetForVerification();
 
       // Save settings on window focus, so the last edited street is the one you’re
@@ -3394,13 +3388,10 @@ var main = (function(){
   }
 
   function _onWindowBlur() {
-    console.log('WINDOW BLUR');
-
     if (abortEverything) {
       return;
     }
 
-    //console.log('WINDOW BLUR');
     _hideMenus();
   }
 
