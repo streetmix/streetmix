@@ -3809,7 +3809,27 @@ var main = (function(){
     }
   }
 
+  function _updateFeedbackForm() {
+    var message = document.querySelector('#feedback-form-message').value;
+
+    message = jQuery.trim(message);
+
+    console.log('message', message);
+
+    if (message) {
+      document.querySelector('#feedback-form-send').disabled = false;
+    } else {
+      document.querySelector('#feedback-form-send').disabled = true;
+    }
+  }
+
+  function _onFeedbackFormInput() {
+    _updateFeedbackForm();
+  }
+
   function _addEventListeners() {
+    document.querySelector('#feedback-form-message').addEventListener('input', _onFeedbackFormInput, false);
+
     document.querySelector('#gallery-try-again').addEventListener('click', _repeatReceiveGalleryData);
 
     document.querySelector('#no-connection-try-again').addEventListener('click', _nonblockingAjaxTryAgain);
@@ -3982,6 +4002,8 @@ var main = (function(){
     var el = document.querySelector('#feedback-menu');
 
     if (!el.classList.contains('visible')) {
+      _updateFeedbackForm();
+
       el.classList.add('visible');
 
       document.querySelector('#feedback-form-message').focus();
