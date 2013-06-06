@@ -1789,18 +1789,22 @@ var main = (function(){
 
   function _sendNextNonblockingAjaxRequest() {
     if (nonblockingAjaxRequestCount) {
+      var request = null;
+
       // TODO hack
       for (var i in nonblockingAjaxRequests) {
-        var request = nonblockingAjaxRequests[i];
+        request = nonblockingAjaxRequests[i];
         break;
       }
 
-      //console.log('sending…');
+      if (request) {
+        //console.log('sending…');
 
-      var query = jQuery.ajax(request.request).done(function(data) {
-        _successNonblockingAjaxRequest(data, request);
-      });
-
+        var query = jQuery.ajax(request.request).done(function(data) {
+          _successNonblockingAjaxRequest(data, request);
+        });
+      }
+      
       _scheduleNextNonblockingAjaxRequest();
     }
   }
