@@ -3471,6 +3471,11 @@ var main = (function(){
     document.querySelector('#new-street-menu').classList.remove('visible');
   }
 
+  // TODO move
+
+  var galleryStreetId = -1;
+  var galleryStreetLoaded = false;
+
   function _fetchGalleryData() {
     jQuery.ajax({
       // TODO const
@@ -3493,22 +3498,41 @@ var main = (function(){
   function _fetchGalleryStreet(streetId) {
     //console.log('fetching', streetId);
 
-    jQuery.ajax({
-      // TODO const
-      url: system.apiUrl + 'v1/streets/' + streetId,
-      dataType: 'json',
-      type: 'GET',
-      headers: { 'Authorization': _getAuthHeader() }
-    }).done(_receiveGalleryStreet)
-    .fail(_errorReceiveGalleryStreet);
+    _showBlockingShield();
+
+//    window.setTimeout(function() {
+
+      jQuery.ajax({
+        // TODO const
+        url: system.apiUrl + 'v1/streets/' + streetId,
+        dataType: 'json',
+        type: 'GET',
+        headers: { 'Authorization': _getAuthHeader() }
+      }).done(_receiveGalleryStreet)
+      .fail(_errorReceiveGalleryStreet);
+
+//    }, 3000); // DEBUG
   }
 
   function _errorReceiveGalleryStreet() {
+    _hideBlockingShield();
+    galleryStreetLoaded = true;
+    galleryStreetId = street.id; 
+
+    _updateGallerySelection();
     //alert(1);
   }
 
   // TODO similar to receiveLastStreet
   function _receiveGalleryStreet(transmission) {
+    if (transmission.id != galleryStreetId) {
+      return;
+    }
+
+    galleryStreetLoaded = true;
+
+    _hideBlockingShield();
+
     ignoreStreetChanges = true;
 
     _hideError();
@@ -3531,22 +3555,29 @@ var main = (function(){
     lastStreet = _trimStreetData();
   }
 
-  function _onGalleryStreetClick(event) {
-    if (event.shiftKey || event.ctrlKey || event.metaKey) {
-      return;
-    }
-
+  function _updateGallerySelection() {
     var els = document.querySelectorAll('#gallery .streets .selected');
     for (var i = 0, el; el = els[i]; i++) {
       el.classList.remove('selected');
     }
 
+    var el = document.querySelector('#gallery .streets [streetId="' + galleryStreetId + '"]');
+    if (el) {
+      el.classList.add('selected');
+    }
+  }
+
+  function _onGalleryStreetClick(event) {
+    if (event.shiftKey || event.ctrlKey || event.metaKey) {
+      return;
+    }
+
     var el = event.target;
-    var id = el.streetId;
+    galleryStreetId = el.getAttribute('streetId');
 
-    el.classList.add('selected');
+    _updateGallerySelection();
 
-    _fetchGalleryStreet(id);
+    _fetchGalleryStreet(galleryStreetId);
 
     event.preventDefault();
   }
@@ -3589,11 +3620,11 @@ var main = (function(){
 
     // TODO escape name
     if (confirm(prompt)) {
-      if (el.streetId == street.id) {
+      if (el.getAttribute('streetId') == street.id) {
         _showError(ERROR_TYPE_NO_STREET);
       }
 
-      _sendDeleteStreetToServer(el.streetId);
+      _sendDeleteStreetToServer(el.getAttribute('streetId'));
 
       _removeElFromDom(el);
     }
@@ -3654,9 +3685,9 @@ var main = (function(){
       anchorEl.innerHTML = galleryStreet.name;
       
       anchorEl.streetName = galleryStreet.name;
-      anchorEl.streetId = galleryStreet.id;
+      anchorEl.setAttribute('streetId', galleryStreet.id);
 
-      if (street.id == galleryStreet.id) {
+      if (galleryStreetId == galleryStreet.id) {
         anchorEl.classList.add('selected');
       }
 
@@ -3691,6 +3722,8 @@ var main = (function(){
 
   function _showGallery() {
     galleryVisible = true;
+    galleryStreetLoaded = true;
+    galleryStreetId = street.id;
 
     _statusMessage.hide();
 
@@ -3700,7 +3733,7 @@ var main = (function(){
   }
 
   function _hideGallery() {
-    if (currentErrorType != ERROR_TYPE_NO_STREET) {
+    if ((currentErrorType != ERROR_TYPE_NO_STREET) && galleryStreetLoaded) {
       galleryVisible = false;
 
       document.body.classList.remove('gallery-visible');
