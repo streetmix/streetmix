@@ -587,7 +587,7 @@ var main = (function(){
 
   var leftHandTraffic = false;
 
-  var ignoreNextWindowFocus = false;
+  var ignoreWindowFocus = false;
 
   // ------------------------------------------------------------------------
 
@@ -3033,7 +3033,7 @@ var main = (function(){
       _updateUnits(SETTINGS_UNITS_IMPERIAL);
       return;
     } else if (newStreetWidth == STREET_WIDTH_CUSTOM) {
-      ignoreNextWindowFocus = true;
+      _ignoreWindowFocusMomentarily();
       var width = prompt("Enter the new street width (from " + 
           _prettifyWidth(MIN_CUSTOM_STREET_WIDTH, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP) + 
           " to " + 
@@ -3302,7 +3302,7 @@ var main = (function(){
   }
 
   function _askForStreetName() {
-    ignoreNextWindowFocus = true;
+    _ignoreWindowFocusMomentarily();
     var newName = prompt('New street name:', street.name);
 
     if (newName) {
@@ -3359,14 +3359,25 @@ var main = (function(){
     }
   }
 
+  // Because Firefox is stupid and their prompt() dialog boxes are not quite 
+  // modal.
+  function _ignoreWindowFocusMomentarily() {
+    ignoreWindowFocus = true;
+    window.setTimeout(function() {
+      ignoreWindowFocus = false;
+    }, 50);
+  }
+
   function _onWindowFocus() {
+    console.log('WINDOW FOCUS');
+
     if (abortEverything) {
       return;
     }
 
-    if (ignoreNextWindowFocus) {
+    if (ignoreWindowFocus) {
       console.log('ignored');
-      ignoreNextWindowFocus = false;
+      //ignoreNextWindowFocus = false;
       return;
     }
 
@@ -3383,6 +3394,8 @@ var main = (function(){
   }
 
   function _onWindowBlur() {
+    console.log('WINDOW BLUR');
+
     if (abortEverything) {
       return;
     }
@@ -3658,7 +3671,7 @@ var main = (function(){
     var prompt = 
       'Are you sure you want to permanently delete ' + name + '? This cannot be undone.';
 
-    ignoreNextWindowFocus = true;
+    _ignoreWindowFocusMomentarily();
     // TODO escape name
     if (confirm(prompt)) {
       if (el.getAttribute('streetId') == street.id) {
@@ -3791,6 +3804,17 @@ var main = (function(){
     }
   }
 
+  function _onVisibilityChange() {
+    var hidden = document.hidden || document.webkitHidden || 
+        document.msHidden || document.mozHidden;
+
+    if (hidden) {
+      _onWindowBlur();
+    } else {
+      _onWindowFocus();
+    }
+  }
+
   function _addEventListeners() {
     document.querySelector('#gallery-try-again').addEventListener('click', _repeatReceiveGalleryData);
 
@@ -3810,6 +3834,12 @@ var main = (function(){
 
     document.querySelector('#sign-out-link').addEventListener('click', _signOut);
 
+    /*if (system.pageVisibility) {
+      document.addEventListener('visibilitychange', _onVisibilityChange, false);
+      document.addEventListener('webkitvisibilitychange', _onVisibilityChange, false);
+      document.addEventListener('mozvisibilitychange', _onVisibilityChange, false);
+      document.addEventListener('msvisibilitychange', _onVisibilityChange, false);
+    }*/
     window.addEventListener('focus', _onWindowFocus);
     window.addEventListener('blur', _onWindowBlur);
 
@@ -3865,7 +3895,8 @@ var main = (function(){
     _detectEnvironment();
 
     system.touch = Modernizr.touch;
-    system.hiDpi = window.devicePixelRatio;    
+    system.hiDpi = window.devicePixelRatio;
+    system.pageVisibility = Modernizr.pagevisibility;
 
     if (system.touch) {
       document.body.classList.add('touch-support');
@@ -3958,9 +3989,6 @@ var main = (function(){
 
     if (!el.classList.contains('visible')) {
       el.classList.add('visible');
-
-      //document.querySelector('#share-via-link').focus();
-      //document.querySelector('#share-via-link').select();
     } else {
       _hideMenus();
     }
@@ -4872,6 +4900,9 @@ var main = (function(){
   main.init = function() {
     initializing = true;
     ignoreStreetChanges = true;
+
+    // Temporary as per https://github.com/Modernizr/Modernizr/issues/788#issuecomment-12513563
+    Modernizr.addTest('pagevisibility', !!Modernizr.prefixed('hidden', document, false));
 
     readyStateCompleteLoaded = false;
     document.addEventListener('readystatechange', _onReadyStateChange);
