@@ -1745,9 +1745,13 @@ var main = (function(){
 
   var nonblockingAjaxRequestTimer = 0;
 
-  var NON_BLOCKING_AJAX_REQUEST_TIME = [10, 500, 1000, 5000];
-  var NON_BLOCKING_AJAX_REQUEST_BACKOFF_MULTIPLIER = 5000; // Five seconds
-  var NON_BLOCKING_AJAX_REQUEST_BACKOFF_RANGE = 60; // From five seconds to five minutes
+  var NON_BLOCKING_AJAX_REQUEST_TIME = [10, 500, 1000, 5000, 10000];
+  var NON_BLOCKING_AJAX_REQUEST_BACKOFF_RANGE = 60000;
+
+  var NON_BLOCKING_NO_CONNECTION_MESSAGE_TIMER_COUNT = 4;
+
+  //0-4 seconds 2^2
+  //0-8 seconds 2^3
 
   /*function _debugOutput() {
     console.log(nonblockingAjaxRequestCount + ' requests…');
@@ -1788,6 +1792,8 @@ var main = (function(){
   }
 
   function _sendNextNonblockingAjaxRequest() {
+    //console.log('send next…');
+
     if (nonblockingAjaxRequestCount) {
       var request = null;
 
@@ -1810,16 +1816,20 @@ var main = (function(){
   }
 
   function _scheduleNextNonblockingAjaxRequest() {
+    //console.log('schedule next…');
+
     if (nonblockingAjaxRequestCount) {
       if (nonblockingAjaxRequestTimer < NON_BLOCKING_AJAX_REQUEST_TIME.length) {
         var time = NON_BLOCKING_AJAX_REQUEST_TIME[nonblockingAjaxRequestTimer];
       } else {
-        var time = Math.floor(Math.random() * NON_BLOCKING_AJAX_REQUEST_BACKOFF_RANGE) * NON_BLOCKING_AJAX_REQUEST_BACKOFF_MULTIPLIER; 
-
-        _noConnectionMessage.show();
+        var time = Math.floor(Math.random() * NON_BLOCKING_AJAX_REQUEST_BACKOFF_RANGE);
       }
 
-      //console.log('trying to send next… at time: ', time);
+      if (nonblockingAjaxRequestTimer == NON_BLOCKING_NO_CONNECTION_MESSAGE_TIMER_COUNT) {
+        _noConnectionMessage.show();        
+      }
+
+      //console.log('schedule next… at time: ', time);
 
       window.setTimeout(_sendNextNonblockingAjaxRequest, time);
 
@@ -3325,6 +3335,11 @@ var main = (function(){
   }
 
   function _fetchStreetForVerification() {
+    // Don’t do it with any network services pending
+    if (nonblockingAjaxRequestCount) {
+      return;
+    }
+
     var url = _getFetchStreetUrl();
 
     //console.log('verifying street', '|' + url + '|');
