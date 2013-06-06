@@ -3322,17 +3322,14 @@ var main = (function(){
   }
 
   // Compare two objects regardless of the order of their properties
-  function equalObject(obj1, obj2) {
+  function _equalObject(obj1, obj2) {
     
-    function _equalObject(o1, o2) {
+    function __equalObject(o1, o2) {
       return JSON.stringify(o1)
           === JSON.stringify($.extend(true, {}, o1, o2));
     }
 
-    //console.log(_equalObject(obj1, obj2));
-    //console.log(_equalObject(obj2, obj1));
-
-    return _equalObject(obj1, obj2) && _equalObject(obj2, obj1);
+    return __equalObject(obj1, obj2) && __equalObject(obj2, obj1);
   }
 
   function _receiveStreetForVerification(transmission) {
@@ -3341,18 +3338,11 @@ var main = (function(){
     var localStreetData = _trimStreetData();
     var serverStreetData = _unpackStreetDataFromServerTransmission(transmission);
 
-    console.log(JSON.stringify(localStreetData));
-    console.log(JSON.stringify(serverStreetData));
-
-    if (!equalObject(localStreetData, serverStreetData)) {
+    if (!_equalObject(localStreetData, serverStreetData)) {
       _statusMessage.show('Your street was reloaded from the server as it was modified elsewhere.');
 
       _unpackServerStreetData(transmission);
-      //street = 
-
       _updateEverything();
-    } else {
-      //console.log('equal');
     }
   }
 
