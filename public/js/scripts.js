@@ -1696,7 +1696,7 @@ var main = (function(){
   function _unpackStreetDataFromServerTransmission(transmission) {
     var street = _clone(transmission.data.street);
 
-    street.originalStreetId = transmission.originalStreetId;
+    street.originalStreetId = transmission.originalStreetId || null;
     street.name = transmission.name;
 
     return street;
@@ -3348,6 +3348,9 @@ var main = (function(){
 
     var localStreetData = _trimStreetData();
     var serverStreetData = _unpackStreetDataFromServerTransmission(transmission);
+
+    //console.log(localStreetData);
+    //console.log(serverStreetData);
 
     if (!_equalObject(localStreetData, serverStreetData)) {
       _statusMessage.show('Your street was reloaded from the server as it was modified elsewhere.');
