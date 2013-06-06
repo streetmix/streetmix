@@ -1828,15 +1828,16 @@ var main = (function(){
   }
 
   function _successNonblockingAjaxRequest(data, request) {
+    nonblockingAjaxRequestTimer = 0;
+    nonblockingAjaxRequestCount--;
+
     var signature = _getAjaxRequestSignature(request.request);
 
     _noConnectionMessage.hide();
 
-    nonblockingAjaxRequestTimer = 0;
-    nonblockingAjaxRequestCount--;
-
     //console.log('SUCCESS!', signature);
 
+    console.log('signature', signature);
     delete nonblockingAjaxRequests[signature];
     //console.log(data, textStatus, jqXHR);
 
@@ -3357,7 +3358,10 @@ var main = (function(){
   }
 
   function _errorReceiveStreetForVerification(data) {
-    if (signedIn && (data.status == 404)) {
+    // 404 should never happen here, since 410 designates streets that have
+    // been deleted (but remain hidden on the server)
+
+    if (signedIn && ((data.status == 404) || (data.status == 410))) {
       // Means street was deleted
 
       _showError(ERROR_STREET_DELETED_ELSEWHERE);
@@ -3705,6 +3709,8 @@ var main = (function(){
   }
 
   function _receiveGalleryData(transmission) {
+    console.log('receive gallery data', transmission);
+
     document.querySelector('#gallery .loading').classList.remove('visible');
 
     var el = document.createElement('li');
@@ -3730,7 +3736,7 @@ var main = (function(){
 
       galleryStreet.creatorId = signInData.userId;
 
-      //console.log(galleryStreet);
+      console.log(galleryStreet);
 
       anchorEl.href = _getStreetUrl(galleryStreet);
       anchorEl.innerHTML = galleryStreet.name;
@@ -3839,14 +3845,14 @@ var main = (function(){
       document.querySelector('#feedback-form .loading').classList.add('visible');
 
       var transmission = {
-        message: 'Test',
-        from: 'mwichary@codeforamerica.org'
+        message: document.querySelector('#feedback-form-message').value,
+        from: document.querySelector('#feedback-form-email').value
       };
 
       _newNonblockingAjaxRequest({
         // TODO const
         url: system.apiUrl + 'v1/feedback',
-        data: transmission,
+        data: JSON.stringify(transmission),
         dataType: 'json',
         type: 'POST',
         contentType: 'application/json',
@@ -4053,14 +4059,11 @@ var main = (function(){
   function _prepareFeedbackForm() {
     document.querySelector('#feedback-form-message').focus();
     
-    if (window.localStorage[LOCAL_STORAGE_FEEDBACK_BACKUP]) {
-      document.querySelector('#feedback-form-message').value = 
-          window.localStorage[LOCAL_STORAGE_FEEDBACK_BACKUP];
-    }
-    if (window.localStorage[LOCAL_STORAGE_FEEDBACK_EMAIL_BACKUP]) {
-      document.querySelector('#feedback-form-email').value = 
-          window.localStorage[LOCAL_STORAGE_FEEDBACK_EMAIL_BACKUP];
-    }
+    var message = window.localStorage[LOCAL_STORAGE_FEEDBACK_BACKUP] || '';
+    document.querySelector('#feedback-form-message').value = message;
+
+    var email = window.localStorage[LOCAL_STORAGE_FEEDBACK_EMAIL_BACKUP] || '';
+    document.querySelector('#feedback-form-email').value = email;
 
     _updateFeedbackForm();
 
@@ -4865,8 +4868,6 @@ var main = (function(){
       } else {
         mode = MODE_404;
         _processMode();
-
-        //console.log(data, error);
       }
     }
   }
