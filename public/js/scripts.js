@@ -4281,7 +4281,9 @@ var main = (function(){
     var message = '';
 
     if (signedIn) {
-      if (street.creatorId == signInData.userId) {
+      if (!street.creatorId) {
+        message = 'Check out ' + street.name + ' street on Streetmix!';
+      } else if (street.creatorId == signInData.userId) {
         message = 'Check out my street, ' + street.name + ', on Streetmix!';
       } else {
         message = 'Check out ' + street.name + ' street by @' + street.creatorId + ' on Streetmix!';
