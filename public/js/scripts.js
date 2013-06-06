@@ -587,6 +587,8 @@ var main = (function(){
 
   var leftHandTraffic = false;
 
+  var ignoreNextWindowFocus = false;
+
   // ------------------------------------------------------------------------
 
   var mode;
@@ -3031,6 +3033,7 @@ var main = (function(){
       _updateUnits(SETTINGS_UNITS_IMPERIAL);
       return;
     } else if (newStreetWidth == STREET_WIDTH_CUSTOM) {
+      ignoreNextWindowFocus = true;
       var width = prompt("Enter the new street width (from " + 
           _prettifyWidth(MIN_CUSTOM_STREET_WIDTH, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP) + 
           " to " + 
@@ -3299,6 +3302,7 @@ var main = (function(){
   }
 
   function _askForStreetName() {
+    ignoreNextWindowFocus = true;
     var newName = prompt('New street name:', street.name);
 
     if (newName) {
@@ -3357,6 +3361,12 @@ var main = (function(){
 
   function _onWindowFocus() {
     if (abortEverything) {
+      return;
+    }
+
+    if (ignoreNextWindowFocus) {
+      console.log('ignored');
+      ignoreNextWindowFocus = false;
       return;
     }
 
@@ -3551,7 +3561,6 @@ var main = (function(){
     galleryStreetId = street.id; 
 
     _updateGallerySelection();
-    //alert(1);
   }
 
   // TODO similar to receiveLastStreet
@@ -3649,6 +3658,7 @@ var main = (function(){
     var prompt = 
       'Are you sure you want to permanently delete ' + name + '? This cannot be undone.';
 
+    ignoreNextWindowFocus = true;
     // TODO escape name
     if (confirm(prompt)) {
       if (el.getAttribute('streetId') == street.id) {
@@ -4748,7 +4758,6 @@ var main = (function(){
   }
 
   function _goNewStreet() {
-    //alert('go new street!');
     location.href = '/' + URL_NEW_STREET;
   }
 
