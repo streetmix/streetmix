@@ -1753,13 +1753,14 @@ var main = (function(){
   //0-4 seconds 2^2
   //0-8 seconds 2^3
 
-  /*function _debugOutput() {
+  function _debugOutput() {
+    console.log('-');
     console.log(nonblockingAjaxRequestCount + ' requests…');
 
     for (var i in nonblockingAjaxRequests) {
       console.log('    …' + _getAjaxRequestSignature(nonblockingAjaxRequests[i].request));
     }
-  }*/
+  }
 
   function _getAjaxRequestSignature(request) {
     return request.type + ' ' + request.url;
@@ -1778,7 +1779,7 @@ var main = (function(){
         { request: request, allowToClosePage: allowToClosePage, 
           doneFunc: doneFunc };
 
-    //_debugOutput();
+    _debugOutput();
 
     _scheduleNextNonblockingAjaxRequest();
   }
@@ -1853,7 +1854,8 @@ var main = (function(){
 
     _noConnectionMessage.hide();
 
-    //console.log('SUCCESS!', signature);
+    console.log('SUCCESS!', signature);
+    _debugOutput();
 
     //console.log('signature', signature);
     delete nonblockingAjaxRequests[signature];
