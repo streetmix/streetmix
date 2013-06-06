@@ -1791,7 +1791,7 @@ var main = (function(){
     if (nonblockingAjaxRequestCount) {
       var request = null;
 
-      // TODO hack
+      // TODO hack to get the first guy
       for (var i in nonblockingAjaxRequests) {
         request = nonblockingAjaxRequests[i];
         break;
@@ -4423,6 +4423,9 @@ var main = (function(){
     _onResize();
     _addEventListeners();
 
+    // TODO hack – we should store the avatar somewhere before
+    _fetchStreetCreatorAvatar();
+
     window.setTimeout(_hideLoadingScreen, 0);
 
     if (promoteStreet) {
@@ -4821,19 +4824,23 @@ var main = (function(){
   function _fetchStreetCreatorAvatar() {
     //console.log('fetch street creator avatar');
 
-    // TODO const
-    jQuery.ajax({
-      dataType: 'json',
-      url: system.apiUrl + 'v1/users/' + street.creatorId
-    }).done(_receiveStreetCreatorAvatar);
+    if (street.creatorId) {
+      // TODO const
+      jQuery.ajax({
+        dataType: 'json',
+        url: system.apiUrl + 'v1/users/' + street.creatorId
+      }).done(_receiveStreetCreatorAvatar);
+    }
   }
 
   function _receiveStreetCreatorAvatar(details) {
     //console.log('receive street creator avatar');
 
     if (details.profileImageUrl) {
-      document.querySelector('#street-attribution .avatar').style.backgroundImage = 
-          'url(' + details.profileImageUrl + ')';
+      if (document.querySelector('#street-attribution .avatar')) {
+        document.querySelector('#street-attribution .avatar').style.backgroundImage = 
+            'url(' + details.profileImageUrl + ')';
+      }
     }
   }
 
@@ -4845,9 +4852,7 @@ var main = (function(){
     if (!signedIn || (street.creatorId != signInData.userId)) {
       remixOnFirstEdit = true;
 
-      if (street.creatorId) {
-        _fetchStreetCreatorAvatar();
-      }
+      _fetchStreetCreatorAvatar();
 
     } else {
       remixOnFirstEdit = false;
