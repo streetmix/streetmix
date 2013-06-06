@@ -1684,7 +1684,7 @@ var main = (function(){
   }
 
   function _unpackServerStreetData(transmission, id, namespacedId) {
-    console.log('unpack server street data', transmission);
+    //console.log('unpack server street data', transmission);
 
     street = _clone(transmission.data.street);
 
@@ -1733,13 +1733,13 @@ var main = (function(){
   var NON_BLOCKING_AJAX_REQUEST_BACKOFF_MULTIPLIER = 5000; // Five seconds
   var NON_BLOCKING_AJAX_REQUEST_BACKOFF_RANGE = 60; // From five seconds to five minutes
 
-  function _debugOutput() {
+  /*function _debugOutput() {
     console.log(nonblockingAjaxRequestCount + ' requests…');
 
     for (var i in nonblockingAjaxRequests) {
       console.log('    …' + _getAjaxRequestSignature(nonblockingAjaxRequests[i].request));
     }
-  }
+  }*/
 
   function _getAjaxRequestSignature(request) {
     return request.type + ' ' + request.url;
@@ -1748,7 +1748,7 @@ var main = (function(){
   function _newNonblockingAjaxRequest(request, allowToClosePage) {
     nonblockingAjaxRequestTimer = 0;
 
-    console.log('new request added…');
+    //console.log('new request added…');
     var signature = _getAjaxRequestSignature(request);
 
     if (!nonblockingAjaxRequests[signature]) {
@@ -1757,7 +1757,7 @@ var main = (function(){
     nonblockingAjaxRequests[signature] = 
         { request: request, allowToClosePage: allowToClosePage };
 
-    _debugOutput();
+    //_debugOutput();
 
     _scheduleNextNonblockingAjaxRequest();
   }
@@ -1778,7 +1778,7 @@ var main = (function(){
         break;
       }
 
-      console.log('sending…');
+      //console.log('sending…');
 
       jQuery.ajax(request).done(function(data) {
         _successNonblockingAjaxRequest(data, _getAjaxRequestSignature(request));
@@ -1798,13 +1798,13 @@ var main = (function(){
         _noConnectionMessage.show();
       }
 
-      console.log('trying to send next… at time: ', time);
+      //console.log('trying to send next… at time: ', time);
 
       window.setTimeout(_sendNextNonblockingAjaxRequest, time);
 
       nonblockingAjaxRequestTimer++;
     } else {
-      console.log('nothing more to send!');
+      //console.log('nothing more to send!');
 
       saveStreetIncomplete = false;
     }
@@ -1816,7 +1816,7 @@ var main = (function(){
     nonblockingAjaxRequestTimer = 0;
     nonblockingAjaxRequestCount--;
 
-    console.log('SUCCESS!', signature);
+    //console.log('SUCCESS!', signature);
 
     delete nonblockingAjaxRequests[signature];
     //console.log(data, textStatus, jqXHR);
@@ -1825,7 +1825,7 @@ var main = (function(){
   }
 
   function _saveStreetToServer(initial) {
-    console.log('save street to server…');
+    //console.log('save street to server…');
 
     var transmission = _packServerStreetData();
 
@@ -2039,7 +2039,7 @@ var main = (function(){
   }
 
   function _scheduleSavingStreetToServer() {
-    console.log('schedule save…');
+    //console.log('schedule save…');
 
     saveStreetIncomplete = true;
 
@@ -3424,7 +3424,7 @@ var main = (function(){
   }
 
   function _receiveLastStreet(transmission) {
-    console.log('received last street', transmission);
+    //console.log('received last street', transmission);
 
     ignoreStreetChanges = true;
 
@@ -3482,7 +3482,7 @@ var main = (function(){
   }
 
   function _fetchGalleryStreet(streetId) {
-    console.log('fetching', streetId);
+    //console.log('fetching', streetId);
 
     jQuery.ajax({
       // TODO const
@@ -3946,8 +3946,8 @@ var main = (function(){
       var localSettings = {};
     }
 
-    console.log('server settings', serverSettings);
-    console.log('local settings', localSettings);
+    //console.log('server settings', serverSettings);
+    //console.log('local settings', localSettings);
 
     settings = {};
 
@@ -3965,7 +3965,7 @@ var main = (function(){
 
     settings.priorLastStreetId = settings.lastStreetId;
 
-    console.log('FINAL settings', settings);
+    //console.log('FINAL settings', settings);
 
     _saveSettings();
   }
@@ -3983,11 +3983,6 @@ var main = (function(){
   }
 
   function _saveSettings() {
-    if (initializing) {
-      //console.log('NO');
-      //return;
-    }
-
     //console.log('save settings', JSON.stringify(_trimSettings()));
     window.localStorage[LOCAL_STORAGE_SETTINGS_ID] = 
         JSON.stringify(_trimSettings());
@@ -4295,7 +4290,7 @@ var main = (function(){
   }
 
   function _receiveSignInDetails(details) {
-    console.log('receive sign in details', details);
+    //console.log('receive sign in details', details);
 
     signInData.details = details;
     _saveSignInData();
@@ -4547,7 +4542,7 @@ var main = (function(){
   }
 
   function _receiveNewStreet(data) {
-    console.log('received new street', data);
+    //console.log('received new street', data);
 
     _setStreetId(data.id, data.namespacedId);
 
@@ -4583,7 +4578,7 @@ var main = (function(){
   function _fetchStreetFromServer() {
     var url = _getFetchStreetUrl();
 
-    console.log('try to get street from server', '|' + url + '|');
+    //console.log('try to get street from server', '|' + url + '|');
 
     jQuery.ajax({
       url: url,
@@ -4612,7 +4607,7 @@ var main = (function(){
   }
 
   function _receiveStreet(transmission) {
-    console.log('received street', transmission);
+    //console.log('received street', transmission);
 
     _unpackServerStreetData(transmission);
 
@@ -4627,23 +4622,18 @@ var main = (function(){
       remixOnFirstEdit = false;
     }
 
-    //console.log('.');
-    //console.log(street);
-
     _propagateUnits();
 
     // TODO this is stupid, only here to fill some structures
     _createDomFromData();
     _createDataFromDom();
 
-    //console.log(street);
-
     serverContacted = true;
     _checkIfEverythingIsLoaded();
   }
 
   function _errorReceiveStreet(data) {
-    console.log('failed to receive street!', data.status, data);
+    //console.log('failed to receive street!', data.status, data);
 
     if (mode == MODE_CONTINUE) {
       _goNewStreet();
@@ -4657,7 +4647,7 @@ var main = (function(){
         mode = MODE_404;
         _processMode();
 
-        console.log(data, error);
+        //console.log(data, error);
       }
     }
   }
