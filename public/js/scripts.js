@@ -4530,7 +4530,11 @@ var main = (function(){
   }
 
   function _saveSignInData() {
-    window.localStorage[LOCAL_STORAGE_SIGN_IN_ID] = JSON.stringify(signInData);
+    if (signInData) {
+      window.localStorage[LOCAL_STORAGE_SIGN_IN_ID] = JSON.stringify(signInData);
+    } else {
+      window.localStorage[LOCAL_STORAGE_SIGN_IN_ID] = '';
+    }
   }
 
   function _removeSignInCookies() {
