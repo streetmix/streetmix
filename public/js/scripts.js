@@ -4852,9 +4852,18 @@ var main = (function(){
   }
 
   function _createNewStreetOnServer() {
+    if (settings.newStreetPreference == NEW_STREET_EMPTY) {
+      _prepareEmptyStreet();
+    } else {
+      _prepareDefaultStreet();
+    }
+
+    var transmission = _packServerStreetData();    
+
     jQuery.ajax({
       // TODO const
       url: system.apiUrl + 'v1/streets',
+      data: transmission,
       type: 'POST',
       dataType: 'json',
       headers: { 'Authorization': _getAuthHeader() }
@@ -4867,11 +4876,6 @@ var main = (function(){
 
     _setStreetId(data.id, data.namespacedId);
 
-    if (settings.newStreetPreference == NEW_STREET_EMPTY) {
-      _prepareEmptyStreet();
-    } else {
-      _prepareDefaultStreet();
-    }
     _saveStreetToServer(true);
   }
 
