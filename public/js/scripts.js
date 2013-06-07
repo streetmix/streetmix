@@ -658,7 +658,7 @@ var main = (function(){
 
   var signedIn = false;
   var signInLoaded = false;
-  var signInData = {};
+  var signInData = null;
 
   // Auto “promote” (remix) the street if you just signed in and the street
   // was anonymous
@@ -3478,6 +3478,7 @@ var main = (function(){
       mode = MODE_FORCE_RELOAD_SIGN_OUT;
       _processMode();
     } else if (!signedIn && window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
+      console.log('blah', window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]);
       mode = MODE_FORCE_RELOAD_SIGN_IN;
       _processMode();      
     }
@@ -4593,7 +4594,7 @@ var main = (function(){
   function _errorReceiveSignInDetails() {   
     // Fail silently
 
-    signInData = {};
+    signInData = null;
     _saveSignInData();
 
     signedIn = false;
