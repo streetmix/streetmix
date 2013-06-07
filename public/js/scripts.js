@@ -2135,10 +2135,6 @@ var main = (function(){
       return;
     }
 
-    //console.log('schedule [settings] save!');
-
-    // saveSettingsIncomplete = true;
-
     _clearScheduledSavingSettingsToServer();
 
     saveSettingsTimerId = 
@@ -3381,7 +3377,7 @@ var main = (function(){
 
   function _fetchStreetForVerification() {
     // Don’t do it with any network services pending
-    if (_getNonblockingAjaxRequestCount() || blockingAjaxRequestInProgress) {
+    if (_getNonblockingAjaxRequestCount() || blockingAjaxRequestInProgress || saveStreetIncomplete) {
       return;
     }
 
