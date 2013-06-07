@@ -285,7 +285,7 @@ var main = (function(){
     'sidewalk-tree': {
       name: 'Sidewalk w/ a tree',
       owner: SEGMENT_OWNER_NATURE,
-      zIndex: -1,
+      //zIndex: -1,
       defaultWidth: 4,
       variants: ['tree-size'],
       details: {
