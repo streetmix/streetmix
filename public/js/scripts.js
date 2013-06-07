@@ -3336,7 +3336,7 @@ var main = (function(){
     $('#street-name > div').text(street.name);
     _resizeStreetName();
 
-    if (street.creatorId && (street.creatorId != signInData.userId)) {
+    if (street.creatorId && signInData && (street.creatorId != signInData.userId)) {
       // TODO const
       var html = "by <div class='avatar'></div>" +
           "<a target='_blank' href='https://twitter.com/" + 
