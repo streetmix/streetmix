@@ -4105,11 +4105,15 @@ var main = (function(){
 
 
   function _isUndoAvailable() {
-    return undoPosition > 0;
+    // Don’t allow undo/redo unless you own the street
+
+    return (undoPosition > 0) && !remixOnFirstEdit;
   }
 
   function _isRedoAvailable() {
-    return undoPosition < undoStack.length - 1;
+    // Don’t allow undo/redo unless you own the street
+
+    return (undoPosition < undoStack.length - 1) && !remixOnFirstEdit;
   }
 
   function _updateUndoButtons() {
