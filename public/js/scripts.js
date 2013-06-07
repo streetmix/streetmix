@@ -1698,7 +1698,7 @@ var main = (function(){
 
     street.creatorId = (transmission.creator && transmission.creator.id) || null;
     street.originalStreetId = transmission.originalStreetId || null;
-    street.name = transmission.name;
+    street.name = transmission.name || DEFAULT_NAME;
 
     return street;
   }
@@ -3304,6 +3304,7 @@ var main = (function(){
     url += street.namespacedId;
 
     if (street.creatorId) {
+      //console.log('name', street.name);
       var slug = _normalizeSlug(street.name);
       url += '/' + encodeURIComponent(slug);
     }
@@ -3604,6 +3605,7 @@ var main = (function(){
     jQuery.ajax({
       // TODO const
       url: system.apiUrl + 'v1/users/' + signInData.userId + '/streets',
+      //url: 'http://streetmix-api-staging.herokuapp.com/v1/users/saikofish/streets',
       dataType: 'json',
       type: 'GET',
       headers: { 'Authorization': _getAuthHeader() }
@@ -3796,6 +3798,8 @@ var main = (function(){
     el.appendChild(newEl);
     document.querySelector('#gallery .streets').appendChild(el);
 
+    //console.log('street count', transmission.streets.length);
+
     for (var i in transmission.streets) {
       var galleryStreet = transmission.streets[i];
 
@@ -3806,6 +3810,8 @@ var main = (function(){
       galleryStreet.creatorId = signInData.userId;
 
       //console.log(galleryStreet);
+
+      galleryStreet.name = galleryStreet.name || DEFAULT_NAME;
 
       anchorEl.href = _getStreetUrl(galleryStreet);
       anchorEl.innerHTML = galleryStreet.name;
