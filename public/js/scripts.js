@@ -593,6 +593,8 @@ var main = (function(){
 
   var ignoreWindowFocus = false;
 
+  var images = [];
+
   // ------------------------------------------------------------------------
 
   var mode;
@@ -721,11 +723,13 @@ var main = (function(){
       return;
     }
 
-    ctx.drawImage(images['/images/tiles.png'],
-        sx * TILESET_POINT_PER_PIXEL, sy * TILESET_POINT_PER_PIXEL, 
-        sw * TILESET_POINT_PER_PIXEL, sh * TILESET_POINT_PER_PIXEL,
-        dx * system.hiDpi, dy * system.hiDpi, 
-        dw * system.hiDpi, dh * system.hiDpi);
+    if (imagesToBeLoaded == 0) {
+      ctx.drawImage(images['/images/tiles.png'],
+          sx * TILESET_POINT_PER_PIXEL, sy * TILESET_POINT_PER_PIXEL, 
+          sw * TILESET_POINT_PER_PIXEL, sh * TILESET_POINT_PER_PIXEL,
+          dx * system.hiDpi, dy * system.hiDpi, 
+          dw * system.hiDpi, dh * system.hiDpi);
+    }
   }
 
  function _setSegmentContents(el, type, variantString, segmentWidth, palette) {
@@ -3626,18 +3630,14 @@ var main = (function(){
 
     _showBlockingShield();
 
-//    window.setTimeout(function() {
-
-      jQuery.ajax({
-        // TODO const
-        url: system.apiUrl + 'v1/streets/' + streetId,
-        dataType: 'json',
-        type: 'GET',
-        headers: { 'Authorization': _getAuthHeader() }
-      }).done(_receiveGalleryStreet)
-      .fail(_errorReceiveGalleryStreet);
-
-//    }, 3000); // DEBUG
+    jQuery.ajax({
+      // TODO const
+      url: system.apiUrl + 'v1/streets/' + streetId,
+      dataType: 'json',
+      type: 'GET',
+      headers: { 'Authorization': _getAuthHeader() }
+    }).done(_receiveGalleryStreet)
+    .fail(_errorReceiveGalleryStreet);
   }
 
   function _errorReceiveGalleryStreet() {
@@ -4524,7 +4524,6 @@ var main = (function(){
   }
 
   function _loadImages() {
-    images = [];
     imagesToBeLoaded = IMAGES_TO_BE_LOADED.length;
 
     for (var i in IMAGES_TO_BE_LOADED) {
@@ -4605,7 +4604,17 @@ var main = (function(){
     _signInLoaded();
   }
 
-  function _errorReceiveSignInDetails() {   
+  function _errorReceiveSignInDetails(data) {   
+
+    // If we get data.status == 0, it means that the user opened the page and
+    // closed is quickly, so the request was aborted. We choose to do nothing
+    // instead of clobbering sign in data below and effectively signing the
+    // user out. Bug #302.
+
+    if (data.status == 0) {
+      return;
+    }
+
     // Fail silently
 
     signInData = null;
