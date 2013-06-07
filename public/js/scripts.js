@@ -1696,6 +1696,7 @@ var main = (function(){
   function _unpackStreetDataFromServerTransmission(transmission) {
     var street = _clone(transmission.data.street);
 
+    street.creatorId = (transmission.creator && transmission.creator.id) || null;
     street.originalStreetId = transmission.originalStreetId || null;
     street.name = transmission.name;
 
@@ -1725,6 +1726,9 @@ var main = (function(){
     // Those go above data in the structure, so they need to be cleared here
     delete data.street.name;
     delete data.street.originalStreetId;
+
+    // This will be implied through authorization header
+    delete data.street.creatorId;
 
     data.undoStack = _clone(undoStack);
     data.undoPosition = undoPosition;
@@ -3336,7 +3340,7 @@ var main = (function(){
     $('#street-name > div').text(street.name);
     _resizeStreetName();
 
-    if (street.creatorId && signInData && (street.creatorId != signInData.userId)) {
+    if (street.creatorId && (!signedIn || (street.creatorId != signInData.userId))) {
       // TODO const
       var html = "by <div class='avatar'></div>" +
           "<a target='_blank' href='https://twitter.com/" + 
@@ -4930,6 +4934,8 @@ var main = (function(){
 
     serverContacted = true;
     _checkIfEverythingIsLoaded();
+
+    //console.log('creator', street.creatorId, signedIn);
   }
 
   function _errorReceiveStreet(data) {
