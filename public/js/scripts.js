@@ -1740,8 +1740,8 @@ var main = (function(){
 
   // TODO move
 
-  var nonblockingAjaxRequests = {};
-  var nonblockingAjaxRequestCount = 0;
+  var nonblockingAjaxRequests = [];
+  //var nonblockingAjaxRequestCount = 0;
 
   var nonblockingAjaxRequestTimer = 0;
 
@@ -1753,9 +1753,13 @@ var main = (function(){
   //0-4 seconds 2^2
   //0-8 seconds 2^3
 
+  function _getNonblockingAjaxRequestCount() {
+    return nonblockingAjaxRequests.length;
+  }
+
   function _debugOutput() {
     console.log('-');
-    console.log(nonblockingAjaxRequestCount + ' requests…');
+    console.log(_getNonblockingAjaxRequestCount() + ' requests…');
 
     for (var i in nonblockingAjaxRequests) {
       console.log('    …' + _getAjaxRequestSignature(nonblockingAjaxRequests[i].request));
@@ -1772,12 +1776,14 @@ var main = (function(){
     //console.log('new request added…');
     var signature = _getAjaxRequestSignature(request);
 
-    if (!nonblockingAjaxRequests[signature]) {
+    /*if (!nonblockingAjaxRequests[signature]) {
       nonblockingAjaxRequestCount++;
-    }
-    nonblockingAjaxRequests[signature] = 
-        { request: request, allowToClosePage: allowToClosePage, 
-          doneFunc: doneFunc };
+    }*/
+    _removeNonblockingAjaxRequest(signature);
+    nonblockingAjaxRequests.push( 
+      { request: request, allowToClosePage: allowToClosePage, 
+        doneFunc: doneFunc, signature: signature }
+    );
 
     _debugOutput();
 
@@ -1795,14 +1801,15 @@ var main = (function(){
   function _sendNextNonblockingAjaxRequest() {
     //console.log('send next…');
 
-    if (nonblockingAjaxRequestCount) {
+    if (_getNonblockingAjaxRequestCount()) {
       var request = null;
 
       // TODO hack to get the first guy
-      for (var i in nonblockingAjaxRequests) {
+      /*for (var i in nonblockingAjaxRequests) {
         request = nonblockingAjaxRequests[i];
         break;
-      }
+      }*/
+      request = nonblockingAjaxRequests[0];
 
       if (request) {
         //console.log('sending…');
@@ -1823,7 +1830,7 @@ var main = (function(){
   function _scheduleNextNonblockingAjaxRequest() {
     //console.log('schedule next…');
 
-    if (nonblockingAjaxRequestCount) {
+    if (_getNonblockingAjaxRequestCount()) {
       if (nonblockingAjaxRequestTimer < NON_BLOCKING_AJAX_REQUEST_TIME.length) {
         var time = NON_BLOCKING_AJAX_REQUEST_TIME[nonblockingAjaxRequestTimer];
       } else {
@@ -1846,20 +1853,40 @@ var main = (function(){
     }
   }
 
+  function _removeNonblockingAjaxRequest(signature) {
+    for (var i in nonblockingAjaxRequests) {
+      if (nonblockingAjaxRequests[i].signature == signature) {
+        nonblockingAjaxRequests.splice(i, 1);
+        console.log('removed');
+        break;
+      }
+    }    
+  }
+
   function _successNonblockingAjaxRequest(data, request) {
     nonblockingAjaxRequestTimer = 0;
-    nonblockingAjaxRequestCount--;
+    //nonblockingAjaxRequestCount--;
 
-    var signature = _getAjaxRequestSignature(request.request);
+    //var signature = request.request);
 
     _noConnectionMessage.hide();
 
-    console.log('SUCCESS!', signature);
-    _debugOutput();
-
     //console.log('signature', signature);
-    delete nonblockingAjaxRequests[signature];
+    //delete nonblockingAjaxRequests[signature];
+    //console.log('after deleting', nonblockingAjaxRequests[signature]);
     //console.log(data, textStatus, jqXHR);
+
+    console.log('trying to remove');
+    _removeNonblockingAjaxRequest(request.signature);
+    /*for (var i in nonblockingAjaxRequests) {
+      if (nonblockingAjaxRequests[i].signature == request.signature) {
+        nonblockingAjaxRequests.splice(i, 1);
+        console.log('removed');
+      }
+    }*/
+
+    console.log('SUCCESS!', request.signature);
+    _debugOutput();
 
     if (request.doneFunc) {
       request.doneFunc();
@@ -3350,7 +3377,7 @@ var main = (function(){
 
   function _fetchStreetForVerification() {
     // Don’t do it with any network services pending
-    if (nonblockingAjaxRequestCount || blockingAjaxRequestInProgress) {
+    if (_getNonblockingAjaxRequestCount() || blockingAjaxRequestInProgress) {
       return;
     }
 
@@ -5054,6 +5081,10 @@ var main = (function(){
 
     // Temporary as per https://github.com/Modernizr/Modernizr/issues/788#issuecomment-12513563
     Modernizr.addTest('pagevisibility', !!Modernizr.prefixed('hidden', document, false));
+
+    // TODO make it better
+    // Related to Enter to 404 bug in Chrome
+    $.ajaxSetup({ cache: false });
 
     readyStateCompleteLoaded = false;
     document.addEventListener('readystatechange', _onReadyStateChange);
