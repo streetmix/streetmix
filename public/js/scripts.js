@@ -4614,7 +4614,7 @@ var main = (function(){
   }
 
   function _getAuthHeader() {
-    if (signInData.token) {
+    if (signInData && signInData.token) {
       return 'Streetmix realm="" loginToken="' + signInData.token + '"'
     } else {
       return '';
