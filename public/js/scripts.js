@@ -3674,6 +3674,7 @@ var main = (function(){
     _createDomFromData();
     _createDataFromDom();
 
+    _hideNewStreetMenu();
     _resizeStreetWidth();
     _updateStreetName();
     _createDomFromData();
