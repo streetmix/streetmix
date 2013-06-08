@@ -10,7 +10,7 @@
 @streetSectionHorizontalPadding: 100px;
 
 @paletteHeight: 100px;
-@galleryHeight: 150px;
+@galleryHeight: 180px;
 
 @tilesetWidth: 2622px; // retina
 @tilesetHeight: 384px;
@@ -124,7 +124,6 @@ body.gallery-visible #street-section-sky {
   z-index: 99999;
 
   overflow: hidden;
-  overflow-x: scroll;
 
   background: white;
 
@@ -137,6 +136,31 @@ body.gallery-visible #street-section-sky {
   -o-transform: translateY(-@galleryHeight - 30px);
   transform: translateY(-@galleryHeight - 30px);  
 
+  .user-id {
+    position: absolute;
+    left: 10px;
+    top: 12px;
+
+    font-size: 24px;
+  }
+
+  #new-street {
+    left: 10px;
+    top: 60px;
+    width: 100px;
+    height: 60px;
+    position: absolute;
+
+    font-weight: bold;
+  }
+  #copy-last-street {
+    left: 10px;
+    top: 130px;
+    width: 100px;
+    height: 40px;
+    position: absolute;
+  }
+
   .streets {
     list-style: none;
     padding: 0;
@@ -145,9 +169,11 @@ body.gallery-visible #street-section-sky {
     white-space: nowrap;
 
     position: absolute;
-    left: 0;
-    top: 0;
-    height: @galleryHeight;
+    left: 110px;
+    right: 0;
+    top: 50px;
+    height: @galleryHeight + 20px; // To cover the scroll bar
+    overflow-x: scroll;
 
     & > li {
       display: inline-block;
@@ -166,7 +192,7 @@ body.gallery-visible #street-section-sky {
         padding: 5px 10px;
         text-align: center;
         white-space: normal;
-        height: @galleryHeight - 30px;
+        height: 100px;
 
         cursor: pointer;
 
@@ -483,7 +509,7 @@ footer {
 #palette {
   white-space: nowrap;
 
-  height: @paletteHeight;
+  height: @paletteHeight + 20px; // To cover scroll bars
 
   overflow-x: scroll;
   overflow-y: hidden;

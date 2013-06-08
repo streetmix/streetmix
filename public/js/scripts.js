@@ -687,6 +687,30 @@ var main = (function(){
   var segmentWidthClickIncrement;
   var segmentWidthDraggingResolution;
 
+  var galleryUserId = null;
+  var galleryStreetId = null;
+  var galleryStreetLoaded = false;
+
+  var nonblockingAjaxRequests = [];
+  //var nonblockingAjaxRequestCount = 0;
+
+  var nonblockingAjaxRequestTimer = 0;
+
+  var NON_BLOCKING_AJAX_REQUEST_TIME = [10, 500, 1000, 5000, 10000];
+  var NON_BLOCKING_AJAX_REQUEST_BACKOFF_RANGE = 60000;
+
+  var NON_BLOCKING_NO_CONNECTION_MESSAGE_TIMER_COUNT = 4;
+
+  //0-4 seconds 2^2
+  //0-8 seconds 2^3
+
+  var blockingAjaxRequest;
+  var blockingAjaxRequestDoneFunc;
+  var blockingAjaxRequestCancelFunc;
+  var blockingAjaxRequestInProgress = false;
+
+  var blockingShieldTimerId = -1;
+  var blockingShieldTooSlowTimerId = -1;
 
   // HELPER FUNCTIONS
   // -------------------------------------------------------------------------
@@ -1752,21 +1776,6 @@ var main = (function(){
     return JSON.stringify(transmission);
   }
 
-  // TODO move
-
-  var nonblockingAjaxRequests = [];
-  //var nonblockingAjaxRequestCount = 0;
-
-  var nonblockingAjaxRequestTimer = 0;
-
-  var NON_BLOCKING_AJAX_REQUEST_TIME = [10, 500, 1000, 5000, 10000];
-  var NON_BLOCKING_AJAX_REQUEST_BACKOFF_RANGE = 60000;
-
-  var NON_BLOCKING_NO_CONNECTION_MESSAGE_TIMER_COUNT = 4;
-
-  //0-4 seconds 2^2
-  //0-8 seconds 2^3
-
   function _getNonblockingAjaxRequestCount() {
     return nonblockingAjaxRequests.length;
   }
@@ -2006,13 +2015,6 @@ var main = (function(){
 
     blockingAjaxRequestCancelFunc();
   }
-
-  // TODO move up
-  var blockingAjaxRequest;
-  var blockingAjaxRequestDoneFunc;
-  var blockingAjaxRequestCancelFunc;
-
-  var blockingAjaxRequestInProgress = false;
 
   function _newBlockingAjaxRequest(message, request, doneFunc, cancelFunc) {
     _showBlockingShield(message);
@@ -3627,15 +3629,10 @@ var main = (function(){
     document.querySelector('#new-street-menu').classList.remove('visible');
   }
 
-  // TODO move
-
-  var galleryStreetId = -1;
-  var galleryStreetLoaded = false;
-
   function _fetchGalleryData() {
     jQuery.ajax({
       // TODO const
-      url: system.apiUrl + 'v1/users/' + signInData.userId + '/streets',
+      url: system.apiUrl + 'v1/users/' + galleryUserId + '/streets',
       //url: 'http://streetmix-api-staging.herokuapp.com/v1/users/saikofish/streets',
       dataType: 'json',
       type: 'GET',
@@ -3739,10 +3736,6 @@ var main = (function(){
     return date.format('MMM D, YYYY');
   }
 
-  // TODO move
-  var blockingShieldTimerId = -1;
-  var blockingShieldTooSlowTimerId = -1;
-
   function _clearBlockingShieldTimers() {
     window.clearTimeout(blockingShieldTimerId);
     window.clearTimeout(blockingShieldTooSlowTimerId);
@@ -3833,7 +3826,7 @@ var main = (function(){
 
     document.querySelector('#gallery .loading').classList.remove('visible');
 
-    var el = document.createElement('li');
+    /*var el = document.createElement('li');
     var newEl = document.createElement('a');
     newEl.innerHTML = 'New street';
     newEl.href = '/' + URL_NEW_STREET;
@@ -3845,7 +3838,7 @@ var main = (function(){
     newEl.innerHTML = 'Make a copy of the current street';
     newEl.href = '/' + URL_NEW_STREET_COPY_LAST;
     el.appendChild(newEl);
-    document.querySelector('#gallery .streets').appendChild(el);
+    document.querySelector('#gallery .streets').appendChild(el);*/
 
     //console.log('street count', transmission.streets.length);
 
@@ -3901,10 +3894,13 @@ var main = (function(){
     _fetchGalleryData();  
   }
 
-  function _showGallery() {
+  function _showGallery(userId) {
     galleryVisible = true;
     galleryStreetLoaded = true;
     galleryStreetId = street.id;
+    galleryUserId = userId;
+
+    document.querySelector('#gallery .user-id').innerHTML = galleryUserId;
 
     _statusMessage.hide();
 
@@ -3927,7 +3923,7 @@ var main = (function(){
     if (document.body.classList.contains('gallery-visible')) {
       _hideGallery();
     } else {
-      _showGallery();
+      _showGallery(signInData.userId);
     }
   }
 
@@ -4013,6 +4009,9 @@ var main = (function(){
   }
 
   function _addEventListeners() {
+    document.querySelector('#new-street').addEventListener('click', _goNewStreet);
+    document.querySelector('#copy-last-street').addEventListener('click', _goCopyLastStreet);
+
     document.querySelector('#feedback-form-message').addEventListener('input', _onFeedbackFormInput, false);
     document.querySelector('#feedback-form-email').addEventListener('input', _onFeedbackFormInput, false);
     document.querySelector('#feedback-form-email').addEventListener('keydown', _onFeedbackFormEmailKeyDown, false);
@@ -5072,6 +5071,10 @@ var main = (function(){
 
   function _goNewStreet() {
     location.href = '/' + URL_NEW_STREET;
+  }
+
+  function _goCopyLastStreet() {
+    location.href = '/' + URL_NEW_STREET_COPY_LAST;
   }
 
   function _showError(errorType) {
