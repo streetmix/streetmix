@@ -71,15 +71,11 @@ textarea {
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;  
 }
 
 body.environment-local,
 body.environment-staging {
-  #main-screen {
-    border-top: 3px solid rgb(200, 0, 0);
-  }
-  &::before {
+  #main-screen::before {
     content: 'Local server';
     z-index: 9999999999;
     position: absolute;
@@ -87,7 +83,7 @@ body.environment-staging {
     width: 160px;
     margin-left: -80px;
     text-align: center;
-    top: 3px;
+    top: 0;
     background: rgb(200, 0, 0);
     color: white;
     padding: 5px 10px;
@@ -99,28 +95,33 @@ body.environment-staging {
   }
 }
 body.environment-staging {
-  #main-screen {
-    border-top-color: green;
-  }
-  &::before {
+  #main-screen::before {
     content: 'Staging server';
     background-color: green;
   }
 }
 
 body.gallery-visible #main-screen {
-  -webkit-transform: translateY(@galleryHeight);
-  -moz-transform: translateY(@galleryHeight);
-  -o-transform: translateY(@galleryHeight);
-  transform: translateY(@galleryHeight);
+  -webkit-transform: translateY(@galleryHeight - 50px);
+  -moz-transform: translateY(@galleryHeight - 50px);
+  -o-transform: translateY(@galleryHeight - 50px);
+  transform: translateY(@galleryHeight - 50px);
+}
+
+body.gallery-visible #street-section-sky {
+  -webkit-transform: translateY(-20px);
+  -moz-transform: translateY(-20px);
+  -o-transform: translateY(-20px);
+  transform: translateY(-20px);
 }
 
 #gallery {
   position: absolute;
-  left: 0;
-  right: 0;
+  left: 40px;
+  right: 40px;
   top: 0;
   height: @galleryHeight;
+  z-index: 99999;
 
   overflow: hidden;
   overflow-x: scroll;
@@ -129,10 +130,12 @@ body.gallery-visible #main-screen {
 
   pointer-events: none;
 
-  -webkit-transform: translateY(-@galleryHeight);
-  -moz-transform: translateY(-@galleryHeight);
-  -o-transform: translateY(-@galleryHeight);
-  transform: translateY(-@galleryHeight);  
+  box-shadow: 0 2px 2px rgba(0, 0, 0, .5);
+
+  -webkit-transform: translateY(-@galleryHeight - 30px);
+  -moz-transform: translateY(-@galleryHeight - 30px);
+  -o-transform: translateY(-@galleryHeight - 30px);
+  transform: translateY(-@galleryHeight - 30px);  
 
   .streets {
     list-style: none;
@@ -261,11 +264,12 @@ body.gallery-visible #main-screen {
 }
 
 #main-screen, 
-#gallery {
-  -webkit-transition: -webkit-transform 250ms;
-  -moz-transition: -moz-transform 250ms;
-  -o-transition: -o-transform 250ms;
-  transition: transform 250ms;  
+#gallery,
+#street-section-sky {
+  -webkit-transition: -webkit-transform 450ms;
+  -moz-transition: -moz-transform 450ms;
+  -o-transition: -o-transform 450ms;
+  transition: transform 450ms;  
 }
 
 #gallery-shield {
@@ -303,10 +307,6 @@ header {
   z-index: 100000;
 
   padding-top: 20px;
-
-  background: -webkit-linear-gradient(rgba(0, 0, 0, .2), transparent);
-  background: -moz-linear-gradient(rgba(0, 0, 0, .2), transparent);
-  background: linear-gradient(rgba(0, 0, 0, .2), transparent);
 
   text-shadow: @textShadow;
 
@@ -369,9 +369,20 @@ header {
   position: absolute;
   left: 0;
   right: 0;
-  top: 0;
-  height: @canvasBaseline;
+  top: -150px;
+  //border-top: 150px solid red;// mix(@skyColour, black, 80%);
+  height: @canvasBaseline + 150px;
   background: @skyColour;
+
+  background: -webkit-linear-gradient(mix(@skyColour, black, 80%) 40%, @skyColour);
+  background: -moz-linear-gradient(mix(@skyColour, black, 80%) 40%, @skyColour);
+  background: linear-gradient(mix(@skyColour, black, 80%) 40%, @skyColour);  
+
+  background-size: 100% 350px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+
+  background-color: @skyColour;
 
   .rear-clouds,
   .front-clouds {
