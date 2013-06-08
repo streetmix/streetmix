@@ -3741,6 +3741,12 @@ var main = (function(){
 
   // TODO move
   var blockingShieldTimerId = -1;
+  var blockingShieldTooSlowTimerId = -1;
+
+  function _clearBlockingShieldTimers() {
+    window.clearTimeout(blockingShieldTimerId);
+    window.clearTimeout(blockingShieldTooSlowTimerId);
+  }
 
   function _showBlockingShield(message) {
     if (!message) {
@@ -3748,8 +3754,7 @@ var main = (function(){
     }
 
     _hideBlockingShield();
-
-    window.clearTimeout(blockingShieldTimerId);
+    _clearBlockingShieldTimers();
 
     document.querySelector('#blocking-shield .message').innerHTML = message;
 
@@ -3759,19 +3764,24 @@ var main = (function(){
     blockingShieldTimerId = window.setTimeout(function() {
       document.querySelector('#blocking-shield').classList.add('darken');
     }, 800);
+
+    blockingShieldTooSlowTimerId = window.setTimeout(function() {
+      document.querySelector('#blocking-shield').classList.add('show-too-slow');
+    }, 10000);
   }
 
   function _darkenBlockingShield(message) {
-    window.clearTimeout(blockingShieldTimerId);
+    _clearBlockingShieldTimers();
     document.querySelector('#blocking-shield').classList.add('darken-immediately');
   }
 
   function _hideBlockingShield() {
-    window.clearTimeout(blockingShieldTimerId);
+    _clearBlockingShieldTimers();
     document.querySelector('#blocking-shield').classList.remove('visible');
     document.querySelector('#blocking-shield').classList.remove('darken');
     document.querySelector('#blocking-shield').classList.remove('darken-immediately');
     document.querySelector('#blocking-shield').classList.remove('show-try-again');
+    document.querySelector('#blocking-shield').classList.remove('show-too-slow');
     document.querySelector('#blocking-shield').classList.remove('show-cancel');
   }
 
@@ -4014,6 +4024,7 @@ var main = (function(){
 
     document.querySelector('#blocking-shield-cancel').addEventListener('click', _blockingCancel);
     document.querySelector('#blocking-shield-try-again').addEventListener('click', _blockingTryAgain);
+    document.querySelector('#blocking-shield-reload').addEventListener('click', _goReload);
     document.querySelector('#gallery-shield').addEventListener('click', _hideGallery);
 
     document.querySelector('#new-street-default').addEventListener('click', _onNewStreetDefaultClick);

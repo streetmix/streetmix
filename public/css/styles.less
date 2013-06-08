@@ -1131,7 +1131,8 @@ body.touch-support .segment.fade-out-end button {
     color: white;
   }
 
-  .try-again {
+  .try-again,
+  .too-slow {
     margin-top: 20px;
 
     position: absolute;
@@ -1139,12 +1140,11 @@ body.touch-support .segment.fade-out-end button {
     right: 0;
     text-align: center;
 
-    opacity: 0;
-    pointer-events: none;
+    display: none;
   }
-  &.show-try-again .try-again {
-    opacity: 1;
-    pointer-events: auto;
+  &.show-try-again .try-again,
+  &.show-too-slow .too-slow {
+    display: block;
   }
   #blocking-shield-cancel {
     display: none;
@@ -1632,7 +1632,7 @@ body.no-connection-message-visible #status-message {
 
   -webkit-user-select: none;
   user-select: none;
-  
+
   white-space: nowrap;
 
   -webkit-transform-origin: 0 0;
