@@ -91,6 +91,10 @@ var main = (function(){
     '/images/share-icons/twitter-32.png'
   ];
 
+  // Output using cmap2file as per 
+  // http://www.typophile.com/node/64147#comment-380776
+  var STREET_NAME_FONT_GLYPHS = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿĀāĂăĆćĈĉĊċČčĎďĒĔĕĖėĜĝĞğĠġĤĥĨĩĪīĬĭİıĴĵĹĺĽľŁłŃŇňŌōŎŏŐőŒœŔŕŘřŚśŜŝŞşŠšŤťŨũŪūŬŭŮůŰűŴŵŶŷŸŹźŻżŽžƒˆˇ˘˙˚˛˜˝–—‘’‚“”„†‡•…‰‹›⁄€™−';
+
   var WIDTH_PALETTE_MULTIPLIER = 4;
 
   var CANVAS_HEIGHT = 480;
@@ -3342,7 +3346,23 @@ var main = (function(){
   }
 
   function _updateStreetName() {
+
+    var usingSupportedGlyphs = true;
+    for (var i in street.name) {
+      if (STREET_NAME_FONT_GLYPHS.indexOf(street.name.charAt(i)) == -1) {
+        usingSupportedGlyphs = false;
+        break;
+      }
+    }
+
     $('#street-name > div').text(street.name);
+
+    if (usingSupportedGlyphs) {
+      document.querySelector('#street-name').classList.remove('fallback-unicode-font');
+    } else {
+      document.querySelector('#street-name').classList.add('fallback-unicode-font');
+    }
+
     _resizeStreetName();
 
     if (street.creatorId && (!signedIn || (street.creatorId != signInData.userId))) {
