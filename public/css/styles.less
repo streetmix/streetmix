@@ -138,14 +138,23 @@ body.gallery-visible #street-section-sky {
 
   .user-id {
     position: absolute;
-    left: 10px;
+    left: 20px;
     top: 12px;
 
     font-size: 24px;
   }
 
+  .street-count {
+    position: absolute;
+    right: 20px;
+    top: 12px;
+
+    font-size: 24px;
+    color: rgb(128, 128, 128);
+  }
+
   #new-street {
-    left: 10px;
+    left: 20px;
     top: 60px;
     width: 100px;
     height: 60px;
@@ -154,7 +163,7 @@ body.gallery-visible #street-section-sky {
     font-weight: bold;
   }
   #copy-last-street {
-    left: 10px;
+    left: 20px;
     top: 130px;
     width: 100px;
     height: 40px;
@@ -169,8 +178,8 @@ body.gallery-visible #street-section-sky {
     white-space: nowrap;
 
     position: absolute;
-    left: 110px;
-    right: 0;
+    left: 125px;
+    right: 5px;
     top: 50px;
     height: @galleryHeight + 20px; // To cover the scroll bar
     overflow-x: scroll;
@@ -187,7 +196,7 @@ body.gallery-visible #street-section-sky {
         vertical-align: top;
 
         width: 150px;
-        margin: 10px;
+        margin: 10px 5px;
         background: rgb(240, 240, 240);
         padding: 5px 10px;
         text-align: center;
@@ -207,6 +216,9 @@ body.gallery-visible #street-section-sky {
           bottom: 5px;
           text-align: center;
           display: block;
+
+          font-size: 11px;
+          color: rgb(128, 128, 128);
         }
 
         button {

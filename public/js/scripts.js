@@ -2114,9 +2114,9 @@ var main = (function(){
   function _receiveRemixedStreet(data) {
     if (!promoteStreet) {
       if (signedIn) {
-        _statusMessage.show('Now editing a freshly-made copy of the original street. The copy has been put in your gallery.');
+        _statusMessage.show('Now editing a freshly-made duplicate of the original street. The copy has been put in your gallery.');
       } else {
-        _statusMessage.show('Now editing a freshly-made copy of the original street. <a href="/' + URL_SIGN_IN + '">Sign in</a> to start your own gallery of streets.');
+        _statusMessage.show('Now editing a freshly-made duplicate of the original street. <a href="/' + URL_SIGN_IN + '">Sign in</a> to start your own gallery of streets.');
       }
     }
 
@@ -3826,6 +3826,8 @@ var main = (function(){
 
     document.querySelector('#gallery .loading').classList.remove('visible');
 
+
+
     /*var el = document.createElement('li');
     var newEl = document.createElement('a');
     newEl.innerHTML = 'New street';
@@ -3841,6 +3843,21 @@ var main = (function(){
     document.querySelector('#gallery .streets').appendChild(el);*/
 
     //console.log('street count', transmission.streets.length);
+
+    var streetCount = transmission.streets.length;
+    switch (streetCount) {
+      case 0: 
+        var text = 'No streets yet';
+        break;
+      case 1:
+        var text = '1 street';
+        break;
+      default:
+        var text = streetCount += ' streets';
+        break;
+    }
+    document.querySelector('#gallery .street-count').innerHTML = text;
+
 
     for (var i in transmission.streets) {
       var galleryStreet = transmission.streets[i];
@@ -3901,6 +3918,7 @@ var main = (function(){
     galleryUserId = userId;
 
     document.querySelector('#gallery .user-id').innerHTML = galleryUserId;
+    document.querySelector('#gallery .street-count').innerHTML = '';
 
     _statusMessage.hide();
 
