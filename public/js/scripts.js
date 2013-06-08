@@ -4628,6 +4628,7 @@ var main = (function(){
     settings.lastStreetId = null;
     settings.lastStreetNamespacedId = null;
     settings.lastStreetCreatorId = null;
+    _saveSettings();
 
     _removeSignInCookies();
     window.localStorage.removeItem(LOCAL_STORAGE_SIGN_IN_ID);
