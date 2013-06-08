@@ -675,7 +675,8 @@ var main = (function(){
     apiUrl: null,
     touch: false,
     hiDpi: 1.0,
-    cssTransform: false
+    cssTransform: false,
+    ipAddress: null
   };
 
   var segmentWidthResolution;
@@ -3921,9 +3922,16 @@ var main = (function(){
 
       document.querySelector('#feedback-form .loading').classList.add('visible');
 
+      var additionalInformation = '\nUser agent: ' + navigator.userAgent;
+      if (system.ipAddress) {
+        additionalInformation += '\nIP: ' + system.ipAddress;
+      }
+      //additionalInformation += '\nSettings: ' + JSON.stringify(settings);
+
       var transmission = {
         message: document.querySelector('#feedback-form-message').value,
-        from: document.querySelector('#feedback-form-email').value
+        from: document.querySelector('#feedback-form-email').value,
+        additionalInformation: additionalInformation
       };
 
       _newNonblockingAjaxRequest({
@@ -3933,7 +3941,6 @@ var main = (function(){
         dataType: 'json',
         type: 'POST',
         contentType: 'application/json',
-        //headers: { 'Authorization': _getAuthHeader() }
       }, true, _feedbackFormSuccess);
     }
   }
@@ -4781,6 +4788,10 @@ var main = (function(){
       if (COUNTRIES_LEFT_HAND_TRAFFIC.indexOf(info.country_code) != -1) {
         leftHandTraffic = true;
       }
+    }
+
+    if (info && info.ip) {
+      system.ipAddress = info.ip;
     }
 
     countryLoaded = true;
