@@ -2154,6 +2154,10 @@ var main = (function(){
 
     if (JSON.stringify(currentData) != JSON.stringify(lastStreet)) {
       _hideNewStreetMenu();
+
+      // As per issue #306.
+      _statusMessage.hide();
+
       _createNewUndo();
       _scheduleSavingStreetToServer();
 
