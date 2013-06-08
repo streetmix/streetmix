@@ -125,6 +125,7 @@ var main = (function(){
 
   var SAVE_STREET_DELAY = 500;
   var SAVE_SETTINGS_DELAY = 500;
+  var NO_CONNECTION_MESSAGE_TIMEOUT = 10000;
 
   var MAX_DRAG_DEGREE = 20;
 
@@ -1810,6 +1811,8 @@ var main = (function(){
     //console.log('send next…');
 
     if (_getNonblockingAjaxRequestCount()) {
+      _noConnectionMessage.schedule();        
+
       var request = null;
 
       // TODO hack to get the first guy
@@ -1843,10 +1846,6 @@ var main = (function(){
         var time = NON_BLOCKING_AJAX_REQUEST_TIME[nonblockingAjaxRequestTimer];
       } else {
         var time = Math.floor(Math.random() * NON_BLOCKING_AJAX_REQUEST_BACKOFF_RANGE);
-      }
-
-      if (nonblockingAjaxRequestTimer == NON_BLOCKING_NO_CONNECTION_MESSAGE_TIMER_COUNT) {
-        _noConnectionMessage.show();        
       }
 
       //console.log('schedule next… at time: ', time);
@@ -3716,7 +3715,10 @@ var main = (function(){
       message = 'Loading…';
     }
 
+    _hideBlockingShield();
+
     document.querySelector('#blocking-shield .message').innerHTML = message;
+
     document.querySelector('#blocking-shield').classList.add('visible');
 
     window.setTimeout(function() {
@@ -4061,6 +4063,15 @@ var main = (function(){
 
   var _noConnectionMessage = {
     visible: false,
+    timerId: -1,
+
+    schedule: function() {
+      if (_noConnectionMessage.timerId == -1) {
+        // TODO const
+        _noConnectionMessage.timerId = 
+          window.setTimeout(_noConnectionMessage.show, NO_CONNECTION_MESSAGE_TIMEOUT);
+      }
+    },
 
     show: function() {
       document.querySelector('#no-connection-message').classList.add('visible');
@@ -4068,6 +4079,9 @@ var main = (function(){
     },
 
     hide: function() {
+      window.clearTimeout(_noConnectionMessage.timerId);
+      _noConnectionMessage.timerId = -1;
+
       document.querySelector('#no-connection-message').classList.remove('visible');
       document.body.classList.remove('no-connection-message-visible');
     }
