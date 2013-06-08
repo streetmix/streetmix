@@ -3711,6 +3711,9 @@ var main = (function(){
     return date.format('MMM D, YYYY');
   }
 
+  // TODO move
+  var blockingShieldTimerId = -1;
+
   function _showBlockingShield(message) {
     if (!message) {
       message = 'Loading…';
@@ -3718,20 +3721,25 @@ var main = (function(){
 
     _hideBlockingShield();
 
+    window.clearTimeout(blockingShieldTimerId);
+
     document.querySelector('#blocking-shield .message').innerHTML = message;
 
     document.querySelector('#blocking-shield').classList.add('visible');
 
-    window.setTimeout(function() {
+    // TODO const
+    blockingShieldTimerId = window.setTimeout(function() {
       document.querySelector('#blocking-shield').classList.add('darken');
-    }, 0);
+    }, 800);
   }
 
   function _darkenBlockingShield(message) {
+    window.clearTimeout(blockingShieldTimerId);
     document.querySelector('#blocking-shield').classList.add('darken-immediately');
   }
 
   function _hideBlockingShield() {
+    window.clearTimeout(blockingShieldTimerId);
     document.querySelector('#blocking-shield').classList.remove('visible');
     document.querySelector('#blocking-shield').classList.remove('darken');
     document.querySelector('#blocking-shield').classList.remove('darken-immediately');
