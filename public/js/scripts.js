@@ -2031,14 +2031,14 @@ var main = (function(){
     remixOnFirstEdit = false;
 
     if (signedIn) {
-      street.creatorId = signInData.userId;
+      _setStreetCreatorId(signInData.userId);
     } else {
-      street.creatorId = null;
+      _setStreetCreatorId(null);
     }
 
     street.originalStreetId = street.id;
 
-    _updateUndoStackCreator();
+    _unifyUndoStack();
 
     if (undoStack[undoPosition - 1] && (undoStack[undoPosition - 1].name != street.name)) {
       // The street was remixed as a result of editing its name. Don’t be
@@ -2078,13 +2078,19 @@ var main = (function(){
     _saveSettings();
   }
 
+  function _unifyUndoStack() {
+    for (var i in undoStack) {
+      undoStack[i].id = street.id;
+      undoStack[i].namespacedId = street.namespacedId;
+      undoStack[i].creatorId = street.creatorId;
+    }
+  }
+
   function _setStreetId(newId, newNamespacedId) {
     street.id = newId;
     street.namespacedId = newNamespacedId;
 
-    for (var i in undoStack) {
-      undoStack[i].id = newId;
-    }
+    _unifyUndoStack();
 
     _updateLastStreetInfo();
   }
@@ -2092,6 +2098,7 @@ var main = (function(){
   function _setStreetCreatorId(newId) {
     street.creatorId = newId;
 
+    _unifyUndoStack();
     _updateLastStreetInfo();
   }
 
@@ -2099,12 +2106,6 @@ var main = (function(){
     if (street.name.substr(street.name.length - STREET_NAME_REMIX_SUFFIX.length, 
         STREET_NAME_REMIX_SUFFIX.length) != STREET_NAME_REMIX_SUFFIX) {
       street.name += ' ' + STREET_NAME_REMIX_SUFFIX;
-    }
-  }
-
-  function _updateUndoStackCreator() {
-    for (var i in undoStack) {
-      undoStack[i].creatorId = street.creatorId;
     }
   }
 
@@ -3590,6 +3591,8 @@ var main = (function(){
     // TODO this is stupid, only here to fill some structures
     _createDomFromData();
     _createDataFromDom();
+
+    _unifyUndoStack();
 
     _resizeStreetWidth();
     _updateStreetName();
