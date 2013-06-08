@@ -4074,9 +4074,13 @@ var main = (function(){
     if (url.substr(0, SITE_URL_LOCAL.length) == SITE_URL_LOCAL) {
       system.environment = ENVIRONMENT_LOCAL;
       system.apiUrl = API_URL_LOCAL;
+
+      document.body.classList.add('environment-local');
     } else if (url.substr(0, SITE_URL_STAGING.length) == SITE_URL_STAGING) {
       system.environment = ENVIRONMENT_STAGING;
       system.apiUrl = API_URL_STAGING;
+
+      document.body.classList.add('environment-staging');
     } else if (url.substr(0, SITE_URL_PRODUCTION.length) == SITE_URL_PRODUCTION) {
       system.environment = ENVIRONMENT_PRODUCTION;
       system.apiUrl = API_URL_PRODUCTION;

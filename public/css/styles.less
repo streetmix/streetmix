@@ -74,6 +74,39 @@ textarea {
   overflow: hidden;  
 }
 
+body.environment-local {
+  #main-screen {
+    border-top: 3px solid rgb(200, 0, 0);
+  }
+  &::before {
+    content: 'Local server';
+    z-index: 9999999999;
+    position: absolute;
+    left: 50%;
+    width: 160px;
+    margin-left: -80px;
+    text-align: center;
+    top: 3px;
+    background: rgb(200, 0, 0);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 2px;
+    font-size: 11px;
+    letter-spacing: 4px;
+    padding-right: 10px - 4px;
+    text-transform: uppercase;
+  }
+}
+body.environment-staging {
+  #main-screen {
+    border-top-color: green;
+  }
+  &::before {
+    content: 'Staging server';
+    background-color: green;
+  }
+}
+
 body.gallery-visible #main-screen {
   -webkit-transform: translateY(@galleryHeight);
   -moz-transform: translateY(@galleryHeight);
