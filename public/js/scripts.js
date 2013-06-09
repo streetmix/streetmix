@@ -4080,6 +4080,15 @@ var main = (function(){
       document.querySelector('#gallery .avatar').setAttribute('userId', galleryUserId);
       _fetchAvatars();
       document.querySelector('#gallery .user-id').innerHTML = galleryUserId;
+
+      var linkEl = document.createElement('a');
+      // TODO const
+      linkEl.href = 'https://twitter.com/' + galleryUserId;
+      linkEl.innerHTML = 'Twitter profile »';
+      linkEl.classList.add('twitter-profile');
+      linkEl.target = '_blank';
+      document.querySelector('#gallery .user-id').appendChild(linkEl);
+
     } else {
       document.querySelector('#gallery .user-id').innerHTML = 'All streets';      
     }
