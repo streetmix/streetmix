@@ -4595,9 +4595,6 @@ var main = (function(){
       case MODE_NEW_STREET_COPY_LAST:
         _onNewStreetLastClick();
         break;
-      case MODE_GALLERY:
-        _showGallery(galleryUserId);
-        break;
     }
 
     _resizeStreetWidth();
@@ -4625,6 +4622,10 @@ var main = (function(){
     if (promoteStreet) {
       //console.log('would promote now');
       _remixStreet();
+    }
+
+    if (mode == MODE_GALLERY) {
+      _showGallery(galleryUserId);
     }
   }
 
