@@ -1720,6 +1720,46 @@ var main = (function(){
     }
   }
 
+/*  function _debugOutputUndoStack() {
+    var name = '';
+    for (var i = 0; i < undoStack.length; i++) {
+      name += ' ' + undoStack[i].name;
+    }
+    console.log('…' + name);
+  }*/
+
+  function _optimizeUndoStack() {
+    // TODO shouldn’t have to do it over and over again
+    //console.log('--- OPTIMIZE UNDO');
+
+    //console.log('counting to', undoPosition - 2);
+
+    // Remove all the undo entries that are only name changes (#314), except
+    // if it’s the immediate last one
+    for (var i = 0; i < undoPosition - 1; i++) {
+      //console.log(i);
+      var first = undoStack[i];
+      var second = undoStack[i + 1];
+
+      if (first.name != second.name) {
+        //console.log('name undo', first.name, second.name);
+
+        undoPosition--;
+        //console.log('BEFORE undo length', undoStack.length);
+        //_debugOutputUndoStack();
+        undoStack.splice(i, 1);
+        //console.log('AFTER undo length', undoStack.length);
+        //_debugOutputUndoStack();
+      }
+      //console.log(first);
+    }
+
+    // Rename all the names to the current one
+    for (var i = 0; i < undoPosition - 1; i++) {
+      undoStack[i].name = street.name;
+    }
+  }
+
   function _createNewUndo() {
     // This removes future undo path in case we undo a few times and then do
     // something undoable.
@@ -1728,6 +1768,7 @@ var main = (function(){
     undoPosition++;
 
     _trimUndoStack();
+    _optimizeUndoStack();
   }
 
   function _unpackStreetDataFromServerTransmission(transmission) {
@@ -1783,14 +1824,14 @@ var main = (function(){
     return nonblockingAjaxRequests.length;
   }
 
-  function _debugOutput() {
+/*  function _debugOutput() {
     console.log('-');
     console.log(_getNonblockingAjaxRequestCount() + ' requests…');
 
     for (var i in nonblockingAjaxRequests) {
       console.log('    …' + _getAjaxRequestSignature(nonblockingAjaxRequests[i].request));
     }
-  }
+  }*/
 
   function _getAjaxRequestSignature(request) {
     return request.type + ' ' + request.url;
@@ -1811,7 +1852,7 @@ var main = (function(){
         doneFunc: doneFunc, signature: signature }
     );
 
-    _debugOutput();
+    //_debugOutput();
 
     _scheduleNextNonblockingAjaxRequest();
   }
@@ -1881,7 +1922,7 @@ var main = (function(){
     for (var i in nonblockingAjaxRequests) {
       if (nonblockingAjaxRequests[i].signature == signature) {
         nonblockingAjaxRequests.splice(i, 1);
-        console.log('removed');
+        //console.log('removed');
         break;
       }
     }    
@@ -1900,7 +1941,7 @@ var main = (function(){
     //console.log('after deleting', nonblockingAjaxRequests[signature]);
     //console.log(data, textStatus, jqXHR);
 
-    console.log('trying to remove');
+    //console.log('trying to remove');
     _removeNonblockingAjaxRequest(request.signature);
     /*for (var i in nonblockingAjaxRequests) {
       if (nonblockingAjaxRequests[i].signature == request.signature) {
@@ -1909,8 +1950,8 @@ var main = (function(){
       }
     }*/
 
-    console.log('SUCCESS!', request.signature);
-    _debugOutput();
+    //console.log('SUCCESS!', request.signature);
+    //_debugOutput();
 
     if (request.doneFunc) {
       request.doneFunc();
