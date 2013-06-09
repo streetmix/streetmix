@@ -4037,6 +4037,7 @@ var main = (function(){
 
     if (userId) {
       document.querySelector('#gallery .avatar').setAttribute('userId', galleryUserId);
+      document.querySelector('#gallery .avatar').removeAttribute('loaded');
       _fetchAvatars();
       document.querySelector('#gallery .user-id').innerHTML = galleryUserId;
 
@@ -4051,6 +4052,7 @@ var main = (function(){
     } else {
       document.querySelector('#gallery .user-id').innerHTML = 'All streets';      
     }
+
 
     document.querySelector('#gallery .street-count').innerHTML = '';
 
@@ -5220,6 +5222,7 @@ var main = (function(){
       var userId = el.getAttribute('userId');
 
       if (avatarCache[userId]) {
+        console.log('AVATAR updated', userId);
         el.style.backgroundImage = 'url(' + avatarCache[userId] + ')';
         el.setAttribute('loaded', true);
       }
@@ -5233,7 +5236,7 @@ var main = (function(){
       var userId = el.getAttribute('userId');
 
       if (userId && (typeof avatarCache[userId] == 'undefined')) {
-        //console.log('AVATAR trying to fetch', userId,);
+        console.log('AVATAR trying to fetch', userId);
 
         _fetchAvatar(userId);
       }
