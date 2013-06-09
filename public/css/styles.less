@@ -220,7 +220,7 @@ body.gallery-visible #street-section-sky {
 
         width: 150px;
         margin: 10px 5px;
-        background: rgb(240, 240, 240);
+        background: fadeout(@skyColour, 40%);
         padding: 5px 10px;
         text-align: center;
         white-space: normal;
@@ -290,7 +290,7 @@ body.gallery-visible #street-section-sky {
         }
 
         &:hover {
-          background: rgb(230, 230, 230);
+          background: fadeout(@skyColour, 20%);
 
           button.remove {
             opacity: 1;
@@ -298,7 +298,7 @@ body.gallery-visible #street-section-sky {
         }
 
         &.selected {
-          background: rgb(210, 210, 210);
+          background: @skyColour;
         }
       }
     }
