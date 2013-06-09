@@ -14,6 +14,16 @@ var main = (function(){
 
   // TODO reorder/clean up constants
 
+  var MESSAGES = {
+    STATUS_SEGMENT_DELETED: 'The segment has been deleted.',
+    STATUS_ALL_SEGMENTS_DELETED: 'All segments have been deleted.',
+    STATUS_NOTHING_TO_UNDO: 'Nothing to undo.',
+    STATUS_NOTHING_TO_REDO: 'Nothing to redo.',
+    STATUS_NOW_REMIXING: 'Now editing a freshly-made duplicate of the original street. The duplicate has been put in your gallery.',
+    STATUS_NOW_REMIXING_SIGN_IN: 'Now editing a freshly-made duplicate of the original street. <a href="/{{signInUrl}}">Sign in</a> to start your own gallery of streets.',
+    STATUS_RELOADED_FROM_SERVER: 'Your street was reloaded from the server as it was modified elsewhere.',
+  };
+
   // TODO all of the below in an array?
   var ENVIRONMENT_LOCAL = 0;
   var ENVIRONMENT_STAGING = 1;
@@ -729,6 +739,23 @@ var main = (function(){
 
   // HELPER FUNCTIONS
   // -------------------------------------------------------------------------
+
+  function msg(messageId, data) {
+    if (data) {
+      return MESSAGES[messageId].supplant(data);
+    } else {
+      return MESSAGES[messageId];
+    }
+  }
+
+  String.prototype.supplant = function (o) {
+    return this.replace(/{{([^{}]*)}}/g,
+      function (a, b) {
+        var r = o[b];
+        return typeof r === 'string' || typeof r === 'number' ? r : a;
+      }
+    );
+  };
 
   function _createTimeout(fn, data, delay) {
     window.setTimeout(function() { fn.call(null, data); }, delay);
@@ -1692,9 +1719,9 @@ var main = (function(){
 
   function _undoRedo(undo) {
     if (undo && !_isUndoAvailable()) {
-      _statusMessage.show('Nothing to undo.');
+      _statusMessage.show(msg('STATUS_NOTHING_TO_UNDO'));
     } else if (!undo && !_isRedoAvailable()) {
-      _statusMessage.show('Nothing to redo.');     
+      _statusMessage.show(msg('STATUS_NOTHING_TO_REDO'));
     } else {
       if (undo) {
         undoStack[undoPosition] = _trimStreetData(street);
@@ -2164,9 +2191,9 @@ var main = (function(){
   function _receiveRemixedStreet(data) {
     if (!promoteStreet) {
       if (signedIn) {
-        _statusMessage.show('Now editing a freshly-made duplicate of the original street. The duplicate has been put in your gallery.');
+        _statusMessage.show(msg('STATUS_NOW_REMIXING'));
       } else {
-        _statusMessage.show('Now editing a freshly-made duplicate of the original street. <a href="/' + URL_SIGN_IN_REDIRECT + '">Sign in</a> to start your own gallery of streets.');
+        _statusMessage.show(msg('STATUS_NOW_REMIXING_SIGN_IN', { signInUrl: URL_SIGN_IN_REDIRECT }));
       }
     }
 
@@ -3201,12 +3228,12 @@ var main = (function(){
       _createDomFromData();
       _segmentsChanged();
 
-      _statusMessage.show('All segments have been deleted.', true);
+      _statusMessage.show(msg('STATUS_ALL_SEGMENTS_DELETED'), true);
     } else if (el && el.parentNode) {
       _removeElFromDom(el);
       _segmentsChanged();
 
-      _statusMessage.show('The segment has been deleted.', true);
+      _statusMessage.show(msg('STATUS_SEGMENT_DELETED'), true);
     }
   } 
 
@@ -3533,7 +3560,7 @@ var main = (function(){
       console.log('-');
       console.log(transmission);
 
-      _statusMessage.show('Your street was reloaded from the server as it was modified elsewhere.');
+      _statusMessage.show(msg('STATUS_RELOADED_FROM_SERVER'));
 
       _unpackServerStreetData(transmission);
       _updateEverything();
@@ -5293,12 +5320,12 @@ var main = (function(){
     } else {
       // TODO finish this
       if (data.status == 404) {
-        console.log('_error receive street 1', data);
+        //console.log('_error receive street 1', data);
         mode = MODE_404;
         _processMode();
         // TODO rest?
       } else {
-        console.log('_error receive street 2', data);
+        //console.log('_error receive street 2', data);
         mode = MODE_404;
         _processMode();
       }
