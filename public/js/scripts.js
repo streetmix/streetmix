@@ -12,6 +12,8 @@ var main = (function(){
 "use strict";
   var main = {};
 
+  // TODO reorder/clean up constants
+
   // TODO all of the below in an array?
   var ENVIRONMENT_LOCAL = 0;
   var ENVIRONMENT_STAGING = 1;
@@ -135,6 +137,9 @@ var main = (function(){
   var SAVE_STREET_DELAY = 500;
   var SAVE_SETTINGS_DELAY = 500;
   var NO_CONNECTION_MESSAGE_TIMEOUT = 10000;
+
+  var BLOCKING_SHIELD_DARKEN_DELAY = 800;
+  var BLOCKING_SHIELD_TOO_SLOW_DELAY = 10000;
 
   var MAX_DRAG_DEGREE = 20;
 
@@ -3878,14 +3883,13 @@ var main = (function(){
 
     document.querySelector('#blocking-shield').classList.add('visible');
 
-    // TODO const
     blockingShieldTimerId = window.setTimeout(function() {
       document.querySelector('#blocking-shield').classList.add('darken');
-    }, 800);
+    }, BLOCKING_SHIELD_DARKEN_DELAY);
 
     blockingShieldTooSlowTimerId = window.setTimeout(function() {
       document.querySelector('#blocking-shield').classList.add('show-too-slow');
-    }, 10000);
+    }, BLOCKING_SHIELD_TOO_SLOW_DELAY);
   }
 
   function _darkenBlockingShield(message) {
