@@ -3348,6 +3348,20 @@ var main = (function(){
     document.title = title;
   }
 
+  function _onAnotherUserIdClick(event) {
+    if (event.shiftKey || event.ctrlKey || event.metaKey) {
+      return;
+    }
+
+    var el = event.target;
+
+    var userId = el.innerHTML;
+
+    _showGallery(userId);
+
+    event.preventDefault();
+  }
+
   function _updateStreetName() {
 
     var usingSupportedGlyphs = true;
@@ -3371,11 +3385,14 @@ var main = (function(){
     if (street.creatorId && (!signedIn || (street.creatorId != signInData.userId))) {
       // TODO const
       var html = "by <div class='avatar'></div>" +
-          "<a target='_blank' href='https://twitter.com/" + 
+          "<a class='user-gallery' href='/" +  
           street.creatorId + "'>" + street.creatorId + "</a> · " +
           _formatDate(moment(street.updatedAt));
 
       document.querySelector('#street-attribution').innerHTML = html;
+
+      document.querySelector('#street-attribution .user-gallery').addEventListener('click', _onAnotherUserIdClick);
+
       document.querySelector('#street-attribution').classList.add('visible');
     } else {
       document.querySelector('#street-attribution').classList.remove('visible');      
@@ -3921,6 +3938,12 @@ var main = (function(){
     document.querySelector('#gallery .street-count').innerHTML = '';
 
     _statusMessage.hide();
+
+    if (signedIn && (userId == signInData.userId)) {
+      document.querySelector('#gallery').classList.remove('another-user');
+    } else {
+      document.querySelector('#gallery').classList.add('another-user'); 
+    }
 
     document.body.classList.add('gallery-visible');
 

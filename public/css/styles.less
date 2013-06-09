@@ -170,6 +170,11 @@ body.gallery-visible #street-section-sky {
     position: absolute;
   }
 
+  &.another-user #new-street,
+  &.another-user #copy-last-street {
+    display: none;
+  }
+
   .streets {
     list-style: none;
     padding: 0;
@@ -263,6 +268,10 @@ body.gallery-visible #street-section-sky {
         }
       }
     }
+  }
+  
+  &.another-user .streets {
+    left: 20px;
   }
 
   .loading {
