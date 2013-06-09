@@ -32,8 +32,6 @@ var main = (function(){
   var FACEBOOK_APP_ID_STAGING = '175861739245183';
   var FACEBOOK_APP_ID_LOCAL = '204327799717656';
 
-  var STREET_NAME_REMIX_SUFFIX = '(remixed)';
-
   // TODO replace the URLs in index.html dynamically
   var URL_SIGN_IN = 'twitter-sign-in';
   var URL_SIGN_IN_CALLBACK = 'twitter-sign-in-callback';
@@ -99,6 +97,8 @@ var main = (function(){
   // Output using cmap2file as per 
   // http://www.typophile.com/node/64147#comment-380776
   var STREET_NAME_FONT_GLYPHS = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿĀāĂăĆćĈĉĊċČčĎďĒĔĕĖėĜĝĞğĠġĤĥĨĩĪīĬĭİıĴĵĹĺĽľŁłŃŇňŌōŎŏŐőŒœŔŕŘřŚśŜŝŞşŠšŤťŨũŪūŬŭŮůŰűŴŵŶŷŸŹźŻżŽžƒˆˇ˘˙˚˛˜˝–—‘’‚“”„†‡•…‰‹›⁄€™−';
+  var STREET_NAME_REMIX_SUFFIX = '(remixed)';
+  var MAX_STREET_NAME_WIDTH = 50;
 
   var WIDTH_PALETTE_MULTIPLIER = 4;
 
@@ -138,7 +138,6 @@ var main = (function(){
 
   var MAX_DRAG_DEGREE = 20;
 
-  var MAX_STREET_NAME_WIDTH = 30;
 
   var UNDO_LIMIT = 100;
 
@@ -2987,19 +2986,16 @@ var main = (function(){
   }
 
   function _resizeStreetName() {
-    /*var streetNameCanvasWidth = 
+    var streetNameCanvasWidth = 
         document.querySelector('#street-name-canvas').offsetWidth;
     var streetNameWidth = 
-        document.querySelector('#street-name').offsetWidth;
+        document.querySelector('#street-name > div').scrollWidth;
 
     if (streetNameWidth > streetNameCanvasWidth) {
-      var multiplier = streetNameCanvasWidth / streetNameWidth;
+      document.querySelector('#street-name').style.width = streetNameCanvasWidth + 'px';
     } else {
-      var multiplier = 1.0;
+      document.querySelector('#street-name').style.width = 'auto';
     }
-
-    document.querySelector('#street-name').style[system.cssTransform] = 
-        'scale(' + multiplier + ')';*/
   }
 
   function _onResize() {

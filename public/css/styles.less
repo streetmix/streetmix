@@ -1698,8 +1698,8 @@ body.no-connection-message-visible #status-message {
 
 #street-name-canvas {
   position: absolute;
-  left: 240px;
-  right: 240px;
+  left: 150px;
+  right: 150px;
   top: @streetNameTop;
   z-index: 100000;
   text-align: center;
@@ -1728,12 +1728,6 @@ body.no-connection-message-visible #status-message {
 
   white-space: nowrap;
 
-  -webkit-transform-origin: 0 0;
-  -moz-transform-origin: 0 0;
-  -o-transform-origin: 0 0;
-  -ms-transform-origin: 0 0;
-  transform-origin: 0 0;
-
   cursor: pointer;
 
   & > div {
@@ -1747,6 +1741,17 @@ body.no-connection-message-visible #status-message {
     font-family: 'Roadgeek', sans-serif;
     font-size: 40px * @streetNameSize;
     line-height: 30px * @streetNameSize;
+
+    text-align: left;
+
+    /*position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;*/
+
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &.fallback-unicode-font > div {
