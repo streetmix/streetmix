@@ -3612,6 +3612,12 @@ var main = (function(){
     street.originalStreetId = settings.priorLastStreetId;
     _addRemixSuffixToName();
 
+    if (signedIn) {
+      _setStreetCreatorId(signInData.userId);
+    } else {
+      _setStreetCreatorId(null);
+    }
+
     _propagateUnits();
 
     // TODO this is stupid, only here to fill some structures
@@ -3703,6 +3709,31 @@ var main = (function(){
     _updateGallerySelection();
   }
 
+  function _checkIfNeedsToBeRemixed() {
+    if (!signedIn || (street.creatorId != signInData.userId)) {
+      remixOnFirstEdit = true;
+    } else {
+      remixOnFirstEdit = false;
+    }
+  }
+
+  function _receiveStreet(transmission) {
+    //console.log('received street', transmission);
+
+    _unpackServerStreetData(transmission);
+
+    _checkIfNeedsToBeRemixed();
+
+    _propagateUnits();
+
+    // TODO this is stupid, only here to fill some structures
+    _createDomFromData();
+    _createDataFromDom();
+
+    serverContacted = true;
+    _checkIfEverythingIsLoaded();
+  }  
+
   // TODO similar to receiveLastStreet
   function _receiveGalleryStreet(transmission) {
     if (transmission.id != galleryStreetId) {
@@ -3718,6 +3749,8 @@ var main = (function(){
     _hideError();
 
     _unpackServerStreetData(transmission);
+
+    _checkIfNeedsToBeRemixed();
 
     _propagateUnits();
 
@@ -5135,54 +5168,7 @@ var main = (function(){
     }
   }
 
-  /*function _fetchStreetCreatorAvatar() {
-    //console.log('fetch street creator avatar');
 
-    if (street.creatorId) {
-      // TODO const
-      jQuery.ajax({
-        dataType: 'json',
-        url: system.apiUrl + 'v1/users/' + street.creatorId
-      }).done(_receiveStreetCreatorAvatar);
-    }
-  }
-
-  function _receiveStreetCreatorAvatar(details) {
-    //console.log('receive street creator avatar');
-
-    if (details.profileImageUrl) {
-      if (document.querySelector('#street-attribution .avatar')) {
-        document.querySelector('#street-attribution .avatar').style.backgroundImage = 
-            'url(' + details.profileImageUrl + ')';
-      }
-    }
-  }*/
-
-  function _receiveStreet(transmission) {
-    //console.log('received street', transmission);
-
-    _unpackServerStreetData(transmission);
-
-    if (!signedIn || (street.creatorId != signInData.userId)) {
-      remixOnFirstEdit = true;
-
-      //_fetchStreetCreatorAvatar();
-
-    } else {
-      remixOnFirstEdit = false;
-    }
-
-    _propagateUnits();
-
-    // TODO this is stupid, only here to fill some structures
-    _createDomFromData();
-    _createDataFromDom();
-
-    serverContacted = true;
-    _checkIfEverythingIsLoaded();
-
-    //console.log('creator', street.creatorId, signedIn);
-  }
 
   function _errorReceiveStreet(data) {
     //console.log('failed to receive street!', data.status, data);
