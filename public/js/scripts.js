@@ -76,6 +76,8 @@ var main = (function(){
   var ERROR_NEW_STREET_SERVER_FAILURE = 7;
   var ERROR_FORCE_RELOAD_SIGN_OUT_401 = 8;
 
+  var TWITTER_ID = '@streetmixapp';
+
   var NEW_STREET_DEFAULT = 1;
   var NEW_STREET_EMPTY = 2;
 
@@ -569,6 +571,8 @@ var main = (function(){
   var LOCAL_STORAGE_FEEDBACK_BACKUP = 'feedback-backup';
   var LOCAL_STORAGE_FEEDBACK_EMAIL_BACKUP = 'feedback-email-backup';
 
+  // TODO clean up/rearrange variables
+
   // Saved data
   // ------------------------------------------------------------------------
 
@@ -609,6 +613,8 @@ var main = (function(){
   var ignoreWindowFocus = false;
 
   var images = [];
+
+  var avatarCache = {};
 
   // ------------------------------------------------------------------------
 
@@ -4682,6 +4688,7 @@ var main = (function(){
         break;
     }
 
+    // TODO const
     el.href = 'https://www.facebook.com/dialog/feed' +
         '?app_id=' + encodeURIComponent(appId) +
         '&redirect_uri=' + encodeURIComponent(url) + 
@@ -4695,6 +4702,7 @@ var main = (function(){
 
     var text = _getSharingMessage();
 
+    // TODO const
     el.href = 'https://twitter.com/intent/tweet' + 
         '?text=' + encodeURIComponent(text) + 
         '&url=' + encodeURIComponent(url);
@@ -4725,10 +4733,10 @@ var main = (function(){
   function _updateFeedbackMenu() {
     var el = document.querySelector('#feedback-via-twitter');
 
-    // TODO const
-    var text = '@streetmixapp';
+    var text = TWITTER_ID;
     var url = _getSharingUrl();
 
+    // TODO const
     el.href = 'https://twitter.com/intent/tweet' + 
         '?text=' + encodeURIComponent(text) + 
         '&url=' + encodeURIComponent(url);    
@@ -4785,9 +4793,6 @@ var main = (function(){
     _buildStreetWidthMenu();
     _onResize();
     _addEventListeners();
-
-    // TODO hack – we should store the avatar somewhere before
-    // _fetchStreetCreatorAvatar();
 
     if (mode == MODE_USER_GALLERY) {
       _showGallery(galleryUserId, true);
@@ -5230,10 +5235,6 @@ var main = (function(){
     }).done(_receiveStreet).fail(_errorReceiveStreet);
   }
 
-  // TODO move
-
-  var avatarCache = {};
-
   function _updateAvatars() {
     var els = document.querySelectorAll('.avatar:not([loaded])');
 
@@ -5462,7 +5463,7 @@ var main = (function(){
     // Temporary as per https://github.com/Modernizr/Modernizr/issues/788#issuecomment-12513563
     Modernizr.addTest('pagevisibility', !!Modernizr.prefixed('hidden', document, false));
 
-    // TODO make it better
+    // TODO make it better 
     // Related to Enter to 404 bug in Chrome
     $.ajaxSetup({ cache: false });
 
@@ -5484,7 +5485,6 @@ var main = (function(){
     // Asynchronously loading…
 
     // …detecting country from IP for units and left/right-hand driving
-    // TODO only make it work for new streets
     if ((mode == MODE_NEW_STREET) || (mode == MODE_NEW_STREET_COPY_LAST)) {
       _detectCountry();
     } else {
