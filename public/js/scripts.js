@@ -3855,7 +3855,7 @@ var main = (function(){
       return;
     }
 
-    var el = event.target;
+    var el = this;
     _switchGalleryStreet(el.getAttribute('streetId'));
 
     event.preventDefault();
@@ -3994,7 +3994,7 @@ var main = (function(){
         anchorEl.classList.add('selected');
       }
 
-      anchorEl.addEventListener('click', _onGalleryStreetClick);
+      $(anchorEl).click(_onGalleryStreetClick);
 
       var nameEl = document.createElement('div');
       nameEl.classList.add('street-name');
