@@ -3969,12 +3969,10 @@ var main = (function(){
     }
   }
 
-  function _toggleGallery() {
-    if (document.body.classList.contains('gallery-visible')) {
-      _hideGallery();
-    } else {
-      _showGallery(signInData.userId);
-    }
+  function _onMyStreetsClick(event) {
+    _showGallery(signInData.userId);
+
+    event.preventDefault();
   }
 
   function _onVisibilityChange() {
@@ -4082,7 +4080,7 @@ var main = (function(){
 
     window.addEventListener('storage', _onStorageChange);
 
-    document.querySelector('#gallery-button').addEventListener('click', _toggleGallery);
+    document.querySelector('#gallery-link a').addEventListener('click', _onMyStreetsClick);
 
     document.querySelector('#sign-out-link').addEventListener('click', _signOut);
 
@@ -4729,7 +4727,7 @@ var main = (function(){
   }
 
   function _errorReceiveSignInDetails(data) {   
-
+    console.log(data);
     // If we get data.status == 0, it means that the user opened the page and
     // closed is quickly, so the request was aborted. We choose to do nothing
     // instead of clobbering sign in data below and effectively signing the
@@ -4857,6 +4855,10 @@ var main = (function(){
       case MODE_GALLERY:
         _fetchStreetFromServer();
         break;
+    }
+
+    if (signedIn) {
+      document.querySelector('#gallery-link a').href = '/' + signInData.userId;
     }
 
     signInLoaded = true;
