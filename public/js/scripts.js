@@ -1728,7 +1728,7 @@ var main = (function(){
     console.log('…' + name);
   }
 
-  function _optimizeUndoStack() {
+/*  function _optimizeUndoStack() {
     // TODO shouldn’t have to do it over and over again
     //console.log('--- OPTIMIZE UNDO');
 
@@ -1764,7 +1764,7 @@ var main = (function(){
     for (var i = 0; i < undoPosition - 1; i++) {
       undoStack[i].name = newName;
     }
-  }
+  }*/
 
   function _createNewUndo() {
     // This removes future undo path in case we undo a few times and then do
@@ -1774,7 +1774,15 @@ var main = (function(){
     undoPosition++;
 
     _trimUndoStack();
-    _optimizeUndoStack();
+    //_optimizeUndoStack();
+  }
+
+  function _createNewUndoIfNecessary(lastStreet, currentStreet) {
+    if (lastStreet.name != currentStreet.name) {
+      return;
+    }
+
+    _createNewUndo();
   }
 
   function _unpackStreetDataFromServerTransmission(transmission) {
@@ -2137,6 +2145,7 @@ var main = (function(){
   function _unifyUndoStack() {
     for (var i in undoStack) {
       undoStack[i].id = street.id;
+      undoStack[i].name = street.name;
       undoStack[i].namespacedId = street.namespacedId;
       undoStack[i].creatorId = street.creatorId;
     }
@@ -2222,7 +2231,7 @@ var main = (function(){
       // As per issue #306.
       _statusMessage.hide();
 
-      _createNewUndo();
+      _createNewUndoIfNecessary(lastStreet, currentData);
       _scheduleSavingStreetToServer();
 
       lastStreet = currentData;
@@ -3167,7 +3176,7 @@ var main = (function(){
       return;
     } else if (newStreetWidth == STREET_WIDTH_CUSTOM) {
       _ignoreWindowFocusMomentarily();
-      var width = prompt("Enter the new street width (from " + 
+      var width = prompt("New street width (from " + 
           _prettifyWidth(MIN_CUSTOM_STREET_WIDTH, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP) + 
           " to " + 
           _prettifyWidth(MAX_CUSTOM_STREET_WIDTH, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP) + 
@@ -3423,7 +3432,7 @@ var main = (function(){
     event.preventDefault();
   }
 
-  function _updateStreetName() {
+  function _updateStreetNameFont() {
     var usingSupportedGlyphs = true;
     for (var i in street.name) {
       if (STREET_NAME_FONT_GLYPHS.indexOf(street.name.charAt(i)) == -1) {
@@ -3439,11 +3448,9 @@ var main = (function(){
     } else {
       document.querySelector('#street-name').classList.add('fallback-unicode-font');
     }
+  }
 
-    _resizeStreetName();
-
-    //console.log(street);
-
+  function _updateStreetAttribution() {
     if (street.creatorId && (!signedIn || (street.creatorId != signInData.userId))) {
       // TODO const
       var html = "by <div class='avatar' userId='" + street.creatorId + "'></div>" +
@@ -3460,8 +3467,19 @@ var main = (function(){
       document.querySelector('#street-attribution').classList.add('visible');
     } else {
       document.querySelector('#street-attribution').classList.remove('visible');      
-    }
 
+      document.querySelector('#street-attribution').innerHTML = '';
+    }
+  }
+
+  function _updateStreetName() {
+    _updateStreetNameFont();
+
+    _resizeStreetName();
+
+    _updateStreetAttribution();
+
+    _unifyUndoStack();
     _updatePageUrl();
     _updatePageTitle();
   }
@@ -3506,7 +3524,7 @@ var main = (function(){
   }
 
   // Compare two objects regardless of the order of their properties
-  function _equalObject(obj1, obj2) {
+  /*function _equalObject(obj1, obj2) {
     
     function __equalObject(o1, o2) {
       return JSON.stringify(o1)
@@ -3514,7 +3532,7 @@ var main = (function(){
     }
 
     return __equalObject(obj1, obj2) && __equalObject(obj2, obj1);
-  }
+  }*/
 
   function _receiveStreetForVerification(transmission) {
     //console.log('verify');
@@ -3522,7 +3540,10 @@ var main = (function(){
     var localStreetData = _trimStreetData(street);
     var serverStreetData = _trimStreetData(_unpackStreetDataFromServerTransmission(transmission));
 
-    if (!_equalObject(localStreetData, serverStreetData)) {
+    // TODO should not be necessary to use this function instead of just 
+    // stringifying, since we’re recreating both above
+    if (JSON.stringify(localStreetData) != JSON.stringify(serverStreetData)) {
+    //if (!_equalObject(localStreetData, serverStreetData)) {
       console.log('NOT EQUAL');
       console.log('-');
       console.log(JSON.stringify(localStreetData));
