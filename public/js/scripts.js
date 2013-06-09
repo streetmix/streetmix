@@ -3383,21 +3383,22 @@ var main = (function(){
     event.preventDefault();
   }
 
-  function _updateStreetNameFont() {
+  function _updateStreetNameFont(el) {
+    var name = el.innerHTML;
+
     var usingSupportedGlyphs = true;
-    for (var i in street.name) {
-      if (STREET_NAME_FONT_GLYPHS.indexOf(street.name.charAt(i)) == -1) {
+    for (var i in name) {
+      if (STREET_NAME_FONT_GLYPHS.indexOf(name.charAt(i)) == -1) {
         usingSupportedGlyphs = false;
         break;
       }
     }
 
-    $('#street-name > div').text(street.name);
 
     if (usingSupportedGlyphs) {
-      document.querySelector('#street-name').classList.remove('fallback-unicode-font');
+      el.classList.remove('fallback-unicode-font');
     } else {
-      document.querySelector('#street-name').classList.add('fallback-unicode-font');
+      el.classList.add('fallback-unicode-font');
     }
   }
 
@@ -3424,7 +3425,9 @@ var main = (function(){
   }
 
   function _updateStreetName() {
-    _updateStreetNameFont();
+    $('#street-name > div').text(street.name);
+
+    _updateStreetNameFont(document.querySelector('#street-name'));
 
     _resizeStreetName();
 
@@ -3962,7 +3965,6 @@ var main = (function(){
       galleryStreet.name = galleryStreet.name || DEFAULT_NAME;
 
       anchorEl.href = _getStreetUrl(galleryStreet);
-      anchorEl.innerHTML = galleryStreet.name;
       
       anchorEl.streetName = galleryStreet.name;
       anchorEl.setAttribute('streetId', galleryStreet.id);
@@ -3972,6 +3974,12 @@ var main = (function(){
       }
 
       anchorEl.addEventListener('click', _onGalleryStreetClick);
+
+      var nameEl = document.createElement('div');
+      nameEl.classList.add('street-name');
+      nameEl.innerHTML = '<div>' + galleryStreet.name + '</div>';
+      anchorEl.appendChild(nameEl);
+      _updateStreetNameFont(nameEl);
 
       var date = moment(galleryStreet.updatedAt);
       var dateEl = document.createElement('span');
