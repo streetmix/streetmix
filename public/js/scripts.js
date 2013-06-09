@@ -1674,7 +1674,7 @@ var main = (function(){
     _updateStreetName();
     ignoreStreetChanges = false;
     _updateUndoButtons();
-    lastStreet = _trimStreetData();
+    lastStreet = _trimStreetData(street);
 
     _scheduleSavingStreetToServer();
   }
@@ -1686,7 +1686,7 @@ var main = (function(){
       _statusMessage.show('Nothing to redo.');     
     } else {
       if (undo) {
-        undoStack[undoPosition] = _trimStreetData();
+        undoStack[undoPosition] = _trimStreetData(street);
         undoPosition--;
       } else {
         undoPosition++;
@@ -1730,14 +1730,14 @@ var main = (function(){
 
   function _optimizeUndoStack() {
     // TODO shouldn’t have to do it over and over again
-    console.log('--- OPTIMIZE UNDO');
+    //console.log('--- OPTIMIZE UNDO');
 
-    console.log('counting to', undoPosition - 2);
+    //console.log('counting to', undoPosition - 2);
 
     // Remove all the undo entries that are only name changes (#314), except
     // if it’s the immediate last one
     for (var i = 0; i < undoPosition - 1; i++) {
-      console.log(i);
+      //console.log(i);
       var first = undoStack[i];
       var second = undoStack[i + 1];
 
@@ -1745,12 +1745,12 @@ var main = (function(){
         //console.log('name undo', first.name, second.name);
 
         undoPosition--;
-        console.log('BEFORE undo length', undoStack.length);
-        _debugOutputUndoStack();
+        //console.log('BEFORE undo length', undoStack.length);
+        //_debugOutputUndoStack();
         undoStack.splice(i, 1);
         i--;
-        console.log('AFTER undo length', undoStack.length);
-        _debugOutputUndoStack();
+        //console.log('AFTER undo length', undoStack.length);
+        //_debugOutputUndoStack();
       }
       //console.log(first);
     }
@@ -1782,6 +1782,7 @@ var main = (function(){
 
     street.creatorId = (transmission.creator && transmission.creator.id) || null;
     street.originalStreetId = transmission.originalStreetId || null;
+    street.updatedAt = transmission.updatedAt || null;
     street.name = transmission.name || DEFAULT_NAME;
 
     return street;
@@ -1805,11 +1806,12 @@ var main = (function(){
   function _packServerStreetData() {
     var data = {};
 
-    data.street = _trimStreetData();
+    data.street = _trimStreetData(street);
 
     // Those go above data in the structure, so they need to be cleared here
     delete data.street.name;
     delete data.street.originalStreetId;
+    delete data.street.updatedAt;
 
     // This will be implied through authorization header
     delete data.street.creatorId;
@@ -1822,6 +1824,8 @@ var main = (function(){
       originalStreetId: street.originalStreetId,
       data: data
     }
+
+    console.log(transmission);
 
     return JSON.stringify(transmission);
   }
@@ -2210,7 +2214,7 @@ var main = (function(){
       return;
     }
 
-    var currentData = _trimStreetData();
+    var currentData = _trimStreetData(street);
 
     if (JSON.stringify(currentData) != JSON.stringify(lastStreet)) {
       _hideNewStreetMenu();
@@ -2273,7 +2277,7 @@ var main = (function(){
   }
 
   // Copies only the data necessary for save/undo.
-  function _trimStreetData() {
+  function _trimStreetData(street) {
     var newData = {};
 
     newData.width = street.width;
@@ -3420,7 +3424,6 @@ var main = (function(){
   }
 
   function _updateStreetName() {
-
     var usingSupportedGlyphs = true;
     for (var i in street.name) {
       if (STREET_NAME_FONT_GLYPHS.indexOf(street.name.charAt(i)) == -1) {
@@ -3438,6 +3441,8 @@ var main = (function(){
     }
 
     _resizeStreetName();
+
+    //console.log(street);
 
     if (street.creatorId && (!signedIn || (street.creatorId != signInData.userId))) {
       // TODO const
@@ -3514,8 +3519,8 @@ var main = (function(){
   function _receiveStreetForVerification(transmission) {
     //console.log('verify');
 
-    var localStreetData = _trimStreetData();
-    var serverStreetData = _unpackStreetDataFromServerTransmission(transmission);
+    var localStreetData = _trimStreetData(street);
+    var serverStreetData = _trimStreetData(_unpackStreetDataFromServerTransmission(transmission));
 
     if (!_equalObject(localStreetData, serverStreetData)) {
       console.log('NOT EQUAL');
@@ -3603,7 +3608,7 @@ var main = (function(){
     _updateShareMenu();
 
     ignoreStreetChanges = false;
-    lastStreet = _trimStreetData();
+    lastStreet = _trimStreetData(street);
 
     _saveStreetToServer(false);
   }
@@ -3629,7 +3634,7 @@ var main = (function(){
     _updateShareMenu();
 
     ignoreStreetChanges = false;
-    lastStreet = _trimStreetData();
+    lastStreet = _trimStreetData(street);
 
     _saveStreetToServer(false);
   }
@@ -3685,7 +3690,7 @@ var main = (function(){
     _updateShareMenu();
 
     ignoreStreetChanges = false;
-    lastStreet = _trimStreetData();
+    lastStreet = _trimStreetData(street);
 
     _saveStreetToServer(false);
   }
@@ -3750,6 +3755,8 @@ var main = (function(){
     //console.log('fetching', streetId);
 
     _showBlockingShield();
+
+    //console.log(system.apiUrl + 'v1/streets/' + streetId);
 
     jQuery.ajax({
       // TODO const
@@ -3826,7 +3833,7 @@ var main = (function(){
     _updateShareMenu();
 
     ignoreStreetChanges = false;
-    lastStreet = _trimStreetData();
+    lastStreet = _trimStreetData(street);
   }
 
   function _updateGallerySelection() {
@@ -4752,7 +4759,7 @@ var main = (function(){
 
     initializing = false;    
     ignoreStreetChanges = false;
-    lastStreet = _trimStreetData();
+    lastStreet = _trimStreetData(street);
 
     _updatePageUrl();
     _buildStreetWidthMenu();
