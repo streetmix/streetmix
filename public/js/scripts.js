@@ -3961,6 +3961,11 @@ var main = (function(){
       }, 0);
     }
 
+    if (mode == MODE_GALLERY) {
+      // Prevents showing old street before the proper street loads
+      _showError(ERROR_TYPE_NO_STREET);
+    }
+
     _loadGalleryContents();
 
     _updatePageUrl(true);
