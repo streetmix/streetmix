@@ -65,6 +65,7 @@ var main = (function(){
   var MODE_FORCE_RELOAD_SIGN_OUT = 9;
   var MODE_USER_GALLERY = 10;
   var MODE_GLOBAL_GALLERY = 11;
+  var MODE_FORCE_RELOAD_SIGN_OUT_401 = 12;
 
   var ERROR_TYPE_404 = 1;
   var ERROR_TYPE_SIGN_OUT = 2;
@@ -73,6 +74,7 @@ var main = (function(){
   var ERROR_FORCE_RELOAD_SIGN_OUT = 5;
   var ERROR_STREET_DELETED_ELSEWHERE = 6;
   var ERROR_NEW_STREET_SERVER_FAILURE = 7;
+  var ERROR_FORCE_RELOAD_SIGN_OUT_401 = 8;
 
   var NEW_STREET_DEFAULT = 1;
   var NEW_STREET_EMPTY = 2;
@@ -1720,52 +1722,6 @@ var main = (function(){
     }
   }
 
-  function _debugOutputUndoStack() {
-    var name = '';
-    for (var i = 0; i < undoStack.length; i++) {
-      name += ' ' + undoStack[i].name;
-    }
-    console.log('…' + name);
-  }
-
-/*  function _optimizeUndoStack() {
-    // TODO shouldn’t have to do it over and over again
-    //console.log('--- OPTIMIZE UNDO');
-
-    //console.log('counting to', undoPosition - 2);
-
-    // Remove all the undo entries that are only name changes (#314), except
-    // if it’s the immediate last one
-    for (var i = 0; i < undoPosition - 1; i++) {
-      //console.log(i);
-      var first = undoStack[i];
-      var second = undoStack[i + 1];
-
-      if (first.name != second.name) {
-        //console.log('name undo', first.name, second.name);
-
-        undoPosition--;
-        //console.log('BEFORE undo length', undoStack.length);
-        //_debugOutputUndoStack();
-        undoStack.splice(i, 1);
-        i--;
-        //console.log('AFTER undo length', undoStack.length);
-        //_debugOutputUndoStack();
-      }
-      //console.log(first);
-    }
-
-    // Rename all the names to the current one
-    if (undoStack[undoPosition - 1]) {
-      var newName = undoStack[undoPosition - 1].name;
-    } else {
-      var newName = street.name;
-    }
-    for (var i = 0; i < undoPosition - 1; i++) {
-      undoStack[i].name = newName;
-    }
-  }*/
-
   function _createNewUndo() {
     // This removes future undo path in case we undo a few times and then do
     // something undoable.
@@ -1774,7 +1730,6 @@ var main = (function(){
     undoPosition++;
 
     _trimUndoStack();
-    //_optimizeUndoStack();
   }
 
   function _createNewUndoIfNecessary(lastStreet, currentStreet) {
@@ -1833,7 +1788,7 @@ var main = (function(){
       data: data
     }
 
-    console.log(transmission);
+    //console.log(transmission);
 
     return JSON.stringify(transmission);
   }
@@ -2139,7 +2094,7 @@ var main = (function(){
     settings.lastStreetNamespacedId = street.namespacedId;
     settings.lastStreetCreatorId = street.creatorId;
 
-    _saveSettings();
+    _saveSettingsLocally();
   }
 
   function _unifyUndoStack() {
@@ -3595,7 +3550,7 @@ var main = (function(){
       // Save settings on window focus, so the last edited street is the one you’re
       // currently looking at (in case you’re looking at many streets in various
       // tabs)
-      _saveSettings();
+      _saveSettingsLocally();
     }
   }
 
@@ -3636,14 +3591,14 @@ var main = (function(){
 
   function _onNewStreetDefaultClick() {
     settings.newStreetPreference = NEW_STREET_DEFAULT;
-    _saveSettings();
+    _saveSettingsLocally();
 
     _makeDefaultStreet();
   }
 
   function _onNewStreetEmptyClick() {
     settings.newStreetPreference = NEW_STREET_EMPTY;
-    _saveSettings();
+    _saveSettingsLocally();
 
     ignoreStreetChanges = true;
     _prepareEmptyStreet();
@@ -3963,7 +3918,7 @@ var main = (function(){
       settings.lastStreetCreatorId = null;
       settings.lastStreetNamespacedId = null;
       
-      _saveSettings();
+      _saveSettingsLocally();
       _saveSettingsToServer();
     }
 
@@ -4565,7 +4520,7 @@ var main = (function(){
 
     //console.log('FINAL settings', settings);
 
-    _saveSettings();
+    _saveSettingsLocally();
   }
 
   function _trimSettings() {
@@ -4580,7 +4535,7 @@ var main = (function(){
     return data;
   }
 
-  function _saveSettings() {
+  function _saveSettingsLocally() {
     //console.log('save settings', JSON.stringify(_trimSettings()));
     window.localStorage[LOCAL_STORAGE_SETTINGS_ID] = 
         JSON.stringify(_trimSettings());
@@ -4639,7 +4594,7 @@ var main = (function(){
     _hideMenus();
 
     _saveStreetToServerIfNecessary();
-    _saveSettings();
+    _saveSettingsLocally();
   }
 
   function _propagateUnits() {
@@ -4945,7 +4900,7 @@ var main = (function(){
     settings.lastStreetId = null;
     settings.lastStreetNamespacedId = null;
     settings.lastStreetCreatorId = null;
-    _saveSettings();
+    _saveSettingsLocally();
 
     _removeSignInCookies();
     window.localStorage.removeItem(LOCAL_STORAGE_SIGN_IN_ID);
@@ -5364,6 +5319,10 @@ var main = (function(){
         title = 'You signed out in another window.';
         description = 'Please reload this page before continuing.<br><button class="reload">Reload the page</button>';
         break;
+      case ERROR_FORCE_RELOAD_SIGN_OUT_401:
+        title = 'You signed out in another window.';
+        description = 'Please reload this page before continuing.<br>(Error 401)<br><button class="reload">Reload the page</button>';
+        break;
       case ERROR_FORCE_RELOAD_SIGN_IN:
         title = 'You signed in in another window.';
         description = 'Please reload this page before continuing.<br><button class="reload">Reload the page</button>';
@@ -5427,6 +5386,10 @@ var main = (function(){
         break;
       case MODE_FORCE_RELOAD_SIGN_OUT:
         _showError(ERROR_FORCE_RELOAD_SIGN_OUT);
+        abortEverything = true;
+        break;
+      case MODE_FORCE_RELOAD_SIGN_OUT_401:
+        _showError(ERROR_FORCE_RELOAD_SIGN_OUT_401);
         abortEverything = true;
         break;
       case MODE_FORCE_RELOAD_SIGN_IN:
