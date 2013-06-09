@@ -40,6 +40,7 @@ var main = (function(){
   var URL_JUST_SIGNED_IN = 'just-signed-in';
   var URL_NEW_STREET = 'new';
   var URL_NEW_STREET_COPY_LAST = 'copy-last';
+  var URL_GLOBAL_GALLERY = 'gallery';
   var URL_NO_USER = '-';
 
   var URL_SIGN_IN_REDIRECT = URL_SIGN_IN + '?redirectUri=' + URL_JUST_SIGNED_IN;
@@ -50,7 +51,7 @@ var main = (function(){
       [URL_SIGN_IN, URL_SIGN_IN_CALLBACK, 
       URL_NEW_STREET, URL_NEW_STREET_COPY_LAST,
       URL_JUST_SIGNED_IN, 
-      'help', 'gallery', 'streets'];
+      'help', URL_GLOBAL_GALLERY, 'streets'];
   var URL_RESERVED_PREFIX = '~';
 
   var MODE_CONTINUE = 1;
@@ -62,7 +63,8 @@ var main = (function(){
   var MODE_SIGN_OUT = 7;
   var MODE_FORCE_RELOAD_SIGN_IN = 8;
   var MODE_FORCE_RELOAD_SIGN_OUT = 9;
-  var MODE_GALLERY = 10;
+  var MODE_USER_GALLERY = 10;
+  var MODE_GLOBAL_GALLERY = 11;
 
   var ERROR_TYPE_404 = 1;
   var ERROR_TYPE_SIGN_OUT = 2;
@@ -3660,18 +3662,26 @@ var main = (function(){
   }
 
   function _fetchGalleryData() {
-    jQuery.ajax({
-      // TODO const
-      url: system.apiUrl + 'v1/users/' + galleryUserId + '/streets',
-      //url: 'http://streetmix-api-staging.herokuapp.com/v1/users/saikofish/streets',
-      dataType: 'json',
-      type: 'GET',
-      headers: { 'Authorization': _getAuthHeader() }
-    }).done(_receiveGalleryData).fail(_errorReceiveGalleryData);
+    if (galleryUserId) {
+      jQuery.ajax({
+        // TODO const
+        url: system.apiUrl + 'v1/users/' + galleryUserId + '/streets',
+        dataType: 'json',
+        type: 'GET',
+        headers: { 'Authorization': _getAuthHeader() }
+      }).done(_receiveGalleryData).fail(_errorReceiveGalleryData);
+    } else {
+      jQuery.ajax({
+        // TODO const
+        url: system.apiUrl + 'v1/streets',
+        dataType: 'json',
+        type: 'GET',
+      }).done(_receiveGalleryData).fail(_errorReceiveGalleryData);      
+    }
   }
 
   function _errorReceiveGalleryData(data) {
-    if ((mode == MODE_GALLERY) && (data.status == 404)) {
+    if ((mode == MODE_USER_GALLERY) && (data.status == 404)) {
       abortEverything = true;
       _hideGallery(true);
       mode = MODE_404;
@@ -3893,19 +3903,21 @@ var main = (function(){
 
     document.querySelector('#gallery .loading').classList.remove('visible');
 
-    var streetCount = transmission.streets.length;
-    switch (streetCount) {
-      case 0: 
-        var text = 'No streets yet';
-        break;
-      case 1:
-        var text = '1 street';
-        break;
-      default:
-        var text = streetCount += ' streets';
-        break;
+    if (galleryUserId) {
+      var streetCount = transmission.streets.length;
+      switch (streetCount) {
+        case 0: 
+          var text = 'No streets yet';
+          break;
+        case 1:
+          var text = '1 street';
+          break;
+        default:
+          var text = streetCount += ' streets';
+          break;
+      }
+      document.querySelector('#gallery .street-count').innerHTML = text;
     }
-    document.querySelector('#gallery .street-count').innerHTML = text;
 
     for (var i in transmission.streets) {
       var galleryStreet = transmission.streets[i];
@@ -3933,24 +3945,33 @@ var main = (function(){
       anchorEl.addEventListener('click', _onGalleryStreetClick);
 
       var date = moment(galleryStreet.updatedAt);
-
       var dateEl = document.createElement('span');
       dateEl.classList.add('date');
       dateEl.innerHTML = _formatDate(date);
       anchorEl.appendChild(dateEl);
 
-      var removeEl = document.createElement('button');
-      removeEl.classList.add('remove');
-      removeEl.addEventListener('click', _onDeleteGalleryStreet);
-      removeEl.innerHTML = '×';
-      removeEl.title = 'Delete the street';
-      anchorEl.appendChild(removeEl);
+      if (!galleryUserId && galleryStreet.creatorId) {
+        var creatorEl = document.createElement('span');
+        creatorEl.classList.add('creator');
+        creatorEl.innerHTML = galleryStreet.creatorId;
+        anchorEl.appendChild(creatorEl);
+      }
+
+      // Only show delete links if you own the street
+      if (signedIn && (galleryStreet.creatorId == signInData.userId)) {
+        var removeEl = document.createElement('button');
+        removeEl.classList.add('remove');
+        removeEl.addEventListener('click', _onDeleteGalleryStreet);
+        removeEl.innerHTML = '×';
+        removeEl.title = 'Delete the street';
+        anchorEl.appendChild(removeEl);
+      }
 
       el.appendChild(anchorEl);
       document.querySelector('#gallery .streets').appendChild(el);
     }
 
-    if ((mode == MODE_GALLERY) && streetCount) {
+    if (((mode == MODE_USER_GALLERY) && streetCount) || (mode == MODE_GLOBAL_GALLERY)) {
       _switchGalleryStreet(transmission.streets[0].id);
     }
   }
@@ -3969,18 +3990,28 @@ var main = (function(){
     galleryStreetId = street.id;
     galleryUserId = userId;
 
-    document.querySelector('#gallery .avatar').setAttribute('userId', galleryUserId);
-    _fetchAvatars();
+    if (userId) {
+      document.querySelector('#gallery .avatar').setAttribute('userId', galleryUserId);
+      _fetchAvatars();
+      document.querySelector('#gallery .user-id').innerHTML = galleryUserId;
+    } else {
+      document.querySelector('#gallery .user-id').innerHTML = 'All streets';      
+    }
 
-    document.querySelector('#gallery .user-id').innerHTML = galleryUserId;
     document.querySelector('#gallery .street-count').innerHTML = '';
 
     _statusMessage.hide();
 
-    if (signedIn && (userId == signInData.userId)) {
+    // TODO no class, but type?
+    if (!userId) {
+      document.querySelector('#gallery').classList.add('all-streets');
       document.querySelector('#gallery').classList.remove('another-user');
+    } else if (signedIn && (userId == signInData.userId)) {
+      document.querySelector('#gallery').classList.remove('another-user');
+      document.querySelector('#gallery').classList.remove('all-streets');
     } else {
       document.querySelector('#gallery').classList.add('another-user'); 
+      document.querySelector('#gallery').classList.remove('all-streets');
     }
 
     if (instant) {
@@ -3994,7 +4025,7 @@ var main = (function(){
       }, 0);
     }
 
-    if (mode == MODE_GALLERY) {
+    if ((mode == MODE_USER_GALLERY) || (mode == MODE_GLOBAL_GALLERY)) {
       // Prevents showing old street before the proper street loads
       _showError(ERROR_TYPE_NO_STREET);
     }
@@ -4681,8 +4712,10 @@ var main = (function(){
     // TODO hack – we should store the avatar somewhere before
     // _fetchStreetCreatorAvatar();
 
-    if (mode == MODE_GALLERY) {
+    if (mode == MODE_USER_GALLERY) {
       _showGallery(galleryUserId, true);
+    } else if (mode == MODE_GLOBAL_GALLERY) {
+      _showGallery(null, true);
     }
 
     window.setTimeout(_hideLoadingScreen, 0);
@@ -4890,7 +4923,8 @@ var main = (function(){
 
     _createSignInUI();
 
-    if ((mode == MODE_CONTINUE) || (mode == MODE_JUST_SIGNED_IN) || (mode == MODE_GALLERY)) {
+    if ((mode == MODE_CONTINUE) || (mode == MODE_JUST_SIGNED_IN) || 
+        (mode == MODE_USER_GALLERY) || (mode == MODE_GLOBAL_GALLERY)) {
       //console.log('inside', mode == MODE_JUST_SIGNED_IN);
       if (settings.lastStreetId) {
         //console.log('further inside…');
@@ -4922,7 +4956,8 @@ var main = (function(){
         break;
       case MODE_EXISTING_STREET:
       case MODE_CONTINUE:
-      case MODE_GALLERY:
+      case MODE_USER_GALLERY:
+      case MODE_GLOBAL_GALLERY:
         _fetchStreetFromServer();
         break;
     }
@@ -5020,14 +5055,16 @@ var main = (function(){
       // Coming back from a successful sign in
 
       mode = MODE_JUST_SIGNED_IN;
-      //console.log('just signed in pt. 1');
+    } else if ((urlParts.length == 1) && (urlParts[0] == URL_GLOBAL_GALLERY)) {
+      // User gallery
+
+      mode = MODE_GLOBAL_GALLERY;
     } else if ((urlParts.length == 1) && urlParts[0]) {
       // User gallery
 
       galleryUserId = urlParts[0];
 
-      //console.log('_processUrl()');
-      mode = MODE_GALLERY;
+      mode = MODE_USER_GALLERY;
     } else if ((urlParts.length == 2) && (urlParts[0] == URL_NO_USER) && urlParts[1]) {
       // TODO add is integer urlParts[1];
       // Existing street by an anonymous person
@@ -5162,7 +5199,7 @@ var main = (function(){
 
   function _receiveAvatar(details) {
     if (details && details.id && details.profileImageUrl) {
-      console.log('AVATAR receive', details.id);
+      //console.log('AVATAR receive', details.id);
       avatarCache[details.id] = details.profileImageUrl;
       _updateAvatars();
     }
@@ -5173,7 +5210,8 @@ var main = (function(){
   function _errorReceiveStreet(data) {
     //console.log('failed to receive street!', data.status, data);
 
-    if ((mode == MODE_CONTINUE) || (mode == MODE_GALLERY)) {
+    if ((mode == MODE_CONTINUE) || (mode == MODE_USER_GALLERY) || 
+        (mode == MODE_GLOBAL_GALLERY)) {
       _goNewStreet();
     } else {
       // TODO finish this
@@ -5307,7 +5345,8 @@ var main = (function(){
         serverContacted = false;
         break;
       case MODE_CONTINUE:
-      case MODE_GALLERY:
+      case MODE_USER_GALLERY:
+      case MODE_GLOBAL_GALLERY:
         serverContacted = false;
         break;
       case MODE_JUST_SIGNED_IN:

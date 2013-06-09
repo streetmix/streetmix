@@ -179,7 +179,9 @@ body.gallery-visible #street-section-sky {
   }
 
   &.another-user #new-street,
-  &.another-user #copy-last-street {
+  &.another-user #copy-last-street,
+  &.all-streets #new-street,
+  &.all-streets #copy-last-street {
     display: none;
   }
 
@@ -224,6 +226,18 @@ body.gallery-visible #street-section-sky {
 
         &:first-child {
           margin-left: 0;
+        }
+
+        .creator {
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 18px;
+          text-align: center;
+          display: block;
+
+          font-size: 11px;
+          color: rgb(128, 128, 128);
         }
 
         .date {
@@ -282,11 +296,8 @@ body.gallery-visible #street-section-sky {
     }
   }
 
-  &.another-user .streets > li > a .remove {
-    display: none;
-  }
-  
-  &.another-user .streets {
+  &.another-user .streets,
+  &.all-streets .streets {
     left: 20px;
   }
 
