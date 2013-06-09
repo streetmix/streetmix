@@ -3252,7 +3252,7 @@ var main = (function(){
         whatIsThis.hideInfo();
 
         if (document.body.classList.contains('gallery-visible')) {
-          _hideGallery();
+          _hideGallery(false);
         } else {
           if (infoBubbleVisible) {
             _hideInfoBubble();
@@ -3662,9 +3662,16 @@ var main = (function(){
     }).done(_receiveGalleryData).fail(_errorReceiveGalleryData);
   }
 
-  function _errorReceiveGalleryData() {
-    document.querySelector('#gallery .loading').classList.remove('visible');
-    document.querySelector('#gallery .error-loading').classList.add('visible');    
+  function _errorReceiveGalleryData(data) {
+    if ((mode == MODE_GALLERY) && (data.status == 404)) {
+      abortEverything = true;
+      _hideGallery(true);
+      mode = MODE_404;
+      _processMode();
+    } else {
+      document.querySelector('#gallery .loading').classList.remove('visible');
+      document.querySelector('#gallery .error-loading').classList.add('visible');    
+    }
   }
 
   function _repeatReceiveGalleryData() {
@@ -3948,21 +3955,32 @@ var main = (function(){
         document.body.classList.remove('gallery-no-move-transition');
       }, 0);
     }
-    
+
     _loadGalleryContents();
 
     _updatePageUrl(true);
   }
 
-  function _hideGallery() {
+  function _hideGallery(instant) {
     if ((currentErrorType != ERROR_TYPE_NO_STREET) && galleryStreetLoaded) {
       galleryVisible = false;
 
+      if (instant) {
+        document.body.classList.add('gallery-no-move-transition');
+      }
       document.body.classList.remove('gallery-visible');
+
+      if (instant) {
+        window.setTimeout(function() {
+          document.body.classList.remove('gallery-no-move-transition');
+        }, 0);
+      }
 
       _onWindowFocus();
 
-      _updatePageUrl();
+      if (!abortEverything) {
+        _updatePageUrl();
+      }
     }
   }
 
