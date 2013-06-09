@@ -3327,8 +3327,12 @@ var main = (function(){
     return url;
   }
 
-  function _updatePageUrl() {
-    var url = _getStreetUrl(street);
+  function _updatePageUrl(forceGalleryUrl) {
+    if (forceGalleryUrl) {
+      var url = '/' + galleryUserId;
+    } else {
+      var url = _getStreetUrl(street);
+    }
 
     window.history.replaceState(null, null, url);
 
@@ -3948,6 +3952,8 @@ var main = (function(){
     document.body.classList.add('gallery-visible');
 
     _loadGalleryContents();
+
+    _updatePageUrl(true);
   }
 
   function _hideGallery() {
@@ -3957,6 +3963,8 @@ var main = (function(){
       document.body.classList.remove('gallery-visible');
 
       _onWindowFocus();
+
+      _updatePageUrl();
     }
   }
 
