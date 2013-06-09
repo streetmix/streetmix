@@ -2134,9 +2134,9 @@ var main = (function(){
   function _receiveRemixedStreet(data) {
     if (!promoteStreet) {
       if (signedIn) {
-        _statusMessage.show('Now editing a freshly-made duplicate of the original street. The copy has been put in your gallery.');
+        _statusMessage.show('Now editing a freshly-made duplicate of the original street. The duplicate has been put in your gallery.');
       } else {
-        _statusMessage.show('Now editing a freshly-made duplicate of the original street. <a href="/' + URL_SIGN_IN + '">Sign in</a> to start your own gallery of streets.');
+        _statusMessage.show('Now editing a freshly-made duplicate of the original street. <a href="/' + URL_SIGN_IN_REDIRECT + '">Sign in</a> to start your own gallery of streets.');
       }
     }
 
@@ -3958,7 +3958,8 @@ var main = (function(){
 
       var anchorEl = document.createElement('a');
 
-      galleryStreet.creatorId = galleryStreet.creator && galleryStreet.creator.id;
+      galleryStreet.creatorId = 
+          (galleryStreet.creator && galleryStreet.creator.id) || 'Anonymous';
 
       //console.log(galleryStreet);
 
@@ -5222,7 +5223,7 @@ var main = (function(){
       var userId = el.getAttribute('userId');
 
       if (avatarCache[userId]) {
-        console.log('AVATAR updated', userId);
+        //console.log('AVATAR updated', userId);
         el.style.backgroundImage = 'url(' + avatarCache[userId] + ')';
         el.setAttribute('loaded', true);
       }
@@ -5236,7 +5237,7 @@ var main = (function(){
       var userId = el.getAttribute('userId');
 
       if (userId && (typeof avatarCache[userId] == 'undefined')) {
-        console.log('AVATAR trying to fetch', userId);
+        //console.log('AVATAR trying to fetch', userId);
 
         _fetchAvatar(userId);
       }
