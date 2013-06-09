@@ -619,9 +619,8 @@ var main = (function(){
     mouseY: null,
     elX: null,
     elY: null,
-    // TODO unify names
-    origX: null,
-    origWidth: null,
+    originalX: null,
+    originalWidth: null,
     originalType: null,
     originalVariantString: null,
     right: false
@@ -637,8 +636,8 @@ var main = (function(){
     el: null,
     elX: null,
     elY: null,
-    origEl: null,
-    origWidth: null,
+    originalEl: null,
+    originalWidth: null,
     floatingElVisible: false
   };
 
@@ -2519,8 +2518,8 @@ var main = (function(){
     draggingResize.elX = pos[0];
     draggingResize.elY = pos[1];
 
-    draggingResize.origX = draggingResize.elX;
-    draggingResize.origWidth = parseFloat(el.segmentEl.getAttribute('width'));
+    draggingResize.originalX = draggingResize.elX;
+    draggingResize.originalWidth = parseFloat(el.segmentEl.getAttribute('width'));
     draggingResize.segmentEl = el.segmentEl;
 
     draggingResize.segmentEl.classList.add('hover');
@@ -2569,7 +2568,7 @@ var main = (function(){
     var deltaX = x - draggingResize.mouseX;
     var deltaY = y - draggingResize.mouseY;
 
-    var deltaFromOriginal = draggingResize.elX - draggingResize.origX;
+    var deltaFromOriginal = draggingResize.elX - draggingResize.originalX;
     if (!draggingResize.right) {
       deltaFromOriginal = -deltaFromOriginal;
     }
@@ -2577,7 +2576,7 @@ var main = (function(){
     draggingResize.elX += deltaX;
     draggingResize.floatingEl.style.left = draggingResize.elX + 'px';
 
-    var width = draggingResize.origWidth + deltaFromOriginal / TILE_SIZE * 2;
+    var width = draggingResize.originalWidth + deltaFromOriginal / TILE_SIZE * 2;
     var precise = event.shiftKey;
 
     if (precise) {
@@ -2608,20 +2607,20 @@ var main = (function(){
 
     _changeDraggingType(DRAGGING_TYPE_MOVE);
 
-    draggingMove.origEl = el;
+    draggingMove.originalEl = el;
 
-    draggingMove.originalType = draggingMove.origEl.getAttribute('type');
+    draggingMove.originalType = draggingMove.originalEl.getAttribute('type');
     draggingMove.originalVariantString = 
-        draggingMove.origEl.getAttribute('variant-string');
+        draggingMove.originalEl.getAttribute('variant-string');
 
-    if (draggingMove.origEl.classList.contains('palette')) {
+    if (draggingMove.originalEl.classList.contains('palette')) {
       draggingMove.type = DRAGGING_TYPE_MOVE_CREATE;
-      draggingMove.origWidth = 
+      draggingMove.originalWidth = 
           SEGMENT_INFO[draggingMove.originalType].defaultWidth * TILE_SIZE;
     } else {
       draggingMove.type = DRAGGING_TYPE_MOVE_TRANSFER;      
-      draggingMove.origWidth = 
-          draggingMove.origEl.offsetWidth;
+      draggingMove.originalWidth = 
+          draggingMove.originalEl.offsetWidth;
     }
 
     var pos = _getElAbsolutePos(el);
@@ -2631,7 +2630,7 @@ var main = (function(){
 
     if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
       draggingMove.elY += DRAG_OFFSET_Y_PALETTE;
-      draggingMove.elX -= draggingMove.origWidth / 3;
+      draggingMove.elX -= draggingMove.originalWidth / 3;
     }
 
     draggingMove.mouseX = x;
@@ -2648,7 +2647,7 @@ var main = (function(){
     _setSegmentContents(draggingMove.floatingEl, 
         draggingMove.originalType, 
         draggingMove.originalVariantString, 
-        draggingMove.origWidth);
+        draggingMove.originalWidth);
     document.body.appendChild(draggingMove.floatingEl);
 
     if (system.cssTransform) {
@@ -2660,7 +2659,7 @@ var main = (function(){
     }
 
     if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
-      draggingMove.origEl.classList.add('dragged-out');
+      draggingMove.originalEl.classList.add('dragged-out');
     }
 
     draggingMove.segmentBeforeEl = null;
@@ -2852,10 +2851,10 @@ var main = (function(){
 
     if (!withinCanvas) {
       if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
-        _removeElFromDom(draggingMove.origEl);
+        _removeElFromDom(draggingMove.originalEl);
       }
     } else if (draggingMove.segmentBeforeEl || draggingMove.segmentAfterEl || (street.segments.length == 0)) {
-      var width = draggingMove.origWidth;
+      var width = draggingMove.originalWidth;
 
       if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
         if ((street.remainingWidth > 0) && (width > street.remainingWidth * TILE_SIZE)) {
@@ -2897,9 +2896,9 @@ var main = (function(){
 
       _createTouchSegmentFadeout(newEl);
     } else {            
-      _createTouchSegmentFadeout(draggingMove.origEl);
+      _createTouchSegmentFadeout(draggingMove.originalEl);
 
-      draggingMove.origEl.classList.remove('dragged-out');
+      draggingMove.originalEl.classList.remove('dragged-out');
     }
 
     _removeElFromDom(draggingMove.floatingEl);
