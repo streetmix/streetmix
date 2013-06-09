@@ -3389,12 +3389,14 @@ var main = (function(){
 
     if (street.creatorId && (!signedIn || (street.creatorId != signInData.userId))) {
       // TODO const
-      var html = "by <div class='avatar'></div>" +
+      var html = "by <div class='avatar' userId='" + street.creatorId + "'></div>" +
           "<a class='user-gallery' href='/" +  
           street.creatorId + "'>" + street.creatorId + "</a> · " +
           _formatDate(moment(street.updatedAt));
 
       document.querySelector('#street-attribution').innerHTML = html;
+
+      _fetchAvatars();
 
       document.querySelector('#street-attribution .user-gallery').addEventListener('click', _onAnotherUserIdClick);
 
@@ -3933,6 +3935,9 @@ var main = (function(){
     galleryStreetLoaded = true;
     galleryStreetId = street.id;
     galleryUserId = userId;
+
+    document.querySelector('#gallery .avatar').setAttribute('userId', galleryUserId);
+    _fetchAvatars();
 
     document.querySelector('#gallery .user-id').innerHTML = galleryUserId;
     document.querySelector('#gallery .street-count').innerHTML = '';
@@ -4634,7 +4639,7 @@ var main = (function(){
     _addEventListeners();
 
     // TODO hack – we should store the avatar somewhere before
-    _fetchStreetCreatorAvatar();
+    // _fetchStreetCreatorAvatar();
 
     if (mode == MODE_GALLERY) {
       _showGallery(galleryUserId, true);
@@ -4742,6 +4747,8 @@ var main = (function(){
     signInData.details = details;
     _saveSignInData();
 
+    _receiveAvatar(details);
+
     signedIn = true;
     _signInLoaded();
   }
@@ -4811,8 +4818,9 @@ var main = (function(){
   function _createSignInUI() {
     if (signedIn) {
       var el = document.createElement('div');
-      el.style.backgroundImage = 'url(' + signInData.details.profileImageUrl + ')';
+      //el.style.backgroundImage = 'url(' + signInData.details.profileImageUrl + ')';
       el.classList.add('avatar');
+      el.setAttribute('userId', signInData.userId);
       document.querySelector('#identity').appendChild(el);
 
       var el = document.createElement('button');
@@ -4824,6 +4832,8 @@ var main = (function(){
       document.querySelector('#identity').classList.add('visible');
 
       document.querySelector('#gallery-link').classList.add('visible');
+
+      _fetchAvatars();
     } else {
       var el = document.createElement('a');
       el.href = '/' + URL_SIGN_IN_REDIRECT;
@@ -5068,7 +5078,57 @@ var main = (function(){
     }).done(_receiveStreet).fail(_errorReceiveStreet);
   }
 
-  function _fetchStreetCreatorAvatar() {
+  // TODO move
+
+  var avatarCache = {};
+
+  function _updateAvatars() {
+    var els = document.querySelectorAll('.avatar:not([loaded])');
+
+    for (var i = 0, el; el = els[i]; i++) {
+      var userId = el.getAttribute('userId');
+
+      if (avatarCache[userId]) {
+        el.style.backgroundImage = 'url(' + avatarCache[userId] + ')';
+        el.setAttribute('loaded', true);
+      }
+    }
+  }
+
+  function _fetchAvatars() {
+    var els = document.querySelectorAll('.avatar:not([loaded])');
+
+    for (var i = 0, el; el = els[i]; i++) {
+      var userId = el.getAttribute('userId');
+
+      if (userId && (typeof avatarCache[userId] == 'undefined')) {
+        //console.log('AVATAR trying to fetch', userId,);
+
+        _fetchAvatar(userId);
+      }
+    }
+
+    _updateAvatars();
+  }
+
+  function _fetchAvatar(userId) {
+    avatarCache[userId] = null;
+  
+    jQuery.ajax({
+      dataType: 'json',
+      url: system.apiUrl + 'v1/users/' + userId
+    }).done(_receiveAvatar);
+  }
+
+  function _receiveAvatar(details) {
+    if (details && details.id && details.profileImageUrl) {
+      console.log('AVATAR receive', details.id);
+      avatarCache[details.id] = details.profileImageUrl;
+      _updateAvatars();
+    }
+  }
+
+  /*function _fetchStreetCreatorAvatar() {
     //console.log('fetch street creator avatar');
 
     if (street.creatorId) {
@@ -5089,7 +5149,7 @@ var main = (function(){
             'url(' + details.profileImageUrl + ')';
       }
     }
-  }
+  }*/
 
   function _receiveStreet(transmission) {
     //console.log('received street', transmission);
@@ -5099,7 +5159,7 @@ var main = (function(){
     if (!signedIn || (street.creatorId != signInData.userId)) {
       remixOnFirstEdit = true;
 
-      _fetchStreetCreatorAvatar();
+      //_fetchStreetCreatorAvatar();
 
     } else {
       remixOnFirstEdit = false;

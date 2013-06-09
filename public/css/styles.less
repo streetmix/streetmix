@@ -136,10 +136,18 @@ body.gallery-visible #street-section-sky {
   -o-transform: translateY(-@galleryHeight - 30px);
   transform: translateY(-@galleryHeight - 30px);  
 
-  .user-id {
+  .avatar {
     position: absolute;
     left: 20px;
     top: 12px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .user-id {
+    position: absolute;
+    left: 60px;
+    top: 15px;
 
     font-size: 24px;
   }
@@ -183,7 +191,7 @@ body.gallery-visible #street-section-sky {
     white-space: nowrap;
 
     position: absolute;
-    left: 125px;
+    left: 130px;
     right: 5px;
     top: 50px;
     height: @galleryHeight + 20px; // To cover the scroll bar
@@ -213,6 +221,10 @@ body.gallery-visible #street-section-sky {
         font-size: 13px;
 
         position: relative;
+
+        &:first-child {
+          margin-left: 0;
+        }
 
         .date {
           position: absolute;
@@ -1384,6 +1396,7 @@ body.no-connection-message-visible #status-message {
   }
 }
 
+// TODO confusing with .menu
 #menu {
   z-index: 500000;
   display: block;
@@ -1829,10 +1842,13 @@ body.no-connection-message-visible #status-message {
   background-size: 100%;
   width: 20px;
   height: 20px;
-  margin-top: -1px;
   border: 1px solid @lightTextColour;
-  margin-right: 6px;
-  vertical-align: middle;
   box-shadow: 0 1px 1px rgba(0, 0, 0, .5);
 }
 
+#menu .avatar,
+#street-attribution .avatar {
+  margin-right: 6px;
+  vertical-align: middle;  
+  margin-top: -1px;
+}
