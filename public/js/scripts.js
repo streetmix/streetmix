@@ -62,6 +62,7 @@ var main = (function(){
   var MODE_SIGN_OUT = 7;
   var MODE_FORCE_RELOAD_SIGN_IN = 8;
   var MODE_FORCE_RELOAD_SIGN_OUT = 9;
+  var MODE_GALLERY = 10;
 
   var ERROR_TYPE_404 = 1;
   var ERROR_TYPE_SIGN_OUT = 2;
@@ -4596,6 +4597,9 @@ var main = (function(){
       case MODE_NEW_STREET_COPY_LAST:
         _onNewStreetLastClick();
         break;
+      case MODE_GALLERY:
+        _showGallery(galleryUserId);
+        break;
     }
 
     _resizeStreetWidth();
@@ -4818,7 +4822,7 @@ var main = (function(){
 
     _createSignInUI();
 
-    if ((mode == MODE_CONTINUE) || (mode == MODE_JUST_SIGNED_IN)) {
+    if ((mode == MODE_CONTINUE) || (mode == MODE_JUST_SIGNED_IN) || (mode == MODE_GALLERY)) {
       //console.log('inside', mode == MODE_JUST_SIGNED_IN);
       if (settings.lastStreetId) {
         //console.log('further inside…');
@@ -4835,7 +4839,9 @@ var main = (function(){
           //console.log('promoting!');
         }
         
-        mode = MODE_CONTINUE;
+        if (mode == MODE_JUST_SIGNED_IN) {
+          mode = MODE_CONTINUE;
+        }
       } else {
         mode = MODE_NEW_STREET;
       }
@@ -4848,6 +4854,7 @@ var main = (function(){
         break;
       case MODE_EXISTING_STREET:
       case MODE_CONTINUE:
+      case MODE_GALLERY:
         _fetchStreetFromServer();
         break;
     }
@@ -4945,8 +4952,10 @@ var main = (function(){
     } else if ((urlParts.length == 1) && urlParts[0]) {
       // User gallery
 
-      console.log('_processUrl()');
-      mode = MODE_404;
+      galleryUserId = urlParts[0];
+
+      //console.log('_processUrl()');
+      mode = MODE_GALLERY;
     } else if ((urlParts.length == 2) && (urlParts[0] == URL_NO_USER) && urlParts[1]) {
       // TODO add is integer urlParts[1];
       // Existing street by an anonymous person
@@ -5089,7 +5098,7 @@ var main = (function(){
   function _errorReceiveStreet(data) {
     //console.log('failed to receive street!', data.status, data);
 
-    if (mode == MODE_CONTINUE) {
+    if ((mode == MODE_CONTINUE) || (mode == MODE_GALLERY)) {
       _goNewStreet();
     } else {
       // TODO finish this
@@ -5223,6 +5232,7 @@ var main = (function(){
         serverContacted = false;
         break;
       case MODE_CONTINUE:
+      case MODE_GALLERY:
         serverContacted = false;
         break;
       case MODE_JUST_SIGNED_IN:
