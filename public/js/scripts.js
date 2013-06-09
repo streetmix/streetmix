@@ -3362,7 +3362,7 @@ var main = (function(){
 
     var userId = el.innerHTML;
 
-    _showGallery(userId);
+    _showGallery(userId, false);
 
     event.preventDefault();
   }
@@ -3739,17 +3739,20 @@ var main = (function(){
     }
   }
 
+  function _switchGalleryStreet(id) {
+    galleryStreetId = id;
+
+    _updateGallerySelection();
+    _fetchGalleryStreet(galleryStreetId);    
+  }
+
   function _onGalleryStreetClick(event) {
     if (event.shiftKey || event.ctrlKey || event.metaKey) {
       return;
     }
 
     var el = event.target;
-    galleryStreetId = el.getAttribute('streetId');
-
-    _updateGallerySelection();
-
-    _fetchGalleryStreet(galleryStreetId);
+    _switchGalleryStreet(el.getAttribute('streetId'));
 
     event.preventDefault();
   }
@@ -3848,24 +3851,6 @@ var main = (function(){
 
     document.querySelector('#gallery .loading').classList.remove('visible');
 
-
-
-    /*var el = document.createElement('li');
-    var newEl = document.createElement('a');
-    newEl.innerHTML = 'New street';
-    newEl.href = '/' + URL_NEW_STREET;
-    el.appendChild(newEl);
-    document.querySelector('#gallery .streets').appendChild(el);
-
-    var el = document.createElement('li');
-    var newEl = document.createElement('a');
-    newEl.innerHTML = 'Make a copy of the current street';
-    newEl.href = '/' + URL_NEW_STREET_COPY_LAST;
-    el.appendChild(newEl);
-    document.querySelector('#gallery .streets').appendChild(el);*/
-
-    //console.log('street count', transmission.streets.length);
-
     var streetCount = transmission.streets.length;
     switch (streetCount) {
       case 0: 
@@ -3879,7 +3864,6 @@ var main = (function(){
         break;
     }
     document.querySelector('#gallery .street-count').innerHTML = text;
-
 
     for (var i in transmission.streets) {
       var galleryStreet = transmission.streets[i];
@@ -3923,6 +3907,10 @@ var main = (function(){
       el.appendChild(anchorEl);
       document.querySelector('#gallery .streets').appendChild(el);
     }
+
+    if ((mode == MODE_GALLERY) && streetCount) {
+      _switchGalleryStreet(transmission.streets[0].id);
+    }
   }
 
   function _loadGalleryContents() {
@@ -3933,7 +3921,7 @@ var main = (function(){
     _fetchGalleryData();  
   }
 
-  function _showGallery(userId) {
+  function _showGallery(userId, instant) {
     galleryVisible = true;
     galleryStreetLoaded = true;
     galleryStreetId = street.id;
@@ -3950,8 +3938,17 @@ var main = (function(){
       document.querySelector('#gallery').classList.add('another-user'); 
     }
 
+    if (instant) {
+      document.body.classList.add('gallery-no-move-transition');
+    }
     document.body.classList.add('gallery-visible');
 
+    if (instant) {
+      window.setTimeout(function() {
+        document.body.classList.remove('gallery-no-move-transition');
+      }, 0);
+    }
+    
     _loadGalleryContents();
 
     _updatePageUrl(true);
@@ -3970,7 +3967,7 @@ var main = (function(){
   }
 
   function _onMyStreetsClick(event) {
-    _showGallery(signInData.userId);
+    _showGallery(signInData.userId, false);
 
     event.preventDefault();
   }
@@ -4617,15 +4614,15 @@ var main = (function(){
     // TODO hack – we should store the avatar somewhere before
     _fetchStreetCreatorAvatar();
 
+    if (mode == MODE_GALLERY) {
+      _showGallery(galleryUserId, true);
+    }
+
     window.setTimeout(_hideLoadingScreen, 0);
 
     if (promoteStreet) {
       //console.log('would promote now');
       _remixStreet();
-    }
-
-    if (mode == MODE_GALLERY) {
-      _showGallery(galleryUserId);
     }
   }
 
