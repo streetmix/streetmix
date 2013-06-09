@@ -1720,24 +1720,24 @@ var main = (function(){
     }
   }
 
-/*  function _debugOutputUndoStack() {
+  function _debugOutputUndoStack() {
     var name = '';
     for (var i = 0; i < undoStack.length; i++) {
       name += ' ' + undoStack[i].name;
     }
     console.log('…' + name);
-  }*/
+  }
 
   function _optimizeUndoStack() {
     // TODO shouldn’t have to do it over and over again
-    //console.log('--- OPTIMIZE UNDO');
+    console.log('--- OPTIMIZE UNDO');
 
-    //console.log('counting to', undoPosition - 2);
+    console.log('counting to', undoPosition - 2);
 
     // Remove all the undo entries that are only name changes (#314), except
     // if it’s the immediate last one
     for (var i = 0; i < undoPosition - 1; i++) {
-      //console.log(i);
+      console.log(i);
       var first = undoStack[i];
       var second = undoStack[i + 1];
 
@@ -1745,18 +1745,24 @@ var main = (function(){
         //console.log('name undo', first.name, second.name);
 
         undoPosition--;
-        //console.log('BEFORE undo length', undoStack.length);
-        //_debugOutputUndoStack();
+        console.log('BEFORE undo length', undoStack.length);
+        _debugOutputUndoStack();
         undoStack.splice(i, 1);
-        //console.log('AFTER undo length', undoStack.length);
-        //_debugOutputUndoStack();
+        i--;
+        console.log('AFTER undo length', undoStack.length);
+        _debugOutputUndoStack();
       }
       //console.log(first);
     }
 
     // Rename all the names to the current one
+    if (undoStack[undoPosition - 1]) {
+      var newName = undoStack[undoPosition - 1].name;
+    } else {
+      var newName = street.name;
+    }
     for (var i = 0; i < undoPosition - 1; i++) {
-      undoStack[i].name = street.name;
+      undoStack[i].name = newName;
     }
   }
 
