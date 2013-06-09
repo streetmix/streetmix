@@ -1809,7 +1809,7 @@ var main = (function(){
     return request.type + ' ' + request.url;
   }
 
-  function _newNonblockingAjaxRequest(request, allowToClosePage, doneFunc) {
+  function _newNonblockingAjaxRequest(request, allowToClosePage, doneFunc, errorFunc) {
     nonblockingAjaxRequestTimer = 0;
 
     //console.log('new request added…');
@@ -1821,7 +1821,8 @@ var main = (function(){
     _removeNonblockingAjaxRequest(signature);
     nonblockingAjaxRequests.push( 
       { request: request, allowToClosePage: allowToClosePage, 
-        doneFunc: doneFunc, signature: signature }
+        doneFunc: doneFunc, errorFunc: errorFunc,
+        signature: signature }
     );
 
     //_debugOutput();
@@ -1857,7 +1858,9 @@ var main = (function(){
 
         var query = jQuery.ajax(request.request).done(function(data) {
           _successNonblockingAjaxRequest(data, request);
-        }).fail(_tempFail);
+        }).fail(function(data) {
+          _errorNonblockingAjaxRequest(data, request);
+        });
       }
       
       _scheduleNextNonblockingAjaxRequest();
@@ -1900,6 +1903,12 @@ var main = (function(){
     }    
   }
 
+  function _errorNonblockingAjaxRequest(data, request) {
+    if (request.errorFunc) {
+      request.errorFunc(data);
+    }    
+  }
+
   function _successNonblockingAjaxRequest(data, request) {
     nonblockingAjaxRequestTimer = 0;
     //nonblockingAjaxRequestCount--;
@@ -1926,7 +1935,7 @@ var main = (function(){
     //_debugOutput();
 
     if (request.doneFunc) {
-      request.doneFunc();
+      request.doneFunc(data);
     }
 
     _scheduleNextNonblockingAjaxRequest();
@@ -1987,7 +1996,18 @@ var main = (function(){
       type: 'PUT',
       contentType: 'application/json',
       headers: { 'Authorization': _getAuthHeader() }
-    }, true);
+    }, true, null, _errorSavingSettingsToServer);
+
+//      function _newNonblockingAjaxRequest(request, allowToClosePage, doneFunc, errorFunc) {
+  }
+
+  function _errorSavingSettingsToServer(data) {
+    if (data.status == 401) {
+      mode = MODE_FORCE_RELOAD_SIGN_OUT_401;
+      abortEverything = true;
+      _processMode();
+    }
+    //alert(data.status);
   }
 
   function _clearScheduledSavingStreetToServer() {
@@ -4811,7 +4831,7 @@ var main = (function(){
     }    
   }
 
-  function _saveSignInData() {
+  function _saveSignInDataLocally() {
     if (signInData) {
       window.localStorage[LOCAL_STORAGE_SIGN_IN_ID] = JSON.stringify(signInData);
     } else {
@@ -4834,7 +4854,7 @@ var main = (function(){
       signInData = { token: signInCookie, userId: userIdCookie };
 
       _removeSignInCookies();
-      _saveSignInData();
+      _saveSignInDataLocally();
     } else {
       if (window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
         signInData = JSON.parse(window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]);
@@ -4875,7 +4895,7 @@ var main = (function(){
     //console.log('receive sign in details', details);
 
     signInData.details = details;
-    _saveSignInData();
+    _saveSignInDataLocally();
 
     _receiveAvatar(details);
 
@@ -4897,7 +4917,7 @@ var main = (function(){
     // Fail silently
 
     signInData = null;
-    _saveSignInData();
+    _saveSignInDataLocally();
 
     signedIn = false;
     _signInLoaded();
@@ -5179,7 +5199,7 @@ var main = (function(){
     _saveStreetToServer(true);
   }
 
-  function _errorReceiveNewStreet() {
+  function _errorReceiveNewStreet(data) {
     //console.log('failed new street!');
 
     _showError(ERROR_NEW_STREET_SERVER_FAILURE);
@@ -5286,6 +5306,14 @@ var main = (function(){
     }
   }
 
+  function _goReloadClearSignIn() {
+    signInData = null;
+    _saveSignInDataLocally();
+    _removeSignInCookies();
+
+    location.reload();
+  }
+
   function _goReload() {
     location.reload();
   }
@@ -5329,7 +5357,7 @@ var main = (function(){
         break;
       case ERROR_FORCE_RELOAD_SIGN_OUT_401:
         title = 'You signed out in another window.';
-        description = 'Please reload this page before continuing.<br>(Error 401)<br><button class="reload">Reload the page</button>';
+        description = 'Please reload this page before continuing.<br>(Error 401)<br><button class="clear-sign-in-reload">Reload the page</button>';
         break;
       case ERROR_FORCE_RELOAD_SIGN_IN:
         title = 'You signed in in another window.';
@@ -5362,6 +5390,11 @@ var main = (function(){
     var el = document.querySelector('#error .reload');
     if (el) {
       el.addEventListener('click', _goReload);
+    }
+
+    var el = document.querySelector('#error .clear-sign-in-reload');
+    if (el) {
+      el.addEventListener('click', _goReloadClearSignIn);
     }
 
     var el = document.querySelector('#error .new');
