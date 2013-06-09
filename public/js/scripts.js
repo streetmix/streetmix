@@ -3995,6 +3995,8 @@ var main = (function(){
       if (!abortEverything) {
         _updatePageUrl();
       }
+
+      mode = MODE_CONTINUE;      
     }
   }
 
