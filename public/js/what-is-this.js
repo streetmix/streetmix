@@ -87,7 +87,7 @@ var whatIsThis = (function(){
 
     cssCode = [];
     cssCode.push('#what-is-this-teaser {');
-    cssCode.push('  z-index: 5000;');
+    cssCode.push('  z-index: 100000;');
     cssCode.push('  background: rgba(0, 0, 0, .7);');
     cssCode.push('  color: rgb(210, 210, 210);');
     cssCode.push('  box-shadow: 0 2px 5px rgba(0, 0, 0, .2);');

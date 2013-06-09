@@ -20,6 +20,8 @@ var main = (function(){
 
     UI_DRAG_HERE_TO_REMOVE: 'Drag here to remove',
 
+    PROMPT_NEW_STREET_NAME: 'New street name:',
+
     MENU_SWITCH_TO_IMPERIAL: 'Switch to imperial units (feet)',
     MENU_SWITCH_TO_METRIC: 'Switch to metric units',
 
@@ -3194,6 +3196,7 @@ var main = (function(){
       return;
     } else if (newStreetWidth == STREET_WIDTH_CUSTOM) {
       _ignoreWindowFocusMomentarily();
+      // TODO string
       var width = prompt("New street width (from " + 
           _prettifyWidth(MIN_CUSTOM_STREET_WIDTH, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP) + 
           " to " + 
@@ -3517,7 +3520,7 @@ var main = (function(){
 
   function _askForStreetName() {
     _ignoreWindowFocusMomentarily();
-    var newName = prompt('New street name:', street.name);
+    var newName = prompt(msg('PROMPT_NEW_STREET_NAME'), street.name);
 
     if (newName) {
       street.name = _normalizeStreetName(newName);
@@ -3529,7 +3532,8 @@ var main = (function(){
 
   function _fetchStreetForVerification() {
     // Don’t do it with any network services pending
-    if (_getNonblockingAjaxRequestCount() || blockingAjaxRequestInProgress || saveStreetIncomplete) {
+    if (_getNonblockingAjaxRequestCount() || blockingAjaxRequestInProgress || 
+        saveStreetIncomplete) {
       return;
     }
 
@@ -3542,27 +3546,11 @@ var main = (function(){
     }).done(_receiveStreetForVerification).fail(_errorReceiveStreetForVerification);
   }
 
-  // Compare two objects regardless of the order of their properties
-  /*function _equalObject(obj1, obj2) {
-    
-    function __equalObject(o1, o2) {
-      return JSON.stringify(o1)
-          === JSON.stringify($.extend(true, {}, o1, o2));
-    }
-
-    return __equalObject(obj1, obj2) && __equalObject(obj2, obj1);
-  }*/
-
   function _receiveStreetForVerification(transmission) {
-    //console.log('verify');
-
     var localStreetData = _trimStreetData(street);
     var serverStreetData = _trimStreetData(_unpackStreetDataFromServerTransmission(transmission));
 
-    // TODO should not be necessary to use this function instead of just 
-    // stringifying, since we’re recreating both above
     if (JSON.stringify(localStreetData) != JSON.stringify(serverStreetData)) {
-    //if (!_equalObject(localStreetData, serverStreetData)) {
       console.log('NOT EQUAL');
       console.log('-');
       console.log(JSON.stringify(localStreetData));
@@ -3907,6 +3895,7 @@ var main = (function(){
   }
 
   function _formatDate(date) {
+    // TODO const
     return date.format('MMM D, YYYY');
   }
 
