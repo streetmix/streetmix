@@ -3759,9 +3759,9 @@ var main = (function(){
   function _errorReceiveGalleryData(data) {
     if ((mode == MODE_USER_GALLERY) && (data.status == 404)) {
       abortEverything = true;
-      _hideGallery(true);
       mode = MODE_404;
       _processMode();
+      _hideGallery(true);
     } else {
       document.querySelector('#gallery .loading').classList.remove('visible');
       document.querySelector('#gallery .error-loading').classList.add('visible');    
@@ -4051,6 +4051,14 @@ var main = (function(){
 
     if (((mode == MODE_USER_GALLERY) && streetCount) || (mode == MODE_GLOBAL_GALLERY)) {
       _switchGalleryStreet(transmission.streets[0].id);
+    }
+
+    var el = document.querySelector('#gallery .selected');
+    if (el) {
+      //console.log(el.parentNode.parentNode.scrollLeft);
+      el.scrollIntoView();
+      //console.log(el.parentNode.parentNode.scrollLeft);
+      document.querySelector('#gallery').scrollTop = 0;
     }
   }
 
