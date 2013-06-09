@@ -3888,7 +3888,7 @@ var main = (function(){
 
       var anchorEl = document.createElement('a');
 
-      galleryStreet.creatorId = signInData.userId;
+      galleryStreet.creatorId = galleryStreet.creator && galleryStreet.creator.id;
 
       //console.log(galleryStreet);
 
