@@ -3961,6 +3961,10 @@ var main = (function(){
     _updatePageUrl(true);
   }
 
+  function _onGalleryShieldClick(event) {
+    _hideGallery(false);
+  }
+
   function _hideGallery(instant) {
     if ((currentErrorType != ERROR_TYPE_NO_STREET) && galleryStreetLoaded) {
       galleryVisible = false;
@@ -4087,7 +4091,7 @@ var main = (function(){
     document.querySelector('#blocking-shield-cancel').addEventListener('click', _blockingCancel);
     document.querySelector('#blocking-shield-try-again').addEventListener('click', _blockingTryAgain);
     document.querySelector('#blocking-shield-reload').addEventListener('click', _goReload);
-    document.querySelector('#gallery-shield').addEventListener('click', _hideGallery);
+    document.querySelector('#gallery-shield').addEventListener('click', _onGalleryShieldClick);
 
     document.querySelector('#new-street-default').addEventListener('click', _onNewStreetDefaultClick);
     document.querySelector('#new-street-empty').addEventListener('click', _onNewStreetEmptyClick);
