@@ -138,7 +138,6 @@ var main = (function(){
 
   var MAX_DRAG_DEGREE = 20;
 
-
   var UNDO_LIMIT = 100;
 
   var STREET_WIDTH_CUSTOM = -1;
@@ -238,6 +237,8 @@ var main = (function(){
   var SEGMENT_OWNER_PEDESTRIAN = 'pedestrian';
   var SEGMENT_OWNER_PUBLIC_TRANSIT = 'public-transit';
   var SEGMENT_OWNER_NATURE = 'nature';
+
+  var VARIANT_SEPARATOR = '|';
 
   var SEGMENT_OWNERS = {
     'car': {
@@ -1359,8 +1360,7 @@ var main = (function(){
   function _getVariantString(variant) {
     var string = '';
     for (var i in variant) {
-      // TODO const
-      string += variant[i] + '|';
+      string += variant[i] + VARIANT_SEPARATOR;
     }
 
     string = string.substr(0, string.length - 1);
@@ -2246,8 +2246,7 @@ var main = (function(){
 
   function _getVariantArray(segment, variantString) {
     var variantArray = {};
-    // TODO const
-    var variantSplit = variantString.split('|');
+    var variantSplit = variantString.split(VARIANT_SEPARATOR);
 
     for (var i in SEGMENT_INFO[segment.type].variants) {
       var variantName = SEGMENT_INFO[segment.type].variants[i];
@@ -3486,8 +3485,6 @@ var main = (function(){
     }
 
     var url = _getFetchStreetUrl();
-
-    //console.log('verifying street', '|' + url + '|');
 
     jQuery.ajax({
       url: url,
@@ -5221,8 +5218,6 @@ var main = (function(){
 
   function _fetchStreetFromServer() {
     var url = _getFetchStreetUrl();
-
-    //console.log('try to get street from server', '|' + url + '|');
 
     jQuery.ajax({
       url: url,
