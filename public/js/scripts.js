@@ -2108,6 +2108,9 @@ var main = (function(){
   }
 
   function _addRemixSuffixToName() {
+    // Removed for the time being to see if we like it without this.
+    return;
+
     if (street.name.substr(street.name.length - STREET_NAME_REMIX_SUFFIX.length, 
         STREET_NAME_REMIX_SUFFIX.length) != STREET_NAME_REMIX_SUFFIX) {
       street.name += ' ' + STREET_NAME_REMIX_SUFFIX;
