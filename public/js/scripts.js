@@ -15,6 +15,16 @@ var main = (function(){
   // TODO reorder/clean up constants
 
   var MESSAGES = {
+    BUTTON_UNDO: 'Undo',
+    BUTTON_REDO: 'Redo',
+
+    UI_DRAG_HERE_TO_REMOVE: 'Drag here to remove',
+
+    MENU_SWITCH_TO_IMPERIAL: 'Switch to imperial units (feet)',
+    MENU_SWITCH_TO_METRIC: 'Switch to metric units',
+
+    TOOLTIP_REMOVE_SEGMENT: 'Remove segment',
+
     STATUS_SEGMENT_DELETED: 'The segment has been deleted.',
     STATUS_ALL_SEGMENTS_DELETED: 'All segments have been deleted.',
     STATUS_NOTHING_TO_UNDO: 'Nothing to undo.',
@@ -1451,7 +1461,7 @@ var main = (function(){
       innerEl.innerHTML = '×';
       innerEl.segmentEl = el;
       innerEl.tabIndex = -1;
-      innerEl.setAttribute('title', 'Remove segment');
+      innerEl.setAttribute('title', msg('TOOLTIP_REMOVE_SEGMENT'));
       if (system.touch) {      
         innerEl.addEventListener('touchstart', _onRemoveButtonClick);
       } else {
@@ -3151,7 +3161,7 @@ var main = (function(){
     var el = document.createElement('option');
     el.value = STREET_WIDTH_SWITCH_TO_IMPERIAL;
     el.id = 'switch-to-imperial-units';
-    el.innerHTML = 'Switch to imperial units (feet)';
+    el.innerHTML = msg('MENU_SWITCH_TO_IMPERIAL');
     if (street.units == SETTINGS_UNITS_IMPERIAL) {
       el.disabled = true;
     }
@@ -3160,10 +3170,11 @@ var main = (function(){
     var el = document.createElement('option');
     el.value = STREET_WIDTH_SWITCH_TO_METRIC;
     el.id = 'switch-to-metric-units';
-    el.innerHTML = 'Switch to metric units';
+    el.innerHTML = msg('MENU_SWITCH_TO_METRIC');
     if (street.units == SETTINGS_UNITS_METRIC) {
       el.disabled = true;
     }
+
     document.querySelector('#street-width').appendChild(el);  
 
     document.querySelector('#street-width').value = street.width;   
@@ -4407,7 +4418,7 @@ var main = (function(){
 
       if (undo) {
         var buttonEl = document.createElement('button');
-        buttonEl.innerHTML = 'Undo';
+        buttonEl.innerHTML = msg('BUTTON_UNDO');
         buttonEl.addEventListener('click', _undo);
         document.querySelector('#status-message > div').appendChild(buttonEl);
       }
@@ -5482,10 +5493,21 @@ var main = (function(){
         break;
     }
   }
+
+  function _fillDom() {
+    // TODO Instead of doing like this, put variables in the index.html, and fill
+    // them out?
+    $('#undo').text(msg('BUTTON_UNDO'));
+    $('#redo').text(msg('BUTTON_REDO'));
+
+    $('#trashcan').text(msg('UI_DRAG_HERE_TO_REMOVE'));
+  }
  
   main.init = function() {
     initializing = true;
     ignoreStreetChanges = true;
+
+    _fillDom();
 
     // Temporary as per https://github.com/Modernizr/Modernizr/issues/788#issuecomment-12513563
     Modernizr.addTest('pagevisibility', !!Modernizr.prefixed('hidden', document, false));
