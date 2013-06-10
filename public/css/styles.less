@@ -1787,7 +1787,6 @@ body.no-connection-message-visible #status-message {
   position: absolute;
   z-index: 10000000000;
   min-width: 200px;
-  min-height: 80px;
   background: white;
 
   opacity: 0;
@@ -1842,6 +1841,8 @@ body.no-connection-message-visible #status-message {
   .variants {
     text-align: left;
     padding: 5px 5px;
+
+    min-height: @infoBubbleButtonSize;
 
     margin-right: 170px; // Clear width
 
