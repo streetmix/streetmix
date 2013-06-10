@@ -4488,6 +4488,10 @@ var main = (function(){
       }
       widthCanvasEl.appendChild(innerEl);        
 
+      var innerEl = document.createElement('input');
+      innerEl.classList.add('width');
+      widthCanvasEl.appendChild(innerEl);        
+
       var innerEl = document.createElement('button');
       innerEl.classList.add('increment');
       innerEl.innerHTML = '+';

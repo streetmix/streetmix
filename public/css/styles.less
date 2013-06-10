@@ -1796,7 +1796,6 @@ body.no-connection-message-visible #status-message {
   min-height: 80px;
   background: white;
 
-
   opacity: 0;
   pointer-events: none;
 
@@ -1850,7 +1849,7 @@ body.no-connection-message-visible #status-message {
     text-align: left;
     padding: 5px 5px;
 
-    margin-right: 100px; // Clear width
+    margin-right: 170px; // Clear width
 
     button {
       margin-left: 3px;
@@ -1870,13 +1869,32 @@ body.no-connection-message-visible #status-message {
     position: absolute;
     right: 5px;
     top: @infoBubbleButtonSize + 13px;
-    padding-top: 0;
+    width: 150px;
     height: @infoBubbleButtonSize;
     line-height: @infoBubbleButtonSize;  
 
+    white-space: nowrap;
+
+    text-align: right;
+
     button {
-      margin-left: 6px;
     }  
+
+    .width {
+      width: 50px;
+      margin: 0 3px;
+
+      background: rgb(245, 245, 245);
+      text-align: center;
+
+      font-family: Arial;
+      font-size: 13px;
+      vertical-align: bottom;
+      line-height: 25px;
+      height: 25px;
+
+      outline: none;
+    }
   }
 
   button {
