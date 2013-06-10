@@ -717,8 +717,12 @@ var main = (function(){
     touch: false,
     hiDpi: 1.0,
     cssTransform: false,
-    ipAddress: null
+    ipAddress: null,
+
+    viewportWidth: null,
+    viewportHeight: null
   };
+
 
   var segmentWidthResolution;
   var segmentWidthClickIncrement;
@@ -3072,15 +3076,15 @@ var main = (function(){
   }
 
   function _onResize() {
-    var viewportWidth = window.innerWidth;
-    var viewportHeight = window.innerHeight;
+    system.viewportWidth = window.innerWidth;
+    system.viewportHeight = window.innerHeight;
 
     var streetSectionHeight = 
         document.querySelector('#street-section').offsetHeight;
 
     var paletteTop = document.querySelector('footer').offsetTop;
 
-    var pos = (viewportHeight - streetSectionHeight) / 2;
+    var pos = (system.viewportHeight - streetSectionHeight) / 2;
 
     // TODO const
     if (pos + document.querySelector('#street-section').offsetHeight > 
@@ -3097,7 +3101,7 @@ var main = (function(){
     document.querySelector('#street-section-sky').style.marginTop = -pos + 'px';
 
     streetSectionCanvasLeft = 
-        ((viewportWidth - street.width * TILE_SIZE) / 2);
+        ((system.viewportWidth - street.width * TILE_SIZE) / 2);
 
     document.querySelector('#street-section-canvas').style.left = 
       streetSectionCanvasLeft + 'px';
@@ -4777,6 +4781,13 @@ var main = (function(){
 
       bubbleX += segmentEl.offsetWidth / 2;
       bubbleX -= bubbleWidth / 2;
+
+      // TODO const
+      if (bubbleX < 20) {
+        bubbleX = 20;
+      } else if (bubbleX > system.viewportWidth - bubbleWidth - 20) {
+        bubbleX = system.viewportWidth - bubbleWidth - 20;
+      }
 
       if (system.cssTransform) {
         _infoBubble.el.style[system.cssTransform] = 'translateX(' + bubbleX + 'px)';
