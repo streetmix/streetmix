@@ -2903,37 +2903,38 @@ var main = (function(){
       // TODO hack
       for (var j in segmentInfo.details) {
         var variantName = j;
-        var variantInfo = segmentInfo.details[variantName];
-
-        var width = segmentInfo.defaultWidth;
-
-        if (variantInfo.realWidth > variantInfo.defaultWidth) {
-          width = variantInfo.realWidth;
-        }
-
-        if (variantInfo.graphics.center && (width < (variantInfo.graphics.center.width + 1))) {
-          width = variantInfo.graphics.center.width;
-        }
-
-        if (variantInfo.graphics.left && variantInfo.graphics.left.offsetX) {
-          width -= variantInfo.graphics.left.offsetX;
-        }
-        if (variantInfo.graphics.right && variantInfo.graphics.right.offsetX) {
-          width -= variantInfo.graphics.right.offsetX;
-        }
-
-        width += PALETTE_EXTRA_SEGMENT_PADDING;
-
-        var el = _createSegment(i, 
-          variantName,
-          width * TILE_SIZE / WIDTH_PALETTE_MULTIPLIER, 
-          false, 
-          true);
-
-        el.classList.add('palette');
-
-        document.querySelector('#palette').appendChild(el);
+        break;
       }
+      var variantInfo = segmentInfo.details[variantName];
+
+      var width = segmentInfo.defaultWidth;
+
+      if (variantInfo.realWidth > variantInfo.defaultWidth) {
+        width = variantInfo.realWidth;
+      }
+
+      if (variantInfo.graphics.center && (width < (variantInfo.graphics.center.width + 1))) {
+        width = variantInfo.graphics.center.width;
+      }
+
+      if (variantInfo.graphics.left && variantInfo.graphics.left.offsetX) {
+        width -= variantInfo.graphics.left.offsetX;
+      }
+      if (variantInfo.graphics.right && variantInfo.graphics.right.offsetX) {
+        width -= variantInfo.graphics.right.offsetX;
+      }
+
+      width += PALETTE_EXTRA_SEGMENT_PADDING;
+
+      var el = _createSegment(i, 
+        variantName,
+        width * TILE_SIZE / WIDTH_PALETTE_MULTIPLIER, 
+        false, 
+        true);
+
+      el.classList.add('palette');
+
+      document.querySelector('#palette').appendChild(el);
     }
   }
 
