@@ -2515,6 +2515,8 @@ var main = (function(){
 
     _infoBubble.hide();
     _infoBubble.hideSegment();
+
+    el.segmentEl.classList.add('hover');
   }
 
   function _handleSegmentResizeMove(event) {
@@ -4665,7 +4667,7 @@ var main = (function(){
 
       var innerEl = document.createElement('button');
       innerEl.classList.add('remove');
-      innerEl.innerHTML = 'D';
+      innerEl.innerHTML = '⏏';
       innerEl.segmentEl = _infoBubble.segmentEl;
       innerEl.tabIndex = -1;
       innerEl.setAttribute('title', msg('TOOLTIP_REMOVE_SEGMENT'));
