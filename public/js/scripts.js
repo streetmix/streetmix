@@ -2669,7 +2669,17 @@ var main = (function(){
     draggingMove.mouseX = x;
     draggingMove.mouseY = y;
 
-    _makeSpaceBetweenSegments(x, y);
+    if (_makeSpaceBetweenSegments(x, y)) {
+      var smartDrop = _doDropHeuristics(draggingMove.originalType, 
+          draggingMove.originalVariantString, draggingMove.originalWidth);
+      
+      _setSegmentContents(draggingMove.floatingEl, 
+        smartDrop.type, 
+        smartDrop.variantString, 
+        smartDrop.width);
+      //var newEl = _createSegment(smartDrop.type,
+      //    smartDrop.variantString, smartDrop.width);
+    }
 
     if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
       document.querySelector('#trashcan').classList.add('visible');
@@ -2740,6 +2750,9 @@ var main = (function(){
       draggingMove.segmentBeforeEl = selectedSegmentBefore;
       draggingMove.segmentAfterEl = selectedSegmentAfter;
       _repositionSegments();
+      return true;
+    } else {
+      return false;
     }
   }
 
