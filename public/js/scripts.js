@@ -3131,10 +3131,14 @@ var main = (function(){
       _createDomFromData();
       _segmentsChanged();
 
+      _infoBubble.hide();
+
       _statusMessage.show(msg('STATUS_ALL_SEGMENTS_DELETED'), true);
     } else if (el && el.parentNode) {
       _removeElFromDom(el);
       _segmentsChanged();
+
+      _infoBubble.hide();
 
       _statusMessage.show(msg('STATUS_SEGMENT_DELETED'), true);
     }

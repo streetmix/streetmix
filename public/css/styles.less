@@ -1,8 +1,3 @@
-@font-face {
-  font-family: 'Roadgeek';
-  src: url(/fonts/roadgeek-2005-engschrift.otf);
-}
-
 @canvasHeight: 480px;
 @canvasGround: 35px;
 @canvasBaseline: @canvasHeight - @canvasGround;
@@ -36,6 +31,11 @@
 @streetNameGallerySize: .5;
 
 @fontFamily: Arial, sans-serif;
+
+@font-face {
+  font-family: 'Roadgeek';
+  src: url(/fonts/roadgeek-2005-engschrift.otf);
+}
 
 html {
   height: 100%;
@@ -434,7 +434,7 @@ body > header {
   top: 0;
 
   bottom: 20px;
-  height: @canvasHeight + 65;
+  height: @canvasHeight + 45;
 
   -webkit-user-select: none;
   user-select: none;
@@ -1786,6 +1786,8 @@ body.no-connection-message-visible #status-message {
   margin-top: -1px;
 }
 
+// TODO move
+@infoBubbleButtonSize: 30px;
 
 .info-bubble {
   position: absolute;
@@ -1832,8 +1834,8 @@ body.no-connection-message-visible #status-message {
 
   header {
     padding: 5px 10px;
-    height: 25px;
-    line-height: 25px;
+    height: @infoBubbleButtonSize;
+    line-height: @infoBubbleButtonSize;
 
     font-size: 13px;
     font-weight: bold;
@@ -1842,8 +1844,8 @@ body.no-connection-message-visible #status-message {
   }
 
   button {
-    width: 25px;
-    height: 25px;
+    width: @infoBubbleButtonSize;
+    height: @infoBubbleButtonSize;
     cursor: pointer;
 
     &.remove {
