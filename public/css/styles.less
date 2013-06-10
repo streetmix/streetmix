@@ -1805,3 +1805,20 @@ body.no-connection-message-visible #status-message {
   vertical-align: middle;  
   margin-top: -1px;
 }
+
+
+.info-bubble {
+  position: absolute;
+  z-index: 10000000000;
+  width: 250px;
+  height: 100px;
+  background: white;
+
+  opacity: 0;
+  pointer-events: none;
+
+  &.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}

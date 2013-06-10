@@ -1428,6 +1428,16 @@ var main = (function(){
         segment.width * TILE_SIZE, segment.unmovable);
   }  
 
+  function _onSegmentMouseEnter() {
+    _infoBubble.considerShowing(event, this);
+    //console.log('mouseenter', this);
+  }
+
+  function _onSegmentMouseLeave() {
+    _infoBubble.dontConsiderShowing();
+    //console.log('mouseleave', this);
+  }
+
   function _createDomFromData() {
     document.querySelector('#editable-street-section').innerHTML = '';
 
@@ -1435,6 +1445,8 @@ var main = (function(){
       var segment = street.segments[i];
 
       var el = _createSegmentDom(segment);
+      $(el).mouseenter(_onSegmentMouseEnter);
+      $(el).mouseleave(_onSegmentMouseLeave);
       document.querySelector('#editable-street-section').appendChild(el);
 
       segment.el = el;
@@ -4285,6 +4297,172 @@ var main = (function(){
     }
   };
 
+  function _isPointInPoly(vs, point) {
+    var x = point[0], y = point[1];
+    
+    var inside = false;
+    for (var i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+      var xi = vs[i][0], yi = vs[i][1];
+      var xj = vs[j][0], yj = vs[j][1];
+      
+      var intersect = ((yi > y) != (yj > y))
+          && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+      if (intersect) inside = !inside;
+    }
+    
+    return inside;
+  }
+
+  var _infoBubble = {
+    visible: false,
+    el: null,
+
+    startMouseX: null,
+    startMouseY: null,
+    hoverPolygon: null,
+
+    bubbleX: null,
+    bubbleY: null,
+    bubbleWidth: null,
+    bubbleHeight: null,
+
+    _withinHoverPolygon: function(x, y) {
+      var within = _isPointInPoly(_infoBubble.hoverPolygon, [x, y]);
+      //console.log(within);
+      return within;
+    },
+
+    updateHoverPolygon: function(mouseX, mouseY) {
+      // TODO move
+      var MARGIN = 15;
+
+      var bubbleX = _infoBubble.bubbleX;
+      var bubbleY = _infoBubble.bubbleY;
+      var bubbleWidth = _infoBubble.bubbleWidth;
+      var bubbleHeight = _infoBubble.bubbleHeight;
+
+      _infoBubble.hoverPolygon = [
+        [bubbleX - MARGIN, bubbleY - MARGIN],
+        [bubbleX - MARGIN, bubbleY + bubbleHeight + MARGIN],
+        [mouseX - MARGIN, mouseY], 
+        [mouseX - MARGIN, mouseY + MARGIN], 
+        [mouseX + MARGIN, mouseY + MARGIN], 
+        [mouseX + MARGIN, mouseY],
+        [bubbleX + bubbleWidth + MARGIN, bubbleY + bubbleHeight + MARGIN],
+        [bubbleX + bubbleWidth + MARGIN, bubbleY - MARGIN],
+        [bubbleX - MARGIN, bubbleY - MARGIN]
+      ];
+
+      //console.log(JSON.stringify(_infoBubble.hoverPolygon, null, 2));
+    },
+
+    onBodyMouseMove: function(event) {
+      var mouseX = event.pageX;
+      var mouseY = event.pageY;
+
+      if (_infoBubble.visible) {
+        if (_infoBubble._withinHoverPolygon(mouseX, mouseY)) {
+          //console.log('within');
+          //_infoBubble.updateHoverPolygon(mouseX, mouseY);
+        } else {
+          //console.log('SWITCH');
+          // Switch to another one
+          _infoBubble.show();
+        }
+      }
+    },
+
+    hide: function() {
+      if (_infoBubble.el) {
+        _removeElFromDom(_infoBubble.el);
+        _infoBubble.el = null;
+        _infoBubble.visible = false;
+
+        document.body.removeEventListener('mousemove', _infoBubble.onBodyMouseMove);
+      }
+    },
+
+    considerShowing: function(event, segmentEl) {
+      //console.log('consider', segmentEl.getAttribute('type'));
+      _infoBubble.considerMouseX = event.pageX;
+      _infoBubble.considerMouseY = event.pageY;
+      _infoBubble.considerSegmentEl = segmentEl;
+
+      if (!_infoBubble.visible || !_infoBubble._withinHoverPolygon(mouseX, mouseY)) {
+        _infoBubble.show();
+      } 
+    },
+
+    dontConsiderShowing: function() {
+      //console.log('don’t consider');
+      _infoBubble.considerSegmentEl = null;
+    },
+
+    // TODO rename
+    show: function() {
+      if (!_infoBubble.considerSegmentEl) {
+        _infoBubble.hide();
+        return;
+      }
+
+      _infoBubble.hide();
+
+      var mouseX = _infoBubble.considerMouseX;
+      var mouseY = _infoBubble.considerMouseY;
+      var segmentEl = _infoBubble.considerSegmentEl;
+
+      _infoBubble.startMouseX = mouseX;
+      _infoBubble.startMouseY = mouseY;
+
+      var pos = _getElAbsolutePos(segmentEl);
+      var bubbleX = pos[0];
+      var bubbleY = pos[1];
+
+      _infoBubble.el = document.createElement('div');
+      _infoBubble.el.classList.add('info-bubble');
+      document.querySelector('#main-screen').appendChild(_infoBubble.el);
+
+      var bubbleWidth = _infoBubble.el.offsetWidth;
+      var bubbleHeight = _infoBubble.el.offsetHeight;
+
+      // TODO const
+      if (bubbleY < 20) {
+        bubbleY = 20;
+      }
+
+      bubbleX += segmentEl.offsetWidth / 2;
+      bubbleX -= bubbleWidth / 2;
+
+      _infoBubble.el.style.left = bubbleX + 'px';
+      _infoBubble.el.style.top = bubbleY + 'px';
+      
+      _infoBubble.el.classList.add('visible');
+      _infoBubble.visible = true;
+
+      _infoBubble.bubbleX = bubbleX;
+      _infoBubble.bubbleY = bubbleY;
+      _infoBubble.bubbleWidth = bubbleWidth;
+      _infoBubble.bubbleHeight = bubbleHeight;
+
+      _infoBubble.updateHoverPolygon(mouseX, mouseY);
+      document.body.addEventListener('mousemove', _infoBubble.onBodyMouseMove);
+
+      //console.log(JSON.stringify(_infoBubble.hoverPolygon, null, 2));
+
+      /*_infoBubble.hoverPolygon = [
+        [mouseX - 20, mouseY - 20], 
+        [mouseX - 20, mouseY + 20], 
+        [mouseX + 20, mouseY + 20], 
+        [mouseX + 20, mouseY - 20],
+        [mouseX - 20, mouseY - 20], 
+      ];*/
+
+      //console.log(mouseX, mouseY);
+      //console.log(_infoBubble.hoverPolygon);
+
+    }
+  };
+
   var _statusMessage = {
     timerId: -1,
 
@@ -5285,7 +5463,6 @@ var main = (function(){
         title = 'Having trouble…';
         description = 'We’re having trouble loading Streetmix.<br><button class="new">Try again</button>';
         break;
-
     }
 
     document.querySelector('#error h1').innerHTML = title;
