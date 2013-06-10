@@ -685,17 +685,14 @@ body.immediate-segment-resize .segment {
   background-color: rgba(25, 25, 25, .5);
 }
 
-body:not(.touch-support) .segment:not(.unmovable):hover .name,
 .segment:not(.unmovable).hover .name {
   opacity: 0;
 }
 
-.segment:not(.unmovable):hover,
 .segment:not(.unmovable).hover {
   z-index: 5000 !important;
 }
 
-body:not(.touch-support) .segment:not(.unmovable):hover .hover-bk,
 .segment:not(.unmovable).hover .hover-bk {
   background: rgba(255, 255, 255, .2);
   position: absolute;
@@ -707,7 +704,6 @@ body:not(.touch-support) .segment:not(.unmovable):hover .hover-bk,
   pointer-events: none;
 }
 
-body:not(.touch-support) .segment:not(.palette):not(.unmovable):hover .hover-bk,
 .segment:not(.palette):not(.unmovable).hover .hover-bk {
   top: 10px;
   height: @canvasBaseline - 10px;
@@ -797,7 +793,6 @@ body.segment-resize-dragging * {
   color: rgba(255, 255, 255, .4);
 }
 
-body:not(.touch-support) .segment:hover,
 body.touch-support .segment.fade-out-end {
   z-index: 999999;
 }
@@ -838,13 +833,11 @@ body.touch-support .segment.fade-out-end {
   }  
 }
 
-body:not(.touch-support)  .segment:not(.unmovable):hover .drag-handle,
 .segment:not(.unmovable).hover .drag-handle {
   pointer-events: auto;
   opacity: 1;
 }
 
-body:not(.touch-support) .segment:not(.unmovable):hover .drag-handle:hover,
 .segment:not(.unmovable).hover .drag-handle:hover {
   opacity: 1;
   outline: 1px solid rgba(255, 255, 255, .8);
@@ -898,14 +891,12 @@ body.segment-resize-dragging .segment .drag-handle {
 
   pointer-events: none;
 }
-body:not(.touch-support) .segment:hover .name,
 .segment.hover .name {
   color: rgb(200, 200, 200);
 }
 .segment.warning .name {
   color: @warningColour;
 }
-body:not(.touch-support) .segment:hover.warning .name,
 .segment.hover.warning .name {
   color: lighten(@warningColour, 10%);
 }
@@ -932,7 +923,6 @@ body:not(.touch-support) .segment:hover.warning .name,
 
   pointer-events: none;
 }
-body:not(.touch-support) .segment:not(.unmovable):hover .width-edit-canvas,
 .segment:not(.unmovable).fade-out-end .width-edit-canvas,
 .segment:not(.unmovable).hover .width-edit-canvas {
   pointer-events: auto;
@@ -968,22 +958,14 @@ body:not(.touch-support) .segment:not(.unmovable):hover .width-edit-canvas,
 
   opacity: 0;
 }
-body:not(.touch-support) .segment:hover .remove,
-.segment:hover .info,
 body:not(.touch-support) .segment.hover .remove,
 .segment.hover .info,
-body:not(.touch-support) .segment:not(.unmovable):hover .decrement,
-body:not(.touch-support) .segment:not(.unmovable):hover .increment,
 .segment:not(.unmovable).hover .decrement,
 .segment:not(.unmovable).hover .increment {
   opacity: 1;
 }
-body:not(.touch-support) .segment:hover .remove:hover,
-body:not(.touch-support) .segment:hover .info:hover,
 .segment.hover .remove:hover,
 .segment.hover .info:hover,
-body:not(.touch-support) .segment:not(.unmovable):hover .decrement:hover,
-body:not(.touch-support) .segment:not(.unmovable):hover .increment:hover,
 .segment:not(.unmovable).hover .decrement:hover,
 .segment:not(.unmovable).hover .increment:hover {
   opacity: 1;
@@ -1035,7 +1017,6 @@ body:not(.touch-support) .segment:not(.unmovable):hover .increment:hover,
   border: 2px solid transparent;
   color: white;
 }
-body:not(.touch-support) .segment:not(.unmovable):hover .width-edit,
 .segment:not(.unmovable).hover .width-edit {
   opacity: 1;
 
@@ -1083,7 +1064,6 @@ body:not(.touch-support) .segment:not(.unmovable):hover .width-edit,
 
   pointer-events: none;  
 }
-body:not(.touch-support) .segment:hover .width,
 .segment.hover .width {
   color: rgb(200, 200, 200);
 }
@@ -1811,14 +1791,39 @@ body.no-connection-message-visible #status-message {
   position: absolute;
   z-index: 10000000000;
   width: 250px;
-  height: 100px;
+  height: 120px;
   background: white;
 
   opacity: 0;
   pointer-events: none;
 
+  box-shadow: 0 2px 2px rgba(0, 0, 0, .25);
+
+  -webkit-transition: -webkit-transform 100ms, opacity 150ms;
+  -moz-transition: -moz-transform 100ms, opacity 150ms;
+  transition: transform 100ms, opacity 150ms;
+
   &.visible {
     opacity: 1;
     pointer-events: auto;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    width: 20px;
+    height: 20px;
+    left: 50%;
+    bottom: 0;
+    background: white;
+
+    -webkit-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    transform-origin: 0 0;
+
+    -webkit-transform: rotateZ(45deg);
+    -moz-transform: rotateZ(45deg);
+    transform: rotateZ(45deg);
   }
 }

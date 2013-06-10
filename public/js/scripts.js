@@ -4320,21 +4320,25 @@ var main = (function(){
     startMouseX: null,
     startMouseY: null,
     hoverPolygon: null,
+    segmentEl: null,
 
     bubbleX: null,
     bubbleY: null,
     bubbleWidth: null,
     bubbleHeight: null,
 
+    considerMouseX: null,
+    considerMouseY: null,
+    considerSegmentEl: null,
+
     _withinHoverPolygon: function(x, y) {
-      var within = _isPointInPoly(_infoBubble.hoverPolygon, [x, y]);
-      //console.log(within);
-      return within;
+      return _isPointInPoly(_infoBubble.hoverPolygon, [x, y]);
     },
 
     updateHoverPolygon: function(mouseX, mouseY) {
       // TODO move
-      var MARGIN = 15;
+      var MARGIN_BUBBLE = 20;
+      var MARGIN_MOUSE = 10;
 
       var bubbleX = _infoBubble.bubbleX;
       var bubbleY = _infoBubble.bubbleY;
@@ -4342,18 +4346,16 @@ var main = (function(){
       var bubbleHeight = _infoBubble.bubbleHeight;
 
       _infoBubble.hoverPolygon = [
-        [bubbleX - MARGIN, bubbleY - MARGIN],
-        [bubbleX - MARGIN, bubbleY + bubbleHeight + MARGIN],
-        [mouseX - MARGIN, mouseY], 
-        [mouseX - MARGIN, mouseY + MARGIN], 
-        [mouseX + MARGIN, mouseY + MARGIN], 
-        [mouseX + MARGIN, mouseY],
-        [bubbleX + bubbleWidth + MARGIN, bubbleY + bubbleHeight + MARGIN],
-        [bubbleX + bubbleWidth + MARGIN, bubbleY - MARGIN],
-        [bubbleX - MARGIN, bubbleY - MARGIN]
+        [bubbleX - MARGIN_BUBBLE, bubbleY - MARGIN_BUBBLE],
+        [bubbleX - MARGIN_BUBBLE, bubbleY + bubbleHeight + MARGIN_BUBBLE],
+        [mouseX - MARGIN_MOUSE, mouseY - MARGIN_MOUSE], 
+        [mouseX - MARGIN_MOUSE, mouseY + MARGIN_MOUSE], 
+        [mouseX + MARGIN_MOUSE, mouseY + MARGIN_MOUSE], 
+        [mouseX + MARGIN_MOUSE, mouseY - MARGIN_MOUSE],
+        [bubbleX + bubbleWidth + MARGIN_BUBBLE, bubbleY + bubbleHeight + MARGIN_BUBBLE],
+        [bubbleX + bubbleWidth + MARGIN_BUBBLE, bubbleY - MARGIN_BUBBLE],
+        [bubbleX - MARGIN_BUBBLE, bubbleY - MARGIN_BUBBLE]
       ];
-
-      //console.log(JSON.stringify(_infoBubble.hoverPolygon, null, 2));
     },
 
     onBodyMouseMove: function(event) {
@@ -4361,21 +4363,24 @@ var main = (function(){
       var mouseY = event.pageY;
 
       if (_infoBubble.visible) {
-        if (_infoBubble._withinHoverPolygon(mouseX, mouseY)) {
-          //console.log('within');
-          //_infoBubble.updateHoverPolygon(mouseX, mouseY);
-        } else {
-          //console.log('SWITCH');
-          // Switch to another one
+        if (!_infoBubble._withinHoverPolygon(mouseX, mouseY)) {
           _infoBubble.show();
         }
       }
     },
 
+    hideSegment: function() {
+      if (_infoBubble.segmentEl) {
+        _infoBubble.segmentEl.classList.remove('hover');
+        _infoBubble.segmentEl = null;        
+      }
+    },
+
     hide: function() {
       if (_infoBubble.el) {
-        _removeElFromDom(_infoBubble.el);
-        _infoBubble.el = null;
+        //_removeElFromDom(_infoBubble.el);
+        //_infoBubble.el = null;
+        _infoBubble.el.classList.remove('visible');
         _infoBubble.visible = false;
 
         document.body.removeEventListener('mousemove', _infoBubble.onBodyMouseMove);
@@ -4383,6 +4388,10 @@ var main = (function(){
     },
 
     considerShowing: function(event, segmentEl) {
+      if (segmentEl == _infoBubble.segmentEl) {
+        return;
+      }
+
       //console.log('consider', segmentEl.getAttribute('type'));
       _infoBubble.considerMouseX = event.pageX;
       _infoBubble.considerMouseY = event.pageY;
@@ -4402,14 +4411,24 @@ var main = (function(){
     show: function() {
       if (!_infoBubble.considerSegmentEl) {
         _infoBubble.hide();
+        _infoBubble.hideSegment();
         return;
       }
-
-      _infoBubble.hide();
 
       var mouseX = _infoBubble.considerMouseX;
       var mouseY = _infoBubble.considerMouseY;
       var segmentEl = _infoBubble.considerSegmentEl;
+
+      if (segmentEl == _infoBubble.segmentEl) {
+        return;
+      }
+      _infoBubble.hideSegment();
+
+      //_infoBubble.hide();
+
+      _infoBubble.segmentEl = segmentEl;
+
+      segmentEl.classList.add('hover');
 
       _infoBubble.startMouseX = mouseX;
       _infoBubble.startMouseY = mouseY;
@@ -4418,14 +4437,16 @@ var main = (function(){
       var bubbleX = pos[0];
       var bubbleY = pos[1];
 
-      _infoBubble.el = document.createElement('div');
-      _infoBubble.el.classList.add('info-bubble');
-      document.querySelector('#main-screen').appendChild(_infoBubble.el);
+      //_infoBubble.el = document.createElement('div');
+      //_infoBubble.el.classList.add('info-bubble');
+      //document.querySelector('#main-screen').appendChild(_infoBubble.el);
+      _infoBubble.el = document.querySelector('#main-screen .info-bubble');
 
       var bubbleWidth = _infoBubble.el.offsetWidth;
       var bubbleHeight = _infoBubble.el.offsetHeight;
 
       // TODO const
+      bubbleY -= bubbleHeight + 100;
       if (bubbleY < 20) {
         bubbleY = 20;
       }
@@ -4433,7 +4454,16 @@ var main = (function(){
       bubbleX += segmentEl.offsetWidth / 2;
       bubbleX -= bubbleWidth / 2;
 
-      _infoBubble.el.style.left = bubbleX + 'px';
+      //_infoBubble.el.style.left = bubbleX + 'px';
+
+      //console.log(bubbleX);
+
+      if (system.cssTransform) {
+        _infoBubble.el.style[system.cssTransform] = 'translateX(' + bubbleX + 'px)';
+      } else {
+        el.style.left = bubbleX + 'px';
+      }
+
       _infoBubble.el.style.top = bubbleY + 'px';
       
       _infoBubble.el.classList.add('visible');
