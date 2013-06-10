@@ -1792,18 +1792,19 @@ body.no-connection-message-visible #status-message {
 .info-bubble {
   position: absolute;
   z-index: 10000000000;
-  width: 250px;
-  height: 120px;
+  min-width: 200px;
+  min-height: 80px;
   background: white;
+
 
   opacity: 0;
   pointer-events: none;
 
   box-shadow: 0 2px 2px rgba(0, 0, 0, .25);
 
-  -webkit-transition: -webkit-transform 75ms, opacity 150ms, margin-top 150ms;
-  -moz-transition: -moz-transform 75ms, opacity 150ms, margin-top 150ms;
-  transition: transform 75ms, opacity 150ms, margin-top 150ms;
+  -webkit-transition: -webkit-transform 75ms, opacity 150ms, margin-top 150ms, height 150ms;
+  -moz-transition: -moz-transform 75ms, opacity 150ms, margin-top 150ms, height 150ms;
+  transition: transform 75ms, opacity 150ms, margin-top 150ms, height 150ms;
 
   margin-top: -6px;
 
@@ -1846,10 +1847,10 @@ body.no-connection-message-visible #status-message {
   }
 
   .variants {
-    text-align: center;
-    padding: 5px 10px;
-    height: @infoBubbleButtonSize;
-    line-height: @infoBubbleButtonSize;
+    text-align: left;
+    padding: 5px 5px;
+
+    margin-right: 100px; // Clear width
 
     button {
       margin-left: 3px;
@@ -1859,18 +1860,23 @@ body.no-connection-message-visible #status-message {
       vertical-align: top;
       margin: 0;
       padding: 0;
-      display: inline-block;
+      display: block;
       opacity: 0;
-      width: @infoBubbleButtonSize / 2;
-      height: @infoBubbleButtonSize;      
+      height: 5px;
     }
   }
 
   .width-canvas {
-    padding: 5px 10px;
+    position: absolute;
+    right: 5px;
+    top: @infoBubbleButtonSize + 13px;
     padding-top: 0;
     height: @infoBubbleButtonSize;
-    line-height: @infoBubbleButtonSize;    
+    line-height: @infoBubbleButtonSize;  
+
+    button {
+      margin-left: 6px;
+    }  
   }
 
   button {

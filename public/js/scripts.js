@@ -4471,6 +4471,37 @@ var main = (function(){
 
       infoBubbleEl.appendChild(headerEl);
 
+      // Width canvas
+
+      var widthCanvasEl = document.createElement('div');
+      widthCanvasEl.classList.add('width-canvas');
+
+      var innerEl = document.createElement('button');
+      innerEl.classList.add('decrement');
+      innerEl.innerHTML = '–';
+      innerEl.segmentEl = segment.el;
+      innerEl.tabIndex = -1;
+      if (system.touch) {
+        innerEl.addEventListener('touchstart', _onWidthDecrementClick, false);
+      } else {
+        innerEl.addEventListener('click', _onWidthDecrementClick, false);        
+      }
+      widthCanvasEl.appendChild(innerEl);        
+
+      var innerEl = document.createElement('button');
+      innerEl.classList.add('increment');
+      innerEl.innerHTML = '+';
+      innerEl.segmentEl = segment.el;
+      innerEl.tabIndex = -1;
+      if (system.touch) {
+        innerEl.addEventListener('touchstart', _onWidthIncrementClick, false);
+      } else {
+        innerEl.addEventListener('click', _onWidthIncrementClick, false);        
+      }
+      widthCanvasEl.appendChild(innerEl);        
+
+      infoBubbleEl.appendChild(widthCanvasEl);
+
       // Variants
 
       var variantsEl = document.createElement('div');
@@ -4510,36 +4541,6 @@ var main = (function(){
 
       infoBubbleEl.appendChild(variantsEl);
 
-      // Width canvas
-
-      var widthCanvasEl = document.createElement('div');
-      widthCanvasEl.classList.add('width-canvas');
-
-      var innerEl = document.createElement('button');
-      innerEl.classList.add('decrement');
-      innerEl.innerHTML = '–';
-      innerEl.segmentEl = segment.el;
-      innerEl.tabIndex = -1;
-      if (system.touch) {
-        innerEl.addEventListener('touchstart', _onWidthDecrementClick, false);
-      } else {
-        innerEl.addEventListener('click', _onWidthDecrementClick, false);        
-      }
-      widthCanvasEl.appendChild(innerEl);        
-
-      var innerEl = document.createElement('button');
-      innerEl.classList.add('increment');
-      innerEl.innerHTML = '+';
-      innerEl.segmentEl = segment.el;
-      innerEl.tabIndex = -1;
-      if (system.touch) {
-        innerEl.addEventListener('touchstart', _onWidthIncrementClick, false);
-      } else {
-        innerEl.addEventListener('click', _onWidthIncrementClick, false);        
-      }
-      widthCanvasEl.appendChild(innerEl);        
-
-      infoBubbleEl.appendChild(widthCanvasEl);
 
     },
 
