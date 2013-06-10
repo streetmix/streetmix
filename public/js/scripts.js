@@ -2821,30 +2821,60 @@ var main = (function(){
 
     // Automatically figure out variants
 
-    var leftSiblingEl = draggingMove.segmentAfterEl;
-    var rightSiblingEl = draggingMove.segmentBeforeEl;
+    var leftEl = draggingMove.segmentAfterEl;
+    var rightEl = draggingMove.segmentBeforeEl;
 
-    var leftSibling = leftSiblingEl ? street.segments[leftSiblingEl.dataNo] : null;
-    var rightSibling = rightSiblingEl ? street.segments[rightSiblingEl.dataNo] : null;
+    var left = leftEl ? street.segments[leftEl.dataNo] : null;
+    var right = rightEl ? street.segments[rightEl.dataNo] : null;
 
-    var leftSiblingVariants = leftSibling && SEGMENT_INFO[leftSibling.type].variants;
-    var rightSiblingVariants = rightSibling && SEGMENT_INFO[rightSibling.type].variants;
+    var leftVariants = left && SEGMENT_INFO[left.type].variants;
+    var rightVariants = right && SEGMENT_INFO[right.type].variants;
 
-    var leftSiblingVariant = leftSibling && _getVariantArray(leftSibling.type, leftSibling.variantString);
-    var rightSiblingVariant = rightSibling && _getVariantArray(rightSibling.type, rightSibling.variantString);
+    var leftOwner = left && SEGMENT_INFO[left.type].owner;
+    var rightOwner = right && SEGMENT_INFO[right.type].owner;
 
-    //console.log('left sibling', leftSiblingVariant);
-    //console.log('right sibling', rightSiblingVariant);
+    var leftOwnerAsphalt = 
+      (leftOwner == SEGMENT_OWNER_CAR) || (leftOwner == SEGMENT_OWNER_BIKE) || 
+      (leftOwner == SEGMENT_OWNER_PUBLIC_TRANSIT);
+    var rightOwnerAsphalt = 
+      (rightOwner == SEGMENT_OWNER_CAR) || (rightOwner == SEGMENT_OWNER_BIKE) || 
+      (rightOwner == SEGMENT_OWNER_PUBLIC_TRANSIT);
+
+    var leftVariant = left && _getVariantArray(left.type, left.variantString);
+    var rightVariant = right && _getVariantArray(right.type, right.variantString);
+
+    //console.log('left sibling', leftOwner);
+    //console.log('right sibling', rightOwner);
 
     var variant = _getVariantArray(type, variantString);
 
     // Direction
 
     if (SEGMENT_INFO[type].variants.indexOf('direction') != -1) {
-      if (leftSiblingVariant['direction']) {
-        variant['direction'] = leftSiblingVariant['direction'];
-      } else if (rightSiblingVariant['direction']) {
-        variant['direction'] = rightSiblingVariant['direction'];
+      if (leftVariant['direction']) {
+        variant['direction'] = leftVariant['direction'];
+      } else if (rightVariant['direction']) {
+        variant['direction'] = rightVariant['direction'];
+      }
+    }
+
+    // Parking lane orientation
+
+    if (SEGMENT_INFO[type].variants.indexOf('parking-lane-orientation') != -1) {
+      if (!right || !rightOwnerAsphalt) {
+        variant['parking-lane-orientation'] = 'right';
+      } else if (!left || !leftOwnerAsphalt) {
+        variant['parking-lane-orientation'] = 'left';
+      }
+    }
+
+    // Turn lane orientation
+
+    if (SEGMENT_INFO[type].variants.indexOf('turn-lane-orientation') != -1) {
+      if (!right || (rightOwnerAsphalt) {
+        variant['turn-lane-orientation'] = 'right';
+      } else if (!left || !leftOwnerAsphalt) {
+        variant['turn-lane-orientation'] = 'left';
       }
     }
 
