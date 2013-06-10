@@ -382,7 +382,7 @@ body.gallery-visible #gallery-shield {
   display: block;
 }
 
-header {
+body > header {
   position: absolute;
   top: 0;
   left: 0;
@@ -1828,5 +1828,28 @@ body.no-connection-message-visible #status-message {
     -webkit-transform: rotateZ(45deg);
     -moz-transform: rotateZ(45deg);
     transform: rotateZ(45deg);
+  }
+
+  header {
+    padding: 5px 10px;
+    height: 25px;
+    line-height: 25px;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    position: relative;
+  }
+
+  button {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+
+    &.remove {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+    }
   }
 }

@@ -4409,12 +4409,18 @@ var main = (function(){
 
     updateContents: function() {
       var el = _infoBubble.el;
+      //console.log(el);
+      var segmentInfo = SEGMENT_INFO[_infoBubble.segmentEl.getAttribute('type')];
 
       el.innerHTML = '';
 
+      var headerEl = document.createElement('header');
+
+      headerEl.innerHTML = segmentInfo.name;
+
       var innerEl = document.createElement('button');
       innerEl.classList.add('remove');
-      innerEl.innerHTML = '×';
+      innerEl.innerHTML = 'D';
       innerEl.segmentEl = _infoBubble.segmentEl;
       innerEl.tabIndex = -1;
       innerEl.setAttribute('title', msg('TOOLTIP_REMOVE_SEGMENT'));
@@ -4423,7 +4429,9 @@ var main = (function(){
       } else {
         innerEl.addEventListener('click', _onRemoveButtonClick);        
       }
-      el.appendChild(innerEl);        
+      headerEl.appendChild(innerEl);
+
+      el.appendChild(headerEl);
     },
 
     // TODO rename
