@@ -31,6 +31,7 @@ var main = (function(){
     STATUS_ALL_SEGMENTS_DELETED: 'All segments have been deleted.',
     STATUS_NOTHING_TO_UNDO: 'Nothing to undo.',
     STATUS_NOTHING_TO_REDO: 'Nothing to redo.',
+    STATUS_NO_NEED_TO_SAVE: 'No need to save by hand; Streetmix automatically saves your street!',
     STATUS_NOW_REMIXING: 'Now editing a freshly-made duplicate of the original street. The duplicate has been put in your gallery.',
     STATUS_NOW_REMIXING_SIGN_IN: 'Now editing a freshly-made duplicate of the original street. <a href="/{{signInUrl}}">Sign in</a> to start your own gallery of streets.',
     STATUS_RELOADED_FROM_SERVER: 'Your street was reloaded from the server as it was modified elsewhere.',
@@ -237,6 +238,7 @@ var main = (function(){
   var KEY_DELETE = 46;
   var KEY_ESC = 27;
   var KEY_D = 68;
+  var KEY_S = 83;
   var KEY_Y = 89;
   var KEY_Z = 90;
   var KEY_EQUAL = 187; // = or +
@@ -3352,6 +3354,12 @@ var main = (function(){
           event.preventDefault();
         } else if (event.shiftKey && (event.metaKey || event.ctrlKey)) {
           _redo();
+          event.preventDefault();
+        }
+        break;
+      case KEY_S:
+        if (event.metaKey || event.ctrlKey) {
+          _statusMessage.show(msg('STATUS_NO_NEED_TO_SAVE'));
           event.preventDefault();
         }
         break;
