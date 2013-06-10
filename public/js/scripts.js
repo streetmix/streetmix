@@ -3052,6 +3052,11 @@ var main = (function(){
 
       document.querySelector('#palette').appendChild(el);
     }
+
+    console.log(document.querySelector('#palette').scrollWidth);
+
+    document.querySelector('#palette').style.width = 
+        document.querySelector('#palette').scrollWidth + 'px';
   }
 
   function _resizeStreetWidth() {
@@ -3308,7 +3313,6 @@ var main = (function(){
 
   function _onBodyKeyDown(event) {
     switch (event.keyCode) {
-      case KEY_RIGHT_ARROW:
       case KEY_EQUAL:
         if (event.metaKey || event.ctrlKey || event.altKey) {
           return;
@@ -3322,7 +3326,6 @@ var main = (function(){
           event.preventDefault();
         }
         break;
-      case KEY_LEFT_ARROW:
       case KEY_MINUS:
         if (event.metaKey || event.ctrlKey || event.altKey) {
           return;

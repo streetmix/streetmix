@@ -550,7 +550,9 @@ footer {
   height: @paletteHeight;
   bottom: 0;
   padding-right: 10px;
-  padding-left: 240px;
+  padding-left: 10px;
+
+  white-space: nowrap;
 
   background: url(../images/toolbox-bk.png);
 
@@ -564,7 +566,8 @@ footer {
   user-select: none;
 }
 #palette {
-  white-space: nowrap;
+  display: inline-block;
+
 
   height: @paletteHeight + 20px; // To cover scroll bars
 
@@ -603,11 +606,12 @@ footer {
 }
 
 #commands {
-  position: absolute;
-  left: 10px;
-  top: 12px;
+  display: inline-block;
+  vertical-align: top;
   width: 250px;
-  bottom: 10px;
+  margin-top: 10px;
+  height: @paletteHeight - 20px;
+  position: relative;
 
   z-index: 100000;
 
@@ -620,23 +624,22 @@ footer {
 
     pointer-events: auto;
   }
-}
 
-#undo {
-  position: absolute;
-  left: 40px;
-  bottom: 0;
-  width: 70px;
-  height: 45px;
+  #undo {
+    position: absolute;
+    left: 40px;
+    bottom: 0;
+    width: 70px;
+    height: 45px;
+  }
+  #redo {
+    position: absolute;
+    left: 117px;
+    bottom: 0;
+    width: 70px;
+    height: 45px;
+  }
 }
-#redo {
-  position: absolute;
-  left: 117px;
-  bottom: 0;
-  width: 70px;
-  height: 45px;
-}
-
 #editable-street-section {
   position: absolute;
   height: @canvasHeight + 80;
