@@ -4683,6 +4683,10 @@ var main = (function(){
       var widthCanvasEl = document.createElement('div');
       widthCanvasEl.classList.add('width-canvas');
 
+      if (!segmentInfo.variants[0]) {
+        widthCanvasEl.classList.add('entire-info-bubble');
+      }
+
       var innerEl = document.createElement('button');
       innerEl.classList.add('decrement');
       innerEl.innerHTML = '–';
