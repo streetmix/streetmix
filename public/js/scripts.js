@@ -4547,8 +4547,6 @@ var main = (function(){
       }      
 
       infoBubbleEl.appendChild(variantsEl);
-
-
     },
 
     // TODO rename
@@ -4590,7 +4588,7 @@ var main = (function(){
       var bubbleHeight = _infoBubble.el.offsetHeight;
 
       // TODO const
-      bubbleY -= bubbleHeight + 100;
+      bubbleY -= bubbleHeight - 50;
       if (bubbleY < 20) {
         bubbleY = 20;
       }
