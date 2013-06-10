@@ -2788,6 +2788,27 @@ var main = (function(){
     }
   }
 
+  function _doDropHeuristics(type, variantString, width) {
+    // Automatically figure out width
+
+    if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
+      if ((street.remainingWidth > 0) && 
+          (width > street.remainingWidth * TILE_SIZE)) {
+
+        var segmentMinWidth = 
+            SEGMENT_INFO[draggingMove.originalType].
+                details[draggingMove.originalVariantString].minWidth || 0;
+
+        if ((street.remainingWidth >= MIN_SEGMENT_WIDTH) && 
+            (street.remainingWidth >= segmentMinWidth)) {
+          width = _normalizeSegmentWidth(street.remainingWidth, RESIZE_TYPE_INITIAL) * TILE_SIZE;
+        }
+      }
+    }
+
+    return { type: type, variantString: variantString, width: width };
+  }
+
   function _handleSegmentMoveEnd(event) {
     ignoreStreetChanges = false;
 
@@ -2802,23 +2823,11 @@ var main = (function(){
         _removeElFromDom(draggingMove.originalEl);
       }
     } else if (draggingMove.segmentBeforeEl || draggingMove.segmentAfterEl || (street.segments.length == 0)) {
-      var width = draggingMove.originalWidth;
-
-      if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
-        if ((street.remainingWidth > 0) && (width > street.remainingWidth * TILE_SIZE)) {
-
-          var segmentMinWidth = 
-              SEGMENT_INFO[draggingMove.originalType].details[draggingMove.originalVariantString].minWidth || 0;
-
-          if ((street.remainingWidth >= MIN_SEGMENT_WIDTH) && 
-              (street.remainingWidth >= segmentMinWidth)) {
-            width = _normalizeSegmentWidth(street.remainingWidth, RESIZE_TYPE_INITIAL) * TILE_SIZE;
-          }
-        }
-      }
+      var smartDrop = _doDropHeuristics(draggingMove.originalType, 
+          draggingMove.originalVariantString, draggingMove.originalWidth);
       
-      var newEl = _createSegment(draggingMove.originalType, 
-          draggingMove.originalVariantString, width);
+      var newEl = _createSegment(smartDrop.type,
+          smartDrop.variantString, smartDrop.width);
 
       newEl.classList.add('create');
 
