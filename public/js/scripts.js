@@ -3110,6 +3110,8 @@ var main = (function(){
       (street.width * TILE_SIZE) + 'px';
 
     _resizeStreetName();
+
+    _infoBubble.show(true);
   }
 
   function _fillDefaultSegments() {
@@ -4736,7 +4738,7 @@ var main = (function(){
     },
 
     // TODO rename
-    show: function() {
+    show: function(force) {
       if (draggingType != DRAGGING_TYPE_NONE) {
         return;
       }
@@ -4751,7 +4753,7 @@ var main = (function(){
       var mouseY = _infoBubble.considerMouseY;
       var segmentEl = _infoBubble.considerSegmentEl;
 
-      if (segmentEl == _infoBubble.segmentEl) {
+      if ((segmentEl == _infoBubble.segmentEl) && !force) {
         return;
       }
       _infoBubble.hideSegment();
