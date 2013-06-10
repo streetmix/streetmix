@@ -3053,7 +3053,7 @@ var main = (function(){
       document.querySelector('#palette').appendChild(el);
     }
 
-    console.log(document.querySelector('#palette').scrollWidth);
+    //console.log(document.querySelector('#palette').scrollWidth);
 
     document.querySelector('#palette').style.width = 
         document.querySelector('#palette').scrollWidth + 'px';
@@ -4295,6 +4295,9 @@ var main = (function(){
   }
 
   function _addEventListeners() {
+    $('.info-bubble').mouseenter(_infoBubble.onMouseEnter);
+    $('.info-bubble').mouseleave(_infoBubble.onMouseLeave);
+
     document.querySelector('#new-street').addEventListener('click', _goNewStreet);
     document.querySelector('#copy-last-street').addEventListener('click', _goCopyLastStreet);
 
@@ -4447,6 +4450,8 @@ var main = (function(){
   }
 
   var _infoBubble = {
+    mouseInside: false,
+
     visible: false,
     el: null,
 
@@ -4464,6 +4469,19 @@ var main = (function(){
     considerMouseY: null,
     considerSegmentEl: null,
 
+    onMouseEnter: function() {
+      _infoBubble.mouseInside = true;
+
+      console.log('Y');
+      _infoBubble.updateHoverPolygon();
+    },
+
+    onMouseLeave: function() {
+      _infoBubble.mouseInside = false;
+
+      console.log('N');
+    },
+
     _withinHoverPolygon: function(x, y) {
       return _isPointInPoly(_infoBubble.hoverPolygon, [x, y]);
     },
@@ -4478,17 +4496,40 @@ var main = (function(){
       var bubbleWidth = _infoBubble.bubbleWidth;
       var bubbleHeight = _infoBubble.bubbleHeight;
 
-      _infoBubble.hoverPolygon = [
-        [bubbleX - MARGIN_BUBBLE, bubbleY - MARGIN_BUBBLE],
-        [bubbleX - MARGIN_BUBBLE, bubbleY + bubbleHeight + MARGIN_BUBBLE],
-        [mouseX - MARGIN_MOUSE, mouseY - MARGIN_MOUSE], 
-        [mouseX - MARGIN_MOUSE, mouseY + MARGIN_MOUSE], 
-        [mouseX + MARGIN_MOUSE, mouseY + MARGIN_MOUSE], 
-        [mouseX + MARGIN_MOUSE, mouseY - MARGIN_MOUSE],
-        [bubbleX + bubbleWidth + MARGIN_BUBBLE, bubbleY + bubbleHeight + MARGIN_BUBBLE],
-        [bubbleX + bubbleWidth + MARGIN_BUBBLE, bubbleY - MARGIN_BUBBLE],
-        [bubbleX - MARGIN_BUBBLE, bubbleY - MARGIN_BUBBLE]
-      ];
+      if (_infoBubble.mouseInside) {
+        var pos = _getElAbsolutePos(_infoBubble.segmentEl);
+
+        var segmentX1 = pos[0] - MARGIN_BUBBLE;
+        var segmentX2 = pos[0] + _infoBubble.segmentEl.offsetWidth + MARGIN_BUBBLE;
+
+        var segmentY = pos[1] + _infoBubble.segmentEl.offsetHeight + MARGIN_BUBBLE;
+
+        _infoBubble.hoverPolygon = [
+          [bubbleX - MARGIN_BUBBLE, bubbleY - MARGIN_BUBBLE],
+          [bubbleX - MARGIN_BUBBLE, bubbleY + bubbleHeight + MARGIN_BUBBLE],
+          [segmentX1, bubbleY + bubbleHeight + MARGIN_BUBBLE],
+          [segmentX1, segmentY], 
+          [segmentX2, segmentY],
+          [segmentX2, bubbleY + bubbleHeight + MARGIN_BUBBLE],
+          [bubbleX + bubbleWidth + MARGIN_BUBBLE, bubbleY + bubbleHeight + MARGIN_BUBBLE],
+          [bubbleX + bubbleWidth + MARGIN_BUBBLE, bubbleY - MARGIN_BUBBLE],
+          [bubbleX - MARGIN_BUBBLE, bubbleY - MARGIN_BUBBLE]
+        ];
+
+        //console.log(JSON.stringify(_infoBubble.hoverPolygon, null, 2));
+      } else {
+        _infoBubble.hoverPolygon = [
+          [bubbleX - MARGIN_BUBBLE, bubbleY - MARGIN_BUBBLE],
+          [bubbleX - MARGIN_BUBBLE, bubbleY + bubbleHeight + MARGIN_BUBBLE],
+          [mouseX - MARGIN_MOUSE, mouseY - MARGIN_MOUSE], 
+          [mouseX - MARGIN_MOUSE, mouseY + MARGIN_MOUSE], 
+          [mouseX + MARGIN_MOUSE, mouseY + MARGIN_MOUSE], 
+          [mouseX + MARGIN_MOUSE, mouseY - MARGIN_MOUSE],
+          [bubbleX + bubbleWidth + MARGIN_BUBBLE, bubbleY + bubbleHeight + MARGIN_BUBBLE],
+          [bubbleX + bubbleWidth + MARGIN_BUBBLE, bubbleY - MARGIN_BUBBLE],
+          [bubbleX - MARGIN_BUBBLE, bubbleY - MARGIN_BUBBLE]
+        ];
+      }
     },
 
     onBodyMouseMove: function(event) {
@@ -4510,6 +4551,8 @@ var main = (function(){
     },
 
     hide: function() {
+      _infoBubble.mouseInside = false;
+
       if (_infoBubble.el) {
         //_removeElFromDom(_infoBubble.el);
         //_infoBubble.el = null;
