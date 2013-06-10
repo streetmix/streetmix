@@ -1420,6 +1420,11 @@ var main = (function(){
     if (width) {
       _resizeSegment(el, RESIZE_TYPE_INITIAL, width, true, palette, true, true);
     }    
+
+    if (!palette) {
+      $(el).mouseenter(_onSegmentMouseEnter);
+      $(el).mouseleave(_onSegmentMouseLeave);
+    }      
     return el;
   }
 
@@ -1445,8 +1450,6 @@ var main = (function(){
       var segment = street.segments[i];
 
       var el = _createSegmentDom(segment);
-      $(el).mouseenter(_onSegmentMouseEnter);
-      $(el).mouseleave(_onSegmentMouseLeave);
       document.querySelector('#editable-street-section').appendChild(el);
 
       segment.el = el;
@@ -4411,12 +4414,36 @@ var main = (function(){
       _infoBubble.considerSegmentEl = null;
     },
 
-    updateContents: function() {
-      var el = _infoBubble.el;
-      //console.log(el);
-      var segmentInfo = SEGMENT_INFO[_infoBubble.segmentEl.getAttribute('type')];
+    onVariantButtonClick: function(event, segment, variantName, variantChoice) {
+      segment.variant[variantName] = variantChoice;
+      segment.variantString = _getVariantString(segment.variant);
 
-      el.innerHTML = '';
+      //_createDomFromData();
+      var el = _createSegmentDom(segment);
+      el.dataNo = segment.el.dataNo;
+      segment.el.parentNode.insertBefore(el, segment.el);
+      segment.el.parentNode.removeChild(segment.el);
+      segment.el = el;
+
+      segment.el.classList.add('hover');
+      _infoBubble.segmentEl = el;
+
+      _repositionSegments();
+
+      _infoBubble.updateContents();
+
+      _saveStreetToServerIfNecessary();
+    },
+
+    updateContents: function() {
+      var infoBubbleEl = _infoBubble.el;
+      //console.log(el);
+      var segment = street.segments[parseInt(_infoBubble.segmentEl.dataNo)];
+      var segmentInfo = SEGMENT_INFO[segment.type];
+      
+      infoBubbleEl.innerHTML = '';
+
+      // Header
 
       var headerEl = document.createElement('header');
 
@@ -4435,7 +4462,78 @@ var main = (function(){
       }
       headerEl.appendChild(innerEl);
 
-      el.appendChild(headerEl);
+      infoBubbleEl.appendChild(headerEl);
+
+      // Variants
+
+      var variantsEl = document.createElement('div');
+      variantsEl.classList.add('variants');
+
+      var first = true;
+
+      for (var i in segmentInfo.variants) {
+        if (!first) {
+          var el = document.createElement('hr');
+          variantsEl.appendChild(el);
+        } else {
+          first = false;
+        }
+
+        for (var j in VARIANTS[segmentInfo.variants[i]]) {
+
+          var variantName = segmentInfo.variants[i];
+          var variantChoice = VARIANTS[segmentInfo.variants[i]][j];
+
+          var el = document.createElement('button');
+          el.innerHTML = variantChoice;
+
+          if (segment.variant[variantName] == variantChoice) {
+            el.disabled = true;
+          }
+
+          el.addEventListener('click', (function(segment, variantName, variantChoice) {
+            return function() {
+              _infoBubble.onVariantButtonClick(event, segment, variantName, variantChoice);
+            }
+          })(segment, variantName, variantChoice));
+
+          variantsEl.appendChild(el);
+        }
+      }      
+
+      infoBubbleEl.appendChild(variantsEl);
+
+      // Width canvas
+
+      var widthCanvasEl = document.createElement('div');
+      widthCanvasEl.classList.add('width-canvas');
+
+      var innerEl = document.createElement('button');
+      innerEl.classList.add('decrement');
+      innerEl.innerHTML = '–';
+      innerEl.segmentEl = segment.el;
+      innerEl.tabIndex = -1;
+      if (system.touch) {
+        innerEl.addEventListener('touchstart', _onWidthDecrementClick, false);
+      } else {
+        innerEl.addEventListener('click', _onWidthDecrementClick, false);        
+      }
+      widthCanvasEl.appendChild(innerEl);        
+
+      var innerEl = document.createElement('button');
+      innerEl.classList.add('increment');
+      innerEl.innerHTML = '+';
+      innerEl.segmentEl = segment.el;
+      innerEl.tabIndex = -1;
+      if (system.touch) {
+        innerEl.addEventListener('touchstart', _onWidthIncrementClick, false);
+      } else {
+        innerEl.addEventListener('click', _onWidthIncrementClick, false);        
+      }
+      widthCanvasEl.appendChild(innerEl);        
+
+      infoBubbleEl.appendChild(widthCanvasEl);
+
     },
 
     // TODO rename

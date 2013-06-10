@@ -1841,6 +1841,36 @@ body.no-connection-message-visible #status-message {
     font-weight: bold;
 
     position: relative;
+
+    background: rgb(240, 240, 240);
+  }
+
+  .variants {
+    text-align: center;
+    padding: 5px 10px;
+    height: @infoBubbleButtonSize;
+    line-height: @infoBubbleButtonSize;
+
+    button {
+      margin-left: 3px;
+      margin-right: 3px;
+    }
+    hr {
+      vertical-align: top;
+      margin: 0;
+      padding: 0;
+      display: inline-block;
+      opacity: 0;
+      width: @infoBubbleButtonSize / 2;
+      height: @infoBubbleButtonSize;      
+    }
+  }
+
+  .width-canvas {
+    padding: 5px 10px;
+    padding-top: 0;
+    height: @infoBubbleButtonSize;
+    line-height: @infoBubbleButtonSize;    
   }
 
   button {
