@@ -674,6 +674,7 @@ var main = (function(){
     elY: null,
     originalEl: null,
     originalWidth: null,
+    originalVariantString: null,
     floatingElVisible: false
   };
 
@@ -2192,12 +2193,12 @@ var main = (function(){
     return _checkIfChangesSaved();
   }
 
-  function _getVariantArray(segment, variantString) {
+  function _getVariantArray(segmentType, variantString) {
     var variantArray = {};
     var variantSplit = variantString.split(VARIANT_SEPARATOR);
 
-    for (var i in SEGMENT_INFO[segment.type].variants) {
-      var variantName = SEGMENT_INFO[segment.type].variants[i];
+    for (var i in SEGMENT_INFO[segmentType].variants) {
+      var variantName = SEGMENT_INFO[segmentType].variants[i];
 
       variantArray[variantName] = variantSplit[i];
     }
@@ -2243,7 +2244,7 @@ var main = (function(){
       var segment = {};
       segment.type = el.getAttribute('type');
       segment.variantString = el.getAttribute('variant-string');
-      segment.variant = _getVariantArray(segment, segment.variantString);
+      segment.variant = _getVariantArray(segment.type, segment.variantString);
       segment.width = parseFloat(el.getAttribute('width'));
       segment.el = el;
       segment.warnings = [];
@@ -2796,8 +2797,7 @@ var main = (function(){
           (width > street.remainingWidth * TILE_SIZE)) {
 
         var segmentMinWidth = 
-            SEGMENT_INFO[draggingMove.originalType].
-                details[draggingMove.originalVariantString].minWidth || 0;
+            SEGMENT_INFO[type].details[variantString].minWidth || 0;
 
         if ((street.remainingWidth >= MIN_SEGMENT_WIDTH) && 
             (street.remainingWidth >= segmentMinWidth)) {
@@ -2805,6 +2805,37 @@ var main = (function(){
         }
       }
     }
+
+    // Automatically figure out variants
+
+    var leftSiblingEl = draggingMove.segmentAfterEl;
+    var rightSiblingEl = draggingMove.segmentBeforeEl;
+
+    var leftSibling = leftSiblingEl ? street.segments[leftSiblingEl.dataNo] : null;
+    var rightSibling = rightSiblingEl ? street.segments[rightSiblingEl.dataNo] : null;
+
+    var leftSiblingVariants = leftSibling && SEGMENT_INFO[leftSibling.type].variants;
+    var rightSiblingVariants = rightSibling && SEGMENT_INFO[rightSibling.type].variants;
+
+    var leftSiblingVariant = leftSibling && _getVariantArray(leftSibling.type, leftSibling.variantString);
+    var rightSiblingVariant = rightSibling && _getVariantArray(rightSibling.type, rightSibling.variantString);
+
+    //console.log('left sibling', leftSiblingVariant);
+    //console.log('right sibling', rightSiblingVariant);
+
+    var variant = _getVariantArray(type, variantString);
+
+    // Direction
+
+    if (SEGMENT_INFO[type].variants.indexOf('direction') != -1) {
+      if (leftSiblingVariant['direction']) {
+        variant['direction'] = leftSiblingVariant['direction'];
+      } else if (rightSiblingVariant['direction']) {
+        variant['direction'] = rightSiblingVariant['direction'];
+      }
+    }
+
+    variantString = _getVariantString(variant);
 
     return { type: type, variantString: variantString, width: width };
   }
