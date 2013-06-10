@@ -682,9 +682,6 @@ var main = (function(){
   var widthEditHeld = false;
   var resizeSegmentTimerId = -1;
 
-  var infoBubbleVisible = false;
-  var infoButtonHoverTimerId = -1;
-
   var galleryVisible = false;
 
   var streetSectionCanvasLeft;
@@ -1286,126 +1283,6 @@ var main = (function(){
 
     if (!initial) {
       _segmentsChanged();
-    }
-  }
-
-  function _moveInfoBubble(segmentEl) {
-    var infoBubbleEl = document.querySelector('#info-bubble');
-
-    var infoBubbleWidth = infoBubbleEl.offsetWidth;
-    var infoBubbleHeight = infoBubbleEl.offsetHeight;
-
-    var pos = _getElAbsolutePos(segmentEl);
-
-    var left = (pos[0] + segmentEl.offsetWidth / 2) - (infoBubbleWidth / 2);
-    var top = pos[1];
-
-    infoBubbleEl.style.left = left + 'px';
-    infoBubbleEl.style.height = infoBubbleHeight + 'px';
-    // TODO const
-    infoBubbleEl.style.top = (top + 510 - infoBubbleHeight) + 'px';
-
-    var segment = street.segments[parseInt(segmentEl.dataNo)];
-
-    var html = '';
-    html += '<button class="close">×</button>';
-
-    html += '<h1>' + SEGMENT_INFO[segmentEl.getAttribute('type')].name + '</h1>';
-    html += '<section class="content">';
-    if (segment.warnings[SEGMENT_WARNING_OUTSIDE]) {
-      html += '<p class="warning">';
-      html += '<strong>This segment doesn’t fit within the street.</strong> ';
-      html += 'Resize the segment or remove other segments.';
-      html += '</p>';
-    }
-    if (segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL]) {
-      html += '<p class="warning">';
-      html += '<strong>This segment is not wide enough.</strong> ';
-      html += 'Drive lanes under 8" lorem ipsum.';
-      html += '</p>';
-    }
-    if (segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE]) {
-      html += '<p class="warning">';
-      html += '<strong>This segment is too wide.</strong> ';
-      html += 'Drive lanes over 15" lorem ipsum.';
-      html += '</p>';
-    }
-    html += '<p class="photo"><img src="/images/info-bubble-examples/bike-lane.jpg"></p>';
-    html += '<p class="description">Etizzle sizzle urna ut nisl. Tellivizzle quizzle arcu. Own yo’ pulvinar, ipsizzle shut the shizzle up bizzle we gonna chung, nulla purizzle izzle brizzle, shizzle my nizzle crocodizzle nizzle metus nulla izzle izzle. Vivamus ullamcorpizzle, tortor et varizzle owned, mah nizzle black break yo neck, yall crackalackin, izzle shiz leo elizzle fizzle dolizzle. Maurizzle aliquet, orci vel mah nizzle yippiyo, sizzle cool luctus fizzle, izzle bibendizzle enizzle dizzle yippiyo nisl. Nullizzle phat velizzle shiznit get down get down eleifend dawg. Phasellizzle nec nibh. Curabitizzle nizzle velit boom shackalack uhuh ... yih! sodalizzle facilisizzle. Maecenas things nulla, iaculizzle check it out, pot sed, rizzle a, erizzle. Nulla vitae turpis fo shizzle my nizzle nibh get down get down nizzle. Nizzle pulvinar consectetizzle velizzle. Aliquizzle mofo volutpizzle. Nunc ut leo izzle shit get down get down faucibus. Crizzle nizzle lacizzle the bizzle shizznit condimentizzle ultricies. Ut nisl. Fo shizzle my nizzle izzle fo shizzle mah nizzle fo rizzle, mah home g-dizzle. Integer laorizzle nizzle away mi. Crunk at turpizzle.</p>';
-    html += '</section>';
-
-    infoBubbleEl.innerHTML = html;
-
-    infoBubbleEl.querySelector('.close').addEventListener('click', _hideInfoBubble);
-
-    var el = document.querySelector('.segment.hover');
-    if (el) {
-      el.classList.remove('hover');
-    }
-
-    segmentEl.classList.add('hover');
-  }
-
-  function _hideInfoBubble() {
-    var el = document.querySelector('.segment.hover');
-    if (el) {
-      el.classList.remove('hover');
-    }
-
-    var infoBubbleEl = document.querySelector('#info-bubble');
-    infoBubbleEl.classList.remove('visible');
-    infoBubbleVisible = false;
-
-    document.body.classList.remove('info-bubble-visible');
-  }
-
-  function _onInfoButtonMouseOver(event) {
-    if (!infoBubbleVisible) {
-      return;
-    }
-
-    var el = event.target;
-    var segmentEl = el.segmentEl;
-
-    window.clearTimeout(infoButtonHoverTimerId);
-
-    // TODO const
-    infoButtonHoverTimerId = 
-        window.setTimeout(function() { _showInfoBubble(segmentEl); }, 250);
-  }
-
-  function _onInfoButtonMouseOut(event) {
-    window.clearTimeout(infoButtonHoverTimerId);    
-  }
-
-  function _showInfoBubble(segmentEl) {
-    window.clearTimeout(infoButtonHoverTimerId);
-
-    if (!infoBubbleVisible) {
-      var infoBubbleEl = document.querySelector('#info-bubble');
-      infoBubbleEl.classList.add('visible');
-      infoBubbleEl.classList.add('no-move-transition');
-      infoBubbleVisible = true;
-      document.body.classList.add('info-bubble-visible');
-    }
-
-    _moveInfoBubble(segmentEl);
-
-    window.setTimeout(function() {
-      infoBubbleEl.classList.remove('no-move-transition');
-    }, 0);
-  }
-
-  function _onInfoButtonClick(event) {
-    window.clearTimeout(infoButtonHoverTimerId);
-
-    if (infoBubbleVisible) {
-      _hideInfoBubble();
-    } else {
-      var el = event.target;
-      var segmentEl = el.segmentEl;
-
-      _showInfoBubble(segmentEl);
     }
   }
 
@@ -2795,17 +2672,13 @@ var main = (function(){
       topEl = topEl.parentNode;
     }
 
-    var withinInfoBubbleOrMenu = !!topEl;
+    var withinMenu = !!topEl;
 
-    if (withinInfoBubbleOrMenu) {
+    if (withinMenu) {
       return;
     }
 
     _hideMenus();
-
-    if (!el.classList.contains('info')) {
-      _hideInfoBubble();
-    }
 
     if (el.classList.contains('drag-handle')) {
       _handleSegmentResizeStart(event);
@@ -3343,11 +3216,8 @@ var main = (function(){
 
         if (document.body.classList.contains('gallery-visible')) {
           _hideGallery(false);
-        } else {
-          if (infoBubbleVisible) {
-            _hideInfoBubble();
-          }
         }
+
         event.preventDefault();
         break;
       case KEY_Z:
