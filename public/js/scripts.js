@@ -2911,7 +2911,7 @@ var main = (function(){
         if ((street.remainingWidth > 0) && (width > street.remainingWidth * TILE_SIZE)) {
 
           var segmentMinWidth = 
-              SEGMENT_INFO[draggingMove.originalType].minWidth || 0;
+              SEGMENT_INFO[draggingMove.originalType].details[draggingMove.originalVariantString].minWidth || 0;
 
           if ((street.remainingWidth >= MIN_SEGMENT_WIDTH) && 
               (street.remainingWidth >= segmentMinWidth)) {
