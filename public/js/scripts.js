@@ -1254,6 +1254,8 @@ var main = (function(){
       el.getAttribute('variant-string'), width, palette);
 
     if (updateEdit) {
+      _infoBubble.updateWidthInContents(el, width / TILE_SIZE);
+
 /*      var value = width / TILE_SIZE;
 
       var editEl = el.querySelector('.width-edit');
@@ -3539,7 +3541,7 @@ var main = (function(){
       mode = MODE_FORCE_RELOAD_SIGN_OUT;
       _processMode();
     } else if (!signedIn && window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
-      console.log('blah', window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]);
+      //console.log('blah', window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]);
       mode = MODE_FORCE_RELOAD_SIGN_IN;
       _processMode();      
     }
@@ -4448,6 +4450,18 @@ var main = (function(){
       _saveStreetToServerIfNecessary();
     },
 
+    updateWidthInContents: function(segmentEl, width) {
+      if (!_infoBubble.visible || !_infoBubble.segmentEl || 
+          (_infoBubble.segmentEl != segmentEl)) {
+        return;
+      }
+
+      var el = _infoBubble.el.querySelector('.width-canvas .width');
+
+      el.realValue = width;
+      el.value = _prettifyWidth(width, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP);
+    },
+
     updateContents: function() {
       var infoBubbleEl = _infoBubble.el;
       //console.log(el);
@@ -4494,12 +4508,32 @@ var main = (function(){
       }
       widthCanvasEl.appendChild(innerEl);        
 
-      var innerEl = document.createElement('input');
-      innerEl.classList.add('width');
-      widthCanvasEl.appendChild(innerEl);        
 
-      innerEl.value = 
-          _prettifyWidth(segment.width, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP);
+
+      /*var innerEl = document.createElement('input');
+      innerEl.classList.add('width');
+      widthCanvasEl.appendChild(innerEl);        */
+
+      if (!system.touch) {
+        var innerEl = document.createElement('input');
+        innerEl.setAttribute('type', 'text');
+        innerEl.classList.add('width');
+        innerEl.segmentEl = segment.el;
+        //innerEl.value = width / TILE_SIZE;
+
+        innerEl.addEventListener('click', _onWidthEditClick);
+        innerEl.addEventListener('focus', _onWidthEditFocus);
+        innerEl.addEventListener('blur', _onWidthEditBlur);
+        innerEl.addEventListener('input', _onWidthEditInput);
+        innerEl.addEventListener('mouseover', _onWidthEditMouseOver);
+        innerEl.addEventListener('mouseout', _onWidthEditMouseOut);
+        innerEl.addEventListener('keydown', _onWidthEditKeyDown);
+      } else {
+        var innerEl = document.createElement('span');
+        innerEl.classList.add('width-non-editable');
+      }
+      widthCanvasEl.appendChild(innerEl);
+
 
       var innerEl = document.createElement('button');
       innerEl.classList.add('increment');
@@ -4553,6 +4587,11 @@ var main = (function(){
       }      
 
       infoBubbleEl.appendChild(variantsEl);
+
+      window.setTimeout(function() {
+        _infoBubble.updateWidthInContents(segment.el, segment.width);
+      }, 0);
+
     },
 
     // TODO rename
