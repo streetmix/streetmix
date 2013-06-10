@@ -1859,6 +1859,26 @@ body.no-connection-message-visible #status-message {
     }
   }
 
+  .warnings {
+    margin-top: 5px;
+    font-size: 13px;
+    padding: 5px 5px;
+    border-top: 1px solid rgb(220, 220, 220);
+
+    color: @warningColour;
+
+    text-align: center;
+
+    &:not(.visible) {
+      display: none;
+    }
+
+    > p {
+      margin: 5px 0;
+      padding: 0;
+    }
+  }
+
   .width-canvas {
     position: absolute;
     right: 5px;
@@ -1885,7 +1905,7 @@ body.no-connection-message-visible #status-message {
       font-size: 13px;
       vertical-align: bottom;
       line-height: 25px;
-      height: 25px;
+      height: 22px;
 
       outline: none;
     }

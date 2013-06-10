@@ -1533,6 +1533,7 @@ var main = (function(){
           segment.el.classList.remove('outside');
         }
       }
+      _infoBubble.updateWarningsInContents(segment);
     }
   }
 
@@ -2851,9 +2852,9 @@ var main = (function(){
     // Direction
 
     if (SEGMENT_INFO[type].variants.indexOf('direction') != -1) {
-      if (leftVariant['direction']) {
+      if (leftVariant && leftVariant['direction']) {
         variant['direction'] = leftVariant['direction'];
-      } else if (rightVariant['direction']) {
+      } else if (rightVariant && rightVariant['direction']) {
         variant['direction'] = rightVariant['direction'];
       }
     }
@@ -4551,6 +4552,39 @@ var main = (function(){
       _saveStreetToServerIfNecessary();
     },
 
+    updateWarningsInContents: function(segment) {
+      if (!_infoBubble.visible || !_infoBubble.segmentEl || 
+          (_infoBubble.segmentEl != segment.el)) {
+        return;
+      }
+      var el = _infoBubble.el.querySelector('.warnings');
+
+      var html = '';
+
+      if (segment.warnings[SEGMENT_WARNING_OUTSIDE]) {
+        html += '<p>';
+        html += 'This segment doesn’t fit within the street.';
+        html += '</p>';
+      }
+      if (segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL]) {
+        html += '<p>';
+        html += 'This segment is not wide enough.';
+        html += '</p>';
+      }
+      if (segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE]) {
+        html += '<p>';
+        html += 'This segment is too wide.';
+        html += '</p>';
+      }      
+
+      if (html) {
+        el.innerHTML = html;
+        el.classList.add('visible');
+      } else {
+        el.classList.remove('visible');
+      }
+    },
+
     updateWidthInContents: function(segmentEl, width) {
       if (!_infoBubble.visible || !_infoBubble.segmentEl || 
           (_infoBubble.segmentEl != segmentEl)) {
@@ -4608,12 +4642,6 @@ var main = (function(){
         innerEl.addEventListener('click', _onWidthDecrementClick, false);        
       }
       widthCanvasEl.appendChild(innerEl);        
-
-
-
-      /*var innerEl = document.createElement('input');
-      innerEl.classList.add('width');
-      widthCanvasEl.appendChild(innerEl);        */
 
       if (!system.touch) {
         var innerEl = document.createElement('input');
@@ -4689,8 +4717,16 @@ var main = (function(){
 
       infoBubbleEl.appendChild(variantsEl);
 
+      // Warnings
+
+      var el = document.createElement('div');
+      el.classList.add('warnings');
+
+      infoBubbleEl.appendChild(el);
+
       window.setTimeout(function() {
         _infoBubble.updateWidthInContents(segment.el, segment.width);
+        _infoBubble.updateWarningsInContents(segment);
       }, 0);
 
     },
