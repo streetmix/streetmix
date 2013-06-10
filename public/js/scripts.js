@@ -4797,8 +4797,17 @@ var main = (function(){
 
       _infoBubble.el.style.top = bubbleY + 'px';
       
+      if (!_infoBubble.visible) {
+        _infoBubble.el.classList.add('no-horizontal-move');
+        // TODO const
+        window.setTimeout(function() {
+          _infoBubble.el.classList.remove('no-horizontal-move');
+        }, 100);
+
+        _infoBubble.visible = true;
+
+      }
       _infoBubble.el.classList.add('visible');
-      _infoBubble.visible = true;
 
       _infoBubble.bubbleX = bubbleX;
       _infoBubble.bubbleY = bubbleY;
