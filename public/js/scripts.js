@@ -2256,6 +2256,8 @@ var main = (function(){
       // As per issue #306.
       _statusMessage.hide();
 
+      _hideStreetAttribution();
+
       _createNewUndoIfNecessary(lastStreet, currentData);
       _scheduleSavingStreetToServer();
 
@@ -3493,13 +3495,21 @@ var main = (function(){
       _fetchAvatars();
 
       document.querySelector('#street-attribution .user-gallery').addEventListener('click', _onAnotherUserIdClick);
+    } else if (!street.creatorId) {
+      var html = "by Anonymous · " + _formatDate(moment(street.updatedAt));
 
-      document.querySelector('#street-attribution').classList.add('visible');
+      document.querySelector('#street-attribution').innerHTML = html;
     } else {
-      document.querySelector('#street-attribution').classList.remove('visible');      
+      var html = _formatDate(moment(street.updatedAt));
 
-      document.querySelector('#street-attribution').innerHTML = '';
+      document.querySelector('#street-attribution').innerHTML = html;      
     }
+
+    document.querySelector('#street-attribution').classList.add('visible');
+  }
+
+  function _hideStreetAttribution() {
+    document.querySelector('#street-attribution').classList.remove('visible');
   }
 
   function _updateStreetName() {
