@@ -1254,7 +1254,7 @@ var main = (function(){
       el.getAttribute('variant-string'), width, palette);
 
     if (updateEdit) {
-      var value = width / TILE_SIZE;
+/*      var value = width / TILE_SIZE;
 
       var editEl = el.querySelector('.width-edit');
       if (editEl) {
@@ -1265,10 +1265,10 @@ var main = (function(){
         if (editEl) {
           editEl.innerHTML = _prettifyWidth(value, PRETTIFY_WIDTH_OUTPUT_MARKUP);
         }
-      }
+      }*/
     }
 
-    var widthEditCanvasEl = el.querySelector('.width-edit-canvas');
+    /*var widthEditCanvasEl = el.querySelector('.width-edit-canvas');
 
     if (widthEditCanvasEl) {
       if (width < MIN_WIDTH_EDIT_CANVAS_WIDTH) {
@@ -1279,7 +1279,7 @@ var main = (function(){
         widthEditCanvasEl.style.width = '';
         widthEditCanvasEl.style.marginLeft = '';
       }
-    }
+    }*/
 
     if (!initial) {
       _segmentsChanged();
@@ -1361,7 +1361,7 @@ var main = (function(){
 
       el.appendChild(commandsEl);
 
-      var widthEditCanvasEl = document.createElement('span');
+      /*var widthEditCanvasEl = document.createElement('span');
       widthEditCanvasEl.classList.add('width-edit-canvas');
 
       var innerEl = document.createElement('button');
@@ -1408,7 +1408,7 @@ var main = (function(){
       }
       widthEditCanvasEl.appendChild(innerEl);        
 
-      el.appendChild(widthEditCanvasEl);
+      el.appendChild(widthEditCanvasEl);*/
 
       var innerEl = document.createElement('span');
       innerEl.classList.add('grid');
@@ -4491,6 +4491,9 @@ var main = (function(){
       var innerEl = document.createElement('input');
       innerEl.classList.add('width');
       widthCanvasEl.appendChild(innerEl);        
+
+      innerEl.value = 
+          _prettifyWidth(segment.width, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP);
 
       var innerEl = document.createElement('button');
       innerEl.classList.add('increment');

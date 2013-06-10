@@ -911,6 +911,8 @@ body.segment-resize-dragging .segment .drag-handle {
   z-index: 150001;
   padding-top: 10px;
 }
+
+/*
 .segment .width-edit-canvas {
   position: absolute;
   left: 1px;
@@ -939,7 +941,7 @@ body.segment-resize-dragging .segment .drag-handle {
   background: @backgroundDirtColour;  
   background-clip: content-box;
 }
-
+*/
 .segment button {
   width: 30px;
   height: 29px;
@@ -997,7 +999,7 @@ body:not(.touch-support) .segment.hover .remove,
   z-index: 99999999;
 }
 
-.segment .width-edit,
+/*.segment .width-edit,
 .segment .width-edit-placeholder {
   width: 50px;
   text-align: center;
@@ -1026,9 +1028,9 @@ body:not(.touch-support) .segment.hover .remove,
   border-top-color: rgb(100, 100, 100);
   background: rgb(160, 160, 160);
   color: black;
-}
+}*/
 
-.segment .width-edit-canvas .width-edit:focus {
+/*.segment .width-edit-canvas .width-edit:focus {
   outline: none;
 
   color: black !important;
@@ -1045,7 +1047,7 @@ body:not(.touch-support) .segment.hover .remove,
 }
 .segment:not(.unmovable).warning:hover .width-edit {
   color: darken(@warningColour, 20%) !important;
-}
+}*/
 
 .segment .width {
   position: absolute;
@@ -1095,8 +1097,6 @@ body.segment-move-dragging #editable-street-section > div {
 
 .segment:not(.unmovable).fade-out-start .drag-handle,
 .segment:not(.unmovable).fade-out-start .remove,
-.segment:not(.unmovable).fade-out-start .width-edit-canvas,
-.segment:not(.unmovable).fade-out-start .width-edit-placeholder,
 .segment:not(.unmovable).fade-out-start .decrement,
 .segment:not(.unmovable).fade-out-start .increment {
   pointer-events: auto;
@@ -1105,8 +1105,6 @@ body.segment-move-dragging #editable-street-section > div {
 }
 .segment:not(.unmovable).fade-out-end .drag-handle,
 .segment:not(.unmovable).fade-out-end .remove,
-.segment:not(.unmovable).fade-out-end .width-edit-canvas,
-.segment:not(.unmovable).fade-out-end .width-edit-placeholder,
 .segment:not(.unmovable).fade-out-end .decrement,
 .segment:not(.unmovable).fade-out-end .increment {
   pointer-events: auto;
