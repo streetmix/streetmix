@@ -2917,6 +2917,8 @@ var main = (function(){
     }
     var withinCanvas = !!el;
 
+    var failedDrop = false;
+
     if (!withinCanvas) {
       if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
         _removeElFromDom(draggingMove.originalEl);
@@ -2951,7 +2953,9 @@ var main = (function(){
       }
 
       _createTouchSegmentFadeout(newEl);
-    } else {            
+    } else {          
+      failedDrop = true;
+
       _createTouchSegmentFadeout(draggingMove.originalEl);
 
       draggingMove.originalEl.classList.remove('dragged-out');
@@ -2967,6 +2971,10 @@ var main = (function(){
     document.querySelector('#trashcan').classList.remove('visible');
 
     _changeDraggingType(DRAGGING_TYPE_NONE);
+
+    if (failedDrop) {
+      _infoBubble.show(true);    
+    }
   }
 
   function _removeGuides(el) {
@@ -2994,7 +3002,7 @@ var main = (function(){
     _removeGuides(draggingResize.segmentEl);
  
     _infoBubble.considerSegmentEl = draggingResize.segmentEl;
-    _infoBubble.show();
+    _infoBubble.show(false);
 
     _createTouchSegmentFadeout(draggingResize.segmentEl);
   }
@@ -4540,7 +4548,7 @@ var main = (function(){
 
       if (_infoBubble.visible) {
         if (!_infoBubble._withinHoverPolygon(mouseX, mouseY)) {
-          _infoBubble.show();
+          _infoBubble.show(false);
         }
       }
     },
@@ -4576,7 +4584,7 @@ var main = (function(){
       _infoBubble.considerSegmentEl = segmentEl;
 
       if (!_infoBubble.visible || !_infoBubble._withinHoverPolygon(mouseX, mouseY)) {
-        _infoBubble.show();
+        _infoBubble.show(false);
       } 
     },
 
