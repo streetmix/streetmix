@@ -1015,12 +1015,6 @@ body:not(.touch-support) .segment:not(.unmovable):hover .increment:hover,
   z-index: 99999999;
 }
 
-body.info-bubble-visible .segment button.remove,
-body.info-bubble-visible .segment .width-edit-canvas {
-  opacity: 0;
-  pointer-events: none;
-}
-
 .segment .width-edit,
 .segment .width-edit-placeholder {
   width: 50px;
@@ -1322,100 +1316,6 @@ body.touch-support .segment.fade-out-end button {
 
 body.no-connection-message-visible #status-message {
   top: 165px;
-}
-
-#info-bubble {
-  position: absolute;
-  width: 300px;
-  height: 500px;
-
-  z-index: 99999999;
-
-  background: rgba(255, 255, 255, .95);
-  box-shadow: 0 2px 2px rgba(0, 0, 0, .25);
-
-  pointer-events: none;
-  opacity: 0;
-
-  -webkit-transition: left 175ms;
-
-  &.no-move-transition {
-    -webkit-transition: none;
-  }
-
-  &.visible {
-    pointer-events: auto;
-    opacity: 1;
-  }
-
-  & h1 {
-    position: absolute;
-    top: 10px;
-    left: 0;
-    right: 0;
-    padding: 0 15px;
-    margin: 0;
-
-    font-size: 12px;
- 
-    font-weight: bold;
-  }
-
-  & .content {
-    position: absolute;
-
-    top: 30px;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    overflow-y: scroll;
-
-    padding: 0 15px;
-
-    font-size: 12px;
-    line-height: 1.4;
-
-    & p {
-      margin: 10px 0;
-    }
-    & img {
-      max-width: 100%;
-    }
-    & .warning {
-      background: rgb(180, 0, 0);
-
-      margin: 0 -15px;
-      padding: 0 15px;
-
-      color: white;
-      padding-top: 10px;
-      padding-bottom: 10px;
-    }
-  }
-
-  & .close {
-    z-index: 1000;
-    position: absolute;
-    right: 0;
-    top: 0;
-
-    width: 30px;
-    height: 29px;
-    line-height: 25px;
-    vertical-align: top;
-
-    background: transparent;
-    padding: 0;
-    margin: 0 1px;
-    border: 1px solid rgba(255, 255, 255, .2);
-    color: rgb(150, 150, 150);
-
-    cursor: pointer;
-
-    &:hover {
-      color: black;
-    }
-  }
 }
 
 // TODO confusing with .menu
