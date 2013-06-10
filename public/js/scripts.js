@@ -2612,6 +2612,8 @@ var main = (function(){
 
     draggingMove.segmentBeforeEl = null;
     draggingMove.segmentAfterEl = null;
+
+    _infoBubble.hide();
   }
 
   function _handleSegmentMoveMove(event) {
@@ -3242,6 +3244,10 @@ var main = (function(){
 
         if (document.body.classList.contains('gallery-visible')) {
           _hideGallery(false);
+        } else if (_infoBubble.visible) {
+          _infoBubble.hide();
+        } else {
+          _hideMenus();
         }
 
         event.preventDefault();
