@@ -2504,6 +2504,9 @@ var main = (function(){
       guideEl.style.marginLeft = (-width / 2) + 'px';
       el.segmentEl.appendChild(guideEl);
     }
+
+    _infoBubble.hide();
+    _infoBubble.hideSegment();
   }
 
   function _handleSegmentResizeMove(event) {
@@ -2878,6 +2881,9 @@ var main = (function(){
 
     _removeGuides(draggingResize.segmentEl);
  
+    _infoBubble.considerSegmentEl = draggingResize.segmentEl;
+    _infoBubble.show();
+
     _createTouchSegmentFadeout(draggingResize.segmentEl);
   }
 
@@ -4539,6 +4545,10 @@ var main = (function(){
 
     // TODO rename
     show: function() {
+      if (draggingType != DRAGGING_TYPE_NONE) {
+        return;
+      }
+
       if (!_infoBubble.considerSegmentEl) {
         _infoBubble.hide();
         _infoBubble.hideSegment();
