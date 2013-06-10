@@ -2871,10 +2871,28 @@ var main = (function(){
     // Turn lane orientation
 
     if (SEGMENT_INFO[type].variants.indexOf('turn-lane-orientation') != -1) {
-      if (!right || (rightOwnerAsphalt) {
+      if (!right || !rightOwnerAsphalt) {
         variant['turn-lane-orientation'] = 'right';
       } else if (!left || !leftOwnerAsphalt) {
         variant['turn-lane-orientation'] = 'left';
+      }
+    }
+
+    // Lamp orientation
+
+    if (SEGMENT_INFO[type].variants.indexOf('lamp-orientation') != -1) {
+      if (left && right && leftOwnerAsphalt && rightOwnerAsphalt) {
+        variant['lamp-orientation'] = 'both';
+      } else if (left && leftOwnerAsphalt) {
+        variant['lamp-orientation'] = 'left';
+      } else if (right && rightOwnerAsphalt) {
+        variant['lamp-orientation'] = 'right';
+      } else if (left && right) {
+        variant['lamp-orientation'] = 'both';        
+      } else if (left) {
+        variant['lamp-orientation'] = 'left';        
+      } else {
+        variant['lamp-orientation'] = 'right';        
       }
     }
 
