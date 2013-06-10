@@ -1337,7 +1337,7 @@ var main = (function(){
       var commandsEl = document.createElement('span');
       commandsEl.classList.add('commands');
 
-      var innerEl = document.createElement('button');
+/*      var innerEl = document.createElement('button');
       innerEl.classList.add('remove');
       innerEl.innerHTML = '×';
       innerEl.segmentEl = el;
@@ -1348,7 +1348,7 @@ var main = (function(){
       } else {
         innerEl.addEventListener('click', _onRemoveButtonClick);        
       }
-      commandsEl.appendChild(innerEl);        
+      commandsEl.appendChild(innerEl);        */
 
       /*var innerEl = document.createElement('button');
       innerEl.classList.add('info');
@@ -4407,6 +4407,25 @@ var main = (function(){
       _infoBubble.considerSegmentEl = null;
     },
 
+    updateContents: function() {
+      var el = _infoBubble.el;
+
+      el.innerHTML = '';
+
+      var innerEl = document.createElement('button');
+      innerEl.classList.add('remove');
+      innerEl.innerHTML = '×';
+      innerEl.segmentEl = _infoBubble.segmentEl;
+      innerEl.tabIndex = -1;
+      innerEl.setAttribute('title', msg('TOOLTIP_REMOVE_SEGMENT'));
+      if (system.touch) {      
+        innerEl.addEventListener('touchstart', _onRemoveButtonClick);
+      } else {
+        innerEl.addEventListener('click', _onRemoveButtonClick);        
+      }
+      el.appendChild(innerEl);        
+    },
+
     // TODO rename
     show: function() {
       if (!_infoBubble.considerSegmentEl) {
@@ -4424,8 +4443,6 @@ var main = (function(){
       }
       _infoBubble.hideSegment();
 
-      //_infoBubble.hide();
-
       _infoBubble.segmentEl = segmentEl;
 
       segmentEl.classList.add('hover');
@@ -4437,10 +4454,8 @@ var main = (function(){
       var bubbleX = pos[0];
       var bubbleY = pos[1];
 
-      //_infoBubble.el = document.createElement('div');
-      //_infoBubble.el.classList.add('info-bubble');
-      //document.querySelector('#main-screen').appendChild(_infoBubble.el);
       _infoBubble.el = document.querySelector('#main-screen .info-bubble');
+      _infoBubble.updateContents();
 
       var bubbleWidth = _infoBubble.el.offsetWidth;
       var bubbleHeight = _infoBubble.el.offsetHeight;
@@ -4453,10 +4468,6 @@ var main = (function(){
 
       bubbleX += segmentEl.offsetWidth / 2;
       bubbleX -= bubbleWidth / 2;
-
-      //_infoBubble.el.style.left = bubbleX + 'px';
-
-      //console.log(bubbleX);
 
       if (system.cssTransform) {
         _infoBubble.el.style[system.cssTransform] = 'translateX(' + bubbleX + 'px)';
@@ -4476,20 +4487,6 @@ var main = (function(){
 
       _infoBubble.updateHoverPolygon(mouseX, mouseY);
       document.body.addEventListener('mousemove', _infoBubble.onBodyMouseMove);
-
-      //console.log(JSON.stringify(_infoBubble.hoverPolygon, null, 2));
-
-      /*_infoBubble.hoverPolygon = [
-        [mouseX - 20, mouseY - 20], 
-        [mouseX - 20, mouseY + 20], 
-        [mouseX + 20, mouseY + 20], 
-        [mouseX + 20, mouseY - 20],
-        [mouseX - 20, mouseY - 20], 
-      ];*/
-
-      //console.log(mouseX, mouseY);
-      //console.log(_infoBubble.hoverPolygon);
-
     }
   };
 

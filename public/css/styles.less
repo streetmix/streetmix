@@ -1799,12 +1799,15 @@ body.no-connection-message-visible #status-message {
 
   box-shadow: 0 2px 2px rgba(0, 0, 0, .25);
 
-  -webkit-transition: -webkit-transform 100ms, opacity 150ms;
-  -moz-transition: -moz-transform 100ms, opacity 150ms;
-  transition: transform 100ms, opacity 150ms;
+  -webkit-transition: -webkit-transform 75ms, opacity 150ms, margin-top 150ms;
+  -moz-transition: -moz-transform 75ms, opacity 150ms, margin-top 150ms;
+  transition: transform 75ms, opacity 150ms, margin-top 150ms;
+
+  margin-top: -6px;
 
   &.visible {
     opacity: 1;
+    margin-top: 0;
     pointer-events: auto;
   }
 
