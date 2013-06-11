@@ -4412,6 +4412,9 @@ var main = (function(){
     hoverPolygon: null,
     segmentEl: null,
 
+    lastMouseX: null,
+    lastMouseY: null,
+
     bubbleX: null,
     bubbleY: null,
     bubbleWidth: null,
@@ -4420,6 +4423,8 @@ var main = (function(){
     considerMouseX: null,
     considerMouseY: null,
     considerSegmentEl: null,
+
+    hoverPolygonUpdateTimerId: -1,
 
     onMouseEnter: function() {
       _infoBubble.mouseInside = true;
@@ -4436,6 +4441,10 @@ var main = (function(){
     },
 
     updateHoverPolygon: function(mouseX, mouseY) {
+      if (!_infoBubble.visible) {
+        return;
+      }
+
       // TODO move
       var MARGIN_BUBBLE = 20;
       var MARGIN_MOUSE = 10;
@@ -4479,15 +4488,28 @@ var main = (function(){
       }
     },
 
+    scheduleHoverPolygonUpdate: function() {
+      window.clearTimeout(_infoBubble.hoverPolygonUpdateTimerId);
+
+      _infoBubble.hoverPolygonUpdateTimerId = window.setTimeout(function() {
+        _infoBubble.updateHoverPolygon(_infoBubble.lastMouseX, _infoBubble.lastMouseY);
+      }, 250);
+    },
+
     onBodyMouseMove: function(event) {
       var mouseX = event.pageX;
       var mouseY = event.pageY;
+
+      _infoBubble.lastMouseX = mouseX; 
+      _infoBubble.lastMouseY = mouseY;
 
       if (_infoBubble.visible) {
         if (!_infoBubble._withinHoverPolygon(mouseX, mouseY)) {
           _infoBubble.show(false);
         }
       }
+
+      _infoBubble.scheduleHoverPolygonUpdate();
     },
 
     hideSegment: function() {
