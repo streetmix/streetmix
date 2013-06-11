@@ -1264,33 +1264,7 @@ var main = (function(){
 
     if (updateEdit) {
       _infoBubble.updateWidthInContents(el, width / TILE_SIZE);
-
-/*      var value = width / TILE_SIZE;
-
-      var editEl = el.querySelector('.width-edit');
-      if (editEl) {
-        editEl.realValue = value;
-        editEl.value = _prettifyWidth(value, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP);
-      } else {
-        var editEl = el.querySelector('.width-edit-placeholder');
-        if (editEl) {
-          editEl.innerHTML = _prettifyWidth(value, PRETTIFY_WIDTH_OUTPUT_MARKUP);
-        }
-      }*/
     }
-
-    /*var widthEditCanvasEl = el.querySelector('.width-edit-canvas');
-
-    if (widthEditCanvasEl) {
-      if (width < MIN_WIDTH_EDIT_CANVAS_WIDTH) {
-        widthEditCanvasEl.style.width = MIN_WIDTH_EDIT_CANVAS_WIDTH + 'px';
-        widthEditCanvasEl.style.marginLeft = 
-            ((width - MIN_WIDTH_EDIT_CANVAS_WIDTH) / 2 - WIDTH_EDIT_MARGIN) + 'px';
-      } else {
-        widthEditCanvasEl.style.width = '';
-        widthEditCanvasEl.style.marginLeft = '';
-      }
-    }*/
 
     if (!initial) {
       _segmentsChanged();
@@ -1348,78 +1322,7 @@ var main = (function(){
       var commandsEl = document.createElement('span');
       commandsEl.classList.add('commands');
 
-/*      var innerEl = document.createElement('button');
-      innerEl.classList.add('remove');
-      innerEl.innerHTML = '×';
-      innerEl.segmentEl = el;
-      innerEl.tabIndex = -1;
-      innerEl.setAttribute('title', msg('TOOLTIP_REMOVE_SEGMENT'));
-      if (system.touch) {      
-        innerEl.addEventListener('touchstart', _onRemoveButtonClick);
-      } else {
-        innerEl.addEventListener('click', _onRemoveButtonClick);        
-      }
-      commandsEl.appendChild(innerEl);        */
-
-      /*var innerEl = document.createElement('button');
-      innerEl.classList.add('info');
-      innerEl.segmentEl = el;
-      innerEl.tabIndex = -1;
-      innerEl.addEventListener('mouseover', _onInfoButtonMouseOver);
-      innerEl.addEventListener('mouseout', _onInfoButtonMouseOut);
-      innerEl.addEventListener('click', _onInfoButtonClick);
-      commandsEl.appendChild(innerEl); */
-
       el.appendChild(commandsEl);
-
-      /*var widthEditCanvasEl = document.createElement('span');
-      widthEditCanvasEl.classList.add('width-edit-canvas');
-
-      var innerEl = document.createElement('button');
-      innerEl.classList.add('decrement');
-      innerEl.innerHTML = '–';
-      innerEl.segmentEl = el;
-      innerEl.tabIndex = -1;
-      if (system.touch) {
-        innerEl.addEventListener('touchstart', _onWidthDecrementClick);
-      } else {
-        innerEl.addEventListener('click', _onWidthDecrementClick);        
-      }
-      widthEditCanvasEl.appendChild(innerEl);        
-
-      if (!system.touch) {
-        var innerEl = document.createElement('input');
-        innerEl.setAttribute('type', 'text');
-        innerEl.classList.add('width-edit');
-        innerEl.segmentEl = el;
-        //innerEl.value = width / TILE_SIZE;
-
-        innerEl.addEventListener('click', _onWidthEditClick);
-        innerEl.addEventListener('focus', _onWidthEditFocus);
-        innerEl.addEventListener('blur', _onWidthEditBlur);
-        innerEl.addEventListener('input', _onWidthEditInput);
-        innerEl.addEventListener('mouseover', _onWidthEditMouseOver);
-        innerEl.addEventListener('mouseout', _onWidthEditMouseOut);
-        innerEl.addEventListener('keydown', _onWidthEditKeyDown);
-      } else {
-        var innerEl = document.createElement('span');
-        innerEl.classList.add('width-edit-placeholder');
-      }
-      widthEditCanvasEl.appendChild(innerEl);
-
-      var innerEl = document.createElement('button');
-      innerEl.classList.add('increment');
-      innerEl.innerHTML = '+';
-      innerEl.segmentEl = el;
-      innerEl.tabIndex = -1;
-      if (system.touch) {
-        innerEl.addEventListener('touchstart', _onWidthIncrementClick);
-      } else {
-        innerEl.addEventListener('click', _onWidthIncrementClick);        
-      }
-      widthEditCanvasEl.appendChild(innerEl);        
-
-      el.appendChild(widthEditCanvasEl);*/
 
       var innerEl = document.createElement('span');
       innerEl.classList.add('grid');
@@ -4635,18 +4538,30 @@ var main = (function(){
       _infoBubble.considerSegmentEl = null;
     },
 
-    onVariantButtonClick: function(event, segment, variantName, variantChoice) {
+    onVariantButtonClick: function(event, dataNo, variantName, variantChoice) {
+      var segment = street.segments[dataNo];
+      console.log(dataNo);
+      console.log(segment);
+
       segment.variant[variantName] = variantChoice;
       segment.variantString = _getVariantString(segment.variant);
 
-      //_createDomFromData();
+      console.log(segment.width);
+
       var el = _createSegmentDom(segment);
-      el.dataNo = segment.el.dataNo;
-      segment.el.parentNode.insertBefore(el, segment.el);
-      _switchSegmentElAway(segment.el);
+
+      var oldEl = segment.el;
+
+      oldEl.parentNode.insertBefore(el, oldEl);
+
+      _switchSegmentElAway(oldEl);
+
       segment.el = el;
+      segment.el.dataNo = oldEl.dataNo;
+      street.segments[oldEl.dataNo].el = el;
+
       _switchSegmentElIn(el);
-      segment.el.classList.add('hover');
+      el.classList.add('hover');
       _infoBubble.segmentEl = el;
 
       _repositionSegments();
@@ -4813,11 +4728,11 @@ var main = (function(){
             el.disabled = true;
           }
 
-          el.addEventListener('click', (function(segment, variantName, variantChoice) {
+          el.addEventListener('click', (function(dataNo, variantName, variantChoice) {
             return function() {
-              _infoBubble.onVariantButtonClick(event, segment, variantName, variantChoice);
+              _infoBubble.onVariantButtonClick(event, dataNo, variantName, variantChoice);
             }
-          })(segment, variantName, variantChoice));
+          })(segment.el.dataNo, variantName, variantChoice));
 
           variantsEl.appendChild(el);
         }
