@@ -4549,13 +4549,13 @@ var main = (function(){
     },
 
     considerShowing: function(event, segmentEl) {
-      if (segmentEl == _infoBubble.segmentEl) {
-        return;
-      }
-
       _infoBubble.considerMouseX = event.pageX;
       _infoBubble.considerMouseY = event.pageY;
       _infoBubble.considerSegmentEl = segmentEl;
+
+      if (segmentEl == _infoBubble.segmentEl) {
+        return;
+      }
 
       if (!_infoBubble.visible || !_infoBubble._withinHoverPolygon(mouseX, mouseY)) {
         _infoBubble.show(false);
