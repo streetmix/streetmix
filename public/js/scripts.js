@@ -4459,6 +4459,39 @@ var main = (function(){
     return inside;
   }
 
+  function _switchSegmentElIn(el) {
+    el.classList.add('switching-in-pre');
+
+    window.setTimeout(function() {
+      el.classList.add('switching-in-post');
+    }, 125);
+
+    window.setTimeout(function() {
+      el.classList.remove('switching-in-pre');
+      el.classList.remove('switching-in-post');
+    }, 125 + 250);
+  }
+
+  function _switchSegmentElAway(el) {
+    var pos = _getElAbsolutePos(el);
+
+    el.parentNode.removeChild(el);
+    el.classList.remove('hover');
+    el.classList.add('switching-away-pre');
+    el.style.left = pos[0] + 'px';
+    el.style.top = pos[1] + 'px';
+    document.body.appendChild(el);
+
+    window.setTimeout(function() {
+      el.classList.add('switching-away-post');
+    }, 0);
+
+    // TODO const
+    window.setTimeout(function() {
+      el.parentNode.removeChild(el);
+    }, 250);
+  }
+
   var _infoBubble = {
     mouseInside: false,
 
@@ -4482,14 +4515,14 @@ var main = (function(){
     onMouseEnter: function() {
       _infoBubble.mouseInside = true;
 
-      console.log('Y');
+      //console.log('Y');
       _infoBubble.updateHoverPolygon();
     },
 
     onMouseLeave: function() {
       _infoBubble.mouseInside = false;
 
-      console.log('N');
+      //console.log('N');
     },
 
     _withinHoverPolygon: function(x, y) {
@@ -4601,9 +4634,9 @@ var main = (function(){
       var el = _createSegmentDom(segment);
       el.dataNo = segment.el.dataNo;
       segment.el.parentNode.insertBefore(el, segment.el);
-      segment.el.parentNode.removeChild(segment.el);
+      _switchSegmentElAway(segment.el);
       segment.el = el;
-
+      _switchSegmentElIn(el);
       segment.el.classList.add('hover');
       _infoBubble.segmentEl = el;
 

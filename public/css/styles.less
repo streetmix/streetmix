@@ -1956,3 +1956,63 @@ body.no-connection-message-visible #status-message {
     }
   }
 }
+
+
+.segment.switching-away-pre {
+  position: absolute;
+  z-index: 9999999999;
+  pointer-events: none;
+
+  -webkit-transform: none !important;
+  -moz-transform: none !important;
+  transform: none !important;
+
+  -webkit-perspective: 400;
+  -moz-perspective: 400;
+  perspective: 400;
+}
+
+// TODO move
+@switchingAwayDelay: 250ms;
+
+.segment.switching-away-post canvas {
+  -webkit-transition: -webkit-transform @switchingAwayDelay ease-in, opacity @switchingAwayDelay ease-in;
+  -moz-transition: -webkit-transform @switchingAwayDelay ease-in, opacity @switchingAwayDelay ease-in;
+  transition: -webkit-transform @switchingAwayDelay ease-in, opacity @switchingAwayDelay ease-in;
+  
+  -webkit-transform: rotateX(-60deg);
+  -moz-transform: rotateX(-60deg);
+  transform: rotateX(-60deg);
+    
+  -webkit-transform-origin: 50% 120%;
+  -moz-transform-origin: 50% 120%;
+  transform-origin: 50% 120%;
+}
+
+.segment.switching-in-pre {
+  -webkit-perspective: 400;
+  -moz-perspective: 400;
+  perspective: 400;
+}
+.segment.switching-in-pre canvas {
+  -webkit-transform: rotateX(90deg);
+  -moz-transform: rotateX(90deg);
+  transform: rotateX(90deg);
+    
+  -webkit-transform-origin: 50% 100%;
+  -moz-transform-origin: 50% 100%;
+  transform-origin: 50% 100%;
+
+  opacity: 0;
+}
+.segment.switching-in-post canvas {
+  opacity: 1;
+
+  -webkit-transition: -webkit-transform @switchingAwayDelay, opacity @switchingAwayDelay;
+  -moz-transition: -webkit-transform @switchingAwayDelay, opacity @switchingAwayDelay;
+  transition: -webkit-transform @switchingAwayDelay, opacity @switchingAwayDelay;
+  
+  -webkit-transform: none;
+  -moz-transform: none;
+  transform: none;
+}
