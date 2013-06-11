@@ -1973,12 +1973,12 @@ body.no-connection-message-visible #status-message {
 }
 
 // TODO move
-@switchingAwayDelay: 250ms;
+@segmentSwitchingTime: 1250ms;
 
 .segment.switching-away-post canvas {
-  -webkit-transition: -webkit-transform @switchingAwayDelay ease-in, opacity @switchingAwayDelay ease-in;
-  -moz-transition: -webkit-transform @switchingAwayDelay ease-in, opacity @switchingAwayDelay ease-in;
-  transition: -webkit-transform @switchingAwayDelay ease-in, opacity @switchingAwayDelay ease-in;
+  -webkit-transition: -webkit-transform @segmentSwitchingTime ease-in, opacity @segmentSwitchingTime ease-in;
+  -moz-transition: -webkit-transform @segmentSwitchingTime ease-in, opacity @segmentSwitchingTime ease-in;
+  transition: -webkit-transform @segmentSwitchingTime ease-in, opacity @segmentSwitchingTime ease-in;
   
   -webkit-transform: rotateX(-60deg);
   -moz-transform: rotateX(-60deg);
@@ -2008,9 +2008,9 @@ body.no-connection-message-visible #status-message {
 .segment.switching-in-post canvas {
   opacity: 1;
 
-  -webkit-transition: -webkit-transform @switchingAwayDelay, opacity @switchingAwayDelay;
-  -moz-transition: -webkit-transform @switchingAwayDelay, opacity @switchingAwayDelay;
-  transition: -webkit-transform @switchingAwayDelay, opacity @switchingAwayDelay;
+  -webkit-transition: -webkit-transform @segmentSwitchingTime, opacity @segmentSwitchingTime;
+  -moz-transition: -webkit-transform @segmentSwitchingTime, opacity @segmentSwitchingTime;
+  transition: -webkit-transform @segmentSwitchingTime, opacity @segmentSwitchingTime;
   
   -webkit-transform: none;
   -moz-transform: none;

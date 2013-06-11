@@ -4368,21 +4368,37 @@ var main = (function(){
     return inside;
   }
 
+  // TODO move
+  var SEGMENT_SWITCHING_TIME = 1250;
+
   function _switchSegmentElIn(el) {
+
     el.classList.add('switching-in-pre');
 
     window.setTimeout(function() {
+      var pos = _getElAbsolutePos(el);
+      var perspective = -(pos[0] - system.viewportWidth / 2);
+      // TODO const
+      // TODO cross-browser
+      el.style.webkitPerspectiveOrigin = (perspective / 2) + 'px 50%';
+
       el.classList.add('switching-in-post');
-    }, 125);
+    }, SEGMENT_SWITCHING_TIME / 2);
 
     window.setTimeout(function() {
       el.classList.remove('switching-in-pre');
       el.classList.remove('switching-in-post');
-    }, 125 + 250);
+    }, SEGMENT_SWITCHING_TIME * 1.5);
   }
 
   function _switchSegmentElAway(el) {
     var pos = _getElAbsolutePos(el);
+
+    // TODO func
+    var perspective = -(pos[0] - system.viewportWidth / 2);
+    // TODO const
+    // TODO cross-browser
+    el.style.webkitPerspectiveOrigin = (perspective / 2) + 'px 50%';
 
     el.parentNode.removeChild(el);
     el.classList.remove('hover');
@@ -4398,7 +4414,7 @@ var main = (function(){
     // TODO const
     window.setTimeout(function() {
       el.parentNode.removeChild(el);
-    }, 250);
+    }, SEGMENT_SWITCHING_TIME);
   }
 
   var _infoBubble = {
