@@ -1950,7 +1950,6 @@ var main = (function(){
 
     var transmission = _packServerStreetData();
 
-    //console.log('Z');
     _newBlockingAjaxRequest('Remixing…', 
         {
           // TODO const
@@ -4018,9 +4017,7 @@ var main = (function(){
 
     var el = document.querySelector('#gallery .selected');
     if (el) {
-      //console.log(el.parentNode.parentNode.scrollLeft);
       el.scrollIntoView();
-      //console.log(el.parentNode.parentNode.scrollLeft);
       document.querySelector('#gallery').scrollTop = 0;
     }
   }
@@ -4427,14 +4424,11 @@ var main = (function(){
     onMouseEnter: function() {
       _infoBubble.mouseInside = true;
 
-      //console.log('Y');
       _infoBubble.updateHoverPolygon();
     },
 
     onMouseLeave: function() {
       _infoBubble.mouseInside = false;
-
-      //console.log('N');
     },
 
     _withinHoverPolygon: function(x, y) {
@@ -4470,8 +4464,6 @@ var main = (function(){
           [bubbleX + bubbleWidth + MARGIN_BUBBLE, bubbleY - MARGIN_BUBBLE],
           [bubbleX - MARGIN_BUBBLE, bubbleY - MARGIN_BUBBLE]
         ];
-
-        //console.log(JSON.stringify(_infoBubble.hoverPolygon, null, 2));
       } else {
         _infoBubble.hoverPolygon = [
           [bubbleX - MARGIN_BUBBLE, bubbleY - MARGIN_BUBBLE],
@@ -4523,7 +4515,6 @@ var main = (function(){
         return;
       }
 
-      //console.log('consider', segmentEl.getAttribute('type'));
       _infoBubble.considerMouseX = event.pageX;
       _infoBubble.considerMouseY = event.pageY;
       _infoBubble.considerSegmentEl = segmentEl;
@@ -4534,19 +4525,14 @@ var main = (function(){
     },
 
     dontConsiderShowing: function() {
-      //console.log('don’t consider');
       _infoBubble.considerSegmentEl = null;
     },
 
     onVariantButtonClick: function(event, dataNo, variantName, variantChoice) {
       var segment = street.segments[dataNo];
-      console.log(dataNo);
-      console.log(segment);
 
       segment.variant[variantName] = variantChoice;
       segment.variantString = _getVariantString(segment.variant);
-
-      console.log(segment.width);
 
       var el = _createSegmentDom(segment);
 
