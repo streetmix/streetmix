@@ -4369,7 +4369,7 @@ var main = (function(){
   }
 
   // TODO move
-  var SEGMENT_SWITCHING_TIME = 1250;
+  var SEGMENT_SWITCHING_TIME = 250;
 
   function _switchSegmentElIn(el) {
 
