@@ -10,7 +10,7 @@
 @streetSectionHorizontalPadding: 100px;
 
 @paletteHeight: 100px;
-@galleryHeight: 150px;
+@galleryHeight: 180px;
 
 @tilesetWidth: 2622px; // retina
 @tilesetHeight: 384px;
@@ -32,6 +32,8 @@
 @streetNameSize: 1.5;
 @streetNameTop: 30px;
 @streetNameConnectorWidth: 100px;
+
+@streetNameGallerySize: .5;
 
 @fontFamily: Arial, sans-serif;
 
@@ -71,34 +73,125 @@ textarea {
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;  
+}
+
+body.environment-local,
+body.environment-staging {
+  #main-screen::before {
+    content: 'Local server';
+    z-index: 9999999999;
+    position: absolute;
+    left: 50%;
+    width: 160px;
+    margin-left: -80px - 10px;
+    text-align: center;
+    top: 0;
+    background: rgb(200, 0, 0);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 2px;
+    font-size: 11px;
+    letter-spacing: 4px;
+    padding-right: 10px - 4px;
+    text-transform: uppercase;
+  }
+}
+body.environment-staging {
+  #main-screen::before {
+    content: 'Staging server';
+    background-color: green;
+  }
 }
 
 body.gallery-visible #main-screen {
-  -webkit-transform: translateY(@galleryHeight);
-  -moz-transform: translateY(@galleryHeight);
-  -o-transform: translateY(@galleryHeight);
-  transform: translateY(@galleryHeight);
+  -webkit-transform: translateY(@galleryHeight - 50px);
+  -moz-transform: translateY(@galleryHeight - 50px);
+  -o-transform: translateY(@galleryHeight - 50px);
+  transform: translateY(@galleryHeight - 50px);
+}
+
+body.gallery-visible #street-section-sky {
+  -webkit-transform: translateY(-20px);
+  -moz-transform: translateY(-20px);
+  -o-transform: translateY(-20px);
+  transform: translateY(-20px);
 }
 
 #gallery {
   position: absolute;
-  left: 0;
-  right: 0;
+  left: 40px;
+  right: 40px;
   top: 0;
   height: @galleryHeight;
+  z-index: 100001;
 
   overflow: hidden;
-  overflow-x: scroll;
 
   background: white;
 
   pointer-events: none;
 
-  -webkit-transform: translateY(-@galleryHeight);
-  -moz-transform: translateY(-@galleryHeight);
-  -o-transform: translateY(-@galleryHeight);
-  transform: translateY(-@galleryHeight);  
+  box-shadow: 0 2px 2px rgba(0, 0, 0, .5);
+
+  -webkit-transform: translateY(-@galleryHeight - 30px);
+  -moz-transform: translateY(-@galleryHeight - 30px);
+  -o-transform: translateY(-@galleryHeight - 30px);
+  transform: translateY(-@galleryHeight - 30px);  
+
+  .avatar {
+    position: absolute;
+    left: 20px;
+    top: 12px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .user-id {
+    position: absolute;
+    left: 60px;
+    top: 15px;
+
+    font-size: 24px;
+  }
+
+  .twitter-profile {
+    font-size: 13px;
+    margin-left: 10px;
+    color: rgb(128, 128, 128);
+  }
+
+  .street-count {
+    position: absolute;
+    right: 20px;
+    top: 12px;
+
+    font-size: 24px;
+    color: rgb(128, 128, 128);
+  }
+
+  #new-street {
+    left: 20px;
+    top: 60px;
+    width: 100px;
+    height: 60px;
+    position: absolute;
+
+    font-weight: bold;
+  }
+  #copy-last-street {
+    left: 20px;
+    top: 130px;
+    width: 100px;
+    height: 40px;
+    position: absolute;
+  }
+
+  &.another-user #new-street,
+  &.another-user #copy-last-street,
+  &.all-streets #new-street,
+  &.all-streets #copy-last-street {
+    display: none;
+  }
 
   .streets {
     list-style: none;
@@ -108,9 +201,11 @@ body.gallery-visible #main-screen {
     white-space: nowrap;
 
     position: absolute;
-    left: 0;
-    top: 0;
-    height: @galleryHeight;
+    left: 130px;
+    right: 5px;
+    top: 50px;
+    height: @galleryHeight + 20px; // To cover the scroll bar
+    overflow-x: scroll;
 
     & > li {
       display: inline-block;
@@ -124,18 +219,34 @@ body.gallery-visible #main-screen {
         vertical-align: top;
 
         width: 150px;
-        margin: 10px;
-        background: rgb(240, 240, 240);
+        margin: 10px 5px;
+        background: fadeout(@skyColour, 40%);
         padding: 5px 10px;
         text-align: center;
         white-space: normal;
-        height: @galleryHeight - 30px;
+        height: 100px;
 
         cursor: pointer;
 
         font-size: 13px;
 
         position: relative;
+
+        &:first-child {
+          margin-left: 0;
+        }
+
+        .creator {
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 18px;
+          text-align: center;
+          display: block;
+
+          font-size: 11px;
+          color: black;
+        }
 
         .date {
           position: absolute;
@@ -144,6 +255,9 @@ body.gallery-visible #main-screen {
           bottom: 5px;
           text-align: center;
           display: block;
+
+          font-size: 11px;
+          color: black;
         }
 
         button {
@@ -176,7 +290,7 @@ body.gallery-visible #main-screen {
         }
 
         &:hover {
-          background: rgb(230, 230, 230);
+          background: fadeout(@skyColour, 20%);
 
           button.remove {
             opacity: 1;
@@ -184,10 +298,15 @@ body.gallery-visible #main-screen {
         }
 
         &.selected {
-          background: rgb(210, 210, 210);
+          background: darken(@skyColour, 10%);
         }
       }
     }
+  }
+
+  &.another-user .streets,
+  &.all-streets .streets {
+    left: 20px;
   }
 
   .loading {
@@ -200,6 +319,7 @@ body.gallery-visible #main-screen {
     text-align: center;
     z-index: 10000;
     display: none;
+    background: white;
 
     &.visible {
       display: block;
@@ -215,8 +335,9 @@ body.gallery-visible #main-screen {
 
     text-align: center;
     z-index: 10001;
+    background: white;
 
-    margin-top: 65px;
+    padding-top: 85px;
 
     display: none;
 
@@ -226,19 +347,20 @@ body.gallery-visible #main-screen {
   }
 }
 
-#main-screen, 
-#gallery {
-  -webkit-transition: -webkit-transform 250ms;
-  -moz-transition: -moz-transform 250ms;
-  -o-transition: -o-transform 250ms;
-  transition: transform 250ms;  
+body:not(.gallery-no-move-transition) #main-screen, 
+body:not(.gallery-no-move-transition) #gallery,
+body:not(.gallery-no-move-transition) #street-section-sky {
+  -webkit-transition: -webkit-transform 450ms;
+  -moz-transition: -moz-transform 450ms;
+  -o-transition: -o-transform 450ms;
+  transition: transform 450ms;  
 }
 
 #gallery-shield {
   z-index: 999999999999;
 
   left: 0;
-  top: 0;
+  top: -150px;
   right: 0;
   bottom: 0;
   position: absolute;
@@ -269,10 +391,6 @@ header {
   z-index: 100000;
 
   padding-top: 20px;
-
-  background: -webkit-linear-gradient(rgba(0, 0, 0, .2), transparent);
-  background: -moz-linear-gradient(rgba(0, 0, 0, .2), transparent);
-  background: linear-gradient(rgba(0, 0, 0, .2), transparent);
 
   text-shadow: @textShadow;
 
@@ -335,9 +453,19 @@ header {
   position: absolute;
   left: 0;
   right: 0;
-  top: 0;
-  height: @canvasBaseline;
+  top: -150px;
+  height: @canvasBaseline + 150px;
   background: @skyColour;
+
+  background: -webkit-linear-gradient(mix(@skyColour, black, 80%) 40%, @skyColour);
+  background: -moz-linear-gradient(mix(@skyColour, black, 80%) 40%, @skyColour);
+  background: linear-gradient(mix(@skyColour, black, 80%) 40%, @skyColour);  
+
+  background-size: 100% 350px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+
+  background-color: @skyColour;
 
   .rear-clouds,
   .front-clouds {
@@ -438,7 +566,7 @@ footer {
 #palette {
   white-space: nowrap;
 
-  height: @paletteHeight;
+  height: @paletteHeight + 20px; // To cover scroll bars
 
   overflow-x: scroll;
   overflow-y: hidden;
@@ -1084,10 +1212,6 @@ body.touch-support .segment.fade-out-end button {
     -moz-transition: background 1500ms, color 1500ms;
     transition: background 1500ms, color 1500ms;
 
-    -webkit-transition-delay: 800ms;
-    -moz-transition-delay: 800ms;
-    transition-delay: 800ms;
-
     background: rgba(0, 0, 0, .6);
     color: white;
   }
@@ -1101,7 +1225,8 @@ body.touch-support .segment.fade-out-end button {
     color: white;
   }
 
-  .try-again {
+  .try-again,
+  .too-slow {
     margin-top: 20px;
 
     position: absolute;
@@ -1109,12 +1234,11 @@ body.touch-support .segment.fade-out-end button {
     right: 0;
     text-align: center;
 
-    opacity: 0;
-    pointer-events: none;
+    display: none;
   }
-  &.show-try-again .try-again {
-    opacity: 1;
-    pointer-events: auto;
+  &.show-try-again .try-again,
+  &.show-too-slow .too-slow {
+    display: block;
   }
   #blocking-shield-cancel {
     display: none;
@@ -1294,6 +1418,7 @@ body.no-connection-message-visible #status-message {
   }
 }
 
+// TODO confusing with .menu
 #menu {
   z-index: 500000;
   display: block;
@@ -1356,7 +1481,7 @@ body.no-connection-message-visible #status-message {
     
     cursor: pointer;
 
-    &:not(#gallery-button)::after {
+    &::after {
       font-family: 'Verdana';
       content: ' ▼';
       padding-left: 5px;
@@ -1575,8 +1700,8 @@ body.no-connection-message-visible #status-message {
 
 #street-name-canvas {
   position: absolute;
-  left: 240px;
-  right: 240px;
+  left: 150px;
+  right: 150px;
   top: @streetNameTop;
   z-index: 100000;
   text-align: center;
@@ -1594,37 +1719,74 @@ body.no-connection-message-visible #status-message {
   };*/
 }
 
-#street-name {
+.street-name-mixin (@size: @streetNameSize) {
+  padding: 3px * @size;
+}
+
+.street-name-inside-mixin (@size: @streetNameSize) {
+  border-radius: 10px * @size;
+  border: 3px * @size solid black;
+  padding: 10px * @size 30px * @size;
+  padding-top: 11px * @size;
+  padding-bottom: 5px * @size;
+  letter-spacing: 1px * @size;
+
+  font-size: 40px * @size;
+  line-height: 30px * @size;
+}
+
+.street-name-fallback-mixin (@size: @streetNameSize) {
+  font-size: 35px * @size;
+  padding-bottom: 11px * @size;
+}
+
+.street-name {
   display: inline-block;
   background: white;
   color: black;
-  padding: 3px * @streetNameSize;
+
+  .street-name-mixin;
+
+  -webkit-user-select: none;
+  user-select: none;
 
   white-space: nowrap;
-
-  -webkit-transform-origin: 0 0;
-  -moz-transform-origin: 0 0;
-  -o-transform-origin: 0 0;
-  -ms-transform-origin: 0 0;
-  transform-origin: 0 0;
 
   cursor: pointer;
 
   & > div {
-    border-radius: 10px * @streetNameSize;
-    border: 3px * @streetNameSize solid black;
-    padding: 10px * @streetNameSize 30px * @streetNameSize;
-    padding-top: 11px * @streetNameSize;
-    padding-bottom: 5px * @streetNameSize;
-    letter-spacing: 1px * @streetNameSize;
-    //padding-right: 20px * @streetNameSize;
+    .street-name-inside-mixin;
 
     font-family: 'Roadgeek', sans-serif;
-    font-size: 40px * @streetNameSize;
-    line-height: 30px * @streetNameSize;
-    //text-transform: uppercase;
+    text-align: left;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
+  &.fallback-unicode-font > div {
+    font-family: sans-serif;
+
+    .street-name-fallback-mixin;
+  }
+}
+#gallery .streets .street-name {
+  .street-name-mixin (@streetNameGallerySize);
+  max-width: 100%;
+
+  position: relative;
+  top: -15px;
+
+  & > div {
+    .street-name-inside-mixin (@streetNameGallerySize);    
+  }
+
+  &.fallback-unicode-font > div {
+    .street-name-fallback-mixin (@streetNameGallerySize);
+  }
+}
+
+#street-name {
   &:hover {
     color: rgb(220, 220, 220);
 
@@ -1634,6 +1796,7 @@ body.no-connection-message-visible #status-message {
 
     &::after {
       color: black;
+      // TODO message
       content: 'Click to rename';
       text-shadow: none;
 
@@ -1732,10 +1895,13 @@ body.no-connection-message-visible #status-message {
   background-size: 100%;
   width: 20px;
   height: 20px;
-  margin-top: -1px;
   border: 1px solid @lightTextColour;
-  margin-right: 6px;
-  vertical-align: middle;
   box-shadow: 0 1px 1px rgba(0, 0, 0, .5);
 }
 
+#menu .avatar,
+#street-attribution .avatar {
+  margin-right: 6px;
+  vertical-align: middle;  
+  margin-top: -1px;
+}

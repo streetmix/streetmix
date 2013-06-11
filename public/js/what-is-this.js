@@ -87,6 +87,7 @@ var whatIsThis = (function(){
 
     cssCode = [];
     cssCode.push('#what-is-this-teaser {');
+    cssCode.push('  z-index: 100000;');
     cssCode.push('  background: rgba(0, 0, 0, .7);');
     cssCode.push('  color: rgb(210, 210, 210);');
     cssCode.push('  box-shadow: 0 2px 5px rgba(0, 0, 0, .2);');
@@ -217,7 +218,7 @@ var whatIsThis = (function(){
     teaserEl = document.createElement('div');  
     teaserEl.id = 'what-is-this-teaser';
     teaserEl.innerHTML = 'Streetmix';
-    document.querySelector('#main-screen').appendChild(teaserEl);
+    document.body.appendChild(teaserEl);
 
     shieldEl = document.createElement('div');  
     shieldEl.id = 'what-is-this-shield';

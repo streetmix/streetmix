@@ -54,6 +54,13 @@
   <div id='gallery'>
     <div class='loading'>Loading…</div>
     <div class='error-loading'>Failed to load the gallery. <button id='gallery-try-again'>Try again</button></div>
+    <div class='avatar'></div>
+    <div class='user-id'></div>
+    <div class='street-count'></div>
+
+    <button id='new-street'>Create new street</button>
+    <button id='copy-last-street'>Duplicate current street</button>
+
     <ul class='streets'>
     </ul>
   </div>
@@ -72,10 +79,19 @@
       <div>
         <div class='message'></div>
         <div class='try-again'>
-          Streetmix is having issues accessing Internet.
+          Streetmix is having issues accessing the Internet.
           <br>
           <button id='blocking-shield-try-again'>Try again</button>
           <button id='blocking-shield-cancel'>Cancel</button>
+        </div>
+        <div class='too-slow'>
+          Streetmix wasn’t able to connect to the Internet in awhile now.
+          <br>
+          <br>
+          You might want to reload the pag and try again. Please note you
+          might lose the latest change to the street. Sorry!
+          <br>
+          <button id='blocking-shield-reload'>Reload</button>
         </div>
       </div>
     </div>
@@ -86,7 +102,7 @@
         <li>
           <span id='sign-in-link'></span>
         <li id='gallery-link'>
-          <button id='gallery-button'>My streets</button>
+          <a href=''>My streets</a>
         <li>
           <a target='_blank' href='/new'>New street</a>
         <li>
@@ -153,7 +169,7 @@
     <div id='info-bubble'></div>
 
     <div id='street-name-canvas'>
-      <div id='street-name'><div></div></div>
+      <div id='street-name' class='street-name'><div></div></div>
       <div id='street-attribution'></div>
     </div>
 
@@ -183,8 +199,8 @@
 
     <footer>
       <div id='commands'>
-        <button id='undo'>Undo</button>
-        <button id='redo'>Redo</button>
+        <button id='undo'></button>
+        <button id='redo'></button>
 
         <div class='street-width'>
           Street width: <select id='street-width'></select>
@@ -192,7 +208,7 @@
       </div>
 
       <div id='palette'>
-        <div id='trashcan'>Drag here to remove</div>
+        <div id='trashcan'></div>
       </div>
     </footer>
   </div>

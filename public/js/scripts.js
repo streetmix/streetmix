@@ -12,6 +12,31 @@ var main = (function(){
 "use strict";
   var main = {};
 
+  // TODO reorder/clean up constants
+
+  var MESSAGES = {
+    BUTTON_UNDO: 'Undo',
+    BUTTON_REDO: 'Redo',
+
+    UI_DRAG_HERE_TO_REMOVE: 'Drag here to remove',
+
+    PROMPT_NEW_STREET_NAME: 'New street name:',
+
+    MENU_SWITCH_TO_IMPERIAL: 'Switch to imperial units (feet)',
+    MENU_SWITCH_TO_METRIC: 'Switch to metric units',
+
+    TOOLTIP_REMOVE_SEGMENT: 'Remove segment',
+
+    STATUS_SEGMENT_DELETED: 'The segment has been deleted.',
+    STATUS_ALL_SEGMENTS_DELETED: 'All segments have been deleted.',
+    STATUS_NOTHING_TO_UNDO: 'Nothing to undo.',
+    STATUS_NOTHING_TO_REDO: 'Nothing to redo.',
+    STATUS_NO_NEED_TO_SAVE: 'No need to save by hand; Streetmix automatically saves your street!',
+    STATUS_NOW_REMIXING: 'Now editing a freshly-made duplicate of the original street. The duplicate has been put in your gallery.',
+    STATUS_NOW_REMIXING_SIGN_IN: 'Now editing a freshly-made duplicate of the original street. <a href="/{{signInUrl}}">Sign in</a> to start your own gallery of streets.',
+    STATUS_RELOADED_FROM_SERVER: 'Your street was reloaded from the server as it was modified elsewhere.',
+  };
+
   // TODO all of the below in an array?
   var ENVIRONMENT_LOCAL = 0;
   var ENVIRONMENT_STAGING = 1;
@@ -32,14 +57,13 @@ var main = (function(){
   var FACEBOOK_APP_ID_STAGING = '175861739245183';
   var FACEBOOK_APP_ID_LOCAL = '204327799717656';
 
-  var STREET_NAME_REMIX_SUFFIX = '(remixed)';
-
   // TODO replace the URLs in index.html dynamically
   var URL_SIGN_IN = 'twitter-sign-in';
   var URL_SIGN_IN_CALLBACK = 'twitter-sign-in-callback';
   var URL_JUST_SIGNED_IN = 'just-signed-in';
   var URL_NEW_STREET = 'new';
   var URL_NEW_STREET_COPY_LAST = 'copy-last';
+  var URL_GLOBAL_GALLERY = 'gallery';
   var URL_NO_USER = '-';
 
   var URL_SIGN_IN_REDIRECT = URL_SIGN_IN + '?redirectUri=' + URL_JUST_SIGNED_IN;
@@ -50,7 +74,7 @@ var main = (function(){
       [URL_SIGN_IN, URL_SIGN_IN_CALLBACK, 
       URL_NEW_STREET, URL_NEW_STREET_COPY_LAST,
       URL_JUST_SIGNED_IN, 
-      'help', 'gallery', 'streets'];
+      'help', URL_GLOBAL_GALLERY, 'streets'];
   var URL_RESERVED_PREFIX = '~';
 
   var MODE_CONTINUE = 1;
@@ -62,6 +86,9 @@ var main = (function(){
   var MODE_SIGN_OUT = 7;
   var MODE_FORCE_RELOAD_SIGN_IN = 8;
   var MODE_FORCE_RELOAD_SIGN_OUT = 9;
+  var MODE_USER_GALLERY = 10;
+  var MODE_GLOBAL_GALLERY = 11;
+  var MODE_FORCE_RELOAD_SIGN_OUT_401 = 12;
 
   var ERROR_TYPE_404 = 1;
   var ERROR_TYPE_SIGN_OUT = 2;
@@ -70,11 +97,14 @@ var main = (function(){
   var ERROR_FORCE_RELOAD_SIGN_OUT = 5;
   var ERROR_STREET_DELETED_ELSEWHERE = 6;
   var ERROR_NEW_STREET_SERVER_FAILURE = 7;
+  var ERROR_FORCE_RELOAD_SIGN_OUT_401 = 8;
+
+  var TWITTER_ID = '@streetmixapp';
 
   var NEW_STREET_DEFAULT = 1;
   var NEW_STREET_EMPTY = 2;
 
-  var TILESET_IMAGE_VERSION = 13;
+  var TILESET_IMAGE_VERSION = 14;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
   var TILESET_POINT_PER_PIXEL = 2.0;
@@ -90,6 +120,12 @@ var main = (function(){
     '/images/share-icons/facebook-29.png',
     '/images/share-icons/twitter-32.png'
   ];
+
+  // Output using cmap2file as per 
+  // http://www.typophile.com/node/64147#comment-380776
+  var STREET_NAME_FONT_GLYPHS = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿĀāĂăĆćĈĉĊċČčĎďĒĔĕĖėĜĝĞğĠġĤĥĨĩĪīĬĭİıĴĵĹĺĽľŁłŃŇňŌōŎŏŐőŒœŔŕŘřŚśŜŝŞşŠšŤťŨũŪūŬŭŮůŰűŴŵŶŷŸŹźŻżŽžƒˆˇ˘˙˚˛˜˝–—‘’‚“”„†‡•…‰‹›⁄€™−';
+  var STREET_NAME_REMIX_SUFFIX = '(remixed)';
+  var MAX_STREET_NAME_WIDTH = 50;
 
   var WIDTH_PALETTE_MULTIPLIER = 4;
 
@@ -125,10 +161,12 @@ var main = (function(){
 
   var SAVE_STREET_DELAY = 500;
   var SAVE_SETTINGS_DELAY = 500;
+  var NO_CONNECTION_MESSAGE_TIMEOUT = 10000;
+
+  var BLOCKING_SHIELD_DARKEN_DELAY = 800;
+  var BLOCKING_SHIELD_TOO_SLOW_DELAY = 10000;
 
   var MAX_DRAG_DEGREE = 20;
-
-  var MAX_STREET_NAME_WIDTH = 30;
 
   var UNDO_LIMIT = 100;
 
@@ -200,6 +238,7 @@ var main = (function(){
   var KEY_DELETE = 46;
   var KEY_ESC = 27;
   var KEY_D = 68;
+  var KEY_S = 83;
   var KEY_Y = 89;
   var KEY_Z = 90;
   var KEY_EQUAL = 187; // = or +
@@ -229,6 +268,8 @@ var main = (function(){
   var SEGMENT_OWNER_PEDESTRIAN = 'pedestrian';
   var SEGMENT_OWNER_PUBLIC_TRANSIT = 'public-transit';
   var SEGMENT_OWNER_NATURE = 'nature';
+
+  var VARIANT_SEPARATOR = '|';
 
   var SEGMENT_OWNERS = {
     'car': {
@@ -554,6 +595,8 @@ var main = (function(){
   var LOCAL_STORAGE_FEEDBACK_BACKUP = 'feedback-backup';
   var LOCAL_STORAGE_FEEDBACK_EMAIL_BACKUP = 'feedback-email-backup';
 
+  // TODO clean up/rearrange variables
+
   // Saved data
   // ------------------------------------------------------------------------
 
@@ -593,6 +636,10 @@ var main = (function(){
 
   var ignoreWindowFocus = false;
 
+  var images = [];
+
+  var avatarCache = {};
+
   // ------------------------------------------------------------------------
 
   var mode;
@@ -608,9 +655,8 @@ var main = (function(){
     mouseY: null,
     elX: null,
     elY: null,
-    // TODO unify names
-    origX: null,
-    origWidth: null,
+    originalX: null,
+    originalWidth: null,
     originalType: null,
     originalVariantString: null,
     right: false
@@ -626,8 +672,8 @@ var main = (function(){
     el: null,
     elX: null,
     elY: null,
-    origEl: null,
-    origWidth: null,
+    originalEl: null,
+    originalWidth: null,
     floatingElVisible: false
   };
 
@@ -672,16 +718,58 @@ var main = (function(){
     apiUrl: null,
     touch: false,
     hiDpi: 1.0,
-    cssTransform: false
+    cssTransform: false,
+    ipAddress: null
   };
 
   var segmentWidthResolution;
   var segmentWidthClickIncrement;
   var segmentWidthDraggingResolution;
 
+  var galleryUserId = null;
+  var galleryStreetId = null;
+  var galleryStreetLoaded = false;
+
+  var nonblockingAjaxRequests = [];
+  //var nonblockingAjaxRequestCount = 0;
+
+  var nonblockingAjaxRequestTimer = 0;
+
+  var NON_BLOCKING_AJAX_REQUEST_TIME = [10, 500, 1000, 5000, 10000];
+  var NON_BLOCKING_AJAX_REQUEST_BACKOFF_RANGE = 60000;
+
+  var NON_BLOCKING_NO_CONNECTION_MESSAGE_TIMER_COUNT = 4;
+
+  //0-4 seconds 2^2
+  //0-8 seconds 2^3
+
+  var blockingAjaxRequest;
+  var blockingAjaxRequestDoneFunc;
+  var blockingAjaxRequestCancelFunc;
+  var blockingAjaxRequestInProgress = false;
+
+  var blockingShieldTimerId = -1;
+  var blockingShieldTooSlowTimerId = -1;
 
   // HELPER FUNCTIONS
   // -------------------------------------------------------------------------
+
+  function msg(messageId, data) {
+    if (data) {
+      return MESSAGES[messageId].supplant(data);
+    } else {
+      return MESSAGES[messageId];
+    }
+  }
+
+  String.prototype.supplant = function (o) {
+    return this.replace(/{{([^{}]*)}}/g,
+      function (a, b) {
+        var r = o[b];
+        return typeof r === 'string' || typeof r === 'number' ? r : a;
+      }
+    );
+  };
 
   function _createTimeout(fn, data, delay) {
     window.setTimeout(function() { fn.call(null, data); }, delay);
@@ -721,11 +809,13 @@ var main = (function(){
       return;
     }
 
-    ctx.drawImage(images['/images/tiles.png'],
-        sx * TILESET_POINT_PER_PIXEL, sy * TILESET_POINT_PER_PIXEL, 
-        sw * TILESET_POINT_PER_PIXEL, sh * TILESET_POINT_PER_PIXEL,
-        dx * system.hiDpi, dy * system.hiDpi, 
-        dw * system.hiDpi, dh * system.hiDpi);
+    if (imagesToBeLoaded == 0) {
+      ctx.drawImage(images['/images/tiles.png'],
+          sx * TILESET_POINT_PER_PIXEL, sy * TILESET_POINT_PER_PIXEL, 
+          sw * TILESET_POINT_PER_PIXEL, sh * TILESET_POINT_PER_PIXEL,
+          dx * system.hiDpi, dy * system.hiDpi, 
+          dw * system.hiDpi, dh * system.hiDpi);
+    }
   }
 
  function _setSegmentContents(el, type, variantString, segmentWidth, palette) {
@@ -1322,8 +1412,7 @@ var main = (function(){
   function _getVariantString(variant) {
     var string = '';
     for (var i in variant) {
-      // TODO const
-      string += variant[i] + '|';
+      string += variant[i] + VARIANT_SEPARATOR;
     }
 
     string = string.substr(0, string.length - 1);
@@ -1376,7 +1465,7 @@ var main = (function(){
       innerEl.innerHTML = '×';
       innerEl.segmentEl = el;
       innerEl.tabIndex = -1;
-      innerEl.setAttribute('title', 'Remove segment');
+      innerEl.setAttribute('title', msg('TOOLTIP_REMOVE_SEGMENT'));
       if (system.touch) {      
         innerEl.addEventListener('touchstart', _onRemoveButtonClick);
       } else {
@@ -1637,19 +1726,19 @@ var main = (function(){
     _updateStreetName();
     ignoreStreetChanges = false;
     _updateUndoButtons();
-    lastStreet = _trimStreetData();
+    lastStreet = _trimStreetData(street);
 
     _scheduleSavingStreetToServer();
   }
 
   function _undoRedo(undo) {
     if (undo && !_isUndoAvailable()) {
-      _statusMessage.show('Nothing to undo.');
+      _statusMessage.show(msg('STATUS_NOTHING_TO_UNDO'));
     } else if (!undo && !_isRedoAvailable()) {
-      _statusMessage.show('Nothing to redo.');     
+      _statusMessage.show(msg('STATUS_NOTHING_TO_REDO'));
     } else {
       if (undo) {
-        undoStack[undoPosition] = _trimStreetData();
+        undoStack[undoPosition] = _trimStreetData(street);
         undoPosition--;
       } else {
         undoPosition++;
@@ -1693,12 +1782,21 @@ var main = (function(){
     _trimUndoStack();
   }
 
+  function _createNewUndoIfNecessary(lastStreet, currentStreet) {
+    if (lastStreet.name != currentStreet.name) {
+      return;
+    }
+
+    _createNewUndo();
+  }
+
   function _unpackStreetDataFromServerTransmission(transmission) {
     var street = _clone(transmission.data.street);
 
     street.creatorId = (transmission.creator && transmission.creator.id) || null;
     street.originalStreetId = transmission.originalStreetId || null;
-    street.name = transmission.name;
+    street.updatedAt = transmission.updatedAt || null;
+    street.name = transmission.name || DEFAULT_NAME;
 
     return street;
   }
@@ -1721,11 +1819,12 @@ var main = (function(){
   function _packServerStreetData() {
     var data = {};
 
-    data.street = _trimStreetData();
+    data.street = _trimStreetData(street);
 
     // Those go above data in the structure, so they need to be cleared here
     delete data.street.name;
     delete data.street.originalStreetId;
+    delete data.street.updatedAt;
 
     // This will be implied through authorization header
     delete data.street.creatorId;
@@ -1739,42 +1838,29 @@ var main = (function(){
       data: data
     }
 
+    //console.log(transmission);
+
     return JSON.stringify(transmission);
   }
-
-  // TODO move
-
-  var nonblockingAjaxRequests = [];
-  //var nonblockingAjaxRequestCount = 0;
-
-  var nonblockingAjaxRequestTimer = 0;
-
-  var NON_BLOCKING_AJAX_REQUEST_TIME = [10, 500, 1000, 5000, 10000];
-  var NON_BLOCKING_AJAX_REQUEST_BACKOFF_RANGE = 60000;
-
-  var NON_BLOCKING_NO_CONNECTION_MESSAGE_TIMER_COUNT = 4;
-
-  //0-4 seconds 2^2
-  //0-8 seconds 2^3
 
   function _getNonblockingAjaxRequestCount() {
     return nonblockingAjaxRequests.length;
   }
 
-  function _debugOutput() {
+/*  function _debugOutput() {
     console.log('-');
     console.log(_getNonblockingAjaxRequestCount() + ' requests…');
 
     for (var i in nonblockingAjaxRequests) {
       console.log('    …' + _getAjaxRequestSignature(nonblockingAjaxRequests[i].request));
     }
-  }
+  }*/
 
   function _getAjaxRequestSignature(request) {
     return request.type + ' ' + request.url;
   }
 
-  function _newNonblockingAjaxRequest(request, allowToClosePage, doneFunc) {
+  function _newNonblockingAjaxRequest(request, allowToClosePage, doneFunc, errorFunc) {
     nonblockingAjaxRequestTimer = 0;
 
     //console.log('new request added…');
@@ -1786,10 +1872,11 @@ var main = (function(){
     _removeNonblockingAjaxRequest(signature);
     nonblockingAjaxRequests.push( 
       { request: request, allowToClosePage: allowToClosePage, 
-        doneFunc: doneFunc, signature: signature }
+        doneFunc: doneFunc, errorFunc: errorFunc,
+        signature: signature }
     );
 
-    _debugOutput();
+    //_debugOutput();
 
     _scheduleNextNonblockingAjaxRequest();
   }
@@ -1806,6 +1893,8 @@ var main = (function(){
     //console.log('send next…');
 
     if (_getNonblockingAjaxRequestCount()) {
+      _noConnectionMessage.schedule();        
+
       var request = null;
 
       // TODO hack to get the first guy
@@ -1820,7 +1909,9 @@ var main = (function(){
 
         var query = jQuery.ajax(request.request).done(function(data) {
           _successNonblockingAjaxRequest(data, request);
-        }).fail(_tempFail);
+        }).fail(function(data) {
+          _errorNonblockingAjaxRequest(data, request);
+        });
       }
       
       _scheduleNextNonblockingAjaxRequest();
@@ -1841,10 +1932,6 @@ var main = (function(){
         var time = Math.floor(Math.random() * NON_BLOCKING_AJAX_REQUEST_BACKOFF_RANGE);
       }
 
-      if (nonblockingAjaxRequestTimer == NON_BLOCKING_NO_CONNECTION_MESSAGE_TIMER_COUNT) {
-        _noConnectionMessage.show();        
-      }
-
       //console.log('schedule next… at time: ', time);
 
       window.setTimeout(_sendNextNonblockingAjaxRequest, time);
@@ -1861,9 +1948,15 @@ var main = (function(){
     for (var i in nonblockingAjaxRequests) {
       if (nonblockingAjaxRequests[i].signature == signature) {
         nonblockingAjaxRequests.splice(i, 1);
-        console.log('removed');
+        //console.log('removed');
         break;
       }
+    }    
+  }
+
+  function _errorNonblockingAjaxRequest(data, request) {
+    if (request.errorFunc) {
+      request.errorFunc(data);
     }    
   }
 
@@ -1880,7 +1973,7 @@ var main = (function(){
     //console.log('after deleting', nonblockingAjaxRequests[signature]);
     //console.log(data, textStatus, jqXHR);
 
-    console.log('trying to remove');
+    //console.log('trying to remove');
     _removeNonblockingAjaxRequest(request.signature);
     /*for (var i in nonblockingAjaxRequests) {
       if (nonblockingAjaxRequests[i].signature == request.signature) {
@@ -1889,11 +1982,11 @@ var main = (function(){
       }
     }*/
 
-    console.log('SUCCESS!', request.signature);
-    _debugOutput();
+    //console.log('SUCCESS!', request.signature);
+    //_debugOutput();
 
     if (request.doneFunc) {
-      request.doneFunc();
+      request.doneFunc(data);
     }
 
     _scheduleNextNonblockingAjaxRequest();
@@ -1954,7 +2047,18 @@ var main = (function(){
       type: 'PUT',
       contentType: 'application/json',
       headers: { 'Authorization': _getAuthHeader() }
-    }, true);
+    }, true, null, _errorSavingSettingsToServer);
+
+//      function _newNonblockingAjaxRequest(request, allowToClosePage, doneFunc, errorFunc) {
+  }
+
+  function _errorSavingSettingsToServer(data) {
+    if (data.status == 401) {
+      mode = MODE_FORCE_RELOAD_SIGN_OUT_401;
+      abortEverything = true;
+      _processMode();
+    }
+    //alert(data.status);
   }
 
   function _clearScheduledSavingStreetToServer() {
@@ -1999,13 +2103,6 @@ var main = (function(){
     blockingAjaxRequestCancelFunc();
   }
 
-  // TODO move up
-  var blockingAjaxRequest;
-  var blockingAjaxRequestDoneFunc;
-  var blockingAjaxRequestCancelFunc;
-
-  var blockingAjaxRequestInProgress = false;
-
   function _newBlockingAjaxRequest(message, request, doneFunc, cancelFunc) {
     _showBlockingShield(message);
 
@@ -2023,14 +2120,14 @@ var main = (function(){
     remixOnFirstEdit = false;
 
     if (signedIn) {
-      street.creatorId = signInData.userId;
+      _setStreetCreatorId(signInData.userId);
     } else {
-      street.creatorId = null;
+      _setStreetCreatorId(null);
     }
 
     street.originalStreetId = street.id;
 
-    _updateUndoStackCreator();
+    _unifyUndoStack();
 
     if (undoStack[undoPosition - 1] && (undoStack[undoPosition - 1].name != street.name)) {
       // The street was remixed as a result of editing its name. Don’t be
@@ -2067,16 +2164,23 @@ var main = (function(){
     settings.lastStreetNamespacedId = street.namespacedId;
     settings.lastStreetCreatorId = street.creatorId;
 
-    _saveSettings();
+    _saveSettingsLocally();
+  }
+
+  function _unifyUndoStack() {
+    for (var i in undoStack) {
+      undoStack[i].id = street.id;
+      undoStack[i].name = street.name;
+      undoStack[i].namespacedId = street.namespacedId;
+      undoStack[i].creatorId = street.creatorId;
+    }
   }
 
   function _setStreetId(newId, newNamespacedId) {
     street.id = newId;
     street.namespacedId = newNamespacedId;
 
-    for (var i in undoStack) {
-      undoStack[i].id = newId;
-    }
+    _unifyUndoStack();
 
     _updateLastStreetInfo();
   }
@@ -2084,28 +2188,26 @@ var main = (function(){
   function _setStreetCreatorId(newId) {
     street.creatorId = newId;
 
+    _unifyUndoStack();
     _updateLastStreetInfo();
   }
 
   function _addRemixSuffixToName() {
+    // Removed for the time being to see if we like it without this.
+    return;
+
     if (street.name.substr(street.name.length - STREET_NAME_REMIX_SUFFIX.length, 
         STREET_NAME_REMIX_SUFFIX.length) != STREET_NAME_REMIX_SUFFIX) {
       street.name += ' ' + STREET_NAME_REMIX_SUFFIX;
     }
   }
 
-  function _updateUndoStackCreator() {
-    for (var i in undoStack) {
-      undoStack[i].creatorId = street.creatorId;
-    }
-  }
-
   function _receiveRemixedStreet(data) {
     if (!promoteStreet) {
       if (signedIn) {
-        _statusMessage.show('Now editing a freshly-made copy of the original street. The copy has been put in your gallery.');
+        _statusMessage.show(msg('STATUS_NOW_REMIXING'));
       } else {
-        _statusMessage.show('Now editing a freshly-made copy of the original street. <a href="/' + URL_SIGN_IN + '">Sign in</a> to start your own gallery of streets.');
+        _statusMessage.show(msg('STATUS_NOW_REMIXING_SIGN_IN', { signInUrl: URL_SIGN_IN_REDIRECT }));
       }
     }
 
@@ -2135,10 +2237,6 @@ var main = (function(){
       return;
     }
 
-    //console.log('schedule [settings] save!');
-
-    // saveSettingsIncomplete = true;
-
     _clearScheduledSavingSettingsToServer();
 
     saveSettingsTimerId = 
@@ -2150,11 +2248,17 @@ var main = (function(){
       return;
     }
 
-    var currentData = _trimStreetData();
+    var currentData = _trimStreetData(street);
 
     if (JSON.stringify(currentData) != JSON.stringify(lastStreet)) {
       _hideNewStreetMenu();
-      _createNewUndo();
+
+      // As per issue #306.
+      _statusMessage.hide();
+
+      _hideStreetAttribution();
+
+      _createNewUndoIfNecessary(lastStreet, currentData);
       _scheduleSavingStreetToServer();
 
       lastStreet = currentData;
@@ -2196,8 +2300,7 @@ var main = (function(){
 
   function _getVariantArray(segment, variantString) {
     var variantArray = {};
-    // TODO const
-    var variantSplit = variantString.split('|');
+    var variantSplit = variantString.split(VARIANT_SEPARATOR);
 
     for (var i in SEGMENT_INFO[segment.type].variants) {
       var variantName = SEGMENT_INFO[segment.type].variants[i];
@@ -2209,7 +2312,7 @@ var main = (function(){
   }
 
   // Copies only the data necessary for save/undo.
-  function _trimStreetData() {
+  function _trimStreetData(street) {
     var newData = {};
 
     newData.width = street.width;
@@ -2468,8 +2571,8 @@ var main = (function(){
     draggingResize.elX = pos[0];
     draggingResize.elY = pos[1];
 
-    draggingResize.origX = draggingResize.elX;
-    draggingResize.origWidth = parseFloat(el.segmentEl.getAttribute('width'));
+    draggingResize.originalX = draggingResize.elX;
+    draggingResize.originalWidth = parseFloat(el.segmentEl.getAttribute('width'));
     draggingResize.segmentEl = el.segmentEl;
 
     draggingResize.segmentEl.classList.add('hover');
@@ -2518,7 +2621,7 @@ var main = (function(){
     var deltaX = x - draggingResize.mouseX;
     var deltaY = y - draggingResize.mouseY;
 
-    var deltaFromOriginal = draggingResize.elX - draggingResize.origX;
+    var deltaFromOriginal = draggingResize.elX - draggingResize.originalX;
     if (!draggingResize.right) {
       deltaFromOriginal = -deltaFromOriginal;
     }
@@ -2526,7 +2629,7 @@ var main = (function(){
     draggingResize.elX += deltaX;
     draggingResize.floatingEl.style.left = draggingResize.elX + 'px';
 
-    var width = draggingResize.origWidth + deltaFromOriginal / TILE_SIZE * 2;
+    var width = draggingResize.originalWidth + deltaFromOriginal / TILE_SIZE * 2;
     var precise = event.shiftKey;
 
     if (precise) {
@@ -2557,20 +2660,20 @@ var main = (function(){
 
     _changeDraggingType(DRAGGING_TYPE_MOVE);
 
-    draggingMove.origEl = el;
+    draggingMove.originalEl = el;
 
-    draggingMove.originalType = draggingMove.origEl.getAttribute('type');
+    draggingMove.originalType = draggingMove.originalEl.getAttribute('type');
     draggingMove.originalVariantString = 
-        draggingMove.origEl.getAttribute('variant-string');
+        draggingMove.originalEl.getAttribute('variant-string');
 
-    if (draggingMove.origEl.classList.contains('palette')) {
+    if (draggingMove.originalEl.classList.contains('palette')) {
       draggingMove.type = DRAGGING_TYPE_MOVE_CREATE;
-      draggingMove.origWidth = 
+      draggingMove.originalWidth = 
           SEGMENT_INFO[draggingMove.originalType].defaultWidth * TILE_SIZE;
     } else {
       draggingMove.type = DRAGGING_TYPE_MOVE_TRANSFER;      
-      draggingMove.origWidth = 
-          draggingMove.origEl.offsetWidth;
+      draggingMove.originalWidth = 
+          draggingMove.originalEl.offsetWidth;
     }
 
     var pos = _getElAbsolutePos(el);
@@ -2580,7 +2683,7 @@ var main = (function(){
 
     if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
       draggingMove.elY += DRAG_OFFSET_Y_PALETTE;
-      draggingMove.elX -= draggingMove.origWidth / 3;
+      draggingMove.elX -= draggingMove.originalWidth / 3;
     }
 
     draggingMove.mouseX = x;
@@ -2597,7 +2700,7 @@ var main = (function(){
     _setSegmentContents(draggingMove.floatingEl, 
         draggingMove.originalType, 
         draggingMove.originalVariantString, 
-        draggingMove.origWidth);
+        draggingMove.originalWidth);
     document.body.appendChild(draggingMove.floatingEl);
 
     if (system.cssTransform) {
@@ -2609,7 +2712,7 @@ var main = (function(){
     }
 
     if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
-      draggingMove.origEl.classList.add('dragged-out');
+      draggingMove.originalEl.classList.add('dragged-out');
     }
 
     draggingMove.segmentBeforeEl = null;
@@ -2801,16 +2904,16 @@ var main = (function(){
 
     if (!withinCanvas) {
       if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
-        _removeElFromDom(draggingMove.origEl);
+        _removeElFromDom(draggingMove.originalEl);
       }
     } else if (draggingMove.segmentBeforeEl || draggingMove.segmentAfterEl || (street.segments.length == 0)) {
-      var width = draggingMove.origWidth;
+      var width = draggingMove.originalWidth;
 
       if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
         if ((street.remainingWidth > 0) && (width > street.remainingWidth * TILE_SIZE)) {
 
           var segmentMinWidth = 
-              SEGMENT_INFO[draggingMove.originalType].minWidth || 0;
+              SEGMENT_INFO[draggingMove.originalType].details[draggingMove.originalVariantString].minWidth || 0;
 
           if ((street.remainingWidth >= MIN_SEGMENT_WIDTH) && 
               (street.remainingWidth >= segmentMinWidth)) {
@@ -2846,9 +2949,9 @@ var main = (function(){
 
       _createTouchSegmentFadeout(newEl);
     } else {            
-      _createTouchSegmentFadeout(draggingMove.origEl);
+      _createTouchSegmentFadeout(draggingMove.originalEl);
 
-      draggingMove.origEl.classList.remove('dragged-out');
+      draggingMove.originalEl.classList.remove('dragged-out');
     }
 
     _removeElFromDom(draggingMove.floatingEl);
@@ -2955,19 +3058,16 @@ var main = (function(){
   }
 
   function _resizeStreetName() {
-    /*var streetNameCanvasWidth = 
+    var streetNameCanvasWidth = 
         document.querySelector('#street-name-canvas').offsetWidth;
     var streetNameWidth = 
-        document.querySelector('#street-name').offsetWidth;
+        document.querySelector('#street-name > div').scrollWidth;
 
     if (streetNameWidth > streetNameCanvasWidth) {
-      var multiplier = streetNameCanvasWidth / streetNameWidth;
+      document.querySelector('#street-name').style.width = streetNameCanvasWidth + 'px';
     } else {
-      var multiplier = 1.0;
+      document.querySelector('#street-name').style.width = 'auto';
     }
-
-    document.querySelector('#street-name').style[system.cssTransform] = 
-        'scale(' + multiplier + ')';*/
   }
 
   function _onResize() {
@@ -3067,7 +3167,7 @@ var main = (function(){
     var el = document.createElement('option');
     el.value = STREET_WIDTH_SWITCH_TO_IMPERIAL;
     el.id = 'switch-to-imperial-units';
-    el.innerHTML = 'Switch to imperial units (feet)';
+    el.innerHTML = msg('MENU_SWITCH_TO_IMPERIAL');
     if (street.units == SETTINGS_UNITS_IMPERIAL) {
       el.disabled = true;
     }
@@ -3076,10 +3176,11 @@ var main = (function(){
     var el = document.createElement('option');
     el.value = STREET_WIDTH_SWITCH_TO_METRIC;
     el.id = 'switch-to-metric-units';
-    el.innerHTML = 'Switch to metric units';
+    el.innerHTML = msg('MENU_SWITCH_TO_METRIC');
     if (street.units == SETTINGS_UNITS_METRIC) {
       el.disabled = true;
     }
+
     document.querySelector('#street-width').appendChild(el);  
 
     document.querySelector('#street-width').value = street.width;   
@@ -3099,7 +3200,8 @@ var main = (function(){
       return;
     } else if (newStreetWidth == STREET_WIDTH_CUSTOM) {
       _ignoreWindowFocusMomentarily();
-      var width = prompt("Enter the new street width (from " + 
+      // TODO string
+      var width = prompt("New street width (from " + 
           _prettifyWidth(MIN_CUSTOM_STREET_WIDTH, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP) + 
           " to " + 
           _prettifyWidth(MAX_CUSTOM_STREET_WIDTH, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP) + 
@@ -3144,12 +3246,12 @@ var main = (function(){
       _createDomFromData();
       _segmentsChanged();
 
-      _statusMessage.show('All segments have been deleted.', true);
+      _statusMessage.show(msg('STATUS_ALL_SEGMENTS_DELETED'), true);
     } else if (el && el.parentNode) {
       _removeElFromDom(el);
       _segmentsChanged();
 
-      _statusMessage.show('The segment has been deleted.', true);
+      _statusMessage.show(msg('STATUS_SEGMENT_DELETED'), true);
     }
   } 
 
@@ -3240,7 +3342,7 @@ var main = (function(){
         whatIsThis.hideInfo();
 
         if (document.body.classList.contains('gallery-visible')) {
-          _hideGallery();
+          _hideGallery(false);
         } else {
           if (infoBubbleVisible) {
             _hideInfoBubble();
@@ -3254,6 +3356,12 @@ var main = (function(){
           event.preventDefault();
         } else if (event.shiftKey && (event.metaKey || event.ctrlKey)) {
           _redo();
+          event.preventDefault();
+        }
+        break;
+      case KEY_S:
+        if (event.metaKey || event.ctrlKey) {
+          _statusMessage.show(msg('STATUS_NO_NEED_TO_SAVE'));
           event.preventDefault();
         }
         break;
@@ -3308,6 +3416,7 @@ var main = (function(){
     url += street.namespacedId;
 
     if (street.creatorId) {
+      //console.log('name', street.name);
       var slug = _normalizeSlug(street.name);
       url += '/' + encodeURIComponent(slug);
     }
@@ -3315,8 +3424,12 @@ var main = (function(){
     return url;
   }
 
-  function _updatePageUrl() {
-    var url = _getStreetUrl(street);
+  function _updatePageUrl(forceGalleryUrl) {
+    if (forceGalleryUrl) {
+      var url = '/' + galleryUserId;
+    } else {
+      var url = _getStreetUrl(street);
+    }
 
     window.history.replaceState(null, null, url);
 
@@ -3336,23 +3449,79 @@ var main = (function(){
     document.title = title;
   }
 
-  function _updateStreetName() {
-    $('#street-name > div').text(street.name);
-    _resizeStreetName();
+  function _onAnotherUserIdClick(event) {
+    if (event.shiftKey || event.ctrlKey || event.metaKey) {
+      return;
+    }
 
+    var el = event.target;
+
+    var userId = el.innerHTML;
+
+    _showGallery(userId, false);
+
+    event.preventDefault();
+  }
+
+  function _updateStreetNameFont(el) {
+    var name = el.innerHTML;
+
+    var usingSupportedGlyphs = true;
+    for (var i in name) {
+      if (STREET_NAME_FONT_GLYPHS.indexOf(name.charAt(i)) == -1) {
+        usingSupportedGlyphs = false;
+        break;
+      }
+    }
+
+
+    if (usingSupportedGlyphs) {
+      el.classList.remove('fallback-unicode-font');
+    } else {
+      el.classList.add('fallback-unicode-font');
+    }
+  }
+
+  function _updateStreetAttribution() {
     if (street.creatorId && (!signedIn || (street.creatorId != signInData.userId))) {
       // TODO const
-      var html = "by <div class='avatar'></div>" +
-          "<a target='_blank' href='https://twitter.com/" + 
+      var html = "by <div class='avatar' userId='" + street.creatorId + "'></div>" +
+          "<a class='user-gallery' href='/" +  
           street.creatorId + "'>" + street.creatorId + "</a> · " +
           _formatDate(moment(street.updatedAt));
 
       document.querySelector('#street-attribution').innerHTML = html;
-      document.querySelector('#street-attribution').classList.add('visible');
+
+      _fetchAvatars();
+
+      document.querySelector('#street-attribution .user-gallery').addEventListener('click', _onAnotherUserIdClick);
+    } else if (!street.creatorId) {
+      var html = "by Anonymous · " + _formatDate(moment(street.updatedAt));
+
+      document.querySelector('#street-attribution').innerHTML = html;
     } else {
-      document.querySelector('#street-attribution').classList.remove('visible');      
+      var html = _formatDate(moment(street.updatedAt));
+
+      document.querySelector('#street-attribution').innerHTML = html;      
     }
 
+    document.querySelector('#street-attribution').classList.add('visible');
+  }
+
+  function _hideStreetAttribution() {
+    document.querySelector('#street-attribution').classList.remove('visible');
+  }
+
+  function _updateStreetName() {
+    $('#street-name > div').text(street.name);
+
+    _updateStreetNameFont(document.querySelector('#street-name'));
+
+    _resizeStreetName();
+
+    _updateStreetAttribution();
+
+    _unifyUndoStack();
     _updatePageUrl();
     _updatePageTitle();
   }
@@ -3369,7 +3538,7 @@ var main = (function(){
 
   function _askForStreetName() {
     _ignoreWindowFocusMomentarily();
-    var newName = prompt('New street name:', street.name);
+    var newName = prompt(msg('PROMPT_NEW_STREET_NAME'), street.name);
 
     if (newName) {
       street.name = _normalizeStreetName(newName);
@@ -3381,13 +3550,12 @@ var main = (function(){
 
   function _fetchStreetForVerification() {
     // Don’t do it with any network services pending
-    if (_getNonblockingAjaxRequestCount() || blockingAjaxRequestInProgress) {
+    if (_getNonblockingAjaxRequestCount() || blockingAjaxRequestInProgress || 
+        saveStreetIncomplete) {
       return;
     }
 
     var url = _getFetchStreetUrl();
-
-    //console.log('verifying street', '|' + url + '|');
 
     jQuery.ajax({
       url: url,
@@ -3396,24 +3564,11 @@ var main = (function(){
     }).done(_receiveStreetForVerification).fail(_errorReceiveStreetForVerification);
   }
 
-  // Compare two objects regardless of the order of their properties
-  function _equalObject(obj1, obj2) {
-    
-    function __equalObject(o1, o2) {
-      return JSON.stringify(o1)
-          === JSON.stringify($.extend(true, {}, o1, o2));
-    }
-
-    return __equalObject(obj1, obj2) && __equalObject(obj2, obj1);
-  }
-
   function _receiveStreetForVerification(transmission) {
-    //console.log('verify');
+    var localStreetData = _trimStreetData(street);
+    var serverStreetData = _trimStreetData(_unpackStreetDataFromServerTransmission(transmission));
 
-    var localStreetData = _trimStreetData();
-    var serverStreetData = _unpackStreetDataFromServerTransmission(transmission);
-
-    if (!_equalObject(localStreetData, serverStreetData)) {
+    if (JSON.stringify(localStreetData) != JSON.stringify(serverStreetData)) {
       console.log('NOT EQUAL');
       console.log('-');
       console.log(JSON.stringify(localStreetData));
@@ -3422,7 +3577,7 @@ var main = (function(){
       console.log('-');
       console.log(transmission);
 
-      _statusMessage.show('Your street was reloaded from the server as it was modified elsewhere.');
+      _statusMessage.show(msg('STATUS_RELOADED_FROM_SERVER'));
 
       _unpackServerStreetData(transmission);
       _updateEverything();
@@ -3465,7 +3620,7 @@ var main = (function(){
       // Save settings on window focus, so the last edited street is the one you’re
       // currently looking at (in case you’re looking at many streets in various
       // tabs)
-      _saveSettings();
+      _saveSettingsLocally();
     }
   }
 
@@ -3499,21 +3654,21 @@ var main = (function(){
     _updateShareMenu();
 
     ignoreStreetChanges = false;
-    lastStreet = _trimStreetData();
+    lastStreet = _trimStreetData(street);
 
     _saveStreetToServer(false);
   }
 
   function _onNewStreetDefaultClick() {
     settings.newStreetPreference = NEW_STREET_DEFAULT;
-    _saveSettings();
+    _saveSettingsLocally();
 
     _makeDefaultStreet();
   }
 
   function _onNewStreetEmptyClick() {
     settings.newStreetPreference = NEW_STREET_EMPTY;
-    _saveSettings();
+    _saveSettingsLocally();
 
     ignoreStreetChanges = true;
     _prepareEmptyStreet();
@@ -3525,7 +3680,7 @@ var main = (function(){
     _updateShareMenu();
 
     ignoreStreetChanges = false;
-    lastStreet = _trimStreetData();
+    lastStreet = _trimStreetData(street);
 
     _saveStreetToServer(false);
   }
@@ -3560,11 +3715,19 @@ var main = (function(){
     street.originalStreetId = settings.priorLastStreetId;
     _addRemixSuffixToName();
 
+    if (signedIn) {
+      _setStreetCreatorId(signInData.userId);
+    } else {
+      _setStreetCreatorId(null);
+    }
+
     _propagateUnits();
 
     // TODO this is stupid, only here to fill some structures
     _createDomFromData();
     _createDataFromDom();
+
+    _unifyUndoStack();
 
     _resizeStreetWidth();
     _updateStreetName();
@@ -3573,7 +3736,7 @@ var main = (function(){
     _updateShareMenu();
 
     ignoreStreetChanges = false;
-    lastStreet = _trimStreetData();
+    lastStreet = _trimStreetData(street);
 
     _saveStreetToServer(false);
   }
@@ -3599,24 +3762,35 @@ var main = (function(){
     document.querySelector('#new-street-menu').classList.remove('visible');
   }
 
-  // TODO move
-
-  var galleryStreetId = -1;
-  var galleryStreetLoaded = false;
-
   function _fetchGalleryData() {
-    jQuery.ajax({
-      // TODO const
-      url: system.apiUrl + 'v1/users/' + signInData.userId + '/streets',
-      dataType: 'json',
-      type: 'GET',
-      headers: { 'Authorization': _getAuthHeader() }
-    }).done(_receiveGalleryData).fail(_errorReceiveGalleryData);
+    if (galleryUserId) {
+      jQuery.ajax({
+        // TODO const
+        url: system.apiUrl + 'v1/users/' + galleryUserId + '/streets',
+        dataType: 'json',
+        type: 'GET',
+        headers: { 'Authorization': _getAuthHeader() }
+      }).done(_receiveGalleryData).fail(_errorReceiveGalleryData);
+    } else {
+      jQuery.ajax({
+        // TODO const
+        url: system.apiUrl + 'v1/streets',
+        dataType: 'json',
+        type: 'GET',
+      }).done(_receiveGalleryData).fail(_errorReceiveGalleryData);      
+    }
   }
 
-  function _errorReceiveGalleryData() {
-    document.querySelector('#gallery .loading').classList.remove('visible');
-    document.querySelector('#gallery .error-loading').classList.add('visible');    
+  function _errorReceiveGalleryData(data) {
+    if ((mode == MODE_USER_GALLERY) && (data.status == 404)) {
+      abortEverything = true;
+      mode = MODE_404;
+      _processMode();
+      _hideGallery(true);
+    } else {
+      document.querySelector('#gallery .loading').classList.remove('visible');
+      document.querySelector('#gallery .error-loading').classList.add('visible');    
+    }
   }
 
   function _repeatReceiveGalleryData() {
@@ -3628,18 +3802,16 @@ var main = (function(){
 
     _showBlockingShield();
 
-//    window.setTimeout(function() {
+    //console.log(system.apiUrl + 'v1/streets/' + streetId);
 
-      jQuery.ajax({
-        // TODO const
-        url: system.apiUrl + 'v1/streets/' + streetId,
-        dataType: 'json',
-        type: 'GET',
-        headers: { 'Authorization': _getAuthHeader() }
-      }).done(_receiveGalleryStreet)
-      .fail(_errorReceiveGalleryStreet);
-
-//    }, 3000); // DEBUG
+    jQuery.ajax({
+      // TODO const
+      url: system.apiUrl + 'v1/streets/' + streetId,
+      dataType: 'json',
+      type: 'GET',
+      headers: { 'Authorization': _getAuthHeader() }
+    }).done(_receiveGalleryStreet)
+    .fail(_errorReceiveGalleryStreet);
   }
 
   function _errorReceiveGalleryStreet() {
@@ -3649,6 +3821,31 @@ var main = (function(){
 
     _updateGallerySelection();
   }
+
+  function _checkIfNeedsToBeRemixed() {
+    if (!signedIn || (street.creatorId != signInData.userId)) {
+      remixOnFirstEdit = true;
+    } else {
+      remixOnFirstEdit = false;
+    }
+  }
+
+  function _receiveStreet(transmission) {
+    //console.log('received street', transmission);
+
+    _unpackServerStreetData(transmission);
+
+    _checkIfNeedsToBeRemixed();
+
+    _propagateUnits();
+
+    // TODO this is stupid, only here to fill some structures
+    _createDomFromData();
+    _createDataFromDom();
+
+    serverContacted = true;
+    _checkIfEverythingIsLoaded();
+  }  
 
   // TODO similar to receiveLastStreet
   function _receiveGalleryStreet(transmission) {
@@ -3666,12 +3863,15 @@ var main = (function(){
 
     _unpackServerStreetData(transmission);
 
+    _checkIfNeedsToBeRemixed();
+
     _propagateUnits();
 
     // TODO this is stupid, only here to fill some structures
     _createDomFromData();
     _createDataFromDom();
 
+    _hideNewStreetMenu();
     _resizeStreetWidth();
     _updateStreetName();
     _createDomFromData();
@@ -3679,7 +3879,7 @@ var main = (function(){
     _updateShareMenu();
 
     ignoreStreetChanges = false;
-    lastStreet = _trimStreetData();
+    lastStreet = _trimStreetData(street);
   }
 
   function _updateGallerySelection() {
@@ -3694,23 +3894,32 @@ var main = (function(){
     }
   }
 
+  function _switchGalleryStreet(id) {
+    galleryStreetId = id;
+
+    _updateGallerySelection();
+    _fetchGalleryStreet(galleryStreetId);    
+  }
+
   function _onGalleryStreetClick(event) {
     if (event.shiftKey || event.ctrlKey || event.metaKey) {
       return;
     }
 
-    var el = event.target;
-    galleryStreetId = el.getAttribute('streetId');
-
-    _updateGallerySelection();
-
-    _fetchGalleryStreet(galleryStreetId);
+    var el = this;
+    _switchGalleryStreet(el.getAttribute('streetId'));
 
     event.preventDefault();
   }
 
   function _formatDate(date) {
+    // TODO const
     return date.format('MMM D, YYYY');
+  }
+
+  function _clearBlockingShieldTimers() {
+    window.clearTimeout(blockingShieldTimerId);
+    window.clearTimeout(blockingShieldTooSlowTimerId);
   }
 
   function _showBlockingShield(message) {
@@ -3718,23 +3927,34 @@ var main = (function(){
       message = 'Loading…';
     }
 
+    _hideBlockingShield();
+    _clearBlockingShieldTimers();
+
     document.querySelector('#blocking-shield .message').innerHTML = message;
+
     document.querySelector('#blocking-shield').classList.add('visible');
 
-    window.setTimeout(function() {
+    blockingShieldTimerId = window.setTimeout(function() {
       document.querySelector('#blocking-shield').classList.add('darken');
-    }, 0);
+    }, BLOCKING_SHIELD_DARKEN_DELAY);
+
+    blockingShieldTooSlowTimerId = window.setTimeout(function() {
+      document.querySelector('#blocking-shield').classList.add('show-too-slow');
+    }, BLOCKING_SHIELD_TOO_SLOW_DELAY);
   }
 
   function _darkenBlockingShield(message) {
+    _clearBlockingShieldTimers();
     document.querySelector('#blocking-shield').classList.add('darken-immediately');
   }
 
   function _hideBlockingShield() {
+    _clearBlockingShieldTimers();
     document.querySelector('#blocking-shield').classList.remove('visible');
     document.querySelector('#blocking-shield').classList.remove('darken');
     document.querySelector('#blocking-shield').classList.remove('darken-immediately');
     document.querySelector('#blocking-shield').classList.remove('show-try-again');
+    document.querySelector('#blocking-shield').classList.remove('show-too-slow');
     document.querySelector('#blocking-shield').classList.remove('show-cancel');
   }
 
@@ -3768,7 +3988,7 @@ var main = (function(){
       settings.lastStreetCreatorId = null;
       settings.lastStreetNamespacedId = null;
       
-      _saveSettings();
+      _saveSettingsLocally();
       _saveSettingsToServer();
     }
 
@@ -3786,19 +4006,21 @@ var main = (function(){
 
     document.querySelector('#gallery .loading').classList.remove('visible');
 
-    var el = document.createElement('li');
-    var newEl = document.createElement('a');
-    newEl.innerHTML = 'New street';
-    newEl.href = '/' + URL_NEW_STREET;
-    el.appendChild(newEl);
-    document.querySelector('#gallery .streets').appendChild(el);
-
-    var el = document.createElement('li');
-    var newEl = document.createElement('a');
-    newEl.innerHTML = 'Make a copy of the current street';
-    newEl.href = '/' + URL_NEW_STREET_COPY_LAST;
-    el.appendChild(newEl);
-    document.querySelector('#gallery .streets').appendChild(el);
+    if (galleryUserId) {
+      var streetCount = transmission.streets.length;
+      switch (streetCount) {
+        case 0: 
+          var text = 'No streets yet';
+          break;
+        case 1:
+          var text = '1 street';
+          break;
+        default:
+          var text = streetCount += ' streets';
+          break;
+      }
+      document.querySelector('#gallery .street-count').innerHTML = text;
+    }
 
     for (var i in transmission.streets) {
       var galleryStreet = transmission.streets[i];
@@ -3807,12 +4029,14 @@ var main = (function(){
 
       var anchorEl = document.createElement('a');
 
-      galleryStreet.creatorId = signInData.userId;
+      galleryStreet.creatorId = 
+          (galleryStreet.creator && galleryStreet.creator.id) || 'Anonymous';
 
       //console.log(galleryStreet);
 
+      galleryStreet.name = galleryStreet.name || DEFAULT_NAME;
+
       anchorEl.href = _getStreetUrl(galleryStreet);
-      anchorEl.innerHTML = galleryStreet.name;
       
       anchorEl.streetName = galleryStreet.name;
       anchorEl.setAttribute('streetId', galleryStreet.id);
@@ -3821,24 +4045,51 @@ var main = (function(){
         anchorEl.classList.add('selected');
       }
 
-      anchorEl.addEventListener('click', _onGalleryStreetClick);
+      $(anchorEl).click(_onGalleryStreetClick);
+
+      var nameEl = document.createElement('div');
+      nameEl.classList.add('street-name');
+      nameEl.innerHTML = '<div>' + galleryStreet.name + '</div>';
+      anchorEl.appendChild(nameEl);
+      _updateStreetNameFont(nameEl);
 
       var date = moment(galleryStreet.updatedAt);
-
       var dateEl = document.createElement('span');
       dateEl.classList.add('date');
       dateEl.innerHTML = _formatDate(date);
       anchorEl.appendChild(dateEl);
 
-      var removeEl = document.createElement('button');
-      removeEl.classList.add('remove');
-      removeEl.addEventListener('click', _onDeleteGalleryStreet);
-      removeEl.innerHTML = '×';
-      removeEl.title = 'Delete the street';
-      anchorEl.appendChild(removeEl);
+      if (!galleryUserId && galleryStreet.creatorId) {
+        var creatorEl = document.createElement('span');
+        creatorEl.classList.add('creator');
+        creatorEl.innerHTML = galleryStreet.creatorId;
+        anchorEl.appendChild(creatorEl);
+      }
+
+      // Only show delete links if you own the street
+      if (signedIn && (galleryStreet.creatorId == signInData.userId)) {
+        var removeEl = document.createElement('button');
+        removeEl.classList.add('remove');
+        removeEl.addEventListener('click', _onDeleteGalleryStreet);
+        removeEl.innerHTML = '×';
+        removeEl.title = 'Delete the street';
+        anchorEl.appendChild(removeEl);
+      }
 
       el.appendChild(anchorEl);
       document.querySelector('#gallery .streets').appendChild(el);
+    }
+
+    if (((mode == MODE_USER_GALLERY) && streetCount) || (mode == MODE_GLOBAL_GALLERY)) {
+      _switchGalleryStreet(transmission.streets[0].id);
+    }
+
+    var el = document.querySelector('#gallery .selected');
+    if (el) {
+      //console.log(el.parentNode.parentNode.scrollLeft);
+      el.scrollIntoView();
+      //console.log(el.parentNode.parentNode.scrollLeft);
+      document.querySelector('#gallery').scrollTop = 0;
     }
   }
 
@@ -3850,34 +4101,101 @@ var main = (function(){
     _fetchGalleryData();  
   }
 
-  function _showGallery() {
+  function _showGallery(userId, instant) {
     galleryVisible = true;
     galleryStreetLoaded = true;
     galleryStreetId = street.id;
+    galleryUserId = userId;
+
+    if (userId) {
+      document.querySelector('#gallery .avatar').setAttribute('userId', galleryUserId);
+      document.querySelector('#gallery .avatar').removeAttribute('loaded');
+      _fetchAvatars();
+      document.querySelector('#gallery .user-id').innerHTML = galleryUserId;
+
+      var linkEl = document.createElement('a');
+      // TODO const
+      linkEl.href = 'https://twitter.com/' + galleryUserId;
+      linkEl.innerHTML = 'Twitter profile »';
+      linkEl.classList.add('twitter-profile');
+      linkEl.target = '_blank';
+      document.querySelector('#gallery .user-id').appendChild(linkEl);
+
+    } else {
+      document.querySelector('#gallery .user-id').innerHTML = 'All streets';      
+    }
+
+
+    document.querySelector('#gallery .street-count').innerHTML = '';
 
     _statusMessage.hide();
 
+    // TODO no class, but type?
+    if (!userId) {
+      document.querySelector('#gallery').classList.add('all-streets');
+      document.querySelector('#gallery').classList.remove('another-user');
+    } else if (signedIn && (userId == signInData.userId)) {
+      document.querySelector('#gallery').classList.remove('another-user');
+      document.querySelector('#gallery').classList.remove('all-streets');
+    } else {
+      document.querySelector('#gallery').classList.add('another-user'); 
+      document.querySelector('#gallery').classList.remove('all-streets');
+    }
+
+    if (instant) {
+      document.body.classList.add('gallery-no-move-transition');
+    }
     document.body.classList.add('gallery-visible');
 
+    if (instant) {
+      window.setTimeout(function() {
+        document.body.classList.remove('gallery-no-move-transition');
+      }, 0);
+    }
+
+    if ((mode == MODE_USER_GALLERY) || (mode == MODE_GLOBAL_GALLERY)) {
+      // Prevents showing old street before the proper street loads
+      _showError(ERROR_TYPE_NO_STREET);
+    }
+
     _loadGalleryContents();
+
+    _updatePageUrl(true);
   }
 
-  function _hideGallery() {
+  function _onGalleryShieldClick(event) {
+    _hideGallery(false);
+  }
+
+  function _hideGallery(instant) {
     if ((currentErrorType != ERROR_TYPE_NO_STREET) && galleryStreetLoaded) {
       galleryVisible = false;
 
+      if (instant) {
+        document.body.classList.add('gallery-no-move-transition');
+      }
       document.body.classList.remove('gallery-visible');
 
+      if (instant) {
+        window.setTimeout(function() {
+          document.body.classList.remove('gallery-no-move-transition');
+        }, 0);
+      }
+
       _onWindowFocus();
+
+      if (!abortEverything) {
+        _updatePageUrl();
+      }
+
+      mode = MODE_CONTINUE;      
     }
   }
 
-  function _toggleGallery() {
-    if (document.body.classList.contains('gallery-visible')) {
-      _hideGallery();
-    } else {
-      _showGallery();
-    }
+  function _onMyStreetsClick(event) {
+    _showGallery(signInData.userId, false);
+
+    event.preventDefault();
   }
 
   function _onVisibilityChange() {
@@ -3917,9 +4235,16 @@ var main = (function(){
 
       document.querySelector('#feedback-form .loading').classList.add('visible');
 
+      var additionalInformation = '\nUser agent: ' + navigator.userAgent;
+      if (system.ipAddress) {
+        additionalInformation += '\nIP: ' + system.ipAddress;
+      }
+      //additionalInformation += '\nSettings: ' + JSON.stringify(settings);
+
       var transmission = {
         message: document.querySelector('#feedback-form-message').value,
-        from: document.querySelector('#feedback-form-email').value
+        from: document.querySelector('#feedback-form-email').value,
+        additionalInformation: additionalInformation
       };
 
       _newNonblockingAjaxRequest({
@@ -3929,7 +4254,6 @@ var main = (function(){
         dataType: 'json',
         type: 'POST',
         contentType: 'application/json',
-        //headers: { 'Authorization': _getAuthHeader() }
       }, true, _feedbackFormSuccess);
     }
   }
@@ -3956,6 +4280,9 @@ var main = (function(){
   }
 
   function _addEventListeners() {
+    document.querySelector('#new-street').addEventListener('click', _goNewStreet);
+    document.querySelector('#copy-last-street').addEventListener('click', _goCopyLastStreet);
+
     document.querySelector('#feedback-form-message').addEventListener('input', _onFeedbackFormInput, false);
     document.querySelector('#feedback-form-email').addEventListener('input', _onFeedbackFormInput, false);
     document.querySelector('#feedback-form-email').addEventListener('keydown', _onFeedbackFormEmailKeyDown, false);
@@ -3967,7 +4294,8 @@ var main = (function(){
 
     document.querySelector('#blocking-shield-cancel').addEventListener('click', _blockingCancel);
     document.querySelector('#blocking-shield-try-again').addEventListener('click', _blockingTryAgain);
-    document.querySelector('#gallery-shield').addEventListener('click', _hideGallery);
+    document.querySelector('#blocking-shield-reload').addEventListener('click', _goReload);
+    document.querySelector('#gallery-shield').addEventListener('click', _onGalleryShieldClick);
 
     document.querySelector('#new-street-default').addEventListener('click', _onNewStreetDefaultClick);
     document.querySelector('#new-street-empty').addEventListener('click', _onNewStreetEmptyClick);
@@ -3975,7 +4303,7 @@ var main = (function(){
 
     window.addEventListener('storage', _onStorageChange);
 
-    document.querySelector('#gallery-button').addEventListener('click', _toggleGallery);
+    document.querySelector('#gallery-link a').addEventListener('click', _onMyStreetsClick);
 
     document.querySelector('#sign-out-link').addEventListener('click', _signOut);
 
@@ -4027,9 +4355,13 @@ var main = (function(){
     if (url.substr(0, SITE_URL_LOCAL.length) == SITE_URL_LOCAL) {
       system.environment = ENVIRONMENT_LOCAL;
       system.apiUrl = API_URL_LOCAL;
+
+      document.body.classList.add('environment-local');
     } else if (url.substr(0, SITE_URL_STAGING.length) == SITE_URL_STAGING) {
       system.environment = ENVIRONMENT_STAGING;
       system.apiUrl = API_URL_STAGING;
+
+      document.body.classList.add('environment-staging');
     } else if (url.substr(0, SITE_URL_PRODUCTION.length) == SITE_URL_PRODUCTION) {
       system.environment = ENVIRONMENT_PRODUCTION;
       system.apiUrl = API_URL_PRODUCTION;
@@ -4059,6 +4391,15 @@ var main = (function(){
 
   var _noConnectionMessage = {
     visible: false,
+    timerId: -1,
+
+    schedule: function() {
+      if (_noConnectionMessage.timerId == -1) {
+        // TODO const
+        _noConnectionMessage.timerId = 
+          window.setTimeout(_noConnectionMessage.show, NO_CONNECTION_MESSAGE_TIMEOUT);
+      }
+    },
 
     show: function() {
       document.querySelector('#no-connection-message').classList.add('visible');
@@ -4066,6 +4407,9 @@ var main = (function(){
     },
 
     hide: function() {
+      window.clearTimeout(_noConnectionMessage.timerId);
+      _noConnectionMessage.timerId = -1;
+
       document.querySelector('#no-connection-message').classList.remove('visible');
       document.body.classList.remove('no-connection-message-visible');
     }
@@ -4081,7 +4425,7 @@ var main = (function(){
 
       if (undo) {
         var buttonEl = document.createElement('button');
-        buttonEl.innerHTML = 'Undo';
+        buttonEl.innerHTML = msg('BUTTON_UNDO');
         buttonEl.addEventListener('click', _undo);
         document.querySelector('#status-message > div').appendChild(buttonEl);
       }
@@ -4254,7 +4598,7 @@ var main = (function(){
 
     //console.log('FINAL settings', settings);
 
-    _saveSettings();
+    _saveSettingsLocally();
   }
 
   function _trimSettings() {
@@ -4269,7 +4613,7 @@ var main = (function(){
     return data;
   }
 
-  function _saveSettings() {
+  function _saveSettingsLocally() {
     //console.log('save settings', JSON.stringify(_trimSettings()));
     window.localStorage[LOCAL_STORAGE_SETTINGS_ID] = 
         JSON.stringify(_trimSettings());
@@ -4328,7 +4672,7 @@ var main = (function(){
     _hideMenus();
 
     _saveStreetToServerIfNecessary();
-    _saveSettings();
+    _saveSettingsLocally();
   }
 
   function _propagateUnits() {
@@ -4389,6 +4733,7 @@ var main = (function(){
         break;
     }
 
+    // TODO const
     el.href = 'https://www.facebook.com/dialog/feed' +
         '?app_id=' + encodeURIComponent(appId) +
         '&redirect_uri=' + encodeURIComponent(url) + 
@@ -4402,6 +4747,7 @@ var main = (function(){
 
     var text = _getSharingMessage();
 
+    // TODO const
     el.href = 'https://twitter.com/intent/tweet' + 
         '?text=' + encodeURIComponent(text) + 
         '&url=' + encodeURIComponent(url);
@@ -4432,10 +4778,10 @@ var main = (function(){
   function _updateFeedbackMenu() {
     var el = document.querySelector('#feedback-via-twitter');
 
-    // TODO const
-    var text = '@streetmixapp';
+    var text = TWITTER_ID;
     var url = _getSharingUrl();
 
+    // TODO const
     el.href = 'https://twitter.com/intent/tweet' + 
         '?text=' + encodeURIComponent(text) + 
         '&url=' + encodeURIComponent(url);    
@@ -4486,15 +4832,18 @@ var main = (function(){
 
     initializing = false;    
     ignoreStreetChanges = false;
-    lastStreet = _trimStreetData();
+    lastStreet = _trimStreetData(street);
 
     _updatePageUrl();
     _buildStreetWidthMenu();
     _onResize();
     _addEventListeners();
 
-    // TODO hack – we should store the avatar somewhere before
-    _fetchStreetCreatorAvatar();
+    if (mode == MODE_USER_GALLERY) {
+      _showGallery(galleryUserId, true);
+    } else if (mode == MODE_GLOBAL_GALLERY) {
+      _showGallery(null, true);
+    }
 
     window.setTimeout(_hideLoadingScreen, 0);
 
@@ -4522,7 +4871,6 @@ var main = (function(){
   }
 
   function _loadImages() {
-    images = [];
     imagesToBeLoaded = IMAGES_TO_BE_LOADED.length;
 
     for (var i in IMAGES_TO_BE_LOADED) {
@@ -4533,8 +4881,12 @@ var main = (function(){
     }    
   }
 
-  function _saveSignInData() {
-    window.localStorage[LOCAL_STORAGE_SIGN_IN_ID] = JSON.stringify(signInData);
+  function _saveSignInDataLocally() {
+    if (signInData) {
+      window.localStorage[LOCAL_STORAGE_SIGN_IN_ID] = JSON.stringify(signInData);
+    } else {
+      window.localStorage[LOCAL_STORAGE_SIGN_IN_ID] = '';
+    }
   }
 
   function _removeSignInCookies() {
@@ -4552,7 +4904,7 @@ var main = (function(){
       signInData = { token: signInCookie, userId: userIdCookie };
 
       _removeSignInCookies();
-      _saveSignInData();
+      _saveSignInDataLocally();
     } else {
       if (window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
         signInData = JSON.parse(window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]);
@@ -4593,17 +4945,29 @@ var main = (function(){
     //console.log('receive sign in details', details);
 
     signInData.details = details;
-    _saveSignInData();
+    _saveSignInDataLocally();
+
+    _receiveAvatar(details);
 
     signedIn = true;
     _signInLoaded();
   }
 
-  function _errorReceiveSignInDetails() {   
+  function _errorReceiveSignInDetails(data) {   
+    console.log(data);
+    // If we get data.status == 0, it means that the user opened the page and
+    // closed is quickly, so the request was aborted. We choose to do nothing
+    // instead of clobbering sign in data below and effectively signing the
+    // user out. Bug #302.
+
+    if (data.status == 0) {
+      return;
+    }
+
     // Fail silently
 
     signInData = null;
-    _saveSignInData();
+    _saveSignInDataLocally();
 
     signedIn = false;
     _signInLoaded();
@@ -4613,6 +4977,7 @@ var main = (function(){
     settings.lastStreetId = null;
     settings.lastStreetNamespacedId = null;
     settings.lastStreetCreatorId = null;
+    _saveSettingsLocally();
 
     _removeSignInCookies();
     window.localStorage.removeItem(LOCAL_STORAGE_SIGN_IN_ID);
@@ -4653,8 +5018,9 @@ var main = (function(){
   function _createSignInUI() {
     if (signedIn) {
       var el = document.createElement('div');
-      el.style.backgroundImage = 'url(' + signInData.details.profileImageUrl + ')';
+      //el.style.backgroundImage = 'url(' + signInData.details.profileImageUrl + ')';
       el.classList.add('avatar');
+      el.setAttribute('userId', signInData.userId);
       document.querySelector('#identity').appendChild(el);
 
       var el = document.createElement('button');
@@ -4666,6 +5032,8 @@ var main = (function(){
       document.querySelector('#identity').classList.add('visible');
 
       document.querySelector('#gallery-link').classList.add('visible');
+
+      _fetchAvatars();
     } else {
       var el = document.createElement('a');
       el.href = '/' + URL_SIGN_IN_REDIRECT;
@@ -4682,7 +5050,8 @@ var main = (function(){
 
     _createSignInUI();
 
-    if ((mode == MODE_CONTINUE) || (mode == MODE_JUST_SIGNED_IN)) {
+    if ((mode == MODE_CONTINUE) || (mode == MODE_JUST_SIGNED_IN) || 
+        (mode == MODE_USER_GALLERY) || (mode == MODE_GLOBAL_GALLERY)) {
       //console.log('inside', mode == MODE_JUST_SIGNED_IN);
       if (settings.lastStreetId) {
         //console.log('further inside…');
@@ -4699,7 +5068,9 @@ var main = (function(){
           //console.log('promoting!');
         }
         
-        mode = MODE_CONTINUE;
+        if (mode == MODE_JUST_SIGNED_IN) {
+          mode = MODE_CONTINUE;
+        }
       } else {
         mode = MODE_NEW_STREET;
       }
@@ -4712,8 +5083,14 @@ var main = (function(){
         break;
       case MODE_EXISTING_STREET:
       case MODE_CONTINUE:
+      case MODE_USER_GALLERY:
+      case MODE_GLOBAL_GALLERY:
         _fetchStreetFromServer();
         break;
+    }
+
+    if (signedIn) {
+      document.querySelector('#gallery-link a').href = '/' + signInData.userId;
     }
 
     signInLoaded = true;
@@ -4751,6 +5128,10 @@ var main = (function(){
       if (COUNTRIES_LEFT_HAND_TRAFFIC.indexOf(info.country_code) != -1) {
         leftHandTraffic = true;
       }
+    }
+
+    if (info && info.ip) {
+      system.ipAddress = info.ip;
     }
 
     countryLoaded = true;
@@ -4801,12 +5182,16 @@ var main = (function(){
       // Coming back from a successful sign in
 
       mode = MODE_JUST_SIGNED_IN;
-      //console.log('just signed in pt. 1');
+    } else if ((urlParts.length == 1) && (urlParts[0] == URL_GLOBAL_GALLERY)) {
+      // User gallery
+
+      mode = MODE_GLOBAL_GALLERY;
     } else if ((urlParts.length == 1) && urlParts[0]) {
       // User gallery
 
-      console.log('_processUrl()');
-      mode = MODE_404;
+      galleryUserId = urlParts[0];
+
+      mode = MODE_USER_GALLERY;
     } else if ((urlParts.length == 2) && (urlParts[0] == URL_NO_USER) && urlParts[1]) {
       // TODO add is integer urlParts[1];
       // Existing street by an anonymous person
@@ -4837,9 +5222,18 @@ var main = (function(){
   }
 
   function _createNewStreetOnServer() {
+    if (settings.newStreetPreference == NEW_STREET_EMPTY) {
+      _prepareEmptyStreet();
+    } else {
+      _prepareDefaultStreet();
+    }
+
+    var transmission = _packServerStreetData();    
+
     jQuery.ajax({
       // TODO const
       url: system.apiUrl + 'v1/streets',
+      data: transmission,
       type: 'POST',
       dataType: 'json',
       headers: { 'Authorization': _getAuthHeader() }
@@ -4852,15 +5246,10 @@ var main = (function(){
 
     _setStreetId(data.id, data.namespacedId);
 
-    if (settings.newStreetPreference == NEW_STREET_EMPTY) {
-      _prepareEmptyStreet();
-    } else {
-      _prepareDefaultStreet();
-    }
     _saveStreetToServer(true);
   }
 
-  function _errorReceiveNewStreet() {
+  function _errorReceiveNewStreet(data) {
     //console.log('failed new street!');
 
     _showError(ERROR_NEW_STREET_SERVER_FAILURE);
@@ -4884,8 +5273,6 @@ var main = (function(){
   function _fetchStreetFromServer() {
     var url = _getFetchStreetUrl();
 
-    //console.log('try to get street from server', '|' + url + '|');
-
     jQuery.ajax({
       url: url,
       dataType: 'json',
@@ -4893,73 +5280,82 @@ var main = (function(){
     }).done(_receiveStreet).fail(_errorReceiveStreet);
   }
 
-  function _fetchStreetCreatorAvatar() {
-    //console.log('fetch street creator avatar');
+  function _updateAvatars() {
+    var els = document.querySelectorAll('.avatar:not([loaded])');
 
-    if (street.creatorId) {
-      // TODO const
-      jQuery.ajax({
-        dataType: 'json',
-        url: system.apiUrl + 'v1/users/' + street.creatorId
-      }).done(_receiveStreetCreatorAvatar);
-    }
-  }
+    for (var i = 0, el; el = els[i]; i++) {
+      var userId = el.getAttribute('userId');
 
-  function _receiveStreetCreatorAvatar(details) {
-    //console.log('receive street creator avatar');
-
-    if (details.profileImageUrl) {
-      if (document.querySelector('#street-attribution .avatar')) {
-        document.querySelector('#street-attribution .avatar').style.backgroundImage = 
-            'url(' + details.profileImageUrl + ')';
+      if (avatarCache[userId]) {
+        //console.log('AVATAR updated', userId);
+        el.style.backgroundImage = 'url(' + avatarCache[userId] + ')';
+        el.setAttribute('loaded', true);
       }
     }
   }
 
-  function _receiveStreet(transmission) {
-    //console.log('received street', transmission);
+  function _fetchAvatars() {
+    var els = document.querySelectorAll('.avatar:not([loaded])');
 
-    _unpackServerStreetData(transmission);
+    for (var i = 0, el; el = els[i]; i++) {
+      var userId = el.getAttribute('userId');
 
-    if (!signedIn || (street.creatorId != signInData.userId)) {
-      remixOnFirstEdit = true;
+      if (userId && (typeof avatarCache[userId] == 'undefined')) {
+        //console.log('AVATAR trying to fetch', userId);
 
-      _fetchStreetCreatorAvatar();
-
-    } else {
-      remixOnFirstEdit = false;
+        _fetchAvatar(userId);
+      }
     }
 
-    _propagateUnits();
-
-    // TODO this is stupid, only here to fill some structures
-    _createDomFromData();
-    _createDataFromDom();
-
-    serverContacted = true;
-    _checkIfEverythingIsLoaded();
-
-    //console.log('creator', street.creatorId, signedIn);
+    _updateAvatars();
   }
+
+  function _fetchAvatar(userId) {
+    avatarCache[userId] = null;
+  
+    jQuery.ajax({
+      dataType: 'json',
+      url: system.apiUrl + 'v1/users/' + userId
+    }).done(_receiveAvatar);
+  }
+
+  function _receiveAvatar(details) {
+    if (details && details.id && details.profileImageUrl) {
+      //console.log('AVATAR receive', details.id);
+      avatarCache[details.id] = details.profileImageUrl;
+      _updateAvatars();
+    }
+  }
+
+
 
   function _errorReceiveStreet(data) {
     //console.log('failed to receive street!', data.status, data);
 
-    if (mode == MODE_CONTINUE) {
+    if ((mode == MODE_CONTINUE) || (mode == MODE_USER_GALLERY) || 
+        (mode == MODE_GLOBAL_GALLERY)) {
       _goNewStreet();
     } else {
       // TODO finish this
       if (data.status == 404) {
-        console.log('_error receive street 1', data);
+        //console.log('_error receive street 1', data);
         mode = MODE_404;
         _processMode();
         // TODO rest?
       } else {
-        console.log('_error receive street 2', data);
+        //console.log('_error receive street 2', data);
         mode = MODE_404;
         _processMode();
       }
     }
+  }
+
+  function _goReloadClearSignIn() {
+    signInData = null;
+    _saveSignInDataLocally();
+    _removeSignInCookies();
+
+    location.reload();
   }
 
   function _goReload() {
@@ -4976,6 +5372,10 @@ var main = (function(){
 
   function _goNewStreet() {
     location.href = '/' + URL_NEW_STREET;
+  }
+
+  function _goCopyLastStreet() {
+    location.href = '/' + URL_NEW_STREET_COPY_LAST;
   }
 
   function _showError(errorType) {
@@ -4998,6 +5398,10 @@ var main = (function(){
       case ERROR_FORCE_RELOAD_SIGN_OUT:
         title = 'You signed out in another window.';
         description = 'Please reload this page before continuing.<br><button class="reload">Reload the page</button>';
+        break;
+      case ERROR_FORCE_RELOAD_SIGN_OUT_401:
+        title = 'You signed out in another window.';
+        description = 'Please reload this page before continuing.<br>(Error 401)<br><button class="clear-sign-in-reload">Reload the page</button>';
         break;
       case ERROR_FORCE_RELOAD_SIGN_IN:
         title = 'You signed in in another window.';
@@ -5032,6 +5436,11 @@ var main = (function(){
       el.addEventListener('click', _goReload);
     }
 
+    var el = document.querySelector('#error .clear-sign-in-reload');
+    if (el) {
+      el.addEventListener('click', _goReloadClearSignIn);
+    }
+
     var el = document.querySelector('#error .new');
     if (el) {
       el.addEventListener('click', _goNewStreet);
@@ -5064,6 +5473,10 @@ var main = (function(){
         _showError(ERROR_FORCE_RELOAD_SIGN_OUT);
         abortEverything = true;
         break;
+      case MODE_FORCE_RELOAD_SIGN_OUT_401:
+        _showError(ERROR_FORCE_RELOAD_SIGN_OUT_401);
+        abortEverything = true;
+        break;
       case MODE_FORCE_RELOAD_SIGN_IN:
         _showError(ERROR_FORCE_RELOAD_SIGN_IN);
         abortEverything = true;
@@ -5075,6 +5488,8 @@ var main = (function(){
         serverContacted = false;
         break;
       case MODE_CONTINUE:
+      case MODE_USER_GALLERY:
+      case MODE_GLOBAL_GALLERY:
         serverContacted = false;
         break;
       case MODE_JUST_SIGNED_IN:
@@ -5085,15 +5500,26 @@ var main = (function(){
         break;
     }
   }
+
+  function _fillDom() {
+    // TODO Instead of doing like this, put variables in the index.html, and fill
+    // them out?
+    $('#undo').text(msg('BUTTON_UNDO'));
+    $('#redo').text(msg('BUTTON_REDO'));
+
+    $('#trashcan').text(msg('UI_DRAG_HERE_TO_REMOVE'));
+  }
  
   main.init = function() {
     initializing = true;
     ignoreStreetChanges = true;
 
+    _fillDom();
+
     // Temporary as per https://github.com/Modernizr/Modernizr/issues/788#issuecomment-12513563
     Modernizr.addTest('pagevisibility', !!Modernizr.prefixed('hidden', document, false));
 
-    // TODO make it better
+    // TODO make it better 
     // Related to Enter to 404 bug in Chrome
     $.ajaxSetup({ cache: false });
 
@@ -5115,7 +5541,6 @@ var main = (function(){
     // Asynchronously loading…
 
     // …detecting country from IP for units and left/right-hand driving
-    // TODO only make it work for new streets
     if ((mode == MODE_NEW_STREET) || (mode == MODE_NEW_STREET_COPY_LAST)) {
       _detectCountry();
     } else {
