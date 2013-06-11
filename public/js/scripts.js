@@ -40,14 +40,17 @@ var main = (function(){
   // TODO all of the below in an array?
   var ENVIRONMENT_LOCAL = 0;
   var ENVIRONMENT_STAGING = 1;
-  var ENVIRONMENT_PRODUCTION = 2;
+  var ENVIRONMENT_STAGING_MWICHARY = 2;
+  var ENVIRONMENT_PRODUCTION = 3;
 
   var SITE_URL_LOCAL = 'http://localhost:8000/';
   var SITE_URL_STAGING = 'http://streetmix-staging.herokuapp.com/';
+  var SITE_URL_STAGING_MWICHARY = 'http://streetmix-staging-mwichary.herokuapp.com/';
   var SITE_URL_PRODUCTION = 'http://streetmix.net/';
 
   var API_URL_LOCAL = 'http://localhost:8080/';
   var API_URL_STAGING = 'http://streetmix-api-staging.herokuapp.com/';
+  var API_URL_STAGING_MWICHARY = API_URL_STAGING;
   var API_URL_PRODUCTION = 'http://streetmix-api.herokuapp.com/';
 
   var IP_GEOCODING_API_URL = 'http://freegeoip.net/json/';
@@ -55,6 +58,7 @@ var main = (function(){
 
   var FACEBOOK_APP_ID_PRODUCTION = '162729607241489';
   var FACEBOOK_APP_ID_STAGING = '175861739245183';
+  var FACEBOOK_APP_ID_STAGING_MWICHARY = 'BROKEN';
   var FACEBOOK_APP_ID_LOCAL = '204327799717656';
 
   // TODO replace the URLs in index.html dynamically
@@ -4388,6 +4392,11 @@ var main = (function(){
     } else if (url.substr(0, SITE_URL_STAGING.length) == SITE_URL_STAGING) {
       system.environment = ENVIRONMENT_STAGING;
       system.apiUrl = API_URL_STAGING;
+
+      document.body.classList.add('environment-staging');
+    } else if (url.substr(0, SITE_URL_STAGING_MWICHARY.length) == SITE_URL_STAGING_MWICHARY) {
+      system.environment = ENVIRONMENT_STAGING_MWICHARY;
+      system.apiUrl = API_URL_STAGING_MWICHARY;
 
       document.body.classList.add('environment-staging');
     } else if (url.substr(0, SITE_URL_PRODUCTION.length) == SITE_URL_PRODUCTION) {
