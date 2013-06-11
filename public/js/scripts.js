@@ -4493,7 +4493,7 @@ var main = (function(){
 
       _infoBubble.hoverPolygonUpdateTimerId = window.setTimeout(function() {
         _infoBubble.updateHoverPolygon(_infoBubble.lastMouseX, _infoBubble.lastMouseY);
-      }, 250);
+      }, 150);
     },
 
     onBodyMouseMove: function(event) {
@@ -4610,6 +4610,9 @@ var main = (function(){
       } else {
         el.classList.remove('visible');
       }
+
+      _infoBubble.bubbleWidth = _infoBubble.el.offsetWidth;
+      _infoBubble.bubbleHeight = _infoBubble.el.offsetHeight;
     },
 
     updateWidthInContents: function(segmentEl, width) {
