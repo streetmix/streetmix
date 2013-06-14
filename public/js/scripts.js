@@ -3657,6 +3657,7 @@ var main = (function(){
   function _makeDefaultStreet() {
     ignoreStreetChanges = true;
     _prepareDefaultStreet();
+    _setUpdateTimeToNow();
 
     _resizeStreetWidth();
     _updateStreetName();
@@ -3731,6 +3732,7 @@ var main = (function(){
     } else {
       _setStreetCreatorId(null);
     }
+    _setUpdateTimeToNow();
 
     _propagateUnits();
 
@@ -4817,6 +4819,8 @@ var main = (function(){
     }
 
     _fillDefaultSegments();    
+
+    _setUpdateTimeToNow();
   }
 
   function _prepareEmptyStreet() {
@@ -4830,6 +4834,8 @@ var main = (function(){
     }
 
     street.segments = [];
+
+    _setUpdateTimeToNow();
   }
 
   function _onEverythingLoaded() {
