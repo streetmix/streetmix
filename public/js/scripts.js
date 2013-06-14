@@ -3514,7 +3514,7 @@ var main = (function(){
       _fetchAvatars();
 
       document.querySelector('#street-attribution .user-gallery').addEventListener('click', _onAnotherUserIdClick);
-    } else if (!street.creatorId) {
+    } else if (!street.creatorId && (signedIn || remixOnFirstEdit)) {
       var html = "by Anonymous · " + _formatDate(moment(street.updatedAt));
 
       document.querySelector('#street-attribution').innerHTML = html;
@@ -3524,7 +3524,9 @@ var main = (function(){
       document.querySelector('#street-attribution').innerHTML = html;      
     }
 
-    document.querySelector('#street-attribution').classList.add('visible');
+    if (!document.querySelector('#new-street-menu').classList.contains('visible')) {
+      document.querySelector('#street-attribution').classList.add('visible');
+    }
   }
 
   function _hideStreetAttribution() {
@@ -3776,10 +3778,12 @@ var main = (function(){
     }
 
     document.querySelector('#new-street-menu').classList.add('visible');
+    document.querySelector('#street-attribution').classList.remove('visible');
   }
 
   function _hideNewStreetMenu() {
     document.querySelector('#new-street-menu').classList.remove('visible');
+    document.querySelector('#street-attribution').classList.add('visible');
   }
 
   function _fetchGalleryData() {
