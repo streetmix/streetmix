@@ -3082,6 +3082,7 @@ var main = (function(){
   function _updateScrollButtons() {
     var els = document.querySelectorAll('[scroll-buttons]');
     for (var i = 0, el; el = els[i]; i++) {
+      _repositionScrollButtons(el);
       _scrollButtonScroll(el);
     }
   }
@@ -4881,7 +4882,7 @@ var main = (function(){
     }
   }
 
-  function _repositionButtons(el) {
+  function _repositionScrollButtons(el) {
     var buttonEl = el.parentNode.querySelector('button.scroll-left');
     buttonEl.style.left = _getElAbsolutePos(el)[0] + 'px';
 
@@ -4907,7 +4908,7 @@ var main = (function(){
     el.setAttribute('scroll-buttons', true);
     el.addEventListener('scroll', _onScrollButtonScroll);
 
-    _repositionButtons(el);
+    _repositionScrollButtons(el);
     _scrollButtonScroll(el);
   }
 
