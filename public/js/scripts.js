@@ -754,6 +754,13 @@ var main = (function(){
   // HELPER FUNCTIONS
   // -------------------------------------------------------------------------
 
+  function htmlEncode(value){
+    //create a in-memory div, set it's inner text(which jQuery automatically encodes)
+    //then grab the encoded contents back out.  The div never exists on the page.
+    return $('<div/>').text(value).html();
+  }
+
+
   function msg(messageId, data) {
     if (data) {
       return MESSAGES[messageId].supplant(data);
@@ -4081,9 +4088,11 @@ var main = (function(){
 
       var nameEl = document.createElement('div');
       nameEl.classList.add('street-name');
-      nameEl.innerHTML = '<div>' + galleryStreet.name + '</div>';
+      nameEl.innerHTML = '<div></div>';
       anchorEl.appendChild(nameEl);
       _updateStreetNameFont(nameEl);
+
+      $(nameEl.querySelector('div')).text(galleryStreet.name);
 
       var date = moment(galleryStreet.updatedAt);
       var dateEl = document.createElement('span');
@@ -4778,7 +4787,7 @@ var main = (function(){
         '&redirect_uri=' + encodeURIComponent(url) + 
         '&link=' + encodeURIComponent(url) + 
         '&name=' + encodeURIComponent(_getPageTitle()) +
-        '&description=' + encodeURIComponent(text);
+        '&description=' + encodeURIComponent(htmlEncode(text));
   }
 
   function _updateTwitterLink(url) {
