@@ -74,7 +74,7 @@ var main = (function(){
       [URL_SIGN_IN, URL_SIGN_IN_CALLBACK, 
       URL_NEW_STREET, URL_NEW_STREET_COPY_LAST,
       URL_JUST_SIGNED_IN, 
-      'help', URL_GLOBAL_GALLERY, 'streets'];
+      'help', URL_GLOBAL_GALLERY, 'error', 'streets'];
   var URL_RESERVED_PREFIX = '~';
 
   var MODE_CONTINUE = 1;
@@ -2053,7 +2053,7 @@ var main = (function(){
   }
 
   function _errorSavingSettingsToServer(data) {
-    if (data.status == 401) {
+    if (!abortEverything && (data.status == 401)) {
       mode = MODE_FORCE_RELOAD_SIGN_OUT_401;
       _processMode();
     }
