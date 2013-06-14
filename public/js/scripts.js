@@ -2804,8 +2804,10 @@ var main = (function(){
         variant['lamp-orientation'] = 'both';        
       } else if (left) {
         variant['lamp-orientation'] = 'left';        
+      } else if (right) {
+        variant['lamp-orientation'] = 'right';
       } else {
-        variant['lamp-orientation'] = 'right';        
+        variant['lamp-orientation'] = 'both';        
       }
     }
 
