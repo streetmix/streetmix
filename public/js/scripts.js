@@ -3079,6 +3079,13 @@ var main = (function(){
     }
   }
 
+  function _updateScrollButtons() {
+    var els = document.querySelectorAll('[scroll-buttons]');
+    for (var i = 0, el; el = els[i]; i++) {
+      _scrollButtonScroll(el);
+    }
+  }
+
   function _onResize() {
     var viewportWidth = window.innerWidth;
     var viewportHeight = window.innerHeight;
@@ -3114,6 +3121,8 @@ var main = (function(){
       (street.width * TILE_SIZE) + 'px';
 
     _resizeStreetName();
+
+    _updateScrollButtons();
   }
 
   function _fillDefaultSegments() {
@@ -4109,10 +4118,17 @@ var main = (function(){
       //console.log(el.parentNode.parentNode.scrollLeft);
       document.querySelector('#gallery').scrollTop = 0;
     }
+
+    _updateScrollButtons();
   }
 
   function _loadGalleryContents() {
-    document.querySelector('#gallery .streets').innerHTML = '';
+    var els = document.querySelectorAll('#gallery .streets li');
+    for (var i = 0, el; el = els[i]; i++) {
+      _removeElFromDom(el);
+    }
+
+    //document.querySelector('#gallery .streets').innerHTML = '';
     document.querySelector('#gallery .loading').classList.add('visible');
     document.querySelector('#gallery .error-loading').classList.remove('visible');
 
@@ -4835,16 +4851,16 @@ var main = (function(){
   }
 
   function _onScrollButtonLeft(event) {
-    var el = event.target.parentNode;
+    var el = event.target.el;
     // TODO const
-    $(el).animate({ scrollLeft: el.scrollLeft - 500 }, 300);
+    $(el).animate({ scrollLeft: el.scrollLeft - (el.offsetWidth - 150) }, 300);
   }
 
   function _onScrollButtonRight(event) {
-    var el = event.target.parentNode;
+    var el = event.target.el;
 
     // TODO const
-    $(el).animate({ scrollLeft: el.scrollLeft + 500 }, 300);
+    $(el).animate({ scrollLeft: el.scrollLeft + (el.offsetWidth - 150) }, 300);
   }
 
   function _onScrollButtonScroll(event) {
@@ -4853,25 +4869,45 @@ var main = (function(){
 
   function _scrollButtonScroll(el) {
     if (el.scrollLeft == 0) {
-      el.querySelector('button.scroll-left').disabled = true;
+      el.parentNode.querySelector('button.scroll-left').disabled = true;
     } else {
-      el.querySelector('button.scroll-left').disabled = false;      
+      el.parentNode.querySelector('button.scroll-left').disabled = false;      
     }
 
     if (el.scrollLeft == el.scrollWidth - el.offsetWidth) {
-      el.querySelector('button.scroll-right').disabled = true;
+      el.parentNode.querySelector('button.scroll-right').disabled = true;
     } else {
-      el.querySelector('button.scroll-right').disabled = false;      
+      el.parentNode.querySelector('button.scroll-right').disabled = false;      
     }
   }
 
-  function _addScrollButtons(el) {
-    el.addEventListener('scroll', _onScrollButtonScroll);
-    el.querySelector('button.scroll-left').
-        addEventListener('click', _onScrollButtonLeft);
-    el.querySelector('button.scroll-right').
-        addEventListener('click', _onScrollButtonRight);
+  function _repositionButtons(el) {
+    var buttonEl = el.parentNode.querySelector('button.scroll-left');
+    buttonEl.style.left = _getElAbsolutePos(el)[0] + 'px';
 
+    var buttonEl = el.parentNode.querySelector('button.scroll-right');
+    buttonEl.style.left = (_getElAbsolutePos(el)[0] + el.offsetWidth) + 'px';
+  }
+
+  function _addScrollButtons(el) {
+    var buttonEl = document.createElement('button');
+    buttonEl.innerHTML = '«';
+    buttonEl.classList.add('scroll-left');
+    buttonEl.el = el;
+    buttonEl.addEventListener('click', _onScrollButtonLeft);
+    el.parentNode.appendChild(buttonEl);
+
+    var buttonEl = document.createElement('button');
+    buttonEl.innerHTML = '»';
+    buttonEl.classList.add('scroll-right');
+    buttonEl.el = el;
+    buttonEl.addEventListener('click', _onScrollButtonRight);
+    el.parentNode.appendChild(buttonEl);
+
+    el.setAttribute('scroll-buttons', true);
+    el.addEventListener('scroll', _onScrollButtonScroll);
+
+    _repositionButtons(el);
     _scrollButtonScroll(el);
   }
 
@@ -4901,6 +4937,7 @@ var main = (function(){
     _buildStreetWidthMenu();
     _onResize();
     _addScrollButtons(document.querySelector('#palette'));
+    _addScrollButtons(document.querySelector('#gallery .streets'));
     _addEventListeners();
 
     if (mode == MODE_USER_GALLERY) {
