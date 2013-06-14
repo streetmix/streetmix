@@ -1891,6 +1891,10 @@ var main = (function(){
   }
 
   function _sendNextNonblockingAjaxRequest() {
+    if (abortEverything) {
+      return;
+    }
+
     //console.log('send next…');
 
     if (_getNonblockingAjaxRequestCount()) {
@@ -1898,11 +1902,6 @@ var main = (function(){
 
       var request = null;
 
-      // TODO hack to get the first guy
-      /*for (var i in nonblockingAjaxRequests) {
-        request = nonblockingAjaxRequests[i];
-        break;
-      }*/
       request = nonblockingAjaxRequests[0];
 
       if (request) {
@@ -2034,7 +2033,7 @@ var main = (function(){
 
 
   function _saveSettingsToServer() {
-    if (!signedIn) {
+    if (!signedIn || abortEverything) {
       return;
     }
 
@@ -2056,7 +2055,6 @@ var main = (function(){
   function _errorSavingSettingsToServer(data) {
     if (data.status == 401) {
       mode = MODE_FORCE_RELOAD_SIGN_OUT_401;
-      abortEverything = true;
       _processMode();
     }
     //alert(data.status);
@@ -2254,7 +2252,7 @@ var main = (function(){
   }
 
   function _saveStreetToServerIfNecessary() {
-    if (ignoreStreetChanges) {
+    if (ignoreStreetChanges || abortEverything) {
       return;
     }
 
@@ -3562,7 +3560,7 @@ var main = (function(){
   function _fetchStreetForVerification() {
     // Don’t do it with any network services pending
     if (_getNonblockingAjaxRequestCount() || blockingAjaxRequestInProgress || 
-        saveStreetIncomplete) {
+        saveStreetIncomplete || abortEverything) {
       return;
     }
 
@@ -3602,8 +3600,7 @@ var main = (function(){
     if (signedIn && ((data.status == 404) || (data.status == 410))) {
       // Means street was deleted
 
-      _showError(ERROR_STREET_DELETED_ELSEWHERE);
-      abortEverything = true;
+      _showError(ERROR_STREET_DELETED_ELSEWHERE, true);
     }
   }
 
@@ -3796,7 +3793,6 @@ var main = (function(){
 
   function _errorReceiveGalleryData(data) {
     if ((mode == MODE_USER_GALLERY) && (data.status == 404)) {
-      abortEverything = true;
       mode = MODE_404;
       _processMode();
       _hideGallery(true);
@@ -3991,7 +3987,7 @@ var main = (function(){
     // TODO escape name
     if (confirm(prompt)) {
       if (el.getAttribute('streetId') == street.id) {
-        _showError(ERROR_TYPE_NO_STREET);
+        _showError(ERROR_TYPE_NO_STREET, false);
       }
 
       _sendDeleteStreetToServer(el.getAttribute('streetId'));
@@ -4177,7 +4173,7 @@ var main = (function(){
 
     if ((mode == MODE_USER_GALLERY) || (mode == MODE_GLOBAL_GALLERY)) {
       // Prevents showing old street before the proper street loads
-      _showError(ERROR_TYPE_NO_STREET);
+      _showError(ERROR_TYPE_NO_STREET, false);
     }
 
     _loadGalleryContents();
@@ -5278,8 +5274,7 @@ var main = (function(){
   function _errorReceiveNewStreet(data) {
     //console.log('failed new street!');
 
-    _showError(ERROR_NEW_STREET_SERVER_FAILURE);
-    abortEverything = true;
+    _showError(ERROR_NEW_STREET_SERVER_FAILURE, true);
   }
 
   function _getFetchStreetUrl() {
@@ -5405,9 +5400,11 @@ var main = (function(){
     location.href = '/' + URL_NEW_STREET_COPY_LAST;
   }
 
-  function _showError(errorType) {
+  function _showError(errorType, newAbortEverything) {
     var title = '';
     var description = '';
+
+    abortEverything = newAbortEverything;
 
     switch (errorType) {
       case ERROR_TYPE_404:
@@ -5489,24 +5486,19 @@ var main = (function(){
 
     switch (mode) {
       case MODE_404:
-        _showError(ERROR_TYPE_404);
-        abortEverything = true;
+        _showError(ERROR_TYPE_404, true);
         break;
       case MODE_SIGN_OUT:
-        _showError(ERROR_TYPE_SIGN_OUT);
-        abortEverything = true;
+        _showError(ERROR_TYPE_SIGN_OUT, true);
         break;
       case MODE_FORCE_RELOAD_SIGN_OUT:
-        _showError(ERROR_FORCE_RELOAD_SIGN_OUT);
-        abortEverything = true;
+        _showError(ERROR_FORCE_RELOAD_SIGN_OUT, true);
         break;
       case MODE_FORCE_RELOAD_SIGN_OUT_401:
-        _showError(ERROR_FORCE_RELOAD_SIGN_OUT_401);
-        abortEverything = true;
+        _showError(ERROR_FORCE_RELOAD_SIGN_OUT_401, true);
         break;
       case MODE_FORCE_RELOAD_SIGN_IN:
-        _showError(ERROR_FORCE_RELOAD_SIGN_IN);
-        abortEverything = true;
+        _showError(ERROR_FORCE_RELOAD_SIGN_IN, true);
         break;
       case MODE_NEW_STREET:
         serverContacted = false;
