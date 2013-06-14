@@ -1744,6 +1744,7 @@ var main = (function(){
         undoPosition++;
       }
       street = _clone(undoStack[undoPosition]);
+      _setUpdateTimeToNow();
 
       _updateEverything();
       _statusMessage.hide();
@@ -2173,6 +2174,7 @@ var main = (function(){
       undoStack[i].name = street.name;
       undoStack[i].namespacedId = street.namespacedId;
       undoStack[i].creatorId = street.creatorId;
+      undoStack[i].updatedAt = street.updatedAt; 
     }
   }
 
@@ -2243,6 +2245,14 @@ var main = (function(){
         window.setTimeout(function() { _saveSettingsToServer(); }, SAVE_SETTINGS_DELAY);
   }
 
+  function _setUpdateTimeToNow() {
+    //console.log('SET TO NOW');
+
+    street.updatedAt = new Date().getTime();
+    _unifyUndoStack();
+    _updateStreetAttribution();
+  }
+
   function _saveStreetToServerIfNecessary() {
     if (ignoreStreetChanges) {
       return;
@@ -2251,6 +2261,7 @@ var main = (function(){
     var currentData = _trimStreetData(street);
 
     if (JSON.stringify(currentData) != JSON.stringify(lastStreet)) {
+      _setUpdateTimeToNow();
       _hideNewStreetMenu();
 
       // As per issue #306.
@@ -3913,8 +3924,17 @@ var main = (function(){
   }
 
   function _formatDate(date) {
+    // TODO hack
+    var today = moment(new Date().getTime());
     // TODO const
-    return date.format('MMM D, YYYY');
+    var todayFormat = today.format('MMM D, YYYY');
+    var dateFormat = date.format('MMM D, YYYY');
+
+    if (dateFormat != todayFormat) {
+      return dateFormat;
+    } else {
+      return '';
+    }
   }
 
   function _clearBlockingShieldTimers() {
@@ -5287,7 +5307,7 @@ var main = (function(){
       var userId = el.getAttribute('userId');
 
       if (avatarCache[userId]) {
-        //console.log('AVATAR updated', userId);
+        console.log('AVATAR updated', userId);
         el.style.backgroundImage = 'url(' + avatarCache[userId] + ')';
         el.setAttribute('loaded', true);
       }
@@ -5301,7 +5321,7 @@ var main = (function(){
       var userId = el.getAttribute('userId');
 
       if (userId && (typeof avatarCache[userId] == 'undefined')) {
-        //console.log('AVATAR trying to fetch', userId);
+        console.log('AVATAR trying to fetch', userId);
 
         _fetchAvatar(userId);
       }
@@ -5320,8 +5340,9 @@ var main = (function(){
   }
 
   function _receiveAvatar(details) {
+    console.log(details);
     if (details && details.id && details.profileImageUrl) {
-      //console.log('AVATAR receive', details.id);
+      console.log('AVATAR receive', details.id);
       avatarCache[details.id] = details.profileImageUrl;
       _updateAvatars();
     }
