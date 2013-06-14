@@ -4834,6 +4834,47 @@ var main = (function(){
     _setUpdateTimeToNow();
   }
 
+  function _onScrollButtonLeft(event) {
+    var el = event.target.parentNode;
+    // TODO const
+    $(el).animate({ scrollLeft: el.scrollLeft - 500 }, 300);
+  }
+
+  function _onScrollButtonRight(event) {
+    var el = event.target.parentNode;
+
+    // TODO const
+    $(el).animate({ scrollLeft: el.scrollLeft + 500 }, 300);
+  }
+
+  function _onScrollButtonScroll(event) {
+    _scrollButtonScroll(event.target);
+  }
+
+  function _scrollButtonScroll(el) {
+    if (el.scrollLeft == 0) {
+      el.querySelector('button.scroll-left').disabled = true;
+    } else {
+      el.querySelector('button.scroll-left').disabled = false;      
+    }
+
+    if (el.scrollLeft == el.scrollWidth - el.offsetWidth) {
+      el.querySelector('button.scroll-right').disabled = true;
+    } else {
+      el.querySelector('button.scroll-right').disabled = false;      
+    }
+  }
+
+  function _addScrollButtons(el) {
+    el.addEventListener('scroll', _onScrollButtonScroll);
+    el.querySelector('button.scroll-left').
+        addEventListener('click', _onScrollButtonLeft);
+    el.querySelector('button.scroll-right').
+        addEventListener('click', _onScrollButtonRight);
+
+    _scrollButtonScroll(el);
+  }
+
   function _onEverythingLoaded() {
     switch (mode) {
       case MODE_NEW_STREET:
@@ -4859,6 +4900,7 @@ var main = (function(){
     _updatePageUrl();
     _buildStreetWidthMenu();
     _onResize();
+    _addScrollButtons(document.querySelector('#palette'));
     _addEventListeners();
 
     if (mode == MODE_USER_GALLERY) {
@@ -4976,11 +5018,13 @@ var main = (function(){
   }
 
   function _errorReceiveSignInDetails(data) {   
-    console.log(data);
     // If we get data.status == 0, it means that the user opened the page and
     // closed is quickly, so the request was aborted. We choose to do nothing
     // instead of clobbering sign in data below and effectively signing the
-    // user out. Bug #302.
+    // user out. Issue #302.
+
+    // It also, unfortunately, might mean regular server failure, too. Marcin
+    // doesn’t know what to do with it yet. Open issue #339.
 
     if (data.status == 0) {
       return;

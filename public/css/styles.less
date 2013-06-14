@@ -568,6 +568,11 @@ footer {
 
   height: @paletteHeight + 20px; // To cover scroll bars
 
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: 20px;
+  margin-right: 20px;
+
   overflow-x: scroll;
   overflow-y: hidden;
 
@@ -1904,4 +1909,37 @@ body.no-connection-message-visible #status-message {
   margin-right: 6px;
   vertical-align: middle;  
   margin-top: -1px;
+}
+
+
+
+button.scroll-left,
+button.scroll-right {
+  cursor: pointer;
+
+  position: fixed;
+  width: 25px;
+  height: 40px;
+  z-index: 9999999;
+
+  &.scroll-left {
+    margin-left: -35px;
+  }
+  &.scroll-right {
+    right: 15px;
+  }
+
+  -webkit-transition: opacity 250ms;
+  -moz-transition: opacity 250ms;
+  transition: opacity 250ms;
+
+  &[disabled] {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+#palette button.scroll-left,
+#palette button.scroll-right {
+  margin-top: 30px;
 }
