@@ -5077,14 +5077,17 @@ var main = (function(){
     // It also, unfortunately, might mean regular server failure, too. Marcin
     // doesn’t know what to do with it yet. Open issue #339.
 
-    if (data.status == 0) {
+    console.log(data);
+
+    /*if (data.status == 0) {
+      _showError(ERROR_NEW_STREET_SERVER_FAILURE, true);
       return;
-    }
+    }*/
 
     // Fail silently
 
     signInData = null;
-    _saveSignInDataLocally();
+    //_saveSignInDataLocally();
 
     signedIn = false;
     _signInLoaded();
@@ -5444,25 +5447,17 @@ var main = (function(){
     }
   }
 
-
-
   function _errorReceiveStreet(data) {
-    //console.log('failed to receive street!', data.status, data);
-
     if ((mode == MODE_CONTINUE) || (mode == MODE_USER_GALLERY) || 
         (mode == MODE_GLOBAL_GALLERY)) {
       _goNewStreet();
     } else {
-      // TODO finish this
       if (data.status == 404) {
-        //console.log('_error receive street 1', data);
+        // TODO swap for showError (here and elsewhere)
         mode = MODE_404;
         _processMode();
-        // TODO rest?
       } else {
-        //console.log('_error receive street 2', data);
-        mode = MODE_404;
-        _processMode();
+        _showError(ERROR_NEW_STREET_SERVER_FAILURE, true);
       }
     }
   }
