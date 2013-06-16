@@ -201,8 +201,8 @@ body.gallery-visible #street-section-sky {
     white-space: nowrap;
 
     position: absolute;
-    left: 130px;
-    right: 5px;
+    left: 130px + 20px;
+    right: 5px + 20px;
     top: 50px;
     height: @galleryHeight + 20px; // To cover the scroll bar
     overflow-x: scroll;
@@ -306,7 +306,7 @@ body.gallery-visible #street-section-sky {
 
   &.another-user .streets,
   &.all-streets .streets {
-    left: 20px;
+    left: 20px + 20px;
   }
 
   .loading {
@@ -570,6 +570,11 @@ footer {
 
 
   height: @paletteHeight + 20px; // To cover scroll bars
+
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: 20px;
+  margin-right: 20px;
 
   overflow-x: scroll;
   overflow-y: hidden;
@@ -2077,3 +2082,49 @@ button {
       3px 3px 0 rgb(160, 160, 160);
 }
 */
+=======
+
+
+button.scroll-left,
+button.scroll-right {
+  cursor: pointer;
+
+  position: absolute;
+  top: 0;
+  width: 25px;
+  height: 40px;
+  z-index: 9999999;
+
+  &.scroll-left {
+    margin-left: -20px;
+  }
+  &.scroll-right {
+    margin-left: -5px;
+  }
+
+  -webkit-transition: opacity 250ms;
+  -moz-transition: opacity 250ms;
+  transition: opacity 250ms;
+
+  &[disabled] {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+footer button.scroll-left,
+footer button.scroll-right {
+  margin-top: 30px;
+}
+
+#gallery button.scroll-left,
+#gallery button.scroll-right {
+  margin-top: 95px;
+
+  &.scroll-left {
+    margin-left: -20px - 40px;
+  }
+  &.scroll-right {
+    margin-left: -45px;
+  }
+}

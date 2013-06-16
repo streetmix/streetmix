@@ -78,7 +78,7 @@ var main = (function(){
       [URL_SIGN_IN, URL_SIGN_IN_CALLBACK, 
       URL_NEW_STREET, URL_NEW_STREET_COPY_LAST,
       URL_JUST_SIGNED_IN, 
-      'help', URL_GLOBAL_GALLERY, 'streets'];
+      'help', URL_GLOBAL_GALLERY, 'error', 'streets'];
   var URL_RESERVED_PREFIX = '~';
 
   var MODE_CONTINUE = 1;
@@ -759,6 +759,13 @@ var main = (function(){
 
   // HELPER FUNCTIONS
   // -------------------------------------------------------------------------
+
+  function htmlEncode(value){
+    //create a in-memory div, set it's inner text(which jQuery automatically encodes)
+    //then grab the encoded contents back out.  The div never exists on the page.
+    return $('<div/>').text(value).html();
+  }
+
 
   function msg(messageId, data) {
     if (data) {
@@ -1551,6 +1558,7 @@ var main = (function(){
         undoPosition++;
       }
       street = _clone(undoStack[undoPosition]);
+      _setUpdateTimeToNow();
 
       _updateEverything();
       _statusMessage.hide();
@@ -1697,6 +1705,10 @@ var main = (function(){
   }
 
   function _sendNextNonblockingAjaxRequest() {
+    if (abortEverything) {
+      return;
+    }
+
     //console.log('send next…');
 
     if (_getNonblockingAjaxRequestCount()) {
@@ -1704,11 +1716,6 @@ var main = (function(){
 
       var request = null;
 
-      // TODO hack to get the first guy
-      /*for (var i in nonblockingAjaxRequests) {
-        request = nonblockingAjaxRequests[i];
-        break;
-      }*/
       request = nonblockingAjaxRequests[0];
 
       if (request) {
@@ -1840,7 +1847,7 @@ var main = (function(){
 
 
   function _saveSettingsToServer() {
-    if (!signedIn) {
+    if (!signedIn || abortEverything) {
       return;
     }
 
@@ -1860,9 +1867,8 @@ var main = (function(){
   }
 
   function _errorSavingSettingsToServer(data) {
-    if (data.status == 401) {
+    if (!abortEverything && (data.status == 401)) {
       mode = MODE_FORCE_RELOAD_SIGN_OUT_401;
-      abortEverything = true;
       _processMode();
     }
     //alert(data.status);
@@ -1979,6 +1985,7 @@ var main = (function(){
       undoStack[i].name = street.name;
       undoStack[i].namespacedId = street.namespacedId;
       undoStack[i].creatorId = street.creatorId;
+      undoStack[i].updatedAt = street.updatedAt; 
     }
   }
 
@@ -2049,14 +2056,23 @@ var main = (function(){
         window.setTimeout(function() { _saveSettingsToServer(); }, SAVE_SETTINGS_DELAY);
   }
 
+  function _setUpdateTimeToNow() {
+    //console.log('SET TO NOW');
+
+    street.updatedAt = new Date().getTime();
+    _unifyUndoStack();
+    _updateStreetAttribution();
+  }
+
   function _saveStreetToServerIfNecessary() {
-    if (ignoreStreetChanges) {
+    if (ignoreStreetChanges || abortEverything) {
       return;
     }
 
     var currentData = _trimStreetData(street);
 
     if (JSON.stringify(currentData) != JSON.stringify(lastStreet)) {
+      _setUpdateTimeToNow();
       _hideNewStreetMenu();
 
       // As per issue #306.
@@ -2998,6 +3014,14 @@ var main = (function(){
     }
   }
 
+  function _updateScrollButtons() {
+    var els = document.querySelectorAll('[scroll-buttons]');
+    for (var i = 0, el; el = els[i]; i++) {
+      _repositionScrollButtons(el);
+      _scrollButtonScroll(el);
+    }
+  }
+
   function _onResize() {
     system.viewportWidth = window.innerWidth;
     system.viewportHeight = window.innerHeight;
@@ -3035,6 +3059,7 @@ var main = (function(){
     _resizeStreetName();
 
     _infoBubble.show(true);
+    _updateScrollButtons();
   }
 
   function _fillDefaultSegments() {
@@ -3428,7 +3453,7 @@ var main = (function(){
       _fetchAvatars();
 
       document.querySelector('#street-attribution .user-gallery').addEventListener('click', _onAnotherUserIdClick);
-    } else if (!street.creatorId) {
+    } else if (!street.creatorId && (signedIn || remixOnFirstEdit)) {
       var html = "by Anonymous · " + _formatDate(moment(street.updatedAt));
 
       document.querySelector('#street-attribution').innerHTML = html;
@@ -3438,7 +3463,9 @@ var main = (function(){
       document.querySelector('#street-attribution').innerHTML = html;      
     }
 
-    document.querySelector('#street-attribution').classList.add('visible');
+    if (!document.querySelector('#new-street-menu').classList.contains('visible')) {
+      document.querySelector('#street-attribution').classList.add('visible');
+    }
   }
 
   function _hideStreetAttribution() {
@@ -3484,7 +3511,7 @@ var main = (function(){
   function _fetchStreetForVerification() {
     // Don’t do it with any network services pending
     if (_getNonblockingAjaxRequestCount() || blockingAjaxRequestInProgress || 
-        saveStreetIncomplete) {
+        saveStreetIncomplete || abortEverything) {
       return;
     }
 
@@ -3524,8 +3551,7 @@ var main = (function(){
     if (signedIn && ((data.status == 404) || (data.status == 410))) {
       // Means street was deleted
 
-      _showError(ERROR_STREET_DELETED_ELSEWHERE);
-      abortEverything = true;
+      _showError(ERROR_STREET_DELETED_ELSEWHERE, true);
     }
   }
 
@@ -3579,6 +3605,7 @@ var main = (function(){
   function _makeDefaultStreet() {
     ignoreStreetChanges = true;
     _prepareDefaultStreet();
+    _setUpdateTimeToNow();
 
     _resizeStreetWidth();
     _updateStreetName();
@@ -3653,6 +3680,7 @@ var main = (function(){
     } else {
       _setStreetCreatorId(null);
     }
+    _setUpdateTimeToNow();
 
     _propagateUnits();
 
@@ -3689,10 +3717,12 @@ var main = (function(){
     }
 
     document.querySelector('#new-street-menu').classList.add('visible');
+    document.querySelector('#street-attribution').classList.remove('visible');
   }
 
   function _hideNewStreetMenu() {
     document.querySelector('#new-street-menu').classList.remove('visible');
+    document.querySelector('#street-attribution').classList.add('visible');
   }
 
   function _fetchGalleryData() {
@@ -3716,7 +3746,6 @@ var main = (function(){
 
   function _errorReceiveGalleryData(data) {
     if ((mode == MODE_USER_GALLERY) && (data.status == 404)) {
-      abortEverything = true;
       mode = MODE_404;
       _processMode();
       _hideGallery(true);
@@ -3846,8 +3875,17 @@ var main = (function(){
   }
 
   function _formatDate(date) {
+    // TODO hack
+    var today = moment(new Date().getTime());
     // TODO const
-    return date.format('MMM D, YYYY');
+    var todayFormat = today.format('MMM D, YYYY');
+    var dateFormat = date.format('MMM D, YYYY');
+
+    if (dateFormat != todayFormat) {
+      return dateFormat;
+    } else {
+      return '';
+    }
   }
 
   function _clearBlockingShieldTimers() {
@@ -3902,7 +3940,7 @@ var main = (function(){
     // TODO escape name
     if (confirm(prompt)) {
       if (el.getAttribute('streetId') == street.id) {
-        _showError(ERROR_TYPE_NO_STREET);
+        _showError(ERROR_TYPE_NO_STREET, false);
       }
 
       _sendDeleteStreetToServer(el.getAttribute('streetId'));
@@ -3982,9 +4020,11 @@ var main = (function(){
 
       var nameEl = document.createElement('div');
       nameEl.classList.add('street-name');
-      nameEl.innerHTML = '<div>' + galleryStreet.name + '</div>';
+      nameEl.innerHTML = '<div></div>';
       anchorEl.appendChild(nameEl);
       _updateStreetNameFont(nameEl);
+
+      $(nameEl.querySelector('div')).text(galleryStreet.name);
 
       var date = moment(galleryStreet.updatedAt);
       var dateEl = document.createElement('span');
@@ -4022,10 +4062,17 @@ var main = (function(){
       el.scrollIntoView();
       document.querySelector('#gallery').scrollTop = 0;
     }
+
+    _updateScrollButtons();
   }
 
   function _loadGalleryContents() {
-    document.querySelector('#gallery .streets').innerHTML = '';
+    var els = document.querySelectorAll('#gallery .streets li');
+    for (var i = 0, el; el = els[i]; i++) {
+      _removeElFromDom(el);
+    }
+
+    //document.querySelector('#gallery .streets').innerHTML = '';
     document.querySelector('#gallery .loading').classList.add('visible');
     document.querySelector('#gallery .error-loading').classList.remove('visible');
 
@@ -4086,7 +4133,7 @@ var main = (function(){
 
     if ((mode == MODE_USER_GALLERY) || (mode == MODE_GLOBAL_GALLERY)) {
       // Prevents showing old street before the proper street loads
-      _showError(ERROR_TYPE_NO_STREET);
+      _showError(ERROR_TYPE_NO_STREET, false);
     }
 
     _loadGalleryContents();
@@ -5191,7 +5238,7 @@ var main = (function(){
         '&redirect_uri=' + encodeURIComponent(url) + 
         '&link=' + encodeURIComponent(url) + 
         '&name=' + encodeURIComponent(_getPageTitle()) +
-        '&description=' + encodeURIComponent(text);
+        '&description=' + encodeURIComponent(htmlEncode(text));
   }
 
   function _updateTwitterLink(url) {
@@ -5249,6 +5296,8 @@ var main = (function(){
     }
 
     _fillDefaultSegments();    
+
+    _setUpdateTimeToNow();
   }
 
   function _prepareEmptyStreet() {
@@ -5262,6 +5311,69 @@ var main = (function(){
     }
 
     street.segments = [];
+
+    _setUpdateTimeToNow();
+  }
+
+  function _onScrollButtonLeft(event) {
+    var el = event.target.el;
+    // TODO const
+    $(el).animate({ scrollLeft: el.scrollLeft - (el.offsetWidth - 150) }, 300);
+  }
+
+  function _onScrollButtonRight(event) {
+    var el = event.target.el;
+
+    // TODO const
+    $(el).animate({ scrollLeft: el.scrollLeft + (el.offsetWidth - 150) }, 300);
+  }
+
+  function _onScrollButtonScroll(event) {
+    _scrollButtonScroll(event.target);
+  }
+
+  function _scrollButtonScroll(el) {
+    if (el.scrollLeft == 0) {
+      el.parentNode.querySelector('button.scroll-left').disabled = true;
+    } else {
+      el.parentNode.querySelector('button.scroll-left').disabled = false;      
+    }
+
+    if (el.scrollLeft == el.scrollWidth - el.offsetWidth) {
+      el.parentNode.querySelector('button.scroll-right').disabled = true;
+    } else {
+      el.parentNode.querySelector('button.scroll-right').disabled = false;      
+    }
+  }
+
+  function _repositionScrollButtons(el) {
+    var buttonEl = el.parentNode.querySelector('button.scroll-left');
+    buttonEl.style.left = _getElAbsolutePos(el)[0] + 'px';
+
+    var buttonEl = el.parentNode.querySelector('button.scroll-right');
+    buttonEl.style.left = (_getElAbsolutePos(el)[0] + el.offsetWidth) + 'px';
+  }
+
+  function _addScrollButtons(el) {
+    var buttonEl = document.createElement('button');
+    buttonEl.innerHTML = '«';
+    buttonEl.classList.add('scroll-left');
+    buttonEl.el = el;
+    buttonEl.addEventListener('click', _onScrollButtonLeft);
+    el.parentNode.appendChild(buttonEl);
+
+    var buttonEl = document.createElement('button');
+    buttonEl.innerHTML = '»';
+    buttonEl.classList.add('scroll-right');
+    buttonEl.el = el;
+    buttonEl.addEventListener('click', _onScrollButtonRight);
+    el.parentNode.appendChild(buttonEl);
+
+    el.setAttribute('scroll-buttons', true);
+    el.addEventListener('scroll', _onScrollButtonScroll);
+
+    _repositionScrollButtons(el);
+    _scrollButtonScroll(el);
   }
 
   function _onEverythingLoaded() {
@@ -5289,6 +5401,8 @@ var main = (function(){
     _updatePageUrl();
     _buildStreetWidthMenu();
     _onResize();
+    _addScrollButtons(document.querySelector('#palette'));
+    _addScrollButtons(document.querySelector('#gallery .streets'));
     _addEventListeners();
 
     if (mode == MODE_USER_GALLERY) {
@@ -5406,20 +5520,25 @@ var main = (function(){
   }
 
   function _errorReceiveSignInDetails(data) {   
-    console.log(data);
     // If we get data.status == 0, it means that the user opened the page and
     // closed is quickly, so the request was aborted. We choose to do nothing
     // instead of clobbering sign in data below and effectively signing the
-    // user out. Bug #302.
+    // user out. Issue #302.
 
-    if (data.status == 0) {
+    // It also, unfortunately, might mean regular server failure, too. Marcin
+    // doesn’t know what to do with it yet. Open issue #339.
+
+    console.log(data);
+
+    /*if (data.status == 0) {
+      _showError(ERROR_NEW_STREET_SERVER_FAILURE, true);
       return;
-    }
+    }*/
 
     // Fail silently
 
     signInData = null;
-    _saveSignInDataLocally();
+    //_saveSignInDataLocally();
 
     signedIn = false;
     _signInLoaded();
@@ -5704,8 +5823,7 @@ var main = (function(){
   function _errorReceiveNewStreet(data) {
     //console.log('failed new street!');
 
-    _showError(ERROR_NEW_STREET_SERVER_FAILURE);
-    abortEverything = true;
+    _showError(ERROR_NEW_STREET_SERVER_FAILURE, true);
   }
 
   function _getFetchStreetUrl() {
@@ -5739,7 +5857,7 @@ var main = (function(){
       var userId = el.getAttribute('userId');
 
       if (avatarCache[userId]) {
-        //console.log('AVATAR updated', userId);
+        console.log('AVATAR updated', userId);
         el.style.backgroundImage = 'url(' + avatarCache[userId] + ')';
         el.setAttribute('loaded', true);
       }
@@ -5753,7 +5871,7 @@ var main = (function(){
       var userId = el.getAttribute('userId');
 
       if (userId && (typeof avatarCache[userId] == 'undefined')) {
-        //console.log('AVATAR trying to fetch', userId);
+        console.log('AVATAR trying to fetch', userId);
 
         _fetchAvatar(userId);
       }
@@ -5772,32 +5890,25 @@ var main = (function(){
   }
 
   function _receiveAvatar(details) {
+    console.log(details);
     if (details && details.id && details.profileImageUrl) {
-      //console.log('AVATAR receive', details.id);
+      console.log('AVATAR receive', details.id);
       avatarCache[details.id] = details.profileImageUrl;
       _updateAvatars();
     }
   }
 
-
-
   function _errorReceiveStreet(data) {
-    //console.log('failed to receive street!', data.status, data);
-
     if ((mode == MODE_CONTINUE) || (mode == MODE_USER_GALLERY) || 
         (mode == MODE_GLOBAL_GALLERY)) {
       _goNewStreet();
     } else {
-      // TODO finish this
       if (data.status == 404) {
-        //console.log('_error receive street 1', data);
+        // TODO swap for showError (here and elsewhere)
         mode = MODE_404;
         _processMode();
-        // TODO rest?
       } else {
-        //console.log('_error receive street 2', data);
-        mode = MODE_404;
-        _processMode();
+        _showError(ERROR_NEW_STREET_SERVER_FAILURE, true);
       }
     }
   }
@@ -5830,9 +5941,11 @@ var main = (function(){
     location.href = '/' + URL_NEW_STREET_COPY_LAST;
   }
 
-  function _showError(errorType) {
+  function _showError(errorType, newAbortEverything) {
     var title = '';
     var description = '';
+
+    abortEverything = newAbortEverything;
 
     switch (errorType) {
       case ERROR_TYPE_404:
@@ -5913,24 +6026,19 @@ var main = (function(){
 
     switch (mode) {
       case MODE_404:
-        _showError(ERROR_TYPE_404);
-        abortEverything = true;
+        _showError(ERROR_TYPE_404, true);
         break;
       case MODE_SIGN_OUT:
-        _showError(ERROR_TYPE_SIGN_OUT);
-        abortEverything = true;
+        _showError(ERROR_TYPE_SIGN_OUT, true);
         break;
       case MODE_FORCE_RELOAD_SIGN_OUT:
-        _showError(ERROR_FORCE_RELOAD_SIGN_OUT);
-        abortEverything = true;
+        _showError(ERROR_FORCE_RELOAD_SIGN_OUT, true);
         break;
       case MODE_FORCE_RELOAD_SIGN_OUT_401:
-        _showError(ERROR_FORCE_RELOAD_SIGN_OUT_401);
-        abortEverything = true;
+        _showError(ERROR_FORCE_RELOAD_SIGN_OUT_401, true);
         break;
       case MODE_FORCE_RELOAD_SIGN_IN:
-        _showError(ERROR_FORCE_RELOAD_SIGN_IN);
-        abortEverything = true;
+        _showError(ERROR_FORCE_RELOAD_SIGN_IN, true);
         break;
       case MODE_NEW_STREET:
         serverContacted = false;
