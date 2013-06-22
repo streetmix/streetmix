@@ -39,7 +39,7 @@ var main = (function(){
 
   // TODO all of the below in an array?
   var SITE_URL = 'http://{{app_host_port}}/';
-  var API_URL = '{{restapi_baseuri}}/';
+  var API_URL = '{{{restapi_baseuri}}}/';
 
   var IP_GEOCODING_API_URL = 'http://freegeoip.net/json/';
   var IP_GEOCODING_TIMEOUT = 1000; // After this time, we don’t wait any more
