@@ -38,24 +38,13 @@ var main = (function(){
   };
 
   // TODO all of the below in an array?
-  var ENVIRONMENT_LOCAL = 0;
-  var ENVIRONMENT_STAGING = 1;
-  var ENVIRONMENT_PRODUCTION = 2;
-
-  var SITE_URL_LOCAL = 'http://localhost:8000/';
-  var SITE_URL_STAGING = 'http://streetmix-staging.herokuapp.com/';
-  var SITE_URL_PRODUCTION = 'http://streetmix.net/';
-
-  var API_URL_LOCAL = 'http://localhost:8080/';
-  var API_URL_STAGING = 'http://streetmix-api-staging.herokuapp.com/';
-  var API_URL_PRODUCTION = 'http://streetmix-api.herokuapp.com/';
+  var SITE_URL = 'http://{{app_host_port}}/';
+  var API_URL = '{{restapi_baseuri}}/';
 
   var IP_GEOCODING_API_URL = 'http://freegeoip.net/json/';
   var IP_GEOCODING_TIMEOUT = 1000; // After this time, we don’t wait any more
 
-  var FACEBOOK_APP_ID_PRODUCTION = '162729607241489';
-  var FACEBOOK_APP_ID_STAGING = '175861739245183';
-  var FACEBOOK_APP_ID_LOCAL = '204327799717656';
+  var FACEBOOK_APP_ID = '{{facebook_app_id}}';
 
   // TODO replace the URLs in index.html dynamically
   var URL_SIGN_IN = 'twitter-sign-in';
@@ -714,7 +703,6 @@ var main = (function(){
   var mouseY;
 
   var system = {
-    environment: ENVIRONMENT_LOCAL,
     apiUrl: null,
     touch: false,
     hiDpi: 1.0,
@@ -4400,20 +4388,9 @@ var main = (function(){
   function _detectEnvironment() {
     var url = location.href;
 
-    if (url.substr(0, SITE_URL_LOCAL.length) == SITE_URL_LOCAL) {
-      system.environment = ENVIRONMENT_LOCAL;
-      system.apiUrl = API_URL_LOCAL;
+    system.apiUrl = API_URL
+    document.body.classList.add('environment-{{env}}');
 
-      document.body.classList.add('environment-local');
-    } else if (url.substr(0, SITE_URL_STAGING.length) == SITE_URL_STAGING) {
-      system.environment = ENVIRONMENT_STAGING;
-      system.apiUrl = API_URL_STAGING;
-
-      document.body.classList.add('environment-staging');
-    } else if (url.substr(0, SITE_URL_PRODUCTION.length) == SITE_URL_PRODUCTION) {
-      system.environment = ENVIRONMENT_PRODUCTION;
-      system.apiUrl = API_URL_PRODUCTION;
-    }
   }
 
   function _detectSystemCapabilities() {
@@ -4769,17 +4746,7 @@ var main = (function(){
 
     var text = _getSharingMessage();
 
-    switch (system.environment) {
-      case ENVIRONMENT_PRODUCTION:
-        var appId = FACEBOOK_APP_ID_PRODUCTION;
-        break;
-      case ENVIRONMENT_STAGING:
-        var appId = FACEBOOK_APP_ID_STAGING;
-        break;
-      case ENVIRONMENT_LOCAL:
-        var appId = FACEBOOK_APP_ID_LOCAL;
-        break;
-    }
+    var appId = FACEBOOK_APP_ID;
 
     // TODO const
     el.href = 'https://www.facebook.com/dialog/feed' +

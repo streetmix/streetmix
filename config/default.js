@@ -1,4 +1,5 @@
 var port = process.env.PORT || 8000
+process.NODE_ENV = process.NODE_ENV || 'development'
 
 module.exports = {
   port: port,
@@ -13,5 +14,7 @@ module.exports = {
     oauth_callback_uri: '/twitter-sign-in-callback',
     oauth_signature_method: 'HMAC-SHA1'
   },
-  restapi_baseuri: 'http://localhost:8080'
+  restapi_baseuri: 'http://localhost:8080',
+  facebook_app_id: '204327799717656',
+  env: process.NODE_ENV
 }

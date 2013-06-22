@@ -1,6 +1,8 @@
-var express = require('express'),
+var fs = require('fs'),
+    express = require('express'),
     lessMiddleware = require('less-middleware'),
     config = require('config'),
+    mustache = require('mustache'),
     controllers = require('./app/controllers')
 
 var app = express()
@@ -36,7 +38,26 @@ app.use(function(req, res) {
   res.sendfile(__dirname + '/public/index.html')
 })
 
+fs.readFile(__dirname + '/public/js/scripts.mustache.js', { encoding: 'utf8' }, function(err, data) {
 
-app.listen(config.port, null, null, function() {
-  console.log('Listening on port ' + config.port)
-});
+  if (err) {
+    console.error('Could not read JS files for compilation.')
+    return process.exit(1)
+  }
+
+  var replaced = mustache.render(data, config)
+
+  fs.writeFile(__dirname + '/public/js/scripts.js', replaced, { encoding: 'utf8' }, function(err) {
+
+    if (err) {
+      console.error('Could not write compiled JS files')
+      return process.exit(2)
+    }
+    
+    app.listen(config.port, null, null, function() {
+      console.log('Listening on port ' + config.port)
+    });
+
+  }) // END - fs.writeFile
+
+}) // END - fs.readFile
