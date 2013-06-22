@@ -55,7 +55,7 @@ var main = (function(){
   var URL_GLOBAL_GALLERY = 'gallery';
   var URL_NO_USER = '-';
 
-  var URL_SIGN_IN_REDIRECT = URL_SIGN_IN + '?redirectUri=' + URL_JUST_SIGNED_IN;
+  var URL_SIGN_IN_REDIRECT = URL_SIGN_IN + '?callbackUri=' + URL_SIGN_IN_CALLBACK + '&redirectUri=' + URL_JUST_SIGNED_IN;
 
   // Since URLs like “streetmix.net/new” are reserved, but we still want
   // @new to be able to use Streetmix, we prefix any reserved URLs with ~
