@@ -48,21 +48,28 @@ var main = (function(){
 
   // TODO replace the URLs in index.html dynamically
   var URL_SIGN_IN = 'twitter-sign-in';
-  var URL_SIGN_IN_CALLBACK = location.protocol + '//' + location.host + '{{{twitter.oauth_callback_uri}}}';
-  var URL_JUST_SIGNED_IN = location.protocol + '//' + location.host + '/just-signed-in';
+
+  var URL_SIGN_IN_CALLBACK_REL = '{{{twitter.oauth_callback_uri}}}';
+  var URL_SIGN_IN_CALLBACK_ABS = location.protocol + '//' + location.host + URL_SIGN_IN_CALLBACK_REL;
+  var URL_SIGN_IN_CALLBACK_REL_RESERVED = URL_SIGN_IN_CALLBACK_REL.replace(/^\//, '')
+
+  var URL_JUST_SIGNED_IN_REL = '/just-signed-in';
+  var URL_JUST_SIGNED_IN_ABS = location.protocol + '//' + location.host + URL_JUST_SIGNED_IN_REL;
+  var URL_JUST_SIGNED_IN_REL_RESERVED = URL_JUST_SIGNED_IN_REL.replace(/^\//, '')
+
   var URL_NEW_STREET = 'new';
   var URL_NEW_STREET_COPY_LAST = 'copy-last';
   var URL_GLOBAL_GALLERY = 'gallery';
   var URL_NO_USER = '-';
 
-  var URL_SIGN_IN_REDIRECT = URL_SIGN_IN + '?callbackUri=' + URL_SIGN_IN_CALLBACK + '&redirectUri=' + URL_JUST_SIGNED_IN;
+  var URL_SIGN_IN_REDIRECT = URL_SIGN_IN + '?callbackUri=' + URL_SIGN_IN_CALLBACK_ABS + '&redirectUri=' + URL_JUST_SIGNED_IN_ABS;
 
   // Since URLs like “streetmix.net/new” are reserved, but we still want
   // @new to be able to use Streetmix, we prefix any reserved URLs with ~
   var RESERVED_URLS = 
-      [URL_SIGN_IN, URL_SIGN_IN_CALLBACK, 
+      [URL_SIGN_IN, URL_SIGN_IN_CALLBACK_REL_RESERVED, 
       URL_NEW_STREET, URL_NEW_STREET_COPY_LAST,
-      URL_JUST_SIGNED_IN, 
+      URL_JUST_SIGNED_IN_REL_RESERVED,
       'help', URL_GLOBAL_GALLERY, 'error', 'streets'];
   var URL_RESERVED_PREFIX = '~';
 
