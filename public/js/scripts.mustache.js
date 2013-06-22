@@ -47,7 +47,7 @@ var main = (function(){
   var FACEBOOK_APP_ID = '{{facebook_app_id}}';
 
   // TODO replace the URLs in index.html dynamically
-  var URL_SIGN_IN = '/twitter-sign-in';
+  var URL_SIGN_IN = 'twitter-sign-in';
   var URL_SIGN_IN_CALLBACK = location.protocol + '//' + location.host + '/twitter-sign-in-callback';
   var URL_JUST_SIGNED_IN = location.protocol + '//' + location.host + '/just-signed-in';
   var URL_NEW_STREET = 'new';
