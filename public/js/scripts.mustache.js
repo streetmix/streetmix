@@ -48,7 +48,7 @@ var main = (function(){
 
   // TODO replace the URLs in index.html dynamically
   var URL_SIGN_IN = 'twitter-sign-in';
-  var URL_SIGN_IN_CALLBACK = location.protocol + '//' + location.host + '/twitter-sign-in-callback';
+  var URL_SIGN_IN_CALLBACK = location.protocol + '//' + location.host + '{{{twitter.oauth_callback_uri}}}';
   var URL_JUST_SIGNED_IN = location.protocol + '//' + location.host + '/just-signed-in';
   var URL_NEW_STREET = 'new';
   var URL_NEW_STREET_COPY_LAST = 'copy-last';
