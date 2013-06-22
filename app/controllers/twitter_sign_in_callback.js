@@ -48,7 +48,8 @@ exports.get = function(req, res) {
     var oa = req.session.oauth
 
     // Obtain access token from Twitter
-    oauth.getOAuthAccessToken(
+    var o = oauth()
+    o.getOAuthAccessToken(
       oa.request_token, oa.request_token_secret, oa.verifier,
       oauthAccessTokenHandler(req, res))
     
