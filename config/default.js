@@ -1,5 +1,5 @@
 var port = process.env.PORT || 8000
-process.NODE_ENV = process.NODE_ENV || 'development'
+process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 
 module.exports = {
   port: port,
@@ -16,5 +16,5 @@ module.exports = {
   },
   restapi_baseuri: 'http://localhost:8080',
   facebook_app_id: '204327799717656',
-  env: process.NODE_ENV
+  env: process.env.NODE_ENV
 }
