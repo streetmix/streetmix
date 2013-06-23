@@ -51,11 +51,11 @@ var main = (function(){
 
   var URL_SIGN_IN_CALLBACK_REL = '{{{twitter.oauth_callback_uri}}}';
   var URL_SIGN_IN_CALLBACK_ABS = location.protocol + '//' + location.host + URL_SIGN_IN_CALLBACK_REL;
-  var URL_SIGN_IN_CALLBACK_REL_RESERVED = URL_SIGN_IN_CALLBACK_REL.replace(/^\//, '')
+  var URL_SIGN_IN_CALLBACK = URL_SIGN_IN_CALLBACK_REL.replace(/^\//, '')
 
   var URL_JUST_SIGNED_IN_REL = '/just-signed-in';
   var URL_JUST_SIGNED_IN_ABS = location.protocol + '//' + location.host + URL_JUST_SIGNED_IN_REL;
-  var URL_JUST_SIGNED_IN_REL_RESERVED = URL_JUST_SIGNED_IN_REL.replace(/^\//, '')
+  var URL_JUST_SIGNED_IN = URL_JUST_SIGNED_IN_REL.replace(/^\//, '')
 
   var URL_NEW_STREET = 'new';
   var URL_NEW_STREET_COPY_LAST = 'copy-last';
@@ -67,9 +67,9 @@ var main = (function(){
   // Since URLs like “streetmix.net/new” are reserved, but we still want
   // @new to be able to use Streetmix, we prefix any reserved URLs with ~
   var RESERVED_URLS = 
-      [URL_SIGN_IN, URL_SIGN_IN_CALLBACK_REL_RESERVED, 
+      [URL_SIGN_IN, URL_SIGN_IN_CALLBACK,
       URL_NEW_STREET, URL_NEW_STREET_COPY_LAST,
-      URL_JUST_SIGNED_IN_REL_RESERVED,
+      URL_JUST_SIGNED_IN,
       'help', URL_GLOBAL_GALLERY, 'error', 'streets'];
   var URL_RESERVED_PREFIX = '~';
 
