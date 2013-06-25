@@ -9,7 +9,7 @@ var oauthAccessTokenHandler = function(req, res) {
       console.error('Error obtaining access token from Twitter:')
       console.log(err)
       
-      res.redirect('/twitter-sign-in')
+      res.redirect('/error/no-twitter-access-token')
       return
     }
     
@@ -25,7 +25,7 @@ var oauthAccessTokenHandler = function(req, res) {
     request.post({ url: config.restapi_baseuri + '/v1/users', json: apiRequestBody }, function(err, response, body) {
       if (err) {
         console.error('Error from API when signing in: ' + err)
-        res.redirect('/?msg=Could not sign-in')
+        res.redirect('/error/authentication-api-problem')
         return
       }
 

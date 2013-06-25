@@ -9,7 +9,7 @@ var oauthRequestTokenHandler = function(req, res) {
       console.error('Error obtaining request token from Twitter:')
       console.error(err)
 
-      res.redirect('/?err=Could not login via Twitter')
+      res.redirect('/error/no-twitter-request-token')
       return
     }
 
