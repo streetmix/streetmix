@@ -841,17 +841,17 @@ var main = (function(){
     var segmentInfo = SEGMENT_INFO[type];
     var variantInfo = SEGMENT_INFO[type].details[variantString];
 
-    if (variantInfo.graphics.center && 
-        typeof variantInfo.graphics.center.width != 'undefined') {
-      var realWidth = variantInfo.graphics.center.width;
+    if (variantInfo.graphics.center && variantInfo.graphics.center[0] && 
+        typeof variantInfo.graphics.center[0].width != 'undefined') {
+      var realWidth = variantInfo.graphics.center[0].width;
     } else {
       var realWidth = segmentInfo.defaultWidth;
     }
 
     var multiplier = palette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1;
 
-    var bkPositionX = (variantInfo.graphics.center.x || 0) * TILE_SIZE;
-    var bkPositionY = (variantInfo.graphics.center.y || 0) * TILE_SIZE;
+    var bkPositionX = (variantInfo.graphics.center[0].x || 0) * TILE_SIZE;
+    var bkPositionY = (variantInfo.graphics.center[0].y || 0) * TILE_SIZE;
 
     var left = 0;
     var top = palette ? SEGMENT_Y_PALETTE : SEGMENT_Y_NORMAL;
@@ -876,15 +876,17 @@ var main = (function(){
 
     var canvasOffsetX = 0;
 
-    if (variantInfo.graphics.left && variantInfo.graphics.left.offsetX < 0) {
-      var leftOffset = -variantInfo.graphics.left.offsetX * TILE_SIZE;
+    // TODO repeat for all left?
+    if (variantInfo.graphics.left && variantInfo.graphics.left[0].offsetX < 0) {
+      var leftOffset = -variantInfo.graphics.left[0].offsetX * TILE_SIZE;
 
       canvasLeft -= leftOffset;
       maxWidth += leftOffset;
     }
 
-    if (variantInfo.graphics.right && variantInfo.graphics.right.offsetX < 0) {
-      canvasOffsetX = -variantInfo.graphics.right.offsetX * TILE_SIZE;
+    // TODO repeat for all right?
+    if (variantInfo.graphics.right && variantInfo.graphics.right[0].offsetX < 0) {
+      canvasOffsetX = -variantInfo.graphics.right[0].offsetX * TILE_SIZE;
 
       maxWidth += canvasOffsetX;
     }
@@ -909,78 +911,86 @@ var main = (function(){
     var ctx = canvasEl.getContext('2d');
 
     if (variantInfo.graphics.repeat) {
-      var repeatPositionX = variantInfo.graphics.repeat.x * TILE_SIZE;
-      var repeatPositionY = (variantInfo.graphics.repeat.y || 0) * TILE_SIZE;
-      var w = variantInfo.graphics.repeat.width * TILE_SIZE * multiplier;
+      for (var l = 0; l < variantInfo.graphics.repeat.length; l++) {
+        var repeatPositionX = variantInfo.graphics.repeat[l].x * TILE_SIZE;
+        var repeatPositionY = (variantInfo.graphics.repeat[l].y || 0) * TILE_SIZE;
+        var w = variantInfo.graphics.repeat[l].width * TILE_SIZE * multiplier;
 
-      var count = Math.floor((segmentWidth) / w + 1);
+        var count = Math.floor((segmentWidth) / w + 1);
 
-      if (segmentWidth < maxWidth) {
-        var repeatStartX = -canvasLeft;
-      } else {
-        var repeatStartX = -(segmentWidth - maxWidth) - canvasOffsetX;
-      }
-
-      if (palette) {
-        repeatStartX = 0;
-      }
-
-      for (var i = 0; i < count; i++) {
-        // remainder
-        if (i == count - 1) {
-          w = segmentWidth - (count - 1) * w;
+        if (segmentWidth < maxWidth) {
+          var repeatStartX = -canvasLeft;
+        } else {
+          var repeatStartX = -(segmentWidth - maxWidth) - canvasOffsetX;
         }
 
-        _drawSegmentImage(ctx,
-          repeatPositionX, repeatPositionY, 
-          w, variantInfo.graphics.repeat.height * TILE_SIZE, 
-          (repeatStartX + (i * variantInfo.graphics.repeat.width) * TILE_SIZE) * multiplier, 
-          top + (multiplier * TILE_SIZE * (variantInfo.graphics.repeat.offsetY || 0)), 
-          w, 
-          variantInfo.graphics.repeat.height * TILE_SIZE * multiplier);
+        if (palette) {
+          repeatStartX = 0;
+        }
+
+        for (var i = 0; i < count; i++) {
+          // remainder
+          if (i == count - 1) {
+            w = segmentWidth - (count - 1) * w;
+          }
+
+          _drawSegmentImage(ctx,
+            repeatPositionX, repeatPositionY, 
+            w, variantInfo.graphics.repeat[l].height * TILE_SIZE, 
+            (repeatStartX + (i * variantInfo.graphics.repeat[l].width) * TILE_SIZE) * multiplier, 
+            top + (multiplier * TILE_SIZE * (variantInfo.graphics.repeat[l].offsetY || 0)), 
+            w, 
+            variantInfo.graphics.repeat[l].height * TILE_SIZE * multiplier);
+        }
       }
     }      
 
     if (variantInfo.graphics.left) {
-      var leftPositionX = variantInfo.graphics.left.x * TILE_SIZE;
-      var leftPositionY = (variantInfo.graphics.left.y || 0) * TILE_SIZE;
+      for (var l = 0; l < variantInfo.graphics.left.length; l++) {
+        var leftPositionX = variantInfo.graphics.left[l].x * TILE_SIZE;
+        var leftPositionY = (variantInfo.graphics.left[l].y || 0) * TILE_SIZE;
 
-      var w = variantInfo.graphics.left.width * TILE_SIZE;
+        var w = variantInfo.graphics.left[l].width * TILE_SIZE;
 
-      _drawSegmentImage(ctx,
-          leftPositionX, leftPositionY, 
-          w, variantInfo.graphics.left.height * TILE_SIZE, 
-          0,
-          top + (multiplier * TILE_SIZE * (variantInfo.graphics.left.offsetY || 0)), 
-          w * multiplier, variantInfo.graphics.left.height * TILE_SIZE * multiplier);
+        _drawSegmentImage(ctx,
+            leftPositionX, leftPositionY, 
+            w, variantInfo.graphics.left[l].height * TILE_SIZE, 
+            0,
+            top + (multiplier * TILE_SIZE * (variantInfo.graphics.left[l].offsetY || 0)), 
+            w * multiplier, variantInfo.graphics.left[l].height * TILE_SIZE * multiplier);
+      }
     }
 
     if (variantInfo.graphics.right) {
-      var rightPositionX = variantInfo.graphics.right.x * TILE_SIZE;
-      var rightPositionY = (variantInfo.graphics.right.y || 0) * TILE_SIZE;
+      for (var l = 0; l < variantInfo.graphics.right.length; l++) {
+        var rightPositionX = variantInfo.graphics.right[l].x * TILE_SIZE;
+        var rightPositionY = (variantInfo.graphics.right[l].y || 0) * TILE_SIZE;
 
-      var w = variantInfo.graphics.right.width * TILE_SIZE;
+        var w = variantInfo.graphics.right[l].width * TILE_SIZE;
 
-      var rightTargetX = maxWidth - variantInfo.graphics.right.width * TILE_SIZE * multiplier;
+        var rightTargetX = maxWidth - variantInfo.graphics.right[l].width * TILE_SIZE * multiplier;
 
-      if (palette) {
-        rightTargetX += (variantInfo.graphics.right.offsetX || 0) * TILE_SIZE;
+        if (palette) {
+          rightTargetX += (variantInfo.graphics.right[l].offsetX || 0) * TILE_SIZE;
+        }
+
+        _drawSegmentImage(ctx,
+          rightPositionX, rightPositionY, 
+          w, variantInfo.graphics.right[l].height * TILE_SIZE,
+          rightTargetX,
+          top + (multiplier * TILE_SIZE * (variantInfo.graphics.right[l].offsetY || 0)), 
+          w * multiplier, variantInfo.graphics.right[l].height * TILE_SIZE * multiplier);
       }
-
-      _drawSegmentImage(ctx,
-        rightPositionX, rightPositionY, 
-        w, variantInfo.graphics.right.height * TILE_SIZE,
-        rightTargetX,
-        top + (multiplier * TILE_SIZE * (variantInfo.graphics.right.offsetY || 0)), 
-        w * multiplier, variantInfo.graphics.right.height * TILE_SIZE * multiplier);
     }
 
-    _drawSegmentImage(ctx,
-      bkPositionX, bkPositionY, 
-      width, variantInfo.graphics.center.height * TILE_SIZE, 
-      left * multiplier, 
-      top + (multiplier * TILE_SIZE * (variantInfo.graphics.center.offsetY || 0)), 
-      width * multiplier, variantInfo.graphics.center.height * TILE_SIZE * multiplier);
+    for (var l = 0; l < variantInfo.graphics.center.length; l++) {
+      _drawSegmentImage(ctx,
+        bkPositionX, bkPositionY, 
+        width, variantInfo.graphics.center[l].height * TILE_SIZE, 
+        left * multiplier, 
+        top + (multiplier * TILE_SIZE * (variantInfo.graphics.center[l].offsetY || 0)), 
+        width * multiplier, variantInfo.graphics.center[l].height * TILE_SIZE * multiplier);
+    }
 
     _removeElFromDom(el.querySelector('canvas'));
     el.appendChild(canvasEl);
@@ -2969,15 +2979,15 @@ var main = (function(){
         width = variantInfo.realWidth;
       }
 
-      if (variantInfo.graphics.center && (width < (variantInfo.graphics.center.width + 1))) {
-        width = variantInfo.graphics.center.width;
+      if (variantInfo.graphics.center && (width < (variantInfo.graphics.center[0].width + 1))) {
+        width = variantInfo.graphics.center[0].width;
       }
 
-      if (variantInfo.graphics.left && variantInfo.graphics.left.offsetX) {
-        width -= variantInfo.graphics.left.offsetX;
+      if (variantInfo.graphics.left && variantInfo.graphics.left[0].offsetX) {
+        width -= variantInfo.graphics.left[0].offsetX;
       }
-      if (variantInfo.graphics.right && variantInfo.graphics.right.offsetX) {
-        width -= variantInfo.graphics.right.offsetX;
+      if (variantInfo.graphics.right && variantInfo.graphics.right[0].offsetX) {
+        width -= variantInfo.graphics.right[0].offsetX;
       }
 
       width += PALETTE_EXTRA_SEGMENT_PADDING;
@@ -5382,6 +5392,29 @@ var main = (function(){
     _scrollButtonScroll(el);
   }
 
+  function _prepareSegmentInfo() {
+    // TODO should not modify const
+
+    for (var i in SEGMENT_INFO) {
+      for (var j in SEGMENT_INFO[i].details) {
+        var graphics = SEGMENT_INFO[i].details[j].graphics;
+
+        if (graphics.repeat && !jQuery.isArray(graphics.repeat)) {
+          graphics.repeat = [graphics.repeat];
+        }
+        if (graphics.left && !jQuery.isArray(graphics.left)) {
+          graphics.left = [graphics.left];
+        }
+        if (graphics.right && !jQuery.isArray(graphics.right)) {
+          graphics.right = [graphics.right];
+        }
+        if (graphics.center && !jQuery.isArray(graphics.center)) {
+          graphics.center = [graphics.center];
+        }
+      }
+    }
+  }
+
   function _onEverythingLoaded() {
     switch (mode) {
       case MODE_NEW_STREET:
@@ -6080,6 +6113,7 @@ var main = (function(){
     ignoreStreetChanges = true;
 
     _fillDom();
+    _prepareSegmentInfo();
 
     // Temporary as per https://github.com/Modernizr/Modernizr/issues/788#issuecomment-12513563
     Modernizr.addTest('pagevisibility', !!Modernizr.prefixed('hidden', document, false));
