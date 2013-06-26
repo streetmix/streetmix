@@ -305,7 +305,7 @@ var main = (function(){
 
   var VARIANTS = {
     'direction': ['inbound', 'outbound'],
-    'tree-size': ['small', 'big'],
+    'tree-type': ['small', 'big', 'palm-tree'],
     'lamp-orientation': ['left', 'both', 'right'],
     'parking-lane-orientation': ['left', 'right'],
     'turn-lane-orientation': ['left', 'right'],
@@ -332,7 +332,7 @@ var main = (function(){
       owner: SEGMENT_OWNER_NATURE,
       //zIndex: -1,
       defaultWidth: 4,
-      variants: ['tree-size'],
+      variants: ['tree-type'],
       details: {
         'small': {
           graphics: {
@@ -344,6 +344,12 @@ var main = (function(){
           graphics: {
             center: { x: 158, y: 0, width: 11, height: 20, offsetY: -5 },
             repeat: { x: 1, y: 5, width: 1, height: 15 }
+          }
+        },
+        'palm-tree': {
+          graphics: {
+            center: { x: 83, y: 24, offsetX: -7, offsetY: -19, width: 14, height: 31 },
+            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
           }
         }
       }
@@ -561,7 +567,7 @@ var main = (function(){
   var DEFAULT_SEGMENTS = {
     false: [ // Right-hand traffic
       { type: "sidewalk", width: 6 },
-      { type: "sidewalk-tree", variant: { 'tree-size': 'big' }, width: 4 },
+      { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 4 },
       { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'right' }, width: 2 },
       { type: "bike-lane", variant: { 'direction': 'inbound' }, width: 6 },
       { type: "drive-lane", variant: { 'direction': 'inbound' }, width: 10 },
@@ -571,12 +577,12 @@ var main = (function(){
       { type: "drive-lane", variant: { 'direction': 'outbound' }, width: 10 },
       { type: "bike-lane", variant: { 'direction': 'outbound' }, width: 6 },
       { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'left' }, width: 2 },
-      { type: "sidewalk-tree", variant: { 'tree-size': 'big' }, width: 4 },
+      { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 4 },
       { type: "sidewalk", width: 6 }
     ],
     true: [ // Left-hand traffic
       { type: "sidewalk", width: 6 },
-      { type: "sidewalk-tree", variant: { 'tree-size': 'big' }, width: 4 },
+      { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 4 },
       { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'right' }, width: 2 },
       { type: "bike-lane", variant: { 'direction': 'outbound' }, width: 6 },
       { type: "drive-lane", variant: { 'direction': 'outbound' }, width: 10 },
@@ -586,7 +592,7 @@ var main = (function(){
       { type: "drive-lane", variant: { 'direction': 'inbound' }, width: 10 },
       { type: "bike-lane", variant: { 'direction': 'inbound' }, width: 6 },
       { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'left' }, width: 2 },
-      { type: "sidewalk-tree", variant: { 'tree-size': 'big' }, width: 4 },
+      { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 4 },
       { type: "sidewalk", width: 6 }
     ]
   };
