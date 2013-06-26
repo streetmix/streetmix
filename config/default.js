@@ -4,6 +4,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 module.exports = {
   port: port,
   app_host_port: 'localhost:' + port,
+  header_host_port: 'localhost:' + port,
   twitter: {
     oauth_request_token_api_uri: 'https://api.twitter.com/oauth/request_token',
     oauth_access_token_api_uri: 'https://api.twitter.com/oauth/access_token',
