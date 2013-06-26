@@ -3533,31 +3533,43 @@ var main = (function(){
         }
         break;
       case 49: // 1
-        if (street.leftBuildingHeight > 1) {
-          street.leftBuildingHeight--;
-          _saveStreetToServerIfNecessary();
-          _createBuildings();
+        if (document.activeElement == document.body) {
+          if (street.leftBuildingHeight > 1) {
+            street.leftBuildingHeight--;
+            _saveStreetToServerIfNecessary();
+            _createBuildings();
+          }
+          event.preventDefault();
         }
         break;
       case 50: // 2
-        if (street.leftBuildingHeight < 10) {
-          street.leftBuildingHeight++;
-          _saveStreetToServerIfNecessary();
-          _createBuildings();
+        if (document.activeElement == document.body) {
+          if (street.leftBuildingHeight < 10) {
+            street.leftBuildingHeight++;
+            _saveStreetToServerIfNecessary();
+            _createBuildings();
+          }
+          event.preventDefault();
         }
         break;
       case 48: // 0
-        if (street.rightBuildingHeight > 1) {
-          street.rightBuildingHeight--;
-          _saveStreetToServerIfNecessary();
-          _createBuildings();
+        if (document.activeElement == document.body) {
+          if (street.rightBuildingHeight > 1) {
+            street.rightBuildingHeight--;
+            _saveStreetToServerIfNecessary();
+            _createBuildings();
+          }
+          event.preventDefault();
         }
         break;
       case 57: // 9
-        if (street.rightBuildingHeight < 10) {
-          street.rightBuildingHeight++;
-          _saveStreetToServerIfNecessary();
-          _createBuildings();
+        if (document.activeElement == document.body) {
+          if (street.rightBuildingHeight < 10) {
+            street.rightBuildingHeight++;
+            _saveStreetToServerIfNecessary();
+            _createBuildings();
+          }
+          event.preventDefault();
         }
         break;
       }
