@@ -869,7 +869,7 @@ var main = (function(){
 
     // center properly
     var segmentRealWidth = segmentWidth / TILE_SIZE / multiplier;
-    var left = (segmentRealWidth - realWidth) * TILE_SIZE / 2;
+    //var left = (segmentRealWidth - realWidth) * TILE_SIZE / 2;
 
     // sticking out
     var maxWidth = segmentWidth;
@@ -1009,7 +1009,7 @@ var main = (function(){
       _drawSegmentImage(ctx,
         bkPositionX, bkPositionY, 
         width * TILE_SIZE, variantInfo.graphics.center[l].height * TILE_SIZE, 
-        thisLeft * multiplier, 
+        (thisLeft) * multiplier, 
         top + (multiplier * TILE_SIZE * (variantInfo.graphics.center[l].offsetY || 0)), 
         width * TILE_SIZE * multiplier, variantInfo.graphics.center[l].height * TILE_SIZE * multiplier);
     }
