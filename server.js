@@ -21,7 +21,7 @@ app.use(lessMiddleware({
 app.all('*', function(req, res, next) {
   if (config.app_host_port != req.headers.host) {
     var redirectUrl = 'http://' + config.app_host_port + req.url
-    console.log('Redirecting to ' + redirectUrl + '...')
+    console.log('req.host = %s but config.app_host_port = %s; redirecting to %s...', req.host, config.app_host_port, redirectUrl)
     res.redirect(301, redirectUrl)
   } else {
     next('route')
