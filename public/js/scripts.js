@@ -108,7 +108,7 @@ var main = (function(){
   var NEW_STREET_DEFAULT = 1;
   var NEW_STREET_EMPTY = 2;
 
-  var TILESET_IMAGE_VERSION = 14;
+  var TILESET_IMAGE_VERSION = 15;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
   var TILESET_POINT_PER_PIXEL = 2.0;
@@ -321,16 +321,20 @@ var main = (function(){
         '': {
           minWidth: 6,
           graphics: {
+            center: { x: 0, y: 30 + 19, width: 4, height: 7, offsetY: 4 },
+            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+          }
+/*          graphics: {
             center: { x: 3, y: 5, width: 4, height: 15 },
             repeat: { x: 1, y: 5, width: 1, height: 15 }
-          }          
+          }          */
         }
       }
     },
     'sidewalk-tree': {
       name: 'Sidewalk w/ a tree',
       owner: SEGMENT_OWNER_NATURE,
-      //zIndex: -1,
+      zIndex: 1,
       defaultWidth: 4,
       variants: ['tree-type'],
       details: {
@@ -404,14 +408,20 @@ var main = (function(){
       details: {
         'inbound': {
           graphics: {
-            center: { x: 92, y: 5, width: 4, height: 15 },
-            repeat: { x: 90, y: 5, width: 1, height: 15 }
+            center: [
+              { x: 5, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
+              { x: 28, y: 5, width: 8, height: 15 }, // Arrow (inbound)
+            ],
+            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
           }
         },
         'outbound': {
           graphics: {
-            center: { x: 97, y: 5, width: 4, height: 15 },
-            repeat: { x: 90, y: 5, width: 1, height: 15 }
+            center: [
+              { x: 9, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
+              { x: 37, y: 5, width: 8, height: 15 }, // Arrow (outbound)
+            ],
+            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
           }
         }
       }
