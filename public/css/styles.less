@@ -513,9 +513,8 @@ body > header {
 
   z-index: 1000;
 
-  top: 40px;
-
-  width: 130px;
+  top: -5px - 6px;
+  width: 216px;
   height: @canvasHeight - 75px;
 
   pointer-events: none;  
@@ -526,21 +525,21 @@ body > header {
   -webkit-transition: opacity 250ms;
 }
 #street-section-left-building {
-  left: -95px;
-
-  background-image: url(../images/building-commercial.png);
+  left: -193px;
 }
 #street-section-right-building {
-  right: -95px;
+  right: -192px;
+}
+#street-section-left-building canvas,
+#street-section-right-building canvas {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
 
-  background-image: url(../images/building-commercial.png);
-  background-position: -130px 0;
-}
-body.street-overflows #street-section-left-building {
-  background-position: -260px 0;
-}
+body.street-overflows #street-section-left-building,
 body.street-overflows #street-section-right-building {
-  background-position: -390px 0;
+  opacity: .2;
 }
 
 footer {

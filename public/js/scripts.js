@@ -817,6 +817,21 @@ var main = (function(){
   // HELPER FUNCTIONS
   // -------------------------------------------------------------------------
 
+  function RandomGenerator() {
+    this.randSeed = 0;
+  }
+
+  RandomGenerator.prototype.rand = function() {
+    var t32 = 0x100000000;
+    var constant = 134775813;
+    var x = (constant * this.randSeed + 1);
+    return (this.randSeed = x % t32) / t32;    
+  }
+
+  RandomGenerator.prototype.seed = function(seed) {
+    this.randSeed = seed;
+  }
+
   function htmlEncode(value){
     //create a in-memory div, set it's inner text(which jQuery automatically encodes)
     //then grab the encoded contents back out.  The div never exists on the page.
@@ -1426,6 +1441,75 @@ var main = (function(){
     return el;
   }
 
+  function _createBuilding(el, left, floorCount, scale, transparency) {
+    // TODO const
+    var width = 216;
+    var height = TILE_SIZE * (1 + 10 * (floorCount - 1) + 10);
+
+    var canvasEl = document.createElement('canvas');
+    canvasEl.width = width * system.hiDpi;
+    canvasEl.height = height * system.hiDpi;
+    canvasEl.style.width = (width * scale) + 'px';
+    canvasEl.style.height = (height * scale) + 'px';
+
+    el.appendChild(canvasEl);
+
+    var ctx = canvasEl.getContext('2d');
+
+    //ctx.globalAlpha = transparency;
+
+    // TODO const
+    if (left) {
+      var tilePositionX = 1512;
+    } else {
+      var tilePositionX = 1728;
+    }
+
+    var floorHeight = 10 * TILE_SIZE;
+    var roofHeight = 1 * TILE_SIZE;
+
+    // bottom floor
+
+    _drawSegmentImage(ctx,
+        tilePositionX, 576, width, floorHeight,
+        0, height - floorHeight, width, floorHeight);
+
+    // middle floors
+
+    var randomGenerator = new RandomGenerator();
+
+    randomGenerator.seed(0);
+
+    for (var i = 1; i < floorCount; i++) {   
+      var variant = Math.floor(randomGenerator.rand() * 2) + 1;
+
+      _drawSegmentImage(ctx,
+          tilePositionX, 576 - (floorHeight * variant), width, floorHeight,
+          0, height - floorHeight * (i + 1), width, floorHeight);
+    }
+
+    // roof
+
+    _drawSegmentImage(ctx,
+        tilePositionX, 576 - floorHeight * 2 - roofHeight, width, roofHeight,
+        0, height - floorHeight * (floorCount) - roofHeight, width, roofHeight);
+
+    ctx.globalCompositeOperation = 'source-atop';
+    ctx.globalAlpha = 1 - transparency;
+    ctx.fillStyle = 'rgb(151, 192, 212)';
+    ctx.fillRect(0, 0, width * system.hiDpi, height * system.hiDpi);
+  }
+
+  function _createBuildings() {
+    var el = document.querySelector('#street-section-left-building');
+    el.innerHTML = '';
+    _createBuilding(el, true, street.leftBuildingHeight, 1.0, 1.0);
+
+    var el = document.querySelector('#street-section-right-building');
+    el.innerHTML = '';
+    _createBuilding(el, false, street.rightBuildingHeight, 1.0, 1.0);
+  }  
+
   function _createSegmentDom(segment) {
     return _createSegment(segment.type, segment.variantString, 
         segment.width * TILE_SIZE, segment.unmovable);
@@ -1455,6 +1539,7 @@ var main = (function(){
     }
 
     _repositionSegments();
+    _createBuildings();
   }
 
   function _repositionSegments() {
@@ -1682,13 +1767,20 @@ var main = (function(){
     _createNewUndo();
   }
 
-  function _updateToLatestSchemaVersion(street) {
-    if (street.schemaVersion == 1) {
-      console.log('updated schema to 2');
-      street.leftBuildingHeight = DEFAULT_BUILDING_HEIGHT;
-      street.rightBuildingHeight = DEFAULT_BUILDING_HEIGHT;
+  function _updateSchemaToVersion2(street) {
+    street.leftBuildingHeight = DEFAULT_BUILDING_HEIGHT;
+    street.rightBuildingHeight = DEFAULT_BUILDING_HEIGHT;
+    street.schemaVersion = 2;
+  }
 
-      street.schemaVersion = 2;
+  function _updateToLatestSchemaVersion(street) {
+    if (!street.schemaVersion || (street.schemaVersion == 1)) {
+      console.log('updated schema to 2');
+
+      _updateSchemaToVersion2(street);
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -1699,16 +1791,6 @@ var main = (function(){
     street.originalStreetId = transmission.originalStreetId || null;
     street.updatedAt = transmission.updatedAt || null;
     street.name = transmission.name || DEFAULT_NAME;
-
-    street.schemaVersion = transmission.schemaVersion || 1;
-
-    console.log('loaded schema version', street.schemaVersion);
-
-    if (street.schemaVersion < LATEST_SCHEMA_VERSION) {
-      _updateToLatestSchemaVersion(street);
-    }
-
-    console.log(street);
 
     return street;
   }
@@ -1721,10 +1803,22 @@ var main = (function(){
     undoStack = _clone(transmission.data.undoStack);
     undoPosition = transmission.data.undoPosition;
 
+    var updatedSchema = _updateToLatestSchemaVersion(street);
+    for (var i in undoStack) {
+      if (_updateToLatestSchemaVersion(undoStack[i])) {
+        updatedSchema = true;
+      }
+    }
+
     if (id) {
       _setStreetId(id, namespacedId);
     } else {
       _setStreetId(transmission.id, transmission.namespacedId);
+    }
+
+    if (updatedSchema) {
+      console.log('saving because of updated schema…');
+      _saveStreetToServer();
     }
   }
 
@@ -2233,6 +2327,8 @@ var main = (function(){
   // Copies only the data necessary for save/undo.
   function _trimStreetData(street) {
     var newData = {};
+
+    newData.schemaVersion = street.schemaVersion;
 
     newData.width = street.width;
     newData.name = street.name;
