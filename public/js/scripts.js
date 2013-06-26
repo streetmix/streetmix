@@ -428,7 +428,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 8, y: 27, width: 8, height: 15 }, // Car 
-              { x: 28, y: 5, width: 8, height: 15 }, // Arrow
+              { x: 28, y: 5, width: 8, height: 15 }, // Arrow (inbound)
             ],
             repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
           }          
@@ -439,12 +439,9 @@ var main = (function(){
           graphics: {
             center: [
               { x: 0, y: 27, width: 8, height: 15 }, // Car 
-              { x: 37, y: 5, width: 8, height: 15 }, // Arrow
+              { x: 37, y: 5, width: 8, height: 15 }, // Arrow (outbound)
             ],
             repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
-
-            //center: { x: 37, y: 5, width: 8, height: 15 },
-            //repeat: { x: 26, y: 5, width: 1, height: 15 }
           }          
         }
       }
@@ -543,16 +540,22 @@ var main = (function(){
           minWidth: 9,
           maxWidth: 12,
           graphics: {
-            center: { x: 59, y: 5, width: 10, height: 15 },
-            repeat: { x: 26, y: 5, width: 1, height: 15 }
+            center: [
+              { x: 28, y: 27, width: 11, height: 15 }, // Bus
+              { x: 28, y: 5, width: 8, height: 15 }, // Arrow (inbound)
+            ],
+            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
           }
         },
         'outbound': {
           minWidth: 9,
           maxWidth: 12,
           graphics: {
-            center: { x: 70, y: 5, width: 10, height: 15 },
-            repeat: { x: 26, y: 5, width: 1, height: 15 }
+            center: [
+              { x: 16, y: 27, width: 12, height: 15 }, // Bus
+              { x: 37, y: 5, width: 8, height: 15 }, // Arrow (outbound)
+            ],
+            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
           }
         }
       }
@@ -852,6 +855,7 @@ var main = (function(){
 
     if (variantInfo.graphics.center && variantInfo.graphics.center[0] && 
         typeof variantInfo.graphics.center[0].width != 'undefined') {
+      // TODO repeat for all center?
       var realWidth = variantInfo.graphics.center[0].width;
     } else {
       var realWidth = segmentInfo.defaultWidth;
@@ -859,14 +863,13 @@ var main = (function(){
 
     var multiplier = palette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1;
 
-    var left = 0;
     var top = palette ? SEGMENT_Y_PALETTE : SEGMENT_Y_NORMAL;
-    var width = realWidth * TILE_SIZE;
+    //var width = realWidth * TILE_SIZE;
     var height = CANVAS_BASELINE;
 
     // center properly
     var segmentRealWidth = segmentWidth / TILE_SIZE / multiplier;
-    left += (segmentRealWidth - realWidth) * TILE_SIZE / 2;
+    var left = (segmentRealWidth - realWidth) * TILE_SIZE / 2;
 
     // sticking out
     var maxWidth = segmentWidth;
@@ -874,7 +877,7 @@ var main = (function(){
       if (maxWidth < realWidth * TILE_SIZE) {
         maxWidth = realWidth * TILE_SIZE;
 
-        left = 0;
+        //left = 0;
       }
     }
 
@@ -993,12 +996,22 @@ var main = (function(){
       var bkPositionX = (variantInfo.graphics.center[l].x || 0) * TILE_SIZE;
       var bkPositionY = (variantInfo.graphics.center[l].y || 0) * TILE_SIZE;
 
+      var width = variantInfo.graphics.center[l].width;
+
+      var thisLeft = (segmentRealWidth - width) * TILE_SIZE / 2;
+      if (!palette) {
+        if (segmentWidth < width * TILE_SIZE) {
+          //maxWidth = width * TILE_SIZE;
+          thisLeft = 0;
+        }
+      }
+
       _drawSegmentImage(ctx,
         bkPositionX, bkPositionY, 
-        width, variantInfo.graphics.center[l].height * TILE_SIZE, 
-        left * multiplier, 
+        width * TILE_SIZE, variantInfo.graphics.center[l].height * TILE_SIZE, 
+        thisLeft * multiplier, 
         top + (multiplier * TILE_SIZE * (variantInfo.graphics.center[l].offsetY || 0)), 
-        width * multiplier, variantInfo.graphics.center[l].height * TILE_SIZE * multiplier);
+        width * TILE_SIZE * multiplier, variantInfo.graphics.center[l].height * TILE_SIZE * multiplier);
     }
 
     _removeElFromDom(el.querySelector('canvas'));
@@ -2984,9 +2997,9 @@ var main = (function(){
 
       var width = segmentInfo.defaultWidth;
 
-      if (variantInfo.realWidth > variantInfo.defaultWidth) {
+      /*if (variantInfo.realWidth > variantInfo.defaultWidth) {
         width = variantInfo.realWidth;
-      }
+      }*/
 
       if (variantInfo.graphics.center && (width < (variantInfo.graphics.center[0].width + 1))) {
         width = variantInfo.graphics.center[0].width;
