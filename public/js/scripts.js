@@ -108,6 +108,9 @@ var main = (function(){
   var NEW_STREET_DEFAULT = 1;
   var NEW_STREET_EMPTY = 2;
 
+  var LATEST_SCHEMA_VERSION = 2;
+    // 1: starting point
+    // 2: adding leftBuildingHeight and rightBuildingHeight
   var TILESET_IMAGE_VERSION = 15;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
@@ -181,6 +184,7 @@ var main = (function(){
   var DEFAULT_NAME = 'Unnamed St';
   var DEFAULT_STREET_WIDTH = 80;
   var DEFAULT_STREET_WIDTHS = [40, 60, 80];
+  var DEFAULT_BUILDING_HEIGHT = 4;
 
   var MIN_CUSTOM_STREET_WIDTH = 10;
   var MAX_CUSTOM_STREET_WIDTH = 200;
@@ -653,6 +657,8 @@ var main = (function(){
   // ------------------------------------------------------------------------
 
   var street = {
+    schemaVersion: LATEST_SCHEMA_VERSION,
+
     id: null,
     creatorId: null,
     namespacedId: null,
@@ -662,6 +668,9 @@ var main = (function(){
     width: null,
     occupiedWidth: null, // Can be recreated, do not save
     remainingWidth: null, // Can be recreated, do not save
+
+    leftBuildingHeight: null,
+    rightBuildingHeight: null,
 
     segments: [],
 
@@ -1673,6 +1682,16 @@ var main = (function(){
     _createNewUndo();
   }
 
+  function _updateToLatestSchemaVersion(street) {
+    if (street.schemaVersion == 1) {
+      console.log('updated schema to 2');
+      street.leftBuildingHeight = DEFAULT_BUILDING_HEIGHT;
+      street.rightBuildingHeight = DEFAULT_BUILDING_HEIGHT;
+
+      street.schemaVersion = 2;
+    }
+  }
+
   function _unpackStreetDataFromServerTransmission(transmission) {
     var street = _clone(transmission.data.street);
 
@@ -1680,6 +1699,16 @@ var main = (function(){
     street.originalStreetId = transmission.originalStreetId || null;
     street.updatedAt = transmission.updatedAt || null;
     street.name = transmission.name || DEFAULT_NAME;
+
+    street.schemaVersion = transmission.schemaVersion || 1;
+
+    console.log('loaded schema version', street.schemaVersion);
+
+    if (street.schemaVersion < LATEST_SCHEMA_VERSION) {
+      _updateToLatestSchemaVersion(street);
+    }
+
+    console.log(street);
 
     return street;
   }
@@ -2213,6 +2242,9 @@ var main = (function(){
     newData.creatorId = street.creatorId;
     newData.originalStreetId = street.originalStreetId;
     newData.units = street.units;
+
+    newData.leftBuildingHeight = street.leftBuildingHeight;
+    newData.rightBuildingHeight = street.rightBuildingHeight;
 
     newData.segments = [];
 
@@ -5359,6 +5391,8 @@ var main = (function(){
     _propagateUnits();
     street.name = DEFAULT_NAME;
     street.width = _normalizeStreetWidth(DEFAULT_STREET_WIDTH);
+    street.leftBuildingHeight = DEFAULT_BUILDING_HEIGHT;
+    street.rightBuildingHeight = DEFAULT_BUILDING_HEIGHT;
     if (signedIn) {
       _setStreetCreatorId(signInData.userId);
     }
@@ -5374,6 +5408,8 @@ var main = (function(){
 
     street.name = DEFAULT_NAME;
     street.width = _normalizeStreetWidth(DEFAULT_STREET_WIDTH);
+    street.leftBuildingHeight = DEFAULT_BUILDING_HEIGHT;
+    street.rightBuildingHeight = DEFAULT_BUILDING_HEIGHT;
     if (signedIn) {
       _setStreetCreatorId(signInData.userId);
     }
