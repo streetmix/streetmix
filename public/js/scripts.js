@@ -334,7 +334,7 @@ var main = (function(){
     'sidewalk-tree': {
       name: 'Sidewalk w/ a tree',
       owner: SEGMENT_OWNER_NATURE,
-      zIndex: 1,
+      //zIndex: 1,
       defaultWidth: 4,
       variants: ['tree-type'],
       details: {
@@ -437,7 +437,7 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 8, y: 27, width: 8, height: 15 }, // Car 
+              { x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
               { x: 28, y: 5, width: 8, height: 15 }, // Arrow (inbound)
             ],
             repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
@@ -448,7 +448,7 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 0, y: 27, width: 8, height: 15 }, // Car 
+              { x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
               { x: 37, y: 5, width: 8, height: 15 }, // Arrow (outbound)
             ],
             repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
@@ -466,32 +466,44 @@ var main = (function(){
           minWidth: 9,
           maxWidth: 12,
           graphics: {
-            center: { x: 123, y: 5, width: 8, height: 15 },
-            repeat: { x: 26, y: 5, width: 1, height: 15 }
+            center: [
+              { x: 123, y: 5, width: 8, height: 15 }, // Arrow
+              { x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
+            ],
+            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
           }          
         },
         'inbound|right': {
           minWidth: 9,
           maxWidth: 12,
           graphics: {
-            center: { x: 81, y: 5, width: 8, height: 15 },
-            repeat: { x: 26, y: 5, width: 1, height: 15 }
+            center: [
+              { x: 81, y: 5, width: 8, height: 15 }, // Arrow
+              { x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
+            ],
+            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
           }          
         },
         'outbound|left': {
           minWidth: 9,
           maxWidth: 12,
           graphics: {
-            center: { x: 132, y: 5, width: 8, height: 15 },
-            repeat: { x: 26, y: 5, width: 1, height: 15 }
+            center: [
+              { x: 132, y: 5, width: 8, height: 15 }, // Arrow
+              { x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
+            ],
+            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
           }          
         },
         'outbound|right': {
           minWidth: 9,
           maxWidth: 12,
           graphics: {
-            center: { x: 141, y: 5, width: 8, height: 15 },
-            repeat: { x: 26, y: 5, width: 1, height: 15 }
+            center: [
+              { x: 141, y: 5, width: 8, height: 15 }, // Arrow
+              { x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
+            ],
+            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
           }          
         }
       }
@@ -506,37 +518,45 @@ var main = (function(){
           minWidth: 8,
           maxWidth: 10,
           graphics: {
-            center: { x: 50, y: 5, width: 8, height: 15 },
-            repeat: { x: 26, y: 5, width: 1, height: 15 },
-            right: { x: 112, y: 5, width: 2, height: 15 }
-          }
+            center: [
+              { x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
+            ],
+            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+            right: { x: 112, y: 5, width: 2, height: 15 } // Parking marking
+          }          
         },
         'inbound|right': {
           minWidth: 8,
           maxWidth: 10,
           graphics: {
-            center: { x: 50, y: 5, width: 8, height: 15 },
-            repeat: { x: 26, y: 5, width: 1, height: 15 },
-            left: { x: 46, y: 5, width: 2, height: 15 }
-          }
+            center: [
+              { x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
+            ],
+            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+            left: { x: 46, y: 5, width: 2, height: 15 } // Parking marking
+          }          
         },
         'outbound|left': {
           minWidth: 8,
           maxWidth: 10,
           graphics: {
-            center: { x: 115, y: 5, width: 8, height: 15 },
-            repeat: { x: 26, y: 5, width: 1, height: 15 },
-            right: { x: 112, y: 5, width: 2, height: 15 }
-          }
+            center: [
+              { x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
+            ],
+            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+            right: { x: 112, y: 5, width: 2, height: 15 } // Parking marking
+          }          
         },
         'outbound|right': {
           minWidth: 8,
           maxWidth: 10,
           graphics: {
-            center: { x: 115, y: 5, width: 8, height: 15 },
-            repeat: { x: 26, y: 5, width: 1, height: 15 },
-            left: { x: 46, y: 5, width: 2, height: 15 }
-          }
+            center: [
+              { x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
+            ],
+            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+            left: { x: 46, y: 5, width: 2, height: 15 } // Parking marking
+          }          
         }
       }      
     },
