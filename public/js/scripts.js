@@ -426,16 +426,25 @@ var main = (function(){
           minWidth: 9,
           maxWidth: 12,
           graphics: {
-            center: { x: 28, y: 5, width: 8, height: 15 },
-            repeat: { x: 26, y: 5, width: 1, height: 15 }
+            center: [
+              { x: 8, y: 27, width: 8, height: 15 }, // Car 
+              { x: 28, y: 5, width: 8, height: 15 }, // Arrow
+            ],
+            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
           }          
         },
         'outbound': {
           minWidth: 9,
           maxWidth: 12,
           graphics: {
-            center: { x: 37, y: 5, width: 8, height: 15 },
-            repeat: { x: 26, y: 5, width: 1, height: 15 }
+            center: [
+              { x: 0, y: 27, width: 8, height: 15 }, // Car 
+              { x: 37, y: 5, width: 8, height: 15 }, // Arrow
+            ],
+            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+
+            //center: { x: 37, y: 5, width: 8, height: 15 },
+            //repeat: { x: 26, y: 5, width: 1, height: 15 }
           }          
         }
       }
@@ -850,9 +859,6 @@ var main = (function(){
 
     var multiplier = palette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1;
 
-    var bkPositionX = (variantInfo.graphics.center[0].x || 0) * TILE_SIZE;
-    var bkPositionY = (variantInfo.graphics.center[0].y || 0) * TILE_SIZE;
-
     var left = 0;
     var top = palette ? SEGMENT_Y_PALETTE : SEGMENT_Y_NORMAL;
     var width = realWidth * TILE_SIZE;
@@ -984,6 +990,9 @@ var main = (function(){
     }
 
     for (var l = 0; l < variantInfo.graphics.center.length; l++) {
+      var bkPositionX = (variantInfo.graphics.center[l].x || 0) * TILE_SIZE;
+      var bkPositionY = (variantInfo.graphics.center[l].y || 0) * TILE_SIZE;
+
       _drawSegmentImage(ctx,
         bkPositionX, bkPositionY, 
         width, variantInfo.graphics.center[l].height * TILE_SIZE, 
