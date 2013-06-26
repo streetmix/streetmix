@@ -14,8 +14,8 @@ app.use(lessMiddleware({
 
 // Redirect to environment-appropriate domain, if necessary
 app.all('*', function(req, res, next) {
-  if (config.app_host_port != req.headers.host) {
-    var redirectUrl = 'http://' + config.app_host_port + req.url
+  if (config.header_host_port != req.headers.host) {
+    var redirectUrl = 'http://' + config.header_host_port + req.url
     console.log('Redirecting to ' + redirectUrl + '...')
     res.redirect(301, redirectUrl)
   } else {
