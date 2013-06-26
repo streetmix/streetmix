@@ -357,21 +357,21 @@ var main = (function(){
         'right': {
           graphics: {
             center: { width: 0, height: 15 },
-            repeat: { x: 1, y: 5, width: 1, height: 15 },
-            right: { x: 102, y: 0, offsetX: -2, offsetY: -5, width: 4, height: 20 }
+            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            right: { x: 56, y: 24, offsetX: -10, offsetY: -19, width: 12, height: 31 }
           }
         },
         'both': {
           graphics: {
-            center: { x: 150, y: 0, offsetY: -5, width: 6, height: 20 },
-            repeat: { x: 1, y: 5, width: 1, height: 15 },
-          }          
+            center: { x: 39, y: 24, offsetX: -7, offsetY: -19, width: 16, height: 31 },
+            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+          }
         },
         'left': {
           graphics: {
             center: { width: 0, height: 15 },
-            repeat: { x: 1, y: 5, width: 1, height: 15 },
-            left: { x: 107, y: 0, offsetX: -2, offsetY: -5, width: 4, height: 20 }
+            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            left: { x: 70, y: 24, offsetX: -10, offsetY: -19, width: 16, height: 31 }
           }
         }
       }
