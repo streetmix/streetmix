@@ -385,7 +385,7 @@ var main = (function(){
           graphics: {
             center: { width: 0, height: 15 },
             repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
-            left: { x: 70, y: 24, offsetX: -10, offsetY: -19, width: 16, height: 31 }
+            left: { x: 70, y: 24, offsetX: -10, offsetY: -19, width: 12, height: 31 }
           }
         }
       }
@@ -1443,7 +1443,7 @@ var main = (function(){
 
   function _createBuilding(el, left, floorCount, scale, transparency) {
     // TODO const
-    var width = 216;
+    var width = 396; //216;
     var height = TILE_SIZE * (1 + 10 * (floorCount - 1) + 10);
 
     var canvasEl = document.createElement('canvas');
@@ -1460,9 +1460,9 @@ var main = (function(){
 
     // TODO const
     if (left) {
-      var tilePositionX = 1512;
+      var tilePositionX = 1956; //1512;
     } else {
-      var tilePositionX = 1728;
+      var tilePositionX = 2351; //1728;
     }
 
     var floorHeight = 10 * TILE_SIZE;
@@ -1471,8 +1471,8 @@ var main = (function(){
     // bottom floor
 
     _drawSegmentImage(ctx,
-        tilePositionX, 576, width, floorHeight,
-        0, height - floorHeight, width, floorHeight);
+        tilePositionX, 576 - 120, width, floorHeight + TILE_SIZE,
+        0, height - floorHeight, width, floorHeight + TILE_SIZE);
 
     // middle floors
 
@@ -1481,10 +1481,11 @@ var main = (function(){
     randomGenerator.seed(0);
 
     for (var i = 1; i < floorCount; i++) {   
-      var variant = Math.floor(randomGenerator.rand() * 2) + 1;
+      var variant = Math.floor(randomGenerator.rand() * 1) + 1;
+      //var variant = 0;
 
       _drawSegmentImage(ctx,
-          tilePositionX, 576 - (floorHeight * variant), width, floorHeight,
+          tilePositionX, 576 - 120 - (floorHeight * variant), width, floorHeight,
           0, height - floorHeight * (i + 1), width, floorHeight);
     }
 
@@ -5093,7 +5094,7 @@ var main = (function(){
       var bubbleHeight = _infoBubble.el.offsetHeight;
 
       // TODO const
-      bubbleY -= bubbleHeight - 50;
+      bubbleY -= bubbleHeight - 20;
       if (bubbleY < 20) {
         bubbleY = 20;
       }
