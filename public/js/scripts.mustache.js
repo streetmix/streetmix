@@ -60,6 +60,7 @@ var main = (function(){
   var URL_NEW_STREET = 'new';
   var URL_NEW_STREET_COPY_LAST = 'copy-last';
   var URL_GLOBAL_GALLERY = 'gallery';
+  var URL_ERROR = 'error';
   var URL_NO_USER = '-';
 
   var URL_SIGN_IN_REDIRECT = URL_SIGN_IN + '?callbackUri=' + URL_SIGN_IN_CALLBACK_ABS + '&redirectUri=' + URL_JUST_SIGNED_IN_ABS;
@@ -70,7 +71,7 @@ var main = (function(){
       [URL_SIGN_IN, URL_SIGN_IN_CALLBACK,
       URL_NEW_STREET, URL_NEW_STREET_COPY_LAST,
       URL_JUST_SIGNED_IN,
-      'help', URL_GLOBAL_GALLERY, 'error', 'streets'];
+      'help', URL_GLOBAL_GALLERY, URL_ERROR, 'streets'];
   var URL_RESERVED_PREFIX = '~';
 
   var MODE_CONTINUE = 1;
@@ -85,6 +86,7 @@ var main = (function(){
   var MODE_USER_GALLERY = 10;
   var MODE_GLOBAL_GALLERY = 11;
   var MODE_FORCE_RELOAD_SIGN_OUT_401 = 12;
+  var MODE_ERROR = 13;
 
   var ERROR_TYPE_404 = 1;
   var ERROR_TYPE_SIGN_OUT = 2;
@@ -94,6 +96,11 @@ var main = (function(){
   var ERROR_STREET_DELETED_ELSEWHERE = 6;
   var ERROR_NEW_STREET_SERVER_FAILURE = 7;
   var ERROR_FORCE_RELOAD_SIGN_OUT_401 = 8;
+  var ERROR_TWITTER_ACCESS_DENIED = 9;
+  var ERROR_AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN = 10;
+  var ERROR_AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN = 11;
+  var ERROR_AUTH_PROBLEM_API_PROBLEM = 12;
+  var ERROR_GENERIC_ERROR = 13;
 
   var TWITTER_ID = '@streetmixapp';
 
@@ -639,6 +646,7 @@ var main = (function(){
   // ------------------------------------------------------------------------
 
   var mode;
+  var errorUrl = '';
   var abortEverything;
   var currentErrorType;
 
@@ -5276,8 +5284,14 @@ var main = (function(){
       // Coming back from a successful sign in
 
       mode = MODE_JUST_SIGNED_IN;
+    } else if ((urlParts.length >= 1) && (urlParts[0] == URL_ERROR)) {
+      // Error
+
+      mode = MODE_ERROR;
+      errorUrl = urlParts[1];
+
     } else if ((urlParts.length == 1) && (urlParts[0] == URL_GLOBAL_GALLERY)) {
-      // User gallery
+      // Global gallery
 
       mode = MODE_GLOBAL_GALLERY;
     } else if ((urlParts.length == 1) && urlParts[0]) {
@@ -5308,7 +5322,6 @@ var main = (function(){
 
       mode = MODE_EXISTING_STREET;
     } else {
-      console.log('_processUrl() weird url');
       mode = MODE_404;
 
       // 404: bad URL
@@ -5503,7 +5516,22 @@ var main = (function(){
         title = 'Having trouble…';
         description = 'We’re having trouble loading Streetmix.<br><button class="new">Try again</button>';
         break;
-
+      case ERROR_TWITTER_ACCESS_DENIED:
+        title = 'You are not signed in.';
+        description = 'You cancelled the Twitter sign in process.<br><button class="home">Go to the homepage</button>';
+        break;
+      case ERROR_AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN:
+      case ERROR_AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN:
+      case ERROR_AUTH_PROBLEM_API_PROBLEM:
+        title = 'There was a problem with signing you in.';
+        // TODO const for feedback
+        description = 'There was a problem with Twitter authentication. Please try again later or let us know via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmixapp">Twitter</a>.<br><button class="home">Go to the homepage</button>';
+        break;
+      case ERROR_GENERIC_ERROR:
+        title = 'Something went wrong.';
+        // TODO const for feedback
+        description = 'We’re sorry – something went wrong. Please try again later or let us know via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmixapp">Twitter</a>.<br><button class="home">Go to the homepage</button>';
+        break;
     }
 
     document.querySelector('#error h1').innerHTML = title;
@@ -5545,10 +5573,36 @@ var main = (function(){
     currentErrorType = null;
   }
 
+  function _showErrorFromUrl() {
+    // TODO const
+    switch (errorUrl) {
+      case 'twitter-access-denied':
+        var errorType = ERROR_TWITTER_ACCESS_DENIED;
+        break;
+      case 'no-twitter-request-token':
+        var errorType = ERROR_AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN;
+        break;
+      case 'no-twitter-access-token':
+        var errorType = ERROR_AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN;
+        break;
+      case 'authentication-api-problem':
+        var errorType = ERROR_AUTH_PROBLEM_API_PROBLEM;
+        break;
+      default:
+        var errorType = ERROR_GENERIC_ERROR;
+        break;
+    }
+
+    _showError(errorType, true);
+  }
+
   function _processMode() {
     serverContacted = true;
 
     switch (mode) {
+      case MODE_ERROR:
+        _showErrorFromUrl();
+        break;
       case MODE_404:
         _showError(ERROR_TYPE_404, true);
         break;
