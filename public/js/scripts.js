@@ -8,8 +8,6 @@
  * this all.
  */
 
-alert(1);
-
 var main = (function(){
 "use strict";
   var main = {};
