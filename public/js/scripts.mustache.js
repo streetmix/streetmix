@@ -74,6 +74,7 @@ var main = (function(){
       'help', URL_GLOBAL_GALLERY, URL_ERROR, 'streets'];
   var URL_RESERVED_PREFIX = '~';
 
+  // TODO these two below should be unified somehow
   var MODE_CONTINUE = 1;
   var MODE_NEW_STREET = 2;
   var MODE_NEW_STREET_COPY_LAST = 3;
@@ -87,10 +88,11 @@ var main = (function(){
   var MODE_GLOBAL_GALLERY = 11;
   var MODE_FORCE_RELOAD_SIGN_OUT_401 = 12;
   var MODE_ERROR = 13;
+  var MODE_UNSUPPORTED_BROWSER = 14;
 
-  var ERROR_TYPE_404 = 1;
-  var ERROR_TYPE_SIGN_OUT = 2;
-  var ERROR_TYPE_NO_STREET = 3; // for gallery if you delete the street you were looking at
+  var ERROR_404 = 1;
+  var ERROR_SIGN_OUT = 2;
+  var ERROR_NO_STREET = 3; // for gallery if you delete the street you were looking at
   var ERROR_FORCE_RELOAD_SIGN_IN = 4;
   var ERROR_FORCE_RELOAD_SIGN_OUT = 5;
   var ERROR_STREET_DELETED_ELSEWHERE = 6;
@@ -101,6 +103,7 @@ var main = (function(){
   var ERROR_AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN = 11;
   var ERROR_AUTH_PROBLEM_API_PROBLEM = 12;
   var ERROR_GENERIC_ERROR = 13;
+  var ERROR_UNSUPPORTED_BROWSER = 14;
 
   var TWITTER_ID = '@streetmixapp';
 
@@ -4011,7 +4014,7 @@ var main = (function(){
     // TODO escape name
     if (confirm(prompt)) {
       if (el.getAttribute('streetId') == street.id) {
-        _showError(ERROR_TYPE_NO_STREET, false);
+        _showError(ERROR_NO_STREET, false);
       }
 
       _sendDeleteStreetToServer(el.getAttribute('streetId'));
@@ -4206,7 +4209,7 @@ var main = (function(){
 
     if ((mode == MODE_USER_GALLERY) || (mode == MODE_GLOBAL_GALLERY)) {
       // Prevents showing old street before the proper street loads
-      _showError(ERROR_TYPE_NO_STREET, false);
+      _showError(ERROR_NO_STREET, false);
     }
 
     _loadGalleryContents();
@@ -4219,7 +4222,7 @@ var main = (function(){
   }
 
   function _hideGallery(instant) {
-    if ((currentErrorType != ERROR_TYPE_NO_STREET) && galleryStreetLoaded) {
+    if ((currentErrorType != ERROR_NO_STREET) && galleryStreetLoaded) {
       galleryVisible = false;
 
       if (instant) {
@@ -4405,7 +4408,6 @@ var main = (function(){
 
     system.apiUrl = API_URL
     document.body.classList.add('environment-{{env}}');
-
   }
 
   function _detectSystemCapabilities() {
@@ -4426,6 +4428,12 @@ var main = (function(){
         system.cssTransform = CSS_TRANSFORMS[i];
         break;
       }
+    }
+
+    // TODO temporary ban
+    if ((navigator.userAgent.indexOf('Opera') != -1) || (navigator.userAgent.indexOf('Internet Explorer') != -1)) {
+      mode = MODE_UNSUPPORTED_BROWSER;
+      _processMode();
     }
   }
 
@@ -5379,6 +5387,8 @@ var main = (function(){
   function _fetchStreetFromServer() {
     var url = _getFetchStreetUrl();
 
+    console.log('URL', url);
+
     jQuery.ajax({
       url: url,
       dataType: 'json',
@@ -5437,6 +5447,9 @@ var main = (function(){
   function _errorReceiveStreet(data) {
     if ((mode == MODE_CONTINUE) || (mode == MODE_USER_GALLERY) || 
         (mode == MODE_GLOBAL_GALLERY)) {
+      //console.log('ERROR', data);
+      //abortEverything = true;
+      
       _goNewStreet();
     } else {
       if (data.status == 404) {
@@ -5484,16 +5497,16 @@ var main = (function(){
     abortEverything = newAbortEverything;
 
     switch (errorType) {
-      case ERROR_TYPE_404:
+      case ERROR_404:
         title = 'Page not found.';
         description = 'Oh, boy. There is no page with this address!<br><button class="home">Go to the homepage</button>';
         // TODO go to homepage
         break;
-      case ERROR_TYPE_SIGN_OUT:
+      case ERROR_SIGN_OUT:
         title = 'You are now signed out.';
         description = '<button class="sign-in">Sign in again</button> <button class="home">Go to the homepage</button>';
         break;
-      case ERROR_TYPE_NO_STREET:
+      case ERROR_NO_STREET:
         title = 'No street selected.';
         break;
       case ERROR_FORCE_RELOAD_SIGN_OUT:
@@ -5531,6 +5544,11 @@ var main = (function(){
         title = 'Something went wrong.';
         // TODO const for feedback
         description = 'We’re sorry – something went wrong. Please try again later or let us know via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmixapp">Twitter</a>.<br><button class="home">Go to the homepage</button>';
+        break;
+      case ERROR_UNSUPPORTED_BROWSER:
+        title = 'Streetmix doesn’t work on your browser.';
+        // TODO const for feedback
+        description = 'Sorry about that. You might want to try <a target="_blank" href="http://www.google.com/chrome">Chrome</a>, <a target="_blank" href="http://www.mozilla.org/firefox">Firefox</a>, or Safari. If you think your browser should be supported, let us know via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmixapp">Twitter</a>.';
         break;
     }
 
@@ -5603,11 +5621,14 @@ var main = (function(){
       case MODE_ERROR:
         _showErrorFromUrl();
         break;
+      case MODE_UNSUPPORTED_BROWSER:
+        _showError(ERROR_UNSUPPORTED_BROWSER, true);
+        break;
       case MODE_404:
-        _showError(ERROR_TYPE_404, true);
+        _showError(ERROR_404, true);
         break;
       case MODE_SIGN_OUT:
-        _showError(ERROR_TYPE_SIGN_OUT, true);
+        _showError(ERROR_SIGN_OUT, true);
         break;
       case MODE_FORCE_RELOAD_SIGN_OUT:
         _showError(ERROR_FORCE_RELOAD_SIGN_OUT, true);
