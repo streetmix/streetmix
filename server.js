@@ -1,5 +1,7 @@
 var fs = require('fs'),
     express = require('express'),
+    request = require('request'),
+    url = require('url'),
     lessMiddleware = require('less-middleware'),
     config = require('config'),
     mustache = require('mustache'),
@@ -32,6 +34,29 @@ app.use(express.static(__dirname + '/public'))
 
 app.get('/twitter-sign-in', controllers.twitter_sign_in.get)
 app.get(config.twitter.oauth_callback_uri, controllers.twitter_sign_in_callback.get)
+
+app.all('*', function(req, res, next) {
+  var apiUrlRegexp = new RegExp("^" + config.restapi_proxy_baseuri_rel)
+  if (req.url.match(apiUrlRegexp)) {
+
+    var targetUri = config.restapi_baseuri + req.url.replace(apiUrlRegexp, '')
+
+    var headers = req.headers
+    headers.host = url.parse(config.restapi_baseuri).hostname
+
+    console.log('Routing request %s %s to %s...', req.method, req.url, targetUri)
+
+    req.pipe(request({
+      method: req.method,
+      uri: targetUri,
+      headers: headers,
+      followRedirect: false
+    })).pipe(res)
+      
+  } else {
+    next('route')
+  }
+})
 
 // Catch-all
 app.use(function(req, res) {
