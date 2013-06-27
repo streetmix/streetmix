@@ -5457,6 +5457,7 @@ var main = (function(){
         mode = MODE_404;
         _processMode();
       } else {
+        console.log('_errorReceiveStreet:', data.status);
         _showError(ERROR_NEW_STREET_SERVER_FAILURE, true);
       }
     }
