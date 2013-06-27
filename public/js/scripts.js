@@ -45,12 +45,12 @@ var main = (function(){
 
   var SITE_URL_LOCAL = 'http://localhost:8000/';
   var SITE_URL_STAGING = 'http://streetmix-staging.herokuapp.com/';
-  var SITE_URL_STAGING_MWICHARY = 'http://streetmix-staging-mwichary.herokuapp.com/';
+  var SITE_URL_STAGING_MWICHARY = 'http://streetmix-sandbox.herokuapp.com/';
   var SITE_URL_PRODUCTION = 'http://streetmix.net/';
 
   var API_URL_LOCAL = 'http://localhost:8080/';
   var API_URL_STAGING = 'http://streetmix-api-staging.herokuapp.com/';
-  var API_URL_STAGING_MWICHARY = API_URL_STAGING;
+  var API_URL_STAGING_MWICHARY = 'http://streetmix-api-sandbox.herokuapp.com/';;
   var API_URL_PRODUCTION = 'http://streetmix-api.herokuapp.com/';
 
   var IP_GEOCODING_API_URL = 'http://freegeoip.net/json/';
