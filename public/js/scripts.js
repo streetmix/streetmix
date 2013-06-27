@@ -1796,7 +1796,7 @@ var main = (function(){
     return street;
   }
 
-  function _unpackServerStreetData(transmission, id, namespacedId) {
+  function _unpackServerStreetData(transmission, id, namespacedId, checkIfNeedsToBeRemixed) {
     //console.log('unpack server street data', transmission);
 
     street = _unpackStreetDataFromServerTransmission(transmission);
@@ -1817,10 +1817,20 @@ var main = (function(){
       _setStreetId(transmission.id, transmission.namespacedId);
     }
 
-    if (updatedSchema) {
-      console.log('saving because of updated schema…');
-      _saveStreetToServer();
+    if (checkIfNeedsToBeRemixed) {
+      if (!signedIn || (street.creatorId != signInData.userId)) {
+        remixOnFirstEdit = true;
+      } else {
+        remixOnFirstEdit = false;
+      }
+
+      if (updatedSchema && !remixOnFirstEdit) {
+        console.log('saving because of updated schema…');
+        _saveStreetToServer();
+      }
     }
+
+    //console.log(remixOnFirstEdit);
   }
 
   function _packServerStreetData() {
@@ -3776,7 +3786,7 @@ var main = (function(){
 
       _statusMessage.show(msg('STATUS_RELOADED_FROM_SERVER'));
 
-      _unpackServerStreetData(transmission);
+      _unpackServerStreetData(transmission, null, null, false);
       _updateEverything();
     }
   }
@@ -3908,7 +3918,7 @@ var main = (function(){
 
     ignoreStreetChanges = true;
 
-    _unpackServerStreetData(transmission, street.id, street.namespacedId);
+    _unpackServerStreetData(transmission, street.id, street.namespacedId, false);
     street.originalStreetId = settings.priorLastStreetId;
     _addRemixSuffixToName();
 
@@ -4021,20 +4031,20 @@ var main = (function(){
     _updateGallerySelection();
   }
 
-  function _checkIfNeedsToBeRemixed() {
+  /*function _checkIfNeedsToBeRemixed() {
     if (!signedIn || (street.creatorId != signInData.userId)) {
       remixOnFirstEdit = true;
     } else {
       remixOnFirstEdit = false;
     }
-  }
+  }*/
 
   function _receiveStreet(transmission) {
     //console.log('received street', transmission);
 
-    _unpackServerStreetData(transmission);
+    _unpackServerStreetData(transmission, null, null, true);
 
-    _checkIfNeedsToBeRemixed();
+    //_checkIfNeedsToBeRemixed();
 
     _propagateUnits();
 
@@ -4060,9 +4070,9 @@ var main = (function(){
 
     _hideError();
 
-    _unpackServerStreetData(transmission);
+    _unpackServerStreetData(transmission, null, null, true);
 
-    _checkIfNeedsToBeRemixed();
+    //_checkIfNeedsToBeRemixed();
 
     _propagateUnits();
 
