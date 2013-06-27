@@ -51,11 +51,11 @@ var main = (function(){
 
   var URL_SIGN_IN_CALLBACK_REL = '{{{twitter.oauth_callback_uri}}}';
   var URL_SIGN_IN_CALLBACK_ABS = location.protocol + '//' + location.host + URL_SIGN_IN_CALLBACK_REL;
-  var URL_SIGN_IN_CALLBACK = URL_SIGN_IN_CALLBACK_REL.replace(/^\//, '')
+  var URL_SIGN_IN_CALLBACK = URL_SIGN_IN_CALLBACK_REL.replace(/^\//, '');
 
   var URL_JUST_SIGNED_IN_REL = '/just-signed-in';
   var URL_JUST_SIGNED_IN_ABS = location.protocol + '//' + location.host + URL_JUST_SIGNED_IN_REL;
-  var URL_JUST_SIGNED_IN = URL_JUST_SIGNED_IN_REL.replace(/^\//, '')
+  var URL_JUST_SIGNED_IN = URL_JUST_SIGNED_IN_REL.replace(/^\//, '');
 
   var URL_NEW_STREET = 'new';
   var URL_NEW_STREET_COPY_LAST = 'copy-last';
