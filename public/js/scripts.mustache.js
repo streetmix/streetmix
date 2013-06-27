@@ -60,6 +60,7 @@ var main = (function(){
   var URL_NEW_STREET = 'new';
   var URL_NEW_STREET_COPY_LAST = 'copy-last';
   var URL_GLOBAL_GALLERY = 'gallery';
+  var URL_ERROR = 'error';
   var URL_NO_USER = '-';
 
   var URL_SIGN_IN_REDIRECT = URL_SIGN_IN + '?callbackUri=' + URL_SIGN_IN_CALLBACK_ABS + '&redirectUri=' + URL_JUST_SIGNED_IN_ABS;
@@ -70,9 +71,10 @@ var main = (function(){
       [URL_SIGN_IN, URL_SIGN_IN_CALLBACK,
       URL_NEW_STREET, URL_NEW_STREET_COPY_LAST,
       URL_JUST_SIGNED_IN,
-      'help', URL_GLOBAL_GALLERY, 'error', 'streets'];
+      'help', URL_GLOBAL_GALLERY, URL_ERROR, 'streets'];
   var URL_RESERVED_PREFIX = '~';
 
+  // TODO these two below should be unified somehow
   var MODE_CONTINUE = 1;
   var MODE_NEW_STREET = 2;
   var MODE_NEW_STREET_COPY_LAST = 3;
@@ -85,15 +87,23 @@ var main = (function(){
   var MODE_USER_GALLERY = 10;
   var MODE_GLOBAL_GALLERY = 11;
   var MODE_FORCE_RELOAD_SIGN_OUT_401 = 12;
+  var MODE_ERROR = 13;
+  var MODE_UNSUPPORTED_BROWSER = 14;
 
-  var ERROR_TYPE_404 = 1;
-  var ERROR_TYPE_SIGN_OUT = 2;
-  var ERROR_TYPE_NO_STREET = 3; // for gallery if you delete the street you were looking at
+  var ERROR_404 = 1;
+  var ERROR_SIGN_OUT = 2;
+  var ERROR_NO_STREET = 3; // for gallery if you delete the street you were looking at
   var ERROR_FORCE_RELOAD_SIGN_IN = 4;
   var ERROR_FORCE_RELOAD_SIGN_OUT = 5;
   var ERROR_STREET_DELETED_ELSEWHERE = 6;
   var ERROR_NEW_STREET_SERVER_FAILURE = 7;
   var ERROR_FORCE_RELOAD_SIGN_OUT_401 = 8;
+  var ERROR_TWITTER_ACCESS_DENIED = 9;
+  var ERROR_AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN = 10;
+  var ERROR_AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN = 11;
+  var ERROR_AUTH_PROBLEM_API_PROBLEM = 12;
+  var ERROR_GENERIC_ERROR = 13;
+  var ERROR_UNSUPPORTED_BROWSER = 14;
 
   var TWITTER_ID = '@streetmixapp';
 
@@ -639,6 +649,7 @@ var main = (function(){
   // ------------------------------------------------------------------------
 
   var mode;
+  var errorUrl = '';
   var abortEverything;
   var currentErrorType;
 
@@ -4003,7 +4014,7 @@ var main = (function(){
     // TODO escape name
     if (confirm(prompt)) {
       if (el.getAttribute('streetId') == street.id) {
-        _showError(ERROR_TYPE_NO_STREET, false);
+        _showError(ERROR_NO_STREET, false);
       }
 
       _sendDeleteStreetToServer(el.getAttribute('streetId'));
@@ -4198,7 +4209,7 @@ var main = (function(){
 
     if ((mode == MODE_USER_GALLERY) || (mode == MODE_GLOBAL_GALLERY)) {
       // Prevents showing old street before the proper street loads
-      _showError(ERROR_TYPE_NO_STREET, false);
+      _showError(ERROR_NO_STREET, false);
     }
 
     _loadGalleryContents();
@@ -4211,7 +4222,7 @@ var main = (function(){
   }
 
   function _hideGallery(instant) {
-    if ((currentErrorType != ERROR_TYPE_NO_STREET) && galleryStreetLoaded) {
+    if ((currentErrorType != ERROR_NO_STREET) && galleryStreetLoaded) {
       galleryVisible = false;
 
       if (instant) {
@@ -4397,7 +4408,6 @@ var main = (function(){
 
     system.apiUrl = API_URL
     document.body.classList.add('environment-{{env}}');
-
   }
 
   function _detectSystemCapabilities() {
@@ -4418,6 +4428,12 @@ var main = (function(){
         system.cssTransform = CSS_TRANSFORMS[i];
         break;
       }
+    }
+
+    // TODO temporary ban
+    if ((navigator.userAgent.indexOf('Opera') != -1) || (navigator.userAgent.indexOf('Internet Explorer') != -1)) {
+      mode = MODE_UNSUPPORTED_BROWSER;
+      _processMode();
     }
   }
 
@@ -5276,8 +5292,14 @@ var main = (function(){
       // Coming back from a successful sign in
 
       mode = MODE_JUST_SIGNED_IN;
+    } else if ((urlParts.length >= 1) && (urlParts[0] == URL_ERROR)) {
+      // Error
+
+      mode = MODE_ERROR;
+      errorUrl = urlParts[1];
+
     } else if ((urlParts.length == 1) && (urlParts[0] == URL_GLOBAL_GALLERY)) {
-      // User gallery
+      // Global gallery
 
       mode = MODE_GLOBAL_GALLERY;
     } else if ((urlParts.length == 1) && urlParts[0]) {
@@ -5308,7 +5330,6 @@ var main = (function(){
 
       mode = MODE_EXISTING_STREET;
     } else {
-      console.log('_processUrl() weird url');
       mode = MODE_404;
 
       // 404: bad URL
@@ -5365,6 +5386,8 @@ var main = (function(){
 
   function _fetchStreetFromServer() {
     var url = _getFetchStreetUrl();
+
+    console.log('URL', url);
 
     jQuery.ajax({
       url: url,
@@ -5424,6 +5447,9 @@ var main = (function(){
   function _errorReceiveStreet(data) {
     if ((mode == MODE_CONTINUE) || (mode == MODE_USER_GALLERY) || 
         (mode == MODE_GLOBAL_GALLERY)) {
+      //console.log('ERROR', data);
+      //abortEverything = true;
+      
       _goNewStreet();
     } else {
       if (data.status == 404) {
@@ -5431,6 +5457,7 @@ var main = (function(){
         mode = MODE_404;
         _processMode();
       } else {
+        console.log('_errorReceiveStreet:', data.status);
         _showError(ERROR_NEW_STREET_SERVER_FAILURE, true);
       }
     }
@@ -5471,16 +5498,16 @@ var main = (function(){
     abortEverything = newAbortEverything;
 
     switch (errorType) {
-      case ERROR_TYPE_404:
+      case ERROR_404:
         title = 'Page not found.';
         description = 'Oh, boy. There is no page with this address!<br><button class="home">Go to the homepage</button>';
         // TODO go to homepage
         break;
-      case ERROR_TYPE_SIGN_OUT:
+      case ERROR_SIGN_OUT:
         title = 'You are now signed out.';
         description = '<button class="sign-in">Sign in again</button> <button class="home">Go to the homepage</button>';
         break;
-      case ERROR_TYPE_NO_STREET:
+      case ERROR_NO_STREET:
         title = 'No street selected.';
         break;
       case ERROR_FORCE_RELOAD_SIGN_OUT:
@@ -5503,7 +5530,27 @@ var main = (function(){
         title = 'Having trouble…';
         description = 'We’re having trouble loading Streetmix.<br><button class="new">Try again</button>';
         break;
-
+      case ERROR_TWITTER_ACCESS_DENIED:
+        title = 'You are not signed in.';
+        description = 'You cancelled the Twitter sign in process.<br><button class="home">Go to the homepage</button>';
+        break;
+      case ERROR_AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN:
+      case ERROR_AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN:
+      case ERROR_AUTH_PROBLEM_API_PROBLEM:
+        title = 'There was a problem with signing you in.';
+        // TODO const for feedback
+        description = 'There was a problem with Twitter authentication. Please try again later or let us know via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmixapp">Twitter</a>.<br><button class="home">Go to the homepage</button>';
+        break;
+      case ERROR_GENERIC_ERROR:
+        title = 'Something went wrong.';
+        // TODO const for feedback
+        description = 'We’re sorry – something went wrong. Please try again later or let us know via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmixapp">Twitter</a>.<br><button class="home">Go to the homepage</button>';
+        break;
+      case ERROR_UNSUPPORTED_BROWSER:
+        title = 'Streetmix doesn’t work on your browser.';
+        // TODO const for feedback
+        description = 'Sorry about that. You might want to try <a target="_blank" href="http://www.google.com/chrome">Chrome</a>, <a target="_blank" href="http://www.mozilla.org/firefox">Firefox</a>, or Safari. If you think your browser should be supported, let us know via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmixapp">Twitter</a>.';
+        break;
     }
 
     document.querySelector('#error h1').innerHTML = title;
@@ -5545,15 +5592,44 @@ var main = (function(){
     currentErrorType = null;
   }
 
+  function _showErrorFromUrl() {
+    // TODO const
+    switch (errorUrl) {
+      case 'twitter-access-denied':
+        var errorType = ERROR_TWITTER_ACCESS_DENIED;
+        break;
+      case 'no-twitter-request-token':
+        var errorType = ERROR_AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN;
+        break;
+      case 'no-twitter-access-token':
+        var errorType = ERROR_AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN;
+        break;
+      case 'authentication-api-problem':
+        var errorType = ERROR_AUTH_PROBLEM_API_PROBLEM;
+        break;
+      default:
+        var errorType = ERROR_GENERIC_ERROR;
+        break;
+    }
+
+    _showError(errorType, true);
+  }
+
   function _processMode() {
     serverContacted = true;
 
     switch (mode) {
+      case MODE_ERROR:
+        _showErrorFromUrl();
+        break;
+      case MODE_UNSUPPORTED_BROWSER:
+        _showError(ERROR_UNSUPPORTED_BROWSER, true);
+        break;
       case MODE_404:
-        _showError(ERROR_TYPE_404, true);
+        _showError(ERROR_404, true);
         break;
       case MODE_SIGN_OUT:
-        _showError(ERROR_TYPE_SIGN_OUT, true);
+        _showError(ERROR_SIGN_OUT, true);
         break;
       case MODE_FORCE_RELOAD_SIGN_OUT:
         _showError(ERROR_FORCE_RELOAD_SIGN_OUT, true);
