@@ -44,8 +44,6 @@ app.all('*', function(req, res, next) {
     var headers = req.headers
     headers.host = url.parse(config.restapi_baseuri).hostname
 
-    console.log('Routing request %s %s to %s...', req.method, req.url, targetUri)
-
     req.pipe(request({
       method: req.method,
       uri: targetUri,
