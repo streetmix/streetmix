@@ -1,8 +1,11 @@
 var port = process.env.PORT || 8000
+process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 
 module.exports = {
+  env: process.env.NODE_ENV,
   port: port,
   app_host_port: 'localhost:' + port,
+  header_host_port: 'localhost:' + port,
   twitter: {
     oauth_request_token_api_uri: 'https://api.twitter.com/oauth/request_token',
     oauth_access_token_api_uri: 'https://api.twitter.com/oauth/access_token',
@@ -13,5 +16,7 @@ module.exports = {
     oauth_callback_uri: '/twitter-sign-in-callback',
     oauth_signature_method: 'HMAC-SHA1'
   },
-  restapi_baseuri: 'http://localhost:8080'
+  restapi_baseuri: 'http://localhost:8080',
+  facebook_app_id: '204327799717656',
+  restapi_proxy_baseuri_rel: '/__api__'
 }
