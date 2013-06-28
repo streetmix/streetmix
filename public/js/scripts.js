@@ -5776,8 +5776,6 @@ var main = (function(){
       dataType: 'json',
       headers: { 'Authorization': _getAuthHeader() }
     }).done(_receiveSignInDetails).fail(_errorReceiveSignInDetails);
-
-    //console.log(system.apiUrl + 'v1/users/' + signInData.userId);
   }
 
   function _receiveSignInDetails(details) {
@@ -5801,7 +5799,7 @@ var main = (function(){
     // It also, unfortunately, might mean regular server failure, too. Marcin
     // doesn’t know what to do with it yet. Open issue #339.
 
-    console.log(data);
+    //console.log(data);
 
     /*if (data.status == 0) {
       _showError(ERROR_NEW_STREET_SERVER_FAILURE, true);
@@ -5896,20 +5894,13 @@ var main = (function(){
 
     if ((mode == MODE_CONTINUE) || (mode == MODE_JUST_SIGNED_IN) || 
         (mode == MODE_USER_GALLERY) || (mode == MODE_GLOBAL_GALLERY)) {
-      //console.log('inside', mode == MODE_JUST_SIGNED_IN);
       if (settings.lastStreetId) {
-        //console.log('further inside…');
         street.creatorId = settings.lastStreetCreatorId;
         street.id = settings.lastStreetId;
         street.namespacedId = settings.lastStreetNamespacedId;
 
-        //console.log('!');
-        //console.log(mode == MODE_JUST_SIGNED_IN);
-        //console.log(street);
-
         if ((mode == MODE_JUST_SIGNED_IN) && (!street.creatorId)) {
           promoteStreet = true;
-          //console.log('promoting!');
         }
         
         if (mode == MODE_JUST_SIGNED_IN) {
@@ -6058,7 +6049,7 @@ var main = (function(){
 
       mode = MODE_EXISTING_STREET;
     } else {
-      console.log('_processUrl() weird url');
+      //console.log('_processUrl() weird url');
       mode = MODE_404;
 
       // 404: bad URL
@@ -6130,7 +6121,7 @@ var main = (function(){
       var userId = el.getAttribute('userId');
 
       if (avatarCache[userId]) {
-        console.log('AVATAR updated', userId);
+        //console.log('AVATAR updated', userId);
         el.style.backgroundImage = 'url(' + avatarCache[userId] + ')';
         el.setAttribute('loaded', true);
       }
@@ -6144,7 +6135,7 @@ var main = (function(){
       var userId = el.getAttribute('userId');
 
       if (userId && (typeof avatarCache[userId] == 'undefined')) {
-        console.log('AVATAR trying to fetch', userId);
+        //console.log('AVATAR trying to fetch', userId);
 
         _fetchAvatar(userId);
       }
@@ -6163,9 +6154,9 @@ var main = (function(){
   }
 
   function _receiveAvatar(details) {
-    console.log(details);
+    //console.log(details);
     if (details && details.id && details.profileImageUrl) {
-      console.log('AVATAR receive', details.id);
+      //console.log('AVATAR receive', details.id);
       avatarCache[details.id] = details.profileImageUrl;
       _updateAvatars();
     }
