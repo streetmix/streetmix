@@ -116,7 +116,8 @@ var main = (function(){
     // 1: starting point
     // 2: adding leftBuildingHeight and rightBuildingHeight
     // 3: adding leftBuildingVariant and rightBuildingVariant
-  var TILESET_IMAGE_VERSION = 18;
+    // 4: adding transit shelter elevation
+  var TILESET_IMAGE_VERSION = 19;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
   var TILESET_POINT_PER_PIXEL = 2.0;
@@ -323,6 +324,7 @@ var main = (function(){
     'turn-lane-orientation': ['left', 'right'],
     'planting-strip-type': ['', 'palm-tree'],
     'orientation': ['left', 'right'],
+    'transit-shelter-elevation': ['street-level', 'light-rail']
   };
 
   var SEGMENT_INFO = {
@@ -615,6 +617,38 @@ var main = (function(){
         }
       }
     },
+    'streetcar': {
+      name: 'Streetcar',
+      owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
+      defaultWidth: 10,
+      variants: ['direction'],
+      details: {
+        'inbound': {
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: [
+              { x: 192, y: 1, width: 12, height: 17, offsetX: -1, offsetY: -1 }, // Streetcar
+              { x: 26, y: 57, width: 12, height: 5, offsetX: -2, offsetY: 10 }, // Track
+              { x: 28, y: 15, width: 8, height: 5, offsetX: 1, offsetY: 10 }, // Arrow (inbound)
+            ],
+            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+          }          
+        },
+        'outbound': {
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: [
+              { x: 204, y: 1, width: 12, height: 17, offsetX: -1, offsetY: -1 }, // Streetcar
+              { x: 26, y: 57, width: 12, height: 5, offsetX: -2, offsetY: 10 }, // Track
+              { x: 37, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow (outbound)
+            ],
+            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+          }          
+        },
+      }     
+    },
     'light-rail': {
       name: 'Light rail',
       owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
@@ -653,16 +687,30 @@ var main = (function(){
       name: 'Transit shelter',
       owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
       defaultWidth: 9,
-      variants: ['orientation'],
+      variants: ['orientation', 'transit-shelter-elevation'],
       details: {
-        'left': {
+        'left|street-level': {
           minWidth: 9,
           graphics: {
             left: { x: 171, y: 1, width: 9, height: 12, offsetY: -1 },
             repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
           }          
         },
-        'right': {
+        'right|street-level': {
+          minWidth: 9,
+          graphics: {
+            right: { x: 181, y: 1, width: 9, height: 12, offsetY: -1 },
+            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
+          }          
+        },
+        'left|light-rail': {
+          minWidth: 9,
+          graphics: {
+            left: { x: 171, y: 1, width: 9, height: 12, offsetY: -1 },
+            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
+          }          
+        },
+        'right|light-rail': {
           minWidth: 9,
           graphics: {
             right: { x: 181, y: 1, width: 9, height: 12, offsetY: -1 },
@@ -1937,6 +1985,23 @@ var main = (function(){
     street.schemaVersion = 3;
   }
 
+  function _updateSchemaToVersion4(street) {
+    for (var i in street.segments) {
+      var segment = street.segments[i];
+      if (segment.type == 'transit-shelter') {
+        //console.log(street.segments[i]);
+        var variant = _getVariantArray(segment.type, segment.variantString);
+        variant['transit-shelter-elevation'] = 'street-level';
+        segment.variantString =  _getVariantString(variant);
+        //console.log('a');
+      }
+    }
+
+    //street.leftBuildingVariant = DEFAULT_BUILDING_VARIANT;
+    //street.rightBuildingVariant = DEFAULT_BUILDING_VARIANT;
+    street.schemaVersion = 4;
+  }
+
   function _updateToLatestSchemaVersion(street) {
     var updated = false;
     if (!street.schemaVersion || (street.schemaVersion == 1)) {
@@ -1950,6 +2015,13 @@ var main = (function(){
       console.log('updated schema to 3');
 
       _updateSchemaToVersion3(street);
+      updated = true;
+    }
+    
+    if (street.schemaVersion == 3) {
+      console.log('updated schema to 4');
+
+      _updateSchemaToVersion4(street);
       updated = true;
     }
     
