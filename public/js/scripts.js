@@ -1071,7 +1071,7 @@ var main = (function(){
           width * TILE_SIZE * multiplier, variantInfo.graphics.center[l].height * TILE_SIZE * multiplier);
       }
     }
-    
+
     _removeElFromDom(el.querySelector('canvas'));
     el.appendChild(canvasEl);
 
@@ -3193,13 +3193,13 @@ var main = (function(){
 
       el.classList.add('palette');
 
-      document.querySelector('#palette').appendChild(el);
+      document.querySelector('.palette-canvas').appendChild(el);
     }
 
     //console.log(document.querySelector('#palette').scrollWidth);
 
-    document.querySelector('#palette').style.width = 
-        document.querySelector('#palette').scrollWidth + 'px';
+    document.querySelector('.palette-canvas').style.width = 
+        document.querySelector('.palette-canvas').scrollWidth + 'px';
   }
 
   function _resizeStreetWidth() {

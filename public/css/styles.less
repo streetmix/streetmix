@@ -551,12 +551,6 @@ footer {
   padding-right: 10px;
   padding-left: 10px;
 
-  white-space: nowrap;
-
-  background: url(../images/toolbox-bk.png);
-
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, .4);
-
   text-align: center;
 
   z-index: 2000;
@@ -564,21 +558,31 @@ footer {
   -webkit-user-select: none;
   user-select: none;
 }
-#palette {
+.footer-canvas {
+  width: 100%;
+  height: @paletteHeight;
+  max-width: 800px;
   display: inline-block;
+  position: relative;
 
-
+  background: rgb(210, 212, 210);
+}
+#palette {
   height: @paletteHeight + 20px; // To cover scroll bars
 
   padding-left: 15px;
   padding-right: 15px;
-  margin-left: 20px;
-  margin-right: 20px;
+
+  position: absolute;
+  left: 250px;
+  top: 0;
+  right: 10px;
 
   overflow-x: scroll;
   overflow-y: hidden;
-
-  position: relative;
+}
+.palette-canvas {
+  white-space: nowrap;
 }
 #trashcan {
   position: absolute;
@@ -610,10 +614,14 @@ footer {
 }
 
 #commands {
-  display: inline-block;
+  //display: inline-block;
   vertical-align: top;
+
+  position: absolute;
+  left: 10px;
+  top: 10px;
+
   width: 250px;
-  margin-top: 10px;
   height: @paletteHeight - 20px;
   position: relative;
 
@@ -690,6 +698,8 @@ body.immediate-segment-resize .segment {
   margin: 12px 5px;
   height: 80px;
   background-color: rgba(25, 25, 25, .5);
+
+  border: 1px dashed black;
 }
 
 .segment:not(.unmovable).hover {
@@ -2052,6 +2062,10 @@ button.scroll-right {
 footer button.scroll-left,
 footer button.scroll-right {
   margin-top: 30px;
+
+  &.scroll-right {
+    margin-left: -25px;
+  }
 }
 
 #gallery button.scroll-left,
