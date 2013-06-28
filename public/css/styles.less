@@ -444,13 +444,6 @@ body > header {
   right: 0;
   bottom: 0;
 }
-/*#street-width-canvas {
-  position: absolute;
-  top: 5px;
-  width: 500px;
-  height: 20px;
-  text-align: center;
-}*/
 #street-width {
   width: 150px;
 }
@@ -555,7 +548,7 @@ body > header {
     position: absolute;
     z-index: -1;
     left: 0;
-    top: 0;
+    top: -1000px;
     bottom: 0;
     right: 0;
     //background: red;
@@ -1967,9 +1960,6 @@ body.no-connection-message-visible #status-message {
     white-space: nowrap;
 
     text-align: right;
-
-    button {
-    }  
 
     &.entire-info-bubble {
       width: auto;

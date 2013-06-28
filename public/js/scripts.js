@@ -1522,6 +1522,29 @@ var main = (function(){
     ctx.fillRect(0, 0, width * system.hiDpi, height * system.hiDpi);
   }
 
+  function _changeBuildingHeight(left, increment) {
+    if (left) {
+      if (increment) {
+        if (street.leftBuildingHeight < 10) {
+          street.leftBuildingHeight++;
+        }
+      } else if (street.leftBuildingHeight > 1) {
+        street.leftBuildingHeight--;
+      }
+    } else {
+      if (increment) {
+        if (street.rightBuildingHeight < 10) {
+          street.rightBuildingHeight++;
+        }
+      } else if (street.rightBuildingHeight > 1) {
+        street.rightBuildingHeight--;
+      }
+    }
+
+    _saveStreetToServerIfNecessary();
+    _createBuildings();
+  }
+
   function _createBuildings() {
     var el = document.querySelector('#street-section-left-building');
     // TODO nasty
@@ -1547,7 +1570,13 @@ var main = (function(){
   }
 
   function _onBuildingMouseEnter() {
-    _infoBubble.considerShowing(event, this, INFO_BUBBLE_TYPE_LEFT_BUILDING);
+    if (this.id == 'street-section-left-building') {
+      var type = INFO_BUBBLE_TYPE_LEFT_BUILDING;
+    } else {
+      var type = INFO_BUBBLE_TYPE_RIGHT_BUILDING;
+    }
+
+    _infoBubble.considerShowing(event, this, type);
   }
 
   function _onBuildingMouseLeave() {
@@ -3596,46 +3625,6 @@ var main = (function(){
           event.preventDefault();
         }
         break;
-      case 49: // 1
-        if (document.activeElement == document.body) {
-          if (street.leftBuildingHeight > 1) {
-            street.leftBuildingHeight--;
-            _saveStreetToServerIfNecessary();
-            _createBuildings();
-          }
-          event.preventDefault();
-        }
-        break;
-      case 50: // 2
-        if (document.activeElement == document.body) {
-          if (street.leftBuildingHeight < 10) {
-            street.leftBuildingHeight++;
-            _saveStreetToServerIfNecessary();
-            _createBuildings();
-          }
-          event.preventDefault();
-        }
-        break;
-      case 48: // 0
-        if (document.activeElement == document.body) {
-          if (street.rightBuildingHeight > 1) {
-            street.rightBuildingHeight--;
-            _saveStreetToServerIfNecessary();
-            _createBuildings();
-          }
-          event.preventDefault();
-        }
-        break;
-      case 57: // 9
-        if (document.activeElement == document.body) {
-          if (street.rightBuildingHeight < 10) {
-            street.rightBuildingHeight++;
-            _saveStreetToServerIfNecessary();
-            _createBuildings();
-          }
-          event.preventDefault();
-        }
-        break;
       }
   }
 
@@ -5061,6 +5050,46 @@ var main = (function(){
 
       infoBubbleEl.appendChild(headerEl);
 
+      // Building height canvas
+
+      if ((_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING) ||
+          (_infoBubble.type == INFO_BUBBLE_TYPE_RIGHT_BUILDING)) {
+        var widthCanvasEl = document.createElement('div');
+        widthCanvasEl.classList.add('width-canvas');
+
+        widthCanvasEl.classList.add('entire-info-bubble');
+
+        var func = function() {
+          _changeBuildingHeight(_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING, false);
+        }
+        var innerEl = document.createElement('button');
+        innerEl.classList.add('decrement');
+        innerEl.innerHTML = '–';
+        innerEl.tabIndex = -1;
+        if (system.touch) {
+          innerEl.addEventListener('touchstart', func);
+        } else {
+          innerEl.addEventListener('click', func);        
+        }
+        widthCanvasEl.appendChild(innerEl);      
+
+        var func = function() {
+          _changeBuildingHeight(_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING, true);
+        }
+        var innerEl = document.createElement('button');
+        innerEl.classList.add('increment');
+        innerEl.innerHTML = '+';
+        innerEl.tabIndex = -1;
+        if (system.touch) {
+          innerEl.addEventListener('touchstart', func);
+        } else {
+          innerEl.addEventListener('click', func);        
+        }
+        widthCanvasEl.appendChild(innerEl);      
+
+        infoBubbleEl.appendChild(widthCanvasEl);
+      }
+
       // Width canvas
 
       if (showWidth) {
@@ -5128,10 +5157,10 @@ var main = (function(){
 
       // Variants
 
-      if (showVariants) {
-        var variantsEl = document.createElement('div');
-        variantsEl.classList.add('variants');
+      var variantsEl = document.createElement('div');
+      variantsEl.classList.add('variants');
 
+      if (showVariants) {
         var first = true;
 
         for (var i in segmentInfo.variants) {
@@ -5163,9 +5192,9 @@ var main = (function(){
             variantsEl.appendChild(el);
           }
         }      
-
-        infoBubbleEl.appendChild(variantsEl);
       }
+      
+      infoBubbleEl.appendChild(variantsEl);
 
       // Warnings
 
