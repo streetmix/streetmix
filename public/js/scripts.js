@@ -398,8 +398,10 @@ var main = (function(){
       details: {
         '': {
           graphics: {
-            center: { width: 0, height: 15 },
-            repeat: { x: 8, y: 5, width: 4, height: 15 }
+            repeat: [
+              { x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
+              { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            ]
           }          
         }
       }
@@ -1046,28 +1048,30 @@ var main = (function(){
       }
     }
 
-    for (var l = 0; l < variantInfo.graphics.center.length; l++) {
-      var bkPositionX = (variantInfo.graphics.center[l].x || 0) * TILE_SIZE;
-      var bkPositionY = (variantInfo.graphics.center[l].y || 0) * TILE_SIZE;
+    if (variantInfo.graphics.center) {
+      for (var l = 0; l < variantInfo.graphics.center.length; l++) {
+        var bkPositionX = (variantInfo.graphics.center[l].x || 0) * TILE_SIZE;
+        var bkPositionY = (variantInfo.graphics.center[l].y || 0) * TILE_SIZE;
 
-      var width = variantInfo.graphics.center[l].width;
+        var width = variantInfo.graphics.center[l].width;
 
-      var thisLeft = (segmentRealWidth - width) * TILE_SIZE / 2;
-      if (!palette) {
-        if (segmentWidth < width * TILE_SIZE) {
-          //maxWidth = width * TILE_SIZE;
-          thisLeft = 0;
+        var thisLeft = (segmentRealWidth - width) * TILE_SIZE / 2;
+        if (!palette) {
+          if (segmentWidth < width * TILE_SIZE) {
+            //maxWidth = width * TILE_SIZE;
+            thisLeft = 0;
+          }
         }
+
+        _drawSegmentImage(ctx,
+          bkPositionX, bkPositionY, 
+          width * TILE_SIZE, variantInfo.graphics.center[l].height * TILE_SIZE, 
+          (thisLeft) * multiplier, 
+          top + (multiplier * TILE_SIZE * (variantInfo.graphics.center[l].offsetY || 0)), 
+          width * TILE_SIZE * multiplier, variantInfo.graphics.center[l].height * TILE_SIZE * multiplier);
       }
-
-      _drawSegmentImage(ctx,
-        bkPositionX, bkPositionY, 
-        width * TILE_SIZE, variantInfo.graphics.center[l].height * TILE_SIZE, 
-        (thisLeft) * multiplier, 
-        top + (multiplier * TILE_SIZE * (variantInfo.graphics.center[l].offsetY || 0)), 
-        width * TILE_SIZE * multiplier, variantInfo.graphics.center[l].height * TILE_SIZE * multiplier);
     }
-
+    
     _removeElFromDom(el.querySelector('canvas'));
     el.appendChild(canvasEl);
 
