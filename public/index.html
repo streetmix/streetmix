@@ -151,11 +151,10 @@
     <header>
       <div class='inside'>
 
-        <canvas id='width-chart'></canvas>
 
-        <div id='street-width-canvas'>
-          <!-- <select id='street-width'></select> -->
-        </div>
+        <!--<div id='street-width-canvas'>
+           <select id='street-width'></select> 
+        </div>-->
       </div>
     </header>
 
@@ -201,20 +200,27 @@
 
     <footer>
       <div class='footer-canvas'>
-        <div id='commands'>
-          <button id='undo'></button>
-          <button id='redo'></button>
 
-          <div class='street-width'>
-            Street width: <select id='street-width'></select>
+        <div class='width-chart-canvas'>
+          <canvas id='width-chart'></canvas>
+        </div>
+
+        <div class='regular-canvas'>
+          <div id='commands'>
+            <button id='undo'></button>
+            <button id='redo'></button>
+
+            <div class='street-width'>
+              Street width: <select id='street-width'></select>
+            </div>
           </div>
-        </div>
 
-        <div id='palette'>
-          <div class='palette-canvas'></div>
-        </div>
+          <div id='palette'>
+            <div class='palette-canvas'></div>
+          </div>
 
-        <div id='trashcan'></div>
+          <div id='trashcan'></div>
+        </div>
       </div>
     </footer>
   </div>

@@ -32,6 +32,8 @@
 
 @fontFamily: Arial, sans-serif;
 
+@footerBackground: rgb(210, 212, 210);
+
 @font-face {
   font-family: 'Roadgeek';
   src: url(/fonts/roadgeek-2005-engschrift.otf);
@@ -406,19 +408,46 @@ body > header {
   font-size: 12px;  
 }
 
+.width-chart-canvas {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+  background: @footerBackground;
+  z-index: 150000;
+
+  pointer-events: none;
+  
+  opacity: 0;
+  -webkit-transition: opacity 150ms;
+
+  &.visible {
+    opacity: 1;
+
+    -webkit-transition: opacity 150ms;
+  }
+}
+
 #width-chart {
   width: 500px;
   height: 100px;
 
-  display: none;
+  position: absolute;
+  left: 50%;
+  margin-left: -250px;
+  top: 0;
+  right: 0;
+  bottom: 0;
 }
-#street-width-canvas {
+/*#street-width-canvas {
   position: absolute;
   top: 5px;
   width: 500px;
   height: 20px;
   text-align: center;
-}
+}*/
 #street-width {
   width: 150px;
 }
@@ -565,7 +594,7 @@ footer {
   display: inline-block;
   position: relative;
 
-  background: rgb(210, 212, 210);
+  background: @footerBackground;
 }
 #palette {
   height: @paletteHeight + 20px; // To cover scroll bars

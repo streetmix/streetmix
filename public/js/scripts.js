@@ -2539,10 +2539,18 @@ var main = (function(){
       }
     }
 
-    document.querySelector('#street-width-canvas').style.left = 
+    /*document.querySelector('#street-width-canvas').style.left = 
         WIDTH_CHART_MARGIN + 'px';
     document.querySelector('#street-width-canvas').style.width = 
-        (street.width * multiplier) + 'px';
+        (street.width * multiplier) + 'px';*/
+  }
+
+  function _showWidthChart() {
+    document.querySelector('.width-chart-canvas').classList.add('visible');
+  }
+
+  function _hideWidthChart() {
+    document.querySelector('.width-chart-canvas').classList.remove('visible');
   }
 
   function _recalculateOwnerWidths() {
@@ -2648,6 +2656,8 @@ var main = (function(){
     _infoBubble.hideSegment();
 
     el.segmentEl.classList.add('hover');
+
+    _showWidthChart();
   }
 
   function _handleSegmentResizeMove(event) {
@@ -3138,6 +3148,8 @@ var main = (function(){
     _infoBubble.show(false);
 
     _createTouchSegmentFadeout(draggingResize.segmentEl);
+
+    _hideWidthChart();    
   }
 
   function _onBodyMouseUp(event) {
