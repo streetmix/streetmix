@@ -1366,6 +1366,8 @@ var main = (function(){
       }, SHORT_DELAY);
     }
 
+    var oldWidth = parseFloat(el.getAttribute('width') * TILE_SIZE);
+
     el.style.width = width + 'px';
     el.setAttribute('width', width / TILE_SIZE);
 
@@ -1384,6 +1386,10 @@ var main = (function(){
 
     if (!initial) {
       _segmentsChanged();
+
+      if (oldWidth != width) {
+        _showWidthChartImmediately();
+      }
     }
   }
 
@@ -1426,8 +1432,8 @@ var main = (function(){
       dragHandleEl.classList.add('left');
       dragHandleEl.segmentEl = el;
       dragHandleEl.innerHTML = '‹';
-      //dragHandleEl.addEventListener('mouseover', _showWidthChart);
-      //dragHandleEl.addEventListener('mouseout', _hideWidthChart);
+      dragHandleEl.addEventListener('mouseover', _showWidthChart);
+      dragHandleEl.addEventListener('mouseout', _hideWidthChart);
       el.appendChild(dragHandleEl);
 
       var dragHandleEl = document.createElement('span');
@@ -1435,8 +1441,8 @@ var main = (function(){
       dragHandleEl.classList.add('right');
       dragHandleEl.segmentEl = el;
       dragHandleEl.innerHTML = '›';
-      //dragHandleEl.addEventListener('mouseover', _showWidthChart);
-      //dragHandleEl.addEventListener('mouseout', _hideWidthChart);
+      dragHandleEl.addEventListener('mouseover', _showWidthChart);
+      dragHandleEl.addEventListener('mouseout', _hideWidthChart);
       el.appendChild(dragHandleEl);
 
       var commandsEl = document.createElement('span');
@@ -2602,11 +2608,19 @@ var main = (function(){
   }
 
   // TODO move
-  var widthChartTimerId = -1;
+  var widthChartShowTimerId = -1;
+  var widthChartHideTimerId = -1;
+
+  function _showWidthChartImmediately() {
+    document.querySelector('.width-chart-canvas').classList.add('visible');    
+  }
 
   function _showWidthChart() {
-    window.clearTimeout(widthChartTimerId);
-    document.querySelector('.width-chart-canvas').classList.add('visible');
+    window.clearTimeout(widthChartHideTimerId);
+    window.clearTimeout(widthChartShowTimerId);
+
+    // TODO const
+    widthChartShowTimerId = window.setTimeout(_showWidthChartImmediately, 250);
   }
 
   function _hideWidthChartImmediately() {
@@ -2614,9 +2628,11 @@ var main = (function(){
   }
 
   function _hideWidthChart() {
-    window.clearTimeout(widthChartTimerId);
+    window.clearTimeout(widthChartHideTimerId);
+    window.clearTimeout(widthChartShowTimerId);
 
-    widthChartTimerId = window.setTimeout(_hideWidthChartImmediately, 1000);
+    // TODO const
+    widthChartHideTimerId = window.setTimeout(_hideWidthChartImmediately, 2000);
   }
 
   function _recalculateOwnerWidths() {
@@ -2723,7 +2739,7 @@ var main = (function(){
 
     el.segmentEl.classList.add('hover');
 
-    _showWidthChart();
+    _showWidthChartImmediately();
   }
 
   function _handleSegmentResizeMove(event) {
@@ -2757,7 +2773,7 @@ var main = (function(){
     draggingResize.mouseY = event.pageY;
 
     // TODO hack so it doesn’t disappear
-    _showWidthChart();
+    _showWidthChartImmediately();
   }  
 
   function _handleSegmentMoveStart(event) {
@@ -3502,6 +3518,9 @@ var main = (function(){
 
       _statusMessage.show(msg('STATUS_SEGMENT_DELETED'), true);
     }
+
+    _showWidthChartImmediately();
+    _hideWidthChart();
   } 
 
   function _getHoveredSegmentEl() {
@@ -5129,6 +5148,7 @@ var main = (function(){
           innerEl.addEventListener('mouseout', _onWidthEditMouseOut);
           innerEl.addEventListener('keydown', _onWidthEditKeyDown);
 
+          //innerEl.addEventListener('focus', _showWidthChartImmediately);
           innerEl.addEventListener('mouseover', _showWidthChart);
           innerEl.addEventListener('mouseout', _hideWidthChart);
         } else {
