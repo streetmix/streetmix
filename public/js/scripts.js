@@ -3669,9 +3669,7 @@ var main = (function(){
   }
 
   function _updateStreetNameFont(el) {
-    var name = el.innerHTML;
-
-    console.log('>', name);
+    var name = el.querySelector('div').innerHTML;
 
     var usingSupportedGlyphs = true;
     for (var i in name) {
@@ -3681,12 +3679,10 @@ var main = (function(){
       }
     }
 
-
     if (usingSupportedGlyphs) {
       el.classList.remove('fallback-unicode-font');
     } else {
       el.classList.add('fallback-unicode-font');
-      console.log('!!!', name);
     }
   }
 
