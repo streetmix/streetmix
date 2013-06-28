@@ -405,23 +405,19 @@ var main = (function(){
         'right|traditional': {
           graphics: {
             center: { x: 191, y: 49, width: 9, height: 15, offsetY: -4 },
-
-            //center: { width: 0, height: 15 },
             repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
-            //right: { x: 56, y: 24, offsetX: -10, offsetY: -19, width: 12, height: 31 }
           }
         },
         'both|traditional': {
           graphics: {
-            center: { x: 39, y: 24, offsetX: -7, offsetY: -19, width: 16, height: 31 },
-            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            center: { x: 191, y: 49, width: 9, height: 15, offsetY: -4 },
+            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
           }
         },
         'left|traditional': {
           graphics: {
-            center: { width: 0, height: 15 },
-            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
-            left: { x: 70, y: 24, offsetX: -10, offsetY: -19, width: 12, height: 31 }
+            center: { x: 191, y: 49, width: 9, height: 15, offsetY: -4 },
+            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
           }
         }      
       }
