@@ -1583,7 +1583,6 @@ var main = (function(){
     var totalWidth = document.querySelector('#street-section-left-building').offsetWidth;
 
     // TODO const
-    var height = TILE_SIZE * (1 + 10 * (floorCount - 1) + 10);
 
     //ctx.globalAlpha = transparency;
 
@@ -1624,6 +1623,12 @@ var main = (function(){
       }
     }
 
+    if (!flooredBuilding) {
+      floorCount = 4;
+    }
+
+    var height = TILE_SIZE * (1 + 10 * (floorCount - 1) + 10);    
+
     var canvasEl = document.createElement('canvas');
     canvasEl.width = totalWidth * system.hiDpi;
     canvasEl.height = height * system.hiDpi;
@@ -1656,7 +1661,7 @@ var main = (function(){
       // Floored buildings
 
       if (left) {
-        var leftPos = totalWidth - width;
+        var leftPos = totalWidth - width - 2;
       } else {
         var leftPos = 0;
       }
