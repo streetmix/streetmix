@@ -117,7 +117,7 @@ var main = (function(){
     // 2: adding leftBuildingHeight and rightBuildingHeight
     // 3: adding leftBuildingVariant and rightBuildingVariant
     // 4: adding transit shelter elevation
-  var TILESET_IMAGE_VERSION = 21;
+  var TILESET_IMAGE_VERSION = 22;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
   var TILESET_POINT_PER_PIXEL = 2.0;
