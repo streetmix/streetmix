@@ -1518,12 +1518,10 @@ var main = (function(){
 
   function _onSegmentMouseEnter() {
     _infoBubble.considerShowing(event, this);
-    //console.log('mouseenter', this);
   }
 
   function _onSegmentMouseLeave() {
     _infoBubble.dontConsiderShowing();
-    //console.log('mouseleave', this);
   }
 
   function _createDomFromData() {
