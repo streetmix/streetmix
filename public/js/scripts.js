@@ -3671,6 +3671,8 @@ var main = (function(){
   function _updateStreetNameFont(el) {
     var name = el.innerHTML;
 
+    console.log('>', name);
+
     var usingSupportedGlyphs = true;
     for (var i in name) {
       if (STREET_NAME_FONT_GLYPHS.indexOf(name.charAt(i)) == -1) {
@@ -3684,6 +3686,7 @@ var main = (function(){
       el.classList.remove('fallback-unicode-font');
     } else {
       el.classList.add('fallback-unicode-font');
+      console.log('!!!', name);
     }
   }
 
@@ -4269,9 +4272,9 @@ var main = (function(){
       nameEl.classList.add('street-name');
       nameEl.innerHTML = '<div></div>';
       anchorEl.appendChild(nameEl);
-      _updateStreetNameFont(nameEl);
 
       $(nameEl.querySelector('div')).text(galleryStreet.name);
+      _updateStreetNameFont(nameEl);
 
       var date = moment(galleryStreet.updatedAt);
       var dateEl = document.createElement('span');
