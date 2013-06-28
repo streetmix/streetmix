@@ -117,7 +117,7 @@ var main = (function(){
     // 2: adding leftBuildingHeight and rightBuildingHeight
     // 3: adding leftBuildingVariant and rightBuildingVariant
     // 4: adding transit shelter elevation
-  var TILESET_IMAGE_VERSION = 20;
+  var TILESET_IMAGE_VERSION = 21;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
   var TILESET_POINT_PER_PIXEL = 2.0;
@@ -706,15 +706,15 @@ var main = (function(){
         'left|light-rail': {
           minWidth: 9,
           graphics: {
-            left: { x: 171, y: 1, width: 9, height: 12, offsetY: -1 },
-            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
+            left: { x: 171, y: 51, width: 9, height: 12, offsetY: -3 },
+            repeat: { x: 110, y: 53 + 10, width: 9, height: 9, offsetY: 6 }, // Raised concrete
           }          
         },
         'right|light-rail': {
           minWidth: 9,
           graphics: {
-            right: { x: 181, y: 1, width: 9, height: 12, offsetY: -1 },
-            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
+            right: { x: 181, y: 51, width: 9, height: 13, offsetY: -3 },
+            repeat: { x: 110, y: 53 + 10, width: 9, height: 9, offsetY: 6 }, // Raised concrete
           }          
         },
       }
