@@ -112,10 +112,11 @@ var main = (function(){
   var NEW_STREET_DEFAULT = 1;
   var NEW_STREET_EMPTY = 2;
 
-  var LATEST_SCHEMA_VERSION = 2;
+  var LATEST_SCHEMA_VERSION = 3;
     // 1: starting point
     // 2: adding leftBuildingHeight and rightBuildingHeight
-  var TILESET_IMAGE_VERSION = 15;
+    // 3: adding leftBuildingVariant and rightBuildingVariant
+  var TILESET_IMAGE_VERSION = 16;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
   var TILESET_POINT_PER_PIXEL = 2.0;
@@ -189,6 +190,9 @@ var main = (function(){
   var DEFAULT_STREET_WIDTH = 80;
   var DEFAULT_STREET_WIDTHS = [40, 60, 80];
   var DEFAULT_BUILDING_HEIGHT = 4;
+  var DEFAULT_BUILDING_VARIANT = 'wide';
+
+  var BUILDING_VARIANTS = ['none', 'slim', 'wide'];
 
   var MIN_CUSTOM_STREET_WIDTH = 10;
   var MAX_CUSTOM_STREET_WIDTH = 200;
@@ -430,7 +434,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 5, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
-              { x: 28, y: 5, width: 8, height: 15 }, // Arrow (inbound)
+              { x: 28, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow (inbound)
             ],
             repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
           }
@@ -439,7 +443,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 9, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
-              { x: 37, y: 5, width: 8, height: 15 }, // Arrow (outbound)
+              { x: 37, y: 15, width: 8, height: 15, offsetY: 10 }, // Arrow (outbound)
             ],
             repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
           }
@@ -458,7 +462,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
-              { x: 28, y: 5, width: 8, height: 15 }, // Arrow (inbound)
+              { x: 28, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow (inbound)
             ],
             repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
           }          
@@ -469,7 +473,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
-              { x: 37, y: 5, width: 8, height: 15 }, // Arrow (outbound)
+              { x: 37, y: 15, width: 8, height: 15, offsetY: 10 }, // Arrow (outbound)
             ],
             repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
           }          
@@ -592,7 +596,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 28, y: 27, width: 11, height: 15 }, // Bus
-              { x: 28, y: 5, width: 8, height: 15 }, // Arrow (inbound)
+              { x: 28, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow (inbound)
             ],
             repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
           }
@@ -603,11 +607,45 @@ var main = (function(){
           graphics: {
             center: [
               { x: 16, y: 27, width: 12, height: 15 }, // Bus
-              { x: 37, y: 5, width: 8, height: 15 }, // Arrow (outbound)
+              { x: 37, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow (outbound)
             ],
             repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
           }
         }
+      }
+    },
+    'light-rail': {
+      name: 'Light rail',
+      owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
+      defaultWidth: 10,
+      variants: ['direction'],
+      details: {
+        'inbound': {
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: [
+              { x: 17, y: 40, width: 10, height: 17, offsetY: -5 }, // Light rail
+              { x: 17, y: 57, width: 10, height: 5, offsetY: 10 }, // Track
+              //{ x: 28, y: 5, width: 8, height: 5, offsetY: 10 }, // Dark arrow (inbound)
+              { x: 28, y: 15, width: 8, height: 5, offsetY: 10 }, // Dark arrow (inbound)
+            ],
+            repeat: { x: 110, y: 43, width: 9, height: 5, offsetY: 10 }, // Lower concrete
+          }          
+        },
+        'outbound': {
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: [
+              { x: 27, y: 40, width: 10, height: 17, offsetY: -5 }, // Light rail
+              { x: 17, y: 57, width: 10, height: 5, offsetY: 10 }, // Track
+              //{ x: 37, y: 5, width: 8, height: 5, offsetY: 10 }, // Dark arrow (outbound)
+              { x: 37, y: 15, width: 8, height: 5, offsetY: 10 }, // Dark arrow (outbound)
+            ],
+            repeat: { x: 110, y: 43, width: 9, height: 5, offsetY: 10 }, // Lower concrete
+          }          
+        },
       }
     },
     'small-median': {
@@ -687,6 +725,8 @@ var main = (function(){
 
     leftBuildingHeight: null,
     rightBuildingHeight: null,
+    leftBuildingVariant: null,
+    rightBuildingVariant: null,
 
     segments: [],
 
@@ -1837,15 +1877,29 @@ var main = (function(){
     street.schemaVersion = 2;
   }
 
+  function _updateSchemaToVersion3(street) {
+    street.leftBuildingVariant = DEFAULT_BUILDING_VARIANT;
+    street.rightBuildingVariant = DEFAULT_BUILDING_VARIANT;
+    street.schemaVersion = 3;
+  }
+
   function _updateToLatestSchemaVersion(street) {
+    var updated = false;
     if (!street.schemaVersion || (street.schemaVersion == 1)) {
       console.log('updated schema to 2');
 
       _updateSchemaToVersion2(street);
-      return true;
-    } else {
-      return false;
+      updated = true;
     }
+
+    if (street.schemaVersion == 2) {
+      console.log('updated schema to 3');
+
+      _updateSchemaToVersion3(street);
+      updated = true;
+    }
+    
+    return updated;
   }
 
   function _unpackStreetDataFromServerTransmission(transmission) {
