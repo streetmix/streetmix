@@ -35,6 +35,10 @@ var main = (function(){
     STATUS_NOW_REMIXING: 'Now editing a freshly-made duplicate of the original street. The duplicate has been put in your gallery.',
     STATUS_NOW_REMIXING_SIGN_IN: 'Now editing a freshly-made duplicate of the original street. <a href="/{{signInUrl}}">Sign in</a> to start your own gallery of streets.',
     STATUS_RELOADED_FROM_SERVER: 'Your street was reloaded from the server as it was modified elsewhere.',
+
+    WARNING_TOO_WIDE: 'This segment might be too wide.',
+    WARNING_NOT_WIDE_ENOUGH: 'This segment might not be wide enough.',
+    WARNING_DOESNT_FIT: 'This segment doesn’t fit within the street.',
   };
 
   // TODO all of the below in an array?
@@ -4935,17 +4939,17 @@ var main = (function(){
 
       if (segment.warnings[SEGMENT_WARNING_OUTSIDE]) {
         html += '<p>';
-        html += 'This segment doesn’t fit within the street.';
+        html += msg('WARNING_DOESNT_FIT');
         html += '</p>';
       }
       if (segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL]) {
         html += '<p>';
-        html += 'This segment is not wide enough.';
+        html += msg('WARNING_NOT_WIDE_ENOUGH');
         html += '</p>';
       }
       if (segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE]) {
         html += '<p>';
-        html += 'This segment is too wide.';
+        html += msg('WARNING_TOO_WIDE');
         html += '</p>';
       }      
 
