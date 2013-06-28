@@ -48,7 +48,7 @@ app.all('*', function(req, res, next) {
       method: req.method,
       uri: targetUri,
       headers: headers,
-      followRedirect: false
+      followRedirect: true
     })).pipe(res)
       
   } else {
