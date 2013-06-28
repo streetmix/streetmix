@@ -112,11 +112,12 @@ var main = (function(){
   var NEW_STREET_DEFAULT = 1;
   var NEW_STREET_EMPTY = 2;
 
-  var LATEST_SCHEMA_VERSION = 3;
+  var LATEST_SCHEMA_VERSION = 5;
     // 1: starting point
     // 2: adding leftBuildingHeight and rightBuildingHeight
     // 3: adding leftBuildingVariant and rightBuildingVariant
     // 4: adding transit shelter elevation
+    // 5: adding another lamp
   var TILESET_IMAGE_VERSION = 22;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
@@ -320,6 +321,7 @@ var main = (function(){
     'direction': ['inbound', 'outbound'],
     'tree-type': ['small', 'big', 'palm-tree'],
     'lamp-orientation': ['left', 'both', 'right'],
+    'lamp-type': ['modern', 'traditional'],
     'parking-lane-orientation': ['left', 'right'],
     'turn-lane-orientation': ['left', 'right'],
     'planting-strip-type': ['', 'palm-tree'],
@@ -378,28 +380,50 @@ var main = (function(){
       name: 'Sidewalk w/ a lamp',
       owner: SEGMENT_OWNER_PEDESTRIAN,
       defaultWidth: 4,
-      variants: ['lamp-orientation'],
+      variants: ['lamp-orientation', 'lamp-type'],
       details: {
-        'right': {
+        'right|modern': {
           graphics: {
             center: { width: 0, height: 15 },
             repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
             right: { x: 56, y: 24, offsetX: -10, offsetY: -19, width: 12, height: 31 }
           }
         },
-        'both': {
+        'both|modern': {
           graphics: {
             center: { x: 39, y: 24, offsetX: -7, offsetY: -19, width: 16, height: 31 },
             repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
           }
         },
-        'left': {
+        'left|modern': {
           graphics: {
             center: { width: 0, height: 15 },
             repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
             left: { x: 70, y: 24, offsetX: -10, offsetY: -19, width: 12, height: 31 }
           }
-        }
+        },
+        'right|traditional': {
+          graphics: {
+            center: { x: 191, y: 49, width: 9, height: 15, offsetY: -4 },
+
+            //center: { width: 0, height: 15 },
+            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
+            //right: { x: 56, y: 24, offsetX: -10, offsetY: -19, width: 12, height: 31 }
+          }
+        },
+        'both|traditional': {
+          graphics: {
+            center: { x: 39, y: 24, offsetX: -7, offsetY: -19, width: 16, height: 31 },
+            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+          }
+        },
+        'left|traditional': {
+          graphics: {
+            center: { width: 0, height: 15 },
+            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            left: { x: 70, y: 24, offsetX: -10, offsetY: -19, width: 12, height: 31 }
+          }
+        }      
       }
     },
     'planting-strip': {
@@ -2022,17 +2046,26 @@ var main = (function(){
     for (var i in street.segments) {
       var segment = street.segments[i];
       if (segment.type == 'transit-shelter') {
-        //console.log(street.segments[i]);
         var variant = _getVariantArray(segment.type, segment.variantString);
         variant['transit-shelter-elevation'] = 'street-level';
         segment.variantString =  _getVariantString(variant);
-        //console.log('a');
       }
     }
 
-    //street.leftBuildingVariant = DEFAULT_BUILDING_VARIANT;
-    //street.rightBuildingVariant = DEFAULT_BUILDING_VARIANT;
     street.schemaVersion = 4;
+  }
+
+  function _updateSchemaToVersion5(street) {
+    for (var i in street.segments) {
+      var segment = street.segments[i];
+      if (segment.type == 'sidewalk-lamp') {
+        var variant = _getVariantArray(segment.type, segment.variantString);
+        variant['lamp-type'] = 'modern';
+        segment.variantString =  _getVariantString(variant);
+      }
+    }
+
+    street.schemaVersion = 5;
   }
 
   function _updateToLatestSchemaVersion(street) {
@@ -2055,6 +2088,13 @@ var main = (function(){
       console.log('updated schema to 4');
 
       _updateSchemaToVersion4(street);
+      updated = true;
+    }
+
+    if (street.schemaVersion == 4) {
+      console.log('updated schema to 5');
+
+      _updateSchemaToVersion5(street);
       updated = true;
     }
     
