@@ -5193,7 +5193,7 @@ var main = (function(){
           }
         }      
       }
-      
+
       infoBubbleEl.appendChild(variantsEl);
 
       // Warnings
@@ -5747,6 +5747,7 @@ var main = (function(){
     buttonEl.innerHTML = '«';
     buttonEl.classList.add('scroll-left');
     buttonEl.el = el;
+    buttonEl.disabled = true;
     buttonEl.addEventListener('click', _onScrollButtonLeft);
     el.parentNode.appendChild(buttonEl);
 
@@ -5754,6 +5755,7 @@ var main = (function(){
     buttonEl.innerHTML = '»';
     buttonEl.classList.add('scroll-right');
     buttonEl.el = el;
+    buttonEl.disabled = true;
     buttonEl.addEventListener('click', _onScrollButtonRight);
     el.parentNode.appendChild(buttonEl);
 
