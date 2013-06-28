@@ -317,6 +317,7 @@ var main = (function(){
     'lamp-orientation': ['left', 'both', 'right'],
     'parking-lane-orientation': ['left', 'right'],
     'turn-lane-orientation': ['left', 'right'],
+    'planting-strip-type': ['', 'palm-tree'],
   };
 
   var SEGMENT_INFO = {
@@ -398,10 +399,19 @@ var main = (function(){
       name: 'Planting strip',
       owner: SEGMENT_OWNER_NATURE,
       defaultWidth: 4,
-      variants: [''],
+      variants: ['planting-strip-type'],
       details: {
         '': {
           graphics: {
+            repeat: [
+              { x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
+              { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            ]
+          }          
+        },
+        'palm-tree': {
+          graphics: {
+            center: { x: 83, y: 24, offsetX: -7, offsetY: -19, width: 14, height: 30 },
             repeat: [
               { x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
               { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
@@ -963,7 +973,6 @@ var main = (function(){
     var hoverBkEl = document.createElement('div');
     hoverBkEl.classList.add('hover-bk');
 
-
     var canvasEl = document.createElement('canvas');
     canvasEl.classList.add('image');
     canvasEl.width = maxWidth * system.hiDpi;
@@ -1515,11 +1524,12 @@ var main = (function(){
 
   function _createBuildings() {
     var el = document.querySelector('#street-section-left-building');
-    el.innerHTML = '';
+    // TODO nasty
+    el.innerHTML = '<div class="hover-bk"></div>';
     _createBuilding(el, true, street.leftBuildingHeight, 1.0, 1.0);
 
     var el = document.querySelector('#street-section-right-building');
-    el.innerHTML = '';
+    el.innerHTML = '<div class="hover-bk"></div>';
     _createBuilding(el, false, street.rightBuildingHeight, 1.0, 1.0);
   }  
 
@@ -1529,10 +1539,18 @@ var main = (function(){
   }  
 
   function _onSegmentMouseEnter() {
-    _infoBubble.considerShowing(event, this);
+    _infoBubble.considerShowing(event, this, INFO_BUBBLE_TYPE_SEGMENT);
   }
 
   function _onSegmentMouseLeave() {
+    _infoBubble.dontConsiderShowing();
+  }
+
+  function _onBuildingMouseEnter() {
+    _infoBubble.considerShowing(event, this, INFO_BUBBLE_TYPE_LEFT_BUILDING);
+  }
+
+  function _onBuildingMouseLeave() {
     _infoBubble.dontConsiderShowing();
   }
 
@@ -4540,6 +4558,11 @@ var main = (function(){
   }
 
   function _addEventListeners() {
+    $('#street-section-left-building').mouseenter(_onBuildingMouseEnter);
+    $('#street-section-left-building').mouseleave(_onBuildingMouseLeave);
+    $('#street-section-right-building').mouseenter(_onBuildingMouseEnter);
+    $('#street-section-right-building').mouseleave(_onBuildingMouseLeave);
+
     $('.width-chart-canvas').mouseenter(_hideWidthChartImmediately);
 
     $('.info-bubble').mouseenter(_infoBubble.onMouseEnter);
@@ -4750,6 +4773,10 @@ var main = (function(){
     }, SEGMENT_SWITCHING_TIME);
   }
 
+  var INFO_BUBBLE_TYPE_SEGMENT = 1;
+  var INFO_BUBBLE_TYPE_LEFT_BUILDING = 2;
+  var INFO_BUBBLE_TYPE_RIGHT_BUILDING = 3;
+
   var _infoBubble = {
     mouseInside: false,
 
@@ -4760,6 +4787,7 @@ var main = (function(){
     startMouseY: null,
     hoverPolygon: null,
     segmentEl: null,
+    type: null,
 
     lastMouseX: null,
     lastMouseY: null,
@@ -4772,6 +4800,7 @@ var main = (function(){
     considerMouseX: null,
     considerMouseY: null,
     considerSegmentEl: null,
+    considerType: null,
 
     hoverPolygonUpdateTimerId: -1,
 
@@ -4881,12 +4910,13 @@ var main = (function(){
       }
     },
 
-    considerShowing: function(event, segmentEl) {
+    considerShowing: function(event, segmentEl, type) {
       _infoBubble.considerMouseX = event.pageX;
       _infoBubble.considerMouseY = event.pageY;
       _infoBubble.considerSegmentEl = segmentEl;
+      _infoBubble.considerType = type;
 
-      if (segmentEl == _infoBubble.segmentEl) {
+      if ((segmentEl == _infoBubble.segmentEl) && (type == _infoBubble.type)) {
         return;
       }
 
@@ -4897,6 +4927,7 @@ var main = (function(){
 
     dontConsiderShowing: function() {
       _infoBubble.considerSegmentEl = null;
+      _infoBubble.considerType = null;
     },
 
     onVariantButtonClick: function(event, dataNo, variantName, variantChoice) {
@@ -4979,133 +5010,162 @@ var main = (function(){
     updateContents: function() {
       var infoBubbleEl = _infoBubble.el;
       //console.log(el);
-      var segment = street.segments[parseInt(_infoBubble.segmentEl.dataNo)];
-      var segmentInfo = SEGMENT_INFO[segment.type];
-      
+
+      switch (_infoBubble.type) {
+        case INFO_BUBBLE_TYPE_SEGMENT:
+          var segment = street.segments[parseInt(_infoBubble.segmentEl.dataNo)];
+          var segmentInfo = SEGMENT_INFO[segment.type];
+
+          var name = segmentInfo.name;
+          var canBeDeleted = true;
+          var showWidth = true;
+          var showVariants = true;
+          break;
+        case INFO_BUBBLE_TYPE_LEFT_BUILDING:
+          var name = 'Building';
+          var canBeDeleted = false;
+          var showWidth = false;
+          var showVariants = false;
+          break;
+        case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
+          var name = 'Building';
+          var canBeDeleted = false;
+          var showWidth = false;
+          var showVariants = false;
+          break;
+      }
+
       infoBubbleEl.innerHTML = '';
 
       // Header
 
       var headerEl = document.createElement('header');
 
-      headerEl.innerHTML = segmentInfo.name;
 
-      var innerEl = document.createElement('button');
-      innerEl.classList.add('remove');
-      innerEl.innerHTML = '⏏';
-      innerEl.segmentEl = _infoBubble.segmentEl;
-      innerEl.tabIndex = -1;
-      innerEl.setAttribute('title', msg('TOOLTIP_REMOVE_SEGMENT'));
-      if (system.touch) {      
-        innerEl.addEventListener('touchstart', _onRemoveButtonClick);
-      } else {
-        innerEl.addEventListener('click', _onRemoveButtonClick);        
+      headerEl.innerHTML = name;
+
+      if (canBeDeleted) {
+        var innerEl = document.createElement('button');
+        innerEl.classList.add('remove');
+        innerEl.innerHTML = '⏏';
+        innerEl.segmentEl = _infoBubble.segmentEl;
+        innerEl.tabIndex = -1;
+        innerEl.setAttribute('title', msg('TOOLTIP_REMOVE_SEGMENT'));
+        if (system.touch) {      
+          innerEl.addEventListener('touchstart', _onRemoveButtonClick);
+        } else {
+          innerEl.addEventListener('click', _onRemoveButtonClick);        
+        }
+        headerEl.appendChild(innerEl);
       }
-      headerEl.appendChild(innerEl);
 
       infoBubbleEl.appendChild(headerEl);
 
       // Width canvas
 
-      var widthCanvasEl = document.createElement('div');
-      widthCanvasEl.classList.add('width-canvas');
+      if (showWidth) {
+        var widthCanvasEl = document.createElement('div');
+        widthCanvasEl.classList.add('width-canvas');
 
-      if (!segmentInfo.variants[0]) {
-        widthCanvasEl.classList.add('entire-info-bubble');
-      }
+        if (!segmentInfo.variants[0]) {
+          widthCanvasEl.classList.add('entire-info-bubble');
+        }
 
-      var innerEl = document.createElement('button');
-      innerEl.classList.add('decrement');
-      innerEl.innerHTML = '–';
-      innerEl.segmentEl = segment.el;
-      innerEl.tabIndex = -1;
-      if (system.touch) {
-        innerEl.addEventListener('touchstart', _onWidthDecrementClick);
-      } else {
-        innerEl.addEventListener('click', _onWidthDecrementClick);        
-      }
-      innerEl.addEventListener('mouseover', _showWidthChart);
-      innerEl.addEventListener('mouseout', _hideWidthChart);
-      widthCanvasEl.appendChild(innerEl);        
-
-      if (!system.touch) {
-        var innerEl = document.createElement('input');
-        innerEl.setAttribute('type', 'text');
-        innerEl.classList.add('width');
+        var innerEl = document.createElement('button');
+        innerEl.classList.add('decrement');
+        innerEl.innerHTML = '–';
         innerEl.segmentEl = segment.el;
-        //innerEl.value = width / TILE_SIZE;
-
-        innerEl.addEventListener('click', _onWidthEditClick);
-        innerEl.addEventListener('focus', _onWidthEditFocus);
-        innerEl.addEventListener('blur', _onWidthEditBlur);
-        innerEl.addEventListener('input', _onWidthEditInput);
-        innerEl.addEventListener('mouseover', _onWidthEditMouseOver);
-        innerEl.addEventListener('mouseout', _onWidthEditMouseOut);
-        innerEl.addEventListener('keydown', _onWidthEditKeyDown);
-
+        innerEl.tabIndex = -1;
+        if (system.touch) {
+          innerEl.addEventListener('touchstart', _onWidthDecrementClick);
+        } else {
+          innerEl.addEventListener('click', _onWidthDecrementClick);        
+        }
         innerEl.addEventListener('mouseover', _showWidthChart);
         innerEl.addEventListener('mouseout', _hideWidthChart);
-      } else {
-        var innerEl = document.createElement('span');
-        innerEl.classList.add('width-non-editable');
+        widthCanvasEl.appendChild(innerEl);        
+
+        if (!system.touch) {
+          var innerEl = document.createElement('input');
+          innerEl.setAttribute('type', 'text');
+          innerEl.classList.add('width');
+          innerEl.segmentEl = segment.el;
+          //innerEl.value = width / TILE_SIZE;
+
+          innerEl.addEventListener('click', _onWidthEditClick);
+          innerEl.addEventListener('focus', _onWidthEditFocus);
+          innerEl.addEventListener('blur', _onWidthEditBlur);
+          innerEl.addEventListener('input', _onWidthEditInput);
+          innerEl.addEventListener('mouseover', _onWidthEditMouseOver);
+          innerEl.addEventListener('mouseout', _onWidthEditMouseOut);
+          innerEl.addEventListener('keydown', _onWidthEditKeyDown);
+
+          innerEl.addEventListener('mouseover', _showWidthChart);
+          innerEl.addEventListener('mouseout', _hideWidthChart);
+        } else {
+          var innerEl = document.createElement('span');
+          innerEl.classList.add('width-non-editable');
+        }
+        widthCanvasEl.appendChild(innerEl);
+
+
+        var innerEl = document.createElement('button');
+        innerEl.classList.add('increment');
+        innerEl.innerHTML = '+';
+        innerEl.segmentEl = segment.el;
+        innerEl.tabIndex = -1;
+        if (system.touch) {
+          innerEl.addEventListener('touchstart', _onWidthIncrementClick);
+        } else {
+          innerEl.addEventListener('click', _onWidthIncrementClick);        
+        }
+        innerEl.addEventListener('mouseover', _showWidthChart);
+        innerEl.addEventListener('mouseout', _hideWidthChart);
+        widthCanvasEl.appendChild(innerEl);        
+
+        infoBubbleEl.appendChild(widthCanvasEl);
       }
-      widthCanvasEl.appendChild(innerEl);
-
-
-      var innerEl = document.createElement('button');
-      innerEl.classList.add('increment');
-      innerEl.innerHTML = '+';
-      innerEl.segmentEl = segment.el;
-      innerEl.tabIndex = -1;
-      if (system.touch) {
-        innerEl.addEventListener('touchstart', _onWidthIncrementClick);
-      } else {
-        innerEl.addEventListener('click', _onWidthIncrementClick);        
-      }
-      innerEl.addEventListener('mouseover', _showWidthChart);
-      innerEl.addEventListener('mouseout', _hideWidthChart);
-      widthCanvasEl.appendChild(innerEl);        
-
-      infoBubbleEl.appendChild(widthCanvasEl);
 
       // Variants
 
-      var variantsEl = document.createElement('div');
-      variantsEl.classList.add('variants');
+      if (showVariants) {
+        var variantsEl = document.createElement('div');
+        variantsEl.classList.add('variants');
 
-      var first = true;
+        var first = true;
 
-      for (var i in segmentInfo.variants) {
-        if (!first) {
-          var el = document.createElement('hr');
-          variantsEl.appendChild(el);
-        } else {
-          first = false;
-        }
-
-        for (var j in VARIANTS[segmentInfo.variants[i]]) {
-
-          var variantName = segmentInfo.variants[i];
-          var variantChoice = VARIANTS[segmentInfo.variants[i]][j];
-
-          var el = document.createElement('button');
-          el.innerHTML = variantChoice;
-
-          if (segment.variant[variantName] == variantChoice) {
-            el.disabled = true;
+        for (var i in segmentInfo.variants) {
+          if (!first) {
+            var el = document.createElement('hr');
+            variantsEl.appendChild(el);
+          } else {
+            first = false;
           }
 
-          el.addEventListener('click', (function(dataNo, variantName, variantChoice) {
-            return function() {
-              _infoBubble.onVariantButtonClick(event, dataNo, variantName, variantChoice);
+          for (var j in VARIANTS[segmentInfo.variants[i]]) {
+
+            var variantName = segmentInfo.variants[i];
+            var variantChoice = VARIANTS[segmentInfo.variants[i]][j];
+
+            var el = document.createElement('button');
+            el.innerHTML = variantChoice;
+
+            if (segment.variant[variantName] == variantChoice) {
+              el.disabled = true;
             }
-          })(segment.el.dataNo, variantName, variantChoice));
 
-          variantsEl.appendChild(el);
-        }
-      }      
+            el.addEventListener('click', (function(dataNo, variantName, variantChoice) {
+              return function() {
+                _infoBubble.onVariantButtonClick(event, dataNo, variantName, variantChoice);
+              }
+            })(segment.el.dataNo, variantName, variantChoice));
 
-      infoBubbleEl.appendChild(variantsEl);
+            variantsEl.appendChild(el);
+          }
+        }      
+
+        infoBubbleEl.appendChild(variantsEl);
+      }
 
       // Warnings
 
@@ -5115,8 +5175,10 @@ var main = (function(){
       infoBubbleEl.appendChild(el);
 
       window.setTimeout(function() {
-        _infoBubble.updateWidthInContents(segment.el, segment.width);
-        _infoBubble.updateWarningsInContents(segment);
+        if (_infoBubble.type == INFO_BUBBLE_TYPE_SEGMENT) {
+          _infoBubble.updateWidthInContents(segment.el, segment.width);
+          _infoBubble.updateWarningsInContents(segment);
+        }
       }, 0);
 
     },
@@ -5127,7 +5189,7 @@ var main = (function(){
         return;
       }
 
-      if (!_infoBubble.considerSegmentEl) {
+      if (!_infoBubble.considerType) {
         _infoBubble.hide();
         _infoBubble.hideSegment();
         return;
@@ -5136,13 +5198,15 @@ var main = (function(){
       var mouseX = _infoBubble.considerMouseX;
       var mouseY = _infoBubble.considerMouseY;
       var segmentEl = _infoBubble.considerSegmentEl;
+      var type = _infoBubble.considerType;
 
-      if ((segmentEl == _infoBubble.segmentEl) && !force) {
+      if ((segmentEl == _infoBubble.segmentEl) && (type == _infoBubble.type) && !force) {
         return;
       }
       _infoBubble.hideSegment();
 
       _infoBubble.segmentEl = segmentEl;
+      _infoBubble.type = type;
 
       segmentEl.classList.add('hover');
 

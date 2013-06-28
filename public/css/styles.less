@@ -2,7 +2,7 @@
 @canvasGround: 35px;
 @canvasBaseline: @canvasHeight - @canvasGround;
 
-@streetSectionHorizontalPadding: 100px;
+@streetSectionHorizontalPadding: 50px;
 
 @paletteHeight: 100px;
 @galleryHeight: 180px;
@@ -33,6 +33,8 @@
 @fontFamily: Arial, sans-serif;
 
 @footerBackground: rgb(210, 212, 210);
+
+@segmentHoverBackground: rgba(255, 255, 255, .2);
 
 @font-face {
   font-family: 'Roadgeek';
@@ -541,18 +543,34 @@ body > header {
   display: block;
   position: absolute;
 
-  z-index: 1000;
+  //z-index: 1000;
 
   top: -5px;
   width: 396px;
   height: @canvasHeight - 75px;
 
-  pointer-events: none;  
-
-  background-size: 520px 480px;
-  background-repeat: no-repeat;
-
   -webkit-transition: opacity 250ms;
+
+  .hover-bk {
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    //background: red;
+  }
+  &#street-section-right-building .hover-bk {
+    left: 25px;
+  }
+  &#street-section-left-building .hover-bk {
+    right: 25px;
+  }
+
+
+  &.hover .hover-bk {
+    background: @segmentHoverBackground;
+  }
 }
 #street-section-left-building {
   left: -193px - 180px;
@@ -737,7 +755,7 @@ body.immediate-segment-resize .segment {
 }
 
 .segment:not(.unmovable).hover .hover-bk {
-  background: rgba(255, 255, 255, .2);
+  background: @segmentHoverBackground;
   position: absolute;
   left: 0;
   right: 0;
