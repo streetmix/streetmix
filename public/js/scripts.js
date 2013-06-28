@@ -116,7 +116,7 @@ var main = (function(){
     // 1: starting point
     // 2: adding leftBuildingHeight and rightBuildingHeight
     // 3: adding leftBuildingVariant and rightBuildingVariant
-  var TILESET_IMAGE_VERSION = 17;
+  var TILESET_IMAGE_VERSION = 18;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
   var TILESET_POINT_PER_PIXEL = 2.0;
@@ -322,6 +322,7 @@ var main = (function(){
     'parking-lane-orientation': ['left', 'right'],
     'turn-lane-orientation': ['left', 'right'],
     'planting-strip-type': ['', 'palm-tree'],
+    'orientation': ['left', 'right'],
   };
 
   var SEGMENT_INFO = {
@@ -380,7 +381,7 @@ var main = (function(){
         'right': {
           graphics: {
             center: { width: 0, height: 15 },
-            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
             right: { x: 56, y: 24, offsetX: -10, offsetY: -19, width: 12, height: 31 }
           }
         },
@@ -648,6 +649,28 @@ var main = (function(){
         },
       }
     },
+    'transit-shelter': {
+      name: 'Transit shelter',
+      owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
+      defaultWidth: 9,
+      variants: ['orientation'],
+      details: {
+        'left': {
+          minWidth: 9,
+          graphics: {
+            left: { x: 171, y: 1, width: 9, height: 12, offsetY: -1 },
+            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
+          }          
+        },
+        'right': {
+          minWidth: 9,
+          graphics: {
+            right: { x: 181, y: 1, width: 9, height: 12, offsetY: -1 },
+            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
+          }          
+        },
+      }
+    },    
     'small-median': {
       name: 'Small median',
       owner: SEGMENT_OWNER_CAR,
