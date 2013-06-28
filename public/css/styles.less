@@ -419,11 +419,12 @@ body > header {
   z-index: 150000;
 
   pointer-events: none;
-  
+
   opacity: 0;
   -webkit-transition: opacity 150ms;
 
   &.visible {
+    pointer-events: auto;
     opacity: 1;
 
     -webkit-transition: opacity 150ms;

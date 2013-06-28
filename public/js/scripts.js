@@ -1413,6 +1413,8 @@ var main = (function(){
       dragHandleEl.classList.add('left');
       dragHandleEl.segmentEl = el;
       dragHandleEl.innerHTML = '‹';
+      //dragHandleEl.addEventListener('mouseover', _showWidthChart);
+      //dragHandleEl.addEventListener('mouseout', _hideWidthChart);
       el.appendChild(dragHandleEl);
 
       var dragHandleEl = document.createElement('span');
@@ -1420,6 +1422,8 @@ var main = (function(){
       dragHandleEl.classList.add('right');
       dragHandleEl.segmentEl = el;
       dragHandleEl.innerHTML = '›';
+      //dragHandleEl.addEventListener('mouseover', _showWidthChart);
+      //dragHandleEl.addEventListener('mouseout', _hideWidthChart);
       el.appendChild(dragHandleEl);
 
       var commandsEl = document.createElement('span');
@@ -2466,7 +2470,8 @@ var main = (function(){
     _drawLine(ctx, left + maxWidth * multiplier, 20, 
         left + maxWidth * multiplier, bottom);
     _drawArrowLine(ctx, 
-        left, 30, left + street.width * multiplier, 30);
+        left, 30, left + street.width * multiplier, 30, 
+        _prettifyWidth(street.width, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP));
   
     var x = left;
 
@@ -2545,12 +2550,22 @@ var main = (function(){
         (street.width * multiplier) + 'px';*/
   }
 
+  // TODO move
+  var widthChartTimerId = -1;
+
   function _showWidthChart() {
+    window.clearTimeout(widthChartTimerId);
     document.querySelector('.width-chart-canvas').classList.add('visible');
   }
 
-  function _hideWidthChart() {
+  function _hideWidthChartImmediately() {
     document.querySelector('.width-chart-canvas').classList.remove('visible');
+  }
+
+  function _hideWidthChart() {
+    window.clearTimeout(widthChartTimerId);
+
+    widthChartTimerId = window.setTimeout(_hideWidthChartImmediately, 1000);
   }
 
   function _recalculateOwnerWidths() {
@@ -2689,6 +2704,9 @@ var main = (function(){
 
     draggingResize.mouseX = event.pageX;
     draggingResize.mouseY = event.pageY;
+
+    // TODO hack so it doesn’t disappear
+    _showWidthChart();
   }  
 
   function _handleSegmentMoveStart(event) {
@@ -4518,6 +4536,8 @@ var main = (function(){
   }
 
   function _addEventListeners() {
+    $('.width-chart-canvas').mouseenter(_hideWidthChartImmediately);
+
     $('.info-bubble').mouseenter(_infoBubble.onMouseEnter);
     $('.info-bubble').mouseleave(_infoBubble.onMouseLeave);
 
@@ -4996,10 +5016,12 @@ var main = (function(){
       innerEl.segmentEl = segment.el;
       innerEl.tabIndex = -1;
       if (system.touch) {
-        innerEl.addEventListener('touchstart', _onWidthDecrementClick, false);
+        innerEl.addEventListener('touchstart', _onWidthDecrementClick);
       } else {
-        innerEl.addEventListener('click', _onWidthDecrementClick, false);        
+        innerEl.addEventListener('click', _onWidthDecrementClick);        
       }
+      innerEl.addEventListener('mouseover', _showWidthChart);
+      innerEl.addEventListener('mouseout', _hideWidthChart);
       widthCanvasEl.appendChild(innerEl);        
 
       if (!system.touch) {
@@ -5016,6 +5038,9 @@ var main = (function(){
         innerEl.addEventListener('mouseover', _onWidthEditMouseOver);
         innerEl.addEventListener('mouseout', _onWidthEditMouseOut);
         innerEl.addEventListener('keydown', _onWidthEditKeyDown);
+
+        innerEl.addEventListener('mouseover', _showWidthChart);
+        innerEl.addEventListener('mouseout', _hideWidthChart);
       } else {
         var innerEl = document.createElement('span');
         innerEl.classList.add('width-non-editable');
@@ -5029,10 +5054,12 @@ var main = (function(){
       innerEl.segmentEl = segment.el;
       innerEl.tabIndex = -1;
       if (system.touch) {
-        innerEl.addEventListener('touchstart', _onWidthIncrementClick, false);
+        innerEl.addEventListener('touchstart', _onWidthIncrementClick);
       } else {
-        innerEl.addEventListener('click', _onWidthIncrementClick, false);        
+        innerEl.addEventListener('click', _onWidthIncrementClick);        
       }
+      innerEl.addEventListener('mouseover', _showWidthChart);
+      innerEl.addEventListener('mouseout', _hideWidthChart);
       widthCanvasEl.appendChild(innerEl);        
 
       infoBubbleEl.appendChild(widthCanvasEl);
