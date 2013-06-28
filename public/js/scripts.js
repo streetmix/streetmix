@@ -116,7 +116,7 @@ var main = (function(){
     // 1: starting point
     // 2: adding leftBuildingHeight and rightBuildingHeight
     // 3: adding leftBuildingVariant and rightBuildingVariant
-  var TILESET_IMAGE_VERSION = 16;
+  var TILESET_IMAGE_VERSION = 17;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
   var TILESET_POINT_PER_PIXEL = 2.0;
@@ -192,7 +192,7 @@ var main = (function(){
   var DEFAULT_BUILDING_HEIGHT = 4;
   var DEFAULT_BUILDING_VARIANT = 'wide';
 
-  var BUILDING_VARIANTS = ['none', 'slim', 'wide'];
+  var BUILDING_VARIANTS = ['fence', 'narrow', 'wide'];
 
   var MIN_CUSTOM_STREET_WIDTH = 10;
   var MAX_CUSTOM_STREET_WIDTH = 200;
@@ -1509,27 +1509,58 @@ var main = (function(){
   }
 
   function _createBuilding(el, left, floorCount, scale, transparency) {
+    // TODO move
+    var TOTAL_WIDTH = 396;
     // TODO const
-    var width = 396; //216;
     var height = TILE_SIZE * (1 + 10 * (floorCount - 1) + 10);
 
+    //ctx.globalAlpha = transparency;
+
+    var tilePositionX = 0;
+    var width = 0;
+    var variantsCount = 1;
+    // TODO const
+
+    if (left) {
+      switch (street.leftBuildingVariant) {
+        case 'narrow':
+          var tilePositionX = 1512;
+          var width = 216;
+          var variantsCount = 2;
+          break;
+        case 'wide':
+          var tilePositionX = 1956; //1512;
+          var width = 396; //216;
+          break;
+      }
+    } else {
+      switch (street.rightBuildingVariant) {
+        case 'narrow':
+          var tilePositionX = 1728;
+          var width = 216;
+          var variantsCount = 2;
+          break;
+        case 'wide':
+          var tilePositionX = 2351;
+          var width = 396; //216;
+          break;
+      }
+    }
+
     var canvasEl = document.createElement('canvas');
-    canvasEl.width = width * system.hiDpi;
+    canvasEl.width = TOTAL_WIDTH * system.hiDpi;
     canvasEl.height = height * system.hiDpi;
-    canvasEl.style.width = (width * scale) + 'px';
+    canvasEl.style.width = (TOTAL_WIDTH * scale) + 'px';
     canvasEl.style.height = (height * scale) + 'px';
 
     el.appendChild(canvasEl);
 
     var ctx = canvasEl.getContext('2d');
 
-    //ctx.globalAlpha = transparency;
-
-    // TODO const
     if (left) {
-      var tilePositionX = 1956; //1512;
+      var leftPos = TOTAL_WIDTH - width;
     } else {
-      var tilePositionX = 2351; //1728;
+      var leftPos = 0;
     }
 
     var floorHeight = 10 * TILE_SIZE;
@@ -1538,8 +1569,8 @@ var main = (function(){
     // bottom floor
 
     _drawSegmentImage(ctx,
-        tilePositionX, 576 - 120, width, floorHeight + TILE_SIZE,
-        0, height - floorHeight, width, floorHeight + TILE_SIZE);
+        tilePositionX, 576 - 240 + 120 * variantsCount, width, floorHeight + TILE_SIZE,
+        leftPos, height - floorHeight, width, floorHeight + TILE_SIZE);
 
     // middle floors
 
@@ -1548,19 +1579,19 @@ var main = (function(){
     randomGenerator.seed(0);
 
     for (var i = 1; i < floorCount; i++) {   
-      var variant = Math.floor(randomGenerator.rand() * 1) + 1;
+      var variant = Math.floor(randomGenerator.rand() * variantsCount) + 1;
       //var variant = 0;
 
       _drawSegmentImage(ctx,
-          tilePositionX, 576 - 120 - (floorHeight * variant), width, floorHeight,
-          0, height - floorHeight * (i + 1), width, floorHeight);
+          tilePositionX, 576 - 240 + 120 * variantsCount - (floorHeight * variant), width, floorHeight,
+          leftPos, height - floorHeight * (i + 1), width, floorHeight);
     }
 
     // roof
 
     _drawSegmentImage(ctx,
         tilePositionX, 576 - floorHeight * 2 - roofHeight, width, roofHeight,
-        0, height - floorHeight * (floorCount) - roofHeight, width, roofHeight);
+        leftPos, height - floorHeight * (floorCount) - roofHeight, width, roofHeight);
 
     ctx.globalCompositeOperation = 'source-atop';
     ctx.globalAlpha = 1 - transparency;
@@ -2469,6 +2500,8 @@ var main = (function(){
 
     newData.leftBuildingHeight = street.leftBuildingHeight;
     newData.rightBuildingHeight = street.rightBuildingHeight;
+    newData.leftBuildingVariant = street.leftBuildingVariant;
+    newData.rightBuildingVariant = street.rightBuildingVariant;
 
     newData.segments = [];
 
@@ -4992,6 +5025,17 @@ var main = (function(){
       _infoBubble.considerType = null;
     },
 
+    onBuildingVariantButtonClick: function(event, left, variantChoice) {
+      if (left) {
+        street.leftBuildingVariant = variantChoice;
+      } else {
+        street.rightBuildingVariant = variantChoice;
+      }
+
+      _saveStreetToServerIfNecessary();
+      _createBuildings();
+    },
+
     onVariantButtonClick: function(event, dataNo, variantName, variantChoice) {
       var segment = street.segments[dataNo];
 
@@ -5130,7 +5174,7 @@ var main = (function(){
         var widthCanvasEl = document.createElement('div');
         widthCanvasEl.classList.add('width-canvas');
 
-        widthCanvasEl.classList.add('entire-info-bubble');
+        //widthCanvasEl.classList.add('entire-info-bubble');
 
         var func = function() {
           _changeBuildingHeight(_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING, false);
@@ -5234,38 +5278,56 @@ var main = (function(){
       var variantsEl = document.createElement('div');
       variantsEl.classList.add('variants');
 
-      if (showVariants) {
-        var first = true;
+      switch (_infoBubble.type) {
+        case INFO_BUBBLE_TYPE_SEGMENT:
+          var first = true;
 
-        for (var i in segmentInfo.variants) {
-          if (!first) {
-            var el = document.createElement('hr');
-            variantsEl.appendChild(el);
-          } else {
-            first = false;
-          }
-
-          for (var j in VARIANTS[segmentInfo.variants[i]]) {
-
-            var variantName = segmentInfo.variants[i];
-            var variantChoice = VARIANTS[segmentInfo.variants[i]][j];
-
-            var el = document.createElement('button');
-            el.innerHTML = variantChoice;
-
-            if (segment.variant[variantName] == variantChoice) {
-              el.disabled = true;
+          for (var i in segmentInfo.variants) {
+            if (!first) {
+              var el = document.createElement('hr');
+              variantsEl.appendChild(el);
+            } else {
+              first = false;
             }
 
-            el.addEventListener('click', (function(dataNo, variantName, variantChoice) {
-              return function() {
-                _infoBubble.onVariantButtonClick(event, dataNo, variantName, variantChoice);
-              }
-            })(segment.el.dataNo, variantName, variantChoice));
+            for (var j in VARIANTS[segmentInfo.variants[i]]) {
+              var variantName = segmentInfo.variants[i];
+              var variantChoice = VARIANTS[segmentInfo.variants[i]][j];
 
+              var el = document.createElement('button');
+              el.innerHTML = variantChoice;
+
+              if (segment.variant[variantName] == variantChoice) {
+                el.disabled = true;
+              }
+
+              el.addEventListener('click', (function(dataNo, variantName, variantChoice) {
+                return function() {
+                  _infoBubble.onVariantButtonClick(event, dataNo, variantName, variantChoice);
+                }
+              })(segment.el.dataNo, variantName, variantChoice));
+
+              variantsEl.appendChild(el);
+            }
+          }      
+          break;
+        case INFO_BUBBLE_TYPE_LEFT_BUILDING:
+        case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
+
+          for (var j in BUILDING_VARIANTS) {
+            var el = document.createElement('button');
+            el.innerHTML = BUILDING_VARIANTS[j];
             variantsEl.appendChild(el);
+
+            el.addEventListener('click', (function(left, variantChoice) {
+              return function() {
+                _infoBubble.onBuildingVariantButtonClick(event, left, variantChoice);
+              }
+            })(_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING, BUILDING_VARIANTS[j]));
+
           }
-        }      
+
+          break;
       }
 
       infoBubbleEl.appendChild(variantsEl);
@@ -5751,6 +5813,8 @@ var main = (function(){
     street.width = _normalizeStreetWidth(DEFAULT_STREET_WIDTH);
     street.leftBuildingHeight = DEFAULT_BUILDING_HEIGHT;
     street.rightBuildingHeight = DEFAULT_BUILDING_HEIGHT;
+    street.leftBuildingVariant = DEFAULT_BUILDING_VARIANT;
+    street.rightBuildingVariant = DEFAULT_BUILDING_VARIANT;
     if (signedIn) {
       _setStreetCreatorId(signInData.userId);
     }
@@ -5768,6 +5832,8 @@ var main = (function(){
     street.width = _normalizeStreetWidth(DEFAULT_STREET_WIDTH);
     street.leftBuildingHeight = DEFAULT_BUILDING_HEIGHT;
     street.rightBuildingHeight = DEFAULT_BUILDING_HEIGHT;
+    street.leftBuildingVariant = DEFAULT_BUILDING_VARIANT;
+    street.rightBuildingVariant = DEFAULT_BUILDING_VARIANT;
     if (signedIn) {
       _setStreetCreatorId(signInData.userId);
     }
