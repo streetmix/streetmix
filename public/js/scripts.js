@@ -117,7 +117,7 @@ var main = (function(){
     // 2: adding leftBuildingHeight and rightBuildingHeight
     // 3: adding leftBuildingVariant and rightBuildingVariant
     // 4: adding transit shelter elevation
-  var TILESET_IMAGE_VERSION = 19;
+  var TILESET_IMAGE_VERSION = 20;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
   var TILESET_POINT_PER_PIXEL = 2.0;
@@ -1580,8 +1580,8 @@ var main = (function(){
   }
 
   function _createBuilding(el, left, floorCount, scale, transparency) {
-    // TODO move
-    var TOTAL_WIDTH = 396;
+    var totalWidth = document.querySelector('#street-section-left-building').offsetWidth;
+
     // TODO const
     var height = TILE_SIZE * (1 + 10 * (floorCount - 1) + 10);
 
@@ -1592,16 +1592,20 @@ var main = (function(){
     var variantsCount = 1;
     // TODO const
 
+    var flooredBuilding = false;
+
     if (left) {
       switch (street.leftBuildingVariant) {
         case 'narrow':
           var tilePositionX = 1512;
           var width = 216;
           var variantsCount = 2;
+          flooredBuilding = true;
           break;
         case 'wide':
           var tilePositionX = 1956; //1512;
           var width = 396; //216;
+          flooredBuilding = true;
           break;
       }
     } else {
@@ -1610,64 +1614,88 @@ var main = (function(){
           var tilePositionX = 1728;
           var width = 216;
           var variantsCount = 2;
+          flooredBuilding = true;
           break;
         case 'wide':
           var tilePositionX = 2351;
           var width = 396; //216;
+          flooredBuilding = true;
           break;
       }
     }
 
     var canvasEl = document.createElement('canvas');
-    canvasEl.width = TOTAL_WIDTH * system.hiDpi;
+    canvasEl.width = totalWidth * system.hiDpi;
     canvasEl.height = height * system.hiDpi;
-    canvasEl.style.width = (TOTAL_WIDTH * scale) + 'px';
+    canvasEl.style.width = (totalWidth * scale) + 'px';
     canvasEl.style.height = (height * scale) + 'px';
 
     el.appendChild(canvasEl);
 
     var ctx = canvasEl.getContext('2d');
 
-    if (left) {
-      var leftPos = TOTAL_WIDTH - width;
+    // Fence
+
+    if (!flooredBuilding) {
+      var width = 48;
+
+      if (left) {
+        var posShift = (totalWidth % width) - 121;//
+        var origPos = 1344 / 2;
+      } else {
+        var posShift = 24;
+        var origPos = 1224 / 2;
+      }
+
+      for (var i = 0; i < totalWidth / width + 1; i++) {
+        _drawSegmentImage(ctx,
+            origPos, 24 / 2, width, 168,
+            posShift + i * width, 408, width, 168);
+      }
     } else {
-      var leftPos = 0;
-    }
+      // Floored buildings
 
-    var floorHeight = 10 * TILE_SIZE;
-    var roofHeight = 1 * TILE_SIZE;
+      if (left) {
+        var leftPos = totalWidth - width;
+      } else {
+        var leftPos = 0;
+      }
 
-    // bottom floor
+      var floorHeight = 10 * TILE_SIZE;
+      var roofHeight = 1 * TILE_SIZE;
 
-    _drawSegmentImage(ctx,
-        tilePositionX, 576 - 240 + 120 * variantsCount, width, floorHeight + TILE_SIZE,
-        leftPos, height - floorHeight, width, floorHeight + TILE_SIZE);
-
-    // middle floors
-
-    var randomGenerator = new RandomGenerator();
-
-    randomGenerator.seed(0);
-
-    for (var i = 1; i < floorCount; i++) {   
-      var variant = Math.floor(randomGenerator.rand() * variantsCount) + 1;
-      //var variant = 0;
+      // bottom floor
 
       _drawSegmentImage(ctx,
-          tilePositionX, 576 - 240 + 120 * variantsCount - (floorHeight * variant), width, floorHeight,
-          leftPos, height - floorHeight * (i + 1), width, floorHeight);
+          tilePositionX, 576 - 240 + 120 * variantsCount, width, floorHeight + TILE_SIZE,
+          leftPos, height - floorHeight, width, floorHeight + TILE_SIZE);
+
+      // middle floors
+
+      var randomGenerator = new RandomGenerator();
+
+      randomGenerator.seed(0);
+
+      for (var i = 1; i < floorCount; i++) {   
+        var variant = Math.floor(randomGenerator.rand() * variantsCount) + 1;
+        //var variant = 0;
+
+        _drawSegmentImage(ctx,
+            tilePositionX, 576 - 240 + 120 * variantsCount - (floorHeight * variant), width, floorHeight,
+            leftPos, height - floorHeight * (i + 1), width, floorHeight);
+      }
+
+      // roof
+
+      _drawSegmentImage(ctx,
+          tilePositionX, 576 - floorHeight * 2 - roofHeight, width, roofHeight,
+          leftPos, height - floorHeight * (floorCount) - roofHeight, width, roofHeight);
+
+      ctx.globalCompositeOperation = 'source-atop';
+      ctx.globalAlpha = 1 - transparency;
+      ctx.fillStyle = 'rgb(151, 192, 212)';
+      ctx.fillRect(0, 0, width * system.hiDpi, height * system.hiDpi);
     }
-
-    // roof
-
-    _drawSegmentImage(ctx,
-        tilePositionX, 576 - floorHeight * 2 - roofHeight, width, roofHeight,
-        leftPos, height - floorHeight * (floorCount) - roofHeight, width, roofHeight);
-
-    ctx.globalCompositeOperation = 'source-atop';
-    ctx.globalAlpha = 1 - transparency;
-    ctx.fillStyle = 'rgb(151, 192, 212)';
-    ctx.fillRect(0, 0, width * system.hiDpi, height * system.hiDpi);
   }
 
   function _changeBuildingHeight(left, increment) {
@@ -3548,6 +3576,23 @@ var main = (function(){
 
     _infoBubble.show(true);
     _updateScrollButtons();
+
+
+    var el = document.querySelector('#editable-street-section');
+    var pos = _getElAbsolutePos(el);
+
+    var width = pos[0] + 50 + 25;
+
+    //console.log(width);
+
+    document.querySelector('#street-section-left-building').style.width = width + 'px';
+    document.querySelector('#street-section-right-building').style.width = width + 'px';
+
+    document.querySelector('#street-section-left-building').style.left = (-width + 25) + 'px';
+    document.querySelector('#street-section-right-building').style.right = (-width + 25) + 'px';
+
+    // TODO hack
+    _createBuildings();
   }
 
   function _fillDefaultSegments() {
