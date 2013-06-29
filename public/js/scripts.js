@@ -200,7 +200,7 @@ var main = (function(){
   var DEFAULT_BUILDING_HEIGHT = 4;
   var DEFAULT_BUILDING_VARIANT = 'wide';
 
-  var BUILDING_VARIANTS = ['fence', 'narrow', 'wide'];
+  var BUILDING_VARIANTS = ['grass', 'fence', 'narrow', 'wide'];
 
   var MIN_CUSTOM_STREET_WIDTH = 10;
   var MAX_CUSTOM_STREET_WIDTH = 200;
@@ -1950,6 +1950,8 @@ var main = (function(){
 
     var flooredBuilding = false;
 
+    var buildingVariant = left ? street.leftBuildingVariant : street.rightBuildingVariant;
+
     if (left) {
       switch (street.leftBuildingVariant) {
         case 'narrow':
@@ -2003,10 +2005,21 @@ var main = (function(){
 
       if (left) {
         var posShift = (totalWidth % width) - 121;//
-        var origPos = 1344 / 2;
       } else {
         var posShift = 25;
-        var origPos = 1224 / 2;
+      }
+
+      switch (buildingVariant) {
+        case 'fence': 
+          if (left) {
+            var origPos = 1344 / 2;            
+          } else {
+            var origPos = 1224 / 2;            
+          }
+          break;
+        case 'grass':
+          var origPos = 1104 / 2;
+          break;
       }
 
       for (var i = 0; i < totalWidth / width + 1; i++) {
