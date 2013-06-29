@@ -112,7 +112,7 @@ var main = (function(){
   var NEW_STREET_DEFAULT = 1;
   var NEW_STREET_EMPTY = 2;
 
-  var LATEST_SCHEMA_VERSION = 9;
+  var LATEST_SCHEMA_VERSION = 10;
     // 1: starting point
     // 2: adding leftBuildingHeight and rightBuildingHeight
     // 3: adding leftBuildingVariant and rightBuildingVariant
@@ -122,6 +122,7 @@ var main = (function(){
     // 7: colored bus and light rail lanes
     // 8: colored bike lane
     // 9: second car type: truck
+    // 10: sidewalk density
   var TILESET_IMAGE_VERSION = 28;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
@@ -336,6 +337,7 @@ var main = (function(){
     'bike-asphalt': ['regular', 'colored'],
     'transit-shelter-elevation': ['street-level', 'light-rail'],
     'car-type': ['car', 'truck'],
+    'sidewalk-density': ['sparse', 'normal', 'dense'],
   };
 
   var SEGMENT_INFO = {
@@ -343,12 +345,23 @@ var main = (function(){
       name: 'Sidewalk',
       owner: SEGMENT_OWNER_PEDESTRIAN,
       defaultWidth: 6,
-      variants: [''],
+      variants: ['sidewalk-density'],
       details: {
-        '': {
+        'sparse': {
           minWidth: 6,
           graphics: {
-            //center: { x: 0, y: 30 + 19, width: 4, height: 7, offsetY: 4 },
+            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+          }
+        },
+        'normal': {
+          minWidth: 6,
+          graphics: {
+            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+          }
+        },
+        'dense': {
+          minWidth: 6,
+          graphics: {
             repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
           }
         }
@@ -1236,19 +1249,36 @@ var main = (function(){
     }
   }
 
-  function _drawProgrammaticPeople(ctx, width, top, multiplier) {
+  function _drawProgrammaticPeople(ctx, width, top, multiplier, variantString) {
     // TODO move
     var PERSON_TYPES = 14;
 
     var people = [];
     var peopleWidth = 0;
 
+    var variantArray = _getVariantArray('sidewalk', variantString);
+
+    switch (variantArray['sidewalk-density']) {
+      case 'sparse':
+        var widthConst = 60;
+        var widthRand = 100;
+        break;
+      case 'normal':
+        var widthConst = 36;
+        var widthRand = 36;
+        break;
+      case 'dense':
+        var widthConst = 12;
+        var widthRand = 12;
+        break;
+    }
+
     var randomGenerator = new RandomGenerator();
     randomGenerator.seed(35);
 
     var lastPersonType = 0;
 
-    while (peopleWidth < width - 24) {
+    while (peopleWidth < width - 36) {
       var person = {};
       person.left = peopleWidth;
       do {
@@ -1256,16 +1286,19 @@ var main = (function(){
       } while (person.type == lastPersonType);
       lastPersonType = person.type;
 
-      peopleWidth += 24 + randomGenerator.rand() * 24;
+      var lastWidth = widthConst + randomGenerator.rand() * widthRand;
+
+      peopleWidth += lastWidth;
       people.push(person);
     }
+    peopleWidth -= lastWidth;
 
     var startLeft = (width - peopleWidth) / 2;
 
     for (var i in people) {
       var person = people[i];
       _drawSegmentImage(ctx, 1056 + 12 + 48 * person.type, 0, 48, 24 * 4, 
-          (person.left - 6 + startLeft) * multiplier, top + 35 * multiplier, 48 * multiplier, 24 * 4 * multiplier);
+          (person.left - 24 + startLeft) * multiplier, top + 35 * multiplier, 48 * multiplier, 24 * 4 * multiplier);
     }
   }
 
@@ -1436,7 +1469,7 @@ var main = (function(){
     }
 
     if (type == 'sidewalk') {
-      _drawProgrammaticPeople(ctx, segmentWidth, top, multiplier);
+      _drawProgrammaticPeople(ctx, segmentWidth, top, multiplier, variantString);
     }
 
     _removeElFromDom(el.querySelector('canvas'));
@@ -2320,6 +2353,16 @@ var main = (function(){
           if (segment.type == 'drive-lane') {
             var variant = _getVariantArray(segment.type, segment.variantString);
             variant['car-type'] = 'car';
+            segment.variantString =  _getVariantString(variant);
+          }
+        }
+        break;
+      case 9:
+        for (var i in street.segments) {
+          var segment = street.segments[i];
+          if (segment.type == 'sidewalk') {
+            var variant = _getVariantArray(segment.type, segment.variantString);
+            variant['sidewalk-density'] = 'normal';
             segment.variantString =  _getVariantString(variant);
           }
         }
