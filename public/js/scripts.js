@@ -112,7 +112,7 @@ var main = (function(){
   var NEW_STREET_DEFAULT = 1;
   var NEW_STREET_EMPTY = 2;
 
-  var LATEST_SCHEMA_VERSION = 8;
+  var LATEST_SCHEMA_VERSION = 9;
     // 1: starting point
     // 2: adding leftBuildingHeight and rightBuildingHeight
     // 3: adding leftBuildingVariant and rightBuildingVariant
@@ -121,7 +121,8 @@ var main = (function(){
     // 6: colored streetcar lanes
     // 7: colored bus and light rail lanes
     // 8: colored bike lane
-  var TILESET_IMAGE_VERSION = 24;
+    // 9: second car type: truck
+  var TILESET_IMAGE_VERSION = 25;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
   var TILESET_POINT_PER_PIXEL = 2.0;
@@ -332,7 +333,8 @@ var main = (function(){
     'orientation': ['left', 'right'],
     'public-transit-asphalt': ['regular', 'colored'],
     'bike-asphalt': ['regular', 'colored'],
-    'transit-shelter-elevation': ['street-level', 'light-rail']
+    'transit-shelter-elevation': ['street-level', 'light-rail'],
+    'car-type': ['car', 'truck'],
   };
 
   var SEGMENT_INFO = {
@@ -390,13 +392,13 @@ var main = (function(){
       details: {
         'left': {
           graphics: {
-            right: { x: 61, y: 2, width: 6, height: 6, offsetY: 5 },
+            left: { x: 67, y: 2, width: 6, height: 6, offsetY: 5 },
             repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
           }
         },
         'right': {
           graphics: {
-            left: { x: 67, y: 2, width: 6, height: 6, offsetY: 5 },
+            right: { x: 61, y: 2, width: 6, height: 6, offsetY: 5 },
             repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
           }
         },
@@ -547,9 +549,9 @@ var main = (function(){
       name: 'Drive lane',
       owner: SEGMENT_OWNER_CAR,
       defaultWidth: 10,
-      variants: ['direction'],
+      variants: ['direction', 'car-type'],
       details: {
-        'inbound': {
+        'inbound|car': {
           minWidth: 9,
           maxWidth: 12,
           graphics: {
@@ -560,12 +562,34 @@ var main = (function(){
             repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
           }          
         },
-        'outbound': {
+        'outbound|car': {
           minWidth: 9,
           maxWidth: 12,
           graphics: {
             center: [
               { x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
+              { x: 37, y: 15, width: 8, height: 15, offsetY: 10 }, // Arrow (outbound)
+            ],
+            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+          }          
+        },
+        'inbound|truck': {
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: [
+              { x: 17, y: 64, width: 10, height: 12, offsetY: 0 }, // Truck (inbound)
+              { x: 28, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow (inbound)
+            ],
+            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+          }          
+        },
+        'outbound|truck': {
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: [
+              { x: 29, y: 64, width: 9, height: 12, offsetY: 0 }, // Truck (outbound)
               { x: 37, y: 15, width: 8, height: 15, offsetY: 10 }, // Arrow (outbound)
             ],
             repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
@@ -2168,136 +2192,94 @@ var main = (function(){
     _createNewUndo();
   }
 
-  function _updateSchemaToVersion2(street) {
-    street.leftBuildingHeight = DEFAULT_BUILDING_HEIGHT;
-    street.rightBuildingHeight = DEFAULT_BUILDING_HEIGHT;
-    street.schemaVersion = 2;
-  }
-
-  function _updateSchemaToVersion3(street) {
-    street.leftBuildingVariant = DEFAULT_BUILDING_VARIANT;
-    street.rightBuildingVariant = DEFAULT_BUILDING_VARIANT;
-    street.schemaVersion = 3;
-  }
-
-  function _updateSchemaToVersion4(street) {
-    for (var i in street.segments) {
-      var segment = street.segments[i];
-      if (segment.type == 'transit-shelter') {
-        var variant = _getVariantArray(segment.type, segment.variantString);
-        variant['transit-shelter-elevation'] = 'street-level';
-        segment.variantString =  _getVariantString(variant);
-      }
+  function _incrementSchemaVersion(street) {
+    if (!street.schemaVersion) {
+      street.schemaVersion = 1;
     }
 
-    street.schemaVersion = 4;
-  }
-
-  function _updateSchemaToVersion5(street) {
-    for (var i in street.segments) {
-      var segment = street.segments[i];
-      if (segment.type == 'sidewalk-lamp') {
-        var variant = _getVariantArray(segment.type, segment.variantString);
-        variant['lamp-type'] = 'modern';
-        segment.variantString =  _getVariantString(variant);
-      }
+    switch (street.schemaVersion) {
+      case 1:
+        street.leftBuildingHeight = DEFAULT_BUILDING_HEIGHT;
+        street.rightBuildingHeight = DEFAULT_BUILDING_HEIGHT;
+        break;
+      case 2:
+        street.leftBuildingVariant = DEFAULT_BUILDING_VARIANT;
+        street.rightBuildingVariant = DEFAULT_BUILDING_VARIANT;
+        break;
+      case 3:
+        for (var i in street.segments) {
+          var segment = street.segments[i];
+          if (segment.type == 'transit-shelter') {
+            var variant = _getVariantArray(segment.type, segment.variantString);
+            variant['transit-shelter-elevation'] = 'street-level';
+            segment.variantString =  _getVariantString(variant);
+          }
+        }
+        break;
+      case 4:
+        for (var i in street.segments) {
+          var segment = street.segments[i];
+          if (segment.type == 'sidewalk-lamp') {
+            var variant = _getVariantArray(segment.type, segment.variantString);
+            variant['lamp-type'] = 'modern';
+            segment.variantString =  _getVariantString(variant);
+          }
+        }
+        break;
+      case 5:
+        for (var i in street.segments) {
+          var segment = street.segments[i];
+          if (segment.type == 'streetcar') {
+            var variant = _getVariantArray(segment.type, segment.variantString);
+            variant['public-transit-asphalt'] = 'regular';
+            segment.variantString =  _getVariantString(variant);
+          }
+        }
+        break;
+      case 6:
+        for (var i in street.segments) {
+          var segment = street.segments[i];
+          if ((segment.type == 'bus-lane') || (segment.type == 'light-rail')) {
+            var variant = _getVariantArray(segment.type, segment.variantString);
+            variant['public-transit-asphalt'] = 'regular';
+            segment.variantString =  _getVariantString(variant);
+          }
+        }
+        break;
+      case 7:
+        for (var i in street.segments) {
+          var segment = street.segments[i];
+          if (segment.type == 'bike-lane') {
+            var variant = _getVariantArray(segment.type, segment.variantString);
+            variant['bike-asphalt'] = 'regular';
+            segment.variantString =  _getVariantString(variant);
+          }
+        }
+        break;
+      case 8:
+        for (var i in street.segments) {
+          var segment = street.segments[i];
+          if (segment.type == 'drive-lane') {
+            var variant = _getVariantArray(segment.type, segment.variantString);
+            variant['car-type'] = 'car';
+            segment.variantString =  _getVariantString(variant);
+          }
+        }
+        break;
     }
 
-    street.schemaVersion = 5;
-  }
-
-  function _updateSchemaToVersion6(street) {
-    for (var i in street.segments) {
-      var segment = street.segments[i];
-      if (segment.type == 'streetcar') {
-        var variant = _getVariantArray(segment.type, segment.variantString);
-        variant['public-transit-asphalt'] = 'regular';
-        segment.variantString =  _getVariantString(variant);
-      }
-    }
-
-    street.schemaVersion = 6;
-  }
-
-  function _updateSchemaToVersion7(street) {
-    for (var i in street.segments) {
-      var segment = street.segments[i];
-      if ((segment.type == 'bus-lane') || (segment.type == 'light-rail')) {
-        var variant = _getVariantArray(segment.type, segment.variantString);
-        variant['public-transit-asphalt'] = 'regular';
-        segment.variantString =  _getVariantString(variant);
-      }
-    }
-
-    street.schemaVersion = 7;
-  }
-
-  function _updateSchemaToVersion8(street) {
-    for (var i in street.segments) {
-      var segment = street.segments[i];
-      if (segment.type == 'bike-lane') {
-        var variant = _getVariantArray(segment.type, segment.variantString);
-        variant['bike-asphalt'] = 'regular';
-        segment.variantString =  _getVariantString(variant);
-      }
-    }
-
-    street.schemaVersion = 8;
+    street.schemaVersion++;
   }
 
   function _updateToLatestSchemaVersion(street) {
     var updated = false;
-    if (!street.schemaVersion || (street.schemaVersion == 1)) {
-      console.log('updated schema to 2');
+    while (!street.schemaVersion || (street.schemaVersion < LATEST_SCHEMA_VERSION)) {
+      console.log('updating schema from ', street.schemaVersion);
 
-      _updateSchemaToVersion2(street);
+      _incrementSchemaVersion(street);
       updated = true;
     }
 
-    // TODO come on
-
-    if (street.schemaVersion == 2) {
-      console.log('updated schema to 3');
-
-      _updateSchemaToVersion3(street);
-      updated = true;
-    }
-    
-    if (street.schemaVersion == 3) {
-      console.log('updated schema to 4');
-
-      _updateSchemaToVersion4(street);
-      updated = true;
-    }
-
-    if (street.schemaVersion == 4) {
-      console.log('updated schema to 5');
-
-      _updateSchemaToVersion5(street);
-      updated = true;
-    }
-    
-    if (street.schemaVersion == 5) {
-      console.log('updated schema to 6');
-
-      _updateSchemaToVersion6(street);
-      updated = true;
-    }
-    
-    if (street.schemaVersion == 6) {
-      console.log('updated schema to 7');
-
-      _updateSchemaToVersion7(street);
-      updated = true;
-    }
-
-    if (street.schemaVersion == 7) {
-      console.log('updated schema to 8');
-
-      _updateSchemaToVersion8(street);
-      updated = true;
-    }
-    
     return updated;
   }
 
