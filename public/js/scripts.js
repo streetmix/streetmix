@@ -121,7 +121,7 @@ var main = (function(){
     // 6: colored streetcar lanes
     // 7: colored bus and light rail lanes
     // 8: colored bike lane
-  var TILESET_IMAGE_VERSION = 23;
+  var TILESET_IMAGE_VERSION = 24;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
   var TILESET_POINT_PER_PIXEL = 2.0;
@@ -324,6 +324,7 @@ var main = (function(){
     'direction': ['inbound', 'outbound'],
     'tree-type': ['small', 'big', 'palm-tree'],
     'lamp-orientation': ['left', 'both', 'right'],
+    'bench-orientation': ['left', 'center', 'right'],
     'lamp-type': ['modern', 'traditional'],
     'parking-lane-orientation': ['left', 'right'],
     'turn-lane-orientation': ['left', 'right'],
@@ -405,18 +406,24 @@ var main = (function(){
       name: 'Sidewalk w/ a bench',
       owner: SEGMENT_OWNER_PEDESTRIAN,
       defaultWidth: 4,
-      variants: ['orientation'],
+      variants: ['bench-orientation'],
       details: {
         'left': {
           graphics: {
-            center: { x: 13, y: 5, width: 6, height: 15 },
-            repeat: { x: 1, y: 5, width: 1, height: 15 }
+            left: { x: 81, y: 2, width: 3, height: 6, offsetY: 5 },
+            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+          }
+        },
+        'center': {
+          graphics: {
+            center: { x: 74, y: 2, width: 3, height: 6, offsetY: 5 },
+            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
           }
         },
         'right': {
           graphics: {
-            center: { x: 13, y: 5, width: 6, height: 15 },
-            repeat: { x: 1, y: 5, width: 1, height: 15 }
+            right: { x: 78, y: 2, width: 3, height: 6, offsetY: 5 },
+            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
           }
         },
       }
