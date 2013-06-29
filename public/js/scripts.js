@@ -124,7 +124,7 @@ var main = (function(){
     // 9: second car type: truck
     // 10: sidewalk density
     // 11: unify median and planting strip into divider
-  var TILESET_IMAGE_VERSION = 32;
+  var TILESET_IMAGE_VERSION = 33;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
   var TILESET_POINT_PER_PIXEL = 2.0;
@@ -487,6 +487,28 @@ var main = (function(){
         }      
       }
     },
+    'parklet': {
+      name: 'Parklet',
+      owner: SEGMENT_OWNER_NATURE,
+      defaultWidth: 8,
+      variants: ['orientation'],
+      details: {
+        'left': {
+          minWidth: 8,
+          graphics: {
+            left: { x: 136, y: 63, width: 8, height: 8, offsetY: 4 },
+            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+          }
+        },
+        'right': {
+          minWidth: 8,
+          graphics: {
+            right: { x: 126, y: 63, width: 8, height: 8, offsetY: 4 },
+            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+          }
+        },
+      }
+    },    
     'divider': {
       name: 'Buffer',
       owner: SEGMENT_OWNER_NATURE,
