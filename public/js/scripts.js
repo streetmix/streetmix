@@ -124,7 +124,7 @@ var main = (function(){
     // 9: second car type: truck
     // 10: sidewalk density
     // 11: unify median and planting strip into divider
-  var TILESET_IMAGE_VERSION = 28;
+  var TILESET_IMAGE_VERSION = 29;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
   var TILESET_POINT_PER_PIXEL = 2.0;
@@ -332,7 +332,7 @@ var main = (function(){
     'parking-lane-orientation': ['left', 'right'],
     'parking-lane-direction': ['inbound', 'outbound', 'sideways'],
     'turn-lane-orientation': ['left', 'right'],
-    'divider-type': ['median', 'planting-strip', 'small-tree', 'big-tree', 'palm-tree', 'bollard'],
+    'divider-type': ['median', 'striped-buffer', 'planting-strip', 'small-tree', 'big-tree', 'palm-tree', 'bollard'],
     'orientation': ['left', 'right'],
     'public-transit-asphalt': ['regular', 'colored'],
     'bike-asphalt': ['regular', 'colored'],
@@ -488,19 +488,27 @@ var main = (function(){
       }
     },
     'divider': {
-      name: 'Divider',
+      name: 'Buffer',
       owner: SEGMENT_OWNER_NATURE,
       defaultWidth: 4,
       variants: ['divider-type'],
       details: {
         'median': {
           graphics: {
-            //center: { x: 22, y: 5, width: 3, height: 15 },
-            //repeat: { x: 20, y: 5, width: 1, height: 15 }
             repeat: [
               { x: 98, y: 43, width: 10, height: 6, offsetY: 9 }, // Median
               { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
             ],
+          }          
+        },
+        'striped-buffer': {
+          graphics: {
+            repeat: [
+              { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+              { x: 116, y: 21, width: 5, height: 5, offsetY: 10 }, // Asphalt
+            ],
+            left: { x: 119, y: 15, width: 1, height: 5, offsetY: 10 }, // Marking
+            right: { x: 117, y: 15, width: 1, height: 5, offsetY: 10 }, // Marking
           }          
         },
         'planting-strip': {
