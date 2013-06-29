@@ -122,7 +122,7 @@ var main = (function(){
     // 7: colored bus and light rail lanes
     // 8: colored bike lane
     // 9: second car type: truck
-  var TILESET_IMAGE_VERSION = 26;
+  var TILESET_IMAGE_VERSION = 27;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
   var TILESET_POINT_PER_PIXEL = 2.0;
@@ -347,13 +347,9 @@ var main = (function(){
         '': {
           minWidth: 6,
           graphics: {
-            center: { x: 0, y: 30 + 19, width: 4, height: 7, offsetY: 4 },
+            //center: { x: 0, y: 30 + 19, width: 4, height: 7, offsetY: 4 },
             repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
           }
-/*          graphics: {
-            center: { x: 3, y: 5, width: 4, height: 15 },
-            repeat: { x: 1, y: 5, width: 1, height: 15 }
-          }          */
         }
       }
     },
@@ -608,7 +604,7 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 123, y: 5, width: 8, height: 15 }, // Arrow
+              { x: 123, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow
               { x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
             ],
             repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
@@ -619,7 +615,7 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 81, y: 5, width: 8, height: 15 }, // Arrow
+              { x: 81, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow
               { x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
             ],
             repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
@@ -630,7 +626,7 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 132, y: 5, width: 8, height: 15 }, // Arrow
+              { x: 132, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow
               { x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
             ],
             repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
@@ -641,7 +637,7 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 141, y: 5, width: 8, height: 15 }, // Arrow
+              { x: 141, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow
               { x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
             ],
             repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
@@ -1216,7 +1212,41 @@ var main = (function(){
     }
   }
 
- function _setSegmentContents(el, type, variantString, segmentWidth, palette) {
+  function _drawProgrammaticPeople(ctx, width) {
+    // TODO move
+
+    var PERSON_TYPES = 14;
+
+    var people = [];
+    var peopleWidth = 0;
+
+    var randomGenerator = new RandomGenerator();
+    randomGenerator.seed(2);
+
+    var lastPersonType = 0;
+
+    while (peopleWidth < width - 24) {
+      var person = {};
+      person.left = peopleWidth;
+      do {
+        person.type = Math.floor(randomGenerator.rand() * PERSON_TYPES);
+      } while (person.type == lastPersonType);
+      lastPersonType = person.type;
+
+      peopleWidth += 24 + randomGenerator.rand() * 24;
+      people.push(person);
+    }
+
+    var startLeft = (width - peopleWidth) / 2;
+
+    for (var i in people) {
+      var person = people[i];
+      _drawSegmentImage(ctx, 1056 + 12 + 48 * person.type, 0, 48, 24 * 4, 
+          person.left - 6 + startLeft, 300, 48, 24 * 4);
+    }
+  }
+
+  function _setSegmentContents(el, type, variantString, segmentWidth, palette) {
     var segmentInfo = SEGMENT_INFO[type];
     var variantInfo = SEGMENT_INFO[type].details[variantString];
 
@@ -1380,6 +1410,10 @@ var main = (function(){
           top + (multiplier * TILE_SIZE * (variantInfo.graphics.center[l].offsetY || 0)), 
           width * TILE_SIZE * multiplier, variantInfo.graphics.center[l].height * TILE_SIZE * multiplier);
       }
+    }
+
+    if (type == 'sidewalk') {
+      _drawProgrammaticPeople(ctx, segmentWidth);
     }
 
     _removeElFromDom(el.querySelector('canvas'));
