@@ -124,7 +124,7 @@ var main = (function(){
     // 9: second car type: truck
     // 10: sidewalk density
     // 11: unify median and planting strip into divider
-  var TILESET_IMAGE_VERSION = 33;
+  var TILESET_IMAGE_VERSION = 34;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
   var TILESET_POINT_PER_PIXEL = 2.0;
@@ -377,7 +377,7 @@ var main = (function(){
       details: {
         'big': {
           graphics: {
-            center: { x: 40, y: 59, width: 9, height: 18, offsetY: -7 }, // Big tree
+            center: { x: 40, y: 56, width: 9, height: 21, offsetY: -10 }, // Big tree
             repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
           }
         },
@@ -803,6 +803,15 @@ var main = (function(){
             repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         },
+
+/*                'left': {
+          minWidth: 8,
+          graphics: {
+            left: { x: 136, y: 63, width: 8, height: 8, offsetY: 4 },
+            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+          }
+        },*/
+
         'sideways|right': {
           minWidth: 8,
           maxWidth: 10,
