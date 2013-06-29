@@ -112,12 +112,13 @@ var main = (function(){
   var NEW_STREET_DEFAULT = 1;
   var NEW_STREET_EMPTY = 2;
 
-  var LATEST_SCHEMA_VERSION = 5;
+  var LATEST_SCHEMA_VERSION = 6;
     // 1: starting point
     // 2: adding leftBuildingHeight and rightBuildingHeight
     // 3: adding leftBuildingVariant and rightBuildingVariant
     // 4: adding transit shelter elevation
     // 5: adding another lamp
+    // 6: colored streetcar lanes
   var TILESET_IMAGE_VERSION = 22;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
@@ -198,7 +199,7 @@ var main = (function(){
 
   var MIN_CUSTOM_STREET_WIDTH = 10;
   var MAX_CUSTOM_STREET_WIDTH = 200;
-  var MIN_SEGMENT_WIDTH = 2;
+  var MIN_SEGMENT_WIDTH = 1;
   var MAX_SEGMENT_WIDTH = 150;
 
   var RESIZE_TYPE_INITIAL = 0;
@@ -326,6 +327,7 @@ var main = (function(){
     'turn-lane-orientation': ['left', 'right'],
     'planting-strip-type': ['', 'palm-tree'],
     'orientation': ['left', 'right'],
+    'public-transit-asphalt': ['regular', 'colored'],
     'transit-shelter-elevation': ['street-level', 'light-rail']
   };
 
@@ -641,9 +643,9 @@ var main = (function(){
       name: 'Streetcar',
       owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
       defaultWidth: 10,
-      variants: ['direction'],
+      variants: ['direction', 'public-transit-asphalt'],
       details: {
-        'inbound': {
+        'inbound|regular': {
           minWidth: 9,
           maxWidth: 12,
           graphics: {
@@ -655,7 +657,7 @@ var main = (function(){
             repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
           }          
         },
-        'outbound': {
+        'outbound|regular': {
           minWidth: 9,
           maxWidth: 12,
           graphics: {
@@ -665,6 +667,30 @@ var main = (function(){
               { x: 37, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow (outbound)
             ],
             repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+          }          
+        },
+        'inbound|colored': {
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: [
+              { x: 192, y: 1, width: 12, height: 17, offsetX: -1, offsetY: -1 }, // Streetcar
+              { x: 16, y: 57, width: 12, height: 5, offsetX: -2, offsetY: 10 }, // Track
+              { x: 28, y: 15, width: 8, height: 5, offsetX: 1, offsetY: 10 }, // Dark arrow (inbound)
+            ],
+            repeat: { x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Asphalt
+          }          
+        },
+        'outbound|colored': {
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: [
+              { x: 204, y: 1, width: 12, height: 17, offsetX: -1, offsetY: -1 }, // Streetcar
+              { x: 16, y: 57, width: 12, height: 5, offsetX: -2, offsetY: 10 }, // Track
+              { x: 37, y: 15, width: 8, height: 5, offsetY: 10 }, // Dark arrow (outbound)
+            ],
+            repeat: { x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         },
       }     
@@ -2064,6 +2090,19 @@ var main = (function(){
     street.schemaVersion = 5;
   }
 
+  function _updateSchemaToVersion6(street) {
+    for (var i in street.segments) {
+      var segment = street.segments[i];
+      if (segment.type == 'streetcar') {
+        var variant = _getVariantArray(segment.type, segment.variantString);
+        variant['public-transit-asphalt'] = 'regular';
+        segment.variantString =  _getVariantString(variant);
+      }
+    }
+
+    street.schemaVersion = 6;
+  }
+
   function _updateToLatestSchemaVersion(street) {
     var updated = false;
     if (!street.schemaVersion || (street.schemaVersion == 1)) {
@@ -2091,6 +2130,13 @@ var main = (function(){
       console.log('updated schema to 5');
 
       _updateSchemaToVersion5(street);
+      updated = true;
+    }
+    
+    if (street.schemaVersion == 5) {
+      console.log('updated schema to 6');
+
+      _updateSchemaToVersion6(street);
       updated = true;
     }
     
