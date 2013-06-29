@@ -124,7 +124,7 @@ var main = (function(){
     // 9: second car type: truck
     // 10: sidewalk density
     // 11: unify median and planting strip into divider
-  var TILESET_IMAGE_VERSION = 34;
+  var TILESET_IMAGE_VERSION = 35;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
   var TILESET_POINT_PER_PIXEL = 2.0;
@@ -2005,14 +2005,14 @@ var main = (function(){
         var posShift = (totalWidth % width) - 121;//
         var origPos = 1344 / 2;
       } else {
-        var posShift = 24;
+        var posShift = 25;
         var origPos = 1224 / 2;
       }
 
       for (var i = 0; i < totalWidth / width + 1; i++) {
         _drawSegmentImage(ctx,
-            origPos, 24 / 2, width, 168,
-            posShift + i * width, 408, width, 168);
+            origPos, 0, width, 168 + 12,
+            posShift + i * width, 409 - 12, width, 168 + 12);
       }
     } else {
       // Floored buildings
