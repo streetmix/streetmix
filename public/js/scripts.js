@@ -328,6 +328,7 @@ var main = (function(){
     'bench-orientation': ['left', 'center', 'right'],
     'lamp-type': ['modern', 'traditional'],
     'parking-lane-orientation': ['left', 'right'],
+    'parking-lane-direction': ['inbound', 'outbound', 'sideways'],
     'turn-lane-orientation': ['left', 'right'],
     'planting-strip-type': ['', 'palm-tree'],
     'orientation': ['left', 'right'],
@@ -649,7 +650,7 @@ var main = (function(){
       name: 'Parking lane',
       owner: SEGMENT_OWNER_CAR,
       defaultWidth: 8,
-      variants: ['direction', 'parking-lane-orientation'],
+      variants: ['parking-lane-direction', 'parking-lane-orientation'],
       details: {
         'inbound|left': {
           minWidth: 8,
@@ -693,6 +694,29 @@ var main = (function(){
             ],
             repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
             left: { x: 46, y: 5, width: 2, height: 15 } // Parking marking
+          }          
+        },
+        'sideways|left': {
+          minWidth: 14,
+          maxWidth: 20,
+          graphics: {
+            left: [
+              { x: 38, y: 78, width: 14, height: 6, offsetY: 6 }, // Car (outbound)
+              //{ x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
+            ],
+            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+            //right: { x: 112, y: 5, width: 2, height: 15 } // Parking marking
+          }          
+        },
+        'sideways|right': {
+          minWidth: 8,
+          maxWidth: 10,
+          graphics: {
+            right: [
+              { x: 54, y: 78, width: 14, height: 6, offsetY: 6 }, // Car (outbound)
+            ],
+            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+            //left: { x: 46, y: 5, width: 2, height: 15 } // Parking marking
           }          
         }
       }      
