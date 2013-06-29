@@ -4337,7 +4337,7 @@ var main = (function(){
   function _fetchStreetForVerification() {
     // Don’t do it with any network services pending
     if (_getNonblockingAjaxRequestCount() || blockingAjaxRequestInProgress || 
-        saveStreetIncomplete || abortEverything) {
+        saveStreetIncomplete || abortEverything || remixOnFirstEdit) {
       return;
     }
 
