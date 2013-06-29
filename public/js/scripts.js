@@ -332,7 +332,6 @@ var main = (function(){
     'parking-lane-orientation': ['left', 'right'],
     'parking-lane-direction': ['inbound', 'outbound', 'sideways'],
     'turn-lane-orientation': ['left', 'right'],
-    //'planting-strip-type': ['', 'palm-tree'],
     'divider-type': ['median', 'planting-strip', 'small-tree', 'big-tree', 'palm-tree', 'bollard'],
     'orientation': ['left', 'right'],
     'public-transit-asphalt': ['regular', 'colored'],
@@ -496,8 +495,12 @@ var main = (function(){
       details: {
         'median': {
           graphics: {
-            center: { x: 22, y: 5, width: 3, height: 15 },
-            repeat: { x: 20, y: 5, width: 1, height: 15 }
+            //center: { x: 22, y: 5, width: 3, height: 15 },
+            //repeat: { x: 20, y: 5, width: 1, height: 15 }
+            repeat: [
+              { x: 98, y: 43, width: 10, height: 6, offsetY: 9 }, // Median
+              { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            ],
           }          
         },
         'planting-strip': {
@@ -518,6 +521,7 @@ var main = (function(){
         },
         'big-tree': {
           graphics: {
+            center: { x: 40, y: 59, width: 9, height: 18, offsetY: -7 }, // Big tree
             repeat: [
               { x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
               { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
@@ -555,7 +559,7 @@ var main = (function(){
               { x: 5, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
               { x: 28, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow (inbound)
             ],
-            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }
         },
         'outbound|regular': {
@@ -564,7 +568,7 @@ var main = (function(){
               { x: 9, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
               { x: 37, y: 15, width: 8, height: 15, offsetY: 10 }, // Arrow (outbound)
             ],
-            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }
         },
         'inbound|colored': {
@@ -601,7 +605,7 @@ var main = (function(){
               { x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
               { x: 28, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow (inbound)
             ],
-            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         },
         'outbound|car': {
@@ -612,7 +616,7 @@ var main = (function(){
               { x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
               { x: 37, y: 15, width: 8, height: 15, offsetY: 10 }, // Arrow (outbound)
             ],
-            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         },
         'inbound|truck': {
@@ -623,7 +627,7 @@ var main = (function(){
               { x: 17, y: 64, width: 10, height: 12, offsetY: 0 }, // Truck (inbound)
               { x: 28, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow (inbound)
             ],
-            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         },
         'outbound|truck': {
@@ -634,7 +638,7 @@ var main = (function(){
               { x: 29, y: 64, width: 9, height: 12, offsetY: 0 }, // Truck (outbound)
               { x: 37, y: 15, width: 8, height: 15, offsetY: 10 }, // Arrow (outbound)
             ],
-            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         }
       }
@@ -653,7 +657,7 @@ var main = (function(){
               { x: 123, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow
               { x: 20, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
             ],
-            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         },
         'inbound|right': {
@@ -664,7 +668,7 @@ var main = (function(){
               { x: 81, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow
               { x: 29, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
             ],
-            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         },
         'outbound|left': {
@@ -675,7 +679,7 @@ var main = (function(){
               { x: 132, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow
               { x: 1, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
             ],
-            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         },
         'outbound|right': {
@@ -686,7 +690,7 @@ var main = (function(){
               { x: 141, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow
               { x: 10, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
             ],
-            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         }
       }
@@ -704,7 +708,7 @@ var main = (function(){
             center: [
               { x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
             ],
-            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
             right: { x: 112, y: 5, width: 2, height: 15 } // Parking marking
           }          
         },
@@ -715,7 +719,7 @@ var main = (function(){
             center: [
               { x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
             ],
-            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
             left: { x: 46, y: 5, width: 2, height: 15 } // Parking marking
           }          
         },
@@ -726,7 +730,7 @@ var main = (function(){
             center: [
               { x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
             ],
-            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
             right: { x: 112, y: 5, width: 2, height: 15 } // Parking marking
           }          
         },
@@ -737,7 +741,7 @@ var main = (function(){
             center: [
               { x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
             ],
-            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
             left: { x: 46, y: 5, width: 2, height: 15 } // Parking marking
           }          
         },
@@ -746,11 +750,9 @@ var main = (function(){
           maxWidth: 20,
           graphics: {
             left: [
-              { x: 38, y: 78, width: 14, height: 6, offsetY: 6 }, // Car (outbound)
-              //{ x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
+              { x: 38, y: 78, width: 14, height: 6, offsetY: 6 }, // Car (side)
             ],
-            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
-            //right: { x: 112, y: 5, width: 2, height: 15 } // Parking marking
+            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         },
         'sideways|right': {
@@ -758,10 +760,9 @@ var main = (function(){
           maxWidth: 10,
           graphics: {
             right: [
-              { x: 54, y: 78, width: 14, height: 6, offsetY: 6 }, // Car (outbound)
+              { x: 54, y: 78, width: 14, height: 6, offsetY: 6 }, // Car (side)
             ],
-            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
-            //left: { x: 46, y: 5, width: 2, height: 15 } // Parking marking
+            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         }
       }      
@@ -780,7 +781,7 @@ var main = (function(){
               { x: 28, y: 27, width: 11, height: 15 }, // Bus
               { x: 28, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow (inbound)
             ],
-            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }
         },
         'outbound|regular': {
@@ -791,7 +792,7 @@ var main = (function(){
               { x: 16, y: 27, width: 12, height: 15 }, // Bus
               { x: 37, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow (outbound)
             ],
-            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }
         },
         'inbound|colored': {
@@ -833,7 +834,7 @@ var main = (function(){
               { x: 26, y: 57, width: 12, height: 5, offsetX: -2, offsetY: 10 }, // Track
               { x: 28, y: 15, width: 8, height: 5, offsetX: 1, offsetY: 10 }, // Arrow (inbound)
             ],
-            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         },
         'outbound|regular': {
@@ -845,7 +846,7 @@ var main = (function(){
               { x: 26, y: 57, width: 12, height: 5, offsetX: -2, offsetY: 10 }, // Track
               { x: 37, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow (outbound)
             ],
-            repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         },
         'inbound|colored': {
