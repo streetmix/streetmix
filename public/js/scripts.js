@@ -112,7 +112,7 @@ var main = (function(){
   var NEW_STREET_DEFAULT = 1;
   var NEW_STREET_EMPTY = 2;
 
-  var LATEST_SCHEMA_VERSION = 7;
+  var LATEST_SCHEMA_VERSION = 8;
     // 1: starting point
     // 2: adding leftBuildingHeight and rightBuildingHeight
     // 3: adding leftBuildingVariant and rightBuildingVariant
@@ -120,7 +120,8 @@ var main = (function(){
     // 5: adding another lamp
     // 6: colored streetcar lanes
     // 7: colored bus and light rail lanes
-  var TILESET_IMAGE_VERSION = 22;
+    // 8: colored bike lane
+  var TILESET_IMAGE_VERSION = 23;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
   var TILESET_POINT_PER_PIXEL = 2.0;
@@ -329,6 +330,7 @@ var main = (function(){
     'planting-strip-type': ['', 'palm-tree'],
     'orientation': ['left', 'right'],
     'public-transit-asphalt': ['regular', 'colored'],
+    'bike-asphalt': ['regular', 'colored'],
     'transit-shelter-elevation': ['street-level', 'light-rail']
   };
 
@@ -454,9 +456,9 @@ var main = (function(){
       name: 'Bike lane',
       owner: SEGMENT_OWNER_BIKE,
       defaultWidth: 6,
-      variants: ['direction'],
+      variants: ['direction', 'bike-asphalt'],
       details: {
-        'inbound': {
+        'inbound|regular': {
           graphics: {
             center: [
               { x: 5, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
@@ -465,13 +467,31 @@ var main = (function(){
             repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
           }
         },
-        'outbound': {
+        'outbound|regular': {
           graphics: {
             center: [
               { x: 9, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
               { x: 37, y: 15, width: 8, height: 15, offsetY: 10 }, // Arrow (outbound)
             ],
             repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+          }
+        },
+        'inbound|colored': {
+          graphics: {
+            center: [
+              { x: 5, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
+              { x: 28, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow (inbound)
+            ],
+            repeat: { x: 98 - 10, y: 53 + 10, width: 8, height: 5, offsetY: 10 }, // Green asphalt
+          }
+        },
+        'outbound|colored': {
+          graphics: {
+            center: [
+              { x: 9, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
+              { x: 37, y: 15, width: 8, height: 15, offsetY: 10 }, // Arrow (outbound)
+            ],
+            repeat: { x: 98 - 10, y: 53 + 10, width: 8, height: 5, offsetY: 10 }, // Green asphalt
           }
         }
       }
@@ -2165,6 +2185,19 @@ var main = (function(){
     street.schemaVersion = 7;
   }
 
+  function _updateSchemaToVersion8(street) {
+    for (var i in street.segments) {
+      var segment = street.segments[i];
+      if (segment.type == 'bike-lane') {
+        var variant = _getVariantArray(segment.type, segment.variantString);
+        variant['bike-asphalt'] = 'regular';
+        segment.variantString =  _getVariantString(variant);
+      }
+    }
+
+    street.schemaVersion = 8;
+  }
+
   function _updateToLatestSchemaVersion(street) {
     var updated = false;
     if (!street.schemaVersion || (street.schemaVersion == 1)) {
@@ -2173,6 +2206,8 @@ var main = (function(){
       _updateSchemaToVersion2(street);
       updated = true;
     }
+
+    // TODO come on
 
     if (street.schemaVersion == 2) {
       console.log('updated schema to 3');
@@ -2206,6 +2241,13 @@ var main = (function(){
       console.log('updated schema to 7');
 
       _updateSchemaToVersion7(street);
+      updated = true;
+    }
+
+    if (street.schemaVersion == 7) {
+      console.log('updated schema to 8');
+
+      _updateSchemaToVersion8(street);
       updated = true;
     }
     
