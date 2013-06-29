@@ -112,7 +112,7 @@ var main = (function(){
   var NEW_STREET_DEFAULT = 1;
   var NEW_STREET_EMPTY = 2;
 
-  var LATEST_SCHEMA_VERSION = 10;
+  var LATEST_SCHEMA_VERSION = 11;
     // 1: starting point
     // 2: adding leftBuildingHeight and rightBuildingHeight
     // 3: adding leftBuildingVariant and rightBuildingVariant
@@ -123,6 +123,7 @@ var main = (function(){
     // 8: colored bike lane
     // 9: second car type: truck
     // 10: sidewalk density
+    // 11: unify median and planting strip into divider
   var TILESET_IMAGE_VERSION = 28;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
@@ -331,7 +332,8 @@ var main = (function(){
     'parking-lane-orientation': ['left', 'right'],
     'parking-lane-direction': ['inbound', 'outbound', 'sideways'],
     'turn-lane-orientation': ['left', 'right'],
-    'planting-strip-type': ['', 'palm-tree'],
+    //'planting-strip-type': ['', 'palm-tree'],
+    'divider-type': ['median', 'planting-strip', 'small-tree', 'big-tree', 'palm-tree', 'bollard'],
     'orientation': ['left', 'right'],
     'public-transit-asphalt': ['regular', 'colored'],
     'bike-asphalt': ['regular', 'colored'],
@@ -486,13 +488,35 @@ var main = (function(){
         }      
       }
     },
-    'planting-strip': {
-      name: 'Planting strip',
+    'divider': {
+      name: 'Divider',
       owner: SEGMENT_OWNER_NATURE,
       defaultWidth: 4,
-      variants: ['planting-strip-type'],
+      variants: ['divider-type'],
       details: {
-        '': {
+        'median': {
+          graphics: {
+            center: { x: 22, y: 5, width: 3, height: 15 },
+            repeat: { x: 20, y: 5, width: 1, height: 15 }
+          }          
+        },
+        'planting-strip': {
+          graphics: {
+            repeat: [
+              { x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
+              { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            ]
+          }          
+        },
+        'small-tree': {
+          graphics: {
+            repeat: [
+              { x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
+              { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            ]
+          }          
+        },
+        'big-tree': {
           graphics: {
             repeat: [
               { x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
@@ -508,7 +532,15 @@ var main = (function(){
               { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
             ]
           }          
-        }
+        },
+        'bollard': {
+          graphics: {
+            repeat: [
+              { x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
+              { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            ]
+          }          
+        },
       }
     },
     'bike-lane': {
@@ -937,21 +969,7 @@ var main = (function(){
           }          
         },
       }
-    },    
-    'small-median': {
-      name: 'Small median',
-      owner: SEGMENT_OWNER_CAR,
-      defaultWidth: 4,
-      variants: [''],
-      details: {
-        '': {
-          graphics: {
-            center: { x: 22, y: 5, width: 3, height: 15 },
-            repeat: { x: 20, y: 5, width: 1, height: 15 }
-          }          
-        }
-      }
-    },
+    }
   };
 
   var DEFAULT_SEGMENTS = {
@@ -2364,6 +2382,21 @@ var main = (function(){
             var variant = _getVariantArray(segment.type, segment.variantString);
             variant['sidewalk-density'] = 'normal';
             segment.variantString =  _getVariantString(variant);
+          }
+        }
+        break;
+      case 10:
+        for (var i in street.segments) {
+          var segment = street.segments[i];
+          if (segment.type == 'planting-strip') {
+            segment.type = 'divider';
+
+            if (segment.variantString == '') {
+              segment.variantString = 'planting-strip';
+            };
+          } else if (segment.type == 'small-median') {
+            segment.type = 'divider';
+            segment.variantString = 'median';
           }
         }
         break;
