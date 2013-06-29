@@ -1916,6 +1916,14 @@ body.no-connection-message-visible #status-message {
       margin-left: 3px;
       margin-right: 3px;
       white-space: nowrap;
+
+      opacity: .75;
+
+      &[disabled] {
+        outline: 2px solid black;
+        color: black;
+        opacity: 1;
+      }
     }
     hr {
       vertical-align: top;

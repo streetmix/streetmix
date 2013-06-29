@@ -754,7 +754,7 @@ var main = (function(){
               //{ x: 28, y: 5, width: 8, height: 5, offsetY: 10 }, // Dark arrow (inbound)
               { x: 28, y: 15, width: 8, height: 5, offsetY: 10 }, // Dark arrow (inbound)
             ],
-            repeat: { x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
+            repeat: { x: 110, y: 43, width: 9, height: 5, offsetY: 10 }, // Lower concrete
           }          
         },
         'outbound|regular': {
@@ -767,7 +767,7 @@ var main = (function(){
               //{ x: 37, y: 5, width: 8, height: 5, offsetY: 10 }, // Dark arrow (outbound)
               { x: 37, y: 15, width: 8, height: 5, offsetY: 10 }, // Dark arrow (outbound)
             ],
-            repeat: { x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
+            repeat: { x: 110, y: 43, width: 9, height: 5, offsetY: 10 }, // Lower concrete
           }          
         },
         'inbound|colored': {
@@ -780,7 +780,7 @@ var main = (function(){
               //{ x: 28, y: 5, width: 8, height: 5, offsetY: 10 }, // Dark arrow (inbound)
               { x: 28, y: 15, width: 8, height: 5, offsetY: 10 }, // Dark arrow (inbound)
             ],
-            repeat: { x: 110, y: 43, width: 9, height: 5, offsetY: 10 }, // Lower concrete
+            repeat: { x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
           }          
         },
         'outbound|colored': {
@@ -793,7 +793,7 @@ var main = (function(){
               //{ x: 37, y: 5, width: 8, height: 5, offsetY: 10 }, // Dark arrow (outbound)
               { x: 37, y: 15, width: 8, height: 5, offsetY: 10 }, // Dark arrow (outbound)
             ],
-            repeat: { x: 110, y: 43, width: 9, height: 5, offsetY: 10 }, // Lower concrete
+            repeat: { x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
           }          
         },
       }
