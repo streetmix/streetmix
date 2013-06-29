@@ -122,7 +122,7 @@ var main = (function(){
     // 7: colored bus and light rail lanes
     // 8: colored bike lane
     // 9: second car type: truck
-  var TILESET_IMAGE_VERSION = 27;
+  var TILESET_IMAGE_VERSION = 28;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
   var TILESET_POINT_PER_PIXEL = 2.0;
@@ -605,7 +605,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 123, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow
-              { x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
+              { x: 20, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
             ],
             repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
           }          
@@ -616,7 +616,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 81, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow
-              { x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
+              { x: 29, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
             ],
             repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
           }          
@@ -627,7 +627,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 132, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow
-              { x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
+              { x: 1, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
             ],
             repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
           }          
@@ -638,7 +638,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 141, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow
-              { x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
+              { x: 10, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
             ],
             repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
           }          
@@ -3846,7 +3846,6 @@ var main = (function(){
   }
 
   function _updateBuildingPosition() {
-
     var el = document.querySelector('#editable-street-section');
     var pos = _getElAbsolutePos(el);
 
