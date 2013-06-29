@@ -112,13 +112,14 @@ var main = (function(){
   var NEW_STREET_DEFAULT = 1;
   var NEW_STREET_EMPTY = 2;
 
-  var LATEST_SCHEMA_VERSION = 6;
+  var LATEST_SCHEMA_VERSION = 7;
     // 1: starting point
     // 2: adding leftBuildingHeight and rightBuildingHeight
     // 3: adding leftBuildingVariant and rightBuildingVariant
     // 4: adding transit shelter elevation
     // 5: adding another lamp
     // 6: colored streetcar lanes
+    // 7: colored bus and light rail lanes
   var TILESET_IMAGE_VERSION = 22;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
@@ -613,9 +614,9 @@ var main = (function(){
       name: 'Bus lane',
       owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
       defaultWidth: 10,
-      variants: ['direction'],
+      variants: ['direction', 'public-transit-asphalt'],
       details: {
-        'inbound': {
+        'inbound|regular': {
           minWidth: 9,
           maxWidth: 12,
           graphics: {
@@ -626,7 +627,7 @@ var main = (function(){
             repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
           }
         },
-        'outbound': {
+        'outbound|regular': {
           minWidth: 9,
           maxWidth: 12,
           graphics: {
@@ -635,6 +636,28 @@ var main = (function(){
               { x: 37, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow (outbound)
             ],
             repeat: { x: 98, y: 43, width: 10, height: 15 }, // Asphalt
+          }
+        },
+        'inbound|colored': {
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: [
+              { x: 28, y: 27, width: 11, height: 13 }, // Bus
+              { x: 28, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow (inbound)
+            ],
+            repeat: { x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
+          }
+        },
+        'outbound|colored': {
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: [
+              { x: 16, y: 27, width: 12, height: 13 }, // Bus
+              { x: 37, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow (outbound)
+            ],
+            repeat: { x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
           }
         }
       }
@@ -678,7 +701,7 @@ var main = (function(){
               { x: 16, y: 57, width: 12, height: 5, offsetX: -2, offsetY: 10 }, // Track
               { x: 28, y: 15, width: 8, height: 5, offsetX: 1, offsetY: 10 }, // Dark arrow (inbound)
             ],
-            repeat: { x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
           }          
         },
         'outbound|colored': {
@@ -690,7 +713,7 @@ var main = (function(){
               { x: 16, y: 57, width: 12, height: 5, offsetX: -2, offsetY: 10 }, // Track
               { x: 37, y: 15, width: 8, height: 5, offsetY: 10 }, // Dark arrow (outbound)
             ],
-            repeat: { x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
           }          
         },
       }     
@@ -699,9 +722,35 @@ var main = (function(){
       name: 'Light rail',
       owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
       defaultWidth: 10,
-      variants: ['direction'],
+      variants: ['direction', 'public-transit-asphalt'],
       details: {
-        'inbound': {
+        'inbound|regular': {
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: [
+              { x: 17, y: 40, width: 10, height: 17, offsetY: -5 }, // Light rail
+              { x: 17, y: 57, width: 10, height: 5, offsetY: 10 }, // Track
+              //{ x: 28, y: 5, width: 8, height: 5, offsetY: 10 }, // Dark arrow (inbound)
+              { x: 28, y: 15, width: 8, height: 5, offsetY: 10 }, // Dark arrow (inbound)
+            ],
+            repeat: { x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
+          }          
+        },
+        'outbound|regular': {
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: [
+              { x: 27, y: 40, width: 10, height: 17, offsetY: -5 }, // Light rail
+              { x: 17, y: 57, width: 10, height: 5, offsetY: 10 }, // Track
+              //{ x: 37, y: 5, width: 8, height: 5, offsetY: 10 }, // Dark arrow (outbound)
+              { x: 37, y: 15, width: 8, height: 5, offsetY: 10 }, // Dark arrow (outbound)
+            ],
+            repeat: { x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
+          }          
+        },
+        'inbound|colored': {
           minWidth: 9,
           maxWidth: 12,
           graphics: {
@@ -714,7 +763,7 @@ var main = (function(){
             repeat: { x: 110, y: 43, width: 9, height: 5, offsetY: 10 }, // Lower concrete
           }          
         },
-        'outbound': {
+        'outbound|colored': {
           minWidth: 9,
           maxWidth: 12,
           graphics: {
@@ -2103,6 +2152,19 @@ var main = (function(){
     street.schemaVersion = 6;
   }
 
+  function _updateSchemaToVersion7(street) {
+    for (var i in street.segments) {
+      var segment = street.segments[i];
+      if ((segment.type == 'bus-lane') || (segment.type == 'light-rail')) {
+        var variant = _getVariantArray(segment.type, segment.variantString);
+        variant['public-transit-asphalt'] = 'regular';
+        segment.variantString =  _getVariantString(variant);
+      }
+    }
+
+    street.schemaVersion = 7;
+  }
+
   function _updateToLatestSchemaVersion(street) {
     var updated = false;
     if (!street.schemaVersion || (street.schemaVersion == 1)) {
@@ -2137,6 +2199,13 @@ var main = (function(){
       console.log('updated schema to 6');
 
       _updateSchemaToVersion6(street);
+      updated = true;
+    }
+    
+    if (street.schemaVersion == 6) {
+      console.log('updated schema to 7');
+
+      _updateSchemaToVersion7(street);
       updated = true;
     }
     
