@@ -124,7 +124,7 @@ var main = (function(){
     // 9: second car type: truck
     // 10: sidewalk density
     // 11: unify median and planting strip into divider
-  var TILESET_IMAGE_VERSION = 31;
+  var TILESET_IMAGE_VERSION = 32;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
   var TILESET_POINT_PER_PIXEL = 2.0;
@@ -490,7 +490,7 @@ var main = (function(){
     'divider': {
       name: 'Buffer',
       owner: SEGMENT_OWNER_NATURE,
-      defaultWidth: 4,
+      defaultWidth: 2,
       variants: ['divider-type'],
       details: {
         'median': {
@@ -565,9 +565,9 @@ var main = (function(){
         },
         'bollard': {
           graphics: {
+            center: { x: 123, y: 64, width: 1, height: 7, offsetY: 5 },
             repeat: [
-              { x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
-              { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+              { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
             ]
           }          
         },
