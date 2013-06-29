@@ -1354,7 +1354,7 @@ var main = (function(){
 
     var lastPersonType = 0;
 
-    while (peopleWidth < width - 36) {
+    while (peopleWidth < width - 36 * multiplier) {
       var person = {};
       person.left = peopleWidth;
       do {
@@ -1545,6 +1545,11 @@ var main = (function(){
     }
 
     if (type == 'sidewalk') {
+
+/*      if (palette) {
+        variantString = 'dense';
+      }
+*/
       _drawProgrammaticPeople(ctx, segmentWidth, top, multiplier, variantString);
     }
 
