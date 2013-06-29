@@ -1001,34 +1001,34 @@ var main = (function(){
 
   var DEFAULT_SEGMENTS = {
     false: [ // Right-hand traffic
-      { type: "sidewalk", width: 6 },
+      { type: "sidewalk", variant: { 'sidewalk-density': 'normal' }, width: 6 },
       { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 4 },
-      { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'right' }, width: 2 },
-      { type: "bike-lane", variant: { 'direction': 'inbound' }, width: 6 },
-      { type: "drive-lane", variant: { 'direction': 'inbound' }, width: 10 },
-      { type: "drive-lane", variant: { 'direction': 'inbound' }, width: 10 },
-      { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'both' }, width: 4 },
-      { type: "drive-lane", variant: { 'direction': 'outbound' }, width: 10 },
-      { type: "drive-lane", variant: { 'direction': 'outbound' }, width: 10 },
-      { type: "bike-lane", variant: { 'direction': 'outbound' }, width: 6 },
-      { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'left' }, width: 2 },
+      { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'right', 'lamp-type': 'modern' }, width: 2 },
+      { type: "bike-lane", variant: { 'direction': 'inbound', 'bike-asphalt': 'regular' }, width: 6 },
+      { type: "drive-lane", variant: { 'direction': 'inbound', 'car-type': 'car' }, width: 10 },
+      { type: "drive-lane", variant: { 'direction': 'inbound', 'car-type': 'car' }, width: 10 },
+      { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'both', 'lamp-type': 'modern' }, width: 4 },
+      { type: "drive-lane", variant: { 'direction': 'outbound', 'car-type': 'car' }, width: 10 },
+      { type: "drive-lane", variant: { 'direction': 'outbound', 'car-type': 'car' }, width: 10 },
+      { type: "bike-lane", variant: { 'direction': 'outbound', 'bike-asphalt': 'regular' }, width: 6 },
+      { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'left', 'lamp-type': 'modern' }, width: 2 },
       { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 4 },
-      { type: "sidewalk", width: 6 }
+      { type: "sidewalk", variant: { 'sidewalk-density': 'normal' }, width: 6 }
     ],
     true: [ // Left-hand traffic
-      { type: "sidewalk", width: 6 },
+      { type: "sidewalk", variant: { 'sidewalk-density': 'normal' }, width: 6 },
       { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 4 },
-      { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'right' }, width: 2 },
-      { type: "bike-lane", variant: { 'direction': 'outbound' }, width: 6 },
-      { type: "drive-lane", variant: { 'direction': 'outbound' }, width: 10 },
-      { type: "drive-lane", variant: { 'direction': 'outbound' }, width: 10 },
-      { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'both' }, width: 4 },
-      { type: "drive-lane", variant: { 'direction': 'inbound' }, width: 10 },
-      { type: "drive-lane", variant: { 'direction': 'inbound' }, width: 10 },
-      { type: "bike-lane", variant: { 'direction': 'inbound' }, width: 6 },
-      { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'left' }, width: 2 },
+      { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'right', 'lamp-type': 'modern' }, width: 2 },
+      { type: "bike-lane", variant: { 'direction': 'outbound', 'bike-asphalt': 'regular' }, width: 6 },
+      { type: "drive-lane", variant: { 'direction': 'outbound', 'car-type': 'car' }, width: 10 },
+      { type: "drive-lane", variant: { 'direction': 'outbound', 'car-type': 'car' }, width: 10 },
+      { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'both', 'lamp-type': 'modern' }, width: 4 },
+      { type: "drive-lane", variant: { 'direction': 'inbound', 'car-type': 'car' }, width: 10 },
+      { type: "drive-lane", variant: { 'direction': 'inbound', 'car-type': 'car' }, width: 10 },
+      { type: "bike-lane", variant: { 'direction': 'inbound', 'bike-asphalt': 'regular' }, width: 6 },
+      { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'left', 'lamp-type': 'modern' }, width: 2 },
       { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 4 },
-      { type: "sidewalk", width: 6 }
+      { type: "sidewalk", variant: { 'sidewalk-density': 'normal' }, width: 6 }
     ]
   };
 
