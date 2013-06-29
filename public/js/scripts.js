@@ -1212,16 +1212,15 @@ var main = (function(){
     }
   }
 
-  function _drawProgrammaticPeople(ctx, width) {
+  function _drawProgrammaticPeople(ctx, width, top, multiplier) {
     // TODO move
-
     var PERSON_TYPES = 14;
 
     var people = [];
     var peopleWidth = 0;
 
     var randomGenerator = new RandomGenerator();
-    randomGenerator.seed(2);
+    randomGenerator.seed(35);
 
     var lastPersonType = 0;
 
@@ -1242,7 +1241,7 @@ var main = (function(){
     for (var i in people) {
       var person = people[i];
       _drawSegmentImage(ctx, 1056 + 12 + 48 * person.type, 0, 48, 24 * 4, 
-          person.left - 6 + startLeft, 300, 48, 24 * 4);
+          (person.left - 6 + startLeft) * multiplier, top + 35 * multiplier, 48 * multiplier, 24 * 4 * multiplier);
     }
   }
 
@@ -1413,7 +1412,7 @@ var main = (function(){
     }
 
     if (type == 'sidewalk') {
-      _drawProgrammaticPeople(ctx, segmentWidth);
+      _drawProgrammaticPeople(ctx, segmentWidth, top, multiplier);
     }
 
     _removeElFromDom(el.querySelector('canvas'));
