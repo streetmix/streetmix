@@ -122,7 +122,7 @@ var main = (function(){
     // 7: colored bus and light rail lanes
     // 8: colored bike lane
     // 9: second car type: truck
-  var TILESET_IMAGE_VERSION = 25;
+  var TILESET_IMAGE_VERSION = 26;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
   var TILESET_POINT_PER_PIXEL = 2.0;
@@ -372,8 +372,8 @@ var main = (function(){
         },
         'big': {
           graphics: {
-            center: { x: 158, y: 0, width: 11, height: 20, offsetY: -5 },
-            repeat: { x: 1, y: 5, width: 1, height: 15 }
+            center: { x: 40, y: 59, width: 9, height: 18, offsetY: -7 }, // Big tree
+            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
           }
         },
         'palm-tree': {
