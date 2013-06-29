@@ -1997,6 +1997,7 @@ var main = (function(){
     }
 
     _repositionSegments();
+    _updateBuildingPosition();
     _createBuildings();
   }
 
@@ -3837,22 +3838,25 @@ var main = (function(){
     _infoBubble.show(true);
     _updateScrollButtons();
 
+    //console.log(width);
+
+    _updateBuildingPosition();
+    // TODO hack
+    _createBuildings();
+  }
+
+  function _updateBuildingPosition() {
 
     var el = document.querySelector('#editable-street-section');
     var pos = _getElAbsolutePos(el);
 
     var width = pos[0] + 50 + 25;
 
-    //console.log(width);
-
     document.querySelector('#street-section-left-building').style.width = width + 'px';
     document.querySelector('#street-section-right-building').style.width = width + 'px';
 
     document.querySelector('#street-section-left-building').style.left = (-width + 25) + 'px';
     document.querySelector('#street-section-right-building').style.right = (-width + 25) + 'px';
-
-    // TODO hack
-    _createBuildings();
   }
 
   function _fillDefaultSegments() {
