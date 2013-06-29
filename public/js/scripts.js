@@ -381,6 +381,46 @@ var main = (function(){
         }
       }
     },
+    'sidewalk-bike-rack': {
+      name: 'Bike rack',
+      owner: SEGMENT_OWNER_BIKE,
+      defaultWidth: 6,
+      variants: ['orientation'],
+      details: {
+        'left': {
+          graphics: {
+            right: { x: 61, y: 2, width: 6, height: 6, offsetY: 5 },
+            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+          }
+        },
+        'right': {
+          graphics: {
+            left: { x: 67, y: 2, width: 6, height: 6, offsetY: 5 },
+            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+          }
+        },
+      }
+    },
+    'sidewalk-bench': {
+      name: 'Sidewalk w/ a bench',
+      owner: SEGMENT_OWNER_PEDESTRIAN,
+      defaultWidth: 4,
+      variants: ['orientation'],
+      details: {
+        'left': {
+          graphics: {
+            center: { x: 13, y: 5, width: 6, height: 15 },
+            repeat: { x: 1, y: 5, width: 1, height: 15 }
+          }
+        },
+        'right': {
+          graphics: {
+            center: { x: 13, y: 5, width: 6, height: 15 },
+            repeat: { x: 1, y: 5, width: 1, height: 15 }
+          }
+        },
+      }
+    },
     'sidewalk-lamp': {
       name: 'Sidewalk w/ a lamp',
       owner: SEGMENT_OWNER_PEDESTRIAN,
