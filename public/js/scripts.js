@@ -124,7 +124,7 @@ var main = (function(){
     // 9: second car type: truck
     // 10: sidewalk density
     // 11: unify median and planting strip into divider
-  var TILESET_IMAGE_VERSION = 29;
+  var TILESET_IMAGE_VERSION = 30;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
   var TILESET_POINT_PER_PIXEL = 2.0;
@@ -325,20 +325,20 @@ var main = (function(){
 
   var VARIANTS = {
     'direction': ['inbound', 'outbound'],
-    'tree-type': ['small', 'big', 'palm-tree'],
+    'tree-type': ['big', 'small', 'palm-tree'],
     'lamp-orientation': ['left', 'both', 'right'],
     'bench-orientation': ['left', 'center', 'right'],
     'lamp-type': ['modern', 'traditional'],
     'parking-lane-orientation': ['left', 'right'],
     'parking-lane-direction': ['inbound', 'outbound', 'sideways'],
     'turn-lane-orientation': ['left', 'right'],
-    'divider-type': ['median', 'striped-buffer', 'planting-strip', 'small-tree', 'big-tree', 'palm-tree', 'bollard'],
+    'divider-type': ['median', 'striped-buffer', 'planting-strip', 'bush', 'flowers', 'small-tree', 'big-tree', 'palm-tree', 'bollard'],
     'orientation': ['left', 'right'],
     'public-transit-asphalt': ['regular', 'colored'],
     'bike-asphalt': ['regular', 'colored'],
     'transit-shelter-elevation': ['street-level', 'light-rail'],
     'car-type': ['car', 'truck'],
-    'sidewalk-density': ['sparse', 'normal', 'dense'],
+    'sidewalk-density': ['dense', 'normal', 'sparse'],
   };
 
   var SEGMENT_INFO = {
@@ -348,7 +348,7 @@ var main = (function(){
       defaultWidth: 6,
       variants: ['sidewalk-density'],
       details: {
-        'sparse': {
+        'dense': {
           minWidth: 6,
           graphics: {
             repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
@@ -360,7 +360,7 @@ var main = (function(){
             repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
           }
         },
-        'dense': {
+        'sparse': {
           minWidth: 6,
           graphics: {
             repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
@@ -375,16 +375,16 @@ var main = (function(){
       defaultWidth: 4,
       variants: ['tree-type'],
       details: {
-        'small': {
-          graphics: {
-            center: { x: 13, y: 5, width: 6, height: 15 },
-            repeat: { x: 1, y: 5, width: 1, height: 15 }
-          }
-        },
         'big': {
           graphics: {
             center: { x: 40, y: 59, width: 9, height: 18, offsetY: -7 }, // Big tree
             repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+          }
+        },
+        'small': {
+          graphics: {
+            center: { x: 13, y: 5, width: 6, height: 15 },
+            repeat: { x: 1, y: 5, width: 1, height: 15 }
           }
         },
         'palm-tree': {
@@ -513,6 +513,24 @@ var main = (function(){
         },
         'planting-strip': {
           graphics: {
+            repeat: [
+              { x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
+              { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            ]
+          }          
+        },
+        'bush': {
+          graphics: {
+            center: { x: 122, y: 55, width: 2, height: 5, offsetY: 7 },
+            repeat: [
+              { x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
+              { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            ]
+          }          
+        },
+        'flowers': {
+          graphics: {
+            center: { x: 122, y: 59, width: 2, height: 5, offsetY: 7 },
             repeat: [
               { x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
               { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
