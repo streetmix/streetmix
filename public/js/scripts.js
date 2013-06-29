@@ -3875,6 +3875,10 @@ var main = (function(){
 
     var width = pos[0] + 50 + 25;
 
+    if (width < 0) {
+      width = 0;
+    }
+
     document.querySelector('#street-section-left-building').style.width = width + 'px';
     document.querySelector('#street-section-right-building').style.width = width + 'px';
 
