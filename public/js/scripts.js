@@ -3922,41 +3922,11 @@ var main = (function(){
 
       var dimensions = _getVariantInfoDimensions(variantInfo, 0, false);
 
-      var left = dimensions.left;
-      var right = dimensions.right;
-      var center = dimensions.center;      
-
       var width = dimensions.right - dimensions.left;
-
-      /*if (width == 0) {
-        width = variantInfo.minWidth * 2 || 0;
-      }*/
-      if (width == 0) {
+      if (!width) {
         width = segmentInfo.defaultWidth;
       }
       width += PALETTE_EXTRA_SEGMENT_PADDING;
-      console.log(segmentInfo.name, width);
-
-      //var width = 15;
-
-      //var width = segmentInfo.defaultWidth;
-
-      /*if (variantInfo.realWidth > variantInfo.defaultWidth) {
-        width = variantInfo.realWidth;
-      }*/
-
-      /*if (variantInfo.graphics.center && (width < (variantInfo.graphics.center[0].width + 1))) {
-        width = variantInfo.graphics.center[0].width;
-      }
-
-      if (variantInfo.graphics.left && variantInfo.graphics.left[0].offsetX) {
-        width -= variantInfo.graphics.left[0].offsetX;
-      }
-      if (variantInfo.graphics.right && variantInfo.graphics.right[0].offsetX) {
-        width -= variantInfo.graphics.right[0].offsetX;
-      }*/
-
-      //width += PALETTE_EXTRA_SEGMENT_PADDING * 10;
 
       var el = _createSegment(i, 
         variantName,
@@ -3968,8 +3938,6 @@ var main = (function(){
 
       document.querySelector('.palette-canvas').appendChild(el);
     }
-
-    //console.log(document.querySelector('#palette').scrollWidth);
 
     document.querySelector('.palette-canvas').style.width = 
         document.querySelector('.palette-canvas').scrollWidth + 'px';
@@ -4042,8 +4010,6 @@ var main = (function(){
 
     _infoBubble.show(true);
     _updateScrollButtons();
-
-    //console.log(width);
 
     _updateBuildingPosition();
     // TODO hack
@@ -4771,8 +4737,6 @@ var main = (function(){
 
     _showBlockingShield();
 
-    //console.log(system.apiUrl + 'v1/streets/' + streetId);
-
     jQuery.ajax({
       // TODO const
       url: system.apiUrl + 'v1/streets/' + streetId,
@@ -5009,8 +4973,6 @@ var main = (function(){
 
       galleryStreet.creatorId = 
           (galleryStreet.creator && galleryStreet.creator.id) || 'Anonymous';
-
-      //console.log(galleryStreet);
 
       galleryStreet.name = galleryStreet.name || DEFAULT_NAME;
 
