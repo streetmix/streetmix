@@ -812,8 +812,8 @@ var main = (function(){
           }          
         },
         'sideways|right': {
-          minWidth: 8,
-          maxWidth: 10,
+          minWidth: 14,
+          maxWidth: 20,
           graphics: {
             right: [
               { x: 54, y: 78, width: 14, height: 6, offsetY: 6 }, // Car (side)
@@ -2215,8 +2215,11 @@ var main = (function(){
   }
 
   function _applyWarningsToSegments() {
+      //console.log('warnings');
     for (var i in street.segments) {
       var segment = street.segments[i];
+
+      //console.log(segment);
 
       if (segment.el) {
         if (segment.warnings[SEGMENT_WARNING_OUTSIDE] || 
@@ -5619,9 +5622,7 @@ var main = (function(){
       var el = _createSegmentDom(segment);
 
       var oldEl = segment.el;
-
       oldEl.parentNode.insertBefore(el, oldEl);
-
       _switchSegmentElAway(oldEl);
 
       segment.el = el;
@@ -5632,9 +5633,11 @@ var main = (function(){
       el.classList.add('hover');
       _infoBubble.segmentEl = el;
 
-      _repositionSegments();
-
       _infoBubble.updateContents();
+
+      _repositionSegments();
+      _recalculateWidth();
+      _applyWarningsToSegments();
 
       _saveStreetToServerIfNecessary();
     },
