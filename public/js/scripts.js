@@ -4187,8 +4187,10 @@ var main = (function(){
       _statusMessage.show(msg('STATUS_SEGMENT_DELETED'), true);
     }
 
-    _showWidthChartImmediately();
-    _hideWidthChart();
+    if (street.segments.length) {
+      _showWidthChartImmediately();
+      _hideWidthChart();
+    }
   } 
 
   function _getHoveredSegmentEl() {
