@@ -112,7 +112,7 @@ var main = (function(){
   var NEW_STREET_DEFAULT = 1;
   var NEW_STREET_EMPTY = 2;
 
-  var LATEST_SCHEMA_VERSION = 11;
+  var LATEST_SCHEMA_VERSION = 12;
     // 1: starting point
     // 2: adding leftBuildingHeight and rightBuildingHeight
     // 3: adding leftBuildingVariant and rightBuildingVariant
@@ -124,6 +124,7 @@ var main = (function(){
     // 9: second car type: truck
     // 10: sidewalk density
     // 11: unify median and planting strip into divider
+    // 12: get rid of small tree
   var TILESET_IMAGE_VERSION = 36;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
@@ -327,7 +328,7 @@ var main = (function(){
     'direction': ['inbound', 'outbound'],
     'parking-lane-direction': ['inbound', 'outbound', 'sideways'],
 
-    'tree-type': ['big', 'small', 'palm-tree'],
+    'tree-type': ['big', 'palm-tree'],
 
     'lamp-orientation': ['left', 'both', 'right'],
     'lamp-type': ['modern', 'traditional'],
@@ -336,7 +337,7 @@ var main = (function(){
     'turn-lane-orientation': ['left', 'right'],
 
     'divider-type': ['median', 'striped-buffer', 'planting-strip', 
-                     'bush', 'flowers', 'small-tree', 'big-tree', 
+                     'bush', 'flowers', 'big-tree', 
                      'palm-tree', 'bollard'],
 
     'orientation': ['left', 'right'],
@@ -389,12 +390,6 @@ var main = (function(){
           graphics: {
             center: { x: 40, y: 56, width: 9, height: 21, offsetY: -10 }, // Big tree
             repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
-          }
-        },
-        'small': {
-          graphics: {
-            center: { x: 13, y: 5, width: 6, height: 15 },
-            repeat: { x: 1, y: 5, width: 1, height: 15 }
           }
         },
         'palm-tree': {
@@ -561,14 +556,6 @@ var main = (function(){
         'flowers': {
           graphics: {
             center: { x: 122, y: 59, width: 2, height: 5, offsetY: 7 },
-            repeat: [
-              { x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
-              { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
-            ]
-          }          
-        },
-        'small-tree': {
-          graphics: {
             repeat: [
               { x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
               { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
@@ -2486,6 +2473,20 @@ var main = (function(){
           } else if (segment.type == 'small-median') {
             segment.type = 'divider';
             segment.variantString = 'median';
+          }
+        }
+        break;
+      case 11:
+        for (var i in street.segments) {
+          var segment = street.segments[i];
+          if (segment.type == 'divider') {
+            if (segment.variantString == 'small-tree') {
+              segment.variantString = 'big-tree';
+            };
+          } else if (segment.type == 'sidewalk-tree') {
+            if (segment.variantString == 'small') {
+              segment.variantString = 'big';
+            };
           }
         }
         break;
