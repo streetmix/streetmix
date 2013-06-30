@@ -155,7 +155,7 @@ var main = (function(){
 
   var SEGMENT_Y_NORMAL = 265;
   var SEGMENT_Y_PALETTE = 20;
-  var PALETTE_EXTRA_SEGMENT_PADDING = 4;
+  var PALETTE_EXTRA_SEGMENT_PADDING = 5;
 
   var DRAG_OFFSET_Y_PALETTE = -340;
   var DRAG_OFFSET_Y_TOUCH_PALETTE = -100;
@@ -325,20 +325,30 @@ var main = (function(){
 
   var VARIANTS = {
     'direction': ['inbound', 'outbound'],
-    'tree-type': ['big', 'small', 'palm-tree'],
-    'lamp-orientation': ['left', 'both', 'right'],
-    'bench-orientation': ['left', 'center', 'right'],
-    'lamp-type': ['modern', 'traditional'],
-    'parking-lane-orientation': ['left', 'right'],
     'parking-lane-direction': ['inbound', 'outbound', 'sideways'],
+
+    'tree-type': ['big', 'small', 'palm-tree'],
+
+    'lamp-orientation': ['left', 'both', 'right'],
+    'lamp-type': ['modern', 'traditional'],
+
+    'bench-orientation': ['left', 'center', 'right'],
     'turn-lane-orientation': ['left', 'right'],
-    'divider-type': ['median', 'striped-buffer', 'planting-strip', 'bush', 'flowers', 'small-tree', 'big-tree', 'palm-tree', 'bollard'],
+
+    'divider-type': ['median', 'striped-buffer', 'planting-strip', 
+                     'bush', 'flowers', 'small-tree', 'big-tree', 
+                     'palm-tree', 'bollard'],
+
     'orientation': ['left', 'right'],
+
     'public-transit-asphalt': ['regular', 'colored'],
     'bike-asphalt': ['regular', 'colored'],
+
     'transit-shelter-elevation': ['street-level', 'light-rail'],
     'car-type': ['car', 'truck'],
     'sidewalk-density': ['dense', 'normal', 'sparse'],
+
+    'parking-lane-orientation': ['left', 'right'],
   };
 
   var SEGMENT_INFO = {
@@ -389,7 +399,7 @@ var main = (function(){
         },
         'palm-tree': {
           graphics: {
-            center: { x: 83, y: 24, offsetX: -7, offsetY: -19, width: 14, height: 31 },
+            center: { x: 83, y: 24, offsetX: 0, offsetY: -19, width: 14, height: 31 },
             repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
           }
         }
@@ -449,20 +459,18 @@ var main = (function(){
       details: {
         'right|modern': {
           graphics: {
-            center: { width: 0, height: 15 },
             repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
             right: { x: 56, y: 24, offsetX: -10, offsetY: -19, width: 12, height: 31 }
           }
         },
         'both|modern': {
           graphics: {
-            center: { x: 39, y: 24, offsetX: -7, offsetY: -19, width: 16, height: 31 },
+            center: { x: 39, y: 24, offsetY: -19, width: 16, height: 31 },
             repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
           }
         },
         'left|modern': {
           graphics: {
-            center: { width: 0, height: 15 },
             repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
             left: { x: 70, y: 24, offsetX: -10, offsetY: -19, width: 12, height: 31 }
           }
@@ -569,7 +577,7 @@ var main = (function(){
         },
         'big-tree': {
           graphics: {
-            center: { x: 40, y: 59, width: 9, height: 18, offsetY: -7 }, // Big tree
+            center: { x: 40, y: 56, width: 9, height: 21, offsetY: -10 }, // Big tree
             repeat: [
               { x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
               { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
@@ -578,7 +586,7 @@ var main = (function(){
         },
         'palm-tree': {
           graphics: {
-            center: { x: 83, y: 24, offsetX: -7, offsetY: -19, width: 14, height: 30 },
+            center: { x: 83, y: 24, offsetY: -19, width: 14, height: 30 },
             repeat: [
               { x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
               { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
@@ -605,7 +613,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 5, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
-              { x: 28, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow (inbound)
+              { x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
             ],
             repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }
@@ -614,7 +622,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 9, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
-              { x: 37, y: 15, width: 8, height: 15, offsetY: 10 }, // Arrow (outbound)
+              { x: 39, y: 15, width: 4, height: 15, offsetY: 10 }, // Arrow (outbound)
             ],
             repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }
@@ -623,7 +631,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 5, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
-              { x: 28, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow (inbound)
+              { x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
             ],
             repeat: { x: 98 - 10, y: 53 + 10, width: 8, height: 5, offsetY: 10 }, // Green asphalt
           }
@@ -632,7 +640,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 9, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
-              { x: 37, y: 15, width: 8, height: 15, offsetY: 10 }, // Arrow (outbound)
+              { x: 39, y: 15, width: 4, height: 15, offsetY: 10 }, // Arrow (outbound)
             ],
             repeat: { x: 98 - 10, y: 53 + 10, width: 8, height: 5, offsetY: 10 }, // Green asphalt
           }
@@ -651,7 +659,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
-              { x: 28, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow (inbound)
+              { x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
             ],
             repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
@@ -662,7 +670,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
-              { x: 37, y: 15, width: 8, height: 15, offsetY: 10 }, // Arrow (outbound)
+              { x: 39, y: 15, width: 4, height: 15, offsetY: 10 }, // Arrow (outbound)
             ],
             repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
@@ -673,7 +681,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 17, y: 64, width: 10, height: 12, offsetY: 0 }, // Truck (inbound)
-              { x: 28, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow (inbound)
+              { x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
             ],
             repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
@@ -684,7 +692,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 29, y: 64, width: 9, height: 12, offsetY: 0 }, // Truck (outbound)
-              { x: 37, y: 15, width: 8, height: 15, offsetY: 10 }, // Arrow (outbound)
+              { x: 39, y: 15, width: 4, height: 15, offsetY: 10 }, // Arrow (outbound)
             ],
             repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
@@ -702,7 +710,7 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 123, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow
+              { x: 125, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow
               { x: 20, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
             ],
             repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
@@ -713,7 +721,7 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 81, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow
+              { x: 83, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow
               { x: 29, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
             ],
             repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
@@ -724,7 +732,7 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 132, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow
+              { x: 134, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow
               { x: 1, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
             ],
             repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
@@ -735,7 +743,7 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 141, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow
+              { x: 143, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow
               { x: 10, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
             ],
             repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
@@ -757,7 +765,7 @@ var main = (function(){
               { x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
             ],
             repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-            right: { x: 112, y: 5, width: 2, height: 15 } // Parking marking
+            right: { x: 112, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
           }          
         },
         'inbound|right': {
@@ -768,7 +776,7 @@ var main = (function(){
               { x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
             ],
             repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-            left: { x: 46, y: 5, width: 2, height: 15 } // Parking marking
+            left: { x: 46, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
           }          
         },
         'outbound|left': {
@@ -779,7 +787,7 @@ var main = (function(){
               { x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
             ],
             repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-            right: { x: 112, y: 5, width: 2, height: 15 } // Parking marking
+            right: { x: 112, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
           }          
         },
         'outbound|right': {
@@ -790,7 +798,7 @@ var main = (function(){
               { x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
             ],
             repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-            left: { x: 46, y: 5, width: 2, height: 15 } // Parking marking
+            left: { x: 46, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
           }          
         },
         'sideways|left': {
@@ -803,15 +811,6 @@ var main = (function(){
             repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         },
-
-/*                'left': {
-          minWidth: 8,
-          graphics: {
-            left: { x: 136, y: 63, width: 8, height: 8, offsetY: 4 },
-            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-          }
-        },*/
-
         'sideways|right': {
           minWidth: 8,
           maxWidth: 10,
@@ -836,7 +835,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 28, y: 27, width: 11, height: 15 }, // Bus
-              { x: 28, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow (inbound)
+              { x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
             ],
             repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }
@@ -847,7 +846,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 16, y: 27, width: 12, height: 15 }, // Bus
-              { x: 37, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow (outbound)
+              { x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
             ],
             repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }
@@ -858,7 +857,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 28, y: 27, width: 11, height: 13 }, // Bus
-              { x: 28, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow (inbound)
+              { x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
             ],
             repeat: { x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
           }
@@ -869,7 +868,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 16, y: 27, width: 12, height: 13 }, // Bus
-              { x: 37, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow (outbound)
+              { x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
             ],
             repeat: { x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
           }
@@ -887,9 +886,9 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 192, y: 1, width: 12, height: 17, offsetX: -1, offsetY: -1 }, // Streetcar
-              { x: 26, y: 57, width: 12, height: 5, offsetX: -2, offsetY: 10 }, // Track
-              { x: 28, y: 15, width: 8, height: 5, offsetX: 1, offsetY: 10 }, // Arrow (inbound)
+              { x: 192, y: 1, width: 12, height: 17, offsetY: -1 }, // Streetcar
+              { x: 28, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
+              { x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
             ],
             repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
@@ -899,9 +898,9 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 204, y: 1, width: 12, height: 17, offsetX: -1, offsetY: -1 }, // Streetcar
-              { x: 26, y: 57, width: 12, height: 5, offsetX: -2, offsetY: 10 }, // Track
-              { x: 37, y: 15, width: 8, height: 5, offsetY: 10 }, // Arrow (outbound)
+              { x: 204, y: 1, width: 12, height: 17, offsetY: -1 }, // Streetcar
+              { x: 28, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
+              { x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
             ],
             repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
@@ -911,9 +910,9 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 192, y: 1, width: 12, height: 17, offsetX: -1, offsetY: -1 }, // Streetcar
-              { x: 16, y: 57, width: 12, height: 5, offsetX: -2, offsetY: 10 }, // Track
-              { x: 28, y: 15, width: 8, height: 5, offsetX: 1, offsetY: 10 }, // Dark arrow (inbound)
+              { x: 192, y: 1, width: 12, height: 17, offsetY: -1 }, // Streetcar
+              { x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
+              { x: 29, y: 15, width: 4, height: 5, offsetX: 1, offsetY: 10 }, // Dark arrow (inbound)
             ],
             repeat: { x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
           }          
@@ -923,9 +922,9 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 204, y: 1, width: 12, height: 17, offsetX: -1, offsetY: -1 }, // Streetcar
-              { x: 16, y: 57, width: 12, height: 5, offsetX: -2, offsetY: 10 }, // Track
-              { x: 37, y: 15, width: 8, height: 5, offsetY: 10 }, // Dark arrow (outbound)
+              { x: 204, y: 1, width: 12, height: 17, offsetY: -1 }, // Streetcar
+              { x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
+              { x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Dark arrow (outbound)
             ],
             repeat: { x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
           }          
@@ -944,8 +943,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 17, y: 40, width: 10, height: 17, offsetY: -5 }, // Light rail
-              { x: 17, y: 57, width: 10, height: 5, offsetY: 10 }, // Track
-              //{ x: 28, y: 5, width: 8, height: 5, offsetY: 10 }, // Dark arrow (inbound)
+              { x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
               { x: 28, y: 15, width: 8, height: 5, offsetY: 10 }, // Dark arrow (inbound)
             ],
             repeat: { x: 110, y: 43, width: 9, height: 5, offsetY: 10 }, // Lower concrete
@@ -957,8 +955,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 27, y: 40, width: 10, height: 17, offsetY: -5 }, // Light rail
-              { x: 17, y: 57, width: 10, height: 5, offsetY: 10 }, // Track
-              //{ x: 37, y: 5, width: 8, height: 5, offsetY: 10 }, // Dark arrow (outbound)
+              { x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
               { x: 37, y: 15, width: 8, height: 5, offsetY: 10 }, // Dark arrow (outbound)
             ],
             repeat: { x: 110, y: 43, width: 9, height: 5, offsetY: 10 }, // Lower concrete
@@ -970,8 +967,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 17, y: 40, width: 10, height: 17, offsetY: -5 }, // Light rail
-              { x: 17, y: 57, width: 10, height: 5, offsetY: 10 }, // Track
-              //{ x: 28, y: 5, width: 8, height: 5, offsetY: 10 }, // Dark arrow (inbound)
+              { x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
               { x: 28, y: 15, width: 8, height: 5, offsetY: 10 }, // Dark arrow (inbound)
             ],
             repeat: { x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
@@ -983,8 +979,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 27, y: 40, width: 10, height: 17, offsetY: -5 }, // Light rail
-              { x: 17, y: 57, width: 10, height: 5, offsetY: 10 }, // Track
-              //{ x: 37, y: 5, width: 8, height: 5, offsetY: 10 }, // Dark arrow (outbound)
+              { x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
               { x: 37, y: 15, width: 8, height: 5, offsetY: 10 }, // Dark arrow (outbound)
             ],
             repeat: { x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
@@ -1378,72 +1373,103 @@ var main = (function(){
     }
   }
 
+  function _getVariantInfoDimensions(variantInfo, initialSegmentWidth, palette) {
+    var multiplier = palette ? (TILE_SIZE / WIDTH_PALETTE_MULTIPLIER) : 1;
+
+    var segmentWidth = initialSegmentWidth / TILE_SIZE * multiplier;
+
+    var center = segmentWidth / 2;
+    var left = center;
+    var right = center;
+
+    if (variantInfo.graphics.center) {
+      var graphic = variantInfo.graphics.center;
+      for (var l = 0; l < graphic.length; l++) {
+        var newLeft = center - graphic[l].width / 2 + (graphic[l].offsetX || 0);
+        var newRight = center + graphic[l].width / 2 + (graphic[l].offsetX || 0);
+
+        if (newLeft < left) {
+          left = newLeft;
+        }
+        if (newRight > right) {
+          right = newRight;
+        }
+      }
+    }
+
+    if (variantInfo.graphics.left) {
+      var graphic = variantInfo.graphics.left;
+      for (var l = 0; l < graphic.length; l++) {
+        var newLeft = graphic[l].offsetX || 0;
+        var newRight = graphic[l].width + (graphic[l].offsetX || 0);
+
+        if (newLeft < left) {
+          left = newLeft;
+        }
+        if (newRight > right) {
+          right = newRight;
+        }
+      }
+    }
+
+    if (variantInfo.graphics.right) {
+      var graphic = variantInfo.graphics.right;
+      for (var l = 0; l < graphic.length; l++) {
+        var newLeft = (segmentWidth) - (graphic[l].offsetX || 0) - graphic[l].width;
+        var newRight = (segmentWidth) - (graphic[l].offsetX || 0);
+
+        if (newLeft < left) {
+          left = newLeft;
+        }
+        if (newRight > right) {
+          right = newRight;
+        }
+      }
+    }
+
+    if (variantInfo.graphics.repeat && variantInfo.graphics.repeat[0]) {
+      var newLeft = center - (segmentWidth / 2);
+      var newRight = center + (segmentWidth / 2);
+
+      if (newLeft < left) {
+        left = newLeft;
+      }
+      if (newRight > right) {
+        right = newRight;
+      }
+    }
+
+    return { left: left, right: right, center: center };
+  }
+
   function _setSegmentContents(el, type, variantString, segmentWidth, palette) {
     var segmentInfo = SEGMENT_INFO[type];
     var variantInfo = SEGMENT_INFO[type].details[variantString];
 
-    if (variantInfo.graphics.center && variantInfo.graphics.center[0] && 
-        typeof variantInfo.graphics.center[0].width != 'undefined') {
-      // TODO repeat for all center?
-      var realWidth = variantInfo.graphics.center[0].width;
-    } else {
-      var realWidth = segmentInfo.defaultWidth;
-    }
+    var dimensions = _getVariantInfoDimensions(variantInfo, segmentWidth, palette);
+
+    var left = dimensions.left;
+    var right = dimensions.right;
+    var center = dimensions.center;
 
     var multiplier = palette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1;
 
     var top = palette ? SEGMENT_Y_PALETTE : SEGMENT_Y_NORMAL;
-    //var width = realWidth * TILE_SIZE;
     var height = CANVAS_BASELINE;
 
-    // center properly
-    var segmentRealWidth = segmentWidth / TILE_SIZE / multiplier;
-    //var left = (segmentRealWidth - realWidth) * TILE_SIZE / 2;
-
-    // sticking out
-    var maxWidth = segmentWidth;
-    if (!palette) {
-      if (maxWidth < realWidth * TILE_SIZE) {
-        maxWidth = realWidth * TILE_SIZE;
-
-        //left = 0;
-      }
-    }
-
-    var canvasLeft = (segmentWidth - maxWidth) / 2;
-
-    var canvasOffsetX = 0;
-
-    // TODO repeat for all left?
-    if (variantInfo.graphics.left && variantInfo.graphics.left[0].offsetX < 0) {
-      var leftOffset = -variantInfo.graphics.left[0].offsetX * TILE_SIZE;
-
-      canvasLeft -= leftOffset;
-      maxWidth += leftOffset;
-    }
-
-    // TODO repeat for all right?
-    if (variantInfo.graphics.right && variantInfo.graphics.right[0].offsetX < 0) {
-      canvasOffsetX = -variantInfo.graphics.right[0].offsetX * TILE_SIZE;
-
-      maxWidth += canvasOffsetX;
-    }
+    var totalWidth = right - left;
 
     var hoverBkEl = document.createElement('div');
     hoverBkEl.classList.add('hover-bk');
 
     var canvasEl = document.createElement('canvas');
     canvasEl.classList.add('image');
-    canvasEl.width = maxWidth * system.hiDpi;
+    canvasEl.width = totalWidth * TILE_SIZE * system.hiDpi;
     canvasEl.height = height * system.hiDpi;
-    canvasEl.style.width = maxWidth + 'px';
+    canvasEl.style.width = (totalWidth * TILE_SIZE) + 'px';
     canvasEl.style.height = height + 'px';
 
-    if (!palette) {
-      canvasEl.style.left = canvasLeft + 'px';
-    } else {
-      canvasEl.style.left = 0;
-    }
+    canvasEl.style.left = (left * TILE_SIZE * multiplier) + 'px';
 
     var ctx = canvasEl.getContext('2d');
 
@@ -1455,14 +1481,11 @@ var main = (function(){
 
         var count = Math.floor((segmentWidth) / w + 1);
 
-        if (segmentWidth < maxWidth) {
-          var repeatStartX = -canvasLeft;
-        } else {
-          var repeatStartX = -(segmentWidth - maxWidth) - canvasOffsetX;
-        }
 
-        if (palette) {
-          repeatStartX = 0;
+        if (left < 0) {
+          var repeatStartX = -left * TILE_SIZE;
+        } else {
+          var repeatStartX = 0;
         }
 
         for (var i = 0; i < count; i++) {
@@ -1480,7 +1503,7 @@ var main = (function(){
             variantInfo.graphics.repeat[l].height * TILE_SIZE * multiplier);
         }
       }
-    }      
+    } 
 
     if (variantInfo.graphics.left) {
       for (var l = 0; l < variantInfo.graphics.left.length; l++) {
@@ -1489,10 +1512,12 @@ var main = (function(){
 
         var w = variantInfo.graphics.left[l].width * TILE_SIZE;
 
+        var x = 0 + (-left + (variantInfo.graphics.left[l].offsetX || 0)) * TILE_SIZE * multiplier;
+
         _drawSegmentImage(ctx,
             leftPositionX, leftPositionY, 
             w, variantInfo.graphics.left[l].height * TILE_SIZE, 
-            0,
+            x,
             top + (multiplier * TILE_SIZE * (variantInfo.graphics.left[l].offsetY || 0)), 
             w * multiplier, variantInfo.graphics.left[l].height * TILE_SIZE * multiplier);
       }
@@ -1505,21 +1530,17 @@ var main = (function(){
 
         var w = variantInfo.graphics.right[l].width * TILE_SIZE;
 
-        var rightTargetX = maxWidth - variantInfo.graphics.right[l].width * TILE_SIZE * multiplier;
-
-        if (palette) {
-          rightTargetX += (variantInfo.graphics.right[l].offsetX || 0) * TILE_SIZE;
-        }
+        var x = (-left + segmentWidth / TILE_SIZE / multiplier - variantInfo.graphics.right[l].width - (variantInfo.graphics.right[l].offsetX || 0)) * TILE_SIZE * multiplier;
 
         _drawSegmentImage(ctx,
           rightPositionX, rightPositionY, 
           w, variantInfo.graphics.right[l].height * TILE_SIZE,
-          rightTargetX,
+          x,
           top + (multiplier * TILE_SIZE * (variantInfo.graphics.right[l].offsetY || 0)), 
           w * multiplier, variantInfo.graphics.right[l].height * TILE_SIZE * multiplier);
       }
     }
-
+    
     if (variantInfo.graphics.center) {
       for (var l = 0; l < variantInfo.graphics.center.length; l++) {
         var bkPositionX = (variantInfo.graphics.center[l].x || 0) * TILE_SIZE;
@@ -1527,30 +1548,19 @@ var main = (function(){
 
         var width = variantInfo.graphics.center[l].width;
 
-        var thisLeft = (segmentRealWidth - width) * TILE_SIZE / 2;
-        if (!palette) {
-          if (segmentWidth < width * TILE_SIZE) {
-            //maxWidth = width * TILE_SIZE;
-            thisLeft = 0;
-          }
-        }
+        var x = (center - variantInfo.graphics.center[l].width / 2 - left - (variantInfo.graphics.center[l].offsetX || 0)) * TILE_SIZE * multiplier;
 
         _drawSegmentImage(ctx,
           bkPositionX, bkPositionY, 
           width * TILE_SIZE, variantInfo.graphics.center[l].height * TILE_SIZE, 
-          (thisLeft) * multiplier, 
+          x, 
           top + (multiplier * TILE_SIZE * (variantInfo.graphics.center[l].offsetY || 0)), 
           width * TILE_SIZE * multiplier, variantInfo.graphics.center[l].height * TILE_SIZE * multiplier);
       }
     }
 
     if (type == 'sidewalk') {
-
-/*      if (palette) {
-        variantString = 'dense';
-      }
-*/
-      _drawProgrammaticPeople(ctx, segmentWidth, top, multiplier, variantString);
+      _drawProgrammaticPeople(ctx, segmentWidth / multiplier, top, multiplier, variantString);
     }
 
     _removeElFromDom(el.querySelector('canvas'));
@@ -1881,7 +1891,7 @@ var main = (function(){
       el.classList.add('unmovable');
     }
     
-    _setSegmentContents(el, type, variantString, width, palette);
+    //_setSegmentContents(el, type, variantString, width, palette);
 
     if (!palette) {
       el.style.zIndex = SEGMENT_INFO[type].zIndex;
@@ -3910,13 +3920,32 @@ var main = (function(){
       }
       var variantInfo = segmentInfo.details[variantName];
 
-      var width = segmentInfo.defaultWidth;
+      var dimensions = _getVariantInfoDimensions(variantInfo, 0, false);
+
+      var left = dimensions.left;
+      var right = dimensions.right;
+      var center = dimensions.center;      
+
+      var width = dimensions.right - dimensions.left;
+
+      /*if (width == 0) {
+        width = variantInfo.minWidth * 2 || 0;
+      }*/
+      if (width == 0) {
+        width = segmentInfo.defaultWidth;
+      }
+      width += PALETTE_EXTRA_SEGMENT_PADDING;
+      console.log(segmentInfo.name, width);
+
+      //var width = 15;
+
+      //var width = segmentInfo.defaultWidth;
 
       /*if (variantInfo.realWidth > variantInfo.defaultWidth) {
         width = variantInfo.realWidth;
       }*/
 
-      if (variantInfo.graphics.center && (width < (variantInfo.graphics.center[0].width + 1))) {
+      /*if (variantInfo.graphics.center && (width < (variantInfo.graphics.center[0].width + 1))) {
         width = variantInfo.graphics.center[0].width;
       }
 
@@ -3925,9 +3954,9 @@ var main = (function(){
       }
       if (variantInfo.graphics.right && variantInfo.graphics.right[0].offsetX) {
         width -= variantInfo.graphics.right[0].offsetX;
-      }
+      }*/
 
-      width += PALETTE_EXTRA_SEGMENT_PADDING;
+      //width += PALETTE_EXTRA_SEGMENT_PADDING * 10;
 
       var el = _createSegment(i, 
         variantName,
