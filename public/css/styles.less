@@ -1902,7 +1902,7 @@ body.no-connection-message-visible #status-message {
     font-size: 13px;
     font-weight: bold;
 
-    position: relative;
+    position: relative;    
 
     background: rgb(240, 240, 240);
   }
@@ -1914,6 +1914,9 @@ body.no-connection-message-visible #status-message {
     min-height: @infoBubbleButtonSize;
 
     margin-right: 170px; // Clear width
+
+    -webkit-user-select: none;
+    user-select: none;
 
     button {
       margin-left: 3px;
@@ -1969,6 +1972,9 @@ body.no-connection-message-visible #status-message {
     width: 150px;
     height: @infoBubbleButtonSize;
     line-height: @infoBubbleButtonSize;  
+
+    -webkit-user-select: none;
+    user-select: none;
 
     white-space: nowrap;
 
