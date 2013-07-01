@@ -125,7 +125,7 @@ var main = (function(){
     // 10: sidewalk density
     // 11: unify median and planting strip into divider
     // 12: get rid of small tree
-  var TILESET_IMAGE_VERSION = 38;
+  var TILESET_IMAGE_VERSION = 39;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
   var TILESET_POINT_PER_PIXEL = 2.0;
@@ -357,6 +357,8 @@ var main = (function(){
   };
 
   var VARIANT_ICONS = {
+    'trashcan': { x: 3, y: 1 },
+
     'orientation|left': { x: 0, y: 0, title: 'Left' },
     'orientation|right': { x: 1, y: 0, title: 'Right' },
     'turn-lane-orientation|left': { x: 4, y: 0, title: 'Left' },
@@ -5761,7 +5763,9 @@ var main = (function(){
         _drawSegmentImage(ctx, (VARIANT_ICON_START_X + variantIcon.x * 3) * TILE_SIZE, (VARIANT_ICON_START_Y + variantIcon.y * 3) * TILE_SIZE, 24, 24, 0, 0, VARIANT_ICON_SIZE, VARIANT_ICON_SIZE);
         buttonEl.appendChild(canvasEl);
 
-        buttonEl.title = variantIcon.title;
+        if (variantIcon.title) { 
+          buttonEl.title = variantIcon.title;
+        }
       }
     },
 
@@ -5805,7 +5809,8 @@ var main = (function(){
       if (canBeDeleted) {
         var innerEl = document.createElement('button');
         innerEl.classList.add('remove');
-        innerEl.innerHTML = '⏏';
+        //innerEl.innerHTML = '⏏';
+        _infoBubble.createVariantIcon('trashcan', innerEl);
         innerEl.segmentEl = _infoBubble.segmentEl;
         innerEl.tabIndex = -1;
         innerEl.setAttribute('title', msg('TOOLTIP_REMOVE_SEGMENT'));
