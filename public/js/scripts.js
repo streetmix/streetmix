@@ -125,11 +125,15 @@ var main = (function(){
     // 10: sidewalk density
     // 11: unify median and planting strip into divider
     // 12: get rid of small tree
-  var TILESET_IMAGE_VERSION = 36;
+  var TILESET_IMAGE_VERSION = 38;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
   var TILESET_POINT_PER_PIXEL = 2.0;
   var TILE_SIZE = 12; // pixels
+
+  var VARIANT_ICON_START_X = 164; // x24 in tileset file
+  var VARIANT_ICON_START_Y = 64; // x24 in tileset file
+  var VARIANT_ICON_SIZE = 24;
 
   var IMAGES_TO_BE_LOADED = [
     '/images/tiles.png',
@@ -352,6 +356,53 @@ var main = (function(){
     'parking-lane-orientation': ['left', 'right'],
   };
 
+  var VARIANT_ICONS = {
+    'orientation|left': { x: 0, y: 0, title: 'Left' },
+    'orientation|right': { x: 1, y: 0, title: 'Right' },
+    'turn-lane-orientation|left': { x: 4, y: 0, title: 'Left' },
+    'turn-lane-orientation|right': { x: 5, y: 0, title: 'Right' },
+    'bench-orientation|left': { x: 4, y: 0, title: 'Left' },
+    'bench-orientation|right': { x: 5, y: 0, title: 'Right' },
+    'bench-orientation|center': { x: 6, y: 0, title: 'Center' },
+    'parking-lane-orientation|left': { x: 0, y: 0, title: 'Left' },
+    'parking-lane-orientation|right': { x: 1, y: 0, title: 'Right' },
+    'parking-lane-direction|inbound': { x: 2, y: 0, title: 'Inbound' },
+    'parking-lane-direction|outbound': { x: 3, y: 0, title: 'Outbound' },
+    'parking-lane-direction|sideways': { x: 6, y: 0, title: 'Parallel' },
+    'direction|inbound': { x: 2, y: 0, title: 'Inbound' },
+    'direction|outbound': { x: 3, y: 0, title: 'Outbound' },
+    'sidewalk-density|sparse': { x: 0, y: 1, title: 'Sparse' },
+    'sidewalk-density|normal': { x: 1, y: 1, title: 'Normal' },
+    'sidewalk-density|dense': { x: 2, y: 1, title: 'Dense' },
+    'lamp-orientation|left': { x: 0, y: 2, title: 'Left' },
+    'lamp-orientation|both': { x: 1, y: 2, title: 'Both' },
+    'lamp-orientation|right': { x: 2, y: 2, title: 'Right' },
+    'lamp-type|traditional': { x: 3, y: 2, title: 'Traditional' },
+    'lamp-type|modern': { x: 4, y: 2, title: 'Modern' },
+    'car-type|car': { x: 0, y: 3, title: 'Car' },
+    'car-type|truck': { x: 1, y: 3, title: 'Truck' },
+    'public-transit-asphalt|regular': { x: 2, y: 3, title: '?' },
+    'public-transit-asphalt|colored': { x: 3, y: 3, title: '?' },
+    'bike-asphalt|regular': { x: 2, y: 3, title: '?' },
+    'bike-asphalt|colored': { x: 4, y: 3, title: '?' },
+    'tree-type|big': { x: 1, y: 4, title: 'Tree' },
+    'tree-type|palm-tree': { x: 0, y: 4, title: 'Palm tree' },
+    'divider-type|median': { x: 7, y: 4, title: 'Median' },
+    'divider-type|striped-buffer': { x: 8, y: 4, title: 'Striped buffer' },
+    'divider-type|planting-strip': { x: 2, y: 4, title: 'Planting strip' },
+    'divider-type|bush': { x: 4, y: 4, title: 'Planting strip with a bush' },
+    'divider-type|flowers': { x: 5, y: 4, title: 'Planting strip with flowers' },
+    'divider-type|big-tree': { x: 1, y: 4, title: 'Planting strip with a tree' },
+    'divider-type|palm-tree': { x: 0, y: 4, title: 'Planting strip with a palm tree' },
+    'divider-type|bollard': { x: 6, y: 4, title: 'Bollard' },
+    'transit-shelter-elevation|street-level': { x: 5, y: 2, title: 'Street level' },
+    'transit-shelter-elevation|light-rail': { x: 6, y: 2, title: 'Light rail platform' },
+    'building|grass': { x: 2, y: 4, title: 'Grass' },
+    'building|fence': { x: 3, y: 4, title: 'Fence' },
+    'building|narrow': { x: 7, y: 2, title: 'Narrow building' },
+    'building|wide': { x: 8, y: 2, title: 'Wide building' },
+  };
+
   var SEGMENT_INFO = {
     'sidewalk': {
       name: 'Sidewalk',
@@ -420,6 +471,7 @@ var main = (function(){
         },
       }
     },
+
     'sidewalk-bench': {
       name: 'Sidewalk w/ a bench',
       owner: SEGMENT_OWNER_PEDESTRIAN,
@@ -5614,6 +5666,8 @@ var main = (function(){
 
       _saveStreetToServerIfNecessary();
       _createBuildings();
+
+      _infoBubble.updateContents();
     },
 
     onVariantButtonClick: function(event, dataNo, variantName, variantChoice) {
@@ -5691,6 +5745,24 @@ var main = (function(){
 
       el.realValue = width;
       el.value = _prettifyWidth(width, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP);
+    },
+
+    createVariantIcon: function(name, buttonEl) {
+      var variantIcon = VARIANT_ICONS[name];
+
+      if (variantIcon) {
+        var canvasEl = document.createElement('canvas');
+        canvasEl.width = VARIANT_ICON_SIZE * system.hiDpi;
+        canvasEl.height = VARIANT_ICON_SIZE * system.hiDpi;
+        canvasEl.style.width = VARIANT_ICON_SIZE + 'px';
+        canvasEl.style.height = VARIANT_ICON_SIZE + 'px';
+
+        var ctx = canvasEl.getContext('2d');
+        _drawSegmentImage(ctx, (VARIANT_ICON_START_X + variantIcon.x * 3) * TILE_SIZE, (VARIANT_ICON_START_Y + variantIcon.y * 3) * TILE_SIZE, 24, 24, 0, 0, VARIANT_ICON_SIZE, VARIANT_ICON_SIZE);
+        buttonEl.appendChild(canvasEl);
+
+        buttonEl.title = variantIcon.title;
+      }
     },
 
     updateContents: function() {
@@ -5875,7 +5947,7 @@ var main = (function(){
               var variantChoice = VARIANTS[segmentInfo.variants[i]][j];
 
               var el = document.createElement('button');
-              el.innerHTML = variantChoice;
+              _infoBubble.createVariantIcon(variantName + VARIANT_SEPARATOR + variantChoice, el);
 
               if (segment.variant[variantName] == variantChoice) {
                 el.disabled = true;
@@ -5893,10 +5965,20 @@ var main = (function(){
           break;
         case INFO_BUBBLE_TYPE_LEFT_BUILDING:
         case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
+          if (_infoBubble.type = INFO_BUBBLE_TYPE_LEFT_BUILDING) {
+            var variant = street.leftBuildingVariant;
+          } else {
+            var variant = street.rightBuildingVariant;
+          }
 
           for (var j in BUILDING_VARIANTS) {
             var el = document.createElement('button');
-            el.innerHTML = BUILDING_VARIANTS[j];
+            // TODO const
+            _infoBubble.createVariantIcon('building' + VARIANT_SEPARATOR + BUILDING_VARIANTS[j], el);
+            if (BUILDING_VARIANTS[j] == variant) {
+              el.disabled = true;
+            }
+
             variantsEl.appendChild(el);
 
             el.addEventListener('click', (function(left, variantChoice) {
