@@ -126,7 +126,7 @@ var main = (function(){
     // 11: unify median and planting strip into divider
     // 12: get rid of small tree
     // 13: bike rack elevation
-  var TILESET_IMAGE_VERSION = 40;
+  var TILESET_IMAGE_VERSION = 41;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
   var TILESET_POINT_PER_PIXEL = 2.0;
@@ -339,7 +339,7 @@ var main = (function(){
     'lamp-type': ['modern', 'traditional'],
 
     'bench-orientation': ['left', 'center', 'right'],
-    'turn-lane-orientation': ['left', 'right'],
+    'turn-lane-orientation': ['left', 'both', 'right'],
 
     'divider-type': ['median', 'striped-buffer', 'planting-strip', 
                      'bush', 'flowers', 'big-tree', 
@@ -365,6 +365,7 @@ var main = (function(){
     'orientation|left': { x: 0, y: 0, title: 'Left' },
     'orientation|right': { x: 1, y: 0, title: 'Right' },
     'turn-lane-orientation|left': { x: 4, y: 0, title: 'Left' },
+    'turn-lane-orientation|both': { x: 6, y: 0, title: 'Both' },
     'turn-lane-orientation|right': { x: 5, y: 0, title: 'Right' },
     'bench-orientation|left': { x: 4, y: 0, title: 'Left' },
     'bench-orientation|right': { x: 5, y: 0, title: 'Right' },
@@ -774,6 +775,17 @@ var main = (function(){
             repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         },
+        'inbound|both': {
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: [
+              { x: 153, y: 15, width: 5, height: 5, offsetY: 10 }, // Arrow
+              { x: 20, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
+            ],
+            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+          }          
+        },
         'inbound|right': {
           minWidth: 9,
           maxWidth: 12,
@@ -791,6 +803,17 @@ var main = (function(){
           graphics: {
             center: [
               { x: 134, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow
+              { x: 1, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
+            ],
+            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+          }          
+        },
+        'outbound|both': {
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: [
+              { x: 148, y: 15, width: 5, height: 5, offsetY: 10 }, // Arrow
               { x: 1, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
             ],
             repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
