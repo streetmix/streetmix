@@ -112,7 +112,7 @@ var main = (function(){
   var NEW_STREET_DEFAULT = 1;
   var NEW_STREET_EMPTY = 2;
 
-  var LATEST_SCHEMA_VERSION = 12;
+  var LATEST_SCHEMA_VERSION = 13;
     // 1: starting point
     // 2: adding leftBuildingHeight and rightBuildingHeight
     // 3: adding leftBuildingVariant and rightBuildingVariant
@@ -125,7 +125,8 @@ var main = (function(){
     // 10: sidewalk density
     // 11: unify median and planting strip into divider
     // 12: get rid of small tree
-  var TILESET_IMAGE_VERSION = 39;
+    // 13: bike rack elevation
+  var TILESET_IMAGE_VERSION = 40;
   var TILESET_WIDTH = 2622;
   var TILESET_HEIGHT = 384;
   var TILESET_POINT_PER_PIXEL = 2.0;
@@ -350,6 +351,8 @@ var main = (function(){
     'bike-asphalt': ['regular', 'colored'],
 
     'transit-shelter-elevation': ['street-level', 'light-rail'],
+    'bike-rack-elevation': ['sidewalk', 'road'],
+
     'car-type': ['car', 'truck'],
     'sidewalk-density': ['dense', 'normal', 'sparse'],
 
@@ -399,6 +402,8 @@ var main = (function(){
     'divider-type|bollard': { x: 6, y: 4, title: 'Bollard' },
     'transit-shelter-elevation|street-level': { x: 5, y: 2, title: 'Street level' },
     'transit-shelter-elevation|light-rail': { x: 6, y: 2, title: 'Light rail platform' },
+    'bike-rack-elevation|sidewalk': { x: 6, y: 2, title: 'Sidewalk' },
+    'bike-rack-elevation|road': { x: 5, y: 2, title: 'Road' },
     'building|grass': { x: 2, y: 4, title: 'Grass' },
     'building|fence': { x: 3, y: 4, title: 'Fence' },
     'building|narrow': { x: 7, y: 2, title: 'Narrow building' },
@@ -457,18 +462,30 @@ var main = (function(){
       name: 'Bike rack',
       owner: SEGMENT_OWNER_BIKE,
       defaultWidth: 6,
-      variants: ['orientation'],
+      variants: ['orientation', 'bike-rack-elevation'],
       details: {
-        'left': {
+        'left|sidewalk': {
           graphics: {
             left: { x: 67, y: 2, width: 6, height: 6, offsetY: 5 },
             repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
           }
         },
-        'right': {
+        'right|sidewalk': {
           graphics: {
             right: { x: 61, y: 2, width: 6, height: 6, offsetY: 5 },
             repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+          }
+        },
+        'left|road': {
+          graphics: {
+            left: { x: 67, y: 12, width: 6, height: 7, offsetY: 5 },
+            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+          }
+        },
+        'right|road': {
+          graphics: {
+            right: { x: 61, y: 12, width: 6, height: 7, offsetY: 5 },
+            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }
         },
       }
@@ -2541,6 +2558,16 @@ var main = (function(){
             if (segment.variantString == 'small') {
               segment.variantString = 'big';
             };
+          }
+        }
+        break;
+      case 12:
+        for (var i in street.segments) {
+          var segment = street.segments[i];
+          if (segment.type == 'sidewalk-bike-rack') {
+            var variant = _getVariantArray(segment.type, segment.variantString);
+            variant['bike-rack-elevation'] = 'sidewalk';
+            segment.variantString =  _getVariantString(variant);
           }
         }
         break;
