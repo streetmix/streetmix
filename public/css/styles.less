@@ -833,8 +833,7 @@ body.segment-resize-dragging .segment:not(.unmovable).hover {
   }
 }
 
-.segment.outside .image {
-  -webkit-filter: grayscale(100%);
+body:not(.segment-resize-dragging) .segment.outside .image {
   opacity: .2 !important;
 
   -webkit-transition: none;  
@@ -1043,25 +1042,6 @@ body:not(.touch-support) .segment.hover .remove,
   background: rgba(0, 0, 0, .5);
   color: rgb(220, 220, 220);
   border-color: rgb(180, 180, 180);
-}
-.segment button.info {
-  margin-top: 5px;
-}
-.segment button.info::after {
-  content: 'i';
-}
-.segment.warning button.info {
-  color: lighten(@warningColour, 10%);  
-}
-.segment.warning button.info::after {
-  content: '!';
-}
-
-.segment button.info {
-  font-size: 16px;
-  font-style: italic;
-  font-family: serif;
-  z-index: 99999999;
 }
 
 .segment .width {
