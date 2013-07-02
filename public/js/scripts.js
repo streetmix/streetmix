@@ -1288,6 +1288,9 @@ var main = (function(){
     viewportHeight: null
   };
 
+  var debug = {
+    hoverPolygon: false,
+  };
 
   var segmentWidthResolution;
   var segmentWidthClickIncrement;
@@ -4514,6 +4517,11 @@ var main = (function(){
       var url = _getStreetUrl(street);
     }
 
+    if (debug.hoverPolygon) {
+      // TODO const
+      url += '?debug-hover-polygon';
+    };
+
     window.history.replaceState(null, null, url);
 
     _updateShareMenu();
@@ -5638,6 +5646,7 @@ var main = (function(){
 
     updateHoverPolygon: function(mouseX, mouseY) {
       if (!_infoBubble.visible) {
+        _infoBubble.hideDebugHoverPolygon();
         return;
       }
 
@@ -5661,27 +5670,70 @@ var main = (function(){
         _infoBubble.hoverPolygon = [
           [bubbleX - MARGIN_BUBBLE, bubbleY - MARGIN_BUBBLE],
           [bubbleX - MARGIN_BUBBLE, bubbleY + bubbleHeight + MARGIN_BUBBLE],
-          [segmentX1, bubbleY + bubbleHeight + MARGIN_BUBBLE],
+          [segmentX1, bubbleY + bubbleHeight + MARGIN_BUBBLE + 120],
           [segmentX1, segmentY], 
           [segmentX2, segmentY],
-          [segmentX2, bubbleY + bubbleHeight + MARGIN_BUBBLE],
+          [segmentX2, bubbleY + bubbleHeight + MARGIN_BUBBLE + 120],
           [bubbleX + bubbleWidth + MARGIN_BUBBLE, bubbleY + bubbleHeight + MARGIN_BUBBLE],
           [bubbleX + bubbleWidth + MARGIN_BUBBLE, bubbleY - MARGIN_BUBBLE],
           [bubbleX - MARGIN_BUBBLE, bubbleY - MARGIN_BUBBLE]
         ];
       } else {
+        var bottomY = mouseY - MARGIN_MOUSE;
+        if (bottomY < bubbleY + bubbleHeight + MARGIN_BUBBLE) {
+          bottomY = bubbleY + bubbleHeight + MARGIN_BUBBLE;
+        }
+        var bottomY2 = mouseY + MARGIN_MOUSE;
+        if (bottomY2 < bubbleY + bubbleHeight + MARGIN_BUBBLE) {
+          bottomY2 = bubbleY + bubbleHeight + MARGIN_BUBBLE;
+        }
+
+        var diffX = 60 - (mouseY - bubbleY) / 5;
+        if (diffX < 0) {
+          diffX = 0;
+        } else if (diffX > 50) {
+          diffX = 50;
+        }
+
         _infoBubble.hoverPolygon = [
           [bubbleX - MARGIN_BUBBLE, bubbleY - MARGIN_BUBBLE],
           [bubbleX - MARGIN_BUBBLE, bubbleY + bubbleHeight + MARGIN_BUBBLE],
-          [mouseX - MARGIN_MOUSE, mouseY - MARGIN_MOUSE], 
-          [mouseX - MARGIN_MOUSE, mouseY + MARGIN_MOUSE], 
-          [mouseX + MARGIN_MOUSE, mouseY + MARGIN_MOUSE], 
-          [mouseX + MARGIN_MOUSE, mouseY - MARGIN_MOUSE],
+          [mouseX - MARGIN_MOUSE - diffX, bottomY], 
+          [mouseX - MARGIN_MOUSE, bottomY2], 
+          [mouseX + MARGIN_MOUSE, bottomY2], 
+          [mouseX + MARGIN_MOUSE + diffX, bottomY],
           [bubbleX + bubbleWidth + MARGIN_BUBBLE, bubbleY + bubbleHeight + MARGIN_BUBBLE],
           [bubbleX + bubbleWidth + MARGIN_BUBBLE, bubbleY - MARGIN_BUBBLE],
           [bubbleX - MARGIN_BUBBLE, bubbleY - MARGIN_BUBBLE]
         ];
       }
+
+      if (debug.hoverPolygon) {
+        _infoBubble.drawDebugHoverPolygon();
+      }
+    },
+
+    hideDebugHoverPolygon: function() {
+      var el = document.querySelector('#debug-hover-polygon canvas');
+
+      el.width = el.width; // clear
+    },
+
+    drawDebugHoverPolygon: function() {
+      _infoBubble.hideDebugHoverPolygon();
+      var el = document.querySelector('#debug-hover-polygon canvas');
+
+      var ctx = el.getContext('2d');
+      ctx.strokeStyle = 'red';
+      ctx.fillStyle = 'rgba(255, 0, 0, .1)';
+      ctx.beginPath();
+      ctx.moveTo(_infoBubble.hoverPolygon[0][0], _infoBubble.hoverPolygon[0][1]);
+      for (var i = 1; i < _infoBubble.hoverPolygon.length; i++) {
+        ctx.lineTo(_infoBubble.hoverPolygon[i][0], _infoBubble.hoverPolygon[i][1]);
+      }
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
     },
 
     scheduleHoverPolygonUpdate: function() {
@@ -5689,7 +5741,7 @@ var main = (function(){
 
       _infoBubble.hoverPolygonUpdateTimerId = window.setTimeout(function() {
         _infoBubble.updateHoverPolygon(_infoBubble.lastMouseX, _infoBubble.lastMouseY);
-      }, 150);
+      }, 50);
     },
 
     onBodyMouseMove: function(event) {
@@ -7044,6 +7096,24 @@ var main = (function(){
     }
   }
 
+  function _detectDebugUrl() {
+    var url = location.href;
+
+    // TODO const
+    if (url.match(/[\?\&]debug-hover-polygon\&?/)) {
+      debug.hoverPolygon = true;
+
+      var el = document.createElement('div');
+      el.id = 'debug-hover-polygon';
+      document.body.appendChild(el);
+
+      var canvasEl = document.createElement('canvas');
+      canvasEl.width = window.innerWidth;
+      canvasEl.height = window.innerHeight;
+      el.appendChild(canvasEl);
+    }
+  }
+
   function _processUrl() {
     var url = location.pathname;
 
@@ -7433,6 +7503,7 @@ var main = (function(){
     window.addEventListener('load', _onBodyLoad);
 
     _detectSystemCapabilities();
+    _detectDebugUrl();
 
     _processUrl();
     _processMode();
