@@ -2403,22 +2403,31 @@ var main = (function(){
     _applyWarningsToSegments();
   }
 
+  function _hideEmptySegment(position) {
+    document.querySelector('#street-section-' + position + '-empty-space').classList.remove('visible');
+  }
+
+  function _showEmptySegment(position, width) {
+    document.querySelector('#street-section-' + position + '-empty-space').style.width = width + 'px';
+    document.querySelector('#street-section-' + position + '-empty-space .width').innerHTML = 
+        _prettifyWidth(width / TILE_SIZE, PRETTIFY_WIDTH_OUTPUT_MARKUP);
+    document.querySelector('#street-section-' + position + '-empty-space').classList.add('visible');
+  }
+
   function _repositionEmptySegments() {
     if (street.remainingWidth <= 0) {
-      document.querySelector('#street-section-left-empty-space').classList.remove('visible');
-      document.querySelector('#street-section-right-empty-space').classList.remove('visible');
+      _hideEmptySegment('left');
+      _hideEmptySegment('right');
     } else {
-      var width = street.remainingWidth / 2 * TILE_SIZE;
-      document.querySelector('#street-section-left-empty-space').style.width = width + 'px';
-      document.querySelector('#street-section-right-empty-space').style.width = width + 'px';
-
-      document.querySelector('#street-section-left-empty-space .width').innerHTML = 
-          _prettifyWidth(width / TILE_SIZE, PRETTIFY_WIDTH_OUTPUT_MARKUP);
-      document.querySelector('#street-section-right-empty-space .width').innerHTML = 
-          _prettifyWidth(width / TILE_SIZE, PRETTIFY_WIDTH_OUTPUT_MARKUP);
-
-      document.querySelector('#street-section-left-empty-space').classList.add('visible');
-      document.querySelector('#street-section-right-empty-space').classList.add('visible');
+      if (!street.occupiedWidth) {
+        var width = street.remainingWidth * TILE_SIZE;
+        _showEmptySegment('left', width);
+        _hideEmptySegment('right');
+      } else {
+        var width = street.remainingWidth / 2 * TILE_SIZE;
+        _showEmptySegment('left', width);
+        _showEmptySegment('right', width);
+      }
     }
   }
 
