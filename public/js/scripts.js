@@ -2252,14 +2252,18 @@ var main = (function(){
   function _repositionSegments() {
     var left = 0;
 
+    var extraWidth = 0;
+
     for (var i in street.segments) {
       var el = street.segments[i].el;
 
       if (el == draggingMove.segmentBeforeEl) {
         left += DRAGGING_MOVE_HOLE_WIDTH;
+        extraWidth += DRAGGING_MOVE_HOLE_WIDTH;
 
         if (!draggingMove.segmentAfterEl) {
           left += DRAGGING_MOVE_HOLE_WIDTH;
+          extraWidth += DRAGGING_MOVE_HOLE_WIDTH;
         }
       }
 
@@ -2276,9 +2280,11 @@ var main = (function(){
 
       if (el == draggingMove.segmentAfterEl) {
         left += DRAGGING_MOVE_HOLE_WIDTH;
+        extraWidth += DRAGGING_MOVE_HOLE_WIDTH;
 
         if (!draggingMove.segmentBeforeEl) {
           left += DRAGGING_MOVE_HOLE_WIDTH;
+          extraWidth += DRAGGING_MOVE_HOLE_WIDTH;
         }
       }
     }
@@ -2298,6 +2304,14 @@ var main = (function(){
       } else {
         el.style.left = el.savedLeft + 'px';
       }
+    }
+
+    if (system.cssTransform) {
+      document.querySelector('#street-section-left-empty-space').style[system.cssTransform] = 'translateX(' + (-extraWidth / 2) + 'px)';
+      document.querySelector('#street-section-right-empty-space').style[system.cssTransform] = 'translateX(' + (extraWidth / 2) + 'px)';
+    } else {
+      document.querySelector('#street-section-left-empty-space').style.marginLeft = -(extraWidth / 2) + 'px';
+      document.querySelector('#street-section-right-empty-space').style.marginLeft = (extraWidth / 2) + 'px';      
     }
   }
 
@@ -2379,7 +2393,28 @@ var main = (function(){
       document.body.classList.add('street-overflows');
     }
 
+    _repositionEmptySegments();
+
     _applyWarningsToSegments();
+  }
+
+  function _repositionEmptySegments() {
+    if (street.remainingWidth <= 0) {
+      document.querySelector('#street-section-left-empty-space').classList.remove('visible');
+      document.querySelector('#street-section-right-empty-space').classList.remove('visible');
+    } else {
+      var width = street.remainingWidth / 2 * TILE_SIZE;
+      document.querySelector('#street-section-left-empty-space').style.width = width + 'px';
+      document.querySelector('#street-section-right-empty-space').style.width = width + 'px';
+
+      document.querySelector('#street-section-left-empty-space .width').innerHTML = 
+          _prettifyWidth(width / TILE_SIZE, PRETTIFY_WIDTH_OUTPUT_MARKUP);
+      document.querySelector('#street-section-right-empty-space .width').innerHTML = 
+          _prettifyWidth(width / TILE_SIZE, PRETTIFY_WIDTH_OUTPUT_MARKUP);
+
+      document.querySelector('#street-section-left-empty-space').classList.add('visible');
+      document.querySelector('#street-section-right-empty-space').classList.add('visible');
+    }
   }
 
   function _segmentsChanged() {
@@ -7346,6 +7381,26 @@ var main = (function(){
     }
   }
 
+  function _fillEmptySegment(el) {
+    var innerEl = document.createElement('span');
+    innerEl.classList.add('name');
+    innerEl.innerHTML = 'Empty space';
+    el.appendChild(innerEl);
+
+    var innerEl = document.createElement('span');
+    innerEl.classList.add('width');
+    el.appendChild(innerEl);
+
+    var innerEl = document.createElement('span');
+    innerEl.classList.add('grid');
+    el.appendChild(innerEl);  
+  }
+
+  function _fillEmptySegments() {
+    _fillEmptySegment(document.querySelector('#street-section-left-empty-space'));
+    _fillEmptySegment(document.querySelector('#street-section-right-empty-space'));
+  }
+
   function _fillDom() {
     // TODO Instead of doing like this, put variables in the index.html, and fill
     // them out?
@@ -7353,6 +7408,8 @@ var main = (function(){
     $('#redo').text(msg('BUTTON_REDO'));
 
     $('#trashcan').text(msg('UI_DRAG_HERE_TO_REMOVE'));
+
+    _fillEmptySegments();
   }
  
   main.init = function() {

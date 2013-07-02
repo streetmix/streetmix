@@ -727,6 +727,32 @@ footer {
   display: block;
   position: absolute;
 }
+.segment.empty {
+  position: absolute;
+  pointer-events: none;
+
+  display: none;
+
+  z-index: -1;
+
+  &#street-section-right-empty-space {
+    right: 0;
+  }
+
+  &.visible {
+    display: block;
+  }
+
+  .name,
+  .width {
+    color: rgb(100, 100, 100);
+  }
+
+  .width {
+    top: @canvasBaseline - 45px;
+    padding-top: 45px;
+  }
+}
 
 body:not(.segment-resize-dragging) .segment {
   -webkit-transition: width 150ms, left 150ms, -webkit-transform 150ms;
@@ -981,36 +1007,6 @@ body.touch-support .segment.fade-out-end {
   padding-top: 10px;
 }
 
-/*
-.segment .width-edit-canvas {
-  position: absolute;
-  left: 1px;
-  right: 1px;
-  top: @canvasBaseline + 4;
-  height: 30px;
-  padding-top: 10px;
-  z-index: 150000;
-  white-space: nowrap;
-
-  pointer-events: none;
-}
-.segment:not(.unmovable).fade-out-end .width-edit-canvas,
-.segment:not(.unmovable).hover .width-edit-canvas {
-  pointer-events: auto;
-
-  margin-left: -20px;
-  border-left: 20px solid transparent;
-
-  margin-right: -20px;
-  border-right: 20px solid transparent;
-
-  margin-bottom: -20px;
-  border-bottom: 20px solid transparent;
-
-  background: @backgroundDirtColour;  
-  background-clip: content-box;
-}
-*/
 .segment button {
   width: 30px;
   height: 29px;
@@ -1067,56 +1063,6 @@ body:not(.touch-support) .segment.hover .remove,
   font-family: serif;
   z-index: 99999999;
 }
-
-/*.segment .width-edit,
-.segment .width-edit-placeholder {
-  width: 50px;
-  text-align: center;
-
-  line-height: 24px;
-  height: 25px;
-
-  .width-font;
-
-  opacity: 0;
-}
-.segment .width-edit {
-  border: 1px solid rgba(255, 255, 255, .2);
-}
-.segment .width-edit-placeholder {
-  display: inline-block;
-  border: 2px solid transparent;
-  color: white;
-}
-.segment:not(.unmovable).hover .width-edit {
-  opacity: 1;
-
-  border-right-color: rgb(180, 180, 180);
-  border-bottom-color: rgb(180, 180, 180);
-  border-left-color: rgb(100, 100, 100);
-  border-top-color: rgb(100, 100, 100);
-  background: rgb(160, 160, 160);
-  color: black;
-}*/
-
-/*.segment .width-edit-canvas .width-edit:focus {
-  outline: none;
-
-  color: black !important;
-  border-right-color: white;
-  border-bottom-color: white;
-  border-left-color: rgb(100, 100, 100);
-  border-top-color: rgb(100, 100, 100);
-  background: rgb(230, 230, 230) !important;
-  opacity: 1;
-}
-.segment:not(.unmovable).warning .width-edit,
-.segment:not(.unmovable).warning:not(.hover) .width-edit-placeholder {
-  color: lighten(@warningColour, 10%) !important;
-}
-.segment:not(.unmovable).warning:hover .width-edit {
-  color: darken(@warningColour, 20%) !important;
-}*/
 
 .segment .width {
   position: absolute;
@@ -2086,7 +2032,7 @@ body.no-connection-message-visible #status-message {
   -webkit-perspective: 400;
   -moz-perspective: 400;
   perspective: 400;
-  
+
   & canvas {
     -webkit-transform: rotateX(90deg);
     -moz-transform: rotateX(90deg);
