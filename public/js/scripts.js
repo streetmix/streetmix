@@ -203,8 +203,12 @@ var main = (function(){
   var DEFAULT_NAME = 'Unnamed St';
   var DEFAULT_STREET_WIDTH = 80;
   var DEFAULT_STREET_WIDTHS = [40, 60, 80];
-  var DEFAULT_BUILDING_HEIGHT = 4;
-  var DEFAULT_BUILDING_VARIANT = 'wide';
+  var DEFAULT_BUILDING_HEIGHT_LEFT = 4;
+  var DEFAULT_BUILDING_HEIGHT_RIGHT = 3;
+  var DEFAULT_BUILDING_VARIANT_LEFT = 'narrow';
+  var DEFAULT_BUILDING_VARIANT_RIGHT = 'wide';
+  var DEFAULT_BUILDING_HEIGHT_EMPTY = 1;
+  var DEFAULT_BUILDING_VARIANT_EMPTY = 'grass';
 
   var BUILDING_VARIANTS = ['grass', 'fence', 'narrow', 'wide'];
 
@@ -1108,34 +1112,36 @@ var main = (function(){
 
   var DEFAULT_SEGMENTS = {
     false: [ // Right-hand traffic
-      { type: "sidewalk", variant: { 'sidewalk-density': 'normal' }, width: 6 },
-      { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 4 },
+      { type: "sidewalk", variant: { 'sidewalk-density': 'dense' }, width: 6 },
+      { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 2 },
+      { type: "transit-shelter", variant: { 'orientation': 'left', 'transit-shelter-elevation': 'street-level' }, width: 9 },
       { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'right', 'lamp-type': 'modern' }, width: 2 },
-      { type: "bike-lane", variant: { 'direction': 'inbound', 'bike-asphalt': 'regular' }, width: 6 },
+      { type: "bus-lane", variant: { 'direction': 'inbound', 'public-transit-asphalt': 'regular' }, width: 10 },
       { type: "drive-lane", variant: { 'direction': 'inbound', 'car-type': 'car' }, width: 10 },
-      { type: "drive-lane", variant: { 'direction': 'inbound', 'car-type': 'car' }, width: 10 },
-      { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'both', 'lamp-type': 'modern' }, width: 4 },
-      { type: "drive-lane", variant: { 'direction': 'outbound', 'car-type': 'car' }, width: 10 },
-      { type: "drive-lane", variant: { 'direction': 'outbound', 'car-type': 'car' }, width: 10 },
-      { type: "bike-lane", variant: { 'direction': 'outbound', 'bike-asphalt': 'regular' }, width: 6 },
+      { type: "divider", variant: { 'divider-type': 'flowers' }, width: 3.5 },
+      { type: "turn-lane", variant: { 'direction': 'outbound', 'orientation': 'left' }, width: 10 },
+      { type: "drive-lane", variant: { 'direction': 'outbound', 'car-type': 'truck' }, width: 10 },
+      { type: "bike-lane", variant: { 'direction': 'outbound', 'bike-asphalt': 'colored' }, width: 6 },
       { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'left', 'lamp-type': 'modern' }, width: 2 },
-      { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 4 },
-      { type: "sidewalk", variant: { 'sidewalk-density': 'normal' }, width: 6 }
+      { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 1.5 },
+      { type: "sidewalk", variant: { 'sidewalk-density': 'normal' }, width: 6 },
+      { type: "sidewalk-bench", variant: { 'bench-orientation': 'right' }, width: 2 },
     ],
     true: [ // Left-hand traffic
+      { type: "sidewalk-bench", variant: { 'bench-orientation': 'left' }, width: 2 },
       { type: "sidewalk", variant: { 'sidewalk-density': 'normal' }, width: 6 },
-      { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 4 },
+      { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 2 },
       { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'right', 'lamp-type': 'modern' }, width: 2 },
-      { type: "bike-lane", variant: { 'direction': 'outbound', 'bike-asphalt': 'regular' }, width: 6 },
-      { type: "drive-lane", variant: { 'direction': 'outbound', 'car-type': 'car' }, width: 10 },
-      { type: "drive-lane", variant: { 'direction': 'outbound', 'car-type': 'car' }, width: 10 },
-      { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'both', 'lamp-type': 'modern' }, width: 4 },
+      { type: "bike-lane", variant: { 'direction': 'outbound', 'bike-asphalt': 'colored' }, width: 6 },
+      { type: "drive-lane", variant: { 'direction': 'outbound', 'car-type': 'truck' }, width: 10 },
+      { type: "turn-lane", variant: { 'direction': 'outbound', 'orientation': 'right' }, width: 10 },
+      { type: "divider", variant: { 'divider-type': 'flowers' }, width: 3.5 },
       { type: "drive-lane", variant: { 'direction': 'inbound', 'car-type': 'car' }, width: 10 },
-      { type: "drive-lane", variant: { 'direction': 'inbound', 'car-type': 'car' }, width: 10 },
-      { type: "bike-lane", variant: { 'direction': 'inbound', 'bike-asphalt': 'regular' }, width: 6 },
+      { type: "bus-lane", variant: { 'direction': 'inbound', 'public-transit-asphalt': 'regular' }, width: 10 },
       { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'left', 'lamp-type': 'modern' }, width: 2 },
-      { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 4 },
-      { type: "sidewalk", variant: { 'sidewalk-density': 'normal' }, width: 6 }
+      { type: "transit-shelter", variant: { 'orientation': 'right', 'transit-shelter-elevation': 'street-level' }, width: 9 },
+      { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 1.5 },
+      { type: "sidewalk", variant: { 'sidewalk-density': 'dense' }, width: 6 },
     ]
   };
 
@@ -2478,12 +2484,12 @@ var main = (function(){
 
     switch (street.schemaVersion) {
       case 1:
-        street.leftBuildingHeight = DEFAULT_BUILDING_HEIGHT;
-        street.rightBuildingHeight = DEFAULT_BUILDING_HEIGHT;
+        street.leftBuildingHeight = DEFAULT_BUILDING_HEIGHT_LEFT;
+        street.rightBuildingHeight = DEFAULT_BUILDING_HEIGHT_RIGHT;
         break;
       case 2:
-        street.leftBuildingVariant = DEFAULT_BUILDING_VARIANT;
-        street.rightBuildingVariant = DEFAULT_BUILDING_VARIANT;
+        street.leftBuildingVariant = DEFAULT_BUILDING_VARIANT_LEFT;
+        street.rightBuildingVariant = DEFAULT_BUILDING_VARIANT_RIGHT;
         break;
       case 3:
         for (var i in street.segments) {
@@ -6547,10 +6553,10 @@ var main = (function(){
     _propagateUnits();
     street.name = DEFAULT_NAME;
     street.width = _normalizeStreetWidth(DEFAULT_STREET_WIDTH);
-    street.leftBuildingHeight = DEFAULT_BUILDING_HEIGHT;
-    street.rightBuildingHeight = DEFAULT_BUILDING_HEIGHT;
-    street.leftBuildingVariant = DEFAULT_BUILDING_VARIANT;
-    street.rightBuildingVariant = DEFAULT_BUILDING_VARIANT;
+    street.leftBuildingHeight = DEFAULT_BUILDING_HEIGHT_LEFT;
+    street.rightBuildingHeight = DEFAULT_BUILDING_HEIGHT_RIGHT;
+    street.leftBuildingVariant = DEFAULT_BUILDING_VARIANT_LEFT;
+    street.rightBuildingVariant = DEFAULT_BUILDING_VARIANT_RIGHT;
     if (signedIn) {
       _setStreetCreatorId(signInData.userId);
     }
@@ -6566,10 +6572,10 @@ var main = (function(){
 
     street.name = DEFAULT_NAME;
     street.width = _normalizeStreetWidth(DEFAULT_STREET_WIDTH);
-    street.leftBuildingHeight = DEFAULT_BUILDING_HEIGHT;
-    street.rightBuildingHeight = DEFAULT_BUILDING_HEIGHT;
-    street.leftBuildingVariant = DEFAULT_BUILDING_VARIANT;
-    street.rightBuildingVariant = DEFAULT_BUILDING_VARIANT;
+    street.leftBuildingHeight = DEFAULT_BUILDING_HEIGHT_EMPTY;
+    street.rightBuildingHeight = DEFAULT_BUILDING_HEIGHT_EMPTY;
+    street.leftBuildingVariant = DEFAULT_BUILDING_VARIANT_EMPTY;
+    street.rightBuildingVariant = DEFAULT_BUILDING_VARIANT_EMPTY;
     if (signedIn) {
       _setStreetCreatorId(signInData.userId);
     }
