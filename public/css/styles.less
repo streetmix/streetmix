@@ -328,7 +328,7 @@ body.gallery-visible #street-section-sky .rear-clouds {
     height: @galleryHeight;
     line-height: @galleryHeight;
     text-align: center;
-    z-index: 10000;
+    z-index: 1000000;
     display: none;
     background: white;
 
@@ -1230,7 +1230,7 @@ body.touch-support .segment.fade-out-end button {
 #status-message,
 #no-connection-message {
   position: absolute;
-  top: 130px;
+  bottom: 100px;
   left: 0;
   right: 0;
   height: 20px;
@@ -1249,11 +1249,11 @@ body.touch-support .segment.fade-out-end button {
   }
 
   & > div {
-    background: rgb(32, 32, 32);
+    color: rgb(32, 32, 32);
     outline: 1px solid black;
     padding: 5px 20px;
     display: inline-block;
-    color: white;
+    background: white;
     font-size: 14px;
   }
 
@@ -1271,7 +1271,7 @@ body.touch-support .segment.fade-out-end button {
     font-size: 14px;
 
     cursor: pointer;
-    color: rgb(240, 240, 240);
+    color: black;
 
     &:hover {
       color: white;
