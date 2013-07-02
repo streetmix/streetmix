@@ -383,8 +383,8 @@ var main = (function(){
     'lamp-orientation|left': { x: 1, y: 2, title: 'Left' },
     'lamp-orientation|both': { x: 0, y: 2, title: 'Both' },
     'lamp-orientation|right': { x: 2, y: 2, title: 'Right' },
-    'lamp-type|traditional': { x: 3, y: 2, title: 'Traditional' },
-    'lamp-type|modern': { x: 4, y: 2, title: 'Modern' },
+    'lamp-type|traditional': { x: 4, y: 2, title: 'Traditional' },
+    'lamp-type|modern': { x: 3, y: 2, title: 'Modern' },
     'car-type|car': { x: 0, y: 3, title: 'Car' },
     'car-type|truck': { x: 1, y: 3, title: 'Truck' },
     'public-transit-asphalt|regular': { x: 2, y: 3, title: '?' },
@@ -6020,7 +6020,7 @@ var main = (function(){
           break;
         case INFO_BUBBLE_TYPE_LEFT_BUILDING:
         case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
-          if (_infoBubble.type = INFO_BUBBLE_TYPE_LEFT_BUILDING) {
+          if (_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING) {
             var variant = street.leftBuildingVariant;
           } else {
             var variant = street.rightBuildingVariant;
