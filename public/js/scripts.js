@@ -1118,12 +1118,12 @@ var main = (function(){
       { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'right', 'lamp-type': 'modern' }, width: 2 },
       { type: "bus-lane", variant: { 'direction': 'inbound', 'public-transit-asphalt': 'regular' }, width: 10 },
       { type: "drive-lane", variant: { 'direction': 'inbound', 'car-type': 'car' }, width: 10 },
-      { type: "divider", variant: { 'divider-type': 'flowers' }, width: 3.5 },
+      { type: "divider", variant: { 'divider-type': 'flowers' }, width: 3 },
       { type: "turn-lane", variant: { 'direction': 'outbound', 'orientation': 'left' }, width: 10 },
       { type: "drive-lane", variant: { 'direction': 'outbound', 'car-type': 'truck' }, width: 10 },
       { type: "bike-lane", variant: { 'direction': 'outbound', 'bike-asphalt': 'colored' }, width: 6 },
       { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'left', 'lamp-type': 'modern' }, width: 2 },
-      { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 1.5 },
+      { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 2 },
       { type: "sidewalk", variant: { 'sidewalk-density': 'normal' }, width: 6 },
       { type: "sidewalk-bench", variant: { 'bench-orientation': 'right' }, width: 2 },
     ],
@@ -1135,12 +1135,12 @@ var main = (function(){
       { type: "bike-lane", variant: { 'direction': 'outbound', 'bike-asphalt': 'colored' }, width: 6 },
       { type: "drive-lane", variant: { 'direction': 'outbound', 'car-type': 'truck' }, width: 10 },
       { type: "turn-lane", variant: { 'direction': 'outbound', 'orientation': 'right' }, width: 10 },
-      { type: "divider", variant: { 'divider-type': 'flowers' }, width: 3.5 },
+      { type: "divider", variant: { 'divider-type': 'flowers' }, width: 3 },
       { type: "drive-lane", variant: { 'direction': 'inbound', 'car-type': 'car' }, width: 10 },
       { type: "bus-lane", variant: { 'direction': 'inbound', 'public-transit-asphalt': 'regular' }, width: 10 },
       { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'left', 'lamp-type': 'modern' }, width: 2 },
       { type: "transit-shelter", variant: { 'orientation': 'right', 'transit-shelter-elevation': 'street-level' }, width: 9 },
-      { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 1.5 },
+      { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 2 },
       { type: "sidewalk", variant: { 'sidewalk-density': 'dense' }, width: 6 },
     ]
   };
@@ -1290,6 +1290,8 @@ var main = (function(){
 
   var debug = {
     hoverPolygon: false,
+    forceLeftHandTraffic: false,
+    forceMetric: false,
   };
 
   var segmentWidthResolution;
@@ -4519,8 +4521,14 @@ var main = (function(){
 
     if (debug.hoverPolygon) {
       // TODO const
-      url += '?debug-hover-polygon';
-    };
+      url += '&debug-hover-polygon';
+    }
+    if (debug.forceLeftHandTraffic) {
+      url += '&debug-force-left-hand-traffic';
+    }
+    if (debug.forceMetric) {
+      url += '&debug-force-metric';
+    }
 
     window.history.replaceState(null, null, url);
 
@@ -7078,6 +7086,13 @@ var main = (function(){
       system.ipAddress = info.ip;
     }
 
+    if (debug.forceLeftHandTraffic) {
+      leftHandTraffic = true;
+    }
+    if (debug.forceMetric) {
+      units = SETTINGS_UNITS_METRIC;
+    }
+
     countryLoaded = true;
     _checkIfEverythingIsLoaded();
   }
@@ -7111,6 +7126,14 @@ var main = (function(){
       canvasEl.width = window.innerWidth;
       canvasEl.height = window.innerHeight;
       el.appendChild(canvasEl);
+    }
+
+    if (url.match(/[\?\&]debug-force-left-hand-traffic\&?/)) {
+      debug.forceLeftHandTraffic = true;
+    }
+
+    if (url.match(/[\?\&]debug-force-metric\&?/)) {
+      debug.forceMetric = true;
     }
   }
 
