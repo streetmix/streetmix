@@ -11,7 +11,7 @@ var app = express()
 
 app.use(express.compress())
 app.use(express.cookieParser())
-app.use(express.cookieSession({ secret: config.cookie_session_secret })
+app.use(express.cookieSession({ secret: config.cookie_session_secret }))
 
 app.use(lessMiddleware({
   src: __dirname + '/public',
@@ -70,7 +70,7 @@ fs.readFile(__dirname + '/public/js/scripts.mustache.js', { encoding: 'utf8' }, 
 
   var replaced = mustache.render(data, config)
 
-  fs.writeFile(__dirname + '/public/js/scripts.js', replaced, { encoding: 'utf8' }, function(err) {
+  fs.writeFile(__dirname + '/public/js/scripts.AUTO.js', replaced, { encoding: 'utf8' }, function(err) {
 
     if (err) {
       console.error('Could not write compiled JS files')
