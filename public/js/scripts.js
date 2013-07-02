@@ -5507,7 +5507,6 @@ var main = (function(){
   var SEGMENT_SWITCHING_TIME = 250;
 
   function _switchSegmentElIn(el) {
-
     el.classList.add('switching-in-pre');
 
     window.setTimeout(function() {
@@ -5546,7 +5545,6 @@ var main = (function(){
       el.classList.add('switching-away-post');
     }, 0);
 
-    // TODO const
     window.setTimeout(function() {
       el.parentNode.removeChild(el);
     }, SEGMENT_SWITCHING_TIME);
@@ -5712,9 +5710,26 @@ var main = (function(){
     onBuildingVariantButtonClick: function(event, left, variantChoice) {
       if (left) {
         street.leftBuildingVariant = variantChoice;
+
+        var el = document.querySelector('#street-section-left-building');
+        el.id = 'street-section-left-building-old';
+
+        var newEl = document.createElement('div');
+        newEl.id = 'street-section-left-building';
       } else {
         street.rightBuildingVariant = variantChoice;
+
+        var el = document.querySelector('#street-section-right-building');
+        el.id = 'street-section-right-building-old';
+
+        var newEl = document.createElement('div');
+        newEl.id = 'street-section-right-building';
       }
+
+      el.parentNode.appendChild(newEl);
+      _updateBuildingPosition();
+      _switchSegmentElIn(newEl);
+      _switchSegmentElAway(el);
 
       _saveStreetToServerIfNecessary();
       _createBuildings();

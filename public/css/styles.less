@@ -540,7 +540,9 @@ body > header {
   background: @backgroundDirtColour;
 }
 #street-section-left-building,
-#street-section-right-building {
+#street-section-left-building-old,
+#street-section-right-building,
+#street-section-right-building-old {
   display: block;
   position: absolute;
 
@@ -558,10 +560,12 @@ body > header {
     bottom: 0;
     right: 0;
   }
-  &#street-section-right-building .hover-bk {
+  &#street-section-right-building .hover-bk,
+  &#street-section-right-building-old .hover-bk {
     left: 25px;
   }
-  &#street-section-left-building .hover-bk {
+  &#street-section-left-building .hover-bk,
+  &#street-section-left-building-old .hover-bk {
     right: 25px;
   }
 
@@ -570,21 +574,27 @@ body > header {
     background: @segmentHoverBackground;
   }
 }
-#street-section-left-building {
-  left: 0;//-100%;
+#street-section-left-building,
+#street-section-left-building-old {
+  left: 0;
 }
-#street-section-right-building {
-  right: 0;//-100%;
+#street-section-right-building,
+#street-section-right-building-old {
+  right: 0;
 }
 #street-section-left-building canvas,
-#street-section-right-building canvas {
+#street-section-right-building canvas,
+#street-section-left-building-old canvas,
+#street-section-right-building-old canvas {
   position: absolute;
   left: 0;
   bottom: 0;
 }
 
 body.street-overflows #street-section-left-building,
-body.street-overflows #street-section-right-building {
+body.street-overflows #street-section-right-building,
+body.street-overflows #street-section-left-building-old,
+body.street-overflows #street-section-right-building-old {
   opacity: .2;
 }
 
@@ -2041,7 +2051,7 @@ body.no-connection-message-visible #status-message {
 }
 
 
-.segment.switching-away-pre {
+.switching-away-pre {
   position: absolute;
   z-index: 9999999999;
   pointer-events: none;
@@ -2058,7 +2068,7 @@ body.no-connection-message-visible #status-message {
 // TODO move
 @segmentSwitchingTime: 250ms;
 
-.segment.switching-away-post canvas {
+.switching-away-post canvas {
   -webkit-transition: -webkit-transform @segmentSwitchingTime ease-in, opacity @segmentSwitchingTime ease-in;
   -moz-transition: -webkit-transform @segmentSwitchingTime ease-in, opacity @segmentSwitchingTime ease-in;
   transition: -webkit-transform @segmentSwitchingTime ease-in, opacity @segmentSwitchingTime ease-in;
@@ -2072,23 +2082,24 @@ body.no-connection-message-visible #status-message {
   transform-origin: 50% 120%;
 }
 
-.segment.switching-in-pre {
+.switching-in-pre {
   -webkit-perspective: 400;
   -moz-perspective: 400;
   perspective: 400;
-}
-.segment.switching-in-pre canvas {
-  -webkit-transform: rotateX(90deg);
-  -moz-transform: rotateX(90deg);
-  transform: rotateX(90deg);
-    
-  -webkit-transform-origin: 50% 100%;
-  -moz-transform-origin: 50% 100%;
-  transform-origin: 50% 100%;
+  
+  & canvas {
+    -webkit-transform: rotateX(90deg);
+    -moz-transform: rotateX(90deg);
+    transform: rotateX(90deg);
+      
+    -webkit-transform-origin: 50% 100%;
+    -moz-transform-origin: 50% 100%;
+    transform-origin: 50% 100%;
 
-  opacity: 0;
+    opacity: 0;
+  }
 }
-.segment.switching-in-post canvas {
+.switching-in-post canvas {
   opacity: 1;
 
   -webkit-transition: -webkit-transform @segmentSwitchingTime, opacity @segmentSwitchingTime;
