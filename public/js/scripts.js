@@ -5731,6 +5731,10 @@ var main = (function(){
       _switchSegmentElIn(newEl);
       _switchSegmentElAway(el);
 
+      // TODO repeat
+      $(newEl).mouseenter(_onBuildingMouseEnter);
+      $(newEl).mouseleave(_onBuildingMouseLeave);
+
       _saveStreetToServerIfNecessary();
       _createBuildings();
 
