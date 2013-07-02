@@ -18,5 +18,6 @@ module.exports = {
   },
   restapi_baseuri: 'http://localhost:8080',
   facebook_app_id: '204327799717656',
-  restapi_proxy_baseuri_rel: '/__api__'
+  restapi_proxy_baseuri_rel: '/__api__',
+  cookie_session_secret: process.env.COOKIE_SESSION_SECRET || 'seger handrail'
 }

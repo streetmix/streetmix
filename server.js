@@ -6,12 +6,12 @@ var fs = require('fs'),
     config = require('config'),
     mustache = require('mustache'),
     controllers = require('./app/controllers')
-
+    
 var app = express()
 
 app.use(express.compress())
 app.use(express.cookieParser())
-app.use(express.cookieSession({ secret: 'seger handrail' }))
+app.use(express.cookieSession({ secret: config.cookie_session_secret })
 
 app.use(lessMiddleware({
   src: __dirname + '/public',
