@@ -3931,6 +3931,24 @@ var main = (function(){
       }
     }
 
+    // Transit shelter orientation and elevation
+
+    if (type == 'transit-shelter') {
+      if (left && (leftOwner == SEGMENT_OWNER_PUBLIC_TRANSIT)) {
+        variant['orientation'] = 'right';
+      } else if (right && (rightOwner == SEGMENT_OWNER_PUBLIC_TRANSIT)) {
+        variant['orientation'] = 'left';
+      }
+    }
+
+    if (SEGMENT_INFO[type].variants.indexOf('transit-shelter-elevation') != -1) {
+      if (variant['orientation'] == 'right' && left && left.type == 'light-rail') {
+        variant['transit-shelter-elevation'] = 'light-rail';
+      } else if (variant['orientation'] == 'left' && right && right.type == 'light-rail') {
+        variant['transit-shelter-elevation'] = 'light-rail';
+      }
+    }
+
     // Lamp orientation
 
     if (SEGMENT_INFO[type].variants.indexOf('lamp-orientation') != -1) {
@@ -5725,18 +5743,24 @@ var main = (function(){
         ];
       }
 
-      if (debug.hoverPolygon) {
-        _infoBubble.drawDebugHoverPolygon();
-      }
+      _infoBubble.drawDebugHoverPolygon();
     },
 
     hideDebugHoverPolygon: function() {
+      if (!debug.hoverPolygon) {
+        return;
+      }
+
       var el = document.querySelector('#debug-hover-polygon canvas');
 
       el.width = el.width; // clear
     },
 
     drawDebugHoverPolygon: function() {
+      if (!debug.hoverPolygon) {
+        return;
+      }
+
       _infoBubble.hideDebugHoverPolygon();
       var el = document.querySelector('#debug-hover-polygon canvas');
 
