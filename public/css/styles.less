@@ -432,12 +432,12 @@ body > header {
 
   opacity: 0;
   -webkit-transition: opacity 150ms;
+  -moz-transition: opacity 150ms;
+  transition: opacity 150ms;
 
   &.visible {
     pointer-events: auto;
     opacity: 1;
-
-    -webkit-transition: opacity 150ms;
   }
 }
 
@@ -1865,6 +1865,10 @@ body.no-connection-message-visible #status-message {
 
   button canvas {
     pointer-events: none;
+
+    position: absolute;
+    left: 1px;
+    top: 2px;
   }
 
   button.remove {
@@ -1885,12 +1889,13 @@ body.no-connection-message-visible #status-message {
     button {
       margin-left: 3px;
       margin-right: 3px;
+      margin-top: 0;
+      margin-bottom: 0;
       white-space: nowrap;
 
       opacity: .75;
 
-      overflow: hidden;
-      padding: 0;
+      position: relative;
 
       &[disabled] {
         outline: 2px solid black;
@@ -2016,8 +2021,8 @@ body.no-connection-message-visible #status-message {
 
 .switching-away-post canvas {
   -webkit-transition: -webkit-transform @segmentSwitchingTime ease-in, opacity @segmentSwitchingTime ease-in;
-  -moz-transition: -webkit-transform @segmentSwitchingTime ease-in, opacity @segmentSwitchingTime ease-in;
-  transition: -webkit-transform @segmentSwitchingTime ease-in, opacity @segmentSwitchingTime ease-in;
+  -moz-transition: -moz-transform @segmentSwitchingTime ease-in, opacity @segmentSwitchingTime ease-in;
+  transition: transform @segmentSwitchingTime ease-in, opacity @segmentSwitchingTime ease-in;
   
   -webkit-transform: rotateX(-60deg);
   -moz-transform: rotateX(-60deg);
@@ -2049,8 +2054,8 @@ body.no-connection-message-visible #status-message {
   opacity: 1;
 
   -webkit-transition: -webkit-transform @segmentSwitchingTime, opacity @segmentSwitchingTime;
-  -moz-transition: -webkit-transform @segmentSwitchingTime, opacity @segmentSwitchingTime;
-  transition: -webkit-transform @segmentSwitchingTime, opacity @segmentSwitchingTime;
+  -moz-transition: -moz-transform @segmentSwitchingTime, opacity @segmentSwitchingTime;
+  transition: transform @segmentSwitchingTime, opacity @segmentSwitchingTime;
   
   -webkit-transform: none;
   -moz-transform: none;

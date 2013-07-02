@@ -2214,7 +2214,7 @@ var main = (function(){
         segment.width * TILE_SIZE, segment.unmovable);
   }  
 
-  function _onSegmentMouseEnter() {
+  function _onSegmentMouseEnter(event) {
     _infoBubble.considerShowing(event, this, INFO_BUBBLE_TYPE_SEGMENT);
   }
 
@@ -2222,7 +2222,7 @@ var main = (function(){
     _infoBubble.dontConsiderShowing();
   }
 
-  function _onBuildingMouseEnter() {
+  function _onBuildingMouseEnter(event) {
     if (this.id == 'street-section-left-building') {
       var type = INFO_BUBBLE_TYPE_LEFT_BUILDING;
     } else {
@@ -5606,6 +5606,8 @@ var main = (function(){
       // TODO const
       // TODO cross-browser
       el.style.webkitPerspectiveOrigin = (perspective / 2) + 'px 50%';
+      el.style.MozPerspectiveOrigin = (perspective / 2) + 'px 50%';
+      el.style.perspectiveOrigin = (perspective / 2) + 'px 50%';
 
       el.classList.add('switching-in-post');
     }, SEGMENT_SWITCHING_TIME / 2);
@@ -5624,6 +5626,8 @@ var main = (function(){
     // TODO const
     // TODO cross-browser
     el.style.webkitPerspectiveOrigin = (perspective / 2) + 'px 50%';
+    el.style.MozPerspectiveOrigin = (perspective / 2) + 'px 50%';
+    el.style.perspectiveOrigin = (perspective / 2) + 'px 50%';
 
     el.parentNode.removeChild(el);
     el.classList.remove('hover');
@@ -6170,7 +6174,7 @@ var main = (function(){
 
               el.addEventListener('click', (function(dataNo, variantName, variantChoice) {
                 return function() {
-                  _infoBubble.onVariantButtonClick(event, dataNo, variantName, variantChoice);
+                  _infoBubble.onVariantButtonClick(null, dataNo, variantName, variantChoice);
                 }
               })(segment.el.dataNo, variantName, variantChoice));
 
@@ -6198,7 +6202,7 @@ var main = (function(){
 
             el.addEventListener('click', (function(left, variantChoice) {
               return function() {
-                _infoBubble.onBuildingVariantButtonClick(event, left, variantChoice);
+                _infoBubble.onBuildingVariantButtonClick(null, left, variantChoice);
               }
             })(_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING, BUILDING_VARIANTS[j]));
 
