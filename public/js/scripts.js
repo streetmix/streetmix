@@ -3896,9 +3896,6 @@ var main = (function(){
     var leftVariant = left && _getVariantArray(left.type, left.variantString);
     var rightVariant = right && _getVariantArray(right.type, right.variantString);
 
-    //console.log('left sibling', leftOwner);
-    //console.log('right sibling', rightOwner);
-
     var variant = _getVariantArray(type, variantString);
 
     // Direction
@@ -3918,6 +3915,16 @@ var main = (function(){
         variant['parking-lane-orientation'] = 'right';
       } else if (!left || !leftOwnerAsphalt) {
         variant['parking-lane-orientation'] = 'left';
+      }
+    }
+
+    // Parklet orientation
+
+    if (type == 'parklet') {
+      if (left && leftOwnerAsphalt) {
+        variant['orientation'] = 'right';
+      } else if (right && rightOwnerAsphalt) {
+        variant['orientation'] = 'left';
       }
     }
 
