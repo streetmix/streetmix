@@ -168,7 +168,9 @@ var main = (function(){
   var DRAG_OFFSET_Y_TOUCH = -50;
 
   var THUMBNAIL_WIDTH = 180;
-  var THUMBNAIL_HEIGHT = 100;
+  var THUMBNAIL_HEIGHT = 110;
+  var THUMBNAIL_MULTIPLIER = .12;
+  var BACKGROUND_DIRT_COLOUR = 'rgb(53, 45, 39)';
 
   var WIDTH_CHART_WIDTH = 500;
   var WIDTH_CHART_EMPTY_OWNER_WIDTH = 40;
@@ -6877,16 +6879,16 @@ var main = (function(){
   }
 
   function _drawStreetThumbnail(ctx, street, thumbnailWidth, thumbnailHeight) {
-    // TODO move
-    var THUMBNAIL_MULTIPLIER = .12;
-
     var occupiedWidth = 0;
     for (var i in street.segments) {
       occupiedWidth += street.segments[i].width;
     }
 
-    var offsetTop = (thumbnailHeight + 20 * TILE_SIZE * THUMBNAIL_MULTIPLIER) / 2;
+    var offsetTop = (thumbnailHeight + 5 * TILE_SIZE * THUMBNAIL_MULTIPLIER) / 2;
     var offsetLeft = (thumbnailWidth - occupiedWidth * TILE_SIZE * THUMBNAIL_MULTIPLIER) / 2;
+
+    ctx.fillStyle = BACKGROUND_DIRT_COLOUR;
+    ctx.fillRect(0, (offsetTop + 140 * THUMBNAIL_MULTIPLIER) * system.hiDpi, thumbnailWidth * system.hiDpi, thumbnailHeight * system.hiDpi);
 
     for (var i in street.segments) {
       var segment = street.segments[i];

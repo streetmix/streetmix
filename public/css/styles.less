@@ -37,7 +37,7 @@
 @segmentHoverBackground: rgba(255, 255, 255, .2);
 
 @thumbnailWidth: 180px;
-@thumbnailHeight: 100px;
+@thumbnailHeight: 110px;
 
 @font-face {
   font-family: 'Roadgeek';
@@ -232,7 +232,7 @@ body.gallery-visible #street-section-sky .rear-clouds {
         vertical-align: top;
 
         width: @thumbnailWidth;
-        height: @thumbnailHeight;
+        height: @thumbnailHeight - 10px;
         margin: 10px 5px;
         background: fadeout(@skyColour, 40%);
         padding: 5px 0;
@@ -266,7 +266,7 @@ body.gallery-visible #street-section-sky .rear-clouds {
           display: block;
 
           font-size: 11px;
-          color: black;
+          color: white;
         }
 
         .date {
@@ -278,7 +278,7 @@ body.gallery-visible #street-section-sky .rear-clouds {
           display: block;
 
           font-size: 11px;
-          color: black;
+          color: white;
         }
 
         button {
