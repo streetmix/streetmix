@@ -2909,7 +2909,7 @@ var main = (function(){
 
       jQuery.ajax({
         // TODO const
-        url: system.apiUrl + 'v1/streets/' + street.id,
+        url: API_URL + 'v1/streets/' + street.id,
         data: transmission,
         dataType: 'json',
         type: 'PUT',
@@ -2921,7 +2921,7 @@ var main = (function(){
 
       _newNonblockingAjaxRequest({
         // TODO const
-        url: system.apiUrl + 'v1/streets/' + street.id,
+        url: API_URL + 'v1/streets/' + street.id,
         data: transmission,
         dataType: 'json',
         type: 'PUT',
@@ -2948,7 +2948,7 @@ var main = (function(){
 
     _newNonblockingAjaxRequest({
       // TODO const
-      url: system.apiUrl + 'v1/users/' + signInData.userId,
+      url: API_URL + 'v1/users/' + signInData.userId,
       data: transmission,
       dataType: 'json',
       type: 'PUT',
@@ -3052,7 +3052,7 @@ var main = (function(){
     _newBlockingAjaxRequest('Remixing…', 
         {
           // TODO const
-          url: system.apiUrl + 'v1/streets',
+          url: API_URL + 'v1/streets',
           type: 'POST',
           data: transmission,
           dataType: 'json',
@@ -4837,7 +4837,7 @@ var main = (function(){
     _newBlockingAjaxRequest('Loading…', 
         {
           // TODO const
-          url: system.apiUrl + 'v1/streets/' + settings.priorLastStreetId,
+          url: API_URL + 'v1/streets/' + settings.priorLastStreetId,
           dataType: 'json',
           type: 'GET',
           headers: { 'Authorization': _getAuthHeader() }
@@ -4913,7 +4913,7 @@ var main = (function(){
     if (galleryUserId) {
       jQuery.ajax({
         // TODO const
-        url: system.apiUrl + 'v1/users/' + galleryUserId + '/streets',
+        url: API_URL + 'v1/users/' + galleryUserId + '/streets',
         dataType: 'json',
         type: 'GET',
         headers: { 'Authorization': _getAuthHeader() }
@@ -4921,7 +4921,7 @@ var main = (function(){
     } else {
       jQuery.ajax({
         // TODO const
-        url: system.apiUrl + 'v1/streets',
+        url: API_URL + 'v1/streets',
         dataType: 'json',
         type: 'GET',
       }).done(_receiveGalleryData).fail(_errorReceiveGalleryData);      
@@ -4950,7 +4950,7 @@ var main = (function(){
 
     jQuery.ajax({
       // TODO const
-      url: system.apiUrl + 'v1/streets/' + streetId,
+      url: API_URL + 'v1/streets/' + streetId,
       dataType: 'json',
       type: 'GET',
       headers: { 'Authorization': _getAuthHeader() }
@@ -5147,7 +5147,7 @@ var main = (function(){
 
     _newNonblockingAjaxRequest({
       // TODO const
-      url: system.apiUrl + 'v1/streets/' + id,
+      url: API_URL + 'v1/streets/' + id,
       dataType: 'json',
       type: 'DELETE',
       headers: { 'Authorization': _getAuthHeader() }
@@ -5426,7 +5426,7 @@ var main = (function(){
 
       _newNonblockingAjaxRequest({
         // TODO const
-        url: system.apiUrl + 'v1/feedback',
+        url: API_URL + 'v1/feedback',
         data: JSON.stringify(transmission),
         dataType: 'json',
         type: 'POST',
@@ -5539,7 +5539,6 @@ var main = (function(){
   function _detectEnvironment() {
     var url = location.href;
 
-    system.apiUrl = API_URL;
     document.body.classList.add('environment-{{env}}');
   }
 
@@ -6968,7 +6967,7 @@ var main = (function(){
   function _fetchSignInDetails() {
     // TODO const
     jQuery.ajax({
-      url: system.apiUrl + 'v1/users/' + signInData.userId,
+      url: API_URL + 'v1/users/' + signInData.userId,
       dataType: 'json',
       headers: { 'Authorization': _getAuthHeader() }
     }).done(_receiveSignInDetails).fail(_errorReceiveSignInDetails);
@@ -7035,7 +7034,7 @@ var main = (function(){
   function _sendSignOutToServer() {
     jQuery.ajax({
       // TODO const
-      url: system.apiUrl + 'v1/users/' + signInData.userId + '/login-token',
+      url: API_URL + 'v1/users/' + signInData.userId + '/login-token',
       dataType: 'json',
       type: 'DELETE',
       headers: { 'Authorization': _getAuthHeader() }
@@ -7298,7 +7297,7 @@ var main = (function(){
 
     jQuery.ajax({
       // TODO const
-      url: system.apiUrl + 'v1/streets',
+      url: API_URL + 'v1/streets',
       data: transmission,
       type: 'POST',
       dataType: 'json',
@@ -7324,11 +7323,11 @@ var main = (function(){
   function _getFetchStreetUrl() {
     // TODO const
     if (street.creatorId) {
-      var url = system.apiUrl + 'v1/streets?namespacedId=' + 
+      var url = API_URL + 'v1/streets?namespacedId=' + 
           encodeURIComponent(street.namespacedId) + '&creatorId=' +
           encodeURIComponent(street.creatorId);
     } else {
-      var url = system.apiUrl + 'v1/streets?namespacedId=' + 
+      var url = API_URL + 'v1/streets?namespacedId=' + 
           encodeURIComponent(street.namespacedId);    
     }
 
@@ -7380,7 +7379,7 @@ var main = (function(){
   
     jQuery.ajax({
       dataType: 'json',
-      url: system.apiUrl + 'v1/users/' + userId
+      url: API_URL + 'v1/users/' + userId
     }).done(_receiveAvatar);
   }
 
