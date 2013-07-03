@@ -5249,46 +5249,51 @@ var main = (function(){
     _fetchGalleryData();  
   }
 
-  function _showGallery(userId, instant) {
+  function _showGallery(userId, instant, signInPromo) {
     galleryVisible = true;
     galleryStreetLoaded = true;
     galleryStreetId = street.id;
     galleryUserId = userId;
 
-    if (userId) {
-      document.querySelector('#gallery .avatar').setAttribute('userId', galleryUserId);
-      document.querySelector('#gallery .avatar').removeAttribute('loaded');
-      _fetchAvatars();
-      document.querySelector('#gallery .user-id').innerHTML = galleryUserId;
-
-      var linkEl = document.createElement('a');
-      // TODO const
-      linkEl.href = 'https://twitter.com/' + galleryUserId;
-      linkEl.innerHTML = 'Twitter profile »';
-      linkEl.classList.add('twitter-profile');
-      linkEl.target = '_blank';
-      document.querySelector('#gallery .user-id').appendChild(linkEl);
+    if (signInPromo) {
 
     } else {
-      document.querySelector('#gallery .user-id').innerHTML = 'All streets';      
+      if (userId) {
+        document.querySelector('#gallery .avatar').setAttribute('userId', galleryUserId);
+        document.querySelector('#gallery .avatar').removeAttribute('loaded');
+        _fetchAvatars();
+        document.querySelector('#gallery .user-id').innerHTML = galleryUserId;
+
+        var linkEl = document.createElement('a');
+        // TODO const
+        linkEl.href = 'https://twitter.com/' + galleryUserId;
+        linkEl.innerHTML = 'Twitter profile »';
+        linkEl.classList.add('twitter-profile');
+        linkEl.target = '_blank';
+        document.querySelector('#gallery .user-id').appendChild(linkEl);
+
+      } else {
+        document.querySelector('#gallery .user-id').innerHTML = 'All streets';      
+      }
+
+
+      document.querySelector('#gallery .street-count').innerHTML = '';
+
+      // TODO no class, but type?
+      if (!userId) {
+        document.querySelector('#gallery').classList.add('all-streets');
+        document.querySelector('#gallery').classList.remove('another-user');
+      } else if (signedIn && (userId == signInData.userId)) {
+        document.querySelector('#gallery').classList.remove('another-user');
+        document.querySelector('#gallery').classList.remove('all-streets');
+      } else {
+        document.querySelector('#gallery').classList.add('another-user'); 
+        document.querySelector('#gallery').classList.remove('all-streets');
+      }
     }
-
-
-    document.querySelector('#gallery .street-count').innerHTML = '';
 
     _statusMessage.hide();
-
-    // TODO no class, but type?
-    if (!userId) {
-      document.querySelector('#gallery').classList.add('all-streets');
-      document.querySelector('#gallery').classList.remove('another-user');
-    } else if (signedIn && (userId == signInData.userId)) {
-      document.querySelector('#gallery').classList.remove('another-user');
-      document.querySelector('#gallery').classList.remove('all-streets');
-    } else {
-      document.querySelector('#gallery').classList.add('another-user'); 
-      document.querySelector('#gallery').classList.remove('all-streets');
-    }
+    document.querySelector('#gallery .sign-in-promo').classList.remove('visible');
 
     if (instant) {
       document.body.classList.add('gallery-no-move-transition');
@@ -5306,9 +5311,12 @@ var main = (function(){
       _showError(ERROR_TYPE_NO_STREET, false);
     }
 
-    _loadGalleryContents();
-
-    _updatePageUrl(true);
+    if (!signInPromo) {
+      _loadGalleryContents();
+      _updatePageUrl(true);
+    } else {
+      document.querySelector('#gallery .sign-in-promo').classList.add('visible');
+    }
   }
 
   function _onGalleryShieldClick(event) {
@@ -5341,7 +5349,11 @@ var main = (function(){
   }
 
   function _onMyStreetsClick(event) {
-    _showGallery(signInData.userId, false);
+    if (signedIn) {
+      _showGallery(signInData.userId, false);
+    } else {
+      _showGallery(false, false, true);
+    }
 
     event.preventDefault();
   }
@@ -7033,8 +7045,6 @@ var main = (function(){
       document.querySelector('#identity').appendChild(el);
 
       document.querySelector('#identity').classList.add('visible');
-
-      document.querySelector('#gallery-link').classList.add('visible');
 
       _fetchAvatars();
     } else {
