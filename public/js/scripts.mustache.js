@@ -6858,7 +6858,12 @@ var main = (function(){
 
     var buildingWidth = offsetLeft / THUMBNAIL_MULTIPLIER;
 
-    _drawBuilding(ctx, street, true, buildingWidth, groundLevel, true, offsetLeft - (buildingWidth - 25) * THUMBNAIL_MULTIPLIER, 0, THUMBNAIL_MULTIPLIER);
+    var x = thumbnailWidth / 2 - street.width * TILE_SIZE * THUMBNAIL_MULTIPLIER / 2;
+    _drawBuilding(ctx, street, true, buildingWidth, groundLevel, true, x - (buildingWidth - 25) * THUMBNAIL_MULTIPLIER, 0, THUMBNAIL_MULTIPLIER);
+
+    var x = thumbnailWidth / 2 + street.width * TILE_SIZE * THUMBNAIL_MULTIPLIER / 2;
+    _drawBuilding(ctx, street, false, buildingWidth, groundLevel, true, x - 25 * THUMBNAIL_MULTIPLIER, 0, THUMBNAIL_MULTIPLIER);
+
 
     for (var i in street.segments) {
       var segment = street.segments[i];
@@ -6872,8 +6877,6 @@ var main = (function(){
 
       offsetLeft += segment.width * TILE_SIZE * THUMBNAIL_MULTIPLIER;
     }
-
-    _drawBuilding(ctx, street, false, buildingWidth, groundLevel, true, offsetLeft - 25 * THUMBNAIL_MULTIPLIER, 0, THUMBNAIL_MULTIPLIER);
 
     ctx.globalCompositeOperation = 'source-atop';
     // TODO const
