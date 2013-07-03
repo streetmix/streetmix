@@ -121,14 +121,14 @@ var main = (function(){
     // 2: adding leftBuildingHeight and rightBuildingHeight
     // 3: adding leftBuildingVariant and rightBuildingVariant
     // 4: adding transit shelter elevation
-    // 5: adding another lamp
+    // 5: adding another lamp type (traditional)
     // 6: colored streetcar lanes
     // 7: colored bus and light rail lanes
     // 8: colored bike lane
     // 9: second car type: truck
     // 10: sidewalk density
     // 11: unify median and planting strip into divider
-    // 12: get rid of small tree
+    // 12: getting rid of small tree
     // 13: bike rack elevation
   var TILESET_IMAGE_VERSION = 41;
   var TILESET_WIDTH = 2622;
