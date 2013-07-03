@@ -82,7 +82,7 @@ You can see a running version of the application at http://streetmix.net/
 1) Start the web server.
 
     cd $PROJECT_ROOT
-    node server.js
+    npm start
 
 2) Load the application in your web browser.
 
