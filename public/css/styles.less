@@ -897,10 +897,14 @@ body:not(.touch-support) .segment.palette:hover,
   pointer-events: none;
 
   -webkit-transition: none !important;
+  -moz-transition: none !important;
+  transition: none !important;
 }
 
 .segment.floating.first-drag-move {
   -webkit-transition: left 250ms, top 250ms, -webkit-transform 250ms !important;
+  -moz-transition: left 250ms, top 250ms, -moz-transform 250ms !important;
+  transition: left 250ms, top 250ms, transform 250ms !important;
 }
 
 body.segment-resize-dragging,
