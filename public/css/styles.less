@@ -82,10 +82,10 @@ textarea {
   height: 100%;
 }
 
-body.environment-local,
+body.environment-development,
+body.environment-production,
 body.environment-staging {
   #main-screen::before {
-    content: 'Local server';
     z-index: 9999999999;
     position: absolute;
     left: 50%;
@@ -93,7 +93,6 @@ body.environment-staging {
     margin-left: -80px - 10px;
     text-align: center;
     top: 0;
-    background: rgb(200, 0, 0);
     color: white;
     padding: 5px 10px;
     border-radius: 2px;
@@ -101,6 +100,20 @@ body.environment-staging {
     letter-spacing: 4px;
     padding-right: 10px - 4px;
     text-transform: uppercase;
+  }
+}
+
+body.environment-production {
+  #main-screen::before {
+    content: 'Experimental';
+    background-color: black;
+  }
+}
+
+body.environment-development {
+  #main-screen::before {
+    content: 'Dev server';
+    background-color: rgb(200, 0, 0);
   }
 }
 body.environment-staging {
@@ -1152,6 +1165,10 @@ body.touch-support .segment.fade-out-end button {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
+  }
+
+  a {
+    color: inherit;
   }
 
   button {

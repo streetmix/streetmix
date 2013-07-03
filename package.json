@@ -7,13 +7,20 @@
     "compound": "1.1.7-1",
     "config": "0.4.23",
     "less-middleware": "0.1.9",
+    "mustache": "0.7.x",
     "oauth": "0.9.10",
     "request": "2.21.0",
     "requireindex": "1.0.0",
     "sprintf": "0.1.1"
   },
+  "devDependencies": {
+    "supervisor": "0.5.x"
+  },
   "engines": {
     "node": "0.10.x",
     "npm": "1.2.x"
+  },
+  "scripts": {
+    "start": "bin/start.sh"
   }
 }

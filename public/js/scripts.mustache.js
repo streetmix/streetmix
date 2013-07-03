@@ -41,40 +41,36 @@ var main = (function(){
     WARNING_DOESNT_FIT: 'This segment doesn’t fit within the street.',
   };
 
-  // TODO all of the below in an array?
-  var ENVIRONMENT_LOCAL = 0;
-  var ENVIRONMENT_STAGING = 1;
-  var ENVIRONMENT_STAGING_MWICHARY = 2;
-  var ENVIRONMENT_PRODUCTION = 3;
-
-  var SITE_URL_LOCAL = 'http://localhost:8000/';
-  var SITE_URL_STAGING = 'http://streetmix-staging.herokuapp.com/';
-  var SITE_URL_STAGING_MWICHARY = 'http://streetmix-sandbox.herokuapp.com/';
-  var SITE_URL_PRODUCTION = 'http://streetmix.net/';
-
-  var API_URL_LOCAL = 'http://localhost:8080/';
-  var API_URL_STAGING = 'http://streetmix-api-staging.herokuapp.com/';
-  var API_URL_STAGING_MWICHARY = 'http://streetmix-api-sandbox.herokuapp.com/';;
-  var API_URL_PRODUCTION = 'http://streetmix-api.herokuapp.com/';
+  var SITE_URL = 'http://{{app_host_port}}/';
+  var API_URL = '{{{restapi_proxy_baseuri_rel}}}/';
 
   var IP_GEOCODING_API_URL = 'http://freegeoip.net/json/';
   var IP_GEOCODING_TIMEOUT = 1000; // After this time, we don’t wait any more
 
-  var FACEBOOK_APP_ID_PRODUCTION = '162729607241489';
-  var FACEBOOK_APP_ID_STAGING = '175861739245183';
-  var FACEBOOK_APP_ID_STAGING_MWICHARY = 'BROKEN';
-  var FACEBOOK_APP_ID_LOCAL = '204327799717656';
+  var FACEBOOK_APP_ID = '{{facebook_app_id}}';
 
   // TODO replace the URLs in index.html dynamically
   var URL_SIGN_IN = 'twitter-sign-in';
-  var URL_SIGN_IN_CALLBACK = 'twitter-sign-in-callback';
+
+  var URL_SIGN_IN_CALLBACK_REL = '{{{twitter.oauth_callback_uri}}}';
+  var URL_SIGN_IN_CALLBACK_ABS = 
+      location.protocol + '//' + location.host + URL_SIGN_IN_CALLBACK_REL;
+  var URL_SIGN_IN_CALLBACK = URL_SIGN_IN_CALLBACK_REL.replace(/^\//, '');
+
+  var URL_JUST_SIGNED_IN_REL = '/just-signed-in';
+  var URL_JUST_SIGNED_IN_ABS = 
+      location.protocol + '//' + location.host + URL_JUST_SIGNED_IN_REL;
+  var URL_JUST_SIGNED_IN = URL_JUST_SIGNED_IN_REL.replace(/^\//, '');
+
   var URL_JUST_SIGNED_IN = 'just-signed-in';
   var URL_NEW_STREET = 'new';
   var URL_NEW_STREET_COPY_LAST = 'copy-last';
   var URL_GLOBAL_GALLERY = 'gallery';
+  var URL_ERROR = 'error';
   var URL_NO_USER = '-';
 
-  var URL_SIGN_IN_REDIRECT = URL_SIGN_IN + '?redirectUri=' + URL_JUST_SIGNED_IN;
+  var URL_SIGN_IN_REDIRECT = URL_SIGN_IN + '?callbackUri=' + 
+      URL_SIGN_IN_CALLBACK_ABS + '&redirectUri=' + URL_JUST_SIGNED_IN_ABS;
 
   // Since URLs like “streetmix.net/new” are reserved, but we still want
   // @new to be able to use Streetmix, we prefix any reserved URLs with ~
@@ -82,7 +78,7 @@ var main = (function(){
       [URL_SIGN_IN, URL_SIGN_IN_CALLBACK, 
       URL_NEW_STREET, URL_NEW_STREET_COPY_LAST,
       URL_JUST_SIGNED_IN, 
-      'help', URL_GLOBAL_GALLERY, 'error', 'streets'];
+      'help', URL_GLOBAL_GALLERY, URL_ERROR, 'streets'];
   var URL_RESERVED_PREFIX = '~';
 
   var MODE_CONTINUE = 1;
@@ -97,15 +93,23 @@ var main = (function(){
   var MODE_USER_GALLERY = 10;
   var MODE_GLOBAL_GALLERY = 11;
   var MODE_FORCE_RELOAD_SIGN_OUT_401 = 12;
+  var MODE_ERROR = 13;
+  var MODE_UNSUPPORTED_BROWSER = 14;
 
-  var ERROR_TYPE_404 = 1;
-  var ERROR_TYPE_SIGN_OUT = 2;
-  var ERROR_TYPE_NO_STREET = 3; // for gallery if you delete the street you were looking at
+  var ERROR_404 = 1;
+  var ERROR_SIGN_OUT = 2;
+  var ERROR_NO_STREET = 3; // for gallery if you delete the street you were looking at
   var ERROR_FORCE_RELOAD_SIGN_IN = 4;
   var ERROR_FORCE_RELOAD_SIGN_OUT = 5;
   var ERROR_STREET_DELETED_ELSEWHERE = 6;
   var ERROR_NEW_STREET_SERVER_FAILURE = 7;
   var ERROR_FORCE_RELOAD_SIGN_OUT_401 = 8;
+  var ERROR_TWITTER_ACCESS_DENIED = 9;
+  var ERROR_AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN = 10;
+  var ERROR_AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN = 11;
+  var ERROR_AUTH_PROBLEM_API_PROBLEM = 12;
+  var ERROR_GENERIC_ERROR = 13;
+  var ERROR_UNSUPPORTED_BROWSER = 14;
 
   var TWITTER_ID = '@streetmixapp';
 
@@ -1213,6 +1217,7 @@ var main = (function(){
   // ------------------------------------------------------------------------
 
   var mode;
+  var errorUrl = '';
   var abortEverything;
   var currentErrorType;
 
@@ -1282,7 +1287,6 @@ var main = (function(){
   var mouseY;
 
   var system = {
-    environment: ENVIRONMENT_LOCAL,
     apiUrl: null,
     touch: false,
     hiDpi: 1.0,
@@ -2034,7 +2038,7 @@ var main = (function(){
       innerEl.classList.add('grid');
       el.appendChild(innerEl);
     } else {
-    	el.setAttribute('title', SEGMENT_INFO[type].name);
+      el.setAttribute('title', SEGMENT_INFO[type].name);
     }
 
     if (width) {
@@ -5118,7 +5122,7 @@ var main = (function(){
     // TODO escape name
     if (confirm(prompt)) {
       if (el.getAttribute('streetId') == street.id) {
-        _showError(ERROR_TYPE_NO_STREET, false);
+        _showError(ERROR_NO_STREET, false);
       }
 
       _sendDeleteStreetToServer(el.getAttribute('streetId'));
@@ -5321,7 +5325,7 @@ var main = (function(){
 
     if ((mode == MODE_USER_GALLERY) || (mode == MODE_GLOBAL_GALLERY)) {
       // Prevents showing old street before the proper street loads
-      _showError(ERROR_TYPE_NO_STREET, false);
+      _showError(ERROR_NO_STREET, false);
     }
 
     if (!signInPromo) {
@@ -5337,7 +5341,7 @@ var main = (function(){
   }
 
   function _hideGallery(instant) {
-    if ((currentErrorType != ERROR_TYPE_NO_STREET) && galleryStreetLoaded) {
+    if ((currentErrorType != ERROR_NO_STREET) && galleryStreetLoaded) {
       galleryVisible = false;
 
       if (instant) {
@@ -5535,25 +5539,8 @@ var main = (function(){
   function _detectEnvironment() {
     var url = location.href;
 
-    if (url.substr(0, SITE_URL_LOCAL.length) == SITE_URL_LOCAL) {
-      system.environment = ENVIRONMENT_LOCAL;
-      system.apiUrl = API_URL_LOCAL;
-
-      document.body.classList.add('environment-local');
-    } else if (url.substr(0, SITE_URL_STAGING.length) == SITE_URL_STAGING) {
-      system.environment = ENVIRONMENT_STAGING;
-      system.apiUrl = API_URL_STAGING;
-
-      document.body.classList.add('environment-staging');
-    } else if (url.substr(0, SITE_URL_STAGING_MWICHARY.length) == SITE_URL_STAGING_MWICHARY) {
-      system.environment = ENVIRONMENT_STAGING_MWICHARY;
-      system.apiUrl = API_URL_STAGING_MWICHARY;
-
-      document.body.classList.add('environment-staging');
-    } else if (url.substr(0, SITE_URL_PRODUCTION.length) == SITE_URL_PRODUCTION) {
-      system.environment = ENVIRONMENT_PRODUCTION;
-      system.apiUrl = API_URL_PRODUCTION;
-    }
+    system.apiUrl = API_URL;
+    document.body.classList.add('environment-{{env}}');
   }
 
   function _detectSystemCapabilities() {
@@ -5575,6 +5562,13 @@ var main = (function(){
         break;
       }
     }
+
+    // TODO temporary ban
+    if ((navigator.userAgent.indexOf('Opera') != -1) || 
+        (navigator.userAgent.indexOf('Internet Explorer') != -1)) {
+      mode = MODE_UNSUPPORTED_BROWSER;
+      _processMode();
+    }    
   }
 
   var _noConnectionMessage = {
@@ -6646,17 +6640,7 @@ var main = (function(){
 
     var text = _getSharingMessage();
 
-    switch (system.environment) {
-      case ENVIRONMENT_PRODUCTION:
-        var appId = FACEBOOK_APP_ID_PRODUCTION;
-        break;
-      case ENVIRONMENT_STAGING:
-        var appId = FACEBOOK_APP_ID_STAGING;
-        break;
-      case ENVIRONMENT_LOCAL:
-        var appId = FACEBOOK_APP_ID_LOCAL;
-        break;
-    }
+    var appId = FACEBOOK_APP_ID;
 
     // TODO const
     el.href = 'https://www.facebook.com/dialog/feed' +
@@ -7260,8 +7244,13 @@ var main = (function(){
       // Coming back from a successful sign in
 
       mode = MODE_JUST_SIGNED_IN;
+    } else if ((urlParts.length >= 1) && (urlParts[0] == URL_ERROR)) {
+      // Error
+
+      mode = MODE_ERROR;
+      errorUrl = urlParts[1];
     } else if ((urlParts.length == 1) && (urlParts[0] == URL_GLOBAL_GALLERY)) {
-      // User gallery
+      // Global gallery
 
       mode = MODE_GLOBAL_GALLERY;
     } else if ((urlParts.length == 1) && urlParts[0]) {
@@ -7292,7 +7281,6 @@ var main = (function(){
 
       mode = MODE_EXISTING_STREET;
     } else {
-      //console.log('_processUrl() weird url');
       mode = MODE_404;
 
       // 404: bad URL
@@ -7455,16 +7443,16 @@ var main = (function(){
     abortEverything = newAbortEverything;
 
     switch (errorType) {
-      case ERROR_TYPE_404:
+      case ERROR_404:
         title = 'Page not found.';
         description = 'Oh, boy. There is no page with this address!<br><button class="home">Go to the homepage</button>';
         // TODO go to homepage
         break;
-      case ERROR_TYPE_SIGN_OUT:
+      case ERROR_SIGN_OUT:
         title = 'You are now signed out.';
         description = '<button class="sign-in">Sign in again</button> <button class="home">Go to the homepage</button>';
         break;
-      case ERROR_TYPE_NO_STREET:
+      case ERROR_NO_STREET:
         title = 'No street selected.';
         break;
       case ERROR_FORCE_RELOAD_SIGN_OUT:
@@ -7487,6 +7475,27 @@ var main = (function(){
         title = 'Having trouble…';
         description = 'We’re having trouble loading Streetmix.<br><button class="new">Try again</button>';
         break;
+      case ERROR_TWITTER_ACCESS_DENIED:
+        title = 'You are not signed in.';
+        description = 'You cancelled the Twitter sign in process.<br><button class="home">Go to the homepage</button>';
+        break;
+      case ERROR_AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN:
+      case ERROR_AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN:
+      case ERROR_AUTH_PROBLEM_API_PROBLEM:
+        title = 'There was a problem with signing you in.';
+        // TODO const for feedback
+        description = 'There was a problem with Twitter authentication. Please try again later or let us know via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmixapp">Twitter</a>.<br><button class="home">Go to the homepage</button>';
+        break;
+      case ERROR_GENERIC_ERROR:
+        title = 'Something went wrong.';
+        // TODO const for feedback
+        description = 'We’re sorry – something went wrong. Please try again later or let us know via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmixapp">Twitter</a>.<br><button class="home">Go to the homepage</button>';
+        break;
+      case ERROR_UNSUPPORTED_BROWSER:
+        title = 'Streetmix doesn’t work on your browser.';
+        // TODO const for feedback
+        description = 'Sorry about that. You might want to try <a target="_blank" href="http://www.google.com/chrome">Chrome</a>, <a target="_blank" href="http://www.mozilla.org/firefox">Firefox</a>, or Safari. If you think your browser should be supported, let us know via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmixapp">Twitter</a>.';
+        break;        
     }
 
     document.querySelector('#error h1').innerHTML = title;
@@ -7528,15 +7537,44 @@ var main = (function(){
     currentErrorType = null;
   }
 
+  function _showErrorFromUrl() {
+    // TODO const
+    switch (errorUrl) {
+      case 'twitter-access-denied':
+        var errorType = ERROR_TWITTER_ACCESS_DENIED;
+        break;
+      case 'no-twitter-request-token':
+        var errorType = ERROR_AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN;
+        break;
+      case 'no-twitter-access-token':
+        var errorType = ERROR_AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN;
+        break;
+      case 'authentication-api-problem':
+        var errorType = ERROR_AUTH_PROBLEM_API_PROBLEM;
+        break;
+      default:
+        var errorType = ERROR_GENERIC_ERROR;
+        break;
+    }
+
+    _showError(errorType, true);
+  }  
+
   function _processMode() {
     serverContacted = true;
 
     switch (mode) {
+      case MODE_ERROR:
+        _showErrorFromUrl();
+        break;
+      case MODE_UNSUPPORTED_BROWSER:
+        _showError(ERROR_UNSUPPORTED_BROWSER, true);
+        break;
       case MODE_404:
-        _showError(ERROR_TYPE_404, true);
+        _showError(ERROR_404, true);
         break;
       case MODE_SIGN_OUT:
-        _showError(ERROR_TYPE_SIGN_OUT, true);
+        _showError(ERROR_SIGN_OUT, true);
         break;
       case MODE_FORCE_RELOAD_SIGN_OUT:
         _showError(ERROR_FORCE_RELOAD_SIGN_OUT, true);
