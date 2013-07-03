@@ -1547,7 +1547,7 @@ var main = (function(){
     var segmentInfo = SEGMENT_INFO[type];
     var variantInfo = SEGMENT_INFO[type].details[variantString];
 
-    console.log('dSC', type, variantString);
+    //console.log('dSC', type, variantString);
     var dimensions = _getVariantInfoDimensions(variantInfo, segmentWidth, multiplier);
     var left = dimensions.left;
     var right = dimensions.right;
@@ -1648,7 +1648,7 @@ var main = (function(){
     var variantInfo = SEGMENT_INFO[type].details[variantString];
 
     var multiplier = palette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1;
-    console.log('dsC', type, variantString);
+    //console.log('dsC', type, variantString);
     var dimensions = _getVariantInfoDimensions(variantInfo, segmentWidth, multiplier);
 
     var totalWidth = dimensions.right - dimensions.left;
@@ -2748,23 +2748,12 @@ var main = (function(){
       data: data
     }
 
-    //console.log(transmission);
-
     return JSON.stringify(transmission);
   }
 
   function _getNonblockingAjaxRequestCount() {
     return nonblockingAjaxRequests.length;
   }
-
-/*  function _debugOutput() {
-    console.log('-');
-    console.log(_getNonblockingAjaxRequestCount() + ' requests…');
-
-    for (var i in nonblockingAjaxRequests) {
-      console.log('    …' + _getAjaxRequestSignature(nonblockingAjaxRequests[i].request));
-    }
-  }*/
 
   function _getAjaxRequestSignature(request) {
     return request.type + ' ' + request.url;
@@ -2773,20 +2762,14 @@ var main = (function(){
   function _newNonblockingAjaxRequest(request, allowToClosePage, doneFunc, errorFunc) {
     nonblockingAjaxRequestTimer = 0;
 
-    //console.log('new request added…');
     var signature = _getAjaxRequestSignature(request);
 
-    /*if (!nonblockingAjaxRequests[signature]) {
-      nonblockingAjaxRequestCount++;
-    }*/
     _removeNonblockingAjaxRequest(signature);
     nonblockingAjaxRequests.push( 
       { request: request, allowToClosePage: allowToClosePage, 
         doneFunc: doneFunc, errorFunc: errorFunc,
         signature: signature }
     );
-
-    //_debugOutput();
 
     _scheduleNextNonblockingAjaxRequest();
   }
@@ -2804,8 +2787,6 @@ var main = (function(){
       return;
     }
 
-    //console.log('send next…');
-
     if (_getNonblockingAjaxRequestCount()) {
       _noConnectionMessage.schedule();        
 
@@ -2814,8 +2795,6 @@ var main = (function(){
       request = nonblockingAjaxRequests[0];
 
       if (request) {
-        //console.log('sending…');
-
         var query = jQuery.ajax(request.request).done(function(data) {
           _successNonblockingAjaxRequest(data, request);
         }).fail(function(data) {
@@ -2827,13 +2806,7 @@ var main = (function(){
     }
   }
 
-  function _tempFail(error) {
-    console.log('FAIL!!!', error);
-  }
-
   function _scheduleNextNonblockingAjaxRequest() {
-    //console.log('schedule next…');
-
     if (_getNonblockingAjaxRequestCount()) {
       if (nonblockingAjaxRequestTimer < NON_BLOCKING_AJAX_REQUEST_TIME.length) {
         var time = NON_BLOCKING_AJAX_REQUEST_TIME[nonblockingAjaxRequestTimer];
@@ -2841,14 +2814,10 @@ var main = (function(){
         var time = Math.floor(Math.random() * NON_BLOCKING_AJAX_REQUEST_BACKOFF_RANGE);
       }
 
-      //console.log('schedule next… at time: ', time);
-
       window.setTimeout(_sendNextNonblockingAjaxRequest, time);
 
       nonblockingAjaxRequestTimer++;
     } else {
-      //console.log('nothing more to send!');
-
       saveStreetIncomplete = false;
     }
   }
@@ -2857,7 +2826,6 @@ var main = (function(){
     for (var i in nonblockingAjaxRequests) {
       if (nonblockingAjaxRequests[i].signature == signature) {
         nonblockingAjaxRequests.splice(i, 1);
-        //console.log('removed');
         break;
       }
     }    
@@ -2871,28 +2839,10 @@ var main = (function(){
 
   function _successNonblockingAjaxRequest(data, request) {
     nonblockingAjaxRequestTimer = 0;
-    //nonblockingAjaxRequestCount--;
-
-    //var signature = request.request);
 
     _noConnectionMessage.hide();
 
-    //console.log('signature', signature);
-    //delete nonblockingAjaxRequests[signature];
-    //console.log('after deleting', nonblockingAjaxRequests[signature]);
-    //console.log(data, textStatus, jqXHR);
-
-    //console.log('trying to remove');
     _removeNonblockingAjaxRequest(request.signature);
-    /*for (var i in nonblockingAjaxRequests) {
-      if (nonblockingAjaxRequests[i].signature == request.signature) {
-        nonblockingAjaxRequests.splice(i, 1);
-        console.log('removed');
-      }
-    }*/
-
-    //console.log('SUCCESS!', request.signature);
-    //_debugOutput();
 
     if (request.doneFunc) {
       request.doneFunc(data);
@@ -2919,8 +2869,6 @@ var main = (function(){
         headers: { 'Authorization': _getAuthHeader() }
       }).done(_confirmSaveStreetToServerInitial);
     } else {
-      //console.log('output', transmission);
-
       _newNonblockingAjaxRequest({
         // TODO const
         url: API_URL + 'v1/streets/' + street.id,
@@ -6871,7 +6819,6 @@ var main = (function(){
       var segment = street.segments[i];
       var segmentInfo = SEGMENT_INFO[segment.type];
       var variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString];
-      console.log('dST', segment.type, segment.variantString);
       var dimensions = _getVariantInfoDimensions(variantInfo, segment.width * TILE_SIZE, 1);
 
       _drawSegmentContents(ctx, segment.type, segment.variantString, 
