@@ -36,6 +36,9 @@
 
 @segmentHoverBackground: rgba(255, 255, 255, .2);
 
+@thumbnailWidth: 180px;
+@thumbnailHeight: 100px;
+
 @font-face {
   font-family: 'Roadgeek';
   src: url(/fonts/roadgeek-2005-engschrift.otf);
@@ -228,19 +231,27 @@ body.gallery-visible #street-section-sky .rear-clouds {
 
         vertical-align: top;
 
-        width: 150px;
+        width: @thumbnailWidth;
+        height: @thumbnailHeight;
         margin: 10px 5px;
         background: fadeout(@skyColour, 40%);
-        padding: 5px 10px;
+        padding: 5px 0;
         text-align: center;
         white-space: normal;
-        height: 100px;
 
         cursor: pointer;
 
         font-size: 13px;
 
         position: relative;
+
+        canvas {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: @thumbnailWidth;
+          height: @thumbnailHeight;
+        }
 
         &:first-child {
           margin-left: 0;

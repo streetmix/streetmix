@@ -167,6 +167,9 @@ var main = (function(){
   var DRAG_OFFSET_Y_TOUCH_PALETTE = -100;
   var DRAG_OFFSET_Y_TOUCH = -50;
 
+  var THUMBNAIL_WIDTH = 180;
+  var THUMBNAIL_HEIGHT = 100;
+
   var WIDTH_CHART_WIDTH = 500;
   var WIDTH_CHART_EMPTY_OWNER_WIDTH = 40;
   var WIDTH_CHART_MARGIN = 20;
@@ -685,7 +688,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 9, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
-              { x: 39, y: 15, width: 4, height: 15, offsetY: 10 }, // Arrow (outbound)
+              { x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
             ],
             repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }
@@ -703,7 +706,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 9, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
-              { x: 39, y: 15, width: 4, height: 15, offsetY: 10 }, // Arrow (outbound)
+              { x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
             ],
             repeat: { x: 98 - 10, y: 53 + 10, width: 8, height: 5, offsetY: 10 }, // Green asphalt
           }
@@ -733,7 +736,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
-              { x: 39, y: 15, width: 4, height: 15, offsetY: 10 }, // Arrow (outbound)
+              { x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
             ],
             repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
@@ -755,7 +758,7 @@ var main = (function(){
           graphics: {
             center: [
               { x: 29, y: 64, width: 9, height: 12, offsetY: 0 }, // Truck (outbound)
-              { x: 39, y: 15, width: 4, height: 15, offsetY: 10 }, // Arrow (outbound)
+              { x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
             ],
             repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
@@ -1412,7 +1415,7 @@ var main = (function(){
     }
   }
 
-  function _drawProgrammaticPeople(ctx, width, top, multiplier, variantString) {
+  function _drawProgrammaticPeople(ctx, width, offsetLeft, offsetTop, multiplier, variantString) {
     // TODO move
     var PERSON_TYPES = 14;
 
@@ -1461,14 +1464,14 @@ var main = (function(){
     for (var i in people) {
       var person = people[i];
       _drawSegmentImage(ctx, 1056 + 12 + 48 * person.type, 0, 48, 24 * 4, 
-          (person.left - 24 + startLeft) * multiplier, top + 35 * multiplier, 48 * multiplier, 24 * 4 * multiplier);
+          offsetLeft + (person.left - 24 + startLeft) * multiplier, offsetTop + 35 * multiplier, 48 * multiplier, 24 * 4 * multiplier);
     }
   }
 
-  function _getVariantInfoDimensions(variantInfo, initialSegmentWidth, palette) {
-    var multiplier = palette ? (TILE_SIZE / WIDTH_PALETTE_MULTIPLIER) : 1;
+  function _getVariantInfoDimensions(variantInfo, initialSegmentWidth, multiplier) {
+    //var multiplier = palette ? (TILE_SIZE / WIDTH_PALETTE_MULTIPLIER) : 1;
 
-    var segmentWidth = initialSegmentWidth / TILE_SIZE * multiplier;
+    var segmentWidth = initialSegmentWidth / TILE_SIZE / multiplier;
 
     var center = segmentWidth / 2;
     var left = center;
@@ -1534,36 +1537,14 @@ var main = (function(){
     return { left: left, right: right, center: center };
   }
 
-  function _setSegmentContents(el, type, variantString, segmentWidth, palette) {
+  function _drawSegmentContents(ctx, type, variantString, segmentWidth, offsetLeft, offsetTop, multiplier, palette) {
     var segmentInfo = SEGMENT_INFO[type];
     var variantInfo = SEGMENT_INFO[type].details[variantString];
 
-    var dimensions = _getVariantInfoDimensions(variantInfo, segmentWidth, palette);
-
+    var dimensions = _getVariantInfoDimensions(variantInfo, segmentWidth, multiplier);
     var left = dimensions.left;
     var right = dimensions.right;
     var center = dimensions.center;
-
-    var multiplier = palette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1;
-
-    var top = palette ? SEGMENT_Y_PALETTE : SEGMENT_Y_NORMAL;
-    var height = CANVAS_BASELINE;
-
-    var totalWidth = right - left;
-
-    var hoverBkEl = document.createElement('div');
-    hoverBkEl.classList.add('hover-bk');
-
-    var canvasEl = document.createElement('canvas');
-    canvasEl.classList.add('image');
-    canvasEl.width = totalWidth * TILE_SIZE * system.hiDpi;
-    canvasEl.height = height * system.hiDpi;
-    canvasEl.style.width = (totalWidth * TILE_SIZE) + 'px';
-    canvasEl.style.height = height + 'px';
-
-    canvasEl.style.left = (left * TILE_SIZE * multiplier) + 'px';
-
-    var ctx = canvasEl.getContext('2d');
 
     if (variantInfo.graphics.repeat) {
       for (var l = 0; l < variantInfo.graphics.repeat.length; l++) {
@@ -1572,7 +1553,6 @@ var main = (function(){
         var w = variantInfo.graphics.repeat[l].width * TILE_SIZE * multiplier;
 
         var count = Math.floor((segmentWidth) / w + 1);
-
 
         if (left < 0) {
           var repeatStartX = -left * TILE_SIZE;
@@ -1589,8 +1569,8 @@ var main = (function(){
           _drawSegmentImage(ctx,
             repeatPositionX, repeatPositionY, 
             w, variantInfo.graphics.repeat[l].height * TILE_SIZE, 
-            (repeatStartX + (i * variantInfo.graphics.repeat[l].width) * TILE_SIZE) * multiplier, 
-            top + (multiplier * TILE_SIZE * (variantInfo.graphics.repeat[l].offsetY || 0)), 
+            offsetLeft + (repeatStartX + (i * variantInfo.graphics.repeat[l].width) * TILE_SIZE) * multiplier, 
+            offsetTop + (multiplier * TILE_SIZE * (variantInfo.graphics.repeat[l].offsetY || 0)), 
             w, 
             variantInfo.graphics.repeat[l].height * TILE_SIZE * multiplier);
         }
@@ -1609,8 +1589,8 @@ var main = (function(){
         _drawSegmentImage(ctx,
             leftPositionX, leftPositionY, 
             w, variantInfo.graphics.left[l].height * TILE_SIZE, 
-            x,
-            top + (multiplier * TILE_SIZE * (variantInfo.graphics.left[l].offsetY || 0)), 
+            offsetLeft + x,
+            offsetTop + (multiplier * TILE_SIZE * (variantInfo.graphics.left[l].offsetY || 0)), 
             w * multiplier, variantInfo.graphics.left[l].height * TILE_SIZE * multiplier);
       }
     }
@@ -1627,8 +1607,8 @@ var main = (function(){
         _drawSegmentImage(ctx,
           rightPositionX, rightPositionY, 
           w, variantInfo.graphics.right[l].height * TILE_SIZE,
-          x,
-          top + (multiplier * TILE_SIZE * (variantInfo.graphics.right[l].offsetY || 0)), 
+          offsetLeft + x,
+          offsetTop + (multiplier * TILE_SIZE * (variantInfo.graphics.right[l].offsetY || 0)), 
           w * multiplier, variantInfo.graphics.right[l].height * TILE_SIZE * multiplier);
       }
     }
@@ -1645,15 +1625,43 @@ var main = (function(){
         _drawSegmentImage(ctx,
           bkPositionX, bkPositionY, 
           width * TILE_SIZE, variantInfo.graphics.center[l].height * TILE_SIZE, 
-          x, 
-          top + (multiplier * TILE_SIZE * (variantInfo.graphics.center[l].offsetY || 0)), 
+          offsetLeft + x, 
+          offsetTop + (multiplier * TILE_SIZE * (variantInfo.graphics.center[l].offsetY || 0)), 
           width * TILE_SIZE * multiplier, variantInfo.graphics.center[l].height * TILE_SIZE * multiplier);
       }
     }
 
     if (type == 'sidewalk') {
-      _drawProgrammaticPeople(ctx, segmentWidth / multiplier, top, multiplier, variantString);
+      _drawProgrammaticPeople(ctx, segmentWidth / multiplier, offsetLeft, offsetTop, multiplier, variantString);
     }
+  }
+
+  function _setSegmentContents(el, type, variantString, segmentWidth, palette) {
+    var segmentInfo = SEGMENT_INFO[type];
+    var variantInfo = SEGMENT_INFO[type].details[variantString];
+
+    var multiplier = palette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1;
+    var dimensions = _getVariantInfoDimensions(variantInfo, segmentWidth, multiplier);
+
+    var totalWidth = dimensions.right - dimensions.left;
+
+    var offsetTop = palette ? SEGMENT_Y_PALETTE : SEGMENT_Y_NORMAL;
+
+    var hoverBkEl = document.createElement('div');
+    hoverBkEl.classList.add('hover-bk');
+
+    var canvasEl = document.createElement('canvas');
+    canvasEl.classList.add('image');
+    canvasEl.width = totalWidth * TILE_SIZE * system.hiDpi;
+    canvasEl.height = CANVAS_BASELINE * system.hiDpi;
+    canvasEl.style.width = (totalWidth * TILE_SIZE) + 'px';
+    canvasEl.style.height = CANVAS_BASELINE + 'px';
+
+    canvasEl.style.left = (dimensions.left * TILE_SIZE * multiplier) + 'px';
+
+    var ctx = canvasEl.getContext('2d');
+
+    _drawSegmentContents(ctx, type, variantString, segmentWidth, 0, offsetTop, multiplier, palette);
 
     _removeElFromDom(el.querySelector('canvas'));
     el.appendChild(canvasEl);
@@ -2041,14 +2049,10 @@ var main = (function(){
   function _createBuilding(el, left, floorCount, scale, transparency) {
     var totalWidth = document.querySelector('#street-section-left-building').offsetWidth;
 
-    // TODO const
-
-    //ctx.globalAlpha = transparency;
 
     var tilePositionX = 0;
     var width = 0;
     var variantsCount = 1;
-    // TODO const
 
     var flooredBuilding = false;
 
@@ -4108,7 +4112,7 @@ var main = (function(){
       }
       var variantInfo = segmentInfo.details[variantName];
 
-      var dimensions = _getVariantInfoDimensions(variantInfo, 0, false);
+      var dimensions = _getVariantInfoDimensions(variantInfo, 0, 1);
 
       var width = dimensions.right - dimensions.left;
       if (!width) {
@@ -5187,6 +5191,13 @@ var main = (function(){
       }
 
       $(anchorEl).click(_onGalleryStreetClick);
+
+      var thumbnailEl = document.createElement('canvas');
+      thumbnailEl.width = THUMBNAIL_WIDTH * system.hiDpi;
+      thumbnailEl.height = THUMBNAIL_HEIGHT * system.hiDpi;
+      var ctx = thumbnailEl.getContext('2d');
+      _drawStreetThumbnail(ctx, galleryStreet.data.street, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT);
+      anchorEl.appendChild(thumbnailEl);
 
       var nameEl = document.createElement('div');
       nameEl.classList.add('street-name');
@@ -6862,6 +6873,32 @@ var main = (function(){
     if (promoteStreet) {
       //console.log('would promote now');
       _remixStreet();
+    }
+  }
+
+  function _drawStreetThumbnail(ctx, street, thumbnailWidth, thumbnailHeight) {
+    // TODO move
+    var THUMBNAIL_MULTIPLIER = .12;
+
+    var occupiedWidth = 0;
+    for (var i in street.segments) {
+      occupiedWidth += street.segments[i].width;
+    }
+
+    var offsetTop = (thumbnailHeight + 20 * TILE_SIZE * THUMBNAIL_MULTIPLIER) / 2;
+    var offsetLeft = (thumbnailWidth - occupiedWidth * TILE_SIZE * THUMBNAIL_MULTIPLIER) / 2;
+
+    for (var i in street.segments) {
+      var segment = street.segments[i];
+      var segmentInfo = SEGMENT_INFO[segment.type];
+      var variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString];
+      var dimensions = _getVariantInfoDimensions(variantInfo, segment.width * TILE_SIZE, 1);
+
+      _drawSegmentContents(ctx, segment.type, segment.variantString, 
+          segment.width * TILE_SIZE * THUMBNAIL_MULTIPLIER, 
+          offsetLeft + dimensions.left * TILE_SIZE * THUMBNAIL_MULTIPLIER, offsetTop, THUMBNAIL_MULTIPLIER, false);
+
+      offsetLeft += segment.width * TILE_SIZE * THUMBNAIL_MULTIPLIER;
     }
   }
 
