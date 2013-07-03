@@ -173,7 +173,7 @@ var main = (function(){
 
   var THUMBNAIL_WIDTH = 180;
   var THUMBNAIL_HEIGHT = 110;
-  var THUMBNAIL_MULTIPLIER = .12;
+  var THUMBNAIL_MULTIPLIER = .1;
   var BACKGROUND_DIRT_COLOUR = 'rgb(53, 45, 39)';
 
   var WIDTH_CHART_WIDTH = 500;
