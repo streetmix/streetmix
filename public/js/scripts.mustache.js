@@ -1450,7 +1450,7 @@ var main = (function(){
 
     var lastPersonType = 0;
 
-    while (peopleWidth < width - 36 * multiplier) {
+    while (peopleWidth < width - 36) {
       var person = {};
       person.left = peopleWidth;
       do {
@@ -2054,17 +2054,9 @@ var main = (function(){
     return el;
   }
 
-  function _createBuilding(el, left, floorCount, scale, transparency) {
-    var totalWidth = document.querySelector('#street-section-left-building').offsetWidth;
-
-
-    var tilePositionX = 0;
-    var width = 0;
-    var variantsCount = 1;
-
-    var flooredBuilding = false;
-
+  function _drawBuilding(ctx, street, left, totalWidth, totalHeight, bottomAligned, offsetLeft, offsetTop, multiplier) {
     var buildingVariant = left ? street.leftBuildingVariant : street.rightBuildingVariant;
+    var flooredBuilding = _isFlooredBuilding(buildingVariant);
 
     if (left) {
       switch (street.leftBuildingVariant) {
@@ -2072,12 +2064,11 @@ var main = (function(){
           var tilePositionX = 1512;
           var width = 216;
           var variantsCount = 2;
-          flooredBuilding = true;
           break;
         case 'wide':
-          var tilePositionX = 1956; //1512;
-          var width = 396; //216;
-          flooredBuilding = true;
+          var tilePositionX = 1956;
+          var width = 396;
+          var variantsCount = 1;
           break;
       }
     } else {
@@ -2086,39 +2077,31 @@ var main = (function(){
           var tilePositionX = 1728;
           var width = 216;
           var variantsCount = 2;
-          flooredBuilding = true;
           break;
         case 'wide':
           var tilePositionX = 2351;
-          var width = 396; //216;
-          flooredBuilding = true;
+          var width = 396;
+          var variantsCount = 1;
           break;
       }
     }
 
     if (!flooredBuilding) {
-      floorCount = 4;
+      var floorCount = 4;
+    } else {
+      var floorCount = left ? street.leftBuildingHeight : street.rightBuildingHeight;
     }
+    var height = TILE_SIZE * (1 + 10 * (floorCount - 1) + 10) * multiplier;    
 
-    var height = TILE_SIZE * (1 + 10 * (floorCount - 1) + 10);    
-
-    var canvasEl = document.createElement('canvas');
-    canvasEl.width = totalWidth * system.hiDpi;
-    canvasEl.height = height * system.hiDpi;
-    canvasEl.style.width = (totalWidth * scale) + 'px';
-    canvasEl.style.height = (height * scale) + 'px';
-
-    el.appendChild(canvasEl);
-
-    var ctx = canvasEl.getContext('2d');
-
-    // Fence
+    if (bottomAligned) {
+      offsetTop += totalHeight - height;
+    }
 
     if (!flooredBuilding) {
       var width = 48;
 
       if (left) {
-        var posShift = (totalWidth % width) - 121;//
+        var posShift = (totalWidth % width) - 121;
       } else {
         var posShift = 25;
       }
@@ -2139,7 +2122,10 @@ var main = (function(){
       for (var i = 0; i < totalWidth / width + 1; i++) {
         _drawSegmentImage(ctx,
             origPos, 0, width, 168 + 12,
-            posShift + i * width, 409 - 12, width, 168 + 12);
+            offsetLeft + (posShift + i * width) * multiplier, 
+            offsetTop + (409 - 12) * multiplier, 
+            width * multiplier, 
+            (168 + 12) * multiplier);
       }
     } else {
       // Floored buildings
@@ -2157,34 +2143,68 @@ var main = (function(){
 
       _drawSegmentImage(ctx,
           tilePositionX, 576 - 240 + 120 * variantsCount, width, floorHeight + TILE_SIZE,
-          leftPos, height - floorHeight, width, floorHeight + TILE_SIZE);
+          offsetLeft + leftPos * multiplier, offsetTop + height - floorHeight * multiplier, 
+          width * multiplier, (floorHeight + TILE_SIZE) * multiplier);
 
       // middle floors
 
       var randomGenerator = new RandomGenerator();
-
       randomGenerator.seed(0);
 
       for (var i = 1; i < floorCount; i++) {   
         var variant = Math.floor(randomGenerator.rand() * variantsCount) + 1;
-        //var variant = 0;
 
         _drawSegmentImage(ctx,
             tilePositionX, 576 - 240 + 120 * variantsCount - (floorHeight * variant), width, floorHeight,
-            leftPos, height - floorHeight * (i + 1), width, floorHeight);
+            offsetLeft + leftPos * multiplier, offsetTop + height - floorHeight * (i + 1) * multiplier, 
+            width * multiplier, floorHeight * multiplier);
       }
 
       // roof
 
       _drawSegmentImage(ctx,
           tilePositionX, 576 - floorHeight * 2 - roofHeight, width, roofHeight,
-          leftPos, height - floorHeight * (floorCount) - roofHeight, width, roofHeight);
-
-      ctx.globalCompositeOperation = 'source-atop';
-      ctx.globalAlpha = 1 - transparency;
-      ctx.fillStyle = 'rgb(151, 192, 212)';
-      ctx.fillRect(0, 0, width * system.hiDpi, height * system.hiDpi);
+          offsetLeft + leftPos * multiplier, 
+          offsetTop + height - floorHeight * (floorCount) * multiplier - roofHeight * multiplier, 
+          width * multiplier, roofHeight * multiplier);
     }
+  }
+
+  // TODO change to array
+  function _isFlooredBuilding(buildingVariant) {
+    if ((buildingVariant == 'narrow') || (buildingVariant == 'wide')) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function _createBuilding(el, left) {
+    var totalWidth = 
+        document.querySelector('#street-section-left-building').offsetWidth;
+
+    var buildingVariant = 
+        left ? street.leftBuildingVariant : street.rightBuildingVariant;
+    var floorCount = 
+        left ? street.leftBuildingHeight : street.rightBuildingHeight;
+    
+    var flooredBuilding = _isFlooredBuilding(buildingVariant);
+    if (!flooredBuilding) {
+      floorCount = 4;
+    }
+    var height = TILE_SIZE * (1 + 10 * (floorCount - 1) + 10);    
+
+    var canvasEl = document.createElement('canvas');
+    canvasEl.width = totalWidth * system.hiDpi;
+    canvasEl.height = height * system.hiDpi;
+    canvasEl.style.width = totalWidth + 'px';
+    canvasEl.style.height = height + 'px';
+
+    el.appendChild(canvasEl);
+
+    var ctx = canvasEl.getContext('2d');
+
+    _drawBuilding(ctx, street, left, totalWidth, 0, false, 0, 0, 1.0);
   }
 
   function _changeBuildingHeight(left, increment) {
@@ -2214,11 +2234,11 @@ var main = (function(){
     var el = document.querySelector('#street-section-left-building');
     // TODO nasty
     el.innerHTML = '<div class="hover-bk"></div>';
-    _createBuilding(el, true, street.leftBuildingHeight, 1.0, 1.0);
+    _createBuilding(el, true);
 
     var el = document.querySelector('#street-section-right-building');
     el.innerHTML = '<div class="hover-bk"></div>';
-    _createBuilding(el, false, street.rightBuildingHeight, 1.0, 1.0);
+    _createBuilding(el, false);
   }  
 
   function _createSegmentDom(segment) {
@@ -6801,6 +6821,25 @@ var main = (function(){
       //console.log('would promote now');
       _remixStreet();
     }
+
+    // DEBUG
+    /*var el = document.createElement('canvas');
+    el.style.zIndex = 500000000000;
+    el.style.left = 400 + 'px';
+    el.style.top = 100 + 'px';
+    el.style.position = 'absolute';
+    el.style.pointerEvents = 'none';
+    el.width = 800 * 2;
+    el.height = 250 * 2;
+    el.style.width = (800) + 'px';
+    el.style.height = (250) + 'px';
+    el.style.background = 'rgba(255, 255, 255, .95)';
+    el.style.outline = '5px solid black';
+    document.body.appendChild(el);
+
+    var ctx = el.getContext('2d');
+
+    _drawStreetThumbnail(ctx, street, 800, 250);*/
   }
 
   function _drawStreetThumbnail(ctx, street, thumbnailWidth, thumbnailHeight) {
@@ -6812,8 +6851,14 @@ var main = (function(){
     var offsetTop = (thumbnailHeight + 5 * TILE_SIZE * THUMBNAIL_MULTIPLIER) / 2;
     var offsetLeft = (thumbnailWidth - occupiedWidth * TILE_SIZE * THUMBNAIL_MULTIPLIER) / 2;
 
+    var groundLevel = offsetTop + 140 * THUMBNAIL_MULTIPLIER;
+
     ctx.fillStyle = BACKGROUND_DIRT_COLOUR;
-    ctx.fillRect(0, (offsetTop + 140 * THUMBNAIL_MULTIPLIER) * system.hiDpi, thumbnailWidth * system.hiDpi, thumbnailHeight * system.hiDpi);
+    ctx.fillRect(0, groundLevel * system.hiDpi, thumbnailWidth * system.hiDpi, thumbnailHeight * system.hiDpi);
+
+    var buildingWidth = offsetLeft / THUMBNAIL_MULTIPLIER;
+
+    _drawBuilding(ctx, street, true, buildingWidth, groundLevel, true, offsetLeft - (buildingWidth - 25) * THUMBNAIL_MULTIPLIER, 0, THUMBNAIL_MULTIPLIER);
 
     for (var i in street.segments) {
       var segment = street.segments[i];
@@ -6827,6 +6872,13 @@ var main = (function(){
 
       offsetLeft += segment.width * TILE_SIZE * THUMBNAIL_MULTIPLIER;
     }
+
+    _drawBuilding(ctx, street, false, buildingWidth, groundLevel, true, offsetLeft - 25 * THUMBNAIL_MULTIPLIER, 0, THUMBNAIL_MULTIPLIER);
+
+    ctx.globalCompositeOperation = 'source-atop';
+    // TODO const
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, thumbnailWidth * system.hiDpi, thumbnailHeight * system.hiDpi);
   }
 
   function _checkIfEverythingIsLoaded() {
