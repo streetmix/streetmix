@@ -173,7 +173,7 @@ var main = (function(){
 
   var THUMBNAIL_WIDTH = 180;
   var THUMBNAIL_HEIGHT = 110;
-  var THUMBNAIL_MULTIPLIER = .1;
+  var THUMBNAIL_MULTIPLIER = .1 * 2;
   var BACKGROUND_DIRT_COLOUR = 'rgb(53, 45, 39)';
 
   var WIDTH_CHART_WIDTH = 500;
@@ -2515,6 +2515,7 @@ var main = (function(){
 
       _updateEverything();
       _statusMessage.hide();
+      _infoBubble.hide();
     }
   }
 
@@ -5161,10 +5162,10 @@ var main = (function(){
       $(anchorEl).click(_onGalleryStreetClick);
 
       var thumbnailEl = document.createElement('canvas');
-      thumbnailEl.width = THUMBNAIL_WIDTH * system.hiDpi;
-      thumbnailEl.height = THUMBNAIL_HEIGHT * system.hiDpi;
+      thumbnailEl.width = THUMBNAIL_WIDTH * system.hiDpi * 2;
+      thumbnailEl.height = THUMBNAIL_HEIGHT * system.hiDpi * 2;
       var ctx = thumbnailEl.getContext('2d');
-      _drawStreetThumbnail(ctx, galleryStreet.data.street, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT);
+      _drawStreetThumbnail(ctx, galleryStreet.data.street, THUMBNAIL_WIDTH * 2, THUMBNAIL_HEIGHT * 2);
       anchorEl.appendChild(thumbnailEl);
 
       var nameEl = document.createElement('div');
@@ -5508,7 +5509,7 @@ var main = (function(){
     _detectEnvironment();
 
     system.touch = Modernizr.touch;
-    system.hiDpi = window.devicePixelRatio;
+    system.hiDpi = window.devicePixelRatio; // DEBUG
     system.pageVisibility = Modernizr.pagevisibility;
 
     if (system.touch) {
@@ -6863,7 +6864,6 @@ var main = (function(){
 
     var x = thumbnailWidth / 2 + street.width * TILE_SIZE * THUMBNAIL_MULTIPLIER / 2;
     _drawBuilding(ctx, street, false, buildingWidth, groundLevel, true, x - 25 * THUMBNAIL_MULTIPLIER, 0, THUMBNAIL_MULTIPLIER);
-
 
     for (var i in street.segments) {
       var segment = street.segments[i];
