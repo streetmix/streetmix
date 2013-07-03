@@ -784,7 +784,7 @@ footer {
 
   .name,
   .width {
-    color: rgb(100, 100, 100);
+    color: rgb(60, 120, 60);
   }
 
   .width {
@@ -1278,7 +1278,7 @@ body.touch-support .segment.fade-out-end button {
 #status-message,
 #no-connection-message {
   position: absolute;
-  bottom: 100px;
+  bottom: 110px;
   left: 0;
   right: 0;
   height: 20px;
@@ -1297,11 +1297,11 @@ body.touch-support .segment.fade-out-end button {
   }
 
   & > div {
-    color: rgb(32, 32, 32);
+    color: rgb(64, 32, 32);
     outline: 1px solid black;
     padding: 5px 20px;
     display: inline-block;
-    background: white;
+    background: rgb(255, 230, 150);
     font-size: 14px;
   }
 
@@ -1319,10 +1319,10 @@ body.touch-support .segment.fade-out-end button {
     font-size: 14px;
 
     cursor: pointer;
-    color: black;
+    color: rgb(64, 32, 32);
 
     &:hover {
-      color: white;
+      color: black;
     }
   }
 
@@ -1331,12 +1331,12 @@ body.touch-support .segment.fade-out-end button {
   }
 }
 
-#status-message > div {
-  padding-right: 0; // for close box
+body.no-connection-message-visible #status-message {
+  bottom: 135px;
 }
 
-body.no-connection-message-visible #status-message {
-  top: 165px;
+#status-message > div {
+  padding-right: 0; // for close box
 }
 
 // TODO confusing with .menu
