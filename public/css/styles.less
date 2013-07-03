@@ -84,7 +84,8 @@ textarea {
 
 body.environment-development,
 body.environment-production,
-body.environment-staging {
+body.environment-staging,
+body.environment-sandbox {
   #main-screen::before {
     z-index: 9999999999;
     position: absolute;
@@ -109,7 +110,6 @@ body.environment-production {
     background-color: black;
   }
 }
-
 body.environment-development {
   #main-screen::before {
     content: 'Dev server';
@@ -119,6 +119,12 @@ body.environment-development {
 body.environment-staging {
   #main-screen::before {
     content: 'Staging server';
+    background-color: green;
+  }
+}
+body.environment-staging {
+  #main-screen::before {
+    content: 'Sandbox server';
     background-color: green;
   }
 }
