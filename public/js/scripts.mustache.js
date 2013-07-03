@@ -6870,6 +6870,7 @@ var main = (function(){
       var segment = street.segments[i];
       var segmentInfo = SEGMENT_INFO[segment.type];
       var variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString];
+      console.log('dST', segment.type, segment.variantString);
       var dimensions = _getVariantInfoDimensions(variantInfo, segment.width * TILE_SIZE, 1);
 
       _drawSegmentContents(ctx, segment.type, segment.variantString, 
