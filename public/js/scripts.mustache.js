@@ -3421,7 +3421,7 @@ var main = (function(){
     window.clearTimeout(widthChartShowTimerId);
 
     // TODO const
-    widthChartShowTimerId = window.setTimeout(_showWidthChartImmediately, 250);
+    widthChartShowTimerId = window.setTimeout(_showWidthChartImmediately, 750);
   }
 
   function _hideWidthChartImmediately() {
@@ -6222,8 +6222,6 @@ var main = (function(){
         return;
       }
 
-      var mouseX = _infoBubble.considerMouseX;
-      var mouseY = _infoBubble.considerMouseY;
       var segmentEl = _infoBubble.considerSegmentEl;
       var type = _infoBubble.considerType;
 
@@ -6231,6 +6229,9 @@ var main = (function(){
         return;
       }
       _infoBubble.hideSegment();
+
+      var mouseX = _infoBubble.considerMouseX;
+      var mouseY = _infoBubble.considerMouseY;
 
       _infoBubble.segmentEl = segmentEl;
       _infoBubble.type = type;
