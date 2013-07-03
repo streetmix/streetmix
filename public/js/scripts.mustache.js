@@ -2558,7 +2558,7 @@ var main = (function(){
           if (segment.type == 'transit-shelter') {
             var variant = _getVariantArray(segment.type, segment.variantString);
             variant['transit-shelter-elevation'] = 'street-level';
-            segment.variantString =  _getVariantString(variant);
+            segment.variantString = _getVariantString(variant);
           }
         }
         break;
@@ -2568,7 +2568,7 @@ var main = (function(){
           if (segment.type == 'sidewalk-lamp') {
             var variant = _getVariantArray(segment.type, segment.variantString);
             variant['lamp-type'] = 'modern';
-            segment.variantString =  _getVariantString(variant);
+            segment.variantString = _getVariantString(variant);
           }
         }
         break;
@@ -2578,7 +2578,7 @@ var main = (function(){
           if (segment.type == 'streetcar') {
             var variant = _getVariantArray(segment.type, segment.variantString);
             variant['public-transit-asphalt'] = 'regular';
-            segment.variantString =  _getVariantString(variant);
+            segment.variantString = _getVariantString(variant);
           }
         }
         break;
@@ -2588,7 +2588,7 @@ var main = (function(){
           if ((segment.type == 'bus-lane') || (segment.type == 'light-rail')) {
             var variant = _getVariantArray(segment.type, segment.variantString);
             variant['public-transit-asphalt'] = 'regular';
-            segment.variantString =  _getVariantString(variant);
+            segment.variantString = _getVariantString(variant);
           }
         }
         break;
@@ -2598,7 +2598,7 @@ var main = (function(){
           if (segment.type == 'bike-lane') {
             var variant = _getVariantArray(segment.type, segment.variantString);
             variant['bike-asphalt'] = 'regular';
-            segment.variantString =  _getVariantString(variant);
+            segment.variantString = _getVariantString(variant);
           }
         }
         break;
@@ -2608,7 +2608,7 @@ var main = (function(){
           if (segment.type == 'drive-lane') {
             var variant = _getVariantArray(segment.type, segment.variantString);
             variant['car-type'] = 'car';
-            segment.variantString =  _getVariantString(variant);
+            segment.variantString = _getVariantString(variant);
           }
         }
         break;
@@ -2618,7 +2618,7 @@ var main = (function(){
           if (segment.type == 'sidewalk') {
             var variant = _getVariantArray(segment.type, segment.variantString);
             variant['sidewalk-density'] = 'normal';
-            segment.variantString =  _getVariantString(variant);
+            segment.variantString = _getVariantString(variant);
           }
         }
         break;
@@ -2669,7 +2669,7 @@ var main = (function(){
   function _updateToLatestSchemaVersion(street) {
     var updated = false;
     while (!street.schemaVersion || (street.schemaVersion < LATEST_SCHEMA_VERSION)) {
-      console.log('updating schema from ', street.schemaVersion);
+      console.log('updating schema from', street.schemaVersion);
 
       _incrementSchemaVersion(street);
       updated = true;
@@ -5169,7 +5169,8 @@ var main = (function(){
 
     for (var i in transmission.streets) {
       var galleryStreet = transmission.streets[i];
-      _updateToLatestSchemaVersion(galleryStreet);
+      _updateToLatestSchemaVersion(galleryStreet.data.street);
+      //console.log(galleryStreet);
 
       var el = document.createElement('li');
 
