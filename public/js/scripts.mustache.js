@@ -4966,20 +4966,10 @@ var main = (function(){
     _updateGallerySelection();
   }
 
-  /*function _checkIfNeedsToBeRemixed() {
-    if (!signedIn || (street.creatorId != signInData.userId)) {
-      remixOnFirstEdit = true;
-    } else {
-      remixOnFirstEdit = false;
-    }
-  }*/
-
   function _receiveStreet(transmission) {
     //console.log('received street', transmission);
 
     _unpackServerStreetData(transmission, null, null, true);
-
-    //_checkIfNeedsToBeRemixed();
 
     _propagateUnits();
 
@@ -5177,6 +5167,7 @@ var main = (function(){
 
     for (var i in transmission.streets) {
       var galleryStreet = transmission.streets[i];
+      _updateToLatestSchemaVersion(galleryStreet);
 
       var el = document.createElement('li');
 
