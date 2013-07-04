@@ -2269,13 +2269,13 @@ var main = (function(){
   }
 
   function _createDomFromData() {
-    document.querySelector('#editable-street-section').innerHTML = '';
+    document.querySelector('#street-section-editable').innerHTML = '';
 
     for (var i in street.segments) {
       var segment = street.segments[i];
 
       var el = _createSegmentDom(segment);
-      document.querySelector('#editable-street-section').appendChild(el);
+      document.querySelector('#street-section-editable').appendChild(el);
 
       segment.el = el;
       segment.el.dataNo = i;
@@ -3234,7 +3234,7 @@ var main = (function(){
   // TODO this function should not exist; all the data should be in street. 
   // object to begin with
   function _createDataFromDom() {
-    var els = document.querySelectorAll('#editable-street-section > .segment');
+    var els = document.querySelectorAll('#street-section-editable > .segment');
 
     street.segments = [];
 
@@ -3971,7 +3971,7 @@ var main = (function(){
     ignoreStreetChanges = false;
 
     var el = document.elementFromPoint(draggingMove.mouseX, draggingMove.mouseY);
-    while (el && (el.id != 'editable-street-section')) {
+    while (el && (el.id != 'street-section-editable')) {
       el = el.parentNode;
     }
     var withinCanvas = !!el;
@@ -3992,14 +3992,14 @@ var main = (function(){
       newEl.classList.add('create');
 
       if (draggingMove.segmentBeforeEl) {
-        document.querySelector('#editable-street-section').
+        document.querySelector('#street-section-editable').
             insertBefore(newEl, draggingMove.segmentBeforeEl);
       } else if (draggingMove.segmentAfterEl) {
-        document.querySelector('#editable-street-section').
+        document.querySelector('#street-section-editable').
             insertBefore(newEl, draggingMove.segmentAfterEl.nextSibling);
       } else {
         // empty street
-        document.querySelector('#editable-street-section').appendChild(newEl);
+        document.querySelector('#street-section-editable').appendChild(newEl);
       }
 
       window.setTimeout(function() {
@@ -4154,19 +4154,19 @@ var main = (function(){
     system.viewportHeight = window.innerHeight;
 
     var streetSectionHeight = 
-        document.querySelector('#street-section').offsetHeight;
+        document.querySelector('#street-section-inner').offsetHeight;
 
     var paletteTop = document.querySelector('footer').offsetTop;
 
     var pos = (system.viewportHeight - streetSectionHeight) / 2;
 
     // TODO const
-    if (pos + document.querySelector('#street-section').offsetHeight > 
+    if (pos + document.querySelector('#street-section-inner').offsetHeight > 
       paletteTop - 20) {
       pos = paletteTop - 20 - streetSectionHeight;
     }
 
-    document.querySelector('#street-section').style.top = pos + 'px';
+    document.querySelector('#street-section-inner').style.top = pos + 'px';
 
     document.querySelector('#street-section-sky').style.top = (pos * .8) + 'px';
 
@@ -4187,7 +4187,7 @@ var main = (function(){
     document.querySelector('#street-section-canvas').style.left = 
       streetSectionCanvasLeft + 'px';
 
-    document.querySelector('#editable-street-section').style.width = 
+    document.querySelector('#street-section-editable').style.width = 
       (street.width * TILE_SIZE) + 'px';
 
     _resizeStreetName();
@@ -4201,7 +4201,7 @@ var main = (function(){
   }
 
   function _updateBuildingPosition() {
-    var el = document.querySelector('#editable-street-section');
+    var el = document.querySelector('#street-section-editable');
     var pos = _getElAbsolutePos(el);
 
     var width = pos[0] + 50 + 25;
@@ -6450,6 +6450,7 @@ var main = (function(){
 
     _infoBubble.hide();
     _statusMessage.hide();
+
 
     if (!el.classList.contains('visible')) {
       el.classList.add('visible');
