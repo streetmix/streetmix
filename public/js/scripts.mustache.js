@@ -5184,7 +5184,8 @@ var main = (function(){
       thumbnailEl.width = THUMBNAIL_WIDTH * system.hiDpi * 2;
       thumbnailEl.height = THUMBNAIL_HEIGHT * system.hiDpi * 2;
       var ctx = thumbnailEl.getContext('2d');
-      _drawStreetThumbnail(ctx, galleryStreet.data.street, THUMBNAIL_WIDTH * 2, THUMBNAIL_HEIGHT * 2);
+      _drawStreetThumbnail(ctx, galleryStreet.data.street, 
+          THUMBNAIL_WIDTH * 2, THUMBNAIL_HEIGHT * 2, THUMBNAIL_MULTIPLIER, true);
       anchorEl.appendChild(thumbnailEl);
 
       var nameEl = document.createElement('div');
@@ -5452,8 +5453,26 @@ var main = (function(){
     event.preventDefault();
   }
 
+  function _saveAsImage(event) {
+    var width = TILE_SIZE * street.width + BUILDING_SPACE * 2;
+    var height = 800;
+
+    var el = document.createElement('canvas');
+    el.width = width * 2;
+    el.height = height * 2;
+
+    var ctx = el.getContext('2d');
+
+    _drawStreetThumbnail(ctx, street, width, height, 1.0, false);
+
+    window.open(el.toDataURL('image/png'));
+
+    event.preventDefault();
+  }
+
   function _addEventListeners() {
-    //document.querySelector('#street-section-outer').scrollLeft;
+    document.querySelector('#save-as-image').addEventListener('click', _saveAsImage);
+
     document.querySelector('#street-section-outer').addEventListener('scroll', _onStreetSectionScroll);
 
     $('#street-section-left-building').mouseenter(_onBuildingMouseEnter);
@@ -6925,27 +6944,27 @@ var main = (function(){
     _drawStreetThumbnail(ctx, street, 800, 250);*/
   }
 
-  function _drawStreetThumbnail(ctx, street, thumbnailWidth, thumbnailHeight) {
+  function _drawStreetThumbnail(ctx, street, thumbnailWidth, thumbnailHeight, multiplier, silhouette) {
     var occupiedWidth = 0;
     for (var i in street.segments) {
       occupiedWidth += street.segments[i].width;
     }
 
-    var offsetTop = (thumbnailHeight + 5 * TILE_SIZE * THUMBNAIL_MULTIPLIER) / 2;
-    var offsetLeft = (thumbnailWidth - occupiedWidth * TILE_SIZE * THUMBNAIL_MULTIPLIER) / 2;
+    var offsetTop = (thumbnailHeight + 5 * TILE_SIZE * multiplier) / 2;
+    var offsetLeft = (thumbnailWidth - occupiedWidth * TILE_SIZE * multiplier) / 2;
 
-    var groundLevel = offsetTop + 140 * THUMBNAIL_MULTIPLIER;
+    var groundLevel = offsetTop + 140 * multiplier;
 
     ctx.fillStyle = BACKGROUND_DIRT_COLOUR;
     ctx.fillRect(0, groundLevel * system.hiDpi, thumbnailWidth * system.hiDpi, thumbnailHeight * system.hiDpi);
 
-    var buildingWidth = offsetLeft / THUMBNAIL_MULTIPLIER;
+    var buildingWidth = offsetLeft / multiplier;
 
-    var x = thumbnailWidth / 2 - street.width * TILE_SIZE * THUMBNAIL_MULTIPLIER / 2;
-    _drawBuilding(ctx, street, true, buildingWidth, groundLevel, true, x - (buildingWidth - 25) * THUMBNAIL_MULTIPLIER, 0, THUMBNAIL_MULTIPLIER);
+    var x = thumbnailWidth / 2 - street.width * TILE_SIZE * multiplier / 2;
+    _drawBuilding(ctx, street, true, buildingWidth, groundLevel, true, x - (buildingWidth - 25) * multiplier, 0, multiplier);
 
-    var x = thumbnailWidth / 2 + street.width * TILE_SIZE * THUMBNAIL_MULTIPLIER / 2;
-    _drawBuilding(ctx, street, false, buildingWidth, groundLevel, true, x - 25 * THUMBNAIL_MULTIPLIER, 0, THUMBNAIL_MULTIPLIER);
+    var x = thumbnailWidth / 2 + street.width * TILE_SIZE * multiplier / 2;
+    _drawBuilding(ctx, street, false, buildingWidth, groundLevel, true, x - 25 * multiplier, 0, multiplier);
 
     for (var i in street.segments) {
       var segment = street.segments[i];
@@ -6954,16 +6973,18 @@ var main = (function(){
       var dimensions = _getVariantInfoDimensions(variantInfo, segment.width * TILE_SIZE, 1);
 
       _drawSegmentContents(ctx, segment.type, segment.variantString, 
-          segment.width * TILE_SIZE * THUMBNAIL_MULTIPLIER, 
-          offsetLeft + dimensions.left * TILE_SIZE * THUMBNAIL_MULTIPLIER, offsetTop, THUMBNAIL_MULTIPLIER, false);
+          segment.width * TILE_SIZE * multiplier, 
+          offsetLeft + dimensions.left * TILE_SIZE * multiplier, offsetTop, multiplier, false);
 
-      offsetLeft += segment.width * TILE_SIZE * THUMBNAIL_MULTIPLIER;
+      offsetLeft += segment.width * TILE_SIZE * multiplier;
     }
 
-    ctx.globalCompositeOperation = 'source-atop';
-    // TODO const
-    ctx.fillStyle = 'black';
-    ctx.fillRect(0, 0, thumbnailWidth * system.hiDpi, thumbnailHeight * system.hiDpi);
+    if (silhouette) {
+      ctx.globalCompositeOperation = 'source-atop';
+      // TODO const
+      ctx.fillStyle = 'black';
+      ctx.fillRect(0, 0, thumbnailWidth * system.hiDpi, thumbnailHeight * system.hiDpi);
+    }
   }
 
   function _checkIfEverythingIsLoaded() {

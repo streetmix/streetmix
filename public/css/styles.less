@@ -39,6 +39,8 @@
 @thumbnailWidth: 180px;
 @thumbnailHeight: 110px;
 
+@buildingSpace: 300px;
+
 @font-face {
   font-family: 'Roadgeek';
   src: url(/fonts/roadgeek-2005-engschrift.otf);
@@ -513,7 +515,6 @@ body.gallery-visible #gallery-shield {
   user-select: none;
 }
 
-@buildingSpace: 300px;
 
 #street-section-canvas {
   z-index: 10;
@@ -1460,6 +1461,14 @@ body.no-connection-message-visible #status-message {
     padding-left: 30px;
     padding-right: 40px;
 
+    span {
+      display: block;
+      margin-top: 4px;
+      line-height: 6px;
+      color: rgb(128, 128, 128);
+      font-size: 11px;
+    }
+
     &.disabled {
       color: rgb(192, 192, 192);
       cursor: default;
@@ -1490,9 +1499,6 @@ body.no-connection-message-visible #status-message {
 
   color: rgb(128, 128, 128);
   font-size: 11px;
-
-  //border-bottom: 1px solid rgb(224, 224, 224);
-  //padding-bottom: 5px;
 
   position: relative;
 
