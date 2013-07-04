@@ -3972,9 +3972,12 @@ var main = (function(){
 
     var el = document.elementFromPoint(draggingMove.mouseX, draggingMove.mouseY);
     while (el && (el.id != 'street-section-editable')) {
+      console.log(el);
       el = el.parentNode;
     }
     var withinCanvas = !!el;
+
+    console.log(withinCanvas);
 
     var failedDrop = false;
 

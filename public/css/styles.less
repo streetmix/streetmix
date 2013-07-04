@@ -577,6 +577,8 @@ body.gallery-visible #gallery-shield {
   z-index: -2;
   top: @canvasHeight - 80;
 
+  pointer-events: none;
+
   background: @backgroundDirtColour;
 }
 #street-section-left-building,
@@ -746,7 +748,7 @@ footer {
     height: 45px;
   }
 }
-#editable-street-section {
+#street-section-editable {
   position: absolute;
   height: @canvasHeight + 80;
   text-align: left;
@@ -1838,6 +1840,8 @@ body.no-connection-message-visible #status-message {
 // TODO move
 @infoBubbleButtonSize: 30px;
 
+@infoBubbleBackground: white;
+
 .info-bubble {
   position: absolute;
   z-index: 10000000000;
@@ -1847,7 +1851,7 @@ body.no-connection-message-visible #status-message {
   opacity: 0;
   pointer-events: none;
 
-  box-shadow: 0 2px 2px rgba(0, 0, 0, .25);
+  //box-shadow: 0 2px 2px rgba(0, 0, 0, .25);
 
   margin-top: -6px;
 
