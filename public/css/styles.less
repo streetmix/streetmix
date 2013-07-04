@@ -513,6 +513,7 @@ body.gallery-visible #gallery-shield {
   user-select: none;
 }
 
+@buildingSpace: 300px;
 
 #street-section-canvas {
   z-index: 10;
@@ -520,8 +521,8 @@ body.gallery-visible #gallery-shield {
   display: block;
   left: 0;
   top: 0;
-  margin-left: 300px;
-  margin-right: 300px;
+  margin-left: @buildingSpace;
+  margin-right: @buildingSpace;
 
   height: @canvasHeight + 40;
 }
@@ -1846,10 +1847,16 @@ body.no-connection-message-visible #status-message {
   position: absolute;
   z-index: 10000000000;
   min-width: 250px;
-  background: white;
+  background: @infoBubbleBackground;
+
+  //outline: 2px solid white;
+  //outline-offset: 2px;
 
   opacity: 0;
   pointer-events: none;
+
+  //border-radius: 20px;
+  //border-corner-shape: bevel;
 
   //box-shadow: 0 2px 2px rgba(0, 0, 0, .25);
 
@@ -1879,7 +1886,7 @@ body.no-connection-message-visible #status-message {
     height: 20px;
     left: 50%;
     bottom: 0;
-    background: white;
+    background: @infoBubbleBackground;
 
     -webkit-transform-origin: 0 0;
     -moz-transform-origin: 0 0;
@@ -1907,7 +1914,7 @@ body.no-connection-message-visible #status-message {
     pointer-events: none;
 
     position: absolute;
-    left: 1px;
+    left: 3px;
     top: 2px;
   }
 
@@ -1933,14 +1940,41 @@ body.no-connection-message-visible #status-message {
       margin-bottom: 0;
       white-space: nowrap;
 
-      opacity: .75;
+      //opacity: .75;
+
+      //box-shadow: inset 0 0 1px black;
+
+      border: none;
 
       position: relative;
 
+      background: rgb(220, 220, 220);
+
+      canvas {
+        opacity: .666;
+      }
+
+      &:hover {
+        background: rgb(210, 210, 210);
+      }
+
+      &:active {
+        background: rgb(190, 190, 190);
+      }
+
       &[disabled] {
-        outline: 2px solid black;
+        //outline: 2px solid black;
+        background: rgb(160, 160, 160);
+        border: none;
         color: black;
         opacity: 1;
+
+        //box-shadow: none;
+        //outline: 1px solid red;
+
+        canvas {
+          opacity: 1;
+        }
       }
     }
     hr {

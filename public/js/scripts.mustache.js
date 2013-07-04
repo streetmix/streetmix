@@ -201,6 +201,8 @@ var main = (function(){
   var BLOCKING_SHIELD_DARKEN_DELAY = 800;
   var BLOCKING_SHIELD_TOO_SLOW_DELAY = 10000;
 
+  var BUILDING_SPACE = 300;
+
   var MAX_DRAG_DEGREE = 20;
 
   var UNDO_LIMIT = 100;
@@ -3700,13 +3702,10 @@ var main = (function(){
       draggingMove.floatingEl.style.top = draggingMove.elY + 'px';
     }
 
-    //x -= 300;
-
-    //console.log(x);
-    draggingMove.mouseX = x;//
+    draggingMove.mouseX = x;
     draggingMove.mouseY = y;
 
-    var newX = x - 300 + document.querySelector('#street-section-outer').scrollLeft;
+    var newX = x - BUILDING_SPACE + document.querySelector('#street-section-outer').scrollLeft;
 
     if (_makeSpaceBetweenSegments(newX, y)) {
       var smartDrop = _doDropHeuristics(draggingMove.originalType, 
@@ -4125,8 +4124,7 @@ var main = (function(){
     //console.log(street.width);
 
     document.querySelector('#street-section-canvas').style.width = width + 'px';
-    document.querySelector('#street-section-outer').scrollLeft = (width + 300 + 300 - system.viewportWidth) / 2;
-    //document.querySelector('#street-section-canvas').style.width = width + 'px';     
+    document.querySelector('#street-section-outer').scrollLeft = (width + BUILDING_SPACE * 2 - system.viewportWidth) / 2;
 
     _onResize();
   }
@@ -4183,7 +4181,7 @@ var main = (function(){
     document.querySelector('#street-section-sky').style.marginTop = -pos + 'px';
 
     streetSectionCanvasLeft = 
-        ((system.viewportWidth - street.width * TILE_SIZE) / 2) - 300;
+        ((system.viewportWidth - street.width * TILE_SIZE) / 2) - BUILDING_SPACE;
     if (streetSectionCanvasLeft < 0) {
       streetSectionCanvasLeft = 0;
     }
