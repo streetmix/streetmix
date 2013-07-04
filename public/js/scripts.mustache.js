@@ -5899,6 +5899,10 @@ var main = (function(){
     },
 
     considerShowing: function(event, segmentEl, type) {
+      if (menuVisible) {
+        return;
+      }
+
       _infoBubble.considerMouseX = event.pageX;
       _infoBubble.considerMouseY = event.pageY;
       _infoBubble.considerSegmentEl = segmentEl;
@@ -6445,6 +6449,8 @@ var main = (function(){
   function _hideMenus() {
     _loseAnyFocus();
 
+    menuVisible = false;
+
     document.querySelector('#share-menu').classList.remove('visible');
     document.querySelector('#feedback-menu').classList.remove('visible');
     document.querySelector('#identity-menu').classList.remove('visible');
@@ -6465,14 +6471,19 @@ var main = (function(){
     document.querySelector('#feedback-form .thank-you').classList.remove('visible');
   }
 
+  // TODO move
+
+  var menuVisible = false;
+
   function _onFeedbackMenuClick() {
     var el = document.querySelector('#feedback-menu');
 
     _infoBubble.hide();
     _statusMessage.hide();
 
-
     if (!el.classList.contains('visible')) {
+      menuVisible = true;
+
       el.classList.add('visible');
 
       _prepareFeedbackForm();
@@ -6488,6 +6499,8 @@ var main = (function(){
     _statusMessage.hide();
 
     if (!el.classList.contains('visible')) {
+      menuVisible = true;
+
       el.classList.add('visible');
 
       document.querySelector('#share-via-link').focus();
@@ -6504,6 +6517,8 @@ var main = (function(){
     _statusMessage.hide();
 
     if (!el.classList.contains('visible')) {
+      menuVisible = true;
+
       var pos = _getElAbsolutePos(document.querySelector('#identity'));
       el.style.left = pos[0] + 'px';
 
