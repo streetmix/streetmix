@@ -6448,6 +6448,9 @@ var main = (function(){
   function _onFeedbackMenuClick() {
     var el = document.querySelector('#feedback-menu');
 
+    _infoBubble.hide();
+    _statusMessage.hide();
+
     if (!el.classList.contains('visible')) {
       el.classList.add('visible');
 
@@ -6459,6 +6462,9 @@ var main = (function(){
 
   function _onShareMenuClick() {
     var el = document.querySelector('#share-menu');
+
+    _infoBubble.hide();
+    _statusMessage.hide();
 
     if (!el.classList.contains('visible')) {
       el.classList.add('visible');
@@ -6473,8 +6479,10 @@ var main = (function(){
   function _onIdentityMenuClick() {
     var el = document.querySelector('#identity-menu');
 
-    if (!el.classList.contains('visible')) {
+    _infoBubble.hide();
+    _statusMessage.hide();
 
+    if (!el.classList.contains('visible')) {
       var pos = _getElAbsolutePos(document.querySelector('#identity'));
       el.style.left = pos[0] + 'px';
 
