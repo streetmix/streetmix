@@ -3700,10 +3700,15 @@ var main = (function(){
       draggingMove.floatingEl.style.top = draggingMove.elY + 'px';
     }
 
-    draggingMove.mouseX = x;
+    //x -= 300;
+
+    //console.log(x);
+    draggingMove.mouseX = x;//
     draggingMove.mouseY = y;
 
-    if (_makeSpaceBetweenSegments(x, y)) {
+    var newX = x - 300 + document.querySelector('#street-section-outer').scrollLeft;
+
+    if (_makeSpaceBetweenSegments(newX, y)) {
       var smartDrop = _doDropHeuristics(draggingMove.originalType, 
           draggingMove.originalVariantString, draggingMove.originalWidth);
       
@@ -4114,8 +4119,11 @@ var main = (function(){
 
   function _resizeStreetWidth() {
     var width = street.width * TILE_SIZE;
+    //console.log(street.width);
 
     document.querySelector('#street-section-canvas').style.width = width + 'px';
+    document.querySelector('#street-section-outer').scrollLeft = (width + 300 + 300 - system.viewportWidth) / 2;
+    //document.querySelector('#street-section-canvas').style.width = width + 'px';     
 
     _onResize();
   }
@@ -4160,6 +4168,11 @@ var main = (function(){
 
     document.querySelector('#street-section').style.top = pos + 'px';
 
+    document.querySelector('#street-section-sky').style.top = (pos * .8) + 'px';
+
+    document.querySelector('#street-section-dirt').style.height = 
+        (system.viewportHeight - pos - 400) + 'px';
+
     if (pos < 0) {
       pos = 0;
     }
@@ -4167,8 +4180,10 @@ var main = (function(){
     document.querySelector('#street-section-sky').style.marginTop = -pos + 'px';
 
     streetSectionCanvasLeft = 
-        ((system.viewportWidth - street.width * TILE_SIZE) / 2);
-
+        ((system.viewportWidth - street.width * TILE_SIZE) / 2) - 300;
+    if (streetSectionCanvasLeft < 0) {
+      streetSectionCanvasLeft = 0;
+    }
     document.querySelector('#street-section-canvas').style.left = 
       streetSectionCanvasLeft + 'px';
 
@@ -4200,6 +4215,9 @@ var main = (function(){
 
     document.querySelector('#street-section-left-building').style.left = (-width + 25) + 'px';
     document.querySelector('#street-section-right-building').style.right = (-width + 25) + 'px';
+
+    document.querySelector('#street-section-dirt').style.marginLeft = -width + 'px';
+    document.querySelector('#street-section-dirt').style.marginRight = -width + 'px';
   }
 
   function _fillDefaultSegments() {
@@ -5419,7 +5437,24 @@ var main = (function(){
     _updateFeedbackForm();
   }
 
+  function _onStreetSectionScroll(event) {
+    _infoBubble.suppress();
+
+    var scrollPos = document.querySelector('#street-section-outer').scrollLeft;
+
+    var pos = -scrollPos * 0.5;
+    document.querySelector('#street-section-sky .front-clouds').style[system.cssTransform] = 'translateX(' + pos + 'px)'; 
+
+    var pos = -scrollPos * 0.25;
+    document.querySelector('#street-section-sky .rear-clouds').style[system.cssTransform] = 'translateX(' + pos + 'px)'; 
+
+    event.preventDefault();
+  }
+
   function _addEventListeners() {
+    //document.querySelector('#street-section-outer').scrollLeft;
+    document.querySelector('#street-section-outer').addEventListener('scroll', _onStreetSectionScroll);
+
     $('#street-section-left-building').mouseenter(_onBuildingMouseEnter);
     $('#street-section-left-building').mouseleave(_onBuildingMouseLeave);
     $('#street-section-right-building').mouseenter(_onBuildingMouseEnter);
@@ -5583,9 +5618,12 @@ var main = (function(){
 
     window.setTimeout(function() {
       var pos = _getElAbsolutePos(el);
-      var perspective = -(pos[0] - system.viewportWidth / 2);
+      var perspective = -(pos[0] - document.querySelector('#street-section-outer').scrollLeft - system.viewportWidth / 2);
       // TODO const
       // TODO cross-browser
+
+      //console.log(perspective);
+
       el.style.webkitPerspectiveOrigin = (perspective / 2) + 'px 50%';
       el.style.MozPerspectiveOrigin = (perspective / 2) + 'px 50%';
       el.style.perspectiveOrigin = (perspective / 2) + 'px 50%';
@@ -5603,9 +5641,12 @@ var main = (function(){
     var pos = _getElAbsolutePos(el);
 
     // TODO func
-    var perspective = -(pos[0] - system.viewportWidth / 2);
+    var perspective = -(pos[0] - document.querySelector('#street-section-outer').scrollLeft - system.viewportWidth / 2);
     // TODO const
     // TODO cross-browser
+
+    //console.log(perspective);
+
     el.style.webkitPerspectiveOrigin = (perspective / 2) + 'px 50%';
     el.style.MozPerspectiveOrigin = (perspective / 2) + 'px 50%';
     el.style.perspectiveOrigin = (perspective / 2) + 'px 50%';
@@ -5613,7 +5654,7 @@ var main = (function(){
     el.parentNode.removeChild(el);
     el.classList.remove('hover');
     el.classList.add('switching-away-pre');
-    el.style.left = pos[0] + 'px';
+    el.style.left = (pos[0] - document.querySelector('#street-section-outer').scrollLeft) + 'px';
     el.style.top = pos[1] + 'px';
     document.body.appendChild(el);
 
@@ -5645,6 +5686,8 @@ var main = (function(){
     lastMouseX: null,
     lastMouseY: null,
 
+    suppressed: false,
+
     bubbleX: null,
     bubbleY: null,
     bubbleWidth: null,
@@ -5656,6 +5699,26 @@ var main = (function(){
     considerType: null,
 
     hoverPolygonUpdateTimerId: -1,
+    suppressTimerId: -1,
+
+    suppress: function() {
+      if (!_infoBubble.suppressed) {
+        _infoBubble.hide();
+        _infoBubble.hideSegment();
+        //_infoBubble.el.classList.add('suppressed');
+        _infoBubble.suppressed = true;
+      }
+
+      window.clearTimeout(_infoBubble.suppressTimerId);
+      _infoBubble.suppressTimerId = window.setTimeout(_infoBubble.unsuppress, 100);
+    },
+
+    unsuppress: function() {
+      //_infoBubble.el.classList.remove('suppressed');
+      _infoBubble.suppressed = false;
+
+      window.clearTimeout(_infoBubble.suppressTimerId);
+    },
 
     onMouseEnter: function() {
       _infoBubble.mouseInside = true;
@@ -5689,8 +5752,10 @@ var main = (function(){
       if (_infoBubble.mouseInside) {
         var pos = _getElAbsolutePos(_infoBubble.segmentEl);
 
-        var segmentX1 = pos[0] - MARGIN_BUBBLE;
-        var segmentX2 = pos[0] + _infoBubble.segmentEl.offsetWidth + MARGIN_BUBBLE;
+        var x = pos[0] - document.querySelector('#street-section-outer').scrollLeft;
+
+        var segmentX1 = x - MARGIN_BUBBLE;
+        var segmentX2 = x + _infoBubble.segmentEl.offsetWidth + MARGIN_BUBBLE;
 
         var segmentY = pos[1] + _infoBubble.segmentEl.offsetHeight + MARGIN_BUBBLE;
 
@@ -6212,6 +6277,12 @@ var main = (function(){
 
     // TODO rename
     show: function(force) {
+      if (_infoBubble.suppressed) {
+        //console.log('a');
+        window.setTimeout(_infoBubble.show, 100);
+        return;
+      }
+
       if (draggingType != DRAGGING_TYPE_NONE) {
         return;
       }
@@ -6242,7 +6313,7 @@ var main = (function(){
       _infoBubble.startMouseY = mouseY;
 
       var pos = _getElAbsolutePos(segmentEl);
-      var bubbleX = pos[0];
+      var bubbleX = pos[0] - document.querySelector('#street-section-outer').scrollLeft;
       var bubbleY = pos[1];
 
       _infoBubble.el = document.querySelector('#main-screen .info-bubble');
@@ -6792,6 +6863,7 @@ var main = (function(){
         break;
     }
 
+    _onResize();
     _resizeStreetWidth();
     _updateStreetName();
     _createPalette();
@@ -6806,7 +6878,6 @@ var main = (function(){
 
     _updatePageUrl();
     _buildStreetWidthMenu();
-    _onResize();
     _addScrollButtons(document.querySelector('#palette'));
     _addScrollButtons(document.querySelector('#gallery .streets'));
     _addEventListeners();
