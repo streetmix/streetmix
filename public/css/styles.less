@@ -29,7 +29,7 @@
 
 @fontFamily: 'Lato', sans-serif;
 
-@footerBackground: white;
+@headerFooterBackground: rgb(240, 240, 240);
 
 @thumbnailWidth: 180px;
 @thumbnailHeight: 110px;
@@ -45,7 +45,7 @@
 @emptySegmentColor: fadeout(rgb(53, 129, 63), 50%);
 
 @topMenuText: @segmentText;
-@topMenuHoverText: @segmentHoverText;
+@topMenuHoverText: darken(@skyColour, 20%);
 
 @segmentHoverBackground: rgba(255, 255, 255, .2);
 
@@ -53,7 +53,7 @@
 @segmentGridHeight: 10px;
 
 @streetNameText: black;
-@streetNameBackground: @offWhite;
+@streetNameBackground: white;
 
 @darkBackground: rgb(42, 42, 42);
 @bottomBackground: rgb(216, 211, 206);
@@ -116,6 +116,12 @@ textarea {
   top: 0;
   width: 100%;
   height: 100%;
+  z-index: 100;
+
+  /*-webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -o-transform: translateY(0);
+  transform: translateY(0);*/
 }
 
 body.environment-development,
@@ -479,7 +485,7 @@ body.gallery-visible #gallery-shield {
   top: 0;
   bottom: 0;
 
-  background: @footerBackground;
+  background: @headerFooterBackground;
   z-index: 150000;
 
   pointer-events: none;
@@ -576,7 +582,7 @@ body.gallery-visible #gallery-shield {
     background-image: url(../images/sky-rear.png);
     background-size: 250px 120px;
 
-    bottom: 325px + 120px;
+    bottom: 325px + 120px + 290px;
     height: 120px;
   }
 
@@ -586,7 +592,7 @@ body.gallery-visible #gallery-shield {
 
     opacity: .5;  
 
-    bottom: 45px + 120px;
+    bottom: 45px + 120px + 290px;
     height: 280px;
   }
 }
@@ -706,14 +712,13 @@ footer {
 }
 #trashcan {
   position: absolute;
-  left: 260px;
-  right: 20px;
-  top: 6px;
-  height: @paletteHeight - 2 * 8px;
-  line-height: @paletteHeight - 2 * 8px;
+  left: 150px;
+  right: 150px;
+  top: -20px;
+  height: @paletteHeight - 2 * 8px + 10px;
+  line-height: @paletteHeight - 2 * 8px + 10px;
   z-index: 5000;
   border: 3px dashed rgb(150, 150, 150);
-  border-radius: 20px;
 
   text-align: center;
 
@@ -777,7 +782,7 @@ footer {
   -webkit-transform: translateZ(0);
 }
 .segment {
-  height: @canvasHeight + 85;
+  height: @canvasHeight + 85 + 150px;
 
   top: -150px;
 
@@ -821,9 +826,10 @@ footer {
       border: none;
     }
   }
+}
 
-  .grid {
-  }
+body.segment-move-dragging .segment.empty {
+  display: none;
 }
 
 body:not(.segment-resize-dragging) .segment {
@@ -1051,6 +1057,8 @@ body.segment-resize-dragging .segment.floating:not(.unmovable) .drag-handle {
   right: -1px;
   height: @segmentGridHeight;
   top: @canvasBaseline;
+
+  pointer-events: none;
 
   //border-top: 1px solid @segmentWidthRule;
 
@@ -1339,15 +1347,13 @@ body.no-connection-message-visible #status-message {
 }
 
 #top-menu-bar {
-  z-index: 20000;
+  z-index: 120;
   display: block;
   position: absolute;
   left: @leftRightInset;
   right: @leftRightInset;
-  top: 0;
+  top: -150px;
   padding: 0 5px;
-
-  -webkit-transform: rotateZ(0);
 
   -webkit-user-select: none;
   user-select: none;  
@@ -1355,7 +1361,8 @@ body.no-connection-message-visible #status-message {
   padding-top: 0;
   text-align: right;
 
-  background: white;
+  border-top: 150px solid @headerFooterBackground;
+  background: @headerFooterBackground;
   background-clip: padding-box;
 
   font-family: @fontFamily;
@@ -1430,7 +1437,7 @@ body.no-connection-message-visible #status-message {
 }
 
 .menu {
-  z-index: 9999;
+  z-index: 99;
   position: absolute;
   background: white;
   top: 34px;
@@ -1440,9 +1447,9 @@ body.no-connection-message-visible #status-message {
   outline: 3px solid white;
   border: 3px solid @borderColor;
 
-  -webkit-transform: translateY(-500px);
-  -moz-transform: translateY(-500px);
-  transform: translateY(-500px);
+  -webkit-transform: translateY(-600px);
+  -moz-transform: translateY(-600px);
+  transform: translateY(-600px);
 
   -webkit-transition: -webkit-transform 100ms;
   -moz-transition: -moz-transform 100ms;
@@ -1658,10 +1665,6 @@ body.no-connection-message-visible #status-message {
   top: @streetNameTop;
   z-index: 1000000;
   text-align: center;
-
-  -webkit-transform: translateZ(0);
-  -moz-transform: translateZ(0);
-  transform: translateZ(0);
 
   pointer-events: none;
 }

@@ -167,8 +167,8 @@ var main = (function(){
   var SEGMENT_Y_PALETTE = 20;
   var PALETTE_EXTRA_SEGMENT_PADDING = 5;
 
-  var DRAG_OFFSET_Y_PALETTE = -340;
-  var DRAG_OFFSET_Y_TOUCH_PALETTE = -100;
+  var DRAG_OFFSET_Y_PALETTE = -340 - 150;
+  var DRAG_OFFSET_Y_TOUCH_PALETTE = -100 - 150;
   var DRAG_OFFSET_Y_TOUCH = -50;
 
   var THUMBNAIL_WIDTH = 180;
@@ -2033,10 +2033,10 @@ var main = (function(){
       dragHandleEl.addEventListener('mouseout', _hideWidthChart);
       el.appendChild(dragHandleEl);
 
-      var commandsEl = document.createElement('span');
+      /*var commandsEl = document.createElement('span');
       commandsEl.classList.add('commands');
 
-      el.appendChild(commandsEl);
+      el.appendChild(commandsEl);*/
 
       var innerEl = document.createElement('span');
       innerEl.classList.add('grid');
@@ -4140,6 +4140,7 @@ var main = (function(){
 
     document.querySelector('#street-section-canvas').style.width = width + 'px';
     document.querySelector('#street-section-outer').scrollLeft = (width + BUILDING_SPACE * 2 - system.viewportWidth) / 2;
+    _onStreetSectionScroll();
 
     _onResize();
   }
@@ -4342,6 +4343,8 @@ var main = (function(){
     var el = event.target;
     var newStreetWidth = el.value;
 
+    document.body.classList.remove('edit-street-width');
+
     if (newStreetWidth == street.width) {
       return;
     } else if (newStreetWidth == STREET_WIDTH_SWITCH_TO_METRIC) {
@@ -4389,7 +4392,6 @@ var main = (function(){
 
     initializing = false; 
 
-    document.body.classList.remove('edit-street-width');
     _loseAnyFocus();   
   }
 
@@ -5484,7 +5486,9 @@ var main = (function(){
     var pos = -scrollPos * 0.25;
     document.querySelector('#street-section-sky .rear-clouds').style[system.cssTransform] = 'translateX(' + pos + 'px)'; 
 
-    event.preventDefault();
+    if (event) {
+      event.preventDefault();
+    }
   }
 
   function _saveAsImage(event) {
@@ -7033,7 +7037,7 @@ var main = (function(){
     if (silhouette) {
       ctx.globalCompositeOperation = 'source-atop';
       // TODO const
-      ctx.fillStyle = 'black';
+      ctx.fillStyle = 'white';
       ctx.fillRect(0, 0, thumbnailWidth * system.hiDpi, thumbnailHeight * system.hiDpi);
     }
   }

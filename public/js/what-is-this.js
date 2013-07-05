@@ -29,7 +29,7 @@ var whatIsThis = (function(){
     cssCode.push('#what-is-this-info,');
     cssCode.push('#what-is-this-teaser {');
     cssCode.push('  position: absolute;');
-    cssCode.push('  z-index: 999999;');
+    cssCode.push('  z-index: 9999999999;');
     cssCode.push('  font-family: "Open Sans", Arial, sans-serif;');
     cssCode.push('  font-size: 13px;');
     cssCode.push('  line-height: 20px;');
