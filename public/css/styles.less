@@ -857,9 +857,7 @@ body.immediate-segment-resize .segment {
   margin: 12px 5px;
   height: 80px;
   top: 0;
-  background-color: @skyColour;
-
-  //border: 1px dashed rgb(50, 50, 50);
+  background-color: darken(@skyColour, 5%);
 
   -webkit-transform-origin: 50% 75%;
   -moz-transform-origin: 50% 75%;
@@ -938,7 +936,7 @@ body:not(.touch-support) .segment.palette:hover {
   transform: scale(1.15);
 
   canvas {
-    background: darken(@skyColour, 5%);
+    background: darken(@skyColour, 10%);
   }
 }
 
@@ -1304,7 +1302,7 @@ body.touch-support .segment.fade-out-end button {
 #status-message,
 #no-connection-message {
   position: absolute;
-  bottom: 30px;
+  bottom: 33px;
   left: 20px;
   right: 20px;
   height: 20px;
@@ -1329,7 +1327,8 @@ body.touch-support .segment.fade-out-end button {
 
   & > div {
     color: rgb(64, 32, 32);
-    outline: 3px solid darken(rgb(255, 230, 150), 20%);
+    border-top: 3px solid darken(rgb(255, 230, 150), 20%);
+    border-bottom: 3px solid darken(rgb(255, 230, 150), 20%);
     padding: 5px 20px;
     display: inline-block;
     background: rgb(255, 230, 150);
@@ -1346,7 +1345,7 @@ body.touch-support .segment.fade-out-end button {
 }
 
 body.no-connection-message-visible #status-message {
-  bottom: 75px;
+  bottom: 78px;
 }
 
 #status-message > div {
@@ -1451,7 +1450,9 @@ body.no-connection-message-visible #status-message {
 }
 
 .box-border {
-  box-shadow: 0 0 0 3px darken(@borderColor, 20%);//, 0 0 0 4px @borderColor;
+  border-top: 3px solid darken(@borderColor, 20%);
+  border-bottom: 3px solid darken(@borderColor, 20%);
+  //box-shadow: 0 0 0 3px darken(@borderColor, 20%);//, 0 0 0 4px @borderColor;
 }
 
 .menu {
@@ -1973,7 +1974,7 @@ body:not(.edit-street-width) #street-width {
   }*/
 
   header {
-    padding: 5px 8px;
+    padding: 5px 10px;
     height: @infoBubbleButtonSize;
     line-height: @infoBubbleButtonSize;
 
@@ -2000,7 +2001,7 @@ body:not(.edit-street-width) #street-width {
 
   .variants {
     text-align: left;
-    padding: 5px 5px;
+    padding: 5px 8px;
 
     min-height: @infoBubbleButtonSize;
 
@@ -2013,7 +2014,7 @@ body:not(.edit-street-width) #street-width {
       margin-left: 3px;
       margin-right: 3px;
       margin-top: 0;
-      margin-bottom: 0;
+      margin-bottom: 2px;
       white-space: nowrap;
 
       border: none;
@@ -2087,7 +2088,7 @@ body:not(.edit-street-width) #street-width {
 
   .width-canvas {
     position: absolute;
-    right: 5px;
+    right: 8px;
     top: @infoBubbleButtonSize + 13px;
     width: 150px;
     height: @infoBubbleButtonSize;
@@ -2144,7 +2145,7 @@ body:not(.edit-street-width) #street-width {
 
     &.remove {
       position: absolute;
-      right: 5px;
+      right: 8px;
       top: 5px;
     }
   }
