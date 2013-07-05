@@ -930,7 +930,7 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 28, y: 27, width: 11, height: 15 }, // Bus
+              { x: 28, y: 27, width: 11, height: 13 }, // Bus
               { x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
             ],
             repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
@@ -941,7 +941,7 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 16, y: 27, width: 12, height: 15 }, // Bus
+              { x: 16, y: 27, width: 12, height: 13 }, // Bus
               { x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
             ],
             repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt

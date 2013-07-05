@@ -689,7 +689,7 @@ footer {
 
   background: @offWhite;
 
-  border-top: 3px solid @skyColour;
+  border-top: 3px solid darken(@bottomBackground, 5%);
   margin-top: -3px;
 }
 #palette {
@@ -1074,6 +1074,8 @@ body.segment-resize-dragging .segment.floating:not(.unmovable) .drag-handle {
   right: 4px;
   top: @canvasBaseline + 45;
   color: @segmentText;
+  font-weight: 300;
+  text-rendering: optimizeLegibility;
 
   z-index: 100;
 
@@ -1087,7 +1089,7 @@ body.segment-resize-dragging .segment.floating:not(.unmovable) .drag-handle {
   pointer-events: none;
 }
 .segment.hover .name {
-  color: @segmentHoverText;
+  font-weight: 700;
 }
 .segment.warning .name {
   color: @segmentWarningText;
@@ -1117,6 +1119,9 @@ body.segment-resize-dragging .segment.floating:not(.unmovable) .drag-handle {
   line-height: 60px;
   color: @segmentText;
 
+  font-weight: 300;
+  text-rendering: optimizeLegibility;  
+
   .width-font;
 
   overflow: hidden;
@@ -1124,7 +1129,7 @@ body.segment-resize-dragging .segment.floating:not(.unmovable) .drag-handle {
   pointer-events: none;  
 }
 .segment.hover .width {
-  color: @segmentHoverText;
+  font-weight: 700;
 }
 .segment.warning .width {
   color: @segmentWarningText;
@@ -1403,6 +1408,10 @@ body.no-connection-message-visible #status-message {
     color: inherit;
     text-decoration: none;
 
+    height: 22px;
+
+    display: inline-block;
+
     &:hover {
       color: @topMenuHoverText;
     }
@@ -1442,7 +1451,7 @@ body.no-connection-message-visible #status-message {
 }
 
 .box-border {
-  box-shadow: 0 0 0 3px @borderColor, 0 0 0 6px white, 0 0 0 7px darken(@borderColor, 0);
+  box-shadow: 0 0 0 3px darken(@borderColor, 20%);//, 0 0 0 4px @borderColor;
 }
 
 .menu {
@@ -1964,17 +1973,17 @@ body:not(.edit-street-width) #street-width {
   }*/
 
   header {
-    padding: 5px 10px;
+    padding: 5px 8px;
     height: @infoBubbleButtonSize;
     line-height: @infoBubbleButtonSize;
 
     font-size: 16px;
-    font-weight: 400;
+    font-weight: 700;
     //font-weight: bold;
 
     position: relative;    
 
-    //background: rgb(240, 240, 240);
+    background: fadeout(@skyColour, 60%);
   }
 
   button canvas {
