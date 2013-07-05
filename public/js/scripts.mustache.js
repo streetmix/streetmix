@@ -4226,6 +4226,8 @@ var main = (function(){
     _updateBuildingPosition();
     // TODO hack
     _createBuildings();
+
+    _hideMenus();
   }
 
   function _updateBuildingPosition() {
@@ -6497,7 +6499,9 @@ var main = (function(){
   }
 
   function _prepareFeedbackForm() {
-    document.querySelector('#feedback-form-message').focus();
+    window.setTimeout(function() {
+      document.querySelector('#feedback-form-message').focus();
+    }, 200);
     
     var message = window.localStorage[LOCAL_STORAGE_FEEDBACK_BACKUP] || '';
     document.querySelector('#feedback-form-message').value = message;
@@ -6543,8 +6547,10 @@ var main = (function(){
 
       el.classList.add('visible');
 
-      document.querySelector('#share-via-link').focus();
-      document.querySelector('#share-via-link').select();
+      window.setTimeout(function() {
+        document.querySelector('#share-via-link').focus();
+        document.querySelector('#share-via-link').select();
+      }, 200);
     } else {
       _hideMenus();
     }
@@ -7037,7 +7043,7 @@ var main = (function(){
     if (silhouette) {
       ctx.globalCompositeOperation = 'source-atop';
       // TODO const
-      ctx.fillStyle = 'white';
+      ctx.fillStyle = 'black';
       ctx.fillRect(0, 0, thumbnailWidth * system.hiDpi, thumbnailHeight * system.hiDpi);
     }
   }
@@ -7593,6 +7599,8 @@ var main = (function(){
   function _showError(errorType, newAbortEverything) {
     var title = '';
     var description = '';
+
+    _hideLoadingScreen();
 
     abortEverything = newAbortEverything;
 
