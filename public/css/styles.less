@@ -65,7 +65,7 @@
 @formElementBackground: lighten(@skyColour, 20%);
 @formElementBorder: @borderColor;
 
-@import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700);
+@import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700&.css);
 
 @font-face {
   font-family: 'Roadgeek';
@@ -134,15 +134,15 @@ body.environment-sandbox {
     z-index: 9999999999;
     position: absolute;
     text-align: center;
-    left: 200px;
-    top: 0;
+    left: 190px;
+    top: -2px;
     color: white;
-    padding: 2px 10px;
+    padding: 2px 7px;
     font-size: 10px;
     font-weight: 700;
     line-height: 1.5;
     letter-spacing: 4px;
-    padding-right: 10px - 4px;
+    padding-right: 7px - 4px;
     text-transform: uppercase;
   }
 }
@@ -696,7 +696,7 @@ footer {
   display: inline-block;
   position: relative;
 
-  background: @offWhite;
+  background: @headerFooterBackground;
 
   border-top: 3px solid darken(@bottomBackground, 5%);
   margin-top: -3px;
@@ -798,6 +798,10 @@ footer {
 
   display: block;
   position: absolute;
+
+  -webkit-perspective: 500px;
+  -moz-perspective: 500px;
+  perspective: 500px;  
 }
 .segment.empty {
   position: absolute;
@@ -866,7 +870,7 @@ body.immediate-segment-resize .segment {
   margin: 12px 5px;
   height: 80px;
   top: 0;
-  background-color: darken(@skyColour, 5%);
+  background-color: fadeout(@skyColour, 30%);
 
   -webkit-transform-origin: 50% 75%;
   -moz-transform-origin: 50% 75%;
@@ -945,7 +949,7 @@ body:not(.touch-support) .segment.palette:hover {
   transform: scale(1.15);
 
   canvas {
-    background: darken(@skyColour, 10%);
+    background: fadeout(@skyColour, 5%);
   }
 }
 
@@ -1025,18 +1029,36 @@ body.touch-support .segment.fade-out-end {
     left: -5px;
     text-align: left;
     text-indent: -5px;
+
+    -webkit-transform: rotateY(90deg);
+    -webkit-transform-origin: 100% 50%;
+    -webkit-transition: -webkit-transform 150ms;
   }
   &.right {
     right: -5px;
     text-align: right;
     text-indent: -3px;
+
+    -webkit-transform: rotateY(-90deg);
+    -webkit-transform-origin: 0 50%;
+    -webkit-transition: -webkit-transform 150ms;
   }
+}
+.segment.mouse-pointer-inside-info-bubble .drag-handle {
+  display: none;
 }
 
 .segment:not(.unmovable).hover .drag-handle,
 body.segment-resize-dragging .segment.floating:not(.unmovable) .drag-handle {
   pointer-events: auto;
   opacity: 1;
+
+  &.left {
+    -webkit-transform: none;
+  }
+  &.right {
+    -webkit-transform: none;    
+  }
 
   &:hover {
     outline-color: white;
@@ -1090,7 +1112,7 @@ body.segment-resize-dragging .segment.floating:not(.unmovable) .drag-handle {
 
   font-size: 12px;
 
-  height: 30px;
+  height: 45px;
   overflow: hidden;
 
   pointer-events: none;
@@ -1122,7 +1144,7 @@ body.segment-resize-dragging .segment.floating:not(.unmovable) .drag-handle {
   border-left: 1px solid @segmentWidthRule;
   border-right: 1px solid @segmentWidthRule;
   top: @canvasBaseline;
-  height: 80px;
+  height: 90px;
   line-height: 60px;
   color: @segmentText;
 

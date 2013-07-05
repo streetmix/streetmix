@@ -1251,6 +1251,7 @@ var main = (function(){
     elY: null,
     originalEl: null,
     originalWidth: null,
+    originalType: null,
     originalVariantString: null,
     floatingElVisible: false
   };
@@ -3735,10 +3736,15 @@ var main = (function(){
       var smartDrop = _doDropHeuristics(draggingMove.originalType, 
           draggingMove.originalVariantString, draggingMove.originalWidth);
       
-      _setSegmentContents(draggingMove.floatingEl, 
-        smartDrop.type, 
-        smartDrop.variantString, 
-        smartDrop.width, false, true);
+      if ((smartDrop.type != draggingMove.originalType) || (smartDrop.variantString != draggingMove.originalVariantString)) {
+        _setSegmentContents(draggingMove.floatingEl, 
+          smartDrop.type, 
+          smartDrop.variantString, 
+          smartDrop.width, false, true);
+
+        draggingMove.originalType = smartDrop.type;
+        draggingMove.originalVariantString = smartDrop.variantString;
+      }
     }
 
     if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
@@ -3998,8 +4004,6 @@ var main = (function(){
     }
     var withinCanvas = !!el;
 
-    console.log(withinCanvas);
-
     var failedDrop = false;
 
     if (!withinCanvas) {
@@ -4108,6 +4112,8 @@ var main = (function(){
   }
 
   function _createPalette() {
+    //var deg = 0;
+
     for (var i in SEGMENT_INFO) {
       var segmentInfo = SEGMENT_INFO[i];
 
@@ -4133,6 +4139,10 @@ var main = (function(){
         true);
 
       el.classList.add('palette');
+
+      //el.style.webkitTransform = 'rotate(' + deg + 'deg)';
+
+      //deg += 5;
 
       document.querySelector('.palette-canvas').appendChild(el);
     }
@@ -4511,12 +4521,14 @@ var main = (function(){
         _hideDebugInfo();
         whatIsThis.hideInfo();
 
-        if (document.body.classList.contains('gallery-visible')) {
-          _hideGallery(false);
+        if (menuVisible) {
+          _hideMenus();
         } else if (_infoBubble.visible) {
           _infoBubble.hide();
-        } else {
-          _hideMenus();
+        } else if (document.body.classList.contains('gallery-visible')) {
+          _hideGallery(false);
+        } else if (signedIn) {
+          _showGallery(signInData.userId, false);
         }
 
         event.preventDefault();
@@ -5791,12 +5803,20 @@ var main = (function(){
     },
 
     onMouseEnter: function() {
+      if (_infoBubble.segmentEl) {
+        _infoBubble.segmentEl.classList.add('mouse-pointer-inside-info-bubble');
+      }
+
       _infoBubble.mouseInside = true;
 
       _infoBubble.updateHoverPolygon();
     },
 
     onMouseLeave: function() {
+      if (_infoBubble.segmentEl) {
+        _infoBubble.segmentEl.classList.remove('mouse-pointer-inside-info-bubble');
+      }
+
       _infoBubble.mouseInside = false;
     },
 
@@ -6024,6 +6044,7 @@ var main = (function(){
 
       _switchSegmentElIn(el);
       el.classList.add('hover');
+      el.classList.add('mouse-pointer-inside-info-bubble');
       _infoBubble.segmentEl = el;
 
       _infoBubble.updateContents();
