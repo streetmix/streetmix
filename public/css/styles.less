@@ -84,6 +84,10 @@ body {
   overflow: hidden;
 
   background: @skyColour;
+
+  -webkit-perspective: 500px;
+  -moz-perspective: 500px;
+  perspective: 500px;
 }
 
 body,
@@ -112,9 +116,9 @@ textarea {
   height: 100%;
   z-index: 100;
 
-  -webkit-perspective: 5000;
-  -moz-perspective: 5000;
-  perspective: 5000;
+  -webkit-perspective: 5000px;
+  -moz-perspective: 5000px;
+  perspective: 5000px;
 
   /*-webkit-transform: translateY(0);
   -moz-transform: translateY(0);
@@ -194,15 +198,21 @@ body.gallery-visible #street-section-sky {
   height: @galleryHeight;
   z-index: 100001;
 
+  border-bottom: 3px solid darken(@skyColour, 20%);  
+
   background: white;
   overflow: hidden;
 
   pointer-events: none;
 
-  -webkit-transform: translateY(-@galleryHeight);
-  -moz-transform: translateY(-@galleryHeight);
-  -o-transform: translateY(-@galleryHeight);
-  transform: translateY(-@galleryHeight);
+  -webkit-transform: translateY(-@galleryHeight) rotateX(25deg);
+  -moz-transform: translateY(-@galleryHeight) rotateX(25deg);
+  -o-transform: translateY(-@galleryHeight) rotateX(25deg);
+  transform: translateY(-@galleryHeight) rotateX(25deg);
+
+  -webkit-transform-origin: 50% 0;
+  -moz-transform-origin: 50% 0;
+  transform-origin: 50% 0;
 
   .avatar {
     position: absolute;
@@ -435,10 +445,9 @@ body:not(.gallery-no-move-transition) #main-screen,
 body:not(.gallery-no-move-transition) #gallery,
 body:not(.gallery-no-move-transition) #street-name-canvas,
 body:not(.gallery-no-move-transition) #street-section-sky {
-  -webkit-transition: -webkit-transform 450ms;
-  -moz-transition: -moz-transform 450ms;
-  -o-transition: -o-transform 450ms;
-  transition: transform 450ms;  
+  -webkit-transition: -webkit-transform 800ms;
+  -moz-transition: -moz-transform 800ms;
+  transition: transform 800ms;  
 }
 
 #gallery-shield {
@@ -1406,6 +1415,7 @@ body.no-connection-message-visible #status-message {
   a {
     color: inherit;
     text-decoration: none;
+    text-rendering: optimizeLegibility;
 
     height: 22px;
 
@@ -1429,6 +1439,8 @@ body.no-connection-message-visible #status-message {
     color: inherit;
 
     font-size: inherit;
+    font-weight: inherit;
+    text-rendering: optimizeLegibility;
     
     cursor: pointer;
 
@@ -1937,18 +1949,28 @@ body:not(.edit-street-width) #street-width {
 
   opacity: 0;
 
-  -webkit-transition: /*-webkit-transform 50ms,*/ margin-top 150ms, height 150ms;
-  -moz-transition: /*-moz-transform 50ms,*/ margin-top 150ms, height 150ms;
-  transition: /*transform 50ms,*/ margin-top 150ms, height 150ms;
+  -webkit-transition: -webkit-transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
+  -moz-transition: -moz-transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
+  transition: transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
 
-  &.no-horizontal-move {
+  -webkit-transform: rotateX(80deg);
+  -moz-transform: rotateX(80deg);
+  transform: rotateX(80deg);
+  -webkit-transform-origin: 50% 0;
+  -moz-transform-origin: 50% 0;
+  transform-origin: 50% 0;
+
+/*  &.no-horizontal-move {
     -webkit-transition: margin-top 150ms, height 150ms;
     -moz-transition: margin-top 150ms, height 150ms;
     transition: margin-top 150ms, height 150ms;
-  }
+  }*/
 
   &.visible {
     opacity: 1;
+    -webkit-transform: rotateY(0);
+    -moz-transform: rotateY(0);
+    transform: rotateY(0);
     pointer-events: auto;
   }
 
@@ -2067,6 +2089,7 @@ body:not(.edit-street-width) #street-width {
     font-size: 13px;
     padding: 5px 5px;
     border-top: 1px solid @borderColor;
+    text-rendering: optimizeLegibility;
 
     white-space: normal;
 

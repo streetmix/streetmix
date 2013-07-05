@@ -96,7 +96,7 @@ var whatIsThis = (function(){
     cssCode.push('  width: 170px;');
     cssCode.push('  height: 45px;');
     cssCode.push('  line-height: 46px;');
-    cssCode.push('  left: 42px;');
+    cssCode.push('  left: -13px;');
     cssCode.push('  margin-left: 0;');
     cssCode.push('  top: -50px;');
     cssCode.push('  padding: 0;');
@@ -218,7 +218,7 @@ var whatIsThis = (function(){
     teaserEl = document.createElement('div');  
     teaserEl.id = 'what-is-this-teaser';
     teaserEl.innerHTML = 'Streetmix';
-    document.body.appendChild(teaserEl);
+    document.querySelector('#top-menu-bar').appendChild(teaserEl);
 
     shieldEl = document.createElement('div');  
     shieldEl.id = 'what-is-this-shield';

@@ -454,7 +454,7 @@ var main = (function(){
       }
     },
     'sidewalk-tree': {
-      name: 'Sidewalk w/ a tree',
+      name: 'Sidewalk with a tree',
       owner: SEGMENT_OWNER_NATURE,
       //zIndex: 1,
       defaultWidth: 4,
@@ -508,7 +508,7 @@ var main = (function(){
     },
 
     'sidewalk-bench': {
-      name: 'Sidewalk w/ a bench',
+      name: 'Bench',
       owner: SEGMENT_OWNER_PEDESTRIAN,
       defaultWidth: 4,
       variants: ['bench-orientation'],
@@ -534,7 +534,7 @@ var main = (function(){
       }
     },
     'sidewalk-lamp': {
-      name: 'Sidewalk w/ a lamp',
+      name: 'Sidewalk with a lamp',
       owner: SEGMENT_OWNER_PEDESTRIAN,
       defaultWidth: 4,
       variants: ['lamp-orientation', 'lamp-type'],
@@ -1645,7 +1645,7 @@ var main = (function(){
     }
   }
 
-  function _setSegmentContents(el, type, variantString, segmentWidth, palette) {
+  function _setSegmentContents(el, type, variantString, segmentWidth, palette, quickUpdate) {
     var segmentInfo = SEGMENT_INFO[type];
     var variantInfo = SEGMENT_INFO[type].details[variantString];
 
@@ -1657,11 +1657,17 @@ var main = (function(){
 
     var offsetTop = palette ? SEGMENT_Y_PALETTE : SEGMENT_Y_NORMAL;
 
-    var hoverBkEl = document.createElement('div');
-    hoverBkEl.classList.add('hover-bk');
+    if (!quickUpdate) {
+      var hoverBkEl = document.createElement('div');
+      hoverBkEl.classList.add('hover-bk');
+    }
 
-    var canvasEl = document.createElement('canvas');
-    canvasEl.classList.add('image');
+    if (!quickUpdate) {
+      var canvasEl = document.createElement('canvas');
+      canvasEl.classList.add('image');
+    } else {
+      var canvasEl = el.querySelector('canvas');
+    }
     canvasEl.width = totalWidth * TILE_SIZE * system.hiDpi;
     canvasEl.height = CANVAS_BASELINE * system.hiDpi;
     canvasEl.style.width = (totalWidth * TILE_SIZE) + 'px';
@@ -1673,11 +1679,13 @@ var main = (function(){
 
     _drawSegmentContents(ctx, type, variantString, segmentWidth, 0, offsetTop, multiplier, palette);
 
-    _removeElFromDom(el.querySelector('canvas'));
-    el.appendChild(canvasEl);
+    if (!quickUpdate) {
+      _removeElFromDom(el.querySelector('canvas'));
+      el.appendChild(canvasEl);
 
-    _removeElFromDom(el.querySelector('.hover-bk'));
-    el.appendChild(hoverBkEl);
+      _removeElFromDom(el.querySelector('.hover-bk'));
+      el.appendChild(hoverBkEl);
+    }
   }
 
 
@@ -3730,9 +3738,7 @@ var main = (function(){
       _setSegmentContents(draggingMove.floatingEl, 
         smartDrop.type, 
         smartDrop.variantString, 
-        smartDrop.width);
-      //var newEl = _createSegment(smartDrop.type,
-      //    smartDrop.variantString, smartDrop.width);
+        smartDrop.width, false, true);
     }
 
     if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
@@ -6404,20 +6410,20 @@ var main = (function(){
         bubbleX = system.viewportWidth - bubbleWidth - 20;
       }
 
-      if (system.cssTransform) {
-        _infoBubble.el.style[system.cssTransform] = 'translateX(' + bubbleX + 'px)';
-      } else {
-        el.style.left = bubbleX + 'px';
-      }
+      //if (system.cssTransform) {
+      //  _infoBubble.el.style[system.cssTransform] = 'translateX(' + bubbleX + 'px)';
+      //} else {
+        _infoBubble.el.style.left = bubbleX + 'px';
+      //}
 
       _infoBubble.el.style.top = bubbleY + 'px';
       
       if (!_infoBubble.visible) {
-        _infoBubble.el.classList.add('no-horizontal-move');
+        //_infoBubble.el.classList.add('no-horizontal-move');
         // TODO const
-        window.setTimeout(function() {
-          _infoBubble.el.classList.remove('no-horizontal-move');
-        }, 100);
+        //window.setTimeout(function() {
+         // _infoBubble.el.classList.remove('no-horizontal-move');
+        //}, 100);
 
         _infoBubble.visible = true;
 
