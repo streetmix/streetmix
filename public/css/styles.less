@@ -1,6 +1,6 @@
 @canvasHeight: 480px;
 @canvasGround: 35px;
-@canvasBaseline: @canvasHeight - @canvasGround;
+@canvasBaseline: @canvasHeight - @canvasGround + 150px;
 
 @offWhite: rgb(240, 240, 240);
 
@@ -38,10 +38,11 @@
 
 @warningColour: rgb(220, 20, 20);
 
-@segmentText: rgb(80, 80, 80);
-@segmentHoverText: darken(@segmentText, 40%);
+@segmentText: rgb(40, 35, 30);
+@segmentHoverText: lighten(@segmentText, 30%);
 @segmentWarningText: @warningColour;
 @emptySegmentText: rgb(53, 129, 63);
+@emptySegmentColor: fadeout(rgb(53, 129, 63), 50%);
 
 @topMenuText: @segmentText;
 @topMenuHoverText: @segmentHoverText;
@@ -55,7 +56,7 @@
 @streetNameBackground: @offWhite;
 
 @darkBackground: rgb(42, 42, 42);
-@bottomBackground: rgb(220, 220, 220);
+@bottomBackground: rgb(216, 211, 206);
 
 @leftRightInset: 50px;
 
@@ -613,7 +614,7 @@ body.gallery-visible #gallery-shield {
   width: 396px;
   height: @canvasHeight - 75px;
 
-  -webkit-transition: opacity 250ms;
+  //-webkit-transition: opacity 250ms;
 
   .hover-bk {
     position: absolute;
@@ -777,6 +778,8 @@ footer {
 .segment {
   height: @canvasHeight + 85;
 
+  top: -150px;
+
   text-align: center;
 
   display: block;
@@ -811,11 +814,10 @@ footer {
       position: absolute;
       left: -1px;
       right: -1px;
-      background: @emptySegmentText;
+      background: @emptySegmentColor;
       top: -45px;
       height: 45px;
-      border-left: 1px solid black;
-      border-right: 1px solid black;
+      border: none;
     }
   }
 
@@ -848,6 +850,7 @@ body.immediate-segment-resize .segment {
 
   margin: 12px 5px;
   height: 80px;
+  top: 0;
   background-color: @skyColour;
 
   //border: 1px dashed rgb(50, 50, 50);
@@ -899,7 +902,7 @@ body.segment-resize-dragging .segment:not(.unmovable).hover {
   overflow: hidden;
   position: absolute;
   left: 0;
-  top: 0;
+  top: 150px;
 
   pointer-events: none;
 
@@ -908,6 +911,9 @@ body.segment-resize-dragging .segment:not(.unmovable).hover {
     width: @tilesetWidth / 2;
     pointer-events: none;
   }
+}
+.segment.palette .image {
+  top: 0;
 }
 
 body:not(.segment-resize-dragging) .segment.outside .image {
@@ -960,14 +966,30 @@ body.segment-resize-dragging * {
 .drag-handle {
   position: absolute;
   display: block;
-  top: 170px;
+  top: 170px + 150px;
   width: 10px;
   height: 100px;
   line-height: 100px;
   font-size: 50px;
   font-family: 'Tahoma';
-  color: rgba(255, 255, 255, .4);
+  color: lighten(@skyColour, 10%);
   z-index: 99999999999;
+
+  /*&.floating {
+    opacity: 1;
+    left: 0;
+    top: 0;
+    margin: 0;
+    width: 30px;
+    height: 120px;
+    pointer-events: none;
+    z-index: 500000;
+
+    outline-color: white !important;
+    color: white !important;
+    background: red;
+  }  */
+
 }
 
 body.touch-support .segment.fade-out-end {
@@ -984,7 +1006,8 @@ body.touch-support .segment.fade-out-end {
 
   margin: -10px;
   border: 10px solid transparent;
-  outline: 1px solid rgba(255, 255, 255, .4);
+  outline: 3px solid lighten(@skyColour, 10%);
+  //background: rgba(255, 255, 255, .2);
 
   &.left {
     left: -5px;
@@ -996,27 +1019,16 @@ body.touch-support .segment.fade-out-end {
     text-align: right;
     text-indent: -3px;
   }
-  &.floating {
-    opacity: 1;
-    left: 0;
-    top: 0;
-    margin: 0;
-    width: 30px;
-    height: 120px;
-    pointer-events: none;
-    z-index: 500000;
-
-    outline: 1px solid rgba(255, 255, 255, .8);
-  }  
 }
 
-.segment:not(.unmovable).hover .drag-handle {
+.segment:not(.unmovable).hover .drag-handle,
+body.segment-resize-dragging .segment.floating:not(.unmovable) .drag-handle {
   pointer-events: auto;
   opacity: 1;
 
   &:hover {
-    outline: 1px solid rgba(255, 255, 255, .8);
-    color: rgba(255, 255, 255, .8);
+    outline-color: white;
+    color: white;
   }
 }
 
@@ -1025,10 +1037,10 @@ body.touch-support .segment.fade-out-end {
   z-index: 9999999;
   left: 50%;
   top: 0;
-  bottom: 165px;
+  bottom: 165px - 150px;
 
-  border-left: 1px dashed rgba(0, 0, 0, .25);
-  border-right: 1px dashed rgba(0, 0, 0, .25);
+  border-left: 1px dashed fadeout(@warningColour, 60%);
+  border-right: 1px dashed fadeout(@warningColour, 60%);
 
   box-sizing: border-box;
 }
@@ -1053,7 +1065,7 @@ body.touch-support .segment.fade-out-end {
   position: absolute;
   left: 4px;
   right: 4px;
-  top: @canvasHeight + 10;
+  top: @canvasBaseline + 45;
   color: @segmentText;
 
   z-index: 100;
@@ -1095,7 +1107,7 @@ body.touch-support .segment.fade-out-end {
   border-right: 1px solid @segmentWidthRule;
   top: @canvasBaseline;
   height: 80px;
-  line-height: 64px;
+  line-height: 60px;
   color: @segmentText;
 
   .width-font;
@@ -1355,7 +1367,7 @@ body.no-connection-message-visible #status-message {
     list-style: none;
     padding: 0;
     margin: 0;
-    line-height: 12px;
+    line-height: 22px;
     padding: 3px 10px;
 
     li {
@@ -1438,8 +1450,6 @@ body.no-connection-message-visible #status-message {
 
   pointer-events: none;
 
-  padding: 2px 0;
-
   &.visible {
     -webkit-transform: translateY(0);
     -moz-transform: translateY(0);
@@ -1459,6 +1469,8 @@ body.no-connection-message-visible #status-message {
     padding-left: 30px;
     padding-right: 40px;
 
+    border-top: 1px solid @borderColor;
+
     span {
       display: block;
       margin-top: 4px;
@@ -1472,10 +1484,10 @@ body.no-connection-message-visible #status-message {
       cursor: default;
     }
     &:not(.disabled):hover {
-      background: rgb(230, 230, 230);
+      background: fadeout(@borderColor, 50%);
     }
     &:not(.disabled):active {
-      background: rgb(220, 220, 220);
+      background: @borderColor;
     }
   }
 
@@ -1498,6 +1510,7 @@ body.no-connection-message-visible #status-message {
   padding-left: 30px;
   padding-right: 10px;
   margin-top: 5px;
+  margin-bottom: 10px;
 
   height: 305px;
 
@@ -1582,9 +1595,7 @@ body.no-connection-message-visible #status-message {
   margin-left: 30px;
   margin-right: 10px;
   margin-top: 5px;
-
-  color: rgb(128, 128, 128);
-  font-size: 11px;
+  margin-bottom: 15px;
 }
 #sign-in-promo {
   width: 300px;
@@ -2011,7 +2022,7 @@ body:not(.edit-street-width) #street-width {
     margin-top: 5px;
     font-size: 13px;
     padding: 5px 5px;
-    border-top: 1px solid rgb(220, 220, 220);
+    border-top: 1px solid @borderColor;
 
     white-space: normal;
 
