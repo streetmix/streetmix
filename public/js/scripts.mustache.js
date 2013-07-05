@@ -224,7 +224,7 @@ var main = (function(){
   var BUILDING_VARIANTS = ['grass', 'fence', 'narrow', 'wide'];
 
   var MIN_CUSTOM_STREET_WIDTH = 10;
-  var MAX_CUSTOM_STREET_WIDTH = 200;
+  var MAX_CUSTOM_STREET_WIDTH = 300;
   var MIN_SEGMENT_WIDTH = 1;
   var MAX_SEGMENT_WIDTH = 150;
 
@@ -4244,6 +4244,27 @@ var main = (function(){
     _createBuildings();
 
     _hideMenus();
+
+    _updateStreetNameCanvasPos();
+  }
+
+  function _updateStreetNameCanvasPos() {
+    var menuEl = document.querySelector('#top-menu-bar ul');
+    var menuElPos = _getElAbsolutePos(menuEl);
+
+    var streetNameEl = document.querySelector('#street-name');
+    var streetNameElPos = _getElAbsolutePos(streetNameEl);
+
+    document.querySelector('#street-name-canvas').classList.add('no-movement');
+    if (streetNameElPos[0] + streetNameEl.offsetWidth > menuElPos[0]) {
+      document.querySelector('#street-name-canvas').classList.add('move-down-for-menu');
+    } else {
+      document.querySelector('#street-name-canvas').classList.remove('move-down-for-menu');
+    }
+
+    window.setTimeout(function() {
+      document.querySelector('#street-name-canvas').classList.remove('no-movement');
+    }, 50);
   }
 
   function _updateBuildingPosition() {
@@ -4316,7 +4337,7 @@ var main = (function(){
 
     var el = document.createElement('option');
     el.value = STREET_WIDTH_CUSTOM;
-    el.innerHTML = 'Custom…';
+    el.innerHTML = 'Different width…';
     document.querySelector('#street-width').appendChild(el);  
 
     var el = document.createElement('option');
@@ -4710,6 +4731,7 @@ var main = (function(){
     _resizeStreetName();
 
     _updateStreetMetadata();
+    _updateStreetNameCanvasPos();
 
     _unifyUndoStack();
     _updatePageUrl();
@@ -4735,6 +4757,7 @@ var main = (function(){
 
       _updateStreetName();
       _saveStreetToServerIfNecessary();
+      _updateStreetNameCanvasPos();
     }
   }
 
@@ -7070,7 +7093,7 @@ var main = (function(){
     if (silhouette) {
       ctx.globalCompositeOperation = 'source-atop';
       // TODO const
-      ctx.fillStyle = 'black';
+      ctx.fillStyle = 'rgb(240, 240, 240)';
       ctx.fillRect(0, 0, thumbnailWidth * system.hiDpi, thumbnailHeight * system.hiDpi);
     }
   }
