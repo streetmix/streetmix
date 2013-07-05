@@ -237,6 +237,7 @@ body.gallery-visible #street-section-sky {
     top: 12px;
 
     font-size: 24px;
+    font-weight: 300;
     color: rgb(128, 128, 128);
   }
 
@@ -344,40 +345,23 @@ body.gallery-visible #street-section-sky {
           font-weight: 300;
         }
 
-        button {
+        button.remove {
           position: absolute;
-          width: 30px;
-          height: 29px;
+          font-size: 16px;
+          padding: 0 10px;
           line-height: 25px;
-          vertical-align: top;
 
-          font-size: 14px;
+          top: -10px;
+          right: -5px;
 
-          background: white;
-          padding: 0;
-          margin: 0 1px;
-          border: 1px solid rgb(120, 120, 120);
-          color: rgb(120, 120, 120);
-
-          cursor: pointer;
-
-          &.remove {
-            top: -6px;
-            right: -3px;
-
-            opacity: 0;
-          }
-          &:hover {
-            border-color: black;
-            color: black;
-          }
+          display: none;
         }
 
         &:hover {
           background: fadeout(@skyColour, 10%);
 
           button.remove {
-            opacity: 1;
+            display: block;
           }
         }
 
@@ -708,9 +692,9 @@ footer {
   padding-right: 15px;
 
   position: absolute;
-  left: 150px;
+  left: 140px;
   top: -30px;
-  right: 150px;
+  right: 140px;
 
   overflow-x: scroll;
   overflow-y: hidden;
@@ -1186,18 +1170,12 @@ body.segment-move-dragging #editable-street-section > div {
 }
 
 
-.segment:not(.unmovable).fade-out-start .drag-handle,
-.segment:not(.unmovable).fade-out-start .remove,
-.segment:not(.unmovable).fade-out-start .decrement,
-.segment:not(.unmovable).fade-out-start .increment {
+.segment:not(.unmovable).fade-out-start .drag-handle {
   pointer-events: auto;
   opacity: 1;
   -webkit-transition: opacity 0;
 }
-.segment:not(.unmovable).fade-out-end .drag-handle,
-.segment:not(.unmovable).fade-out-end .remove,
-.segment:not(.unmovable).fade-out-end .decrement,
-.segment:not(.unmovable).fade-out-end .increment {
+.segment:not(.unmovable).fade-out-end .drag-handle {
   pointer-events: auto;
   opacity: 0;
   -webkit-transition: opacity @touchFadeOutTime;
@@ -2143,7 +2121,7 @@ body:not(.edit-street-width) #street-width {
   .width-canvas {
     position: absolute;
     right: 8px;
-    top: @infoBubbleButtonSize + 13px;
+    top: @infoBubbleButtonSize + 10px;
     width: 150px;
     height: @infoBubbleButtonSize;
     line-height: @infoBubbleButtonSize;  
@@ -2287,9 +2265,9 @@ button.scroll-right {
     margin-left: -5px;
   }
 
-  -webkit-transition: opacity 250ms;
-  -moz-transition: opacity 250ms;
-  transition: opacity 250ms;
+  //-webkit-transition: opacity 250ms;
+  //-moz-transition: opacity 250ms;
+  //transition: opacity 250ms;
 
   &[disabled] {
     opacity: 0;
@@ -2299,10 +2277,13 @@ button.scroll-right {
 
 footer button.scroll-left,
 footer button.scroll-right {
-  margin-top: 30px;
+  margin-top: 10px;
 
+  &.scroll-left {
+    margin-left: -65px;
+  }
   &.scroll-right {
-    margin-left: -25px;
+    margin-left: -60px;
   }
 }
 
@@ -2311,10 +2292,10 @@ footer button.scroll-right {
   margin-top: 95px;
 
   &.scroll-left {
-    margin-left: -20px - 40px;
+    margin-left: -35px - 40px;
   }
   &.scroll-right {
-    margin-left: -45px;
+    margin-left: -20px - 70px;
   }
 }
 
@@ -2360,17 +2341,20 @@ button.close {
 
 button {
   outline: none;
-  background: fadeout(@skyColour, 80%);
+  //background: fadeout(@skyColour, 80%);
+  background: mix(@skyColour, white, 30%);
   border: none;
   border-top: 1px solid @skyColour;
   border-bottom: 1px solid @skyColour;
 
   &:not([disabled]):hover {
     background: fadeout(@skyColour, 60%);
+    background: mix(@skyColour, white, 60%);
   }
 
   &:not([disabled]):active {
-    background: fadeout(@skyColour, 30%);
+    //background: fadeout(@skyColour, 30%);
+    background: mix(@skyColour, white, 80%);
     font-weight: 700;
   }
 
