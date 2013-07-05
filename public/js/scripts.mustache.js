@@ -6177,10 +6177,13 @@ var main = (function(){
 
       infoBubbleEl.innerHTML = '';
 
+      var triangleEl = document.createElement('div');
+      triangleEl.classList.add('triangle');
+      infoBubbleEl.appendChild(triangleEl);
+
       // Header
 
       var headerEl = document.createElement('header');
-
 
       headerEl.innerHTML = name;
 
