@@ -688,6 +688,9 @@ footer {
   position: relative;
 
   background: @offWhite;
+
+  border-top: 3px solid @skyColour;
+  margin-top: -3px;
 }
 #palette {
   height: @paletteHeight + 20px; // To cover scroll bars
@@ -699,8 +702,6 @@ footer {
   left: 150px;
   top: -30px;
   right: 150px;
-
-  //outline: 1px solid blue;
 
   overflow-x: scroll;
   overflow-y: hidden;
@@ -1360,6 +1361,8 @@ body.no-connection-message-visible #status-message {
   -webkit-user-select: none;
   user-select: none;  
 
+  border-bottom: 3px solid darken(@skyColour, 20%);
+
   padding-top: 0;
   text-align: right;
 
@@ -2008,18 +2011,24 @@ body:not(.edit-street-width) #street-width {
 
       position: relative;
 
-      background: rgb(220, 220, 220);
+      background: fadeout(@skyColour, 80%);
+
+      outline: 1px solid @skyColour;
 
       canvas {
         opacity: .666;
       }
 
       &:hover {
-        background: rgb(210, 210, 210);
+        background: fadeout(@skyColour, 60%);
       }
 
       &:active {
-        background: rgb(190, 190, 190);
+        background: fadeout(@skyColour, 30%);
+        canvas {
+          margin-top: 1px;
+          opacity: .9;
+        }
       }
 
       &[disabled] {
