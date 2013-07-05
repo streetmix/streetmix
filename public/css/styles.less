@@ -125,13 +125,14 @@ body.environment-sandbox {
   &::before {
     z-index: 9999999999;
     position: absolute;
-    width: 120px;
     text-align: center;
     left: 200px;
     top: 0;
     color: white;
     padding: 2px 10px;
-    font-size: 9px;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.5;
     letter-spacing: 4px;
     padding-right: 10px - 4px;
     text-transform: uppercase;
@@ -146,19 +147,19 @@ body.environment-production {
 }
 body.environment-development {
   &::before {
-    content: 'Dev server';
+    content: 'Dev';
     background-color: rgb(200, 0, 0);
   }
 }
 body.environment-staging {
   &::before {
-    content: 'Staging server';
+    content: 'Staging';
     background-color: green;
   }
 }
 body.environment-sandbox {
   &::before {
-    content: 'Sandbox server';
+    content: 'Sandbox';
     background-color: green;
   }
 }
@@ -1007,7 +1008,6 @@ body.touch-support .segment.fade-out-end {
   margin: -10px;
   border: 10px solid transparent;
   outline: 3px solid lighten(@skyColour, 10%);
-  //background: rgba(255, 255, 255, .2);
 
   &.left {
     left: -5px;
@@ -1764,7 +1764,13 @@ body.no-connection-message-visible #status-message {
 }
 
 #street-metadata {
-  margin-top: 7px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+
+  width: 500px;
+  left: 50%;
+  position: absolute;
+  margin-left: -250px;
 
   color: black;
   font-size: 13px;
@@ -1789,6 +1795,12 @@ body:not(.edit-street-width) #street-width {
   display: none;
 }
 
+#street-metadata-author:not(:empty)::before,
+#street-metadata-date:not(:empty)::before {
+  content: ' · ';
+  color: darken(@skyColour, 30%);
+  margin: 0 4px;
+}
 
 #new-street-menu {
   position: absolute;
@@ -1808,7 +1820,7 @@ body:not(.edit-street-width) #street-width {
     border: 3px solid @borderColor;
     outline: 3px solid white;
     background: white;
-    padding: 10px 15px;
+    padding: 6px 15px;
     padding-right: 0;
     text-align: center;
     font-size: 16px;
@@ -1828,7 +1840,8 @@ body:not(.edit-street-width) #street-width {
 
     &:not(:first-child)::before {
       content: '·';
-      margin-left: 5px;
+      margin: 0 5px;
+      color: darken(@skyColour, 30%);
       padding-left: 0;
     }
 
