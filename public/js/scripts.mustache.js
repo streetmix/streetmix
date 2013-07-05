@@ -27,8 +27,8 @@ var main = (function(){
 
     TOOLTIP_REMOVE_SEGMENT: 'Remove segment',
 
-    STATUS_SEGMENT_DELETED: 'The segment has been deleted.',
-    STATUS_ALL_SEGMENTS_DELETED: 'All segments have been deleted.',
+    STATUS_SEGMENT_DELETED: 'The segment has been removed.',
+    STATUS_ALL_SEGMENTS_DELETED: 'All segments have been removed.',
     STATUS_NOTHING_TO_UNDO: 'Nothing to undo.',
     STATUS_NOTHING_TO_REDO: 'Nothing to redo.',
     STATUS_NO_NEED_TO_SAVE: 'No need to save by hand; Streetmix automatically saves your street!',
@@ -2346,11 +2346,15 @@ var main = (function(){
     }
 
     if (system.cssTransform) {
-      document.querySelector('#street-section-left-empty-space').style[system.cssTransform] = 'translateX(' + (-extraWidth / 2) + 'px)';
-      document.querySelector('#street-section-right-empty-space').style[system.cssTransform] = 'translateX(' + (extraWidth / 2) + 'px)';
+      document.querySelector('#street-section-left-empty-space').
+          style[system.cssTransform] = 'translateX(' + (-extraWidth / 2) + 'px)';
+      document.querySelector('#street-section-right-empty-space').
+          style[system.cssTransform] = 'translateX(' + (extraWidth / 2) + 'px)';
     } else {
-      document.querySelector('#street-section-left-empty-space').style.marginLeft = -(extraWidth / 2) + 'px';
-      document.querySelector('#street-section-right-empty-space').style.marginLeft = (extraWidth / 2) + 'px';      
+      document.querySelector('#street-section-left-empty-space').
+          style.marginLeft = -(extraWidth / 2) + 'px';
+      document.querySelector('#street-section-right-empty-space').
+          style.marginLeft = (extraWidth / 2) + 'px';      
     }
   }
 
@@ -2438,14 +2442,21 @@ var main = (function(){
   }
 
   function _hideEmptySegment(position) {
-    document.querySelector('#street-section-' + position + '-empty-space').classList.remove('visible');
+    document.querySelector('#street-section-' + position + '-empty-space').
+        classList.remove('visible');
   }
 
   function _showEmptySegment(position, width) {
-    document.querySelector('#street-section-' + position + '-empty-space').style.width = width + 'px';
     document.querySelector('#street-section-' + position + '-empty-space .width').innerHTML = 
         _prettifyWidth(width / TILE_SIZE, PRETTIFY_WIDTH_OUTPUT_MARKUP);
-    document.querySelector('#street-section-' + position + '-empty-space').classList.add('visible');
+    document.querySelector('#street-section-' + position + '-empty-space').
+        classList.add('visible');
+
+    if (position == 'right') {
+      width--; // So that the rules align
+    }
+    document.querySelector('#street-section-' + position + '-empty-space').
+        style.width = width + 'px';
   }
 
   function _repositionEmptySegments() {
@@ -3127,7 +3138,7 @@ var main = (function(){
 
     street.updatedAt = new Date().getTime();
     _unifyUndoStack();
-    _updateStreetAttribution();
+    _updateStreetMetadata();
   }
 
   function _saveStreetToServerIfNecessary() {
@@ -3144,7 +3155,8 @@ var main = (function(){
       // As per issue #306.
       _statusMessage.hide();
 
-      _hideStreetAttribution();
+      //_hideStreetAttribution();
+      _updateStreetMetadata();
 
       _createNewUndoIfNecessary(lastStreet, currentData);
       _scheduleSavingStreetToServer();
@@ -3415,6 +3427,8 @@ var main = (function(){
   var widthChartHideTimerId = -1;
 
   function _showWidthChartImmediately() {
+    return;
+
     document.querySelector('.width-chart-canvas').classList.add('visible');    
   }
 
@@ -3618,6 +3632,8 @@ var main = (function(){
     if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
       draggingMove.elY += DRAG_OFFSET_Y_PALETTE;
       draggingMove.elX -= draggingMove.originalWidth / 3;
+    } else {
+      draggingMove.elX -= document.querySelector('#street-section-outer').scrollLeft;
     }
 
     draggingMove.mouseX = x;
@@ -4121,7 +4137,6 @@ var main = (function(){
 
   function _resizeStreetWidth() {
     var width = street.width * TILE_SIZE;
-    //console.log(street.width);
 
     document.querySelector('#street-section-canvas').style.width = width + 'px';
     document.querySelector('#street-section-outer').scrollLeft = (width + BUILDING_SPACE * 2 - system.viewportWidth) / 2;
@@ -4150,6 +4165,14 @@ var main = (function(){
     }
   }
 
+  function _updateGalleryShield() {
+    document.querySelector('#gallery-shield').style.width = 0;//document.querySelector('#street-section-outer').scrollWidth + 'px';
+    window.setTimeout(function() {
+      document.querySelector('#gallery-shield').style.height = system.viewportHeight + 'px';
+      document.querySelector('#gallery-shield').style.width = document.querySelector('#street-section-outer').scrollWidth + 'px';
+    }, 0);
+  }
+
   function _onResize() {
     system.viewportWidth = window.innerWidth;
     system.viewportHeight = window.innerHeight;
@@ -4159,20 +4182,23 @@ var main = (function(){
 
     var paletteTop = document.querySelector('footer').offsetTop;
 
-    var pos = (system.viewportHeight - streetSectionHeight) / 2;
+    // TODO const
+    var pos = (system.viewportHeight - streetSectionHeight) / 2 + 30 + 180; // gallery height
 
     // TODO const
     if (pos + document.querySelector('#street-section-inner').offsetHeight > 
-      paletteTop - 20) {
-      pos = paletteTop - 20 - streetSectionHeight;
+      paletteTop - 20 + 180) { // gallery height
+      pos = paletteTop - 20 - streetSectionHeight + 180;
     }
+
+    _updateGalleryShield();
 
     document.querySelector('#street-section-inner').style.top = pos + 'px';
 
     document.querySelector('#street-section-sky').style.top = (pos * .8) + 'px';
 
     document.querySelector('#street-section-dirt').style.height = 
-        (system.viewportHeight - pos - 400) + 'px';
+        (system.viewportHeight - pos - 400 + 180) + 'px';
 
     if (pos < 0) {
       pos = 0;
@@ -4300,6 +4326,18 @@ var main = (function(){
     document.querySelector('#street-width').value = street.width;   
   }
 
+  function _onStreetWidthClick(event) {
+    document.body.classList.add('edit-street-width');
+
+    document.querySelector('#street-width').focus();
+
+    window.setTimeout(function() {
+      var trigger = document.createEvent('MouseEvents');
+      trigger.initEvent('mousedown', true, true, window);
+      document.querySelector('#street-width').dispatchEvent(trigger);
+    }, 0);
+  }
+
   function _onStreetWidthChange(event) {
     var el = event.target;
     var newStreetWidth = el.value;
@@ -4351,6 +4389,7 @@ var main = (function(){
 
     initializing = false; 
 
+    document.body.classList.remove('edit-street-width');
     _loseAnyFocus();   
   }
 
@@ -4614,36 +4653,31 @@ var main = (function(){
     }
   }
 
-  function _updateStreetAttribution() {
+  function _updateStreetMetadata() {
+    var html = _prettifyWidth(street.width, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP) + ' street';
+    document.querySelector('#street-width-read').innerHTML = html;
+
     if (street.creatorId && (!signedIn || (street.creatorId != signInData.userId))) {
       // TODO const
       var html = "by <div class='avatar' userId='" + street.creatorId + "'></div>" +
           "<a class='user-gallery' href='/" +  
-          street.creatorId + "'>" + street.creatorId + "</a> · " +
-          _formatDate(moment(street.updatedAt));
-
-      document.querySelector('#street-attribution').innerHTML = html;
+          street.creatorId + "'>" + street.creatorId + "</a>";
+          
+      document.querySelector('#street-metadata-author').innerHTML = html;
 
       _fetchAvatars();
 
-      document.querySelector('#street-attribution .user-gallery').addEventListener('click', _onAnotherUserIdClick);
+      document.querySelector('#street-metadata-author .user-gallery').addEventListener('click', _onAnotherUserIdClick);
     } else if (!street.creatorId && (signedIn || remixOnFirstEdit)) {
-      var html = "by Anonymous · " + _formatDate(moment(street.updatedAt));
+      var html = "by Anonymous";
 
-      document.querySelector('#street-attribution').innerHTML = html;
+      document.querySelector('#street-metadata-author').innerHTML = html;
     } else {
-      var html = _formatDate(moment(street.updatedAt));
-
-      document.querySelector('#street-attribution').innerHTML = html;      
+      document.querySelector('#street-metadata-author').innerHTML = ''; 
     }
 
-    if (!document.querySelector('#new-street-menu').classList.contains('visible')) {
-      document.querySelector('#street-attribution').classList.add('visible');
-    }
-  }
-
-  function _hideStreetAttribution() {
-    document.querySelector('#street-attribution').classList.remove('visible');
+    var html = _formatDate(moment(street.updatedAt));
+    document.querySelector('#street-metadata-date').innerHTML = html;
   }
 
   function _updateStreetName() {
@@ -4653,7 +4687,7 @@ var main = (function(){
 
     _resizeStreetName();
 
-    _updateStreetAttribution();
+    _updateStreetMetadata();
 
     _unifyUndoStack();
     _updatePageUrl();
@@ -4891,12 +4925,12 @@ var main = (function(){
     }
 
     document.querySelector('#new-street-menu').classList.add('visible');
-    document.querySelector('#street-attribution').classList.remove('visible');
+    //document.querySelector('#street-attribution').classList.remove('visible');
   }
 
   function _hideNewStreetMenu() {
     document.querySelector('#new-street-menu').classList.remove('visible');
-    document.querySelector('#street-attribution').classList.add('visible');
+    //document.querySelector('#street-attribution').classList.add('visible');
   }
 
   function _fetchGalleryData() {
@@ -5471,6 +5505,10 @@ var main = (function(){
   }
 
   function _addEventListeners() {
+    document.querySelector('#new-street-menu .close').addEventListener('click', _hideNewStreetMenu);
+
+    document.querySelector('#street-width-read').addEventListener('click', _onStreetWidthClick);
+
     document.querySelector('#save-as-image').addEventListener('click', _saveAsImage);
 
     document.querySelector('#street-section-outer').addEventListener('scroll', _onStreetSectionScroll);
@@ -6115,8 +6153,6 @@ var main = (function(){
         var widthCanvasEl = document.createElement('div');
         widthCanvasEl.classList.add('width-canvas');
 
-        //widthCanvasEl.classList.add('entire-info-bubble');
-
         var func = function() {
           _changeBuildingHeight(_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING, false);
         }
@@ -6348,8 +6384,8 @@ var main = (function(){
 
       // TODO const
       bubbleY -= bubbleHeight - 20;
-      if (bubbleY < 20) {
-        bubbleY = 20;
+      if (bubbleY < 50) {
+        bubbleY = 50;
       }
 
       bubbleX += segmentEl.offsetWidth / 2;

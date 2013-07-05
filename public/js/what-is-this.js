@@ -88,20 +88,20 @@ var whatIsThis = (function(){
     cssCode = [];
     cssCode.push('#what-is-this-teaser {');
     cssCode.push('  z-index: 100000;');
-    cssCode.push('  background: rgba(0, 0, 0, .7);');
-    cssCode.push('  color: rgb(210, 210, 210);');
-    cssCode.push('  box-shadow: 0 2px 5px rgba(0, 0, 0, .2);');
-    cssCode.push('  text-shadow: 0 1px 1px black;');
+    cssCode.push('  background: white');
+    cssCode.push('  color: black;');
+    cssCode.push('  box-shadow: none;');
+    cssCode.push('  text-shadow: none;');
     cssCode.push('  box-sizing: border-box;');
     cssCode.push('  width: 170px;');
     cssCode.push('  height: 45px;');
-    cssCode.push('  line-height: 52px;');
-    cssCode.push('  left: 20px;');
+    cssCode.push('  line-height: 46px;');
+    cssCode.push('  left: 42px;');
     cssCode.push('  margin-left: 0;');
     cssCode.push('  top: -50px;');
     cssCode.push('  padding: 0;');
     cssCode.push('  padding-left: 8px;');
-    cssCode.push('  letter-spacing: 8px;');
+    cssCode.push('  letter-spacing: 6px;');
     cssCode.push('  text-transform: uppercase;');
     cssCode.push('  font-weight: bold;');
     cssCode.push('  -webkit-user-select: none;');
@@ -116,15 +116,15 @@ var whatIsThis = (function(){
 
     cssCode = [];
     cssCode.push('#what-is-this-teaser:hover {');
-    cssCode.push('  background: rgba(0, 0, 0, .9);');
+    cssCode.push('  color: rgb(64, 64, 64);');
     cssCode.push('}');
     _addCssCode(cssCode.join('\n'));
 
-    cssCode = [];
+    /*cssCode = [];
     cssCode.push('#what-is-this-teaser:active {');
     cssCode.push('  box-shadow: 0 2px 2px rgba(0, 0, 0, .5);');
     cssCode.push('}');
-    _addCssCode(cssCode.join('\n'));
+    _addCssCode(cssCode.join('\n'));*/
 
     cssCode = [];
     cssCode.push('#what-is-this-teaser::after {');

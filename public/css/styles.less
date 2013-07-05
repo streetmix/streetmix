@@ -2,9 +2,11 @@
 @canvasGround: 35px;
 @canvasBaseline: @canvasHeight - @canvasGround;
 
+@offWhite: rgb(240, 240, 240);
+
 @streetSectionHorizontalPadding: 50px;
 
-@paletteHeight: 100px;
+@paletteHeight: 90px;
 @galleryHeight: 180px;
 
 @tilesetWidth: 2622px; // retina
@@ -14,32 +16,55 @@
 
 @backgroundDirtColour: rgb(53, 45, 39);
 @skyColour: rgb(169, 204, 219);
-@warningColour: rgb(220, 80, 80);
 
 @lightTextColour: rgb(240, 240, 240);
 
 @touchFadeOutTime: 3000ms;
 @touchFadeOutDelay: 2000ms;
 
-@textShadow: 0 1px 1px rgba(0, 0, 0, .5), 
-             0 0 3px rgba(0, 0, 0, .5);
-
 @streetNameSize: 1.5;
-@streetNameTop: 30px;
-@streetNameConnectorWidth: 100px;
+@streetNameTop: 10px;
 
 @streetNameGallerySize: .5;
 
-@fontFamily: Arial, sans-serif;
+@fontFamily: 'Lato', sans-serif;
 
-@footerBackground: rgb(210, 212, 210);
-
-@segmentHoverBackground: rgba(255, 255, 255, .2);
+@footerBackground: white;
 
 @thumbnailWidth: 180px;
 @thumbnailHeight: 110px;
 
 @buildingSpace: 300px;
+
+@warningColour: rgb(220, 20, 20);
+
+@segmentText: rgb(80, 80, 80);
+@segmentHoverText: darken(@segmentText, 40%);
+@segmentWarningText: @warningColour;
+@emptySegmentText: rgb(53, 129, 63);
+
+@topMenuText: @segmentText;
+@topMenuHoverText: @segmentHoverText;
+
+@segmentHoverBackground: rgba(255, 255, 255, .2);
+
+@segmentWidthRule: rgb(160, 160, 160);
+@segmentGridHeight: 10px;
+
+@streetNameText: black;
+@streetNameBackground: @offWhite;
+
+@darkBackground: rgb(42, 42, 42);
+@bottomBackground: rgb(220, 220, 220);
+
+@leftRightInset: 50px;
+
+@borderColor: lighten(@skyColour, 10%);
+
+@formElementBackground: lighten(@skyColour, 20%);
+@formElementBorder: @borderColor;
+
+@import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700);
 
 @font-face {
   font-family: 'Roadgeek';
@@ -68,12 +93,20 @@ textarea,
 option {
   font-family: @fontFamily;
 }
+button {
+  cursor: pointer;
+}
 
 input[type='text'],
 input[type='email'],
 textarea {
-  border: 1px solid rgb(200, 200, 200);
   padding: 3px;
+}
+
+::-webkit-input-placeholder,
+::-moz-placeholder,
+::placeholder {
+   color: red !important;
 }
 
 #main-screen {
@@ -88,18 +121,16 @@ body.environment-development,
 body.environment-production,
 body.environment-staging,
 body.environment-sandbox {
-  #main-screen::before {
+  &::before {
     z-index: 9999999999;
     position: absolute;
-    left: 50%;
-    width: 160px;
-    margin-left: -80px - 10px;
+    width: 120px;
     text-align: center;
+    left: 200px;
     top: 0;
     color: white;
-    padding: 5px 10px;
-    border-radius: 0 0 2px 2px;
-    font-size: 11px;
+    padding: 2px 10px;
+    font-size: 9px;
     letter-spacing: 4px;
     padding-right: 10px - 4px;
     text-transform: uppercase;
@@ -107,37 +138,42 @@ body.environment-sandbox {
 }
 
 body.environment-production {
-  #main-screen::before {
+  &::before {
     content: 'Experimental';
     background-color: black;
   }
 }
 body.environment-development {
-  #main-screen::before {
+  &::before {
     content: 'Dev server';
     background-color: rgb(200, 0, 0);
   }
 }
 body.environment-staging {
-  #main-screen::before {
+  &::before {
     content: 'Staging server';
     background-color: green;
   }
 }
 body.environment-sandbox {
-  #main-screen::before {
+  &::before {
     content: 'Sandbox server';
     background-color: green;
   }
 }
 
 body.gallery-visible #main-screen {
-  -webkit-transform: translateY(@galleryHeight - 50px);
-  -moz-transform: translateY(@galleryHeight - 50px);
-  -o-transform: translateY(@galleryHeight - 50px);
-  transform: translateY(@galleryHeight - 50px);
+  -webkit-transform: translateY(@galleryHeight - 90px);
+  -moz-transform: translateY(@galleryHeight - 90px);
+  -o-transform: translateY(@galleryHeight - 90px);
+  transform: translateY(@galleryHeight - 90px);
 }
-
+body.gallery-visible #street-name-canvas {
+  -webkit-transform: translateY(60px);
+  -moz-transform: translateY(60px);
+  -o-transform: translateY(60px);
+  transform: translateY(60px);
+}
 body.gallery-visible #street-section-sky {
   -webkit-transform: translateY(-20px);
   -moz-transform: translateY(-20px);
@@ -146,8 +182,8 @@ body.gallery-visible #street-section-sky {
 }
 #gallery {
   position: absolute;
-  left: 40px;
-  right: 40px;
+  left: @leftRightInset + 20px;
+  right: @leftRightInset + 20px;
   top: 0;
   height: @galleryHeight;
   z-index: 100001;
@@ -157,12 +193,10 @@ body.gallery-visible #street-section-sky {
 
   pointer-events: none;
 
-  box-shadow: 0 2px 2px rgba(0, 0, 0, .5);
-
-  -webkit-transform: translateY(-@galleryHeight - 30px);
-  -moz-transform: translateY(-@galleryHeight - 30px);
-  -o-transform: translateY(-@galleryHeight - 30px);
-  transform: translateY(-@galleryHeight - 30px);  
+  -webkit-transform: translateY(-@galleryHeight);
+  -moz-transform: translateY(-@galleryHeight);
+  -o-transform: translateY(-@galleryHeight);
+  transform: translateY(-@galleryHeight);
 
   .avatar {
     position: absolute;
@@ -393,6 +427,7 @@ body.gallery-visible #street-section-sky {
 
 body:not(.gallery-no-move-transition) #main-screen, 
 body:not(.gallery-no-move-transition) #gallery,
+body:not(.gallery-no-move-transition) #street-name-canvas,
 body:not(.gallery-no-move-transition) #street-section-sky {
   -webkit-transition: -webkit-transform 450ms;
   -moz-transition: -moz-transform 450ms;
@@ -401,12 +436,10 @@ body:not(.gallery-no-move-transition) #street-section-sky {
 }
 
 #gallery-shield {
-  z-index: 999999999999;
+  z-index: 99999999999999;
 
   left: 0;
-  top: -150px;
-  right: 0;
-  bottom: 0;
+  top: 90px;
   position: absolute;
 
   display: none;
@@ -426,30 +459,17 @@ body.gallery-visible #gallery-shield {
   display: block;
 }
 
-/*body > header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-
-  z-index: 100000;
-
-  padding-top: 20px;
-
-  text-shadow: @textShadow;
-
-  .inside {
-    width: 500px;
-    height: 100px;
-    margin: 0 auto;
-    position: relative;
-  }
-}*/
-
 .width-font {
   font-size: 12px;  
 }
 
+.regular-canvas {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
 .width-chart-canvas {
   position: absolute;
   left: 0;
@@ -484,9 +504,6 @@ body.gallery-visible #gallery-shield {
   right: 0;
   bottom: 0;
 }
-#street-width {
-  width: 150px;
-}
 
 
 #street-section-outer {
@@ -494,7 +511,7 @@ body.gallery-visible #gallery-shield {
   display: block;
   left: 0;
   right: 0;
-  top: 0;
+  top: -@galleryHeight;
   bottom: -20px; // To hide the scrollbar
 
   overflow-x: scroll;
@@ -579,9 +596,11 @@ body.gallery-visible #gallery-shield {
   z-index: -2;
   top: @canvasHeight - 80;
 
+  border-top: 45px solid @backgroundDirtColour;
+
   pointer-events: none;
 
-  background: @backgroundDirtColour;
+  background: @bottomBackground;
 }
 #street-section-left-building,
 #street-section-left-building-old,
@@ -644,12 +663,10 @@ body.street-overflows #street-section-right-building-old {
 
 footer {
   position: absolute;
-  left: 0;
-  right: 0;
-  height: @paletteHeight;
+  left: @leftRightInset;
+  right: @leftRightInset;
+  height: @paletteHeight - 30px;
   bottom: 0;
-  padding-right: 10px;
-  padding-left: 10px;
 
   text-align: center;
 
@@ -661,11 +678,10 @@ footer {
 .footer-canvas {
   width: 100%;
   height: @paletteHeight;
-  max-width: 1050px;
   display: inline-block;
   position: relative;
 
-  background: @footerBackground;
+  background: @offWhite;
 }
 #palette {
   height: @paletteHeight + 20px; // To cover scroll bars
@@ -674,9 +690,11 @@ footer {
   padding-right: 15px;
 
   position: absolute;
-  left: 250px;
-  top: 0;
-  right: 10px;
+  left: 150px;
+  top: -30px;
+  right: 150px;
+
+  //outline: 1px solid blue;
 
   overflow-x: scroll;
   overflow-y: hidden;
@@ -712,18 +730,18 @@ footer {
 }
 
 #commands {
-  //display: inline-block;
   vertical-align: top;
 
   position: absolute;
-  left: 10px;
+  right: 10px;
   top: 10px;
 
-  width: 250px;
-  height: @paletteHeight - 20px;
-  position: relative;
+  //width: 120px;
+  height: @paletteHeight - 50px;
 
   z-index: 100000;
+
+  text-align: right;
 
   & .street-width {
     font-family: sans-serif;
@@ -736,18 +754,12 @@ footer {
   }
 
   #undo {
-    position: absolute;
-    left: 40px;
-    bottom: 0;
-    width: 70px;
-    height: 45px;
+    width: 50px;
+    height: @paletteHeight - 50px;
   }
   #redo {
-    position: absolute;
-    left: 117px;
-    bottom: 0;
-    width: 70px;
-    height: 45px;
+    width: 50px;
+    height: @paletteHeight - 50px;
   }
 }
 #street-section-editable {
@@ -779,7 +791,7 @@ footer {
   z-index: -1;
 
   &#street-section-right-empty-space {
-    right: 0;
+    right: 1px;
   }
 
   &.visible {
@@ -788,12 +800,26 @@ footer {
 
   .name,
   .width {
-    color: rgb(60, 120, 60);
+    color: @emptySegmentText;
   }
 
   .width {
-    top: @canvasBaseline - 45px;
-    padding-top: 45px;
+    overflow: visible;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -1px;
+      right: -1px;
+      background: @emptySegmentText;
+      top: -45px;
+      height: 45px;
+      border-left: 1px solid black;
+      border-right: 1px solid black;
+    }
+  }
+
+  .grid {
   }
 }
 
@@ -822,9 +848,17 @@ body.immediate-segment-resize .segment {
 
   margin: 12px 5px;
   height: 80px;
-  background-color: rgba(25, 25, 25, .5);
+  background-color: @skyColour;
 
-  border: 1px dashed rgb(50, 50, 50);
+  //border: 1px dashed rgb(50, 50, 50);
+
+  -webkit-transform-origin: 50% 75%;
+  -moz-transform-origin: 50% 75%;
+  transform-origin: 50% 75%;
+
+  -webkit-transition: -webkit-transform 50ms !important;
+  -moz-transition: -moz-transform 50ms !important;
+  transition: transform 50ms !important;
 }
 
 .segment:not(.unmovable).hover {
@@ -886,13 +920,14 @@ body:not(.segment-resize-dragging) .segment.outside .image {
   opacity: 0;
 }
 
-body:not(.touch-support) .segment.palette:hover,
-.segment.palette.hover {
-  -webkit-transition: background 100ms;
-  -moz-transition: background 100ms;
-  transition: background 100ms;
+body:not(.touch-support) .segment.palette:hover {
+  -webkit-transform: scale(1.15);
+  -moz-transform: scale(1.15);
+  transform: scale(1.15);
 
-  background: rgba(0, 0, 0, .2);
+  canvas {
+    background: darken(@skyColour, 5%);
+  }
 }
 
 .segment.floating {
@@ -1001,12 +1036,15 @@ body.touch-support .segment.fade-out-end {
 .segment .grid {
   position: absolute;
   left: 0;
-  right: 0;
-  height: 10px;
+  right: -1px;
+  height: @segmentGridHeight;
   top: @canvasBaseline;
 
-  background-image: -webkit-linear-gradient(0deg, rgb(140, 140, 140), transparent 8.333%);
-  background-image: -moz-linear-gradient(0deg, rgb(140, 140, 140), transparent 8.333%);
+  //border-top: 1px solid @segmentWidthRule;
+
+  background-image: linear-gradient(0deg, @segmentWidthRule, @bottomBackground 8.333%);
+  background-image: -webkit-linear-gradient(0deg, @segmentWidthRule, @bottomBackground 8.333%);
+  background-image: -moz-linear-gradient(0deg, @segmentWidthRule, @bottomBackground 8.333%);
   background-size: @tileSize 100%;
   background-repeat: repeat-x;
 }
@@ -1016,7 +1054,7 @@ body.touch-support .segment.fade-out-end {
   left: 4px;
   right: 4px;
   top: @canvasHeight + 10;
-  color: rgb(160, 160, 160);
+  color: @segmentText;
 
   z-index: 100;
 
@@ -1030,13 +1068,10 @@ body.touch-support .segment.fade-out-end {
   pointer-events: none;
 }
 .segment.hover .name {
-  color: rgb(200, 200, 200);
+  color: @segmentHoverText;
 }
 .segment.warning .name {
-  color: @warningColour;
-}
-.segment.hover.warning .name {
-  color: lighten(@warningColour, 10%);
+  color: @segmentWarningText;
 }
 
 .segment .commands {
@@ -1050,54 +1085,18 @@ body.touch-support .segment.fade-out-end {
   padding-top: 10px;
 }
 
-/*.segment button {
-  width: 30px;
-  height: 29px;
-  line-height: 25px;
-  vertical-align: top;
-
-  font-size: 14px;
-
-  background: @backgroundDirtColour;
-  padding: 0;
-  margin: 0 1px;
-  border: 1px solid rgba(255, 255, 255, .2);
-  color: rgb(150, 150, 150);
-
-  cursor: pointer;
-
-  opacity: 0;
-}
-body:not(.touch-support) .segment.hover .remove,
-.segment.hover .info,
-.segment:not(.unmovable).hover .decrement,
-.segment:not(.unmovable).hover .increment {
-  opacity: 1;
-}
-.segment.hover .remove:hover,
-.segment.hover .info:hover,
-.segment:not(.unmovable).hover .decrement:hover,
-.segment:not(.unmovable).hover .increment:hover {
-  opacity: 1;
-  border-color: rgb(220, 220, 220);
-  color: rgb(220, 220, 220);
-}
-.segment button:active {
-  background: rgba(0, 0, 0, .5);
-  color: rgb(220, 220, 220);
-  border-color: rgb(180, 180, 180);
-}*/
 
 .segment .width {
   position: absolute;
   left: 0;
   right: -1px;
-  border-left: 1px solid rgb(80, 80, 80);
-  border-right: 1px solid rgb(80, 80, 80);
+  z-index: 100000;
+  border-left: 1px solid @segmentWidthRule;
+  border-right: 1px solid @segmentWidthRule;
   top: @canvasBaseline;
   height: 80px;
-  line-height: 58px;
-  color: rgb(160, 160, 160);
+  line-height: 64px;
+  color: @segmentText;
 
   .width-font;
 
@@ -1106,10 +1105,10 @@ body:not(.touch-support) .segment.hover .remove,
   pointer-events: none;  
 }
 .segment.hover .width {
-  color: rgb(200, 200, 200);
+  color: @segmentHoverText;
 }
 .segment.warning .width {
-  color: @warningColour;
+  color: @segmentWarningText;
 }
 
 .segment.palette .name,
@@ -1278,27 +1277,32 @@ body.touch-support .segment.fade-out-end button {
 #status-message,
 #no-connection-message {
   position: absolute;
-  bottom: 110px;
-  left: 0;
-  right: 0;
+  bottom: 30px;
+  left: 20px;
+  right: 20px;
   height: 20px;
   padding: 0;
   z-index: 2000000;
-  text-align: center;
   pointer-events: none;
 
-  opacity: 0;
-  -webkit-transition: opacity 200ms;
+  -webkit-transition: opacity 200ms, -webkit-transform 200ms;
+  -moz-transition: opacity 200ms, -moz-transform 200ms;
+  transition: opacity 200ms, transform 200ms;
+
+  -webkit-transform: translateY(100px);
+  -moz-transform: translateY(100px);
+  transform: translateY(100px);
 
   &.visible {
-    opacity: 1;
-    -webkit-transition: opacity 50ms;
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    transform: translateY(0);
     pointer-events: auto;
   }
 
   & > div {
     color: rgb(64, 32, 32);
-    outline: 1px solid black;
+    outline: 3px solid darken(rgb(255, 230, 150), 20%);
     padding: 5px 20px;
     display: inline-block;
     background: rgb(255, 230, 150);
@@ -1308,23 +1312,6 @@ body.touch-support .segment.fade-out-end button {
   button {
     margin-left: 20px;
   }
-  .close {
-    -webkit-appearance: none;
-    appearance: none;
-    border: none;
-    background: transparent;
-    margin-left: 10px;
-    margin-right: 10px;
-
-    font-size: 14px;
-
-    cursor: pointer;
-    color: rgb(64, 32, 32);
-
-    &:hover {
-      color: black;
-    }
-  }
 
   a {
     color: inherit;
@@ -1332,44 +1319,44 @@ body.touch-support .segment.fade-out-end button {
 }
 
 body.no-connection-message-visible #status-message {
-  bottom: 135px;
+  bottom: 75px;
 }
 
 #status-message > div {
   padding-right: 0; // for close box
 }
 
-// TODO confusing with .menu
-#menu {
+#top-menu-bar {
   z-index: 20000;
   display: block;
   position: absolute;
-  right: 0;
-  padding-right: 12px;
-  top: -130px;
-  left: 0;
-  height: 60px;
-  padding-top: 5px;
+  left: @leftRightInset;
+  right: @leftRightInset;
+  top: 0;
+  padding: 0 5px;
+
+  -webkit-transform: rotateZ(0);
+
+  -webkit-user-select: none;
+  user-select: none;  
+
+  padding-top: 0;
   text-align: right;
 
-  border-top: 130px solid rgba(0, 0, 0, .3);
-
-  background: -webkit-linear-gradient(rgba(0, 0, 0, .3), transparent);
-  background: -moz-linear-gradient(rgba(0, 0, 0, .3), transparent);
-  background: linear-gradient(rgba(0, 0, 0, .3), transparent);  
-
+  background: white;
   background-clip: padding-box;
 
-  color: @lightTextColour;
-  text-shadow: @textShadow;
-
-  font-size: 13px;
+  font-family: @fontFamily;
+  font-size: 12px;
 
   ul {
+    color: @topMenuText;
+
     list-style: none;
     padding: 0;
     margin: 0;
-    line-height: 18px;
+    line-height: 12px;
+    padding: 3px 10px;
 
     li {
       display: inline-block;
@@ -1393,7 +1380,7 @@ body.no-connection-message-visible #status-message {
     text-decoration: none;
 
     &:hover {
-      color: white;
+      color: @topMenuHoverText;
     }
   }
 
@@ -1407,10 +1394,9 @@ body.no-connection-message-visible #status-message {
     padding: 10px;
     margin: -10px;
 
-    color: @lightTextColour;
-    text-shadow: @textShadow;
+    color: inherit;
 
-    font-size: 13px;
+    font-size: inherit;
     
     cursor: pointer;
 
@@ -1418,7 +1404,7 @@ body.no-connection-message-visible #status-message {
       font-family: 'Verdana';
       content: ' ▼';
       padding-left: 5px;
-      font-size: 11px;
+      font-size: 9px;
       display: inline-block;
       -webkit-transform: scaleY(.75);
       -moz-transform: scaleY(.75);
@@ -1426,28 +1412,40 @@ body.no-connection-message-visible #status-message {
     }
 
     &:hover {
-      color: white;
+      color: @topMenuHoverText;
     }
   }
 }
 
 .menu {
-  z-index: 9999999;
+  z-index: 9999;
   position: absolute;
   background: white;
-  top: 32px;
+  top: 34px;
 
   font-size: 13px;
 
-  box-shadow: 0 2px 2px rgba(0, 0, 0, .2);
-  border-radius: 1px;
+  outline: 3px solid white;
+  border: 3px solid @borderColor;
 
-  display: none;
+  -webkit-transform: translateY(-500px);
+  -moz-transform: translateY(-500px);
+  transform: translateY(-500px);
+
+  -webkit-transition: -webkit-transform 100ms;
+  -moz-transition: -moz-transform 100ms;
+  transition: transform 100ms;
+
+  pointer-events: none;
 
   padding: 2px 0;
 
   &.visible {
-    display: block;
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    transform: translateY(0);
+
+    pointer-events: auto;
   }
 
   & > a {
@@ -1480,13 +1478,19 @@ body.no-connection-message-visible #status-message {
       background: rgb(220, 220, 220);
     }
   }
+
+  textarea,
+  input {
+    background: @formElementBackground;
+    border: 1px solid @formElementBorder;
+  }
 }
 
 #feedback-menu {
-  right: 15px;
+  right: 53px;
 }
 #share-menu {
-  right: 105px;
+  right: 145px;
   min-width: 350px;
 }
 
@@ -1641,20 +1645,14 @@ body.no-connection-message-visible #status-message {
   left: 150px;
   right: 150px;
   top: @streetNameTop;
-  z-index: 100000;
+  z-index: 1000000;
   text-align: center;
 
-  /*&::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    margin-left: -@streetNameConnectorWidth / 2;
-    width: @streetNameConnectorWidth;
-    top: -@streetNameTop;
-    height: @streetNameTop;
-    background: rgb(200, 200, 200);
-    box-shadow: inset 0 -2px 2px rgba(0, 0, 0, .2);
-  };*/
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  transform: translateZ(0);
+
+  pointer-events: none;
 }
 
 .street-name-mixin (@size: @streetNameSize) {
@@ -1663,7 +1661,7 @@ body.no-connection-message-visible #status-message {
 
 .street-name-inside-mixin (@size: @streetNameSize) {
   border-radius: 10px * @size;
-  border: 3px * @size solid black;
+  border: 3px * @size solid @streetNameText;
   padding: 10px * @size 30px * @size;
   padding-top: 11px * @size;
   padding-bottom: 5px * @size;
@@ -1680,8 +1678,9 @@ body.no-connection-message-visible #status-message {
 
 .street-name {
   display: inline-block;
-  background: white;
-  color: black;
+  
+  background: @streetNameBackground;
+  color: @streetNameText;
 
   .street-name-mixin;
 
@@ -1725,8 +1724,11 @@ body.no-connection-message-visible #status-message {
 }
 
 #street-name {
+  pointer-events: auto;
+
   &:hover {
     color: rgb(220, 220, 220);
+    background: white;
 
     & > div {
       border-color: rgb(220, 220, 220);
@@ -1736,7 +1738,6 @@ body.no-connection-message-visible #status-message {
       color: black;
       // TODO message
       content: 'Click to rename';
-      text-shadow: none;
 
       left: 50%;
       top: 24px * @streetNameSize;
@@ -1751,35 +1752,60 @@ body.no-connection-message-visible #status-message {
   }
 }
 
-#street-attribution {
+#street-metadata {
   margin-top: 7px;
 
   color: black;
   font-size: 13px;
 
+  pointer-events: auto;
+
   a {
     color: inherit;
   }
-
-  &:not(.visible) {
-    display: none;
-  }
 }
+#street-width-read {
+  cursor: pointer;
+  text-decoration: underline;
+}
+body.edit-street-width #street-width-read {
+  display: none;
+}
+#street-width {
+  width: 150px;
+}
+body:not(.edit-street-width) #street-width {
+  display: none;
+}
+
 
 #new-street-menu {
   position: absolute;
-  top: 130px;
-  height: 20px;
+  top: 40%;
   left: 0;
   right: 0;
   z-index: 999999;
-
   text-align: center;
-  font-size: 13px;
 
-  color: rgb(64, 64, 64);
+  -webkit-user-select: none;
+  user-select: none;  
 
+  > div {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    border: 3px solid @borderColor;
+    outline: 3px solid white;
+    background: white;
+    padding: 10px 15px;
+    padding-right: 0;
+    text-align: center;
+    font-size: 16px;
+
+    color: rgb(64, 64, 64);
+  }
   ul {
+    display: inline-block;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -1810,13 +1836,12 @@ body.no-connection-message-visible #status-message {
   label {
     cursor: pointer;
 
-    font-size: 13px;
     &:hover {
       color: black;
     }
   }
   input[type='radio']:checked + label {
-    color: rgb(0, 100, 200);
+    color: black;
     font-weight: bold;    
   }
   input[type='radio']:not(:checked) + label {
@@ -1834,14 +1859,15 @@ body.no-connection-message-visible #status-message {
   width: 20px;
   height: 20px;
   border: 1px solid @lightTextColour;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, .5);
+  outline: 1px solid black;
 }
 
-#menu .avatar,
-#street-attribution .avatar {
+#top-menu-bar .avatar,
+#street-metadata .avatar {
   margin-right: 6px;
   vertical-align: middle;  
   margin-top: -1px;
+  margin-left: 3px;
 }
 
 // TODO move
@@ -1855,44 +1881,39 @@ body.no-connection-message-visible #status-message {
   min-width: 250px;
   background: @infoBubbleBackground;
 
-  //outline: 2px solid white;
-  //outline-offset: 2px;
+  border: 3px solid @borderColor;
+  outline: 3px solid white;
 
-  opacity: 0;
   pointer-events: none;
 
-  //border-radius: 20px;
-  //border-corner-shape: bevel;
+  opacity: 0;
 
-  //box-shadow: 0 2px 2px rgba(0, 0, 0, .25);
-
-  margin-top: -6px;
-
-  -webkit-transition: /*-webkit-transform 50ms,*/ opacity 150ms, margin-top 150ms, height 150ms;
-  -moz-transition: /*-moz-transform 50ms,*/ opacity 150ms, margin-top 150ms, height 150ms;
-  transition: /*transform 50ms,*/ opacity 150ms, margin-top 150ms, height 150ms;
+  -webkit-transition: /*-webkit-transform 50ms,*/ margin-top 150ms, height 150ms;
+  -moz-transition: /*-moz-transform 50ms,*/ margin-top 150ms, height 150ms;
+  transition: /*transform 50ms,*/ margin-top 150ms, height 150ms;
 
   &.no-horizontal-move {
-    -webkit-transition: opacity 150ms, margin-top 150ms, height 150ms;
-    -moz-transition: opacity 150ms, margin-top 150ms, height 150ms;
-    transition: opacity 150ms, margin-top 150ms, height 150ms;
+    -webkit-transition: margin-top 150ms, height 150ms;
+    -moz-transition: margin-top 150ms, height 150ms;
+    transition: margin-top 150ms, height 150ms;
   }
 
   &.visible {
     opacity: 1;
-    margin-top: 0;
     pointer-events: auto;
   }
 
-  &::before {
+  /*&::before {
     content: '';
     position: absolute;
     z-index: -1;
     width: 20px;
     height: 20px;
     left: 50%;
-    bottom: 0;
+    bottom: -10px;
     background: @infoBubbleBackground;
+    border: 3px solid @borderColor;
+    outline: 3px solid white;
 
     -webkit-transform-origin: 0 0;
     -moz-transform-origin: 0 0;
@@ -1901,19 +1922,20 @@ body.no-connection-message-visible #status-message {
     -webkit-transform: rotateZ(45deg);
     -moz-transform: rotateZ(45deg);
     transform: rotateZ(45deg);
-  }
+  }*/
 
   header {
     padding: 5px 10px;
     height: @infoBubbleButtonSize;
     line-height: @infoBubbleButtonSize;
 
-    font-size: 13px;
-    font-weight: bold;
+    font-size: 16px;
+    font-weight: 400;
+    //font-weight: bold;
 
     position: relative;    
 
-    background: rgb(240, 240, 240);
+    //background: rgb(240, 240, 240);
   }
 
   button canvas {
@@ -1946,10 +1968,6 @@ body.no-connection-message-visible #status-message {
       margin-bottom: 0;
       white-space: nowrap;
 
-      //opacity: .75;
-
-      //box-shadow: inset 0 0 1px black;
-
       border: none;
 
       position: relative;
@@ -1969,14 +1987,10 @@ body.no-connection-message-visible #status-message {
       }
 
       &[disabled] {
-        //outline: 2px solid black;
-        background: rgb(160, 160, 160);
+        background: @skyColour;
         border: none;
         color: black;
         opacity: 1;
-
-        //box-shadow: none;
-        //outline: 1px solid red;
 
         canvas {
           opacity: 1;
@@ -2042,10 +2056,11 @@ body.no-connection-message-visible #status-message {
       width: 50px;
       margin: 0 3px;
 
-      background: rgb(245, 245, 245);
+      background: @formElementBackground;
+      border: 1px solid @formElementBorder;
       text-align: center;
 
-      font-family: Arial;
+      font-family: @fontFamily;
       font-size: 13px;
       vertical-align: bottom;
       line-height: 25px;
@@ -2060,7 +2075,7 @@ body.no-connection-message-visible #status-message {
 
       text-align: center;
 
-      font-family: Arial;
+      font-family: @fontFamily;
       font-size: 13px;
       vertical-align: bottom;
       line-height: 25px;
@@ -2208,5 +2223,23 @@ footer button.scroll-right {
     position: absolute;
     left: 0;
     top: 0;
+  }
+}
+
+button.close {
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  background: transparent;
+  margin-left: 10px;
+  margin-right: 10px;
+
+  font-size: 14px;
+
+  cursor: pointer;
+  color: rgb(64, 32, 32);
+
+  &:hover {
+    color: black;
   }
 }

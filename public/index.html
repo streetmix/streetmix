@@ -69,9 +69,59 @@
     </ul>
   </div>
 
-  <div id='main-screen'>
-    <div id='gallery-shield'></div>
+  <nav id='top-menu-bar'>
+  <ul>
+    <li id='identity'>
+    <li>
+      <span id='sign-in-link'></span>
+    <li id='gallery-link'>
+      <a href=''>My streets</a>
+    <li>
+      <a target='_blank' href='/new'>New street</a>
+    <li>
+      <button id='share-menu-button'>Share</button>
+    <li>
+      <button id='feedback-menu-button'>Feedback</button>
+  </ul>
+</nav>
 
+<div id='identity-menu' class='menu'>
+  <a id='sign-out-link' href='#'>Sign out</a>
+</div>
+
+<div id='feedback-menu' class='menu'>
+  <div id='feedback-form'>
+    <div class='loading'>Loading…</div>
+    <div class='thank-you'>We got it. Thanks!</div>
+    Send us a message:
+    <textarea id='feedback-form-message' placeholder='What do you think of Streetmix?'></textarea>
+    <input id='feedback-form-email' type='email' placeholder='Your email (optional)'>
+    <button id='feedback-form-send'>Send message</button>
+    <p>
+      or…
+    </p>
+  </div>
+  <a id='feedback-via-twitter' href='#' target='_blank'>Send a tweet to @streetmixapp</a>
+  <a href='mailto:streetmix@codeforamerica.org' target='_blank'>Send an email to Streetmix team</a>
+  <a target='_blank' href='https://github.com/codeforamerica/streetmix'>View/comment on GitHub</a>
+</div>
+
+<div id='share-menu' class='menu'>
+  <div id='sign-in-promo'>
+    <a href='/twitter-sign-in?redirectUri=/just-signed-in'>Sign in with Twitter</a> for nicer
+    links to your streets and your personal street gallery 
+  </div>
+  <div id='share-via-link-canvas'>
+    Copy and paste this link to share:
+    <input id='share-via-link' type='text' value=''>
+  </div>
+  <a id='share-via-twitter' href='#' target='_blank'>Share using Twitter</a>
+  <a id='share-via-facebook' href='#'>Share using Facebook</a>
+  <a id='save-as-image' href='#'>Save as image<span>For printing, including in a report, etc.</span></a>
+</div>
+
+
+  <div id='main-screen'>
     <div class='info-bubble'></div>
 
     <div id='error'>
@@ -102,67 +152,6 @@
       </div>
     </div>
 
-    <nav id='menu'>
-      <ul>
-        <li id='identity'>
-        <li>
-          <span id='sign-in-link'></span>
-        <li id='gallery-link'>
-          <a href=''>My streets</a>
-        <li>
-          <a target='_blank' href='/new'>New street</a>
-        <li>
-          <button id='share-menu-button'>Share</button>
-        <li>
-          <button id='feedback-menu-button'>Feedback</button>
-      </ul>
-    </nav>
-
-    <div id='identity-menu' class='menu'>
-      <a id='sign-out-link' href='#'>Sign out</a>
-    </div>
-
-    <div id='feedback-menu' class='menu'>
-      <div id='feedback-form'>
-        <div class='loading'>Loading…</div>
-        <div class='thank-you'>We got it. Thanks!</div>
-        Send us a message:
-        <textarea id='feedback-form-message' placeholder='What do you think of Streetmix?'></textarea>
-        <input id='feedback-form-email' type='email' placeholder='Your email (optional)'>
-        <button id='feedback-form-send'>Send message</button>
-        <p>
-          or…
-        </p>
-      </div>
-      <a id='feedback-via-twitter' href='#' target='_blank'>Send a tweet to @streetmixapp</a>
-      <a href='mailto:streetmix@codeforamerica.org' target='_blank'>Send an email to Streetmix team</a>
-      <a target='_blank' href='https://github.com/codeforamerica/streetmix'>View/comment on GitHub</a>
-    </div>
-
-    <div id='share-menu' class='menu'>
-      <div id='sign-in-promo'>
-        <a href='/twitter-sign-in?redirectUri=/just-signed-in'>Sign in with Twitter</a> for nicer
-        links to your streets and your personal street gallery 
-      </div>
-      <div id='share-via-link-canvas'>
-        Copy and paste this link to share:
-        <input id='share-via-link' type='text' value=''>
-      </div>
-      <a id='share-via-twitter' href='#' target='_blank'>Share using Twitter</a>
-      <a id='share-via-facebook' href='#'>Share using Facebook</a>
-      <a id='save-as-image' href='#'>Save as image<span>For printing, including in a report, etc.</span></a>
-    </div>
-
-    <header>
-      <div class='inside'>
-
-
-        <!--<div id='street-width-canvas'>
-           <select id='street-width'></select> 
-        </div>-->
-      </div>
-    </header>
-
     <div id='status-message'><div></div></div>
 
     <div id='no-connection-message'>
@@ -176,21 +165,32 @@
 
     <div id='street-name-canvas'>
       <div id='street-name' class='street-name'><div></div></div>
-      <div id='street-attribution'></div>
+      <div id='street-metadata'>
+        <span id='street-metadata-width'>
+          <span id='street-width-read'></span>
+          <select id='street-width'></select>
+        </span>
+        <span id='street-metadata-author'></span>
+        <span id='street-metadata-date'></span>
+      </div>
     </div>
 
     <div id='new-street-menu'>
-      <ul>
-        <li>
-          <input type='radio' name='new-street' id='new-street-default'><label for='new-street-default'>Start with an example street</label>
-        <li>
-          <input type='radio' name='new-street' id='new-street-empty'><label for='new-street-empty'>Start with an empty street</label>
-        <li>
-          <input type='radio' name='new-street' id='new-street-last'><label for='new-street-last'>Start with a copy of last street</label>
-      </ul>
+      <div>
+        <ul>
+          <li>
+            <input type='radio' name='new-street' id='new-street-default'><label for='new-street-default'>Start with an example street</label>
+          <li>
+            <input type='radio' name='new-street' id='new-street-empty'><label for='new-street-empty'>Start with an empty street</label>
+          <li>
+            <input type='radio' name='new-street' id='new-street-last'><label for='new-street-last'>Start with a copy of last street</label>
+        </ul>
+        <button class='close'>×</button>
+      </div>
     </div>
 
     <section id='street-section-outer'>
+      <div id='gallery-shield'></div>
       <section id='street-section-inner'>
         <section id='street-section-canvas'>
           <section id='street-section-left-building'><div class='hover-bk'></div></section>
@@ -218,10 +218,6 @@
           <div id='commands'>
             <button id='undo'></button>
             <button id='redo'></button>
-
-            <div class='street-width'>
-              Street width: <select id='street-width'></select>
-            </div>
           </div>
 
           <div id='palette'>
