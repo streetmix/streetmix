@@ -2033,16 +2033,19 @@ body:not(.edit-street-width) #street-width {
 
   header {
     padding: 5px 10px;
+    padding-top: 2px;
     height: @infoBubbleButtonSize;
     line-height: @infoBubbleButtonSize;
 
     font-size: 16px;
     font-weight: 700;
     //font-weight: bold;
+    color: white;
 
     position: relative;    
 
-    background: fadeout(@skyColour, 60%);
+    //background: fadeout(@skyColour, 60%);
+    background: darken(@borderColor, 20%);
   }
 
   button canvas {
@@ -2055,6 +2058,7 @@ body:not(.edit-street-width) #street-width {
 
   button.remove {
     padding: 0;
+    margin-top: -3px;
   }
 
   .variants {
