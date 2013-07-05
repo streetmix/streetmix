@@ -1396,7 +1396,7 @@ body.no-connection-message-visible #status-message {
   -webkit-user-select: none;
   user-select: none;  
 
-  border-bottom: 3px solid darken(@skyColour, 20%);
+  border-bottom: 3px solid darken(@borderColor, 20%);
 
   padding-top: 0;
   text-align: right;
@@ -1499,7 +1499,7 @@ body.no-connection-message-visible #status-message {
   z-index: 99999999;
   position: absolute;
   background: white;
-  top: 38px;
+  top: 35px;
 
   font-size: 13px;
 
@@ -1570,10 +1570,10 @@ body.no-connection-message-visible #status-message {
 }
 
 #feedback-menu {
-  right: 56px;
+  right: 50px;
 }
 #share-menu {
-  right: 142px;
+  right: 136px;
   min-width: 350px;
 }
 
@@ -2083,23 +2083,11 @@ body:not(.edit-street-width) #street-width {
 
       position: relative;
 
-      outline: none;
-
-      background: fadeout(@skyColour, 80%);
-
-      border-top: 1px solid @skyColour;
-      border-bottom: 1px solid @skyColour;
-
       canvas {
         opacity: .666;
       }
 
-      &:hover {
-        background: fadeout(@skyColour, 60%);
-      }
-
       &:active {
-        background: fadeout(@skyColour, 30%);
         canvas {
           margin-top: 1px;
           opacity: .9;
@@ -2361,5 +2349,29 @@ button.close {
 
   &:hover {
     color: black;
+  }
+}
+
+
+button {
+  outline: none;
+  background: fadeout(@skyColour, 80%);
+  border: none;
+  border-top: 1px solid @skyColour;
+  border-bottom: 1px solid @skyColour;
+
+  &:hover {
+    background: fadeout(@skyColour, 60%);
+  }
+
+  &:active {
+    background: fadeout(@skyColour, 30%);
+    font-weight: 700;
+  }
+
+  &[disabled] {
+    background: desaturate(fadeout(@skyColour, 80%), 100%);
+    border-top-color: desaturate(@skyColour, 100%);
+    border-bottom-color: desaturate(@skyColour, 100%);
   }
 }
