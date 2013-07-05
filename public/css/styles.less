@@ -1520,10 +1520,14 @@ body.no-connection-message-visible #status-message {
 
     border-top: 1px solid @borderColor;
 
+    &:hover {
+      background: fadeout(@borderColor, 50%);
+    }
+
     span {
       display: block;
       margin-top: 4px;
-      line-height: 6px;
+      line-height: 8px;
       color: rgb(128, 128, 128);
       font-size: 11px;
     }
@@ -1549,9 +1553,9 @@ body.no-connection-message-visible #status-message {
   padding-left: 30px;
   padding-right: 10px;
   margin-top: 5px;
-  margin-bottom: 10px;
+  //margin-bottom: 10px;
 
-  height: 305px;
+  height: 295px;
 
   //color: rgb(128, 128, 128);
   //font-size: 11px;
