@@ -606,6 +606,7 @@ var main = (function(){
       variants: ['divider-type'],
       details: {
         'median': {
+          name: 'Median',
           graphics: {
             repeat: [
               { x: 98, y: 43, width: 10, height: 6, offsetY: 9 }, // Median
@@ -614,6 +615,7 @@ var main = (function(){
           }          
         },
         'striped-buffer': {
+          name: 'Buffer',
           graphics: {
             repeat: [
               { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
@@ -624,6 +626,7 @@ var main = (function(){
           }          
         },
         'planting-strip': {
+          name: 'Planting strip',
           graphics: {
             repeat: [
               { x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
@@ -632,6 +635,7 @@ var main = (function(){
           }          
         },
         'bush': {
+          name: 'Planting strip',
           graphics: {
             center: { x: 122, y: 55, width: 2, height: 5, offsetY: 7 },
             repeat: [
@@ -641,6 +645,7 @@ var main = (function(){
           }          
         },
         'flowers': {
+          name: 'Planting strip',
           graphics: {
             center: { x: 122, y: 59, width: 2, height: 5, offsetY: 7 },
             repeat: [
@@ -650,6 +655,7 @@ var main = (function(){
           }          
         },
         'big-tree': {
+          name: 'Planting strip',
           graphics: {
             center: { x: 40, y: 56, width: 9, height: 21, offsetY: -10 }, // Big tree
             repeat: [
@@ -659,6 +665,7 @@ var main = (function(){
           }          
         },
         'palm-tree': {
+          name: 'Planting strip',
           graphics: {
             center: { x: 83, y: 24, offsetY: -19, width: 14, height: 30 },
             repeat: [
@@ -668,6 +675,7 @@ var main = (function(){
           }          
         },
         'bollard': {
+          name: 'Bollard',
           graphics: {
             center: { x: 123, y: 64, width: 1, height: 7, offsetY: 5 },
             repeat: [
@@ -898,6 +906,7 @@ var main = (function(){
           }          
         },
         'sideways|left': {
+          name: 'Parallel parking',
           minWidth: 14,
           maxWidth: 20,
           graphics: {
@@ -908,6 +917,7 @@ var main = (function(){
           }          
         },
         'sideways|right': {
+          name: 'Parallel parking',
           minWidth: 14,
           maxWidth: 20,
           graphics: {
@@ -2015,9 +2025,12 @@ var main = (function(){
     if (!palette) {
       el.style.zIndex = SEGMENT_INFO[type].zIndex;
 
+      var variantInfo = SEGMENT_INFO[type].details[variantString];
+      var name = variantInfo.name || SEGMENT_INFO[type].name;
+
       var innerEl = document.createElement('span');
       innerEl.classList.add('name');
-      innerEl.innerHTML = SEGMENT_INFO[type].name;
+      innerEl.innerHTML = name;
       el.appendChild(innerEl);
 
       var innerEl = document.createElement('span');
