@@ -65,7 +65,7 @@
 @formElementBackground: lighten(@skyColour, 20%);
 @formElementBorder: @borderColor;
 
-@import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700&.css);
+@import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700);
 
 @font-face {
   font-family: 'Roadgeek';
@@ -116,13 +116,9 @@ textarea {
   height: 100%;
   z-index: 100;
 
-  -webkit-perspective: 5000px;
-  -moz-perspective: 5000px;
-  perspective: 5000px;
-
-  /*-webkit-transform: translateY(0);
-  -moz-transform: translateY(0);
-  transform: translateY(0);*/
+  -webkit-perspective: 2000px;
+  -moz-perspective: 2000px;
+  perspective: 2000px;
 }
 
 body.environment-development,
@@ -684,6 +680,32 @@ footer {
 
   border-top: 3px solid darken(@bottomBackground, 5%);
   margin-top: -3px;
+
+  -webkit-transform: rotateZ(0);
+  -moz-transform: rotateZ(0);
+  transform: rotateZ(0);
+
+  -webkit-perspective: 2000px;
+  -moz-perspective: 2000px;
+  perspective: 2000px;
+
+  &::before {
+    content: '';
+    background: @headerFooterBackground;
+    left: 0;
+    top: 3px;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    pointer-events: none;
+
+    -webkit-transform: rotateX(5deg) translateY(-3px);
+    -moz-transform: rotateX(5deg) translateY(-3px);
+    transform: rotateX(5deg) translateY(-3px);
+    -webkit-transform-origin: 50% 0;
+    -moz-transform-origin: 50% 0;
+    transform-origin: 50% 0;
+  }
 }
 #palette {
   height: @paletteHeight + 20px; // To cover scroll bars
@@ -976,21 +998,165 @@ body.segment-resize-dragging * {
   color: lighten(@skyColour, 10%);
   z-index: 99999999999;
 
-  /*&.floating {
-    opacity: 1;
-    left: 0;
-    top: 0;
-    margin: 0;
-    width: 30px;
-    height: 120px;
-    pointer-events: none;
-    z-index: 500000;
+  pointer-events: none;
 
-    outline-color: white !important;
-    color: white !important;
-    background: red;
-  }  */
+  padding-left: 10px;
+  padding-right: 10px;
 
+  background: @infoBubbleBackground;
+
+  border-top: 3px solid darken(@skyColour, 20%);
+  border-bottom: 3px solid darken(@skyColour, 20%);  
+
+  cursor: col-resize;
+
+  &.left {
+    left: -5px;
+    text-align: left;
+    text-indent: -5px;
+
+    -webkit-transform-origin: 100% 50%;
+    -moz-transform-origin: 100% 50%;
+    transform-origin: 100% 50%;
+  }
+  &.right {
+    right: -5px;
+    text-align: right;
+    text-indent: -3px;
+
+    -webkit-transform-origin: 0 50%;
+    -moz-transform-origin: 0 50%;
+    transform-origin: 0 50%;
+  }
+}
+
+.segment[width="1"] .drag-handle {
+  &.left {
+    left: -5px - 24px;
+  }
+  &.right {
+    right: -5px - 24px;
+  }
+}
+.segment[width="1.25"] .drag-handle {
+  &.left {
+    left: -5px - 22.5px;
+  }
+  &.right {
+    right: -5px - 22.5px;
+  }
+}
+.segment[width="1.5"] .drag-handle {
+  &.left {
+    left: -5px - 21px;
+  }
+  &.right {
+    right: -5px - 21px;
+  }
+}
+.segment[width="1.75"] .drag-handle {
+  &.left {
+    left: -5px - 19.5px;
+  }
+  &.right {
+    right: -5px - 19.5px;
+  }
+}
+.segment[width="2"] .drag-handle {
+  &.left {
+    left: -5px - 18px;
+  }
+  &.right {
+    right: -5px - 18px;
+  }
+}
+.segment[width="2.25"] .drag-handle {
+  &.left {
+    left: -5px - 16.5px;
+  }
+  &.right {
+    right: -5px - 16.5px;
+  }
+}
+.segment[width="2.5"] .drag-handle {
+  &.left {
+    left: -5px - 15px;
+  }
+  &.right {
+    right: -5px - 15px;
+  }
+}
+.segment[width="2.75"] .drag-handle {
+  &.left {
+    left: -5px - 13.5px;
+  }
+  &.right {
+    right: -5px - 13.5px;
+  }
+}
+.segment[width="3"] .drag-handle {
+  &.left {
+    left: -5px - 12px;
+  }
+  &.right {
+    right: -5px - 12px;
+  }
+}
+.segment[width="3.25"] .drag-handle {
+  &.left {
+    left: -5px - 10.5px;
+  }
+  &.right {
+    right: -5px - 10.5px;
+  }
+}
+.segment[width="3.5"] .drag-handle {
+  &.left {
+    left: -5px - 9px;
+  }
+  &.right {
+    right: -5px - 9px;
+  }
+}
+.segment[width="3.75"] .drag-handle {
+  &.left {
+    left: -5px - 7.5px;
+  }
+  &.right {
+    right: -5px - 7.5px;
+  }
+}
+.segment[width="4"] .drag-handle {
+  &.left {
+    left: -5px - 6px;
+  }
+  &.right {
+    right: -5px - 6px;
+  }
+}
+.segment[width="4.25"] .drag-handle {
+  &.left {
+    left: -5px - 4.5px;
+  }
+  &.right {
+    right: -5px - 4.5px;
+  }
+}
+.segment[width="4.5"] .drag-handle {
+  &.left {
+    left: -5px - 3px;
+  }
+  &.right {
+    right: -5px - 3px;
+  }
+}
+.segment[width="4.75"] .drag-handle {
+  &.left {
+    left: -5px - 1.5px;
+  }
+  &.right {
+    right: -5px - 1.5px;
+  }
 }
 
 body.touch-support .segment.fade-out-end {
@@ -1001,53 +1167,50 @@ body.touch-support .segment.fade-out-end {
   z-index: 10000;
 
   pointer-events: none;
-  opacity: 0;
 
-  cursor: col-resize;
-
-  margin: -10px;
-  border: 10px solid transparent;
-  outline: 3px solid lighten(@skyColour, 10%);
+  -webkit-transition: -webkit-transform 150ms, opacity 150ms;
+  -moz-transition: -moz-transform 150ms, opacity 150ms;
+  transition: transform 150ms, opacity 150ms;
 
   &.left {
-    left: -5px;
-    text-align: left;
-    text-indent: -5px;
-
     -webkit-transform: rotateY(90deg);
-    -webkit-transform-origin: 100% 50%;
-    -webkit-transition: -webkit-transform 150ms;
+    -moz-transform: rotateY(90deg);
+    transform: rotateY(90deg);
   }
-  &.right {
-    right: -5px;
-    text-align: right;
-    text-indent: -3px;
-
+  &.right {    
     -webkit-transform: rotateY(-90deg);
-    -webkit-transform-origin: 0 50%;
-    -webkit-transition: -webkit-transform 150ms;
+    -moz-transform: rotateY(-90deg);
+    transform: rotateY(-90deg);
   }
+
+  opacity: 0;
+
+  &:hover {
+    color: @skyColour;
+  }  
 }
 .segment.mouse-pointer-inside-info-bubble .drag-handle {
   display: none;
 }
 
-.segment:not(.unmovable).hover .drag-handle,
-body.segment-resize-dragging .segment.floating:not(.unmovable) .drag-handle {
+.segment.immediate-show-drag-handles .drag-handle {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  transition: none !important;
+}
+
+body.segment-resize-dragging .drag-handle.floating {
+  background-color: darken(@skyColour, 20%);
+}
+
+body.segment-resize-dragging .drag-handle.floating,
+.segment.show-drag-handles .drag-handle {
   pointer-events: auto;
   opacity: 1;
 
-  &.left {
-    -webkit-transform: none;
-  }
-  &.right {
-    -webkit-transform: none;    
-  }
-
-  &:hover {
-    outline-color: white;
-    color: white;
-  }
+  -webkit-transform: none;
+  -moz-transform: none;
+  transform: none;
 }
 
 .segment .guide {
@@ -1072,8 +1235,6 @@ body.segment-resize-dragging .segment.floating:not(.unmovable) .drag-handle {
 
   pointer-events: none;
 
-  //border-top: 1px solid @segmentWidthRule;
-
   background-image: linear-gradient(0deg, @segmentWidthRule, @bottomBackground 8.333%);
   background-image: -webkit-linear-gradient(0deg, @segmentWidthRule, @bottomBackground 8.333%);
   background-image: -moz-linear-gradient(0deg, @segmentWidthRule, @bottomBackground 8.333%);
@@ -1096,7 +1257,7 @@ body.segment-resize-dragging .segment.floating:not(.unmovable) .drag-handle {
 
   font-size: 12px;
 
-  height: 45px;
+  height: 43px;
   overflow: hidden;
 
   pointer-events: none;
@@ -1959,6 +2120,7 @@ body:not(.edit-street-width) #street-width {
   background: @infoBubbleBackground;
 
   .box-border;
+  border-top-color: darken(@skyColour, 20%);
 
   pointer-events: none;
 
@@ -1968,13 +2130,13 @@ body:not(.edit-street-width) #street-width {
   -moz-transition: -moz-transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
   transition: transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
 
-  -webkit-transform: rotateX(80deg);
-  -moz-transform: rotateX(80deg);
-  transform: rotateX(80deg);
+  -webkit-transform: rotateX(-80deg);
+  -moz-transform: rotateX(-80deg);
+  transform: rotateX(-80deg);
 
-  -webkit-transform-origin: 50% 0;
-  -moz-transform-origin: 50% 0;
-  transform-origin: 50% 0;
+  -webkit-transform-origin: 50% 120%;
+  -moz-transform-origin: 50% 120%;
+  transform-origin: 50% 120%;
 
   .triangle {
     position: absolute;
@@ -2014,13 +2176,13 @@ body:not(.edit-street-width) #street-width {
   }
 
   header {
-    padding: 5px 10px;
+    padding: 5px 12px;
     padding-top: 2px;
     height: @infoBubbleButtonSize;
     line-height: @infoBubbleButtonSize;
 
     font-size: 16px;
-    line-height: 33px;
+    line-height: 31px;
     font-weight: 300;
     //font-weight: bold;
     color: white;

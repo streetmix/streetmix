@@ -3521,7 +3521,13 @@ var main = (function(){
     draggingResize.floatingEl.classList.add('drag-handle');
     draggingResize.floatingEl.classList.add('floating');
 
-    draggingResize.floatingEl.style.left = pos[0] + 'px';
+    if (el.classList.contains('left')) {
+      draggingResize.floatingEl.classList.add('left');
+    } else {
+      draggingResize.floatingEl.classList.add('right');      
+    }
+
+    draggingResize.floatingEl.style.left = (pos[0] - document.querySelector('#street-section-outer').scrollLeft) + 'px';
     draggingResize.floatingEl.style.top = pos[1] + 'px';
     document.body.appendChild(draggingResize.floatingEl);
 
@@ -3574,7 +3580,7 @@ var main = (function(){
     }
 
     _infoBubble.hide();
-    _infoBubble.hideSegment();
+    _infoBubble.hideSegment(true);
 
     el.segmentEl.classList.add('hover');
 
@@ -3594,7 +3600,7 @@ var main = (function(){
     }
 
     draggingResize.elX += deltaX;
-    draggingResize.floatingEl.style.left = draggingResize.elX + 'px';
+    draggingResize.floatingEl.style.left = (draggingResize.elX - document.querySelector('#street-section-outer').scrollLeft) + 'px';
 
     var width = draggingResize.originalWidth + deltaFromOriginal / TILE_SIZE * 2;
     var precise = event.shiftKey;
@@ -4559,6 +4565,7 @@ var main = (function(){
           _hideMenus();
         } else if (_infoBubble.visible) {
           _infoBubble.hide();
+          _infoBubble.hideSegment(false);
         } else if (document.body.classList.contains('gallery-visible')) {
           _hideGallery(false);
         } else if (signedIn) {
@@ -5822,7 +5829,7 @@ var main = (function(){
     suppress: function() {
       if (!_infoBubble.suppressed) {
         _infoBubble.hide();
-        _infoBubble.hideSegment();
+        _infoBubble.hideSegment(true);
         //_infoBubble.el.classList.add('suppressed');
         _infoBubble.suppressed = true;
       }
@@ -5984,9 +5991,19 @@ var main = (function(){
       _infoBubble.scheduleHoverPolygonUpdate();
     },
 
-    hideSegment: function() {
+    hideSegment: function(fast) {
       if (_infoBubble.segmentEl) {
         _infoBubble.segmentEl.classList.remove('hover');
+        var el = _infoBubble.segmentEl;
+        if (fast) {
+          el.classList.add('immediate-show-drag-handles'); 
+          window.setTimeout(function() {
+            el.classList.remove('immediate-show-drag-handles'); 
+          }, 0);
+        } else {
+          el.classList.remove('immediate-show-drag-handles');           
+        }
+        _infoBubble.segmentEl.classList.remove('show-drag-handles');
         _infoBubble.segmentEl = null;        
       }
     },
@@ -6080,6 +6097,8 @@ var main = (function(){
 
       _switchSegmentElIn(el);
       el.classList.add('hover');
+      el.classList.add('show-drag-handles');
+      el.classList.add('immediate-show-drag-handles');
       el.classList.add('mouse-pointer-inside-info-bubble');
       _infoBubble.segmentEl = el;
 
@@ -6421,7 +6440,7 @@ var main = (function(){
 
       if (!_infoBubble.considerType) {
         _infoBubble.hide();
-        _infoBubble.hideSegment();
+        _infoBubble.hideSegment(false);
         return;
       }
 
@@ -6431,7 +6450,7 @@ var main = (function(){
       if ((segmentEl == _infoBubble.segmentEl) && (type == _infoBubble.type) && !force) {
         return;
       }
-      _infoBubble.hideSegment();
+      _infoBubble.hideSegment(true);
 
       var mouseX = _infoBubble.considerMouseX;
       var mouseY = _infoBubble.considerMouseY;
@@ -6440,6 +6459,10 @@ var main = (function(){
       _infoBubble.type = type;
 
       segmentEl.classList.add('hover');
+      segmentEl.classList.add('show-drag-handles');
+      if (_infoBubble.visible) {
+        segmentEl.classList.add('immediate-show-drag-handles');
+      }
 
       _infoBubble.startMouseX = mouseX;
       _infoBubble.startMouseY = mouseY;
