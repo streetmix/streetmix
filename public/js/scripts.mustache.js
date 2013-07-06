@@ -2192,6 +2192,14 @@ var main = (function(){
           offsetTop + height - floorHeight * (floorCount) * multiplier - roofHeight * multiplier, 
           width * multiplier, roofHeight * multiplier);
     }
+
+    if (street.remainingWidth < 0) {
+      ctx.globalCompositeOperation = 'source-atop';
+      // TODO const
+      ctx.fillStyle = 'rgb(133, 183, 204)';
+      //ctx.globalAlpha = .;
+      ctx.fillRect(0, 0, totalWidth * system.hiDpi, totalHeight * system.hiDpi);
+    }
   }
 
   // TODO change to array
@@ -2228,7 +2236,7 @@ var main = (function(){
 
     var ctx = canvasEl.getContext('2d');
 
-    _drawBuilding(ctx, street, left, totalWidth, 0, false, 0, 0, 1.0);
+    _drawBuilding(ctx, street, left, totalWidth, height, false, 0, 0, 1.0);
   }
 
   function _changeBuildingHeight(left, increment) {
@@ -2452,10 +2460,16 @@ var main = (function(){
       position += street.segments[i].width;
     }
 
+    var lastOverflow = document.body.classList.contains('street-overflows');
+
     if (street.remainingWidth >= 0) {
       document.body.classList.remove('street-overflows');
     } else {
       document.body.classList.add('street-overflows');
+    }
+
+    if (lastOverflow != document.body.classList.contains('street-overflows')) {
+      _createBuildings();
     }
 
     _repositionEmptySegments();
@@ -2548,9 +2562,12 @@ var main = (function(){
       street = _clone(undoStack[undoPosition]);
       _setUpdateTimeToNow();
 
+      _infoBubble.hide();
+      _infoBubble.hideSegment();
+      _infoBubble.dontConsiderShowing();
+
       _updateEverything();
       _statusMessage.hide();
-      _infoBubble.hide();
     }
   }
 
@@ -6470,6 +6487,8 @@ var main = (function(){
       var pos = _getElAbsolutePos(segmentEl);
       var bubbleX = pos[0] - document.querySelector('#street-section-outer').scrollLeft;
       var bubbleY = pos[1];
+
+      console.log(segmentEl, bubbleY);
 
       _infoBubble.el = document.querySelector('#main-screen .info-bubble');
       _infoBubble.updateContents();
