@@ -3,15 +3,15 @@
   "version": "0.0.1",
   "private": false,
   "dependencies": {
-    "express": "3.0.6",
-    "compound": "1.1.7-1",
-    "config": "0.4.23",
-    "less-middleware": "0.1.9",
+    "express": "3.0.x",
+    "compound": "1.1.x",
+    "config": "0.4.x",
+    "less-middleware": "0.1.x",
     "mustache": "0.7.x",
-    "oauth": "0.9.10",
-    "request": "2.21.0",
-    "requireindex": "1.0.0",
-    "sprintf": "0.1.1"
+    "oauth": "0.9.x",
+    "request": "2.21.x",
+    "requireindex": "1.0.x",
+    "sprintf": "0.1.x"
   },
   "devDependencies": {
     "supervisor": "0.5.x"
