@@ -6440,6 +6440,17 @@ var main = (function(){
 
       infoBubbleEl.appendChild(el);
 
+/*      var el = document.createElement('div');
+      el.classList.add('description-prompt');
+      el.innerHTML = 'Learn about this segment';
+      el.addEventListener('click', _infoBubble.showDescription);
+      infoBubbleEl.appendChild(el);
+
+      var el = document.createElement('div');
+      el.classList.add('description-canvas');
+      el.innerHTML = '<div class="description"><img src="/images/info-bubble-examples/bike-lane.jpg">Lorem<br>ipsum<br>test</div><div class="triangle"></div>';
+      infoBubbleEl.appendChild(el);*/
+
       window.setTimeout(function() {
         if (_infoBubble.type == INFO_BUBBLE_TYPE_SEGMENT) {
           _infoBubble.updateWidthInContents(segment.el, segment.width);
@@ -6447,6 +6458,10 @@ var main = (function(){
         }
       }, 0);
 
+    },
+
+    showDescription: function() {
+      _infoBubble.el.classList.add('show-description');
     },
 
     // TODO rename

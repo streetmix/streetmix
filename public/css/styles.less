@@ -2128,6 +2128,10 @@ body:not(.edit-street-width) #street-width {
   -moz-transform-origin: 50% 120%;
   transform-origin: 50% 120%;
 
+  -webkit-perspective: 1200px;
+  -moz-perspective: 1200px;
+  perspective: 1200px;
+
   .triangle {
     position: absolute;
     bottom: -30px;
@@ -2141,7 +2145,7 @@ body:not(.edit-street-width) #street-width {
       position: absolute;
       width: 30px;
       height: 30px;
-      z-index: 10000000;
+      //z-index: 10000000;
       pointer-events: none;
 
       border: 3px solid darken(@borderColor, 20%);
@@ -2251,6 +2255,46 @@ body:not(.edit-street-width) #street-width {
     }
   }
 
+  .description-prompt {
+    border-top: 1px solid @borderColor;
+    text-rendering: optimizeLegibility;
+
+    white-space: normal;
+    text-align: center;
+
+    margin-top: 1px;
+    padding: 5px 5px;
+    padding-top: 3px;
+    font-size: 13px;
+
+    color: darken(@borderColor, 20%);
+    cursor: pointer;
+
+    &:hover {
+      color: darken(@borderColor, 40%);
+      background: fadeout(@borderColor, 50%);
+    }
+  }
+
+  .description-canvas {
+    position: absolute;
+    left: 0;
+    top: 0; //38px
+    right: 0;
+    bottom: 0;
+
+    opacity: 0;
+    pointer-events: none;
+
+    -webkit-transform-origin: 50% 0;
+    -webkit-transform: rotateX(90deg) translateY(100px);
+    -webkit-transition: opacity 250ms, -webkit-transform 250ms;
+
+    height: 0;
+
+    background: @infoBubbleBackground;
+  }
+
   .warnings {
     margin-top: 1px;
     font-size: 13px;
@@ -2336,6 +2380,58 @@ body:not(.edit-street-width) #street-width {
       position: absolute;
       right: 8px;
       top: 5px;
+    }
+  }
+}
+
+.info-bubble.show-description {
+  /*.variants {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .width-canvas {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .warnings {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .description-prompt {
+    opacity: 0;
+    pointer-events: none;
+  }*/
+  .description-canvas {
+    -webkit-transform: none;
+
+    opacity: 1;
+    height: 400px;
+
+    .triangle {
+      z-index: 9999;
+    }
+  }
+  .description {
+    font-size: 13px;
+    padding: 4px 8px;  
+
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: -3px;
+    border-bottom: 3px solid darken(@borderColor, 20%);
+
+    pointer-events: auto;
+    
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    img {
+      width: 300px;
+      margin: 0 auto;
+      display: block;
+      max-width: 100%;
     }
   }
 }
