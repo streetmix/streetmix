@@ -287,7 +287,9 @@ var main = (function(){
   var KEY_Y = 89;
   var KEY_Z = 90;
   var KEY_EQUAL = 187; // = or +
+  var KEY_EQUAL_ALT = 61; // Firefox
   var KEY_MINUS = 189;
+  var KEY_MINUS_ALT = 173; // Firefox
 
   var PRETTIFY_WIDTH_OUTPUT_MARKUP = 1;
   var PRETTIFY_WIDTH_OUTPUT_NO_MARKUP = 2;
@@ -1560,7 +1562,6 @@ var main = (function(){
     var segmentInfo = SEGMENT_INFO[type];
     var variantInfo = SEGMENT_INFO[type].details[variantString];
 
-    //console.log('dSC', type, variantString);
     var dimensions = _getVariantInfoDimensions(variantInfo, segmentWidth, multiplier);
     var left = dimensions.left;
     var right = dimensions.right;
@@ -1661,7 +1662,6 @@ var main = (function(){
     var variantInfo = SEGMENT_INFO[type].details[variantString];
 
     var multiplier = palette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1;
-    //console.log('dsC', type, variantString);
     var dimensions = _getVariantInfoDimensions(variantInfo, segmentWidth, multiplier);
 
     var totalWidth = dimensions.right - dimensions.left;
@@ -4035,7 +4035,6 @@ var main = (function(){
 
     var el = document.elementFromPoint(draggingMove.mouseX, draggingMove.mouseY);
     while (el && (el.id != 'street-section-editable')) {
-      console.log(el);
       el = el.parentNode;
     }
     var withinCanvas = !!el;
@@ -4495,6 +4494,9 @@ var main = (function(){
   } 
 
   function _getHoveredSegmentEl() {
+    var el = document.querySelector('.segment.hover');
+    return el;
+/*
     var el = document.elementFromPoint(mouseX, mouseY);
     while (el && el.classList && !el.classList.contains('segment')) {
       el = el.parentNode;
@@ -4504,7 +4506,7 @@ var main = (function(){
       return el;
     } else {
       return null;
-    }
+    }*/
   }
 
   function _showDebugInfo() {
@@ -4537,9 +4539,12 @@ var main = (function(){
   function _onBodyKeyDown(event) {
     switch (event.keyCode) {
       case KEY_EQUAL:
+      case KEY_EQUAL_ALT:
         if (event.metaKey || event.ctrlKey || event.altKey) {
           return;
         }
+
+        console.log(document.activeElement);
 
         if (document.activeElement == document.body) {
           var segmentHoveredEl = _getHoveredSegmentEl();
@@ -4550,6 +4555,7 @@ var main = (function(){
         }
         break;
       case KEY_MINUS:
+      case KEY_MINUS_ALT:
         if (event.metaKey || event.ctrlKey || event.altKey) {
           return;
         }
@@ -6488,7 +6494,7 @@ var main = (function(){
       var bubbleX = pos[0] - document.querySelector('#street-section-outer').scrollLeft;
       var bubbleY = pos[1];
 
-      console.log(segmentEl, bubbleY);
+      //console.log(segmentEl, bubbleY);
 
       _infoBubble.el = document.querySelector('#main-screen .info-bubble');
       _infoBubble.updateContents();
