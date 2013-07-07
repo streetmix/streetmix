@@ -1179,8 +1179,9 @@ body.touch-support .segment.fade-out-end {
     color: @skyColour;
   }  
 }
-.segment.mouse-pointer-inside-info-bubble .drag-handle {
-  display: none;
+.segment.hide-drag-handles-when-inside-info-bubble .drag-handle,
+.segment.hide-drag-handles-when-description-shown .drag-handle {
+  display: none !important;
 }
 
 .segment.immediate-show-drag-handles .drag-handle {
@@ -2124,10 +2125,6 @@ body:not(.edit-street-width) #street-width {
   -moz-transform: rotateX(-80deg);
   transform: rotateX(-80deg);
 
-  -webkit-transform-origin: 50% 120%;
-  -moz-transform-origin: 50% 120%;
-  transform-origin: 50% 120%;
-
   -webkit-perspective: 1200px;
   -moz-perspective: 1200px;
   perspective: 1200px;
@@ -2145,7 +2142,6 @@ body:not(.edit-street-width) #street-width {
       position: absolute;
       width: 30px;
       height: 30px;
-      //z-index: 10000000;
       pointer-events: none;
 
       border: 3px solid darken(@borderColor, 20%);
@@ -2178,12 +2174,10 @@ body:not(.edit-street-width) #street-width {
     font-size: 16px;
     line-height: 31px;
     font-weight: 300;
-    //font-weight: bold;
     color: white;
 
     position: relative;    
 
-    //background: fadeout(@skyColour, 60%);
     background: darken(@borderColor, 20%);
   }
 
@@ -2255,7 +2249,8 @@ body:not(.edit-street-width) #street-width {
     }
   }
 
-  .description-prompt {
+  .description-prompt,
+  .description-close {
     border-top: 1px solid @borderColor;
     text-rendering: optimizeLegibility;
 
@@ -2272,27 +2267,72 @@ body:not(.edit-street-width) #street-width {
 
     &:hover {
       color: darken(@borderColor, 40%);
-      background: fadeout(@borderColor, 50%);
+      background: mix(@borderColor, white, 50%);
     }
+  }
+
+  .description-close {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    pointer-events: none;
   }
 
   .description-canvas {
     position: absolute;
     left: 0;
-    top: 0; //38px
+    top: 38px;
     right: 0;
     bottom: 0;
 
     opacity: 0;
     pointer-events: none;
 
-    -webkit-transform-origin: 50% 0;
-    -webkit-transform: rotateX(90deg) translateY(100px);
-    -webkit-transition: opacity 250ms, -webkit-transform 250ms;
+    border-bottom: 3px solid darken(@borderColor, 20%);
 
-    height: 0;
+    -webkit-transform-origin: 50% 0;
+    -moz-transform-origin: 50% 0;
+    transform-origin: 50% 0;
+
+    -webkit-transform: rotateX(20deg) translateY(100px);
+    -moz-transform: rotateX(20deg) translateY(100px);
+    transform: rotateX(20deg) translateY(100px);
+
+    -webkit-transition: opacity 250ms, -webkit-transform 250ms;
+    -moz-transition: opacity 250ms, -moz-transform 250ms;
+    transition: opacity 250ms, transform 250ms;
 
     background: @infoBubbleBackground;
+  }
+
+  .description {
+    font-size: 13px;
+    padding: 4px 8px;  
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 25px;
+
+    img {
+      width: 300px;
+      margin: 0 auto;
+      display: block;
+      max-width: 100%;
+    }    
+    a {
+      color: darken(@skyColour, 20%);
+
+      &:hover {
+        color: darken(@skyColour, 40%);
+      }
+    }
   }
 
   .warnings {
@@ -2384,55 +2424,35 @@ body:not(.edit-street-width) #street-width {
   }
 }
 
+.info-bubble.highlight-triangle .triangle::before {
+  background: mix(@borderColor, white, 50%);
+}
+
 .info-bubble.show-description {
-  /*.variants {
-    opacity: 0;
+  .variants {
     pointer-events: none;
   }
   .width-canvas {
-    opacity: 0;
     pointer-events: none;
   }
   .warnings {
-    opacity: 0;
     pointer-events: none;
   }
   .description-prompt {
-    opacity: 0;
     pointer-events: none;
-  }*/
+  }
+  .description-close {
+    pointer-events: auto;
+  }
   .description-canvas {
     -webkit-transform: none;
+    -moz-transform: none;
+    transform: none;
 
     opacity: 1;
-    height: 400px;
-
-    .triangle {
-      z-index: 9999;
-    }
   }
   .description {
-    font-size: 13px;
-    padding: 4px 8px;  
-
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: -3px;
-    border-bottom: 3px solid darken(@borderColor, 20%);
-
     pointer-events: auto;
-    
-    overflow-y: auto;
-    overflow-x: hidden;
-
-    img {
-      width: 300px;
-      margin: 0 auto;
-      display: block;
-      max-width: 100%;
-    }
   }
 }
 

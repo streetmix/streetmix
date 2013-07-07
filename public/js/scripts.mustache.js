@@ -584,6 +584,8 @@ var main = (function(){
       owner: SEGMENT_OWNER_NATURE,
       defaultWidth: 8,
       variants: ['orientation'],
+      descriptionPrompt: 'Learn more about parklets',
+      description: '<img src="/images/info-bubble-examples/bike-lane.jpg">Lorem<br>ipsum<br>Lorem<br>ipsum<br>Lorem<br>ipsum<br>Lorem<br>ipsum<br>Lorem<br>ipsum<br>Lorem<br>ipsum<br>Lorem<br>ipsum<br>Lorem<br>ipsum<br>Lorem<br>ipsum<br>Lorem<br>ipsum<br>Lorem<br>ipsum<br>Lorem<br>ipsum<br>Lorem<br>ipsum<br>Lorem<br>ipsum<br>test<p><a href="http://en.wikipedia.org/wiki/Parklet">Parklets on Wikipedia</a>',
       details: {
         'left': {
           minWidth: 8,
@@ -1317,6 +1319,8 @@ var main = (function(){
     forceLeftHandTraffic: false,
     forceMetric: false,
   };
+
+  var streetSectionTop;
 
   var segmentWidthResolution;
   var segmentWidthClickIncrement;
@@ -4235,28 +4239,31 @@ var main = (function(){
     var paletteTop = document.querySelector('footer').offsetTop;
 
     // TODO const
-    var pos = (system.viewportHeight - streetSectionHeight) / 2 + 30 + 180; // gallery height
+    streetSectionTop = (system.viewportHeight - streetSectionHeight) / 2 + 30 + 180; // gallery height
 
     // TODO const
-    if (pos + document.querySelector('#street-section-inner').offsetHeight > 
+    if (streetSectionTop + document.querySelector('#street-section-inner').offsetHeight > 
       paletteTop - 20 + 180) { // gallery height
-      pos = paletteTop - 20 - streetSectionHeight + 180;
+      streetSectionTop = paletteTop - 20 - streetSectionHeight + 180;
     }
 
     _updateGalleryShield();
 
-    document.querySelector('#street-section-inner').style.top = pos + 'px';
+    document.querySelector('#street-section-inner').style.top = streetSectionTop + 'px';
 
-    document.querySelector('#street-section-sky').style.top = (pos * .8) + 'px';
+    document.querySelector('#street-section-sky').style.top = (streetSectionTop * .8) + 'px';
+
+    var streetSectionDirtPos = system.viewportHeight - streetSectionTop - 400 + 180;
 
     document.querySelector('#street-section-dirt').style.height = 
-        (system.viewportHeight - pos - 400 + 180) + 'px';
+        streetSectionDirtPos + 'px';
 
-    if (pos < 0) {
-      pos = 0;
+    var skyTop = streetSectionTop;
+    if (skyTop < 0) {
+      skyTop = 0;
     }
-    document.querySelector('#street-section-sky').style.paddingTop = pos + 'px';
-    document.querySelector('#street-section-sky').style.marginTop = -pos + 'px';
+    document.querySelector('#street-section-sky').style.paddingTop = skyTop + 'px';
+    document.querySelector('#street-section-sky').style.marginTop = -skyTop + 'px';
 
     streetSectionCanvasLeft = 
         ((system.viewportWidth - street.width * TILE_SIZE) / 2) - BUILDING_SPACE;
@@ -4586,6 +4593,8 @@ var main = (function(){
 
         if (menuVisible) {
           _hideMenus();
+        } else if (_infoBubble.visible && _infoBubble.descriptionVisible) {
+          _infoBubble.hideDescription();
         } else if (_infoBubble.visible) {
           _infoBubble.hide();
           _infoBubble.hideSegment(false);
@@ -5337,7 +5346,7 @@ var main = (function(){
         removeEl.classList.add('remove');
         removeEl.addEventListener('click', _onDeleteGalleryStreet);
         removeEl.innerHTML = '×';
-        removeEl.title = 'Delete the street';
+        removeEl.title = 'Delete street';
         anchorEl.appendChild(removeEl);
       }
 
@@ -5825,6 +5834,8 @@ var main = (function(){
     visible: false,
     el: null,
 
+    descriptionVisible: false,
+
     startMouseX: null,
     startMouseY: null,
     hoverPolygon: null,
@@ -5870,7 +5881,7 @@ var main = (function(){
 
     onMouseEnter: function() {
       if (_infoBubble.segmentEl) {
-        _infoBubble.segmentEl.classList.add('mouse-pointer-inside-info-bubble');
+        _infoBubble.segmentEl.classList.add('hide-drag-handles-when-inside-info-bubble');
       }
 
       _infoBubble.mouseInside = true;
@@ -5880,7 +5891,7 @@ var main = (function(){
 
     onMouseLeave: function() {
       if (_infoBubble.segmentEl) {
-        _infoBubble.segmentEl.classList.remove('mouse-pointer-inside-info-bubble');
+        _infoBubble.segmentEl.classList.remove('hide-drag-handles-when-inside-info-bubble');
       }
 
       _infoBubble.mouseInside = false;
@@ -5905,6 +5916,12 @@ var main = (function(){
       var bubbleWidth = _infoBubble.bubbleWidth;
       var bubbleHeight = _infoBubble.bubbleHeight;
 
+      if (_infoBubble.descriptionVisible) {
+        var marginBubble = 50;
+      } else {
+        var marginBubble = MARGIN_BUBBLE;
+      }
+
       if (_infoBubble.mouseInside) {
         var pos = _getElAbsolutePos(_infoBubble.segmentEl);
 
@@ -5916,15 +5933,15 @@ var main = (function(){
         var segmentY = pos[1] + _infoBubble.segmentEl.offsetHeight + MARGIN_BUBBLE;
 
         _infoBubble.hoverPolygon = [
-          [bubbleX - MARGIN_BUBBLE, bubbleY - MARGIN_BUBBLE],
-          [bubbleX - MARGIN_BUBBLE, bubbleY + bubbleHeight + MARGIN_BUBBLE],
-          [segmentX1, bubbleY + bubbleHeight + MARGIN_BUBBLE + 120],
+          [bubbleX - marginBubble, bubbleY - marginBubble],
+          [bubbleX - marginBubble, bubbleY + bubbleHeight + marginBubble],
+          [segmentX1, bubbleY + bubbleHeight + marginBubble + 120],
           [segmentX1, segmentY], 
           [segmentX2, segmentY],
-          [segmentX2, bubbleY + bubbleHeight + MARGIN_BUBBLE + 120],
-          [bubbleX + bubbleWidth + MARGIN_BUBBLE, bubbleY + bubbleHeight + MARGIN_BUBBLE],
-          [bubbleX + bubbleWidth + MARGIN_BUBBLE, bubbleY - MARGIN_BUBBLE],
-          [bubbleX - MARGIN_BUBBLE, bubbleY - MARGIN_BUBBLE]
+          [segmentX2, bubbleY + bubbleHeight + marginBubble + 120],
+          [bubbleX + bubbleWidth + marginBubble, bubbleY + bubbleHeight + marginBubble],
+          [bubbleX + bubbleWidth + marginBubble, bubbleY - marginBubble],
+          [bubbleX - marginBubble, bubbleY - marginBubble]
         ];
       } else {
         var bottomY = mouseY - MARGIN_MOUSE;
@@ -5944,15 +5961,15 @@ var main = (function(){
         }
 
         _infoBubble.hoverPolygon = [
-          [bubbleX - MARGIN_BUBBLE, bubbleY - MARGIN_BUBBLE],
-          [bubbleX - MARGIN_BUBBLE, bubbleY + bubbleHeight + MARGIN_BUBBLE],
+          [bubbleX - marginBubble, bubbleY - marginBubble],
+          [bubbleX - marginBubble, bubbleY + bubbleHeight + marginBubble],
           [mouseX - MARGIN_MOUSE - diffX, bottomY], 
           [mouseX - MARGIN_MOUSE, bottomY2], 
           [mouseX + MARGIN_MOUSE, bottomY2], 
           [mouseX + MARGIN_MOUSE + diffX, bottomY],
-          [bubbleX + bubbleWidth + MARGIN_BUBBLE, bubbleY + bubbleHeight + MARGIN_BUBBLE],
-          [bubbleX + bubbleWidth + MARGIN_BUBBLE, bubbleY - MARGIN_BUBBLE],
-          [bubbleX - MARGIN_BUBBLE, bubbleY - MARGIN_BUBBLE]
+          [bubbleX + bubbleWidth + marginBubble, bubbleY + bubbleHeight + marginBubble],
+          [bubbleX + bubbleWidth + marginBubble, bubbleY - marginBubble],
+          [bubbleX - marginBubble, bubbleY - marginBubble]
         ];
       }
 
@@ -6026,6 +6043,7 @@ var main = (function(){
         } else {
           el.classList.remove('immediate-show-drag-handles');           
         }
+        _infoBubble.segmentEl.classList.remove('hide-drag-handles-when-description-shown');
         _infoBubble.segmentEl.classList.remove('show-drag-handles');
         _infoBubble.segmentEl = null;        
       }
@@ -6033,6 +6051,14 @@ var main = (function(){
 
     hide: function() {
       _infoBubble.mouseInside = false;
+
+      if (_infoBubble.descriptionVisible) {
+        _infoBubble.descriptionVisible = false;
+        _infoBubble.el.classList.remove('show-description');
+        if (_infoBubble.segmentEl) {
+          _infoBubble.segmentEl.classList.remove('hide-drag-handles-when-description-shown');
+        }
+      }
 
       if (_infoBubble.el) {
         //_removeElFromDom(_infoBubble.el);
@@ -6134,6 +6160,24 @@ var main = (function(){
       _saveStreetToServerIfNecessary();
     },
 
+    getBubbleDimensions: function() {
+      _infoBubble.bubbleWidth = _infoBubble.el.offsetWidth;
+
+      if (_infoBubble.descriptionVisible) {
+        var el = _infoBubble.el.querySelector('.description-canvas');
+        var pos = _getElAbsolutePos(el);
+        _infoBubble.bubbleHeight = pos[1] + el.offsetHeight - 38;
+      } else {
+        _infoBubble.bubbleHeight = _infoBubble.el.offsetHeight;        
+      }
+
+      var height = _infoBubble.bubbleHeight + 30;
+
+      _infoBubble.el.style.webkitTransformOrigin = '50% ' + height + 'px';
+      _infoBubble.el.style.MozTransformOrigin = '50% ' + height + 'px';
+      _infoBubble.el.style.transformOrigin = '50% ' + height + 'px';
+    },
+
     updateWarningsInContents: function(segment) {
       if (!_infoBubble.visible || !_infoBubble.segmentEl || 
           (_infoBubble.segmentEl != segment.el)) {
@@ -6166,8 +6210,7 @@ var main = (function(){
         el.classList.remove('visible');
       }
 
-      _infoBubble.bubbleWidth = _infoBubble.el.offsetWidth;
-      _infoBubble.bubbleHeight = _infoBubble.el.offsetHeight;
+      _infoBubble.getBubbleDimensions();
     },
 
     updateWidthInContents: function(segmentEl, width) {
@@ -6274,6 +6317,7 @@ var main = (function(){
         innerEl.classList.add('decrement');
         innerEl.innerHTML = '–';
         innerEl.tabIndex = -1;
+        innerEl.title = 'Remove floor';
         if (system.touch) {
           innerEl.addEventListener('touchstart', func);
         } else {
@@ -6288,6 +6332,7 @@ var main = (function(){
         innerEl.classList.add('increment');
         innerEl.innerHTML = '+';
         innerEl.tabIndex = -1;
+        innerEl.title = 'Add floor';
         if (system.touch) {
           innerEl.addEventListener('touchstart', func);
         } else {
@@ -6312,6 +6357,7 @@ var main = (function(){
         innerEl.classList.add('decrement');
         innerEl.innerHTML = '–';
         innerEl.segmentEl = segment.el;
+        innerEl.title = 'Decrease width (hold Shift for more precision)';
         innerEl.tabIndex = -1;
         if (system.touch) {
           innerEl.addEventListener('touchstart', _onWidthDecrementClick);
@@ -6352,6 +6398,7 @@ var main = (function(){
         innerEl.innerHTML = '+';
         innerEl.segmentEl = segment.el;
         innerEl.tabIndex = -1;
+        innerEl.title = 'Increase width (hold Shift for more precision)';
         if (system.touch) {
           innerEl.addEventListener('touchstart', _onWidthIncrementClick);
         } else {
@@ -6440,16 +6487,42 @@ var main = (function(){
 
       infoBubbleEl.appendChild(el);
 
-/*      var el = document.createElement('div');
-      el.classList.add('description-prompt');
-      el.innerHTML = 'Learn about this segment';
-      el.addEventListener('click', _infoBubble.showDescription);
-      infoBubbleEl.appendChild(el);
+      if (segmentInfo.description) {
+        var el = document.createElement('div');
+        el.classList.add('description-prompt');
+        el.innerHTML = segmentInfo.descriptionPrompt;
+        el.addEventListener('click', _infoBubble.showDescription);
+        $(el).mouseenter(_infoBubble.highlightTriangle);
+        $(el).mouseleave(_infoBubble.unhighlightTriangle);
+        infoBubbleEl.appendChild(el);
 
-      var el = document.createElement('div');
-      el.classList.add('description-canvas');
-      el.innerHTML = '<div class="description"><img src="/images/info-bubble-examples/bike-lane.jpg">Lorem<br>ipsum<br>test</div><div class="triangle"></div>';
-      infoBubbleEl.appendChild(el);*/
+        var el = document.createElement('div');
+        el.classList.add('description-canvas');
+
+        var innerEl = document.createElement('div');
+        innerEl.classList.add('description');
+        innerEl.innerHTML = segmentInfo.description;
+        el.appendChild(innerEl);
+
+        var els = innerEl.querySelectorAll('a');
+        for (var i = 0, anchorEl; anchorEl = els[i]; i++) {
+          anchorEl.target = '_blank';
+        }
+
+        var innerEl = document.createElement('div');
+        innerEl.classList.add('description-close');
+        innerEl.innerHTML = 'Close';
+        innerEl.addEventListener('click', _infoBubble.hideDescription);
+        $(innerEl).mouseenter(_infoBubble.highlightTriangle);
+        $(innerEl).mouseleave(_infoBubble.unhighlightTriangle);
+        el.appendChild(innerEl);
+      }
+
+      var innerEl = document.createElement('div');
+      innerEl.classList.add('triangle');
+      el.appendChild(innerEl);
+
+      infoBubbleEl.appendChild(el);
 
       window.setTimeout(function() {
         if (_infoBubble.type == INFO_BUBBLE_TYPE_SEGMENT) {
@@ -6457,11 +6530,47 @@ var main = (function(){
           _infoBubble.updateWarningsInContents(segment);
         }
       }, 0);
+    },
 
+    highlightTriangle: function() {
+      _infoBubble.el.classList.add('highlight-triangle');
+    },
+
+    unhighlightTriangle: function() {
+      _infoBubble.el.classList.remove('highlight-triangle');
+    },
+
+    unhighlightTriangleDelayed: function() {
+      window.setTimeout(function() { _infoBubble.unhighlightTriangle(); }, 200);
     },
 
     showDescription: function() {
+      _infoBubble.descriptionVisible = true;
+
+      var el = _infoBubble.el.querySelector('.description-canvas');
+      el.style.height = (streetSectionTop + 100 - _infoBubble.bubbleY) + 'px';
+
       _infoBubble.el.classList.add('show-description');
+      if (_infoBubble.segmentEl) {
+        _infoBubble.segmentEl.classList.add('hide-drag-handles-when-description-shown');
+      }
+      _infoBubble.unhighlightTriangleDelayed();
+      window.setTimeout(function() {
+        _infoBubble.getBubbleDimensions();
+        _infoBubble.updateHoverPolygon();
+      }, 500);
+    },
+
+    hideDescription: function() {
+      _infoBubble.descriptionVisible = false;
+      _infoBubble.el.classList.remove('show-description');
+      if (_infoBubble.segmentEl) {
+        _infoBubble.segmentEl.classList.remove('hide-drag-handles-when-description-shown');
+      }
+
+      _infoBubble.getBubbleDimensions();
+      _infoBubble.unhighlightTriangleDelayed();
+      _infoBubble.updateHoverPolygon();
     },
 
     // TODO rename
@@ -6500,6 +6609,14 @@ var main = (function(){
       segmentEl.classList.add('show-drag-handles');
       if (_infoBubble.visible) {
         segmentEl.classList.add('immediate-show-drag-handles');
+
+        if (_infoBubble.descriptionVisible) {
+          _infoBubble.descriptionVisible = false;
+          _infoBubble.el.classList.remove('show-description');
+          if (_infoBubble.segmentEl) {
+            _infoBubble.segmentEl.classList.remove('hide-drag-handles-when-description-shown');
+          }
+        }
       }
 
       _infoBubble.startMouseX = mouseX;
