@@ -6487,7 +6487,7 @@ var main = (function(){
 
       infoBubbleEl.appendChild(el);
 
-      if (segmentInfo.description) {
+      if (segmentInfo && segmentInfo.description) {
         var el = document.createElement('div');
         el.classList.add('description-prompt');
         el.innerHTML = segmentInfo.descriptionPrompt;
