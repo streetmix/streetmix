@@ -6148,7 +6148,7 @@ var main = (function(){
       el.classList.add('hover');
       el.classList.add('show-drag-handles');
       el.classList.add('immediate-show-drag-handles');
-      el.classList.add('mouse-pointer-inside-info-bubble');
+      el.classList.add('hide-drag-handles-when-inside-info-bubble');
       _infoBubble.segmentEl = el;
 
       _infoBubble.updateContents();
