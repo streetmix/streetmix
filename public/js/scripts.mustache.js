@@ -1320,6 +1320,7 @@ var main = (function(){
     hoverPolygon: false,
     forceLeftHandTraffic: false,
     forceMetric: false,
+    forceUnsupportedBrowser: false,
   };
 
   var streetSectionTop;
@@ -3008,7 +3009,6 @@ var main = (function(){
       mode = MODE_FORCE_RELOAD_SIGN_OUT_401;
       _processMode();
     }
-    //alert(data.status);
   }
 
   function _clearScheduledSavingStreetToServer() {
@@ -4721,6 +4721,9 @@ var main = (function(){
     if (debug.forceMetric) {
       url += '&debug-force-metric';
     }
+    if (debug.forceUnsupportedBrowser) {
+      url += '&debug-force-unsupported-browser';
+    }
 
     window.history.replaceState(null, null, url);
 
@@ -5741,14 +5744,16 @@ var main = (function(){
       }
     }
 
-    // TODO temporary ban
-    if ((navigator.userAgent.indexOf('Opera') != -1) || 
-        (navigator.userAgent.indexOf('Internet Explorer') != -1) ||
-        (navigator.userAgent.indexOf('iPad') != -1) ||
-        (navigator.userAgent.indexOf('iPhone') != -1)) {
-      mode = MODE_UNSUPPORTED_BROWSER;
-      _processMode();
-    }    
+    if (!debug.forceUnsupportedBrowser) {
+      // TODO temporary ban
+      if ((navigator.userAgent.indexOf('Opera') != -1) || 
+          (navigator.userAgent.indexOf('Internet Explorer') != -1) ||
+          (navigator.userAgent.indexOf('iPad') != -1) ||
+          (navigator.userAgent.indexOf('iPhone') != -1)) {
+        mode = MODE_UNSUPPORTED_BROWSER;
+        _processMode();
+      }    
+    }
   }
 
   var _noConnectionMessage = {
@@ -7650,6 +7655,10 @@ var main = (function(){
     if (url.match(/[\?\&]debug-force-metric\&?/)) {
       debug.forceMetric = true;
     }
+
+    if (url.match(/[\?\&]debug-force-unsupported-browser\&?/)) {
+      debug.forceUnsupportedBrowser = true;
+    }    
   }
 
   function _processUrl() {
@@ -8096,8 +8105,8 @@ var main = (function(){
     bodyLoaded = false;
     window.addEventListener('load', _onBodyLoad);
 
-    _detectSystemCapabilities();
     _detectDebugUrl();
+    _detectSystemCapabilities();
 
     _processUrl();
     _processMode();
