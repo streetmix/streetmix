@@ -4121,8 +4121,9 @@ var main = (function(){
     var el = draggingResize.floatingEl;
     window.setTimeout(function() {
       _removeElFromDom(el);
-    }, 250);
+    }, 50);
   
+    draggingResize.segmentEl.classList.add('immediate-show-drag-handles'); 
     draggingResize.segmentEl.classList.remove('hover');
 
     _removeGuides(draggingResize.segmentEl);
