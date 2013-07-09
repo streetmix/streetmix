@@ -470,7 +470,7 @@ var main = (function(){
         },
         'palm-tree': {
           graphics: {
-            center: { tileset: 1, x: 83, y: 24, offsetX: 0, offsetY: -19, width: 14, height: 31 },
+            center: { tileset: 1, x: 83, y: 24, offsetX: 0, offsetY: -19, width: 14 /* 14 */, height: 31 },
             repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
           }
         }
@@ -671,10 +671,10 @@ var main = (function(){
         'palm-tree': {
           name: 'Planting strip',
           graphics: {
-            center: { tileset: 1, x: 83, y: 24, offsetY: -19, width: 14, height: 30 },
+            center: { tileset: 1, x: 83, y: 24, offsetX: 0, offsetY: -19, width: 14 /* 14 */, height: 31 },
             repeat: [
-              { tileset: 1, x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
-              { tileset: 1, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+              { tileset: 2, x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
+              { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
             ]
           }          
         },
