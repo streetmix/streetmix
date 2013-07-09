@@ -1230,6 +1230,8 @@ var main = (function(){
 
   var avatarCache = {};
 
+  var suppressMouseEnter = false;
+
   // ------------------------------------------------------------------------
 
   var mode;
@@ -2283,6 +2285,10 @@ var main = (function(){
   }  
 
   function _onSegmentMouseEnter(event) {
+    if (suppressMouseEnter) {
+      return;
+    }
+
     _infoBubble.considerShowing(event, this, INFO_BUBBLE_TYPE_SEGMENT);
   }
 
@@ -4119,12 +4125,12 @@ var main = (function(){
 
     // TODO const
     var el = draggingResize.floatingEl;
-    window.setTimeout(function() {
+    //window.setTimeout(function() {
       _removeElFromDom(el);
-    }, 50);
+    //}, 50);
   
     draggingResize.segmentEl.classList.add('immediate-show-drag-handles'); 
-    draggingResize.segmentEl.classList.remove('hover');
+    //draggingResize.segmentEl.classList.remove('hover');
 
     _removeGuides(draggingResize.segmentEl);
  
@@ -4134,6 +4140,12 @@ var main = (function(){
     _createTouchSegmentFadeout(draggingResize.segmentEl);
 
     _hideWidthChart();    
+
+    suppressMouseEnter = true;
+    _infoBubble.considerShowing(event, draggingResize.segmentEl, INFO_BUBBLE_TYPE_SEGMENT);
+    window.setTimeout(function() {
+      suppressMouseEnter = false;
+    }, 1000);
   }
 
   function _onBodyMouseUp(event) {
