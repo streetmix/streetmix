@@ -2575,13 +2575,25 @@ var main = (function(){
     } else if (!undo && !_isRedoAvailable()) {
       _statusMessage.show(msg('STATUS_NOTHING_TO_REDO'));
     } else {
+      console.log('length before', undoStack.length);
+      for (var i = 0; i < undoStack.length; i++) {
+        console.log(undoStack[i]);
+        console.log(undoStack[i].creatorId);
+      }
       if (undo) {
         undoStack[undoPosition] = _trimStreetData(street);
         undoPosition--;
       } else {
         undoPosition++;
       }
+      console.log('length after', undoStack.length);
+      for (var i = 0; i < undoStack.length; i++) {
+        console.log(undoStack[i]);
+        console.log(undoStack[i].creatorId);
+      }
+      console.log('ZZZ', undoStack.length, undoPosition);
       street = _clone(undoStack[undoPosition]);
+      console.log('street creator', street.creatorId);
       _setUpdateTimeToNow();
 
       _infoBubble.hide();
@@ -2623,6 +2635,7 @@ var main = (function(){
     undoPosition++;
 
     _trimUndoStack();
+    _unifyUndoStack();
   }
 
   function _createNewUndoIfNecessary(lastStreet, currentStreet) {
@@ -2793,7 +2806,7 @@ var main = (function(){
     undoPosition = transmission.data.undoPosition;
 
     var updatedSchema = _updateToLatestSchemaVersion(street);
-    for (var i in undoStack) {
+    for (var i = 0; i < undoStack.length; i++) {
       if (_updateToLatestSchemaVersion(undoStack[i])) {
         updatedSchema = true;
       }
@@ -3072,8 +3085,12 @@ var main = (function(){
     if (signedIn) {
       _setStreetCreatorId(signInData.userId);
     } else {
+      console.log('!!!');
+
       _setStreetCreatorId(null);
     }
+
+    console.log('STREET', street);
 
     street.originalStreetId = street.id;
 
@@ -3117,13 +3134,21 @@ var main = (function(){
   }
 
   function _unifyUndoStack() {
-    for (var i in undoStack) {
+    console.log('_unifyUndoStack…', street.creatorId);
+    for (var i = 0; i < undoStack.length; i++) {
       undoStack[i].id = street.id;
       undoStack[i].name = street.name;
       undoStack[i].namespacedId = street.namespacedId;
       undoStack[i].creatorId = street.creatorId;
       undoStack[i].updatedAt = street.updatedAt; 
+      //console.log(i, undoStack[i].creatorId);
     }
+
+    /*console.log('***');
+    for (var i = 0; i < undoStack.length; i++) {
+      console.log(undoStack[i]);
+      console.log(undoStack[i].creatorId);
+    }*/
   }
 
   function _setStreetId(newId, newNamespacedId) {
@@ -3136,6 +3161,7 @@ var main = (function(){
   }
 
   function _setStreetCreatorId(newId) {
+    console.log('setStreetCreatorId', newId);
     street.creatorId = newId;
 
     _unifyUndoStack();

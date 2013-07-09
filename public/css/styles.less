@@ -1472,6 +1472,11 @@ body.touch-support .segment.fade-out-end button {
   z-index: 2000000;
   pointer-events: none;
 
+  pointer-events: none;
+
+  -webkit-user-select: none;
+  user-select: none;  
+
   -webkit-transition: opacity 200ms, -webkit-transform 200ms;
   -moz-transition: opacity 200ms, -moz-transform 200ms;
   transition: opacity 200ms, transform 200ms;
@@ -1484,7 +1489,6 @@ body.touch-support .segment.fade-out-end button {
     -webkit-transform: translateY(0);
     -moz-transform: translateY(0);
     transform: translateY(0);
-    pointer-events: auto;
   }
 
   & > div {
@@ -1495,6 +1499,8 @@ body.touch-support .segment.fade-out-end button {
     display: inline-block;
     background: rgb(255, 230, 150);
     font-size: 14px;
+
+    pointer-events: auto;
   }
 
   button {
