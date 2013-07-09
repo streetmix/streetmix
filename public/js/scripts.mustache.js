@@ -5732,7 +5732,9 @@ var main = (function(){
 
     // TODO temporary ban
     if ((navigator.userAgent.indexOf('Opera') != -1) || 
-        (navigator.userAgent.indexOf('Internet Explorer') != -1)) {
+        (navigator.userAgent.indexOf('Internet Explorer') != -1) ||
+        (navigator.userAgent.indexOf('iPad') != -1) ||
+        (navigator.userAgent.indexOf('iPhone') != -1)) {
       mode = MODE_UNSUPPORTED_BROWSER;
       _processMode();
     }    
@@ -6589,6 +6591,7 @@ var main = (function(){
     // TODO rename
     show: function(force) {
       if (_infoBubble.suppressed) {
+        //_infoBubble.considerSegmentEl = null;
         //console.log('a');
         window.setTimeout(_infoBubble.show, 100);
         return;
@@ -6618,8 +6621,10 @@ var main = (function(){
       _infoBubble.segmentEl = segmentEl;
       _infoBubble.type = type;
 
-      segmentEl.classList.add('hover');
-      segmentEl.classList.add('show-drag-handles');
+      if (segmentEl) {
+        segmentEl.classList.add('hover');
+        segmentEl.classList.add('show-drag-handles');
+      }
       if (_infoBubble.visible) {
         segmentEl.classList.add('immediate-show-drag-handles');
 
@@ -7329,6 +7334,9 @@ var main = (function(){
 
     for (var i in IMAGES_TO_BE_LOADED) {
       var url = IMAGES_TO_BE_LOADED[i];
+
+      //console.log(url);
+
       images[url] = document.createElement('img');
       images[url].addEventListener('load', _onImageLoaded);
       images[url].src = url + '?v' + TILESET_IMAGE_VERSION;
@@ -7913,7 +7921,7 @@ var main = (function(){
         description = 'We’re sorry – something went wrong. Please try again later or let us know via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmixapp">Twitter</a>.<br><button class="home">Go to the homepage</button>';
         break;
       case ERROR_UNSUPPORTED_BROWSER:
-        title = 'Streetmix doesn’t work on your browser.';
+        title = 'Streetmix doesn’t work on your browser… yet.';
         // TODO const for feedback
         description = 'Sorry about that. You might want to try <a target="_blank" href="http://www.google.com/chrome">Chrome</a>, <a target="_blank" href="http://www.mozilla.org/firefox">Firefox</a>, or Safari. If you think your browser should be supported, let us know via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmixapp">Twitter</a>.';
         break;        
