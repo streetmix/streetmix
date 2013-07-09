@@ -1434,6 +1434,11 @@ var main = (function(){
     }
 
     if (imagesToBeLoaded == 0) {
+
+      // TODO move
+      var TILESET_CORRECTION = [null, 0, -84, -162];
+      sx += TILESET_CORRECTION[tileset] * 12;
+
       ctx.drawImage(images['/images/tiles-' + tileset + '.png'],
           sx * TILESET_POINT_PER_PIXEL, sy * TILESET_POINT_PER_PIXEL, 
           sw * TILESET_POINT_PER_PIXEL, sh * TILESET_POINT_PER_PIXEL,
