@@ -130,9 +130,7 @@ var main = (function(){
     // 11: unify median and planting strip into divider
     // 12: getting rid of small tree
     // 13: bike rack elevation
-  var TILESET_IMAGE_VERSION = 41;
-  var TILESET_WIDTH = 2622;
-  var TILESET_HEIGHT = 384;
+  var TILESET_IMAGE_VERSION = 42;
   var TILESET_POINT_PER_PIXEL = 2.0;
   var TILE_SIZE = 12; // pixels
 
@@ -141,7 +139,9 @@ var main = (function(){
   var VARIANT_ICON_SIZE = 24;
 
   var IMAGES_TO_BE_LOADED = [
-    '/images/tiles.png',
+    '/images/tiles-1.png',
+    '/images/tiles-2.png',
+    '/images/tiles-3.png',
     '/images/ui/icons/noun_project_2.svg',
     '/images/ui/icons/noun_project_536.svg',
     '/images/ui/icons/noun_project_97.svg',
@@ -438,19 +438,19 @@ var main = (function(){
         'dense': {
           minWidth: 6,
           graphics: {
-            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
           }
         },
         'normal': {
           minWidth: 6,
           graphics: {
-            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
           }
         },
         'sparse': {
           minWidth: 6,
           graphics: {
-            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
           }
         }
       }
@@ -464,14 +464,14 @@ var main = (function(){
       details: {
         'big': {
           graphics: {
-            center: { x: 40, y: 56, width: 9, height: 21, offsetY: -10 }, // Big tree
-            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            center: { tileset: 1, x: 40, y: 56, width: 9, height: 21, offsetY: -10 }, // Big tree
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
           }
         },
         'palm-tree': {
           graphics: {
-            center: { x: 83, y: 24, offsetX: 0, offsetY: -19, width: 14, height: 31 },
-            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            center: { tileset: 1, x: 83, y: 24, offsetX: 0, offsetY: -19, width: 14, height: 31 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
           }
         }
       }
@@ -484,26 +484,26 @@ var main = (function(){
       details: {
         'left|sidewalk': {
           graphics: {
-            left: { x: 67, y: 2, width: 6, height: 6, offsetY: 5 },
-            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            left: { tileset: 1, x: 67, y: 2, width: 6, height: 6, offsetY: 5 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
           }
         },
         'right|sidewalk': {
           graphics: {
-            right: { x: 61, y: 2, width: 6, height: 6, offsetY: 5 },
-            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            right: { tileset: 1, x: 61, y: 2, width: 6, height: 6, offsetY: 5 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
           }
         },
         'left|road': {
           graphics: {
-            left: { x: 67, y: 12, width: 6, height: 7, offsetY: 5 },
-            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            left: { tileset: 1, x: 67, y: 12, width: 6, height: 7, offsetY: 5 },
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }
         },
         'right|road': {
           graphics: {
-            right: { x: 61, y: 12, width: 6, height: 7, offsetY: 5 },
-            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            right: { tileset: 1, x: 61, y: 12, width: 6, height: 7, offsetY: 5 },
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }
         },
       }
@@ -517,20 +517,20 @@ var main = (function(){
       details: {
         'left': {
           graphics: {
-            left: { x: 81, y: 2, width: 3, height: 6, offsetY: 5 },
-            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            left: { tileset: 1, x: 81, y: 2, width: 3, height: 6, offsetY: 5 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
           }
         },
         'center': {
           graphics: {
-            center: { x: 74, y: 2, width: 3, height: 6, offsetY: 5 },
-            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            center: { tileset: 1, x: 74, y: 2, width: 3, height: 6, offsetY: 5 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
           }
         },
         'right': {
           graphics: {
-            right: { x: 78, y: 2, width: 3, height: 6, offsetY: 5 },
-            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            right: { tileset: 1, x: 78, y: 2, width: 3, height: 6, offsetY: 5 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
           }
         },
       }
@@ -543,38 +543,38 @@ var main = (function(){
       details: {
         'right|modern': {
           graphics: {
-            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
-            right: { x: 56, y: 24, offsetX: -10, offsetY: -19, width: 12, height: 31 }
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
+            right: { tileset: 1, x: 56, y: 24, offsetX: -10, offsetY: -19, width: 12, height: 31 }
           }
         },
         'both|modern': {
           graphics: {
-            center: { x: 39, y: 24, offsetY: -19, width: 16, height: 31 },
-            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            center: { tileset: 1, x: 39, y: 24, offsetY: -19, width: 16, height: 31 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
           }
         },
         'left|modern': {
           graphics: {
-            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
-            left: { x: 70, y: 24, offsetX: -10, offsetY: -19, width: 12, height: 31 }
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            left: { tileset: 1, x: 70, y: 24, offsetX: -10, offsetY: -19, width: 12, height: 31 }
           }
         },
         'right|traditional': {
           graphics: {
-            right: { x: 201, y: 49, width: 4, height: 15, offsetX: -2, offsetY: -4 },
-            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
+            right: { tileset: 3, x: 201, y: 49, width: 4, height: 15, offsetX: -2, offsetY: -4 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
           }
         },
         'both|traditional': {
           graphics: {
-            center: { x: 194, y: 49, width: 3, height: 15, offsetY: -4 },
-            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
+            center: { tileset: 3, x: 194, y: 49, width: 3, height: 15, offsetY: -4 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
           }
         },
         'left|traditional': {
           graphics: {
-            left: { x: 197, y: 49, width: 3, height: 15, offsetY: -4, offsetX: -2 },
-            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
+            left: { tileset: 3, x: 197, y: 49, width: 3, height: 15, offsetY: -4, offsetX: -2 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
           }
         }      
       }
@@ -590,15 +590,15 @@ var main = (function(){
         'left': {
           minWidth: 8,
           graphics: {
-            left: { x: 136, y: 63, width: 8, height: 8, offsetY: 4 },
-            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            left: { tileset: 2, x: 136, y: 63, width: 8, height: 8, offsetY: 4 },
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }
         },
         'right': {
           minWidth: 8,
           graphics: {
-            right: { x: 126, y: 63, width: 8, height: 8, offsetY: 4 },
-            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            right: { tileset: 2, x: 126, y: 63, width: 8, height: 8, offsetY: 4 },
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }
         },
       }
@@ -613,8 +613,8 @@ var main = (function(){
           name: 'Median',
           graphics: {
             repeat: [
-              { x: 98, y: 43, width: 10, height: 6, offsetY: 9 }, // Median
-              { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+              { tileset: 2, x: 98, y: 43, width: 10, height: 6, offsetY: 9 }, // Median
+              { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
             ],
           }          
         },
@@ -622,68 +622,68 @@ var main = (function(){
           name: 'Buffer',
           graphics: {
             repeat: [
-              { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-              { x: 116, y: 21, width: 5, height: 5, offsetY: 10 }, // Asphalt
+              { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+              { tileset: 2, x: 116, y: 21, width: 5, height: 5, offsetY: 10 }, // Asphalt
             ],
-            left: { x: 119, y: 15, width: 1, height: 5, offsetY: 10 }, // Marking
-            right: { x: 117, y: 15, width: 1, height: 5, offsetY: 10 }, // Marking
+            left: { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 }, // Marking
+            right: { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 }, // Marking
           }          
         },
         'planting-strip': {
           name: 'Planting strip',
           graphics: {
             repeat: [
-              { x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
-              { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+              { tileset: 2, x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
+              { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
             ]
           }          
         },
         'bush': {
           name: 'Planting strip',
           graphics: {
-            center: { x: 122, y: 55, width: 2, height: 5, offsetY: 7 },
+            center: { tileset: 2, x: 122, y: 55, width: 2, height: 5, offsetY: 7 },
             repeat: [
-              { x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
-              { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+              { tileset: 2, x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
+              { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
             ]
           }          
         },
         'flowers': {
           name: 'Planting strip',
           graphics: {
-            center: { x: 122, y: 59, width: 2, height: 5, offsetY: 7 },
+            center: { tileset: 2, x: 122, y: 59, width: 2, height: 5, offsetY: 7 },
             repeat: [
-              { x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
-              { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+              { tileset: 2, x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
+              { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
             ]
           }          
         },
         'big-tree': {
           name: 'Planting strip',
           graphics: {
-            center: { x: 40, y: 56, width: 9, height: 21, offsetY: -10 }, // Big tree
+            center: { tileset: 1, x: 40, y: 56, width: 9, height: 21, offsetY: -10 }, // Big tree
             repeat: [
-              { x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
-              { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+              { tileset: 2, x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
+              { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
             ]
           }          
         },
         'palm-tree': {
           name: 'Planting strip',
           graphics: {
-            center: { x: 83, y: 24, offsetY: -19, width: 14, height: 30 },
+            center: { tileset: 1, x: 83, y: 24, offsetY: -19, width: 14, height: 30 },
             repeat: [
-              { x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
-              { x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+              { tileset: 1, x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
+              { tileset: 1, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
             ]
           }          
         },
         'bollard': {
           name: 'Bollard',
           graphics: {
-            center: { x: 123, y: 64, width: 1, height: 7, offsetY: 5 },
+            center: { tileset: 2, x: 123, y: 64, width: 1, height: 7, offsetY: 5 },
             repeat: [
-              { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+              { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
             ]
           }          
         },
@@ -698,37 +698,37 @@ var main = (function(){
         'inbound|regular': {
           graphics: {
             center: [
-              { x: 5, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
-              { x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
+              { tileset: 1, x: 5, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
+              { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
             ],
-            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }
         },
         'outbound|regular': {
           graphics: {
             center: [
-              { x: 9, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
-              { x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
+              { tileset: 1, x: 9, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
+              { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
             ],
-            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }
         },
         'inbound|colored': {
           graphics: {
             center: [
-              { x: 5, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
-              { x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
+              { tileset: 1, x: 5, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
+              { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
             ],
-            repeat: { x: 98 - 10, y: 53 + 10, width: 8, height: 5, offsetY: 10 }, // Green asphalt
+            repeat: { tileset: 2, x: 98 - 10, y: 53 + 10, width: 8, height: 5, offsetY: 10 }, // Green asphalt
           }
         },
         'outbound|colored': {
           graphics: {
             center: [
-              { x: 9, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
-              { x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
+              { tileset: 1, x: 9, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
+              { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
             ],
-            repeat: { x: 98 - 10, y: 53 + 10, width: 8, height: 5, offsetY: 10 }, // Green asphalt
+            repeat: { tileset: 2, x: 98 - 10, y: 53 + 10, width: 8, height: 5, offsetY: 10 }, // Green asphalt
           }
         }
       }
@@ -744,10 +744,10 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
-              { x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
+              { tileset: 1, x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
+              { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
             ],
-            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         },
         'outbound|car': {
@@ -755,10 +755,10 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
-              { x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
+              { tileset: 1, x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
+              { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
             ],
-            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         },
         'inbound|truck': {
@@ -766,10 +766,10 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 17, y: 64, width: 10, height: 12, offsetY: 0 }, // Truck (inbound)
-              { x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
+              { tileset: 1, x: 17, y: 64, width: 10, height: 12, offsetY: 0 }, // Truck (inbound)
+              { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
             ],
-            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         },
         'outbound|truck': {
@@ -777,10 +777,10 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 29, y: 64, width: 9, height: 12, offsetY: 0 }, // Truck (outbound)
-              { x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
+              { tileset: 1, x: 29, y: 64, width: 9, height: 12, offsetY: 0 }, // Truck (outbound)
+              { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
             ],
-            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         }
       }
@@ -796,10 +796,10 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 125, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow
-              { x: 20, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
+              { tileset: 2, x: 125, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow
+              { tileset: 1, x: 20, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
             ],
-            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         },
         'inbound|both': {
@@ -807,10 +807,10 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 153, y: 15, width: 5, height: 5, offsetY: 10 }, // Arrow
-              { x: 20, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
+              { tileset: 2, x: 153, y: 15, width: 5, height: 5, offsetY: 10 }, // Arrow
+              { tileset: 1, x: 20, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
             ],
-            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         },
         'inbound|right': {
@@ -818,10 +818,10 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 83, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow
-              { x: 29, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
+              { tileset: 1, x: 83, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow
+              { tileset: 1, x: 29, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
             ],
-            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         },
         'outbound|left': {
@@ -829,10 +829,10 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 134, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow
-              { x: 1, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
+              { tileset: 2, x: 134, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow
+              { tileset: 1, x: 1, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
             ],
-            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         },
         'outbound|both': {
@@ -840,10 +840,10 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 148, y: 15, width: 5, height: 5, offsetY: 10 }, // Arrow
-              { x: 1, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
+              { tileset: 2, x: 148, y: 15, width: 5, height: 5, offsetY: 10 }, // Arrow
+              { tileset: 1, x: 1, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
             ],
-            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         },
         'outbound|right': {
@@ -851,10 +851,10 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 143, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow
-              { x: 10, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
+              { tileset: 2, x: 143, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow
+              { tileset: 1, x: 10, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
             ],
-            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         }
       }
@@ -870,10 +870,10 @@ var main = (function(){
           maxWidth: 10,
           graphics: {
             center: [
-              { x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
+              { tileset: 1, x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
             ],
-            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-            right: { x: 112, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            right: { tileset: 2, x: 112, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
           }          
         },
         'inbound|right': {
@@ -881,10 +881,10 @@ var main = (function(){
           maxWidth: 10,
           graphics: {
             center: [
-              { x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
+              { tileset: 1, x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
             ],
-            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-            left: { x: 46, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            left: { tileset: 1, x: 46, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
           }          
         },
         'outbound|left': {
@@ -892,10 +892,10 @@ var main = (function(){
           maxWidth: 10,
           graphics: {
             center: [
-              { x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
+              { tileset: 1, x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
             ],
-            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-            right: { x: 112, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            right: { tileset: 2, x: 112, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
           }          
         },
         'outbound|right': {
@@ -903,10 +903,10 @@ var main = (function(){
           maxWidth: 10,
           graphics: {
             center: [
-              { x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
+              { tileset: 1, x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
             ],
-            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-            left: { x: 46, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            left: { tileset: 1, x: 46, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
           }          
         },
         'sideways|left': {
@@ -915,9 +915,9 @@ var main = (function(){
           maxWidth: 20,
           graphics: {
             left: [
-              { x: 38, y: 78, width: 14, height: 6, offsetY: 6 }, // Car (side)
+              { tileset: 1, x: 38, y: 78, width: 14, height: 6, offsetY: 6 }, // Car (side)
             ],
-            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         },
         'sideways|right': {
@@ -926,9 +926,9 @@ var main = (function(){
           maxWidth: 20,
           graphics: {
             right: [
-              { x: 54, y: 78, width: 14, height: 6, offsetY: 6 }, // Car (side)
+              { tileset: 1, x: 54, y: 78, width: 14, height: 6, offsetY: 6 }, // Car (side)
             ],
-            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         }
       }      
@@ -944,10 +944,10 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 28, y: 27, width: 11, height: 13 }, // Bus
-              { x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
+              { tileset: 1, x: 28, y: 27, width: 11, height: 13 }, // Bus
+              { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
             ],
-            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }
         },
         'outbound|regular': {
@@ -955,10 +955,10 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 16, y: 27, width: 12, height: 13 }, // Bus
-              { x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
+              { tileset: 1, x: 16, y: 27, width: 12, height: 13 }, // Bus
+              { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
             ],
-            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }
         },
         'inbound|colored': {
@@ -966,10 +966,10 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 28, y: 27, width: 11, height: 13 }, // Bus
-              { x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
+              { tileset: 1, x: 28, y: 27, width: 11, height: 13 }, // Bus
+              { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
             ],
-            repeat: { x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
+            repeat: { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
           }
         },
         'outbound|colored': {
@@ -977,10 +977,10 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 16, y: 27, width: 12, height: 13 }, // Bus
-              { x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
+              { tileset: 1, x: 16, y: 27, width: 12, height: 13 }, // Bus
+              { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
             ],
-            repeat: { x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
+            repeat: { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
           }
         }
       }
@@ -996,11 +996,11 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 192, y: 1, width: 12, height: 17, offsetY: -1 }, // Streetcar
-              { x: 28, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
-              { x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
+              { tileset: 3, x: 192, y: 1, width: 12, height: 17, offsetY: -1 }, // Streetcar
+              { tileset: 1, x: 28, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
+              { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
             ],
-            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         },
         'outbound|regular': {
@@ -1008,11 +1008,11 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 204, y: 1, width: 12, height: 17, offsetY: -1 }, // Streetcar
-              { x: 28, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
-              { x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
+              { tileset: 3, x: 204, y: 1, width: 12, height: 17, offsetY: -1 }, // Streetcar
+              { tileset: 1, x: 28, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
+              { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
             ],
-            repeat: { x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         },
         'inbound|colored': {
@@ -1020,11 +1020,11 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 192, y: 1, width: 12, height: 17, offsetY: -1 }, // Streetcar
-              { x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
-              { x: 29, y: 15, width: 4, height: 5, offsetX: 1, offsetY: 10 }, // Dark arrow (inbound)
+              { tileset: 1, x: 192, y: 1, width: 12, height: 17, offsetY: -1 }, // Streetcar
+              { tileset: 1, x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
+              { tileset: 1, x: 29, y: 15, width: 4, height: 5, offsetX: 1, offsetY: 10 }, // Dark arrow (inbound)
             ],
-            repeat: { x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
+            repeat: { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
           }          
         },
         'outbound|colored': {
@@ -1032,11 +1032,11 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 204, y: 1, width: 12, height: 17, offsetY: -1 }, // Streetcar
-              { x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
-              { x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Dark arrow (outbound)
+              { tileset: 1, x: 204, y: 1, width: 12, height: 17, offsetY: -1 }, // Streetcar
+              { tileset: 1, x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
+              { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Dark arrow (outbound)
             ],
-            repeat: { x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
+            repeat: { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
           }          
         },
       }     
@@ -1052,11 +1052,11 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 17, y: 40, width: 10, height: 17, offsetY: -5 }, // Light rail
-              { x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
-              { x: 28, y: 15, width: 8, height: 5, offsetY: 10 }, // Dark arrow (inbound)
+              { tileset: 1, x: 17, y: 40, width: 10, height: 17, offsetY: -5 }, // Light rail
+              { tileset: 1, x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
+              { tileset: 1, x: 28, y: 15, width: 8, height: 5, offsetY: 10 }, // Dark arrow (inbound)
             ],
-            repeat: { x: 110, y: 43, width: 9, height: 5, offsetY: 10 }, // Lower concrete
+            repeat: { tileset: 2, x: 110, y: 43, width: 9, height: 5, offsetY: 10 }, // Lower concrete
           }          
         },
         'outbound|regular': {
@@ -1064,11 +1064,11 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 27, y: 40, width: 10, height: 17, offsetY: -5 }, // Light rail
-              { x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
-              { x: 37, y: 15, width: 8, height: 5, offsetY: 10 }, // Dark arrow (outbound)
+              { tileset: 1, x: 27, y: 40, width: 10, height: 17, offsetY: -5 }, // Light rail
+              { tileset: 1, x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
+              { tileset: 1, x: 37, y: 15, width: 8, height: 5, offsetY: 10 }, // Dark arrow (outbound)
             ],
-            repeat: { x: 110, y: 43, width: 9, height: 5, offsetY: 10 }, // Lower concrete
+            repeat: { tileset: 2, x: 110, y: 43, width: 9, height: 5, offsetY: 10 }, // Lower concrete
           }          
         },
         'inbound|colored': {
@@ -1076,11 +1076,11 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 17, y: 40, width: 10, height: 17, offsetY: -5 }, // Light rail
-              { x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
-              { x: 28, y: 15, width: 8, height: 5, offsetY: 10 }, // Dark arrow (inbound)
+              { tileset: 1, x: 17, y: 40, width: 10, height: 17, offsetY: -5 }, // Light rail
+              { tileset: 1, x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
+              { tileset: 1, x: 28, y: 15, width: 8, height: 5, offsetY: 10 }, // Dark arrow (inbound)
             ],
-            repeat: { x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
+            repeat: { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
           }          
         },
         'outbound|colored': {
@@ -1088,11 +1088,11 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { x: 27, y: 40, width: 10, height: 17, offsetY: -5 }, // Light rail
-              { x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
-              { x: 37, y: 15, width: 8, height: 5, offsetY: 10 }, // Dark arrow (outbound)
+              { tileset: 1, x: 27, y: 40, width: 10, height: 17, offsetY: -5 }, // Light rail
+              { tileset: 1, x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
+              { tileset: 1, x: 37, y: 15, width: 8, height: 5, offsetY: 10 }, // Dark arrow (outbound)
             ],
-            repeat: { x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
+            repeat: { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
           }          
         },
       }
@@ -1106,29 +1106,29 @@ var main = (function(){
         'left|street-level': {
           minWidth: 9,
           graphics: {
-            left: { x: 171, y: 1, width: 9, height: 12, offsetY: -1 },
-            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
+            left: { tileset: 3, x: 171, y: 1, width: 9, height: 12, offsetY: -1 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
           }          
         },
         'right|street-level': {
           minWidth: 9,
           graphics: {
-            right: { x: 181, y: 1, width: 9, height: 12, offsetY: -1 },
-            repeat: { x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
+            right: { tileset: 3, x: 181, y: 1, width: 9, height: 12, offsetY: -1 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
           }          
         },
         'left|light-rail': {
           minWidth: 9,
           graphics: {
-            left: { x: 171, y: 51, width: 9, height: 12, offsetY: -3 },
-            repeat: { x: 110, y: 53 + 10, width: 9, height: 9, offsetY: 6 }, // Raised concrete
+            left: { tileset: 3, x: 171, y: 51, width: 9, height: 12, offsetY: -3 },
+            repeat: { tileset: 2, x: 110, y: 63, width: 9, height: 9, offsetY: 6 }, // Raised concrete
           }          
         },
         'right|light-rail': {
           minWidth: 9,
           graphics: {
-            right: { x: 181, y: 51, width: 9, height: 13, offsetY: -3 },
-            repeat: { x: 110, y: 53 + 10, width: 9, height: 9, offsetY: 6 }, // Raised concrete
+            right: { tileset: 3, x: 181, y: 51, width: 9, height: 13, offsetY: -3 },
+            repeat: { tileset: 2, x: 110, y: 63, width: 9, height: 9, offsetY: 6 }, // Raised concrete
           }          
         },
       }
@@ -1428,13 +1428,13 @@ var main = (function(){
 
   // -------------------------------------------------------------------------
 
-  function _drawSegmentImage(ctx, sx, sy, sw, sh, dx, dy, dw, dh) {
+  function _drawSegmentImage(tileset, ctx, sx, sy, sw, sh, dx, dy, dw, dh) {
     if (!sw || !sh || !dw || !dh) {
       return;
     }
 
     if (imagesToBeLoaded == 0) {
-      ctx.drawImage(images['/images/tiles.png'],
+      ctx.drawImage(images['/images/tiles-' + tileset + '.png'],
           sx * TILESET_POINT_PER_PIXEL, sy * TILESET_POINT_PER_PIXEL, 
           sw * TILESET_POINT_PER_PIXEL, sh * TILESET_POINT_PER_PIXEL,
           dx * system.hiDpi, dy * system.hiDpi, 
@@ -1490,7 +1490,7 @@ var main = (function(){
 
     for (var i in people) {
       var person = people[i];
-      _drawSegmentImage(ctx, 1056 + 12 + 48 * person.type, 0, 48, 24 * 4, 
+      _drawSegmentImage(2, ctx, 1056 + 12 + 48 * person.type, 0, 48, 24 * 4, 
           offsetLeft + (person.left - 24 + startLeft) * multiplier, offsetTop + 35 * multiplier, 48 * multiplier, 24 * 4 * multiplier);
     }
   }
@@ -1593,7 +1593,7 @@ var main = (function(){
             w = segmentWidth - (count - 1) * w;
           }
 
-          _drawSegmentImage(ctx,
+          _drawSegmentImage(variantInfo.graphics.repeat[l].tileset, ctx,
             repeatPositionX, repeatPositionY, 
             w, variantInfo.graphics.repeat[l].height * TILE_SIZE, 
             offsetLeft + (repeatStartX + (i * variantInfo.graphics.repeat[l].width) * TILE_SIZE) * multiplier, 
@@ -1613,7 +1613,7 @@ var main = (function(){
 
         var x = 0 + (-left + (variantInfo.graphics.left[l].offsetX || 0)) * TILE_SIZE * multiplier;
 
-        _drawSegmentImage(ctx,
+        _drawSegmentImage(variantInfo.graphics.left[l].tileset, ctx,
             leftPositionX, leftPositionY, 
             w, variantInfo.graphics.left[l].height * TILE_SIZE, 
             offsetLeft + x,
@@ -1631,7 +1631,7 @@ var main = (function(){
 
         var x = (-left + segmentWidth / TILE_SIZE / multiplier - variantInfo.graphics.right[l].width - (variantInfo.graphics.right[l].offsetX || 0)) * TILE_SIZE * multiplier;
 
-        _drawSegmentImage(ctx,
+        _drawSegmentImage(variantInfo.graphics.right[l].tileset, ctx,
           rightPositionX, rightPositionY, 
           w, variantInfo.graphics.right[l].height * TILE_SIZE,
           offsetLeft + x,
@@ -1649,7 +1649,7 @@ var main = (function(){
 
         var x = (center - variantInfo.graphics.center[l].width / 2 - left - (variantInfo.graphics.center[l].offsetX || 0)) * TILE_SIZE * multiplier;
 
-        _drawSegmentImage(ctx,
+        _drawSegmentImage(variantInfo.graphics.center[l].tileset, ctx,
           bkPositionX, bkPositionY, 
           width * TILE_SIZE, variantInfo.graphics.center[l].height * TILE_SIZE, 
           offsetLeft + x, 
@@ -2094,11 +2094,13 @@ var main = (function(){
           var tilePositionX = 1512;
           var width = 216;
           var variantsCount = 2;
+          var tileset = 2;
           break;
         case 'wide':
           var tilePositionX = 1956;
           var width = 396;
           var variantsCount = 1;
+          var tileset = 3;
           break;
       }
     } else {
@@ -2107,11 +2109,13 @@ var main = (function(){
           var tilePositionX = 1728;
           var width = 216;
           var variantsCount = 2;
+          var tileset = 2;
           break;
         case 'wide':
           var tilePositionX = 2351;
           var width = 396;
           var variantsCount = 1;
+          var tileset = 3;
           break;
       }
     }
@@ -2129,6 +2133,8 @@ var main = (function(){
 
     if (!flooredBuilding) {
       var width = 48;
+
+      var tileset = 1;
 
       if (left) {
         var posShift = (totalWidth % width) - 121;
@@ -2150,7 +2156,7 @@ var main = (function(){
       }
 
       for (var i = 0; i < totalWidth / width + 1; i++) {
-        _drawSegmentImage(ctx,
+        _drawSegmentImage(tileset, ctx,
             origPos, 0, width, 168 + 12,
             offsetLeft + (posShift + i * width) * multiplier, 
             offsetTop + (409 - 12) * multiplier, 
@@ -2171,7 +2177,7 @@ var main = (function(){
 
       // bottom floor
 
-      _drawSegmentImage(ctx,
+      _drawSegmentImage(tileset, ctx,
           tilePositionX, 576 - 240 + 120 * variantsCount, width, floorHeight + TILE_SIZE,
           offsetLeft + leftPos * multiplier, offsetTop + height - floorHeight * multiplier, 
           width * multiplier, (floorHeight + TILE_SIZE) * multiplier);
@@ -2184,7 +2190,7 @@ var main = (function(){
       for (var i = 1; i < floorCount; i++) {   
         var variant = Math.floor(randomGenerator.rand() * variantsCount) + 1;
 
-        _drawSegmentImage(ctx,
+        _drawSegmentImage(tileset, ctx,
             tilePositionX, 576 - 240 + 120 * variantsCount - (floorHeight * variant), width, floorHeight,
             offsetLeft + leftPos * multiplier, offsetTop + height - floorHeight * (i + 1) * multiplier, 
             width * multiplier, floorHeight * multiplier);
@@ -2192,7 +2198,7 @@ var main = (function(){
 
       // roof
 
-      _drawSegmentImage(ctx,
+      _drawSegmentImage(tileset, ctx,
           tilePositionX, 576 - floorHeight * 2 - roofHeight, width, roofHeight,
           offsetLeft + leftPos * multiplier, 
           offsetTop + height - floorHeight * (floorCount) * multiplier - roofHeight * multiplier, 
@@ -6251,7 +6257,7 @@ var main = (function(){
         canvasEl.style.height = VARIANT_ICON_SIZE + 'px';
 
         var ctx = canvasEl.getContext('2d');
-        _drawSegmentImage(ctx, (VARIANT_ICON_START_X + variantIcon.x * 3) * TILE_SIZE, (VARIANT_ICON_START_Y + variantIcon.y * 3) * TILE_SIZE, 24, 24, 0, 0, VARIANT_ICON_SIZE, VARIANT_ICON_SIZE);
+        _drawSegmentImage(3, ctx, (VARIANT_ICON_START_X + variantIcon.x * 3) * TILE_SIZE, (VARIANT_ICON_START_Y + variantIcon.y * 3) * TILE_SIZE, 24, 24, 0, 0, VARIANT_ICON_SIZE, VARIANT_ICON_SIZE);
         buttonEl.appendChild(canvasEl);
 
         if (variantIcon.title) { 
