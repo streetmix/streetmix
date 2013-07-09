@@ -224,7 +224,7 @@ var main = (function(){
   var BUILDING_VARIANTS = ['grass', 'fence', 'narrow', 'wide'];
 
   var MIN_CUSTOM_STREET_WIDTH = 10;
-  var MAX_CUSTOM_STREET_WIDTH = 300;
+  var MAX_CUSTOM_STREET_WIDTH = 400;
   var MIN_SEGMENT_WIDTH = 1;
   var MAX_SEGMENT_WIDTH = 150;
 
