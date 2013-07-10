@@ -1312,6 +1312,8 @@ var main = (function(){
     cssTransform: false,
     ipAddress: null,
 
+    safari: false,
+
     viewportWidth: null,
     viewportHeight: null
   };
@@ -5626,13 +5628,15 @@ var main = (function(){
   function _onStreetSectionScroll(event) {
     _infoBubble.suppress();
 
-    var scrollPos = document.querySelector('#street-section-outer').scrollLeft;
+    if (!system.safari) {
+      var scrollPos = document.querySelector('#street-section-outer').scrollLeft;
 
-    var pos = -scrollPos * 0.5;
-    document.querySelector('#street-section-sky .front-clouds').style[system.cssTransform] = 'translateX(' + pos + 'px)'; 
+      var pos = -scrollPos * 0.5;
+      document.querySelector('#street-section-sky .front-clouds').style[system.cssTransform] = 'translateX(' + pos + 'px)'; 
 
-    var pos = -scrollPos * 0.25;
-    document.querySelector('#street-section-sky .rear-clouds').style[system.cssTransform] = 'translateX(' + pos + 'px)'; 
+      var pos = -scrollPos * 0.25;
+      document.querySelector('#street-section-sky .rear-clouds').style[system.cssTransform] = 'translateX(' + pos + 'px)'; 
+    }
 
     if (event) {
       event.preventDefault();
@@ -5768,6 +5772,12 @@ var main = (function(){
         system.cssTransform = CSS_TRANSFORMS[i];
         break;
       }
+    }
+
+    if (navigator.userAgent.indexOf('Safari') != -1) {
+      system.safari = true;
+
+      document.body.classList.add('safari');
     }
 
     if (!debug.forceUnsupportedBrowser) {
