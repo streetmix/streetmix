@@ -3698,6 +3698,8 @@ var main = (function(){
       var y = event.pageY;
     }    
 
+    console.log(x, y);
+
     var el = event.target;
 
     _changeDraggingType(DRAGGING_TYPE_MOVE);
@@ -4291,6 +4293,8 @@ var main = (function(){
   function _onResize() {
     system.viewportWidth = window.innerWidth;
     system.viewportHeight = window.innerHeight;
+
+    console.log(window.scrollTop, document.body.scrollTop);
 
     var streetSectionHeight = 
         document.querySelector('#street-section-inner').offsetHeight;
