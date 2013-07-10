@@ -1607,6 +1607,10 @@ body.no-connection-message-visible #status-message {
 
     display: inline-block;
 
+    -webkit-tap-highlight-color: transparent;
+    -moz-tap-highlight-color: transparent;
+    tap-highlight-color: transparent;
+
     &:hover {
       color: @topMenuHoverText;
     }
@@ -1623,6 +1627,10 @@ body.no-connection-message-visible #status-message {
 
     padding: 10px;
     margin: -10px;
+
+    -webkit-tap-highlight-color: transparent;
+    -moz-tap-highlight-color: transparent;
+    tap-highlight-color: transparent;
 
     color: inherit;
 
@@ -1720,6 +1728,18 @@ body.no-connection-message-visible #status-message {
     background: @formElementBackground;
     border: 1px solid @formElementBorder;
     resize: none;
+  }
+}
+
+body.safari .menu {
+  -webkit-transform: rotateX(-90deg) translateZ(100px);
+  -moz-transform: rotateX(-90deg) translateZ(100px);
+  transform: rotateX(-90deg) translateZ(100px);  
+
+  &.visible {
+    -webkit-transform: rotateX(0) translateZ(100px);
+    -moz-transform: rotateX(0) translateZ(100px);
+    transform: rotateX(0) translateZ(100px);
   }
 }
 

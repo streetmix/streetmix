@@ -5751,13 +5751,24 @@ var main = (function(){
     }
     window.addEventListener('keydown', _onBodyKeyDown);  
 
-    document.querySelector('#share-menu-button').
-        addEventListener('click', _onShareMenuClick);
-    document.querySelector('#feedback-menu-button').
-        addEventListener('click', _onFeedbackMenuClick);
-    if (document.querySelector('#identity-menu-button')) {
-      document.querySelector('#identity-menu-button').
-          addEventListener('click', _onIdentityMenuClick);
+    if (system.touch) {
+      document.querySelector('#share-menu-button').
+          addEventListener('touchstart', _onShareMenuClick);
+      document.querySelector('#feedback-menu-button').
+          addEventListener('touchstart', _onFeedbackMenuClick);
+      if (document.querySelector('#identity-menu-button')) {
+        document.querySelector('#identity-menu-button').
+            addEventListener('touchstart', _onIdentityMenuClick);
+      }
+    } else {
+      document.querySelector('#share-menu-button').
+          addEventListener('click', _onShareMenuClick);
+      document.querySelector('#feedback-menu-button').
+          addEventListener('click', _onFeedbackMenuClick);
+      if (document.querySelector('#identity-menu-button')) {
+        document.querySelector('#identity-menu-button').
+            addEventListener('click', _onIdentityMenuClick);
+      }
     }
   }
 
@@ -6519,11 +6530,19 @@ var main = (function(){
                 el.disabled = true;
               }
 
-              el.addEventListener('click', (function(dataNo, variantName, variantChoice) {
-                return function() {
-                  _infoBubble.onVariantButtonClick(null, dataNo, variantName, variantChoice);
-                }
-              })(segment.el.dataNo, variantName, variantChoice));
+              if (system.touch) {
+                el.addEventListener('touchstart', (function(dataNo, variantName, variantChoice) {
+                  return function() {
+                    _infoBubble.onVariantButtonClick(null, dataNo, variantName, variantChoice);
+                  }
+                })(segment.el.dataNo, variantName, variantChoice));
+              } else {
+                el.addEventListener('click', (function(dataNo, variantName, variantChoice) {
+                  return function() {
+                    _infoBubble.onVariantButtonClick(null, dataNo, variantName, variantChoice);
+                  }
+                })(segment.el.dataNo, variantName, variantChoice));
+              }
 
               variantsEl.appendChild(el);
             }
@@ -6547,12 +6566,19 @@ var main = (function(){
 
             variantsEl.appendChild(el);
 
-            el.addEventListener('click', (function(left, variantChoice) {
-              return function() {
-                _infoBubble.onBuildingVariantButtonClick(null, left, variantChoice);
-              }
-            })(_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING, BUILDING_VARIANTS[j]));
-
+            if (system.touch) {}
+              el.addEventListener('touchstart', (function(left, variantChoice) {
+                return function() {
+                  _infoBubble.onBuildingVariantButtonClick(null, left, variantChoice);
+                }
+              })(_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING, BUILDING_VARIANTS[j]));
+            } else {
+              el.addEventListener('click', (function(left, variantChoice) {
+                return function() {
+                  _infoBubble.onBuildingVariantButtonClick(null, left, variantChoice);
+                }
+              })(_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING, BUILDING_VARIANTS[j]));
+            }
           }
 
           break;
@@ -6571,7 +6597,11 @@ var main = (function(){
         var el = document.createElement('div');
         el.classList.add('description-prompt');
         el.innerHTML = segmentInfo.descriptionPrompt;
-        el.addEventListener('click', _infoBubble.showDescription);
+        if (system.touch) {
+          el.addEventListener('touchstart', _infoBubble.showDescription);
+        } else {
+          el.addEventListener('click', _infoBubble.showDescription);
+        }
         $(el).mouseenter(_infoBubble.highlightTriangle);
         $(el).mouseleave(_infoBubble.unhighlightTriangle);
         infoBubbleEl.appendChild(el);
@@ -6592,7 +6622,11 @@ var main = (function(){
         var innerEl = document.createElement('div');
         innerEl.classList.add('description-close');
         innerEl.innerHTML = 'Close';
-        innerEl.addEventListener('click', _infoBubble.hideDescription);
+        if (system.touch) {
+          innerEl.addEventListener('touchstart', _infoBubble.hideDescription);
+        } else {
+          innerEl.addEventListener('click', _infoBubble.hideDescription);          
+        }
         $(innerEl).mouseenter(_infoBubble.highlightTriangle);
         $(innerEl).mouseleave(_infoBubble.unhighlightTriangle);
         el.appendChild(innerEl);
@@ -6780,7 +6814,11 @@ var main = (function(){
 
       var el = document.createElement('button');
       el.classList.add('close');
-      el.addEventListener('click', _statusMessage.hide);
+      if (system.touch) {
+        el.addEventListener('touchstart', _statusMessage.hide);
+      } else {
+        el.addEventListener('click', _statusMessage.hide);        
+      }
       el.innerHTML = '×';
       document.querySelector('#status-message > div').appendChild(el);      
 
