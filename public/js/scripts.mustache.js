@@ -4302,8 +4302,6 @@ var main = (function(){
     var paletteTop = document.querySelector('footer').offsetTop || system.viewportHeight;
     //console.log(paletteTop);
 
-
-
     // TODO const
     streetSectionTop = (system.viewportHeight - streetSectionHeight) / 2 + 30 + 180; // gallery height
 
