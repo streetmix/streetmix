@@ -6566,7 +6566,7 @@ var main = (function(){
 
             variantsEl.appendChild(el);
 
-            if (system.touch) {}
+            if (system.touch) {
               el.addEventListener('touchstart', (function(left, variantChoice) {
                 return function() {
                   _infoBubble.onBuildingVariantButtonClick(null, left, variantChoice);
@@ -7274,7 +7274,6 @@ var main = (function(){
     } else {
       buttonEl.addEventListener('click', _onScrollButtonLeft);        
     }
-    //buttonEl.addEventListener('click', _onScrollButtonLeft);
     el.parentNode.appendChild(buttonEl);
 
     var buttonEl = document.createElement('button');
