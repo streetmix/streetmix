@@ -3787,14 +3787,6 @@ var main = (function(){
     if (!draggingMove.floatingElVisible) {
       draggingMove.floatingElVisible = true;
 
-      if (system.touch) {
-        if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
-          draggingMove.elY += DRAG_OFFSET_Y_TOUCH_PALETTE;
-        } else {
-          draggingMove.elY += DRAG_OFFSET_Y_TOUCH;
-        }
-      }
-
       window.setTimeout(function() {
         draggingMove.floatingEl.classList.remove('first-drag-move');      
       }, SHORT_DELAY);
@@ -5682,11 +5674,13 @@ var main = (function(){
 
     document.querySelector('#street-section-outer').addEventListener('scroll', _onStreetSectionScroll);
 
-    $('#street-section-left-building').mouseenter(_onBuildingMouseEnter);
-    $('#street-section-left-building').mouseleave(_onBuildingMouseLeave);
-    $('#street-section-right-building').mouseenter(_onBuildingMouseEnter);
-    $('#street-section-right-building').mouseleave(_onBuildingMouseLeave);
-
+    if (!system.touch) {
+      $('#street-section-left-building').mouseenter(_onBuildingMouseEnter);
+      $('#street-section-left-building').mouseleave(_onBuildingMouseLeave);
+      $('#street-section-right-building').mouseenter(_onBuildingMouseEnter);
+      $('#street-section-right-building').mouseleave(_onBuildingMouseLeave);
+    }
+    
     $('.width-chart-canvas').mouseenter(_hideWidthChartImmediately);
 
     $('.info-bubble').mouseenter(_infoBubble.onMouseEnter);
@@ -5732,8 +5726,13 @@ var main = (function(){
 
     document.querySelector('#street-name').addEventListener('click', _askForStreetName);
 
-    document.querySelector('#undo').addEventListener('click', _undo);
-    document.querySelector('#redo').addEventListener('click', _redo);
+    if (system.touch) {
+      document.querySelector('#undo').addEventListener('touchstart', _undo);
+      document.querySelector('#redo').addEventListener('touchstart', _redo);
+    } else {
+      document.querySelector('#undo').addEventListener('click', _undo);
+      document.querySelector('#redo').addEventListener('click', _redo);      
+    }
 
     document.querySelector('#street-width').
         addEventListener('change', _onStreetWidthChange);

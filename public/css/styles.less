@@ -86,7 +86,7 @@ body {
   background: white;
 }
 
-body::not(.safari) {
+body:not(.safari) {
   -webkit-perspective: 500px;
   -moz-perspective: 500px;
   perspective: 500px;  
@@ -100,9 +100,15 @@ textarea,
 option {
   font-family: @fontFamily;
 }
+a,
 button {
   cursor: pointer;
+
+  -webkit-tap-highlight-color: transparent;
+  -moz-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
 }
+
 
 input[type='text'],
 input[type='email'],
@@ -123,7 +129,7 @@ textarea {
   transform: translateY(1px);
 }
 
-body::not(.safari) #main-screen {
+body:not(.safari) #main-screen {
   -webkit-perspective: 2000px;
   -moz-perspective: 2000px;
   perspective: 2000px;  
@@ -692,7 +698,7 @@ body.safari footer {
   margin-top: -3px;
 
 }
-body::not(.safari) .footer-canvas {
+body:not(.safari) .footer-canvas {
   -webkit-transform: rotateZ(0);
   -moz-transform: rotateZ(0);
   transform: rotateZ(0);
@@ -1732,9 +1738,9 @@ body.no-connection-message-visible #status-message {
 }
 
 body.safari .menu {
-  -webkit-transform: rotateX(-90deg) translateZ(100px);
-  -moz-transform: rotateX(-90deg) translateZ(100px);
-  transform: rotateX(-90deg) translateZ(100px);  
+  -webkit-transform: translateY(50px) translateZ(100px);
+  -moz-transform: translateY(50px) translateZ(100px);
+  transform: translateY(50px) translateZ(100px);  
 
   &.visible {
     -webkit-transform: rotateX(0) translateZ(100px);
@@ -1990,6 +1996,12 @@ body.safari .menu {
 #street-name {
   pointer-events: auto;
 
+  -webkit-tap-highlight-color: transparent;
+  -moz-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
+}
+
+body:not(.touch-support) &street-name {
   &:hover {
     color: rgb(220, 220, 220);
     background: white;
