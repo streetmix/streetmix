@@ -3747,15 +3747,6 @@ var main = (function(){
         draggingMove.originalWidth);
     document.body.appendChild(draggingMove.floatingEl);
 
-    // TODO simplify and unify with below
-    if (system.touch) {
-      if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
-        draggingMove.elY += DRAG_OFFSET_Y_TOUCH_PALETTE;
-      } else {
-        draggingMove.elY += DRAG_OFFSET_Y_TOUCH;
-      }
-    }
-
     if (system.cssTransform) {
       draggingMove.floatingEl.style[system.cssTransform] = 
           'translate(' + draggingMove.elX + 'px, ' + draggingMove.elY + 'px)';
@@ -3786,6 +3777,14 @@ var main = (function(){
 
     if (!draggingMove.floatingElVisible) {
       draggingMove.floatingElVisible = true;
+
+      if (system.touch) {
+        if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
+          draggingMove.elY += DRAG_OFFSET_Y_TOUCH_PALETTE;
+        } else {
+          draggingMove.elY += DRAG_OFFSET_Y_TOUCH;
+        }
+      }
 
       window.setTimeout(function() {
         draggingMove.floatingEl.classList.remove('first-drag-move');      
@@ -3930,7 +3929,7 @@ var main = (function(){
     event.preventDefault();
   }
 
-  function _removeTouchSegmentFadeouts() {
+  /*function _removeTouchSegmentFadeouts() {
     var els = document.querySelectorAll('.fade-out-end');
     for (var i = 0, el; el = els[i]; i++) {
       el.classList.remove('fade-out-end');
@@ -3954,6 +3953,11 @@ var main = (function(){
         el.classList.remove('fade-out-end');
       }, TOUCH_SEGMENT_FADEOUT_DELAY);
     }
+  }*/
+
+  function _createTouchSegmentFadeout(el) {
+    _infoBubble.considerShowing(null, el, INFO_BUBBLE_TYPE_SEGMENT);
+  
   }
 
   function _doDropHeuristics(type, variantString, width) {
@@ -5680,7 +5684,7 @@ var main = (function(){
       $('#street-section-right-building').mouseenter(_onBuildingMouseEnter);
       $('#street-section-right-building').mouseleave(_onBuildingMouseLeave);
     }
-    
+
     $('.width-chart-canvas').mouseenter(_hideWidthChartImmediately);
 
     $('.info-bubble').mouseenter(_infoBubble.onMouseEnter);
@@ -5781,7 +5785,8 @@ var main = (function(){
     _detectEnvironment();
 
     system.touch = Modernizr.touch;
-    system.hiDpi = window.devicePixelRatio; // DEBUG
+    //system.touch = true;  // DEBUG
+    system.hiDpi = window.devicePixelRatio;
     system.pageVisibility = Modernizr.pagevisibility;
 
     if (system.touch) {
@@ -5828,6 +5833,7 @@ var main = (function(){
     },
 
     show: function() {
+      console.log('no connection!');
       document.querySelector('#no-connection-message').classList.add('visible');
       document.body.classList.add('no-connection-message-visible');
     },
@@ -6165,8 +6171,15 @@ var main = (function(){
         return;
       }
 
-      _infoBubble.considerMouseX = event.pageX;
-      _infoBubble.considerMouseY = event.pageY;
+      if (event) {
+        _infoBubble.considerMouseX = event.pageX;
+        _infoBubble.considerMouseY = event.pageY;
+      } else {
+        var pos = _getElAbsolutePos(segmentEl);
+
+        _infoBubble.considerMouseX = pos[0];
+        _infoBubble.considerMouseY = pos[1];
+      }
       _infoBubble.considerSegmentEl = segmentEl;
       _infoBubble.considerType = type;
 
@@ -6310,9 +6323,13 @@ var main = (function(){
       }
 
       var el = _infoBubble.el.querySelector('.width-canvas .width');
-
-      el.realValue = width;
-      el.value = _prettifyWidth(width, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP);
+      if (el) {
+        el.realValue = width;
+        el.value = _prettifyWidth(width, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP);
+      } else {
+        var el = _infoBubble.el.querySelector('.width-canvas .width-non-editable');
+        el.innerHTML = _prettifyWidth(width, PRETTIFY_WIDTH_OUTPUT_MARKUP);
+      }
     },
 
     createVariantIcon: function(name, buttonEl) {
@@ -6463,7 +6480,6 @@ var main = (function(){
           innerEl.setAttribute('type', 'text');
           innerEl.classList.add('width');
           innerEl.segmentEl = segment.el;
-          //innerEl.value = width / TILE_SIZE;
 
           innerEl.addEventListener('click', _onWidthEditClick);
           innerEl.addEventListener('focus', _onWidthEditFocus);
