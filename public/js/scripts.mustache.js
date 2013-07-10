@@ -7231,7 +7231,12 @@ var main = (function(){
     buttonEl.classList.add('scroll-left');
     buttonEl.el = el;
     buttonEl.disabled = true;
-    buttonEl.addEventListener('click', _onScrollButtonLeft);
+    if (system.touch) {      
+      buttonEl.addEventListener('touchstart', _onScrollButtonLeft);
+    } else {
+      buttonEl.addEventListener('click', _onScrollButtonLeft);        
+    }
+    //buttonEl.addEventListener('click', _onScrollButtonLeft);
     el.parentNode.appendChild(buttonEl);
 
     var buttonEl = document.createElement('button');
@@ -7239,7 +7244,11 @@ var main = (function(){
     buttonEl.classList.add('scroll-right');
     buttonEl.el = el;
     buttonEl.disabled = true;
-    buttonEl.addEventListener('click', _onScrollButtonRight);
+    if (system.touch) {      
+      buttonEl.addEventListener('touchstart', _onScrollButtonRight);
+    } else {
+      buttonEl.addEventListener('click', _onScrollButtonRight);        
+    }
     el.parentNode.appendChild(buttonEl);
 
     el.setAttribute('scroll-buttons', true);

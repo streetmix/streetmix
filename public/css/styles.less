@@ -1621,7 +1621,6 @@ body.no-connection-message-visible #status-message {
 
     outline: none;
 
-
     padding: 10px;
     margin: -10px;
 
@@ -2562,16 +2561,16 @@ button.scroll-right {
   height: 40px;
   z-index: 9999999;
 
+  -webkit-tap-highlight-color: transparent;
+  -moz-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
+
   &.scroll-left {
     margin-left: -20px;
   }
   &.scroll-right {
     margin-left: -5px;
   }
-
-  //-webkit-transition: opacity 250ms;
-  //-moz-transition: opacity 250ms;
-  //transition: opacity 250ms;
 
   &[disabled] {
     opacity: 0;
