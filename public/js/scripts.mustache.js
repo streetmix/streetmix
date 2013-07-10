@@ -168,8 +168,8 @@ var main = (function(){
   var PALETTE_EXTRA_SEGMENT_PADDING = 5;
 
   var DRAG_OFFSET_Y_PALETTE = -340 - 150;
-  var DRAG_OFFSET_Y_TOUCH_PALETTE = -100 - 150;
-  var DRAG_OFFSET_Y_TOUCH = -50;
+  var DRAG_OFFSET_Y_TOUCH_PALETTE = -100;
+  var DRAG_OFFSET_Y_TOUCH = -100;
 
   var THUMBNAIL_WIDTH = 180;
   var THUMBNAIL_HEIGHT = 110;
@@ -3136,7 +3136,7 @@ var main = (function(){
   }
 
   function _unifyUndoStack() {
-    console.log('_unifyUndoStack…', street.creatorId);
+    //console.log('_unifyUndoStack…', street.creatorId);
     for (var i = 0; i < undoStack.length; i++) {
       undoStack[i].id = street.id;
       undoStack[i].name = street.name;
@@ -3747,6 +3747,15 @@ var main = (function(){
         draggingMove.originalWidth);
     document.body.appendChild(draggingMove.floatingEl);
 
+    // TODO simplify and unify with below
+    if (system.touch) {
+      if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
+        draggingMove.elY += DRAG_OFFSET_Y_TOUCH_PALETTE;
+      } else {
+        draggingMove.elY += DRAG_OFFSET_Y_TOUCH;
+      }
+    }
+
     if (system.cssTransform) {
       draggingMove.floatingEl.style[system.cssTransform] = 
           'translate(' + draggingMove.elX + 'px, ' + draggingMove.elY + 'px)';
@@ -3790,6 +3799,8 @@ var main = (function(){
         draggingMove.floatingEl.classList.remove('first-drag-move');      
       }, SHORT_DELAY);
     }    
+
+    //document.title = draggingMove.elX + ' ' + draggingMove.elY;
 
     if (system.cssTransform) {
       draggingMove.floatingEl.style[system.cssTransform] = 
@@ -4752,6 +4763,8 @@ var main = (function(){
     if (debug.forceUnsupportedBrowser) {
       url += '&debug-force-unsupported-browser';
     }
+
+    url = url.replace(/\&/, '?');
 
     window.history.replaceState(null, null, url);
 
