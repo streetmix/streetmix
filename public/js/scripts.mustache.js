@@ -5675,7 +5675,11 @@ var main = (function(){
   }
 
   function _addEventListeners() {
-    document.querySelector('#new-street-menu .close').addEventListener('click', _hideNewStreetMenu);
+    if (system.touch) {
+      document.querySelector('#new-street-menu .close').addEventListener('touchstart', _hideNewStreetMenu);
+    } else {
+      document.querySelector('#new-street-menu .close').addEventListener('click', _hideNewStreetMenu);      
+    }
 
     document.querySelector('#street-width-read').addEventListener('click', _onStreetWidthClick);
 
@@ -5690,10 +5694,12 @@ var main = (function(){
       $('#street-section-right-building').mouseleave(_onBuildingMouseLeave);
     }
 
-    $('.width-chart-canvas').mouseenter(_hideWidthChartImmediately);
+    //$('.width-chart-canvas').mouseenter(_hideWidthChartImmediately);
 
-    $('.info-bubble').mouseenter(_infoBubble.onMouseEnter);
-    $('.info-bubble').mouseleave(_infoBubble.onMouseLeave);
+    if (!system.touch) {
+      $('.info-bubble').mouseenter(_infoBubble.onMouseEnter);
+      $('.info-bubble').mouseleave(_infoBubble.onMouseLeave);
+    }
 
     document.querySelector('#new-street').addEventListener('click', _goNewStreet);
     document.querySelector('#copy-last-street').addEventListener('click', _goCopyLastStreet);
@@ -5712,13 +5718,23 @@ var main = (function(){
     document.querySelector('#blocking-shield-reload').addEventListener('click', _goReload);
     document.querySelector('#gallery-shield').addEventListener('click', _onGalleryShieldClick);
 
-    document.querySelector('#new-street-default').addEventListener('click', _onNewStreetDefaultClick);
-    document.querySelector('#new-street-empty').addEventListener('click', _onNewStreetEmptyClick);
-    document.querySelector('#new-street-last').addEventListener('click', _onNewStreetLastClick);
+    if (system.touch) {
+      document.querySelector('#new-street-default').addEventListener('touchstart', _onNewStreetDefaultClick);
+      document.querySelector('#new-street-empty').addEventListener('touchstart', _onNewStreetEmptyClick);
+      document.querySelector('#new-street-last').addEventListener('touchstart', _onNewStreetLastClick);
+    } else {
+      document.querySelector('#new-street-default').addEventListener('click', _onNewStreetDefaultClick);
+      document.querySelector('#new-street-empty').addEventListener('click', _onNewStreetEmptyClick);
+      document.querySelector('#new-street-last').addEventListener('click', _onNewStreetLastClick);
+    }
 
     window.addEventListener('storage', _onStorageChange);
 
-    document.querySelector('#gallery-link a').addEventListener('click', _onMyStreetsClick);
+    if (system.touch) {
+      document.querySelector('#gallery-link a').addEventListener('touchstart', _onMyStreetsClick);
+    } else {
+      document.querySelector('#gallery-link a').addEventListener('click', _onMyStreetsClick);      
+    }
 
     document.querySelector('#sign-out-link').addEventListener('click', _signOut);
 
@@ -5733,7 +5749,11 @@ var main = (function(){
 
     window.addEventListener('beforeunload', _onWindowBeforeUnload);
 
-    document.querySelector('#street-name').addEventListener('click', _askForStreetName);
+    if (system.touch) {
+      document.querySelector('#street-name').addEventListener('touchstart', _askForStreetName);
+    } else {
+      document.querySelector('#street-name').addEventListener('click', _askForStreetName);      
+    }
 
     if (system.touch) {
       document.querySelector('#undo').addEventListener('touchstart', _undo);
