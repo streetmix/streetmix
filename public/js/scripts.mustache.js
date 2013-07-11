@@ -5828,7 +5828,7 @@ var main = (function(){
       }
     }
 
-    if (navigator.userAgent.indexOf('Safari') != -1) {
+    if ((navigator.userAgent.indexOf('Safari') != -1) && (navigator.userAgent.indexOf('Chrome') == -1)) {
       system.safari = true;
 
       document.body.classList.add('safari');
