@@ -289,11 +289,12 @@ var whatIsThis = (function(){
     _addCss();  
     _addHtml();    
 
-    if (webStorageProxy.getItem( (LOCAL_STORAGE_NAME + location.host)) == 'true') {
+    /*if (webStorageProxy.getItem( (LOCAL_STORAGE_NAME + location.host)) == 'true') {
       _showTeaser();
     } else {
       _showInfoWithDelay();
-    }
+    }*/
+    _showTeaser();
     
     webStorageProxy.setItem( (LOCAL_STORAGE_NAME + location.host) , true);
   }
@@ -335,12 +336,16 @@ var webStorageProxy = (function(){
 	// remove an item specified by the key. Returns true if the item existed and it was
 	// removed. Returns false if the item didn't exist to begin with.
 	webStorageProxy.removeItem = function(key, sessionOnly) {
-		var storage = _sessionOrLocal(sessionOnly);
-		var returnVal = true;
-		if (!storage.getItem(key)) returnVal = false;		
-		if (returnVal) storage.removeItem(key);
-		
-		return returnVal;
+    var storage = _sessionOrLocal(sessionOnly);
+    var returnVal = true;
+    if (!storage.getItem(key)) {
+      returnVal = false;		
+    }
+    if (returnVal) {
+      storage.removeItem(key);
+    }
+
+    return returnVal;
 	}
 	
 	// internal function for whether to use local or session storage.
