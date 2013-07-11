@@ -198,8 +198,6 @@ body:not(.safari).gallery-visible #street-section-sky {
   transform: translateY(-20px);
 }
 #gallery {
-  display: none;
-
   position: absolute;
   left: @leftRightInset + 20px;
   right: @leftRightInset + 20px;
@@ -830,9 +828,9 @@ body:not(.safari) .footer-canvas {
   display: block;
   position: absolute;
 
-  //-webkit-perspective: 500px;
-  //-moz-perspective: 500px;
-  //perspective: 500px;  
+  -webkit-perspective: 500px;
+  -moz-perspective: 500px;
+  perspective: 500px;  
 }
 .segment.empty {
   position: absolute;
@@ -2191,9 +2189,9 @@ body:not(.edit-street-width) #street-width {
   -moz-transform: rotateX(-80deg);
   transform: rotateX(-80deg);
 
-  //-webkit-perspective: 1200px;
-  //-moz-perspective: 1200px;
-  //perspective: 1200px;
+  -webkit-perspective: 1200px;
+  -moz-perspective: 1200px;
+  perspective: 1200px;
 
   .triangle {
     position: absolute;
