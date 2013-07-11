@@ -1734,6 +1734,9 @@ body.no-connection-message-visible #status-message {
 
   textarea,
   input {
+    -webkit-appearance: none;
+    appearance: none;
+    
     background: @formElementBackground;
     border: 1px solid @formElementBorder;
     resize: none;
@@ -1741,14 +1744,14 @@ body.no-connection-message-visible #status-message {
 }
 
 body.safari .menu {
-  -webkit-transform: translateY(50px);
-  -moz-transform: translateY(50px);
-  transform: translateY(50px);
+  -webkit-transform: translateY(50px) translateZ(100px);
+  -moz-transform: translateY(50px) translateZ(100px);
+  transform: translateY(50px) translateZ(100px);
 
   &.visible {
-    -webkit-transform: rotateX(0);
-    -moz-transform: rotateX(0);
-    transform: rotateX(0);
+    -webkit-transform: rotateX(0) translateZ(100px);
+    -moz-transform: rotateX(0) translateZ(100px);
+    transform: rotateX(0) translateZ(100px);
   }
 }
 

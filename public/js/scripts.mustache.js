@@ -5779,7 +5779,7 @@ var main = (function(){
     }
     window.addEventListener('keydown', _onBodyKeyDown);  
 
-    if (system.touch) {
+    /*if (system.touch) {
       document.querySelector('#share-menu-button').
           addEventListener('touchstart', _onShareMenuClick);
       document.querySelector('#feedback-menu-button').
@@ -5788,7 +5788,7 @@ var main = (function(){
         document.querySelector('#identity-menu-button').
             addEventListener('touchstart', _onIdentityMenuClick);
       }
-    } else {
+    } else {*/
       document.querySelector('#share-menu-button').
           addEventListener('click', _onShareMenuClick);
       document.querySelector('#feedback-menu-button').
@@ -5797,7 +5797,7 @@ var main = (function(){
         document.querySelector('#identity-menu-button').
             addEventListener('click', _onIdentityMenuClick);
       }
-    }
+    //}
   }
 
   function _detectEnvironment() {
@@ -6906,9 +6906,11 @@ var main = (function(){
   }
 
   function _prepareFeedbackForm() {
-    window.setTimeout(function() {
-      document.querySelector('#feedback-form-message').focus();
-    }, 200);
+    if (!system.touch) {
+      window.setTimeout(function() {
+        document.querySelector('#feedback-form-message').focus();
+      }, 200);
+    }
     
     var message = window.localStorage[LOCAL_STORAGE_FEEDBACK_BACKUP] || '';
     document.querySelector('#feedback-form-message').value = message;
@@ -6954,10 +6956,12 @@ var main = (function(){
 
       el.classList.add('visible');
 
-      window.setTimeout(function() {
-        document.querySelector('#share-via-link').focus();
-        document.querySelector('#share-via-link').select();
-      }, 200);
+      if (!system.touch) {
+        window.setTimeout(function() {
+          document.querySelector('#share-via-link').focus();
+          document.querySelector('#share-via-link').select();
+        }, 200);
+      }
     } else {
       _hideMenus();
     }
