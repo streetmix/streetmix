@@ -4141,12 +4141,13 @@ var main = (function(){
       draggingMove.originalEl.classList.remove('dragged-out');
     }
 
+    _repositionSegments();
+    _segmentsChanged();
+
     _removeElFromDom(draggingMove.floatingEl);
 
     draggingMove.segmentBeforeEl = null;
     draggingMove.segmentAfterEl = null;
-    _repositionSegments();
-    _segmentsChanged();
 
     document.querySelector('#trashcan').classList.remove('visible');
 
