@@ -74,14 +74,17 @@
 
 html {
   height: 100%;
+  overflow: hidden;
 }
 body {
   margin: 0;
   padding: 0;
 
+  width: 100%;
   height: 100%;
 
   overflow: hidden;
+  position: relative; // Fixes iOS Safari overflow: hidden not working bug
 
   background: white;
 }
@@ -120,8 +123,10 @@ textarea {
   position: absolute;
   left: 0;
   top: 0;
-  width: 100%;
-  height: 100%;
+  right: 0;
+  bottom: 0;
+  //width: 100%;
+  //height: 100%;
   z-index: 100;
 }
 
@@ -993,8 +998,6 @@ body:not(.touch-support) .segment.palette:hover {
   -webkit-transition: none !important;
   -moz-transition: none !important;
   transition: none !important;
-
-  display: none;
 }
 
 .segment.floating.first-drag-move {
