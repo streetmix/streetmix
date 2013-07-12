@@ -371,7 +371,7 @@ var main = (function(){
     'bike-rack-elevation': ['sidewalk', 'road'],
 
     'car-type': ['car', 'truck'],
-    'sidewalk-density': ['dense', 'normal', 'sparse'],
+    'sidewalk-density': ['empty', 'sparse', 'normal', 'dense'],
 
     'parking-lane-orientation': ['left', 'right'],
   };
@@ -394,6 +394,7 @@ var main = (function(){
     'parking-lane-direction|sideways': { x: 6, y: 0, title: 'Parallel' },
     'direction|inbound': { x: 2, y: 0, title: 'Inbound' },
     'direction|outbound': { x: 3, y: 0, title: 'Outbound' },
+    'sidewalk-density|empty': { x: -1, y: 1, title: 'Empty' },
     'sidewalk-density|sparse': { x: 0, y: 1, title: 'Sparse' },
     'sidewalk-density|normal': { x: 1, y: 1, title: 'Normal' },
     'sidewalk-density|dense': { x: 2, y: 1, title: 'Dense' },
@@ -435,24 +436,34 @@ var main = (function(){
       defaultWidth: 6,
       variants: ['sidewalk-density'],
       details: {
-        'dense': {
+        'empty': {
           minWidth: 6,
           graphics: {
-            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
-          }
-        },
-        'normal': {
-          minWidth: 6,
-          graphics: {
+            center: { tileset: 1, x: 0, y: 0, width: 4, offsetX: -1, height: 1 },
             repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
           }
         },
         'sparse': {
           minWidth: 6,
           graphics: {
+            center: { tileset: 1, x: 0, y: 0, width: 4, offsetX: -1, height: 1 },
             repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
           }
-        }
+        },
+        'normal': {
+          minWidth: 6,
+          graphics: {
+            center: { tileset: 1, x: 0, y: 0, width: 4, offsetX: -1, height: 1 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+          }
+        },
+        'dense': {
+          minWidth: 6,
+          graphics: {
+            center: { tileset: 1, x: 0, y: 0, width: 4, offsetX: -1, height: 1 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+          }
+        },
       }
     },
     'sidewalk-tree': {
@@ -1461,13 +1472,16 @@ var main = (function(){
     var variantArray = _getVariantArray('sidewalk', variantString);
 
     switch (variantArray['sidewalk-density']) {
+      case 'empty':
+        return;
+        break;  
       case 'sparse':
         var widthConst = 60;
         var widthRand = 100;
         break;
       case 'normal':
-        var widthConst = 36;
-        var widthRand = 36;
+        var widthConst = 12;
+        var widthRand = 60;
         break;
       case 'dense':
         var widthConst = 12;
@@ -1480,7 +1494,9 @@ var main = (function(){
 
     var lastPersonType = 0;
 
-    while (peopleWidth < width - 36) {
+    var peopleCount = 0;
+
+    while ((!peopleCount) || (peopleWidth < width - 36)) {
       var person = {};
       person.left = peopleWidth;
       do {
@@ -1492,6 +1508,7 @@ var main = (function(){
 
       peopleWidth += lastWidth;
       people.push(person);
+      peopleCount++;
     }
     peopleWidth -= lastWidth;
 
@@ -1668,7 +1685,7 @@ var main = (function(){
     }
 
     if (type == 'sidewalk') {
-      _drawProgrammaticPeople(ctx, segmentWidth / multiplier, offsetLeft, offsetTop, multiplier, variantString);
+      _drawProgrammaticPeople(ctx, segmentWidth / multiplier, offsetLeft - left * TILE_SIZE * multiplier, offsetTop, multiplier, variantString);
     }
   }
 
@@ -4655,7 +4672,7 @@ var main = (function(){
           return;
         }
 
-        console.log(document.activeElement);
+        //console.log(document.activeElement);
 
         if (document.activeElement == document.body) {
           var segmentHoveredEl = _getHoveredSegmentEl();
