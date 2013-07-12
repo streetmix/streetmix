@@ -391,7 +391,7 @@ var main = (function(){
     'parking-lane-orientation|right': { x: 1, y: 0, title: 'Right' },
     'parking-lane-direction|inbound': { x: 2, y: 0, title: 'Inbound' },
     'parking-lane-direction|outbound': { x: 3, y: 0, title: 'Outbound' },
-    'parking-lane-direction|sideways': { x: 6, y: 0, title: 'Parallel' },
+    'parking-lane-direction|sideways': { x: 6, y: 0, title: 'Perpendicular' },
     'direction|inbound': { x: 2, y: 0, title: 'Inbound' },
     'direction|outbound': { x: 3, y: 0, title: 'Outbound' },
     'sidewalk-density|empty': { x: -1, y: 1, title: 'Empty' },
@@ -921,7 +921,7 @@ var main = (function(){
           }          
         },
         'sideways|left': {
-          name: 'Parallel parking',
+          name: 'Perpendicular parking',
           minWidth: 14,
           maxWidth: 20,
           graphics: {
@@ -932,7 +932,7 @@ var main = (function(){
           }          
         },
         'sideways|right': {
-          name: 'Parallel parking',
+          name: 'Perpendicular parking',
           minWidth: 14,
           maxWidth: 20,
           graphics: {
