@@ -3890,6 +3890,9 @@ var main = (function(){
     var topEl = event.target;
     // TODO nasty
     while (topEl && (topEl.id != 'info-bubble') && 
+      (topEl.id != 'share-menu-button') && 
+      (topEl.id != 'feedback-menu-button') && 
+      (topEl.id != 'identity-menu-button') && 
       (topEl.id != 'share-menu') && 
       (topEl.id != 'feedback-menu') && 
       (topEl.id != 'identity-menu')) {
@@ -4257,7 +4260,7 @@ var main = (function(){
     _infoBubble.considerShowing(event, draggingResize.segmentEl, INFO_BUBBLE_TYPE_SEGMENT);
     window.setTimeout(function() {
       suppressMouseEnter = false;
-    }, 1000);
+    }, 200);
   }
 
   function _onBodyMouseUp(event) {
@@ -7008,6 +7011,7 @@ var main = (function(){
     _statusMessage.hide();
 
     if (!el.classList.contains('visible')) {
+      _hideMenus();
       menuVisible = true;
 
       el.classList.add('visible');
@@ -7025,6 +7029,7 @@ var main = (function(){
     _statusMessage.hide();
 
     if (!el.classList.contains('visible')) {
+      _hideMenus();
       menuVisible = true;
 
       el.classList.add('visible');
@@ -7047,6 +7052,7 @@ var main = (function(){
     _statusMessage.hide();
 
     if (!el.classList.contains('visible')) {
+      _hideMenus();
       menuVisible = true;
 
       var pos = _getElAbsolutePos(document.querySelector('#identity'));
