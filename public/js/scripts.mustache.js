@@ -1258,6 +1258,7 @@ var main = (function(){
   var draggingMove = {
     type: null,
     active: false,
+    withinCanvas: null,
     segmentBeforeEl: null,
     segmentAfterEl: null,
     mouseX: null,
@@ -2344,6 +2345,7 @@ var main = (function(){
 
   function _repositionSegments() {
     var left = 0;
+    var noMoveLeft = 0;
 
     var extraWidth = 0;
 
@@ -2367,9 +2369,11 @@ var main = (function(){
       }
 
       el.savedLeft = parseInt(left); // so we don’t have to use offsetLeft
+      el.savedNoMoveLeft = parseInt(noMoveLeft); // so we don’t have to use offsetLeft
       el.savedWidth = parseInt(width);
 
       left += width;
+      noMoveLeft += width;
 
       if (el == draggingMove.segmentAfterEl) {
         left += DRAGGING_MOVE_HOLE_WIDTH;
@@ -2383,13 +2387,16 @@ var main = (function(){
     }
 
     var occupiedWidth = left;
+    var noMoveOccupiedWidth = noMoveLeft;
 
     var mainLeft = Math.round((street.width * TILE_SIZE - occupiedWidth) / 2);
+    var mainNoMoveLeft = Math.round((street.width * TILE_SIZE - noMoveOccupiedWidth) / 2);
 
     for (var i in street.segments) {
       var el = street.segments[i].el;
 
       el.savedLeft += mainLeft;
+      el.savedNoMoveLeft += mainNoMoveLeft;
 
       if (system.cssTransform) {
         el.style[system.cssTransform] = 'translateX(' + el.savedLeft + 'px)';
@@ -2779,7 +2786,7 @@ var main = (function(){
   function _updateToLatestSchemaVersion(street) {
     var updated = false;
     while (!street.schemaVersion || (street.schemaVersion < LATEST_SCHEMA_VERSION)) {
-      console.log('updating schema from', street.schemaVersion);
+      //console.log('updating schema from', street.schemaVersion);
 
       _incrementSchemaVersion(street);
       updated = true;
@@ -2828,7 +2835,7 @@ var main = (function(){
       }
 
       if (updatedSchema && !remixOnFirstEdit) {
-        console.log('saving because of updated schema…');
+        //console.log('saving because of updated schema…');
         _saveStreetToServer();
       }
     }
@@ -3087,12 +3094,12 @@ var main = (function(){
     if (signedIn) {
       _setStreetCreatorId(signInData.userId);
     } else {
-      console.log('!!!');
+      //console.log('!!!');
 
       _setStreetCreatorId(null);
     }
 
-    console.log('STREET', street);
+    //console.log('STREET', street);
 
     street.originalStreetId = street.id;
 
@@ -3163,7 +3170,7 @@ var main = (function(){
   }
 
   function _setStreetCreatorId(newId) {
-    console.log('setStreetCreatorId', newId);
+    //console.log('setStreetCreatorId', newId);
     street.creatorId = newId;
 
     _unifyUndoStack();
@@ -3698,7 +3705,7 @@ var main = (function(){
       var y = event.pageY;
     }    
 
-    console.log(x, y);
+    //console.log(x, y);
 
     var el = event.target;
 
@@ -3763,8 +3770,19 @@ var main = (function(){
 
     draggingMove.segmentBeforeEl = null;
     draggingMove.segmentAfterEl = null;
+    _updateWithinCanvas(true);
 
     _infoBubble.hide();
+  }
+
+  function _updateWithinCanvas(_newWithinCanvas) {
+    draggingMove.withinCanvas = _newWithinCanvas;    
+
+    if (draggingMove.withinCanvas) {
+      document.body.classList.remove('not-within-canvas');
+    } else {
+      document.body.classList.add('not-within-canvas');
+    }
   }
 
   function _handleSegmentMoveMove(event) {
@@ -3888,15 +3906,29 @@ var main = (function(){
     var selectedSegmentBefore = null;
     var selectedSegmentAfter = null;
 
-    for (var i in street.segments) {
-      var segment = street.segments[i];
+    var farLeft = street.segments[0].el.savedNoMoveLeft;
+    var farRight = 
+        street.segments[street.segments.length - 1].el.savedNoMoveLeft + 
+        street.segments[street.segments.length - 1].el.savedWidth;
 
-      if (!selectedSegmentBefore && ((segment.el.savedLeft + segment.el.savedWidth / 2) > left)) {
-        selectedSegmentBefore = segment.el;
-      }
+    //console.log(y, streetSectionTop);
 
-      if ((segment.el.savedLeft + segment.el.savedWidth / 2) <= left) {
-        selectedSegmentAfter = segment.el;
+    // TODO const
+    if ((left < farLeft - 100) || (left > farRight + 100) || 
+         (y < streetSectionTop - 100) || (y > streetSectionTop + 300)) {
+      _updateWithinCanvas(false);
+    } else {
+      _updateWithinCanvas(true);
+      for (var i in street.segments) {
+        var segment = street.segments[i];
+
+        if (!selectedSegmentBefore && ((segment.el.savedLeft + segment.el.savedWidth / 2) > left)) {
+          selectedSegmentBefore = segment.el;
+        }
+
+        if ((segment.el.savedLeft + segment.el.savedWidth / 2) <= left) {
+          selectedSegmentAfter = segment.el;
+        }
       }
     }
 
@@ -4091,15 +4123,19 @@ var main = (function(){
   function _handleSegmentMoveEnd(event) {
     ignoreStreetChanges = false;
 
-    var el = document.elementFromPoint(draggingMove.mouseX, draggingMove.mouseY);
+    /*var el = document.elementFromPoint(draggingMove.mouseX, draggingMove.mouseY);
     while (el && (el.id != 'street-section-editable')) {
       el = el.parentNode;
     }
-    var withinCanvas = !!el;
+    var withinCanvas = !!el;*/
+
+    //document.querySelector('#street-section-editable').style.outline = '1px solid red';
+
+    //console.log(withinCanvas);
 
     var failedDrop = false;
 
-    if (!withinCanvas) {
+    if (!draggingMove.withinCanvas) {
       if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
         _removeElFromDom(draggingMove.originalEl);
       }
@@ -4146,6 +4182,7 @@ var main = (function(){
 
     _repositionSegments();
     _segmentsChanged();
+    _updateWithinCanvas(true);
 
     _removeElFromDom(draggingMove.floatingEl);
 
@@ -4297,7 +4334,7 @@ var main = (function(){
     system.viewportWidth = window.innerWidth;
     system.viewportHeight = window.innerHeight;
 
-    console.log(window.scrollTop, document.body.scrollTop);
+    //console.log(window.scrollTop, document.body.scrollTop);
 
     var streetSectionHeight = 
         document.querySelector('#street-section-inner').offsetHeight;
