@@ -3722,8 +3722,6 @@ var main = (function(){
       var y = event.pageY;
     }    
 
-    //console.log(x, y);
-
     var el = event.target;
 
     _changeDraggingType(DRAGGING_TYPE_MOVE);
@@ -3783,6 +3781,9 @@ var main = (function(){
 
     if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
       draggingMove.originalEl.classList.add('dragged-out');
+      draggingMove.originalEl.classList.remove('immediate-show-drag-handles');
+      draggingMove.originalEl.classList.remove('show-drag-handles');
+      draggingMove.originalEl.classList.remove('hover');
     }
 
     draggingMove.segmentBeforeEl = null;
@@ -4137,18 +4138,24 @@ var main = (function(){
     return { type: type, variantString: variantString, width: width };
   }
 
+  function _handleSegmentMoveCancel() {
+    draggingMove.originalEl.classList.remove('dragged-out');
+
+    draggingMove.segmentBeforeEl = null;
+    draggingMove.segmentAfterEl = null;
+
+    _repositionSegments();
+    _updateWithinCanvas(true);
+   
+    _removeElFromDom(draggingMove.floatingEl);
+    document.querySelector('#trashcan').classList.remove('visible');
+
+    _changeDraggingType(DRAGGING_TYPE_NONE);
+  }
+
+
   function _handleSegmentMoveEnd(event) {
     ignoreStreetChanges = false;
-
-    /*var el = document.elementFromPoint(draggingMove.mouseX, draggingMove.mouseY);
-    while (el && (el.id != 'street-section-editable')) {
-      el = el.parentNode;
-    }
-    var withinCanvas = !!el;*/
-
-    //document.querySelector('#street-section-editable').style.outline = '1px solid red';
-
-    //console.log(withinCanvas);
 
     var failedDrop = false;
 
@@ -4202,7 +4209,6 @@ var main = (function(){
     _updateWithinCanvas(true);
 
     _removeElFromDom(draggingMove.floatingEl);
-
     document.querySelector('#trashcan').classList.remove('visible');
 
     _changeDraggingType(DRAGGING_TYPE_NONE);
@@ -4712,7 +4718,9 @@ var main = (function(){
         _hideDebugInfo();
         whatIsThis.hideInfo();
 
-        if (menuVisible) {
+        if (draggingType == DRAGGING_TYPE_MOVE) {
+          _handleSegmentMoveCancel();
+        } else if (menuVisible) {
           _hideMenus();
         } else if (_infoBubble.visible && _infoBubble.descriptionVisible) {
           _infoBubble.hideDescription();
