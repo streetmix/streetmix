@@ -4225,6 +4225,13 @@ var main = (function(){
     }
   }
 
+  function _handleSegmentResizeCancel() {
+    _resizeSegment(draggingResize.segmentEl, RESIZE_TYPE_INITIAL,
+        draggingResize.originalWidth * TILE_SIZE, true, false, true);
+
+    _handleSegmentResizeEnd();
+  }
+
   function _handleSegmentResizeEnd(event) {
     ignoreStreetChanges = false;
 
@@ -4232,14 +4239,10 @@ var main = (function(){
 
     _changeDraggingType(DRAGGING_TYPE_NONE);
 
-    // TODO const
     var el = draggingResize.floatingEl;
-    //window.setTimeout(function() {
-      _removeElFromDom(el);
-    //}, 50);
+    _removeElFromDom(el);
   
     draggingResize.segmentEl.classList.add('immediate-show-drag-handles'); 
-    //draggingResize.segmentEl.classList.remove('hover');
 
     _removeGuides(draggingResize.segmentEl);
  
@@ -4718,7 +4721,9 @@ var main = (function(){
         _hideDebugInfo();
         whatIsThis.hideInfo();
 
-        if (draggingType == DRAGGING_TYPE_MOVE) {
+        if (draggingType == DRAGGING_TYPE_RESIZE) {
+          _handleSegmentResizeCancel();
+        } else if (draggingType == DRAGGING_TYPE_MOVE) {
           _handleSegmentMoveCancel();
         } else if (menuVisible) {
           _hideMenus();
