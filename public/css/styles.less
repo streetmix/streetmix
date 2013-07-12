@@ -42,7 +42,7 @@
 @segmentHoverText: lighten(@segmentText, 30%);
 @segmentWarningText: @warningColour;
 @emptySegmentText: rgb(53, 129, 63);
-@emptySegmentColor: fadeout(rgb(53, 129, 63), 50%);
+@emptySegmentColor: desaturate(darken(@skyColour, 2%), 3%);// fadeout(rgb(53, 129, 63), 50%);
 
 @topMenuText: @segmentText;
 @topMenuHoverText: darken(@skyColour, 20%);
@@ -860,10 +860,10 @@ body:not(.safari) .footer-canvas {
       content: '';
       position: absolute;
       left: -1px;
-      right: -1px;
+      right: 0;
       background: @emptySegmentColor;
-      top: -45px;
-      height: 45px;
+      top: -46px;
+      height: 46px;
       border: none;
     }
   }
