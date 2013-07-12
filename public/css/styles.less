@@ -811,12 +811,26 @@ body:not(.safari) .footer-canvas {
   height: @canvasHeight + 80;
   text-align: left;
 
+  //background: red;
+
   //margin-left: -@streetSectionHorizontalPadding;
   //margin-right: -@streetSectionHorizontalPadding;
   //padding-left: @streetSectionHorizontalPadding;
   //padding-right: @streetSectionHorizontalPadding;
 
   -webkit-transform: translateZ(0);
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 394px;
+    right: 0;
+    bottom: 115px;
+    background: darken(@skyColour, 2%);
+
+    pointer-events: none;
+  }
 }
 .segment {
   height: @canvasHeight + 85 + 150px;
@@ -856,7 +870,7 @@ body:not(.safari) .footer-canvas {
   .width {
     overflow: visible;
 
-    &::before {
+    /*&::before {
       content: '';
       position: absolute;
       left: -1px;
@@ -865,7 +879,7 @@ body:not(.safari) .footer-canvas {
       top: -46px;
       height: 46px;
       border: none;
-    }
+    }*/
   }
 }
 
