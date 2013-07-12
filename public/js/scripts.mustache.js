@@ -2555,14 +2555,14 @@ var main = (function(){
     _repositionSegments();
   }
 
-  function _updateEverything() {
+  function _updateEverything(dontScroll) {
     ignoreStreetChanges = true;
     _propagateUnits();
     _buildStreetWidthMenu();
     _updateShareMenu();
     _createDomFromData();
     _segmentsChanged();
-    _resizeStreetWidth();
+    _resizeStreetWidth(dontScroll);
     _updateStreetName();
     ignoreStreetChanges = false;
     _updateUndoButtons();
@@ -2577,32 +2577,32 @@ var main = (function(){
     } else if (!undo && !_isRedoAvailable()) {
       _statusMessage.show(msg('STATUS_NOTHING_TO_REDO'));
     } else {
-      console.log('length before', undoStack.length);
+      /*console.log('length before', undoStack.length);
       for (var i = 0; i < undoStack.length; i++) {
         console.log(undoStack[i]);
         console.log(undoStack[i].creatorId);
-      }
+      }*/
       if (undo) {
         undoStack[undoPosition] = _trimStreetData(street);
         undoPosition--;
       } else {
         undoPosition++;
       }
-      console.log('length after', undoStack.length);
+      /*console.log('length after', undoStack.length);
       for (var i = 0; i < undoStack.length; i++) {
         console.log(undoStack[i]);
         console.log(undoStack[i].creatorId);
       }
-      console.log('ZZZ', undoStack.length, undoPosition);
+      console.log('ZZZ', undoStack.length, undoPosition);*/
       street = _clone(undoStack[undoPosition]);
-      console.log('street creator', street.creatorId);
+      //console.log('street creator', street.creatorId);
       _setUpdateTimeToNow();
 
       _infoBubble.hide();
       _infoBubble.hideSegment();
       _infoBubble.dontConsiderShowing();
 
-      _updateEverything();
+      _updateEverything(true);
       _statusMessage.hide();
     }
   }
@@ -4252,12 +4252,14 @@ var main = (function(){
         document.querySelector('.palette-canvas').scrollWidth + 'px';
   }
 
-  function _resizeStreetWidth() {
+  function _resizeStreetWidth(dontScroll) {
     var width = street.width * TILE_SIZE;
 
     document.querySelector('#street-section-canvas').style.width = width + 'px';
-    document.querySelector('#street-section-outer').scrollLeft = (width + BUILDING_SPACE * 2 - system.viewportWidth) / 2;
-    _onStreetSectionScroll();
+    if (!dontScroll) {
+      document.querySelector('#street-section-outer').scrollLeft = (width + BUILDING_SPACE * 2 - system.viewportWidth) / 2;
+      _onStreetSectionScroll();
+    }
 
     _onResize();
   }
@@ -4915,7 +4917,7 @@ var main = (function(){
       _statusMessage.show(msg('STATUS_RELOADED_FROM_SERVER'));
 
       _unpackServerStreetData(transmission, null, null, false);
-      _updateEverything();
+      _updateEverything(true);
     }
   }
 
