@@ -5366,7 +5366,7 @@ var main = (function(){
       var anchorEl = document.createElement('a');
 
       galleryStreet.creatorId = 
-          (galleryStreet.creator && galleryStreet.creator.id) || 'Anonymous';
+          (galleryStreet.creator && galleryStreet.creator.id);
 
       galleryStreet.name = galleryStreet.name || DEFAULT_NAME;
 
@@ -5403,10 +5403,13 @@ var main = (function(){
       dateEl.innerHTML = _formatDate(date);
       anchorEl.appendChild(dateEl);
 
-      if (!galleryUserId && galleryStreet.creatorId) {
+      if (!galleryUserId) {
         var creatorEl = document.createElement('span');
         creatorEl.classList.add('creator');
-        creatorEl.innerHTML = galleryStreet.creatorId;
+
+        var creatorName = galleryStreet.creatorId || 'Anonymous';
+
+        creatorEl.innerHTML = creatorName;
         anchorEl.appendChild(creatorEl);
       }
 
