@@ -41,7 +41,7 @@
 @segmentText: rgb(40, 35, 30);
 @segmentHoverText: lighten(@segmentText, 30%);
 @segmentWarningText: @warningColour;
-@emptySegmentText: rgb(53, 129, 63);
+@emptySegmentText: fadeout(@segmentText, 50%);
 @emptySegmentColor: desaturate(darken(@skyColour, 2%), 3%);// fadeout(rgb(53, 129, 63), 50%);
 
 @topMenuText: @segmentText;
@@ -824,9 +824,10 @@ body:not(.safari) .footer-canvas {
     content: '';
     position: absolute;
     left: 0;
+    z-index: -1;
     top: 394px;
     right: 0;
-    bottom: 115px;
+    bottom: 115px + 5px;
     background: darken(@skyColour, 2%);
 
     pointer-events: none;

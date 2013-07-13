@@ -21,6 +21,8 @@ var main = (function(){
     UI_DRAG_HERE_TO_REMOVE: 'Drag here to remove',
 
     PROMPT_NEW_STREET_NAME: 'New street name:',
+    PROMPT_DELETE_STREET: 'Are you sure you want to permanently delete [[name]]? This cannot be undone.',
+    PROMPT_NEW_STREET_WIDTH: 'New street width (from [[minWidth]] to [[maxWidth]]):',
 
     MENU_SWITCH_TO_IMPERIAL: 'Switch to imperial units (feet)',
     MENU_SWITCH_TO_METRIC: 'Switch to metric units',
@@ -33,12 +35,15 @@ var main = (function(){
     STATUS_NOTHING_TO_REDO: 'Nothing to redo.',
     STATUS_NO_NEED_TO_SAVE: 'No need to save by hand; Streetmix automatically saves your street!',
     STATUS_NOW_REMIXING: 'Now editing a freshly-made duplicate of the original street. The duplicate has been put in your gallery.',
-    STATUS_NOW_REMIXING_SIGN_IN: 'Now editing a freshly-made duplicate of the original street. <a href="/{{signInUrl}}">Sign in</a> to start your own gallery of streets.',
+    STATUS_NOW_REMIXING_SIGN_IN: 'Now editing a freshly-made duplicate of the original street. <a href="/[[signInUrl]]">Sign in</a> to start your own gallery of streets.',
     STATUS_RELOADED_FROM_SERVER: 'Your street was reloaded from the server as it was modified elsewhere.',
 
     WARNING_TOO_WIDE: 'This segment might be too wide.',
     WARNING_NOT_WIDE_ENOUGH: 'This segment might not be wide enough.',
     WARNING_DOESNT_FIT: 'This segment doesn’t fit within the street.',
+
+    BLOCKING_REMIXING: 'Remixing…',
+    BLOCKING_LOADING: 'Loading…',
   };
 
   var SITE_URL = 'http://{{app_host_port}}/';
@@ -1401,8 +1406,8 @@ var main = (function(){
     }
   }
 
-  String.prototype.supplant = function (o) {
-    return this.replace(/{{([^{}]*)}}/g,
+  String.prototype.supplant = function(o) {
+    return this.replace(/\[\[([^\[\]]*)\]\]/g,
       function (a, b) {
         var r = o[b];
         return typeof r === 'string' || typeof r === 'number' ? r : a;
@@ -2601,25 +2606,13 @@ var main = (function(){
     } else if (!undo && !_isRedoAvailable()) {
       _statusMessage.show(msg('STATUS_NOTHING_TO_REDO'));
     } else {
-      /*console.log('length before', undoStack.length);
-      for (var i = 0; i < undoStack.length; i++) {
-        console.log(undoStack[i]);
-        console.log(undoStack[i].creatorId);
-      }*/
       if (undo) {
         undoStack[undoPosition] = _trimStreetData(street);
         undoPosition--;
       } else {
         undoPosition++;
       }
-      /*console.log('length after', undoStack.length);
-      for (var i = 0; i < undoStack.length; i++) {
-        console.log(undoStack[i]);
-        console.log(undoStack[i].creatorId);
-      }
-      console.log('ZZZ', undoStack.length, undoPosition);*/
       street = _clone(undoStack[undoPosition]);
-      //console.log('street creator', street.creatorId);
       _setUpdateTimeToNow();
 
       _infoBubble.hide();
@@ -2856,8 +2849,6 @@ var main = (function(){
         _saveStreetToServer();
       }
     }
-
-    //console.log(remixOnFirstEdit);
   }
 
   function _packServerStreetData() {
@@ -3111,12 +3102,8 @@ var main = (function(){
     if (signedIn) {
       _setStreetCreatorId(signInData.userId);
     } else {
-      //console.log('!!!');
-
       _setStreetCreatorId(null);
     }
-
-    //console.log('STREET', street);
 
     street.originalStreetId = street.id;
 
@@ -3136,7 +3123,7 @@ var main = (function(){
 
     var transmission = _packServerStreetData();
 
-    _newBlockingAjaxRequest('Remixing…', 
+    _newBlockingAjaxRequest(msg('BLOCKING_REMIXING'), 
         {
           // TODO const
           url: API_URL + 'v1/streets',
@@ -4570,11 +4557,10 @@ var main = (function(){
     } else if (newStreetWidth == STREET_WIDTH_CUSTOM) {
       _ignoreWindowFocusMomentarily();
       // TODO string
-      var width = prompt("New street width (from " + 
-          _prettifyWidth(MIN_CUSTOM_STREET_WIDTH, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP) + 
-          " to " + 
-          _prettifyWidth(MAX_CUSTOM_STREET_WIDTH, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP) + 
-          "):");
+      var width = prompt(
+          msg('PROMPT_NEW_STREET_WIDTH', 
+          { minWidth: _prettifyWidth(MIN_CUSTOM_STREET_WIDTH, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP), 
+            maxWidth: _prettifyWidth(MAX_CUSTOM_STREET_WIDTH, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP) }));
 
       if (width) {
         width = _normalizeStreetWidth(_processWidthInput(width));
@@ -4944,6 +4930,7 @@ var main = (function(){
 
   function _askForStreetName() {
     _ignoreWindowFocusMomentarily();
+
     var newName = prompt(msg('PROMPT_NEW_STREET_NAME'), street.name);
 
     if (newName) {
@@ -5097,7 +5084,7 @@ var main = (function(){
   }
 
   function _fetchLastStreet() {
-    _newBlockingAjaxRequest('Loading…', 
+    _newBlockingAjaxRequest(msg('BLOCKING_LOADING'), 
         {
           // TODO const
           url: API_URL + 'v1/streets/' + settings.priorLastStreetId,
@@ -5164,12 +5151,10 @@ var main = (function(){
     }
 
     document.querySelector('#new-street-menu').classList.add('visible');
-    //document.querySelector('#street-attribution').classList.remove('visible');
   }
 
   function _hideNewStreetMenu() {
     document.querySelector('#new-street-menu').classList.remove('visible');
-    //document.querySelector('#street-attribution').classList.add('visible');
   }
 
   function _fetchGalleryData() {
@@ -5230,8 +5215,6 @@ var main = (function(){
   }
 
   function _receiveStreet(transmission) {
-    //console.log('received street', transmission);
-
     _unpackServerStreetData(transmission, null, null, true);
 
     _propagateUnits();
@@ -5260,8 +5243,6 @@ var main = (function(){
 
     _unpackServerStreetData(transmission, null, null, true);
 
-    //_checkIfNeedsToBeRemixed();
-
     _propagateUnits();
 
     // TODO this is stupid, only here to fill some structures
@@ -5285,7 +5266,8 @@ var main = (function(){
       el.classList.remove('selected');
     }
 
-    var el = document.querySelector('#gallery .streets [streetId="' + galleryStreetId + '"]');
+    var el = document.querySelector('#gallery .streets [streetId="' + 
+        galleryStreetId + '"]');
     if (el) {
       el.classList.add('selected');
     }
@@ -5337,7 +5319,6 @@ var main = (function(){
     _clearBlockingShieldTimers();
 
     document.querySelector('#blocking-shield .message').innerHTML = message;
-
     document.querySelector('#blocking-shield').classList.add('visible');
 
     blockingShieldTimerId = window.setTimeout(function() {
@@ -5368,12 +5349,9 @@ var main = (function(){
     var el = event.target.parentNode;
     var name = el.streetName;
 
-    var prompt = 
-      'Are you sure you want to permanently delete ' + name + '? This cannot be undone.';
-
     _ignoreWindowFocusMomentarily();
     // TODO escape name
-    if (confirm(prompt)) {
+    if (confirm(msg('PROMPT_DELETE_STREET', { name: name }))) {
       if (el.getAttribute('streetId') == street.id) {
         _showError(ERROR_NO_STREET, false);
       }
