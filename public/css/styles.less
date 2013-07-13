@@ -144,10 +144,11 @@ body.environment-sandbox {
     z-index: 9999999999;
     position: absolute;
     text-align: center;
-    left: 190px;
-    top: -2px;
+    left: 0;
+    top: 4px;
     color: white;
     padding: 2px 7px;
+    padding-left: 22px;
     font-size: 10px;
     font-weight: 700;
     line-height: 1.5;
@@ -1609,6 +1610,10 @@ body.no-connection-message-visible #status-message {
     line-height: 22px;
     padding: 3px 10px;
 
+    &.left {
+      float: left;
+    }
+
     li {
       display: inline-block;
       padding: 0;
@@ -1618,6 +1623,18 @@ body.no-connection-message-visible #status-message {
         content: '·';
         margin-left: 2px;
         margin-right: 5px;
+      }
+
+      h1 {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+        font-size: 100%;
+
+        color: black;
+
+        text-transform: uppercase;
+        letter-spacing: 5px;
       }
     }
   }
@@ -1739,6 +1756,12 @@ body.no-connection-message-visible #status-message {
     padding-right: 40px;
 
     border-top: 1px solid @borderColor;
+    border-bottom: 1px solid @borderColor;
+    margin-bottom: -1px;
+
+    &:last-child {
+      border-bottom: none;
+    }
 
     &:hover {
       background: fadeout(@borderColor, 50%);
@@ -1776,24 +1799,61 @@ body.safari .menu {
   }
 }
 
+#help-menu {
+  left: 190px;
+}
 #feedback-menu {
-  right: 50px;
+  left: 243px;
 }
 #share-menu {
-  right: 142px;
+  right: 50px;
   min-width: 350px;
 }
 
-#feedback-form {
+.menu .form {
   padding-left: 30px;
   padding-right: 10px;
-  margin-top: 5px;
-  //margin-bottom: 10px;
+  margin-top: 5px;  
 
+  p:first-child {
+    margin-top: 0;
+  }
+  table {
+    border-collapse: collapse;
+    margin: -5px;
+
+    td {
+      vertical-align: top;
+      padding: 5px;
+    }
+  }
+}
+
+.key {
+  font-size: 11px;
+  background: rgb(220, 220, 220);
+  border-top: 1px solid rgb(240, 240, 240);
+  border-left: 1px solid rgb(240, 240, 240);
+  border-bottom: 1px solid rgb(200, 200, 200);
+  border-right: 1px solid rgb(200, 200, 200);
+  border-radius: 5px;
+  font-style: italic;
+  padding: 1px 6px;
+  display: inline-block;
+  position: relative;
+  top: -2px;
+  color: rgb(64, 64, 64);
+}
+
+#help-shortcuts {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  max-width: 400px;
+  line-height: 18px;
+}
+
+#feedback-form {
   height: 295px;
-
-  //color: rgb(128, 128, 128);
-  //font-size: 11px;
 
   position: relative;
 

@@ -72,18 +72,24 @@
   <div id='main-screen'>
 
     <nav id='top-menu-bar'>
-      <ul>
+      <ul class='left'>
+        <li>
+          <h1>Streetmix</h1>
+        <li>
+          <button class='menu-attached' id='help-menu-button'>Help</button>
+        <li>
+          <button class='menu-attached' id='feedback-menu-button'>Contact us</button>
+      </ul>
+      <ul class='right'>
         <li id='identity'>
         <li>
           <span id='sign-in-link'></span>
+        <li>
+          <a target='_blank' href='/new'>New street</a>
         <li id='gallery-link'>
           <a href=''>My streets</a>
         <li>
-          <a target='_blank' href='/new'>New street</a>
-        <li>
           <button class='menu-attached' id='share-menu-button'>Share</button>
-        <li>
-          <button class='menu-attached' id='feedback-menu-button'>Contact us</button>
       </ul>
     </nav>
 
@@ -91,8 +97,31 @@
       <a id='sign-out-link' href='#'>Sign out</a>
     </div>
 
+    <div id='help-menu' class='menu'>
+      <a href='#'>About Streetmix…</a>
+      <div class='form' id='help-shortcuts'>
+        <p>
+          Keyboard shortcuts:
+        </p>
+        <table>
+          <tr>
+            <td>
+              <span class='key'>Backspace</span> 
+            <td>
+              Remove a segment you’re pointing at<br>
+              (hold <span class='key'>Shift</span> to remove all)
+          <tr>
+            <td>
+              <span class='key'>–</span> <span class='key'>+</span>
+            <td>
+              Change width of a segment you’re pointing at<br>
+              (hold <span class='key'>Shift</span> for more precision)
+        </table>
+      </div>
+    </div>
+
     <div id='feedback-menu' class='menu'>
-      <div id='feedback-form'>
+      <div class='form' id='feedback-form'>
         <div class='loading'>Loading…</div>
         <div class='thank-you'>We got it. Thanks!</div>
         Send us a message:
@@ -226,28 +255,6 @@
       </div>
     </footer>
   </div>
-
-  <div id='what-is-this-content' style='display: none'>
-    <p>
-      <img style='width: 480px; height: 60px; margin: 12px 0; margin-left: -8px' src='/images/ui/title-dark.png'>
-    </p>
-    <p>
-    <strong>Streetmix</strong> is an interactive 
-    <a href="https://github.com/codeforamerica/streetmix#what-are-street-sections">street section</a> builder,
-      put together by a group of 
-      2013 <a href='http://www.codeforamerica.org'>Code for America</a> fellows.
-    </p>
-    <p>
-      This app is a work in progress, and in a very early stage. Stay tuned 
-      and send us your thoughts!
-    </p>
-    <p>
-      <a href='https://github.com/codeforamerica/streetmix#readme'>More information</a>
-      ·
-      <a href='http://www.theatlanticcities.com/commute/2013/01/digital-mixing-board-your-street/4555/'><em>The Atlantic Cities</em> write-up</a>
-    </p>
-  </div>
-  <script src='/js/what-is-this.js'></script>
 
   <script>
     main.init();

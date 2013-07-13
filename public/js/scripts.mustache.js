@@ -3882,10 +3882,10 @@ var main = (function(){
     _hideDebugInfo();
 
     var topEl = event.target;
-    // TODO nasty
     while (topEl && (topEl.id != 'info-bubble') && 
-      (!topEl.classList.contains('menu-attached')) && 
-      (!topEl.classList.contains('menu'))) {
+      ((!topEl.classList) ||
+      ((!topEl.classList.contains('menu-attached')) && 
+      (!topEl.classList.contains('menu'))))) {
       topEl = topEl.parentNode;
     }
 
@@ -3921,8 +3921,6 @@ var main = (function(){
     var farRight = 
         street.segments[street.segments.length - 1].el.savedNoMoveLeft + 
         street.segments[street.segments.length - 1].el.savedWidth;
-
-    //console.log(y, streetSectionTop);
 
     // TODO const
     if ((left < farLeft - 100) || (left > farRight + 100) || 
@@ -4002,7 +4000,6 @@ var main = (function(){
 
   function _createTouchSegmentFadeout(el) {
     _infoBubble.considerShowing(null, el, INFO_BUBBLE_TYPE_SEGMENT);
-  
   }
 
   function _doDropHeuristics(type, variantString, width) {
@@ -4145,7 +4142,6 @@ var main = (function(){
 
     _changeDraggingType(DRAGGING_TYPE_NONE);
   }
-
 
   function _handleSegmentMoveEnd(event) {
     ignoreStreetChanges = false;
@@ -5847,6 +5843,8 @@ var main = (function(){
     } else {*/
       document.querySelector('#share-menu-button').
           addEventListener('click', _onShareMenuClick);
+      document.querySelector('#help-menu-button').
+          addEventListener('click', _onHelpMenuClick);
       document.querySelector('#feedback-menu-button').
           addEventListener('click', _onFeedbackMenuClick);
       if (document.querySelector('#identity-menu-button')) {
@@ -6944,9 +6942,10 @@ var main = (function(){
 
     menuVisible = false;
 
-    document.querySelector('#share-menu').classList.remove('visible');
-    document.querySelector('#feedback-menu').classList.remove('visible');
-    document.querySelector('#identity-menu').classList.remove('visible');
+    var els = document.querySelectorAll('.menu.visible');
+    for (var i = 0, el; el = els[i]; i++) {
+      el.classList.remove('visible');
+    }
   }
 
   function _prepareFeedbackForm() {
@@ -6989,6 +6988,25 @@ var main = (function(){
       _hideMenus();
     }
   }
+
+
+  function _onHelpMenuClick() {
+    var el = document.querySelector('#help-menu');
+
+    _infoBubble.hide();
+    _statusMessage.hide();
+
+    if (!el.classList.contains('visible')) {
+      _hideMenus();
+      menuVisible = true;
+
+      el.classList.add('visible');
+
+      _prepareFeedbackForm();
+    } else {
+      _hideMenus();
+    }
+  }  
 
   function _onShareMenuClick() {
     var el = document.querySelector('#share-menu');
