@@ -4249,7 +4249,7 @@ var main = (function(){
     _infoBubble.considerShowing(event, draggingResize.segmentEl, INFO_BUBBLE_TYPE_SEGMENT);
     window.setTimeout(function() {
       suppressMouseEnter = false;
-    }, 200);
+    }, 50);
   }
 
   function _onBodyMouseUp(event) {
