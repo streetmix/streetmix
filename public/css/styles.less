@@ -1265,6 +1265,51 @@ body.segment-resize-dragging .drag-handle.floating,
   border-right: 1px dashed fadeout(@warningColour, 60%);
 
   box-sizing: border-box;
+
+  &::before,
+  &::after {
+    width: 50px;
+    position: absolute;
+    box-sizing: border-box;
+    pointer-events: none;
+    bottom: 400px;
+    font-size: 11px;
+    color: fadeout(@warningColour, 40%);
+  }
+
+  &.max:before {
+    padding-right: 5px;
+    left: -50px;
+    text-align: right;
+  }
+  &.max::after {
+    padding-left: 5px;
+    right: -50px;
+    text-align: left;
+  }  
+  &.min:before {
+    padding-left: 5px;
+    left: 0;
+    text-align: left;
+  }
+  &.min::after {
+    padding-right: 5px;
+    right: 0;
+    text-align: right;
+  }  
+
+  &.max::before {
+    content: 'Max »';    
+  }
+  &.max::after {
+    content: '« Max';    
+  }
+  &.min::after {
+    content: 'Min »';    
+  }
+  &.min::before {
+    content: '« Min';    
+  }
 }
 
 .segment .grid {

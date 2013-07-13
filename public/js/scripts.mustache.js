@@ -3635,6 +3635,7 @@ var main = (function(){
     if (variantInfo.minWidth) {
       var guideEl = document.createElement('div');
       guideEl.classList.add('guide');
+      guideEl.classList.add('min');
 
       var width = variantInfo.minWidth * TILE_SIZE;
       guideEl.style.width = width + 'px';
@@ -3650,6 +3651,7 @@ var main = (function(){
         ((!variantInfo.maxWidth) || (remainingWidth <= variantInfo.maxWidth))) {
       var guideEl = document.createElement('div');
       guideEl.classList.add('guide');
+      guideEl.classList.add('max');
 
       var width = remainingWidth * TILE_SIZE;
       guideEl.style.width = width + 'px';
@@ -3658,6 +3660,7 @@ var main = (function(){
     } else if (variantInfo.maxWidth) {
       var guideEl = document.createElement('div');
       guideEl.classList.add('guide');
+      guideEl.classList.add('max');
 
       var width = variantInfo.maxWidth * TILE_SIZE;
       guideEl.style.width = width + 'px';
