@@ -28,6 +28,11 @@ var main = (function(){
     MENU_SWITCH_TO_METRIC: 'Switch to metric units',
 
     TOOLTIP_REMOVE_SEGMENT: 'Remove segment',
+    TOOLTIP_DELETE_STREET: 'Delete street',
+    TOOLTIP_INCREASE_WIDTH: 'Increase width (hold Shift for more precision)',
+    TOOLTIP_DECREASE_WIDTH: 'Decrease width (hold Shift for more precision)',
+    TOOLTIP_ADD_FLOOR: 'Add floor',
+    TOOLTIP_REMOVE_FLOOR: 'Remove floor',
 
     STATUS_SEGMENT_DELETED: 'The segment has been removed.',
     STATUS_ALL_SEGMENTS_DELETED: 'All segments have been removed.',
@@ -44,6 +49,10 @@ var main = (function(){
 
     BLOCKING_REMIXING: 'Remixing…',
     BLOCKING_LOADING: 'Loading…',
+
+    USER_ANONYMOUS: 'Anonymous',
+
+    SEGMENT_NAME_EMPTY: 'Empty space',
   };
 
   var SITE_URL = 'http://{{app_host_port}}/';
@@ -3816,8 +3825,6 @@ var main = (function(){
       }, SHORT_DELAY);
     }    
 
-    //document.title = draggingMove.elX + ' ' + draggingMove.elY;
-
     if (system.cssTransform) {
       draggingMove.floatingEl.style[system.cssTransform] = 
           'translate(' + draggingMove.elX + 'px, ' + draggingMove.elY + 'px)';
@@ -4892,7 +4899,7 @@ var main = (function(){
 
       document.querySelector('#street-metadata-author .user-gallery').addEventListener('click', _onAnotherUserIdClick);
     } else if (!street.creatorId && (signedIn || remixOnFirstEdit)) {
-      var html = "by Anonymous";
+      var html = 'by ' + msg('USER_ANONYMOUS');
 
       document.querySelector('#street-metadata-author').innerHTML = html;
     } else {
@@ -5409,7 +5416,6 @@ var main = (function(){
     for (var i in transmission.streets) {
       var galleryStreet = transmission.streets[i];
       _updateToLatestSchemaVersion(galleryStreet.data.street);
-      //console.log(galleryStreet);
 
       var el = document.createElement('li');
 
@@ -5457,7 +5463,7 @@ var main = (function(){
         var creatorEl = document.createElement('span');
         creatorEl.classList.add('creator');
 
-        var creatorName = galleryStreet.creatorId || 'Anonymous';
+        var creatorName = galleryStreet.creatorId || msg('USER_ANONYMOUS');
 
         creatorEl.innerHTML = creatorName;
         anchorEl.appendChild(creatorEl);
@@ -5469,7 +5475,7 @@ var main = (function(){
         removeEl.classList.add('remove');
         removeEl.addEventListener('click', _onDeleteGalleryStreet);
         removeEl.innerHTML = '×';
-        removeEl.title = 'Delete street';
+        removeEl.title = msg('TOOLTIP_DELETE_STREET');
         anchorEl.appendChild(removeEl);
       }
 
@@ -6503,7 +6509,7 @@ var main = (function(){
         innerEl.classList.add('decrement');
         innerEl.innerHTML = '–';
         innerEl.tabIndex = -1;
-        innerEl.title = 'Remove floor';
+        innerEl.title = msg('TOOLTIP_REMOVE_FLOOR');
         if (system.touch) {
           innerEl.addEventListener('touchstart', func);
         } else {
@@ -6518,7 +6524,7 @@ var main = (function(){
         innerEl.classList.add('increment');
         innerEl.innerHTML = '+';
         innerEl.tabIndex = -1;
-        innerEl.title = 'Add floor';
+        innerEl.title = msg('TOOLTIP_ADD_FLOOR');
         if (system.touch) {
           innerEl.addEventListener('touchstart', func);
         } else {
@@ -6543,7 +6549,7 @@ var main = (function(){
         innerEl.classList.add('decrement');
         innerEl.innerHTML = '–';
         innerEl.segmentEl = segment.el;
-        innerEl.title = 'Decrease width (hold Shift for more precision)';
+        innerEl.title = msg('TOOLTIP_DECREASE_WIDTH');
         innerEl.tabIndex = -1;
         if (system.touch) {
           innerEl.addEventListener('touchstart', _onWidthDecrementClick);
@@ -6583,7 +6589,7 @@ var main = (function(){
         innerEl.innerHTML = '+';
         innerEl.segmentEl = segment.el;
         innerEl.tabIndex = -1;
-        innerEl.title = 'Increase width (hold Shift for more precision)';
+        innerEl.title = msg('TOOLTIP_INCREASE_WIDTH');
         if (system.touch) {
           innerEl.addEventListener('touchstart', _onWidthIncrementClick);
         } else {
@@ -6784,8 +6790,6 @@ var main = (function(){
     // TODO rename
     show: function(force) {
       if (_infoBubble.suppressed) {
-        //_infoBubble.considerSegmentEl = null;
-        //console.log('a');
         window.setTimeout(_infoBubble.show, 100);
         return;
       }
@@ -6803,7 +6807,8 @@ var main = (function(){
       var segmentEl = _infoBubble.considerSegmentEl;
       var type = _infoBubble.considerType;
 
-      if ((segmentEl == _infoBubble.segmentEl) && (type == _infoBubble.type) && !force) {
+      if ((segmentEl == _infoBubble.segmentEl) && 
+          (type == _infoBubble.type) && !force) {
         return;
       }
       _infoBubble.hideSegment(true);
@@ -6861,21 +6866,10 @@ var main = (function(){
         bubbleX = system.viewportWidth - bubbleWidth - 20;
       }
 
-      //if (system.cssTransform) {
-      //  _infoBubble.el.style[system.cssTransform] = 'translateX(' + bubbleX + 'px)';
-      //} else {
-        _infoBubble.el.style.left = bubbleX + 'px';
-      //}
-
+      _infoBubble.el.style.left = bubbleX + 'px';
       _infoBubble.el.style.top = bubbleY + 'px';
       
       if (!_infoBubble.visible) {
-        //_infoBubble.el.classList.add('no-horizontal-move');
-        // TODO const
-        //window.setTimeout(function() {
-         // _infoBubble.el.classList.remove('no-horizontal-move');
-        //}, 100);
-
         _infoBubble.visible = true;
 
       }
@@ -7088,9 +7082,6 @@ var main = (function(){
       var localSettings = {};
     }
 
-    //console.log('server settings', serverSettings);
-    //console.log('local settings', localSettings);
-
     settings = {};
 
     if (serverSettings) {
@@ -7099,15 +7090,12 @@ var main = (function(){
     _mergeAndFillDefaultSettings(localSettings);
 
     if (mode == MODE_JUST_SIGNED_IN) {
-      //console.log('just signed in!');
       settings.lastStreetId = localSettings.lastStreetId;
       settings.lastStreetNamespacedId = localSettings.lastStreetNamespacedId;
       settings.lastStreetCreatorId = localSettings.lastStreetCreatorId;
     }
 
     settings.priorLastStreetId = settings.lastStreetId;
-
-    //console.log('FINAL settings', settings);
 
     _saveSettingsLocally();
   }
@@ -7125,7 +7113,6 @@ var main = (function(){
   }
 
   function _saveSettingsLocally() {
-    //console.log('save settings', JSON.stringify(_trimSettings()));
     window.localStorage[LOCAL_STORAGE_SETTINGS_ID] = 
         JSON.stringify(_trimSettings());
 
@@ -7454,31 +7441,11 @@ var main = (function(){
       _showGallery(null, true);
     }
 
-    window.setTimeout(_hideLoadingScreen, 0);
-
     if (promoteStreet) {
-      //console.log('would promote now');
       _remixStreet();
     }
 
-    // DEBUG
-    /*var el = document.createElement('canvas');
-    el.style.zIndex = 500000000000;
-    el.style.left = 400 + 'px';
-    el.style.top = 100 + 'px';
-    el.style.position = 'absolute';
-    el.style.pointerEvents = 'none';
-    el.width = 800 * 2;
-    el.height = 250 * 2;
-    el.style.width = (800) + 'px';
-    el.style.height = (250) + 'px';
-    el.style.background = 'rgba(255, 255, 255, .95)';
-    el.style.outline = '5px solid black';
-    document.body.appendChild(el);
-
-    var ctx = el.getContext('2d');
-
-    _drawStreetThumbnail(ctx, street, 800, 250);*/
+    window.setTimeout(_hideLoadingScreen, 0);
   }
 
   function _drawStreetThumbnail(ctx, street, thumbnailWidth, thumbnailHeight, multiplier, silhouette) {
@@ -7546,8 +7513,6 @@ var main = (function(){
 
     for (var i in IMAGES_TO_BE_LOADED) {
       var url = IMAGES_TO_BE_LOADED[i];
-
-      //console.log(url);
 
       images[url] = document.createElement('img');
       images[url].addEventListener('load', _onImageLoaded);
@@ -7995,7 +7960,6 @@ var main = (function(){
       var userId = el.getAttribute('userId');
 
       if (avatarCache[userId]) {
-        //console.log('AVATAR updated', userId);
         el.style.backgroundImage = 'url(' + avatarCache[userId] + ')';
         el.setAttribute('loaded', true);
       }
@@ -8009,8 +7973,6 @@ var main = (function(){
       var userId = el.getAttribute('userId');
 
       if (userId && (typeof avatarCache[userId] == 'undefined')) {
-        //console.log('AVATAR trying to fetch', userId);
-
         _fetchAvatar(userId);
       }
     }
@@ -8028,9 +7990,7 @@ var main = (function(){
   }
 
   function _receiveAvatar(details) {
-    //console.log(details);
     if (details && details.id && details.profileImageUrl) {
-      //console.log('AVATAR receive', details.id);
       avatarCache[details.id] = details.profileImageUrl;
       _updateAvatars();
     }
@@ -8253,7 +8213,7 @@ var main = (function(){
   function _fillEmptySegment(el) {
     var innerEl = document.createElement('span');
     innerEl.classList.add('name');
-    innerEl.innerHTML = 'Empty space';
+    innerEl.innerHTML = msg('SEGMENT_NAME_EMPTY');
     el.appendChild(innerEl);
 
     var innerEl = document.createElement('span');
