@@ -4410,7 +4410,7 @@ var main = (function(){
   }
 
   function _updateStreetNameCanvasPos() {
-    var menuEl = document.querySelector('#top-menu-bar ul');
+    var menuEl = document.querySelector('#top-menu-bar ul.right');
     var menuElPos = _getElAbsolutePos(menuEl);
 
     var streetNameEl = document.querySelector('#street-name');
