@@ -240,7 +240,7 @@ var main = (function(){
   var MIN_CUSTOM_STREET_WIDTH = 10;
   var MAX_CUSTOM_STREET_WIDTH = 400;
   var MIN_SEGMENT_WIDTH = 1;
-  var MAX_SEGMENT_WIDTH = 150;
+  var MAX_SEGMENT_WIDTH = 400;
 
   var RESIZE_TYPE_INITIAL = 0;
   var RESIZE_TYPE_INCREMENT = 1;
@@ -1842,14 +1842,14 @@ var main = (function(){
       if (immediate) {
         _resizeSegment(segmentEl, RESIZE_TYPE_TYPING, 
             width * TILE_SIZE, false, false, true);
+        _infoBubble.updateWidthButtonsInContents(width);
       } else {
         resizeSegmentTimerId = window.setTimeout(function() {
           _resizeSegment(segmentEl, RESIZE_TYPE_TYPING,
           width * TILE_SIZE, false, false, true);
+        _infoBubble.updateWidthButtonsInContents(width);
         }, WIDTH_EDIT_INPUT_DELAY);
       }
-    } else {
-      
     }
   }
 
@@ -6395,11 +6395,27 @@ var main = (function(){
       _infoBubble.getBubbleDimensions();
     },
 
+    updateWidthButtonsInContents: function(width) {
+      if (width == MIN_SEGMENT_WIDTH) {
+        _infoBubble.el.querySelector('.decrement').disabled = true;
+      } else {
+        _infoBubble.el.querySelector('.decrement').disabled = false;        
+      }
+
+      if (width == MAX_SEGMENT_WIDTH) {
+        _infoBubble.el.querySelector('.increment').disabled = true;
+      } else {
+        _infoBubble.el.querySelector('.increment').disabled = false;        
+      }
+    },
+
     updateWidthInContents: function(segmentEl, width) {
       if (!_infoBubble.visible || !_infoBubble.segmentEl || 
           (_infoBubble.segmentEl != segmentEl)) {
         return;
       }
+
+      _infoBubble.updateWidthButtonsInContents(width);
 
       var el = _infoBubble.el.querySelector('.width-canvas .width');
       if (el) {
