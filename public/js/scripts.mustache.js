@@ -3884,12 +3884,8 @@ var main = (function(){
     var topEl = event.target;
     // TODO nasty
     while (topEl && (topEl.id != 'info-bubble') && 
-      (topEl.id != 'share-menu-button') && 
-      (topEl.id != 'feedback-menu-button') && 
-      (topEl.id != 'identity-menu-button') && 
-      (topEl.id != 'share-menu') && 
-      (topEl.id != 'feedback-menu') && 
-      (topEl.id != 'identity-menu')) {
+      (!topEl.classList.contains('menu-attached')) && 
+      (!topEl.classList.contains('menu'))) {
       topEl = topEl.parentNode;
     }
 
@@ -7668,6 +7664,7 @@ var main = (function(){
       var el = document.createElement('button');
       el.innerHTML = signInData.userId;
       el.classList.add('id');
+      el.classList.add('menu-attached');
       el.id = 'identity-menu-button';
       document.querySelector('#identity').appendChild(el);
 
