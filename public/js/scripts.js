@@ -329,6 +329,30 @@ var main = (function(){
         center: { x: 70, y: 5, width: 10, height: 15 },
         repeat: { x: 26, y: 5, width: 1, height: 15 }
       }
+    },    
+    "tram-lane-inbound": {
+      name: 'Tram lane',
+      subname: 'Inbound',
+      owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
+      defaultWidth: 10,
+      minWidth: 9,
+      maxWidth: 12,
+      graphics: {
+        center: { x: 169, y: 5, width: 10, height: 15 },
+        repeat: { x: 26, y: 5, width: 1, height: 15 }
+      }
+    },
+    "tram-lane-outbound": {
+      name: 'Tram lane',
+      subname: 'Outbound',
+      owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
+      defaultWidth: 10,
+      minWidth: 9,
+      maxWidth: 12,
+      graphics: {
+        center: { x: 180, y: 5, width: 10, height: 15 },
+        repeat: { x: 26, y: 5, width: 1, height: 15 }
+      }
     },
     "small-median": {
       name: 'Small median',
