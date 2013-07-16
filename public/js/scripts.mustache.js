@@ -3878,6 +3878,10 @@ var main = (function(){
     document.querySelector('#debug').classList.remove('visible');
   }
 
+  function _onBodyMouseOut(event) {
+    _infoBubble.hide();
+  }
+
   function _onBodyMouseDown(event) {
     var el = event.target;
 
@@ -5822,6 +5826,8 @@ var main = (function(){
         addEventListener('change', _onStreetWidthChange);
 
     window.addEventListener('resize', _onResize);
+
+    $(document).mouseleave(_onBodyMouseOut);
 
     if (!system.touch) {
       window.addEventListener('mousedown', _onBodyMouseDown);
