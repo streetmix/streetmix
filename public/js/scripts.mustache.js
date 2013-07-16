@@ -7537,6 +7537,7 @@ var main = (function(){
 
   function _onImageLoaded() {
     imagesToBeLoaded--;
+    document.querySelector('#loading-progress').value++;
 
     _checkIfEverythingIsLoaded();
   }
@@ -7551,6 +7552,9 @@ var main = (function(){
       images[url].addEventListener('load', _onImageLoaded);
       images[url].src = url + '?v' + TILESET_IMAGE_VERSION;
     }    
+
+    document.querySelector('#loading-progress').value = 0;
+    document.querySelector('#loading-progress').max = imagesToBeLoaded;
   }
 
   function _saveSignInDataLocally() {

@@ -1486,6 +1486,28 @@ body.touch-support .segment.fade-out-end button {
   display: none;
 }
 
+#loading-progress {
+  display: block;
+  width: 200px;
+  margin: 0 auto;
+  margin-top: 10px;
+
+  background-color: transparent;
+  border: 0;
+  outline: 1px solid darken(@skyColour, 40%);
+  height: 15px;
+
+  &::-webkit-progress-bar {
+    background: transparent;
+  }
+  &::-webkit-progress-value {
+    background: darken(@skyColour, 40%);
+  }
+  &::-moz-progress-bar {
+    background: darken(@skyColour, 40%);
+  }
+}
+
 #blocking-shield {
   z-index: 99999999 - 1;
 
