@@ -447,6 +447,7 @@ var main = (function(){
     'sidewalk': {
       name: 'Sidewalk',
       owner: SEGMENT_OWNER_PEDESTRIAN,
+      zIndex: 2,
       defaultWidth: 6,
       variants: ['sidewalk-density'],
       details: {
@@ -483,7 +484,7 @@ var main = (function(){
     'sidewalk-tree': {
       name: 'Sidewalk with a tree',
       owner: SEGMENT_OWNER_NATURE,
-      //zIndex: 1,
+      zIndex: 1,
       defaultWidth: 4,
       variants: ['tree-type'],
       details: {
@@ -504,6 +505,7 @@ var main = (function(){
     'sidewalk-bike-rack': {
       name: 'Bike rack',
       owner: SEGMENT_OWNER_BIKE,
+      zIndex: 2,
       defaultWidth: 6,
       variants: ['orientation', 'bike-rack-elevation'],
       details: {
@@ -537,6 +539,7 @@ var main = (function(){
     'sidewalk-bench': {
       name: 'Bench',
       owner: SEGMENT_OWNER_PEDESTRIAN,
+      zIndex: 2,
       defaultWidth: 4,
       variants: ['bench-orientation'],
       details: {
@@ -563,6 +566,7 @@ var main = (function(){
     'sidewalk-lamp': {
       name: 'Sidewalk with a lamp',
       owner: SEGMENT_OWNER_PEDESTRIAN,
+      zIndex: 2,
       defaultWidth: 4,
       variants: ['lamp-orientation', 'lamp-type'],
       details: {
@@ -607,6 +611,7 @@ var main = (function(){
     'parklet': {
       name: 'Parklet',
       owner: SEGMENT_OWNER_NATURE,
+      zIndex: 2,
       defaultWidth: 8,
       variants: ['orientation'],
       descriptionPrompt: 'Learn more about parklets',
@@ -631,6 +636,7 @@ var main = (function(){
     'divider': {
       name: 'Buffer',
       owner: SEGMENT_OWNER_NATURE,
+      zIndex: 1,
       defaultWidth: 2,
       variants: ['divider-type'],
       details: {
@@ -717,6 +723,7 @@ var main = (function(){
     'bike-lane': {
       name: 'Bike lane',
       owner: SEGMENT_OWNER_BIKE,
+      zIndex: 2,
       defaultWidth: 6,
       variants: ['direction', 'bike-asphalt'],
       details: {
@@ -761,6 +768,7 @@ var main = (function(){
     'drive-lane': {
       name: 'Drive lane',
       owner: SEGMENT_OWNER_CAR,
+      zIndex: 2,
       defaultWidth: 10,
       variants: ['direction', 'car-type'],
       details: {
@@ -813,6 +821,7 @@ var main = (function(){
     'turn-lane': {
       name: 'Turn lane',
       owner: SEGMENT_OWNER_CAR,
+      zIndex: 2,
       defaultWidth: 10,
       variants: ['direction', 'turn-lane-orientation'],
       details: {
@@ -887,6 +896,7 @@ var main = (function(){
     'parking-lane': {
       name: 'Parking lane',
       owner: SEGMENT_OWNER_CAR,
+      zIndex: 2,
       defaultWidth: 8,
       variants: ['parking-lane-direction', 'parking-lane-orientation'],
       details: {
@@ -961,6 +971,7 @@ var main = (function(){
     'bus-lane': {
       name: 'Bus lane',
       owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
+      zIndex: 2,
       defaultWidth: 10,
       variants: ['direction', 'public-transit-asphalt'],
       details: {
@@ -1013,6 +1024,7 @@ var main = (function(){
     'streetcar': {
       name: 'Streetcar',
       owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
+      zIndex: 2,
       defaultWidth: 10,
       variants: ['direction', 'public-transit-asphalt'],
       details: {
@@ -1069,6 +1081,7 @@ var main = (function(){
     'light-rail': {
       name: 'Light rail',
       owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
+      zIndex: 2,
       defaultWidth: 10,
       variants: ['direction', 'public-transit-asphalt'],
       details: {
@@ -1125,6 +1138,7 @@ var main = (function(){
     'transit-shelter': {
       name: 'Transit shelter',
       owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
+      zIndex: 2,
       defaultWidth: 9,
       variants: ['orientation', 'transit-shelter-elevation'],
       details: {

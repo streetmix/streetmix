@@ -2708,6 +2708,10 @@ body:not(.edit-street-width) #street-width {
 // TODO move
 @segmentSwitchingTime: 250ms;
 
+.switching-away-post {
+  z-index: 99999999 !important;
+}
+
 .switching-away-post canvas {
   -webkit-transition: -webkit-transform @segmentSwitchingTime ease-in, opacity @segmentSwitchingTime ease-in;
   -moz-transition: -moz-transform @segmentSwitchingTime ease-in, opacity @segmentSwitchingTime ease-in;
@@ -2723,6 +2727,8 @@ body:not(.edit-street-width) #street-width {
 }
 
 .switching-in-pre {
+  z-index: 99999999 !important;
+
   -webkit-perspective: 400px;
   -moz-perspective: 200px;
   perspective: 400px;
@@ -2738,6 +2744,9 @@ body:not(.edit-street-width) #street-width {
 
     opacity: 0;
   }
+}
+.switching-in-post {
+  z-index: 99999999 !important;  
 }
 .switching-in-post canvas {
   opacity: 1;
