@@ -891,7 +891,7 @@ var main = (function(){
       variants: ['parking-lane-direction', 'parking-lane-orientation'],
       details: {
         'inbound|left': {
-          minWidth: 8,
+          minWidth: 7,
           maxWidth: 10,
           graphics: {
             center: [
@@ -902,7 +902,7 @@ var main = (function(){
           }          
         },
         'inbound|right': {
-          minWidth: 8,
+          minWidth: 7,
           maxWidth: 10,
           graphics: {
             center: [
@@ -913,7 +913,7 @@ var main = (function(){
           }          
         },
         'outbound|left': {
-          minWidth: 8,
+          minWidth: 7,
           maxWidth: 10,
           graphics: {
             center: [
@@ -924,7 +924,7 @@ var main = (function(){
           }          
         },
         'outbound|right': {
-          minWidth: 8,
+          minWidth: 7,
           maxWidth: 10,
           graphics: {
             center: [
