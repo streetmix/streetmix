@@ -140,11 +140,11 @@ body.environment-development,
 body.environment-production,
 body.environment-staging,
 body.environment-sandbox {
-  &::before {
-    z-index: 9999999999;
+  #top-menu-bar::before {
+    z-index: 10;
     position: absolute;
     text-align: center;
-    left: 64px;
+    left: 14px;
     top: 23px;
     color: white;
     padding: 2px 7px;
@@ -159,25 +159,25 @@ body.environment-sandbox {
 }
 
 body.environment-production {
-  &::before {
+  #top-menu-bar::before {
     content: 'Experimental';
     background-color: black;
   }
 }
 body.environment-development {
-  &::before {
+  #top-menu-bar::before {
     content: 'Dev';
     background-color: rgb(200, 0, 0);
   }
 }
 body.environment-staging {
-  &::before {
+  #top-menu-bar::before {
     content: 'Staging';
     background-color: green;
   }
 }
 body.environment-sandbox {
-  &::before {
+  #top-menu-bar::before {
     content: 'Sandbox';
     background-color: green;
   }
