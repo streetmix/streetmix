@@ -3742,17 +3742,29 @@ var main = (function(){
     draggingMove.originalEl = el;
 
     draggingMove.originalType = draggingMove.originalEl.getAttribute('type');
-    draggingMove.originalVariantString = 
-        draggingMove.originalEl.getAttribute('variant-string');
 
     if (draggingMove.originalEl.classList.contains('palette')) {
       draggingMove.type = DRAGGING_TYPE_MOVE_CREATE;
       draggingMove.originalWidth = 
           SEGMENT_INFO[draggingMove.originalType].defaultWidth * TILE_SIZE;
-    } else {
+
+      // TODO hack to get the first
+      for (var j in SEGMENT_INFO[draggingMove.originalType].details) {
+        draggingMove.originalVariantString = j;
+        break;
+      }
+  } else {
       draggingMove.type = DRAGGING_TYPE_MOVE_TRANSFER;      
       draggingMove.originalWidth = 
           draggingMove.originalEl.offsetWidth;
+      draggingMove.originalVariantString = 
+          draggingMove.originalEl.getAttribute('variant-string');
+
+/*      for (var j in segmentInfo.details) {
+        var variantName = j;
+        break;
+      }*/
+
     }
 
     var pos = _getElAbsolutePos(el);
@@ -4288,14 +4300,19 @@ var main = (function(){
   function _createPalette() {
     //var deg = 0;
 
-    for (var i in SEGMENT_INFO) {
-      var segmentInfo = SEGMENT_INFO[i];
+    for (var id in SEGMENT_INFO) {
+      var segmentInfo = SEGMENT_INFO[id];
 
-      // TODO hack
+      // TODO hack to get the first variant name
       for (var j in segmentInfo.details) {
         var variantName = j;
         break;
       }
+      // TODO hardcoded
+      if (id == 'sidewalk-lamp') {
+        variantName = 'both|traditional';
+      }
+
       var variantInfo = segmentInfo.details[variantName];
 
       var dimensions = _getVariantInfoDimensions(variantInfo, 0, 1);
@@ -4306,17 +4323,13 @@ var main = (function(){
       }
       width += PALETTE_EXTRA_SEGMENT_PADDING;
 
-      var el = _createSegment(i, 
+      var el = _createSegment(id, 
         variantName,
         width * TILE_SIZE / WIDTH_PALETTE_MULTIPLIER, 
         false, 
         true);
 
       el.classList.add('palette');
-
-      //el.style.webkitTransform = 'rotate(' + deg + 'deg)';
-
-      //deg += 5;
 
       document.querySelector('.palette-canvas').appendChild(el);
     }
