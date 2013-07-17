@@ -5378,7 +5378,8 @@ var main = (function(){
 
       _sendDeleteStreetToServer(el.getAttribute('streetId'));
 
-      _removeElFromDom(el);
+      _removeElFromDom(el.parentNode);
+      _updateGalleryStreetCount();
     }
 
     event.preventDefault();
@@ -5405,13 +5406,10 @@ var main = (function(){
     }, false);
   }
 
-  function _receiveGalleryData(transmission) {
-    //console.log('receive gallery data', transmission);
-
-    document.querySelector('#gallery .loading').classList.remove('visible');
-
+  function _updateGalleryStreetCount() {
     if (galleryUserId) {
-      var streetCount = transmission.streets.length;
+      var streetCount = document.querySelectorAll('#gallery .streets li').length;
+
       switch (streetCount) {
         case 0: 
           var text = 'No streets yet';
@@ -5423,8 +5421,16 @@ var main = (function(){
           var text = streetCount += ' streets';
           break;
       }
-      document.querySelector('#gallery .street-count').innerHTML = text;
+    } else {
+      var text = '';
     }
+    document.querySelector('#gallery .street-count').innerHTML = text;
+  }
+
+  function _receiveGalleryData(transmission) {
+    //console.log('receive gallery data', transmission);
+
+    document.querySelector('#gallery .loading').classList.remove('visible');
 
     for (var i in transmission.streets) {
       var galleryStreet = transmission.streets[i];
@@ -5507,6 +5513,8 @@ var main = (function(){
     }
 
     _updateScrollButtons();
+
+    _updateGalleryStreetCount();
   }
 
   function _loadGalleryContents() {
