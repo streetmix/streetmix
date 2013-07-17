@@ -8067,7 +8067,7 @@ var main = (function(){
         (mode == MODE_GLOBAL_GALLERY)) {
       _goNewStreet();
     } else {
-      if (data.status == 404) {
+      if ((data.status == 404) || (data.status == 410)) {
         // TODO swap for showError (here and elsewhere)
         mode = MODE_404;
         _processMode();
