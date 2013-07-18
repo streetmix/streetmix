@@ -4739,6 +4739,32 @@ var main = (function(){
           event.preventDefault();
         }
         break;
+      case KEY_LEFT_ARROW:
+        var el = document.querySelector('#street-section-outer');
+        $(el).stop(true, true);
+
+        if (event.shiftKey) {
+          var newScrollLeft = 0;
+        } else {
+          var newScrollLeft = el.scrollLeft - (el.offsetWidth * .5);
+        }
+
+        $(el).animate({ scrollLeft: newScrollLeft }, 300);
+        event.preventDefault();
+        break;
+      case KEY_RIGHT_ARROW:
+        var el = document.querySelector('#street-section-outer');
+        $(el).stop(true, true);
+
+        if (event.shiftKey) {
+          var newScrollLeft = el.scrollWidth - el.offsetWidth;
+        } else {
+          var newScrollLeft = el.scrollLeft + (el.offsetWidth * .5);
+        }
+
+        $(el).animate({ scrollLeft: newScrollLeft }, 300);
+        event.preventDefault();
+        break;
       case KEY_ESC:
         _hideDebugInfo();
         whatIsThis.hideInfo();
@@ -5032,11 +5058,7 @@ var main = (function(){
   }
 
   function _onWindowFocus() {
-    if (abortEverything) {
-      return;
-    }
-
-    if (ignoreWindowFocus) {
+    if (abortEverything || ignoreWindowFocus) {
       return;
     }
 
@@ -7594,8 +7616,10 @@ var main = (function(){
       images[url].src = url + '?v' + TILESET_IMAGE_VERSION;
     }    
 
+
+    // signInLoaded && bodyLoaded && readyStateCompleteLoaded && countryLoaded && serverContacted
     document.querySelector('#loading-progress').value = 0;
-    document.querySelector('#loading-progress').max = imagesToBeLoaded;
+    document.querySelector('#loading-progress').max = imagesToBeLoaded + 5;
   }
 
   function _saveSignInDataLocally() {
@@ -7806,6 +7830,7 @@ var main = (function(){
     }
 
     signInLoaded = true;
+    document.querySelector('#loading-progress').value++;
     _checkIfEverythingIsLoaded();
   }
 
@@ -7820,6 +7845,7 @@ var main = (function(){
   function _detectCountryTimeout() {
     if (!countryLoaded) {
       countryLoaded = true;
+      document.querySelector('#loading-progress').value++;      
       _checkIfEverythingIsLoaded();
     }
   }
@@ -7854,12 +7880,14 @@ var main = (function(){
     }
 
     countryLoaded = true;
+    document.querySelector('#loading-progress').value++;
     _checkIfEverythingIsLoaded();
   }
 
   function _onBodyLoad() {
     bodyLoaded = true;
 
+    document.querySelector('#loading-progress').value++;
     _checkIfEverythingIsLoaded();
   }
 
@@ -7867,6 +7895,7 @@ var main = (function(){
     if (document.readyState == 'complete') {
       readyStateCompleteLoaded = true;
 
+      document.querySelector('#loading-progress').value++;
       _checkIfEverythingIsLoaded();
     }
   }
