@@ -6401,6 +6401,7 @@ var main = (function(){
           el.classList.remove('immediate-show-drag-handles');           
         }
         _infoBubble.segmentEl.classList.remove('hide-drag-handles-when-description-shown');
+        _infoBubble.segmentEl.classList.remove('hide-drag-handles-when-inside-info-bubble');
         _infoBubble.segmentEl.classList.remove('show-drag-handles');
         _infoBubble.segmentEl = null;        
       }
@@ -6418,6 +6419,8 @@ var main = (function(){
       }
 
       if (_infoBubble.el) {
+        document.body.classList.remove('controls-fade-out'); 
+        
         //var el = _infoBubble.el;
         //el.classList.add('regular-transition');
         _infoBubble.el.classList.remove('visible');
