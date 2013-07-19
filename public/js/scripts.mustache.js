@@ -4069,7 +4069,7 @@ var main = (function(){
   }
 
   function _hideControls() {
-    console.log('!!!!!hide!!!!');
+    //console.log('!!!!!hide!!!!');
 
     document.body.classList.remove('controls-fade-out'); 
     if (_infoBubble.segmentEl) {
