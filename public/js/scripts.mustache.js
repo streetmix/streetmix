@@ -5815,26 +5815,28 @@ var main = (function(){
 
   function _updateStreetScrollIndicators() {
     var el = document.querySelector('#street-section-outer');
-    var left = el.scrollLeft / (el.scrollWidth - el.offsetWidth);
-    // TODO const off max width street
 
-    var posMax = Math.round(street.width / MAX_CUSTOM_STREET_WIDTH * 6);
-    if (posMax < 2) {
-      posMax = 2;
+    if (el.scrollWidth <= el.offsetWidth) {
+      var posLeft = 0;
+      var posRight = 0;
+    } else {
+      var left = el.scrollLeft / (el.scrollWidth - el.offsetWidth);
+      // TODO const off max width street
+
+      var posMax = Math.round(street.width / MAX_CUSTOM_STREET_WIDTH * 6);
+      if (posMax < 2) {
+        posMax = 2;
+      }
+
+      var posLeft = Math.round(posMax * left);
+      if ((left > 0) && (posLeft == 0)) {
+        posLeft = 1;
+      }
+      if ((left < 1.0) && (posLeft == posMax)) {
+        posLeft = posMax - 1;
+      }
+      var posRight = posMax - posLeft;
     }
-
-    var posLeft = Math.round(posMax * left);
-    if ((left > 0) && (posLeft == 0)) {
-      posLeft = 1;
-    }
-    if ((left < 1.0) && (posLeft == posMax)) {
-      posLeft = posMax - 1;
-    }
-    var posRight = posMax - posLeft;
-
-    //console.log(posLeft, posRight, posMax);
-
-    //console.log(street.width, left, right);
 
     document.querySelector('#street-scroll-indicator-left').innerHTML = Array(posLeft + 1).join('‹');
     document.querySelector('#street-scroll-indicator-right').innerHTML = Array(posRight + 1).join('›');
