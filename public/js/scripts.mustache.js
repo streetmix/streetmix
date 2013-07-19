@@ -2131,7 +2131,7 @@ var main = (function(){
       _resizeSegment(el, RESIZE_TYPE_INITIAL, width, true, palette, true, true);
     }    
 
-    if (!palette) {
+    if (!palette && !system.touch) {
       $(el).mouseenter(_onSegmentMouseEnter);
       $(el).mouseleave(_onSegmentMouseLeave);
     }      
@@ -4468,7 +4468,7 @@ var main = (function(){
 
     document.querySelector('#street-scroll-indicator-left').style.top = (streetSectionTop + streetSectionHeight) + 'px';
     document.querySelector('#street-scroll-indicator-right').style.top = (streetSectionTop + streetSectionHeight) + 'px';
-    console.log((streetSectionTop + streetSectionHeight));
+    //console.log((streetSectionTop + streetSectionHeight));
 
     var streetSectionDirtPos = system.viewportHeight - streetSectionTop - 400 + 180;
 
@@ -6420,7 +6420,7 @@ var main = (function(){
 
       if (_infoBubble.el) {
         document.body.classList.remove('controls-fade-out'); 
-        
+
         //var el = _infoBubble.el;
         //el.classList.add('regular-transition');
         _infoBubble.el.classList.remove('visible');
@@ -6446,7 +6446,7 @@ var main = (function(){
       } else {
         var pos = _getElAbsolutePos(segmentEl);
 
-        console.log('z');
+        //console.log('z');
 
         _infoBubble.considerMouseX = pos[0] - document.querySelector('#street-section-outer').scrollLeft;
         _infoBubble.considerMouseY = pos[1];
@@ -6454,15 +6454,15 @@ var main = (function(){
       _infoBubble.considerSegmentEl = segmentEl;
       _infoBubble.considerType = type;
 
-      console.log('a');
+      //console.log('a');
 
       if ((segmentEl == _infoBubble.segmentEl) && (type == _infoBubble.type)) {
-        console.log('denied');
+        //console.log('denied');
         return;
       }
 
       if (!_infoBubble.visible || !_infoBubble._withinHoverPolygon(mouseX, mouseY)) {
-        console.log('show');
+        //console.log('show');
         _infoBubble.show(false);
       } 
     },
@@ -6996,7 +6996,7 @@ var main = (function(){
     // TODO rename
     show: function(force) {
       if (_infoBubble.suppressed) {
-        console.log('suppressed');
+        //console.log('suppressed');
         window.setTimeout(_infoBubble.show, 100);
         return;
       }
