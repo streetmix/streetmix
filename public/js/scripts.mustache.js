@@ -2468,11 +2468,8 @@ var main = (function(){
   }
 
   function _applyWarningsToSegments() {
-      //console.log('warnings');
     for (var i in street.segments) {
       var segment = street.segments[i];
-
-      //console.log(segment);
 
       if (segment.el) {
         if (segment.warnings[SEGMENT_WARNING_OUTSIDE] || 
@@ -2822,8 +2819,6 @@ var main = (function(){
   function _updateToLatestSchemaVersion(street) {
     var updated = false;
     while (!street.schemaVersion || (street.schemaVersion < LATEST_SCHEMA_VERSION)) {
-      //console.log('updating schema from', street.schemaVersion);
-
       _incrementSchemaVersion(street);
       updated = true;
     }
@@ -2843,8 +2838,6 @@ var main = (function(){
   }
 
   function _unpackServerStreetData(transmission, id, namespacedId, checkIfNeedsToBeRemixed) {
-    //console.log('unpack server street data', transmission);
-
     street = _unpackStreetDataFromServerTransmission(transmission);
 
     undoStack = _clone(transmission.data.undoStack);
@@ -2871,7 +2864,6 @@ var main = (function(){
       }
 
       if (updatedSchema && !remixOnFirstEdit) {
-        //console.log('saving because of updated schema…');
         _saveStreetToServer();
       }
     }
@@ -3003,8 +2995,6 @@ var main = (function(){
   }
 
   function _saveStreetToServer(initial) {
-    //console.log('save street to server…');
-
     var transmission = _packServerStreetData();
 
     if (initial) {
@@ -3163,8 +3153,6 @@ var main = (function(){
   }
 
   function _updateLastStreetInfo() {
-    //console.log('update');
-
     settings.lastStreetId = street.id;
     settings.lastStreetNamespacedId = street.namespacedId;
     settings.lastStreetCreatorId = street.creatorId;
@@ -3173,21 +3161,13 @@ var main = (function(){
   }
 
   function _unifyUndoStack() {
-    //console.log('_unifyUndoStack…', street.creatorId);
     for (var i = 0; i < undoStack.length; i++) {
       undoStack[i].id = street.id;
       undoStack[i].name = street.name;
       undoStack[i].namespacedId = street.namespacedId;
       undoStack[i].creatorId = street.creatorId;
       undoStack[i].updatedAt = street.updatedAt; 
-      //console.log(i, undoStack[i].creatorId);
     }
-
-    /*console.log('***');
-    for (var i = 0; i < undoStack.length; i++) {
-      console.log(undoStack[i]);
-      console.log(undoStack[i].creatorId);
-    }*/
   }
 
   function _setStreetId(newId, newNamespacedId) {
@@ -3200,7 +3180,6 @@ var main = (function(){
   }
 
   function _setStreetCreatorId(newId) {
-    //console.log('setStreetCreatorId', newId);
     street.creatorId = newId;
 
     _unifyUndoStack();
@@ -3233,8 +3212,6 @@ var main = (function(){
   }
 
   function _scheduleSavingStreetToServer() {
-    //console.log('schedule save…');
-
     saveStreetIncomplete = true;
 
     _clearScheduledSavingStreetToServer();
@@ -3259,8 +3236,6 @@ var main = (function(){
   }
 
   function _setUpdateTimeToNow() {
-    //console.log('SET TO NOW');
-
     street.updatedAt = new Date().getTime();
     _unifyUndoStack();
     _updateStreetMetadata();
@@ -4076,23 +4051,14 @@ var main = (function(){
   }
 
   function _hideControls() {
-    //console.log('!!!!!hide!!!!');
-
     document.body.classList.remove('controls-fade-out'); 
     if (_infoBubble.segmentEl) {
       _infoBubble.segmentEl.classList.remove('show-drag-handles');   
 
-      //var el = _infoBubble.el;
-      //console.log(el.className);
-      //el.classList.add('regular-transition'); 
       window.setTimeout(function() {
         _infoBubble.hide();
         _infoBubble.hideSegment(true);
       }, 0);
-      //console.log('!', el.className);
-      /*window.setTimeout(function() {
-        el.classList.remove('regular-transition');   
-      }, 250);*/
     }    
   }
 
@@ -4450,13 +4416,10 @@ var main = (function(){
     system.viewportWidth = window.innerWidth;
     system.viewportHeight = window.innerHeight;
 
-    //console.log(window.scrollTop, document.body.scrollTop);
-
     var streetSectionHeight = 
         document.querySelector('#street-section-inner').offsetHeight;
 
     var paletteTop = document.querySelector('footer').offsetTop || system.viewportHeight;
-    //console.log(paletteTop);
 
     // TODO const
     streetSectionTop = (system.viewportHeight - streetSectionHeight) / 2 + 30 + 180; // gallery height
@@ -4475,7 +4438,6 @@ var main = (function(){
 
     document.querySelector('#street-scroll-indicator-left').style.top = (streetSectionTop + streetSectionHeight) + 'px';
     document.querySelector('#street-scroll-indicator-right').style.top = (streetSectionTop + streetSectionHeight) + 'px';
-    //console.log((streetSectionTop + streetSectionHeight));
 
     var streetSectionDirtPos = system.viewportHeight - streetSectionTop - 400 + 180;
 
@@ -4773,8 +4735,6 @@ var main = (function(){
           return;
         }
 
-        //console.log(document.activeElement);
-
         if (document.activeElement == document.body) {
           var segmentHoveredEl = _getHoveredSegmentEl();
           if (segmentHoveredEl) {
@@ -4929,7 +4889,6 @@ var main = (function(){
     url += street.namespacedId;
 
     if (street.creatorId) {
-      //console.log('name', street.name);
       var slug = _normalizeSlug(street.name);
       url += '/' + encodeURIComponent(slug);
     }
@@ -5160,7 +5119,6 @@ var main = (function(){
       mode = MODE_FORCE_RELOAD_SIGN_OUT;
       _processMode();
     } else if (!signedIn && window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
-      //console.log('blah', window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]);
       mode = MODE_FORCE_RELOAD_SIGN_IN;
       _processMode();      
     }
@@ -5184,8 +5142,6 @@ var main = (function(){
   }
 
   function _onNewStreetDefaultClick() {
-    console.log('default');
-
     settings.newStreetPreference = NEW_STREET_DEFAULT;
     _saveSettingsLocally();
 
@@ -5193,8 +5149,6 @@ var main = (function(){
   }
 
   function _onNewStreetEmptyClick() {
-    console.log('empty');
-
     settings.newStreetPreference = NEW_STREET_EMPTY;
     _saveSettingsLocally();
 
@@ -5214,8 +5168,6 @@ var main = (function(){
   }
 
   function _onNewStreetLastClick() {
-    console.log('last');
-
     _fetchLastStreet();
   }
 
@@ -5237,8 +5189,6 @@ var main = (function(){
   }
 
   function _receiveLastStreet(transmission) {
-    //console.log('received last street', transmission);
-
     ignoreStreetChanges = true;
 
     _unpackServerStreetData(transmission, street.id, street.namespacedId, false);
@@ -5328,8 +5278,6 @@ var main = (function(){
   }
 
   function _fetchGalleryStreet(streetId) {
-    //console.log('fetching', streetId);
-
     _showBlockingShield();
 
     jQuery.ajax({
@@ -5544,8 +5492,6 @@ var main = (function(){
   }
 
   function _receiveGalleryData(transmission) {
-    //console.log('receive gallery data', transmission);
-
     document.querySelector('#gallery .loading').classList.remove('visible');
 
     for (var i in transmission.streets) {
@@ -6098,7 +6044,6 @@ var main = (function(){
     },
 
     show: function() {
-      console.log('no connection!');
       document.querySelector('#no-connection-message').classList.add('visible');
       document.body.classList.add('no-connection-message-visible');
     },
@@ -6140,8 +6085,6 @@ var main = (function(){
       // TODO const
       // TODO cross-browser
 
-      //console.log(perspective);
-
       el.style.webkitPerspectiveOrigin = (perspective / 2) + 'px 50%';
       el.style.MozPerspectiveOrigin = (perspective / 2) + 'px 50%';
       el.style.perspectiveOrigin = (perspective / 2) + 'px 50%';
@@ -6162,8 +6105,6 @@ var main = (function(){
     var perspective = -(pos[0] - document.querySelector('#street-section-outer').scrollLeft - system.viewportWidth / 2);
     // TODO const
     // TODO cross-browser
-
-    //console.log(perspective);
 
     el.style.webkitPerspectiveOrigin = (perspective / 2) + 'px 50%';
     el.style.MozPerspectiveOrigin = (perspective / 2) + 'px 50%';
@@ -6454,23 +6395,17 @@ var main = (function(){
       } else {
         var pos = _getElAbsolutePos(segmentEl);
 
-        //console.log('z');
-
         _infoBubble.considerMouseX = pos[0] - document.querySelector('#street-section-outer').scrollLeft;
         _infoBubble.considerMouseY = pos[1];
       }
       _infoBubble.considerSegmentEl = segmentEl;
       _infoBubble.considerType = type;
 
-      //console.log('a');
-
       if ((segmentEl == _infoBubble.segmentEl) && (type == _infoBubble.type)) {
-        //console.log('denied');
         return;
       }
 
       if (!_infoBubble.visible || !_infoBubble._withinHoverPolygon(mouseX, mouseY)) {
-        //console.log('show');
         _infoBubble.show(false);
       } 
     },
@@ -6565,7 +6500,7 @@ var main = (function(){
     },
 
     updateWarningsInContents: function(segment) {
-      if (!_infoBubble.visible || !_infoBubble.segmentEl || 
+      if (!_infoBubble.visible || !_infoBubble.segmentEl || !segment || !segment.el || 
           (_infoBubble.segmentEl != segment.el)) {
         return;
       }
@@ -6653,7 +6588,6 @@ var main = (function(){
 
     updateContents: function() {
       var infoBubbleEl = _infoBubble.el;
-      //console.log(el);
 
       switch (_infoBubble.type) {
         case INFO_BUBBLE_TYPE_SEGMENT:
@@ -7004,7 +6938,6 @@ var main = (function(){
     // TODO rename
     show: function(force) {
       if (_infoBubble.suppressed) {
-        //console.log('suppressed');
         window.setTimeout(_infoBubble.show, 100);
         return;
       }
@@ -7056,8 +6989,6 @@ var main = (function(){
       var pos = _getElAbsolutePos(segmentEl);
       var bubbleX = pos[0] - document.querySelector('#street-section-outer').scrollLeft;
       var bubbleY = pos[1];
-
-      //console.log(segmentEl, bubbleY);
 
       _infoBubble.el = document.querySelector('#main-screen .info-bubble');
       _infoBubble.updateContents();
@@ -7819,8 +7750,6 @@ var main = (function(){
   }
 
   function _receiveSignInDetails(details) {
-    //console.log('receive sign in details', details);
-
     signInData.details = details;
     _saveSignInDataLocally();
 
@@ -7838,8 +7767,6 @@ var main = (function(){
 
     // It also, unfortunately, might mean regular server failure, too. Marcin
     // doesn’t know what to do with it yet. Open issue #339.
-
-    //console.log(data);
 
     /*if (data.status == 0) {
       _showError(ERROR_NEW_STREET_SERVER_FAILURE, true);
@@ -7975,7 +7902,7 @@ var main = (function(){
   function _detectCountry() {
     countryLoaded = false;
 
-    $.ajax({ url: IP_GEOCODING_API_URL }).done(_receiveCountry);
+    jQuery.ajax({ url: IP_GEOCODING_API_URL }).done(_receiveCountry);
 
     window.setTimeout(_detectCountryTimeout, IP_GEOCODING_TIMEOUT);
   }
@@ -8148,7 +8075,7 @@ var main = (function(){
       _prepareDefaultStreet();
     }
 
-    var transmission = _packServerStreetData();    
+    var transmission = _packServerStreetData();  
 
     jQuery.ajax({
       // TODO const
@@ -8162,16 +8089,12 @@ var main = (function(){
   }
 
   function _receiveNewStreet(data) {
-    //console.log('received new street', data);
-
     _setStreetId(data.id, data.namespacedId);
 
     _saveStreetToServer(true);
   }
 
   function _errorReceiveNewStreet(data) {
-    //console.log('failed new street!');
-
     _showError(ERROR_NEW_STREET_SERVER_FAILURE, true);
   }
 
@@ -8499,7 +8422,7 @@ var main = (function(){
 
     // TODO make it better 
     // Related to Enter to 404 bug in Chrome
-    $.ajaxSetup({ cache: false });
+    jQuery.ajaxSetup({ cache: false });
 
     readyStateCompleteLoaded = false;
     document.addEventListener('readystatechange', _onReadyStateChange);
