@@ -4452,6 +4452,10 @@ var main = (function(){
 
     document.querySelector('#street-section-sky').style.top = (streetSectionTop * .8) + 'px';
 
+    document.querySelector('#street-scroll-indicator-left').style.top = (streetSectionTop + streetSectionHeight) + 'px';
+    document.querySelector('#street-scroll-indicator-right').style.top = (streetSectionTop + streetSectionHeight) + 'px';
+    console.log((streetSectionTop + streetSectionHeight));
+
     var streetSectionDirtPos = system.viewportHeight - streetSectionTop - 400 + 180;
 
     document.querySelector('#street-section-dirt').style.height = 
@@ -4485,6 +4489,7 @@ var main = (function(){
     _createBuildings();
 
     _updateStreetNameCanvasPos();
+    _updateStreetScrollIndicators();
   }
 
   function _updateStreetNameCanvasPos() {
@@ -5808,6 +5813,33 @@ var main = (function(){
     _updateFeedbackForm();
   }
 
+  function _updateStreetScrollIndicators() {
+    var el = document.querySelector('#street-section-outer');
+    var left = el.scrollLeft / (el.scrollWidth - el.offsetWidth);
+    // TODO const off max width street
+
+    var posMax = Math.round(street.width / MAX_CUSTOM_STREET_WIDTH * 6);
+    if (posMax < 2) {
+      posMax = 2;
+    }
+
+    var posLeft = Math.round(posMax * left);
+    if ((left > 0) && (posLeft == 0)) {
+      posLeft = 1;
+    }
+    if ((left < 1.0) && (posLeft == posMax)) {
+      posLeft = posMax - 1;
+    }
+    var posRight = posMax - posLeft;
+
+    //console.log(posLeft, posRight, posMax);
+
+    //console.log(street.width, left, right);
+
+    document.querySelector('#street-scroll-indicator-left').innerHTML = Array(posLeft + 1).join('‹');
+    document.querySelector('#street-scroll-indicator-right').innerHTML = Array(posRight + 1).join('›');
+  }
+
   function _onStreetSectionScroll(event) {
     _infoBubble.suppress();
 
@@ -5820,6 +5852,8 @@ var main = (function(){
       var pos = -scrollPos * 0.25;
       document.querySelector('#street-section-sky .rear-clouds').style[system.cssTransform] = 'translateX(' + pos + 'px)'; 
     //}
+
+    _updateStreetScrollIndicators();
 
     if (event) {
       event.preventDefault();

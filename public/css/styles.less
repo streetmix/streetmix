@@ -564,6 +564,26 @@ body.gallery-visible #gallery-shield {
   user-select: none;
 }
 
+#street-scroll-indicator-left,
+#street-scroll-indicator-right {
+  position: fixed;
+  z-index: 9999999999;
+
+  margin-top: -275px;
+
+  opacity: .2;
+
+  pointer-events: none;
+  letter-spacing: -13px;
+
+  font-size: 80px;
+  &#street-scroll-indicator-left {
+    left: 15px;
+  }
+  &#street-scroll-indicator-right {
+    right: 25px;
+  }
+}
 
 #street-section-canvas {
   z-index: 10;
