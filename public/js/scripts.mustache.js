@@ -6953,10 +6953,10 @@ var main = (function(){
 
       infoBubbleEl.appendChild(el);
 
+      _infoBubble.updateWarningsInContents(segment);
       window.setTimeout(function() {
         if (_infoBubble.type == INFO_BUBBLE_TYPE_SEGMENT) {
           _infoBubble.updateWidthInContents(segment.el, segment.width);
-          _infoBubble.updateWarningsInContents(segment);
         }
       }, 0);
     },
