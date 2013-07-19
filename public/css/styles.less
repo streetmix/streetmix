@@ -571,7 +571,7 @@ body.gallery-visible #gallery-shield {
 
   margin-top: -275px;
 
-  opacity: .2;
+  opacity: .1;
 
   pointer-events: none;
   letter-spacing: -13px;
@@ -1525,8 +1525,9 @@ body.touch-support .segment.fade-out-end button {
   margin-top: 5px;
 
   appearance: none;
+  -webkit-appearance: none;
 
-  background-color: transparent;
+  background: transparent;
   border: 0;
   border-top: 1px solid darken(@skyColour, 10%);
   border-bottom: 1px solid darken(@skyColour, 10%);
@@ -2360,29 +2361,43 @@ body:not(.edit-street-width) #street-width {
 }
 
 body.controls-fade-out .info-bubble {
-  -webkit-transition: opacity @touchControlsFadeoutTime !important;
-  -moz-transition: opacity @touchControlsFadeoutTime !important;
-  transition: opacity @touchControlsFadeoutTime !important;
-  opacity: 0 !important;
+  -webkit-transition: opacity @touchControlsFadeoutTime;
+  -moz-transition: opacity @touchControlsFadeoutTime;
+  transition: opacity @touchControlsFadeoutTime;
+  opacity: 0.01 !important;
 }
 body.controls-fade-out .segment .drag-handle {
   -webkit-transition: opacity @touchControlsFadeoutTime !important;
   -moz-transition: opacity @touchControlsFadeoutTime !important;
   transition: opacity @touchControlsFadeoutTime !important;
-  opacity: 0 !important;  
+  opacity: 0.01 !important;  
 }
 body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
   -webkit-transition: opacity @touchControlsFadeoutTime !important;
   -moz-transition: opacity @touchControlsFadeoutTime !important;
   transition: opacity @touchControlsFadeoutTime !important;
-  opacity: 0 !important;    
+  opacity: 0.01 !important;    
 }
 
+/*.info-bubble {
+}*/
+/*body .info-bubble.regular-transition {
+  -webkit-transition: -webkit-transform 100ms, margin-top 150ms, height 150ms, opacity 150ms !important;
+  -moz-transition: -moz-transform 100ms, margin-top 150ms, height 150ms, opacity 150ms !important;
+  transition: transform 100ms, margin-top 150ms, height 150ms, opacity 150ms !important;  
+}*/
+/*.info-bubble.regular-transition {
+  outline: 3px solid red !important;
+}*/
 .info-bubble {
   position: absolute;
   z-index: 10000000000;
   min-width: 250px;
   background: @infoBubbleBackground;
+
+  -webkit-transition: -webkit-transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
+  -moz-transition: -moz-transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
+  transition: transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;      
 
   .box-border;
   border-top-color: darken(@skyColour, 20%);
@@ -2390,10 +2405,6 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
   pointer-events: none;
 
   opacity: 0;
-
-  -webkit-transition: -webkit-transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
-  -moz-transition: -moz-transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
-  transition: transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
 
   -webkit-transform: rotateX(-80deg);
   -moz-transform: rotateX(-80deg);
@@ -2870,9 +2881,9 @@ footer button.scroll-right {
 }
 
 
-.hover canvas {
+/*.hover canvas {
   outline-color: white !important;
-}
+}*/
 
 #debug-hover-polygon {
   position: absolute;

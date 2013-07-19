@@ -3815,10 +3815,9 @@ var main = (function(){
     draggingMove.segmentAfterEl = null;
     _updateWithinCanvas(true);
 
-    _hideControls();
-    _cancelFadeoutControls();
-
     _infoBubble.hide();
+    _cancelFadeoutControls();
+    _hideControls();
   }
 
   function _updateWithinCanvas(_newWithinCanvas) {
@@ -4066,13 +4065,24 @@ var main = (function(){
   }
 
   function _hideControls() {
-    console.log('hide!');
-    document.body.classList.remove('controls-fade-out');   
+    console.log('!!!!!hide!!!!');
+
+    document.body.classList.remove('controls-fade-out'); 
     if (_infoBubble.segmentEl) {
       _infoBubble.segmentEl.classList.remove('show-drag-handles');   
-    }
-    _infoBubble.hide();
-    _infoBubble.hideSegment();
+
+      //var el = _infoBubble.el;
+      //console.log(el.className);
+      //el.classList.add('regular-transition'); 
+      window.setTimeout(function() {
+        _infoBubble.hide();
+        _infoBubble.hideSegment(true);
+      }, 0);
+      //console.log('!', el.className);
+      /*window.setTimeout(function() {
+        el.classList.remove('regular-transition');   
+      }, 250);*/
+    }    
   }
 
   function _doDropHeuristics(type, variantString, width) {
@@ -6404,10 +6414,15 @@ var main = (function(){
       }
 
       if (_infoBubble.el) {
-        //_removeElFromDom(_infoBubble.el);
-        //_infoBubble.el = null;
+        //var el = _infoBubble.el;
+        //el.classList.add('regular-transition');
         _infoBubble.el.classList.remove('visible');
         _infoBubble.visible = false;
+
+        /*window.setTimeout(function() {
+          el.classList.remove('regular-transition');
+        }, 200);*/
+
 
         document.body.removeEventListener('mousemove', _infoBubble.onBodyMouseMove);
       }
