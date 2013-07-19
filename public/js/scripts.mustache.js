@@ -4749,6 +4749,7 @@ var main = (function(){
           var newScrollLeft = el.scrollLeft - (el.offsetWidth * .5);
         }
 
+        // TODO const
         $(el).animate({ scrollLeft: newScrollLeft }, 300);
         event.preventDefault();
         break;
@@ -4762,6 +4763,7 @@ var main = (function(){
           var newScrollLeft = el.scrollLeft + (el.offsetWidth * .5);
         }
 
+        // TODO const
         $(el).animate({ scrollLeft: newScrollLeft }, 300);
         event.preventDefault();
         break;
@@ -5665,6 +5667,10 @@ var main = (function(){
   }
 
   function _onMyStreetsClick(event) {
+    if (event.shiftKey || event.ctrlKey || event.metaKey) {
+      return;
+    }
+
     if (signedIn) {
       _showGallery(signInData.userId, false);
     } else {
