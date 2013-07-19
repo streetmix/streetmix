@@ -4037,8 +4037,7 @@ var main = (function(){
     }
   }*/
 
-  // DEBUG
-  var TOUCH_CONTROLS_FADEOUT_DELAY = 1000;
+  // TODO move
   var TOUCH_CONTROLS_FADEOUT_TIME = 3000;
 
   var controlsFadeoutDelayTimer = -1;
@@ -4051,6 +4050,10 @@ var main = (function(){
   }
 
   function _resumeFadeoutControls() {
+    if (!system.touch) {
+      return;
+    }
+
     _cancelFadeoutControls();
 
     controlsFadeoutDelayTimer = window.setTimeout(_fadeoutControls, TOUCH_CONTROLS_FADEOUT_DELAY);
