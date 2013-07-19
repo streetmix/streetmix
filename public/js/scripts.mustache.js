@@ -3815,6 +3815,7 @@ var main = (function(){
     draggingMove.segmentAfterEl = null;
     _updateWithinCanvas(true);
 
+    _hideControls();
     _cancelFadeoutControls();
 
     _infoBubble.hide();
@@ -4065,12 +4066,12 @@ var main = (function(){
   }
 
   function _hideControls() {
-    _infoBubble.hide();
-    _infoBubble.hideSegment();
     document.body.classList.remove('controls-fade-out');   
     if (_infoBubble.segmentEl) {
       _infoBubble.segmentEl.classList.remove('show-drag-handles');   
     }
+    _infoBubble.hide();
+    _infoBubble.hideSegment();
   }
 
   function _doDropHeuristics(type, variantString, width) {
@@ -4869,6 +4870,7 @@ var main = (function(){
       _removeSegment(el, event.shiftKey);
     }
 
+    // Prevent this “leaking” to a segment below
     event.preventDefault();
   }
 
