@@ -3815,6 +3815,8 @@ var main = (function(){
     draggingMove.segmentAfterEl = null;
     _updateWithinCanvas(true);
 
+    _cancelFadeoutControls();
+
     _infoBubble.hide();
   }
 
@@ -4047,13 +4049,13 @@ var main = (function(){
   function _resumeFadeoutControls() {
     _cancelFadeoutControls();
 
-    window.clearTimeout(controlsFadeoutDelayTimer);
-    window.clearTimeout(controlsFadeoutHideTimer);
     controlsFadeoutDelayTimer = window.setTimeout(_fadeoutControls, TOUCH_CONTROLS_FADEOUT_DELAY);
   }
 
   function _cancelFadeoutControls() {
     document.body.classList.remove('controls-fade-out');    
+    window.clearTimeout(controlsFadeoutDelayTimer);
+    window.clearTimeout(controlsFadeoutHideTimer);
   }
 
   function _fadeoutControls() {
@@ -4217,6 +4219,8 @@ var main = (function(){
 
     var failedDrop = false;
 
+    var segmentElControls = null;
+
     if (!draggingMove.withinCanvas) {
       if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
         _removeElFromDom(draggingMove.originalEl);
@@ -4250,13 +4254,13 @@ var main = (function(){
         _removeElFromDom(draggedOutEl);
       }
 
-      _scheduleControlsFadeout(newEl);
+      segmentElControls = newEl;
     } else {          
       failedDrop = true;
 
-      _scheduleControlsFadeout(draggingMove.originalEl);
-
       draggingMove.originalEl.classList.remove('dragged-out');
+
+      segmentElControls = draggingMove.originalEl;
     }
 
     draggingMove.segmentBeforeEl = null;
@@ -4270,6 +4274,10 @@ var main = (function(){
     document.querySelector('#trashcan').classList.remove('visible');
 
     _changeDraggingType(DRAGGING_TYPE_NONE);
+
+    if (segmentElControls) {
+      _scheduleControlsFadeout(segmentElControls);
+    }
 
     if (failedDrop) {
       _infoBubble.show(true);    
@@ -4860,6 +4868,8 @@ var main = (function(){
     if (el) {
       _removeSegment(el, event.shiftKey);
     }
+
+    event.preventDefault();
   }
 
   function _normalizeSlug(slug) {
@@ -6375,17 +6385,23 @@ var main = (function(){
       } else {
         var pos = _getElAbsolutePos(segmentEl);
 
-        _infoBubble.considerMouseX = pos[0];
+        console.log('z');
+
+        _infoBubble.considerMouseX = pos[0] - document.querySelector('#street-section-outer').scrollLeft;
         _infoBubble.considerMouseY = pos[1];
       }
       _infoBubble.considerSegmentEl = segmentEl;
       _infoBubble.considerType = type;
 
+      console.log('a');
+
       if ((segmentEl == _infoBubble.segmentEl) && (type == _infoBubble.type)) {
+        console.log('denied');
         return;
       }
 
       if (!_infoBubble.visible || !_infoBubble._withinHoverPolygon(mouseX, mouseY)) {
+        console.log('show');
         _infoBubble.show(false);
       } 
     },
@@ -6919,6 +6935,7 @@ var main = (function(){
     // TODO rename
     show: function(force) {
       if (_infoBubble.suppressed) {
+        console.log('suppressed');
         window.setTimeout(_infoBubble.show, 100);
         return;
       }
