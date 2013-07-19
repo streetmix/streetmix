@@ -3918,6 +3918,8 @@ var main = (function(){
   }
 
   function _onBodyMouseDown(event) {
+    console.log('body mouse down');
+
     var el = event.target;
 
     _loseAnyFocus();
@@ -5679,6 +5681,7 @@ var main = (function(){
       }
     }
 
+    _hideControls();
     _statusMessage.hide();
     document.querySelector('#gallery .sign-in-promo').classList.remove('visible');
 
