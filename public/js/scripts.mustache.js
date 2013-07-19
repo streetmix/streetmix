@@ -3684,8 +3684,12 @@ var main = (function(){
 
     _infoBubble.hide();
     _infoBubble.hideSegment(true);
+    _cancelFadeoutControls();
+    _hideControls();
 
-    el.segmentEl.classList.add('hover');
+    window.setTimeout(function() {
+      el.segmentEl.classList.add('hover');
+    }, 0);
 
     _showWidthChartImmediately();
   }
