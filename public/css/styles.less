@@ -1455,7 +1455,7 @@ body.touch-support .segment.fade-out-end button {
   height: 100%;
   display: table;
 
-  background: lighten(@skyColour, 10%);
+  background: lighten(@skyColour, 5%);
   color: black;
 
   font-size: 16px;
@@ -1490,21 +1490,22 @@ body.touch-support .segment.fade-out-end button {
   display: block;
   width: 200px;
   margin: 0 auto;
-  margin-top: 10px;
+  margin-top: 5px;
 
   background-color: transparent;
   border: 0;
-  outline: 1px solid darken(@skyColour, 20%);
+  border-top: 1px solid darken(@skyColour, 10%);
+  border-bottom: 1px solid darken(@skyColour, 10%);
   height: 8px;
 
   &::-webkit-progress-bar {
     background: transparent;
   }
   &::-webkit-progress-value {
-    background: darken(@skyColour, 20%);
+    background: @offWhite;
   }
   &::-moz-progress-bar {
-    background: darken(@skyColour, 20%);
+    background: @offWhite;
   }
 }
 
