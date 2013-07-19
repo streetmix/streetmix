@@ -385,7 +385,7 @@ var main = (function(){
     'bike-rack-elevation': ['sidewalk', 'road'],
 
     'car-type': ['car', 'truck'],
-    'sidewalk-density': ['empty', 'sparse', 'normal', 'dense'],
+    'sidewalk-density': ['dense', 'normal', 'sparse', 'empty'],
 
     'parking-lane-orientation': ['left', 'right'],
   };
@@ -451,14 +451,7 @@ var main = (function(){
       defaultWidth: 6,
       variants: ['sidewalk-density'],
       details: {
-        'empty': {
-          minWidth: 6,
-          graphics: {
-            center: { tileset: 1, x: 0, y: 0, width: 4, offsetX: -1, height: 1 },
-            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
-          }
-        },
-        'sparse': {
+        'dense': {
           minWidth: 6,
           graphics: {
             center: { tileset: 1, x: 0, y: 0, width: 4, offsetX: -1, height: 1 },
@@ -472,7 +465,14 @@ var main = (function(){
             repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
           }
         },
-        'dense': {
+        'sparse': {
+          minWidth: 6,
+          graphics: {
+            center: { tileset: 1, x: 0, y: 0, width: 4, offsetX: -1, height: 1 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+          }
+        },
+        'empty': {
           minWidth: 6,
           graphics: {
             center: { tileset: 1, x: 0, y: 0, width: 4, offsetX: -1, height: 1 },
@@ -5821,8 +5821,8 @@ var main = (function(){
       var posRight = 0;
     } else {
       var left = el.scrollLeft / (el.scrollWidth - el.offsetWidth);
+      
       // TODO const off max width street
-
       var posMax = Math.round(street.width / MAX_CUSTOM_STREET_WIDTH * 6);
       if (posMax < 2) {
         posMax = 2;
