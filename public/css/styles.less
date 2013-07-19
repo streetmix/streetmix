@@ -605,6 +605,43 @@ body.gallery-visible #gallery-shield {
 
   height: @canvasHeight + 40;
 }
+
+
+.rear-clouds,
+.front-clouds {
+  position: absolute;  
+
+  background-repeat: repeat-x;
+  background-position: 0 0;    
+
+  left: 0;
+  width: 100%;
+
+  z-index: -1;
+
+  &.rear-clouds {
+    background-image: url(../images/sky-rear.png);
+    background-size: 250px 120px;
+
+    height: 120px;
+
+    bottom: 330px;
+  }
+
+  &.front-clouds {
+    background-image: url(../images/sky-front.png);
+    background-size: 250px 280px;
+
+    opacity: .5;  
+
+    height: 280px;
+
+    bottom: 330px - 330px;
+
+    border-bottom: 50px solid rgb(165, 196, 209);
+  }
+}
+
 #street-section-sky {
   position: absolute;
   left: 0;
@@ -620,35 +657,16 @@ body.gallery-visible #gallery-shield {
 
   background-color: @skyColour;
 
-  .rear-clouds,
-  .front-clouds {
-    position: absolute;  
-
-    background-repeat: repeat-x;
-    background-position: 0 0;    
-
-    left: 0;
-    width: 100%;
-  }
-
   .rear-clouds {
-    background-image: url(../images/sky-rear.png);
-    background-size: 250px 120px;
-
-    bottom: 325px + 120px + 290px;
-    height: 120px;
+    bottom: 735px;
+    z-index: auto;
   }
-
   .front-clouds {
-    background-image: url(../images/sky-front.png);
-    background-size: 250px 280px;
-
-    opacity: .5;  
-
-    bottom: 45px + 120px + 290px;
-    height: 280px;
+    bottom: 735px - 330px;
+    z-index: auto;
   }
 }
+
 
 #street-section-dirt {
   position: absolute;
@@ -1496,7 +1514,7 @@ body.touch-support .segment.fade-out-end button {
   height: 100%;
   display: table;
 
-  background: lighten(@skyColour, 5%);
+  background: @skyColour;
   color: black;
 
   font-size: 16px;
@@ -1505,10 +1523,21 @@ body.touch-support .segment.fade-out-end button {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
+    padding: 0 100px;
+
+    line-height: 1.6;
+  }
+
+  h1 {
+    font-size: 250%;
+    font-weight: 300;
+    letter-spacing: -1px;
+    line-height: 1.1;
   }
 
   a {
     color: inherit;
+    white-space: nowrap;
   }
 
   button {
@@ -2942,7 +2971,9 @@ button {
   &:not([disabled]):active {
     //background: fadeout(@skyColour, 30%);
     background: mix(@skyColour, white, 80%);
-    font-weight: 700;
+    //font-weight: 700;
+    position: relative;
+    top: 1px;
   }
 
   &[disabled] {
