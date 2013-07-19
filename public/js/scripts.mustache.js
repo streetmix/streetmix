@@ -205,8 +205,10 @@ var main = (function(){
 
   var STATUS_MESSAGE_HIDE_DELAY = 15000;
   var WIDTH_EDIT_INPUT_DELAY = 200;
-  var TOUCH_SEGMENT_FADEOUT_DELAY = 5000;
   var SHORT_DELAY = 100;
+
+  var TOUCH_CONTROLS_FADEOUT_TIME = 3000;
+  var TOUCH_CONTROLS_FADEOUT_DELAY = 3000;
 
   var SAVE_STREET_DELAY = 500;
   var SAVE_SETTINGS_DELAY = 500;
@@ -2364,6 +2366,7 @@ var main = (function(){
     }
 
     _infoBubble.considerShowing(event, this, type);
+    _resumeFadeoutControls();
   }
 
   function _onBuildingMouseLeave() {
@@ -4036,9 +4039,6 @@ var main = (function(){
       }, TOUCH_SEGMENT_FADEOUT_DELAY);
     }
   }*/
-
-  // TODO move
-  var TOUCH_CONTROLS_FADEOUT_TIME = 3000;
 
   var controlsFadeoutDelayTimer = -1;
   var controlsFadeoutHideTimer = -1;
@@ -5914,9 +5914,10 @@ var main = (function(){
       $('#street-section-left-building').mouseleave(_onBuildingMouseLeave);
       $('#street-section-right-building').mouseenter(_onBuildingMouseEnter);
       $('#street-section-right-building').mouseleave(_onBuildingMouseLeave);
+    } else {
+      document.querySelector('#street-section-left-building').addEventListener('touchstart', _onBuildingMouseEnter);      
+      document.querySelector('#street-section-right-building').addEventListener('touchstart', _onBuildingMouseEnter);      
     }
-
-    //$('.width-chart-canvas').mouseenter(_hideWidthChartImmediately);
 
     if (!system.touch) {
       $('.info-bubble').mouseenter(_infoBubble.onMouseEnter);
