@@ -5184,6 +5184,8 @@ var main = (function(){
   }
 
   function _onNewStreetDefaultClick() {
+    console.log('default');
+
     settings.newStreetPreference = NEW_STREET_DEFAULT;
     _saveSettingsLocally();
 
@@ -5191,6 +5193,8 @@ var main = (function(){
   }
 
   function _onNewStreetEmptyClick() {
+    console.log('empty');
+
     settings.newStreetPreference = NEW_STREET_EMPTY;
     _saveSettingsLocally();
 
@@ -5210,6 +5214,8 @@ var main = (function(){
   }
 
   function _onNewStreetLastClick() {
+    console.log('last');
+
     _fetchLastStreet();
   }
 
@@ -5947,15 +5953,9 @@ var main = (function(){
     document.querySelector('#blocking-shield-reload').addEventListener('click', _goReload);
     document.querySelector('#gallery-shield').addEventListener('click', _onGalleryShieldClick);
 
-    if (system.touch) {
-      document.querySelector('#new-street-default').addEventListener('touchstart', _onNewStreetDefaultClick);
-      document.querySelector('#new-street-empty').addEventListener('touchstart', _onNewStreetEmptyClick);
-      document.querySelector('#new-street-last').addEventListener('touchstart', _onNewStreetLastClick);
-    } else {
-      document.querySelector('#new-street-default').addEventListener('click', _onNewStreetDefaultClick);
-      document.querySelector('#new-street-empty').addEventListener('click', _onNewStreetEmptyClick);
-      document.querySelector('#new-street-last').addEventListener('click', _onNewStreetLastClick);
-    }
+    document.querySelector('#new-street-default').addEventListener('click', _onNewStreetDefaultClick);
+    document.querySelector('#new-street-empty').addEventListener('click', _onNewStreetEmptyClick);
+    document.querySelector('#new-street-last').addEventListener('click', _onNewStreetLastClick);
 
     window.addEventListener('storage', _onStorageChange);
 
