@@ -3918,7 +3918,7 @@ var main = (function(){
   }
 
   function _onBodyMouseDown(event) {
-    console.log('body mouse down');
+    console.log('body mouse down', event.touches);
 
     var el = event.target;
 
