@@ -109,6 +109,9 @@ var main = (function(){
   var MODE_FORCE_RELOAD_SIGN_OUT_401 = 12;
   var MODE_ERROR = 13;
   var MODE_UNSUPPORTED_BROWSER = 14;
+  var MODE_STREET_404 = 15;
+  var MODE_STREET_404_BUT_LINK_TO_USER = 16;
+  var MODE_STREET_410_BUT_LINK_TO_USER = 17;
 
   var ERROR_404 = 1;
   var ERROR_SIGN_OUT = 2;
@@ -124,6 +127,9 @@ var main = (function(){
   var ERROR_AUTH_PROBLEM_API_PROBLEM = 12;
   var ERROR_GENERIC_ERROR = 13;
   var ERROR_UNSUPPORTED_BROWSER = 14;
+  var ERROR_STREET_404 = 15;
+  var ERROR_STREET_404_BUT_LINK_TO_USER = 16;
+  var ERROR_STREET_410_BUT_LINK_TO_USER = 17;
 
   var TWITTER_ID = '@streetmixapp';
 
@@ -5564,6 +5570,8 @@ var main = (function(){
       document.querySelector('#gallery .streets').appendChild(el);
     }
 
+    var streetCount = document.querySelectorAll('#gallery .streets li').length;
+
     if (((mode == MODE_USER_GALLERY) && streetCount) || (mode == MODE_GLOBAL_GALLERY)) {
       _switchGalleryStreet(transmission.streets[0].id);
     }
@@ -8171,8 +8179,16 @@ var main = (function(){
       _goNewStreet();
     } else {
       if ((data.status == 404) || (data.status == 410)) {
+        if (street.creatorId) {
+          if (data.status == 410) {
+            mode = MODE_STREET_410_BUT_LINK_TO_USER;
+          } else {
+            mode = MODE_STREET_404_BUT_LINK_TO_USER;            
+          }
+        } else {
+          mode = MODE_STREET_404;
+        }
         // TODO swap for showError (here and elsewhere)
-        mode = MODE_404;
         _processMode();
       } else {
         _showError(ERROR_NEW_STREET_SERVER_FAILURE, true);
@@ -8220,7 +8236,23 @@ var main = (function(){
       case ERROR_404:
         title = 'Page not found.';
         description = 'Oh, boy. There is no page with this address!<br><button class="home">Go to the homepage</button>';
-        // TODO go to homepage
+        break;
+      case ERROR_STREET_404:
+        title = 'Street not found.';
+        description = 'Oh, boy. There is no street with this link!<br><button class="home">Go to the homepage</button>';
+        break;
+      case ERROR_STREET_404_BUT_LINK_TO_USER:
+        title = 'Street not found.';
+        description = 
+            'There is no street with this link! But you can look for other streets by ' +
+            '<a href="/' + street.creatorId + '"><div class="avatar" userId="' + street.creatorId + '"></div>' + street.creatorId + '</a>.' +
+            '<br><button class="home">Go to the homepage</button>';
+        break;
+      case ERROR_STREET_410_BUT_LINK_TO_USER:
+        title = 'This street has been deleted.';
+        description = 'There is no longer a street with this link, but you can look for other streets by ' +
+            '<a href="/' + street.creatorId + '"><div class="avatar" userId="' + street.creatorId + '"></div>' + street.creatorId + '</a>.' +
+            '<br><button class="home">Go to the homepage</button>';
         break;
       case ERROR_SIGN_OUT:
         title = 'You are now signed out.';
@@ -8302,6 +8334,8 @@ var main = (function(){
 
     document.querySelector('#error').classList.add('visible');
 
+    _fetchAvatars();
+
     currentErrorType = errorType;
   }
 
@@ -8346,6 +8380,15 @@ var main = (function(){
         break;
       case MODE_404:
         _showError(ERROR_404, true);
+        break;
+      case MODE_STREET_404:
+        _showError(ERROR_STREET_404, true);
+        break;
+      case MODE_STREET_404_BUT_LINK_TO_USER:
+        _showError(ERROR_STREET_404_BUT_LINK_TO_USER, true);
+        break;
+      case MODE_STREET_410_BUT_LINK_TO_USER:
+        _showError(ERROR_STREET_410_BUT_LINK_TO_USER, true);
         break;
       case MODE_SIGN_OUT:
         _showError(ERROR_SIGN_OUT, true);
