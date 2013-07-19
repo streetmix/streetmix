@@ -2948,3 +2948,10 @@ button {
     border-bottom-color: desaturate(@skyColour, 100%);
   }
 }
+
+body:not(.touch-support) .touch-only {
+  display: none;
+}
+body.touch-support .non-touch-only {
+  display: none;
+}
