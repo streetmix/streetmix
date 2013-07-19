@@ -19,8 +19,8 @@
 
 @lightTextColour: rgb(240, 240, 240);
 
-@touchFadeOutTime: 3000ms;
-@touchFadeOutDelay: 2000ms;
+@touchControlsFadeoutTime: 3000ms;
+//@touchFadeOutDelay: 2000ms;
 
 @streetNameSize: 1.5;
 @streetNameTop: 10px;
@@ -91,6 +91,10 @@ body {
   position: relative; // Fixes iOS Safari overflow: hidden not working bug
 
   background: white;
+
+  -webkit-text-size-adjust: none;
+  -moz-text-size-adjust: none;
+  text-size-adjust: none;
 }
 
 body:not(.safari) {
@@ -114,6 +118,9 @@ button {
   -webkit-tap-highlight-color: transparent;
   -moz-tap-highlight-color: transparent;
   tap-highlight-color: transparent;
+}
+button {
+  font-size: 13px;
 }
 
 
@@ -1203,9 +1210,9 @@ body.segment-resize-dragging * {
   }
 }
 
-body.touch-support .segment.fade-out-end {
+/*body.touch-support .segment.fade-out-end {
   z-index: 999999;
-}
+}*/
 
 .segment .drag-handle {
   z-index: 10000;
@@ -1426,7 +1433,8 @@ body.segment-move-dragging #editable-street-section > div {
 }
 
 
-.segment:not(.unmovable).fade-out-start .drag-handle {
+
+/*.segment:not(.unmovable).fade-out-start .drag-handle {
   pointer-events: auto;
   opacity: 1;
   -webkit-transition: opacity 0;
@@ -1447,7 +1455,7 @@ body.touch-support .segment button {
 }
 body.touch-support .segment.fade-out-end button {
   pointer-events: auto;
-} 
+} */
 
 #error,
 #loading {
@@ -2329,6 +2337,25 @@ body:not(.edit-street-width) #street-width {
   vertical-align: middle;  
   margin-top: -1px;
   margin-left: 3px;
+}
+
+body.controls-fade-out .info-bubble {
+  -webkit-transition: opacity @touchControlsFadeoutTime !important;
+  -moz-transition: opacity @touchControlsFadeoutTime !important;
+  transition: opacity @touchControlsFadeoutTime !important;
+  opacity: 0 !important;
+}
+body.controls-fade-out .segment .drag-handle {
+  -webkit-transition: opacity @touchControlsFadeoutTime !important;
+  -moz-transition: opacity @touchControlsFadeoutTime !important;
+  transition: opacity @touchControlsFadeoutTime !important;
+  opacity: 0 !important;  
+}
+body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
+  -webkit-transition: opacity @touchControlsFadeoutTime !important;
+  -moz-transition: opacity @touchControlsFadeoutTime !important;
+  transition: opacity @touchControlsFadeoutTime !important;
+  opacity: 0 !important;    
 }
 
 .info-bubble {

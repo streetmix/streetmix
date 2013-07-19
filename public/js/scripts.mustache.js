@@ -2007,7 +2007,7 @@ var main = (function(){
     var precise = event.shiftKey;
     
     _incrementSegmentWidth(segmentEl, false, precise);
-    _createTouchSegmentFadeout(segmentEl);
+    _scheduleControlsFadeout(segmentEl);
   }
 
   function _onWidthIncrementClick(event) {
@@ -2016,7 +2016,7 @@ var main = (function(){
     var precise = event.shiftKey;
 
     _incrementSegmentWidth(segmentEl, true, precise);
-    _createTouchSegmentFadeout(segmentEl);
+    _scheduleControlsFadeout(segmentEl);
   }
 
   function _resizeSegment(el, resizeType, width, updateEdit, palette, immediate, initial) {
@@ -4031,8 +4031,44 @@ var main = (function(){
     }
   }*/
 
-  function _createTouchSegmentFadeout(el) {
+  // DEBUG
+  var TOUCH_CONTROLS_FADEOUT_DELAY = 1000;
+  var TOUCH_CONTROLS_FADEOUT_TIME = 3000;
+
+  var controlsFadeoutDelayTimer = -1;
+  var controlsFadeoutHideTimer = -1;
+
+  function _scheduleControlsFadeout(el) {
     _infoBubble.considerShowing(null, el, INFO_BUBBLE_TYPE_SEGMENT);
+
+    _resumeFadeoutControls();
+  }
+
+  function _resumeFadeoutControls() {
+    _cancelFadeoutControls();
+
+    window.clearTimeout(controlsFadeoutDelayTimer);
+    window.clearTimeout(controlsFadeoutHideTimer);
+    controlsFadeoutDelayTimer = window.setTimeout(_fadeoutControls, TOUCH_CONTROLS_FADEOUT_DELAY);
+  }
+
+  function _cancelFadeoutControls() {
+    document.body.classList.remove('controls-fade-out');    
+  }
+
+  function _fadeoutControls() {
+    document.body.classList.add('controls-fade-out');
+
+    controlsFadeoutHideTimer = window.setTimeout(_hideControls, TOUCH_CONTROLS_FADEOUT_TIME);
+  }
+
+  function _hideControls() {
+    _infoBubble.hide();
+    _infoBubble.hideSegment();
+    document.body.classList.remove('controls-fade-out');   
+    if (_infoBubble.segmentEl) {
+      _infoBubble.segmentEl.classList.remove('show-drag-handles');   
+    }
   }
 
   function _doDropHeuristics(type, variantString, width) {
@@ -4214,11 +4250,11 @@ var main = (function(){
         _removeElFromDom(draggedOutEl);
       }
 
-      _createTouchSegmentFadeout(newEl);
+      _scheduleControlsFadeout(newEl);
     } else {          
       failedDrop = true;
 
-      _createTouchSegmentFadeout(draggingMove.originalEl);
+      _scheduleControlsFadeout(draggingMove.originalEl);
 
       draggingMove.originalEl.classList.remove('dragged-out');
     }
@@ -4271,7 +4307,7 @@ var main = (function(){
     _infoBubble.considerSegmentEl = draggingResize.segmentEl;
     _infoBubble.show(false);
 
-    _createTouchSegmentFadeout(draggingResize.segmentEl);
+    _scheduleControlsFadeout(draggingResize.segmentEl);
 
     _hideWidthChart();    
 
@@ -5820,6 +5856,7 @@ var main = (function(){
       $('.info-bubble').mouseenter(_infoBubble.onMouseEnter);
       $('.info-bubble').mouseleave(_infoBubble.onMouseLeave);
     }
+    document.querySelector('.info-bubble').addEventListener('touchstart', _infoBubble.onTouchStart);
 
     document.querySelector('#new-street').addEventListener('click', _goNewStreet);
     document.querySelector('#copy-last-street').addEventListener('click', _goCopyLastStreet);
@@ -6130,6 +6167,10 @@ var main = (function(){
       _infoBubble.suppressed = false;
 
       window.clearTimeout(_infoBubble.suppressTimerId);
+    },
+
+    onTouchStart: function() {
+      _resumeFadeoutControls();
     },
 
     onMouseEnter: function() {
