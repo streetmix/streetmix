@@ -3918,9 +3918,11 @@ var main = (function(){
   }
 
   function _onBodyMouseDown(event) {
-    console.log('body mouse down', event.touches);
-
     var el = event.target;
+
+    if (event.touches && event.touches.length != 1) {
+      return;
+    }
 
     _loseAnyFocus();
     _hideDebugInfo();
