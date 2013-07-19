@@ -46,6 +46,7 @@
 
 @topMenuText: @segmentText;
 @topMenuHoverText: darken(@skyColour, 20%);
+@topMenuActiveText: darken(@skyColour, 30%);
 
 @segmentHoverBackground: rgba(255, 255, 255, .2);
 
@@ -64,6 +65,9 @@
 
 @formElementBackground: lighten(@skyColour, 20%);
 @formElementBorder: @borderColor;
+
+@infoBubbleButtonSize: 30px;
+@infoBubbleBackground: white;
 
 @import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700);
 
@@ -1492,11 +1496,14 @@ body.touch-support .segment.fade-out-end button {
   margin: 0 auto;
   margin-top: 5px;
 
+  appearance: none;
+
   background-color: transparent;
   border: 0;
   border-top: 1px solid darken(@skyColour, 10%);
   border-bottom: 1px solid darken(@skyColour, 10%);
   height: 8px;
+  padding: 0;
 
   &::-webkit-progress-bar {
     background: transparent;
@@ -1730,6 +1737,9 @@ body.no-connection-message-visible #status-message {
     &:hover {
       color: @topMenuHoverText;
     }
+    &:active {
+      color: @topMenuActiveText;
+    }
   }
 
   button {
@@ -1766,9 +1776,14 @@ body.no-connection-message-visible #status-message {
       -moz-transform: scaleY(.75);
       transform: scaleY(.75);
     }
-
     &:hover {
       color: @topMenuHoverText;
+    }
+    &:active {
+      color: @topMenuActiveText;
+    }
+    &[disabled] {
+      color: red;
     }
   }
 }
@@ -2315,11 +2330,6 @@ body:not(.edit-street-width) #street-width {
   margin-top: -1px;
   margin-left: 3px;
 }
-
-// TODO move
-@infoBubbleButtonSize: 30px;
-
-@infoBubbleBackground: white;
 
 .info-bubble {
   position: absolute;

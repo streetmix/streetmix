@@ -5913,6 +5913,14 @@ var main = (function(){
             addEventListener('touchstart', _onIdentityMenuClick);
       }
     } else {*/
+      // Firefox sometimes disables some buttons… unsure why
+      document.querySelector('#share-menu-button').disabled = false;
+      document.querySelector('#help-menu-button').disabled = false;
+      document.querySelector('#feedback-menu-button').disabled = false;
+      if (document.querySelector('#identity-menu-button')) {
+        document.querySelector('#identity-menu-button').disabled = false;
+      }
+
       document.querySelector('#share-menu-button').
           addEventListener('click', _onShareMenuClick);
       document.querySelector('#help-menu-button').
@@ -7076,7 +7084,6 @@ var main = (function(){
       _hideMenus();
     }
   }
-
 
   function _onHelpMenuClick() {
     var el = document.querySelector('#help-menu');
