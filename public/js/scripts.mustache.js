@@ -6078,7 +6078,6 @@ var main = (function(){
       // TODO temporary ban
       if ((navigator.userAgent.indexOf('Opera') != -1) || 
           (navigator.userAgent.indexOf('Internet Explorer') != -1) ||
-          (navigator.userAgent.indexOf('iPad') != -1) ||
           (navigator.userAgent.indexOf('iPhone') != -1)) {
         mode = MODE_UNSUPPORTED_BROWSER;
         _processMode();
