@@ -5811,7 +5811,7 @@ var main = (function(){
   function _onStreetSectionScroll(event) {
     _infoBubble.suppress();
 
-    if (!system.safari) {
+    //if (!system.safari) {
       var scrollPos = document.querySelector('#street-section-outer').scrollLeft;
 
       var pos = -scrollPos * 0.5;
@@ -5819,7 +5819,7 @@ var main = (function(){
 
       var pos = -scrollPos * 0.25;
       document.querySelector('#street-section-sky .rear-clouds').style[system.cssTransform] = 'translateX(' + pos + 'px)'; 
-    }
+    //}
 
     if (event) {
       event.preventDefault();
