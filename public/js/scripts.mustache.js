@@ -4438,8 +4438,6 @@ var main = (function(){
     // TODO hack
     _createBuildings();
 
-    _hideMenus();
-
     _updateStreetNameCanvasPos();
   }
 
