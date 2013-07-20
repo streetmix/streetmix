@@ -4373,8 +4373,8 @@ var main = (function(){
       document.querySelector('.palette-canvas').appendChild(el);
     }
 
-    document.querySelector('.palette-canvas').style.width = 
-        document.querySelector('.palette-canvas').scrollWidth + 'px';
+    //document.querySelector('.palette-canvas').style.width = 
+     //   document.querySelector('.palette-canvas').scrollWidth + 'px';
   }
 
   function _resizeStreetWidth(dontScroll) {
