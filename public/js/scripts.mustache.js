@@ -174,7 +174,7 @@ var main = (function(){
   // Output using cmap2file as per 
   // http://www.typophile.com/node/64147#comment-380776
   var STREET_NAME_FONT_GLYPHS = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿĀāĂăĆćĈĉĊċČčĎďĒĔĕĖėĜĝĞğĠġĤĥĨĩĪīĬĭİıĴĵĹĺĽľŁłŃŇňŌōŎŏŐőŒœŔŕŘřŚśŜŝŞşŠšŤťŨũŪūŬŭŮůŰűŴŵŶŷŸŹźŻżŽžƒˆˇ˘˙˚˛˜˝–—‘’‚“”„†‡•…‰‹›⁄€™−';
-  var STREET_NAME_REMIX_SUFFIX = '(remixed)';
+  var STREET_NAME_REMIX_SUFFIX = '(remix)';
   var MAX_STREET_NAME_WIDTH = 50;
 
   var WIDTH_PALETTE_MULTIPLIER = 4;
@@ -3198,9 +3198,6 @@ var main = (function(){
   }
 
   function _addRemixSuffixToName() {
-    // Removed for the time being to see if we like it without this.
-    return;
-
     if (street.name.substr(street.name.length - STREET_NAME_REMIX_SUFFIX.length, 
         STREET_NAME_REMIX_SUFFIX.length) != STREET_NAME_REMIX_SUFFIX) {
       street.name += ' ' + STREET_NAME_REMIX_SUFFIX;
