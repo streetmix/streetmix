@@ -29,6 +29,8 @@ var main = (function(){
 
     TOOLTIP_REMOVE_SEGMENT: 'Remove segment',
     TOOLTIP_DELETE_STREET: 'Delete street',
+    TOOLTIP_SEGMENT_WIDTH: 'Change width of the segment',
+    TOOLTIP_STREET_WIDTH: 'Change width of the street',
     TOOLTIP_INCREASE_WIDTH: 'Increase width (hold Shift for more precision)',
     TOOLTIP_DECREASE_WIDTH: 'Decrease width (hold Shift for more precision)',
     TOOLTIP_ADD_FLOOR: 'Add floor',
@@ -6875,6 +6877,7 @@ var main = (function(){
           var innerEl = document.createElement('input');
           innerEl.setAttribute('type', 'text');
           innerEl.classList.add('width');
+          innerEl.title = msg('TOOLTIP_SEGMENT_WIDTH');
           innerEl.segmentEl = segment.el;
 
           innerEl.addEventListener('click', _onWidthEditClick);
@@ -8621,6 +8624,8 @@ var main = (function(){
     $('#redo').text(msg('BUTTON_REDO'));
 
     $('#trashcan').text(msg('UI_DRAG_HERE_TO_REMOVE'));
+
+    $('#street-width-read').attr('title', msg('TOOLTIP_STREET_WIDTH'));
 
     _fillEmptySegments();
   }

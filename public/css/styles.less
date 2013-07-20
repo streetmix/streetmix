@@ -1591,18 +1591,22 @@ body.touch-support .segment.fade-out-end button {
 #loading-progress {
   display: block;
   width: 200px;
+  height: 8px;
   margin: 0 auto;
   margin-top: 5px;
 
   appearance: none;
+  -moz-appearance: none;
   -webkit-appearance: none;
 
   background: transparent;
-  border: 0;
+  background-size: auto;
+  border: none;
   border-top: 1px solid darken(@skyColour, 10%);
   border-bottom: 1px solid darken(@skyColour, 10%);
-  height: 8px;
   padding: 0;
+
+  color: @offWhite;
 
   &::-webkit-progress-bar {
     background: transparent;
@@ -2319,8 +2323,12 @@ body:not(.touch-support) #street-name {
     color: inherit;
   }
 }
+#street-metadata {
+  padding-bottom: 40px;
+}
 #street-width-read {
   cursor: pointer;
+  padding: 5px 0;
   text-decoration: underline;
 }
 body.edit-street-width #street-width-read {
