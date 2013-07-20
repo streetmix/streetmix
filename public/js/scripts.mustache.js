@@ -1371,6 +1371,7 @@ var main = (function(){
     forceLeftHandTraffic: false,
     forceMetric: false,
     forceUnsupportedBrowser: false,
+    forceNonRetina: false,
   };
 
   var streetSectionTop;
@@ -4929,6 +4930,9 @@ var main = (function(){
     if (debug.forceUnsupportedBrowser) {
       url += '&debug-force-unsupported-browser';
     }
+    if (debug.forceNonRetina) {
+      url += '&debug-force-non-retina';
+    }
 
     url = url.replace(/\&/, '?');
 
@@ -5536,7 +5540,7 @@ var main = (function(){
       thumbnailEl.height = THUMBNAIL_HEIGHT * system.hiDpi * 2;
       var ctx = thumbnailEl.getContext('2d');
       _drawStreetThumbnail(ctx, galleryStreet.data.street, 
-          THUMBNAIL_WIDTH * 2, THUMBNAIL_HEIGHT * 2, THUMBNAIL_MULTIPLIER, true);
+          THUMBNAIL_WIDTH * 2, THUMBNAIL_HEIGHT * 2, THUMBNAIL_MULTIPLIER, true, false, system.hiDpi);
       anchorEl.appendChild(thumbnailEl);
 
       var nameEl = document.createElement('div');
@@ -5852,16 +5856,24 @@ var main = (function(){
   }
 
   function _saveAsImage(event) {
+    // TODO move
+    var dpi = 2.0;
+
     var width = TILE_SIZE * street.width + BUILDING_SPACE * 2;
+    // TODO const
     var height = 800;
 
     var el = document.createElement('canvas');
-    el.width = width * 2;
-    el.height = height * 2;
+    el.width = width * dpi;
+    el.height = height * dpi;
 
     var ctx = el.getContext('2d');
 
-    _drawStreetThumbnail(ctx, street, width, height, 1.0, false);
+    // TODO hack
+    var oldDpi = system.hiDpi;
+    system.hiDpi = dpi;
+    _drawStreetThumbnail(ctx, street, width, height, 1.0, false, true, 2.0);
+    system.hiDpi = oldDpi;
 
     window.open(el.toDataURL('image/png'));
 
@@ -6013,8 +6025,12 @@ var main = (function(){
 
     system.touch = Modernizr.touch;
     //system.touch = true;  // DEBUG
-    system.hiDpi = window.devicePixelRatio;
     system.pageVisibility = Modernizr.pagevisibility;
+    if (debug.forceNonRetina) {
+      system.hiDpi = 1.0;
+    } else {
+      system.hiDpi = window.devicePixelRatio;      
+    }
 
     if (system.touch) {
       document.body.classList.add('touch-support');
@@ -7628,19 +7644,32 @@ var main = (function(){
     window.setTimeout(_hideLoadingScreen, 0);
   }
 
-  function _drawStreetThumbnail(ctx, street, thumbnailWidth, thumbnailHeight, multiplier, silhouette) {
+  function _drawStreetThumbnail(ctx, street, thumbnailWidth, thumbnailHeight, multiplier, silhouette, bottomAligned) {
     var occupiedWidth = 0;
     for (var i in street.segments) {
       occupiedWidth += street.segments[i].width;
     }
 
-    var offsetTop = (thumbnailHeight + 5 * TILE_SIZE * multiplier) / 2;
+    if (bottomAligned) {
+      var offsetTop = thumbnailHeight - 200 * multiplier;
+    } else {
+      var offsetTop = (thumbnailHeight + 5 * TILE_SIZE * multiplier) / 2;
+    }
     var offsetLeft = (thumbnailWidth - occupiedWidth * TILE_SIZE * multiplier) / 2;
 
     var groundLevel = offsetTop + 140 * multiplier;
 
     ctx.fillStyle = BACKGROUND_DIRT_COLOUR;
-    ctx.fillRect(0, groundLevel * system.hiDpi, thumbnailWidth * system.hiDpi, thumbnailHeight * system.hiDpi);
+    ctx.fillRect(0, (groundLevel + 20 * multiplier) * system.hiDpi, thumbnailWidth * system.hiDpi, thumbnailHeight * system.hiDpi);
+    
+    ctx.fillRect(0, groundLevel * system.hiDpi,
+                 (thumbnailWidth / 2 - street.width * TILE_SIZE * multiplier / 2) * system.hiDpi, 
+                 thumbnailHeight * system.hiDpi);
+
+    ctx.fillRect((thumbnailWidth / 2 + street.width * TILE_SIZE * multiplier / 2) * system.hiDpi, 
+                 groundLevel * system.hiDpi,
+                 thumbnailWidth * system.hiDpi,
+                 thumbnailHeight * system.hiDpi);
 
     var buildingWidth = offsetLeft / multiplier;
 
@@ -8008,6 +8037,10 @@ var main = (function(){
     if (url.match(/[\?\&]debug-force-unsupported-browser\&?/)) {
       debug.forceUnsupportedBrowser = true;
     }    
+
+    if (url.match(/[\?\&]debug-force-non-retina\&?/)) {
+      debug.forceNonRetina = true;
+    }
   }
 
   function _processUrl() {
