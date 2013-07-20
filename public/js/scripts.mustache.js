@@ -52,6 +52,8 @@ var main = (function(){
 
     USER_ANONYMOUS: 'Anonymous',
 
+    DEFAULT_STREET_NAME: 'Unnamed St',
+
     SEGMENT_NAME_EMPTY: 'Empty space',
   };
 
@@ -233,7 +235,7 @@ var main = (function(){
   var STREET_WIDTH_SWITCH_TO_METRIC = -2;
   var STREET_WIDTH_SWITCH_TO_IMPERIAL = -3;
 
-  var DEFAULT_NAME = 'Unnamed St';
+  var DEFAULT_NAME = msg('DEFAULT_STREET_NAME');
   var DEFAULT_STREET_WIDTH = 80;
   var DEFAULT_STREET_WIDTHS = [40, 60, 80];
   var DEFAULT_BUILDING_HEIGHT_LEFT = 4;
