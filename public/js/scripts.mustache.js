@@ -152,7 +152,7 @@ var main = (function(){
     // 11: unify median and planting strip into divider
     // 12: getting rid of small tree
     // 13: bike rack elevation
-  var TILESET_IMAGE_VERSION = 42;
+  var TILESET_IMAGE_VERSION = 43;
   var TILESET_POINT_PER_PIXEL = 2.0;
   var TILE_SIZE = 12; // pixels
 
@@ -380,7 +380,7 @@ var main = (function(){
     'lamp-type': ['modern', 'traditional'],
 
     'bench-orientation': ['left', 'center', 'right'],
-    'turn-lane-orientation': ['left', 'both', 'right'],
+    'turn-lane-orientation': ['left', 'left-straight', 'straight', 'right-straight', 'right',  'both', 'shared'],
 
     'divider-type': ['median', 'striped-buffer', 'planting-strip', 
                      'bush', 'flowers', 'big-tree', 
@@ -394,7 +394,7 @@ var main = (function(){
     'transit-shelter-elevation': ['street-level', 'light-rail'],
     'bike-rack-elevation': ['sidewalk', 'road'],
 
-    'car-type': ['car', 'truck'],
+    'car-type': ['car', 'sharrow', 'truck'],
     'sidewalk-density': ['dense', 'normal', 'sparse', 'empty'],
 
     'parking-lane-orientation': ['left', 'right'],
@@ -405,9 +405,13 @@ var main = (function(){
 
     'orientation|left': { x: 0, y: 0, title: 'Left' },
     'orientation|right': { x: 1, y: 0, title: 'Right' },
-    'turn-lane-orientation|left': { x: 4, y: 0, title: 'Left' },
-    'turn-lane-orientation|both': { x: 6, y: 0, title: 'Both' },
-    'turn-lane-orientation|right': { x: 5, y: 0, title: 'Right' },
+    'turn-lane-orientation|left': { x: 7, y: 1, title: 'Left' },
+    'turn-lane-orientation|left-straight': { x: 8, y: 1, title: 'Left and straight' },
+    'turn-lane-orientation|straight': { x: 6, y: 1, title: 'Straight' },
+    'turn-lane-orientation|right-straight': { x: 9, y: 1, title: 'Right and straight' },
+    'turn-lane-orientation|right': { x: 4, y: 1, title: 'Right' },
+    'turn-lane-orientation|both': { x: 5, y: 1, title: 'Both' },
+    'turn-lane-orientation|shared': { x: 7, y: 0, title: 'Shared' },
     'bench-orientation|left': { x: 4, y: 0, title: 'Left' },
     'bench-orientation|right': { x: 5, y: 0, title: 'Right' },
     'bench-orientation|center': { x: 6, y: 0, title: 'Center' },
@@ -422,12 +426,13 @@ var main = (function(){
     'sidewalk-density|sparse': { x: 0, y: 1, title: 'Sparse' },
     'sidewalk-density|normal': { x: 1, y: 1, title: 'Normal' },
     'sidewalk-density|dense': { x: 2, y: 1, title: 'Dense' },
-    'lamp-orientation|left': { x: 1, y: 2, title: 'Left' },
-    'lamp-orientation|both': { x: 0, y: 2, title: 'Both' },
-    'lamp-orientation|right': { x: 2, y: 2, title: 'Right' },
+    'lamp-orientation|left': { x: 4, y: 0, title: 'Left' },
+    'lamp-orientation|both': { x: 6, y: 0, title: 'Both' },
+    'lamp-orientation|right': { x: 5, y: 0, title: 'Right' },
     'lamp-type|traditional': { x: 4, y: 2, title: 'Traditional' },
     'lamp-type|modern': { x: 3, y: 2, title: 'Modern' },
     'car-type|car': { x: 0, y: 3, title: 'Car' },
+    'car-type|sharrow': { x: 5, y: 3, title: 'Sharrow' },
     'car-type|truck': { x: 1, y: 3, title: 'Truck' },
     'public-transit-asphalt|regular': { x: 2, y: 3, title: '?' },
     'public-transit-asphalt|colored': { x: 3, y: 3, title: '?' },
@@ -804,6 +809,32 @@ var main = (function(){
             repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         },
+        'inbound|sharrow': {
+          name: 'Sharrow',
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: [
+              { tileset: 1, x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
+              { tileset: 1, x: 5, y: 10 + 30 + 19, width: 3, height: 8, offsetY: 4 }, // Bike (inbound)
+              { tileset: 2, x: 101, y: 15, width: 4, height: 5, offsetY: 10 }, // Sharrow arrow
+            ],
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+          }          
+        },
+        'outbound|sharrow': {
+          name: 'Sharrow',
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: [
+              { tileset: 1, x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
+              { tileset: 1, x: 9, y: 10 + 30 + 19, width: 3, height: 8, offsetY: 4 }, // Bike (outbound)
+              { tileset: 2, x: 106, y: 15, width: 4, height: 5, offsetY: 10 }, // Sharrow arrow
+            ],
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+          }          
+        },
         'inbound|truck': {
           minWidth: 9,
           maxWidth: 12,
@@ -840,19 +871,41 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
+              { tileset: 1, x: 20, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
               { tileset: 2, x: 125, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow
+            ],
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+          }          
+        },
+        'inbound|left-straight': {
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: [
+              { tileset: 2, x: 125, y: 10, width: 4, height: 5, offsetY: 10 }, // Arrow
               { tileset: 1, x: 20, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
             ],
             repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         },
-        'inbound|both': {
+        'inbound|straight': {
           minWidth: 9,
           maxWidth: 12,
           graphics: {
             center: [
-              { tileset: 2, x: 153, y: 15, width: 5, height: 5, offsetY: 10 }, // Arrow
-              { tileset: 1, x: 20, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
+              { tileset: 1, x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
+              { tileset: 1, x: 30, y: 5, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
+            ],
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+          }          
+        },
+        'inbound|right-straight': {
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: [
+              { tileset: 1, x: 83, y: 10, width: 4, height: 5, offsetY: 10 }, // Arrow
+              { tileset: 1, x: 29, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
             ],
             repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
@@ -864,6 +917,28 @@ var main = (function(){
             center: [
               { tileset: 1, x: 83, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow
               { tileset: 1, x: 29, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
+            ],
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+          }          
+        },        
+        'inbound|both': {
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: [
+              { tileset: 2, x: 153, y: 15, width: 5, height: 5, offsetY: 10 }, // Arrow
+              { tileset: 1, x: 20, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
+            ],
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+          }          
+        },
+        'inbound|shared': {
+          name: 'Shared turn lane',
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: [
+              { tileset: 2, x: 144, y: 20, width: 5, height: 5, offsetY: 10 }, // Arrow
             ],
             repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
@@ -879,13 +954,35 @@ var main = (function(){
             repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
         },
-        'outbound|both': {
+        'outbound|left-straight': {
           minWidth: 9,
           maxWidth: 12,
           graphics: {
             center: [
-              { tileset: 2, x: 148, y: 15, width: 5, height: 5, offsetY: 10 }, // Arrow
+              { tileset: 2, x: 134, y: 10, width: 4, height: 5, offsetY: 10 }, // Arrow
               { tileset: 1, x: 1, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
+            ],
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+          }          
+        },
+        'outbound|straight': {
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: [
+              { tileset: 1, x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
+              { tileset: 1, x: 39, y: 5, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
+            ],
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+          }          
+        },
+        'outbound|right-straight': {
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: [
+              { tileset: 2, x: 143, y: 10, width: 4, height: 5, offsetY: 10 }, // Arrow
+              { tileset: 1, x: 10, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
             ],
             repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
@@ -900,7 +997,29 @@ var main = (function(){
             ],
             repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           }          
-        }
+        },
+        'outbound|both': {
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: [
+              { tileset: 2, x: 148, y: 15, width: 5, height: 5, offsetY: 10 }, // Arrow
+              { tileset: 1, x: 1, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
+            ],
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+          }          
+        },
+        'outbound|shared': {
+          name: 'Shared turn lane',
+          minWidth: 9,
+          maxWidth: 12,
+          graphics: {
+            center: [
+              { tileset: 2, x: 134, y: 20, width: 5, height: 5, offsetY: 10 }, // Arrow
+            ],
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+          }          
+        },
       }
     },
     'parking-lane': {
