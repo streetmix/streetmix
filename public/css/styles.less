@@ -575,6 +575,8 @@ body.gallery-visible #gallery-shield {
 
 #street-scroll-indicator-left,
 #street-scroll-indicator-right {
+  -webkit-tap-highlight-color: transparent;
+
   position: fixed;
   z-index: 999999999;
 
@@ -582,15 +584,31 @@ body.gallery-visible #gallery-shield {
 
   opacity: .1;
 
-  pointer-events: none;
   letter-spacing: -13px;
 
+  width: 70px;
+  padding: 0 15px;
+
   font-size: 80px;
+
+  cursor: pointer;
+
+  -webkit-user-select: none;
+  user-select: none;
+
+  &:hover {
+    opacity: .333;    
+  }
+  &:active {
+    opacity: .5;
+  }
+
   &#street-scroll-indicator-left {
-    left: 15px;
+    left: 0;
   }
   &#street-scroll-indicator-right {
-    right: 25px;
+    right: 12px;
+    text-align: right;
   }
 }
 
@@ -2972,7 +2990,6 @@ button.close {
 
 button {
   outline: none;
-  //background: fadeout(@skyColour, 80%);
   background: mix(@skyColour, white, 30%);
   border: none;
   border-top: 1px solid @skyColour;
@@ -2984,15 +3001,10 @@ button {
   }
 
   &:not([disabled]):active {
-    //background: fadeout(@skyColour, 30%);
     background: mix(@skyColour, white, 80%);
-    //font-weight: 700;
-//    position: relative;
-  //  top: 1px;
   }
 
   &[disabled] {
-    //cursor: not-allowed;
     cursor: auto;
 
     background: desaturate(fadeout(@skyColour, 80%), 100%);

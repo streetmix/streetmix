@@ -4738,6 +4738,28 @@ var main = (function(){
     event.preventDefault();
   }
 
+  function _scrollStreet(left, far) {
+    var el = document.querySelector('#street-section-outer');
+    $(el).stop(true, true);
+
+    if (left) {
+      if (far) {
+        var newScrollLeft = 0;
+      } else {
+        var newScrollLeft = el.scrollLeft - (el.offsetWidth * .5);
+      }
+    } else {
+      if (far) {
+        var newScrollLeft = el.scrollWidth - el.offsetWidth;
+      } else {
+        var newScrollLeft = el.scrollLeft + (el.offsetWidth * .5);
+      }
+    }
+
+    // TODO const
+    $(el).animate({ scrollLeft: newScrollLeft }, 300);
+  }
+
   function _onBodyKeyDown(event) {
     switch (event.keyCode) {
       case KEY_EQUAL:
@@ -4781,31 +4803,11 @@ var main = (function(){
         }
         break;
       case KEY_LEFT_ARROW:
-        var el = document.querySelector('#street-section-outer');
-        $(el).stop(true, true);
-
-        if (event.shiftKey) {
-          var newScrollLeft = 0;
-        } else {
-          var newScrollLeft = el.scrollLeft - (el.offsetWidth * .5);
-        }
-
-        // TODO const
-        $(el).animate({ scrollLeft: newScrollLeft }, 300);
+        _scrollStreet(true, event.shiftKey);
         event.preventDefault();
         break;
       case KEY_RIGHT_ARROW:
-        var el = document.querySelector('#street-section-outer');
-        $(el).stop(true, true);
-
-        if (event.shiftKey) {
-          var newScrollLeft = el.scrollWidth - el.offsetWidth;
-        } else {
-          var newScrollLeft = el.scrollLeft + (el.offsetWidth * .5);
-        }
-
-        // TODO const
-        $(el).animate({ scrollLeft: newScrollLeft }, 300);
+        _scrollStreet(false, event.shiftKey);
         event.preventDefault();
         break;
       case KEY_ESC:
@@ -5877,7 +5879,17 @@ var main = (function(){
     event.preventDefault();
   }
 
+  function _onStreetLeftScrollClick(event) {
+    _scrollStreet(true, event.shiftKey);
+  }
+  function _onStreetRightScrollClick(event) {
+    _scrollStreet(false, event.shiftKey);
+  }
+
   function _addEventListeners() {
+    document.querySelector('#street-scroll-indicator-left').addEventListener('click', _onStreetLeftScrollClick);
+    document.querySelector('#street-scroll-indicator-right').addEventListener('click', _onStreetRightScrollClick);
+
     if (system.touch) {
       document.querySelector('#new-street-menu .close').addEventListener('touchstart', _hideNewStreetMenu);
     } else {
