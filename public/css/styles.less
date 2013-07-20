@@ -1505,6 +1505,25 @@ body.touch-support .segment.fade-out-end button {
 } */
 
 #error,
+#loading,
+#new-street-menu {
+  h1 {
+    font-size: 250%;
+    font-weight: 300;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    margin-top: 8px;
+    margin-bottom: 12px;
+  }  
+}
+
+#new-street-menu .close {
+  position: absolute;
+  right: -5px;
+  top: 5px;
+}
+
+#error,
 #loading {
   position: fixed;
   z-index: 999999999;
@@ -1526,13 +1545,6 @@ body.touch-support .segment.fade-out-end button {
     padding: 0 100px;
 
     line-height: 1.6;
-  }
-
-  h1 {
-    font-size: 250%;
-    font-weight: 300;
-    letter-spacing: -1px;
-    line-height: 1.1;
   }
 
   a {
@@ -2310,10 +2322,10 @@ body:not(.edit-street-width) #street-width {
 
 #new-street-menu {
   position: absolute;
-  top: 40%;
+  top: -5px;
   left: 0;
   right: 0;
-  z-index: 999999;
+  z-index: 99999999;
   text-align: center;
 
   -webkit-user-select: none;
@@ -2321,12 +2333,12 @@ body:not(.edit-street-width) #street-width {
 
   > div {
     display: inline-block;
+    position: relative;
     padding: 0;
     margin: 0;
     .box-border;
     background: white;
     padding: 6px 15px;
-    padding-right: 0;
     text-align: center;
     font-size: 16px;
 
@@ -2337,6 +2349,7 @@ body:not(.edit-street-width) #street-width {
     list-style: none;
     padding: 0;
     margin: 0;
+    margin-bottom: 5px;
   }
   li {
     display: inline-block;
@@ -2972,8 +2985,8 @@ button {
     //background: fadeout(@skyColour, 30%);
     background: mix(@skyColour, white, 80%);
     //font-weight: 700;
-    position: relative;
-    top: 1px;
+//    position: relative;
+  //  top: 1px;
   }
 
   &[disabled] {
