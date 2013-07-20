@@ -3954,7 +3954,13 @@ var main = (function(){
         street.segments[street.segments.length - 1].el.savedWidth;
 
     // TODO const
-    if ((left < farLeft - 100) || (left > farRight + 100) || 
+    var space = (street.width - street.occupiedWidth) * TILE_SIZE / 2;
+    if (space < 100) {
+      space = 100;
+    }
+
+    // TODO const
+    if ((left < farLeft - space) || (left > farRight + space) || 
          (y < streetSectionTop - 100) || (y > streetSectionTop + 300)) {
       _updateWithinCanvas(false);
     } else {
