@@ -4372,13 +4372,12 @@ var main = (function(){
 
       document.querySelector('.palette-canvas').appendChild(el);
     }
-
-    //document.querySelector('.palette-canvas').style.width = 
-     //   document.querySelector('.palette-canvas').scrollWidth + 'px';
   }
 
   function _resizeStreetWidth(dontScroll) {
     var width = street.width * TILE_SIZE;
+
+    //console.log('width', width);
 
     document.querySelector('#street-section-canvas').style.width = width + 'px';
     if (!dontScroll) {
@@ -4504,11 +4503,13 @@ var main = (function(){
     var el = document.querySelector('#street-section-editable');
     var pos = _getElAbsolutePos(el);
 
-    var width = pos[0] + 50 + 25;
+    var width = pos[0] + 25;// + 50 + 25;
 
     if (width < 0) {
       width = 0;
     }
+
+    //width = 0;
 
     document.querySelector('#street-section-left-building').style.width = width + 'px';
     document.querySelector('#street-section-right-building').style.width = width + 'px';
