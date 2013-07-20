@@ -889,6 +889,7 @@ var main = (function(){
           }          
         },
         'inbound|straight': {
+          name: 'No turn lane',
           minWidth: 9,
           maxWidth: 12,
           graphics: {
@@ -966,6 +967,7 @@ var main = (function(){
           }          
         },
         'outbound|straight': {
+          name: 'No turn lane',
           minWidth: 9,
           maxWidth: 12,
           graphics: {
