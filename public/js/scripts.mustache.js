@@ -2496,7 +2496,7 @@ var main = (function(){
     }
   }
 
-  function _recalculateWidth() {
+  function _recalculateOccupiedWidth() {
     street.occupiedWidth = 0;
 
     for (var i in street.segments) {
@@ -2510,6 +2510,10 @@ var main = (function(){
     if (Math.abs(street.remainingWidth) < WIDTH_ROUNDING) {
       street.remainingWidth = 0;
     }
+  }
+
+  function _recalculateWidth() {
+    _recalculateOccupiedWidth();
 
     var position = street.width / 2 - street.occupiedWidth / 2;
 
@@ -4377,8 +4381,6 @@ var main = (function(){
   function _resizeStreetWidth(dontScroll) {
     var width = street.width * TILE_SIZE;
 
-    //console.log('width', width);
-
     document.querySelector('#street-section-canvas').style.width = width + 'px';
     if (!dontScroll) {
       document.querySelector('#street-section-outer').scrollLeft = (width + BUILDING_SPACE * 2 - system.viewportWidth) / 2;
@@ -4503,13 +4505,11 @@ var main = (function(){
     var el = document.querySelector('#street-section-editable');
     var pos = _getElAbsolutePos(el);
 
-    var width = pos[0] + 25;// + 50 + 25;
+    var width = pos[0] + 25;
 
     if (width < 0) {
       width = 0;
     }
-
-    //width = 0;
 
     document.querySelector('#street-section-left-building').style.width = width + 'px';
     document.querySelector('#street-section-right-building').style.width = width + 'px';
