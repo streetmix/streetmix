@@ -2329,7 +2329,18 @@ body:not(.touch-support) #street-name {
 #street-width-read {
   cursor: pointer;
   padding: 5px 0;
-  text-decoration: underline;
+  //text-decoration: underline;
+
+  &::after {
+    font-family: 'Verdana';
+    content: ' ▼';
+    padding-left: 5px;
+    font-size: 9px;
+    display: inline-block;
+    -webkit-transform: scaleY(.75);
+    -moz-transform: scaleY(.75);
+    transform: scaleY(.75);
+  }  
 }
 body.edit-street-width #street-width-read {
   display: none;

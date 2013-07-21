@@ -5113,7 +5113,7 @@ var main = (function(){
   }
 
   function _updateStreetMetadata() {
-    var html = _prettifyWidth(street.width, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP) + ' street';
+    var html = _prettifyWidth(street.width, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP) + ' width';
     document.querySelector('#street-width-read').innerHTML = html;
 
     if (street.creatorId && (!signedIn || (street.creatorId != signInData.userId))) {
