@@ -813,8 +813,9 @@ var main = (function(){
         },
         'inbound|sharrow': {
           name: 'Sharrow',
-          minWidth: 9,
-          maxWidth: 12,
+          minWidth: 12,
+          maxWidth: 14,
+          defaultWidth: 14,
           graphics: {
             center: [
               { tileset: 1, x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
@@ -826,8 +827,9 @@ var main = (function(){
         },
         'outbound|sharrow': {
           name: 'Sharrow',
-          minWidth: 9,
-          maxWidth: 12,
+          minWidth: 12,
+          maxWidth: 14,
+          defaultWidth: 14,
           graphics: {
             center: [
               { tileset: 1, x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
@@ -936,7 +938,7 @@ var main = (function(){
           }          
         },
         'inbound|shared': {
-          name: 'Shared turn lane',
+          name: 'Center turn lane',
           minWidth: 9,
           maxWidth: 12,
           graphics: {
@@ -1014,7 +1016,7 @@ var main = (function(){
           }          
         },
         'outbound|shared': {
-          name: 'Shared turn lane',
+          name: 'Center turn lane',
           minWidth: 9,
           maxWidth: 12,
           graphics: {
