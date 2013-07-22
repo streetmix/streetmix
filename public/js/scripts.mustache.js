@@ -154,7 +154,7 @@ var main = (function(){
     // 11: unify median and planting strip into divider
     // 12: getting rid of small tree
     // 13: bike rack elevation
-  var TILESET_IMAGE_VERSION = 44;
+  var TILESET_IMAGE_VERSION = 45;
   var TILESET_POINT_PER_PIXEL = 2.0;
   var TILE_SIZE = 12; // pixels
 
@@ -386,7 +386,7 @@ var main = (function(){
 
     'divider-type': ['median', 'striped-buffer', 'planting-strip', 
                      'bush', 'flowers', 'big-tree', 
-                     'palm-tree', 'bollard'],
+                     'palm-tree', 'bollard', 'dome'],
 
     'orientation': ['left', 'right'],
 
@@ -450,6 +450,7 @@ var main = (function(){
     'divider-type|big-tree': { x: 1, y: 4, title: 'Planting strip with a tree' },
     'divider-type|palm-tree': { x: 0, y: 4, title: 'Planting strip with a palm tree' },
     'divider-type|bollard': { x: 6, y: 4, title: 'Bollard' },
+    'divider-type|dome': { x: 6, y: 4, title: 'Traffic exclusion dome' },
     'transit-shelter-elevation|street-level': { x: 5, y: 2, title: 'Street level' },
     'transit-shelter-elevation|light-rail': { x: 6, y: 2, title: 'Light rail platform' },
     'bike-rack-elevation|sidewalk': { x: 6, y: 2, title: 'Sidewalk' },
@@ -581,6 +582,23 @@ var main = (function(){
         },
       }
     },
+
+    'sidewalk-wayfinding': {
+      name: 'Wayfinding sign',
+      owner: SEGMENT_OWNER_PEDESTRIAN,
+      zIndex: 2,
+      defaultWidth: 4,
+      variants: [''],
+      details: {
+        '': {
+          graphics: {
+            center: { tileset: 1, x: 0, y: 0, width: 4, height: 11, offsetY: 1 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete            
+          }
+        }
+      }
+    },
+
     'sidewalk-lamp': {
       name: 'Sidewalk with a lamp',
       owner: SEGMENT_OWNER_PEDESTRIAN,
@@ -731,6 +749,15 @@ var main = (function(){
           name: 'Bollard',
           graphics: {
             center: { tileset: 2, x: 123, y: 64, width: 1, height: 7, offsetY: 5 },
+            repeat: [
+              { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            ]
+          }          
+        },
+        'dome': {
+          name: 'Traffic exclusion dome',
+          graphics: {
+            center: { tileset: 2, x: 121, y: 64, width: 1, height: 7, offsetY: 5 },
             repeat: [
               { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
             ]
@@ -2345,7 +2372,7 @@ var main = (function(){
           var mainFloorHeight = 10;
           break;
         case 'residential':
-          var tilePositionX = 1956 + 382 + 204 + 25 - 1008 - 12;
+          var tilePositionX = 1956 + 382 + 204 + 25 - 1008 - 12 - 1;
           var tilePositionY = 576 + 740 / 2 - 1 - 12 + 237;
           var width = 396;
           var floorRoofWidth = 240;
@@ -4565,6 +4592,8 @@ var main = (function(){
       // TODO hardcoded
       if (id == 'sidewalk-lamp') {
         variantName = 'both|traditional';
+      } else if (id == 'divider') {
+        variantName = 'bollard';
       }
 
       var variantInfo = segmentInfo.details[variantName];
