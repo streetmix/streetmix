@@ -220,7 +220,7 @@ var main = (function(){
   var TOUCH_CONTROLS_FADEOUT_TIME = 3000;
   var TOUCH_CONTROLS_FADEOUT_DELAY = 3000;
 
-  var SAVE_STREET_DELAY = 500;
+  var SAVE_STREET_DELAY = 500; // DEBUG
   var SAVE_SETTINGS_DELAY = 500;
   var NO_CONNECTION_MESSAGE_TIMEOUT = 10000;
 
@@ -3501,10 +3501,10 @@ var main = (function(){
       // As per issue #306.
       _statusMessage.hide();
 
-      //_hideStreetAttribution();
       _updateStreetMetadata();
 
       _createNewUndoIfNecessary(lastStreet, currentData);
+
       _scheduleSavingStreetToServer();
 
       lastStreet = currentData;
@@ -5292,6 +5292,9 @@ var main = (function(){
   }
 
   function _fetchStreetForVerification() {
+    // DEBUG
+    //console.log('ssI', saveStreetIncomplete);
+
     // Don’t do it with any network services pending
     if (_getNonblockingAjaxRequestCount() || blockingAjaxRequestInProgress || 
         saveStreetIncomplete || abortEverything || remixOnFirstEdit) {
@@ -5304,21 +5307,29 @@ var main = (function(){
       url: url,
       dataType: 'json',
       type: 'GET',
+      headers: { 'X-Request-Id': _getUniqueRequestHeader() }
     }).done(_receiveStreetForVerification).fail(_errorReceiveStreetForVerification);
   }
 
+  // DEBUG
+  function _receiveStreetForVerification2(transmission) {
+    window.setTimeout(function() { _receiveStreetForVerification(transmission) }, 2000);
+  }
+
   function _receiveStreetForVerification(transmission) {
+    console.log(transmission);
+
     var localStreetData = _trimStreetData(street);
     var serverStreetData = _trimStreetData(_unpackStreetDataFromServerTransmission(transmission));
 
     if (JSON.stringify(localStreetData) != JSON.stringify(serverStreetData)) {
-      console.log('NOT EQUAL');
+      /*console.log('NOT EQUAL');
       console.log('-');
       console.log(JSON.stringify(localStreetData));
       console.log('-');
       console.log(JSON.stringify(serverStreetData));
       console.log('-');
-      console.log(transmission);
+      console.log(transmission);*/
 
       _statusMessage.show(msg('STATUS_RELOADED_FROM_SERVER'));
 
@@ -6273,7 +6284,6 @@ var main = (function(){
     _detectEnvironment();
 
     system.touch = Modernizr.touch;
-    //system.touch = true;  // DEBUG
     system.pageVisibility = Modernizr.pagevisibility;
     if (debug.forceNonRetina) {
       system.hiDpi = 1.0;
@@ -8087,6 +8097,13 @@ var main = (function(){
     _sendSignOutToServer();
 
     event.preventDefault();
+  }
+
+  var uniqueRequestId = 0;
+
+  function _getUniqueRequestHeader() {
+    uniqueRequestId++;
+    return uniqueRequestId;
   }
 
   function _getAuthHeader() {
