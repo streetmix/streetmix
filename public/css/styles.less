@@ -20,7 +20,6 @@
 @lightTextColour: rgb(240, 240, 240);
 
 @touchControlsFadeoutTime: 3000ms;
-//@touchFadeOutDelay: 2000ms;
 
 @streetNameSize: 1.5;
 @streetNameTop: 10px;
@@ -42,7 +41,6 @@
 @segmentHoverText: lighten(@segmentText, 30%);
 @segmentWarningText: @warningColour;
 @emptySegmentText: fadeout(@segmentText, 50%);
-@emptySegmentColor: desaturate(darken(@skyColour, 2%), 3%);// fadeout(rgb(53, 129, 63), 50%);
 
 @topMenuText: @segmentText;
 @topMenuHoverText: darken(@skyColour, 20%);
@@ -61,10 +59,10 @@
 
 @leftRightInset: 50px;
 
-@borderColor: lighten(@skyColour, 10%);
+@uiColour: lighten(@skyColour, 10%);
 
-@formElementBackground: lighten(@skyColour, 20%);
-@formElementBorder: @borderColor;
+@formElementBackground: lighten(@uiColour, 10%);
+@formElementBorder: @uiColour;
 
 @infoBubbleButtonSize: 30px;
 @infoBubbleBackground: white;
@@ -226,7 +224,7 @@ body:not(.safari).gallery-visible #street-section-sky {
   height: @galleryHeight;
   z-index: 100001;
 
-  border-bottom: 3px solid darken(@skyColour, 20%);  
+  border-bottom: 3px solid darken(@uiColour, 30%);  
 
   background: white;
   overflow: hidden;
@@ -311,8 +309,6 @@ body:not(.safari).gallery-visible #street-section-sky {
     height: @galleryHeight + 20px; // To cover the scroll bar
     overflow-x: scroll;
 
-    //-webkit-overflow-scrolling: touch;
-
     & > li {
       display: inline-block;
     
@@ -331,8 +327,8 @@ body:not(.safari).gallery-visible #street-section-sky {
         background: fadeout(@skyColour, 20%);
         padding: 5px 0;
 
-        border-top: 3px solid @skyColour;
-        border-bottom: 3px solid @skyColour;
+        border-top: 3px solid darken(@uiColour, 10%);
+        border-bottom: 3px solid darken(@uiColour, 10%);
         text-align: center;
         white-space: normal;
 
@@ -665,7 +661,6 @@ body.gallery-visible #gallery-shield {
   left: 0;
   right: -2000px; // TODO hack
   height: @canvasBaseline + 150px;
-  background: @skyColour;
 
   pointer-events: none;
 
@@ -890,13 +885,6 @@ body:not(.safari) .footer-canvas {
   height: @canvasHeight + 80;
   text-align: left;
 
-  //background: red;
-
-  //margin-left: -@streetSectionHorizontalPadding;
-  //margin-right: -@streetSectionHorizontalPadding;
-  //padding-left: @streetSectionHorizontalPadding;
-  //padding-right: @streetSectionHorizontalPadding;
-
   -webkit-transform: translateZ(0);
 
   &::before {
@@ -949,17 +937,6 @@ body:not(.safari) .footer-canvas {
 
   .width {
     overflow: visible;
-
-    /*&::before {
-      content: '';
-      position: absolute;
-      left: -1px;
-      right: 0;
-      background: @emptySegmentColor;
-      top: -46px;
-      height: 46px;
-      border: none;
-    }*/
   }
 }
 
@@ -1113,7 +1090,7 @@ body.segment-resize-dragging * {
   line-height: 100px;
   font-size: 50px;
   font-family: 'Tahoma';
-  color: lighten(@skyColour, 10%);
+  color: lighten(@uiColour, 0%);
   z-index: 99999999999;
 
   pointer-events: none;
@@ -1123,8 +1100,8 @@ body.segment-resize-dragging * {
 
   background: @infoBubbleBackground;
 
-  border-top: 3px solid darken(@skyColour, 20%);
-  border-bottom: 3px solid darken(@skyColour, 20%);  
+  border-top: 3px solid darken(@uiColour, 30%);
+  border-bottom: 3px solid darken(@uiColour, 30%);  
 
   cursor: col-resize;
 
@@ -1304,7 +1281,7 @@ body.segment-resize-dragging * {
   opacity: 0;
 
   &:hover {
-    color: @skyColour;
+    color: darken(@uiColour, 10%);
   }  
 }
 .segment.hide-drag-handles-when-inside-info-bubble .drag-handle,
@@ -1319,7 +1296,7 @@ body.segment-resize-dragging * {
 }
 
 .drag-handle.floating {
-  background-color: darken(@skyColour, 20%);
+  background-color: darken(@uiColour, 30%);
 }
 
 body.segment-resize-dragging .drag-handle.floating,
@@ -1602,8 +1579,8 @@ body.touch-support .segment.fade-out-end button {
   background: transparent;
   background-size: auto;
   border: none;
-  border-top: 1px solid darken(@skyColour, 10%);
-  border-bottom: 1px solid darken(@skyColour, 10%);
+  border-top: 1px solid darken(@uiColour, 20%);
+  border-bottom: 1px solid darken(@uiColour, 20%);
   padding: 0;
 
   color: @offWhite;
@@ -1766,7 +1743,7 @@ body.no-connection-message-visible #status-message {
   -webkit-user-select: none;
   user-select: none;  
 
-  border-bottom: 3px solid darken(@borderColor, 20%);
+  border-bottom: 3px solid darken(@uiColour, 20%);
 
   padding-top: 0;
   text-align: right;
@@ -1892,9 +1869,9 @@ body.no-connection-message-visible #status-message {
 }
 
 .box-border {
-  border-top: 3px solid darken(@borderColor, 20%);
-  border-bottom: 3px solid darken(@borderColor, 20%);
-  //box-shadow: 0 0 0 3px darken(@borderColor, 20%);//, 0 0 0 4px @borderColor;
+  border-top: 3px solid darken(@uiColour, 20%);
+  border-bottom: 3px solid darken(@uiColour, 20%);
+  //box-shadow: 0 0 0 3px darken(@uiColour, 20%);//, 0 0 0 4px @uiColour;
 }
 
 .menu {
@@ -1942,8 +1919,8 @@ body.no-connection-message-visible #status-message {
     padding-left: 30px;
     padding-right: 40px;
 
-    border-top: 1px solid @borderColor;
-    border-bottom: 1px solid @borderColor;
+    border-top: 1px solid @uiColour;
+    border-bottom: 1px solid @uiColour;
     margin-bottom: -1px;
 
     &:last-child {
@@ -1951,7 +1928,7 @@ body.no-connection-message-visible #status-message {
     }
 
     &:hover {
-      background: fadeout(@borderColor, 50%);
+      background: fadeout(@uiColour, 50%);
     }
 
     span {
@@ -2357,7 +2334,7 @@ body:not(.edit-street-width) #street-width {
 #street-metadata-author:not(:empty)::before,
 #street-metadata-date:not(:empty)::before {
   content: ' · ';
-  color: darken(@skyColour, 30%);
+  color: darken(@uiColour, 40%);
   margin: 0 4px;
 }
 
@@ -2400,7 +2377,7 @@ body:not(.edit-street-width) #street-width {
     &:not(:first-child)::before {
       content: '·';
       margin: 0 5px;
-      color: darken(@skyColour, 30%);
+      color: darken(@uiColour, 40%);
       padding-left: 0;
     }
 
@@ -2441,8 +2418,8 @@ body:not(.edit-street-width) #street-width {
   background-size: 100%;
   width: 20px;
   height: 20px;
-  border-top: 1px solid darken(@borderColor, 30%);
-  border-bottom: 1px solid darken(@borderColor, 30%);
+  border-top: 1px solid darken(@uiColour, 30%);
+  border-bottom: 1px solid darken(@uiColour, 30%);
 
   margin-right: 5px;
   vertical-align: middle;  
@@ -2490,7 +2467,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
   transition: transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;      
 
   .box-border;
-  border-top-color: darken(@skyColour, 20%);
+  border-top-color: darken(@uiColour, 30%);
 
   pointer-events: none;
 
@@ -2519,7 +2496,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
       height: 30px;
       pointer-events: none;
 
-      border: 3px solid darken(@borderColor, 20%);
+      border: 3px solid darken(@uiColour, 20%);
       background: @infoBubbleBackground;
 
       left: 50%;
@@ -2553,7 +2530,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
 
     position: relative;    
 
-    background: darken(@borderColor, 20%);
+    background: darken(@uiColour, 20%);
   }
 
   button canvas {
@@ -2605,11 +2582,11 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
       }
 
       &[disabled] {
-        background: @skyColour;
+        background: darken(@uiColour, 10%);
         color: black;
         opacity: 1;
-        border-top-color: darken(@skyColour, 20%);
-        border-bottom-color: darken(@skyColour, 20%);
+        border-top-color: darken(@uiColour, 30%);
+        border-bottom-color: darken(@uiColour, 30%);
 
         canvas {
           opacity: 1;
@@ -2628,7 +2605,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
 
   .description-prompt,
   .description-close {
-    border-top: 1px solid @borderColor;
+    border-top: 1px solid @uiColour;
     text-rendering: optimizeLegibility;
 
     white-space: normal;
@@ -2639,12 +2616,12 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
     padding-top: 3px;
     font-size: 13px;
 
-    color: darken(@borderColor, 20%);
+    color: darken(@uiColour, 20%);
     cursor: pointer;
 
     &:hover {
-      color: darken(@borderColor, 40%);
-      background: mix(@borderColor, white, 50%);
+      color: darken(@uiColour, 40%);
+      background: mix(@uiColour, white, 50%);
     }
   }
 
@@ -2667,7 +2644,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
     opacity: 0;
     pointer-events: none;
 
-    border-bottom: 3px solid darken(@borderColor, 20%);
+    border-bottom: 3px solid darken(@uiColour, 20%);
 
     -webkit-transform-origin: 50% 0;
     -moz-transform-origin: 50% 0;
@@ -2712,13 +2689,13 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
       margin: 0 auto;
       display: block;
       max-width: 100%;
-      outline: 1px solid darken(@borderColor, 20%);
+      outline: 1px solid darken(@uiColour, 20%);
     }    
     a {
-      color: darken(@skyColour, 20%);
+      color: darken(@uiColour, 30%);
 
       &:hover {
-        color: darken(@skyColour, 40%);
+        color: darken(@uiColour, 50%);
       }
     }
   }
@@ -2727,7 +2704,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
     margin-top: 1px;
     font-size: 13px;
     padding: 5px 5px;
-    border-top: 1px solid @borderColor;
+    border-top: 1px solid @uiColour;
     text-rendering: optimizeLegibility;
 
     white-space: normal;
@@ -2815,7 +2792,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
 }
 
 .info-bubble.highlight-triangle .triangle::before {
-  background: mix(@borderColor, white, 50%);
+  background: mix(@uiColour, white, 50%);
 }
 
 .info-bubble.show-description {
@@ -3014,26 +2991,25 @@ button.close {
 
 button {
   outline: none;
-  background: mix(@skyColour, white, 30%);
+  background: mix(@uiColour, white, 50%);
   border: none;
   border-top: 1px solid @skyColour;
   border-bottom: 1px solid @skyColour;
 
   &:not([disabled]):hover {
-    background: fadeout(@skyColour, 60%);
-    background: mix(@skyColour, white, 60%);
+    background: mix(@uiColour, white, 70%);
   }
 
   &:not([disabled]):active {
-    background: mix(@skyColour, white, 80%);
+    background: mix(@uiColour, white, 95%);
   }
 
   &[disabled] {
     cursor: auto;
 
-    background: desaturate(fadeout(@skyColour, 80%), 100%);
-    border-top-color: desaturate(@skyColour, 100%);
-    border-bottom-color: desaturate(@skyColour, 100%);
+    background: desaturate(fadeout(@uiColour, 70%), 100%);
+    border-top-color: desaturate(@uiColour, 100%);
+    border-bottom-color: desaturate(@uiColour, 100%);
   }
 }
 
