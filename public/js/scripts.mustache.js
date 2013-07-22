@@ -6776,7 +6776,7 @@ var main = (function(){
     },
 
     updateWarningsInContents: function(segment) {
-      if (!_infoBubble.visible || !_infoBubble.segmentEl || !segment || !segment.el || 
+      if (!_infoBubble.segmentEl || !segment || !segment.el || 
           (_infoBubble.segmentEl != segment.el)) {
         return;
       }
