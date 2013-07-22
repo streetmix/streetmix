@@ -54,7 +54,6 @@
 
 /* Design */
 
-@fontFamily: 'Lato', sans-serif;
 
 @streetNameSize: 1.5;
 @streetNameTop: 10px;
@@ -66,6 +65,11 @@
 
 @touchControlsFadeoutTime: 3000ms;
 
+@segmentSwitchingTime: 250ms;
+
+/* Fonts */
+
+@fontFamily: 'Lato', sans-serif;
 
 @import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700);
 
@@ -73,6 +77,8 @@
   font-family: 'Roadgeek';
   src: url(/fonts/roadgeek-2005-engschrift.otf);
 }
+
+/* --- */
 
 html {
   height: 100%;
@@ -143,8 +149,6 @@ textarea {
   top: 0;
   right: 0;
   bottom: 0;
-  //width: 100%;
-  //height: 100%;
   z-index: 100;
 }
 
@@ -550,8 +554,6 @@ body.gallery-visible #gallery-shield {
   bottom: -20px; // To hide the scrollbar
 
   overflow-x: scroll;
-  //-webkit-overflow-scrolling: touch;
-
   overflow-y: hidden;  
 }
 
@@ -757,9 +759,6 @@ body.gallery-visible #gallery-shield {
   -webkit-user-select: none;
   user-select: none;
 }
-//body.safari footer {
-//  -webkit-transform: translateZ(100px);
-//}
 
 .footer-canvas {
   width: 100%;
@@ -854,7 +853,6 @@ body:not(.safari) .footer-canvas {
   right: 10px;
   top: 10px;
 
-  //width: 120px;
   height: @paletteHeight - 50px;
 
   z-index: 100000;
@@ -1029,8 +1027,6 @@ body.segment-resize-dragging .segment:not(.unmovable).hover {
 }
 
 body:not(.segment-resize-dragging) .segment.outside .image {
-  //opacity: .2 !important;
-
   -webkit-transition: none;  
 }
 
@@ -1247,10 +1243,6 @@ body.segment-resize-dragging * {
     right: -5px - 1.5px;
   }
 }
-
-/*body.touch-support .segment.fade-out-end {
-  z-index: 999999;
-}*/
 
 .segment .drag-handle {
   z-index: 10000;
@@ -2414,16 +2406,6 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
   opacity: 0.01 !important;    
 }
 
-/*.info-bubble {
-}*/
-/*body .info-bubble.regular-transition {
-  -webkit-transition: -webkit-transform 100ms, margin-top 150ms, height 150ms, opacity 150ms !important;
-  -moz-transition: -moz-transform 100ms, margin-top 150ms, height 150ms, opacity 150ms !important;
-  transition: transform 100ms, margin-top 150ms, height 150ms, opacity 150ms !important;  
-}*/
-/*.info-bubble.regular-transition {
-  outline: 3px solid red !important;
-}*/
 .info-bubble {
   position: absolute;
   z-index: 10000000000;
@@ -2811,9 +2793,6 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
   }  
 }
 
-// TODO move
-@segmentSwitchingTime: 250ms;
-
 .switching-away-post {
   z-index: 99999999 !important;
 }
@@ -2916,11 +2895,6 @@ footer button.scroll-right {
     margin-left: -20px - 70px;
   }
 }
-
-
-/*.hover canvas {
-  outline-color: white !important;
-}*/
 
 #debug-hover-polygon {
   position: absolute;
