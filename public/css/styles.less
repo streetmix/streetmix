@@ -1421,7 +1421,7 @@ body.segment-resize-dragging .drag-handle.floating,
 
   font-size: 13px;
 
-  height: 46px;
+  height: 48px;
   overflow: hidden;
 
   pointer-events: none;
@@ -2329,8 +2329,10 @@ body:not(.touch-support) #street-name {
 #street-width-read {
   cursor: pointer;
   padding: 5px 0;
-  //text-decoration: underline;
 
+  &:hover {
+    color: darken(@topMenuHoverText, 20%);
+  }
   &::after {
     font-family: 'Verdana';
     content: ' ▼';
