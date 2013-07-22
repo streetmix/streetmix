@@ -154,7 +154,7 @@ var main = (function(){
     // 11: unify median and planting strip into divider
     // 12: getting rid of small tree
     // 13: bike rack elevation
-  var TILESET_IMAGE_VERSION = 47;
+  var TILESET_IMAGE_VERSION = 48;
   var TILESET_POINT_PER_PIXEL = 2.0;
   var TILE_SIZE = 12; // pixels
 
