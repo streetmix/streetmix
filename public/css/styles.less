@@ -43,8 +43,8 @@
 @emptySegmentText: fadeout(@segmentText, 50%);
 
 @topMenuText: @segmentText;
-@topMenuHoverText: darken(@skyColour, 20%);
-@topMenuActiveText: darken(@skyColour, 30%);
+@topMenuHoverText: darken(@uiColour, 30%);
+@topMenuActiveText: darken(@uiColour, 40%);
 
 @segmentHoverBackground: rgba(255, 255, 255, .2);
 
@@ -388,7 +388,7 @@ body:not(.safari).gallery-visible #street-section-sky {
         }
 
         &:hover {
-          background: fadeout(@skyColour, 10%);
+          background: fadeout(@uiColour, 10%);
 
           button.remove {
             display: block;
@@ -396,7 +396,7 @@ body:not(.safari).gallery-visible #street-section-sky {
         }
 
         &.selected {
-          background: darken(@skyColour, 10%);
+          background: darken(@uiColour, 10%);
 
           border-top-color: black;
           border-bottom-color: black;
@@ -1476,31 +1476,6 @@ body.segment-move-dragging #editable-street-section > div {
   pointer-events: none;
 }
 
-
-
-/*.segment:not(.unmovable).fade-out-start .drag-handle {
-  pointer-events: auto;
-  opacity: 1;
-  -webkit-transition: opacity 0;
-}
-.segment:not(.unmovable).fade-out-end .drag-handle {
-  pointer-events: auto;
-  opacity: 0;
-  -webkit-transition: opacity @touchFadeOutTime;
-  -webkit-transition-delay: @touchFadeOutDelay;
-}
-.segment:not(.unmovable).fade-out-start .name,
-.segment:not(.unmovable).fade-out-end .name {
-  opacity: 0;
-}
-
-body.touch-support .segment button {
-  pointer-events: none;
-}
-body.touch-support .segment.fade-out-end button {
-  pointer-events: auto;
-} */
-
 #error,
 #loading,
 #new-street-menu {
@@ -1871,7 +1846,6 @@ body.no-connection-message-visible #status-message {
 .box-border {
   border-top: 3px solid darken(@uiColour, 20%);
   border-bottom: 3px solid darken(@uiColour, 20%);
-  //box-shadow: 0 0 0 3px darken(@uiColour, 20%);//, 0 0 0 4px @uiColour;
 }
 
 .menu {
@@ -2993,8 +2967,8 @@ button {
   outline: none;
   background: mix(@uiColour, white, 50%);
   border: none;
-  border-top: 1px solid @skyColour;
-  border-bottom: 1px solid @skyColour;
+  border-top: 1px solid darken(@uiColour, 10%);
+  border-bottom: 1px solid darken(@uiColour, 10%);
 
   &:not([disabled]):hover {
     background: mix(@uiColour, white, 70%);
