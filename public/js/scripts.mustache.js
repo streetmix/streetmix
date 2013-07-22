@@ -154,7 +154,7 @@ var main = (function(){
     // 11: unify median and planting strip into divider
     // 12: getting rid of small tree
     // 13: bike rack elevation
-  var TILESET_IMAGE_VERSION = 46;
+  var TILESET_IMAGE_VERSION = 47;
   var TILESET_POINT_PER_PIXEL = 2.0;
   var TILE_SIZE = 12; // pixels
 
@@ -974,6 +974,8 @@ var main = (function(){
               { tileset: 2, x: 144, y: 20, width: 5, height: 5, offsetY: 10 }, // Arrow
             ],
             repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            left: { tileset: 2, x: 119, y: 10, width: 2, height: 5, offsetY: 10 }, // Marking
+            right: { tileset: 2, x: 116, y: 10, width: 2, height: 5, offsetY: 10 }, // Marking
           }          
         },
         'outbound|left': {
@@ -1052,6 +1054,8 @@ var main = (function(){
               { tileset: 2, x: 134, y: 20, width: 5, height: 5, offsetY: 10 }, // Arrow
             ],
             repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            left: { tileset: 2, x: 119, y: 10, width: 2, height: 5, offsetY: 10 }, // Marking
+            right: { tileset: 2, x: 116, y: 10, width: 2, height: 5, offsetY: 10 }, // Marking
           }          
         },
       }
