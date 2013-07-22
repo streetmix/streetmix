@@ -159,7 +159,6 @@ body:not(.safari) #main-screen {
 }
 
 body.environment-development,
-body.environment-production,
 body.environment-staging,
 body.environment-sandbox {
   #top-menu-bar::before {
@@ -180,12 +179,6 @@ body.environment-sandbox {
   }
 }
 
-body.environment-production {
-  #top-menu-bar::before {
-    content: 'Experimental';
-    background-color: black;
-  }
-}
 body.environment-development {
   #top-menu-bar::before {
     content: 'Dev';

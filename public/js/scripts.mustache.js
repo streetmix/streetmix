@@ -5303,6 +5303,8 @@ var main = (function(){
 
     var url = _getFetchStreetUrl();
 
+    console.log(url);
+
     jQuery.ajax({
       url: url,
       dataType: 'json',
