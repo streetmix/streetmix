@@ -154,7 +154,7 @@ var main = (function(){
     // 11: unify median and planting strip into divider
     // 12: getting rid of small tree
     // 13: bike rack elevation
-  var TILESET_IMAGE_VERSION = 45;
+  var TILESET_IMAGE_VERSION = 46;
   var TILESET_POINT_PER_PIXEL = 2.0;
   var TILE_SIZE = 12; // pixels
 
@@ -450,14 +450,14 @@ var main = (function(){
     'divider-type|big-tree': { x: 1, y: 4, title: 'Planting strip with a tree' },
     'divider-type|palm-tree': { x: 0, y: 4, title: 'Planting strip with a palm tree' },
     'divider-type|bollard': { x: 6, y: 4, title: 'Bollard' },
-    'divider-type|dome': { x: 6, y: 4, title: 'Traffic exclusion dome' },
+    'divider-type|dome': { x: 6, y: 3, title: 'Traffic exclusion dome' },
     'transit-shelter-elevation|street-level': { x: 5, y: 2, title: 'Street level' },
     'transit-shelter-elevation|light-rail': { x: 6, y: 2, title: 'Light rail platform' },
     'bike-rack-elevation|sidewalk': { x: 6, y: 2, title: 'Sidewalk' },
     'bike-rack-elevation|road': { x: 5, y: 2, title: 'Road' },
     'building|grass': { x: 2, y: 4, title: 'Grass' },
     'building|fence': { x: 3, y: 4, title: 'Fence' },
-    'building|residential': { x: 0, y: 0, title: 'Residential building' },
+    'building|residential': { x: 7, y: 3, title: 'Residential building' },
     'building|narrow': { x: 7, y: 2, title: 'Narrow building' },
     'building|wide': { x: 8, y: 2, title: 'Wide building' },
   };
