@@ -8822,6 +8822,7 @@ var main = (function(){
     // but we give up on country info if it’s more than 1000ms.
   }
 
+  // FIXME? Is this the best way to expose this value? 
   main.GOOGLE_ANALYTICS_ACCOUNT = GOOGLE_ANALYTICS_ACCOUNT;
 
   return main;
