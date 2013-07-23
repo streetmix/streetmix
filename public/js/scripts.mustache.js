@@ -4231,6 +4231,8 @@ var main = (function(){
   }
 
   function _onBodyMouseMove(event) {
+    console.log(event, event.touches, event.pageX);
+
     if (event.touches && event.touches[0]) {
       var x = event.touches[0].pageX;
       var y = event.touches[0].pageY;
