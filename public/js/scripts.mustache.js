@@ -5305,9 +5305,6 @@ var main = (function(){
   var latestVerificationStreet;
 
   function _fetchStreetForVerification() {
-    // DEBUG
-    //console.log('ssI', saveStreetIncomplete);
-
     // Don’t do it with any network services pending
     if (_getNonblockingAjaxRequestCount() || blockingAjaxRequestInProgress || 
         saveStreetIncomplete || abortEverything || remixOnFirstEdit) {
@@ -5325,12 +5322,7 @@ var main = (function(){
       type: 'GET',
       // TODO const
       headers: { 'X-Streetmix-Request-Id': latestRequestId }
-    }).done(_receiveStreetForVerification2).fail(_errorReceiveStreetForVerification);
-  }
-
-  // DEBUG
-  function _receiveStreetForVerification2(transmission, textStatus, request) {
-    window.setTimeout(function() { _receiveStreetForVerification(transmission, textStatus, request) }, 2000);
+    }).done(_receiveStreetForVerification).fail(_errorReceiveStreetForVerification);
   }
 
   function _receiveStreetForVerification(transmission, textStatus, request) {
@@ -5349,12 +5341,12 @@ var main = (function(){
 
     if (JSON.stringify(localStreetData) != JSON.stringify(serverStreetData)) {
       console.log('NOT EQUAL');
-      /*console.log('-');
+      console.log('-');
       console.log(JSON.stringify(localStreetData));
       console.log('-');
       console.log(JSON.stringify(serverStreetData));
       console.log('-');
-      console.log(transmission);*/
+      console.log(transmission);
 
       _statusMessage.show(msg('STATUS_RELOADED_FROM_SERVER'));
 
