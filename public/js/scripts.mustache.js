@@ -3983,12 +3983,6 @@ var main = (function(){
           draggingMove.originalEl.offsetWidth;
       draggingMove.originalVariantString = 
           draggingMove.originalEl.getAttribute('variant-string');
-
-/*      for (var j in segmentInfo.details) {
-        var variantName = j;
-        break;
-      }*/
-
     }
 
     var pos = _getElAbsolutePos(el);
@@ -4255,32 +4249,6 @@ var main = (function(){
 
     event.preventDefault();
   }
-
-  /*function _removeTouchSegmentFadeouts() {
-    var els = document.querySelectorAll('.fade-out-end');
-    for (var i = 0, el; el = els[i]; i++) {
-      el.classList.remove('fade-out-end');
-    }
-  }
-
-  function _createTouchSegmentFadeout(el) {
-    if (system.touch) {
-      _removeTouchSegmentFadeouts();
-
-      window.clearTimeout(el.fadeoutTimerId);
-      el.classList.remove('fade-out-end');
-      el.classList.add('fade-out-start');
-
-      window.setTimeout(function() {
-        el.classList.remove('fade-out-start');
-        el.classList.add('fade-out-end');
-      }, 0);
-
-      el.fadeoutTimerId = window.setTimeout(function() {
-        el.classList.remove('fade-out-end');
-      }, TOUCH_SEGMENT_FADEOUT_DELAY);
-    }
-  }*/
 
   var controlsFadeoutDelayTimer = -1;
   var controlsFadeoutHideTimer = -1;
