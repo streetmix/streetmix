@@ -3827,6 +3827,14 @@ var main = (function(){
   }
 
   function _handleSegmentResizeStart(event) {
+    if (event.touches && event.touches[0]) {
+      var x = event.touches[0].pageX;
+      var y = event.touches[0].pageY;
+    } else {
+      var x = event.pageX;
+      var y = event.pageY;
+    }    
+
     ignoreStreetChanges = true;
 
     var el = event.target;
@@ -3851,8 +3859,8 @@ var main = (function(){
     draggingResize.floatingEl.style.top = pos[1] + 'px';
     document.body.appendChild(draggingResize.floatingEl);
 
-    draggingResize.mouseX = event.pageX;
-    draggingResize.mouseY = event.pageY;
+    draggingResize.mouseX = x;
+    draggingResize.mouseY = y;
 
     draggingResize.elX = pos[0];
     draggingResize.elY = pos[1];
@@ -3915,8 +3923,13 @@ var main = (function(){
   }
 
   function _handleSegmentResizeMove(event) {
-    var x = event.pageX;
-    var y = event.pageY;
+    if (event.touches && event.touches[0]) {
+      var x = event.touches[0].pageX;
+      var y = event.touches[0].pageY;
+    } else {
+      var x = event.pageX;
+      var y = event.pageY;
+    }    
 
     var deltaX = x - draggingResize.mouseX;
     var deltaY = y - draggingResize.mouseY;
@@ -3941,8 +3954,8 @@ var main = (function(){
     _resizeSegment(draggingResize.segmentEl, resizeType,
         width * TILE_SIZE, true, false, true);
 
-    draggingResize.mouseX = event.pageX;
-    draggingResize.mouseY = event.pageY;
+    draggingResize.mouseX = x;
+    draggingResize.mouseY = y;
 
     // TODO hack so it doesn’t disappear
     _showWidthChartImmediately();
@@ -4049,8 +4062,13 @@ var main = (function(){
   }
 
   function _handleSegmentMoveMove(event) {
-    var x = event.pageX;
-    var y = event.pageY;
+    if (event.touches && event.touches[0]) {
+      var x = event.touches[0].pageX;
+      var y = event.touches[0].pageY;
+    } else {
+      var x = event.pageX;
+      var y = event.pageY;
+    }    
 
     var deltaX = x - draggingMove.mouseX;
     var deltaY = y - draggingMove.mouseY;
@@ -4231,16 +4249,6 @@ var main = (function(){
   }
 
   function _onBodyMouseMove(event) {
-    console.log(event, event.touches, event.pageX);
-
-    if (event.touches && event.touches[0]) {
-      var x = event.touches[0].pageX;
-      var y = event.touches[0].pageY;
-    } else {
-      var x = event.pageX;
-      var y = event.pageY;
-    }    
-
     if (draggingType == DRAGGING_TYPE_NONE) {
       return;
     }
