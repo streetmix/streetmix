@@ -956,7 +956,7 @@ body.immediate-segment-resize .segment {
   display: inline-block;
   position: relative;
 
-  overflow: hidden;
+  //overflow: hidden;
 
   margin: 12px 5px;
   height: 80px;
@@ -1028,12 +1028,17 @@ body:not(.segment-resize-dragging) .segment.outside .image {
 }
 
 body:not(.touch-support) .segment.palette:hover {
-  -webkit-transform: scale(1.15);
-  -moz-transform: scale(1.15);
-  transform: scale(1.15);
+  background: fadeout(@skyColour, 5%);
 
   canvas {
-    background: fadeout(@skyColour, 5%);
+    -webkit-transform: scale(1.15);
+    -moz-transform: scale(1.15);
+    transform: scale(1.15);
+
+    -webkit-transform-origin: 14% 75px;
+    -moz-transform-origin: 14% 75px;
+    transform-origin: 14% 75px;
+
   }
 }
 

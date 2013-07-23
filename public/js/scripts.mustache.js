@@ -4159,6 +4159,8 @@ var main = (function(){
     _loseAnyFocus();
     _hideDebugInfo();
 
+    var topEl = event.target;    
+
     while (topEl && (topEl.id != 'info-bubble') && (topEl.id != 'street-width') &&
       ((!topEl.classList) ||
       ((!topEl.classList.contains('menu-attached')) && 
@@ -6675,15 +6677,8 @@ var main = (function(){
       if (_infoBubble.el) {
         document.body.classList.remove('controls-fade-out'); 
 
-        //var el = _infoBubble.el;
-        //el.classList.add('regular-transition');
         _infoBubble.el.classList.remove('visible');
         _infoBubble.visible = false;
-
-        /*window.setTimeout(function() {
-          el.classList.remove('regular-transition');
-        }, 200);*/
-
 
         document.body.removeEventListener('mousemove', _infoBubble.onBodyMouseMove);
       }
@@ -7932,7 +7927,7 @@ var main = (function(){
     }
     var offsetLeft = (thumbnailWidth - occupiedWidth * TILE_SIZE * multiplier) / 2;
 
-    var groundLevel = offsetTop + 140 * multiplier;
+    var groundLevel = offsetTop + 135 * multiplier;
 
     ctx.fillStyle = BACKGROUND_DIRT_COLOUR;
     ctx.fillRect(0, (groundLevel + 20 * multiplier) * system.hiDpi, thumbnailWidth * system.hiDpi, thumbnailHeight * system.hiDpi);
