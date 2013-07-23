@@ -7926,7 +7926,7 @@ var main = (function(){
     }
     var offsetLeft = (thumbnailWidth - occupiedWidth * TILE_SIZE * multiplier) / 2;
 
-    var groundLevel = offsetTop + 140 * multiplier;
+    var groundLevel = offsetTop + 135 * multiplier;
 
     ctx.fillStyle = BACKGROUND_DIRT_COLOUR;
     ctx.fillRect(0, (groundLevel + 20 * multiplier) * system.hiDpi, thumbnailWidth * system.hiDpi, thumbnailHeight * system.hiDpi);
