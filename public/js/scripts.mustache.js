@@ -220,7 +220,7 @@ var main = (function(){
   var TOUCH_CONTROLS_FADEOUT_TIME = 3000;
   var TOUCH_CONTROLS_FADEOUT_DELAY = 3000;
 
-  var SAVE_STREET_DELAY = 500; // DEBUG
+  var SAVE_STREET_DELAY = 500;
   var SAVE_SETTINGS_DELAY = 500;
   var NO_CONNECTION_MESSAGE_TIMEOUT = 10000;
 
@@ -5300,6 +5300,10 @@ var main = (function(){
     }
   }
 
+  // TODO move
+  var latestRequestId;
+  var latestVerificationStreet;
+
   function _fetchStreetForVerification() {
     // DEBUG
     //console.log('ssI', saveStreetIncomplete);
@@ -5312,31 +5316,40 @@ var main = (function(){
 
     var url = _getFetchStreetUrl();
 
-    console.log(url);
+    latestRequestId = _getUniqueRequestHeader();
+    latestVerificationStreet = _trimStreetData(street);
 
     jQuery.ajax({
       url: url,
       dataType: 'json',
       type: 'GET',
       // TODO const
-      headers: { 'X-Streetmix-Request-Id': _getUniqueRequestHeader() }
-    }).done(_receiveStreetForVerification).fail(_errorReceiveStreetForVerification);
+      headers: { 'X-Streetmix-Request-Id': latestRequestId }
+    }).done(_receiveStreetForVerification2).fail(_errorReceiveStreetForVerification);
   }
 
   // DEBUG
-  function _receiveStreetForVerification2(transmission) {
-    window.setTimeout(function() { _receiveStreetForVerification(transmission) }, 2000);
+  function _receiveStreetForVerification2(transmission, textStatus, request) {
+    window.setTimeout(function() { _receiveStreetForVerification(transmission, textStatus, request) }, 2000);
   }
 
-  function _receiveStreetForVerification(transmission) {
-    console.log(transmission);
+  function _receiveStreetForVerification(transmission, textStatus, request) {
+    var requestId = parseInt(request.getResponseHeader('X-Streetmix-Request-Id'));
 
-    var localStreetData = _trimStreetData(street);
+    if (requestId != latestRequestId) {
+      console.log('rejected since it doesn’t match');
+      return;
+    }
+
+    console.log('comparing…');
+
+    //var localStreetData = _trimStreetData(street);
+    var localStreetData = _trimStreetData(latestVerificationStreet);
     var serverStreetData = _trimStreetData(_unpackStreetDataFromServerTransmission(transmission));
 
     if (JSON.stringify(localStreetData) != JSON.stringify(serverStreetData)) {
-      /*console.log('NOT EQUAL');
-      console.log('-');
+      console.log('NOT EQUAL');
+      /*console.log('-');
       console.log(JSON.stringify(localStreetData));
       console.log('-');
       console.log(JSON.stringify(serverStreetData));
