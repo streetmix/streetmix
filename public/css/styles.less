@@ -2303,7 +2303,11 @@ body:not(.edit-street-width) #street-width {
   -webkit-user-select: none;
   user-select: none;  
 
+  pointer-events: none;
+
   > div {
+    pointer-events: auto;
+    
     display: inline-block;
     position: relative;
     padding: 0;
