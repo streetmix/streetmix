@@ -4849,11 +4849,11 @@ var main = (function(){
 
     document.querySelector('#street-width').focus();
 
-    window.setTimeout(function() {
+    /*window.setTimeout(function() {
       var trigger = document.createEvent('MouseEvents');
       trigger.initEvent('mousedown', true, true, window);
       document.querySelector('#street-width').dispatchEvent(trigger);
-    }, 0);
+    }, 0);*/
   }
 
   function _onStreetWidthChange(event) {
