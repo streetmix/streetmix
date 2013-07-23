@@ -4145,11 +4145,24 @@ var main = (function(){
       return;
     }
 
+    var topEl = event.target;
+
+    // For street width editing on Firefox
+
+    while (topEl && (topEl.id != 'street-width')) {
+      topEl = topEl.parentNode;
+    }
+
+    var withinMenu = !!topEl;
+
+    if (withinMenu) {
+      return;
+    }
+
     _loseAnyFocus();
     _hideDebugInfo();
 
-    var topEl = event.target;
-    while (topEl && (topEl.id != 'info-bubble') && 
+    while (topEl && (topEl.id != 'info-bubble') && (topEl.id != 'street-width') &&
       ((!topEl.classList) ||
       ((!topEl.classList.contains('menu-attached')) && 
       (!topEl.classList.contains('menu'))))) {
@@ -4849,11 +4862,11 @@ var main = (function(){
 
     document.querySelector('#street-width').focus();
 
-    /*window.setTimeout(function() {
+    window.setTimeout(function() {
       var trigger = document.createEvent('MouseEvents');
       trigger.initEvent('mousedown', true, true, window);
       document.querySelector('#street-width').dispatchEvent(trigger);
-    }, 0);*/
+    }, 0);
   }
 
   function _onStreetWidthChange(event) {
