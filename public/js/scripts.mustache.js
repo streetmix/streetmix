@@ -5061,7 +5061,6 @@ var main = (function(){
         break;
       case KEY_ESC:
         _hideDebugInfo();
-        whatIsThis.hideInfo();
 
         if (draggingType == DRAGGING_TYPE_RESIZE) {
           _handleSegmentResizeCancel();
@@ -5329,11 +5328,11 @@ var main = (function(){
     var requestId = parseInt(request.getResponseHeader('X-Streetmix-Request-Id'));
 
     if (requestId != latestRequestId) {
-      console.log('rejected since it doesn’t match');
+      //console.log('rejected since it doesn’t match');
       return;
     }
 
-    console.log('comparing…');
+    //console.log('comparing…');
 
     //var localStreetData = _trimStreetData(street);
     var localStreetData = _trimStreetData(latestVerificationStreet);
@@ -5360,8 +5359,6 @@ var main = (function(){
     // been deleted (but remain hidden on the server)
 
     if (signedIn && ((data.status == 404) || (data.status == 410))) {
-      // Means street was deleted
-
       _showError(ERROR_STREET_DELETED_ELSEWHERE, true);
     }
   }
