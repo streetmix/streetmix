@@ -1544,7 +1544,6 @@ var main = (function(){
   var galleryStreetLoaded = false;
 
   var nonblockingAjaxRequests = [];
-  //var nonblockingAjaxRequestCount = 0;
 
   var nonblockingAjaxRequestTimer = 0;
 
@@ -1552,9 +1551,6 @@ var main = (function(){
   var NON_BLOCKING_AJAX_REQUEST_BACKOFF_RANGE = 60000;
 
   var NON_BLOCKING_NO_CONNECTION_MESSAGE_TIMER_COUNT = 4;
-
-  //0-4 seconds 2^2
-  //0-8 seconds 2^3
 
   var blockingAjaxRequest;
   var blockingAjaxRequestDoneFunc;
@@ -5322,7 +5318,8 @@ var main = (function(){
       url: url,
       dataType: 'json',
       type: 'GET',
-      headers: { 'X-Request-Id': _getUniqueRequestHeader() }
+      // TODO const
+      headers: { 'X-Streetmix-Request-Id': _getUniqueRequestHeader() }
     }).done(_receiveStreetForVerification).fail(_errorReceiveStreetForVerification);
   }
 

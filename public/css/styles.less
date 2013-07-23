@@ -1455,17 +1455,16 @@ body.segment-move-dragging #editable-street-section > div {
   pointer-events: none;
 }
 
-#error,
-#loading,
-#new-street-menu {
-  h1 {
-    font-size: 250%;
-    font-weight: 300;
-    letter-spacing: -1px;
-    line-height: 1.1;
-    margin-top: 8px;
-    margin-bottom: 12px;
-  }  
+#error h1,
+#loading h1,
+#new-street-menu h1,
+#blocking-shield .message {
+  font-size: 250%;
+  font-weight: 300;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  margin-top: 8px;
+  margin-bottom: 12px;
 }
 
 #new-street-menu .close {
@@ -1551,7 +1550,7 @@ body.segment-move-dragging #editable-street-section > div {
 }
 
 #blocking-shield {
-  z-index: 99999999 - 1;
+  z-index: 999999999 - 1;
 
   position: fixed;
   left: 0;
@@ -1571,22 +1570,21 @@ body.segment-move-dragging #editable-street-section > div {
   background: transparent;
   color: transparent;
 
+  &.darken,
+  &.darken-immediately {
+    background: fadeout(@skyColour, 15%);
+    color: black;    
+  }
+
   &.darken {
     -webkit-transition: background 1500ms, color 1500ms;
     -moz-transition: background 1500ms, color 1500ms;
     transition: background 1500ms, color 1500ms;
-
-    background: rgba(0, 0, 0, .6);
-    color: white;
   }
-
   &.darken-immediately {
     -webkit-transition: none;
     -moz-transition: none;
     transition: none;
-
-    background: rgba(0, 0, 0, .6);
-    color: white;
   }
 
   .try-again,
@@ -1618,11 +1616,12 @@ body.segment-move-dragging #editable-street-section > div {
   & button {
     cursor: auto;
   }
+
+  &:not(.visible) {
+    display: none;
+  }
 }
 
-#blocking-shield:not(.visible) {
-  display: none;
-}
 
 #status-message,
 #no-connection-message {
@@ -2307,7 +2306,7 @@ body:not(.edit-street-width) #street-width {
 
   > div {
     pointer-events: auto;
-    
+
     display: inline-block;
     position: relative;
     padding: 0;
@@ -2406,7 +2405,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
 
 .info-bubble {
   position: absolute;
-  z-index: 10000000000;
+  z-index: 999999999 - 2;
   min-width: 250px;
   background: @infoBubbleBackground;
 
