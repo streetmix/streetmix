@@ -4231,8 +4231,13 @@ var main = (function(){
   }
 
   function _onBodyMouseMove(event) {
-    mouseX = event.pageX;
-    mouseY = event.pageY;
+    if (event.touches && event.touches[0]) {
+      var x = event.touches[0].pageX;
+      var y = event.touches[0].pageY;
+    } else {
+      var x = event.pageX;
+      var y = event.pageY;
+    }    
 
     if (draggingType == DRAGGING_TYPE_NONE) {
       return;
@@ -8603,7 +8608,7 @@ var main = (function(){
 
     var el = document.querySelector('#error .reload');
     if (el) {
-      el.addEventListener('click', _goReload);
+      el && el.addEventListener('click', _goReload);
     }
 
     var el = document.querySelector('#error .clear-sign-in-reload');
