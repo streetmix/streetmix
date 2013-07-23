@@ -4158,6 +4158,8 @@ var main = (function(){
     _loseAnyFocus();
     _hideDebugInfo();
 
+    var topEl = event.target;    
+
     while (topEl && (topEl.id != 'info-bubble') && (topEl.id != 'street-width') &&
       ((!topEl.classList) ||
       ((!topEl.classList.contains('menu-attached')) && 
@@ -6674,15 +6676,8 @@ var main = (function(){
       if (_infoBubble.el) {
         document.body.classList.remove('controls-fade-out'); 
 
-        //var el = _infoBubble.el;
-        //el.classList.add('regular-transition');
         _infoBubble.el.classList.remove('visible');
         _infoBubble.visible = false;
-
-        /*window.setTimeout(function() {
-          el.classList.remove('regular-transition');
-        }, 200);*/
-
 
         document.body.removeEventListener('mousemove', _infoBubble.onBodyMouseMove);
       }
