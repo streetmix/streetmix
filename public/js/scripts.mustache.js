@@ -66,6 +66,7 @@ var main = (function(){
   var IP_GEOCODING_TIMEOUT = 1000; // After this time, we don’t wait any more
 
   var FACEBOOK_APP_ID = '{{facebook_app_id}}';
+  var GOOGLE_ANALYTICS_ACCOUNT = '{{google_analytics_account}}';
 
   // TODO replace the URLs in index.html dynamically
   var URL_SIGN_IN = 'twitter-sign-in';
@@ -8825,6 +8826,8 @@ var main = (function(){
     // Note that we are waiting for sign in and image info to show the page,
     // but we give up on country info if it’s more than 1000ms.
   }
+
+  main.GOOGLE_ANALYTICS_ACCOUNT = GOOGLE_ANALYTICS_ACCOUNT;
 
   return main;
 })();
