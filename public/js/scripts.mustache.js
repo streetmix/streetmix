@@ -8417,6 +8417,10 @@ var main = (function(){
     if (url.match(/[\?\&]debug-secret-segments\&?/)) {
       debug.secretSegments = true;
     }
+
+    if (url.match(/[\?\&]debug-hover-polygon\&?/)) {
+      debug.hoverPolygon = true;
+    }
   }
 
   function _processUrl() {
