@@ -401,6 +401,7 @@ var main = (function(){
     'sidewalk-density': ['dense', 'normal', 'sparse', 'empty'],
 
     'parking-lane-orientation': ['left', 'right'],
+    'wayfinding-type': ['wide', 'medium', 'small'],
   };
 
   var VARIANT_ICONS = {
@@ -461,6 +462,9 @@ var main = (function(){
     'building|residential': { x: 7, y: 3, title: 'Residential building' },
     'building|narrow': { x: 7, y: 2, title: 'Narrow building' },
     'building|wide': { x: 8, y: 2, title: 'Wide building' },
+    'wayfinding-type|wide': { x: 8, y: 3, title: 'Large' },
+    'wayfinding-type|medium': { x: 9, y: 3, title: 'Medium' },
+    'wayfinding-type|small': { x: 10, y: 3, title: 'Small' },
   };
 
   var SEGMENT_INFO = {
@@ -589,14 +593,28 @@ var main = (function(){
       owner: SEGMENT_OWNER_PEDESTRIAN,
       zIndex: 2,
       defaultWidth: 4,
-      variants: [''],
+      variants: ['wayfinding-type'],
+      descriptionPrompt: 'Learn more about wayfinding signs',
+      description: '<img src="/images/info-bubble-examples/wayfinding-01.jpg"><p>Urban planners and architects have spent a few decades trying to learn what happens in peoples\' brains when they figure out how to get from point A to point B—or how they even know where "point A" is to begin with. As early as 1960, urban planner Kevin Lynch wrote of the "legibility" of the city in his book <em>The Image of the City</em>, describing wayfinding as "a consistent use and organization of definite sensory cues from the external environment." It could be sensory in nature—smell, touch, a sense of gravity or even electric or magnetic fields. Or it could be much more intentional, with "wayfinding devices" like maps, street numbers, or route signs.</p><p>It\'s actually surprising how readily acceptable it is for cars to have ample signage, and less so at the pedestrian level. Maybe it\'s because we get to stand still, take stock of our surroundings, and learn from our environment using those intangible cues, without fear of accidentally causing a six-person pileup. At any rate, urban designers have pushed for pedestrian-friendly wayfinding signage, particularly in walkable commercial neighborhoods, and these signs turn out to be branding opportunities as much as they are functional. So New York City <a href="http://new.pentagram.com/2013/06/new-work-nyc-wayfinding/">hired an internationally renowned design consultant</a> (and Streetmix has modeled its segments after it), many others have adopted a traditional old-town or civic-formal take (pictured above), and then there are those, for whatever reason, who lack any pedestrian wayfinding signage of significance, such that the conversation must be spurred by <a href="http://walkyourcity.org/">guerrilla wayfinding tactics</a>.</p><p>After all, there\'s nothing worse than being lost. As Lynch wrote: "The very word <em>lost</em> in our language means much more than simple geographical uncertainty; it carries overtones of utter disaster." And who wants being on the street to feel like that?</p><footer>Photo: Fruitvale wayfinding sign, licensed under Creative Commons via Oakland Wiki</footer>',
       details: {
-        '': {
+        'wide': { // using the name 'large' crashes the app??
           graphics: {
             center: { tileset: 1, x: 0, y: 0, width: 4, height: 11, offsetY: 1 },
             repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete            
           }
-        }
+        },
+        'medium': {
+          graphics: {
+            center: { tileset: 1, x: 5, y: 0, width: 3, height: 11, offsetY: 1 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete            
+          }
+        },
+        'small': {
+          graphics: {
+            center: { tileset: 1, x: 9, y: 0, width: 2, height: 11, offsetY: 1 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete            
+          }
+        },
       }
     },
 
@@ -652,7 +670,7 @@ var main = (function(){
       defaultWidth: 8,
       variants: ['orientation'],
       descriptionPrompt: 'Learn more about parklets',
-      description: '<img src="/images/info-bubble-examples/parklets_01.jpg"><p>In 2005, San Francisco-based design studio Rebar temporarily converted a single metered parking space on downtown Mission Street into a tiny public park. The first parklet was simple: just a bench and a tree on a rectangular piece of turf, but it featured a brief instruction manual and a charge for others to make their own. With people realizing that so much of public space was really devoted to storing cars, an international movement was born, and now, the annual Park(ing) Day hosts nearly a thousand temporarily converted spots around the world.</p><p>Knowing a good idea when it sees one, San Francisco became the first city to make parklets official with its <a href="http://sfpavementtoparks.sfplanning.org/">Pavement to Parks program</a> in 2010. Today, the City by the Bay has over 50 parklets, many of which are now architecturally designed objects much improved beyond Rebar’s modest prototype. There’s an ambitious, corporate-sponsored two-block-long parklet in the heart of San Francisco’s busiest shopping corridor, and also a collection of movable, bright red “parkmobiles” (Streetmix’s default look) designed for the Yerba Buena Community Benefit District. Official parklet programs now exist in many other cities in North America, such as Philadelphia, Oakland, Kansas City, New York, Chicago, and Vancouver, and many more cities are soon to follow.</p><footer>Photo: 4033 Judah Street Parklet, courtesy of San Francisco Planning Department.</footer>',
+      description: '<img src="/images/info-bubble-examples/parklets-01.jpg"><p>In 2005, San Francisco-based design studio Rebar temporarily converted a single metered parking space on downtown Mission Street into a tiny public park. The first parklet was simple: just a bench and a tree on a rectangular piece of turf, but it featured a brief instruction manual and a charge for others to make their own. With people realizing that so much of public space was really devoted to storing cars, an international movement was born, and now, the annual Park(ing) Day hosts nearly a thousand temporarily converted spots around the world.</p><p>Knowing a good idea when it sees one, San Francisco became the first city to make parklets official with its <a href="http://sfpavementtoparks.sfplanning.org/">Pavement to Parks program</a> in 2010. Today, the City by the Bay has over 50 parklets, many of which are now architecturally designed objects much improved beyond Rebar’s modest prototype. There’s an ambitious, corporate-sponsored two-block-long parklet in the heart of San Francisco’s busiest shopping corridor, and also a collection of movable, bright red “parkmobiles” (Streetmix’s default look) designed for the Yerba Buena Community Benefit District. Official parklet programs now exist in many other cities in North America, such as Philadelphia, Oakland, Kansas City, New York, Chicago, and Vancouver, and many more cities are soon to follow.</p><footer>Photo: 4033 Judah Street Parklet, courtesy of San Francisco Planning Department.</footer>',
       details: {
         'left': {
           minWidth: 8,
@@ -1338,6 +1356,24 @@ var main = (function(){
             repeat: { tileset: 2, x: 110, y: 63, width: 9, height: 9, offsetY: 6 }, // Raised concrete
           }          
         },
+      }
+    },
+    'train': {
+      name: 'Inception train',
+      owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
+      zIndex: 0,
+      defaultWidth: 14,
+      variants: [''],
+      secret: true,
+      descriptionPrompt: 'Learn more',
+      description: '<p>It\'s the train from the Christopher Nolan movie <em>Inception</em> (2010). What more do you need to know?</p>',
+      details: {
+        '': {
+          graphics: {
+            center: { tileset: 1, x: 82, y: 68, width: 14, height: 16, offsetY: -4 },
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+          }          
+        }
       }
     }
   };
@@ -4583,6 +4619,10 @@ var main = (function(){
     for (var id in SEGMENT_INFO) {
       var segmentInfo = SEGMENT_INFO[id];
 
+      if (segmentInfo.secret == true) {
+        break;
+      }
+
       // TODO hack to get the first variant name
       for (var j in segmentInfo.details) {
         var variantName = j;
@@ -4614,6 +4654,7 @@ var main = (function(){
       el.classList.add('palette');
 
       document.querySelector('.palette-canvas').appendChild(el);
+
     }
   }
 
