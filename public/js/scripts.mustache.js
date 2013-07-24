@@ -2342,7 +2342,7 @@ var main = (function(){
     return el;
   }
 
-  function _getBuildingAttributes(left) {
+  function _getBuildingAttributes(street, left) {
     var buildingVariant = left ? street.leftBuildingVariant : street.rightBuildingVariant;
     var flooredBuilding = _isFlooredBuilding(buildingVariant);
 
@@ -2453,10 +2453,12 @@ var main = (function(){
   }
 
   function _drawBuilding(ctx, street, left, totalWidth, totalHeight, bottomAligned, offsetLeft, offsetTop, multiplier) {
-    var attr = _getBuildingAttributes(left);
+    var attr = _getBuildingAttributes(street, left);
 
     if (bottomAligned) {
-      offsetTop += totalHeight - attr.height;
+      offsetTop += totalHeight - attr.height * multiplier;
+      //offsetTop = 0;
+      //console.log(totalHeight, attr.height * multiplier);
     }
 
     if (!attr.flooredBuilding) {
@@ -2532,12 +2534,14 @@ var main = (function(){
             attr.floorRoofWidth, 
             attr.floorHeight * TILE_SIZE,
             offsetLeft + (leftPos + floorCorrection) * multiplier, 
-            offsetTop + attr.height - (attr.mainFloorHeight + attr.floorHeight * i) * TILE_SIZE * multiplier, 
+            offsetTop + attr.height * multiplier - (attr.mainFloorHeight + attr.floorHeight * i) * TILE_SIZE * multiplier, 
             attr.floorRoofWidth * multiplier, 
             attr.floorHeight * TILE_SIZE * multiplier);
       }
 
       // roof
+
+      //console.log(attr.height * multiplier - (attr.mainFloorHeight + attr.floorHeight * (attr.floorCount - 1) + attr.roofHeight) * TILE_SIZE * multiplier);
 
       _drawSegmentImage(attr.tileset, ctx,
           attr.tilePositionX + floorCorrection, 
@@ -2545,7 +2549,7 @@ var main = (function(){
           attr.floorRoofWidth, 
           attr.roofHeight * TILE_SIZE,
           offsetLeft + (leftPos + floorCorrection) * multiplier, 
-          offsetTop + attr.height - (attr.mainFloorHeight + attr.floorHeight * (attr.floorCount - 1) + attr.roofHeight) * TILE_SIZE * multiplier, 
+          offsetTop + attr.height * multiplier - (attr.mainFloorHeight + attr.floorHeight * (attr.floorCount - 1) + attr.roofHeight) * TILE_SIZE * multiplier, 
           attr.floorRoofWidth * multiplier, 
           attr.roofHeight * TILE_SIZE * multiplier);
     }
@@ -2562,25 +2566,13 @@ var main = (function(){
     var totalWidth = 
         document.querySelector('#street-section-left-building').offsetWidth;
 
-    /*var buildingVariant = 
-        left ? street.leftBuildingVariant : street.rightBuildingVariant;
-    var floorCount = 
-        left ? street.leftBuildingHeight : street.rightBuildingHeight;*/
-    
-    /*var flooredBuilding = _isFlooredBuilding(buildingVariant);
-    if (!flooredBuilding) {
-      floorCount = 4;
-    }
-    var height = TILE_SIZE * (1 + 10 * (floorCount - 1) + 10);    */
-    var attr = _getBuildingAttributes(left);
-    //console.log(attr.height);
+    var attr = _getBuildingAttributes(street, left);
 
     var canvasEl = document.createElement('canvas');
     canvasEl.width = totalWidth * system.hiDpi;
     canvasEl.height = attr.height * system.hiDpi;
     canvasEl.style.width = totalWidth + 'px';
     canvasEl.style.height = attr.height + 'px';
-    //canvasEl.style.outline = '1px solid red';
 
     el.appendChild(canvasEl);
 
@@ -8005,6 +7997,9 @@ var main = (function(){
       ctx.fillStyle = 'rgb(240, 240, 240)';
       ctx.fillRect(0, 0, thumbnailWidth * system.hiDpi, thumbnailHeight * system.hiDpi);
     }
+
+    //ctx.fillStyle = 'red';
+    //ctx.fillRect(0, groundLevel * system.hiDpi, thumbnailWidth * system.hiDpi, 1);
   }
 
   function _checkIfEverythingIsLoaded() {
