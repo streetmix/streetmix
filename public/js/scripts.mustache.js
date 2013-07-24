@@ -141,6 +141,9 @@ var main = (function(){
   var NEW_STREET_DEFAULT = 1;
   var NEW_STREET_EMPTY = 2;
 
+  var BUILDING_DESTINATION_SCREEN = 1;
+  var BUILDING_DESTINATION_THUMBNAIL = 2;
+
   var LATEST_SCHEMA_VERSION = 14;
     // 1: starting point
     // 2: adding leftBuildingHeight and rightBuildingHeight
@@ -1681,16 +1684,26 @@ var main = (function(){
     }
 
     if (imagesToBeLoaded == 0) {
-
       // TODO move
       var TILESET_CORRECTION = [null, 0, -84, -162];
       sx += TILESET_CORRECTION[tileset] * 12;
 
+      dx *= system.hiDpi;
+      dy *= system.hiDpi;
+      dw *= system.hiDpi;
+      dh *= system.hiDpi;
+
+      /*if (dx + dw > ctx.canvas.width) {
+        dw = ctx.canvas.width - dx;
+      }
+      if (dy + dh > ctx.canvas.height) {
+        dh = ctx.canvas.height - dy;
+      }*/
+
       ctx.drawImage(images['/images/tiles-' + tileset + '.png'],
           sx * TILESET_POINT_PER_PIXEL, sy * TILESET_POINT_PER_PIXEL, 
           sw * TILESET_POINT_PER_PIXEL, sh * TILESET_POINT_PER_PIXEL,
-          dx * system.hiDpi, dy * system.hiDpi, 
-          dw * system.hiDpi, dh * system.hiDpi);
+          dx, dy, dw, dh);
     }
   }
 
@@ -2452,13 +2465,11 @@ var main = (function(){
     }
   }
 
-  function _drawBuilding(ctx, street, left, totalWidth, totalHeight, bottomAligned, offsetLeft, offsetTop, multiplier) {
+  function _drawBuilding(ctx, destination, street, left, totalWidth, totalHeight, bottomAligned, offsetLeft, offsetTop, multiplier) {
     var attr = _getBuildingAttributes(street, left);
 
     if (bottomAligned) {
       offsetTop += totalHeight - attr.height * multiplier;
-      //offsetTop = 0;
-      //console.log(totalHeight, attr.height * multiplier);
     }
 
     if (!attr.flooredBuilding) {
@@ -2516,7 +2527,6 @@ var main = (function(){
       // middle floors
 
       var floorCorrection = left ? 0 : (attr.width - attr.floorRoofWidth);
-      //var floorCorrection = 0;
 
       var randomGenerator = new RandomGenerator();
       randomGenerator.seed(0);
@@ -2541,8 +2551,6 @@ var main = (function(){
 
       // roof
 
-      //console.log(attr.height * multiplier - (attr.mainFloorHeight + attr.floorHeight * (attr.floorCount - 1) + attr.roofHeight) * TILE_SIZE * multiplier);
-
       _drawSegmentImage(attr.tileset, ctx,
           attr.tilePositionX + floorCorrection, 
           attr.tilePositionY - 240 + 120 * attr.variantsCount - (attr.floorHeight * TILE_SIZE * attr.variantsCount + attr.roofHeight * TILE_SIZE), 
@@ -2554,11 +2562,13 @@ var main = (function(){
           attr.roofHeight * TILE_SIZE * multiplier);
     }
 
-    if (street.remainingWidth < 0) {
+    if ((street.remainingWidth < 0) && (destination == BUILDING_DESTINATION_SCREEN)) {
+      ctx.save();
       ctx.globalCompositeOperation = 'source-atop';
       // TODO const
       ctx.fillStyle = 'rgb(133, 183, 204)';
       ctx.fillRect(0, 0, totalWidth * system.hiDpi, totalHeight * system.hiDpi);
+      ctx.restore();
     }
   }
 
@@ -2577,7 +2587,7 @@ var main = (function(){
     el.appendChild(canvasEl);
 
     var ctx = canvasEl.getContext('2d');
-    _drawBuilding(ctx, street, left, totalWidth, attr.height, false, 0, 0, 1.0);
+    _drawBuilding(ctx, BUILDING_DESTINATION_SCREEN, street, left, totalWidth, attr.height, false, 0, 0, 1.0);
   }
 
   function _changeBuildingHeight(left, increment) {
@@ -6152,7 +6162,7 @@ var main = (function(){
   }
 
   function _saveAsImage(event) {
-    // TODO move
+    // TODO move as constant
     var dpi = 2.0;
 
     var width = TILE_SIZE * street.width + BUILDING_SPACE * 2;
@@ -7955,6 +7965,7 @@ var main = (function(){
       var offsetTop = (thumbnailHeight + 5 * TILE_SIZE * multiplier) / 2;
     }
     var offsetLeft = (thumbnailWidth - occupiedWidth * TILE_SIZE * multiplier) / 2;
+    var buildingOffsetLeft = (thumbnailWidth - street.width * TILE_SIZE * multiplier) / 2;
 
     var groundLevel = offsetTop + 135 * multiplier;
 
@@ -7970,13 +7981,13 @@ var main = (function(){
                  thumbnailWidth * system.hiDpi,
                  thumbnailHeight * system.hiDpi);
 
-    var buildingWidth = offsetLeft / multiplier;
+    var buildingWidth = buildingOffsetLeft / multiplier;
 
     var x = thumbnailWidth / 2 - street.width * TILE_SIZE * multiplier / 2;
-    _drawBuilding(ctx, street, true, buildingWidth, groundLevel, true, x - (buildingWidth - 25) * multiplier, 0, multiplier);
+    _drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street, true, buildingWidth, groundLevel, true, x - (buildingWidth - 25) * multiplier, 0, multiplier);
 
     var x = thumbnailWidth / 2 + street.width * TILE_SIZE * multiplier / 2;
-    _drawBuilding(ctx, street, false, buildingWidth, groundLevel, true, x - 25 * multiplier, 0, multiplier);
+    _drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street, false, buildingWidth, groundLevel, true, x - 25 * multiplier, 0, multiplier);
 
     for (var i in street.segments) {
       var segment = street.segments[i];
