@@ -5858,7 +5858,7 @@ var main = (function(){
 
       var anchorEl = document.createElement('a');
 
-      if (galleryStreet.data.undoStack.length <= 4) {
+      if (!galleryUserId && (galleryStreet.data.undoStack.length <= 4)) {
         anchorEl.classList.add('virgin');
       }
 
@@ -5898,8 +5898,6 @@ var main = (function(){
       var dateEl = document.createElement('span');
       dateEl.classList.add('date');
       dateEl.innerHTML = _formatDate(date);
-      //dateEl.innerHTML = galleryStreet.data.undoStack.length;
-      //console.log(galleryStreet);
       anchorEl.appendChild(dateEl);
 
       if (!galleryUserId) {
