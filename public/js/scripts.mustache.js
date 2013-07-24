@@ -1368,7 +1368,7 @@ var main = (function(){
     'train': {
       name: '“Inception” train',
       owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
-      zIndex: 0,
+      zIndex: 1,
       defaultWidth: 14,
       variants: [''],
       secret: true,
@@ -5611,7 +5611,7 @@ var main = (function(){
     } else {
       jQuery.ajax({
         // TODO const
-        url: API_URL + 'v1/streets',
+        url: API_URL + 'v1/streets?count=200',
         dataType: 'json',
         type: 'GET',
       }).done(_receiveGalleryData).fail(_errorReceiveGalleryData);      
@@ -5858,6 +5858,10 @@ var main = (function(){
 
       var anchorEl = document.createElement('a');
 
+      if (galleryStreet.data.undoStack.length <= 4) {
+        anchorEl.classList.add('virgin');
+      }
+
       galleryStreet.creatorId = 
           (galleryStreet.creator && galleryStreet.creator.id);
 
@@ -5894,6 +5898,8 @@ var main = (function(){
       var dateEl = document.createElement('span');
       dateEl.classList.add('date');
       dateEl.innerHTML = _formatDate(date);
+      //dateEl.innerHTML = galleryStreet.data.undoStack.length;
+      //console.log(galleryStreet);
       anchorEl.appendChild(dateEl);
 
       if (!galleryUserId) {
