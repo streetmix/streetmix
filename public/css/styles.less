@@ -135,6 +135,16 @@ button {
 button {
   font-size: 13px;
 }
+a {
+  color: darken(@uiColour, 30%);
+
+  &:hover {
+    color: darken(@uiColour, 50%);
+  }
+  &:active {
+    color: darken(@uiColour, 70%);
+  }
+}
 
 
 input[type='text'],
@@ -1462,6 +1472,7 @@ body.segment-move-dragging #editable-street-section > div {
 
 #error h1,
 #loading h1,
+#about h1,
 #new-street-menu h1,
 #blocking-shield .message {
   font-size: 250%;
@@ -1889,6 +1900,9 @@ body.no-connection-message-visible #status-message {
     &:hover {
       background: fadeout(@uiColour, 50%);
     }
+    &:active {
+      background: fadeout(@uiColour, 30%);
+    }
 
     span {
       display: block;
@@ -2298,6 +2312,81 @@ body:not(.edit-street-width) #street-width {
   margin: 0 4px;
 }
 
+#about-shield {
+  z-index: 99999999 + 2;
+
+  cursor: pointer;
+
+  &:not(.visible) {
+    display: none;
+  }
+
+  background: fadeout(@skyColour, 50%);
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+}
+
+#about {
+  z-index: 99999999 + 3;
+  position: absolute;
+
+  top: 100px;
+  margin-left: -750px / 2;
+  left: 50%;
+
+  .box-border;  
+  box-sizing: border-box;
+  background: white;
+  padding: 15px 15px;
+  width: 750px;
+  font-size: 13px;
+  line-height: 1.5;
+
+  .close {
+    position: absolute;
+    right: 0;
+    top: 5px;
+  }
+
+  .description {
+    font-size: 16px;
+  }
+  .left {
+    width: 300px;
+    margin-right: 40px;
+    display: inline-block;
+    vertical-align: top;
+  }
+  .right {
+    width: 350px;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .team {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    a {
+      color: black;
+    }
+  }
+  footer {
+    color: rgb(160, 160, 160);
+    font-size: 11px;
+    line-height: 14px;    
+    margin-top: 15px;
+  }
+
+  &:not(.visible) {
+    display: none;
+  }
+}
+
 #new-street-menu {
   position: absolute;
   top: -5px;
@@ -2652,13 +2741,6 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
       max-width: 100%;
       outline: 1px solid darken(@uiColour, 20%);
     }    
-    a {
-      color: darken(@uiColour, 30%);
-
-      &:hover {
-        color: darken(@uiColour, 50%);
-      }
-    }
   }
 
   .warnings {

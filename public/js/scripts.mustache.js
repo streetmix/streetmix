@@ -87,6 +87,8 @@ var main = (function(){
   var URL_GLOBAL_GALLERY = 'gallery';
   var URL_ERROR = 'error';
   var URL_NO_USER = '-';
+  var URL_HELP = 'help';
+  var URL_ABOUT = 'about';
 
   var URL_SIGN_IN_REDIRECT = URL_SIGN_IN + '?callbackUri=' + 
       URL_SIGN_IN_CALLBACK_ABS + '&redirectUri=' + URL_JUST_SIGNED_IN_ABS;
@@ -97,7 +99,7 @@ var main = (function(){
       [URL_SIGN_IN, URL_SIGN_IN_CALLBACK, 
       URL_NEW_STREET, URL_NEW_STREET_COPY_LAST,
       URL_JUST_SIGNED_IN, 
-      'help', URL_GLOBAL_GALLERY, URL_ERROR, 'streets'];
+      URL_HELP, URL_GLOBAL_GALLERY, URL_ERROR, 'streets'];
   var URL_RESERVED_PREFIX = '~';
 
   var MODE_CONTINUE = 1;
@@ -117,6 +119,7 @@ var main = (function(){
   var MODE_STREET_404 = 15;
   var MODE_STREET_404_BUT_LINK_TO_USER = 16;
   var MODE_STREET_410_BUT_LINK_TO_USER = 17;
+  var MODE_ABOUT = 18;
 
   var ERROR_404 = 1;
   var ERROR_SIGN_OUT = 2;
@@ -4718,7 +4721,7 @@ var main = (function(){
     var streetSectionHeight = 
         document.querySelector('#street-section-inner').offsetHeight;
 
-    var paletteTop = document.querySelector('footer').offsetTop || system.viewportHeight;
+    var paletteTop = document.querySelector('#main-screen footer').offsetTop || system.viewportHeight;
 
     // TODO const
     streetSectionTop = (system.viewportHeight - streetSectionHeight) / 2 + 30 + 180; // gallery height
@@ -5101,7 +5104,9 @@ var main = (function(){
       case KEY_ESC:
         _hideDebugInfo();
 
-        if (draggingType == DRAGGING_TYPE_RESIZE) {
+        if (document.querySelector('#about').classList.contains('visible')) {
+          _hideAboutMenu();
+        } else if (draggingType == DRAGGING_TYPE_RESIZE) {
           _handleSegmentResizeCancel();
         } else if (draggingType == DRAGGING_TYPE_MOVE) {
           _handleSegmentMoveCancel();
@@ -5564,6 +5569,34 @@ var main = (function(){
 
   function _hideNewStreetMenu() {
     document.querySelector('#new-street-menu').classList.remove('visible');
+  }
+
+  function _showAboutMenu(event) {
+    _hideMenus();
+
+    document.querySelector('#about').classList.add('visible');
+    document.querySelector('#about-shield').classList.add('visible');
+
+    var els = document.querySelectorAll('#about .avatar');
+    for (var i = 0, el; el = els[i]; i++) {
+      el.removeAttribute('postpone');
+    }
+
+    // TODO const
+    window.history.replaceState(null, null, '/help/about');    
+
+    _fetchAvatars();
+
+    if (event) {
+      event.preventDefault();
+    }
+  }
+
+  function _hideAboutMenu() {
+    document.querySelector('#about').classList.remove('visible');
+    document.querySelector('#about-shield').classList.remove('visible');
+
+    _updatePageUrl();
   }
 
   function _fetchGalleryData() {
@@ -6194,6 +6227,16 @@ var main = (function(){
   }
 
   function _addEventListeners() {
+    if (system.touch) {
+      document.querySelector('#about-shield').addEventListener('touchstart', _hideAboutMenu);
+      document.querySelector('#about .close').addEventListener('touchstart', _hideAboutMenu);
+    } else {
+      document.querySelector('#about-shield').addEventListener('click', _hideAboutMenu);
+      document.querySelector('#about .close').addEventListener('click', _hideAboutMenu);
+    }
+
+    document.querySelector('#about-streetmix').addEventListener('click', _showAboutMenu);
+
     document.querySelector('#street-scroll-indicator-left').addEventListener('click', _onStreetLeftScrollClick);
     document.querySelector('#street-scroll-indicator-right').addEventListener('click', _onStreetRightScrollClick);
 
@@ -7944,6 +7987,8 @@ var main = (function(){
       _showGallery(galleryUserId, true);
     } else if (mode == MODE_GLOBAL_GALLERY) {
       _showGallery(null, true);
+    } else if (mode == MODE_ABOUT) {
+      _showAboutMenu();
     }
 
     if (promoteStreet) {
@@ -8223,6 +8268,7 @@ var main = (function(){
     _createSignInUI();
 
     if ((mode == MODE_CONTINUE) || (mode == MODE_JUST_SIGNED_IN) || 
+        (mode == MODE_ABOUT) ||
         (mode == MODE_USER_GALLERY) || (mode == MODE_GLOBAL_GALLERY)) {
       if (settings.lastStreetId) {
         street.creatorId = settings.lastStreetCreatorId;
@@ -8249,6 +8295,7 @@ var main = (function(){
       case MODE_EXISTING_STREET:
       case MODE_CONTINUE:
       case MODE_USER_GALLERY:
+      case MODE_ABOUT:
       case MODE_GLOBAL_GALLERY:
         _fetchStreetFromServer();
         break;
@@ -8413,6 +8460,10 @@ var main = (function(){
       galleryUserId = urlParts[0];
 
       mode = MODE_USER_GALLERY;
+    } else if ((urlParts.length == 2) && (urlParts[0] == URL_HELP) && (urlParts[1] == URL_ABOUT)) {
+      // About
+
+      mode = MODE_ABOUT;
     } else if ((urlParts.length == 2) && (urlParts[0] == URL_NO_USER) && urlParts[1]) {
       // TODO add is integer urlParts[1];
       // Existing street by an anonymous person
@@ -8513,8 +8564,9 @@ var main = (function(){
 
     for (var i = 0, el; el = els[i]; i++) {
       var userId = el.getAttribute('userId');
+      var postpone = el.getAttribute('postpone');
 
-      if (userId && (typeof avatarCache[userId] == 'undefined')) {
+      if (userId && !postpone && (typeof avatarCache[userId] == 'undefined')) {
         _fetchAvatar(userId);
       }
     }
@@ -8539,7 +8591,7 @@ var main = (function(){
   }
 
   function _errorReceiveStreet(data) {
-    if ((mode == MODE_CONTINUE) || (mode == MODE_USER_GALLERY) || 
+    if ((mode == MODE_CONTINUE) || (mode == MODE_USER_GALLERY) || (mode == MODE_ABOUT) ||
         (mode == MODE_GLOBAL_GALLERY)) {
       _goNewStreet();
     } else {
@@ -8775,6 +8827,7 @@ var main = (function(){
         break;
       case MODE_CONTINUE:
       case MODE_USER_GALLERY:
+      case MODE_ABOUT:
       case MODE_GLOBAL_GALLERY:
         serverContacted = false;
         break;
