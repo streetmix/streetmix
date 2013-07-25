@@ -56,6 +56,10 @@ app.all('*', function(req, res, next) {
   }
 })
 
+app.get('/help/about-beta', function(req, res) {
+  res.sendfile(__dirname + '/public/help/about-beta/index.html')
+})
+
 // Catch-all
 app.use(function(req, res) {
   res.sendfile(__dirname + '/public/index.html')
