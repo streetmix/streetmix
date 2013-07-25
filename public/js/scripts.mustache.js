@@ -7100,8 +7100,8 @@ var main = (function(){
       if (canBeDeleted) {
         var innerEl = document.createElement('button');
         innerEl.classList.add('remove');
-        //innerEl.innerHTML = '⏏';
-        _infoBubble.createVariantIcon('trashcan', innerEl);
+        innerEl.innerHTML = 'Remove';
+        //_infoBubble.createVariantIcon('trashcan', innerEl);
         innerEl.segmentEl = _infoBubble.segmentEl;
         innerEl.tabIndex = -1;
         innerEl.setAttribute('title', msg('TOOLTIP_REMOVE_SEGMENT'));
