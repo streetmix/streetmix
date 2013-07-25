@@ -1694,7 +1694,7 @@ var main = (function(){
       return;
     }
 
-    if (imagesToBeLoaded == 0) {
+    if ((imagesToBeLoaded == 0) && (sw > 0) && (sh > 0) && (dw > 0) && (dh > 0)) {
       // TODO move
       var TILESET_CORRECTION = [null, 0, -84, -162];
       sx += TILESET_CORRECTION[tileset] * 12;
@@ -1710,6 +1710,13 @@ var main = (function(){
       if (dy + dh > ctx.canvas.height) {
         dh = ctx.canvas.height - dy;
       }*/
+
+      if (sx < 0) {
+        dw += sx;
+        sx = 0;
+      }
+
+      //console.log(sx, sy, sw, sh, dx, dy, dw, dh);
 
       ctx.drawImage(images['/images/tiles-' + tileset + '.png'],
           sx * TILESET_POINT_PER_PIXEL, sy * TILESET_POINT_PER_PIXEL, 
@@ -2577,8 +2584,10 @@ var main = (function(){
       ctx.save();
       ctx.globalCompositeOperation = 'source-atop';
       // TODO const
-      ctx.fillStyle = 'rgb(133, 183, 204)';
+      ctx.fillStyle = 'rgba(204, 163, 173, .9)';
       ctx.fillRect(0, 0, totalWidth * system.hiDpi, totalHeight * system.hiDpi);
+      //ctx.fillStyle = 'rgba(133, 183, 204, .8)';
+      //ctx.fillRect(0, 0, totalWidth * system.hiDpi, totalHeight * system.hiDpi);
       ctx.restore();
     }
   }
@@ -7095,8 +7104,8 @@ var main = (function(){
       if (canBeDeleted) {
         var innerEl = document.createElement('button');
         innerEl.classList.add('remove');
-        //innerEl.innerHTML = '⏏';
-        _infoBubble.createVariantIcon('trashcan', innerEl);
+        innerEl.innerHTML = 'Remove';
+        //_infoBubble.createVariantIcon('trashcan', innerEl);
         innerEl.segmentEl = _infoBubble.segmentEl;
         innerEl.tabIndex = -1;
         innerEl.setAttribute('title', msg('TOOLTIP_REMOVE_SEGMENT'));
