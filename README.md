@@ -5,7 +5,7 @@ Streetmix is a browser-based interactive tool that lets you design, remix, and s
 
 Streetmix is currently live at http://streetmix.net/
 
-![screenshot](https://raw.github.com/codeforamerica/streetmix/master/public/doc/screenshot.jpg)
+![screenshot](https://raw.github.com/codeforamerica/streetmix/master/public/images/help/doc/screenshot-beta.jpg)
 
 ## <a name="about"></a>About
 
