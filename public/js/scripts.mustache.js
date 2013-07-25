@@ -5245,6 +5245,9 @@ var main = (function(){
     if (debug.secretSegments) {
       url += '&debug-secret-segments';
     }
+    if (debug.forceReadOnly) {
+      url += '&debug-force-read-only';
+    }
 
     url = url.replace(/\&/, '?');
 
@@ -8473,6 +8476,10 @@ var main = (function(){
 
     if (url.match(/[\?\&]debug-hover-polygon\&?/)) {
       debug.hoverPolygon = true;
+    }
+
+    if (url.match(/[\?\&]debug-force-read-only\&?/)) {
+      debug.forceReadOnly = true;
     }
   }
 
