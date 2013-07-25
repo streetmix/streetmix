@@ -2691,14 +2691,15 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
 
   .description-canvas {
     position: absolute;
-    left: 0;
-    top: 38px;
-    right: 0;
+    left: -50px;
+    top: 36px;
+    right: -50px;
     bottom: 0;
 
     opacity: 0;
     pointer-events: none;
 
+    border-top: 1px solid darken(@uiColour, 20%);
     border-bottom: 3px solid darken(@uiColour, 20%);
 
     -webkit-transform-origin: 50% 0;
@@ -2714,13 +2715,6 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
     transition: opacity 250ms, transform 250ms;
 
     background: @infoBubbleBackground;
-
-    .lede {
-      font-size: 150%;
-      font-weight: 300;
-      line-height: 1.25em;
-    }
-
   }
 
   .description {
@@ -2743,6 +2737,12 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
       &:first-child {
         margin-top: 0;
       }
+
+      &.lede {
+        font-size: 150%;
+        font-weight: 300;
+        line-height: 1.25;
+      }      
     }
     footer {
       text-align: right;
