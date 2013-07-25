@@ -703,6 +703,13 @@ body.gallery-visible #gallery-shield {
 
   background: @bottomBackground;
 }
+/*body.street-overflows #street-section-left-building,
+body.street-overflows #street-section-left-building-old,
+body.street-overflows #street-section-right-building,
+body.street-overflows #street-section-right-building-old {
+  opacity: .2;
+}*/
+
 #street-section-left-building,
 #street-section-left-building-old,
 #street-section-right-building,
@@ -1314,8 +1321,8 @@ body.segment-resize-dragging .drag-handle.floating,
   top: 0;
   bottom: 45px;
 
-  border-left: 1px dashed fadeout(@warningColour, 60%);
-  border-right: 1px dashed fadeout(@warningColour, 60%);
+  border-left: 1px dashed fadeout(black, 60%);
+  border-right: 1px dashed fadeout(black, 60%);
 
   box-sizing: border-box;
 
@@ -1327,7 +1334,7 @@ body.segment-resize-dragging .drag-handle.floating,
     pointer-events: none;
     bottom: 400px;
     font-size: 11px;
-    color: fadeout(@warningColour, 40%);
+    color: fadeout(black, 40%);
   }
 
   &.max::before {

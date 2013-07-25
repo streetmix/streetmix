@@ -2582,8 +2582,10 @@ var main = (function(){
       ctx.save();
       ctx.globalCompositeOperation = 'source-atop';
       // TODO const
-      ctx.fillStyle = 'rgb(133, 183, 204)';
+      ctx.fillStyle = 'rgba(204, 163, 173, .9)';
       ctx.fillRect(0, 0, totalWidth * system.hiDpi, totalHeight * system.hiDpi);
+      //ctx.fillStyle = 'rgba(133, 183, 204, .8)';
+      //ctx.fillRect(0, 0, totalWidth * system.hiDpi, totalHeight * system.hiDpi);
       ctx.restore();
     }
   }
