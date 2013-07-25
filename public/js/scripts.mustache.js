@@ -3,9 +3,8 @@
  *
  * Front-end (mostly) by Marcin Wichary, Code for America fellow in 2013.
  *
- * Note: This code is really gnarly. It’s been done under a lot of time 
- * pressure and there’s a lot of shortcut and tech debt. Slowly going through
- * this all.
+ * Note (July 2013): This code is still wonky. Now that we’re out of beta, I will be
+ * dedicating some effort to cleaning it up.
  */
 
 var main = (function(){
