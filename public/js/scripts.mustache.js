@@ -1564,16 +1564,19 @@ var main = (function(){
   var mouseY;
 
   var system = {
-    apiUrl: null,
     touch: false,
-    hiDpi: 1.0,
-    cssTransform: false,
-    ipAddress: null,
-
+    phone: false,
     safari: false,
 
     viewportWidth: null,
-    viewportHeight: null
+    viewportHeight: null,
+
+    hiDpi: 1.0,
+    cssTransform: false,
+
+    ipAddress: null,
+
+    apiUrl: null,
   };
 
   var debug = {
@@ -6411,6 +6414,12 @@ var main = (function(){
       system.hiDpi = 1.0;
     } else {
       system.hiDpi = window.devicePixelRatio;      
+    }
+
+    if (matchMedia && matchMedia('only screen and (max-width: 480px)').matches) {
+      system.phone = true;
+    } else {
+      system.phone = false;
     }
 
     if (system.touch) {
