@@ -777,6 +777,10 @@ body.street-overflows #street-section-right-building-old {
   user-select: none;
 }
 
+body.read-only #main-screen > footer {
+  display: none;
+}
+
 .footer-canvas {
   width: 100%;
   height: @paletteHeight;
@@ -1025,11 +1029,10 @@ body.segment-resize-dragging .segment:not(.unmovable).hover {
   }
 }
 
-.segment:not(.unmovable) {
+body:not(.read-only) .segment:not(.unmovable) {
   cursor: -webkit-grab;
   cursor: -moz-grab;  
 }
-
 
 .segment .image {
   overflow: hidden;
@@ -1851,6 +1854,11 @@ body.no-connection-message-visible #status-message {
   }
 }
 
+body.read-only #top-menu-bar {
+  display: none;
+}
+
+
 .box-border {
   border-top: 3px solid darken(@uiColour, 20%);
   border-bottom: 3px solid darken(@uiColour, 20%);
@@ -2311,6 +2319,9 @@ body:not(.touch-support) #street-name {
 body.edit-street-width #street-width-read {
   display: none;
   pointer-events: none;
+}
+body.read-only #street-width-read {
+  display: none;
 }
 #street-width {
   width: 150px;

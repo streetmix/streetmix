@@ -1496,6 +1496,8 @@ var main = (function(){
   var abortEverything;
   var currentErrorType;
 
+  var readOnly = false;
+
   var draggingType = DRAGGING_TYPE_NONE;
 
   var draggingResize = {
@@ -3900,6 +3902,10 @@ var main = (function(){
   }
 
   function _handleSegmentResizeStart(event) {
+    if (readOnly) {
+      return;
+    }
+
     if (event.touches && event.touches[0]) {
       var x = event.touches[0].pageX;
       var y = event.touches[0].pageY;
@@ -4035,6 +4041,10 @@ var main = (function(){
   }  
 
   function _handleSegmentMoveStart(event) {
+    if (readOnly) {
+      return;
+    }
+
     ignoreStreetChanges = true;
 
     if (event.touches && event.touches[0]) {
@@ -6453,6 +6463,14 @@ var main = (function(){
         _processMode();
       }    
     }
+
+    if (debug.forceReadOnly) {
+      readOnly = true;
+    }
+
+    if (readOnly) {
+      document.body.classList.add('read-only');
+    }
   }
 
   var _noConnectionMessage = {
@@ -6804,7 +6822,7 @@ var main = (function(){
     },
 
     considerShowing: function(event, segmentEl, type) {
-      if (menuVisible) {
+      if (menuVisible || readOnly) {
         return;
       }
 
