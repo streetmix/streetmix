@@ -3315,6 +3315,10 @@ var main = (function(){
   }
 
   function _saveStreetToServer(initial) {
+    if (readOnly) {
+      return;
+    }
+
     var transmission = _packServerStreetData();
 
     if (initial) {
@@ -3433,6 +3437,10 @@ var main = (function(){
   }
 
   function _remixStreet() {
+    if (readOnly) {
+      return;
+    }
+
     remixOnFirstEdit = false;
 
     if (signedIn) {
@@ -6429,8 +6437,9 @@ var main = (function(){
       system.hiDpi = window.devicePixelRatio;      
     }
 
-    if (matchMedia && matchMedia('only screen and (max-width: 480px)').matches) {
+    if (matchMedia && matchMedia('only screen and (max-device-width: 480px)').matches) {
       system.phone = true;
+      //alert('yes');
     } else {
       system.phone = false;
     }
@@ -6457,14 +6466,14 @@ var main = (function(){
     if (!debug.forceUnsupportedBrowser) {
       // TODO temporary ban
       if ((navigator.userAgent.indexOf('Opera') != -1) || 
-          (navigator.userAgent.indexOf('Internet Explorer') != -1) ||
-          (navigator.userAgent.indexOf('iPhone') != -1)) {
+          (navigator.userAgent.indexOf('iPhone') != -1) || 
+          (navigator.userAgent.indexOf('Internet Explorer') != -1)) {
         mode = MODE_UNSUPPORTED_BROWSER;
         _processMode();
       }    
     }
 
-    if (debug.forceReadOnly) {
+    if (system.phone || debug.forceReadOnly) {
       readOnly = true;
     }
 
