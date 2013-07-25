@@ -1,16 +1,11 @@
-streetmix
+Streetmix
 =========
 
-A fun, web-based street section builder, inspired by [Blockee][].
+Streetmix is a browser-based interactive tool that lets you design, remix, and share your neighborhood street.  Add trees or bike paths, widen sidewalks or traffic lanes, and learn how your decisions can impact your community.
 
-Streetmix has had a total development time of about five hours, so it is a:
-* proof of concept
-* work in progress
-* pre-release alpha
+Streetmix is currently live at http://streetmix.net/
 
-We appreciate all the feedback and excitement we've received on our project so far, so we'll continue working on it here at Code for America Labs to get all the features we want to include! To join the conversation, please check out our [GitHub issue tracker][issues] or shoot an e-mail to our project team at streetmix@codeforamerica.org.
-
-[blockee]: http://blockee.org/
+![screenshot](https://raw.github.com/codeforamerica/streetmix/master/public/doc/screenshot.jpg)
 
 ## <a name="about"></a>About
 
@@ -37,7 +32,19 @@ In addition, one of the goals of Streetmix is to be part of the national convers
 
 #### How did this project start?
 
-Streetmix was started as a [Code for America][cfa] hackathon project in January 2013.  The team comprised of 2013 Code for America fellows [Ans Bradford][ans], [Lou Huang][louh], [Katie Lewis][katie], [Ezra Spier][ahhrrr] and [Marcin Wichary][mwichary].
+Streetmix was started as a [Code for America][cfa] hackathon project in January 2013, inspired by community meetings like the one described above, and a similar CfA project in 2012 called [Blockee][http://blockee.org/].
+
+#### Credits
+
+The team is comprised of 2013 Code for America fellows.
+
+* [Ans Bradford][ans], media production
+* [Ezra Spier][ahhrrr], cat herder, proto-urbanist
+* [Katie Lewis][katie], illustrator
+* [Lou Huang][louh], project lead, research, outreach, transit fan
+* [Marc Hébert][marccfa], UX researcher, design anthropologist
+* [Marcin Wichary][mwichary], UX, FE, PM, sharrow whisperer
+* [Shaunak Kashyap][ycombinator], rear end engineering
 
 [cfa]: http://codeforamerica.org/
 [ahhrrr]: https://github.com/ahhrrr
@@ -45,13 +52,13 @@ Streetmix was started as a [Code for America][cfa] hackathon project in January 
 [mwichary]: https://github.com/mwichary
 [ans]: https://github.com/anselmbradford
 [katie]: https://github.com/katielewis
+[ycombinator]: https://github.com/ycombinator
+[marccfa]: https://github.com/MarcCfA
 
-## <a name="screenshots"></a>Screenshot
+You can contact us all together through our team e-mail address at streetmix@codeforamerica.org.
 
-![screenshot](https://raw.github.com/codeforamerica/streetmix/master/public/doc/screenshot.jpg)
+Also, this project was made possible by the support of Code for America staff and other 2013 fellows, as well as our network of urbanists, design and planning professionals, and testers, who have provided us countless amounts of time and feedback towards this development.
 
-## <a name="demo"></a>Demo
-You can see a running version of the application at http://streetmix.net/
 
 ## <a name="development-setup"></a>Development Setup
 
