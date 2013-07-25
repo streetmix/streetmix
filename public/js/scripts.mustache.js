@@ -197,7 +197,7 @@ var main = (function(){
 
   var SEGMENT_Y_NORMAL = 265;
   var SEGMENT_Y_PALETTE = 20;
-  var PALETTE_EXTRA_SEGMENT_PADDING = 5;
+  var PALETTE_EXTRA_SEGMENT_PADDING = 8;
 
   var DRAG_OFFSET_Y_PALETTE = -340 - 150;
   var DRAG_OFFSET_Y_TOUCH_PALETTE = -100;
@@ -1498,6 +1498,8 @@ var main = (function(){
   var abortEverything;
   var currentErrorType;
 
+  var readOnly = false;
+
   var draggingType = DRAGGING_TYPE_NONE;
 
   var draggingResize = {
@@ -1566,16 +1568,19 @@ var main = (function(){
   var mouseY;
 
   var system = {
-    apiUrl: null,
     touch: false,
-    hiDpi: 1.0,
-    cssTransform: false,
-    ipAddress: null,
-
+    phone: false,
     safari: false,
 
     viewportWidth: null,
-    viewportHeight: null
+    viewportHeight: null,
+
+    hiDpi: 1.0,
+    cssTransform: false,
+
+    ipAddress: null,
+
+    apiUrl: null,
   };
 
   var debug = {
@@ -3312,6 +3317,10 @@ var main = (function(){
   }
 
   function _saveStreetToServer(initial) {
+    if (readOnly) {
+      return;
+    }
+
     var transmission = _packServerStreetData();
 
     if (initial) {
@@ -3430,6 +3439,10 @@ var main = (function(){
   }
 
   function _remixStreet() {
+    if (readOnly) {
+      return;
+    }
+
     remixOnFirstEdit = false;
 
     if (signedIn) {
@@ -3899,6 +3912,10 @@ var main = (function(){
   }
 
   function _handleSegmentResizeStart(event) {
+    if (readOnly) {
+      return;
+    }
+
     if (event.touches && event.touches[0]) {
       var x = event.touches[0].pageX;
       var y = event.touches[0].pageY;
@@ -4034,6 +4051,10 @@ var main = (function(){
   }  
 
   function _handleSegmentMoveStart(event) {
+    if (readOnly) {
+      return;
+    }
+
     ignoreStreetChanges = true;
 
     if (event.touches && event.touches[0]) {
@@ -5244,6 +5265,9 @@ var main = (function(){
     if (debug.secretSegments) {
       url += '&debug-secret-segments';
     }
+    if (debug.forceReadOnly) {
+      url += '&debug-force-read-only';
+    }
 
     url = url.replace(/\&/, '?');
 
@@ -6415,6 +6439,13 @@ var main = (function(){
       system.hiDpi = window.devicePixelRatio;      
     }
 
+    if (matchMedia && matchMedia('only screen and (max-device-width: 480px)').matches) {
+      system.phone = true;
+      //alert('yes');
+    } else {
+      system.phone = false;
+    }
+
     if (system.touch) {
       document.body.classList.add('touch-support');
     }
@@ -6437,11 +6468,19 @@ var main = (function(){
     if (!debug.forceUnsupportedBrowser) {
       // TODO temporary ban
       if ((navigator.userAgent.indexOf('Opera') != -1) || 
-          (navigator.userAgent.indexOf('Internet Explorer') != -1) ||
-          (navigator.userAgent.indexOf('iPhone') != -1)) {
+          (navigator.userAgent.indexOf('iPhone') != -1) || 
+          (navigator.userAgent.indexOf('Internet Explorer') != -1)) {
         mode = MODE_UNSUPPORTED_BROWSER;
         _processMode();
       }    
+    }
+
+    if (system.phone || debug.forceReadOnly) {
+      readOnly = true;
+    }
+
+    if (readOnly) {
+      document.body.classList.add('read-only');
     }
   }
 
@@ -6794,7 +6833,7 @@ var main = (function(){
     },
 
     considerShowing: function(event, segmentEl, type) {
-      if (menuVisible) {
+      if (menuVisible || readOnly) {
         return;
       }
 
@@ -8466,6 +8505,10 @@ var main = (function(){
 
     if (url.match(/[\?\&]debug-hover-polygon\&?/)) {
       debug.hoverPolygon = true;
+    }
+
+    if (url.match(/[\?\&]debug-force-read-only\&?/)) {
+      debug.forceReadOnly = true;
     }
   }
 

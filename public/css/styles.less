@@ -777,6 +777,10 @@ body.street-overflows #street-section-right-building-old {
   user-select: none;
 }
 
+body.read-only #main-screen > footer {
+  display: none;
+}
+
 .footer-canvas {
   width: 100%;
   height: @paletteHeight;
@@ -982,10 +986,12 @@ body.immediate-segment-resize .segment {
 
   //overflow: hidden;
 
-  margin: 12px 5px;
+  margin: 12px 0;
   height: 80px;
   top: 0;
   background-color: fadeout(@skyColour, 30%);
+
+  margin-right: 1px;
 
   -webkit-transform-origin: 50% 75%;
   -moz-transform-origin: 50% 75%;
@@ -1025,11 +1031,10 @@ body.segment-resize-dragging .segment:not(.unmovable).hover {
   }
 }
 
-.segment:not(.unmovable) {
+body:not(.read-only) .segment:not(.unmovable) {
   cursor: -webkit-grab;
   cursor: -moz-grab;  
 }
-
 
 .segment .image {
   overflow: hidden;
@@ -1850,6 +1855,11 @@ body.no-connection-message-visible #status-message {
     }
   }
 }
+
+body.read-only #top-menu-bar {
+  display: none;
+}
+
 
 .box-border {
   border-top: 3px solid darken(@uiColour, 20%);
@@ -3064,7 +3074,6 @@ button {
   border: none;
   border-top: 1px solid darken(@uiColour, 10%);
   border-bottom: 1px solid darken(@uiColour, 10%);
-  padding: 10px;
 
   &:not([disabled]):hover {
     background: mix(@uiColour, white, 70%);
