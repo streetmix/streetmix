@@ -602,7 +602,7 @@ var main = (function(){
       defaultWidth: 4,
       variants: ['wayfinding-type'],
       descriptionPrompt: 'Learn more about wayfinding signs',
-      description: '<img src="/images/info-bubble-examples/wayfinding-01.jpg"><p class="lede">Wayfinding signs helps pedestrians get to common destinations.</p><p>Urban planners and architects have spent a few decades trying to learn what happens in people’s brains when they figure out how to get from point A to point B – or how they even know where “point A” is to begin with. As early as 1960, urban planner Kevin Lynch wrote of the “legibility” of the city in his book <em><a href="http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014">The Image of the City</a></em>, describing wayfinding as “a consistent use and organization of definite sensory cues from the external environment.” It could be sensory in nature – smell, touch, a sense of gravity or even electric or magnetic fields. Or it could be much more intentional, with “wayfinding devices” like maps, street numbers, or route signs.</p><p>It’s actually surprising how readily acceptable it is for cars to have ample signage, and less so at the pedestrian level. Maybe it’s because we get to stand still, take stock of our surroundings, and learn from our environment using those intangible cues, without fear of accidentally causing a six-person pileup. At any rate, urban designers have pushed for pedestrian-friendly wayfinding signage, particularly in walkable commercial neighborhoods, and these signs turn out to be branding opportunities as much as they are functional. So New York City <a href="http://new.pentagram.com/2013/06/new-work-nyc-wayfinding/">hired an internationally renowned design consultant</a> (and Streetmix has modeled its segments after it), many others have adopted a traditional old-town or civic-formal take (pictured above), and then there are those, for whatever reason, who lack any pedestrian wayfinding signage of significance, such that the conversation must be spurred by <a href="http://walkyourcity.org/">guerrilla wayfinding tactics</a>.</p><p>After all, there’s nothing worse than being lost. As Lynch wrote: “The very word <em>lost</em> in our language means much more than simple geographical uncertainty; it carries overtones of utter disaster.” And who wants being on the street to feel like that?</p><footer>Photo: Fruitvale wayfinding sign, licensed under Creative Commons via Oakland Wiki.</footer>',
+      description: '<img src="/images/info-bubble-examples/wayfinding-01.jpg"><p class="lede">Wayfinding signs help pedestrians get to common destinations.</p><p>Urban planners and architects have spent a few decades trying to learn what happens in people’s brains when they figure out how to get from point A to point B – or how they even know where “point A” is to begin with. As early as 1960, urban planner Kevin Lynch wrote of the “legibility” of the city in his book <em><a href="http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014">The Image of the City</a></em>, describing wayfinding as “a consistent use and organization of definite sensory cues from the external environment.” It could be sensory in nature – smell, touch, a sense of gravity or even electric or magnetic fields. Or it could be much more intentional, with “wayfinding devices” like maps, street numbers, or route signs.</p><p>It’s actually surprising how readily acceptable it is for cars to have ample signage, and less so at the pedestrian level. Maybe it’s because we get to stand still, take stock of our surroundings, and learn from our environment using those intangible cues, without fear of accidentally causing a six-person pileup. At any rate, urban designers have pushed for pedestrian-friendly wayfinding signage, particularly in walkable commercial neighborhoods, and these signs turn out to be branding opportunities as much as they are functional. So New York City <a href="http://new.pentagram.com/2013/06/new-work-nyc-wayfinding/">hired an internationally renowned design consultant</a> (and Streetmix has modeled its segments after it), many others have adopted a traditional old-town or civic-formal take (pictured above), and then there are those, for whatever reason, who lack any pedestrian wayfinding signage of significance, such that the conversation must be spurred by <a href="http://walkyourcity.org/">guerrilla wayfinding tactics</a>.</p><p>After all, there’s nothing worse than being lost. As Lynch wrote: “The very word <em>lost</em> in our language means much more than simple geographical uncertainty; it carries overtones of utter disaster.” And who wants being on the street to feel like that?</p><footer>Photo: Fruitvale wayfinding sign, licensed under Creative Commons via Oakland Wiki.</footer>',
       details: {
         'large': {
           graphics: {
@@ -872,8 +872,8 @@ var main = (function(){
           minWidth: 12,
           maxWidth: 14,
           defaultWidth: 14,
-          //descriptionPrompt: 'Learn more about sharrows',
-          //description: 'SHARROW 1',
+          descriptionPrompt: 'Learn more about sharrows',
+          description: '<p class="lede">Sharrows are marked travel lanes shared by both cars and bikes.</p><p>Officially known in transportation planning as “shared lane marking,” sharrows (a portmanteau of “shared” and “arrow”) refer to the arrow markings themselves, but aren’t actually a different <em>type</em> of lane. In many places, bicycles are already allowed on any street meant for cars, and are bound by the same laws.</p><p>That being said, it doesn’t take a rocket scientist to see that cars and bikes behave very differently, and for both the safety of cyclists and the sanity of car drivers, separate bike lanes are much more preferable. But for many cyclists, when there’s not enough road space for those bike lanes, the argument is that sharrows are better than nothing else at all.</p><p>The reason that works is because motorists tend to forget there are other types of vehicles, and cyclists appreciate any opportunity to remind motorists that they exist and must coexist peacefully together. After all, markings are cheap. Unfortunately, they’re also not all that safe:: X% of bicyclists in the United States are injured or die on sharrows each year, compared to Y% for a dedicated bike lane. The moral of the story is, if you really want more bicyclists, try to put in a normal bike lane first before resortig to sharrows.</p>',
           graphics: {
             center: [
               { tileset: 1, x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
@@ -888,8 +888,8 @@ var main = (function(){
           minWidth: 12,
           maxWidth: 14,
           defaultWidth: 14,
-          //descriptionPrompt: 'Learn more about sharrows',
-          //description: 'SHARROW 2',
+          descriptionPrompt: 'Learn more about sharrows',
+          description: 'SHARROW 2',
           graphics: {
             center: [
               { tileset: 1, x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
@@ -1406,12 +1406,14 @@ var main = (function(){
       { type: "bike-lane", variant: { 'direction': 'outbound', 'bike-asphalt': 'colored' }, width: 6 },
       { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'left', 'lamp-type': 'modern' }, width: 2 },
       { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 2 },
+      { type: "sidewalk-wayfinding", variant: { 'wayfinding-type': 'medium' }, width: 2 },
       { type: "sidewalk", variant: { 'sidewalk-density': 'normal' }, width: 6 },
-      { type: "sidewalk-bench", variant: { 'bench-orientation': 'right' }, width: 2 },
+//      { type: "sidewalk-bench", variant: { 'bench-orientation': 'right' }, width: 2 },
     ],
     true: [ // Left-hand traffic
-      { type: "sidewalk-bench", variant: { 'bench-orientation': 'left' }, width: 2 },
+//      { type: "sidewalk-bench", variant: { 'bench-orientation': 'left' }, width: 2 },
       { type: "sidewalk", variant: { 'sidewalk-density': 'normal' }, width: 6 },
+      { type: "sidewalk-wayfinding", variant: { 'wayfinding-type': 'medium' }, width: 2 },
       { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 2 },
       { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'right', 'lamp-type': 'modern' }, width: 2 },
       { type: "bike-lane", variant: { 'direction': 'outbound', 'bike-asphalt': 'colored' }, width: 6 },
