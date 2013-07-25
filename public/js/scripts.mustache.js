@@ -870,6 +870,8 @@ var main = (function(){
           minWidth: 12,
           maxWidth: 14,
           defaultWidth: 14,
+          //descriptionPrompt: 'Learn more about sharrows',
+          //description: 'SHARROW 1',
           graphics: {
             center: [
               { tileset: 1, x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
@@ -884,6 +886,8 @@ var main = (function(){
           minWidth: 12,
           maxWidth: 14,
           defaultWidth: 14,
+          //descriptionPrompt: 'Learn more about sharrows',
+          //description: 'SHARROW 2',
           graphics: {
             center: [
               { tileset: 1, x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
@@ -5572,6 +5576,10 @@ var main = (function(){
   }
 
   function _showAboutMenu(event) {
+    if (event && (event.shiftKey || event.ctrlKey || event.metaKey)) {
+      return;
+    }
+
     _hideMenus();
 
     document.querySelector('#about').classList.add('visible');
@@ -6885,6 +6893,73 @@ var main = (function(){
       _infoBubble.el.style.transformOrigin = '50% ' + height + 'px';
     },
 
+    updateDescriptionInContents: function(segment) {
+      if (!_infoBubble.segmentEl || !segment || !segment.el || 
+          (_infoBubble.segmentEl != segment.el)) {
+        return;
+      }
+
+      var segmentInfo = SEGMENT_INFO[segment.type];
+      var variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString];
+
+      _removeElFromDom(_infoBubble.el.querySelector('.description-prompt'));
+      _removeElFromDom(_infoBubble.el.querySelector('.description-canvas'));
+
+      var description = '';
+      if (variantInfo && variantInfo.description) {
+        var description = variantInfo.description;
+        var descriptionPrompt = variantInfo.descriptionPrompt;
+      } else if (segmentInfo && segmentInfo.description) {
+        var description = segmentInfo.description;
+        var descriptionPrompt = segmentInfo.descriptionPrompt;
+      }
+
+      if (description) {
+        var el = document.createElement('div');
+        el.classList.add('description-prompt');
+        el.innerHTML = descriptionPrompt;
+        if (system.touch) {
+          el.addEventListener('touchstart', _infoBubble.showDescription);
+        } else {
+          el.addEventListener('click', _infoBubble.showDescription);
+        }
+        $(el).mouseenter(_infoBubble.highlightTriangle);
+        $(el).mouseleave(_infoBubble.unhighlightTriangle);
+        _infoBubble.el.appendChild(el);
+
+        var el = document.createElement('div');
+        el.classList.add('description-canvas');
+
+        var innerEl = document.createElement('div');
+        innerEl.classList.add('description');
+        innerEl.innerHTML = description;
+        el.appendChild(innerEl);
+
+        var els = innerEl.querySelectorAll('a');
+        for (var i = 0, anchorEl; anchorEl = els[i]; i++) {
+          anchorEl.target = '_blank';
+        }
+
+        var innerEl = document.createElement('div');
+        innerEl.classList.add('description-close');
+        innerEl.innerHTML = 'Close';
+        if (system.touch) {
+          innerEl.addEventListener('touchstart', _infoBubble.hideDescription);
+        } else {
+          innerEl.addEventListener('click', _infoBubble.hideDescription);          
+        }
+        $(innerEl).mouseenter(_infoBubble.highlightTriangle);
+        $(innerEl).mouseleave(_infoBubble.unhighlightTriangle);
+        el.appendChild(innerEl);
+
+        var innerEl = document.createElement('div');
+        innerEl.classList.add('triangle');
+        el.appendChild(innerEl);
+
+        _infoBubble.el.appendChild(el);                
+      }      
+    },
+
     updateWarningsInContents: function(segment) {
       if (!_infoBubble.segmentEl || !segment || !segment.el || 
           (_infoBubble.segmentEl != segment.el)) {
@@ -7228,51 +7303,7 @@ var main = (function(){
 
       infoBubbleEl.appendChild(el);
 
-      if (segmentInfo && segmentInfo.description) {
-        var el = document.createElement('div');
-        el.classList.add('description-prompt');
-        el.innerHTML = segmentInfo.descriptionPrompt;
-        if (system.touch) {
-          el.addEventListener('touchstart', _infoBubble.showDescription);
-        } else {
-          el.addEventListener('click', _infoBubble.showDescription);
-        }
-        $(el).mouseenter(_infoBubble.highlightTriangle);
-        $(el).mouseleave(_infoBubble.unhighlightTriangle);
-        infoBubbleEl.appendChild(el);
-
-        var el = document.createElement('div');
-        el.classList.add('description-canvas');
-
-        var innerEl = document.createElement('div');
-        innerEl.classList.add('description');
-        innerEl.innerHTML = segmentInfo.description;
-        el.appendChild(innerEl);
-
-        var els = innerEl.querySelectorAll('a');
-        for (var i = 0, anchorEl; anchorEl = els[i]; i++) {
-          anchorEl.target = '_blank';
-        }
-
-        var innerEl = document.createElement('div');
-        innerEl.classList.add('description-close');
-        innerEl.innerHTML = 'Close';
-        if (system.touch) {
-          innerEl.addEventListener('touchstart', _infoBubble.hideDescription);
-        } else {
-          innerEl.addEventListener('click', _infoBubble.hideDescription);          
-        }
-        $(innerEl).mouseenter(_infoBubble.highlightTriangle);
-        $(innerEl).mouseleave(_infoBubble.unhighlightTriangle);
-        el.appendChild(innerEl);
-      }
-
-      var innerEl = document.createElement('div');
-      innerEl.classList.add('triangle');
-      el.appendChild(innerEl);
-
-      infoBubbleEl.appendChild(el);
-
+      _infoBubble.updateDescriptionInContents(segment);
       _infoBubble.updateWarningsInContents(segment);
       window.setTimeout(function() {
         if (_infoBubble.type == INFO_BUBBLE_TYPE_SEGMENT) {
