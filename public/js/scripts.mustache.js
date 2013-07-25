@@ -7477,10 +7477,10 @@ var main = (function(){
       bubbleX -= bubbleWidth / 2;
 
       // TODO const
-      if (bubbleX < 20) {
-        bubbleX = 20;
-      } else if (bubbleX > system.viewportWidth - bubbleWidth - 20) {
-        bubbleX = system.viewportWidth - bubbleWidth - 20;
+      if (bubbleX < 50) {
+        bubbleX = 50;
+      } else if (bubbleX > system.viewportWidth - bubbleWidth - 50) {
+        bubbleX = system.viewportWidth - bubbleWidth - 50;
       }
 
       _infoBubble.el.style.left = bubbleX + 'px';

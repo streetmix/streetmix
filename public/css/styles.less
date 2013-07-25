@@ -71,7 +71,7 @@
 
 @fontFamily: 'Lato', sans-serif;
 
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700,400italic);
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic);
 
 @font-face {
   font-family: 'Roadgeek';
@@ -1692,7 +1692,7 @@ body.segment-move-dragging #editable-street-section > div {
     padding: 5px 20px;
     display: inline-block;
     background: rgb(255, 230, 150);
-    font-size: 14px;
+    font-size: 13px;
 
     pointer-events: auto;
   }
@@ -2622,7 +2622,8 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
 
   .variants {
     text-align: left;
-    padding: 7px 8px;
+    padding: 5px 8px;
+    padding-top: 7px;
 
     min-height: @infoBubbleButtonSize;
 
@@ -2741,9 +2742,10 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
   }
 
   .description {
-    font-size: 13px;
+    font-size: 16px;
     padding: 12px 12px;  
-    line-height: 19px;
+    line-height: 23px;
+    font-weight: 300;
 
     overflow-y: auto;
     overflow-x: hidden;
@@ -2810,7 +2812,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
   .width-canvas {
     position: absolute;
     right: 8px;
-    top: @infoBubbleButtonSize + 14px;
+    top: @infoBubbleButtonSize + 12px;
     width: 150px;
     height: @infoBubbleButtonSize;
     line-height: @infoBubbleButtonSize;  
