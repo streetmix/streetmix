@@ -1692,7 +1692,7 @@ var main = (function(){
       return;
     }
 
-    if (imagesToBeLoaded == 0) {
+    if ((imagesToBeLoaded == 0) && (sw > 0) && (sh > 0) && (dw > 0) && (dh > 0)) {
       // TODO move
       var TILESET_CORRECTION = [null, 0, -84, -162];
       sx += TILESET_CORRECTION[tileset] * 12;
@@ -1708,6 +1708,13 @@ var main = (function(){
       if (dy + dh > ctx.canvas.height) {
         dh = ctx.canvas.height - dy;
       }*/
+
+      if (sx < 0) {
+        dw += sx;
+        sx = 0;
+      }
+
+      //console.log(sx, sy, sw, sh, dx, dy, dw, dh);
 
       ctx.drawImage(images['/images/tiles-' + tileset + '.png'],
           sx * TILESET_POINT_PER_PIXEL, sy * TILESET_POINT_PER_PIXEL, 
