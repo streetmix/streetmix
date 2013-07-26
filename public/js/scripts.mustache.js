@@ -8265,6 +8265,8 @@ var main = (function(){
       return;
     }
 
+    console.log(imagesToBeLoaded, signInLoaded, bodyLoaded, readyStateCompleteLoaded, countryLoaded, serverContacted);
+
     if ((imagesToBeLoaded == 0) && signInLoaded && bodyLoaded && 
         readyStateCompleteLoaded && countryLoaded && serverContacted) {
       _onEverythingLoaded();
