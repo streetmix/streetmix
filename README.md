@@ -77,6 +77,8 @@ Also, this project was made possible by the support of Code for America staff an
     cd $PROJECT_ROOT
     npm install
 
+4) The Streetmix back-end is a separate application running on a different server (or a different localhost port). For information about starting the back-end server, please read the instructions on the [back-end repository](https://github.com/codeforamerica/streetmix-be).
+
 #### Every time you sync `$PROJECT_ROOT` with this remote repository.
 
 1) Update project dependencies.
