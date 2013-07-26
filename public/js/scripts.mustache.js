@@ -6498,7 +6498,7 @@ var main = (function(){
     var meta = document.createElement('meta');
     meta.setAttribute('name', 'viewport');
     if (system.phone) {
-      meta.setAttribute('content', 'initial-scale=.5, maximum-scale=1');
+      meta.setAttribute('content', 'initial-scale=.5, maximum-scale=.5');
     } else {
       meta.setAttribute('content', 'initial-scale=1, maximum-scale=1');      
     }
