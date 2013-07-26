@@ -6498,10 +6498,7 @@ var main = (function(){
     var meta = document.createElement('meta');
     meta.setAttribute('name', 'viewport');
     if (system.phone) {
-        //<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-      //var viewport = document.querySelector('meta[name=viewport]');
-      meta.setAttribute('content', 'initial-scale=.5, maximum-scale=.5');
+      meta.setAttribute('content', 'initial-scale=.5, maximum-scale=1');
     } else {
       meta.setAttribute('content', 'initial-scale=1, maximum-scale=1');      
     }
