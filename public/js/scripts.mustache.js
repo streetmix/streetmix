@@ -4763,6 +4763,10 @@ var main = (function(){
     // TODO const
     streetSectionTop = (system.viewportHeight - streetSectionHeight) / 2 + 30 + 180; // gallery height
 
+    if (readOnly) {
+      streetSectionTop += 50;
+    }
+
     // TODO const
     if (streetSectionTop + document.querySelector('#street-section-inner').offsetHeight > 
       paletteTop - 20 + 180) { // gallery height
@@ -5999,6 +6003,10 @@ var main = (function(){
   }
 
   function _showGallery(userId, instant, signInPromo) {
+    if (readOnly) {
+      return;
+    }
+
     galleryVisible = true;
     galleryStreetLoaded = true;
     galleryStreetId = street.id;
@@ -6375,7 +6383,7 @@ var main = (function(){
 
     if (!readOnly) {
       document.querySelector('#street-width-read').addEventListener('click', _onStreetWidthClick);
-      
+
       document.querySelector('#street-width').
           addEventListener('change', _onStreetWidthChange);
     }

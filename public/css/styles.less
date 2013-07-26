@@ -2171,6 +2171,12 @@ body.safari .menu {
   }
 }
 
+body.read-only #street-name-canvas {
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  transform: translateY(0);  
+}
+
 .street-name-mixin (@size: @streetNameSize) {
   padding: 3px * @size;
 }
