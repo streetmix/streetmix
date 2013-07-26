@@ -1709,19 +1709,10 @@ var main = (function(){
       dw *= system.hiDpi;
       dh *= system.hiDpi;
 
-      /*if (dx + dw > ctx.canvas.width) {
-        dw = ctx.canvas.width - dx;
-      }
-      if (dy + dh > ctx.canvas.height) {
-        dh = ctx.canvas.height - dy;
-      }*/
-
       if (sx < 0) {
         dw += sx;
         sx = 0;
       }
-
-      //console.log(sx, sy, sw, sh, dx, dy, dw, dh);
 
       ctx.drawImage(images['/images/tiles-' + tileset + '.png'],
           sx * TILESET_POINT_PER_PIXEL, sy * TILESET_POINT_PER_PIXEL, 
@@ -5453,13 +5444,9 @@ var main = (function(){
     var requestId = parseInt(request.getResponseHeader('X-Streetmix-Request-Id'));
 
     if (requestId != latestRequestId) {
-      //console.log('rejected since it doesn’t match');
       return;
     }
 
-    //console.log('comparing…');
-
-    //var localStreetData = _trimStreetData(street);
     var localStreetData = _trimStreetData(latestVerificationStreet);
     var serverStreetData = _trimStreetData(_unpackStreetDataFromServerTransmission(transmission));
 
@@ -6682,12 +6669,9 @@ var main = (function(){
         var id = category + '|' + action + '|' + label;
 
         if (_eventTracking.alreadyTracked[id]) {
-          console.log('event already tracked');
           return;
         }
       }
-
-      console.log('event tracked', category, action, label, value, onlyFirstTime);
 
       _gaq && _gaq.push(['_trackEvent', category, action, label, value]);
 
