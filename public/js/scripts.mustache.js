@@ -161,7 +161,7 @@ var main = (function(){
     // 12: getting rid of small tree
     // 13: bike rack elevation
     // 14: wayfinding has three types
-  var TILESET_IMAGE_VERSION = 49;
+  var TILESET_IMAGE_VERSION = 50;
   var TILESET_POINT_PER_PIXEL = 2.0;
   var TILE_SIZE = 12; // pixels
 
