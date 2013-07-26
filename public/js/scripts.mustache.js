@@ -89,6 +89,8 @@ var main = (function(){
   var URL_HELP = 'help';
   var URL_ABOUT = 'about';
 
+  var URL_EXAMPLE_STREET = 'saikofish/29';
+
   var URL_SIGN_IN_REDIRECT = URL_SIGN_IN + '?callbackUri=' + 
       URL_SIGN_IN_CALLBACK_ABS + '&redirectUri=' + URL_JUST_SIGNED_IN_ABS;
 
@@ -137,6 +139,7 @@ var main = (function(){
   var ERROR_STREET_404 = 15;
   var ERROR_STREET_404_BUT_LINK_TO_USER = 16;
   var ERROR_STREET_410_BUT_LINK_TO_USER = 17;
+  var ERROR_CANNOT_CREATE_NEW_STREET_ON_PHONE = 18;
 
   var TWITTER_ID = '@streetmixapp';
 
@@ -8494,7 +8497,12 @@ var main = (function(){
     switch (mode) {
       case MODE_NEW_STREET:
       case MODE_NEW_STREET_COPY_LAST:
-        _createNewStreetOnServer();
+
+        if (readOnly) {
+          _showError(ERROR_CANNOT_CREATE_NEW_STREET_ON_PHONE, true);
+        } else {
+          _createNewStreetOnServer();
+        }
         break;
       case MODE_EXISTING_STREET:
       case MODE_CONTINUE:
@@ -8849,6 +8857,10 @@ var main = (function(){
     location.href = '/' + URL_NEW_STREET;
   }
 
+  function _goExampleStreet() {
+    location.href = '/' + URL_EXAMPLE_STREET;
+  }
+
   function _goCopyLastStreet() {
     location.href = '/' + URL_NEW_STREET_COPY_LAST;
   }
@@ -8873,13 +8885,13 @@ var main = (function(){
       case ERROR_STREET_404_BUT_LINK_TO_USER:
         title = 'Street not found.';
         description = 
-            'There is no street with this link! But you can look for other streets by ' +
+            'There is no street with this link! But you can look at other streets by ' +
             '<a href="/' + street.creatorId + '"><div class="avatar" userId="' + street.creatorId + '"></div>' + street.creatorId + '</a>.' +
             '<br><button class="home">Go to the homepage</button>';
         break;
       case ERROR_STREET_410_BUT_LINK_TO_USER:
         title = 'This street has been deleted.';
-        description = 'There is no longer a street with this link, but you can look for other streets by ' +
+        description = 'There is no longer a street with this link, but you can look at other streets by ' +
             '<a href="/' + street.creatorId + '"><div class="avatar" userId="' + street.creatorId + '"></div>' + street.creatorId + '</a>.' +
             '<br><button class="home">Go to the homepage</button>';
         break;
@@ -8930,7 +8942,11 @@ var main = (function(){
         title = 'Streetmix doesn’t work on your browser… yet.';
         // TODO const for feedback
         description = 'Sorry about that. You might want to try <a target="_blank" href="http://www.google.com/chrome">Chrome</a>, <a target="_blank" href="http://www.mozilla.org/firefox">Firefox</a>, or Safari. If you think your browser should be supported, let us know via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmixapp">Twitter</a>.';
-        break;        
+        break;      
+      case ERROR_CANNOT_CREATE_NEW_STREET_ON_PHONE:
+        title = 'Streetmix works on tablets and desktops only.';
+        description = 'If you follow a link to see a specific street, you can see it on your phone – but you cannot yet create new streets.<br><button class="example">View an example street</button>';
+        break;  
     }
 
     document.querySelector('#error h1').innerHTML = title;
@@ -8959,6 +8975,11 @@ var main = (function(){
     var el = document.querySelector('#error .new');
     if (el) {
       el.addEventListener('click', _goNewStreet);
+    }
+
+    var el = document.querySelector('#error .example');
+    if (el) {
+      el.addEventListener('click', _goExampleStreet);
     }
 
     document.querySelector('#error').classList.add('visible');
