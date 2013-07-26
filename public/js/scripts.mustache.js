@@ -1508,6 +1508,7 @@ var main = (function(){
     mouseY: null,
     elX: null,
     elY: null,
+    width: null,
     originalX: null,
     originalWidth: null,
     originalType: null,
@@ -2108,6 +2109,9 @@ var main = (function(){
 
   function _onWidthEditInput(event) {
     _widthEditInputChanged(event.target, false);
+
+    _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH, 
+        TRACK_LABEL_INPUT_FIELD, null, true);
   }
 
   function _onWidthEditKeyDown(event) {
@@ -2247,6 +2251,9 @@ var main = (function(){
     
     _incrementSegmentWidth(segmentEl, false, precise);
     _scheduleControlsFadeout(segmentEl);
+
+    _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH, 
+        TRACK_LABEL_INCREMENT_BUTTON, null, true);
   }
 
   function _onWidthIncrementClick(event) {
@@ -2256,6 +2263,9 @@ var main = (function(){
 
     _incrementSegmentWidth(segmentEl, true, precise);
     _scheduleControlsFadeout(segmentEl);
+
+    _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH, 
+        TRACK_LABEL_INCREMENT_BUTTON, null, true);    
   }
 
   function _resizeSegment(el, resizeType, width, updateEdit, palette, immediate, initial) {
@@ -2956,6 +2966,9 @@ var main = (function(){
       _updateEverything(true);
       _statusMessage.hide();
     }
+
+    _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_UNDO, 
+        null, null, true);    
   }
 
   function _clearUndoStack() {
@@ -4030,7 +4043,7 @@ var main = (function(){
     draggingResize.elX += deltaX;
     draggingResize.floatingEl.style.left = (draggingResize.elX - document.querySelector('#street-section-outer').scrollLeft) + 'px';
 
-    var width = draggingResize.originalWidth + deltaFromOriginal / TILE_SIZE * 2;
+    draggingResize.width = draggingResize.originalWidth + deltaFromOriginal / TILE_SIZE * 2;
     var precise = event.shiftKey;
 
     if (precise) {
@@ -4040,7 +4053,7 @@ var main = (function(){
     }
 
     _resizeSegment(draggingResize.segmentEl, resizeType,
-        width * TILE_SIZE, true, false, true);
+        draggingResize.width * TILE_SIZE, true, false, true);
 
     draggingResize.mouseX = x;
     draggingResize.mouseY = y;
@@ -4552,6 +4565,9 @@ var main = (function(){
       if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
         _removeElFromDom(draggingMove.originalEl);
       }
+
+      _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_REMOVE_SEGMENT, 
+          TRACK_LABEL_DRAGGING, null, true);
     } else if (draggingMove.segmentBeforeEl || draggingMove.segmentAfterEl || (street.segments.length == 0)) {
       var smartDrop = _doDropHeuristics(draggingMove.originalType, 
           draggingMove.originalVariantString, draggingMove.originalWidth);
@@ -4651,6 +4667,11 @@ var main = (function(){
     window.setTimeout(function() {
       suppressMouseEnter = false;
     }, 50);
+
+    if (draggingResize.width && (draggingResize.originalWidth != draggingResize.width)) {
+      _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH, 
+          TRACK_LABEL_DRAGGING, null, true);    
+    }
   }
 
   function _onBodyMouseUp(event) {
@@ -5106,6 +5127,9 @@ var main = (function(){
             _incrementSegmentWidth(segmentHoveredEl, true, event.shiftKey);
           }
           event.preventDefault();
+
+          _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH, 
+              TRACK_LABEL_KEYBOARD, null, true);    
         }
         break;
       case KEY_MINUS:
@@ -5120,6 +5144,9 @@ var main = (function(){
             _incrementSegmentWidth(segmentHoveredEl, false, event.shiftKey);
           }
           event.preventDefault();
+
+          _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH, 
+              TRACK_LABEL_KEYBOARD, null, true);    
         }
         break;
       case KEY_BACKSPACE:
@@ -5131,6 +5158,10 @@ var main = (function(){
         if (document.activeElement == document.body) {
           var segmentHoveredEl = _getHoveredSegmentEl();
           _removeSegment(segmentHoveredEl, event.shiftKey);
+
+          _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_REMOVE_SEGMENT, 
+              TRACK_LABEL_KEYBOARD, null, true);        
+
           event.preventDefault();
         }
         break;
@@ -5201,6 +5232,9 @@ var main = (function(){
 
     if (el) {
       _removeSegment(el, event.shiftKey);
+
+      _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_REMOVE_SEGMENT, 
+          TRACK_LABEL_BUTTON, null, true);              
     }
 
     // Prevent this “leaking” to a segment below
@@ -5442,6 +5476,9 @@ var main = (function(){
 
       _unpackServerStreetData(transmission, null, null, false);
       _updateEverything(true);
+
+      _eventTracking.track(TRACK_CATEGORY_EVENT, 
+          TRACK_ACTION_STREET_MODIFIED_ELSEWHERE, null, null, false);
     }
   }
 
@@ -6006,6 +6043,9 @@ var main = (function(){
     if (readOnly) {
       return;
     }
+
+    _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_OPEN_GALLERY, 
+        userId, null, false);
 
     galleryVisible = true;
     galleryStreetLoaded = true;
@@ -6616,18 +6656,30 @@ var main = (function(){
   // TODO move
   var TRACK_CATEGORY_INTERACTION = 'Interaction';
   var TRACK_CATEGORY_SHARING = 'Sharing';
+  var TRACK_CATEGORY_EVENT = 'Event';
 
   var TRACK_ACTION_LEARN_MORE = 'Learn more about segment';
   var TRACK_ACTION_FACEBOOK = 'Facebook';
   var TRACK_ACTION_TWITTER = 'Twitter';
   var TRACK_ACTION_SAVE_AS_IMAGE = 'Save as image';
+  var TRACK_ACTION_STREET_MODIFIED_ELSEWHERE = 'Street modified elsewhere';
+  var TRACK_ACTION_OPEN_GALLERY = 'Open gallery';
+  var TRACK_ACTION_CHANGE_WIDTH = 'Change width';
+  var TRACK_ACTION_UNDO = 'Undo';
+  var TRACK_ACTION_REMOVE_SEGMENT = 'Remove segment';
+
+  var TRACK_LABEL_INCREMENT_BUTTON = 'Increment button';
+  var TRACK_LABEL_INPUT_FIELD = 'Input field';
+  var TRACK_LABEL_DRAGGING = 'Dragging';
+  var TRACK_LABEL_KEYBOARD = 'Keyboard';
+  var TRACK_LABEL_BUTTON = 'Button';
 
   var _eventTracking = {
     alreadyTracked: [],
 
     track: function(category, action, label, value, onlyFirstTime) {
       if (onlyFirstTime) {
-        var id = category + '|' + action;
+        var id = category + '|' + action + '|' + label;
 
         if (_eventTracking.alreadyTracked[id]) {
           console.log('event already tracked');
