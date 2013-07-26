@@ -2301,9 +2301,10 @@ body:not(.touch-support) #street-name {
   padding-bottom: 40px;
 }
 #street-width-read {
-  cursor: pointer;
   padding: 5px 0;
-
+}
+body:not(.read-only) #street-width-read {
+  cursor: pointer;
   &:hover {
     color: darken(@topMenuHoverText, 20%);
   }
@@ -2316,8 +2317,9 @@ body:not(.touch-support) #street-name {
     -webkit-transform: scaleY(.75);
     -moz-transform: scaleY(.75);
     transform: scaleY(.75);
-  }  
+  }    
 }
+
 body.edit-street-width #street-width-read {
   display: none;
   pointer-events: none;
@@ -2402,7 +2404,7 @@ body:not(.edit-street-width) #street-width {
     }
 
     li {
-      margin-top: 2px;
+      margin-top: 5px;
     }
   }
   footer {
