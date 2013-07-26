@@ -6272,6 +6272,8 @@ var main = (function(){
 
     window.open(el.toDataURL('image/png'));
 
+    _eventTracking.track(TRACK_CATEGORY_SHARING, TRACK_ACTION_SAVE_AS_IMAGE, null, null, false);
+
     event.preventDefault();
   }
 
@@ -6282,7 +6284,18 @@ var main = (function(){
     _scrollStreet(false, event.shiftKey);
   }
 
+  function _shareViaTwitter() {
+    _eventTracking.track(TRACK_CATEGORY_SHARING, TRACK_ACTION_TWITTER, null, null, false);    
+  }
+
+  function _shareViaFacebook() {
+    _eventTracking.track(TRACK_CATEGORY_SHARING, TRACK_ACTION_FACEBOOK, null, null, false);    
+  }
+
   function _addEventListeners() {
+    document.querySelector('#share-via-twitter').addEventListener('click', _shareViaTwitter);
+    document.querySelector('#share-via-facebook').addEventListener('click', _shareViaFacebook);
+
     if (system.touch) {
       document.querySelector('#about-shield').addEventListener('touchstart', _hideAboutMenu);
       document.querySelector('#about .close').addEventListener('touchstart', _hideAboutMenu);
@@ -6600,6 +6613,39 @@ var main = (function(){
     }, SEGMENT_SWITCHING_TIME);
   }
 
+  // TODO move
+  var TRACK_CATEGORY_INTERACTION = 'Interaction';
+  var TRACK_CATEGORY_SHARING = 'Sharing';
+
+  var TRACK_ACTION_LEARN_MORE = 'Learn more about segment';
+  var TRACK_ACTION_FACEBOOK = 'Facebook';
+  var TRACK_ACTION_TWITTER = 'Twitter';
+  var TRACK_ACTION_SAVE_AS_IMAGE = 'Save as image';
+
+  var _eventTracking = {
+    alreadyTracked: [],
+
+    track: function(category, action, label, value, onlyFirstTime) {
+      if (onlyFirstTime) {
+        var id = category + '|' + action;
+
+        if (_eventTracking.alreadyTracked[id]) {
+          console.log('event already tracked');
+          return;
+        }
+      }
+
+      console.log('event tracked', category, action, label, value, onlyFirstTime);
+
+      _gaq && _gaq.push(['_trackEvent', category, action, label, value]);
+
+      if (onlyFirstTime) {
+        _eventTracking.alreadyTracked[id] = true;        
+      }
+    }
+  }
+
+  // TODO move
   var INFO_BUBBLE_TYPE_SEGMENT = 1;
   var INFO_BUBBLE_TYPE_LEFT_BUILDING = 2;
   var INFO_BUBBLE_TYPE_RIGHT_BUILDING = 3;
@@ -7420,6 +7466,10 @@ var main = (function(){
         _infoBubble.getBubbleDimensions();
         _infoBubble.updateHoverPolygon();
       }, 500);
+
+      var segment = street.segments[parseInt(_infoBubble.segmentEl.dataNo)];
+      _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_LEARN_MORE, 
+          segment.type, null, false);
     },
 
     hideDescription: function() {
