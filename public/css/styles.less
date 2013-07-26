@@ -2206,8 +2206,6 @@ body.safari .menu {
 
   white-space: nowrap;
 
-  cursor: pointer;
-
   & > div {
     .street-name-inside-mixin;
 
@@ -2248,7 +2246,9 @@ body.safari .menu {
   tap-highlight-color: transparent;
 }
 
-body:not(.touch-support) #street-name {
+body:not(.touch-support):not(.read-only) #street-name {
+  cursor: pointer;
+
   &:hover {
     color: rgb(220, 220, 220);
     background: white;
