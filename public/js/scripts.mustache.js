@@ -6675,12 +6675,12 @@ var main = (function(){
       var bubbleHeight = _infoBubble.bubbleHeight;
 
       if (_infoBubble.descriptionVisible) {
-        var marginBubble = 50;
+        var marginBubble = 200;
       } else {
         var marginBubble = MARGIN_BUBBLE;
       }
 
-      if (_infoBubble.mouseInside) {
+      if (_infoBubble.mouseInside && !_infoBubble.descriptionVisible) {
         var pos = _getElAbsolutePos(_infoBubble.segmentEl);
 
         var x = pos[0] - document.querySelector('#street-section-outer').scrollLeft;
@@ -6710,6 +6710,12 @@ var main = (function(){
         if (bottomY2 < bubbleY + bubbleHeight + MARGIN_BUBBLE) {
           bottomY2 = bubbleY + bubbleHeight + MARGIN_BUBBLE;
         }
+
+      if (_infoBubble.descriptionVisible) {
+        bottomY = bubbleY + bubbleHeight + marginBubble;
+        bottomY2 = bottomY;
+      }
+
 
         var diffX = 60 - (mouseY - bubbleY) / 5;
         if (diffX < 0) {
