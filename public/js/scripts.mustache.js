@@ -5366,7 +5366,9 @@ var main = (function(){
 
       _fetchAvatars();
 
-      document.querySelector('#street-metadata-author .user-gallery').addEventListener('click', _onAnotherUserIdClick);
+      if (!readOnly) {
+        document.querySelector('#street-metadata-author .user-gallery').addEventListener('click', _onAnotherUserIdClick);
+      }
     } else if (!street.creatorId && (signedIn || remixOnFirstEdit)) {
       var html = 'by ' + msg('USER_ANONYMOUS');
 

@@ -2343,6 +2343,17 @@ body:not(.edit-street-width) #street-width {
   display: none;
 }
 
+body:not(.read-only) #street-metadata-author a:hover {
+  &:hover {
+    color: darken(@topMenuHoverText, 20%);
+  }
+}
+
+body.read-only #street-metadata-author a {
+  text-decoration: none;
+  cursor: default;
+}
+
 #street-metadata-author:not(:empty)::before,
 #street-metadata-date:not(:empty)::before {
   content: ' · ';
