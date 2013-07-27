@@ -2023,6 +2023,10 @@ var main = (function(){
     document.body.focus();
   }
 
+  function _isFocusOnBody() {
+    return document.activeElement == document.body;
+  }
+
   function _onWidthEditFocus(event) {
     var el = event.target;
 
@@ -5140,16 +5144,14 @@ var main = (function(){
           return;
         }
 
-        if (document.activeElement == document.body) {
-          var segmentHoveredEl = _getHoveredSegmentEl();
-          if (segmentHoveredEl) {
-            _incrementSegmentWidth(segmentHoveredEl, true, event.shiftKey);
-          }
-          event.preventDefault();
-
-          _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH, 
-              TRACK_LABEL_KEYBOARD, null, true);    
+        var segmentHoveredEl = _getHoveredSegmentEl();
+        if (segmentHoveredEl) {
+          _incrementSegmentWidth(segmentHoveredEl, true, event.shiftKey);
         }
+        event.preventDefault();
+
+        _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH, 
+            TRACK_LABEL_KEYBOARD, null, true);    
         break;
       case KEY_MINUS:
       case KEY_MINUS_ALT:
@@ -5157,16 +5159,14 @@ var main = (function(){
           return;
         }
 
-        if (document.activeElement == document.body) {
-          var segmentHoveredEl = _getHoveredSegmentEl();
-          if (segmentHoveredEl) {
-            _incrementSegmentWidth(segmentHoveredEl, false, event.shiftKey);
-          }
-          event.preventDefault();
-
-          _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH, 
-              TRACK_LABEL_KEYBOARD, null, true);    
+        var segmentHoveredEl = _getHoveredSegmentEl();
+        if (segmentHoveredEl) {
+          _incrementSegmentWidth(segmentHoveredEl, false, event.shiftKey);
         }
+        event.preventDefault();
+
+        _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH, 
+            TRACK_LABEL_KEYBOARD, null, true);    
         break;
       case KEY_BACKSPACE:
       case KEY_DELETE:
@@ -5174,15 +5174,13 @@ var main = (function(){
           return;
         }
 
-        if (document.activeElement == document.body) {
-          var segmentHoveredEl = _getHoveredSegmentEl();
-          _removeSegment(segmentHoveredEl, event.shiftKey);
+        var segmentHoveredEl = _getHoveredSegmentEl();
+        _removeSegment(segmentHoveredEl, event.shiftKey);
 
-          _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_REMOVE_SEGMENT, 
-              TRACK_LABEL_KEYBOARD, null, true);        
+        _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_REMOVE_SEGMENT, 
+            TRACK_LABEL_KEYBOARD, null, true);        
 
-          event.preventDefault();
-        }
+        event.preventDefault();
         break;
       case KEY_LEFT_ARROW:
         _scrollStreet(true, event.shiftKey);
@@ -5240,12 +5238,49 @@ var main = (function(){
         }   
         break;   
       case KEY_D:
-        if (event.shiftKey && (document.activeElement == document.body)) {
+        if (event.shiftKey) {
           _showDebugInfo();
           event.preventDefault();
         }
         break;
-      }
+      }    
+  }
+
+  function _onGlobalKeyDown(event) {
+    if (_isFocusOnBody()) {
+      _onBodyKeyDown(event); 
+    }
+
+    switch (event.keyCode) {
+      case KEY_ESC:
+        if (document.querySelector('#debug').classList.contains('visible')) {
+          _hideDebugInfo();
+        } else if (document.querySelector('#welcome').classList.contains('visible')) {
+          _hideWelcome();
+        } else if (document.querySelector('#about').classList.contains('visible')) {
+          _hideAboutMenu();
+        } else if (draggingType == DRAGGING_TYPE_RESIZE) {
+          _handleSegmentResizeCancel();
+        } else if (draggingType == DRAGGING_TYPE_MOVE) {
+          _handleSegmentMoveCancel();
+        } else if (menuVisible) {
+          _hideMenus();
+        } else if (_infoBubble.visible && _infoBubble.descriptionVisible) {
+          _infoBubble.hideDescription();
+        } else if (_infoBubble.visible) {
+          _infoBubble.hide();
+          _infoBubble.hideSegment(false);
+        } else if (document.body.classList.contains('gallery-visible')) {
+          _hideGallery(false);
+        } else if (signedIn) {
+          _showGallery(signInData.userId, false);
+        } else {
+          return;
+        }
+
+        event.preventDefault();
+        break;
+    }
   }
 
   function _onRemoveButtonClick(event) {
@@ -6489,7 +6524,7 @@ var main = (function(){
       window.addEventListener('touchmove', _onBodyMouseMove);
       window.addEventListener('touchend', _onBodyMouseUp); 
     }
-    window.addEventListener('keydown', _onBodyKeyDown);  
+    window.addEventListener('keydown', _onGlobalKeyDown);  
 
     /*if (system.touch) {
       document.querySelector('#share-menu-button').
@@ -7266,7 +7301,10 @@ var main = (function(){
           var segment = street.segments[parseInt(_infoBubble.segmentEl.dataNo)];
           var segmentInfo = SEGMENT_INFO[segment.type];
 
-          var name = segmentInfo.name;
+          var variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString];
+          var name = variantInfo.name || segmentInfo.name;
+
+          //var name = segmentInfo.name;
           var canBeDeleted = true;
           var showWidth = true;
           var showVariants = true;
