@@ -5193,9 +5193,11 @@ var main = (function(){
         event.preventDefault();
         break;
       case KEY_ESC:
-        _hideDebugInfo();
-
-        if (document.querySelector('#about').classList.contains('visible')) {
+        if (document.querySelector('#debug').classList.contains('visible')) {
+          _hideDebugInfo();
+        } else if (document.querySelector('#welcome').classList.contains('visible')) {
+          _hideWelcome();
+        } else if (document.querySelector('#about').classList.contains('visible')) {
           _hideAboutMenu();
         } else if (draggingType == DRAGGING_TYPE_RESIZE) {
           _handleSegmentResizeCancel();
