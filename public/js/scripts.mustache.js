@@ -4802,13 +4802,16 @@ var main = (function(){
     var streetSectionHeight = 
         document.querySelector('#street-section-inner').offsetHeight;
 
-    var paletteTop = document.querySelector('#main-screen footer').offsetTop || system.viewportHeight;
+    var paletteTop = document.querySelector('#main-screen > footer').offsetTop || system.viewportHeight;
 
-    // TODO const
-    streetSectionTop = (system.viewportHeight - streetSectionHeight) / 2 + 30 + 180; // gallery height
-
+    if (system.viewportHeight - streetSectionHeight > 450) {
+      streetSectionTop = (system.viewportHeight - streetSectionHeight - 450) / 2 + 450 + 80;
+    } else {
+      streetSectionTop = system.viewportHeight - streetSectionHeight + 70;
+    }
+    
     if (readOnly) {
-      streetSectionTop += 50;
+      streetSectionTop += 80;
     }
 
     // TODO const
@@ -8959,8 +8962,8 @@ var main = (function(){
   }
 
   function _showError(errorType, newAbortEverything) {
-    var title = '';
-    var description = '';
+    var title;
+    var description;
 
     _hideLoadingScreen();
 
@@ -9026,11 +9029,6 @@ var main = (function(){
         // TODO const for feedback
         description = 'There was a problem with Twitter authentication. Please try again later or let us know via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmixapp">Twitter</a>.<br><button class="home">Go to the homepage</button>';
         break;
-      case ERROR_GENERIC_ERROR:
-        title = 'Something went wrong.';
-        // TODO const for feedback
-        description = 'We’re sorry – something went wrong. Please try again later or let us know via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmixapp">Twitter</a>.<br><button class="home">Go to the homepage</button>';
-        break;
       case ERROR_UNSUPPORTED_BROWSER:
         title = 'Streetmix doesn’t work on your browser… yet.';
         // TODO const for feedback
@@ -9040,6 +9038,11 @@ var main = (function(){
         title = 'Streetmix works on tablets and desktops only.';
         description = 'If you follow another link to a specific street, you can view it on your phone – but you cannot yet create new streets.<br><button class="example">View an example street</button>';
         break;  
+      default: // also ERROR_GENERIC_ERROR
+        title = 'Something went wrong.';
+        // TODO const for feedback
+        description = 'We’re sorry – something went wrong. Please try again later or let us know via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmixapp">Twitter</a>.<br><button class="home">Go to the homepage</button>';
+        break;
     }
 
     document.querySelector('#error h1').innerHTML = title;
