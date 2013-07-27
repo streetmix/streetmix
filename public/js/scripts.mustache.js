@@ -4724,11 +4724,17 @@ var main = (function(){
         var variantName = j;
         break;
       }
+      
       // TODO hardcoded
-      if (id == 'sidewalk-lamp') {
-        variantName = 'both|traditional';
-      } else if (id == 'divider') {
-        variantName = 'bollard';
+      switch (id) {
+        case 'sidewalk-lamp':
+          variantName = 'both|traditional';
+          break;
+        case 'divider':
+          variantName = 'bollard';
+          break;
+        case 'transit-shelter':
+          variantName = 'right|light-rail';
       }
 
       var variantInfo = segmentInfo.details[variantName];
