@@ -2650,7 +2650,19 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
 
 
   &[type='building'] header {
-    margin-right: 80px + 50px;
+    margin-right: 90px + 50px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: -37px;
+      width: 0;
+      height: 0;
+
+      border-top: 37px solid darken(@uiColour, 20%);
+      border-right: 37px solid transparent;
+    }
   }
 
   header {
