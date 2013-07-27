@@ -5193,32 +5193,6 @@ var main = (function(){
         _scrollStreet(false, event.shiftKey);
         event.preventDefault();
         break;
-      case KEY_ESC:
-        if (document.querySelector('#debug').classList.contains('visible')) {
-          _hideDebugInfo();
-        } else if (document.querySelector('#welcome').classList.contains('visible')) {
-          _hideWelcome();
-        } else if (document.querySelector('#about').classList.contains('visible')) {
-          _hideAboutMenu();
-        } else if (draggingType == DRAGGING_TYPE_RESIZE) {
-          _handleSegmentResizeCancel();
-        } else if (draggingType == DRAGGING_TYPE_MOVE) {
-          _handleSegmentMoveCancel();
-        } else if (menuVisible) {
-          _hideMenus();
-        } else if (_infoBubble.visible && _infoBubble.descriptionVisible) {
-          _infoBubble.hideDescription();
-        } else if (_infoBubble.visible) {
-          _infoBubble.hide();
-          _infoBubble.hideSegment(false);
-        } else if (document.body.classList.contains('gallery-visible')) {
-          _hideGallery(false);
-        } else if (signedIn) {
-          _showGallery(signInData.userId, false);
-        }
-
-        event.preventDefault();
-        break;
       case KEY_Z:
         if (!event.shiftKey && (event.metaKey || event.ctrlKey)) {
           _undo();
