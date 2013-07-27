@@ -165,7 +165,7 @@ var main = (function(){
     // 13: bike rack elevation
     // 14: wayfinding has three types
     // 15: sidewalks have rand seed
-  var TILESET_IMAGE_VERSION = 50;
+  var TILESET_IMAGE_VERSION = 51;
   var TILESET_POINT_PER_PIXEL = 2.0;
   var TILE_SIZE = 12; // pixels
 
