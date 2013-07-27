@@ -149,7 +149,7 @@ var main = (function(){
   var BUILDING_DESTINATION_SCREEN = 1;
   var BUILDING_DESTINATION_THUMBNAIL = 2;
 
-  var LATEST_SCHEMA_VERSION = 14;
+  var LATEST_SCHEMA_VERSION = 15;
     // 1: starting point
     // 2: adding leftBuildingHeight and rightBuildingHeight
     // 3: adding leftBuildingVariant and rightBuildingVariant
@@ -164,6 +164,7 @@ var main = (function(){
     // 12: getting rid of small tree
     // 13: bike rack elevation
     // 14: wayfinding has three types
+    // 15: sidewalks have rand seed
   var TILESET_IMAGE_VERSION = 50;
   var TILESET_POINT_PER_PIXEL = 2.0;
   var TILE_SIZE = 12; // pixels
@@ -482,6 +483,7 @@ var main = (function(){
       owner: SEGMENT_OWNER_PEDESTRIAN,
       zIndex: 2,
       defaultWidth: 6,
+      needRandomSeed: true,
       variants: ['sidewalk-density'],
       details: {
         'dense': {
@@ -1396,38 +1398,36 @@ var main = (function(){
 
   var DEFAULT_SEGMENTS = {
     false: [ // Right-hand traffic
-      { type: "sidewalk", variant: { 'sidewalk-density': 'dense' }, width: 6 },
-      { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 2 },
-      { type: "transit-shelter", variant: { 'orientation': 'left', 'transit-shelter-elevation': 'street-level' }, width: 9 },
-      { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'right', 'lamp-type': 'modern' }, width: 2 },
-      { type: "bus-lane", variant: { 'direction': 'inbound', 'public-transit-asphalt': 'regular' }, width: 10 },
-      { type: "drive-lane", variant: { 'direction': 'inbound', 'car-type': 'car' }, width: 10 },
-      { type: "divider", variant: { 'divider-type': 'flowers' }, width: 3 },
-      { type: "turn-lane", variant: { 'direction': 'outbound', 'orientation': 'left' }, width: 10 },
-      { type: "drive-lane", variant: { 'direction': 'outbound', 'car-type': 'truck' }, width: 10 },
-      { type: "bike-lane", variant: { 'direction': 'outbound', 'bike-asphalt': 'colored' }, width: 6 },
-      { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'left', 'lamp-type': 'modern' }, width: 2 },
-      { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 2 },
-      { type: "sidewalk-wayfinding", variant: { 'wayfinding-type': 'medium' }, width: 2 },
-      { type: "sidewalk", variant: { 'sidewalk-density': 'normal' }, width: 6 },
-//      { type: "sidewalk-bench", variant: { 'bench-orientation': 'right' }, width: 2 },
+      { type: 'sidewalk', variant: { 'sidewalk-density': 'dense' }, width: 6 },
+      { type: 'sidewalk-tree', variant: { 'tree-type': 'big' }, width: 2 },
+      { type: 'transit-shelter', variant: { 'orientation': 'left', 'transit-shelter-elevation': 'street-level' }, width: 9 },
+      { type: 'sidewalk-lamp', variant: { 'lamp-orientation': 'right', 'lamp-type': 'modern' }, width: 2 },
+      { type: 'bus-lane', variant: { 'direction': 'inbound', 'public-transit-asphalt': 'regular' }, width: 10 },
+      { type: 'drive-lane', variant: { 'direction': 'inbound', 'car-type': 'car' }, width: 10 },
+      { type: 'divider', variant: { 'divider-type': 'flowers' }, width: 3 },
+      { type: 'turn-lane', variant: { 'direction': 'outbound', 'orientation': 'left' }, width: 10 },
+      { type: 'drive-lane', variant: { 'direction': 'outbound', 'car-type': 'truck' }, width: 10 },
+      { type: 'bike-lane', variant: { 'direction': 'outbound', 'bike-asphalt': 'colored' }, width: 6 },
+      { type: 'sidewalk-lamp', variant: { 'lamp-orientation': 'left', 'lamp-type': 'modern' }, width: 2 },
+      { type: 'sidewalk-tree', variant: { 'tree-type': 'big' }, width: 2 },
+      { type: 'sidewalk-wayfinding', variant: { 'wayfinding-type': 'medium' }, width: 2 },
+      { type: 'sidewalk', variant: { 'sidewalk-density': 'normal' }, width: 6 },
     ],
     true: [ // Left-hand traffic
-//      { type: "sidewalk-bench", variant: { 'bench-orientation': 'left' }, width: 2 },
-      { type: "sidewalk", variant: { 'sidewalk-density': 'normal' }, width: 6 },
-      { type: "sidewalk-wayfinding", variant: { 'wayfinding-type': 'medium' }, width: 2 },
-      { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 2 },
-      { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'right', 'lamp-type': 'modern' }, width: 2 },
-      { type: "bike-lane", variant: { 'direction': 'outbound', 'bike-asphalt': 'colored' }, width: 6 },
-      { type: "drive-lane", variant: { 'direction': 'outbound', 'car-type': 'truck' }, width: 10 },
-      { type: "turn-lane", variant: { 'direction': 'outbound', 'orientation': 'right' }, width: 10 },
-      { type: "divider", variant: { 'divider-type': 'flowers' }, width: 3 },
-      { type: "drive-lane", variant: { 'direction': 'inbound', 'car-type': 'car' }, width: 10 },
-      { type: "bus-lane", variant: { 'direction': 'inbound', 'public-transit-asphalt': 'regular' }, width: 10 },
-      { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'left', 'lamp-type': 'modern' }, width: 2 },
-      { type: "transit-shelter", variant: { 'orientation': 'right', 'transit-shelter-elevation': 'street-level' }, width: 9 },
-      { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 2 },
-      { type: "sidewalk", variant: { 'sidewalk-density': 'dense' }, width: 6 },
+      { type: 'sidewalk', variant: { 'sidewalk-density': 'normal' }, width: 6 },
+      { type: 'sidewalk-wayfinding', variant: { 'wayfinding-type': 'medium' }, width: 2 },
+      { type: 'sidewalk-tree', variant: { 'tree-type': 'big' }, width: 2 },
+      { type: 'sidewalk-lamp', variant: { 'lamp-orientation': 'right', 'lamp-type': 'modern' }, width: 2 },
+      { type: 'bike-lane', variant: { 'direction': 'outbound', 'bike-asphalt': 'colored' }, width: 6 },
+      { type: 'drive-lane', variant: { 'direction': 'outbound', 'car-type': 'truck' }, width: 10 },
+      { type: 'turn-lane', variant: { 'direction': 'outbound', 'orientation': 'right' }, width: 10 },
+      { type: 'divider', variant: { 'divider-type': 'flowers' }, width: 3 },
+      { type: 'drive-lane', variant: { 'direction': 'inbound', 'car-type': 'car' }, width: 10 },
+      { type: 'bus-lane', variant: { 'direction': 'inbound', 'public-transit-asphalt': 'regular' }, width: 10 },
+      { type: 'sidewalk-lamp', variant: { 'lamp-orientation': 'left', 'lamp-type': 'modern' }, width: 2 },
+      { type: 'transit-shelter', variant: { 'orientation': 'right', 'transit-shelter-elevation': 'street-level' }, width: 9 },
+      { type: 'sidewalk-tree', variant: { 'tree-type': 'big' }, width: 2 },
+      { type: 'sidewalk', variant: { 'sidewalk-density': 'dense' }, width: 6 },
     ]
   };
 
@@ -1516,8 +1516,6 @@ var main = (function(){
     width: null,
     originalX: null,
     originalWidth: null,
-    originalType: null,
-    originalVariantString: null,
     right: false
   };
 
@@ -1536,6 +1534,7 @@ var main = (function(){
     originalWidth: null,
     originalType: null,
     originalVariantString: null,
+    originalRandSeed: null,
     floatingElVisible: false
   };
 
@@ -1726,7 +1725,7 @@ var main = (function(){
     }
   }
 
-  function _drawProgrammaticPeople(ctx, width, offsetLeft, offsetTop, multiplier, variantString) {
+  function _drawProgrammaticPeople(ctx, width, offsetLeft, offsetTop, randSeed, multiplier, variantString) {
     // TODO move
     var PERSON_TYPES = 14;
 
@@ -1754,7 +1753,7 @@ var main = (function(){
     }
 
     var randomGenerator = new RandomGenerator();
-    randomGenerator.seed(35);
+    randomGenerator.seed(randSeed);
 
     var lastPersonType = 0;
 
@@ -1854,7 +1853,7 @@ var main = (function(){
     return { left: left, right: right, center: center };
   }
 
-  function _drawSegmentContents(ctx, type, variantString, segmentWidth, offsetLeft, offsetTop, multiplier, palette) {
+  function _drawSegmentContents(ctx, type, variantString, segmentWidth, offsetLeft, offsetTop, randSeed, multiplier, palette) {
     var segmentInfo = SEGMENT_INFO[type];
     var variantInfo = SEGMENT_INFO[type].details[variantString];
 
@@ -1949,11 +1948,11 @@ var main = (function(){
     }
 
     if (type == 'sidewalk') {
-      _drawProgrammaticPeople(ctx, segmentWidth / multiplier, offsetLeft - left * TILE_SIZE * multiplier, offsetTop, multiplier, variantString);
+      _drawProgrammaticPeople(ctx, segmentWidth / multiplier, offsetLeft - left * TILE_SIZE * multiplier, offsetTop, randSeed, multiplier, variantString);
     }
   }
 
-  function _setSegmentContents(el, type, variantString, segmentWidth, palette, quickUpdate) {
+  function _setSegmentContents(el, type, variantString, segmentWidth, randSeed, palette, quickUpdate) {
     var segmentInfo = SEGMENT_INFO[type];
     var variantInfo = SEGMENT_INFO[type].details[variantString];
 
@@ -1979,12 +1978,11 @@ var main = (function(){
     canvasEl.height = CANVAS_BASELINE * system.hiDpi;
     canvasEl.style.width = (totalWidth * TILE_SIZE) + 'px';
     canvasEl.style.height = CANVAS_BASELINE + 'px';
-
     canvasEl.style.left = (dimensions.left * TILE_SIZE * multiplier) + 'px';
 
     var ctx = canvasEl.getContext('2d');
 
-    _drawSegmentContents(ctx, type, variantString, segmentWidth, 0, offsetTop, multiplier, palette);
+    _drawSegmentContents(ctx, type, variantString, segmentWidth, 0, offsetTop, randSeed, multiplier, palette);
 
     if (!quickUpdate) {
       _removeElFromDom(el.querySelector('canvas'));
@@ -2290,7 +2288,7 @@ var main = (function(){
     }
 
     _setSegmentContents(el, el.getAttribute('type'), 
-      el.getAttribute('variant-string'), width, palette);
+      el.getAttribute('variant-string'), width, el.getAttribute('rand-seed'), palette, false);
 
     if (updateEdit) {
       _infoBubble.updateWidthInContents(el, width / TILE_SIZE);
@@ -2315,18 +2313,19 @@ var main = (function(){
     return string;
   }
 
-  function _createSegment(type, variantString, width, isUnmovable, palette) {
+  function _createSegment(type, variantString, width, isUnmovable, palette, randSeed) {
     var el = document.createElement('div');
     el.classList.add('segment');
     el.setAttribute('type', type);
     el.setAttribute('variant-string', variantString);
+    if (randSeed) {
+      el.setAttribute('rand-seed', randSeed);
+    }
 
     if (isUnmovable) {
       el.classList.add('unmovable');
     }
     
-    //_setSegmentContents(el, type, variantString, width, palette);
-
     if (!palette) {
       el.style.zIndex = SEGMENT_INFO[type].zIndex;
 
@@ -2360,11 +2359,6 @@ var main = (function(){
       dragHandleEl.addEventListener('mouseout', _hideWidthChart);
       el.appendChild(dragHandleEl);
 
-      /*var commandsEl = document.createElement('span');
-      commandsEl.classList.add('commands');
-
-      el.appendChild(commandsEl);*/
-
       var innerEl = document.createElement('span');
       innerEl.classList.add('grid');
       el.appendChild(innerEl);
@@ -2374,7 +2368,7 @@ var main = (function(){
 
     if (width) {
       _resizeSegment(el, RESIZE_TYPE_INITIAL, width, true, palette, true, true);
-    }    
+    }
 
     if (!palette && !system.touch) {
       $(el).mouseenter(_onSegmentMouseEnter);
@@ -2656,7 +2650,7 @@ var main = (function(){
 
   function _createSegmentDom(segment) {
     return _createSegment(segment.type, segment.variantString, 
-        segment.width * TILE_SIZE, segment.unmovable);
+        segment.width * TILE_SIZE, segment.unmovable, false, segment.randSeed);
   }  
 
   function _onSegmentMouseEnter(event) {
@@ -3008,6 +3002,14 @@ var main = (function(){
     _createNewUndo();
   }
 
+  // TODO move
+  var MAX_RAND_SEED = 999999999;
+
+  function _generateRandSeed() {
+    var randSeed = 1 + Math.floor(Math.random() * MAX_RAND_SEED); // So it’s not zero
+    return randSeed;
+  }
+
   function _incrementSchemaVersion(street) {
     if (!street.schemaVersion) {
       street.schemaVersion = 1;
@@ -3138,6 +3140,14 @@ var main = (function(){
             var variant = _getVariantArray(segment.type, segment.variantString);
             variant['wayfinding-type'] = 'large';
             segment.variantString =  _getVariantString(variant);
+          }
+        }
+        break;
+      case 14:
+        for (var i in street.segments) {
+          var segment = street.segments[i];
+          if (segment.type == 'sidewalk') {
+            segment.randSeed = 35;
           }
         }
         break;
@@ -3673,6 +3683,9 @@ var main = (function(){
       segment.type = street.segments[i].type;
       segment.variantString = street.segments[i].variantString;
       segment.width = street.segments[i].width;
+      if (street.segments[i].randSeed) {
+        segment.randSeed = street.segments[i].randSeed;
+      }
 
       newData.segments.push(segment);
     }
@@ -3690,6 +3703,9 @@ var main = (function(){
     for (var i = 0, el; el = els[i]; i++) {
       var segment = {};
       segment.type = el.getAttribute('type');
+      if (el.getAttribute('rand-seed')) {
+        segment.randSeed = parseInt(el.getAttribute('rand-seed'));
+      }
       segment.variantString = el.getAttribute('variant-string');
       segment.variant = _getVariantArray(segment.type, segment.variantString);
       segment.width = parseFloat(el.getAttribute('width'));
@@ -4082,6 +4098,7 @@ var main = (function(){
     draggingMove.originalType = draggingMove.originalEl.getAttribute('type');
 
     if (draggingMove.originalEl.classList.contains('palette')) {
+      draggingMove.originalRandSeed = _generateRandSeed();
       draggingMove.type = DRAGGING_TYPE_MOVE_CREATE;
       draggingMove.originalWidth = 
           SEGMENT_INFO[draggingMove.originalType].defaultWidth * TILE_SIZE;
@@ -4091,7 +4108,9 @@ var main = (function(){
         draggingMove.originalVariantString = j;
         break;
       }
-  } else {
+    } else {
+      draggingMove.originalRandSeed = 
+          draggingMove.originalEl.getAttribute('rand-seed');
       draggingMove.type = DRAGGING_TYPE_MOVE_TRANSFER;      
       draggingMove.originalWidth = 
           draggingMove.originalEl.offsetWidth;
@@ -4125,7 +4144,9 @@ var main = (function(){
     _setSegmentContents(draggingMove.floatingEl, 
         draggingMove.originalType, 
         draggingMove.originalVariantString, 
-        draggingMove.originalWidth);
+        draggingMove.originalWidth,
+        draggingMove.originalRandSeed,
+        false, false);
     document.body.appendChild(draggingMove.floatingEl);
 
     if (system.cssTransform) {
@@ -4227,7 +4248,8 @@ var main = (function(){
         _setSegmentContents(draggingMove.floatingEl, 
           smartDrop.type, 
           smartDrop.variantString, 
-          smartDrop.width, false, true);
+          smartDrop.width, 
+          draggingMove.originalRandSeed, false, true);
 
         draggingMove.originalType = smartDrop.type;
         draggingMove.originalVariantString = smartDrop.variantString;
@@ -4569,7 +4591,7 @@ var main = (function(){
           draggingMove.originalVariantString, draggingMove.originalWidth);
       
       var newEl = _createSegment(smartDrop.type,
-          smartDrop.variantString, smartDrop.width);
+          smartDrop.variantString, smartDrop.width, false, false, draggingMove.originalRandSeed);
 
       newEl.classList.add('create');
 
@@ -4719,7 +4741,8 @@ var main = (function(){
         variantName,
         width * TILE_SIZE / WIDTH_PALETTE_MULTIPLIER, 
         false, 
-        true);
+        true,
+        _generateRandSeed());
 
       el.classList.add('palette');
 
@@ -8279,7 +8302,7 @@ var main = (function(){
 
       _drawSegmentContents(ctx, segment.type, segment.variantString, 
           segment.width * TILE_SIZE * multiplier, 
-          offsetLeft + dimensions.left * TILE_SIZE * multiplier, offsetTop, multiplier, false);
+          offsetLeft + dimensions.left * TILE_SIZE * multiplier, offsetTop, segment.randSeed, multiplier, false);
 
       offsetLeft += segment.width * TILE_SIZE * multiplier;
     }
