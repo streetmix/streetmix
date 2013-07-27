@@ -1727,7 +1727,7 @@ var main = (function(){
 
   function _drawProgrammaticPeople(ctx, width, offsetLeft, offsetTop, randSeed, multiplier, variantString) {
     // TODO move
-    var PERSON_TYPES = 14;
+    var PERSON_TYPES = 15;
 
     var people = [];
     var peopleWidth = 0;
@@ -4724,7 +4724,7 @@ var main = (function(){
         var variantName = j;
         break;
       }
-      
+
       // TODO hardcoded
       switch (id) {
         case 'sidewalk-lamp':
