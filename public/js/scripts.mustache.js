@@ -29,6 +29,7 @@ var main = (function(){
     TOOLTIP_REMOVE_SEGMENT: 'Remove segment',
     TOOLTIP_DELETE_STREET: 'Delete street',
     TOOLTIP_SEGMENT_WIDTH: 'Change width of the segment',
+    TOOLTIP_BUILDING_HEIGHT: 'Change the number of floors',
     TOOLTIP_STREET_WIDTH: 'Change width of the street',
     TOOLTIP_INCREASE_WIDTH: 'Increase width (hold Shift for more precision)',
     TOOLTIP_DECREASE_WIDTH: 'Decrease width (hold Shift for more precision)',
@@ -1540,8 +1541,8 @@ var main = (function(){
 
   var initializing = false;
 
-  var widthEditHeld = false;
-  var resizeSegmentTimerId = -1;
+  var widthHeightEditHeld = false;
+  var widthHeightChangeTimerId = -1;
 
   var galleryVisible = false;
 
@@ -1994,27 +1995,27 @@ var main = (function(){
   }
 
 
-  function _onWidthEditClick(event) {
+  function _onWidthHeightEditClick(event) {
     var el = event.target;
 
     el.hold = true;
-    widthEditHeld = true;
+    widthHeightEditHeld = true;
 
     if (document.activeElement != el) {
       el.select();
     }
   }
 
-  function _onWidthEditMouseOver(event) {
-    if (!widthEditHeld) {
+  function _onWidthHeightEditMouseOver(event) {
+    if (!widthHeightEditHeld) {
       event.target.focus();
       event.target.select();
     }
   }
 
-  function _onWidthEditMouseOut(event) {
+  function _onWidthHeightEditMouseOut(event) {
     var el = event.target;
-    if (!widthEditHeld) {
+    if (!widthHeightEditHeld) {
       _loseAnyFocus();
     }
   }
@@ -2034,6 +2035,13 @@ var main = (function(){
     el.value = _prettifyWidth(el.realValue, PRETTIFY_WIDTH_INPUT);
   }
 
+  function _onHeightEditFocus(event) {
+    var el = event.target;
+
+    el.oldValue = el.realValue;
+    el.value = _prettifyHeight(el.realValue, PRETTIFY_WIDTH_INPUT);
+  }
+
   function _onWidthEditBlur(event) {
     var el = event.target;
 
@@ -2043,7 +2051,19 @@ var main = (function(){
     el.value = _prettifyWidth(el.realValue, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP);
 
     el.hold = false;
-    widthEditHeld = false;
+    widthHeightEditHeld = false;
+  }
+
+  function _onHeightEditBlur(event) {
+    var el = event.target;
+
+    _heightEditInputChanged(el, true);
+
+    el.realValue = (_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingHeight : street.rightBuildingHeight;
+    el.value = _prettifyHeight(el.realValue, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP);
+
+    el.hold = false;
+    widthHeightEditHeld = false;
   }
 
   function _processWidthInput(widthInput) {
@@ -2083,8 +2103,38 @@ var main = (function(){
     return width;
   }
 
+  function _heightEditInputChanged(el, immediate) {
+    window.clearTimeout(widthHeightChangeTimerId);
+
+    var height = parseInt(el.value);
+
+    if (!height || (height < 1)) {
+      height = 1;
+    } else if (height > MAX_BUILDING_HEIGHT) {
+      height = MAX_BUILDING_HEIGHT;
+    }
+
+    if (immediate) {
+      if (_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING) {
+        street.leftBuildingHeight = height;
+      } else {
+        street.rightBuildingHeight = height;
+      }
+      _buildingHeightUpdated();
+    } else {
+      widthHeightChangeTimerId = window.setTimeout(function() {
+        if (_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING) {
+          street.leftBuildingHeight = height;
+        } else {
+          street.rightBuildingHeight = height;
+        }
+        _buildingHeightUpdated();
+      }, WIDTH_EDIT_INPUT_DELAY);
+    }
+  }
+
   function _widthEditInputChanged(el, immediate) {
-    window.clearTimeout(resizeSegmentTimerId);
+    window.clearTimeout(widthHeightChangeTimerId);
 
     var width = _processWidthInput(el.value);
 
@@ -2096,7 +2146,7 @@ var main = (function(){
             width * TILE_SIZE, false, false, true);
         _infoBubble.updateWidthButtonsInContents(width);
       } else {
-        resizeSegmentTimerId = window.setTimeout(function() {
+        widthHeightChangeTimerId = window.setTimeout(function() {
           _resizeSegment(segmentEl, RESIZE_TYPE_TYPING,
           width * TILE_SIZE, false, false, true);
         _infoBubble.updateWidthButtonsInContents(width);
@@ -2110,6 +2160,10 @@ var main = (function(){
 
     _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH, 
         TRACK_LABEL_INPUT_FIELD, null, true);
+  }
+
+  function _onHeightEditInput(event) {
+    _heightEditInputChanged(event.target, false);
   }
 
   function _onWidthEditKeyDown(event) {
@@ -2131,6 +2185,26 @@ var main = (function(){
         break;
     }
   }
+
+  function _onHeightEditKeyDown(event) {
+    var el = event.target;
+
+    switch (event.keyCode) {
+      case KEY_ENTER:
+        _heightEditInputChanged(el, true);
+        _loseAnyFocus();
+        el.value = _prettifyHeight((_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingHeight : street.rightBuildingHeight, PRETTIFY_WIDTH_INPUT);
+        el.focus();
+        el.select();
+        break;
+      case KEY_ESC:
+        el.value = el.oldValue;
+        _heightEditInputChanged(el, true);
+        _hideMenus();
+        _loseAnyFocus();
+        break;
+    }
+  }  
 
   function _normalizeStreetWidth(width) {
     if (width < MIN_CUSTOM_STREET_WIDTH) {
@@ -2170,6 +2244,28 @@ var main = (function(){
     width = parseFloat(width.toFixed(NORMALIZE_PRECISION));
 
     return width;
+  }
+
+  function _prettifyHeight(height, purpose) {
+    var heightText = height;
+
+    switch (purpose) {
+      case PRETTIFY_WIDTH_INPUT:
+        break;
+      case PRETTIFY_WIDTH_OUTPUT_MARKUP:
+      case PRETTIFY_WIDTH_OUTPUT_NO_MARKUP:
+        heightText += ' floor';
+        if (height > 1) {
+          heightText += 's';          
+        }
+
+        var attr = _getBuildingAttributes(street, _infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING);
+
+        heightText += ' (' + _prettifyWidth(attr.height / TILE_SIZE, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP) + ')';
+
+        break;
+    }
+    return heightText;
   }
 
   function _prettifyWidth(width, purpose) {
@@ -2618,10 +2714,18 @@ var main = (function(){
     _drawBuilding(ctx, BUILDING_DESTINATION_SCREEN, street, left, totalWidth, attr.height, false, 0, 0, 1.0);
   }
 
+  // TODO move
+  var MAX_BUILDING_HEIGHT = 20;
+
+  function _buildingHeightUpdated() {
+    _saveStreetToServerIfNecessary();
+    _createBuildings();
+  }
+
   function _changeBuildingHeight(left, increment) {
     if (left) {
       if (increment) {
-        if (street.leftBuildingHeight < 10) {
+        if (street.leftBuildingHeight < MAX_BUILDING_HEIGHT) {
           street.leftBuildingHeight++;
         }
       } else if (street.leftBuildingHeight > 1) {
@@ -2629,7 +2733,7 @@ var main = (function(){
       }
     } else {
       if (increment) {
-        if (street.rightBuildingHeight < 10) {
+        if (street.rightBuildingHeight < MAX_BUILDING_HEIGHT) {
           street.rightBuildingHeight++;
         }
       } else if (street.rightBuildingHeight > 1) {
@@ -2637,8 +2741,8 @@ var main = (function(){
       }
     }
 
-    _saveStreetToServerIfNecessary();
-    _createBuildings();
+    _infoBubble.updateHeightInContents(left);
+    _buildingHeightUpdated();
   }
 
   function _createBuildings() {
@@ -3870,11 +3974,6 @@ var main = (function(){
         x += width;
       }
     }
-
-    /*document.querySelector('#street-width-canvas').style.left = 
-        WIDTH_CHART_MARGIN + 'px';
-    document.querySelector('#street-width-canvas').style.width = 
-        (street.width * multiplier) + 'px';*/
   }
 
   // TODO move
@@ -5083,17 +5182,11 @@ var main = (function(){
   function _getHoveredSegmentEl() {
     var el = document.querySelector('.segment.hover');
     return el;
-/*
-    var el = document.elementFromPoint(mouseX, mouseY);
-    while (el && el.classList && !el.classList.contains('segment')) {
-      el = el.parentNode;
-    }
+  }
 
-    if (el.classList && el.classList.contains('segment')) {
-      return el;
-    } else {
-      return null;
-    }*/
+  function _getHoveredEl() {
+    var el = document.querySelector('.hover');
+    return el;
   }
 
   function _showDebugInfo() {
@@ -5149,28 +5242,21 @@ var main = (function(){
     switch (event.keyCode) {
       case KEY_EQUAL:
       case KEY_EQUAL_ALT:
-        if (event.metaKey || event.ctrlKey || event.altKey) {
-          return;
-        }
-
-        var segmentHoveredEl = _getHoveredSegmentEl();
-        if (segmentHoveredEl) {
-          _incrementSegmentWidth(segmentHoveredEl, true, event.shiftKey);
-        }
-        event.preventDefault();
-
-        _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH, 
-            TRACK_LABEL_KEYBOARD, null, true);    
-        break;
       case KEY_MINUS:
       case KEY_MINUS_ALT:
         if (event.metaKey || event.ctrlKey || event.altKey) {
           return;
         }
 
-        var segmentHoveredEl = _getHoveredSegmentEl();
-        if (segmentHoveredEl) {
-          _incrementSegmentWidth(segmentHoveredEl, false, event.shiftKey);
+        var negative = ((event.keyCode == KEY_MINUS) || (event.keyCode == KEY_MINUS_ALT));
+
+        var hoveredEl = _getHoveredEl();
+        if (hoveredEl.classList.contains('segment')) {
+          _incrementSegmentWidth(hoveredEl, !negative, event.shiftKey);
+        } else if (hoveredEl.id == 'street-section-left-building') {
+          _changeBuildingHeight(true, !negative);
+        } else if (hoveredEl.id == 'street-section-right-building') {
+          _changeBuildingHeight(false, !negative);
         }
         event.preventDefault();
 
@@ -5343,6 +5429,9 @@ var main = (function(){
     }
     if (debug.forceReadOnly) {
       url += '&debug-force-read-only';
+    }
+    if (debug.forceTouch) {
+      url += '&debug-force-touch';
     }
 
     url = url.replace(/\&/, '?');
@@ -6561,7 +6650,11 @@ var main = (function(){
   }
 
   function _detectSystemCapabilities() {
-    system.touch = Modernizr.touch;
+    if (debug.forceTouch) {
+      system.touch = true;
+    } else {
+      system.touch = Modernizr.touch;
+    }
     system.pageVisibility = Modernizr.pagevisibility;
     if (debug.forceNonRetina) {
       system.hiDpi = 1.0;
@@ -7224,17 +7317,58 @@ var main = (function(){
       _infoBubble.getBubbleDimensions();
     },
 
+    updateHeightButtonsInContents: function() {
+      var height = (_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingHeight : street.rightBuildingHeight;
+      var variant = (_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingVariant : street.rightBuildingVariant;
+
+      if (!_isFlooredBuilding(variant) || (height == 1)) {
+        _infoBubble.el.querySelector('.non-variant .decrement').disabled = true;        
+      } else {
+        _infoBubble.el.querySelector('.non-variant .decrement').disabled = false;                
+      }
+
+      if (!_isFlooredBuilding(variant) || (height == MAX_BUILDING_HEIGHT)) {
+        _infoBubble.el.querySelector('.non-variant .increment').disabled = true;        
+      } else {
+        _infoBubble.el.querySelector('.non-variant .increment').disabled = false;                
+      }
+    },
+
     updateWidthButtonsInContents: function(width) {
       if (width == MIN_SEGMENT_WIDTH) {
-        _infoBubble.el.querySelector('.decrement').disabled = true;
+        _infoBubble.el.querySelector('.non-variant .decrement').disabled = true;
       } else {
-        _infoBubble.el.querySelector('.decrement').disabled = false;        
+        _infoBubble.el.querySelector('.non-variant .decrement').disabled = false;        
       }
 
       if (width == MAX_SEGMENT_WIDTH) {
-        _infoBubble.el.querySelector('.increment').disabled = true;
+        _infoBubble.el.querySelector('.non-variant .increment').disabled = true;
       } else {
-        _infoBubble.el.querySelector('.increment').disabled = false;        
+        _infoBubble.el.querySelector('.non-variant .increment').disabled = false;        
+      }
+    },
+
+    updateHeightInContents: function(left) {
+      if (!_infoBubble.visible || 
+          (left && (_infoBubble.type != INFO_BUBBLE_TYPE_LEFT_BUILDING)) ||
+          (!left && (_infoBubble.type != INFO_BUBBLE_TYPE_RIGHT_BUILDING))) {
+        return;
+      }
+
+      var height = left ? street.leftBuildingHeight : street.rightBuildingHeight;
+      var variant = left ? street.leftBuildingVariant : street.rightBuildingVariant;
+
+      _infoBubble.updateHeightButtonsInContents();
+
+      if (_isFlooredBuilding(variant)) {
+        var el = _infoBubble.el.querySelector('.non-variant .height');
+        if (el) {
+          el.realValue = height;
+          el.value = _prettifyHeight(height, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP);
+        } else {
+          var el = _infoBubble.el.querySelector('.non-variant .height-non-editable');
+          el.innerHTML = _prettifyHeight(height, PRETTIFY_WIDTH_OUTPUT_MARKUP);
+        }
       }
     },
 
@@ -7246,12 +7380,12 @@ var main = (function(){
 
       _infoBubble.updateWidthButtonsInContents(width);
 
-      var el = _infoBubble.el.querySelector('.width-canvas .width');
+      var el = _infoBubble.el.querySelector('.non-variant .width');
       if (el) {
         el.realValue = width;
         el.value = _prettifyWidth(width, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP);
       } else {
-        var el = _infoBubble.el.querySelector('.width-canvas .width-non-editable');
+        var el = _infoBubble.el.querySelector('.non-variant .width-non-editable');
         el.innerHTML = _prettifyWidth(width, PRETTIFY_WIDTH_OUTPUT_MARKUP);
       }
     },
@@ -7291,18 +7425,24 @@ var main = (function(){
           var canBeDeleted = true;
           var showWidth = true;
           var showVariants = true;
+
+          _infoBubble.el.setAttribute('type', 'segment');
           break;
         case INFO_BUBBLE_TYPE_LEFT_BUILDING:
           var name = 'Building';
           var canBeDeleted = false;
           var showWidth = false;
           var showVariants = false;
+
+          _infoBubble.el.setAttribute('type', 'building');
           break;
         case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
           var name = 'Building';
           var canBeDeleted = false;
           var showWidth = false;
           var showVariants = false;
+
+          _infoBubble.el.setAttribute('type', 'building');
           break;
       }
 
@@ -7340,32 +7480,67 @@ var main = (function(){
 
       if ((_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING) ||
           (_infoBubble.type == INFO_BUBBLE_TYPE_RIGHT_BUILDING)) {
-        var widthCanvasEl = document.createElement('div');
-        widthCanvasEl.classList.add('width-canvas');
-
-        var func = function() {
-          _changeBuildingHeight(_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING, false);
+        if (_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING) {
+          var variant = street.leftBuildingVariant;
+          var height = street.leftBuildingHeight;
+        } else {
+          var variant = street.rightBuildingVariant;
+          var height = street.rightBuildingHeight;
         }
+
+        var disabled = !_isFlooredBuilding(variant);
+
+        var widthCanvasEl = document.createElement('div');
+        widthCanvasEl.classList.add('non-variant');
+        widthCanvasEl.classList.add('building-height');
+
         var innerEl = document.createElement('button');
-        innerEl.classList.add('decrement');
-        innerEl.innerHTML = '–';
+        innerEl.classList.add('increment');
+        innerEl.innerHTML = '+';
         innerEl.tabIndex = -1;
-        innerEl.title = msg('TOOLTIP_REMOVE_FLOOR');
+        innerEl.title = msg('TOOLTIP_ADD_FLOOR');
+        var func = function() {
+          _changeBuildingHeight(_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING, true);
+        }
         if (system.touch) {
           innerEl.addEventListener('touchstart', func);
         } else {
           innerEl.addEventListener('click', func);        
         }
         widthCanvasEl.appendChild(innerEl);      
-
-        var func = function() {
-          _changeBuildingHeight(_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING, true);
+        if (!system.touch) {
+          var innerEl = document.createElement('input');
+          innerEl.setAttribute('type', 'text');
+          innerEl.classList.add('height');
+          innerEl.title = msg('TOOLTIP_BUILDING_HEIGHT');
+          
+          innerEl.addEventListener('click', _onWidthHeightEditClick);
+          innerEl.addEventListener('focus', _onHeightEditFocus);
+          innerEl.addEventListener('blur', _onHeightEditBlur);
+          innerEl.addEventListener('input', _onHeightEditInput);
+          innerEl.addEventListener('mouseover', _onWidthHeightEditMouseOver);
+          innerEl.addEventListener('mouseout', _onWidthHeightEditMouseOut);
+          innerEl.addEventListener('keydown', _onHeightEditKeyDown);
+          
+          //innerEl.addEventListener('mouseover', _showWidthChart);
+          //innerEl.addEventListener('mouseout', _hideWidthChart);
+        } else {
+          var innerEl = document.createElement('span');
+          innerEl.classList.add('height-non-editable');
         }
+        if (disabled) {
+          innerEl.disabled = true;
+        }
+        widthCanvasEl.appendChild(innerEl);        
+
         var innerEl = document.createElement('button');
-        innerEl.classList.add('increment');
-        innerEl.innerHTML = '+';
+        innerEl.classList.add('decrement');
+        innerEl.innerHTML = '–';
         innerEl.tabIndex = -1;
-        innerEl.title = msg('TOOLTIP_ADD_FLOOR');
+        innerEl.title = msg('TOOLTIP_REMOVE_FLOOR');
+        var func = function() {
+          _changeBuildingHeight(_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING, false);
+        }
         if (system.touch) {
           innerEl.addEventListener('touchstart', func);
         } else {
@@ -7380,7 +7555,7 @@ var main = (function(){
 
       if (showWidth) {
         var widthCanvasEl = document.createElement('div');
-        widthCanvasEl.classList.add('width-canvas');
+        widthCanvasEl.classList.add('non-variant');
 
         if (!segmentInfo.variants[0]) {
           widthCanvasEl.classList.add('entire-info-bubble');
@@ -7408,17 +7583,16 @@ var main = (function(){
           innerEl.title = msg('TOOLTIP_SEGMENT_WIDTH');
           innerEl.segmentEl = segment.el;
 
-          innerEl.addEventListener('click', _onWidthEditClick);
+          innerEl.addEventListener('click', _onWidthHeightEditClick);
           innerEl.addEventListener('focus', _onWidthEditFocus);
           innerEl.addEventListener('blur', _onWidthEditBlur);
           innerEl.addEventListener('input', _onWidthEditInput);
-          innerEl.addEventListener('mouseover', _onWidthEditMouseOver);
-          innerEl.addEventListener('mouseout', _onWidthEditMouseOut);
+          innerEl.addEventListener('mouseover', _onWidthHeightEditMouseOver);
+          innerEl.addEventListener('mouseout', _onWidthHeightEditMouseOut);
           innerEl.addEventListener('keydown', _onWidthEditKeyDown);
 
-          //innerEl.addEventListener('focus', _showWidthChartImmediately);
-          innerEl.addEventListener('mouseover', _showWidthChart);
-          innerEl.addEventListener('mouseout', _hideWidthChart);
+          //innerEl.addEventListener('mouseover', _showWidthChart);
+          //innerEl.addEventListener('mouseout', _hideWidthChart);
         } else {
           var innerEl = document.createElement('span');
           innerEl.classList.add('width-non-editable');
@@ -7540,6 +7714,8 @@ var main = (function(){
       window.setTimeout(function() {
         if (_infoBubble.type == INFO_BUBBLE_TYPE_SEGMENT) {
           _infoBubble.updateWidthInContents(segment.el, segment.width);
+        } else {
+          _infoBubble.updateHeightInContents(_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING);
         }
       }, 0);
     },
@@ -8708,6 +8884,10 @@ var main = (function(){
 
     if (url.match(/[\?\&]debug-force-read-only\&?/)) {
       debug.forceReadOnly = true;
+    }
+
+    if (url.match(/[\?\&]debug-force-touch\&?/)) {
+      debug.forceTouch = true;
     }
   }
 

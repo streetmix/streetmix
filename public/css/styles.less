@@ -152,6 +152,11 @@ input[type='text'],
 input[type='email'],
 textarea {
   padding: 3px;
+
+  &[disabled] {
+    background: desaturate(fadeout(@uiColour, 70%), 100%) !important;
+    border-color: desaturate(@uiColour, 100%) !important;
+  }  
 }
 
 #main-screen {
@@ -716,7 +721,7 @@ body.gallery-visible #gallery-shield {
   left: 0;
   right: 25px;
   z-index: -2;
-  top: @canvasHeight - 80;
+  top: @canvasHeight - 80px;
 
   border-top: 45px solid @backgroundDirtColour;
 
@@ -724,12 +729,6 @@ body.gallery-visible #gallery-shield {
 
   background: @bottomBackground;
 }
-/*body.street-overflows #street-section-left-building,
-body.street-overflows #street-section-left-building-old,
-body.street-overflows #street-section-right-building,
-body.street-overflows #street-section-right-building-old {
-  opacity: .2;
-}*/
 
 #street-section-left-building,
 #street-section-left-building-old,
@@ -738,9 +737,9 @@ body.street-overflows #street-section-right-building-old {
   display: block;
   position: absolute;
 
-  top: -5px - 145px;
+  top: -150px;
   width: 396px;
-  height: @canvasHeight - 75px + 145px;
+  height: @canvasHeight + 70px;
 
   .hover-bk {
     position: absolute;
@@ -2649,6 +2648,11 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
     pointer-events: auto;
   }
 
+
+  &[type='building'] header {
+    margin-right: 80px + 50px;
+  }
+
   header {
     padding: 5px 12px;
     padding-top: 2px;
@@ -2678,14 +2682,21 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
     margin-top: -3px;
   }
 
+  &[type='segment'] .variants {
+    margin-right: 170px;
+  }
+  &[type='building'] .variants {
+    margin-right: 150px;
+  }
+
   .variants {
     text-align: left;
-    padding: 5px 8px;
     padding-top: 7px;
+    padding-bottom: 5px;
+    padding-left: 8px;
+    padding-right: 8px;
 
     min-height: @infoBubbleButtonSize;
-
-    margin-right: 170px; // Clear width
 
     white-space: nowrap;
 
@@ -2695,7 +2706,6 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
 
     button {
       margin-left: 3px;
-      margin-right: 3px;
       margin-top: 0;
       margin-bottom: 2px;
       white-space: nowrap;
@@ -2867,10 +2877,11 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
     }
   }
 
-  .width-canvas {
-    position: absolute;
-    right: 8px;
-    top: @infoBubbleButtonSize + 12px;
+  .non-variant {
+    float: right;
+    margin-right: 8px;
+    margin-top: 5px;
+    margin-bottom: 8px;
     width: 150px;
     height: @infoBubbleButtonSize;
     line-height: @infoBubbleButtonSize;  
@@ -2885,40 +2896,55 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
 
     &.entire-info-bubble {
       width: auto;
-      left: 5px;
+      left: 8px;
       text-align: center;
     }
 
-    .width {
-      width: 50px;
-      margin: 0 3px;
-
-      background: @formElementBackground;
-      border: 1px solid @formElementBorder;
+    &.building-height {
+      margin-top: -29px;
+      height: auto;
+      white-space: normal;
+      width: 65px + 50px;
       text-align: center;
-
-      font-family: @fontFamily;
-      font-size: 13px;
-      vertical-align: bottom;
-      line-height: 25px;
-      height: 22px;
-
-      outline: none;
     }
-    .width-non-editable {
+
+    .width,
+    .width-non-editable,
+    .height,
+    .height-non-editable {
       width: 50px;
       margin: 0 3px;
-      display: inline-block;
-
-      color: black;
-
-      text-align: center;
 
       font-family: @fontFamily;
       font-size: 13px;
-      vertical-align: center;
       line-height: 25px;
-      height: 25px;
+      text-align: center;
+
+      &.width,
+      &.height {
+        background: @formElementBackground;
+        border: 1px solid @formElementBorder;
+
+        vertical-align: bottom;
+        height: 22px;
+
+        outline: none;        
+      }
+      &.width-non-editable,
+      &.height-non-editable {
+        display: inline-block;
+
+        color: black;
+
+        vertical-align: center;
+        height: 25px;
+      }
+      &.height,
+      &.height-non-editable {
+        width: 50px + 50px;
+        margin-top: 4px;
+        margin-bottom: 2px;
+      }
     }
   }
 
@@ -2929,7 +2955,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
     &.remove {
       position: absolute;
       right: 6px;
-      top: 5px;
+      top: 6px;
       width: auto;
       padding-left: 10px;
       padding-right: 10px;
@@ -2946,7 +2972,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
   .variants {
     pointer-events: none;
   }
-  .width-canvas {
+  .non-variant {
     pointer-events: none;
   }
   .warnings {
