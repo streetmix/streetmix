@@ -9038,7 +9038,7 @@ var main = (function(){
         break;      
       case ERROR_CANNOT_CREATE_NEW_STREET_ON_PHONE:
         title = 'Streetmix works on tablets and desktops only.';
-        description = 'If you follow a link to see a specific street, you can see it on your phone – but you cannot yet create new streets.<br><button class="example">View an example street</button>';
+        description = 'If you follow another link to a specific street, you can view it on your phone – but you cannot yet create new streets.<br><button class="example">View an example street</button>';
         break;  
     }
 
