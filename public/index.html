@@ -20,8 +20,8 @@
   <meta charset='utf-8'>
   <meta http-equiv='Content-Language' content='en'>
 
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="transparent">
+  <meta name='apple-mobile-web-app-capable' content='yes'>
+  <meta name='apple-mobile-web-app-status-bar-style' content='transparent'>
 
   <link href='/css/styles.css' rel='stylesheet' type='text/css'>
 
@@ -251,20 +251,36 @@
       </div>
     </div>
 
-    <div id='new-street-menu'>
+    <div id='welcome'>
       <div>
         <button class='close'>×</button>
-        <h1>
-          Here’s your new street.
-        </h1>
-        <ul>
-          <li>
-            <input type='radio' name='new-street' id='new-street-default'><label for='new-street-default'>Start with an example street</label>
-          <li>
-            <input type='radio' name='new-street' id='new-street-empty'><label for='new-street-empty'>Start with an empty street</label>
-          <li>
-            <input type='radio' name='new-street' id='new-street-last'><label for='new-street-last'>Start with a copy of last street</label>
-        </ul>
+        <div class='first-time'>
+          <h1>
+            Welcome to Streetmix.
+          </h1>
+          <p>
+            Design, remix, and share your neighborhood street. Add trees or bike paths, widen 
+            sidewalks or traffic lanes, learn how your decisions can impact your community.
+          </p>
+          <p class='important'>
+            Start by moving some segments around below with 
+            <span class='touch-only'>your finger.</span>
+            <span class='non-touch-only'>your mouse.</span>
+          </p>
+        </div>
+        <div class='next-time'>
+          <h1>
+            Here’s your new street.
+          </h1>
+          <ul>
+            <li>
+              <input type='radio' name='new-street' id='new-street-default'><label for='new-street-default'>Start with an example street</label>
+            <li>
+              <input type='radio' name='new-street' id='new-street-empty'><label for='new-street-empty'>Start with an empty street</label>
+            <li>
+              <input type='radio' name='new-street' id='new-street-last'><label for='new-street-last'>Start with a copy of last street</label>
+          </ul>
+        </div>
       </div>
     </div>
 

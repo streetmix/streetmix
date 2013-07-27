@@ -1507,7 +1507,7 @@ body.segment-move-dragging #editable-street-section > div {
 #error h1,
 #loading h1,
 #about h1,
-#new-street-menu h1,
+#welcome h1,
 #blocking-shield .message {
   font-size: 250%;
   font-weight: 300;
@@ -1517,7 +1517,7 @@ body.segment-move-dragging #editable-street-section > div {
   margin-bottom: 12px;
 }
 
-#new-street-menu .close {
+#welcome .close {
   position: absolute;
   right: -5px;
   top: 5px;
@@ -2460,7 +2460,7 @@ body.read-only #street-metadata-author a {
   }
 }
 
-#new-street-menu {
+#welcome {
   position: absolute;
   top: -5px;
   left: 0;
@@ -2473,6 +2473,11 @@ body.read-only #street-metadata-author a {
   user-select: none;  
 
   pointer-events: none;
+
+  &:not(.first-time) .first-time,
+  &:not(.next-time) .next-time {
+    display: none;
+  }
 
   > div {
     pointer-events: auto;
@@ -2489,12 +2494,22 @@ body.read-only #street-metadata-author a {
 
     color: rgb(64, 64, 64);
   }
-  ul {
+  ul,
+  p {
     display: inline-block;
     list-style: none;
     padding: 0;
     margin: 0;
     margin-bottom: 5px;
+  }
+  p {
+    line-height: 1.5;
+    display: block;
+    max-width: 600px;
+
+    &.important {
+      color: darken(@uiColour, 40%);
+    }
   }
   li {
     display: inline-block;

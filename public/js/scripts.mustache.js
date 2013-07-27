@@ -1435,6 +1435,7 @@ var main = (function(){
   var SIGN_IN_TOKEN_COOKIE = 'login_token';
 
   var LOCAL_STORAGE_SETTINGS_ID = 'settings';
+  var LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED = 'settings-welcome-dismissed';
   var LOCAL_STORAGE_SIGN_IN_ID = 'sign-in';
   var LOCAL_STORAGE_FEEDBACK_BACKUP = 'feedback-backup';
   var LOCAL_STORAGE_FEEDBACK_EMAIL_BACKUP = 'feedback-email-backup';
@@ -1480,6 +1481,7 @@ var main = (function(){
     priorLastStreetId: null, // Do not save
     newStreetPreference: null
   };
+  var settingsWelcomeDismissed = false;
 
   var units = SETTINGS_UNITS_IMPERIAL;
 
@@ -3583,7 +3585,7 @@ var main = (function(){
 
     if (JSON.stringify(currentData) != JSON.stringify(lastStreet)) {
       _setUpdateTimeToNow();
-      _hideNewStreetMenu();
+      _hideWelcome();
 
       // As per issue #306.
       _statusMessage.hide();
@@ -5623,25 +5625,42 @@ var main = (function(){
     _saveStreetToServer(false);
   }
 
-  function _showNewStreetMenu() {
-    switch (settings.newStreetPreference) {
-      case NEW_STREET_EMPTY:
-        document.querySelector('#new-street-empty').checked = true;
-        break;
-      case NEW_STREET_DEFAULT:
-        document.querySelector('#new-street-default').checked = true;
-        break;
+  function _showWelcome() {
+    var firstTime = true;
+
+    _loadSettingsWelcomeDismissed();
+
+    if (signedIn || settingsWelcomeDismissed) {
+      firstTime = false;
     }
 
-    if (settings.priorLastStreetId && settings.priorLastStreetId != street.id) {
-      document.querySelector('#new-street-last').parentNode.classList.add('visible');
+    if (firstTime) {
+      document.querySelector('#welcome').classList.add('first-time');
+    } else {
+      document.querySelector('#welcome').classList.add('next-time');
+
+      switch (settings.newStreetPreference) {
+        case NEW_STREET_EMPTY:
+          document.querySelector('#new-street-empty').checked = true;
+          break;
+        case NEW_STREET_DEFAULT:
+          document.querySelector('#new-street-default').checked = true;
+          break;
+      }
+
+      if (settings.priorLastStreetId && settings.priorLastStreetId != street.id) {
+        document.querySelector('#new-street-last').parentNode.classList.add('visible');
+      }
     }
 
-    document.querySelector('#new-street-menu').classList.add('visible');
+    document.querySelector('#welcome').classList.add('visible');
   }
 
-  function _hideNewStreetMenu() {
-    document.querySelector('#new-street-menu').classList.remove('visible');
+  function _hideWelcome() {
+    settingsWelcomeDismissed = true;
+    _saveSettingsWelcomeDismissed();
+
+    document.querySelector('#welcome').classList.remove('visible');
   }
 
   function _showAboutMenu(event) {
@@ -5766,7 +5785,7 @@ var main = (function(){
     _createDomFromData();
     _createDataFromDom();
 
-    _hideNewStreetMenu();
+    _hideWelcome();
     _resizeStreetWidth();
     _updateStreetName();
     _createDomFromData();
@@ -6193,7 +6212,6 @@ var main = (function(){
       if (system.ipAddress) {
         additionalInformation += '\nIP: ' + system.ipAddress;
       }
-      //additionalInformation += '\nSettings: ' + JSON.stringify(settings);
 
       var transmission = {
         message: document.querySelector('#feedback-form-message').value,
@@ -6342,9 +6360,9 @@ var main = (function(){
     document.querySelector('#street-scroll-indicator-right').addEventListener('click', _onStreetRightScrollClick);
 
     if (system.touch) {
-      document.querySelector('#new-street-menu .close').addEventListener('touchstart', _hideNewStreetMenu);
+      document.querySelector('#welcome .close').addEventListener('touchstart', _hideWelcome);
     } else {
-      document.querySelector('#new-street-menu .close').addEventListener('click', _hideNewStreetMenu);      
+      document.querySelector('#welcome .close').addEventListener('click', _hideWelcome);      
     }
 
 
@@ -7823,6 +7841,18 @@ var main = (function(){
     }
   }
 
+  function _loadSettingsWelcomeDismissed() {
+    if (window.localStorage[LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED]) {
+      settingsWelcomeDismissed = 
+          JSON.parse(window.localStorage[LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED]);
+    }
+  }
+
+  function _saveSettingsWelcomeDismissed() {
+    window.localStorage[LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED] = 
+        JSON.stringify(settingsWelcomeDismissed);
+  }
+
   function _loadSettings() {
     if (signedIn && signInData.details) {
       var serverSettings = signInData.details.data;
@@ -8164,7 +8194,7 @@ var main = (function(){
   function _onEverythingLoaded() {
     switch (mode) {
       case MODE_NEW_STREET:
-        _showNewStreetMenu();
+        _showWelcome();
         break;
       case MODE_NEW_STREET_COPY_LAST:
         _onNewStreetLastClick();
@@ -8269,8 +8299,6 @@ var main = (function(){
     if (abortEverything) {
       return;
     }
-
-    console.log(imagesToBeLoaded, signInLoaded, bodyLoaded, readyStateCompleteLoaded, countryLoaded, serverContacted);
 
     if ((imagesToBeLoaded == 0) && signInLoaded && bodyLoaded && 
         readyStateCompleteLoaded && countryLoaded && serverContacted) {
