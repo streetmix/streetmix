@@ -1261,7 +1261,7 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { tileset: 3, x: 192, y: 1, width: 12, height: 17, offsetY: -1 }, // Streetcar
+              { tileset: 3, x: 192, y: 0, width: 12, height: 18, offsetY: -2 }, // Streetcar
               { tileset: 1, x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
               { tileset: 1, x: 29, y: 15, width: 4, height: 5, offsetX: 1, offsetY: 10 }, // Dark arrow (inbound)
             ],
@@ -1273,7 +1273,7 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { tileset: 3, x: 204, y: 1, width: 12, height: 17, offsetY: -1 }, // Streetcar
+              { tileset: 3, x: 204, y: 0, width: 12, height: 18, offsetY: -2 }, // Streetcar
               { tileset: 1, x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
               { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Dark arrow (outbound)
             ],
