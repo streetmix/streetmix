@@ -324,8 +324,10 @@ var main = (function(){
   var KEY_Z = 90;
   var KEY_EQUAL = 187; // = or +
   var KEY_EQUAL_ALT = 61; // Firefox
+  var KEY_PLUS_KEYPAD = 107;
   var KEY_MINUS = 189;
   var KEY_MINUS_ALT = 173; // Firefox
+  var KEY_MINUS_KEYPAD = 109;
 
   var PRETTIFY_WIDTH_OUTPUT_MARKUP = 1;
   var PRETTIFY_WIDTH_OUTPUT_NO_MARKUP = 2;
@@ -5349,13 +5351,17 @@ var main = (function(){
     switch (event.keyCode) {
       case KEY_EQUAL:
       case KEY_EQUAL_ALT:
+      case KEY_PLUS_KEYPAD:
       case KEY_MINUS:
       case KEY_MINUS_ALT:
+      case KEY_MINUS_KEYPAD:
         if (event.metaKey || event.ctrlKey || event.altKey) {
           return;
         }
 
-        var negative = ((event.keyCode == KEY_MINUS) || (event.keyCode == KEY_MINUS_ALT));
+        var negative = (event.keyCode == KEY_MINUS) || 
+           (event.keyCode == KEY_MINUS_ALT) || 
+           (event.keyCode == KEY_MINUS_KEYPAD);
 
         var hoveredEl = _getHoveredEl();
         if (hoveredEl.classList.contains('segment')) {
