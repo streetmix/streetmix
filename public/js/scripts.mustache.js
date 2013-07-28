@@ -485,7 +485,7 @@ var main = (function(){
       owner: SEGMENT_OWNER_PEDESTRIAN,
       zIndex: 2,
       defaultWidth: 6,
-      needRandomSeed: true,
+      needRandSeed: true,
       variants: ['sidewalk-density'],
       details: {
         'dense': {
@@ -4030,8 +4030,6 @@ var main = (function(){
     document.body.classList.remove('segment-resize-dragging');
 
     switch (draggingType) {
-      case DRAGGING_TYPE_CLICK_OR_MOVE:
-        break;
       case DRAGGING_TYPE_RESIZE:
         document.body.classList.add('segment-resize-dragging');
         break;
@@ -4214,7 +4212,9 @@ var main = (function(){
     draggingMove.originalType = draggingMove.originalEl.getAttribute('type');
 
     if (draggingMove.originalEl.classList.contains('palette')) {
-      draggingMove.originalRandSeed = _generateRandSeed();
+      if (SEGMENT_INFO[draggingMove.originalType].needRandSeed) {
+        draggingMove.originalRandSeed = _generateRandSeed();        
+      }
       draggingMove.type = DRAGGING_TYPE_MOVE_CREATE;
       draggingMove.originalWidth = 
           SEGMENT_INFO[draggingMove.originalType].defaultWidth * TILE_SIZE;
@@ -4462,11 +4462,15 @@ var main = (function(){
     var selectedSegmentBefore = null;
     var selectedSegmentAfter = null;
 
-    var farLeft = street.segments[0].el.savedNoMoveLeft;
-    var farRight = 
-        street.segments[street.segments.length - 1].el.savedNoMoveLeft + 
-        street.segments[street.segments.length - 1].el.savedWidth;
-
+    if (street.segments.length) { 
+      var farLeft = street.segments[0].el.savedNoMoveLeft;
+      var farRight = 
+          street.segments[street.segments.length - 1].el.savedNoMoveLeft + 
+          street.segments[street.segments.length - 1].el.savedWidth;
+    } else {
+      var farLeft = 0;
+      var farRight = street.width * TILE_SIZE;
+    }
     // TODO const
     var space = (street.width - street.occupiedWidth) * TILE_SIZE / 2;
     if (space < 100) {
@@ -4832,8 +4836,11 @@ var main = (function(){
       case DRAGGING_TYPE_NONE:
         return;
       case DRAGGING_TYPE_CLICK_OR_MOVE:
-        // click!
         _changeDraggingType(DRAGGING_TYPE_NONE);
+        ignoreStreetChanges = false;
+
+        // click!
+        //_nextSegmentVariant(draggingMove.originalEl.dataNo);
         break;
       case DRAGGING_TYPE_MOVE:
         _handleSegmentMoveEnd(event);
@@ -5191,6 +5198,71 @@ var main = (function(){
     _loseAnyFocus();   
   }
 
+  function _nextSegmentVariant(dataNo) {
+    var segment = street.segments[dataNo];
+
+    var segmentInfo = SEGMENT_INFO[segment.type];
+
+    var nextVariantString = '';
+    var found = 0;
+    for (var i in segmentInfo.details) {
+      if (found == 1) {
+        nextVariantString = i;
+        break;
+      }
+      if (i == segment.variantString) {
+        found = 1;
+      }
+    }
+
+    if (!nextVariantString) {
+      // TODO hack
+      for (var i in segmentInfo.details) {
+        nextVariantString = i;
+        break;
+      }
+    }
+
+    _changeSegmentVariant(dataNo, null, null, nextVariantString);
+  }
+
+  function _changeSegmentVariant(dataNo, variantName, variantChoice, variantString) {
+    var segment = street.segments[dataNo];
+
+    if (variantString) {
+      segment.variantString = variantString;
+      segment.variant = _getVariantArray(segment.type, segment.variantString);
+    } else {
+      segment.variant[variantName] = variantChoice;
+      segment.variantString = _getVariantString(segment.variant);
+    }
+
+    var el = _createSegmentDom(segment);
+
+    var oldEl = segment.el;
+    oldEl.parentNode.insertBefore(el, oldEl);
+    _switchSegmentElAway(oldEl);
+
+    segment.el = el;
+    segment.el.dataNo = oldEl.dataNo;
+    street.segments[oldEl.dataNo].el = el;
+
+    _switchSegmentElIn(el);
+    el.classList.add('hover');
+    el.classList.add('show-drag-handles');
+    el.classList.add('immediate-show-drag-handles');
+    el.classList.add('hide-drag-handles-when-inside-info-bubble');
+    _infoBubble.segmentEl = el;
+
+    _infoBubble.updateContents();
+
+    _repositionSegments();
+    _recalculateWidth();
+    _applyWarningsToSegments();
+
+    _saveStreetToServerIfNecessary();
+  }
+
   function _removeSegment(el, all) {
     if (all) {
       street.segments = [];
@@ -5370,6 +5442,8 @@ var main = (function(){
           _handleSegmentMoveCancel();
         } else if (menuVisible) {
           _hideMenus();
+        } else if (document.querySelector('#status-message').classList.contains('visible')) {
+          _statusMessage.hide();
         } else if (_infoBubble.visible && _infoBubble.descriptionVisible) {
           _infoBubble.hideDescription();
         } else if (_infoBubble.visible) {
@@ -5635,6 +5709,8 @@ var main = (function(){
       console.log(transmission);
 
       _statusMessage.show(msg('STATUS_RELOADED_FROM_SERVER'));
+
+      _infoBubble.suppress();
 
       _unpackServerStreetData(transmission, null, null, false);
       _updateEverything(true);
@@ -7201,38 +7277,6 @@ var main = (function(){
       _infoBubble.updateContents();
     },
 
-    onVariantButtonClick: function(event, dataNo, variantName, variantChoice) {
-      var segment = street.segments[dataNo];
-
-      segment.variant[variantName] = variantChoice;
-      segment.variantString = _getVariantString(segment.variant);
-
-      var el = _createSegmentDom(segment);
-
-      var oldEl = segment.el;
-      oldEl.parentNode.insertBefore(el, oldEl);
-      _switchSegmentElAway(oldEl);
-
-      segment.el = el;
-      segment.el.dataNo = oldEl.dataNo;
-      street.segments[oldEl.dataNo].el = el;
-
-      _switchSegmentElIn(el);
-      el.classList.add('hover');
-      el.classList.add('show-drag-handles');
-      el.classList.add('immediate-show-drag-handles');
-      el.classList.add('hide-drag-handles-when-inside-info-bubble');
-      _infoBubble.segmentEl = el;
-
-      _infoBubble.updateContents();
-
-      _repositionSegments();
-      _recalculateWidth();
-      _applyWarningsToSegments();
-
-      _saveStreetToServerIfNecessary();
-    },
-
     getBubbleDimensions: function() {
       _infoBubble.bubbleWidth = _infoBubble.el.offsetWidth;
 
@@ -7685,13 +7729,13 @@ var main = (function(){
               if (system.touch) {
                 el.addEventListener('touchstart', (function(dataNo, variantName, variantChoice) {
                   return function() {
-                    _infoBubble.onVariantButtonClick(null, dataNo, variantName, variantChoice);
+                    _changeSegmentVariant(dataNo, variantName, variantChoice);
                   }
                 })(segment.el.dataNo, variantName, variantChoice));
               } else {
                 el.addEventListener('click', (function(dataNo, variantName, variantChoice) {
                   return function() {
-                    _infoBubble.onVariantButtonClick(null, dataNo, variantName, variantChoice);
+                    _changeSegmentVariant(dataNo, variantName, variantChoice);
                   }
                 })(segment.el.dataNo, variantName, variantChoice));
               }
