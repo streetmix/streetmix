@@ -217,8 +217,9 @@ var main = (function(){
   var WIDTH_CHART_MARGIN = 20;
 
   var DRAGGING_TYPE_NONE = 0;
-  var DRAGGING_TYPE_MOVE = 1;
-  var DRAGGING_TYPE_RESIZE = 2;
+  var DRAGGING_TYPE_CLICK_OR_MOVE = 1;
+  var DRAGGING_TYPE_MOVE = 2;
+  var DRAGGING_TYPE_RESIZE = 3;
 
   var DRAGGING_TYPE_MOVE_TRANSFER = 1;
   var DRAGGING_TYPE_MOVE_CREATE = 2;
@@ -4029,6 +4030,8 @@ var main = (function(){
     document.body.classList.remove('segment-resize-dragging');
 
     switch (draggingType) {
+      case DRAGGING_TYPE_CLICK_OR_MOVE:
+        break;
       case DRAGGING_TYPE_RESIZE:
         document.body.classList.add('segment-resize-dragging');
         break;
@@ -4177,7 +4180,7 @@ var main = (function(){
     _showWidthChartImmediately();
   }  
 
-  function _handleSegmentMoveStart(event) {
+  function _handleSegmentClickOrMoveStart(event) {
     if (readOnly) {
       return;
     }
@@ -4193,10 +4196,20 @@ var main = (function(){
     }    
 
     var el = event.target;
-
-    _changeDraggingType(DRAGGING_TYPE_MOVE);
-
     draggingMove.originalEl = el;
+
+    _changeDraggingType(DRAGGING_TYPE_CLICK_OR_MOVE);    
+
+    draggingMove.mouseX = x;
+    draggingMove.mouseY = y;
+  }
+
+  function _handleSegmentMoveStart() {
+    if (readOnly) {
+      return;
+    }
+
+    _changeDraggingType(DRAGGING_TYPE_MOVE);    
 
     draggingMove.originalType = draggingMove.originalEl.getAttribute('type');
 
@@ -4221,7 +4234,7 @@ var main = (function(){
           draggingMove.originalEl.getAttribute('variant-string');
     }
 
-    var pos = _getElAbsolutePos(el);
+    var pos = _getElAbsolutePos(draggingMove.originalEl);
 
     draggingMove.elX = pos[0];
     draggingMove.elY = pos[1];
@@ -4232,9 +4245,6 @@ var main = (function(){
     } else {
       draggingMove.elX -= document.querySelector('#street-section-outer').scrollLeft;
     }
-
-    draggingMove.mouseX = x;
-    draggingMove.mouseY = y;
 
     draggingMove.floatingEl = document.createElement('div');
     draggingMove.floatingEl.classList.add('segment');
@@ -4283,6 +4293,25 @@ var main = (function(){
       document.body.classList.remove('not-within-canvas');
     } else {
       document.body.classList.add('not-within-canvas');
+    }
+  }
+
+  function _handleSegmentClickOrMoveMove(event) {
+    if (event.touches && event.touches[0]) {
+      var x = event.touches[0].pageX;
+      var y = event.touches[0].pageY;
+    } else {
+      var x = event.pageX;
+      var y = event.pageY;
+    }    
+
+    var deltaX = x - draggingMove.mouseX;
+    var deltaY = y - draggingMove.mouseY;
+
+    // TODO const
+    if ((Math.abs(deltaX) > 5) || (Math.abs(deltaY) > 5)) {
+      _handleSegmentMoveStart();
+      _handleSegmentMoveMove(event);
     }
   }
 
@@ -4421,7 +4450,7 @@ var main = (function(){
         return;
       }
 
-      _handleSegmentMoveStart(event);
+      _handleSegmentClickOrMoveStart(event);
     }
 
     event.preventDefault();
@@ -4480,6 +4509,9 @@ var main = (function(){
     }
 
     switch (draggingType) {
+      case DRAGGING_TYPE_CLICK_OR_MOVE:
+        _handleSegmentClickOrMoveMove(event);
+        break;
       case DRAGGING_TYPE_MOVE:
         _handleSegmentMoveMove(event);
         break;
@@ -4799,6 +4831,10 @@ var main = (function(){
     switch (draggingType) {
       case DRAGGING_TYPE_NONE:
         return;
+      case DRAGGING_TYPE_CLICK_OR_MOVE:
+        // click!
+        _changeDraggingType(DRAGGING_TYPE_NONE);
+        break;
       case DRAGGING_TYPE_MOVE:
         _handleSegmentMoveEnd(event);
         break;
