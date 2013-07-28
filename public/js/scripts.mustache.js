@@ -178,11 +178,8 @@ var main = (function(){
     '/images/tiles-1.png',
     '/images/tiles-2.png',
     '/images/tiles-3.png',
-    '/images/ui/icons/noun_project_2.svg',
-    '/images/ui/icons/noun_project_536.svg',
-    '/images/ui/icons/noun_project_97.svg',
-    '/images/ui/icons/noun_project_72.svg',
-    '/images/ui/icons/noun_project_13130.svg',
+    '/images/sky-front.png',
+    '/images/sky-rear.png',
     '/images/share-icons/facebook-29.png',
     '/images/share-icons/twitter-32.png'
   ];
@@ -3850,6 +3847,8 @@ var main = (function(){
   }
 
   function _updateWidthChart(ownerWidths) {
+    return;
+
     var ctx = document.querySelector('#width-chart').getContext('2d');
 
     var chartWidth = WIDTH_CHART_WIDTH;
