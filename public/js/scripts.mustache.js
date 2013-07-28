@@ -7821,7 +7821,7 @@ var main = (function(){
       _infoBubble.descriptionVisible = true;
 
       var el = _infoBubble.el.querySelector('.description-canvas');
-      el.style.height = (streetSectionTop + 200 - _infoBubble.bubbleY) + 'px';
+      el.style.height = (streetSectionTop + 200 + 50 - _infoBubble.bubbleY) + 'px';
 
       _infoBubble.el.classList.add('show-description');
       if (_infoBubble.segmentEl) {
