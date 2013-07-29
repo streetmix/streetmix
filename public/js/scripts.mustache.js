@@ -1578,6 +1578,7 @@ var main = (function(){
     touch: false,
     phone: false,
     safari: false,
+    windows: false,
 
     viewportWidth: null,
     viewportHeight: null,
@@ -6534,15 +6535,15 @@ var main = (function(){
   function _onStreetSectionScroll(event) {
     _infoBubble.suppress();
 
-    //if (!system.safari) {
-      var scrollPos = document.querySelector('#street-section-outer').scrollLeft;
+    var scrollPos = document.querySelector('#street-section-outer').scrollLeft;
 
-      var pos = -scrollPos * 0.5;
-      document.querySelector('#street-section-sky .front-clouds').style[system.cssTransform] = 'translateX(' + pos + 'px)'; 
+    var pos = -scrollPos * 0.5;
+    document.querySelector('#street-section-sky .front-clouds').style[system.cssTransform] = 
+        'translateX(' + pos + 'px)'; 
 
-      var pos = -scrollPos * 0.25;
-      document.querySelector('#street-section-sky .rear-clouds').style[system.cssTransform] = 'translateX(' + pos + 'px)'; 
-    //}
+    var pos = -scrollPos * 0.25;
+    document.querySelector('#street-section-sky .rear-clouds').style[system.cssTransform] = 
+        'translateX(' + pos + 'px)'; 
 
     _updateStreetScrollIndicators();
 
@@ -6751,6 +6752,10 @@ var main = (function(){
   function _addBodyClasses() {
     document.body.classList.add('environment-{{env}}');
 
+    if (system.windows) {
+      document.body.classList.add('windows');
+    }
+
     if (system.safari) {
       document.body.classList.add('safari');      
     }
@@ -6800,6 +6805,10 @@ var main = (function(){
         system.cssTransform = CSS_TRANSFORMS[i];
         break;
       }
+    }
+
+    if (navigator.userAgent.indexOf('Windows') != -1) {
+      system.windows = true;
     }
 
     if ((navigator.userAgent.indexOf('Safari') != -1) && 
@@ -9262,6 +9271,7 @@ var main = (function(){
         break;
       case ERROR_NO_STREET:
         title = 'No street selected.';
+        description = '';
         break;
       case ERROR_FORCE_RELOAD_SIGN_OUT:
         title = 'You signed out in another window.';
