@@ -2923,6 +2923,8 @@ var main = (function(){
     if (Math.abs(street.remainingWidth) < WIDTH_ROUNDING) {
       street.remainingWidth = 0;
     }
+
+    _buildStreetWidthMenu();
   }
 
   function _recalculateWidth() {
@@ -5080,6 +5082,20 @@ var main = (function(){
 
   function _buildStreetWidthMenu() {
     document.querySelector('#street-width').innerHTML = '';
+
+    var el = document.createElement('option');
+    el.disabled = true;
+    el.innerHTML = 'Occupied width:';
+    document.querySelector('#street-width').appendChild(el);  
+
+    var el = document.createElement('option');
+    el.disabled = true;
+    el.innerHTML = _prettifyWidth(street.occupiedWidth, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP);
+    document.querySelector('#street-width').appendChild(el);      
+
+    var el = document.createElement('option');
+    el.disabled = true;
+    document.querySelector('#street-width').appendChild(el);      
 
     var el = document.createElement('option');
     el.disabled = true;
