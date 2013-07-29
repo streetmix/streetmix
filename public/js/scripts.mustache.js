@@ -141,6 +141,7 @@ var main = (function(){
   var ERROR_STREET_404_BUT_LINK_TO_USER = 16;
   var ERROR_STREET_410_BUT_LINK_TO_USER = 17;
   var ERROR_CANNOT_CREATE_NEW_STREET_ON_PHONE = 18;
+  var ERROR_SIGN_IN_SERVER_FAILURE = 19;
 
   var TWITTER_ID = '@streetmixapp';
 
@@ -8734,6 +8735,11 @@ var main = (function(){
       return;
     }*/
 
+    if (data.status == 503) {
+      _showError(ERROR_SIGN_IN_SERVER_FAILURE, true);
+      return;
+    }
+
     // Fail silently
 
     signInData = null;
@@ -9278,7 +9284,7 @@ var main = (function(){
         break;
       case ERROR_FORCE_RELOAD_SIGN_OUT_401:
         title = 'You signed out in another window.';
-        description = 'Please reload this page before continuing.<br>(Error 401)<br><button id="error-clear-sign-in-reload">Reload the page</button>';
+        description = 'Please reload this page before continuing.<br>(Error 401.)<br><button id="error-clear-sign-in-reload">Reload the page</button>';
         break;
       case ERROR_FORCE_RELOAD_SIGN_IN:
         title = 'You signed in in another window.';
@@ -9291,6 +9297,10 @@ var main = (function(){
       case ERROR_NEW_STREET_SERVER_FAILURE:
         title = 'Having trouble…';
         description = 'We’re having trouble loading Streetmix.<br><button id="error-new">Try again</button>';
+        break;
+      case ERROR_SIGN_IN_SERVER_FAILURE:
+        title = 'Having trouble…';
+        description = 'We’re having trouble loading Streetmix.<br>(Error 15A.)<br><button id="error-new">Try again</button>';
         break;
       case ERROR_TWITTER_ACCESS_DENIED:
         title = 'You are not signed in.';
