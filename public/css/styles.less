@@ -2214,11 +2214,16 @@ body.read-only #street-name-canvas {
 
   font-size: 40px * @size;
   line-height: 30px * @size;
+  height: 30px * @size;
 }
 
 .street-name-fallback-mixin (@size: @streetNameSize) {
   font-size: 35px * @size;
   padding-bottom: 11px * @size;
+}
+
+body.windows .street-name > div {
+  line-height: 38px;
 }
 
 .street-name {

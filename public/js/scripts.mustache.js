@@ -9237,7 +9237,7 @@ var main = (function(){
     // sure not to use modern faculties.
 
     var title;
-    var description;
+    var description = '';
 
     _hideLoadingScreen();
 
@@ -9271,7 +9271,6 @@ var main = (function(){
         break;
       case ERROR_NO_STREET:
         title = 'No street selected.';
-        description = '';
         break;
       case ERROR_FORCE_RELOAD_SIGN_OUT:
         title = 'You signed out in another window.';
