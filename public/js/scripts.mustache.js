@@ -81,7 +81,7 @@ var main = (function(){
       location.protocol + '//' + location.host + URL_JUST_SIGNED_IN_REL;
   var URL_JUST_SIGNED_IN = URL_JUST_SIGNED_IN_REL.replace(/^\//, '');
 
-  var URL_JUST_SIGNED_IN = 'just-signed-in';
+  var URL_JUST_SIGNED_IN = 'just-signed-in'; // TODO fix this
   var URL_NEW_STREET = 'new';
   var URL_NEW_STREET_COPY_LAST = 'copy-last';
   var URL_GLOBAL_GALLERY = 'gallery';
@@ -6947,6 +6947,7 @@ var main = (function(){
   var TRACK_CATEGORY_INTERACTION = 'Interaction';
   var TRACK_CATEGORY_SHARING = 'Sharing';
   var TRACK_CATEGORY_EVENT = 'Event';
+  var TRACK_CATEGORY_ERROR = 'Error';
 
   var TRACK_ACTION_LEARN_MORE = 'Learn more about segment';
   var TRACK_ACTION_FACEBOOK = 'Facebook';
@@ -6957,6 +6958,7 @@ var main = (function(){
   var TRACK_ACTION_CHANGE_WIDTH = 'Change width';
   var TRACK_ACTION_UNDO = 'Undo';
   var TRACK_ACTION_REMOVE_SEGMENT = 'Remove segment';
+  var TRACK_ACTION_ERROR_15A = 'Error 15A (sign in API failure)';
 
   var TRACK_LABEL_INCREMENT_BUTTON = 'Increment button';
   var TRACK_LABEL_INPUT_FIELD = 'Input field';
@@ -8753,6 +8755,9 @@ var main = (function(){
 
     if (data.status == 503) {
       _showError(ERROR_SIGN_IN_SERVER_FAILURE, true);
+
+      _eventTracking.track(TRACK_CATEGORY_ERROR, TRACK_ACTION_ERROR_15A, 
+          null, null, false);
       return;
     }
 
