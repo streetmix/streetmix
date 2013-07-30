@@ -259,6 +259,7 @@ var main = (function(){
   var DEFAULT_BUILDING_VARIANT_EMPTY = 'grass';
 
   var BUILDING_VARIANTS = ['grass', 'fence', 'residential', 'narrow', 'wide'];
+  var BUILDING_VARIANT_NAMES = ['Grass', 'Empty lot', 'Home', 'Building', 'Building'];
 
   var MIN_CUSTOM_STREET_WIDTH = 10;
   var MAX_CUSTOM_STREET_WIDTH = 400;
@@ -7548,7 +7549,7 @@ var main = (function(){
           _infoBubble.el.setAttribute('type', 'segment');
           break;
         case INFO_BUBBLE_TYPE_LEFT_BUILDING:
-          var name = 'Building';
+          var name = BUILDING_VARIANT_NAMES[BUILDING_VARIANTS.indexOf(street.leftBuildingVariant)];
           var canBeDeleted = false;
           var showWidth = false;
           var showVariants = false;
@@ -7556,7 +7557,7 @@ var main = (function(){
           _infoBubble.el.setAttribute('type', 'building');
           break;
         case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
-          var name = 'Building';
+          var name = BUILDING_VARIANT_NAMES[BUILDING_VARIANTS.indexOf(street.rightBuildingVariant)];
           var canBeDeleted = false;
           var showWidth = false;
           var showVariants = false;
