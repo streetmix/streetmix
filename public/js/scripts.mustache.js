@@ -3,9 +3,8 @@
  *
  * Front-end (mostly) by Marcin Wichary, Code for America fellow in 2013.
  *
- * Note: This code is really gnarly. It’s been done under a lot of time 
- * pressure and there’s a lot of shortcut and tech debt. Slowly going through
- * this all.
+ * Note (July 2013): This code is still wonky. Now that we’re out of beta, I will be
+ * dedicating some effort to cleaning it up.
  */
 
 var main = (function(){
@@ -30,6 +29,7 @@ var main = (function(){
     TOOLTIP_REMOVE_SEGMENT: 'Remove segment',
     TOOLTIP_DELETE_STREET: 'Delete street',
     TOOLTIP_SEGMENT_WIDTH: 'Change width of the segment',
+    TOOLTIP_BUILDING_HEIGHT: 'Change the number of floors',
     TOOLTIP_STREET_WIDTH: 'Change width of the street',
     TOOLTIP_INCREASE_WIDTH: 'Increase width (hold Shift for more precision)',
     TOOLTIP_DECREASE_WIDTH: 'Decrease width (hold Shift for more precision)',
@@ -56,7 +56,7 @@ var main = (function(){
 
     DEFAULT_STREET_NAME: 'Unnamed St',
 
-    SEGMENT_NAME_EMPTY: 'Empty space',
+    SEGMENT_NAME_EMPTY: 'Empty space'
   };
 
   var SITE_URL = 'http://{{app_host_port}}/';
@@ -89,6 +89,8 @@ var main = (function(){
   var URL_NO_USER = '-';
   var URL_HELP = 'help';
   var URL_ABOUT = 'about';
+
+  var URL_EXAMPLE_STREET = 'saikofish/29';
 
   var URL_SIGN_IN_REDIRECT = URL_SIGN_IN + '?callbackUri=' + 
       URL_SIGN_IN_CALLBACK_ABS + '&redirectUri=' + URL_JUST_SIGNED_IN_ABS;
@@ -138,6 +140,8 @@ var main = (function(){
   var ERROR_STREET_404 = 15;
   var ERROR_STREET_404_BUT_LINK_TO_USER = 16;
   var ERROR_STREET_410_BUT_LINK_TO_USER = 17;
+  var ERROR_CANNOT_CREATE_NEW_STREET_ON_PHONE = 18;
+  var ERROR_SIGN_IN_SERVER_FAILURE = 19;
 
   var TWITTER_ID = '@streetmixapp';
 
@@ -147,7 +151,7 @@ var main = (function(){
   var BUILDING_DESTINATION_SCREEN = 1;
   var BUILDING_DESTINATION_THUMBNAIL = 2;
 
-  var LATEST_SCHEMA_VERSION = 14;
+  var LATEST_SCHEMA_VERSION = 15;
     // 1: starting point
     // 2: adding leftBuildingHeight and rightBuildingHeight
     // 3: adding leftBuildingVariant and rightBuildingVariant
@@ -162,7 +166,8 @@ var main = (function(){
     // 12: getting rid of small tree
     // 13: bike rack elevation
     // 14: wayfinding has three types
-  var TILESET_IMAGE_VERSION = 49;
+    // 15: sidewalks have rand seed
+  var TILESET_IMAGE_VERSION = 51;
   var TILESET_POINT_PER_PIXEL = 2.0;
   var TILE_SIZE = 12; // pixels
 
@@ -174,11 +179,8 @@ var main = (function(){
     '/images/tiles-1.png',
     '/images/tiles-2.png',
     '/images/tiles-3.png',
-    '/images/ui/icons/noun_project_2.svg',
-    '/images/ui/icons/noun_project_536.svg',
-    '/images/ui/icons/noun_project_97.svg',
-    '/images/ui/icons/noun_project_72.svg',
-    '/images/ui/icons/noun_project_13130.svg',
+    '/images/sky-front.png',
+    '/images/sky-rear.png',
     '/images/share-icons/facebook-29.png',
     '/images/share-icons/twitter-32.png'
   ];
@@ -197,7 +199,7 @@ var main = (function(){
 
   var SEGMENT_Y_NORMAL = 265;
   var SEGMENT_Y_PALETTE = 20;
-  var PALETTE_EXTRA_SEGMENT_PADDING = 5;
+  var PALETTE_EXTRA_SEGMENT_PADDING = 8;
 
   var DRAG_OFFSET_Y_PALETTE = -340 - 150;
   var DRAG_OFFSET_Y_TOUCH_PALETTE = -100;
@@ -213,8 +215,9 @@ var main = (function(){
   var WIDTH_CHART_MARGIN = 20;
 
   var DRAGGING_TYPE_NONE = 0;
-  var DRAGGING_TYPE_MOVE = 1;
-  var DRAGGING_TYPE_RESIZE = 2;
+  var DRAGGING_TYPE_CLICK_OR_MOVE = 1;
+  var DRAGGING_TYPE_MOVE = 2;
+  var DRAGGING_TYPE_RESIZE = 3;
 
   var DRAGGING_TYPE_MOVE_TRANSFER = 1;
   var DRAGGING_TYPE_MOVE_CREATE = 2;
@@ -322,8 +325,10 @@ var main = (function(){
   var KEY_Z = 90;
   var KEY_EQUAL = 187; // = or +
   var KEY_EQUAL_ALT = 61; // Firefox
+  var KEY_PLUS_KEYPAD = 107;
   var KEY_MINUS = 189;
   var KEY_MINUS_ALT = 173; // Firefox
+  var KEY_MINUS_KEYPAD = 109;
 
   var PRETTIFY_WIDTH_OUTPUT_MARKUP = 1;
   var PRETTIFY_WIDTH_OUTPUT_NO_MARKUP = 2;
@@ -408,7 +413,7 @@ var main = (function(){
     'sidewalk-density': ['dense', 'normal', 'sparse', 'empty'],
 
     'parking-lane-orientation': ['left', 'right'],
-    'wayfinding-type': ['large', 'medium', 'small'],
+    'wayfinding-type': ['large', 'medium', 'small']
   };
 
   var VARIANT_ICONS = {
@@ -471,7 +476,7 @@ var main = (function(){
     'building|wide': { x: 8, y: 2, title: 'Wide building' },
     'wayfinding-type|large': { x: 8, y: 3, title: 'Large' },
     'wayfinding-type|medium': { x: 9, y: 3, title: 'Medium' },
-    'wayfinding-type|small': { x: 10, y: 3, title: 'Small' },
+    'wayfinding-type|small': { x: 10, y: 3, title: 'Small' }
   };
 
   var SEGMENT_INFO = {
@@ -480,36 +485,37 @@ var main = (function(){
       owner: SEGMENT_OWNER_PEDESTRIAN,
       zIndex: 2,
       defaultWidth: 6,
+      needRandSeed: true,
       variants: ['sidewalk-density'],
       details: {
         'dense': {
           minWidth: 6,
           graphics: {
             center: { tileset: 1, x: 0, y: 0, width: 4, offsetX: -1, height: 1 },
-            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
           }
         },
         'normal': {
           minWidth: 6,
           graphics: {
             center: { tileset: 1, x: 0, y: 0, width: 4, offsetX: -1, height: 1 },
-            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
           }
         },
         'sparse': {
           minWidth: 6,
           graphics: {
             center: { tileset: 1, x: 0, y: 0, width: 4, offsetX: -1, height: 1 },
-            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
           }
         },
         'empty': {
           minWidth: 6,
           graphics: {
             center: { tileset: 1, x: 0, y: 0, width: 4, offsetX: -1, height: 1 },
-            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
           }
-        },
+        }
       }
     },
     'sidewalk-tree': {
@@ -522,13 +528,13 @@ var main = (function(){
         'big': {
           graphics: {
             center: { tileset: 1, x: 40, y: 56, width: 9, height: 21, offsetY: -10 }, // Big tree
-            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
           }
         },
         'palm-tree': {
           graphics: {
             center: { tileset: 1, x: 83, y: 24, offsetX: 0, offsetY: -19, width: 14 /* 14 */, height: 31 },
-            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
           }
         }
       }
@@ -543,27 +549,27 @@ var main = (function(){
         'left|sidewalk': {
           graphics: {
             left: { tileset: 1, x: 67, y: 2, width: 6, height: 6, offsetY: 5 },
-            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
           }
         },
         'right|sidewalk': {
           graphics: {
             right: { tileset: 1, x: 61, y: 2, width: 6, height: 6, offsetY: 5 },
-            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
           }
         },
         'left|road': {
           graphics: {
             left: { tileset: 1, x: 67, y: 12, width: 6, height: 7, offsetY: 5 },
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }
         },
         'right|road': {
           graphics: {
             right: { tileset: 1, x: 61, y: 12, width: 6, height: 7, offsetY: 5 },
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }
-        },
+        }
       }
     },
 
@@ -577,21 +583,21 @@ var main = (function(){
         'left': {
           graphics: {
             left: { tileset: 1, x: 81, y: 2, width: 3, height: 6, offsetY: 5 },
-            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
           }
         },
         'center': {
           graphics: {
             center: { tileset: 1, x: 74, y: 2, width: 3, height: 6, offsetY: 5 },
-            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
           }
         },
         'right': {
           graphics: {
             right: { tileset: 1, x: 78, y: 2, width: 3, height: 6, offsetY: 5 },
-            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
           }
-        },
+        }
       }
     },
 
@@ -602,26 +608,26 @@ var main = (function(){
       defaultWidth: 4,
       variants: ['wayfinding-type'],
       descriptionPrompt: 'Learn more about wayfinding signs',
-      description: '<img src="/images/info-bubble-examples/wayfinding-01.jpg"><p>Urban planners and architects have spent a few decades trying to learn what happens in people’s brains when they figure out how to get from point A to point B – or how they even know where “point A” is to begin with. As early as 1960, urban planner Kevin Lynch wrote of the “legibility” of the city in his book <em>The Image of the City</em>, describing wayfinding as “a consistent use and organization of definite sensory cues from the external environment.” It could be sensory in nature – smell, touch, a sense of gravity or even electric or magnetic fields. Or it could be much more intentional, with “wayfinding devices” like maps, street numbers, or route signs.</p><p>It’s actually surprising how readily acceptable it is for cars to have ample signage, and less so at the pedestrian level. Maybe it’s because we get to stand still, take stock of our surroundings, and learn from our environment using those intangible cues, without fear of accidentally causing a six-person pileup. At any rate, urban designers have pushed for pedestrian-friendly wayfinding signage, particularly in walkable commercial neighborhoods, and these signs turn out to be branding opportunities as much as they are functional. So New York City <a href="http://new.pentagram.com/2013/06/new-work-nyc-wayfinding/">hired an internationally renowned design consultant</a> (and Streetmix has modeled its segments after it), many others have adopted a traditional old-town or civic-formal take (pictured above), and then there are those, for whatever reason, who lack any pedestrian wayfinding signage of significance, such that the conversation must be spurred by <a href="http://walkyourcity.org/">guerrilla wayfinding tactics</a>.</p><p>After all, there’s nothing worse than being lost. As Lynch wrote: “The very word <em>lost</em> in our language means much more than simple geographical uncertainty; it carries overtones of utter disaster.” And who wants being on the street to feel like that?</p><footer>Photo: Fruitvale wayfinding sign, licensed under Creative Commons via Oakland Wiki.</footer>',
+      description: '<img src="/images/info-bubble-examples/wayfinding-02.jpg"><p class="lede">Wayfinding signs help pedestrians get to common destinations.</p><p>Urban planners and architects have spent a few decades trying to learn what happens in people’s brains when they figure out how to get from point A to point B – or how they even know where “point A” is to begin with. As early as 1960, urban planner Kevin Lynch wrote of the “legibility” of the city in his book <em><a href="http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014">The Image of the City</a></em>, describing wayfinding as “a consistent use and organization of definite sensory cues from the external environment.” It could be intangible – smell, touch, a sense of gravity or even electric or magnetic fields. Or it could be much more physical, with intentionally designed “wayfinding devices” like maps, street numbers, or route signs.</p><p>It’s surprising how readily acceptable it is for ample signage to cater to car travel, with less of this investment made at the pedestrian level. Maybe it’s because it’s easier for us to stand still, take stock of our surroundings, and use our senses without fear of accidentally causing a six-person pileup behind us. At any rate, urban designers have pushed for pedestrian-friendly wayfinding signage, particularly in walkable commercial neighborhoods, and these signs have become branding opportunities in addition to being functional. So New York City <a href="http://new.pentagram.com/2013/06/new-work-nyc-wayfinding/">hired an internationally renowned design consultant</a> (and Streetmix has modeled its segments after it), many others have adopted a traditional old-town or civic-formal take (pictured above), and then there are those, for whatever reason, who lack any pedestrian wayfinding signage of significance, such that any improvement must be made with <a href="http://walkyourcity.org/">guerrilla wayfinding tactics</a>.</p><p>After all, there’s nothing worse than being lost. As Lynch wrote: “The very word <em>lost</em> in our language means much more than simple geographical uncertainty; it carries overtones of utter disaster.” And who wants to be on the street feeling like that?</p>',
       details: {
         'large': {
           graphics: {
             center: { tileset: 1, x: 0, y: 0, width: 4, height: 11, offsetY: 1 },
-            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete            
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete            
           }
         },
         'medium': {
           graphics: {
             center: { tileset: 1, x: 5, y: 0, width: 3, height: 11, offsetY: 1 },
-            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete            
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete            
           }
         },
         'small': {
           graphics: {
             center: { tileset: 1, x: 9, y: 0, width: 2, height: 11, offsetY: 1 },
-            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete            
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete            
           }
-        },
+        }
       }
     },
 
@@ -641,7 +647,7 @@ var main = (function(){
         'both|modern': {
           graphics: {
             center: { tileset: 1, x: 39, y: 24, offsetY: -19, width: 16, height: 31 },
-            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
           }
         },
         'left|modern': {
@@ -653,19 +659,19 @@ var main = (function(){
         'right|traditional': {
           graphics: {
             right: { tileset: 3, x: 201, y: 49, width: 4, height: 15, offsetX: -2, offsetY: -4 },
-            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
           }
         },
         'both|traditional': {
           graphics: {
             center: { tileset: 3, x: 194, y: 49, width: 3, height: 15, offsetY: -4 },
-            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
           }
         },
         'left|traditional': {
           graphics: {
             left: { tileset: 3, x: 197, y: 49, width: 3, height: 15, offsetY: -4, offsetX: -2 },
-            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
           }
         }      
       }
@@ -677,22 +683,22 @@ var main = (function(){
       defaultWidth: 8,
       variants: ['orientation'],
       descriptionPrompt: 'Learn more about parklets',
-      description: '<img src="/images/info-bubble-examples/parklets-01.jpg"><p>In 2005, San Francisco-based design studio Rebar temporarily converted a single metered parking space on downtown Mission Street into a tiny public park. The first parklet was simple: just a bench and a tree on a rectangular piece of turf, but it featured a brief instruction manual and a charge for others to make their own. With people realizing that so much of public space was really devoted to storing cars, an international movement was born, and now, the annual Park(ing) Day hosts nearly a thousand temporarily converted spots around the world.</p><p>Knowing a good idea when it sees one, San Francisco became the first city to make parklets official with its <a href="http://sfpavementtoparks.sfplanning.org/">Pavement to Parks program</a> in 2010. Today, the City by the Bay has over 50 parklets, many of which are now architecturally designed objects much improved beyond Rebar’s modest prototype. There’s an ambitious, corporate-sponsored two-block-long parklet in the heart of San Francisco’s busiest shopping corridor, and also a collection of movable, bright red “parkmobiles” (Streetmix’s default look) designed for the Yerba Buena Community Benefit District. Official parklet programs now exist in many other cities in North America, such as Philadelphia, Oakland, Kansas City, New York, Chicago, and Vancouver, and many more cities are soon to follow.</p><footer>Photo: 4033 Judah Street Parklet, courtesy of San Francisco Planning Department.</footer>',
+      description: '<img src="/images/info-bubble-examples/parklets-01.jpg"><p class="lede">Parklets turn existing parking spots into temporary public spaces.</p><p>In 2005, San Francisco-based design studio <a href="http://rebargroup.org/">Rebar</a> temporarily converted a single metered parking space on downtown Mission Street into a tiny public park. The first parklet was simple: just a bench and a tree on a rectangular piece of turf, but it featured a brief instruction manual and a charge for others to make their own. With people realizing that so much of public space was really devoted to storing cars, an international movement was born, and now, the annual <a href="http://parkingday.org/">Park(ing) Day</a> hosts nearly a thousand temporarily converted spots around the world.</p><p>Knowing a good idea when it sees one, San Francisco became the first city to make parklets official with its <a href="http://sfpavementtoparks.sfplanning.org/">Pavement to Parks program</a> in 2010. Today, the City by the Bay has over 50 parklets, many of which are now architecturally designed objects much improved beyond Rebar’s modest prototype. There’s an ambitious, corporate-sponsored two-block-long parklet in the heart of San Francisco’s busiest shopping corridor, and also a collection of movable, bright red “parkmobiles” (Streetmix’s default look) designed for the <a href="http://www.ybcbd.org/">Yerba Buena Community Benefit District</a>. Official parklet programs now exist in many other cities in North America, such as Philadelphia, Oakland, Kansas City, New York, Chicago, and Vancouver, and many more cities are soon to follow.</p><footer>Photo: 4033 Judah Street Parklet, courtesy of San Francisco Planning Department.</footer>',
       details: {
         'left': {
           minWidth: 8,
           graphics: {
             left: { tileset: 2, x: 136, y: 63, width: 8, height: 8, offsetY: 4 },
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }
         },
         'right': {
           minWidth: 8,
           graphics: {
             right: { tileset: 2, x: 126, y: 63, width: 8, height: 8, offsetY: 4 },
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }
-        },
+        }
       }
     },    
     'divider': {
@@ -707,8 +713,8 @@ var main = (function(){
           graphics: {
             repeat: [
               { tileset: 2, x: 98, y: 43, width: 10, height: 6, offsetY: 9 }, // Median
-              { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-            ],
+              { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+            ]
           }          
         },
         'striped-buffer': {
@@ -716,10 +722,10 @@ var main = (function(){
           graphics: {
             repeat: [
               { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-              { tileset: 2, x: 116, y: 21, width: 5, height: 5, offsetY: 10 }, // Asphalt
+              { tileset: 2, x: 116, y: 21, width: 5, height: 5, offsetY: 10 } // Asphalt
             ],
             left: { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 }, // Marking
-            right: { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 }, // Marking
+            right: { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
           }          
         },
         'planting-strip': {
@@ -727,7 +733,7 @@ var main = (function(){
           graphics: {
             repeat: [
               { tileset: 2, x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
-              { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+              { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
             ]
           }          
         },
@@ -737,7 +743,7 @@ var main = (function(){
             center: { tileset: 2, x: 122, y: 55, width: 2, height: 5, offsetY: 7 },
             repeat: [
               { tileset: 2, x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
-              { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+              { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
             ]
           }          
         },
@@ -747,7 +753,7 @@ var main = (function(){
             center: { tileset: 2, x: 122, y: 59, width: 2, height: 5, offsetY: 7 },
             repeat: [
               { tileset: 2, x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
-              { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+              { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
             ]
           }          
         },
@@ -757,7 +763,7 @@ var main = (function(){
             center: { tileset: 1, x: 40, y: 56, width: 9, height: 21, offsetY: -10 }, // Big tree
             repeat: [
               { tileset: 2, x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
-              { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+              { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
             ]
           }          
         },
@@ -767,7 +773,7 @@ var main = (function(){
             center: { tileset: 1, x: 83, y: 24, offsetX: 0, offsetY: -19, width: 14 /* 14 */, height: 31 },
             repeat: [
               { tileset: 2, x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
-              { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+              { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
             ]
           }          
         },
@@ -776,19 +782,21 @@ var main = (function(){
           graphics: {
             center: { tileset: 2, x: 123, y: 64, width: 1, height: 7, offsetY: 5 },
             repeat: [
-              { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+              { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
             ]
           }          
         },
         'dome': {
           name: 'Traffic exclusion dome',
+          descriptionPrompt: 'Learn more about sharrows',
+          description: '<img src="/images/info-bubble-examples/sharrow-01.jpg"><p class="lede">Sharrows are marked travel lanes shared by both cars and bikes.</p><p>Officially known in transportation planning as “shared lane marking,” sharrows (a portmanteau of “shared” and “arrow”) refer to the arrow markings themselves, but aren’t actually a different <em>type</em> of lane. In many places, bicycles are already allowed on any street meant for cars, and are bound by the same laws.</p><p>That being said, it doesn’t take a rocket scientist to see that cars and bikes behave very differently, and so separate bike lanes are <a href="http://dc.streetsblog.org/2013/06/13/in-california-cities-drivers-want-more-bike-lanes-heres-why/">much more preferable</a> for both the safety of cyclists and the sanity of car drivers. But for many cyclists, when there’s not enough road space for those bike lanes, the argument is that sharrows are better than nothing else at all. Motorists tend to forget there are other types of vehicles, and cyclists appreciate any opportunity to remind motorists that they exist and must coexist peacefully together. And giving cyclists more leeway to use the full width of a lane can also protect them from parked cars, in a particular type of accident cyclists call “getting doored.”</p><p>Sharrow markings are a simple way to provide more visibility to bicyclists, since paint is cheaper than building a dedicated bike lane, and more politically feasible. However, some research on safety (such as a <a href="http://injuryprevention.bmj.com/content/early/2013/02/13/injuryprev-2012-040561.full.pdf">2012 BMJ study</a> of bicycle injuries in Vancouver and Toronto) indicate that there were slightly increased odds of injury in a shared lane, compared to those in a dedicated bike lane. The moral of the story is, take care of bicyclists by trying to put in a normal bike lane first before resorting to sharrows.</p><footer></footer>',
           graphics: {
             center: { tileset: 2, x: 121, y: 64, width: 1, height: 7, offsetY: 5 },
             repeat: [
-              { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+              { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
             ]
           }          
-        },
+        }
       }
     },
     'bike-lane': {
@@ -797,41 +805,43 @@ var main = (function(){
       zIndex: 2,
       defaultWidth: 6,
       variants: ['direction', 'bike-asphalt'],
+      descriptionPrompt: 'Learn more about bike lanes',
+      description: '<img src="/images/info-bubble-examples/bike-lane-02.jpg"><p class="lede">Bike lanes help keep bicyclists safe in a separate lane from cars.</p><p>On the historical timeline of personal transportation vehicles – horses on one end, and, say, Segways on the other – automobiles and bicycles have been the dominant warring tribes of public streets for nearly a century. Despite all the cars taking up so much room, though, there’s more bicycles than anything else in the world: more than a billion, as estimated by Worldometers, and nine million in Beijing, according to folk singer <a href="http://en.wikipedia.org/wiki/Nine_Million_Bicycles">Katie Melua</a>, where bicycling accounts for 32% of all trips.</p><p>While most jurisdictions allow bicycles to share the road with motor vehicles (“A person riding a bicycle… has all the rights and is subject to all the provisions applicable to the driver of a vehicle” <a href="http://www.leginfo.ca.gov/cgi-bin/displaycode?section=veh&group=21001-22000&file=21200-21212">says the California Vehicle Code</a>, in one particular instance) it goes without saying that most cyclists prefer to be in their own lane. It’s safer, for one thing. And because it’s safer, it actually encourages more bikers. And more bikers means healthier citizens, reduced carbon emissions, higher traffic throughput, and congestion mitigation. The <a href="http://pdxcityclub.org/2013/Report/Portland-Bicycle-Transit/Economic-Effects-of-Increased-Bicycle-Usage">economic benefits accrue as well</a>: less money spent on automobile infrastructure (like bridges, roadways, and parking), and with the ability to fit more people on a road, it leads to more business in commercial corridors.<p>Bike lane design can be extremely varied. Using medians, planters, bollards, or even parking lanes create better protection between bikes and cars. When lanes are painted green, it shows their city’s commitment to a continuous bike lane, and synchronized signal light timing to limit bike stops are called a “green wave.” For more information, check out the <a href="http://nacto.org/cities-for-cycling/design-guide/">NACTO Urban Bikeway Design Guide</a>.</p>',
       details: {
         'inbound|regular': {
           graphics: {
             center: [
               { tileset: 1, x: 5, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
-              { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
+              { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (inbound)
             ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }
         },
         'outbound|regular': {
           graphics: {
             center: [
               { tileset: 1, x: 9, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
-              { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
+              { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (outbound)
             ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }
         },
         'inbound|colored': {
           graphics: {
             center: [
               { tileset: 1, x: 5, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
-              { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
+              { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (inbound)
             ],
-            repeat: { tileset: 2, x: 98 - 10, y: 53 + 10, width: 8, height: 5, offsetY: 10 }, // Green asphalt
+            repeat: { tileset: 2, x: 98 - 10, y: 53 + 10, width: 8, height: 5, offsetY: 10 } // Green asphalt
           }
         },
         'outbound|colored': {
           graphics: {
             center: [
               { tileset: 1, x: 9, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
-              { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
+              { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (outbound)
             ],
-            repeat: { tileset: 2, x: 98 - 10, y: 53 + 10, width: 8, height: 5, offsetY: 10 }, // Green asphalt
+            repeat: { tileset: 2, x: 98 - 10, y: 53 + 10, width: 8, height: 5, offsetY: 10 } // Green asphalt
           }
         }
       }
@@ -849,9 +859,9 @@ var main = (function(){
           graphics: {
             center: [
               { tileset: 1, x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
-              { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
+              { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (inbound)
             ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }          
         },
         'outbound|car': {
@@ -860,9 +870,9 @@ var main = (function(){
           graphics: {
             center: [
               { tileset: 1, x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
-              { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
+              { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (outbound)
             ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }          
         },
         'inbound|sharrow': {
@@ -870,13 +880,15 @@ var main = (function(){
           minWidth: 12,
           maxWidth: 14,
           defaultWidth: 14,
+          descriptionPrompt: 'Learn more about sharrows',
+          description: '<img src="/images/info-bubble-examples/sharrow-01.jpg"><p class="lede">Sharrows are marked travel lanes shared by both cars and bikes.</p><p>Officially known in transportation planning as “shared lane marking,” sharrows (a portmanteau of “shared” and “arrow”) refer to the arrow markings themselves, but aren’t actually a different <em>type</em> of lane. In many places, bicycles are already allowed on any street meant for cars, and are bound by the same laws.</p><p>That being said, it doesn’t take a rocket scientist to see that cars and bikes behave very differently, and so separate bike lanes are <a href="http://dc.streetsblog.org/2013/06/13/in-california-cities-drivers-want-more-bike-lanes-heres-why/">much more preferable</a> for both the safety of cyclists and the sanity of car drivers. But for many cyclists, when there’s not enough road space for those bike lanes, the argument is that sharrows are better than nothing else at all. Motorists tend to forget there are other types of vehicles, and cyclists appreciate any opportunity to remind motorists that they exist and must coexist peacefully together. And giving cyclists more leeway to use the full width of a lane can also protect them from parked cars, in a particular type of accident cyclists call “getting doored.”</p><p>Sharrow markings are a simple way to provide more visibility to bicyclists, since paint is cheaper than building a dedicated bike lane, and more politically feasible. However, some research on safety (such as a <a href="http://injuryprevention.bmj.com/content/early/2013/02/13/injuryprev-2012-040561.full.pdf">2012 BMJ study</a> of bicycle injuries in Vancouver and Toronto) indicate that there were slightly increased odds of injury in a shared lane, compared to those in a dedicated bike lane. The moral of the story is, take care of bicyclists by trying to put in a normal bike lane first before resorting to sharrows.</p><footer></footer>',
           graphics: {
             center: [
               { tileset: 1, x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
               { tileset: 1, x: 5, y: 10 + 30 + 19, width: 3, height: 8, offsetY: 4 }, // Bike (inbound)
-              { tileset: 2, x: 101, y: 15, width: 4, height: 5, offsetY: 10 }, // Sharrow arrow
+              { tileset: 2, x: 101, y: 15, width: 4, height: 5, offsetY: 10 } // Sharrow arrow
             ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }          
         },
         'outbound|sharrow': {
@@ -884,13 +896,15 @@ var main = (function(){
           minWidth: 12,
           maxWidth: 14,
           defaultWidth: 14,
+          descriptionPrompt: 'Learn more about sharrows',
+          description: '<img src="/images/info-bubble-examples/sharrow-01.jpg"><p class="lede">Sharrows are marked travel lanes shared by both cars and bikes.</p><p>Officially known in transportation planning as “shared lane marking,” sharrows (a portmanteau of “shared” and “arrow”) refer to the arrow markings themselves, but aren’t actually a different <em>type</em> of lane. In many places, bicycles are already allowed on any street meant for cars, and are bound by the same laws.</p><p>That being said, it doesn’t take a rocket scientist to see that cars and bikes behave very differently, and so separate bike lanes are <a href="http://dc.streetsblog.org/2013/06/13/in-california-cities-drivers-want-more-bike-lanes-heres-why/">much more preferable</a> for both the safety of cyclists and the sanity of car drivers. But for many cyclists, when there’s not enough road space for those bike lanes, the argument is that sharrows are better than nothing else at all. Motorists tend to forget there are other types of vehicles, and cyclists appreciate any opportunity to remind motorists that they exist and must coexist peacefully together. And giving cyclists more leeway to use the full width of a lane can also protect them from parked cars, in a particular type of accident cyclists call “getting doored.”</p><p>Sharrow markings are a simple way to provide more visibility to bicyclists, since paint is cheaper than building a dedicated bike lane, and more politically feasible. However, some research on safety (such as a <a href="http://injuryprevention.bmj.com/content/early/2013/02/13/injuryprev-2012-040561.full.pdf">2012 BMJ study</a> of bicycle injuries in Vancouver and Toronto) indicate that there were slightly increased odds of injury in a shared lane, compared to those in a dedicated bike lane. The moral of the story is, take care of bicyclists by trying to put in a normal bike lane first before resorting to sharrows.</p><footer></footer>',
           graphics: {
             center: [
               { tileset: 1, x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
               { tileset: 1, x: 9, y: 10 + 30 + 19, width: 3, height: 8, offsetY: 4 }, // Bike (outbound)
-              { tileset: 2, x: 106, y: 15, width: 4, height: 5, offsetY: 10 }, // Sharrow arrow
+              { tileset: 2, x: 106, y: 15, width: 4, height: 5, offsetY: 10 } // Sharrow arrow
             ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }          
         },
         'inbound|truck': {
@@ -899,9 +913,9 @@ var main = (function(){
           graphics: {
             center: [
               { tileset: 1, x: 17, y: 64, width: 10, height: 12, offsetY: 0 }, // Truck (inbound)
-              { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
+              { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (inbound)
             ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }          
         },
         'outbound|truck': {
@@ -910,9 +924,9 @@ var main = (function(){
           graphics: {
             center: [
               { tileset: 1, x: 29, y: 64, width: 9, height: 12, offsetY: 0 }, // Truck (outbound)
-              { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
+              { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (outbound)
             ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }          
         }
       }
@@ -930,9 +944,9 @@ var main = (function(){
           graphics: {
             center: [
               { tileset: 1, x: 20, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
-              { tileset: 2, x: 125, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow
+              { tileset: 2, x: 125, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow
             ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }          
         },
         'inbound|left-straight': {
@@ -941,9 +955,9 @@ var main = (function(){
           graphics: {
             center: [
               { tileset: 2, x: 125, y: 10, width: 4, height: 5, offsetY: 10 }, // Arrow
-              { tileset: 1, x: 20, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
+              { tileset: 1, x: 20, y: 78, width: 8, height: 6, offsetY: 6 } // Car (outbound)
             ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }          
         },
         'inbound|straight': {
@@ -953,9 +967,9 @@ var main = (function(){
           graphics: {
             center: [
               { tileset: 1, x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
-              { tileset: 1, x: 30, y: 5, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
+              { tileset: 1, x: 30, y: 5, width: 4, height: 5, offsetY: 10 } // Arrow (inbound)
             ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }          
         },
         'inbound|right-straight': {
@@ -964,9 +978,9 @@ var main = (function(){
           graphics: {
             center: [
               { tileset: 1, x: 83, y: 10, width: 4, height: 5, offsetY: 10 }, // Arrow
-              { tileset: 1, x: 29, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
+              { tileset: 1, x: 29, y: 78, width: 8, height: 6, offsetY: 6 } // Car (outbound)
             ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }          
         },
         'inbound|right': {
@@ -975,9 +989,9 @@ var main = (function(){
           graphics: {
             center: [
               { tileset: 1, x: 83, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow
-              { tileset: 1, x: 29, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
+              { tileset: 1, x: 29, y: 78, width: 8, height: 6, offsetY: 6 } // Car (outbound)
             ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }          
         },        
         'inbound|both': {
@@ -986,9 +1000,9 @@ var main = (function(){
           graphics: {
             center: [
               { tileset: 2, x: 153, y: 15, width: 5, height: 5, offsetY: 10 }, // Arrow
-              { tileset: 1, x: 20, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
+              { tileset: 1, x: 20, y: 78, width: 8, height: 6, offsetY: 6 } // Car (outbound)
             ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }          
         },
         'inbound|shared': {
@@ -997,11 +1011,11 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { tileset: 2, x: 144, y: 20, width: 5, height: 5, offsetY: 10 }, // Arrow
+              { tileset: 2, x: 144, y: 20, width: 5, height: 5, offsetY: 10 } // Arrow
             ],
             repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
             left: { tileset: 2, x: 119, y: 10, width: 2, height: 5, offsetY: 10 }, // Marking
-            right: { tileset: 2, x: 116, y: 10, width: 2, height: 5, offsetY: 10 }, // Marking
+            right: { tileset: 2, x: 116, y: 10, width: 2, height: 5, offsetY: 10 } // Marking
           }          
         },
         'outbound|left': {
@@ -1010,9 +1024,9 @@ var main = (function(){
           graphics: {
             center: [
               { tileset: 2, x: 134, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow
-              { tileset: 1, x: 1, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
+              { tileset: 1, x: 1, y: 78, width: 8, height: 6, offsetY: 6 } // Car (outbound)
             ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }          
         },
         'outbound|left-straight': {
@@ -1021,9 +1035,9 @@ var main = (function(){
           graphics: {
             center: [
               { tileset: 2, x: 134, y: 10, width: 4, height: 5, offsetY: 10 }, // Arrow
-              { tileset: 1, x: 1, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
+              { tileset: 1, x: 1, y: 78, width: 8, height: 6, offsetY: 6 } // Car (outbound)
             ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }          
         },
         'outbound|straight': {
@@ -1033,9 +1047,9 @@ var main = (function(){
           graphics: {
             center: [
               { tileset: 1, x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
-              { tileset: 1, x: 39, y: 5, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
+              { tileset: 1, x: 39, y: 5, width: 4, height: 5, offsetY: 10 } // Arrow (outbound)
             ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }          
         },
         'outbound|right-straight': {
@@ -1044,9 +1058,9 @@ var main = (function(){
           graphics: {
             center: [
               { tileset: 2, x: 143, y: 10, width: 4, height: 5, offsetY: 10 }, // Arrow
-              { tileset: 1, x: 10, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
+              { tileset: 1, x: 10, y: 78, width: 8, height: 6, offsetY: 6 } // Car (outbound)
             ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }          
         },
         'outbound|right': {
@@ -1055,9 +1069,9 @@ var main = (function(){
           graphics: {
             center: [
               { tileset: 2, x: 143, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow
-              { tileset: 1, x: 10, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
+              { tileset: 1, x: 10, y: 78, width: 8, height: 6, offsetY: 6 } // Car (outbound)
             ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }          
         },
         'outbound|both': {
@@ -1066,9 +1080,9 @@ var main = (function(){
           graphics: {
             center: [
               { tileset: 2, x: 148, y: 15, width: 5, height: 5, offsetY: 10 }, // Arrow
-              { tileset: 1, x: 1, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
+              { tileset: 1, x: 1, y: 78, width: 8, height: 6, offsetY: 6 } // Car (outbound)
             ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }          
         },
         'outbound|shared': {
@@ -1077,13 +1091,13 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { tileset: 2, x: 134, y: 20, width: 5, height: 5, offsetY: 10 }, // Arrow
+              { tileset: 2, x: 134, y: 20, width: 5, height: 5, offsetY: 10 } // Arrow
             ],
             repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
             left: { tileset: 2, x: 119, y: 10, width: 2, height: 5, offsetY: 10 }, // Marking
-            right: { tileset: 2, x: 116, y: 10, width: 2, height: 5, offsetY: 10 }, // Marking
+            right: { tileset: 2, x: 116, y: 10, width: 2, height: 5, offsetY: 10 } // Marking
           }          
-        },
+        }
       }
     },
     'parking-lane': {
@@ -1098,7 +1112,7 @@ var main = (function(){
           maxWidth: 10,
           graphics: {
             center: [
-              { tileset: 1, x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
+              { tileset: 1, x: 8, y: 27, width: 8, height: 15 } // Car (inbound)
             ],
             repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
             right: { tileset: 2, x: 112, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
@@ -1109,7 +1123,7 @@ var main = (function(){
           maxWidth: 10,
           graphics: {
             center: [
-              { tileset: 1, x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
+              { tileset: 1, x: 8, y: 27, width: 8, height: 15 } // Car (inbound)
             ],
             repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
             left: { tileset: 1, x: 46, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
@@ -1120,7 +1134,7 @@ var main = (function(){
           maxWidth: 10,
           graphics: {
             center: [
-              { tileset: 1, x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
+              { tileset: 1, x: 0, y: 27, width: 8, height: 15 } // Car (outbound)
             ],
             repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
             right: { tileset: 2, x: 112, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
@@ -1131,7 +1145,7 @@ var main = (function(){
           maxWidth: 10,
           graphics: {
             center: [
-              { tileset: 1, x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
+              { tileset: 1, x: 0, y: 27, width: 8, height: 15 } // Car (outbound)
             ],
             repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
             left: { tileset: 1, x: 46, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
@@ -1143,9 +1157,9 @@ var main = (function(){
           maxWidth: 20,
           graphics: {
             left: [
-              { tileset: 1, x: 38, y: 78, width: 14, height: 6, offsetY: 6 }, // Car (side)
+              { tileset: 1, x: 38, y: 78, width: 14, height: 6, offsetY: 6 } // Car (side)
             ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }          
         },
         'sideways|right': {
@@ -1154,9 +1168,9 @@ var main = (function(){
           maxWidth: 20,
           graphics: {
             right: [
-              { tileset: 1, x: 54, y: 78, width: 14, height: 6, offsetY: 6 }, // Car (side)
+              { tileset: 1, x: 54, y: 78, width: 14, height: 6, offsetY: 6 } // Car (side)
             ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }          
         }
       }      
@@ -1174,9 +1188,9 @@ var main = (function(){
           graphics: {
             center: [
               { tileset: 1, x: 28, y: 27, width: 11, height: 13 }, // Bus
-              { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
+              { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (inbound)
             ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }
         },
         'outbound|regular': {
@@ -1185,9 +1199,9 @@ var main = (function(){
           graphics: {
             center: [
               { tileset: 1, x: 16, y: 27, width: 12, height: 13 }, // Bus
-              { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
+              { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (outbound)
             ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }
         },
         'inbound|colored': {
@@ -1196,9 +1210,9 @@ var main = (function(){
           graphics: {
             center: [
               { tileset: 1, x: 28, y: 27, width: 11, height: 13 }, // Bus
-              { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
+              { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (inbound)
             ],
-            repeat: { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
+            repeat: { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 } // Red asphalt
           }
         },
         'outbound|colored': {
@@ -1207,9 +1221,9 @@ var main = (function(){
           graphics: {
             center: [
               { tileset: 1, x: 16, y: 27, width: 12, height: 13 }, // Bus
-              { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
+              { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (outbound)
             ],
-            repeat: { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
+            repeat: { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 } // Red asphalt
           }
         }
       }
@@ -1226,11 +1240,11 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { tileset: 3, x: 192, y: 1, width: 12, height: 17, offsetY: -1 }, // Streetcar
+              { tileset: 3, x: 192, y: 0, width: 12, height: 18, offsetY: -2 }, // Streetcar
               { tileset: 1, x: 28, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
-              { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (inbound)
+              { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (inbound)
             ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }          
         },
         'outbound|regular': {
@@ -1238,11 +1252,11 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { tileset: 3, x: 204, y: 1, width: 12, height: 17, offsetY: -1 }, // Streetcar
+              { tileset: 3, x: 204, y: 0, width: 12, height: 18, offsetY: -2 }, // Streetcar
               { tileset: 1, x: 28, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
-              { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow (outbound)
+              { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (outbound)
             ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }          
         },
         'inbound|colored': {
@@ -1250,11 +1264,11 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { tileset: 3, x: 192, y: 1, width: 12, height: 17, offsetY: -1 }, // Streetcar
+              { tileset: 3, x: 192, y: 0, width: 12, height: 18, offsetY: -2 }, // Streetcar
               { tileset: 1, x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
-              { tileset: 1, x: 29, y: 15, width: 4, height: 5, offsetX: 1, offsetY: 10 }, // Dark arrow (inbound)
+              { tileset: 1, x: 29, y: 15, width: 4, height: 5, offsetX: 1, offsetY: 10 } // Dark arrow (inbound)
             ],
-            repeat: { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
+            repeat: { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 } // Red asphalt
           }          
         },
         'outbound|colored': {
@@ -1262,13 +1276,13 @@ var main = (function(){
           maxWidth: 12,
           graphics: {
             center: [
-              { tileset: 3, x: 204, y: 1, width: 12, height: 17, offsetY: -1 }, // Streetcar
+              { tileset: 3, x: 204, y: 0, width: 12, height: 18, offsetY: -2 }, // Streetcar
               { tileset: 1, x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
-              { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 }, // Dark arrow (outbound)
+              { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 } // Dark arrow (outbound)
             ],
-            repeat: { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
+            repeat: { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 } // Red asphalt
           }          
-        },
+        }
       }     
     },
     'light-rail': {
@@ -1285,9 +1299,9 @@ var main = (function(){
             center: [
               { tileset: 1, x: 17, y: 40, width: 10, height: 17, offsetY: -5 }, // Light rail
               { tileset: 1, x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
-              { tileset: 1, x: 28, y: 15, width: 8, height: 5, offsetY: 10 }, // Dark arrow (inbound)
+              { tileset: 1, x: 28, y: 15, width: 8, height: 5, offsetY: 10 } // Dark arrow (inbound)
             ],
-            repeat: { tileset: 2, x: 110, y: 43, width: 9, height: 5, offsetY: 10 }, // Lower concrete
+            repeat: { tileset: 2, x: 110, y: 43, width: 9, height: 5, offsetY: 10 } // Lower concrete
           }          
         },
         'outbound|regular': {
@@ -1297,9 +1311,9 @@ var main = (function(){
             center: [
               { tileset: 1, x: 27, y: 40, width: 10, height: 17, offsetY: -5 }, // Light rail
               { tileset: 1, x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
-              { tileset: 1, x: 37, y: 15, width: 8, height: 5, offsetY: 10 }, // Dark arrow (outbound)
+              { tileset: 1, x: 37, y: 15, width: 8, height: 5, offsetY: 10 } // Dark arrow (outbound)
             ],
-            repeat: { tileset: 2, x: 110, y: 43, width: 9, height: 5, offsetY: 10 }, // Lower concrete
+            repeat: { tileset: 2, x: 110, y: 43, width: 9, height: 5, offsetY: 10 } // Lower concrete
           }          
         },
         'inbound|colored': {
@@ -1309,9 +1323,9 @@ var main = (function(){
             center: [
               { tileset: 1, x: 17, y: 40, width: 10, height: 17, offsetY: -5 }, // Light rail
               { tileset: 1, x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
-              { tileset: 1, x: 28, y: 15, width: 8, height: 5, offsetY: 10 }, // Dark arrow (inbound)
+              { tileset: 1, x: 28, y: 15, width: 8, height: 5, offsetY: 10 } // Dark arrow (inbound)
             ],
-            repeat: { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
+            repeat: { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 } // Red asphalt
           }          
         },
         'outbound|colored': {
@@ -1321,11 +1335,11 @@ var main = (function(){
             center: [
               { tileset: 1, x: 27, y: 40, width: 10, height: 17, offsetY: -5 }, // Light rail
               { tileset: 1, x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
-              { tileset: 1, x: 37, y: 15, width: 8, height: 5, offsetY: 10 }, // Dark arrow (outbound)
+              { tileset: 1, x: 37, y: 15, width: 8, height: 5, offsetY: 10 } // Dark arrow (outbound)
             ],
-            repeat: { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 }, // Red asphalt
+            repeat: { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 } // Red asphalt
           }          
-        },
+        }
       }
     },
     'transit-shelter': {
@@ -1339,47 +1353,47 @@ var main = (function(){
           minWidth: 9,
           graphics: {
             left: { tileset: 3, x: 171, y: 1, width: 9, height: 12, offsetY: -1 },
-            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
           }          
         },
         'right|street-level': {
           minWidth: 9,
           graphics: {
             right: { tileset: 3, x: 181, y: 1, width: 9, height: 12, offsetY: -1 },
-            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
           }          
         },
         'left|light-rail': {
           minWidth: 9,
           graphics: {
             left: { tileset: 3, x: 171, y: 51, width: 9, height: 12, offsetY: -3 },
-            repeat: { tileset: 2, x: 110, y: 63, width: 9, height: 9, offsetY: 6 }, // Raised concrete
+            repeat: { tileset: 2, x: 110, y: 63, width: 9, height: 9, offsetY: 6 } // Raised concrete
           }          
         },
         'right|light-rail': {
           minWidth: 9,
           graphics: {
             right: { tileset: 3, x: 181, y: 51, width: 9, height: 13, offsetY: -3 },
-            repeat: { tileset: 2, x: 110, y: 63, width: 9, height: 9, offsetY: 6 }, // Raised concrete
+            repeat: { tileset: 2, x: 110, y: 63, width: 9, height: 9, offsetY: 6 } // Raised concrete
           }          
-        },
+        }
       }
     },
     'train': {
       name: '“Inception” train',
       owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
-      zIndex: 0,
+      zIndex: 1,
       defaultWidth: 14,
       variants: [''],
       secret: true,
       descriptionPrompt: 'Learn more',
-      description: '<p>It’s the train from the Christopher Nolan movie <em>Inception.</em> What more do you need to know?</p>',
+      description: '<img src="/images/info-bubble-examples/train.jpg"><p>It’s the train from the Christopher Nolan movie <em>Inception.</em> What more do you need to know?</p>',
       details: {
         '': {
           minWidth: 14,
           graphics: {
             center: { tileset: 1, x: 82, y: 68, width: 14, height: 16, offsetY: -4 },
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }          
         }
       }
@@ -1387,37 +1401,37 @@ var main = (function(){
   };
 
   var DEFAULT_SEGMENTS = {
-    false: [ // Right-hand traffic
-      { type: "sidewalk", variant: { 'sidewalk-density': 'dense' }, width: 6 },
-      { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 2 },
-      { type: "transit-shelter", variant: { 'orientation': 'left', 'transit-shelter-elevation': 'street-level' }, width: 9 },
-      { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'right', 'lamp-type': 'modern' }, width: 2 },
-      { type: "bus-lane", variant: { 'direction': 'inbound', 'public-transit-asphalt': 'regular' }, width: 10 },
-      { type: "drive-lane", variant: { 'direction': 'inbound', 'car-type': 'car' }, width: 10 },
-      { type: "divider", variant: { 'divider-type': 'flowers' }, width: 3 },
-      { type: "turn-lane", variant: { 'direction': 'outbound', 'orientation': 'left' }, width: 10 },
-      { type: "drive-lane", variant: { 'direction': 'outbound', 'car-type': 'truck' }, width: 10 },
-      { type: "bike-lane", variant: { 'direction': 'outbound', 'bike-asphalt': 'colored' }, width: 6 },
-      { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'left', 'lamp-type': 'modern' }, width: 2 },
-      { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 2 },
-      { type: "sidewalk", variant: { 'sidewalk-density': 'normal' }, width: 6 },
-      { type: "sidewalk-bench", variant: { 'bench-orientation': 'right' }, width: 2 },
+    'false': [ // Right-hand traffic
+      { type: 'sidewalk', variant: { 'sidewalk-density': 'dense' }, width: 6 },
+      { type: 'sidewalk-tree', variant: { 'tree-type': 'big' }, width: 2 },
+      { type: 'transit-shelter', variant: { 'orientation': 'left', 'transit-shelter-elevation': 'street-level' }, width: 9 },
+      { type: 'sidewalk-lamp', variant: { 'lamp-orientation': 'right', 'lamp-type': 'modern' }, width: 2 },
+      { type: 'bus-lane', variant: { 'direction': 'inbound', 'public-transit-asphalt': 'regular' }, width: 10 },
+      { type: 'drive-lane', variant: { 'direction': 'inbound', 'car-type': 'car' }, width: 10 },
+      { type: 'divider', variant: { 'divider-type': 'flowers' }, width: 3 },
+      { type: 'turn-lane', variant: { 'direction': 'outbound', 'orientation': 'left' }, width: 10 },
+      { type: 'drive-lane', variant: { 'direction': 'outbound', 'car-type': 'truck' }, width: 10 },
+      { type: 'bike-lane', variant: { 'direction': 'outbound', 'bike-asphalt': 'colored' }, width: 6 },
+      { type: 'sidewalk-lamp', variant: { 'lamp-orientation': 'left', 'lamp-type': 'modern' }, width: 2 },
+      { type: 'sidewalk-tree', variant: { 'tree-type': 'big' }, width: 2 },
+      { type: 'sidewalk-wayfinding', variant: { 'wayfinding-type': 'medium' }, width: 2 },
+      { type: 'sidewalk', variant: { 'sidewalk-density': 'normal' }, width: 6 }
     ],
-    true: [ // Left-hand traffic
-      { type: "sidewalk-bench", variant: { 'bench-orientation': 'left' }, width: 2 },
-      { type: "sidewalk", variant: { 'sidewalk-density': 'normal' }, width: 6 },
-      { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 2 },
-      { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'right', 'lamp-type': 'modern' }, width: 2 },
-      { type: "bike-lane", variant: { 'direction': 'outbound', 'bike-asphalt': 'colored' }, width: 6 },
-      { type: "drive-lane", variant: { 'direction': 'outbound', 'car-type': 'truck' }, width: 10 },
-      { type: "turn-lane", variant: { 'direction': 'outbound', 'orientation': 'right' }, width: 10 },
-      { type: "divider", variant: { 'divider-type': 'flowers' }, width: 3 },
-      { type: "drive-lane", variant: { 'direction': 'inbound', 'car-type': 'car' }, width: 10 },
-      { type: "bus-lane", variant: { 'direction': 'inbound', 'public-transit-asphalt': 'regular' }, width: 10 },
-      { type: "sidewalk-lamp", variant: { 'lamp-orientation': 'left', 'lamp-type': 'modern' }, width: 2 },
-      { type: "transit-shelter", variant: { 'orientation': 'right', 'transit-shelter-elevation': 'street-level' }, width: 9 },
-      { type: "sidewalk-tree", variant: { 'tree-type': 'big' }, width: 2 },
-      { type: "sidewalk", variant: { 'sidewalk-density': 'dense' }, width: 6 },
+    'true': [ // Left-hand traffic
+      { type: 'sidewalk', variant: { 'sidewalk-density': 'normal' }, width: 6 },
+      { type: 'sidewalk-wayfinding', variant: { 'wayfinding-type': 'medium' }, width: 2 },
+      { type: 'sidewalk-tree', variant: { 'tree-type': 'big' }, width: 2 },
+      { type: 'sidewalk-lamp', variant: { 'lamp-orientation': 'right', 'lamp-type': 'modern' }, width: 2 },
+      { type: 'bike-lane', variant: { 'direction': 'outbound', 'bike-asphalt': 'colored' }, width: 6 },
+      { type: 'drive-lane', variant: { 'direction': 'outbound', 'car-type': 'truck' }, width: 10 },
+      { type: 'turn-lane', variant: { 'direction': 'outbound', 'orientation': 'right' }, width: 10 },
+      { type: 'divider', variant: { 'divider-type': 'flowers' }, width: 3 },
+      { type: 'drive-lane', variant: { 'direction': 'inbound', 'car-type': 'car' }, width: 10 },
+      { type: 'bus-lane', variant: { 'direction': 'inbound', 'public-transit-asphalt': 'regular' }, width: 10 },
+      { type: 'sidewalk-lamp', variant: { 'lamp-orientation': 'left', 'lamp-type': 'modern' }, width: 2 },
+      { type: 'transit-shelter', variant: { 'orientation': 'right', 'transit-shelter-elevation': 'street-level' }, width: 9 },
+      { type: 'sidewalk-tree', variant: { 'tree-type': 'big' }, width: 2 },
+      { type: 'sidewalk', variant: { 'sidewalk-density': 'dense' }, width: 6 }
     ]
   };
 
@@ -1425,6 +1439,7 @@ var main = (function(){
   var SIGN_IN_TOKEN_COOKIE = 'login_token';
 
   var LOCAL_STORAGE_SETTINGS_ID = 'settings';
+  var LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED = 'settings-welcome-dismissed';
   var LOCAL_STORAGE_SIGN_IN_ID = 'sign-in';
   var LOCAL_STORAGE_FEEDBACK_BACKUP = 'feedback-backup';
   var LOCAL_STORAGE_FEEDBACK_EMAIL_BACKUP = 'feedback-email-backup';
@@ -1470,6 +1485,7 @@ var main = (function(){
     priorLastStreetId: null, // Do not save
     newStreetPreference: null
   };
+  var settingsWelcomeDismissed = false;
 
   var units = SETTINGS_UNITS_IMPERIAL;
 
@@ -1490,6 +1506,8 @@ var main = (function(){
   var abortEverything;
   var currentErrorType;
 
+  var readOnly = false;
+
   var draggingType = DRAGGING_TYPE_NONE;
 
   var draggingResize = {
@@ -1499,10 +1517,9 @@ var main = (function(){
     mouseY: null,
     elX: null,
     elY: null,
+    width: null,
     originalX: null,
     originalWidth: null,
-    originalType: null,
-    originalVariantString: null,
     right: false
   };
 
@@ -1521,13 +1538,14 @@ var main = (function(){
     originalWidth: null,
     originalType: null,
     originalVariantString: null,
+    originalRandSeed: null,
     floatingElVisible: false
   };
 
   var initializing = false;
 
-  var widthEditHeld = false;
-  var resizeSegmentTimerId = -1;
+  var widthHeightEditHeld = false;
+  var widthHeightChangeTimerId = -1;
 
   var galleryVisible = false;
 
@@ -1558,16 +1576,20 @@ var main = (function(){
   var mouseY;
 
   var system = {
-    apiUrl: null,
     touch: false,
-    hiDpi: 1.0,
-    cssTransform: false,
-    ipAddress: null,
-
+    phone: false,
     safari: false,
+    windows: false,
 
     viewportWidth: null,
-    viewportHeight: null
+    viewportHeight: null,
+
+    hiDpi: 1.0,
+    cssTransform: false,
+
+    ipAddress: null,
+
+    apiUrl: null
   };
 
   var debug = {
@@ -1576,7 +1598,7 @@ var main = (function(){
     forceMetric: false,
     forceUnsupportedBrowser: false,
     forceNonRetina: false,
-    secretSegments: false,
+    secretSegments: false
   };
 
   var streetSectionTop;
@@ -1686,7 +1708,7 @@ var main = (function(){
       return;
     }
 
-    if (imagesToBeLoaded == 0) {
+    if ((imagesToBeLoaded == 0) && (sw > 0) && (sh > 0) && (dw > 0) && (dh > 0)) {
       // TODO move
       var TILESET_CORRECTION = [null, 0, -84, -162];
       sx += TILESET_CORRECTION[tileset] * 12;
@@ -1696,12 +1718,10 @@ var main = (function(){
       dw *= system.hiDpi;
       dh *= system.hiDpi;
 
-      /*if (dx + dw > ctx.canvas.width) {
-        dw = ctx.canvas.width - dx;
+      if (sx < 0) {
+        dw += sx;
+        sx = 0;
       }
-      if (dy + dh > ctx.canvas.height) {
-        dh = ctx.canvas.height - dy;
-      }*/
 
       ctx.drawImage(images['/images/tiles-' + tileset + '.png'],
           sx * TILESET_POINT_PER_PIXEL, sy * TILESET_POINT_PER_PIXEL, 
@@ -1710,9 +1730,9 @@ var main = (function(){
     }
   }
 
-  function _drawProgrammaticPeople(ctx, width, offsetLeft, offsetTop, multiplier, variantString) {
+  function _drawProgrammaticPeople(ctx, width, offsetLeft, offsetTop, randSeed, multiplier, variantString) {
     // TODO move
-    var PERSON_TYPES = 14;
+    var PERSON_TYPES = 15;
 
     var people = [];
     var peopleWidth = 0;
@@ -1738,7 +1758,7 @@ var main = (function(){
     }
 
     var randomGenerator = new RandomGenerator();
-    randomGenerator.seed(35);
+    randomGenerator.seed(randSeed);
 
     var lastPersonType = 0;
 
@@ -1838,7 +1858,7 @@ var main = (function(){
     return { left: left, right: right, center: center };
   }
 
-  function _drawSegmentContents(ctx, type, variantString, segmentWidth, offsetLeft, offsetTop, multiplier, palette) {
+  function _drawSegmentContents(ctx, type, variantString, segmentWidth, offsetLeft, offsetTop, randSeed, multiplier, palette) {
     var segmentInfo = SEGMENT_INFO[type];
     var variantInfo = SEGMENT_INFO[type].details[variantString];
 
@@ -1933,11 +1953,11 @@ var main = (function(){
     }
 
     if (type == 'sidewalk') {
-      _drawProgrammaticPeople(ctx, segmentWidth / multiplier, offsetLeft - left * TILE_SIZE * multiplier, offsetTop, multiplier, variantString);
+      _drawProgrammaticPeople(ctx, segmentWidth / multiplier, offsetLeft - left * TILE_SIZE * multiplier, offsetTop, randSeed, multiplier, variantString);
     }
   }
 
-  function _setSegmentContents(el, type, variantString, segmentWidth, palette, quickUpdate) {
+  function _setSegmentContents(el, type, variantString, segmentWidth, randSeed, palette, quickUpdate) {
     var segmentInfo = SEGMENT_INFO[type];
     var variantInfo = SEGMENT_INFO[type].details[variantString];
 
@@ -1963,12 +1983,11 @@ var main = (function(){
     canvasEl.height = CANVAS_BASELINE * system.hiDpi;
     canvasEl.style.width = (totalWidth * TILE_SIZE) + 'px';
     canvasEl.style.height = CANVAS_BASELINE + 'px';
-
     canvasEl.style.left = (dimensions.left * TILE_SIZE * multiplier) + 'px';
 
     var ctx = canvasEl.getContext('2d');
 
-    _drawSegmentContents(ctx, type, variantString, segmentWidth, 0, offsetTop, multiplier, palette);
+    _drawSegmentContents(ctx, type, variantString, segmentWidth, 0, offsetTop, randSeed, multiplier, palette);
 
     if (!quickUpdate) {
       _removeElFromDom(el.querySelector('canvas'));
@@ -1980,27 +1999,27 @@ var main = (function(){
   }
 
 
-  function _onWidthEditClick(event) {
+  function _onWidthHeightEditClick(event) {
     var el = event.target;
 
     el.hold = true;
-    widthEditHeld = true;
+    widthHeightEditHeld = true;
 
     if (document.activeElement != el) {
       el.select();
     }
   }
 
-  function _onWidthEditMouseOver(event) {
-    if (!widthEditHeld) {
+  function _onWidthHeightEditMouseOver(event) {
+    if (!widthHeightEditHeld) {
       event.target.focus();
       event.target.select();
     }
   }
 
-  function _onWidthEditMouseOut(event) {
+  function _onWidthHeightEditMouseOut(event) {
     var el = event.target;
-    if (!widthEditHeld) {
+    if (!widthHeightEditHeld) {
       _loseAnyFocus();
     }
   }
@@ -2009,11 +2028,22 @@ var main = (function(){
     document.body.focus();
   }
 
+  function _isFocusOnBody() {
+    return document.activeElement == document.body;
+  }
+
   function _onWidthEditFocus(event) {
     var el = event.target;
 
     el.oldValue = el.realValue;
     el.value = _prettifyWidth(el.realValue, PRETTIFY_WIDTH_INPUT);
+  }
+
+  function _onHeightEditFocus(event) {
+    var el = event.target;
+
+    el.oldValue = el.realValue;
+    el.value = _prettifyHeight(el.realValue, PRETTIFY_WIDTH_INPUT);
   }
 
   function _onWidthEditBlur(event) {
@@ -2025,7 +2055,19 @@ var main = (function(){
     el.value = _prettifyWidth(el.realValue, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP);
 
     el.hold = false;
-    widthEditHeld = false;
+    widthHeightEditHeld = false;
+  }
+
+  function _onHeightEditBlur(event) {
+    var el = event.target;
+
+    _heightEditInputChanged(el, true);
+
+    el.realValue = (_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingHeight : street.rightBuildingHeight;
+    el.value = _prettifyHeight(el.realValue, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP);
+
+    el.hold = false;
+    widthHeightEditHeld = false;
   }
 
   function _processWidthInput(widthInput) {
@@ -2065,8 +2107,38 @@ var main = (function(){
     return width;
   }
 
+  function _heightEditInputChanged(el, immediate) {
+    window.clearTimeout(widthHeightChangeTimerId);
+
+    var height = parseInt(el.value);
+
+    if (!height || (height < 1)) {
+      height = 1;
+    } else if (height > MAX_BUILDING_HEIGHT) {
+      height = MAX_BUILDING_HEIGHT;
+    }
+
+    if (immediate) {
+      if (_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING) {
+        street.leftBuildingHeight = height;
+      } else {
+        street.rightBuildingHeight = height;
+      }
+      _buildingHeightUpdated();
+    } else {
+      widthHeightChangeTimerId = window.setTimeout(function() {
+        if (_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING) {
+          street.leftBuildingHeight = height;
+        } else {
+          street.rightBuildingHeight = height;
+        }
+        _buildingHeightUpdated();
+      }, WIDTH_EDIT_INPUT_DELAY);
+    }
+  }
+
   function _widthEditInputChanged(el, immediate) {
-    window.clearTimeout(resizeSegmentTimerId);
+    window.clearTimeout(widthHeightChangeTimerId);
 
     var width = _processWidthInput(el.value);
 
@@ -2078,7 +2150,7 @@ var main = (function(){
             width * TILE_SIZE, false, false, true);
         _infoBubble.updateWidthButtonsInContents(width);
       } else {
-        resizeSegmentTimerId = window.setTimeout(function() {
+        widthHeightChangeTimerId = window.setTimeout(function() {
           _resizeSegment(segmentEl, RESIZE_TYPE_TYPING,
           width * TILE_SIZE, false, false, true);
         _infoBubble.updateWidthButtonsInContents(width);
@@ -2089,6 +2161,13 @@ var main = (function(){
 
   function _onWidthEditInput(event) {
     _widthEditInputChanged(event.target, false);
+
+    _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH, 
+        TRACK_LABEL_INPUT_FIELD, null, true);
+  }
+
+  function _onHeightEditInput(event) {
+    _heightEditInputChanged(event.target, false);
   }
 
   function _onWidthEditKeyDown(event) {
@@ -2110,6 +2189,26 @@ var main = (function(){
         break;
     }
   }
+
+  function _onHeightEditKeyDown(event) {
+    var el = event.target;
+
+    switch (event.keyCode) {
+      case KEY_ENTER:
+        _heightEditInputChanged(el, true);
+        _loseAnyFocus();
+        el.value = _prettifyHeight((_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingHeight : street.rightBuildingHeight, PRETTIFY_WIDTH_INPUT);
+        el.focus();
+        el.select();
+        break;
+      case KEY_ESC:
+        el.value = el.oldValue;
+        _heightEditInputChanged(el, true);
+        _hideMenus();
+        _loseAnyFocus();
+        break;
+    }
+  }  
 
   function _normalizeStreetWidth(width) {
     if (width < MIN_CUSTOM_STREET_WIDTH) {
@@ -2149,6 +2248,28 @@ var main = (function(){
     width = parseFloat(width.toFixed(NORMALIZE_PRECISION));
 
     return width;
+  }
+
+  function _prettifyHeight(height, purpose) {
+    var heightText = height;
+
+    switch (purpose) {
+      case PRETTIFY_WIDTH_INPUT:
+        break;
+      case PRETTIFY_WIDTH_OUTPUT_MARKUP:
+      case PRETTIFY_WIDTH_OUTPUT_NO_MARKUP:
+        heightText += ' floor';
+        if (height > 1) {
+          heightText += 's';          
+        }
+
+        var attr = _getBuildingAttributes(street, _infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING);
+
+        heightText += ' (' + _prettifyWidth(attr.height / TILE_SIZE, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP) + ')';
+
+        break;
+    }
+    return heightText;
   }
 
   function _prettifyWidth(width, purpose) {
@@ -2228,6 +2349,9 @@ var main = (function(){
     
     _incrementSegmentWidth(segmentEl, false, precise);
     _scheduleControlsFadeout(segmentEl);
+
+    _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH, 
+        TRACK_LABEL_INCREMENT_BUTTON, null, true);
   }
 
   function _onWidthIncrementClick(event) {
@@ -2237,6 +2361,9 @@ var main = (function(){
 
     _incrementSegmentWidth(segmentEl, true, precise);
     _scheduleControlsFadeout(segmentEl);
+
+    _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH, 
+        TRACK_LABEL_INCREMENT_BUTTON, null, true);    
   }
 
   function _resizeSegment(el, resizeType, width, updateEdit, palette, immediate, initial) {
@@ -2265,7 +2392,7 @@ var main = (function(){
     }
 
     _setSegmentContents(el, el.getAttribute('type'), 
-      el.getAttribute('variant-string'), width, palette);
+      el.getAttribute('variant-string'), width, el.getAttribute('rand-seed'), palette, false);
 
     if (updateEdit) {
       _infoBubble.updateWidthInContents(el, width / TILE_SIZE);
@@ -2290,18 +2417,19 @@ var main = (function(){
     return string;
   }
 
-  function _createSegment(type, variantString, width, isUnmovable, palette) {
+  function _createSegment(type, variantString, width, isUnmovable, palette, randSeed) {
     var el = document.createElement('div');
     el.classList.add('segment');
     el.setAttribute('type', type);
     el.setAttribute('variant-string', variantString);
+    if (randSeed) {
+      el.setAttribute('rand-seed', randSeed);
+    }
 
     if (isUnmovable) {
       el.classList.add('unmovable');
     }
     
-    //_setSegmentContents(el, type, variantString, width, palette);
-
     if (!palette) {
       el.style.zIndex = SEGMENT_INFO[type].zIndex;
 
@@ -2335,11 +2463,6 @@ var main = (function(){
       dragHandleEl.addEventListener('mouseout', _hideWidthChart);
       el.appendChild(dragHandleEl);
 
-      /*var commandsEl = document.createElement('span');
-      commandsEl.classList.add('commands');
-
-      el.appendChild(commandsEl);*/
-
       var innerEl = document.createElement('span');
       innerEl.classList.add('grid');
       el.appendChild(innerEl);
@@ -2349,7 +2472,7 @@ var main = (function(){
 
     if (width) {
       _resizeSegment(el, RESIZE_TYPE_INITIAL, width, true, palette, true, true);
-    }    
+    }
 
     if (!palette && !system.touch) {
       $(el).mouseenter(_onSegmentMouseEnter);
@@ -2569,8 +2692,10 @@ var main = (function(){
       ctx.save();
       ctx.globalCompositeOperation = 'source-atop';
       // TODO const
-      ctx.fillStyle = 'rgb(133, 183, 204)';
+      ctx.fillStyle = 'rgba(204, 163, 173, .9)';
       ctx.fillRect(0, 0, totalWidth * system.hiDpi, totalHeight * system.hiDpi);
+      //ctx.fillStyle = 'rgba(133, 183, 204, .8)';
+      //ctx.fillRect(0, 0, totalWidth * system.hiDpi, totalHeight * system.hiDpi);
       ctx.restore();
     }
   }
@@ -2593,10 +2718,18 @@ var main = (function(){
     _drawBuilding(ctx, BUILDING_DESTINATION_SCREEN, street, left, totalWidth, attr.height, false, 0, 0, 1.0);
   }
 
+  // TODO move
+  var MAX_BUILDING_HEIGHT = 20;
+
+  function _buildingHeightUpdated() {
+    _saveStreetToServerIfNecessary();
+    _createBuildings();
+  }
+
   function _changeBuildingHeight(left, increment) {
     if (left) {
       if (increment) {
-        if (street.leftBuildingHeight < 10) {
+        if (street.leftBuildingHeight < MAX_BUILDING_HEIGHT) {
           street.leftBuildingHeight++;
         }
       } else if (street.leftBuildingHeight > 1) {
@@ -2604,7 +2737,7 @@ var main = (function(){
       }
     } else {
       if (increment) {
-        if (street.rightBuildingHeight < 10) {
+        if (street.rightBuildingHeight < MAX_BUILDING_HEIGHT) {
           street.rightBuildingHeight++;
         }
       } else if (street.rightBuildingHeight > 1) {
@@ -2612,8 +2745,8 @@ var main = (function(){
       }
     }
 
-    _saveStreetToServerIfNecessary();
-    _createBuildings();
+    _infoBubble.updateHeightInContents(left);
+    _buildingHeightUpdated();
   }
 
   function _createBuildings() {
@@ -2629,7 +2762,7 @@ var main = (function(){
 
   function _createSegmentDom(segment) {
     return _createSegment(segment.type, segment.variantString, 
-        segment.width * TILE_SIZE, segment.unmovable);
+        segment.width * TILE_SIZE, segment.unmovable, false, segment.randSeed);
   }  
 
   function _onSegmentMouseEnter(event) {
@@ -2790,6 +2923,8 @@ var main = (function(){
     if (Math.abs(street.remainingWidth) < WIDTH_ROUNDING) {
       street.remainingWidth = 0;
     }
+
+    _buildStreetWidthMenu();
   }
 
   function _recalculateWidth() {
@@ -2935,6 +3070,9 @@ var main = (function(){
       _updateEverything(true);
       _statusMessage.hide();
     }
+
+    _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_UNDO, 
+        null, null, true);    
   }
 
   function _clearUndoStack() {
@@ -2976,6 +3114,14 @@ var main = (function(){
     }
 
     _createNewUndo();
+  }
+
+  // TODO move
+  var MAX_RAND_SEED = 999999999;
+
+  function _generateRandSeed() {
+    var randSeed = 1 + Math.floor(Math.random() * MAX_RAND_SEED); // So it’s not zero
+    return randSeed;
   }
 
   function _incrementSchemaVersion(street) {
@@ -3108,6 +3254,14 @@ var main = (function(){
             var variant = _getVariantArray(segment.type, segment.variantString);
             variant['wayfinding-type'] = 'large';
             segment.variantString =  _getVariantString(variant);
+          }
+        }
+        break;
+      case 14:
+        for (var i in street.segments) {
+          var segment = street.segments[i];
+          if (segment.type == 'sidewalk') {
+            segment.randSeed = 35;
           }
         }
         break;
@@ -3295,6 +3449,10 @@ var main = (function(){
   }
 
   function _saveStreetToServer(initial) {
+    if (readOnly) {
+      return;
+    }
+
     var transmission = _packServerStreetData();
 
     if (initial) {
@@ -3413,6 +3571,10 @@ var main = (function(){
   }
 
   function _remixStreet() {
+    if (readOnly) {
+      return;
+    }
+
     remixOnFirstEdit = false;
 
     if (signedIn) {
@@ -3547,7 +3709,7 @@ var main = (function(){
 
     if (JSON.stringify(currentData) != JSON.stringify(lastStreet)) {
       _setUpdateTimeToNow();
-      _hideNewStreetMenu();
+      _hideWelcome();
 
       // As per issue #306.
       _statusMessage.hide();
@@ -3635,6 +3797,9 @@ var main = (function(){
       segment.type = street.segments[i].type;
       segment.variantString = street.segments[i].variantString;
       segment.width = street.segments[i].width;
+      if (street.segments[i].randSeed) {
+        segment.randSeed = street.segments[i].randSeed;
+      }
 
       newData.segments.push(segment);
     }
@@ -3652,6 +3817,9 @@ var main = (function(){
     for (var i = 0, el; el = els[i]; i++) {
       var segment = {};
       segment.type = el.getAttribute('type');
+      if (el.getAttribute('rand-seed')) {
+        segment.randSeed = parseInt(el.getAttribute('rand-seed'));
+      }
       segment.variantString = el.getAttribute('variant-string');
       segment.variant = _getVariantArray(segment.type, segment.variantString);
       segment.width = parseFloat(el.getAttribute('width'));
@@ -3687,6 +3855,8 @@ var main = (function(){
   }
 
   function _updateWidthChart(ownerWidths) {
+    return;
+
     var ctx = document.querySelector('#width-chart').getContext('2d');
 
     var chartWidth = WIDTH_CHART_WIDTH;
@@ -3812,11 +3982,6 @@ var main = (function(){
         x += width;
       }
     }
-
-    /*document.querySelector('#street-width-canvas').style.left = 
-        WIDTH_CHART_MARGIN + 'px';
-    document.querySelector('#street-width-canvas').style.width = 
-        (street.width * multiplier) + 'px';*/
   }
 
   // TODO move
@@ -3882,6 +4047,10 @@ var main = (function(){
   }
 
   function _handleSegmentResizeStart(event) {
+    if (readOnly) {
+      return;
+    }
+
     if (event.touches && event.touches[0]) {
       var x = event.touches[0].pageX;
       var y = event.touches[0].pageY;
@@ -3997,7 +4166,7 @@ var main = (function(){
     draggingResize.elX += deltaX;
     draggingResize.floatingEl.style.left = (draggingResize.elX - document.querySelector('#street-section-outer').scrollLeft) + 'px';
 
-    var width = draggingResize.originalWidth + deltaFromOriginal / TILE_SIZE * 2;
+    draggingResize.width = draggingResize.originalWidth + deltaFromOriginal / TILE_SIZE * 2;
     var precise = event.shiftKey;
 
     if (precise) {
@@ -4007,7 +4176,7 @@ var main = (function(){
     }
 
     _resizeSegment(draggingResize.segmentEl, resizeType,
-        width * TILE_SIZE, true, false, true);
+        draggingResize.width * TILE_SIZE, true, false, true);
 
     draggingResize.mouseX = x;
     draggingResize.mouseY = y;
@@ -4016,7 +4185,11 @@ var main = (function(){
     _showWidthChartImmediately();
   }  
 
-  function _handleSegmentMoveStart(event) {
+  function _handleSegmentClickOrMoveStart(event) {
+    if (readOnly) {
+      return;
+    }
+
     ignoreStreetChanges = true;
 
     if (event.touches && event.touches[0]) {
@@ -4028,14 +4201,27 @@ var main = (function(){
     }    
 
     var el = event.target;
-
-    _changeDraggingType(DRAGGING_TYPE_MOVE);
-
     draggingMove.originalEl = el;
+
+    _changeDraggingType(DRAGGING_TYPE_CLICK_OR_MOVE);    
+
+    draggingMove.mouseX = x;
+    draggingMove.mouseY = y;
+  }
+
+  function _handleSegmentMoveStart() {
+    if (readOnly) {
+      return;
+    }
+
+    _changeDraggingType(DRAGGING_TYPE_MOVE);    
 
     draggingMove.originalType = draggingMove.originalEl.getAttribute('type');
 
     if (draggingMove.originalEl.classList.contains('palette')) {
+      if (SEGMENT_INFO[draggingMove.originalType].needRandSeed) {
+        draggingMove.originalRandSeed = _generateRandSeed();        
+      }
       draggingMove.type = DRAGGING_TYPE_MOVE_CREATE;
       draggingMove.originalWidth = 
           SEGMENT_INFO[draggingMove.originalType].defaultWidth * TILE_SIZE;
@@ -4045,7 +4231,9 @@ var main = (function(){
         draggingMove.originalVariantString = j;
         break;
       }
-  } else {
+    } else {
+      draggingMove.originalRandSeed = 
+          draggingMove.originalEl.getAttribute('rand-seed');
       draggingMove.type = DRAGGING_TYPE_MOVE_TRANSFER;      
       draggingMove.originalWidth = 
           draggingMove.originalEl.offsetWidth;
@@ -4053,7 +4241,7 @@ var main = (function(){
           draggingMove.originalEl.getAttribute('variant-string');
     }
 
-    var pos = _getElAbsolutePos(el);
+    var pos = _getElAbsolutePos(draggingMove.originalEl);
 
     draggingMove.elX = pos[0];
     draggingMove.elY = pos[1];
@@ -4064,9 +4252,6 @@ var main = (function(){
     } else {
       draggingMove.elX -= document.querySelector('#street-section-outer').scrollLeft;
     }
-
-    draggingMove.mouseX = x;
-    draggingMove.mouseY = y;
 
     draggingMove.floatingEl = document.createElement('div');
     draggingMove.floatingEl.classList.add('segment');
@@ -4079,7 +4264,9 @@ var main = (function(){
     _setSegmentContents(draggingMove.floatingEl, 
         draggingMove.originalType, 
         draggingMove.originalVariantString, 
-        draggingMove.originalWidth);
+        draggingMove.originalWidth,
+        draggingMove.originalRandSeed,
+        false, false);
     document.body.appendChild(draggingMove.floatingEl);
 
     if (system.cssTransform) {
@@ -4113,6 +4300,25 @@ var main = (function(){
       document.body.classList.remove('not-within-canvas');
     } else {
       document.body.classList.add('not-within-canvas');
+    }
+  }
+
+  function _handleSegmentClickOrMoveMove(event) {
+    if (event.touches && event.touches[0]) {
+      var x = event.touches[0].pageX;
+      var y = event.touches[0].pageY;
+    } else {
+      var x = event.pageX;
+      var y = event.pageY;
+    }    
+
+    var deltaX = x - draggingMove.mouseX;
+    var deltaY = y - draggingMove.mouseY;
+
+    // TODO const
+    if ((Math.abs(deltaX) > 5) || (Math.abs(deltaY) > 5)) {
+      _handleSegmentMoveStart();
+      _handleSegmentMoveMove(event);
     }
   }
 
@@ -4181,7 +4387,8 @@ var main = (function(){
         _setSegmentContents(draggingMove.floatingEl, 
           smartDrop.type, 
           smartDrop.variantString, 
-          smartDrop.width, false, true);
+          smartDrop.width, 
+          draggingMove.originalRandSeed, false, true);
 
         draggingMove.originalType = smartDrop.type;
         draggingMove.originalVariantString = smartDrop.variantString;
@@ -4204,7 +4411,7 @@ var main = (function(){
   function _onBodyMouseDown(event) {
     var el = event.target;
 
-    if (event.touches && event.touches.length != 1) {
+    if (readOnly || (event.touches && event.touches.length != 1)) {
       return;
     }
 
@@ -4250,7 +4457,7 @@ var main = (function(){
         return;
       }
 
-      _handleSegmentMoveStart(event);
+      _handleSegmentClickOrMoveStart(event);
     }
 
     event.preventDefault();
@@ -4262,11 +4469,15 @@ var main = (function(){
     var selectedSegmentBefore = null;
     var selectedSegmentAfter = null;
 
-    var farLeft = street.segments[0].el.savedNoMoveLeft;
-    var farRight = 
-        street.segments[street.segments.length - 1].el.savedNoMoveLeft + 
-        street.segments[street.segments.length - 1].el.savedWidth;
-
+    if (street.segments.length) { 
+      var farLeft = street.segments[0].el.savedNoMoveLeft;
+      var farRight = 
+          street.segments[street.segments.length - 1].el.savedNoMoveLeft + 
+          street.segments[street.segments.length - 1].el.savedWidth;
+    } else {
+      var farLeft = 0;
+      var farRight = street.width * TILE_SIZE;
+    }
     // TODO const
     var space = (street.width - street.occupiedWidth) * TILE_SIZE / 2;
     if (space < 100) {
@@ -4309,6 +4520,9 @@ var main = (function(){
     }
 
     switch (draggingType) {
+      case DRAGGING_TYPE_CLICK_OR_MOVE:
+        _handleSegmentClickOrMoveMove(event);
+        break;
       case DRAGGING_TYPE_MOVE:
         _handleSegmentMoveMove(event);
         break;
@@ -4515,12 +4729,15 @@ var main = (function(){
       if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
         _removeElFromDom(draggingMove.originalEl);
       }
+
+      _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_REMOVE_SEGMENT, 
+          TRACK_LABEL_DRAGGING, null, true);
     } else if (draggingMove.segmentBeforeEl || draggingMove.segmentAfterEl || (street.segments.length == 0)) {
       var smartDrop = _doDropHeuristics(draggingMove.originalType, 
           draggingMove.originalVariantString, draggingMove.originalWidth);
       
       var newEl = _createSegment(smartDrop.type,
-          smartDrop.variantString, smartDrop.width);
+          smartDrop.variantString, smartDrop.width, false, false, draggingMove.originalRandSeed);
 
       newEl.classList.add('create');
 
@@ -4614,12 +4831,24 @@ var main = (function(){
     window.setTimeout(function() {
       suppressMouseEnter = false;
     }, 50);
+
+    if (draggingResize.width && (draggingResize.originalWidth != draggingResize.width)) {
+      _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH, 
+          TRACK_LABEL_DRAGGING, null, true);    
+    }
   }
 
   function _onBodyMouseUp(event) {
     switch (draggingType) {
       case DRAGGING_TYPE_NONE:
         return;
+      case DRAGGING_TYPE_CLICK_OR_MOVE:
+        _changeDraggingType(DRAGGING_TYPE_NONE);
+        ignoreStreetChanges = false;
+
+        // click!
+        //_nextSegmentVariant(draggingMove.originalEl.dataNo);
+        break;
       case DRAGGING_TYPE_MOVE:
         _handleSegmentMoveEnd(event);
         break;
@@ -4644,11 +4873,17 @@ var main = (function(){
         var variantName = j;
         break;
       }
+
       // TODO hardcoded
-      if (id == 'sidewalk-lamp') {
-        variantName = 'both|traditional';
-      } else if (id == 'divider') {
-        variantName = 'bollard';
+      switch (id) {
+        case 'sidewalk-lamp':
+          variantName = 'both|traditional';
+          break;
+        case 'divider':
+          variantName = 'bollard';
+          break;
+        case 'transit-shelter':
+          variantName = 'right|light-rail';
       }
 
       var variantInfo = segmentInfo.details[variantName];
@@ -4665,7 +4900,8 @@ var main = (function(){
         variantName,
         width * TILE_SIZE / WIDTH_PALETTE_MULTIPLIER, 
         false, 
-        true);
+        true,
+        _generateRandSeed());
 
       el.classList.add('palette');
 
@@ -4721,10 +4957,17 @@ var main = (function(){
     var streetSectionHeight = 
         document.querySelector('#street-section-inner').offsetHeight;
 
-    var paletteTop = document.querySelector('#main-screen footer').offsetTop || system.viewportHeight;
+    var paletteTop = document.querySelector('#main-screen > footer').offsetTop || system.viewportHeight;
 
-    // TODO const
-    streetSectionTop = (system.viewportHeight - streetSectionHeight) / 2 + 30 + 180; // gallery height
+    if (system.viewportHeight - streetSectionHeight > 450) {
+      streetSectionTop = (system.viewportHeight - streetSectionHeight - 450) / 2 + 450 + 80;
+    } else {
+      streetSectionTop = system.viewportHeight - streetSectionHeight + 70;
+    }
+    
+    if (readOnly) {
+      streetSectionTop += 80;
+    }
 
     // TODO const
     if (streetSectionTop + document.querySelector('#street-section-inner').offsetHeight > 
@@ -4839,6 +5082,20 @@ var main = (function(){
 
   function _buildStreetWidthMenu() {
     document.querySelector('#street-width').innerHTML = '';
+
+    var el = document.createElement('option');
+    el.disabled = true;
+    el.innerHTML = 'Occupied width:';
+    document.querySelector('#street-width').appendChild(el);  
+
+    var el = document.createElement('option');
+    el.disabled = true;
+    el.innerHTML = _prettifyWidth(street.occupiedWidth, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP);
+    document.querySelector('#street-width').appendChild(el);      
+
+    var el = document.createElement('option');
+    el.disabled = true;
+    document.querySelector('#street-width').appendChild(el);      
 
     var el = document.createElement('option');
     el.disabled = true;
@@ -4962,6 +5219,71 @@ var main = (function(){
     _loseAnyFocus();   
   }
 
+  function _nextSegmentVariant(dataNo) {
+    var segment = street.segments[dataNo];
+
+    var segmentInfo = SEGMENT_INFO[segment.type];
+
+    var nextVariantString = '';
+    var found = 0;
+    for (var i in segmentInfo.details) {
+      if (found == 1) {
+        nextVariantString = i;
+        break;
+      }
+      if (i == segment.variantString) {
+        found = 1;
+      }
+    }
+
+    if (!nextVariantString) {
+      // TODO hack
+      for (var i in segmentInfo.details) {
+        nextVariantString = i;
+        break;
+      }
+    }
+
+    _changeSegmentVariant(dataNo, null, null, nextVariantString);
+  }
+
+  function _changeSegmentVariant(dataNo, variantName, variantChoice, variantString) {
+    var segment = street.segments[dataNo];
+
+    if (variantString) {
+      segment.variantString = variantString;
+      segment.variant = _getVariantArray(segment.type, segment.variantString);
+    } else {
+      segment.variant[variantName] = variantChoice;
+      segment.variantString = _getVariantString(segment.variant);
+    }
+
+    var el = _createSegmentDom(segment);
+
+    var oldEl = segment.el;
+    oldEl.parentNode.insertBefore(el, oldEl);
+    _switchSegmentElAway(oldEl);
+
+    segment.el = el;
+    segment.el.dataNo = oldEl.dataNo;
+    street.segments[oldEl.dataNo].el = el;
+
+    _switchSegmentElIn(el);
+    el.classList.add('hover');
+    el.classList.add('show-drag-handles');
+    el.classList.add('immediate-show-drag-handles');
+    el.classList.add('hide-drag-handles-when-inside-info-bubble');
+    _infoBubble.segmentEl = el;
+
+    _infoBubble.updateContents();
+
+    _repositionSegments();
+    _recalculateWidth();
+    _applyWarningsToSegments();
+
+    _saveStreetToServerIfNecessary();
+  }
+
   function _removeSegment(el, all) {
     if (all) {
       street.segments = [];
@@ -4989,17 +5311,11 @@ var main = (function(){
   function _getHoveredSegmentEl() {
     var el = document.querySelector('.segment.hover');
     return el;
-/*
-    var el = document.elementFromPoint(mouseX, mouseY);
-    while (el && el.classList && !el.classList.contains('segment')) {
-      el = el.parentNode;
-    }
+  }
 
-    if (el.classList && el.classList.contains('segment')) {
-      return el;
-    } else {
-      return null;
-    }*/
+  function _getHoveredEl() {
+    var el = document.querySelector('.hover');
+    return el;
   }
 
   function _showDebugInfo() {
@@ -5055,31 +5371,30 @@ var main = (function(){
     switch (event.keyCode) {
       case KEY_EQUAL:
       case KEY_EQUAL_ALT:
-        if (event.metaKey || event.ctrlKey || event.altKey) {
-          return;
-        }
-
-        if (document.activeElement == document.body) {
-          var segmentHoveredEl = _getHoveredSegmentEl();
-          if (segmentHoveredEl) {
-            _incrementSegmentWidth(segmentHoveredEl, true, event.shiftKey);
-          }
-          event.preventDefault();
-        }
-        break;
+      case KEY_PLUS_KEYPAD:
       case KEY_MINUS:
       case KEY_MINUS_ALT:
+      case KEY_MINUS_KEYPAD:
         if (event.metaKey || event.ctrlKey || event.altKey) {
           return;
         }
 
-        if (document.activeElement == document.body) {
-          var segmentHoveredEl = _getHoveredSegmentEl();
-          if (segmentHoveredEl) {
-            _incrementSegmentWidth(segmentHoveredEl, false, event.shiftKey);
-          }
-          event.preventDefault();
+        var negative = (event.keyCode == KEY_MINUS) || 
+           (event.keyCode == KEY_MINUS_ALT) || 
+           (event.keyCode == KEY_MINUS_KEYPAD);
+
+        var hoveredEl = _getHoveredEl();
+        if (hoveredEl.classList.contains('segment')) {
+          _incrementSegmentWidth(hoveredEl, !negative, event.shiftKey);
+        } else if (hoveredEl.id == 'street-section-left-building') {
+          _changeBuildingHeight(true, !negative);
+        } else if (hoveredEl.id == 'street-section-right-building') {
+          _changeBuildingHeight(false, !negative);
         }
+        event.preventDefault();
+
+        _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH, 
+            TRACK_LABEL_KEYBOARD, null, true);    
         break;
       case KEY_BACKSPACE:
       case KEY_DELETE:
@@ -5087,11 +5402,13 @@ var main = (function(){
           return;
         }
 
-        if (document.activeElement == document.body) {
-          var segmentHoveredEl = _getHoveredSegmentEl();
-          _removeSegment(segmentHoveredEl, event.shiftKey);
-          event.preventDefault();
-        }
+        var segmentHoveredEl = _getHoveredSegmentEl();
+        _removeSegment(segmentHoveredEl, event.shiftKey);
+
+        _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_REMOVE_SEGMENT, 
+            TRACK_LABEL_KEYBOARD, null, true);        
+
+        event.preventDefault();
         break;
       case KEY_LEFT_ARROW:
         _scrollStreet(true, event.shiftKey);
@@ -5099,30 +5416,6 @@ var main = (function(){
         break;
       case KEY_RIGHT_ARROW:
         _scrollStreet(false, event.shiftKey);
-        event.preventDefault();
-        break;
-      case KEY_ESC:
-        _hideDebugInfo();
-
-        if (document.querySelector('#about').classList.contains('visible')) {
-          _hideAboutMenu();
-        } else if (draggingType == DRAGGING_TYPE_RESIZE) {
-          _handleSegmentResizeCancel();
-        } else if (draggingType == DRAGGING_TYPE_MOVE) {
-          _handleSegmentMoveCancel();
-        } else if (menuVisible) {
-          _hideMenus();
-        } else if (_infoBubble.visible && _infoBubble.descriptionVisible) {
-          _infoBubble.hideDescription();
-        } else if (_infoBubble.visible) {
-          _infoBubble.hide();
-          _infoBubble.hideSegment(false);
-        } else if (document.body.classList.contains('gallery-visible')) {
-          _hideGallery(false);
-        } else if (signedIn) {
-          _showGallery(signInData.userId, false);
-        }
-
         event.preventDefault();
         break;
       case KEY_Z:
@@ -5147,12 +5440,51 @@ var main = (function(){
         }   
         break;   
       case KEY_D:
-        if (event.shiftKey && (document.activeElement == document.body)) {
+        if (event.shiftKey) {
           _showDebugInfo();
           event.preventDefault();
         }
         break;
-      }
+      }    
+  }
+
+  function _onGlobalKeyDown(event) {
+    if (_isFocusOnBody()) {
+      _onBodyKeyDown(event); 
+    }
+
+    switch (event.keyCode) {
+      case KEY_ESC:
+        if (document.querySelector('#debug').classList.contains('visible')) {
+          _hideDebugInfo();
+        } else if (document.querySelector('#welcome').classList.contains('visible')) {
+          _hideWelcome();
+        } else if (document.querySelector('#about').classList.contains('visible')) {
+          _hideAboutMenu();
+        } else if (draggingType == DRAGGING_TYPE_RESIZE) {
+          _handleSegmentResizeCancel();
+        } else if (draggingType == DRAGGING_TYPE_MOVE) {
+          _handleSegmentMoveCancel();
+        } else if (menuVisible) {
+          _hideMenus();
+        } else if (document.querySelector('#status-message').classList.contains('visible')) {
+          _statusMessage.hide();
+        } else if (_infoBubble.visible && _infoBubble.descriptionVisible) {
+          _infoBubble.hideDescription();
+        } else if (_infoBubble.visible) {
+          _infoBubble.hide();
+          _infoBubble.hideSegment(false);
+        } else if (document.body.classList.contains('gallery-visible')) {
+          _hideGallery(false);
+        } else if (signedIn) {
+          _showGallery(signInData.userId, false);
+        } else {
+          return;
+        }
+
+        event.preventDefault();
+        break;
+    }
   }
 
   function _onRemoveButtonClick(event) {
@@ -5160,6 +5492,9 @@ var main = (function(){
 
     if (el) {
       _removeSegment(el, event.shiftKey);
+
+      _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_REMOVE_SEGMENT, 
+          TRACK_LABEL_BUTTON, null, true);              
     }
 
     // Prevent this “leaking” to a segment below
@@ -5226,6 +5561,12 @@ var main = (function(){
     }
     if (debug.secretSegments) {
       url += '&debug-secret-segments';
+    }
+    if (debug.forceReadOnly) {
+      url += '&debug-force-read-only';
+    }
+    if (debug.forceTouch) {
+      url += '&debug-force-touch';
     }
 
     url = url.replace(/\&/, '?');
@@ -5294,7 +5635,9 @@ var main = (function(){
 
       _fetchAvatars();
 
-      document.querySelector('#street-metadata-author .user-gallery').addEventListener('click', _onAnotherUserIdClick);
+      if (!readOnly) {
+        document.querySelector('#street-metadata-author .user-gallery').addEventListener('click', _onAnotherUserIdClick);
+      }
     } else if (!street.creatorId && (signedIn || remixOnFirstEdit)) {
       var html = 'by ' + msg('USER_ANONYMOUS');
 
@@ -5375,13 +5718,9 @@ var main = (function(){
     var requestId = parseInt(request.getResponseHeader('X-Streetmix-Request-Id'));
 
     if (requestId != latestRequestId) {
-      //console.log('rejected since it doesn’t match');
       return;
     }
 
-    //console.log('comparing…');
-
-    //var localStreetData = _trimStreetData(street);
     var localStreetData = _trimStreetData(latestVerificationStreet);
     var serverStreetData = _trimStreetData(_unpackStreetDataFromServerTransmission(transmission));
 
@@ -5396,8 +5735,13 @@ var main = (function(){
 
       _statusMessage.show(msg('STATUS_RELOADED_FROM_SERVER'));
 
+      _infoBubble.suppress();
+
       _unpackServerStreetData(transmission, null, null, false);
       _updateEverything(true);
+
+      _eventTracking.track(TRACK_CATEGORY_EVENT, 
+          TRACK_ACTION_STREET_MODIFIED_ELSEWHERE, null, null, false);
     }
   }
 
@@ -5550,28 +5894,49 @@ var main = (function(){
     _saveStreetToServer(false);
   }
 
-  function _showNewStreetMenu() {
-    switch (settings.newStreetPreference) {
-      case NEW_STREET_EMPTY:
-        document.querySelector('#new-street-empty').checked = true;
-        break;
-      case NEW_STREET_DEFAULT:
-        document.querySelector('#new-street-default').checked = true;
-        break;
+  function _showWelcome() {
+    var firstTime = true;
+
+    _loadSettingsWelcomeDismissed();
+
+    if (signedIn || settingsWelcomeDismissed) {
+      firstTime = false;
     }
 
-    if (settings.priorLastStreetId && settings.priorLastStreetId != street.id) {
-      document.querySelector('#new-street-last').parentNode.classList.add('visible');
+    if (firstTime) {
+      document.querySelector('#welcome').classList.add('first-time');
+    } else {
+      document.querySelector('#welcome').classList.add('next-time');
+
+      switch (settings.newStreetPreference) {
+        case NEW_STREET_EMPTY:
+          document.querySelector('#new-street-empty').checked = true;
+          break;
+        case NEW_STREET_DEFAULT:
+          document.querySelector('#new-street-default').checked = true;
+          break;
+      }
+
+      if (settings.priorLastStreetId && settings.priorLastStreetId != street.id) {
+        document.querySelector('#new-street-last').parentNode.classList.add('visible');
+      }
     }
 
-    document.querySelector('#new-street-menu').classList.add('visible');
+    document.querySelector('#welcome').classList.add('visible');
   }
 
-  function _hideNewStreetMenu() {
-    document.querySelector('#new-street-menu').classList.remove('visible');
+  function _hideWelcome() {
+    settingsWelcomeDismissed = true;
+    _saveSettingsWelcomeDismissed();
+
+    document.querySelector('#welcome').classList.remove('visible');
   }
 
   function _showAboutMenu(event) {
+    if (event && (event.shiftKey || event.ctrlKey || event.metaKey)) {
+      return;
+    }
+
     _hideMenus();
 
     document.querySelector('#about').classList.add('visible');
@@ -5611,10 +5976,10 @@ var main = (function(){
     } else {
       jQuery.ajax({
         // TODO const
-        url: API_URL + 'v1/streets',
+        url: API_URL + 'v1/streets?count=200',
         dataType: 'json',
-        type: 'GET',
-      }).done(_receiveGalleryData).fail(_errorReceiveGalleryData);      
+        type: 'GET'
+      }).done(_receiveGalleryData).fail(_errorReceiveGalleryData);
     }
   }
 
@@ -5689,7 +6054,7 @@ var main = (function(){
     _createDomFromData();
     _createDataFromDom();
 
-    _hideNewStreetMenu();
+    _hideWelcome();
     _resizeStreetWidth();
     _updateStreetName();
     _createDomFromData();
@@ -5858,6 +6223,10 @@ var main = (function(){
 
       var anchorEl = document.createElement('a');
 
+      if (!galleryUserId && (galleryStreet.data.undoStack.length <= 4)) {
+        anchorEl.classList.add('virgin');
+      }
+
       galleryStreet.creatorId = 
           (galleryStreet.creator && galleryStreet.creator.id);
 
@@ -5951,6 +6320,13 @@ var main = (function(){
   }
 
   function _showGallery(userId, instant, signInPromo) {
+    if (readOnly) {
+      return;
+    }
+
+    _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_OPEN_GALLERY, 
+        userId, null, false);
+
     galleryVisible = true;
     galleryStreetLoaded = true;
     galleryStreetId = street.id;
@@ -6105,7 +6481,6 @@ var main = (function(){
       if (system.ipAddress) {
         additionalInformation += '\nIP: ' + system.ipAddress;
       }
-      //additionalInformation += '\nSettings: ' + JSON.stringify(settings);
 
       var transmission = {
         message: document.querySelector('#feedback-form-message').value,
@@ -6119,7 +6494,7 @@ var main = (function(){
         data: JSON.stringify(transmission),
         dataType: 'json',
         type: 'POST',
-        contentType: 'application/json',
+        contentType: 'application/json'
       }, true, _feedbackFormSuccess);
     }
   }
@@ -6177,15 +6552,15 @@ var main = (function(){
   function _onStreetSectionScroll(event) {
     _infoBubble.suppress();
 
-    //if (!system.safari) {
-      var scrollPos = document.querySelector('#street-section-outer').scrollLeft;
+    var scrollPos = document.querySelector('#street-section-outer').scrollLeft;
 
-      var pos = -scrollPos * 0.5;
-      document.querySelector('#street-section-sky .front-clouds').style[system.cssTransform] = 'translateX(' + pos + 'px)'; 
+    var pos = -scrollPos * 0.5;
+    document.querySelector('#street-section-sky .front-clouds').style[system.cssTransform] = 
+        'translateX(' + pos + 'px)'; 
 
-      var pos = -scrollPos * 0.25;
-      document.querySelector('#street-section-sky .rear-clouds').style[system.cssTransform] = 'translateX(' + pos + 'px)'; 
-    //}
+    var pos = -scrollPos * 0.25;
+    document.querySelector('#street-section-sky .rear-clouds').style[system.cssTransform] = 
+        'translateX(' + pos + 'px)'; 
 
     _updateStreetScrollIndicators();
 
@@ -6216,6 +6591,8 @@ var main = (function(){
 
     window.open(el.toDataURL('image/png'));
 
+    _eventTracking.track(TRACK_CATEGORY_SHARING, TRACK_ACTION_SAVE_AS_IMAGE, null, null, false);
+
     event.preventDefault();
   }
 
@@ -6226,7 +6603,18 @@ var main = (function(){
     _scrollStreet(false, event.shiftKey);
   }
 
+  function _shareViaTwitter() {
+    _eventTracking.track(TRACK_CATEGORY_SHARING, TRACK_ACTION_TWITTER, null, null, false);    
+  }
+
+  function _shareViaFacebook() {
+    _eventTracking.track(TRACK_CATEGORY_SHARING, TRACK_ACTION_FACEBOOK, null, null, false);    
+  }
+
   function _addEventListeners() {
+    document.querySelector('#share-via-twitter').addEventListener('click', _shareViaTwitter);
+    document.querySelector('#share-via-facebook').addEventListener('click', _shareViaFacebook);
+
     if (system.touch) {
       document.querySelector('#about-shield').addEventListener('touchstart', _hideAboutMenu);
       document.querySelector('#about .close').addEventListener('touchstart', _hideAboutMenu);
@@ -6241,12 +6629,11 @@ var main = (function(){
     document.querySelector('#street-scroll-indicator-right').addEventListener('click', _onStreetRightScrollClick);
 
     if (system.touch) {
-      document.querySelector('#new-street-menu .close').addEventListener('touchstart', _hideNewStreetMenu);
+      document.querySelector('#welcome .close').addEventListener('touchstart', _hideWelcome);
     } else {
-      document.querySelector('#new-street-menu .close').addEventListener('click', _hideNewStreetMenu);      
+      document.querySelector('#welcome .close').addEventListener('click', _hideWelcome);      
     }
 
-    document.querySelector('#street-width-read').addEventListener('click', _onStreetWidthClick);
 
     document.querySelector('#save-as-image').addEventListener('click', _saveAsImage);
 
@@ -6310,10 +6697,12 @@ var main = (function(){
 
     window.addEventListener('beforeunload', _onWindowBeforeUnload);
 
-    if (system.touch) {
-      document.querySelector('#street-name').addEventListener('touchstart', _askForStreetName);
-    } else {
-      document.querySelector('#street-name').addEventListener('click', _askForStreetName);      
+    if (!readOnly) {
+      if (system.touch) {
+        document.querySelector('#street-name').addEventListener('touchstart', _askForStreetName);
+      } else {
+        document.querySelector('#street-name').addEventListener('click', _askForStreetName);      
+      }
     }
 
     if (system.touch) {
@@ -6324,8 +6713,12 @@ var main = (function(){
       document.querySelector('#redo').addEventListener('click', _redo);      
     }
 
-    document.querySelector('#street-width').
-        addEventListener('change', _onStreetWidthChange);
+    if (!readOnly) {
+      document.querySelector('#street-width-read').addEventListener('click', _onStreetWidthClick);
+
+      document.querySelector('#street-width').
+          addEventListener('change', _onStreetWidthChange);
+    }
 
     window.addEventListener('resize', _onResize);
 
@@ -6340,7 +6733,7 @@ var main = (function(){
       window.addEventListener('touchmove', _onBodyMouseMove);
       window.addEventListener('touchend', _onBodyMouseUp); 
     }
-    window.addEventListener('keydown', _onBodyKeyDown);  
+    window.addEventListener('keydown', _onGlobalKeyDown);  
 
     /*if (system.touch) {
       document.querySelector('#share-menu-button').
@@ -6373,16 +6766,41 @@ var main = (function(){
     //}
   }
 
-  function _detectEnvironment() {
-    var url = location.href;
-
+  function _addBodyClasses() {
     document.body.classList.add('environment-{{env}}');
+
+    if (system.windows) {
+      document.body.classList.add('windows');
+    }
+
+    if (system.safari) {
+      document.body.classList.add('safari');      
+    }
+
+    if (system.touch) {
+      document.body.classList.add('touch-support');
+    }
+
+    if (readOnly) {
+      document.body.classList.add('read-only');
+    }
+
+    if (system.phone) {
+      document.body.classList.add('phone');
+    }
   }
 
   function _detectSystemCapabilities() {
-    _detectEnvironment();
 
-    system.touch = Modernizr.touch;
+    // NOTE: 
+    // This function might be called on very old browsers. Please make
+    // sure not to use modern faculties.
+
+    if (debug.forceTouch) {
+      system.touch = true;
+    } else {
+      system.touch = Modernizr.touch;
+    }
     system.pageVisibility = Modernizr.pagevisibility;
     if (debug.forceNonRetina) {
       system.hiDpi = 1.0;
@@ -6390,8 +6808,11 @@ var main = (function(){
       system.hiDpi = window.devicePixelRatio;      
     }
 
-    if (system.touch) {
-      document.body.classList.add('touch-support');
+    if ((typeof matchMedia != 'undefined') && 
+        matchMedia('only screen and (max-device-width: 480px)').matches) {
+      system.phone = true;
+    } else {
+      system.phone = false;
     }
 
     system.cssTransform = false;
@@ -6403,21 +6824,28 @@ var main = (function(){
       }
     }
 
-    if ((navigator.userAgent.indexOf('Safari') != -1) && (navigator.userAgent.indexOf('Chrome') == -1)) {
+    if (navigator.userAgent.indexOf('Windows') != -1) {
+      system.windows = true;
+    }
+
+    if ((navigator.userAgent.indexOf('Safari') != -1) && 
+        (navigator.userAgent.indexOf('Chrome') == -1)) {
       system.safari = true;
-
-      document.body.classList.add('safari');
     }
 
-    if (!debug.forceUnsupportedBrowser) {
-      // TODO temporary ban
-      if ((navigator.userAgent.indexOf('Opera') != -1) || 
-          (navigator.userAgent.indexOf('Internet Explorer') != -1) ||
-          (navigator.userAgent.indexOf('iPhone') != -1)) {
-        mode = MODE_UNSUPPORTED_BROWSER;
-        _processMode();
-      }    
+    if (system.phone || debug.forceReadOnly) {
+      readOnly = true;
     }
+
+    var meta = document.createElement('meta');
+    meta.setAttribute('name', 'viewport');
+    if (system.phone) {
+      meta.setAttribute('content', 'initial-scale=.5, maximum-scale=.5');
+    } else {
+      meta.setAttribute('content', 'initial-scale=1, maximum-scale=1');      
+    }
+    var headEls = document.getElementsByTagName('head');
+    headEls[0].appendChild(meta);
   }
 
   var _noConnectionMessage = {
@@ -6515,6 +6943,48 @@ var main = (function(){
     }, SEGMENT_SWITCHING_TIME);
   }
 
+  // TODO move
+  var TRACK_CATEGORY_INTERACTION = 'Interaction';
+  var TRACK_CATEGORY_SHARING = 'Sharing';
+  var TRACK_CATEGORY_EVENT = 'Event';
+
+  var TRACK_ACTION_LEARN_MORE = 'Learn more about segment';
+  var TRACK_ACTION_FACEBOOK = 'Facebook';
+  var TRACK_ACTION_TWITTER = 'Twitter';
+  var TRACK_ACTION_SAVE_AS_IMAGE = 'Save as image';
+  var TRACK_ACTION_STREET_MODIFIED_ELSEWHERE = 'Street modified elsewhere';
+  var TRACK_ACTION_OPEN_GALLERY = 'Open gallery';
+  var TRACK_ACTION_CHANGE_WIDTH = 'Change width';
+  var TRACK_ACTION_UNDO = 'Undo';
+  var TRACK_ACTION_REMOVE_SEGMENT = 'Remove segment';
+
+  var TRACK_LABEL_INCREMENT_BUTTON = 'Increment button';
+  var TRACK_LABEL_INPUT_FIELD = 'Input field';
+  var TRACK_LABEL_DRAGGING = 'Dragging';
+  var TRACK_LABEL_KEYBOARD = 'Keyboard';
+  var TRACK_LABEL_BUTTON = 'Button';
+
+  var _eventTracking = {
+    alreadyTracked: [],
+
+    track: function(category, action, label, value, onlyFirstTime) {
+      if (onlyFirstTime) {
+        var id = category + '|' + action + '|' + label;
+
+        if (_eventTracking.alreadyTracked[id]) {
+          return;
+        }
+      }
+
+      _gaq && _gaq.push(['_trackEvent', category, action, label, value]);
+
+      if (onlyFirstTime) {
+        _eventTracking.alreadyTracked[id] = true;        
+      }
+    }
+  }
+
+  // TODO move
   var INFO_BUBBLE_TYPE_SEGMENT = 1;
   var INFO_BUBBLE_TYPE_LEFT_BUILDING = 2;
   var INFO_BUBBLE_TYPE_RIGHT_BUILDING = 3;
@@ -6612,12 +7082,12 @@ var main = (function(){
       var bubbleHeight = _infoBubble.bubbleHeight;
 
       if (_infoBubble.descriptionVisible) {
-        var marginBubble = 50;
+        var marginBubble = 200;
       } else {
         var marginBubble = MARGIN_BUBBLE;
       }
 
-      if (_infoBubble.mouseInside) {
+      if (_infoBubble.mouseInside && !_infoBubble.descriptionVisible) {
         var pos = _getElAbsolutePos(_infoBubble.segmentEl);
 
         var x = pos[0] - document.querySelector('#street-section-outer').scrollLeft;
@@ -6648,6 +7118,12 @@ var main = (function(){
           bottomY2 = bubbleY + bubbleHeight + MARGIN_BUBBLE;
         }
 
+      if (_infoBubble.descriptionVisible) {
+        bottomY = bubbleY + bubbleHeight + marginBubble;
+        bottomY2 = bottomY;
+      }
+
+
         var diffX = 60 - (mouseY - bubbleY) / 5;
         if (diffX < 0) {
           diffX = 0;
@@ -6658,10 +7134,12 @@ var main = (function(){
         _infoBubble.hoverPolygon = [
           [bubbleX - marginBubble, bubbleY - marginBubble],
           [bubbleX - marginBubble, bubbleY + bubbleHeight + marginBubble],
+          [(bubbleX - marginBubble + mouseX - MARGIN_MOUSE - diffX) / 2, bottomY + (bubbleY + bubbleHeight + marginBubble - bottomY) * .2],
           [mouseX - MARGIN_MOUSE - diffX, bottomY], 
           [mouseX - MARGIN_MOUSE, bottomY2], 
           [mouseX + MARGIN_MOUSE, bottomY2], 
           [mouseX + MARGIN_MOUSE + diffX, bottomY],
+          [(bubbleX + bubbleWidth + marginBubble + mouseX + MARGIN_MOUSE + diffX) / 2, bottomY + (bubbleY + bubbleHeight + marginBubble - bottomY) * .2],
           [bubbleX + bubbleWidth + marginBubble, bubbleY + bubbleHeight + marginBubble],
           [bubbleX + bubbleWidth + marginBubble, bubbleY - marginBubble],
           [bubbleX - marginBubble, bubbleY - marginBubble]
@@ -6767,7 +7245,7 @@ var main = (function(){
     },
 
     considerShowing: function(event, segmentEl, type) {
-      if (menuVisible) {
+      if (menuVisible || readOnly) {
         return;
       }
 
@@ -6787,7 +7265,7 @@ var main = (function(){
         return;
       }
 
-      if (!_infoBubble.visible || !_infoBubble._withinHoverPolygon(mouseX, mouseY)) {
+      if (!_infoBubble.visible || !_infoBubble._withinHoverPolygon(_infoBubble.considerMouseX, _infoBubble.considerMouseY)) {
         _infoBubble.show(false);
       } 
     },
@@ -6831,38 +7309,6 @@ var main = (function(){
       _infoBubble.updateContents();
     },
 
-    onVariantButtonClick: function(event, dataNo, variantName, variantChoice) {
-      var segment = street.segments[dataNo];
-
-      segment.variant[variantName] = variantChoice;
-      segment.variantString = _getVariantString(segment.variant);
-
-      var el = _createSegmentDom(segment);
-
-      var oldEl = segment.el;
-      oldEl.parentNode.insertBefore(el, oldEl);
-      _switchSegmentElAway(oldEl);
-
-      segment.el = el;
-      segment.el.dataNo = oldEl.dataNo;
-      street.segments[oldEl.dataNo].el = el;
-
-      _switchSegmentElIn(el);
-      el.classList.add('hover');
-      el.classList.add('show-drag-handles');
-      el.classList.add('immediate-show-drag-handles');
-      el.classList.add('hide-drag-handles-when-inside-info-bubble');
-      _infoBubble.segmentEl = el;
-
-      _infoBubble.updateContents();
-
-      _repositionSegments();
-      _recalculateWidth();
-      _applyWarningsToSegments();
-
-      _saveStreetToServerIfNecessary();
-    },
-
     getBubbleDimensions: function() {
       _infoBubble.bubbleWidth = _infoBubble.el.offsetWidth;
 
@@ -6879,6 +7325,73 @@ var main = (function(){
       _infoBubble.el.style.webkitTransformOrigin = '50% ' + height + 'px';
       _infoBubble.el.style.MozTransformOrigin = '50% ' + height + 'px';
       _infoBubble.el.style.transformOrigin = '50% ' + height + 'px';
+    },
+
+    updateDescriptionInContents: function(segment) {
+      if (!_infoBubble.segmentEl || !segment || !segment.el || 
+          (_infoBubble.segmentEl != segment.el)) {
+        return;
+      }
+
+      var segmentInfo = SEGMENT_INFO[segment.type];
+      var variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString];
+
+      _removeElFromDom(_infoBubble.el.querySelector('.description-prompt'));
+      _removeElFromDom(_infoBubble.el.querySelector('.description-canvas'));
+
+      var description = '';
+      if (variantInfo && variantInfo.description) {
+        var description = variantInfo.description;
+        var descriptionPrompt = variantInfo.descriptionPrompt;
+      } else if (segmentInfo && segmentInfo.description) {
+        var description = segmentInfo.description;
+        var descriptionPrompt = segmentInfo.descriptionPrompt;
+      }
+
+      if (description) {
+        var el = document.createElement('div');
+        el.classList.add('description-prompt');
+        el.innerHTML = descriptionPrompt;
+        if (system.touch) {
+          el.addEventListener('touchstart', _infoBubble.showDescription);
+        } else {
+          el.addEventListener('click', _infoBubble.showDescription);
+        }
+        $(el).mouseenter(_infoBubble.highlightTriangle);
+        $(el).mouseleave(_infoBubble.unhighlightTriangle);
+        _infoBubble.el.appendChild(el);
+
+        var el = document.createElement('div');
+        el.classList.add('description-canvas');
+
+        var innerEl = document.createElement('div');
+        innerEl.classList.add('description');
+        innerEl.innerHTML = description;
+        el.appendChild(innerEl);
+
+        var els = innerEl.querySelectorAll('a');
+        for (var i = 0, anchorEl; anchorEl = els[i]; i++) {
+          anchorEl.target = '_blank';
+        }
+
+        var innerEl = document.createElement('div');
+        innerEl.classList.add('description-close');
+        innerEl.innerHTML = 'Close';
+        if (system.touch) {
+          innerEl.addEventListener('touchstart', _infoBubble.hideDescription);
+        } else {
+          innerEl.addEventListener('click', _infoBubble.hideDescription);          
+        }
+        $(innerEl).mouseenter(_infoBubble.highlightTriangle);
+        $(innerEl).mouseleave(_infoBubble.unhighlightTriangle);
+        el.appendChild(innerEl);
+
+        var innerEl = document.createElement('div');
+        innerEl.classList.add('triangle');
+        el.appendChild(innerEl);
+
+        _infoBubble.el.appendChild(el);                
+      }      
     },
 
     updateWarningsInContents: function(segment) {
@@ -6916,17 +7429,58 @@ var main = (function(){
       _infoBubble.getBubbleDimensions();
     },
 
+    updateHeightButtonsInContents: function() {
+      var height = (_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingHeight : street.rightBuildingHeight;
+      var variant = (_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingVariant : street.rightBuildingVariant;
+
+      if (!_isFlooredBuilding(variant) || (height == 1)) {
+        _infoBubble.el.querySelector('.non-variant .decrement').disabled = true;        
+      } else {
+        _infoBubble.el.querySelector('.non-variant .decrement').disabled = false;                
+      }
+
+      if (!_isFlooredBuilding(variant) || (height == MAX_BUILDING_HEIGHT)) {
+        _infoBubble.el.querySelector('.non-variant .increment').disabled = true;        
+      } else {
+        _infoBubble.el.querySelector('.non-variant .increment').disabled = false;                
+      }
+    },
+
     updateWidthButtonsInContents: function(width) {
       if (width == MIN_SEGMENT_WIDTH) {
-        _infoBubble.el.querySelector('.decrement').disabled = true;
+        _infoBubble.el.querySelector('.non-variant .decrement').disabled = true;
       } else {
-        _infoBubble.el.querySelector('.decrement').disabled = false;        
+        _infoBubble.el.querySelector('.non-variant .decrement').disabled = false;        
       }
 
       if (width == MAX_SEGMENT_WIDTH) {
-        _infoBubble.el.querySelector('.increment').disabled = true;
+        _infoBubble.el.querySelector('.non-variant .increment').disabled = true;
       } else {
-        _infoBubble.el.querySelector('.increment').disabled = false;        
+        _infoBubble.el.querySelector('.non-variant .increment').disabled = false;        
+      }
+    },
+
+    updateHeightInContents: function(left) {
+      if (!_infoBubble.visible || 
+          (left && (_infoBubble.type != INFO_BUBBLE_TYPE_LEFT_BUILDING)) ||
+          (!left && (_infoBubble.type != INFO_BUBBLE_TYPE_RIGHT_BUILDING))) {
+        return;
+      }
+
+      var height = left ? street.leftBuildingHeight : street.rightBuildingHeight;
+      var variant = left ? street.leftBuildingVariant : street.rightBuildingVariant;
+
+      _infoBubble.updateHeightButtonsInContents();
+
+      if (_isFlooredBuilding(variant)) {
+        var el = _infoBubble.el.querySelector('.non-variant .height');
+        if (el) {
+          el.realValue = height;
+          el.value = _prettifyHeight(height, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP);
+        } else {
+          var el = _infoBubble.el.querySelector('.non-variant .height-non-editable');
+          el.innerHTML = _prettifyHeight(height, PRETTIFY_WIDTH_OUTPUT_MARKUP);
+        }
       }
     },
 
@@ -6938,12 +7492,12 @@ var main = (function(){
 
       _infoBubble.updateWidthButtonsInContents(width);
 
-      var el = _infoBubble.el.querySelector('.width-canvas .width');
+      var el = _infoBubble.el.querySelector('.non-variant .width');
       if (el) {
         el.realValue = width;
         el.value = _prettifyWidth(width, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP);
       } else {
-        var el = _infoBubble.el.querySelector('.width-canvas .width-non-editable');
+        var el = _infoBubble.el.querySelector('.non-variant .width-non-editable');
         el.innerHTML = _prettifyWidth(width, PRETTIFY_WIDTH_OUTPUT_MARKUP);
       }
     },
@@ -6976,22 +7530,31 @@ var main = (function(){
           var segment = street.segments[parseInt(_infoBubble.segmentEl.dataNo)];
           var segmentInfo = SEGMENT_INFO[segment.type];
 
-          var name = segmentInfo.name;
+          var variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString];
+          var name = variantInfo.name || segmentInfo.name;
+
+          //var name = segmentInfo.name;
           var canBeDeleted = true;
           var showWidth = true;
           var showVariants = true;
+
+          _infoBubble.el.setAttribute('type', 'segment');
           break;
         case INFO_BUBBLE_TYPE_LEFT_BUILDING:
           var name = 'Building';
           var canBeDeleted = false;
           var showWidth = false;
           var showVariants = false;
+
+          _infoBubble.el.setAttribute('type', 'building');
           break;
         case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
           var name = 'Building';
           var canBeDeleted = false;
           var showWidth = false;
           var showVariants = false;
+
+          _infoBubble.el.setAttribute('type', 'building');
           break;
       }
 
@@ -7010,8 +7573,8 @@ var main = (function(){
       if (canBeDeleted) {
         var innerEl = document.createElement('button');
         innerEl.classList.add('remove');
-        //innerEl.innerHTML = '⏏';
-        _infoBubble.createVariantIcon('trashcan', innerEl);
+        innerEl.innerHTML = 'Remove';
+        //_infoBubble.createVariantIcon('trashcan', innerEl);
         innerEl.segmentEl = _infoBubble.segmentEl;
         innerEl.tabIndex = -1;
         innerEl.setAttribute('title', msg('TOOLTIP_REMOVE_SEGMENT'));
@@ -7029,32 +7592,67 @@ var main = (function(){
 
       if ((_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING) ||
           (_infoBubble.type == INFO_BUBBLE_TYPE_RIGHT_BUILDING)) {
-        var widthCanvasEl = document.createElement('div');
-        widthCanvasEl.classList.add('width-canvas');
-
-        var func = function() {
-          _changeBuildingHeight(_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING, false);
+        if (_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING) {
+          var variant = street.leftBuildingVariant;
+          var height = street.leftBuildingHeight;
+        } else {
+          var variant = street.rightBuildingVariant;
+          var height = street.rightBuildingHeight;
         }
+
+        var disabled = !_isFlooredBuilding(variant);
+
+        var widthCanvasEl = document.createElement('div');
+        widthCanvasEl.classList.add('non-variant');
+        widthCanvasEl.classList.add('building-height');
+
         var innerEl = document.createElement('button');
-        innerEl.classList.add('decrement');
-        innerEl.innerHTML = '–';
+        innerEl.classList.add('increment');
+        innerEl.innerHTML = '+';
         innerEl.tabIndex = -1;
-        innerEl.title = msg('TOOLTIP_REMOVE_FLOOR');
+        innerEl.title = msg('TOOLTIP_ADD_FLOOR');
+        var func = function() {
+          _changeBuildingHeight(_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING, true);
+        }
         if (system.touch) {
           innerEl.addEventListener('touchstart', func);
         } else {
           innerEl.addEventListener('click', func);        
         }
         widthCanvasEl.appendChild(innerEl);      
-
-        var func = function() {
-          _changeBuildingHeight(_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING, true);
+        if (!system.touch) {
+          var innerEl = document.createElement('input');
+          innerEl.setAttribute('type', 'text');
+          innerEl.classList.add('height');
+          innerEl.title = msg('TOOLTIP_BUILDING_HEIGHT');
+          
+          innerEl.addEventListener('click', _onWidthHeightEditClick);
+          innerEl.addEventListener('focus', _onHeightEditFocus);
+          innerEl.addEventListener('blur', _onHeightEditBlur);
+          innerEl.addEventListener('input', _onHeightEditInput);
+          innerEl.addEventListener('mouseover', _onWidthHeightEditMouseOver);
+          innerEl.addEventListener('mouseout', _onWidthHeightEditMouseOut);
+          innerEl.addEventListener('keydown', _onHeightEditKeyDown);
+          
+          //innerEl.addEventListener('mouseover', _showWidthChart);
+          //innerEl.addEventListener('mouseout', _hideWidthChart);
+        } else {
+          var innerEl = document.createElement('span');
+          innerEl.classList.add('height-non-editable');
         }
+        if (disabled) {
+          innerEl.disabled = true;
+        }
+        widthCanvasEl.appendChild(innerEl);        
+
         var innerEl = document.createElement('button');
-        innerEl.classList.add('increment');
-        innerEl.innerHTML = '+';
+        innerEl.classList.add('decrement');
+        innerEl.innerHTML = '–';
         innerEl.tabIndex = -1;
-        innerEl.title = msg('TOOLTIP_ADD_FLOOR');
+        innerEl.title = msg('TOOLTIP_REMOVE_FLOOR');
+        var func = function() {
+          _changeBuildingHeight(_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING, false);
+        }
         if (system.touch) {
           innerEl.addEventListener('touchstart', func);
         } else {
@@ -7069,7 +7667,7 @@ var main = (function(){
 
       if (showWidth) {
         var widthCanvasEl = document.createElement('div');
-        widthCanvasEl.classList.add('width-canvas');
+        widthCanvasEl.classList.add('non-variant');
 
         if (!segmentInfo.variants[0]) {
           widthCanvasEl.classList.add('entire-info-bubble');
@@ -7097,17 +7695,16 @@ var main = (function(){
           innerEl.title = msg('TOOLTIP_SEGMENT_WIDTH');
           innerEl.segmentEl = segment.el;
 
-          innerEl.addEventListener('click', _onWidthEditClick);
+          innerEl.addEventListener('click', _onWidthHeightEditClick);
           innerEl.addEventListener('focus', _onWidthEditFocus);
           innerEl.addEventListener('blur', _onWidthEditBlur);
           innerEl.addEventListener('input', _onWidthEditInput);
-          innerEl.addEventListener('mouseover', _onWidthEditMouseOver);
-          innerEl.addEventListener('mouseout', _onWidthEditMouseOut);
+          innerEl.addEventListener('mouseover', _onWidthHeightEditMouseOver);
+          innerEl.addEventListener('mouseout', _onWidthHeightEditMouseOut);
           innerEl.addEventListener('keydown', _onWidthEditKeyDown);
 
-          //innerEl.addEventListener('focus', _showWidthChartImmediately);
-          innerEl.addEventListener('mouseover', _showWidthChart);
-          innerEl.addEventListener('mouseout', _hideWidthChart);
+          //innerEl.addEventListener('mouseover', _showWidthChart);
+          //innerEl.addEventListener('mouseout', _hideWidthChart);
         } else {
           var innerEl = document.createElement('span');
           innerEl.classList.add('width-non-editable');
@@ -7164,13 +7761,13 @@ var main = (function(){
               if (system.touch) {
                 el.addEventListener('touchstart', (function(dataNo, variantName, variantChoice) {
                   return function() {
-                    _infoBubble.onVariantButtonClick(null, dataNo, variantName, variantChoice);
+                    _changeSegmentVariant(dataNo, variantName, variantChoice);
                   }
                 })(segment.el.dataNo, variantName, variantChoice));
               } else {
                 el.addEventListener('click', (function(dataNo, variantName, variantChoice) {
                   return function() {
-                    _infoBubble.onVariantButtonClick(null, dataNo, variantName, variantChoice);
+                    _changeSegmentVariant(dataNo, variantName, variantChoice);
                   }
                 })(segment.el.dataNo, variantName, variantChoice));
               }
@@ -7224,55 +7821,13 @@ var main = (function(){
 
       infoBubbleEl.appendChild(el);
 
-      if (segmentInfo && segmentInfo.description) {
-        var el = document.createElement('div');
-        el.classList.add('description-prompt');
-        el.innerHTML = segmentInfo.descriptionPrompt;
-        if (system.touch) {
-          el.addEventListener('touchstart', _infoBubble.showDescription);
-        } else {
-          el.addEventListener('click', _infoBubble.showDescription);
-        }
-        $(el).mouseenter(_infoBubble.highlightTriangle);
-        $(el).mouseleave(_infoBubble.unhighlightTriangle);
-        infoBubbleEl.appendChild(el);
-
-        var el = document.createElement('div');
-        el.classList.add('description-canvas');
-
-        var innerEl = document.createElement('div');
-        innerEl.classList.add('description');
-        innerEl.innerHTML = segmentInfo.description;
-        el.appendChild(innerEl);
-
-        var els = innerEl.querySelectorAll('a');
-        for (var i = 0, anchorEl; anchorEl = els[i]; i++) {
-          anchorEl.target = '_blank';
-        }
-
-        var innerEl = document.createElement('div');
-        innerEl.classList.add('description-close');
-        innerEl.innerHTML = 'Close';
-        if (system.touch) {
-          innerEl.addEventListener('touchstart', _infoBubble.hideDescription);
-        } else {
-          innerEl.addEventListener('click', _infoBubble.hideDescription);          
-        }
-        $(innerEl).mouseenter(_infoBubble.highlightTriangle);
-        $(innerEl).mouseleave(_infoBubble.unhighlightTriangle);
-        el.appendChild(innerEl);
-      }
-
-      var innerEl = document.createElement('div');
-      innerEl.classList.add('triangle');
-      el.appendChild(innerEl);
-
-      infoBubbleEl.appendChild(el);
-
+      _infoBubble.updateDescriptionInContents(segment);
       _infoBubble.updateWarningsInContents(segment);
       window.setTimeout(function() {
         if (_infoBubble.type == INFO_BUBBLE_TYPE_SEGMENT) {
           _infoBubble.updateWidthInContents(segment.el, segment.width);
+        } else {
+          _infoBubble.updateHeightInContents(_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING);
         }
       }, 0);
     },
@@ -7293,7 +7848,7 @@ var main = (function(){
       _infoBubble.descriptionVisible = true;
 
       var el = _infoBubble.el.querySelector('.description-canvas');
-      el.style.height = (streetSectionTop + 100 - _infoBubble.bubbleY) + 'px';
+      el.style.height = (streetSectionTop + 200 + 50 - _infoBubble.bubbleY) + 'px';
 
       _infoBubble.el.classList.add('show-description');
       if (_infoBubble.segmentEl) {
@@ -7304,6 +7859,10 @@ var main = (function(){
         _infoBubble.getBubbleDimensions();
         _infoBubble.updateHoverPolygon();
       }, 500);
+
+      var segment = street.segments[parseInt(_infoBubble.segmentEl.dataNo)];
+      _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_LEARN_MORE, 
+          segment.type, null, false);
     },
 
     hideDescription: function() {
@@ -7389,10 +7948,10 @@ var main = (function(){
       bubbleX -= bubbleWidth / 2;
 
       // TODO const
-      if (bubbleX < 20) {
-        bubbleX = 20;
-      } else if (bubbleX > system.viewportWidth - bubbleWidth - 20) {
-        bubbleX = system.viewportWidth - bubbleWidth - 20;
+      if (bubbleX < 50) {
+        bubbleX = 50;
+      } else if (bubbleX > system.viewportWidth - bubbleWidth - 50) {
+        bubbleX = system.viewportWidth - bubbleWidth - 50;
       }
 
       _infoBubble.el.style.left = bubbleX + 'px';
@@ -7469,7 +8028,12 @@ var main = (function(){
   }
 
   function _hideLoadingScreen() {
-    document.querySelector('#loading').classList.add('hidden');
+
+    // NOTE: 
+    // This function might be called on very old browsers. Please make
+    // sure not to use modern faculties.
+
+    document.getElementById('loading').className += ' hidden';
   }
 
   function _hideMenus() {
@@ -7614,6 +8178,18 @@ var main = (function(){
     if (typeof settings.lastStreetCreatorId === 'undefined') {
       settings.lastStreetCreatorId = null;
     }
+  }
+
+  function _loadSettingsWelcomeDismissed() {
+    if (window.localStorage[LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED]) {
+      settingsWelcomeDismissed = 
+          JSON.parse(window.localStorage[LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED]);
+    }
+  }
+
+  function _saveSettingsWelcomeDismissed() {
+    window.localStorage[LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED] = 
+        JSON.stringify(settingsWelcomeDismissed);
   }
 
   function _loadSettings() {
@@ -7957,7 +8533,7 @@ var main = (function(){
   function _onEverythingLoaded() {
     switch (mode) {
       case MODE_NEW_STREET:
-        _showNewStreetMenu();
+        _showWelcome();
         break;
       case MODE_NEW_STREET_COPY_LAST:
         _onNewStreetLastClick();
@@ -8042,7 +8618,7 @@ var main = (function(){
 
       _drawSegmentContents(ctx, segment.type, segment.variantString, 
           segment.width * TILE_SIZE * multiplier, 
-          offsetLeft + dimensions.left * TILE_SIZE * multiplier, offsetTop, multiplier, false);
+          offsetLeft + dimensions.left * TILE_SIZE * multiplier, offsetTop, segment.randSeed, multiplier, false);
 
       offsetLeft += segment.width * TILE_SIZE * multiplier;
     }
@@ -8175,6 +8751,11 @@ var main = (function(){
       return;
     }*/
 
+    if (data.status == 503) {
+      _showError(ERROR_SIGN_IN_SERVER_FAILURE, true);
+      return;
+    }
+
     // Fail silently
 
     signInData = null;
@@ -8290,7 +8871,12 @@ var main = (function(){
     switch (mode) {
       case MODE_NEW_STREET:
       case MODE_NEW_STREET_COPY_LAST:
-        _createNewStreetOnServer();
+
+        if (readOnly) {
+          _showError(ERROR_CANNOT_CREATE_NEW_STREET_ON_PHONE, true);
+        } else {
+          _createNewStreetOnServer();
+        }
         break;
       case MODE_EXISTING_STREET:
       case MODE_CONTINUE:
@@ -8412,6 +8998,18 @@ var main = (function(){
 
     if (url.match(/[\?\&]debug-secret-segments\&?/)) {
       debug.secretSegments = true;
+    }
+
+    if (url.match(/[\?\&]debug-hover-polygon\&?/)) {
+      debug.hoverPolygon = true;
+    }
+
+    if (url.match(/[\?\&]debug-force-read-only\&?/)) {
+      debug.forceReadOnly = true;
+    }
+
+    if (url.match(/[\?\&]debug-force-touch\&?/)) {
+      debug.forceTouch = true;
     }
   }
 
@@ -8542,7 +9140,7 @@ var main = (function(){
     jQuery.ajax({
       url: url,
       dataType: 'json',
-      type: 'GET',
+      type: 'GET'
     }).done(_receiveStreet).fail(_errorReceiveStreet);
   }
 
@@ -8560,6 +9158,15 @@ var main = (function(){
   }
 
   function _fetchAvatars() {
+
+    // NOTE: 
+    // This function might be called on very old browsers. Please make
+    // sure not to use modern faculties.
+
+    if (typeof document.querySelectorAll == 'undefined') {
+      return;
+    }
+
     var els = document.querySelectorAll('.avatar:not([loaded])');
 
     for (var i = 0, el; el = els[i]; i++) {
@@ -8637,12 +9244,21 @@ var main = (function(){
     location.href = '/' + URL_NEW_STREET;
   }
 
+  function _goExampleStreet() {
+    location.href = '/' + URL_EXAMPLE_STREET;
+  }
+
   function _goCopyLastStreet() {
     location.href = '/' + URL_NEW_STREET_COPY_LAST;
   }
 
   function _showError(errorType, newAbortEverything) {
-    var title = '';
+
+    // NOTE: 
+    // This function might be called on very old browsers. Please make
+    // sure not to use modern faculties.
+
+    var title;
     var description = '';
 
     _hideLoadingScreen();
@@ -8652,104 +9268,128 @@ var main = (function(){
     switch (errorType) {
       case ERROR_404:
         title = 'Page not found.';
-        description = 'Oh, boy. There is no page with this address!<br><button class="home">Go to the homepage</button>';
+        description = 'Oh, boy. There is no page with this address!<br><button id="error-home">Go to the homepage</button>';
         break;
       case ERROR_STREET_404:
         title = 'Street not found.';
-        description = 'Oh, boy. There is no street with this link!<br><button class="home">Go to the homepage</button>';
+        description = 'Oh, boy. There is no street with this link!<br><button id="error-home">Go to the homepage</button>';
         break;
       case ERROR_STREET_404_BUT_LINK_TO_USER:
         title = 'Street not found.';
         description = 
-            'There is no street with this link! But you can look for other streets by ' +
+            'There is no street with this link! But you can look at other streets by ' +
             '<a href="/' + street.creatorId + '"><div class="avatar" userId="' + street.creatorId + '"></div>' + street.creatorId + '</a>.' +
-            '<br><button class="home">Go to the homepage</button>';
+            '<br><button id="error-home">Go to the homepage</button>';
         break;
       case ERROR_STREET_410_BUT_LINK_TO_USER:
         title = 'This street has been deleted.';
-        description = 'There is no longer a street with this link, but you can look for other streets by ' +
+        description = 'There is no longer a street with this link, but you can look at other streets by ' +
             '<a href="/' + street.creatorId + '"><div class="avatar" userId="' + street.creatorId + '"></div>' + street.creatorId + '</a>.' +
-            '<br><button class="home">Go to the homepage</button>';
+            '<br><button id="error-home">Go to the homepage</button>';
         break;
       case ERROR_SIGN_OUT:
         title = 'You are now signed out.';
-        description = '<button class="sign-in">Sign in again</button> <button class="home">Go to the homepage</button>';
+        description = '<button id="error-sign-in">Sign in again</button> <button id="error-home">Go to the homepage</button>';
         break;
       case ERROR_NO_STREET:
         title = 'No street selected.';
         break;
       case ERROR_FORCE_RELOAD_SIGN_OUT:
         title = 'You signed out in another window.';
-        description = 'Please reload this page before continuing.<br><button class="reload">Reload the page</button>';
+        description = 'Please reload this page before continuing.<br><button id="error-reload">Reload the page</button>';
         break;
       case ERROR_FORCE_RELOAD_SIGN_OUT_401:
         title = 'You signed out in another window.';
-        description = 'Please reload this page before continuing.<br>(Error 401)<br><button class="clear-sign-in-reload">Reload the page</button>';
+        description = 'Please reload this page before continuing.<br>(Error 401.)<br><button id="error-clear-sign-in-reload">Reload the page</button>';
         break;
       case ERROR_FORCE_RELOAD_SIGN_IN:
         title = 'You signed in in another window.';
-        description = 'Please reload this page before continuing.<br><button class="reload">Reload the page</button>';
+        description = 'Please reload this page before continuing.<br><button id="error-reload">Reload the page</button>';
         break;
       case ERROR_STREET_DELETED_ELSEWHERE:
         title = 'This street has been deleted elsewhere.';
-        description = 'This street has been deleted in another browser.<br><button class="home">Go to the homepage</button>';
+        description = 'This street has been deleted in another browser.<br><button id="error-home">Go to the homepage</button>';
         break;
       case ERROR_NEW_STREET_SERVER_FAILURE:
         title = 'Having trouble…';
-        description = 'We’re having trouble loading Streetmix.<br><button class="new">Try again</button>';
+        description = 'We’re having trouble loading Streetmix.<br><button id="error-new">Try again</button>';
+        break;
+      case ERROR_SIGN_IN_SERVER_FAILURE:
+        title = 'Having trouble…';
+        description = 'We’re having trouble loading Streetmix.<br>(Error 15A.)<br><button id="error-new">Try again</button>';
         break;
       case ERROR_TWITTER_ACCESS_DENIED:
         title = 'You are not signed in.';
-        description = 'You cancelled the Twitter sign in process.<br><button class="home">Go to the homepage</button>';
+        description = 'You cancelled the Twitter sign in process.<br><button id="error-home">Go to the homepage</button>';
         break;
       case ERROR_AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN:
       case ERROR_AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN:
       case ERROR_AUTH_PROBLEM_API_PROBLEM:
         title = 'There was a problem with signing you in.';
         // TODO const for feedback
-        description = 'There was a problem with Twitter authentication. Please try again later or let us know via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmixapp">Twitter</a>.<br><button class="home">Go to the homepage</button>';
-        break;
-      case ERROR_GENERIC_ERROR:
-        title = 'Something went wrong.';
-        // TODO const for feedback
-        description = 'We’re sorry – something went wrong. Please try again later or let us know via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmixapp">Twitter</a>.<br><button class="home">Go to the homepage</button>';
+        description = 'There was a problem with Twitter authentication. Please try again later or let us know via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmixapp">Twitter</a>.<br><button id="error-home">Go to the homepage</button>';
         break;
       case ERROR_UNSUPPORTED_BROWSER:
         title = 'Streetmix doesn’t work on your browser… yet.';
         // TODO const for feedback
         description = 'Sorry about that. You might want to try <a target="_blank" href="http://www.google.com/chrome">Chrome</a>, <a target="_blank" href="http://www.mozilla.org/firefox">Firefox</a>, or Safari. If you think your browser should be supported, let us know via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmixapp">Twitter</a>.';
-        break;        
+        break;      
+      case ERROR_CANNOT_CREATE_NEW_STREET_ON_PHONE:
+        title = 'Streetmix works on tablets and desktops only.';
+        description = 'If you follow another link to a specific street, you can view it on your phone – but you cannot yet create new streets.<br><button id="error-example">View an example street</button>';
+        break;  
+      default: // also ERROR_GENERIC_ERROR
+        title = 'Something went wrong.';
+        // TODO const for feedback
+        description = 'We’re sorry – something went wrong. Please try again later or let us know via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmixapp">Twitter</a>.<br><button id="error-home">Go to the homepage</button>';
+        break;
     }
 
-    document.querySelector('#error h1').innerHTML = title;
-    document.querySelector('#error .description').innerHTML = description;
+    if (abortEverything) {
+      // Opera
+      _removeElFromDom(document.getElementById('gallery'));
+    }
 
-    var el = document.querySelector('#error .home');
+    if (navigator.userAgent.indexOf('MSIE 6.') != -1) {
+      document.body.style.display = 'none';
+      alert('Streetmix doesn’t work on your browser. Please update to a newer browser such as Chrome, Firefox, or Safari.');
+      return;
+    }
+
+    document.getElementById('error-title').innerHTML = title;
+    document.getElementById('error-description').innerHTML = description;
+
+    var el = document.getElementById('error-home');
     if (el) {
       el.addEventListener('click', _goHome);
     }
 
-    var el = document.querySelector('#error .sign-in');
+    var el = document.getElementById('error-sign-in');
     if (el) {
       el.addEventListener('click', _goSignIn);
     }
 
-    var el = document.querySelector('#error .reload');
+    var el = document.getElementById('error-reload');
     if (el) {
       el && el.addEventListener('click', _goReload);
     }
 
-    var el = document.querySelector('#error .clear-sign-in-reload');
+    var el = document.getElementById('error-clear-sign-in-reload');
     if (el) {
       el.addEventListener('click', _goReloadClearSignIn);
     }
 
-    var el = document.querySelector('#error .new');
+    var el = document.getElementById('error-new');
     if (el) {
       el.addEventListener('click', _goNewStreet);
     }
 
-    document.querySelector('#error').classList.add('visible');
+    var el = document.getElementById('error-example');
+    if (el) {
+      el.addEventListener('click', _goExampleStreet);
+    }
+
+    document.getElementById('error').className += ' visible';
 
     _fetchAvatars();
 
@@ -8872,10 +9512,27 @@ var main = (function(){
 
     _fillEmptySegments();
   }
- 
-  main.init = function() {
+
+  main.preInit = function() {
     initializing = true;
     ignoreStreetChanges = true;
+
+    _detectDebugUrl();
+    _detectSystemCapabilities();
+  }
+ 
+  main.init = function() {
+    if (!debug.forceUnsupportedBrowser) {
+
+      // TODO temporary ban
+      if ((navigator.userAgent.indexOf('Opera') != -1) || 
+          (navigator.userAgent.indexOf('Internet Explorer') != -1) ||
+          (navigator.userAgent.indexOf('MSIE') != -1)) {
+        mode = MODE_UNSUPPORTED_BROWSER;
+        _processMode();
+        return;
+      }    
+    }
 
     _fillDom();
     _prepareSegmentInfo();
@@ -8893,9 +9550,7 @@ var main = (function(){
     bodyLoaded = false;
     window.addEventListener('load', _onBodyLoad);
 
-    _detectDebugUrl();
-    _detectSystemCapabilities();
-
+    _addBodyClasses();
     _processUrl();
     _processMode();
 

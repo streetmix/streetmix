@@ -71,7 +71,7 @@
 
 @fontFamily: 'Lato', sans-serif;
 
-@import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700);
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic);
 
 @font-face {
   font-family: 'Roadgeek';
@@ -135,6 +135,7 @@ button {
 button {
   font-size: 13px;
 }
+
 a {
   color: darken(@uiColour, 30%);
 
@@ -151,6 +152,11 @@ input[type='text'],
 input[type='email'],
 textarea {
   padding: 3px;
+
+  &[disabled] {
+    background: desaturate(fadeout(@uiColour, 70%), 100%) !important;
+    border-color: desaturate(@uiColour, 100%) !important;
+  }  
 }
 
 #main-screen {
@@ -318,7 +324,7 @@ body:not(.safari).gallery-visible #street-section-sky {
 
     & > li {
       display: inline-block;
-    
+
       & > a {
         display: inline-block;
 
@@ -400,6 +406,10 @@ body:not(.safari).gallery-visible #street-section-sky {
           button.remove {
             display: block;
           }
+        }
+
+        &.virgin:not(.selected) {
+          opacity: .33;
         }
 
         &.selected {
@@ -559,6 +569,9 @@ body.gallery-visible #gallery-shield {
   overflow-x: scroll;
   overflow-y: hidden;  
 }
+/*body.phone #street-section-outer {
+  -webkit-overflow-scrolling: touch;  
+}*/
 
 #street-section-inner {
   position: absolute;
@@ -571,6 +584,7 @@ body.gallery-visible #gallery-shield {
   height: @canvasHeight + 45;
 
   -webkit-user-select: none;
+  -moz-user-select: none;
   user-select: none;
 }
 
@@ -579,7 +593,7 @@ body.gallery-visible #gallery-shield {
   -webkit-tap-highlight-color: transparent;
 
   position: fixed;
-  z-index: 999999999;
+  z-index: 999999;
 
   margin-top: -275px;
 
@@ -595,6 +609,7 @@ body.gallery-visible #gallery-shield {
   cursor: pointer;
 
   -webkit-user-select: none;
+  -moz-user-select: none;
   user-select: none;
 
   &:hover {
@@ -685,13 +700,28 @@ body.gallery-visible #gallery-shield {
   }
 }
 
+/*body.phone #street-section-sky {
+  position: static;
+  left: 0;
+  right: 0;
+
+  .rear-clouds {
+    z-index: 0;
+    //display: none;
+  }
+  .front-clouds {
+    z-index: 0;
+    //display: none;
+  }
+}*/
+
 
 #street-section-dirt {
   position: absolute;
   left: 0;
   right: 25px;
   z-index: -2;
-  top: @canvasHeight - 80;
+  top: @canvasHeight - 80px;
 
   border-top: 45px solid @backgroundDirtColour;
 
@@ -699,6 +729,7 @@ body.gallery-visible #gallery-shield {
 
   background: @bottomBackground;
 }
+
 #street-section-left-building,
 #street-section-left-building-old,
 #street-section-right-building,
@@ -706,9 +737,9 @@ body.gallery-visible #gallery-shield {
   display: block;
   position: absolute;
 
-  top: -5px - 145px;
+  top: -150px;
   width: 396px;
-  height: @canvasHeight - 75px + 145px;
+  height: @canvasHeight + 70px;
 
   .hover-bk {
     position: absolute;
@@ -760,7 +791,12 @@ body.gallery-visible #gallery-shield {
   z-index: 200000;
 
   -webkit-user-select: none;
+  -moz-user-select: none;
   user-select: none;
+}
+
+body.read-only #main-screen > footer {
+  display: none;
 }
 
 .footer-canvas {
@@ -968,10 +1004,12 @@ body.immediate-segment-resize .segment {
 
   //overflow: hidden;
 
-  margin: 12px 5px;
+  margin: 12px 0;
   height: 80px;
   top: 0;
   background-color: fadeout(@skyColour, 30%);
+
+  margin-right: 1px;
 
   -webkit-transform-origin: 50% 75%;
   -moz-transform-origin: 50% 75%;
@@ -1011,11 +1049,10 @@ body.segment-resize-dragging .segment:not(.unmovable).hover {
   }
 }
 
-.segment:not(.unmovable) {
+body:not(.read-only) .segment:not(.unmovable) {
   cursor: -webkit-grab;
   cursor: -moz-grab;  
 }
-
 
 .segment .image {
   overflow: hidden;
@@ -1310,8 +1347,8 @@ body.segment-resize-dragging .drag-handle.floating,
   top: 0;
   bottom: 45px;
 
-  border-left: 1px dashed fadeout(@warningColour, 60%);
-  border-right: 1px dashed fadeout(@warningColour, 60%);
+  border-left: 1px dashed fadeout(black, 60%);
+  border-right: 1px dashed fadeout(black, 60%);
 
   box-sizing: border-box;
 
@@ -1323,27 +1360,23 @@ body.segment-resize-dragging .drag-handle.floating,
     pointer-events: none;
     bottom: 400px;
     font-size: 11px;
-    color: fadeout(@warningColour, 40%);
+    color: fadeout(black, 40%);
   }
 
   &.max::before {
-    padding-right: 5px;
-    left: -50px;
+    left: -55px;
     text-align: right;
   }
   &.max::after {
-    padding-left: 5px;
-    right: -50px;
+    right: -55px;
     text-align: left;
   }  
   &.min::before {
-    padding-left: 5px;
-    left: 0;
+    left: 5px;
     text-align: left;
   }
   &.min::after {
-    padding-right: 5px;
-    right: 0;
+    right: 5px;
     text-align: right;
   }  
 
@@ -1473,7 +1506,7 @@ body.segment-move-dragging #editable-street-section > div {
 #error h1,
 #loading h1,
 #about h1,
-#new-street-menu h1,
+#welcome h1,
 #blocking-shield .message {
   font-size: 250%;
   font-weight: 300;
@@ -1483,10 +1516,15 @@ body.segment-move-dragging #editable-street-section > div {
   margin-bottom: 12px;
 }
 
-#new-street-menu .close {
+#welcome .close {
   position: absolute;
   right: -5px;
   top: 5px;
+}
+
+body.phone #error,
+body.phone #loading {
+  font-size: 32px;
 }
 
 #error,
@@ -1508,19 +1546,19 @@ body.segment-move-dragging #editable-street-section > div {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
-    padding: 0 100px;
+    padding: 0 50px;
 
     line-height: 1.6;
   }
 
   a {
-    color: inherit;
+    color: black;
     white-space: nowrap;
   }
 
   button {
     margin-top: 10px;
-    font-size: 16px;
+    font-size: 100%;
     padding: 5px 10px;
   }
 }
@@ -1653,6 +1691,7 @@ body.segment-move-dragging #editable-street-section > div {
   pointer-events: none;
 
   -webkit-user-select: none;
+  -moz-user-select: none;
   user-select: none;  
 
   -webkit-transition: opacity 200ms, -webkit-transform 200ms;
@@ -1676,7 +1715,7 @@ body.segment-move-dragging #editable-street-section > div {
     padding: 5px 20px;
     display: inline-block;
     background: rgb(255, 230, 150);
-    font-size: 14px;
+    font-size: 13px;
 
     pointer-events: auto;
   }
@@ -1710,6 +1749,7 @@ body.no-connection-message-visible #status-message {
   padding-right: 0;
 
   -webkit-user-select: none;
+  -moz-user-select: none;
   user-select: none;  
 
   border-bottom: 3px solid darken(@uiColour, 20%);
@@ -1838,6 +1878,11 @@ body.no-connection-message-visible #status-message {
     }
   }
 }
+
+body.read-only #top-menu-bar {
+  display: none;
+}
+
 
 .box-border {
   border-top: 3px solid darken(@uiColour, 20%);
@@ -2149,6 +2194,12 @@ body.safari .menu {
   }
 }
 
+body.read-only #street-name-canvas {
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  transform: translateY(0);  
+}
+
 .street-name-mixin (@size: @streetNameSize) {
   padding: 3px * @size;
 }
@@ -2163,11 +2214,16 @@ body.safari .menu {
 
   font-size: 40px * @size;
   line-height: 30px * @size;
+  height: 30px * @size;
 }
 
 .street-name-fallback-mixin (@size: @streetNameSize) {
   font-size: 35px * @size;
   padding-bottom: 11px * @size;
+}
+
+body.windows .street-name > div {
+  line-height: 38px;
 }
 
 .street-name {
@@ -2179,11 +2235,10 @@ body.safari .menu {
   .street-name-mixin;
 
   -webkit-user-select: none;
+  -moz-user-select: none;
   user-select: none;
 
   white-space: nowrap;
-
-  cursor: pointer;
 
   & > div {
     .street-name-inside-mixin;
@@ -2225,7 +2280,9 @@ body.safari .menu {
   tap-highlight-color: transparent;
 }
 
-body:not(.touch-support) #street-name {
+body:not(.touch-support):not(.read-only) #street-name {
+  cursor: pointer;
+
   &:hover {
     color: rgb(220, 220, 220);
     background: white;
@@ -2265,6 +2322,7 @@ body:not(.touch-support) #street-name {
   font-size: 13px;
 
   -webkit-user-select: none;
+  -moz-user-select: none;
   user-select: none;
 
   pointer-events: auto;
@@ -2277,9 +2335,10 @@ body:not(.touch-support) #street-name {
   padding-bottom: 40px;
 }
 #street-width-read {
-  cursor: pointer;
   padding: 5px 0;
-
+}
+body:not(.read-only) #street-width-read {
+  cursor: pointer;
   &:hover {
     color: darken(@topMenuHoverText, 20%);
   }
@@ -2292,8 +2351,9 @@ body:not(.touch-support) #street-name {
     -webkit-transform: scaleY(.75);
     -moz-transform: scaleY(.75);
     transform: scaleY(.75);
-  }  
+  }    
 }
+
 body.edit-street-width #street-width-read {
   display: none;
   pointer-events: none;
@@ -2303,6 +2363,17 @@ body.edit-street-width #street-width-read {
 }
 body:not(.edit-street-width) #street-width {
   display: none;
+}
+
+body:not(.read-only) #street-metadata-author a:hover {
+  &:hover {
+    color: darken(@topMenuHoverText, 20%);
+  }
+}
+
+body.read-only #street-metadata-author a {
+  text-decoration: none;
+  cursor: default;
 }
 
 #street-metadata-author:not(:empty)::before,
@@ -2367,17 +2438,18 @@ body:not(.edit-street-width) #street-width {
     vertical-align: top;
   }
 
-  .team {
+  ul {
     list-style: none;
     padding: 0;
     margin: 0;
-
+  }
+  .team {
     a {
       color: black;
     }
 
     li {
-      margin-top: 2px;
+      margin-top: 5px;
     }
   }
   footer {
@@ -2392,7 +2464,7 @@ body:not(.edit-street-width) #street-width {
   }
 }
 
-#new-street-menu {
+#welcome {
   position: absolute;
   top: -5px;
   left: 0;
@@ -2401,9 +2473,15 @@ body:not(.edit-street-width) #street-width {
   text-align: center;
 
   -webkit-user-select: none;
+  -moz-user-select: none;
   user-select: none;  
 
   pointer-events: none;
+
+  &:not(.first-time) .first-time,
+  &:not(.next-time) .next-time {
+    display: none;
+  }
 
   > div {
     pointer-events: auto;
@@ -2420,12 +2498,22 @@ body:not(.edit-street-width) #street-width {
 
     color: rgb(64, 64, 64);
   }
-  ul {
+  ul,
+  p {
     display: inline-block;
     list-style: none;
     padding: 0;
     margin: 0;
     margin-bottom: 5px;
+  }
+  p {
+    line-height: 1.5;
+    display: block;
+    max-width: 600px;
+
+    &.important {
+      color: darken(@uiColour, 40%);
+    }
   }
   li {
     display: inline-block;
@@ -2512,7 +2600,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
 
   -webkit-transition: -webkit-transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
   -moz-transition: -moz-transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
-  transition: transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;      
+  transition: transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;   
 
   .box-border;
   border-top-color: darken(@uiColour, 30%);
@@ -2565,6 +2653,23 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
     pointer-events: auto;
   }
 
+
+  &[type='building'] header {
+    margin-right: 90px + 50px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: -37px;
+      width: 0;
+      height: 0;
+
+      border-top: 37px solid darken(@uiColour, 20%);
+      border-right: 37px solid transparent;
+    }
+  }
+
   header {
     padding: 5px 12px;
     padding-top: 2px;
@@ -2594,23 +2699,30 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
     margin-top: -3px;
   }
 
+  &[type='segment'] .variants {
+    margin-right: 170px;
+  }
+  &[type='building'] .variants {
+    margin-right: 150px;
+  }
+
   .variants {
     text-align: left;
-    padding: 5px 8px;
     padding-top: 7px;
+    padding-bottom: 5px;
+    padding-left: 8px;
+    padding-right: 8px;
 
     min-height: @infoBubbleButtonSize;
-
-    margin-right: 170px; // Clear width
 
     white-space: nowrap;
 
     -webkit-user-select: none;
+    -moz-user-select: none;
     user-select: none;
 
     button {
       margin-left: 3px;
-      margin-right: 3px;
       margin-top: 0;
       margin-bottom: 2px;
       white-space: nowrap;
@@ -2665,6 +2777,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
     font-size: 13px;
 
     -webkit-user-select: none;
+    -moz-user-select: none;
     user-select: none;    
 
     color: darken(@uiColour, 20%);
@@ -2687,14 +2800,14 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
 
   .description-canvas {
     position: absolute;
-    left: 0;
-    top: 38px;
-    right: 0;
-    bottom: 0;
+    left: -50px;
+    top: -4px;
+    right: -50px;
 
     opacity: 0;
     pointer-events: none;
 
+    border-top: 3px solid darken(@uiColour, 20%);
     border-bottom: 3px solid darken(@uiColour, 20%);
 
     -webkit-transform-origin: 50% 0;
@@ -2713,9 +2826,10 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
   }
 
   .description {
-    font-size: 13px;
+    font-size: 16px;
     padding: 12px 12px;  
-    line-height: 19px;
+    line-height: 23px;
+    font-weight: 300;
 
     overflow-y: auto;
     overflow-x: hidden;
@@ -2732,6 +2846,12 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
       &:first-child {
         margin-top: 0;
       }
+
+      &.lede {
+        font-size: 150%;
+        font-weight: 300;
+        line-height: 1.25;
+      }      
     }
     footer {
       text-align: right;
@@ -2740,7 +2860,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
       line-height: 14px;
     }
     img {
-      width: 300px;
+      //width: 300px;
       margin: 0 auto;
       display: block;
       max-width: 100%;
@@ -2773,15 +2893,17 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
     }
   }
 
-  .width-canvas {
-    position: absolute;
-    right: 8px;
-    top: @infoBubbleButtonSize + 12px;
+  .non-variant {
+    float: right;
+    margin-right: 8px;
+    margin-top: 5px;
+    margin-bottom: 8px;
     width: 150px;
     height: @infoBubbleButtonSize;
     line-height: @infoBubbleButtonSize;  
 
     -webkit-user-select: none;
+    -moz-user-select: none;
     user-select: none;
 
     white-space: nowrap;
@@ -2790,40 +2912,55 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
 
     &.entire-info-bubble {
       width: auto;
-      left: 5px;
+      left: 8px;
       text-align: center;
     }
 
-    .width {
-      width: 50px;
-      margin: 0 3px;
-
-      background: @formElementBackground;
-      border: 1px solid @formElementBorder;
+    &.building-height {
+      margin-top: -29px;
+      height: auto;
+      white-space: normal;
+      width: 65px + 50px;
       text-align: center;
-
-      font-family: @fontFamily;
-      font-size: 13px;
-      vertical-align: bottom;
-      line-height: 25px;
-      height: 22px;
-
-      outline: none;
     }
-    .width-non-editable {
+
+    .width,
+    .width-non-editable,
+    .height,
+    .height-non-editable {
       width: 50px;
       margin: 0 3px;
-      display: inline-block;
-
-      color: black;
-
-      text-align: center;
 
       font-family: @fontFamily;
       font-size: 13px;
-      vertical-align: center;
       line-height: 25px;
-      height: 25px;
+      text-align: center;
+
+      &.width,
+      &.height {
+        background: @formElementBackground;
+        border: 1px solid @formElementBorder;
+
+        vertical-align: bottom;
+        height: 22px;
+
+        outline: none;        
+      }
+      &.width-non-editable,
+      &.height-non-editable {
+        display: inline-block;
+
+        color: black;
+
+        vertical-align: center;
+        height: 25px;
+      }
+      &.height,
+      &.height-non-editable {
+        width: 50px + 50px;
+        margin-top: 4px;
+        margin-bottom: 2px;
+      }
     }
   }
 
@@ -2833,8 +2970,12 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
 
     &.remove {
       position: absolute;
-      right: 8px;
-      top: 5px;
+      right: 6px;
+      top: 6px;
+      width: auto;
+      padding-left: 10px;
+      padding-right: 10px;
+      font-size: 11px;
     }
   }
 }
@@ -2847,7 +2988,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
   .variants {
     pointer-events: none;
   }
-  .width-canvas {
+  .non-variant {
     pointer-events: none;
   }
   .warnings {
@@ -3042,6 +3183,7 @@ button {
 
   &:not([disabled]):active {
     background: mix(@uiColour, white, 95%);
+
   }
 
   &[disabled] {
