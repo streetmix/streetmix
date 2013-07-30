@@ -6805,7 +6805,7 @@ var main = (function(){
     if (debug.forceNonRetina) {
       system.hiDpi = 1.0;
     } else {
-      system.hiDpi = window.devicePixelRatio;      
+      system.hiDpi = window.devicePixelRatio || 1.0;      
     }
 
     if ((typeof matchMedia != 'undefined') && 

@@ -583,8 +583,13 @@ body.gallery-visible #gallery-shield {
   top: 0;
   height: @canvasHeight + 45;
 
+  .user-select-none;
+}
+
+.user-select-none {
   -webkit-user-select: none;
   -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
 
@@ -608,9 +613,7 @@ body.gallery-visible #gallery-shield {
 
   cursor: pointer;
 
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
+  .user-select-none;
 
   &:hover {
     opacity: .333;    
@@ -790,9 +793,7 @@ body.gallery-visible #gallery-shield {
 
   z-index: 200000;
 
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
+  .user-select-none;
 }
 
 body.read-only #main-screen > footer {
@@ -1690,10 +1691,8 @@ body.phone #loading {
 
   pointer-events: none;
 
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;  
-
+  .user-select-none;
+  
   -webkit-transition: opacity 200ms, -webkit-transform 200ms;
   -moz-transition: opacity 200ms, -moz-transform 200ms;
   transition: opacity 200ms, transform 200ms;
@@ -1748,10 +1747,8 @@ body.no-connection-message-visible #status-message {
   padding: 0 5px;
   padding-right: 0;
 
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;  
-
+  .user-select-none;
+  
   border-bottom: 3px solid darken(@uiColour, 20%);
 
   padding-top: 0;
@@ -2234,10 +2231,8 @@ body.windows .street-name > div {
 
   .street-name-mixin;
 
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-
+  .user-select-none;
+  
   white-space: nowrap;
 
   & > div {
@@ -2321,10 +2316,8 @@ body:not(.touch-support):not(.read-only) #street-name {
   color: black;
   font-size: 13px;
 
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-
+  .user-select-none;
+  
   pointer-events: auto;
 
   a {
@@ -2472,10 +2465,8 @@ body.read-only #street-metadata-author a {
   z-index: 99999999;
   text-align: center;
 
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;  
-
+  .user-select-none;
+  
   pointer-events: none;
 
   &:not(.first-time) .first-time,
@@ -2717,10 +2708,8 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
 
     white-space: nowrap;
 
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-
+    .user-select-none;
+  
     button {
       margin-left: 3px;
       margin-top: 0;
@@ -2776,10 +2765,8 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
     padding-top: 3px;
     font-size: 13px;
 
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;    
-
+    .user-select-none;
+  
     color: darken(@uiColour, 20%);
     cursor: pointer;
 
@@ -2902,10 +2889,8 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
     height: @infoBubbleButtonSize;
     line-height: @infoBubbleButtonSize;  
 
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-
+    .user-select-none;
+    
     white-space: nowrap;
 
     text-align: right;
