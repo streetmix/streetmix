@@ -329,6 +329,7 @@ var main = (function(){
   var KEY_MINUS = 189;
   var KEY_MINUS_ALT = 173; // Firefox
   var KEY_MINUS_KEYPAD = 109;
+  var KEY_SLASH = 191; // slash or question mark
 
   var PRETTIFY_WIDTH_OUTPUT_MARKUP = 1;
   var PRETTIFY_WIDTH_OUTPUT_NO_MARKUP = 2;
@@ -5370,6 +5371,10 @@ var main = (function(){
 
   function _onBodyKeyDown(event) {
     switch (event.keyCode) {
+      case KEY_SLASH:
+        _onHelpMenuClick();
+        break;
+
       case KEY_EQUAL:
       case KEY_EQUAL_ALT:
       case KEY_PLUS_KEYPAD:
@@ -8101,8 +8106,6 @@ var main = (function(){
       menuVisible = true;
 
       el.classList.add('visible');
-
-      _prepareFeedbackForm();
     } else {
       _hideMenus();
     }
@@ -8119,6 +8122,8 @@ var main = (function(){
       menuVisible = true;
 
       el.classList.add('visible');
+
+      _prepareFeedbackForm();
 
       if (!system.touch) {
         window.setTimeout(function() {
