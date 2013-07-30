@@ -3730,7 +3730,7 @@ var main = (function(){
     // don’t do for settings deliberately
 
     if (abortEverything) {
-      return null;
+      return;
     }
 
     var showWarning = false;
@@ -3748,13 +3748,14 @@ var main = (function(){
       _scheduleNextNonblockingAjaxRequest();
 
       return 'Your changes have not been saved yet. Please return to the page, check your Internet connection, and wait a little while to allow the changes to be saved.';
-    } else {
-      return null;
     }
   }
 
   function _onWindowBeforeUnload() {
-    return _checkIfChangesSaved();
+    var text = _checkIfChangesSaved();
+    if (text) {
+      return text;
+    }
   }
 
   function _getVariantArray(segmentType, variantString) {
@@ -6633,7 +6634,6 @@ var main = (function(){
     } else {
       document.querySelector('#welcome .close').addEventListener('click', _hideWelcome);      
     }
-
 
     document.querySelector('#save-as-image').addEventListener('click', _saveAsImage);
 
