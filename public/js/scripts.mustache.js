@@ -170,6 +170,7 @@ var main = (function(){
   var TILESET_IMAGE_VERSION = 51;
   var TILESET_POINT_PER_PIXEL = 2.0;
   var TILE_SIZE = 12; // pixels
+  var TILESET_CORRECTION = [null, 0, -84, -162];
 
   var VARIANT_ICON_START_X = 164; // x24 in tileset file
   var VARIANT_ICON_START_Y = 64; // x24 in tileset file
@@ -231,6 +232,8 @@ var main = (function(){
   var TOUCH_CONTROLS_FADEOUT_TIME = 3000;
   var TOUCH_CONTROLS_FADEOUT_DELAY = 3000;
 
+  var SEGMENT_SWITCHING_TIME = 250;
+
   var SAVE_STREET_DELAY = 500;
   var SAVE_SETTINGS_DELAY = 500;
   var NO_CONNECTION_MESSAGE_TIMEOUT = 10000;
@@ -265,6 +268,7 @@ var main = (function(){
   var MAX_CUSTOM_STREET_WIDTH = 400;
   var MIN_SEGMENT_WIDTH = 1;
   var MAX_SEGMENT_WIDTH = 400;
+  var MAX_BUILDING_HEIGHT = 20;
 
   var RESIZE_TYPE_INITIAL = 0;
   var RESIZE_TYPE_INCREMENT = 1;
@@ -1446,6 +1450,41 @@ var main = (function(){
   var LOCAL_STORAGE_FEEDBACK_BACKUP = 'feedback-backup';
   var LOCAL_STORAGE_FEEDBACK_EMAIL_BACKUP = 'feedback-email-backup';
 
+  // TODO rename to be more specific
+  var INFO_BUBBLE_MARGIN_BUBBLE = 20;
+  var INFO_BUBBLE_MARGIN_MOUSE = 10;
+
+  var PERSON_TYPES = 15;
+
+  var INFO_BUBBLE_TYPE_SEGMENT = 1;
+  var INFO_BUBBLE_TYPE_LEFT_BUILDING = 2;
+  var INFO_BUBBLE_TYPE_RIGHT_BUILDING = 3;
+
+  var MAX_RAND_SEED = 999999999;
+
+  var TRACK_CATEGORY_INTERACTION = 'Interaction';
+  var TRACK_CATEGORY_SHARING = 'Sharing';
+  var TRACK_CATEGORY_EVENT = 'Event';
+  var TRACK_CATEGORY_ERROR = 'Error';
+
+  var TRACK_ACTION_LEARN_MORE = 'Learn more about segment';
+  var TRACK_ACTION_FACEBOOK = 'Facebook';
+  var TRACK_ACTION_TWITTER = 'Twitter';
+  var TRACK_ACTION_SAVE_AS_IMAGE = 'Save as image';
+  var TRACK_ACTION_STREET_MODIFIED_ELSEWHERE = 'Street modified elsewhere';
+  var TRACK_ACTION_OPEN_GALLERY = 'Open gallery';
+  var TRACK_ACTION_CHANGE_WIDTH = 'Change width';
+  var TRACK_ACTION_UNDO = 'Undo';
+  var TRACK_ACTION_REMOVE_SEGMENT = 'Remove segment';
+  var TRACK_ACTION_ERROR_15A = 'Error 15A (sign in API failure)';
+
+  var TRACK_LABEL_INCREMENT_BUTTON = 'Increment button';
+  var TRACK_LABEL_INPUT_FIELD = 'Input field';
+  var TRACK_LABEL_DRAGGING = 'Dragging';
+  var TRACK_LABEL_KEYBOARD = 'Keyboard';
+  var TRACK_LABEL_BUTTON = 'Button';   
+  
+
   // TODO clean up/rearrange variables
 
   // Saved data
@@ -1630,6 +1669,14 @@ var main = (function(){
   var blockingShieldTimerId = -1;
   var blockingShieldTooSlowTimerId = -1;
 
+  var menuVisible = false;
+
+  var widthChartShowTimerId = -1;
+  var widthChartHideTimerId = -1;
+
+  var latestRequestId;
+  var latestVerificationStreet;  
+
   // HELPER FUNCTIONS
   // -------------------------------------------------------------------------
 
@@ -1710,9 +1757,7 @@ var main = (function(){
       return;
     }
 
-    if ((imagesToBeLoaded == 0) && (sw > 0) && (sh > 0) && (dw > 0) && (dh > 0)) {
-      // TODO move
-      var TILESET_CORRECTION = [null, 0, -84, -162];
+    if ((imagesToBeLoaded == 0) && (sw > 0) && (sh > 0) && (dw > 0) && (dh > 0)) {     
       sx += TILESET_CORRECTION[tileset] * 12;
 
       dx *= system.hiDpi;
@@ -1733,9 +1778,6 @@ var main = (function(){
   }
 
   function _drawProgrammaticPeople(ctx, width, offsetLeft, offsetTop, randSeed, multiplier, variantString) {
-    // TODO move
-    var PERSON_TYPES = 15;
-
     var people = [];
     var peopleWidth = 0;
 
@@ -2720,9 +2762,6 @@ var main = (function(){
     _drawBuilding(ctx, BUILDING_DESTINATION_SCREEN, street, left, totalWidth, attr.height, false, 0, 0, 1.0);
   }
 
-  // TODO move
-  var MAX_BUILDING_HEIGHT = 20;
-
   function _buildingHeightUpdated() {
     _saveStreetToServerIfNecessary();
     _createBuildings();
@@ -3117,9 +3156,6 @@ var main = (function(){
 
     _createNewUndo();
   }
-
-  // TODO move
-  var MAX_RAND_SEED = 999999999;
 
   function _generateRandSeed() {
     var randSeed = 1 + Math.floor(Math.random() * MAX_RAND_SEED); // So it’s not zero
@@ -3986,10 +4022,6 @@ var main = (function(){
       }
     }
   }
-
-  // TODO move
-  var widthChartShowTimerId = -1;
-  var widthChartHideTimerId = -1;
 
   function _showWidthChartImmediately() {
     return;
@@ -5696,10 +5728,6 @@ var main = (function(){
     }
   }
 
-  // TODO move
-  var latestRequestId;
-  var latestVerificationStreet;
-
   function _fetchStreetForVerification() {
     // Don’t do it with any network services pending
     if (_getNonblockingAjaxRequestCount() || blockingAjaxRequestInProgress || 
@@ -6896,9 +6924,6 @@ var main = (function(){
     return inside;
   }
 
-  // TODO move
-  var SEGMENT_SWITCHING_TIME = 250;
-
   function _switchSegmentElIn(el) {
     el.classList.add('switching-in-pre');
 
@@ -6949,29 +6974,6 @@ var main = (function(){
     }, SEGMENT_SWITCHING_TIME);
   }
 
-  // TODO move
-  var TRACK_CATEGORY_INTERACTION = 'Interaction';
-  var TRACK_CATEGORY_SHARING = 'Sharing';
-  var TRACK_CATEGORY_EVENT = 'Event';
-  var TRACK_CATEGORY_ERROR = 'Error';
-
-  var TRACK_ACTION_LEARN_MORE = 'Learn more about segment';
-  var TRACK_ACTION_FACEBOOK = 'Facebook';
-  var TRACK_ACTION_TWITTER = 'Twitter';
-  var TRACK_ACTION_SAVE_AS_IMAGE = 'Save as image';
-  var TRACK_ACTION_STREET_MODIFIED_ELSEWHERE = 'Street modified elsewhere';
-  var TRACK_ACTION_OPEN_GALLERY = 'Open gallery';
-  var TRACK_ACTION_CHANGE_WIDTH = 'Change width';
-  var TRACK_ACTION_UNDO = 'Undo';
-  var TRACK_ACTION_REMOVE_SEGMENT = 'Remove segment';
-  var TRACK_ACTION_ERROR_15A = 'Error 15A (sign in API failure)';
-
-  var TRACK_LABEL_INCREMENT_BUTTON = 'Increment button';
-  var TRACK_LABEL_INPUT_FIELD = 'Input field';
-  var TRACK_LABEL_DRAGGING = 'Dragging';
-  var TRACK_LABEL_KEYBOARD = 'Keyboard';
-  var TRACK_LABEL_BUTTON = 'Button';
-
   var _eventTracking = {
     alreadyTracked: [],
 
@@ -6991,11 +6993,6 @@ var main = (function(){
       }
     }
   }
-
-  // TODO move
-  var INFO_BUBBLE_TYPE_SEGMENT = 1;
-  var INFO_BUBBLE_TYPE_LEFT_BUILDING = 2;
-  var INFO_BUBBLE_TYPE_RIGHT_BUILDING = 3;
 
   var _infoBubble = {
     mouseInside: false,
@@ -7080,19 +7077,16 @@ var main = (function(){
         return;
       }
 
-      // TODO move
-      var MARGIN_BUBBLE = 20;
-      var MARGIN_MOUSE = 10;
-
       var bubbleX = _infoBubble.bubbleX;
       var bubbleY = _infoBubble.bubbleY;
       var bubbleWidth = _infoBubble.bubbleWidth;
       var bubbleHeight = _infoBubble.bubbleHeight;
 
       if (_infoBubble.descriptionVisible) {
+        // TODO const
         var marginBubble = 200;
       } else {
-        var marginBubble = MARGIN_BUBBLE;
+        var marginBubble = INFO_BUBBLE_MARGIN_BUBBLE;
       }
 
       if (_infoBubble.mouseInside && !_infoBubble.descriptionVisible) {
@@ -7100,10 +7094,10 @@ var main = (function(){
 
         var x = pos[0] - document.querySelector('#street-section-outer').scrollLeft;
 
-        var segmentX1 = x - MARGIN_BUBBLE;
-        var segmentX2 = x + _infoBubble.segmentEl.offsetWidth + MARGIN_BUBBLE;
+        var segmentX1 = x - INFO_BUBBLE_MARGIN_BUBBLE;
+        var segmentX2 = x + _infoBubble.segmentEl.offsetWidth + INFO_BUBBLE_MARGIN_BUBBLE;
 
-        var segmentY = pos[1] + _infoBubble.segmentEl.offsetHeight + MARGIN_BUBBLE;
+        var segmentY = pos[1] + _infoBubble.segmentEl.offsetHeight + INFO_BUBBLE_MARGIN_BUBBLE;
 
         _infoBubble.hoverPolygon = [
           [bubbleX - marginBubble, bubbleY - marginBubble],
@@ -7117,13 +7111,13 @@ var main = (function(){
           [bubbleX - marginBubble, bubbleY - marginBubble]
         ];
       } else {
-        var bottomY = mouseY - MARGIN_MOUSE;
-        if (bottomY < bubbleY + bubbleHeight + MARGIN_BUBBLE) {
-          bottomY = bubbleY + bubbleHeight + MARGIN_BUBBLE;
+        var bottomY = mouseY - INFO_BUBBLE_MARGIN_MOUSE;
+        if (bottomY < bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE) {
+          bottomY = bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE;
         }
-        var bottomY2 = mouseY + MARGIN_MOUSE;
-        if (bottomY2 < bubbleY + bubbleHeight + MARGIN_BUBBLE) {
-          bottomY2 = bubbleY + bubbleHeight + MARGIN_BUBBLE;
+        var bottomY2 = mouseY + INFO_BUBBLE_MARGIN_MOUSE;
+        if (bottomY2 < bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE) {
+          bottomY2 = bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE;
         }
 
       if (_infoBubble.descriptionVisible) {
@@ -7142,12 +7136,12 @@ var main = (function(){
         _infoBubble.hoverPolygon = [
           [bubbleX - marginBubble, bubbleY - marginBubble],
           [bubbleX - marginBubble, bubbleY + bubbleHeight + marginBubble],
-          [(bubbleX - marginBubble + mouseX - MARGIN_MOUSE - diffX) / 2, bottomY + (bubbleY + bubbleHeight + marginBubble - bottomY) * .2],
-          [mouseX - MARGIN_MOUSE - diffX, bottomY], 
-          [mouseX - MARGIN_MOUSE, bottomY2], 
-          [mouseX + MARGIN_MOUSE, bottomY2], 
-          [mouseX + MARGIN_MOUSE + diffX, bottomY],
-          [(bubbleX + bubbleWidth + marginBubble + mouseX + MARGIN_MOUSE + diffX) / 2, bottomY + (bubbleY + bubbleHeight + marginBubble - bottomY) * .2],
+          [(bubbleX - marginBubble + mouseX - INFO_BUBBLE_MARGIN_MOUSE - diffX) / 2, bottomY + (bubbleY + bubbleHeight + marginBubble - bottomY) * .2],
+          [mouseX - INFO_BUBBLE_MARGIN_MOUSE - diffX, bottomY], 
+          [mouseX - INFO_BUBBLE_MARGIN_MOUSE, bottomY2], 
+          [mouseX + INFO_BUBBLE_MARGIN_MOUSE, bottomY2], 
+          [mouseX + INFO_BUBBLE_MARGIN_MOUSE + diffX, bottomY],
+          [(bubbleX + bubbleWidth + marginBubble + mouseX + INFO_BUBBLE_MARGIN_MOUSE + diffX) / 2, bottomY + (bubbleY + bubbleHeight + marginBubble - bottomY) * .2],
           [bubbleX + bubbleWidth + marginBubble, bubbleY + bubbleHeight + marginBubble],
           [bubbleX + bubbleWidth + marginBubble, bubbleY - marginBubble],
           [bubbleX - marginBubble, bubbleY - marginBubble]
@@ -8073,10 +8067,6 @@ var main = (function(){
     document.querySelector('#feedback-form .loading').classList.remove('visible');
     document.querySelector('#feedback-form .thank-you').classList.remove('visible');
   }
-
-  // TODO move
-
-  var menuVisible = false;
 
   function _onFeedbackMenuClick() {
     var el = document.querySelector('#feedback-menu');
