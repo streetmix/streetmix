@@ -8750,10 +8750,10 @@ var main = (function(){
     }*/
 
     if (data.status == 503) {
-      _showError(ERROR_SIGN_IN_SERVER_FAILURE, true);
-
       _eventTracking.track(TRACK_CATEGORY_ERROR, TRACK_ACTION_ERROR_15A, 
           null, null, false);
+
+      _showError(ERROR_SIGN_IN_SERVER_FAILURE, true);
       return;
     }
 
