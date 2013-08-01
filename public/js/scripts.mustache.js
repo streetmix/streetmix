@@ -167,7 +167,7 @@ var main = (function(){
     // 13: bike rack elevation
     // 14: wayfinding has three types
     // 15: sidewalks have rand seed
-  var TILESET_IMAGE_VERSION = 51;
+  var TILESET_IMAGE_VERSION = 52;
   var TILESET_POINT_PER_PIXEL = 2.0;
   var TILE_SIZE = 12; // pixels
   var TILESET_CORRECTION = [null, 0, -84, -162];
@@ -694,14 +694,14 @@ var main = (function(){
         'left': {
           minWidth: 8,
           graphics: {
-            left: { tileset: 2, x: 136, y: 63, width: 8, height: 8, offsetY: 4 },
+            left: { tileset: 2, x: 136 - 20, y: 63 - 29, width: 8, height: 8, offsetY: 4 },
             repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }
         },
         'right': {
           minWidth: 8,
           graphics: {
-            right: { tileset: 2, x: 126, y: 63, width: 8, height: 8, offsetY: 4 },
+            right: { tileset: 2, x: 126 - 20, y: 63 - 29, width: 8, height: 8, offsetY: 4 },
             repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }
         }
@@ -2532,20 +2532,20 @@ var main = (function(){
     if (left) {
       switch (buildingVariant) {
         case 'narrow':
-          var tilePositionX = 1512;
-          var tilePositionY = 576;
+          var tilePositionX = 1512 + 17;
+          var tilePositionY = 576 - 1;
           var width = 216;
           var floorRoofWidth = 216;
-          var variantsCount = 2;
+          var variantsCount = 1;
           var tileset = 2;
 
           var floorHeight = 10;
           var roofHeight = 1;
-          var mainFloorHeight = 10;
+          var mainFloorHeight = 14;
           break;
         case 'wide':
           var tilePositionX = 1956;
-          var tilePositionY = 576;
+          var tilePositionY = 576 - 24 * 2;
           var width = 396;
           var floorRoofWidth = 396;
           var variantsCount = 1;
@@ -2553,7 +2553,7 @@ var main = (function(){
 
           var floorHeight = 10;
           var roofHeight = 1;
-          var mainFloorHeight = 10;
+          var mainFloorHeight = 14;
           break;
         case 'residential':
           var tilePositionX = 1956 + 382 + 204;
@@ -2571,20 +2571,20 @@ var main = (function(){
     } else {
       switch (buildingVariant) {
         case 'narrow':
-          var tilePositionX = 1728;
-          var tilePositionY = 576;
+          var tilePositionX = 1728 + 13;
+          var tilePositionY = 576 - 1;
           var width = 216;
           var floorRoofWidth = 216;
-          var variantsCount = 2;
+          var variantsCount = 1;
           var tileset = 2;
 
           var floorHeight = 10;
           var roofHeight = 1;
-          var mainFloorHeight = 10;
+          var mainFloorHeight = 14;
           break;
         case 'wide':
           var tilePositionX = 2351;
-          var tilePositionY = 576;
+          var tilePositionY = 576 - 24 * 2 - 1;
           var width = 396;
           var floorRoofWidth = 396;
           var variantsCount = 1;
@@ -2592,7 +2592,7 @@ var main = (function(){
 
           var floorHeight = 10;
           var roofHeight = 1;
-          var mainFloorHeight = 10;
+          var mainFloorHeight = 14;
           break;
         case 'residential':
           var tilePositionX = 1956 + 382 + 204 + 25 - 1008 - 12 - 1;
