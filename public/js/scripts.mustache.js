@@ -6698,10 +6698,10 @@ var main = (function(){
     document.querySelector('#new-street').addEventListener('click', _goNewStreet);
     document.querySelector('#copy-last-street').addEventListener('click', _goCopyLastStreet);
 
-    document.querySelector('#feedback-form-message').addEventListener('input', _onFeedbackFormInput, false);
-    document.querySelector('#feedback-form-email').addEventListener('input', _onFeedbackFormInput, false);
-    document.querySelector('#feedback-form-email').addEventListener('keydown', _onFeedbackFormEmailKeyDown, false);
-    document.querySelector('#feedback-form-send').addEventListener('click', _feedbackFormSend, false);
+    document.querySelector('#feedback-form-message').addEventListener('input', _onFeedbackFormInput);
+    document.querySelector('#feedback-form-email').addEventListener('input', _onFeedbackFormInput);
+    document.querySelector('#feedback-form-email').addEventListener('keydown', _onFeedbackFormEmailKeyDown);
+    document.querySelector('#feedback-form-send').addEventListener('click', _feedbackFormSend);
 
     document.querySelector('#gallery-try-again').addEventListener('click', _repeatReceiveGalleryData);
 
