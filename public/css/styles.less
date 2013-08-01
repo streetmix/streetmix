@@ -118,6 +118,7 @@ body:not(.safari) {
 
 body,
 button,
+a.button-like,
 input,
 select,
 textarea,
@@ -132,7 +133,8 @@ button {
   -moz-tap-highlight-color: transparent !important;
   tap-highlight-color: transparent !important;
 }
-button {
+button,
+a.button-like {
   font-size: 13px;
 }
 
@@ -288,8 +290,12 @@ body:not(.safari).gallery-visible #street-section-sky {
     left: 20px;
     top: 60px;
     width: 100px;
-    height: 60px;
+    height: 43px;
+
     position: absolute;
+
+    padding-top: 15px;
+    line-height: 15px;
 
     font-weight: bold;
   }
@@ -298,6 +304,7 @@ body:not(.safari).gallery-visible #street-section-sky {
     top: 130px;
     width: 100px;
     height: 40px;
+    line-height: 40px;
     position: absolute;
   }
 
@@ -2006,7 +2013,6 @@ body.safari .menu {
   border-left: 1px solid rgb(240, 240, 240);
   border-bottom: 1px solid rgb(200, 200, 200);
   border-right: 1px solid rgb(200, 200, 200);
-  border-radius: 5px;
   font-style: italic;
   padding: 1px 6px;
   display: inline-block;
@@ -2191,7 +2197,6 @@ body.read-only #street-name-canvas {
 }
 
 .street-name-inside-mixin (@size: @streetNameSize) {
-  border-radius: 10px * @size;
   border: 3px * @size solid @streetNameText;
   padding: 10px * @size 30px * @size;
   padding-top: 11px * @size;
@@ -3144,12 +3149,20 @@ button.close {
 }
 
 
-button {
+button,
+a.button-like {
   outline: none;
   background: mix(@uiColour, white, 50%);
   border: none;
   border-top: 1px solid darken(@uiColour, 10%);
   border-bottom: 1px solid darken(@uiColour, 10%);
+
+  color: black;
+  text-align: center;
+  text-decoration: none;
+
+  -webkit-align-items: flex-start !important;
+  display: inline-block !important;
 
   &:not([disabled]):hover {
     background: mix(@uiColour, white, 70%);
@@ -3157,7 +3170,6 @@ button {
 
   &:not([disabled]):active {
     background: mix(@uiColour, white, 95%);
-
   }
 
   &[disabled] {
