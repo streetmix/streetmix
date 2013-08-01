@@ -142,6 +142,7 @@ var main = (function(){
   var ERROR_STREET_410_BUT_LINK_TO_USER = 17;
   var ERROR_CANNOT_CREATE_NEW_STREET_ON_PHONE = 18;
   var ERROR_SIGN_IN_SERVER_FAILURE = 19;
+  var ERROR_SIGN_IN_401 = 20;
 
   var TWITTER_ID = '@streetmixapp';
 
@@ -1477,6 +1478,8 @@ var main = (function(){
   var TRACK_ACTION_UNDO = 'Undo';
   var TRACK_ACTION_REMOVE_SEGMENT = 'Remove segment';
   var TRACK_ACTION_ERROR_15A = 'Error 15A (sign in API failure)';
+  var TRACK_ACTION_ERROR_RM1 = 'Error RM1 (auth 401 failure on load)';
+  var TRACK_ACTION_ERROR_RM2 = 'Error RM2 (auth 401 failure mid-flight)';
 
   var TRACK_LABEL_INCREMENT_BUTTON = 'Increment button';
   var TRACK_LABEL_INPUT_FIELD = 'Input field';
@@ -3548,6 +3551,9 @@ var main = (function(){
 
   function _errorSavingSettingsToServer(data) {
     if (!abortEverything && (data.status == 401)) {
+      _eventTracking.track(TRACK_CATEGORY_ERROR, TRACK_ACTION_ERROR_RM2, 
+          null, null, false);
+
       mode = MODE_FORCE_RELOAD_SIGN_OUT_401;
       _processMode();
     }
@@ -6718,7 +6724,7 @@ var main = (function(){
       document.querySelector('#gallery-link a').addEventListener('click', _onMyStreetsClick);      
     }
 
-    document.querySelector('#sign-out-link').addEventListener('click', _signOut);
+    document.querySelector('#sign-out-link').addEventListener('click', _onSignOutClick);
 
     /*if (system.pageVisibility) {
       document.addEventListener('visibilitychange', _onVisibilityChange, false);
@@ -8749,7 +8755,15 @@ var main = (function(){
       return;
     }*/
 
-    if (data.status == 503) {
+    if (data.status == 401) {
+      _eventTracking.track(TRACK_CATEGORY_ERROR, TRACK_ACTION_ERROR_RM1, 
+          null, null, false);
+
+      _signOut(true);
+
+      _showError(ERROR_SIGN_IN_401, true);
+      return;
+    } else if (data.status == 503) {
       _eventTracking.track(TRACK_CATEGORY_ERROR, TRACK_ACTION_ERROR_15A, 
           null, null, false);
 
@@ -8766,7 +8780,15 @@ var main = (function(){
     _signInLoaded();
   }
 
-  function _signOut(event) {
+  function _onSignOutClick(event) {
+    _signOut(false);
+
+    if (event) {
+      event.preventDefault();
+    }
+  }  
+
+  function _signOut(quiet) {
     settings.lastStreetId = null;
     settings.lastStreetNamespacedId = null;
     settings.lastStreetCreatorId = null;
@@ -8774,9 +8796,8 @@ var main = (function(){
 
     _removeSignInCookies();
     window.localStorage.removeItem(LOCAL_STORAGE_SIGN_IN_ID);
-    _sendSignOutToServer();
+    _sendSignOutToServer(quiet);
 
-    event.preventDefault();
   }
 
   var uniqueRequestId = 0;
@@ -8794,23 +8815,29 @@ var main = (function(){
     }
   }
 
-  function _sendSignOutToServer() {
-    jQuery.ajax({
+  function _sendSignOutToServer(quiet) {
+    var call = {
       // TODO const
       url: API_URL + 'v1/users/' + signInData.userId + '/login-token',
       dataType: 'json',
       type: 'DELETE',
       headers: { 'Authorization': _getAuthHeader() }
-    }).done(_receiveSignOutConfirmationFromServer)
-    .fail(_errorReceiveSignOutConfirmationFromServer);
+    };
+
+    if (quiet) {
+      jQuery.ajax(call);
+    } else {
+      jQuery.ajax(call).done(_receiveSignOutConfirmationFromServer)
+          .fail(_errorReceiveSignOutConfirmationFromServer);
+    }
   }
 
-    function _receiveSignOutConfirmationFromServer() {
-      mode = MODE_SIGN_OUT;
-      _processMode();
-    }
+  function _receiveSignOutConfirmationFromServer() {
+    mode = MODE_SIGN_OUT;
+    _processMode();
+  }
 
-    function _errorReceiveSignOutConfirmationFromServer() {
+  function _errorReceiveSignOutConfirmationFromServer() {
     mode = MODE_SIGN_OUT;
     _processMode();
   }
@@ -9301,7 +9328,7 @@ var main = (function(){
         break;
       case ERROR_FORCE_RELOAD_SIGN_OUT_401:
         title = 'You signed out in another window.';
-        description = 'Please reload this page before continuing.<br>(Error 401.)<br><button id="error-clear-sign-in-reload">Reload the page</button>';
+        description = 'Please reload this page before continuing.<br>(Error RM2.)<br><button id="error-clear-sign-in-reload">Reload the page</button>';
         break;
       case ERROR_FORCE_RELOAD_SIGN_IN:
         title = 'You signed in in another window.';
@@ -9318,6 +9345,10 @@ var main = (function(){
       case ERROR_SIGN_IN_SERVER_FAILURE:
         title = 'Having trouble…';
         description = 'We’re having trouble loading Streetmix.<br>(Error 15A.)<br><button id="error-new">Try again</button>';
+        break;
+      case ERROR_SIGN_IN_401:
+        title = 'Having trouble…';
+        description = 'We’re having trouble loading Streetmix.<br>(Error RM1.)<br><button id="error-new">Try again</button>';
         break;
       case ERROR_TWITTER_ACCESS_DENIED:
         title = 'You are not signed in.';
