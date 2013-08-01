@@ -6695,9 +6695,6 @@ var main = (function(){
     }
     document.querySelector('.info-bubble').addEventListener('touchstart', _infoBubble.onTouchStart);
 
-    document.querySelector('#new-street').addEventListener('click', _goNewStreet);
-    document.querySelector('#copy-last-street').addEventListener('click', _goCopyLastStreet);
-
     document.querySelector('#feedback-form-message').addEventListener('input', _onFeedbackFormInput);
     document.querySelector('#feedback-form-email').addEventListener('input', _onFeedbackFormInput);
     document.querySelector('#feedback-form-email').addEventListener('keydown', _onFeedbackFormEmailKeyDown);
@@ -9541,6 +9538,9 @@ var main = (function(){
     $('#trashcan').text(msg('UI_DRAG_HERE_TO_REMOVE'));
 
     $('#street-width-read').attr('title', msg('TOOLTIP_STREET_WIDTH'));
+
+    document.querySelector('#new-street').href = URL_NEW_STREET;
+    document.querySelector('#copy-last-street').href = URL_NEW_STREET_COPY_LAST;
 
     _fillEmptySegments();
   }
