@@ -17,7 +17,9 @@ var main = (function(){
     BUTTON_UNDO: 'Undo',
     BUTTON_REDO: 'Redo',
 
-    UI_DRAG_HERE_TO_REMOVE: 'Drag here to remove',
+    DRAG_HERE_TO_REMOVE: 'Drag here to remove',
+
+    UI_GLYPH_X: '×',
 
     PROMPT_NEW_STREET_NAME: 'New street name:',
     PROMPT_DELETE_STREET: 'Are you sure you want to permanently delete [[name]]? This cannot be undone.',
@@ -5649,6 +5651,11 @@ var main = (function(){
     document.title = title;
   }
 
+  // TODO unify with above (this one doesn’t have author, for Facebook sharing)
+  function _getPageTitle() {
+    return street.name + '– Streetmix';
+  }
+
   function _onAnotherUserIdClick(event) {
     if (event.shiftKey || event.ctrlKey || event.metaKey) {
       return;
@@ -6335,7 +6342,7 @@ var main = (function(){
         var removeEl = document.createElement('button');
         removeEl.classList.add('remove');
         removeEl.addEventListener('click', _onDeleteGalleryStreet);
-        removeEl.innerHTML = '×';
+        removeEl.innerHTML = msg('UI_GLYPH_X');
         removeEl.title = msg('TOOLTIP_DELETE_STREET');
         anchorEl.appendChild(removeEl);
       }
@@ -8015,7 +8022,7 @@ var main = (function(){
       } else {
         el.addEventListener('click', _statusMessage.hide);        
       }
-      el.innerHTML = '×';
+      el.innerHTML = MSG('UI_GLYPH_X');
       document.querySelector('#status-message > div').appendChild(el);      
 
       document.querySelector('#status-message').classList.add('visible');
@@ -8330,10 +8337,6 @@ var main = (function(){
     }
 
     _buildStreetWidthMenu();
-  }
-
-  function _getPageTitle() {
-    return street.name + '– Streetmix';
   }
 
   function _getSharingMessage() {
@@ -9550,7 +9553,7 @@ var main = (function(){
     $('#undo').text(msg('BUTTON_UNDO'));
     $('#redo').text(msg('BUTTON_REDO'));
 
-    $('#trashcan').text(msg('UI_DRAG_HERE_TO_REMOVE'));
+    $('#trashcan').text(msg('DRAG_HERE_TO_REMOVE'));
 
     $('#street-width-read').attr('title', msg('TOOLTIP_STREET_WIDTH'));
 
