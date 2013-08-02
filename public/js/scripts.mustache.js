@@ -54,6 +54,10 @@ var main = (function(){
 
     USER_ANONYMOUS: 'Anonymous',
 
+    STREET_COUNT_0: 'No streets yet',
+    STREET_COUNT_1: '1 street',
+    STREET_COUNT_MANY: '[[streetCount]] streets',
+
     DEFAULT_STREET_NAME: 'Unnamed St',
 
     SEGMENT_NAME_EMPTY: 'Empty space'
@@ -89,6 +93,7 @@ var main = (function(){
   var URL_NO_USER = '-';
   var URL_HELP = 'help';
   var URL_ABOUT = 'about';
+  var URL_HELP_ABOUT = '/' + URL_HELP + '/' + URL_ABOUT;
 
   var URL_EXAMPLE_STREET = 'saikofish/29';
 
@@ -1487,7 +1492,7 @@ var main = (function(){
   var TRACK_LABEL_KEYBOARD = 'Keyboard';
   var TRACK_LABEL_BUTTON = 'Button';   
   
-
+  var DATE_FORMAT = 'MMM D, YYYY';
   // TODO clean up/rearrange variables
 
   // Saved data
@@ -4955,7 +4960,8 @@ var main = (function(){
 
     document.querySelector('#street-section-canvas').style.width = width + 'px';
     if (!dontScroll) {
-      document.querySelector('#street-section-outer').scrollLeft = (width + BUILDING_SPACE * 2 - system.viewportWidth) / 2;
+      document.querySelector('#street-section-outer').scrollLeft = 
+          (width + BUILDING_SPACE * 2 - system.viewportWidth) / 2;
       _onStreetSectionScroll();
     }
 
@@ -4969,7 +4975,8 @@ var main = (function(){
         document.querySelector('#street-name > div').scrollWidth;
 
     if (streetNameWidth > streetNameCanvasWidth) {
-      document.querySelector('#street-name').style.width = streetNameCanvasWidth + 'px';
+      document.querySelector('#street-name').style.width = 
+          streetNameCanvasWidth + 'px';
     } else {
       document.querySelector('#street-name').style.width = 'auto';
     }
@@ -4984,10 +4991,12 @@ var main = (function(){
   }
 
   function _updateGalleryShield() {
-    document.querySelector('#gallery-shield').style.width = 0;//document.querySelector('#street-section-outer').scrollWidth + 'px';
+    document.querySelector('#gallery-shield').style.width = 0;
     window.setTimeout(function() {
-      document.querySelector('#gallery-shield').style.height = system.viewportHeight + 'px';
-      document.querySelector('#gallery-shield').style.width = document.querySelector('#street-section-outer').scrollWidth + 'px';
+      document.querySelector('#gallery-shield').style.height = 
+          system.viewportHeight + 'px';
+      document.querySelector('#gallery-shield').style.width = 
+          document.querySelector('#street-section-outer').scrollWidth + 'px';
     }, 0);
   }
 
@@ -4998,10 +5007,13 @@ var main = (function(){
     var streetSectionHeight = 
         document.querySelector('#street-section-inner').offsetHeight;
 
-    var paletteTop = document.querySelector('#main-screen > footer').offsetTop || system.viewportHeight;
+    var paletteTop = 
+        document.querySelector('#main-screen > footer').offsetTop || system.viewportHeight;
 
+    // TODO const
     if (system.viewportHeight - streetSectionHeight > 450) {
-      streetSectionTop = (system.viewportHeight - streetSectionHeight - 450) / 2 + 450 + 80;
+      streetSectionTop = 
+          (system.viewportHeight - streetSectionHeight - 450) / 2 + 450 + 80;
     } else {
       streetSectionTop = system.viewportHeight - streetSectionHeight + 70;
     }
@@ -5020,10 +5032,13 @@ var main = (function(){
 
     document.querySelector('#street-section-inner').style.top = streetSectionTop + 'px';
 
-    document.querySelector('#street-section-sky').style.top = (streetSectionTop * .8) + 'px';
+    document.querySelector('#street-section-sky').style.top = 
+        (streetSectionTop * .8) + 'px';
 
-    document.querySelector('#street-scroll-indicator-left').style.top = (streetSectionTop + streetSectionHeight) + 'px';
-    document.querySelector('#street-scroll-indicator-right').style.top = (streetSectionTop + streetSectionHeight) + 'px';
+    document.querySelector('#street-scroll-indicator-left').style.top = 
+        (streetSectionTop + streetSectionHeight) + 'px';
+    document.querySelector('#street-scroll-indicator-right').style.top = 
+        (streetSectionTop + streetSectionHeight) + 'px';
 
     var streetSectionDirtPos = system.viewportHeight - streetSectionTop - 400 + 180;
 
@@ -5681,7 +5696,8 @@ var main = (function(){
       _fetchAvatars();
 
       if (!readOnly) {
-        document.querySelector('#street-metadata-author .user-gallery').addEventListener('click', _onAnotherUserIdClick);
+        document.querySelector('#street-metadata-author .user-gallery').
+            addEventListener('click', _onAnotherUserIdClick);
       }
     } else if (!street.creatorId && (signedIn || remixOnFirstEdit)) {
       var html = 'by ' + msg('USER_ANONYMOUS');
@@ -5988,8 +6004,7 @@ var main = (function(){
       el.removeAttribute('postpone');
     }
 
-    // TODO const
-    window.history.replaceState(null, null, '/help/about');    
+    window.history.replaceState(null, null, URL_HELP_ABOUT);    
 
     _fetchAvatars();
 
@@ -6140,9 +6155,8 @@ var main = (function(){
   function _formatDate(date) {
     // TODO hack
     var today = moment(new Date().getTime());
-    // TODO const
-    var todayFormat = today.format('MMM D, YYYY');
-    var dateFormat = date.format('MMM D, YYYY');
+    var todayFormat = today.format(DATE_FORMAT);
+    var dateFormat = date.format(DATE_FORMAT);
 
     if (dateFormat != todayFormat) {
       return dateFormat;
@@ -6158,7 +6172,7 @@ var main = (function(){
 
   function _showBlockingShield(message) {
     if (!message) {
-      message = 'Loading…';
+      message = msg('BLOCKING_LOADING');
     }
 
     _hideBlockingShield();
@@ -6238,13 +6252,13 @@ var main = (function(){
 
       switch (streetCount) {
         case 0: 
-          var text = 'No streets yet';
+          var text = msg('STREET_COUNT_0');
           break;
         case 1:
-          var text = '1 street';
+          var text = msg('STREET_COUNT_1');
           break;
         default:
-          var text = streetCount += ' streets';
+          var text = msg('STREET_COUNT_MANY', { streetCount: streetCount });
           break;
       }
     } else {
