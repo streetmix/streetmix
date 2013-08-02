@@ -97,6 +97,11 @@ var main = (function(){
   var URL_ABOUT = 'about';
   var URL_HELP_ABOUT = '/' + URL_HELP + '/' + URL_ABOUT;
 
+  var URL_ERROR_TWITTER_ACCESS_DENIED = 'twitter-access-denied';
+  var URL_ERROR_NO_TWITTER_REQUEST_TOKEN = 'no-twitter-request-token';
+  var URL_ERROR_NO_TWITTER_ACCESS_TOKEN = 'no-twitter-access-token';
+  var URL_ERROR_AUTHENTICATION_API_PROBLEM = 'authentication-api-problem';
+
   var URL_EXAMPLE_STREET = 'saikofish/29';
 
   var URL_SIGN_IN_REDIRECT = URL_SIGN_IN + '?callbackUri=' + 
@@ -8648,9 +8653,6 @@ var main = (function(){
       ctx.fillStyle = 'rgb(240, 240, 240)';
       ctx.fillRect(0, 0, thumbnailWidth * system.hiDpi, thumbnailHeight * system.hiDpi);
     }
-
-    //ctx.fillStyle = 'red';
-    //ctx.fillRect(0, groundLevel * system.hiDpi, thumbnailWidth * system.hiDpi, 1);
   }
 
   function _checkIfEverythingIsLoaded() {
@@ -8682,8 +8684,6 @@ var main = (function(){
       images[url].src = url + '?v' + TILESET_IMAGE_VERSION;
     }    
 
-
-    // signInLoaded && bodyLoaded && readyStateCompleteLoaded && countryLoaded && serverContacted
     document.querySelector('#loading-progress').value = 0;
     document.querySelector('#loading-progress').max = imagesToBeLoaded + 5;
   }
@@ -8789,8 +8789,6 @@ var main = (function(){
     // Fail silently
 
     signInData = null;
-    //_saveSignInDataLocally();
-
     signedIn = false;
     _signInLoaded();
   }
@@ -8812,7 +8810,6 @@ var main = (function(){
     _removeSignInCookies();
     window.localStorage.removeItem(LOCAL_STORAGE_SIGN_IN_ID);
     _sendSignOutToServer(quiet);
-
   }
 
   var uniqueRequestId = 0;
@@ -8860,7 +8857,6 @@ var main = (function(){
   function _createSignInUI() {
     if (signedIn) {
       var el = document.createElement('div');
-      //el.style.backgroundImage = 'url(' + signInData.details.profileImageUrl + ')';
       el.classList.add('avatar');
       el.setAttribute('userId', signInData.userId);
       document.querySelector('#identity').appendChild(el);
@@ -9128,8 +9124,6 @@ var main = (function(){
       mode = MODE_EXISTING_STREET;
     } else {
       mode = MODE_404;
-
-      // 404: bad URL
     }
   }
 
@@ -9241,8 +9235,8 @@ var main = (function(){
   }
 
   function _errorReceiveStreet(data) {
-    if ((mode == MODE_CONTINUE) || (mode == MODE_USER_GALLERY) || (mode == MODE_ABOUT) ||
-        (mode == MODE_GLOBAL_GALLERY)) {
+    if ((mode == MODE_CONTINUE) || (mode == MODE_USER_GALLERY) || 
+        (mode == MODE_ABOUT) || (mode == MODE_GLOBAL_GALLERY)) {
       _goNewStreet();
     } else {
       if ((data.status == 404) || (data.status == 410)) {
@@ -9452,16 +9446,16 @@ var main = (function(){
   function _showErrorFromUrl() {
     // TODO const
     switch (errorUrl) {
-      case 'twitter-access-denied':
+      case URL_ERROR_TWITTER_ACCESS_DENIED:
         var errorType = ERROR_TWITTER_ACCESS_DENIED;
         break;
-      case 'no-twitter-request-token':
+      case URL_ERROR_NO_TWITTER_REQUEST_TOKEN:
         var errorType = ERROR_AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN;
         break;
-      case 'no-twitter-access-token':
+      case URL_ERROR_NO_TWITTER_ACCESS_TOKEN:
         var errorType = ERROR_AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN;
         break;
-      case 'authentication-api-problem':
+      case URL_ERROR_AUTHENTICATION_API_PROBLEM:
         var errorType = ERROR_AUTH_PROBLEM_API_PROBLEM;
         break;
       default:
