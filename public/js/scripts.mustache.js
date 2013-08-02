@@ -5335,18 +5335,18 @@ var main = (function(){
 
       _statusMessage.show(msg('STATUS_ALL_SEGMENTS_DELETED'), true);
     } else if (el && el.parentNode) {
-      _removeElFromDom(el);
-      _segmentsChanged();
-
       _infoBubble.hide();
+      _infoBubble.hideSegment();
+      _switchSegmentElAway(el);
+      _segmentsChanged();
 
       _statusMessage.show(msg('STATUS_SEGMENT_DELETED'), true);
     }
 
-    if (street.segments.length) {
+    /*if (street.segments.length) {
       _showWidthChartImmediately();
       _hideWidthChart();
-    }
+    }*/
   } 
 
   function _getHoveredSegmentEl() {
@@ -6607,6 +6607,7 @@ var main = (function(){
 
     if (event) {
       event.preventDefault();
+      event.stopPropagation();
     }
   }
 
@@ -6973,7 +6974,7 @@ var main = (function(){
     }, 0);
 
     window.setTimeout(function() {
-      el.parentNode.removeChild(el);
+      _removeElFromDom(el);
     }, SEGMENT_SWITCHING_TIME);
   }
 
