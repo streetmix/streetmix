@@ -3,7 +3,7 @@
  *
  * Front-end (mostly) by Marcin Wichary, Code for America fellow in 2013.
  *
- * Note (July 2013): This code is still wonky. Now that we’re out of beta, I will be
+ * Note (July 2013): This code is still wonky. Now that we’re out of alpha, I will be
  * dedicating some effort to cleaning it up.
  */
 
