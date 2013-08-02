@@ -17,6 +17,9 @@ var main = (function(){
     BUTTON_UNDO: 'Undo',
     BUTTON_REDO: 'Redo',
 
+    BUTTON_NEW_STREET: 'Create new street',
+    BUTTON_COPY_LAST_STREET: 'Make a copy',    
+
     DRAG_HERE_TO_REMOVE: 'Drag here to remove',
 
     UI_GLYPH_X: '×',
@@ -52,7 +55,7 @@ var main = (function(){
     WARNING_DOESNT_FIT: 'This segment doesn’t fit within the street.',
 
     BLOCKING_REMIXING: 'Remixing…',
-    BLOCKING_LOADING: 'Loading…',
+    LOADING: 'Loading…',
 
     USER_ANONYMOUS: 'Anonymous',
 
@@ -5913,7 +5916,7 @@ var main = (function(){
   }
 
   function _fetchLastStreet() {
-    _newBlockingAjaxRequest(msg('BLOCKING_LOADING'), 
+    _newBlockingAjaxRequest(msg('LOADING'), 
         {
           // TODO const
           url: API_URL + 'v1/streets/' + settings.priorLastStreetId,
@@ -6184,7 +6187,7 @@ var main = (function(){
 
   function _showBlockingShield(message) {
     if (!message) {
-      message = msg('BLOCKING_LOADING');
+      message = msg('LOADING');
     }
 
     _hideBlockingShield();
@@ -9548,6 +9551,12 @@ var main = (function(){
     $('#redo').text(msg('BUTTON_REDO'));
 
     $('#trashcan').text(msg('DRAG_HERE_TO_REMOVE'));
+
+    $('#gallery .loading').text(msg('LOADING'));
+    $('#loading > div > span').text(msg('LOADING'));
+
+    $('#new-street').text(msg('BUTTON_NEW_STREET'));
+    $('#copy-last-street').text(msg('BUTTON_COPY_LAST_STREET'));
 
     $('#street-width-read').attr('title', msg('TOOLTIP_STREET_WIDTH'));
 

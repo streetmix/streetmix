@@ -50,10 +50,10 @@
 
 <body tabindex='1'>
   <div id='debug'><textarea></textarea></div>
-  <div id='loading'><div>Loading…<progress id='loading-progress'></progress></div></div>
+  <div id='loading'><div><span></span><progress id='loading-progress'></progress></div></div>
 
   <div id='gallery'>
-    <div class='loading'>Loading…</div>
+    <div class='loading'></div>
     <div class='error-loading'>Failed to load the gallery. <button id='gallery-try-again'>Try again</button></div>
     <div class='sign-in-promo'>
       <a href='/twitter-sign-in?redirectUri=/just-signed-in'>Sign in with Twitter</a> for
@@ -63,8 +63,8 @@
     <div class='user-id'></div>
     <div class='street-count'></div>
 
-    <a href='#' target='_blank' class='button-like' id='new-street'>Create new street</a>
-    <a href='#' target='_blank' class='button-like' id='copy-last-street'>Make a copy</a>
+    <a href='#' target='_blank' class='button-like' id='new-street'></a>
+    <a href='#' target='_blank' class='button-like' id='copy-last-street'></a>
 
     <ul class='streets'>
     </ul>
