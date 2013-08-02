@@ -2575,7 +2575,7 @@ var main = (function(){
           break;
         case 'residential':
           var tilePositionX = 1956 + 382 + 204;
-          var tilePositionY = 576 + 740 / 2 - 1 - 12;
+          var tilePositionY = 576 + 740 / 2 - 1 - 12 + 8;
           var width = 396;
           var floorRoofWidth = 240;
           var variantsCount = 0;
@@ -2583,7 +2583,7 @@ var main = (function(){
 
           var floorHeight = 10;
           var roofHeight = 6;
-          var mainFloorHeight = 25;
+          var mainFloorHeight = 24.5;
           break;
       }
     } else {
@@ -2614,7 +2614,7 @@ var main = (function(){
           break;
         case 'residential':
           var tilePositionX = 1956 + 382 + 204 + 25 - 1008 - 12 - 1;
-          var tilePositionY = 576 + 740 / 2 - 1 - 12 + 237;
+          var tilePositionY = 576 + 740 / 2 - 1 - 12 + 237 + 6;
           var width = 396;
           var floorRoofWidth = 240;
           var variantsCount = 0;
@@ -2622,7 +2622,7 @@ var main = (function(){
 
           var floorHeight = 10;
           var roofHeight = 6;
-          var mainFloorHeight = 25;
+          var mainFloorHeight = 24.5;
        
           break;
       }
