@@ -869,27 +869,33 @@ body:not(.safari) .footer-canvas {
 }
 #trashcan {
   position: absolute;
-  left: 150px;
-  right: 150px;
+  left: -50px;
+  right: -50px;
   top: -20px;
-  height: @paletteHeight - 2 * 8px + 10px;
-  line-height: @paletteHeight - 2 * 8px + 10px;
-  z-index: 5000;
-  border: 3px dashed rgb(150, 150, 150);
+  height: @paletteHeight - 2 * 8px + 5px;
+  line-height: @paletteHeight - 2 * 8px + 5px;
+  z-index: 500000;
+  border-top: 2px dashed rgb(150, 150, 150);
 
   text-align: center;
 
   color: rgb(150, 150, 150);
   font-size: 24px;
-  font-weight: bold;
+  font-weight: 400;
 
-  background: rgb(220, 220, 220);
+  background: lighten(@bottomBackground, 5%);
 
   pointer-events: none;
   opacity: 0;
 
+  -webkit-transform: translateY(150px);
+
+  -webkit-transition: -webkit-transform 150ms, opacity 150ms;
+
   &.visible {
     opacity: 1;
+
+    -webkit-transform: translateY(0);
   }
 }
 
