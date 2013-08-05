@@ -183,7 +183,7 @@ var main = (function(){
     // 13: bike rack elevation
     // 14: wayfinding has three types
     // 15: sidewalks have rand seed
-  var TILESET_IMAGE_VERSION = 53;
+  var TILESET_IMAGE_VERSION = 54;
   var TILESET_POINT_PER_PIXEL = 2.0;
   var TILE_SIZE = 12; // pixels
   var TILESET_CORRECTION = [null, 0, -84, -162];
@@ -277,8 +277,10 @@ var main = (function(){
   var DEFAULT_BUILDING_HEIGHT_EMPTY = 1;
   var DEFAULT_BUILDING_VARIANT_EMPTY = 'grass';
 
-  var BUILDING_VARIANTS = ['grass', 'fence', 'residential', 'narrow', 'wide'];
-  var BUILDING_VARIANT_NAMES = ['Grass', 'Empty lot', 'Home', 'Building', 'Building'];
+  var BUILDING_VARIANTS = ['waterfront', 'grass', 'fence', 'parking-lot', 'parking-lot-fence', 
+                           'residential', 'narrow', 'wide'];
+  var BUILDING_VARIANT_NAMES = ['Waterfront', 'Grass', 'Empty lot', 'Parking lot', 'Parking lot',
+                                'Home', 'Building', 'Building'];
 
   var MIN_CUSTOM_STREET_WIDTH = 10;
   var MAX_CUSTOM_STREET_WIDTH = 400;
@@ -2645,7 +2647,7 @@ var main = (function(){
 
     if (!flooredBuilding) {
       //var floorCount = 1;
-      var height = 10 * TILE_SIZE;
+      var height = 12 * TILE_SIZE;
     } else {
       var floorCount = left ? street.leftBuildingHeight : street.rightBuildingHeight;
       var height = (roofHeight + floorHeight * (floorCount - 1) + mainFloorHeight) * TILE_SIZE;
@@ -2676,35 +2678,78 @@ var main = (function(){
     }
 
     if (!attr.flooredBuilding) {
-      var width = 48;
       var tileset = 1;
-
-      if (left) {
-        var posShift = (totalWidth % width) - 121;
-      } else {
-        var posShift = 25;
-      }
 
       switch (attr.buildingVariant) {
         case 'fence': 
           if (left) {
-            var origPos = 1344 / 2;            
+            var x = 1344 / 2;            
           } else {
-            var origPos = 1224 / 2;            
+            var x = 1224 / 2;            
+          }
+          var width = 48;
+          var y = 0;
+          var height = 168 + 12;
+          var offsetY = 23 - 45 + 24;
+
+          if (left) {
+            var posShift = (totalWidth % width) - 121;
+          } else {
+            var posShift = 25;
           }
           break;
         case 'grass':
-          var origPos = 1104 / 2;
+          var x = 1104 / 2;
+          var width = 48;
+          var y = 0;
+          var height = 168 + 12;
+          var offsetY = 23 - 45 + 24;
+
+          if (left) {
+            var posShift = (totalWidth % width) - 121;
+          } else {
+            var posShift = 25;
+          }
+          break;
+        case 'waterfront':
+          var width = 120;
+          var height = 192 / 2;
+          var offsetY = 24;
+
+          if (left) {
+            var posShift = (totalWidth % width) - 265;
+            var y = 120;
+
+            var x = 0;
+            var lastX = 120;
+          } else {
+            var posShift = 25;
+            var y = 456 / 2;
+
+            var x = 120;
+            var firstX = 0;
+          }
+
           break;
       }
 
-      for (var i = 0; i < totalWidth / width + 1; i++) {
+      var count = Math.ceil(totalWidth / width) + 1;
+
+      for (var i = 0; i < count; i++) {
+        if ((i == 0) && (typeof firstX != 'undefined')) {
+          var currentX = firstX;
+        } else if ((i == count - 1) && (typeof lastX != 'undefined')) {
+          var currentX = lastX;
+        } else {
+          var currentX = x;
+        }
+
         _drawSegmentImage(tileset, ctx,
-            origPos, 0, width, 168 + 12,
+            currentX, y, width, height,
             offsetLeft + (posShift + i * width) * multiplier, 
-            offsetTop + (409 - 374 - 12) * multiplier, 
+            offsetTop + offsetY * multiplier, 
             width * multiplier, 
-            (168 + 12) * multiplier);
+            (height) * multiplier);
       }
     } else {
       // Floored buildings
