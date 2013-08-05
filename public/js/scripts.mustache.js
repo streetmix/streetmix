@@ -285,6 +285,7 @@ var main = (function(){
   var MIN_SEGMENT_WIDTH = 1;
   var MAX_SEGMENT_WIDTH = 400;
   var MAX_BUILDING_HEIGHT = 20;
+  var MAX_CANVAS_HEIGHT = 2048;
 
   var RESIZE_TYPE_INITIAL = 0;
   var RESIZE_TYPE_INCREMENT = 1;
@@ -2768,16 +2769,18 @@ var main = (function(){
 
     var attr = _getBuildingAttributes(street, left);
 
+    var height = Math.min(MAX_CANVAS_HEIGHT, attr.height);
+
     var canvasEl = document.createElement('canvas');
     canvasEl.width = totalWidth * system.hiDpi;
-    canvasEl.height = attr.height * system.hiDpi;
+    canvasEl.height = height * system.hiDpi;
     canvasEl.style.width = totalWidth + 'px';
-    canvasEl.style.height = attr.height + 'px';
+    canvasEl.style.height = height + 'px';
 
     el.appendChild(canvasEl);
 
     var ctx = canvasEl.getContext('2d');
-    _drawBuilding(ctx, BUILDING_DESTINATION_SCREEN, street, left, totalWidth, attr.height, false, 0, 0, 1.0);
+    _drawBuilding(ctx, BUILDING_DESTINATION_SCREEN, street, left, totalWidth, height, true, 0, 0, 1.0);
   }
 
   function _buildingHeightUpdated() {
@@ -8030,7 +8033,7 @@ var main = (function(){
       } else {
         el.addEventListener('click', _statusMessage.hide);        
       }
-      el.innerHTML = MSG('UI_GLYPH_X');
+      el.innerHTML = msg('UI_GLYPH_X');
       document.querySelector('#status-message > div').appendChild(el);      
 
       document.querySelector('#status-message').classList.add('visible');
