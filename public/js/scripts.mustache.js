@@ -3452,14 +3452,7 @@ var main = (function(){
       request = nonblockingAjaxRequests[0];
 
       if (request) {
-        if (request.request.url.indexOf('feedback') != -1) {
-          console.log('actually trying to send feedback…');
-        }
-
         if (!request.inProgress) {
-          if (request.request.url.indexOf('feedback') != -1) {
-            console.log('actually sending feedback…');
-          }
           request.inProgress = true;
 
           var query = jQuery.ajax(request.request).done(function(data) {
@@ -3467,8 +3460,6 @@ var main = (function(){
           }).fail(function(data) {
             _errorNonblockingAjaxRequest(data, request);
           });
-        } else {
-          console.log('cancelling; in progress…');
         }
       }
       
@@ -6577,8 +6568,6 @@ var main = (function(){
         additionalInformation: additionalInformation
       };
 
-      console.log('Sending feedback…');
-
       _newNonblockingAjaxRequest({
         // TODO const
         url: API_URL + 'v1/feedback',
@@ -6591,8 +6580,6 @@ var main = (function(){
   }
 
   function _feedbackFormSuccess() {
-    console.log('feedback success.');
-
     document.querySelector('#feedback-form .loading').classList.remove('visible');
     document.querySelector('#feedback-form .thank-you').classList.add('visible');
 
