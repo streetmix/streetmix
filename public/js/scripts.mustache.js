@@ -183,7 +183,7 @@ var main = (function(){
     // 13: bike rack elevation
     // 14: wayfinding has three types
     // 15: sidewalks have rand seed
-  var TILESET_IMAGE_VERSION = 52;
+  var TILESET_IMAGE_VERSION = 53;
   var TILESET_POINT_PER_PIXEL = 2.0;
   var TILE_SIZE = 12; // pixels
   var TILESET_CORRECTION = [null, 0, -84, -162];
@@ -1471,7 +1471,8 @@ var main = (function(){
   var INFO_BUBBLE_MARGIN_BUBBLE = 20;
   var INFO_BUBBLE_MARGIN_MOUSE = 10;
 
-  var PERSON_TYPES = 15;
+  var PERSON_TYPES = 30;
+  var PERSON_TILESET_WRAP = 10;
 
   var INFO_BUBBLE_TYPE_SEGMENT = 1;
   var INFO_BUBBLE_TYPE_LEFT_BUILDING = 2;
@@ -1654,6 +1655,7 @@ var main = (function(){
 
   var debug = {
     hoverPolygon: false,
+    canvasRectangles: false,
     forceLeftHandTraffic: false,
     forceMetric: false,
     forceUnsupportedBrowser: false,
@@ -1789,6 +1791,11 @@ var main = (function(){
         sx = 0;
       }
 
+      if (debug.canvasRectangles) {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+        ctx.fillRect(dx, dy, dw, dh);
+      }
+
       ctx.drawImage(images['/images/tiles-' + tileset + '.png'],
           sx * TILESET_POINT_PER_PIXEL, sy * TILESET_POINT_PER_PIXEL, 
           sw * TILESET_POINT_PER_PIXEL, sh * TILESET_POINT_PER_PIXEL,
@@ -1805,7 +1812,7 @@ var main = (function(){
     switch (variantArray['sidewalk-density']) {
       case 'empty':
         return;
-        break;  
+      // TODO const
       case 'sparse':
         var widthConst = 60;
         var widthRand = 100;
@@ -1827,7 +1834,7 @@ var main = (function(){
 
     var peopleCount = 0;
 
-    while ((!peopleCount) || (peopleWidth < width - 36)) {
+    while ((!peopleCount) || (peopleWidth < width - 45)) {
       var person = {};
       person.left = peopleWidth;
       do {
@@ -1847,14 +1854,21 @@ var main = (function(){
 
     for (var i in people) {
       var person = people[i];
-      _drawSegmentImage(2, ctx, 1056 + 12 + 48 * person.type, 0, 48, 24 * 4, 
-          offsetLeft + (person.left - 24 + startLeft) * multiplier, offsetTop + 35 * multiplier, 48 * multiplier, 24 * 4 * multiplier);
+      // TODO const
+
+      var typeX = person.type % PERSON_TILESET_WRAP;
+      var typeY = Math.floor(person.type / PERSON_TILESET_WRAP);
+
+      _drawSegmentImage(2, ctx, 
+          1008 + 12 * 5 * typeX, 1756 / 2 + 24 * 4 * typeY, 
+          12 * 5, 24 * 4, 
+          offsetLeft + (person.left - 30 + startLeft) * multiplier, 
+          offsetTop + 37 * multiplier, 
+          12 * 5 * multiplier, 24 * 4 * multiplier);
     }
   }
 
   function _getVariantInfoDimensions(variantInfo, initialSegmentWidth, multiplier) {
-    //var multiplier = palette ? (TILE_SIZE / WIDTH_PALETTE_MULTIPLIER) : 1;
-
     var segmentWidth = initialSegmentWidth / TILE_SIZE / multiplier;
 
     var center = segmentWidth / 2;
@@ -2614,7 +2628,7 @@ var main = (function(){
           var mainFloorHeight = 14;
           break;
         case 'residential':
-          var tilePositionX = 1956 + 382 + 204 + 25 - 1008 - 12 - 1;
+          var tilePositionX = 1956 + 382 + 204 + 25 - 1008 - 12 - 1 + 48;
           var tilePositionY = 576 + 740 / 2 - 1 - 12 + 237 + 6;
           var width = 396;
           var floorRoofWidth = 240;
@@ -5626,6 +5640,10 @@ var main = (function(){
     if (debug.hoverPolygon) {
       // TODO const
       url += '&debug-hover-polygon';
+    }
+    if (debug.canvasRectangles) {
+      // TODO const
+      url += '&debug-canvas-rectangles';
     }
     if (debug.forceLeftHandTraffic) {
       url += '&debug-force-left-hand-traffic';
@@ -9032,6 +9050,10 @@ var main = (function(){
     }
 
     // TODO better
+    if (url.match(/[\?\&]debug-canvas-rectangles\&?/)) {
+      debug.canvasRectangles = true;
+    }
+
     if (url.match(/[\?\&]debug-force-left-hand-traffic\&?/)) {
       debug.forceLeftHandTraffic = true;
     }
