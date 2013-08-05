@@ -3424,6 +3424,7 @@ var main = (function(){
     nonblockingAjaxRequests.push( 
       { request: request, allowToClosePage: allowToClosePage, 
         doneFunc: doneFunc, errorFunc: errorFunc,
+        inProgress: false,
         signature: signature }
     );
 
@@ -3451,16 +3452,24 @@ var main = (function(){
       request = nonblockingAjaxRequests[0];
 
       if (request) {
-
         if (request.request.url.indexOf('feedback') != -1) {
-          console.log('actually sending feedback…');
+          console.log('actually trying to send feedback…');
         }
 
-        var query = jQuery.ajax(request.request).done(function(data) {
-          _successNonblockingAjaxRequest(data, request);
-        }).fail(function(data) {
-          _errorNonblockingAjaxRequest(data, request);
-        });
+        if (!request.inProgress) {
+          if (request.request.url.indexOf('feedback') != -1) {
+            console.log('actually sending feedback…');
+          }
+          request.inProgress = true;
+
+          var query = jQuery.ajax(request.request).done(function(data) {
+            _successNonblockingAjaxRequest(data, request);
+          }).fail(function(data) {
+            _errorNonblockingAjaxRequest(data, request);
+          });
+        } else {
+          console.log('cancelling; in progress…');
+        }
       }
       
       _scheduleNextNonblockingAjaxRequest();
@@ -3496,6 +3505,8 @@ var main = (function(){
     if (request.errorFunc) {
       request.errorFunc(data);
     }    
+
+    request.inProgress = false;
   }
 
   function _successNonblockingAjaxRequest(data, request) {
