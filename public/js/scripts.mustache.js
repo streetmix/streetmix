@@ -3451,6 +3451,11 @@ var main = (function(){
       request = nonblockingAjaxRequests[0];
 
       if (request) {
+
+        if (request.request.url.indexOf('feedback') != -1) {
+          console.log('actually sending feedback…');
+        }
+
         var query = jQuery.ajax(request.request).done(function(data) {
           _successNonblockingAjaxRequest(data, request);
         }).fail(function(data) {
@@ -6561,6 +6566,8 @@ var main = (function(){
         additionalInformation: additionalInformation
       };
 
+      console.log('Sending feedback…');
+
       _newNonblockingAjaxRequest({
         // TODO const
         url: API_URL + 'v1/feedback',
@@ -6573,6 +6580,8 @@ var main = (function(){
   }
 
   function _feedbackFormSuccess() {
+    console.log('feedback success.');
+
     document.querySelector('#feedback-form .loading').classList.remove('visible');
     document.querySelector('#feedback-form .thank-you').classList.add('visible');
 
