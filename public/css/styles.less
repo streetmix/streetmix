@@ -931,6 +931,7 @@ body:not(.safari) .footer-canvas {
   position: absolute;
   height: @canvasHeight + 80;
   text-align: left;
+  z-index: 1;
 
   -webkit-transform: translateZ(0);
 
@@ -3052,7 +3053,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
 }
 
 .switching-in-pre {
-  z-index: 99999999 !important;
+  z-index: -1 !important;
 
   -webkit-perspective: 400px;
   -moz-perspective: 200px;
@@ -3071,7 +3072,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
   }
 }
 .switching-in-post {
-  z-index: 99999999 !important;  
+  z-index: -1 !important;  
 }
 .switching-in-post canvas {
   opacity: 1;
