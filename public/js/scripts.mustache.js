@@ -1820,12 +1820,12 @@ var main = (function(){
         var widthRand = 100;
         break;
       case 'normal':
-        var widthConst = 12;
+        var widthConst = 18;
         var widthRand = 60;
         break;
       case 'dense':
-        var widthConst = 12;
-        var widthRand = 12;
+        var widthConst = 18;
+        var widthRand = 18;
         break;
     }
 
