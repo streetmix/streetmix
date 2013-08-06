@@ -1472,6 +1472,9 @@ var main = (function(){
   var INFO_BUBBLE_MARGIN_MOUSE = 10;
 
   var PERSON_TYPES = 30;
+  var PERSON_CAN_GO_FIRST = [true, true, true, true, true, true, true, true, true, true,
+                             true, true, true, true, true, true, true, true, false, false,
+                             true, true, true, true, true, true, true, true, true, true];
   var PERSON_WIDTH = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 
                       2, 2, 2, 3, 2, 3, 3, 3, 3, 3,
                       1, 1, 3, 4, 2, 3, 2, 3, 4, 3];
@@ -1842,7 +1845,7 @@ var main = (function(){
       person.left = peopleWidth;
       do {
         person.type = Math.floor(randomGenerator.rand() * PERSON_TYPES);
-      } while (person.type == lastPersonType);
+      } while ((person.type == lastPersonType) || (!peopleCount && !PERSON_CAN_GO_FIRST[person.type]));
       lastPersonType = person.type;
 
       var lastWidth = widthConst + PERSON_WIDTH[person.type] * 12 - 24 + randomGenerator.rand() * widthRand;
