@@ -2345,7 +2345,8 @@ body:not(.touch-support):not(.read-only) #street-name {
 }
 body:not(.read-only) #street-width-read {
   cursor: pointer;
-  &:hover {
+  &:hover,
+  &:hover * {
     color: darken(@topMenuHoverText, 20%);
   }
   &::after {

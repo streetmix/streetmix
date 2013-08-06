@@ -2388,6 +2388,9 @@ var main = (function(){
         if (widthText.substr(widthText.length - 1) == '.') {
           widthText = widthText.substr(0, widthText.length - 1);
         }
+        if (!widthText) {
+          widthText = '0';
+        }
 
         switch (purpose) {
           case PRETTIFY_WIDTH_OUTPUT_NO_MARKUP:
