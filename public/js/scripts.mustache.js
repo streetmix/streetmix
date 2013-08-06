@@ -2675,8 +2675,7 @@ var main = (function(){
   }
 
   function _drawBuilding(ctx, destination, street, left, totalWidth, totalHeight, bottomAligned, offsetLeft, offsetTop, multiplier) {
-    //var attr = _getBuildingAttributes(street, left);
-    _drawBuildingPiece(ctx, destination, street, left, totalWidth, totalHeight, bottomAligned, offsetLeft, offsetTop, multiplier);
+
 
     if ((left && street.leftBuildingVariant == 'parking-lot-fence') ||
         (!left && street.rightBuildingVariant == 'parking-lot-fence')) {
@@ -2686,6 +2685,9 @@ var main = (function(){
       temp.rightBuildingVariant = 'fence-for-parking-lot-TEMP';
       _drawBuildingPiece(ctx, destination, temp, left, totalWidth, totalHeight, bottomAligned, offsetLeft, offsetTop, multiplier);
     }
+
+    //var attr = _getBuildingAttributes(street, left);
+    _drawBuildingPiece(ctx, destination, street, left, totalWidth, totalHeight, bottomAligned, offsetLeft, offsetTop, multiplier);
   }
 
   function _drawBuildingPiece(ctx, destination, street, left, totalWidth, totalHeight, bottomAligned, offsetLeft, offsetTop, multiplier) {
