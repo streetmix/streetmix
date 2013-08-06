@@ -1853,7 +1853,16 @@ var main = (function(){
     }
     peopleWidth -= lastWidth;
 
-    var startLeft = (width - peopleWidth) / 2 + 6;
+    var startLeft = (width - peopleWidth) / 2;
+
+    var firstPersonCorrection = (4 - PERSON_WIDTH[people[0].type]) * 12 / 2;
+    if (people.length == 1) {
+      startLeft += firstPersonCorrection;
+    } else {
+      var lastPersonCorrection = (4 - PERSON_WIDTH[people[people.length - 1].type]) * 12 / 2;
+
+      startLeft += (firstPersonCorrection + lastPersonCorrection) / 2;
+    }
 
     for (var i in people) {
       var person = people[i];
