@@ -1474,6 +1474,9 @@ var main = (function(){
   var INFO_BUBBLE_MARGIN_MOUSE = 10;
 
   var PERSON_TYPES = 30;
+  var PERSON_WIDTH = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 
+                      2, 2, 2, 3, 2, 3, 3, 3, 3, 3,
+                      1, 1, 3, 4, 2, 3, 2, 3, 4, 3];
   var PERSON_TILESET_WRAP = 10;
 
   var INFO_BUBBLE_TYPE_SEGMENT = 1;
@@ -1844,7 +1847,7 @@ var main = (function(){
       } while (person.type == lastPersonType);
       lastPersonType = person.type;
 
-      var lastWidth = widthConst + randomGenerator.rand() * widthRand;
+      var lastWidth = widthConst + PERSON_WIDTH[person.type] * 12 - 24 + randomGenerator.rand() * widthRand;
 
       peopleWidth += lastWidth;
       people.push(person);
@@ -1852,7 +1855,7 @@ var main = (function(){
     }
     peopleWidth -= lastWidth;
 
-    var startLeft = (width - peopleWidth) / 2;
+    var startLeft = (width - peopleWidth) / 2 + 6;
 
     for (var i in people) {
       var person = people[i];
@@ -1861,10 +1864,12 @@ var main = (function(){
       var typeX = person.type % PERSON_TILESET_WRAP;
       var typeY = Math.floor(person.type / PERSON_TILESET_WRAP);
 
+      //console.log(PERSON_WIDTH[person.type]);
+
       _drawSegmentImage(2, ctx, 
           1008 + 12 * 5 * typeX, 1756 / 2 + 24 * 4 * typeY, 
           12 * 5, 24 * 4, 
-          offsetLeft + (person.left - 30 + startLeft) * multiplier, 
+          offsetLeft + (person.left - 5 * 12 / 2 - (4 - PERSON_WIDTH[person.type]) * 12 / 2 + startLeft) * multiplier, 
           offsetTop + 37 * multiplier, 
           12 * 5 * multiplier, 24 * 4 * multiplier);
     }
