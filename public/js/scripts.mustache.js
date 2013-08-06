@@ -6253,6 +6253,8 @@ var main = (function(){
 
     _propagateUnits();
 
+    _recalculateOccupiedWidth();
+
     // TODO this is stupid, only here to fill some structures
     _createDomFromData();
     _createDataFromDom();
