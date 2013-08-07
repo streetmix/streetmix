@@ -1929,7 +1929,7 @@ var main = (function(){
     var variantInfo = SEGMENT_INFO[type].details[variantString];
 
     if (!variantInfo) {
-      console.log('ERROR', variantString);
+      console.log('ERROR2', type, variantString);
     }
     var dimensions = _getVariantInfoDimensions(variantInfo, segmentWidth, multiplier);
     var left = dimensions.left;
@@ -2031,6 +2031,9 @@ var main = (function(){
     var variantInfo = SEGMENT_INFO[type].details[variantString];
 
     var multiplier = palette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1;
+    if (!variantInfo) {
+      console.log('ERROR3', type, variantString);
+    }
     var dimensions = _getVariantInfoDimensions(variantInfo, segmentWidth, multiplier);
 
     var totalWidth = dimensions.right - dimensions.left;
@@ -8668,6 +8671,9 @@ var main = (function(){
       var segment = street.segments[i];
       var segmentInfo = SEGMENT_INFO[segment.type];
       var variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString];
+      if (!variantInfo) {
+        console.log('ERROR1', segment.type, segment.variantString);
+      }
       var dimensions = _getVariantInfoDimensions(variantInfo, segment.width * TILE_SIZE, 1);
 
       _drawSegmentContents(ctx, segment.type, segment.variantString, 
