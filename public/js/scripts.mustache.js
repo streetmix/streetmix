@@ -1928,6 +1928,9 @@ var main = (function(){
     var segmentInfo = SEGMENT_INFO[type];
     var variantInfo = SEGMENT_INFO[type].details[variantString];
 
+    if (!variantInfo) {
+      console.log('ERROR', variantString);
+    }
     var dimensions = _getVariantInfoDimensions(variantInfo, segmentWidth, multiplier);
     var left = dimensions.left;
     var right = dimensions.right;
