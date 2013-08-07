@@ -68,6 +68,8 @@ var main = (function(){
     SEGMENT_NAME_EMPTY: 'Empty space'
   };
 
+  var FLAG_SAVE_UNDO = false; // true to save undo with street data, false to not save undo
+
   var SITE_URL = 'http://{{app_host_port}}/';
   var API_URL = '{{{restapi_proxy_baseuri_rel}}}/';
 
@@ -167,7 +169,7 @@ var main = (function(){
   var BUILDING_DESTINATION_SCREEN = 1;
   var BUILDING_DESTINATION_THUMBNAIL = 2;
 
-  var LATEST_SCHEMA_VERSION = 15;
+  var LATEST_SCHEMA_VERSION = 16;
     // 1: starting point
     // 2: adding leftBuildingHeight and rightBuildingHeight
     // 3: adding leftBuildingVariant and rightBuildingVariant
@@ -183,6 +185,7 @@ var main = (function(){
     // 13: bike rack elevation
     // 14: wayfinding has three types
     // 15: sidewalks have rand seed
+    // 16: stop saving undo stack
   var TILESET_IMAGE_VERSION = 52;
   var TILESET_POINT_PER_PIXEL = 2.0;
   var TILE_SIZE = 12; // pixels
@@ -261,7 +264,7 @@ var main = (function(){
 
   var MAX_DRAG_DEGREE = 20;
 
-  var UNDO_LIMIT = 100;
+  var UNDO_LIMIT = 1000;
 
   var STREET_WIDTH_CUSTOM = -1;
   var STREET_WIDTH_SWITCH_TO_METRIC = -2;
@@ -3324,6 +3327,10 @@ var main = (function(){
           }
         }
         break;
+      case 15:
+        undoStack = [];
+        undoPosition = 0;
+        break;
     }
 
     street.schemaVersion++;
@@ -3353,8 +3360,13 @@ var main = (function(){
   function _unpackServerStreetData(transmission, id, namespacedId, checkIfNeedsToBeRemixed) {
     street = _unpackStreetDataFromServerTransmission(transmission);
 
-    undoStack = _clone(transmission.data.undoStack);
-    undoPosition = transmission.data.undoPosition;
+    if (transmission.data.undoStack) {
+      undoStack = _clone(transmission.data.undoStack);
+      undoPosition = transmission.data.undoPosition;
+    } else {
+      undoStack = [];
+      undoPosition = 0;
+    }
 
     var updatedSchema = _updateToLatestSchemaVersion(street);
     for (var i = 0; i < undoStack.length; i++) {
@@ -3395,8 +3407,10 @@ var main = (function(){
     // This will be implied through authorization header
     delete data.street.creatorId;
 
-    data.undoStack = _clone(undoStack);
-    data.undoPosition = undoPosition;
+    if (FLAG_SAVE_UNDO) {
+      data.undoStack = _clone(undoStack);
+      data.undoPosition = undoPosition;
+    }
 
     var transmission = {
       name: street.name,
