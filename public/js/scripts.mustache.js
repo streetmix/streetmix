@@ -280,7 +280,7 @@ var main = (function(){
   var DEFAULT_BUILDING_HEIGHT_EMPTY = 1;
   var DEFAULT_BUILDING_VARIANT_EMPTY = 'grass';
 
-  var BUILDING_VARIANTS = ['waterfront', 'grass', 'fence', 'parking-lot', 'parking-lot-fence', 
+  var BUILDING_VARIANTS = ['waterfront', 'grass', 'fence', 'parking-lot', 
                            'residential', 'narrow', 'wide'];
   var BUILDING_VARIANT_NAMES = ['Waterfront', 'Grass', 'Empty lot', 'Parking lot', 'Parking lot',
                                 'Home', 'Building', 'Building'];
@@ -501,7 +501,6 @@ var main = (function(){
     'building|grass': { x: 2, y: 4, title: 'Grass' },
     'building|fence': { x: 3, y: 4, title: 'Fence' },
     'building|parking-lot': { x: 0, y: 3, title: 'Parking lot' },
-    'building|parking-lot-fence': { x: 0, y: 3, title: 'Parking lot' },
     'building|residential': { x: 7, y: 3, title: 'Residential building' },
     'building|narrow': { x: 7, y: 2, title: 'Narrow building' },
     'building|wide': { x: 8, y: 2, title: 'Wide building' },
@@ -2630,11 +2629,9 @@ var main = (function(){
         var height = 12 * TILE_SIZE;
         break;
       case 'parking-lot':
-      case 'parking-lot-fence':
         var height = 28 * TILE_SIZE;
         break;
       case 'fence':
-      case 'fence-for-parking-lot-TEMP':
         var height = 12 * TILE_SIZE;
         break;
       case 'grass':
@@ -2702,18 +2699,6 @@ var main = (function(){
   }
 
   function _drawBuilding(ctx, destination, street, left, totalWidth, totalHeight, bottomAligned, offsetLeft, offsetTop, multiplier) {
-
-
-    if ((left && street.leftBuildingVariant == 'parking-lot-fence') ||
-        (!left && street.rightBuildingVariant == 'parking-lot-fence')) {
-      // TODO temporary
-      var temp = _trimStreetData(street);
-      temp.leftBuildingVariant = 'fence-for-parking-lot-TEMP';
-      temp.rightBuildingVariant = 'fence-for-parking-lot-TEMP';
-      _drawBuildingPiece(ctx, destination, temp, left, totalWidth, totalHeight, bottomAligned, offsetLeft, offsetTop, multiplier);
-    }
-
-    //var attr = _getBuildingAttributes(street, left);
     _drawBuildingPiece(ctx, destination, street, left, totalWidth, totalHeight, bottomAligned, offsetLeft, offsetTop, multiplier);
   }
 
@@ -2744,25 +2729,6 @@ var main = (function(){
             var posShift = 25;
           }
           break;
-        case 'fence-for-parking-lot-TEMP': 
-          var tileset = 1;
-          if (left) {
-            var x = 1344 / 2;            
-          } else {
-            var x = 1224 / 2;            
-          }
-          var width = 48;
-          var y = 11 * 12;
-          var height = 168 + 12 - 24 - 24 - 24;
-          var offsetY = 23 - 45 + 24 - 3;
-
-          if (left) {
-            var posShift = (totalWidth % width) - 121;
-          } else {
-            var posShift = 25;
-          }
-          break;
-
         case 'grass':
           var tileset = 1;
           var x = 1104 / 2;
@@ -2779,7 +2745,6 @@ var main = (function(){
           break;
 
         case 'parking-lot':
-        case 'parking-lot-fence':
           var tileset = 3;
           var width = 108 * 2;
           var height = 576 / 2;
