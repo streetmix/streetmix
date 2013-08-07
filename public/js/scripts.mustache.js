@@ -6323,9 +6323,9 @@ var main = (function(){
 
       var anchorEl = document.createElement('a');
 
-      if (!galleryUserId && (galleryStreet.data.undoStack.length <= 4)) {
+      /*if (!galleryUserId && (galleryStreet.data.undoStack.length <= 4)) {
         anchorEl.classList.add('virgin');
-      }
+      }*/
 
       galleryStreet.creatorId = 
           (galleryStreet.creator && galleryStreet.creator.id);
