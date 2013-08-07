@@ -68,6 +68,8 @@ var main = (function(){
     SEGMENT_NAME_EMPTY: 'Empty space'
   };
 
+  var FLAG_SAVE_UNDO = false; // true to save undo with street data, false to not save undo
+
   var SITE_URL = 'http://{{app_host_port}}/';
   var API_URL = '{{{restapi_proxy_baseuri_rel}}}/';
 
@@ -167,7 +169,7 @@ var main = (function(){
   var BUILDING_DESTINATION_SCREEN = 1;
   var BUILDING_DESTINATION_THUMBNAIL = 2;
 
-  var LATEST_SCHEMA_VERSION = 15;
+  var LATEST_SCHEMA_VERSION = 16;
     // 1: starting point
     // 2: adding leftBuildingHeight and rightBuildingHeight
     // 3: adding leftBuildingVariant and rightBuildingVariant
@@ -183,6 +185,7 @@ var main = (function(){
     // 13: bike rack elevation
     // 14: wayfinding has three types
     // 15: sidewalks have rand seed
+    // 16: stop saving undo stack
   var TILESET_IMAGE_VERSION = 54;
   var TILESET_POINT_PER_PIXEL = 2.0;
   var TILE_SIZE = 12; // pixels
@@ -261,7 +264,7 @@ var main = (function(){
 
   var MAX_DRAG_DEGREE = 20;
 
-  var UNDO_LIMIT = 100;
+  var UNDO_LIMIT = 1000;
 
   var STREET_WIDTH_CUSTOM = -1;
   var STREET_WIDTH_SWITCH_TO_METRIC = -2;
@@ -1959,6 +1962,9 @@ var main = (function(){
     var segmentInfo = SEGMENT_INFO[type];
     var variantInfo = SEGMENT_INFO[type].details[variantString];
 
+    if (!variantInfo) {
+      console.log('ERROR2', type, variantString);
+    }
     var dimensions = _getVariantInfoDimensions(variantInfo, segmentWidth, multiplier);
     var left = dimensions.left;
     var right = dimensions.right;
@@ -2059,6 +2065,9 @@ var main = (function(){
     var variantInfo = SEGMENT_INFO[type].details[variantString];
 
     var multiplier = palette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1;
+    if (!variantInfo) {
+      console.log('ERROR3', type, variantString);
+    }
     var dimensions = _getVariantInfoDimensions(variantInfo, segmentWidth, multiplier);
 
     var totalWidth = dimensions.right - dimensions.left;
@@ -3466,6 +3475,10 @@ var main = (function(){
           }
         }
         break;
+      case 15:
+        undoStack = [];
+        undoPosition = 0;
+        break;
     }
 
     street.schemaVersion++;
@@ -3495,8 +3508,13 @@ var main = (function(){
   function _unpackServerStreetData(transmission, id, namespacedId, checkIfNeedsToBeRemixed) {
     street = _unpackStreetDataFromServerTransmission(transmission);
 
-    undoStack = _clone(transmission.data.undoStack);
-    undoPosition = transmission.data.undoPosition;
+    if (transmission.data.undoStack) {
+      undoStack = _clone(transmission.data.undoStack);
+      undoPosition = transmission.data.undoPosition;
+    } else {
+      undoStack = [];
+      undoPosition = 0;
+    }
 
     var updatedSchema = _updateToLatestSchemaVersion(street);
     for (var i = 0; i < undoStack.length; i++) {
@@ -3537,8 +3555,10 @@ var main = (function(){
     // This will be implied through authorization header
     delete data.street.creatorId;
 
-    data.undoStack = _clone(undoStack);
-    data.undoPosition = undoPosition;
+    if (FLAG_SAVE_UNDO) {
+      data.undoStack = _clone(undoStack);
+      data.undoPosition = undoPosition;
+    }
 
     var transmission = {
       name: street.name,
@@ -6460,9 +6480,9 @@ var main = (function(){
 
       var anchorEl = document.createElement('a');
 
-      if (!galleryUserId && (galleryStreet.data.undoStack.length <= 4)) {
+      /*if (!galleryUserId && (galleryStreet.data.undoStack.length <= 4)) {
         anchorEl.classList.add('virgin');
-      }
+      }*/
 
       galleryStreet.creatorId = 
           (galleryStreet.creator && galleryStreet.creator.id);
@@ -8808,6 +8828,9 @@ var main = (function(){
       var segment = street.segments[i];
       var segmentInfo = SEGMENT_INFO[segment.type];
       var variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString];
+      if (!variantInfo) {
+        console.log('ERROR1', segment.type, segment.variantString);
+      }
       var dimensions = _getVariantInfoDimensions(variantInfo, segment.width * TILE_SIZE, 1);
 
       _drawSegmentContents(ctx, segment.type, segment.variantString, 
