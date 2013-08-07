@@ -282,7 +282,7 @@ var main = (function(){
 
   var BUILDING_VARIANTS = ['waterfront', 'grass', 'fence', 'parking-lot', 
                            'residential', 'narrow', 'wide'];
-  var BUILDING_VARIANT_NAMES = ['Waterfront', 'Grass', 'Empty lot', 'Parking lot', 'Parking lot',
+  var BUILDING_VARIANT_NAMES = ['Waterfront', 'Grass', 'Empty lot', 'Parking lot', 
                                 'Home', 'Building', 'Building'];
 
   var MIN_CUSTOM_STREET_WIDTH = 10;
@@ -499,9 +499,9 @@ var main = (function(){
     'bike-rack-elevation|road': { x: 5, y: 2, title: 'Road' },
     'building|waterfront': { x: 9, y: 4, title: 'Waterfront' },
     'building|grass': { x: 2, y: 4, title: 'Grass' },
-    'building|fence': { x: 3, y: 4, title: 'Fence' },
+    'building|fence': { x: 3, y: 4, title: 'Empty lot' },
     'building|parking-lot': { x: 0, y: 3, title: 'Parking lot' },
-    'building|residential': { x: 7, y: 3, title: 'Residential building' },
+    'building|residential': { x: 7, y: 3, title: 'Home' },
     'building|narrow': { x: 7, y: 2, title: 'Narrow building' },
     'building|wide': { x: 8, y: 2, title: 'Wide building' },
     'wayfinding-type|large': { x: 8, y: 3, title: 'Large' },
