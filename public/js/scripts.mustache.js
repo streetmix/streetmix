@@ -186,7 +186,7 @@ var main = (function(){
     // 14: wayfinding has three types
     // 15: sidewalks have rand seed
     // 16: stop saving undo stack
-  var TILESET_IMAGE_VERSION = 54;
+  var TILESET_IMAGE_VERSION = 55;
   var TILESET_POINT_PER_PIXEL = 2.0;
   var TILE_SIZE = 12; // pixels
   var TILESET_CORRECTION = [null, 0, -84, -162];
