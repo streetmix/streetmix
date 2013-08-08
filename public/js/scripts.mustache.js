@@ -1928,9 +1928,6 @@ var main = (function(){
     var segmentInfo = SEGMENT_INFO[type];
     var variantInfo = SEGMENT_INFO[type].details[variantString];
 
-    if (!variantInfo) {
-      console.log('ERROR2', type, variantString);
-    }
     var dimensions = _getVariantInfoDimensions(variantInfo, segmentWidth, multiplier);
     var left = dimensions.left;
     var right = dimensions.right;
@@ -2031,9 +2028,6 @@ var main = (function(){
     var variantInfo = SEGMENT_INFO[type].details[variantString];
 
     var multiplier = palette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1;
-    if (!variantInfo) {
-      console.log('ERROR3', type, variantString);
-    }
     var dimensions = _getVariantInfoDimensions(variantInfo, segmentWidth, multiplier);
 
     var totalWidth = dimensions.right - dimensions.left;
@@ -5668,6 +5662,9 @@ var main = (function(){
     if (debug.forceTouch) {
       url += '&debug-force-touch';
     }
+    if (debug.forceLiveUpdate) {
+      url += '&debug-force-live-update';      
+    }
 
     url = url.replace(/\&/, '?');
 
@@ -8587,6 +8584,64 @@ var main = (function(){
     }
   }
 
+  // TODO move
+  var LIVE_UPDATE_DELAY = 1000; // 5000
+
+  function _scheduleNextLiveUpdateCheck() {
+    window.setTimeout(_checkForLiveUpdate, LIVE_UPDATE_DELAY);
+  }
+
+  function _checkForLiveUpdate() {
+    console.log('checking for live update…');
+
+    var url = _getFetchStreetUrl();
+
+    jQuery.ajax({
+      url: url,
+      dataType: 'json',
+      type: 'HEAD'
+    }).done(_receiveLiveUpdateCheck);
+  }
+
+  function _receiveLiveUpdateCheck(data, textStatus, jqXHR) {
+    var newUpdatedDate = 
+        Math.floor((new Date(jqXHR.getResponseHeader('last-modified')).getTime()) / 1000);
+    var oldUpdatedDate = 
+        Math.floor((new Date(street.updatedAt).getTime()) / 1000);
+
+    if (newUpdatedDate != oldUpdatedDate) {
+      var url = _getFetchStreetUrl();
+      jQuery.ajax({
+        url: url,
+        dataType: 'json',
+        type: 'GET'
+      }).done(_receiveLiveUpdateStreet);
+      //console.log(newUpdatedDate, '!!!', oldUpdatedDate);
+    }
+
+    _scheduleNextLiveUpdateCheck();
+  }
+
+  function _flash() {
+    document.querySelector('#flash').classList.add('visible');
+
+    window.setTimeout(function() {
+      document.querySelector('#flash').classList.remove('visible');
+      document.querySelector('#flash').classList.add('fading-out');
+    }, 0);
+
+    window.setTimeout(function() {
+      document.querySelector('#flash').classList.remove('fading-out');
+    }, 1000);
+  }
+
+  function _receiveLiveUpdateStreet(transmission) {
+    _unpackServerStreetData(transmission, null, null, false);
+    _updateEverything(true);
+
+    _flash();
+  }
+
   function _onEverythingLoaded() {
     switch (mode) {
       case MODE_NEW_STREET:
@@ -8629,6 +8684,10 @@ var main = (function(){
     }
 
     window.setTimeout(_hideLoadingScreen, 0);
+
+    if (debug.forceLiveUpdate) {
+      _scheduleNextLiveUpdateCheck();
+    }
   }
 
   function _drawStreetThumbnail(ctx, street, thumbnailWidth, thumbnailHeight, multiplier, silhouette, bottomAligned) {
@@ -8671,9 +8730,6 @@ var main = (function(){
       var segment = street.segments[i];
       var segmentInfo = SEGMENT_INFO[segment.type];
       var variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString];
-      if (!variantInfo) {
-        console.log('ERROR1', segment.type, segment.variantString);
-      }
       var dimensions = _getVariantInfoDimensions(variantInfo, segment.width * TILE_SIZE, 1);
 
       _drawSegmentContents(ctx, segment.type, segment.variantString, 
@@ -9085,6 +9141,10 @@ var main = (function(){
 
     if (url.match(/[\?\&]debug-force-touch\&?/)) {
       debug.forceTouch = true;
+    }
+
+    if (url.match(/[\?\&]debug-force-live-update\&?/)) {
+      debug.forceLiveUpdate = true;
     }
   }
 

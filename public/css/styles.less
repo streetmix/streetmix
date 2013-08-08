@@ -3201,3 +3201,25 @@ body:not(.touch-support) .touch-only {
 body.touch-support .non-touch-only {
   display: none;
 }
+
+#flash {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: white;
+  z-index: 999999999999999;
+
+  display: none;
+
+  &.visible {
+    display: block;
+    opacity: 1;
+  }
+  &.fading-out {
+    display: block;
+    opacity: 0;
+    -webkit-transition: opacity 1000ms;
+  }
+}
