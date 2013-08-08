@@ -6062,6 +6062,7 @@ var main = (function(){
     }
 
     document.querySelector('#welcome').classList.add('visible');
+    document.querySelector('#street-name-canvas').classList.add('hidden');
   }
 
   function _hideWelcome() {
@@ -6069,6 +6070,7 @@ var main = (function(){
     _saveSettingsWelcomeDismissed();
 
     document.querySelector('#welcome').classList.remove('visible');
+    document.querySelector('#street-name-canvas').classList.remove('hidden');
   }
 
   function _showAboutMenu(event) {
