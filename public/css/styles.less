@@ -1532,6 +1532,10 @@ body.segment-move-dragging #editable-street-section > div {
   top: 5px;
 }
 
+#welcome-avatar-creator:not(.visible) {
+  display: none;
+}
+
 body.phone #error,
 body.phone #loading {
   font-size: 32px;
@@ -2241,7 +2245,8 @@ body.windows .street-name > div {
   
   white-space: nowrap;
 
-  & > div {
+  & > div,
+  & > span {
     .street-name-inside-mixin;
 
     font-family: 'Roadgeek', sans-serif;
@@ -2257,20 +2262,26 @@ body.windows .street-name > div {
     .street-name-fallback-mixin;
   }
 }
-#gallery .streets .street-name {
+#gallery .streets .street-name,
+#welcome .street-name {
   .street-name-mixin (@streetNameGallerySize);
   max-width: 100%;
 
   position: relative;
   top: -15px;
 
-  & > div {
+  & > div,
+  & > span {
     .street-name-inside-mixin (@streetNameGallerySize);    
   }
 
   &.fallback-unicode-font > div {
     .street-name-fallback-mixin (@streetNameGallerySize);
   }
+}
+#welcome .street-name {
+  display: inline-block;
+  top: 0;
 }
 
 #street-name {
@@ -2475,8 +2486,9 @@ body.read-only #street-metadata-author a {
   
   pointer-events: none;
 
-  &:not(.first-time) .first-time,
-  &:not(.next-time) .next-time {
+  &:not(.first-time-new-street) .first-time-new-street,
+  &:not(.first-time-existing-street) .first-time-existing-street,
+  &:not(.new-street) .new-street {
     display: none;
   }
 
@@ -2495,6 +2507,9 @@ body.read-only #street-metadata-author a {
 
     color: rgb(64, 64, 64);
   }
+  button {
+    font-size: 100%;
+  }
   ul,
   p {
     display: inline-block;
@@ -2506,10 +2521,9 @@ body.read-only #street-metadata-author a {
   p {
     line-height: 1.5;
     display: block;
-    max-width: 600px;
+    max-width: 700px;
 
     &.important {
-      color: darken(@uiColour, 40%);
     }
   }
   li {

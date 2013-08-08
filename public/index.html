@@ -256,7 +256,7 @@
     <div id='welcome'>
       <div>
         <button class='close'>×</button>
-        <div class='first-time'>
+        <div class='first-time-new-street'>
           <h1>
             Welcome to Streetmix.
           </h1>
@@ -270,7 +270,26 @@
             <span class='non-touch-only'>your mouse.</span>
           </p>
         </div>
-        <div class='next-time'>
+
+        <div class='first-time-existing-street'>
+          <h1>
+            Welcome to Streetmix.
+          </h1>
+          <p>
+            This is
+             <span class='street-name'><span id='welcome-street-name'></span></span>
+             <span id='welcome-avatar-creator'>
+               by 
+               <span class='avatar' id='welcome-avatar' userId=''></span><span id='welcome-creator'></span>
+             </span>.
+          </p>
+          <p class='important'>
+            Remix it by moving some segments around,
+             or <button id='welcome-new-street'>Start your own street</button>.
+          </p>
+        </div>
+
+        <div class='new-street'>
           <h1>
             Here’s your new street.
           </h1>
