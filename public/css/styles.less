@@ -3208,9 +3208,8 @@ body.touch-support .non-touch-only {
   right: 0;
   top: 0;
   bottom: 0;
-  //background: white;
   border: 20px solid white;
-  z-index: 999999999999999;
+  z-index: 9999999;
 
   display: none;
 
@@ -3219,10 +3218,11 @@ body.touch-support .non-touch-only {
     opacity: 1;
   }
   &.fading-out {
-    display: block;
-    opacity: 0;
     -webkit-transition: opacity 1000ms;
     -moz-transition: opacity 1000ms;
     transition: opacity 1000ms;
+
+    display: block;
+    opacity: 0;
   }
 }

@@ -8626,11 +8626,11 @@ var main = (function(){
     document.querySelector('#flash').classList.add('visible');
 
     window.setTimeout(function() {
-      document.querySelector('#flash').classList.remove('visible');
       document.querySelector('#flash').classList.add('fading-out');
-    }, 0);
+    }, 100);
 
     window.setTimeout(function() {
+      document.querySelector('#flash').classList.remove('visible');
       document.querySelector('#flash').classList.remove('fading-out');
     }, 1000);
   }
@@ -8639,7 +8639,7 @@ var main = (function(){
     window.setTimeout(function() {
       _unpackServerStreetData(transmission, null, null, false);
       _updateEverything(true);
-    }, 750);
+    }, 1000);
 
     _flash();
   }
