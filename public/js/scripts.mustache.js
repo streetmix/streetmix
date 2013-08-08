@@ -8585,7 +8585,7 @@ var main = (function(){
   }
 
   // TODO move
-  var LIVE_UPDATE_DELAY = 1000; // 5000
+  var LIVE_UPDATE_DELAY = 5000;
 
   function _scheduleNextLiveUpdateCheck() {
     window.setTimeout(_checkForLiveUpdate, LIVE_UPDATE_DELAY);
