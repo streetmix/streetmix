@@ -8636,8 +8636,10 @@ var main = (function(){
   }
 
   function _receiveLiveUpdateStreet(transmission) {
-    _unpackServerStreetData(transmission, null, null, false);
-    _updateEverything(true);
+    window.setTimeout(function() {
+      _unpackServerStreetData(transmission, null, null, false);
+      _updateEverything(true);
+    }, 750);
 
     _flash();
   }
