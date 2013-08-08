@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<title>Streetmix live view dashboard</title>
+<style>
+  html {
+    height: 100%;
+  }
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: black;
+  }
+  body,
+  body * {
+    cursor: none;
+  }
+  header {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 110px;
+    text-align: center;
+    font-size: 40px;
+    letter-spacing: 4px;
+    text-rendering: optimizeLegibility;
+    font-weight: 100;
+    color: white;
+    line-height: 110px;
+
+    font-family: 'Helvetica Neue';
+    text-transform: uppercase;
+  }
+  header strong {
+    font-weight: 300;
+  }
+  #streets {
+    position: absolute;
+    top: 100px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  #streets > div {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    -webkit-perspective: 1200px;
+    -moz-perspective: 1200px;
+  }
+  #streets > div > div {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+  }
+  #streets > div > div > iframe {
+    border: 0;
+    position: absolute;
+
+    -webkit-transform: scale(.33);
+    -webkit-transform-origin: 0 0;
+    -moz-transform: scale(.33);
+    -moz-transform-origin: 0 0;
+  }
+
+  #streets > div > div.hide {
+    -webkit-transition: all 1000ms;
+    -moz-transition: all 1000ms;
+
+    opacity: 0;
+
+    -webkit-transform: rotateX(90deg) scale(1.1);
+    -moz-transform: rotateX(90deg) scale(1.1);
+    z-index: 10;
+  }
+  #streets > div > div.in-between {
+    opacity: 0;
+    -webkit-transform: rotateX(-90deg) scale(1.1);
+    -moz-transform: rotateX(-90deg) scale(1.1);
+    z-index: 10;
+  }
+  #streets > div > div.show {
+    -webkit-transition: all 1000ms;
+    -moz-transition: all 1000ms;
+
+    opacity: 1;
+    
+    -webkit-transform: rotateX(0);
+    -moz-transform: rotateX(0);
+  }
+</style>
+
+<script src='jquery-1.9.1.min.js'></script>
+
+<script>
+  var FRAME_WIDTH = 400;
+  var FRAME_HEIGHT = 200;
+
+  var ZOOM = 3;
+  var PADDING = 20;
+
+  var CHECK_INTERVAL = 20000;
+
+  var streetCount;
+
+  function getStreetUrl(street) {
+    var url = 'http://streetmix.net/';
+
+    if (street.creator) {
+      url += street.creator.id;
+    } else {
+      url += '-';
+    }
+
+    url += '/';
+
+    url += street.namespacedId;
+
+    url += '?debug-force-read-only&debug-force-live-update';
+
+    return url;
+  }
+
+  function getStreetsAgain() {
+    jQuery.ajax({
+      url: 'http://streetmix.net/__api__/v1/streets?count=' + streetCount,
+      dataType: 'json',
+      type: 'GET'
+    }).done(receiveStreetsAgain);    
+  }
+
+  function receiveStreetsAgain(data) {
+    var street = data.streets[0];
+    var newUrl = getStreetUrl(street);
+
+    var els = document.querySelectorAll('iframe');
+    var found = false;
+    for (var i = 0, el; el = els[i]; i++) {
+      if (el.realSrc == newUrl) {
+        found = true;
+        break;
+      }
+    }
+
+    /*if (Math.random() < .1) {
+      found = false;
+    }*/
+
+    if (!found) {
+      var rand = Math.floor(Math.random() * streetCount);
+
+      console.log('!!!', newUrl, rand);
+
+      var el = document.querySelector('#street-' + rand);
+
+      el.realSrc = newUrl;
+
+      el.parentNode.classList.remove('show');
+      el.parentNode.classList.add('hide');
+
+      window.setTimeout(function() {
+        el.src = newUrl;
+        el.parentNode.classList.remove('hide');
+        el.parentNode.classList.add('in-between');
+      }, 1000);
+
+      window.setTimeout(function() {
+        el.parentNode.classList.remove('in-between');
+        el.parentNode.classList.add('show');
+      }, 3000);
+
+
+    } else {
+      //console.log('no new streets', newUrl);
+    }
+  }
+
+  function getStreetsFirstTime() {
+    jQuery.ajax({
+      url: 'http://streetmix.net/__api__/v1/streets?count=' + streetCount,
+      dataType: 'json',
+      type: 'GET'
+    }).done(receiveStreetsFirstTime);
+  }
+
+  function receiveStreetsFirstTime(data) {
+    for (var i in data.streets) {
+      var url = getStreetUrl(data.streets[i]);
+      var el = document.querySelector('#street-' + i);
+
+      el.realSrc = url;
+
+      el.src = url;
+    }
+  }
+
+  function createFrames() {
+    var el = document.querySelector('#streets');
+
+    el.innerHTML = '';
+
+    var width = el.offsetWidth - PADDING;
+    var height = el.offsetHeight - PADDING;
+
+    var framesCountW = Math.floor(width / FRAME_WIDTH);
+    var framesCountH = Math.floor(height / FRAME_HEIGHT);
+
+    streetCount = framesCountW * framesCountH;
+
+    var frameW = Math.floor(width / framesCountW);
+    var frameH = Math.floor(height / framesCountH);
+
+    var count = 0;
+
+    for (var x = 0; x < framesCountW; x++) {
+      for (var y = 0; y < framesCountH; y++) {
+        var streetEl = document.createElement('div');
+
+        streetEl.style.left = x * frameW + 'px';
+        streetEl.style.top = y * frameH + 'px';
+        streetEl.style.width = frameW + 'px';
+        streetEl.style.height = frameH + 'px';
+        el.appendChild(streetEl);
+
+        var subEl = document.createElement('div');
+        streetEl.appendChild(subEl);
+
+        var iframeEl = document.createElement('iframe');
+        iframeEl.id = 'street-' + count;
+        //iframeEl.src = 'http://streetmix.net/mwichary/11/inception?debug-force-read-only';
+        iframeEl.style.left = PADDING + 'px';
+        iframeEl.style.top = PADDING + 'px';
+        iframeEl.style.width = (frameW - PADDING) * ZOOM + 'px';
+        iframeEl.style.height = (frameH - PADDING) * ZOOM + 'px';
+        subEl.appendChild(iframeEl);
+
+        count++;
+      }
+    }
+  }
+
+  function start() {
+    createFrames();
+    getStreetsFirstTime();    
+  }
+
+  function main() {
+    start();
+
+    window.setInterval(getStreetsAgain, CHECK_INTERVAL);
+
+    window.addEventListener('resize', start);
+  }
+</script>
+
+<header>
+  Live on <strong>streetmix.net</strong>
+</header>
+
+<div id='streets'>
+</div>
+  
+<script>
+  main();
+</script>
