@@ -5661,6 +5661,8 @@ var main = (function(){
           _hideDebugInfo();
         } else if (document.querySelector('#welcome').classList.contains('visible')) {
           _hideWelcome();
+        } else if (document.querySelector('#save-as-image-dialog').classList.contains('visible')) {
+          _hideSaveAsImageDialogBox();
         } else if (document.querySelector('#about').classList.contains('visible')) {
           _hideAboutDialogBox();
         } else if (draggingType == DRAGGING_TYPE_RESIZE) {
@@ -6190,6 +6192,22 @@ var main = (function(){
 
     document.querySelector('#welcome').classList.remove('visible');
     document.querySelector('#street-name-canvas').classList.remove('hidden');
+  }
+
+  function _showSaveAsImageDialogBox(event) {
+    _hideMenus();
+
+    document.querySelector('#save-as-image-dialog').classList.add('visible');
+    document.querySelector('#dialog-box-shield').classList.add('visible');    
+
+    if (event) {
+      event.preventDefault();
+    }
+  }
+
+  function _hideSaveAsImageDialogBox() {
+    document.querySelector('#save-as-image-dialog').classList.remove('visible');
+    document.querySelector('#dialog-box-shield').classList.remove('visible');
   }
 
   function _showAboutDialogBox(event) {
@@ -6885,15 +6903,21 @@ var main = (function(){
     _eventTracking.track(TRACK_CATEGORY_SHARING, TRACK_ACTION_FACEBOOK, null, null, false);    
   }
 
+  // TODO hack
+  function _hideDialogBoxes() {
+    _hideAboutDialogBox();
+    _hideSaveAsImageDialogBox();
+  }
+
   function _addEventListeners() {
     document.querySelector('#share-via-twitter').addEventListener('click', _shareViaTwitter);
     document.querySelector('#share-via-facebook').addEventListener('click', _shareViaFacebook);
 
     if (system.touch) {
-      document.querySelector('#dialog-box-shield').addEventListener('touchstart', _hideAboutDialogBox);
+      document.querySelector('#dialog-box-shield').addEventListener('touchstart', _hideDialogBoxes);
       document.querySelector('#about .close').addEventListener('touchstart', _hideAboutDialogBox);
     } else {
-      document.querySelector('#dialog-box-shield').addEventListener('click', _hideAboutDialogBox);
+      document.querySelector('#dialog-box-shield').addEventListener('click', _hideDialogBoxes);
       document.querySelector('#about .close').addEventListener('click', _hideAboutDialogBox);
     }
 
@@ -6904,11 +6928,13 @@ var main = (function(){
 
     if (system.touch) {
       document.querySelector('#welcome .close').addEventListener('touchstart', _hideWelcome);
+      document.querySelector('#save-as-image-dialog .close').addEventListener('touchstart', _hideSaveAsImageDialogBox);
     } else {
       document.querySelector('#welcome .close').addEventListener('click', _hideWelcome);      
+      document.querySelector('#save-as-image-dialog .close').addEventListener('click', _hideSaveAsImageDialogBox);      
     }
 
-    document.querySelector('#save-as-image').addEventListener('click', _saveAsImage);
+    document.querySelector('#save-as-image').addEventListener('click', _showSaveAsImageDialogBox);
 
     document.querySelector('#street-section-outer').addEventListener('scroll', _onStreetSectionScroll);
 
