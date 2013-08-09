@@ -247,6 +247,7 @@ body:not(.safari).gallery-visible #street-section-sky {
   pointer-events: none;
 
   -webkit-transform: translateY(-@galleryHeight) rotateX(25deg);
+  -moz-transform: translateY(-@galleryHeight); // Fix for older Firefox versions
   -moz-transform: translateY(-@galleryHeight) rotateX(25deg);
   transform: translateY(-@galleryHeight) rotateX(25deg);
 
