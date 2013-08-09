@@ -2446,9 +2446,11 @@ var main = (function(){
       }, SHORT_DELAY);
     }
 
-    var oldWidth = parseFloat(el.getAttribute('width') * TILE_SIZE);
+    //var oldWidth = parseFloat(el.getAttribute('width') * TILE_SIZE);
 
-    el.style.width = width + 'px';
+    if (palette) {
+      el.style.width = width + 'px';
+    }
     el.setAttribute('width', width / TILE_SIZE);
 
     var widthEl = el.querySelector('span.width');
@@ -2467,9 +2469,9 @@ var main = (function(){
     if (!initial) {
       _segmentsChanged();
 
-      if (oldWidth != width) {
+      /*if (oldWidth != width) {
         _showWidthChartImmediately();
-      }
+      }*/
     }
   }
 
@@ -2881,7 +2883,11 @@ var main = (function(){
 
     var extraWidth = 0;
 
+    var el = null;
+    var lastEl = null;
+
     for (var i in street.segments) {
+      lastEl = el;
       var el = street.segments[i].el;
 
       if (el == draggingMove.segmentBeforeEl) {
@@ -2900,9 +2906,15 @@ var main = (function(){
         var width = parseFloat(el.getAttribute('width')) * TILE_SIZE;
       }
 
-      el.savedLeft = parseInt(left); // so we don’t have to use offsetLeft
-      el.savedNoMoveLeft = parseInt(noMoveLeft); // so we don’t have to use offsetLeft
-      el.savedWidth = parseInt(width);
+      el.savedLeft = Math.floor(left); // so we don’t have to use offsetLeft
+      el.savedNoMoveLeft = Math.floor(noMoveLeft); // so we don’t have to use offsetLeft
+      el.savedWidth = Math.floor(width);
+
+      // To solve (some) rounding issues in metric system that would create 
+      // pixel-sized holes in between segments
+      if (lastEl) {
+        lastEl.savedWidth = el.savedLeft - lastEl.savedLeft;
+      }
 
       left += width;
       noMoveLeft += width;
@@ -2936,6 +2948,8 @@ var main = (function(){
       } else {
         el.style.left = el.savedLeft + 'px';
       }
+
+      el.style.width = el.savedWidth + 'px';
     }
 
     if (system.cssTransform) {
