@@ -1507,6 +1507,14 @@ var main = (function(){
   var TRACK_LABEL_BUTTON = 'Button';   
   
   var DATE_FORMAT = 'MMM D, YYYY';
+
+  var WELCOME_NONE = 0;
+  var WELCOME_NEW_STREET = 1;
+  var WELCOME_FIRST_TIME_NEW_STREET = 2;
+  var WELCOME_FIRST_TIME_EXISTING_STREET = 3;
+
+  var LIVE_UPDATE_DELAY = 5000;
+
   // TODO clean up/rearrange variables
 
   // Saved data
@@ -5988,12 +5996,6 @@ var main = (function(){
     _saveStreetToServer(false);
   }
 
-  // TODO move
-  var WELCOME_NONE = 0;
-  var WELCOME_NEW_STREET = 1;
-  var WELCOME_FIRST_TIME_NEW_STREET = 2;
-  var WELCOME_FIRST_TIME_EXISTING_STREET = 3;
-
   function _showWelcome() {
     if (readOnly || system.phone) {
       return;
@@ -6708,23 +6710,37 @@ var main = (function(){
     }
   }
 
-  function _saveAsImage(event) {
-    // TODO move as constant
-    var dpi = 2.0;
+  // TODO move
+  var SAVE_AS_IMAGE_DPI = 2.0;
+  var SAVE_AS_IMAGE_MIN_HEIGHT = 400;
+  var SAVE_AS_IMAGE_BOTTOM_PADDING = 100;
 
+  function _saveAsImage(event) {
     var width = TILE_SIZE * street.width + BUILDING_SPACE * 2;
+
+    var leftBuildingAttr = _getBuildingAttributes(street, true);
+    var rightBuildingAttr = _getBuildingAttributes(street, false);
+
+    var leftHeight = leftBuildingAttr.height;
+    var rightHeight = rightBuildingAttr.height;
+
+    var height = Math.max(leftHeight, rightHeight);
+    if (height < SAVE_AS_IMAGE_MIN_HEIGHT) {
+      height = SAVE_AS_IMAGE_MIN_HEIGHT;
+    }
+
     // TODO const
-    var height = 800;
+    height += SAVE_AS_IMAGE_BOTTOM_PADDING;
 
     var el = document.createElement('canvas');
-    el.width = width * dpi;
-    el.height = height * dpi;
+    el.width = width * SAVE_AS_IMAGE_DPI;
+    el.height = height * SAVE_AS_IMAGE_DPI;
 
     var ctx = el.getContext('2d');
 
     // TODO hack
     var oldDpi = system.hiDpi;
-    system.hiDpi = dpi;
+    system.hiDpi = SAVE_AS_IMAGE_DPI;
     _drawStreetThumbnail(ctx, street, width, height, 1.0, false, true, 2.0);
     system.hiDpi = oldDpi;
 
@@ -8624,9 +8640,6 @@ var main = (function(){
       }
     }
   }
-
-  // TODO move
-  var LIVE_UPDATE_DELAY = 5000;
 
   function _scheduleNextLiveUpdateCheck() {
     window.setTimeout(_checkForLiveUpdate, LIVE_UPDATE_DELAY);
