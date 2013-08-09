@@ -1523,6 +1523,8 @@ var main = (function(){
 
   var LIVE_UPDATE_DELAY = 5000;
 
+  var SKY_COLOUR = 'rgb(169, 204, 219)';
+
   // TODO clean up/rearrange variables
 
   // Saved data
@@ -6225,7 +6227,7 @@ var main = (function(){
     // TODO hack
     var oldDpi = system.hiDpi;
     system.hiDpi = SAVE_AS_IMAGE_DPI;
-    _drawStreetThumbnail(ctx, street, width, height, 1.0, false, true, 2.0);
+    _drawStreetThumbnail(ctx, street, width, height, 1.0, false, true, saveAsImageTransparentSky);
     system.hiDpi = oldDpi;
 
     return el;
@@ -6257,7 +6259,17 @@ var main = (function(){
     filename += '.png';
 
     document.querySelector('#save-as-image-download').download = filename;
-    document.querySelector('#save-as-image-download').href = el.toDataURL('image/png');
+    document.querySelector('#save-as-image-download').href = 
+        el.toDataURL('image/png');
+  }
+
+  var saveAsImageTransparentSky = false;
+
+  function _updateSaveAsImageOptions() {
+    saveAsImageTransparentSky = 
+        document.querySelector('#save-as-image-transparent-sky').checked;
+
+    window.setTimeout(function() { _updateSaveAsImageDialogBox(); }, 0);
   }
 
   function _showSaveAsImageDialogBox(event) {
@@ -6594,7 +6606,7 @@ var main = (function(){
       thumbnailEl.height = THUMBNAIL_HEIGHT * system.hiDpi * 2;
       var ctx = thumbnailEl.getContext('2d');
       _drawStreetThumbnail(ctx, galleryStreet.data.street, 
-          THUMBNAIL_WIDTH * 2, THUMBNAIL_HEIGHT * 2, THUMBNAIL_MULTIPLIER, true, false, system.hiDpi);
+          THUMBNAIL_WIDTH * 2, THUMBNAIL_HEIGHT * 2, THUMBNAIL_MULTIPLIER, true, false, true);
       anchorEl.appendChild(thumbnailEl);
 
       var nameEl = document.createElement('div');
@@ -6963,6 +6975,8 @@ var main = (function(){
     }
 
     document.querySelector('#save-as-image').addEventListener('click', _showSaveAsImageDialogBox);
+
+    document.querySelector('#save-as-image-transparent-sky').addEventListener('click', _updateSaveAsImageOptions);
 
     document.querySelector('#street-section-outer').addEventListener('scroll', _onStreetSectionScroll);
 
@@ -8917,11 +8931,19 @@ var main = (function(){
     }
   }
 
-  function _drawStreetThumbnail(ctx, street, thumbnailWidth, thumbnailHeight, multiplier, silhouette, bottomAligned) {
+  function _drawStreetThumbnail(ctx, street, thumbnailWidth, thumbnailHeight, 
+                                multiplier, silhouette, bottomAligned,
+                                transparentSky) {
     var occupiedWidth = 0;
     for (var i in street.segments) {
       occupiedWidth += street.segments[i].width;
     }
+
+    if (!transparentSky) {
+      ctx.fillStyle = SKY_COLOUR;
+      ctx.fillRect(0, 0, thumbnailWidth * system.hiDpi, thumbnailHeight * system.hiDpi);
+    }
+
 
     if (bottomAligned) {
       var offsetTop = thumbnailHeight - 200 * multiplier;
