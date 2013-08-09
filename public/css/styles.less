@@ -1518,6 +1518,7 @@ body.segment-move-dragging #editable-street-section > div {
 #loading h1,
 #about h1,
 #welcome h1,
+#save-as-image h1,
 #blocking-shield .message {
   font-size: 250%;
   font-weight: 300;
@@ -2398,7 +2399,7 @@ body.read-only #street-metadata-author a {
   margin: 0 4px;
 }
 
-#about-shield {
+#dialog-box-shield {
   z-index: 99999999 + 2;
 
   cursor: pointer;
@@ -2415,7 +2416,7 @@ body.read-only #street-metadata-author a {
   position: absolute;
 }
 
-#about {
+.dialog-box {
   z-index: 99999999 + 3;
   position: absolute;
 
@@ -2435,8 +2436,14 @@ body.read-only #street-metadata-author a {
     position: absolute;
     right: 0;
     top: 5px;
-  }
+  }  
 
+  &:not(.visible) {
+    display: none;
+  }
+}
+
+#about {
   .description {
     font-size: 16px;
   }
@@ -2472,10 +2479,6 @@ body.read-only #street-metadata-author a {
     font-size: 11px;
     line-height: 14px;    
     margin-top: 15px;
-  }
-
-  &:not(.visible) {
-    display: none;
   }
 }
 

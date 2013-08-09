@@ -5556,7 +5556,7 @@ var main = (function(){
         } else if (document.querySelector('#welcome').classList.contains('visible')) {
           _hideWelcome();
         } else if (document.querySelector('#about').classList.contains('visible')) {
-          _hideAboutMenu();
+          _hideAboutDialogBox();
         } else if (draggingType == DRAGGING_TYPE_RESIZE) {
           _handleSegmentResizeCancel();
         } else if (draggingType == DRAGGING_TYPE_MOVE) {
@@ -6073,7 +6073,7 @@ var main = (function(){
     document.querySelector('#street-name-canvas').classList.remove('hidden');
   }
 
-  function _showAboutMenu(event) {
+  function _showAboutDialogBox(event) {
     if (event && (event.shiftKey || event.ctrlKey || event.metaKey)) {
       return;
     }
@@ -6081,7 +6081,7 @@ var main = (function(){
     _hideMenus();
 
     document.querySelector('#about').classList.add('visible');
-    document.querySelector('#about-shield').classList.add('visible');
+    document.querySelector('#dialog-box-shield').classList.add('visible');
 
     var els = document.querySelectorAll('#about .avatar');
     for (var i = 0, el; el = els[i]; i++) {
@@ -6097,9 +6097,9 @@ var main = (function(){
     }
   }
 
-  function _hideAboutMenu() {
+  function _hideAboutDialogBox() {
     document.querySelector('#about').classList.remove('visible');
-    document.querySelector('#about-shield').classList.remove('visible');
+    document.querySelector('#dialog-box-shield').classList.remove('visible');
 
     _updatePageUrl();
   }
@@ -6769,14 +6769,14 @@ var main = (function(){
     document.querySelector('#share-via-facebook').addEventListener('click', _shareViaFacebook);
 
     if (system.touch) {
-      document.querySelector('#about-shield').addEventListener('touchstart', _hideAboutMenu);
-      document.querySelector('#about .close').addEventListener('touchstart', _hideAboutMenu);
+      document.querySelector('#dialog-box-shield').addEventListener('touchstart', _hideAboutDialogBox);
+      document.querySelector('#about .close').addEventListener('touchstart', _hideAboutDialogBox);
     } else {
-      document.querySelector('#about-shield').addEventListener('click', _hideAboutMenu);
-      document.querySelector('#about .close').addEventListener('click', _hideAboutMenu);
+      document.querySelector('#dialog-box-shield').addEventListener('click', _hideAboutDialogBox);
+      document.querySelector('#about .close').addEventListener('click', _hideAboutDialogBox);
     }
 
-    document.querySelector('#about-streetmix').addEventListener('click', _showAboutMenu);
+    document.querySelector('#about-streetmix').addEventListener('click', _showAboutDialogBox);
 
     document.querySelector('#street-scroll-indicator-left').addEventListener('click', _onStreetLeftScrollClick);
     document.querySelector('#street-scroll-indicator-right').addEventListener('click', _onStreetRightScrollClick);
@@ -8728,7 +8728,7 @@ var main = (function(){
     } else if (mode == MODE_GLOBAL_GALLERY) {
       _showGallery(null, true);
     } else if (mode == MODE_ABOUT) {
-      _showAboutMenu();
+      _showAboutDialogBox();
     }
 
     if (promoteStreet) {
