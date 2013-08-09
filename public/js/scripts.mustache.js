@@ -1470,7 +1470,6 @@ var main = (function(){
   var LOCAL_STORAGE_FEEDBACK_BACKUP = 'feedback-backup';
   var LOCAL_STORAGE_FEEDBACK_EMAIL_BACKUP = 'feedback-email-backup';
 
-  // TODO rename to be more specific
   var INFO_BUBBLE_MARGIN_BUBBLE = 20;
   var INFO_BUBBLE_MARGIN_MOUSE = 10;
 
