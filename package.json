@@ -11,9 +11,7 @@
     "oauth": "0.9.x",
     "request": "2.21.x",
     "requireindex": "1.0.x",
-    "sprintf": "0.1.x"
-  },
-  "devDependencies": {
+    "sprintf": "0.1.x",
     "supervisor": "0.5.x"
   },
   "engines": {
@@ -21,6 +19,6 @@
     "npm": "1.2.x"
   },
   "scripts": {
-    "start": "bin/start.sh"
+    "start": "supervisor --ignore public/js/*.AUTO.js server.js"
   }
 }
