@@ -748,7 +748,7 @@ body.gallery-visible #gallery-shield {
   display: block;
   position: absolute;
 
-  top: -150px;
+  top: -150px + 45px;
   width: 396px;
   height: @canvasHeight + 70px;
 
@@ -757,7 +757,7 @@ body.gallery-visible #gallery-shield {
     z-index: -1;
     left: 0;
     top: -1000px;
-    bottom: 0;
+    bottom: 45px;
     right: 0;
   }
   &#street-section-right-building .hover-bk,
@@ -932,6 +932,7 @@ body:not(.safari) .footer-canvas {
   position: absolute;
   height: @canvasHeight + 80;
   text-align: left;
+  z-index: 1;
 
   -webkit-transform: translateZ(0);
 
@@ -2352,10 +2353,18 @@ body:not(.touch-support):not(.read-only) #street-name {
 }
 #street-width-read {
   padding: 5px 0;
+
+  .over {
+    color: @warningColour;
+  }
+  .under {
+    color: rgb(96, 96, 96);
+  }
 }
 body:not(.read-only) #street-width-read {
   cursor: pointer;
-  &:hover {
+  &:hover,
+  &:hover * {
     color: darken(@topMenuHoverText, 20%);
   }
   &::after {
@@ -3066,7 +3075,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
 }
 
 .switching-in-pre {
-  z-index: 99999999 !important;
+  z-index: -1 !important;
 
   -webkit-perspective: 400px;
   -moz-perspective: 200px;
@@ -3085,7 +3094,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
   }
 }
 .switching-in-post {
-  z-index: 99999999 !important;  
+  z-index: -1 !important;  
 }
 .switching-in-post canvas {
   opacity: 1;

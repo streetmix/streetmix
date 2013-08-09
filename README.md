@@ -88,12 +88,20 @@ Also, this project was made possible by the support of Code for America staff an
 
 #### HOWTO: Start the application
 
-1) Start the web server.
+
+1) Setup environment variables. These are the same environment variables required to run the [back-end](https://github.com/codeforamerica/streetmix-be/) as well.
+
+| Variable name                   | Description                                                                            | Required?            |
+| ------------------------------- | -------------------------------------------------------------------------------------- | -------------------- |
+| `TWITTER_OAUTH_CONSUMER_KEY`    | Development Twitter OAuth consumer key, obtained from @streetmixapp Twitter account    | Yes                  |
+| `TWITTER_OAUTH_CONSUMER_SECRET` | Development Twitter OAuth consumer secret, obtained from @streetmixapp Twitter account | Yes                  |
+
+2) Start the web server.
 
     cd $PROJECT_ROOT
     npm start
 
-2) Load the application in your web browser.
+3) Load the application in your web browser.
 
     open http://localhost:8000
 

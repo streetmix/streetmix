@@ -186,7 +186,7 @@ var main = (function(){
     // 14: wayfinding has three types
     // 15: sidewalks have rand seed
     // 16: stop saving undo stack
-  var TILESET_IMAGE_VERSION = 52;
+  var TILESET_IMAGE_VERSION = 55;
   var TILESET_POINT_PER_PIXEL = 2.0;
   var TILE_SIZE = 12; // pixels
   var TILESET_CORRECTION = [null, 0, -84, -162];
@@ -280,8 +280,10 @@ var main = (function(){
   var DEFAULT_BUILDING_HEIGHT_EMPTY = 1;
   var DEFAULT_BUILDING_VARIANT_EMPTY = 'grass';
 
-  var BUILDING_VARIANTS = ['grass', 'fence', 'residential', 'narrow', 'wide'];
-  var BUILDING_VARIANT_NAMES = ['Grass', 'Empty lot', 'Home', 'Building', 'Building'];
+  var BUILDING_VARIANTS = ['waterfront', 'grass', 'fence', 'parking-lot', 
+                           'residential', 'narrow', 'wide'];
+  var BUILDING_VARIANT_NAMES = ['Waterfront', 'Grass', 'Empty lot', 'Parking lot', 
+                                'Home', 'Building', 'Building'];
 
   var MIN_CUSTOM_STREET_WIDTH = 10;
   var MAX_CUSTOM_STREET_WIDTH = 400;
@@ -495,9 +497,11 @@ var main = (function(){
     'transit-shelter-elevation|light-rail': { x: 6, y: 2, title: 'Light rail platform' },
     'bike-rack-elevation|sidewalk': { x: 6, y: 2, title: 'Sidewalk' },
     'bike-rack-elevation|road': { x: 5, y: 2, title: 'Road' },
+    'building|waterfront': { x: 9, y: 4, title: 'Waterfront' },
     'building|grass': { x: 2, y: 4, title: 'Grass' },
-    'building|fence': { x: 3, y: 4, title: 'Fence' },
-    'building|residential': { x: 7, y: 3, title: 'Residential building' },
+    'building|fence': { x: 3, y: 4, title: 'Empty lot' },
+    'building|parking-lot': { x: 0, y: 3, title: 'Parking lot' },
+    'building|residential': { x: 7, y: 3, title: 'Home' },
     'building|narrow': { x: 7, y: 2, title: 'Narrow building' },
     'building|wide': { x: 8, y: 2, title: 'Wide building' },
     'wayfinding-type|large': { x: 8, y: 3, title: 'Large' },
@@ -814,8 +818,6 @@ var main = (function(){
         },
         'dome': {
           name: 'Traffic exclusion dome',
-          descriptionPrompt: 'Learn more about sharrows',
-          description: '<img src="/images/info-bubble-examples/sharrow-01.jpg"><p class="lede">Sharrows are marked travel lanes shared by both cars and bikes.</p><p>Officially known in transportation planning as “shared lane marking,” sharrows (a portmanteau of “shared” and “arrow”) refer to the arrow markings themselves, but aren’t actually a different <em>type</em> of lane. In many places, bicycles are already allowed on any street meant for cars, and are bound by the same laws.</p><p>That being said, it doesn’t take a rocket scientist to see that cars and bikes behave very differently, and so separate bike lanes are <a href="http://dc.streetsblog.org/2013/06/13/in-california-cities-drivers-want-more-bike-lanes-heres-why/">much more preferable</a> for both the safety of cyclists and the sanity of car drivers. But for many cyclists, when there’s not enough road space for those bike lanes, the argument is that sharrows are better than nothing else at all. Motorists tend to forget there are other types of vehicles, and cyclists appreciate any opportunity to remind motorists that they exist and must coexist peacefully together. And giving cyclists more leeway to use the full width of a lane can also protect them from parked cars, in a particular type of accident cyclists call “getting doored.”</p><p>Sharrow markings are a simple way to provide more visibility to bicyclists, since paint is cheaper than building a dedicated bike lane, and more politically feasible. However, some research on safety (such as a <a href="http://injuryprevention.bmj.com/content/early/2013/02/13/injuryprev-2012-040561.full.pdf">2012 BMJ study</a> of bicycle injuries in Vancouver and Toronto) indicate that there were slightly increased odds of injury in a shared lane, compared to those in a dedicated bike lane. The moral of the story is, take care of bicyclists by trying to put in a normal bike lane first before resorting to sharrows.</p><footer></footer>',
           graphics: {
             center: { tileset: 2, x: 121, y: 64, width: 1, height: 7, offsetY: 5 },
             repeat: [
@@ -1473,7 +1475,14 @@ var main = (function(){
   var INFO_BUBBLE_MARGIN_BUBBLE = 20;
   var INFO_BUBBLE_MARGIN_MOUSE = 10;
 
-  var PERSON_TYPES = 15;
+  var PERSON_TYPES = 15; // 30
+  var PERSON_CAN_GO_FIRST = [true, true, true, true, true, true, true, true, true, true,
+                             true, true, true, true, true, true, true, true, false, false,
+                             true, true, true, true, true, true, true, true, true, true];
+  var PERSON_WIDTH = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 
+                      2, 2, 2, 3, 2, 3, 3, 3, 3, 3,
+                      1, 1, 3, 4, 2, 3, 2, 3, 4, 3];
+  var PERSON_TILESET_WRAP = 10;
 
   var INFO_BUBBLE_TYPE_SEGMENT = 1;
   var INFO_BUBBLE_TYPE_LEFT_BUILDING = 2;
@@ -1664,6 +1673,7 @@ var main = (function(){
 
   var debug = {
     hoverPolygon: false,
+    canvasRectangles: false,
     forceLeftHandTraffic: false,
     forceMetric: false,
     forceUnsupportedBrowser: false,
@@ -1799,6 +1809,11 @@ var main = (function(){
         sx = 0;
       }
 
+      if (debug.canvasRectangles) {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+        ctx.fillRect(dx, dy, dw, dh);
+      }
+
       ctx.drawImage(images['/images/tiles-' + tileset + '.png'],
           sx * TILESET_POINT_PER_PIXEL, sy * TILESET_POINT_PER_PIXEL, 
           sw * TILESET_POINT_PER_PIXEL, sh * TILESET_POINT_PER_PIXEL,
@@ -1815,18 +1830,18 @@ var main = (function(){
     switch (variantArray['sidewalk-density']) {
       case 'empty':
         return;
-        break;  
+      // TODO const
       case 'sparse':
         var widthConst = 60;
         var widthRand = 100;
         break;
       case 'normal':
-        var widthConst = 12;
+        var widthConst = 18;
         var widthRand = 60;
         break;
       case 'dense':
-        var widthConst = 12;
-        var widthRand = 12;
+        var widthConst = 18;
+        var widthRand = 18;
         break;
     }
 
@@ -1837,15 +1852,15 @@ var main = (function(){
 
     var peopleCount = 0;
 
-    while ((!peopleCount) || (peopleWidth < width - 36)) {
+    while ((!peopleCount) || (peopleWidth < width - 45)) {
       var person = {};
       person.left = peopleWidth;
       do {
         person.type = Math.floor(randomGenerator.rand() * PERSON_TYPES);
-      } while (person.type == lastPersonType);
+      } while ((person.type == lastPersonType)/* || (!peopleCount && !PERSON_CAN_GO_FIRST[person.type])*/);
       lastPersonType = person.type;
 
-      var lastWidth = widthConst + randomGenerator.rand() * widthRand;
+      var lastWidth = widthConst + PERSON_WIDTH[person.type] * 12 - 24 + randomGenerator.rand() * widthRand;
 
       peopleWidth += lastWidth;
       people.push(person);
@@ -1855,10 +1870,30 @@ var main = (function(){
 
     var startLeft = (width - peopleWidth) / 2;
 
+    var firstPersonCorrection = (4 - PERSON_WIDTH[people[0].type]) * 12 / 2;
+    if (people.length == 1) {
+      startLeft += firstPersonCorrection;
+    } else {
+      var lastPersonCorrection = (4 - PERSON_WIDTH[people[people.length - 1].type]) * 12 / 2;
+
+      startLeft += (firstPersonCorrection + lastPersonCorrection) / 2;
+    }
+
     for (var i in people) {
       var person = people[i];
-      _drawSegmentImage(2, ctx, 1056 + 12 + 48 * person.type, 0, 48, 24 * 4, 
-          offsetLeft + (person.left - 24 + startLeft) * multiplier, offsetTop + 35 * multiplier, 48 * multiplier, 24 * 4 * multiplier);
+      // TODO const
+
+      var typeX = person.type % PERSON_TILESET_WRAP;
+      var typeY = Math.floor(person.type / PERSON_TILESET_WRAP);
+
+      //console.log(PERSON_WIDTH[person.type]);
+
+      _drawSegmentImage(2, ctx, 
+          1008 + 12 * 5 * typeX, 1756 / 2 + 24 * 4 * typeY, 
+          12 * 5, 24 * 4, 
+          offsetLeft + (person.left - 5 * 12 / 2 - (4 - PERSON_WIDTH[person.type]) * 12 / 2 + startLeft) * multiplier, 
+          offsetTop + 37 * multiplier, 
+          12 * 5 * multiplier, 24 * 4 * multiplier);
     }
   }
 
@@ -2334,7 +2369,7 @@ var main = (function(){
 
         var attr = _getBuildingAttributes(street, _infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING);
 
-        heightText += ' (' + _prettifyWidth(attr.height / TILE_SIZE, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP) + ')';
+        heightText += ' (' + _prettifyWidth(attr.realHeight / TILE_SIZE, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP) + ')';
 
         break;
     }
@@ -2377,6 +2412,9 @@ var main = (function(){
         }
         if (widthText.substr(widthText.length - 1) == '.') {
           widthText = widthText.substr(0, widthText.length - 1);
+        }
+        if (!widthText) {
+          widthText = '0';
         }
 
         switch (purpose) {
@@ -2552,43 +2590,67 @@ var main = (function(){
     var buildingVariant = left ? street.leftBuildingVariant : street.rightBuildingVariant;
     var flooredBuilding = _isFlooredBuilding(buildingVariant);
 
+    // Non-directional
+
+    switch (buildingVariant) {
+      case 'narrow':
+        var width = 216; 
+        var floorRoofWidth = 216; 
+        var variantsCount = 1; 
+        var tileset = 2;
+
+        var floorHeight = 10;
+        var roofHeight = 1;
+        var mainFloorHeight = 14;
+        break;
+      case 'wide':
+        var width = 396;
+        var floorRoofWidth = 396;
+        var variantsCount = 1;
+        var tileset = 3;
+
+        var floorHeight = 10;
+        var roofHeight = 1;
+        var mainFloorHeight = 14;
+        break;
+      case 'residential':
+        var width = 396;
+        var floorRoofWidth = 240;
+        var variantsCount = 0;
+
+        var floorHeight = 10;
+        var roofHeight = 6;
+        var mainFloorHeight = 24.5;
+        break;
+      case 'waterfront':
+        var height = 12 * TILE_SIZE;
+        break;
+      case 'parking-lot':
+        var height = 28 * TILE_SIZE;
+        break;
+      case 'fence':
+        var height = 12 * TILE_SIZE;
+        break;
+      case 'grass':
+        var height = 6 * TILE_SIZE;
+        break;
+    }
+    // Directional
+
     if (left) {
       switch (buildingVariant) {
         case 'narrow':
           var tilePositionX = 1512 + 17;
           var tilePositionY = 576 - 1;
-          var width = 216;
-          var floorRoofWidth = 216;
-          var variantsCount = 1;
-          var tileset = 2;
-
-          var floorHeight = 10;
-          var roofHeight = 1;
-          var mainFloorHeight = 14;
           break;
         case 'wide':
           var tilePositionX = 1956;
           var tilePositionY = 576 - 24 * 2;
-          var width = 396;
-          var floorRoofWidth = 396;
-          var variantsCount = 1;
-          var tileset = 3;
-
-          var floorHeight = 10;
-          var roofHeight = 1;
-          var mainFloorHeight = 14;
           break;
         case 'residential':
+          var tileset = 3;
           var tilePositionX = 1956 + 382 + 204;
           var tilePositionY = 576 + 740 / 2 - 1 - 12 + 8;
-          var width = 396;
-          var floorRoofWidth = 240;
-          var variantsCount = 0;
-          var tileset = 3;
-
-          var floorHeight = 10;
-          var roofHeight = 6;
-          var mainFloorHeight = 24.5;
           break;
       }
     } else {
@@ -2596,48 +2658,23 @@ var main = (function(){
         case 'narrow':
           var tilePositionX = 1728 + 13;
           var tilePositionY = 576 - 1;
-          var width = 216;
-          var floorRoofWidth = 216;
-          var variantsCount = 1;
-          var tileset = 2;
-
-          var floorHeight = 10;
-          var roofHeight = 1;
-          var mainFloorHeight = 14;
           break;
         case 'wide':
           var tilePositionX = 2351;
           var tilePositionY = 576 - 24 * 2 - 1;
-          var width = 396;
-          var floorRoofWidth = 396;
-          var variantsCount = 1;
-          var tileset = 3;
-
-          var floorHeight = 10;
-          var roofHeight = 1;
-          var mainFloorHeight = 14;
           break;
         case 'residential':
-          var tilePositionX = 1956 + 382 + 204 + 25 - 1008 - 12 - 1;
-          var tilePositionY = 576 + 740 / 2 - 1 - 12 + 237 + 6;
-          var width = 396;
-          var floorRoofWidth = 240;
-          var variantsCount = 0;
           var tileset = 2;
-
-          var floorHeight = 10;
-          var roofHeight = 6;
-          var mainFloorHeight = 24.5;
-       
+          var tilePositionX = 1956 + 382 + 204 + 25 - 1008 - 12 - 1 + 48;
+          var tilePositionY = 576 + 740 / 2 - 1 - 12 + 237 + 6;
           break;
       }
     }
 
-    if (!flooredBuilding) {
-      var height = 10 * TILE_SIZE;
-    } else {
+    if (flooredBuilding) {
       var floorCount = left ? street.leftBuildingHeight : street.rightBuildingHeight;
-      var height = (roofHeight + floorHeight * (floorCount - 1) + mainFloorHeight) * TILE_SIZE;
+      var height = (roofHeight + floorHeight * (floorCount - 1) + mainFloorHeight) * TILE_SIZE + 45;
+      var realHeight = height - 45 - 6;
     }    
 
     return { tilePositionX: tilePositionX, tilePositionY: tilePositionY, 
@@ -2645,6 +2682,7 @@ var main = (function(){
              mainFloorHeight: mainFloorHeight, floorHeight: floorHeight,
              flooredBuilding: flooredBuilding, floorRoofWidth: floorRoofWidth,
              floorCount: floorCount,
+             realHeight: realHeight,
              roofHeight: roofHeight, height: height, buildingVariant: buildingVariant };
   }
 
@@ -2668,35 +2706,100 @@ var main = (function(){
     }
 
     if (!attr.flooredBuilding) {
-      var width = 48;
-      var tileset = 1;
-
-      if (left) {
-        var posShift = (totalWidth % width) - 121;
-      } else {
-        var posShift = 25;
-      }
-
       switch (attr.buildingVariant) {
         case 'fence': 
+          var tileset = 1;
           if (left) {
-            var origPos = 1344 / 2;            
+            var x = 1344 / 2;            
           } else {
-            var origPos = 1224 / 2;            
+            var x = 1224 / 2;            
+          }
+          var width = 48;
+          var y = 0;
+          var height = 168 + 12 - 24 - 24 - 24;
+          var offsetY = 23 - 45 + 24;
+
+          if (left) {
+            var posShift = (totalWidth % width) - 121;
+          } else {
+            var posShift = 25;
           }
           break;
         case 'grass':
-          var origPos = 1104 / 2;
+          var tileset = 1;
+          var x = 1104 / 2;
+          var width = 48;
+          var y = 0;
+          var height = 168 + 12;
+          var offsetY = 23 - 45 + 24 - 6 * 12;
+
+          if (left) {
+            var posShift = (totalWidth % width) - 121;
+          } else {
+            var posShift = 25;
+          }
+          break;
+
+        case 'parking-lot':
+          var tileset = 3;
+          var width = 108 * 2;
+          var height = 576 / 2;
+          var offsetY = 3;//;-188 + 12 * 12;
+
+          if (left) {
+            var posShift = (totalWidth % width) - 457;
+            var y = 12 + 298;
+
+            var x = 815 + 162 * 12;
+            var lastX = 815 + 162 * 12 + 9 * 24;
+          } else {
+            var posShift = 25;
+            var y = 12;
+
+            var x = 815 + 162 * 12 + 9 * 24;
+            var firstX = 815 + 162 * 12;
+          }
+          break;
+
+        case 'waterfront':
+          var tileset = 1;
+          var width = 120;
+          var height = 192 / 2;
+          var offsetY = 24 + 24;
+
+          if (left) {
+            var posShift = (totalWidth % width) - 265;
+            var y = 120;
+
+            var x = 0;
+            var lastX = 120;
+          } else {
+            var posShift = 25;
+            var y = 456 / 2;
+
+            var x = 120;
+            var firstX = 0;
+          }
           break;
       }
 
-      for (var i = 0; i < totalWidth / width + 1; i++) {
+      var count = Math.ceil(totalWidth / width) + 1;
+
+      for (var i = 0; i < count; i++) {
+        if ((i == 0) && (typeof firstX != 'undefined')) {
+          var currentX = firstX;
+        } else if ((i == count - 1) && (typeof lastX != 'undefined')) {
+          var currentX = lastX;
+        } else {
+          var currentX = x;
+        }
+
         _drawSegmentImage(tileset, ctx,
-            origPos, 0, width, 168 + 12,
+            currentX, y, width, height,
             offsetLeft + (posShift + i * width) * multiplier, 
-            offsetTop + (409 - 374 - 12) * multiplier, 
+            offsetTop + offsetY * multiplier, 
             width * multiplier, 
-            (168 + 12) * multiplier);
+            (height) * multiplier);
       }
     } else {
       // Floored buildings
@@ -2706,6 +2809,8 @@ var main = (function(){
       } else {
         var leftPos = 0;
       }
+
+      offsetTop -= 45;
 
       // bottom floor
 
@@ -2992,6 +3097,7 @@ var main = (function(){
     }
 
     _buildStreetWidthMenu();
+    _updateStreetMetadata();
   }
 
   function _recalculateWidth() {
@@ -5601,8 +5707,8 @@ var main = (function(){
     slug = slug.toLowerCase();
     slug = slug.replace(/ /g, '-');
     slug = slug.replace(/-{2,}/, '-');
-    slug = slug.replace(/^[-]+|[-]+$/g, '');
     slug = slug.replace(/[^a-zA-Z0-9\-]/g, '');
+    slug = slug.replace(/^[-]+|[-]+$/g, '');
 
     return slug;
   }
@@ -5642,6 +5748,10 @@ var main = (function(){
     if (debug.hoverPolygon) {
       // TODO const
       url += '&debug-hover-polygon';
+    }
+    if (debug.canvasRectangles) {
+      // TODO const
+      url += '&debug-canvas-rectangles';
     }
     if (debug.forceLeftHandTraffic) {
       url += '&debug-force-left-hand-traffic';
@@ -5726,8 +5836,17 @@ var main = (function(){
   }
 
   function _updateStreetMetadata() {
-    var html = _prettifyWidth(street.width, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP) + ' width';
-    document.querySelector('#street-width-read').innerHTML = html;
+    var html = _prettifyWidth(street.width, PRETTIFY_WIDTH_OUTPUT_MARKUP) + ' width';
+    document.querySelector('#street-width-read-width').innerHTML = html;
+
+    if (street.remainingWidth > 0) {
+      var html = '<span class="under">(' + _prettifyWidth(street.remainingWidth, PRETTIFY_WIDTH_OUTPUT_MARKUP) + ' room)</span>';
+    } else if (street.remainingWidth < 0) {
+      var html = '<span class="over">(' + _prettifyWidth(-street.remainingWidth, PRETTIFY_WIDTH_OUTPUT_MARKUP) + ' over)</span>'; 
+    } else {
+      var html = '';
+    }
+    document.querySelector('#street-width-read-difference').innerHTML = html;
 
     if (street.creatorId && (!signedIn || (street.creatorId != signInData.userId))) {
       // TODO const
@@ -6189,6 +6308,8 @@ var main = (function(){
     _unpackServerStreetData(transmission, null, null, true);
 
     _propagateUnits();
+
+    _recalculateOccupiedWidth();
 
     // TODO this is stupid, only here to fill some structures
     _createDomFromData();
@@ -8773,10 +8894,10 @@ var main = (function(){
     var buildingWidth = buildingOffsetLeft / multiplier;
 
     var x = thumbnailWidth / 2 - street.width * TILE_SIZE * multiplier / 2;
-    _drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street, true, buildingWidth, groundLevel, true, x - (buildingWidth - 25) * multiplier, 0, multiplier);
+    _drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street, true, buildingWidth, groundLevel + 45, true, x - (buildingWidth - 25) * multiplier, 0, multiplier);
 
     var x = thumbnailWidth / 2 + street.width * TILE_SIZE * multiplier / 2;
-    _drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street, false, buildingWidth, groundLevel, true, x - 25 * multiplier, 0, multiplier);
+    _drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street, false, buildingWidth, groundLevel + 45, true, x - 25 * multiplier, 0, multiplier);
 
     for (var i in street.segments) {
       var segment = street.segments[i];
@@ -9163,6 +9284,10 @@ var main = (function(){
     }
 
     // TODO better
+    if (url.match(/[\?\&]debug-canvas-rectangles\&?/)) {
+      debug.canvasRectangles = true;
+    }
+
     if (url.match(/[\?\&]debug-force-left-hand-traffic\&?/)) {
       debug.forceLeftHandTraffic = true;
     }
