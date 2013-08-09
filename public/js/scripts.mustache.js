@@ -1476,7 +1476,7 @@ var main = (function(){
   var INFO_BUBBLE_MARGIN_BUBBLE = 20;
   var INFO_BUBBLE_MARGIN_MOUSE = 10;
 
-  var PERSON_TYPES = 30;
+  var PERSON_TYPES = 15; // 30
   var PERSON_CAN_GO_FIRST = [true, true, true, true, true, true, true, true, true, true,
                              true, true, true, true, true, true, true, true, false, false,
                              true, true, true, true, true, true, true, true, true, true];
