@@ -1765,10 +1765,10 @@ var main = (function(){
   }
 
   function _clone(obj) {
-    if (jQuery.isArray(obj)) {
-      return jQuery.extend(true, [], obj);
+    if ($.isArray(obj)) {
+      return $.extend(true, [], obj);
     } else {  
-      return jQuery.extend(true, {}, obj);
+      return $.extend(true, {}, obj);
     }
   }
 
@@ -3469,7 +3469,7 @@ var main = (function(){
         if (!request.inProgress) {
           request.inProgress = true;
 
-          var query = jQuery.ajax(request.request).done(function(data) {
+          var query = $.ajax(request.request).done(function(data) {
             _successNonblockingAjaxRequest(data, request);
           }).fail(function(data) {
             _errorNonblockingAjaxRequest(data, request);
@@ -3538,7 +3538,7 @@ var main = (function(){
     if (initial) {
       // blocking
 
-      jQuery.ajax({
+      $.ajax({
         // TODO const
         url: API_URL + 'v1/streets/' + street.id,
         data: transmission,
@@ -3628,7 +3628,7 @@ var main = (function(){
     document.querySelector('#blocking-shield').classList.remove('show-try-again');
     document.querySelector('#blocking-shield').classList.remove('show-cancel');
 
-    jQuery.ajax(blockingAjaxRequest).
+    $.ajax(blockingAjaxRequest).
         done(_successBlockingAjaxRequest).fail(_errorBlockingAjaxRequest);
   }
 
@@ -3649,7 +3649,7 @@ var main = (function(){
     blockingAjaxRequestDoneFunc = doneFunc;
     blockingAjaxRequestCancelFunc = cancelFunc;
 
-    jQuery.ajax(blockingAjaxRequest).
+    $.ajax(blockingAjaxRequest).
         done(_successBlockingAjaxRequest).fail(_errorBlockingAjaxRequest);
   }
 
@@ -5769,7 +5769,7 @@ var main = (function(){
   }
 
   function _normalizeStreetName(name) {
-    name = jQuery.trim(name);
+    name = $.trim(name);
 
     if (name.length > MAX_STREET_NAME_WIDTH) {
       name = name.substr(0, MAX_STREET_NAME_WIDTH) + '…';
@@ -5804,7 +5804,7 @@ var main = (function(){
     latestRequestId = _getUniqueRequestHeader();
     latestVerificationStreet = _trimStreetData(street);
 
-    jQuery.ajax({
+    $.ajax({
       url: url,
       dataType: 'json',
       type: 'GET',
@@ -6110,7 +6110,7 @@ var main = (function(){
 
   function _fetchGalleryData() {
     if (galleryUserId) {
-      jQuery.ajax({
+      $.ajax({
         // TODO const
         url: API_URL + 'v1/users/' + galleryUserId + '/streets',
         dataType: 'json',
@@ -6118,7 +6118,7 @@ var main = (function(){
         headers: { 'Authorization': _getAuthHeader() }
       }).done(_receiveGalleryData).fail(_errorReceiveGalleryData);
     } else {
-      jQuery.ajax({
+      $.ajax({
         // TODO const
         url: API_URL + 'v1/streets?count=200',
         dataType: 'json',
@@ -6145,7 +6145,7 @@ var main = (function(){
   function _fetchGalleryStreet(streetId) {
     _showBlockingShield();
 
-    jQuery.ajax({
+    $.ajax({
       // TODO const
       url: API_URL + 'v1/streets/' + streetId,
       dataType: 'json',
@@ -6596,7 +6596,7 @@ var main = (function(){
 
   function _isFeedbackFormMessagePresent() {
     var message = document.querySelector('#feedback-form-message').value;
-    message = jQuery.trim(message);
+    message = $.trim(message);
 
     return message.length > 0;
   }
@@ -8614,16 +8614,16 @@ var main = (function(){
       for (var j in SEGMENT_INFO[i].details) {
         var graphics = SEGMENT_INFO[i].details[j].graphics;
 
-        if (graphics.repeat && !jQuery.isArray(graphics.repeat)) {
+        if (graphics.repeat && !$.isArray(graphics.repeat)) {
           graphics.repeat = [graphics.repeat];
         }
-        if (graphics.left && !jQuery.isArray(graphics.left)) {
+        if (graphics.left && !$.isArray(graphics.left)) {
           graphics.left = [graphics.left];
         }
-        if (graphics.right && !jQuery.isArray(graphics.right)) {
+        if (graphics.right && !$.isArray(graphics.right)) {
           graphics.right = [graphics.right];
         }
-        if (graphics.center && !jQuery.isArray(graphics.center)) {
+        if (graphics.center && !$.isArray(graphics.center)) {
           graphics.center = [graphics.center];
         }
       }
@@ -8642,7 +8642,7 @@ var main = (function(){
 
     var url = _getFetchStreetUrl();
 
-    jQuery.ajax({
+    $.ajax({
       url: url,
       dataType: 'json',
       type: 'HEAD'
@@ -8657,7 +8657,7 @@ var main = (function(){
 
     if (newUpdatedDate != oldUpdatedDate) {
       var url = _getFetchStreetUrl();
-      jQuery.ajax({
+      $.ajax({
         url: url,
         dataType: 'json',
         type: 'GET'
@@ -8877,7 +8877,7 @@ var main = (function(){
 
   function _fetchSignInDetails() {
     // TODO const
-    jQuery.ajax({
+    $.ajax({
       url: API_URL + 'v1/users/' + signInData.userId,
       dataType: 'json',
       headers: { 'Authorization': _getAuthHeader() }
@@ -8975,9 +8975,9 @@ var main = (function(){
     };
 
     if (quiet) {
-      jQuery.ajax(call);
+      $.ajax(call);
     } else {
-      jQuery.ajax(call).done(_receiveSignOutConfirmationFromServer)
+      $.ajax(call).done(_receiveSignOutConfirmationFromServer)
           .fail(_errorReceiveSignOutConfirmationFromServer);
     }
   }
@@ -9076,7 +9076,7 @@ var main = (function(){
   function _detectCountry() {
     countryLoaded = false;
 
-    jQuery.ajax({ url: IP_GEOCODING_API_URL }).done(_receiveCountry);
+    $.ajax({ url: IP_GEOCODING_API_URL }).done(_receiveCountry);
 
     window.setTimeout(_detectCountryTimeout, IP_GEOCODING_TIMEOUT);
   }
@@ -9278,7 +9278,7 @@ var main = (function(){
 
     var transmission = _packServerStreetData();  
 
-    jQuery.ajax({
+    $.ajax({
       // TODO const
       url: API_URL + 'v1/streets',
       data: transmission,
@@ -9316,7 +9316,7 @@ var main = (function(){
   function _fetchStreetFromServer() {
     var url = _getFetchStreetUrl();
 
-    jQuery.ajax({
+    $.ajax({
       url: url,
       dataType: 'json',
       type: 'GET'
@@ -9363,7 +9363,7 @@ var main = (function(){
   function _fetchAvatar(userId) {
     avatarCache[userId] = null;
   
-    jQuery.ajax({
+    $.ajax({
       dataType: 'json',
       url: API_URL + 'v1/users/' + userId
     }).done(_receiveAvatar);
@@ -9738,7 +9738,7 @@ var main = (function(){
 
     // TODO make it better 
     // Related to Enter to 404 bug in Chrome
-    jQuery.ajaxSetup({ cache: false });
+    $.ajaxSetup({ cache: false });
 
     readyStateCompleteLoaded = false;
     document.addEventListener('readystatechange', _onReadyStateChange);
