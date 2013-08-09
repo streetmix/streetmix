@@ -6194,8 +6194,69 @@ var main = (function(){
     document.querySelector('#street-name-canvas').classList.remove('hidden');
   }
 
+
+  // TODO move
+  var SAVE_AS_IMAGE_DPI = 2.0;
+  var SAVE_AS_IMAGE_MIN_HEIGHT = 400;
+  var SAVE_AS_IMAGE_BOTTOM_PADDING = 100;
+
+  function _getStreetImage() {
+    var width = TILE_SIZE * street.width + BUILDING_SPACE * 2;
+
+    var leftBuildingAttr = _getBuildingAttributes(street, true);
+    var rightBuildingAttr = _getBuildingAttributes(street, false);
+
+    var leftHeight = leftBuildingAttr.height;
+    var rightHeight = rightBuildingAttr.height;
+
+    var height = Math.max(leftHeight, rightHeight);
+    if (height < SAVE_AS_IMAGE_MIN_HEIGHT) {
+      height = SAVE_AS_IMAGE_MIN_HEIGHT;
+    }
+
+    height += SAVE_AS_IMAGE_BOTTOM_PADDING;
+
+    var el = document.createElement('canvas');
+    el.width = width * SAVE_AS_IMAGE_DPI;
+    el.height = height * SAVE_AS_IMAGE_DPI;
+
+    var ctx = el.getContext('2d');
+
+    // TODO hack
+    var oldDpi = system.hiDpi;
+    system.hiDpi = SAVE_AS_IMAGE_DPI;
+    _drawStreetThumbnail(ctx, street, width, height, 1.0, false, true, 2.0);
+    system.hiDpi = oldDpi;
+
+    return el;
+  }
+
+  /*function _saveAsImage(event) {
+    var el = _getStreetImage(); 
+    
+    window.open(el.toDataURL('image/png'));
+
+    _eventTracking.track(TRACK_CATEGORY_SHARING, TRACK_ACTION_SAVE_AS_IMAGE, null, null, false);
+
+    event.preventDefault();
+  }*/
+
+  function _updateSaveAsImageDialogBox() {
+    var el = _getStreetImage();
+    
+    document.querySelector('#save-as-image-preview > div').innerHTML = '';
+
+    var imgEl = document.createElement('img');
+    imgEl.src = el.toDataURL('image/png');
+    document.querySelector('#save-as-image-preview > div').appendChild(imgEl);
+
+    document.querySelector('#save-as-image-download').href = el.toDataURL('image/png');
+  }
+
   function _showSaveAsImageDialogBox(event) {
     _hideMenus();
+
+    _updateSaveAsImageDialogBox();
 
     document.querySelector('#save-as-image-dialog').classList.add('visible');
     document.querySelector('#dialog-box-shield').classList.add('visible');    
@@ -6846,46 +6907,6 @@ var main = (function(){
       event.preventDefault();
       event.stopPropagation();
     }
-  }
-
-  // TODO move
-  var SAVE_AS_IMAGE_DPI = 2.0;
-  var SAVE_AS_IMAGE_MIN_HEIGHT = 400;
-  var SAVE_AS_IMAGE_BOTTOM_PADDING = 100;
-
-  function _saveAsImage(event) {
-    var width = TILE_SIZE * street.width + BUILDING_SPACE * 2;
-
-    var leftBuildingAttr = _getBuildingAttributes(street, true);
-    var rightBuildingAttr = _getBuildingAttributes(street, false);
-
-    var leftHeight = leftBuildingAttr.height;
-    var rightHeight = rightBuildingAttr.height;
-
-    var height = Math.max(leftHeight, rightHeight);
-    if (height < SAVE_AS_IMAGE_MIN_HEIGHT) {
-      height = SAVE_AS_IMAGE_MIN_HEIGHT;
-    }
-
-    height += SAVE_AS_IMAGE_BOTTOM_PADDING;
-
-    var el = document.createElement('canvas');
-    el.width = width * SAVE_AS_IMAGE_DPI;
-    el.height = height * SAVE_AS_IMAGE_DPI;
-
-    var ctx = el.getContext('2d');
-
-    // TODO hack
-    var oldDpi = system.hiDpi;
-    system.hiDpi = SAVE_AS_IMAGE_DPI;
-    _drawStreetThumbnail(ctx, street, width, height, 1.0, false, true, 2.0);
-    system.hiDpi = oldDpi;
-
-    window.open(el.toDataURL('image/png'));
-
-    _eventTracking.track(TRACK_CATEGORY_SHARING, TRACK_ACTION_SAVE_AS_IMAGE, null, null, false);
-
-    event.preventDefault();
   }
 
   function _onStreetLeftScrollClick(event) {

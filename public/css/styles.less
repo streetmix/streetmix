@@ -296,6 +296,8 @@ body:not(.safari).gallery-visible #street-section-sky {
     position: absolute;
 
     padding-top: 15px;
+    padding-left: 0;
+    padding-right: 0;
     line-height: 15px;
 
     font-weight: bold;
@@ -305,6 +307,8 @@ body:not(.safari).gallery-visible #street-section-sky {
     top: 130px;
     width: 100px;
     height: 40px;
+    padding-left: 0;
+    padding-right: 0;
     line-height: 40px;
     position: absolute;
   }
@@ -1537,6 +1541,42 @@ body.segment-move-dragging #editable-street-section > div {
 
 #welcome-avatar-creator:not(.visible) {
   display: none;
+}
+
+#save-as-image-dialog {
+  padding-left: 40px;
+  p {
+    font-size: 16px;
+    a {
+      font-size: 16px;
+    }
+  }
+}
+
+#save-as-image-preview {
+  width: 700px;
+  height: 300px;
+
+  display: table;
+  font-size: 0;
+
+  > div {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+
+    img {
+      max-width: 700px;
+      max-height: 300px;
+
+      cursor: move;  
+      cursor: -webkit-grab;
+      cursor: -moz-grab;
+
+      border: 3px dashed @uiColour;
+    }
+  }
+
 }
 
 body.phone #error,
@@ -3205,6 +3245,9 @@ a.button-like {
   color: black;
   text-align: center;
   text-decoration: none;
+
+  padding-left: 10px;
+  padding-right: 10px;
 
   -webkit-align-items: flex-start !important;
   display: inline-block !important;
