@@ -1857,7 +1857,7 @@ var main = (function(){
       person.left = peopleWidth;
       do {
         person.type = Math.floor(randomGenerator.rand() * PERSON_TYPES);
-      } while ((person.type == lastPersonType) || (!peopleCount && !PERSON_CAN_GO_FIRST[person.type]));
+      } while ((person.type == lastPersonType)/* || (!peopleCount && !PERSON_CAN_GO_FIRST[person.type])*/);
       lastPersonType = person.type;
 
       var lastWidth = widthConst + PERSON_WIDTH[person.type] * 12 - 24 + randomGenerator.rand() * widthRand;
