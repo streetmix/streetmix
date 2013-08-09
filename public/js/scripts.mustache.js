@@ -1856,8 +1856,6 @@ var main = (function(){
   }
 
   function _getVariantInfoDimensions(variantInfo, initialSegmentWidth, multiplier) {
-    //var multiplier = palette ? (TILE_SIZE / WIDTH_PALETTE_MULTIPLIER) : 1;
-
     var segmentWidth = initialSegmentWidth / TILE_SIZE / multiplier;
 
     var center = segmentWidth / 2;
@@ -2213,12 +2211,12 @@ var main = (function(){
 
       if (immediate) {
         _resizeSegment(segmentEl, RESIZE_TYPE_TYPING, 
-            width * TILE_SIZE, false, false, true);
+            width * TILE_SIZE, false, false);
         _infoBubble.updateWidthButtonsInContents(width);
       } else {
         widthHeightChangeTimerId = window.setTimeout(function() {
           _resizeSegment(segmentEl, RESIZE_TYPE_TYPING,
-          width * TILE_SIZE, false, false, true);
+          width * TILE_SIZE, false, false);
         _infoBubble.updateWidthButtonsInContents(width);
         }, WIDTH_EDIT_INPUT_DELAY);
       }
@@ -2284,9 +2282,7 @@ var main = (function(){
     }
 
     var resolution = segmentWidthResolution;
-
-    width = 
-        Math.round(width / resolution) * resolution;
+    width = Math.round(width / resolution) * resolution;
 
     return width;    
   }
@@ -2405,7 +2401,7 @@ var main = (function(){
     width = _normalizeSegmentWidth(width + increment, RESIZE_TYPE_INCREMENT);
 
     _resizeSegment(segmentEl, RESIZE_TYPE_INCREMENT,
-        width * TILE_SIZE, true, false, true);
+        width * TILE_SIZE, true, false);
   }
 
   function _onWidthDecrementClick(event) {
@@ -2432,19 +2428,17 @@ var main = (function(){
         TRACK_LABEL_INCREMENT_BUTTON, null, true);    
   }
 
-  function _resizeSegment(el, resizeType, width, updateEdit, palette, immediate, initial) {
+  function _resizeSegment(el, resizeType, width, updateEdit, palette, initial) {
     if (!palette) {
       var width = 
           _normalizeSegmentWidth(width / TILE_SIZE, resizeType) * TILE_SIZE;
     }
 
-    if (immediate) {
-      document.body.classList.add('immediate-segment-resize');
+    document.body.classList.add('immediate-segment-resize');
 
-      window.setTimeout(function() {
-        document.body.classList.remove('immediate-segment-resize');
-      }, SHORT_DELAY);
-    }
+    window.setTimeout(function() {
+      document.body.classList.remove('immediate-segment-resize');
+    }, SHORT_DELAY);
 
     var oldWidth = parseFloat(el.getAttribute('width') * TILE_SIZE);
 
@@ -2537,7 +2531,7 @@ var main = (function(){
     }
 
     if (width) {
-      _resizeSegment(el, RESIZE_TYPE_INITIAL, width, true, palette, true, true);
+      _resizeSegment(el, RESIZE_TYPE_INITIAL, width, true, palette, true);
     }
 
     if (!palette && !system.touch) {
@@ -4256,7 +4250,7 @@ var main = (function(){
     }
 
     _resizeSegment(draggingResize.segmentEl, resizeType,
-        draggingResize.width * TILE_SIZE, true, false, true);
+        draggingResize.width * TILE_SIZE, true, false);
 
     draggingResize.mouseX = x;
     draggingResize.mouseY = y;
@@ -4880,7 +4874,7 @@ var main = (function(){
 
   function _handleSegmentResizeCancel() {
     _resizeSegment(draggingResize.segmentEl, RESIZE_TYPE_INITIAL,
-        draggingResize.originalWidth * TILE_SIZE, true, false, true);
+        draggingResize.originalWidth * TILE_SIZE, true, false);
 
     _handleSegmentResizeEnd();
   }
