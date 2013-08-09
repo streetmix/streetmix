@@ -2627,7 +2627,6 @@ var main = (function(){
     }
 
     if (!flooredBuilding) {
-      //var floorCount = 1;
       var height = 10 * TILE_SIZE;
     } else {
       var floorCount = left ? street.leftBuildingHeight : street.rightBuildingHeight;
@@ -2644,14 +2643,17 @@ var main = (function(){
 
   // TODO change to array
   function _isFlooredBuilding(buildingVariant) {
-    if ((buildingVariant == 'narrow') || (buildingVariant == 'wide') || (buildingVariant == 'residential')) {
+    if ((buildingVariant == 'narrow') || (buildingVariant == 'wide') || 
+        (buildingVariant == 'residential')) {
       return true;
     } else {
       return false;
     }
   }
 
-  function _drawBuilding(ctx, destination, street, left, totalWidth, totalHeight, bottomAligned, offsetLeft, offsetTop, multiplier) {
+  function _drawBuilding(ctx, destination, street, left, totalWidth, 
+                         totalHeight, bottomAligned, offsetLeft, offsetTop, 
+                         multiplier) {
     var attr = _getBuildingAttributes(street, left);
 
     if (bottomAligned) {
@@ -2754,8 +2756,6 @@ var main = (function(){
       // TODO const
       ctx.fillStyle = 'rgba(204, 163, 173, .9)';
       ctx.fillRect(0, 0, totalWidth * system.hiDpi, totalHeight * system.hiDpi);
-      //ctx.fillStyle = 'rgba(133, 183, 204, .8)';
-      //ctx.fillRect(0, 0, totalWidth * system.hiDpi, totalHeight * system.hiDpi);
       ctx.restore();
     }
   }
@@ -2777,7 +2777,8 @@ var main = (function(){
     el.appendChild(canvasEl);
 
     var ctx = canvasEl.getContext('2d');
-    _drawBuilding(ctx, BUILDING_DESTINATION_SCREEN, street, left, totalWidth, height, true, 0, 0, 1.0);
+    _drawBuilding(ctx, BUILDING_DESTINATION_SCREEN, street, left, 
+                  totalWidth, height, true, 0, 0, 1.0);
   }
 
   function _buildingHeightUpdated() {
