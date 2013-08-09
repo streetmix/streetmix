@@ -6000,6 +6000,10 @@ var main = (function(){
   var WELCOME_FIRST_TIME_EXISTING_STREET = 3;
 
   function _showWelcome() {
+    if (readOnly || system.phone) {
+      return;
+    }
+
     var welcomeType = WELCOME_NONE;
 
      _loadSettingsWelcomeDismissed();
