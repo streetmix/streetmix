@@ -6250,6 +6250,13 @@ var main = (function(){
     imgEl.src = el.toDataURL('image/png');
     document.querySelector('#save-as-image-preview > div').appendChild(imgEl);
 
+    var filename = _normalizeSlug(street.name);
+    if (!filename) {
+      filename = 'street';
+    }
+    filename += '.png';
+
+    document.querySelector('#save-as-image-download').download = filename;
     document.querySelector('#save-as-image-download').href = el.toDataURL('image/png');
   }
 
