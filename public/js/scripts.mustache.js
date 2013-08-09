@@ -6729,7 +6729,6 @@ var main = (function(){
       height = SAVE_AS_IMAGE_MIN_HEIGHT;
     }
 
-    // TODO const
     height += SAVE_AS_IMAGE_BOTTOM_PADDING;
 
     var el = document.createElement('canvas');
