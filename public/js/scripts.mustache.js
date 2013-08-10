@@ -6983,11 +6983,10 @@ var main = (function(){
 
     if (system.touch) {
       document.querySelector('#dialog-box-shield').addEventListener('touchstart', _hideDialogBoxes);
-      document.querySelector('#about .close').addEventListener('touchstart', _hideAboutDialogBox);
     } else {
       document.querySelector('#dialog-box-shield').addEventListener('click', _hideDialogBoxes);
-      document.querySelector('#about .close').addEventListener('click', _hideAboutDialogBox);
     }
+    document.querySelector('#about .close').addEventListener('click', _hideAboutDialogBox);
 
     document.querySelector('#about-streetmix').addEventListener('click', _showAboutDialogBox);
 
@@ -6996,11 +6995,10 @@ var main = (function(){
 
     if (system.touch) {
       document.querySelector('#welcome .close').addEventListener('touchstart', _hideWelcome);
-      document.querySelector('#save-as-image-dialog .close').addEventListener('touchstart', _hideSaveAsImageDialogBox);
     } else {
       document.querySelector('#welcome .close').addEventListener('click', _hideWelcome);      
-      document.querySelector('#save-as-image-dialog .close').addEventListener('click', _hideSaveAsImageDialogBox);      
     }
+    document.querySelector('#save-as-image-dialog .close').addEventListener('click', _hideSaveAsImageDialogBox);      
 
     document.querySelector('#save-as-image').addEventListener('click', _showSaveAsImageDialogBox);
 
