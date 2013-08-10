@@ -73,8 +73,8 @@ var main = (function(){
   var SITE_URL = 'http://{{app_host_port}}/';
   var API_URL = '{{{restapi_proxy_baseuri_rel}}}/';
 
-  var IP_GEOCODING_API_URL = 'http://freegeoip.net/json/';
-  var IP_GEOCODING_TIMEOUT = 1000; // After this time, we don’t wait any more
+  var IP_GEOLOCATION_API_URL = 'http://freegeoip.net/json/';
+  var IP_GEOLOCATION_TIMEOUT = 1000; // After this time, we don’t wait any more
 
   var FACEBOOK_APP_ID = '{{facebook_app_id}}';
   var GOOGLE_ANALYTICS_ACCOUNT = '{{google_analytics_account}}';
@@ -1507,6 +1507,7 @@ var main = (function(){
   var TRACK_ACTION_ERROR_15A = 'Error 15A (sign in API failure)';
   var TRACK_ACTION_ERROR_RM1 = 'Error RM1 (auth 401 failure on load)';
   var TRACK_ACTION_ERROR_RM2 = 'Error RM2 (auth 401 failure mid-flight)';
+  var TRACK_ACTION_ERROR_GEOLOCATION_TIMEOUT = 'Geolocation timeout';
 
   var TRACK_LABEL_INCREMENT_BUTTON = 'Increment button';
   var TRACK_LABEL_INPUT_FIELD = 'Input field';
@@ -1642,7 +1643,7 @@ var main = (function(){
 
   var bodyLoaded;
   var readyStateCompleteLoaded;  
-  var countryLoaded;
+  var geolocationLoaded;
   var serverContacted;
 
   var saveStreetTimerId = -1;
@@ -7317,6 +7318,8 @@ var main = (function(){
         }
       }
 
+      // console.log('Event tracked', category, action, label);
+
       _gaq && _gaq.push(['_trackEvent', category, action, label, value]);
 
       if (onlyFirstTime) {
@@ -8879,8 +8882,6 @@ var main = (function(){
   }
 
   function _checkForLiveUpdate() {
-    console.log('checking for live update…');
-
     var url = _getFetchStreetUrl();
 
     $.ajax({
@@ -8903,7 +8904,6 @@ var main = (function(){
         dataType: 'json',
         type: 'GET'
       }).done(_receiveLiveUpdateStreet);
-      //console.log(newUpdatedDate, '!!!', oldUpdatedDate);
     }
 
     _scheduleNextLiveUpdateCheck();
@@ -9153,7 +9153,7 @@ var main = (function(){
     }
 
     if ((imagesToBeLoaded == 0) && signInLoaded && bodyLoaded && 
-        readyStateCompleteLoaded && countryLoaded && serverContacted) {
+        readyStateCompleteLoaded && geolocationLoaded && serverContacted) {
       _onEverythingLoaded();
     }
   }
@@ -9427,24 +9427,27 @@ var main = (function(){
     _checkIfEverythingIsLoaded();
   }
 
-  function _detectCountry() {
-    countryLoaded = false;
+  function _detectGeolocation() {
+    geolocationLoaded = false;
 
-    $.ajax({ url: IP_GEOCODING_API_URL }).done(_receiveCountry);
+    $.ajax({ url: IP_GEOLOCATION_API_URL }).done(_receiveGeolocation);
 
-    window.setTimeout(_detectCountryTimeout, IP_GEOCODING_TIMEOUT);
+    window.setTimeout(_detectGeolocationTimeout, IP_GEOLOCATION_TIMEOUT);
   }
 
-  function _detectCountryTimeout() {
-    if (!countryLoaded) {
-      countryLoaded = true;
+  function _detectGeolocationTimeout() {
+    if (!geolocationLoaded) {
+      geolocationLoaded = true;
       document.querySelector('#loading-progress').value++;      
       _checkIfEverythingIsLoaded();
+
+      _eventTracking.track(TRACK_CATEGORY_ERROR, TRACK_ACTION_ERROR_GEOLOCATION_TIMEOUT, 
+          null, null, false);
     }
   }
 
-  function _receiveCountry(info) {
-    if (countryLoaded) {
+  function _receiveGeolocation(info) {
+    if (geolocationLoaded) {
       // Already loaded, discard results
       return;
     }
@@ -9472,7 +9475,7 @@ var main = (function(){
       units = SETTINGS_UNITS_METRIC;
     }
 
-    countryLoaded = true;
+    geolocationLoaded = true;
     document.querySelector('#loading-progress').value++;
     _checkIfEverythingIsLoaded();
   }
@@ -10116,9 +10119,9 @@ var main = (function(){
 
     // …detecting country from IP for units and left/right-hand driving
     if ((mode == MODE_NEW_STREET) || (mode == MODE_NEW_STREET_COPY_LAST)) {
-      _detectCountry();
+      _detectGeolocation();
     } else {
-      countryLoaded = true;
+      geolocationLoaded = true;
     }
 
     // …sign in info from our API (if not previously cached) – and subsequent
