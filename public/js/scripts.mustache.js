@@ -1525,6 +1525,7 @@ var main = (function(){
 
   var SKY_COLOUR = 'rgb(169, 204, 219)';
   var SKY_WIDTH = 250;
+  var BOTTOM_BACKGROUND = 'rgb(216, 211, 203)';
 
   // TODO clean up/rearrange variables
 
@@ -6205,7 +6206,8 @@ var main = (function(){
   // TODO move
   var SAVE_AS_IMAGE_DPI = 2.0;
   var SAVE_AS_IMAGE_MIN_HEIGHT = 400;
-  var SAVE_AS_IMAGE_BOTTOM_PADDING = 100 - 40;
+  var SAVE_AS_IMAGE_BOTTOM_PADDING = 60;
+  var SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING = 100;
 
   function _getStreetImage() {
     var width = TILE_SIZE * street.width + BUILDING_SPACE * 2;
@@ -6222,6 +6224,10 @@ var main = (function(){
     }
 
     height += SAVE_AS_IMAGE_BOTTOM_PADDING;
+
+    if (saveAsImageSegmentNamesAndWidths) {
+      height += SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING;
+    }
 
     var el = document.createElement('canvas');
     el.width = width * SAVE_AS_IMAGE_DPI;
@@ -6243,17 +6249,22 @@ var main = (function(){
     document.querySelector('#save-as-image-preview-preview').classList.add('visible');    
   }
 
-  function _updateSaveAsImageDialogBox() {
-    var el = _getStreetImage();
-    
+  function _updateSaveAsImageDialogBox() {    
     document.querySelector('#save-as-image-preview-loading').classList.add('visible');
     document.querySelector('#save-as-image-preview-preview').classList.remove('visible');
 
+    window.setTimeout(_updateSaveAsImageDialogBoxPart2, 50);
+  }
+
+  function _updateSaveAsImageDialogBoxPart2() {
     document.querySelector('#save-as-image-preview-preview').innerHTML = '';
+
+    var el = _getStreetImage();
+    var dataUrl = el.toDataURL('image/png');
 
     var imgEl = document.createElement('img');
     imgEl.addEventListener('load', _saveAsImagePreviewReady);
-    imgEl.src = el.toDataURL('image/png');
+    imgEl.src = dataUrl;
     document.querySelector('#save-as-image-preview-preview').appendChild(imgEl);
 
     var filename = _normalizeSlug(street.name);
@@ -6263,15 +6274,18 @@ var main = (function(){
     filename += '.png';
 
     document.querySelector('#save-as-image-download').download = filename;
-    document.querySelector('#save-as-image-download').href = 
-        el.toDataURL('image/png');
+    document.querySelector('#save-as-image-download').href = dataUrl;
   }
 
+  // TODO move into options
   var saveAsImageTransparentSky = false;
+  var saveAsImageSegmentNamesAndWidths = false;
 
   function _updateSaveAsImageOptions() {
     saveAsImageTransparentSky = 
         document.querySelector('#save-as-image-transparent-sky').checked;
+    saveAsImageSegmentNamesAndWidths = 
+        document.querySelector('#save-as-image-segment-names').checked;
 
     window.setTimeout(function() { _updateSaveAsImageDialogBox(); }, 0);
   }
@@ -6986,6 +7000,7 @@ var main = (function(){
     document.querySelector('#save-as-image').addEventListener('click', _showSaveAsImageDialogBox);
 
     document.querySelector('#save-as-image-transparent-sky').addEventListener('click', _updateSaveAsImageOptions);
+    document.querySelector('#save-as-image-segment-names').addEventListener('click', _updateSaveAsImageOptions);
 
     document.querySelector('#street-section-outer').addEventListener('scroll', _onStreetSectionScroll);
 
@@ -8956,6 +8971,10 @@ var main = (function(){
     } else {
       var offsetTop = (thumbnailHeight + 5 * TILE_SIZE * multiplier) / 2;
     }
+    if (saveAsImageSegmentNamesAndWidths) {
+      offsetTop -= SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING * multiplier;
+    }
+
     var offsetLeft = (thumbnailWidth - occupiedWidth * TILE_SIZE * multiplier) / 2;
     var buildingOffsetLeft = (thumbnailWidth - street.width * TILE_SIZE * multiplier) / 2;
 
@@ -8965,7 +8984,7 @@ var main = (function(){
 
     if (!transparentSky) {
       ctx.fillStyle = SKY_COLOUR;
-      ctx.fillRect(0, 0, thumbnailWidth * system.hiDpi, thumbnailHeight * system.hiDpi);
+      ctx.fillRect(0, 0, thumbnailWidth * system.hiDpi, (groundLevel + 20 * multiplier) * system.hiDpi);
 
       var y = groundLevel - 280;
 
@@ -8987,16 +9006,26 @@ var main = (function(){
     // Dirt    
 
     ctx.fillStyle = BACKGROUND_DIRT_COLOUR;
-    ctx.fillRect(0, (groundLevel + 20 * multiplier) * system.hiDpi, thumbnailWidth * system.hiDpi, thumbnailHeight * system.hiDpi);
+    ctx.fillRect(0, (groundLevel + 20 * multiplier) * system.hiDpi, 
+      thumbnailWidth * system.hiDpi, (25 * multiplier) * system.hiDpi);
     
     ctx.fillRect(0, groundLevel * system.hiDpi,
                  (thumbnailWidth / 2 - street.width * TILE_SIZE * multiplier / 2) * system.hiDpi, 
-                 thumbnailHeight * system.hiDpi);
+                 (20 * multiplier) * system.hiDpi);
 
     ctx.fillRect((thumbnailWidth / 2 + street.width * TILE_SIZE * multiplier / 2) * system.hiDpi, 
                  groundLevel * system.hiDpi,
                  thumbnailWidth * system.hiDpi,
-                 thumbnailHeight * system.hiDpi);
+                 (20 * multiplier) * system.hiDpi);
+
+    // Segment names
+
+    ctx.fillStyle = BOTTOM_BACKGROUND;
+    ctx.fillRect(0, (groundLevel + 45 * multiplier) * system.hiDpi, 
+      thumbnailWidth * system.hiDpi, (thumbnailHeight - groundLevel - 45 * multiplier) * system.hiDpi);
+
+    if (saveAsImageSegmentNamesAndWidths) {
+    }
 
     // Buildings
 
