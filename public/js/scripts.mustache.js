@@ -8648,12 +8648,18 @@ var main = (function(){
         segmentWidthClickIncrement = SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL;
         segmentWidthDraggingResolution = 
             SEGMENT_WIDTH_DRAGGING_RESOLUTION_IMPERIAL;
+
+        document.body.classList.add('units-imperial');
+
         break;
       case SETTINGS_UNITS_METRIC:
         segmentWidthResolution = SEGMENT_WIDTH_RESOLUTION_METRIC;
         segmentWidthClickIncrement = SEGMENT_WIDTH_CLICK_INCREMENT_METRIC;
         segmentWidthDraggingResolution = 
             SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC;
+
+        document.body.classList.add('units-metric');
+
         break;
     }
 
