@@ -1524,6 +1524,7 @@ var main = (function(){
   var LIVE_UPDATE_DELAY = 5000;
 
   var SKY_COLOUR = 'rgb(169, 204, 219)';
+  var SKY_WIDTH = 250;
 
   // TODO clean up/rearrange variables
 
@@ -6275,7 +6276,7 @@ var main = (function(){
   function _showSaveAsImageDialogBox(event) {
     _hideMenus();
 
-    _updateSaveAsImageDialogBox();
+    window.setTimeout(function() { _updateSaveAsImageDialogBox(); }, 0);
 
     document.querySelector('#save-as-image-dialog').classList.add('visible');
     document.querySelector('#dialog-box-shield').classList.add('visible');    
@@ -8934,16 +8935,13 @@ var main = (function(){
   function _drawStreetThumbnail(ctx, street, thumbnailWidth, thumbnailHeight, 
                                 multiplier, silhouette, bottomAligned,
                                 transparentSky) {
+    
+    // Calculations
+
     var occupiedWidth = 0;
     for (var i in street.segments) {
       occupiedWidth += street.segments[i].width;
     }
-
-    if (!transparentSky) {
-      ctx.fillStyle = SKY_COLOUR;
-      ctx.fillRect(0, 0, thumbnailWidth * system.hiDpi, thumbnailHeight * system.hiDpi);
-    }
-
 
     if (bottomAligned) {
       var offsetTop = thumbnailHeight - 200 * multiplier;
@@ -8954,6 +8952,31 @@ var main = (function(){
     var buildingOffsetLeft = (thumbnailWidth - street.width * TILE_SIZE * multiplier) / 2;
 
     var groundLevel = offsetTop + 135 * multiplier;
+
+    // Sky
+
+    if (!transparentSky) {
+      ctx.fillStyle = SKY_COLOUR;
+      ctx.fillRect(0, 0, thumbnailWidth * system.hiDpi, thumbnailHeight * system.hiDpi);
+
+      var y = groundLevel - 280;
+
+      for (var i = 0; i < Math.floor(thumbnailWidth / SKY_WIDTH) + 1; i++) {
+        ctx.drawImage(images['/images/sky-front.png'],
+            0, 0, SKY_WIDTH * 2, 280 * 2,
+            i * SKY_WIDTH * system.hiDpi, y * system.hiDpi, SKY_WIDTH * system.hiDpi, 280 * system.hiDpi);
+      }
+
+      var y = groundLevel - 280 - 120;
+
+      for (var i = 0; i < Math.floor(thumbnailWidth / SKY_WIDTH) + 1; i++) {
+        ctx.drawImage(images['/images/sky-rear.png'],
+            0, 0, SKY_WIDTH * 2, 120 * 2,
+            i * SKY_WIDTH * system.hiDpi, y * system.hiDpi, SKY_WIDTH * system.hiDpi, 120 * system.hiDpi);
+      }
+    }
+
+    // Dirt    
 
     ctx.fillStyle = BACKGROUND_DIRT_COLOUR;
     ctx.fillRect(0, (groundLevel + 20 * multiplier) * system.hiDpi, thumbnailWidth * system.hiDpi, thumbnailHeight * system.hiDpi);
@@ -8967,6 +8990,8 @@ var main = (function(){
                  thumbnailWidth * system.hiDpi,
                  thumbnailHeight * system.hiDpi);
 
+    // Buildings
+
     var buildingWidth = buildingOffsetLeft / multiplier;
 
     var x = thumbnailWidth / 2 - street.width * TILE_SIZE * multiplier / 2;
@@ -8974,6 +8999,8 @@ var main = (function(){
 
     var x = thumbnailWidth / 2 + street.width * TILE_SIZE * multiplier / 2;
     _drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street, false, buildingWidth, groundLevel + 45, true, x - 25 * multiplier, 0, multiplier);
+
+    // Segments
 
     for (var i in street.segments) {
       var segment = street.segments[i];
@@ -8987,6 +9014,8 @@ var main = (function(){
 
       offsetLeft += segment.width * TILE_SIZE * multiplier;
     }
+
+    // Silhouette
 
     if (silhouette) {
       ctx.globalCompositeOperation = 'source-atop';
