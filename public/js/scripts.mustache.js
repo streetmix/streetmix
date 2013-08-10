@@ -6205,7 +6205,7 @@ var main = (function(){
   // TODO move
   var SAVE_AS_IMAGE_DPI = 2.0;
   var SAVE_AS_IMAGE_MIN_HEIGHT = 400;
-  var SAVE_AS_IMAGE_BOTTOM_PADDING = 100;
+  var SAVE_AS_IMAGE_BOTTOM_PADDING = 100 - 40;
 
   function _getStreetImage() {
     var width = TILE_SIZE * street.width + BUILDING_SPACE * 2;
@@ -8952,7 +8952,7 @@ var main = (function(){
     }
 
     if (bottomAligned) {
-      var offsetTop = thumbnailHeight - 200 * multiplier;
+      var offsetTop = thumbnailHeight - 180 * multiplier;
     } else {
       var offsetTop = (thumbnailHeight + 5 * TILE_SIZE * multiplier) / 2;
     }
