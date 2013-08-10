@@ -2720,7 +2720,8 @@ var main = (function(){
           var width = 48;
           var y = 0;
           var height = 168 + 12 - 24 - 24 - 24;
-          var offsetY = 23 - 45 + 24;
+          var offsetY = 23 + 24;
+          offsetTop -= 45;
 
           if (left) {
             var posShift = (totalWidth % width) - 121;
@@ -2734,7 +2735,8 @@ var main = (function(){
           var width = 48;
           var y = 0;
           var height = 168 + 12;
-          var offsetY = 23 - 45 + 24 - 6 * 12;
+          var offsetY = 23 + 24 - 6 * 12;
+          offsetTop -= 45;
 
           if (left) {
             var posShift = (totalWidth % width) - 121;
@@ -2745,12 +2747,13 @@ var main = (function(){
 
         case 'parking-lot':
           var tileset = 3;
-          var width = 108 * 2;
+          var width = 216;
           var height = 576 / 2;
-          var offsetY = 3;//;-188 + 12 * 12;
+          var offsetY = 3 + 45;
+          offsetTop -= 45;
 
           if (left) {
-            var posShift = (totalWidth % width) - 457;
+            var posShift = (totalWidth % width) - width - width - 25;
             var y = 12 + 298;
 
             var x = 815 + 162 * 12;
@@ -2768,10 +2771,11 @@ var main = (function(){
           var tileset = 1;
           var width = 120;
           var height = 192 / 2;
-          var offsetY = 24 + 24;
+          var offsetY = 24 + 24 + 45;
+          offsetTop -= 45;
 
           if (left) {
-            var posShift = (totalWidth % width) - 265;
+            var posShift = (totalWidth % width) - width - width - 25;
             var y = 120;
 
             var x = 0;
@@ -2786,7 +2790,7 @@ var main = (function(){
           break;
       }
 
-      var count = Math.ceil(totalWidth / width) + 1;
+      var count = Math.floor(totalWidth / width) + 2;
 
       for (var i = 0; i < count; i++) {
         if ((i == 0) && (typeof firstX != 'undefined')) {
@@ -2802,7 +2806,7 @@ var main = (function(){
             offsetLeft + (posShift + i * width) * multiplier, 
             offsetTop + offsetY * multiplier, 
             width * multiplier, 
-            (height) * multiplier);
+            height * multiplier);
       }
     } else {
       // Floored buildings
