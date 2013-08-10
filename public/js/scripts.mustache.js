@@ -1566,7 +1566,10 @@ var main = (function(){
     lastStreetNamespacedId: null,
     lastStreetUserId: null,
     priorLastStreetId: null, // Do not save
-    newStreetPreference: null
+    newStreetPreference: null,
+
+    saveAsImageTransparentSky: null,
+    saveAsImageSegmentNamesAndWidths: null
   };
   var settingsWelcomeDismissed = false;
 
@@ -3700,8 +3703,6 @@ var main = (function(){
       contentType: 'application/json',
       headers: { 'Authorization': _getAuthHeader() }
     }, true, null, _errorSavingSettingsToServer);
-
-//      function _newNonblockingAjaxRequest(request, allowToClosePage, doneFunc, errorFunc) {
   }
 
   function _errorSavingSettingsToServer(data) {
@@ -6225,7 +6226,7 @@ var main = (function(){
 
     height += SAVE_AS_IMAGE_BOTTOM_PADDING;
 
-    if (saveAsImageSegmentNamesAndWidths) {
+    if (settings.saveAsImageSegmentNamesAndWidths) {
       height += SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING;
     }
 
@@ -6238,7 +6239,7 @@ var main = (function(){
     // TODO hack
     var oldDpi = system.hiDpi;
     system.hiDpi = SAVE_AS_IMAGE_DPI;
-    _drawStreetThumbnail(ctx, street, width, height, 1.0, false, true, saveAsImageTransparentSky);
+    _drawStreetThumbnail(ctx, street, width, height, 1.0, false, true, settings.saveAsImageTransparentSky);
     system.hiDpi = oldDpi;
 
     return el;
@@ -6277,21 +6278,25 @@ var main = (function(){
     document.querySelector('#save-as-image-download').href = dataUrl;
   }
 
-  // TODO move into options
-  var saveAsImageTransparentSky = false;
-  var saveAsImageSegmentNamesAndWidths = false;
-
   function _updateSaveAsImageOptions() {
-    saveAsImageTransparentSky = 
+    settings.saveAsImageTransparentSky = 
         document.querySelector('#save-as-image-transparent-sky').checked;
-    saveAsImageSegmentNamesAndWidths = 
+    settings.saveAsImageSegmentNamesAndWidths = 
         document.querySelector('#save-as-image-segment-names').checked;
+
+    _saveSettingsLocally();  
 
     window.setTimeout(function() { _updateSaveAsImageDialogBox(); }, 0);
   }
 
   function _showSaveAsImageDialogBox(event) {
     _hideMenus();
+
+    document.querySelector('#save-as-image-transparent-sky').checked =
+        settings.saveAsImageTransparentSky;
+        
+    document.querySelector('#save-as-image-segment-names').checked = 
+        settings.saveAsImageSegmentNamesAndWidths;
 
     document.querySelector('#save-as-image-preview-loading').classList.add('visible');
     document.querySelector('#save-as-image-preview-preview').classList.remove('visible');    
@@ -8488,6 +8493,12 @@ var main = (function(){
     if (typeof settings.lastStreetCreatorId === 'undefined') {
       settings.lastStreetCreatorId = secondSettings.lastStreetCreatorId;
     }
+    if (typeof settings.saveAsImageTransparentSky === 'undefined') {
+      settings.saveAsImageTransparentSky = secondSettings.saveAsImageTransparentSky;
+    }
+    if (typeof settings.saveAsImageSegmentNamesAndWidths === 'undefined') {
+      settings.saveAsImageSegmentNamesAndWidths = secondSettings.saveAsImageSegmentNamesAndWidths;
+    }
 
     // Provide defaults if the above failed
 
@@ -8502,6 +8513,12 @@ var main = (function(){
     }
     if (typeof settings.lastStreetCreatorId === 'undefined') {
       settings.lastStreetCreatorId = null;
+    }
+    if (typeof settings.saveAsImageTransparentSky === 'undefined') {
+      settings.saveAsImageTransparentSky = false;
+    }
+    if (typeof settings.saveAsImageSegmentNamesAndWidths === 'undefined') {
+      settings.saveAsImageSegmentNamesAndWidths = false;
     }
   }
 
@@ -8555,6 +8572,8 @@ var main = (function(){
     data.lastStreetId = settings.lastStreetId;
     data.lastStreetNamespacedId = settings.lastStreetNamespacedId;
     data.lastStreetCreatorId = settings.lastStreetCreatorId;
+    data.saveAsImageTransparentSky = settings.saveAsImageTransparentSky;
+    data.saveAsImageSegmentNamesAndWidths = settings.saveAsImageSegmentNamesAndWidths;
 
     data.newStreetPreference = settings.newStreetPreference;
 
@@ -8970,7 +8989,7 @@ var main = (function(){
     } else {
       var offsetTop = (thumbnailHeight + 5 * TILE_SIZE * multiplier) / 2;
     }
-    if (saveAsImageSegmentNamesAndWidths) {
+    if (settings.saveAsImageSegmentNamesAndWidths) {
       offsetTop -= SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING * multiplier;
     }
 
@@ -9054,7 +9073,7 @@ var main = (function(){
 
     var offsetLeft = originalOffsetLeft;
 
-    if (saveAsImageSegmentNamesAndWidths) {
+    if (settings.saveAsImageSegmentNamesAndWidths) {
       // TODO const
       ctx.strokeStyle = 'black';
       ctx.lineWidth = .5;
