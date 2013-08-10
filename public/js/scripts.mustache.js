@@ -6238,16 +6238,6 @@ var main = (function(){
     return el;
   }
 
-  /*function _saveAsImage(event) {
-    var el = _getStreetImage(); 
-    
-    window.open(el.toDataURL('image/png'));
-
-    _eventTracking.track(TRACK_CATEGORY_SHARING, TRACK_ACTION_SAVE_AS_IMAGE, null, null, false);
-
-    event.preventDefault();
-  }*/
-
   function _saveAsImagePreviewReady() {
     document.querySelector('#save-as-image-preview-loading').classList.remove('visible');
     document.querySelector('#save-as-image-preview-preview').classList.add('visible');    
@@ -6296,6 +6286,8 @@ var main = (function(){
 
     document.querySelector('#save-as-image-dialog').classList.add('visible');
     document.querySelector('#dialog-box-shield').classList.add('visible');    
+
+    _eventTracking.track(TRACK_CATEGORY_SHARING, TRACK_ACTION_SAVE_AS_IMAGE, null, null, false);
 
     if (event) {
       event.preventDefault();
