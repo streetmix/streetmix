@@ -6244,14 +6244,23 @@ var main = (function(){
     event.preventDefault();
   }*/
 
+  function _saveAsImagePreviewReady() {
+    document.querySelector('#save-as-image-preview-loading').classList.remove('visible');
+    document.querySelector('#save-as-image-preview-preview').classList.add('visible');    
+  }
+
   function _updateSaveAsImageDialogBox() {
     var el = _getStreetImage();
     
-    document.querySelector('#save-as-image-preview > div').innerHTML = '';
+    document.querySelector('#save-as-image-preview-loading').classList.add('visible');
+    document.querySelector('#save-as-image-preview-preview').classList.remove('visible');
+
+    document.querySelector('#save-as-image-preview-preview').innerHTML = '';
 
     var imgEl = document.createElement('img');
+    imgEl.addEventListener('load', _saveAsImagePreviewReady);
     imgEl.src = el.toDataURL('image/png');
-    document.querySelector('#save-as-image-preview > div').appendChild(imgEl);
+    document.querySelector('#save-as-image-preview-preview').appendChild(imgEl);
 
     var filename = _normalizeSlug(street.name);
     if (!filename) {
@@ -6276,7 +6285,10 @@ var main = (function(){
   function _showSaveAsImageDialogBox(event) {
     _hideMenus();
 
-    window.setTimeout(function() { _updateSaveAsImageDialogBox(); }, 0);
+    document.querySelector('#save-as-image-preview-loading').classList.add('visible');
+    document.querySelector('#save-as-image-preview-preview').classList.remove('visible');    
+
+    window.setTimeout(function() { _updateSaveAsImageDialogBox(); }, 100);
 
     document.querySelector('#save-as-image-dialog').classList.add('visible');
     document.querySelector('#dialog-box-shield').classList.add('visible');    

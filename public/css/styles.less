@@ -1557,8 +1557,8 @@ body.segment-move-dragging #editable-street-section > div {
   input[type='checkbox'] {
     .user-select-none;
     font-size: 25px;
-    position: relative;
-    top: -2px;
+    //position: relative;
+    //top: -2px;
   }
   label {
     .user-select-none;
@@ -1566,30 +1566,57 @@ body.segment-move-dragging #editable-street-section > div {
   }
 }
 
+#save-as-image-preview-loading {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  line-height: 300px;
+  height: 300px;
+
+  font-size: 16px;
+  text-align: center;
+
+  &:not(.visible) {
+    display: none;
+  }
+}
+
 #save-as-image-preview {
-  width: 700px;
+  position: relative;
+  width: 700px + 3px + 3px;
   height: 300px + 3px + 3px;
+  margin-bottom: 30px;
 
   display: table;
+}
+
+#save-as-image-preview-preview {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+
+  -webkit-touch-callout: default;
+  -moz-touch-callout: default;
+  touch-callout: default;  
+
   font-size: 0;
 
-  > div {
-    display: table-cell;
-    vertical-align: middle;
-    text-align: center;
-
-    img {
-      max-width: 700px;
-      max-height: 300px;
-
-      cursor: move;  
-      cursor: -webkit-grab;
-      cursor: -moz-grab;
-
-      border: 3px dashed @uiColour;
-    }
+  &:not(.visible) {
+    opacity: 0;
+    pointer-events: none;
   }
 
+  img {
+    max-width: 700px;
+    max-height: 300px;
+
+    cursor: move;  
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+
+    border: 3px dashed @uiColour;
+  }
 }
 
 body.phone #error,

@@ -266,12 +266,17 @@
           <input type='checkbox' id='save-as-image-transparent-sky'><label for='save-as-image-transparent-sky'>Transparent sky</label>
         </p>
         <div id='save-as-image-preview'>
-          <div>
-          </div>
+          <div id='save-as-image-preview-loading'>Loading…</div>
+          <div id='save-as-image-preview-preview'></div>
         </div>
         <p>
-          Drag the image anywhere you want, or 
-          <a download class='button-like' id='save-as-image-download'>Save the image to your drive…</a>
+          <span class='non-touch-only'>
+            Drag the image anywhere you want, or 
+            <a download class='button-like' id='save-as-image-download'>Save the image to your drive…</a>
+          </span>
+          <span class='touch-only'>
+            Hold your finger on the image above to save or copy it.
+          </span>
         </p>
       </div>
     </div>
