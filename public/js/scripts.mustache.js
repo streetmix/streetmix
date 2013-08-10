@@ -6207,7 +6207,7 @@ var main = (function(){
   var SAVE_AS_IMAGE_DPI = 2.0;
   var SAVE_AS_IMAGE_MIN_HEIGHT = 400;
   var SAVE_AS_IMAGE_BOTTOM_PADDING = 60;
-  var SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING = 100;
+  var SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING = 65;
 
   function _getStreetImage() {
     var width = TILE_SIZE * street.width + BUILDING_SPACE * 2;
@@ -7859,7 +7859,6 @@ var main = (function(){
         case INFO_BUBBLE_TYPE_SEGMENT:
           var segment = street.segments[parseInt(_infoBubble.segmentEl.dataNo)];
           var segmentInfo = SEGMENT_INFO[segment.type];
-
           var variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString];
           var name = variantInfo.name || segmentInfo.name;
 
@@ -9024,9 +9023,6 @@ var main = (function(){
     ctx.fillRect(0, (groundLevel + 45 * multiplier) * system.hiDpi, 
       thumbnailWidth * system.hiDpi, (thumbnailHeight - groundLevel - 45 * multiplier) * system.hiDpi);
 
-    if (saveAsImageSegmentNamesAndWidths) {
-    }
-
     // Buildings
 
     var buildingWidth = buildingOffsetLeft / multiplier;
@@ -9039,6 +9035,8 @@ var main = (function(){
 
     // Segments
 
+    var originalOffsetLeft = offsetLeft;
+
     for (var i in street.segments) {
       var segment = street.segments[i];
       var segmentInfo = SEGMENT_INFO[segment.type];
@@ -9050,6 +9048,70 @@ var main = (function(){
           offsetLeft + dimensions.left * TILE_SIZE * multiplier, offsetTop, segment.randSeed, multiplier, false);
 
       offsetLeft += segment.width * TILE_SIZE * multiplier;
+    }
+
+    // Segment names
+
+    var offsetLeft = originalOffsetLeft;
+
+    if (saveAsImageSegmentNamesAndWidths) {
+      // TODO const
+      ctx.strokeStyle = 'black';
+      ctx.lineWidth = .5;
+      ctx.font = 'normal 300 26px Lato';
+      ctx.fillStyle = 'black';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+
+      for (var i = 0; i < street.segments.length; i++) {
+        var segment = street.segments[i];
+
+        var segmentInfo = SEGMENT_INFO[segment.type];
+        var variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString];
+        var name = variantInfo.name || segmentInfo.name;
+
+        var left = offsetLeft;
+        var availableWidth = segment.width * TILE_SIZE * multiplier;
+
+        if (i == 0) {
+          left--;
+        }
+
+        _drawLine(ctx, 
+            left, (groundLevel + 45 * multiplier), 
+            left, (groundLevel + 125 * multiplier));
+
+        var x = (offsetLeft + availableWidth / 2) * system.hiDpi;
+
+        var text = _prettifyWidth(segment.width, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP);
+        var width = ctx.measureText(text).width / 2;
+        while ((width > availableWidth - 10 * multiplier) && (text.indexOf(' ') != -1)) {
+          text = text.substr(0, text.lastIndexOf(' '));
+          width = ctx.measureText(text).width / 2;
+        }
+        ctx.fillText(text, x, 
+          (groundLevel + 60 * multiplier) * system.hiDpi);
+
+        var width = ctx.measureText(name).width / 2;
+        if (width <= availableWidth - 10 * multiplier) {
+          ctx.fillText(name, x, 
+            (groundLevel + 83 * multiplier) * system.hiDpi);          
+        }
+
+        // grid
+        /*for (var j = 1; j < Math.floor(availableWidth / TILE_SIZE); j++) {
+          _drawLine(ctx, 
+              left + j * TILE_SIZE, (groundLevel + 45 * multiplier), 
+              left + j * TILE_SIZE, (groundLevel + 55 * multiplier));          
+        }*/
+
+        offsetLeft += availableWidth;
+      }    
+
+      var left = offsetLeft + 1;
+      _drawLine(ctx, 
+          left, (groundLevel + 45 * multiplier), 
+          left, (groundLevel + 125 * multiplier));
     }
 
     // Silhouette
