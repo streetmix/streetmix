@@ -1864,7 +1864,6 @@ var main = (function(){
 
     var peopleCount = 0;
 
-    console.log('***', randSeed);
     while ((!peopleCount) || (peopleWidth < width - 40)) {
       var person = {};
       person.left = peopleWidth;
@@ -1898,8 +1897,6 @@ var main = (function(){
 
       var typeX = person.type % PERSON_TILESET_WRAP;
       var typeY = Math.floor(person.type / PERSON_TILESET_WRAP);
-
-      //console.log(PERSON_WIDTH[person.type]);
 
       _drawSegmentImage(2, ctx, 
           1008 + 12 * 5 * typeX, 1756 / 2 + 24 * 4 * typeY, 
