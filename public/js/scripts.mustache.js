@@ -1475,13 +1475,15 @@ var main = (function(){
   var INFO_BUBBLE_MARGIN_BUBBLE = 20;
   var INFO_BUBBLE_MARGIN_MOUSE = 10;
 
-  var PERSON_TYPES = 15; // 30
+  var PERSON_TYPES = 31;
   var PERSON_CAN_GO_FIRST = [true, true, true, true, true, true, true, true, true, true,
                              true, true, true, true, true, true, true, true, false, false,
-                             true, true, true, true, true, true, true, true, true, true];
+                             true, true, true, true, true, true, true, true, true, true,
+                             true];
   var PERSON_WIDTH = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 
                       2, 2, 2, 3, 2, 3, 3, 3, 3, 3,
-                      1, 1, 3, 4, 2, 3, 2, 3, 4, 3];
+                      1, 1, 3, 4, 2, 3, 2, 3, 4, 3,
+                      2];
   var PERSON_TILESET_WRAP = 10;
 
   var INFO_BUBBLE_TYPE_SEGMENT = 1;
@@ -1853,6 +1855,8 @@ var main = (function(){
         break;
     }
 
+    var randSeed = (randSeed || 35) + 16;
+
     var randomGenerator = new RandomGenerator();
     randomGenerator.seed(randSeed);
 
@@ -1860,12 +1864,13 @@ var main = (function(){
 
     var peopleCount = 0;
 
-    while ((!peopleCount) || (peopleWidth < width - 45)) {
+    console.log('***', randSeed);
+    while ((!peopleCount) || (peopleWidth < width - 40)) {
       var person = {};
       person.left = peopleWidth;
       do {
         person.type = Math.floor(randomGenerator.rand() * PERSON_TYPES);
-      } while ((person.type == lastPersonType)/* || (!peopleCount && !PERSON_CAN_GO_FIRST[person.type])*/);
+      } while ((person.type == lastPersonType) || ((peopleCount == 0) && !PERSON_CAN_GO_FIRST[person.type]));
       lastPersonType = person.type;
 
       var lastWidth = widthConst + PERSON_WIDTH[person.type] * 12 - 24 + randomGenerator.rand() * widthRand;
@@ -2505,7 +2510,7 @@ var main = (function(){
     }
 
     _setSegmentContents(el, el.getAttribute('type'), 
-      el.getAttribute('variant-string'), width, el.getAttribute('rand-seed'), palette, false);
+      el.getAttribute('variant-string'), width, parseInt(el.getAttribute('rand-seed')), palette, false);
 
     if (updateEdit) {
       _infoBubble.updateWidthInContents(el, width / TILE_SIZE);
@@ -4431,7 +4436,7 @@ var main = (function(){
       }
     } else {
       draggingMove.originalRandSeed = 
-          draggingMove.originalEl.getAttribute('rand-seed');
+          parseInt(draggingMove.originalEl.getAttribute('rand-seed'));
       draggingMove.type = DRAGGING_TYPE_MOVE_TRANSFER;      
       draggingMove.originalWidth = 
           draggingMove.originalEl.offsetWidth;
