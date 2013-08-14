@@ -6211,7 +6211,7 @@ var main = (function(){
   var SAVE_AS_IMAGE_BOTTOM_PADDING = 60;
   var SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING = 65;
 
-  function _getStreetImage() {
+  function _getStreetImage(transparentSky, segmentNamesAndWidths) {
     var width = TILE_SIZE * street.width + BUILDING_SPACE * 2;
 
     var leftBuildingAttr = _getBuildingAttributes(street, true);
@@ -6227,7 +6227,7 @@ var main = (function(){
 
     height += SAVE_AS_IMAGE_BOTTOM_PADDING;
 
-    if (settings.saveAsImageSegmentNamesAndWidths) {
+    if (segmentNamesAndWidths) {
       height += SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING;
     }
 
@@ -6240,7 +6240,7 @@ var main = (function(){
     // TODO hack
     var oldDpi = system.hiDpi;
     system.hiDpi = SAVE_AS_IMAGE_DPI;
-    _drawStreetThumbnail(ctx, street, width, height, 1.0, false, true, settings.saveAsImageTransparentSky);
+    _drawStreetThumbnail(ctx, street, width, height, 1.0, false, true, transparentSky, segmentNamesAndWidths);
     system.hiDpi = oldDpi;
 
     return el;
@@ -6261,7 +6261,7 @@ var main = (function(){
   function _updateSaveAsImageDialogBoxPart2() {
     document.querySelector('#save-as-image-preview-preview').innerHTML = '';
 
-    var el = _getStreetImage();
+    var el = _getStreetImage(settings.saveAsImageTransparentSky, settings.saveAsImageSegmentNamesAndWidths);
     var dataUrl = el.toDataURL('image/png');
 
     var imgEl = document.createElement('img');
@@ -6635,7 +6635,7 @@ var main = (function(){
       thumbnailEl.height = THUMBNAIL_HEIGHT * system.hiDpi * 2;
       var ctx = thumbnailEl.getContext('2d');
       _drawStreetThumbnail(ctx, galleryStreet.data.street, 
-          THUMBNAIL_WIDTH * 2, THUMBNAIL_HEIGHT * 2, THUMBNAIL_MULTIPLIER, true, false, true);
+          THUMBNAIL_WIDTH * 2, THUMBNAIL_HEIGHT * 2, THUMBNAIL_MULTIPLIER, true, false, true, false);
       anchorEl.appendChild(thumbnailEl);
 
       var nameEl = document.createElement('div');
@@ -6978,7 +6978,50 @@ var main = (function(){
     _hideSaveAsImageDialogBox();
   }
 
+  function _onBeforePrint() {
+    var el = _getStreetImage(true, true);
+    var dataUrl = el.toDataURL('image/png');
+
+    // So that max-height: 100% works
+    document.querySelector('#print div').style.width = window.innerWidth + 'px';
+    document.querySelector('#print div').style.height = window.innerHeight + 'px';
+
+    // Chrome fires _onBeforePrint twice.
+    document.querySelector('#print div').innerHTML = '';
+
+    var imgEl = document.createElement('img');
+    imgEl.src = dataUrl;
+    document.querySelector('#print div').appendChild(imgEl);
+  }
+
+  function _onAfterPrint() {
+
+  }
+
+  function _print(event) {
+    _hideMenus();
+    window.setTimeout(function() {
+      _onBeforePrint();
+      window.print();
+    }, 0);
+    event.preventDefault();
+  }
+
   function _addEventListeners() {
+    window.addEventListener('beforeprint', _onBeforePrint);
+    window.addEventListener('afterprint', _onBeforePrint);
+
+    var mediaQueryList = window.matchMedia('print');
+    mediaQueryList.addListener(function(mql) {
+      if (mql.matches) {
+        _onBeforePrint();
+      } else {
+        _onAfterPrint();
+      }
+    });    
+
+    document.querySelector('#invoke-print').addEventListener('click', _print);
+
     document.querySelector('#share-via-twitter').addEventListener('click', _shareViaTwitter);
     document.querySelector('#share-via-facebook').addEventListener('click', _shareViaFacebook);
 
@@ -8979,7 +9022,7 @@ var main = (function(){
 
   function _drawStreetThumbnail(ctx, street, thumbnailWidth, thumbnailHeight, 
                                 multiplier, silhouette, bottomAligned,
-                                transparentSky) {
+                                transparentSky, segmentNamesAndWidths) {
     
     // Calculations
 
@@ -8993,7 +9036,7 @@ var main = (function(){
     } else {
       var offsetTop = (thumbnailHeight + 5 * TILE_SIZE * multiplier) / 2;
     }
-    if (settings.saveAsImageSegmentNamesAndWidths) {
+    if (segmentNamesAndWidths) {
       offsetTop -= SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING * multiplier;
     }
 
