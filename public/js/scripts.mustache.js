@@ -3219,6 +3219,8 @@ var main = (function(){
     _saveStreetToServerIfNecessary();
     _updateUndoButtons();
     _repositionSegments();
+
+    printingNeedsUpdating = true;
   }
 
   function _updateEverything(dontScroll) {
