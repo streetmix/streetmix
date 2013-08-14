@@ -9146,7 +9146,7 @@ var main = (function(){
 
     var offsetLeft = originalOffsetLeft;
 
-    if (settings.saveAsImageSegmentNamesAndWidths) {
+    if (segmentNamesAndWidths) {
       // TODO const
       ctx.strokeStyle = 'black';
       ctx.lineWidth = .5;
