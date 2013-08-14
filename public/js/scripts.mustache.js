@@ -1664,6 +1664,8 @@ var main = (function(){
   var mouseX;
   var mouseY;
 
+  var printingNeedsUpdating = true;
+
   var system = {
     touch: false,
     phone: false,
@@ -3923,6 +3925,7 @@ var main = (function(){
 
       _scheduleSavingStreetToServer();
 
+      printingNeedsUpdating = true;
       lastStreet = currentData;
 
       _updateUndoButtons();
@@ -6980,20 +6983,28 @@ var main = (function(){
     _hideSaveAsImageDialogBox();
   }
 
-  function _onBeforePrint() {
-    var el = _getStreetImage(true, true);
-    var dataUrl = el.toDataURL('image/png');
+  function _updatePrintImage() {
+    if (printingNeedsUpdating) {
+      // Chrome fires _onBeforePrint twice.
+      document.querySelector('#print div').innerHTML = '';
 
+      var el = _getStreetImage(true, true);
+      var dataUrl = el.toDataURL('image/png');
+
+      var imgEl = document.createElement('img');
+      imgEl.src = dataUrl;
+      document.querySelector('#print div').appendChild(imgEl);
+
+      printingNeedsUpdating = false;
+    }
+  }
+
+  function _onBeforePrint() {
     // So that max-height: 100% works
     document.querySelector('#print div').style.width = window.innerWidth + 'px';
     document.querySelector('#print div').style.height = window.innerHeight + 'px';
 
-    // Chrome fires _onBeforePrint twice.
-    document.querySelector('#print div').innerHTML = '';
-
-    var imgEl = document.createElement('img');
-    imgEl.src = dataUrl;
-    document.querySelector('#print div').appendChild(imgEl);
+    _updatePrintImage();
   }
 
   function _onAfterPrint() {
@@ -7002,6 +7013,9 @@ var main = (function(){
 
   function _print(event) {
     _hideMenus();
+    _infoBubble.hide();
+    _infoBubble.hideSegment(true);
+
     window.setTimeout(function() {
       _onBeforePrint();
       window.print();
