@@ -5282,6 +5282,10 @@ var main = (function(){
       segment.warnings = [];
       segment.variantString = _getVariantString(segment.variant);
 
+      if (SEGMENT_INFO[segment.type].needRandSeed) {
+        segment.randSeed = _generateRandSeed();        
+      }
+
       street.segments.push(segment);
     }
 
