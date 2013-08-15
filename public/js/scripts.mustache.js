@@ -7281,6 +7281,12 @@ var main = (function(){
     }
     var headEls = document.getElementsByTagName('head');
     headEls[0].appendChild(meta);
+
+    var language = window.navigator.userLanguage || window.navigator.language;
+    if (language) {
+      var language = language.substr(0, 2).toUpperCase();
+      _updateSettingsFromCountryCode(language);
+    }
   }
 
   var _noConnectionMessage = {
@@ -9523,26 +9529,15 @@ var main = (function(){
     }
   }
 
-  function _receiveGeolocation(info) {
-    if (geolocationLoaded) {
-      // Already loaded, discard results
-      return;
+  function _updateSettingsFromCountryCode(countryCode) {
+    if (COUNTRIES_IMPERIAL_UNITS.indexOf(countryCode) != -1) {
+      units = SETTINGS_UNITS_IMPERIAL;
+    } else {
+      units = SETTINGS_UNITS_METRIC;
     }
 
-    if (info && info.country_code) {
-      if (COUNTRIES_IMPERIAL_UNITS.indexOf(info.country_code) != -1) {
-        units = SETTINGS_UNITS_IMPERIAL;
-      } else {
-        units = SETTINGS_UNITS_METRIC;
-      }
-
-      if (COUNTRIES_LEFT_HAND_TRAFFIC.indexOf(info.country_code) != -1) {
-        leftHandTraffic = true;
-      }
-    }
-
-    if (info && info.ip) {
-      system.ipAddress = info.ip;
+    if (COUNTRIES_LEFT_HAND_TRAFFIC.indexOf(countryCode) != -1) {
+      leftHandTraffic = true;
     }
 
     if (debug.forceLeftHandTraffic) {
@@ -9550,6 +9545,20 @@ var main = (function(){
     }
     if (debug.forceMetric) {
       units = SETTINGS_UNITS_METRIC;
+    }
+  }
+
+  function _receiveGeolocation(info) {
+    if (geolocationLoaded) {
+      // Timed out, discard results
+      return;
+    }
+
+    if (info && info.country_code) {
+      _updateSettingsFromCountryCode(info.country_code);
+    }
+    if (info && info.ip) {
+      system.ipAddress = info.ip;
     }
 
     geolocationLoaded = true;
