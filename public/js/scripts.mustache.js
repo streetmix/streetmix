@@ -301,7 +301,7 @@ var main = (function(){
   var IMPERIAL_METRIC_MULTIPLIER = 30 / 100;
   var COUNTRIES_IMPERIAL_UNITS = ['US'];
   var COUNTRIES_LEFT_HAND_TRAFFIC = 
-      ['GG', 'AI', 'AG', 'AU', 'BS', 'BD', 'BB', 'BM', 'BT', 'BW', 'BN',
+      ['AI', 'AG', 'AU', 'BS', 'BD', 'BB', 'BM', 'BT', 'BW', 'BN',
        'KY', 'CX', 'CC', 'CK', 'CY', 'DM', 'TL', 'FK', 'FJ', 'GD', 'GG',
        'GY', 'HK', 'IN', 'ID', 'IE', 'IM', 'JM', 'JP', 'JE', 'KE', 'KI',
        'LS', 'MO', 'MW', 'MY', 'MV', 'MT', 'MU', 'MS', 'MZ', 'NA', 'NR',
@@ -435,7 +435,7 @@ var main = (function(){
     'bike-asphalt': ['regular', 'colored'],
 
     'transit-shelter-elevation': ['street-level', 'light-rail'],
-    'bike-rack-elevation': ['sidewalk', 'road'],
+    'bike-rack-elevation': ['sidewalk-parallel', 'sidewalk', 'road'],
 
     'car-type': ['car', 'sharrow', 'truck'],
     'sidewalk-density': ['dense', 'normal', 'sparse', 'empty'],
@@ -495,8 +495,9 @@ var main = (function(){
     'divider-type|dome': { x: 6, y: 3, title: 'Traffic exclusion dome' },
     'transit-shelter-elevation|street-level': { x: 5, y: 2, title: 'Street level' },
     'transit-shelter-elevation|light-rail': { x: 6, y: 2, title: 'Light rail platform' },
-    'bike-rack-elevation|sidewalk': { x: 6, y: 2, title: 'Sidewalk' },
-    'bike-rack-elevation|road': { x: 5, y: 2, title: 'Road' },
+    'bike-rack-elevation|sidewalk-parallel': { x: 6, y: 0, title: 'Parallel parking, sidewalk level' },
+    'bike-rack-elevation|sidewalk': { x: 6, y: 2, title: 'Perpendicular parking, sidewalk level' },
+    'bike-rack-elevation|road': { x: 5, y: 2, title: 'Perpendicular parking, road levl' },
     'building|waterfront': { x: 9, y: 4, title: 'Waterfront' },
     'building|grass': { x: 2, y: 4, title: 'Grass' },
     'building|fence': { x: 3, y: 4, title: 'Empty lot' },
@@ -573,9 +574,21 @@ var main = (function(){
       name: 'Bike rack',
       owner: SEGMENT_OWNER_BIKE,
       zIndex: 2,
-      defaultWidth: 6,
+      defaultWidth: 5,
       variants: ['orientation', 'bike-rack-elevation'],
       details: {
+        'left|sidewalk-parallel': {
+          graphics: {
+            left: { tileset: 1, x: 53, y: 12, width: 3, height: 6, offsetY: 5 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          }
+        },
+        'right|sidewalk-parallel': {
+          graphics: {
+            right: { tileset: 1, x: 57, y: 12, width: 3, height: 6, offsetY: 5 },
+            repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          }
+        },
         'left|sidewalk': {
           graphics: {
             left: { tileset: 1, x: 67, y: 2, width: 6, height: 6, offsetY: 5 },
@@ -4883,6 +4896,16 @@ var main = (function(){
       }
     }
 
+    // Bike rack orientation
+
+    if (type == 'sidewalk-bike-rack') {
+      if (left && (leftOwner != SEGMENT_OWNER_PEDESTRIAN)) {
+        variant['orientation'] = 'left';
+      } else if (right && (rightOwner != SEGMENT_OWNER_PEDESTRIAN)) {
+        variant['orientation'] = 'right';
+      }
+    }
+
     // Lamp orientation
 
     if (SEGMENT_INFO[type].variants.indexOf('lamp-orientation') != -1) {
@@ -5089,6 +5112,10 @@ var main = (function(){
           break;
         case 'transit-shelter':
           variantName = 'right|light-rail';
+          break;
+        case 'sidewalk-bike-rack':
+          variantName = 'left|sidewalk';
+          break;
       }
 
       var variantInfo = segmentInfo.details[variantName];
