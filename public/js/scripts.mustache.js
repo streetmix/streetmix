@@ -9469,15 +9469,6 @@ var main = (function(){
     }
 
     switch (mode) {
-      case MODE_NEW_STREET:
-      case MODE_NEW_STREET_COPY_LAST:
-
-        if (readOnly) {
-          _showError(ERROR_CANNOT_CREATE_NEW_STREET_ON_PHONE, true);
-        } else {
-          _createNewStreetOnServer();
-        }
-        break;
       case MODE_EXISTING_STREET:
       case MODE_CONTINUE:
       case MODE_USER_GALLERY:
@@ -9493,7 +9484,23 @@ var main = (function(){
 
     signInLoaded = true;
     document.querySelector('#loading-progress').value++;
+    _checkIfSignInAndGeolocationLoaded();
     _checkIfEverythingIsLoaded();
+  }
+
+  function _checkIfSignInAndGeolocationLoaded() {
+    if (geolocationLoaded && signInLoaded) {
+      switch (mode) {
+        case MODE_NEW_STREET:
+        case MODE_NEW_STREET_COPY_LAST:
+          if (readOnly) {
+            _showError(ERROR_CANNOT_CREATE_NEW_STREET_ON_PHONE, true);
+          } else {
+            _createNewStreetOnServer();
+          }
+          break;      
+      }
+    }
   }
 
   function _detectGeolocation() {
@@ -9508,6 +9515,7 @@ var main = (function(){
     if (!geolocationLoaded) {
       geolocationLoaded = true;
       document.querySelector('#loading-progress').value++;      
+      _checkIfSignInAndGeolocationLoaded();
       _checkIfEverythingIsLoaded();
 
       _eventTracking.track(TRACK_CATEGORY_ERROR, TRACK_ACTION_ERROR_GEOLOCATION_TIMEOUT, 
@@ -9546,6 +9554,7 @@ var main = (function(){
 
     geolocationLoaded = true;
     document.querySelector('#loading-progress').value++;
+    _checkIfSignInAndGeolocationLoaded();
     _checkIfEverythingIsLoaded();
   }
 
