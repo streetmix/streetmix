@@ -497,7 +497,7 @@ var main = (function(){
     'transit-shelter-elevation|light-rail': { x: 6, y: 2, title: 'Light rail platform' },
     'bike-rack-elevation|sidewalk-parallel': { x: 6, y: 0, title: 'Parallel parking, sidewalk level' },
     'bike-rack-elevation|sidewalk': { x: 6, y: 2, title: 'Perpendicular parking, sidewalk level' },
-    'bike-rack-elevation|road': { x: 5, y: 2, title: 'Perpendicular parking, road levl' },
+    'bike-rack-elevation|road': { x: 5, y: 2, title: 'Perpendicular parking, road level' },
     'building|waterfront': { x: 9, y: 4, title: 'Waterfront' },
     'building|grass': { x: 2, y: 4, title: 'Grass' },
     'building|fence': { x: 3, y: 4, title: 'Empty lot' },
@@ -5663,10 +5663,16 @@ var main = (function(){
         event.preventDefault();
         break;
       case KEY_LEFT_ARROW:
+        if (event.metaKey || event.ctrlKey || event.altKey) {
+          return;
+        }
         _scrollStreet(true, event.shiftKey);
         event.preventDefault();
         break;
       case KEY_RIGHT_ARROW:
+        if (event.metaKey || event.ctrlKey || event.altKey) {
+          return;
+        }
         _scrollStreet(false, event.shiftKey);
         event.preventDefault();
         break;
