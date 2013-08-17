@@ -1585,7 +1585,8 @@ var main = (function(){
     newStreetPreference: null,
 
     saveAsImageTransparentSky: null,
-    saveAsImageSegmentNamesAndWidths: null
+    saveAsImageSegmentNamesAndWidths: null,
+    saveAsImageStreetName: null
   };
   var settingsWelcomeDismissed = false;
 
@@ -5875,18 +5876,24 @@ var main = (function(){
     event.preventDefault();
   }
 
+  function _streetNameNeedsUnicodeFont(name) {
+    var needUnicodeFont = false;
+    for (var i in name) {
+      if (STREET_NAME_FONT_GLYPHS.indexOf(name.charAt(i)) == -1) {
+        needUnicodeFont = true;
+        break;
+      }
+    }    
+
+    return needUnicodeFont;
+  }
+
   function _updateStreetNameFont(el) {
     var name = el.querySelector('div').innerHTML;
 
-    var usingSupportedGlyphs = true;
-    for (var i in name) {
-      if (STREET_NAME_FONT_GLYPHS.indexOf(name.charAt(i)) == -1) {
-        usingSupportedGlyphs = false;
-        break;
-      }
-    }
+    var needUnicodeFont = _streetNameNeedsUnicodeFont(name);
 
-    if (usingSupportedGlyphs) {
+    if (!needUnicodeFont) {
       el.classList.remove('fallback-unicode-font');
     } else {
       el.classList.add('fallback-unicode-font');
@@ -6254,10 +6261,11 @@ var main = (function(){
   // TODO move
   var SAVE_AS_IMAGE_DPI = 2.0;
   var SAVE_AS_IMAGE_MIN_HEIGHT = 400;
+  var SAVE_AS_IMAGE_MIN_HEIGHT_WITH_STREET_NAME = SAVE_AS_IMAGE_MIN_HEIGHT + 150;
   var SAVE_AS_IMAGE_BOTTOM_PADDING = 60;
   var SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING = 65;
 
-  function _getStreetImage(transparentSky, segmentNamesAndWidths) {
+  function _getStreetImage(transparentSky, segmentNamesAndWidths, streetName) {
     var width = TILE_SIZE * street.width + BUILDING_SPACE * 2;
 
     var leftBuildingAttr = _getBuildingAttributes(street, true);
@@ -6269,6 +6277,10 @@ var main = (function(){
     var height = Math.max(leftHeight, rightHeight);
     if (height < SAVE_AS_IMAGE_MIN_HEIGHT) {
       height = SAVE_AS_IMAGE_MIN_HEIGHT;
+    }
+
+    if (streetName && (height < SAVE_AS_IMAGE_MIN_HEIGHT_WITH_STREET_NAME)) {
+      height = SAVE_AS_IMAGE_MIN_HEIGHT_WITH_STREET_NAME;
     }
 
     height += SAVE_AS_IMAGE_BOTTOM_PADDING;
@@ -6286,7 +6298,7 @@ var main = (function(){
     // TODO hack
     var oldDpi = system.hiDpi;
     system.hiDpi = SAVE_AS_IMAGE_DPI;
-    _drawStreetThumbnail(ctx, street, width, height, 1.0, false, true, transparentSky, segmentNamesAndWidths);
+    _drawStreetThumbnail(ctx, street, width, height, 1.0, false, true, transparentSky, segmentNamesAndWidths, streetName);
     system.hiDpi = oldDpi;
 
     return el;
@@ -6307,7 +6319,7 @@ var main = (function(){
   function _updateSaveAsImageDialogBoxPart2() {
     document.querySelector('#save-as-image-preview-preview').innerHTML = '';
 
-    var el = _getStreetImage(settings.saveAsImageTransparentSky, settings.saveAsImageSegmentNamesAndWidths);
+    var el = _getStreetImage(settings.saveAsImageTransparentSky, settings.saveAsImageSegmentNamesAndWidths, settings.saveAsImageStreetName);
     var dataUrl = el.toDataURL('image/png');
 
     var imgEl = document.createElement('img');
@@ -6330,6 +6342,8 @@ var main = (function(){
         document.querySelector('#save-as-image-transparent-sky').checked;
     settings.saveAsImageSegmentNamesAndWidths = 
         document.querySelector('#save-as-image-segment-names').checked;
+    settings.saveAsImageStreetName = 
+        document.querySelector('#save-as-image-street-name').checked;
 
     _saveSettingsLocally();  
 
@@ -6344,6 +6358,9 @@ var main = (function(){
         
     document.querySelector('#save-as-image-segment-names').checked = 
         settings.saveAsImageSegmentNamesAndWidths;
+
+    document.querySelector('#save-as-image-street-name').checked = 
+        settings.saveAsImageStreetName;
 
     document.querySelector('#save-as-image-preview-loading').classList.add('visible');
     document.querySelector('#save-as-image-preview-preview').classList.remove('visible');    
@@ -6681,7 +6698,7 @@ var main = (function(){
       thumbnailEl.height = THUMBNAIL_HEIGHT * system.hiDpi * 2;
       var ctx = thumbnailEl.getContext('2d');
       _drawStreetThumbnail(ctx, galleryStreet.data.street, 
-          THUMBNAIL_WIDTH * 2, THUMBNAIL_HEIGHT * 2, THUMBNAIL_MULTIPLIER, true, false, true, false);
+          THUMBNAIL_WIDTH * 2, THUMBNAIL_HEIGHT * 2, THUMBNAIL_MULTIPLIER, true, false, true, false, false);
       anchorEl.appendChild(thumbnailEl);
 
       var nameEl = document.createElement('div');
@@ -7111,6 +7128,7 @@ var main = (function(){
 
     document.querySelector('#save-as-image-transparent-sky').addEventListener('click', _updateSaveAsImageOptions);
     document.querySelector('#save-as-image-segment-names').addEventListener('click', _updateSaveAsImageOptions);
+    document.querySelector('#save-as-image-street-name').addEventListener('click', _updateSaveAsImageOptions);
 
     document.querySelector('#street-section-outer').addEventListener('scroll', _onStreetSectionScroll);
 
@@ -8612,6 +8630,9 @@ var main = (function(){
     if (typeof settings.saveAsImageSegmentNamesAndWidths === 'undefined') {
       settings.saveAsImageSegmentNamesAndWidths = secondSettings.saveAsImageSegmentNamesAndWidths;
     }
+    if (typeof settings.saveAsImageStreetName === 'undefined') {
+      settings.saveAsImageStreetName = secondSettings.saveAsImageStreetName;
+    }
 
     // Provide defaults if the above failed
 
@@ -8632,6 +8653,9 @@ var main = (function(){
     }
     if (typeof settings.saveAsImageSegmentNamesAndWidths === 'undefined') {
       settings.saveAsImageSegmentNamesAndWidths = false;
+    }
+    if (typeof settings.saveAsImageStreetName === 'undefined') {
+      settings.saveAsImageStreetName = false;
     }
   }
 
@@ -8687,6 +8711,7 @@ var main = (function(){
     data.lastStreetCreatorId = settings.lastStreetCreatorId;
     data.saveAsImageTransparentSky = settings.saveAsImageTransparentSky;
     data.saveAsImageSegmentNamesAndWidths = settings.saveAsImageSegmentNamesAndWidths;
+    data.saveAsImageStreetName = settings.saveAsImageStreetName;
 
     data.newStreetPreference = settings.newStreetPreference;
 
@@ -9091,7 +9116,7 @@ var main = (function(){
 
   function _drawStreetThumbnail(ctx, street, thumbnailWidth, thumbnailHeight, 
                                 multiplier, silhouette, bottomAligned,
-                                transparentSky, segmentNamesAndWidths) {
+                                transparentSky, segmentNamesAndWidths, streetName) {
     
     // Calculations
 
@@ -9172,24 +9197,47 @@ var main = (function(){
 
     var originalOffsetLeft = offsetLeft;
 
+    // Collect z-indexes
+    var zIndexes = [];
     for (var i in street.segments) {
       var segment = street.segments[i];
       var segmentInfo = SEGMENT_INFO[segment.type];
-      var variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString];
-      var dimensions = _getVariantInfoDimensions(variantInfo, segment.width * TILE_SIZE, 1);
 
-      _drawSegmentContents(ctx, segment.type, segment.variantString, 
-          segment.width * TILE_SIZE * multiplier, 
-          offsetLeft + dimensions.left * TILE_SIZE * multiplier, offsetTop, segment.randSeed, multiplier, false);
-
-      offsetLeft += segment.width * TILE_SIZE * multiplier;
+      if (zIndexes.indexOf(segmentInfo.zIndex) == -1) {
+        zIndexes.push(segmentInfo.zIndex);
+      }
     }
+
+    for (var j in zIndexes) {
+      var zIndex = zIndexes[j];
+
+      offsetLeft = originalOffsetLeft;
+
+      for (var i in street.segments) {
+        var segment = street.segments[i];
+        var segmentInfo = SEGMENT_INFO[segment.type];
+
+        if (segmentInfo.zIndex == zIndex) {
+          var variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString];
+          var dimensions = _getVariantInfoDimensions(variantInfo, segment.width * TILE_SIZE, 1);
+
+          _drawSegmentContents(ctx, segment.type, segment.variantString, 
+              segment.width * TILE_SIZE * multiplier, 
+              offsetLeft + dimensions.left * TILE_SIZE * multiplier, offsetTop, segment.randSeed, multiplier, false);
+        }
+
+        offsetLeft += segment.width * TILE_SIZE * multiplier;
+      }    
+    }
+
 
     // Segment names
 
     var offsetLeft = originalOffsetLeft;
 
     if (segmentNamesAndWidths) {
+      ctx.save();
+
       // TODO const
       ctx.strokeStyle = 'black';
       ctx.lineWidth = .5;
@@ -9247,6 +9295,8 @@ var main = (function(){
       _drawLine(ctx, 
           left, (groundLevel + 45 * multiplier), 
           left, (groundLevel + 125 * multiplier));
+
+      ctx.restore();
     }
 
     // Silhouette
@@ -9256,6 +9306,60 @@ var main = (function(){
       // TODO const
       ctx.fillStyle = 'rgb(240, 240, 240)';
       ctx.fillRect(0, 0, thumbnailWidth * system.hiDpi, thumbnailHeight * system.hiDpi);
+    }
+
+    // Street name
+
+    if (streetName) {
+      var text = street.name;
+
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'center';
+
+      if (_streetNameNeedsUnicodeFont(text)) {
+        var fallbackUnicodeFont = true;
+        ctx.font = 'normal 400 140px sans-serif';
+      } else {
+        var fallbackUnicodeFont = false;
+        ctx.font = 'normal 400 160px Roadgeek';
+      }
+
+      var measurement = ctx.measureText(text);
+
+      var needToBeElided = false;
+      while (measurement.width > (thumbnailWidth - 200) * system.hiDpi) {
+        text = text.substr(0, text.length - 1);
+        measurement = ctx.measureText(text);        
+        needToBeElided = true;
+      }
+      if (needToBeElided) {
+        text += '…';
+      }
+      
+      ctx.fillStyle = 'white';
+      var x1 = thumbnailWidth * system.hiDpi / 2 - (measurement.width / 2 + 75 * system.hiDpi);
+      var x2 = thumbnailWidth * system.hiDpi / 2 + (measurement.width / 2 + 75 * system.hiDpi);
+      var y1 = (75 - 60) * system.hiDpi; 
+      var y2 = (75 + 60) * system.hiDpi; 
+      ctx.fillRect(x1, y1, x2 - x1, y2 - y1);
+
+      ctx.strokeStyle = 'black';
+      ctx.lineWidth = 10;
+      ctx.strokeRect(x1 + 10 * 2, y1 + 10 * 2, x2 - x1 - 10 * 4, y2 - y1 - 10 * 4);
+
+      var x = thumbnailWidth * system.hiDpi / 2;
+
+      if (fallbackUnicodeFont) {
+        var baselineCorrection = 24;
+      } else {
+        var baselineCorrection = 27;
+      }
+
+      var y = (75 + baselineCorrection) * system.hiDpi;
+
+      ctx.strokeStyle = 'transparent';
+      ctx.fillStyle = 'black';
+      ctx.fillText(text, x, y);
     }
   }
 

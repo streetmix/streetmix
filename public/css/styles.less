@@ -2574,14 +2574,25 @@ body.read-only #street-metadata-author a {
       margin-top: 5px;
     }
   }
-  footer {
-    color: rgb(160, 160, 160);
-    font-size: 11px;
-    line-height: 14px;    
-    margin-top: 15px;
+}
+#about footer,
+#save-as-image-dialog footer {
+  color: rgb(160, 160, 160);
+  font-size: 11px;
+  line-height: 14px;    
+  margin-top: 15px;
+
+  a {
+    color: inherit;
+
+    &:hover {
+      color: rgb(120, 120, 120);
+    }
   }
 }
-
+#save-as-image-dialog footer {
+  text-align: center;
+}
 #welcome {
   position: absolute;
   top: -5px;
