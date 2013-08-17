@@ -1586,7 +1586,7 @@ var main = (function(){
 
     saveAsImageTransparentSky: null,
     saveAsImageSegmentNamesAndWidths: null,
-    saveAsImageShowStreetName: null
+    saveAsImageStreetName: null
   };
   var settingsWelcomeDismissed = false;
 
@@ -5876,18 +5876,24 @@ var main = (function(){
     event.preventDefault();
   }
 
+  function _streetNameNeedsUnicodeFont(name) {
+    var needUnicodeFont = false;
+    for (var i in name) {
+      if (STREET_NAME_FONT_GLYPHS.indexOf(name.charAt(i)) == -1) {
+        needUnicodeFont = true;
+        break;
+      }
+    }    
+
+    return needUnicodeFont;
+  }
+
   function _updateStreetNameFont(el) {
     var name = el.querySelector('div').innerHTML;
 
-    var usingSupportedGlyphs = true;
-    for (var i in name) {
-      if (STREET_NAME_FONT_GLYPHS.indexOf(name.charAt(i)) == -1) {
-        usingSupportedGlyphs = false;
-        break;
-      }
-    }
+    var needUnicodeFont = _streetNameNeedsUnicodeFont(name);
 
-    if (usingSupportedGlyphs) {
+    if (!needUnicodeFont) {
       el.classList.remove('fallback-unicode-font');
     } else {
       el.classList.add('fallback-unicode-font');
@@ -6255,10 +6261,11 @@ var main = (function(){
   // TODO move
   var SAVE_AS_IMAGE_DPI = 2.0;
   var SAVE_AS_IMAGE_MIN_HEIGHT = 400;
+  var SAVE_AS_IMAGE_MIN_HEIGHT_WITH_STREET_NAME = SAVE_AS_IMAGE_MIN_HEIGHT + 150;
   var SAVE_AS_IMAGE_BOTTOM_PADDING = 60;
   var SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING = 65;
 
-  function _getStreetImage(transparentSky, segmentNamesAndWidths, showStreetName) {
+  function _getStreetImage(transparentSky, segmentNamesAndWidths, streetName) {
     var width = TILE_SIZE * street.width + BUILDING_SPACE * 2;
 
     var leftBuildingAttr = _getBuildingAttributes(street, true);
@@ -6270,6 +6277,10 @@ var main = (function(){
     var height = Math.max(leftHeight, rightHeight);
     if (height < SAVE_AS_IMAGE_MIN_HEIGHT) {
       height = SAVE_AS_IMAGE_MIN_HEIGHT;
+    }
+
+    if (streetName && (height < SAVE_AS_IMAGE_MIN_HEIGHT_WITH_STREET_NAME)) {
+      height = SAVE_AS_IMAGE_MIN_HEIGHT_WITH_STREET_NAME;
     }
 
     height += SAVE_AS_IMAGE_BOTTOM_PADDING;
@@ -6287,7 +6298,7 @@ var main = (function(){
     // TODO hack
     var oldDpi = system.hiDpi;
     system.hiDpi = SAVE_AS_IMAGE_DPI;
-    _drawStreetThumbnail(ctx, street, width, height, 1.0, false, true, transparentSky, segmentNamesAndWidths, showStreetName);
+    _drawStreetThumbnail(ctx, street, width, height, 1.0, false, true, transparentSky, segmentNamesAndWidths, streetName);
     system.hiDpi = oldDpi;
 
     return el;
@@ -6308,7 +6319,7 @@ var main = (function(){
   function _updateSaveAsImageDialogBoxPart2() {
     document.querySelector('#save-as-image-preview-preview').innerHTML = '';
 
-    var el = _getStreetImage(settings.saveAsImageTransparentSky, settings.saveAsImageSegmentNamesAndWidths, settings.saveAsImageShowStreetName);
+    var el = _getStreetImage(settings.saveAsImageTransparentSky, settings.saveAsImageSegmentNamesAndWidths, settings.saveAsImageStreetName);
     var dataUrl = el.toDataURL('image/png');
 
     var imgEl = document.createElement('img');
@@ -6331,7 +6342,7 @@ var main = (function(){
         document.querySelector('#save-as-image-transparent-sky').checked;
     settings.saveAsImageSegmentNamesAndWidths = 
         document.querySelector('#save-as-image-segment-names').checked;
-    settings.saveAsImageShowStreetName = 
+    settings.saveAsImageStreetName = 
         document.querySelector('#save-as-image-street-name').checked;
 
     _saveSettingsLocally();  
@@ -6349,7 +6360,7 @@ var main = (function(){
         settings.saveAsImageSegmentNamesAndWidths;
 
     document.querySelector('#save-as-image-street-name').checked = 
-        settings.saveAsImageShowStreetName;
+        settings.saveAsImageStreetName;
 
     document.querySelector('#save-as-image-preview-loading').classList.add('visible');
     document.querySelector('#save-as-image-preview-preview').classList.remove('visible');    
@@ -6687,7 +6698,7 @@ var main = (function(){
       thumbnailEl.height = THUMBNAIL_HEIGHT * system.hiDpi * 2;
       var ctx = thumbnailEl.getContext('2d');
       _drawStreetThumbnail(ctx, galleryStreet.data.street, 
-          THUMBNAIL_WIDTH * 2, THUMBNAIL_HEIGHT * 2, THUMBNAIL_MULTIPLIER, true, false, true, false);
+          THUMBNAIL_WIDTH * 2, THUMBNAIL_HEIGHT * 2, THUMBNAIL_MULTIPLIER, true, false, true, false, false);
       anchorEl.appendChild(thumbnailEl);
 
       var nameEl = document.createElement('div');
@@ -9270,6 +9281,60 @@ var main = (function(){
       // TODO const
       ctx.fillStyle = 'rgb(240, 240, 240)';
       ctx.fillRect(0, 0, thumbnailWidth * system.hiDpi, thumbnailHeight * system.hiDpi);
+    }
+
+    // Street name
+
+    if (streetName) {
+      var text = street.name;
+
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'center';
+
+      if (_streetNameNeedsUnicodeFont(text)) {
+        var fallbackUnicodeFont = true;
+        ctx.font = 'normal 400 140px sans-serif';
+      } else {
+        var fallbackUnicodeFont = false;
+        ctx.font = 'normal 400 160px Roadgeek';
+      }
+
+      var measurement = ctx.measureText(text);
+
+      var needToBeElided = false;
+      while (measurement.width > (thumbnailWidth - 200) * system.hiDpi) {
+        text = text.substr(0, text.length - 1);
+        measurement = ctx.measureText(text);        
+        needToBeElided = true;
+      }
+      if (needToBeElided) {
+        text += '…';
+      }
+      
+      ctx.fillStyle = 'white';
+      var x1 = thumbnailWidth * system.hiDpi / 2 - (measurement.width / 2 + 75 * system.hiDpi);
+      var x2 = thumbnailWidth * system.hiDpi / 2 + (measurement.width / 2 + 75 * system.hiDpi);
+      var y1 = (100 - 60) * system.hiDpi; 
+      var y2 = (100 + 60) * system.hiDpi; 
+      ctx.fillRect(x1, y1, x2 - x1, y2 - y1);
+
+      ctx.strokeStyle = 'black';
+      ctx.lineWidth = 10;
+      ctx.strokeRect(x1 + 10 * 2, y1 + 10 * 2, x2 - x1 - 10 * 4, y2 - y1 - 10 * 4);
+
+      var x = thumbnailWidth * system.hiDpi / 2;
+
+      if (fallbackUnicodeFont) {
+        var baselineCorrection = 24;
+      } else {
+        var baselineCorrection = 27;
+      }
+
+      var y = (100 + baselineCorrection) * system.hiDpi;
+
+      ctx.strokeStyle = 'transparent';
+      ctx.fillStyle = 'black';
+      ctx.fillText(text, x, y);
     }
   }
 
