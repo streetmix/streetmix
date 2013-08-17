@@ -1556,6 +1556,7 @@ var main = (function(){
     namespacedId: null,
     originalStreetId: null, // id of the street the current street is remixed from (could be null)
     name: null,
+    editCount: null, // Since new street or remix · FIXME: can be null (meaning = don’t touch), but this will change
 
     width: null,
     occupiedWidth: null, // Can be recreated, do not save
@@ -3494,6 +3495,15 @@ var main = (function(){
     street.updatedAt = transmission.updatedAt || null;
     street.name = transmission.name || DEFAULT_NAME;
 
+    // FIXME just read it and do 0 otherwise
+    if (typeof transmission.data.street.editCount == 'undefined') {
+      //console.log('editCount read is empty');
+      street.editCount = null;
+    } else {
+      street.editCount = transmission.data.street.editCount;
+      //console.log('editCount read is', street.editCount);
+    }
+
     return street;
   }
 
@@ -3805,6 +3815,8 @@ var main = (function(){
     }
 
     street.originalStreetId = street.id;
+    street.editCount = 0;
+    //console.log('editCount = 0 on remix!');
 
     _unifyUndoStack();
 
@@ -3929,6 +3941,12 @@ var main = (function(){
     var currentData = _trimStreetData(street);
 
     if (JSON.stringify(currentData) != JSON.stringify(lastStreet)) {
+      if (street.editCount !== null) {
+        street.editCount++;
+        //console.log('increment editCount', street.editCount);
+      } else {
+        //console.log('not incrementing editCount since null');
+      }
       _setUpdateTimeToNow();
       _hideWelcome();
 
@@ -4007,6 +4025,13 @@ var main = (function(){
     newData.creatorId = street.creatorId;
     newData.originalStreetId = street.originalStreetId;
     newData.units = street.units;
+
+    if (street.editCount !== null) {
+      //console.log('saving editCount', street.editCount);
+      newData.editCount = street.editCount;
+    } else {
+      //console.log('not saving editCount');
+    }
 
     newData.leftBuildingHeight = street.leftBuildingHeight;
     newData.rightBuildingHeight = street.rightBuildingHeight;
@@ -6158,6 +6183,8 @@ var main = (function(){
       _setStreetCreatorId(null);
     }
     _setUpdateTimeToNow();
+    street.editCount = 0;
+    //console.log('editCount = 0 on last street!');
 
     _propagateUnits();
 
@@ -8892,6 +8919,8 @@ var main = (function(){
     street.rightBuildingHeight = DEFAULT_BUILDING_HEIGHT_RIGHT;
     street.leftBuildingVariant = DEFAULT_BUILDING_VARIANT_LEFT;
     street.rightBuildingVariant = DEFAULT_BUILDING_VARIANT_RIGHT;
+    street.editCount = 0;
+    //console.log('editCount = 0 on default street');
     if (signedIn) {
       _setStreetCreatorId(signInData.userId);
     }
@@ -8911,6 +8940,8 @@ var main = (function(){
     street.rightBuildingHeight = DEFAULT_BUILDING_HEIGHT_EMPTY;
     street.leftBuildingVariant = DEFAULT_BUILDING_VARIANT_EMPTY;
     street.rightBuildingVariant = DEFAULT_BUILDING_VARIANT_EMPTY;
+    street.editCount = 0;
+    //console.log('editCount = 0 on empty street!');
     if (signedIn) {
       _setStreetCreatorId(signInData.userId);
     }
