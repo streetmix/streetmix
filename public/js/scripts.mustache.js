@@ -9197,24 +9197,47 @@ var main = (function(){
 
     var originalOffsetLeft = offsetLeft;
 
+    // Collect z-indexes
+    var zIndexes = [];
     for (var i in street.segments) {
       var segment = street.segments[i];
       var segmentInfo = SEGMENT_INFO[segment.type];
-      var variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString];
-      var dimensions = _getVariantInfoDimensions(variantInfo, segment.width * TILE_SIZE, 1);
 
-      _drawSegmentContents(ctx, segment.type, segment.variantString, 
-          segment.width * TILE_SIZE * multiplier, 
-          offsetLeft + dimensions.left * TILE_SIZE * multiplier, offsetTop, segment.randSeed, multiplier, false);
-
-      offsetLeft += segment.width * TILE_SIZE * multiplier;
+      if (zIndexes.indexOf(segmentInfo.zIndex) == -1) {
+        zIndexes.push(segmentInfo.zIndex);
+      }
     }
+
+    for (var j in zIndexes) {
+      var zIndex = zIndexes[j];
+
+      offsetLeft = originalOffsetLeft;
+
+      for (var i in street.segments) {
+        var segment = street.segments[i];
+        var segmentInfo = SEGMENT_INFO[segment.type];
+
+        if (segmentInfo.zIndex == zIndex) {
+          var variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString];
+          var dimensions = _getVariantInfoDimensions(variantInfo, segment.width * TILE_SIZE, 1);
+
+          _drawSegmentContents(ctx, segment.type, segment.variantString, 
+              segment.width * TILE_SIZE * multiplier, 
+              offsetLeft + dimensions.left * TILE_SIZE * multiplier, offsetTop, segment.randSeed, multiplier, false);
+        }
+
+        offsetLeft += segment.width * TILE_SIZE * multiplier;
+      }    
+    }
+
 
     // Segment names
 
     var offsetLeft = originalOffsetLeft;
 
     if (segmentNamesAndWidths) {
+      ctx.save();
+
       // TODO const
       ctx.strokeStyle = 'black';
       ctx.lineWidth = .5;
@@ -9272,6 +9295,8 @@ var main = (function(){
       _drawLine(ctx, 
           left, (groundLevel + 45 * multiplier), 
           left, (groundLevel + 125 * multiplier));
+
+      ctx.restore();
     }
 
     // Silhouette
@@ -9314,8 +9339,8 @@ var main = (function(){
       ctx.fillStyle = 'white';
       var x1 = thumbnailWidth * system.hiDpi / 2 - (measurement.width / 2 + 75 * system.hiDpi);
       var x2 = thumbnailWidth * system.hiDpi / 2 + (measurement.width / 2 + 75 * system.hiDpi);
-      var y1 = (100 - 60) * system.hiDpi; 
-      var y2 = (100 + 60) * system.hiDpi; 
+      var y1 = (75 - 60) * system.hiDpi; 
+      var y2 = (75 + 60) * system.hiDpi; 
       ctx.fillRect(x1, y1, x2 - x1, y2 - y1);
 
       ctx.strokeStyle = 'black';
@@ -9330,7 +9355,7 @@ var main = (function(){
         var baselineCorrection = 27;
       }
 
-      var y = (100 + baselineCorrection) * system.hiDpi;
+      var y = (75 + baselineCorrection) * system.hiDpi;
 
       ctx.strokeStyle = 'transparent';
       ctx.fillStyle = 'black';
