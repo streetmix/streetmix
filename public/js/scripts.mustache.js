@@ -1585,7 +1585,8 @@ var main = (function(){
     newStreetPreference: null,
 
     saveAsImageTransparentSky: null,
-    saveAsImageSegmentNamesAndWidths: null
+    saveAsImageSegmentNamesAndWidths: null,
+    saveAsImageShowStreetName: null
   };
   var settingsWelcomeDismissed = false;
 
@@ -6257,7 +6258,7 @@ var main = (function(){
   var SAVE_AS_IMAGE_BOTTOM_PADDING = 60;
   var SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING = 65;
 
-  function _getStreetImage(transparentSky, segmentNamesAndWidths) {
+  function _getStreetImage(transparentSky, segmentNamesAndWidths, showStreetName) {
     var width = TILE_SIZE * street.width + BUILDING_SPACE * 2;
 
     var leftBuildingAttr = _getBuildingAttributes(street, true);
@@ -6286,7 +6287,7 @@ var main = (function(){
     // TODO hack
     var oldDpi = system.hiDpi;
     system.hiDpi = SAVE_AS_IMAGE_DPI;
-    _drawStreetThumbnail(ctx, street, width, height, 1.0, false, true, transparentSky, segmentNamesAndWidths);
+    _drawStreetThumbnail(ctx, street, width, height, 1.0, false, true, transparentSky, segmentNamesAndWidths, showStreetName);
     system.hiDpi = oldDpi;
 
     return el;
@@ -6307,7 +6308,7 @@ var main = (function(){
   function _updateSaveAsImageDialogBoxPart2() {
     document.querySelector('#save-as-image-preview-preview').innerHTML = '';
 
-    var el = _getStreetImage(settings.saveAsImageTransparentSky, settings.saveAsImageSegmentNamesAndWidths);
+    var el = _getStreetImage(settings.saveAsImageTransparentSky, settings.saveAsImageSegmentNamesAndWidths, settings.saveAsImageShowStreetName);
     var dataUrl = el.toDataURL('image/png');
 
     var imgEl = document.createElement('img');
@@ -6330,6 +6331,8 @@ var main = (function(){
         document.querySelector('#save-as-image-transparent-sky').checked;
     settings.saveAsImageSegmentNamesAndWidths = 
         document.querySelector('#save-as-image-segment-names').checked;
+    settings.saveAsImageShowStreetName = 
+        document.querySelector('#save-as-image-street-name').checked;
 
     _saveSettingsLocally();  
 
@@ -6344,6 +6347,9 @@ var main = (function(){
         
     document.querySelector('#save-as-image-segment-names').checked = 
         settings.saveAsImageSegmentNamesAndWidths;
+
+    document.querySelector('#save-as-image-street-name').checked = 
+        settings.saveAsImageShowStreetName;
 
     document.querySelector('#save-as-image-preview-loading').classList.add('visible');
     document.querySelector('#save-as-image-preview-preview').classList.remove('visible');    
@@ -7111,6 +7117,7 @@ var main = (function(){
 
     document.querySelector('#save-as-image-transparent-sky').addEventListener('click', _updateSaveAsImageOptions);
     document.querySelector('#save-as-image-segment-names').addEventListener('click', _updateSaveAsImageOptions);
+    document.querySelector('#save-as-image-street-name').addEventListener('click', _updateSaveAsImageOptions);
 
     document.querySelector('#street-section-outer').addEventListener('scroll', _onStreetSectionScroll);
 
@@ -8612,6 +8619,9 @@ var main = (function(){
     if (typeof settings.saveAsImageSegmentNamesAndWidths === 'undefined') {
       settings.saveAsImageSegmentNamesAndWidths = secondSettings.saveAsImageSegmentNamesAndWidths;
     }
+    if (typeof settings.saveAsImageStreetName === 'undefined') {
+      settings.saveAsImageStreetName = secondSettings.saveAsImageStreetName;
+    }
 
     // Provide defaults if the above failed
 
@@ -8632,6 +8642,9 @@ var main = (function(){
     }
     if (typeof settings.saveAsImageSegmentNamesAndWidths === 'undefined') {
       settings.saveAsImageSegmentNamesAndWidths = false;
+    }
+    if (typeof settings.saveAsImageStreetName === 'undefined') {
+      settings.saveAsImageStreetName = false;
     }
   }
 
@@ -8687,6 +8700,7 @@ var main = (function(){
     data.lastStreetCreatorId = settings.lastStreetCreatorId;
     data.saveAsImageTransparentSky = settings.saveAsImageTransparentSky;
     data.saveAsImageSegmentNamesAndWidths = settings.saveAsImageSegmentNamesAndWidths;
+    data.saveAsImageStreetName = settings.saveAsImageStreetName;
 
     data.newStreetPreference = settings.newStreetPreference;
 
@@ -9091,7 +9105,7 @@ var main = (function(){
 
   function _drawStreetThumbnail(ctx, street, thumbnailWidth, thumbnailHeight, 
                                 multiplier, silhouette, bottomAligned,
-                                transparentSky, segmentNamesAndWidths) {
+                                transparentSky, segmentNamesAndWidths, streetName) {
     
     // Calculations
 
