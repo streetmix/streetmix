@@ -850,6 +850,7 @@ var main = (function(){
       description: '<img src="/images/info-bubble-examples/bike-lane-02.jpg"><p class="lede">Bike lanes help keep bicyclists safe in a separate lane from cars.</p><p>On the historical timeline of personal transportation vehicles – horses on one end, and, say, Segways on the other – automobiles and bicycles have been the dominant warring tribes of public streets for nearly a century. Despite all the cars taking up so much room, though, there’s more bicycles than anything else in the world: more than a billion, as estimated by Worldometers, and nine million in Beijing, according to folk singer <a href="http://en.wikipedia.org/wiki/Nine_Million_Bicycles">Katie Melua</a>, where bicycling accounts for 32% of all trips.</p><p>While most jurisdictions allow bicycles to share the road with motor vehicles (“A person riding a bicycle… has all the rights and is subject to all the provisions applicable to the driver of a vehicle” <a href="http://www.leginfo.ca.gov/cgi-bin/displaycode?section=veh&group=21001-22000&file=21200-21212">says the California Vehicle Code</a>, in one particular instance) it goes without saying that most cyclists prefer to be in their own lane. It’s safer, for one thing. And because it’s safer, it actually encourages more bikers. And more bikers means healthier citizens, reduced carbon emissions, higher traffic throughput, and congestion mitigation. The <a href="http://pdxcityclub.org/2013/Report/Portland-Bicycle-Transit/Economic-Effects-of-Increased-Bicycle-Usage">economic benefits accrue as well</a>: less money spent on automobile infrastructure (like bridges, roadways, and parking), and with the ability to fit more people on a road, it leads to more business in commercial corridors.<p>Bike lane design can be extremely varied. Using medians, planters, bollards, or even parking lanes create better protection between bikes and cars. When lanes are painted green, it shows their city’s commitment to a continuous bike lane, and synchronized signal light timing to limit bike stops are called a “green wave.” For more information, check out the <a href="http://nacto.org/cities-for-cycling/design-guide/">NACTO Urban Bikeway Design Guide</a>.</p>',
       details: {
         'inbound|regular': {
+          minWidth: 5,
           graphics: {
             center: [
               { tileset: 1, x: 5, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
@@ -859,6 +860,7 @@ var main = (function(){
           }
         },
         'outbound|regular': {
+          minWidth: 5,
           graphics: {
             center: [
               { tileset: 1, x: 9, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
@@ -868,6 +870,7 @@ var main = (function(){
           }
         },
         'inbound|colored': {
+          minWidth: 5,
           graphics: {
             center: [
               { tileset: 1, x: 5, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
@@ -877,6 +880,7 @@ var main = (function(){
           }
         },
         'outbound|colored': {
+          minWidth: 5,
           graphics: {
             center: [
               { tileset: 1, x: 9, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
