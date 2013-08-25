@@ -1132,8 +1132,9 @@ var main = (function(){
         },
         'outbound|shared': {
           name: 'Center turn lane',
-          minWidth: 9,
-          maxWidth: 12,
+          minWidth: 10,
+          maxWidth: 16,
+          defaultWidth: 12,
           graphics: {
             center: [
               { tileset: 2, x: 134, y: 20, width: 5, height: 5, offsetY: 10 } // Arrow
@@ -1151,6 +1152,8 @@ var main = (function(){
       zIndex: 2,
       defaultWidth: 8,
       variants: ['parking-lane-direction', 'parking-lane-orientation'],
+      descriptionPrompt: 'Learn more about parking lanes',
+      description: '<img src="/images/info-bubble-examples/parking-lane-01.jpg"><p class="lede">On-street parking </p>',
       details: {
         'inbound|left': {
           minWidth: 7,
