@@ -8,8 +8,9 @@ order to make your contributions as useful as possible.
 
 If you notice any bugs while [using Streetmix](http://streetmix.net),
 please let us know by opening a new [issue][issues] or by sending the
-team an email us at streetmix@codeforamerica.org. When you do, please
-include the following information:
+team an email us at
+[streetmix@codeforamerica.org](mailto:streetmix@codeforamerica.org).
+When you do, please include the following information:
 
 - What web browser you're using (i.e. MS Internet Explorer, Google
 Chrome, Firefox), what version (i.e. 9.0, 27), and what operating system
