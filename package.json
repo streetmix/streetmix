@@ -15,7 +15,7 @@
     "supervisor": "0.5.x"
   },
   "engines": {
-    "node": "0.10.21 - 0.10.x",
+    "node": "0.10.x",
     "npm": "1.2.x"
   },
   "scripts": {
