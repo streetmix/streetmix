@@ -106,28 +106,7 @@ Also, this project was made possible by the support of Code for America staff an
     open http://localhost:8000
 
 ## <a name="contributing"></a>Contributing
-In the spirit of [free software][free-sw], **everyone** is encouraged to help
-improve this project.
-
-[free-sw]: http://www.fsf.org/licensing/essays/free-sw.html
-
-Here are some ways *you* can contribute:
-
-* by using alpha, beta, and prerelease versions
-* by reporting bugs
-* by suggesting new features
-* by translating to a new language
-* by writing or editing documentation
-* by writing specifications
-* by writing code (**no patch is too small**: fix typos, add comments, clean up
-  inconsistent whitespace)
-* by refactoring code
-* by closing [issues][]
-* by reviewing patches
-* [financially][]
-
-[issues]: https://github.com/codeforamerica/streetmix/issues
-[financially]: https://secure.codeforamerica.org/page/contribute
+see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## <a name="issues"></a>Submitting an Issue
 We use the [GitHub issue tracker][issues] to track bugs and features. Before
