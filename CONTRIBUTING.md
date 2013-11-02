@@ -57,7 +57,7 @@ your fork of the Streetmix repo, and submit a pull request to us.
 
 Unfortunately, we are not accepting illustration contributions at this
 time. If you have feedback on our illustrations, or if you think we
-should consider adding new elemnts, please follow the [instructions for
+should consider adding new elements, please follow the [instructions for
 feature requests/feedback](#feedback) above.
 
 [issues]: https://github.com/codeforamerica/streetmix/issues
