@@ -7,9 +7,7 @@ order to make your contributions as useful as possible.
 ### Feedback
 
 If you notice any bugs while [using Streetmix](http://streetmix.net),
-please let us know by opening a new [issue][issues] or by sending the
-team an email us at
-[streetmix@codeforamerica.org](mailto:streetmix@codeforamerica.org).
+please let us know by opening a new [issue][issues].
 When you do, please include the following information:
 
 - What web browser you're using (i.e. MS Internet Explorer, Google
