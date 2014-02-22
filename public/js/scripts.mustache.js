@@ -870,6 +870,8 @@ var main = (function(){
           }
         },
         'inbound|colored': {
+          descriptionPrompt: 'Learn more about colored bike lanes',
+          description:'<img src="/images/info-bubble-examples/bike-lane-colored-01.jpg"><p class="lede">Coloring bike lanes make them more visible and safer for bicyclists.</p><p>As bicycling as a form of day-to-day transportation becomes more widespread, transportation planners want to ensure the safety of cyclists, reduce collisions between bikes and cars, and generally keep cars from illegally taking up space designated for bikes. The problem: motorists aren’t always completely aware of cyclists. The solution: make cyclists as visible as possible. And one strategy for reminding every motorist, “Hey, buddy, there’s some space for bicyclists over here,” is by making bike lanes a totally different color than the rest of the asphalt.</p>Although the safety benefits for colored bike lanes have been proven in <a href="http://greenlaneproject.org/stats/#safety">numerous studies</a>, everyone’s got an opinion on <em>which</em> color to use. The Netherlands use red lanes, Denmark uses blue, France uses green. The United Kingdom has a mixture of red and green, and most municipalities in the United States ended up using green (by accident: they all just copied each other), though Portland, one of the most bike-friendly cities in the U.S., have been using <a href="http://www.portlandoregon.gov/transportation/article/58842">blue lanes since the 1990s</a>.</p><p>No matter which color you like best, the general rule of thumb is to pick something that sticks out and doesn’t look like other lane markings in your area. Beyond that, the more pressing budgetary concern for most cities is maintenance. The paint dulls and wears off fairly quickly, and it’s quite a lot of paint, too. But if recurring costs are a significant concern, don’t let that outweigh the safety benefits: you might want to consider an up-front cost in the form of <a href="http://nacto.org/bufferedlane.html‎">protective barriers</a>, instead.</p>',
           minWidth: 5,
           graphics: {
             center: [
@@ -880,6 +882,8 @@ var main = (function(){
           }
         },
         'outbound|colored': {
+          descriptionPrompt: 'Learn more about colored bike lanes',
+          description:'<img src="/images/info-bubble-examples/bike-lane-colored-01.jpg"><p class="lede">Coloring bike lanes make them more visible and safer for bicyclists.</p><p>As bicycling as a form of day-to-day transportation becomes more widespread, transportation planners want to ensure the safety of cyclists, reduce collisions between bikes and cars, and generally keep cars from illegally taking up space designated for bikes. The problem: motorists aren’t always completely aware of cyclists. The solution: make cyclists as visible as possible. And one strategy for reminding every motorist, “Hey, buddy, there’s some space for bicyclists over here,” is by making bike lanes a totally different color than the rest of the asphalt.</p>Although the safety benefits for colored bike lanes have been proven in <a href="http://greenlaneproject.org/stats/#safety">numerous studies</a>, everyone’s got an opinion on <em>which</em> color to use. The Netherlands use red lanes, Denmark uses blue, France uses green. The United Kingdom has a mixture of red and green, and most municipalities in the United States ended up using green (by accident: they all just copied each other), though Portland, one of the most bike-friendly cities in the U.S., have been using <a href="http://www.portlandoregon.gov/transportation/article/58842">blue lanes since the 1990s</a>.</p><p>No matter which color you like best, the general rule of thumb is to pick something that sticks out and doesn’t look like other lane markings in your area. Beyond that, the more pressing budgetary concern for most cities is maintenance. The paint dulls and wears off fairly quickly, and it’s quite a lot of paint, too. But if recurring costs are a significant concern, don’t let that outweigh the safety benefits: you might want to consider an up-front cost in the form of <a href="http://nacto.org/bufferedlane.html‎">protective barriers</a>, instead.</p>',
           minWidth: 5,
           graphics: {
             center: [
@@ -1132,8 +1136,9 @@ var main = (function(){
         },
         'outbound|shared': {
           name: 'Center turn lane',
-          minWidth: 9,
-          maxWidth: 12,
+          minWidth: 10,
+          maxWidth: 16,
+          defaultWidth: 12,
           graphics: {
             center: [
               { tileset: 2, x: 134, y: 20, width: 5, height: 5, offsetY: 10 } // Arrow
@@ -1151,6 +1156,8 @@ var main = (function(){
       zIndex: 2,
       defaultWidth: 8,
       variants: ['parking-lane-direction', 'parking-lane-orientation'],
+      descriptionPrompt: 'Learn more about parking lanes',
+      description: '<img src="/images/info-bubble-examples/parking-lane-01.jpg"><p class="lede">On-street parking </p>',
       details: {
         'inbound|left': {
           minWidth: 7,
