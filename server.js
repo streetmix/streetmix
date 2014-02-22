@@ -6,7 +6,7 @@ var fs = require('fs'),
     config = require('config'),
     mustache = require('mustache'),
     controllers = require('./app/controllers')
-    
+
 var app = express()
 
 app.use(express.compress())
@@ -50,7 +50,7 @@ app.all('*', function(req, res, next) {
       headers: headers,
       followRedirect: true
     })).pipe(res)
-      
+
   } else {
     next('route')
   }
@@ -58,6 +58,10 @@ app.all('*', function(req, res, next) {
 
 app.get('/help/about-beta', function(req, res) {
   res.sendfile(__dirname + '/public/help/about-beta/index.html')
+})
+
+app.get('/favicon.ico', function(req, res) {
+  res.sendfile(__dirname + '/public/favicon.ico')
 })
 
 // Catch-all
@@ -80,7 +84,7 @@ fs.readFile(__dirname + '/public/js/scripts.mustache.js', { encoding: 'utf8' }, 
       console.error('Could not write compiled JS files')
       return process.exit(2)
     }
-    
+
     app.listen(config.port, null, null, function() {
       console.log('Listening on port ' + config.port)
     });
