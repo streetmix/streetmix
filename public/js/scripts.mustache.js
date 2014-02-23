@@ -1218,13 +1218,6 @@ var main = (function(){
       zIndex: 2,
       defaultWidth: 8,
       variants: ['parking-lane-direction', 'parking-lane-orientation'],
-      description: {
-        prompt: 'Learn more about parking lanes',
-        image: '',
-        imageCaption: '',
-        lede: 'On-street parking',
-        text: []
-      },
       details: {
         'inbound|left': {
           minWidth: 7,
