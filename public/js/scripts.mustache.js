@@ -1291,12 +1291,12 @@ var main = (function(){
       name: 'Bus lane',
       owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
       zIndex: 2,
-      defaultWidth: 10,
+      defaultWidth: 12,
       variants: ['direction', 'public-transit-asphalt'],
       details: {
         'inbound|regular': {
-          minWidth: 9,
-          maxWidth: 12,
+          minWidth: 10,
+          maxWidth: 13,
           graphics: {
             center: [
               { tileset: 1, x: 28, y: 27, width: 11, height: 13 }, // Bus
@@ -1306,8 +1306,8 @@ var main = (function(){
           }
         },
         'outbound|regular': {
-          minWidth: 9,
-          maxWidth: 12,
+          minWidth: 10,
+          maxWidth: 13,
           graphics: {
             center: [
               { tileset: 1, x: 16, y: 27, width: 12, height: 13 }, // Bus
@@ -1317,8 +1317,8 @@ var main = (function(){
           }
         },
         'inbound|colored': {
-          minWidth: 9,
-          maxWidth: 12,
+          minWidth: 10,
+          maxWidth: 13,
           graphics: {
             center: [
               { tileset: 1, x: 28, y: 27, width: 11, height: 13 }, // Bus
@@ -1328,8 +1328,8 @@ var main = (function(){
           }
         },
         'outbound|colored': {
-          minWidth: 9,
-          maxWidth: 12,
+          minWidth: 10,
+          maxWidth: 13,
           graphics: {
             center: [
               { tileset: 1, x: 16, y: 27, width: 12, height: 13 }, // Bus
@@ -1344,12 +1344,12 @@ var main = (function(){
       name: 'Streetcar',
       owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
       zIndex: 2,
-      defaultWidth: 10,
+      defaultWidth: 12,
       variants: ['direction', 'public-transit-asphalt'],
       details: {
         'inbound|regular': {
-          minWidth: 9,
-          maxWidth: 12,
+          minWidth: 10,
+          maxWidth: 14,
           graphics: {
             center: [
               { tileset: 1, x: 28, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
@@ -1360,8 +1360,8 @@ var main = (function(){
           }
         },
         'outbound|regular': {
-          minWidth: 9,
-          maxWidth: 12,
+          minWidth: 10,
+          maxWidth: 14,
           graphics: {
             center: [
               { tileset: 1, x: 28, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
@@ -1372,8 +1372,8 @@ var main = (function(){
           }
         },
         'inbound|colored': {
-          minWidth: 9,
-          maxWidth: 12,
+          minWidth: 10,
+          maxWidth: 14,
           graphics: {
             center: [
               { tileset: 1, x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
@@ -1384,8 +1384,8 @@ var main = (function(){
           }
         },
         'outbound|colored': {
-          minWidth: 9,
-          maxWidth: 12,
+          minWidth: 10,
+          maxWidth: 14,
           graphics: {
             center: [
               { tileset: 1, x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
