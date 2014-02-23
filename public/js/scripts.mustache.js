@@ -1401,12 +1401,12 @@ var main = (function(){
       name: 'Light rail',
       owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
       zIndex: 2,
-      defaultWidth: 10,
+      defaultWidth: 12,
       variants: ['direction', 'public-transit-asphalt'],
       details: {
         'inbound|regular': {
-          minWidth: 9,
-          maxWidth: 12,
+          minWidth: 10,
+          maxWidth: 14,
           graphics: {
             center: [
               { tileset: 1, x: 17, y: 40, width: 10, height: 17, offsetY: -5 }, // Light rail
@@ -1417,8 +1417,8 @@ var main = (function(){
           }
         },
         'outbound|regular': {
-          minWidth: 9,
-          maxWidth: 12,
+          minWidth: 10,
+          maxWidth: 14,
           graphics: {
             center: [
               { tileset: 1, x: 27, y: 40, width: 10, height: 17, offsetY: -5 }, // Light rail
@@ -1429,8 +1429,8 @@ var main = (function(){
           }
         },
         'inbound|colored': {
-          minWidth: 9,
-          maxWidth: 12,
+          minWidth: 10,
+          maxWidth: 14,
           graphics: {
             center: [
               { tileset: 1, x: 17, y: 40, width: 10, height: 17, offsetY: -5 }, // Light rail
@@ -1441,8 +1441,8 @@ var main = (function(){
           }
         },
         'outbound|colored': {
-          minWidth: 9,
-          maxWidth: 12,
+          minWidth: 10,
+          maxWidth: 14,
           graphics: {
             center: [
               { tileset: 1, x: 27, y: 40, width: 10, height: 17, offsetY: -5 }, // Light rail
