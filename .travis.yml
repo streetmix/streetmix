@@ -16,3 +16,5 @@ after_success:
   - heroku keys:clear
   - yes | heroku keys:add
   - yes | git push heroku master
+notifications:
+  webhooks: http://cfa-project-monitor.herokuapp.com/projects/6ecc54d0-6abb-460b-97e4-ac4eae66d7a0/status
