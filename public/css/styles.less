@@ -107,13 +107,13 @@ body {
 a {
   -webkit-touch-callout: default;
   -moz-touch-callout: default;
-  touch-callout: default;  
+  touch-callout: default;
 }
 
 body:not(.safari) {
   -webkit-perspective: 500px;
   -moz-perspective: 500px;
-  perspective: 500px;  
+  perspective: 500px;
 }
 
 body,
@@ -158,10 +158,13 @@ textarea {
   &[disabled] {
     background: desaturate(fadeout(@uiColour, 70%), 100%) !important;
     border-color: desaturate(@uiColour, 100%) !important;
-  }  
+  }
 }
 
 #main-screen {
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  transform: translateY(0);
   position: absolute;
   left: 0;
   top: 0;
@@ -173,7 +176,7 @@ textarea {
 body:not(.safari) #main-screen {
   -webkit-perspective: 2000px;
   -moz-perspective: 2000px;
-  perspective: 2000px;  
+  perspective: 2000px;
 }
 
 body.environment-development,
@@ -239,7 +242,7 @@ body:not(.safari).gallery-visible #street-section-sky {
   height: @galleryHeight;
   z-index: 100001;
 
-  border-bottom: 3px solid darken(@uiColour, 30%);  
+  border-bottom: 3px solid darken(@uiColour, 30%);
 
   background: white;
   overflow: hidden;
@@ -485,19 +488,19 @@ body:not(.safari).gallery-visible #street-section-sky {
   }
 }
 
-body:not(.gallery-no-move-transition) #main-screen, 
+body:not(.gallery-no-move-transition) #main-screen,
 body:not(.gallery-no-move-transition) #gallery,
 body:not(.gallery-no-move-transition) #street-name-canvas,
 body:not(.gallery-no-move-transition) #street-section-sky {
   -webkit-transition: -webkit-transform 800ms;
   -moz-transition: -moz-transform 800ms;
-  transition: transform 800ms;  
+  transition: transform 800ms;
 }
 
 body.safari #gallery {
   -webkit-transform: translateY(-@galleryHeight - 3px);
   -moz-transform: translateY(-@galleryHeight - 3px);
-  transform: translateY(-@galleryHeight - 3px);  
+  transform: translateY(-@galleryHeight - 3px);
 }
 
 #gallery-shield {
@@ -515,7 +518,7 @@ body.safari #gallery {
 body.gallery-visible #gallery {
   -webkit-transform: translateY(0);
   -moz-transform: translateY(0);
-  transform: translateY(0);  
+  transform: translateY(0);
 
   pointer-events: auto;
 }
@@ -579,10 +582,10 @@ body.gallery-visible #gallery-shield {
   bottom: -20px; // To hide the scrollbar
 
   overflow-x: scroll;
-  overflow-y: hidden;  
+  overflow-y: hidden;
 }
 /*body.phone #street-section-outer {
-  -webkit-overflow-scrolling: touch;  
+  -webkit-overflow-scrolling: touch;
 }*/
 
 #street-section-inner {
@@ -628,7 +631,7 @@ body.gallery-visible #gallery-shield {
   .user-select-none;
 
   &:hover {
-    opacity: .333;    
+    opacity: .333;
   }
   &:active {
     opacity: .5;
@@ -658,10 +661,10 @@ body.gallery-visible #gallery-shield {
 
 .rear-clouds,
 .front-clouds {
-  position: absolute;  
+  position: absolute;
 
   background-repeat: repeat-x;
-  background-position: 0 0;    
+  background-position: 0 0;
 
   left: 0;
   width: 100%;
@@ -681,7 +684,7 @@ body.gallery-visible #gallery-shield {
     background-image: url(../images/sky-front.png);
     background-size: 250px 280px;
 
-    opacity: .5;  
+    opacity: .5;
 
     height: 280px;
 
@@ -850,7 +853,7 @@ body:not(.safari) .footer-canvas {
     -webkit-transform-origin: 50% 0;
     -moz-transform-origin: 50% 0;
     transform-origin: 50% 0;
-  }  
+  }
 }
 
 #palette {
@@ -965,7 +968,7 @@ body:not(.safari) .footer-canvas {
 
   -webkit-perspective: 500px;
   -moz-perspective: 500px;
-  perspective: 500px;  
+  perspective: 500px;
 }
 .segment.empty {
   position: absolute;
@@ -1067,7 +1070,7 @@ body.segment-resize-dragging .segment:not(.unmovable).hover {
 
 body:not(.read-only) .segment:not(.unmovable) {
   cursor: -webkit-grab;
-  cursor: -moz-grab;  
+  cursor: -moz-grab;
 }
 
 .segment .image {
@@ -1083,7 +1086,7 @@ body:not(.read-only) .segment:not(.unmovable) {
 }
 
 body:not(.segment-resize-dragging) .segment.outside .image {
-  -webkit-transition: none;  
+  -webkit-transition: none;
 }
 
 .segment.dragged-out {
@@ -1129,7 +1132,7 @@ body:not(.touch-support) .segment.palette:hover {
 
 body.segment-resize-dragging,
 body.segment-resize-dragging * {
-  cursor: col-resize !important; 
+  cursor: col-resize !important;
 }
 
 .drag-handle {
@@ -1152,7 +1155,7 @@ body.segment-resize-dragging * {
   background: @infoBubbleBackground;
 
   border-top: 3px solid darken(@uiColour, 30%);
-  border-bottom: 3px solid darken(@uiColour, 30%);  
+  border-bottom: 3px solid darken(@uiColour, 30%);
 
   cursor: col-resize;
 
@@ -1319,7 +1322,7 @@ body.segment-resize-dragging * {
     -moz-transform: rotateY(90deg);
     transform: rotateY(90deg);
   }
-  &.right {    
+  &.right {
     -webkit-transform: rotateY(-90deg);
     -moz-transform: rotateY(-90deg);
     transform: rotateY(-90deg);
@@ -1329,7 +1332,7 @@ body.segment-resize-dragging * {
 
   &:hover {
     color: darken(@uiColour, 10%);
-  }  
+  }
 }
 .segment.hide-drag-handles-when-inside-info-bubble .drag-handle,
 .segment.hide-drag-handles-when-description-shown .drag-handle {
@@ -1386,7 +1389,7 @@ body.segment-resize-dragging .drag-handle.floating,
   &.max::after {
     right: -55px;
     text-align: left;
-  }  
+  }
   &.min::before {
     left: 5px;
     text-align: left;
@@ -1394,19 +1397,19 @@ body.segment-resize-dragging .drag-handle.floating,
   &.min::after {
     right: 5px;
     text-align: right;
-  }  
+  }
 
   &.max::before {
-    content: 'Max »';    
+    content: 'Max »';
   }
   &.max::after {
-    content: '« Max';    
+    content: '« Max';
   }
   &.min::after {
-    content: 'Min »';    
+    content: 'Min »';
   }
   &.min::before {
-    content: '« Min';    
+    content: '« Min';
   }
 }
 
@@ -1431,7 +1434,7 @@ body.units-metric .segment .grid {
   background-image: linear-gradient(0deg, @segmentWidthRule, @bottomBackground 5%);
   background-image: -webkit-linear-gradient(0deg, @segmentWidthRule, @bottomBackground 5%);
   background-image: -moz-linear-gradient(0deg, @segmentWidthRule, @bottomBackground 5%);
-  background-size: (@tileSize * 100 / 30 / 2) 100%;  
+  background-size: (@tileSize * 100 / 30 / 2) 100%;
 }
 
 .segment .name {
@@ -1487,13 +1490,13 @@ body.units-metric .segment .grid {
   overflow: hidden;
 
   font-weight: 300;
-  text-rendering: optimizeLegibility;  
+  text-rendering: optimizeLegibility;
 
   .width-font;
 
   overflow: hidden;
 
-  pointer-events: none;  
+  pointer-events: none;
 }
 .segment.hover .width {
   font-weight: 700;
@@ -1509,7 +1512,7 @@ body.units-metric .segment .grid {
 
 body.segment-move-dragging,
 body.segment-move-dragging * {
-  cursor: move !important;  
+  cursor: move !important;
   cursor: -webkit-grabbing !important;
   cursor: -moz-grabbing !important;
 }
@@ -1606,7 +1609,7 @@ body.segment-move-dragging #editable-street-section > div {
 
   -webkit-touch-callout: default;
   -moz-touch-callout: default;
-  touch-callout: default;  
+  touch-callout: default;
 
   font-size: 0;
 
@@ -1619,7 +1622,7 @@ body.segment-move-dragging #editable-street-section > div {
     max-width: 700px;
     max-height: 300px;
 
-    cursor: move;  
+    cursor: move;
     cursor: -webkit-grab;
     cursor: -moz-grab;
 
@@ -1725,7 +1728,7 @@ body.phone #loading {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
-  }  
+  }
 
   background: transparent;
   color: transparent;
@@ -1733,7 +1736,7 @@ body.phone #loading {
   &.darken,
   &.darken-immediately {
     background: fadeout(@skyColour, 15%);
-    color: black;    
+    color: black;
   }
 
   &.darken {
@@ -1796,7 +1799,7 @@ body.phone #loading {
   pointer-events: none;
 
   .user-select-none;
-  
+
   -webkit-transition: opacity 200ms, -webkit-transform 200ms;
   -moz-transition: opacity 200ms, -moz-transform 200ms;
   transition: opacity 200ms, transform 200ms;
@@ -1852,7 +1855,7 @@ body.no-connection-message-visible #status-message {
   padding-right: 0;
 
   .user-select-none;
-  
+
   border-bottom: 3px solid darken(@uiColour, 20%);
 
   padding-top: 0;
@@ -1955,7 +1958,7 @@ body.no-connection-message-visible #status-message {
     font-size: inherit;
     font-weight: inherit;
     text-rendering: optimizeLegibility;
-    
+
     cursor: pointer;
 
     &::after {
@@ -2099,7 +2102,7 @@ body.safari .menu {
   padding-right: 10px;
   padding-top: 5px;
   padding-bottom: 5px;
-  margin-top: 5px;  
+  margin-top: 5px;
 
   p:first-child {
     margin-top: 0;
@@ -2181,7 +2184,7 @@ body.safari .menu {
     display: block;
     box-sizing: border-box;
 
-    outline: none;    
+    outline: none;
   }
 
   #feedback-form-send {
@@ -2286,7 +2289,7 @@ body.safari .menu {
     -webkit-transform: translateY(20px);
     -moz-transform: translateY(20px);
     transform: translateY(20px);
-  }  
+  }
 
   &.no-movement {
     -webkit-transition: none !important;
@@ -2302,7 +2305,7 @@ body.safari .menu {
 body.read-only #street-name-canvas {
   -webkit-transform: translateY(0);
   -moz-transform: translateY(0);
-  transform: translateY(0);  
+  transform: translateY(0);
 }
 
 .street-name-mixin (@size: @streetNameSize) {
@@ -2332,14 +2335,14 @@ body.windows .street-name > div {
 
 .street-name {
   display: inline-block;
-  
+
   background: @streetNameBackground;
   color: @streetNameText;
 
   .street-name-mixin;
 
   .user-select-none;
-  
+
   white-space: nowrap;
 
   & > div,
@@ -2369,7 +2372,7 @@ body.windows .street-name > div {
 
   & > div,
   & > span {
-    .street-name-inside-mixin (@streetNameGallerySize);    
+    .street-name-inside-mixin (@streetNameGallerySize);
   }
 
   &.fallback-unicode-font > div {
@@ -2431,7 +2434,7 @@ body:not(.touch-support):not(.read-only) #street-name {
   font-size: 13px;
 
   .user-select-none;
-  
+
   pointer-events: auto;
 
   a {
@@ -2466,7 +2469,7 @@ body:not(.read-only) #street-width-read {
     -webkit-transform: scaleY(.75);
     -moz-transform: scaleY(.75);
     transform: scaleY(.75);
-  }    
+  }
 }
 
 body.edit-street-width #street-width-read {
@@ -2523,7 +2526,7 @@ body.read-only #street-metadata-author a {
   margin-left: -790px / 2;
   left: 50%;
 
-  .box-border;  
+  .box-border;
   box-sizing: border-box;
   background: white;
   padding: 15px 15px;
@@ -2534,7 +2537,7 @@ body.read-only #street-metadata-author a {
     position: absolute;
     right: 0;
     top: 5px;
-  }  
+  }
 
   &:not(.visible) {
     display: none;
@@ -2579,7 +2582,7 @@ body.read-only #street-metadata-author a {
 #save-as-image-dialog footer {
   color: rgb(160, 160, 160);
   font-size: 11px;
-  line-height: 14px;    
+  line-height: 14px;
   margin-top: 15px;
 
   a {
@@ -2602,7 +2605,7 @@ body.read-only #street-metadata-author a {
   text-align: center;
 
   .user-select-none;
-  
+
   pointer-events: none;
 
   &:not(.first-time-new-street) .first-time-new-street,
@@ -2678,7 +2681,7 @@ body.read-only #street-metadata-author a {
   }
   input[type='radio']:checked + label {
     color: black;
-    font-weight: bold;    
+    font-weight: bold;
   }
   input[type='radio']:not(:checked) + label {
     text-decoration: underline;
@@ -2698,7 +2701,7 @@ body.read-only #street-metadata-author a {
   border-bottom: 1px solid darken(@uiColour, 30%);
 
   margin-right: 5px;
-  vertical-align: middle;  
+  vertical-align: middle;
   margin-top: -1px;
   margin-left: 3px;
 }
@@ -2713,13 +2716,13 @@ body.controls-fade-out .segment .drag-handle {
   -webkit-transition: opacity @touchControlsFadeoutTime !important;
   -moz-transition: opacity @touchControlsFadeoutTime !important;
   transition: opacity @touchControlsFadeoutTime !important;
-  opacity: 0.01 !important;  
+  opacity: 0.01 !important;
 }
 body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
   -webkit-transition: opacity @touchControlsFadeoutTime !important;
   -moz-transition: opacity @touchControlsFadeoutTime !important;
   transition: opacity @touchControlsFadeoutTime !important;
-  opacity: 0.01 !important;    
+  opacity: 0.01 !important;
 }
 
 .info-bubble {
@@ -2730,7 +2733,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
 
   -webkit-transition: -webkit-transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
   -moz-transition: -moz-transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
-  transition: transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;   
+  transition: transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
 
   .box-border;
   border-top-color: darken(@uiColour, 30%);
@@ -2771,7 +2774,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
 
       -webkit-transform: rotateZ(45deg);
       -moz-transform: rotateZ(45deg);
-      transform: rotateZ(45deg);    
+      transform: rotateZ(45deg);
     }
   }
 
@@ -2811,7 +2814,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
     font-weight: 300;
     color: white;
 
-    position: relative;    
+    position: relative;
 
     background: darken(@uiColour, 20%);
   }
@@ -2848,7 +2851,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
     white-space: nowrap;
 
     .user-select-none;
-  
+
     button {
       margin-left: 3px;
       margin-top: 0;
@@ -2905,7 +2908,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
     font-size: 13px;
 
     .user-select-none;
-  
+
     color: darken(@uiColour, 20%);
     cursor: pointer;
 
@@ -2953,7 +2956,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
 
   .description {
     font-size: 16px;
-    padding: 12px 12px;  
+    padding: 12px 12px;
     line-height: 23px;
     font-weight: 300;
 
@@ -2977,7 +2980,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
         font-size: 150%;
         font-weight: 300;
         line-height: 1.25;
-      }      
+      }
     }
     footer {
       text-align: right;
@@ -2991,7 +2994,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
       display: block;
       max-width: 100%;
       outline: 1px solid darken(@uiColour, 20%);
-    }    
+    }
   }
 
   .warnings {
@@ -3026,10 +3029,10 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
     margin-bottom: 8px;
     width: 150px;
     height: @infoBubbleButtonSize;
-    line-height: @infoBubbleButtonSize;  
+    line-height: @infoBubbleButtonSize;
 
     .user-select-none;
-    
+
     white-space: nowrap;
 
     text-align: right;
@@ -3068,7 +3071,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
         vertical-align: bottom;
         height: 22px;
 
-        outline: none;        
+        outline: none;
       }
       &.width-non-editable,
       &.height-non-editable {
@@ -3153,7 +3156,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
   .name,
   .width {
     display: none;
-  }  
+  }
 }
 
 .switching-away-post {
@@ -3164,11 +3167,11 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
   -webkit-transition: -webkit-transform @segmentSwitchingTime ease-in, opacity @segmentSwitchingTime ease-in !important;
   -moz-transition: -moz-transform @segmentSwitchingTime ease-in, opacity @segmentSwitchingTime ease-in !important;
   transition: transform @segmentSwitchingTime ease-in, opacity @segmentSwitchingTime ease-in !important;
-  
+
   -webkit-transform: rotateX(-60deg);
   -moz-transform: rotateX(-60deg);
   transform: rotateX(-60deg);
-    
+
   -webkit-transform-origin: 50% 120%;
   -moz-transform-origin: 50% 120%;
   transform-origin: 50% 120%;
@@ -3187,7 +3190,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
     -webkit-transform: rotateX(90deg);
     -moz-transform: rotateX(90deg);
     transform: rotateX(90deg);
-      
+
     -webkit-transform-origin: 50% 100%;
     -moz-transform-origin: 50% 100%;
     transform-origin: 50% 100%;
@@ -3196,7 +3199,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
   }
 }
 .switching-in-post {
-  z-index: -1 !important;  
+  z-index: -1 !important;
 }
 .switching-in-post canvas {
   opacity: 1;
@@ -3204,7 +3207,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
   -webkit-transition: -webkit-transform @segmentSwitchingTime, opacity @segmentSwitchingTime !important;
   -moz-transition: -moz-transform @segmentSwitchingTime, opacity @segmentSwitchingTime !important;
   transition: transform @segmentSwitchingTime, opacity @segmentSwitchingTime !important;
-  
+
   -webkit-transform: none;
   -moz-transform: none;
   transform: none;
