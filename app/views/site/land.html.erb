@@ -1,0 +1,361 @@
+<% content_for :head do %>
+  <script>
+    var ENV = "<%= Rails.env %>";
+    var SITE_URL = "http://localhost:3000/";
+    var API_URL = '/api/';
+    var FACEBOOK_APP_ID = "<%= ENV['FACEBOOK_APP_ID'] %>";
+    var URL_SIGN_IN_CALLBACK_REL = '{{{twitter.oauth_callback_uri}}}';
+  </script>
+
+  <%= stylesheet_link_tag "application" %>
+  <%= javascript_include_tag "application" %>
+
+  <script src='//platform.twitter.com/widgets.js'></script>
+
+  <script>
+    main.preInit();
+  </script>
+<% end %>
+
+<div id='flash'></div>
+
+<div id='debug'><textarea></textarea></div>
+<div id='loading'><div><span></span><progress id='loading-progress'></progress></div></div>
+
+<div id='gallery'>
+  <div class='loading'></div>
+  <div class='error-loading'>Failed to load the gallery. <button id='gallery-try-again'>Try again</button></div>
+  <div class='sign-in-promo'>
+    <a href='/twitter-sign-in?redirectUri=/just-signed-in'>Sign in with Twitter</a> for
+    your personal street gallery 
+  </div>
+  <div class='avatar'></div>
+  <div class='user-id'></div>
+  <div class='street-count'></div>
+
+  <a href='#' target='_blank' class='button-like' id='new-street'></a>
+  <a href='#' target='_blank' class='button-like' id='copy-last-street'></a>
+
+  <ul class='streets'>
+  </ul>
+</div>
+
+<div id='main-screen'>
+
+  <nav id='top-menu-bar'>
+    <ul class='left'>
+      <li>
+        <h1>Streetmix</h1>
+      <li>
+        <button class='menu-attached' id='help-menu-button'>Help</button>
+      <li>
+        <button class='menu-attached' id='feedback-menu-button'>Contact</button>
+    </ul>
+    <ul class='right'>
+      <li id='identity'>
+      <li>
+        <span id='sign-in-link'></span>
+      <li>
+        <a target='_blank' href='/new'>New street</a>
+      <li id='gallery-link'>
+        <a href=''>My streets</a>
+      <li>
+        <button class='menu-attached' id='share-menu-button'>Share</button>
+    </ul>
+  </nav>
+
+  <div id='identity-menu' class='menu'>
+    <a id='sign-out-link' href='#'>Sign out</a>
+  </div>
+
+  <div id='help-menu' class='menu'>
+    <a href='#/help/about' id='about-streetmix'>About Streetmix…</a>
+    <div class='form non-touch-only' id='help-shortcuts'>
+      <p>
+        Keyboard shortcuts:
+      </p>
+      <table>
+        <tr>
+          <td>
+            <span class='key'>Backspace</span> 
+          <td>
+            Remove a segment you’re pointing at<br>
+            (hold <span class='key'>Shift</span> to remove all)
+        <tr>
+          <td>
+            <span class='key'>–</span> <span class='key'>+</span>
+          <td>
+            Change width of a segment you’re pointing at<br>
+            (hold <span class='key'>Shift</span> for more precision)
+        <tr>
+          <td>
+            <span class='key'>&larr;</span> <span class='key'>&rarr;</span>
+          <td>
+            Move around the street
+            (hold <span class='key'>Shift</span> to jump to edges)
+      </table>
+    </div>
+  </div>
+
+  <div id='feedback-menu' class='menu'>
+    <div class='form' id='feedback-form'>
+      <div class='loading'>Loading…</div>
+      <div class='thank-you'>We got it. Thanks!</div>
+      Send us a message:
+      <textarea id='feedback-form-message' placeholder='What do you think of Streetmix?'></textarea>
+      <input id='feedback-form-email' type='email' placeholder='Your email (optional)'>
+      <button id='feedback-form-send'>Send message</button>
+    </div>
+    <a id='feedback-via-twitter' href='#' target='_blank'>Send a tweet to @streetmixapp</a>
+    <a href='mailto:streetmix@codeforamerica.org' target='_blank'>Send an email to Streetmix team</a>
+    <a target='_blank' href='https://github.com/codeforamerica/streetmix'>View/comment on GitHub</a>
+    <a target='_blank' href='http://blog.streetmix.net'>Visit Streetmix blog</a>
+  </div>
+
+  <div id='share-menu' class='menu'>
+    <div id='sign-in-promo'>
+      <a href='/twitter-sign-in?redirectUri=/just-signed-in'>Sign in with Twitter</a> for nicer
+      links to your streets and your personal street gallery 
+    </div>
+    <div id='share-via-link-canvas'>
+      Copy and paste this link to share:
+      <input id='share-via-link' type='text' value=''>
+    </div>
+    <a id='share-via-twitter' href='#' target='_blank'>Share using Twitter</a>
+    <a id='share-via-facebook' href='#' target='_blank'>Share using Facebook</a>
+    <a id='invoke-print' href='#'>Print…</a>
+    <a id='save-as-image' href='#'>Save as image…<span>For including in a report, blog, etc.</span></a>
+  </div>
+
+  <div class='info-bubble'></div>
+
+  <div id='error'>
+    <div>
+      <h1 id='error-title'></h1>
+      <div id='error-description' class='description'></div>
+    </div>
+    <div class='rear-clouds'></div>
+    <div class='front-clouds'></div>
+  </div>
+
+  <div id='blocking-shield'>
+    <div>
+      <div class='message'></div>
+      <div class='try-again'>
+        Streetmix is having issues accessing the Internet.
+        <br>
+        <button id='blocking-shield-try-again'>Try again</button>
+        <button id='blocking-shield-cancel'>Cancel</button>
+      </div>
+      <div class='too-slow'>
+        Streetmix wasn’t able to connect to the Internet in awhile now.
+        <br>
+        <br>
+        You might want to reload the page and try again. Please note you
+        might lose the latest change to the street. Sorry!
+        <br>
+        <br>
+        <button id='blocking-shield-reload'>Reload</button>
+      </div>
+    </div>
+  </div>
+
+  <div id='status-message'><div></div></div>
+
+  <div id='no-connection-message'>
+    <div>
+      Streetmix is having trouble connecting to the Internet.
+      <button id='no-connection-try-again'>Try again</button>
+    </div> 
+  </div>
+
+  <div id='info-bubble'></div>
+
+  <div id='street-name-canvas'>
+    <div id='street-name' class='street-name'><div></div></div>
+    <div id='street-metadata'>
+      <span id='street-metadata-width'>
+        <span id='street-width-read'>
+          <span id='street-width-read-width'></span>
+          <span id='street-width-read-difference'></span>
+        </span>
+        <select id='street-width'></select>
+      </span>
+      <span id='street-metadata-author'></span>
+      <span id='street-metadata-date'></span>
+    </div>
+  </div>
+
+  <div id='dialog-box-shield'></div>
+  <div id='about' class='dialog-box'>
+    <button class='close'>×</button>
+    <div class='left'>
+      <h1>
+        About Streetmix.
+      </h1>
+      <p class='description'>
+        Design, remix, and share your street.
+        Add bike paths, widen sidewalks or traffic lanes, learn 
+        how all of this can impact your community.
+      </p>
+      <ul>
+        <li><a target='_blank' href='http://blog.streetmix.net'>Visit Streetmix blog</a>
+        <li><a target='_blank' href='#/help/about-beta'>What’s new in beta?</a> (July 2013)
+        <li><a target='_blank' href='https://github.com/codeforamerica/streetmix/'>View source code</a>
+      </ul>
+    </div>
+    <div class='right'>
+      <p>
+        A side project by 
+        <a target='_blank' href='http://codeforamerica.org'>Code for America</a> 2013 fellows:
+      </p>
+      <ul class='team'>
+        <li><a target='_blank' href='http://twitter.com/anselmbradford'><div class='avatar' postpone='true' userId='anselmbradford'></div>Anselm Bradford</a> · media production
+        <li><a target='_blank' href='http://ahhrrr.com'><div class='avatar' postpone='true' userId='ahhrrr'></div>Ezra Spier</a> · cat herder, proto-urbanist
+        <li><a target='_blank' href='http://twitter.com/klizlewis'><div class='avatar' postpone='true' userId='klizlewis'></div>Katie Lewis</a> · illustrator
+        <li><a target='_blank' href='http://louhuang.com'><div class='avatar' postpone='true' userId='saikofish'></div>Lou Huang</a> · project lead, research, outreach, transit fan
+        <li><a target='_blank' href='http://www.linkedin.com/pub/marc-hebert/1/2bb/66'><div class='avatar' postpone='true' userId='anthromarc'></div>Marc Hébert</a> · UX researcher, design anthropologist
+        <li><a target='_blank' href='http://aresluna.org'><div class='avatar' postpone='true' userId='mwichary'></div>Marcin Wichary</a> · UX, FE, PM, sharrow whisperer
+        <li><a target='_blank' href='http://twitter.com/shaunak'><div class='avatar' postpone='true' userId='shaunak'></div>Shaunak Kashyap</a> · rear end engineering
+      </ul>
+      <footer>
+        Many thanks to the staff and 2013 CfA fellows for their support and patience,
+        the Blockee team for paving the way, and all of our testers for their time and feedback!
+      </footer>
+    </div>
+  </div>
+
+  <div id='save-as-image-dialog' class='dialog-box'>
+    <div>
+      <button class='close'>×</button>
+      <h1>
+        Save as image
+      </h1>
+      <p>
+        <input type='checkbox' id='save-as-image-segment-names'><label for='save-as-image-segment-names'>Segment names and widths</label>
+        <input type='checkbox' id='save-as-image-street-name'><label for='save-as-image-street-name'>Street name</label>
+        <input type='checkbox' id='save-as-image-transparent-sky'><label for='save-as-image-transparent-sky'>Transparent sky</label>
+      </p>
+      <div id='save-as-image-preview'>
+        <div id='save-as-image-preview-loading'>Loading…</div>
+        <div id='save-as-image-preview-preview'></div>
+      </div>
+      <p>
+        <span class='non-touch-only'>
+          Drag the image anywhere you want, or 
+          <a download class='button-like' id='save-as-image-download'>Save to your computer…</a>
+        </span>
+        <span class='touch-only'>
+          Hold your finger on the image above to save or copy it.
+        </span>
+      </p>
+      <footer>
+        All images from Streetmix come with
+        <a href='http://creativecommons.org/licenses/by-sa/3.0/'>Creative Commons BY-SA 3.0 license</a>.
+      </footer>
+    </div>
+  </div>
+
+  <div id='welcome'>
+    <div>
+      <button class='close'>×</button>
+      <div class='first-time-new-street'>
+        <h1>
+          Welcome to Streetmix.
+        </h1>
+        <p>
+          Design, remix, and share your neighborhood street. Add trees or bike paths, widen 
+          sidewalks or traffic lanes, learn how your decisions can impact your community.
+        </p>
+        <p class='important'>
+          Start by moving some segments around with 
+          <span class='touch-only'>your finger.</span>
+          <span class='non-touch-only'>your mouse.</span>
+        </p>
+      </div>
+
+      <div class='first-time-existing-street'>
+        <h1>
+          Welcome to Streetmix.
+        </h1>
+        <p>
+          This is
+           <span class='street-name'><span id='welcome-street-name'></span></span>
+           <span id='welcome-avatar-creator'>
+             made by 
+             <span class='avatar' id='welcome-avatar' userId=''></span><span id='welcome-creator'></span>
+           </span>.
+        </p>
+        <p class='important'>
+          Remix it by moving some segments around,
+           or <button id='welcome-new-street'>Start your own street</button>.
+        </p>
+      </div>
+
+      <div class='new-street'>
+        <h1>
+          Here’s your new street.
+        </h1>
+        <ul>
+          <li>
+            <input type='radio' name='new-street' id='new-street-default'><label for='new-street-default'>Start with an example street</label>
+          <li>
+            <input type='radio' name='new-street' id='new-street-empty'><label for='new-street-empty'>Start with an empty street</label>
+          <li>
+            <input type='radio' name='new-street' id='new-street-last'><label for='new-street-last'>Start with a copy of last street</label>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <section id='street-section-outer'>
+    <div id='gallery-shield'></div>
+    <section id='street-section-inner'>
+          <section id='street-section-canvas'>
+        <section id='street-section-left-building'><div class='hover-bk'></div></section>
+        <section id='street-section-right-building'><div class='hover-bk'></div></section>
+        <div id='street-section-editable'></div>
+        <div class='segment empty' id='street-section-left-empty-space'></div>
+        <div class='segment empty' id='street-section-right-empty-space'></div>
+        <section id='street-section-dirt'></section>
+      </section>
+    </section>
+  </section>
+  <section id='street-section-sky'>
+    <div class='rear-clouds'></div>
+    <div class='front-clouds'></div>
+  </section>
+  <div id='street-scroll-indicator-left'></div>
+  <div id='street-scroll-indicator-right'></div>
+
+  <footer>
+    <div class='footer-canvas'>
+
+      <div class='width-chart-canvas'>
+        <canvas id='width-chart'></canvas>
+      </div>
+
+      <div class='regular-canvas'>
+        <div id='commands'>
+          <button id='undo'></button>
+          <button id='redo'></button>
+        </div>
+
+        <div id='palette'>
+          <div class='palette-canvas'></div>
+        </div>
+
+        <div id='trashcan'></div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div id='print'>
+  <div>
+  </div>
+</div>
+
+<script>
+  main.init();
+</script>

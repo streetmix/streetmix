@@ -1,1 +1,1 @@
-web: supervisor --ignore public/js/*.AUTO.js server.js
+web: bundle exec rails s
