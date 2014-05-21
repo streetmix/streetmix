@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "private": false,
   "dependencies": {
-    "express": "3.0.x",
     "ejs": "~1.0.0",
+    "express": "3.0.x",
     "compound": "1.1.x",
     "config": "0.4.x",
     "less-middleware": "0.1.x",
