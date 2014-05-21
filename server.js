@@ -14,11 +14,7 @@ app.use(express.compress())
 app.use(express.cookieParser())
 app.use(express.cookieSession({ secret: config.cookie_session_secret }))
 
-app.use(lessMiddleware({
-  src: __dirname + '/public',
-  compress: (process.env.NODE_ENV == 'production'),
-  once: (process.env.NODE_ENV == 'production')
-}))
+app.use(lessMiddleware(__dirname + '/public', { once: (process.env.NODE_ENV == 'production') }, {}, { compress: (process.env.NODE_ENV == 'production') }))
 
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/app/views')

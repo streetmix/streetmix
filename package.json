@@ -6,7 +6,7 @@
     "express": "3.0.x",
     "ejs": "~1.0.0",
     "config": "0.4.x",
-    "less-middleware": "0.1.x",
+    "less-middleware": "1.0.x",
     "oauth": "0.9.x",
     "request": "2.21.x",
     "requireindex": "1.0.x",
