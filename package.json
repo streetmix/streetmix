@@ -11,7 +11,7 @@
     "request": "2.21.x",
     "requireindex": "1.0.x",
     "sprintf": "0.1.x",
-    "supervisor": "0.5.x"
+    "supervisor": "0.6.x"
   },
   "engines": {
     "node": "0.10.x",
