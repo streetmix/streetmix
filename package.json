@@ -9,7 +9,7 @@
     "less-middleware": "1.0.x",
     "oauth": "0.9.x",
     "request": "2.36.x",
-    "requireindex": "1.0.x",
+    "requireindex": "1.1.x",
     "sprintf": "0.1.x",
     "supervisor": "0.6.x"
   },
