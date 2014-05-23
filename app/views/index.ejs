@@ -29,7 +29,16 @@
   <script src='/js/vendor/jquery-2.1.0.min.js'></script>
   <script src='/js/vendor/jquery.cookie.js'></script>
 
-  <script src='/js/scripts.AUTO.js'></script>
+  <script>
+    var SITE_URL = 'http://<%= config.app_host_port %>/';
+    var API_URL = '<%= config.restapi_proxy_baseuri_rel %>/';
+    var FACEBOOK_APP_ID = '<%= config.facebook_app_id %>';
+    var GOOGLE_ANALYTICS_ACCOUNT = '<%= typeof config.google_analytics_account != "undefined" ? config.google_analytics_account : "" %>';
+    var URL_SIGN_IN_CALLBACK_REL = '<%= config.twitter.oauth_callback_uri %>';
+    var ENV = '<%= config.env %>';
+  </script>
+
+  <script src='/js/scripts.js'></script>
 
   <script src='//platform.twitter.com/widgets.js'></script>
 
@@ -384,7 +393,7 @@
 
   <script>
     var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', main.GOOGLE_ANALYTICS_ACCOUNT]);
+    _gaq.push(['_setAccount', GOOGLE_ANALYTICS_ACCOUNT]);
     _gaq.push(['_trackPageview']);
 
     (function() {

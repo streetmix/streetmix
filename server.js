@@ -4,10 +4,11 @@ var fs = require('fs'),
     url = require('url'),
     lessMiddleware = require('less-middleware'),
     config = require('config'),
-    mustache = require('mustache'),
     controllers = require('./app/controllers')
 
 var app = express()
+
+app.locals.config = config
 
 app.use(express.compress())
 app.use(express.cookieParser())
@@ -18,6 +19,9 @@ app.use(lessMiddleware({
   compress: (process.env.NODE_ENV == 'production'),
   once: (process.env.NODE_ENV == 'production')
 }))
+
+app.set('view engine', 'ejs')
+app.set('views', __dirname + '/app/views')
 
 // Redirect to environment-appropriate domain, if necessary
 app.all('*', function(req, res, next) {
@@ -66,29 +70,9 @@ app.get('/favicon.ico', function(req, res) {
 
 // Catch-all
 app.use(function(req, res) {
-  res.sendfile(__dirname + '/public/index.html')
+  res.render('index', {})
 })
 
-fs.readFile(__dirname + '/public/js/scripts.mustache.js', { encoding: 'utf8' }, function(err, data) {
-
-  if (err) {
-    console.error('Could not read JS files for compilation.')
-    return process.exit(1)
-  }
-
-  var replaced = mustache.render(data, config)
-
-  fs.writeFile(__dirname + '/public/js/scripts.AUTO.js', replaced, { encoding: 'utf8' }, function(err) {
-
-    if (err) {
-      console.error('Could not write compiled JS files')
-      return process.exit(2)
-    }
-
-    app.listen(config.port, null, null, function() {
-      console.log('Listening on port ' + config.port)
-    });
-
-  }) // END - fs.writeFile
-
-}) // END - fs.readFile
+app.listen(config.port, null, null, function() {
+  console.log('Listening on port ' + config.port)
+});

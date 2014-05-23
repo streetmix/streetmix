@@ -3,11 +3,11 @@
   "version": "0.0.1",
   "private": false,
   "dependencies": {
+    "ejs": "~1.0.0",
     "express": "3.0.x",
     "compound": "1.1.x",
     "config": "0.4.x",
     "less-middleware": "0.1.x",
-    "mustache": "0.7.x",
     "oauth": "0.9.x",
     "request": "2.21.x",
     "requireindex": "1.0.x",
@@ -19,6 +19,6 @@
     "npm": "1.2.x"
   },
   "scripts": {
-    "start": "supervisor --ignore public/js/*.AUTO.js server.js"
+    "start": "supervisor server.js"
   }
 }

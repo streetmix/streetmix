@@ -70,19 +70,12 @@ var main = (function(){
 
   var FLAG_SAVE_UNDO = false; // true to save undo with street data, false to not save undo
 
-  var SITE_URL = 'http://{{app_host_port}}/';
-  var API_URL = '{{{restapi_proxy_baseuri_rel}}}/';
-
   var IP_GEOLOCATION_API_URL = 'http://freegeoip.net/json/';
   var IP_GEOLOCATION_TIMEOUT = 1000; // After this time, we don’t wait any more
-
-  var FACEBOOK_APP_ID = '{{facebook_app_id}}';
-  var GOOGLE_ANALYTICS_ACCOUNT = '{{google_analytics_account}}';
 
   // TODO replace the URLs in index.html dynamically
   var URL_SIGN_IN = 'twitter-sign-in';
 
-  var URL_SIGN_IN_CALLBACK_REL = '{{{twitter.oauth_callback_uri}}}';
   var URL_SIGN_IN_CALLBACK_ABS =
       location.protocol + '//' + location.host + URL_SIGN_IN_CALLBACK_REL;
   var URL_SIGN_IN_CALLBACK = URL_SIGN_IN_CALLBACK_REL.replace(/^\//, '');
@@ -7385,7 +7378,7 @@ var main = (function(){
   }
 
   function _addBodyClasses() {
-    document.body.classList.add('environment-{{env}}');
+    document.body.classList.add('environment-' + ENV);
 
     if (system.windows) {
       document.body.classList.add('windows');
@@ -10503,9 +10496,6 @@ var main = (function(){
     // Note that we are waiting for sign in and image info to show the page,
     // but we give up on country info if it’s more than 1000ms.
   }
-
-  // FIXME? Is this the best way to expose this value?
-  main.GOOGLE_ANALYTICS_ACCOUNT = GOOGLE_ANALYTICS_ACCOUNT;
 
   return main;
 })();
