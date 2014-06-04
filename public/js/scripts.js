@@ -569,6 +569,7 @@ var main = (function(){
       zIndex: 2,
       defaultWidth: 5,
       variants: ['orientation', 'bike-rack-elevation'],
+      paletteIcon: 'left|sidewalk',
       details: {
         'left|sidewalk-parallel': {
           graphics: {
@@ -682,6 +683,7 @@ var main = (function(){
       zIndex: 2,
       defaultWidth: 4,
       variants: ['lamp-orientation', 'lamp-type'],
+      paletteIcon: 'both|traditional',
       details: {
         'right|modern': {
           graphics: {
@@ -760,6 +762,7 @@ var main = (function(){
       zIndex: 1,
       defaultWidth: 2,
       variants: ['divider-type'],
+      paletteIcon: 'bollard',
       details: {
         'median': {
           name: 'Median',
@@ -928,6 +931,81 @@ var main = (function(){
               { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (outbound)
             ],
             repeat: { tileset: 2, x: 98 - 10, y: 53 + 10, width: 8, height: 5, offsetY: 10 } // Green asphalt
+          }
+        }
+      }
+    },
+    'parking-lane': {
+      name: 'Parking lane',
+      owner: SEGMENT_OWNER_CAR,
+      zIndex: 2,
+      defaultWidth: 8,
+      variants: ['parking-lane-direction', 'parking-lane-orientation'],
+      details: {
+        'inbound|left': {
+          minWidth: 7,
+          maxWidth: 10,
+          graphics: {
+            center: [
+              { tileset: 1, x: 8, y: 27, width: 8, height: 15 } // Car (inbound)
+            ],
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            right: { tileset: 2, x: 112, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
+          }
+        },
+        'inbound|right': {
+          minWidth: 7,
+          maxWidth: 10,
+          graphics: {
+            center: [
+              { tileset: 1, x: 8, y: 27, width: 8, height: 15 } // Car (inbound)
+            ],
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            left: { tileset: 1, x: 46, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
+          }
+        },
+        'outbound|left': {
+          minWidth: 7,
+          maxWidth: 10,
+          graphics: {
+            center: [
+              { tileset: 1, x: 0, y: 27, width: 8, height: 15 } // Car (outbound)
+            ],
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            right: { tileset: 2, x: 112, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
+          }
+        },
+        'outbound|right': {
+          minWidth: 7,
+          maxWidth: 10,
+          graphics: {
+            center: [
+              { tileset: 1, x: 0, y: 27, width: 8, height: 15 } // Car (outbound)
+            ],
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            left: { tileset: 1, x: 46, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
+          }
+        },
+        'sideways|left': {
+          name: 'Perpendicular parking',
+          minWidth: 14,
+          maxWidth: 20,
+          graphics: {
+            left: [
+              { tileset: 1, x: 38, y: 78, width: 14, height: 6, offsetY: 6 } // Car (side)
+            ],
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          }
+        },
+        'sideways|right': {
+          name: 'Perpendicular parking',
+          minWidth: 14,
+          maxWidth: 20,
+          graphics: {
+            right: [
+              { tileset: 1, x: 54, y: 78, width: 14, height: 6, offsetY: 6 } // Car (side)
+            ],
+            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
           }
         }
       }
@@ -1205,81 +1283,6 @@ var main = (function(){
         }
       }
     },
-    'parking-lane': {
-      name: 'Parking lane',
-      owner: SEGMENT_OWNER_CAR,
-      zIndex: 2,
-      defaultWidth: 8,
-      variants: ['parking-lane-direction', 'parking-lane-orientation'],
-      details: {
-        'inbound|left': {
-          minWidth: 7,
-          maxWidth: 10,
-          graphics: {
-            center: [
-              { tileset: 1, x: 8, y: 27, width: 8, height: 15 } // Car (inbound)
-            ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-            right: { tileset: 2, x: 112, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
-          }
-        },
-        'inbound|right': {
-          minWidth: 7,
-          maxWidth: 10,
-          graphics: {
-            center: [
-              { tileset: 1, x: 8, y: 27, width: 8, height: 15 } // Car (inbound)
-            ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-            left: { tileset: 1, x: 46, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
-          }
-        },
-        'outbound|left': {
-          minWidth: 7,
-          maxWidth: 10,
-          graphics: {
-            center: [
-              { tileset: 1, x: 0, y: 27, width: 8, height: 15 } // Car (outbound)
-            ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-            right: { tileset: 2, x: 112, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
-          }
-        },
-        'outbound|right': {
-          minWidth: 7,
-          maxWidth: 10,
-          graphics: {
-            center: [
-              { tileset: 1, x: 0, y: 27, width: 8, height: 15 } // Car (outbound)
-            ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-            left: { tileset: 1, x: 46, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
-          }
-        },
-        'sideways|left': {
-          name: 'Perpendicular parking',
-          minWidth: 14,
-          maxWidth: 20,
-          graphics: {
-            left: [
-              { tileset: 1, x: 38, y: 78, width: 14, height: 6, offsetY: 6 } // Car (side)
-            ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
-          }
-        },
-        'sideways|right': {
-          name: 'Perpendicular parking',
-          minWidth: 14,
-          maxWidth: 20,
-          graphics: {
-            right: [
-              { tileset: 1, x: 54, y: 78, width: 14, height: 6, offsetY: 6 } // Car (side)
-            ],
-            repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
-          }
-        }
-      }
-    },
     'bus-lane': {
       name: 'Bus lane',
       owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
@@ -1453,6 +1456,7 @@ var main = (function(){
       zIndex: 2,
       defaultWidth: 9,
       variants: ['orientation', 'transit-shelter-elevation'],
+      paletteIcon: 'right|light-rail',
       details: {
         'left|street-level': {
           minWidth: 9,
@@ -5216,26 +5220,15 @@ var main = (function(){
         break;
       }
 
-      // TODO hack to get the first variant name
-      for (var j in segmentInfo.details) {
-        var variantName = j;
-        break;
-      }
-
-      // TODO hardcoded
-      switch (id) {
-        case 'sidewalk-lamp':
-          variantName = 'both|traditional';
+      var variantName;
+      if (segmentInfo.paletteIcon) {
+        variantName = segmentInfo.paletteIcon;
+      } else {
+        // TODO hack to get the first variant name
+        for (var j in segmentInfo.details) {
+          variantName = j;
           break;
-        case 'divider':
-          variantName = 'bollard';
-          break;
-        case 'transit-shelter':
-          variantName = 'right|light-rail';
-          break;
-        case 'sidewalk-bike-rack':
-          variantName = 'left|sidewalk';
-          break;
+        }
       }
 
       var variantInfo = segmentInfo.details[variantName];
@@ -5546,11 +5539,17 @@ var main = (function(){
       return;
     } else if (newStreetWidth == STREET_WIDTH_CUSTOM) {
       _ignoreWindowFocusMomentarily();
+
+      var promptValue = street.occupiedWidth;
+      if (promptValue < MIN_CUSTOM_STREET_WIDTH) promptValue = MIN_CUSTOM_STREET_WIDTH;
+      if (promptValue > MAX_CUSTOM_STREET_WIDTH) promptValue = MAX_CUSTOM_STREET_WIDTH;
+
       // TODO string
       var width = prompt(
-          msg('PROMPT_NEW_STREET_WIDTH',
-          { minWidth: _prettifyWidth(MIN_CUSTOM_STREET_WIDTH, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP),
-            maxWidth: _prettifyWidth(MAX_CUSTOM_STREET_WIDTH, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP) }));
+                    msg('PROMPT_NEW_STREET_WIDTH', {
+                      minWidth: _prettifyWidth(MIN_CUSTOM_STREET_WIDTH, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP),
+                      maxWidth: _prettifyWidth(MAX_CUSTOM_STREET_WIDTH, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP)
+                    }), _prettifyWidth(promptValue, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP));
 
       if (width) {
         width = _normalizeStreetWidth(_processWidthInput(width));
