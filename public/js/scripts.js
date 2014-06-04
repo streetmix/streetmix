@@ -569,6 +569,7 @@ var main = (function(){
       zIndex: 2,
       defaultWidth: 5,
       variants: ['orientation', 'bike-rack-elevation'],
+      paletteIcon: 'left|sidewalk',
       details: {
         'left|sidewalk-parallel': {
           graphics: {
@@ -682,6 +683,7 @@ var main = (function(){
       zIndex: 2,
       defaultWidth: 4,
       variants: ['lamp-orientation', 'lamp-type'],
+      paletteIcon: 'both|traditional',
       details: {
         'right|modern': {
           graphics: {
@@ -760,6 +762,7 @@ var main = (function(){
       zIndex: 1,
       defaultWidth: 2,
       variants: ['divider-type'],
+      paletteIcon: 'bollard',
       details: {
         'median': {
           name: 'Median',
@@ -1453,6 +1456,7 @@ var main = (function(){
       zIndex: 2,
       defaultWidth: 9,
       variants: ['orientation', 'transit-shelter-elevation'],
+      paletteIcon: 'right|light-rail',
       details: {
         'left|street-level': {
           minWidth: 9,
@@ -5216,26 +5220,15 @@ var main = (function(){
         break;
       }
 
-      // TODO hack to get the first variant name
-      for (var j in segmentInfo.details) {
-        var variantName = j;
-        break;
-      }
-
-      // TODO hardcoded
-      switch (id) {
-        case 'sidewalk-lamp':
-          variantName = 'both|traditional';
+      var variantName;
+      if (segmentInfo.paletteIcon) {
+        variantName = segmentInfo.paletteIcon;
+      } else {
+        // TODO hack to get the first variant name
+        for (var j in segmentInfo.details) {
+          variantName = j;
           break;
-        case 'divider':
-          variantName = 'bollard';
-          break;
-        case 'transit-shelter':
-          variantName = 'right|light-rail';
-          break;
-        case 'sidewalk-bike-rack':
-          variantName = 'left|sidewalk';
-          break;
+        }
       }
 
       var variantInfo = segmentInfo.details[variantName];
