@@ -1,0 +1,117 @@
+
+@streetNameSize:          1.5;
+@streetNameTop:           10px;
+
+.street-name-mixin (@size: @streetNameSize) {
+  padding: 3px * @size;
+}
+
+.street-name-inside-mixin (@size: @streetNameSize) {
+  border: 3px * @size solid @streetNameText;
+  padding: 10px * @size 30px * @size;
+  padding-top: 11px * @size;
+  padding-bottom: 5px * @size;
+  letter-spacing: 1px * @size;
+
+  font-size: 40px * @size;
+  line-height: 30px * @size;
+  height: 30px * @size;
+}
+
+.street-name-fallback-mixin (@size: @streetNameSize) {
+  font-size: 35px * @size;
+  padding-bottom: 11px * @size;
+}
+
+body.windows .street-name > div {
+  line-height: 38px;
+}
+
+.street-name {
+  display: inline-block;
+
+  background: @streetNameBackground;
+  color: @streetNameText;
+
+  .street-name-mixin;
+
+  .user-select-none;
+
+  white-space: nowrap;
+
+  & > div,
+  & > span {
+    .street-name-inside-mixin;
+
+    font-family: 'Roadgeek', sans-serif;
+    text-align: left;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &.fallback-unicode-font > div {
+    font-family: sans-serif;
+
+    .street-name-fallback-mixin;
+  }
+}
+#gallery .streets .street-name,
+#welcome .street-name {
+  .street-name-mixin (@streetNameGallerySize);
+  max-width: 100%;
+
+  position: relative;
+  top: -15px;
+
+  & > div,
+  & > span {
+    .street-name-inside-mixin (@streetNameGallerySize);
+  }
+
+  &.fallback-unicode-font > div {
+    .street-name-fallback-mixin (@streetNameGallerySize);
+  }
+}
+#welcome .street-name {
+  display: inline-block;
+  top: 0;
+}
+
+#street-name {
+  position: relative;
+  pointer-events: auto;
+
+  -webkit-tap-highlight-color: transparent;
+  -moz-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
+}
+
+body:not(.touch-support):not(.read-only) #street-name {
+  cursor: pointer;
+
+  &:hover {
+    color: rgb(220, 220, 220);
+    background: white;
+
+    & > div {
+      border-color: rgb(220, 220, 220);
+    }
+
+    &::after {
+      color: black;
+      // TODO message
+      content: 'Click to rename';
+
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      line-height: 60px * @streetNameSize;
+
+      font-family: sans-serif;
+      font-size: 12px;
+    }
+  }
+}

@@ -1,0 +1,85 @@
+
+// TODO
+// Not included here: footer (layout), buttons (left/right scroll), segments
+
+#palette {
+  height: @paletteHeight + 20px; // To cover scroll bars
+
+  padding-left: 15px;
+  padding-right: 15px;
+
+  position: absolute;
+  left: 140px;
+  top: -30px;
+  right: 140px;
+
+  text-align: center;
+
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.palette-canvas {
+  white-space: nowrap;
+}
+
+#trashcan {
+  position: absolute;
+  left: -50px;
+  right: -50px;
+  top: -20px;
+  height: @paletteHeight - 2 * 8px + 5px;
+  line-height: @paletteHeight - 2 * 8px + 5px;
+  z-index: 500000;
+  border-top: 2px dashed rgb(150, 150, 150);
+
+  text-align: center;
+
+  color: rgb(150, 150, 150);
+  font-size: 24px;
+  font-weight: 400;
+
+  background: lighten(@bottomBackground, 5%);
+
+  pointer-events: none;
+  opacity: 0;
+
+  -webkit-transform: translateY(150px);
+  -moz-transform: translateY(150px);
+  transform: translateY(150px);
+
+  -webkit-transition: -webkit-transform 150ms, opacity 150ms;
+  -moz-transition: -moz-transform 150ms, opacity 150ms;
+  transition: transform 150ms, opacity 150ms;
+
+  &.visible {
+    opacity: 1;
+
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+#commands {
+  vertical-align: top;
+
+  position: absolute;
+  right: 10px;
+  top: 10px;
+
+  height: @paletteHeight - 50px;
+
+  z-index: 100000;
+
+  text-align: right;
+
+  #undo {
+    width: 50px;
+    height: @paletteHeight - 50px;
+  }
+  #redo {
+    width: 50px;
+    height: @paletteHeight - 50px;
+  }
+}
