@@ -1,3 +1,5 @@
+[![Dependency Status](https://david-dm.org/codeforamerica/streetmix.svg)](https://david-dm.org/codeforamerica/streetmix)
+
 Streetmix
 =========
 
