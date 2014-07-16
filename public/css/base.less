@@ -23,28 +23,79 @@ body {
   -webkit-touch-callout: none;
   -moz-touch-callout: none;
   touch-callout: none;
+
+  &:not(.safari) {
+    -webkit-perspective: 500px;
+    -moz-perspective: 500px;
+    perspective: 500px;
+  }
 }
+
+// Environment labels
+body {
+  &.environment-development,
+  &.environment-staging,
+  &.environment-sandbox {
+    #top-menu-bar::before {
+      z-index: 10;
+      position: absolute;
+      text-align: center;
+      left: 14px;
+      top: 23px;
+      color: white;
+      padding: 2px 7px;
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1.5;
+      letter-spacing: 4px;
+      pointer-events: none;
+      padding-right: 7px - 4px;
+      text-transform: uppercase;
+    }
+  }
+
+  &.environment-development {
+    #top-menu-bar::before {
+      content: 'Dev';
+      background-color: rgb(200, 0, 0);
+    }
+  }
+  &.environment-staging {
+    #top-menu-bar::before {
+      content: 'Staging';
+      background-color: green;
+    }
+  }
+  &.environment-sandbox {
+    #top-menu-bar::before {
+      content: 'Sandbox';
+      background-color: green;
+    }
+  }
+}
+
+
+#main-screen {
+  transform: translateY(0);
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+
+  body:not(.safari) & {
+    -webkit-perspective: 2000px;
+    -moz-perspective: 2000px;
+    perspective: 2000px;
+  }
+}
+
 
 a {
   -webkit-touch-callout: default;
   -moz-touch-callout: default;
   touch-callout: default;
-}
-
-body:not(.safari) {
-  -webkit-perspective: 500px;
-  -moz-perspective: 500px;
-  perspective: 500px;
-}
-
-body,
-button,
-a.button-like,
-input,
-select,
-textarea,
-option {
-  font-family: @fontFamily;
 }
 
 a,

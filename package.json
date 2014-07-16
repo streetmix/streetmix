@@ -4,6 +4,7 @@
   "private": false,
   "dependencies": {
     "async": "0.2.x",
+    "autoprefixer": "~1.2.0",
     "body-parser": "^1.2.0",
     "compression": "^1.0.2",
     "config": "0.4.x",
