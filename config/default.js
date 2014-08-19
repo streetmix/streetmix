@@ -1,5 +1,10 @@
-env = require('node-env-file');
-env(__dirname + '/../.env');
+var fs = require('fs');
+var envFile = __dirname + '/../.env';
+
+if (fs.existsSync(envFile)) {
+  env = require('node-env-file');
+  env(__dirname + '/../.env');
+}
 
 var port = process.env.PORT || 8000
 process.env.NODE_ENV = process.env.NODE_ENV || 'development'
