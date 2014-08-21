@@ -66,7 +66,7 @@ app.head('/api/v1/streets/:street_id', resources.v1.streets.get)
 app.get('/api/v1/streets/:street_id', resources.v1.streets.get)
 app.put('/api/v1/streets/:street_id', resources.v1.streets.put)
 
-app.post('/v1/feedback', resources.v1.feedback.post)
+app.post('/api/v1/feedback', resources.v1.feedback.post)
 
 app.get('/.well-known/status', resources.well_known_status.get)
 
