@@ -10,12 +10,12 @@ exports.post = function(req, res) {
   try {
     body = req.body
   } catch (e) {
-    res.send(400, 'Could not parse body as JSON.')
+    res.json(400, {msg: 'Could not parse body as JSON.' })
     return
   }
 
   if (!body.hasOwnProperty('message') || (body.message.trim().length === 0)) {
-    res.send(400, 'Please specify a message.')
+    res.json(400, {msg: 'Please specify a message.' })
     return
   }
   var message = body.message.trim()
@@ -63,10 +63,10 @@ exports.post = function(req, res) {
   }, function(success, message) {
     if (!success) {
       logger.error('Error sending email using SendGrid: ' + message)
-      res.send(500, 'Could not send feedback.')
+      res.json(500, {msg: 'Could not send feedback.' })
       return
     }
-    res.send(202, 'Feedback accepted.')
+    res.json(202, {msg: 'Feedback accepted.' })
   })
 
 } // END function - exports.post
