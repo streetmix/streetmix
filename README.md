@@ -105,8 +105,8 @@ These installation instructions assume that you have already installed the [Home
 | ------------------------------- | -------------------------------------------------------------------------------------- | -------------------- |
 | `SENDGRID_USERNAME`             | Your SendGrid username                                                                 | Yes                  |
 | `SENDGRID_PASSWORD`             | Your SendGrid password                                                                 | Yes                  |
-| `TWITTER_OAUTH_CONSUMER_KEY`    | Development Twitter OAuth consumer key, obtained from @streetmixapp Twitter account    | Yes                  |
-| `TWITTER_OAUTH_CONSUMER_SECRET` | Development Twitter OAuth consumer secret, obtained from @streetmixapp Twitter account | Yes                  |
+| `TWITTER_OAUTH_CONSUMER_KEY`    | Development Twitter OAuth consumer key, obtained from @streetmix Twitter account    | Yes                  |
+| `TWITTER_OAUTH_CONSUMER_SECRET` | Development Twitter OAuth consumer secret, obtained from @streetmix Twitter account | Yes                  |
 | `EMAIL_FEEDBACK_RECIPIENT`      | Your e-mail address                                                                    | No                   |
 
 
