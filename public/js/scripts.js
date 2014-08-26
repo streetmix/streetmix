@@ -154,7 +154,7 @@ var main = (function(){
   var ERROR_SIGN_IN_SERVER_FAILURE = 19;
   var ERROR_SIGN_IN_401 = 20;
 
-  var TWITTER_ID = '@streetmixapp';
+  var TWITTER_ID = '@streetmix';
 
   var NEW_STREET_DEFAULT = 1;
   var NEW_STREET_EMPTY = 2;
@@ -7570,7 +7570,7 @@ var main = (function(){
 
       // console.log('Event tracked', category, action, label);
 
-      _gaq && _gaq.push(['_trackEvent', category, action, label, value]);
+      ga && ga('send', 'event', category, action, label, value);
 
       if (onlyFirstTime) {
         _eventTracking.alreadyTracked[id] = true;
@@ -10236,7 +10236,7 @@ var main = (function(){
       case ERROR_AUTH_PROBLEM_API_PROBLEM:
         title = 'There was a problem with signing you in.';
         // TODO const for feedback
-        description = 'There was a problem with Twitter authentication. Please try again later or let us know via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmixapp">Twitter</a>.<br><button id="error-home">Go to the homepage</button>';
+        description = 'There was a problem with Twitter authentication. Please try again later or let us know via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmix">Twitter</a>.<br><button id="error-home">Go to the homepage</button>';
         break;
       case ERROR_UNSUPPORTED_BROWSER:
         title = 'Streetmix doesn’t work on your browser… yet.';
@@ -10250,7 +10250,7 @@ var main = (function(){
       default: // also ERROR_GENERIC_ERROR
         title = 'Something went wrong.';
         // TODO const for feedback
-        description = 'We’re sorry – something went wrong. Please try again later or let us know via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmixapp">Twitter</a>.<br><button id="error-home">Go to the homepage</button>';
+        description = 'We’re sorry – something went wrong. Please try again later or let us know via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmix">Twitter</a>.<br><button id="error-home">Go to the homepage</button>';
         break;
     }
 
