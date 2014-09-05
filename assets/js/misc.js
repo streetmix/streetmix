@@ -2195,14 +2195,14 @@
     var el = event.target;
 
     switch (event.keyCode) {
-      case KEY_ENTER:
+      case KEYS.ENTER:
         _widthEditInputChanged(el, true);
         _loseAnyFocus();
         el.value = _prettifyWidth(el.segmentEl.getAttribute('width'), PRETTIFY_WIDTH_INPUT);
         el.focus();
         el.select();
         break;
-      case KEY_ESC:
+      case KEYS.ESC:
         el.value = el.oldValue;
         _widthEditInputChanged(el, true);
         _hideMenus();
@@ -2215,14 +2215,14 @@
     var el = event.target;
 
     switch (event.keyCode) {
-      case KEY_ENTER:
+      case KEYS.ENTER:
         _heightEditInputChanged(el, true);
         _loseAnyFocus();
         el.value = _prettifyHeight((_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingHeight : street.rightBuildingHeight, PRETTIFY_WIDTH_INPUT);
         el.focus();
         el.select();
         break;
-      case KEY_ESC:
+      case KEYS.ESC:
         el.value = el.oldValue;
         _heightEditInputChanged(el, true);
         _hideMenus();
@@ -5524,23 +5524,23 @@
 
   function _onBodyKeyDown(event) {
     switch (event.keyCode) {
-      case KEY_SLASH:
+      case KEYS.SLASH:
         _onHelpMenuClick();
         break;
 
-      case KEY_EQUAL:
-      case KEY_EQUAL_ALT:
-      case KEY_PLUS_KEYPAD:
-      case KEY_MINUS:
-      case KEY_MINUS_ALT:
-      case KEY_MINUS_KEYPAD:
+      case KEYS.EQUAL:
+      case KEYS.EQUAL_ALT:
+      case KEYS.PLUS_KEYPAD:
+      case KEYS.MINUS:
+      case KEYS.MINUS_ALT:
+      case KEYS.MINUS_KEYPAD:
         if (event.metaKey || event.ctrlKey || event.altKey) {
           return;
         }
 
-        var negative = (event.keyCode == KEY_MINUS) ||
-           (event.keyCode == KEY_MINUS_ALT) ||
-           (event.keyCode == KEY_MINUS_KEYPAD);
+        var negative = (event.keyCode == KEYS.MINUS) ||
+           (event.keyCode == KEYS.MINUS_ALT) ||
+           (event.keyCode == KEYS.MINUS_KEYPAD);
 
         var hoveredEl = _getHoveredEl();
         if (hoveredEl) {
@@ -5557,8 +5557,8 @@
               TRACK_LABEL_KEYBOARD, null, true);
         }
         break;
-      case KEY_BACKSPACE:
-      case KEY_DELETE:
+      case KEYS.BACKSPACE:
+      case KEYS.DELETE:
         if (event.metaKey || event.ctrlKey || event.altKey) {
           return;
         }
@@ -5571,21 +5571,21 @@
 
         event.preventDefault();
         break;
-      case KEY_LEFT_ARROW:
+      case KEYS.LEFT_ARROW:
         if (event.metaKey || event.ctrlKey || event.altKey) {
           return;
         }
         _scrollStreet(true, event.shiftKey);
         event.preventDefault();
         break;
-      case KEY_RIGHT_ARROW:
+      case KEYS.RIGHT_ARROW:
         if (event.metaKey || event.ctrlKey || event.altKey) {
           return;
         }
         _scrollStreet(false, event.shiftKey);
         event.preventDefault();
         break;
-      case KEY_Z:
+      case KEYS.Z:
         if (!event.shiftKey && (event.metaKey || event.ctrlKey)) {
           _undo();
           event.preventDefault();
@@ -5594,19 +5594,19 @@
           event.preventDefault();
         }
         break;
-      case KEY_S:
+      case KEYS.S:
         if (event.metaKey || event.ctrlKey) {
           _statusMessage.show(msg('STATUS_NO_NEED_TO_SAVE'));
           event.preventDefault();
         }
         break;
-      case KEY_Y:
+      case KEYS.Y:
         if (event.metaKey || event.ctrlKey) {
           _redo();
           event.preventDefault();
         }
         break;
-      case KEY_D:
+      case KEYS.D:
         if (event.shiftKey) {
           _showDebugInfo();
           event.preventDefault();
@@ -5621,7 +5621,7 @@
     }
 
     switch (event.keyCode) {
-      case KEY_ESC:
+      case KEYS.ESC:
         if (document.querySelector('#debug').classList.contains('visible')) {
           _hideDebugInfo();
         } else if (document.querySelector('#welcome').classList.contains('visible')) {
@@ -6827,7 +6827,7 @@
   }
 
   function _onFeedbackFormEmailKeyDown(event) {
-    if (event.keyCode == KEY_ENTER) {
+    if (event.keyCode == KEYS.ENTER) {
       _feedbackFormSend();
     }
   }
