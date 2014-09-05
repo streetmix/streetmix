@@ -11,7 +11,7 @@
 //= require vendor/jquery.cookie
 
 //= require_self
-//= require_tree variables
+//= require_tree constants
 //= require misc
 
 var app = {};
