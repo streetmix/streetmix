@@ -20,3 +20,5 @@ node_modules/
 config/runtime.json
 
 .env
+
+newrelic_agent.log

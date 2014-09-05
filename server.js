@@ -12,6 +12,10 @@ var fs = require('fs'),
     resources = require('./app/resources'),
     requestHandlers = require('./lib/request_handlers');
 
+if (process.env.NEW_RELIC_LICENSE_KEY) {
+  require('newrelic');
+}
+
 var app = express()
 
 app.locals.config = config
