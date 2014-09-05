@@ -6,148 +6,11 @@
 
 (function(){
 "use strict";
-  // TODO reorder/clean up constants
-
-  var MESSAGES = {
-    BUTTON_UNDO: 'Undo',
-    BUTTON_REDO: 'Redo',
-
-    BUTTON_NEW_STREET: 'Create new street',
-    BUTTON_COPY_LAST_STREET: 'Make a copy',
-
-    DRAG_HERE_TO_REMOVE: 'Drag here to remove',
-
-    UI_GLYPH_X: '×',
-
-    PROMPT_NEW_STREET_NAME: 'New street name:',
-    PROMPT_DELETE_STREET: 'Are you sure you want to permanently delete [[name]]? This cannot be undone.',
-    PROMPT_NEW_STREET_WIDTH: 'New street width (from [[minWidth]] to [[maxWidth]]):',
-
-    MENU_SWITCH_TO_IMPERIAL: 'Switch to imperial units (feet)',
-    MENU_SWITCH_TO_METRIC: 'Switch to metric units',
-
-    TOOLTIP_REMOVE_SEGMENT: 'Remove segment',
-    TOOLTIP_DELETE_STREET: 'Delete street',
-    TOOLTIP_SEGMENT_WIDTH: 'Change width of the segment',
-    TOOLTIP_BUILDING_HEIGHT: 'Change the number of floors',
-    TOOLTIP_STREET_WIDTH: 'Change width of the street',
-    TOOLTIP_INCREASE_WIDTH: 'Increase width (hold Shift for more precision)',
-    TOOLTIP_DECREASE_WIDTH: 'Decrease width (hold Shift for more precision)',
-    TOOLTIP_ADD_FLOOR: 'Add floor',
-    TOOLTIP_REMOVE_FLOOR: 'Remove floor',
-
-    STATUS_SEGMENT_DELETED: 'The segment has been removed.',
-    STATUS_ALL_SEGMENTS_DELETED: 'All segments have been removed.',
-    STATUS_NOTHING_TO_UNDO: 'Nothing to undo.',
-    STATUS_NOTHING_TO_REDO: 'Nothing to redo.',
-    STATUS_NO_NEED_TO_SAVE: 'No need to save by hand; Streetmix automatically saves your street!',
-    STATUS_NOW_REMIXING: 'Now editing a freshly-made duplicate of the original street. The duplicate has been put in your gallery.',
-    STATUS_NOW_REMIXING_SIGN_IN: 'Now editing a freshly-made duplicate of the original street. <a href="/[[signInUrl]]">Sign in</a> to start your own gallery of streets.',
-    STATUS_RELOADED_FROM_SERVER: 'Your street was reloaded from the server as it was modified elsewhere.',
-
-    WARNING_TOO_WIDE: 'This segment might be too wide.',
-    WARNING_NOT_WIDE_ENOUGH: 'This segment might not be wide enough.',
-    WARNING_DOESNT_FIT: 'This segment doesn’t fit within the street.',
-
-    BLOCKING_REMIXING: 'Remixing…',
-    LOADING: 'Loading…',
-
-    USER_ANONYMOUS: 'Anonymous',
-
-    STREET_COUNT_0: 'No streets yet',
-    STREET_COUNT_1: '1 street',
-    STREET_COUNT_MANY: '[[streetCount]] streets',
-
-    DEFAULT_STREET_NAME: 'Unnamed St',
-
-    SEGMENT_NAME_EMPTY: 'Empty space'
-  };
 
   var FLAG_SAVE_UNDO = false; // true to save undo with street data, false to not save undo
 
   var IP_GEOLOCATION_API_URL = 'http://freegeoip.net/json/';
   var IP_GEOLOCATION_TIMEOUT = 1000; // After this time, we don’t wait any more
-
-  // TODO replace the URLs in index.html dynamically
-  var URL_SIGN_IN = 'twitter-sign-in';
-
-  var URL_SIGN_IN_CALLBACK_ABS =
-      location.protocol + '//' + location.host + URL_SIGN_IN_CALLBACK_REL;
-  var URL_SIGN_IN_CALLBACK = URL_SIGN_IN_CALLBACK_REL.replace(/^\//, '');
-
-  var URL_JUST_SIGNED_IN_REL = '/just-signed-in';
-  var URL_JUST_SIGNED_IN_ABS =
-      location.protocol + '//' + location.host + URL_JUST_SIGNED_IN_REL;
-  var URL_JUST_SIGNED_IN = URL_JUST_SIGNED_IN_REL.replace(/^\//, '');
-
-  var URL_JUST_SIGNED_IN = 'just-signed-in'; // TODO fix this
-  var URL_NEW_STREET = 'new';
-  var URL_NEW_STREET_COPY_LAST = 'copy-last';
-  var URL_GLOBAL_GALLERY = 'gallery';
-  var URL_ERROR = 'error';
-  var URL_NO_USER = '-';
-  var URL_HELP = 'help';
-  var URL_ABOUT = 'about';
-  var URL_HELP_ABOUT = '/' + URL_HELP + '/' + URL_ABOUT;
-
-  var URL_ERROR_TWITTER_ACCESS_DENIED = 'twitter-access-denied';
-  var URL_ERROR_NO_TWITTER_REQUEST_TOKEN = 'no-twitter-request-token';
-  var URL_ERROR_NO_TWITTER_ACCESS_TOKEN = 'no-twitter-access-token';
-  var URL_ERROR_AUTHENTICATION_API_PROBLEM = 'authentication-api-problem';
-
-  var URL_EXAMPLE_STREET = 'saikofish/29';
-
-  var URL_SIGN_IN_REDIRECT = URL_SIGN_IN + '?callbackUri=' +
-      URL_SIGN_IN_CALLBACK_ABS + '&redirectUri=' + URL_JUST_SIGNED_IN_ABS;
-
-  // Since URLs like “streetmix.net/new” are reserved, but we still want
-  // @new to be able to use Streetmix, we prefix any reserved URLs with ~
-  var RESERVED_URLS =
-      [URL_SIGN_IN, URL_SIGN_IN_CALLBACK,
-      URL_NEW_STREET, URL_NEW_STREET_COPY_LAST,
-      URL_JUST_SIGNED_IN,
-      URL_HELP, URL_GLOBAL_GALLERY, URL_ERROR, 'streets'];
-  var URL_RESERVED_PREFIX = '~';
-
-  var MODE_CONTINUE = 1;
-  var MODE_NEW_STREET = 2;
-  var MODE_NEW_STREET_COPY_LAST = 3;
-  var MODE_JUST_SIGNED_IN = 4;
-  var MODE_EXISTING_STREET = 5;
-  var MODE_404 = 6;
-  var MODE_SIGN_OUT = 7;
-  var MODE_FORCE_RELOAD_SIGN_IN = 8;
-  var MODE_FORCE_RELOAD_SIGN_OUT = 9;
-  var MODE_USER_GALLERY = 10;
-  var MODE_GLOBAL_GALLERY = 11;
-  var MODE_FORCE_RELOAD_SIGN_OUT_401 = 12;
-  var MODE_ERROR = 13;
-  var MODE_UNSUPPORTED_BROWSER = 14;
-  var MODE_STREET_404 = 15;
-  var MODE_STREET_404_BUT_LINK_TO_USER = 16;
-  var MODE_STREET_410_BUT_LINK_TO_USER = 17;
-  var MODE_ABOUT = 18;
-
-  var ERROR_404 = 1;
-  var ERROR_SIGN_OUT = 2;
-  var ERROR_NO_STREET = 3; // for gallery if you delete the street you were looking at
-  var ERROR_FORCE_RELOAD_SIGN_IN = 4;
-  var ERROR_FORCE_RELOAD_SIGN_OUT = 5;
-  var ERROR_STREET_DELETED_ELSEWHERE = 6;
-  var ERROR_NEW_STREET_SERVER_FAILURE = 7;
-  var ERROR_FORCE_RELOAD_SIGN_OUT_401 = 8;
-  var ERROR_TWITTER_ACCESS_DENIED = 9;
-  var ERROR_AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN = 10;
-  var ERROR_AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN = 11;
-  var ERROR_AUTH_PROBLEM_API_PROBLEM = 12;
-  var ERROR_GENERIC_ERROR = 13;
-  var ERROR_UNSUPPORTED_BROWSER = 14;
-  var ERROR_STREET_404 = 15;
-  var ERROR_STREET_404_BUT_LINK_TO_USER = 16;
-  var ERROR_STREET_410_BUT_LINK_TO_USER = 17;
-  var ERROR_CANNOT_CREATE_NEW_STREET_ON_PHONE = 18;
-  var ERROR_SIGN_IN_SERVER_FAILURE = 19;
-  var ERROR_SIGN_IN_401 = 20;
 
   var TWITTER_ID = '@streetmix';
 
@@ -286,8 +149,6 @@
   var RESIZE_TYPE_PRECISE_DRAGGING = 3;
   var RESIZE_TYPE_TYPING = 4;
 
-  var IMPERIAL_METRIC_MULTIPLIER = 30 / 100;
-  var COUNTRIES_IMPERIAL_UNITS = ['US'];
   var COUNTRIES_LEFT_HAND_TRAFFIC =
       ['AI', 'AG', 'AU', 'BS', 'BD', 'BB', 'BM', 'BT', 'BW', 'BN',
        'KY', 'CX', 'CC', 'CK', 'CY', 'DM', 'TL', 'FK', 'FJ', 'GD', 'GG',
@@ -296,72 +157,6 @@
        'NP', 'NZ', 'NU', 'NF', 'PK', 'PG', 'PN', 'SH', 'KN', 'LC', 'VC',
        'WS', 'SC', 'SG', 'SB', 'ZA', 'LK', 'SR', 'SZ', 'TZ', 'TH', 'TK',
        'TO', 'TT', 'TC', 'TV', 'UG', 'GB', 'VG', 'VI', 'ZM', 'ZW'];
-
-  var WIDTH_INPUT_CONVERSION = [
-    { text: 'm', multiplier: 1 / IMPERIAL_METRIC_MULTIPLIER },
-    { text: 'cm', multiplier: 1 / 100 / IMPERIAL_METRIC_MULTIPLIER },
-    { text: '"', multiplier: 1 / 12 },
-    { text: 'inch', multiplier: 1 / 12 },
-    { text: 'inches', multiplier: 1 / 12 },
-    { text: '\'', multiplier: 1 },
-    { text: 'ft', multiplier: 1 },
-    { text: 'feet', multiplier: 1 }
-  ];
-
-  var SEGMENT_WIDTH_RESOLUTION_IMPERIAL = .25;
-  var SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL = .5;
-  var SEGMENT_WIDTH_DRAGGING_RESOLUTION_IMPERIAL = .5;
-
-  // don't use const because of rounding problems
-  var SEGMENT_WIDTH_RESOLUTION_METRIC = 1 / 3; // .1 / IMPERIAL_METRIC_MULTIPLER
-  var SEGMENT_WIDTH_CLICK_INCREMENT_METRIC = 2 / 3; // .2 / IMPERIAL_METRIC_MULTIPLER
-  var SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC = 2 / 3; // .2 / IMPERIAL_METRIC_MULTIPLER
-
-  var MIN_WIDTH_EDIT_CANVAS_WIDTH = 120;
-  var WIDTH_EDIT_MARGIN = 20;
-
-  var NORMALIZE_PRECISION = 5;
-  var METRIC_PRECISION = 3;
-  var WIDTH_ROUNDING = .01;
-
-  var SEGMENT_WARNING_OUTSIDE = 1;
-  var SEGMENT_WARNING_WIDTH_TOO_SMALL = 2;
-  var SEGMENT_WARNING_WIDTH_TOO_LARGE = 3;
-
-  var KEY_LEFT_ARROW = 37;
-  var KEY_RIGHT_ARROW = 39;
-  var KEY_ENTER = 13;
-  var KEY_BACKSPACE = 8;
-  var KEY_DELETE = 46;
-  var KEY_ESC = 27;
-  var KEY_D = 68;
-  var KEY_S = 83;
-  var KEY_Y = 89;
-  var KEY_Z = 90;
-  var KEY_EQUAL = 187; // = or +
-  var KEY_EQUAL_ALT = 61; // Firefox
-  var KEY_PLUS_KEYPAD = 107;
-  var KEY_MINUS = 189;
-  var KEY_MINUS_ALT = 173; // Firefox
-  var KEY_MINUS_KEYPAD = 109;
-  var KEY_SLASH = 191; // slash or question mark
-
-  var PRETTIFY_WIDTH_OUTPUT_MARKUP = 1;
-  var PRETTIFY_WIDTH_OUTPUT_NO_MARKUP = 2;
-  var PRETTIFY_WIDTH_INPUT = 3;
-
-  var SETTINGS_UNITS_IMPERIAL = 1;
-  var SETTINGS_UNITS_METRIC = 2;
-
-  var IMPERIAL_VULGAR_FRACTIONS = {
-    '.125': '⅛',
-    '.25': '¼',
-    '.375': '⅜',
-    '.5': '½',
-    '.625': '⅝',
-    '.75': '¾',
-    '.875': '⅞'
-  };
 
   var CSS_TRANSFORMS = ['webkitTransform', 'MozTransform', 'transform'];
 
