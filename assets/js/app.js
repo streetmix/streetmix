@@ -7,6 +7,11 @@
  * dedicating some effort to cleaning it up.
  */
 
+//= require vendor/modernizr
+//= require vendor/moment
+//= require vendor/jquery-2.1.0.min
+//= require vendor/jquery.cookie
+
 var main = (function(){
 "use strict";
   var main = {};
