@@ -12,6 +12,8 @@
 
 //= require_self
 //= require_tree constants
+//= require_tree segments
+//= require_tree streets
 //= require misc
 
 var app = {};
