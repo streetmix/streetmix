@@ -3629,7 +3629,7 @@
       _eventTracking.track(TRACK_CATEGORY_ERROR, TRACK_ACTION_ERROR_RM2,
           null, null, false);
 
-      mode = MODE_FORCE_RELOAD_SIGN_OUT_401;
+      mode = MODES.FORCE_RELOAD_SIGN_OUT_401;
       _processMode();
     }
   }
@@ -5981,10 +5981,10 @@
 
   function _onStorageChange() {
     if (signedIn && !window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
-      mode = MODE_FORCE_RELOAD_SIGN_OUT;
+      mode = MODES.FORCE_RELOAD_SIGN_OUT;
       _processMode();
     } else if (!signedIn && window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
-      mode = MODE_FORCE_RELOAD_SIGN_IN;
+      mode = MODES.FORCE_RELOAD_SIGN_IN;
       _processMode();
     }
   }
@@ -6098,7 +6098,7 @@
 
      _loadSettingsWelcomeDismissed();
 
-    if (mode == MODE_NEW_STREET) {
+    if (mode == MODES.NEW_STREET) {
       if (signedIn || settingsWelcomeDismissed) {
         welcomeType = WELCOME_NEW_STREET;
       } else {
@@ -6343,8 +6343,8 @@
   }
 
   function _errorReceiveGalleryData(data) {
-    if ((mode == MODE_USER_GALLERY) && (data.status == 404)) {
-      mode = MODE_404;
+    if ((mode == MODES.USER_GALLERY) && (data.status == 404)) {
+      mode = MODES.NOT_FOUND;
       _processMode();
       _hideGallery(true);
     } else {
@@ -6651,7 +6651,7 @@
 
     var streetCount = document.querySelectorAll('#gallery .streets li').length;
 
-    if (((mode == MODE_USER_GALLERY) && streetCount) || (mode == MODE_GLOBAL_GALLERY)) {
+    if (((mode == MODES.USER_GALLERY) && streetCount) || (mode == MODES.GLOBAL_GALLERY)) {
       _switchGalleryStreet(transmission.streets[0].id);
     }
 
@@ -6744,7 +6744,7 @@
       }, 0);
     }
 
-    if ((mode == MODE_USER_GALLERY) || (mode == MODE_GLOBAL_GALLERY)) {
+    if ((mode == MODES.USER_GALLERY) || (mode == MODES.GLOBAL_GALLERY)) {
       // Prevents showing old street before the proper street loads
       _showError(ERROR_NO_STREET, false);
     }
@@ -6782,7 +6782,7 @@
         _updatePageUrl();
       }
 
-      mode = MODE_CONTINUE;
+      mode = MODES.CONTINUE;
     }
   }
 
@@ -8611,7 +8611,7 @@
     }
     _mergeAndFillDefaultSettings(localSettings);
 
-    if (mode == MODE_JUST_SIGNED_IN) {
+    if (mode == MODES.JUST_SIGNED_IN) {
       settings.lastStreetId = localSettings.lastStreetId;
       settings.lastStreetNamespacedId = localSettings.lastStreetNamespacedId;
       settings.lastStreetCreatorId = localSettings.lastStreetCreatorId;
@@ -8993,7 +8993,7 @@
 
   function _onEverythingLoaded() {
     switch (mode) {
-      case MODE_NEW_STREET_COPY_LAST:
+      case MODES.NEW_STREET_COPY_LAST:
         _onNewStreetLastClick();
         break;
     }
@@ -9018,11 +9018,11 @@
     _addScrollButtons(document.querySelector('#gallery .streets'));
     _addEventListeners();
 
-    if (mode == MODE_USER_GALLERY) {
+    if (mode == MODES.USER_GALLERY) {
       _showGallery(galleryUserId, true);
-    } else if (mode == MODE_GLOBAL_GALLERY) {
+    } else if (mode == MODES.GLOBAL_GALLERY) {
       _showGallery(null, true);
-    } else if (mode == MODE_ABOUT) {
+    } else if (mode == MODES.ABOUT) {
       _showAboutDialogBox();
     }
 
@@ -9476,12 +9476,12 @@
   }
 
   function _receiveSignOutConfirmationFromServer() {
-    mode = MODE_SIGN_OUT;
+    mode = MODES.SIGN_OUT;
     _processMode();
   }
 
   function _errorReceiveSignOutConfirmationFromServer() {
-    mode = MODE_SIGN_OUT;
+    mode = MODES.SIGN_OUT;
     _processMode();
   }
 
@@ -9518,32 +9518,32 @@
 
     _createSignInUI();
 
-    if ((mode == MODE_CONTINUE) || (mode == MODE_JUST_SIGNED_IN) ||
-        (mode == MODE_ABOUT) ||
-        (mode == MODE_USER_GALLERY) || (mode == MODE_GLOBAL_GALLERY)) {
+    if ((mode == MODES.CONTINUE) || (mode == MODES.JUST_SIGNED_IN) ||
+        (mode == MODES.ABOUT) ||
+        (mode == MODES.USER_GALLERY) || (mode == MODES.GLOBAL_GALLERY)) {
       if (settings.lastStreetId) {
         street.creatorId = settings.lastStreetCreatorId;
         street.id = settings.lastStreetId;
         street.namespacedId = settings.lastStreetNamespacedId;
 
-        if ((mode == MODE_JUST_SIGNED_IN) && (!street.creatorId)) {
+        if ((mode == MODES.JUST_SIGNED_IN) && (!street.creatorId)) {
           promoteStreet = true;
         }
 
-        if (mode == MODE_JUST_SIGNED_IN) {
-          mode = MODE_CONTINUE;
+        if (mode == MODES.JUST_SIGNED_IN) {
+          mode = MODES.CONTINUE;
         }
       } else {
-        mode = MODE_NEW_STREET;
+        mode = MODES.NEW_STREET;
       }
     }
 
     switch (mode) {
-      case MODE_EXISTING_STREET:
-      case MODE_CONTINUE:
-      case MODE_USER_GALLERY:
-      case MODE_ABOUT:
-      case MODE_GLOBAL_GALLERY:
+      case MODES.EXISTING_STREET:
+      case MODES.CONTINUE:
+      case MODES.USER_GALLERY:
+      case MODES.ABOUT:
+      case MODES.GLOBAL_GALLERY:
         _fetchStreetFromServer();
         break;
     }
@@ -9561,8 +9561,8 @@
   function _checkIfSignInAndGeolocationLoaded() {
     if (geolocationLoaded && signInLoaded) {
       switch (mode) {
-        case MODE_NEW_STREET:
-        case MODE_NEW_STREET_COPY_LAST:
+        case MODES.NEW_STREET:
+        case MODES.NEW_STREET_COPY_LAST:
           if (readOnly) {
             _showError(ERROR_CANNOT_CREATE_NEW_STREET_ON_PHONE, true);
           } else {
@@ -9723,38 +9723,38 @@
     if (!url) {
       // Continue where we left off… or start with a default (demo) street
 
-      mode = MODE_CONTINUE;
+      mode = MODES.CONTINUE;
     } else if ((urlParts.length == 1) && (urlParts[0] == URL_NEW_STREET)) {
       // New street
 
-      mode = MODE_NEW_STREET;
+      mode = MODES.NEW_STREET;
     } else if ((urlParts.length == 1) && (urlParts[0] == URL_NEW_STREET_COPY_LAST)) {
       // New street (but start with copying last street)
 
-      mode = MODE_NEW_STREET_COPY_LAST;
+      mode = MODES.NEW_STREET_COPY_LAST;
     } else if ((urlParts.length == 1) && (urlParts[0] == URL_JUST_SIGNED_IN)) {
       // Coming back from a successful sign in
 
-      mode = MODE_JUST_SIGNED_IN;
+      mode = MODES.JUST_SIGNED_IN;
     } else if ((urlParts.length >= 1) && (urlParts[0] == URL_ERROR)) {
       // Error
 
-      mode = MODE_ERROR;
+      mode = MODES.ERROR;
       errorUrl = urlParts[1];
     } else if ((urlParts.length == 1) && (urlParts[0] == URL_GLOBAL_GALLERY)) {
       // Global gallery
 
-      mode = MODE_GLOBAL_GALLERY;
+      mode = MODES.GLOBAL_GALLERY;
     } else if ((urlParts.length == 1) && urlParts[0]) {
       // User gallery
 
       galleryUserId = urlParts[0];
 
-      mode = MODE_USER_GALLERY;
+      mode = MODES.USER_GALLERY;
     } else if ((urlParts.length == 2) && (urlParts[0] == URL_HELP) && (urlParts[1] == URL_ABOUT)) {
       // About
 
-      mode = MODE_ABOUT;
+      mode = MODES.ABOUT;
     } else if ((urlParts.length == 2) && (urlParts[0] == URL_NO_USER) && urlParts[1]) {
       // TODO add is integer urlParts[1];
       // Existing street by an anonymous person
@@ -9762,7 +9762,7 @@
       street.creatorId = null;
       street.namespacedId = urlParts[1];
 
-      mode = MODE_EXISTING_STREET;
+      mode = MODES.EXISTING_STREET;
     } else if ((urlParts.length >= 2) && urlParts[0] && urlParts[1]) {
       // TODO add is integer urlParts[1];
       // Existing street by a signed in person
@@ -9775,9 +9775,9 @@
 
       street.namespacedId = urlParts[1];
 
-      mode = MODE_EXISTING_STREET;
+      mode = MODES.EXISTING_STREET;
     } else {
-      mode = MODE_404;
+      mode = MODES.NOT_FOUND;
     }
   }
 
@@ -9889,19 +9889,19 @@
   }
 
   function _errorReceiveStreet(data) {
-    if ((mode == MODE_CONTINUE) || (mode == MODE_USER_GALLERY) ||
-        (mode == MODE_ABOUT) || (mode == MODE_GLOBAL_GALLERY)) {
+    if ((mode == MODES.CONTINUE) || (mode == MODES.USER_GALLERY) ||
+        (mode == MODES.ABOUT) || (mode == MODES.GLOBAL_GALLERY)) {
       _goNewStreet();
     } else {
       if ((data.status == 404) || (data.status == 410)) {
         if (street.creatorId) {
           if (data.status == 410) {
-            mode = MODE_STREET_410_BUT_LINK_TO_USER;
+            mode = MODES.STREET_410_BUT_LINK_TO_USER;
           } else {
-            mode = MODE_STREET_404_BUT_LINK_TO_USER;
+            mode = MODES.STREET_404_BUT_LINK_TO_USER;
           }
         } else {
-          mode = MODE_STREET_404;
+          mode = MODES.STREET_404;
         }
         // TODO swap for showError (here and elsewhere)
         _processMode();
@@ -10128,52 +10128,52 @@
     serverContacted = true;
 
     switch (mode) {
-      case MODE_ERROR:
+      case MODES.ERROR:
         _showErrorFromUrl();
         break;
-      case MODE_UNSUPPORTED_BROWSER:
+      case MODES.UNSUPPORTED_BROWSER:
         _showError(ERROR_UNSUPPORTED_BROWSER, true);
         break;
-      case MODE_404:
+      case MODES.NOT_FOUND:
         _showError(ERROR_404, true);
         break;
-      case MODE_STREET_404:
+      case MODES.STREET_404:
         _showError(ERROR_STREET_404, true);
         break;
-      case MODE_STREET_404_BUT_LINK_TO_USER:
+      case MODES.STREET_404_BUT_LINK_TO_USER:
         _showError(ERROR_STREET_404_BUT_LINK_TO_USER, true);
         break;
-      case MODE_STREET_410_BUT_LINK_TO_USER:
+      case MODES.STREET_410_BUT_LINK_TO_USER:
         _showError(ERROR_STREET_410_BUT_LINK_TO_USER, true);
         break;
-      case MODE_SIGN_OUT:
+      case MODES.SIGN_OUT:
         _showError(ERROR_SIGN_OUT, true);
         break;
-      case MODE_FORCE_RELOAD_SIGN_OUT:
+      case MODES.FORCE_RELOAD_SIGN_OUT:
         _showError(ERROR_FORCE_RELOAD_SIGN_OUT, true);
         break;
-      case MODE_FORCE_RELOAD_SIGN_OUT_401:
+      case MODES.FORCE_RELOAD_SIGN_OUT_401:
         _showError(ERROR_FORCE_RELOAD_SIGN_OUT_401, true);
         break;
-      case MODE_FORCE_RELOAD_SIGN_IN:
+      case MODES.FORCE_RELOAD_SIGN_IN:
         _showError(ERROR_FORCE_RELOAD_SIGN_IN, true);
         break;
-      case MODE_NEW_STREET:
+      case MODES.NEW_STREET:
         serverContacted = false;
         break;
-      case MODE_NEW_STREET_COPY_LAST:
+      case MODES.NEW_STREET_COPY_LAST:
         serverContacted = false;
         break;
-      case MODE_CONTINUE:
-      case MODE_USER_GALLERY:
-      case MODE_ABOUT:
-      case MODE_GLOBAL_GALLERY:
+      case MODES.CONTINUE:
+      case MODES.USER_GALLERY:
+      case MODES.ABOUT:
+      case MODES.GLOBAL_GALLERY:
         serverContacted = false;
         break;
-      case MODE_JUST_SIGNED_IN:
+      case MODES.JUST_SIGNED_IN:
         serverContacted = false;
         break;
-      case MODE_EXISTING_STREET:
+      case MODES.EXISTING_STREET:
         serverContacted = false;
         break;
     }
@@ -10236,7 +10236,7 @@
       if ((navigator.userAgent.indexOf('Opera') != -1) ||
           (navigator.userAgent.indexOf('Internet Explorer') != -1) ||
           (navigator.userAgent.indexOf('MSIE') != -1)) {
-        mode = MODE_UNSUPPORTED_BROWSER;
+        mode = MODES.UNSUPPORTED_BROWSER;
         _processMode();
         return;
       }
@@ -10269,7 +10269,7 @@
     // Asynchronously loading…
 
     // …detecting country from IP for units and left/right-hand driving
-    if ((mode == MODE_NEW_STREET) || (mode == MODE_NEW_STREET_COPY_LAST)) {
+    if ((mode == MODES.NEW_STREET) || (mode == MODES.NEW_STREET_COPY_LAST)) {
       _detectGeolocation();
     } else {
       geolocationLoaded = true;
