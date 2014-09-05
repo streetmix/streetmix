@@ -8,6 +8,7 @@
     "body-parser": "^1.2.0",
     "compression": "^1.0.2",
     "config": "0.4.x",
+    "connect-assets": "^4.3.0",
     "cookie-parser": "^1.1.0",
     "cookie-session": "^1.0.2",
     "cors": "^2.3.1",

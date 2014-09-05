@@ -54,6 +54,7 @@ app.all('*', function(req, res, next) {
   }
 })
 
+app.use(require("connect-assets")());
 app.use(express.static(__dirname + '/public'))
 
 app.get('/twitter-sign-in', controllers.twitter_sign_in.get)
