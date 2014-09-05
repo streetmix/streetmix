@@ -1,0 +1,133 @@
+HOST: http://streetmix-staging.herokuapp.com/api/v1
+
+--- Streetmix REST API
+---
+REST API for the [Streetmix](http://streetmix.net) application
+---
+
+--
+User Authentication Resources
+--
+
+Sign-in a user, creating one if necessary.
+POST /users
+> Content-Type: application/json
+> Accept: application/json
+{
+  "twitter": {
+    "userId": 8254163,
+    "screenName": "shaunak",
+    "oauthAccessToken": "fdy36ydgsjw0263bhd73181bdbe630eh033g28e=",
+    "oauthAccessTokenSecret": "ue63tsbvjc92nvmdt268fnc0209e03yenc9371v383gr61u83r"
+  }
+}
+< 201
+< Location: /users/{id}
+< Content-Type: application/json
+{
+  "id": "9cc211c0-c561-11e2-8b8b-0800200c9a66",
+  "loginToken": "906f7180-c4ba-11e2-8b8b-0800200c9a66"
+}
+
+Sign-out a user.
+DELETE /users/{id}/login-token
+> Authorization: Streetmix realm="" loginToken="{login-token}"
+< 204
+
+
+--
+User Resources
+--
+
+Retrieve a user's information.
+GET /users/{id}
+> Accept: application/json
+< 200
+{
+  "id": "shaunak",
+  "profileImageUri" "http://a0.twimg.com/profile_images/1777569006/image1327396628_normal.png"
+}
+
+Update a user's information.
+PUT /users/{id}
+> Authorization: Streetmix realm="" loginToken="{login-token}"
+> Content-Type: application/json
+{
+  "data": ...
+}
+< 204
+
+Retrieve a user's streets.
+GET /users/{id}/streets
+> Accept: application/json
+< 200
+{
+  "streets": [
+    {
+      "id": "906f7180-c4ba-11e2-8b8b-0800200c9a66",
+      "creatorId": "9cc211c0-c561-11e2-8b8b-0800200c9a66",
+      "name": "Haight St.",
+      "data": ...
+    },
+    ...
+  ]
+}
+
+--
+Street Resources
+--
+
+Create a new street.
+POST /streets
+> Accept: application/json
+< 201
+< Content-Type: application/json
+< Location: /streets/{id}
+{
+  "id": "906f7180-c4ba-11e2-8b8b-0800200c9a66",
+  "creatorId": "9cc211c0-c561-11e2-8b8b-0800200c9a66",
+  "name": "Haight St.",
+  "data": ...
+}
+
+Retrieve a street.
+GET /streets/{id}
+> Accept: application/json
+< 200
+{
+  "id": "906f7180-c4ba-11e2-8b8b-0800200c9a66",
+  "creatorId": "9cc211c0-c561-11e2-8b8b-0800200c9a66",
+  "name": "Haight St.",
+  "data": ...
+}
+
+Delete a street.
+DELETE /streets/{id}
+> Authorization: Streetmix realm="" loginToken="{login-token}"
+< 204
+
+
+Update an existing street.
+PUT /streets/{id}
+> Accept: application/json
+> Content-Type: application/json
+{
+  "name": "Haight St.",
+  "data": ...
+}
+< 204
+
+--
+Feedback Resources
+--
+
+Send feedback to the Streetmix team.
+POST /feedback
+> Content-Type: application/json
+{
+  "from": "john@doe.com",
+  "message": "This is the best application ever!"
+}
+< 202
+< Content-Type: application/json
+"Feedback accepted."

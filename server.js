@@ -1,18 +1,31 @@
 var fs = require('fs'),
+    compression = require('compression'),
+    cookieParser = require('cookie-parser'),
+    cookieSession = require('cookie-session'),
     express = require('express'),
     request = require('request'),
+    bodyParser = require('body-parser'),
     url = require('url'),
     lessMiddleware = require('less-middleware'),
     config = require('config'),
-    controllers = require('./app/controllers')
+    controllers = require('./app/controllers'),
+    resources = require('./app/resources'),
+    requestHandlers = require('./lib/request_handlers');
 
 var app = express()
 
 app.locals.config = config
 
-app.use(express.compress())
-app.use(express.cookieParser())
-app.use(express.cookieSession({ secret: config.cookie_session_secret }))
+app.use(bodyParser.json())
+app.use(compression())
+app.use(cookieParser())
+app.use(cookieSession({ secret: config.cookie_session_secret }))
+
+app.use(requestHandlers.login_token_parser)
+app.use(requestHandlers.request_log)
+app.use(requestHandlers.request_id_echo)
+
+app.use(app.router);
 
 app.use(lessMiddleware(__dirname + '/public', { once: (process.env.NODE_ENV == 'production') }, {}, { compress: (process.env.NODE_ENV == 'production') }))
 
@@ -35,26 +48,24 @@ app.use(express.static(__dirname + '/public'))
 app.get('/twitter-sign-in', controllers.twitter_sign_in.get)
 app.get(config.twitter.oauth_callback_uri, controllers.twitter_sign_in_callback.get)
 
-app.all('*', function(req, res, next) {
-  var apiUrlRegexp = new RegExp("^" + config.restapi_proxy_baseuri_rel)
-  if (req.url.match(apiUrlRegexp)) {
+app.post('/api/v1/users', resources.v1.users.post)
+app.get('/api/v1/users/:user_id', resources.v1.users.get)
+app.put('/api/v1/users/:user_id', resources.v1.users.put)
+app.del('/api/v1/users/:user_id/login-token', resources.v1.users.delete)
+app.get('/api/v1/users/:user_id/streets', resources.v1.users_streets.get)
 
-    var targetUri = config.restapi_baseuri + req.url.replace(apiUrlRegexp, '')
+app.post('/api/v1/streets', resources.v1.streets.post)
+app.get('/api/v1/streets', resources.v1.streets.find)
+app.head('/api/v1/streets', resources.v1.streets.find)
 
-    var headers = req.headers
-    headers.host = url.parse(config.restapi_baseuri).hostname
+app.del('/api/v1/streets/:street_id', resources.v1.streets.delete)
+app.head('/api/v1/streets/:street_id', resources.v1.streets.get)
+app.get('/api/v1/streets/:street_id', resources.v1.streets.get)
+app.put('/api/v1/streets/:street_id', resources.v1.streets.put)
 
-    req.pipe(request({
-      method: req.method,
-      uri: targetUri,
-      headers: headers,
-      followRedirect: true
-    })).pipe(res)
+app.post('/api/v1/feedback', resources.v1.feedback.post)
 
-  } else {
-    next('route')
-  }
-})
+app.get('/.well-known/status', resources.well_known_status.get)
 
 app.get('/help/about-beta', function(req, res) {
   res.sendfile(__dirname + '/public/help/about-beta/index.html')

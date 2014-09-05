@@ -1,6 +1,7 @@
 var config = require('config'),
     sprintf = require('sprintf').sprintf
-    oauth = require('../../lib/oauth.js')
+    oauth = require('../../lib/oauth.js'),
+    logger = require('../../lib/logger.js')()
 
 var oauthRequestTokenHandler = function(req, res) {
 
@@ -32,6 +33,7 @@ exports.get = function(req, res) {
   var o = oauth({
     callbackUri: req.query.callbackUri
   })
+  logger.error(o);
   o.getOAuthRequestToken(oauthRequestTokenHandler(req, res))
 
 } // END function - exports.get

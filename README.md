@@ -67,20 +67,30 @@ Also, this project was made possible by the support of Code for America staff an
 
 ### On Mac OS X 10
 
+These installation instructions assume that you have already installed the [Homebrew](http://brew.sh/) package manager.
+
 #### First-time setup
 
 1) Download and install [Node.js](http://nodejs.org/).
 
-2) Clone this remote repository to a folder on your computer. The rest of these instructions will refer to this folder as `$PROJECT_ROOT`.
+    brew install nodejs
+
+2) Download, install and start [MongoDB](http://www.mongodb.org/).
+
+    brew install mongodb
+
+3) Download and install [Coreutils](http://www.gnu.org/software/coreutils/).
+
+    brew install coreutils
+
+4) Clone this remote repository to a folder on your computer. The rest of these instructions will refer to this folder as `$PROJECT_ROOT`.
 
     git clone $REMOTE_REPOSITORY_URL $PROJECT_ROOT
 
-3) Install project dependencies.
+5) Install project dependencies.
 
     cd $PROJECT_ROOT
     npm install
-
-4) The Streetmix back-end is a separate application running on a different server (or a different localhost port). For information about starting the back-end server, please read the instructions on the [back-end repository](https://github.com/codeforamerica/streetmix-be).
 
 #### Every time you sync `$PROJECT_ROOT` with this remote repository.
 
@@ -92,12 +102,16 @@ Also, this project was made possible by the support of Code for America staff an
 #### HOWTO: Start the application
 
 
-1) Setup environment variables. These are the same environment variables required to run the [back-end](https://github.com/codeforamerica/streetmix-be/) as well.
+1) Setup environment variables. You can either set these in your `.bash_profile` (or equivalent) or place them in a file named `$PROJECT_ROOT/.env` 
 
 | Variable name                   | Description                                                                            | Required?            |
 | ------------------------------- | -------------------------------------------------------------------------------------- | -------------------- |
-| `TWITTER_OAUTH_CONSUMER_KEY`    | Development Twitter OAuth consumer key, obtained from @streetmixapp Twitter account    | Yes                  |
-| `TWITTER_OAUTH_CONSUMER_SECRET` | Development Twitter OAuth consumer secret, obtained from @streetmixapp Twitter account | Yes                  |
+| `SENDGRID_USERNAME`             | Your SendGrid username                                                                 | Yes                  |
+| `SENDGRID_PASSWORD`             | Your SendGrid password                                                                 | Yes                  |
+| `TWITTER_OAUTH_CONSUMER_KEY`    | Development Twitter OAuth consumer key, obtained from @streetmix Twitter account    | Yes                  |
+| `TWITTER_OAUTH_CONSUMER_SECRET` | Development Twitter OAuth consumer secret, obtained from @streetmix Twitter account | Yes                  |
+| `EMAIL_FEEDBACK_RECIPIENT`      | Your e-mail address                                                                    | No                   |
+
 
 2) Start the web server.
 
