@@ -24,11 +24,6 @@
 
   <link href='/css/styles.css' rel='stylesheet' type='text/css'>
 
-  <script src='/js/vendor/modernizr.js'></script>
-  <script src='/js/vendor/moment.js'></script>
-  <script src='/js/vendor/jquery-2.1.0.min.js'></script>
-  <script src='/js/vendor/jquery.cookie.js'></script>
-
   <script>
     var SITE_URL = 'http://<%= config.app_host_port %>/';
     var API_URL = '<%= config.restapi_proxy_baseuri_rel %>/';
@@ -38,7 +33,7 @@
     var ENV = '<%= config.env %>';
   </script>
 
-  <script src='/js/scripts.js'></script>
+  <%- js("app") %>
 
   <script src='//platform.twitter.com/widgets.js'></script>
 
