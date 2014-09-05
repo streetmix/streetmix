@@ -2,6 +2,26 @@
 @import 'variables';
 @import 'typography';
 
+/* START temporary migration announcement */
+#announcement {
+  position: absolute;
+  left: 50px;
+  right: 50px;
+  top: 0;
+  overflow: hidden;
+  color: #402020;
+  border-bottom: 3px solid #ffce30;
+  background: #ffe696;
+  font-size: 13px;
+  z-index: 10000000;
+  padding: 5px 20px;
+  text-align: center;
+}
+#main-screen.with-announcement {
+  top: 40px !important;
+}
+/* END temporary migration announcement */
+
 html {
   height: 100%;
   overflow: hidden;
