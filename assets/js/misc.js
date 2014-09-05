@@ -5943,7 +5943,7 @@
     // been deleted (but remain hidden on the server)
 
     if (signedIn && ((data.status == 404) || (data.status == 410))) {
-      _showError(ERROR_STREET_DELETED_ELSEWHERE, true);
+      _showError(ERRORS.STREET_DELETED_ELSEWHERE, true);
     }
   }
 
@@ -6518,7 +6518,7 @@
     // TODO escape name
     if (confirm(msg('PROMPT_DELETE_STREET', { name: name }))) {
       if (el.getAttribute('streetId') == street.id) {
-        _showError(ERROR_NO_STREET, false);
+        _showError(ERRORS.NO_STREET, false);
       }
 
       _sendDeleteStreetToServer(el.getAttribute('streetId'));
@@ -6746,7 +6746,7 @@
 
     if ((mode == MODES.USER_GALLERY) || (mode == MODES.GLOBAL_GALLERY)) {
       // Prevents showing old street before the proper street loads
-      _showError(ERROR_NO_STREET, false);
+      _showError(ERRORS.NO_STREET, false);
     }
 
     if (!signInPromo) {
@@ -6762,7 +6762,7 @@
   }
 
   function _hideGallery(instant) {
-    if ((currentErrorType != ERROR_NO_STREET) && galleryStreetLoaded) {
+    if ((currentErrorType != ERRORS.NO_STREET) && galleryStreetLoaded) {
       galleryVisible = false;
 
       if (instant) {
@@ -9397,7 +9397,7 @@
     // doesn’t know what to do with it yet. Open issue #339.
 
     /*if (data.status == 0) {
-      _showError(ERROR_NEW_STREET_SERVER_FAILURE, true);
+      _showError(ERRORS.NEW_STREET_SERVER_FAILURE, true);
       return;
     }*/
 
@@ -9407,13 +9407,13 @@
 
       _signOut(true);
 
-      _showError(ERROR_SIGN_IN_401, true);
+      _showError(ERRORS.SIGN_IN_401, true);
       return;
     } else if (data.status == 503) {
       _eventTracking.track(TRACK_CATEGORY_ERROR, TRACK_ACTION_ERROR_15A,
           null, null, false);
 
-      _showError(ERROR_SIGN_IN_SERVER_FAILURE, true);
+      _showError(ERRORS.SIGN_IN_SERVER_FAILURE, true);
       return;
     }
 
@@ -9564,7 +9564,7 @@
         case MODES.NEW_STREET:
         case MODES.NEW_STREET_COPY_LAST:
           if (readOnly) {
-            _showError(ERROR_CANNOT_CREATE_NEW_STREET_ON_PHONE, true);
+            _showError(ERRORS.CANNOT_CREATE_NEW_STREET_ON_PHONE, true);
           } else {
             _createNewStreetOnServer();
           }
@@ -9808,7 +9808,7 @@
   }
 
   function _errorReceiveNewStreet(data) {
-    _showError(ERROR_NEW_STREET_SERVER_FAILURE, true);
+    _showError(ERRORS.NEW_STREET_SERVER_FAILURE, true);
   }
 
   function _getFetchStreetUrl() {
@@ -9906,7 +9906,7 @@
         // TODO swap for showError (here and elsewhere)
         _processMode();
       } else {
-        _showError(ERROR_NEW_STREET_SERVER_FAILURE, true);
+        _showError(ERRORS.NEW_STREET_SERVER_FAILURE, true);
       }
     }
   }
@@ -9961,83 +9961,83 @@
     abortEverything = newAbortEverything;
 
     switch (errorType) {
-      case ERROR_404:
+      case ERRORS.NOT_FOUND:
         title = 'Page not found.';
         description = 'Oh, boy. There is no page with this address!<br><button id="error-home">Go to the homepage</button>';
         break;
-      case ERROR_STREET_404:
+      case ERRORS.STREET_404:
         title = 'Street not found.';
         description = 'Oh, boy. There is no street with this link!<br><button id="error-home">Go to the homepage</button>';
         break;
-      case ERROR_STREET_404_BUT_LINK_TO_USER:
+      case ERRORS.STREET_404_BUT_LINK_TO_USER:
         title = 'Street not found.';
         description =
             'There is no street with this link! But you can look at other streets by ' +
             '<a href="/' + street.creatorId + '"><div class="avatar" userId="' + street.creatorId + '"></div>' + street.creatorId + '</a>.' +
             '<br><button id="error-home">Go to the homepage</button>';
         break;
-      case ERROR_STREET_410_BUT_LINK_TO_USER:
+      case ERRORS.STREET_410_BUT_LINK_TO_USER:
         title = 'This street has been deleted.';
         description = 'There is no longer a street with this link, but you can look at other streets by ' +
             '<a href="/' + street.creatorId + '"><div class="avatar" userId="' + street.creatorId + '"></div>' + street.creatorId + '</a>.' +
             '<br><button id="error-home">Go to the homepage</button>';
         break;
-      case ERROR_SIGN_OUT:
+      case ERRORS.SIGN_OUT:
         title = 'You are now signed out.';
         description = '<button id="error-sign-in">Sign in again</button> <button id="error-home">Go to the homepage</button>';
         break;
-      case ERROR_NO_STREET:
+      case ERRORS.NO_STREET:
         title = 'No street selected.';
         break;
-      case ERROR_FORCE_RELOAD_SIGN_OUT:
+      case ERRORS.FORCE_RELOAD_SIGN_OUT:
         title = 'You signed out in another window.';
         description = 'Please reload this page before continuing.<br><button id="error-reload">Reload the page</button>';
         break;
-      case ERROR_FORCE_RELOAD_SIGN_OUT_401:
+      case ERRORS.FORCE_RELOAD_SIGN_OUT_401:
         title = 'You signed out in another window.';
         description = 'Please reload this page before continuing.<br>(Error RM2.)<br><button id="error-clear-sign-in-reload">Reload the page</button>';
         break;
-      case ERROR_FORCE_RELOAD_SIGN_IN:
+      case ERRORS.FORCE_RELOAD_SIGN_IN:
         title = 'You signed in in another window.';
         description = 'Please reload this page before continuing.<br><button id="error-reload">Reload the page</button>';
         break;
-      case ERROR_STREET_DELETED_ELSEWHERE:
+      case ERRORS.STREET_DELETED_ELSEWHERE:
         title = 'This street has been deleted elsewhere.';
         description = 'This street has been deleted in another browser.<br><button id="error-home">Go to the homepage</button>';
         break;
-      case ERROR_NEW_STREET_SERVER_FAILURE:
+      case ERRORS.NEW_STREET_SERVER_FAILURE:
         title = 'Having trouble…';
         description = 'We’re having trouble loading Streetmix.<br><button id="error-new">Try again</button>';
         break;
-      case ERROR_SIGN_IN_SERVER_FAILURE:
+      case ERRORS.SIGN_IN_SERVER_FAILURE:
         title = 'Having trouble…';
         description = 'We’re having trouble loading Streetmix.<br>(Error 15A.)<br><button id="error-new">Try again</button>';
         break;
-      case ERROR_SIGN_IN_401:
+      case ERRORS.SIGN_IN_401:
         title = 'Having trouble…';
         description = 'We’re having trouble loading Streetmix.<br>(Error RM1.)<br><button id="error-new">Try again</button>';
         break;
-      case ERROR_TWITTER_ACCESS_DENIED:
+      case ERRORS.TWITTER_ACCESS_DENIED:
         title = 'You are not signed in.';
         description = 'You cancelled the Twitter sign in process.<br><button id="error-home">Go to the homepage</button>';
         break;
-      case ERROR_AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN:
-      case ERROR_AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN:
-      case ERROR_AUTH_PROBLEM_API_PROBLEM:
+      case ERRORS.AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN:
+      case ERRORS.AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN:
+      case ERRORS.AUTH_PROBLEM_API_PROBLEM:
         title = 'There was a problem with signing you in.';
         // TODO const for feedback
         description = 'There was a problem with Twitter authentication. Please try again later or let us know via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmix">Twitter</a>.<br><button id="error-home">Go to the homepage</button>';
         break;
-      case ERROR_UNSUPPORTED_BROWSER:
+      case ERRORS.UNSUPPORTED_BROWSER:
         title = 'Streetmix doesn’t work on your browser… yet.';
         // TODO const for feedback
         description = 'Sorry about that. You might want to try <a target="_blank" href="http://www.google.com/chrome">Chrome</a>, <a target="_blank" href="http://www.mozilla.org/firefox">Firefox</a>, or Safari. <br><br>Are you on Internet Explorer? <a target="_blank" href="/help/internet-explorer">Find out why IE is not supported.</a> <br><br>If you think your browser should be supported, please contact us via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a>.';
         break;
-      case ERROR_CANNOT_CREATE_NEW_STREET_ON_PHONE:
+      case ERRORS.CANNOT_CREATE_NEW_STREET_ON_PHONE:
         title = 'Streetmix works on tablets and desktops only.';
         description = 'If you follow another link to a specific street, you can view it on your phone – but you cannot yet create new streets.<br><button id="error-example">View an example street</button>';
         break;
-      default: // also ERROR_GENERIC_ERROR
+      default: // also ERRORS.GENERIC_ERROR
         title = 'Something went wrong.';
         // TODO const for feedback
         description = 'We’re sorry – something went wrong. Please try again later or let us know via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmix">Twitter</a>.<br><button id="error-home">Go to the homepage</button>';
@@ -10105,19 +10105,19 @@
     // TODO const
     switch (errorUrl) {
       case URL_ERROR_TWITTER_ACCESS_DENIED:
-        var errorType = ERROR_TWITTER_ACCESS_DENIED;
+        var errorType = ERRORS.TWITTER_ACCESS_DENIED;
         break;
       case URL_ERROR_NO_TWITTER_REQUEST_TOKEN:
-        var errorType = ERROR_AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN;
+        var errorType = ERRORS.AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN;
         break;
       case URL_ERROR_NO_TWITTER_ACCESS_TOKEN:
-        var errorType = ERROR_AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN;
+        var errorType = ERRORS.AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN;
         break;
       case URL_ERROR_AUTHENTICATION_API_PROBLEM:
-        var errorType = ERROR_AUTH_PROBLEM_API_PROBLEM;
+        var errorType = ERRORS.AUTH_PROBLEM_API_PROBLEM;
         break;
       default:
-        var errorType = ERROR_GENERIC_ERROR;
+        var errorType = ERRORS.GENERIC_ERROR;
         break;
     }
 
@@ -10132,31 +10132,31 @@
         _showErrorFromUrl();
         break;
       case MODES.UNSUPPORTED_BROWSER:
-        _showError(ERROR_UNSUPPORTED_BROWSER, true);
+        _showError(ERRORS.UNSUPPORTED_BROWSER, true);
         break;
       case MODES.NOT_FOUND:
-        _showError(ERROR_404, true);
+        _showError(ERRORS.NOT_FOUND, true);
         break;
       case MODES.STREET_404:
-        _showError(ERROR_STREET_404, true);
+        _showError(ERRORS.STREET_404, true);
         break;
       case MODES.STREET_404_BUT_LINK_TO_USER:
-        _showError(ERROR_STREET_404_BUT_LINK_TO_USER, true);
+        _showError(ERRORS.STREET_404_BUT_LINK_TO_USER, true);
         break;
       case MODES.STREET_410_BUT_LINK_TO_USER:
-        _showError(ERROR_STREET_410_BUT_LINK_TO_USER, true);
+        _showError(ERRORS.STREET_410_BUT_LINK_TO_USER, true);
         break;
       case MODES.SIGN_OUT:
-        _showError(ERROR_SIGN_OUT, true);
+        _showError(ERRORS.SIGN_OUT, true);
         break;
       case MODES.FORCE_RELOAD_SIGN_OUT:
-        _showError(ERROR_FORCE_RELOAD_SIGN_OUT, true);
+        _showError(ERRORS.FORCE_RELOAD_SIGN_OUT, true);
         break;
       case MODES.FORCE_RELOAD_SIGN_OUT_401:
-        _showError(ERROR_FORCE_RELOAD_SIGN_OUT_401, true);
+        _showError(ERRORS.FORCE_RELOAD_SIGN_OUT_401, true);
         break;
       case MODES.FORCE_RELOAD_SIGN_IN:
-        _showError(ERROR_FORCE_RELOAD_SIGN_IN, true);
+        _showError(ERRORS.FORCE_RELOAD_SIGN_IN, true);
         break;
       case MODES.NEW_STREET:
         serverContacted = false;
