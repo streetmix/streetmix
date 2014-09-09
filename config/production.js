@@ -1,7 +1,7 @@
 module.exports = {
   app_host_port: 'streetmix.net',
   header_host_port: 'streetmix.net',
-  restapi_baseuri: 'http://streetmix.net',
+  restapi_baseuri: 'http://streetmix.net/api',
   restapi: {
     baseuri: 'http://streetmix.net/api'
   },
