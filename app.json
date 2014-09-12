@@ -8,22 +8,22 @@
     "TWITTER_OAUTH_CONSUMER_KEY": {
       "description": "Twitter OAuth consumer key, obtained from your Twitter account",
       "value": "",
-      "required": "false"
+      "required": false
     },
     "TWITTER_OAUTH_CONSUMER_SECRET": {
       "description": "Twitter OAuth consumer secret key, obtained from your Twitter account",
       "value": "",
-      "required": "false"
+      "required": false
     },
     "EMAIL_FEEDBACK_RECIPIENT": {
       "description": "Your e-mail address",
       "value": "",
-      "required": "false"
+      "required": false
     },
     "NODE_ENV": {
       "description": "(DO NOT EDIT) Set Node.js server environment",
       "value": "production",
-      "required": "true"
+      "required": true
     }
   },
   "addons": [
