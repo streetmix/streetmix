@@ -22,7 +22,7 @@ A "section" is shortened way of saying "cross-section view", a type of 2D non-pe
 
 When city planners seek input from community meetings from the public on streetscape improvements, one common engagement activity is to create paper cut-outs depicting different street components (like bike lanes, sidewalks, trees, and so on) and allow attendees to reassemble them into their desired streetscape. Planners and city officials can then take this feedback to determine a course of action for future plans. By creating an web-based version of this activity, planners can reach a wider audience than they could at meetings alone, and allow community members to share and remix each other's creations.
 
-The goal is to promote two-way communication between planners and the public, as well. Streetmix intends to communicate not just feedback to planners but also information and consequences of actions to the users that are creating streets. Kind of like SimCity did with its in-game advisors! 
+The goal is to promote two-way communication between planners and the public, as well. Streetmix intends to communicate not just feedback to planners but also information and consequences of actions to the users that are creating streets. Kind of like SimCity did with its in-game advisors!
 
 Streetmix can be used as a tool to promote and engage citizens around streetscape and placemaking issues, such as [Complete Streets][completestreets] or the Project for Public Spaces' [Rightsizing Streets Guide][rightsizing].
 
@@ -65,6 +65,15 @@ Also, this project was made possible by the support of Code for America staff an
 
 ## <a name="development-setup"></a>Development Setup
 
+### Single-click deploy with Heroku
+
+You can easily get your own deployment on Heroku with the one-click [Heroku Button](https://blog.heroku.com/archives/2014/8/7/heroku-button).
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
+This will automatically set up a Heroku server, add the default (free) tiers of the MongoHQ and Sendgrid add-ons, and set up environment variables. (This is a bare-bones deployment similar to the official Streetmix site; we also use Heroku, but we use some additional support add-ons for DNS and logging, and some add-ons are at a paid tier for increased performance). You can then clone from the Heroku git repository to a local machine to make custom changes.
+
+
 ### On Mac OS X 10
 
 These installation instructions assume that you have already installed the [Homebrew](http://brew.sh/) package manager.
@@ -102,7 +111,7 @@ These installation instructions assume that you have already installed the [Home
 #### HOWTO: Start the application
 
 
-1) Setup environment variables. You can either set these in your `.bash_profile` (or equivalent) or place them in a file named `$PROJECT_ROOT/.env` 
+1) Setup environment variables. You can either set these in your `.bash_profile` (or equivalent) or place them in a file named `$PROJECT_ROOT/.env`
 
 | Variable name                   | Description                                                                            | Required?            |
 | ------------------------------- | -------------------------------------------------------------------------------------- | -------------------- |
@@ -129,8 +138,8 @@ see [CONTRIBUTING.md](CONTRIBUTING.md).
 We use the [GitHub issue tracker][issues] to track bugs and features. Before
 submitting a bug report or feature request, check to make sure it hasn't
 already been submitted. You can indicate support for an existing issue by
-voting it up. When submitting a bug report, please include  any details that may 
-be necessary to reproduce thebug, including your node version, npm version, and 
+voting it up. When submitting a bug report, please include  any details that may
+be necessary to reproduce thebug, including your node version, npm version, and
 operating system.
 
 ## <a name="pulls"></a>Submitting a Pull Request

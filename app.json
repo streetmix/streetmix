@@ -1,0 +1,25 @@
+{
+  "name": "Streetmix",
+  "description": "Design, remix, and share your neighborhood street.  Add trees or bike paths, widen sidewalks or traffic lanes, and learn how your decisions can impact your community.",
+  "repository": "https://github.com/codeforamerica/streetmix",
+  "website": "http://streetmix.net/",
+  "keywords": ["streetmix"],
+  "env": {
+    "TWITTER_OAUTH_CONSUMER_KEY": {
+      "description": "Twitter OAuth consumer key",
+      "value": ""
+    },
+    "TWITTER_OAUTH_CONSUMER_SECRET": {
+      "description": "Twitter OAuth consumer secret key",
+      "value": ""
+    },
+    "EMAIL_FEEDBACK_RECIPIENT": {
+      "description": "Your e-mail address",
+      "value": ""
+    }
+  },
+  "addons": [
+    "mongohq",
+    "sendgrid"
+  ]
+}
