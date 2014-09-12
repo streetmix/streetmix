@@ -6,16 +6,20 @@
   "keywords": ["streetmix"],
   "env": {
     "TWITTER_OAUTH_CONSUMER_KEY": {
-      "description": "Twitter OAuth consumer key",
+      "description": "Twitter OAuth consumer key, obtained from your Twitter account",
       "value": ""
     },
     "TWITTER_OAUTH_CONSUMER_SECRET": {
-      "description": "Twitter OAuth consumer secret key",
+      "description": "Twitter OAuth consumer secret key, obtained from your Twitter account",
       "value": ""
     },
     "EMAIL_FEEDBACK_RECIPIENT": {
       "description": "Your e-mail address",
       "value": ""
+    },
+    "NODE_ENV": {
+      "description": "Set Node.js server environment",
+      "value": "production"
     }
   },
   "addons": [
