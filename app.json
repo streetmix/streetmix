@@ -19,11 +19,6 @@
       "description": "Your e-mail address",
       "value": "",
       "required": false
-    },
-    "NODE_ENV": {
-      "description": "(DO NOT EDIT) Set Node.js server environment",
-      "value": "production",
-      "required": true
     }
   },
   "addons": [

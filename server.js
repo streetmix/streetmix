@@ -36,17 +36,6 @@ app.use(lessMiddleware(__dirname + '/public', { once: (process.env.NODE_ENV == '
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/app/views')
 
-// Redirect to environment-appropriate domain, if necessary
-app.all('*', function(req, res, next) {
-  if (config.header_host_port != req.headers.host) {
-    var redirectUrl = 'http://' + config.header_host_port + req.url
-    console.log('req.host = %s but config.header_host_port = %s; redirecting to %s...', req.host, config.header_host_port, redirectUrl)
-    res.redirect(301, redirectUrl)
-  } else {
-    next('route')
-  }
-})
-
 app.use(express.static(__dirname + '/public'))
 
 app.get('/twitter-sign-in', controllers.twitter_sign_in.get)
