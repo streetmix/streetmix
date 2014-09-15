@@ -18,3 +18,5 @@ var MODES = {
   STREET_410_BUT_LINK_TO_USER: 17,
   ABOUT: 18
 };
+
+var mode;
