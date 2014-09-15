@@ -5,5 +5,10 @@ module.exports = {
   restapi: {
     baseuri: 'http://streetmix-staging.herokuapp.com/api'
   },
-  facebook_app_id: '175861739245183'
+  facebook_app_id: '175861739245183',
+  email: {
+    feedback_recipient: process.env.EMAIL_FEEDBACK_RECIPIENT || "streetmix@codeforamerica.org",
+    feedback_subject: "Streetmix feedback",
+    feedback_sender_default: "noreply@codeforamerica.org"
+  }
 }

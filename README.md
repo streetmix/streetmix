@@ -65,13 +65,15 @@ Also, this project was made possible by the support of Code for America staff an
 
 ## <a name="development-setup"></a>Development Setup
 
-### Single-click deploy with Heroku
+### Single-click deploy with Heroku (experimental)
 
 You can easily get your own deployment on Heroku with the one-click [Heroku Button](https://blog.heroku.com/archives/2014/8/7/heroku-button).
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
 This will automatically set up a Heroku server, add the default (free) tiers of the MongoHQ and Sendgrid add-ons, and set up environment variables. (This is a bare-bones deployment similar to the official Streetmix site; we also use Heroku, but we use some additional support add-ons for DNS and logging, and some add-ons are at a paid tier for increased performance). You can then clone from the Heroku git repository to a local machine to make custom changes.
+
+**Note:** The Heroku redeployment is an _experimental_ feature. Please [file an issue][issues] if you run into problems.
 
 
 ### On Mac OS X 10
