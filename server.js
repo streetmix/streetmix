@@ -31,7 +31,14 @@ app.use(requestHandlers.request_id_echo)
 
 app.use(app.router);
 
-app.use(lessMiddleware(__dirname + '/public', { once: (process.env.NODE_ENV == 'production') }, {}, { compress: (process.env.NODE_ENV == 'production') }))
+app.use(lessMiddleware(__dirname + '/assets', {
+  dest: __dirname + '/public',
+  once: (process.env.NODE_ENV == 'production'),
+  debug: (process.env.NODE_ENV == 'development'),
+  compiler: {
+    compress: (process.env.NODE_ENV == 'production')
+  }
+}))
 
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/app/views')
