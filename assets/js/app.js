@@ -14,6 +14,7 @@
 //= require_tree constants
 //= require_tree segments
 //= require_tree streets
+//= require_tree users
 //= require misc
 
 var app = {};
