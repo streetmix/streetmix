@@ -155,3 +155,4 @@ operating system.
 Copyright (c) 2013 Code for America. See [LICENSE][] for details.
 
 [license]: https://github.com/codeforamerica/streetmix/blob/master/LICENSE.md
+[issues]: https://github.com/codeforamerica/streetmix/issues
