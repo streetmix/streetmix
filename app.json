@@ -2,6 +2,7 @@
   "name": "Streetmix",
   "description": "Design, remix, and share your street – all in your browser!",
   "repository": "https://github.com/codeforamerica/streetmix",
+  "logo": "http://streetmix.net/images/logos/heroku-button.png",
   "website": "http://streetmix.net/",
   "keywords": ["streetmix"],
   "env": {
