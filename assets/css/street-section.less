@@ -1,0 +1,238 @@
+#street-section-outer {
+  position: absolute;
+  display: block;
+  left: 0;
+  right: 0;
+  top: -@galleryHeight;
+  bottom: -20px; // To hide the scrollbar
+
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+/*body.phone #street-section-outer {
+  -webkit-overflow-scrolling: touch;
+}*/
+
+#street-section-inner {
+  position: absolute;
+  display: block;
+  left: 0;
+
+  z-index: 5;
+
+  top: 0;
+  height: @canvasHeight + 45;
+
+  .user-select-none;
+}
+
+#street-section-editable {
+  position: absolute;
+  height: @canvasHeight + 80;
+  text-align: left;
+  z-index: 1;
+
+  -webkit-transform: translateZ(0);
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    z-index: -1;
+    top: 394px;
+    right: 0;
+    bottom: 115px + 5px;
+    background: darken(@skyColour, 2%);
+
+    pointer-events: none;
+  }
+}
+
+#street-scroll-indicator-left,
+#street-scroll-indicator-right {
+  -webkit-tap-highlight-color: transparent;
+
+  position: fixed;
+  z-index: 999999;
+
+  margin-top: -275px;
+
+  opacity: .1;
+
+  letter-spacing: -13px;
+
+  width: 70px;
+  padding: 0 15px;
+
+  font-size: 80px;
+
+  cursor: pointer;
+
+  .user-select-none;
+
+  &:hover {
+    opacity: .333;
+  }
+  &:active {
+    opacity: .5;
+  }
+
+  &#street-scroll-indicator-left {
+    left: 0;
+  }
+  &#street-scroll-indicator-right {
+    right: 12px;
+    text-align: right;
+  }
+}
+
+#street-section-canvas {
+  z-index: 10;
+  position: absolute;
+  display: block;
+  left: 0;
+  top: 0;
+  margin-left: @buildingSpace;
+  margin-right: @buildingSpace;
+
+  height: @canvasHeight + 40;
+}
+
+
+.rear-clouds,
+.front-clouds {
+  position: absolute;
+
+  background-repeat: repeat-x;
+  background-position: 0 0;
+
+  left: 0;
+  width: 100%;
+
+  z-index: -1;
+
+  &.rear-clouds {
+    background-image: url(../images/sky-rear.png);
+    background-size: 250px 120px;
+
+    height: 120px;
+
+    bottom: 330px;
+  }
+
+  &.front-clouds {
+    background-image: url(../images/sky-front.png);
+    background-size: 250px 280px;
+
+    opacity: .5;
+
+    height: 280px;
+
+    bottom: 330px - 330px;
+
+    border-bottom: 50px solid rgb(165, 196, 209);
+  }
+}
+
+#street-section-sky {
+  position: absolute;
+  left: 0;
+  right: -2000px; // TODO hack
+  height: @canvasBaseline + 150px;
+
+  pointer-events: none;
+
+  background-size: 100% 350px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+
+  background-color: @skyColour;
+
+  .rear-clouds {
+    bottom: 735px;
+    z-index: auto;
+  }
+  .front-clouds {
+    bottom: 735px - 330px;
+    z-index: auto;
+  }
+}
+
+/*body.phone #street-section-sky {
+  position: static;
+  left: 0;
+  right: 0;
+
+  .rear-clouds {
+    z-index: 0;
+    //display: none;
+  }
+  .front-clouds {
+    z-index: 0;
+    //display: none;
+  }
+}*/
+
+
+#street-section-dirt {
+  position: absolute;
+  left: 0;
+  right: 25px;
+  z-index: -2;
+  top: @canvasHeight - 80px;
+
+  border-top: 45px solid @backgroundDirtColour;
+
+  pointer-events: none;
+
+  background: @bottomBackground;
+}
+
+#street-section-left-building,
+#street-section-left-building-old,
+#street-section-right-building,
+#street-section-right-building-old {
+  display: block;
+  position: absolute;
+
+  top: -150px + 45px;
+  width: 396px;
+  height: @canvasHeight + 70px;
+
+  .hover-bk {
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    top: -1000px;
+    bottom: 45px;
+    right: 0;
+  }
+  &#street-section-right-building .hover-bk,
+  &#street-section-right-building-old .hover-bk {
+    left: 25px;
+  }
+  &#street-section-left-building .hover-bk,
+  &#street-section-left-building-old .hover-bk {
+    right: 25px;
+  }
+
+  &.hover .hover-bk {
+    background: @segmentHoverBackground;
+  }
+}
+#street-section-left-building,
+#street-section-left-building-old {
+  left: 0;
+}
+#street-section-right-building,
+#street-section-right-building-old {
+  right: 0;
+}
+#street-section-left-building canvas,
+#street-section-right-building canvas,
+#street-section-left-building-old canvas,
+#street-section-right-building-old canvas {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}

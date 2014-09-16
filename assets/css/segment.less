@@ -1,0 +1,647 @@
+.segment {
+  height: @canvasHeight + 85px + 30px;
+
+  top: -150px;
+
+  text-align: center;
+
+  display: block;
+  position: absolute;
+
+  -webkit-perspective: 500px;
+  -moz-perspective: 500px;
+  perspective: 500px;
+}
+.segment.empty {
+  position: absolute;
+  pointer-events: none;
+
+  display: none;
+
+  z-index: -1;
+
+  &#street-section-right-empty-space {
+    right: 1px;
+  }
+
+  &.visible {
+    display: block;
+  }
+
+  .name,
+  .width {
+    color: @emptySegmentText;
+  }
+
+  .width {
+    overflow: visible;
+  }
+}
+
+body.segment-move-dragging .segment.empty {
+  display: none;
+}
+
+body:not(.segment-resize-dragging) .segment {
+  -webkit-transition: width 150ms, left 150ms, -webkit-transform 150ms;
+  -moz-transition: width 150ms, left 150ms, -moz-transform 150ms;
+  transition: width 150ms, left 150ms, transform 150ms;
+}
+body.immediate-segment-resize .segment {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  transition: none !important;
+}
+
+.segment.create {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  transition: none !important;
+}
+
+.segment.palette {
+  display: inline-block;
+  position: relative;
+
+  //overflow: hidden;
+
+  margin: 12px 0;
+  height: 80px;
+  top: 0;
+  background-color: fadeout(@skyColour, 30%);
+
+  margin-right: 1px;
+
+  -webkit-transform-origin: 50% 75%;
+  -moz-transform-origin: 50% 75%;
+  transform-origin: 50% 75%;
+
+  -webkit-transition: -webkit-transform 50ms !important;
+  -moz-transition: -moz-transform 50ms !important;
+  transition: transform 50ms !important;
+}
+
+.segment:not(.unmovable).hover {
+  z-index: 5000 !important;
+}
+
+.segment:not(.unmovable).hover .hover-bk {
+  background: @segmentHoverBackground;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: -1;
+  height: @canvasBaseline;
+  pointer-events: none;
+}
+
+.segment:not(.palette):not(.unmovable).hover .hover-bk {
+  top: 10px;
+  height: @canvasBaseline - 10px;
+}
+
+body.segment-resize-dragging .segment:not(.unmovable).hover {
+  button.remove,
+  button.increment,
+  button.decrement,
+  button.info {
+    opacity: 0;
+  }
+}
+
+body:not(.read-only) .segment:not(.unmovable) {
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+}
+
+.segment .image {
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  top: 150px;
+
+  pointer-events: none;
+}
+.segment.palette .image {
+  top: 0;
+}
+
+body:not(.segment-resize-dragging) .segment.outside .image {
+  -webkit-transition: none;
+}
+
+.segment.dragged-out {
+  opacity: 0;
+}
+
+body:not(.touch-support) .segment.palette:hover {
+  background: fadeout(@skyColour, 5%);
+
+  canvas {
+    -webkit-transform: scale(1.15);
+    -moz-transform: scale(1.15);
+    transform: scale(1.15);
+
+    -webkit-transform-origin: 14% 75px;
+    -moz-transform-origin: 14% 75px;
+    transform-origin: 14% 75px;
+
+  }
+}
+
+.segment.floating {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  opacity: .75;
+
+  z-index: 5000;
+
+  pointer-events: none;
+
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  transition: none !important;
+}
+
+.segment.floating.first-drag-move {
+  -webkit-transition: left 250ms, top 250ms, -webkit-transform 250ms !important;
+  -moz-transition: left 250ms, top 250ms, -moz-transform 250ms !important;
+  transition: left 250ms, top 250ms, transform 250ms !important;
+}
+
+body.segment-resize-dragging,
+body.segment-resize-dragging * {
+  cursor: col-resize !important;
+}
+
+.drag-handle {
+  position: absolute;
+  display: block;
+  top: 170px + 150px;
+  width: 10px;
+  height: 100px;
+  line-height: 100px;
+  font-size: 50px;
+  font-family: 'Tahoma';
+  color: lighten(@uiColour, 0%);
+  z-index: 99999999999;
+
+  pointer-events: none;
+
+  padding-left: 10px;
+  padding-right: 10px;
+
+  background: @infoBubbleBackground;
+
+  border-top: 3px solid darken(@uiColour, 30%);
+  border-bottom: 3px solid darken(@uiColour, 30%);
+
+  cursor: col-resize;
+
+  &.left {
+    left: -5px;
+    text-align: left;
+    text-indent: -5px;
+
+    -webkit-transform-origin: 100% 50%;
+    -moz-transform-origin: 100% 50%;
+    transform-origin: 100% 50%;
+  }
+  &.right {
+    right: -5px;
+    text-align: right;
+    text-indent: -3px;
+
+    -webkit-transform-origin: 0 50%;
+    -moz-transform-origin: 0 50%;
+    transform-origin: 0 50%;
+  }
+}
+
+.segment[width="1"] .drag-handle {
+  &.left {
+    left: -5px - 24px;
+  }
+  &.right {
+    right: -5px - 24px;
+  }
+}
+.segment[width="1.25"] .drag-handle {
+  &.left {
+    left: -5px - 22.5px;
+  }
+  &.right {
+    right: -5px - 22.5px;
+  }
+}
+.segment[width="1.5"] .drag-handle {
+  &.left {
+    left: -5px - 21px;
+  }
+  &.right {
+    right: -5px - 21px;
+  }
+}
+.segment[width="1.75"] .drag-handle {
+  &.left {
+    left: -5px - 19.5px;
+  }
+  &.right {
+    right: -5px - 19.5px;
+  }
+}
+.segment[width="2"] .drag-handle {
+  &.left {
+    left: -5px - 18px;
+  }
+  &.right {
+    right: -5px - 18px;
+  }
+}
+.segment[width="2.25"] .drag-handle {
+  &.left {
+    left: -5px - 16.5px;
+  }
+  &.right {
+    right: -5px - 16.5px;
+  }
+}
+.segment[width="2.5"] .drag-handle {
+  &.left {
+    left: -5px - 15px;
+  }
+  &.right {
+    right: -5px - 15px;
+  }
+}
+.segment[width="2.75"] .drag-handle {
+  &.left {
+    left: -5px - 13.5px;
+  }
+  &.right {
+    right: -5px - 13.5px;
+  }
+}
+.segment[width="3"] .drag-handle {
+  &.left {
+    left: -5px - 12px;
+  }
+  &.right {
+    right: -5px - 12px;
+  }
+}
+.segment[width="3.25"] .drag-handle {
+  &.left {
+    left: -5px - 10.5px;
+  }
+  &.right {
+    right: -5px - 10.5px;
+  }
+}
+.segment[width="3.5"] .drag-handle {
+  &.left {
+    left: -5px - 9px;
+  }
+  &.right {
+    right: -5px - 9px;
+  }
+}
+.segment[width="3.75"] .drag-handle {
+  &.left {
+    left: -5px - 7.5px;
+  }
+  &.right {
+    right: -5px - 7.5px;
+  }
+}
+.segment[width="4"] .drag-handle {
+  &.left {
+    left: -5px - 6px;
+  }
+  &.right {
+    right: -5px - 6px;
+  }
+}
+.segment[width="4.25"] .drag-handle {
+  &.left {
+    left: -5px - 4.5px;
+  }
+  &.right {
+    right: -5px - 4.5px;
+  }
+}
+.segment[width="4.5"] .drag-handle {
+  &.left {
+    left: -5px - 3px;
+  }
+  &.right {
+    right: -5px - 3px;
+  }
+}
+.segment[width="4.75"] .drag-handle {
+  &.left {
+    left: -5px - 1.5px;
+  }
+  &.right {
+    right: -5px - 1.5px;
+  }
+}
+
+.segment .drag-handle {
+  z-index: 10000;
+
+  pointer-events: none;
+
+  -webkit-transition: -webkit-transform 150ms, opacity 150ms;
+  -moz-transition: -moz-transform 150ms, opacity 150ms;
+  transition: transform 150ms, opacity 150ms;
+
+  &.left {
+    -webkit-transform: rotateY(90deg);
+    -moz-transform: rotateY(90deg);
+    transform: rotateY(90deg);
+  }
+  &.right {
+    -webkit-transform: rotateY(-90deg);
+    -moz-transform: rotateY(-90deg);
+    transform: rotateY(-90deg);
+  }
+
+  opacity: 0;
+
+  &:hover {
+    color: darken(@uiColour, 10%);
+  }
+}
+.segment.hide-drag-handles-when-inside-info-bubble .drag-handle,
+.segment.hide-drag-handles-when-description-shown .drag-handle {
+  display: none !important;
+}
+
+.segment.immediate-show-drag-handles .drag-handle {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  transition: none !important;
+}
+
+.drag-handle.floating {
+  background-color: darken(@uiColour, 30%);
+}
+
+body.segment-resize-dragging .drag-handle.floating,
+.segment.show-drag-handles .drag-handle {
+  pointer-events: auto;
+  opacity: 1;
+
+  -webkit-transform: none;
+  -moz-transform: none;
+  transform: none;
+}
+
+.segment .guide {
+  position: absolute;
+  z-index: 9999999;
+  left: 50%;
+  top: 0;
+  bottom: 45px;
+
+  border-left: 1px dashed fadeout(black, 60%);
+  border-right: 1px dashed fadeout(black, 60%);
+
+  box-sizing: border-box;
+
+  &::before,
+  &::after {
+    width: 50px;
+    position: absolute;
+    box-sizing: border-box;
+    pointer-events: none;
+    bottom: 400px;
+    font-size: 11px;
+    color: fadeout(black, 40%);
+  }
+
+  &.max::before {
+    left: -55px;
+    text-align: right;
+  }
+  &.max::after {
+    right: -55px;
+    text-align: left;
+  }
+  &.min::before {
+    left: 5px;
+    text-align: left;
+  }
+  &.min::after {
+    right: 5px;
+    text-align: right;
+  }
+
+  &.max::before {
+    content: 'Max »';
+  }
+  &.max::after {
+    content: '« Max';
+  }
+  &.min::after {
+    content: 'Min »';
+  }
+  &.min::before {
+    content: '« Min';
+  }
+}
+
+.segment .grid {
+  position: absolute;
+  left: 0;
+  right: -1px;
+  height: @segmentGridHeight;
+  top: @canvasBaseline;
+
+  pointer-events: none;
+
+  background-repeat: repeat-x;
+}
+body.units-imperial .segment .grid {
+  background-image: linear-gradient(0deg, @segmentWidthRule, @bottomBackground 8.333%);
+  background-image: -webkit-linear-gradient(0deg, @segmentWidthRule, @bottomBackground 8.333%);
+  background-image: -moz-linear-gradient(0deg, @segmentWidthRule, @bottomBackground 8.333%);
+  background-size: @tileSize 100%;
+}
+body.units-metric .segment .grid {
+  background-image: linear-gradient(0deg, @segmentWidthRule, @bottomBackground 5%);
+  background-image: -webkit-linear-gradient(0deg, @segmentWidthRule, @bottomBackground 5%);
+  background-image: -moz-linear-gradient(0deg, @segmentWidthRule, @bottomBackground 5%);
+  background-size: (@tileSize * 100 / 30 / 2) 100%;
+}
+
+.segment .name {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  top: @canvasBaseline + 45;
+  color: @segmentText;
+  font-weight: 300;
+  text-rendering: optimizeLegibility;
+
+  z-index: 100;
+
+  word-wrap: break-word;
+
+  font-size: 13px;
+
+  height: 48px;
+  overflow: hidden;
+
+  pointer-events: none;
+}
+.segment.hover .name {
+  font-weight: 700;
+}
+.segment.warning .name {
+  color: @segmentWarningText;
+}
+
+.segment .commands {
+  position: absolute;
+  left: 50%;
+  width: 30px;
+  margin-left: -15px;
+  top: @canvasBaseline + 38;
+  height: 65px;
+  z-index: 150001;
+  padding-top: 10px;
+}
+
+
+.segment .width {
+  position: absolute;
+  left: 0;
+  right: -1px;
+  z-index: 100000;
+  border-left: 1px solid @segmentWidthRule;
+  border-right: 1px solid @segmentWidthRule;
+  top: @canvasBaseline;
+  height: 90px;
+  line-height: 60px;
+  color: @segmentText;
+  overflow: hidden;
+
+  font-weight: 300;
+  text-rendering: optimizeLegibility;
+
+  font-size: 13px;
+
+  overflow: hidden;
+
+  pointer-events: none;
+}
+.segment.hover .width {
+  font-weight: 700;
+}
+.segment.warning .width {
+  color: @segmentWarningText;
+}
+
+.segment.palette .name,
+.segment.palette .width {
+  display: none;
+}
+
+body.segment-move-dragging,
+body.segment-move-dragging * {
+  cursor: move !important;
+  cursor: -webkit-grabbing !important;
+  cursor: -moz-grabbing !important;
+}
+body.not-within-canvas,
+body.not-within-canvas * {
+  cursor: no-drop !important;
+}
+
+body.segment-move-dragging #editable-street-section .segment {
+  -webkit-transition: left 100ms, -webkit-transform 300ms;
+  -moz-transition: left 100ms, -moz-transform 300ms;
+  transition: left 100ms, transform 300ms;
+}
+
+body.segment-move-dragging #editable-street-section > div {
+  pointer-events: none;
+}
+
+.switching-away-pre {
+  position: absolute;
+  z-index: 9999999999;
+  pointer-events: none;
+
+  -webkit-transform: none !important;
+  -moz-transform: none !important;
+  transform: none !important;
+
+  -webkit-perspective: 400px;
+  -moz-perspective: 200px;
+  perspective: 400px;
+
+  .name,
+  .width {
+    display: none;
+  }
+}
+
+.switching-away-post {
+  z-index: 99999999 !important;
+}
+
+.switching-away-post canvas {
+  -webkit-transition: -webkit-transform @segmentSwitchingTime ease-in, opacity @segmentSwitchingTime ease-in !important;
+  -moz-transition: -moz-transform @segmentSwitchingTime ease-in, opacity @segmentSwitchingTime ease-in !important;
+  transition: transform @segmentSwitchingTime ease-in, opacity @segmentSwitchingTime ease-in !important;
+
+  -webkit-transform: rotateX(-60deg);
+  -moz-transform: rotateX(-60deg);
+  transform: rotateX(-60deg);
+
+  -webkit-transform-origin: 50% 120%;
+  -moz-transform-origin: 50% 120%;
+  transform-origin: 50% 120%;
+
+  opacity: 0;
+}
+
+.switching-in-pre {
+  z-index: -1 !important;
+
+  -webkit-perspective: 400px;
+  -moz-perspective: 200px;
+  perspective: 400px;
+
+  & canvas {
+    -webkit-transform: rotateX(90deg);
+    -moz-transform: rotateX(90deg);
+    transform: rotateX(90deg);
+
+    -webkit-transform-origin: 50% 100%;
+    -moz-transform-origin: 50% 100%;
+    transform-origin: 50% 100%;
+
+    opacity: 0;
+  }
+}
+.switching-in-post {
+  z-index: -1 !important;
+}
+.switching-in-post canvas {
+  opacity: 1;
+
+  -webkit-transition: -webkit-transform @segmentSwitchingTime, opacity @segmentSwitchingTime !important;
+  -moz-transition: -moz-transform @segmentSwitchingTime, opacity @segmentSwitchingTime !important;
+  transition: transform @segmentSwitchingTime, opacity @segmentSwitchingTime !important;
+
+  -webkit-transform: none;
+  -moz-transform: none;
+  transform: none;
+}
