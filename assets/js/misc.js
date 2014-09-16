@@ -4013,7 +4013,7 @@ var _eventTracking = {
 
     // console.log('Event tracked', category, action, label);
 
-    _gaq && _gaq.push(['_trackEvent', category, action, label, value]);
+    ga && ga('send', 'event', category, action, label, value);
 
     if (onlyFirstTime) {
       _eventTracking.alreadyTracked[id] = true;
