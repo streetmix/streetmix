@@ -25,7 +25,7 @@ module.exports = {
     oauth_signature_method: 'HMAC-SHA1',
     timeout_ms: 500
   },
-  restapi_baseuri: 'http://127.0.0.1:8000/api', /* TODO: remove duplicate */
+  restapi_baseuri: 'http://127.0.0.1:' + port + '/api', /* TODO: remove duplicate */
   restapi_proxy_baseuri_rel: '/api',
   facebook_app_id: '204327799717656',
   cookie_session_secret: process.env.COOKIE_SESSION_SECRET || 'seger handrail',
