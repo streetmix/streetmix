@@ -14,7 +14,7 @@ services:
   - mongodb
 
 before_install:
-  - npm install -g grunt
+  - npm install -g grunt-cli
 
 script: grunt test:travis
 
