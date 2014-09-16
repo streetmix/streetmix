@@ -23,6 +23,9 @@
   <link href='/favicon.ico' rel='shortcut icon'>
 
   <%- css("styles") %>
+  <% if (config.no_internet_mode == 'true') { %>
+    <%- css("no-internet") %>
+  <% } %>
 
   <script>
     var SITE_URL = 'http://<%= config.app_host_port %>/';
@@ -31,6 +34,8 @@
     var GOOGLE_ANALYTICS_ACCOUNT = '<%= typeof config.google_analytics_account != "undefined" ? config.google_analytics_account : "" %>';
     var URL_SIGN_IN_CALLBACK_REL = '<%= config.twitter.oauth_callback_uri %>';
     var ENV = '<%= config.env %>';
+
+    var NO_INTERNET_MODE = <%= config.no_internet_mode %>;
   </script>
 
   <%- js("app") %>

@@ -1,0 +1,93 @@
+//
+//  No-internet mode
+//
+//  These classes only apply when the `no-internet` class
+//  is applied to the body tag.
+//
+//  -------------------------------------------------------
+
+body.no-internet {
+
+  a[href^='http'],
+  a[rel='external'],
+  a[href^='http']:hover,
+  a[rel='external']:hover {
+    text-decoration: none;
+    cursor: text;
+    color: inherit !important; // Ensure that hover styles do not override the color
+  }
+
+  .avatar {
+    display: none;
+  }
+
+  #about .left ul {
+    display: none;
+  }
+
+  // li element for #feedback-menu-button
+  // Removing this element via JavaScript causes script to break,
+  // since it assumes that this element is present on the page
+  #top-menu-bar ul.left li:nth-of-type(2)::after {
+    content: '' !important;
+  }
+  #top-menu-bar ul.left li:nth-of-type(3) {
+    display: none;
+  }
+
+  #identity {
+    // Never allow .visible class to override
+    display: none !important;
+  }
+
+  // li element for #sign-in-link
+  #top-menu-bar ul.right li:nth-of-type(2) {
+    display: none;
+  }
+
+  // Hide this because no gallery is available without sign-in
+  #gallery-link {
+    display: none;
+  }
+
+  // Share menu
+  #sign-in-promo,
+  #share-via-link-canvas,
+  #share-via-twitter,
+  #share-via-facebook {
+    display: none;
+  }
+
+  // Label
+  #top-menu-bar::before {
+    content: 'Demo';
+    background-color: rgb(28, 189, 209);
+  }
+}
+
+// Local font files
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Lato Light'), local('Lato-Light'), url(/fonts/Lato-Light.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato Regular'), local('Lato-Regular'), url(/fonts/Lato-Regular.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Lato Bold'), local('Lato-Bold'), url(/fonts/Lato-Bold.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 300;
+  src: local('Lato Light Italic'), local('Lato-LightItalic'), url(/fonts/Lato-LightItalic.ttf) format('truetype');
+}
