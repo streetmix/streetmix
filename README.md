@@ -122,6 +122,16 @@ These installation instructions assume that you have already installed the [Home
 
     open http://localhost:8000
 
+#### HOWTO: Run browser integration tests
+
+1) Install test dependencies (only required once)
+
+    grunt test:local:setup
+
+2) Run browser tests locally
+
+    grunt test:local
+
 ## <a name="contributing"></a>Contributing
 see [CONTRIBUTING.md](CONTRIBUTING.md).
 
