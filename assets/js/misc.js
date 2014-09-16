@@ -102,7 +102,6 @@ var TRACK_CATEGORY_ERROR = 'Error';
 var TRACK_ACTION_LEARN_MORE = 'Learn more about segment';
 var TRACK_ACTION_SAVE_AS_IMAGE = 'Save as image';
 var TRACK_ACTION_STREET_MODIFIED_ELSEWHERE = 'Street modified elsewhere';
-var TRACK_ACTION_OPEN_GALLERY = 'Open gallery';
 var TRACK_ACTION_CHANGE_WIDTH = 'Change width';
 var TRACK_ACTION_REMOVE_SEGMENT = 'Remove segment';
 var TRACK_ACTION_ERROR_15A = 'Error 15A (sign in API failure)';
@@ -186,8 +185,6 @@ var initializing = false;
 var widthHeightEditHeld = false;
 var widthHeightChangeTimerId = -1;
 
-var galleryVisible = false;
-
 var streetSectionCanvasLeft;
 
 var saveStreetTimerId = -1;
@@ -223,10 +220,6 @@ var streetSectionTop;
 var segmentWidthResolution;
 var segmentWidthClickIncrement;
 var segmentWidthDraggingResolution;
-
-var galleryUserId = null;
-var galleryStreetId = null;
-var galleryStreetLoaded = false;
 
 var menuVisible = false;
 
@@ -2565,16 +2558,6 @@ function _updateScrollButtons() {
   }
 }
 
-function _updateGalleryShield() {
-  document.querySelector('#gallery-shield').style.width = 0;
-  window.setTimeout(function() {
-    document.querySelector('#gallery-shield').style.height =
-        system.viewportHeight + 'px';
-    document.querySelector('#gallery-shield').style.width =
-        document.querySelector('#street-section-outer').scrollWidth + 'px';
-  }, 0);
-}
-
 function _onResize() {
   system.viewportWidth = window.innerWidth;
   system.viewportHeight = window.innerHeight;
@@ -3619,127 +3602,6 @@ function _hideAboutDialogBox() {
   _updatePageUrl();
 }
 
-function _fetchGalleryData() {
-  if (galleryUserId) {
-    $.ajax({
-      // TODO const
-      url: API_URL + 'v1/users/' + galleryUserId + '/streets',
-      dataType: 'json',
-      type: 'GET',
-      headers: { 'Authorization': _getAuthHeader() }
-    }).done(_receiveGalleryData).fail(_errorReceiveGalleryData);
-  } else {
-    $.ajax({
-      // TODO const
-      url: API_URL + 'v1/streets?count=200',
-      dataType: 'json',
-      type: 'GET'
-    }).done(_receiveGalleryData).fail(_errorReceiveGalleryData);
-  }
-}
-
-function _errorReceiveGalleryData(data) {
-  if ((mode == MODES.USER_GALLERY) && (data.status == 404)) {
-    mode = MODES.NOT_FOUND;
-    _processMode();
-    _hideGallery(true);
-  } else {
-    document.querySelector('#gallery .loading').classList.remove('visible');
-    document.querySelector('#gallery .error-loading').classList.add('visible');
-  }
-}
-
-function _repeatReceiveGalleryData() {
-  _loadGalleryContents();
-}
-
-function _fetchGalleryStreet(streetId) {
-  _showBlockingShield();
-
-  $.ajax({
-    // TODO const
-    url: API_URL + 'v1/streets/' + streetId,
-    dataType: 'json',
-    type: 'GET',
-    headers: { 'Authorization': _getAuthHeader() }
-  }).done(_receiveGalleryStreet)
-  .fail(_errorReceiveGalleryStreet);
-}
-
-function _errorReceiveGalleryStreet() {
-  _hideBlockingShield();
-  galleryStreetLoaded = true;
-  galleryStreetId = street.id;
-
-  _updateGallerySelection();
-}
-
-// TODO similar to receiveLastStreet
-function _receiveGalleryStreet(transmission) {
-  if (transmission.id != galleryStreetId) {
-    return;
-  }
-
-  galleryStreetLoaded = true;
-
-  _hideBlockingShield();
-
-  ignoreStreetChanges = true;
-
-  _hideError();
-
-  _unpackServerStreetData(transmission, null, null, true);
-
-  _propagateUnits();
-
-  _recalculateOccupiedWidth();
-
-  // TODO this is stupid, only here to fill some structures
-  _createDomFromData();
-  _createDataFromDom();
-
-  _hideWelcome();
-  _resizeStreetWidth();
-  _updateStreetName();
-  _createDomFromData();
-  _segmentsChanged();
-  _updateShareMenu();
-
-  ignoreStreetChanges = false;
-  lastStreet = _trimStreetData(street);
-}
-
-function _updateGallerySelection() {
-  var els = document.querySelectorAll('#gallery .streets .selected');
-  for (var i = 0, el; el = els[i]; i++) {
-    el.classList.remove('selected');
-  }
-
-  var el = document.querySelector('#gallery .streets [streetId="' +
-      galleryStreetId + '"]');
-  if (el) {
-    el.classList.add('selected');
-  }
-}
-
-function _switchGalleryStreet(id) {
-  galleryStreetId = id;
-
-  _updateGallerySelection();
-  _fetchGalleryStreet(galleryStreetId);
-}
-
-function _onGalleryStreetClick(event) {
-  if (event.shiftKey || event.ctrlKey || event.metaKey) {
-    return;
-  }
-
-  var el = this;
-  _switchGalleryStreet(el.getAttribute('streetId'));
-
-  event.preventDefault();
-}
-
 function _formatDate(date) {
   // TODO hack
   var today = moment(new Date().getTime());
@@ -3793,27 +3655,6 @@ function _hideBlockingShield() {
   document.querySelector('#blocking-shield').classList.remove('show-cancel');
 }
 
-function _onDeleteGalleryStreet(event) {
-  var el = event.target.parentNode;
-  var name = el.streetName;
-
-  _ignoreWindowFocusMomentarily();
-  // TODO escape name
-  if (confirm(msg('PROMPT_DELETE_STREET', { name: name }))) {
-    if (el.getAttribute('streetId') == street.id) {
-      _showError(ERRORS.NO_STREET, false);
-    }
-
-    _sendDeleteStreetToServer(el.getAttribute('streetId'));
-
-    _removeElFromDom(el.parentNode);
-    _updateGalleryStreetCount();
-  }
-
-  event.preventDefault();
-  event.stopPropagation();
-}
-
 function _sendDeleteStreetToServer(id) {
   // Prevents new street submenu from showing the last street
   if (settings.lastStreetId == id) {
@@ -3832,241 +3673,6 @@ function _sendDeleteStreetToServer(id) {
     type: 'DELETE',
     headers: { 'Authorization': _getAuthHeader() }
   }, false);
-}
-
-function _updateGalleryStreetCount() {
-  if (galleryUserId) {
-    var streetCount = document.querySelectorAll('#gallery .streets li').length;
-
-    switch (streetCount) {
-      case 0:
-        var text = msg('STREET_COUNT_0');
-        break;
-      case 1:
-        var text = msg('STREET_COUNT_1');
-        break;
-      default:
-        var text = msg('STREET_COUNT_MANY', { streetCount: streetCount });
-        break;
-    }
-  } else {
-    var text = '';
-  }
-  document.querySelector('#gallery .street-count').innerHTML = text;
-}
-
-function _receiveGalleryData(transmission) {
-  document.querySelector('#gallery .loading').classList.remove('visible');
-
-  for (var i in transmission.streets) {
-    var galleryStreet = transmission.streets[i];
-    _updateToLatestSchemaVersion(galleryStreet.data.street);
-
-    var el = document.createElement('li');
-
-    var anchorEl = document.createElement('a');
-
-    /*if (!galleryUserId && (galleryStreet.data.undoStack.length <= 4)) {
-      anchorEl.classList.add('virgin');
-    }*/
-
-    galleryStreet.creatorId =
-        (galleryStreet.creator && galleryStreet.creator.id);
-
-    galleryStreet.name = galleryStreet.name || DEFAULT_NAME;
-
-    anchorEl.href = _getStreetUrl(galleryStreet);
-
-    anchorEl.streetName = galleryStreet.name;
-    anchorEl.setAttribute('streetId', galleryStreet.id);
-
-    if (galleryStreetId == galleryStreet.id) {
-      anchorEl.classList.add('selected');
-    }
-
-    $(anchorEl).click(_onGalleryStreetClick);
-
-    var thumbnailEl = document.createElement('canvas');
-    thumbnailEl.width = THUMBNAIL_WIDTH * system.hiDpi * 2;
-    thumbnailEl.height = THUMBNAIL_HEIGHT * system.hiDpi * 2;
-    var ctx = thumbnailEl.getContext('2d');
-    _drawStreetThumbnail(ctx, galleryStreet.data.street,
-        THUMBNAIL_WIDTH * 2, THUMBNAIL_HEIGHT * 2, THUMBNAIL_MULTIPLIER, true, false, true, false, false);
-    anchorEl.appendChild(thumbnailEl);
-
-    var nameEl = document.createElement('div');
-    nameEl.classList.add('street-name');
-    nameEl.innerHTML = '<div></div>';
-    anchorEl.appendChild(nameEl);
-
-    $(nameEl.querySelector('div')).text(galleryStreet.name);
-    _updateStreetNameFont(nameEl);
-
-    var date = moment(galleryStreet.updatedAt);
-    var dateEl = document.createElement('span');
-    dateEl.classList.add('date');
-    dateEl.innerHTML = _formatDate(date);
-    anchorEl.appendChild(dateEl);
-
-    if (!galleryUserId) {
-      var creatorEl = document.createElement('span');
-      creatorEl.classList.add('creator');
-
-      var creatorName = galleryStreet.creatorId || msg('USER_ANONYMOUS');
-
-      creatorEl.innerHTML = creatorName;
-      anchorEl.appendChild(creatorEl);
-    }
-
-    // Only show delete links if you own the street
-    if (signedIn && (galleryStreet.creatorId == signInData.userId)) {
-      var removeEl = document.createElement('button');
-      removeEl.classList.add('remove');
-      removeEl.addEventListener('click', _onDeleteGalleryStreet);
-      removeEl.innerHTML = msg('UI_GLYPH_X');
-      removeEl.title = msg('TOOLTIP_DELETE_STREET');
-      anchorEl.appendChild(removeEl);
-    }
-
-    el.appendChild(anchorEl);
-    document.querySelector('#gallery .streets').appendChild(el);
-  }
-
-  var streetCount = document.querySelectorAll('#gallery .streets li').length;
-
-  if (((mode == MODES.USER_GALLERY) && streetCount) || (mode == MODES.GLOBAL_GALLERY)) {
-    _switchGalleryStreet(transmission.streets[0].id);
-  }
-
-  var el = document.querySelector('#gallery .selected');
-  if (el) {
-    el.scrollIntoView();
-    document.querySelector('#gallery').scrollTop = 0;
-  }
-
-  _updateScrollButtons();
-
-  _updateGalleryStreetCount();
-}
-
-function _loadGalleryContents() {
-  var els = document.querySelectorAll('#gallery .streets li');
-  for (var i = 0, el; el = els[i]; i++) {
-    _removeElFromDom(el);
-  }
-
-  //document.querySelector('#gallery .streets').innerHTML = '';
-  document.querySelector('#gallery .loading').classList.add('visible');
-  document.querySelector('#gallery .error-loading').classList.remove('visible');
-
-  _fetchGalleryData();
-}
-
-function _showGallery(userId, instant, signInPromo) {
-  if (readOnly) {
-    return;
-  }
-
-  _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_OPEN_GALLERY,
-      userId, null, false);
-
-  galleryVisible = true;
-  galleryStreetLoaded = true;
-  galleryStreetId = street.id;
-  galleryUserId = userId;
-
-  if (signInPromo) {
-
-  } else {
-    if (userId) {
-      document.querySelector('#gallery .avatar').setAttribute('userId', galleryUserId);
-      document.querySelector('#gallery .avatar').removeAttribute('loaded');
-      _fetchAvatars();
-      document.querySelector('#gallery .user-id').innerHTML = galleryUserId;
-
-      var linkEl = document.createElement('a');
-      // TODO const
-      linkEl.href = 'https://twitter.com/' + galleryUserId;
-      linkEl.innerHTML = 'Twitter profile »';
-      linkEl.classList.add('twitter-profile');
-      linkEl.target = '_blank';
-      document.querySelector('#gallery .user-id').appendChild(linkEl);
-
-    } else {
-      document.querySelector('#gallery .user-id').innerHTML = 'All streets';
-    }
-
-
-    document.querySelector('#gallery .street-count').innerHTML = '';
-
-    // TODO no class, but type?
-    if (!userId) {
-      document.querySelector('#gallery').classList.add('all-streets');
-      document.querySelector('#gallery').classList.remove('another-user');
-    } else if (signedIn && (userId == signInData.userId)) {
-      document.querySelector('#gallery').classList.remove('another-user');
-      document.querySelector('#gallery').classList.remove('all-streets');
-    } else {
-      document.querySelector('#gallery').classList.add('another-user');
-      document.querySelector('#gallery').classList.remove('all-streets');
-    }
-  }
-
-  _hideControls();
-  _statusMessage.hide();
-  document.querySelector('#gallery .sign-in-promo').classList.remove('visible');
-
-  if (instant) {
-    document.body.classList.add('gallery-no-move-transition');
-  }
-  document.body.classList.add('gallery-visible');
-
-  if (instant) {
-    window.setTimeout(function() {
-      document.body.classList.remove('gallery-no-move-transition');
-    }, 0);
-  }
-
-  if ((mode == MODES.USER_GALLERY) || (mode == MODES.GLOBAL_GALLERY)) {
-    // Prevents showing old street before the proper street loads
-    _showError(ERRORS.NO_STREET, false);
-  }
-
-  if (!signInPromo) {
-    _loadGalleryContents();
-    _updatePageUrl(true);
-  } else {
-    document.querySelector('#gallery .sign-in-promo').classList.add('visible');
-  }
-}
-
-function _onGalleryShieldClick(event) {
-  _hideGallery(false);
-}
-
-function _hideGallery(instant) {
-  if ((currentErrorType != ERRORS.NO_STREET) && galleryStreetLoaded) {
-    galleryVisible = false;
-
-    if (instant) {
-      document.body.classList.add('gallery-no-move-transition');
-    }
-    document.body.classList.remove('gallery-visible');
-
-    if (instant) {
-      window.setTimeout(function() {
-        document.body.classList.remove('gallery-no-move-transition');
-      }, 0);
-    }
-
-    _onWindowFocus();
-
-    if (!abortEverything) {
-      _updatePageUrl();
-    }
-
-    mode = MODES.CONTINUE;
-  }
 }
 
 function _onMyStreetsClick(event) {
