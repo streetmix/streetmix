@@ -14,7 +14,7 @@
     "dateformat": "1.0.x",
     "ejs": "~1.0.0",
     "express": "3.0.x",
-    "less-middleware": "1.0.x",
+    "less": "^1.7.5",
     "mongoose": "3.6.8",
     "newrelic": "^1.11.0",
     "node-env-file": "^0.1.3",
