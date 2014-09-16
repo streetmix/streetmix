@@ -208,8 +208,6 @@ var promoteStreet = false;
 var mouseX;
 var mouseY;
 
-var printingNeedsUpdating = true;
-
 var system = {
   touch: false,
   phone: false,
@@ -4267,52 +4265,6 @@ function _onStreetRightScrollClick(event) {
 function _hideDialogBoxes() {
   _hideAboutDialogBox();
   _hideSaveAsImageDialogBox();
-}
-
-function _updatePrintImage() {
-  if (printingNeedsUpdating) {
-    // Chrome fires _onBeforePrint twice.
-    document.querySelector('#print > div').innerHTML = '';
-
-    var el = _getStreetImage(true, true);
-    var dataUrl = el.toDataURL('image/png');
-
-    var imgEl = document.createElement('img');
-    imgEl.src = dataUrl;
-    document.querySelector('#print > div').appendChild(imgEl);
-
-    printingNeedsUpdating = false;
-  }
-}
-
-function _onBeforePrint(mediaMatch) {
-  // So that max-height: 100% works
-  if (mediaMatch) {
-    document.querySelector('#print > div').style.width = window.innerWidth + 'px';
-    document.querySelector('#print > div').style.height = window.innerHeight + 'px';
-  }
-
-  _updatePrintImage();
-
-  if (!mediaMatch) {
-    document.querySelector('#print > div > img').style.width = '100%';
-  }
-}
-
-function _onAfterPrint() {
-
-}
-
-function _print(event) {
-  _hideMenus();
-  _infoBubble.hide();
-  _infoBubble.hideSegment(true);
-
-  window.setTimeout(function() {
-    _onBeforePrint();
-    window.print();
-  }, 50);
-  event.preventDefault();
 }
 
 function _addEventListeners() {
