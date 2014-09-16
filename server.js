@@ -45,7 +45,6 @@ app.all('*', function(req, res, next) {
   }
 })
 
-assets().environment.enable("autoprefixer");
 app.use(assets());
 app.use(express.static(__dirname + '/public'))
 
