@@ -57,7 +57,10 @@ environment=$(env | grep NODE_ENV | awk -F= '{print $2}')
 
 mongo_username=$(echo "$mongo_url" | awk -F':' '{print $2}' | awk -F'/' '{print $3}')
 mongo_password=$(echo "$mongo_url" | awk -F':' '{print $3}' | awk -F'@' '{print $1}')
-mongo_host_port_db=$(echo "$mongo_url" | awk -F'@' '{print $2}')
+mongo_dbname=$(echo "$mongo_url" | awk -F'/' '{print $4}')
+mongo_hosts_ports=$(echo "$mongo_url" | awk -F'@' '{print $2}' | awk -F'/' '{print $1}')
+mongo_host_port=$(echo "$mongo_hosts_ports" | awk -F',' '{print $1}')
+mongo_host_port_db=$mongo_host_port/$mongo_dbname
 
 log_debug "mongo_username = $mongo_username"
 log_debug "mongo_password = $mongo_password"
