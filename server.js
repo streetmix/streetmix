@@ -4,6 +4,7 @@ var fs = require('fs'),
     cookieSession = require('cookie-session'),
     express = require('express'),
     request = require('request'),
+    assets = require("connect-assets"),
     bodyParser = require('body-parser'),
     url = require('url'),
     config = require('config'),
@@ -44,7 +45,8 @@ app.all('*', function(req, res, next) {
   }
 })
 
-app.use(require("connect-assets")());
+assets().environment.enable("autoprefixer");
+app.use(assets());
 app.use(express.static(__dirname + '/public'))
 
 app.get('/twitter-sign-in', controllers.twitter_sign_in.get)
