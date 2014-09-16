@@ -70,8 +70,6 @@ var BLOCKING_SHIELD_TOO_SLOW_DELAY = 10000;
 
 var MAX_DRAG_DEGREE = 20;
 
-var UNDO_LIMIT = 1000;
-
 var STREET_WIDTH_CUSTOM = -1;
 var STREET_WIDTH_SWITCH_TO_METRIC = -2;
 var STREET_WIDTH_SWITCH_TO_IMPERIAL = -3;
@@ -113,7 +111,6 @@ var TRACK_ACTION_SAVE_AS_IMAGE = 'Save as image';
 var TRACK_ACTION_STREET_MODIFIED_ELSEWHERE = 'Street modified elsewhere';
 var TRACK_ACTION_OPEN_GALLERY = 'Open gallery';
 var TRACK_ACTION_CHANGE_WIDTH = 'Change width';
-var TRACK_ACTION_UNDO = 'Undo';
 var TRACK_ACTION_REMOVE_SEGMENT = 'Remove segment';
 var TRACK_ACTION_ERROR_15A = 'Error 15A (sign in API failure)';
 var TRACK_ACTION_ERROR_RM1 = 'Error RM1 (auth 401 failure on load)';
