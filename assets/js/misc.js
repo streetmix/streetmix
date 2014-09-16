@@ -15,12 +15,6 @@ var VARIANT_ICON_START_X = 164; // x24 in tileset file
 var VARIANT_ICON_START_Y = 64; // x24 in tileset file
 var VARIANT_ICON_SIZE = 24;
 
-// Output using cmap2file as per
-// http://www.typophile.com/node/64147#comment-380776
-var STREET_NAME_FONT_GLYPHS = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿĀāĂăĆćĈĉĊċČčĎďĒĔĕĖėĜĝĞğĠġĤĥĨĩĪīĬĭİıĴĵĹĺĽľŁłŃŇňŌōŎŏŐőŒœŔŕŘřŚśŜŝŞşŠšŤťŨũŪūŬŭŮůŰűŴŵŶŷŸŹźŻżŽžƒˆˇ˘˙˚˛˜˝–—‘’‚“”„†‡•…‰‹›⁄€™−';
-var STREET_NAME_REMIX_SUFFIX = '(remix)';
-var MAX_STREET_NAME_WIDTH = 50;
-
 var WIDTH_PALETTE_MULTIPLIER = 4;
 
 var CANVAS_HEIGHT = 480;
@@ -74,7 +68,6 @@ var STREET_WIDTH_CUSTOM = -1;
 var STREET_WIDTH_SWITCH_TO_METRIC = -2;
 var STREET_WIDTH_SWITCH_TO_IMPERIAL = -3;
 
-var DEFAULT_NAME = msg('DEFAULT_STREET_NAME');
 var DEFAULT_STREET_WIDTH = 80;
 var DEFAULT_STREET_WIDTHS = [40, 60, 80];
 
@@ -1296,13 +1289,6 @@ function _setStreetCreatorId(newId) {
 
   _unifyUndoStack();
   _updateLastStreetInfo();
-}
-
-function _addRemixSuffixToName() {
-  if (street.name.substr(street.name.length - STREET_NAME_REMIX_SUFFIX.length,
-      STREET_NAME_REMIX_SUFFIX.length) != STREET_NAME_REMIX_SUFFIX) {
-    street.name += ' ' + STREET_NAME_REMIX_SUFFIX;
-  }
 }
 
 function _receiveRemixedStreet(data) {
@@ -2571,20 +2557,6 @@ function _resizeStreetWidth(dontScroll) {
   _onResize();
 }
 
-function _resizeStreetName() {
-  var streetNameCanvasWidth =
-      document.querySelector('#street-name-canvas').offsetWidth;
-  var streetNameWidth =
-      document.querySelector('#street-name > div').scrollWidth;
-
-  if (streetNameWidth > streetNameCanvasWidth) {
-    document.querySelector('#street-name').style.width =
-        streetNameCanvasWidth + 'px';
-  } else {
-    document.querySelector('#street-name').style.width = 'auto';
-  }
-}
-
 function _updateScrollButtons() {
   var els = document.querySelectorAll('[scroll-buttons]');
   for (var i = 0, el; el = els[i]; i++) {
@@ -2677,25 +2649,6 @@ function _onResize() {
 
   _updateStreetNameCanvasPos();
   _updateStreetScrollIndicators();
-}
-
-function _updateStreetNameCanvasPos() {
-  var menuEl = document.querySelector('#top-menu-bar ul.right');
-  var menuElPos = _getElAbsolutePos(menuEl);
-
-  var streetNameEl = document.querySelector('#street-name');
-  var streetNameElPos = _getElAbsolutePos(streetNameEl);
-
-  document.querySelector('#street-name-canvas').classList.add('no-movement');
-  if (streetNameElPos[0] + streetNameEl.offsetWidth > menuElPos[0]) {
-    document.querySelector('#street-name-canvas').classList.add('move-down-for-menu');
-  } else {
-    document.querySelector('#street-name-canvas').classList.remove('move-down-for-menu');
-  }
-
-  window.setTimeout(function() {
-    document.querySelector('#street-name-canvas').classList.remove('no-movement');
-  }, 50);
 }
 
 function _fillDefaultSegments() {
@@ -3251,30 +3204,6 @@ function _onAnotherUserIdClick(event) {
   event.preventDefault();
 }
 
-function _streetNameNeedsUnicodeFont(name) {
-  var needUnicodeFont = false;
-  for (var i in name) {
-    if (STREET_NAME_FONT_GLYPHS.indexOf(name.charAt(i)) == -1) {
-      needUnicodeFont = true;
-      break;
-    }
-  }
-
-  return needUnicodeFont;
-}
-
-function _updateStreetNameFont(el) {
-  var name = el.querySelector('div').innerHTML;
-
-  var needUnicodeFont = _streetNameNeedsUnicodeFont(name);
-
-  if (!needUnicodeFont) {
-    el.classList.remove('fallback-unicode-font');
-  } else {
-    el.classList.add('fallback-unicode-font');
-  }
-}
-
 function _updateStreetMetadata() {
   var html = _prettifyWidth(street.width, PRETTIFY_WIDTH_OUTPUT_MARKUP) + ' width';
   document.querySelector('#street-width-read-width').innerHTML = html;
@@ -3312,45 +3241,6 @@ function _updateStreetMetadata() {
 
   var html = _formatDate(moment(street.updatedAt));
   document.querySelector('#street-metadata-date').innerHTML = html;
-}
-
-function _updateStreetName() {
-  $('#street-name > div').text(street.name);
-
-  _updateStreetNameFont(document.querySelector('#street-name'));
-
-  _resizeStreetName();
-
-  _updateStreetMetadata();
-  _updateStreetNameCanvasPos();
-
-  _unifyUndoStack();
-  _updatePageUrl();
-  _updatePageTitle();
-}
-
-function _normalizeStreetName(name) {
-  name = $.trim(name);
-
-  if (name.length > MAX_STREET_NAME_WIDTH) {
-    name = name.substr(0, MAX_STREET_NAME_WIDTH) + '…';
-  }
-
-  return name;
-}
-
-function _askForStreetName() {
-  _ignoreWindowFocusMomentarily();
-
-  var newName = prompt(msg('PROMPT_NEW_STREET_NAME'), street.name);
-
-  if (newName) {
-    street.name = _normalizeStreetName(newName);
-
-    _updateStreetName();
-    _saveStreetToServerIfNecessary();
-    _updateStreetNameCanvasPos();
-  }
 }
 
 // Because Firefox is stupid and their prompt() dialog boxes are not quite
