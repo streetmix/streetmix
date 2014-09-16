@@ -13,6 +13,9 @@ addons:
 services:
   - mongodb
 
+before_install:
+  - npm install -g grunt
+
 script: grunt test:travis
 
 notifications:
