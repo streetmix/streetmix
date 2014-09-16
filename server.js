@@ -6,7 +6,6 @@ var fs = require('fs'),
     request = require('request'),
     bodyParser = require('body-parser'),
     url = require('url'),
-    lessMiddleware = require('less-middleware'),
     config = require('config'),
     controllers = require('./app/controllers'),
     resources = require('./app/resources'),
@@ -30,15 +29,6 @@ app.use(requestHandlers.request_log)
 app.use(requestHandlers.request_id_echo)
 
 app.use(app.router);
-
-app.use(lessMiddleware(__dirname + '/assets', {
-  dest: __dirname + '/public',
-  once: (process.env.NODE_ENV == 'production'),
-  debug: (process.env.NODE_ENV == 'development'),
-  compiler: {
-    compress: (process.env.NODE_ENV == 'production')
-  }
-}))
 
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/app/views')
