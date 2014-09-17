@@ -1,3 +1,6 @@
+var saveStreetTimerId = -1;
+var saveStreetIncomplete = false;
+
 function _createNewStreetOnServer() {
   if (settings.newStreetPreference == NEW_STREET_EMPTY) {
     _prepareEmptyStreet();
@@ -284,4 +287,17 @@ function _updateLastStreetInfo() {
   settings.lastStreetCreatorId = street.creatorId;
 
   _saveSettingsLocally();
+}
+
+function _scheduleSavingStreetToServer() {
+  saveStreetIncomplete = true;
+
+  _clearScheduledSavingStreetToServer();
+
+  if (remixOnFirstEdit) {
+    _remixStreet();
+  } else {
+    saveStreetTimerId =
+        window.setTimeout(function() { _saveStreetToServer(false); }, SAVE_STREET_DELAY);
+  }
 }

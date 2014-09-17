@@ -186,9 +186,6 @@ var widthHeightChangeTimerId = -1;
 
 var streetSectionCanvasLeft;
 
-var saveStreetTimerId = -1;
-var saveStreetIncomplete = false;
-
 var mouseX;
 var mouseY;
 
