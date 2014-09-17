@@ -1,3 +1,5 @@
+var SAVE_STREET_DELAY = 500;
+
 var LIVE_UPDATE_DELAY = 5000;
 
 var saveStreetTimerId = -1;
@@ -396,4 +398,24 @@ function _checkForLiveUpdate() {
 
 function _scheduleNextLiveUpdateCheck() {
   window.setTimeout(_checkForLiveUpdate, LIVE_UPDATE_DELAY);
+}
+
+function _sendDeleteStreetToServer(id) {
+  // Prevents new street submenu from showing the last street
+  if (settings.lastStreetId == id) {
+    settings.lastStreetId = null;
+    settings.lastStreetCreatorId = null;
+    settings.lastStreetNamespacedId = null;
+
+    _saveSettingsLocally();
+    _saveSettingsToServer();
+  }
+
+  _newNonblockingAjaxRequest({
+    // TODO const
+    url: API_URL + 'v1/streets/' + id,
+    dataType: 'json',
+    type: 'DELETE',
+    headers: { 'Authorization': _getAuthHeader() }
+  }, false);
 }

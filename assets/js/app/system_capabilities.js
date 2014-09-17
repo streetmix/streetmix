@@ -1,3 +1,5 @@
+var CSS_TRANSFORMS = ['webkitTransform', 'MozTransform', 'transform'];
+
 var system = {
   touch: false,
   phone: false,

@@ -1,3 +1,5 @@
+var DRAGGING_MOVE_HOLE_WIDTH = 40;
+
 var SEGMENT_SWITCHING_TIME = 250;
 
 function _drawSegmentImage(tileset, ctx, sx, sy, sw, sh, dx, dy, dw, dh) {
@@ -591,3 +593,59 @@ var _statusMessage = {
     document.querySelector('#status-message').classList.remove('visible');
   }
 };
+
+function _hideEmptySegment(position) {
+  document.querySelector('#street-section-' + position + '-empty-space').
+      classList.remove('visible');
+}
+
+function _showEmptySegment(position, width) {
+  document.querySelector('#street-section-' + position + '-empty-space .width').innerHTML =
+      _prettifyWidth(width / TILE_SIZE, PRETTIFY_WIDTH_OUTPUT_MARKUP);
+  document.querySelector('#street-section-' + position + '-empty-space').
+      classList.add('visible');
+
+  if (position == 'right') {
+    width--; // So that the rules align
+  }
+  document.querySelector('#street-section-' + position + '-empty-space').
+      style.width = width + 'px';
+}
+
+function _repositionEmptySegments() {
+  if (street.remainingWidth <= 0) {
+    _hideEmptySegment('left');
+    _hideEmptySegment('right');
+  } else {
+    if (!street.occupiedWidth) {
+      var width = street.remainingWidth * TILE_SIZE;
+      _showEmptySegment('left', width);
+      _hideEmptySegment('right');
+    } else {
+      var width = street.remainingWidth / 2 * TILE_SIZE;
+      _showEmptySegment('left', width);
+      _showEmptySegment('right', width);
+    }
+  }
+}
+
+function _segmentsChanged() {
+  if (!initializing) {
+    _createDataFromDom();
+  }
+
+  _recalculateWidth();
+  _recalculateOwnerWidths();
+
+  for (var i in street.segments) {
+    if (street.segments[i].el) {
+      street.segments[i].el.dataNo = i;
+    }
+  }
+
+  _saveStreetToServerIfNecessary();
+  _updateUndoButtons();
+  _repositionSegments();
+
+  printingNeedsUpdating = true;
+}

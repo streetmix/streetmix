@@ -1,3 +1,7 @@
+var VARIANT_ICON_START_X = 164; // x24 in tileset file
+var VARIANT_ICON_START_Y = 64; // x24 in tileset file
+var VARIANT_ICON_SIZE = 24;
+
 var INFO_BUBBLE_MARGIN_BUBBLE = 20;
 var INFO_BUBBLE_MARGIN_MOUSE = 10;
 
@@ -993,3 +997,58 @@ var _infoBubble = {
     document.body.addEventListener('mousemove', _infoBubble.onBodyMouseMove);
   }
 };
+
+var controlsFadeoutDelayTimer = -1;
+var controlsFadeoutHideTimer = -1;
+
+function _scheduleControlsFadeout(el) {
+  _infoBubble.considerShowing(null, el, INFO_BUBBLE_TYPE_SEGMENT);
+
+  _resumeFadeoutControls();
+}
+
+function _resumeFadeoutControls() {
+  if (!system.touch) {
+    return;
+  }
+
+  _cancelFadeoutControls();
+
+  controlsFadeoutDelayTimer = window.setTimeout(_fadeoutControls, TOUCH_CONTROLS_FADEOUT_DELAY);
+}
+
+function _cancelFadeoutControls() {
+  document.body.classList.remove('controls-fade-out');
+  window.clearTimeout(controlsFadeoutDelayTimer);
+  window.clearTimeout(controlsFadeoutHideTimer);
+}
+
+function _fadeoutControls() {
+  document.body.classList.add('controls-fade-out');
+
+  controlsFadeoutHideTimer = window.setTimeout(_hideControls, TOUCH_CONTROLS_FADEOUT_TIME);
+}
+
+function _hideControls() {
+  document.body.classList.remove('controls-fade-out');
+  if (_infoBubble.segmentEl) {
+    _infoBubble.segmentEl.classList.remove('show-drag-handles');
+
+    window.setTimeout(function() {
+      _infoBubble.hide();
+      _infoBubble.hideSegment(true);
+    }, 0);
+  }
+}
+
+function _onSegmentMouseEnter(event) {
+  if (suppressMouseEnter) {
+    return;
+  }
+
+  _infoBubble.considerShowing(event, this, INFO_BUBBLE_TYPE_SEGMENT);
+}
+
+function _onSegmentMouseLeave() {
+  _infoBubble.dontConsiderShowing();
+}

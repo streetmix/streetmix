@@ -1,3 +1,12 @@
+var DATE_FORMAT = 'MMM D, YYYY';
+
+var MAX_RAND_SEED = 999999999;
+
+function _generateRandSeed() {
+  var randSeed = 1 + Math.floor(Math.random() * MAX_RAND_SEED); // So it’s not zero
+  return randSeed;
+}
+
 function RandomGenerator() {
   this.randSeed = 0;
 }
@@ -84,7 +93,25 @@ function _isPointInPoly(vs, point) {
   return inside;
 }
 
-function _generateRandSeed() {
-  var randSeed = 1 + Math.floor(Math.random() * MAX_RAND_SEED); // So it’s not zero
-  return randSeed;
+function _normalizeSlug(slug) {
+  slug = slug.toLowerCase();
+  slug = slug.replace(/ /g, '-');
+  slug = slug.replace(/-{2,}/, '-');
+  slug = slug.replace(/[^a-zA-Z0-9\-]/g, '');
+  slug = slug.replace(/^[-]+|[-]+$/g, '');
+
+  return slug;
+}
+
+function _formatDate(date) {
+  // TODO hack
+  var today = moment(new Date().getTime());
+  var todayFormat = today.format(DATE_FORMAT);
+  var dateFormat = date.format(DATE_FORMAT);
+
+  if (dateFormat != todayFormat) {
+    return dateFormat;
+  } else {
+    return '';
+  }
 }

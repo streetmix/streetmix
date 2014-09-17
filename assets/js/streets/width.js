@@ -185,3 +185,73 @@ function _normalizeStreetWidth(width) {
 
   return width;
 }
+
+function _recalculateOccupiedWidth() {
+  street.occupiedWidth = 0;
+
+  for (var i in street.segments) {
+    var segment = street.segments[i];
+
+    street.occupiedWidth += segment.width;
+  }
+
+  street.remainingWidth = street.width - street.occupiedWidth;
+  // Rounding problems :·(
+  if (Math.abs(street.remainingWidth) < WIDTH_ROUNDING) {
+    street.remainingWidth = 0;
+  }
+
+  _buildStreetWidthMenu();
+  _updateStreetMetadata();
+}
+
+function _recalculateWidth() {
+  _recalculateOccupiedWidth();
+
+  var position = street.width / 2 - street.occupiedWidth / 2;
+
+  for (var i in street.segments) {
+    var segment = street.segments[i];
+    var segmentInfo = SEGMENT_INFO[segment.type];
+    var variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString];
+
+    if (segment.el) {
+      if ((street.remainingWidth < 0) &&
+          ((position < 0) || ((position + segment.width) > street.width))) {
+        segment.warnings[SEGMENT_WARNING_OUTSIDE] = true;
+      } else {
+        segment.warnings[SEGMENT_WARNING_OUTSIDE] = false;
+      }
+
+      if (variantInfo.minWidth && (segment.width < variantInfo.minWidth)) {
+        segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = true;
+      } else {
+        segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = false;
+      }
+
+      if (variantInfo.maxWidth && (segment.width > variantInfo.maxWidth)) {
+        segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = true;
+      } else {
+        segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = false;
+      }
+    }
+
+    position += street.segments[i].width;
+  }
+
+  var lastOverflow = document.body.classList.contains('street-overflows');
+
+  if (street.remainingWidth >= 0) {
+    document.body.classList.remove('street-overflows');
+  } else {
+    document.body.classList.add('street-overflows');
+  }
+
+  if (lastOverflow != document.body.classList.contains('street-overflows')) {
+    _createBuildings();
+  }
+
+  _repositionEmptySegments();
+
+  _applyWarningsToSegments();
+}

@@ -546,49 +546,6 @@ function _onBodyMouseMove(event) {
   event.preventDefault();
 }
 
-var controlsFadeoutDelayTimer = -1;
-var controlsFadeoutHideTimer = -1;
-
-function _scheduleControlsFadeout(el) {
-  _infoBubble.considerShowing(null, el, INFO_BUBBLE_TYPE_SEGMENT);
-
-  _resumeFadeoutControls();
-}
-
-function _resumeFadeoutControls() {
-  if (!system.touch) {
-    return;
-  }
-
-  _cancelFadeoutControls();
-
-  controlsFadeoutDelayTimer = window.setTimeout(_fadeoutControls, TOUCH_CONTROLS_FADEOUT_DELAY);
-}
-
-function _cancelFadeoutControls() {
-  document.body.classList.remove('controls-fade-out');
-  window.clearTimeout(controlsFadeoutDelayTimer);
-  window.clearTimeout(controlsFadeoutHideTimer);
-}
-
-function _fadeoutControls() {
-  document.body.classList.add('controls-fade-out');
-
-  controlsFadeoutHideTimer = window.setTimeout(_hideControls, TOUCH_CONTROLS_FADEOUT_TIME);
-}
-
-function _hideControls() {
-  document.body.classList.remove('controls-fade-out');
-  if (_infoBubble.segmentEl) {
-    _infoBubble.segmentEl.classList.remove('show-drag-handles');
-
-    window.setTimeout(function() {
-      _infoBubble.hide();
-      _infoBubble.hideSegment(true);
-    }, 0);
-  }
-}
-
 function _doDropHeuristics(type, variantString, width) {
   // Automatically figure out width
 
@@ -817,46 +774,6 @@ function _removeGuides(el) {
   var guideEl;
   while (guideEl = el.querySelector('.guide')) {
     _removeElFromDom(guideEl);
-  }
-}
-
-function _handleSegmentResizeCancel() {
-  _resizeSegment(draggingResize.segmentEl, RESIZE_TYPE_INITIAL,
-      draggingResize.originalWidth * TILE_SIZE, true, false);
-
-  _handleSegmentResizeEnd();
-}
-
-function _handleSegmentResizeEnd(event) {
-  ignoreStreetChanges = false;
-
-  _segmentsChanged();
-
-  _changeDraggingType(DRAGGING_TYPE_NONE);
-
-  var el = draggingResize.floatingEl;
-  _removeElFromDom(el);
-
-  draggingResize.segmentEl.classList.add('immediate-show-drag-handles');
-
-  _removeGuides(draggingResize.segmentEl);
-
-  _infoBubble.considerSegmentEl = draggingResize.segmentEl;
-  _infoBubble.show(false);
-
-  _scheduleControlsFadeout(draggingResize.segmentEl);
-
-  _hideWidthChart();
-
-  suppressMouseEnter = true;
-  _infoBubble.considerShowing(event, draggingResize.segmentEl, INFO_BUBBLE_TYPE_SEGMENT);
-  window.setTimeout(function() {
-    suppressMouseEnter = false;
-  }, 50);
-
-  if (draggingResize.width && (draggingResize.originalWidth != draggingResize.width)) {
-    _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH,
-        TRACK_LABEL_DRAGGING, null, true);
   }
 }
 
