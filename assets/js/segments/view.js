@@ -362,3 +362,144 @@ function _fillEmptySegments() {
   _fillEmptySegment(document.querySelector('#street-section-left-empty-space'));
   _fillEmptySegment(document.querySelector('#street-section-right-empty-space'));
 }
+
+function _repositionSegments() {
+  var left = 0;
+  var noMoveLeft = 0;
+
+  var extraWidth = 0;
+
+  for (var i in street.segments) {
+    var el = street.segments[i].el;
+
+    if (el == draggingMove.segmentBeforeEl) {
+      left += DRAGGING_MOVE_HOLE_WIDTH;
+      extraWidth += DRAGGING_MOVE_HOLE_WIDTH;
+
+      if (!draggingMove.segmentAfterEl) {
+        left += DRAGGING_MOVE_HOLE_WIDTH;
+        extraWidth += DRAGGING_MOVE_HOLE_WIDTH;
+      }
+    }
+
+    if (el.classList.contains('dragged-out')) {
+      var width = 0;
+    } else {
+      var width = parseFloat(el.getAttribute('width')) * TILE_SIZE;
+    }
+
+    el.savedLeft = parseInt(left); // so we don’t have to use offsetLeft
+    el.savedNoMoveLeft = parseInt(noMoveLeft); // so we don’t have to use offsetLeft
+    el.savedWidth = parseInt(width);
+
+    left += width;
+    noMoveLeft += width;
+
+    if (el == draggingMove.segmentAfterEl) {
+      left += DRAGGING_MOVE_HOLE_WIDTH;
+      extraWidth += DRAGGING_MOVE_HOLE_WIDTH;
+
+      if (!draggingMove.segmentBeforeEl) {
+        left += DRAGGING_MOVE_HOLE_WIDTH;
+        extraWidth += DRAGGING_MOVE_HOLE_WIDTH;
+      }
+    }
+  }
+
+  var occupiedWidth = left;
+  var noMoveOccupiedWidth = noMoveLeft;
+
+  var mainLeft = Math.round((street.width * TILE_SIZE - occupiedWidth) / 2);
+  var mainNoMoveLeft = Math.round((street.width * TILE_SIZE - noMoveOccupiedWidth) / 2);
+
+  for (var i in street.segments) {
+    var el = street.segments[i].el;
+
+    el.savedLeft += mainLeft;
+    el.savedNoMoveLeft += mainNoMoveLeft;
+
+    if (system.cssTransform) {
+      el.style[system.cssTransform] = 'translateX(' + el.savedLeft + 'px)';
+      el.cssTransformLeft = el.savedLeft;
+    } else {
+      el.style.left = el.savedLeft + 'px';
+    }
+  }
+
+  if (system.cssTransform) {
+    document.querySelector('#street-section-left-empty-space').
+        style[system.cssTransform] = 'translateX(' + (-extraWidth / 2) + 'px)';
+    document.querySelector('#street-section-right-empty-space').
+        style[system.cssTransform] = 'translateX(' + (extraWidth / 2) + 'px)';
+  } else {
+    document.querySelector('#street-section-left-empty-space').
+        style.marginLeft = -(extraWidth / 2) + 'px';
+    document.querySelector('#street-section-right-empty-space').
+        style.marginLeft = (extraWidth / 2) + 'px';
+  }
+}
+
+function _nextSegmentVariant(dataNo) {
+  var segment = street.segments[dataNo];
+
+  var segmentInfo = SEGMENT_INFO[segment.type];
+
+  var nextVariantString = '';
+  var found = 0;
+  for (var i in segmentInfo.details) {
+    if (found == 1) {
+      nextVariantString = i;
+      break;
+    }
+    if (i == segment.variantString) {
+      found = 1;
+    }
+  }
+
+  if (!nextVariantString) {
+    // TODO hack
+    for (var i in segmentInfo.details) {
+      nextVariantString = i;
+      break;
+    }
+  }
+
+  _changeSegmentVariant(dataNo, null, null, nextVariantString);
+}
+
+function _changeSegmentVariant(dataNo, variantName, variantChoice, variantString) {
+  var segment = street.segments[dataNo];
+
+  if (variantString) {
+    segment.variantString = variantString;
+    segment.variant = _getVariantArray(segment.type, segment.variantString);
+  } else {
+    segment.variant[variantName] = variantChoice;
+    segment.variantString = _getVariantString(segment.variant);
+  }
+
+  var el = _createSegmentDom(segment);
+
+  var oldEl = segment.el;
+  oldEl.parentNode.insertBefore(el, oldEl);
+  _switchSegmentElAway(oldEl);
+
+  segment.el = el;
+  segment.el.dataNo = oldEl.dataNo;
+  street.segments[oldEl.dataNo].el = el;
+
+  _switchSegmentElIn(el);
+  el.classList.add('hover');
+  el.classList.add('show-drag-handles');
+  el.classList.add('immediate-show-drag-handles');
+  el.classList.add('hide-drag-handles-when-inside-info-bubble');
+  _infoBubble.segmentEl = el;
+
+  _infoBubble.updateContents();
+
+  _repositionSegments();
+  _recalculateWidth();
+  _applyWarningsToSegments();
+
+  _saveStreetToServerIfNecessary();
+}

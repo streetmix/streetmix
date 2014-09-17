@@ -1,3 +1,5 @@
+var TRACK_LABEL_KEYBOARD = 'Keyboard';
+
 var KEYS = {
   LEFT_ARROW: 37,
   RIGHT_ARROW: 39,

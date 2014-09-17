@@ -1,3 +1,5 @@
+var LIVE_UPDATE_DELAY = 5000;
+
 var saveStreetTimerId = -1;
 var saveStreetIncomplete = false;
 

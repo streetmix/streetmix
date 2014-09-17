@@ -1,3 +1,6 @@
+var latestRequestId;
+var latestVerificationStreet;
+
 var nonblockingAjaxRequests = [];
 
 var nonblockingAjaxRequestTimer = 0;

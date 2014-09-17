@@ -1,3 +1,7 @@
+var SKY_COLOUR = 'rgb(169, 204, 219)';
+var SKY_WIDTH = 250;
+var BOTTOM_BACKGROUND = 'rgb(216, 211, 203)';
+
 function _drawStreetThumbnail(ctx, street, thumbnailWidth, thumbnailHeight,
                               multiplier, silhouette, bottomAligned,
                               transparentSky, segmentNamesAndWidths, streetName) {

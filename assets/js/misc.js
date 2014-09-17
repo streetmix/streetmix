@@ -82,22 +82,9 @@ var TRACK_ACTION_REMOVE_SEGMENT = 'Remove segment';
 
 var TRACK_LABEL_INCREMENT_BUTTON = 'Increment button';
 var TRACK_LABEL_INPUT_FIELD = 'Input field';
-var TRACK_LABEL_DRAGGING = 'Dragging';
-var TRACK_LABEL_KEYBOARD = 'Keyboard';
 var TRACK_LABEL_BUTTON = 'Button';
 
 var DATE_FORMAT = 'MMM D, YYYY';
-
-var WELCOME_NONE = 0;
-var WELCOME_NEW_STREET = 1;
-var WELCOME_FIRST_TIME_NEW_STREET = 2;
-var WELCOME_FIRST_TIME_EXISTING_STREET = 3;
-
-var LIVE_UPDATE_DELAY = 5000;
-
-var SKY_COLOUR = 'rgb(169, 204, 219)';
-var SKY_WIDTH = 250;
-var BOTTOM_BACKGROUND = 'rgb(216, 211, 203)';
 
 // TODO clean up/rearrange variables
 
@@ -127,23 +114,6 @@ var streetSectionCanvasLeft;
 var mouseX;
 var mouseY;
 
-var system = {
-  touch: false,
-  phone: false,
-  safari: false,
-  windows: false,
-
-  viewportWidth: null,
-  viewportHeight: null,
-
-  hiDpi: 1.0,
-  cssTransform: false,
-
-  ipAddress: null,
-
-  apiUrl: null
-};
-
 var streetSectionTop;
 
 var segmentWidthResolution;
@@ -154,9 +124,6 @@ var menuVisible = false;
 
 var widthChartShowTimerId = -1;
 var widthChartHideTimerId = -1;
-
-var latestRequestId;
-var latestVerificationStreet;
 
 // -------------------------------------------------------------------------
 
@@ -568,82 +535,6 @@ function _createDomFromData() {
   _createBuildings();
 }
 
-function _repositionSegments() {
-  var left = 0;
-  var noMoveLeft = 0;
-
-  var extraWidth = 0;
-
-  for (var i in street.segments) {
-    var el = street.segments[i].el;
-
-    if (el == draggingMove.segmentBeforeEl) {
-      left += DRAGGING_MOVE_HOLE_WIDTH;
-      extraWidth += DRAGGING_MOVE_HOLE_WIDTH;
-
-      if (!draggingMove.segmentAfterEl) {
-        left += DRAGGING_MOVE_HOLE_WIDTH;
-        extraWidth += DRAGGING_MOVE_HOLE_WIDTH;
-      }
-    }
-
-    if (el.classList.contains('dragged-out')) {
-      var width = 0;
-    } else {
-      var width = parseFloat(el.getAttribute('width')) * TILE_SIZE;
-    }
-
-    el.savedLeft = parseInt(left); // so we don’t have to use offsetLeft
-    el.savedNoMoveLeft = parseInt(noMoveLeft); // so we don’t have to use offsetLeft
-    el.savedWidth = parseInt(width);
-
-    left += width;
-    noMoveLeft += width;
-
-    if (el == draggingMove.segmentAfterEl) {
-      left += DRAGGING_MOVE_HOLE_WIDTH;
-      extraWidth += DRAGGING_MOVE_HOLE_WIDTH;
-
-      if (!draggingMove.segmentBeforeEl) {
-        left += DRAGGING_MOVE_HOLE_WIDTH;
-        extraWidth += DRAGGING_MOVE_HOLE_WIDTH;
-      }
-    }
-  }
-
-  var occupiedWidth = left;
-  var noMoveOccupiedWidth = noMoveLeft;
-
-  var mainLeft = Math.round((street.width * TILE_SIZE - occupiedWidth) / 2);
-  var mainNoMoveLeft = Math.round((street.width * TILE_SIZE - noMoveOccupiedWidth) / 2);
-
-  for (var i in street.segments) {
-    var el = street.segments[i].el;
-
-    el.savedLeft += mainLeft;
-    el.savedNoMoveLeft += mainNoMoveLeft;
-
-    if (system.cssTransform) {
-      el.style[system.cssTransform] = 'translateX(' + el.savedLeft + 'px)';
-      el.cssTransformLeft = el.savedLeft;
-    } else {
-      el.style.left = el.savedLeft + 'px';
-    }
-  }
-
-  if (system.cssTransform) {
-    document.querySelector('#street-section-left-empty-space').
-        style[system.cssTransform] = 'translateX(' + (-extraWidth / 2) + 'px)';
-    document.querySelector('#street-section-right-empty-space').
-        style[system.cssTransform] = 'translateX(' + (extraWidth / 2) + 'px)';
-  } else {
-    document.querySelector('#street-section-left-empty-space').
-        style.marginLeft = -(extraWidth / 2) + 'px';
-    document.querySelector('#street-section-right-empty-space').
-        style.marginLeft = (extraWidth / 2) + 'px';
-  }
-}
-
 function _applyWarningsToSegments() {
   for (var i in street.segments) {
     var segment = street.segments[i];
@@ -807,11 +698,6 @@ function _updateEverything(dontScroll) {
   lastStreet = _trimStreetData(street);
 
   _scheduleSavingStreetToServer();
-}
-
-function _generateRandSeed() {
-  var randSeed = 1 + Math.floor(Math.random() * MAX_RAND_SEED); // So it’s not zero
-  return randSeed;
 }
 
 function _setStreetCreatorId(newId) {
@@ -1469,71 +1355,6 @@ function _onStreetWidthChange(event) {
   _loseAnyFocus();
 }
 
-function _nextSegmentVariant(dataNo) {
-  var segment = street.segments[dataNo];
-
-  var segmentInfo = SEGMENT_INFO[segment.type];
-
-  var nextVariantString = '';
-  var found = 0;
-  for (var i in segmentInfo.details) {
-    if (found == 1) {
-      nextVariantString = i;
-      break;
-    }
-    if (i == segment.variantString) {
-      found = 1;
-    }
-  }
-
-  if (!nextVariantString) {
-    // TODO hack
-    for (var i in segmentInfo.details) {
-      nextVariantString = i;
-      break;
-    }
-  }
-
-  _changeSegmentVariant(dataNo, null, null, nextVariantString);
-}
-
-function _changeSegmentVariant(dataNo, variantName, variantChoice, variantString) {
-  var segment = street.segments[dataNo];
-
-  if (variantString) {
-    segment.variantString = variantString;
-    segment.variant = _getVariantArray(segment.type, segment.variantString);
-  } else {
-    segment.variant[variantName] = variantChoice;
-    segment.variantString = _getVariantString(segment.variant);
-  }
-
-  var el = _createSegmentDom(segment);
-
-  var oldEl = segment.el;
-  oldEl.parentNode.insertBefore(el, oldEl);
-  _switchSegmentElAway(oldEl);
-
-  segment.el = el;
-  segment.el.dataNo = oldEl.dataNo;
-  street.segments[oldEl.dataNo].el = el;
-
-  _switchSegmentElIn(el);
-  el.classList.add('hover');
-  el.classList.add('show-drag-handles');
-  el.classList.add('immediate-show-drag-handles');
-  el.classList.add('hide-drag-handles-when-inside-info-bubble');
-  _infoBubble.segmentEl = el;
-
-  _infoBubble.updateContents();
-
-  _repositionSegments();
-  _recalculateWidth();
-  _applyWarningsToSegments();
-
-  _saveStreetToServerIfNecessary();
-}
-
 function _removeSegment(el, all) {
   if (all) {
     street.segments = [];
@@ -1615,53 +1436,6 @@ function _getStreetUrl(street) {
   }
 
   return url;
-}
-
-function _updatePageUrl(forceGalleryUrl) {
-  if (forceGalleryUrl) {
-    var url = '/' + galleryUserId;
-  } else {
-    var url = _getStreetUrl(street);
-  }
-
-  if (debug.hoverPolygon) {
-    // TODO const
-    url += '&debug-hover-polygon';
-  }
-  if (debug.canvasRectangles) {
-    // TODO const
-    url += '&debug-canvas-rectangles';
-  }
-  if (debug.forceLeftHandTraffic) {
-    url += '&debug-force-left-hand-traffic';
-  }
-  if (debug.forceMetric) {
-    url += '&debug-force-metric';
-  }
-  if (debug.forceUnsupportedBrowser) {
-    url += '&debug-force-unsupported-browser';
-  }
-  if (debug.forceNonRetina) {
-    url += '&debug-force-non-retina';
-  }
-  if (debug.secretSegments) {
-    url += '&debug-secret-segments';
-  }
-  if (debug.forceReadOnly) {
-    url += '&debug-force-read-only';
-  }
-  if (debug.forceTouch) {
-    url += '&debug-force-touch';
-  }
-  if (debug.forceLiveUpdate) {
-    url += '&debug-force-live-update';
-  }
-
-  url = url.replace(/\&/, '?');
-
-  window.history.replaceState(null, null, url);
-
-  _updateShareMenu();
 }
 
 function _updatePageTitle() {
@@ -1822,84 +1596,6 @@ function _onNewStreetEmptyClick() {
 
 function _onNewStreetLastClick() {
   _fetchLastStreet();
-}
-
-function _showWelcome() {
-  if (readOnly || system.phone) {
-    return;
-  }
-
-  var welcomeType = WELCOME_NONE;
-
-   _loadSettingsWelcomeDismissed();
-
-  if (mode == MODES.NEW_STREET) {
-    if (signedIn || settingsWelcomeDismissed) {
-      welcomeType = WELCOME_NEW_STREET;
-    } else {
-      welcomeType = WELCOME_FIRST_TIME_NEW_STREET;
-    }
-  } else {
-    if (!settingsWelcomeDismissed) {
-      welcomeType = WELCOME_FIRST_TIME_EXISTING_STREET;
-    }
-  }
-
-
-  if (welcomeType == WELCOME_NONE) {
-    return;
-  }
-
-  switch (welcomeType) {
-    case WELCOME_FIRST_TIME_NEW_STREET:
-      document.querySelector('#welcome').classList.add('first-time-new-street');
-      break;
-    case WELCOME_FIRST_TIME_EXISTING_STREET:
-      document.querySelector('#welcome').classList.add('first-time-existing-street');
-
-      document.querySelector('#welcome-new-street').addEventListener('click', function() {
-        settingsWelcomeDismissed = true;
-        _saveSettingsWelcomeDismissed();
-        _goNewStreet(true);
-      });
-
-      $('#welcome-street-name').text(street.name);
-
-      if (street.creatorId) {
-        document.querySelector('#welcome-avatar-creator').classList.add('visible');
-        $('#welcome-avatar').attr('userId', street.creatorId);
-        $('#welcome-creator').text(street.creatorId);
-      }
-      _fetchAvatars();
-      break;
-    case WELCOME_NEW_STREET:
-      document.querySelector('#welcome').classList.add('new-street');
-
-      switch (settings.newStreetPreference) {
-        case NEW_STREET_EMPTY:
-          document.querySelector('#new-street-empty').checked = true;
-          break;
-        case NEW_STREET_DEFAULT:
-          document.querySelector('#new-street-default').checked = true;
-          break;
-      }
-
-      if (settings.priorLastStreetId && settings.priorLastStreetId != street.id) {
-        document.querySelector('#new-street-last').parentNode.classList.add('visible');
-      }
-      break;
-  }
-
-  document.querySelector('#welcome').classList.add('visible');
-  document.querySelector('#street-name-canvas').classList.add('hidden');
-}
-
-function _hideWelcome() {
-  settingsWelcomeDismissed = true;
-  _saveSettingsWelcomeDismissed();
-
-  document.querySelector('#welcome').classList.remove('visible');
-  document.querySelector('#street-name-canvas').classList.remove('hidden');
 }
 
 function _showAboutDialogBox(event) {
@@ -2230,86 +1926,6 @@ function _addBodyClasses() {
   }
 }
 
-function _detectSystemCapabilities() {
-
-  // NOTE:
-  // This function might be called on very old browsers. Please make
-  // sure not to use modern faculties.
-
-  if (debug.forceTouch) {
-    system.touch = true;
-  } else {
-    system.touch = Modernizr.touch;
-  }
-  system.pageVisibility = Modernizr.pagevisibility;
-  if (debug.forceNonRetina) {
-    system.hiDpi = 1.0;
-  } else {
-    system.hiDpi = window.devicePixelRatio || 1.0;
-  }
-
-  if ((typeof matchMedia != 'undefined') &&
-      matchMedia('only screen and (max-device-width: 480px)').matches) {
-    system.phone = true;
-  } else {
-    system.phone = false;
-  }
-
-  system.cssTransform = false;
-  var el = document.createElement('div');
-  for (var i in CSS_TRANSFORMS) {
-    if (typeof el.style[CSS_TRANSFORMS[i]] != 'undefined') {
-      system.cssTransform = CSS_TRANSFORMS[i];
-      break;
-    }
-  }
-
-  if (navigator.userAgent.indexOf('Windows') != -1) {
-    system.windows = true;
-  }
-
-  if ((navigator.userAgent.indexOf('Safari') != -1) &&
-      (navigator.userAgent.indexOf('Chrome') == -1)) {
-    system.safari = true;
-  }
-
-  if (system.phone || debug.forceReadOnly) {
-    readOnly = true;
-  }
-
-  var meta = document.createElement('meta');
-  meta.setAttribute('name', 'viewport');
-  if (system.phone) {
-    meta.setAttribute('content', 'initial-scale=.5, maximum-scale=.5');
-  } else {
-    meta.setAttribute('content', 'initial-scale=1, maximum-scale=1');
-  }
-  var headEls = document.getElementsByTagName('head');
-  headEls[0].appendChild(meta);
-
-  var language = window.navigator.userLanguage || window.navigator.language;
-  if (language) {
-    var language = language.substr(0, 2).toUpperCase();
-    _updateSettingsFromCountryCode(language);
-  }
-}
-
-function _isPointInPoly(vs, point) {
-  var x = point[0], y = point[1];
-
-  var inside = false;
-  for (var i = 0, j = vs.length - 1; i < vs.length; j = i++) {
-    var xi = vs[i][0], yi = vs[i][1];
-    var xj = vs[j][0], yj = vs[j][1];
-
-    var intersect = ((yi > y) != (yj > y))
-        && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
-    if (intersect) inside = !inside;
-  }
-
-  return inside;
-}
-
 function _switchSegmentElIn(el) {
   el.classList.add('switching-in-pre');
 
@@ -2598,81 +2214,6 @@ function _onReadyStateChange() {
   }
 }
 
-function _processUrl() {
-  var url = location.pathname;
-
-  // Remove heading slash
-  if (!url) {
-    url = '/';
-  }
-  url = url.substr(1);
-
-  // Remove trailing slashes
-  url = url.replace(/\/+$/, '');
-
-  var urlParts = url.split(/\//);
-
-  if (!url) {
-    // Continue where we left off… or start with a default (demo) street
-
-    mode = MODES.CONTINUE;
-  } else if ((urlParts.length == 1) && (urlParts[0] == URL_NEW_STREET)) {
-    // New street
-
-    mode = MODES.NEW_STREET;
-  } else if ((urlParts.length == 1) && (urlParts[0] == URL_NEW_STREET_COPY_LAST)) {
-    // New street (but start with copying last street)
-
-    mode = MODES.NEW_STREET_COPY_LAST;
-  } else if ((urlParts.length == 1) && (urlParts[0] == URL_JUST_SIGNED_IN)) {
-    // Coming back from a successful sign in
-
-    mode = MODES.JUST_SIGNED_IN;
-  } else if ((urlParts.length >= 1) && (urlParts[0] == URL_ERROR)) {
-    // Error
-
-    mode = MODES.ERROR;
-    errorUrl = urlParts[1];
-  } else if ((urlParts.length == 1) && (urlParts[0] == URL_GLOBAL_GALLERY)) {
-    // Global gallery
-
-    mode = MODES.GLOBAL_GALLERY;
-  } else if ((urlParts.length == 1) && urlParts[0]) {
-    // User gallery
-
-    galleryUserId = urlParts[0];
-
-    mode = MODES.USER_GALLERY;
-  } else if ((urlParts.length == 2) && (urlParts[0] == URL_HELP) && (urlParts[1] == URL_ABOUT)) {
-    // About
-
-    mode = MODES.ABOUT;
-  } else if ((urlParts.length == 2) && (urlParts[0] == URL_NO_USER) && urlParts[1]) {
-    // TODO add is integer urlParts[1];
-    // Existing street by an anonymous person
-
-    street.creatorId = null;
-    street.namespacedId = urlParts[1];
-
-    mode = MODES.EXISTING_STREET;
-  } else if ((urlParts.length >= 2) && urlParts[0] && urlParts[1]) {
-    // TODO add is integer urlParts[1];
-    // Existing street by a signed in person
-
-    street.creatorId = urlParts[0];
-
-    if (street.creatorId.charAt(0) == URL_RESERVED_PREFIX) {
-      street.creatorId = street.creatorId.substr(1);
-    }
-
-    street.namespacedId = urlParts[1];
-
-    mode = MODES.EXISTING_STREET;
-  } else {
-    mode = MODES.NOT_FOUND;
-  }
-}
-
 function _goReload() {
   location.reload();
 }
@@ -2717,69 +2258,4 @@ function _fillDom() {
   document.querySelector('#copy-last-street').href = URL_NEW_STREET_COPY_LAST;
 
   _fillEmptySegments();
-}
-
-app.preInit = function() {
-  initializing = true;
-  ignoreStreetChanges = true;
-
-  _detectDebugUrl();
-  _detectSystemCapabilities();
-}
-
-app.init = function() {
-  if (!debug.forceUnsupportedBrowser) {
-
-    // TODO temporary ban
-    if ((navigator.userAgent.indexOf('Opera') != -1) ||
-        (navigator.userAgent.indexOf('Internet Explorer') != -1) ||
-        (navigator.userAgent.indexOf('MSIE') != -1)) {
-      mode = MODES.UNSUPPORTED_BROWSER;
-      _processMode();
-      return;
-    }
-  }
-
-  _fillDom();
-  _prepareSegmentInfo();
-
-  // Temporary as per https://github.com/Modernizr/Modernizr/issues/788#issuecomment-12513563
-  Modernizr.addTest('pagevisibility', !!Modernizr.prefixed('hidden', document, false));
-
-  // TODO make it better
-  // Related to Enter to 404 bug in Chrome
-  $.ajaxSetup({ cache: false });
-
-  readyStateCompleteLoaded = false;
-  document.addEventListener('readystatechange', _onReadyStateChange);
-
-  bodyLoaded = false;
-  window.addEventListener('load', _onBodyLoad);
-
-  _addBodyClasses();
-  _processUrl();
-  _processMode();
-
-  if (abortEverything) {
-    return;
-  }
-
-  // Asynchronously loading…
-
-  // …detecting country from IP for units and left/right-hand driving
-  if ((mode == MODES.NEW_STREET) || (mode == MODES.NEW_STREET_COPY_LAST)) {
-    _detectGeolocation();
-  } else {
-    geolocationLoaded = true;
-  }
-
-  // …sign in info from our API (if not previously cached) – and subsequent
-  // street data if necessary (depending on the mode)
-  _loadSignIn();
-
-  // …images
-  _loadImages();
-
-  // Note that we are waiting for sign in and image info to show the page,
-  // but we give up on country info if it’s more than 1000ms.
 }
