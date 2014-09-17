@@ -1065,3 +1065,26 @@ var SEGMENT_INFO = {
     }
   }
 };
+
+function _prepareSegmentInfo() {
+  // TODO should not modify const
+
+  for (var i in SEGMENT_INFO) {
+    for (var j in SEGMENT_INFO[i].details) {
+      var graphics = SEGMENT_INFO[i].details[j].graphics;
+
+      if (graphics.repeat && !$.isArray(graphics.repeat)) {
+        graphics.repeat = [graphics.repeat];
+      }
+      if (graphics.left && !$.isArray(graphics.left)) {
+        graphics.left = [graphics.left];
+      }
+      if (graphics.right && !$.isArray(graphics.right)) {
+        graphics.right = [graphics.right];
+      }
+      if (graphics.center && !$.isArray(graphics.center)) {
+        graphics.center = [graphics.center];
+      }
+    }
+  }
+}

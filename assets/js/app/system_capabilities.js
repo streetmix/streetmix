@@ -78,3 +78,27 @@ function _detectSystemCapabilities() {
     _updateSettingsFromCountryCode(language);
   }
 }
+
+function _addBodyClasses() {
+  document.body.classList.add('environment-' + ENV);
+
+  if (system.windows) {
+    document.body.classList.add('windows');
+  }
+
+  if (system.safari) {
+    document.body.classList.add('safari');
+  }
+
+  if (system.touch) {
+    document.body.classList.add('touch-support');
+  }
+
+  if (readOnly) {
+    document.body.classList.add('read-only');
+  }
+
+  if (system.phone) {
+    document.body.classList.add('phone');
+  }
+}

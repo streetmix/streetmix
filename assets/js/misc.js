@@ -38,24 +38,10 @@ var SHORT_DELAY = 100;
 var TOUCH_CONTROLS_FADEOUT_TIME = 3000;
 var TOUCH_CONTROLS_FADEOUT_DELAY = 3000;
 
-var SEGMENT_SWITCHING_TIME = 250;
-
 var SAVE_STREET_DELAY = 500;
-
-var BLOCKING_SHIELD_DARKEN_DELAY = 800;
-var BLOCKING_SHIELD_TOO_SLOW_DELAY = 10000;
 
 var MAX_DRAG_DEGREE = 20;
 
-var STREET_WIDTH_CUSTOM = -1;
-var STREET_WIDTH_SWITCH_TO_METRIC = -2;
-var STREET_WIDTH_SWITCH_TO_IMPERIAL = -3;
-
-var DEFAULT_STREET_WIDTH = 80;
-var DEFAULT_STREET_WIDTHS = [40, 60, 80];
-
-var MIN_CUSTOM_STREET_WIDTH = 10;
-var MAX_CUSTOM_STREET_WIDTH = 400;
 var MIN_SEGMENT_WIDTH = 1;
 var MAX_SEGMENT_WIDTH = 400;
 
@@ -198,43 +184,6 @@ function _onHeightEditBlur(event) {
   widthHeightEditHeld = false;
 }
 
-function _processWidthInput(widthInput) {
-  widthInput = widthInput.replace(/ /g, '');
-  widthInput = widthInput.replace(/,/g, '.');
-
-  for (var i in IMPERIAL_VULGAR_FRACTIONS) {
-    if (widthInput.indexOf(IMPERIAL_VULGAR_FRACTIONS[i]) != -1) {
-      widthInput = widthInput.replace(new RegExp(IMPERIAL_VULGAR_FRACTIONS[i]), i);
-    }
-  }
-
-  var width = parseFloat(widthInput);
-
-  if (width) {
-    // Default unit
-    switch (street.units) {
-      case SETTINGS_UNITS_METRIC:
-        var multiplier = 1 / IMPERIAL_METRIC_MULTIPLIER;
-        break;
-      case SETTINGS_UNITS_IMPERIAL:
-        var multiplier = 1;
-        break;
-    }
-
-    for (var i in WIDTH_INPUT_CONVERSION) {
-      if (widthInput.match(new RegExp("[\\d\\.]" +
-            WIDTH_INPUT_CONVERSION[i].text + "$"))) {
-        var multiplier = WIDTH_INPUT_CONVERSION[i].multiplier;
-        break;
-      }
-    }
-
-    width *= multiplier;
-  }
-
-  return width;
-}
-
 function _heightEditInputChanged(el, immediate) {
   window.clearTimeout(widthHeightChangeTimerId);
 
@@ -338,19 +287,6 @@ function _onHeightEditKeyDown(event) {
   }
 }
 
-function _normalizeStreetWidth(width) {
-  if (width < MIN_CUSTOM_STREET_WIDTH) {
-    width = MIN_CUSTOM_STREET_WIDTH;
-  } else if (width > MAX_CUSTOM_STREET_WIDTH) {
-    width = MAX_CUSTOM_STREET_WIDTH;
-  }
-
-  var resolution = segmentWidthResolution;
-  width = Math.round(width / resolution) * resolution;
-
-  return width;
-}
-
 function _normalizeSegmentWidth(width, resizeType) {
   if (width < MIN_SEGMENT_WIDTH) {
     width = MIN_SEGMENT_WIDTH;
@@ -398,61 +334,6 @@ function _prettifyHeight(height, purpose) {
   return heightText;
 }
 
-function _prettifyWidth(width, purpose) {
-  var remainder = width - Math.floor(width);
-
-  switch (street.units) {
-    case SETTINGS_UNITS_IMPERIAL:
-      var widthText = width;
-
-      if (purpose != PRETTIFY_WIDTH_INPUT) {
-        if (IMPERIAL_VULGAR_FRACTIONS[('' + remainder).substr(1)]) {
-          var widthText =
-              (Math.floor(width) ? Math.floor(width) : '') +
-              IMPERIAL_VULGAR_FRACTIONS[('' + remainder).substr(1)];
-        }
-      }
-
-      switch (purpose) {
-        case PRETTIFY_WIDTH_OUTPUT_NO_MARKUP:
-          widthText += '\'';
-          break;
-        case PRETTIFY_WIDTH_OUTPUT_MARKUP:
-          widthText += '<wbr>\'';
-          break;
-      }
-      break;
-    case SETTINGS_UNITS_METRIC:
-      var widthText = '' +
-          (width * IMPERIAL_METRIC_MULTIPLIER).toFixed(METRIC_PRECISION);
-
-      if (widthText.substr(0, 2) == '0.') {
-        widthText = widthText.substr(1);
-      }
-      while (widthText.substr(widthText.length - 1) == '0') {
-        widthText = widthText.substr(0, widthText.length - 1);
-      }
-      if (widthText.substr(widthText.length - 1) == '.') {
-        widthText = widthText.substr(0, widthText.length - 1);
-      }
-      if (!widthText) {
-        widthText = '0';
-      }
-
-      switch (purpose) {
-        case PRETTIFY_WIDTH_OUTPUT_NO_MARKUP:
-          widthText += ' m';
-          break;
-        case PRETTIFY_WIDTH_OUTPUT_MARKUP:
-          widthText += '<wbr> m';
-          break;
-      }
-      break;
-  }
-
-  return widthText;
-}
-
 function _incrementSegmentWidth(segmentEl, add, precise) {
   var width = parseFloat(segmentEl.getAttribute('width'));
 
@@ -493,16 +374,6 @@ function _onWidthIncrementClick(event) {
 
   _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH,
       TRACK_LABEL_INCREMENT_BUTTON, null, true);
-}
-
-function _getVariantString(variant) {
-  var string = '';
-  for (var i in variant) {
-    string += variant[i] + VARIANT_SEPARATOR;
-  }
-
-  string = string.substr(0, string.length - 1);
-  return string;
 }
 
 function _onSegmentMouseEnter(event) {
@@ -776,19 +647,6 @@ function _onWindowBeforeUnload() {
   if (text) {
     return text;
   }
-}
-
-function _getVariantArray(segmentType, variantString) {
-  var variantArray = {};
-  var variantSplit = variantString.split(VARIANT_SEPARATOR);
-
-  for (var i in SEGMENT_INFO[segmentType].variants) {
-    var variantName = SEGMENT_INFO[segmentType].variants[i];
-
-    variantArray[variantName] = variantSplit[i];
-  }
-
-  return variantArray;
 }
 
 // Copies only the data necessary for save/undo.
@@ -1096,19 +954,6 @@ function _createPalette() {
   }
 }
 
-function _resizeStreetWidth(dontScroll) {
-  var width = street.width * TILE_SIZE;
-
-  document.querySelector('#street-section-canvas').style.width = width + 'px';
-  if (!dontScroll) {
-    document.querySelector('#street-section-outer').scrollLeft =
-        (width + BUILDING_SPACE * 2 - system.viewportWidth) / 2;
-    _onStreetSectionScroll();
-  }
-
-  _onResize();
-}
-
 function _onResize() {
   system.viewportWidth = window.innerWidth;
   system.viewportHeight = window.innerHeight;
@@ -1201,158 +1046,6 @@ function _fillDefaultSegments() {
   }
 
   _normalizeAllSegmentWidths();
-}
-
-function _createStreetWidthOption(width) {
-  var el = document.createElement('option');
-  el.value = width;
-  el.innerHTML = _prettifyWidth(width, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP);
-  return el;
-}
-
-function _buildStreetWidthMenu() {
-  document.querySelector('#street-width').innerHTML = '';
-
-  var el = document.createElement('option');
-  el.disabled = true;
-  el.innerHTML = 'Occupied width:';
-  document.querySelector('#street-width').appendChild(el);
-
-  var el = document.createElement('option');
-  el.disabled = true;
-  el.innerHTML = _prettifyWidth(street.occupiedWidth, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP);
-  document.querySelector('#street-width').appendChild(el);
-
-  var el = document.createElement('option');
-  el.disabled = true;
-  document.querySelector('#street-width').appendChild(el);
-
-  var el = document.createElement('option');
-  el.disabled = true;
-  el.innerHTML = 'Building-to-building width:';
-  document.querySelector('#street-width').appendChild(el);
-
-  var widths = [];
-
-  for (var i in DEFAULT_STREET_WIDTHS) {
-    var width = _normalizeStreetWidth(DEFAULT_STREET_WIDTHS[i]);
-    var el = _createStreetWidthOption(width);
-    document.querySelector('#street-width').appendChild(el);
-
-    widths.push(width);
-  }
-
-  if (widths.indexOf(parseFloat(street.width)) == -1) {
-    var el = document.createElement('option');
-    el.disabled = true;
-    document.querySelector('#street-width').appendChild(el);
-
-    var el = _createStreetWidthOption(street.width);
-    document.querySelector('#street-width').appendChild(el);
-  }
-
-  var el = document.createElement('option');
-  el.value = STREET_WIDTH_CUSTOM;
-  el.innerHTML = 'Different width…';
-  document.querySelector('#street-width').appendChild(el);
-
-  var el = document.createElement('option');
-  el.disabled = true;
-  document.querySelector('#street-width').appendChild(el);
-
-  var el = document.createElement('option');
-  el.value = STREET_WIDTH_SWITCH_TO_IMPERIAL;
-  el.id = 'switch-to-imperial-units';
-  el.innerHTML = msg('MENU_SWITCH_TO_IMPERIAL');
-  if (street.units == SETTINGS_UNITS_IMPERIAL) {
-    el.disabled = true;
-  }
-  document.querySelector('#street-width').appendChild(el);
-
-  var el = document.createElement('option');
-  el.value = STREET_WIDTH_SWITCH_TO_METRIC;
-  el.id = 'switch-to-metric-units';
-  el.innerHTML = msg('MENU_SWITCH_TO_METRIC');
-  if (street.units == SETTINGS_UNITS_METRIC) {
-    el.disabled = true;
-  }
-
-  document.querySelector('#street-width').appendChild(el);
-
-  document.querySelector('#street-width').value = street.width;
-}
-
-function _onStreetWidthClick(event) {
-  document.body.classList.add('edit-street-width');
-
-  document.querySelector('#street-width').focus();
-
-  window.setTimeout(function() {
-    var trigger = document.createEvent('MouseEvents');
-    trigger.initEvent('mousedown', true, true, window);
-    document.querySelector('#street-width').dispatchEvent(trigger);
-  }, 0);
-}
-
-function _onStreetWidthChange(event) {
-  var el = event.target;
-  var newStreetWidth = el.value;
-
-  document.body.classList.remove('edit-street-width');
-
-  if (newStreetWidth == street.width) {
-    return;
-  } else if (newStreetWidth == STREET_WIDTH_SWITCH_TO_METRIC) {
-    _updateUnits(SETTINGS_UNITS_METRIC);
-    return;
-  } else if (newStreetWidth == STREET_WIDTH_SWITCH_TO_IMPERIAL) {
-    _updateUnits(SETTINGS_UNITS_IMPERIAL);
-    return;
-  } else if (newStreetWidth == STREET_WIDTH_CUSTOM) {
-    _ignoreWindowFocusMomentarily();
-
-    var promptValue = street.occupiedWidth;
-    if (promptValue < MIN_CUSTOM_STREET_WIDTH) promptValue = MIN_CUSTOM_STREET_WIDTH;
-    if (promptValue > MAX_CUSTOM_STREET_WIDTH) promptValue = MAX_CUSTOM_STREET_WIDTH;
-
-    // TODO string
-    var width = prompt(
-                  msg('PROMPT_NEW_STREET_WIDTH', {
-                    minWidth: _prettifyWidth(MIN_CUSTOM_STREET_WIDTH, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP),
-                    maxWidth: _prettifyWidth(MAX_CUSTOM_STREET_WIDTH, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP)
-                  }), _prettifyWidth(promptValue, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP));
-
-    if (width) {
-      width = _normalizeStreetWidth(_processWidthInput(width));
-    }
-
-    if (!width) {
-      _buildStreetWidthMenu();
-
-      _loseAnyFocus();
-      return;
-    }
-
-    if (width < MIN_CUSTOM_STREET_WIDTH) {
-      width = MIN_CUSTOM_STREET_WIDTH;
-    } else if (width > MAX_CUSTOM_STREET_WIDTH) {
-      width = MAX_CUSTOM_STREET_WIDTH;
-    }
-    newStreetWidth = width;
-  }
-
-  street.width = _normalizeStreetWidth(newStreetWidth);
-  _buildStreetWidthMenu();
-  _resizeStreetWidth();
-
-  initializing = true;
-
-  _createDomFromData();
-  _segmentsChanged();
-
-  initializing = false;
-
-  _loseAnyFocus();
 }
 
 function _removeSegment(el, all) {
@@ -1642,46 +1335,6 @@ function _formatDate(date) {
   }
 }
 
-function _clearBlockingShieldTimers() {
-  window.clearTimeout(blockingShieldTimerId);
-  window.clearTimeout(blockingShieldTooSlowTimerId);
-}
-
-function _showBlockingShield(message) {
-  if (!message) {
-    message = msg('LOADING');
-  }
-
-  _hideBlockingShield();
-  _clearBlockingShieldTimers();
-
-  document.querySelector('#blocking-shield .message').innerHTML = message;
-  document.querySelector('#blocking-shield').classList.add('visible');
-
-  blockingShieldTimerId = window.setTimeout(function() {
-    document.querySelector('#blocking-shield').classList.add('darken');
-  }, BLOCKING_SHIELD_DARKEN_DELAY);
-
-  blockingShieldTooSlowTimerId = window.setTimeout(function() {
-    document.querySelector('#blocking-shield').classList.add('show-too-slow');
-  }, BLOCKING_SHIELD_TOO_SLOW_DELAY);
-}
-
-function _darkenBlockingShield(message) {
-  _clearBlockingShieldTimers();
-  document.querySelector('#blocking-shield').classList.add('darken-immediately');
-}
-
-function _hideBlockingShield() {
-  _clearBlockingShieldTimers();
-  document.querySelector('#blocking-shield').classList.remove('visible');
-  document.querySelector('#blocking-shield').classList.remove('darken');
-  document.querySelector('#blocking-shield').classList.remove('darken-immediately');
-  document.querySelector('#blocking-shield').classList.remove('show-try-again');
-  document.querySelector('#blocking-shield').classList.remove('show-too-slow');
-  document.querySelector('#blocking-shield').classList.remove('show-cancel');
-}
-
 function _sendDeleteStreetToServer(id) {
   // Prevents new street submenu from showing the last street
   if (settings.lastStreetId == id) {
@@ -1732,285 +1385,6 @@ function _hideDialogBoxes() {
   _hideAboutDialogBox();
   _hideSaveAsImageDialogBox();
 }
-
-function _addEventListeners() {
-  window.addEventListener('beforeprint', function() { _onBeforePrint(false); } );
-  window.addEventListener('afterprint', function() { _onAfterPrint(false); } );
-
-  var mediaQueryList = window.matchMedia('print');
-  mediaQueryList.addListener(function(mql) {
-    if (mql.matches) {
-      _onBeforePrint(true);
-    } else {
-      _onAfterPrint(true);
-    }
-  });
-
-  document.querySelector('#invoke-print').addEventListener('click', _print);
-
-  document.querySelector('#share-via-twitter').addEventListener('click', _shareViaTwitter);
-  document.querySelector('#share-via-facebook').addEventListener('click', _shareViaFacebook);
-
-  if (system.touch) {
-    document.querySelector('#dialog-box-shield').addEventListener('touchstart', _hideDialogBoxes);
-  } else {
-    document.querySelector('#dialog-box-shield').addEventListener('click', _hideDialogBoxes);
-  }
-  document.querySelector('#about .close').addEventListener('click', _hideAboutDialogBox);
-
-  document.querySelector('#about-streetmix').addEventListener('click', _showAboutDialogBox);
-
-  document.querySelector('#street-scroll-indicator-left').addEventListener('click', _onStreetLeftScrollClick);
-  document.querySelector('#street-scroll-indicator-right').addEventListener('click', _onStreetRightScrollClick);
-
-  if (system.touch) {
-    document.querySelector('#welcome .close').addEventListener('touchstart', _hideWelcome);
-  } else {
-    document.querySelector('#welcome .close').addEventListener('click', _hideWelcome);
-  }
-  document.querySelector('#save-as-image-dialog .close').addEventListener('click', _hideSaveAsImageDialogBox);
-
-  document.querySelector('#save-as-image').addEventListener('click', _showSaveAsImageDialogBox);
-
-  document.querySelector('#save-as-image-transparent-sky').addEventListener('click', _updateSaveAsImageOptions);
-  document.querySelector('#save-as-image-segment-names').addEventListener('click', _updateSaveAsImageOptions);
-  document.querySelector('#save-as-image-street-name').addEventListener('click', _updateSaveAsImageOptions);
-
-  document.querySelector('#street-section-outer').addEventListener('scroll', _onStreetSectionScroll);
-
-  if (!system.touch) {
-    $('#street-section-left-building').mouseenter(_onBuildingMouseEnter);
-    $('#street-section-left-building').mouseleave(_onBuildingMouseLeave);
-    $('#street-section-right-building').mouseenter(_onBuildingMouseEnter);
-    $('#street-section-right-building').mouseleave(_onBuildingMouseLeave);
-  } else {
-    document.querySelector('#street-section-left-building').addEventListener('touchstart', _onBuildingMouseEnter);
-    document.querySelector('#street-section-right-building').addEventListener('touchstart', _onBuildingMouseEnter);
-  }
-
-  if (!system.touch) {
-    $('.info-bubble').mouseenter(_infoBubble.onMouseEnter);
-    $('.info-bubble').mouseleave(_infoBubble.onMouseLeave);
-  }
-  document.querySelector('.info-bubble').addEventListener('touchstart', _infoBubble.onTouchStart);
-
-  document.querySelector('#feedback-form-message').addEventListener('input', _onFeedbackFormInput);
-  document.querySelector('#feedback-form-email').addEventListener('input', _onFeedbackFormInput);
-  document.querySelector('#feedback-form-email').addEventListener('keydown', _onFeedbackFormEmailKeyDown);
-  document.querySelector('#feedback-form-send').addEventListener('click', _feedbackFormSend);
-
-  document.querySelector('#gallery-try-again').addEventListener('click', _repeatReceiveGalleryData);
-
-  document.querySelector('#no-connection-try-again').addEventListener('click', _nonblockingAjaxTryAgain);
-
-  document.querySelector('#blocking-shield-cancel').addEventListener('click', _blockingCancel);
-  document.querySelector('#blocking-shield-try-again').addEventListener('click', _blockingTryAgain);
-  document.querySelector('#blocking-shield-reload').addEventListener('click', _goReload);
-  document.querySelector('#gallery-shield').addEventListener('click', _onGalleryShieldClick);
-
-  document.querySelector('#new-street-default').addEventListener('click', _onNewStreetDefaultClick);
-  document.querySelector('#new-street-empty').addEventListener('click', _onNewStreetEmptyClick);
-  document.querySelector('#new-street-last').addEventListener('click', _onNewStreetLastClick);
-
-  window.addEventListener('storage', _onStorageChange);
-
-  if (system.touch) {
-    document.querySelector('#gallery-link a').addEventListener('touchstart', _onMyStreetsClick);
-  } else {
-    document.querySelector('#gallery-link a').addEventListener('click', _onMyStreetsClick);
-  }
-
-  document.querySelector('#sign-out-link').addEventListener('click', _onSignOutClick);
-
-  /*if (system.pageVisibility) {
-    document.addEventListener('visibilitychange', _onVisibilityChange, false);
-    document.addEventListener('webkitvisibilitychange', _onVisibilityChange, false);
-    document.addEventListener('mozvisibilitychange', _onVisibilityChange, false);
-    document.addEventListener('msvisibilitychange', _onVisibilityChange, false);
-  }*/
-  window.addEventListener('focus', _onWindowFocus);
-  window.addEventListener('blur', _onWindowBlur);
-
-  window.addEventListener('beforeunload', _onWindowBeforeUnload);
-
-  if (!readOnly) {
-    if (system.touch) {
-      document.querySelector('#street-name').addEventListener('touchstart', _askForStreetName);
-    } else {
-      document.querySelector('#street-name').addEventListener('click', _askForStreetName);
-    }
-  }
-
-  if (system.touch) {
-    document.querySelector('#undo').addEventListener('touchstart', _undo);
-    document.querySelector('#redo').addEventListener('touchstart', _redo);
-  } else {
-    document.querySelector('#undo').addEventListener('click', _undo);
-    document.querySelector('#redo').addEventListener('click', _redo);
-  }
-
-  if (!readOnly) {
-    document.querySelector('#street-width-read').addEventListener('click', _onStreetWidthClick);
-
-    document.querySelector('#street-width').
-        addEventListener('change', _onStreetWidthChange);
-  }
-
-  window.addEventListener('resize', _onResize);
-
-  $(document).mouseleave(_onBodyMouseOut);
-
-  if (!system.touch) {
-    window.addEventListener('mousedown', _onBodyMouseDown);
-    window.addEventListener('mousemove', _onBodyMouseMove);
-    window.addEventListener('mouseup', _onBodyMouseUp);
-  } else {
-    window.addEventListener('touchstart', _onBodyMouseDown);
-    window.addEventListener('touchmove', _onBodyMouseMove);
-    window.addEventListener('touchend', _onBodyMouseUp);
-  }
-  window.addEventListener('keydown', _onGlobalKeyDown);
-
-  /*if (system.touch) {
-    document.querySelector('#share-menu-button').
-        addEventListener('touchstart', _onShareMenuClick);
-    document.querySelector('#feedback-menu-button').
-        addEventListener('touchstart', _onFeedbackMenuClick);
-    if (document.querySelector('#identity-menu-button')) {
-      document.querySelector('#identity-menu-button').
-          addEventListener('touchstart', _onIdentityMenuClick);
-    }
-  } else {*/
-    // Firefox sometimes disables some buttons… unsure why
-    document.querySelector('#share-menu-button').disabled = false;
-    document.querySelector('#help-menu-button').disabled = false;
-    document.querySelector('#feedback-menu-button').disabled = false;
-    if (document.querySelector('#identity-menu-button')) {
-      document.querySelector('#identity-menu-button').disabled = false;
-    }
-
-    document.querySelector('#share-menu-button').
-        addEventListener('click', _onShareMenuClick);
-    document.querySelector('#help-menu-button').
-        addEventListener('click', _onHelpMenuClick);
-    document.querySelector('#feedback-menu-button').
-        addEventListener('click', _onFeedbackMenuClick);
-    if (document.querySelector('#identity-menu-button')) {
-      document.querySelector('#identity-menu-button').
-          addEventListener('click', _onIdentityMenuClick);
-    }
-  //}
-}
-
-function _addBodyClasses() {
-  document.body.classList.add('environment-' + ENV);
-
-  if (system.windows) {
-    document.body.classList.add('windows');
-  }
-
-  if (system.safari) {
-    document.body.classList.add('safari');
-  }
-
-  if (system.touch) {
-    document.body.classList.add('touch-support');
-  }
-
-  if (readOnly) {
-    document.body.classList.add('read-only');
-  }
-
-  if (system.phone) {
-    document.body.classList.add('phone');
-  }
-}
-
-function _switchSegmentElIn(el) {
-  el.classList.add('switching-in-pre');
-
-  window.setTimeout(function() {
-    var pos = _getElAbsolutePos(el);
-    var perspective = -(pos[0] - document.querySelector('#street-section-outer').scrollLeft - system.viewportWidth / 2);
-    // TODO const
-    // TODO cross-browser
-
-    el.style.webkitPerspectiveOrigin = (perspective / 2) + 'px 50%';
-    el.style.MozPerspectiveOrigin = (perspective / 2) + 'px 50%';
-    el.style.perspectiveOrigin = (perspective / 2) + 'px 50%';
-
-    el.classList.add('switching-in-post');
-  }, SEGMENT_SWITCHING_TIME / 2);
-
-  window.setTimeout(function() {
-    el.classList.remove('switching-in-pre');
-    el.classList.remove('switching-in-post');
-  }, SEGMENT_SWITCHING_TIME * 1.5);
-}
-
-function _switchSegmentElAway(el) {
-  var pos = _getElAbsolutePos(el);
-
-  // TODO func
-  var perspective = -(pos[0] - document.querySelector('#street-section-outer').scrollLeft - system.viewportWidth / 2);
-  // TODO const
-  // TODO cross-browser
-
-  el.style.webkitPerspectiveOrigin = (perspective / 2) + 'px 50%';
-  el.style.MozPerspectiveOrigin = (perspective / 2) + 'px 50%';
-  el.style.perspectiveOrigin = (perspective / 2) + 'px 50%';
-
-  el.parentNode.removeChild(el);
-  el.classList.remove('hover');
-  el.classList.add('switching-away-pre');
-  el.style.left = (pos[0] - document.querySelector('#street-section-outer').scrollLeft) + 'px';
-  el.style.top = pos[1] + 'px';
-  document.body.appendChild(el);
-
-  window.setTimeout(function() {
-    el.classList.add('switching-away-post');
-  }, 0);
-
-  window.setTimeout(function() {
-    _removeElFromDom(el);
-  }, SEGMENT_SWITCHING_TIME);
-}
-
-var _statusMessage = {
-  timerId: -1,
-
-  show: function(text, undo) {
-    window.clearTimeout(_statusMessage.timerId);
-
-    document.querySelector('#status-message > div').innerHTML = text;
-
-    if (undo) {
-      var buttonEl = document.createElement('button');
-      buttonEl.innerHTML = msg('BUTTON_UNDO');
-      buttonEl.addEventListener('click', _undo);
-      document.querySelector('#status-message > div').appendChild(buttonEl);
-    }
-
-    var el = document.createElement('button');
-    el.classList.add('close');
-    if (system.touch) {
-      el.addEventListener('touchstart', _statusMessage.hide);
-    } else {
-      el.addEventListener('click', _statusMessage.hide);
-    }
-    el.innerHTML = msg('UI_GLYPH_X');
-    document.querySelector('#status-message > div').appendChild(el);
-
-    document.querySelector('#status-message').classList.add('visible');
-
-    _statusMessage.timerId =
-        window.setTimeout(_statusMessage.hide, STATUS_MESSAGE_HIDE_DELAY);
-  },
-
-  hide: function() {
-    document.querySelector('#status-message').classList.remove('visible');
-  }
-};
 
 function _hideLoadingScreen() {
 
@@ -2068,13 +1442,6 @@ function _onIdentityMenuClick() {
   }
 }
 
-function _normalizeAllSegmentWidths() {
-  for (var i in street.segments) {
-    street.segments[i].width =
-        _normalizeSegmentWidth(street.segments[i].width, RESIZE_TYPE_INITIAL);
-  }
-}
-
 function _prepareDefaultStreet() {
   street.units = units;
   _propagateUnits();
@@ -2114,29 +1481,6 @@ function _prepareEmptyStreet() {
   street.segments = [];
 
   _setUpdateTimeToNow();
-}
-
-function _prepareSegmentInfo() {
-  // TODO should not modify const
-
-  for (var i in SEGMENT_INFO) {
-    for (var j in SEGMENT_INFO[i].details) {
-      var graphics = SEGMENT_INFO[i].details[j].graphics;
-
-      if (graphics.repeat && !$.isArray(graphics.repeat)) {
-        graphics.repeat = [graphics.repeat];
-      }
-      if (graphics.left && !$.isArray(graphics.left)) {
-        graphics.left = [graphics.left];
-      }
-      if (graphics.right && !$.isArray(graphics.right)) {
-        graphics.right = [graphics.right];
-      }
-      if (graphics.center && !$.isArray(graphics.center)) {
-        graphics.center = [graphics.center];
-      }
-    }
-  }
 }
 
 function _flash() {

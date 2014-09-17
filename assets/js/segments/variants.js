@@ -30,3 +30,26 @@ var VARIANTS = {
   'parking-lane-orientation': ['left', 'right'],
   'wayfinding-type': ['large', 'medium', 'small']
 };
+
+function _getVariantArray(segmentType, variantString) {
+  var variantArray = {};
+  var variantSplit = variantString.split(VARIANT_SEPARATOR);
+
+  for (var i in SEGMENT_INFO[segmentType].variants) {
+    var variantName = SEGMENT_INFO[segmentType].variants[i];
+
+    variantArray[variantName] = variantSplit[i];
+  }
+
+  return variantArray;
+}
+
+function _getVariantString(variant) {
+  var string = '';
+  for (var i in variant) {
+    string += variant[i] + VARIANT_SEPARATOR;
+  }
+
+  string = string.substr(0, string.length - 1);
+  return string;
+}

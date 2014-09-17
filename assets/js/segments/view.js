@@ -1,3 +1,5 @@
+var SEGMENT_SWITCHING_TIME = 250;
+
 function _drawSegmentImage(tileset, ctx, sx, sy, sw, sh, dx, dy, dw, dh) {
   if (!sw || !sh || !dw || !dh) {
     return;
@@ -503,3 +505,89 @@ function _changeSegmentVariant(dataNo, variantName, variantChoice, variantString
 
   _saveStreetToServerIfNecessary();
 }
+
+function _switchSegmentElIn(el) {
+  el.classList.add('switching-in-pre');
+
+  window.setTimeout(function() {
+    var pos = _getElAbsolutePos(el);
+    var perspective = -(pos[0] - document.querySelector('#street-section-outer').scrollLeft - system.viewportWidth / 2);
+    // TODO const
+    // TODO cross-browser
+
+    el.style.webkitPerspectiveOrigin = (perspective / 2) + 'px 50%';
+    el.style.MozPerspectiveOrigin = (perspective / 2) + 'px 50%';
+    el.style.perspectiveOrigin = (perspective / 2) + 'px 50%';
+
+    el.classList.add('switching-in-post');
+  }, SEGMENT_SWITCHING_TIME / 2);
+
+  window.setTimeout(function() {
+    el.classList.remove('switching-in-pre');
+    el.classList.remove('switching-in-post');
+  }, SEGMENT_SWITCHING_TIME * 1.5);
+}
+
+function _switchSegmentElAway(el) {
+  var pos = _getElAbsolutePos(el);
+
+  // TODO func
+  var perspective = -(pos[0] - document.querySelector('#street-section-outer').scrollLeft - system.viewportWidth / 2);
+  // TODO const
+  // TODO cross-browser
+
+  el.style.webkitPerspectiveOrigin = (perspective / 2) + 'px 50%';
+  el.style.MozPerspectiveOrigin = (perspective / 2) + 'px 50%';
+  el.style.perspectiveOrigin = (perspective / 2) + 'px 50%';
+
+  el.parentNode.removeChild(el);
+  el.classList.remove('hover');
+  el.classList.add('switching-away-pre');
+  el.style.left = (pos[0] - document.querySelector('#street-section-outer').scrollLeft) + 'px';
+  el.style.top = pos[1] + 'px';
+  document.body.appendChild(el);
+
+  window.setTimeout(function() {
+    el.classList.add('switching-away-post');
+  }, 0);
+
+  window.setTimeout(function() {
+    _removeElFromDom(el);
+  }, SEGMENT_SWITCHING_TIME);
+}
+
+var _statusMessage = {
+  timerId: -1,
+
+  show: function(text, undo) {
+    window.clearTimeout(_statusMessage.timerId);
+
+    document.querySelector('#status-message > div').innerHTML = text;
+
+    if (undo) {
+      var buttonEl = document.createElement('button');
+      buttonEl.innerHTML = msg('BUTTON_UNDO');
+      buttonEl.addEventListener('click', _undo);
+      document.querySelector('#status-message > div').appendChild(buttonEl);
+    }
+
+    var el = document.createElement('button');
+    el.classList.add('close');
+    if (system.touch) {
+      el.addEventListener('touchstart', _statusMessage.hide);
+    } else {
+      el.addEventListener('click', _statusMessage.hide);
+    }
+    el.innerHTML = msg('UI_GLYPH_X');
+    document.querySelector('#status-message > div').appendChild(el);
+
+    document.querySelector('#status-message').classList.add('visible');
+
+    _statusMessage.timerId =
+        window.setTimeout(_statusMessage.hide, STATUS_MESSAGE_HIDE_DELAY);
+  },
+
+  hide: function() {
+    document.querySelector('#status-message').classList.remove('visible');
+  }
+};
