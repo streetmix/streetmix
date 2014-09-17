@@ -34,7 +34,9 @@ app.use(app.router);
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/app/views')
 
-app.use(assets());
+app.use(assets({
+  precompile: ['styles.less', 'app.js']
+}));
 app.use(express.static(__dirname + '/public'))
 
 app.get('/twitter-sign-in', controllers.twitter_sign_in.get)
