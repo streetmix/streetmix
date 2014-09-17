@@ -1,3 +1,6 @@
+var TRACK_ACTION_ERROR_15A = 'Error 15A (sign in API failure)';
+var TRACK_ACTION_ERROR_RM1 = 'Error RM1 (auth 401 failure on load)';
+
 var USER_ID_COOKIE = 'user_id';
 var SIGN_IN_TOKEN_COOKIE = 'login_token';
 
