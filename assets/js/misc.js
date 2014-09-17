@@ -79,10 +79,6 @@ var TRACK_ACTION_LEARN_MORE = 'Learn more about segment';
 var TRACK_ACTION_STREET_MODIFIED_ELSEWHERE = 'Street modified elsewhere';
 var TRACK_ACTION_CHANGE_WIDTH = 'Change width';
 var TRACK_ACTION_REMOVE_SEGMENT = 'Remove segment';
-var TRACK_ACTION_ERROR_15A = 'Error 15A (sign in API failure)';
-var TRACK_ACTION_ERROR_RM1 = 'Error RM1 (auth 401 failure on load)';
-var TRACK_ACTION_ERROR_RM2 = 'Error RM2 (auth 401 failure mid-flight)';
-var TRACK_ACTION_ERROR_GEOLOCATION_TIMEOUT = 'Geolocation timeout';
 
 var TRACK_LABEL_INCREMENT_BUTTON = 'Increment button';
 var TRACK_LABEL_INPUT_FIELD = 'Input field';
@@ -2362,28 +2358,6 @@ function _switchSegmentElAway(el) {
   window.setTimeout(function() {
     _removeElFromDom(el);
   }, SEGMENT_SWITCHING_TIME);
-}
-
-var _eventTracking = {
-  alreadyTracked: [],
-
-  track: function(category, action, label, value, onlyFirstTime) {
-    if (onlyFirstTime) {
-      var id = category + '|' + action + '|' + label;
-
-      if (_eventTracking.alreadyTracked[id]) {
-        return;
-      }
-    }
-
-    // console.log('Event tracked', category, action, label);
-
-    ga && ga('send', 'event', category, action, label, value);
-
-    if (onlyFirstTime) {
-      _eventTracking.alreadyTracked[id] = true;
-    }
-  }
 }
 
 var _statusMessage = {
