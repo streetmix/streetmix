@@ -312,3 +312,17 @@ function _onDeleteGalleryStreet(event) {
   event.preventDefault();
   event.stopPropagation();
 }
+
+function _onMyStreetsClick(event) {
+  if (event.shiftKey || event.ctrlKey || event.metaKey) {
+    return;
+  }
+
+  if (signedIn) {
+    _showGallery(signInData.userId, false);
+  } else {
+    _showGallery(false, false, true);
+  }
+
+  event.preventDefault();
+}

@@ -1,3 +1,12 @@
+var CANVAS_HEIGHT = 480;
+var CANVAS_GROUND = 35;
+var CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND;
+
+var SEGMENT_Y_NORMAL = 265;
+var SEGMENT_Y_PALETTE = 20;
+
+var STATUS_MESSAGE_HIDE_DELAY = 15000;
+
 var DRAGGING_MOVE_HOLE_WIDTH = 40;
 
 var SEGMENT_SWITCHING_TIME = 250;
@@ -236,45 +245,6 @@ function _setSegmentContents(el, type, variantString, segmentWidth, randSeed, pa
 
     _removeElFromDom(el.querySelector('.hover-bk'));
     el.appendChild(hoverBkEl);
-  }
-}
-
-function _resizeSegment(el, resizeType, width, updateEdit, palette, initial) {
-  if (!palette) {
-    var width =
-        _normalizeSegmentWidth(width / TILE_SIZE, resizeType) * TILE_SIZE;
-  }
-
-  document.body.classList.add('immediate-segment-resize');
-
-  window.setTimeout(function() {
-    document.body.classList.remove('immediate-segment-resize');
-  }, SHORT_DELAY);
-
-  var oldWidth = parseFloat(el.getAttribute('width') * TILE_SIZE);
-
-  el.style.width = width + 'px';
-  el.setAttribute('width', width / TILE_SIZE);
-
-  var widthEl = el.querySelector('span.width');
-  if (widthEl) {
-    widthEl.innerHTML =
-        _prettifyWidth(width / TILE_SIZE, PRETTIFY_WIDTH_OUTPUT_MARKUP);
-  }
-
-  _setSegmentContents(el, el.getAttribute('type'),
-    el.getAttribute('variant-string'), width, parseInt(el.getAttribute('rand-seed')), palette, false);
-
-  if (updateEdit) {
-    _infoBubble.updateWidthInContents(el, width / TILE_SIZE);
-  }
-
-  if (!initial) {
-    _segmentsChanged();
-
-    if (oldWidth != width) {
-      _showWidthChartImmediately();
-    }
   }
 }
 
@@ -648,4 +618,20 @@ function _segmentsChanged() {
   _repositionSegments();
 
   printingNeedsUpdating = true;
+}
+
+function _recalculateOwnerWidths() {
+  var ownerWidths = {};
+
+  for (var id in SEGMENT_OWNERS) {
+    ownerWidths[id] = 0;
+  }
+
+  for (var i in street.segments) {
+    var segment = street.segments[i];
+
+    ownerWidths[SEGMENT_INFO[segment.type].owner] += segment.width;
+  }
+
+  _updateWidthChart(ownerWidths);
 }

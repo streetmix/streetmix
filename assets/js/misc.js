@@ -6,48 +6,8 @@
 
 "use strict";
 
-var TWITTER_ID = '@streetmix';
-
 var NEW_STREET_DEFAULT = 1;
 var NEW_STREET_EMPTY = 2;
-
-var WIDTH_PALETTE_MULTIPLIER = 4;
-
-var CANVAS_HEIGHT = 480;
-var CANVAS_GROUND = 35;
-var CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND;
-
-var SEGMENT_Y_NORMAL = 265;
-var SEGMENT_Y_PALETTE = 20;
-var PALETTE_EXTRA_SEGMENT_PADDING = 8;
-
-var STATUS_MESSAGE_HIDE_DELAY = 15000;
-var WIDTH_EDIT_INPUT_DELAY = 200;
-var SHORT_DELAY = 100;
-
-var TOUCH_CONTROLS_FADEOUT_TIME = 3000;
-var TOUCH_CONTROLS_FADEOUT_DELAY = 3000;
-
-var MAX_DRAG_DEGREE = 20;
-
-var MIN_SEGMENT_WIDTH = 1;
-var MAX_SEGMENT_WIDTH = 400;
-
-var MAX_CANVAS_HEIGHT = 2048;
-
-var TRACK_CATEGORY_INTERACTION = 'Interaction';
-var TRACK_CATEGORY_EVENT = 'Event';
-var TRACK_CATEGORY_ERROR = 'Error';
-
-var TRACK_ACTION_LEARN_MORE = 'Learn more about segment';
-var TRACK_ACTION_STREET_MODIFIED_ELSEWHERE = 'Street modified elsewhere';
-var TRACK_ACTION_CHANGE_WIDTH = 'Change width';
-
-var TRACK_LABEL_INCREMENT_BUTTON = 'Increment button';
-var TRACK_LABEL_INPUT_FIELD = 'Input field';
-var TRACK_LABEL_BUTTON = 'Button';
-
-// TODO clean up/rearrange variables
 
 // Saved data
 // ------------------------------------------------------------------------
@@ -58,24 +18,10 @@ var suppressMouseEnter = false;
 
 // ------------------------------------------------------------------------
 
-var errorUrl = '';
-var currentErrorType;
-
 var readOnly = false;
-
-var initializing = false;
-
-var widthHeightEditHeld = false;
-var widthHeightChangeTimerId = -1;
-
-var streetSectionCanvasLeft;
 
 var mouseX;
 var mouseY;
-
-var streetSectionTop;
-
-var menuVisible = false;
 
 // -------------------------------------------------------------------------
 
@@ -225,64 +171,6 @@ function _createDataFromDom() {
   }
 }
 
-function _recalculateOwnerWidths() {
-  var ownerWidths = {};
-
-  for (var id in SEGMENT_OWNERS) {
-    ownerWidths[id] = 0;
-  }
-
-  for (var i in street.segments) {
-    var segment = street.segments[i];
-
-    ownerWidths[SEGMENT_INFO[segment.type].owner] += segment.width;
-  }
-
-  _updateWidthChart(ownerWidths);
-}
-
-function _createPalette() {
-  for (var id in SEGMENT_INFO) {
-    var segmentInfo = SEGMENT_INFO[id];
-
-    if (segmentInfo.secret && !debug.secretSegments) {
-      break;
-    }
-
-    var variantName;
-    if (segmentInfo.paletteIcon) {
-      variantName = segmentInfo.paletteIcon;
-    } else {
-      // TODO hack to get the first variant name
-      for (var j in segmentInfo.details) {
-        variantName = j;
-        break;
-      }
-    }
-
-    var variantInfo = segmentInfo.details[variantName];
-
-    var dimensions = _getVariantInfoDimensions(variantInfo, 0, 1);
-
-    var width = dimensions.right - dimensions.left;
-    if (!width) {
-      width = segmentInfo.defaultWidth;
-    }
-    width += PALETTE_EXTRA_SEGMENT_PADDING;
-
-    var el = _createSegment(id,
-      variantName,
-      width * TILE_SIZE / WIDTH_PALETTE_MULTIPLIER,
-      false,
-      true,
-      _generateRandSeed());
-
-    el.classList.add('palette');
-
-    document.querySelector('.palette-canvas').appendChild(el);
-  }
-}
-
 function _fillDefaultSegments() {
   street.segments = [];
 
@@ -299,16 +187,6 @@ function _fillDefaultSegments() {
   }
 
   _normalizeAllSegmentWidths();
-}
-
-function _getHoveredSegmentEl() {
-  var el = document.querySelector('.segment.hover');
-  return el;
-}
-
-function _getHoveredEl() {
-  var el = document.querySelector('.hover');
-  return el;
 }
 
 function _getStreetUrl(street) {
@@ -348,16 +226,6 @@ function _onAnotherUserIdClick(event) {
   _showGallery(userId, false);
 
   event.preventDefault();
-}
-
-function _onStorageChange() {
-  if (signedIn && !window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
-    mode = MODES.FORCE_RELOAD_SIGN_OUT;
-    _processMode();
-  } else if (!signedIn && window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
-    mode = MODES.FORCE_RELOAD_SIGN_IN;
-    _processMode();
-  }
 }
 
 function _makeDefaultStreet() {
@@ -407,68 +275,6 @@ function _onNewStreetLastClick() {
   _fetchLastStreet();
 }
 
-function _showAboutDialogBox(event) {
-  if (event && (event.shiftKey || event.ctrlKey || event.metaKey)) {
-    return;
-  }
-
-  _hideMenus();
-
-  document.querySelector('#about').classList.add('visible');
-  document.querySelector('#dialog-box-shield').classList.add('visible');
-
-  var els = document.querySelectorAll('#about .avatar');
-  for (var i = 0, el; el = els[i]; i++) {
-    el.removeAttribute('postpone');
-  }
-
-  window.history.replaceState(null, null, URL_HELP_ABOUT);
-
-  _fetchAvatars();
-
-  if (event) {
-    event.preventDefault();
-  }
-}
-
-function _hideAboutDialogBox() {
-  document.querySelector('#about').classList.remove('visible');
-  document.querySelector('#dialog-box-shield').classList.remove('visible');
-
-  _updatePageUrl();
-}
-
-function _onMyStreetsClick(event) {
-  if (event.shiftKey || event.ctrlKey || event.metaKey) {
-    return;
-  }
-
-  if (signedIn) {
-    _showGallery(signInData.userId, false);
-  } else {
-    _showGallery(false, false, true);
-  }
-
-  event.preventDefault();
-}
-
-function _onVisibilityChange() {
-  var hidden = document.hidden || document.webkitHidden ||
-      document.msHidden || document.mozHidden;
-
-  if (hidden) {
-    _onWindowBlur();
-  } else {
-    _onWindowFocus();
-  }
-}
-
-// TODO hack
-function _hideDialogBoxes() {
-  _hideAboutDialogBox();
-  _hideSaveAsImageDialogBox();
-}
-
 function _hideLoadingScreen() {
 
   // NOTE:
@@ -476,53 +282,6 @@ function _hideLoadingScreen() {
   // sure not to use modern faculties.
 
   document.getElementById('loading').className += ' hidden';
-}
-
-function _hideMenus() {
-  _loseAnyFocus();
-
-  menuVisible = false;
-
-  var els = document.querySelectorAll('.menu.visible');
-  for (var i = 0, el; el = els[i]; i++) {
-    el.classList.remove('visible');
-  }
-}
-
-
-function _onHelpMenuClick() {
-  var el = document.querySelector('#help-menu');
-
-  _infoBubble.hide();
-  _statusMessage.hide();
-
-  if (!el.classList.contains('visible')) {
-    _hideMenus();
-    menuVisible = true;
-
-    el.classList.add('visible');
-  } else {
-    _hideMenus();
-  }
-}
-
-function _onIdentityMenuClick() {
-  var el = document.querySelector('#identity-menu');
-
-  _infoBubble.hide();
-  _statusMessage.hide();
-
-  if (!el.classList.contains('visible')) {
-    _hideMenus();
-    menuVisible = true;
-
-    var pos = _getElAbsolutePos(document.querySelector('#identity'));
-    el.style.left = pos[0] + 'px';
-
-    el.classList.add('visible');
-  } else {
-    _hideMenus();
-  }
 }
 
 function _prepareDefaultStreet() {
@@ -564,68 +323,6 @@ function _prepareEmptyStreet() {
   street.segments = [];
 
   _setUpdateTimeToNow();
-}
-
-function _onEverythingLoaded() {
-  switch (mode) {
-    case MODES.NEW_STREET_COPY_LAST:
-      _onNewStreetLastClick();
-      break;
-  }
-  _showWelcome();
-
-  _onResize();
-  _resizeStreetWidth();
-  _updateStreetName();
-  _createPalette();
-  _createDomFromData();
-  _segmentsChanged();
-  _updateShareMenu();
-  _updateFeedbackMenu();
-
-  initializing = false;
-  ignoreStreetChanges = false;
-  lastStreet = _trimStreetData(street);
-
-  _updatePageUrl();
-  _buildStreetWidthMenu();
-  _addScrollButtons(document.querySelector('#palette'));
-  _addScrollButtons(document.querySelector('#gallery .streets'));
-  _addEventListeners();
-
-  if (mode == MODES.USER_GALLERY) {
-    _showGallery(galleryUserId, true);
-  } else if (mode == MODES.GLOBAL_GALLERY) {
-    _showGallery(null, true);
-  } else if (mode == MODES.ABOUT) {
-    _showAboutDialogBox();
-  }
-
-  if (promoteStreet) {
-    _remixStreet();
-  }
-
-  window.setTimeout(_hideLoadingScreen, 0);
-
-  if (debug.forceLiveUpdate) {
-    _scheduleNextLiveUpdateCheck();
-  }
-}
-
-function _onBodyLoad() {
-  bodyLoaded = true;
-
-  document.querySelector('#loading-progress').value++;
-  _checkIfEverythingIsLoaded();
-}
-
-function _onReadyStateChange() {
-  if (document.readyState == 'complete') {
-    readyStateCompleteLoaded = true;
-
-    document.querySelector('#loading-progress').value++;
-    _checkIfEverythingIsLoaded();
-  }
 }
 
 function _goReload() {

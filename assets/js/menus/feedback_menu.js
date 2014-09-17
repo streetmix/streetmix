@@ -1,3 +1,5 @@
+var TWITTER_ID = '@streetmix';
+
 function _isFeedbackFormMessagePresent() {
   var message = document.querySelector('#feedback-form-message').value;
   message = $.trim(message);

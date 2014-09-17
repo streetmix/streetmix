@@ -1,3 +1,5 @@
+var initializing = false;
+
 app.preInit = function() {
   initializing = true;
   ignoreStreetChanges = true;
@@ -61,4 +63,66 @@ app.init = function() {
 
   // Note that we are waiting for sign in and image info to show the page,
   // but we give up on country info if it’s more than 1000ms.
+}
+
+function _onEverythingLoaded() {
+  switch (mode) {
+    case MODES.NEW_STREET_COPY_LAST:
+      _onNewStreetLastClick();
+      break;
+  }
+  _showWelcome();
+
+  _onResize();
+  _resizeStreetWidth();
+  _updateStreetName();
+  _createPalette();
+  _createDomFromData();
+  _segmentsChanged();
+  _updateShareMenu();
+  _updateFeedbackMenu();
+
+  initializing = false;
+  ignoreStreetChanges = false;
+  lastStreet = _trimStreetData(street);
+
+  _updatePageUrl();
+  _buildStreetWidthMenu();
+  _addScrollButtons(document.querySelector('#palette'));
+  _addScrollButtons(document.querySelector('#gallery .streets'));
+  _addEventListeners();
+
+  if (mode == MODES.USER_GALLERY) {
+    _showGallery(galleryUserId, true);
+  } else if (mode == MODES.GLOBAL_GALLERY) {
+    _showGallery(null, true);
+  } else if (mode == MODES.ABOUT) {
+    _showAboutDialogBox();
+  }
+
+  if (promoteStreet) {
+    _remixStreet();
+  }
+
+  window.setTimeout(_hideLoadingScreen, 0);
+
+  if (debug.forceLiveUpdate) {
+    _scheduleNextLiveUpdateCheck();
+  }
+}
+
+function _onBodyLoad() {
+  bodyLoaded = true;
+
+  document.querySelector('#loading-progress').value++;
+  _checkIfEverythingIsLoaded();
+}
+
+function _onReadyStateChange() {
+  if (document.readyState == 'complete') {
+    readyStateCompleteLoaded = true;
+
+    document.querySelector('#loading-progress').value++;
+    _checkIfEverythingIsLoaded();
+  }
 }

@@ -1,3 +1,5 @@
+var TRACK_ACTION_STREET_MODIFIED_ELSEWHERE = 'Street modified elsewhere';
+
 var SAVE_STREET_DELAY = 500;
 
 var LIVE_UPDATE_DELAY = 5000;

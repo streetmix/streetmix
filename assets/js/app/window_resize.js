@@ -1,3 +1,6 @@
+var streetSectionCanvasLeft;
+var streetSectionTop;
+
 function _onResize() {
   system.viewportWidth = window.innerWidth;
   system.viewportHeight = window.innerHeight;

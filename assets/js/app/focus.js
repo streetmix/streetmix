@@ -39,3 +39,14 @@ function _onWindowBlur() {
 
   _hideMenus();
 }
+
+function _onVisibilityChange() {
+  var hidden = document.hidden || document.webkitHidden ||
+      document.msHidden || document.mozHidden;
+
+  if (hidden) {
+    _onWindowBlur();
+  } else {
+    _onWindowFocus();
+  }
+}

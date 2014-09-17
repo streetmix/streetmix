@@ -192,3 +192,13 @@ function _scheduleSavingSettingsToServer() {
 function _clearScheduledSavingSettingsToServer() {
   window.clearTimeout(saveSettingsTimerId);
 }
+
+function _onStorageChange() {
+  if (signedIn && !window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
+    mode = MODES.FORCE_RELOAD_SIGN_OUT;
+    _processMode();
+  } else if (!signedIn && window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
+    mode = MODES.FORCE_RELOAD_SIGN_IN;
+    _processMode();
+  }
+}

@@ -1,3 +1,5 @@
+var TRACK_ACTION_LEARN_MORE = 'Learn more about segment';
+
 var VARIANT_ICON_START_X = 164; // x24 in tileset file
 var VARIANT_ICON_START_Y = 64; // x24 in tileset file
 var VARIANT_ICON_SIZE = 24;

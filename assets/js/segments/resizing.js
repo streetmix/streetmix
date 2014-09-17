@@ -1,12 +1,64 @@
+var SHORT_DELAY = 100;
+var WIDTH_EDIT_INPUT_DELAY = 200;
+
+var TRACK_ACTION_CHANGE_WIDTH = 'Change width';
+var TRACK_LABEL_INCREMENT_BUTTON = 'Increment button';
+var TRACK_LABEL_INPUT_FIELD = 'Input field';
+
 var RESIZE_TYPE_INITIAL = 0;
 var RESIZE_TYPE_INCREMENT = 1;
 var RESIZE_TYPE_DRAGGING = 2;
 var RESIZE_TYPE_PRECISE_DRAGGING = 3;
 var RESIZE_TYPE_TYPING = 4;
 
+var MIN_SEGMENT_WIDTH = 1;
+var MAX_SEGMENT_WIDTH = 400;
+
 var segmentWidthResolution;
 var segmentWidthClickIncrement;
 var segmentWidthDraggingResolution;
+
+var widthHeightEditHeld = false;
+var widthHeightChangeTimerId = -1;
+
+function _resizeSegment(el, resizeType, width, updateEdit, palette, initial) {
+  if (!palette) {
+    var width =
+        _normalizeSegmentWidth(width / TILE_SIZE, resizeType) * TILE_SIZE;
+  }
+
+  document.body.classList.add('immediate-segment-resize');
+
+  window.setTimeout(function() {
+    document.body.classList.remove('immediate-segment-resize');
+  }, SHORT_DELAY);
+
+  var oldWidth = parseFloat(el.getAttribute('width') * TILE_SIZE);
+
+  el.style.width = width + 'px';
+  el.setAttribute('width', width / TILE_SIZE);
+
+  var widthEl = el.querySelector('span.width');
+  if (widthEl) {
+    widthEl.innerHTML =
+        _prettifyWidth(width / TILE_SIZE, PRETTIFY_WIDTH_OUTPUT_MARKUP);
+  }
+
+  _setSegmentContents(el, el.getAttribute('type'),
+    el.getAttribute('variant-string'), width, parseInt(el.getAttribute('rand-seed')), palette, false);
+
+  if (updateEdit) {
+    _infoBubble.updateWidthInContents(el, width / TILE_SIZE);
+  }
+
+  if (!initial) {
+    _segmentsChanged();
+
+    if (oldWidth != width) {
+      _showWidthChartImmediately();
+    }
+  }
+}
 
 function _onWidthHeightEditClick(event) {
   var el = event.target;

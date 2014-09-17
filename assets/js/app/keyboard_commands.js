@@ -153,3 +153,13 @@ function _onBodyKeyDown(event) {
       break;
     }
 }
+
+function _getHoveredSegmentEl() {
+  var el = document.querySelector('.segment.hover');
+  return el;
+}
+
+function _getHoveredEl() {
+  var el = document.querySelector('.hover');
+  return el;
+}

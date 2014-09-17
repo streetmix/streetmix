@@ -1,3 +1,6 @@
+var errorUrl = '';
+var currentErrorType;
+
 var ERRORS = {
   NOT_FOUND: 1,
   SIGN_OUT: 2,

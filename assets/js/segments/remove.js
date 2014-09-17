@@ -1,4 +1,5 @@
 var TRACK_ACTION_REMOVE_SEGMENT = 'Remove segment';
+var TRACK_LABEL_BUTTON = 'Button';
 
 function _removeSegment(el, all) {
   if (all) {

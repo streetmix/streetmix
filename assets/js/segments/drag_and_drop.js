@@ -12,6 +12,8 @@ var DRAGGING_TYPE_RESIZE = 3;
 var DRAGGING_TYPE_MOVE_TRANSFER = 1;
 var DRAGGING_TYPE_MOVE_CREATE = 2;
 
+var MAX_DRAG_DEGREE = 20;
+
 var draggingType = DRAGGING_TYPE_NONE;
 
 var draggingResize = {
