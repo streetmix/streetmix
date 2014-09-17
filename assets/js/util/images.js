@@ -37,4 +37,3 @@ function _loadImages() {
   document.querySelector('#loading-progress').value = 0;
   document.querySelector('#loading-progress').max = imagesToBeLoaded + 5;
 }
-
