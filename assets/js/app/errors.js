@@ -1,3 +1,4 @@
+var abortEverything;
 var errorUrl = '';
 var currentErrorType;
 

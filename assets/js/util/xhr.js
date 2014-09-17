@@ -1,3 +1,5 @@
+var serverContacted;
+
 var latestRequestId;
 var latestVerificationStreet;
 

@@ -1,3 +1,17 @@
+function _onAnotherUserIdClick(event) {
+  if (event.shiftKey || event.ctrlKey || event.metaKey) {
+    return;
+  }
+
+  var el = event.target;
+
+  var userId = el.innerHTML;
+
+  _showGallery(userId, false);
+
+  event.preventDefault();
+}
+
 function _updateStreetMetadata() {
   var html = _prettifyWidth(street.width, PRETTIFY_WIDTH_OUTPUT_MARKUP) + ' width';
   document.querySelector('#street-width-read-width').innerHTML = html;

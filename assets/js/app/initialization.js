@@ -1,4 +1,6 @@
 var initializing = false;
+var bodyLoaded;
+var readyStateCompleteLoaded;
 
 app.preInit = function() {
   initializing = true;
