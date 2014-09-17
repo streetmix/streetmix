@@ -301,3 +301,97 @@ function _scheduleSavingStreetToServer() {
         window.setTimeout(function() { _saveStreetToServer(false); }, SAVE_STREET_DELAY);
   }
 }
+
+function _fetchLastStreet() {
+  _newBlockingAjaxRequest(msg('LOADING'),
+      {
+        // TODO const
+        url: API_URL + 'v1/streets/' + settings.priorLastStreetId,
+        dataType: 'json',
+        type: 'GET',
+        headers: { 'Authorization': _getAuthHeader() }
+      }, _receiveLastStreet, _cancelReceiveLastStreet
+  );
+}
+
+function _cancelReceiveLastStreet() {
+  document.querySelector('#new-street-default').checked = true;
+  _makeDefaultStreet();
+}
+
+function _receiveLastStreet(transmission) {
+  ignoreStreetChanges = true;
+
+  _unpackServerStreetData(transmission, street.id, street.namespacedId, false);
+  street.originalStreetId = settings.priorLastStreetId;
+  _addRemixSuffixToName();
+
+  if (signedIn) {
+    _setStreetCreatorId(signInData.userId);
+  } else {
+    _setStreetCreatorId(null);
+  }
+  _setUpdateTimeToNow();
+  street.editCount = 0;
+  //console.log('editCount = 0 on last street!');
+
+  _propagateUnits();
+
+  // TODO this is stupid, only here to fill some structures
+  _createDomFromData();
+  _createDataFromDom();
+
+  _unifyUndoStack();
+
+  _resizeStreetWidth();
+  _updateStreetName();
+  _createDomFromData();
+  _segmentsChanged();
+  _updateShareMenu();
+
+  ignoreStreetChanges = false;
+  lastStreet = _trimStreetData(street);
+
+  _saveStreetToServer(false);
+}
+
+function _receiveLiveUpdateStreet(transmission) {
+  window.setTimeout(function() {
+    _unpackServerStreetData(transmission, null, null, false);
+    _updateEverything(true);
+  }, 1000);
+
+  _flash();
+}
+
+function _receiveLiveUpdateCheck(data, textStatus, jqXHR) {
+  var newUpdatedDate =
+      Math.floor((new Date(jqXHR.getResponseHeader('last-modified')).getTime()) / 1000);
+  var oldUpdatedDate =
+      Math.floor((new Date(street.updatedAt).getTime()) / 1000);
+
+  if (newUpdatedDate != oldUpdatedDate) {
+    var url = _getFetchStreetUrl();
+    $.ajax({
+      url: url,
+      dataType: 'json',
+      type: 'GET'
+    }).done(_receiveLiveUpdateStreet);
+  }
+
+  _scheduleNextLiveUpdateCheck();
+}
+
+function _checkForLiveUpdate() {
+  var url = _getFetchStreetUrl();
+
+  $.ajax({
+    url: url,
+    dataType: 'json',
+    type: 'HEAD'
+  }).done(_receiveLiveUpdateCheck);
+}
+
+function _scheduleNextLiveUpdateCheck() {
+  window.setTimeout(_checkForLiveUpdate, LIVE_UPDATE_DELAY);
+}
