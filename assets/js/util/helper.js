@@ -28,15 +28,6 @@ function htmlEncode(value){
   return $('<div/>').text(value).html();
 }
 
-
-function msg(messageId, data) {
-  if (data) {
-    return MESSAGES[messageId].supplant(data);
-  } else {
-    return MESSAGES[messageId];
-  }
-}
-
 String.prototype.supplant = function(o) {
   return this.replace(/\[\[([^\[\]]*)\]\]/g,
     function (a, b) {

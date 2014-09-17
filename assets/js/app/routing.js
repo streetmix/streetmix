@@ -38,3 +38,31 @@ var RESERVED_URLS =
     URL_JUST_SIGNED_IN,
     URL_HELP, URL_GLOBAL_GALLERY, URL_ERROR, 'streets'];
 var URL_RESERVED_PREFIX = '~';
+
+function _goReload() {
+  location.reload();
+}
+
+function _goHome() {
+  location.href = '/';
+}
+
+function _goNewStreet(sameWindow) {
+  if (sameWindow) {
+    location.replace('/' + URL_NEW_STREET);
+  } else {
+    location.href = '/' + URL_NEW_STREET;
+  }
+}
+
+function _goExampleStreet() {
+  location.href = '/' + URL_EXAMPLE_STREET;
+}
+
+function _goCopyLastStreet() {
+  location.href = '/' + URL_NEW_STREET_COPY_LAST;
+}
+
+function _goSignIn() {
+  location.href = '/' + URL_SIGN_IN_REDIRECT;
+}

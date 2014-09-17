@@ -4,10 +4,6 @@ var TRACK_ACTION_ERROR_RM1 = 'Error RM1 (auth 401 failure on load)';
 var USER_ID_COOKIE = 'user_id';
 var SIGN_IN_TOKEN_COOKIE = 'login_token';
 
-function _goSignIn() {
-  location.href = '/' + URL_SIGN_IN_REDIRECT;
-}
-
 function _goReloadClearSignIn() {
   signInData = null;
   _saveSignInDataLocally();

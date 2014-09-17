@@ -128,3 +128,35 @@ function _onReadyStateChange() {
     _checkIfEverythingIsLoaded();
   }
 }
+
+function _hideLoadingScreen() {
+
+  // NOTE:
+  // This function might be called on very old browsers. Please make
+  // sure not to use modern faculties.
+
+  document.getElementById('loading').className += ' hidden';
+}
+
+function _fillDom() {
+  // TODO Instead of doing like this, put variables in the index.html, and fill
+  // them out?
+  $('#undo').text(msg('BUTTON_UNDO'));
+  $('#redo').text(msg('BUTTON_REDO'));
+
+  $('#trashcan').text(msg('DRAG_HERE_TO_REMOVE'));
+
+  $('#gallery .loading').text(msg('LOADING'));
+  $('#loading > div > span').text(msg('LOADING'));
+
+  $('#new-street').text(msg('BUTTON_NEW_STREET'));
+  $('#copy-last-street').text(msg('BUTTON_COPY_LAST_STREET'));
+
+  $('#street-width-read').attr('title', msg('TOOLTIP_STREET_WIDTH'));
+
+  document.querySelector('#new-street').href = URL_NEW_STREET;
+  document.querySelector('#copy-last-street').href = URL_NEW_STREET_COPY_LAST;
+
+  _fillEmptySegments();
+}
+

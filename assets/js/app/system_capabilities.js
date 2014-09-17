@@ -1,5 +1,7 @@
 var CSS_TRANSFORMS = ['webkitTransform', 'MozTransform', 'transform'];
 
+var readOnly = false;
+
 var system = {
   touch: false,
   phone: false,
