@@ -12,7 +12,6 @@
 
 //= require_self
 //= require_tree util
-//= require misc
 //= require_tree app
 //= require_tree menus
 //= require_tree dialog_boxes

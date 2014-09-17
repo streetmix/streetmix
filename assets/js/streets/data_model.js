@@ -1,3 +1,5 @@
+var lastStreet;
+
 var street = {
   schemaVersion: LATEST_SCHEMA_VERSION,
 
@@ -412,4 +414,20 @@ function _prepareEmptyStreet() {
   street.segments = [];
 
   _setUpdateTimeToNow();
+}
+
+function _updateEverything(dontScroll) {
+  ignoreStreetChanges = true;
+  _propagateUnits();
+  _buildStreetWidthMenu();
+  _updateShareMenu();
+  _createDomFromData();
+  _segmentsChanged();
+  _resizeStreetWidth(dontScroll);
+  _updateStreetName();
+  ignoreStreetChanges = false;
+  _updateUndoButtons();
+  lastStreet = _trimStreetData(street);
+
+  _scheduleSavingStreetToServer();
 }

@@ -21,6 +21,8 @@ var segmentWidthDraggingResolution;
 var widthHeightEditHeld = false;
 var widthHeightChangeTimerId = -1;
 
+var suppressMouseEnter = false;
+
 function _resizeSegment(el, resizeType, width, updateEdit, palette, initial) {
   if (!palette) {
     var width =
