@@ -1,5 +1,4 @@
 var CSS_TRANSFORMS = ['webkitTransform', 'MozTransform', 'transform'];
-var TRACK_ACTION_TOUCH_CAPABLE = 'Touch capability detected';
 
 var readOnly = false;
 
@@ -31,11 +30,6 @@ function _detectSystemCapabilities() {
   } else {
     system.touch = Modernizr.touch;
   }
-  // Track touch capability in Google Analytics
-  if (system.touch === true) {
-    _eventTracking.track(TRACK_CATEGORY_SYSTEM, TRACK_ACTION_TOUCH_CAPABLE, null, null, true);
-  }
-
   system.pageVisibility = Modernizr.pagevisibility;
   if (debug.forceNonRetina) {
     system.hiDpi = 1.0;
