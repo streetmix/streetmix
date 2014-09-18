@@ -27,7 +27,6 @@ app.init = function() {
   _prepareSegmentInfo();
 
   // Check if no internet mode
-  // Refactor this into rest of scripts later
   if (system.noInternet === true) {
     _setupNoInternetMode();
   }
