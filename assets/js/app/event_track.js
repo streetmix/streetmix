@@ -1,6 +1,7 @@
 var TRACK_CATEGORY_INTERACTION = 'Interaction';
 var TRACK_CATEGORY_EVENT = 'Event';
 var TRACK_CATEGORY_ERROR = 'Error';
+var TRACK_CATEGORY_SYSTEM = 'System';
 
 var _eventTracking = {
   alreadyTracked: [],
