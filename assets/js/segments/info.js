@@ -298,7 +298,7 @@ var SEGMENT_INFO = {
         graphics: {
           repeat: [
             { tileset: 2, x: 98, y: 43, width: 10, height: 6, offsetY: 9 }, // Median
-            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
           ]
         }
       },
