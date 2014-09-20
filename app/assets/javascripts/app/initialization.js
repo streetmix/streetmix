@@ -2,6 +2,8 @@ var initializing = false;
 var bodyLoaded;
 var readyStateCompleteLoaded;
 
+var TRACK_ACTION_TOUCH_CAPABLE = 'Touch capability detected';
+
 app.preInit = function() {
   initializing = true;
   ignoreStreetChanges = true;
@@ -110,6 +112,11 @@ function _onEverythingLoaded() {
 
   if (debug.forceLiveUpdate) {
     _scheduleNextLiveUpdateCheck();
+  }
+
+  // Track touch capability in Google Analytics
+  if (system.touch === true) {
+    _eventTracking.track(TRACK_CATEGORY_SYSTEM, TRACK_ACTION_TOUCH_CAPABLE, null, null, true);
   }
 }
 

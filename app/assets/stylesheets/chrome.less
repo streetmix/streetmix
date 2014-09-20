@@ -1,8 +1,7 @@
 #error h1,
 #loading h1,
-#about h1,
 #welcome h1,
-#save-as-image-dialog h1,
+.dialog-box h1,
 #blocking-shield .message {
   font-size: 250%;
   font-weight: 300;
@@ -20,82 +19,6 @@
 
 #welcome-avatar-creator:not(.visible) {
   display: none;
-}
-
-#save-as-image-dialog {
-  padding-left: 40px;
-
-  p {
-    font-size: 16px;
-    text-align: center;
-
-    a {
-      font-size: 16px;
-    }
-  }
-  input[type='checkbox'] {
-    .user-select-none;
-    font-size: 25px;
-    margin-left: 20px;
-  }
-  label {
-    .user-select-none;
-    padding-left: 1px;
-  }
-}
-
-#save-as-image-preview-loading {
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  line-height: 300px;
-  height: 300px;
-
-  font-size: 16px;
-  text-align: center;
-
-  &:not(.visible) {
-    display: none;
-  }
-}
-
-#save-as-image-preview {
-  position: relative;
-  width: 700px + 3px + 3px;
-  height: 300px + 3px + 3px;
-  margin-bottom: 30px;
-
-  display: table;
-}
-
-#save-as-image-preview-preview {
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
-
-  -webkit-touch-callout: default;
-  -moz-touch-callout: default;
-  touch-callout: default;
-
-  font-size: 0;
-
-  &:not(.visible) {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  img {
-    max-width: 700px;
-    max-height: 300px;
-
-    cursor: move;
-    cursor: -webkit-grab;
-    cursor: -moz-grab;
-
-    border-top: 3px dashed @uiColour;
-    border-bottom: 3px dashed @uiColour;
-  }
 }
 
 body.phone #error,
@@ -718,35 +641,45 @@ body.safari .menu {
   outline: none;
 }
 
-#dialog-box-shield {
-  z-index: 99999999 + 2;
+//
+// Dialog boxes
+//
+// --------------------------------------------------------
 
+// Base styles for dialog boxes
+
+@dialogBoxDefaultWidth:   790px;
+@dialogBoxZIndex:         99999999 + 3;
+
+#dialog-box-shield {
+  z-index: @dialogBoxZIndex - 1;
+
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: fadeout(@skyColour, 50%);
   cursor: pointer;
 
   &:not(.visible) {
     display: none;
   }
-
-  background: fadeout(@skyColour, 50%);
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  position: absolute;
 }
 
 .dialog-box {
-  z-index: 99999999 + 3;
+  z-index: @dialogBoxZIndex;
   position: absolute;
 
   top: 100px;
-  margin-left: -790px / 2;
   left: 50%;
+  margin-left: -(@dialogBoxDefaultWidth / 2);
+
+  box-sizing: border-box;
+  padding: 15px 15px;
 
   .box-border;
-  box-sizing: border-box;
   background: white;
-  padding: 15px 15px;
   font-size: 13px;
   line-height: 1.5;
 
@@ -761,8 +694,10 @@ body.safari .menu {
   }
 }
 
+// Content of #about and #save-as-image dialog boxes
+
 #about {
-  width: 790px;
+  width: @dialogBoxDefaultWidth;
 
   .description {
     font-size: 16px;
@@ -795,6 +730,37 @@ body.safari .menu {
     }
   }
 }
+
+#save-as-image-dialog {
+  width: @dialogBoxDefaultWidth;
+  padding-left: 40px;
+  padding-right: 40px;
+
+  p {
+    font-size: 16px;
+    text-align: center;
+
+    a {
+      font-size: 16px;
+    }
+  }
+
+  input[type='checkbox'] {
+    margin-left: 20px;
+    font-size: 25px;
+    .user-select-none;
+  }
+
+  label {
+    padding-left: 1px;
+    .user-select-none;
+  }
+
+  footer {
+    text-align: center;
+  }
+}
+
 #about footer,
 #save-as-image-dialog footer {
   color: rgb(160, 160, 160);
@@ -810,9 +776,63 @@ body.safari .menu {
     }
   }
 }
-#save-as-image-dialog footer {
+
+#save-as-image-preview-loading {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  line-height: 300px;
+  height: 300px;
+
+  font-size: 16px;
   text-align: center;
+
+  &:not(.visible) {
+    display: none;
+  }
 }
+
+#save-as-image-preview {
+  position: relative;
+  width: 700px + 3px + 3px;
+  height: 300px + 3px + 3px;
+  margin-bottom: 30px;
+
+  display: table;
+}
+
+#save-as-image-preview-preview {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+
+  -webkit-touch-callout: default;
+  -moz-touch-callout: default;
+  touch-callout: default;
+
+  font-size: 0;
+
+  &:not(.visible) {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  img {
+    max-width: 700px;
+    max-height: 300px;
+
+    cursor: move;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+
+    border-top: 3px dashed @uiColour;
+    border-bottom: 3px dashed @uiColour;
+  }
+}
+
+// --------------------------------------------------------
+
 #welcome {
   position: absolute;
   top: -5px;
