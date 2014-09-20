@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-ruby '2.1.0'
+ruby '2.1.2'
 
-gem 'rails', '4.1.0'
+gem 'rails', '4.1.6'
 
 # configuration
 gem 'figaro'
@@ -13,10 +13,6 @@ gem 'pg'
 # authentication and authorization
 gem 'omniauth'
 gem 'omniauth-twitter'
-gem 'pundit'
-
-# HTML
-gem 'slim'
 
 # CSS
 gem 'less-rails'
@@ -29,13 +25,16 @@ gem 'therubyrhino', platforms: :jruby
 # API
 gem 'active_model_serializers'
 
+# production
+gem 'rails_12factor', group: :production
+
 # development tools
 gem 'foreman', group: :development
 gem 'better_errors', group: :development
 gem 'binding_of_caller', group: :development
-gem 'jazz_hands', group: [:development, :test]
+gem 'byebug', group: :development
 
-# code coverage and analysis
+# code coverage and documentation
 gem 'rails-erd', group: :development
 gem 'annotate', group: :development
 gem 'simplecov', :require => false, group: [:development, :test]

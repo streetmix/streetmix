@@ -2,8 +2,9 @@ Streetmix::Application.routes.draw do
   # JSON API
   namespace :api do
     namespace :v2 do
-      resources :user do
+      resources :users do
         get 'streets', on: :member
+        delete 'destroy-api-auth-token', on: :member
       end
       resources :streets
       post 'feedback', to: 'feedback#provide'
@@ -11,8 +12,14 @@ Streetmix::Application.routes.draw do
   end
 
   # OAuth authentication
+  get '/twitter-sign-in', to: redirect('/auth/twitter')
   get '/auth/:provider/callback', to: 'sessions#create'
+
+  # heartbeat for CfA Engine Light
+  # https://github.com/codeforamerica/engine-light
+  get '/.well-known/status' => 'status#check'
 
   # single-page JavaScript application
   root to: 'site#land'
+  match '*path', to: 'site#land', via: :all
 end

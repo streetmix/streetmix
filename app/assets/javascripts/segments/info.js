@@ -1,312 +1,8 @@
-var FLAG_SAVE_UNDO = false; // true to save undo with street data, false to not save undo
-
-var IP_GEOLOCATION_API_URL = 'http://freegeoip.net/json/';
-var IP_GEOLOCATION_TIMEOUT = 1000; // After this time, we don’t wait any more
-
-// TODO replace the URLs in index.html dynamically
-var URL_SIGN_IN = 'twitter-sign-in';
-
-var URL_SIGN_IN_CALLBACK_ABS = 
-    location.protocol + '//' + location.host + URL_SIGN_IN_CALLBACK_REL;
-var URL_SIGN_IN_CALLBACK = URL_SIGN_IN_CALLBACK_REL.replace(/^\//, '');
-
-var URL_JUST_SIGNED_IN_REL = '/just-signed-in';
-var URL_JUST_SIGNED_IN_ABS = 
-    location.protocol + '//' + location.host + URL_JUST_SIGNED_IN_REL;
-var URL_JUST_SIGNED_IN = URL_JUST_SIGNED_IN_REL.replace(/^\//, '');
-
-var URL_JUST_SIGNED_IN = 'just-signed-in'; // TODO fix this
-var URL_NEW_STREET = 'new';
-var URL_NEW_STREET_COPY_LAST = 'copy-last';
-var URL_GLOBAL_GALLERY = 'gallery';
-var URL_ERROR = 'error';
-var URL_NO_USER = '-';
-var URL_HELP = 'help';
-var URL_ABOUT = 'about';
-var URL_HELP_ABOUT = '#/' + URL_HELP + '/' + URL_ABOUT;
-
-var URL_ERROR_TWITTER_ACCESS_DENIED = 'twitter-access-denied';
-var URL_ERROR_NO_TWITTER_REQUEST_TOKEN = 'no-twitter-request-token';
-var URL_ERROR_NO_TWITTER_ACCESS_TOKEN = 'no-twitter-access-token';
-var URL_ERROR_AUTHENTICATION_API_PROBLEM = 'authentication-api-problem';
-
-var URL_EXAMPLE_STREET = 'saikofish/29';
-
-var URL_SIGN_IN_REDIRECT = URL_SIGN_IN + '?callbackUri=' +
-    URL_SIGN_IN_CALLBACK_ABS + '&redirectUri=' + URL_JUST_SIGNED_IN_ABS;
-
-// Since URLs like “streetmix.net/new” are reserved, but we still want
-// @new to be able to use Streetmix, we prefix any reserved URLs with ~
-var RESERVED_URLS =
-    [URL_SIGN_IN, URL_SIGN_IN_CALLBACK,
-    URL_NEW_STREET, URL_NEW_STREET_COPY_LAST,
-    URL_JUST_SIGNED_IN,
-    URL_HELP, URL_GLOBAL_GALLERY, URL_ERROR, 'streets'];
-var URL_RESERVED_PREFIX = '~';
-
-var MODE_CONTINUE = 1;
-var MODE_NEW_STREET = 2;
-var MODE_NEW_STREET_COPY_LAST = 3;
-var MODE_JUST_SIGNED_IN = 4;
-var MODE_EXISTING_STREET = 5;
-var MODE_404 = 6;
-var MODE_SIGN_OUT = 7;
-var MODE_FORCE_RELOAD_SIGN_IN = 8;
-var MODE_FORCE_RELOAD_SIGN_OUT = 9;
-var MODE_USER_GALLERY = 10;
-var MODE_GLOBAL_GALLERY = 11;
-var MODE_FORCE_RELOAD_SIGN_OUT_401 = 12;
-var MODE_ERROR = 13;
-var MODE_UNSUPPORTED_BROWSER = 14;
-var MODE_STREET_404 = 15;
-var MODE_STREET_404_BUT_LINK_TO_USER = 16;
-var MODE_STREET_410_BUT_LINK_TO_USER = 17;
-var MODE_ABOUT = 18;
-
-var ERROR_404 = 1;
-var ERROR_SIGN_OUT = 2;
-var ERROR_NO_STREET = 3; // for gallery if you delete the street you were looking at
-var ERROR_FORCE_RELOAD_SIGN_IN = 4;
-var ERROR_FORCE_RELOAD_SIGN_OUT = 5;
-var ERROR_STREET_DELETED_ELSEWHERE = 6;
-var ERROR_NEW_STREET_SERVER_FAILURE = 7;
-var ERROR_FORCE_RELOAD_SIGN_OUT_401 = 8;
-var ERROR_TWITTER_ACCESS_DENIED = 9;
-var ERROR_AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN = 10;
-var ERROR_AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN = 11;
-var ERROR_AUTH_PROBLEM_API_PROBLEM = 12;
-var ERROR_GENERIC_ERROR = 13;
-var ERROR_UNSUPPORTED_BROWSER = 14;
-var ERROR_STREET_404 = 15;
-var ERROR_STREET_404_BUT_LINK_TO_USER = 16;
-var ERROR_STREET_410_BUT_LINK_TO_USER = 17;
-var ERROR_CANNOT_CREATE_NEW_STREET_ON_PHONE = 18;
-var ERROR_SIGN_IN_SERVER_FAILURE = 19;
-var ERROR_SIGN_IN_401 = 20;
-
-var TWITTER_ID = '@streetmixapp';
-
-var NEW_STREET_DEFAULT = 1;
-var NEW_STREET_EMPTY = 2;
-
-var BUILDING_DESTINATION_SCREEN = 1;
-var BUILDING_DESTINATION_THUMBNAIL = 2;
-
-var LATEST_SCHEMA_VERSION = 16;
-  // 1: starting point
-  // 2: adding leftBuildingHeight and rightBuildingHeight
-  // 3: adding leftBuildingVariant and rightBuildingVariant
-  // 4: adding transit shelter elevation
-  // 5: adding another lamp type (traditional)
-  // 6: colored streetcar lanes
-  // 7: colored bus and light rail lanes
-  // 8: colored bike lane
-  // 9: second car type: truck
-  // 10: sidewalk density
-  // 11: unify median and planting strip into divider
-  // 12: getting rid of small tree
-  // 13: bike rack elevation
-  // 14: wayfinding has three types
-  // 15: sidewalks have rand seed
-  // 16: stop saving undo stack
-var TILESET_IMAGE_VERSION = 55;
-var TILESET_POINT_PER_PIXEL = 2.0;
-var TILE_SIZE = 12; // pixels
-var TILESET_CORRECTION = [null, 0, -84, -162];
-
-var VARIANT_ICON_START_X = 164; // x24 in tileset file
-var VARIANT_ICON_START_Y = 64; // x24 in tileset file
-var VARIANT_ICON_SIZE = 24;
-
-var IMAGES_TO_BE_LOADED = [
-  '/assets/tiles-1.png',
-  '/assets/tiles-2.png',
-  '/assets/tiles-3.png',
-  '/assets/sky-front.png',
-  '/assets/sky-rear.png',
-  '/assets/share-icons/facebook-29.png',
-  '/assets/share-icons/twitter-32.png'
-];
-
-// Output using cmap2file as per 
-// http://www.typophile.com/node/64147#comment-380776
-var STREET_NAME_FONT_GLYPHS = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿĀāĂăĆćĈĉĊċČčĎďĒĔĕĖėĜĝĞğĠġĤĥĨĩĪīĬĭİıĴĵĹĺĽľŁłŃŇňŌōŎŏŐőŒœŔŕŘřŚśŜŝŞşŠšŤťŨũŪūŬŭŮůŰűŴŵŶŷŸŹźŻżŽžƒˆˇ˘˙˚˛˜˝–—‘’‚“”„†‡•…‰‹›⁄€™−';
-var STREET_NAME_REMIX_SUFFIX = '(remix)';
-var MAX_STREET_NAME_WIDTH = 50;
-
-var WIDTH_PALETTE_MULTIPLIER = 4;
-
-var CANVAS_HEIGHT = 480;
-var CANVAS_GROUND = 35;
-var CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND;
-
-var SEGMENT_Y_NORMAL = 265;
-var SEGMENT_Y_PALETTE = 20;
-var PALETTE_EXTRA_SEGMENT_PADDING = 8;
-
-var DRAG_OFFSET_Y_PALETTE = -340 - 150;
-var DRAG_OFFSET_Y_TOUCH_PALETTE = -100;
-var DRAG_OFFSET_Y_TOUCH = -100;
-
-var THUMBNAIL_WIDTH = 180;
-var THUMBNAIL_HEIGHT = 110;
-var THUMBNAIL_MULTIPLIER = .1 * 2;
-var BACKGROUND_DIRT_COLOUR = 'rgb(53, 45, 39)';
-
-var WIDTH_CHART_WIDTH = 500;
-var WIDTH_CHART_EMPTY_OWNER_WIDTH = 40;
-var WIDTH_CHART_MARGIN = 20;
-
-var DRAGGING_TYPE_NONE = 0;
-var DRAGGING_TYPE_CLICK_OR_MOVE = 1;
-var DRAGGING_TYPE_MOVE = 2;
-var DRAGGING_TYPE_RESIZE = 3;
-
-var DRAGGING_TYPE_MOVE_TRANSFER = 1;
-var DRAGGING_TYPE_MOVE_CREATE = 2;
-
-var DRAGGING_MOVE_HOLE_WIDTH = 40;
-
-var STATUS_MESSAGE_HIDE_DELAY = 15000;
-var WIDTH_EDIT_INPUT_DELAY = 200;
-var SHORT_DELAY = 100;
-
-var TOUCH_CONTROLS_FADEOUT_TIME = 3000;
-var TOUCH_CONTROLS_FADEOUT_DELAY = 3000;
-
-var SEGMENT_SWITCHING_TIME = 250;
-
-var SAVE_STREET_DELAY = 500;
-var SAVE_SETTINGS_DELAY = 500;
-var NO_CONNECTION_MESSAGE_TIMEOUT = 10000;
-
-var BLOCKING_SHIELD_DARKEN_DELAY = 800;
-var BLOCKING_SHIELD_TOO_SLOW_DELAY = 10000;
-
-var BUILDING_SPACE = 360;
-
-var MAX_DRAG_DEGREE = 20;
-
-var UNDO_LIMIT = 1000;
-
-var STREET_WIDTH_CUSTOM = -1;
-var STREET_WIDTH_SWITCH_TO_METRIC = -2;
-var STREET_WIDTH_SWITCH_TO_IMPERIAL = -3;
-
-var DEFAULT_NAME = msg('DEFAULT_STREET_NAME');
-var DEFAULT_STREET_WIDTH = 80;
-var DEFAULT_STREET_WIDTHS = [40, 60, 80];
-var DEFAULT_BUILDING_HEIGHT_LEFT = 4;
-var DEFAULT_BUILDING_HEIGHT_RIGHT = 3;
-var DEFAULT_BUILDING_VARIANT_LEFT = 'narrow';
-var DEFAULT_BUILDING_VARIANT_RIGHT = 'wide';
-var DEFAULT_BUILDING_HEIGHT_EMPTY = 1;
-var DEFAULT_BUILDING_VARIANT_EMPTY = 'grass';
-
-var BUILDING_VARIANTS = ['waterfront', 'grass', 'fence', 'parking-lot',
-                         'residential', 'narrow', 'wide'];
-var BUILDING_VARIANT_NAMES = ['Waterfront', 'Grass', 'Empty lot', 'Parking lot',
-                              'Home', 'Building', 'Building'];
-
-var MIN_CUSTOM_STREET_WIDTH = 10;
-var MAX_CUSTOM_STREET_WIDTH = 400;
-var MIN_SEGMENT_WIDTH = 1;
-var MAX_SEGMENT_WIDTH = 400;
-var MAX_BUILDING_HEIGHT = 20;
-var MAX_CANVAS_HEIGHT = 2048;
-
-var RESIZE_TYPE_INITIAL = 0;
-var RESIZE_TYPE_INCREMENT = 1;
-var RESIZE_TYPE_DRAGGING = 2;
-var RESIZE_TYPE_PRECISE_DRAGGING = 3;
-var RESIZE_TYPE_TYPING = 4;
-
-var IMPERIAL_METRIC_MULTIPLIER = 30 / 100;
-var COUNTRIES_IMPERIAL_UNITS = ['US'];
-var COUNTRIES_LEFT_HAND_TRAFFIC =
-    ['AI', 'AG', 'AU', 'BS', 'BD', 'BB', 'BM', 'BT', 'BW', 'BN',
-     'KY', 'CX', 'CC', 'CK', 'CY', 'DM', 'TL', 'FK', 'FJ', 'GD', 'GG',
-     'GY', 'HK', 'IN', 'ID', 'IE', 'IM', 'JM', 'JP', 'JE', 'KE', 'KI',
-     'LS', 'MO', 'MW', 'MY', 'MV', 'MT', 'MU', 'MS', 'MZ', 'NA', 'NR',
-     'NP', 'NZ', 'NU', 'NF', 'PK', 'PG', 'PN', 'SH', 'KN', 'LC', 'VC',
-     'WS', 'SC', 'SG', 'SB', 'ZA', 'LK', 'SR', 'SZ', 'TZ', 'TH', 'TK',
-     'TO', 'TT', 'TC', 'TV', 'UG', 'GB', 'VG', 'VI', 'ZM', 'ZW'];
-
-var WIDTH_INPUT_CONVERSION = [
-  { text: 'm', multiplier: 1 / IMPERIAL_METRIC_MULTIPLIER },
-  { text: 'cm', multiplier: 1 / 100 / IMPERIAL_METRIC_MULTIPLIER },
-  { text: '"', multiplier: 1 / 12 },
-  { text: 'inch', multiplier: 1 / 12 },
-  { text: 'inches', multiplier: 1 / 12 },
-  { text: '\'', multiplier: 1 },
-  { text: 'ft', multiplier: 1 },
-  { text: 'feet', multiplier: 1 }
-];
-
-var SEGMENT_WIDTH_RESOLUTION_IMPERIAL = .25;
-var SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL = .5;
-var SEGMENT_WIDTH_DRAGGING_RESOLUTION_IMPERIAL = .5;
-
-// don't use const because of rounding problems
-var SEGMENT_WIDTH_RESOLUTION_METRIC = 1 / 3; // .1 / IMPERIAL_METRIC_MULTIPLER
-var SEGMENT_WIDTH_CLICK_INCREMENT_METRIC = 2 / 3; // .2 / IMPERIAL_METRIC_MULTIPLER
-var SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC = 2 / 3; // .2 / IMPERIAL_METRIC_MULTIPLER
-
-var MIN_WIDTH_EDIT_CANVAS_WIDTH = 120;
-var WIDTH_EDIT_MARGIN = 20;
-
-var NORMALIZE_PRECISION = 5;
-var METRIC_PRECISION = 3;
-var WIDTH_ROUNDING = .01;
-
-var SEGMENT_WARNING_OUTSIDE = 1;
-var SEGMENT_WARNING_WIDTH_TOO_SMALL = 2;
-var SEGMENT_WARNING_WIDTH_TOO_LARGE = 3;
-
-var KEY_LEFT_ARROW = 37;
-var KEY_RIGHT_ARROW = 39;
-var KEY_ENTER = 13;
-var KEY_BACKSPACE = 8;
-var KEY_DELETE = 46;
-var KEY_ESC = 27;
-var KEY_D = 68;
-var KEY_S = 83;
-var KEY_Y = 89;
-var KEY_Z = 90;
-var KEY_EQUAL = 187; // = or +
-var KEY_EQUAL_ALT = 61; // Firefox
-var KEY_PLUS_KEYPAD = 107;
-var KEY_MINUS = 189;
-var KEY_MINUS_ALT = 173; // Firefox
-var KEY_MINUS_KEYPAD = 109;
-var KEY_SLASH = 191; // slash or question mark
-
-var PRETTIFY_WIDTH_OUTPUT_MARKUP = 1;
-var PRETTIFY_WIDTH_OUTPUT_NO_MARKUP = 2;
-var PRETTIFY_WIDTH_INPUT = 3;
-
-var SETTINGS_UNITS_IMPERIAL = 1;
-var SETTINGS_UNITS_METRIC = 2;
-
-var IMPERIAL_VULGAR_FRACTIONS = {
-  '.125': '⅛',
-  '.25': '¼',
-  '.375': '⅜',
-  '.5': '½',
-  '.625': '⅝',
-  '.75': '¾',
-  '.875': '⅞'
-};
-
-var CSS_TRANSFORMS = ['webkitTransform', 'MozTransform', 'transform'];
-
 var SEGMENT_OWNER_CAR = 'car';
 var SEGMENT_OWNER_BIKE = 'bike';
 var SEGMENT_OWNER_PEDESTRIAN = 'pedestrian';
 var SEGMENT_OWNER_PUBLIC_TRANSIT = 'public-transit';
 var SEGMENT_OWNER_NATURE = 'nature';
-
-var VARIANT_SEPARATOR = '|';
 
 var SEGMENT_OWNERS = {
   'car': {
@@ -334,103 +30,6 @@ var SEGMENT_OWNERS = {
     imageUrl: '/assets/ui/icons/noun_project_13130.svg',
     imageSize: .8
   }
-};
-
-var VARIANTS = {
-  'direction': ['inbound', 'outbound'],
-  'parking-lane-direction': ['inbound', 'outbound', 'sideways'],
-
-  'tree-type': ['big', 'palm-tree'],
-
-  'lamp-orientation': ['left', 'both', 'right'],
-  'lamp-type': ['modern', 'traditional'],
-
-  'bench-orientation': ['left', 'center', 'right'],
-  'turn-lane-orientation': ['left', 'left-straight', 'straight', 'right-straight', 'right',  'both', 'shared'],
-
-  'divider-type': ['median', 'striped-buffer', 'planting-strip',
-                   'bush', 'flowers', 'big-tree',
-                   'palm-tree', 'bollard', 'dome'],
-
-  'orientation': ['left', 'right'],
-
-  'public-transit-asphalt': ['regular', 'colored'],
-  'bike-asphalt': ['regular', 'colored'],
-
-  'transit-shelter-elevation': ['street-level', 'light-rail'],
-  'bike-rack-elevation': ['sidewalk-parallel', 'sidewalk', 'road'],
-
-  'car-type': ['car', 'sharrow', 'truck'],
-  'sidewalk-density': ['dense', 'normal', 'sparse', 'empty'],
-
-  'parking-lane-orientation': ['left', 'right'],
-  'wayfinding-type': ['large', 'medium', 'small']
-};
-
-var VARIANT_ICONS = {
-  'trashcan': { x: 3, y: 1 },
-
-  'orientation|left': { x: 0, y: 0, title: 'Left' },
-  'orientation|right': { x: 1, y: 0, title: 'Right' },
-  'turn-lane-orientation|left': { x: 7, y: 1, title: 'Left' },
-  'turn-lane-orientation|left-straight': { x: 8, y: 1, title: 'Left and straight' },
-  'turn-lane-orientation|straight': { x: 6, y: 1, title: 'Straight' },
-  'turn-lane-orientation|right-straight': { x: 9, y: 1, title: 'Right and straight' },
-  'turn-lane-orientation|right': { x: 4, y: 1, title: 'Right' },
-  'turn-lane-orientation|both': { x: 5, y: 1, title: 'Both' },
-  'turn-lane-orientation|shared': { x: 7, y: 0, title: 'Shared' },
-  'bench-orientation|left': { x: 4, y: 0, title: 'Left' },
-  'bench-orientation|right': { x: 5, y: 0, title: 'Right' },
-  'bench-orientation|center': { x: 6, y: 0, title: 'Center' },
-  'parking-lane-orientation|left': { x: 0, y: 0, title: 'Left' },
-  'parking-lane-orientation|right': { x: 1, y: 0, title: 'Right' },
-  'parking-lane-direction|inbound': { x: 2, y: 0, title: 'Inbound' },
-  'parking-lane-direction|outbound': { x: 3, y: 0, title: 'Outbound' },
-  'parking-lane-direction|sideways': { x: 6, y: 0, title: 'Perpendicular' },
-  'direction|inbound': { x: 2, y: 0, title: 'Inbound' },
-  'direction|outbound': { x: 3, y: 0, title: 'Outbound' },
-  'sidewalk-density|empty': { x: -1, y: 1, title: 'Empty' },
-  'sidewalk-density|sparse': { x: 0, y: 1, title: 'Sparse' },
-  'sidewalk-density|normal': { x: 1, y: 1, title: 'Normal' },
-  'sidewalk-density|dense': { x: 2, y: 1, title: 'Dense' },
-  'lamp-orientation|left': { x: 4, y: 0, title: 'Left' },
-  'lamp-orientation|both': { x: 6, y: 0, title: 'Both' },
-  'lamp-orientation|right': { x: 5, y: 0, title: 'Right' },
-  'lamp-type|traditional': { x: 4, y: 2, title: 'Traditional' },
-  'lamp-type|modern': { x: 3, y: 2, title: 'Modern' },
-  'car-type|car': { x: 0, y: 3, title: 'Car' },
-  'car-type|sharrow': { x: 5, y: 3, title: 'Sharrow' },
-  'car-type|truck': { x: 1, y: 3, title: 'Truck' },
-  'public-transit-asphalt|regular': { x: 2, y: 3, title: '?' },
-  'public-transit-asphalt|colored': { x: 3, y: 3, title: '?' },
-  'bike-asphalt|regular': { x: 2, y: 3, title: '?' },
-  'bike-asphalt|colored': { x: 4, y: 3, title: '?' },
-  'tree-type|big': { x: 1, y: 4, title: 'Tree' },
-  'tree-type|palm-tree': { x: 0, y: 4, title: 'Palm tree' },
-  'divider-type|median': { x: 7, y: 4, title: 'Median' },
-  'divider-type|striped-buffer': { x: 8, y: 4, title: 'Striped buffer' },
-  'divider-type|planting-strip': { x: 2, y: 4, title: 'Planting strip' },
-  'divider-type|bush': { x: 4, y: 4, title: 'Planting strip with a bush' },
-  'divider-type|flowers': { x: 5, y: 4, title: 'Planting strip with flowers' },
-  'divider-type|big-tree': { x: 1, y: 4, title: 'Planting strip with a tree' },
-  'divider-type|palm-tree': { x: 0, y: 4, title: 'Planting strip with a palm tree' },
-  'divider-type|bollard': { x: 6, y: 4, title: 'Bollard' },
-  'divider-type|dome': { x: 6, y: 3, title: 'Traffic exclusion dome' },
-  'transit-shelter-elevation|street-level': { x: 5, y: 2, title: 'Street level' },
-  'transit-shelter-elevation|light-rail': { x: 6, y: 2, title: 'Light rail platform' },
-  'bike-rack-elevation|sidewalk-parallel': { x: 6, y: 0, title: 'Parallel parking, sidewalk level' },
-  'bike-rack-elevation|sidewalk': { x: 6, y: 2, title: 'Perpendicular parking, sidewalk level' },
-  'bike-rack-elevation|road': { x: 5, y: 2, title: 'Perpendicular parking, road level' },
-  'building|waterfront': { x: 9, y: 4, title: 'Waterfront' },
-  'building|grass': { x: 2, y: 4, title: 'Grass' },
-  'building|fence': { x: 3, y: 4, title: 'Empty lot' },
-  'building|parking-lot': { x: 0, y: 3, title: 'Parking lot' },
-  'building|residential': { x: 7, y: 3, title: 'Home' },
-  'building|narrow': { x: 7, y: 2, title: 'Narrow building' },
-  'building|wide': { x: 8, y: 2, title: 'Wide building' },
-  'wayfinding-type|large': { x: 8, y: 3, title: 'Large' },
-  'wayfinding-type|medium': { x: 9, y: 3, title: 'Medium' },
-  'wayfinding-type|small': { x: 10, y: 3, title: 'Small' }
 };
 
 var SEGMENT_INFO = {
@@ -499,6 +98,7 @@ var SEGMENT_INFO = {
     zIndex: 2,
     defaultWidth: 5,
     variants: ['orientation', 'bike-rack-elevation'],
+    paletteIcon: 'left|sidewalk',
     details: {
       'left|sidewalk-parallel': {
         graphics: {
@@ -612,6 +212,7 @@ var SEGMENT_INFO = {
     zIndex: 2,
     defaultWidth: 4,
     variants: ['lamp-orientation', 'lamp-type'],
+    paletteIcon: 'both|traditional',
     details: {
       'right|modern': {
         graphics: {
@@ -690,6 +291,7 @@ var SEGMENT_INFO = {
     zIndex: 1,
     defaultWidth: 2,
     variants: ['divider-type'],
+    paletteIcon: 'bollard',
     details: {
       'median': {
         name: 'Median',
@@ -858,6 +460,81 @@ var SEGMENT_INFO = {
             { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (outbound)
           ],
           repeat: { tileset: 2, x: 98 - 10, y: 53 + 10, width: 8, height: 5, offsetY: 10 } // Green asphalt
+        }
+      }
+    }
+  },
+  'parking-lane': {
+    name: 'Parking lane',
+    owner: SEGMENT_OWNER_CAR,
+    zIndex: 2,
+    defaultWidth: 8,
+    variants: ['parking-lane-direction', 'parking-lane-orientation'],
+    details: {
+      'inbound|left': {
+        minWidth: 7,
+        maxWidth: 10,
+        graphics: {
+          center: [
+            { tileset: 1, x: 8, y: 27, width: 8, height: 15 } // Car (inbound)
+          ],
+          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+          right: { tileset: 2, x: 112, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
+        }
+      },
+      'inbound|right': {
+        minWidth: 7,
+        maxWidth: 10,
+        graphics: {
+          center: [
+            { tileset: 1, x: 8, y: 27, width: 8, height: 15 } // Car (inbound)
+          ],
+          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+          left: { tileset: 1, x: 46, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
+        }
+      },
+      'outbound|left': {
+        minWidth: 7,
+        maxWidth: 10,
+        graphics: {
+          center: [
+            { tileset: 1, x: 0, y: 27, width: 8, height: 15 } // Car (outbound)
+          ],
+          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+          right: { tileset: 2, x: 112, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
+        }
+      },
+      'outbound|right': {
+        minWidth: 7,
+        maxWidth: 10,
+        graphics: {
+          center: [
+            { tileset: 1, x: 0, y: 27, width: 8, height: 15 } // Car (outbound)
+          ],
+          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+          left: { tileset: 1, x: 46, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
+        }
+      },
+      'sideways|left': {
+        name: 'Perpendicular parking',
+        minWidth: 14,
+        maxWidth: 20,
+        graphics: {
+          left: [
+            { tileset: 1, x: 38, y: 78, width: 14, height: 6, offsetY: 6 } // Car (side)
+          ],
+          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+        }
+      },
+      'sideways|right': {
+        name: 'Perpendicular parking',
+        minWidth: 14,
+        maxWidth: 20,
+        graphics: {
+          right: [
+            { tileset: 1, x: 54, y: 78, width: 14, height: 6, offsetY: 6 } // Car (side)
+          ],
+          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
         }
       }
     }
@@ -1135,81 +812,6 @@ var SEGMENT_INFO = {
       }
     }
   },
-  'parking-lane': {
-    name: 'Parking lane',
-    owner: SEGMENT_OWNER_CAR,
-    zIndex: 2,
-    defaultWidth: 8,
-    variants: ['parking-lane-direction', 'parking-lane-orientation'],
-    details: {
-      'inbound|left': {
-        minWidth: 7,
-        maxWidth: 10,
-        graphics: {
-          center: [
-            { tileset: 1, x: 8, y: 27, width: 8, height: 15 } // Car (inbound)
-          ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-          right: { tileset: 2, x: 112, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
-        }
-      },
-      'inbound|right': {
-        minWidth: 7,
-        maxWidth: 10,
-        graphics: {
-          center: [
-            { tileset: 1, x: 8, y: 27, width: 8, height: 15 } // Car (inbound)
-          ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-          left: { tileset: 1, x: 46, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
-        }
-      },
-      'outbound|left': {
-        minWidth: 7,
-        maxWidth: 10,
-        graphics: {
-          center: [
-            { tileset: 1, x: 0, y: 27, width: 8, height: 15 } // Car (outbound)
-          ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-          right: { tileset: 2, x: 112, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
-        }
-      },
-      'outbound|right': {
-        minWidth: 7,
-        maxWidth: 10,
-        graphics: {
-          center: [
-            { tileset: 1, x: 0, y: 27, width: 8, height: 15 } // Car (outbound)
-          ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-          left: { tileset: 1, x: 46, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
-        }
-      },
-      'sideways|left': {
-        name: 'Perpendicular parking',
-        minWidth: 14,
-        maxWidth: 20,
-        graphics: {
-          left: [
-            { tileset: 1, x: 38, y: 78, width: 14, height: 6, offsetY: 6 } // Car (side)
-          ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
-        }
-      },
-      'sideways|right': {
-        name: 'Perpendicular parking',
-        minWidth: 14,
-        maxWidth: 20,
-        graphics: {
-          right: [
-            { tileset: 1, x: 54, y: 78, width: 14, height: 6, offsetY: 6 } // Car (side)
-          ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
-        }
-      }
-    }
-  },
   'bus-lane': {
     name: 'Bus lane',
     owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
@@ -1383,6 +985,7 @@ var SEGMENT_INFO = {
     zIndex: 2,
     defaultWidth: 9,
     variants: ['orientation', 'transit-shelter-elevation'],
+    paletteIcon: 'right|light-rail',
     details: {
       'left|street-level': {
         minWidth: 9,
@@ -1463,106 +1066,25 @@ var SEGMENT_INFO = {
   }
 };
 
-var DEFAULT_SEGMENTS = {
-  'false': [ // Right-hand traffic
-    { type: 'sidewalk', variant: { 'sidewalk-density': 'dense' }, width: 6 },
-    { type: 'sidewalk-tree', variant: { 'tree-type': 'big' }, width: 2 },
-    { type: 'transit-shelter', variant: { 'orientation': 'left', 'transit-shelter-elevation': 'street-level' }, width: 9 },
-    { type: 'sidewalk-lamp', variant: { 'lamp-orientation': 'right', 'lamp-type': 'modern' }, width: 2 },
-    { type: 'bus-lane', variant: { 'direction': 'inbound', 'public-transit-asphalt': 'regular' }, width: 10 },
-    { type: 'turn-lane', variant: { 'direction': 'inbound', 'turn-lane-orientation': 'right-straight'}, width: 10 },
-    { type: 'divider', variant: { 'divider-type': 'flowers' }, width: 3 },
-    { type: 'drive-lane', variant: { 'direction': 'outbound', 'car-type': 'truck' }, width: 10 },
-    { type: 'bike-lane', variant: { 'direction': 'outbound', 'bike-asphalt': 'colored' }, width: 6 },
-    { type: 'parking-lane', variant: { 'parking-lane-direction': 'outbound', 'parking-lane-orientation': 'right' }, width: 8 },
-    { type: 'sidewalk-lamp', variant: { 'lamp-orientation': 'left', 'lamp-type': 'modern' }, width: 2 },
-    { type: 'sidewalk-tree', variant: { 'tree-type': 'big' }, width: 2 },
-    { type: 'sidewalk-wayfinding', variant: { 'wayfinding-type': 'medium' }, width: 2 },
-    { type: 'sidewalk', variant: { 'sidewalk-density': 'normal' }, width: 6 },
-    { type: 'sidewalk-bench', variant: { 'bench-orientation': 'right' }, width: 2}
-  ],
-  'true': [ // Left-hand traffic
-    { type: 'sidewalk-bench', variant: { 'bench-orientation': 'left' }, width: 2},
-    { type: 'sidewalk', variant: { 'sidewalk-density': 'normal' }, width: 6 },
-    { type: 'sidewalk-wayfinding', variant: { 'wayfinding-type': 'medium' }, width: 2 },
-    { type: 'sidewalk-tree', variant: { 'tree-type': 'big' }, width: 2 },
-    { type: 'sidewalk-lamp', variant: { 'lamp-orientation': 'right', 'lamp-type': 'modern' }, width: 2 },
-    { type: 'parking-lane', variant: { 'parking-lane-direction': 'outbound', 'parking-lane-orientation': 'left' }, width: 8 },
-    { type: 'bike-lane', variant: { 'direction': 'outbound', 'bike-asphalt': 'colored' }, width: 6 },
-    { type: 'drive-lane', variant: { 'direction': 'outbound', 'car-type': 'truck' }, width: 10 },
-    { type: 'divider', variant: { 'divider-type': 'flowers' }, width: 3 },
-    { type: 'turn-lane', variant: { 'direction': 'inbound', 'turn-lane-orientation': 'left-straight'}, width: 10 },
-    { type: 'bus-lane', variant: { 'direction': 'inbound', 'public-transit-asphalt': 'regular' }, width: 10 },
-    { type: 'sidewalk-lamp', variant: { 'lamp-orientation': 'left', 'lamp-type': 'modern' }, width: 2 },
-    { type: 'transit-shelter', variant: { 'orientation': 'right', 'transit-shelter-elevation': 'street-level' }, width: 9 },
-    { type: 'sidewalk-tree', variant: { 'tree-type': 'big' }, width: 2 },
-    { type: 'sidewalk', variant: { 'sidewalk-density': 'dense' }, width: 6 }
-  ]
-};
+function _prepareSegmentInfo() {
+  // TODO should not modify const
 
-var USER_ID_COOKIE = 'user_id';
-var SIGN_IN_TOKEN_COOKIE = 'login_token';
+  for (var i in SEGMENT_INFO) {
+    for (var j in SEGMENT_INFO[i].details) {
+      var graphics = SEGMENT_INFO[i].details[j].graphics;
 
-var LOCAL_STORAGE_SETTINGS_ID = 'settings';
-var LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED = 'settings-welcome-dismissed';
-var LOCAL_STORAGE_SIGN_IN_ID = 'sign-in';
-var LOCAL_STORAGE_FEEDBACK_BACKUP = 'feedback-backup';
-var LOCAL_STORAGE_FEEDBACK_EMAIL_BACKUP = 'feedback-email-backup';
-
-var INFO_BUBBLE_MARGIN_BUBBLE = 20;
-var INFO_BUBBLE_MARGIN_MOUSE = 10;
-
-var PERSON_TYPES = 31;
-var PERSON_CAN_GO_FIRST = [true, true, true, true, true, true, true, true, true, true,
-                           true, true, true, true, true, true, true, true, false, false,
-                           true, true, true, true, true, true, true, true, true, true,
-                           true];
-var PERSON_WIDTH = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-                    2, 2, 2, 3, 2, 3, 3, 3, 3, 3,
-                    1, 1, 3, 4, 2, 3, 2, 3, 4, 3,
-                    2];
-var PERSON_TILESET_WRAP = 10;
-
-var INFO_BUBBLE_TYPE_SEGMENT = 1;
-var INFO_BUBBLE_TYPE_LEFT_BUILDING = 2;
-var INFO_BUBBLE_TYPE_RIGHT_BUILDING = 3;
-
-var MAX_RAND_SEED = 999999999;
-
-var TRACK_CATEGORY_INTERACTION = 'Interaction';
-var TRACK_CATEGORY_SHARING = 'Sharing';
-var TRACK_CATEGORY_EVENT = 'Event';
-var TRACK_CATEGORY_ERROR = 'Error';
-
-var TRACK_ACTION_LEARN_MORE = 'Learn more about segment';
-var TRACK_ACTION_FACEBOOK = 'Facebook';
-var TRACK_ACTION_TWITTER = 'Twitter';
-var TRACK_ACTION_SAVE_AS_IMAGE = 'Save as image';
-var TRACK_ACTION_STREET_MODIFIED_ELSEWHERE = 'Street modified elsewhere';
-var TRACK_ACTION_OPEN_GALLERY = 'Open gallery';
-var TRACK_ACTION_CHANGE_WIDTH = 'Change width';
-var TRACK_ACTION_UNDO = 'Undo';
-var TRACK_ACTION_REMOVE_SEGMENT = 'Remove segment';
-var TRACK_ACTION_ERROR_15A = 'Error 15A (sign in API failure)';
-var TRACK_ACTION_ERROR_RM1 = 'Error RM1 (auth 401 failure on load)';
-var TRACK_ACTION_ERROR_RM2 = 'Error RM2 (auth 401 failure mid-flight)';
-var TRACK_ACTION_ERROR_GEOLOCATION_TIMEOUT = 'Geolocation timeout';
-
-var TRACK_LABEL_INCREMENT_BUTTON = 'Increment button';
-var TRACK_LABEL_INPUT_FIELD = 'Input field';
-var TRACK_LABEL_DRAGGING = 'Dragging';
-var TRACK_LABEL_KEYBOARD = 'Keyboard';
-var TRACK_LABEL_BUTTON = 'Button';
-
-var DATE_FORMAT = 'MMM D, YYYY';
-
-var WELCOME_NONE = 0;
-var WELCOME_NEW_STREET = 1;
-var WELCOME_FIRST_TIME_NEW_STREET = 2;
-var WELCOME_FIRST_TIME_EXISTING_STREET = 3;
-
-var LIVE_UPDATE_DELAY = 5000;
-
-var SKY_COLOUR = 'rgb(169, 204, 219)';
-var SKY_WIDTH = 250;
-var BOTTOM_BACKGROUND = 'rgb(216, 211, 203)';
+      if (graphics.repeat && !$.isArray(graphics.repeat)) {
+        graphics.repeat = [graphics.repeat];
+      }
+      if (graphics.left && !$.isArray(graphics.left)) {
+        graphics.left = [graphics.left];
+      }
+      if (graphics.right && !$.isArray(graphics.right)) {
+        graphics.right = [graphics.right];
+      }
+      if (graphics.center && !$.isArray(graphics.center)) {
+        graphics.center = [graphics.center];
+      }
+    }
+  }
+}

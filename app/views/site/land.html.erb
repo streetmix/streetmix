@@ -1,19 +1,19 @@
 <% content_for :head do %>
   <script>
-    var ENV = "<%= Rails.env %>";
-    var SITE_URL = "http://localhost:3000/";
-    var API_URL = '/api/';
-    var FACEBOOK_APP_ID = "<%= ENV['FACEBOOK_APP_ID'] %>";
-    var URL_SIGN_IN_CALLBACK_REL = '{{{twitter.oauth_callback_uri}}}';
+    var ENV = '<%= Rails.env %>';
+    var SITE_URL = '//<%= Figaro.env.api_host %>/';
+    var API_URL = '<%= Figaro.env.api_path %>';
+    var FACEBOOK_APP_ID = '<%= Figaro.env.facebook_app_id %>';
+    var URL_SIGN_IN_CALLBACK_REL = '<%= Figaro.env.twitter_oauth_callback_uri %>';
   </script>
 
-  <%= stylesheet_link_tag "application" %>
-  <%= javascript_include_tag "application" %>
+  <%= stylesheet_link_tag "styles" %>
+  <%= javascript_include_tag "app" %>
 
   <script src='//platform.twitter.com/widgets.js'></script>
 
   <script>
-    main.preInit();
+    app.preInit();
   </script>
 <% end %>
 
@@ -27,7 +27,7 @@
   <div class='error-loading'>Failed to load the gallery. <button id='gallery-try-again'>Try again</button></div>
   <div class='sign-in-promo'>
     <a href='/twitter-sign-in?redirectUri=/just-signed-in'>Sign in with Twitter</a> for
-    your personal street gallery 
+    your personal street gallery
   </div>
   <div class='avatar'></div>
   <div class='user-id'></div>
@@ -77,7 +77,7 @@
       <table>
         <tr>
           <td>
-            <span class='key'>Backspace</span> 
+            <span class='key'>Backspace</span>
           <td>
             Remove a segment you’re pointing at<br>
             (hold <span class='key'>Shift</span> to remove all)
@@ -115,7 +115,7 @@
   <div id='share-menu' class='menu'>
     <div id='sign-in-promo'>
       <a href='/twitter-sign-in?redirectUri=/just-signed-in'>Sign in with Twitter</a> for nicer
-      links to your streets and your personal street gallery 
+      links to your streets and your personal street gallery
     </div>
     <div id='share-via-link-canvas'>
       Copy and paste this link to share:
@@ -166,7 +166,7 @@
     <div>
       Streetmix is having trouble connecting to the Internet.
       <button id='no-connection-try-again'>Try again</button>
-    </div> 
+    </div>
   </div>
 
   <div id='info-bubble'></div>
@@ -195,7 +195,7 @@
       </h1>
       <p class='description'>
         Design, remix, and share your street.
-        Add bike paths, widen sidewalks or traffic lanes, learn 
+        Add bike paths, widen sidewalks or traffic lanes, learn
         how all of this can impact your community.
       </p>
       <ul>
@@ -206,7 +206,7 @@
     </div>
     <div class='right'>
       <p>
-        A side project by 
+        A side project by
         <a target='_blank' href='http://codeforamerica.org'>Code for America</a> 2013 fellows:
       </p>
       <ul class='team'>
@@ -242,7 +242,7 @@
       </div>
       <p>
         <span class='non-touch-only'>
-          Drag the image anywhere you want, or 
+          Drag the image anywhere you want, or
           <a download class='button-like' id='save-as-image-download'>Save to your computer…</a>
         </span>
         <span class='touch-only'>
@@ -264,11 +264,11 @@
           Welcome to Streetmix.
         </h1>
         <p>
-          Design, remix, and share your neighborhood street. Add trees or bike paths, widen 
+          Design, remix, and share your neighborhood street. Add trees or bike paths, widen
           sidewalks or traffic lanes, learn how your decisions can impact your community.
         </p>
         <p class='important'>
-          Start by moving some segments around with 
+          Start by moving some segments around with
           <span class='touch-only'>your finger.</span>
           <span class='non-touch-only'>your mouse.</span>
         </p>
@@ -282,7 +282,7 @@
           This is
            <span class='street-name'><span id='welcome-street-name'></span></span>
            <span id='welcome-avatar-creator'>
-             made by 
+             made by
              <span class='avatar' id='welcome-avatar' userId=''></span><span id='welcome-creator'></span>
            </span>.
         </p>
@@ -357,5 +357,5 @@
 </div>
 
 <script>
-  main.init();
+  app.init();
 </script>

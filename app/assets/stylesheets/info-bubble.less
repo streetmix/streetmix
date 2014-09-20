@@ -1,0 +1,413 @@
+.info-bubble {
+  position: absolute;
+  z-index: 999999999 - 2;
+  min-width: 250px;
+  background: @infoBubbleBackground;
+
+  -webkit-transition: -webkit-transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
+  -moz-transition: -moz-transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
+  transition: transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
+
+  .box-border;
+  border-top-color: darken(@uiColour, 30%);
+
+  pointer-events: none;
+
+  opacity: 0;
+
+  -webkit-transform: rotateX(-80deg);
+  -moz-transform: rotateX(-80deg);
+  transform: rotateX(-80deg);
+
+  -webkit-perspective: 1200px;
+  -moz-perspective: 1200px;
+  perspective: 1200px;
+
+  .triangle {
+    position: absolute;
+    bottom: -30px;
+    height: 30px;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      pointer-events: none;
+
+      border: 3px solid darken(@uiColour, 20%);
+      background: @infoBubbleBackground;
+
+      left: 50%;
+      margin-left: -15px - 3px;
+      bottom: 15px;
+
+      -webkit-transform: rotateZ(45deg);
+      -moz-transform: rotateZ(45deg);
+      transform: rotateZ(45deg);
+    }
+  }
+
+  &.visible {
+    opacity: 1;
+    -webkit-transform: rotateY(0);
+    -moz-transform: rotateY(0);
+    transform: rotateY(0);
+    pointer-events: auto;
+  }
+
+
+  &[type='building'] header {
+    margin-right: 90px + 50px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: -37px;
+      width: 0;
+      height: 0;
+
+      border-top: 37px solid darken(@uiColour, 20%);
+      border-right: 37px solid transparent;
+    }
+  }
+
+  header {
+    padding: 5px 12px;
+    padding-top: 2px;
+    height: @infoBubbleButtonSize;
+    line-height: @infoBubbleButtonSize;
+
+    font-size: 16px;
+    line-height: 31px;
+    font-weight: 300;
+    color: white;
+
+    position: relative;
+
+    background: darken(@uiColour, 20%);
+  }
+
+  button canvas {
+    pointer-events: none;
+
+    position: absolute;
+    left: 3px;
+    top: 2px;
+  }
+
+  button.remove {
+    padding: 0;
+    margin-top: -3px;
+  }
+
+  &[type='segment'] .variants {
+    margin-right: 170px;
+  }
+  &[type='building'] .variants {
+    margin-right: 150px;
+  }
+
+  .variants {
+    text-align: left;
+    padding-top: 7px;
+    padding-bottom: 5px;
+    padding-left: 8px;
+    padding-right: 8px;
+
+    min-height: @infoBubbleButtonSize;
+
+    white-space: nowrap;
+
+    .user-select-none;
+
+    button {
+      margin-left: 3px;
+      margin-top: 0;
+      margin-bottom: 2px;
+      white-space: nowrap;
+
+      position: relative;
+
+      canvas {
+        opacity: .666;
+        margin-top: -2px;
+      }
+
+      &:active {
+        canvas {
+          margin-top: -1px;
+          opacity: .9;
+        }
+      }
+
+      &[disabled] {
+        background: darken(@uiColour, 10%);
+        color: black;
+        opacity: 1;
+        border-top-color: darken(@uiColour, 30%);
+        border-bottom-color: darken(@uiColour, 30%);
+
+        canvas {
+          opacity: 1;
+        }
+      }
+    }
+    hr {
+      vertical-align: top;
+      margin: 0;
+      padding: 0;
+      display: block;
+      opacity: 0;
+      height: 5px;
+    }
+  }
+
+  .description-prompt,
+  .description-close {
+    border-top: 1px solid @uiColour;
+    text-rendering: optimizeLegibility;
+
+    white-space: normal;
+    text-align: center;
+
+    margin-top: 1px;
+    padding: 5px 5px;
+    padding-top: 3px;
+    font-size: 13px;
+
+    .user-select-none;
+
+    color: darken(@uiColour, 20%);
+    cursor: pointer;
+
+    &:hover {
+      color: darken(@uiColour, 40%);
+      background: mix(@uiColour, white, 50%);
+    }
+  }
+
+  .description-close {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    pointer-events: none;
+  }
+
+  .description-canvas {
+    position: absolute;
+    left: -50px;
+    top: -4px;
+    right: -50px;
+
+    opacity: 0;
+    pointer-events: none;
+
+    border-top: 3px solid darken(@uiColour, 20%);
+    border-bottom: 3px solid darken(@uiColour, 20%);
+
+    -webkit-transform-origin: 50% 0;
+    -moz-transform-origin: 50% 0;
+    transform-origin: 50% 0;
+
+    -webkit-transform: rotateX(20deg) translateY(100px);
+    -moz-transform: rotateX(20deg) translateY(100px);
+    transform: rotateX(20deg) translateY(100px);
+
+    -webkit-transition: opacity 250ms, -webkit-transform 250ms;
+    -moz-transition: opacity 250ms, -moz-transform 250ms;
+    transition: opacity 250ms, transform 250ms;
+
+    background: @infoBubbleBackground;
+  }
+
+  .description {
+    font-size: 16px;
+    padding: 12px 12px;
+    line-height: 23px;
+    font-weight: 300;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 25px;
+
+    p {
+      margin: 10px 0;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &.lede {
+        font-size: 150%;
+        font-weight: 300;
+        line-height: 1.25;
+      }
+    }
+    footer {
+      text-align: right;
+      color: rgb(160, 160, 160);
+      font-size: 11px;
+      line-height: 14px;
+    }
+    img {
+      //width: 300px;
+      margin: 0 auto;
+      display: block;
+      max-width: 100%;
+      outline: 1px solid darken(@uiColour, 20%);
+    }
+  }
+
+  .warnings {
+    margin-top: 1px;
+    font-size: 13px;
+    padding: 5px 5px;
+    border-top: 1px solid @uiColour;
+    text-rendering: optimizeLegibility;
+
+    white-space: normal;
+
+    color: @warningColour;
+
+    text-align: center;
+
+    &:not(.visible) {
+      display: none;
+    }
+
+    > p {
+      width: 100%;
+      box-sizing: border-box;
+      margin: 5px 0;
+      padding: 0;
+    }
+  }
+
+  .non-variant {
+    float: right;
+    margin-right: 8px;
+    margin-top: 5px;
+    margin-bottom: 8px;
+    width: 150px;
+    height: @infoBubbleButtonSize;
+    line-height: @infoBubbleButtonSize;
+
+    .user-select-none;
+
+    white-space: nowrap;
+
+    text-align: right;
+
+    &.entire-info-bubble {
+      width: auto;
+      left: 8px;
+      text-align: center;
+    }
+
+    &.building-height {
+      margin-top: -29px;
+      height: auto;
+      white-space: normal;
+      width: 65px + 50px;
+      text-align: center;
+    }
+
+    .width,
+    .width-non-editable,
+    .height,
+    .height-non-editable {
+      width: 50px;
+      margin: 0 3px;
+
+      font-family: @fontFamily;
+      font-size: 13px;
+      line-height: 25px;
+      text-align: center;
+
+      &.width,
+      &.height {
+        background: @formElementBackground;
+        border: 1px solid @formElementBorder;
+
+        vertical-align: bottom;
+        height: 22px;
+
+        outline: none;
+      }
+      &.width-non-editable,
+      &.height-non-editable {
+        display: inline-block;
+
+        color: black;
+
+        vertical-align: center;
+        height: 25px;
+      }
+      &.height,
+      &.height-non-editable {
+        width: 50px + 50px;
+        margin-top: 4px;
+        margin-bottom: 2px;
+      }
+    }
+  }
+
+  button {
+    width: @infoBubbleButtonSize;
+    height: @infoBubbleButtonSize;
+
+    &.remove {
+      position: absolute;
+      right: 6px;
+      top: 6px;
+      width: auto;
+      padding-left: 10px;
+      padding-right: 10px;
+      font-size: 11px;
+    }
+  }
+}
+
+.info-bubble.highlight-triangle .triangle::before {
+  background: mix(@uiColour, white, 50%);
+}
+
+.info-bubble.show-description {
+  .variants {
+    pointer-events: none;
+  }
+  .non-variant {
+    pointer-events: none;
+  }
+  .warnings {
+    pointer-events: none;
+  }
+  .description-prompt {
+    pointer-events: none;
+  }
+  .description-close {
+    pointer-events: auto;
+  }
+  .description-canvas {
+    -webkit-transform: none;
+    -moz-transform: none;
+    transform: none;
+
+    opacity: 1;
+  }
+  .description {
+    pointer-events: auto;
+  }
+}

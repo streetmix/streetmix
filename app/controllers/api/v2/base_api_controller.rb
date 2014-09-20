@@ -3,6 +3,8 @@ class Api::V2::BaseApiController < ApplicationController
 
   before_filter :set_default_response_format
 
+  before_filter :authenticate
+
   rescue_from Exception do |exception|
     Rails.logger.warn("[Unhandled API Exception] [#{exception.class.name}] #{exception.message}")
     Rails.logger.warn(exception.backtrace.join("\n"))
@@ -25,10 +27,20 @@ class Api::V2::BaseApiController < ApplicationController
     render_error 400, exception.message
   end
 
+  def current_user
+    @current_user
+  end
+
   private
   
     def set_default_response_format
       request.format = :json
+    end
+
+    def authenticate
+      authenticate_with_http_token do |token, options|
+        @current_user = User.find_by(api_auth_token: token)
+      end
     end
 
     def render_error(code, message = nil)

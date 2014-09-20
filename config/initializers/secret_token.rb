@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Streetmix::Application.config.secret_key_base = 'ed99bfd12f116bd069415473310d7416ce80d3253bc9895f604211ae01a6e528ad69f27bcaa410c159955d96aa3f94078155b0de65a984b75c796306bf97dae2'
+Streetmix::Application.config.secret_key_base = Figaro.env.secret_token

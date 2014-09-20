@@ -15,23 +15,29 @@ ActiveRecord::Schema.define(version: 20140410194143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
+  enable_extension "uuid-ossp"
 
-  create_table "streets", force: true do |t|
-    t.integer  "user_id"
+  create_table "streets", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
+    t.uuid     "creator_id"
+    t.uuid     "original_street_id"
     t.string   "name"
-    t.hstore   "data"
+    t.json     "data"
+    t.string   "creator_ip"
+    t.integer  "namespaced_id"
+    t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "streets", ["user_id"], name: "index_streets_on_user_id", using: :btree
-
-  create_table "users", force: true do |t|
+  create_table "users", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
     t.string   "name"
-    t.string   "email"
+    t.string   "twitter_id"
+    t.json     "twitter_credentials"
+    t.string   "twitter_profile_image_url"
+    t.json     "data"
     t.string   "provider"
-    t.string   "uid"
+    t.uuid     "last_street_id"
+    t.string   "api_auth_token"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

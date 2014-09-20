@@ -1,12 +1,23 @@
-class StreetSerializer < ActiveModel::Serializer
+class StreetSerializer < ApplicationSerializer
   attributes :id,
-             :user_id,
+             :creator,
              :name,
-             :data_as_json,
+             :data,
+             :creator_ip,
+             :namespaced_id,
+             :original_street_id,
+             :status,
              :created_at,
              :updated_at
-  
-  def data_as_json
-    object.data.to_json
+
+  def creator
+    if object.creator
+      {
+        userId: object.creator.id,
+        twitterId: object.creator.twitter_id
+      }
+    else
+      nil
+    end
   end
 end

@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/codeforamerica/streetmix.svg?branch=master)](https://travis-ci.org/codeforamerica/streetmix)
+[![Code Climate](https://codeclimate.com/github/codeforamerica/streetmix.png)](https://codeclimate.com/github/codeforamerica/streetmix)
+
 Streetmix
 =========
 
@@ -5,7 +8,7 @@ Streetmix is a browser-based interactive tool that lets you design, remix, and s
 
 Streetmix is currently live at http://streetmix.net/
 
-![screenshot](https://raw.github.com/codeforamerica/streetmix/master/public/images/help/doc/screenshot-beta.jpg)
+![screenshot](https://raw.github.com/codeforamerica/streetmix/master/public/assets/help/doc/screenshot-beta.jpg)
 
 ## <a name="about"></a>About
 
@@ -13,7 +16,7 @@ Streetmix is currently live at http://streetmix.net/
 
 A "section" is shortened way of saying "cross-section view", a type of 2D non-perspectival drawing commonly used in engineering and architecture to show what something looks like when you take a slice of it and look at it head-on. Similarly, a street section is a cross section view of a street, showing the widths and placement of vehicle lanes, bike lanes, sidewalks, trees, street furniture or accessories (like benches or street lamps), as well as engineering information like how the road is sloped to facilitate drainage, or the locations of underground utilities. Although sections can be simplified line drawings, urban designers and landscape architects have created very colorful illustrative street sections, removing most of the engineering particulars to communicate how a street could be designed to feel safe, walkable or habitable.
 
-![example-sections](https://raw.github.com/codeforamerica/streetmix/master/public/images/help/doc/thumb_sections.png "Left to Right: (1) Existing conditions section of Market Street, from the Better Market Street Plan, San Francisco (2) Proposed one-way cycletrack design of Second Street, from the Great Second Street Plan, San Francisco (3)Example of an illustrative section, courtesy of Lou Huang")
+![example-sections](https://raw.github.com/codeforamerica/streetmix/master/public/assets/help/doc/thumb_sections.png "Left to Right: (1) Existing conditions section of Market Street, from the Better Market Street Plan, San Francisco (2) Proposed one-way cycletrack design of Second Street, from the Great Second Street Plan, San Francisco (3)Example of an illustrative section, courtesy of Lou Huang")
 
 #### Why does Streetmix exist?
 
@@ -64,46 +67,66 @@ Also, this project was made possible by the support of Code for America staff an
 
 ### On Mac OS X 10
 
+These installation instructions assume that you have already installed the [Homebrew](http://brew.sh/) package manager.
+
 #### First-time setup
 
-1) Download and install [Node.js](http://nodejs.org/).
+1) [Install Ruby 2.1.2](https://github.com/codeforamerica/howto/blob/master/Ruby.md)
 
-2) Clone this remote repository to a folder on your computer. The rest of these instructions will refer to this folder as `$PROJECT_ROOT`.
+2) [Install Ruby on Rails](https://github.com/codeforamerica/howto/blob/master/Rails.md)
+
+3) Download, install and start [Postgres](www.postgresql.org/).
+
+    brew install postgres
+
+4) Clone this remote repository to a folder on your computer. The rest of these instructions will refer to this folder as `$PROJECT_ROOT`.
 
     git clone $REMOTE_REPOSITORY_URL $PROJECT_ROOT
 
-3) Install project dependencies.
+5) Install project dependencies.
 
     cd $PROJECT_ROOT
-    npm install
-
-4) The Streetmix back-end is a separate application running on a different server (or a different localhost port). For information about starting the back-end server, please read the instructions on the [back-end repository](https://github.com/codeforamerica/streetmix-be).
+    bundle install
 
 #### Every time you sync `$PROJECT_ROOT` with this remote repository.
 
 1) Update project dependencies.
 
     cd $PROJECT_ROOT
-    npm install
+    bundle install
 
 #### HOWTO: Start the application
 
 
-1) Setup environment variables. These are the same environment variables required to run the [back-end](https://github.com/codeforamerica/streetmix-be/) as well.
+1) Setup environment variables. You can either set these in your `.bash_profile` (or equivalent) or place them in a file named `$PROJECT_ROOT/.env` 
 
 | Variable name                   | Description                                                                            | Required?            |
 | ------------------------------- | -------------------------------------------------------------------------------------- | -------------------- |
-| `TWITTER_OAUTH_CONSUMER_KEY`    | Development Twitter OAuth consumer key, obtained from @streetmixapp Twitter account    | Yes                  |
-| `TWITTER_OAUTH_CONSUMER_SECRET` | Development Twitter OAuth consumer secret, obtained from @streetmixapp Twitter account | Yes                  |
+| `SENDGRID_USERNAME`             | Your SendGrid username                                                                 | Yes                  |
+| `SENDGRID_PASSWORD`             | Your SendGrid password                                                                 | Yes                  |
+| `TWITTER_OAUTH_CONSUMER_KEY`    | Development Twitter OAuth consumer key, obtained from @streetmix Twitter account    | Yes                  |
+| `TWITTER_OAUTH_CONSUMER_SECRET` | Development Twitter OAuth consumer secret, obtained from @streetmix Twitter account | Yes                  |
+| `EMAIL_FEEDBACK_RECIPIENT`      | Your e-mail address                                                                    | No                   |
+
 
 2) Start the web server.
 
     cd $PROJECT_ROOT
-    npm start
+    foreman start
 
 3) Load the application in your web browser.
 
-    open http://localhost:8000
+    open http://localhost:30000
+
+#### HOWTO: Run browser integration tests
+
+1) Install test dependencies (only required once)
+
+    grunt test:local:setup
+
+2) Run browser tests locally
+
+    grunt test:local
 
 ## <a name="contributing"></a>Contributing
 see [CONTRIBUTING.md](CONTRIBUTING.md).
@@ -113,8 +136,7 @@ We use the [GitHub issue tracker][issues] to track bugs and features. Before
 submitting a bug report or feature request, check to make sure it hasn't
 already been submitted. You can indicate support for an existing issue by
 voting it up. When submitting a bug report, please include  any details that may 
-be necessary to reproduce thebug, including your node version, npm version, and 
-operating system.
+be necessary to reproduce the bug, including your Ruby version and operating system.
 
 ## <a name="pulls"></a>Submitting a Pull Request
 1. Fork the project.

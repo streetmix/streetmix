@@ -3,7 +3,7 @@ development:
   encoding: unicode
   database: streetmix_development
   pool: 5
-  username: drew
+  username: <%= Figaro.env.database_username %>
   password:
 
 test:
@@ -11,5 +11,5 @@ test:
   encoding: unicode
   database: streetmix_test
   pool: 5
-  username: drew
+  username: <%= Figaro.env.database_username %>
   password:
