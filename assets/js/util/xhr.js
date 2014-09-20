@@ -145,7 +145,9 @@ function _removeNonblockingAjaxRequest(signature) {
 }
 
 function _errorNonblockingAjaxRequest(data, request) {
-  if (request.errorFunc) {
+  // Do not execute the error function immediately if there is
+  // a directive to retry a certain number of times first.
+  if (request.errorFunc && !request.maxRetries) {
     request.errorFunc(data);
   }
 
@@ -157,6 +159,9 @@ function _errorNonblockingAjaxRequest(data, request) {
     nonblockingAjaxRequestTimer = 0;
     _noConnectionMessage.hide();
     _removeNonblockingAjaxRequest(request.signature);
+    if (request.errorFunc) {
+      request.errorFunc(data);
+    }
   }
 }
 
