@@ -15,9 +15,9 @@
 #  updated_at                :datetime
 #
 
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
 FactoryGirl.define do
   factory :user do
+    name { Faker::Name.name }
+    twitter_id { Faker::Internet.user_name }
   end
 end

@@ -17,5 +17,8 @@
 require 'spec_helper'
 
 describe Street do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it 'can be created' do
+    street = FactoryGirl.create(:street)
+    expect(Street.exists? street).to be true
+  end
 end
