@@ -6,6 +6,7 @@ gem 'rails', '4.1.6'
 
 # configuration
 gem 'figaro'
+gem 'highline'
 
 # data stores
 gem 'pg'
