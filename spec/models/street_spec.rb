@@ -14,11 +14,9 @@
 #  updated_at         :datetime
 #
 
-require 'spec_helper'
-
 describe Street do
   it 'can be created' do
-    street = FactoryGirl.create(:street)
+    street = create(:street)
     expect(Street.exists? street).to be true
   end
 end

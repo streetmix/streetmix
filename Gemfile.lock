@@ -175,8 +175,6 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
-    teaspoon (0.8.0)
-      railties (>= 3.2.5, < 5)
     therubyracer (0.12.1)
       libv8 (~> 3.16.14.0)
       ref
@@ -217,7 +215,6 @@ DEPENDENCIES
   rspec-rails
   selenium-webdriver
   simplecov
-  teaspoon
   therubyracer
   therubyrhino
   uglifier

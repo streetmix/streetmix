@@ -122,11 +122,11 @@ These installation instructions assume that you have already installed the [Home
 
 1) Install test dependencies (only required once)
 
-    grunt test:local:setup
+    brew install chromedriver
 
 2) Run browser tests locally
 
-    grunt test:local
+    rake
 
 ## <a name="contributing"></a>Contributing
 see [CONTRIBUTING.md](CONTRIBUTING.md).

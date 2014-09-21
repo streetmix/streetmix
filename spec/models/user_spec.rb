@@ -15,11 +15,9 @@
 #  updated_at                :datetime
 #
 
-require 'spec_helper'
-
 describe User do
   it 'can be created' do
-    user = FactoryGirl.create(:user)
+    user = create(:user)
     expect(User.exists? user).to be true
   end
 end
