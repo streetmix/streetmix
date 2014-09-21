@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
 
   def self.find_or_create_from_auth_hash(auth_hash)
     user = User.find_or_initialize_by(twitter_id: auth_hash[:info][:nickname])
+    user.provider = 'twitter'
     user.name = auth_hash[:info][:name]
     user.twitter_credentials = auth_hash[:credentials]
     user.twitter_profile_image_url = auth_hash[:info][:image]
