@@ -1,10 +1,8 @@
 class Api::V2::StreetsController < Api::V2::BaseApiController
   before_action :set_street, only: [:show, :update, :destroy]
-  # after_action :verify_authorized, except: :index
-  # after_action :verify_policy_scoped, only: [:index]
 
   def index
-    if params[:namespacedId] #&& params[:creatorId]
+    if params[:namespacedId]
       find_by_params = {
         namespaced_id: params[:namespacedId]
       }
@@ -49,7 +47,6 @@ class Api::V2::StreetsController < Api::V2::BaseApiController
   def create
     @street = Street.new(street_params)
     @street.creator ||= @current_user
-    # authorize @street
 
     if @street.save!
       render json: @street #, status: :created
@@ -78,11 +75,28 @@ class Api::V2::StreetsController < Api::V2::BaseApiController
 
     def set_street
       @street = Street.find(params[:id])
-      # authorize @street
     end
 
     def street_params
-      params.keys.each { |k| params[k.underscore] = params.delete(k) }
-      params.require(:street).permit! # TODO: limit this
+      underscored_params = convert_params_from_camel_case_to_underscored(params)
+      street_keys = underscored_params[:street][:data][:street].map do |key, value|
+        if value.kind_of?(Array)
+          hash = {}
+          hash[key.to_sym] = value.map(&:keys).flatten.uniq
+          hash
+        else
+          key.to_sym
+        end
+      end
+      params.require(:street).permit([
+        :original_street_id,
+        :name,
+        :creator_ip,
+        :namespaced_id,
+        :status,
+        data: {
+          street: street_keys
+        }
+      ])
     end
 end

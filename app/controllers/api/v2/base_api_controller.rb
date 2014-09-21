@@ -31,6 +31,15 @@ class Api::V2::BaseApiController < ApplicationController
     @current_user
   end
 
+  def convert_params_from_camel_case_to_underscored(params)
+    camel_case_params = params.clone
+    underscored_params = ActiveSupport::HashWithIndifferentAccess.new
+    camel_case_params.keys.each do |k|
+      underscored_params[k.underscore] = camel_case_params.delete(k)
+    end
+    underscored_params
+  end
+
   private
   
     def set_default_response_format

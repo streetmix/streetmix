@@ -1,10 +1,8 @@
 class Api::V2::UsersController < Api::V2::BaseApiController
   before_action :set_user, only: [:show, :update, :destroy, :streets, :destroy_api_auth_token]
-  # after_action :verify_authorized, except: :index
-  # after_action :verify_policy_scoped, only: [:index]
 
   def index
-    @users = User.where('') # policy_scope(user)
+    @users = User.where('')
     render json: @users
   end
 
@@ -14,7 +12,6 @@ class Api::V2::UsersController < Api::V2::BaseApiController
 
   def create
     @user = User.new(user_params)
-    # authorize @user
 
     if @user.save
       render json: @user, status: :created
@@ -60,10 +57,12 @@ class Api::V2::UsersController < Api::V2::BaseApiController
 
     def set_user
       @user = User.find_by!(twitter_id: params[:id])
-      # authorize @user
     end
 
     def user_params
-      params.require(:user).permit!
+      params.require(:user).permit([
+        :last_street_id,
+        data: params[:user][:data].try(:keys)
+      ])
     end
 end
