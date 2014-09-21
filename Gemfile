@@ -26,8 +26,9 @@ gem 'therubyrhino', platforms: :jruby
 # API
 gem 'active_model_serializers'
 
-# production
+# production (Heroku)
 gem 'rails_12factor', group: :production
+gem 'unicorn', group: :production
 
 # development tools
 gem 'foreman', group: :development
