@@ -70,18 +70,22 @@ function _getAjaxRequestSignature(request) {
   return request.type + ' ' + request.url;
 }
 
-function _newNonblockingAjaxRequest(request, allowToClosePage, doneFunc, errorFunc) {
+function _newNonblockingAjaxRequest(request, allowToClosePage, doneFunc, errorFunc, maxRetries) {
   nonblockingAjaxRequestTimer = 0;
 
   var signature = _getAjaxRequestSignature(request);
 
   _removeNonblockingAjaxRequest(signature);
-  nonblockingAjaxRequests.push(
-    { request: request, allowToClosePage: allowToClosePage,
-      doneFunc: doneFunc, errorFunc: errorFunc,
-      inProgress: false,
-      signature: signature }
-  );
+  nonblockingAjaxRequests.push({
+    request: request,
+    allowToClosePage: allowToClosePage,
+    doneFunc: doneFunc,
+    errorFunc: errorFunc,
+    inProgress: false,
+    signature: signature,
+    tryCount: 0,
+    maxRetries: maxRetries
+  });
 
   _scheduleNextNonblockingAjaxRequest();
 }
@@ -148,11 +152,24 @@ function _removeNonblockingAjaxRequest(signature) {
 }
 
 function _errorNonblockingAjaxRequest(data, request) {
-  if (request.errorFunc) {
+  // Do not execute the error function immediately if there is
+  // a directive to retry a certain number of times first.
+  if (request.errorFunc && !request.maxRetries) {
     request.errorFunc(data);
   }
 
+  request.tryCount++;
   request.inProgress = false;
+
+  // Abort resending if the max number of tries has been hit.
+  if (request.maxRetries && request.tryCount >= request.maxRetries) {
+    nonblockingAjaxRequestTimer = 0;
+    _noConnectionMessage.hide();
+    _removeNonblockingAjaxRequest(request.signature);
+    if (request.errorFunc) {
+      request.errorFunc(data);
+    }
+  }
 }
 
 function _successNonblockingAjaxRequest(data, request) {

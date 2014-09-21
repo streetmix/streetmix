@@ -44,7 +44,16 @@ function _feedbackFormSend() {
       dataType: 'json',
       type: 'POST',
       contentType: 'application/json'
-    }, true, _feedbackFormSuccess);
+    }, true, _feedbackFormSuccess, _feedbackFormError, 3);
+
+    // ---------------------------------------------- ^^^
+    // We are automatically halting the feedback form sending if it fails 3 times.
+    // If we do not do this, then Streetmix will continue to re-attempt sending feedback
+    // forever, while claiming that Streetmix is having trouble connecting to the Internet.
+    // It is more likely that Sendgrid is having problems than the Internet connection itself
+    // (e.g. the Sendgrid connection is bad, the credentials are bad, etc.)
+    // So if Sendgrid is having problems, instead just inform the user that the
+    // feedback could not be sent, and move on.
   }
 }
 
@@ -58,6 +67,17 @@ function _feedbackFormSuccess() {
 
   // TODO const
   window.setTimeout(_hideMenus, 2500);
+}
+
+function _feedbackFormError() {
+  document.querySelector('#feedback-form .loading').classList.remove('visible');
+  document.querySelector('#feedback-form .error').classList.add('visible');
+
+  // On error, do not clear the feedback storage. This allows a user
+  // to try again later, or copy-paste the message to some other
+  // contact method.
+
+  window.setTimeout(_hideMenus, 10000);
 }
 
 function _onFeedbackFormInput() {
@@ -114,6 +134,8 @@ function _prepareFeedbackForm() {
 
   _updateFeedbackForm();
 
-  document.querySelector('#feedback-form .loading').classList.remove('visible');
-  document.querySelector('#feedback-form .thank-you').classList.remove('visible');
+  var notices = document.querySelectorAll('#feedback-form .feedback-notice');
+  for (var i = 0; i < notices.length; i++) {
+    notices[i].classList.remove('visible');
+  }
 }
