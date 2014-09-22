@@ -10,6 +10,7 @@ SimpleCov.start 'rails'
 
 ActiveRecord::Migration.maintain_test_schema!
 
+Capybara.app_host = "http://localhost:3030"
 Capybara.server_port = 3030
 # Note that this port is on the Sauce Connect list of ports to proxy by default
 # https://docs.saucelabs.com/reference/sauce-connect/#can-i-access-applications-on-localhost-
