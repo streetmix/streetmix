@@ -10,6 +10,10 @@ SimpleCov.start 'rails'
 
 ActiveRecord::Migration.maintain_test_schema!
 
+Capybara.server_port = 3030
+# Note that this port is on the Sauce Connect list of ports to proxy by default
+# https://docs.saucelabs.com/reference/sauce-connect/#can-i-access-applications-on-localhost-
+
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
