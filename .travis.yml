@@ -18,8 +18,8 @@ env:
   - twitter_oauth_callback_uri=/auth/twitter/callback
   - email_feedback_receipient=streetmix+travis+test@codeforamerica.org
   - api_path=/api/
-  - port=3000
-  - api_host=localhost:3000
+  - port=3030
+  - api_host=localhost:3030
 
 addons:
   sauce_connect: true
