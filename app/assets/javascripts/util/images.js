@@ -4,13 +4,13 @@ var TILE_SIZE = 12; // pixels
 var TILESET_CORRECTION = [null, 0, -84, -162];
 
 var IMAGES_TO_BE_LOADED = [
-  '/assets/tiles-1.png',
-  '/assets/tiles-2.png',
-  '/assets/tiles-3.png',
-  '/assets/sky-front.png',
-  '/assets/sky-rear.png',
-  '/assets/share-icons/facebook-29.png',
-  '/assets/share-icons/twitter-32.png'
+  '/images/tiles-1.png',
+  '/images/tiles-2.png',
+  '/images/tiles-3.png',
+  '/images/sky-front.png',
+  '/images/sky-rear.png',
+  '/images/share-icons/facebook-29.png',
+  '/images/share-icons/twitter-32.png'
 ];
 
 var images = [];

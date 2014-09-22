@@ -34,7 +34,7 @@ function _drawSegmentImage(tileset, ctx, sx, sy, sw, sh, dx, dy, dw, dh) {
       ctx.fillRect(dx, dy, dw, dh);
     }
 
-    ctx.drawImage(images['/assets/tiles-' + tileset + '.png'],
+    ctx.drawImage(images['/images/tiles-' + tileset + '.png'],
         sx * TILESET_POINT_PER_PIXEL, sy * TILESET_POINT_PER_PIXEL,
         sw * TILESET_POINT_PER_PIXEL, sh * TILESET_POINT_PER_PIXEL,
         dx, dy, dw, dh);

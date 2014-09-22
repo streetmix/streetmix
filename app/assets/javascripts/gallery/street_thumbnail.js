@@ -36,7 +36,7 @@ function _drawStreetThumbnail(ctx, street, thumbnailWidth, thumbnailHeight,
     var y = groundLevel - 280;
 
     for (var i = 0; i < Math.floor(thumbnailWidth / SKY_WIDTH) + 1; i++) {
-      ctx.drawImage(images['/assets/sky-front.png'],
+      ctx.drawImage(images['/images/sky-front.png'],
           0, 0, SKY_WIDTH * 2, 280 * 2,
           i * SKY_WIDTH * system.hiDpi, y * system.hiDpi, SKY_WIDTH * system.hiDpi, 280 * system.hiDpi);
     }
@@ -44,7 +44,7 @@ function _drawStreetThumbnail(ctx, street, thumbnailWidth, thumbnailHeight,
     var y = groundLevel - 280 - 120;
 
     for (var i = 0; i < Math.floor(thumbnailWidth / SKY_WIDTH) + 1; i++) {
-      ctx.drawImage(images['/assets/sky-rear.png'],
+      ctx.drawImage(images['/images/sky-rear.png'],
           0, 0, SKY_WIDTH * 2, 120 * 2,
           i * SKY_WIDTH * system.hiDpi, y * system.hiDpi, SKY_WIDTH * system.hiDpi, 120 * system.hiDpi);
     }

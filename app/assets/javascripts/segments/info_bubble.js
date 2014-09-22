@@ -384,7 +384,7 @@ var _infoBubble = {
       var innerEl = document.createElement('div');
       innerEl.classList.add('description');
       if (description.image) {
-        innerEl.innerHTML += '<img src="/assets/info-bubble-examples/' + description.image + '">';
+        innerEl.innerHTML += '<img src="/images/info-bubble-examples/' + description.image + '">';
       }
       if (description.lede) {
         innerEl.innerHTML += '<p class="lede">' + description.lede + '</p>';

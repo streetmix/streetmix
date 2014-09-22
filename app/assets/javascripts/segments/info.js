@@ -7,27 +7,27 @@ var SEGMENT_OWNER_NATURE = 'nature';
 var SEGMENT_OWNERS = {
   'car': {
     owner: SEGMENT_OWNER_CAR,
-    imageUrl: '/assets/ui/icons/noun_project_72.svg',
+    imageUrl: '/images/ui/icons/noun_project_72.svg',
     imageSize: .8
   },
   'public-transit': {
     owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
-    imageUrl: '/assets/ui/icons/noun_project_97.svg',
+    imageUrl: '/images/ui/icons/noun_project_97.svg',
     imageSize: .8
   },
   'bike': {
     owner: SEGMENT_OWNER_BIKE,
-    imageUrl: '/assets/ui/icons/noun_project_536.svg',
+    imageUrl: '/images/ui/icons/noun_project_536.svg',
     imageSize: 1.1
   },
   'pedestrian': {
     owner: SEGMENT_OWNER_PEDESTRIAN,
-    imageUrl: '/assets/ui/icons/noun_project_2.svg',
+    imageUrl: '/images/ui/icons/noun_project_2.svg',
     imageSize: .8
   },
   'nature': {
     owner: SEGMENT_OWNER_NATURE,
-    imageUrl: '/assets/ui/icons/noun_project_13130.svg',
+    imageUrl: '/images/ui/icons/noun_project_13130.svg',
     imageSize: .8
   }
 };
