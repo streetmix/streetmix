@@ -109,7 +109,7 @@ function _showError(errorType, newAbortEverything) {
     case ERRORS.UNSUPPORTED_BROWSER:
       title = 'Streetmix doesn’t work on your browser… yet.';
       // TODO const for feedback
-      description = 'Sorry about that. You might want to try <a target="_blank" href="http://www.google.com/chrome">Chrome</a>, <a target="_blank" href="http://www.mozilla.org/firefox">Firefox</a>, or Safari. <br><br>Are you on Internet Explorer? <a target="_blank" href="/help/internet-explorer">Find out why IE is not supported.</a> <br><br>If you think your browser should be supported, please contact us via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a>.';
+      description = 'Sorry about that. You might want to try <a target="_blank" href="http://www.google.com/chrome">Chrome</a>, <a target="_blank" href="http://www.mozilla.org/firefox">Firefox</a>, or Safari. <br><br>Are you on Internet Explorer? <a target="_blank" href="http://guidebook.streetmix.net/faq/#internet-explorer">Find out why IE is not supported.</a> <br><br>If you think your browser should be supported, please contact us via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a>.';
       break;
     case ERRORS.CANNOT_CREATE_NEW_STREET_ON_PHONE:
       title = 'Streetmix works on tablets and desktops only.';
