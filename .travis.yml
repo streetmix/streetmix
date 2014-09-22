@@ -25,6 +25,9 @@ addons:
   sauce_connect: true
   postgresql: '9.3'
 
+install:
+  - bundle install --without development --deployment
+
 before_script:
   - bundle exec rake db:setup
 
