@@ -1,3 +1,9 @@
+class RouteConstraint
+  def matches?(request)
+    !request.env['REQUEST_PATH'].start_with? '/images'
+  end
+end
+
 Streetmix::Application.routes.draw do
   # JSON API
   namespace :api do
@@ -21,5 +27,5 @@ Streetmix::Application.routes.draw do
 
   # single-page JavaScript application
   root to: 'site#land'
-  match '*path', to: 'site#land', via: :all
+  match '*path', to: 'site#land', via: :all, constraints: RouteConstraint.new
 end
