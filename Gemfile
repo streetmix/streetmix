@@ -10,6 +10,8 @@ gem 'highline'
 
 # data stores
 gem 'pg'
+gem 'mongo', require: false # used for import task
+gem 'bson_ext', require: false # also used for import task
 
 # authentication and authorization
 gem 'omniauth'
@@ -48,3 +50,6 @@ gem 'ffaker', group: [:development, :test]
 gem 'rspec-rails', group: [:development, :test]
 gem 'capybara', group: :test
 gem 'selenium-webdriver', group: :test
+
+# misc.
+gem 'progress_bar'
