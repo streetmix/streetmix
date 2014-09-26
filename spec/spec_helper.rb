@@ -5,8 +5,14 @@ require 'capybara/rails'
 require 'capybara/rspec'
 require 'database_cleaner'
 require 'ffaker'
-require 'simplecov'
-SimpleCov.start 'rails'
+
+if ENV['TRAVIS']
+  require 'coveralls'
+  Coveralls.wear!
+else
+  require 'simplecov'
+  SimpleCov.start 'rails'
+end
 
 ActiveRecord::Migration.maintain_test_schema!
 

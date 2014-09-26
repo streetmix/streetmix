@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/codeforamerica/streetmix.svg?branch=master)](https://travis-ci.org/codeforamerica/streetmix)
+[![Coverage Status](https://img.shields.io/coveralls/codeforamerica/streetmix.svg)](https://coveralls.io/r/codeforamerica/streetmix)
 [![Code Climate](https://codeclimate.com/github/codeforamerica/streetmix.png)](https://codeclimate.com/github/codeforamerica/streetmix)
 
 Streetmix
