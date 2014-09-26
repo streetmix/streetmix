@@ -28,7 +28,8 @@ base_opts = {
   access_key: SAUCE_ACCESS_KEY,
   build: sauce_build,
   name: sauce_name,
-  'max-duration' => '3600'
+  'max-duration' => '3600',
+  'tunnel-identifier' => ENV['TRAVIS_JOB_NUMBER']
 }
 
 Capybara.register_driver :sauce_ie_10_vista do |app|
