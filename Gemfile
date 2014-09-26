@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.2'
+ruby '2.1.3'
 
 gem 'rails', '4.1.6'
 
@@ -42,6 +42,7 @@ gem 'byebug', group: :development
 gem 'rails-erd', group: :development
 gem 'annotate', group: :development
 gem 'simplecov', :require => false, group: [:development, :test]
+gem 'coveralls', require: false
 
 # testing
 gem 'database_cleaner', group: :test
