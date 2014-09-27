@@ -35,17 +35,3 @@ script: bundle exec rake
 
 notifications:
   webhooks: http://project-monitor.codeforamerica.org/projects/4083b10b-11a4-4ac5-9a7f-51c5cb614243/status
-
-deploy:
-  provider: s3
-  access_key_id: AKIAJM7D4ASWWMB6TOTA
-  secret_access_key:
-    secure: ZKw988yI6w2KlMR5n3ESrSQ8hr3df0Uccbd58L6Qh+5WUT/O1rulE8RFNdypU4DCxaxZCcZS1Nw72GGOG20F7e1iWFpbM2oVOGQmZQOs5xfpEMUdO3lnFf144tmUchQhlq+qu4gHNKSR8/MnSeMw0/OSy9E4R7sJC3ObfmnMyCk=
-  bucket: streetmix-dev
-  endpoint: streetmix-dev.s3-website-us-east-1.amazonaws.com
-  local-dir: coverage
-  upload-dir: coverage
-  acl: !ruby/string:HighLine::String public_read
-  on:
-    repo: codeforamerica/streetmix
-    branch: rails
