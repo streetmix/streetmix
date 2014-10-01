@@ -61,10 +61,6 @@ app.post('/api/v1/feedback', resources.v1.feedback.post)
 
 app.get('/.well-known/status', resources.well_known_status.get)
 
-app.get('/help/about-beta', function(req, res) {
-  res.sendfile(__dirname + '/public/help/about-beta/index.html')
-})
-
 app.get('/favicon.ico', function(req, res) {
   res.sendfile(__dirname + '/public/favicon.ico')
 })
