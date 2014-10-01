@@ -1,3 +1,5 @@
+var TRACK_ACTION_HELP_MENU = 'Open help menu';
+
 function _onHelpMenuClick() {
   var el = document.querySelector('#help-menu');
 
@@ -9,6 +11,8 @@ function _onHelpMenuClick() {
     menuVisible = true;
 
     el.classList.add('visible');
+
+    _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_HELP_MENU, null, null, false);
   } else {
     _hideMenus();
   }
