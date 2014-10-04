@@ -19,7 +19,7 @@ class Street < ActiveRecord::Base
   belongs_to :original_street, class_name: 'Street'
 
   before_save :set_namespaced_id
-  before_save :set_creator_id
+  before_validation :set_creator_id
 
   private
 
