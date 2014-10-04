@@ -1,3 +1,5 @@
+var TRACK_ACTION_ABOUT_DIALOG = 'Open about dialog box';
+
 function _showAboutDialogBox(event) {
   if (event && (event.shiftKey || event.ctrlKey || event.metaKey)) {
     return;
@@ -20,6 +22,8 @@ function _showAboutDialogBox(event) {
   if (event) {
     event.preventDefault();
   }
+
+  _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_ABOUT_DIALOG, null, null, false);
 }
 
 function _hideAboutDialogBox() {
