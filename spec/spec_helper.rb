@@ -40,7 +40,11 @@ RSpec.configure do |config|
     end
   end
 
-  config.before(:each) do
+  config.before(:each, type: :all) do
     DatabaseCleaner.clean
+  end
+
+  config.before(:each, type: :feature) do
+    Capybara.reset!
   end
 end
