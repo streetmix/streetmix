@@ -25,16 +25,6 @@ def ask_for_config
   config['twitter_oauth_consumer_key'] = ask('What is your Twitter OAuth consumer key?')
   config['twitter_oauth_consumer_secret'] = ask('What is your Twitter OAuth consumer secret?')
 
-  if ['yes', 'y', 'Y'].include?(ask('Do you want to configure e-mail feedback?') { |q| q.default = 'no' })
-    config['sendgrid_username'] = ask('What is your Sendgrid user name?')
-    config['sendgrid_password'] = ask('What is your Sendgrid password?')
-    config['email_feedback_receipient'] = ask('To what e-mail address should feedback go?')
-  else
-    config['sendgrid_username'] = ''
-    config['sendgrid_password'] = ''
-    config['email_feedback_receipient'] = ''
-  end
-
   config['secret_token'] = `rake secret`.chomp
 
   # not necessary for local development
