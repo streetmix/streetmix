@@ -84,10 +84,10 @@ These installation instructions assume that you have already installed the [Home
 
     git clone $REMOTE_REPOSITORY_URL $PROJECT_ROOT
 
-5) Install project dependencies.
+5) Install project dependencies and configure the application.
 
     cd $PROJECT_ROOT
-    bundle install
+    bin/setup
 
 #### Every time you sync `$PROJECT_ROOT` with this remote repository.
 
@@ -96,30 +96,34 @@ These installation instructions assume that you have already installed the [Home
     cd $PROJECT_ROOT
     bundle install
 
+2) Apply any new database migrations.
+
+    bundle exec rake db:migrate
+
 #### HOWTO: Start the application
 
-
-1) Set up application configuration:
-
-    bin/setup
-
-
-2) Start the web server.
+1) Start the web server.
 
     cd $PROJECT_ROOT
-    foreman start
+    foreman start -f Procfile.dev
 
-3) Load the application in your web browser.
+2) Load the application in your web browser.
 
-    open http://localhost:30000
+    open http://localhost:3000
 
-#### HOWTO: Run browser integration tests
+3) If you want to test e-mail sending and receiving, open another web browser tab.
 
-1) Install test dependencies (only required once)
+    open http://localhost:1080
+
+#### HOWTO: Run automated tests
+
+1) Make sure you have a copy of the Chrome web browser on your computer.
+
+2) Install test dependencies (only required once).
 
     brew install chromedriver
 
-2) Run browser tests locally
+3) Run tests locally../
 
     rake
 

@@ -33,7 +33,6 @@ gem 'rails_12factor', group: :production
 gem 'unicorn', group: :production
 
 # development tools
-gem 'foreman', group: :development
 gem 'better_errors', group: :development
 gem 'binding_of_caller', group: :development
 gem 'byebug', group: :development

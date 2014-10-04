@@ -1,0 +1,2 @@
+web: bundle exec rails server
+mail: ruby -rbundler/setup -e "Bundler.clean_exec('mailcatcher --foreground')"
