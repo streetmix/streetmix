@@ -18,6 +18,6 @@
 FactoryGirl.define do
   factory :user do
     name { Faker::Name.name }
-    twitter_id { Faker::Internet.user_name }
+    twitter_id { Faker::Internet.user_name.gsub('.', '_')[0..14] }
   end
 end
