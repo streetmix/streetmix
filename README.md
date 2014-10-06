@@ -72,7 +72,7 @@ These installation instructions assume that you have already installed the [Home
 
 #### First-time setup
 
-1) [Install Ruby 2.1.2](https://github.com/codeforamerica/howto/blob/master/Ruby.md)
+1) [Install Ruby 2.1.3](https://github.com/codeforamerica/howto/blob/master/Ruby.md)
 
 2) [Install Ruby on Rails](https://github.com/codeforamerica/howto/blob/master/Rails.md)
 
