@@ -3,7 +3,7 @@ class Api::V2::StreetsController < Api::V2::BaseApiController
   before_action :current_user_must_be_street_creator, only: [:update, :destroy]
 
   def index
-    if params[:namespacedId]
+    if params[:namespacedId] # TODO: figure out whether to add: && (params[:creatorId] || @current_user)
       find_by_params = {
         namespaced_id: params[:namespacedId]
       }
@@ -14,6 +14,8 @@ class Api::V2::StreetsController < Api::V2::BaseApiController
         when User::Regex::UUID
           params[:creatorId]
         end
+      elsif @current_user
+        find_by_params[:creator_id] = @current_user.id
       end
       @street = Street.find_by!(find_by_params)
       redirect_to api_v2_street_url(@street) if @street
