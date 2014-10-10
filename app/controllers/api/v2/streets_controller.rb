@@ -1,5 +1,6 @@
 class Api::V2::StreetsController < Api::V2::BaseApiController
   before_action :set_street, only: [:show, :update, :destroy]
+  before_action :current_user_must_be_street_creator, only: [:update, :destroy]
 
   def index
     if params[:namespacedId]
@@ -75,6 +76,10 @@ class Api::V2::StreetsController < Api::V2::BaseApiController
 
     def set_street
       @street = Street.find(params[:id])
+    end
+
+    def current_user_must_be_street_creator
+      return render_error :unauthorized if @street.creator != @current_user
     end
 
     def street_params
