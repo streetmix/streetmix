@@ -42,6 +42,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
+    @current_user = nil
     DatabaseCleaner.clean
   end
 
