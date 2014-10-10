@@ -547,8 +547,8 @@ var SEGMENT_INFO = {
     variants: ['direction', 'car-type'],
     details: {
       'inbound|car': {
-        minWidth: 9,
-        maxWidth: 12,
+        minWidth: 8,
+        maxWidth: 11.9,
         graphics: {
           center: [
             { tileset: 1, x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
@@ -558,8 +558,8 @@ var SEGMENT_INFO = {
         }
       },
       'outbound|car': {
-        minWidth: 9,
-        maxWidth: 12,
+        minWidth: 8,
+        maxWidth: 11.9,
         graphics: {
           center: [
             { tileset: 1, x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
@@ -619,8 +619,8 @@ var SEGMENT_INFO = {
         }
       },
       'inbound|truck': {
-        minWidth: 9,
-        maxWidth: 12,
+        minWidth: 8,
+        maxWidth: 11.9,
         graphics: {
           center: [
             { tileset: 1, x: 17, y: 64, width: 10, height: 12, offsetY: 0 }, // Truck (inbound)
@@ -630,8 +630,8 @@ var SEGMENT_INFO = {
         }
       },
       'outbound|truck': {
-        minWidth: 9,
-        maxWidth: 12,
+        minWidth: 8,
+        maxWidth: 11.9,
         graphics: {
           center: [
             { tileset: 1, x: 29, y: 64, width: 9, height: 12, offsetY: 0 }, // Truck (outbound)
