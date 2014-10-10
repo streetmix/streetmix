@@ -35,7 +35,7 @@ gem 'unicorn', group: :production
 # development tools
 gem 'better_errors', group: :development
 gem 'binding_of_caller', group: :development
-gem 'byebug', group: :development
+gem 'byebug', group: [:development, :test]
 
 # code coverage and documentation
 gem 'rails-erd', group: :development
