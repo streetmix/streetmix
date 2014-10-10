@@ -1,5 +1,6 @@
 class Api::V2::UsersController < Api::V2::BaseApiController
   before_action :set_user, only: [:show, :update, :streets, :destroy_api_auth_token]
+  before_action :must_be_current_user, only: [:update, :destroy_api_auth_token]
 
   def index
     @users = User.where('')
@@ -39,6 +40,10 @@ class Api::V2::UsersController < Api::V2::BaseApiController
 
     def set_user
       @user = User.find_by!(twitter_id: params[:id])
+    end
+
+    def must_be_current_user
+      return render_error :unauthorized if @user != @current_user
     end
 
     def user_params
