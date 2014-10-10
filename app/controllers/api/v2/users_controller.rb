@@ -1,5 +1,5 @@
 class Api::V2::UsersController < Api::V2::BaseApiController
-  before_action :set_user, only: [:show, :update, :destroy, :streets, :destroy_api_auth_token]
+  before_action :set_user, only: [:show, :update, :streets, :destroy_api_auth_token]
 
   def index
     @users = User.where('')
@@ -15,14 +15,6 @@ class Api::V2::UsersController < Api::V2::BaseApiController
       render json: @user, status: :ok
     else
       render_error :unprocessable_entity, @user.errors
-    end
-  end
-
-  def destroy
-    if @user.destroy
-      render json: @user, status: :ok
-    else
-      render_error :internal_server_error
     end
   end
 

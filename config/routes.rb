@@ -8,7 +8,7 @@ Streetmix::Application.routes.draw do
   # JSON API
   namespace :api do
     namespace :v2 do
-      resources :users, except: :create do
+      resources :users, except: [:create, :destroy] do
         get 'streets', on: :member
         delete 'destroy-api-auth-token', on: :member
       end
