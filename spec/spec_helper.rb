@@ -5,6 +5,7 @@ require 'capybara/rails'
 require 'capybara/rspec'
 require 'database_cleaner'
 require 'ffaker'
+require 'byebug'
 
 if ENV['TRAVIS']
   require 'coveralls'
