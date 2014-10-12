@@ -279,7 +279,7 @@ body.no-connection-message-visible #status-message {
 
       white-space: nowrap;
 
-      &:not(:last-child):not(#identity)::after {
+      &:not(:last-child):not(#identity-menu-item)::after {
         content: '·';
         margin-left: 2px;
         margin-right: 5px;
@@ -300,7 +300,7 @@ body.no-connection-message-visible #status-message {
     }
   }
 
-  #identity:not(.visible) {
+  #identity-menu-item:not(.visible) {
     display: none;
   }
 
@@ -417,6 +417,10 @@ body.read-only #top-menu-bar {
     pointer-events: auto;
   }
 
+  &.align-right {
+    right: @leftRightInset;
+  }
+
   & > a {
     text-decoration: none;
     color: black;
@@ -476,14 +480,10 @@ body.safari .menu {
   }
 }
 
-#help-menu {
-  left: 190px;
-}
-#feedback-menu {
-  left: 243px;
+#settings-menu {
+  min-width: 200px;
 }
 #share-menu {
-  right: 50px;
   min-width: 350px;
 }
 

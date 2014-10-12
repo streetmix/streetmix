@@ -76,20 +76,22 @@
       <ul class='left'>
         <li>
           <h1>Streetmix</h1>
-        <li>
+        <li id='help-menu-item'>
           <button class='menu-attached' id='help-menu-button'>Help</button>
-        <li>
+        <li id='feedback-menu-item'>
           <button class='menu-attached' id='feedback-menu-button'>Contact</button>
       </ul>
       <ul class='right'>
-        <li id='identity'>
+        <li id='identity-menu-item'>
         <li>
           <span id='sign-in-link'></span>
         <li>
           <a target='_blank' href='/new'>New street</a>
         <li id='gallery-link'>
           <a href=''>My streets</a>
-        <li>
+        <li id='settings-menu-item'>
+          <button class='menu-attached' id='settings-menu-button'>Settings</button>
+        <li id='share-menu-item'>
           <button class='menu-attached' id='share-menu-button'>Share</button>
       </ul>
     </nav>
@@ -141,6 +143,19 @@
       <a href='mailto:streetmix@codeforamerica.org' target='_blank'>Send an email to Streetmix team</a>
       <a target='_blank' href='https://github.com/codeforamerica/streetmix'>View/comment on GitHub</a>
       <a target='_blank' href='http://blog.streetmix.net'>Visit Streetmix blog</a>
+    </div>
+
+    <div id='settings-menu' class='menu'>
+      <div class='form'>
+        <p>Language</p>
+        <p>
+          <select id='settings-language-select'>
+            <option selected>English (US)</option>
+            <option>Portuguese (Brazil)</option>
+            <option>German</option>
+          </select>
+        </p>
+      </div>
     </div>
 
     <div id='share-menu' class='menu'>

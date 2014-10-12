@@ -148,6 +148,8 @@ function _addEventListeners() {
         addEventListener('click', _onHelpMenuClick);
     document.querySelector('#feedback-menu-button').
         addEventListener('click', _onFeedbackMenuClick);
+    document.querySelector('#settings-menu-button').
+        addEventListener('click', _onSettingsMenuClick);
     if (document.querySelector('#identity-menu-button')) {
       document.querySelector('#identity-menu-button').
           addEventListener('click', _onIdentityMenuClick);

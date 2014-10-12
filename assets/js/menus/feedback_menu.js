@@ -1,5 +1,14 @@
 var TWITTER_ID = '@streetmix';
 
+Stmx.ui.menus.feedbackMenu = new Stmx.ui.Menu({
+  name: 'feedback',
+  onShowCallback: _prepareFeedbackForm
+});
+
+function _onFeedbackMenuClick() {
+  Stmx.ui.menus.feedbackMenu.onClick();
+}
+
 function _isFeedbackFormMessagePresent() {
   var message = document.querySelector('#feedback-form-message').value;
   message = $.trim(message);
@@ -87,24 +96,6 @@ function _onFeedbackFormInput() {
       document.querySelector('#feedback-form-email').value;
 
   _updateFeedbackForm();
-}
-
-function _onFeedbackMenuClick() {
-  var el = document.querySelector('#feedback-menu');
-
-  _infoBubble.hide();
-  _statusMessage.hide();
-
-  if (!el.classList.contains('visible')) {
-    _hideMenus();
-    menuVisible = true;
-
-    el.classList.add('visible');
-
-    _prepareFeedbackForm();
-  } else {
-    _hideMenus();
-  }
 }
 
 function _updateFeedbackMenu() {
