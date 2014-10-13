@@ -1,5 +1,4 @@
-Stmx.ui.menus.helpMenu = new Stmx.ui.Menu({
-  name: 'help',
+Stmx.ui.menus.helpMenu = new Stmx.ui.Menu('help', {
   trackActionMsg: 'Open help menu'
 });
 

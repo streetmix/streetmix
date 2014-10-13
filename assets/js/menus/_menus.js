@@ -16,13 +16,13 @@ Stmx.ui.menus = {
   }
 };
 
-Stmx.ui.Menu = function (opts) {
+Stmx.ui.Menu = function (name, opts) {
   // Private
   var menus          = Stmx.ui.menus;
 
-  var trackActionMsg = opts.trackActionMsg || null,
-      name           = opts.name,
-      alignment      = opts.alignment      || 'left', // Set to 'right' if menu should be aligned to right of window
+  if (!opts) opts = {};
+  var alignment      = opts.alignment      || 'left', // Set to 'right' if menu should be aligned to right of window
+      trackActionMsg = opts.trackActionMsg || null,
       onShowCallback = opts.onShowCallback || null;   // Function to execute after menu open
 
   var _show = function (el) {

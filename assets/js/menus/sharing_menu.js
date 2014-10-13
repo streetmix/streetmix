@@ -2,8 +2,7 @@ var TRACK_CATEGORY_SHARING = 'Sharing';
 var TRACK_ACTION_FACEBOOK = 'Facebook';
 var TRACK_ACTION_TWITTER = 'Twitter';
 
-Stmx.ui.menus.shareMenu = new Stmx.ui.Menu({
-  name: 'share',
+Stmx.ui.menus.shareMenu = new Stmx.ui.Menu('share', {
   alignment: 'right',
   onShowCallback: _focusShareLink
 });

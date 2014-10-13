@@ -1,7 +1,6 @@
 var TWITTER_ID = '@streetmix';
 
-Stmx.ui.menus.feedbackMenu = new Stmx.ui.Menu({
-  name: 'feedback',
+Stmx.ui.menus.feedbackMenu = new Stmx.ui.Menu('feedback', {
   onShowCallback: _prepareFeedbackForm
 });
 

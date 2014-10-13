@@ -1,5 +1,4 @@
-Stmx.ui.menus.settingsMenu = new Stmx.ui.Menu({
-  name: 'settings',
+Stmx.ui.menus.settingsMenu = new Stmx.ui.Menu('settings', {
   alignment: 'right',
   trackActionMsg: 'Open settings menu'
 });
