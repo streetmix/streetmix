@@ -20,10 +20,6 @@
 //= require_tree gallery
 //= require_tree users
 
-var Stmx = {
-  app: {},
-  ui: {},
-};
 var app = {};
 
 var Stmx = {

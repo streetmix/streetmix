@@ -74,7 +74,7 @@ function _feedbackFormSuccess() {
   window.localStorage[LOCAL_STORAGE_FEEDBACK_EMAIL_BACKUP] = '';
 
   // TODO const
-  window.setTimeout(_hideMenus, 2500);
+  window.setTimeout(Stmx.ui.menus.hide, 2500);
 }
 
 function _feedbackFormError() {
@@ -85,7 +85,7 @@ function _feedbackFormError() {
   // to try again later, or copy-paste the message to some other
   // contact method.
 
-  window.setTimeout(_hideMenus, 10000);
+  window.setTimeout(Stmx.ui.menus.hide, 10000);
 }
 
 function _onFeedbackFormInput() {

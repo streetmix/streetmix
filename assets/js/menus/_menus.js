@@ -1,31 +1,64 @@
 
-Stmx.ui.menus = {
-  isVisible: false,
+var Stmx = (function (Stmx) {
 
-  hide: function () {
+  // Ensure module path exists
+  Stmx.ui = Stmx.ui || {};
+
+  // 'private' properties
+  var _isVisible = false;
+
+  // 'public' methods
+  function hide() {
     _loseAnyFocus();
 
     // TODO: Change reference from global variable to object
-    this.isVisible = false;
-    menuVisible = false;
+    setVisibility(false);
 
     var els = document.querySelectorAll('.menu.visible');
     for (var i = 0, el; el = els[i]; i++) {
       el.classList.remove('visible');
     }
   }
-};
 
-Stmx.ui.Menu = function (name, opts) {
+  function getVisibility() {
+    return _isVisible;
+  }
+
+  function setVisibility(bool) {
+    _isVisible = bool;
+  }
+
+  // Expose 'public' methods
+  Stmx.ui.menus = {
+    getVisibility: getVisibility,
+    setVisibility: setVisibility,
+    hide: hide
+  }
+
+  return Stmx;
+
+}(Stmx || {}));
+
+Stmx.ui.Menu = function(name, opts) {
   // Private
   var menus          = Stmx.ui.menus;
 
-  if (!opts) opts = {};
+  opts = opts || {};
   var alignment      = opts.alignment      || 'left', // Set to 'right' if menu should be aligned to right of window
       trackActionMsg = opts.trackActionMsg || null,
       onShowCallback = opts.onShowCallback || null;   // Function to execute after menu open
 
-  var _show = function (el) {
+  function onClick() {
+    var el = document.querySelector('#' + name + '-menu');
+
+    if (!el.classList.contains('visible')) {
+      _show(el);
+    } else {
+      _hide();
+    }
+  };
+
+  function _show(el) {
     // Hide other UI
     _infoBubble.hide();
     _statusMessage.hide();
@@ -44,8 +77,7 @@ Stmx.ui.Menu = function (name, opts) {
 
     // Show menu
     el.classList.add('visible');
-    menus.isVisible = true;
-    menuVisible = true; // TODO: Deprecate this global
+    menus.setVisibility(true);
 
     // Tracking behavior
     if (trackActionMsg !== null) {
@@ -58,28 +90,13 @@ Stmx.ui.Menu = function (name, opts) {
     }
   };
 
-  var _hide = function () {
+  function _hide() {
     menus.hide();
   };
 
   // Public
   return {
-    onClick: function () {
-      var el = document.querySelector('#' + name + '-menu');
-
-      if (!el.classList.contains('visible')) {
-        _show(el);
-      } else {
-        _hide();
-      }
-    }
+    name: name,
+    onClick: onClick
   };
 };
-
-// TODO: Deprecate the following
-var menuVisible = false;
-
-function _hideMenus () {
-  // Wrapper for object
-  Stmx.ui.menus.hide();
-}

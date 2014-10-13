@@ -132,7 +132,7 @@ function _updateUnits(newUnits) {
   ignoreStreetChanges = false;
 
   _buildStreetWidthMenu();
-  _hideMenus();
+  Stmx.ui.menus.hide();
 
   _saveStreetToServerIfNecessary();
   _saveSettingsLocally();

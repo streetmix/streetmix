@@ -37,8 +37,8 @@ function _onGlobalKeyDown(event) {
         _handleSegmentResizeCancel();
       } else if (draggingType == DRAGGING_TYPE_MOVE) {
         _handleSegmentMoveCancel();
-      } else if (menuVisible) {
-        _hideMenus();
+      } else if (Stmx.ui.menus.getVisibility() === true) {
+        Stmx.ui.menus.hide();
       } else if (document.querySelector('#status-message').classList.contains('visible')) {
         _statusMessage.hide();
       } else if (_infoBubble.visible && _infoBubble.descriptionVisible) {

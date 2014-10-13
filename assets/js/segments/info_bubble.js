@@ -264,7 +264,7 @@ var _infoBubble = {
   },
 
   considerShowing: function(event, segmentEl, type) {
-    if (menuVisible || readOnly) {
+    if (Stmx.ui.menus.getVisibility() === true || readOnly) {
       return;
     }
 
