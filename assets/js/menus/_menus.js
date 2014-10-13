@@ -17,61 +17,64 @@ Stmx.ui.menus = {
 };
 
 Stmx.ui.Menu = function (opts) {
+  // Private
+  var menus          = Stmx.ui.menus;
 
-  this.trackActionMsg = opts.trackActionMsg || null;
-  this.name = opts.name;
-  this.alignment = opts.alignment || 'left'; // Set to 'right' if menu should be aligned to right of window
-  this.onShowCallback = opts.onShowCallback || null; // Function to execute after menu open
+  var trackActionMsg = opts.trackActionMsg || null,
+      name           = opts.name,
+      alignment      = opts.alignment      || 'left', // Set to 'right' if menu should be aligned to right of window
+      onShowCallback = opts.onShowCallback || null;   // Function to execute after menu open
 
-  this.onClick = function () {
-    var el = document.querySelector('#' + this.name + '-menu');
-
-    if (!el.classList.contains('visible')) {
-      this._show();
-    } else {
-      this._hide();
-    }
-  };
-
-  this._show = function () {
-    var el = document.querySelector('#' + this.name + '-menu');
-
+  var _show = function (el) {
     // Hide other UI
     _infoBubble.hide();
     _statusMessage.hide();
-    Stmx.ui.menus.hide();
+    menus.hide();
 
-    // Positioning
-    if (this.alignment === 'right') {
+    // Determine positioning
+    if (alignment === 'right') {
       // Note: this aligns to right edge of menu bar,
       // instead of the right side of the menu item.
       el.classList.add('align-right');
     } else {
-      var pos = _getElAbsolutePos(document.querySelector('#' + this.name + '-menu-item'));
+      // Aligns menu to the left side of the menu item.
+      var pos = _getElAbsolutePos(document.querySelector('#' + name + '-menu-item'));
       el.style.left = pos[0] + 'px';
     }
 
     // Show menu
     el.classList.add('visible');
-    Stmx.ui.menus.isVisible = true;
+    menus.isVisible = true;
     menuVisible = true; // TODO: Deprecate this global
 
     // Tracking behavior
-    if (this.trackActionMsg !== null) {
-      _eventTracking.track(TRACK_CATEGORY_INTERACTION, this.trackActionMsg, null, null, false);
+    if (trackActionMsg !== null) {
+      _eventTracking.track(TRACK_CATEGORY_INTERACTION, trackActionMsg, null, null, false);
     }
 
     // Callback
-    if (typeof this.onShowCallback === 'function') {
-      this.onShowCallback();
+    if (typeof onShowCallback === 'function') {
+      onShowCallback();
     }
   };
 
-  this._hide = function () {
-    Stmx.ui.menus.hide();
+  var _hide = function () {
+    menus.hide();
   };
-}
 
+  // Public
+  return {
+    onClick: function () {
+      var el = document.querySelector('#' + name + '-menu');
+
+      if (!el.classList.contains('visible')) {
+        _show(el);
+      } else {
+        _hide();
+      }
+    }
+  };
+};
 
 // TODO: Deprecate the following
 var menuVisible = false;
