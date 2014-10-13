@@ -11,7 +11,6 @@ var Stmx = (function (Stmx) {
   function hide() {
     _loseAnyFocus();
 
-    // TODO: Change reference from global variable to object
     setVisibility(false);
 
     var els = document.querySelectorAll('.menu.visible');
