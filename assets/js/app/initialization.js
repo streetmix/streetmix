@@ -28,6 +28,11 @@ app.init = function() {
   _fillDom();
   _prepareSegmentInfo();
 
+  // Check if no internet mode
+  if (system.noInternet === true) {
+    _setupNoInternetMode();
+  }
+
   // Temporary as per https://github.com/Modernizr/Modernizr/issues/788#issuecomment-12513563
   Modernizr.addTest('pagevisibility', !!Modernizr.prefixed('hidden', document, false));
 
@@ -167,3 +172,10 @@ function _fillDom() {
   _fillEmptySegments();
 }
 
+function _setupNoInternetMode() {
+  // Disable all external links
+  // CSS takes care of altering their appearance to resemble normal text
+  $('body').on('click', 'a[href^="http"]', function (e) {
+    e.preventDefault();
+  })
+}
