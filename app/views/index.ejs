@@ -77,33 +77,33 @@
         <li>
           <h1>Streetmix</h1>
         <li id='help-menu-item'>
-          <button class='menu-attached' id='help-menu-button'>Help</button>
+          <button class='menu-attached' id='help-menu-button' data-i18n='menu.item.help'>Help</button>
         <li id='feedback-menu-item'>
-          <button class='menu-attached' id='feedback-menu-button'>Contact</button>
+          <button class='menu-attached' id='feedback-menu-button' data-i18n='menu.item.contact'>Contact</button>
       </ul>
       <ul class='right'>
         <li id='identity-menu-item'>
         <li>
           <span id='sign-in-link'></span>
         <li>
-          <a target='_blank' href='/new'>New street</a>
+          <a target='_blank' href='/new' data-i18n='menu.item.new-street'>New street</a>
         <li id='gallery-link'>
           <a href=''>My streets</a>
         <li id='settings-menu-item'>
-          <button class='menu-attached' id='settings-menu-button'>Settings</button>
+          <button class='menu-attached' id='settings-menu-button' data-i18n='menu.item.settings'>Settings</button>
         <li id='share-menu-item'>
-          <button class='menu-attached' id='share-menu-button'>Share</button>
+          <button class='menu-attached' id='share-menu-button' data-i18n='menu.item.share'>Share</button>
       </ul>
     </nav>
 
     <div id='identity-menu' class='menu'>
-      <a id='sign-out-link' href='#'>Sign out</a>
+      <a id='sign-out-link' href='#' data-i18n='menu.item.sign-out'>Sign out</a>
     </div>
 
     <div id='help-menu' class='menu'>
-      <a href='/help/about' id='about-streetmix'>About Streetmix…</a>
+      <a href='/help/about' id='about-streetmix' data-i18n='menu.item.about'>About Streetmix…</a>
       <div class='form non-touch-only' id='help-shortcuts'>
-        <p>
+        <p data-i18n='menu.help.keyboard-label'>
           Keyboard shortcuts:
         </p>
         <table>
@@ -149,10 +149,11 @@
       <div class='form'>
         <p>Language</p>
         <p>
-          <select id='settings-language-select'>
-            <option selected>English (US)</option>
-            <option>Portuguese (Brazil)</option>
-            <option>German</option>
+          <select id='language-select'>
+            <option value='en-US'>English (US)</option>
+            <option value='de'>German</option>
+            <option value='pirate'>Pirate</option>
+            <option value='pt-BR'>Portuguese (Brazil)</option>
           </select>
         </p>
       </div>

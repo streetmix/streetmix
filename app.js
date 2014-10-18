@@ -4,7 +4,7 @@ var fs = require('fs'),
     cookieSession = require('cookie-session'),
     express = require('express'),
     request = require('request'),
-    assets = require("connect-assets"),
+    assets = require('connect-assets'),
     bodyParser = require('body-parser'),
     url = require('url'),
     config = require('config'),
@@ -58,6 +58,16 @@ app.use(assets({
   precompile: ['styles.less', 'app.js']
 }))
 app.use(express.static(__dirname + '/public'))
+
+// Locales. TODO: maybe this should be legit API eventually
+app.use('/locales/', express.static(__dirname + '/assets/locales/', {
+  setHeaders: function (res, path) {
+    res.set('Content-Type', 'application/json; charset=utf-8')
+  }
+}), function (req, res) {
+  // Pass out a 404 if the language file is not present
+  res.status(404).end()
+})
 
 // Catch-all
 app.use(function(req, res) {

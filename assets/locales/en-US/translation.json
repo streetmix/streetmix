@@ -1,0 +1,17 @@
+{
+  "menu": {
+    "item": {
+      "help": "Help",
+      "about": "About Streetmix…",
+      "contact": "Contact",
+      "sign-in": "Sign in",
+      "sign-out": "Sign out",
+      "new-street": "New street",
+      "settings": "Settings",
+      "share": "Share"
+    },
+    "help": {
+      "keyboard-label": "Keyboard shortcuts:"
+    }
+  }
+}

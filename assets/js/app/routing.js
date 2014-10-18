@@ -14,6 +14,7 @@ var URL_JUST_SIGNED_IN = 'just-signed-in'; // TODO fix this
 var URL_NEW_STREET = 'new';
 var URL_NEW_STREET_COPY_LAST = 'copy-last';
 var URL_GLOBAL_GALLERY = 'gallery';
+var URL_LOCALES = 'locales';
 var URL_ERROR = 'error';
 var URL_NO_USER = '-';
 var URL_HELP = 'help';
@@ -36,6 +37,7 @@ var RESERVED_URLS =
     [URL_SIGN_IN, URL_SIGN_IN_CALLBACK,
     URL_NEW_STREET, URL_NEW_STREET_COPY_LAST,
     URL_JUST_SIGNED_IN,
+    URL_LOCALES,
     URL_HELP, URL_GLOBAL_GALLERY, URL_ERROR, 'streets'];
 var URL_RESERVED_PREFIX = '~';
 

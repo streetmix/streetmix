@@ -80,6 +80,10 @@ function _onEverythingLoaded() {
       _onNewStreetLastClick();
       break;
   }
+
+  // Initalize i18n / localization
+  Stmx.app.locale.init();
+
   _showWelcome();
 
   _onResize();
