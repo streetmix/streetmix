@@ -17,14 +17,14 @@ exports.post = function(req, res) {
     var handleCreateUser = function(err, user) {
       if (err) {
         logger.error(err)
-        res.send(500, 'Could not create user.')
+        res.status(500).send('Could not create user.')
         return
       }
 
       var userJson = { id: user.id, loginToken: loginToken }
       logger.info({ user: userJson }, 'New user created.')
       res.header('Location', config.restapi.baseuri + '/v1/users/' + user.id)
-      res.send(201, userJson)
+      res.status(201).send(userJson)
 
     } // END function - handleCreateUser
 
@@ -32,7 +32,7 @@ exports.post = function(req, res) {
       
       if (err) {
         logger.error(err)
-        res.send(500, 'Could not update user.')
+        res.status(500).send('Could not update user.')
         return
       }
 
@@ -40,7 +40,7 @@ exports.post = function(req, res) {
       logger.info({ user: userJson }, 'Existing user issued new login token.')
 
       res.header('Location', config.restapi.baseuri + '/v1/users/' + user.id)
-      res.send(200, userJson)
+      res.status(200).send(userJson)
 
     } // END function - handleUpdateUser
 
@@ -48,7 +48,7 @@ exports.post = function(req, res) {
       
       if (err) {
         logger.error(err)
-        res.send(500, 'Error finding user with Twitter ID.')
+        res.status(500).send('Error finding user with Twitter ID.')
         return
       }
       
@@ -86,7 +86,7 @@ exports.post = function(req, res) {
   try {
     body = req.body
   } catch (e) {
-    res.send(400, 'Could not parse body as JSON.')
+    res.status(400).send('Could not parse body as JSON.')
     return
   }
 
@@ -96,7 +96,7 @@ exports.post = function(req, res) {
 
     handleTwitterSignIn(body.twitter)
   } else {
-    res.send(400, 'Unknown sign-in method used.')
+    res.status(400).send('Unknown sign-in method used.')
   }
 
 } // END function - exports.post
@@ -106,7 +106,7 @@ exports.get = function(req, res) {
   var handleFindUserById = function(err, user) {
    
     if (!user) {
-      res.send(404, 'User not found.')
+      res.status(404).send('User not found.')
       return
     }
 
@@ -135,7 +135,7 @@ exports.get = function(req, res) {
         
         if (err) {
           logger.error(err)
-          res.send(500, 'Could not render user JSON.')
+          res.status(500).send('Could not render user JSON.')
           return
         }
         
@@ -143,7 +143,7 @@ exports.get = function(req, res) {
           userJson.profileImageUrl = twitterData.profile_image_url
         }
 
-        res.send(200, userJson)
+        res.status(200).send(userJson)
         
       })
 
@@ -190,7 +190,7 @@ exports.get = function(req, res) {
   
   // Flag error if user ID is not provided
   if (!req.params.user_id) {
-    res.send(400, 'Please provide user ID.')
+    res.status(400).send('Please provide user ID.')
     return
   }
 
@@ -199,7 +199,7 @@ exports.get = function(req, res) {
   var handleFindUserByLoginToken = function(err, user) {
 
     if (!user) {
-      res.send(401, 'User with that login token not found.')
+      res.status(401).send('User with that login token not found.')
       return
     }
     
@@ -221,23 +221,23 @@ exports.delete = function(req, res) {
 
     if (err) {
       logger.error(err)
-      res.send(500, 'Could not sign-out user.')
+      res.status(500).send('Could not sign-out user.')
       return
     }
-    res.send(204)
+    res.status(204).end()
 
   } // END function - handleSaveUser
 
   var handleFindUser = function(err, user) {
 
     if (!user) {
-      res.send(404, 'User not found.')
+      res.status(404).send('User not found.')
       return
     }
     
     var idx = user.login_tokens.indexOf(req.loginToken)
     if (idx === -1) {
-      res.send(401)
+      res.status(401).end()
       return
     }
     
@@ -248,7 +248,7 @@ exports.delete = function(req, res) {
   
   // Flag error if user ID is not provided
   if (!req.params.user_id) {
-    res.send(400, 'Please provide user ID.')
+    res.status(400).send('Please provide user ID.')
     return
   }
   
@@ -263,7 +263,7 @@ exports.put = function(req, res) {
   try {
     body = req.body
   } catch (e) {
-    res.send(400, 'Could not parse body as JSON.')
+    res.status(400).send('Could not parse body as JSON.')
     return
   }
 
@@ -271,22 +271,22 @@ exports.put = function(req, res) {
 
     if (err) {
       logger.error(err)
-      res.send(500, 'Could not update user information.')
+      res.status(500).send('Could not update user information.')
       return
     }
-    res.send(204)
+    res.status(204).end()
 
   } // END function - handleSaveUser
 
   var handleFindUser = function(err, user) {
 
     if (!user) {
-      res.send(404, 'User not found.')
+      res.status(404).send('User not found.')
       return
     }
 
     if (user.login_tokens.indexOf(req.loginToken) === -1) {
-      res.send(401)
+      res.status(401).end()
       return
     }
 
@@ -297,7 +297,7 @@ exports.put = function(req, res) {
 
   // Flag error if user ID is not provided
   if (!req.params.user_id) {
-    res.send(400, 'Please provide user ID.')
+    res.status(400).send('Please provide user ID.')
     return
   }
 
