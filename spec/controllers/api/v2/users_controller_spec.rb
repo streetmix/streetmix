@@ -47,10 +47,9 @@ describe Api::V2::UsersController do
         twitterId: user.twitter_id,
         name: user.name,
         data: user.data,
-        createdAt: -> (created_at) { DateTime.parse(created_at) - user.created_at.to_datetime < 1000 * 60 },
-        updatedAt: -> (updated_at) { DateTime.parse(updated_at) - user.updated_at.to_datetime < 1000 * 60 }
+        createdAt: date { |created_at| expect(created_at).to be_within(1.minute).of(created_at) },
+        updatedAt: date { |updated_at| expect(updated_at).to be_within(1.minute).of(updated_at) }
       })
-      # TODO: improve that date comparison hack: https://github.com/brooklynDev/airborne/issues/14
     end
   end
 
