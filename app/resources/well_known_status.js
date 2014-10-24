@@ -53,9 +53,9 @@ var fetchStreetFromDb = function(cb) {
     // try:
     //     url = 'https://sendgrid.com/api/stats.get.json?api_user=%(MAIL_USERNAME)s&api_key=%(MAIL_PASSWORD)s&days=30' % app.config
     //     got = get(url)
-        
+
     //     if got.status_code != 200:
     //         raise Exception('HTTP status %s from Sendgrid /api/stats.get' % got.status_code)
-        
+
     //     mails = sum([m['delivered'] + m['repeat_bounces'] for m in got.json()])
     //     response['resources']['Sendgrid'] = 100 * float(mails) / int(app.config.get('SENDGRID_MONTHLY_LIMIT') or 40000)

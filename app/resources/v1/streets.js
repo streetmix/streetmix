@@ -29,23 +29,23 @@ exports.post = function(req, res) {
       res.status(400).send('Could not parse body as JSON.')
       return
     }
-    
+
     // TODO: Validation
-    
+
     street.name = body.name
     street.data = body.data
     street.creator_ip = request_ip(req)
   }
-  
+
   var handleCreateStreet = function(err, s) {
     if (err) {
       logger.error(err)
       res.status(500).send('Could not create street.')
       return
     }
-    
+
     s.asJson(function(err, streetJson) {
-      
+
       if (err) {
         logger.error(err)
         res.status(500).send('Could not render street JSON.')
@@ -68,11 +68,11 @@ exports.post = function(req, res) {
 
     street.namespaced_id = namespacedId
     street.save(handleCreateStreet)
-    
+
   } // END function - handleNewStreetNamespacedId
-  
+
   var makeNamespacedId = function() {
-    
+
     if (street.creator_id) {
       User.findByIdAndUpdate(street.creator_id,
                              { $inc: { 'last_street_id': 1 } },
@@ -88,7 +88,7 @@ exports.post = function(req, res) {
                                    handleNewStreetNamespacedId(err, (row ? row.seq : null))
                                  })
     }
-      
+
   } // END function - makeNamespacedId
 
   var handleFindStreet = function(err, origStreet) {
@@ -124,7 +124,7 @@ exports.post = function(req, res) {
       res.status(401).send('User with that login token not found.')
       return
     }
-    
+
     street.creator_id = user
     saveStreet()
 
@@ -146,7 +146,7 @@ exports.delete = function(req, res) {
       res.status(500).send('Could not delete street.')
       return
     }
-    
+
     res.status(204).end()
 
   } // END function - handleDeleteStreet
@@ -171,7 +171,7 @@ exports.delete = function(req, res) {
         res.status(500).send('Could not find signed-in user.')
         return
       }
-      
+
       if (!user) {
         res.status(401).send('User is not signed-in.')
         return
@@ -186,7 +186,7 @@ exports.delete = function(req, res) {
         res.status(403).send('Signed-in user cannot delete this street.')
         return
       }
-      
+
       street.status = 'DELETED'
       street.save(handleDeleteStreet)
 
@@ -207,7 +207,7 @@ exports.delete = function(req, res) {
   }
 
   Street.findOne({ id: req.params.street_id }, handleFindStreet)
-  
+
 } // END function - exports.delete
 
 exports.get = function(req, res) {
@@ -248,7 +248,7 @@ exports.get = function(req, res) {
       res.status(200).send(streetJson)
 
     })
-    
+
   } // END function - handleFindStreet
 
   if (!req.params.street_id) {
@@ -265,7 +265,7 @@ exports.find = function(req, res) {
   var namespacedId = req.query.namespacedId
   var start = (req.query.start && parseInt(req.query.start) || 0)
   var count = (req.query.count && parseInt(req.query.count) || 20)
-  
+
   var handleFindStreet = function(err, street) {
 
     if (err) {
@@ -287,20 +287,20 @@ exports.find = function(req, res) {
     res.header('Location', config.restapi.baseuri + '/v1/streets/' + street.id)
     res.header('Content-Length', 0)
     res.status(307).end()
-    
+
   } // END function - handleFindStreet
-  
+
   var handleFindUser = function(err, user) {
 
     if (!user) {
       res.status(404).send('Creator not found.')
       return
     }
-    
+
     Street.findOne({ namespaced_id: namespacedId, creator_id: user._id }, handleFindStreet)
-    
+
   } // END function - handleFindUser
-  
+
   var handleFindStreets = function(err, results) {
 
     if (err) {
@@ -308,12 +308,12 @@ exports.find = function(req, res) {
       res.status(500).send('Could not find streets.')
       return
     }
-    
+
     var totalNumStreets = results[0]
     var streets = results[1]
-    
+
     var selfUri = config.restapi.baseuri + '/v1/streets?start=' + start + '&count=' + count
-      
+
     var json = {
       meta: {
         links: {
@@ -323,12 +323,12 @@ exports.find = function(req, res) {
       streets: []
     }
 
-    if (start > 0) { 
+    if (start > 0) {
       var prevStart, prevCount
       if (start >= count) {
         prevStart = start - count
         prevCount = count
-      } else { 
+      } else {
         prevStart = 0
         prevCount = start
       }
@@ -341,12 +341,12 @@ exports.find = function(req, res) {
       nextCount = Math.min(count, totalNumStreets - start - streets.length)
       json.meta.links.next = config.restapi.baseuri + '/v1/streets?start=' + nextStart + '&count=' + nextCount
     }
-    
+
     async.map(
       streets,
       function(street, callback) { street.asJson(callback) },
       function(err, results) {
-        
+
         if (err) {
           logger.error(err)
           res.status(500).send('Could not append street.')
@@ -355,9 +355,9 @@ exports.find = function(req, res) {
 
         json.streets = results
         res.status(200).send(json)
-        
+
       }) // END - async.map
-    
+
   } // END function - handleFindStreets
 
   if (creatorId) {
@@ -377,7 +377,7 @@ exports.find = function(req, res) {
       }
     ], handleFindStreets)
   }
-  
+
 } // END function - exports.find
 
 exports.put = function(req, res) {
@@ -403,7 +403,7 @@ exports.put = function(req, res) {
     }
 
     res.status(204).end()
-    
+
   } // END function - handleUpdateStreet
 
   var handleFindStreet = function(err, street) {
@@ -430,7 +430,7 @@ exports.put = function(req, res) {
         res.status(404).send('Original street not found.')
         return
       }
-      
+
       street.original_street_id = origStreet
       street.save(handleUpdateStreet)
 
@@ -440,7 +440,7 @@ exports.put = function(req, res) {
 
       street.name = body.name || street.name
       street.data = body.data || street.data
-     
+
       if (body.originalStreetId) {
         Street.findOne({ id: body.originalStreetId }, handleFindOriginalStreet)
       } else {
@@ -450,13 +450,13 @@ exports.put = function(req, res) {
     } // END function - updateStreetData
 
     var handleFindUser = function(err, user) {
-      
+
       if (err) {
         logger.error(err)
         res.status(500).send('Could not find signed-in user.')
         return
       }
-      
+
       if (!user) {
         res.status(401).send('User is not signed-in.')
         return
@@ -471,26 +471,26 @@ exports.put = function(req, res) {
         res.status(403).send('Signed-in user cannot update this street.')
         return
       }
-      
+
       updateStreetData()
-      
+
     } // END function - handleFindUser
 
     if (!street.creator_id) {
-      updateStreetData()      
+      updateStreetData()
     } else {
 
       if (!req.loginToken) {
         res.status(401).end()
         return
       }
-      
+
       User.findOne({ login_tokens: { $in: [ req.loginToken ] } }, handleFindUser)
 
     } // END else - street has a creator
 
   } // END function - handleFindStreet
-  
+
   if (!req.params.street_id) {
     res.status(400).send('Please provide street ID.')
     return

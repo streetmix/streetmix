@@ -29,7 +29,7 @@ exports.post = function(req, res) {
     } // END function - handleCreateUser
 
     var handleUpdateUser = function(err, user) {
-      
+
       if (err) {
         logger.error(err)
         res.status(500).send('Could not update user.')
@@ -45,13 +45,13 @@ exports.post = function(req, res) {
     } // END function - handleUpdateUser
 
     var handleFindUser = function(err, user) {
-      
+
       if (err) {
         logger.error(err)
         res.status(500).send('Error finding user with Twitter ID.')
         return
       }
-      
+
       loginToken = uuid.v1()
       if (!user) {
         var u = new User({
@@ -67,7 +67,7 @@ exports.post = function(req, res) {
 
       } else {
         user.id = twitterCredentials.screenName,
-        user.twitter_credentials = { 
+        user.twitter_credentials = {
           access_token_key: twitterCredentials.oauthAccessTokenKey,
           access_token_secret: twitterCredentials.oauthAccessTokenSecret
         }
@@ -76,7 +76,7 @@ exports.post = function(req, res) {
       }
 
     } // END function - handleFindUser
-    
+
     // Try to find user with twitter ID
     User.findOne({ twitter_id: twitterCredentials.userId }, handleFindUser)
 
@@ -104,7 +104,7 @@ exports.post = function(req, res) {
 exports.get = function(req, res) {
 
   var handleFindUserById = function(err, user) {
-   
+
     if (!user) {
       res.status(404).send('User not found.')
       return
@@ -121,30 +121,30 @@ exports.get = function(req, res) {
           })
 
           console.log(twitterApiClient)
-        
+
       } catch (e) {
         logger.error('Could not initialize Twitter API client. Error:')
         logger.error(e)
       }
-    
+
     var sendUserJson = function(twitterData) {
 
       var auth = (user.login_tokens.indexOf(req.loginToken) > 0)
-      
+
       user.asJson({ auth: auth }, function(err, userJson) {
-        
+
         if (err) {
           logger.error(err)
           res.status(500).send('Could not render user JSON.')
           return
         }
-        
+
         if (twitterData) {
           userJson.profileImageUrl = twitterData.profile_image_url
         }
 
         res.status(200).send(userJson)
-        
+
       })
 
     } // END function - sendUserJson
@@ -169,7 +169,7 @@ exports.get = function(req, res) {
       }
 
     } // END function - handleFetchUserProfileFromTwitter
-    
+
     if (twitterApiClient) {
       logger.debug('About to call Twitter API: /users/show.json?user_id=' + user.twitter_id)
       twitterApiClient.get('/users/show.json', { user_id: user.twitter_id }, handleFetchUserProfileFromTwitter)
@@ -185,9 +185,9 @@ exports.get = function(req, res) {
     } else {
       sendUserJson()
     }
-    
+
   } // END function - handleFindUserById
-  
+
   // Flag error if user ID is not provided
   if (!req.params.user_id) {
     res.status(400).send('Please provide user ID.')
@@ -202,7 +202,7 @@ exports.get = function(req, res) {
       res.status(401).send('User with that login token not found.')
       return
     }
-    
+
     User.findOne({ id: userId }, handleFindUserById)
 
   } // END function - handleFindUserByLoginToken
@@ -234,27 +234,27 @@ exports.delete = function(req, res) {
       res.status(404).send('User not found.')
       return
     }
-    
+
     var idx = user.login_tokens.indexOf(req.loginToken)
     if (idx === -1) {
       res.status(401).end()
       return
     }
-    
+
     user.login_tokens.splice(idx, 1)
     user.save(handleSaveUser)
-    
+
   } // END function - handleFindUser
-  
+
   // Flag error if user ID is not provided
   if (!req.params.user_id) {
     res.status(400).send('Please provide user ID.')
     return
   }
-  
+
   var userId = req.params.user_id
   User.findOne({ id: userId }, handleFindUser)
-  
+
 } // END function - exports.delete
 
 exports.put = function(req, res) {

@@ -20,22 +20,22 @@ exports.get = function(req, res) {
       res.status(404).send('Could not find user.')
       return
     }
-   
+
     var json = { streets: [] }
 
     var handleFindStreets = function(err, streets) {
-      
+
       if (err) {
         logger.error(err)
         res.status(500).send('Could not find streets for user.')
         return
       }
-      
+
       async.map(
         streets,
         function(street, callback) { street.asJson(callback) },
         function(err, results) {
-          
+
           if (err) {
             logger.error(err)
             res.status(500).send('Could not append street.')
@@ -44,15 +44,15 @@ exports.get = function(req, res) {
 
           json.streets = results
           res.status(200).send(json)
-          
+
         }) // END - async.map
 
     } // END function - handleFindStreets
-  
+
     Street.find({ creator_id: user._id, status: 'ACTIVE' })
       .sort({ updated_at: 'descending' })
       .exec(handleFindStreets)
-    
+
   } // END function - handleFindUser
 
   // Flag error if user ID is not provided

@@ -28,7 +28,7 @@ var oauthRequestTokenHandler = function(req, res) {
 }
 
 exports.get = function(req, res) {
-  
+
   // Obtain request token from Twitter
   var o = oauth({
     callbackUri: req.query.callbackUri

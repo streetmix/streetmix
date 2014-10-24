@@ -59,7 +59,7 @@ streetSchema.methods.asJson = function(cb) {
     } else {
       callback()
     }
-     
+
   } // END function - appendCreator
 
   var appendOriginalStreetId = function(callback) {
@@ -86,5 +86,5 @@ streetSchema.methods.asJson = function(cb) {
   })
 
 }
-    
+
 module.exports = mongoose.model('Street', streetSchema)

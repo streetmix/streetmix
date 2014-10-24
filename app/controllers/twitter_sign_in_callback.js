@@ -8,11 +8,11 @@ var oauthAccessTokenHandler = function(req, res) {
     if (err) {
       console.error('Error obtaining access token from Twitter:')
       console.log(err)
-      
+
       res.redirect('/error/no-twitter-access-token')
       return
     }
-    
+
     // Call REST API to sign-in via Twitter
     var apiRequestBody = {
       twitter: {
@@ -29,15 +29,15 @@ var oauthAccessTokenHandler = function(req, res) {
         return
       }
 
-      // Redirect user 
+      // Redirect user
       res.cookie('user_id', body.id)
       res.cookie('login_token', body.loginToken)
       res.redirect(req.session.oauth.redirect_uri)
-      
+
     })
-    
+
   }
-  
+
 }
 
 exports.get = function(req, res) {
@@ -48,7 +48,7 @@ exports.get = function(req, res) {
     return
 
   }
-  
+
   else if (req.session.oauth) {
 
     req.session.oauth.verifier = req.query.oauth_verifier
@@ -59,11 +59,11 @@ exports.get = function(req, res) {
     o.getOAuthAccessToken(
       oa.request_token, oa.request_token_secret, oa.verifier,
       oauthAccessTokenHandler(req, res))
-    
+
   } else {
-    
+
     res.redirect('/twitter-sign-in')
-    
+
   }
 
 }
