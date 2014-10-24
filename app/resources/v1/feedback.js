@@ -1,7 +1,7 @@
-var config = require('config'),
-    SendGrid = require('sendgrid').SendGrid,
+var config    = require('config'),
+    sendgrid  = require('sendgrid')(config.email.sendgrid.username, config.email.sendgrid.password),
     validator = require('validator'),
-    logger = require('../../../lib/logger.js')();
+    logger    = require('../../../lib/logger.js')();
 
 exports.post = function(req, res) {
 
@@ -35,20 +35,14 @@ exports.post = function(req, res) {
   var to = [ config.email.feedback_recipient ]
   var from
   if (body.from) {
-    try {
-      validator.check(body.from).isEmail()
+    if (validator.isEmail(body.from)) {
       from = body.from
       to.push(body.from)
-    } catch (e) {
+    } else {
       message += "\n"
         + "Invalid from email address specified: " + body.from + "\n"
-    } 
+    }
   }
-      
-  var sendgrid = new SendGrid(
-    config.email.sendgrid.username,
-    config.email.sendgrid.password
-  )
 
   var subject = config.email.feedback_subject;
   if (from) {
@@ -56,16 +50,17 @@ exports.post = function(req, res) {
   }
 
   sendgrid.send({
-    to: to,
-    from: from || config.email.feedback_sender_default,
-    subject: subject,
-    text: message
-  }, function(success, message) {
-    if (!success) {
-      logger.error('Error sending email using SendGrid: ' + message)
+    to      : to,
+    from    : from || config.email.feedback_sender_default,
+    subject : subject,
+    text    : message
+  }, function (err, json) {
+    if (err) {
+      logger.error('Sendgrid: Error sending email. ', json)
       res.status(500).json({msg: 'Could not send feedback.' })
       return
     }
+    logger.info('Sendgrid: Feedback accepted. ', json)
     res.status(202).json({msg: 'Feedback accepted.' })
   })
 
