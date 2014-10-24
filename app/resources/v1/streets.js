@@ -268,7 +268,6 @@ exports.find = function(req, res) {
   
   var handleFindStreet = function(err, street) {
 
-    logger.error(config.restapi.baseuri)
     if (err) {
       logger.error(err)
       res.status(500).send('Could not find street.')
