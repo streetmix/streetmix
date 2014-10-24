@@ -22,7 +22,7 @@ var oauthAccessTokenHandler = function(req, res) {
         oauthAccessTokenSecret: oauth_access_token_secret
       }
     }
-    request.post({ url: config.restapi_baseuri + '/v1/users', json: apiRequestBody }, function(err, response, body) {
+    request.post({ url: config.restapi.baseuri + '/v1/users', json: apiRequestBody }, function(err, response, body) {
       if (err) {
         console.error('Error from API when signing in: ' + err)
         res.redirect('/error/authentication-api-problem')
