@@ -55,10 +55,10 @@ var Stmx = (function (Stmx) {
       namespaces: ['app', 'segments'],
       defaultNs: 'app',
       useCookie: false,
-      fallbackLng: false, //'en-US',
+      fallbackLng: false,
       load: 'current',
-      debug: true,
-      resGetPath: '/locales/__lng__/__ns__.json'
+      debug: false,
+      resGetPath: API_URL + 'v1/translate/__lng__'
     };
 
     i18n.init(options, function (t) {
