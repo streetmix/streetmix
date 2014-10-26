@@ -121,6 +121,8 @@ EMAIL_FEEDBACK_RECIPIENT=test@domain.com
 NO_INTERNET_MODE=true
 ```
 
+*Note:* If `NO_INTERNET_MODE` is true, you do not need the Sendgrid or Twitter authentication keys, as those will be disabled due to lack of Internet.
+
 
 ### HOWTO: Start the application
 
