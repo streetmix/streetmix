@@ -11,7 +11,7 @@ Streetmix is currently live at http://streetmix.net/
 
 ![screenshot](doc/images/screenshot-beta.jpg)
 
-## <a name="about"></a>About
+## About
 
 #### What are street sections?
 
@@ -38,7 +38,144 @@ Streetmix can be used as a tool to promote and engage citizens around streetscap
 
 Streetmix was started as a [Code for America][cfa] hackathon project in January 2013, inspired by community meetings like the one described above, and a similar CfA project in 2012 called [Blockee](http://blockee.org/).
 
-#### Credits
+
+## Development Setup
+
+### First-time setup
+
+#### On Mac OS X 10
+
+These installation instructions assume that you have already installed the [Homebrew](http://brew.sh/) package manager.
+
+1) Download and install [Node.js](http://nodejs.org/).
+
+    brew install nodejs
+
+2) Download, install and start [MongoDB](http://www.mongodb.org/).
+
+    brew install mongodb
+
+3) Download and install [Coreutils](http://www.gnu.org/software/coreutils/).
+
+    brew install coreutils
+
+4) Clone this remote repository to a folder on your computer.
+
+    git clone https://github.com/codeforamerica/streetmix.git
+
+5) Install project dependencies.
+
+    cd streetmix
+    npm install
+
+
+#### On Windows
+
+Streetmix was not developed on a Windows platform, and testing is limited. We've been able to successfully stand up a local installation on 64-bit Windows 7-based Dell laptops for an event without Internet access. These instructions below will assume that the user has basic familiarity with Git, GitHub, and the Windows Terminal command line interface, and has administrative permissions to install software on the machine.
+
+##### Installing core dependencies
+
+You may skip each of these steps if a fairly recent stable version is already present on the system.
+
+* Install [Git](http://git-scm.com/download/win).
+* Install [node.js](http://nodejs.org/). The site should detect your system and provide you with the correct installer, but you may specify the package at http://nodejs.org/download/ (e.g. Windows 64-bit installer).
+* Install [MongoDB](http://www.mongodb.org/downloads). Select the appropriate Windows installer package from their downloads page.
+* Install [a modern browser](http://browsehappy.com/). Streetmix has been tested in Chrome (preferred), Firefox, Safari, and Internet Explorer 11. (Previous versions of Internet Explorer will not work.)
+
+##### Installing Streetmix
+
+1) In the command line terminal, clone a copy of the Streetmix repository to your local machine:
+
+    git clone https://github.com/codeforamerica/streetmix.git
+
+You may additionally specify the name of the directory to install to, if you wish.
+
+2) Go into the project’s root directory and install all Node libraries.
+
+    cd streetmix
+    npm install
+
+3) Set up the MongoDB environment. [Follow the instructions under “Set up the MongoDB environment” from the MongoDB website.](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-windows/#run-mongodb)
+
+
+### Every time you sync the local project with the remote repository.
+
+1) Update project dependencies.
+
+    cd streetmix
+    npm install
+
+
+### HOWTO: Start the application
+
+1) Setup environment variables. You can either set these in your `.bash_profile` (or equivalent, on Mac OSX or *nix-based systems) or place them in a file named `.env` in the project root directory (great for development environments or Windows environments).
+
+| Variable name                   | Description                                                                            | Required?            |
+| ------------------------------- | -------------------------------------------------------------------------------------- | -------------------- |
+| `SENDGRID_USERNAME`             | Your SendGrid username                                                                 | Yes                  |
+| `SENDGRID_PASSWORD`             | Your SendGrid password                                                                 | Yes                  |
+| `TWITTER_OAUTH_CONSUMER_KEY`    | Development Twitter OAuth consumer key, obtained from @streetmix Twitter account    | Yes                  |
+| `TWITTER_OAUTH_CONSUMER_SECRET` | Development Twitter OAuth consumer secret, obtained from @streetmix Twitter account | Yes                  |
+| `EMAIL_FEEDBACK_RECIPIENT`      | Your e-mail address                                                                    | No                   |
+| `NO_INTERNET_MODE`              | Boolean. Set to `true` to run a local "demo" without external Internet access          | No                   |
+
+A sample `.env` file will look like this:
+
+```
+SENDGRID_USERNAME=username@domain.com
+SENDGRID_PASSWORD=p@$$w0rD
+TWITTER_OAUTH_CONSUMER_KEY=twitteroauthconsumerkey
+TWITTER_OAUTH_CONSUMER_SECRET=twitteroauthsecrettoken
+EMAIL_FEEDBACK_RECIPIENT=test@domain.com
+NO_INTERNET_MODE=true
+```
+
+2) Start MongoDB.
+
+    mongod
+
+3) Start the web server.
+
+    cd streetmix
+    npm start
+
+4) Load the application in your web browser.
+
+    open http://127.0.0.1:8000
+
+### HOWTO: Run browser integration tests
+
+1) Install test dependencies (only required once)
+
+    grunt test:local:setup
+
+2) Run browser tests locally
+
+    grunt test:local
+
+
+## Contributing
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+### Submitting an Issue
+We use the [GitHub issue tracker][issues] to track bugs and features. Before
+submitting a bug report or feature request, check to make sure it hasn't
+already been submitted. You can indicate support for an existing issue by
+voting it up. When submitting a bug report, please include  any details that may
+be necessary to reproduce thebug, including your node version, npm version, and
+operating system.
+
+### Submitting a Pull Request
+1. Fork the project.
+2. Create a topic branch.
+3. Implement your feature or bug fix.
+4. Commit and push your changes.
+5. Submit a pull request.
+
+[issues]: https://github.com/codeforamerica/streetmix/issues
+
+
+## Credits
 
 The team is comprised of 2013 Code for America fellows.
 
@@ -59,100 +196,12 @@ The team is comprised of 2013 Code for America fellows.
 [ycombinator]: https://github.com/ycombinator
 [marccfa]: https://github.com/MarcCfA
 
-You can contact us all together through our team e-mail address at streetmix@codeforamerica.org.
+You can contact the team at streetmix@codeforamerica.org.
 
 Also, this project was made possible by the support of Code for America staff and other 2013 fellows, as well as our network of urbanists, design and planning professionals, and testers, who have provided us countless amounts of time and feedback towards this development.
 
 
-## <a name="development-setup"></a>Development Setup
-
-### On Mac OS X 10
-
-These installation instructions assume that you have already installed the [Homebrew](http://brew.sh/) package manager.
-
-#### First-time setup
-
-1) Download and install [Node.js](http://nodejs.org/).
-
-    brew install nodejs
-
-2) Download, install and start [MongoDB](http://www.mongodb.org/).
-
-    brew install mongodb
-
-3) Download and install [Coreutils](http://www.gnu.org/software/coreutils/).
-
-    brew install coreutils
-
-4) Clone this remote repository to a folder on your computer. The rest of these instructions will refer to this folder as `$PROJECT_ROOT`.
-
-    git clone $REMOTE_REPOSITORY_URL $PROJECT_ROOT
-
-5) Install project dependencies.
-
-    cd $PROJECT_ROOT
-    npm install
-
-#### Every time you sync `$PROJECT_ROOT` with this remote repository.
-
-1) Update project dependencies.
-
-    cd $PROJECT_ROOT
-    npm install
-
-#### HOWTO: Start the application
-
-
-1) Setup environment variables. You can either set these in your `.bash_profile` (or equivalent) or place them in a file named `$PROJECT_ROOT/.env`
-
-| Variable name                   | Description                                                                            | Required?            |
-| ------------------------------- | -------------------------------------------------------------------------------------- | -------------------- |
-| `SENDGRID_USERNAME`             | Your SendGrid username                                                                 | Yes                  |
-| `SENDGRID_PASSWORD`             | Your SendGrid password                                                                 | Yes                  |
-| `TWITTER_OAUTH_CONSUMER_KEY`    | Development Twitter OAuth consumer key, obtained from @streetmix Twitter account    | Yes                  |
-| `TWITTER_OAUTH_CONSUMER_SECRET` | Development Twitter OAuth consumer secret, obtained from @streetmix Twitter account | Yes                  |
-| `EMAIL_FEEDBACK_RECIPIENT`      | Your e-mail address                                                                    | No                   |
-| `NO_INTERNET_MODE`              | Boolean. Set to `true` to run a local "demo" without external Internet access          | No                   |
-
-
-2) Start the web server.
-
-    cd $PROJECT_ROOT
-    npm start
-
-3) Load the application in your web browser.
-
-    open http://localhost:8000
-
-#### HOWTO: Run browser integration tests
-
-1) Install test dependencies (only required once)
-
-    grunt test:local:setup
-
-2) Run browser tests locally
-
-    grunt test:local
-
-## <a name="contributing"></a>Contributing
-see [CONTRIBUTING.md](CONTRIBUTING.md).
-
-## <a name="issues"></a>Submitting an Issue
-We use the [GitHub issue tracker][issues] to track bugs and features. Before
-submitting a bug report or feature request, check to make sure it hasn't
-already been submitted. You can indicate support for an existing issue by
-voting it up. When submitting a bug report, please include  any details that may
-be necessary to reproduce thebug, including your node version, npm version, and
-operating system.
-
-## <a name="pulls"></a>Submitting a Pull Request
-1. Fork the project.
-2. Create a topic branch.
-3. Implement your feature or bug fix.
-4. Commit and push your changes.
-5. Submit a pull request.
-
-## <a name="copyright"></a>Copyright
+### Copyright
 Copyright (c) 2013 Code for America. See [LICENSE][] for details.
 
 [license]: https://github.com/codeforamerica/streetmix/blob/master/LICENSE.md
