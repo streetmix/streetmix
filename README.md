@@ -97,16 +97,7 @@ You may additionally specify the name of the directory to install to, if you wis
 
 3) Set up the MongoDB environment. [Follow the instructions under “Set up the MongoDB environment” from the MongoDB website.](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-windows/#run-mongodb)
 
-
-### Every time you sync the local project with the remote repository.
-
-1) Update project dependencies.
-
-    cd streetmix
-    npm install
-
-
-### HOWTO: Start the application
+#### On all systems
 
 1) Setup environment variables. You can either set these in your `.bash_profile` (or equivalent, on Mac OSX or *nix-based systems) or place them in a file named `.env` in the project root directory (great for development environments or Windows environments).
 
@@ -130,18 +121,22 @@ EMAIL_FEEDBACK_RECIPIENT=test@domain.com
 NO_INTERNET_MODE=true
 ```
 
-2) Start MongoDB.
+
+### HOWTO: Start the application
+
+1) Start MongoDB.
 
     mongod
 
-3) Start the web server.
+2) Start the web server.
 
     cd streetmix
     npm start
 
-4) Load the application in your web browser.
+3) Load the application in your web browser.
 
     open http://127.0.0.1:8000
+
 
 ### HOWTO: Run browser integration tests
 
