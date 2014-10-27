@@ -244,7 +244,8 @@ exports.get = function(req, res) {
         return
       }
 
-      res.header('Location', config.restapi.baseuri + '/v1/streets/' + street.id)
+      res.set('Access-Control-Allow-Origin', '*')
+      res.set('Location', config.restapi.baseuri + '/v1/streets/' + street.id)
       res.status(200).send(streetJson)
 
     })
