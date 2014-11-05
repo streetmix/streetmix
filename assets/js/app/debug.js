@@ -5,7 +5,8 @@ var debug = {
   forceMetric: false,
   forceUnsupportedBrowser: false,
   forceNonRetina: false,
-  secretSegments: false
+  secretSegments: false,
+  experimental: false
 };
 
 function _hideDebugInfo() {
@@ -95,5 +96,9 @@ function _detectDebugUrl() {
 
   if (url.match(/[\?\&]debug-force-live-update\&?/)) {
     debug.forceLiveUpdate = true;
+  }
+
+  if (url.match(/[\?\&]debug-experimental\&?/)) {
+    debug.experimental = true;
   }
 }

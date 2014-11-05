@@ -112,6 +112,9 @@ function _updatePageUrl(forceGalleryUrl) {
   if (debug.forceLiveUpdate) {
     url += '&debug-force-live-update';
   }
+  if (debug.experimental) {
+    url += '&debug-experimental';
+  }
 
   url = url.replace(/\&/, '?');
 

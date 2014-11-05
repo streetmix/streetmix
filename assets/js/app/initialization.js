@@ -33,6 +33,11 @@ app.init = function() {
     _setupNoInternetMode();
   }
 
+  // Toggle experimental features
+  if (!debug.experimental) {
+    document.getElementById('settings-menu-item').style.display = 'none';
+  }
+
   // Temporary as per https://github.com/Modernizr/Modernizr/issues/788#issuecomment-12513563
   Modernizr.addTest('pagevisibility', !!Modernizr.prefixed('hidden', document, false));
 
