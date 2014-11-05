@@ -1,18 +1,18 @@
 {
   "menu": {
     "item": {
-      "help": "Help",
-      "about": "About Streetmix…",
-      "contact": "Contact",
+      "help": "Yarr!!!",
+      "about": "Thar she blows",
+      "contact": "Avast!",
       "sign-in": "Sign in",
       "sign-out": "Sign out",
       "new-street": "New street",
       "my-streets": "My streets",
-      "settings": "Settings",
-      "share": "Share"
+      "settings": "Settin's",
+      "share": "Sharrre"
     },
     "help": {
-      "keyboard-label": "Keyboard shortcuts:",
+      "keyboard-label": "Keyboarrrd shortcuts:",
       "remove": "Remove a segment you’re pointing at<br> (hold <span class='key'>Shift</span> to remove all)",
       "move": "Move around the street (hold <span class='key'>Shift</span> to jump to edges)",
       "change": "Change width of a segment you’re pointing at<br> (hold <span class='key'>Shift</span> for more precision)"
@@ -44,7 +44,7 @@
     }
   },
   "msg": {
-    "loading": "Loading…",
+    "loading": "This be loadin’…",
     "having-trouble": "Having trouble…",
     "no-street": "No street selected.",
     "trouble-loading": "We’re having trouble loading Streetmix.",

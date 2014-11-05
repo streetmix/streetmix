@@ -88,7 +88,7 @@
         <li>
           <a target='_blank' href='/new' data-i18n='menu.item.new-street'>New street</a>
         <li id='gallery-link'>
-          <a href=''>My streets</a>
+          <a href='' data-i18n='menu.item.my-streets'>My streets</a>
         <li id='settings-menu-item'>
           <button class='menu-attached' id='settings-menu-button' data-i18n='menu.item.settings'>Settings</button>
         <li id='share-menu-item'>
@@ -103,13 +103,13 @@
     <div id='help-menu' class='menu'>
       <a href='/help/about' id='about-streetmix' data-i18n='menu.item.about'>About Streetmix…</a>
       <div class='form non-touch-only' id='help-shortcuts'>
-        <p data-i18n='menu.help.keyboard-label'>
-          Keyboard shortcuts:
+        <p>
+          <span data-i18n='menu.help.keyboard-label'>Keyboard shortcuts:</span>
         </p>
         <table>
           <tr>
             <td>
-              <span class='key'>Backspace</span>
+              <span class='key' data-i18n='key.backspace'>Backspace</span>
             <td>
               Remove a segment you’re pointing at<br>
               (hold <span class='key'>Shift</span> to remove all)
@@ -147,12 +147,14 @@
 
     <div id='settings-menu' class='menu'>
       <div class='form'>
-        <p>Language</p>
+        <p>
+          <span data-i18n='menu.language.heading'>Language</span>
+        </p>
         <p>
           <select id='language-select'>
             <option value='en-US'>English (US)</option>
             <option value='de'>German</option>
-            <option value='pirate'>Pirate</option>
+            <option value='en-pirate'>Pirate</option>
             <option value='pt-BR'>Portuguese (Brazil)</option>
           </select>
         </p>
@@ -189,7 +191,7 @@
       <div>
         <div class='message'></div>
         <div class='try-again'>
-          Streetmix is having issues accessing the Internet.
+          Streetmix is having trouble connecting to the Internet.
           <br>
           <button id='blocking-shield-try-again'>Try again</button>
           <button id='blocking-shield-cancel'>Cancel</button>
@@ -237,17 +239,17 @@
     <div id='about' class='dialog-box'>
       <button class='close'>×</button>
       <div class='left'>
-        <h1>
+        <h1 data-i18n='dialogs.about.heading'>
           About Streetmix.
         </h1>
-        <p class='description'>
+        <p class='description' data-i18n='dialogs.about.description'>
           Design, remix, and share your street.
           Add bike paths, widen sidewalks or traffic lanes, learn
           how all of this can impact your community.
         </p>
         <ul>
-          <li><a target='_blank' href='http://blog.streetmix.net'>Visit Streetmix blog</a>
-          <li><a target='_blank' href='https://github.com/codeforamerica/streetmix/'>View source code</a>
+          <li><a target='_blank' href='http://blog.streetmix.net' data-i18n='menu.contact.blog'>Visit Streetmix blog</a>
+          <li><a target='_blank' href='https://github.com/codeforamerica/streetmix/' data-i18n='dialogs.about.view-source'>View source code</a>
         </ul>
       </div>
       <div class='right'>
@@ -274,28 +276,28 @@
     <div id='save-as-image-dialog' class='dialog-box'>
       <div>
         <button class='close'>×</button>
-        <h1>
+        <h1 data-i18n='dialogs.save.heading'>
           Save as image
         </h1>
         <p>
-          <input type='checkbox' id='save-as-image-segment-names'><label for='save-as-image-segment-names'>Segment names and widths</label>
-          <input type='checkbox' id='save-as-image-street-name'><label for='save-as-image-street-name'>Street name</label>
-          <input type='checkbox' id='save-as-image-transparent-sky'><label for='save-as-image-transparent-sky'>Transparent sky</label>
+          <input type='checkbox' id='save-as-image-segment-names'><label for='save-as-image-segment-names' data-i18n='dialogs.save.option-label'>Segment names and widths</label>
+          <input type='checkbox' id='save-as-image-street-name'><label for='save-as-image-street-name' data-i18n='dialogs.save.option-name'>Street name</label>
+          <input type='checkbox' id='save-as-image-transparent-sky'><label for='save-as-image-transparent-sky' data-i18n='dialogs.save.option-sky'>Transparent sky</label>
         </p>
         <div id='save-as-image-preview'>
-          <div id='save-as-image-preview-loading'>Loading…</div>
+          <div id='save-as-image-preview-loading' data-i18n='dialogs.save.loading'>Loading…</div>
           <div id='save-as-image-preview-preview'></div>
         </div>
         <p>
           <span class='non-touch-only'>
-            Drag the image anywhere you want, or
-            <a download class='button-like' id='save-as-image-download'>Save to your computer…</a>
+            <span data-i18n='dialogs.save.instructions-mouse'>Drag the image anywhere you want, or</span>
+            <a download class='button-like' id='save-as-image-download' data-i18n='dialogs.save.save-button'>Save to your computer…</a>
           </span>
-          <span class='touch-only'>
+          <span class='touch-only' data-i18n='dialogs.save.instructions-touch'>
             Hold your finger on the image above to save or copy it.
           </span>
         </p>
-        <footer>
+        <footer data-i18n='dialogs.save.license'>
           This Streetmix-created image may be reused anywhere, for any purpose, under the
           <br><a href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons Attribution-ShareAlike 4.0 International License</a>.
         </footer>
@@ -306,7 +308,7 @@
       <div>
         <button class='close'>×</button>
         <div class='first-time-new-street'>
-          <h1>
+          <h1 data-i18n='dialogs.welcome.heading'>
             Welcome to Streetmix.
           </h1>
           <p>
@@ -321,7 +323,7 @@
         </div>
 
         <div class='first-time-existing-street'>
-          <h1>
+          <h1 data-i18n='dialogs.welcome.heading'>
             Welcome to Streetmix.
           </h1>
           <p>
@@ -339,16 +341,16 @@
         </div>
 
         <div class='new-street'>
-          <h1>
+          <h1 data-i18n='dialogs.new-street.heading'>
             Here’s your new street.
           </h1>
           <ul>
             <li>
-              <input type='radio' name='new-street' id='new-street-default'><label for='new-street-default'>Start with an example street</label>
+              <input type='radio' name='new-street' id='new-street-default'><label for='new-street-default' data-i18n='dialogs.new-street.default'>Start with an example street</label>
             <li>
-              <input type='radio' name='new-street' id='new-street-empty'><label for='new-street-empty'>Start with an empty street</label>
+              <input type='radio' name='new-street' id='new-street-empty'><label for='new-street-empty' data-i18n='dialogs.new-street.empty'>Start with an empty street</label>
             <li>
-              <input type='radio' name='new-street' id='new-street-last'><label for='new-street-last'>Start with a copy of last street</label>
+              <input type='radio' name='new-street' id='new-street-last'><label for='new-street-last' data-i18n='dialogs.new-street.last'>Start with a copy of last street</label>
           </ul>
         </div>
       </div>

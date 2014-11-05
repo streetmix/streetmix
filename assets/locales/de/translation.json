@@ -22,7 +22,7 @@
       "twitter": "Share using Twitter",
       "facebook": "Share using Facebook",
       "print": "Print…",
-      "save": "Save as image…",
+      "save": "Als Bild speichern…",
       "save-byline": "For including in a report, blog, etc."
     },
     "contact": {
@@ -54,8 +54,8 @@
   },
   "btn": {
     "reload": "Reload",
-    "undo": "Undo",
-    "redo": "Redo",
+    "undo": "Rückgängig",
+    "redo": "Wiederherstellen",
     "try-again": "Try again",
     "cancel": "Cancel",
     "create": "Create new street",
@@ -63,21 +63,21 @@
   },
   "dialogs": {
     "welcome": {
-      "heading": "Welcome to Streetmix.",
+      "heading": "Willkommen bei Streetmix.",
       "new": {
-        "intro": "Design, remix, and share your neighborhood street. Add trees or bike paths, widen sidewalks or traffic lanes, learn how your decisions can impact your community.",
-        "instruct": "Start by moving some segments around with <span class=\"touch-only\">your finger.</span> <span class=\"non-touch-only\">your mouse.</span>"
+        "intro": "Gestalte, verändere und teile Deine Nachbarschaftsstraße. Ergänz' Bäume oder Fahrradwege, erweitere die Fußwege oder Fahrspuren, und erfahre, wie sich Deine Entscheidungen auf Deine Nachbarschaft auswirken können.",
+        "instruct": "Bewege Teile der Straße mit <span class=\"touch-only\">Deinem Finger.</span> <span class=\"non-touch-only\">Deiner Maus.</span>"
       },
       "existing": {
-        "intro": "This is <span class=\"street-name\"><span id=\"welcome-street-name\"></span></span> <span id=\"welcome-avatar-creator\"> made by <span class=\"avatar\" id=\"welcome-avatar\" userid=\"\"></span><span id=\"welcome-creator\"></span> </span>.",
-        "instruct": "Remix it by moving some segments around, or <button id=\"welcome-new-street\">Start your own street</button>."
+        "intro": "Das ist <span class=\"street-name\"><span id=\"welcome-street-name\"></span></span> <span id=\"welcome-avatar-creator\">, erstellt von <span class=\"avatar\" id=\"welcome-avatar\" userid=\"\"></span><span id=\"welcome-creator\"></span> </span>.",
+        "instruct": "Verändere es, indem Du Teile der Straße bewegst, oder <button id=\"welcome-new-street\">beginne mit einer eigenen Straße</button>."
       }
     },
     "new-street": {
       "heading": "Here’s your new street.",
-      "default": "Start with an example street",
-      "empty": "Start with an empty street",
-      "last": "Start with a copy of last street"
+      "default": "Beginne mit einer Beispiel-Straße",
+      "empty": "Beginne mit einer leeren Straße",
+      "last": "Beginne mit einer Kopie der letzten Straße"
     },
     "about": {
       "heading": "About Streetmix.",
@@ -87,19 +87,19 @@
       "view-source": "View source code"
     },
     "save": {
-      "heading": "Save as image",
+      "heading": "Als Bild speichern",
       "option-labels": "Segment names and widths",
-      "option-name": "Street name",
-      "option-sky": "Transparent sky",
+      "option-name": "Straßenname",
+      "option-sky": "Transparenter Himmel",
       "loading": "Loading…",
-      "instructions-mouse": "Drag the image anywhere you want, or",
-      "save-button": "Save to your computer…",
-      "instructions-touch": "Hold your finger on the image above to save or copy it.",
-      "license": "This Streetmix-created image may be reused anywhere, for any purpose, under the <br><a href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons Attribution-ShareAlike 4.0 International License</a>."
+      "instructions-mouse": "Ziehe das Bild, wohin du es haben willst, oder",
+      "save-button": "Speichere es auf Deinem Computer…",
+      "instructions-touch": "Halte Deinen Finger auf das Bild gedrückt, um es zu speichern oder zu kopieren.",
+      "license": "Dieses mit Streetmix erstellte Bild darf überall, für jeden Zweck unter der <br><a href=\"https://creativecommons.org/licenses/by-sa/4.0/deed.de\">Namensnennung - Weitergabe unter gleichen Bedingungen 4.0 International</a> verwendet werden."
     }
   },
   "palette": {
-    "drag-here": "Drag here to remove"
+    "drag-here": "Zum entfernen nach hier ziehen"
   },
   "width": {
     "label": "%s width",
@@ -115,7 +115,7 @@
     "shift": "Shift"
   },
   "section": {
-    "empty": "Empty space"
+    "empty": "Leerer Raum"
   },
   "gallery": {
     "fail": "Failed to load the gallery.",
