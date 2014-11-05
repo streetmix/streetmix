@@ -50,7 +50,7 @@
 <body tabindex='1'>
   <div id='flash'></div>
   <div id='debug'><textarea></textarea></div>
-  <div id='loading'><div><span></span><progress id='loading-progress'></progress></div></div>
+  <div id='loading'><div><span data-i18n='msg.loading'></span><progress id='loading-progress'></progress></div></div>
 
   <div id='gallery'>
     <div class='loading'></div>
@@ -385,15 +385,15 @@
 
         <div class='regular-canvas'>
           <div id='commands'>
-            <button id='undo'></button>
-            <button id='redo'></button>
+            <button id='undo' data-i18n='btn.undo'></button>
+            <button id='redo' data-i18n='btn.redo'></button>
           </div>
 
           <div id='palette'>
             <div class='palette-canvas'></div>
           </div>
 
-          <div id='trashcan'></div>
+          <div id='trashcan' data-i18n='palette.remove'></div>
         </div>
       </div>
     </footer>

@@ -99,7 +99,7 @@
     }
   },
   "palette": {
-    "drag-here": "Drag here to remove"
+    "remove": "Drag here to remove"
   },
   "width": {
     "label": "%s width",
