@@ -9,6 +9,7 @@
   "dependencies": {
     "async": "0.9.x",
     "body-parser": "^1.9.1",
+    "btoa": "^1.1.2",
     "compression": "^1.2.0",
     "config": "1.6.x",
     "connect-assets": "^4.3.3",
@@ -29,6 +30,7 @@
     "sendgrid": "1.2.x",
     "sprintf": "0.1.x",
     "strong-agent": "latest",
+    "superagent": "^0.20.0",
     "supervisor": "0.6.x",
     "twitter": "0.2.x",
     "uuid": "2.0.x",
