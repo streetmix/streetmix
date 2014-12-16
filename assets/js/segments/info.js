@@ -307,7 +307,7 @@ var SEGMENT_INFO = {
         graphics: {
           repeat: [
             { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-            { tileset: 2, x: 116, y: 21, width: 5, height: 5, offsetY: 10 } // Asphalt
+            { tileset: 2, x: 116, y: 21, width: 5, height: 5, offsetY: 10 } // Stripes
           ],
           left: { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 }, // Marking
           right: { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
@@ -367,8 +367,11 @@ var SEGMENT_INFO = {
         graphics: {
           center: { tileset: 2, x: 123, y: 64, width: 1, height: 7, offsetY: 5 },
           repeat: [
-            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
-          ]
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            { tileset: 2, x: 116, y: 21, width: 5, height: 5, offsetY: 10 } // Stripes
+          ],
+          left: { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 }, // Marking
+          right: { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
         }
       },
       'dome': {
@@ -376,8 +379,11 @@ var SEGMENT_INFO = {
         graphics: {
           center: { tileset: 2, x: 121, y: 64, width: 1, height: 7, offsetY: 5 },
           repeat: [
-            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
-          ]
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            { tileset: 2, x: 116, y: 21, width: 5, height: 5, offsetY: 10 } // Stripes
+          ],
+          left: { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 }, // Marking
+          right: { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
         }
       }
     }
@@ -468,15 +474,15 @@ var SEGMENT_INFO = {
     name: 'Parking lane',
     owner: SEGMENT_OWNER_CAR,
     zIndex: 2,
-    defaultWidth: 8,
+    defaultWidth: 7,
     variants: ['parking-lane-direction', 'parking-lane-orientation'],
     details: {
       'inbound|left': {
         minWidth: 7,
         maxWidth: 10,
         graphics: {
-          center: [
-            { tileset: 1, x: 8, y: 27, width: 8, height: 15 } // Car (inbound)
+          left: [
+            { tileset: 1, x: 9, y: 27, width: 6, height: 15, offsetX: 0.25 } // Car (inbound)
           ],
           repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           right: { tileset: 2, x: 112, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
@@ -486,8 +492,8 @@ var SEGMENT_INFO = {
         minWidth: 7,
         maxWidth: 10,
         graphics: {
-          center: [
-            { tileset: 1, x: 8, y: 27, width: 8, height: 15 } // Car (inbound)
+          right: [
+            { tileset: 1, x: 9, y: 27, width: 6, height: 15 } // Car (inbound)
           ],
           repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           left: { tileset: 1, x: 46, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
@@ -497,8 +503,8 @@ var SEGMENT_INFO = {
         minWidth: 7,
         maxWidth: 10,
         graphics: {
-          center: [
-            { tileset: 1, x: 0, y: 27, width: 8, height: 15 } // Car (outbound)
+          left: [
+            { tileset: 1, x: 1, y: 27, width: 6, height: 15, offsetX: 0.25 } // Car (outbound)
           ],
           repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           right: { tileset: 2, x: 112, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
@@ -508,8 +514,8 @@ var SEGMENT_INFO = {
         minWidth: 7,
         maxWidth: 10,
         graphics: {
-          center: [
-            { tileset: 1, x: 0, y: 27, width: 8, height: 15 } // Car (outbound)
+          right: [
+            { tileset: 1, x: 1, y: 27, width: 6, height: 15 } // Car (outbound)
           ],
           repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           left: { tileset: 1, x: 46, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
