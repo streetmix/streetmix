@@ -16,7 +16,7 @@
     "start": "supervisor index.js",
     "stop": "mongo admin --eval 'db.shutdownServer()' > /dev/null",
     "pretest": "mongod --fork --logpath /dev/null",
-    "test": "grunt test:local",
+    "test": "node test/index | node_modules/.bin/tap-spec && grunt test:local",
     "posttest": "mongo admin --eval 'db.shutdownServer()' > /dev/null"
   },
   "dependencies": {
@@ -66,7 +66,11 @@
     "grunt-protractor-runner": "^2.1.0",
     "grunt-shell": "^1.1.2",
     "load-grunt-tasks": "^3.2.0",
-    "standard": "^5.2.1"
+    "standard": "^5.2.1",
+    "supertest": "^1.1.0",
+    "tap-spec": "^4.1.0",
+    "tape": "^4.0.1",
+    "tape-catch": "^1.0.4"
   },
   "standard": {
     "ignore": [
