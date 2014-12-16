@@ -291,8 +291,17 @@ var SEGMENT_INFO = {
     zIndex: 1,
     defaultWidth: 2,
     variants: ['divider-type'],
-    paletteIcon: 'bollard',
+    paletteIcon: 'planting-strip',
     details: {
+      'planting-strip': {
+        name: 'Planting strip',
+        graphics: {
+          repeat: [
+            { tileset: 2, x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          ]
+        }
+      },
       'median': {
         name: 'Median',
         graphics: {
@@ -311,15 +320,6 @@ var SEGMENT_INFO = {
           ],
           left: { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 }, // Marking
           right: { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
-        }
-      },
-      'planting-strip': {
-        name: 'Planting strip',
-        graphics: {
-          repeat: [
-            { tileset: 2, x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
-            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
-          ]
         }
       },
       'bush': {
