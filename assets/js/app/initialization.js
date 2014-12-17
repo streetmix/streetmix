@@ -106,7 +106,7 @@ function _onEverythingLoaded() {
   } else if (mode == MODES.GLOBAL_GALLERY) {
     _showGallery(null, true);
   } else if (mode == MODES.ABOUT) {
-    _showAboutDialogBox();
+    Stmx.ui.dialogs.instances.about.show();
   }
 
   if (promoteStreet) {
