@@ -5,6 +5,8 @@
  */
 
 var Stmx = (function (Stmx) {
+  'use strict';
+
   Stmx.app = Stmx.app || {};
 
   // Default language is set by browser, or is US English if undetermined
