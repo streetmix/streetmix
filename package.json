@@ -31,7 +31,7 @@
     "supervisor": "0.6.x",
     "twitter": "0.2.x",
     "uuid": "2.0.x",
-    "validator": "3.22.x",
+    "validator": "3.25.x",
     "winston": "^0.8.1"
   },
   "engines": {
