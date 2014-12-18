@@ -561,6 +561,10 @@ var _statusMessage = {
 
   hide: function() {
     document.querySelector('#status-message').classList.remove('visible');
+
+    // Force window to refocus on document.body after status-message is closed by X button
+    // Required on Chrome
+    _loseAnyFocus();
   }
 };
 
