@@ -32,9 +32,9 @@ function _onGlobalKeyDown(event) {
       } else if (document.querySelector('#welcome').classList.contains('visible')) {
         _hideWelcome();
       } else if (document.querySelector('#save-as-image-dialog').classList.contains('visible')) {
-        _hideSaveAsImageDialogBox();
+        Stmx.ui.dialogs.instances.saveAsImage.hide();
       } else if (document.querySelector('#about').classList.contains('visible')) {
-        _hideAboutDialogBox();
+        Stmx.ui.dialogs.instances.about.hide();
       } else if (draggingType == DRAGGING_TYPE_RESIZE) {
         _handleSegmentResizeCancel();
       } else if (draggingType == DRAGGING_TYPE_MOVE) {

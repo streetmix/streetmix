@@ -17,13 +17,12 @@ function _addEventListeners() {
   document.querySelector('#share-via-facebook').addEventListener('click', _shareViaFacebook);
 
   if (system.touch) {
-    document.querySelector('#dialog-box-shield').addEventListener('touchstart', _hideDialogBoxes);
+    document.querySelector('#dialog-box-shield').addEventListener('touchstart', Stmx.ui.dialogs.hideAll);
   } else {
-    document.querySelector('#dialog-box-shield').addEventListener('click', _hideDialogBoxes);
+    document.querySelector('#dialog-box-shield').addEventListener('click', Stmx.ui.dialogs.hideAll);
   }
-  document.querySelector('#about .close').addEventListener('click', _hideAboutDialogBox);
 
-  document.querySelector('#about-streetmix').addEventListener('click', _showAboutDialogBox);
+  document.querySelector('#about-streetmix').addEventListener('click', Stmx.ui.dialogs.instances.about);
 
   document.querySelector('#street-scroll-indicator-left').addEventListener('click', _onStreetLeftScrollClick);
   document.querySelector('#street-scroll-indicator-right').addEventListener('click', _onStreetRightScrollClick);
@@ -33,9 +32,8 @@ function _addEventListeners() {
   } else {
     document.querySelector('#welcome .close').addEventListener('click', _hideWelcome);
   }
-  document.querySelector('#save-as-image-dialog .close').addEventListener('click', _hideSaveAsImageDialogBox);
 
-  document.querySelector('#save-as-image').addEventListener('click', _showSaveAsImageDialogBox);
+  document.querySelector('#save-as-image').addEventListener('click', Stmx.ui.dialogs.instances.saveAsImage);
 
   document.querySelector('#save-as-image-transparent-sky').addEventListener('click', _updateSaveAsImageOptions);
   document.querySelector('#save-as-image-segment-names').addEventListener('click', _updateSaveAsImageOptions);

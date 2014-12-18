@@ -1,34 +1,22 @@
-function _showSaveAsImageDialogBox(event) {
-  _hideMenus();
-
-  document.querySelector('#save-as-image-transparent-sky').checked =
+Stmx.ui.dialogs.instances.saveAsImage = new Stmx.ui.Dialog('#save-as-image-dialog', {
+  trackCategory: TRACK_CATEGORY_SHARING,
+  trackAction: 'Save as image',
+  onShow: function () {
+    document.querySelector('#save-as-image-transparent-sky').checked =
       settings.saveAsImageTransparentSky;
 
-  document.querySelector('#save-as-image-segment-names').checked =
+    document.querySelector('#save-as-image-segment-names').checked =
       settings.saveAsImageSegmentNamesAndWidths;
 
-  document.querySelector('#save-as-image-street-name').checked =
+    document.querySelector('#save-as-image-street-name').checked =
       settings.saveAsImageStreetName;
 
-  document.querySelector('#save-as-image-preview-loading').classList.add('visible');
-  document.querySelector('#save-as-image-preview-preview').classList.remove('visible');
+    document.querySelector('#save-as-image-preview-loading').classList.add('visible');
+    document.querySelector('#save-as-image-preview-preview').classList.remove('visible');
 
-  window.setTimeout(function() { _updateSaveAsImageDialogBox(); }, 100);
-
-  document.querySelector('#save-as-image-dialog').classList.add('visible');
-  document.querySelector('#dialog-box-shield').classList.add('visible');
-
-  _eventTracking.track(TRACK_CATEGORY_SHARING, TRACK_ACTION_SAVE_AS_IMAGE, null, null, false);
-
-  if (event) {
-    event.preventDefault();
+    window.setTimeout(function() { _updateSaveAsImageDialogBox(); }, 100);
   }
-}
-
-function _hideSaveAsImageDialogBox() {
-  document.querySelector('#save-as-image-dialog').classList.remove('visible');
-  document.querySelector('#dialog-box-shield').classList.remove('visible');
-}
+});
 
 function _updateSaveAsImageDialogBox() {
   document.querySelector('#save-as-image-preview-loading').classList.add('visible');
