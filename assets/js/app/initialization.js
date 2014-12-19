@@ -100,6 +100,7 @@ function _onEverythingLoaded() {
   _addScrollButtons(document.querySelector('#palette'));
   _addScrollButtons(document.querySelector('#gallery .streets'));
   _addEventListeners();
+  Stmx.ui.dialogs.init();
 
   if (mode == MODES.USER_GALLERY) {
     _showGallery(galleryUserId, true);

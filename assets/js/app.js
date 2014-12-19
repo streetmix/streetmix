@@ -21,3 +21,7 @@
 //= require_tree users
 
 var app = {};
+
+var Stmx = {
+  ui: {}
+};

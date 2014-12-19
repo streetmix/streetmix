@@ -12,15 +12,17 @@ var Stmx = (function (Stmx) {
 
     this.id             = id; // Element id
 
+    this.clickSelector  = opts.clickSelector || null;
     this.trackCategory  = opts.trackCategory || null;
     this.trackAction    = opts.trackAction   || null;
     this.onShowCallback = opts.onShow        || null; // Function to execute after dialog open
     this.onHideCallback = opts.onHide        || null; // Function to execute after dialog close
   }
 
-  Dialog.prototype.handleEvent = function (event) {
-    // Allows us to use correct value for 'this'
-    this.show(event);
+  Dialog.prototype.init = function() {
+    if (this.clickSelector) {
+      document.querySelector(this.clickSelector).addEventListener('click', this.show.bind(this));
+    }
   }
 
   Dialog.prototype.show = function (event) {
@@ -72,16 +74,27 @@ var Stmx = (function (Stmx) {
     }
   }
 
-  // Ensure module path exists
-  Stmx.ui = Stmx.ui || {};
-
   // Public
   Stmx.ui.Dialog = Dialog;
 
   Stmx.ui.dialogs = {
     instances: {},
 
-    hideAll: function () {
+    init: function() {
+      // Set up event listeners for dialog shield
+      if (system.touch) {
+        document.querySelector('#dialog-box-shield').addEventListener('touchstart', this.hideAll);
+      } else {
+        document.querySelector('#dialog-box-shield').addEventListener('click', this.hideAll);
+      }
+
+      // Init all Dialogs
+      for (var i in Stmx.ui.dialogs.instances) {
+        Stmx.ui.dialogs.instances[i].init()
+      }
+    },
+
+    hideAll: function() {
       for (var i in Stmx.ui.dialogs.instances) {
         Stmx.ui.dialogs.instances[i].hide()
       }
@@ -90,4 +103,4 @@ var Stmx = (function (Stmx) {
 
   return Stmx;
 
-}(Stmx || {}));
+}(Stmx));

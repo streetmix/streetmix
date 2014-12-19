@@ -5,6 +5,7 @@ var SAVE_AS_IMAGE_BOTTOM_PADDING = 60;
 var SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING = 65;
 
 Stmx.ui.dialogs.instances.saveAsImage = new Stmx.ui.Dialog('#save-as-image-dialog', {
+  clickSelector: '#save-as-image',
   trackCategory: TRACK_CATEGORY_SHARING,
   trackAction: 'Save as image',
   onShow: function () {

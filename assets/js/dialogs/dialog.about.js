@@ -1,4 +1,5 @@
 Stmx.ui.dialogs.instances.about = new Stmx.ui.Dialog('#about', {
+  clickSelector: '#about-streetmix',
   trackCategory: TRACK_CATEGORY_INTERACTION,
   trackAction: 'Open about dialog box',
   onShow: function () {
