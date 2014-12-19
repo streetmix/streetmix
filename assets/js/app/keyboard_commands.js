@@ -31,10 +31,8 @@ function _onGlobalKeyDown(event) {
         _hideDebugInfo();
       } else if (document.querySelector('#welcome').classList.contains('visible')) {
         _hideWelcome();
-      } else if (document.querySelector('#save-as-image-dialog').classList.contains('visible')) {
-        Stmx.ui.dialogs.instances.saveAsImage.hide();
-      } else if (document.querySelector('#about').classList.contains('visible')) {
-        Stmx.ui.dialogs.instances.about.hide();
+      } else if (Stmx.ui.dialogs.isVisible()) {
+        Stmx.ui.dialogs.hideAll();
       } else if (draggingType == DRAGGING_TYPE_RESIZE) {
         _handleSegmentResizeCancel();
       } else if (draggingType == DRAGGING_TYPE_MOVE) {

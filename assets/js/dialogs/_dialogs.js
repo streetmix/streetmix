@@ -6,6 +6,8 @@
 var Stmx = (function (Stmx) {
   'use strict';
 
+  var dialogs = {};
+
   // Dialog class
   var Dialog = function (id, opts) {
     var opts = opts || {};
@@ -75,10 +77,8 @@ var Stmx = (function (Stmx) {
   }
 
   // Public
-  Stmx.ui.Dialog = Dialog;
-
   Stmx.ui.dialogs = {
-    instances: {},
+    instances: dialogs,
 
     init: function() {
       // Set up event listeners for dialog shield
@@ -89,14 +89,29 @@ var Stmx = (function (Stmx) {
       }
 
       // Init all Dialogs
-      for (var i in Stmx.ui.dialogs.instances) {
-        Stmx.ui.dialogs.instances[i].init()
+      for (var i in dialogs) {
+        dialogs[i].init()
       }
     },
 
+    setup: function (name, selector, opts) {
+      dialogs[name] = new Dialog(selector, opts);
+    },
+
+    isVisible: function() {
+      var hasVisibleClass = false;
+      for (var i in dialogs) {
+        if (document.querySelector(dialogs[i].id).classList.contains('visible')) {
+          hasVisibleClass = true;
+          continue;
+        }
+      }
+      return hasVisibleClass;
+    },
+
     hideAll: function() {
-      for (var i in Stmx.ui.dialogs.instances) {
-        Stmx.ui.dialogs.instances[i].hide()
+      for (var i in dialogs) {
+        dialogs[i].hide()
       }
     }
   }

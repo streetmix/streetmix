@@ -4,7 +4,7 @@ var SAVE_AS_IMAGE_MIN_HEIGHT_WITH_STREET_NAME = SAVE_AS_IMAGE_MIN_HEIGHT + 150;
 var SAVE_AS_IMAGE_BOTTOM_PADDING = 60;
 var SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING = 65;
 
-Stmx.ui.dialogs.instances.saveAsImage = new Stmx.ui.Dialog('#save-as-image-dialog', {
+Stmx.ui.dialogs.setup('saveAsImage', '#save-as-image-dialog', {
   clickSelector: '#save-as-image',
   trackCategory: TRACK_CATEGORY_SHARING,
   trackAction: 'Save as image',
