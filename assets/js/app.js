@@ -21,8 +21,8 @@
 //= require_tree gallery
 //= require_tree users
 
-var app = {};
-
+// TODO: Gradually migrate everything from global onto the Stmx namespace
 var Stmx = {
+  app: {},
   ui: {}
 };

@@ -2,14 +2,18 @@ var TRACK_CATEGORY_SHARING = 'Sharing';
 var TRACK_ACTION_FACEBOOK = 'Facebook';
 var TRACK_ACTION_TWITTER = 'Twitter';
 
-Stmx.ui.menus.shareMenu = new Stmx.ui.Menu('share', {
+Stmx.ui.menus.setup('share', {
   alignment: 'right',
-  onShowCallback: _focusShareLink
+  onShow: function() {
+    // Auto-focus and select link when share menu is active
+    if (!system.touch) {
+      window.setTimeout(function() {
+        document.querySelector('#share-via-link').focus();
+        document.querySelector('#share-via-link').select();
+      }, 200);
+    }
+  }
 });
-
-function _onShareMenuClick() {
-  Stmx.ui.menus.shareMenu.onClick();
-}
 
 function _shareViaTwitter() {
   _eventTracking.track(TRACK_CATEGORY_SHARING, TRACK_ACTION_TWITTER, null, null, false);
@@ -17,15 +21,6 @@ function _shareViaTwitter() {
 
 function _shareViaFacebook() {
   _eventTracking.track(TRACK_CATEGORY_SHARING, TRACK_ACTION_FACEBOOK, null, null, false);
-}
-
-function _focusShareLink() {
-  if (!system.touch) {
-    window.setTimeout(function() {
-      document.querySelector('#share-via-link').focus();
-      document.querySelector('#share-via-link').select();
-    }, 200);
-  }
 }
 
 function _getSharingMessage() {

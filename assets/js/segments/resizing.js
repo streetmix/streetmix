@@ -292,7 +292,7 @@ function _onWidthEditKeyDown(event) {
     case KEYS.ESC:
       el.value = el.oldValue;
       _widthEditInputChanged(el, true);
-      Stmx.ui.menus.hide();
+      Stmx.ui.menus.hideAll();
       _loseAnyFocus();
       break;
   }
@@ -312,7 +312,7 @@ function _onHeightEditKeyDown(event) {
     case KEYS.ESC:
       el.value = el.oldValue;
       _heightEditInputChanged(el, true);
-      Stmx.ui.menus.hide();
+      Stmx.ui.menus.hideAll();
       _loseAnyFocus();
       break;
   }

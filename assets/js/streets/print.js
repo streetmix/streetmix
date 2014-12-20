@@ -35,7 +35,7 @@ function _onAfterPrint() {
 }
 
 function _print(event) {
-  Stmx.ui.menus.hide();
+  Stmx.ui.menus.hideAll();
   _infoBubble.hide();
   _infoBubble.hideSegment(true);
 

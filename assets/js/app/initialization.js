@@ -4,7 +4,7 @@ var readyStateCompleteLoaded;
 
 var TRACK_ACTION_TOUCH_CAPABLE = 'Touch capability detected';
 
-app.preInit = function() {
+Stmx.app.preInit = function() {
   initializing = true;
   ignoreStreetChanges = true;
 
@@ -12,7 +12,7 @@ app.preInit = function() {
   _detectSystemCapabilities();
 }
 
-app.init = function() {
+Stmx.app.init = function() {
   if (!debug.forceUnsupportedBrowser) {
 
     // TODO temporary ban
@@ -87,7 +87,10 @@ function _onEverythingLoaded() {
   }
 
   // Initalize i18n / localization
-  Stmx.app.locale.init();
+  // Currently experimental-only
+  if (debug.experimental) {
+    Stmx.app.locale.init();
+  }
 
   _showWelcome();
 
@@ -109,6 +112,7 @@ function _onEverythingLoaded() {
   _addScrollButtons(document.querySelector('#palette'));
   _addScrollButtons(document.querySelector('#gallery .streets'));
   _addEventListeners();
+  Stmx.ui.menus.init();
   Stmx.ui.dialogs.init();
 
   if (mode == MODES.USER_GALLERY) {

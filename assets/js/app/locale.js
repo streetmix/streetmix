@@ -7,8 +7,6 @@
 var Stmx = (function (Stmx) {
   'use strict';
 
-  Stmx.app = Stmx.app || {};
-
   // Default language is set by browser, or is US English if undetermined
   var defaultLocale = navigator.language || 'en-US';
 
@@ -78,4 +76,4 @@ var Stmx = (function (Stmx) {
 
   return Stmx;
 
-}(Stmx || {}));
+}(Stmx));

@@ -1,7 +1,3 @@
-Stmx.ui.menus.helpMenu = new Stmx.ui.Menu('help', {
-  trackActionMsg: 'Open help menu'
+Stmx.ui.menus.setup('help', {
+  trackAction: 'Open help menu'
 });
-
-function _onHelpMenuClick() {
-  Stmx.ui.menus.helpMenu.onClick();
-}

@@ -37,7 +37,7 @@ function _onWindowBlur() {
     return;
   }
 
-  Stmx.ui.menus.hide();
+  Stmx.ui.menus.hideAll();
 }
 
 function _onVisibilityChange() {

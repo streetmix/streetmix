@@ -37,8 +37,8 @@ function _onGlobalKeyDown(event) {
         _handleSegmentResizeCancel();
       } else if (draggingType == DRAGGING_TYPE_MOVE) {
         _handleSegmentMoveCancel();
-      } else if (Stmx.ui.menus.getVisibility() === true) {
-        Stmx.ui.menus.hide();
+      } else if (Stmx.ui.menus.isVisible() === true) {
+        Stmx.ui.menus.hideAll();
       } else if (document.querySelector('#status-message').classList.contains('visible')) {
         _statusMessage.hide();
       } else if (_infoBubble.visible && _infoBubble.descriptionVisible) {
@@ -62,7 +62,7 @@ function _onGlobalKeyDown(event) {
 function _onBodyKeyDown(event) {
   switch (event.keyCode) {
     case KEYS.SLASH:
-      _onHelpMenuClick();
+      Stmx.ui.menus.instances.help.onClick();
       break;
 
     case KEYS.EQUAL:
