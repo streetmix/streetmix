@@ -173,19 +173,24 @@ function _errorReceiveSignOutConfirmationFromServer() {
 
 function _createSignInUI() {
   if (signedIn) {
-    var el = document.createElement('div');
-    el.classList.add('avatar');
-    el.setAttribute('userId', signInData.userId);
-    document.querySelector('#identity').appendChild(el);
 
     var el = document.createElement('button');
-    el.innerHTML = signInData.userId;
     el.classList.add('id');
     el.classList.add('menu-attached');
     el.id = 'identity-menu-button';
-    document.querySelector('#identity').appendChild(el);
+    document.querySelector('#identity-menu-item').appendChild(el);
 
-    document.querySelector('#identity').classList.add('visible');
+    var avatarEl = document.createElement('div');
+    avatarEl.classList.add('avatar');
+    avatarEl.setAttribute('userId', signInData.userId);
+    document.querySelector('#identity-menu-button').appendChild(avatarEl);
+
+    var userIdEl = document.createElement('span');
+    userIdEl.classList.add('user-id');
+    userIdEl.textContent = signInData.userId;
+    document.querySelector('#identity-menu-button').appendChild(userIdEl);
+
+    document.querySelector('#identity-menu-item').classList.add('visible');
 
     _fetchAvatars();
   } else {
@@ -195,7 +200,7 @@ function _createSignInUI() {
     el.innerHTML = 'Sign in';
     document.querySelector('#sign-in-link').appendChild(el);
 
-    document.querySelector('#identity').classList.remove('visible');
+    document.querySelector('#identity-menu-item').classList.remove('visible');
   }
 }
 

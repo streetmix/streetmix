@@ -461,7 +461,7 @@ function _onBodyMouseDown(event) {
     return;
   }
 
-  _hideMenus();
+  Stmx.ui.menus.hideAll();
 
   if (el.classList.contains('drag-handle')) {
     _handleSegmentResizeStart(event);

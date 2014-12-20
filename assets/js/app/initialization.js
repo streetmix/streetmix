@@ -4,7 +4,7 @@ var readyStateCompleteLoaded;
 
 var TRACK_ACTION_TOUCH_CAPABLE = 'Touch capability detected';
 
-app.preInit = function() {
+Stmx.app.preInit = function() {
   initializing = true;
   ignoreStreetChanges = true;
 
@@ -12,7 +12,7 @@ app.preInit = function() {
   _detectSystemCapabilities();
 }
 
-app.init = function() {
+Stmx.app.init = function() {
   if (!debug.forceUnsupportedBrowser) {
 
     // TODO temporary ban
@@ -31,6 +31,11 @@ app.init = function() {
   // Check if no internet mode
   if (system.noInternet === true) {
     _setupNoInternetMode();
+  }
+
+  // Toggle experimental features
+  if (!debug.experimental) {
+    document.getElementById('settings-menu-item').style.display = 'none';
   }
 
   // Temporary as per https://github.com/Modernizr/Modernizr/issues/788#issuecomment-12513563
@@ -80,6 +85,13 @@ function _onEverythingLoaded() {
       _onNewStreetLastClick();
       break;
   }
+
+  // Initalize i18n / localization
+  // Currently experimental-only
+  if (debug.experimental) {
+    Stmx.app.locale.init();
+  }
+
   _showWelcome();
 
   _onResize();
@@ -100,6 +112,7 @@ function _onEverythingLoaded() {
   _addScrollButtons(document.querySelector('#palette'));
   _addScrollButtons(document.querySelector('#gallery .streets'));
   _addEventListeners();
+  Stmx.ui.menus.init();
   Stmx.ui.dialogs.init();
 
   if (mode == MODES.USER_GALLERY) {

@@ -1,5 +1,9 @@
 var TWITTER_ID = '@streetmix';
 
+Stmx.ui.menus.setup('feedback', {
+  onShow: _prepareFeedbackForm
+});
+
 function _isFeedbackFormMessagePresent() {
   var message = document.querySelector('#feedback-form-message').value;
   message = $.trim(message);
@@ -66,7 +70,7 @@ function _feedbackFormSuccess() {
   window.localStorage[LOCAL_STORAGE_FEEDBACK_EMAIL_BACKUP] = '';
 
   // TODO const
-  window.setTimeout(_hideMenus, 2500);
+  window.setTimeout(Stmx.ui.menus.hide, 2500);
 }
 
 function _feedbackFormError() {
@@ -77,7 +81,7 @@ function _feedbackFormError() {
   // to try again later, or copy-paste the message to some other
   // contact method.
 
-  window.setTimeout(_hideMenus, 10000);
+  window.setTimeout(Stmx.ui.menus.hide, 10000);
 }
 
 function _onFeedbackFormInput() {
@@ -87,24 +91,6 @@ function _onFeedbackFormInput() {
       document.querySelector('#feedback-form-email').value;
 
   _updateFeedbackForm();
-}
-
-function _onFeedbackMenuClick() {
-  var el = document.querySelector('#feedback-menu');
-
-  _infoBubble.hide();
-  _statusMessage.hide();
-
-  if (!el.classList.contains('visible')) {
-    _hideMenus();
-    menuVisible = true;
-
-    el.classList.add('visible');
-
-    _prepareFeedbackForm();
-  } else {
-    _hideMenus();
-  }
 }
 
 function _updateFeedbackMenu() {

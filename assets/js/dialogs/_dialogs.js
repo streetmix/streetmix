@@ -40,9 +40,7 @@ var Stmx = (function (Stmx) {
     }
 
     // Hide other UI
-    _hideMenus();
-    // TODO
-    //Stmx.ui.menus.hide();
+    Stmx.ui.menus.hideAll();
 
     // Show the dialog & shield
     var el = document.querySelector(this.id);
