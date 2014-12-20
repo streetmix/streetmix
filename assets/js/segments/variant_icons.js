@@ -41,6 +41,7 @@ var VARIANT_ICONS = {
   'divider-type|median': { x: 7, y: 4, title: 'Median' },
   'divider-type|striped-buffer': { x: 8, y: 4, title: 'Striped buffer' },
   'divider-type|planting-strip': { x: 2, y: 4, title: 'Planting strip' },
+  'divider-type|planter-box': { x: 5, y: 5, title: 'Planter box' },
   'divider-type|bush': { x: 4, y: 4, title: 'Planting strip with a bush' },
   'divider-type|flowers': { x: 5, y: 4, title: 'Planting strip with flowers' },
   'divider-type|big-tree': { x: 1, y: 4, title: 'Planting strip with a tree' },

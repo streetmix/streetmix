@@ -13,7 +13,7 @@ var VARIANTS = {
   'turn-lane-orientation': ['left', 'left-straight', 'straight', 'right-straight', 'right',  'both', 'shared'],
 
   'divider-type': ['median', 'striped-buffer', 'planting-strip',
-                   'bush', 'flowers', 'big-tree',
+                   'planter-box', 'bush', 'flowers', 'big-tree',
                    'palm-tree', 'bollard', 'dome'],
 
   'orientation': ['left', 'right'],
