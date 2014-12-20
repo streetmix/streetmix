@@ -302,6 +302,18 @@ var SEGMENT_INFO = {
           ]
         }
       },
+      'planter-box': {
+        name: 'Planter box',
+        graphics: {
+          center: { tileset: 2, x: 126, y: 64, width: 4, height: 7, offsetY: 5 },
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            { tileset: 2, x: 116, y: 21, width: 5, height: 5, offsetY: 10 } // Stripes
+          ],
+          left: { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 }, // Marking
+          right: { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+        }
+      },
       'median': {
         name: 'Median',
         graphics: {
