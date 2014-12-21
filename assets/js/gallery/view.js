@@ -179,7 +179,7 @@ function _showGallery(userId, instant, signInPromo) {
     return;
   }
 
-  _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_OPEN_GALLERY,
+  Stmx.app.eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_OPEN_GALLERY,
       userId, null, false);
 
   galleryVisible = true;

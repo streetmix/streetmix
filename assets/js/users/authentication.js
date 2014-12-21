@@ -95,7 +95,7 @@ function _errorReceiveSignInDetails(data) {
   }*/
 
   if (data.status == 401) {
-    _eventTracking.track(TRACK_CATEGORY_ERROR, TRACK_ACTION_ERROR_RM1,
+    Stmx.app.eventTracking.track(TRACK_CATEGORY_ERROR, TRACK_ACTION_ERROR_RM1,
         null, null, false);
 
     _signOut(true);
@@ -103,7 +103,7 @@ function _errorReceiveSignInDetails(data) {
     _showError(ERRORS.SIGN_IN_401, true);
     return;
   } else if (data.status == 503) {
-    _eventTracking.track(TRACK_CATEGORY_ERROR, TRACK_ACTION_ERROR_15A,
+    Stmx.app.eventTracking.track(TRACK_CATEGORY_ERROR, TRACK_ACTION_ERROR_15A,
         null, null, false);
 
     _showError(ERRORS.SIGN_IN_SERVER_FAILURE, true);

@@ -90,7 +90,7 @@ function _onBodyKeyDown(event) {
         }
         event.preventDefault();
 
-        _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH,
+        Stmx.app.eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH,
             TRACK_LABEL_KEYBOARD, null, true);
       }
       break;
@@ -103,7 +103,7 @@ function _onBodyKeyDown(event) {
       var segmentHoveredEl = _getHoveredSegmentEl();
       _removeSegment(segmentHoveredEl, event.shiftKey);
 
-      _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_REMOVE_SEGMENT,
+      Stmx.app.eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_REMOVE_SEGMENT,
           TRACK_LABEL_KEYBOARD, null, true);
 
       event.preventDefault();

@@ -135,7 +135,7 @@ function _onEverythingLoaded() {
 
   // Track touch capability in Google Analytics
   if (system.touch === true) {
-    _eventTracking.track(TRACK_CATEGORY_SYSTEM, TRACK_ACTION_TOUCH_CAPABLE, null, null, true);
+    Stmx.app.eventTracking.track(TRACK_CATEGORY_SYSTEM, TRACK_ACTION_TOUCH_CAPABLE, null, null, true);
   }
 }
 

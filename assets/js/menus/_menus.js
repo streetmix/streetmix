@@ -67,7 +67,7 @@ var Stmx = (function (Stmx) {
 
     // Tracking behavior
     if (this.trackAction !== null) {
-      _eventTracking.track(TRACK_CATEGORY_INTERACTION, this.trackAction, null, null, false);
+      Stmx.app.eventTracking.track(TRACK_CATEGORY_INTERACTION, this.trackAction, null, null, false);
     }
 
     // Callback

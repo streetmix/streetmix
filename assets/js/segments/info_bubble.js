@@ -888,7 +888,7 @@ var _infoBubble = {
     }, 500);
 
     var segment = street.segments[parseInt(_infoBubble.segmentEl.dataNo)];
-    _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_LEARN_MORE,
+    Stmx.app.eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_LEARN_MORE,
         segment.type, null, false);
   },
 

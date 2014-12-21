@@ -170,7 +170,7 @@ function _saveSettingsToServer() {
 
 function _errorSavingSettingsToServer(data) {
   if (!abortEverything && (data.status == 401)) {
-    _eventTracking.track(TRACK_CATEGORY_ERROR, TRACK_ACTION_ERROR_RM2,
+    Stmx.app.eventTracking.track(TRACK_CATEGORY_ERROR, TRACK_ACTION_ERROR_RM2,
         null, null, false);
 
     mode = MODES.FORCE_RELOAD_SIGN_OUT_401;

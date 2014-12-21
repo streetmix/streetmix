@@ -17,11 +17,11 @@ Stmx.ui.menus.define('share', {
 });
 
 function _shareViaTwitter() {
-  _eventTracking.track(TRACK_CATEGORY_SHARING, TRACK_ACTION_TWITTER, null, null, false);
+  Stmx.app.eventTracking.track(TRACK_CATEGORY_SHARING, TRACK_ACTION_TWITTER, null, null, false);
 }
 
 function _shareViaFacebook() {
-  _eventTracking.track(TRACK_CATEGORY_SHARING, TRACK_ACTION_FACEBOOK, null, null, false);
+  Stmx.app.eventTracking.track(TRACK_CATEGORY_SHARING, TRACK_ACTION_FACEBOOK, null, null, false);
 }
 
 function _getSharingMessage() {
