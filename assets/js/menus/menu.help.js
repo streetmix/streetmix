@@ -1,3 +1,3 @@
-Stmx.ui.menus.setup('help', {
+Stmx.ui.menus.define('help', {
   trackAction: 'Open help menu'
 });

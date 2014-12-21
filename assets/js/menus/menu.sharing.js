@@ -2,14 +2,15 @@ var TRACK_CATEGORY_SHARING = 'Sharing';
 var TRACK_ACTION_FACEBOOK = 'Facebook';
 var TRACK_ACTION_TWITTER = 'Twitter';
 
-Stmx.ui.menus.setup('share', {
+Stmx.ui.menus.define('share', {
   alignment: 'right',
   onShow: function() {
     // Auto-focus and select link when share menu is active
     if (!system.touch) {
+      var el = document.querySelector('#share-via-link');
       window.setTimeout(function() {
-        document.querySelector('#share-via-link').focus();
-        document.querySelector('#share-via-link').select();
+        el.focus();
+        el.select();
       }, 200);
     }
   }

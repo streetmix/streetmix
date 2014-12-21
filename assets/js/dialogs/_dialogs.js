@@ -8,7 +8,6 @@ var Stmx = (function (Stmx) {
 
   var dialogs = {};
 
-  // Dialog class
   var Dialog = function (id, opts) {
     var opts = opts || {};
 
@@ -19,9 +18,13 @@ var Stmx = (function (Stmx) {
     this.trackAction    = opts.trackAction   || null;
     this.onShowCallback = opts.onShow        || null; // Function to execute after dialog open
     this.onHideCallback = opts.onHide        || null; // Function to execute after dialog close
+
+    this.el = null; // Placeholder for caching dialog box DOM element
   }
 
   Dialog.prototype.init = function() {
+    this.el = document.querySelector(this.id);
+
     if (this.clickSelector) {
       document.querySelector(this.clickSelector).addEventListener('click', this.show.bind(this));
     }
@@ -43,18 +46,17 @@ var Stmx = (function (Stmx) {
     Stmx.ui.menus.hideAll();
 
     // Show the dialog & shield
-    var el = document.querySelector(this.id);
-    el.classList.add('visible');
+    this.el.classList.add('visible');
     document.querySelector('#dialog-box-shield').classList.add('visible');
 
     // Attach event listener for close button
     // Done here so that we can more easily bind 'this'
     // to the correct scope, also, cleans out the code
     // in event_listeners.js
-    el.querySelector('.close').addEventListener('click', this.hide.bind(this));
+    this.el.querySelector('.close').addEventListener('click', this.hide.bind(this));
 
     // Tracking behavior
-    if (this.trackActionMsg !== null && this.trackCategory !== null) {
+    if (this.trackAction !== null && this.trackCategory !== null) {
       _eventTracking.track(this.trackCategory, this.trackAction, null, null, false);
     }
 
@@ -65,7 +67,7 @@ var Stmx = (function (Stmx) {
   }
 
   Dialog.prototype.hide = function () {
-    document.querySelector(this.id).classList.remove('visible');
+    this.el.classList.remove('visible');
     document.querySelector('#dialog-box-shield').classList.remove('visible');
 
     // Callback
@@ -78,7 +80,12 @@ var Stmx = (function (Stmx) {
   Stmx.ui.dialogs = {
     instances: dialogs,
 
+    define: function (name, selector, opts) {
+      dialogs[name] = new Dialog(selector, opts);
+    },
+
     init: function() {
+      // Should be called after DOM is ready
       // Set up event listeners for dialog shield
       if (system.touch) {
         document.querySelector('#dialog-box-shield').addEventListener('touchstart', this.hideAll);
@@ -92,14 +99,10 @@ var Stmx = (function (Stmx) {
       }
     },
 
-    setup: function (name, selector, opts) {
-      dialogs[name] = new Dialog(selector, opts);
-    },
-
     isVisible: function() {
       var hasVisibleClass = false;
       for (var i in dialogs) {
-        if (document.querySelector(dialogs[i].id).classList.contains('visible')) {
+        if (dialogs[i].el.classList.contains('visible')) {
           hasVisibleClass = true;
           continue;
         }

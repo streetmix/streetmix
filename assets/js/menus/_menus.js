@@ -15,9 +15,9 @@ var Stmx = (function (Stmx) {
 
     this.name           = name;
 
-    this.alignment      = opts.alignment     || 'left'; // Set to 'right' if menu should be aligned to right of window
-    this.trackAction    = opts.trackAction   || null;
-    this.onShowCallback = opts.onShow        || null;   // Function to execute after menu open
+    this.alignment      = opts.alignment   || 'left'; // Set to 'right' if menu should be aligned to right of window
+    this.trackAction    = opts.trackAction || null;
+    this.onShowCallback = opts.onShow      || null;   // Function to execute after menu open
     this.el             = null; // Placeholder
   }
 
@@ -85,15 +85,17 @@ var Stmx = (function (Stmx) {
   Stmx.ui.menus = {
     instances: menus,
 
+    // Set up a Menu that the app knows about
+    define: function (name, opts) {
+      menus[name] = new Menu(name, opts);
+    },
+
+    // Initialize all defined Menus
+    // Should be called after DOM is ready
     init: function() {
-      // Init all Menus
       for (var i in menus) {
         menus[i].init()
       }
-    },
-
-    setup: function (name, opts) {
-      menus[name] = new Menu(name, opts);
     },
 
     isVisible: function() {

@@ -1,4 +1,4 @@
-Stmx.ui.dialogs.setup('about', '#about', {
+Stmx.ui.dialogs.define('about', '#about', {
   clickSelector: '#about-streetmix',
   trackCategory: TRACK_CATEGORY_INTERACTION,
   trackAction: 'Open about dialog box',
