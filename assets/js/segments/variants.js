@@ -18,7 +18,7 @@ var VARIANTS = {
 
   'orientation': ['left', 'right'],
 
-  'public-transit-asphalt': ['regular', 'colored'],
+  'public-transit-asphalt': ['regular', 'colored', 'shared'],
   'bike-asphalt': ['regular', 'colored'],
 
   'transit-shelter-elevation': ['street-level', 'light-rail'],

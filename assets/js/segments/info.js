@@ -1091,6 +1091,36 @@ var SEGMENT_INFO = {
           ],
           repeat: { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 } // Red asphalt
         }
+      },
+      'inbound|shared': {
+        name: 'Shared bus/bike lane',
+        minWidth: 10,
+        maxWidth: 13,
+        graphics: {
+          center: [
+            { tileset: 1, x: 28, y: 27, width: 11, height: 13 }, // Bus
+            { tileset: 1, x: 5, y: 10 + 30 + 19, width: 3, height: 8, offsetY: 4 }, // Bike (inbound)
+            { tileset: 2, x: 101, y: 15, width: 4, height: 5, offsetY: 10 } // Sharrow arrow
+          ],
+          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+          left: { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 }, // Marking
+          right: { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+        }
+      },
+      'outbound|shared': {
+        name: 'Shared bus/bike lane',
+        minWidth: 10,
+        maxWidth: 13,
+        graphics: {
+          center: [
+            { tileset: 1, x: 16, y: 27, width: 12, height: 13 }, // Bus
+            { tileset: 1, x: 9, y: 10 + 30 + 19, width: 3, height: 8, offsetY: 4 }, // Bike (outbound)
+            { tileset: 2, x: 106, y: 15, width: 4, height: 5, offsetY: 10 } // Sharrow arrow
+          ],
+          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+          left: { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 }, // Marking
+          right: { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+        }
       }
     }
   },
