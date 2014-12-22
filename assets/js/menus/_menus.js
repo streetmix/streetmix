@@ -88,6 +88,8 @@ var Stmx = (function (Stmx) {
     // Set up a Menu that the app knows about
     define: function (name, opts) {
       menus[name] = new Menu(name, opts);
+
+      return menus[name];
     },
 
     // Initialize all defined Menus

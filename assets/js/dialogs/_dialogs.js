@@ -16,6 +16,7 @@ var Stmx = (function (Stmx) {
     this.clickSelector  = opts.clickSelector || null;
     this.trackCategory  = opts.trackCategory || null;
     this.trackAction    = opts.trackAction   || null;
+    this.onInitCallback = opts.onInit        || null; // Function to execute after dialog init
     this.onShowCallback = opts.onShow        || null; // Function to execute after dialog open
     this.onHideCallback = opts.onHide        || null; // Function to execute after dialog close
 
@@ -27,6 +28,12 @@ var Stmx = (function (Stmx) {
 
     if (this.clickSelector) {
       document.querySelector(this.clickSelector).addEventListener('click', this.show.bind(this));
+    }
+
+    // Callback
+    // Put additional event listeners in this.onInitCallback, for example
+    if (typeof this.onInitCallback === 'function') {
+      this.onInitCallback();
     }
   }
 
@@ -82,6 +89,8 @@ var Stmx = (function (Stmx) {
 
     define: function (name, selector, opts) {
       dialogs[name] = new Dialog(selector, opts);
+
+      return dialogs[name];
     },
 
     init: function() {
