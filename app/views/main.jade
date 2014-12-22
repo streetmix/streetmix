@@ -1,0 +1,109 @@
+extends _layout
+
+block main
+  #flash
+
+  #debug
+    textarea
+
+  #loading
+    div
+      span(data-i18n='msg.loading')
+      progress(id='loading-progress')
+
+  include ./ui/gallery
+
+  #main-screen
+
+    include ./ui/menu-bar
+    include ./ui/menus
+
+    .info-bubble
+
+    #error
+      div
+        h1#error-title
+        div#error-description.description
+      .rear-clouds
+      .front-clouds
+
+    #blocking-shield
+      div
+        .message
+        .try-again
+          | Streetmix is having trouble connecting to the Internet.
+          | <br>
+          button#blocking-shield-try-again.
+            Try again
+          button#blocking-shield-cancel.
+            Cancel
+        .too-slow
+          | Streetmix wasn’t able to connect to the Internet in awhile now.
+          | <br>
+          | <br>
+          | You might want to reload the page and try again. Please note you
+          | might lose the latest change to the street. Sorry!
+          | <br>
+          | <br>
+          button#blocking-shield-reload.
+            Reload
+
+    #status-message
+      div
+
+    #no-connection-message
+      div
+        | Streetmix is having trouble connecting to the Internet.
+        button#no-connection-try-again.
+          Try again
+
+    #street-name-canvas
+      #street-name.street-name
+        div
+      #street-metadata
+        span#street-metadata-width
+          span#street-width-read
+            span#street-width-read-width
+            | &nbsp;
+            span#street-width-read-difference
+          select#street-width
+        span#street-metadata-author
+        span#street-metadata-date
+
+    include ./ui/dialogs
+    include ./ui/welcome
+
+    section#street-section-outer
+      #gallery-shield
+
+      section#street-section-inner
+        section#street-section-canvas
+          section#street-section-left-building
+            .hover-bk
+          section#street-section-right-building
+            .hover-bk
+          #street-section-editable
+          .segment.empty#street-section-left-empty-space
+          .segment.empty#street-section-right-empty-space
+          section#street-section-dirt
+
+    section#street-section-sky
+      .rear-clouds
+      .front-clouds
+    #street-scroll-indicator-left
+    #street-scroll-indicator-right
+
+    footer
+      .footer-canvas
+        .width-chart-canvas
+          canvas#width-chart
+        .regular-canvas
+          #commands
+            button#undo(data-i18n='btn.undo')
+            button#redo(data-i18n='btn.redo')
+          #palette
+            .palette-canvas
+          #trashcan(data-i18n='palette.remove')
+
+  #print
+    div

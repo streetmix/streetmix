@@ -15,6 +15,8 @@ var Stmx = (function (Stmx) {
   // Public
   Stmx.app.eventTracking = {
     track: function (category, action, label, value, onlyFirstTime) {
+      if (typeof ga === 'undefined') return
+
       if (onlyFirstTime) {
         var id = category + '|' + action + '|' + label;
 

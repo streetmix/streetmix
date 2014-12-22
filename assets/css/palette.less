@@ -82,11 +82,16 @@
   text-align: right;
 
   #undo {
-    width: 50px;
+    //width: 50px;
     height: @paletteHeight - 50px;
   }
   #redo {
-    width: 50px;
+    //width: 50px;
     height: @paletteHeight - 50px;
+  }
+
+  // Spacing between buttons
+  button + button {
+    margin-left: 0.25em;
   }
 }

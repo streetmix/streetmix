@@ -29,7 +29,7 @@ app.use(requestHandlers.login_token_parser)
 app.use(requestHandlers.request_log)
 app.use(requestHandlers.request_id_echo)
 
-app.set('view engine', 'ejs')
+app.set('view engine', 'jade')
 app.set('views', __dirname + '/app/views')
 
 app.get('/twitter-sign-in', controllers.twitter_sign_in.get)
@@ -63,5 +63,5 @@ app.use(express.static(__dirname + '/public'))
 
 // Catch-all
 app.use(function(req, res) {
-  res.render('index', {})
+  res.render('main', {})
 })
