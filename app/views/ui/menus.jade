@@ -64,7 +64,12 @@
     | Copy and paste this link to share:
     input#share-via-link(type='text' value='')
 
-  <a id='share-via-twitter' href='#' target='_blank'>Share using Twitter</a>
-  <a id='share-via-facebook' href='#' target='_blank'>Share using Facebook</a>
-  <a id='invoke-print' href='#'>Print…</a>
-  <a id='save-as-image' href='#'>Save as image…<span>For including in a report, blog, etc.</span></a>
+  a#share-via-twitter(href='#', target='_blank')
+    | Share using Twitter
+  a#share-via-facebook(href='#', target='_blank')
+    | Share using Facebook
+  a#invoke-print(href='#')
+    | Print…
+  a#save-as-image(href='#')
+    | Save as image…
+    span For including in a report, blog, etc.
