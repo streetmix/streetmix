@@ -92,12 +92,16 @@
     background: darken(@uiColour, 20%);
   }
 
-  button canvas {
+  .icon {
     pointer-events: none;
-
     position: absolute;
-    left: 3px;
-    top: 2px;
+    box-sizing: border-box;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: 2px 3px;
+    fill: #231f20;
   }
 
   button.remove {
@@ -133,15 +137,14 @@
 
       position: relative;
 
-      canvas {
-        opacity: .666;
-        margin-top: -2px;
+      .icon {
+        opacity: 0.666;
       }
 
       &:active {
-        canvas {
-          margin-top: -1px;
-          opacity: .9;
+        .icon {
+          margin-top: 1px;
+          opacity: 0.9;
         }
       }
 
@@ -152,7 +155,7 @@
         border-top-color: darken(@uiColour, 30%);
         border-bottom-color: darken(@uiColour, 30%);
 
-        canvas {
+        .icon {
           opacity: 1;
         }
       }

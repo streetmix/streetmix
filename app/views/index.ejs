@@ -48,6 +48,8 @@
 </head>
 
 <body tabindex='1'>
+  <% include ../../public/images/icons.svg %>
+
   <div id='flash'></div>
   <div id='debug'><textarea></textarea></div>
   <div id='loading'><div><span data-i18n='msg.loading'></span><progress id='loading-progress'></progress></div></div>
@@ -170,8 +172,12 @@
         Copy and paste this link to share:
         <input id='share-via-link' type='text' value=''>
       </div>
-      <a id='share-via-twitter' href='#' target='_blank'>Share using Twitter</a>
-      <a id='share-via-facebook' href='#' target='_blank'>Share using Facebook</a>
+      <a id='share-via-twitter' href='#' target='_blank'>
+        <svg class='icon'><use xlink:href='#icon-twitter'></svg> Share using Twitter
+      </a>
+      <a id='share-via-facebook' href='#' target='_blank'>
+        <svg class='icon'><use xlink:href='#icon-facebook'></svg> Share using Facebook
+      </a>
       <a id='invoke-print' href='#'>Print…</a>
       <a id='save-as-image' href='#'>Save as image…<span>For including in a report, blog, etc.</span></a>
     </div>
