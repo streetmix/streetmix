@@ -535,6 +535,10 @@ var _infoBubble = {
       svgEl.setAttributeNS('http://www.w3.org/2000/xmlns/','xmlns:xlink','http://www.w3.org/1999/xlink');
       svgEl.classList.add('icon');
 
+      if (variantIcon.color) {
+        svgEl.style.fill = variantIcon.color;
+      }
+
       var useEl = document.createElementNS('http://www.w3.org/2000/svg', 'use');
       useEl.setAttributeNS('http://www.w3.org/1999/xlink', 'href', '#icon-' + variantIcon.id);
 
