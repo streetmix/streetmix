@@ -26,13 +26,17 @@ body.read-only #main-screen > footer {
 
   border-top: 3px solid darken(@bottomBackground, 5%);
   margin-top: -3px;
-
 }
-body:not(.safari) .footer-canvas {
-  -webkit-transform: rotateZ(0);
-  -moz-transform: rotateZ(0);
-  transform: rotateZ(0);
 
+body.safari .footer-canvas {
+  // Address a bug where switching building types
+  // will momentarily cause this element to disappear from view
+  // Only in Safari (observed in v8.0.2)
+  -webkit-transform: rotateZ(0);
+  transform: rotateZ(0);
+}
+
+body:not(.safari) .footer-canvas {
   -webkit-perspective: 2000px;
   -moz-perspective: 2000px;
   perspective: 2000px;
