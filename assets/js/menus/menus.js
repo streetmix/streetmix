@@ -16,7 +16,6 @@ var Stmx = (function (Stmx) {
     this.name           = name;
 
     this.alignment      = opts.alignment   || 'left'; // Set to 'right' if menu should be aligned to right of window
-    this.trackAction    = opts.trackAction || null;
     this.onShowCallback = opts.onShow      || null;   // Function to execute after menu open
     this.el             = null; // Placeholder
   }
@@ -64,11 +63,6 @@ var Stmx = (function (Stmx) {
 
     // Show menu
     this.el.classList.add('visible');
-
-    // Tracking behavior
-    if (this.trackAction !== null) {
-      Stmx.app.eventTracking.track(TRACK_CATEGORY_INTERACTION, this.trackAction, null, null, false);
-    }
 
     // Callback
     if (typeof this.onShowCallback === 'function') {

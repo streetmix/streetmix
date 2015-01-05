@@ -14,8 +14,6 @@ var Stmx = (function (Stmx) {
     this.id             = id; // Element id
 
     this.clickSelector  = opts.clickSelector || null;
-    this.trackCategory  = opts.trackCategory || null;
-    this.trackAction    = opts.trackAction   || null;
     this.onInitCallback = opts.onInit        || null; // Function to execute after dialog init
     this.onShowCallback = opts.onShow        || null; // Function to execute after dialog open
     this.onHideCallback = opts.onHide        || null; // Function to execute after dialog close
@@ -60,11 +58,6 @@ var Stmx = (function (Stmx) {
     // to the correct scope, also, cleans out the code
     // in event_listeners.js
     this.el.querySelector('.close').addEventListener('click', this.hide.bind(this));
-
-    // Tracking behavior
-    if (this.trackAction !== null && this.trackCategory !== null) {
-      Stmx.app.eventTracking.track(this.trackCategory, this.trackAction, null, null, false);
-    }
 
     // Callback
     if (typeof this.onShowCallback === 'function') {

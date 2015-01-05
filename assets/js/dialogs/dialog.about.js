@@ -2,8 +2,6 @@
 
   Stmx.ui.dialogs.define('about', '#about', {
     clickSelector: '#about-streetmix',
-    trackCategory: TRACK_CATEGORY_INTERACTION,
-    trackAction: 'Open about dialog box',
     onShow: function () {
       var els = document.querySelectorAll('#about .avatar');
       for (var i = 0, el; el = els[i]; i++) {
@@ -11,6 +9,9 @@
       }
 
       window.history.replaceState(null, null, URL_HELP_ABOUT);
+
+      // Tracking
+      Stmx.app.eventTracking.track(TRACK_CATEGORY_INTERACTION, 'Open about dialog box', null, null, false);
 
       _fetchAvatars();
     },
