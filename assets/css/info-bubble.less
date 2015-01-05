@@ -5,7 +5,6 @@
   background: @infoBubbleBackground;
 
   -webkit-transition: -webkit-transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
-  -moz-transition: -moz-transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
   transition: transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
 
   .box-border;
@@ -16,11 +15,9 @@
   opacity: 0;
 
   -webkit-transform: rotateX(-80deg);
-  -moz-transform: rotateX(-80deg);
   transform: rotateX(-80deg);
 
   -webkit-perspective: 1200px;
-  -moz-perspective: 1200px;
   perspective: 1200px;
 
   .triangle {
@@ -46,7 +43,6 @@
       bottom: 15px;
 
       -webkit-transform: rotateZ(45deg);
-      -moz-transform: rotateZ(45deg);
       transform: rotateZ(45deg);
     }
   }
@@ -54,7 +50,6 @@
   &.visible {
     opacity: 1;
     -webkit-transform: rotateY(0);
-    -moz-transform: rotateY(0);
     transform: rotateY(0);
     pointer-events: auto;
   }
@@ -216,15 +211,12 @@
     border-bottom: 3px solid darken(@uiColour, 20%);
 
     -webkit-transform-origin: 50% 0;
-    -moz-transform-origin: 50% 0;
     transform-origin: 50% 0;
 
     -webkit-transform: rotateX(20deg) translateY(100px);
-    -moz-transform: rotateX(20deg) translateY(100px);
     transform: rotateX(20deg) translateY(100px);
 
     -webkit-transition: opacity 250ms, -webkit-transform 250ms;
-    -moz-transition: opacity 250ms, -moz-transform 250ms;
     transition: opacity 250ms, transform 250ms;
 
     background: @infoBubbleBackground;
@@ -405,7 +397,6 @@
   }
   .description-canvas {
     -webkit-transform: none;
-    -moz-transform: none;
     transform: none;
 
     opacity: 1;

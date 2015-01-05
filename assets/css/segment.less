@@ -9,7 +9,6 @@
   position: absolute;
 
   -webkit-perspective: 500px;
-  -moz-perspective: 500px;
   perspective: 500px;
 }
 .segment.empty {
@@ -44,18 +43,13 @@ body.segment-move-dragging .segment.empty {
 
 body:not(.segment-resize-dragging) .segment {
   -webkit-transition: width 150ms, left 150ms, -webkit-transform 150ms;
-  -moz-transition: width 150ms, left 150ms, -moz-transform 150ms;
   transition: width 150ms, left 150ms, transform 150ms;
 }
 body.immediate-segment-resize .segment {
-  -webkit-transition: none !important;
-  -moz-transition: none !important;
   transition: none !important;
 }
 
 .segment.create {
-  -webkit-transition: none !important;
-  -moz-transition: none !important;
   transition: none !important;
 }
 
@@ -73,11 +67,9 @@ body.immediate-segment-resize .segment {
   margin-right: 1px;
 
   -webkit-transform-origin: 50% 75%;
-  -moz-transform-origin: 50% 75%;
   transform-origin: 50% 75%;
 
   -webkit-transition: -webkit-transform 50ms !important;
-  -moz-transition: -moz-transform 50ms !important;
   transition: transform 50ms !important;
 }
 
@@ -140,11 +132,9 @@ body:not(.touch-support) .segment.palette:hover {
 
   canvas {
     -webkit-transform: scale(1.15);
-    -moz-transform: scale(1.15);
     transform: scale(1.15);
 
     -webkit-transform-origin: 14% 75px;
-    -moz-transform-origin: 14% 75px;
     transform-origin: 14% 75px;
 
   }
@@ -161,14 +151,11 @@ body:not(.touch-support) .segment.palette:hover {
 
   pointer-events: none;
 
-  -webkit-transition: none !important;
-  -moz-transition: none !important;
   transition: none !important;
 }
 
 .segment.floating.first-drag-move {
   -webkit-transition: left 250ms, top 250ms, -webkit-transform 250ms !important;
-  -moz-transition: left 250ms, top 250ms, -moz-transform 250ms !important;
   transition: left 250ms, top 250ms, transform 250ms !important;
 }
 
@@ -207,7 +194,6 @@ body.segment-resize-dragging * {
     text-indent: -5px;
 
     -webkit-transform-origin: 100% 50%;
-    -moz-transform-origin: 100% 50%;
     transform-origin: 100% 50%;
   }
   &.right {
@@ -216,7 +202,6 @@ body.segment-resize-dragging * {
     text-indent: -3px;
 
     -webkit-transform-origin: 0 50%;
-    -moz-transform-origin: 0 50%;
     transform-origin: 0 50%;
   }
 }
@@ -356,17 +341,14 @@ body.segment-resize-dragging * {
   pointer-events: none;
 
   -webkit-transition: -webkit-transform 150ms, opacity 150ms;
-  -moz-transition: -moz-transform 150ms, opacity 150ms;
   transition: transform 150ms, opacity 150ms;
 
   &.left {
     -webkit-transform: rotateY(90deg);
-    -moz-transform: rotateY(90deg);
     transform: rotateY(90deg);
   }
   &.right {
     -webkit-transform: rotateY(-90deg);
-    -moz-transform: rotateY(-90deg);
     transform: rotateY(-90deg);
   }
 
@@ -382,8 +364,6 @@ body.segment-resize-dragging * {
 }
 
 .segment.immediate-show-drag-handles .drag-handle {
-  -webkit-transition: none !important;
-  -moz-transition: none !important;
   transition: none !important;
 }
 
@@ -397,7 +377,6 @@ body.segment-resize-dragging .drag-handle.floating,
   opacity: 1;
 
   -webkit-transform: none;
-  -moz-transform: none;
   transform: none;
 }
 
@@ -565,7 +544,6 @@ body.not-within-canvas * {
 
 body.segment-move-dragging #editable-street-section .segment {
   -webkit-transition: left 100ms, -webkit-transform 300ms;
-  -moz-transition: left 100ms, -moz-transform 300ms;
   transition: left 100ms, transform 300ms;
 }
 
@@ -579,11 +557,9 @@ body.segment-move-dragging #editable-street-section > div {
   pointer-events: none;
 
   -webkit-transform: none !important;
-  -moz-transform: none !important;
   transform: none !important;
 
   -webkit-perspective: 400px;
-  -moz-perspective: 200px;
   perspective: 400px;
 
   .name,
@@ -598,15 +574,12 @@ body.segment-move-dragging #editable-street-section > div {
 
 .switching-away-post canvas {
   -webkit-transition: -webkit-transform @segmentSwitchingTime ease-in, opacity @segmentSwitchingTime ease-in !important;
-  -moz-transition: -moz-transform @segmentSwitchingTime ease-in, opacity @segmentSwitchingTime ease-in !important;
   transition: transform @segmentSwitchingTime ease-in, opacity @segmentSwitchingTime ease-in !important;
 
   -webkit-transform: rotateX(-60deg);
-  -moz-transform: rotateX(-60deg);
   transform: rotateX(-60deg);
 
   -webkit-transform-origin: 50% 120%;
-  -moz-transform-origin: 50% 120%;
   transform-origin: 50% 120%;
 
   opacity: 0;
@@ -616,16 +589,13 @@ body.segment-move-dragging #editable-street-section > div {
   z-index: -1 !important;
 
   -webkit-perspective: 400px;
-  -moz-perspective: 200px;
   perspective: 400px;
 
   & canvas {
     -webkit-transform: rotateX(90deg);
-    -moz-transform: rotateX(90deg);
     transform: rotateX(90deg);
 
     -webkit-transform-origin: 50% 100%;
-    -moz-transform-origin: 50% 100%;
     transform-origin: 50% 100%;
 
     opacity: 0;
@@ -638,10 +608,8 @@ body.segment-move-dragging #editable-street-section > div {
   opacity: 1;
 
   -webkit-transition: -webkit-transform @segmentSwitchingTime, opacity @segmentSwitchingTime !important;
-  -moz-transition: -moz-transform @segmentSwitchingTime, opacity @segmentSwitchingTime !important;
   transition: transform @segmentSwitchingTime, opacity @segmentSwitchingTime !important;
 
   -webkit-transform: none;
-  -moz-transform: none;
   transform: none;
 }
