@@ -20,7 +20,7 @@ var Stmx = (function (Stmx) {
     this.onShowCallback = opts.onShow        || null; // Function to execute after dialog open
     this.onHideCallback = opts.onHide        || null; // Function to execute after dialog close
 
-    this.el = null; // Placeholder for caching dialog box DOM element
+    this.el = null; // For caching a reference to the dialog box's DOM element
   }
 
   Dialog.prototype.init = function() {
@@ -44,7 +44,6 @@ var Stmx = (function (Stmx) {
       return;
     }
 
-    // Event management
     if (event) {
       event.preventDefault();
     }
@@ -77,7 +76,6 @@ var Stmx = (function (Stmx) {
     this.el.classList.remove('visible');
     document.querySelector('#dialog-box-shield').classList.remove('visible');
 
-    // Callback
     if (typeof this.onHideCallback === 'function') {
       this.onHideCallback();
     }
