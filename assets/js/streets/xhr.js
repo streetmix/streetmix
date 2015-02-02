@@ -195,6 +195,13 @@ function _receiveStreet(transmission) {
 }
 
 function _unpackStreetDataFromServerTransmission(transmission) {
+  // Catch a data error where a user's street might be retrieved
+  // without any data in it (so-called error 9B)
+  if (!transmission.data) {
+    _showError(ERRORS.STREET_DATA_FAILURE);
+    return;
+  }
+
   var street = _clone(transmission.data.street);
 
   street.creatorId = (transmission.creator && transmission.creator.id) || null;
