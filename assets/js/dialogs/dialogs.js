@@ -14,12 +14,11 @@ var Stmx = (function (Stmx) {
     this.id             = id; // Element id
 
     this.clickSelector  = opts.clickSelector || null;
-    this.trackCategory  = opts.trackCategory || null;
-    this.trackAction    = opts.trackAction   || null;
+    this.onInitCallback = opts.onInit        || null; // Function to execute after dialog init
     this.onShowCallback = opts.onShow        || null; // Function to execute after dialog open
     this.onHideCallback = opts.onHide        || null; // Function to execute after dialog close
 
-    this.el = null; // Placeholder for caching dialog box DOM element
+    this.el = null; // For caching a reference to the dialog box's DOM element
   }
 
   Dialog.prototype.init = function() {
@@ -27,6 +26,12 @@ var Stmx = (function (Stmx) {
 
     if (this.clickSelector) {
       document.querySelector(this.clickSelector).addEventListener('click', this.show.bind(this));
+    }
+
+    // Callback
+    // Put additional event listeners in this.onInitCallback, for example
+    if (typeof this.onInitCallback === 'function') {
+      this.onInitCallback();
     }
   }
 
@@ -37,7 +42,6 @@ var Stmx = (function (Stmx) {
       return;
     }
 
-    // Event management
     if (event) {
       event.preventDefault();
     }
@@ -55,11 +59,6 @@ var Stmx = (function (Stmx) {
     // in event_listeners.js
     this.el.querySelector('.close').addEventListener('click', this.hide.bind(this));
 
-    // Tracking behavior
-    if (this.trackAction !== null && this.trackCategory !== null) {
-      Stmx.app.eventTracking.track(this.trackCategory, this.trackAction, null, null, false);
-    }
-
     // Callback
     if (typeof this.onShowCallback === 'function') {
       this.onShowCallback();
@@ -70,7 +69,6 @@ var Stmx = (function (Stmx) {
     this.el.classList.remove('visible');
     document.querySelector('#dialog-box-shield').classList.remove('visible');
 
-    // Callback
     if (typeof this.onHideCallback === 'function') {
       this.onHideCallback();
     }
@@ -82,6 +80,8 @@ var Stmx = (function (Stmx) {
 
     define: function (name, selector, opts) {
       dialogs[name] = new Dialog(selector, opts);
+
+      return dialogs[name];
     },
 
     init: function() {

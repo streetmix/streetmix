@@ -8,9 +8,7 @@ var IMAGES_TO_BE_LOADED = [
   '/images/tiles-2.png',
   '/images/tiles-3.png',
   '/images/sky-front.png',
-  '/images/sky-rear.png',
-  '/images/share-icons/facebook-29.png',
-  '/images/share-icons/twitter-32.png'
+  '/images/sky-rear.png'
 ];
 
 var images = [];

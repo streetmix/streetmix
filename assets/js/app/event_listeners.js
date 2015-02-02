@@ -25,10 +25,6 @@ function _addEventListeners() {
     document.querySelector('#welcome .close').addEventListener('click', _hideWelcome);
   }
 
-  document.querySelector('#save-as-image-transparent-sky').addEventListener('click', _updateSaveAsImageOptions);
-  document.querySelector('#save-as-image-segment-names').addEventListener('click', _updateSaveAsImageOptions);
-  document.querySelector('#save-as-image-street-name').addEventListener('click', _updateSaveAsImageOptions);
-
   document.querySelector('#street-section-outer').addEventListener('scroll', _onStreetSectionScroll);
 
   if (!system.touch) {

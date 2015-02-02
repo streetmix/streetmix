@@ -1,9 +1,5 @@
 var TRACK_ACTION_LEARN_MORE = 'Learn more about segment';
 
-var VARIANT_ICON_START_X = 164; // x24 in tileset file
-var VARIANT_ICON_START_Y = 64; // x24 in tileset file
-var VARIANT_ICON_SIZE = 24;
-
 var INFO_BUBBLE_MARGIN_BUBBLE = 20;
 var INFO_BUBBLE_MARGIN_MOUSE = 10;
 
@@ -534,15 +530,25 @@ var _infoBubble = {
     var variantIcon = VARIANT_ICONS[name];
 
     if (variantIcon) {
-      var canvasEl = document.createElement('canvas');
-      canvasEl.width = VARIANT_ICON_SIZE * system.hiDpi;
-      canvasEl.height = VARIANT_ICON_SIZE * system.hiDpi;
-      canvasEl.style.width = VARIANT_ICON_SIZE + 'px';
-      canvasEl.style.height = VARIANT_ICON_SIZE + 'px';
+      var svgEl = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svgEl.setAttributeNS('http://www.w3.org/2000/xmlns/','xmlns','http://www.w3.org/1999/svg');
+      svgEl.setAttributeNS('http://www.w3.org/2000/xmlns/','xmlns:xlink','http://www.w3.org/1999/xlink');
+      if (svgEl.classlist) {
+        svgEl.classList.add('icon');
+      } else {
+        // Internet Explorer does not have the .classList methods on SVGElements
+        svgEl.setAttribute('class', 'icon');
+      }
 
-      var ctx = canvasEl.getContext('2d');
-      _drawSegmentImage(3, ctx, (VARIANT_ICON_START_X + variantIcon.x * 3) * TILE_SIZE, (VARIANT_ICON_START_Y + variantIcon.y * 3) * TILE_SIZE, 24, 24, 0, 0, VARIANT_ICON_SIZE, VARIANT_ICON_SIZE);
-      buttonEl.appendChild(canvasEl);
+      if (variantIcon.color) {
+        svgEl.style.fill = variantIcon.color;
+      }
+
+      var useEl = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+      useEl.setAttributeNS('http://www.w3.org/1999/xlink', 'href', '#icon-' + variantIcon.id);
+
+      buttonEl.appendChild(svgEl);
+      svgEl.appendChild(useEl);
 
       if (variantIcon.title) {
         buttonEl.title = variantIcon.title;

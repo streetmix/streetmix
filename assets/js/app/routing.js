@@ -26,7 +26,7 @@ var URL_ERROR_NO_TWITTER_REQUEST_TOKEN = 'no-twitter-request-token';
 var URL_ERROR_NO_TWITTER_ACCESS_TOKEN = 'no-twitter-access-token';
 var URL_ERROR_AUTHENTICATION_API_PROBLEM = 'authentication-api-problem';
 
-var URL_EXAMPLE_STREET = 'saikofish/29';
+var URL_EXAMPLE_STREET = 'streetmix/7';
 
 var URL_SIGN_IN_REDIRECT = URL_SIGN_IN + '?callbackUri=' +
     URL_SIGN_IN_CALLBACK_ABS + '&redirectUri=' + URL_JUST_SIGNED_IN_ABS;

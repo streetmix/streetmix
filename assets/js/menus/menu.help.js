@@ -1,3 +1,5 @@
 Stmx.ui.menus.define('help', {
-  trackAction: 'Open help menu'
+  onShow: function() {
+    Stmx.app.eventTracking.track(TRACK_CATEGORY_INTERACTION, 'Open help menu', null, null, false);
+  }
 });
