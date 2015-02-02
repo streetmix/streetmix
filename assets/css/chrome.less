@@ -130,13 +130,9 @@ body.phone #loading {
   }
 
   &.darken {
-    -webkit-transition: background 1500ms, color 1500ms;
-    -moz-transition: background 1500ms, color 1500ms;
     transition: background 1500ms, color 1500ms;
   }
   &.darken-immediately {
-    -webkit-transition: none;
-    -moz-transition: none;
     transition: none;
   }
 
@@ -190,17 +186,13 @@ body.phone #loading {
 
   .user-select-none;
 
-  -webkit-transition: opacity 200ms, -webkit-transform 200ms;
-  -moz-transition: opacity 200ms, -moz-transform 200ms;
   transition: opacity 200ms, transform 200ms;
 
   -webkit-transform: translateY(100px);
-  -moz-transform: translateY(100px);
   transform: translateY(100px);
 
   &.visible {
     -webkit-transform: translateY(0);
-    -moz-transform: translateY(0);
     transform: translateY(0);
   }
 
@@ -356,20 +348,14 @@ body.no-connection-message-visible #status-message {
 }
 
 body.controls-fade-out .info-bubble {
-  -webkit-transition: opacity @touchControlsFadeoutTime;
-  -moz-transition: opacity @touchControlsFadeoutTime;
   transition: opacity @touchControlsFadeoutTime;
   opacity: 0.01 !important;
 }
 body.controls-fade-out .segment .drag-handle {
-  -webkit-transition: opacity @touchControlsFadeoutTime !important;
-  -moz-transition: opacity @touchControlsFadeoutTime !important;
   transition: opacity @touchControlsFadeoutTime !important;
   opacity: 0.01 !important;
 }
 body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
-  -webkit-transition: opacity @touchControlsFadeoutTime !important;
-  -moz-transition: opacity @touchControlsFadeoutTime !important;
   transition: opacity @touchControlsFadeoutTime !important;
   opacity: 0.01 !important;
 }

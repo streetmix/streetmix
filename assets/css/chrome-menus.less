@@ -127,7 +127,6 @@
       font-size: 9px;
       display: inline-block;
       -webkit-transform: scaleY(.75);
-      -moz-transform: scaleY(.75);
       transform: scaleY(.75);
     }
     &:hover {
@@ -157,23 +156,19 @@ body.read-only #top-menu-bar {
   .box-border;
 
   -webkit-transform-origin: 50% 0;
-  -moz-transform-origin: 50% 0;
   transform-origin: 50% 0;
 
   -webkit-transform: rotateX(-90deg);
-  -moz-transform: rotateX(-90deg);
   transform: rotateX(-90deg);
   opacity: 0;
 
   -webkit-transition: -webkit-transform 100ms, opacity 100ms;
-  -moz-transition: -moz-transform 100ms, opacity 100ms;
   transition: transform 100ms, opacity 100ms;
 
   pointer-events: none;
 
   &.visible {
     -webkit-transform: rotateX(0);
-    -moz-transform: rotateX(0);
     transform: rotateX(0);
     opacity: 1;
 
@@ -233,12 +228,10 @@ body.read-only #top-menu-bar {
 
 body.safari .menu {
   -webkit-transform: translateY(20px) translateZ(100px);
-  -moz-transform: translateY(20px) translateZ(100px);
   transform: translateY(20px) translateZ(100px);
 
   &.visible {
     -webkit-transform: rotateX(0) translateZ(100px);
-    -moz-transform: rotateX(0) translateZ(100px);
     transform: rotateX(0) translateZ(100px);
   }
 }
