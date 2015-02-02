@@ -72,6 +72,11 @@ function _receiveGalleryData(transmission) {
 
   for (var i in transmission.streets) {
     var galleryStreet = transmission.streets[i];
+
+    // There is a bug where sometimes street data is non-existent for an unknown reason
+    // Skip over so that the rest of gallery will display
+    if (!galleryStreet.data) continue;
+
     _updateToLatestSchemaVersion(galleryStreet.data.street);
 
     var el = document.createElement('li');
