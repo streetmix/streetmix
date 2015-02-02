@@ -1,0 +1,49 @@
+#welcome
+  div
+    button.close ×
+
+    .first-time-new-street
+      h1(data-i18n='dialogs.welcome.heading').
+        Welcome to Streetmix.
+      p.
+        Design, remix, and share your neighborhood street. Add trees or bike paths, widen
+        sidewalks or traffic lanes, learn how your decisions can impact your community.
+      p(class='important').
+        Start by moving some segments around with
+        <span class='touch-only'>your finger.</span>
+        <span class='non-touch-only'>your mouse.</span>
+
+    .first-time-existing-street
+      h1(data-i18n='dialogs.welcome.heading').
+        Welcome to Streetmix.
+      p.
+        This is
+        <span class='street-name'>
+          <span id='welcome-street-name'></span>
+        </span>
+        <span id='welcome-avatar-creator'>
+          made by
+          <span class='avatar' id='welcome-avatar' userId=''></span>
+          <span id='welcome-creator'></span>
+        </span>.
+      p.important.
+        Remix it by moving some segments around,
+        or <button id='welcome-new-street'>Start your own street</button>.
+
+    .new-street
+      h1(data-i18n='dialogs.new-street.heading').
+        Here’s your new street.
+      ul
+        li
+          input#new-street-default(type='radio', name='new-street')
+          label(for='new-street-default', data-i18n='dialogs.new-street.default').
+            Start with an example street
+        li
+          input#new-street-empty(type='radio', name='new-street')
+          label(for='new-street-empty', data-i18n='dialogs.new-street.empty').
+            Start with an empty street
+        li
+          input#new-street-last(type='radio', name='new-street')
+          label(for='new-street-last', data-i18n='dialogs.new-street.last').
+            Start with a copy of last street
+

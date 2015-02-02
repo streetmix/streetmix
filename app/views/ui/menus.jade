@@ -1,0 +1,79 @@
+.menu#identity-menu
+  a#sign-out-link(href='#', data-i18n='menu.item.sign-out') Sign out
+
+.menu#help-menu
+  a#about-streetmix(href='/help/about', data-i18n='menu.item.about') About Streetmix…
+  .form.non-touch-only#help-shortcuts
+    p
+      span(data-i18n='menu.help.keyboard-label') Keyboard shortcuts:
+    table
+      tr
+        td
+          span.key(data-i18n='key.backspace') Backspace
+        td
+          | Remove a segment you’re pointing at<br>
+          | (hold <span class='key'>Shift</span> to remove all)
+      tr
+        td
+          span.key –
+          span.key +
+        td
+          | Change width of a segment you’re pointing at<br>
+          | (hold <span class='key'>Shift</span> for more precision)
+      tr
+        td
+          span.key &larr;
+          span.key &rarr;
+        td
+          | Move around the street
+          | (hold <span class='key'>Shift</span> to jump to edges)
+
+.menu#feedback-menu
+  .form#feedback-form
+    .feedback-notice.loading Loading…
+    .feedback-notice.thank-you We got it. Thanks!
+    .feedback-notice.error We’re sorry, there was a problem sending feedback at this time. Please try again later.
+
+    | Send us a message:
+
+    textarea#feedback-form-message(placeholder='What do you think of Streetmix?')
+    input#feedback-form-email(type='email', placeholder='Your email (optional)')
+    button#feedback-form-send Send message
+
+  a#feedback-via-twitter(href='#', target='_blank') Send a tweet to @streetmix
+  a(href='mailto:streetmix@codeforamerica.org', target='_blank') Send an email to Streetmix team
+  a(href='https://github.com/codeforamerica/streetmix', target='_blank') View/comment on GitHub
+  a(href='http://blog.streetmix.net', target='_blank') Visit Streetmix blog
+
+.menu#settings-menu
+  .form
+    p
+      span(data-i18n='menu.language.heading') Language
+    p
+      select#language-select
+        option(value='en-US') English (US)
+        option(value='de') German
+        option(value='en@pirate') Pirate
+        option(value='pt-BR') Portuguese (Brazil)
+
+.menu#share-menu
+  #sign-in-promo.
+    <a href='/twitter-sign-in?redirectUri=/just-signed-in'>Sign in with Twitter</a>
+    for nicer links to your streets and your personal street gallery
+  #share-via-link-canvas
+    | Copy and paste this link to share:
+    input#share-via-link(type='text' value='')
+
+  a#share-via-twitter(href='#', target='_blank')
+    svg.icon
+      use(xlink:href='#icon-twitter')
+    | Share using Twitter
+  a#share-via-facebook(href='#', target='_blank')
+    svg.icon
+      use(xlink:href='#icon-facebook')
+    | Share using Facebook
+  a#invoke-print(href='#')
+    | Print…
+  a#save-as-image(href='#')
+    | Save as image…
+    span For including in a report, blog, etc.
