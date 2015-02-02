@@ -22,7 +22,8 @@ var ERRORS = {
   STREET_410_BUT_LINK_TO_USER: 17,
   CANNOT_CREATE_NEW_STREET_ON_PHONE: 18,
   SIGN_IN_SERVER_FAILURE: 19,
-  SIGN_IN_401: 20
+  SIGN_IN_401: 20,
+  STREET_DATA_FAILURE: 21
 };
 
 function _showError(errorType, newAbortEverything) {
@@ -94,6 +95,10 @@ function _showError(errorType, newAbortEverything) {
     case ERRORS.SIGN_IN_401:
       title = 'Having trouble…';
       description = 'We’re having trouble loading Streetmix.<br>(Error RM1.)<br><button id="error-new">Try again</button>';
+      break;
+    case ERRORS.STREET_DATA_FAILURE:
+      title = 'Having trouble…';
+      description = 'We’re having trouble loading Streetmix.<br>(Error 9B.)<br><button id="error-new">Try again</button>';
       break;
     case ERRORS.TWITTER_ACCESS_DENIED:
       title = 'You are not signed in.';
