@@ -134,6 +134,7 @@ function _onBodyKeyDown(event) {
     case KEYS.S:
       if (event.metaKey || event.ctrlKey) {
         _statusMessage.show(msg('STATUS_NO_NEED_TO_SAVE'));
+        Stmx.app.eventTracking.track(TRACK_CATEGORY_INTERACTION, 'Command-S or Ctrl-S save shortcut key pressed', null, null, false);
         event.preventDefault();
       }
       break;
