@@ -22,7 +22,8 @@ var ERRORS = {
   STREET_410_BUT_LINK_TO_USER: 17,
   CANNOT_CREATE_NEW_STREET_ON_PHONE: 18,
   SIGN_IN_SERVER_FAILURE: 19,
-  SIGN_IN_401: 20
+  SIGN_IN_401: 20,
+  STREET_DATA_FAILURE: 21
 };
 
 function _showError(errorType, newAbortEverything) {
@@ -95,6 +96,10 @@ function _showError(errorType, newAbortEverything) {
       title = 'Having trouble…';
       description = 'We’re having trouble loading Streetmix.<br>(Error RM1.)<br><button id="error-new">Try again</button>';
       break;
+    case ERRORS.STREET_DATA_FAILURE:
+      title = 'Having trouble…';
+      description = 'We’re having trouble loading Streetmix.<br>(Error 9B.)<br><button id="error-new">Try again</button>';
+      break;
     case ERRORS.TWITTER_ACCESS_DENIED:
       title = 'You are not signed in.';
       description = 'You cancelled the Twitter sign in process.<br><button id="error-home">Go to the homepage</button>';
@@ -109,7 +114,7 @@ function _showError(errorType, newAbortEverything) {
     case ERRORS.UNSUPPORTED_BROWSER:
       title = 'Streetmix doesn’t work on your browser… yet.';
       // TODO const for feedback
-      description = 'Sorry about that. You might want to try <a target="_blank" href="http://www.google.com/chrome">Chrome</a>, <a target="_blank" href="http://www.mozilla.org/firefox">Firefox</a>, or Safari. <br><br>Are you on Internet Explorer? <a target="_blank" href="/help/internet-explorer">Find out why IE is not supported.</a> <br><br>If you think your browser should be supported, please contact us via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a>.';
+      description = 'Sorry about that. You might want to try <a target="_blank" href="http://www.google.com/chrome">Chrome</a>, <a target="_blank" href="http://www.mozilla.org/firefox">Firefox</a>, or Safari. <br><br>Are you on Internet Explorer? <a target="_blank" href="http://guidebook.streetmix.net/faq/#internet-explorer">Find out why IE is not supported.</a> <br><br>If you think your browser should be supported, please contact us via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a>.';
       break;
     case ERRORS.CANNOT_CREATE_NEW_STREET_ON_PHONE:
       title = 'Streetmix works on tablets and desktops only.';

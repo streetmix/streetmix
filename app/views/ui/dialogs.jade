@@ -1,0 +1,83 @@
+#dialog-box-shield
+
+#about.dialog-box
+  button.close ×
+
+  .left
+    h1(data-i18n='dialogs.about.heading').
+      About Streetmix.
+
+    p.description(data-i18n='dialogs.about.description').
+      Design, remix, and share your street.
+      Add bike paths, widen sidewalks or traffic lanes, learn
+      how all of this can impact your community.
+
+    ul
+      li
+        a(href='http://blog.streetmix.net', target='_blank', data-i18n='menu.contact.blog').
+          Visit Streetmix blog
+      li
+        a(href='https://github.com/codeforamerica/streetmix/', target='_blank', data-i18n='dialogs.about.view-source').
+          View source code
+
+  .right
+    p.
+      A side project by
+      <a target='_blank' href='http://codeforamerica.org'>Code for America</a> 2013 fellows:
+
+    ul.team
+      li.
+        <a target='_blank' href='http://twitter.com/anselmbradford'><div class='avatar' postpone='true' userId='anselmbradford'></div>Anselm Bradford</a> · media production
+      li.
+        <a target='_blank' href='http://ahhrrr.com'><div class='avatar' postpone='true' userId='ahhrrr'></div>Ezra Spier</a> · cat herder, proto-urbanist
+      li.
+        <a target='_blank' href='http://twitter.com/klizlewis'><div class='avatar' postpone='true' userId='klizlewis'></div>Katie Lewis</a> · illustrator
+      li.
+        <a target='_blank' href='http://louhuang.com'><div class='avatar' postpone='true' userId='saikofish'></div>Lou Huang</a> · project lead, research, outreach, transit fan
+      li.
+        <a target='_blank' href='http://www.linkedin.com/pub/marc-hebert/1/2bb/66'><div class='avatar' postpone='true' userId='anthromarc'></div>Marc Hébert</a> · UX researcher, design anthropologist
+      li.
+        <a target='_blank' href='http://aresluna.org'><div class='avatar' postpone='true' userId='mwichary'></div>Marcin Wichary</a> · UX, FE, PM, sharrow whisperer
+      li.
+        <a target='_blank' href='http://twitter.com/shaunak'><div class='avatar' postpone='true' userId='shaunak'></div>Shaunak Kashyap</a> · rear end engineering
+
+    footer.
+      Many thanks to the staff and 2013 CfA fellows for their support and patience,
+      the Blockee team for paving the way, and all of our testers for their time and feedback!
+
+#save-as-image-dialog.dialog-box
+  div
+    button.close ×
+
+    h1(data-i18n='dialogs.save.heading').
+      Save as image
+
+    p
+      input#save-as-image-segment-names(type='checkbox')
+      label(for='save-as-image-segment-names', data-i18n='dialogs.save.option-label').
+        Segment names and widths
+      input#save-as-image-street-name(type='checkbox')
+      label(for='save-as-image-street-name', data-i18n='dialogs.save.option-name').
+        Street name
+      input#save-as-image-transparent-sky(type='checkbox')
+      label(for='save-as-image-transparent-sky', data-i18n='dialogs.save.option-sky').
+        Transparent sky
+
+    #save-as-image-preview
+      #save-as-image-preview-loading(data-i18n='dialogs.save.loading').
+        Loading…
+      #save-as-image-preview-preview
+
+    p
+      span.non-touch-only
+        span(data-i18n='dialogs.save.instructions-mouse').
+          Drag the image anywhere you want, or
+        a#save-as-image-download.button-like(download, data-i18n='dialogs.save.save-button').
+          Save to your computer…
+      span.touch-only(data-i18n='dialogs.save.instructions-touch').
+        Hold your finger on the image above to save or copy it.
+
+    footer(data-i18n='dialogs.save.license').
+      This Streetmix-created image may be reused anywhere, for any purpose, under the
+      <br><a href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+

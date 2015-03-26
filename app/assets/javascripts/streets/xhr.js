@@ -167,7 +167,7 @@ function _receiveStreetForVerification(transmission, textStatus, request) {
     _unpackServerStreetData(transmission, null, null, false);
     _updateEverything(true);
 
-    _eventTracking.track(TRACK_CATEGORY_EVENT,
+    Stmx.app.eventTracking.track(TRACK_CATEGORY_EVENT,
         TRACK_ACTION_STREET_MODIFIED_ELSEWHERE, null, null, false);
   }
 }
@@ -195,6 +195,13 @@ function _receiveStreet(transmission) {
 }
 
 function _unpackStreetDataFromServerTransmission(transmission) {
+  // Catch a data error where a user's street might be retrieved
+  // without any data in it (so-called error 9B)
+  if (!transmission.data) {
+    _showError(ERRORS.STREET_DATA_FAILURE);
+    return;
+  }
+
   var street = _clone(transmission.data.street);
 
   street.creator = transmission.creator || {};
@@ -359,47 +366,6 @@ function _receiveLastStreet(transmission) {
   lastStreet = _trimStreetData(street);
 
   _saveStreetToServer(false);
-}
-
-function _receiveLiveUpdateStreet(transmission) {
-  window.setTimeout(function() {
-    _unpackServerStreetData(transmission, null, null, false);
-    _updateEverything(true);
-  }, 1000);
-
-  _flash();
-}
-
-function _receiveLiveUpdateCheck(data, textStatus, jqXHR) {
-  var newUpdatedDate =
-      Math.floor((new Date(jqXHR.getResponseHeader('last-modified')).getTime()) / 1000);
-  var oldUpdatedDate =
-      Math.floor((new Date(street.updatedAt).getTime()) / 1000);
-
-  if (newUpdatedDate != oldUpdatedDate) {
-    var url = _getFetchStreetUrl();
-    $.ajax({
-      url: url,
-      dataType: 'json',
-      type: 'GET'
-    }).done(_receiveLiveUpdateStreet);
-  }
-
-  _scheduleNextLiveUpdateCheck();
-}
-
-function _checkForLiveUpdate() {
-  var url = _getFetchStreetUrl();
-
-  $.ajax({
-    url: url,
-    dataType: 'json',
-    type: 'HEAD'
-  }).done(_receiveLiveUpdateCheck);
-}
-
-function _scheduleNextLiveUpdateCheck() {
-  window.setTimeout(_checkForLiveUpdate, LIVE_UPDATE_DELAY);
 }
 
 function _sendDeleteStreetToServer(id) {

@@ -461,7 +461,7 @@ function _onBodyMouseDown(event) {
     return;
   }
 
-  _hideMenus();
+  Stmx.ui.menus.hideAll();
 
   if (el.classList.contains('drag-handle')) {
     _handleSegmentResizeStart(event);
@@ -711,7 +711,7 @@ function _handleSegmentMoveEnd(event) {
       _removeElFromDom(draggingMove.originalEl);
     }
 
-    _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_REMOVE_SEGMENT,
+    Stmx.app.eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_REMOVE_SEGMENT,
         TRACK_LABEL_DRAGGING, null, true);
   } else if (draggingMove.segmentBeforeEl || draggingMove.segmentAfterEl || (street.segments.length == 0)) {
     var smartDrop = _doDropHeuristics(draggingMove.originalType,

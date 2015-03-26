@@ -7,6 +7,7 @@ var system = {
   phone: false,
   safari: false,
   windows: false,
+  noInternet: (NO_INTERNET_MODE === true) ? true : false,
 
   viewportWidth: null,
   viewportHeight: null,
@@ -104,5 +105,9 @@ function _addBodyClasses() {
 
   if (system.phone) {
     document.body.classList.add('phone');
+  }
+
+  if (system.noInternet) {
+    document.body.classList.add('no-internet');
   }
 }

@@ -14,6 +14,7 @@ var URL_JUST_SIGNED_IN = 'just-signed-in'; // TODO fix this
 var URL_NEW_STREET = 'new';
 var URL_NEW_STREET_COPY_LAST = 'copy-last';
 var URL_GLOBAL_GALLERY = 'gallery';
+var URL_LOCALES = 'locales';
 var URL_ERROR = 'error';
 var URL_NO_USER = '-';
 var URL_HELP = 'help';
@@ -25,7 +26,7 @@ var URL_ERROR_NO_TWITTER_REQUEST_TOKEN = 'no-twitter-request-token';
 var URL_ERROR_NO_TWITTER_ACCESS_TOKEN = 'no-twitter-access-token';
 var URL_ERROR_AUTHENTICATION_API_PROBLEM = 'authentication-api-problem';
 
-var URL_EXAMPLE_STREET = 'saikofish/29';
+var URL_EXAMPLE_STREET = 'streetmix/7';
 
 var URL_SIGN_IN_REDIRECT = URL_SIGN_IN + '?callbackUri=' +
     URL_SIGN_IN_CALLBACK_ABS + '&redirectUri=' + URL_JUST_SIGNED_IN_ABS;
@@ -36,6 +37,7 @@ var RESERVED_URLS =
     [URL_SIGN_IN, URL_SIGN_IN_CALLBACK,
     URL_NEW_STREET, URL_NEW_STREET_COPY_LAST,
     URL_JUST_SIGNED_IN,
+    URL_LOCALES,
     URL_HELP, URL_GLOBAL_GALLERY, URL_ERROR, 'streets'];
 var URL_RESERVED_PREFIX = '~';
 

@@ -122,7 +122,7 @@ function _handleSegmentResizeEnd(event) {
   }, 50);
 
   if (draggingResize.width && (draggingResize.originalWidth != draggingResize.width)) {
-    _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH,
+    Stmx.app.eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH,
         TRACK_LABEL_DRAGGING, null, true);
   }
 }
@@ -270,7 +270,7 @@ function _widthEditInputChanged(el, immediate) {
 function _onWidthEditInput(event) {
   _widthEditInputChanged(event.target, false);
 
-  _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH,
+  Stmx.app.eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH,
       TRACK_LABEL_INPUT_FIELD, null, true);
 }
 
@@ -292,7 +292,7 @@ function _onWidthEditKeyDown(event) {
     case KEYS.ESC:
       el.value = el.oldValue;
       _widthEditInputChanged(el, true);
-      _hideMenus();
+      Stmx.ui.menus.hideAll();
       _loseAnyFocus();
       break;
   }
@@ -312,7 +312,7 @@ function _onHeightEditKeyDown(event) {
     case KEYS.ESC:
       el.value = el.oldValue;
       _heightEditInputChanged(el, true);
-      _hideMenus();
+      Stmx.ui.menus.hideAll();
       _loseAnyFocus();
       break;
   }
@@ -348,7 +348,7 @@ function _onWidthDecrementClick(event) {
   _incrementSegmentWidth(segmentEl, false, precise);
   _scheduleControlsFadeout(segmentEl);
 
-  _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH,
+  Stmx.app.eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH,
       TRACK_LABEL_INCREMENT_BUTTON, null, true);
 }
 
@@ -360,7 +360,7 @@ function _onWidthIncrementClick(event) {
   _incrementSegmentWidth(segmentEl, true, precise);
   _scheduleControlsFadeout(segmentEl);
 
-  _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH,
+  Stmx.app.eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH,
       TRACK_LABEL_INCREMENT_BUTTON, null, true);
 }
 

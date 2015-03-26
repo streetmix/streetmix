@@ -33,7 +33,7 @@ function _getBuildingAttributes(street, left) {
       var tileset = 2;
 
       var floorHeight = 10;
-      var roofHeight = 1;
+      var roofHeight = 2;
       var mainFloorHeight = 14;
       break;
     case 'wide':
@@ -43,7 +43,7 @@ function _getBuildingAttributes(street, left) {
       var tileset = 3;
 
       var floorHeight = 10;
-      var roofHeight = 1;
+      var roofHeight = 2;
       var mainFloorHeight = 14;
       break;
     case 'residential':

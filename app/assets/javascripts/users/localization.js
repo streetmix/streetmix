@@ -48,7 +48,7 @@ function _detectGeolocationTimeout() {
     _checkIfSignInAndGeolocationLoaded();
     _checkIfEverythingIsLoaded();
 
-    _eventTracking.track(TRACK_CATEGORY_ERROR, TRACK_ACTION_ERROR_GEOLOCATION_TIMEOUT,
+    Stmx.app.eventTracking.track(TRACK_CATEGORY_ERROR, TRACK_ACTION_ERROR_GEOLOCATION_TIMEOUT,
         null, null, false);
   }
 }
@@ -132,7 +132,7 @@ function _updateUnits(newUnits) {
   ignoreStreetChanges = false;
 
   _buildStreetWidthMenu();
-  _hideMenus();
+  Stmx.ui.menus.hideAll();
 
   _saveStreetToServerIfNecessary();
   _saveSettingsLocally();

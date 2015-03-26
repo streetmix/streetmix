@@ -31,16 +31,14 @@ function _onGlobalKeyDown(event) {
         _hideDebugInfo();
       } else if (document.querySelector('#welcome').classList.contains('visible')) {
         _hideWelcome();
-      } else if (document.querySelector('#save-as-image-dialog').classList.contains('visible')) {
-        _hideSaveAsImageDialogBox();
-      } else if (document.querySelector('#about').classList.contains('visible')) {
-        _hideAboutDialogBox();
+      } else if (Stmx.ui.dialogs.isVisible()) {
+        Stmx.ui.dialogs.hideAll();
       } else if (draggingType == DRAGGING_TYPE_RESIZE) {
         _handleSegmentResizeCancel();
       } else if (draggingType == DRAGGING_TYPE_MOVE) {
         _handleSegmentMoveCancel();
-      } else if (menuVisible) {
-        _hideMenus();
+      } else if (Stmx.ui.menus.isVisible() === true) {
+        Stmx.ui.menus.hideAll();
       } else if (document.querySelector('#status-message').classList.contains('visible')) {
         _statusMessage.hide();
       } else if (_infoBubble.visible && _infoBubble.descriptionVisible) {
@@ -64,7 +62,7 @@ function _onGlobalKeyDown(event) {
 function _onBodyKeyDown(event) {
   switch (event.keyCode) {
     case KEYS.SLASH:
-      _onHelpMenuClick();
+      Stmx.ui.menus.instances.help.onClick();
       break;
 
     case KEYS.EQUAL:
@@ -92,7 +90,7 @@ function _onBodyKeyDown(event) {
         }
         event.preventDefault();
 
-        _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH,
+        Stmx.app.eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH,
             TRACK_LABEL_KEYBOARD, null, true);
       }
       break;
@@ -105,7 +103,7 @@ function _onBodyKeyDown(event) {
       var segmentHoveredEl = _getHoveredSegmentEl();
       _removeSegment(segmentHoveredEl, event.shiftKey);
 
-      _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_REMOVE_SEGMENT,
+      Stmx.app.eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_REMOVE_SEGMENT,
           TRACK_LABEL_KEYBOARD, null, true);
 
       event.preventDefault();
@@ -136,6 +134,7 @@ function _onBodyKeyDown(event) {
     case KEYS.S:
       if (event.metaKey || event.ctrlKey) {
         _statusMessage.show(msg('STATUS_NO_NEED_TO_SAVE'));
+        Stmx.app.eventTracking.track(TRACK_CATEGORY_INTERACTION, 'Command-S or Ctrl-S save shortcut key pressed', null, null, false);
         event.preventDefault();
       }
       break;

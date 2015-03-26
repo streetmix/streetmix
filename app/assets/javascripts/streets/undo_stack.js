@@ -31,7 +31,7 @@ function _undoRedo(undo) {
     _statusMessage.hide();
   }
 
-  _eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_UNDO,
+  Stmx.app.eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_UNDO,
       null, null, true);
 }
 

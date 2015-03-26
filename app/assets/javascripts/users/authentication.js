@@ -98,7 +98,7 @@ function _errorReceiveSignInDetails(data) {
   }*/
 
   if (data.status == 401) {
-    _eventTracking.track(TRACK_CATEGORY_ERROR, TRACK_ACTION_ERROR_RM1,
+    Stmx.app.eventTracking.track(TRACK_CATEGORY_ERROR, TRACK_ACTION_ERROR_RM1,
         null, null, false);
 
     _signOut(true);
@@ -106,7 +106,7 @@ function _errorReceiveSignInDetails(data) {
     _showError(ERRORS.SIGN_IN_401, true);
     return;
   } else if (data.status == 503) {
-    _eventTracking.track(TRACK_CATEGORY_ERROR, TRACK_ACTION_ERROR_15A,
+    Stmx.app.eventTracking.track(TRACK_CATEGORY_ERROR, TRACK_ACTION_ERROR_15A,
         null, null, false);
 
     _showError(ERRORS.SIGN_IN_SERVER_FAILURE, true);
@@ -176,6 +176,7 @@ function _errorReceiveSignOutConfirmationFromServer() {
 
 function _createSignInUI() {
   if (signedIn) {
+<<<<<<< HEAD:app/assets/javascripts/users/authentication.js
     var el = document.createElement('div');
     el.classList.add('avatar');
     el.setAttribute('twitterId', signInData.twitterId);
@@ -183,12 +184,26 @@ function _createSignInUI() {
 
     var el = document.createElement('button');
     el.innerHTML = signInData.twitterId;
+=======
+
+    var el = document.createElement('button');
+>>>>>>> master:assets/js/users/authentication.js
     el.classList.add('id');
     el.classList.add('menu-attached');
     el.id = 'identity-menu-button';
-    document.querySelector('#identity').appendChild(el);
+    document.querySelector('#identity-menu-item').appendChild(el);
 
-    document.querySelector('#identity').classList.add('visible');
+    var avatarEl = document.createElement('div');
+    avatarEl.classList.add('avatar');
+    avatarEl.setAttribute('userId', signInData.userId);
+    document.querySelector('#identity-menu-button').appendChild(avatarEl);
+
+    var userIdEl = document.createElement('span');
+    userIdEl.classList.add('user-id');
+    userIdEl.textContent = signInData.userId;
+    document.querySelector('#identity-menu-button').appendChild(userIdEl);
+
+    document.querySelector('#identity-menu-item').classList.add('visible');
 
     _fetchAvatars();
   } else {
@@ -198,7 +213,7 @@ function _createSignInUI() {
     el.innerHTML = 'Sign in';
     document.querySelector('#sign-in-link').appendChild(el);
 
-    document.querySelector('#identity').classList.remove('visible');
+    document.querySelector('#identity-menu-item').classList.remove('visible');
   }
 }
 

@@ -16,15 +16,6 @@ function _addEventListeners() {
   document.querySelector('#share-via-twitter').addEventListener('click', _shareViaTwitter);
   document.querySelector('#share-via-facebook').addEventListener('click', _shareViaFacebook);
 
-  if (system.touch) {
-    document.querySelector('#dialog-box-shield').addEventListener('touchstart', _hideDialogBoxes);
-  } else {
-    document.querySelector('#dialog-box-shield').addEventListener('click', _hideDialogBoxes);
-  }
-  document.querySelector('#about .close').addEventListener('click', _hideAboutDialogBox);
-
-  document.querySelector('#about-streetmix').addEventListener('click', _showAboutDialogBox);
-
   document.querySelector('#street-scroll-indicator-left').addEventListener('click', _onStreetLeftScrollClick);
   document.querySelector('#street-scroll-indicator-right').addEventListener('click', _onStreetRightScrollClick);
 
@@ -33,13 +24,6 @@ function _addEventListeners() {
   } else {
     document.querySelector('#welcome .close').addEventListener('click', _hideWelcome);
   }
-  document.querySelector('#save-as-image-dialog .close').addEventListener('click', _hideSaveAsImageDialogBox);
-
-  document.querySelector('#save-as-image').addEventListener('click', _showSaveAsImageDialogBox);
-
-  document.querySelector('#save-as-image-transparent-sky').addEventListener('click', _updateSaveAsImageOptions);
-  document.querySelector('#save-as-image-segment-names').addEventListener('click', _updateSaveAsImageOptions);
-  document.querySelector('#save-as-image-street-name').addEventListener('click', _updateSaveAsImageOptions);
 
   document.querySelector('#street-section-outer').addEventListener('scroll', _onStreetSectionScroll);
 
@@ -136,33 +120,4 @@ function _addEventListeners() {
   }
   window.addEventListener('keydown', _onGlobalKeyDown);
 
-  /*if (system.touch) {
-    document.querySelector('#share-menu-button').
-        addEventListener('touchstart', _onShareMenuClick);
-    document.querySelector('#feedback-menu-button').
-        addEventListener('touchstart', _onFeedbackMenuClick);
-    if (document.querySelector('#identity-menu-button')) {
-      document.querySelector('#identity-menu-button').
-          addEventListener('touchstart', _onIdentityMenuClick);
-    }
-  } else {*/
-    // Firefox sometimes disables some buttons… unsure why
-    document.querySelector('#share-menu-button').disabled = false;
-    document.querySelector('#help-menu-button').disabled = false;
-    document.querySelector('#feedback-menu-button').disabled = false;
-    if (document.querySelector('#identity-menu-button')) {
-      document.querySelector('#identity-menu-button').disabled = false;
-    }
-
-    document.querySelector('#share-menu-button').
-        addEventListener('click', _onShareMenuClick);
-    document.querySelector('#help-menu-button').
-        addEventListener('click', _onHelpMenuClick);
-    document.querySelector('#feedback-menu-button').
-        addEventListener('click', _onFeedbackMenuClick);
-    if (document.querySelector('#identity-menu-button')) {
-      document.querySelector('#identity-menu-button').
-          addEventListener('click', _onIdentityMenuClick);
-    }
-  //}
 }

@@ -32,6 +32,189 @@ var SEGMENT_OWNERS = {
   }
 };
 
+
+/*
+
+Segment info documentation
+--------------------------
+
+TODO: Put this elsewhere?
+
+Each segment is an object. It is named with a string, e.g. 'parklet'
+that Streetmix uses internally to refer to the segment. Variants are
+sub-types of a segment, also named with strings. New segments and
+variants can generally be created without much hassle. However,
+once created (and running on the production server), modifying
+the names of segments and variants means you would need to
+update streets/data_model.js to make sure that existing streets
+will migrate its schemas to the latest versions, otherwise
+Streetmix will break during loading - it will try to read variants
+and segments that don't exist.
+
+How to fill in the data for a segment:
+
+  name:         String (required)
+                Display name of a segment.
+                Always use sentence case. 'Parking lot', not 'Parking Lot'
+  owner:        CONSTANT_VARIABLE (see top of this file)
+                (required?)
+                Defines the meta-category of what the segment is -
+                is it for cars, pedestrians, transit, etc?
+                We used to keep track of this to give people a sense
+                of how much space is taken up by different modes.
+                We may still re-incorporate it somehow.
+  zIndex:       Integer (required)
+                Layering priority. Higher numbers will always
+                display overlapping those with lower numbers.
+                If zIndex is equal, DOM order will determine
+                what is overlapping something else.
+                When in doubt, use zIndex value of 1
+                When you know you need it, change it to 2
+                (or higher, but right now 2 is our max)
+  defaultWidth  Number (required)
+                Default width in feet
+                Decimal numbers are allowed.
+  needRandSeed  Boolean (optional)
+                Default value: false
+                Set as true if the segment needs a random number
+                generator. For instance sidewalk pedestrians are
+                randomly generated each time.
+  variants      Array of strings (required)
+                Sub-types of the segment, e.g. 'orientation' and 'color'
+                If there are no variants, use an array of a single
+                empty string, ['']
+  secret        Boolean (optional)
+                Default value: false
+                If true, the segment is hidden from users unless the
+                ?debug-secret-segments flag is set.
+                The 'Inception train' is an example of a secret
+                segment, and is good for testing segments in
+                production that are meant to be public yet.
+  description   Object (optional)
+                If present, a "learn more" feature is added to the
+                segment's info box. For more info see below.
+  details       Object (required)
+                Details of every variant of the segment
+                Each variant is named with a string.
+                For segments that have multiple variants, separate
+                each variant with the variant separator '|' (pipe)
+
+  Settings for description
+
+  prompt        String (required)
+                The text on the "learn more" button, e.g.
+                'Learn more about parklets'
+                There's no magic processing on it, you have to
+                write 'Learn more about' each time
+  image         String (required)
+                Filename for an image. The file is assumed to
+                be located in /public/images/info-bubble-examples
+  imageCaption  String (optional)
+                Caption text / credits for the image.
+  lede          String (optional)
+                A brief statement about the segment that will be
+                displayed in a larger font size.
+  text          Array of strings (required)
+                Each string in the array will be wrapped in a <p>
+                tag. Inline HTML is allowed, for links, emphasis, etc.
+
+  Settings for variant details
+
+  name          String (optional)
+                If set, this overrides the display name of the segment.
+                Always use sentence case.
+  minWidth      Number (optional)
+                Minimum width for this variant in feet.
+                If set, Streetmix throw up a warning if a user
+                makes this segment go below this width, but doesn't
+                prevent a user from doing so.
+  maxWidth      Number (optional)
+                Maximum width for this variant in feet.
+  description   Object (optional)
+                If present, a "learn more" feature is added to the
+                segment's info box. This is identical to the description
+                object on the parent segment, but it allows the variant
+                to have its own description which will override the parent
+                segment's description. You can also make a variant have a
+                description even if the parent segment does not. Note that for each
+                variant that has the same description you will have to duplicate
+                this description object across multiple variants right now.
+  graphics      Object (required)
+                Defines where sprites on the tile sheet are taken from
+                and defines where sprites should be placed in the segment itself
+
+  Graphics settings
+
+  Each graphics object has sub-objects whose key names are how they are intended
+  to display inside of the segment. There are four ways to display something:
+
+    center      The sprite is centered inside the segment.
+    repeat      The sprite repeats horizontally across the segment.
+    left        The sprite is aligned to the left side of the segment.
+    right       The sprite is aligned to the right side of the segment.
+
+  Any combination of these can be applied at once, but there should always be
+  at least one defined. All graphic elements of a segment are defined here, and
+  that includes not just the primary graphic element itself (like a car or a tree)
+  but also the surface it's on (whether asphalt or sidewalk), and any road
+  markings.
+
+  A display type is usually an object containing some more properties, but
+  if you want to, say, center two sprites, then center is equal to an array
+  of two objects.
+
+  e.g. for one centered sprite
+    graphics: {
+      center: { ... }
+    }
+
+  for two (or more) centered sprites
+    graphics: {
+      center: [
+        { ... },
+        { ... },
+        ...
+      ]
+    }
+
+  These are the properties of each graphic display type.
+
+  This section is a work in progress as we reverse engineer from what
+  actually built (but did not ever document anywhere)
+
+  One thing to keep in mind that on our tilesheets, the scale
+  is 24 pixels equals one foot. Some measurement numbers are in
+  feet (e.g. '3', meaning 3 feet) will be translated to pixels (so 96 pixels)
+
+  tileset       Integer (required)
+                Which tilesheet it's on. Currently 1, 2, or 3.
+                These are hand-made right now.
+  x             Number (required)
+                x position of the sprite on the tilesheet.
+                (in feet?)
+                (where is the 0,0 spot and which direction is x going?)
+  y             Number (required)
+                x position of the sprite on the tilesheet.
+                (in feet?)
+                (where is the 0,0 spot and which direction is y going?)
+  width         Number (required)
+                Specified in feet.
+                Translates to the number of pixels of the tilesheet to
+                use as the width of the sprite, and the width of the
+                canvas to display in.
+  height        Number (required)
+                Specified in feet.
+                Translates to the number of pixels of the tilesheet to
+                use as the width of the sprite, and the width of the
+                canvas to display in.
+  offsetX       Number (optional)
+                ???
+  offsetY       Number (optional)
+                ???
+
+
+*/
+
 var SEGMENT_INFO = {
   'sidewalk': {
     name: 'Sidewalk',
@@ -86,7 +269,7 @@ var SEGMENT_INFO = {
       },
       'palm-tree': {
         graphics: {
-          center: { tileset: 1, x: 83, y: 24, offsetX: 0, offsetY: -19, width: 14 /* 14 */, height: 31 },
+          center: { tileset: 1, x: 83, y: 24, offsetX: 0, offsetY: -19, width: 14, height: 31 },
           repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
         }
       }
@@ -291,8 +474,29 @@ var SEGMENT_INFO = {
     zIndex: 1,
     defaultWidth: 2,
     variants: ['divider-type'],
-    paletteIcon: 'bollard',
+    paletteIcon: 'planting-strip',
     details: {
+      'planting-strip': {
+        name: 'Planting strip',
+        graphics: {
+          repeat: [
+            { tileset: 2, x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          ]
+        }
+      },
+      'planter-box': {
+        name: 'Planter box',
+        graphics: {
+          center: { tileset: 2, x: 125, y: 64, width: 4, height: 7, offsetY: 5 },
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            { tileset: 2, x: 116, y: 21, width: 5, height: 5, offsetY: 10 } // Stripes
+          ],
+          left: { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 }, // Marking
+          right: { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+        }
+      },
       'median': {
         name: 'Median',
         graphics: {
@@ -307,19 +511,10 @@ var SEGMENT_INFO = {
         graphics: {
           repeat: [
             { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-            { tileset: 2, x: 116, y: 21, width: 5, height: 5, offsetY: 10 } // Asphalt
+            { tileset: 2, x: 116, y: 21, width: 5, height: 5, offsetY: 10 } // Stripes
           ],
           left: { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 }, // Marking
           right: { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
-        }
-      },
-      'planting-strip': {
-        name: 'Planting strip',
-        graphics: {
-          repeat: [
-            { tileset: 2, x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
-            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
-          ]
         }
       },
       'bush': {
@@ -367,8 +562,11 @@ var SEGMENT_INFO = {
         graphics: {
           center: { tileset: 2, x: 123, y: 64, width: 1, height: 7, offsetY: 5 },
           repeat: [
-            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
-          ]
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            { tileset: 2, x: 116, y: 21, width: 5, height: 5, offsetY: 10 } // Stripes
+          ],
+          left: { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 }, // Marking
+          right: { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
         }
       },
       'dome': {
@@ -376,8 +574,11 @@ var SEGMENT_INFO = {
         graphics: {
           center: { tileset: 2, x: 121, y: 64, width: 1, height: 7, offsetY: 5 },
           repeat: [
-            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
-          ]
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
+            { tileset: 2, x: 116, y: 21, width: 5, height: 5, offsetY: 10 } // Stripes
+          ],
+          left: { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 }, // Marking
+          right: { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
         }
       }
     }
@@ -468,15 +669,15 @@ var SEGMENT_INFO = {
     name: 'Parking lane',
     owner: SEGMENT_OWNER_CAR,
     zIndex: 2,
-    defaultWidth: 8,
+    defaultWidth: 7,
     variants: ['parking-lane-direction', 'parking-lane-orientation'],
     details: {
       'inbound|left': {
         minWidth: 7,
         maxWidth: 10,
         graphics: {
-          center: [
-            { tileset: 1, x: 8, y: 27, width: 8, height: 15 } // Car (inbound)
+          left: [
+            { tileset: 1, x: 9, y: 27, width: 6, height: 15, offsetX: 0.25 } // Car (inbound)
           ],
           repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           right: { tileset: 2, x: 112, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
@@ -486,8 +687,8 @@ var SEGMENT_INFO = {
         minWidth: 7,
         maxWidth: 10,
         graphics: {
-          center: [
-            { tileset: 1, x: 8, y: 27, width: 8, height: 15 } // Car (inbound)
+          right: [
+            { tileset: 1, x: 9, y: 27, width: 6, height: 15 } // Car (inbound)
           ],
           repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           left: { tileset: 1, x: 46, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
@@ -497,8 +698,8 @@ var SEGMENT_INFO = {
         minWidth: 7,
         maxWidth: 10,
         graphics: {
-          center: [
-            { tileset: 1, x: 0, y: 27, width: 8, height: 15 } // Car (outbound)
+          left: [
+            { tileset: 1, x: 1, y: 27, width: 6, height: 15, offsetX: 0.25 } // Car (outbound)
           ],
           repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           right: { tileset: 2, x: 112, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
@@ -508,8 +709,8 @@ var SEGMENT_INFO = {
         minWidth: 7,
         maxWidth: 10,
         graphics: {
-          center: [
-            { tileset: 1, x: 0, y: 27, width: 8, height: 15 } // Car (outbound)
+          right: [
+            { tileset: 1, x: 1, y: 27, width: 6, height: 15 } // Car (outbound)
           ],
           repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           left: { tileset: 1, x: 46, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking

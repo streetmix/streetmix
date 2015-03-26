@@ -72,6 +72,11 @@ function _receiveGalleryData(transmission) {
 
   for (var i in transmission.streets) {
     var galleryStreet = transmission.streets[i];
+
+    // There is a bug where sometimes street data is non-existent for an unknown reason
+    // Skip over so that the rest of gallery will display
+    if (!galleryStreet.data) continue;
+
     _updateToLatestSchemaVersion(galleryStreet.data.street);
 
     var el = document.createElement('li');
@@ -179,8 +184,13 @@ function _showGallery(twitterId, instant, signInPromo) {
     return;
   }
 
+<<<<<<< HEAD:app/assets/javascripts/gallery/view.js
   /*_eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_OPEN_GALLERY,
       twitterId, null, false);*/
+=======
+  Stmx.app.eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_OPEN_GALLERY,
+      userId, null, false);
+>>>>>>> master:assets/js/gallery/view.js
 
   galleryVisible = true;
   galleryStreetLoaded = true;
