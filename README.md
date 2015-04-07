@@ -47,13 +47,9 @@ Streetmix was started as a [Code for America][cfa] hackathon project in January 
 
 These installation instructions assume that you have already installed the [Homebrew](http://brew.sh/) package manager.
 
-<<<<<<< HEAD
 #### First-time setup
 
 1) [Install Ruby 2.1.3](https://github.com/codeforamerica/howto/blob/master/Ruby.md)
-=======
-1) Download and install [Node.js](http://nodejs.org/).
->>>>>>> master
 
 2) [Install Ruby on Rails](https://github.com/codeforamerica/howto/blob/master/Rails.md)
 
@@ -67,24 +63,8 @@ These installation instructions assume that you have already installed the [Home
 
 5) Install project dependencies and configure the application.
 
-<<<<<<< HEAD
     cd $PROJECT_ROOT
     bin/setup
-=======
-    cd streetmix
-    npm install
->>>>>>> master
-
-
-#### On Windows
-
-Streetmix was not developed on a Windows platform, and testing is limited. We've been able to successfully stand up a local installation on 64-bit Windows 7-based Dell laptops for an event without Internet access. These instructions below will assume that the user has basic familiarity with Git, GitHub, and the Windows Terminal command line interface, and has administrative permissions to install software on the machine.
-
-##### Installing core dependencies
-
-<<<<<<< HEAD
-    cd $PROJECT_ROOT
-    bundle install
 
 2) Apply any new database migrations.
 
@@ -96,92 +76,24 @@ Streetmix was not developed on a Windows platform, and testing is limited. We've
 
     cd $PROJECT_ROOT
     foreman start -f Procfile.dev
-=======
-You may skip each of these steps if a fairly recent stable version is already present on the system.
-
-* Install [Git](http://git-scm.com/download/win).
-* Install [node.js](http://nodejs.org/). The site should detect your system and provide you with the correct installer, but you may specify the package at http://nodejs.org/download/ (e.g. Windows 64-bit installer).
-* Install [MongoDB](http://www.mongodb.org/downloads). Select the appropriate Windows installer package from their downloads page.
-* Install [a modern browser](http://browsehappy.com/). Streetmix has been tested in Chrome (preferred), Firefox, Safari, and Internet Explorer 11. (Previous versions of Internet Explorer will not work.)
-
-##### Installing Streetmix
-
-1) In the command line terminal, clone a copy of the Streetmix repository to your local machine:
-
-    git clone https://github.com/codeforamerica/streetmix.git
-
-You may additionally specify the name of the directory to install to, if you wish.
-
-2) Go into the project’s root directory and install all Node libraries.
-
-    cd streetmix
-    npm install
-
-3) Set up the MongoDB environment. [Follow the instructions under “Set up the MongoDB environment” from the MongoDB website.](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-windows/#run-mongodb)
-
-#### On all systems
-
-1) Setup environment variables. You can either set these in your `.bash_profile` (or equivalent, on Mac OSX or *nix-based systems) or place them in a file named `.env` in the project root directory (great for development environments or Windows environments).
-
-| Variable name                   | Description                                                                            | Required?            |
-| ------------------------------- | -------------------------------------------------------------------------------------- | -------------------- |
-| `SENDGRID_USERNAME`             | Your SendGrid username                                                                 | Yes                  |
-| `SENDGRID_PASSWORD`             | Your SendGrid password                                                                 | Yes                  |
-| `TWITTER_OAUTH_CONSUMER_KEY`    | Development Twitter OAuth consumer key, obtained from @streetmix Twitter account    | Yes                  |
-| `TWITTER_OAUTH_CONSUMER_SECRET` | Development Twitter OAuth consumer secret, obtained from @streetmix Twitter account | Yes                  |
-| `EMAIL_FEEDBACK_RECIPIENT`      | Your e-mail address                                                                    | No                   |
-| `NO_INTERNET_MODE`              | Boolean. Set to `true` to run a local "demo" without external Internet access          | No                   |
-
-A sample `.env` file will look like this:
-
-```
-SENDGRID_USERNAME=username@domain.com
-SENDGRID_PASSWORD=p@$$w0rD
-TWITTER_OAUTH_CONSUMER_KEY=twitteroauthconsumerkey
-TWITTER_OAUTH_CONSUMER_SECRET=twitteroauthsecrettoken
-EMAIL_FEEDBACK_RECIPIENT=test@domain.com
-NO_INTERNET_MODE=true
-```
-
-*Note:* If `NO_INTERNET_MODE` is true, you do not need the Sendgrid or Twitter authentication keys, as those will be disabled due to lack of Internet.
-
-
-### HOWTO: Start the application
-
-1) Start MongoDB.
-
-    mongod
->>>>>>> master
 
 2) Load the application in your web browser.
 
-<<<<<<< HEAD
     open http://localhost:3000
 
 3) If you want to test e-mail sending and receiving, open another web browser tab.
-=======
-    cd streetmix
-    npm start
->>>>>>> master
 
     open http://localhost:1080
 
-<<<<<<< HEAD
 #### HOWTO: Run automated tests
 
 1) Make sure you have a copy of the Chrome web browser on your computer.
-=======
-    open http://127.0.0.1:8000
-
-
-### HOWTO: Run browser integration tests
->>>>>>> master
 
 2) Install test dependencies (only required once).
 
     brew install chromedriver
 
-3) Run tests locally../
+3) Run tests locally
 
     rake
 
@@ -193,14 +105,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 We use the [GitHub issue tracker][issues] to track bugs and features. Before
 submitting a bug report or feature request, check to make sure it hasn't
 already been submitted. You can indicate support for an existing issue by
-<<<<<<< HEAD
-voting it up. When submitting a bug report, please include  any details that may 
+voting it up. When submitting a bug report, please include any details that may 
 be necessary to reproduce the bug, including your Ruby version and operating system.
-=======
-voting it up. When submitting a bug report, please include  any details that may
-be necessary to reproduce thebug, including your node version, npm version, and
-operating system.
->>>>>>> master
 
 ### Submitting a Pull Request
 1. Fork the project.
