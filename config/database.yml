@@ -1,0 +1,15 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: streetmix_development
+  pool: 5
+  username: <%= Figaro.env.database_username %>
+  password:
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: <%= Figaro.env.test_database %>
+  pool: 5
+  username: <%= Figaro.env.database_username %>
+  password:

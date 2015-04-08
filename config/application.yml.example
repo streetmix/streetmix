@@ -1,0 +1,25 @@
+port: '3000'
+twitter_oauth_consumer_key: **get from https://apps.twitter.com/**
+twitter_oauth_consumer_secret: **get from https://apps.twitter.com/**
+twitter_oauth_callback_uri: /auth/twitter/callback
+facebook_app_id: **get from https://developers.facebook.com/apps**
+secret_token: **generate this by running `rake secret` in your terminal**
+sauce_username: **get from http://saucelabs.com**
+sauce_access_key: **get from http://saucelabs.com**
+api_path: /api/
+api_host: localhost:3000
+no_internet_mode: false
+database_username: **if you installed Postgres using Homebrew, this is your Mac user name**
+test_database: streetmix_test
+
+staging:
+  api_host: streetmix-staging.herokuapp.com
+  sendgrid_username: **get from http://sendgrid.com**
+  sendgrid_password: **get from http://sendgrid.com**
+  email_feedback_receipient: streetmix@codeforamerica.org
+
+production:
+  api_host: streetmix.net
+  sendgrid_username: **get from http://sendgrid.com**
+  sendgrid_password: **get from http://sendgrid.com**
+  email_feedback_receipient: streetmix@codeforamerica.org

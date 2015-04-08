@@ -1,22 +1,37 @@
-language: node_js
-node_js:
-  - "0.10"
+language: ruby
+rvm:
+- 2.1.3
 
 env:
   global:
-    - secure: entbiF59zjgSiel6S8bsKUrZVCXKsun9OqO95ABoQ8EaLrnP536EGVN/LurT/9W1QXcxLVChTpYZRizrhIoEQPi4vOVLrA5yhWlTGQULXWGNMf0VDTKfXOSQ6pV45zPnlmK/UV4eWAtDa7KsfOlPvQeX1K1JqSijLhPANNykGAQ=
-    - secure: YFYR9PLyfwpVVRoTeCz/0Cml2NDCrqUgufshdKxc5SM/l0Ix8XlP8eJ+s3CVArTzWJg9nzOopt9qaXtTbcN+Kr5SaMDpmjliXpmOGEkhx29dCTYuksjbGW44ImUWT2kaAARZnufPXrI7/QDxHjcaMWlR5wKveB/8m0FpEpd7YL4=
+  - secure: entbiF59zjgSiel6S8bsKUrZVCXKsun9OqO95ABoQ8EaLrnP536EGVN/LurT/9W1QXcxLVChTpYZRizrhIoEQPi4vOVLrA5yhWlTGQULXWGNMf0VDTKfXOSQ6pV45zPnlmK/UV4eWAtDa7KsfOlPvQeX1K1JqSijLhPANNykGAQ=
+  - secure: YFYR9PLyfwpVVRoTeCz/0Cml2NDCrqUgufshdKxc5SM/l0Ix8XlP8eJ+s3CVArTzWJg9nzOopt9qaXtTbcN+Kr5SaMDpmjliXpmOGEkhx29dCTYuksjbGW44ImUWT2kaAARZnufPXrI7/QDxHjcaMWlR5wKveB/8m0FpEpd7YL4=
+  - secure: D36npOs5GjoIgRhxSm6HOXRX1qlc7X5AoFz+EAWsB+IlGmezA/3oRU0pjTywMz0G2viOWKYHe4hoROAt+aaa+YvKawUGllPGKAJaySww1Rvg+uMJzc/4m/BbJQC623xLVGqqCHXhWyIc+ONL0fRv8UdBjSqYZNNPkUhqyiBA5t8=
+  - secure: MuMxyWJSHk4kIotW/OGri9Glv5wZsVTf9a9dTtalEnKethDO+k2svluOpe82DSzJ1+4VzEPDIozLPdTcbjrkStLVa/bpjGumPYWNYubgY5Hz6q2+99/LapK+mWrzPZWv/WC1bCmsKQx5ekclVeg1MUS1GrcEO10S8oyGxaaWI4k=
+  - secure: d9rcNyNhod9LDZqOv43imW7k3ibCx8R/eKTPpmWDw/AyKSLA74Nv4R+PjS2Q88vbVc6COHe29kT6NCIwaB5TAPugEcT2TH9aO3LE+ZxK+lwX1jEyB0zvGBMXXVP2kwbkRs/1Sz7fMZHdL+MjxGcpdQl26GuIwd4QY/YfxTU5+rM=
+  - secure: Ovk64FLM0OOMwjHZgTTqg0atO6mtnCcYAbUhCak51BeacGBmx+DCappcYobEv41fUqzIIklYnikeBHo2AoxX4ItbA9EzG4ysggab9Iijr4j2V2TwFaRtaw9EsYZXKrWbQ1EOBqUYTVD/8UA54pSxp/iStHe4jR4c5QMPc3RjZVo=
+  - secure: YKDro5LAYsKFOdV9y8Bo0Yq9/XlSwoiDlxXqIGbKeDMDDQtALv67AYrynDYhGPS1nNWbts6nCH/pGvbJyjE5gCjGDXhQo7TD/bx9DxOLEWxlS/793x0tHGChP+F0C9vxBNa0WL8x1zjvvDmSCDi6VWfznlz7qfqyIEj0fREPaFg=
+  - secure: UWead/MdTPmPkfWenM8PqHVefcoz23mULYcJTEv6IGuFgPBKLW4EE6d4xOvQn8SXfhATCR5WfLMsEg3yjEK8cW2IFtQ2lOvLeOfZjl1OmnjYGnt29gZ0+EJ3TpnWETRGPZiyU+Z2wsJjTIUrL/cqzbfmsCPzg+gyt52M23XbuVY=
+  - browser=sauce_chrome_vista
+  - test_database=travis_ci_test
+  - database_username=postgres
+  - twitter_oauth_callback_uri=/auth/twitter/callback
+  - email_feedback_receipient=streetmix+travis+test@codeforamerica.org
+  - api_path=/api/
+  - port=3030
+  - api_host=localhost:3030
 
 addons:
-  sauce_connect: true    
+  sauce_connect: true
+  postgresql: '9.3'
 
-services:
-  - mongodb
+install:
+  - bundle install --without development --deployment
 
-before_install:
-  - npm install -g grunt-cli
+before_script:
+  - bundle exec rake db:setup
 
-script: grunt test:travis
+script: bundle exec rake
 
 notifications:
   webhooks: http://project-monitor.codeforamerica.org/projects/4083b10b-11a4-4ac5-9a7f-51c5cb614243/status

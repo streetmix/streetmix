@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/codeforamerica/streetmix.svg?branch=master)](https://travis-ci.org/codeforamerica/streetmix)
-[![Dependency Status](https://david-dm.org/codeforamerica/streetmix.svg)](https://david-dm.org/codeforamerica/streetmix)
-[![Code Climate](https://codeclimate.com/github/codeforamerica/streetmix.png)](https://codeclimate.com/github/codeforamerica/streetmix)
+[![Build Status](https://travis-ci.org/codeforamerica/streetmix.svg?branch=rails)](https://travis-ci.org/codeforamerica/streetmix)
+[![Coverage Status](https://img.shields.io/coveralls/codeforamerica/streetmix.svg?branch=rails)](https://coveralls.io/r/codeforamerica/streetmix)
+[![Code Climate](https://codeclimate.com/github/codeforamerica/streetmix.png?branch=rails)](https://codeclimate.com/github/codeforamerica/streetmix)
 
 Streetmix
 =========
@@ -47,108 +47,55 @@ Streetmix was started as a [Code for America][cfa] hackathon project in January 
 
 These installation instructions assume that you have already installed the [Homebrew](http://brew.sh/) package manager.
 
-1) Download and install [Node.js](http://nodejs.org/).
+#### First-time setup
 
-    brew install nodejs
+1) [Install Ruby 2.1.3](https://github.com/codeforamerica/howto/blob/master/Ruby.md)
 
-2) Download, install and start [MongoDB](http://www.mongodb.org/).
+2) [Install Ruby on Rails](https://github.com/codeforamerica/howto/blob/master/Rails.md)
 
-    brew install mongodb
+3) Download, install and start [Postgres](www.postgresql.org/).
 
-3) Download and install [Coreutils](http://www.gnu.org/software/coreutils/).
-
-    brew install coreutils
+    brew install postgres
 
 4) Clone this remote repository to a folder on your computer.
 
     git clone https://github.com/codeforamerica/streetmix.git
 
-5) Install project dependencies.
+5) Install project dependencies and configure the application.
 
-    cd streetmix
-    npm install
+    cd $PROJECT_ROOT
+    bin/setup
 
+2) Apply any new database migrations.
 
-#### On Windows
+    bundle exec rake db:migrate
 
-Streetmix was not developed on a Windows platform, and testing is limited. We've been able to successfully stand up a local installation on 64-bit Windows 7-based Dell laptops for an event without Internet access. These instructions below will assume that the user has basic familiarity with Git, GitHub, and the Windows Terminal command line interface, and has administrative permissions to install software on the machine.
+#### HOWTO: Start the application
 
-##### Installing core dependencies
+1) Start the web server.
 
-You may skip each of these steps if a fairly recent stable version is already present on the system.
+    cd $PROJECT_ROOT
+    foreman start -f Procfile.dev
 
-* Install [Git](http://git-scm.com/download/win).
-* Install [node.js](http://nodejs.org/). The site should detect your system and provide you with the correct installer, but you may specify the package at http://nodejs.org/download/ (e.g. Windows 64-bit installer).
-* Install [MongoDB](http://www.mongodb.org/downloads). Select the appropriate Windows installer package from their downloads page.
-* Install [a modern browser](http://browsehappy.com/). Streetmix has been tested in Chrome (preferred), Firefox, Safari, and Internet Explorer 11. (Previous versions of Internet Explorer will not work.)
+2) Load the application in your web browser.
 
-##### Installing Streetmix
+    open http://localhost:3000
 
-1) In the command line terminal, clone a copy of the Streetmix repository to your local machine:
+3) If you want to test e-mail sending and receiving, open another web browser tab.
 
-    git clone https://github.com/codeforamerica/streetmix.git
+    open http://localhost:1080
 
-You may additionally specify the name of the directory to install to, if you wish.
+#### HOWTO: Run automated tests
 
-2) Go into the project’s root directory and install all Node libraries.
+1) Make sure you have a copy of the Chrome web browser on your computer.
 
-    cd streetmix
-    npm install
+2) Install test dependencies (only required once).
 
-3) Set up the MongoDB environment. [Follow the instructions under “Set up the MongoDB environment” from the MongoDB website.](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-windows/#run-mongodb)
+    brew install chromedriver
 
-#### On all systems
+3) Run tests locally
 
-1) Setup environment variables. You can either set these in your `.bash_profile` (or equivalent, on Mac OSX or *nix-based systems) or place them in a file named `.env` in the project root directory (great for development environments or Windows environments).
-
-| Variable name                   | Description                                                                            | Required?            |
-| ------------------------------- | -------------------------------------------------------------------------------------- | -------------------- |
-| `SENDGRID_USERNAME`             | Your SendGrid username                                                                 | Yes                  |
-| `SENDGRID_PASSWORD`             | Your SendGrid password                                                                 | Yes                  |
-| `TWITTER_OAUTH_CONSUMER_KEY`    | Development Twitter OAuth consumer key, obtained from @streetmix Twitter account    | Yes                  |
-| `TWITTER_OAUTH_CONSUMER_SECRET` | Development Twitter OAuth consumer secret, obtained from @streetmix Twitter account | Yes                  |
-| `EMAIL_FEEDBACK_RECIPIENT`      | Your e-mail address                                                                    | No                   |
-| `NO_INTERNET_MODE`              | Boolean. Set to `true` to run a local "demo" without external Internet access          | No                   |
-
-A sample `.env` file will look like this:
-
-```
-SENDGRID_USERNAME=username@domain.com
-SENDGRID_PASSWORD=p@$$w0rD
-TWITTER_OAUTH_CONSUMER_KEY=twitteroauthconsumerkey
-TWITTER_OAUTH_CONSUMER_SECRET=twitteroauthsecrettoken
-EMAIL_FEEDBACK_RECIPIENT=test@domain.com
-NO_INTERNET_MODE=true
-```
-
-*Note:* If `NO_INTERNET_MODE` is true, you do not need the Sendgrid or Twitter authentication keys, as those will be disabled due to lack of Internet.
-
-
-### HOWTO: Start the application
-
-1) Start MongoDB.
-
-    mongod
-
-2) Start the web server.
-
-    cd streetmix
-    npm start
-
-3) Load the application in your web browser.
-
-    open http://127.0.0.1:8000
-
-
-### HOWTO: Run browser integration tests
-
-1) Install test dependencies (only required once)
-
-    grunt test:local:setup
-
-2) Run browser tests locally
-
-    grunt test:local
+    rake
 
 
 ## Contributing
@@ -158,9 +105,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 We use the [GitHub issue tracker][issues] to track bugs and features. Before
 submitting a bug report or feature request, check to make sure it hasn't
 already been submitted. You can indicate support for an existing issue by
-voting it up. When submitting a bug report, please include  any details that may
-be necessary to reproduce thebug, including your node version, npm version, and
-operating system.
+voting it up. When submitting a bug report, please include any details that may 
+be necessary to reproduce the bug, including your Ruby version and operating system.
 
 ### Submitting a Pull Request
 1. Fork the project.

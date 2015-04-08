@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+require 'pathname'
+
+APP_ROOT = Pathname.new File.expand_path('../../',  __FILE__)
+
+Dir.chdir APP_ROOT do
+  puts "== Installing dependencies =="
+  system "gem install bundler --conservative"
+  system "bundle install"
+  system "gem install foreman"
+  system "gem install mailcatcher"
+
+  puts "\n== Configuring application =="
+  if File.exists?("config/application.yml")
+    puts "\nconfig/application.yml already exists"
+    puts "\nIf you want to change your configuration, open that file in a text editor"
+  else
+    system "bin/rake configure_application"
+  end
+
+  puts "\n== Preparing database =="
+  system "bin/rake db:setup"
+
+  puts "\n== Removing old logs and tempfiles =="
+  system "rm -f log/*"
+  system "rm -rf tmp/cache"
+
+  puts "\n== Setup complete =="
+  puts "\nto start the server run:"
+  puts "\nforeman start -f Procfile.dev"
+end
