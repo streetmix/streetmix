@@ -13,8 +13,13 @@
 //= require_self
 //= require_tree ./util
 //= require_tree ./app
+
+//= require ./menus/menus
 //= require_tree ./menus
-//= require_tree ./dialog_boxes
+
+//= require ./dialogs/dialogs
+//= require_tree ./dialogs
+
 //= require_tree ./segments
 //= require_tree ./streets
 //= require_tree ./gallery

@@ -1,23 +1,5 @@
 var lastStreet;
 
-var LATEST_SCHEMA_VERSION = 16;
-// 1: starting point
-// 2: adding leftBuildingHeight and rightBuildingHeight
-// 3: adding leftBuildingVariant and rightBuildingVariant
-// 4: adding transit shelter elevation
-// 5: adding another lamp type (traditional)
-// 6: colored streetcar lanes
-// 7: colored bus and light rail lanes
-// 8: colored bike lane
-// 9: second car type: truck
-// 10: sidewalk density
-// 11: unify median and planting strip into divider
-// 12: getting rid of small tree
-// 13: bike rack elevation
-// 14: wayfinding has three types
-// 15: sidewalks have rand seed
-// 16: stop saving undo stack
-
 var street = {
   schemaVersion: LATEST_SCHEMA_VERSION,
 
@@ -41,6 +23,24 @@ var street = {
 
   units: null
 };
+
+var LATEST_SCHEMA_VERSION = 16;
+// 1: starting point
+// 2: adding leftBuildingHeight and rightBuildingHeight
+// 3: adding leftBuildingVariant and rightBuildingVariant
+// 4: adding transit shelter elevation
+// 5: adding another lamp type (traditional)
+// 6: colored streetcar lanes
+// 7: colored bus and light rail lanes
+// 8: colored bike lane
+// 9: second car type: truck
+// 10: sidewalk density
+// 11: unify median and planting strip into divider
+// 12: getting rid of small tree
+// 13: bike rack elevation
+// 14: wayfinding has three types
+// 15: sidewalks have rand seed
+// 16: stop saving undo stack
 
 function _incrementSchemaVersion(street) {
   if (!street.schemaVersion) {

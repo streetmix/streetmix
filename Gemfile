@@ -17,6 +17,9 @@ gem 'bson_ext', require: false # also used for import task
 gem 'omniauth'
 gem 'omniauth-twitter'
 
+# HTML
+gem 'slim'
+
 # CSS
 gem 'less-rails'
 
