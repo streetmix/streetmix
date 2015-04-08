@@ -8,6 +8,7 @@ sauce_username: **get from http://saucelabs.com**
 sauce_access_key: **get from http://saucelabs.com**
 api_path: /api/
 api_host: localhost:3000
+no_internet_mode: false
 database_username: **if you installed Postgres using Homebrew, this is your Mac user name**
 test_database: streetmix_test
 

@@ -176,7 +176,6 @@ function _errorReceiveSignOutConfirmationFromServer() {
 
 function _createSignInUI() {
   if (signedIn) {
-<<<<<<< HEAD:app/assets/javascripts/users/authentication.js
     var el = document.createElement('div');
     el.classList.add('avatar');
     el.setAttribute('twitterId', signInData.twitterId);
@@ -184,10 +183,6 @@ function _createSignInUI() {
 
     var el = document.createElement('button');
     el.innerHTML = signInData.twitterId;
-=======
-
-    var el = document.createElement('button');
->>>>>>> master:assets/js/users/authentication.js
     el.classList.add('id');
     el.classList.add('menu-attached');
     el.id = 'identity-menu-button';

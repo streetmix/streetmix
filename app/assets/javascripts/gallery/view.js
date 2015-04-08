@@ -184,13 +184,7 @@ function _showGallery(twitterId, instant, signInPromo) {
     return;
   }
 
-<<<<<<< HEAD:app/assets/javascripts/gallery/view.js
-  /*_eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_OPEN_GALLERY,
-      twitterId, null, false);*/
-=======
-  Stmx.app.eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_OPEN_GALLERY,
-      userId, null, false);
->>>>>>> master:assets/js/gallery/view.js
+  Stmx.app.eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_OPEN_GALLERY, userId, null, false);
 
   galleryVisible = true;
   galleryStreetLoaded = true;

@@ -19,11 +19,17 @@ def ask_for_config
   config['database_username'] = ask('What is your root Postgres user name? (If you installed Postgres using Homebrew, this is your Mac OS user name)') { |q| q.default = Etc.getlogin }
   config['test_database'] = 'streetmix_test'
 
-  puts "Now configuring Twitter OAuth credentials."
-  puts "This is how your copy of Streetmix will authenticate users against Twitter."
-  puts "To generate your own credentials, visit https://apps.twitter.com/"
-  config['twitter_oauth_consumer_key'] = ask('What is your Twitter OAuth consumer key?')
-  config['twitter_oauth_consumer_secret'] = ask('What is your Twitter OAuth consumer secret?')
+  no_internet_mode = ask('No-Internet Mode?') { |q| q.default = 'N' }
+  if ['y', 'Y', 'yes'].include?(no_internet_mode)
+    config['no_internet_mode'] = true
+  else
+    config['no_internet_mode'] = false
+    puts "Now configuring Twitter OAuth credentials."
+    puts "This is how your copy of Streetmix will authenticate users against Twitter."
+    puts "To generate your own credentials, visit https://apps.twitter.com/"
+    config['twitter_oauth_consumer_key'] = ask('What is your Twitter OAuth consumer key?')
+    config['twitter_oauth_consumer_secret'] = ask('What is your Twitter OAuth consumer secret?')
+  end
 
   config['secret_token'] = `rake secret`.chomp
 

@@ -27,13 +27,9 @@ var Stmx = (function (Stmx) {
 
       // console.log('Event tracked', category, action, label);
 
-<<<<<<< HEAD:app/assets/javascripts/app/event_track.js
     if (typeof ga != 'undefined') {
       ga('send', 'event', category, action, label, value);
     }
-=======
-      ga && ga('send', 'event', category, action, label, value);
->>>>>>> master:assets/js/app/event_track.js
 
       if (onlyFirstTime) {
         alreadyTracked[id] = true;

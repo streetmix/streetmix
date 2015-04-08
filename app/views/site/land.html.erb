@@ -5,6 +5,7 @@
     var API_URL = '<%= Figaro.env.api_path %>';
     var FACEBOOK_APP_ID = '<%= Figaro.env.facebook_app_id %>';
     var URL_SIGN_IN_CALLBACK_REL = '<%= Figaro.env.twitter_oauth_callback_uri %>';
+    var NO_INTERNET_MODE = <%= Figaro.env.no_internet_mode %>;
   </script>
 
   <%= stylesheet_link_tag "application" %>
@@ -13,7 +14,7 @@
   <script src='//platform.twitter.com/widgets.js'></script>
 
   <script>
-    app.preInit();
+    Stmx.app.preInit();
   </script>
 <% end %>
 
@@ -356,5 +357,5 @@
 </div>
 
 <script>
-  app.init();
+  Stmx.app.init();
 </script>
