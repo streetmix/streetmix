@@ -43,7 +43,7 @@ function _feedbackFormSend() {
 
     _newNonblockingAjaxRequest({
       // TODO const
-      url: API_URL + 'v1/feedback',
+      url: API_URL + 'v2/feedback',
       data: JSON.stringify(transmission),
       dataType: 'json',
       type: 'POST',

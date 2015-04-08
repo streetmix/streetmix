@@ -28,12 +28,12 @@ function _getSharingMessage() {
   var message = '';
 
   if (signedIn) {
-    if (!street.creatorId) {
+    if (street.creator == {}) {
       message = 'Check out ' + street.name + ' street on Streetmix!';
-    } else if (street.creatorId == signInData.userId) {
+    } else if (street.creator.userId == signInData.userId) {
       message = 'Check out my street, ' + street.name + ', on Streetmix!';
     } else {
-      message = 'Check out ' + street.name + ' street by @' + street.creatorId + ' on Streetmix!';
+      message = 'Check out ' + street.name + ' street by @' + street.creator.twitterId + ' on Streetmix!';
     }
   } else {
     message = 'Check out ' + street.name + ' street on Streetmix!';
