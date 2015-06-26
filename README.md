@@ -5,6 +5,8 @@
 Streetmix
 =========
 
+[![Join the chat at https://gitter.im/codeforamerica/streetmix](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/codeforamerica/streetmix?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Streetmix is a browser-based interactive tool that lets you design, remix, and share your neighborhood street.  Add trees or bike paths, widen sidewalks or traffic lanes, and learn how your decisions can impact your community.
 
 Streetmix is currently live at http://streetmix.net/
