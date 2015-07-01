@@ -57,7 +57,8 @@ function _fetchStreetFromServer () {
   $.ajax({
     url: url,
     dataType: 'json',
-    type: 'GET'
+    type: 'GET',
+    crossDomain: true
   }).done(_receiveStreet).fail(_errorReceiveStreet)
 }
 
@@ -78,6 +79,8 @@ function _errorReceiveStreet (data) {
       }
       // TODO swap for showError (here and elsewhere)
       _processMode()
+    } else if (data.status == 307) {
+      _showError(ERRORS.REDIRECT_FAILURE, true)
     } else {
       _showError(ERRORS.NEW_STREET_SERVER_FAILURE, true)
     }

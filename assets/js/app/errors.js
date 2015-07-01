@@ -87,6 +87,10 @@ function _showError (errorType, newAbortEverything) {
       title = 'Having trouble…'
       description = 'We’re having trouble loading Streetmix.<br><button id="error-new">Try again</button>'
       break
+    case ERRORS.REDIRECT_FAILURE:
+      title = 'Having trouble…'
+      description = 'We’re having trouble loading Streetmix.<br>(Error 221B.)<br><button id="error-new">Try again</button>'
+      break
     case ERRORS.SIGN_IN_SERVER_FAILURE:
       title = 'Having trouble…'
       description = 'We’re having trouble loading Streetmix.<br>(Error 15A.)<br><button id="error-new">Try again</button>'
