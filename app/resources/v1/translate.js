@@ -73,7 +73,7 @@ exports.get = function (req, res) {
     return
   }
 
-  //handleGetTranslation(req.params.locale_code)
-  handleGetFromTransifex(req.params.locale_code)
+  handleGetTranslation(req.params.locale_code)
+  //handleGetFromTransifex(req.params.locale_code)
 
 }
