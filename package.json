@@ -22,7 +22,7 @@
     "i18next": "^1.7.4",
     "jade": "^1.8.2",
     "less": "^1.7.5",
-    "mongoose": "3.8.18",
+    "mongoose": "~3.8",
     "newrelic": "^1.12.2",
     "node-env-file": "^0.1.4",
     "oauth": "0.9.x",
