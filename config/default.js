@@ -12,8 +12,8 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 module.exports = {
   env: process.env.NODE_ENV,
   port: port,
-  app_host_port: '127.0.0.1:' + port,
-  header_host_port: '127.0.0.1:' + port,
+  app_host_port: 'localhost:' + port,
+  header_host_port: 'localhost:' + port,
   twitter: {
     oauth_request_token_api_uri: 'https://api.twitter.com/oauth/request_token',
     oauth_access_token_api_uri: 'https://api.twitter.com/oauth/access_token',
@@ -30,10 +30,10 @@ module.exports = {
   restapi_proxy_baseuri_rel: '/api',
   restapi: {
     port: port,
-    baseuri: 'http://127.0.0.1:' + port + '/api'
+    baseuri: 'http://localhost:' + port + '/api'
   },
   db: {
-    url: process.env.MONGOHQ_URL || 'mongodb://127.0.0.1/streetmix'
+    url: process.env.MONGOHQ_URL || 'mongodb://localhost/streetmix'
   },
   email: {
     sendgrid: {

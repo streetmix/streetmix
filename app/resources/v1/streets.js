@@ -235,7 +235,6 @@ exports.get = function (req, res) {
       res.set('Access-Control-Allow-Origin', '*')
       res.set('Location', config.restapi.baseuri + '/v1/streets/' + street.id)
       res.status(200).send(streetJson)
-
     })
 
   } // END function - handleFindStreet
@@ -272,10 +271,15 @@ exports.find = function (req, res) {
       return
     }
 
-    res.header('Location', config.restapi.baseuri + '/v1/streets/' + street.id)
-    res.header('Content-Length', 0)
+    // Note: a redirect to a different host & domain will choke on Safari and IE
+    // Firefox will handle this OK as long as the jQuery AJAX request sets
+    // crossDomain: true
+    // Chrome doesn't care at all
+    // So let's attempt to solve this by setting it to be a relative URI
+    // since server should be on the same domain / server as front-end
+    res.set('Location', '/api/v1/streets/' + street.id)
+    res.set('Content-Length', 0)
     res.status(307).end()
-
   } // END function - handleFindStreet
 
   var handleFindUser = function (err, user) {

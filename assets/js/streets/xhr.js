@@ -57,8 +57,7 @@ function _fetchStreetFromServer () {
   $.ajax({
     url: url,
     dataType: 'json',
-    type: 'GET',
-    crossDomain: true
+    type: 'GET'
   }).done(_receiveStreet).fail(_errorReceiveStreet)
 }
 
@@ -67,9 +66,9 @@ function _errorReceiveStreet (data) {
     (mode == MODES.ABOUT) || (mode == MODES.GLOBAL_GALLERY)) {
     _goNewStreet()
   } else {
-    if ((data.status == 404) || (data.status == 410)) {
+    if ((data.status === 404) || (data.status === 410)) {
       if (street.creatorId) {
-        if (data.status == 410) {
+        if (data.status === 410) {
           mode = MODES.STREET_410_BUT_LINK_TO_USER
         } else {
           mode = MODES.STREET_404_BUT_LINK_TO_USER
@@ -79,8 +78,6 @@ function _errorReceiveStreet (data) {
       }
       // TODO swap for showError (here and elsewhere)
       _processMode()
-    } else if (data.status == 307) {
-      _showError(ERRORS.REDIRECT_FAILURE, true)
     } else {
       _showError(ERRORS.NEW_STREET_SERVER_FAILURE, true)
     }
