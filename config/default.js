@@ -2,7 +2,7 @@ var fs = require('fs')
 var envFile = __dirname + '/../.env'
 
 if (fs.existsSync(envFile)) {
-  env = require('node-env-file')
+  var env = require('node-env-file')
   env(__dirname + '/../.env')
 }
 

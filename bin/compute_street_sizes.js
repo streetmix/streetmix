@@ -1,4 +1,5 @@
 // This is a Mongo DB script
+/* global db, emit, print */
 
 var userIdMap = {}
 db.users.find().forEach(function (u) {
@@ -27,7 +28,7 @@ var mapper = function () {
     {
       'creator_id': this.creator_id,
       'namespaced_id': this.namespaced_id,
-      'undo_stack_length': ( this.data && this.data.undoStack ? this.data.undoStack.length : 0),
+      'undo_stack_length': ((this.data && this.data.undoStack) ? this.data.undoStack.length : 0),
       'size_in_bytes': Object.bsonsize(this),
       'updated_at': this.updated_at
     }
@@ -47,12 +48,12 @@ results.forEach(function (result) {
 
   var url = 'http://streetmix.net/' + creator + '/' + result.value.namespaced_id
 
-  var updatedAtStr = (result.value.updated_at.getUTCMonth() + 1)
-    + '/' + result.value.updated_at.getUTCDate()
-    + '/' + result.value.updated_at.getUTCFullYear()
-    + ' ' + result.value.updated_at.getUTCHours()
-    + ':' + result.value.updated_at.getUTCMinutes()
-    + ':' + result.value.updated_at.getUTCSeconds()
+  var updatedAtStr = (result.value.updated_at.getUTCMonth() + 1) +
+    '/' + result.value.updated_at.getUTCDate() +
+    '/' + result.value.updated_at.getUTCFullYear() +
+    ' ' + result.value.updated_at.getUTCHours() +
+    ':' + result.value.updated_at.getUTCMinutes() +
+    ':' + result.value.updated_at.getUTCSeconds()
 
   print(
     result._id, '\t',

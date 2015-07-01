@@ -57,7 +57,8 @@
   },
   "standard": {
     "ignore": [
-      "assets/js/vendor/"
+      "assets/js/vendor/",
+      "test/integration/smoke.spec.js"
     ]
   }
 }

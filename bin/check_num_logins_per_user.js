@@ -1,4 +1,5 @@
 // This is a Mongo DB script
+/* global db, emit, printjson */
 
 var mapper = function () {
   var length = 0
