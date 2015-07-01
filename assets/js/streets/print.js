@@ -1,47 +1,46 @@
-var printingNeedsUpdating = true;
+var printingNeedsUpdating = true
 
-function _updatePrintImage() {
+function _updatePrintImage () {
   if (printingNeedsUpdating) {
     // Chrome fires _onBeforePrint twice.
-    document.querySelector('#print > div').innerHTML = '';
+    document.querySelector('#print > div').innerHTML = ''
 
-    var el = _getStreetImage(true, true);
-    var dataUrl = el.toDataURL('image/png');
+    var el = _getStreetImage(true, true)
+    var dataUrl = el.toDataURL('image/png')
 
-    var imgEl = document.createElement('img');
-    imgEl.src = dataUrl;
-    document.querySelector('#print > div').appendChild(imgEl);
+    var imgEl = document.createElement('img')
+    imgEl.src = dataUrl
+    document.querySelector('#print > div').appendChild(imgEl)
 
-    printingNeedsUpdating = false;
+    printingNeedsUpdating = false
   }
 }
 
-function _onBeforePrint(mediaMatch) {
+function _onBeforePrint (mediaMatch) {
   // So that max-height: 100% works
   if (mediaMatch) {
-    document.querySelector('#print > div').style.width = window.innerWidth + 'px';
-    document.querySelector('#print > div').style.height = window.innerHeight + 'px';
+    document.querySelector('#print > div').style.width = window.innerWidth + 'px'
+    document.querySelector('#print > div').style.height = window.innerHeight + 'px'
   }
 
-  _updatePrintImage();
+  _updatePrintImage()
 
   if (!mediaMatch) {
-    document.querySelector('#print > div > img').style.width = '100%';
+    document.querySelector('#print > div > img').style.width = '100%'
   }
 }
 
-function _onAfterPrint() {
-
+function _onAfterPrint () {
 }
 
-function _print(event) {
-  Stmx.ui.menus.hideAll();
-  _infoBubble.hide();
-  _infoBubble.hideSegment(true);
+function _print (event) {
+  Stmx.ui.menus.hideAll()
+  _infoBubble.hide()
+  _infoBubble.hideSegment(true)
 
-  window.setTimeout(function() {
-    _onBeforePrint();
-    window.print();
-  }, 50);
-  event.preventDefault();
+  window.setTimeout(function () {
+    _onBeforePrint()
+    window.print()
+  }, 50)
+  event.preventDefault()
 }

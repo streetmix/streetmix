@@ -11,14 +11,14 @@ var userSchema = new mongoose.Schema({
   last_street_id: Number
 })
 
-userSchema.pre('save', function(next) {
+userSchema.pre('save', function (next) {
   var now = new Date()
   this.updated_at = now
   this.created_at = this.created_at || now
   next()
 })
 
-userSchema.methods.asJson = function(options, cb) {
+userSchema.methods.asJson = function (options, cb) {
   options = options || {}
 
   var json = {

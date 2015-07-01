@@ -1,76 +1,75 @@
 (function (Stmx) {
-
   var saveAsImageDialog = Stmx.ui.dialogs.define('saveAsImage', '#save-as-image-dialog', {
     clickSelector: '#save-as-image',
     onInit: function () {
-      document.querySelector('#save-as-image-transparent-sky').addEventListener('click', this._updateSaveAsImageOptions.bind(this));
-      document.querySelector('#save-as-image-segment-names').addEventListener('click', this._updateSaveAsImageOptions.bind(this));
-      document.querySelector('#save-as-image-street-name').addEventListener('click', this._updateSaveAsImageOptions.bind(this));
+      document.querySelector('#save-as-image-transparent-sky').addEventListener('click', this._updateSaveAsImageOptions.bind(this))
+      document.querySelector('#save-as-image-segment-names').addEventListener('click', this._updateSaveAsImageOptions.bind(this))
+      document.querySelector('#save-as-image-street-name').addEventListener('click', this._updateSaveAsImageOptions.bind(this))
     },
     onShow: function () {
       document.querySelector('#save-as-image-transparent-sky').checked =
-        settings.saveAsImageTransparentSky;
+        settings.saveAsImageTransparentSky
 
       document.querySelector('#save-as-image-segment-names').checked =
-        settings.saveAsImageSegmentNamesAndWidths;
+        settings.saveAsImageSegmentNamesAndWidths
 
       document.querySelector('#save-as-image-street-name').checked =
-        settings.saveAsImageStreetName;
+        settings.saveAsImageStreetName
 
-      document.querySelector('#save-as-image-preview-loading').classList.add('visible');
-      document.querySelector('#save-as-image-preview-preview').classList.remove('visible');
+      document.querySelector('#save-as-image-preview-loading').classList.add('visible')
+      document.querySelector('#save-as-image-preview-preview').classList.remove('visible')
 
-      window.setTimeout(this._updateSaveAsImageDialogBox.bind(this), 100);
+      window.setTimeout(this._updateSaveAsImageDialogBox.bind(this), 100)
 
       // Tracking
-      Stmx.app.eventTracking.track(TRACK_CATEGORY_SHARING, 'Save as image', null, null, false);
+      Stmx.app.eventTracking.track(TRACK_CATEGORY_SHARING, 'Save as image', null, null, false)
     }
-  });
+  })
 
-  saveAsImageDialog._updateSaveAsImageDialogBox = function() {
-    document.querySelector('#save-as-image-preview-loading').classList.add('visible');
-    document.querySelector('#save-as-image-preview-preview').classList.remove('visible');
+  saveAsImageDialog._updateSaveAsImageDialogBox = function () {
+    document.querySelector('#save-as-image-preview-loading').classList.add('visible')
+    document.querySelector('#save-as-image-preview-preview').classList.remove('visible')
 
-    window.setTimeout(this._updateSaveAsImageDialogBoxPart2.bind(this), 50);
+    window.setTimeout(this._updateSaveAsImageDialogBoxPart2.bind(this), 50)
   }
 
-  saveAsImageDialog._updateSaveAsImageDialogBoxPart2 = function() {
-    document.querySelector('#save-as-image-preview-preview').innerHTML = '';
+  saveAsImageDialog._updateSaveAsImageDialogBoxPart2 = function () {
+    document.querySelector('#save-as-image-preview-preview').innerHTML = ''
 
-    var el = _getStreetImage(settings.saveAsImageTransparentSky, settings.saveAsImageSegmentNamesAndWidths, settings.saveAsImageStreetName);
-    var dataUrl = el.toDataURL('image/png');
+    var el = _getStreetImage(settings.saveAsImageTransparentSky, settings.saveAsImageSegmentNamesAndWidths, settings.saveAsImageStreetName)
+    var dataUrl = el.toDataURL('image/png')
 
-    var imgEl = document.createElement('img');
-    imgEl.addEventListener('load', this._saveAsImagePreviewReady.bind(this));
-    imgEl.src = dataUrl;
-    document.querySelector('#save-as-image-preview-preview').appendChild(imgEl);
+    var imgEl = document.createElement('img')
+    imgEl.addEventListener('load', this._saveAsImagePreviewReady.bind(this))
+    imgEl.src = dataUrl
+    document.querySelector('#save-as-image-preview-preview').appendChild(imgEl)
 
-    var filename = _normalizeSlug(street.name);
+    var filename = _normalizeSlug(street.name)
     if (!filename) {
-      filename = 'street';
+      filename = 'street'
     }
-    filename += '.png';
+    filename += '.png'
 
-    document.querySelector('#save-as-image-download').download = filename;
-    document.querySelector('#save-as-image-download').href = dataUrl;
+    document.querySelector('#save-as-image-download').download = filename
+    document.querySelector('#save-as-image-download').href = dataUrl
   }
 
-  saveAsImageDialog._saveAsImagePreviewReady = function() {
-    document.querySelector('#save-as-image-preview-loading').classList.remove('visible');
-    document.querySelector('#save-as-image-preview-preview').classList.add('visible');
+  saveAsImageDialog._saveAsImagePreviewReady = function () {
+    document.querySelector('#save-as-image-preview-loading').classList.remove('visible')
+    document.querySelector('#save-as-image-preview-preview').classList.add('visible')
   }
 
-  saveAsImageDialog._updateSaveAsImageOptions = function() {
+  saveAsImageDialog._updateSaveAsImageOptions = function () {
     settings.saveAsImageTransparentSky =
-        document.querySelector('#save-as-image-transparent-sky').checked;
+      document.querySelector('#save-as-image-transparent-sky').checked
     settings.saveAsImageSegmentNamesAndWidths =
-        document.querySelector('#save-as-image-segment-names').checked;
+      document.querySelector('#save-as-image-segment-names').checked
     settings.saveAsImageStreetName =
-        document.querySelector('#save-as-image-street-name').checked;
+      document.querySelector('#save-as-image-street-name').checked
 
-    _saveSettingsLocally();
+    _saveSettingsLocally()
 
-    window.setTimeout(this._updateSaveAsImageDialogBox.bind(this), 0);
+    window.setTimeout(this._updateSaveAsImageDialogBox.bind(this), 0)
   }
 
-}(Stmx));
+}(Stmx))

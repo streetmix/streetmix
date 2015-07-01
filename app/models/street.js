@@ -1,6 +1,6 @@
 var mongoose = require('mongoose'),
-    async = require('async'),
-    User = require('./user.js')
+  async = require('async'),
+  User = require('./user.js')
 
 var streetSchema = new mongoose.Schema({
   id: { type: String, index: { unique: true } },
@@ -18,16 +18,14 @@ streetSchema.add({
   original_street_id: { type: mongoose.Schema.ObjectId, ref: streetSchema},
 })
 
-
-streetSchema.pre('save', function(next) {
+streetSchema.pre('save', function (next) {
   var now = new Date()
   this.updated_at = now
   this.created_at = this.created_at || now
   next()
 })
 
-streetSchema.methods.asJson = function(cb) {
-
+streetSchema.methods.asJson = function (cb) {
   var json = {
     id: this.id,
     namespacedId: this.namespaced_id,
@@ -40,13 +38,13 @@ streetSchema.methods.asJson = function(cb) {
   var creatorId = this.creator_id
   var originalStreetId = this.original_street_id
 
-  var appendCreator = function(callback) {
+  var appendCreator = function (callback) {
     if (creatorId) {
-      User.findById(creatorId, function(err, creator) {
+      User.findById(creatorId, function (err, creator) {
         if (err) {
           callback(err)
         } else {
-          creator.asJson(null, function(err, creatorJson) {
+          creator.asJson(null, function (err, creatorJson) {
             if (err) {
               callback(err)
             } else {
@@ -62,9 +60,9 @@ streetSchema.methods.asJson = function(cb) {
 
   } // END function - appendCreator
 
-  var appendOriginalStreetId = function(callback) {
+  var appendOriginalStreetId = function (callback) {
     if (originalStreetId) {
-      mongoose.model('Street').findById(originalStreetId, function(err, originalStreet) {
+      mongoose.model('Street').findById(originalStreetId, function (err, originalStreet) {
         if (err) {
           callback(err)
         } else {
@@ -81,7 +79,7 @@ streetSchema.methods.asJson = function(cb) {
   async.parallel([
     appendCreator,
     appendOriginalStreetId
-  ], function(err) {
+  ], function (err) {
     cb(err, json)
   })
 

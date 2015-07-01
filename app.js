@@ -1,19 +1,16 @@
-var fs = require('fs'),
-    compression = require('compression'),
-    cookieParser = require('cookie-parser'),
-    cookieSession = require('cookie-session'),
-    express = require('express'),
-    request = require('request'),
-    assets = require('connect-assets'),
-    bodyParser = require('body-parser'),
-    url = require('url'),
-    config = require('config'),
-    controllers = require('./app/controllers'),
-    resources = require('./app/resources'),
-    requestHandlers = require('./lib/request_handlers');
+var compression = require('compression')
+var cookieParser = require('cookie-parser')
+var cookieSession = require('cookie-session')
+var express = require('express')
+var assets = require('connect-assets')
+var bodyParser = require('body-parser')
+var config = require('config')
+var controllers = require('./app/controllers')
+var resources = require('./app/resources')
+var requestHandlers = require('./lib/request_handlers')
 
 if (process.env.NEW_RELIC_LICENSE_KEY) {
-  require('newrelic');
+  require('newrelic')
 }
 
 var app = module.exports = express()
@@ -62,6 +59,6 @@ app.use(assets({
 app.use(express.static(__dirname + '/public'))
 
 // Catch-all
-app.use(function(req, res) {
+app.use(function (req, res) {
   res.render('main', {})
 })

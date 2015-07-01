@@ -1,20 +1,20 @@
-var TRACK_LABEL_DRAGGING = 'Dragging';
+var TRACK_LABEL_DRAGGING = 'Dragging'
 
-var DRAG_OFFSET_Y_PALETTE = -340 - 150;
-var DRAG_OFFSET_Y_TOUCH_PALETTE = -100;
-var DRAG_OFFSET_Y_TOUCH = -100;
+var DRAG_OFFSET_Y_PALETTE = -340 - 150
+var DRAG_OFFSET_Y_TOUCH_PALETTE = -100
+var DRAG_OFFSET_Y_TOUCH = -100
 
-var DRAGGING_TYPE_NONE = 0;
-var DRAGGING_TYPE_CLICK_OR_MOVE = 1;
-var DRAGGING_TYPE_MOVE = 2;
-var DRAGGING_TYPE_RESIZE = 3;
+var DRAGGING_TYPE_NONE = 0
+var DRAGGING_TYPE_CLICK_OR_MOVE = 1
+var DRAGGING_TYPE_MOVE = 2
+var DRAGGING_TYPE_RESIZE = 3
 
-var DRAGGING_TYPE_MOVE_TRANSFER = 1;
-var DRAGGING_TYPE_MOVE_CREATE = 2;
+var DRAGGING_TYPE_MOVE_TRANSFER = 1
+var DRAGGING_TYPE_MOVE_CREATE = 2
 
-var MAX_DRAG_DEGREE = 20;
+var MAX_DRAG_DEGREE = 20
 
-var draggingType = DRAGGING_TYPE_NONE;
+var draggingType = DRAGGING_TYPE_NONE
 
 var draggingResize = {
   segmentEl: null,
@@ -27,7 +27,7 @@ var draggingResize = {
   originalX: null,
   originalWidth: null,
   right: false
-};
+}
 
 var draggingMove = {
   type: null,
@@ -46,558 +46,557 @@ var draggingMove = {
   originalVariantString: null,
   originalRandSeed: null,
   floatingElVisible: false
-};
+}
 
-function _changeDraggingType(newDraggingType) {
-  draggingType = newDraggingType;
+function _changeDraggingType (newDraggingType) {
+  draggingType = newDraggingType
 
-  document.body.classList.remove('segment-move-dragging');
-  document.body.classList.remove('segment-resize-dragging');
+  document.body.classList.remove('segment-move-dragging')
+  document.body.classList.remove('segment-resize-dragging')
 
   switch (draggingType) {
     case DRAGGING_TYPE_RESIZE:
-      document.body.classList.add('segment-resize-dragging');
-      break;
+      document.body.classList.add('segment-resize-dragging')
+      break
     case DRAGGING_TYPE_MOVE:
-      document.body.classList.add('segment-move-dragging');
-      break;
+      document.body.classList.add('segment-move-dragging')
+      break
   }
 }
 
-function _handleSegmentResizeStart(event) {
+function _handleSegmentResizeStart (event) {
   if (readOnly) {
-    return;
+    return
   }
 
   if (event.touches && event.touches[0]) {
-    var x = event.touches[0].pageX;
-    var y = event.touches[0].pageY;
+    var x = event.touches[0].pageX
+    var y = event.touches[0].pageY
   } else {
-    var x = event.pageX;
-    var y = event.pageY;
+    var x = event.pageX
+    var y = event.pageY
   }
 
-  ignoreStreetChanges = true;
+  ignoreStreetChanges = true
 
-  var el = event.target;
+  var el = event.target
 
-  _changeDraggingType(DRAGGING_TYPE_RESIZE);
+  _changeDraggingType(DRAGGING_TYPE_RESIZE)
 
-  var pos = _getElAbsolutePos(el);
+  var pos = _getElAbsolutePos(el)
 
-  draggingResize.right = el.classList.contains('right');
+  draggingResize.right = el.classList.contains('right')
 
-  draggingResize.floatingEl = document.createElement('div');
-  draggingResize.floatingEl.classList.add('drag-handle');
-  draggingResize.floatingEl.classList.add('floating');
+  draggingResize.floatingEl = document.createElement('div')
+  draggingResize.floatingEl.classList.add('drag-handle')
+  draggingResize.floatingEl.classList.add('floating')
 
   if (el.classList.contains('left')) {
-    draggingResize.floatingEl.classList.add('left');
+    draggingResize.floatingEl.classList.add('left')
   } else {
-    draggingResize.floatingEl.classList.add('right');
+    draggingResize.floatingEl.classList.add('right')
   }
 
-  draggingResize.floatingEl.style.left = (pos[0] - document.querySelector('#street-section-outer').scrollLeft) + 'px';
-  draggingResize.floatingEl.style.top = pos[1] + 'px';
-  document.body.appendChild(draggingResize.floatingEl);
+  draggingResize.floatingEl.style.left = (pos[0] - document.querySelector('#street-section-outer').scrollLeft) + 'px'
+  draggingResize.floatingEl.style.top = pos[1] + 'px'
+  document.body.appendChild(draggingResize.floatingEl)
 
-  draggingResize.mouseX = x;
-  draggingResize.mouseY = y;
+  draggingResize.mouseX = x
+  draggingResize.mouseY = y
 
-  draggingResize.elX = pos[0];
-  draggingResize.elY = pos[1];
+  draggingResize.elX = pos[0]
+  draggingResize.elY = pos[1]
 
-  draggingResize.originalX = draggingResize.elX;
-  draggingResize.originalWidth = parseFloat(el.segmentEl.getAttribute('width'));
-  draggingResize.segmentEl = el.segmentEl;
+  draggingResize.originalX = draggingResize.elX
+  draggingResize.originalWidth = parseFloat(el.segmentEl.getAttribute('width'))
+  draggingResize.segmentEl = el.segmentEl
 
-  draggingResize.segmentEl.classList.add('hover');
+  draggingResize.segmentEl.classList.add('hover')
 
-  var segmentInfo = SEGMENT_INFO[el.segmentEl.getAttribute('type')];
-  var variantInfo = SEGMENT_INFO[el.segmentEl.getAttribute('type')].details[el.segmentEl.getAttribute('variant-string')];
+  var segmentInfo = SEGMENT_INFO[el.segmentEl.getAttribute('type')]
+  var variantInfo = SEGMENT_INFO[el.segmentEl.getAttribute('type')].details[el.segmentEl.getAttribute('variant-string')]
 
   if (variantInfo.minWidth) {
-    var guideEl = document.createElement('div');
-    guideEl.classList.add('guide');
-    guideEl.classList.add('min');
+    var guideEl = document.createElement('div')
+    guideEl.classList.add('guide')
+    guideEl.classList.add('min')
 
-    var width = variantInfo.minWidth * TILE_SIZE;
-    guideEl.style.width = width + 'px';
-    guideEl.style.marginLeft = (-width / 2) + 'px';
-    el.segmentEl.appendChild(guideEl);
+    var width = variantInfo.minWidth * TILE_SIZE
+    guideEl.style.width = width + 'px'
+    guideEl.style.marginLeft = (-width / 2) + 'px'
+    el.segmentEl.appendChild(guideEl)
   }
 
   var remainingWidth =
-      street.remainingWidth + parseFloat(el.segmentEl.getAttribute('width'));
+  street.remainingWidth + parseFloat(el.segmentEl.getAttribute('width'))
 
   if (remainingWidth &&
-      (((!variantInfo.minWidth) && (remainingWidth >= MIN_SEGMENT_WIDTH)) || (remainingWidth >= variantInfo.minWidth)) &&
-      ((!variantInfo.maxWidth) || (remainingWidth <= variantInfo.maxWidth))) {
-    var guideEl = document.createElement('div');
-    guideEl.classList.add('guide');
-    guideEl.classList.add('max');
+    (((!variantInfo.minWidth) && (remainingWidth >= MIN_SEGMENT_WIDTH)) || (remainingWidth >= variantInfo.minWidth)) &&
+    ((!variantInfo.maxWidth) || (remainingWidth <= variantInfo.maxWidth))) {
+    var guideEl = document.createElement('div')
+    guideEl.classList.add('guide')
+    guideEl.classList.add('max')
 
-    var width = remainingWidth * TILE_SIZE;
-    guideEl.style.width = width + 'px';
-    guideEl.style.marginLeft = (-width / 2) + 'px';
-    el.segmentEl.appendChild(guideEl);
+    var width = remainingWidth * TILE_SIZE
+    guideEl.style.width = width + 'px'
+    guideEl.style.marginLeft = (-width / 2) + 'px'
+    el.segmentEl.appendChild(guideEl)
   } else if (variantInfo.maxWidth) {
-    var guideEl = document.createElement('div');
-    guideEl.classList.add('guide');
-    guideEl.classList.add('max');
+    var guideEl = document.createElement('div')
+    guideEl.classList.add('guide')
+    guideEl.classList.add('max')
 
-    var width = variantInfo.maxWidth * TILE_SIZE;
-    guideEl.style.width = width + 'px';
-    guideEl.style.marginLeft = (-width / 2) + 'px';
-    el.segmentEl.appendChild(guideEl);
+    var width = variantInfo.maxWidth * TILE_SIZE
+    guideEl.style.width = width + 'px'
+    guideEl.style.marginLeft = (-width / 2) + 'px'
+    el.segmentEl.appendChild(guideEl)
   }
 
-  _infoBubble.hide();
-  _infoBubble.hideSegment(true);
-  _cancelFadeoutControls();
-  _hideControls();
+  _infoBubble.hide()
+  _infoBubble.hideSegment(true)
+  _cancelFadeoutControls()
+  _hideControls()
 
-  window.setTimeout(function() {
-    el.segmentEl.classList.add('hover');
-  }, 0);
+  window.setTimeout(function () {
+    el.segmentEl.classList.add('hover')
+  }, 0)
 
-  _showWidthChartImmediately();
+  _showWidthChartImmediately()
 }
 
-function _handleSegmentResizeMove(event) {
+function _handleSegmentResizeMove (event) {
   if (event.touches && event.touches[0]) {
-    var x = event.touches[0].pageX;
-    var y = event.touches[0].pageY;
+    var x = event.touches[0].pageX
+    var y = event.touches[0].pageY
   } else {
-    var x = event.pageX;
-    var y = event.pageY;
+    var x = event.pageX
+    var y = event.pageY
   }
 
-  var deltaX = x - draggingResize.mouseX;
-  var deltaY = y - draggingResize.mouseY;
+  var deltaX = x - draggingResize.mouseX
+  var deltaY = y - draggingResize.mouseY
 
-  var deltaFromOriginal = draggingResize.elX - draggingResize.originalX;
+  var deltaFromOriginal = draggingResize.elX - draggingResize.originalX
   if (!draggingResize.right) {
-    deltaFromOriginal = -deltaFromOriginal;
+    deltaFromOriginal = -deltaFromOriginal
   }
 
-  draggingResize.elX += deltaX;
-  draggingResize.floatingEl.style.left = (draggingResize.elX - document.querySelector('#street-section-outer').scrollLeft) + 'px';
+  draggingResize.elX += deltaX
+  draggingResize.floatingEl.style.left = (draggingResize.elX - document.querySelector('#street-section-outer').scrollLeft) + 'px'
 
-  draggingResize.width = draggingResize.originalWidth + deltaFromOriginal / TILE_SIZE * 2;
-  var precise = event.shiftKey;
+  draggingResize.width = draggingResize.originalWidth + deltaFromOriginal / TILE_SIZE * 2
+  var precise = event.shiftKey
 
   if (precise) {
-    var resizeType = RESIZE_TYPE_PRECISE_DRAGGING;
+    var resizeType = RESIZE_TYPE_PRECISE_DRAGGING
   } else {
-    var resizeType = RESIZE_TYPE_DRAGGING;
+    var resizeType = RESIZE_TYPE_DRAGGING
   }
 
   _resizeSegment(draggingResize.segmentEl, resizeType,
-      draggingResize.width * TILE_SIZE, true, false);
+    draggingResize.width * TILE_SIZE, true, false)
 
-  draggingResize.mouseX = x;
-  draggingResize.mouseY = y;
+  draggingResize.mouseX = x
+  draggingResize.mouseY = y
 
   // TODO hack so it doesn’t disappear
-  _showWidthChartImmediately();
+  _showWidthChartImmediately()
 }
 
-function _handleSegmentClickOrMoveStart(event) {
+function _handleSegmentClickOrMoveStart (event) {
   if (readOnly) {
-    return;
+    return
   }
 
-  ignoreStreetChanges = true;
+  ignoreStreetChanges = true
 
   if (event.touches && event.touches[0]) {
-    var x = event.touches[0].pageX;
-    var y = event.touches[0].pageY;
+    var x = event.touches[0].pageX
+    var y = event.touches[0].pageY
   } else {
-    var x = event.pageX;
-    var y = event.pageY;
+    var x = event.pageX
+    var y = event.pageY
   }
 
-  var el = event.target;
-  draggingMove.originalEl = el;
+  var el = event.target
+  draggingMove.originalEl = el
 
-  _changeDraggingType(DRAGGING_TYPE_CLICK_OR_MOVE);
+  _changeDraggingType(DRAGGING_TYPE_CLICK_OR_MOVE)
 
-  draggingMove.mouseX = x;
-  draggingMove.mouseY = y;
+  draggingMove.mouseX = x
+  draggingMove.mouseY = y
 }
 
-function _handleSegmentMoveStart() {
+function _handleSegmentMoveStart () {
   if (readOnly) {
-    return;
+    return
   }
 
-  _changeDraggingType(DRAGGING_TYPE_MOVE);
+  _changeDraggingType(DRAGGING_TYPE_MOVE)
 
-  draggingMove.originalType = draggingMove.originalEl.getAttribute('type');
+  draggingMove.originalType = draggingMove.originalEl.getAttribute('type')
 
   if (draggingMove.originalEl.classList.contains('palette')) {
     if (SEGMENT_INFO[draggingMove.originalType].needRandSeed) {
-      draggingMove.originalRandSeed = _generateRandSeed();
+      draggingMove.originalRandSeed = _generateRandSeed()
     }
-    draggingMove.type = DRAGGING_TYPE_MOVE_CREATE;
+    draggingMove.type = DRAGGING_TYPE_MOVE_CREATE
     draggingMove.originalWidth =
-        SEGMENT_INFO[draggingMove.originalType].defaultWidth * TILE_SIZE;
+      SEGMENT_INFO[draggingMove.originalType].defaultWidth * TILE_SIZE
 
     // TODO hack to get the first
     for (var j in SEGMENT_INFO[draggingMove.originalType].details) {
-      draggingMove.originalVariantString = j;
-      break;
+      draggingMove.originalVariantString = j
+      break
     }
   } else {
     draggingMove.originalRandSeed =
-        parseInt(draggingMove.originalEl.getAttribute('rand-seed'));
-    draggingMove.type = DRAGGING_TYPE_MOVE_TRANSFER;
+      parseInt(draggingMove.originalEl.getAttribute('rand-seed'))
+    draggingMove.type = DRAGGING_TYPE_MOVE_TRANSFER
     draggingMove.originalWidth =
-        draggingMove.originalEl.offsetWidth;
+      draggingMove.originalEl.offsetWidth
     draggingMove.originalVariantString =
-        draggingMove.originalEl.getAttribute('variant-string');
+      draggingMove.originalEl.getAttribute('variant-string')
   }
 
-  var pos = _getElAbsolutePos(draggingMove.originalEl);
+  var pos = _getElAbsolutePos(draggingMove.originalEl)
 
-  draggingMove.elX = pos[0];
-  draggingMove.elY = pos[1];
+  draggingMove.elX = pos[0]
+  draggingMove.elY = pos[1]
 
   if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
-    draggingMove.elY += DRAG_OFFSET_Y_PALETTE;
-    draggingMove.elX -= draggingMove.originalWidth / 3;
+    draggingMove.elY += DRAG_OFFSET_Y_PALETTE
+    draggingMove.elX -= draggingMove.originalWidth / 3
   } else {
-    draggingMove.elX -= document.querySelector('#street-section-outer').scrollLeft;
+    draggingMove.elX -= document.querySelector('#street-section-outer').scrollLeft
   }
 
-  draggingMove.floatingEl = document.createElement('div');
-  draggingMove.floatingEl.classList.add('segment');
-  draggingMove.floatingEl.classList.add('floating');
-  draggingMove.floatingEl.classList.add('first-drag-move');
-  draggingMove.floatingEl.setAttribute('type', draggingMove.originalType);
+  draggingMove.floatingEl = document.createElement('div')
+  draggingMove.floatingEl.classList.add('segment')
+  draggingMove.floatingEl.classList.add('floating')
+  draggingMove.floatingEl.classList.add('first-drag-move')
+  draggingMove.floatingEl.setAttribute('type', draggingMove.originalType)
   draggingMove.floatingEl.setAttribute('variant-string',
-      draggingMove.originalVariantString);
-  draggingMove.floatingElVisible = false;
+    draggingMove.originalVariantString)
+  draggingMove.floatingElVisible = false
   _setSegmentContents(draggingMove.floatingEl,
-      draggingMove.originalType,
-      draggingMove.originalVariantString,
-      draggingMove.originalWidth,
-      draggingMove.originalRandSeed,
-      false, false);
-  document.body.appendChild(draggingMove.floatingEl);
+    draggingMove.originalType,
+    draggingMove.originalVariantString,
+    draggingMove.originalWidth,
+    draggingMove.originalRandSeed,
+    false, false)
+  document.body.appendChild(draggingMove.floatingEl)
 
   if (system.cssTransform) {
     draggingMove.floatingEl.style[system.cssTransform] =
-        'translate(' + draggingMove.elX + 'px, ' + draggingMove.elY + 'px)';
+      'translate(' + draggingMove.elX + 'px, ' + draggingMove.elY + 'px)'
   } else {
-    draggingMove.floatingEl.style.left = draggingMove.elX + 'px';
-    draggingMove.floatingEl.style.top = draggingMove.elY + 'px';
+    draggingMove.floatingEl.style.left = draggingMove.elX + 'px'
+    draggingMove.floatingEl.style.top = draggingMove.elY + 'px'
   }
 
   if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
-    draggingMove.originalEl.classList.add('dragged-out');
-    draggingMove.originalEl.classList.remove('immediate-show-drag-handles');
-    draggingMove.originalEl.classList.remove('show-drag-handles');
-    draggingMove.originalEl.classList.remove('hover');
+    draggingMove.originalEl.classList.add('dragged-out')
+    draggingMove.originalEl.classList.remove('immediate-show-drag-handles')
+    draggingMove.originalEl.classList.remove('show-drag-handles')
+    draggingMove.originalEl.classList.remove('hover')
   }
 
-  draggingMove.segmentBeforeEl = null;
-  draggingMove.segmentAfterEl = null;
-  _updateWithinCanvas(true);
+  draggingMove.segmentBeforeEl = null
+  draggingMove.segmentAfterEl = null
+  _updateWithinCanvas(true)
 
-  _infoBubble.hide();
-  _cancelFadeoutControls();
-  _hideControls();
+  _infoBubble.hide()
+  _cancelFadeoutControls()
+  _hideControls()
 }
 
-function _updateWithinCanvas(_newWithinCanvas) {
-  draggingMove.withinCanvas = _newWithinCanvas;
+function _updateWithinCanvas (_newWithinCanvas) {
+  draggingMove.withinCanvas = _newWithinCanvas
 
   if (draggingMove.withinCanvas) {
-    document.body.classList.remove('not-within-canvas');
+    document.body.classList.remove('not-within-canvas')
   } else {
-    document.body.classList.add('not-within-canvas');
+    document.body.classList.add('not-within-canvas')
   }
 }
 
-function _handleSegmentClickOrMoveMove(event) {
+function _handleSegmentClickOrMoveMove (event) {
   if (event.touches && event.touches[0]) {
-    var x = event.touches[0].pageX;
-    var y = event.touches[0].pageY;
+    var x = event.touches[0].pageX
+    var y = event.touches[0].pageY
   } else {
-    var x = event.pageX;
-    var y = event.pageY;
+    var x = event.pageX
+    var y = event.pageY
   }
 
-  var deltaX = x - draggingMove.mouseX;
-  var deltaY = y - draggingMove.mouseY;
+  var deltaX = x - draggingMove.mouseX
+  var deltaY = y - draggingMove.mouseY
 
   // TODO const
   if ((Math.abs(deltaX) > 5) || (Math.abs(deltaY) > 5)) {
-    _handleSegmentMoveStart();
-    _handleSegmentMoveMove(event);
+    _handleSegmentMoveStart()
+    _handleSegmentMoveMove(event)
   }
 }
 
-function _handleSegmentMoveMove(event) {
+function _handleSegmentMoveMove (event) {
   if (event.touches && event.touches[0]) {
-    var x = event.touches[0].pageX;
-    var y = event.touches[0].pageY;
+    var x = event.touches[0].pageX
+    var y = event.touches[0].pageY
   } else {
-    var x = event.pageX;
-    var y = event.pageY;
+    var x = event.pageX
+    var y = event.pageY
   }
 
-  var deltaX = x - draggingMove.mouseX;
-  var deltaY = y - draggingMove.mouseY;
+  var deltaX = x - draggingMove.mouseX
+  var deltaY = y - draggingMove.mouseY
 
-  draggingMove.elX += deltaX;
-  draggingMove.elY += deltaY;
+  draggingMove.elX += deltaX
+  draggingMove.elY += deltaY
 
   if (!draggingMove.floatingElVisible) {
-    draggingMove.floatingElVisible = true;
+    draggingMove.floatingElVisible = true
 
     if (system.touch) {
       if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
-        draggingMove.elY += DRAG_OFFSET_Y_TOUCH_PALETTE;
+        draggingMove.elY += DRAG_OFFSET_Y_TOUCH_PALETTE
       } else {
-        draggingMove.elY += DRAG_OFFSET_Y_TOUCH;
+        draggingMove.elY += DRAG_OFFSET_Y_TOUCH
       }
     }
 
-    window.setTimeout(function() {
-      draggingMove.floatingEl.classList.remove('first-drag-move');
-    }, SHORT_DELAY);
+    window.setTimeout(function () {
+      draggingMove.floatingEl.classList.remove('first-drag-move')
+    }, SHORT_DELAY)
   }
 
   if (system.cssTransform) {
     draggingMove.floatingEl.style[system.cssTransform] =
-        'translate(' + draggingMove.elX + 'px, ' + draggingMove.elY + 'px)';
+      'translate(' + draggingMove.elX + 'px, ' + draggingMove.elY + 'px)'
 
-    var deg = deltaX;
+    var deg = deltaX
 
     if (deg > MAX_DRAG_DEGREE) {
-      deg = MAX_DRAG_DEGREE;
+      deg = MAX_DRAG_DEGREE
     } else if (deg < -MAX_DRAG_DEGREE) {
-      deg = -MAX_DRAG_DEGREE;
+      deg = -MAX_DRAG_DEGREE
     }
 
     if (system.cssTransform) {
       draggingMove.floatingEl.querySelector('canvas').style[system.cssTransform] =
-          'rotateZ(' + deg + 'deg)';
+        'rotateZ(' + deg + 'deg)'
     }
   } else {
-    draggingMove.floatingEl.style.left = draggingMove.elX + 'px';
-    draggingMove.floatingEl.style.top = draggingMove.elY + 'px';
+    draggingMove.floatingEl.style.left = draggingMove.elX + 'px'
+    draggingMove.floatingEl.style.top = draggingMove.elY + 'px'
   }
 
-  draggingMove.mouseX = x;
-  draggingMove.mouseY = y;
+  draggingMove.mouseX = x
+  draggingMove.mouseY = y
 
-  var newX = x - BUILDING_SPACE + document.querySelector('#street-section-outer').scrollLeft;
+  var newX = x - BUILDING_SPACE + document.querySelector('#street-section-outer').scrollLeft
 
   if (_makeSpaceBetweenSegments(newX, y)) {
     var smartDrop = _doDropHeuristics(draggingMove.originalType,
-        draggingMove.originalVariantString, draggingMove.originalWidth);
+      draggingMove.originalVariantString, draggingMove.originalWidth)
 
     if ((smartDrop.type != draggingMove.originalType) || (smartDrop.variantString != draggingMove.originalVariantString)) {
       _setSegmentContents(draggingMove.floatingEl,
         smartDrop.type,
         smartDrop.variantString,
         smartDrop.width,
-        draggingMove.originalRandSeed, false, true);
+        draggingMove.originalRandSeed, false, true)
 
-      draggingMove.originalType = smartDrop.type;
-      draggingMove.originalVariantString = smartDrop.variantString;
+      draggingMove.originalType = smartDrop.type
+      draggingMove.originalVariantString = smartDrop.variantString
     }
   }
 
   if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
-    document.querySelector('#trashcan').classList.add('visible');
+    document.querySelector('#trashcan').classList.add('visible')
   }
 }
 
-function _onBodyMouseOut(event) {
-  _infoBubble.hide();
+function _onBodyMouseOut (event) {
+  _infoBubble.hide()
 }
 
-function _onBodyMouseDown(event) {
-  var el = event.target;
+function _onBodyMouseDown (event) {
+  var el = event.target
 
   if (readOnly || (event.touches && event.touches.length != 1)) {
-    return;
+    return
   }
 
-  var topEl = event.target;
+  var topEl = event.target
 
   // For street width editing on Firefox
 
   while (topEl && (topEl.id != 'street-width')) {
-    topEl = topEl.parentNode;
+    topEl = topEl.parentNode
   }
 
-  var withinMenu = !!topEl;
+  var withinMenu = !!topEl
 
   if (withinMenu) {
-    return;
+    return
   }
 
-  _loseAnyFocus();
-  _hideDebugInfo();
+  _loseAnyFocus()
+  _hideDebugInfo()
 
-  var topEl = event.target;
+  var topEl = event.target
 
   while (topEl && (topEl.id != 'info-bubble') && (topEl.id != 'street-width') &&
     ((!topEl.classList) ||
     ((!topEl.classList.contains('menu-attached')) &&
     (!topEl.classList.contains('menu'))))) {
-    topEl = topEl.parentNode;
+    topEl = topEl.parentNode
   }
 
-  var withinMenu = !!topEl;
+  var withinMenu = !!topEl
 
   if (withinMenu) {
-    return;
+    return
   }
 
-  Stmx.ui.menus.hideAll();
+  Stmx.ui.menus.hideAll()
 
   if (el.classList.contains('drag-handle')) {
-    _handleSegmentResizeStart(event);
+    _handleSegmentResizeStart(event)
   } else {
     if (!el.classList.contains('segment') ||
-        el.classList.contains('unmovable')) {
-      return;
+      el.classList.contains('unmovable')) {
+      return
     }
 
-    _handleSegmentClickOrMoveStart(event);
+    _handleSegmentClickOrMoveStart(event)
   }
 
-  event.preventDefault();
+  event.preventDefault()
 }
 
-function _makeSpaceBetweenSegments(x, y) {
-  var left = x - streetSectionCanvasLeft;
+function _makeSpaceBetweenSegments (x, y) {
+  var left = x - streetSectionCanvasLeft
 
-  var selectedSegmentBefore = null;
-  var selectedSegmentAfter = null;
+  var selectedSegmentBefore = null
+  var selectedSegmentAfter = null
 
   if (street.segments.length) {
-    var farLeft = street.segments[0].el.savedNoMoveLeft;
+    var farLeft = street.segments[0].el.savedNoMoveLeft
     var farRight =
-        street.segments[street.segments.length - 1].el.savedNoMoveLeft +
-        street.segments[street.segments.length - 1].el.savedWidth;
+    street.segments[street.segments.length - 1].el.savedNoMoveLeft +
+      street.segments[street.segments.length - 1].el.savedWidth
   } else {
-    var farLeft = 0;
-    var farRight = street.width * TILE_SIZE;
+    var farLeft = 0
+    var farRight = street.width * TILE_SIZE
   }
   // TODO const
-  var space = (street.width - street.occupiedWidth) * TILE_SIZE / 2;
+  var space = (street.width - street.occupiedWidth) * TILE_SIZE / 2
   if (space < 100) {
-    space = 100;
+    space = 100
   }
 
   // TODO const
   if ((left < farLeft - space) || (left > farRight + space) ||
-       (y < streetSectionTop - 100) || (y > streetSectionTop + 300)) {
-    _updateWithinCanvas(false);
+    (y < streetSectionTop - 100) || (y > streetSectionTop + 300)) {
+    _updateWithinCanvas(false)
   } else {
-    _updateWithinCanvas(true);
+    _updateWithinCanvas(true)
     for (var i in street.segments) {
-      var segment = street.segments[i];
+      var segment = street.segments[i]
 
       if (!selectedSegmentBefore && ((segment.el.savedLeft + segment.el.savedWidth / 2) > left)) {
-        selectedSegmentBefore = segment.el;
+        selectedSegmentBefore = segment.el
       }
 
       if ((segment.el.savedLeft + segment.el.savedWidth / 2) <= left) {
-        selectedSegmentAfter = segment.el;
+        selectedSegmentAfter = segment.el
       }
     }
   }
 
   if ((selectedSegmentBefore != draggingMove.segmentBeforeEl) ||
-      (selectedSegmentAfter != draggingMove.segmentAfterEl)) {
-    draggingMove.segmentBeforeEl = selectedSegmentBefore;
-    draggingMove.segmentAfterEl = selectedSegmentAfter;
-    _repositionSegments();
-    return true;
+    (selectedSegmentAfter != draggingMove.segmentAfterEl)) {
+    draggingMove.segmentBeforeEl = selectedSegmentBefore
+    draggingMove.segmentAfterEl = selectedSegmentAfter
+    _repositionSegments()
+    return true
   } else {
-    return false;
+    return false
   }
 }
 
-function _onBodyMouseMove(event) {
+function _onBodyMouseMove (event) {
   if (draggingType == DRAGGING_TYPE_NONE) {
-    return;
+    return
   }
 
   switch (draggingType) {
     case DRAGGING_TYPE_CLICK_OR_MOVE:
-      _handleSegmentClickOrMoveMove(event);
-      break;
+      _handleSegmentClickOrMoveMove(event)
+      break
     case DRAGGING_TYPE_MOVE:
-      _handleSegmentMoveMove(event);
-      break;
+      _handleSegmentMoveMove(event)
+      break
     case DRAGGING_TYPE_RESIZE:
-      _handleSegmentResizeMove(event);
-      break;
+      _handleSegmentResizeMove(event)
+      break
   }
 
-  event.preventDefault();
+  event.preventDefault()
 }
 
-function _doDropHeuristics(type, variantString, width) {
+function _doDropHeuristics (type, variantString, width) {
   // Automatically figure out width
 
   if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
     if ((street.remainingWidth > 0) &&
-        (width > street.remainingWidth * TILE_SIZE)) {
-
+      (width > street.remainingWidth * TILE_SIZE)) {
       var segmentMinWidth =
-          SEGMENT_INFO[type].details[variantString].minWidth || 0;
+      SEGMENT_INFO[type].details[variantString].minWidth || 0
 
       if ((street.remainingWidth >= MIN_SEGMENT_WIDTH) &&
-          (street.remainingWidth >= segmentMinWidth)) {
-        width = _normalizeSegmentWidth(street.remainingWidth, RESIZE_TYPE_INITIAL) * TILE_SIZE;
+        (street.remainingWidth >= segmentMinWidth)) {
+        width = _normalizeSegmentWidth(street.remainingWidth, RESIZE_TYPE_INITIAL) * TILE_SIZE
       }
     }
   }
 
   // Automatically figure out variants
 
-  var leftEl = draggingMove.segmentAfterEl;
-  var rightEl = draggingMove.segmentBeforeEl;
+  var leftEl = draggingMove.segmentAfterEl
+  var rightEl = draggingMove.segmentBeforeEl
 
-  var left = leftEl ? street.segments[leftEl.dataNo] : null;
-  var right = rightEl ? street.segments[rightEl.dataNo] : null;
+  var left = leftEl ? street.segments[leftEl.dataNo] : null
+  var right = rightEl ? street.segments[rightEl.dataNo] : null
 
-  var leftVariants = left && SEGMENT_INFO[left.type].variants;
-  var rightVariants = right && SEGMENT_INFO[right.type].variants;
+  var leftVariants = left && SEGMENT_INFO[left.type].variants
+  var rightVariants = right && SEGMENT_INFO[right.type].variants
 
-  var leftOwner = left && SEGMENT_INFO[left.type].owner;
-  var rightOwner = right && SEGMENT_INFO[right.type].owner;
+  var leftOwner = left && SEGMENT_INFO[left.type].owner
+  var rightOwner = right && SEGMENT_INFO[right.type].owner
 
   var leftOwnerAsphalt =
-    (leftOwner == SEGMENT_OWNER_CAR) || (leftOwner == SEGMENT_OWNER_BIKE) ||
-    (leftOwner == SEGMENT_OWNER_PUBLIC_TRANSIT);
+  (leftOwner == SEGMENT_OWNER_CAR) || (leftOwner == SEGMENT_OWNER_BIKE) ||
+    (leftOwner == SEGMENT_OWNER_PUBLIC_TRANSIT)
   var rightOwnerAsphalt =
-    (rightOwner == SEGMENT_OWNER_CAR) || (rightOwner == SEGMENT_OWNER_BIKE) ||
-    (rightOwner == SEGMENT_OWNER_PUBLIC_TRANSIT);
+  (rightOwner == SEGMENT_OWNER_CAR) || (rightOwner == SEGMENT_OWNER_BIKE) ||
+    (rightOwner == SEGMENT_OWNER_PUBLIC_TRANSIT)
 
-  var leftVariant = left && _getVariantArray(left.type, left.variantString);
-  var rightVariant = right && _getVariantArray(right.type, right.variantString);
+  var leftVariant = left && _getVariantArray(left.type, left.variantString)
+  var rightVariant = right && _getVariantArray(right.type, right.variantString)
 
-  var variant = _getVariantArray(type, variantString);
+  var variant = _getVariantArray(type, variantString)
 
   // Direction
 
   if (SEGMENT_INFO[type].variants.indexOf('direction') != -1) {
     if (leftVariant && leftVariant['direction']) {
-      variant['direction'] = leftVariant['direction'];
+      variant['direction'] = leftVariant['direction']
     } else if (rightVariant && rightVariant['direction']) {
-      variant['direction'] = rightVariant['direction'];
+      variant['direction'] = rightVariant['direction']
     }
   }
 
@@ -605,9 +604,9 @@ function _doDropHeuristics(type, variantString, width) {
 
   if (SEGMENT_INFO[type].variants.indexOf('parking-lane-orientation') != -1) {
     if (!right || !rightOwnerAsphalt) {
-      variant['parking-lane-orientation'] = 'right';
+      variant['parking-lane-orientation'] = 'right'
     } else if (!left || !leftOwnerAsphalt) {
-      variant['parking-lane-orientation'] = 'left';
+      variant['parking-lane-orientation'] = 'left'
     }
   }
 
@@ -615,9 +614,9 @@ function _doDropHeuristics(type, variantString, width) {
 
   if (type == 'parklet') {
     if (left && leftOwnerAsphalt) {
-      variant['orientation'] = 'right';
+      variant['orientation'] = 'right'
     } else if (right && rightOwnerAsphalt) {
-      variant['orientation'] = 'left';
+      variant['orientation'] = 'left'
     }
   }
 
@@ -625,9 +624,9 @@ function _doDropHeuristics(type, variantString, width) {
 
   if (SEGMENT_INFO[type].variants.indexOf('turn-lane-orientation') != -1) {
     if (!right || !rightOwnerAsphalt) {
-      variant['turn-lane-orientation'] = 'right';
+      variant['turn-lane-orientation'] = 'right'
     } else if (!left || !leftOwnerAsphalt) {
-      variant['turn-lane-orientation'] = 'left';
+      variant['turn-lane-orientation'] = 'left'
     }
   }
 
@@ -635,17 +634,17 @@ function _doDropHeuristics(type, variantString, width) {
 
   if (type == 'transit-shelter') {
     if (left && (leftOwner == SEGMENT_OWNER_PUBLIC_TRANSIT)) {
-      variant['orientation'] = 'right';
+      variant['orientation'] = 'right'
     } else if (right && (rightOwner == SEGMENT_OWNER_PUBLIC_TRANSIT)) {
-      variant['orientation'] = 'left';
+      variant['orientation'] = 'left'
     }
   }
 
   if (SEGMENT_INFO[type].variants.indexOf('transit-shelter-elevation') != -1) {
     if (variant['orientation'] == 'right' && left && left.type == 'light-rail') {
-      variant['transit-shelter-elevation'] = 'light-rail';
+      variant['transit-shelter-elevation'] = 'light-rail'
     } else if (variant['orientation'] == 'left' && right && right.type == 'light-rail') {
-      variant['transit-shelter-elevation'] = 'light-rail';
+      variant['transit-shelter-elevation'] = 'light-rail'
     }
   }
 
@@ -653,9 +652,9 @@ function _doDropHeuristics(type, variantString, width) {
 
   if (type == 'sidewalk-bike-rack') {
     if (left && (leftOwner != SEGMENT_OWNER_PEDESTRIAN)) {
-      variant['orientation'] = 'left';
+      variant['orientation'] = 'left'
     } else if (right && (rightOwner != SEGMENT_OWNER_PEDESTRIAN)) {
-      variant['orientation'] = 'right';
+      variant['orientation'] = 'right'
     }
   }
 
@@ -663,140 +662,140 @@ function _doDropHeuristics(type, variantString, width) {
 
   if (SEGMENT_INFO[type].variants.indexOf('lamp-orientation') != -1) {
     if (left && right && leftOwnerAsphalt && rightOwnerAsphalt) {
-      variant['lamp-orientation'] = 'both';
+      variant['lamp-orientation'] = 'both'
     } else if (left && leftOwnerAsphalt) {
-      variant['lamp-orientation'] = 'left';
+      variant['lamp-orientation'] = 'left'
     } else if (right && rightOwnerAsphalt) {
-      variant['lamp-orientation'] = 'right';
+      variant['lamp-orientation'] = 'right'
     } else if (left && right) {
-      variant['lamp-orientation'] = 'both';
+      variant['lamp-orientation'] = 'both'
     } else if (left) {
-      variant['lamp-orientation'] = 'left';
+      variant['lamp-orientation'] = 'left'
     } else if (right) {
-      variant['lamp-orientation'] = 'right';
+      variant['lamp-orientation'] = 'right'
     } else {
-      variant['lamp-orientation'] = 'both';
+      variant['lamp-orientation'] = 'both'
     }
   }
 
-  variantString = _getVariantString(variant);
+  variantString = _getVariantString(variant)
 
-  return { type: type, variantString: variantString, width: width };
+  return { type: type, variantString: variantString, width: width }
 }
 
-function _handleSegmentMoveCancel() {
-  draggingMove.originalEl.classList.remove('dragged-out');
+function _handleSegmentMoveCancel () {
+  draggingMove.originalEl.classList.remove('dragged-out')
 
-  draggingMove.segmentBeforeEl = null;
-  draggingMove.segmentAfterEl = null;
+  draggingMove.segmentBeforeEl = null
+  draggingMove.segmentAfterEl = null
 
-  _repositionSegments();
-  _updateWithinCanvas(true);
+  _repositionSegments()
+  _updateWithinCanvas(true)
 
-  _removeElFromDom(draggingMove.floatingEl);
-  document.querySelector('#trashcan').classList.remove('visible');
+  _removeElFromDom(draggingMove.floatingEl)
+  document.querySelector('#trashcan').classList.remove('visible')
 
-  _changeDraggingType(DRAGGING_TYPE_NONE);
+  _changeDraggingType(DRAGGING_TYPE_NONE)
 }
 
-function _handleSegmentMoveEnd(event) {
-  ignoreStreetChanges = false;
+function _handleSegmentMoveEnd (event) {
+  ignoreStreetChanges = false
 
-  var failedDrop = false;
+  var failedDrop = false
 
-  var segmentElControls = null;
+  var segmentElControls = null
 
   if (!draggingMove.withinCanvas) {
     if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
-      _removeElFromDom(draggingMove.originalEl);
+      _removeElFromDom(draggingMove.originalEl)
     }
 
     Stmx.app.eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_REMOVE_SEGMENT,
-        TRACK_LABEL_DRAGGING, null, true);
+      TRACK_LABEL_DRAGGING, null, true)
   } else if (draggingMove.segmentBeforeEl || draggingMove.segmentAfterEl || (street.segments.length == 0)) {
     var smartDrop = _doDropHeuristics(draggingMove.originalType,
-        draggingMove.originalVariantString, draggingMove.originalWidth);
+      draggingMove.originalVariantString, draggingMove.originalWidth)
 
     var newEl = _createSegment(smartDrop.type,
-        smartDrop.variantString, smartDrop.width, false, false, draggingMove.originalRandSeed);
+      smartDrop.variantString, smartDrop.width, false, false, draggingMove.originalRandSeed)
 
-    newEl.classList.add('create');
+    newEl.classList.add('create')
 
     if (draggingMove.segmentBeforeEl) {
       document.querySelector('#street-section-editable').
-          insertBefore(newEl, draggingMove.segmentBeforeEl);
+        insertBefore(newEl, draggingMove.segmentBeforeEl)
     } else if (draggingMove.segmentAfterEl) {
       document.querySelector('#street-section-editable').
-          insertBefore(newEl, draggingMove.segmentAfterEl.nextSibling);
+        insertBefore(newEl, draggingMove.segmentAfterEl.nextSibling)
     } else {
       // empty street
-      document.querySelector('#street-section-editable').appendChild(newEl);
+      document.querySelector('#street-section-editable').appendChild(newEl)
     }
 
-    window.setTimeout(function() {
-      newEl.classList.remove('create');
-    }, SHORT_DELAY);
+    window.setTimeout(function () {
+      newEl.classList.remove('create')
+    }, SHORT_DELAY)
 
     if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
-      var draggedOutEl = document.querySelector('.segment.dragged-out');
-      _removeElFromDom(draggedOutEl);
+      var draggedOutEl = document.querySelector('.segment.dragged-out')
+      _removeElFromDom(draggedOutEl)
     }
 
-    segmentElControls = newEl;
+    segmentElControls = newEl
   } else {
-    failedDrop = true;
+    failedDrop = true
 
-    draggingMove.originalEl.classList.remove('dragged-out');
+    draggingMove.originalEl.classList.remove('dragged-out')
 
-    segmentElControls = draggingMove.originalEl;
+    segmentElControls = draggingMove.originalEl
   }
 
-  draggingMove.segmentBeforeEl = null;
-  draggingMove.segmentAfterEl = null;
+  draggingMove.segmentBeforeEl = null
+  draggingMove.segmentAfterEl = null
 
-  _repositionSegments();
-  _segmentsChanged();
-  _updateWithinCanvas(true);
+  _repositionSegments()
+  _segmentsChanged()
+  _updateWithinCanvas(true)
 
-  _removeElFromDom(draggingMove.floatingEl);
-  document.querySelector('#trashcan').classList.remove('visible');
+  _removeElFromDom(draggingMove.floatingEl)
+  document.querySelector('#trashcan').classList.remove('visible')
 
-  _changeDraggingType(DRAGGING_TYPE_NONE);
+  _changeDraggingType(DRAGGING_TYPE_NONE)
 
   if (segmentElControls) {
-    _scheduleControlsFadeout(segmentElControls);
+    _scheduleControlsFadeout(segmentElControls)
   }
 
   if (failedDrop) {
-    _infoBubble.show(true);
+    _infoBubble.show(true)
   }
 }
 
-function _removeGuides(el) {
-  var guideEl;
+function _removeGuides (el) {
+  var guideEl
   while (guideEl = el.querySelector('.guide')) {
-    _removeElFromDom(guideEl);
+    _removeElFromDom(guideEl)
   }
 }
 
-function _onBodyMouseUp(event) {
+function _onBodyMouseUp (event) {
   switch (draggingType) {
     case DRAGGING_TYPE_NONE:
-      return;
+      return
     case DRAGGING_TYPE_CLICK_OR_MOVE:
-      _changeDraggingType(DRAGGING_TYPE_NONE);
-      ignoreStreetChanges = false;
+      _changeDraggingType(DRAGGING_TYPE_NONE)
+      ignoreStreetChanges = false
 
       // click!
-      //_nextSegmentVariant(draggingMove.originalEl.dataNo);
-      break;
+      // _nextSegmentVariant(draggingMove.originalEl.dataNo)
+      break
     case DRAGGING_TYPE_MOVE:
-      _handleSegmentMoveEnd(event);
-      break;
+      _handleSegmentMoveEnd(event)
+      break
     case DRAGGING_TYPE_RESIZE:
-      _handleSegmentResizeEnd(event);
-      break;
+      _handleSegmentResizeEnd(event)
+      break
   }
 
-  event.preventDefault();
+  event.preventDefault()
 }

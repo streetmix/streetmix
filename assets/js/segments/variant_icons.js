@@ -63,4 +63,4 @@ var VARIANT_ICONS = {
   'wayfinding-type|large': { id: 'wayfinding-large', title: 'Large' },
   'wayfinding-type|medium': { id: 'wayfinding-medium', title: 'Medium' },
   'wayfinding-type|small': { id: 'wayfinding-small', title: 'Small' }
-};
+}

@@ -20,12 +20,12 @@ you're using (i.e. Mac OS X 10.8, Windows 7, Android 4.1).
 
 If you have any ideas for new features or functionality for Streetmix,
 we'd love to hear about them! Unfortunately, we can't promise to build
-everything, but we are receptive to all thoughts you have on how 
+everything, but we are receptive to all thoughts you have on how
 Streetmix could be more useful. Shoot us [an
 email](mailto:streetmix@codeforamerica.org) or [open an issue][].
 
 **Note:** before suggesting a new feature or reporting a bug, we'd
-really appreciate it if you could please search our [issues][] to 
+really appreciate it if you could please search our [issues][] to
 make sure it hasn't already been reported. If there is already an issue,
 feel free to add a comment – and if there's isn't an issue, please open
 a new one.
@@ -33,12 +33,12 @@ a new one.
 ### Code Contributions
 
 If you have the capacity to write code, and wish to contribute to
-Streetmix, we'd love your help! 
+Streetmix, we'd love your help!
 
 **A request:** before you write any new feature or code, please [open an
 issue][], or comment on the issue you'd like to work on. That way the
 maintainers of the project can guide your work from the outset, making
-it more likely that we'll be able to accept your work when it's ready. 
+it more likely that we'll be able to accept your work when it's ready.
 
 In general, you can help by:
 * Writing or editing documentation
@@ -50,7 +50,11 @@ In general, you can help by:
 
 Once your code is ready, please push your work to a feature branch on
 your fork of the Streetmix repo, and submit a pull request to us.
- 
+
+#### Styleguide
+
+[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
+
 ### Design/Illustrations
 
 Unfortunately, we are not accepting illustration contributions at this

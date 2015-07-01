@@ -17,61 +17,61 @@ var MODES = {
   STREET_404_BUT_LINK_TO_USER: 16,
   STREET_410_BUT_LINK_TO_USER: 17,
   ABOUT: 18
-};
+}
 
-var mode;
+var mode
 
-function _processMode() {
-  serverContacted = true;
+function _processMode () {
+  serverContacted = true
 
   switch (mode) {
     case MODES.ERROR:
-      _showErrorFromUrl();
-      break;
+      _showErrorFromUrl()
+      break
     case MODES.UNSUPPORTED_BROWSER:
-      _showError(ERRORS.UNSUPPORTED_BROWSER, true);
-      break;
+      _showError(ERRORS.UNSUPPORTED_BROWSER, true)
+      break
     case MODES.NOT_FOUND:
-      _showError(ERRORS.NOT_FOUND, true);
-      break;
+      _showError(ERRORS.NOT_FOUND, true)
+      break
     case MODES.STREET_404:
-      _showError(ERRORS.STREET_404, true);
-      break;
+      _showError(ERRORS.STREET_404, true)
+      break
     case MODES.STREET_404_BUT_LINK_TO_USER:
-      _showError(ERRORS.STREET_404_BUT_LINK_TO_USER, true);
-      break;
+      _showError(ERRORS.STREET_404_BUT_LINK_TO_USER, true)
+      break
     case MODES.STREET_410_BUT_LINK_TO_USER:
-      _showError(ERRORS.STREET_410_BUT_LINK_TO_USER, true);
-      break;
+      _showError(ERRORS.STREET_410_BUT_LINK_TO_USER, true)
+      break
     case MODES.SIGN_OUT:
-      _showError(ERRORS.SIGN_OUT, true);
-      break;
+      _showError(ERRORS.SIGN_OUT, true)
+      break
     case MODES.FORCE_RELOAD_SIGN_OUT:
-      _showError(ERRORS.FORCE_RELOAD_SIGN_OUT, true);
-      break;
+      _showError(ERRORS.FORCE_RELOAD_SIGN_OUT, true)
+      break
     case MODES.FORCE_RELOAD_SIGN_OUT_401:
-      _showError(ERRORS.FORCE_RELOAD_SIGN_OUT_401, true);
-      break;
+      _showError(ERRORS.FORCE_RELOAD_SIGN_OUT_401, true)
+      break
     case MODES.FORCE_RELOAD_SIGN_IN:
-      _showError(ERRORS.FORCE_RELOAD_SIGN_IN, true);
-      break;
+      _showError(ERRORS.FORCE_RELOAD_SIGN_IN, true)
+      break
     case MODES.NEW_STREET:
-      serverContacted = false;
-      break;
+      serverContacted = false
+      break
     case MODES.NEW_STREET_COPY_LAST:
-      serverContacted = false;
-      break;
+      serverContacted = false
+      break
     case MODES.CONTINUE:
     case MODES.USER_GALLERY:
     case MODES.ABOUT:
     case MODES.GLOBAL_GALLERY:
-      serverContacted = false;
-      break;
+      serverContacted = false
+      break
     case MODES.JUST_SIGNED_IN:
-      serverContacted = false;
-      break;
+      serverContacted = false
+      break
     case MODES.EXISTING_STREET:
-      serverContacted = false;
-      break;
+      serverContacted = false
+      break
   }
 }

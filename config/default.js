@@ -1,9 +1,9 @@
-var fs = require('fs');
-var envFile = __dirname + '/../.env';
+var fs = require('fs')
+var envFile = __dirname + '/../.env'
 
 if (fs.existsSync(envFile)) {
-  env = require('node-env-file');
-  env(__dirname + '/../.env');
+  var env = require('node-env-file')
+  env(__dirname + '/../.env')
 }
 
 var port = process.env.PORT || 8000
@@ -40,9 +40,9 @@ module.exports = {
       username: process.env.SENDGRID_USERNAME,
       password: process.env.SENDGRID_PASSWORD
     },
-    feedback_recipient: process.env.EMAIL_FEEDBACK_RECIPIENT || "streetmix@codeforamerica.org",
-    feedback_subject: "Streetmix feedback",
-    feedback_sender_default: "noreply@codeforamerica.org"
+    feedback_recipient: process.env.EMAIL_FEEDBACK_RECIPIENT || 'streetmix@codeforamerica.org',
+    feedback_subject: 'Streetmix feedback',
+    feedback_sender_default: 'noreply@codeforamerica.org'
   },
   log_level: 'debug',
   no_internet_mode: process.env.NO_INTERNET_MODE || false
