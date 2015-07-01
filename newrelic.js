@@ -5,8 +5,6 @@
  * description of configuration variables and their potential values.
  */
 
-var level = 'info';
-
 exports.config = {
   app_name: ['Streetmix ' + process.env.NODE_ENV],
   license_key: process.env.NEW_RELIC_LICENSE_KEY,
@@ -18,4 +16,4 @@ exports.config = {
      */
     level: process.env.NEW_RELIC_LOG_LEVEL || 'info'
   }
-};
+}

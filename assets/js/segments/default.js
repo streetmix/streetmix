@@ -33,4 +33,4 @@ var DEFAULT_SEGMENTS = {
     { type: 'sidewalk-tree', variant: { 'tree-type': 'big' }, width: 2 },
     { type: 'sidewalk', variant: { 'sidewalk-density': 'dense' }, width: 6 }
   ]
-};
+}

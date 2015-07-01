@@ -7,98 +7,98 @@ var debug = {
   forceNonRetina: false,
   secretSegments: false,
   experimental: false
-};
-
-function _hideDebugInfo() {
-  document.querySelector('#debug').classList.remove('visible');
 }
 
-function _showDebugInfo() {
-  var debugStreetData = _clone(street);
-  var debugUndo = _clone(undoStack);
-  var debugSettings = _clone(settings);
+function _hideDebugInfo () {
+  document.querySelector('#debug').classList.remove('visible')
+}
+
+function _showDebugInfo () {
+  var debugStreetData = _clone(street)
+  var debugUndo = _clone(undoStack)
+  var debugSettings = _clone(settings)
 
   for (var i in debugStreetData.segments) {
-    delete debugStreetData.segments[i].el;
+    delete debugStreetData.segments[i].el
   }
 
   for (var j in debugUndo) {
     for (var i in debugUndo[j].segments) {
-      delete debugUndo[j].segments[i].el;
+      delete debugUndo[j].segments[i].el
     }
   }
 
   var debugText =
-      'DATA:\n' + JSON.stringify(debugStreetData, null, 2) +
-      '\n\nSETTINGS:\n' + JSON.stringify(debugSettings, null, 2) +
-      '\n\nUNDO:\n' + JSON.stringify(debugUndo, null, 2);
+  'DATA:\n' + JSON.stringify(debugStreetData, null, 2) +
+    '\n\nSETTINGS:\n' + JSON.stringify(debugSettings, null, 2) +
+    '\n\nUNDO:\n' + JSON.stringify(debugUndo, null, 2)
 
-  document.querySelector('#debug').classList.add('visible');
-  document.querySelector('#debug > textarea').innerHTML = debugText;
-  document.querySelector('#debug > textarea').focus();
-  document.querySelector('#debug > textarea').select();
-  event.preventDefault();
+  document.querySelector('#debug').classList.add('visible')
+  document.querySelector('#debug > textarea').innerHTML = debugText
+  document.querySelector('#debug > textarea').focus()
+  document.querySelector('#debug > textarea').select()
+  event.preventDefault()
 }
 
-function _detectDebugUrl() {
-  var url = location.href;
+function _detectDebugUrl () {
+  var url = location.href
 
   // TODO const
   if (url.match(/[\?\&]debug-hover-polygon\&?/)) {
-    debug.hoverPolygon = true;
+    debug.hoverPolygon = true
 
-    var el = document.createElement('div');
-    el.id = 'debug-hover-polygon';
-    document.body.appendChild(el);
+    var el = document.createElement('div')
+    el.id = 'debug-hover-polygon'
+    document.body.appendChild(el)
 
-    var canvasEl = document.createElement('canvas');
-    canvasEl.width = window.innerWidth;
-    canvasEl.height = window.innerHeight;
-    el.appendChild(canvasEl);
+    var canvasEl = document.createElement('canvas')
+    canvasEl.width = window.innerWidth
+    canvasEl.height = window.innerHeight
+    el.appendChild(canvasEl)
   }
 
   // TODO better
   if (url.match(/[\?\&]debug-canvas-rectangles\&?/)) {
-    debug.canvasRectangles = true;
+    debug.canvasRectangles = true
   }
 
   if (url.match(/[\?\&]debug-force-left-hand-traffic\&?/)) {
-    debug.forceLeftHandTraffic = true;
+    debug.forceLeftHandTraffic = true
   }
 
   if (url.match(/[\?\&]debug-force-metric\&?/)) {
-    debug.forceMetric = true;
+    debug.forceMetric = true
   }
 
   if (url.match(/[\?\&]debug-force-unsupported-browser\&?/)) {
-    debug.forceUnsupportedBrowser = true;
+    debug.forceUnsupportedBrowser = true
   }
 
   if (url.match(/[\?\&]debug-force-non-retina\&?/)) {
-    debug.forceNonRetina = true;
+    debug.forceNonRetina = true
   }
 
   if (url.match(/[\?\&]debug-secret-segments\&?/)) {
-    debug.secretSegments = true;
+    debug.secretSegments = true
   }
 
   if (url.match(/[\?\&]debug-hover-polygon\&?/)) {
-    debug.hoverPolygon = true;
+    debug.hoverPolygon = true
   }
 
   if (url.match(/[\?\&]debug-force-read-only\&?/)) {
-    debug.forceReadOnly = true;
+    debug.forceReadOnly = true
   }
 
   if (url.match(/[\?\&]debug-force-touch\&?/)) {
-    debug.forceTouch = true;
+    debug.forceTouch = true
   }
 
   if (url.match(/[\?\&]debug-force-live-update\&?/)) {
-    debug.forceLiveUpdate = true;
+    debug.forceLiveUpdate = true
   }
 
   if (url.match(/[\?\&]debug-experimental\&?/)) {
-    debug.experimental = true;
+    debug.experimental = true
   }
 }

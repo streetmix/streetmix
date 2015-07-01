@@ -1,8 +1,8 @@
-var SEGMENT_OWNER_CAR = 'car';
-var SEGMENT_OWNER_BIKE = 'bike';
-var SEGMENT_OWNER_PEDESTRIAN = 'pedestrian';
-var SEGMENT_OWNER_PUBLIC_TRANSIT = 'public-transit';
-var SEGMENT_OWNER_NATURE = 'nature';
+var SEGMENT_OWNER_CAR = 'car'
+var SEGMENT_OWNER_BIKE = 'bike'
+var SEGMENT_OWNER_PEDESTRIAN = 'pedestrian'
+var SEGMENT_OWNER_PUBLIC_TRANSIT = 'public-transit'
+var SEGMENT_OWNER_NATURE = 'nature'
 
 var SEGMENT_OWNERS = {
   'car': {
@@ -30,8 +30,7 @@ var SEGMENT_OWNERS = {
     imageUrl: '/images/ui/icons/noun_project_13130.svg',
     imageSize: .8
   }
-};
-
+}
 
 /*
 
@@ -211,7 +210,6 @@ How to fill in the data for a segment:
                 ???
   offsetY       Number (optional)
                 ???
-
 
 */
 
@@ -550,7 +548,7 @@ var SEGMENT_INFO = {
       'palm-tree': {
         name: 'Planting strip',
         graphics: {
-          center: { tileset: 1, x: 83, y: 24, offsetX: 0, offsetY: -19, width: 14 /* 14 */, height: 31 },
+          center: { tileset: 1, x: 83, y: 24, offsetX: 0, offsetY: -19, width: 14, /* 14 */ height: 31 },
           repeat: [
             { tileset: 2, x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
             { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
@@ -1265,26 +1263,26 @@ var SEGMENT_INFO = {
       }
     }
   }
-};
+}
 
-function _prepareSegmentInfo() {
+function _prepareSegmentInfo () {
   // TODO should not modify const
 
   for (var i in SEGMENT_INFO) {
     for (var j in SEGMENT_INFO[i].details) {
-      var graphics = SEGMENT_INFO[i].details[j].graphics;
+      var graphics = SEGMENT_INFO[i].details[j].graphics
 
       if (graphics.repeat && !$.isArray(graphics.repeat)) {
-        graphics.repeat = [graphics.repeat];
+        graphics.repeat = [graphics.repeat]
       }
       if (graphics.left && !$.isArray(graphics.left)) {
-        graphics.left = [graphics.left];
+        graphics.left = [graphics.left]
       }
       if (graphics.right && !$.isArray(graphics.right)) {
-        graphics.right = [graphics.right];
+        graphics.right = [graphics.right]
       }
       if (graphics.center && !$.isArray(graphics.center)) {
-        graphics.center = [graphics.center];
+        graphics.center = [graphics.center]
       }
     }
   }

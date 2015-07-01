@@ -1,10 +1,9 @@
-var config    = require('config'),
-    sendgrid  = require('sendgrid')(config.email.sendgrid.username, config.email.sendgrid.password),
-    validator = require('validator'),
-    logger    = require('../../../lib/logger.js')();
+var config = require('config'),
+  sendgrid = require('sendgrid')(config.email.sendgrid.username, config.email.sendgrid.password),
+  validator = require('validator'),
+  logger = require('../../../lib/logger.js')()
 
-exports.post = function(req, res) {
-
+exports.post = function (req, res) {
   // Validation
   var body
   try {
@@ -27,9 +26,9 @@ exports.post = function(req, res) {
   var referer = req.headers.referer || '(not specified)'
   var additionalInformation = body.additionalInformation || ''
 
-  message += "\n\n"
-    + "-- \n"
-    + "URL: " + referer + "\n"
+  message += '\n\n'
+    + '-- \n'
+    + 'URL: ' + referer + '\n'
     + additionalInformation
 
   var to = [ config.email.feedback_recipient ]
@@ -39,21 +38,21 @@ exports.post = function(req, res) {
       from = body.from
       to.push(body.from)
     } else {
-      message += "\n"
-        + "Invalid from email address specified: " + body.from + "\n"
+      message += '\n'
+        + 'Invalid from email address specified: ' + body.from + '\n'
     }
   }
 
-  var subject = config.email.feedback_subject;
+  var subject = config.email.feedback_subject
   if (from) {
-    subject += ' from ' + from;
+    subject += ' from ' + from
   }
 
   sendgrid.send({
-    to      : to,
-    from    : from || config.email.feedback_sender_default,
-    subject : subject,
-    text    : message
+    to: to,
+    from: from || config.email.feedback_sender_default,
+    subject: subject,
+    text: message
   }, function (err, json) {
     if (err) {
       logger.error('Sendgrid: Error sending email. ', json)

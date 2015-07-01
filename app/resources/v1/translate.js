@@ -1,15 +1,13 @@
-'use strict';
+'use strict'
 
-var config  = require('config'),
-    fs      = require('fs'),
-    btoa    = require('btoa'),
-    request = require('superagent'),
-    logger  = require('../../../lib/logger.js')()
+var config = require('config'),
+  fs = require('fs'),
+  btoa = require('btoa'),
+  request = require('superagent'),
+  logger = require('../../../lib/logger.js')()
 
 exports.get = function (req, res) {
-
   var handleGetTranslation = function (locale) {
-
     var translationFile = process.cwd() + '/assets/locales/' + locale + '/translation.json'
 
     fs.readFile(translationFile, 'utf8', function (err, data) {
@@ -36,14 +34,13 @@ exports.get = function (req, res) {
 
   // Use the Transifex API
   var handleGetFromTransifex = function (locale) {
-
     if (!process.env.TRANSIFEX_USERNAME || !process.env.TRANSIFEX_PASSWORD) {
       res.status(501).json({status: 501, msg: 'Language API is not correctly implemented.'})
       return
     }
 
-    var authToken  = btoa(process.env.TRANSIFEX_USERNAME + ':' + process.env.TRANSIFEX_PASSWORD),
-        apiBaseURI = 'https://www.transifex.com/api/2/project/streetmix/resource/main/translation/'
+    var authToken = btoa(process.env.TRANSIFEX_USERNAME + ':' + process.env.TRANSIFEX_PASSWORD),
+      apiBaseURI = 'https://www.transifex.com/api/2/project/streetmix/resource/main/translation/'
 
     request
       .get(apiBaseURI + locale)
@@ -74,6 +71,6 @@ exports.get = function (req, res) {
   }
 
   handleGetTranslation(req.params.locale_code)
-  //handleGetFromTransifex(req.params.locale_code)
+  // handleGetFromTransifex(req.params.locale_code)
 
 }

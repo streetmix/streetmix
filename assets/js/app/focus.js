@@ -1,52 +1,52 @@
-var ignoreWindowFocus = false;
+var ignoreWindowFocus = false
 
-function _loseAnyFocus() {
-  document.body.focus();
+function _loseAnyFocus () {
+  document.body.focus()
 }
 
-function _isFocusOnBody() {
-  return document.activeElement == document.body;
+function _isFocusOnBody () {
+  return document.activeElement == document.body
 }
 
 // Because Firefox is stupid and their prompt() dialog boxes are not quite
 // modal.
-function _ignoreWindowFocusMomentarily() {
-  ignoreWindowFocus = true;
-  window.setTimeout(function() {
-    ignoreWindowFocus = false;
-  }, 50);
+function _ignoreWindowFocusMomentarily () {
+  ignoreWindowFocus = true
+  window.setTimeout(function () {
+    ignoreWindowFocus = false
+  }, 50)
 }
 
-function _onWindowFocus() {
+function _onWindowFocus () {
   if (abortEverything || ignoreWindowFocus) {
-    return;
+    return
   }
 
   if (!galleryVisible) {
-    _fetchStreetForVerification();
+    _fetchStreetForVerification()
 
     // Save settings on window focus, so the last edited street is the one you’re
     // currently looking at (in case you’re looking at many streets in various
     // tabs)
-    _saveSettingsLocally();
+    _saveSettingsLocally()
   }
 }
 
-function _onWindowBlur() {
+function _onWindowBlur () {
   if (abortEverything) {
-    return;
+    return
   }
 
-  Stmx.ui.menus.hideAll();
+  Stmx.ui.menus.hideAll()
 }
 
-function _onVisibilityChange() {
+function _onVisibilityChange () {
   var hidden = document.hidden || document.webkitHidden ||
-      document.msHidden || document.mozHidden;
+    document.msHidden || document.mozHidden
 
   if (hidden) {
-    _onWindowBlur();
+    _onWindowBlur()
   } else {
-    _onWindowFocus();
+    _onWindowFocus()
   }
 }

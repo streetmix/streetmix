@@ -1,4 +1,4 @@
-var VARIANT_SEPARATOR = '|';
+var VARIANT_SEPARATOR = '|'
 
 var VARIANTS = {
   'direction': ['inbound', 'outbound'],
@@ -10,11 +10,11 @@ var VARIANTS = {
   'lamp-type': ['modern', 'traditional'],
 
   'bench-orientation': ['left', 'center', 'right'],
-  'turn-lane-orientation': ['left', 'left-straight', 'straight', 'right-straight', 'right',  'both', 'shared'],
+  'turn-lane-orientation': ['left', 'left-straight', 'straight', 'right-straight', 'right', 'both', 'shared'],
 
   'divider-type': ['median', 'striped-buffer', 'planting-strip',
-                   'planter-box', 'bush', 'flowers', 'big-tree',
-                   'palm-tree', 'bollard', 'dome'],
+    'planter-box', 'bush', 'flowers', 'big-tree',
+    'palm-tree', 'bollard', 'dome'],
 
   'orientation': ['left', 'right'],
 
@@ -29,27 +29,27 @@ var VARIANTS = {
 
   'parking-lane-orientation': ['left', 'right'],
   'wayfinding-type': ['large', 'medium', 'small']
-};
-
-function _getVariantArray(segmentType, variantString) {
-  var variantArray = {};
-  var variantSplit = variantString.split(VARIANT_SEPARATOR);
-
-  for (var i in SEGMENT_INFO[segmentType].variants) {
-    var variantName = SEGMENT_INFO[segmentType].variants[i];
-
-    variantArray[variantName] = variantSplit[i];
-  }
-
-  return variantArray;
 }
 
-function _getVariantString(variant) {
-  var string = '';
-  for (var i in variant) {
-    string += variant[i] + VARIANT_SEPARATOR;
+function _getVariantArray (segmentType, variantString) {
+  var variantArray = {}
+  var variantSplit = variantString.split(VARIANT_SEPARATOR)
+
+  for (var i in SEGMENT_INFO[segmentType].variants) {
+    var variantName = SEGMENT_INFO[segmentType].variants[i]
+
+    variantArray[variantName] = variantSplit[i]
   }
 
-  string = string.substr(0, string.length - 1);
-  return string;
+  return variantArray
+}
+
+function _getVariantString (variant) {
+  var string = ''
+  for (var i in variant) {
+    string += variant[i] + VARIANT_SEPARATOR
+  }
+
+  string = string.substr(0, string.length - 1)
+  return string
 }

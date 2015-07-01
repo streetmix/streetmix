@@ -1,1 +1,1 @@
-Stmx.ui.menus.define('identity');
+Stmx.ui.menus.define('identity')

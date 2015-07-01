@@ -5,51 +5,51 @@
  */
 
 var Stmx = (function (Stmx) {
-  'use strict';
+  'use strict'
 
   // Default language is set by browser, or is US English if undetermined
-  var defaultLocale = navigator.language || 'en-US';
+  var defaultLocale = navigator.language || 'en-US'
 
-  function init() {
+  function init () {
     // Current language is the one set by Streetmix or is the browser default, if unset
-    var locale = getLocale() || defaultLocale;
+    var locale = getLocale() || defaultLocale
 
-    initSettingDropdown(locale);
-    doTheI18n(locale);
+    initSettingDropdown(locale)
+    doTheI18n(locale)
   }
 
-  function initSettingDropdown(locale) {
-    var el = document.querySelector('#language-select');
+  function initSettingDropdown (locale) {
+    var el = document.querySelector('#language-select')
 
     // Set the dropdown to the current language.
     // If current language is not in the list, fallback to US English.
-    el.value = locale;
+    el.value = locale
     if (!el.value) {
-      el.value = 'en-US';
+      el.value = 'en-US'
     }
 
-    el.addEventListener('change', onNewLocaleSelected);
+    el.addEventListener('change', onNewLocaleSelected)
   }
 
-  function onNewLocaleSelected() {
-    setLocale(this.value);
+  function onNewLocaleSelected () {
+    setLocale(this.value)
   }
 
-  function getLocale() {
-    return window.localStorage.getItem('locale');
+  function getLocale () {
+    return window.localStorage.getItem('locale')
   }
 
-  function setLocale(locale) {
-    window.localStorage.setItem('locale', locale);
-    doTheI18n(locale);
+  function setLocale (locale) {
+    window.localStorage.setItem('locale', locale)
+    doTheI18n(locale)
   }
 
-  function clearLocale() {
-    window.localStorage.removeItem('locale');
-    // TODO: clear language cache here if it's activated
+  function clearLocale () {
+    window.localStorage.removeItem('locale')
+  // TODO: clear language cache here if it's activated
   }
 
-  function doTheI18n(locale) {
+  function doTheI18n (locale) {
     var options = {
       lng: locale,
       namespaces: ['app', 'segments'],
@@ -59,11 +59,11 @@ var Stmx = (function (Stmx) {
       load: 'current',
       debug: false,
       resGetPath: API_URL + 'v1/translate/__lng__'
-    };
+    }
 
     i18n.init(options, function (t) {
-      $('body').i18n();
-    });
+      $('body').i18n()
+    })
   }
 
   // Public
@@ -74,6 +74,6 @@ var Stmx = (function (Stmx) {
     clear: clearLocale
   }
 
-  return Stmx;
+  return Stmx
 
-}(Stmx));
+}(Stmx))

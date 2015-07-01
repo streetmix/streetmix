@@ -1,15 +1,13 @@
 var mongoose = require('mongoose'),
-    config = require('config'),
-    async = require('async'),
-    db = require('../../../lib/db.js'),
-    User = require('../../models/user.js'),
-    Street = require('../../models/street.js'),
-    logger = require('../../../lib/logger.js')();
+  config = require('config'),
+  async = require('async'),
+  db = require('../../../lib/db.js'),
+  User = require('../../models/user.js'),
+  Street = require('../../models/street.js'),
+  logger = require('../../../lib/logger.js')()
 
-exports.get = function(req, res) {
-
-  var handleFindUser = function(err, user) {
-
+exports.get = function (req, res) {
+  var handleFindUser = function (err, user) {
     if (err) {
       logger.error(err)
       res.status(500).send('Could not find user.')
@@ -23,8 +21,7 @@ exports.get = function(req, res) {
 
     var json = { streets: [] }
 
-    var handleFindStreets = function(err, streets) {
-
+    var handleFindStreets = function (err, streets) {
       if (err) {
         logger.error(err)
         res.status(500).send('Could not find streets for user.')
@@ -33,9 +30,8 @@ exports.get = function(req, res) {
 
       async.map(
         streets,
-        function(street, callback) { street.asJson(callback) },
-        function(err, results) {
-
+        function (street, callback) { street.asJson(callback) },
+        function (err, results) {
           if (err) {
             logger.error(err)
             res.status(500).send('Could not append street.')

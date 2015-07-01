@@ -1,11 +1,10 @@
 var config = require('config'),
-    sprintf = require('sprintf').sprintf
-    oauth = require('../../lib/oauth.js'),
-    logger = require('../../lib/logger.js')()
+  sprintf = require('sprintf').sprintf
+oauth = require('../../lib/oauth.js'),
+logger = require('../../lib/logger.js')()
 
-var oauthRequestTokenHandler = function(req, res) {
-
-  return function(err, oauth_token, oauth_token_secret, results) {
+var oauthRequestTokenHandler = function (req, res) {
+  return function (err, oauth_token, oauth_token_secret, results) {
     if (err) {
       console.error('Error obtaining request token from Twitter:')
       console.error(err)
@@ -27,13 +26,12 @@ var oauthRequestTokenHandler = function(req, res) {
 
 }
 
-exports.get = function(req, res) {
-
+exports.get = function (req, res) {
   // Obtain request token from Twitter
   var o = oauth({
     callbackUri: req.query.callbackUri
   })
-  logger.error(o);
+  logger.error(o)
   o.getOAuthRequestToken(oauthRequestTokenHandler(req, res))
 
 } // END function - exports.get

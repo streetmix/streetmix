@@ -1,11 +1,11 @@
-var path = require('path');
+var path = require('path')
 
-module.exports = function(grunt) {
-  require('load-grunt-tasks')(grunt);
+module.exports = function (grunt) {
+  require('load-grunt-tasks')(grunt)
   grunt.initConfig({
     env: {
       test: {
-        NODE_ENV : 'test'
+        NODE_ENV: 'test'
       }
     },
     express: {
@@ -19,7 +19,7 @@ module.exports = function(grunt) {
     protractor: {
       local: {
         options: {
-          configFile: "./test/integration/local.conf.js",
+          configFile: './test/integration/local.conf.js',
           keepAlive: true,
           noColor: false,
           args: {}
@@ -27,7 +27,7 @@ module.exports = function(grunt) {
       },
       saucelabs: {
         options: {
-          configFile: "./test/integration/saucelabs.conf.js",
+          configFile: './test/integration/saucelabs.conf.js',
           args: {
             sauceUser: process.env.SAUCE_USERNAME,
             sauceKey: process.env.SAUCE_ACCESS_KEY
@@ -43,8 +43,8 @@ module.exports = function(grunt) {
         command: './node_modules/grunt-protractor-runner/scripts/webdriver-manager-update'
       }
     }
-  });
-  grunt.registerTask('test:travis', ['env:test', 'express:app', 'protractor:saucelabs']);
-  grunt.registerTask('test:local:setup', ['shell']);
-  grunt.registerTask('test:local', ['env:test', 'express:app', 'protractor:local']);
-};
+  })
+  grunt.registerTask('test:travis', ['env:test', 'express:app', 'protractor:saucelabs'])
+  grunt.registerTask('test:local:setup', ['shell'])
+  grunt.registerTask('test:local', ['env:test', 'express:app', 'protractor:local'])
+}

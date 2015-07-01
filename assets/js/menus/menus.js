@@ -6,73 +6,73 @@
  */
 
 var Stmx = (function (Stmx) {
-  'use strict';
+  'use strict'
 
-  var menus = {};
+  var menus = {}
 
   var Menu = function (name, opts) {
-    var opts = opts || {};
+    var opts = opts || {}
 
-    this.name           = name;
+    this.name = name
 
-    this.alignment      = opts.alignment   || 'left'; // Set to 'right' if menu should be aligned to right of window
-    this.onShowCallback = opts.onShow      || null;   // Function to execute after menu open
-    this.el             = null; // Placeholder
+    this.alignment = opts.alignment || 'left'; // Set to 'right' if menu should be aligned to right of window
+    this.onShowCallback = opts.onShow || null   // Function to execute after menu open
+    this.el = null // Placeholder
   }
 
-  Menu.prototype.init = function() {
+  Menu.prototype.init = function () {
     var menuButton = '#' + this.name + '-menu-button',
-        menuButtonEl = document.querySelector(menuButton);
+      menuButtonEl = document.querySelector(menuButton)
 
     // Save a reference to its DOM element
-    this.el = document.querySelector('#' + this.name + '-menu');
+    this.el = document.querySelector('#' + this.name + '-menu')
 
     if (menuButtonEl) {
       // Firefox sometimes disables some buttons… unsure why
-      menuButtonEl.disabled = false;
+      menuButtonEl.disabled = false
 
       // Bind event listeners to the menu button
-      menuButtonEl.addEventListener('click', this.onClick.bind(this));
+      menuButtonEl.addEventListener('click', this.onClick.bind(this))
     }
   }
 
-  Menu.prototype.onClick = function() {
+  Menu.prototype.onClick = function () {
     if (!this.el.classList.contains('visible')) {
-      this.show();
+      this.show()
     } else {
-      this.hide();
+      this.hide()
     }
   }
 
-  Menu.prototype.show = function() {
+  Menu.prototype.show = function () {
     // Hide other UI
-    _infoBubble.hide();
-    _statusMessage.hide();
-    Stmx.ui.menus.hideAll();
+    _infoBubble.hide()
+    _statusMessage.hide()
+    Stmx.ui.menus.hideAll()
 
     // Determine positioning
     if (this.alignment === 'right') {
       // Note: this aligns to right edge of menu bar,
       // instead of the right side of the menu item.
-      this.el.classList.add('align-right');
+      this.el.classList.add('align-right')
     } else {
       // Aligns menu to the left side of the menu item.
-      var pos = _getElAbsolutePos(document.querySelector('#' + this.name + '-menu-item'));
-      this.el.style.left = pos[0] + 'px';
+      var pos = _getElAbsolutePos(document.querySelector('#' + this.name + '-menu-item'))
+      this.el.style.left = pos[0] + 'px'
     }
 
     // Show menu
-    this.el.classList.add('visible');
+    this.el.classList.add('visible')
 
     // Callback
     if (typeof this.onShowCallback === 'function') {
-      this.onShowCallback();
+      this.onShowCallback()
     }
   }
 
-  Menu.prototype.hide = function() {
-    _loseAnyFocus();
-    this.el.classList.remove('visible');
+  Menu.prototype.hide = function () {
+    _loseAnyFocus()
+    this.el.classList.remove('visible')
   }
 
   // Expose 'public' methods
@@ -81,40 +81,40 @@ var Stmx = (function (Stmx) {
 
     // Set up a Menu that the app knows about
     define: function (name, opts) {
-      menus[name] = new Menu(name, opts);
+      menus[name] = new Menu(name, opts)
 
-      return menus[name];
+      return menus[name]
     },
 
     // Initialize all defined Menus
     // Should be called after DOM is ready
-    init: function() {
+    init: function () {
       for (var i in menus) {
         menus[i].init()
       }
     },
 
-    isVisible: function() {
-      var hasVisibleClass = false;
+    isVisible: function () {
+      var hasVisibleClass = false
       for (var i in menus) {
         if (menus[i].el.classList.contains('visible')) {
-          hasVisibleClass = true;
-          continue;
+          hasVisibleClass = true
+          continue
         }
       }
-      return hasVisibleClass;
+      return hasVisibleClass
     },
 
-    hideAll: function() {
-      _loseAnyFocus();
+    hideAll: function () {
+      _loseAnyFocus()
 
-      var els = document.querySelectorAll('.menu.visible');
+      var els = document.querySelectorAll('.menu.visible')
       for (var i = 0, el; el = els[i]; i++) {
-        el.classList.remove('visible');
+        el.classList.remove('visible')
       }
     }
   }
 
-  return Stmx;
+  return Stmx
 
-}(Stmx));
+}(Stmx))

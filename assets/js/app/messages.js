@@ -51,12 +51,12 @@ var MESSAGES = {
   DEFAULT_STREET_NAME: 'Unnamed St',
 
   SEGMENT_NAME_EMPTY: 'Empty space'
-};
+}
 
-function msg(messageId, data) {
+function msg (messageId, data) {
   if (data) {
-    return MESSAGES[messageId].supplant(data);
+    return MESSAGES[messageId].supplant(data)
   } else {
-    return MESSAGES[messageId];
+    return MESSAGES[messageId]
   }
 }

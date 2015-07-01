@@ -1,49 +1,49 @@
-var NEW_STREET_DEFAULT = 1;
-var NEW_STREET_EMPTY = 2;
+var NEW_STREET_DEFAULT = 1
+var NEW_STREET_EMPTY = 2
 
-function _makeDefaultStreet() {
-  ignoreStreetChanges = true;
-  _prepareDefaultStreet();
-  _setUpdateTimeToNow();
+function _makeDefaultStreet () {
+  ignoreStreetChanges = true
+  _prepareDefaultStreet()
+  _setUpdateTimeToNow()
 
-  _resizeStreetWidth();
-  _updateStreetName();
-  _createDomFromData();
-  _segmentsChanged();
-  _updateShareMenu();
+  _resizeStreetWidth()
+  _updateStreetName()
+  _createDomFromData()
+  _segmentsChanged()
+  _updateShareMenu()
 
-  ignoreStreetChanges = false;
-  lastStreet = _trimStreetData(street);
+  ignoreStreetChanges = false
+  lastStreet = _trimStreetData(street)
 
-  _saveStreetToServer(false);
+  _saveStreetToServer(false)
 }
 
-function _onNewStreetDefaultClick() {
-  settings.newStreetPreference = NEW_STREET_DEFAULT;
-  _saveSettingsLocally();
+function _onNewStreetDefaultClick () {
+  settings.newStreetPreference = NEW_STREET_DEFAULT
+  _saveSettingsLocally()
 
-  _makeDefaultStreet();
+  _makeDefaultStreet()
 }
 
-function _onNewStreetEmptyClick() {
-  settings.newStreetPreference = NEW_STREET_EMPTY;
-  _saveSettingsLocally();
+function _onNewStreetEmptyClick () {
+  settings.newStreetPreference = NEW_STREET_EMPTY
+  _saveSettingsLocally()
 
-  ignoreStreetChanges = true;
-  _prepareEmptyStreet();
+  ignoreStreetChanges = true
+  _prepareEmptyStreet()
 
-  _resizeStreetWidth();
-  _updateStreetName();
-  _createDomFromData();
-  _segmentsChanged();
-  _updateShareMenu();
+  _resizeStreetWidth()
+  _updateStreetName()
+  _createDomFromData()
+  _segmentsChanged()
+  _updateShareMenu()
 
-  ignoreStreetChanges = false;
-  lastStreet = _trimStreetData(street);
+  ignoreStreetChanges = false
+  lastStreet = _trimStreetData(street)
 
-  _saveStreetToServer(false);
+  _saveStreetToServer(false)
 }
 
-function _onNewStreetLastClick() {
-  _fetchLastStreet();
+function _onNewStreetLastClick () {
+  _fetchLastStreet()
 }
