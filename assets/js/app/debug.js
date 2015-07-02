@@ -10,37 +10,6 @@ var debug = {
   experimental: false
 }
 
-function _hideDebugInfo () {
-  document.querySelector('#debug').classList.remove('visible')
-}
-
-function _showDebugInfo () {
-  var debugStreetData = _clone(street)
-  var debugUndo = _clone(undoStack)
-  var debugSettings = _clone(settings)
-
-  for (var i in debugStreetData.segments) {
-    delete debugStreetData.segments[i].el
-  }
-
-  for (var j in debugUndo) {
-    for (var i in debugUndo[j].segments) {
-      delete debugUndo[j].segments[i].el
-    }
-  }
-
-  var debugText =
-  'DATA:\n' + JSON.stringify(debugStreetData, null, 2) +
-    '\n\nSETTINGS:\n' + JSON.stringify(debugSettings, null, 2) +
-    '\n\nUNDO:\n' + JSON.stringify(debugUndo, null, 2)
-
-  document.querySelector('#debug').classList.add('visible')
-  document.querySelector('#debug > textarea').innerHTML = debugText
-  document.querySelector('#debug > textarea').focus()
-  document.querySelector('#debug > textarea').select()
-  event.preventDefault()
-}
-
 function _detectDebugUrl () {
   var url = location.href
 
