@@ -7,7 +7,7 @@ var VARIANTS = {
   'tree-type': ['big', 'palm-tree'],
 
   'lamp-orientation': ['left', 'both', 'right'],
-  'lamp-type': ['modern', 'traditional'],
+  'lamp-type': ['modern', 'traditional', 'pride'],
 
   'bench-orientation': ['left', 'center', 'right'],
   'turn-lane-orientation': ['left', 'left-straight', 'straight', 'right-straight', 'right', 'both', 'shared'],
