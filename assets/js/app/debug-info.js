@@ -19,7 +19,7 @@ function _showDebugInfo () {
 
   // Create a JSON object, this parses better in editors
   var debugObj = {
-    'MATA': debugStreetData,
+    'DATA': debugStreetData,
     'SETTINGS': debugSettings,
     'UNDO': debugUndo
   }
