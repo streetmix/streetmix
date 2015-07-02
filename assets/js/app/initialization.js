@@ -25,6 +25,7 @@ Stmx.app.init = function () {
   }
 
   _fillDom()
+  _setEnvironmentBadge()
   _prepareSegmentInfo()
 
   // Check if no internet mode
@@ -184,10 +185,41 @@ function _fillDom () {
   _fillEmptySegments()
 }
 
+function _setEnvironmentBadge (label) {
+  if (!label) {
+    switch (ENV) {
+      case 'development':
+        label = 'Dev'
+        break
+      case 'staging':
+        label = 'Staging'
+        break
+      case 'sandbox':
+        label = 'Sandbox'
+        break
+      default:
+        break
+    }
+  }
+
+  if (label) {
+    document.querySelector('.environment-badge').textContent = label
+  }
+}
+
 function _setupNoInternetMode () {
+  // Load additional no-internet stylesheet
+  var stylesheetUrl = '/assets/no-internet.css'
+  var el = document.createElement('link')
+  el.setAttribute('rel', 'stylesheet')
+  el.setAttribute('type', 'text/css')
+  el.setAttribute('href', stylesheetUrl)
+  document.head.appendChild(el)
+
   // Disable all external links
   // CSS takes care of altering their appearance to resemble normal text
   $('body').on('click', 'a[href^="http"]', function (e) {
     e.preventDefault()
   })
+  _setEnvironmentBadge('Demo')
 }

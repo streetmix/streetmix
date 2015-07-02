@@ -1,22 +1,16 @@
 var CSS_TRANSFORMS = ['webkitTransform', 'MozTransform', 'transform']
-
 var readOnly = false
-
 var system = {
   touch: false,
   phone: false,
   safari: false,
   windows: false,
-  noInternet: (NO_INTERNET_MODE === true) ? true : false,
-
+  noInternet: false,
   viewportWidth: null,
   viewportHeight: null,
-
   hiDpi: 1.0,
   cssTransform: false,
-
   ipAddress: null,
-
   apiUrl: null
 }
 
@@ -24,6 +18,10 @@ function _detectSystemCapabilities () {
   // NOTE:
   // This function might be called on very old browsers. Please make
   // sure not to use modern faculties.
+
+  if (debug.forceNoInternet || NO_INTERNET_MODE === true) {
+    system.noInternet = true
+  }
 
   if (debug.forceTouch) {
     system.touch = true

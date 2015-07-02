@@ -68,38 +68,37 @@ button.close {
   }
 }
 
-
 button,
 a.button-like {
+  display: inline-block !important;
   outline: none;
-  background: mix(@uiColour, white, 50%);
   border: none;
   border-top: 1px solid darken(@uiColour, 10%);
   border-bottom: 1px solid darken(@uiColour, 10%);
-
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: mix(@uiColour, white, 50%);
   color: black;
   text-align: center;
   text-decoration: none;
-
-  padding-left: 10px;
-  padding-right: 10px;
-
   -webkit-align-items: flex-start !important;
-  display: inline-block !important;
 
-  &:not([disabled]):hover {
-    background: mix(@uiColour, white, 70%);
+  &:hover {
+    background-color: mix(@uiColour, white, 70%);
   }
 
-  &:not([disabled]):active {
-    background: mix(@uiColour, white, 95%);
+  &:active {
+    background-color: mix(@uiColour, white, 95%);
   }
 
   &[disabled] {
-    cursor: auto;
-
-    background: desaturate(fadeout(@uiColour, 70%), 100%);
     border-top-color: desaturate(@uiColour, 100%);
     border-bottom-color: desaturate(@uiColour, 100%);
+    background-color: desaturate(fadeout(@uiColour, 70%), 100%);
+    cursor: auto;
+
+    &:hover {
+      background-color: desaturate(fadeout(@uiColour, 70%), 100%);
+    }
   }
 }

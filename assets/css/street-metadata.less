@@ -35,7 +35,7 @@ body:not(.read-only) #street-width-read {
   cursor: pointer;
   &:hover,
   &:hover * {
-    color: darken(@topMenuHoverText, 20%);
+    color: darken(@uiColour, 40%);
   }
   &::after {
     font-family: 'Verdana';
@@ -60,9 +60,7 @@ body:not(.edit-street-width) #street-width {
 }
 
 body:not(.read-only) #street-metadata-author a:hover {
-  &:hover {
-    color: darken(@topMenuHoverText, 20%);
-  }
+  color: darken(@uiColour, 40%);
 }
 
 body.read-only #street-metadata-author a {

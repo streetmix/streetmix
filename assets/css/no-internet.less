@@ -25,27 +25,16 @@ body.no-internet {
     display: none;
   }
 
-  // li element for #feedback-menu-button
-  // Removing this element via JavaScript causes script to break,
-  // since it assumes that this element is present on the page
-  #top-menu-bar ul.left li:nth-of-type(2)::after {
+  .environment-badge {
+    background-color: rgb(28, 189, 209);
+  }
+
+  // Hiding menu items that should not exist
+  #help-menu-item::after {
     content: '' !important;
   }
-  #top-menu-bar ul.left li:nth-of-type(3) {
-    display: none;
-  }
-
-  #identity {
-    // Never allow .visible class to override
-    display: none !important;
-  }
-
-  // li element for #sign-in-link
-  #top-menu-bar ul.right li:nth-of-type(2) {
-    display: none;
-  }
-
-  // Hide this because no gallery is available without sign-in
+  #feedback-menu-item,
+  #sign-in-menu-item,
   #gallery-link {
     display: none;
   }
@@ -56,12 +45,6 @@ body.no-internet {
   #share-via-twitter,
   #share-via-facebook {
     display: none;
-  }
-
-  // Label
-  #top-menu-bar::before {
-    content: 'Demo';
-    background-color: rgb(28, 189, 209);
   }
 }
 

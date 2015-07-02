@@ -29,56 +29,12 @@ body {
   }
 }
 
-// Environment labels
-body {
-  &.environment-development,
-  &.environment-staging,
-  &.environment-sandbox {
-    #top-menu-bar::before {
-      z-index: 10;
-      position: absolute;
-      text-align: center;
-      left: 14px;
-      top: 23px;
-      color: white;
-      padding: 2px 7px;
-      font-size: 10px;
-      font-weight: 700;
-      line-height: 1.5;
-      letter-spacing: 4px;
-      pointer-events: none;
-      padding-right: 7px - 4px;
-      text-transform: uppercase;
-    }
-  }
-
-  &.environment-development {
-    #top-menu-bar::before {
-      content: 'Dev';
-      background-color: rgb(200, 0, 0);
-    }
-  }
-  &.environment-staging {
-    #top-menu-bar::before {
-      content: 'Staging';
-      background-color: green;
-    }
-  }
-  &.environment-sandbox {
-    #top-menu-bar::before {
-      content: 'Sandbox';
-      background-color: green;
-    }
-  }
-}
-
 body:not(.touch-support) .touch-only {
   display: none;
 }
 body.touch-support .non-touch-only {
   display: none;
 }
-
 
 #main-screen {
   transform: translateY(0);
@@ -94,7 +50,6 @@ body.touch-support .non-touch-only {
     perspective: 2000px;
   }
 }
-
 
 a {
   -webkit-touch-callout: default;

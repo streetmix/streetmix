@@ -23,8 +23,6 @@ html(lang='en')
     link(href='/favicon.ico', rel='shortcut icon')
 
     != css('styles')
-    if (config.no_internet_mode === true)
-      != css('no-internet')
 
     script.
       var SITE_URL = 'http://#{ config.app_host_port }/'

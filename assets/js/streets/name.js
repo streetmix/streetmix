@@ -84,7 +84,7 @@ function _resizeStreetName () {
 }
 
 function _updateStreetNameCanvasPos () {
-  var menuEl = document.querySelector('#top-menu-bar ul.right')
+  var menuEl = document.querySelector('.menu-bar-right')
   var menuElPos = _getElAbsolutePos(menuEl)
 
   var streetNameEl = document.querySelector('#street-name')

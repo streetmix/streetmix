@@ -112,6 +112,9 @@ function _updatePageUrl (forceGalleryUrl) {
   if (debug.forceLiveUpdate) {
     url += '&debug-force-live-update'
   }
+  if (debug.forceNoInternet) {
+    url += '&debug-force-no-internet'
+  }
   if (debug.experimental) {
     url += '&debug-experimental'
   }

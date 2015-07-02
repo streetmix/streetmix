@@ -5,6 +5,7 @@ var debug = {
   forceMetric: false,
   forceUnsupportedBrowser: false,
   forceNonRetina: false,
+  forceNoInternet: false,
   secretSegments: false,
   experimental: false
 }
@@ -96,6 +97,10 @@ function _detectDebugUrl () {
 
   if (url.match(/[\?\&]debug-force-live-update\&?/)) {
     debug.forceLiveUpdate = true
+  }
+
+  if (url.match(/[\?\&]debug-force-no-internet\&?/)) {
+    debug.forceNoInternet = true
   }
 
   if (url.match(/[\?\&]debug-experimental\&?/)) {
