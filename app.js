@@ -8,6 +8,7 @@ var config = require('config')
 var controllers = require('./app/controllers')
 var resources = require('./app/resources')
 var requestHandlers = require('./lib/request_handlers')
+var logger = require('./lib/logger')()
 
 if (process.env.NEW_RELIC_LICENSE_KEY) {
   require('newrelic')
@@ -28,6 +29,17 @@ app.use(requestHandlers.request_id_echo)
 
 app.set('view engine', 'jade')
 app.set('views', __dirname + '/app/views')
+
+// Redirect to environment-appropriate domain, if necessary
+app.all('*', function (req, res, next) {
+  if (config.header_host_port !== req.headers.host) {
+    var redirectUrl = 'http://' + config.header_host_port + req.url
+    console.log('req.hostname = %s but config.header_host_port = %s; redirecting to %s...', req.hostname, config.header_host_port, redirectUrl)
+    res.redirect(301, redirectUrl)
+  } else {
+    next('route')
+  }
+})
 
 app.get('/twitter-sign-in', controllers.twitter_sign_in.get)
 app.get(config.twitter.oauth_callback_uri, controllers.twitter_sign_in_callback.get)
