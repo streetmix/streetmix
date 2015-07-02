@@ -1,10 +1,8 @@
-var mongoose = require('mongoose'),
-  config = require('config'),
-  uuid = require('uuid'),
-  twitter = require('twitter'),
-  db = require('../../../lib/db.js'),
-  User = require('../../models/user.js'),
-  logger = require('../../../lib/logger.js')()
+var config = require('config')
+var uuid = require('uuid')
+var Twitter = require('twitter')
+var User = require('../../models/user.js')
+var logger = require('../../../lib/logger.js')()
 
 exports.post = function (req, res) {
   var loginToken = null
@@ -62,7 +60,7 @@ exports.post = function (req, res) {
         u.save(handleCreateUser)
 
       } else {
-        user.id = twitterCredentials.screenName,
+        user.id = twitterCredentials.screenName
         user.twitter_credentials = {
           access_token_key: twitterCredentials.oauthAccessTokenKey,
           access_token_secret: twitterCredentials.oauthAccessTokenSecret
@@ -98,6 +96,12 @@ exports.post = function (req, res) {
 
 exports.get = function (req, res) {
   var handleFindUserById = function (err, user) {
+    if (err) {
+      logger.error(err)
+      res.status(500).send('Error finding user.')
+      return
+    }
+
     if (!user) {
       res.status(404).send('User not found.')
       return
@@ -105,15 +109,12 @@ exports.get = function (req, res) {
 
     var twitterApiClient
     try {
-      twitterApiClient = new twitter({
+      twitterApiClient = new Twitter({
         consumer_key: config.twitter.oauth_consumer_key,
         consumer_secret: config.twitter.oauth_consumer_secret,
         access_token_key: user.twitter_credentials.access_token_key,
         access_token_secret: user.twitter_credentials.access_token_secret
       })
-
-      console.log(twitterApiClient)
-
     } catch (e) {
       logger.error('Could not initialize Twitter API client. Error:')
       logger.error(e)
@@ -134,29 +135,28 @@ exports.get = function (req, res) {
         }
 
         res.status(200).send(userJson)
-
       })
-
     } // END function - sendUserJson
 
     var responseAlreadySent = false
-    var handleFetchUserProfileFromTwitter = function (data) {
-      console.log(data)
+    var handleFetchUserProfileFromTwitter = function (err, res) {
+      if (err) {
+        logger.error('Twitter API call users/show returned error.')
+        logger.error(err)
+      }
 
       if (responseAlreadySent) {
-        logger.debug({ profile_image_url: data.profile_image_url }, 'Twitter API users/show call returned but response already sent!')
+        logger.debug({ profile_image_url: res.profile_image_url }, 'Twitter API users/show call returned but response already sent!')
       } else {
-        logger.debug({ profile_image_url: data.profile_image_url }, 'Twitter API users/show call returned. Sending response with Twitter data.')
+        logger.debug({ profile_image_url: res.profile_image_url }, 'Twitter API users/show call returned. Sending response with Twitter data.')
         responseAlreadySent = true
 
-        if (!data) {
+        if (!res) {
           logger.error('Twitter API call users/show did not return any data.')
         }
 
-        sendUserJson(data)
-
+        sendUserJson(res)
       }
-
     } // END function - handleFetchUserProfileFromTwitter
 
     if (twitterApiClient) {
@@ -186,13 +186,18 @@ exports.get = function (req, res) {
   var userId = req.params.user_id
 
   var handleFindUserByLoginToken = function (err, user) {
+    if (err) {
+      logger.error(err)
+      res.status(500).send('Error finding user.')
+      return
+    }
+
     if (!user) {
       res.status(401).send('User with that login token not found.')
       return
     }
 
     User.findOne({ id: userId }, handleFindUserById)
-
   } // END function - handleFindUserByLoginToken
 
   if (req.loginToken) {
@@ -200,7 +205,6 @@ exports.get = function (req, res) {
   } else {
     User.findOne({ id: userId }, handleFindUserById)
   }
-
 } // END function - exports.get
 
 exports.delete = function (req, res) {
@@ -215,6 +219,12 @@ exports.delete = function (req, res) {
   } // END function - handleSaveUser
 
   var handleFindUser = function (err, user) {
+    if (err) {
+      logger.error(err)
+      res.status(500).send('Error finding user.')
+      return
+    }
+
     if (!user) {
       res.status(404).send('User not found.')
       return
@@ -262,6 +272,12 @@ exports.put = function (req, res) {
   } // END function - handleSaveUser
 
   var handleFindUser = function (err, user) {
+    if (err) {
+      logger.error(err)
+      res.status(500).send('Error finding user.')
+      return
+    }
+
     if (!user) {
       res.status(404).send('User not found.')
       return

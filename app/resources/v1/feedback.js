@@ -1,52 +1,56 @@
-var config = require('config'),
-  sendgrid = require('sendgrid')(config.email.sendgrid.username, config.email.sendgrid.password),
-  validator = require('validator'),
-  logger = require('../../../lib/logger.js')()
+var config = require('config')
+var sendgrid = require('sendgrid')(config.email.sendgrid.username, config.email.sendgrid.password)
+var validator = require('validator')
+var logger = require('../../../lib/logger.js')()
 
 exports.post = function (req, res) {
-  // Validation
+  var subject = config.email.feedback_subject
+  var to = []
+  var from
   var body
+  var message
+  var referer
+  var additionalInformation
+
+  to.push(config.email.feedback_recipient)
+
+  // Validate body text
   try {
     body = req.body
   } catch (e) {
-    res.status(400).json({msg: 'Could not parse body as JSON.' })
+    res.status(400).json({ msg: 'Could not parse body as JSON.' })
     return
   }
 
   if (!body.hasOwnProperty('message') || (body.message.trim().length === 0)) {
-    res.status(400).json({msg: 'Please specify a message.' })
+    res.status(400).json({ msg: 'Please specify a message.' })
     return
   }
-  var message = body.message.trim()
+
+  message = body.message.trim()
 
   // Log feedback
   logger.info(body, 'Feedback received.')
 
-  // Append useful information to message
-  var referer = req.headers.referer || '(not specified)'
-  var additionalInformation = body.additionalInformation || ''
+  // Append referring URL
+  referer = req.headers.referer || '(not specified)'
 
-  message += '\n\n'
-    + '-- \n'
-    + 'URL: ' + referer + '\n'
-    + additionalInformation
+  message += '\n\n--\nURL: ' + referer
 
-  var to = [ config.email.feedback_recipient ]
-  var from
+  // Validate and add from e-mail address
   if (body.from) {
     if (validator.isEmail(body.from)) {
       from = body.from
       to.push(body.from)
+      subject += ' from ' + from
     } else {
-      message += '\n'
-        + 'Invalid from email address specified: ' + body.from + '\n'
+      message += '\nInvalid from email address specified: ' + body.from + '\n'
     }
   }
 
-  var subject = config.email.feedback_subject
-  if (from) {
-    subject += ' from ' + from
-  }
+  // Append other useful information to message
+  additionalInformation = body.additionalInformation || ''
+  message += '\n' + additionalInformation
 
   sendgrid.send({
     to: to,

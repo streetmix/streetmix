@@ -1,10 +1,10 @@
 'use strict'
 
-var config = require('config'),
-  fs = require('fs'),
-  btoa = require('btoa'),
-  request = require('superagent'),
-  logger = require('../../../lib/logger.js')()
+var config = require('config')
+var fs = require('fs')
+var btoa = require('btoa')
+var request = require('superagent')
+var logger = require('../../../lib/logger.js')()
 
 exports.get = function (req, res) {
   var handleGetTranslation = function (locale) {
@@ -39,8 +39,8 @@ exports.get = function (req, res) {
       return
     }
 
-    var authToken = btoa(process.env.TRANSIFEX_USERNAME + ':' + process.env.TRANSIFEX_PASSWORD),
-      apiBaseURI = 'https://www.transifex.com/api/2/project/streetmix/resource/main/translation/'
+    var authToken = btoa(process.env.TRANSIFEX_USERNAME + ':' + process.env.TRANSIFEX_PASSWORD)
+    var apiBaseURI = 'https://www.transifex.com/api/2/project/streetmix/resource/main/translation/'
 
     request
       .get(apiBaseURI + locale)
@@ -72,5 +72,4 @@ exports.get = function (req, res) {
 
   handleGetTranslation(req.params.locale_code)
   // handleGetFromTransifex(req.params.locale_code)
-
 }
