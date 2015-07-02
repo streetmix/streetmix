@@ -310,20 +310,23 @@ function _drawBuilding (ctx, destination, street, left, totalWidth,
 }
 
 function _createBuilding (el, left) {
-  var totalWidth =
-  document.querySelector('#street-section-left-building').offsetWidth
-
+  var totalWidth = el.offsetWidth
   var attr = _getBuildingAttributes(street, left)
-
   var height = Math.min(MAX_CANVAS_HEIGHT, attr.height)
-
   var canvasEl = document.createElement('canvas')
+  var oldCanvasEl = el.querySelector('canvas')
+
   canvasEl.width = totalWidth * system.hiDpi
   canvasEl.height = height * system.hiDpi
   canvasEl.style.width = totalWidth + 'px'
   canvasEl.style.height = height + 'px'
 
-  el.appendChild(canvasEl)
+  // Replace previous canvas if present, otherwise append a new one
+  if (oldCanvasEl) {
+    el.replaceChild(canvasEl, oldCanvasEl)
+  } else {
+    el.appendChild(canvasEl)
+  }
 
   var ctx = canvasEl.getContext('2d')
   _drawBuilding(ctx, BUILDING_DESTINATION_SCREEN, street, left,
@@ -359,14 +362,11 @@ function _changeBuildingHeight (left, increment) {
 }
 
 function _createBuildings () {
-  var el = document.querySelector('#street-section-left-building')
-  // TODO nasty
-  el.innerHTML = '<div class="hover-bk"></div>'
-  _createBuilding(el, true)
+  var leftEl = document.querySelector('#street-section-left-building')
+  var rightEl = document.querySelector('#street-section-right-building')
 
-  var el = document.querySelector('#street-section-right-building')
-  el.innerHTML = '<div class="hover-bk"></div>'
-  _createBuilding(el, false)
+  _createBuilding(leftEl, true)
+  _createBuilding(rightEl, false)
 }
 
 function _onBuildingMouseEnter (event) {

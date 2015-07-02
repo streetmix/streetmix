@@ -207,27 +207,32 @@
     bottom: 45px;
     right: 0;
   }
-  &#street-section-right-building .hover-bk,
-  &#street-section-right-building-old .hover-bk {
-    left: 25px;
-  }
-  &#street-section-left-building .hover-bk,
-  &#street-section-left-building-old .hover-bk {
-    right: 25px;
-  }
 
   &.hover .hover-bk {
     background: @segmentHoverBackground;
   }
 }
+
 #street-section-left-building,
 #street-section-left-building-old {
   left: 0;
 }
+
 #street-section-right-building,
 #street-section-right-building-old {
   right: 0;
 }
+
+#street-section-right-building .hover-bk,
+#street-section-right-building-old .hover-bk {
+  left: 25px;
+}
+
+#street-section-left-building .hover-bk,
+#street-section-left-building-old .hover-bk {
+  right: 25px;
+}
+
 #street-section-left-building canvas,
 #street-section-right-building canvas,
 #street-section-left-building-old canvas,
