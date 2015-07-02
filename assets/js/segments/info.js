@@ -444,7 +444,7 @@ var SEGMENT_INFO = {
         graphics: {
           center: [
             { tileset: 1, x: 39, y: 24, offsetY: -19, width: 16, height: 31 },
-            { tileset: 3, x: 206, y: 50, width: 4, height: 6, offsetX: 1.3, offsetY: -13 } // Banner
+            { tileset: 3, x: 206, y: 50, width: 4, height: 6, offsetX: 1.4, offsetY: -13 } // Banner
           ],
           repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
         }
