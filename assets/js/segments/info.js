@@ -397,20 +397,20 @@ var SEGMENT_INFO = {
     details: {
       'right|modern': {
         graphics: {
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }, // Concrete
-          right: { tileset: 1, x: 56, y: 24, offsetX: -10, offsetY: -19, width: 12, height: 31 }
+          right: { tileset: 1, x: 56, y: 24, offsetX: -10, offsetY: -19, width: 12, height: 31 },
+          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
         }
       },
       'both|modern': {
         graphics: {
           center: { tileset: 1, x: 39, y: 24, offsetY: -19, width: 16, height: 31 },
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
         }
       },
       'left|modern': {
         graphics: {
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
-          left: { tileset: 1, x: 70, y: 24, offsetX: -10, offsetY: -19, width: 12, height: 31 }
+          left: { tileset: 1, x: 70, y: 24, offsetX: -10, offsetY: -19, width: 12, height: 31 },
+          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
         }
       },
       'right|traditional': {
@@ -428,6 +428,33 @@ var SEGMENT_INFO = {
       'left|traditional': {
         graphics: {
           left: { tileset: 3, x: 197, y: 49, width: 3, height: 15, offsetY: -4, offsetX: -2 },
+          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+        }
+      },
+      'right|pride': {
+        graphics: {
+          right: [
+            { tileset: 1, x: 56, y: 24, offsetX: -10, offsetY: -19, width: 12, height: 31 },
+            { tileset: 3, x: 206, y: 58, width: 4, height: 6, offsetX: -2.5, offsetY: -13 } // Banner
+          ],
+          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+        }
+      },
+      'both|pride': {
+        graphics: {
+          center: [
+            { tileset: 1, x: 39, y: 24, offsetY: -19, width: 16, height: 31 },
+            { tileset: 3, x: 206, y: 50, width: 4, height: 6, offsetX: 1.3, offsetY: -13 } // Banner
+          ],
+          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+        }
+      },
+      'left|pride': {
+        graphics: {
+          left: [
+            { tileset: 1, x: 70, y: 24, offsetX: -10, offsetY: -19, width: 12, height: 31 },
+            { tileset: 3, x: 206, y: 50, width: 4, height: 6, offsetX: -2.5, offsetY: -13 } // Banner
+          ],
           repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
         }
       }

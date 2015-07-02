@@ -29,6 +29,7 @@ var VARIANT_ICONS = {
   'lamp-orientation|right': { id: 'direction-right', title: 'Right' },
   'lamp-type|traditional': { id: 'lamp-traditional-right', title: 'Traditional' },
   'lamp-type|modern': { id: 'lamp-modern', title: 'Modern' },
+  'lamp-type|pride': { id: 'rainbow', title: 'Modern with pride banner' },
   'car-type|car': { id: 'car', title: 'Car' },
   'car-type|sharrow': { id: 'sharrow', title: 'Sharrow' },
   'car-type|truck': { id: 'truck', title: 'Truck' },
