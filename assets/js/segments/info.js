@@ -207,9 +207,11 @@ How to fill in the data for a segment:
                 use as the width of the sprite, and the width of the
                 canvas to display in.
   offsetX       Number (optional)
-                ???
+                Horizontal position to offset the sprite from the
+                attachment spot. The 0 position depends on whether the
+                sprite is attached to the left/right or center of segment.
   offsetY       Number (optional)
-                ???
+                Vertical position to offset the sprite from the ground.
 
 */
 
