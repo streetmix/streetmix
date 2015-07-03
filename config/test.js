@@ -6,7 +6,7 @@ module.exports = {
   header_host_port: '127.0.0.1:' + port,
   restapi: {
     port: port,
-    baseuri: 'http://127.0.0.1:' + port + '/api'
+    baseuri: '/api'
   },
   db: {
     url: 'mongodb://127.0.0.1/streetmix_test'

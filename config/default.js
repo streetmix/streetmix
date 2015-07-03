@@ -30,7 +30,7 @@ module.exports = {
   restapi_proxy_baseuri_rel: '/api',
   restapi: {
     port: port,
-    baseuri: 'http://localhost:' + port + '/api'
+    baseuri: '/api'
   },
   db: {
     url: process.env.MONGOHQ_URL || 'mongodb://localhost/streetmix'
