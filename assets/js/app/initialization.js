@@ -112,6 +112,7 @@ function _onEverythingLoaded () {
   _addScrollButtons(document.querySelector('#palette'))
   _addScrollButtons(document.querySelector('#gallery .streets'))
   _addEventListeners()
+  DebugInfo.init()
   Stmx.ui.menus.init()
   Stmx.ui.dialogs.init()
 

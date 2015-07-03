@@ -27,9 +27,7 @@ function _onGlobalKeyDown (event) {
 
   switch (event.keyCode) {
     case KEYS.ESC:
-      if (document.querySelector('#debug').classList.contains('visible')) {
-        _hideDebugInfo()
-      } else if (document.querySelector('#welcome').classList.contains('visible')) {
+      if (document.querySelector('#welcome').classList.contains('visible')) {
         _hideWelcome()
       } else if (Stmx.ui.dialogs.isVisible()) {
         Stmx.ui.dialogs.hideAll()
@@ -141,12 +139,6 @@ function _onBodyKeyDown (event) {
     case KEYS.Y:
       if (event.metaKey || event.ctrlKey) {
         _redo()
-        event.preventDefault()
-      }
-      break
-    case KEYS.D:
-      if (event.shiftKey) {
-        _showDebugInfo()
         event.preventDefault()
       }
       break

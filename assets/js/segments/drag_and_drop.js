@@ -444,7 +444,6 @@ function _onBodyMouseDown (event) {
   }
 
   _loseAnyFocus()
-  _hideDebugInfo()
 
   var topEl = event.target
 
