@@ -1,6 +1,6 @@
 var TWITTER_ID = '@streetmix'
 
-Stmx.ui.menus.define('feedback', {
+MenuManager.define('feedback', {
   onShow: _prepareFeedbackForm
 })
 
@@ -69,7 +69,7 @@ function _feedbackFormSuccess () {
   window.localStorage[LOCAL_STORAGE_FEEDBACK_EMAIL_BACKUP] = ''
 
   // TODO const
-  window.setTimeout(Stmx.ui.menus.hide, 2500)
+  window.setTimeout(MenuManager.hide, 2500)
 }
 
 function _feedbackFormError () {
@@ -80,7 +80,7 @@ function _feedbackFormError () {
   // to try again later, or copy-paste the message to some other
   // contact method.
 
-  window.setTimeout(Stmx.ui.menus.hide, 10000)
+  window.setTimeout(MenuManager.hide, 10000)
 }
 
 function _onFeedbackFormInput () {

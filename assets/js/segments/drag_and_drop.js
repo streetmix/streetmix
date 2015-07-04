@@ -460,7 +460,7 @@ function _onBodyMouseDown (event) {
     return
   }
 
-  Stmx.ui.menus.hideAll()
+  MenuManager.hideAll()
 
   if (el.classList.contains('drag-handle')) {
     _handleSegmentResizeStart(event)
@@ -709,7 +709,7 @@ function _handleSegmentMoveEnd (event) {
       _removeElFromDom(draggingMove.originalEl)
     }
 
-    Stmx.app.eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_REMOVE_SEGMENT,
+    EventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_REMOVE_SEGMENT,
       TRACK_LABEL_DRAGGING, null, true)
   } else if (draggingMove.segmentBeforeEl || draggingMove.segmentAfterEl || (street.segments.length == 0)) {
     var smartDrop = _doDropHeuristics(draggingMove.originalType,

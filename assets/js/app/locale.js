@@ -4,7 +4,7 @@
  *
  */
 
-var Stmx = (function (Stmx) {
+var Locale = (function () {
   'use strict'
 
   // Default language is set by browser, or is US English if undetermined
@@ -66,14 +66,11 @@ var Stmx = (function (Stmx) {
     })
   }
 
-  // Public
-  Stmx.app.locale = {
+  return {
     init: init,
     get: getLocale,
     set: setLocale,
     clear: clearLocale
   }
 
-  return Stmx
-
-}(Stmx))
+})()

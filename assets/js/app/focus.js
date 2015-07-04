@@ -37,7 +37,7 @@ function _onWindowBlur () {
     return
   }
 
-  Stmx.ui.menus.hideAll()
+  MenuManager.hideAll()
 }
 
 function _onVisibilityChange () {

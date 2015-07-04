@@ -4,7 +4,12 @@ var readyStateCompleteLoaded
 
 var TRACK_ACTION_TOUCH_CAPABLE = 'Touch capability detected'
 
-Stmx.app.preInit = function () {
+// Some things are placed on the generic Stmx app object to keep it out of global scope
+// Do this as little as possible. Eventually, code becomes a collection of
+// individual modules that are require()'d by browserify
+var Stmx = {}
+
+Stmx.preInit = function () {
   initializing = true
   ignoreStreetChanges = true
 
@@ -12,7 +17,8 @@ Stmx.app.preInit = function () {
   _detectSystemCapabilities()
 }
 
-Stmx.app.init = function () {
+Stmx.init = function () {
+  /* global Locale */
   if (!debug.forceUnsupportedBrowser) {
     // TODO temporary ban
     if ((navigator.userAgent.indexOf('Opera') != -1) ||
@@ -89,7 +95,7 @@ function _onEverythingLoaded () {
   // Initalize i18n / localization
   // Currently experimental-only
   if (debug.experimental) {
-    Stmx.app.locale.init()
+    Locale.init()
   }
 
   _showWelcome()
@@ -113,15 +119,15 @@ function _onEverythingLoaded () {
   _addScrollButtons(document.querySelector('#gallery .streets'))
   _addEventListeners()
   DebugInfo.init()
-  Stmx.ui.menus.init()
-  Stmx.ui.dialogs.init()
+  MenuManager.init()
+  DialogManager.init()
 
   if (mode == MODES.USER_GALLERY) {
     _showGallery(galleryUserId, true)
   } else if (mode == MODES.GLOBAL_GALLERY) {
     _showGallery(null, true)
   } else if (mode == MODES.ABOUT) {
-    Stmx.ui.dialogs.instances.about.show()
+    DialogManager.dialogs.about.show()
   }
 
   if (promoteStreet) {
@@ -136,7 +142,7 @@ function _onEverythingLoaded () {
 
   // Track touch capability in Google Analytics
   if (system.touch === true) {
-    Stmx.app.eventTracking.track(TRACK_CATEGORY_SYSTEM, TRACK_ACTION_TOUCH_CAPABLE, null, null, true)
+    EventTracking.track(TRACK_CATEGORY_SYSTEM, TRACK_ACTION_TOUCH_CAPABLE, null, null, true)
   }
 }
 

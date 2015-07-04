@@ -1,5 +1,6 @@
-(function (Stmx) {
-  var saveAsImageDialog = Stmx.ui.dialogs.define('saveAsImage', '#save-as-image-dialog', {
+(function () {
+  /* global DialogManager, EventTracking */
+  var saveAsImageDialog = DialogManager.define('saveAsImage', '#save-as-image-dialog', {
     clickSelector: '#save-as-image',
     onInit: function () {
       document.querySelector('#save-as-image-transparent-sky').addEventListener('click', this._updateSaveAsImageOptions.bind(this))
@@ -22,7 +23,7 @@
       window.setTimeout(this._updateSaveAsImageDialogBox.bind(this), 100)
 
       // Tracking
-      Stmx.app.eventTracking.track(TRACK_CATEGORY_SHARING, 'Save as image', null, null, false)
+      EventTracking.track(TRACK_CATEGORY_SHARING, 'Save as image', null, null, false)
     }
   })
 
@@ -72,4 +73,4 @@
     window.setTimeout(this._updateSaveAsImageDialogBox.bind(this), 0)
   }
 
-}(Stmx))
+})()

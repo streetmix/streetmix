@@ -1,6 +1,6 @@
-Stmx.ui.menus.define('settings', {
+MenuManager.define('settings', {
   alignment: 'right',
   onShow: function () {
-    Stmx.app.eventTracking.track(TRACK_CATEGORY_INTERACTION, 'Open settings menu', null, null, false)
+    EventTracking.track(TRACK_CATEGORY_INTERACTION, 'Open settings menu', null, null, false)
   }
 })

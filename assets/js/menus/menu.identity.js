@@ -1,1 +1,1 @@
-Stmx.ui.menus.define('identity')
+MenuManager.define('identity')

@@ -259,7 +259,7 @@ var _infoBubble = {
   },
 
   considerShowing: function (event, segmentEl, type) {
-    if (Stmx.ui.menus.isVisible() === true || readOnly) {
+    if (MenuManager.isVisible() === true || readOnly) {
       return
     }
 
@@ -892,7 +892,7 @@ var _infoBubble = {
     }, 500)
 
     var segment = street.segments[parseInt(_infoBubble.segmentEl.dataNo)]
-    Stmx.app.eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_LEARN_MORE,
+    EventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_LEARN_MORE,
       segment.type, null, false)
   },
 

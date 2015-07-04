@@ -1,28 +1,26 @@
 /*
- *  Stmx.ui.menus
+ *  Menu (class)
  *
- *  Handles general menu state and holds class instances of menu behavior
+ *  Generic class instance of menu
  *
  */
 
-var Stmx = (function (Stmx) {
+var Menu = (function () {
+  /* global Menu, _infoBubble, _statusMessage, _getElAbsolutePos, _loseAnyFocus */
+  /* var MenuManager = require('menu-manager') */
   'use strict'
 
-  var menus = {}
-
   var Menu = function (name, opts) {
-    var opts = opts || {}
-
+    opts = opts || {}
     this.name = name
-
-    this.alignment = opts.alignment || 'left'; // Set to 'right' if menu should be aligned to right of window
-    this.onShowCallback = opts.onShow || null   // Function to execute after menu open
+    this.alignment = opts.alignment || 'left' // Set to 'right' if menu should be aligned to right of window
+    this.onShowCallback = opts.onShow || null // Function to execute after menu open
     this.el = null // Placeholder
   }
 
   Menu.prototype.init = function () {
-    var menuButton = '#' + this.name + '-menu-button',
-      menuButtonEl = document.querySelector(menuButton)
+    var menuButton = '#' + this.name + '-menu-button'
+    var menuButtonEl = document.querySelector(menuButton)
 
     // Save a reference to its DOM element
     this.el = document.querySelector('#' + this.name + '-menu')
@@ -48,7 +46,7 @@ var Stmx = (function (Stmx) {
     // Hide other UI
     _infoBubble.hide()
     _statusMessage.hide()
-    Stmx.ui.menus.hideAll()
+    MenuManager.hideAll()
 
     // Determine positioning
     if (this.alignment === 'right') {
@@ -75,46 +73,6 @@ var Stmx = (function (Stmx) {
     this.el.classList.remove('visible')
   }
 
-  // Expose 'public' methods
-  Stmx.ui.menus = {
-    instances: menus,
+  return Menu
 
-    // Set up a Menu that the app knows about
-    define: function (name, opts) {
-      menus[name] = new Menu(name, opts)
-
-      return menus[name]
-    },
-
-    // Initialize all defined Menus
-    // Should be called after DOM is ready
-    init: function () {
-      for (var i in menus) {
-        menus[i].init()
-      }
-    },
-
-    isVisible: function () {
-      var hasVisibleClass = false
-      for (var i in menus) {
-        if (menus[i].el.classList.contains('visible')) {
-          hasVisibleClass = true
-          continue
-        }
-      }
-      return hasVisibleClass
-    },
-
-    hideAll: function () {
-      _loseAnyFocus()
-
-      var els = document.querySelectorAll('.menu.visible')
-      for (var i = 0, el; el = els[i]; i++) {
-        el.classList.remove('visible')
-      }
-    }
-  }
-
-  return Stmx
-
-}(Stmx))
+}())

@@ -1,15 +1,16 @@
 /*
- *  Stmx.ui.dialogs
+ *  Dialog (class)
+ *
+ *  Generic class instance of menu
  *
  */
 
-var Stmx = (function (Stmx) {
+var Dialog = (function () {
+  /* global MenuManager */
   'use strict'
 
-  var dialogs = {}
-
   var Dialog = function (id, opts) {
-    var opts = opts || {}
+    opts = opts || {}
 
     this.id = id // Element id
 
@@ -18,7 +19,7 @@ var Stmx = (function (Stmx) {
     this.onShowCallback = opts.onShow || null // Function to execute after dialog open
     this.onHideCallback = opts.onHide || null // Function to execute after dialog close
 
-    this.el = null; // For caching a reference to the dialog box's DOM element
+    this.el = null // For caching a reference to the dialog box's DOM element
   }
 
   Dialog.prototype.init = function () {
@@ -47,7 +48,7 @@ var Stmx = (function (Stmx) {
     }
 
     // Hide other UI
-    Stmx.ui.menus.hideAll()
+    MenuManager.hideAll()
 
     // Show the dialog & shield
     this.el.classList.add('visible')
@@ -74,49 +75,6 @@ var Stmx = (function (Stmx) {
     }
   }
 
-  // Public
-  Stmx.ui.dialogs = {
-    instances: dialogs,
+  return Dialog
 
-    define: function (name, selector, opts) {
-      dialogs[name] = new Dialog(selector, opts)
-
-      return dialogs[name]
-    },
-
-    init: function () {
-      // Should be called after DOM is ready
-      // Set up event listeners for dialog shield
-      if (system.touch) {
-        document.querySelector('#dialog-box-shield').addEventListener('touchstart', this.hideAll)
-      } else {
-        document.querySelector('#dialog-box-shield').addEventListener('click', this.hideAll)
-      }
-
-      // Init all Dialogs
-      for (var i in dialogs) {
-        dialogs[i].init()
-      }
-    },
-
-    isVisible: function () {
-      var hasVisibleClass = false
-      for (var i in dialogs) {
-        if (dialogs[i].el.classList.contains('visible')) {
-          hasVisibleClass = true
-          continue
-        }
-      }
-      return hasVisibleClass
-    },
-
-    hideAll: function () {
-      for (var i in dialogs) {
-        dialogs[i].hide()
-      }
-    }
-  }
-
-  return Stmx
-
-}(Stmx))
+})()

@@ -2,7 +2,7 @@ var TRACK_CATEGORY_SHARING = 'Sharing'
 var TRACK_ACTION_FACEBOOK = 'Facebook'
 var TRACK_ACTION_TWITTER = 'Twitter'
 
-Stmx.ui.menus.define('share', {
+MenuManager.define('share', {
   alignment: 'right',
   onShow: function () {
     // Auto-focus and select link when share menu is active
@@ -17,11 +17,11 @@ Stmx.ui.menus.define('share', {
 })
 
 function _shareViaTwitter () {
-  Stmx.app.eventTracking.track(TRACK_CATEGORY_SHARING, TRACK_ACTION_TWITTER, null, null, false)
+  EventTracking.track(TRACK_CATEGORY_SHARING, TRACK_ACTION_TWITTER, null, null, false)
 }
 
 function _shareViaFacebook () {
-  Stmx.app.eventTracking.track(TRACK_CATEGORY_SHARING, TRACK_ACTION_FACEBOOK, null, null, false)
+  EventTracking.track(TRACK_CATEGORY_SHARING, TRACK_ACTION_FACEBOOK, null, null, false)
 }
 
 function _getSharingMessage () {

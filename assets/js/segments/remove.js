@@ -31,7 +31,7 @@ function _onRemoveButtonClick (event) {
   if (el) {
     _removeSegment(el, event.shiftKey)
 
-    Stmx.app.eventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_REMOVE_SEGMENT,
+    EventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_REMOVE_SEGMENT,
       TRACK_LABEL_BUTTON, null, true)
   }
 

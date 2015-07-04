@@ -1,5 +1,6 @@
-(function (Stmx) {
-  Stmx.ui.dialogs.define('about', '#about', {
+(function () {
+  /* global DialogManager, EventTracking */
+  DialogManager.define('about', '#about', {
     clickSelector: '#about-streetmix',
     onShow: function () {
       var els = document.querySelectorAll('#about .avatar')
@@ -10,7 +11,7 @@
       window.history.replaceState(null, null, URL_HELP_ABOUT)
 
       // Tracking
-      Stmx.app.eventTracking.track(TRACK_CATEGORY_INTERACTION, 'Open about dialog box', null, null, false)
+      EventTracking.track(TRACK_CATEGORY_INTERACTION, 'Open about dialog box', null, null, false)
 
       _fetchAvatars()
     },
@@ -18,5 +19,4 @@
       _updatePageUrl()
     }
   })
-
-}(Stmx))
+})()
