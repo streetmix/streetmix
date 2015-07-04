@@ -15,9 +15,11 @@
 // = require_tree util
 // = require_tree app
 
+// = require menus/menu-manager
 // = require menus/menu
 // = require_tree menus
 
+// = require dialogs/dialog-manager
 // = require dialogs/dialog
 // = require_tree dialogs
 
