@@ -22,7 +22,10 @@ var oauthAccessTokenHandler = function (req, res) {
       }
     }
 
-    request.post({ url: config.restapi.baseuri + '/v1/users', json: apiRequestBody }, function (err, response, body) {
+    // Must be an absolute URI
+    var endpoint = config.restapi.protocol + config.app_host_port + config.restapi.baseuri + '/v1/users'
+
+    request.post({ url: endpoint, json: apiRequestBody }, function (err, response, body) {
       if (err) {
         console.error('Error from API when signing in: ' + err)
         res.redirect('/error/authentication-api-problem')

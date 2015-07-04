@@ -30,6 +30,7 @@ module.exports = {
   restapi_proxy_baseuri_rel: '/api',
   restapi: {
     port: port,
+    protocol: 'http://',
     baseuri: '/api'
   },
   db: {
