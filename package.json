@@ -7,7 +7,7 @@
     "url": "https://github.com/codeforamerica/streetmix.git"
   },
   "engines": {
-    "node": ">=0.10.38",
+    "node": ">=0.12.6",
     "npm": ">=2.4.1"
   },
   "scripts": {
