@@ -36,6 +36,7 @@
     "requireindex": "1.1.x",
     "sendgrid": "^1.8.0",
     "sprintf": "0.1.x",
+    "streetmix-icons": "git://github.com/streetmix/icons.git",
     "strong-agent": "latest",
     "superagent": "^1.2.0",
     "supervisor": "^0.7.0",
