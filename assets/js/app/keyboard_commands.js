@@ -60,7 +60,7 @@ function _onGlobalKeyDown (event) {
 function _onBodyKeyDown (event) {
   switch (event.keyCode) {
     case KEYS.SLASH:
-      MenuManager.instances.help.onClick()
+      MenuManager.menus.help.onClick()
       break
 
     case KEYS.EQUAL:
