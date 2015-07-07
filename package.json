@@ -11,7 +11,9 @@
     "npm": ">=2.4.1"
   },
   "scripts": {
+    "prestart": "mongod --fork --logpath /dev/null",
     "start": "supervisor index.js",
+    "stop": "mongo admin --eval 'db.shutdownServer()' > /dev/null",
     "test": "standard && grunt test:local"
   },
   "dependencies": {

@@ -128,18 +128,16 @@ NO_INTERNET_MODE=true
 
 ### HOWTO: Start the application
 
-1) Start MongoDB.
-
-    mongod
-
-2) Start the web server.
+1) Start the web server. (This also automatically starts MongoDB in the background.)
 
     cd streetmix
     npm start
 
-3) Load the application in your web browser.
+2) Load the application in your web browser.
 
     open http://127.0.0.1:8000
+
+**To shutdown the application cleanly** , press Ctrl-C to kill the Node process, then run `npm stop` to shutdown the MongoDB server.
 
 
 ### HOWTO: Run browser integration tests
@@ -201,6 +199,6 @@ Also, this project was made possible by the support of Code for America staff an
 
 
 ### Copyright
-Copyright (c) 2013 Code for America. See [LICENSE][] for details.
+Copyright (c) 2013-2015 Code for America. See [LICENSE][] for details.
 
 [license]: https://github.com/codeforamerica/streetmix/blob/master/LICENSE.md
