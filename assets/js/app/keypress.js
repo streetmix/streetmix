@@ -9,7 +9,7 @@
 var Keypress = (function () {
   'use strict'
 
-  /* global EventTracking, _clone */
+  /* global EventTracking */
 
   var TRACK_LABEL_KEYBOARD = 'Keyboard'
 
@@ -57,15 +57,9 @@ var Keypress = (function () {
     'x': 88,
     'y': 89,
     'z': 90,
-    '=': [187, 67],
-    '+': [187, 61, 107],
-    '-': [189, 173, 109],
-    //'equal': 187, // = or +
-    //'equal_alt': 61, // Firefox
-    //'plus_keypad': 107,
-    //'minus': 189,
-    //'minus_alt': 173, // Firefox
-    //'minus_keypad': 109,
+    // '=': [187, 61],
+    '+': [187, 61, 107], // = or +; 61 for Firefox; 107 for keypad
+    '-': [189, 173, 109], // 109 for keypad; 173 for Firefox
     '?': 191,
     '/': 191
   }
@@ -145,15 +139,15 @@ var Keypress = (function () {
         // This basically allows other code to override settings via the
         // options object - it's dumb, but there's no protection against it,
         // and who knows, could be useful in edge cases
-        for (var key in options) {
-          if (typeof command[i][key] !== options[key]) {
-            command[i][key] = defaults[key]
+        for (var k in options) {
+          if (typeof command[i][k] !== options[k]) {
+            command[i][k] = defaults[k]
           }
         }
 
         // Add processed commands to module's inputs holder
         if (typeof inputs[keyCode] === 'undefined') {
-          inputs[keyCode] = new Array()
+          inputs[keyCode] = []
         }
         inputs[keyCode].push(command[i])
       }
@@ -176,10 +170,10 @@ var Keypress = (function () {
           var item = items[x]
 
           // Check for equality for command + function
-          if ((callback === item.onKeypress) &&
-              (item.shiftKey === event.shiftKey || item.shiftKey === 'optional') &&
-              (item.altKey === event.altKey || item.altKey === 'optional') &&
-              (item.metaKey === event.metaKey || item.metaKey === 'optional')) {
+          if ((item.onKeypress === callback) &&
+              (item.shiftKey === command[i].shiftKey || item.shiftKey === 'optional') &&
+              (item.altKey === command[i].altKey || item.altKey === 'optional') &&
+              (item.metaKey === command[i].metaKey || item.metaKey === 'optional')) {
             // If matches, remove it from the command list.
             inputs[keyCode].splice(x, 1)
           }
@@ -246,7 +240,7 @@ var Keypress = (function () {
         for (var j = 0; j < keys.length; j++) {
           settings.keyCode = keys[j]
           if (typeof commandsObj[keys[j]] === 'undefined') {
-            commandsObj[keys[j]] = new Array()
+            commandsObj[keys[j]] = []
           }
 
           commandsObj[keys[j]].push(settings)
