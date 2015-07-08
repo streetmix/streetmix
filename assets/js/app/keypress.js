@@ -10,7 +10,8 @@ var Keypress = (function () {
   'use strict'
 
   /* global EventTracking */
-
+  // Event tracking
+  var TRACK_CATEGORY_INTERACTION = 'Interaction'
   var TRACK_LABEL_KEYBOARD = 'Keyboard'
 
   // TODO: Flesh out this dictionary
@@ -96,7 +97,10 @@ var Keypress = (function () {
       condition: returnTrue,
       preventDefault: true,
       stopPropagation: false,
-      requireFocusOnBody: true
+      requireFocusOnBody: true,
+      trackMsg: null,
+      trackValue: null,
+      trackOnce: true
     }
 
     // Check if the second argument is the options object or the callback function
@@ -290,6 +294,9 @@ var Keypress = (function () {
       }
       if (input.stopPropagation) {
         event.stopPropagation()
+      }
+      if (input.trackMsg) {
+        EventTracking.track(TRACK_CATEGORY_INTERACTION, input.trackMsg, TRACK_LABEL_KEYBOARD, input.trackValue, input.trackOnce)
       }
       input.onKeypress()
     }

@@ -10,7 +10,6 @@ var EventTracking = (function () {
 
   /* global ga */
   // TODO: Require utility functions from module
-  // TODO: Set up a better keypress listening manager
 
   // Contains identifiers for actions that should only be tracked
   // once per user session, as defined by the boolean value of

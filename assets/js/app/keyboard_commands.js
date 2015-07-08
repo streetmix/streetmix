@@ -125,13 +125,6 @@ function _onBodyKeyDown (event) {
         event.preventDefault()
       }
       break
-    case KEYS.S:
-      if (event.metaKey || event.ctrlKey) {
-        _statusMessage.show(msg('STATUS_NO_NEED_TO_SAVE'))
-        EventTracking.track(TRACK_CATEGORY_INTERACTION, 'Command-S or Ctrl-S save shortcut key pressed', null, null, false)
-        event.preventDefault()
-      }
-      break
     case KEYS.Y:
       if (event.metaKey || event.ctrlKey) {
         _redo()
@@ -140,6 +133,12 @@ function _onBodyKeyDown (event) {
       break
   }
 }
+
+Keypress.register('ctrl s', {
+  trackMsg: 'Command-S or Ctrl-S save shortcut key pressed'
+}, function () {
+  _statusMessage.show(msg('STATUS_NO_NEED_TO_SAVE'))
+})
 
 function _getHoveredSegmentEl () {
   var el = document.querySelector('.segment.hover')
