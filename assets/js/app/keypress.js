@@ -141,7 +141,7 @@ var Keypress = (function () {
         // and who knows, could be useful in edge cases
         for (var k in options) {
           if (typeof command[i][k] !== options[k]) {
-            command[i][k] = defaults[k]
+            command[i][k] = options[k]
           }
         }
 
@@ -155,6 +155,7 @@ var Keypress = (function () {
   }
 
   // If command and callback matches, get rid of it.
+  // Callback is optional. Without one, deregister any command that matches, regardless of command.
   function deregister (commands, callback) {
     var commandObj = _processCommands(commands)
 
@@ -165,12 +166,20 @@ var Keypress = (function () {
       for (var i = 0; i < command.length; i++) {
         var items = inputs[keyCode]
         var x = items.length
+
         // A reverse while loop quickly removes all duplicates that matches
         while (x--) {
           var item = items[x]
+          var matchingCallback = false
+
+          if (item.onKeypress === callback) {
+            matchingCallback = true
+          } else if (typeof callback === 'undefined') {
+            matchingCallback = true
+          }
 
           // Check for equality for command + function
-          if ((item.onKeypress === callback) &&
+          if ((matchingCallback === true) &&
               (item.shiftKey === command[i].shiftKey || item.shiftKey === 'optional') &&
               (item.altKey === command[i].altKey || item.altKey === 'optional') &&
               (item.metaKey === command[i].metaKey || item.metaKey === 'optional')) {

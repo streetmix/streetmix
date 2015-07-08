@@ -16,7 +16,7 @@ var Menu = (function () {
     opts = opts || {}
     this.name = name
     this.alignment = opts.alignment || 'left' // Set to 'right' if menu should be aligned to right of window
-    this.onInitCallback = opts.onInit || noop // Function to execute at menu init
+    this.onInitCallback = opts.init || noop // Function to execute at menu init
     this.onShowCallback = opts.onShow || noop // Function to execute after menu open
     this.el = null // Placeholder
   }

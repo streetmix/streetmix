@@ -1,7 +1,9 @@
 /* global MenuManager, EventTracking, Keypress */
 MenuManager.define('help', {
-  onInit: function () {
-    Keypress.register('?', this.onClick.bind(this))
+  init: function () {
+    // Run this when menu initiates
+    // Register keypress handlers here
+    Keypress.register('?', { shiftKey: 'optional' }, this.onClick.bind(this))
   },
   onShow: function () {
     EventTracking.track(TRACK_CATEGORY_INTERACTION, 'Open help menu', null, null, false)
