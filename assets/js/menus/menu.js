@@ -10,11 +10,14 @@ var Menu = (function () {
   /* var MenuManager = require('menu-manager') */
   'use strict'
 
+  var noop = function () {}
+
   var Menu = function (name, opts) {
     opts = opts || {}
     this.name = name
     this.alignment = opts.alignment || 'left' // Set to 'right' if menu should be aligned to right of window
-    this.onShowCallback = opts.onShow || null // Function to execute after menu open
+    this.onInitCallback = opts.onInit || noop // Function to execute at menu init
+    this.onShowCallback = opts.onShow || noop // Function to execute after menu open
     this.el = null // Placeholder
   }
 
@@ -31,6 +34,11 @@ var Menu = (function () {
 
       // Bind event listeners to the menu button
       menuButtonEl.addEventListener('click', this.onClick.bind(this))
+    }
+
+    // Callback
+    if (typeof this.onInitCallback === 'function') {
+      this.onInitCallback()
     }
   }
 

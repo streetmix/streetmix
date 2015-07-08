@@ -59,10 +59,6 @@ function _onGlobalKeyDown (event) {
 
 function _onBodyKeyDown (event) {
   switch (event.keyCode) {
-    case KEYS.SLASH:
-      MenuManager.menus.help.onClick()
-      break
-
     case KEYS.EQUAL:
     case KEYS.EQUAL_ALT:
     case KEYS.PLUS_KEYPAD:
