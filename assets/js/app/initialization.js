@@ -118,6 +118,7 @@ function _onEverythingLoaded () {
   _addScrollButtons(document.querySelector('#palette'))
   _addScrollButtons(document.querySelector('#gallery .streets'))
   _addEventListeners()
+  Keypress.init()
   DebugInfo.init()
   MenuManager.init()
   DialogManager.init()

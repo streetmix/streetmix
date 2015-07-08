@@ -1,21 +1,13 @@
 var DebugInfo = (function () {
   'use strict'
 
-  /* global _clone, _loseAnyFocus, _isFocusOnBody */
+  /* global Keypress, _clone, _loseAnyFocus */
   // TODO: Require utility functions from module
   // TODO: Set up a better keypress listening manager
 
   // Register keyboard input for show (shift-D)
   function init () {
-    window.addEventListener('keydown', _onKeyDown, false)
-
-    function _onKeyDown (event) {
-      if (_isFocusOnBody() && event.keyCode == 68 && event.shiftKey) {
-        event.preventDefault()
-        event.stopPropagation()
-        show()
-      }
-    }
+    Keypress.register('shift d', show)
   }
 
   function show () {
@@ -55,7 +47,7 @@ var DebugInfo = (function () {
     }, 0)
 
     // Set up keypress listener to close debug window
-    window.addEventListener('keydown', _onPressEscapeToClose, true)
+    Keypress.register('esc', hide)
     // TODO: Register mouse inputs for hide
   }
 
@@ -64,15 +56,7 @@ var DebugInfo = (function () {
     _loseAnyFocus()
 
     // Remove keypress listener
-    window.removeEventListener('keydown', _onPressEscapeToClose, true)
-  }
-
-  function _onPressEscapeToClose (event) {
-    if (event.keyCode === 27) { // ESC is pressed
-      event.preventDefault()
-      event.stopPropagation()
-      hide()
-    }
+    Keypress.deregister('esc', hide)
   }
 
   return {

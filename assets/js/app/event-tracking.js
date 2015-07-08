@@ -8,7 +8,7 @@ var TRACK_CATEGORY_SYSTEM = 'System'
 var EventTracking = (function () {
   'use strict'
 
-  /* global ga, _loseAnyFocus, _isFocusOnBody */
+  /* global ga */
   // TODO: Require utility functions from module
   // TODO: Set up a better keypress listening manager
 

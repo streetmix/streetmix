@@ -13,6 +13,7 @@
 
 // = require_self
 // = require_tree util
+// = require app/keypress
 // = require_tree app
 
 // = require menus/menu-manager
