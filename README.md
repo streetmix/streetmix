@@ -137,8 +137,6 @@ NO_INTERNET_MODE=true
 
     open http://127.0.0.1:8000
 
-**To shutdown the application cleanly** , press Ctrl-C to kill the Node process, then run `npm stop` to shutdown the MongoDB server.
-
 
 ### HOWTO: Run browser integration tests
 

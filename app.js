@@ -9,6 +9,7 @@ var controllers = require('./app/controllers')
 var resources = require('./app/resources')
 var requestHandlers = require('./lib/request_handlers')
 var logger = require('./lib/logger')()
+var exec = require('child_process').exec
 
 if (process.env.NEW_RELIC_LICENSE_KEY) {
   require('newrelic')
@@ -73,4 +74,14 @@ app.use(express.static(__dirname + '/public'))
 // Catch-all
 app.use(function (req, res) {
   res.render('main', {})
+})
+
+// Provide a message after a Ctrl-C
+// Note: various sources tell us that this does not work on Windows
+process.on('SIGINT', function () {
+  if (app.locals.config.env === 'development') {
+    console.log('Stopping Streetmix!')
+    exec('npm stop')
+  }
+  process.exit()
 })
