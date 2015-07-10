@@ -1,0 +1,334 @@
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title> </title>
+  <link href='assets/bass.css' type='text/css' rel='stylesheet' />
+  <link href='assets/style.css' type='text/css' rel='stylesheet' />
+  <link href='assets/github.css' type='text/css' rel='stylesheet' />
+</head>
+<body class='documentation'>
+  <div class='px2'>
+    <div class='clearfix flex flex-stretch mxn2'>
+      <div class='documentation-sidebar relative top-0 bottom-0 right-0 px2 py2 col-3 sm-show'>
+        <div class='font-smaller fixed col-3 top-0 bottom-0 left-0 overflow-auto black bg-cloudy'>
+          <a href="/" class="h5 button block button-transparent"> </a>
+          <div class='px2'>
+              <a
+                href='#deregister'
+                class='regular block'>
+                <code>deregister</code>
+              </a>
+              <a
+                href='#init'
+                class='regular block'>
+                <code>init</code>
+              </a>
+              <a
+                href='#keypress'
+                class='regular block'>
+                <code>Keypress</code>
+              </a>
+              <a
+                href='#register'
+                class='regular block'>
+                <code>register</code>
+              </a>
+          </div>
+        </div>
+      </div>
+      <div class='sm-col  col-9  flex flex-column'>
+        <div class='flex-auto full-width'>
+          <div class='px1'>
+<section id='deregister'class='mt2 mb2 py1 px2 keyline-top'>
+  <h3 class='regular'>
+    <a class='black' href='#deregister'>
+      <code>
+        deregister<span class='gray'>(commands, [callback])</span>
+      </code>
+    </a>
+  </h3>
+  <p>Deregisters a key command listener, given matching <code>commands</code> and
+<code>callback</code> parameters.</p>
+
+
+    <p>
+      <table class='table-light overflow-hidden bg-cloudy-light'>
+        <thead>
+          <th class='col-3'>parameter</th>
+          <th class='col-3'>type</th>
+          <th class='col-6'>description</th>
+        </thead>
+          <tr>
+            <td>commands</td>
+            <td>
+              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code> or Array<<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>>
+            </td>
+            <td><p>Human readable key or key combination to listen for, in the form of &quot;a&quot;
+or &quot;shift a&quot; or &quot;control alt a&quot;. If multiple keys should perform the
+same action, pass in an array of strings, e.g. <code>['a', 'b', 'meta d']</code></p>
+</td>
+          </tr>
+          <tr>
+            <td>callback</td>
+            <td>
+              <code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">function</a></code>]</code>
+            </td>
+            <td><p>Callback function to execute when key is pressed. This is if you want
+to only remove key handlers that match the same callback. If you do not
+provide a callback, all handlers that match <code>commands</code> are removed.</p>
+</td>
+          </tr>
+      </table>
+    </p>
+
+
+
+
+    <h4>Examples</h4>
+<pre>Keypress.deregister(<span class="hljs-string">'shift d'</span>) <span class="hljs-comment">// Deregisters all triggers for `shift d`</span></pre><pre>Keypress.deregister(<span class="hljs-string">'esc'</span>, hide) <span class="hljs-comment">// Deregisters triggers matching callback function `hide` and key `esc`</span></pre>
+
+
+
+
+</section>
+<section id='init'class='mt2 mb2 py1 px2 keyline-top'>
+  <h3 class='regular'>
+    <a class='black' href='#init'>
+      <code>
+        init<span class='gray'></span>
+      </code>
+    </a>
+  </h3>
+  <p>Initiates keypress manager. Sets a global event listener on the window.
+This should only have to be called once, when the application bootstraps.</p>
+
+
+
+
+
+
+
+
+
+
+</section>
+<section id='keypress'class='mt2 mb2 py1 px2 keyline-top'>
+  <h3 class='regular'>
+    <a class='black' href='#keypress'>
+      <code>
+        Keypress<span class='gray'></span>
+      </code>
+    </a>
+  </h3>
+  <p>Keypress (singleton)</p>
+<p>Handles registration, removal, and processing of keyboard inputs.
+Some inspiration:</p>
+<ul>
+<li>Mousetrap.js (https://craig.is/killing/mice)</li>
+<li>Keypress.js (http://dmauro.github.io/Keypress/)</li>
+<li>keymaster.js (https://github.com/madrobby/keymaster)</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+</section>
+<section id='register'class='mt2 mb2 py1 px2 keyline-top'>
+  <h3 class='regular'>
+    <a class='black' href='#register'>
+      <code>
+        register<span class='gray'>(commands, [options], [callback])</span>
+      </code>
+    </a>
+  </h3>
+  <p>Registers a key command listener with the Keypress Manager</p>
+
+
+    <p>
+      <table class='table-light overflow-hidden bg-cloudy-light'>
+        <thead>
+          <th class='col-3'>parameter</th>
+          <th class='col-3'>type</th>
+          <th class='col-6'>description</th>
+        </thead>
+          <tr>
+            <td>commands</td>
+            <td>
+              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code> or Array<<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>>
+            </td>
+            <td><p>Human readable key or key combination to listen for, in the form of &quot;a&quot;
+or &quot;shift a&quot; or &quot;control alt a&quot;. If multiple keys should perform the
+same action, pass in an array of strings, e.g. <code>['a', 'b', 'meta d']</code></p>
+</td>
+          </tr>
+          <tr>
+            <td>options</td>
+            <td>
+              <code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>]</code>
+            </td>
+            <td><p>Options that fine tune the behavior of the keypress. If you are unhappy
+with a default setting, they can be overridden here. Note that it is
+possible for overrides to conflict with other parameters, for instance,
+if you set <code>commands</code> to &quot;shift p&quot; but <code>options.shiftKey</code> to <code>false</code>.
+Don't do this. This is confusing and I won't guarantee preserving how
+this conflict is addressed.</p>
+</td>
+          </tr>
+            <tr>
+              <td>options.shiftKey</td>
+              <td>
+                <code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code> or <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>]</code>
+                (default <code>false</code>)
+              </td>
+              <td><p>If <code>true</code>, the <code>Shift</code> key should be pressed in a key combination. This
+is automatically set to <code>true</code> if <code>shift</code> is specified in the <code>commands</code>
+parameter. The boolean test is strict. The string 'optional' can be
+passed so that the key will fire regardless of whether <code>Shift</code> is
+pressed.</p>
+</td>
+            </tr>
+            <tr>
+              <td>options.metaKey</td>
+              <td>
+                <code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code> or <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>]</code>
+                (default <code>false</code>)
+              </td>
+              <td><p>If <code>true</code>, the &quot;meta&quot; key (<code>Command</code> or <code>Control</code>, depending on the OS)
+should be pressed in a key combination. This is automatically set to
+<code>true</code> if <code>meta</code>, <code>control</code>, or <code>command</code> is specified in the <code>commands</code>
+parameter. The boolean test is strict. The string 'optional' can be
+passed so that the key will fire regardless of whether <code>Command</code> or
+<code>Control</code> is pressed.</p>
+</td>
+            </tr>
+            <tr>
+              <td>options.altKey</td>
+              <td>
+                <code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code> or <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>]</code>
+                (default <code>false</code>)
+              </td>
+              <td><p>If <code>true</code>, the <code>Alt</code> key should be pressed in a key combination. This
+is automatically set to <code>true</code> if <code>alt</code> is specified in the <code>commands</code>
+parameter. The boolean test is strict. The string 'optional' can be
+passed so that the key will fire regardless of whether <code>Alt</code> is pressed.</p>
+</td>
+            </tr>
+            <tr>
+              <td>options.preventDefault</td>
+              <td>
+                <code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>]</code>
+                (default <code>true</code>)
+              </td>
+              <td><p>If <code>true</code>, <code>event.preventDefault()</code> should be called to prevent the
+key's default behavior.</p>
+</td>
+            </tr>
+            <tr>
+              <td>options.stopPropagation</td>
+              <td>
+                <code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>]</code>
+                (default <code>false</code>)
+              </td>
+              <td><p>If <code>true</code>, <code>event.stopPropagation()</code> should be called to prevent other
+key handlers from triggering. Defaults to <code>false</code>, but as a special
+case, this is automatically set to <code>true</code> if the command is <code>esc</code>.</p>
+</td>
+            </tr>
+            <tr>
+              <td>options.requireFocusOnBody</td>
+              <td>
+                <code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>]</code>
+                (default <code>true</code>)
+              </td>
+              <td><p>If <code>true</code>, the key handler is not triggered if the browser has focused
+on a specific element, like an input field.  Defaults to <code>true</code>, but as
+a special case, this is automatically set to <code>false</code> if the command is
+<code>esc</code>.</p>
+</td>
+            </tr>
+            <tr>
+              <td>options.trackMsg</td>
+              <td>
+                <code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>]</code>
+                (default <code>null</code>)
+              </td>
+              <td><p>If a string is provided, the action is logged in event tracking when
+triggered.</p>
+</td>
+            </tr>
+            <tr>
+              <td>options.trackValue</td>
+              <td>
+                <code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>]</code>
+                (default <code>null</code>)
+              </td>
+              <td><p>If set, and an event is logged, this fills in the <code>value</code> property of a
+tracked event in Google Analytics.</p>
+</td>
+            </tr>
+            <tr>
+              <td>options.trackOnce</td>
+              <td>
+                <code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>]</code>
+                (default <code>true</code>)
+              </td>
+              <td><p>If <code>true</code>, and an event is logged, further identical actions will not
+be logged.</p>
+</td>
+            </tr>
+            <tr>
+              <td>options.onKeyPress</td>
+              <td>
+                <code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">function</a></code>]</code>
+              </td>
+              <td><p>It is possible to set the callback function to execute on key press on
+the <code>options</code> object instead of in the <code>callback</code> parameter.</p>
+</td>
+            </tr>
+            <tr>
+              <td>options.condition</td>
+              <td>
+                <code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">function</a></code>]</code>
+              </td>
+              <td><p>If additional conditions are required before executing a callback
+function after a key is pressed, this function is evaluated. It must
+return a <code>true</code> or truthy value for the callback to execute.</p>
+</td>
+            </tr>
+          <tr>
+            <td>callback</td>
+            <td>
+              <code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">function</a></code>]</code>
+            </td>
+            <td><p>Function to execute when key is pressed. Technically, this is optional
+(and you might prefer to set it on <code>options</code> instead). If there is no
+callback function the keypress simply does nothing.</p>
+</td>
+          </tr>
+      </table>
+    </p>
+
+
+
+
+    <h4>Examples</h4>
+<pre>Keypress.register(<span class="hljs-string">'shift d'</span>, { trackMsg: <span class="hljs-string">'Shift-D is pressed'</span> }, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Shift-D is pressed!'</span>) })</pre><pre>Keypress.register(<span class="hljs-string">'esc'</span>, hide)</pre>
+
+
+
+
+</section>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
