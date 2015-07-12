@@ -438,21 +438,23 @@ body.segment-resize-dragging .drag-handle.floating,
   position: absolute;
   left: 0;
   right: -1px;
-  height: @segmentGridHeight;
   top: @canvasBaseline;
-
+  height: @segmentGridHeight;
   pointer-events: none;
 
+  // Creates grid lines
+  // The last value is required for IE11
+  background-image: linear-gradient(90deg, @segmentWidthRule 1px, @bottomBackground 1px, @bottomBackground);
   background-repeat: repeat-x;
-}
 
-body.units-imperial .segment .grid {
-  background-image: linear-gradient(to right, @segmentWidthRule, @bottomBackground 8.333%);
-  background-size: @tileSize 100%;
-}
-body.units-metric .segment .grid {
-  background-image: linear-gradient(to right, @segmentWidthRule, @bottomBackground 5%);
-  background-size: (@tileSize * 100 / 30 / 2) 100%;
+  // Change background-size width to adjust spacing of grid lines
+  body.units-imperial & {
+    background-size: @tileSize 100%;
+  }
+
+  body.units-metric & {
+    background-size: (@tileSize * 100 / 30 / 2) 100%;
+  }
 }
 
 .segment .name {
