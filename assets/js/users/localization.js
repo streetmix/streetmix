@@ -147,6 +147,7 @@ function _propagateUnits () {
         SEGMENT_WIDTH_DRAGGING_RESOLUTION_IMPERIAL
 
       document.body.classList.add('units-imperial')
+      document.body.classList.remove('units-metric')
 
       break
     case SETTINGS_UNITS_METRIC:
@@ -156,6 +157,7 @@ function _propagateUnits () {
         SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC
 
       document.body.classList.add('units-metric')
+      document.body.classList.remove('units-imperial')
 
       break
   }
