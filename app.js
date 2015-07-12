@@ -68,6 +68,9 @@ app.get('/.well-known/status', resources.well_known_status.get)
 
 app.use(assets({
   precompile: ['styles.less', 'app.js']
+}, function (instance) {
+  instance.environment.enable('autoprefixer')
+  //instance.Autoprefixer.configure(['last 2 versions', 'IE >= 11'])
 }))
 app.use(express.static(__dirname + '/public'))
 
