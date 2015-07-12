@@ -1,16 +1,13 @@
 body.gallery-visible {
   #main-screen {
-    -webkit-transform: translateY(@galleryHeight - 90px);
     transform: translateY(@galleryHeight - 90px);
   }
   #street-name-canvas {
-    -webkit-transform: translateY(60px);
     transform: translateY(60px);
   }
 }
 
 body:not(.safari).gallery-visible #street-section-sky {
-  -webkit-transform: translateY(-20px);
   transform: translateY(-20px);
 }
 
@@ -29,10 +26,7 @@ body:not(.safari).gallery-visible #street-section-sky {
 
   pointer-events: none;
 
-  -webkit-transform: translateY(-@galleryHeight) rotateX(25deg);
   transform: translateY(-@galleryHeight) rotateX(25deg);
-
-  -webkit-transform-origin: 50% 0;
   transform-origin: 50% 0;
 
   .avatar {
@@ -270,29 +264,23 @@ body:not(.gallery-no-move-transition) #main-screen,
 body:not(.gallery-no-move-transition) #gallery,
 body:not(.gallery-no-move-transition) #street-name-canvas,
 body:not(.gallery-no-move-transition) #street-section-sky {
-  -webkit-transition: -webkit-transform 800ms;
   transition: transform 800ms;
 }
 
 body.safari #gallery {
-  -webkit-transform: translateY(-@galleryHeight - 3px);
   transform: translateY(-@galleryHeight - 3px);
 }
 
 #gallery-shield {
-  z-index: 99999999999999;
-
+  position: absolute;
+  display: none;
   left: 0;
   top: 90px;
-  position: absolute;
-
-  display: none;
-
   cursor: pointer;
+  z-index: 99999999999999;
 }
 
 body.gallery-visible #gallery {
-  -webkit-transform: translateY(0);
   transform: translateY(0);
 
   pointer-events: auto;

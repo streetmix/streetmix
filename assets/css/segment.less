@@ -1,22 +1,16 @@
 .segment {
-  height: @canvasHeight + 85px + 30px;
-
-  top: -150px;
-
-  text-align: center;
-
   display: block;
   position: absolute;
-
-  -webkit-perspective: 500px;
+  top: -150px;
+  height: @canvasHeight + 85px + 30px;
+  text-align: center;
   perspective: 500px;
 }
+
 .segment.empty {
   position: absolute;
   pointer-events: none;
-
   display: none;
-
   z-index: -1;
 
   &#street-section-right-empty-space {
@@ -42,9 +36,9 @@ body.segment-move-dragging .segment.empty {
 }
 
 body:not(.segment-resize-dragging) .segment {
-  -webkit-transition: width 150ms, left 150ms, -webkit-transform 150ms;
   transition: width 150ms, left 150ms, transform 150ms;
 }
+
 body.immediate-segment-resize .segment {
   transition: none !important;
 }
@@ -66,10 +60,7 @@ body.immediate-segment-resize .segment {
 
   margin-right: 1px;
 
-  -webkit-transform-origin: 50% 75%;
   transform-origin: 50% 75%;
-
-  -webkit-transition: -webkit-transform 50ms !important;
   transition: transform 50ms !important;
 }
 
@@ -103,8 +94,7 @@ body.segment-resize-dragging .segment:not(.unmovable).hover {
 }
 
 body:not(.read-only) .segment:not(.unmovable) {
-  cursor: -webkit-grab;
-  cursor: -moz-grab;
+  cursor: grab;
 }
 
 .segment .image {
@@ -120,7 +110,7 @@ body:not(.read-only) .segment:not(.unmovable) {
 }
 
 body:not(.segment-resize-dragging) .segment.outside .image {
-  -webkit-transition: none;
+  transition: none;
 }
 
 .segment.dragged-out {
@@ -131,12 +121,8 @@ body:not(.touch-support) .segment.palette:hover {
   background: fadeout(@skyColour, 5%);
 
   canvas {
-    -webkit-transform: scale(1.15);
     transform: scale(1.15);
-
-    -webkit-transform-origin: 14% 75px;
     transform-origin: 14% 75px;
-
   }
 }
 
@@ -144,18 +130,13 @@ body:not(.touch-support) .segment.palette:hover {
   position: absolute;
   left: 0;
   top: 0;
-
   opacity: .75;
-
   z-index: 5000;
-
   pointer-events: none;
-
   transition: none !important;
 }
 
 .segment.floating.first-drag-move {
-  -webkit-transition: left 250ms, top 250ms, -webkit-transform 250ms !important;
   transition: left 250ms, top 250ms, transform 250ms !important;
 }
 
@@ -192,16 +173,12 @@ body.segment-resize-dragging * {
     left: -5px;
     text-align: left;
     text-indent: -5px;
-
-    -webkit-transform-origin: 100% 50%;
     transform-origin: 100% 50%;
   }
   &.right {
     right: -5px;
     text-align: right;
     text-indent: -3px;
-
-    -webkit-transform-origin: 0 50%;
     transform-origin: 0 50%;
   }
 }
@@ -337,18 +314,13 @@ body.segment-resize-dragging * {
 
 .segment .drag-handle {
   z-index: 10000;
-
   pointer-events: none;
-
-  -webkit-transition: -webkit-transform 150ms, opacity 150ms;
   transition: transform 150ms, opacity 150ms;
 
   &.left {
-    -webkit-transform: rotateY(90deg);
     transform: rotateY(90deg);
   }
   &.right {
-    -webkit-transform: rotateY(-90deg);
     transform: rotateY(-90deg);
   }
 
@@ -375,8 +347,6 @@ body.segment-resize-dragging .drag-handle.floating,
 .segment.show-drag-handles .drag-handle {
   pointer-events: auto;
   opacity: 1;
-
-  -webkit-transform: none;
   transform: none;
 }
 
@@ -532,9 +502,8 @@ body.segment-resize-dragging .drag-handle.floating,
 
 body.segment-move-dragging,
 body.segment-move-dragging * {
-  cursor: move !important;
-  cursor: -webkit-grabbing !important;
-  cursor: -moz-grabbing !important;
+  cursor: move !important; // IE
+  cursor: grabbing !important;
 }
 body.not-within-canvas,
 body.not-within-canvas * {
@@ -542,7 +511,6 @@ body.not-within-canvas * {
 }
 
 body.segment-move-dragging #editable-street-section .segment {
-  -webkit-transition: left 100ms, -webkit-transform 300ms;
   transition: left 100ms, transform 300ms;
 }
 
@@ -555,10 +523,7 @@ body.segment-move-dragging #editable-street-section > div {
   z-index: 9999999999;
   pointer-events: none;
 
-  -webkit-transform: none !important;
   transform: none !important;
-
-  -webkit-perspective: 400px;
   perspective: 400px;
 
   .name,
@@ -572,43 +537,29 @@ body.segment-move-dragging #editable-street-section > div {
 }
 
 .switching-away-post canvas {
-  -webkit-transition: -webkit-transform @segmentSwitchingTime ease-in, opacity @segmentSwitchingTime ease-in !important;
   transition: transform @segmentSwitchingTime ease-in, opacity @segmentSwitchingTime ease-in !important;
-
-  -webkit-transform: rotateX(-60deg);
   transform: rotateX(-60deg);
-
-  -webkit-transform-origin: 50% 120%;
   transform-origin: 50% 120%;
-
   opacity: 0;
 }
 
 .switching-in-pre {
   z-index: -1 !important;
-
-  -webkit-perspective: 400px;
   perspective: 400px;
 
   & canvas {
-    -webkit-transform: rotateX(90deg);
     transform: rotateX(90deg);
-
-    -webkit-transform-origin: 50% 100%;
     transform-origin: 50% 100%;
-
     opacity: 0;
   }
 }
+
 .switching-in-post {
   z-index: -1 !important;
 }
+
 .switching-in-post canvas {
   opacity: 1;
-
-  -webkit-transition: -webkit-transform @segmentSwitchingTime, opacity @segmentSwitchingTime !important;
   transition: transform @segmentSwitchingTime, opacity @segmentSwitchingTime !important;
-
-  -webkit-transform: none;
   transform: none;
 }

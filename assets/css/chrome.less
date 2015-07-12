@@ -75,21 +75,17 @@ body.phone #loading {
   display: block;
   width: 200px;
   height: 8px;
+  padding: 0;
   margin: 0 auto;
   margin-top: 5px;
-
-  appearance: none;
-  -moz-appearance: none;
-  -webkit-appearance: none;
-
-  background: transparent;
-  background-size: auto;
   border: none;
   border-top: 1px solid darken(@uiColour, 20%);
   border-bottom: 1px solid darken(@uiColour, 20%);
-  padding: 0;
-
+  background: transparent;
+  background-size: auto;
   color: @offWhite;
+
+  .appearance(none);
 
   &::-webkit-progress-bar {
     background: transparent;
@@ -181,30 +177,24 @@ body.phone #loading {
   height: 20px;
   padding: 0;
   z-index: 2000000;
-
   pointer-events: none;
-
-  .user-select-none;
+  user-select: none;
 
   transition: opacity 200ms, transform 200ms;
-
-  -webkit-transform: translateY(100px);
   transform: translateY(100px);
 
   &.visible {
-    -webkit-transform: translateY(0);
     transform: translateY(0);
   }
 
   & > div {
-    color: rgb(64, 32, 32);
+    display: inline-block;
+    padding: 5px 20px;
     border-top: 3px solid darken(rgb(255, 230, 150), 20%);
     border-bottom: 3px solid darken(rgb(255, 230, 150), 20%);
-    padding: 5px 20px;
-    display: inline-block;
-    background: rgb(255, 230, 150);
     font-size: 13px;
-
+    background: rgb(255, 230, 150);
+    color: rgb(64, 32, 32);
     pointer-events: auto;
   }
 
@@ -226,12 +216,6 @@ body.no-connection-message-visible #status-message {
   padding-right: 0; // for close box
 }
 
-// This is a mixin used by various UI elements
-.box-border {
-  border-top: 3px solid darken(@uiColour, 20%);
-  border-bottom: 3px solid darken(@uiColour, 20%);
-}
-
 // --------------------------------------------------------
 
 #welcome {
@@ -242,7 +226,7 @@ body.no-connection-message-visible #status-message {
   z-index: 99999999;
   text-align: center;
 
-  .user-select-none;
+  user-select: none;
 
   pointer-events: none;
 

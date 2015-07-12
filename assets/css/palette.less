@@ -51,16 +51,11 @@
   pointer-events: none;
   opacity: 0;
 
-  -webkit-transform: translateY(150px);
   transform: translateY(150px);
-
-  -webkit-transition: -webkit-transform 150ms, opacity 150ms;
   transition: transform 150ms, opacity 150ms;
 
   &.visible {
     opacity: 1;
-
-    -webkit-transform: translateY(0);
     transform: translateY(0);
   }
 }

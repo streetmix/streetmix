@@ -105,12 +105,12 @@
   input[type='checkbox'] {
     margin-left: 20px;
     font-size: 25px;
-    .user-select-none;
+    user-select: none;
   }
 
   label {
     padding-left: 1px;
-    .user-select-none;
+    user-select: none;
   }
 
   footer {
@@ -163,12 +163,9 @@
   display: table-cell;
   vertical-align: middle;
   text-align: center;
-
-  -webkit-touch-callout: default;
-  -moz-touch-callout: default;
-  touch-callout: default;
-
   font-size: 0;
+
+  .touch-callout(default);
 
   &:not(.visible) {
     opacity: 0;
@@ -179,9 +176,8 @@
     max-width: 700px;
     max-height: 300px;
 
-    cursor: move;
-    cursor: -webkit-grab;
-    cursor: -moz-grab;
+    cursor: move; // IE
+    cursor: grab;
 
     border-top: 3px dashed @uiColour;
     border-bottom: 3px dashed @uiColour;

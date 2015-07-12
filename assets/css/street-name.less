@@ -12,7 +12,6 @@
   pointer-events: none;
 
   &.move-down-for-menu {
-    -webkit-transform: translateY(20px);
     transform: translateY(20px);
   }
 
@@ -26,7 +25,6 @@
 }
 
 body.read-only #street-name-canvas {
-  -webkit-transform: translateY(0);
   transform: translateY(0);
 }
 
@@ -63,7 +61,7 @@ body.windows .street-name > div {
 
   .street-name-mixin;
 
-  .user-select-none;
+  user-select: none;
 
   white-space: nowrap;
 
@@ -109,10 +107,7 @@ body.windows .street-name > div {
 #street-name {
   position: relative;
   pointer-events: auto;
-
-  -webkit-tap-highlight-color: transparent;
-  -moz-tap-highlight-color: transparent;
-  tap-highlight-color: transparent;
+  .tap-highlight-color(transparent);
 }
 
 body:not(.touch-support):not(.read-only) #street-name {

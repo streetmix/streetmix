@@ -4,12 +4,9 @@
   right: @leftRightInset;
   height: @paletteHeight - 30px;
   bottom: 0;
-
   text-align: center;
-
   z-index: 200000;
-
-  .user-select-none;
+  user-select: none;
 }
 
 body.read-only #main-screen > footer {
@@ -17,13 +14,11 @@ body.read-only #main-screen > footer {
 }
 
 .footer-canvas {
-  width: 100%;
-  height: @paletteHeight;
   display: inline-block;
   position: relative;
-
+  width: 100%;
+  height: @paletteHeight;
   background: @headerFooterBackground;
-
   border-top: 3px solid darken(@bottomBackground, 5%);
   margin-top: -3px;
 }
@@ -32,28 +27,23 @@ body.safari .footer-canvas {
   // Address a bug where switching building types
   // will momentarily cause this element to disappear from view
   // Only in Safari (observed in v8.0.2)
-  -webkit-transform: rotateZ(0);
   transform: rotateZ(0);
 }
 
 body:not(.safari) .footer-canvas {
-  -webkit-perspective: 2000px;
   perspective: 2000px;
 
   &::before {
     content: '';
-    background: @headerFooterBackground;
     left: 0;
     top: 3px;
     bottom: 0;
     right: 0;
     z-index: -1;
     position: absolute;
+    background: @headerFooterBackground;
     pointer-events: none;
-
-    -webkit-transform: rotateX(5deg) translateY(-3px);
     transform: rotateX(5deg) translateY(-3px);
-    -webkit-transform-origin: 50% 0;
     transform-origin: 50% 0;
   }
 }

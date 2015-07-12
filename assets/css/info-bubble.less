@@ -1,24 +1,15 @@
 .info-bubble {
   position: absolute;
-  z-index: 999999999 - 2;
-  min-width: 250px;
-  background: @infoBubbleBackground;
-
-  -webkit-transition: -webkit-transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
-  transition: transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
-
   .box-border;
   border-top-color: darken(@uiColour, 30%);
-
-  pointer-events: none;
-
+  min-width: 250px;
   opacity: 0;
-
-  -webkit-transform: rotateX(-80deg);
+  background: @infoBubbleBackground;
+  transition: transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
   transform: rotateX(-80deg);
-
-  -webkit-perspective: 1200px;
   perspective: 1200px;
+  z-index: 999999999 - 2;
+  pointer-events: none;
 
   .triangle {
     position: absolute;
@@ -42,14 +33,12 @@
       margin-left: -15px - 3px;
       bottom: 15px;
 
-      -webkit-transform: rotateZ(45deg);
       transform: rotateZ(45deg);
     }
   }
 
   &.visible {
     opacity: 1;
-    -webkit-transform: rotateY(0);
     transform: rotateY(0);
     pointer-events: auto;
   }
@@ -122,7 +111,7 @@
 
     white-space: nowrap;
 
-    .user-select-none;
+    user-select: none;
 
     button {
       margin-left: 3px;
@@ -178,7 +167,7 @@
     padding-top: 3px;
     font-size: 13px;
 
-    .user-select-none;
+    user-select: none;
 
     color: darken(@uiColour, 20%);
     cursor: pointer;
@@ -210,13 +199,8 @@
     border-top: 3px solid darken(@uiColour, 20%);
     border-bottom: 3px solid darken(@uiColour, 20%);
 
-    -webkit-transform-origin: 50% 0;
     transform-origin: 50% 0;
-
-    -webkit-transform: rotateX(20deg) translateY(100px);
     transform: rotateX(20deg) translateY(100px);
-
-    -webkit-transition: opacity 250ms, -webkit-transform 250ms;
     transition: opacity 250ms, transform 250ms;
 
     background: @infoBubbleBackground;
@@ -299,7 +283,7 @@
     height: @infoBubbleButtonSize;
     line-height: @infoBubbleButtonSize;
 
-    .user-select-none;
+    user-select: none;
 
     white-space: nowrap;
 
@@ -396,9 +380,7 @@
     pointer-events: auto;
   }
   .description-canvas {
-    -webkit-transform: none;
     transform: none;
-
     opacity: 1;
   }
   .description {

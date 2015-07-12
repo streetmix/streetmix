@@ -8,9 +8,7 @@ button.scroll-right {
   height: 40px;
   z-index: 9999999;
 
-  -webkit-tap-highlight-color: transparent;
-  -moz-tap-highlight-color: transparent;
-  tap-highlight-color: transparent;
+  .tap-highlight-color(transparent);
 
   &.scroll-left {
     margin-left: -20px;
@@ -51,17 +49,15 @@ footer button.scroll-right {
 }
 
 button.close {
-  -webkit-appearance: none;
-  appearance: none;
-  border: none;
-  background: transparent;
   margin-left: 10px;
   margin-right: 10px;
-
+  border: none;
   font-size: 14px;
-
-  cursor: pointer;
+  background: transparent;
   color: rgb(64, 32, 32);
+  cursor: pointer;
+
+  .appearance(none);
 
   &:hover {
     color: black;

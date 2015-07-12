@@ -4,32 +4,24 @@
 // --------------------------------------------------------
 
 .menu {
-  z-index: 99999999;
   position: absolute;
-  background: white;
   top: 35px;
-
-  font-size: 13px;
 
   .box-border;
 
-  -webkit-transform-origin: 50% 0;
-  transform-origin: 50% 0;
-
-  -webkit-transform: rotateX(-90deg);
-  transform: rotateX(-90deg);
   opacity: 0;
-
-  -webkit-transition: -webkit-transform 100ms, opacity 100ms;
+  background: white;
+  font-size: 13px;
+  transform-origin: 50% 0;
+  transform: rotateX(-90deg);
   transition: transform 100ms, opacity 100ms;
-
   pointer-events: none;
 
+  z-index: 99999999;
+
   &.visible {
-    -webkit-transform: rotateX(0);
     transform: rotateX(0);
     opacity: 1;
-
     pointer-events: auto;
   }
 
@@ -75,8 +67,7 @@
 
   textarea,
   input {
-    -webkit-appearance: none;
-    appearance: none;
+    .appearance(none);
 
     background: @formElementBackground;
     border: 1px solid @formElementBorder;
@@ -85,11 +76,9 @@
 }
 
 body.safari .menu {
-  -webkit-transform: translateY(20px) translateZ(100px);
   transform: translateY(20px) translateZ(100px);
 
   &.visible {
-    -webkit-transform: rotateX(0) translateZ(100px);
     transform: rotateX(0) translateZ(100px);
   }
 }
@@ -199,6 +188,7 @@ body.safari .menu {
   margin-top: 9px;
   margin-bottom: 15px;
 }
+
 #sign-in-promo {
   width: 300px;
   text-align: center;
@@ -219,6 +209,7 @@ body.safari .menu {
     display: block;
   }
 }
+
 #share-via-link {
   font-size: 13px;
   line-height: 18px;

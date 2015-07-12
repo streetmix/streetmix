@@ -23,7 +23,7 @@
   top: 0;
   height: @canvasHeight + 45;
 
-  .user-select-none;
+  user-select: none;
 }
 
 #street-section-editable {
@@ -31,8 +31,6 @@
   height: @canvasHeight + 80;
   text-align: left;
   z-index: 1;
-
-  -webkit-transform: translateZ(0);
 
   &::before {
     content: '';
@@ -50,25 +48,18 @@
 
 #street-scroll-indicator-left,
 #street-scroll-indicator-right {
-  -webkit-tap-highlight-color: transparent;
-
   position: fixed;
+  margin-top: -275px;
+  padding: 0 15px;
+  width: 70px;
+  opacity: .1;
+  font-size: 80px;
+  letter-spacing: -13px;
+  cursor: pointer;
+  user-select: none;
   z-index: 999999;
 
-  margin-top: -275px;
-
-  opacity: .1;
-
-  letter-spacing: -13px;
-
-  width: 70px;
-  padding: 0 15px;
-
-  font-size: 80px;
-
-  cursor: pointer;
-
-  .user-select-none;
+  .tap-highlight-color(transparent);
 
   &:hover {
     opacity: .333;

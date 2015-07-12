@@ -15,16 +15,10 @@ body {
 
   background: white;
 
-  -webkit-text-size-adjust: none;
-  -moz-text-size-adjust: none;
-  text-size-adjust: none;
-
-  -webkit-touch-callout: none;
-  -moz-touch-callout: none;
-  touch-callout: none;
+  .text-size-adjust(none);
+  .touch-callout(default);
 
   &:not(.safari) {
-    -webkit-perspective: 500px;
     perspective: 500px;
   }
 }
@@ -45,24 +39,18 @@ body.touch-support .non-touch-only {
   z-index: 100;
 
   body:not(.safari) & {
-    -webkit-perspective: 2000px;
     perspective: 2000px;
   }
 }
 
 a {
-  -webkit-touch-callout: default;
-  -moz-touch-callout: default;
-  touch-callout: default;
+  .touch-callout(default);
 }
 
 a,
 button {
   cursor: pointer;
-
-  -webkit-tap-highlight-color: transparent !important;
-  -moz-tap-highlight-color: transparent !important;
-  tap-highlight-color: transparent !important;
+  .tap-highlight-color('transparent !important');
 }
 
 button,

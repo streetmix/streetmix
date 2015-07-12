@@ -3,9 +3,9 @@
 //
 // --------------------------------------------------------
 
-@topMenuText:             @segmentText;
-@topMenuHoverText:        darken(@uiColour, 30%);
-@topMenuActiveText:       darken(@uiColour, 40%);
+@topMenuText: @segmentText;
+@topMenuHoverText: darken(@uiColour, 30%);
+@topMenuActiveText: darken(@uiColour, 40%);
 
 .menu-bar {
   z-index: 120;
@@ -21,7 +21,7 @@
   background-clip: padding-box;
   font-family: @fontFamily;
   font-size: 13px;
-  .user-select-none;
+  user-select: none;
 
   body.read-only & {
     display: none;
@@ -63,10 +63,7 @@
     text-decoration: none;
     text-rendering: optimizeLegibility;
     color: inherit;
-
-    -webkit-tap-highlight-color: transparent;
-       -moz-tap-highlight-color: transparent;
-            tap-highlight-color: transparent;
+    .tap-highlight-color(transparent);
 
     &:hover {
       color: @topMenuHoverText;
@@ -78,9 +75,6 @@
   }
 
   button {
-    -webkit-appearance: none;
-            appearance: none;
-
     border: none;
     padding: 10px;
     margin: -10px;
@@ -92,9 +86,8 @@
     color: inherit;
     cursor: pointer;
 
-    -webkit-tap-highlight-color: transparent;
-       -moz-tap-highlight-color: transparent;
-           tap-highlight-color: transparent;
+    .appearance(none);
+    .tap-highlight-color(transparent);
 
     &::after {
       content: ' ▼';
@@ -102,9 +95,7 @@
       padding-left: 5px;
       font-family: 'Verdana';
       font-size: 9px;
-
-      -webkit-transform: scaleY(.75);
-              transform: scaleY(.75);
+      transform: scaleY(.75);
     }
 
     &:hover {
