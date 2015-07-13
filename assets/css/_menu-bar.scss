@@ -3,23 +3,23 @@
 //
 // --------------------------------------------------------
 
-@topMenuText: @segmentText;
-@topMenuHoverText: darken(@uiColour, 30%);
-@topMenuActiveText: darken(@uiColour, 40%);
+$topMenuText: $segmentText;
+$topMenuHoverText: darken($uiColour, 30%);
+$topMenuActiveText: darken($uiColour, 40%);
 
 .menu-bar {
   z-index: 120;
   display: block;
   position: absolute;
-  left: @leftRightInset;
-  right: @leftRightInset;
+  left: $leftRightInset;
+  right: $leftRightInset;
   top: -150px;
   padding: 0;
-  border-top: 150px solid @headerFooterBackground;
-  border-bottom: 3px solid darken(@uiColour, 20%);
-  background: @headerFooterBackground;
+  border-top: 150px solid $headerFooterBackground;
+  border-bottom: 3px solid darken($uiColour, 20%);
+  background: $headerFooterBackground;
   background-clip: padding-box;
-  font-family: @fontFamily;
+  font-family: $fontFamily;
   font-size: 13px;
   user-select: none;
   touch-action: none;
@@ -34,7 +34,7 @@
     padding: 3px 10px;
     margin: 0;
     line-height: 22px;
-    color: @topMenuText;
+    color: $topMenuText;
   }
 
   li {
@@ -64,14 +64,14 @@
     text-decoration: none;
     text-rendering: optimizeLegibility;
     color: inherit;
-    .tap-highlight-color(transparent);
+    @include tap-highlight-color(transparent);
 
     &:hover {
-      color: @topMenuHoverText;
+      color: $topMenuHoverText;
     }
 
     &:active {
-      color: @topMenuActiveText;
+      color: $topMenuActiveText;
     }
   }
 
@@ -87,8 +87,8 @@
     color: inherit;
     cursor: pointer;
 
-    .appearance(none);
-    .tap-highlight-color(transparent);
+    @include appearance(none);
+    @include tap-highlight-color(transparent);
 
     &::after {
       content: ' ▼';
@@ -100,12 +100,12 @@
     }
 
     &:hover {
-      color: @topMenuHoverText;
+      color: $topMenuHoverText;
       background-color: transparent;
     }
 
     &:active {
-      color: @topMenuActiveText;
+      color: $topMenuActiveText;
     }
 
     &[disabled] {

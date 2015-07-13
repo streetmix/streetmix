@@ -25,7 +25,7 @@
   padding: 5px 0;
 
   .over {
-    color: @warningColour;
+    color: $warningColour;
   }
   .under {
     color: rgb(96, 96, 96);
@@ -35,7 +35,7 @@ body:not(.read-only) #street-width-read {
   cursor: pointer;
   &:hover,
   &:hover * {
-    color: darken(@uiColour, 40%);
+    color: darken($uiColour, 40%);
   }
   &::after {
     font-family: 'Verdana';
@@ -59,7 +59,7 @@ body:not(.edit-street-width) #street-width {
 }
 
 body:not(.read-only) #street-metadata-author a:hover {
-  color: darken(@uiColour, 40%);
+  color: darken($uiColour, 40%);
 }
 
 body.read-only #street-metadata-author a {
@@ -70,6 +70,6 @@ body.read-only #street-metadata-author a {
 #street-metadata-author:not(:empty)::before,
 #street-metadata-date:not(:empty)::before {
   content: ' · ';
-  color: darken(@uiColour, 40%);
+  color: darken($uiColour, 40%);
   margin: 0 4px;
 }

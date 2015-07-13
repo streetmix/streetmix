@@ -1,8 +1,8 @@
 #main-screen > footer {
   position: absolute;
-  left: @leftRightInset;
-  right: @leftRightInset;
-  height: @paletteHeight - 30px;
+  left: $leftRightInset;
+  right: $leftRightInset;
+  height: $paletteHeight - 30px;
   bottom: 0;
   text-align: center;
   z-index: 200000;
@@ -18,9 +18,9 @@ body.read-only #main-screen > footer {
   display: inline-block;
   position: relative;
   width: 100%;
-  height: @paletteHeight;
-  background: @headerFooterBackground;
-  border-top: 3px solid darken(@bottomBackground, 5%);
+  height: $paletteHeight;
+  background: $headerFooterBackground;
+  border-top: 3px solid darken($bottomBackground, 5%);
   margin-top: -3px;
 }
 
@@ -42,7 +42,7 @@ body:not(.safari) .footer-canvas {
     right: 0;
     z-index: -1;
     position: absolute;
-    background: @headerFooterBackground;
+    background: $headerFooterBackground;
     pointer-events: none;
     transform: rotateX(5deg) translateY(-3px);
     transform-origin: 50% 0;

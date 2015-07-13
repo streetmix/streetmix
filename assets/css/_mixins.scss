@@ -1,0 +1,31 @@
+
+// This is a mixin used by various UI elements
+@mixin box-border() {
+  border-top: 3px solid darken($uiColour, 20%);
+  border-bottom: 3px solid darken($uiColour, 20%);
+}
+
+// Non-standard prefixed styles
+@mixin appearance($value: none) {
+  -webkit-appearance: $value;
+     -moz-appearance: $value;
+          appearance: $value;
+}
+
+@mixin tap-highlight-color($value: transparent) {
+  -webkit-tap-highlight-color: $value;
+     -moz-tap-highlight-color: $value;
+          tap-highlight-color: $value;
+}
+
+@mixin text-size-adjust($value: none) {
+  -webkit-text-size-adjust: none;
+     -moz-text-size-adjust: none;
+          text-size-adjust: none;
+}
+
+@mixin touch-callout($value: default) {
+  -webkit-touch-callout: default;
+    // There is no -moz- version
+          touch-callout: default;
+}

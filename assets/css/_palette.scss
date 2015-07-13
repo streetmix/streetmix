@@ -10,7 +10,7 @@
 }
 
 #palette {
-  height: @paletteHeight + 20px; // To cover scroll bars
+  height: $paletteHeight + 20px; // To cover scroll bars
 
   padding-left: 15px;
   padding-right: 15px;
@@ -35,8 +35,8 @@
   left: -50px;
   right: -50px;
   top: -20px;
-  height: @paletteHeight - 2 * 8px + 5px;
-  line-height: @paletteHeight - 2 * 8px + 5px;
+  height: $paletteHeight - 2 * 8px + 5px;
+  line-height: $paletteHeight - 2 * 8px + 5px;
   z-index: 500000;
   border-top: 2px dashed rgb(150, 150, 150);
 
@@ -46,7 +46,7 @@
   font-size: 24px;
   font-weight: 400;
 
-  background: lighten(@bottomBackground, 5%);
+  background: lighten($bottomBackground, 5%);
 
   pointer-events: none;
   opacity: 0;
@@ -67,7 +67,7 @@
   right: 10px;
   top: 10px;
 
-  height: @paletteHeight - 50px;
+  height: $paletteHeight - 50px;
 
   z-index: 100000;
 
@@ -75,11 +75,11 @@
 
   #undo {
     //width: 50px;
-    height: @paletteHeight - 50px;
+    height: $paletteHeight - 50px;
   }
   #redo {
     //width: 50px;
-    height: @paletteHeight - 50px;
+    height: $paletteHeight - 50px;
   }
 
   // Spacing between buttons

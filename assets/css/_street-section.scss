@@ -3,7 +3,7 @@
   display: block;
   left: 0;
   right: 0;
-  top: -@galleryHeight;
+  top: -$galleryHeight;
   bottom: -20px; // To hide the scrollbar
 
   overflow-x: scroll;
@@ -22,14 +22,14 @@
   z-index: 5;
 
   top: 0;
-  height: @canvasHeight + 45;
+  height: $canvasHeight + 45;
 
   user-select: none;
 }
 
 #street-section-editable {
   position: absolute;
-  height: @canvasHeight + 80;
+  height: $canvasHeight + 80;
   text-align: left;
   z-index: 1;
   touch-action: pan-x;
@@ -42,7 +42,7 @@
     top: 394px;
     right: 0;
     bottom: 115px + 5px;
-    background: darken(@skyColour, 2%);
+    background: darken($skyColour, 2%);
 
     pointer-events: none;
   }
@@ -54,20 +54,20 @@
   margin-top: -275px;
   padding: 0 15px;
   width: 70px;
-  opacity: .1;
+  opacity: 0.1;
   font-size: 80px;
   letter-spacing: -13px;
   cursor: pointer;
   user-select: none;
   z-index: 999999;
 
-  .tap-highlight-color(transparent);
+  @include tap-highlight-color(transparent);
 
   &:hover {
-    opacity: .333;
+    opacity: 0.333;
   }
   &:active {
-    opacity: .5;
+    opacity: 0.5;
   }
 
   &#street-scroll-indicator-left {
@@ -85,10 +85,10 @@
   display: block;
   left: 0;
   top: 0;
-  margin-left: @buildingSpace;
-  margin-right: @buildingSpace;
+  margin-left: $buildingSpace;
+  margin-right: $buildingSpace;
 
-  height: @canvasHeight + 40;
+  height: $canvasHeight + 40;
 }
 
 .rear-clouds,
@@ -116,7 +116,7 @@
     background-image: url(../images/sky-front.png);
     background-size: 250px 280px;
 
-    opacity: .5;
+    opacity: 0.5;
 
     height: 280px;
 
@@ -130,7 +130,7 @@
   position: absolute;
   left: 0;
   right: -2000px; // TODO hack
-  height: @canvasBaseline + 150px;
+  height: $canvasBaseline + 150px;
 
   pointer-events: none;
 
@@ -138,7 +138,7 @@
   background-repeat: no-repeat;
   background-position: 0 0;
 
-  background-color: @skyColour;
+  background-color: $skyColour;
 
   .rear-clouds {
     bottom: 735px;
@@ -171,13 +171,13 @@
   left: 0;
   right: 25px;
   z-index: -2;
-  top: @canvasHeight - 80px;
+  top: $canvasHeight - 80px;
 
-  border-top: 45px solid @backgroundDirtColour;
+  border-top: 45px solid $backgroundDirtColour;
 
   pointer-events: none;
 
-  background: @bottomBackground;
+  background: $bottomBackground;
 }
 
 .street-section-building {
@@ -185,7 +185,7 @@
   position: absolute;
   top: -150px + 45px;
   width: 396px;
-  height: @canvasHeight + 70px;
+  height: $canvasHeight + 70px;
   touch-action: pan-x;
 
   .hover-bk {
@@ -198,7 +198,7 @@
   }
 
   &.hover .hover-bk {
-    background: @segmentHoverBackground;
+    background: $segmentHoverBackground;
   }
 
   canvas {

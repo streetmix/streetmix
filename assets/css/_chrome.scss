@@ -30,7 +30,7 @@ body.phone #loading {
   height: 100%;
   display: table;
 
-  background: @skyColour;
+  background: $skyColour;
   color: black;
 
   font-size: 16px;
@@ -73,22 +73,22 @@ body.phone #loading {
   margin: 0 auto;
   margin-top: 5px;
   border: none;
-  border-top: 1px solid darken(@uiColour, 20%);
-  border-bottom: 1px solid darken(@uiColour, 20%);
+  border-top: 1px solid darken($uiColour, 20%);
+  border-bottom: 1px solid darken($uiColour, 20%);
   background: transparent;
   background-size: auto;
-  color: @offWhite;
+  color: $offWhite;
 
-  .appearance(none);
+  @include appearance(none);
 
   &::-webkit-progress-bar {
     background: transparent;
   }
   &::-webkit-progress-value {
-    background: @offWhite;
+    background: $offWhite;
   }
   &::-moz-progress-bar {
-    background: @offWhite;
+    background: $offWhite;
   }
 }
 
@@ -115,7 +115,7 @@ body.phone #loading {
 
   &.darken,
   &.darken-immediately {
-    background: fadeout(@skyColour, 15%);
+    background: fade-out($skyColour, 0.15);
     color: black;
   }
 
@@ -239,7 +239,7 @@ body.no-connection-message-visible #status-message {
     position: relative;
     padding: 0;
     margin: 0;
-    .box-border;
+    @include box-border();
     background: white;
     padding: 6px 15px;
     text-align: center;
@@ -274,7 +274,7 @@ body.no-connection-message-visible #status-message {
     &:not(:first-child)::before {
       content: '·';
       margin: 0 5px;
-      color: darken(@uiColour, 40%);
+      color: darken($uiColour, 40%);
       padding-left: 0;
     }
 
@@ -315,8 +315,8 @@ body.no-connection-message-visible #status-message {
   background-size: 100%;
   width: 20px;
   height: 20px;
-  border-top: 1px solid darken(@uiColour, 30%);
-  border-bottom: 1px solid darken(@uiColour, 30%);
+  border-top: 1px solid darken($uiColour, 30%);
+  border-bottom: 1px solid darken($uiColour, 30%);
 
   margin-right: 5px;
   vertical-align: middle;
@@ -325,15 +325,15 @@ body.no-connection-message-visible #status-message {
 }
 
 body.controls-fade-out .info-bubble {
-  transition: opacity @touchControlsFadeoutTime;
+  transition: opacity $touchControlsFadeoutTime;
   opacity: 0.01 !important;
 }
 body.controls-fade-out .segment .drag-handle {
-  transition: opacity @touchControlsFadeoutTime !important;
+  transition: opacity $touchControlsFadeoutTime !important;
   opacity: 0.01 !important;
 }
 body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
-  transition: opacity @touchControlsFadeoutTime !important;
+  transition: opacity $touchControlsFadeoutTime !important;
   opacity: 0.01 !important;
 }
 
@@ -357,6 +357,5 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
   & + .key {
     margin-left: 0.25em;
   }
-
 }
 

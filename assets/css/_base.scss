@@ -15,8 +15,8 @@ body {
 
   background: white;
 
-  .text-size-adjust(none);
-  .touch-callout(default);
+  @include text-size-adjust(none);
+  @include touch-callout(default);
 
   &:not(.safari) {
     perspective: 500px;
@@ -44,13 +44,13 @@ body.touch-support .non-touch-only {
 }
 
 a {
-  .touch-callout(default);
+  @include touch-callout(default);
 }
 
 a,
 button {
   cursor: pointer;
-  .tap-highlight-color('transparent !important');
+  @include tap-highlight-color('transparent !important');
 }
 
 button,
@@ -59,16 +59,15 @@ a.button-like {
 }
 
 a {
-  color: darken(@uiColour, 30%);
+  color: darken($uiColour, 30%);
 
   &:hover {
-    color: darken(@uiColour, 50%);
+    color: darken($uiColour, 50%);
   }
   &:active {
-    color: darken(@uiColour, 70%);
+    color: darken($uiColour, 70%);
   }
 }
-
 
 input[type='text'],
 input[type='email'],
@@ -76,8 +75,8 @@ textarea {
   padding: 3px;
 
   &[disabled] {
-    background: desaturate(fadeout(@uiColour, 70%), 100%) !important;
-    border-color: desaturate(@uiColour, 100%) !important;
+    background: desaturate(fade-out($uiColour, 0.7), 100%) !important;
+    border-color: desaturate($uiColour, 100%) !important;
   }
 }
 

@@ -1,10 +1,10 @@
 .info-bubble {
   position: absolute;
-  .box-border;
-  border-top-color: darken(@uiColour, 30%);
+  @include box-border();
+  border-top-color: darken($uiColour, 30%);
   min-width: 250px;
   opacity: 0;
-  background: @infoBubbleBackground;
+  background: $infoBubbleBackground;
   transition: transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
   transform: rotateX(-80deg);
   perspective: 1200px;
@@ -27,8 +27,8 @@
       height: 30px;
       pointer-events: none;
 
-      border: 3px solid darken(@uiColour, 20%);
-      background: @infoBubbleBackground;
+      border: 3px solid darken($uiColour, 20%);
+      background: $infoBubbleBackground;
 
       left: 50%;
       margin-left: -15px - 3px;
@@ -56,7 +56,7 @@
       width: 0;
       height: 0;
 
-      border-top: 37px solid darken(@uiColour, 20%);
+      border-top: 37px solid darken($uiColour, 20%);
       border-right: 37px solid transparent;
     }
   }
@@ -64,8 +64,8 @@
   header {
     padding: 5px 12px;
     padding-top: 2px;
-    height: @infoBubbleButtonSize;
-    line-height: @infoBubbleButtonSize;
+    height: $infoBubbleButtonSize;
+    line-height: $infoBubbleButtonSize;
 
     font-size: 16px;
     line-height: 31px;
@@ -74,7 +74,7 @@
 
     position: relative;
 
-    background: darken(@uiColour, 20%);
+    background: darken($uiColour, 20%);
   }
 
   .icon {
@@ -108,7 +108,7 @@
     padding-left: 8px;
     padding-right: 8px;
 
-    min-height: @infoBubbleButtonSize;
+    min-height: $infoBubbleButtonSize;
 
     white-space: nowrap;
 
@@ -134,11 +134,11 @@
       }
 
       &[disabled] {
-        background: darken(@uiColour, 10%);
+        background: darken($uiColour, 10%);
         color: black;
         opacity: 1;
-        border-top-color: darken(@uiColour, 30%);
-        border-bottom-color: darken(@uiColour, 30%);
+        border-top-color: darken($uiColour, 30%);
+        border-bottom-color: darken($uiColour, 30%);
 
         .icon {
           opacity: 1;
@@ -157,7 +157,7 @@
 
   .description-prompt,
   .description-close {
-    border-top: 1px solid @uiColour;
+    border-top: 1px solid $uiColour;
     text-rendering: optimizeLegibility;
 
     white-space: normal;
@@ -170,12 +170,12 @@
 
     user-select: none;
 
-    color: darken(@uiColour, 20%);
+    color: darken($uiColour, 20%);
     cursor: pointer;
 
     &:hover {
-      color: darken(@uiColour, 40%);
-      background: mix(@uiColour, white, 50%);
+      color: darken($uiColour, 40%);
+      background: mix($uiColour, white, 50%);
     }
   }
 
@@ -197,14 +197,14 @@
     opacity: 0;
     pointer-events: none;
 
-    border-top: 3px solid darken(@uiColour, 20%);
-    border-bottom: 3px solid darken(@uiColour, 20%);
+    border-top: 3px solid darken($uiColour, 20%);
+    border-bottom: 3px solid darken($uiColour, 20%);
 
     transform-origin: 50% 0;
     transform: rotateX(20deg) translateY(100px);
     transition: opacity 250ms, transform 250ms;
 
-    background: @infoBubbleBackground;
+    background: $infoBubbleBackground;
   }
 
   .description {
@@ -247,7 +247,7 @@
       margin: 0 auto;
       display: block;
       max-width: 100%;
-      outline: 1px solid darken(@uiColour, 20%);
+      outline: 1px solid darken($uiColour, 20%);
     }
   }
 
@@ -255,12 +255,12 @@
     margin-top: 1px;
     font-size: 13px;
     padding: 5px 5px;
-    border-top: 1px solid @uiColour;
+    border-top: 1px solid $uiColour;
     text-rendering: optimizeLegibility;
 
     white-space: normal;
 
-    color: @warningColour;
+    color: $warningColour;
 
     text-align: center;
 
@@ -282,8 +282,8 @@
     margin-top: 5px;
     margin-bottom: 8px;
     width: 150px;
-    height: @infoBubbleButtonSize;
-    line-height: @infoBubbleButtonSize;
+    height: $infoBubbleButtonSize;
+    line-height: $infoBubbleButtonSize;
 
     user-select: none;
 
@@ -312,15 +312,15 @@
       width: 50px;
       margin: 0 3px;
 
-      font-family: @fontFamily;
+      font-family: $fontFamily;
       font-size: 13px;
       line-height: 25px;
       text-align: center;
 
       &.width,
       &.height {
-        background: @formElementBackground;
-        border: 1px solid @formElementBorder;
+        background: $formElementBackground;
+        border: 1px solid $formElementBorder;
 
         vertical-align: bottom;
         height: 22px;
@@ -346,8 +346,8 @@
   }
 
   button {
-    width: @infoBubbleButtonSize;
-    height: @infoBubbleButtonSize;
+    width: $infoBubbleButtonSize;
+    height: $infoBubbleButtonSize;
 
     &.remove {
       position: absolute;
@@ -362,7 +362,7 @@
 }
 
 .info-bubble.highlight-triangle .triangle::before {
-  background: mix(@uiColour, white, 50%);
+  background: mix($uiColour, white, 50%);
 }
 
 .info-bubble.show-description {

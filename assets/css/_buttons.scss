@@ -8,7 +8,7 @@ button.scroll-right {
   height: 40px;
   z-index: 9999999;
 
-  .tap-highlight-color(transparent);
+  @include tap-highlight-color(transparent);
 
   &.scroll-left {
     margin-left: -20px;
@@ -59,7 +59,7 @@ button.close {
   height: 36px;
 
   // Appearance
-  .appearance(none);
+  @include appearance(none);
   border: none;
   font-size: 14px;
   background: transparent;
@@ -76,32 +76,32 @@ a.button-like {
   display: inline-block !important;
   outline: none;
   border: none;
-  border-top: 1px solid darken(@uiColour, 10%);
-  border-bottom: 1px solid darken(@uiColour, 10%);
+  border-top: 1px solid darken($uiColour, 10%);
+  border-bottom: 1px solid darken($uiColour, 10%);
   padding-left: 10px;
   padding-right: 10px;
-  background-color: mix(@uiColour, white, 50%);
+  background-color: mix($uiColour, white, 50%);
   color: black;
   text-align: center;
   text-decoration: none;
   -webkit-align-items: flex-start !important;
 
   &:hover {
-    background-color: mix(@uiColour, white, 70%);
+    background-color: mix($uiColour, white, 70%);
   }
 
   &:active {
-    background-color: mix(@uiColour, white, 95%);
+    background-color: mix($uiColour, white, 95%);
   }
 
   &[disabled] {
-    border-top-color: desaturate(@uiColour, 100%);
-    border-bottom-color: desaturate(@uiColour, 100%);
-    background-color: desaturate(fadeout(@uiColour, 70%), 100%);
+    border-top-color: desaturate($uiColour, 100%);
+    border-bottom-color: desaturate($uiColour, 100%);
+    background-color: desaturate(fade-out($uiColour, 0.7), 100%);
     cursor: auto;
 
     &:hover {
-      background-color: desaturate(fadeout(@uiColour, 70%), 100%);
+      background-color: desaturate(fade-out($uiColour, 0.7), 100%);
     }
   }
 }

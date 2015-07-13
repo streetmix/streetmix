@@ -8,7 +8,7 @@
   top: 35px;
   touch-action: none;
 
-  .box-border;
+  @include box-border();
 
   opacity: 0;
   background: white;
@@ -27,7 +27,7 @@
   }
 
   &.align-right {
-    right: @leftRightInset;
+    right: $leftRightInset;
   }
 
   & > a {
@@ -41,8 +41,8 @@
     padding-left: 30px;
     padding-right: 40px;
 
-    border-top: 1px solid @uiColour;
-    border-bottom: 1px solid @uiColour;
+    border-top: 1px solid $uiColour;
+    border-bottom: 1px solid $uiColour;
     margin-bottom: -1px;
 
     &:last-child {
@@ -50,10 +50,10 @@
     }
 
     &:hover {
-      background: fadeout(@uiColour, 50%);
+      background: fade-out($uiColour, 0.5);
     }
     &:active {
-      background: fadeout(@uiColour, 30%);
+      background: fade-out($uiColour, 0.3);
     }
 
     span {
@@ -68,10 +68,10 @@
 
   textarea,
   input {
-    .appearance(none);
+    @include appearance(none);
 
-    background: @formElementBackground;
-    border: 1px solid @formElementBorder;
+    background: $formElementBackground;
+    border: 1px solid $formElementBorder;
     resize: none;
   }
 }

@@ -67,7 +67,7 @@ app.get('/api/v1/translate/:locale_code', resources.v1.translate.get)
 app.get('/.well-known/status', resources.well_known_status.get)
 
 app.use(assets({
-  precompile: ['styles.less', 'app.js']
+  precompile: ['styles.scss', 'app.js']
 }, function (instance) {
   instance.environment.enable('autoprefixer')
   //instance.Autoprefixer.configure(['last 2 versions', 'IE >= 11'])

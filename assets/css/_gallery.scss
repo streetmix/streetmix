@@ -1,6 +1,6 @@
 body.gallery-visible {
   #main-screen {
-    transform: translateY(@galleryHeight - 90px);
+    transform: translateY($galleryHeight - 90px);
   }
   #street-name-canvas {
     transform: translateY(60px);
@@ -13,20 +13,20 @@ body:not(.safari).gallery-visible #street-section-sky {
 
 #gallery {
   position: absolute;
-  left: @leftRightInset + 20px;
-  right: @leftRightInset + 20px;
+  left: $leftRightInset + 20px;
+  right: $leftRightInset + 20px;
   top: 0;
-  height: @galleryHeight;
+  height: $galleryHeight;
   z-index: 100001;
 
-  border-bottom: 3px solid darken(@uiColour, 30%);
+  border-bottom: 3px solid darken($uiColour, 30%);
 
   background: white;
   overflow: hidden;
 
   pointer-events: none;
 
-  transform: translateY(-@galleryHeight) rotateX(25deg);
+  transform: translateY(-$galleryHeight) rotateX(25deg);
   transform-origin: 50% 0;
 
   .avatar {
@@ -106,7 +106,7 @@ body:not(.safari).gallery-visible #street-section-sky {
     left: 130px + 10px;
     right: 5px + 10px;
     top: 50px;
-    height: @galleryHeight + 20px; // To cover the scroll bar
+    height: $galleryHeight + 20px; // To cover the scroll bar
     overflow-x: scroll;
 
     & > li {
@@ -120,15 +120,15 @@ body:not(.safari).gallery-visible #street-section-sky {
 
         vertical-align: top;
 
-        width: @thumbnailWidth;
-        height: @thumbnailHeight - 10px;
+        width: $thumbnailWidth;
+        height: $thumbnailHeight - 10px;
         margin: 10px 10px;
         margin-top: 5px;
-        background: fadeout(@skyColour, 20%);
+        background: fade-out($skyColour, 0.2);
         padding: 5px 0;
 
-        border-top: 3px solid darken(@uiColour, 10%);
-        border-bottom: 3px solid darken(@uiColour, 10%);
+        border-top: 3px solid darken($uiColour, 10%);
+        border-bottom: 3px solid darken($uiColour, 10%);
         text-align: center;
         white-space: normal;
 
@@ -142,8 +142,8 @@ body:not(.safari).gallery-visible #street-section-sky {
           position: absolute;
           left: 0;
           top: 0;
-          width: @thumbnailWidth;
-          height: @thumbnailHeight;
+          width: $thumbnailWidth;
+          height: $thumbnailHeight;
         }
 
         &:first-child {
@@ -188,7 +188,7 @@ body:not(.safari).gallery-visible #street-section-sky {
         }
 
         &:hover {
-          background: fadeout(@uiColour, 10%);
+          background: fade-out($uiColour, 0.1);
 
           button.remove {
             display: block;
@@ -196,11 +196,11 @@ body:not(.safari).gallery-visible #street-section-sky {
         }
 
         &.virgin:not(.selected) {
-          opacity: .33;
+          opacity: 0.33;
         }
 
         &.selected {
-          background: darken(@uiColour, 10%);
+          background: darken($uiColour, 10%);
 
           border-top-color: black;
           border-bottom-color: black;
@@ -223,8 +223,8 @@ body:not(.safari).gallery-visible #street-section-sky {
     left: 0;
     right: 0;
     top: 0;
-    height: @galleryHeight;
-    line-height: @galleryHeight;
+    height: $galleryHeight;
+    line-height: $galleryHeight;
     text-align: center;
     z-index: 1000000;
     display: none;
@@ -241,7 +241,7 @@ body:not(.safari).gallery-visible #street-section-sky {
     left: 5px;
     right: 5px;
     top: 5px;
-    height: @galleryHeight;
+    height: $galleryHeight;
 
     text-align: center;
     z-index: 10001;
@@ -268,7 +268,7 @@ body:not(.gallery-no-move-transition) #street-section-sky {
 }
 
 body.safari #gallery {
-  transform: translateY(-@galleryHeight - 3px);
+  transform: translateY(-$galleryHeight - 3px);
 }
 
 #gallery-shield {

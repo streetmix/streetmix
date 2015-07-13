@@ -2,7 +2,7 @@
   display: block;
   position: absolute;
   top: -150px;
-  height: @canvasHeight + 85px + 30px;
+  height: $canvasHeight + 85px + 30px;
   text-align: center;
   perspective: 500px;
   touch-action: none;
@@ -24,7 +24,7 @@
 
   .name,
   .width {
-    color: @emptySegmentText;
+    color: $emptySegmentText;
   }
 
   .width {
@@ -57,7 +57,7 @@ body.immediate-segment-resize .segment {
   margin: 12px 0;
   height: 80px;
   top: 0;
-  background-color: fadeout(@skyColour, 30%);
+  background-color: fade-out($skyColour, 0.3);
 
   margin-right: 1px;
 
@@ -70,19 +70,19 @@ body.immediate-segment-resize .segment {
 }
 
 .segment:not(.unmovable).hover .hover-bk {
-  background: @segmentHoverBackground;
+  background: $segmentHoverBackground;
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
   z-index: -1;
-  height: @canvasBaseline;
+  height: $canvasBaseline;
   pointer-events: none;
 }
 
 .segment:not(.palette):not(.unmovable).hover .hover-bk {
   top: 10px;
-  height: @canvasBaseline - 10px;
+  height: $canvasBaseline - 10px;
 }
 
 body.segment-resize-dragging .segment:not(.unmovable).hover {
@@ -119,7 +119,7 @@ body:not(.segment-resize-dragging) .segment.outside .image {
 }
 
 .segment.palette:hover {
-  background: fadeout(@skyColour, 5%);
+  background: fade-out($skyColour, .05);
 
   canvas {
     transform: scale(1.15);
@@ -131,7 +131,7 @@ body:not(.segment-resize-dragging) .segment.outside .image {
   position: absolute;
   left: 0;
   top: 0;
-  opacity: .75;
+  opacity: 0.75;
   z-index: 5000;
   pointer-events: none;
   transition: none !important;
@@ -155,7 +155,7 @@ body.segment-resize-dragging * {
   line-height: 100px;
   font-size: 50px;
   font-family: 'Tahoma';
-  color: lighten(@uiColour, 0%);
+  color: lighten($uiColour, 0%);
   z-index: 99999999999;
 
   pointer-events: none;
@@ -163,10 +163,10 @@ body.segment-resize-dragging * {
   padding-left: 10px;
   padding-right: 10px;
 
-  background: @infoBubbleBackground;
+  background: $infoBubbleBackground;
 
-  border-top: 3px solid darken(@uiColour, 30%);
-  border-bottom: 3px solid darken(@uiColour, 30%);
+  border-top: 3px solid darken($uiColour, 30%);
+  border-bottom: 3px solid darken($uiColour, 30%);
 
   cursor: col-resize;
 
@@ -328,7 +328,7 @@ body.segment-resize-dragging * {
   opacity: 0;
 
   &:hover {
-    color: darken(@uiColour, 10%);
+    color: darken($uiColour, 10%);
   }
 }
 .segment.hide-drag-handles-when-inside-info-bubble .drag-handle,
@@ -341,7 +341,7 @@ body.segment-resize-dragging * {
 }
 
 .drag-handle.floating {
-  background-color: darken(@uiColour, 30%);
+  background-color: darken($uiColour, 30%);
 }
 
 body.segment-resize-dragging .drag-handle.floating,
@@ -358,8 +358,8 @@ body.segment-resize-dragging .drag-handle.floating,
   top: 0;
   bottom: 45px;
 
-  border-left: 1px dashed fadeout(black, 60%);
-  border-right: 1px dashed fadeout(black, 60%);
+  border-left: 1px dashed fade-out(black, 0.6);
+  border-right: 1px dashed fade-out(black, 0.6);
 
   box-sizing: border-box;
 
@@ -371,7 +371,7 @@ body.segment-resize-dragging .drag-handle.floating,
     pointer-events: none;
     bottom: 400px;
     font-size: 11px;
-    color: fadeout(black, 40%);
+    color: fade-out(black, 0.4);
   }
 
   &.max::before {
@@ -409,22 +409,22 @@ body.segment-resize-dragging .drag-handle.floating,
   position: absolute;
   left: 0;
   right: -1px;
-  top: @canvasBaseline;
-  height: @segmentGridHeight;
+  top: $canvasBaseline;
+  height: $segmentGridHeight;
   pointer-events: none;
 
   // Creates grid lines
   // The last value is required for IE11
-  background-image: linear-gradient(90deg, @segmentWidthRule 1px, @bottomBackground 1px, @bottomBackground);
+  background-image: linear-gradient(90deg, $segmentWidthRule 1px, $bottomBackground 1px, $bottomBackground);
   background-repeat: repeat-x;
 
   // Change background-size width to adjust spacing of grid lines
   body.units-imperial & {
-    background-size: @tileSize 100%;
+    background-size: $tileSize 100%;
   }
 
   body.units-metric & {
-    background-size: (@tileSize * 100 / 30 / 2) 100%;
+    background-size: ($tileSize * 100 / 30 / 2) 100%;
   }
 }
 
@@ -432,8 +432,8 @@ body.segment-resize-dragging .drag-handle.floating,
   position: absolute;
   left: 4px;
   right: 4px;
-  top: @canvasBaseline + 45;
-  color: @segmentText;
+  top: $canvasBaseline + 45;
+  color: $segmentText;
   font-weight: 300;
   text-rendering: optimizeLegibility;
 
@@ -452,7 +452,7 @@ body.segment-resize-dragging .drag-handle.floating,
   font-weight: 700;
 }
 .segment.warning .name {
-  color: @segmentWarningText;
+  color: $segmentWarningText;
 }
 
 .segment .commands {
@@ -460,7 +460,7 @@ body.segment-resize-dragging .drag-handle.floating,
   left: 50%;
   width: 30px;
   margin-left: -15px;
-  top: @canvasBaseline + 38;
+  top: $canvasBaseline + 38;
   height: 65px;
   z-index: 150001;
   padding-top: 10px;
@@ -472,12 +472,12 @@ body.segment-resize-dragging .drag-handle.floating,
   left: 0;
   right: -1px;
   z-index: 100000;
-  border-left: 1px solid @segmentWidthRule;
-  border-right: 1px solid @segmentWidthRule;
-  top: @canvasBaseline;
+  border-left: 1px solid $segmentWidthRule;
+  border-right: 1px solid $segmentWidthRule;
+  top: $canvasBaseline;
   height: 90px;
   line-height: 60px;
-  color: @segmentText;
+  color: $segmentText;
   overflow: hidden;
 
   font-weight: 300;
@@ -493,7 +493,7 @@ body.segment-resize-dragging .drag-handle.floating,
   font-weight: 700;
 }
 .segment.warning .width {
-  color: @segmentWarningText;
+  color: $segmentWarningText;
 }
 
 .segment.palette .name,
@@ -538,7 +538,7 @@ body.segment-move-dragging #editable-street-section > div {
 }
 
 .switching-away-post canvas {
-  transition: transform @segmentSwitchingTime ease-in, opacity @segmentSwitchingTime ease-in !important;
+  transition: transform $segmentSwitchingTime ease-in, opacity $segmentSwitchingTime ease-in !important;
   transform: rotateX(-60deg);
   transform-origin: 50% 120%;
   opacity: 0;
@@ -561,6 +561,6 @@ body.segment-move-dragging #editable-street-section > div {
 
 .switching-in-post canvas {
   opacity: 1;
-  transition: transform @segmentSwitchingTime, opacity @segmentSwitchingTime !important;
+  transition: transform $segmentSwitchingTime, opacity $segmentSwitchingTime !important;
   transform: none;
 }

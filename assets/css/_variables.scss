@@ -1,0 +1,61 @@
+/* Dimensions */
+
+$tileSize:                12px;
+
+$canvasHeight:            480px;
+$canvasGround:            35px;
+$canvasBaseline:          $canvasHeight - $canvasGround + 150px;
+
+$paletteHeight:           90px;
+
+$galleryHeight:           180px;
+
+$thumbnailWidth:          180px;
+$thumbnailHeight:         110px;
+
+$buildingSpace:           360px;
+
+$segmentGridHeight:       10px;
+
+$leftRightInset:          50px;
+
+/* Colours */
+
+$backgroundDirtColour:    rgb(53, 45, 39);
+$skyColour:               rgb(169, 204, 219);
+$uiColour:                lighten($skyColour, 10%);
+$formElementBackground:   lighten($uiColour, 10%);
+$formElementBorder:       $uiColour;
+$offWhite:                rgb(240, 240, 240);
+$headerFooterBackground:  rgb(240, 240, 240);
+$bottomBackground:        rgb(216, 211, 203);
+
+$warningColour:           rgb(220, 20, 20);
+
+$segmentText:             rgb(40, 35, 30);
+$segmentHoverText:        lighten($segmentText, 30%);
+$segmentWarningText:      $warningColour;
+$emptySegmentText:        fade-out($segmentText, 0.5);
+
+$segmentHoverBackground:  rgba(255, 255, 255, 0.2);
+
+$lightTextColour:         rgb(240, 240, 240);
+
+$infoBubbleBackground:    white;
+
+$segmentWidthRule:        rgb(160, 160, 160);
+
+$streetNameText:          black;
+$streetNameBackground:    white;
+
+/* Design */
+
+$streetNameGallerySize:   0.5;
+
+$infoBubbleButtonSize:    30px;
+
+/* Timing */
+
+$touchControlsFadeoutTime: 3000ms;
+
+$segmentSwitchingTime:    250ms;
