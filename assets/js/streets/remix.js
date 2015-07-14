@@ -1,3 +1,4 @@
+var STREET_NAME_REMIX_SUFFIX = '(remix)'
 var remixOnFirstEdit = false
 
 // Auto “promote” (remix) the street if you just signed in and the street
@@ -64,3 +65,11 @@ function _receiveRemixedStreet (data) {
 
   _saveStreetToServer(false)
 }
+
+function _addRemixSuffixToName () {
+  if (street.name.substr(street.name.length - STREET_NAME_REMIX_SUFFIX.length,
+      STREET_NAME_REMIX_SUFFIX.length) != STREET_NAME_REMIX_SUFFIX) {
+    street.name += ' ' + STREET_NAME_REMIX_SUFFIX
+  }
+}
+

@@ -18,6 +18,8 @@ var LATEST_SCHEMA_VERSION = 16
 // 15: sidewalks have rand seed
 // 16: stop saving undo stack
 
+var DEFAULT_NAME = msg('DEFAULT_STREET_NAME')
+
 var street = {
   schemaVersion: LATEST_SCHEMA_VERSION,
 

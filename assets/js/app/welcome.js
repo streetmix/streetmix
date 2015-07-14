@@ -41,7 +41,7 @@ function _showWelcome () {
         _goNewStreet(true)
       })
 
-      $('#welcome-street-name').text(street.name)
+      var streetName = new StreetName(document.getElementById('welcome-street-name'), street.name)
 
       if (street.creatorId) {
         document.querySelector('#welcome-avatar-creator').classList.add('visible')

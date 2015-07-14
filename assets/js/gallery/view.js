@@ -112,12 +112,10 @@ function _receiveGalleryData (transmission) {
     anchorEl.appendChild(thumbnailEl)
 
     var nameEl = document.createElement('div')
-    nameEl.classList.add('street-name')
-    nameEl.innerHTML = '<div></div>'
+    nameEl.className = 'street-name'
     anchorEl.appendChild(nameEl)
 
-    $(nameEl.querySelector('div')).text(galleryStreet.name)
-    _updateStreetNameFont(nameEl)
+    var streetName = new StreetName(nameEl, galleryStreet.name)
 
     var date = moment(galleryStreet.updatedAt)
     var dateEl = document.createElement('span')

@@ -202,7 +202,7 @@ function _drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeight,
     ctx.textAlign = 'center'
     ctx.textBaseline = 'center'
 
-    if (_streetNameNeedsUnicodeFont(text)) {
+    if (StreetName.prototype.needsUnicodeFont(text)) {
       var fallbackUnicodeFont = true
       ctx.font = 'normal 400 140px sans-serif'
     } else {
