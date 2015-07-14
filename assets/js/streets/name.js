@@ -18,11 +18,28 @@ var StreetName = (function () {
    */
   var StreetName = function (el, name) {
     this.el = el
+    this.textEl = this.constructTextElement()
 
+    // Set the name of the street, if given
+    if (name) {
+      this.setText(name)
+    } else {
+      this.setText(DEFAULT_NAME)
+    }
+  }
+
+  /*
+   *  Builds the element where the text will be stored
+   *  Returns a reference to that element
+   *
+   *  @private
+   */
+  StreetName.prototype.constructTextElement = function () {
+    var el = this.el
     var textEl
 
     // Construct an element for the text name
-    if (this.el.nodeName === 'SPAN') {
+    if (el.nodeName === 'SPAN') {
       textEl = document.createElement('span')
     } else {
       textEl = document.createElement('div')
@@ -34,14 +51,8 @@ var StreetName = (function () {
     el.innerHTML = '' // TODO: replace with something less expensive
     el.appendChild(textEl)
 
-    this.textEl = textEl
-
-    // Set the name of the street, if given
-    if (name) {
-      this.setText(name)
-    } else {
-      this.setText(DEFAULT_NAME)
-    }
+    // Return a reference to the constructed element
+    return textEl
   }
 
   /*
