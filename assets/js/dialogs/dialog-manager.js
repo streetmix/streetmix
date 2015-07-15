@@ -15,15 +15,10 @@ var DialogManager = (function () {
 
   function init () {
     // Should be called after DOM is ready
-    // Cache the reference to the dialog shield
-    _shieldEl = document.querySelector('#dialog-box-shield')
 
-    // Set up event listeners for dialog shield
-    if (system.touch) {
-      _shieldEl.addEventListener('touchstart', this.hideAll)
-    } else {
-      _shieldEl.addEventListener('click', this.hideAll)
-    }
+    // Set up shield
+    _shieldEl = document.querySelector('#dialog-box-shield')
+    _shieldEl.addEventListener('pointerdown', this.hideAll)
 
     // Init all Dialogs
     for (var i in dialogs) {

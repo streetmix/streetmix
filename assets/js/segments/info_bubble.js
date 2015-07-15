@@ -367,11 +367,9 @@ var _infoBubble = {
       var el = document.createElement('div')
       el.classList.add('description-prompt')
       el.innerHTML = (description.prompt) ? description.prompt : 'Learn more'
-      if (system.touch) {
-        el.addEventListener('touchstart', _infoBubble.showDescription)
-      } else {
-        el.addEventListener('click', _infoBubble.showDescription)
-      }
+
+      el.addEventListener('pointerdown', _infoBubble.showDescription)
+
       $(el).mouseenter(_infoBubble.highlightTriangle)
       $(el).mouseleave(_infoBubble.unhighlightTriangle)
       _infoBubble.el.appendChild(el)
@@ -403,11 +401,8 @@ var _infoBubble = {
       var innerEl = document.createElement('div')
       innerEl.classList.add('description-close')
       innerEl.innerHTML = 'Close'
-      if (system.touch) {
-        innerEl.addEventListener('touchstart', _infoBubble.hideDescription)
-      } else {
-        innerEl.addEventListener('click', _infoBubble.hideDescription)
-      }
+      innerEl.addEventListener('pointerdown', _infoBubble.hideDescription)
+
       $(innerEl).mouseenter(_infoBubble.highlightTriangle)
       $(innerEl).mouseleave(_infoBubble.unhighlightTriangle)
       el.appendChild(innerEl)
@@ -613,11 +608,7 @@ var _infoBubble = {
       innerEl.segmentEl = _infoBubble.segmentEl
       innerEl.tabIndex = -1
       innerEl.setAttribute('title', msg('TOOLTIP_REMOVE_SEGMENT'))
-      if (system.touch) {
-        innerEl.addEventListener('touchstart', _onRemoveButtonClick)
-      } else {
-        innerEl.addEventListener('click', _onRemoveButtonClick)
-      }
+      innerEl.addEventListener('pointerdown', _onRemoveButtonClick)
       headerEl.appendChild(innerEl)
     }
 
@@ -649,11 +640,9 @@ var _infoBubble = {
       var func = function () {
         _changeBuildingHeight(_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING, true)
       }
-      if (system.touch) {
-        innerEl.addEventListener('touchstart', func)
-      } else {
-        innerEl.addEventListener('click', func)
-      }
+
+      innerEl.addEventListener('pointerdown', func)
+
       widthCanvasEl.appendChild(innerEl)
       if (!system.touch) {
         var innerEl = document.createElement('input')
@@ -661,7 +650,7 @@ var _infoBubble = {
         innerEl.classList.add('height')
         innerEl.title = msg('TOOLTIP_BUILDING_HEIGHT')
 
-        innerEl.addEventListener('click', _onWidthHeightEditClick)
+        innerEl.addEventListener('pointerdown', _onWidthHeightEditClick)
         innerEl.addEventListener('focus', _onHeightEditFocus)
         innerEl.addEventListener('blur', _onHeightEditBlur)
         innerEl.addEventListener('input', _onHeightEditInput)
@@ -688,13 +677,9 @@ var _infoBubble = {
       var func = function () {
         _changeBuildingHeight(_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING, false)
       }
-      if (system.touch) {
-        innerEl.addEventListener('touchstart', func)
-      } else {
-        innerEl.addEventListener('click', func)
-      }
-      widthCanvasEl.appendChild(innerEl)
+      innerEl.addEventListener('pointerdown', func)
 
+      widthCanvasEl.appendChild(innerEl)
       infoBubbleEl.appendChild(widthCanvasEl)
     }
 
@@ -714,11 +699,7 @@ var _infoBubble = {
       innerEl.segmentEl = segment.el
       innerEl.title = msg('TOOLTIP_DECREASE_WIDTH')
       innerEl.tabIndex = -1
-      if (system.touch) {
-        innerEl.addEventListener('touchstart', _onWidthDecrementClick)
-      } else {
-        innerEl.addEventListener('click', _onWidthDecrementClick)
-      }
+      innerEl.addEventListener('pointerdown', _onWidthDecrementClick)
       innerEl.addEventListener('mouseover', _showWidthChart)
       innerEl.addEventListener('mouseout', _hideWidthChart)
       widthCanvasEl.appendChild(innerEl)
@@ -730,7 +711,7 @@ var _infoBubble = {
         innerEl.title = msg('TOOLTIP_SEGMENT_WIDTH')
         innerEl.segmentEl = segment.el
 
-        innerEl.addEventListener('click', _onWidthHeightEditClick)
+        innerEl.addEventListener('pointerdown', _onWidthHeightEditClick)
         innerEl.addEventListener('focus', _onWidthEditFocus)
         innerEl.addEventListener('blur', _onWidthEditBlur)
         innerEl.addEventListener('input', _onWidthEditInput)
@@ -752,11 +733,7 @@ var _infoBubble = {
       innerEl.segmentEl = segment.el
       innerEl.tabIndex = -1
       innerEl.title = msg('TOOLTIP_INCREASE_WIDTH')
-      if (system.touch) {
-        innerEl.addEventListener('touchstart', _onWidthIncrementClick)
-      } else {
-        innerEl.addEventListener('click', _onWidthIncrementClick)
-      }
+      innerEl.addEventListener('pointerdown', _onWidthIncrementClick)
       innerEl.addEventListener('mouseover', _showWidthChart)
       innerEl.addEventListener('mouseout', _hideWidthChart)
       widthCanvasEl.appendChild(innerEl)
@@ -792,19 +769,11 @@ var _infoBubble = {
               el.disabled = true
             }
 
-            if (system.touch) {
-              el.addEventListener('touchstart', (function (dataNo, variantName, variantChoice) {
-                return function () {
-                  _changeSegmentVariant(dataNo, variantName, variantChoice)
-                }
-              })(segment.el.dataNo, variantName, variantChoice))
-            } else {
-              el.addEventListener('click', (function (dataNo, variantName, variantChoice) {
-                return function () {
-                  _changeSegmentVariant(dataNo, variantName, variantChoice)
-                }
-              })(segment.el.dataNo, variantName, variantChoice))
-            }
+            el.addEventListener('pointerdown', (function (dataNo, variantName, variantChoice) {
+              return function () {
+                _changeSegmentVariant(dataNo, variantName, variantChoice)
+              }
+            })(segment.el.dataNo, variantName, variantChoice))
 
             variantsEl.appendChild(el)
           }
@@ -828,19 +797,11 @@ var _infoBubble = {
 
           variantsEl.appendChild(el)
 
-          if (system.touch) {
-            el.addEventListener('touchstart', (function (left, variantChoice) {
-              return function () {
-                _infoBubble.onBuildingVariantButtonClick(null, left, variantChoice)
-              }
-            })(_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING, BUILDING_VARIANTS[j]))
-          } else {
-            el.addEventListener('click', (function (left, variantChoice) {
-              return function () {
-                _infoBubble.onBuildingVariantButtonClick(null, left, variantChoice)
-              }
-            })(_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING, BUILDING_VARIANTS[j]))
-          }
+          el.addEventListener('pointerdown', (function (left, variantChoice) {
+            return function () {
+              _infoBubble.onBuildingVariantButtonClick(null, left, variantChoice)
+            }
+          })(_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING, BUILDING_VARIANTS[j]))
         }
 
         break

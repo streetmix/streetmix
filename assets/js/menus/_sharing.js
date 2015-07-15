@@ -12,8 +12,8 @@ var ShareMenu = (function () {
   MenuManager.define('share', {
     alignment: 'right',
     onInit: function () {
-      document.querySelector('#share-via-twitter').addEventListener('click', _shareViaTwitter)
-      document.querySelector('#share-via-facebook').addEventListener('click', _shareViaFacebook)
+      document.querySelector('#share-via-twitter').addEventListener('pointerdown', _shareViaTwitter)
+      document.querySelector('#share-via-facebook').addEventListener('pointerdown', _shareViaFacebook)
     },
     onShow: function () {
       // Auto-focus and select link when share menu is active

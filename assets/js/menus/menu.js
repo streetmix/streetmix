@@ -33,7 +33,7 @@ var Menu = (function () {
       menuButtonEl.disabled = false
 
       // Bind event listeners to the menu button
-      menuButtonEl.addEventListener('click', this.onClick.bind(this))
+      menuButtonEl.addEventListener('pointerdown', this.onClick.bind(this))
     }
 
     // Callback

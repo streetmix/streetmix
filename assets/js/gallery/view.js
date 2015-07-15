@@ -137,7 +137,7 @@ function _receiveGalleryData (transmission) {
     if (signedIn && (galleryStreet.creatorId == signInData.userId)) {
       var removeEl = document.createElement('button')
       removeEl.classList.add('remove')
-      removeEl.addEventListener('click', _onDeleteGalleryStreet)
+      removeEl.addEventListener('pointerdown', _onDeleteGalleryStreet)
       removeEl.innerHTML = msg('UI_GLYPH_X')
       removeEl.title = msg('TOOLTIP_DELETE_STREET')
       anchorEl.appendChild(removeEl)

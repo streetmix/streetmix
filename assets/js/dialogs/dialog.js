@@ -27,7 +27,7 @@ var Dialog = (function () {
     this.el = document.querySelector(this.id)
 
     if (this.clickSelector) {
-      document.querySelector(this.clickSelector).addEventListener('click', this.show.bind(this))
+      document.querySelector(this.clickSelector).addEventListener('pointerdown', this.show.bind(this))
     }
 
     // Callback
@@ -57,7 +57,7 @@ var Dialog = (function () {
     // Done here so that we can more easily bind 'this'
     // to the correct scope, also, cleans out the code
     // in event_listeners.js
-    this.el.querySelector('.close').addEventListener('click', this.hide.bind(this))
+    this.el.querySelector('.close').addEventListener('pointerdown', this.hide.bind(this))
 
     // Callback
     this.onShowCallback()
