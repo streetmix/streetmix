@@ -1,22 +1,28 @@
-/*
+/**
  *  DialogManager (singleton)
  *
  *  Handles general dialog state
  *
  */
-
+/* eslint-disable no-unused-vars */ // ignore exported DialogManager */
 var DialogManager = (function () {
+  /* eslint-enable no-unused-vars */
+  /* global system, Dialog */
   'use strict'
 
   var dialogs = {}
+  var _shieldEl
 
   function init () {
     // Should be called after DOM is ready
+    // Cache the reference to the dialog shield
+    _shieldEl = document.querySelector('#dialog-box-shield')
+
     // Set up event listeners for dialog shield
     if (system.touch) {
-      document.querySelector('#dialog-box-shield').addEventListener('touchstart', this.hideAll)
+      _shieldEl.addEventListener('touchstart', this.hideAll)
     } else {
-      document.querySelector('#dialog-box-shield').addEventListener('click', this.hideAll)
+      _shieldEl.addEventListener('click', this.hideAll)
     }
 
     // Init all Dialogs
@@ -48,12 +54,22 @@ var DialogManager = (function () {
     }
   }
 
+  function showShield () {
+    _shieldEl.classList.add('visible')
+  }
+
+  function hideShield () {
+    _shieldEl.classList.remove('visible')
+  }
+
   return {
     init: init,
     define: define,
     isVisible: isVisible,
     hideAll: hideAll,
-    dialogs: dialogs
+    dialogs: dialogs,
+    showShield: showShield,
+    hideShield: hideShield
   }
 
 })()

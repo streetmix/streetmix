@@ -13,9 +13,6 @@ function _addEventListeners () {
 
   document.querySelector('#invoke-print').addEventListener('click', _print)
 
-  document.querySelector('#share-via-twitter').addEventListener('click', _shareViaTwitter)
-  document.querySelector('#share-via-facebook').addEventListener('click', _shareViaFacebook)
-
   document.querySelector('#street-scroll-indicator-left').addEventListener('click', _onStreetLeftScrollClick)
   document.querySelector('#street-scroll-indicator-right').addEventListener('click', _onStreetRightScrollClick)
 

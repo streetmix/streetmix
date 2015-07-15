@@ -1,12 +1,13 @@
-/*
+/**
  *  Dialog (class)
  *
  *  Generic class instance of menu
  *
  */
-
+/* eslint-disable no-unused-vars */ // ignore exported Dialog */
 var Dialog = (function () {
-  /* global MenuManager */
+  /* eslint-enable no-unused-vars */
+  /* global MenuManager, Helpers, DialogManager */
   'use strict'
 
   var Dialog = function (id, opts) {
@@ -14,10 +15,10 @@ var Dialog = (function () {
 
     this.id = id // Element id
 
-    this.clickSelector = opts.clickSelector || null
-    this.onInitCallback = opts.onInit || null // Function to execute after dialog init
-    this.onShowCallback = opts.onShow || null // Function to execute after dialog open
-    this.onHideCallback = opts.onHide || null // Function to execute after dialog close
+    this.clickSelector = opts.clickSelector || null // Reference to element that activates this dialog when clicked
+    this.onInitCallback = opts.onInit || Helpers.noop // Function to execute after dialog init
+    this.onShowCallback = opts.onShow || Helpers.noop // Function to execute after dialog open
+    this.onHideCallback = opts.onHide || Helpers.noop // Function to execute after dialog close
 
     this.el = null // For caching a reference to the dialog box's DOM element
   }
@@ -31,9 +32,7 @@ var Dialog = (function () {
 
     // Callback
     // Put additional event listeners in this.onInitCallback, for example
-    if (typeof this.onInitCallback === 'function') {
-      this.onInitCallback()
-    }
+    this.onInitCallback()
   }
 
   Dialog.prototype.show = function (event) {
@@ -52,7 +51,7 @@ var Dialog = (function () {
 
     // Show the dialog & shield
     this.el.classList.add('visible')
-    document.querySelector('#dialog-box-shield').classList.add('visible')
+    DialogManager.showShield()
 
     // Attach event listener for close button
     // Done here so that we can more easily bind 'this'
@@ -61,18 +60,13 @@ var Dialog = (function () {
     this.el.querySelector('.close').addEventListener('click', this.hide.bind(this))
 
     // Callback
-    if (typeof this.onShowCallback === 'function') {
-      this.onShowCallback()
-    }
+    this.onShowCallback()
   }
 
   Dialog.prototype.hide = function () {
     this.el.classList.remove('visible')
-    document.querySelector('#dialog-box-shield').classList.remove('visible')
-
-    if (typeof this.onHideCallback === 'function') {
-      this.onHideCallback()
-    }
+    DialogManager.hideShield()
+    this.onHideCallback()
   }
 
   return Dialog
