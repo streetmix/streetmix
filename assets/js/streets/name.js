@@ -18,65 +18,30 @@ var StreetName = (function () {
    */
   var StreetName = function (el, name) {
     this.el = el
-    this.textEl = this.constructTextElement()
+    this.textEl = _constructTextElement(el)
+
+    Object.defineProperty(this, 'text', {
+      /*
+       *  Gets the display name currently set inside the element
+       *  (in case an external script modifies DOM directly)
+       */
+      get: function () {
+        return this.textEl.textContent
+      },
+      /*
+       *  Sets the display name inside the street name element
+       *  This affects display only, not the street's raw data
+       */
+      set: function (value) {
+        var name = this.normalize(value)
+        this.name = name
+        this.textEl.textContent = name
+        this.updateFont()
+      }
+    })
 
     // Set the name of the street, if given
-    if (name) {
-      this.setText(name)
-    } else {
-      this.setText(DEFAULT_NAME)
-    }
-  }
-
-  /*
-   *  Builds the element where the text will be stored
-   *  Returns a reference to that element
-   *
-   *  @private
-   */
-  StreetName.prototype.constructTextElement = function () {
-    var el = this.el
-    var textEl
-
-    // Construct an element for the text name
-    if (el.nodeName === 'SPAN') {
-      textEl = document.createElement('span')
-    } else {
-      textEl = document.createElement('div')
-    }
-
-    textEl.className = 'street-name-text'
-
-    // Clear container element then append
-    el.innerHTML = '' // TODO: replace with something less expensive
-    el.appendChild(textEl)
-
-    // Return a reference to the constructed element
-    return textEl
-  }
-
-  /*
-   *  Gets the display name currently set inside the element
-   *  (in case an external script modifies DOM directly)
-   *
-   *  @public
-   */
-  StreetName.prototype.getText = function () {
-    return this.textEl.textContent
-  }
-
-  /*
-   *  Sets the display name inside the street name element
-   *  This affects display only, not the street's raw data
-   *
-   *  @public
-   *  @param {string} name - Name of the street to display.
-   */
-  StreetName.prototype.setText = function (name) {
-    name = this.normalize(name)
-    this.name = name
-    this.textEl.textContent = name
-    this.updateFont()
+    this.text = name || DEFAULT_NAME
   }
 
   /*
@@ -128,6 +93,33 @@ var StreetName = (function () {
     }
 
     return name
+  }
+
+
+  /*
+   *  Builds the element where the text will be stored
+   *  Returns a reference to that element
+   *
+   *  @private
+   */
+  _constructTextElement = function (containerEl) {
+    var textEl
+
+    // Construct an element for the text name
+    if (containerEl.nodeName === 'SPAN') {
+      textEl = document.createElement('span')
+    } else {
+      textEl = document.createElement('div')
+    }
+
+    textEl.className = 'street-name-text'
+
+    // Clear container element then append
+    containerEl.innerHTML = '' // TODO: replace with something less expensive
+    containerEl.appendChild(textEl)
+
+    // Return a reference to the constructed element
+    return textEl
   }
 
   return StreetName
