@@ -358,7 +358,7 @@ function _handleSegmentMoveMove (event) {
   if (!draggingMove.floatingElVisible) {
     draggingMove.floatingElVisible = true
 
-    if (system.touch) {
+    if (event.touches && event.touches[0]) {
       if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
         draggingMove.elY += DRAG_OFFSET_Y_TOUCH_PALETTE
       } else {
