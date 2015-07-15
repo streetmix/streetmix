@@ -111,6 +111,7 @@ body.windows .street-name-text {
 
 #street-name {
   position: relative;
+  max-width: 100%;
   pointer-events: auto;
   @include tap-highlight-color(transparent);
 }
@@ -125,7 +126,6 @@ body:not(.touch-support):not(.read-only) #street-name {
     & > div {
       border-color: rgb(220, 220, 220);
     }
-
     &::after {
       color: black;
       // TODO message
