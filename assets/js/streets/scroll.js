@@ -121,6 +121,12 @@ function _updateStreetScrollIndicators () {
 }
 
 function _onStreetSectionScroll (event) {
+  // TODO: See if this is an okay way to prevent dragging
+  // movements from firing scroll events on Win8.1/IE.
+  if (draggingType !== DRAGGING_TYPE_NONE) {
+    return
+  }
+
   _infoBubble.suppress()
 
   var scrollPos = document.querySelector('#street-section-outer').scrollLeft

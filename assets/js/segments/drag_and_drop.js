@@ -528,7 +528,7 @@ function _makeSpaceBetweenSegments (x, y) {
 }
 
 function _onBodyMouseMove (event) {
-  if (draggingType == DRAGGING_TYPE_NONE) {
+  if (draggingType === DRAGGING_TYPE_NONE) {
     return
   }
 
