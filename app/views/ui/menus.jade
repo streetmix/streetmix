@@ -37,7 +37,7 @@
     | Send us a message:
 
     textarea#feedback-form-message(placeholder='What do you think of Streetmix?')
-    input#feedback-form-email(type='email', placeholder='Your email (optional)')
+    input#feedback-form-email(type='email', placeholder='Your email (optional)', spellcheck='false')
     button#feedback-form-send Send message
 
   a#feedback-via-twitter(href='#', target='_blank') Send a tweet to @streetmix
@@ -63,7 +63,7 @@
     for nicer links to your streets and your personal street gallery
   #share-via-link-canvas
     | Copy and paste this link to share:
-    input#share-via-link(type='text' value='')
+    input#share-via-link(type='text', value='', spellcheck='false')
 
   a#share-via-twitter(href='#', target='_blank')
     svg.icon
