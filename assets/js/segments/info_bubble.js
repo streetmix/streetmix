@@ -75,9 +75,12 @@ var _infoBubble = {
     _infoBubble.updateHoverPolygon()
   },
 
-  onMouseLeave: function () {
-    if (_infoBubble.segmentEl) {
-      _infoBubble.segmentEl.classList.remove('hide-drag-handles-when-inside-info-bubble')
+  onMouseLeave: function (event) {
+    // Prevent pointer taps from flashing the drag handles
+    if (event.pointerType && event.pointerType === 'mouse') {
+      if (_infoBubble.segmentEl) {
+        _infoBubble.segmentEl.classList.remove('hide-drag-handles-when-inside-info-bubble')
+      }
     }
 
     _infoBubble.mouseInside = false
@@ -555,6 +558,9 @@ var _infoBubble = {
 
   updateContents: function () {
     var infoBubbleEl = _infoBubble.el
+
+    // If info bubble changes, wake this back up if it's fading out
+    _cancelFadeoutControls()
 
     switch (_infoBubble.type) {
       case INFO_BUBBLE_TYPE_SEGMENT:

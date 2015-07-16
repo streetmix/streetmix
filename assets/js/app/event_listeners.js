@@ -78,7 +78,10 @@ function _addEventListeners () {
 
   window.addEventListener('resize', _onResize)
 
-  document.addEventListener('pointerleave', _onBodyMouseOut)
+  // This listener hides the info bubble when the mouse leaves the
+  // document area. Do not normalize it to a pointerleave event
+  // because it doesn't make sense for other pointer types
+  document.addEventListener('mouseleave', _onBodyMouseOut)
 
   window.addEventListener('pointerdown', _onBodyMouseDown)
   window.addEventListener('pointermove', _onBodyMouseMove)
