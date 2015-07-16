@@ -17,13 +17,11 @@ var ShareMenu = (function () {
     },
     onShow: function () {
       // Auto-focus and select link when share menu is active
-      if (!system.touch) {
-        var el = document.querySelector('#share-via-link')
-        window.setTimeout(function () {
-          el.focus()
-          el.select()
-        }, 200)
-      }
+      var el = document.querySelector('#share-via-link')
+      window.setTimeout(function () {
+        el.focus()
+        el.select()
+      }, 200)
     }
   })
 

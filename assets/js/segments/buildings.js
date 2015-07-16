@@ -380,7 +380,9 @@ function _onBuildingMouseEnter (event) {
   _resumeFadeoutControls()
 }
 
-function _onBuildingMouseLeave () {
+function _onBuildingMouseLeave (event) {
+  if (!event.pointerType || event.pointerType !== 'mouse') return
+
   _infoBubble.dontConsiderShowing()
 }
 
