@@ -779,7 +779,7 @@ var SEGMENT_INFO = {
         maxWidth: 11.9,
         graphics: {
           center: [
-            { tileset: 1, x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
+            { tileset: 1, x: 8, y: 27, width: 8, height: 12 }, // Car (inbound)
             { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (inbound)
           ],
           repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
@@ -790,7 +790,7 @@ var SEGMENT_INFO = {
         maxWidth: 11.9,
         graphics: {
           center: [
-            { tileset: 1, x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
+            { tileset: 1, x: 0, y: 27, width: 8, height: 12 }, // Car (outbound)
             { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (outbound)
           ],
           repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
@@ -814,7 +814,7 @@ var SEGMENT_INFO = {
         },
         graphics: {
           center: [
-            { tileset: 1, x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
+            { tileset: 1, x: 8, y: 27, width: 8, height: 12 }, // Car (inbound)
             { tileset: 1, x: 5, y: 10 + 30 + 19, width: 3, height: 8, offsetY: 4 }, // Bike (inbound)
             { tileset: 2, x: 101, y: 15, width: 4, height: 5, offsetY: 10 } // Sharrow arrow
           ],
@@ -839,7 +839,7 @@ var SEGMENT_INFO = {
         },
         graphics: {
           center: [
-            { tileset: 1, x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
+            { tileset: 1, x: 0, y: 27, width: 8, height: 12 }, // Car (outbound)
             { tileset: 1, x: 9, y: 10 + 30 + 19, width: 3, height: 8, offsetY: 4 }, // Bike (outbound)
             { tileset: 2, x: 106, y: 15, width: 4, height: 5, offsetY: 10 } // Sharrow arrow
           ],
