@@ -1301,16 +1301,16 @@ function _prepareSegmentInfo () {
     for (var j in SEGMENT_INFO[i].details) {
       var graphics = SEGMENT_INFO[i].details[j].graphics
 
-      if (graphics.repeat && !$.isArray(graphics.repeat)) {
+      if (graphics.repeat && !Array.isArray(graphics.repeat)) {
         graphics.repeat = [graphics.repeat]
       }
-      if (graphics.left && !$.isArray(graphics.left)) {
+      if (graphics.left && !Array.isArray(graphics.left)) {
         graphics.left = [graphics.left]
       }
-      if (graphics.right && !$.isArray(graphics.right)) {
+      if (graphics.right && !Array.isArray(graphics.right)) {
         graphics.right = [graphics.right]
       }
-      if (graphics.center && !$.isArray(graphics.center)) {
+      if (graphics.center && !Array.isArray(graphics.center)) {
         graphics.center = [graphics.center]
       }
     }
