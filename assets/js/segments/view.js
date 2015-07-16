@@ -305,9 +305,9 @@ function _createSegment (type, variantString, width, isUnmovable, palette, randS
     _resizeSegment(el, RESIZE_TYPE_INITIAL, width, true, palette, true)
   }
 
-  if (!palette && !system.touch) {
-    $(el).mouseenter(_onSegmentMouseEnter)
-    $(el).mouseleave(_onSegmentMouseLeave)
+  if (!palette) {
+    el.addEventListener('pointerenter', _onSegmentMouseEnter)
+    el.addEventListener('pointerleave', _onSegmentMouseLeave)
   }
   return el
 }

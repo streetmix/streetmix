@@ -20,21 +20,14 @@ function _addEventListeners () {
 
   document.querySelector('#street-section-outer').addEventListener('scroll', _onStreetSectionScroll)
 
-  if (!system.touch) {
-    $('#street-section-left-building').mouseenter(_onBuildingMouseEnter)
-    $('#street-section-left-building').mouseleave(_onBuildingMouseLeave)
-    $('#street-section-right-building').mouseenter(_onBuildingMouseEnter)
-    $('#street-section-right-building').mouseleave(_onBuildingMouseLeave)
-  } else {
-    document.querySelector('#street-section-left-building').addEventListener('touchstart', _onBuildingMouseEnter)
-    document.querySelector('#street-section-right-building').addEventListener('touchstart', _onBuildingMouseEnter)
-  }
+  document.querySelector('#street-section-left-building').addEventListener('pointerenter', _onBuildingMouseEnter)
+  document.querySelector('#street-section-left-building').addEventListener('pointerleave', _onBuildingMouseEnter)
+  document.querySelector('#street-section-right-building').addEventListener('pointerenter', _onBuildingMouseEnter)
+  document.querySelector('#street-section-right-building').addEventListener('pointerleave', _onBuildingMouseEnter)
 
-  if (!system.touch) {
-    $('.info-bubble').mouseenter(_infoBubble.onMouseEnter)
-    $('.info-bubble').mouseleave(_infoBubble.onMouseLeave)
-  }
-  document.querySelector('.info-bubble').addEventListener('touchstart', _infoBubble.onTouchStart)
+  document.querySelector('.info-bubble').addEventListener('pointerenter', _infoBubble.onMouseEnter)
+  document.querySelector('.info-bubble').addEventListener('pointerleave', _infoBubble.onMouseLeave)
+  document.querySelector('.info-bubble').addEventListener('pointerdown', _infoBubble.onTouchStart)
 
   document.querySelector('#feedback-form-message').addEventListener('input', _onFeedbackFormInput)
   document.querySelector('#feedback-form-email').addEventListener('input', _onFeedbackFormInput)
@@ -85,7 +78,7 @@ function _addEventListeners () {
 
   window.addEventListener('resize', _onResize)
 
-  $(document).mouseleave(_onBodyMouseOut)
+  document.addEventListener('pointerleave', _onBodyMouseOut)
 
   window.addEventListener('pointerdown', _onBodyMouseDown)
   window.addEventListener('pointermove', _onBodyMouseMove)

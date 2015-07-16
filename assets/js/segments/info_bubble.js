@@ -317,8 +317,8 @@ var _infoBubble = {
     _switchSegmentElAway(el)
 
     // TODO repeat
-    $(newEl).mouseenter(_onBuildingMouseEnter)
-    $(newEl).mouseleave(_onBuildingMouseLeave)
+    newEl.addEventListener('pointerenter', _onBuildingMouseEnter)
+    newEl.addEventListener('pointerleave', _onBuildingMouseEnter)
 
     _saveStreetToServerIfNecessary()
     _createBuildings()
@@ -369,9 +369,9 @@ var _infoBubble = {
       el.innerHTML = (description.prompt) ? description.prompt : 'Learn more'
 
       el.addEventListener('pointerdown', _infoBubble.showDescription)
+      el.addEventListener('pointerenter', _infoBubble.highlightTriangle)
+      el.addEventListener('pointerleave', _infoBubble.unhighlightTriangle)
 
-      $(el).mouseenter(_infoBubble.highlightTriangle)
-      $(el).mouseleave(_infoBubble.unhighlightTriangle)
       _infoBubble.el.appendChild(el)
 
       var el = document.createElement('div')
@@ -402,9 +402,9 @@ var _infoBubble = {
       innerEl.classList.add('description-close')
       innerEl.innerHTML = 'Close'
       innerEl.addEventListener('pointerdown', _infoBubble.hideDescription)
+      innerEl.addEventListener('pointerenter', _infoBubble.highlightTriangle)
+      innerEl.addEventListener('pointerleave', _infoBubble.unhighlightTriangle)
 
-      $(innerEl).mouseenter(_infoBubble.highlightTriangle)
-      $(innerEl).mouseleave(_infoBubble.unhighlightTriangle)
       el.appendChild(innerEl)
 
       var innerEl = document.createElement('div')
