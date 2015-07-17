@@ -184,34 +184,35 @@ How to fill in the data for a segment:
   One thing to keep in mind that on our tilesheets, the scale
   is 24 pixels equals one foot. Some measurement numbers are in
   feet (e.g. '3', meaning 3 feet) will be translated to pixels (so 96 pixels)
+  Decimal values are acceptable.
+
+  0, 0 (origin) of the tilesheet and of the sprite are the UPPER LEFT corner
+  All distances are measured from this origin point.
 
   tileset       Integer (required)
                 Which tilesheet it's on. Currently 1, 2, or 3.
                 These are hand-made right now.
-  x             Number (required)
-                x position of the sprite on the tilesheet.
-                (in feet?)
-                (where is the 0,0 spot and which direction is x going?)
-  y             Number (required)
-                x position of the sprite on the tilesheet.
-                (in feet?)
-                (where is the 0,0 spot and which direction is y going?)
-  width         Number (required)
-                Specified in feet.
-                Translates to the number of pixels of the tilesheet to
-                use as the width of the sprite, and the width of the
-                canvas to display in.
-  height        Number (required)
-                Specified in feet.
-                Translates to the number of pixels of the tilesheet to
-                use as the width of the sprite, and the width of the
-                canvas to display in.
-  offsetX       Number (optional)
+  x             Number (required) (units: 1 = 24 pixels (1 feet))
+                From the origin point of the tilesheet, the x position
+                is the left edge of the sprite.
+  y             Number (required) (units: 1 = 24 pixels (1 feet))
+                From the origin point of the tilesheet, the y position
+                is the top edge of the sprite.
+  width         Number (required) (units: 1 = 24 pixels (1 feet))
+                From the x position of the sprite, the width of the
+                sprite and the display canvas
+  height        Number (required) (units: 1 = 24 pixels (1 feet))
+                From the y position of the sprite, the height of the
+                sprite and the display canvas (note this measures
+                DOWNWARD, because the origin is from the TOP edge)
+  offsetX       Number (optional) (units: 1 = 24 pixels (1 feet))
                 Horizontal position to offset the sprite from the
                 attachment spot. The 0 position depends on whether the
                 sprite is attached to the left/right or center of segment.
-  offsetY       Number (optional)
-                Vertical position to offset the sprite from the ground.
+  offsetY       Number (optional) (units: 1 = 24 pixels (1 feet))
+                Vertical position to offset the sprite. The attachment
+                point is something like 10 feet above ground. A positive
+                value pushes the sprite downward.
 
 */
 
@@ -704,7 +705,7 @@ var SEGMENT_INFO = {
         maxWidth: 10,
         graphics: {
           left: [
-            { tileset: 1, x: 9, y: 27, width: 6, height: 15, offsetX: 0.25 } // Car (inbound)
+            { tileset: 1, x: 9, y: 32, width: 6, height: 8, offsetX: 0.25, offsetY: 5 } // Car (inbound)
           ],
           repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           right: { tileset: 2, x: 112, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
@@ -715,7 +716,7 @@ var SEGMENT_INFO = {
         maxWidth: 10,
         graphics: {
           right: [
-            { tileset: 1, x: 9, y: 27, width: 6, height: 15 } // Car (inbound)
+            { tileset: 1, x: 9, y: 32, width: 6, height: 8, offsetY: 5 } // Car (inbound)
           ],
           repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           left: { tileset: 1, x: 46, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
@@ -726,7 +727,7 @@ var SEGMENT_INFO = {
         maxWidth: 10,
         graphics: {
           left: [
-            { tileset: 1, x: 1, y: 27, width: 6, height: 15, offsetX: 0.25 } // Car (outbound)
+            { tileset: 1, x: 1, y: 32, width: 6, height: 8, offsetX: 0.25, offsetY: 5 } // Car (outbound)
           ],
           repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           right: { tileset: 2, x: 112, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
@@ -737,7 +738,7 @@ var SEGMENT_INFO = {
         maxWidth: 10,
         graphics: {
           right: [
-            { tileset: 1, x: 1, y: 27, width: 6, height: 15 } // Car (outbound)
+            { tileset: 1, x: 1, y: 32, width: 6, height: 8, offsetY: 5 } // Car (outbound)
           ],
           repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
           left: { tileset: 1, x: 46, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
@@ -779,7 +780,7 @@ var SEGMENT_INFO = {
         maxWidth: 11.9,
         graphics: {
           center: [
-            { tileset: 1, x: 8, y: 27, width: 8, height: 12 }, // Car (inbound)
+            { tileset: 1, x: 8, y: 32, width: 8, height: 8, offsetY: 5 }, // Car (inbound)
             { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (inbound)
           ],
           repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
@@ -790,7 +791,7 @@ var SEGMENT_INFO = {
         maxWidth: 11.9,
         graphics: {
           center: [
-            { tileset: 1, x: 0, y: 27, width: 8, height: 12 }, // Car (outbound)
+            { tileset: 1, x: 0, y: 32, width: 8, height: 8, offsetY: 5 }, // Car (outbound)
             { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (outbound)
           ],
           repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
@@ -814,7 +815,7 @@ var SEGMENT_INFO = {
         },
         graphics: {
           center: [
-            { tileset: 1, x: 8, y: 27, width: 8, height: 12 }, // Car (inbound)
+            { tileset: 1, x: 8, y: 32, width: 8, height: 8, offsetY: 5 }, // Car (inbound)
             { tileset: 1, x: 5, y: 10 + 30 + 19, width: 3, height: 8, offsetY: 4 }, // Bike (inbound)
             { tileset: 2, x: 101, y: 15, width: 4, height: 5, offsetY: 10 } // Sharrow arrow
           ],
@@ -839,7 +840,7 @@ var SEGMENT_INFO = {
         },
         graphics: {
           center: [
-            { tileset: 1, x: 0, y: 27, width: 8, height: 12 }, // Car (outbound)
+            { tileset: 1, x: 0, y: 32, width: 8, height: 8, offsetY: 5 }, // Car (outbound)
             { tileset: 1, x: 9, y: 10 + 30 + 19, width: 3, height: 8, offsetY: 4 }, // Bike (outbound)
             { tileset: 2, x: 106, y: 15, width: 4, height: 5, offsetY: 10 } // Sharrow arrow
           ],
@@ -882,7 +883,7 @@ var SEGMENT_INFO = {
         maxWidth: 12,
         graphics: {
           center: [
-            { tileset: 1, x: 20, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (outbound)
+            { tileset: 1, x: 20, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (inbound)
             { tileset: 2, x: 125, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow
           ],
           repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
@@ -893,8 +894,8 @@ var SEGMENT_INFO = {
         maxWidth: 12,
         graphics: {
           center: [
-            { tileset: 2, x: 125, y: 10, width: 4, height: 5, offsetY: 10 }, // Arrow
-            { tileset: 1, x: 20, y: 78, width: 8, height: 6, offsetY: 6 } // Car (outbound)
+            { tileset: 1, x: 20, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (inbound)
+            { tileset: 2, x: 125, y: 10, width: 4, height: 5, offsetY: 10 } // Arrow
           ],
           repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
         }
@@ -905,7 +906,7 @@ var SEGMENT_INFO = {
         maxWidth: 12,
         graphics: {
           center: [
-            { tileset: 1, x: 8, y: 27, width: 8, height: 15 }, // Car (inbound)
+            { tileset: 1, x: 8, y: 32, width: 8, height: 8, offsetY: 5 }, // Car (inbound)
             { tileset: 1, x: 30, y: 5, width: 4, height: 5, offsetY: 10 } // Arrow (inbound)
           ],
           repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
@@ -985,7 +986,7 @@ var SEGMENT_INFO = {
         maxWidth: 12,
         graphics: {
           center: [
-            { tileset: 1, x: 0, y: 27, width: 8, height: 15 }, // Car (outbound)
+            { tileset: 1, x: 0, y: 32, width: 8, height: 8, offsetY: 5 }, // Car (outbound)
             { tileset: 1, x: 39, y: 5, width: 4, height: 5, offsetY: 10 } // Arrow (outbound)
           ],
           repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
@@ -1052,7 +1053,7 @@ var SEGMENT_INFO = {
         maxWidth: 13,
         graphics: {
           center: [
-            { tileset: 1, x: 28, y: 27, width: 11, height: 13 }, // Bus
+            { tileset: 1, x: 28, y: 28, width: 11, height: 11, offsetY: 1 }, // Bus
             { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (inbound)
           ],
           repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
@@ -1063,7 +1064,7 @@ var SEGMENT_INFO = {
         maxWidth: 13,
         graphics: {
           center: [
-            { tileset: 1, x: 16, y: 27, width: 12, height: 13 }, // Bus
+            { tileset: 1, x: 16, y: 28, width: 12, height: 11, offsetY: 1 }, // Bus
             { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (outbound)
           ],
           repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
@@ -1074,7 +1075,7 @@ var SEGMENT_INFO = {
         maxWidth: 13,
         graphics: {
           center: [
-            { tileset: 1, x: 28, y: 27, width: 11, height: 13 }, // Bus
+            { tileset: 1, x: 28, y: 28, width: 11, height: 11, offsetY: 1 }, // Bus
             { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (inbound)
           ],
           repeat: { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 } // Red asphalt
@@ -1085,7 +1086,7 @@ var SEGMENT_INFO = {
         maxWidth: 13,
         graphics: {
           center: [
-            { tileset: 1, x: 16, y: 27, width: 12, height: 13 }, // Bus
+            { tileset: 1, x: 16, y: 28, width: 12, height: 11, offsetY: 1 }, // Bus
             { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (outbound)
           ],
           repeat: { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 } // Red asphalt
