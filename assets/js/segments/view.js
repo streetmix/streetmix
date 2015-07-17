@@ -546,9 +546,9 @@ var _statusMessage = {
     var el = document.createElement('button')
     el.classList.add('close')
     if (system.touch) {
-      el.addEventListener('touchstart', _statusMessage.hide)
+      el.addEventListener('touchstart', _onClickTheX)
     } else {
-      el.addEventListener('click', _statusMessage.hide)
+      el.addEventListener('click', _onClickTheX)
     }
     el.innerHTML = msg('UI_GLYPH_X')
     document.querySelector('#status-message > div').appendChild(el)
@@ -557,14 +557,17 @@ var _statusMessage = {
 
     _statusMessage.timerId =
       window.setTimeout(_statusMessage.hide, STATUS_MESSAGE_HIDE_DELAY)
+
+    function _onClickTheX () {
+      _statusMessage.hide()
+      // Force window to refocus on document.body after status-message is closed by X button
+      // Required on Chrome
+      _loseAnyFocus()
+    }
   },
 
   hide: function () {
     document.querySelector('#status-message').classList.remove('visible')
-
-    // Force window to refocus on document.body after status-message is closed by X button
-    // Required on Chrome
-    _loseAnyFocus()
   }
 }
 
