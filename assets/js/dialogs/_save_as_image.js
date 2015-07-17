@@ -25,9 +25,9 @@
       _elPreviewPreview = this.el.querySelector('#save-as-image-preview-preview')
       _elDownloadLink = this.el.querySelector('#save-as-image-download')
 
-      _elTransparentSky.addEventListener('pointerdown', _updateSaveAsImageOptions)
-      _elSegmentNames.addEventListener('pointerdown', _updateSaveAsImageOptions)
-      _elStreetName.addEventListener('pointerdown', _updateSaveAsImageOptions)
+      _elTransparentSky.addEventListener('change', _updateSaveAsImageOptions)
+      _elSegmentNames.addEventListener('change', _updateSaveAsImageOptions)
+      _elStreetName.addEventListener('change', _updateSaveAsImageOptions)
     },
     onShow: function () {
       _elTransparentSky.checked = settings.saveAsImageTransparentSky
