@@ -8,6 +8,7 @@
 
   overflow-x: scroll;
   overflow-y: hidden;
+  touch-action: none;
 }
 /*body.phone #street-section-outer {
   -webkit-overflow-scrolling: touch;
@@ -31,6 +32,7 @@
   height: @canvasHeight + 80;
   text-align: left;
   z-index: 1;
+  touch-action: pan-x;
 
   &::before {
     content: '';
@@ -177,6 +179,10 @@
   pointer-events: none;
 
   background: @bottomBackground;
+}
+
+.street-section-building {
+  touch-action: pan-x;
 }
 
 #street-section-left-building,
