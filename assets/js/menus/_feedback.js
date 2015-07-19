@@ -104,8 +104,9 @@ function _updateFeedbackMenu () {
     '&url=' + encodeURIComponent(url)
 }
 
-function _prepareFeedbackForm () {
-  if (!system.touch) {
+function _prepareFeedbackForm (event) {
+  // Event comes from the onShow handler on the menu
+  if (event && event.pointerType && event.pointerType === 'mouse') {
     window.setTimeout(function () {
       document.querySelector('#feedback-form-message').focus()
     }, 200)

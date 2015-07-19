@@ -37,20 +37,18 @@ var Menu = (function () {
     }
 
     // Callback
-    if (typeof this.onInitCallback === 'function') {
-      this.onInitCallback()
-    }
+    this.onInitCallback()
   }
 
-  Menu.prototype.onClick = function () {
+  Menu.prototype.onClick = function (event) {
     if (!this.el.classList.contains('visible')) {
-      this.show()
+      this.show(event)
     } else {
-      this.hide()
+      this.hide(event)
     }
   }
 
-  Menu.prototype.show = function () {
+  Menu.prototype.show = function (event) {
     // Hide other UI
     _infoBubble.hide()
     _statusMessage.hide()
@@ -70,10 +68,8 @@ var Menu = (function () {
     // Show menu
     this.el.classList.add('visible')
 
-    // Callback
-    if (typeof this.onShowCallback === 'function') {
-      this.onShowCallback()
-    }
+    // Send event to callback
+    this.onShowCallback(event)
   }
 
   Menu.prototype.hide = function () {
