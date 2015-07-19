@@ -91,7 +91,6 @@
   height: @canvasHeight + 40;
 }
 
-
 .rear-clouds,
 .front-clouds {
   position: absolute;
@@ -182,19 +181,12 @@
 }
 
 .street-section-building {
-  touch-action: pan-x;
-}
-
-#street-section-left-building,
-#street-section-left-building-old,
-#street-section-right-building,
-#street-section-right-building-old {
   display: block;
   position: absolute;
-
   top: -150px + 45px;
   width: 396px;
   height: @canvasHeight + 70px;
+  touch-action: pan-x;
 
   .hover-bk {
     position: absolute;
@@ -207,6 +199,12 @@
 
   &.hover .hover-bk {
     background: @segmentHoverBackground;
+  }
+
+  canvas {
+    position: absolute;
+    left: 0;
+    bottom: 0;
   }
 }
 
@@ -228,13 +226,4 @@
 #street-section-left-building .hover-bk,
 #street-section-left-building-old .hover-bk {
   right: 25px;
-}
-
-#street-section-left-building canvas,
-#street-section-right-building canvas,
-#street-section-left-building-old canvas,
-#street-section-right-building-old canvas {
-  position: absolute;
-  left: 0;
-  bottom: 0;
 }

@@ -296,23 +296,22 @@ var _infoBubble = {
   },
 
   onBuildingVariantButtonClick: function (event, left, variantChoice) {
+    var side
+
     if (left) {
       street.leftBuildingVariant = variantChoice
-
-      var el = document.querySelector('#street-section-left-building')
-      el.id = 'street-section-left-building-old'
-
-      var newEl = document.createElement('div')
-      newEl.id = 'street-section-left-building'
+      side = 'left'
     } else {
       street.rightBuildingVariant = variantChoice
-
-      var el = document.querySelector('#street-section-right-building')
-      el.id = 'street-section-right-building-old'
-
-      var newEl = document.createElement('div')
-      newEl.id = 'street-section-right-building'
+      side = 'right'
     }
+
+    var el = document.querySelector('#street-section-' + side + '-building')
+    el.id = 'street-section-' + side + '-building-old'
+
+    var newEl = document.createElement('div')
+    newEl.className = 'street-section-building'
+    newEl.id = 'street-section-' + side + '-building'
 
     el.parentNode.appendChild(newEl)
     _updateBuildingPosition()
