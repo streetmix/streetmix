@@ -1,8 +1,9 @@
 var TRACK_LABEL_DRAGGING = 'Dragging'
 
 var DRAG_OFFSET_Y_PALETTE = -340 - 150
-var DRAG_OFFSET_Y_TOUCH_PALETTE = -100
-var DRAG_OFFSET_Y_TOUCH = -100
+// Disable Y offset on segments when touch dragging
+//var DRAG_OFFSET_Y_TOUCH_PALETTE = -100
+//var DRAG_OFFSET_Y_TOUCH = -100
 
 var DRAGGING_TYPE_NONE = 0
 var DRAGGING_TYPE_CLICK_OR_MOVE = 1
@@ -358,6 +359,7 @@ function _handleSegmentMoveMove (event) {
   if (!draggingMove.floatingElVisible) {
     draggingMove.floatingElVisible = true
 
+    /* // Disable Y offset on segments when touch dragging
     if (event.pointerType === 'touch') {
       if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
         draggingMove.elY += DRAG_OFFSET_Y_TOUCH_PALETTE
@@ -365,6 +367,7 @@ function _handleSegmentMoveMove (event) {
         draggingMove.elY += DRAG_OFFSET_Y_TOUCH
       }
     }
+    */
 
     window.setTimeout(function () {
       draggingMove.floatingEl.classList.remove('first-drag-move')
