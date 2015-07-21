@@ -8,6 +8,7 @@
 
   overflow-x: scroll;
   overflow-y: hidden;
+  touch-action: pan-x;
 }
 /*body.phone #street-section-outer {
   -webkit-overflow-scrolling: touch;
@@ -31,6 +32,7 @@
   height: @canvasHeight + 80;
   text-align: left;
   z-index: 1;
+  touch-action: pan-x;
 
   &::before {
     content: '';
@@ -88,7 +90,6 @@
 
   height: @canvasHeight + 40;
 }
-
 
 .rear-clouds,
 .front-clouds {
@@ -179,16 +180,13 @@
   background: @bottomBackground;
 }
 
-#street-section-left-building,
-#street-section-left-building-old,
-#street-section-right-building,
-#street-section-right-building-old {
+.street-section-building {
   display: block;
   position: absolute;
-
   top: -150px + 45px;
   width: 396px;
   height: @canvasHeight + 70px;
+  touch-action: pan-x;
 
   .hover-bk {
     position: absolute;
@@ -201,6 +199,12 @@
 
   &.hover .hover-bk {
     background: @segmentHoverBackground;
+  }
+
+  canvas {
+    position: absolute;
+    left: 0;
+    bottom: 0;
   }
 }
 
@@ -222,13 +226,4 @@
 #street-section-left-building .hover-bk,
 #street-section-left-building-old .hover-bk {
   right: 25px;
-}
-
-#street-section-left-building canvas,
-#street-section-right-building canvas,
-#street-section-left-building-old canvas,
-#street-section-right-building-old canvas {
-  position: absolute;
-  left: 0;
-  bottom: 0;
 }

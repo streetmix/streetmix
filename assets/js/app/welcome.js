@@ -35,7 +35,7 @@ function _showWelcome () {
     case WELCOME_FIRST_TIME_EXISTING_STREET:
       document.querySelector('#welcome').classList.add('first-time-existing-street')
 
-      document.querySelector('#welcome-new-street').addEventListener('click', function () {
+      document.querySelector('#welcome-new-street').addEventListener('pointerdown', function () {
         settingsWelcomeDismissed = true
         _saveSettingsWelcomeDismissed()
         _goNewStreet(true)

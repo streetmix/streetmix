@@ -358,7 +358,7 @@ function _handleSegmentMoveMove (event) {
   if (!draggingMove.floatingElVisible) {
     draggingMove.floatingElVisible = true
 
-    if (system.touch) {
+    if (event.pointerType === 'touch') {
       if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
         draggingMove.elY += DRAG_OFFSET_Y_TOUCH_PALETTE
       } else {
@@ -528,7 +528,7 @@ function _makeSpaceBetweenSegments (x, y) {
 }
 
 function _onBodyMouseMove (event) {
-  if (draggingType == DRAGGING_TYPE_NONE) {
+  if (draggingType === DRAGGING_TYPE_NONE) {
     return
   }
 

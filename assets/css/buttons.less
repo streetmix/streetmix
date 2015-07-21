@@ -49,15 +49,22 @@ footer button.scroll-right {
 }
 
 button.close {
-  margin-left: 10px;
-  margin-right: 10px;
+  // Position in dialog boxes
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  // Touch-friendly size
+  width: 36px;
+  height: 36px;
+
+  // Appearance
+  .appearance(none);
   border: none;
   font-size: 14px;
   background: transparent;
   color: rgb(64, 32, 32);
   cursor: pointer;
-
-  .appearance(none);
 
   &:hover {
     color: black;

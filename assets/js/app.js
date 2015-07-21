@@ -10,6 +10,7 @@
 // = require vendor/jquery-2.1.0.min
 // = require vendor/jquery.cookie
 // = require vendor/i18next-1.7.4
+// = require vendor/hand
 
 // = require_self
 // = require_tree util

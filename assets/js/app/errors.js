@@ -142,32 +142,32 @@ function _showError (errorType, newAbortEverything) {
 
   var el = document.getElementById('error-home')
   if (el) {
-    el.addEventListener('click', _goHome)
+    el.addEventListener('pointerdown', _goHome)
   }
 
   var el = document.getElementById('error-sign-in')
   if (el) {
-    el.addEventListener('click', _goSignIn)
+    el.addEventListener('pointerdown', _goSignIn)
   }
 
   var el = document.getElementById('error-reload')
   if (el) {
-    el && el.addEventListener('click', _goReload)
+    el && el.addEventListener('pointerdown', _goReload)
   }
 
   var el = document.getElementById('error-clear-sign-in-reload')
   if (el) {
-    el.addEventListener('click', _goReloadClearSignIn)
+    el.addEventListener('pointerdown', _goReloadClearSignIn)
   }
 
   var el = document.getElementById('error-new')
   if (el) {
-    el.addEventListener('click', _goNewStreet)
+    el.addEventListener('pointerdown', _goNewStreet)
   }
 
   var el = document.getElementById('error-example')
   if (el) {
-    el.addEventListener('click', _goExampleStreet)
+    el.addEventListener('pointerdown', _goExampleStreet)
   }
 
   document.getElementById('error').className += ' visible'

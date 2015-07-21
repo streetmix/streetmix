@@ -5,6 +5,7 @@
   height: @canvasHeight + 85px + 30px;
   text-align: center;
   perspective: 500px;
+  touch-action: none;
 }
 
 .segment.empty {
@@ -117,7 +118,7 @@ body:not(.segment-resize-dragging) .segment.outside .image {
   opacity: 0;
 }
 
-body:not(.touch-support) .segment.palette:hover {
+.segment.palette:hover {
   background: fadeout(@skyColour, 5%);
 
   canvas {

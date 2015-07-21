@@ -305,9 +305,9 @@ function _createSegment (type, variantString, width, isUnmovable, palette, randS
     _resizeSegment(el, RESIZE_TYPE_INITIAL, width, true, palette, true)
   }
 
-  if (!palette && !system.touch) {
-    $(el).mouseenter(_onSegmentMouseEnter)
-    $(el).mouseleave(_onSegmentMouseLeave)
+  if (!palette) {
+    el.addEventListener('pointerenter', _onSegmentMouseEnter)
+    el.addEventListener('pointerleave', _onSegmentMouseLeave)
   }
   return el
 }
@@ -539,17 +539,13 @@ var _statusMessage = {
     if (undo) {
       var buttonEl = document.createElement('button')
       buttonEl.innerHTML = msg('BUTTON_UNDO')
-      buttonEl.addEventListener('click', _undo)
+      buttonEl.addEventListener('pointerdown', _undo)
       document.querySelector('#status-message > div').appendChild(buttonEl)
     }
 
     var el = document.createElement('button')
     el.classList.add('close')
-    if (system.touch) {
-      el.addEventListener('touchstart', _onClickTheX)
-    } else {
-      el.addEventListener('click', _onClickTheX)
-    }
+    el.addEventListener('pointerdown', _onClickTheX)
     el.innerHTML = msg('UI_GLYPH_X')
     document.querySelector('#status-message > div').appendChild(el)
 

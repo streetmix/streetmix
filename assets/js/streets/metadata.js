@@ -37,7 +37,7 @@ function _updateStreetMetadata () {
 
     if (!readOnly) {
       document.querySelector('#street-metadata-author .user-gallery').
-        addEventListener('click', _onAnotherUserIdClick)
+        addEventListener('pointerdown', _onAnotherUserIdClick)
     }
   } else if (!street.creatorId && (signedIn || remixOnFirstEdit)) {
     var html = 'by ' + msg('USER_ANONYMOUS')

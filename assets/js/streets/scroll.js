@@ -65,11 +65,7 @@ function _addScrollButtons (el) {
   buttonEl.classList.add('scroll-left')
   buttonEl.el = el
   buttonEl.disabled = true
-  if (system.touch) {
-    buttonEl.addEventListener('touchstart', _onScrollButtonLeft)
-  } else {
-    buttonEl.addEventListener('click', _onScrollButtonLeft)
-  }
+  buttonEl.addEventListener('pointerdown', _onScrollButtonLeft)
   el.parentNode.appendChild(buttonEl)
 
   var buttonEl = document.createElement('button')
@@ -77,11 +73,7 @@ function _addScrollButtons (el) {
   buttonEl.classList.add('scroll-right')
   buttonEl.el = el
   buttonEl.disabled = true
-  if (system.touch) {
-    buttonEl.addEventListener('touchstart', _onScrollButtonRight)
-  } else {
-    buttonEl.addEventListener('click', _onScrollButtonRight)
-  }
+  buttonEl.addEventListener('pointerdown', _onScrollButtonRight)
   el.parentNode.appendChild(buttonEl)
 
   el.setAttribute('scroll-buttons', true)

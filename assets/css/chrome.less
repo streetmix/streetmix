@@ -11,12 +11,6 @@
   margin-bottom: 12px;
 }
 
-#welcome .close {
-  position: absolute;
-  right: -5px;
-  top: 5px;
-}
-
 #welcome-avatar-creator:not(.visible) {
   display: none;
 }
@@ -167,7 +161,6 @@ body.phone #loading {
   }
 }
 
-
 #status-message,
 #no-connection-message {
   position: absolute;
@@ -188,8 +181,10 @@ body.phone #loading {
   }
 
   & > div {
+    position: relative;
     display: inline-block;
     padding: 5px 20px;
+    padding-right: 45px; // for close box
     border-top: 3px solid darken(rgb(255, 230, 150), 20%);
     border-bottom: 3px solid darken(rgb(255, 230, 150), 20%);
     font-size: 13px;
@@ -206,14 +201,15 @@ body.phone #loading {
   a {
     color: inherit;
   }
+
+  // Override styles for dialog box close button
+  .close {
+    height: 100%;
+  }
 }
 
 body.no-connection-message-visible #status-message {
   bottom: 78px;
-}
-
-#status-message > div {
-  padding-right: 0; // for close box
 }
 
 // --------------------------------------------------------
