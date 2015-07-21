@@ -1094,8 +1094,9 @@ var SEGMENT_INFO = {
       },
       'inbound|shared': {
         name: 'Shared bus/bike lane',
-        minWidth: 10,
-        maxWidth: 13,
+        minWidth: 12,
+        maxWidth: 14,
+        defaultWidth: 14,
         graphics: {
           center: [
             { tileset: 1, x: 28, y: 27, width: 11, height: 13 }, // Bus
@@ -1109,8 +1110,9 @@ var SEGMENT_INFO = {
       },
       'outbound|shared': {
         name: 'Shared bus/bike lane',
-        minWidth: 10,
-        maxWidth: 13,
+        minWidth: 12,
+        maxWidth: 14,
+        defaultWidth: 14,
         graphics: {
           center: [
             { tileset: 1, x: 16, y: 27, width: 12, height: 13 }, // Bus
