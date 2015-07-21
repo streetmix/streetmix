@@ -381,7 +381,7 @@ function _onBuildingMouseEnter (event) {
 }
 
 function _onBuildingMouseLeave (event) {
-  if (!event.pointerType || event.pointerType !== 'mouse') return
+  if (event.pointerType !== 'mouse') return
 
   _infoBubble.dontConsiderShowing()
 }

@@ -77,7 +77,7 @@ var _infoBubble = {
 
   onMouseLeave: function (event) {
     // Prevent pointer taps from flashing the drag handles
-    if (event.pointerType && event.pointerType === 'mouse') {
+    if (event.pointerType === 'mouse') {
       if (_infoBubble.segmentEl) {
         _infoBubble.segmentEl.classList.remove('hide-drag-handles-when-inside-info-bubble')
       }
