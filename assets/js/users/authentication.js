@@ -1,3 +1,4 @@
+/* global Cookies */
 var TRACK_ACTION_ERROR_15A = 'Error 15A (sign in API failure)'
 var TRACK_ACTION_ERROR_RM1 = 'Error RM1 (auth 401 failure on load)'
 
@@ -21,15 +22,15 @@ function _saveSignInDataLocally () {
 }
 
 function _removeSignInCookies () {
-  $.removeCookie(SIGN_IN_TOKEN_COOKIE)
-  $.removeCookie(USER_ID_COOKIE)
+  Cookies.remove(SIGN_IN_TOKEN_COOKIE)
+  Cookies.remove(USER_ID_COOKIE)
 }
 
 function _loadSignIn () {
   signInLoaded = false
 
-  var signInCookie = $.cookie(SIGN_IN_TOKEN_COOKIE)
-  var userIdCookie = $.cookie(USER_ID_COOKIE)
+  var signInCookie = Cookies.get(SIGN_IN_TOKEN_COOKIE)
+  var userIdCookie = Cookies.get(USER_ID_COOKIE)
 
   if (signInCookie && userIdCookie) {
     signInData = { token: signInCookie, userId: userIdCookie }
