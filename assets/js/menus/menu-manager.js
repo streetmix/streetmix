@@ -37,9 +37,11 @@ var MenuManager = (function () {
   }
 
   function hideAll () {
-    _loseAnyFocus()
-
     var els = document.querySelectorAll('.menu.visible')
+    // Do not force body focus if there is nothing to hide
+    if (els.length > 0) {
+      _loseAnyFocus()
+    }
     for (var i = 0, j = els.length; i < j; i++) {
       els[i].classList.remove('visible')
     }

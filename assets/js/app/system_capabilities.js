@@ -28,6 +28,7 @@ function _detectSystemCapabilities () {
     system.touch = Modernizr.touch
   }
 
+  // Get system prefixes for page visibility API, page hidden and visibility state
   system.pageVisibility = Modernizr.pagevisibility
   system.hiddenProperty = Modernizr.prefixed('hidden', document, false)
   system.visibilityState = Modernizr.prefixed('visibilityState', document, false)
