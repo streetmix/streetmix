@@ -44,9 +44,6 @@ Stmx.init = function () {
     document.getElementById('settings-menu-item').style.display = 'none'
   }
 
-  // Temporary as per https://github.com/Modernizr/Modernizr/issues/788#issuecomment-12513563
-  Modernizr.addTest('pagevisibility', !!Modernizr.prefixed('hidden', document, false))
-
   // TODO make it better
   // Related to Enter to 404 bug in Chrome
   $.ajaxSetup({ cache: false })

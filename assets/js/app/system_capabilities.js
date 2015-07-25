@@ -1,4 +1,3 @@
-var CSS_TRANSFORMS = ['webkitTransform', 'MozTransform', 'transform']
 var readOnly = false
 var system = {
   touch: false,
@@ -28,7 +27,9 @@ function _detectSystemCapabilities () {
   } else {
     system.touch = Modernizr.touch
   }
+
   system.pageVisibility = Modernizr.pagevisibility
+
   if (debug.forceNonRetina) {
     system.hiDpi = 1.0
   } else {
@@ -42,14 +43,8 @@ function _detectSystemCapabilities () {
     system.phone = false
   }
 
-  system.cssTransform = false
-  var el = document.createElement('div')
-  for (var i in CSS_TRANSFORMS) {
-    if (typeof el.style[CSS_TRANSFORMS[i]] != 'undefined') {
-      system.cssTransform = CSS_TRANSFORMS[i]
-      break
-    }
-  }
+  // Returns CSS prefixed property or false if not supported.
+  system.cssTransform = Modernizr.prefixed('transform')
 
   if (navigator.userAgent.indexOf('Windows') != -1) {
     system.windows = true
