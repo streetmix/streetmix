@@ -32,7 +32,7 @@
     "express": "^4.13.1",
     "i18next": "^1.10.2",
     "jade": "^1.11.0",
-    "mongoose": "~4.0",
+    "mongoose": "^4.1.0",
     "newrelic": "^1.20.2",
     "node-env-file": "^0.1.7",
     "node-sass": "^3.2.0",
