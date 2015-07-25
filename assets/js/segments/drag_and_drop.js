@@ -161,8 +161,6 @@ function _handleSegmentResizeStart (event) {
   window.setTimeout(function () {
     el.segmentEl.classList.add('hover')
   }, 0)
-
-  _showWidthChartImmediately()
 }
 
 function _handleSegmentResizeMove (event) {
@@ -199,9 +197,6 @@ function _handleSegmentResizeMove (event) {
 
   draggingResize.mouseX = x
   draggingResize.mouseY = y
-
-  // TODO hack so it doesn’t disappear
-  _showWidthChartImmediately()
 }
 
 function _handleSegmentClickOrMoveStart (event) {

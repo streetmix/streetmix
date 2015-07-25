@@ -662,9 +662,6 @@ var _infoBubble = {
         innerEl.addEventListener('mouseover', _onWidthHeightEditMouseOver)
         innerEl.addEventListener('mouseout', _onWidthHeightEditMouseOut)
         innerEl.addEventListener('keydown', _onHeightEditKeyDown)
-
-      // innerEl.addEventListener('mouseover', _showWidthChart)
-      // innerEl.addEventListener('mouseout', _hideWidthChart)
       } else {
         var innerEl = document.createElement('span')
         innerEl.classList.add('height-non-editable')
@@ -705,8 +702,6 @@ var _infoBubble = {
       innerEl.title = msg('TOOLTIP_DECREASE_WIDTH')
       innerEl.tabIndex = -1
       innerEl.addEventListener('pointerdown', _onWidthDecrementClick)
-      innerEl.addEventListener('mouseover', _showWidthChart)
-      innerEl.addEventListener('mouseout', _hideWidthChart)
       widthCanvasEl.appendChild(innerEl)
 
       if (!system.touch) {
@@ -723,9 +718,6 @@ var _infoBubble = {
         innerEl.addEventListener('mouseover', _onWidthHeightEditMouseOver)
         innerEl.addEventListener('mouseout', _onWidthHeightEditMouseOut)
         innerEl.addEventListener('keydown', _onWidthEditKeyDown)
-
-      // innerEl.addEventListener('mouseover', _showWidthChart)
-      // innerEl.addEventListener('mouseout', _hideWidthChart)
       } else {
         var innerEl = document.createElement('span')
         innerEl.classList.add('width-non-editable')
@@ -739,8 +731,6 @@ var _infoBubble = {
       innerEl.tabIndex = -1
       innerEl.title = msg('TOOLTIP_INCREASE_WIDTH')
       innerEl.addEventListener('pointerdown', _onWidthIncrementClick)
-      innerEl.addEventListener('mouseover', _showWidthChart)
-      innerEl.addEventListener('mouseout', _hideWidthChart)
       widthCanvasEl.appendChild(innerEl)
 
       infoBubbleEl.appendChild(widthCanvasEl)

@@ -18,11 +18,6 @@ function _removeSegment (el, all) {
 
     _statusMessage.show(msg('STATUS_SEGMENT_DELETED'), true)
   }
-
-/*if (street.segments.length) {
-  _showWidthChartImmediately()
-  _hideWidthChart()
-}*/
 }
 
 function _onRemoveButtonClick (event) {

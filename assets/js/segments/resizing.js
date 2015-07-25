@@ -55,10 +55,6 @@ function _resizeSegment (el, resizeType, width, updateEdit, palette, initial) {
 
   if (!initial) {
     _segmentsChanged()
-
-    if (oldWidth != width) {
-      _showWidthChartImmediately()
-    }
   }
 }
 
@@ -112,8 +108,6 @@ function _handleSegmentResizeEnd (event) {
   _infoBubble.show(false)
 
   _scheduleControlsFadeout(draggingResize.segmentEl)
-
-  _hideWidthChart()
 
   suppressMouseEnter = true
   _infoBubble.considerShowing(event, draggingResize.segmentEl, INFO_BUBBLE_TYPE_SEGMENT)

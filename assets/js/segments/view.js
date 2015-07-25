@@ -281,8 +281,6 @@ function _createSegment (type, variantString, width, isUnmovable, palette, randS
     dragHandleEl.classList.add('left')
     dragHandleEl.segmentEl = el
     dragHandleEl.innerHTML = '‹'
-    dragHandleEl.addEventListener('mouseover', _showWidthChart)
-    dragHandleEl.addEventListener('mouseout', _hideWidthChart)
     el.appendChild(dragHandleEl)
 
     var dragHandleEl = document.createElement('span')
@@ -290,8 +288,6 @@ function _createSegment (type, variantString, width, isUnmovable, palette, randS
     dragHandleEl.classList.add('right')
     dragHandleEl.segmentEl = el
     dragHandleEl.innerHTML = '›'
-    dragHandleEl.addEventListener('mouseover', _showWidthChart)
-    dragHandleEl.addEventListener('mouseout', _hideWidthChart)
     el.appendChild(dragHandleEl)
 
     var innerEl = document.createElement('span')
@@ -608,7 +604,7 @@ function _segmentsChanged () {
   }
 
   _recalculateWidth()
-  _recalculateOwnerWidths()
+  //_recalculateOwnerWidths()
 
   for (var i in street.segments) {
     if (street.segments[i].el) {
@@ -621,20 +617,4 @@ function _segmentsChanged () {
   _repositionSegments()
 
   printingNeedsUpdating = true
-}
-
-function _recalculateOwnerWidths () {
-  var ownerWidths = {}
-
-  for (var id in SEGMENT_OWNERS) {
-    ownerWidths[id] = 0
-  }
-
-  for (var i in street.segments) {
-    var segment = street.segments[i]
-
-    ownerWidths[SEGMENT_INFO[segment.type].owner] += segment.width
-  }
-
-  _updateWidthChart(ownerWidths)
 }
