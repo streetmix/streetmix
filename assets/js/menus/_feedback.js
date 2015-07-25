@@ -5,9 +5,7 @@ MenuManager.define('feedback', {
 })
 
 function _isFeedbackFormMessagePresent () {
-  var message = document.querySelector('#feedback-form-message').value
-  message = $.trim(message)
-
+  var message = document.querySelector('#feedback-form-message').value.trim()
   return message.length > 0
 }
 
