@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/codeforamerica/streetmix.png?label=ready&title=Ready)](https://waffle.io/codeforamerica/streetmix)
 [![Build Status](https://travis-ci.org/codeforamerica/streetmix.svg?branch=master)](https://travis-ci.org/codeforamerica/streetmix)
 [![Dependency Status](https://david-dm.org/codeforamerica/streetmix.svg)](https://david-dm.org/codeforamerica/streetmix)
 [![Code Climate](https://codeclimate.com/github/codeforamerica/streetmix.png)](https://codeclimate.com/github/codeforamerica/streetmix)
