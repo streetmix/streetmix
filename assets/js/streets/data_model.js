@@ -61,7 +61,7 @@ function _incrementSchemaVersion (street) {
     case 3:
       for (var i in street.segments) {
         var segment = street.segments[i]
-        if (segment.type == 'transit-shelter') {
+        if (segment.type === 'transit-shelter') {
           var variant = _getVariantArray(segment.type, segment.variantString)
           variant['transit-shelter-elevation'] = 'street-level'
           segment.variantString = _getVariantString(variant)
@@ -71,7 +71,7 @@ function _incrementSchemaVersion (street) {
     case 4:
       for (var i in street.segments) {
         var segment = street.segments[i]
-        if (segment.type == 'sidewalk-lamp') {
+        if (segment.type === 'sidewalk-lamp') {
           var variant = _getVariantArray(segment.type, segment.variantString)
           variant['lamp-type'] = 'modern'
           segment.variantString = _getVariantString(variant)
@@ -81,7 +81,7 @@ function _incrementSchemaVersion (street) {
     case 5:
       for (var i in street.segments) {
         var segment = street.segments[i]
-        if (segment.type == 'streetcar') {
+        if (segment.type === 'streetcar') {
           var variant = _getVariantArray(segment.type, segment.variantString)
           variant['public-transit-asphalt'] = 'regular'
           segment.variantString = _getVariantString(variant)
@@ -91,7 +91,7 @@ function _incrementSchemaVersion (street) {
     case 6:
       for (var i in street.segments) {
         var segment = street.segments[i]
-        if ((segment.type == 'bus-lane') || (segment.type == 'light-rail')) {
+        if ((segment.type === 'bus-lane') || (segment.type === 'light-rail')) {
           var variant = _getVariantArray(segment.type, segment.variantString)
           variant['public-transit-asphalt'] = 'regular'
           segment.variantString = _getVariantString(variant)
@@ -101,7 +101,7 @@ function _incrementSchemaVersion (street) {
     case 7:
       for (var i in street.segments) {
         var segment = street.segments[i]
-        if (segment.type == 'bike-lane') {
+        if (segment.type === 'bike-lane') {
           var variant = _getVariantArray(segment.type, segment.variantString)
           variant['bike-asphalt'] = 'regular'
           segment.variantString = _getVariantString(variant)
@@ -111,7 +111,7 @@ function _incrementSchemaVersion (street) {
     case 8:
       for (var i in street.segments) {
         var segment = street.segments[i]
-        if (segment.type == 'drive-lane') {
+        if (segment.type === 'drive-lane') {
           var variant = _getVariantArray(segment.type, segment.variantString)
           variant['car-type'] = 'car'
           segment.variantString = _getVariantString(variant)
@@ -121,7 +121,7 @@ function _incrementSchemaVersion (street) {
     case 9:
       for (var i in street.segments) {
         var segment = street.segments[i]
-        if (segment.type == 'sidewalk') {
+        if (segment.type === 'sidewalk') {
           var variant = _getVariantArray(segment.type, segment.variantString)
           variant['sidewalk-density'] = 'normal'
           segment.variantString = _getVariantString(variant)
@@ -131,13 +131,13 @@ function _incrementSchemaVersion (street) {
     case 10:
       for (var i in street.segments) {
         var segment = street.segments[i]
-        if (segment.type == 'planting-strip') {
+        if (segment.type === 'planting-strip') {
           segment.type = 'divider'
 
-          if (segment.variantString == '') {
+          if (segment.variantString === '') {
             segment.variantString = 'planting-strip'
           }
-        } else if (segment.type == 'small-median') {
+        } else if (segment.type === 'small-median') {
           segment.type = 'divider'
           segment.variantString = 'median'
         }
@@ -146,12 +146,12 @@ function _incrementSchemaVersion (street) {
     case 11:
       for (var i in street.segments) {
         var segment = street.segments[i]
-        if (segment.type == 'divider') {
-          if (segment.variantString == 'small-tree') {
+        if (segment.type === 'divider') {
+          if (segment.variantString === 'small-tree') {
             segment.variantString = 'big-tree'
           }
-        } else if (segment.type == 'sidewalk-tree') {
-          if (segment.variantString == 'small') {
+        } else if (segment.type === 'sidewalk-tree') {
+          if (segment.variantString === 'small') {
             segment.variantString = 'big'
           }
         }
@@ -160,7 +160,7 @@ function _incrementSchemaVersion (street) {
     case 12:
       for (var i in street.segments) {
         var segment = street.segments[i]
-        if (segment.type == 'sidewalk-bike-rack') {
+        if (segment.type === 'sidewalk-bike-rack') {
           var variant = _getVariantArray(segment.type, segment.variantString)
           variant['bike-rack-elevation'] = 'sidewalk'
           segment.variantString = _getVariantString(variant)
@@ -170,7 +170,7 @@ function _incrementSchemaVersion (street) {
     case 13:
       for (var i in street.segments) {
         var segment = street.segments[i]
-        if (segment.type == 'sidewalk-wayfinding') {
+        if (segment.type === 'sidewalk-wayfinding') {
           var variant = _getVariantArray(segment.type, segment.variantString)
           variant['wayfinding-type'] = 'large'
           segment.variantString = _getVariantString(variant)
@@ -180,7 +180,7 @@ function _incrementSchemaVersion (street) {
     case 14:
       for (var i in street.segments) {
         var segment = street.segments[i]
-        if (segment.type == 'sidewalk') {
+        if (segment.type === 'sidewalk') {
           segment.randSeed = 35
         }
       }

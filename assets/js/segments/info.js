@@ -1017,7 +1017,7 @@ var SEGMENT_INFO = {
     owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
     zIndex: 2,
     defaultWidth: 12,
-    variants: ['direction', 'public-transit-asphalt'],
+    variants: ['direction', 'bus-asphalt'],
     details: {
       'inbound|regular': {
         minWidth: 10,
