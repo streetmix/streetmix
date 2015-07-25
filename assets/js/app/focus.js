@@ -41,10 +41,7 @@ function _onWindowBlur () {
 }
 
 function _onVisibilityChange () {
-  var hidden = document.hidden || document.webkitHidden ||
-    document.msHidden || document.mozHidden
-
-  if (hidden) {
+  if (document[system.visibilityState] === 'hidden') {
     _onWindowBlur()
   } else {
     _onWindowFocus()

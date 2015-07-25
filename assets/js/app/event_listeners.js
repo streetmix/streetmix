@@ -53,14 +53,12 @@ function _addEventListeners () {
 
   document.querySelector('#sign-out-link').addEventListener('pointerdown', _onSignOutClick)
 
-  /*if (system.pageVisibility) {
-    document.addEventListener('visibilitychange', _onVisibilityChange, false)
-    document.addEventListener('webkitvisibilitychange', _onVisibilityChange, false)
-    document.addEventListener('mozvisibilitychange', _onVisibilityChange, false)
-    document.addEventListener('msvisibilitychange', _onVisibilityChange, false)
-  }*/
-  window.addEventListener('focus', _onWindowFocus)
-  window.addEventListener('blur', _onWindowBlur)
+  if (system.pageVisibility) {
+    document.addEventListener(system.visibilityChange, _onVisibilityChange, false)
+  } else {
+    window.addEventListener('focus', _onWindowFocus)
+    window.addEventListener('blur', _onWindowBlur)
+  }
 
   window.addEventListener('beforeunload', _onWindowBeforeUnload)
 

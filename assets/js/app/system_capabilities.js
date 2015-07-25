@@ -29,6 +29,27 @@ function _detectSystemCapabilities () {
   }
 
   system.pageVisibility = Modernizr.pagevisibility
+  system.hiddenProperty = Modernizr.prefixed('hidden', document, false)
+  system.visibilityState = Modernizr.prefixed('visibilityState', document, false)
+  if (system.hiddenProperty) {
+    switch (system.hiddenProperty.toLowerCase()) {
+      case 'hidden':
+        system.visibilityChange = 'visibilitychange'
+        break
+      case 'mozhidden':
+        system.visibilityChange = 'mozvisibilitychange'
+        break
+      case 'mshidden':
+        system.visibilityChange = 'msvisibilitychange'
+        break
+      case 'webkithidden':
+        system.visibilityChange = 'webkitvisibilitychange'
+        break
+      default:
+        system.visibilityChange = false
+        break
+    }
+  }
 
   if (debug.forceNonRetina) {
     system.hiDpi = 1.0
