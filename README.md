@@ -1,12 +1,10 @@
-[![Stories in Ready](https://badge.waffle.io/codeforamerica/streetmix.png?label=ready&title=Ready)](https://waffle.io/codeforamerica/streetmix)
-[![Build Status](https://travis-ci.org/codeforamerica/streetmix.svg?branch=master)](https://travis-ci.org/codeforamerica/streetmix)
-[![Dependency Status](https://david-dm.org/codeforamerica/streetmix.svg)](https://david-dm.org/codeforamerica/streetmix)
-[![Code Climate](https://codeclimate.com/github/codeforamerica/streetmix.png)](https://codeclimate.com/github/codeforamerica/streetmix)
+[![Build Status](https://img.shields.io/travis/codeforamerica/streetmix/master.svg?style=flat-square)](https://travis-ci.org/codeforamerica/streetmix)
+[![Dependency Status](https://img.shields.io/david/codeforamerica/streetmix.svg?style=flat-square)](https://david-dm.org/codeforamerica/streetmix)
+[![Code Climate](https://img.shields.io/codeclimate/github/codeforamerica/streetmix.png?style=flat-square)](https://codeclimate.com/github/codeforamerica/streetmix)
+[![Join the chat at https://gitter.im/codeforamerica/streetmix](https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-00d06f.svg?style=flat-square)](https://gitter.im/codeforamerica/streetmix?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Streetmix
 =========
-
-[![Join the chat at https://gitter.im/codeforamerica/streetmix](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/codeforamerica/streetmix?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Streetmix is a browser-based interactive tool that lets you design, remix, and share your neighborhood street.  Add trees or bike paths, widen sidewalks or traffic lanes, and learn how your decisions can impact your community.
 
@@ -151,7 +149,10 @@ NO_INTERNET_MODE=true
 
 
 ## Contributing
+
 See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+[![Waffle.io stories in Ready](https://badge.waffle.io/codeforamerica/streetmix.png?label=ready&title=Issues ready)](https://waffle.io/codeforamerica/streetmix)
 
 ### Submitting an Issue
 We use the [GitHub issue tracker][issues] to track bugs and features. Before
