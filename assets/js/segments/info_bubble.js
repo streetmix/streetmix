@@ -532,7 +532,7 @@ var _infoBubble = {
       var svgEl = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
       svgEl.setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns', 'http://www.w3.org/1999/svg')
       svgEl.setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xlink', 'http://www.w3.org/1999/xlink')
-      if (svgEl.classlist) {
+      if (svgEl.classList) {
         svgEl.classList.add('icon')
       } else {
         // Internet Explorer does not have the .classList methods on SVGElements
