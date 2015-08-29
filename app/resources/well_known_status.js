@@ -1,7 +1,5 @@
-var async = require('async'),
-  mongoose = require('mongoose'),
-  db = require('../../lib/db.js'),
-  Street = require('../models/street.js')
+var async = require('async')
+var Street = require('../models/street.js')
 
 exports.get = function (req, res) {
   var response = {
@@ -16,30 +14,26 @@ exports.get = function (req, res) {
 
   async.parallel([
     fetchStreetFromDb
-  ],
-    function (err, results) {
+  ], function (err, results) {
       if (err) {
         response.status = err
       } else {
         response.status = 'ok'
       }
       res.send(200, response)
-    }
-  )
-
+    })
 }
 
 var fetchStreetFromDb = function (cb) {
   Street.count({}, function (err, count) {
     if (err) {
       cb(err)
-    } else if (count == 0) {
+    } else if (count === 0) {
       cb('0 streets returned.')
     } else {
       cb()
     }
   })
-
 }
 
 // TODO: Resources: % db used, % sendgrid used (0 - 100)

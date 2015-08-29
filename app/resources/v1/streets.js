@@ -1,15 +1,15 @@
-var async = require('async'),
-  mongoose = require('mongoose'),
-  config = require('config'),
-  uuid = require('uuid'),
-  db = require('../../../lib/db.js'),
-  Street = require('../../models/street.js'),
-  User = require('../../models/user.js'),
-  Sequence = require('../../models/sequence.js'),
-  logger = require('../../../lib/logger.js')()
+var async = require('async')
+var config = require('config')
+var uuid = require('uuid')
+var Street = require('../../models/street.js')
+var User = require('../../models/user.js')
+var Sequence = require('../../models/sequence.js')
+var logger = require('../../../lib/logger.js')()
 
 exports.post = function (req, res) {
   var street = new Street()
+  var body
+
   street.id = uuid.v1()
 
   var request_ip = function (req) {
@@ -20,7 +20,6 @@ exports.post = function (req, res) {
     }
   }
 
-  var body
   if (req.body && (req.body.length > 0)) {
     try {
       body = req.body
@@ -89,7 +88,7 @@ exports.post = function (req, res) {
   } // END function - makeNamespacedId
 
   var handleFindStreet = function (err, origStreet) {
-    if (!origStreet) {
+    if (err || !origStreet) {
       res.status(404).send('Original street not found.')
       return
     }
@@ -114,7 +113,7 @@ exports.post = function (req, res) {
   } // END function - saveStreet
 
   var handleFindUser = function (err, user) {
-    if (!user) {
+    if (err || !user) {
       res.status(401).send('User with that login token not found.')
       return
     }
@@ -220,7 +219,7 @@ exports.get = function (req, res) {
     }
 
     res.header('Last-Modified', street.updated_at)
-    if (req.method == 'HEAD') {
+    if (req.method === 'HEAD') {
       res.status(204).end()
       return
     }
@@ -251,8 +250,8 @@ exports.get = function (req, res) {
 exports.find = function (req, res) {
   var creatorId = req.query.creatorId
   var namespacedId = req.query.namespacedId
-  var start = (req.query.start && parseInt(req.query.start) || 0)
-  var count = (req.query.count && parseInt(req.query.count) || 20)
+  var start = (req.query.start && parseInt(req.query.start, 10) || 0)
+  var count = (req.query.count && parseInt(req.query.count, 10) || 20)
 
   var handleFindStreet = function (err, street) {
     if (err) {
@@ -277,7 +276,7 @@ exports.find = function (req, res) {
   } // END function - handleFindStreet
 
   var handleFindUser = function (err, user) {
-    if (!user) {
+    if (err || !user) {
       res.status(404).send('Creator not found.')
       return
     }
@@ -363,6 +362,8 @@ exports.find = function (req, res) {
 } // END function - exports.find
 
 exports.put = function (req, res) {
+  var body
+
   if (req.body) {
     try {
       body = req.body
@@ -404,7 +405,7 @@ exports.put = function (req, res) {
     }
 
     var handleFindOriginalStreet = function (err, origStreet) {
-      if (!origStreet) {
+      if (err || !origStreet) {
         res.status(404).send('Original street not found.')
         return
       }

@@ -1,10 +1,7 @@
-var mongoose = require('mongoose'),
-  config = require('config'),
-  async = require('async'),
-  db = require('../../../lib/db.js'),
-  User = require('../../models/user.js'),
-  Street = require('../../models/street.js'),
-  logger = require('../../../lib/logger.js')()
+var async = require('async')
+var User = require('../../models/user.js')
+var Street = require('../../models/street.js')
+var logger = require('../../../lib/logger.js')()
 
 exports.get = function (req, res) {
   var handleFindUser = function (err, user) {

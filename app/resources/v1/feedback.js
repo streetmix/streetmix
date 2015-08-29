@@ -60,11 +60,11 @@ exports.post = function (req, res) {
   }, function (err, json) {
     if (err) {
       logger.error('Sendgrid: Error sending email. ', json)
-      res.status(500).json({msg: 'Could not send feedback.' })
+      res.status(500).json({ msg: 'Could not send feedback.' })
       return
     }
     logger.info('Sendgrid: Feedback accepted. ', json)
-    res.status(202).json({msg: 'Feedback accepted.' })
+    res.status(202).json({ msg: 'Feedback accepted.' })
   })
 
 } // END function - exports.post

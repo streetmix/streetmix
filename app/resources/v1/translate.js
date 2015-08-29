@@ -14,9 +14,9 @@ exports.get = function (req, res) {
       if (err) {
         logger.error(err)
         if (err.code === 'ENOENT') {
-          res.status(404).json({status: 404, msg: 'No translation found with locale code: ' + locale })
+          res.status(404).json({ status: 404, msg: 'No translation found with locale code: ' + locale })
         } else {
-          res.status(500).json({status: 500, msg: 'Could not retrieve translation.'})
+          res.status(500).json({ status: 500, msg: 'Could not retrieve translation.' })
         }
         return
       }
@@ -70,6 +70,6 @@ exports.get = function (req, res) {
     return
   }
 
-  handleGetTranslation(req.params.locale_code)
-  // handleGetFromTransifex(req.params.locale_code)
+  //handleGetTranslation(req.params.locale_code)
+  handleGetFromTransifex(req.params.locale_code)
 }

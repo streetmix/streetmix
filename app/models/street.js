@@ -1,13 +1,16 @@
-var mongoose = require('mongoose'),
-  async = require('async'),
-  User = require('./user.js')
+var mongoose = require('mongoose')
+var async = require('async')
+var User = require('./user.js')
 
 var streetSchema = new mongoose.Schema({
   id: { type: String, index: { unique: true } },
   namespaced_id: Number,
   status: { type: String, enum: [ 'ACTIVE', 'DELETED' ], default: 'ACTIVE' },
   name: String,
-  creator_id: { type: mongoose.Schema.ObjectId, ref: mongoose.model('User')},
+  creator_id: {
+    type: mongoose.Schema.ObjectId,
+    ref: mongoose.model('User')
+  },
   data: mongoose.Schema.Types.Mixed,
   created_at: { type: Date, index: true },
   updated_at: { type: Date, index: true },
@@ -15,7 +18,10 @@ var streetSchema = new mongoose.Schema({
 })
 
 streetSchema.add({
-  original_street_id: { type: mongoose.Schema.ObjectId, ref: streetSchema},
+  original_street_id: {
+    type: mongoose.Schema.ObjectId,
+    ref: streetSchema
+  }
 })
 
 streetSchema.pre('save', function (next) {

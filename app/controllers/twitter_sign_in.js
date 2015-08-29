@@ -1,7 +1,7 @@
-var config = require('config'),
-  sprintf = require('sprintf').sprintf
-oauth = require('../../lib/oauth.js'),
-logger = require('../../lib/logger.js')()
+var config = require('config')
+var sprintf = require('sprintf').sprintf
+var oauth = require('../../lib/oauth.js')
+var logger = require('../../lib/logger.js')()
 
 var oauthRequestTokenHandler = function (req, res) {
   return function (err, oauth_token, oauth_token_secret, results) {
@@ -21,9 +21,7 @@ var oauthRequestTokenHandler = function (req, res) {
     // Redirect user to Twitter sign-in flow
     res.redirect(sprintf(config.twitter.oauth_authenticate_uri, oauth_token))
     return
-
   }
-
 }
 
 exports.get = function (req, res) {
@@ -33,5 +31,4 @@ exports.get = function (req, res) {
   })
   logger.error(o)
   o.getOAuthRequestToken(oauthRequestTokenHandler(req, res))
-
 } // END function - exports.get
