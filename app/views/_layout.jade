@@ -24,6 +24,13 @@ html(lang='en')
 
     != css('styles')
 
+    //- Google analytics
+    //- Placed in head per Google's instructions
+    //- This incurs no performance hit. The snippet itself creates an
+    //- asynchronous (non-blocking) request to analytics.js.
+    if config.google_analytics_account
+      include ./misc/ga
+
     script.
       var SITE_URL = 'http://#{ config.app_host_port }/'
       var API_URL = '#{ config.restapi_proxy_baseuri_rel }/'
@@ -45,7 +52,3 @@ html(lang='en')
 
   script.
     Stmx.init()
-
-  //- Google analytics
-  if config.google_analytics_account
-    include ./misc/ga
