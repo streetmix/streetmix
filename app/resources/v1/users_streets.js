@@ -1,4 +1,6 @@
 var async = require('async')
+
+require('../../../lib/db.js')
 var User = require('../../models/user.js')
 var Street = require('../../models/street.js')
 var logger = require('../../../lib/logger.js')()

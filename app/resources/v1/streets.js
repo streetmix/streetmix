@@ -1,6 +1,8 @@
 var async = require('async')
 var config = require('config')
 var uuid = require('uuid')
+
+require('../../../lib/db.js')
 var Street = require('../../models/street.js')
 var User = require('../../models/user.js')
 var Sequence = require('../../models/sequence.js')
