@@ -6,6 +6,7 @@
     "type": "git",
     "url": "https://github.com/codeforamerica/streetmix.git"
   },
+  "license": "BSD-3-Clause",
   "engines": {
     "node": ">=0.12.6",
     "npm": ">=2.4.1"
@@ -47,7 +48,7 @@
     "supervisor": "^0.7.1",
     "twitter": "^1.2.5",
     "uuid": "2.0.x",
-    "validator": "^3.41.2",
+    "validator": "^4.0.5",
     "winston": "^1.0.1"
   },
   "devDependencies": {

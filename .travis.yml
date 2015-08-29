@@ -1,6 +1,7 @@
 language: node_js
 node_js:
-  - "0.10"
+  - "0.12"
+sudo: false
 
 env:
   global:
@@ -8,7 +9,7 @@ env:
     - secure: YFYR9PLyfwpVVRoTeCz/0Cml2NDCrqUgufshdKxc5SM/l0Ix8XlP8eJ+s3CVArTzWJg9nzOopt9qaXtTbcN+Kr5SaMDpmjliXpmOGEkhx29dCTYuksjbGW44ImUWT2kaAARZnufPXrI7/QDxHjcaMWlR5wKveB/8m0FpEpd7YL4=
 
 addons:
-  sauce_connect: true    
+  sauce_connect: true
 
 services:
   - mongodb
