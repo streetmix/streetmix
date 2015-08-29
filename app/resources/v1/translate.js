@@ -35,7 +35,8 @@ exports.get = function (req, res) {
   // Use the Transifex API
   var handleGetFromTransifex = function (locale) {
     if (!process.env.TRANSIFEX_USERNAME || !process.env.TRANSIFEX_PASSWORD) {
-      res.status(501).json({status: 501, msg: 'Language API is not correctly implemented.'})
+      logger.error('Need Transifex username or password.')
+      res.status(501).json({ status: 501, msg: 'Language API is not implemented.' })
       return
     }
 
@@ -48,7 +49,8 @@ exports.get = function (req, res) {
       .set('Accept', 'application/json')
       .end(function (err, data) {
         if (err) {
-          res.status(500).json({status: 500, msg: 'There was an error retrieving the language.'})
+          logger.error(err)
+          res.status(500).json({ status: 500, msg: 'There was an error retrieving the language.' })
           return
         }
 
@@ -66,7 +68,7 @@ exports.get = function (req, res) {
   } // END function - handleGetFromTransifex
 
   if (!req.params.locale_code) {
-    res.status(400).json({status: 400, msg: 'Please provide locale code.'})
+    res.status(400).json({ status: 400, msg: 'Please provide locale code.' })
     return
   }
 
