@@ -3,8 +3,12 @@ var cookieParser = require('cookie-parser')
 var cookieSession = require('cookie-session')
 var express = require('express')
 var assets = require('connect-assets')
+var sassMiddleware = require('node-sass-middleware')
+var postcssMiddleware = require('postcss-middleware')
+var autoprefixer = require('autoprefixer')
 var bodyParser = require('body-parser')
 var config = require('config')
+var path = require('path')
 var controllers = require('./app/controllers')
 var resources = require('./app/resources')
 var requestHandlers = require('./lib/request_handlers')
@@ -66,13 +70,26 @@ app.get('/api/v1/translate/:locale_code', resources.v1.translate.get)
 
 app.get('/.well-known/status', resources.well_known_status.get)
 
-app.use(assets({
-  precompile: ['styles.scss', 'app.js']
-}, function (instance) {
-  instance.environment.enable('autoprefixer')
-  //instance.Autoprefixer.configure(['last 2 versions', 'IE >= 11'])
+// Process stylesheets via Sass and PostCSS / Autoprefixer
+app.use('/assets/styles.css', postcssMiddleware({
+  src: function (req) {
+    return path.join(__dirname, 'public', 'styles.css')
+  },
+  plugins: [autoprefixer({ browsers: ['last 2 versions', 'IE >= 11'] })]
 }))
-app.use(express.static(__dirname + '/public'))
+app.use(sassMiddleware({
+  src: path.join(__dirname, 'assets/css'),
+  dest: path.join(__dirname, 'public'),
+  debug: (app.locals.config.env !== 'production'),
+  outputStyle: 'compressed',
+  prefix: '/assets'
+}))
+
+app.use(assets({
+  precompile: ['app.js']
+}))
+
+app.use(express.static(path.join(__dirname, '/public')))
 
 // Catch-all
 app.use(function (req, res) {
