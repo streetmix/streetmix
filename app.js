@@ -9,7 +9,7 @@ var path = require('path')
 var controllers = require('./app/controllers')
 var resources = require('./app/resources')
 var requestHandlers = require('./lib/request_handlers')
-var cssMiddleware = require('./lib/middleware/stylesheets')
+var middleware = require('./lib/middleware')
 var logger = require('./lib/logger')()
 var exec = require('child_process').exec
 
@@ -69,7 +69,7 @@ app.get('/api/v1/translate/:locale_code', resources.v1.translate.get)
 app.get('/.well-known/status', resources.well_known_status.get)
 
 // Process stylesheets via Sass and PostCSS / Autoprefixer
-app.use('/assets/css', cssMiddleware)
+app.use('/assets/css', middleware.styles)
 
 app.use(assets({
   paths: ['assets/js'],
