@@ -104,7 +104,7 @@
   z-index: -1;
 
   &.rear-clouds {
-    background-image: url(../images/sky-rear.png);
+    background-image: url(/images/sky-rear.png);
     background-size: 250px 120px;
 
     height: 120px;
@@ -113,7 +113,7 @@
   }
 
   &.front-clouds {
-    background-image: url(../images/sky-front.png);
+    background-image: url(/images/sky-front.png);
     background-size: 250px 280px;
 
     opacity: 0.5;
