@@ -69,7 +69,7 @@ app.get('/api/v1/translate/:locale_code', resources.v1.translate.get)
 app.get('/.well-known/status', resources.well_known_status.get)
 
 // Process stylesheets via Sass and PostCSS / Autoprefixer
-app.use('/assets/css', middleware.styles)
+app.use('/assets/css/styles.css', middleware.styles)
 
 app.use(assets({
   paths: ['assets/js'],
