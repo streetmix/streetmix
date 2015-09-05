@@ -71,18 +71,19 @@ app.get('/api/v1/translate/:locale_code', resources.v1.translate.get)
 app.get('/.well-known/status', resources.well_known_status.get)
 
 // Process stylesheets via Sass and PostCSS / Autoprefixer
+app.use(sassMiddleware({
+  src: path.join(__dirname, 'assets/css'),
+  dest: path.join(__dirname, 'public'),
+  debug: (app.locals.config.env !== 'production'),
+  response: false, // Allows postCSS to take over from here
+  outputStyle: 'compressed',
+  prefix: '/assets'
+}))
 app.use('/assets/styles.css', postcssMiddleware({
   src: function (req) {
     return path.join(__dirname, 'public', 'styles.css')
   },
   plugins: [autoprefixer({ browsers: ['last 2 versions', 'IE >= 11'] })]
-}))
-app.use(sassMiddleware({
-  src: path.join(__dirname, 'assets/css'),
-  dest: path.join(__dirname, 'public'),
-  debug: (app.locals.config.env !== 'production'),
-  outputStyle: 'compressed',
-  prefix: '/assets'
 }))
 
 app.use(assets({
