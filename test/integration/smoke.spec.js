@@ -6,11 +6,11 @@ describe('Streetmix smoke test', function () {
   it('should have a title', function () {
     browser.get('/')
 
-    expect(browser.getTitle()).toEqual('Unnamed St – Streetmix')
-
     browser.wait(function () {
       return browser.isElementPresent(by.css('.first-time-new-street'))
     }, 20000)
+
+    expect(browser.getTitle()).toEqual('Unnamed St – Streetmix')
 
     expect(element.all(by.css('.first-time-new-street')).first().getText()).toContain('Welcome to Streetmix.')
   })
