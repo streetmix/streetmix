@@ -55,7 +55,7 @@ test('post api/v1/feedback', function (t) {
         t.error(err)
       }
 
-      t.equal(res.statusCode, 202, 'should respond with 202 accepted')
+      t.equal(res.statusCode, 202, 'should respond with 202 accepted when message is sent')
     })
 
   // Post to feedback with invalid transmission
@@ -68,7 +68,7 @@ test('post api/v1/feedback', function (t) {
         t.error(err)
       }
 
-      t.equal(res.statusCode, 400, 'should respond with 400 bad request if no message is sent')
+      t.equal(res.statusCode, 400, 'should respond with 400 bad request when no message is sent')
     })
 })
 
