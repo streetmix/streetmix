@@ -10,5 +10,8 @@ module.exports = {
   },
   db: {
     url: 'mongodb://127.0.0.1/streetmix_test'
+  },
+  email: {
+    feedback_recipient: 'nobody@example.com'
   }
 }
