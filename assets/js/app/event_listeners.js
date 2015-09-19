@@ -43,9 +43,11 @@ function _addEventListeners () {
   document.querySelector('#blocking-shield-reload').addEventListener('pointerdown', _goReload)
   document.querySelector('#gallery-shield').addEventListener('pointerdown', _onGalleryShieldClick)
 
-  document.querySelector('#new-street-default').addEventListener('pointerdown', _onNewStreetDefaultClick)
-  document.querySelector('#new-street-empty').addEventListener('pointerdown', _onNewStreetEmptyClick)
-  document.querySelector('#new-street-last').addEventListener('pointerdown', _onNewStreetLastClick)
+  // The following do not seem to work on pointerdown
+  // click should also be fired by other input methods
+  document.querySelector('#new-street-default').addEventListener('click', _onNewStreetDefaultClick)
+  document.querySelector('#new-street-empty').addEventListener('click', _onNewStreetEmptyClick)
+  document.querySelector('#new-street-last').addEventListener('click', _onNewStreetLastClick)
 
   window.addEventListener('storage', _onStorageChange)
 
