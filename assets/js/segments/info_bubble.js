@@ -10,6 +10,8 @@ var INFO_BUBBLE_TYPE_RIGHT_BUILDING = 3
 var TOUCH_CONTROLS_FADEOUT_TIME = 3000;
 var TOUCH_CONTROLS_FADEOUT_DELAY = 3000;
 
+var MIN_TOP_MARGIN_FROM_VIEWPORT = 120;
+
 var _infoBubble = {
   mouseInside: false,
 
@@ -930,8 +932,8 @@ var _infoBubble = {
 
     // TODO const
     bubbleY -= bubbleHeight - 20
-    if (bubbleY < 50) {
-      bubbleY = 50
+    if (bubbleY < MIN_TOP_MARGIN_FROM_VIEWPORT) {
+      bubbleY = MIN_TOP_MARGIN_FROM_VIEWPORT
     }
 
     bubbleX += segmentEl.offsetWidth / 2
