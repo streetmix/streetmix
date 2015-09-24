@@ -11,26 +11,36 @@ var transmission = {
   additionalInformation: 'User agent'
 }
 
-var sendgridStub = function (username, password) {
-  // Normally, sendgrid expects username and password. We are not testing
-  // authentication here, so the stub throws credentials away.
-  return {
-    send: function (data, callback) {
-      // Throw data away and executes callback, passing false to err
-      // to simulate success
-      callback(false)
-    }
-  }
-}
-
 function setupMockServer () {
   var express = require('express')
   var bodyParser = require('body-parser')
   var app = express()
 
-  // Proxy-requires feedback controller, stubbing SendGrid client library
+  var sendgridStub = function (username, password) {
+    // Normally, sendgrid expects username and password. We are not testing
+    // authentication here, so the stub throws credentials away.
+    return {
+      send: function (data, callback) {
+        // Throw data away and executes callback, passing null to err
+        // and empty string to response to simulate success
+        callback(null, '')
+      }
+    }
+  }
+
+  // Intercept feedback's logger & stubs logs with noops. It doesn't really
+  // provide any useful information other than what the test output will give us.
+  var loggerStub = function () {
+    return {
+      info: function () {},
+      error: function () {}
+    }
+  }
+
+  // Proxy-requires feedback controller, stubbing SendGrid client library & logger
   var feedback = proxyquire(path.join(process.cwd(), '/app/resources/v1/feedback'), {
-    'sendgrid': sendgridStub
+    'sendgrid': sendgridStub,
+    '../../../lib/logger.js': loggerStub
   })
 
   // Need body-parser middleware to handle JSON request body
