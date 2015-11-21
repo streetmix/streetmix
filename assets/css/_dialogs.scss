@@ -5,18 +5,18 @@
 
 // Base styles for dialog boxes
 
-$dialogBoxDefaultWidth:   790px;
-$dialogBoxZIndex:         99999999 + 3;
+$dialog-box-default-width: 790px;
+$dialog-box-z-index: 99999999 + 3;
 
 #dialog-box-shield {
-  z-index: $dialogBoxZIndex - 1;
+  z-index: $dialog-box-z-index - 1;
 
   position: absolute;
   left: 0;
   top: 0;
   right: 0;
   bottom: 0;
-  background: fade-out($skyColour, 0.5);
+  background: fade-out($sky-colour, 0.5);
   cursor: pointer;
   touch-action: none;
 
@@ -26,17 +26,18 @@ $dialogBoxZIndex:         99999999 + 3;
 }
 
 .dialog-box {
-  z-index: $dialogBoxZIndex;
+  @include box-border;
+
+  z-index: $dialog-box-z-index;
   position: absolute;
 
   top: 100px;
   left: 50%;
-  margin-left: -($dialogBoxDefaultWidth / 2);
+  margin-left: -($dialog-box-default-width / 2);
 
   box-sizing: border-box;
-  padding: 15px 15px;
+  padding: 15px;
 
-  @include box-border();
   background: white;
   font-size: 13px;
   line-height: 1.5;
@@ -50,11 +51,12 @@ $dialogBoxZIndex:         99999999 + 3;
 // Content of #about and #save-as-image dialog boxes
 
 #about {
-  width: $dialogBoxDefaultWidth;
+  width: $dialog-box-default-width;
 
   .description {
     font-size: 16px;
   }
+
   .left {
     width: 300px;
     margin-right: 40px;
@@ -62,6 +64,7 @@ $dialogBoxZIndex:         99999999 + 3;
     vertical-align: top;
     margin-left: 40px;
   }
+
   .right {
     width: 350px;
     display: inline-block;
@@ -73,6 +76,7 @@ $dialogBoxZIndex:         99999999 + 3;
     padding: 0;
     margin: 0;
   }
+
   .team {
     a {
       color: black;
@@ -85,7 +89,7 @@ $dialogBoxZIndex:         99999999 + 3;
 }
 
 #save-as-image-dialog {
-  width: $dialogBoxDefaultWidth;
+  width: $dialog-box-default-width;
   padding-left: 40px;
   padding-right: 40px;
 
@@ -155,12 +159,12 @@ $dialogBoxZIndex:         99999999 + 3;
 }
 
 #save-as-image-preview-preview {
+  @include touch-callout(default);
+
   display: table-cell;
   vertical-align: middle;
   text-align: center;
   font-size: 0;
-
-  @include touch-callout(default);
 
   &:not(.visible) {
     opacity: 0;
@@ -174,7 +178,7 @@ $dialogBoxZIndex:         99999999 + 3;
     cursor: move; // IE
     cursor: grab;
 
-    border-top: 3px dashed $uiColour;
-    border-bottom: 3px dashed $uiColour;
+    border-top: 3px dashed $ui-colour;
+    border-bottom: 3px dashed $ui-colour;
   }
 }

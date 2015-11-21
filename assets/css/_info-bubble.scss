@@ -1,10 +1,11 @@
 .info-bubble {
+  @include box-border;
+
   position: absolute;
-  @include box-border();
-  border-top-color: darken($uiColour, 30%);
+  border-top-color: darken($ui-colour, 30%);
   min-width: 250px;
   opacity: 0;
-  background: $infoBubbleBackground;
+  background: $info-bubble-background;
   transition: transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
   transform: rotateX(-80deg);
   perspective: 1200px;
@@ -27,8 +28,8 @@
       height: 30px;
       pointer-events: none;
 
-      border: 3px solid darken($uiColour, 20%);
-      background: $infoBubbleBackground;
+      border: 3px solid darken($ui-colour, 20%);
+      background: $info-bubble-background;
 
       left: 50%;
       margin-left: -15px - 3px;
@@ -56,25 +57,21 @@
       width: 0;
       height: 0;
 
-      border-top: 37px solid darken($uiColour, 20%);
+      border-top: 37px solid darken($ui-colour, 20%);
       border-right: 37px solid transparent;
     }
   }
 
   header {
+    position: relative;
     padding: 5px 12px;
     padding-top: 2px;
-    height: $infoBubbleButtonSize;
-    line-height: $infoBubbleButtonSize;
-
+    height: $info-bubble-button-size;
+    line-height: $info-bubble-button-size + 1px;
     font-size: 16px;
-    line-height: 31px;
     font-weight: 300;
     color: white;
-
-    position: relative;
-
-    background: darken($uiColour, 20%);
+    background: darken($ui-colour, 20%);
   }
 
   .icon {
@@ -97,6 +94,7 @@
   &[type='segment'] .variants {
     margin-right: 170px;
   }
+
   &[type='building'] .variants {
     margin-right: 150px;
   }
@@ -108,7 +106,7 @@
     padding-left: 8px;
     padding-right: 8px;
 
-    min-height: $infoBubbleButtonSize;
+    min-height: $info-bubble-button-size;
 
     white-space: nowrap;
 
@@ -134,17 +132,18 @@
       }
 
       &[disabled] {
-        background: darken($uiColour, 10%);
+        background: darken($ui-colour, 10%);
         color: black;
         opacity: 1;
-        border-top-color: darken($uiColour, 30%);
-        border-bottom-color: darken($uiColour, 30%);
+        border-top-color: darken($ui-colour, 30%);
+        border-bottom-color: darken($ui-colour, 30%);
 
         .icon {
           opacity: 1;
         }
       }
     }
+
     hr {
       vertical-align: top;
       margin: 0;
@@ -157,25 +156,25 @@
 
   .description-prompt,
   .description-close {
-    border-top: 1px solid $uiColour;
+    border-top: 1px solid $ui-colour;
     text-rendering: optimizeLegibility;
 
     white-space: normal;
     text-align: center;
 
     margin-top: 1px;
-    padding: 5px 5px;
+    padding: 5px;
     padding-top: 3px;
     font-size: 13px;
 
     user-select: none;
 
-    color: darken($uiColour, 20%);
+    color: darken($ui-colour, 20%);
     cursor: pointer;
 
     &:hover {
-      color: darken($uiColour, 40%);
-      background: mix($uiColour, white, 50%);
+      color: darken($ui-colour, 40%);
+      background: mix($ui-colour, white, 50%);
     }
   }
 
@@ -197,19 +196,19 @@
     opacity: 0;
     pointer-events: none;
 
-    border-top: 3px solid darken($uiColour, 20%);
-    border-bottom: 3px solid darken($uiColour, 20%);
+    border-top: 3px solid darken($ui-colour, 20%);
+    border-bottom: 3px solid darken($ui-colour, 20%);
 
     transform-origin: 50% 0;
     transform: rotateX(20deg) translateY(100px);
     transition: opacity 250ms, transform 250ms;
 
-    background: $infoBubbleBackground;
+    background: $info-bubble-background;
   }
 
   .description {
     font-size: 16px;
-    padding: 12px 12px;
+    padding: 12px;
     line-height: 23px;
     font-weight: 300;
 
@@ -236,31 +235,33 @@
         line-height: 1.25;
       }
     }
+
     footer {
       text-align: right;
       color: rgb(160, 160, 160);
       font-size: 11px;
       line-height: 14px;
     }
+
     img {
       //width: 300px;
       margin: 0 auto;
       display: block;
       max-width: 100%;
-      outline: 1px solid darken($uiColour, 20%);
+      outline: 1px solid darken($ui-colour, 20%);
     }
   }
 
   .warnings {
     margin-top: 1px;
     font-size: 13px;
-    padding: 5px 5px;
-    border-top: 1px solid $uiColour;
+    padding: 5px;
+    border-top: 1px solid $ui-colour;
     text-rendering: optimizeLegibility;
 
     white-space: normal;
 
-    color: $warningColour;
+    color: $warning-colour;
 
     text-align: center;
 
@@ -282,8 +283,8 @@
     margin-top: 5px;
     margin-bottom: 8px;
     width: 150px;
-    height: $infoBubbleButtonSize;
-    line-height: $infoBubbleButtonSize;
+    height: $info-bubble-button-size;
+    line-height: $info-bubble-button-size;
 
     user-select: none;
 
@@ -312,21 +313,22 @@
       width: 50px;
       margin: 0 3px;
 
-      font-family: $fontFamily;
+      font-family: $font-family;
       font-size: 13px;
       line-height: 25px;
       text-align: center;
 
       &.width,
       &.height {
-        background: $formElementBackground;
-        border: 1px solid $formElementBorder;
+        background: $form-element-background;
+        border: 1px solid $form-element-border;
 
         vertical-align: bottom;
         height: 22px;
 
         outline: none;
       }
+
       &.width-non-editable,
       &.height-non-editable {
         display: inline-block;
@@ -336,6 +338,7 @@
         vertical-align: center;
         height: 25px;
       }
+
       &.height,
       &.height-non-editable {
         width: 50px + 50px;
@@ -346,8 +349,8 @@
   }
 
   button {
-    width: $infoBubbleButtonSize;
-    height: $infoBubbleButtonSize;
+    width: $info-bubble-button-size;
+    height: $info-bubble-button-size;
 
     &.remove {
       position: absolute;
@@ -362,29 +365,35 @@
 }
 
 .info-bubble.highlight-triangle .triangle::before {
-  background: mix($uiColour, white, 50%);
+  background: mix($ui-colour, white, 50%);
 }
 
 .info-bubble.show-description {
   .variants {
     pointer-events: none;
   }
+
   .non-variant {
     pointer-events: none;
   }
+
   .warnings {
     pointer-events: none;
   }
+
   .description-prompt {
     pointer-events: none;
   }
+
   .description-close {
     pointer-events: auto;
   }
+
   .description-canvas {
     transform: none;
     opacity: 1;
   }
+
   .description {
     pointer-events: auto;
   }

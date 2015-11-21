@@ -3,23 +3,23 @@
 //
 // --------------------------------------------------------
 
-$topMenuText: $segmentText;
-$topMenuHoverText: darken($uiColour, 30%);
-$topMenuActiveText: darken($uiColour, 40%);
+$top-menu-text: $segment-text;
+$top-menu-hover-text: darken($ui-colour, 30%);
+$top-menu-active-text: darken($ui-colour, 40%);
 
 .menu-bar {
   z-index: 120;
   display: block;
   position: absolute;
-  left: $leftRightInset;
-  right: $leftRightInset;
+  left: $left-right-inset;
+  right: $left-right-inset;
   top: -150px;
   padding: 0;
-  border-top: 150px solid $headerFooterBackground;
-  border-bottom: 3px solid darken($uiColour, 20%);
-  background: $headerFooterBackground;
+  border-top: 150px solid $header-footer-background;
+  border-bottom: 3px solid darken($ui-colour, 20%);
+  background: $header-footer-background;
   background-clip: padding-box;
-  font-family: $fontFamily;
+  font-family: $font-family;
   font-size: 13px;
   user-select: none;
   touch-action: none;
@@ -34,7 +34,7 @@ $topMenuActiveText: darken($uiColour, 40%);
     padding: 3px 10px;
     margin: 0;
     line-height: 22px;
-    color: $topMenuText;
+    color: $top-menu-text;
   }
 
   li {
@@ -58,25 +58,29 @@ $topMenuActiveText: darken($uiColour, 40%);
   }
 
   a {
+    @include tap-highlight-color(transparent);
+
     display: inline-block;
     height: 22px;
     outline: none;
     text-decoration: none;
     text-rendering: optimizeLegibility;
     color: inherit;
-    @include tap-highlight-color(transparent);
 
     &:hover {
-      color: $topMenuHoverText;
+      color: $top-menu-hover-text;
     }
 
     &:active {
-      color: $topMenuActiveText;
+      color: $top-menu-active-text;
     }
   }
 
   button {
-    border: none;
+    @include appearance(none);
+    @include tap-highlight-color(transparent);
+
+    border: 0;
     padding: 10px;
     margin: -10px;
 
@@ -86,9 +90,6 @@ $topMenuActiveText: darken($uiColour, 40%);
     background-color: transparent;
     color: inherit;
     cursor: pointer;
-
-    @include appearance(none);
-    @include tap-highlight-color(transparent);
 
     &::after {
       content: ' ▼';
@@ -100,12 +101,12 @@ $topMenuActiveText: darken($uiColour, 40%);
     }
 
     &:hover {
-      color: $topMenuHoverText;
+      color: $top-menu-hover-text;
       background-color: transparent;
     }
 
     &:active {
-      color: $topMenuActiveText;
+      color: $top-menu-active-text;
     }
 
     &[disabled] {

@@ -1,4 +1,5 @@
 #flash {
+  display: none;
   position: absolute;
   left: 0;
   right: 0;
@@ -7,16 +8,14 @@
   border: 20px solid white;
   z-index: 9999999;
 
-  display: none;
-
   &.visible {
     display: block;
     opacity: 1;
   }
-  &.fading-out {
-    transition: opacity 1000ms;
 
+  &.fading-out {
     display: block;
     opacity: 0;
+    transition: opacity 1000ms;
   }
 }

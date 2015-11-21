@@ -2,7 +2,7 @@
   display: block;
   position: absolute;
   top: -150px;
-  height: $canvasHeight + 85px + 30px;
+  height: $canvas-height + 85px + 30px;
   text-align: center;
   perspective: 500px;
   touch-action: none;
@@ -24,7 +24,7 @@
 
   .name,
   .width {
-    color: $emptySegmentText;
+    color: $empty-segment-text;
   }
 
   .width {
@@ -57,7 +57,7 @@ body.immediate-segment-resize .segment {
   margin: 12px 0;
   height: 80px;
   top: 0;
-  background-color: fade-out($skyColour, 0.3);
+  background-color: fade-out($sky-colour, 0.3);
 
   margin-right: 1px;
 
@@ -70,19 +70,19 @@ body.immediate-segment-resize .segment {
 }
 
 .segment:not(.unmovable).hover .hover-bk {
-  background: $segmentHoverBackground;
+  background: $segment-hover-background;
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
   z-index: -1;
-  height: $canvasBaseline;
+  height: $canvas-baseline;
   pointer-events: none;
 }
 
 .segment:not(.palette):not(.unmovable).hover .hover-bk {
   top: 10px;
-  height: $canvasBaseline - 10px;
+  height: $canvas-baseline - 10px;
 }
 
 body.segment-resize-dragging .segment:not(.unmovable).hover {
@@ -106,6 +106,7 @@ body:not(.read-only) .segment:not(.unmovable) {
 
   pointer-events: none;
 }
+
 .segment.palette .image {
   top: 0;
 }
@@ -119,7 +120,7 @@ body:not(.segment-resize-dragging) .segment.outside .image {
 }
 
 .segment.palette:hover {
-  background: fade-out($skyColour, .05);
+  background: fade-out($sky-colour, .05);
 
   canvas {
     transform: scale(1.15);
@@ -155,7 +156,7 @@ body.segment-resize-dragging * {
   line-height: 100px;
   font-size: 50px;
   font-family: 'Tahoma';
-  color: lighten($uiColour, 0%);
+  color: lighten($ui-colour, 0%);
   z-index: 99999999999;
 
   pointer-events: none;
@@ -163,10 +164,10 @@ body.segment-resize-dragging * {
   padding-left: 10px;
   padding-right: 10px;
 
-  background: $infoBubbleBackground;
+  background: $info-bubble-background;
 
-  border-top: 3px solid darken($uiColour, 30%);
-  border-bottom: 3px solid darken($uiColour, 30%);
+  border-top: 3px solid darken($ui-colour, 30%);
+  border-bottom: 3px solid darken($ui-colour, 30%);
 
   cursor: col-resize;
 
@@ -176,6 +177,7 @@ body.segment-resize-dragging * {
     text-indent: -5px;
     transform-origin: 100% 50%;
   }
+
   &.right {
     right: -5px;
     text-align: right;
@@ -184,130 +186,161 @@ body.segment-resize-dragging * {
   }
 }
 
-.segment[width="1"] .drag-handle {
+.segment[width='1'] .drag-handle {
   &.left {
     left: -5px - 24px;
   }
+
   &.right {
     right: -5px - 24px;
   }
 }
-.segment[width="1.25"] .drag-handle {
+
+.segment[width='1.25'] .drag-handle {
   &.left {
     left: -5px - 22.5px;
   }
+
   &.right {
     right: -5px - 22.5px;
   }
 }
-.segment[width="1.5"] .drag-handle {
+
+.segment[width='1.5'] .drag-handle {
   &.left {
     left: -5px - 21px;
   }
+
   &.right {
     right: -5px - 21px;
   }
 }
-.segment[width="1.75"] .drag-handle {
+
+.segment[width='1.75'] .drag-handle {
   &.left {
     left: -5px - 19.5px;
   }
+
   &.right {
     right: -5px - 19.5px;
   }
 }
-.segment[width="2"] .drag-handle {
+
+.segment[width='2'] .drag-handle {
   &.left {
     left: -5px - 18px;
   }
+
   &.right {
     right: -5px - 18px;
   }
 }
-.segment[width="2.25"] .drag-handle {
+
+.segment[width='2.25'] .drag-handle {
   &.left {
     left: -5px - 16.5px;
   }
+
   &.right {
     right: -5px - 16.5px;
   }
 }
-.segment[width="2.5"] .drag-handle {
+
+.segment[width='2.5'] .drag-handle {
   &.left {
     left: -5px - 15px;
   }
+
   &.right {
     right: -5px - 15px;
   }
 }
-.segment[width="2.75"] .drag-handle {
+
+.segment[width='2.75'] .drag-handle {
   &.left {
     left: -5px - 13.5px;
   }
+
   &.right {
     right: -5px - 13.5px;
   }
 }
-.segment[width="3"] .drag-handle {
+
+.segment[width='3'] .drag-handle {
   &.left {
     left: -5px - 12px;
   }
+
   &.right {
     right: -5px - 12px;
   }
 }
-.segment[width="3.25"] .drag-handle {
+
+.segment[width='3.25'] .drag-handle {
   &.left {
     left: -5px - 10.5px;
   }
+
   &.right {
     right: -5px - 10.5px;
   }
 }
-.segment[width="3.5"] .drag-handle {
+
+.segment[width='3.5'] .drag-handle {
   &.left {
     left: -5px - 9px;
   }
+
   &.right {
     right: -5px - 9px;
   }
 }
-.segment[width="3.75"] .drag-handle {
+
+.segment[width='3.75'] .drag-handle {
   &.left {
     left: -5px - 7.5px;
   }
+
   &.right {
     right: -5px - 7.5px;
   }
 }
-.segment[width="4"] .drag-handle {
+
+.segment[width='4'] .drag-handle {
   &.left {
     left: -5px - 6px;
   }
+
   &.right {
     right: -5px - 6px;
   }
 }
-.segment[width="4.25"] .drag-handle {
+
+.segment[width='4.25'] .drag-handle {
   &.left {
     left: -5px - 4.5px;
   }
+
   &.right {
     right: -5px - 4.5px;
   }
 }
-.segment[width="4.5"] .drag-handle {
+
+.segment[width='4.5'] .drag-handle {
   &.left {
     left: -5px - 3px;
   }
+
   &.right {
     right: -5px - 3px;
   }
 }
-.segment[width="4.75"] .drag-handle {
+
+.segment[width='4.75'] .drag-handle {
   &.left {
     left: -5px - 1.5px;
   }
+
   &.right {
     right: -5px - 1.5px;
   }
@@ -317,20 +350,21 @@ body.segment-resize-dragging * {
   z-index: 10000;
   pointer-events: none;
   transition: transform 150ms, opacity 150ms;
+  opacity: 0;
 
   &.left {
     transform: rotateY(90deg);
   }
+
   &.right {
     transform: rotateY(-90deg);
   }
 
-  opacity: 0;
-
   &:hover {
-    color: darken($uiColour, 10%);
+    color: darken($ui-colour, 10%);
   }
 }
+
 .segment.hide-drag-handles-when-inside-info-bubble .drag-handle,
 .segment.hide-drag-handles-when-description-shown .drag-handle {
   display: none !important;
@@ -341,7 +375,7 @@ body.segment-resize-dragging * {
 }
 
 .drag-handle.floating {
-  background-color: darken($uiColour, 30%);
+  background-color: darken($ui-colour, 30%);
 }
 
 body.segment-resize-dragging .drag-handle.floating,
@@ -375,33 +409,27 @@ body.segment-resize-dragging .drag-handle.floating,
   }
 
   &.max::before {
+    content: 'Max »';
     left: -55px;
     text-align: right;
   }
+
   &.max::after {
+    content: '« Max';
     right: -55px;
     text-align: left;
   }
+
   &.min::before {
+    content: '« Min';
     left: 5px;
     text-align: left;
   }
-  &.min::after {
-    right: 5px;
-    text-align: right;
-  }
 
-  &.max::before {
-    content: 'Max »';
-  }
-  &.max::after {
-    content: '« Max';
-  }
   &.min::after {
     content: 'Min »';
-  }
-  &.min::before {
-    content: '« Min';
+    right: 5px;
+    text-align: right;
   }
 }
 
@@ -409,22 +437,22 @@ body.segment-resize-dragging .drag-handle.floating,
   position: absolute;
   left: 0;
   right: -1px;
-  top: $canvasBaseline;
-  height: $segmentGridHeight;
+  top: $canvas-baseline;
+  height: $segment-grid-height;
   pointer-events: none;
 
   // Creates grid lines
   // The last value is required for IE11
-  background-image: linear-gradient(90deg, $segmentWidthRule 1px, $bottomBackground 1px, $bottomBackground);
+  background-image: linear-gradient(90deg, $segment-width-rule 1px, $bottom-background 1px, $bottom-background);
   background-repeat: repeat-x;
 
   // Change background-size width to adjust spacing of grid lines
   body.units-imperial & {
-    background-size: $tileSize 100%;
+    background-size: $tile-size 100%;
   }
 
   body.units-metric & {
-    background-size: ($tileSize * 100 / 30 / 2) 100%;
+    background-size: ($tile-size * 100 / 30 / 2) 100%;
   }
 }
 
@@ -432,27 +460,24 @@ body.segment-resize-dragging .drag-handle.floating,
   position: absolute;
   left: 4px;
   right: 4px;
-  top: $canvasBaseline + 45;
-  color: $segmentText;
+  top: $canvas-baseline + 45;
+  height: 48px;
+  color: $segment-text;
   font-weight: 300;
   text-rendering: optimizeLegibility;
-
-  z-index: 100;
-
   word-wrap: break-word;
-
   font-size: 13px;
-
-  height: 48px;
+  z-index: 100;
   overflow: hidden;
-
   pointer-events: none;
 }
+
 .segment.hover .name {
   font-weight: 700;
 }
+
 .segment.warning .name {
-  color: $segmentWarningText;
+  color: $segment-warning-text;
 }
 
 .segment .commands {
@@ -460,40 +485,36 @@ body.segment-resize-dragging .drag-handle.floating,
   left: 50%;
   width: 30px;
   margin-left: -15px;
-  top: $canvasBaseline + 38;
+  top: $canvas-baseline + 38;
   height: 65px;
   z-index: 150001;
   padding-top: 10px;
 }
-
 
 .segment .width {
   position: absolute;
   left: 0;
   right: -1px;
   z-index: 100000;
-  border-left: 1px solid $segmentWidthRule;
-  border-right: 1px solid $segmentWidthRule;
-  top: $canvasBaseline;
+  border-left: 1px solid $segment-width-rule;
+  border-right: 1px solid $segment-width-rule;
+  top: $canvas-baseline;
   height: 90px;
   line-height: 60px;
-  color: $segmentText;
-  overflow: hidden;
-
+  color: $segment-text;
   font-weight: 300;
   text-rendering: optimizeLegibility;
-
   font-size: 13px;
-
   overflow: hidden;
-
   pointer-events: none;
 }
+
 .segment.hover .width {
   font-weight: 700;
 }
+
 .segment.warning .width {
-  color: $segmentWarningText;
+  color: $segment-warning-text;
 }
 
 .segment.palette .name,
@@ -506,6 +527,7 @@ body.segment-move-dragging * {
   cursor: move !important; // IE
   cursor: grabbing !important;
 }
+
 body.not-within-canvas,
 body.not-within-canvas * {
   cursor: no-drop !important;
@@ -538,7 +560,7 @@ body.segment-move-dragging #editable-street-section > div {
 }
 
 .switching-away-post canvas {
-  transition: transform $segmentSwitchingTime ease-in, opacity $segmentSwitchingTime ease-in !important;
+  transition: transform $segment-switching-time ease-in, opacity $segment-switching-time ease-in !important;
   transform: rotateX(-60deg);
   transform-origin: 50% 120%;
   opacity: 0;
@@ -561,6 +583,6 @@ body.segment-move-dragging #editable-street-section > div {
 
 .switching-in-post canvas {
   opacity: 1;
-  transition: transform $segmentSwitchingTime, opacity $segmentSwitchingTime !important;
+  transition: transform $segment-switching-time, opacity $segment-switching-time !important;
   transform: none;
 }

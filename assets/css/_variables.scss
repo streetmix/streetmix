@@ -1,61 +1,41 @@
-/* Dimensions */
+// Dimensions
+$tile-size:                 12px;
+$canvas-height:             480px;
+$canvas-ground:             35px;
+$canvas-baseline:           $canvas-height - $canvas-ground + 150px;
+$palette-height:            90px;
+$gallery-height:            180px;
+$thumbnail-width:           180px;
+$thumbnail-height:          110px;
+$building-space:            360px;
+$segment-grid-height:       10px;
+$left-right-inset:          50px;
 
-$tileSize:                12px;
+// Colours
+$background-dirt-colour:    rgb(53, 45, 39);
+$sky-colour:                rgb(169, 204, 219);
+$ui-colour:                 lighten($sky-colour, 10%);
+$form-element-background:   lighten($ui-colour, 10%);
+$form-element-border:       $ui-colour;
+$off-white:                 rgb(240, 240, 240);
+$header-footer-background:  rgb(240, 240, 240);
+$bottom-background:         rgb(216, 211, 203);
+$warning-colour:            rgb(220, 20, 20);
+$segment-text:              rgb(40, 35, 30);
+$segment-hover-text:        lighten($segment-text, 30%);
+$segment-warning-text:      $warning-colour;
+$empty-segment-text:        fade-out($segment-text, 0.5);
+$segment-hover-background:  rgba(255, 255, 255, 0.2);
+$light-text-colour:         rgb(240, 240, 240);
+$info-bubble-background:    white;
+$segment-width-rule:        rgb(160, 160, 160);
+$street-name-text:          black;
+$street-name-background:    white;
 
-$canvasHeight:            480px;
-$canvasGround:            35px;
-$canvasBaseline:          $canvasHeight - $canvasGround + 150px;
+// Design
+$street-name-gallery-size:  0.5;
+$info-bubble-button-size:   30px;
 
-$paletteHeight:           90px;
-
-$galleryHeight:           180px;
-
-$thumbnailWidth:          180px;
-$thumbnailHeight:         110px;
-
-$buildingSpace:           360px;
-
-$segmentGridHeight:       10px;
-
-$leftRightInset:          50px;
-
-/* Colours */
-
-$backgroundDirtColour:    rgb(53, 45, 39);
-$skyColour:               rgb(169, 204, 219);
-$uiColour:                lighten($skyColour, 10%);
-$formElementBackground:   lighten($uiColour, 10%);
-$formElementBorder:       $uiColour;
-$offWhite:                rgb(240, 240, 240);
-$headerFooterBackground:  rgb(240, 240, 240);
-$bottomBackground:        rgb(216, 211, 203);
-
-$warningColour:           rgb(220, 20, 20);
-
-$segmentText:             rgb(40, 35, 30);
-$segmentHoverText:        lighten($segmentText, 30%);
-$segmentWarningText:      $warningColour;
-$emptySegmentText:        fade-out($segmentText, 0.5);
-
-$segmentHoverBackground:  rgba(255, 255, 255, 0.2);
-
-$lightTextColour:         rgb(240, 240, 240);
-
-$infoBubbleBackground:    white;
-
-$segmentWidthRule:        rgb(160, 160, 160);
-
-$streetNameText:          black;
-$streetNameBackground:    white;
-
-/* Design */
-
-$streetNameGallerySize:   0.5;
-
-$infoBubbleButtonSize:    30px;
-
-/* Timing */
-
-$touchControlsFadeoutTime: 3000ms;
-
-$segmentSwitchingTime:    250ms;
+// Timing
+$touch-controls-fadeout-time: 3000ms;
+$segment-switching-time:      250ms;

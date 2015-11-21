@@ -1,6 +1,6 @@
 #street-metadata {
   padding-top: 7px;
-  padding-bottom: 7px;
+  padding-bottom: 40px;
 
   width: 500px;
   left: 50%;
@@ -18,25 +18,27 @@
     color: inherit;
   }
 }
-#street-metadata {
-  padding-bottom: 40px;
-}
+
 #street-width-read {
   padding: 5px 0;
 
   .over {
-    color: $warningColour;
+    color: $warning-colour;
   }
+
   .under {
     color: rgb(96, 96, 96);
   }
 }
+
 body:not(.read-only) #street-width-read {
   cursor: pointer;
+
   &:hover,
   &:hover * {
-    color: darken($uiColour, 40%);
+    color: darken($ui-colour, 40%);
   }
+
   &::after {
     font-family: 'Verdana';
     content: ' ▼';
@@ -51,15 +53,17 @@ body.edit-street-width #street-width-read {
   display: none;
   pointer-events: none;
 }
+
 #street-width {
   width: 150px;
 }
+
 body:not(.edit-street-width) #street-width {
   display: none;
 }
 
 body:not(.read-only) #street-metadata-author a:hover {
-  color: darken($uiColour, 40%);
+  color: darken($ui-colour, 40%);
 }
 
 body.read-only #street-metadata-author a {
@@ -70,6 +74,6 @@ body.read-only #street-metadata-author a {
 #street-metadata-author:not(:empty)::before,
 #street-metadata-date:not(:empty)::before {
   content: ' · ';
-  color: darken($uiColour, 40%);
+  color: darken($ui-colour, 40%);
   margin: 0 4px;
 }

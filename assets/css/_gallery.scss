@@ -1,7 +1,8 @@
 body.gallery-visible {
   #main-screen {
-    transform: translateY($galleryHeight - 90px);
+    transform: translateY($gallery-height - 90px);
   }
+
   #street-name-canvas {
     transform: translateY(60px);
   }
@@ -13,20 +14,20 @@ body:not(.safari).gallery-visible #street-section-sky {
 
 #gallery {
   position: absolute;
-  left: $leftRightInset + 20px;
-  right: $leftRightInset + 20px;
+  left: $left-right-inset + 20px;
+  right: $left-right-inset + 20px;
   top: 0;
-  height: $galleryHeight;
+  height: $gallery-height;
   z-index: 100001;
 
-  border-bottom: 3px solid darken($uiColour, 30%);
+  border-bottom: 3px solid darken($ui-colour, 30%);
 
   background: white;
   overflow: hidden;
 
   pointer-events: none;
 
-  transform: translateY(-$galleryHeight) rotateX(25deg);
+  transform: translateY(-$gallery-height) rotateX(25deg);
   transform-origin: 50% 0;
 
   .avatar {
@@ -106,108 +107,108 @@ body:not(.safari).gallery-visible #street-section-sky {
     left: 130px + 10px;
     right: 5px + 10px;
     top: 50px;
-    height: $galleryHeight + 20px; // To cover the scroll bar
+    height: $gallery-height + 20px; // To cover the scroll bar
     overflow-x: scroll;
 
     & > li {
       display: inline-block;
+    }
 
-      & > a {
-        display: inline-block;
+    & > li > a {
+      display: inline-block;
 
-        color: black;
-        text-decoration: none;
+      color: black;
+      text-decoration: none;
 
-        vertical-align: top;
+      vertical-align: top;
 
-        width: $thumbnailWidth;
-        height: $thumbnailHeight - 10px;
-        margin: 10px 10px;
-        margin-top: 5px;
-        background: fade-out($skyColour, 0.2);
-        padding: 5px 0;
+      width: $thumbnail-width;
+      height: $thumbnail-height - 10px;
+      margin: 10px;
+      margin-top: 5px;
+      background: fade-out($sky-colour, 0.2);
+      padding: 5px 0;
 
-        border-top: 3px solid darken($uiColour, 10%);
-        border-bottom: 3px solid darken($uiColour, 10%);
+      border-top: 3px solid darken($ui-colour, 10%);
+      border-bottom: 3px solid darken($ui-colour, 10%);
+      text-align: center;
+      white-space: normal;
+
+      cursor: pointer;
+
+      font-size: 13px;
+
+      position: relative;
+
+      canvas {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: $thumbnail-width;
+        height: $thumbnail-height;
+      }
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      .creator {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 18px;
         text-align: center;
-        white-space: normal;
+        display: block;
 
-        cursor: pointer;
+        font-size: 11px;
+        color: black;
+      }
 
-        font-size: 13px;
+      .date {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 5px;
+        text-align: center;
+        display: block;
 
-        position: relative;
+        font-size: 11px;
+        color: black;
+        font-weight: 300;
+      }
 
-        canvas {
-          position: absolute;
-          left: 0;
-          top: 0;
-          width: $thumbnailWidth;
-          height: $thumbnailHeight;
-        }
+      button.remove {
+        position: absolute;
+        font-size: 16px;
+        padding: 0 10px;
+        line-height: 25px;
 
-        &:first-child {
-          margin-left: 0;
-        }
+        top: -10px;
+        right: -5px;
 
-        .creator {
-          position: absolute;
-          left: 0;
-          right: 0;
-          bottom: 18px;
-          text-align: center;
-          display: block;
+        display: none;
+      }
 
-          font-size: 11px;
-          color: black;
-        }
-
-        .date {
-          position: absolute;
-          left: 0;
-          right: 0;
-          bottom: 5px;
-          text-align: center;
-          display: block;
-
-          font-size: 11px;
-          color: black;
-          font-weight: 300;
-        }
+      &:hover {
+        background: fade-out($ui-colour, 0.1);
 
         button.remove {
-          position: absolute;
-          font-size: 16px;
-          padding: 0 10px;
-          line-height: 25px;
-
-          top: -10px;
-          right: -5px;
-
-          display: none;
+          display: block;
         }
+      }
 
-        &:hover {
-          background: fade-out($uiColour, 0.1);
+      &.virgin:not(.selected) {
+        opacity: 0.33;
+      }
 
-          button.remove {
-            display: block;
-          }
-        }
+      &.selected {
+        background: darken($ui-colour, 10%);
 
-        &.virgin:not(.selected) {
-          opacity: 0.33;
-        }
+        border-top-color: black;
+        border-bottom-color: black;
 
-        &.selected {
-          background: darken($uiColour, 10%);
-
-          border-top-color: black;
-          border-bottom-color: black;
-
-          canvas {
-            opacity: 1;
-          }
+        canvas {
+          opacity: 1;
         }
       }
     }
@@ -223,8 +224,8 @@ body:not(.safari).gallery-visible #street-section-sky {
     left: 0;
     right: 0;
     top: 0;
-    height: $galleryHeight;
-    line-height: $galleryHeight;
+    height: $gallery-height;
+    line-height: $gallery-height;
     text-align: center;
     z-index: 1000000;
     display: none;
@@ -241,7 +242,7 @@ body:not(.safari).gallery-visible #street-section-sky {
     left: 5px;
     right: 5px;
     top: 5px;
-    height: $galleryHeight;
+    height: $gallery-height;
 
     text-align: center;
     z-index: 10001;
@@ -254,6 +255,7 @@ body:not(.safari).gallery-visible #street-section-sky {
     &.visible {
       display: block;
     }
+
     a {
       color: inherit;
     }
@@ -268,7 +270,7 @@ body:not(.gallery-no-move-transition) #street-section-sky {
 }
 
 body.safari #gallery {
-  transform: translateY(-$galleryHeight - 3px);
+  transform: translateY(-$gallery-height - 3px);
 }
 
 #gallery-shield {
@@ -282,9 +284,9 @@ body.safari #gallery {
 
 body.gallery-visible #gallery {
   transform: translateY(0);
-
   pointer-events: auto;
 }
+
 body.gallery-visible #gallery-shield {
   display: block;
 }

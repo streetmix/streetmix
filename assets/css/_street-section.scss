@@ -3,33 +3,26 @@
   display: block;
   left: 0;
   right: 0;
-  top: -$galleryHeight;
+  top: -$gallery-height;
   bottom: -20px; // To hide the scrollbar
-
   overflow-x: scroll;
   overflow-y: hidden;
   touch-action: pan-x;
 }
-/*body.phone #street-section-outer {
-  -webkit-overflow-scrolling: touch;
-}*/
 
 #street-section-inner {
   position: absolute;
   display: block;
   left: 0;
-
-  z-index: 5;
-
   top: 0;
-  height: $canvasHeight + 45;
-
+  height: $canvas-height + 45;
+  z-index: 5;
   user-select: none;
 }
 
 #street-section-editable {
   position: absolute;
-  height: $canvasHeight + 80;
+  height: $canvas-height + 80;
   text-align: left;
   z-index: 1;
   touch-action: pan-x;
@@ -42,14 +35,15 @@
     top: 394px;
     right: 0;
     bottom: 115px + 5px;
-    background: darken($skyColour, 2%);
-
+    background: darken($sky-colour, 2%);
     pointer-events: none;
   }
 }
 
 #street-scroll-indicator-left,
 #street-scroll-indicator-right {
+  @include tap-highlight-color(transparent);
+
   position: fixed;
   margin-top: -275px;
   padding: 0 15px;
@@ -61,11 +55,10 @@
   user-select: none;
   z-index: 999999;
 
-  @include tap-highlight-color(transparent);
-
   &:hover {
     opacity: 0.333;
   }
+
   &:active {
     opacity: 0.5;
   }
@@ -73,6 +66,7 @@
   &#street-scroll-indicator-left {
     left: 0;
   }
+
   &#street-scroll-indicator-right {
     right: 12px;
     text-align: right;
@@ -85,44 +79,34 @@
   display: block;
   left: 0;
   top: 0;
-  margin-left: $buildingSpace;
-  margin-right: $buildingSpace;
-
-  height: $canvasHeight + 40;
+  margin-left: $building-space;
+  margin-right: $building-space;
+  height: $canvas-height + 40;
 }
 
 .rear-clouds,
 .front-clouds {
   position: absolute;
-
-  background-repeat: repeat-x;
-  background-position: 0 0;
-
   left: 0;
   width: 100%;
-
+  background-repeat: repeat-x;
+  background-position: 0 0;
   z-index: -1;
 
   &.rear-clouds {
-    background-image: url(/images/sky-rear.png);
-    background-size: 250px 120px;
-
     height: 120px;
-
     bottom: 330px;
+    background-image: url('/images/sky-rear.png');
+    background-size: 250px 120px;
   }
 
   &.front-clouds {
-    background-image: url(/images/sky-front.png);
-    background-size: 250px 280px;
-
-    opacity: 0.5;
-
     height: 280px;
-
     bottom: 330px - 330px;
-
     border-bottom: 50px solid rgb(165, 196, 209);
+    background-image: url('/images/sky-front.png');
+    background-size: 250px 280px;
+    opacity: 0.5;
   }
 }
 
@@ -130,54 +114,33 @@
   position: absolute;
   left: 0;
   right: -2000px; // TODO hack
-  height: $canvasBaseline + 150px;
-
-  pointer-events: none;
-
+  height: $canvas-baseline + 150px;
   background-size: 100% 350px;
   background-repeat: no-repeat;
   background-position: 0 0;
-
-  background-color: $skyColour;
+  background-color: $sky-colour;
+  pointer-events: none;
 
   .rear-clouds {
     bottom: 735px;
     z-index: auto;
   }
+
   .front-clouds {
     bottom: 735px - 330px;
     z-index: auto;
   }
 }
 
-/*body.phone #street-section-sky {
-  position: static;
-  left: 0;
-  right: 0;
-
-  .rear-clouds {
-    z-index: 0;
-    //display: none;
-  }
-  .front-clouds {
-    z-index: 0;
-    //display: none;
-  }
-}*/
-
-
 #street-section-dirt {
   position: absolute;
   left: 0;
   right: 25px;
+  top: $canvas-height - 80px;
+  border-top: 45px solid $background-dirt-colour;
+  background: $bottom-background;
   z-index: -2;
-  top: $canvasHeight - 80px;
-
-  border-top: 45px solid $backgroundDirtColour;
-
   pointer-events: none;
-
-  background: $bottomBackground;
 }
 
 .street-section-building {
@@ -185,7 +148,7 @@
   position: absolute;
   top: -150px + 45px;
   width: 396px;
-  height: $canvasHeight + 70px;
+  height: $canvas-height + 70px;
   touch-action: pan-x;
 
   .hover-bk {
@@ -198,7 +161,7 @@
   }
 
   &.hover .hover-bk {
-    background: $segmentHoverBackground;
+    background: $segment-hover-background;
   }
 
   canvas {
