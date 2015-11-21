@@ -4,11 +4,11 @@
 // --------------------------------------------------------
 
 .menu {
+  @include box-border;
+
   position: absolute;
   top: 35px;
   touch-action: none;
-
-  @include box-border();
 
   opacity: 0;
   background: white;
@@ -27,7 +27,7 @@
   }
 
   &.align-right {
-    right: $leftRightInset;
+    right: $left-right-inset;
   }
 
   & > a {
@@ -41,19 +41,20 @@
     padding-left: 30px;
     padding-right: 40px;
 
-    border-top: 1px solid $uiColour;
-    border-bottom: 1px solid $uiColour;
+    border-top: 1px solid $ui-colour;
+    border-bottom: 1px solid $ui-colour;
     margin-bottom: -1px;
 
     &:last-child {
-      border-bottom: none;
+      border-bottom: 0;
     }
 
     &:hover {
-      background: fade-out($uiColour, 0.5);
+      background: fade-out($ui-colour, 0.5);
     }
+
     &:active {
-      background: fade-out($uiColour, 0.3);
+      background: fade-out($ui-colour, 0.3);
     }
 
     span {
@@ -70,8 +71,8 @@
   input {
     @include appearance(none);
 
-    background: $formElementBackground;
-    border: 1px solid $formElementBorder;
+    background: $form-element-background;
+    border: 1px solid $form-element-border;
     resize: none;
   }
 }
@@ -87,6 +88,7 @@ body.safari .menu {
 #settings-menu {
   min-width: 200px;
 }
+
 #share-menu {
   min-width: 350px;
 }
@@ -100,6 +102,7 @@ body.safari .menu {
   p:first-child {
     margin-top: 0;
   }
+
   table {
     border-collapse: collapse;
     margin: -5px;
@@ -117,11 +120,11 @@ body.safari .menu {
 }
 
 #feedback-form {
+  position: relative;
   height: 295px;
 
-  position: relative;
-
   .feedback-notice {
+    display: none;
     position: absolute;
     left: 0;
     top: 0;
@@ -133,10 +136,7 @@ body.safari .menu {
 
     background: white;
     text-align: center;
-
     font-size: 13px;
-
-    display: none;
 
     &.visible {
       display: block;
@@ -206,6 +206,7 @@ body.safari .menu {
   a {
     color: inherit;
   }
+
   &.visible {
     display: block;
   }
@@ -217,6 +218,5 @@ body.safari .menu {
   width: 100%;
   display: block;
   box-sizing: border-box;
-
   outline: none;
 }

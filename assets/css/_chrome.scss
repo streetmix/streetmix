@@ -30,7 +30,7 @@ body.phone #loading {
   height: 100%;
   display: table;
 
-  background: $skyColour;
+  background: $sky-colour;
   color: black;
 
   font-size: 16px;
@@ -55,40 +55,45 @@ body.phone #loading {
     padding: 5px 10px;
   }
 }
+
 #error {
   z-index: 999999999 + 1;
 }
+
 #error:not(.visible) {
   display: none;
 }
+
 #loading.hidden {
   display: none;
 }
 
 #loading-progress {
+  @include appearance(none);
+
   display: block;
   width: 200px;
   height: 8px;
   padding: 0;
   margin: 0 auto;
   margin-top: 5px;
-  border: none;
-  border-top: 1px solid darken($uiColour, 20%);
-  border-bottom: 1px solid darken($uiColour, 20%);
+  border: 0;
+  border-top: 1px solid darken($ui-colour, 20%);
+  border-bottom: 1px solid darken($ui-colour, 20%);
   background: transparent;
   background-size: auto;
-  color: $offWhite;
-
-  @include appearance(none);
+  color: $off-white;
 
   &::-webkit-progress-bar {
     background: transparent;
   }
+
   &::-webkit-progress-value {
-    background: $offWhite;
+    background: $off-white;
   }
+
   &::-moz-progress-bar {
-    background: $offWhite;
+    background: $off-white;
   }
 }
 
@@ -104,24 +109,25 @@ body.phone #loading {
 
   font-size: 16px;
 
+  background: transparent;
+  color: transparent;
+
   & > div {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
   }
 
-  background: transparent;
-  color: transparent;
-
   &.darken,
   &.darken-immediately {
-    background: fade-out($skyColour, 0.15);
+    background: fade-out($sky-colour, 0.15);
     color: black;
   }
 
   &.darken {
     transition: background 1500ms, color 1500ms;
   }
+
   &.darken-immediately {
     transition: none;
   }
@@ -137,21 +143,26 @@ body.phone #loading {
 
     display: none;
   }
+
   &.show-try-again .try-again,
   &.show-too-slow .too-slow {
     display: block;
   }
+
   #blocking-shield-cancel {
     display: none;
   }
+
   &.show-cancel #blocking-shield-cancel {
     display: inline-block;
   }
 
   cursor: wait;
+
   & * {
     cursor: wait;
   }
+
   & button {
     cursor: auto;
   }
@@ -233,23 +244,23 @@ body.no-connection-message-visible #status-message {
   }
 
   > div {
-    pointer-events: auto;
+    @include box-border;
 
     display: inline-block;
     position: relative;
-    padding: 0;
-    margin: 0;
-    @include box-border();
-    background: white;
     padding: 6px 15px;
+    margin: 0;
+    background: white;
     text-align: center;
     font-size: 16px;
-
     color: rgb(64, 64, 64);
+    pointer-events: auto;
   }
+
   button {
     font-size: 100%;
   }
+
   ul,
   p {
     display: inline-block;
@@ -258,14 +269,13 @@ body.no-connection-message-visible #status-message {
     margin: 0;
     margin-bottom: 5px;
   }
+
   p {
     line-height: 1.5;
     display: block;
     max-width: 700px;
-
-    &.important {
-    }
   }
+
   li {
     display: inline-block;
     padding: 0;
@@ -274,7 +284,7 @@ body.no-connection-message-visible #status-message {
     &:not(:first-child)::before {
       content: '·';
       margin: 0 5px;
-      color: darken($uiColour, 40%);
+      color: darken($ui-colour, 40%);
       padding-left: 0;
     }
 
@@ -282,14 +292,15 @@ body.no-connection-message-visible #status-message {
       display: none;
     }
   }
+
   input[type='radio'] {
     display: none;
-
-    border: none;
+    border: 0;
     background: none;
     padding: 0;
     margin: 0;
   }
+
   label {
     cursor: pointer;
 
@@ -297,13 +308,16 @@ body.no-connection-message-visible #status-message {
       color: black;
     }
   }
+
   input[type='radio']:checked + label {
     color: black;
     font-weight: bold;
   }
+
   input[type='radio']:not(:checked) + label {
     text-decoration: underline;
   }
+
   &:not(.visible) {
     display: none;
   }
@@ -315,8 +329,8 @@ body.no-connection-message-visible #status-message {
   background-size: 100%;
   width: 20px;
   height: 20px;
-  border-top: 1px solid darken($uiColour, 30%);
-  border-bottom: 1px solid darken($uiColour, 30%);
+  border-top: 1px solid darken($ui-colour, 30%);
+  border-bottom: 1px solid darken($ui-colour, 30%);
 
   margin-right: 5px;
   vertical-align: middle;
@@ -325,15 +339,17 @@ body.no-connection-message-visible #status-message {
 }
 
 body.controls-fade-out .info-bubble {
-  transition: opacity $touchControlsFadeoutTime;
+  transition: opacity $touch-controls-fadeout-time;
   opacity: 0.01 !important;
 }
+
 body.controls-fade-out .segment .drag-handle {
-  transition: opacity $touchControlsFadeoutTime !important;
+  transition: opacity $touch-controls-fadeout-time !important;
   opacity: 0.01 !important;
 }
+
 body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
-  transition: opacity $touchControlsFadeoutTime !important;
+  transition: opacity $touch-controls-fadeout-time !important;
   opacity: 0.01 !important;
 }
 

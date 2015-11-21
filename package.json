@@ -16,7 +16,7 @@
     "start": "supervisor index.js",
     "stop": "mongo admin --eval 'db.shutdownServer()' > /dev/null",
     "pretest": "mongod --fork --logpath /dev/null",
-    "test": "node test/index | node_modules/.bin/tap-spec && grunt test:local",
+    "test": "node_modules/.bin/sass-lint --config .sass-lint.yml  --verbose; node test/index | node_modules/.bin/tap-spec && grunt test:local",
     "posttest": "mongo admin --eval 'db.shutdownServer()' > /dev/null"
   },
   "dependencies": {
@@ -67,6 +67,7 @@
     "grunt-shell": "^1.1.2",
     "load-grunt-tasks": "^3.3.0",
     "proxyquire": "^1.7.3",
+    "sass-lint": "^1.3.3",
     "standard": "^5.3.1",
     "supertest": "^1.1.0",
     "tap-spec": "^4.1.0",

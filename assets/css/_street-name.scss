@@ -1,11 +1,11 @@
-$streetNameSize:          1.5;
-$streetNameTop:           10px;
+$street-name-size: 1.5;
+$street-name-top: 10px;
 
 #street-name-canvas {
   position: absolute;
   left: 150px;
   right: 150px;
-  top: $streetNameTop;
+  top: $street-name-top;
   z-index: 1000000;
   text-align: center;
   pointer-events: none;
@@ -27,13 +27,13 @@ body.read-only #street-name-canvas {
   transform: translateY(0);
 }
 
-@mixin street-name-mixin($size: $streetNameSize) {
+@mixin street-name-mixin($size: $street-name-size) {
   padding: 3px * $size;
 }
 
-@mixin street-name-inside-mixin($size: $streetNameSize) {
+@mixin street-name-inside-mixin($size: $street-name-size) {
   height: 30px * $size;
-  border: 3px * $size solid $streetNameText;
+  border: 3px * $size solid $street-name-text;
   padding: 10px * $size 30px * $size;
   padding-top: 11px * $size;
   padding-bottom: 5px * $size;
@@ -42,7 +42,7 @@ body.read-only #street-name-canvas {
   letter-spacing: 1px * $size;
 }
 
-@mixin street-name-fallback-mixin($size: $streetNameSize) {
+@mixin street-name-fallback-mixin($size: $street-name-size) {
   font-size: 35px * $size;
   padding-bottom: 11px * $size;
 }
@@ -52,35 +52,34 @@ body.windows .street-name-text {
 }
 
 .street-name {
-  @include street-name-mixin();
+  @include street-name-mixin;
+
   display: inline-block;
-
-  background: $streetNameBackground;
-  color: $streetNameText;
-
+  background: $street-name-background;
+  color: $street-name-text;
   user-select: none;
   white-space: nowrap;
 
   & > div,
   & > span {
-    @include street-name-inside-mixin();
+    @include street-name-inside-mixin;
 
     font-family: 'Roadgeek', sans-serif;
     text-align: left;
-
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
   &.fallback-unicode-font > div {
-    font-family: sans-serif;
+    @include street-name-fallback-mixin;
 
-    @include street-name-fallback-mixin();
+    font-family: sans-serif;
   }
 }
 
 .street-name-text {
-  @include street-name-inside-mixin();
+  @include street-name-inside-mixin;
+
   font-family: 'Roadgeek', sans-serif;
   text-align: left;
   text-overflow: ellipsis;
@@ -89,18 +88,19 @@ body.windows .street-name-text {
 
 #gallery .streets .street-name,
 #welcome .street-name {
-  @include street-name-mixin($streetNameGallerySize);
+  @include street-name-mixin($street-name-gallery-size);
+
   max-width: 100%;
   position: relative;
   top: -15px;
 
   & > div,
   & > span {
-    @include street-name-inside-mixin($streetNameGallerySize);
+    @include street-name-inside-mixin($street-name-gallery-size);
   }
 
   &.fallback-unicode-font > div {
-    @include street-name-fallback-mixin($streetNameGallerySize);
+    @include street-name-fallback-mixin($street-name-gallery-size);
   }
 }
 
@@ -110,10 +110,11 @@ body.windows .street-name-text {
 }
 
 #street-name {
+  @include tap-highlight-color(transparent);
+
   position: relative;
   max-width: 100%;
   pointer-events: auto;
-  @include tap-highlight-color(transparent);
 }
 
 body:not(.touch-support):not(.read-only) #street-name {
@@ -126,6 +127,7 @@ body:not(.touch-support):not(.read-only) #street-name {
     & > div {
       border-color: rgb(220, 220, 220);
     }
+
     &::after {
       color: black;
       // TODO message
@@ -136,7 +138,7 @@ body:not(.touch-support):not(.read-only) #street-name {
       top: 0;
       right: 0;
       bottom: 0;
-      line-height: 60px * $streetNameSize;
+      line-height: 60px * $street-name-size;
 
       font-family: sans-serif;
       font-size: 12px;

@@ -1,8 +1,8 @@
-/* Fonts */
+// Fonts
 
-$fontFamily: 'Lato', sans-serif;
+$font-family: 'Lato', sans-serif;
 
-@import url('//fonts.googleapis.com/css?family=Lato:300,400,700,300italic');
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic');
 
 @font-face {
   font-family: 'Roadgeek';
@@ -16,5 +16,5 @@ input,
 select,
 textarea,
 option {
-  font-family: $fontFamily;
+  font-family: $font-family;
 }
