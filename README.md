@@ -139,7 +139,7 @@ NO_INTERNET_MODE=true
 
 ### HOWTO: Run browser integration tests
 
-1) Install test dependencies (only required once)
+1) Install test dependencies (only required once, or after major updates to depedencies)
 
     grunt test:local:setup
 

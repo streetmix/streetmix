@@ -8,16 +8,16 @@
   },
   "license": "BSD-3-Clause",
   "engines": {
-    "node": ">=4.2.1",
-    "npm": ">=2.14.7"
+    "node": ">=5.1.0",
+    "npm": ">=3.3.12"
   },
   "scripts": {
     "prestart": "mongod --fork --logpath /dev/null",
     "start": "supervisor index.js",
-    "stop": "mongo admin --eval 'db.shutdownServer()' > /dev/null",
+    "stop": "mongo admin --eval 'db.shutdownServer()'",
     "pretest": "mongod --fork --logpath /dev/null",
     "test": "node_modules/.bin/sass-lint --config .sass-lint.yml  --verbose; node test/index | node_modules/.bin/tap-spec && grunt test:local",
-    "posttest": "mongo admin --eval 'db.shutdownServer()' > /dev/null"
+    "posttest": "mongo admin --eval 'db.shutdownServer()'"
   },
   "dependencies": {
     "async": "^1.5.0",
@@ -39,6 +39,7 @@
     "gulp-tap": "^0.1.3",
     "i18next": "^1.10.6",
     "jade": "^1.11.0",
+    "kerberos": "0.0.17",
     "mongoose": "^4.2.7",
     "newrelic": "^1.24.0",
     "node-env-file": "^0.1.8",
@@ -47,7 +48,7 @@
     "postcss": "^5.0.12",
     "request": "^2.67.x",
     "requireindex": "1.1.x",
-    "sendgrid": "^1.9.2",
+    "sendgrid": "^2.0.0",
     "sprintf": "0.1.x",
     "streetmix-icons": "git://github.com/streetmix/icons.git",
     "superagent": "^1.4.0",
@@ -63,7 +64,7 @@
     "grunt": "^0.4.5",
     "grunt-env": "^0.4.4",
     "grunt-express": "^1.4.1",
-    "grunt-protractor-runner": "^2.1.0",
+    "grunt-protractor-runner": "^3.0.0",
     "grunt-shell": "^1.1.2",
     "load-grunt-tasks": "^3.3.0",
     "proxyquire": "^1.7.3",
