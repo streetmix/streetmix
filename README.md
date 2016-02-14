@@ -55,16 +55,17 @@ These installation instructions assume that you have already installed the [Home
 2) Download, install and start [MongoDB](http://www.mongodb.org/).
 
     brew install mongodb
+    
+You'll also need to set up the [MongoDB data directory](https://docs.mongodb.org/manual/tutorial/install-mongodb-on-os-x/#run-mongodb). The easiest set up would be (you may need `sudo`):
 
-3) Download and install [Coreutils](http://www.gnu.org/software/coreutils/).
+    mkdir -p /data/db
+    chmod 777 /data/db
 
-    brew install coreutils
-
-4) Clone this remote repository to a folder on your computer.
+3) Clone this remote repository to a folder on your computer.
 
     git clone https://github.com/codeforamerica/streetmix.git
 
-5) Install project dependencies.
+4) Install project dependencies.
 
     cd streetmix
     npm install
