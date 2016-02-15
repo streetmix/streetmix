@@ -2,15 +2,6 @@ var DATE_FORMAT = 'MMM D, YYYY'
 
 var MAX_RAND_SEED = 999999999
 
-var Helpers = (function () {
-  return {
-    noop: function () {},
-    returnTrue: function () {
-      return true
-    }
-  }
-})()
-
 function _generateRandSeed () {
   var randSeed = 1 + Math.floor(Math.random() * MAX_RAND_SEED); // So it’s not zero
   return randSeed

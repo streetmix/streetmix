@@ -25,6 +25,7 @@
     "body-parser": "^1.14.1",
     "browserify": "^11.0.1",
     "browserify-middleware": "^7.0.0",
+    "browserify-shim": "^3.8.12",
     "btoa": "^1.1.2",
     "compression": "^1.6.0",
     "config": "^1.17.1",
@@ -82,5 +83,11 @@
       "assets/js/vendor/",
       "test/integration/smoke.spec.js"
     ]
+  },
+  "browserify": {
+    "transform": [ "browserify-shim" ]
+  },
+  "browserify-shim": {
+    "./assets/scripts/vendor/FileSaver.js": "saveAs"
   }
 }

@@ -13,10 +13,6 @@
 // = require_tree util
 // = require_tree app
 
-// = require dialogs/dialog-manager
-// = require dialogs/dialog
-// = require_tree dialogs
-
 // = require_tree segments
 // = require_tree streets
 // = require_tree gallery

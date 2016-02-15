@@ -14,3 +14,6 @@ window.DebugInfo = require('./app/debug-info')
 window.MenuManager = require('./menus/menu-manager')
 window.shareMenu = require('./menus/_share')
 window.feedbackMenu = require('./menus/_feedback')
+
+// Dialogs
+window.DialogManager = require('./dialogs/dialog-manager')
