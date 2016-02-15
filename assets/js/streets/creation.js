@@ -10,7 +10,7 @@ function _makeDefaultStreet () {
   _updateStreetName()
   _createDomFromData()
   _segmentsChanged()
-  _updateShareMenu()
+  shareMenu.update()
 
   ignoreStreetChanges = false
   lastStreet = _trimStreetData(street)
@@ -36,7 +36,7 @@ function _onNewStreetEmptyClick () {
   _updateStreetName()
   _createDomFromData()
   _segmentsChanged()
-  _updateShareMenu()
+  shareMenu.update()
 
   ignoreStreetChanges = false
   lastStreet = _trimStreetData(street)

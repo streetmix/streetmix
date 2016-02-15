@@ -29,11 +29,6 @@ function _addEventListeners () {
   document.querySelector('.info-bubble').addEventListener('pointerleave', _infoBubble.onMouseLeave)
   document.querySelector('.info-bubble').addEventListener('pointerdown', _infoBubble.onTouchStart)
 
-  document.querySelector('#feedback-form-message').addEventListener('input', _onFeedbackFormInput)
-  document.querySelector('#feedback-form-email').addEventListener('input', _onFeedbackFormInput)
-  document.querySelector('#feedback-form-email').addEventListener('keydown', _onFeedbackFormEmailKeyDown)
-  document.querySelector('#feedback-form-send').addEventListener('pointerdown', _feedbackFormSend)
-
   document.querySelector('#gallery-try-again').addEventListener('pointerdown', _repeatReceiveGalleryData)
 
   document.querySelector('#no-connection-try-again').addEventListener('pointerdown', _nonblockingAjaxTryAgain)

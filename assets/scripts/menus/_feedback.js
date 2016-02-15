@@ -1,8 +1,24 @@
+/* global system, KEYS, API_URL, _newNonblockingAjaxRequest */
+'use strict'
+
+var LOCAL_STORAGE_FEEDBACK_BACKUP = 'feedback-backup'
+var LOCAL_STORAGE_FEEDBACK_EMAIL_BACKUP = 'feedback-email-backup'
 var TWITTER_ID = '@streetmix'
 
-MenuManager.define('feedback', {
+var Menu = require('./menu')
+var shareUrl = require('../util/share-url')
+
+var feedbackMenu = new Menu('feedback', {
+  init: _addEventListeners,
   onShow: _prepareFeedbackForm
 })
+
+function _addEventListeners () {
+  document.querySelector('#feedback-form-message').addEventListener('input', _onFeedbackFormInput)
+  document.querySelector('#feedback-form-email').addEventListener('input', _onFeedbackFormInput)
+  document.querySelector('#feedback-form-email').addEventListener('keydown', _onFeedbackFormEmailKeyDown)
+  document.querySelector('#feedback-form-send').addEventListener('pointerdown', _feedbackFormSend)
+}
 
 function _isFeedbackFormMessagePresent () {
   var message = document.querySelector('#feedback-form-message').value.trim()
@@ -18,7 +34,7 @@ function _updateFeedbackForm () {
 }
 
 function _onFeedbackFormEmailKeyDown (event) {
-  if (event.keyCode == KEYS.ENTER) {
+  if (event.keyCode === KEYS.ENTER) {
     _feedbackFormSend()
   }
 }
@@ -67,7 +83,7 @@ function _feedbackFormSuccess () {
   window.localStorage[LOCAL_STORAGE_FEEDBACK_EMAIL_BACKUP] = ''
 
   // TODO const
-  window.setTimeout(MenuManager.hide, 2500)
+  window.setTimeout(feedbackMenu.hide, 2500)
 }
 
 function _feedbackFormError () {
@@ -78,7 +94,7 @@ function _feedbackFormError () {
   // to try again later, or copy-paste the message to some other
   // contact method.
 
-  window.setTimeout(MenuManager.hide, 10000)
+  window.setTimeout(feedbackMenu.hide, 10000)
 }
 
 function _onFeedbackFormInput () {
@@ -94,7 +110,7 @@ function _updateFeedbackMenu () {
   var el = document.querySelector('#feedback-via-twitter')
 
   var text = TWITTER_ID
-  var url = _getSharingUrl()
+  var url = shareUrl.getSharingUrl()
 
   // TODO const
   el.href = 'https://twitter.com/intent/tweet' +
@@ -123,3 +139,6 @@ function _prepareFeedbackForm (event) {
     notices[i].classList.remove('visible')
   }
 }
+
+feedbackMenu.update = _updateFeedbackMenu
+module.exports = feedbackMenu

@@ -195,7 +195,6 @@ function register (commands, options, callback) {
     var command = commandObj[keyCode]
 
     for (var i = 0; i < command.length; i++) {
-
       // Get default settings
       for (var key in defaults) {
         if (typeof command[i][key] === 'undefined') {
@@ -285,7 +284,6 @@ function deregister (commands, callback) {
     }
   }
 }
-
 
 /**
  * Processes commands

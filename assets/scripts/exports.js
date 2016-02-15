@@ -9,3 +9,8 @@
 
 window.Keypress = require('./app/keypress')
 window.DebugInfo = require('./app/debug-info')
+
+// Menus
+window.MenuManager = require('./menus/menu-manager')
+window.shareMenu = require('./menus/_share')
+window.feedbackMenu = require('./menus/_feedback')

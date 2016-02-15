@@ -103,8 +103,8 @@ function _onEverythingLoaded () {
   _createPalette()
   _createDomFromData()
   _segmentsChanged()
-  _updateShareMenu()
-  _updateFeedbackMenu()
+  shareMenu.update()
+  feedbackMenu.update()
 
   initializing = false
   ignoreStreetChanges = false
