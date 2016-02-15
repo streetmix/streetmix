@@ -23,6 +23,8 @@
     "async": "^1.5.0",
     "autoprefixer": "^6.1.0",
     "body-parser": "^1.14.1",
+    "browserify": "^11.0.1",
+    "browserify-middleware": "^7.0.0",
     "btoa": "^1.1.2",
     "compression": "^1.6.0",
     "config": "^1.17.1",
