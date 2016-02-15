@@ -3,6 +3,7 @@ var cookieParser = require('cookie-parser')
 var cookieSession = require('cookie-session')
 var express = require('express')
 var assets = require('connect-assets')
+var browserify = require('browserify-middleware')
 var bodyParser = require('body-parser')
 var config = require('config')
 var path = require('path')
@@ -71,6 +72,14 @@ app.get('/.well-known/status', resources.well_known_status.get)
 // Process stylesheets via Sass and PostCSS / Autoprefixer
 app.use('/assets/css/styles.css', middleware.styles)
 
+// Build JavaScript bundle via browserify
+app.get('/assets/scripts/main.js', browserify(__dirname + '/assets/scripts/main.js', {
+  cache: true,
+  precompile: true
+}))
+
+// Build JavaScript bundle via concatenation
+// Deprecated. Remove after scripts moved to browserify
 app.use(assets({
   paths: ['assets/js'],
   precompile: ['app.js']
