@@ -422,7 +422,7 @@ function _updateEverything (dontScroll) {
   ignoreStreetChanges = true
   _propagateUnits()
   _buildStreetWidthMenu()
-  _updateShareMenu()
+  shareMenu.update()
   _createDomFromData()
   _segmentsChanged()
   _resizeStreetWidth(dontScroll)

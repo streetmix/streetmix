@@ -29,7 +29,7 @@ function _errorReceiveGalleryData (data) {
 }
 
 function _fetchGalleryStreet (streetId) {
-  _showBlockingShield()
+  blockingShield.show()
 
   $.ajax({
     // TODO const
@@ -42,7 +42,7 @@ function _fetchGalleryStreet (streetId) {
 }
 
 function _errorReceiveGalleryStreet () {
-  _hideBlockingShield()
+  blockingShield.hide()
   galleryStreetLoaded = true
   galleryStreetId = street.id
 
@@ -57,7 +57,7 @@ function _receiveGalleryStreet (transmission) {
 
   galleryStreetLoaded = true
 
-  _hideBlockingShield()
+  blockingShield.hide()
 
   ignoreStreetChanges = true
 
@@ -78,7 +78,7 @@ function _receiveGalleryStreet (transmission) {
   _updateStreetName()
   _createDomFromData()
   _segmentsChanged()
-  _updateShareMenu()
+  shareMenu.update()
 
   ignoreStreetChanges = false
   lastStreet = _trimStreetData(street)

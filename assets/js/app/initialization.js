@@ -2,6 +2,14 @@ var initializing = false
 var bodyLoaded
 var readyStateCompleteLoaded
 
+// Currently, these constants are global to the system
+// TODO: Alternative strategy in the future is make them part of the API of the module
+var TRACK_CATEGORY_INTERACTION = 'Interaction'
+var TRACK_CATEGORY_EVENT = 'Event'
+var TRACK_CATEGORY_ERROR = 'Error'
+var TRACK_CATEGORY_SYSTEM = 'System'
+var TRACK_CATEGORY_SHARING = 'Sharing'
+
 var TRACK_ACTION_TOUCH_CAPABLE = 'Touch capability detected'
 
 // Some things are placed on the generic Stmx app object to keep it out of global scope
@@ -13,8 +21,11 @@ Stmx.preInit = function () {
   initializing = true
   ignoreStreetChanges = true
 
-  _detectDebugUrl()
-  _detectSystemCapabilities()
+  var language = window.navigator.userLanguage || window.navigator.language
+  if (language) {
+    language = language.substr(0, 2).toUpperCase()
+    _updateSettingsFromCountryCode(language)
+  }
 }
 
 Stmx.init = function () {
@@ -36,12 +47,8 @@ Stmx.init = function () {
 
   // Check if no internet mode
   if (system.noInternet === true) {
+    _setEnvironmentBadge('Demo')
     _setupNoInternetMode()
-  }
-
-  // Toggle experimental features
-  if (!debug.experimental) {
-    document.getElementById('settings-menu-item').style.display = 'none'
   }
 
   // TODO make it better
@@ -54,7 +61,6 @@ Stmx.init = function () {
   bodyLoaded = false
   window.addEventListener('load', _onBodyLoad)
 
-  _addBodyClasses()
   _processUrl()
   _processMode()
 
@@ -103,8 +109,8 @@ function _onEverythingLoaded () {
   _createPalette()
   _createDomFromData()
   _segmentsChanged()
-  _updateShareMenu()
-  _updateFeedbackMenu()
+  shareMenu.update()
+  feedbackMenu.update()
 
   initializing = false
   ignoreStreetChanges = false
@@ -115,8 +121,9 @@ function _onEverythingLoaded () {
   _addScrollButtons(document.querySelector('#palette'))
   _addScrollButtons(document.querySelector('#gallery .streets'))
   _addEventListeners()
-  Keypress.init()
-  DebugInfo.init()
+
+  var event = new Event('stmx:everything_loaded')
+  window.dispatchEvent(event)
   MenuManager.init()
   DialogManager.init()
 
@@ -191,6 +198,7 @@ function _fillDom () {
 }
 
 function _setEnvironmentBadge (label) {
+  // If a label is not provided, determine one using ENV
   if (!label) {
     switch (ENV) {
       case 'development':
@@ -207,6 +215,7 @@ function _setEnvironmentBadge (label) {
     }
   }
 
+  // Set the label. Nothing happens if there isn't one.
   if (label) {
     document.querySelector('.environment-badge').textContent = label
   }
@@ -226,5 +235,4 @@ function _setupNoInternetMode () {
   $('body').on('click', 'a[href^="http"]', function (e) {
     e.preventDefault()
   })
-  _setEnvironmentBadge('Demo')
 }

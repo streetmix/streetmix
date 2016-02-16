@@ -123,5 +123,5 @@ function _updatePageUrl (forceGalleryUrl) {
 
   window.history.replaceState(null, null, url)
 
-  _updateShareMenu()
+  shareMenu.update()
 }

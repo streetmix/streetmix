@@ -360,7 +360,7 @@ function _receiveLastStreet (transmission) {
   _updateStreetName()
   _createDomFromData()
   _segmentsChanged()
-  _updateShareMenu()
+  shareMenu.update()
 
   ignoreStreetChanges = false
   lastStreet = _trimStreetData(street)

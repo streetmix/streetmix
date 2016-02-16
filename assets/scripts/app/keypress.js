@@ -82,7 +82,7 @@ var returnTrue = function () { return true }
  *
  * @public
  */
-function init () {
+function startListening () {
   // TODO: remove useCapture if we don't need it
   window.addEventListener('keydown', _onGlobalKeyDown, true)
 }
@@ -195,7 +195,6 @@ function register (commands, options, callback) {
     var command = commandObj[keyCode]
 
     for (var i = 0; i < command.length; i++) {
-
       // Get default settings
       for (var key in defaults) {
         if (typeof command[i][key] === 'undefined') {
@@ -265,27 +264,19 @@ function deregister (commands, callback) {
       // A reverse while loop quickly removes all duplicates that matches
       while (x--) {
         var item = items[x]
-        var matchingCallback = false
-
-        if (item.onKeypress === callback) {
-          matchingCallback = true
-        } else if (typeof callback === 'undefined') {
-          matchingCallback = true
-        }
-
-        // Check for equality for command + function
-        if ((matchingCallback === true) &&
-            (item.shiftKey === command[i].shiftKey || item.shiftKey === 'optional') &&
-            (item.altKey === command[i].altKey || item.altKey === 'optional') &&
-            (item.metaKey === command[i].metaKey || item.metaKey === 'optional')) {
-          // If matches, remove it from the command list.
-          inputs[keyCode].splice(x, 1)
+        if (item.onKeypress === callback || typeof callback === 'undefined') {
+          // Check for equality for command + function
+          if ((item.shiftKey === command[i].shiftKey || item.shiftKey === 'optional') &&
+              (item.altKey === command[i].altKey || item.altKey === 'optional') &&
+              (item.metaKey === command[i].metaKey || item.metaKey === 'optional')) {
+            // If matches, remove it from the command list.
+            inputs[keyCode].splice(x, 1)
+          }
         }
       }
     }
   }
 }
-
 
 /**
  * Processes commands
@@ -423,7 +414,7 @@ function _isFocusOnBody () {
 }
 
 module.exports = {
-  init: init,
+  startListening: startListening,
   register: register,
   deregister: deregister,
   inputs: inputs,

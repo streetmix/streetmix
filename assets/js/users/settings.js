@@ -3,8 +3,6 @@ var TRACK_ACTION_ERROR_RM2 = 'Error RM2 (auth 401 failure mid-flight)'
 var LOCAL_STORAGE_SETTINGS_ID = 'settings'
 var LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED = 'settings-welcome-dismissed'
 var LOCAL_STORAGE_SIGN_IN_ID = 'sign-in'
-var LOCAL_STORAGE_FEEDBACK_BACKUP = 'feedback-backup'
-var LOCAL_STORAGE_FEEDBACK_EMAIL_BACKUP = 'feedback-email-backup'
 var SAVE_SETTINGS_DELAY = 500
 
 var settings = {

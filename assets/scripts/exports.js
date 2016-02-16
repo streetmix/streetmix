@@ -7,5 +7,13 @@
  * convenience
  */
 
-window.Keypress = require('./app/keypress')
-window.DebugInfo = require('./app/debug-info')
+window.EventTracking = require('./app/event_tracking')
+window.blockingShield = require('./app/blocking_shield')
+
+// Menus
+window.MenuManager = require('./menus/menu_manager')
+window.shareMenu = require('./menus/_share')
+window.feedbackMenu = require('./menus/_feedback')
+
+// Dialogs
+window.DialogManager = require('./dialogs/dialog_manager')

@@ -1,28 +1,25 @@
 /**
- * debug-info
+ * debug_info
  *
  * Displays a debugging overlay that shows the current state of the application.
  *
- * @module debug-info
+ * @module debug_info
  * @requires keypress
  */
-/* global _clone, _loseAnyFocus */
+/* global _loseAnyFocus */
 'use strict'
 
+var _ = require('lodash')
 var keypress = require('./keypress')
 
-// TODO: Require utility functions from module
-
 // Register keyboard input for show (shift-D)
-function init () {
-  keypress.register('shift d', show)
-}
+keypress.register('shift d', show)
 
 function show () {
   /* global street, undoStack, settings */
-  var debugStreetData = _clone(street)
-  var debugUndo = _clone(undoStack)
-  var debugSettings = _clone(settings)
+  var debugStreetData = _.cloneDeep(street)
+  var debugUndo = _.cloneDeep(undoStack)
+  var debugSettings = _.cloneDeep(settings)
   var debugEl = document.querySelector('#debug')
   var textEl = debugEl.querySelector('textarea')
 
@@ -68,7 +65,6 @@ function hide () {
 }
 
 module.exports = {
-  init: init,
   show: show,
   hide: hide
 }
