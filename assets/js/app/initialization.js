@@ -13,7 +13,11 @@ Stmx.preInit = function () {
   initializing = true
   ignoreStreetChanges = true
 
-  _detectSystemCapabilities()
+  var language = window.navigator.userLanguage || window.navigator.language
+  if (language) {
+    language = language.substr(0, 2).toUpperCase()
+    _updateSettingsFromCountryCode(language)
+  }
 }
 
 Stmx.init = function () {
@@ -35,12 +39,8 @@ Stmx.init = function () {
 
   // Check if no internet mode
   if (system.noInternet === true) {
+    _setEnvironmentBadge('Demo')
     _setupNoInternetMode()
-  }
-
-  // Toggle experimental features
-  if (!debug.experimental) {
-    document.getElementById('settings-menu-item').style.display = 'none'
   }
 
   // TODO make it better
@@ -53,7 +53,6 @@ Stmx.init = function () {
   bodyLoaded = false
   window.addEventListener('load', _onBodyLoad)
 
-  _addBodyClasses()
   _processUrl()
   _processMode()
 
@@ -191,6 +190,7 @@ function _fillDom () {
 }
 
 function _setEnvironmentBadge (label) {
+  // If a label is not provided, determine one using ENV
   if (!label) {
     switch (ENV) {
       case 'development':
@@ -207,6 +207,7 @@ function _setEnvironmentBadge (label) {
     }
   }
 
+  // Set the label. Nothing happens if there isn't one.
   if (label) {
     document.querySelector('.environment-badge').textContent = label
   }
@@ -226,5 +227,4 @@ function _setupNoInternetMode () {
   $('body').on('click', 'a[href^="http"]', function (e) {
     e.preventDefault()
   })
-  _setEnvironmentBadge('Demo')
 }
