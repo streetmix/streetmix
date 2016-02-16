@@ -13,7 +13,6 @@ Stmx.preInit = function () {
   initializing = true
   ignoreStreetChanges = true
 
-  _detectDebugUrl()
   _detectSystemCapabilities()
 }
 

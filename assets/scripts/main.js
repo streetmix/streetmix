@@ -3,6 +3,9 @@
  *
  */
 
+// Initalization scripts
+require('./app/initialization')
+
 // Export modules to window for the global-scoped JavaScript
 require('./exports')
 
