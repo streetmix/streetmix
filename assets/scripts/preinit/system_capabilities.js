@@ -71,7 +71,8 @@ if (debug.forceNonRetina) {
 }
 
 if ((typeof window.matchMedia !== 'undefined') &&
-  window.matchMedia('only screen and (max-device-width: 480px)').matches) {
+  (window.matchMedia('only screen and (max-device-width: 480px)').matches ||
+  window.matchMedia('only screen and (max-device-height: 480px)').matches)) {
   system.phone = true
 } else {
   system.phone = false

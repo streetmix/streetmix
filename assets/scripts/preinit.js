@@ -11,10 +11,12 @@ require('./vendor/modernizr.custom.30104')
 
 // This is placed globally while we're transitioning bundles.
 // TODO: Store in application state
-window.debug = require('./preinit/debug_settings')
-window.system = require('./preinit/system_capabilities')
-window.app = require('./preinit/app_settings')
+var debug = window.debug = require('./preinit/debug_settings')
+var system = window.system = require('./preinit/system_capabilities')
+var app = window.app = require('./preinit/app_settings')
 window.readOnly = app.readOnly
+
+setScaleForPhone()
 
 // This event is fired by _onEverythingLoaded() in the deprecated
 // global bundle. This allows things in the modular bundle to respond
