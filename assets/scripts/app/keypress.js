@@ -82,7 +82,7 @@ var returnTrue = function () { return true }
  *
  * @public
  */
-function init () {
+function startListening () {
   // TODO: remove useCapture if we don't need it
   window.addEventListener('keydown', _onGlobalKeyDown, true)
 }
@@ -414,7 +414,7 @@ function _isFocusOnBody () {
 }
 
 module.exports = {
-  init: init,
+  startListening: startListening,
   register: register,
   deregister: deregister,
   inputs: inputs,

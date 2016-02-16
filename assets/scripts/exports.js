@@ -7,9 +7,6 @@
  * convenience
  */
 
-window.Keypress = require('./app/keypress')
-window.DebugInfo = require('./app/debug_info')
-
 window.blockingShield = require('./app/blocking_shield')
 
 // Menus

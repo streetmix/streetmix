@@ -1,5 +1,5 @@
 'use strict'
-/* global _statusMessage */
+/* global _statusMessage, msg */
 
 var keypress = require('./keypress')
 

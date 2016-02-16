@@ -115,7 +115,9 @@ function _onEverythingLoaded () {
   _addScrollButtons(document.querySelector('#palette'))
   _addScrollButtons(document.querySelector('#gallery .streets'))
   _addEventListeners()
-  Keypress.init()
+
+  var event = new Event('stmx:everything_loaded')
+  window.dispatchEvent(event)
   MenuManager.init()
   DialogManager.init()
 

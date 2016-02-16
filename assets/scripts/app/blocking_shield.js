@@ -1,4 +1,5 @@
 /* global msg */
+/* global _blockingCancel, _blockingTryAgain, _goReload */
 'use strict'
 
 // TODO: Some shield-related functionality is wound up in gallery/xhr, util/xhr
@@ -10,6 +11,11 @@ var blockingShieldTimerId = -1
 var blockingShieldTooSlowTimerId = -1
 
 var shieldEl = document.querySelector('#blocking-shield')
+
+// Adds event listeners to the respond to buttons.
+document.querySelector('#blocking-shield-cancel').addEventListener('pointerdown', _blockingCancel)
+document.querySelector('#blocking-shield-try-again').addEventListener('pointerdown', _blockingTryAgain)
+document.querySelector('#blocking-shield-reload').addEventListener('pointerdown', _goReload)
 
 function _clearBlockingShieldTimers () {
   window.clearTimeout(blockingShieldTimerId)

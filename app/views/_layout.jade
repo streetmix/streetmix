@@ -38,6 +38,7 @@ html(lang='en')
       var ENV = '#{ config.env }'
       var NO_INTERNET_MODE = #{ config.no_internet_mode }
 
+    script(src='/assets/scripts/preinit.js')
     != js('app')
 
     script.
