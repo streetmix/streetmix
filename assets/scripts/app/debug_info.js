@@ -1,9 +1,9 @@
 /**
- * debug-info
+ * debug_info
  *
  * Displays a debugging overlay that shows the current state of the application.
  *
- * @module debug-info
+ * @module debug_info
  * @requires keypress
  */
 /* global _clone, _loseAnyFocus */
@@ -14,9 +14,7 @@ var keypress = require('./keypress')
 // TODO: Require utility functions from module
 
 // Register keyboard input for show (shift-D)
-function init () {
-  keypress.register('shift d', show)
-}
+keypress.register('shift d', show)
 
 function show () {
   /* global street, undoStack, settings */
@@ -68,7 +66,6 @@ function hide () {
 }
 
 module.exports = {
-  init: init,
   show: show,
   hide: hide
 }
