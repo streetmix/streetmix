@@ -19,9 +19,6 @@ var blockingAjaxRequestDoneFunc
 var blockingAjaxRequestCancelFunc
 var blockingAjaxRequestInProgress = false
 
-var blockingShieldTimerId = -1
-var blockingShieldTooSlowTimerId = -1
-
 var uniqueRequestId = 0
 
 function _getUniqueRequestHeader () {
@@ -180,7 +177,7 @@ function _successNonblockingAjaxRequest (data, request) {
 }
 
 function _successBlockingAjaxRequest (data) {
-  _hideBlockingShield()
+  blockingShield.hide()
 
   blockingAjaxRequestInProgress = false
 
@@ -194,7 +191,7 @@ function _errorBlockingAjaxRequest () {
 
   document.querySelector('#blocking-shield').classList.add('show-try-again')
 
-  _darkenBlockingShield()
+  blockingShield.darken()
 }
 
 function _blockingTryAgain () {
@@ -206,7 +203,7 @@ function _blockingTryAgain () {
 }
 
 function _blockingCancel () {
-  _hideBlockingShield()
+  blockingShield.hide()
 
   blockingAjaxRequestInProgress = false
 
@@ -214,7 +211,7 @@ function _blockingCancel () {
 }
 
 function _newBlockingAjaxRequest (message, request, doneFunc, cancelFunc) {
-  _showBlockingShield(message)
+  blockingShield.show(message)
 
   blockingAjaxRequestInProgress = true
 

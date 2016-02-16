@@ -8,12 +8,14 @@
  */
 
 window.Keypress = require('./app/keypress')
-window.DebugInfo = require('./app/debug-info')
+window.DebugInfo = require('./app/debug_info')
+
+window.blockingShield = require('./app/blocking_shield')
 
 // Menus
-window.MenuManager = require('./menus/menu-manager')
+window.MenuManager = require('./menus/menu_manager')
 window.shareMenu = require('./menus/_share')
 window.feedbackMenu = require('./menus/_feedback')
 
 // Dialogs
-window.DialogManager = require('./dialogs/dialog-manager')
+window.DialogManager = require('./dialogs/dialog_manager')
