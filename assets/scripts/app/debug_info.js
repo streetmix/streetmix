@@ -12,8 +12,6 @@
 var _ = require('lodash')
 var keypress = require('./keypress')
 
-// TODO: Require utility functions from module
-
 // Register keyboard input for show (shift-D)
 keypress.register('shift d', show)
 

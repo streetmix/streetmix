@@ -10,6 +10,7 @@ require('./app/initialization')
 require('./exports')
 
 // Load things that are needed
+require('./app/event_tracking')
 require('./app/blocking_shield')
 require('./app/debug_info')
 require('./app/keyboard_commands')

@@ -7,6 +7,7 @@
  * convenience
  */
 
+window.EventTracking = require('./app/event_tracking')
 window.blockingShield = require('./app/blocking_shield')
 
 // Menus

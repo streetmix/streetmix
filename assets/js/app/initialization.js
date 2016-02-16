@@ -2,6 +2,14 @@ var initializing = false
 var bodyLoaded
 var readyStateCompleteLoaded
 
+// Currently, these constants are global to the system
+// TODO: Alternative strategy in the future is make them part of the API of the module
+var TRACK_CATEGORY_INTERACTION = 'Interaction'
+var TRACK_CATEGORY_EVENT = 'Event'
+var TRACK_CATEGORY_ERROR = 'Error'
+var TRACK_CATEGORY_SYSTEM = 'System'
+var TRACK_CATEGORY_SHARING = 'Sharing'
+
 var TRACK_ACTION_TOUCH_CAPABLE = 'Touch capability detected'
 
 // Some things are placed on the generic Stmx app object to keep it out of global scope

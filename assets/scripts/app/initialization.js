@@ -1,6 +1,10 @@
 /* global debug, system, readOnly */
 'use strict'
 
+// Remember, the debug & system variables are global & attached to the window
+// because they are detected in a separate bundle. Require()ing them here will
+// not do what you expect.
+
 // Toggle debug features
 if (debug.hoverPolygon) {
   createDebugHoverPolygon()
