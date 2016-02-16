@@ -7,14 +7,14 @@
 /* global _infoBubble, _statusMessage, _getElAbsolutePos, _loseAnyFocus */
 'use strict'
 
-var helpers = require('../util/helpers')
+var _ = require('lodash')
 
 var Menu = function (name, opts) {
   opts = opts || {}
   this.name = name
   this.alignment = opts.alignment || 'left' // Set to 'right' if menu should be aligned to right of window
-  this.onInitCallback = opts.init || helpers.noop // Function to execute at menu init
-  this.onShowCallback = opts.onShow || helpers.noop // Function to execute after menu open
+  this.onInitCallback = opts.init || _.noop // Function to execute at menu init
+  this.onShowCallback = opts.onShow || _.noop // Function to execute after menu open
   this.el = null // Placeholder
 }
 

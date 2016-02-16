@@ -6,8 +6,8 @@
  */
 'use strict'
 
+var _ = require('lodash')
 var menus = require('../menus/menu_manager')
-var helpers = require('../util/helpers')
 
 var Dialog = function (id, opts) {
   opts = opts || {}
@@ -15,9 +15,9 @@ var Dialog = function (id, opts) {
   this.id = id // Element id
 
   this.clickSelector = opts.clickSelector || null // Reference to element that activates this dialog when clicked
-  this.onInitCallback = opts.onInit || helpers.noop // Function to execute after dialog init
-  this.onShowCallback = opts.onShow || helpers.noop // Function to execute after dialog open
-  this.onHideCallback = opts.onHide || helpers.noop // Function to execute after dialog close
+  this.onInitCallback = opts.onInit || _.noop // Function to execute after dialog init
+  this.onShowCallback = opts.onShow || _.noop // Function to execute after dialog open
+  this.onHideCallback = opts.onHide || _.noop // Function to execute after dialog close
 
   this.el = null // For caching a reference to the dialog box's DOM element
 }

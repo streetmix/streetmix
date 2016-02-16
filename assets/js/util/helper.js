@@ -60,6 +60,7 @@ function _getElAbsolutePos (el) {
   return pos
 }
 
+// Replace with _.cloneDeep (via lodash)
 function _clone (obj) {
   if ($.isArray(obj)) {
     return $.extend(true, [], obj)

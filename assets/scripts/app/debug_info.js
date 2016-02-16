@@ -6,9 +6,10 @@
  * @module debug_info
  * @requires keypress
  */
-/* global _clone, _loseAnyFocus */
+/* global _loseAnyFocus */
 'use strict'
 
+var _ = require('lodash')
 var keypress = require('./keypress')
 
 // TODO: Require utility functions from module
@@ -18,9 +19,9 @@ keypress.register('shift d', show)
 
 function show () {
   /* global street, undoStack, settings */
-  var debugStreetData = _clone(street)
-  var debugUndo = _clone(undoStack)
-  var debugSettings = _clone(settings)
+  var debugStreetData = _.cloneDeep(street)
+  var debugUndo = _.cloneDeep(undoStack)
+  var debugSettings = _.cloneDeep(settings)
   var debugEl = document.querySelector('#debug')
   var textEl = debugEl.querySelector('textarea')
 

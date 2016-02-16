@@ -43,6 +43,7 @@
     "i18next": "^2.0.19",
     "jade": "^1.11.0",
     "kerberos": "0.0.17",
+    "lodash": "^4.3.0",
     "mongoose": "^4.2.7",
     "newrelic": "^1.24.0",
     "node-env-file": "^0.1.8",
