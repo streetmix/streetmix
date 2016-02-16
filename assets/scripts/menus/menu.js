@@ -21,7 +21,7 @@ var Menu = function (name, opts) {
 Menu.prototype.init = function () {
   var menuButton = '#' + this.name + '-menu-button'
   var menuButtonEl = document.querySelector(menuButton)
-  this.manager = require('./menu-manager')
+  this.manager = require('./menu_manager')
 
   // Save a reference to its DOM element
   this.el = document.querySelector('#' + this.name + '-menu')

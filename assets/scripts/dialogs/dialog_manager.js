@@ -13,7 +13,7 @@ var shieldEl
 function init () {
   // Require all dialogs
   dialogs.about = require('./_about')
-  dialogs.saveAsImage = require('./_save-as-image')
+  dialogs.saveAsImage = require('./_save_as_image')
 
   // Init shield element
   shieldEl = document.querySelector('#dialog-box-shield')

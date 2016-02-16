@@ -6,7 +6,7 @@
  */
 'use strict'
 
-var menus = require('../menus/menu-manager')
+var menus = require('../menus/menu_manager')
 var helpers = require('../util/helpers')
 
 var Dialog = function (id, opts) {
@@ -24,7 +24,7 @@ var Dialog = function (id, opts) {
 
 Dialog.prototype.init = function () {
   this.el = document.querySelector(this.id)
-  this.manager = require('./dialog-manager')
+  this.manager = require('./dialog_manager')
 
   if (this.clickSelector) {
     document.querySelector(this.clickSelector).addEventListener('pointerdown', this.show.bind(this))

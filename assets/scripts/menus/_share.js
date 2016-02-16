@@ -7,7 +7,7 @@ var TRACK_ACTION_FACEBOOK = 'Facebook'
 var TRACK_ACTION_TWITTER = 'Twitter'
 
 var Menu = require('./menu')
-var shareUrl = require('../util/share-url')
+var shareUrl = require('../util/share_url')
 
 var shareMenu = new Menu('share', {
   alignment: 'right',

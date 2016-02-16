@@ -6,7 +6,7 @@ var LOCAL_STORAGE_FEEDBACK_EMAIL_BACKUP = 'feedback-email-backup'
 var TWITTER_ID = '@streetmix'
 
 var Menu = require('./menu')
-var shareUrl = require('../util/share-url')
+var shareUrl = require('../util/share_url')
 
 var feedbackMenu = new Menu('feedback', {
   init: _addEventListeners,
