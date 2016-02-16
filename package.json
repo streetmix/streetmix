@@ -16,7 +16,7 @@
     "start": "supervisor index.js",
     "stop": "mongo admin --eval 'db.shutdownServer()'",
     "pretest": "mongod --fork --logpath /dev/null",
-    "test": "node_modules/.bin/sass-lint --config .sass-lint.yml  --verbose; node test/index | node_modules/.bin/tap-spec && grunt test:local",
+    "test": "sass-lint --config .sass-lint.yml  --verbose; standard assets/scripts/**/*.js | snazzy; node test/index | tap-spec && grunt test:local",
     "posttest": "mongo admin --eval 'db.shutdownServer()'"
   },
   "dependencies": {
@@ -72,6 +72,7 @@
     "load-grunt-tasks": "^3.3.0",
     "proxyquire": "^1.7.3",
     "sass-lint": "^1.3.3",
+    "snazzy": "^3.0.0",
     "standard": "^5.4.1",
     "supertest": "^1.1.0",
     "tap-spec": "^4.1.1",
@@ -81,11 +82,14 @@
   "standard": {
     "ignore": [
       "assets/js/vendor/",
+      "assets/scripts/vendor/",
       "test/integration/smoke.spec.js"
     ]
   },
   "browserify": {
-    "transform": [ "browserify-shim" ]
+    "transform": [
+      "browserify-shim"
+    ]
   },
   "browserify-shim": {
     "./assets/scripts/vendor/FileSaver.js": "saveAs"
