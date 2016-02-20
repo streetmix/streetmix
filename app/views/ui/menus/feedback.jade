@@ -1,0 +1,16 @@
+.menu#feedback-menu
+  .form#feedback-form
+    .feedback-notice.loading Loading…
+    .feedback-notice.thank-you We got it. Thanks!
+    .feedback-notice.error We’re sorry, there was a problem sending feedback at this time. Please try again later.
+
+    | Send us a message:
+
+    textarea#feedback-form-message(placeholder='What do you think of Streetmix?')
+    input#feedback-form-email(type='email', placeholder='Your email (optional)', spellcheck='false')
+    button#feedback-form-send Send message
+
+  a#feedback-via-twitter(href='#', target='_blank') Send a tweet to @streetmix
+  a(href='mailto:streetmix@codeforamerica.org', target='_blank') Send an email to Streetmix team
+  a(href='https://github.com/codeforamerica/streetmix', target='_blank') View/comment on GitHub
+  a(href='http://blog.streetmix.net', target='_blank') Visit Streetmix blog

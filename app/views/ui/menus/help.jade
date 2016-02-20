@@ -1,0 +1,26 @@
+.menu#help-menu
+  a#about-streetmix(href='/help/about', data-i18n='menu.item.about') About Streetmix…
+  .form.non-touch-only#help-shortcuts
+    p
+      span(data-i18n='menu.help.keyboard-label') Keyboard shortcuts:
+    table
+      tr
+        td
+          span.key(data-i18n='key.backspace') Backspace
+        td
+          | Remove a segment you’re pointing at<br>
+          | (hold <span class='key'>Shift</span> to remove all)
+      tr
+        td
+          span.key –
+          span.key +
+        td
+          | Change width of a segment you’re pointing at<br>
+          | (hold <span class='key'>Shift</span> for more precision)
+      tr
+        td
+          span.key &larr;
+          span.key &rarr;
+        td
+          | Move around the street
+          | (hold <span class='key'>Shift</span> to jump to edges)
