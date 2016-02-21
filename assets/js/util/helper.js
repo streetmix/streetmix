@@ -28,15 +28,6 @@ function htmlEncode (value) {
   return $('<div/>').text(value).html()
 }
 
-String.prototype.supplant = function (o) {
-  return this.replace(/\[\[([^\[\]]*)\]\]/g,
-    function (a, b) {
-      var r = o[b]
-      return typeof r === 'string' || typeof r === 'number' ? r : a
-    }
-  )
-}
-
 function _createTimeout (fn, data, delay) {
   window.setTimeout(function () { fn.call(null, data); }, delay)
 }

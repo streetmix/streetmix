@@ -16,6 +16,9 @@ var system = window.system = require('./preinit/system_capabilities')
 var app = window.app = require('./preinit/app_settings')
 window.readOnly = app.readOnly
 
+// Require early for scripts that ask for msg() immediately
+window.msg = require('./app/messages')
+
 setScaleForPhone()
 
 // This event is fired by _onEverythingLoaded() in the deprecated

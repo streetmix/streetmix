@@ -1,7 +1,7 @@
-var MESSAGES = {
-  BUTTON_UNDO: 'Undo',
-  BUTTON_REDO: 'Redo',
+'use strict'
 
+// TODO: Localize
+var messages = {
   BUTTON_NEW_STREET: 'Create new street',
   BUTTON_COPY_LAST_STREET: 'Make a copy',
 
@@ -55,8 +55,28 @@ var MESSAGES = {
 
 function msg (messageId, data) {
   if (data) {
-    return MESSAGES[messageId].supplant(data)
+    return supplant(messages[messageId], data)
   } else {
-    return MESSAGES[messageId]
+    return messages[messageId]
   }
 }
+
+/**
+ * Adapted from Crockford's "Remedial Javascript"
+ * http://javascript.crockford.com/remedial.html
+ * Crockford's implementation recommended extending the String prototype object,
+ * but much has been said about not doing that, e.g.:
+ * https://www.nczonline.net/blog/2010/03/02/maintainable-javascript-dont-modify-objects-you-down-own/
+ * Since it is only used for this module's purpose, it is now merely a function
+ * that returns a supplanted string, rather than extending the String prototype.
+ */
+function supplant (string, data) {
+  return string.replace(/\[\[([^\[\]]*)\]\]/g,
+    function (a, b) {
+      var r = data[b]
+      return typeof r === 'string' || typeof r === 'number' ? r : a
+    }
+  )
+}
+
+module.exports = msg

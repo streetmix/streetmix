@@ -7,6 +7,8 @@
  * convenience
  */
 
+window.msg = require('./app/messages')
+
 window.EventTracking = require('./app/event_tracking')
 window.blockingShield = require('./app/blocking_shield')
 
