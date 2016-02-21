@@ -1,15 +1,15 @@
 #gallery
-  .loading
+  .loading(data-i18n='msg.loading') Loading…
   .error-loading
-    | Failed to load the gallery.
-    button#gallery-try-again Try again
+    span(data-i18n='gallery.fail') Failed to load the gallery.
+    button#gallery-try-again(data-i18n='btn.try-again') Try again
   .sign-in-promo
     | <a href='/twitter-sign-in?redirectUri=/just-signed-in'>Sign in with Twitter</a> for your personal street gallery
   .avatar
   .user-id
   .street-count
 
-  a.button-like#new-street(href='#', target='_blank')
-  a.button-like#copy-last-street(href='#', target='_blank')
+  a.button-like#new-street(href='#', target='_blank', data-i18n='btn.create') Create new street
+  a.button-like#copy-last-street(href='#', target='_blank', data-i18n='btn.copy') Make a copy
 
   ul.streets

@@ -11,6 +11,11 @@ var galleryUserId = null
 var galleryStreetId = null
 var galleryStreetLoaded = false
 
+function _initGallery () {
+  document.querySelector('#new-street').href = URL_NEW_STREET
+  document.querySelector('#copy-last-street').href = URL_NEW_STREET_COPY_LAST
+}
+
 function _repeatReceiveGalleryData () {
   _loadGalleryContents()
 }

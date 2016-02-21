@@ -1,21 +1,20 @@
 .menu#share-menu
-  #sign-in-promo.
-    <a href='/twitter-sign-in?redirectUri=/just-signed-in'>Sign in with Twitter</a>
-    for nicer links to your streets and your personal street gallery
+  #sign-in-promo(data-i18n='menu.share.sign-in')
+    | <a href='/twitter-sign-in?redirectUri=/just-signed-in'>Sign in with Twitter</a> for nicer links to your streets and your personal street gallery
   #share-via-link-canvas
-    | Copy and paste this link to share:
+    span(data-i18n='menu.share.link') Copy and paste this link to share:
     input#share-via-link(type='text', value='', spellcheck='false')
 
   a#share-via-twitter(href='#', target='_blank')
     svg.icon
       use(xlink:href='#icon-twitter')
-    | Share using Twitter
+    span(data-i18n='menu.share.twitter') Share using Twitter
   a#share-via-facebook(href='#', target='_blank')
     svg.icon
       use(xlink:href='#icon-facebook')
-    | Share using Facebook
+    span(data-i18n='menu.share.facebook') Share using Facebook
   a#invoke-print(href='#')
-    | Print…
+    span(data-i18n='menu.share.print') Print…
   a#save-as-image(href='#')
-    | Save as image…
-    span For including in a report, blog, etc.
+    span(data-i18n='menu.share.save') Save as image…
+    span.menu-item-subtext(data-i18n='menu.share.save-byline') For including in a report, blog, etc.

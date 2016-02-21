@@ -56,15 +56,6 @@
     &:active {
       background: fade-out($ui-colour, 0.3);
     }
-
-    span {
-      display: block;
-      margin-top: 4px;
-      margin-bottom: 4px;
-      line-height: 8px;
-      color: rgb(128, 128, 128);
-      font-size: 11px;
-    }
   }
 
   textarea,
@@ -112,6 +103,15 @@ body.safari .menu {
       padding: 5px;
     }
   }
+}
+
+.menu-item-subtext {
+  display: block;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  line-height: 8px;
+  color: rgb(128, 128, 128);
+  font-size: 11px;
 }
 
 #help-shortcuts {

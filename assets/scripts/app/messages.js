@@ -2,17 +2,13 @@
 
 // TODO: Localize
 var messages = {
-  BUTTON_NEW_STREET: 'Create new street',
-  BUTTON_COPY_LAST_STREET: 'Make a copy',
-
-  DRAG_HERE_TO_REMOVE: 'Drag here to remove',
-
   UI_GLYPH_X: '×',
 
   PROMPT_NEW_STREET_NAME: 'New street name:',
   PROMPT_DELETE_STREET: 'Are you sure you want to permanently delete [[name]]? This cannot be undone.',
   PROMPT_NEW_STREET_WIDTH: 'New street width (from [[minWidth]] to [[maxWidth]]):',
 
+  // -- Added to translation.json, but still updated dynamically --
   MENU_SWITCH_TO_IMPERIAL: 'Switch to imperial units (feet)',
   MENU_SWITCH_TO_METRIC: 'Switch to metric units',
 
@@ -20,11 +16,11 @@ var messages = {
   TOOLTIP_DELETE_STREET: 'Delete street',
   TOOLTIP_SEGMENT_WIDTH: 'Change width of the segment',
   TOOLTIP_BUILDING_HEIGHT: 'Change the number of floors',
-  TOOLTIP_STREET_WIDTH: 'Change width of the street',
   TOOLTIP_INCREASE_WIDTH: 'Increase width (hold Shift for more precision)',
   TOOLTIP_DECREASE_WIDTH: 'Decrease width (hold Shift for more precision)',
   TOOLTIP_ADD_FLOOR: 'Add floor',
   TOOLTIP_REMOVE_FLOOR: 'Remove floor',
+  // -- Above: Added to translation.json, but still updated dynamically --
 
   STATUS_SEGMENT_DELETED: 'The segment has been removed.',
   STATUS_ALL_SEGMENTS_DELETED: 'All segments have been removed.',

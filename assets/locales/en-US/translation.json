@@ -18,6 +18,7 @@
       "change": "Change width of a segment you’re pointing at<br> (hold <span class='key'>Shift</span> for more precision)"
     },
     "share": {
+      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Sign in with Twitter</a> for nicer links to your streets and your personal street gallery",
       "link": "Copy and paste this link to share:",
       "twitter": "Share using Twitter",
       "facebook": "Share using Facebook",
@@ -112,12 +113,24 @@
     "backspace": "Backspace",
     "shift": "Shift"
   },
+  "tooltip": {
+    "remove-segment": "Remove segment",
+    "delete-street": "Delete street",
+    "segment-width": "Change width of the segment",
+    "building-height": "Change the number of floors",
+    "street-width": "Change width of the street",
+    "increase-width": "Increase width (hold Shift for more precision)",
+    "decrease-width": "Decrease width (hold Shift for more precision)",
+    "add-floor": "Add floor",
+    "remove-floor": "Remove floor",
+  },
   "section": {
     "empty": "Empty space"
   },
   "gallery": {
     "fail": "Failed to load the gallery.",
-    "all": "All streets"
+    "all": "All streets",
+    "delete-street-tooltip": "Delete street"
   },
   "users": {
     "anonymous": "Anonymous"

@@ -10,7 +10,7 @@ block main
 
   #loading
     div
-      span(data-i18n='msg.loading')
+      span(data-i18n='msg.loading') Loading…
       progress(id='loading-progress')
 
   include ./ui/gallery
@@ -63,7 +63,7 @@ block main
       #street-name.street-name
       #street-metadata
         span#street-metadata-width
-          span#street-width-read
+          span#street-width-read(title='Change width of the street')
             span#street-width-read-width
             | &nbsp;
             span#street-width-read-difference
@@ -98,11 +98,11 @@ block main
       .footer-canvas
         .regular-canvas
           #commands
-            button#undo(data-i18n='btn.undo')
-            button#redo(data-i18n='btn.redo')
+            button#undo(data-i18n='btn.undo') Undo
+            button#redo(data-i18n='btn.redo') Redo
           #palette
             .palette-canvas
-          #trashcan(data-i18n='palette.remove')
+          #trashcan(data-i18n='palette.remove') Drag here to remove
 
   #print
     div
