@@ -96,12 +96,6 @@ function _onEverythingLoaded () {
       break
   }
 
-  // Initalize i18n / localization
-  // Currently experimental-only
-  if (debug.experimental) {
-    Locale.init()
-  }
-
   _showWelcome()
 
   _onResize()

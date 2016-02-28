@@ -5,6 +5,8 @@
 // because they are detected in a separate bundle. Require()ing them here will
 // not do what you expect.
 
+var locale = require('./locale')
+
 // Toggle debug features
 if (debug.hoverPolygon) {
   createDebugHoverPolygon()
@@ -13,6 +15,10 @@ if (debug.hoverPolygon) {
 // Toggle experimental features
 if (!debug.experimental) {
   document.getElementById('settings-menu-item').style.display = 'none'
+} else {
+  // Initalize i18n / localization
+  // Currently experimental-only
+  locale.init()
 }
 
 // Other
