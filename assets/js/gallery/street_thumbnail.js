@@ -1,10 +1,14 @@
+/* global system */
+/* global TILE_SIZE, SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING, BACKGROUND_DIRT_COLOUR,
+          BUILDING_DESTINATION_THUMBNAIL, SEGMENT_INFO */
+
 var SKY_COLOUR = 'rgb(169, 204, 219)'
 var SKY_WIDTH = 250
 var BOTTOM_BACKGROUND = 'rgb(216, 211, 203)'
 
 function _drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeight,
-  multiplier, silhouette, bottomAligned,
-  transparentSky, segmentNamesAndWidths, streetName) {
+multiplier, silhouette, bottomAligned,
+transparentSky, segmentNamesAndWidths, streetName) {
   // Calculations
 
   var occupiedWidth = 0
@@ -12,10 +16,11 @@ function _drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeight,
     occupiedWidth += street.segments[i].width
   }
 
+  var offsetTop
   if (bottomAligned) {
-    var offsetTop = thumbnailHeight - 180 * multiplier
+    offsetTop = thumbnailHeight - 180 * multiplier
   } else {
-    var offsetTop = (thumbnailHeight + 5 * TILE_SIZE * multiplier) / 2
+    offsetTop = (thumbnailHeight + 5 * TILE_SIZE * multiplier) / 2
   }
   if (segmentNamesAndWidths) {
     offsetTop -= SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING * multiplier
@@ -90,7 +95,7 @@ function _drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeight,
     var segment = street.segments[i]
     var segmentInfo = SEGMENT_INFO[segment.type]
 
-    if (zIndexes.indexOf(segmentInfo.zIndex) == -1) {
+    if (zIndexes.indexOf(segmentInfo.zIndex) === -1) {
       zIndexes.push(segmentInfo.zIndex)
     }
   }
@@ -104,7 +109,7 @@ function _drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeight,
       var segment = street.segments[i]
       var segmentInfo = SEGMENT_INFO[segment.type]
 
-      if (segmentInfo.zIndex == zIndex) {
+      if (segmentInfo.zIndex === zIndex) {
         var variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString]
         var dimensions = _getVariantInfoDimensions(variantInfo, segment.width * TILE_SIZE, 1)
 
@@ -142,7 +147,7 @@ function _drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeight,
       var left = offsetLeft
       var availableWidth = segment.width * TILE_SIZE * multiplier
 
-      if (i == 0) {
+      if (i === 0) {
         left--
       }
 
@@ -154,7 +159,7 @@ function _drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeight,
 
       var text = _prettifyWidth(segment.width, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP)
       var width = ctx.measureText(text).width / 2
-      while ((width > availableWidth - 10 * multiplier) && (text.indexOf(' ') != -1)) {
+      while ((width > availableWidth - 10 * multiplier) && (text.indexOf(' ') !== -1)) {
         text = text.substr(0, text.lastIndexOf(' '))
         width = ctx.measureText(text).width / 2
       }
@@ -166,13 +171,6 @@ function _drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeight,
         ctx.fillText(name, x,
           (groundLevel + 83 * multiplier) * system.hiDpi)
       }
-
-      // grid
-      /*for (var j = 1; j < Math.floor(availableWidth / TILE_SIZE); j++) {
-        _drawLine(ctx,
-            left + j * TILE_SIZE, (groundLevel + 45 * multiplier),
-            left + j * TILE_SIZE, (groundLevel + 55 * multiplier))
-      }*/
 
       offsetLeft += availableWidth
     }
