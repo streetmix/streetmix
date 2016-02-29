@@ -9,6 +9,10 @@
 
 require('./vendor/modernizr.custom.30104')
 
+// Polyfills
+require('es6-promise') // promises
+require('whatwg-fetch') // fetch API
+
 // This is placed globally while we're transitioning bundles.
 // TODO: Store in application state
 var debug = window.debug = require('./preinit/debug_settings')

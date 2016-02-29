@@ -54,11 +54,18 @@ function _getFetchStreetUrl () {
 function _fetchStreetFromServer () {
   var url = _getFetchStreetUrl()
 
-  $.ajax({
-    url: url,
-    dataType: 'json',
-    type: 'GET'
-  }).done(_receiveStreet).fail(_errorReceiveStreet)
+  window.fetch(url)
+    .then(function (response) {
+      return response.json()
+    })
+    .then(_receiveStreet)
+    .catch(_errorReceiveStreet)
+
+  // $.ajax({
+  //   url: url,
+  //   dataType: 'json',
+  //   type: 'GET'
+  // }).done(_receiveStreet).fail(_errorReceiveStreet)
 }
 
 function _errorReceiveStreet (data) {

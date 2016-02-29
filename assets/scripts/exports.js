@@ -19,3 +19,6 @@ window.feedbackMenu = require('./menus/_feedback')
 
 // Dialogs
 window.DialogManager = require('./dialogs/dialog_manager')
+
+window._fetchAvatars = require('./users/avatars').fetch
+window._receiveAvatar = require('./users/avatars').receive

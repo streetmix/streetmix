@@ -8,10 +8,11 @@
  */
 /* global EventTracking */
 /* global URL_HELP_ABOUT, TRACK_CATEGORY_INTERACTION */
-/* global _fetchAvatars, _updatePageUrl */
+/* global _updatePageUrl */
 'use strict'
 
 var Dialog = require('./dialog')
+var avatars = require('../users/avatars')
 
 module.exports = new Dialog('#about', {
   clickSelector: '#about-streetmix',
@@ -26,7 +27,7 @@ module.exports = new Dialog('#about', {
     // Tracking
     EventTracking.track(TRACK_CATEGORY_INTERACTION, 'Open about dialog box', null, null, false)
 
-    _fetchAvatars()
+    avatars.fetch()
   },
   onHide: function () {
     _updatePageUrl()
