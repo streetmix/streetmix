@@ -11,6 +11,7 @@ window.msg = require('./app/messages')
 
 window.EventTracking = require('./app/event_tracking')
 window.blockingShield = require('./app/blocking_shield')
+window._statusMessage = require('./app/status_message')
 
 // Menus
 window.MenuManager = require('./menus/menu_manager')

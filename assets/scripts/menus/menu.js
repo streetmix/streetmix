@@ -4,10 +4,11 @@
  *  Generic class instance of menu
  *
  */
-/* global _infoBubble, _statusMessage, _getElAbsolutePos, _loseAnyFocus */
+/* global _infoBubble, _getElAbsolutePos, _loseAnyFocus */
 'use strict'
 
 var _ = require('lodash')
+var statusMessage = require('../app/status_message')
 
 var Menu = function (name, opts) {
   opts = opts || {}
@@ -49,7 +50,7 @@ Menu.prototype.onClick = function (event) {
 Menu.prototype.show = function (event) {
   // Hide other UI
   _infoBubble.hide()
-  _statusMessage.hide()
+  statusMessage.hide()
   this.manager.hideAll()
 
   // Determine positioning

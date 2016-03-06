@@ -5,8 +5,6 @@ var CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND
 var SEGMENT_Y_NORMAL = 265
 var SEGMENT_Y_PALETTE = 20
 
-var STATUS_MESSAGE_HIDE_DELAY = 15000
-
 var DRAGGING_MOVE_HOLE_WIDTH = 40
 
 var SEGMENT_SWITCHING_TIME = 250
@@ -522,45 +520,6 @@ function _switchSegmentElAway (el) {
   window.setTimeout(function () {
     _removeElFromDom(el)
   }, SEGMENT_SWITCHING_TIME)
-}
-
-var _statusMessage = {
-  timerId: -1,
-
-  show: function (text, undo) {
-    window.clearTimeout(_statusMessage.timerId)
-
-    document.querySelector('#status-message > div').innerHTML = text
-
-    if (undo) {
-      var buttonEl = document.createElement('button')
-      buttonEl.innerHTML = msg('BUTTON_UNDO')
-      buttonEl.addEventListener('pointerdown', _undo)
-      document.querySelector('#status-message > div').appendChild(buttonEl)
-    }
-
-    var el = document.createElement('button')
-    el.classList.add('close')
-    el.addEventListener('pointerdown', _onClickTheX)
-    el.innerHTML = msg('UI_GLYPH_X')
-    document.querySelector('#status-message > div').appendChild(el)
-
-    document.querySelector('#status-message').classList.add('visible')
-
-    _statusMessage.timerId =
-      window.setTimeout(_statusMessage.hide, STATUS_MESSAGE_HIDE_DELAY)
-
-    function _onClickTheX () {
-      _statusMessage.hide()
-      // Force window to refocus on document.body after status-message is closed by X button
-      // Required on Chrome
-      _loseAnyFocus()
-    }
-  },
-
-  hide: function () {
-    document.querySelector('#status-message').classList.remove('visible')
-  }
 }
 
 function _hideEmptySegment (position) {
