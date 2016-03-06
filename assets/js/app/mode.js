@@ -26,7 +26,7 @@ function _processMode () {
 
   switch (mode) {
     case MODES.ERROR:
-      _showErrorFromUrl()
+      _showErrorFromUrl(errorUrl) // errorUrl stored globally. TODO: refactor
       break
     case MODES.UNSUPPORTED_BROWSER:
       _showError(ERRORS.UNSUPPORTED_BROWSER, true)

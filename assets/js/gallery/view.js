@@ -11,6 +11,10 @@ var galleryUserId = null
 var galleryStreetId = null
 var galleryStreetLoaded = false
 
+// set to true when the current street is deleted from the gallery
+// this prevents the gallery from being hidden while no street is shown
+var galleryNoStreetSelected = false
+
 function _initGallery () {
   document.querySelector('#new-street').href = URL_NEW_STREET
   document.querySelector('#copy-last-street').href = URL_NEW_STREET_COPY_LAST
@@ -35,6 +39,7 @@ function _updateGallerySelection () {
 
 function _switchGalleryStreet (id) {
   galleryStreetId = id
+  galleryNoStreetSelected = false
 
   _updateGallerySelection()
   _fetchGalleryStreet(galleryStreetId)
@@ -246,6 +251,7 @@ function _showGallery (userId, instant, signInPromo) {
 
   if ((mode == MODES.USER_GALLERY) || (mode == MODES.GLOBAL_GALLERY)) {
     // Prevents showing old street before the proper street loads
+    galleryNoStreetSelected = true
     _showError(ERRORS.NO_STREET, false)
   }
 
@@ -262,7 +268,7 @@ function _onGalleryShieldClick (event) {
 }
 
 function _hideGallery (instant) {
-  if ((currentErrorType != ERRORS.NO_STREET) && galleryStreetLoaded) {
+  if (galleryNoStreetSelected !== true && galleryStreetLoaded) {
     galleryVisible = false
 
     if (instant) {
@@ -304,6 +310,7 @@ function _onDeleteGalleryStreet (event) {
   // TODO escape name
   if (confirm(msg('PROMPT_DELETE_STREET', { name: name }))) {
     if (el.getAttribute('streetId') == street.id) {
+      galleryNoStreetSelected = true
       _showError(ERRORS.NO_STREET, false)
     }
 

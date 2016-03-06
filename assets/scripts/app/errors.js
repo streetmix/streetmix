@@ -1,8 +1,14 @@
-var abortEverything
-var errorUrl = ''
-var currentErrorType
+/* global street,
+   _hideLoadingScreen, _goHome, _goSignIn, _goReload,
+   _goReloadClearSignIn, _goNewStreet, _goExampleStreet,
+   URL_ERROR_TWITTER_ACCESS_DENIED, URL_ERROR_NO_TWITTER_REQUEST_TOKEN,
+   URL_ERROR_NO_TWITTER_ACCESS_TOKEN, URL_ERROR_AUTHENTICATION_API_PROBLEM */
+'use strict'
 
-var ERRORS = {
+var avatars = require('../users/avatars')
+var domHelpers = require('../util/dom_helpers')
+
+var ERRORS = module.exports = {
   NOT_FOUND: 1,
   SIGN_OUT: 2,
   NO_STREET: 3, // for gallery if you delete the street you were looking at
@@ -23,10 +29,15 @@ var ERRORS = {
   CANNOT_CREATE_NEW_STREET_ON_PHONE: 18,
   SIGN_IN_SERVER_FAILURE: 19,
   SIGN_IN_401: 20,
-  STREET_DATA_FAILURE: 21
+  STREET_DATA_FAILURE: 21,
+
+  // Also export functions
+  show: showError,
+  hide: hideError,
+  showFromUrl: showFromUrl
 }
 
-function _showError (errorType, newAbortEverything) {
+function showError (errorType, newAbortEverything) {
   // NOTE:
   // This function might be called on very old browsers. Please make
   // sure not to use modern faculties.
@@ -128,12 +139,12 @@ function _showError (errorType, newAbortEverything) {
 
   if (abortEverything) {
     // Opera
-    _removeElFromDom(document.getElementById('gallery'))
+    domHelpers.remove(document.getElementById('gallery'))
   }
 
-  if (navigator.userAgent.indexOf('MSIE 6.') != -1) {
+  if (navigator.userAgent.indexOf('MSIE 6.') !== -1) {
     document.body.style.display = 'none'
-    alert('Streetmix doesn’t work on your browser. Please update to a newer browser such as Chrome, Firefox, or Safari.')
+    window.alert('Streetmix doesn’t work on your browser. Please update to a newer browser such as Chrome, Firefox, or Safari.')
     return
   }
 
@@ -172,36 +183,34 @@ function _showError (errorType, newAbortEverything) {
 
   document.getElementById('error').className += ' visible'
 
-  _fetchAvatars()
-
-  currentErrorType = errorType
+  avatars.fetch()
 }
 
-function _hideError () {
+function hideError () {
   document.querySelector('#error').classList.remove('visible')
-
-  currentErrorType = null
 }
 
-function _showErrorFromUrl () {
+function showFromUrl (errorUrl) {
+  var errorType
+
   // TODO const
   switch (errorUrl) {
     case URL_ERROR_TWITTER_ACCESS_DENIED:
-      var errorType = ERRORS.TWITTER_ACCESS_DENIED
+      errorType = ERRORS.TWITTER_ACCESS_DENIED
       break
     case URL_ERROR_NO_TWITTER_REQUEST_TOKEN:
-      var errorType = ERRORS.AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN
+      errorType = ERRORS.AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN
       break
     case URL_ERROR_NO_TWITTER_ACCESS_TOKEN:
-      var errorType = ERRORS.AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN
+      errorType = ERRORS.AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN
       break
     case URL_ERROR_AUTHENTICATION_API_PROBLEM:
-      var errorType = ERRORS.AUTH_PROBLEM_API_PROBLEM
+      errorType = ERRORS.AUTH_PROBLEM_API_PROBLEM
       break
     default:
-      var errorType = ERRORS.GENERIC_ERROR
+      errorType = ERRORS.GENERIC_ERROR
       break
   }
 
-  _showError(errorType, true)
+  showError(errorType, true)
 }

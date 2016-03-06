@@ -30,12 +30,6 @@ function _createTimeout (fn, data, delay) {
   window.setTimeout(function () { fn.call(null, data); }, delay)
 }
 
-function _removeElFromDom (el) {
-  if (el && el.parentNode) {
-    el.parentNode.removeChild(el)
-  }
-}
-
 function _getElAbsolutePos (el) {
   var pos = [0, 0]
 

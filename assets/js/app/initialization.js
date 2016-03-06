@@ -2,6 +2,8 @@ var initializing = false
 var bodyLoaded
 var readyStateCompleteLoaded
 
+var abortEverything
+
 // Currently, these constants are global to the system
 // TODO: Alternative strategy in the future is make them part of the API of the module
 var TRACK_CATEGORY_INTERACTION = 'Interaction'

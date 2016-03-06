@@ -1,3 +1,5 @@
+var errorUrl = ''
+
 function _processUrl () {
   var url = location.pathname
 

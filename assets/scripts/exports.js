@@ -12,6 +12,7 @@ window.msg = require('./app/messages')
 window.EventTracking = require('./app/event_tracking')
 window.blockingShield = require('./app/blocking_shield')
 window._statusMessage = require('./app/status_message')
+window.ERRORS = require('./app/errors')
 
 // Menus
 window.MenuManager = require('./menus/menu_manager')
@@ -26,3 +27,9 @@ window._receiveAvatar = require('./users/avatars').receive
 
 window._formatDate = require('./util/date_format')
 window._updateStreetMetadata = require('./streets/metadata')
+
+window._removeElFromDom = require('./util/dom_helpers').remove
+
+window._showError = require('./app/errors').show
+window._hideError = require('./app/errors').hide
+window._showErrorFromUrl = require('./app/errors').showFromUrl
