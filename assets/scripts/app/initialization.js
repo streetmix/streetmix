@@ -1,4 +1,4 @@
-/* global debug, system, readOnly */
+/* global debug, system, readOnly, ENV */
 'use strict'
 
 // Remember, the debug & system variables are global & attached to the window

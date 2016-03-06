@@ -33,15 +33,14 @@ function fetchAvatar (userId) {
   window.fetch(API_URL + 'v1/users/' + userId)
     .then(function (response) {
       if (response.status !== 200) {
-        throw 'status code ' + response.status
-        return
+        throw new Error('status code ' + response.status)
       }
 
       return response.json()
     })
     .then(receiveAvatar)
     .catch(function (err) {
-      console.log('error loading avatar for ' + userId + ':', err)
+      console.error('error loading avatar for ' + userId + ':', err)
     })
 
 }

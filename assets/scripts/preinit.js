@@ -16,7 +16,7 @@ require('handjs') // microsoft's pointer events / touch-action spec
 
 // This is placed globally while we're transitioning bundles.
 // TODO: Store in application state
-var debug = window.debug = require('./preinit/debug_settings')
+window.debug = require('./preinit/debug_settings')
 var system = window.system = require('./preinit/system_capabilities')
 var app = window.app = require('./preinit/app_settings')
 window.readOnly = app.readOnly
@@ -31,6 +31,7 @@ setScaleForPhone()
 // to that function without needing to be exported globally.
 // This should eventually not be required & can be removed.
 window.addEventListener('stmx:everything_loaded', function (e) {
+  /* global _doWhatUsedToBeThe_onEverythingLoadedFunction*/
   _doWhatUsedToBeThe_onEverythingLoadedFunction()
 })
 

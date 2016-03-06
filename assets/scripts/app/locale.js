@@ -3,6 +3,7 @@
  * handles internationalization (i18n)
  *
  */
+/* global API_URL */
 'use strict'
 
 var i18next = require('i18next')
@@ -53,8 +54,8 @@ function clearLocale () {
 function doTheI18n (locale) {
   var options = {
     lng: locale,
-    //ns: ['app'], //'segments'],
-    //defaultNs: 'app',
+    // ns: ['app'], //'segments'],
+    // defaultNs: 'app',
     fallbackLng: 'en-US',
     load: 'currentOnly',
     debug: false,
