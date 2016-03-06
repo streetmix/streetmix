@@ -202,7 +202,7 @@ function _recalculateOccupiedWidth () {
   }
 
   _buildStreetWidthMenu()
-  _updateStreetMetadata()
+  _updateStreetMetadata(street)
 }
 
 function _recalculateWidth () {

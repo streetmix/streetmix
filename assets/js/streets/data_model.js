@@ -232,7 +232,7 @@ function _setStreetCreatorId (newId) {
 function _setUpdateTimeToNow () {
   street.updatedAt = new Date().getTime()
   _unifyUndoStack()
-  _updateStreetMetadata()
+  _updateStreetMetadata(street)
 }
 
 function _saveStreetToServerIfNecessary () {
@@ -255,7 +255,7 @@ function _saveStreetToServerIfNecessary () {
     // As per issue #306.
     _statusMessage.hide()
 
-    _updateStreetMetadata()
+    _updateStreetMetadata(street)
 
     _createNewUndoIfNecessary(lastStreet, currentData)
 

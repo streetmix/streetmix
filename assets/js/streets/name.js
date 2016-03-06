@@ -135,7 +135,7 @@ function _updateStreetName () {
 
   _resizeStreetName()
 
-  _updateStreetMetadata()
+  _updateStreetMetadata(street)
   _updateStreetNameCanvasPos()
 
   _unifyUndoStack()

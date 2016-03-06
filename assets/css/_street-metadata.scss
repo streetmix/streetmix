@@ -21,14 +21,6 @@
 
 #street-width-read {
   padding: 5px 0;
-
-  .over {
-    color: $warning-colour;
-  }
-
-  .under {
-    color: rgb(96, 96, 96);
-  }
 }
 
 body:not(.read-only) #street-width-read {
@@ -52,6 +44,14 @@ body:not(.read-only) #street-width-read {
 body.edit-street-width #street-width-read {
   display: none;
   pointer-events: none;
+}
+
+.street-width-over {
+  color: $warning-colour;
+}
+
+.street-width-under {
+  color: rgb(96, 96, 96);
 }
 
 #street-width {

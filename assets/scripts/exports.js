@@ -24,3 +24,4 @@ window._fetchAvatars = require('./users/avatars').fetch
 window._receiveAvatar = require('./users/avatars').receive
 
 window._formatDate = require('./util/date_format')
+window._updateStreetMetadata = require('./streets/metadata')
