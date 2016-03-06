@@ -22,3 +22,5 @@ window.DialogManager = require('./dialogs/dialog_manager')
 
 window._fetchAvatars = require('./users/avatars').fetch
 window._receiveAvatar = require('./users/avatars').receive
+
+window._formatDate = require('./util/date_format')

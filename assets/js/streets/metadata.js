@@ -47,6 +47,6 @@ function _updateStreetMetadata () {
     document.querySelector('#street-metadata-author').innerHTML = ''
   }
 
-  var html = _formatDate(moment(street.updatedAt))
+  var html = _formatDate(street.updatedAt)
   document.querySelector('#street-metadata-date').innerHTML = html
 }

@@ -122,10 +122,9 @@ function _receiveGalleryData (transmission) {
 
     var streetName = new StreetName(nameEl, galleryStreet.name)
 
-    var date = moment(galleryStreet.updatedAt)
     var dateEl = document.createElement('span')
     dateEl.classList.add('date')
-    dateEl.innerHTML = _formatDate(date)
+    dateEl.innerHTML = _formatDate(galleryStreet.updatedAt)
     anchorEl.appendChild(dateEl)
 
     if (!galleryUserId) {

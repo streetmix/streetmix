@@ -47,6 +47,7 @@
     "jade": "^1.11.0",
     "kerberos": "0.0.18",
     "lodash": "^4.3.0",
+    "moment": "^2.11.2",
     "mongoose": "^4.4.3",
     "newrelic": "^1.25.1",
     "node-env-file": "^0.1.8",
