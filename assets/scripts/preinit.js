@@ -10,7 +10,7 @@
 require('./vendor/modernizr.custom.30104')
 
 // Polyfills
-require('es6-promise') // promises
+require('es6-promise').polyfill() // promises
 require('whatwg-fetch') // fetch API
 require('handjs') // microsoft's pointer events / touch-action spec
 
