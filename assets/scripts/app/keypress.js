@@ -11,11 +11,10 @@
  * @requires event-tracking
  * @exports keypress
  */
-/* global EventTracking */
 'use strict'
 
 // Event tracking
-var TRACK_CATEGORY_INTERACTION = 'Interaction'
+var eventTracking = require('../app/event_tracking')
 var TRACK_LABEL_KEYBOARD = 'Keyboard'
 
 // TODO: Flesh out this dictionary
@@ -401,7 +400,7 @@ function _execute (input, event) {
     event.stopPropagation()
   }
   if (input.trackMsg) {
-    EventTracking.track(TRACK_CATEGORY_INTERACTION, input.trackMsg, TRACK_LABEL_KEYBOARD, input.trackValue, input.trackOnce)
+    eventTracking.track('Interaction', input.trackMsg, TRACK_LABEL_KEYBOARD, input.trackValue, input.trackOnce)
   }
 
   // Execute callback

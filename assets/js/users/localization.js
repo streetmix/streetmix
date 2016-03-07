@@ -48,7 +48,7 @@ function _detectGeolocationTimeout () {
     _checkIfSignInAndGeolocationLoaded()
     _checkIfEverythingIsLoaded()
 
-    EventTracking.track(TRACK_CATEGORY_ERROR, TRACK_ACTION_ERROR_GEOLOCATION_TIMEOUT,
+    EventTracking.track('Error', TRACK_ACTION_ERROR_GEOLOCATION_TIMEOUT,
       null, null, false)
   }
 }

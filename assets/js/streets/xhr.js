@@ -174,8 +174,7 @@ function _receiveStreetForVerification (transmission, textStatus, request) {
     _unpackServerStreetData(transmission, null, null, false)
     _updateEverything(true)
 
-    EventTracking.track(TRACK_CATEGORY_EVENT,
-      TRACK_ACTION_STREET_MODIFIED_ELSEWHERE, null, null, false)
+    EventTracking.track('Event', TRACK_ACTION_STREET_MODIFIED_ELSEWHERE, null, null, false)
   }
 }
 

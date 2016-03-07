@@ -853,7 +853,7 @@ var _infoBubble = {
     }, 500)
 
     var segment = street.segments[parseInt(_infoBubble.segmentEl.dataNo)]
-    EventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_LEARN_MORE,
+    EventTracking.track('Interaction', TRACK_ACTION_LEARN_MORE,
       segment.type, null, false)
   },
 

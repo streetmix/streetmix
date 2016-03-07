@@ -6,13 +6,13 @@
  * Exports nothing
  *
  */
-/* global EventTracking */
-/* global URL_HELP_ABOUT, TRACK_CATEGORY_INTERACTION */
+/* global URL_HELP_ABOUT */
 /* global _updatePageUrl */
 'use strict'
 
 var Dialog = require('./dialog')
 var avatars = require('../users/avatars')
+var eventTracking = require('../app/event_tracking')
 
 module.exports = new Dialog('#about', {
   clickSelector: '#about-streetmix',
@@ -25,7 +25,7 @@ module.exports = new Dialog('#about', {
     window.history.replaceState(null, null, URL_HELP_ABOUT)
 
     // Tracking
-    EventTracking.track(TRACK_CATEGORY_INTERACTION, 'Open about dialog box', null, null, false)
+    eventTracking.track('Interaction', 'Open about dialog box', null, null, false)
 
     avatars.fetch()
   },

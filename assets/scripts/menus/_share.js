@@ -1,4 +1,3 @@
-/* global EventTracking, TRACK_CATEGORY_SHARING */
 /* global signedIn, street, signInData */
 /* global FACEBOOK_APP_ID, _getPageTitle, htmlEncode */
 'use strict'
@@ -8,6 +7,7 @@ var TRACK_ACTION_TWITTER = 'Twitter'
 
 var Menu = require('./menu')
 var shareUrl = require('../util/share_url')
+var eventTracking = require('../app/event_tracking')
 
 var shareMenu = new Menu('share', {
   alignment: 'right',
@@ -26,11 +26,11 @@ var shareMenu = new Menu('share', {
 })
 
 function _shareViaTwitter () {
-  EventTracking.track(TRACK_CATEGORY_SHARING, TRACK_ACTION_TWITTER, null, null, false)
+  eventTracking.track('Sharing', TRACK_ACTION_TWITTER, null, null, false)
 }
 
 function _shareViaFacebook () {
-  EventTracking.track(TRACK_CATEGORY_SHARING, TRACK_ACTION_FACEBOOK, null, null, false)
+  eventTracking.track('Sharing', TRACK_ACTION_FACEBOOK, null, null, false)
 }
 
 function _getSharingMessage () {

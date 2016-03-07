@@ -1,4 +1,4 @@
-/* global street,
+/* global street, abortEverything,
    _hideLoadingScreen, _goHome, _goSignIn, _goReload,
    _goReloadClearSignIn, _goNewStreet, _goExampleStreet,
    URL_ERROR_TWITTER_ACCESS_DENIED, URL_ERROR_NO_TWITTER_REQUEST_TOKEN,

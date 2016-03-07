@@ -707,7 +707,7 @@ function _handleSegmentMoveEnd (event) {
       _removeElFromDom(draggingMove.originalEl)
     }
 
-    EventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_REMOVE_SEGMENT,
+    EventTracking.track('Interaction', TRACK_ACTION_REMOVE_SEGMENT,
       TRACK_LABEL_DRAGGING, null, true)
   } else if (draggingMove.segmentBeforeEl || draggingMove.segmentAfterEl || (street.segments.length == 0)) {
     var smartDrop = _doDropHeuristics(draggingMove.originalType,

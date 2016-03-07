@@ -1,8 +1,8 @@
-/* global EventTracking, TRACK_CATEGORY_INTERACTION */
 'use strict'
 
 var Menu = require('./menu')
 var keypress = require('../app/keypress')
+var eventTracking = require('../app/event_tracking')
 
 module.exports = new Menu('help', {
   init: function () {
@@ -11,6 +11,6 @@ module.exports = new Menu('help', {
     keypress.register('?', { shiftKey: 'optional' }, this.onClick.bind(this))
   },
   onShow: function () {
-    EventTracking.track(TRACK_CATEGORY_INTERACTION, 'Open help menu', null, null, false)
+    eventTracking.track('Interaction', 'Open help menu', null, null, false)
   }
 })

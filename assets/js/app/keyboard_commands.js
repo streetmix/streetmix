@@ -84,7 +84,7 @@ function _onBodyKeyDown (event) {
         }
         event.preventDefault()
 
-        EventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_CHANGE_WIDTH,
+        EventTracking.track('Interaction', TRACK_ACTION_CHANGE_WIDTH,
           TRACK_LABEL_KEYBOARD, null, true)
       }
       break
@@ -97,7 +97,7 @@ function _onBodyKeyDown (event) {
       var segmentHoveredEl = _getHoveredSegmentEl()
       _removeSegment(segmentHoveredEl, event.shiftKey)
 
-      EventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_REMOVE_SEGMENT,
+      EventTracking.track('Interaction', TRACK_ACTION_REMOVE_SEGMENT,
         TRACK_LABEL_KEYBOARD, null, true)
 
       event.preventDefault()

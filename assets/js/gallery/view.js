@@ -191,7 +191,7 @@ function _showGallery (userId, instant, signInPromo) {
     return
   }
 
-  EventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_OPEN_GALLERY,
+  EventTracking.track('Interaction', TRACK_ACTION_OPEN_GALLERY,
     userId, null, false)
 
   galleryVisible = true

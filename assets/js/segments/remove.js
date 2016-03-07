@@ -26,7 +26,7 @@ function _onRemoveButtonClick (event) {
   if (el) {
     _removeSegment(el, event.shiftKey)
 
-    EventTracking.track(TRACK_CATEGORY_INTERACTION, TRACK_ACTION_REMOVE_SEGMENT,
+    EventTracking.track('Interaction', TRACK_ACTION_REMOVE_SEGMENT,
       TRACK_LABEL_BUTTON, null, true)
   }
 

@@ -6,11 +6,11 @@
  * Exports nothing
  *
  */
-/* global EventTracking, TRACK_CATEGORY_SHARING */
 /* global street, settings, _saveSettingsLocally, _normalizeSlug, _getStreetImage */
 'use strict'
 
 var Dialog = require('./dialog')
+var eventTracking = require('../app/event_tracking')
 
 // Require save-as polyfills
 var saveAs = require('../vendor/FileSaver')
@@ -53,7 +53,7 @@ module.exports = new Dialog('#save-as-image-dialog', {
     window.setTimeout(_updateSaveAsImageDialogBox, 100)
 
     // Tracking
-    EventTracking.track(TRACK_CATEGORY_SHARING, 'Save as image', null, null, false)
+    eventTracking.track('Sharing', 'Save as image', null, null, false)
   }
 })
 

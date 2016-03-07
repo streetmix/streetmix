@@ -1,11 +1,11 @@
-/* global EventTracking, TRACK_CATEGORY_INTERACTION */
 'use strict'
 
 var Menu = require('./menu')
+var eventTracking = require('../app/event_tracking')
 
 module.exports = new Menu('settings', {
   alignment: 'right',
   onShow: function () {
-    EventTracking.track(TRACK_CATEGORY_INTERACTION, 'Open settings menu', null, null, false)
+    eventTracking.track('Interaction', 'Open settings menu', null, null, false)
   }
 })
