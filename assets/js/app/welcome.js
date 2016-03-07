@@ -45,8 +45,8 @@ function _showWelcome () {
 
       if (street.creatorId) {
         document.querySelector('#welcome-avatar-creator').classList.add('visible')
-        $('#welcome-avatar').attr('userId', street.creatorId)
-        $('#welcome-creator').text(street.creatorId)
+        document.getElementById('welcome-avatar').setAttribute('userId', street.creatorId)
+        document.getElementById('welcome-creator').textContent = street.creatorId
       }
       _fetchAvatars()
       break

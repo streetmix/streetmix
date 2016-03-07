@@ -111,7 +111,7 @@ function _receiveGalleryData (transmission) {
       anchorEl.classList.add('selected')
     }
 
-    $(anchorEl).click(_onGalleryStreetClick)
+    anchorEl.addEventListener('click', _onGalleryStreetClick)
 
     var thumbnailEl = document.createElement('canvas')
     thumbnailEl.width = THUMBNAIL_WIDTH * system.hiDpi * 2

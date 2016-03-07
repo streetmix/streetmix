@@ -1,5 +1,5 @@
 /* global signedIn, street, signInData */
-/* global FACEBOOK_APP_ID, _getPageTitle, htmlEncode */
+/* global FACEBOOK_APP_ID, _getPageTitle */
 'use strict'
 
 var TRACK_ACTION_FACEBOOK = 'Facebook'
@@ -62,7 +62,7 @@ function _updateFacebookLink (url) {
     '&redirect_uri=' + encodeURIComponent(url) +
     '&link=' + encodeURIComponent(url) +
     '&name=' + encodeURIComponent(_getPageTitle()) +
-    '&description=' + encodeURIComponent(htmlEncode(text))
+    '&description=' + encodeURIComponent(text)
 }
 
 function _updateTwitterLink (url) {

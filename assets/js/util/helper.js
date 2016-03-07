@@ -20,12 +20,6 @@ RandomGenerator.prototype.seed = function (seed) {
   this.randSeed = seed
 }
 
-function htmlEncode (value) {
-  // create a in-memory div, set it's inner text(which jQuery automatically encodes)
-  // then grab the encoded contents back out.  The div never exists on the page.
-  return $('<div/>').text(value).html()
-}
-
 function _createTimeout (fn, data, delay) {
   window.setTimeout(function () { fn.call(null, data); }, delay)
 }
