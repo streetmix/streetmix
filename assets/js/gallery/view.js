@@ -251,7 +251,6 @@ function _showGallery (userId, instant, signInPromo) {
 
   if ((mode == MODES.USER_GALLERY) || (mode == MODES.GLOBAL_GALLERY)) {
     // Prevents showing old street before the proper street loads
-    galleryNoStreetSelected = true
     _showError(ERRORS.NO_STREET, false)
   }
 
@@ -268,7 +267,12 @@ function _onGalleryShieldClick (event) {
 }
 
 function _hideGallery (instant) {
-  if (galleryNoStreetSelected !== true && galleryStreetLoaded) {
+  // Do not hide the gallery if there is no street selected.
+  if (galleryNoStreetSelected === true) {
+    return
+  }
+
+  if (galleryStreetLoaded) {
     galleryVisible = false
 
     if (instant) {
