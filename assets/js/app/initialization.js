@@ -189,17 +189,11 @@ function _setEnvironmentBadge (label) {
 }
 
 function _setupNoInternetMode () {
-  // Load additional no-internet stylesheet
-  var stylesheetUrl = '/assets/no-internet.css'
-  var el = document.createElement('link')
-  el.setAttribute('rel', 'stylesheet')
-  el.setAttribute('type', 'text/css')
-  el.setAttribute('href', stylesheetUrl)
-  document.head.appendChild(el)
-
   // Disable all external links
   // CSS takes care of altering their appearance to resemble normal text
-  $('body').on('click', 'a[href^="http"]', function (e) {
-    e.preventDefault()
+  document.body.addEventListener('click', function (e) {
+    if (e.target.nodeName === 'A' && e.target.getAttribute('href').indexOf('http') === 0) {
+      e.preventDefault()
+    }
   })
 }
