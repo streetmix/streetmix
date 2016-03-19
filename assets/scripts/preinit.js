@@ -7,13 +7,13 @@
 // NOTE: This a DIFFERENT bundle from the main.js bundle!
 // Code will NOT be shared between bundles!
 
-require('./vendor/modernizr-custom')
+import './vendor/modernizr-custom'
 
 // Polyfills
-require('es6-promise').polyfill() // promises
-require('whatwg-fetch') // fetch API
-require('handjs') // microsoft's pointer events / touch-action spec
-require('./polyfills/customevent') // customEvent in IE
+import 'babel-polyfill'
+import 'whatwg-fetch' // fetch API
+import 'handjs' // microsoft's pointer events / touch-action spec
+import './polyfills/customevent' // customEvent in IE
 
 // This is placed globally while we're transitioning bundles.
 // TODO: Store in application state
