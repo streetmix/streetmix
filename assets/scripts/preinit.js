@@ -7,7 +7,7 @@
 // NOTE: This a DIFFERENT bundle from the main.js bundle!
 // Code will NOT be shared between bundles!
 
-require('./vendor/modernizr.custom.30104')
+require('./vendor/modernizr-custom')
 
 // Polyfills
 require('es6-promise').polyfill() // promises
