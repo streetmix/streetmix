@@ -4,26 +4,32 @@
  */
 
 // Initalization scripts
-require('./app/initialization')
+import './app/initialization'
 
 // Export modules to window for the global-scoped JavaScript
-require('./exports')
+import './exports'
 
 // Load things that are needed
-require('./app/event_tracking')
-require('./app/blocking_shield')
-require('./app/debug_info')
-require('./app/keyboard_commands')
+import './app/event_tracking'
+import './app/blocking_shield'
+import './app/debug_info'
+import './app/keyboard_commands'
 
 // Menus
-require('./menus/menu_manager')
+import './menus/_feedback'
+import './menus/_help'
+import './menus/_identity'
+import './menus/_settings'
+import './menus/_share'
 
 // Dialogs
-require('./dialogs/dialog_manager')
+import './dialogs/dialog_manager'
 
 // Utilities
-var keypress = require('./app/keypress')
-keypress.startListening()
+import { startListening } from './app/keypress'
+
+// Start listening for keypresses
+startListening()
 
 // Temp: use this while in transition
 function _doWhatUsedToBeThe_onEverythingLoadedFunction () {

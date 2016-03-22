@@ -96,7 +96,7 @@ function _errorReceiveSignInDetails (data) {
   }*/
 
   if (data.status == 401) {
-    EventTracking.track('Error', TRACK_ACTION_ERROR_RM1,
+    trackEvent('Error', TRACK_ACTION_ERROR_RM1,
       null, null, false)
 
     _signOut(true)
@@ -104,7 +104,7 @@ function _errorReceiveSignInDetails (data) {
     _showError(ERRORS.SIGN_IN_401, true)
     return
   } else if (data.status == 503) {
-    EventTracking.track('Error', TRACK_ACTION_ERROR_15A,
+    trackEvent('Error', TRACK_ACTION_ERROR_15A,
       null, null, false)
 
     _showError(ERRORS.SIGN_IN_SERVER_FAILURE, true)
@@ -174,12 +174,6 @@ function _errorReceiveSignOutConfirmationFromServer () {
 
 function _createSignInUI () {
   if (signedIn) {
-    var el = document.createElement('button')
-    el.classList.add('id')
-    el.classList.add('menu-attached')
-    el.id = 'identity-menu-button'
-    document.querySelector('#identity-menu-item').appendChild(el)
-
     var avatarEl = document.createElement('div')
     avatarEl.classList.add('avatar')
     avatarEl.setAttribute('userId', signInData.userId)

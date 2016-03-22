@@ -1,11 +1,9 @@
-'use strict'
+import Menu from './menu'
+import { trackEvent } from '../app/event_tracking'
 
-var Menu = require('./menu')
-var eventTracking = require('../app/event_tracking')
-
-module.exports = new Menu('settings', {
+new Menu('settings', {
   alignment: 'right',
   onShow: function () {
-    eventTracking.track('Interaction', 'Open settings menu', null, null, false)
+    trackEvent('Interaction', 'Open settings menu', null, null, false)
   }
 })

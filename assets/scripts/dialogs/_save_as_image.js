@@ -10,7 +10,7 @@
 'use strict'
 
 var Dialog = require('./dialog')
-var eventTracking = require('../app/event_tracking')
+import { trackEvent } from '../app/event_tracking'
 
 // Require save-as polyfills
 var saveAs = require('../vendor/FileSaver')
@@ -53,7 +53,7 @@ module.exports = new Dialog('#save-as-image-dialog', {
     window.setTimeout(_updateSaveAsImageDialogBox, 100)
 
     // Tracking
-    eventTracking.track('Sharing', 'Save as image', null, null, false)
+    trackEvent('Sharing', 'Save as image', null, null, false)
   }
 })
 

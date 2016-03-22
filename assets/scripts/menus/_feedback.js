@@ -1,12 +1,10 @@
 /* global system, KEYS, API_URL, _newNonblockingAjaxRequest */
-'use strict'
+import Menu from './menu'
+import { getSharingUrl } from '../util/share_url'
 
-var LOCAL_STORAGE_FEEDBACK_BACKUP = 'feedback-backup'
-var LOCAL_STORAGE_FEEDBACK_EMAIL_BACKUP = 'feedback-email-backup'
-var TWITTER_ID = '@streetmix'
-
-var Menu = require('./menu')
-var shareUrl = require('../util/share_url')
+const LOCAL_STORAGE_FEEDBACK_BACKUP = 'feedback-backup'
+const LOCAL_STORAGE_FEEDBACK_EMAIL_BACKUP = 'feedback-email-backup'
+const TWITTER_ID = '@streetmix'
 
 var feedbackMenu = new Menu('feedback', {
   init: _addEventListeners,
@@ -110,7 +108,7 @@ function _updateFeedbackMenu () {
   var el = document.querySelector('#feedback-via-twitter')
 
   var text = TWITTER_ID
-  var url = shareUrl.getSharingUrl()
+  var url = getSharingUrl()
 
   // TODO const
   el.href = 'https://twitter.com/intent/tweet' +

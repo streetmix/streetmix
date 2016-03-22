@@ -46,7 +46,7 @@ function _onWindowBlur () {
     return
   }
 
-  MenuManager.hideAll()
+  hideAllMenus()
 }
 
 function _onVisibilityChange () {

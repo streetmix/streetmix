@@ -1,34 +1,28 @@
 /* global msg */
 /* global _blockingCancel, _blockingTryAgain, _goReload */
-'use strict'
-
 // TODO: Some shield-related functionality is wound up in gallery/xhr, util/xhr
 
-var BLOCKING_SHIELD_DARKEN_DELAY = 800
-var BLOCKING_SHIELD_TOO_SLOW_DELAY = 10000
+const BLOCKING_SHIELD_DARKEN_DELAY = 800
+const BLOCKING_SHIELD_TOO_SLOW_DELAY = 10000
 
-var blockingShieldTimerId = -1
-var blockingShieldTooSlowTimerId = -1
+const shieldEl = document.querySelector('#blocking-shield')
 
-var shieldEl = document.querySelector('#blocking-shield')
+let blockingShieldTimerId = -1
+let blockingShieldTooSlowTimerId = -1
 
 // Adds event listeners to the respond to buttons.
 document.querySelector('#blocking-shield-cancel').addEventListener('pointerdown', _blockingCancel)
 document.querySelector('#blocking-shield-try-again').addEventListener('pointerdown', _blockingTryAgain)
 document.querySelector('#blocking-shield-reload').addEventListener('pointerdown', _goReload)
 
-function _clearBlockingShieldTimers () {
+function clearBlockingShieldTimers () {
   window.clearTimeout(blockingShieldTimerId)
   window.clearTimeout(blockingShieldTooSlowTimerId)
 }
 
-function _showBlockingShield (message) {
-  if (!message) {
-    message = msg('LOADING')
-  }
-
-  _hideBlockingShield()
-  _clearBlockingShieldTimers()
+export function showBlockingShield (message = msg('LOADING')) {
+  hideBlockingShield()
+  clearBlockingShieldTimers()
 
   shieldEl.querySelector('.message').innerHTML = message
   shieldEl.classList.add('visible')
@@ -42,13 +36,13 @@ function _showBlockingShield (message) {
   }, BLOCKING_SHIELD_TOO_SLOW_DELAY)
 }
 
-function _darkenBlockingShield (message) {
-  _clearBlockingShieldTimers()
+export function darkenBlockingShield (message) {
+  clearBlockingShieldTimers()
   shieldEl.classList.add('darken-immediately')
 }
 
-function _hideBlockingShield () {
-  _clearBlockingShieldTimers()
+export function hideBlockingShield () {
+  clearBlockingShieldTimers()
   shieldEl.classList.remove('visible')
   shieldEl.classList.remove('darken')
   shieldEl.classList.remove('darken-immediately')
@@ -58,7 +52,7 @@ function _hideBlockingShield () {
 }
 
 module.exports = {
-  show: _showBlockingShield,
-  hide: _hideBlockingShield,
-  darken: _darkenBlockingShield
+  show: showBlockingShield,
+  hide: hideBlockingShield,
+  darken: darkenBlockingShield
 }

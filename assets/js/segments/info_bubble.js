@@ -267,7 +267,7 @@ var _infoBubble = {
   },
 
   considerShowing: function (event, segmentEl, type) {
-    if (MenuManager.isVisible() === true || readOnly) {
+    if (isAnyMenuVisible() === true || readOnly) {
       return
     }
 
@@ -853,7 +853,7 @@ var _infoBubble = {
     }, 500)
 
     var segment = street.segments[parseInt(_infoBubble.segmentEl.dataNo)]
-    EventTracking.track('Interaction', TRACK_ACTION_LEARN_MORE,
+    trackEvent('Interaction', TRACK_ACTION_LEARN_MORE,
       segment.type, null, false)
   },
 

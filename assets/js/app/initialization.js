@@ -113,7 +113,6 @@ function _onEverythingLoaded () {
 
   var event = new CustomEvent('stmx:everything_loaded')
   window.dispatchEvent(event)
-  MenuManager.init()
   DialogManager.init()
 
   if (mode == MODES.USER_GALLERY) {
@@ -136,7 +135,7 @@ function _onEverythingLoaded () {
 
   // Track touch capability in Google Analytics
   if (system.touch === true) {
-    EventTracking.track('System', TRACK_ACTION_TOUCH_CAPABLE, null, null, true)
+    trackEvent('System', TRACK_ACTION_TOUCH_CAPABLE, null, null, true)
   }
 }
 

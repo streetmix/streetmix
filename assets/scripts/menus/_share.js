@@ -1,13 +1,11 @@
 /* global signedIn, street, signInData */
 /* global FACEBOOK_APP_ID, _getPageTitle */
-'use strict'
+import Menu from './menu'
+import { getSharingUrl } from '../util/share_url'
+import { trackEvent } from '../app/event_tracking'
 
-var TRACK_ACTION_FACEBOOK = 'Facebook'
-var TRACK_ACTION_TWITTER = 'Twitter'
-
-var Menu = require('./menu')
-var shareUrl = require('../util/share_url')
-var eventTracking = require('../app/event_tracking')
+const TRACK_ACTION_FACEBOOK = 'Facebook'
+const TRACK_ACTION_TWITTER = 'Twitter'
 
 var shareMenu = new Menu('share', {
   alignment: 'right',
@@ -26,11 +24,11 @@ var shareMenu = new Menu('share', {
 })
 
 function _shareViaTwitter () {
-  eventTracking.track('Sharing', TRACK_ACTION_TWITTER, null, null, false)
+  trackEvent('Sharing', TRACK_ACTION_TWITTER, null, null, false)
 }
 
 function _shareViaFacebook () {
-  eventTracking.track('Sharing', TRACK_ACTION_FACEBOOK, null, null, false)
+  trackEvent('Sharing', TRACK_ACTION_FACEBOOK, null, null, false)
 }
 
 function _getSharingMessage () {
@@ -81,7 +79,7 @@ function _updateNakedLink (url) {
 }
 
 function _updateShareMenu () {
-  var url = shareUrl.getSharingUrl()
+  var url = getSharingUrl()
 
   _updateNakedLink(url)
   _updateTwitterLink(url)

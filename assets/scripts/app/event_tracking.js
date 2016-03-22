@@ -1,17 +1,15 @@
 /* global ga */
-'use strict'
-
 // Contains identifiers for actions that should only be tracked
 // once per user session, as defined by the boolean value of
 // onlyFirstTime passed to eventTracking.track()
-var alreadyTracked = []
+let alreadyTracked = []
 
 // These constants define what are valid categories for Streetmix
-// var TRACK_CATEGORY_INTERACTION = 'Interaction'
-// var TRACK_CATEGORY_EVENT = 'Event'
-// var TRACK_CATEGORY_ERROR = 'Error'
-// var TRACK_CATEGORY_SYSTEM = 'System'
-// var TRACK_CATEGORY_SHARING = 'Sharing'
+// const TRACK_CATEGORY_INTERACTION = 'Interaction'
+// const TRACK_CATEGORY_EVENT = 'Event'
+// const TRACK_CATEGORY_ERROR = 'Error'
+// const TRACK_CATEGORY_SYSTEM = 'System'
+// const TRACK_CATEGORY_SHARING = 'Sharing'
 
 /**
  * Tracks an event to Google Analytics
@@ -22,7 +20,7 @@ var alreadyTracked = []
  * @param {string} value - The value (optional)
  * @param {boolean} onlyFirstTime - Only track this once
  */
-function track (category, action, label, value, onlyFirstTime) {
+export function trackEvent (category, action, label, value, onlyFirstTime) {
   // Return early if ga is not present, e.g. if tracking is blocked by user
   if (typeof ga === 'undefined') {
     return
@@ -43,8 +41,4 @@ function track (category, action, label, value, onlyFirstTime) {
 
   // Send the event to Google Analytics
   ga && ga('send', 'event', category, action, label, value)
-}
-
-module.exports = {
-  track: track
 }

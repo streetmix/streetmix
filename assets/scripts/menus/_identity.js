@@ -1,5 +1,3 @@
-'use strict'
+import Menu from './menu'
 
-var Menu = require('./menu')
-
-module.exports = new Menu('identity')
+new Menu('identity')

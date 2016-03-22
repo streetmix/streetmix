@@ -35,8 +35,8 @@ function _onGlobalKeyDown (event) {
         _handleSegmentResizeCancel()
       } else if (draggingType == DRAGGING_TYPE_MOVE) {
         _handleSegmentMoveCancel()
-      } else if (MenuManager.isVisible() === true) {
-        MenuManager.hideAll()
+      } else if (isAnyMenuVisible() === true) {
+        hideAllMenus()
       } else if (document.querySelector('#status-message').classList.contains('visible')) {
         _statusMessage.hide()
       } else if (_infoBubble.visible && _infoBubble.descriptionVisible) {
@@ -84,7 +84,7 @@ function _onBodyKeyDown (event) {
         }
         event.preventDefault()
 
-        EventTracking.track('Interaction', TRACK_ACTION_CHANGE_WIDTH,
+        trackEvent('Interaction', TRACK_ACTION_CHANGE_WIDTH,
           TRACK_LABEL_KEYBOARD, null, true)
       }
       break
@@ -97,7 +97,7 @@ function _onBodyKeyDown (event) {
       var segmentHoveredEl = _getHoveredSegmentEl()
       _removeSegment(segmentHoveredEl, event.shiftKey)
 
-      EventTracking.track('Interaction', TRACK_ACTION_REMOVE_SEGMENT,
+      trackEvent('Interaction', TRACK_ACTION_REMOVE_SEGMENT,
         TRACK_LABEL_KEYBOARD, null, true)
 
       event.preventDefault()

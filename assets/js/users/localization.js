@@ -48,7 +48,7 @@ function _detectGeolocationTimeout () {
     _checkIfSignInAndGeolocationLoaded()
     _checkIfEverythingIsLoaded()
 
-    EventTracking.track('Error', TRACK_ACTION_ERROR_GEOLOCATION_TIMEOUT,
+    trackEvent('Error', TRACK_ACTION_ERROR_GEOLOCATION_TIMEOUT,
       null, null, false)
   }
 }
@@ -132,7 +132,7 @@ function _updateUnits (newUnits) {
   ignoreStreetChanges = false
 
   _buildStreetWidthMenu()
-  MenuManager.hideAll()
+  hideAllMenus()
 
   _saveStreetToServerIfNecessary()
   _saveSettingsLocally()

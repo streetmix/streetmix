@@ -167,7 +167,7 @@ function _saveSettingsToServer () {
 
 function _errorSavingSettingsToServer (data) {
   if (!abortEverything && (data.status == 401)) {
-    EventTracking.track('Error', TRACK_ACTION_ERROR_RM2,
+    trackEvent('Error', TRACK_ACTION_ERROR_RM2,
       null, null, false)
 
     mode = MODES.FORCE_RELOAD_SIGN_OUT_401

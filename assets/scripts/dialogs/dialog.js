@@ -4,10 +4,9 @@
  * Generic class instance of menu
  *
  */
-'use strict'
+import _ from 'lodash'
 
-var _ = require('lodash')
-var menus = require('../menus/menu_manager')
+import { hideAllMenus } from '../menus/menu'
 
 var Dialog = function (id, opts) {
   opts = opts || {}
@@ -47,7 +46,7 @@ Dialog.prototype.show = function (event) {
   }
 
   // Hide other UI
-  menus.hideAll()
+  hideAllMenus()
 
   // Show the dialog & shield
   this.el.classList.add('visible')

@@ -34,7 +34,7 @@ function _onAfterPrint () {
 }
 
 function _print (event) {
-  MenuManager.hideAll()
+  hideAllMenus()
   _infoBubble.hide()
   _infoBubble.hideSegment(true)
 

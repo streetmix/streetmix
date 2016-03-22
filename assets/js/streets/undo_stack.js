@@ -31,7 +31,7 @@ function _undoRedo (undo) {
     _statusMessage.hide()
   }
 
-  EventTracking.track('Interaction', TRACK_ACTION_UNDO,
+  trackEvent('Interaction', TRACK_ACTION_UNDO,
     null, null, true)
 }
 

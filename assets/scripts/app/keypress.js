@@ -9,16 +9,16 @@
  *
  * @module keypress
  * @requires event-tracking
- * @exports keypress
+ * @exports startListening
+ * @exports registerKeypress
+ * @exports deregisterKeypress
  */
-'use strict'
+import { trackEvent } from '../app/event_tracking'
 
-// Event tracking
-var eventTracking = require('../app/event_tracking')
-var TRACK_LABEL_KEYBOARD = 'Keyboard'
+const TRACK_LABEL_KEYBOARD = 'Keyboard'
 
 // TODO: Flesh out this dictionary
-var KEYS = {
+const KEYS = {
   'left': 37,
   'right': 39,
   'enter': 13,
@@ -69,11 +69,11 @@ var KEYS = {
 }
 
 // Keep track of all registered commands here
-var inputs = {}
+let inputs = {}
 
 // Utility functions
-var noop = function () {}
-var returnTrue = function () { return true }
+const noop = function () {}
+const returnTrue = function () { return true }
 
 /**
  * Initiates keypress manager. Sets a global event listener on the window.
@@ -81,7 +81,7 @@ var returnTrue = function () { return true }
  *
  * @public
  */
-function startListening () {
+export function startListening () {
   // TODO: remove useCapture if we don't need it
   window.addEventListener('keydown', _onGlobalKeyDown, true)
 }
@@ -90,8 +90,12 @@ function startListening () {
  * Registers a key command listener with the Keypress Manager
  *
  * @public
- * @example Keypress.register('shift d', { trackMsg: 'Shift-D is pressed' }, function () { console.log('Shift-D is pressed!') })
- * @example Keypress.register('esc', hide)
+ * @example
+ *    registerKeypress('esc', hide)
+ * @example
+ *    registerKeypress('shift d',
+ *      { trackMsg: 'Shift-D is pressed' },
+ *      function () { console.log('Shift-D is pressed!') })
  * @param {(string|string[])} commands
  *    Human readable key or key combination to listen for, in the form of "a"
  *    or "shift a" or "control alt a". If multiple keys should perform the
@@ -154,7 +158,7 @@ function startListening () {
  *    (and you might prefer to set it on `options` instead). If there is no
  *    callback function the keypress simply does nothing.
  */
-function register (commands, options, callback) {
+export function registerKeypress (commands, options, callback) {
   // Defaults
   // For shiftKey, metaKey, and altKey, specifies what it should
   // match on the event object reported by the browser. For instance,
@@ -236,8 +240,10 @@ function register (commands, options, callback) {
  * `callback` parameters.
  *
  * @public
- * @example Keypress.deregister('shift d') // Deregisters all triggers for `shift d`
- * @example Keypress.deregister('esc', hide) // Deregisters triggers matching callback function `hide` and key `esc`
+ * @example Deregisters all triggers for `shift d`
+ *    deregisterKeypress('shift d')
+ * @example Deregisters triggers matching callback function `hide` and key `esc`
+ *    deregisterKeypress('esc', hide)
  * @param {(string|string[])} commands
  *    Human readable key or key combination to listen for, in the form of "a"
  *    or "shift a" or "control alt a". If multiple keys should perform the
@@ -249,7 +255,7 @@ function register (commands, options, callback) {
  * @todo Because of how function equality works, not all functions passed
  *    in this way result in a true test of equality.
  */
-function deregister (commands, callback) {
+export function deregisterKeypress (commands, callback) {
   var commandObj = _processCommands(commands)
 
   // Process each command input
@@ -400,7 +406,7 @@ function _execute (input, event) {
     event.stopPropagation()
   }
   if (input.trackMsg) {
-    eventTracking.track('Interaction', input.trackMsg, TRACK_LABEL_KEYBOARD, input.trackValue, input.trackOnce)
+    trackEvent('Interaction', input.trackMsg, TRACK_LABEL_KEYBOARD, input.trackValue, input.trackOnce)
   }
 
   // Execute callback
@@ -412,10 +418,13 @@ function _isFocusOnBody () {
   return document.activeElement === document.body
 }
 
+// TODO: Rename imports in other modules so this can go away
 module.exports = {
-  startListening: startListening,
-  register: register,
-  deregister: deregister,
+  startListening,
+  registerKeypress,
+  deregisterKeypress,
+  register: registerKeypress, // TEMP
+  deregister: deregisterKeypress, // TEMP
   inputs: inputs,
   _proc: _processCommands
 }

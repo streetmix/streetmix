@@ -9,13 +9,23 @@
 
 window.msg = require('./app/messages')
 
-window.EventTracking = require('./app/event_tracking')
+import { trackEvent } from './app/event_tracking'
+window.trackEvent = trackEvent
+
 window.blockingShield = require('./app/blocking_shield')
-window._statusMessage = require('./app/status_message')
+import { showStatusMessage, hideStatusMessage } from './app/status_message'
+window._statusMessage = {
+  show: showStatusMessage,
+  hide: hideStatusMessage
+}
+
 window.ERRORS = require('./app/errors')
 
 // Menus
-window.MenuManager = require('./menus/menu_manager')
+import { isAnyMenuVisible, hideAllMenus } from './menus/menu'
+window.isAnyMenuVisible = isAnyMenuVisible
+window.hideAllMenus = hideAllMenus
+
 window.shareMenu = require('./menus/_share')
 window.feedbackMenu = require('./menus/_feedback')
 
