@@ -13,6 +13,7 @@ require('./vendor/modernizr-custom')
 require('es6-promise').polyfill() // promises
 require('whatwg-fetch') // fetch API
 require('handjs') // microsoft's pointer events / touch-action spec
+require('./polyfills/customevent') // customEvent in IE
 
 // This is placed globally while we're transitioning bundles.
 // TODO: Store in application state

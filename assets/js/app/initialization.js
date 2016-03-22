@@ -111,7 +111,7 @@ function _onEverythingLoaded () {
   _addScrollButtons(document.querySelector('#gallery .streets'))
   _addEventListeners()
 
-  var event = new Event('stmx:everything_loaded')
+  var event = new CustomEvent('stmx:everything_loaded')
   window.dispatchEvent(event)
   MenuManager.init()
   DialogManager.init()
