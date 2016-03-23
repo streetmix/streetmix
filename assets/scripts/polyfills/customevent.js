@@ -1,3 +1,7 @@
+/**
+ * CustomEvent polyfill for IE & Edge
+ * source: https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
+ */
 (function () {
 
   if (typeof window.CustomEvent === 'function') {
