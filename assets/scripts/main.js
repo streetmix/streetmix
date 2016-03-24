@@ -23,7 +23,8 @@ import './menus/_settings'
 import './menus/_share'
 
 // Dialogs
-import './dialogs/dialog_manager'
+import './dialogs/_about'
+import './dialogs/_save_as_image'
 
 // Utilities
 import { startListening } from './app/keypress'

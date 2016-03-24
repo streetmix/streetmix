@@ -7,65 +7,100 @@
 import _ from 'lodash'
 
 import { hideAllMenus } from '../menus/menu'
+import { showShield, hideShield } from './dialog_shield'
 
-var Dialog = function (id, opts) {
-  opts = opts || {}
+const DIALOGS = new Map()
 
-  this.id = id // Element id
+export default class Dialog {
+  constructor (id, opts) {
+    opts = opts || {}
 
-  this.clickSelector = opts.clickSelector || null // Reference to element that activates this dialog when clicked
-  this.onInitCallback = opts.onInit || _.noop // Function to execute after dialog init
-  this.onShowCallback = opts.onShow || _.noop // Function to execute after dialog open
-  this.onHideCallback = opts.onHide || _.noop // Function to execute after dialog close
+    this.id = id // Element id
 
-  this.el = null // For caching a reference to the dialog box's DOM element
-}
+    this.clickSelector = opts.clickSelector || null // Reference to element that activates this dialog when clicked
+    this.onInitCallback = opts.onInit || _.noop // Function to execute after dialog init
+    this.onShowCallback = opts.onShow || _.noop // Function to execute after dialog open
+    this.onHideCallback = opts.onHide || _.noop // Function to execute after dialog close
+    this.isVisible = false
 
-Dialog.prototype.init = function () {
-  this.el = document.querySelector(this.id)
-  this.manager = require('./dialog_manager')
+    this.el = null // For caching a reference to the dialog box's DOM element
 
-  if (this.clickSelector) {
-    document.querySelector(this.clickSelector).addEventListener('pointerdown', this.show.bind(this))
+    // Store a reference to this
+    DIALOGS.set(id, this)
+
+    this.init()
   }
 
-  // Callback
-  // Put additional event listeners in this.onInitCallback, for example
-  this.onInitCallback()
-}
+  init () {
+    this.el = document.querySelector(this.id)
 
-Dialog.prototype.show = function (event) {
-  // TODO: This was only on the about dialog box show function originally.
-  // Is this generalizable?
-  if (event && (event.shiftKey || event.ctrlKey || event.metaKey)) {
-    return
+    if (this.clickSelector) {
+      document.querySelector(this.clickSelector).addEventListener('pointerdown', this.show.bind(this))
+    }
+
+    // Callback
+    // Put additional event listeners in this.onInitCallback, for example
+    this.onInitCallback()
   }
 
-  if (event) {
-    event.preventDefault()
+  show (event) {
+    // TODO: This was only on the about dialog box show function originally.
+    // Is this generalizable?
+    if (event && (event.shiftKey || event.ctrlKey || event.metaKey)) {
+      return
+    }
+
+    if (event) {
+      event.preventDefault()
+    }
+
+    // Hide other UI
+    hideAllMenus()
+
+    // Show the dialog & shield
+    this.el.classList.add('visible')
+    this.isVisible = true
+    showShield()
+
+    // Attach event listener for close button
+    // Done here so that we can more easily bind 'this'
+    // to the correct scope, also, cleans out the code
+    // in event_listeners.js
+    this.el.querySelector('.close').addEventListener('pointerdown', this.hide.bind(this))
+
+    // Callback
+    this.onShowCallback()
   }
 
-  // Hide other UI
-  hideAllMenus()
-
-  // Show the dialog & shield
-  this.el.classList.add('visible')
-  this.manager.showShield()
-
-  // Attach event listener for close button
-  // Done here so that we can more easily bind 'this'
-  // to the correct scope, also, cleans out the code
-  // in event_listeners.js
-  this.el.querySelector('.close').addEventListener('pointerdown', this.hide.bind(this))
-
-  // Callback
-  this.onShowCallback()
+  hide () {
+    this.el.classList.remove('visible')
+    this.isVisible = false
+    hideShield()
+    this.onHideCallback()
+  }
 }
 
-Dialog.prototype.hide = function () {
-  this.el.classList.remove('visible')
-  this.manager.hideShield()
-  this.onHideCallback()
+/**
+ * Determine if any of the dialog boxes are currently visible,
+ * checking each dialog's internal state rather than its CSS visibility.
+ * Returns a boolean value.
+ */
+export function isAnyDialogVisible () {
+  for (let [id, dialog] of DIALOGS) {
+    if (dialog.isVisible === true) {
+      return true
+    }
+  }
+
+  return false
 }
 
-module.exports = Dialog
+/**
+ * Hides all dialogs. Calling each dialog's hide() methods allows for
+ * callback functions to be called as well.
+ */
+export function hideAllDialogs () {
+  for (let [id, dialog] of DIALOGS) {
+    dialog.hide()
+  }
+}

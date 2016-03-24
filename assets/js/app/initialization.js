@@ -113,14 +113,13 @@ function _onEverythingLoaded () {
 
   var event = new CustomEvent('stmx:everything_loaded')
   window.dispatchEvent(event)
-  DialogManager.init()
 
   if (mode == MODES.USER_GALLERY) {
     _showGallery(galleryUserId, true)
   } else if (mode == MODES.GLOBAL_GALLERY) {
     _showGallery(null, true)
   } else if (mode == MODES.ABOUT) {
-    DialogManager.dialogs.about.show()
+    aboutDialog.show()
   }
 
   if (promoteStreet) {

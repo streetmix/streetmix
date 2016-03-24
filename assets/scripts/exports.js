@@ -39,7 +39,12 @@ window.shareMenu = require('./menus/_share')
 window.feedbackMenu = require('./menus/_feedback')
 
 // Dialogs
-window.DialogManager = require('./dialogs/dialog_manager')
+import { isAnyDialogVisible, hideAllDialogs } from './dialogs/dialog'
+window.isAnyDialogVisible = isAnyDialogVisible
+window.hideAllDialogs = hideAllDialogs
+
+import { aboutDialog } from './dialogs/_about'
+window.aboutDialog = aboutDialog
 
 import { fetchAvatars, receiveAvatar} from './users/avatars'
 window._fetchAvatars = fetchAvatars

@@ -7,15 +7,13 @@
  *
  */
 /* global street, settings, _saveSettingsLocally, _normalizeSlug, _getStreetImage */
-'use strict'
-
-var Dialog = require('./dialog')
+import Dialog from './dialog'
 import { trackEvent } from '../app/event_tracking'
 
 // Require save-as polyfills
-var saveAs = require('../vendor/FileSaver')
-require('../vendor/canvas-toBlob.js')
-require('../vendor/Blob.js')
+import saveAs from '../vendor/FileSaver'
+import '../vendor/canvas-toBlob.js'
+import '../vendor/Blob.js'
 
 // Cached references to elements
 var _elTransparentSky

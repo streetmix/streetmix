@@ -8,11 +8,11 @@
  */
 /* global URL_HELP_ABOUT */
 /* global _updatePageUrl */
-var Dialog = require('./dialog')
+import Dialog from './dialog'
 import { fetchAvatars } from '../users/avatars'
 import { trackEvent } from '../app/event_tracking'
 
-module.exports = new Dialog('#about', {
+export let aboutDialog = new Dialog('#about', {
   clickSelector: '#about-streetmix',
   onShow: function () {
     var els = document.querySelectorAll('#about .avatar')

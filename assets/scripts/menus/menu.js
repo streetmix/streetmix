@@ -79,6 +79,10 @@ export default class Menu {
   }
 }
 
+/**
+ * Determine if any of the menus are currently visible.
+ * Returns a boolean value.
+ */
 export function isAnyMenuVisible () {
   var els = document.querySelectorAll('.menu.visible')
   return !(els.length === 0)

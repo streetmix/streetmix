@@ -29,8 +29,8 @@ function _onGlobalKeyDown (event) {
     case KEYS.ESC:
       if (document.querySelector('#welcome').classList.contains('visible')) {
         _hideWelcome()
-      } else if (DialogManager.isVisible()) {
-        DialogManager.hideAll()
+      } else if (isAnyDialogVisible()) {
+        hideAllDialogs()
       } else if (draggingType == DRAGGING_TYPE_RESIZE) {
         _handleSegmentResizeCancel()
       } else if (draggingType == DRAGGING_TYPE_MOVE) {
