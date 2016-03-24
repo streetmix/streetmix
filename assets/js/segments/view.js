@@ -529,7 +529,7 @@ function _hideEmptySegment (position) {
 
 function _showEmptySegment (position, width) {
   document.querySelector('#street-section-' + position + '-empty-space .width').innerHTML =
-    _prettifyWidth(width / TILE_SIZE, PRETTIFY_WIDTH_OUTPUT_MARKUP)
+    _prettifyWidth(width / TILE_SIZE, { markup: true })
   document.querySelector('#street-section-' + position + '-empty-space').
     classList.add('visible')
 

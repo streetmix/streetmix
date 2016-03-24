@@ -501,10 +501,10 @@ var _infoBubble = {
       var el = _infoBubble.el.querySelector('.non-variant .height')
       if (el) {
         el.realValue = height
-        el.value = _prettifyHeight(height, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP)
+        el.value = _prettifyHeight(height)
       } else {
         var el = _infoBubble.el.querySelector('.non-variant .height-non-editable')
-        el.innerHTML = _prettifyHeight(height, PRETTIFY_WIDTH_OUTPUT_MARKUP)
+        el.innerHTML = _prettifyHeight(height, { markup: true })
       }
     }
   },
@@ -520,10 +520,10 @@ var _infoBubble = {
     var el = _infoBubble.el.querySelector('.non-variant .width')
     if (el) {
       el.realValue = width
-      el.value = _prettifyWidth(width, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP)
+      el.value = _prettifyWidth(width)
     } else {
       var el = _infoBubble.el.querySelector('.non-variant .width-non-editable')
-      el.innerHTML = _prettifyWidth(width, PRETTIFY_WIDTH_OUTPUT_MARKUP)
+      el.innerHTML = _prettifyWidth(width, { markup: true })
     }
   },
 

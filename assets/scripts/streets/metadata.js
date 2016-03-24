@@ -7,8 +7,8 @@
  *
  * @exports updateStreetMetadata
  */
-/* global PRETTIFY_WIDTH_OUTPUT_MARKUP, _prettifyWidth */
 import { formatDate } from '../util/date_format'
+import { prettifyWidth } from '../util/width_units'
 import { fetchAvatars } from '../users/avatars'
 var msg = require('../app/messages')
 
@@ -30,9 +30,9 @@ export function updateStreetMetadata (street) {
  */
 function _displayStreetWidth (width) {
   var el = document.getElementById('street-width-read-width')
-  var contents = _prettifyWidth(width, PRETTIFY_WIDTH_OUTPUT_MARKUP) + ' width'
+  var contents = prettifyWidth(width, { markup: true }) + ' width'
 
-  // Uses innerHTML because _prettifyWidth is asked to return markup (<wbr>s) in the string
+  // Uses innerHTML because prettifyWidth() is asked to return markup (<wbr>s) in the string
   el.innerHTML = contents
 }
 
@@ -43,9 +43,9 @@ function _displayStreetWidth (width) {
  */
 function _displayStreetWidthRemaining (remainingWidth) {
   var el = document.getElementById('street-width-read-difference')
-  var width = _prettifyWidth(Math.abs(remainingWidth), PRETTIFY_WIDTH_OUTPUT_MARKUP)
+  var width = prettifyWidth(Math.abs(remainingWidth), { markup: true })
 
-  // Uses innerHTML because _prettifyWidth is asked to return markup (<wbr>s) in the string
+  // Uses innerHTML because prettifyWidth() is asked to return markup (<wbr>s) in the string
   if (remainingWidth > 0) {
     el.className = 'street-width-under'
     el.innerHTML = '(' + width + ' room)'

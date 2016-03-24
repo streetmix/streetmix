@@ -2,8 +2,23 @@ var TRACK_ACTION_ERROR_GEOLOCATION_TIMEOUT = 'Geolocation timeout'
 
 var IP_GEOLOCATION_API_URL = 'http://freegeoip.net/json/'
 var IP_GEOLOCATION_TIMEOUT = 1000; // After this time, we don’t wait any more
+var geolocationLoaded
+
+var SETTINGS_UNITS_IMPERIAL = 1
+var SETTINGS_UNITS_METRIC = 2
 
 var units = SETTINGS_UNITS_IMPERIAL
+
+var SEGMENT_WIDTH_RESOLUTION_IMPERIAL = .25
+var SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL = .5
+var SEGMENT_WIDTH_DRAGGING_RESOLUTION_IMPERIAL = .5
+
+// don't use const because of rounding problems
+var SEGMENT_WIDTH_RESOLUTION_METRIC = 1 / 3; // .1 / IMPERIAL_METRIC_MULTIPLER
+var SEGMENT_WIDTH_CLICK_INCREMENT_METRIC = 2 / 3; // .2 / IMPERIAL_METRIC_MULTIPLER
+var SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC = 2 / 3; // .2 / IMPERIAL_METRIC_MULTIPLER
+
+var COUNTRIES_IMPERIAL_UNITS = ['US']
 
 var leftHandTraffic = false
 
@@ -15,8 +30,6 @@ var COUNTRIES_LEFT_HAND_TRAFFIC =
   'NP', 'NZ', 'NU', 'NF', 'PK', 'PG', 'PN', 'SH', 'KN', 'LC', 'VC',
   'WS', 'SC', 'SG', 'SB', 'ZA', 'LK', 'SR', 'SZ', 'TZ', 'TH', 'TK',
   'TO', 'TT', 'TC', 'TV', 'UG', 'GB', 'VG', 'VI', 'ZM', 'ZW']
-
-var geolocationLoaded
 
 function _checkIfSignInAndGeolocationLoaded () {
   if (geolocationLoaded && signInLoaded) {

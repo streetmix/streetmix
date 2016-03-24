@@ -8,6 +8,12 @@ var DEFAULT_STREET_WIDTHS = [40, 60, 80]
 var MIN_CUSTOM_STREET_WIDTH = 10
 var MAX_CUSTOM_STREET_WIDTH = 400
 
+var WIDTH_ROUNDING = .01
+
+var SEGMENT_WARNING_OUTSIDE = 1
+var SEGMENT_WARNING_WIDTH_TOO_SMALL = 2
+var SEGMENT_WARNING_WIDTH_TOO_LARGE = 3
+
 function _onStreetWidthChange (event) {
   var el = event.target
   var newStreetWidth = el.value
@@ -32,9 +38,9 @@ function _onStreetWidthChange (event) {
     // TODO string
     var width = prompt(
       msg('PROMPT_NEW_STREET_WIDTH', {
-        minWidth: _prettifyWidth(MIN_CUSTOM_STREET_WIDTH, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP),
-        maxWidth: _prettifyWidth(MAX_CUSTOM_STREET_WIDTH, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP)
-      }), _prettifyWidth(promptValue, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP))
+        minWidth: _prettifyWidth(MIN_CUSTOM_STREET_WIDTH),
+        maxWidth: _prettifyWidth(MAX_CUSTOM_STREET_WIDTH)
+      }), _prettifyWidth(promptValue))
 
     if (width) {
       width = _normalizeStreetWidth(_processWidthInput(width))
@@ -72,7 +78,7 @@ function _onStreetWidthChange (event) {
 function _createStreetWidthOption (width) {
   var el = document.createElement('option')
   el.value = width
-  el.innerHTML = _prettifyWidth(width, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP)
+  el.innerHTML = _prettifyWidth(width)
   return el
 }
 
@@ -86,7 +92,7 @@ function _buildStreetWidthMenu () {
 
   var el = document.createElement('option')
   el.disabled = true
-  el.innerHTML = _prettifyWidth(street.occupiedWidth, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP)
+  el.innerHTML = _prettifyWidth(street.occupiedWidth)
   document.querySelector('#street-width').appendChild(el)
 
   var el = document.createElement('option')

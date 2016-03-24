@@ -1,7 +1,8 @@
-var IMPERIAL_METRIC_MULTIPLIER = 30 / 100
-var COUNTRIES_IMPERIAL_UNITS = ['US']
+/* global street, SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC */
+const IMPERIAL_METRIC_MULTIPLIER = 30 / 100
+const METRIC_PRECISION = 3
 
-var WIDTH_INPUT_CONVERSION = [
+const WIDTH_INPUT_CONVERSION = [
   { text: 'm', multiplier: 1 / IMPERIAL_METRIC_MULTIPLIER },
   { text: 'cm', multiplier: 1 / 100 / IMPERIAL_METRIC_MULTIPLIER },
   { text: '"', multiplier: 1 / 12 },
@@ -12,34 +13,7 @@ var WIDTH_INPUT_CONVERSION = [
   { text: 'feet', multiplier: 1 }
 ]
 
-var SEGMENT_WIDTH_RESOLUTION_IMPERIAL = .25
-var SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL = .5
-var SEGMENT_WIDTH_DRAGGING_RESOLUTION_IMPERIAL = .5
-
-// don't use const because of rounding problems
-var SEGMENT_WIDTH_RESOLUTION_METRIC = 1 / 3; // .1 / IMPERIAL_METRIC_MULTIPLER
-var SEGMENT_WIDTH_CLICK_INCREMENT_METRIC = 2 / 3; // .2 / IMPERIAL_METRIC_MULTIPLER
-var SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC = 2 / 3; // .2 / IMPERIAL_METRIC_MULTIPLER
-
-var MIN_WIDTH_EDIT_CANVAS_WIDTH = 120
-var WIDTH_EDIT_MARGIN = 20
-
-var NORMALIZE_PRECISION = 5
-var METRIC_PRECISION = 3
-var WIDTH_ROUNDING = .01
-
-var SEGMENT_WARNING_OUTSIDE = 1
-var SEGMENT_WARNING_WIDTH_TOO_SMALL = 2
-var SEGMENT_WARNING_WIDTH_TOO_LARGE = 3
-
-var PRETTIFY_WIDTH_OUTPUT_MARKUP = 1
-var PRETTIFY_WIDTH_OUTPUT_NO_MARKUP = 2
-var PRETTIFY_WIDTH_INPUT = 3
-
-var SETTINGS_UNITS_IMPERIAL = 1
-var SETTINGS_UNITS_METRIC = 2
-
-var IMPERIAL_VULGAR_FRACTIONS = {
+const IMPERIAL_VULGAR_FRACTIONS = {
   '.125': '⅛',
   '.25': '¼',
   '.375': '⅜',
@@ -49,7 +23,7 @@ var IMPERIAL_VULGAR_FRACTIONS = {
   '.875': '⅞'
 }
 
-function _processWidthInput (widthInput) {
+export function processWidthInput (widthInput) {
   widthInput = widthInput.replace(/ /g, '')
   widthInput = widthInput.replace(/,/g, '.')
 
@@ -86,33 +60,45 @@ function _processWidthInput (widthInput) {
   return width
 }
 
-function _prettifyWidth (width, purpose) {
-  var remainder = width - Math.floor(width)
+/**
+ * Formats a width to a "pretty" output and converts the value to the user's
+ * current units settings (imperial or metric).
+ *
+ * @param {Number} width to display
+ * @param {(boolean)} [options.markup = false]
+ *    If true, <wbr> (word break opportunity) tags are inserted into return value.
+ * @param {(boolean)} [options.input = false]
+ *    If true, the value is intended to be used in an input box and should be
+ *    formatted without fractions or units
+ */
+export function prettifyWidth (width, { markup = false, input = false } = {}) {
+  let widthText = ''
 
   switch (street.units) {
     case SETTINGS_UNITS_IMPERIAL:
-      var widthText = width
+      widthText = width
 
-      if (purpose != PRETTIFY_WIDTH_INPUT) {
+      if (input !== true) {
+        // Format with vulgar fractions, e.g. .5 => ½
+        const remainder = width - Math.floor(width)
+
         if (IMPERIAL_VULGAR_FRACTIONS[('' + remainder).substr(1)]) {
-          var widthText =
+          widthText =
           (Math.floor(width) ? Math.floor(width) : '') +
             IMPERIAL_VULGAR_FRACTIONS[('' + remainder).substr(1)]
         }
+
+        // Add word break opportunity <wbr> tags and foot mark
+        if (markup === true) {
+          widthText += "<wbr>'"
+        } else {
+          widthText += "'"
+        }
       }
 
-      switch (purpose) {
-        case PRETTIFY_WIDTH_OUTPUT_NO_MARKUP:
-          widthText += "'"
-          break
-        case PRETTIFY_WIDTH_OUTPUT_MARKUP:
-          widthText += "<wbr>'"
-          break
-      }
       break
     case SETTINGS_UNITS_METRIC:
-      var widthText = '' +
-        (width * IMPERIAL_METRIC_MULTIPLIER).toFixed(METRIC_PRECISION)
+      widthText = (width * IMPERIAL_METRIC_MULTIPLIER).toFixed(METRIC_PRECISION).toString()
 
       if (widthText.substr(0, 2) == '0.') {
         widthText = widthText.substr(1)
@@ -127,14 +113,16 @@ function _prettifyWidth (width, purpose) {
         widthText = '0'
       }
 
-      switch (purpose) {
-        case PRETTIFY_WIDTH_OUTPUT_NO_MARKUP:
-          widthText += ' m'
-          break
-        case PRETTIFY_WIDTH_OUTPUT_MARKUP:
+      // Add word break opportunity <wbr> tags and units, assuming
+      // that the output is not used in an input tag
+      if (input !== true) {
+        if (markup === true) {
           widthText += '<wbr> m'
-          break
+        } else {
+          widthText += ' m'
+        }
       }
+
       break
   }
 

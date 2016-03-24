@@ -14,6 +14,8 @@ var RESIZE_TYPE_TYPING = 4
 var MIN_SEGMENT_WIDTH = 1
 var MAX_SEGMENT_WIDTH = 400
 
+var NORMALIZE_PRECISION = 5
+
 var segmentWidthResolution
 var segmentWidthClickIncrement
 var segmentWidthDraggingResolution
@@ -43,7 +45,7 @@ function _resizeSegment (el, resizeType, width, updateEdit, palette, initial) {
   var widthEl = el.querySelector('span.width')
   if (widthEl) {
     widthEl.innerHTML =
-      _prettifyWidth(width / TILE_SIZE, PRETTIFY_WIDTH_OUTPUT_MARKUP)
+      _prettifyWidth(width / TILE_SIZE, { markup: true })
   }
 
   _setSegmentContents(el, el.getAttribute('type'),
@@ -175,14 +177,14 @@ function _onWidthEditFocus (event) {
   var el = event.target
 
   el.oldValue = el.realValue
-  el.value = _prettifyWidth(el.realValue, PRETTIFY_WIDTH_INPUT)
+  el.value = _prettifyWidth(el.realValue, { input: true })
 }
 
 function _onHeightEditFocus (event) {
   var el = event.target
 
   el.oldValue = el.realValue
-  el.value = _prettifyHeight(el.realValue, PRETTIFY_WIDTH_INPUT)
+  el.value = el.realValue
 }
 
 function _onWidthEditBlur (event) {
@@ -191,7 +193,7 @@ function _onWidthEditBlur (event) {
   _widthEditInputChanged(el, true)
 
   el.realValue = parseFloat(el.segmentEl.getAttribute('width'))
-  el.value = _prettifyWidth(el.realValue, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP)
+  el.value = _prettifyWidth(el.realValue)
 
   el.hold = false
   widthHeightEditHeld = false
@@ -203,7 +205,7 @@ function _onHeightEditBlur (event) {
   _heightEditInputChanged(el, true)
 
   el.realValue = (_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingHeight : street.rightBuildingHeight
-  el.value = _prettifyHeight(el.realValue, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP)
+  el.value = _prettifyHeight(el.realValue)
 
   el.hold = false
   widthHeightEditHeld = false
@@ -279,7 +281,7 @@ function _onWidthEditKeyDown (event) {
     case KEYS.ENTER:
       _widthEditInputChanged(el, true)
       _loseAnyFocus()
-      el.value = _prettifyWidth(el.segmentEl.getAttribute('width'), PRETTIFY_WIDTH_INPUT)
+      el.value = _prettifyWidth(el.segmentEl.getAttribute('width'), { input: true })
       el.focus()
       el.select()
       break
@@ -299,7 +301,7 @@ function _onHeightEditKeyDown (event) {
     case KEYS.ENTER:
       _heightEditInputChanged(el, true)
       _loseAnyFocus()
-      el.value = _prettifyHeight((_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingHeight : street.rightBuildingHeight, PRETTIFY_WIDTH_INPUT)
+      el.value = _prettifyHeight((_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingHeight : street.rightBuildingHeight)
       el.focus()
       el.select()
       break
@@ -312,25 +314,18 @@ function _onHeightEditKeyDown (event) {
   }
 }
 
-function _prettifyHeight (height, purpose) {
+function _prettifyHeight (height) {
   var heightText = height
 
-  switch (purpose) {
-    case PRETTIFY_WIDTH_INPUT:
-      break
-    case PRETTIFY_WIDTH_OUTPUT_MARKUP:
-    case PRETTIFY_WIDTH_OUTPUT_NO_MARKUP:
-      heightText += ' floor'
-      if (height > 1) {
-        heightText += 's'
-      }
-
-      var attr = _getBuildingAttributes(street, _infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING)
-
-      heightText += ' (' + _prettifyWidth(attr.realHeight / TILE_SIZE, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP) + ')'
-
-      break
+  heightText += ' floor'
+  if (height > 1) {
+    heightText += 's'
   }
+
+  var attr = _getBuildingAttributes(street, _infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING)
+
+  heightText += ' (' + _prettifyWidth(attr.realHeight / TILE_SIZE) + ')'
+
   return heightText
 }
 

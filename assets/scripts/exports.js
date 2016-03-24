@@ -51,6 +51,10 @@ window._formatDate = formatDate
 import { updateStreetMetadata } from './streets/metadata'
 window._updateStreetMetadata = updateStreetMetadata
 
+import { processWidthInput, prettifyWidth } from './util/width_units'
+window._processWidthInput = processWidthInput
+window._prettifyWidth = prettifyWidth
+
 window._removeElFromDom = require('./util/dom_helpers').remove
 
 window._showError = require('./app/errors').show

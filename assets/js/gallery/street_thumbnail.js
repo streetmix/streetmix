@@ -157,7 +157,7 @@ transparentSky, segmentNamesAndWidths, streetName) {
 
       var x = (offsetLeft + availableWidth / 2) * system.hiDpi
 
-      var text = _prettifyWidth(segment.width, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP)
+      var text = _prettifyWidth(segment.width)
       var width = ctx.measureText(text).width / 2
       while ((width > availableWidth - 10 * multiplier) && (text.indexOf(' ') !== -1)) {
         text = text.substr(0, text.lastIndexOf(' '))

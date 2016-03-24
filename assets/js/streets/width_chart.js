@@ -108,7 +108,7 @@
       _drawArrowLine(ctx,
         left + street.width * multiplier, 30,
         left + maxWidth * multiplier, 30,
-        _prettifyWidth(-street.remainingWidth, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP))
+        _prettifyWidth(-street.remainingWidth))
       ctx.restore()
     }
 
@@ -116,7 +116,7 @@
       left + maxWidth * multiplier, bottom)
     _drawArrowLine(ctx,
       left, 30, left + street.width * multiplier, 30,
-      _prettifyWidth(street.width, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP))
+      _prettifyWidth(street.width))
 
     var x = left
 
@@ -125,7 +125,7 @@
         var width = ownerWidths[id] * multiplier
 
         _drawArrowLine(ctx, x, 60, x + width, 60,
-          _prettifyWidth(ownerWidths[id], PRETTIFY_WIDTH_OUTPUT_NO_MARKUP))
+          _prettifyWidth(ownerWidths[id]))
         _drawLine(ctx, x + width, 50, x + width, 70)
 
         var imageWidth = images[SEGMENT_OWNERS[id].imageUrl].width / 5 * SEGMENT_OWNERS[id].imageSize
@@ -153,7 +153,7 @@
       if (ctx.setLineDash) {
         ctx.setLineDash([15, 10])
       }
-      _drawArrowLine(ctx, x, 60, left + street.width * multiplier, 60, _prettifyWidth(street.remainingWidth, PRETTIFY_WIDTH_OUTPUT_NO_MARKUP))
+      _drawArrowLine(ctx, x, 60, left + street.width * multiplier, 60, _prettifyWidth(street.remainingWidth))
       ctx.restore()
     }
 
