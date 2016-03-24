@@ -4,6 +4,7 @@ var cookieSession = require('cookie-session')
 var express = require('express')
 var assets = require('connect-assets')
 var browserify = require('browserify-middleware')
+var babelify = require('babelify')
 var bodyParser = require('body-parser')
 var config = require('config')
 var path = require('path')
@@ -75,11 +76,14 @@ app.use('/assets/css/styles.css', middleware.styles)
 // Build JavaScript bundle via browserify
 app.get('/assets/scripts/preinit.js', browserify(__dirname + '/assets/scripts/preinit.js', {
   cache: true,
-  precompile: true
+  precompile: true,
+  transform: [[{ presets: ['es2015'] }, babelify]]
 }))
 app.get('/assets/scripts/main.js', browserify(__dirname + '/assets/scripts/main.js', {
   cache: true,
-  precompile: true
+  precompile: true,
+  transform: [[{ presets: ['es2015'] }, babelify]],
+  external: [__dirname + '/assets/scripts/preinit.js']
 }))
 
 // Build JavaScript bundle via concatenation
