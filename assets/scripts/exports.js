@@ -21,6 +21,9 @@ window._statusMessage = {
 
 window.ERRORS = require('./app/errors')
 
+import { getElAbsolutePos } from './util/helpers'
+window._getElAbsolutePos = getElAbsolutePos
+
 // Menus
 import { isAnyMenuVisible, hideAllMenus } from './menus/menu'
 window.isAnyMenuVisible = isAnyMenuVisible

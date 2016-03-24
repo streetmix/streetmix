@@ -24,19 +24,6 @@ function _createTimeout (fn, data, delay) {
   window.setTimeout(function () { fn.call(null, data); }, delay)
 }
 
-function _getElAbsolutePos (el) {
-  var pos = [0, 0]
-
-  do {
-    pos[0] += el.offsetLeft + (el.cssTransformLeft || 0)
-    pos[1] += el.offsetTop + (el.cssTransformTop || 0)
-
-    el = el.offsetParent
-  } while (el)
-
-  return pos
-}
-
 // Replace with _.cloneDeep (via lodash)
 function _clone (obj) {
   if ($.isArray(obj)) {

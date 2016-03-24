@@ -4,10 +4,11 @@
  *  Generic class instance of menu
  *
  */
-/* global _infoBubble, _getElAbsolutePos, _loseAnyFocus */
+/* global _infoBubble, _loseAnyFocus */
 import _ from 'lodash'
 
 import { hideStatusMessage } from '../app/status_message'
+import { getElAbsolutePos } from '../util/helpers'
 
 export default class Menu {
   constructor (name, opts = {}) {
@@ -61,7 +62,7 @@ export default class Menu {
       this.el.classList.add('align-right')
     } else {
       // Aligns menu to the left side of the menu item.
-      var pos = _getElAbsolutePos(document.querySelector(`#${this.name}-menu-item`))
+      var pos = getElAbsolutePos(document.querySelector(`#${this.name}-menu-item`))
       this.el.style.left = pos[0] + 'px'
     }
 
