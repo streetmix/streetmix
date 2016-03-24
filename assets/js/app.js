@@ -1,12 +1,4 @@
-/*
- * Streetmix
- *
- * Front-end (mostly) by Marcin Wichary, Code for America fellow in 2013.
- *
- */
-
 // = require vendor/jquery-2.1.4.min
-// = require_tree vendor
 
 // = require_self
 // = require_tree util

@@ -15,8 +15,12 @@ import 'whatwg-fetch' // fetch API
 import 'handjs' // microsoft's pointer events / touch-action spec
 import './polyfills/customevent' // customEvent in IE
 
+// Cookie handling
+import Cookies from 'js-cookie'
+
 // This is placed globally while we're transitioning bundles.
 // TODO: Store in application state
+window.Cookies = Cookies // Momentary global export for authentication.js
 window.debug = require('./preinit/debug_settings')
 var system = window.system = require('./preinit/system_capabilities')
 var app = window.app = require('./preinit/app_settings')
