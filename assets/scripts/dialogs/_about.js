@@ -9,7 +9,7 @@
 /* global URL_HELP_ABOUT */
 /* global _updatePageUrl */
 var Dialog = require('./dialog')
-var avatars = require('../users/avatars')
+import { fetchAvatars } from '../users/avatars'
 import { trackEvent } from '../app/event_tracking'
 
 module.exports = new Dialog('#about', {
@@ -25,7 +25,7 @@ module.exports = new Dialog('#about', {
     // Tracking
     trackEvent('Interaction', 'Open about dialog box', null, null, false)
 
-    avatars.fetch()
+    fetchAvatars()
   },
   onHide: function () {
     _updatePageUrl()

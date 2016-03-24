@@ -50,9 +50,3 @@ export function hideBlockingShield () {
   shieldEl.classList.remove('show-too-slow')
   shieldEl.classList.remove('show-cancel')
 }
-
-module.exports = {
-  show: showBlockingShield,
-  hide: hideBlockingShield,
-  darken: darkenBlockingShield
-}

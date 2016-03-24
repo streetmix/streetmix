@@ -12,7 +12,13 @@ window.msg = require('./app/messages')
 import { trackEvent } from './app/event_tracking'
 window.trackEvent = trackEvent
 
-window.blockingShield = require('./app/blocking_shield')
+import { showBlockingShield, hideBlockingShield, darkenBlockingShield} from './app/blocking_shield'
+window.blockingShield = {
+  show: showBlockingShield,
+  hide: hideBlockingShield,
+  darken: darkenBlockingShield
+}
+
 import { showStatusMessage, hideStatusMessage } from './app/status_message'
 window._statusMessage = {
   show: showStatusMessage,
@@ -35,11 +41,15 @@ window.feedbackMenu = require('./menus/_feedback')
 // Dialogs
 window.DialogManager = require('./dialogs/dialog_manager')
 
-window._fetchAvatars = require('./users/avatars').fetch
-window._receiveAvatar = require('./users/avatars').receive
+import { fetchAvatars, receiveAvatar} from './users/avatars'
+window._fetchAvatars = fetchAvatars
+window._receiveAvatar = receiveAvatar
 
-window._formatDate = require('./util/date_format')
-window._updateStreetMetadata = require('./streets/metadata')
+import { formatDate } from './util/date_format'
+window._formatDate = formatDate
+
+import { updateStreetMetadata } from './streets/metadata'
+window._updateStreetMetadata = updateStreetMetadata
 
 window._removeElFromDom = require('./util/dom_helpers').remove
 

@@ -8,17 +8,15 @@
  * @exports updateStreetMetadata
  */
 /* global PRETTIFY_WIDTH_OUTPUT_MARKUP, _prettifyWidth */
-'use strict'
-
-var formatDate = require('../util/date_format')
+import { formatDate } from '../util/date_format'
+import { fetchAvatars } from '../users/avatars'
 var msg = require('../app/messages')
-var avatars = require('../users/avatars')
 
 /**
  * Updates all street metadata at once.
  * @param {Object} street - Street information.
  */
-module.exports = function updateStreetMetadata (street) {
+export function updateStreetMetadata (street) {
   _displayStreetWidth(street.width)
   _displayStreetWidthRemaining(street.remainingWidth)
   _displayStreetAuthor(street.creatorId)
@@ -78,7 +76,7 @@ function _displayStreetAuthor (creatorId) {
 
     el.innerHTML = html
 
-    avatars.fetch()
+    fetchAvatars()
 
     if (!readOnly) {
       el.querySelector('.user-gallery').addEventListener('pointerdown', _onAnotherUserIdClick)

@@ -1,16 +1,10 @@
-'use strict'
+const DATE_FORMAT = 'MMM D, YYYY'
 
-var DATE_FORMAT = 'MMM D, YYYY'
+import moment from 'moment'
 
-var moment = require('moment')
+export function formatDate (dateString) {
+  let today = moment().format(DATE_FORMAT)
+  let date = moment(dateString).format(DATE_FORMAT)
 
-module.exports = function _formatDate (dateString) {
-  var today = moment().format(DATE_FORMAT)
-  var date = moment(dateString).format(DATE_FORMAT)
-
-  if (date !== today) {
-    return date
-  } else {
-    return ''
-  }
+  return (date !== today) ? date : ''
 }

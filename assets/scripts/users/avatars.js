@@ -1,9 +1,7 @@
 /* global API_URL */
-'use strict'
+let avatarCache = {}
 
-var avatarCache = {}
-
-function fetchAvatars () {
+export function fetchAvatars () {
   // NOTE:
   // This function might be called on very old browsers. Please make
   // sure not to use modern faculties.
@@ -45,7 +43,7 @@ function fetchAvatar (userId) {
 
 }
 
-function receiveAvatar (details) {
+export function receiveAvatar (details) {
   if (details && details.id && details.profileImageUrl) {
     avatarCache[details.id] = details.profileImageUrl
     updateAvatars()
@@ -64,9 +62,4 @@ function updateAvatars () {
       el.setAttribute('loaded', true)
     }
   }
-}
-
-module.exports = {
-  fetch: fetchAvatars,
-  receive: receiveAvatar
 }

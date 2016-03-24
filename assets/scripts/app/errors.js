@@ -3,12 +3,11 @@
    _goReloadClearSignIn, _goNewStreet, _goExampleStreet,
    URL_ERROR_TWITTER_ACCESS_DENIED, URL_ERROR_NO_TWITTER_REQUEST_TOKEN,
    URL_ERROR_NO_TWITTER_ACCESS_TOKEN, URL_ERROR_AUTHENTICATION_API_PROBLEM */
-'use strict'
+import { fetchAvatars } from '../users/avatars'
 
-var avatars = require('../users/avatars')
 var domHelpers = require('../util/dom_helpers')
 
-var ERRORS = module.exports = {
+const ERRORS = module.exports = {
   NOT_FOUND: 1,
   SIGN_OUT: 2,
   NO_STREET: 3, // for gallery if you delete the street you were looking at
@@ -183,7 +182,7 @@ function showError (errorType, newAbortEverything) {
 
   document.getElementById('error').className += ' visible'
 
-  avatars.fetch()
+  fetchAvatars()
 }
 
 function hideError () {
