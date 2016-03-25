@@ -7,6 +7,9 @@
  * convenience
  */
 
+import _ from 'lodash'
+window._ = _
+
 import { trackEvent } from './app/event_tracking'
 window.trackEvent = trackEvent
 

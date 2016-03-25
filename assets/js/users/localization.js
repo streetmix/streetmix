@@ -136,7 +136,7 @@ function _updateUnits (newUnits) {
       street.width = _normalizeStreetWidth(street.width)
     }
   } else {
-    street = _clone(undoStack[undoPosition - 1])
+    street = _.cloneDeep(undoStack[undoPosition - 1])
   }
   _createDomFromData()
   _segmentsChanged()

@@ -208,7 +208,7 @@ function _unpackStreetDataFromServerTransmission (transmission) {
     return
   }
 
-  var street = _clone(transmission.data.street)
+  var street = _.cloneDeep(transmission.data.street)
 
   street.creatorId = (transmission.creator && transmission.creator.id) || null
   street.originalStreetId = transmission.originalStreetId || null
@@ -231,7 +231,7 @@ function _unpackServerStreetData (transmission, id, namespacedId, checkIfNeedsTo
   street = _unpackStreetDataFromServerTransmission(transmission)
 
   if (transmission.data.undoStack) {
-    undoStack = _clone(transmission.data.undoStack)
+    undoStack = _.cloneDeep(transmission.data.undoStack)
     undoPosition = transmission.data.undoPosition
   } else {
     undoStack = []
@@ -278,7 +278,7 @@ function _packServerStreetData () {
   delete data.street.creatorId
 
   if (FLAG_SAVE_UNDO) {
-    data.undoStack = _clone(undoStack)
+    data.undoStack = _.cloneDeep(undoStack)
     data.undoPosition = undoPosition
   }
 

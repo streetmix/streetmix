@@ -1,13 +1,3 @@
-
-// Replace with _.cloneDeep (via lodash)
-function _clone (obj) {
-  if ($.isArray(obj)) {
-    return $.extend(true, [], obj)
-  } else {
-    return $.extend(true, {}, obj)
-  }
-}
-
 function _isPointInPoly (vs, point) {
   var x = point[0], y = point[1]
 
