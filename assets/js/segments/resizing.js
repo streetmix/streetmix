@@ -177,7 +177,7 @@ function _onWidthEditFocus (event) {
   var el = event.target
 
   el.oldValue = el.realValue
-  el.value = _prettifyWidth(el.realValue, { input: true })
+  el.value = undecorateWidth(el.realValue)
 }
 
 function _onHeightEditFocus (event) {
@@ -281,7 +281,7 @@ function _onWidthEditKeyDown (event) {
     case KEYS.ENTER:
       _widthEditInputChanged(el, true)
       _loseAnyFocus()
-      el.value = _prettifyWidth(el.segmentEl.getAttribute('width'), { input: true })
+      el.value = undecorateWidth(el.segmentEl.getAttribute('width'))
       el.focus()
       el.select()
       break

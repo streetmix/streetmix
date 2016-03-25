@@ -66,63 +66,106 @@ export function processWidthInput (widthInput) {
  * @param {Number} width to display
  * @param {(boolean)} [options.markup = false]
  *    If true, <wbr> (word break opportunity) tags are inserted into return value.
- * @param {(boolean)} [options.input = false]
- *    If true, the value is intended to be used in an input box and should be
- *    formatted without fractions or units
  */
-export function prettifyWidth (width, { markup = false, input = false } = {}) {
+export function prettifyWidth (width, { markup = false } = {}) {
   let widthText = ''
 
   switch (street.units) {
     case SETTINGS_UNITS_IMPERIAL:
       widthText = width
 
-      if (input !== true) {
-        // Format with vulgar fractions, e.g. .5 => ½
-        const remainder = width - Math.floor(width)
+      // Format with vulgar fractions, e.g. .5 => ½
+      const remainder = width - Math.floor(width)
 
-        if (IMPERIAL_VULGAR_FRACTIONS[('' + remainder).substr(1)]) {
-          widthText =
-          (Math.floor(width) ? Math.floor(width) : '') +
-            IMPERIAL_VULGAR_FRACTIONS[('' + remainder).substr(1)]
-        }
+      if (IMPERIAL_VULGAR_FRACTIONS[('' + remainder).substr(1)]) {
+        widthText =
+        (Math.floor(width) ? Math.floor(width) : '') +
+          IMPERIAL_VULGAR_FRACTIONS[('' + remainder).substr(1)]
+      }
 
-        // Add word break opportunity <wbr> tags and foot mark
-        if (markup === true) {
-          widthText += "<wbr>'"
-        } else {
-          widthText += "'"
-        }
+      // Add word break opportunity <wbr> tags and foot mark
+      if (markup === true) {
+        widthText += "<wbr>'"
+      } else {
+        widthText += "'"
       }
 
       break
     case SETTINGS_UNITS_METRIC:
-      widthText = (width * IMPERIAL_METRIC_MULTIPLIER).toFixed(METRIC_PRECISION).toString()
-
-      if (widthText.substr(0, 2) === '0.') {
-        widthText = widthText.substr(1)
-      }
-      while (widthText.substr(widthText.length - 1) === '0') {
-        widthText = widthText.substr(0, widthText.length - 1)
-      }
-      if (widthText.substr(widthText.length - 1) === '.') {
-        widthText = widthText.substr(0, widthText.length - 1)
-      }
-      if (!widthText) {
-        widthText = '0'
-      }
+      widthText = undecorateWidth(width)
 
       // Add word break opportunity <wbr> tags and units, assuming
       // that the output is not used in an input tag
-      if (input !== true) {
-        if (markup === true) {
-          widthText += '<wbr> m'
-        } else {
-          widthText += ' m'
-        }
+      if (markup === true) {
+        widthText += '<wbr> m'
+      } else {
+        widthText += ' m'
       }
 
       break
+  }
+
+  return widthText
+}
+
+/**
+ * Returns a width as a numeral-only string without decoration, and converts
+ * the value to the user's current units settings (imperial or metric).
+ * Used primarily when converting input box values to a simple number format
+ *
+ * @param {Number} width to display
+ */
+export function undecorateWidth (width) {
+  let widthText = ''
+
+  switch (street.units) {
+    // Width is stored as imperial units by default, so return it as is
+    case SETTINGS_UNITS_IMPERIAL:
+      widthText = width
+      break
+    // Otherwise convert it metric
+    case SETTINGS_UNITS_METRIC:
+      widthText = convertWidthToMetric(width)
+      widthText = stringifyMetricWidth(widthText)
+      break
+  }
+
+  return widthText
+}
+
+/**
+ * Given a width (stored internally in Streetmix as imperial units),
+ * return a metric quantity with three decimal points.
+ *
+ * @param {Number} width
+ * @returns {Number} width as metric quantity
+ */
+function convertWidthToMetric (width) {
+  return (width * IMPERIAL_METRIC_MULTIPLIER).toFixed(METRIC_PRECISION)
+}
+
+/**
+ * Given a width in metric units, returns a value that is post-processed
+ * for display. Leading and trailing zeroes are clipped, trailing decimals
+ * are dropped, and null values return zero.
+ *
+ * @param {Number} width as metric quantity
+ * @returns {String} formatted string
+ */
+function stringifyMetricWidth (width) {
+  let widthText = width.toString()
+
+  if (widthText.substr(0, 2) === '0.') {
+    widthText = widthText.substr(1)
+  }
+  while (widthText.substr(widthText.length - 1) === '0') {
+    widthText = widthText.substr(0, widthText.length - 1)
+  }
+  if (widthText.substr(widthText.length - 1) === '.') {
+    widthText = widthText.substr(0, widthText.length - 1)
+  }
+  if (!widthText) {
+    widthText = '0'
   }
 
   return widthText

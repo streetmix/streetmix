@@ -54,9 +54,10 @@ window._formatDate = formatDate
 import { updateStreetMetadata } from './streets/metadata'
 window._updateStreetMetadata = updateStreetMetadata
 
-import { processWidthInput, prettifyWidth } from './util/width_units'
+import { processWidthInput, prettifyWidth, undecorateWidth } from './util/width_units'
 window._processWidthInput = processWidthInput
 window._prettifyWidth = prettifyWidth
+window.undecorateWidth = undecorateWidth
 
 import { removeElFromDOM } from './util/dom_helpers'
 window.removeElFromDOM = removeElFromDOM
