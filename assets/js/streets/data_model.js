@@ -369,7 +369,7 @@ function _getStreetUrl (street) {
   url += street.namespacedId
 
   if (street.creatorId) {
-    var slug = _normalizeSlug(street.name)
+    var slug = normalizeSlug(street.name)
     url += '/' + encodeURIComponent(slug)
   }
 

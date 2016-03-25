@@ -28,8 +28,9 @@ window._showError = showError
 window._hideError = hideError
 window._showErrorFromUrl = showErrorFromUrl
 
-import { getElAbsolutePos } from './util/helpers'
+import { getElAbsolutePos, normalizeSlug } from './util/helpers'
 window._getElAbsolutePos = getElAbsolutePos
+window.normalizeSlug = normalizeSlug
 
 // Menus
 import { isAnyMenuVisible, hideAllMenus } from './menus/menu'
