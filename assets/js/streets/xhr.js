@@ -167,7 +167,7 @@ function _receiveStreetForVerification (transmission, textStatus, request) {
     console.log('-')
     console.log(transmission)
 
-    _statusMessage.show(msg('STATUS_RELOADED_FROM_SERVER'))
+    showStatusMessage(msg('STATUS_RELOADED_FROM_SERVER'))
 
     _infoBubble.suppress()
 

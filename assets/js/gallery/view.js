@@ -176,7 +176,7 @@ function _receiveGalleryData (transmission) {
 function _loadGalleryContents () {
   var els = document.querySelectorAll('#gallery .streets li')
   for (var i = 0, el; el = els[i]; i++) {
-    _removeElFromDom(el)
+    removeElFromDOM(el)
   }
 
   // document.querySelector('#gallery .streets').innerHTML = ''
@@ -235,7 +235,7 @@ function _showGallery (userId, instant, signInPromo) {
   }
 
   _hideControls()
-  _statusMessage.hide()
+  hideStatusMessage()
   document.querySelector('#gallery .sign-in-promo').classList.remove('visible')
 
   if (instant) {
@@ -320,7 +320,7 @@ function _onDeleteGalleryStreet (event) {
 
     _sendDeleteStreetToServer(el.getAttribute('streetId'))
 
-    _removeElFromDom(el.parentNode)
+    removeElFromDOM(el.parentNode)
     _updateGalleryStreetCount()
   }
 

@@ -7,35 +7,33 @@
  * @requires keypress
  */
 /* global _loseAnyFocus */
-'use strict'
-
-var _ = require('lodash')
-var keypress = require('./keypress')
+import _ from 'lodash'
+import { registerKeypress, deregisterKeypress } from './keypress'
 
 // Register keyboard input for show (shift-D)
-keypress.register('shift d', show)
+registerKeypress('shift d', showDebugInfo)
 
-function show () {
+export function showDebugInfo () {
   /* global street, undoStack, settings */
-  var debugStreetData = _.cloneDeep(street)
-  var debugUndo = _.cloneDeep(undoStack)
-  var debugSettings = _.cloneDeep(settings)
-  var debugEl = document.querySelector('#debug')
-  var textEl = debugEl.querySelector('textarea')
+  const debugStreetData = _.cloneDeep(street)
+  const debugUndo = _.cloneDeep(undoStack)
+  const debugSettings = _.cloneDeep(settings)
+  const debugEl = document.querySelector('#debug')
+  const textEl = debugEl.querySelector('textarea')
 
   // Some things just shouldn't be seen...
-  for (var i in debugStreetData.segments) {
+  for (let i in debugStreetData.segments) {
     delete debugStreetData.segments[i].el
   }
 
-  for (var j in debugUndo) {
-    for (var k in debugUndo[j].segments) {
+  for (let j in debugUndo) {
+    for (let k in debugUndo[j].segments) {
       delete debugUndo[j].segments[k].el
     }
   }
 
   // Create a JSON object, this parses better in editors
-  var debugObj = {
+  const debugObj = {
     'DATA': debugStreetData,
     'SETTINGS': debugSettings,
     'UNDO': debugUndo
@@ -52,19 +50,14 @@ function show () {
   }, 0)
 
   // Set up keypress listener to close debug window
-  keypress.register('esc', hide)
+  registerKeypress('esc', hideDebugInfo)
   // TODO: Register mouse inputs for hide
 }
 
-function hide () {
+export function hideDebugInfo () {
   document.querySelector('#debug').classList.remove('visible')
   _loseAnyFocus()
 
   // Remove keypress listener
-  keypress.deregister('esc', hide)
-}
-
-module.exports = {
-  show: show,
-  hide: hide
+  deregisterKeypress('esc', hideDebugInfo)
 }

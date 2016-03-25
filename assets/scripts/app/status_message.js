@@ -24,7 +24,8 @@ export function showStatusMessage (text, undo) {
   closeEl.classList.add('close')
   closeEl.addEventListener('pointerdown', _onClickTheX)
 
-  msgEl.appendChild(el)
+  msgEl.appendChild(closeEl)
+
   el.classList.add('visible')
 
   timerId = window.setTimeout(hideStatusMessage, STATUS_MESSAGE_HIDE_DELAY)

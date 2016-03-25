@@ -38,7 +38,7 @@ function _onGlobalKeyDown (event) {
       } else if (isAnyMenuVisible() === true) {
         hideAllMenus()
       } else if (document.querySelector('#status-message').classList.contains('visible')) {
-        _statusMessage.hide()
+        hideStatusMessage()
       } else if (_infoBubble.visible && _infoBubble.descriptionVisible) {
         _infoBubble.hideDescription()
       } else if (_infoBubble.visible) {

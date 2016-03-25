@@ -1,7 +1,5 @@
-'use strict'
-
 // TODO: Localize
-var messages = {
+const messages = {
   UI_GLYPH_X: '×',
 
   PROMPT_NEW_STREET_NAME: 'New street name:',
@@ -49,7 +47,7 @@ var messages = {
   SEGMENT_NAME_EMPTY: 'Empty space'
 }
 
-function msg (messageId, data) {
+export function msg (messageId, data) {
   if (data) {
     return supplant(messages[messageId], data)
   } else {
@@ -74,5 +72,3 @@ function supplant (string, data) {
     }
   )
 }
-
-module.exports = msg

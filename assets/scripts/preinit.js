@@ -27,18 +27,10 @@ var app = window.app = require('./preinit/app_settings')
 window.readOnly = app.readOnly
 
 // Require early for scripts that ask for msg() immediately
-window.msg = require('./app/messages')
+import { msg } from './app/messages'
+window.msg = msg
 
 setScaleForPhone()
-
-// This event is fired by _onEverythingLoaded() in the deprecated
-// global bundle. This allows things in the modular bundle to respond
-// to that function without needing to be exported globally.
-// This should eventually not be required & can be removed.
-window.addEventListener('stmx:everything_loaded', function (e) {
-  /* global _doWhatUsedToBeThe_onEverythingLoadedFunction*/
-  _doWhatUsedToBeThe_onEverythingLoadedFunction()
-})
 
 function setScaleForPhone () {
   var meta = document.createElement('meta')
@@ -53,3 +45,12 @@ function setScaleForPhone () {
   var headEls = document.getElementsByTagName('head')
   headEls[0].appendChild(meta)
 }
+
+// This event is fired by _onEverythingLoaded() in the deprecated
+// global bundle. This allows things in the modular bundle to respond
+// to that function without needing to be exported globally.
+// This should eventually not be required & can be removed.
+window.addEventListener('stmx:everything_loaded', function (e) {
+  /* global _onEverythingLoaded2 */
+  _onEverythingLoaded2()
+})

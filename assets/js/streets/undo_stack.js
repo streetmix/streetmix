@@ -10,9 +10,9 @@ var ignoreStreetChanges = false
 
 function _undoRedo (undo) {
   if (undo && !_isUndoAvailable()) {
-    _statusMessage.show(msg('STATUS_NOTHING_TO_UNDO'))
+    showStatusMessage(msg('STATUS_NOTHING_TO_UNDO'))
   } else if (!undo && !_isRedoAvailable()) {
-    _statusMessage.show(msg('STATUS_NOTHING_TO_REDO'))
+    showStatusMessage(msg('STATUS_NOTHING_TO_REDO'))
   } else {
     if (undo) {
       undoStack[undoPosition] = _trimStreetData(street)
@@ -28,7 +28,7 @@ function _undoRedo (undo) {
     _infoBubble.dontConsiderShowing()
 
     _updateEverything(true)
-    _statusMessage.hide()
+    hideStatusMessage()
   }
 
   trackEvent('Interaction', TRACK_ACTION_UNDO,

@@ -2,30 +2,28 @@
  * exports.js
  *
  * A shim for exporting browserify modules to the global scope that are
- * required while we're transitioning to a module bundler
- * Only keep require()s that are needed and please remove them at earliest
+ * required / imported while we're transitioning to a module bundler
+ * Only keep imports that are needed and please remove them at earliest
  * convenience
  */
-
-window.msg = require('./app/messages')
 
 import { trackEvent } from './app/event_tracking'
 window.trackEvent = trackEvent
 
 import { showBlockingShield, hideBlockingShield, darkenBlockingShield } from './app/blocking_shield'
-window.blockingShield = {
-  show: showBlockingShield,
-  hide: hideBlockingShield,
-  darken: darkenBlockingShield
-}
+window.showBlockingShield = showBlockingShield
+window.hideBlockingShield = hideBlockingShield
+window.darkenBlockingShield = darkenBlockingShield
 
 import { showStatusMessage, hideStatusMessage } from './app/status_message'
-window._statusMessage = {
-  show: showStatusMessage,
-  hide: hideStatusMessage
-}
+window.showStatusMessage = showStatusMessage
+window.hideStatusMessage = hideStatusMessage
 
-window.ERRORS = require('./app/errors')
+import { ERRORS, showError, hideError, showErrorFromUrl } from './app/errors'
+window.ERRORS = ERRORS
+window._showError = showError
+window._hideError = hideError
+window._showErrorFromUrl = showErrorFromUrl
 
 import { getElAbsolutePos } from './util/helpers'
 window._getElAbsolutePos = getElAbsolutePos
@@ -37,9 +35,6 @@ window.hideAllMenus = hideAllMenus
 
 import { shareMenu } from './menus/_share'
 window.shareMenu = shareMenu
-
-import { feedbackMenu } from './menus/_feedback'
-window.feedbackMenu = feedbackMenu
 
 // Dialogs
 import { isAnyDialogVisible, hideAllDialogs } from './dialogs/dialog'
@@ -63,8 +58,5 @@ import { processWidthInput, prettifyWidth } from './util/width_units'
 window._processWidthInput = processWidthInput
 window._prettifyWidth = prettifyWidth
 
-window._removeElFromDom = require('./util/dom_helpers').remove
-
-window._showError = require('./app/errors').show
-window._hideError = require('./app/errors').hide
-window._showErrorFromUrl = require('./app/errors').showFromUrl
+import { removeElFromDOM } from './util/dom_helpers'
+window.removeElFromDOM = removeElFromDOM

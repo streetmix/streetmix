@@ -100,7 +100,7 @@ function _handleSegmentResizeEnd (event) {
   _changeDraggingType(DRAGGING_TYPE_NONE)
 
   var el = draggingResize.floatingEl
-  _removeElFromDom(el)
+  removeElFromDOM(el)
 
   draggingResize.segmentEl.classList.add('immediate-show-drag-handles')
 

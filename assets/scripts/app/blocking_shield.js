@@ -1,6 +1,6 @@
-/* global msg */
 /* global _blockingCancel, _blockingTryAgain, _goReload */
 // TODO: Some shield-related functionality is wound up in gallery/xhr, util/xhr
+import { msg } from './messages'
 
 const BLOCKING_SHIELD_DARKEN_DELAY = 800
 const BLOCKING_SHIELD_TOO_SLOW_DELAY = 10000

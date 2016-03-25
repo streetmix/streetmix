@@ -29,7 +29,7 @@ function _errorReceiveGalleryData (data) {
 }
 
 function _fetchGalleryStreet (streetId) {
-  blockingShield.show()
+  showBlockingShield()
 
   $.ajax({
     // TODO const
@@ -42,7 +42,7 @@ function _fetchGalleryStreet (streetId) {
 }
 
 function _errorReceiveGalleryStreet () {
-  blockingShield.hide()
+  hideBlockingShield()
   galleryStreetLoaded = true
   galleryStreetId = street.id
 
@@ -57,7 +57,7 @@ function _receiveGalleryStreet (transmission) {
 
   galleryStreetLoaded = true
 
-  blockingShield.hide()
+  hideBlockingShield()
 
   ignoreStreetChanges = true
 

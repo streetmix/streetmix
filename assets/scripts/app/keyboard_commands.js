@@ -1,6 +1,6 @@
 import { registerKeypress } from './keypress'
 import { showStatusMessage } from './status_message'
-var msg = require('./messages')
+import { msg } from './messages'
 
 registerKeypress('ctrl s', {
   trackMsg: 'Command-S or Ctrl-S save shortcut key pressed'

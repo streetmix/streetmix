@@ -177,7 +177,7 @@ function _successNonblockingAjaxRequest (data, request) {
 }
 
 function _successBlockingAjaxRequest (data) {
-  blockingShield.hide()
+  hideBlockingShield()
 
   blockingAjaxRequestInProgress = false
 
@@ -191,7 +191,7 @@ function _errorBlockingAjaxRequest () {
 
   document.querySelector('#blocking-shield').classList.add('show-try-again')
 
-  blockingShield.darken()
+  darkenBlockingShield()
 }
 
 function _blockingTryAgain () {
@@ -203,7 +203,7 @@ function _blockingTryAgain () {
 }
 
 function _blockingCancel () {
-  blockingShield.hide()
+  hideBlockingShield()
 
   blockingAjaxRequestInProgress = false
 
@@ -211,7 +211,7 @@ function _blockingCancel () {
 }
 
 function _newBlockingAjaxRequest (message, request, doneFunc, cancelFunc) {
-  blockingShield.show(message)
+  showBlockingShield(message)
 
   blockingAjaxRequestInProgress = true
 

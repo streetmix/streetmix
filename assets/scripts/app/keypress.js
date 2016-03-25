@@ -417,14 +417,3 @@ function _execute (input, event) {
 function _isFocusOnBody () {
   return document.activeElement === document.body
 }
-
-// TODO: Rename imports in other modules so this can go away
-module.exports = {
-  startListening,
-  registerKeypress,
-  deregisterKeypress,
-  register: registerKeypress, // TEMP
-  deregister: deregisterKeypress, // TEMP
-  inputs: inputs,
-  _proc: _processCommands
-}

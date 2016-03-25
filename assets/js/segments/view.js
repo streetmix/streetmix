@@ -238,10 +238,10 @@ function _setSegmentContents (el, type, variantString, segmentWidth, randSeed, p
   _drawSegmentContents(ctx, type, variantString, segmentWidth, 0, offsetTop, randSeed, multiplier, palette)
 
   if (!quickUpdate) {
-    _removeElFromDom(el.querySelector('canvas'))
+    removeElFromDOM(el.querySelector('canvas'))
     el.appendChild(canvasEl)
 
-    _removeElFromDom(el.querySelector('.hover-bk'))
+    removeElFromDOM(el.querySelector('.hover-bk'))
     el.appendChild(hoverBkEl)
   }
 }
@@ -518,7 +518,7 @@ function _switchSegmentElAway (el) {
   }, 0)
 
   window.setTimeout(function () {
-    _removeElFromDom(el)
+    removeElFromDOM(el)
   }, SEGMENT_SWITCHING_TIME)
 }
 

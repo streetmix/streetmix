@@ -10,7 +10,7 @@
 import { formatDate } from '../util/date_format'
 import { prettifyWidth } from '../util/width_units'
 import { fetchAvatars } from '../users/avatars'
-var msg = require('../app/messages')
+import { msg } from '../app/messages'
 
 /**
  * Updates all street metadata at once.

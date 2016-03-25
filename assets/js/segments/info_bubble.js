@@ -357,8 +357,8 @@ var _infoBubble = {
     var segmentInfo = SEGMENT_INFO[segment.type]
     var variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString]
 
-    _removeElFromDom(_infoBubble.el.querySelector('.description-prompt'))
-    _removeElFromDom(_infoBubble.el.querySelector('.description-canvas'))
+    removeElFromDOM(_infoBubble.el.querySelector('.description-prompt'))
+    removeElFromDOM(_infoBubble.el.querySelector('.description-canvas'))
 
     var description = ''
     if (variantInfo && variantInfo.description) {

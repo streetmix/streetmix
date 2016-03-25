@@ -32,9 +32,3 @@ import { startListening } from './app/keypress'
 
 // Start listening for keypresses
 startListening()
-
-// Temp: use this while in transition
-function _doWhatUsedToBeThe_onEverythingLoadedFunction () {
-}
-
-window._doWhatUsedToBeThe_onEverythingLoadedFunction = _doWhatUsedToBeThe_onEverythingLoadedFunction

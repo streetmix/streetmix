@@ -253,7 +253,7 @@ function _saveStreetToServerIfNecessary () {
     _hideWelcome()
 
     // As per issue #306.
-    _statusMessage.hide()
+    hideStatusMessage()
 
     _updateStreetMetadata(street)
 

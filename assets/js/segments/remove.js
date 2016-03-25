@@ -9,14 +9,14 @@ function _removeSegment (el, all) {
 
     _infoBubble.hide()
 
-    _statusMessage.show(msg('STATUS_ALL_SEGMENTS_DELETED'), true)
+    showStatusMessage(msg('STATUS_ALL_SEGMENTS_DELETED'), true)
   } else if (el && el.parentNode) {
     _infoBubble.hide()
     _infoBubble.hideSegment()
     _switchSegmentElAway(el)
     _segmentsChanged()
 
-    _statusMessage.show(msg('STATUS_SEGMENT_DELETED'), true)
+    showStatusMessage(msg('STATUS_SEGMENT_DELETED'), true)
   }
 }
 

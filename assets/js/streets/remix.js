@@ -54,9 +54,9 @@ function _remixStreet () {
 function _receiveRemixedStreet (data) {
   if (!promoteStreet) {
     if (signedIn) {
-      _statusMessage.show(msg('STATUS_NOW_REMIXING'))
+      showStatusMessage(msg('STATUS_NOW_REMIXING'))
     } else {
-      _statusMessage.show(msg('STATUS_NOW_REMIXING_SIGN_IN', { signInUrl: URL_SIGN_IN_REDIRECT }))
+      showStatusMessage(msg('STATUS_NOW_REMIXING_SIGN_IN', { signInUrl: URL_SIGN_IN_REDIRECT }))
     }
   }
 

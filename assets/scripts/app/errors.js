@@ -4,10 +4,9 @@
    URL_ERROR_TWITTER_ACCESS_DENIED, URL_ERROR_NO_TWITTER_REQUEST_TOKEN,
    URL_ERROR_NO_TWITTER_ACCESS_TOKEN, URL_ERROR_AUTHENTICATION_API_PROBLEM */
 import { fetchAvatars } from '../users/avatars'
+import { removeElFromDOM } from '../util/dom_helpers'
 
-var domHelpers = require('../util/dom_helpers')
-
-const ERRORS = module.exports = {
+export const ERRORS = {
   NOT_FOUND: 1,
   SIGN_OUT: 2,
   NO_STREET: 3, // for gallery if you delete the street you were looking at
@@ -29,14 +28,9 @@ const ERRORS = module.exports = {
   SIGN_IN_SERVER_FAILURE: 19,
   SIGN_IN_401: 20,
   STREET_DATA_FAILURE: 21,
-
-  // Also export functions
-  show: showError,
-  hide: hideError,
-  showFromUrl: showFromUrl
 }
 
-function showError (errorType, newAbortEverything) {
+export function showError (errorType, newAbortEverything) {
   // NOTE:
   // This function might be called on very old browsers. Please make
   // sure not to use modern faculties.
@@ -138,7 +132,7 @@ function showError (errorType, newAbortEverything) {
 
   if (abortEverything) {
     // Opera
-    domHelpers.remove(document.getElementById('gallery'))
+    removeElFromDOM(document.getElementById('gallery'))
   }
 
   if (navigator.userAgent.indexOf('MSIE 6.') !== -1) {
@@ -185,11 +179,11 @@ function showError (errorType, newAbortEverything) {
   fetchAvatars()
 }
 
-function hideError () {
+export function hideError () {
   document.querySelector('#error').classList.remove('visible')
 }
 
-function showFromUrl (errorUrl) {
+export function showErrorFromUrl (errorUrl) {
   var errorType
 
   // TODO const

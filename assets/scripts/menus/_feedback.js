@@ -107,10 +107,10 @@ function _onFeedbackFormInput () {
 }
 
 function _updateFeedbackMenu () {
-  var el = document.querySelector('#feedback-via-twitter')
+  const el = document.querySelector('#feedback-via-twitter')
 
-  var text = TWITTER_ID
-  var url = getSharingUrl()
+  const text = TWITTER_ID
+  const url = getSharingUrl()
 
   // TODO const
   el.href = 'https://twitter.com/intent/tweet' +

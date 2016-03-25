@@ -1,11 +1,10 @@
 /* global debug, system, readOnly, ENV */
-'use strict'
-
 // Remember, the debug & system variables are global & attached to the window
 // because they are detected in a separate bundle. Require()ing them here will
 // not do what you expect.
-
-var locale = require('./locale')
+import { initLocale } from './locale'
+import { shareMenu } from '../menus/_share'
+import { feedbackMenu } from '../menus/_feedback'
 
 // Toggle debug features
 if (debug.hoverPolygon) {
@@ -18,7 +17,7 @@ if (!debug.experimental) {
 } else {
   // Initalize i18n / localization
   // Currently experimental-only
-  locale.init()
+  initLocale()
 }
 
 // Other
@@ -63,3 +62,10 @@ function addBodyClasses () {
   }
 }
 
+// Temp: use this while in transition
+export function _onEverythingLoaded2 () {
+  shareMenu.update()
+  feedbackMenu.update()
+}
+
+window._onEverythingLoaded2 = _onEverythingLoaded2

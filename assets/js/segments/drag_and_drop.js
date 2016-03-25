@@ -689,7 +689,7 @@ function _handleSegmentMoveCancel () {
   _repositionSegments()
   _updateWithinCanvas(true)
 
-  _removeElFromDom(draggingMove.floatingEl)
+  removeElFromDOM(draggingMove.floatingEl)
   document.querySelector('#trashcan').classList.remove('visible')
 
   _changeDraggingType(DRAGGING_TYPE_NONE)
@@ -704,7 +704,7 @@ function _handleSegmentMoveEnd (event) {
 
   if (!draggingMove.withinCanvas) {
     if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
-      _removeElFromDom(draggingMove.originalEl)
+      removeElFromDOM(draggingMove.originalEl)
     }
 
     trackEvent('Interaction', TRACK_ACTION_REMOVE_SEGMENT,
@@ -735,7 +735,7 @@ function _handleSegmentMoveEnd (event) {
 
     if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
       var draggedOutEl = document.querySelector('.segment.dragged-out')
-      _removeElFromDom(draggedOutEl)
+      removeElFromDOM(draggedOutEl)
     }
 
     segmentElControls = newEl
@@ -754,7 +754,7 @@ function _handleSegmentMoveEnd (event) {
   _segmentsChanged()
   _updateWithinCanvas(true)
 
-  _removeElFromDom(draggingMove.floatingEl)
+  removeElFromDOM(draggingMove.floatingEl)
   document.querySelector('#trashcan').classList.remove('visible')
 
   _changeDraggingType(DRAGGING_TYPE_NONE)
@@ -771,7 +771,7 @@ function _handleSegmentMoveEnd (event) {
 function _removeGuides (el) {
   var guideEl
   while (guideEl = el.querySelector('.guide')) {
-    _removeElFromDom(guideEl)
+    removeElFromDOM(guideEl)
   }
 }
 
