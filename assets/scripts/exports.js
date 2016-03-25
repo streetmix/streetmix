@@ -54,6 +54,9 @@ window._formatDate = formatDate
 import { updateStreetMetadata } from './streets/metadata'
 window._updateStreetMetadata = updateStreetMetadata
 
+import { drawProgrammaticPeople } from './segments/people'
+window.drawProgrammaticPeople = drawProgrammaticPeople
+
 import { processWidthInput, prettifyWidth, undecorateWidth } from './util/width_units'
 window._processWidthInput = processWidthInput
 window._prettifyWidth = prettifyWidth
@@ -61,3 +64,7 @@ window.undecorateWidth = undecorateWidth
 
 import { removeElFromDOM } from './util/dom_helpers'
 window.removeElFromDOM = removeElFromDOM
+
+import { generateRandSeed, RandomGenerator } from './util/random'
+window.generateRandSeed = generateRandSeed
+window.RandomGenerator = RandomGenerator

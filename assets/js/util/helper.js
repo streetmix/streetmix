@@ -1,28 +1,3 @@
-var MAX_RAND_SEED = 999999999
-
-function _generateRandSeed () {
-  var randSeed = 1 + Math.floor(Math.random() * MAX_RAND_SEED); // So it’s not zero
-  return randSeed
-}
-
-function RandomGenerator () {
-  this.randSeed = 0
-}
-
-RandomGenerator.prototype.rand = function () {
-  var t32 = 0x100000000
-  var constant = 134775813
-  var x = (constant * this.randSeed + 1)
-  return (this.randSeed = x % t32) / t32
-}
-
-RandomGenerator.prototype.seed = function (seed) {
-  this.randSeed = seed
-}
-
-function _createTimeout (fn, data, delay) {
-  window.setTimeout(function () { fn.call(null, data); }, delay)
-}
 
 // Replace with _.cloneDeep (via lodash)
 function _clone (obj) {

@@ -36,7 +36,7 @@ function _createPalette () {
       width * TILE_SIZE / WIDTH_PALETTE_MULTIPLIER,
       false,
       true,
-      _generateRandSeed())
+      generateRandSeed())
 
     el.classList.add('palette')
 

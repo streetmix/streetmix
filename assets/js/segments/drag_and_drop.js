@@ -234,7 +234,7 @@ function _handleSegmentMoveStart () {
 
   if (draggingMove.originalEl.classList.contains('palette')) {
     if (SEGMENT_INFO[draggingMove.originalType].needRandSeed) {
-      draggingMove.originalRandSeed = _generateRandSeed()
+      draggingMove.originalRandSeed = generateRandSeed()
     }
     draggingMove.type = DRAGGING_TYPE_MOVE_CREATE
     draggingMove.originalWidth =

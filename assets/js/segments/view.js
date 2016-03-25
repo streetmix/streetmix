@@ -201,7 +201,7 @@ function _drawSegmentContents (ctx, type, variantString, segmentWidth, offsetLef
   }
 
   if (type == 'sidewalk') {
-    _drawProgrammaticPeople(ctx, segmentWidth / multiplier, offsetLeft - left * TILE_SIZE * multiplier, offsetTop, randSeed, multiplier, variantString)
+    drawProgrammaticPeople(ctx, segmentWidth / multiplier, offsetLeft - left * TILE_SIZE * multiplier, offsetTop, randSeed, multiplier, variantString)
   }
 }
 

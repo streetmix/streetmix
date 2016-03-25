@@ -342,7 +342,7 @@ function _fillDefaultSegments () {
     segment.variantString = _getVariantString(segment.variant)
 
     if (SEGMENT_INFO[segment.type].needRandSeed) {
-      segment.randSeed = _generateRandSeed()
+      segment.randSeed = generateRandSeed()
     }
 
     street.segments.push(segment)
