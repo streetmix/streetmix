@@ -5,6 +5,7 @@
 import { initLocale } from './locale'
 import { shareMenu } from '../menus/_share'
 import { feedbackMenu } from '../menus/_feedback'
+import './load_resources'
 
 // Toggle debug features
 if (debug.hoverPolygon) {

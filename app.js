@@ -93,6 +93,10 @@ app.use(assets({
   precompile: ['app.js']
 }))
 
+app.get('/assets/images/icons.svg', function (req, res) {
+  res.sendFile(path.join(__dirname, '/node_modules/streetmix-icons/dist/icons.svg'))
+})
+
 app.use(express.static(path.join(__dirname, '/public')))
 
 // Catch-all
