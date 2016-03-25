@@ -8,9 +8,8 @@
  * Later scripts may use these settings.
  *
  */
-'use strict'
 
-var debug = {
+export const debug = {
   hoverPolygon: false,
   canvasRectangles: false,
   forceLeftHandTraffic: false,
@@ -22,7 +21,7 @@ var debug = {
   experimental: false
 }
 
-var url = window.location.search
+const url = window.location.search
 
 // TODO const
 if (url.match(/[\?\&]debug-hover-polygon\&?/)) {
@@ -77,5 +76,3 @@ if (url.match(/[\?\&]debug-force-no-internet\&?/)) {
 if (url.match(/[\?\&]debug-experimental\&?/)) {
   debug.experimental = true
 }
-
-module.exports = debug

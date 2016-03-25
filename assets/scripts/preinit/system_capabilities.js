@@ -7,12 +7,10 @@
  */
 /* global NO_INTERNET_MODE */
 /* global Modernizr */
-'use strict'
-
-var debug = require('./debug_settings')
+import { debug } from './debug_settings'
 
 // Default settings
-var system = {
+export const system = {
   touch: false,
   phone: false,
   safari: false,
@@ -89,5 +87,3 @@ if ((navigator.userAgent.indexOf('Safari') !== -1) &&
   (navigator.userAgent.indexOf('Chrome') === -1)) {
   system.safari = true
 }
-
-module.exports = system

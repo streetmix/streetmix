@@ -5,18 +5,10 @@
  * debug and system settings.
  *
  */
-'use strict'
-
-var debug = require('./debug_settings')
-var system = require('./system_capabilities')
+import { debug } from './debug_settings'
+import { system } from './system_capabilities'
 
 // Just set readOnly
-var app = {
-  readOnly: false
+export const app = {
+  readOnly: (system.phone || debug.forceReadOnly)
 }
-
-if (system.phone || debug.forceReadOnly) {
-  app.readOnly = true
-}
-
-module.exports = app

@@ -17,13 +17,18 @@ import './polyfills/customevent' // customEvent in IE
 
 // Cookie handling
 import Cookies from 'js-cookie'
+window.Cookies = Cookies // Momentary global export for authentication.js
 
 // This is placed globally while we're transitioning bundles.
 // TODO: Store in application state
-window.Cookies = Cookies // Momentary global export for authentication.js
-window.debug = require('./preinit/debug_settings')
-var system = window.system = require('./preinit/system_capabilities')
-var app = window.app = require('./preinit/app_settings')
+import { debug } from './preinit/debug_settings'
+window.debug = debug
+
+import { system } from './preinit/system_capabilities'
+window.system = system
+
+import { app } from './preinit/app_settings'
+// window.app = app
 window.readOnly = app.readOnly
 
 // Require early for scripts that ask for msg() immediately
