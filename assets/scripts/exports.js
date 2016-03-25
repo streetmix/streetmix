@@ -12,7 +12,7 @@ window.msg = require('./app/messages')
 import { trackEvent } from './app/event_tracking'
 window.trackEvent = trackEvent
 
-import { showBlockingShield, hideBlockingShield, darkenBlockingShield} from './app/blocking_shield'
+import { showBlockingShield, hideBlockingShield, darkenBlockingShield } from './app/blocking_shield'
 window.blockingShield = {
   show: showBlockingShield,
   hide: hideBlockingShield,
@@ -35,8 +35,11 @@ import { isAnyMenuVisible, hideAllMenus } from './menus/menu'
 window.isAnyMenuVisible = isAnyMenuVisible
 window.hideAllMenus = hideAllMenus
 
-window.shareMenu = require('./menus/_share')
-window.feedbackMenu = require('./menus/_feedback')
+import { shareMenu } from './menus/_share'
+window.shareMenu = shareMenu
+
+import { feedbackMenu } from './menus/_feedback'
+window.feedbackMenu = feedbackMenu
 
 // Dialogs
 import { isAnyDialogVisible, hideAllDialogs } from './dialogs/dialog'
@@ -46,7 +49,7 @@ window.hideAllDialogs = hideAllDialogs
 import { aboutDialog } from './dialogs/_about'
 window.aboutDialog = aboutDialog
 
-import { fetchAvatars, receiveAvatar} from './users/avatars'
+import { fetchAvatars, receiveAvatar } from './users/avatars'
 window._fetchAvatars = fetchAvatars
 window._receiveAvatar = receiveAvatar
 

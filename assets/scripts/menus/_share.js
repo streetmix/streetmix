@@ -7,7 +7,7 @@ import { trackEvent } from '../app/event_tracking'
 const TRACK_ACTION_FACEBOOK = 'Facebook'
 const TRACK_ACTION_TWITTER = 'Twitter'
 
-var shareMenu = new Menu('share', {
+export let shareMenu = new Menu('share', {
   alignment: 'right',
   onInit: function () {
     document.querySelector('#share-via-twitter').addEventListener('pointerdown', _shareViaTwitter)
@@ -22,6 +22,8 @@ var shareMenu = new Menu('share', {
     }, 200)
   }
 })
+
+shareMenu.update = _updateShareMenu
 
 function _shareViaTwitter () {
   trackEvent('Sharing', TRACK_ACTION_TWITTER, null, null, false)
@@ -89,7 +91,3 @@ function _updateShareMenu () {
     document.querySelector('#sign-in-promo').classList.add('visible')
   }
 }
-
-shareMenu.update = _updateShareMenu
-
-module.exports = shareMenu

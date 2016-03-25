@@ -261,7 +261,6 @@ function _saveStreetToServerIfNecessary () {
 
     _scheduleSavingStreetToServer()
 
-    printingNeedsUpdating = true
     lastStreet = currentData
 
     _updateUndoButtons()

@@ -574,6 +574,4 @@ function _segmentsChanged () {
   _saveStreetToServerIfNecessary()
   _updateUndoButtons()
   _repositionSegments()
-
-  printingNeedsUpdating = true
 }

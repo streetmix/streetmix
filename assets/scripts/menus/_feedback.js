@@ -6,10 +6,12 @@ const LOCAL_STORAGE_FEEDBACK_BACKUP = 'feedback-backup'
 const LOCAL_STORAGE_FEEDBACK_EMAIL_BACKUP = 'feedback-email-backup'
 const TWITTER_ID = '@streetmix'
 
-var feedbackMenu = new Menu('feedback', {
+export let feedbackMenu = new Menu('feedback', {
   init: _addEventListeners,
   onShow: _prepareFeedbackForm
 })
+
+feedbackMenu.update = _updateFeedbackMenu
 
 function _addEventListeners () {
   document.querySelector('#feedback-form-message').addEventListener('input', _onFeedbackFormInput)
@@ -137,6 +139,3 @@ function _prepareFeedbackForm (event) {
     notices[i].classList.remove('visible')
   }
 }
-
-feedbackMenu.update = _updateFeedbackMenu
-module.exports = feedbackMenu

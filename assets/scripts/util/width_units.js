@@ -24,32 +24,31 @@ const IMPERIAL_VULGAR_FRACTIONS = {
 }
 
 export function processWidthInput (widthInput) {
+  // Normalize certain input quirks. Spaces (more common at end or beginning of input)
+  // go away, and comma-based decimals turn into period-based decimals
   widthInput = widthInput.replace(/ /g, '')
   widthInput = widthInput.replace(/,/g, '.')
 
-  for (var i in IMPERIAL_VULGAR_FRACTIONS) {
-    if (widthInput.indexOf(IMPERIAL_VULGAR_FRACTIONS[i]) != -1) {
+  for (let i in IMPERIAL_VULGAR_FRACTIONS) {
+    if (widthInput.indexOf(IMPERIAL_VULGAR_FRACTIONS[i]) !== -1) {
       widthInput = widthInput.replace(new RegExp(IMPERIAL_VULGAR_FRACTIONS[i]), i)
     }
   }
 
-  var width = parseFloat(widthInput)
+  let width = parseFloat(widthInput)
 
   if (width) {
+    // Default multiplier, is true if units are imperial
+    let multiplier = 1
+
     // Default unit
-    switch (street.units) {
-      case SETTINGS_UNITS_METRIC:
-        var multiplier = 1 / IMPERIAL_METRIC_MULTIPLIER
-        break
-      case SETTINGS_UNITS_IMPERIAL:
-        var multiplier = 1
-        break
+    if (street.units === SETTINGS_UNITS_METRIC) {
+      multiplier = 1 / IMPERIAL_METRIC_MULTIPLIER
     }
 
-    for (var i in WIDTH_INPUT_CONVERSION) {
-      if (widthInput.match(new RegExp('[\\d\\.]' +
-          WIDTH_INPUT_CONVERSION[i].text + '$'))) {
-        var multiplier = WIDTH_INPUT_CONVERSION[i].multiplier
+    for (let i in WIDTH_INPUT_CONVERSION) {
+      if (widthInput.match(new RegExp('[\\d\\.]' + WIDTH_INPUT_CONVERSION[i].text + '$'))) {
+        multiplier = WIDTH_INPUT_CONVERSION[i].multiplier
         break
       }
     }
@@ -100,13 +99,13 @@ export function prettifyWidth (width, { markup = false, input = false } = {}) {
     case SETTINGS_UNITS_METRIC:
       widthText = (width * IMPERIAL_METRIC_MULTIPLIER).toFixed(METRIC_PRECISION).toString()
 
-      if (widthText.substr(0, 2) == '0.') {
+      if (widthText.substr(0, 2) === '0.') {
         widthText = widthText.substr(1)
       }
-      while (widthText.substr(widthText.length - 1) == '0') {
+      while (widthText.substr(widthText.length - 1) === '0') {
         widthText = widthText.substr(0, widthText.length - 1)
       }
-      if (widthText.substr(widthText.length - 1) == '.') {
+      if (widthText.substr(widthText.length - 1) === '.') {
         widthText = widthText.substr(0, widthText.length - 1)
       }
       if (!widthText) {

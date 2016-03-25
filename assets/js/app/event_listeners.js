@@ -1,18 +1,4 @@
 function _addEventListeners () {
-  window.addEventListener('beforeprint', function () { _onBeforePrint(false); })
-  window.addEventListener('afterprint', function () { _onAfterPrint(false); })
-
-  var mediaQueryList = window.matchMedia('print')
-  mediaQueryList.addListener(function (mql) {
-    if (mql.matches) {
-      _onBeforePrint(true)
-    } else {
-      _onAfterPrint(true)
-    }
-  })
-
-  document.querySelector('#invoke-print').addEventListener('pointerdown', _print)
-
   document.querySelector('#street-scroll-indicator-left').addEventListener('pointerdown', _onStreetLeftScrollClick)
   document.querySelector('#street-scroll-indicator-right').addEventListener('pointerdown', _onStreetRightScrollClick)
 

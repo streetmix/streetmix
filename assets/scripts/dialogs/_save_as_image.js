@@ -6,34 +6,29 @@
  * Exports nothing
  *
  */
-/* global street, settings, _saveSettingsLocally, _normalizeSlug, _getStreetImage */
+/* global street, settings, _saveSettingsLocally, _normalizeSlug */
 import Dialog from './dialog'
 import { trackEvent } from '../app/event_tracking'
+import { getStreetImage } from '../streets/image'
 
 // Require save-as polyfills
 import saveAs from '../vendor/FileSaver'
 import '../vendor/canvas-toBlob.js'
 import '../vendor/Blob.js'
 
-// Cached references to elements
-var _elTransparentSky
-var _elSegmentNames
-var _elStreetName
-var _elPreviewLoading
-var _elPreviewPreview
-var _elDownloadLink
+// Cache references to elements
+const _elTransparentSky = document.getElementById('save-as-image-transparent-sky')
+const _elSegmentNames = document.getElementById('save-as-image-segment-names')
+const _elStreetName = document.getElementById('save-as-image-street-name')
+const _elPreviewLoading = document.getElementById('save-as-image-preview-loading')
+const _elPreviewPreview = document.getElementById('save-as-image-preview-preview')
+const _elDownloadLink = document.getElementById('save-as-image-download')
+
 var _imageCanvas
 
-module.exports = new Dialog('#save-as-image-dialog', {
+new Dialog('#save-as-image-dialog', {
   clickSelector: '#save-as-image',
   onInit: function () {
-    _elTransparentSky = this.el.querySelector('#save-as-image-transparent-sky')
-    _elSegmentNames = this.el.querySelector('#save-as-image-segment-names')
-    _elStreetName = this.el.querySelector('#save-as-image-street-name')
-    _elPreviewLoading = this.el.querySelector('#save-as-image-preview-loading')
-    _elPreviewPreview = this.el.querySelector('#save-as-image-preview-preview')
-    _elDownloadLink = this.el.querySelector('#save-as-image-download')
-
     _elTransparentSky.addEventListener('change', _updateSaveAsImageOptions)
     _elSegmentNames.addEventListener('change', _updateSaveAsImageOptions)
     _elStreetName.addEventListener('change', _updateSaveAsImageOptions)
@@ -67,7 +62,7 @@ function _updateSaveAsImageDialogBox () {
 function _updateSaveAsImageDialogBoxPart2 () {
   _elPreviewPreview.innerHTML = ''
 
-  _imageCanvas = _getStreetImage(settings.saveAsImageTransparentSky, settings.saveAsImageSegmentNamesAndWidths, settings.saveAsImageStreetName)
+  _imageCanvas = getStreetImage(settings.saveAsImageTransparentSky, settings.saveAsImageSegmentNamesAndWidths, settings.saveAsImageStreetName)
   var dataUrl = _imageCanvas.toDataURL('image/png')
 
   var imgEl = document.createElement('img')

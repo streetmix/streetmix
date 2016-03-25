@@ -14,6 +14,7 @@ import './app/event_tracking'
 import './app/blocking_shield'
 import './app/debug_info'
 import './app/keyboard_commands'
+import './app/print'
 
 // Menus
 import './menus/_feedback'

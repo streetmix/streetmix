@@ -1,10 +1,13 @@
 /* global system */
-/* global TILE_SIZE, SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING, BACKGROUND_DIRT_COLOUR,
+/* global TILE_SIZE, BACKGROUND_DIRT_COLOUR,
           BUILDING_DESTINATION_THUMBNAIL, SEGMENT_INFO */
 
 var SKY_COLOUR = 'rgb(169, 204, 219)'
 var SKY_WIDTH = 250
 var BOTTOM_BACKGROUND = 'rgb(216, 211, 203)'
+
+// DUPLICATE from streets/image.js
+var SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING = 65
 
 function _drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeight,
 multiplier, silhouette, bottomAligned,
