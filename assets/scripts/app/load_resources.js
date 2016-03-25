@@ -8,7 +8,10 @@ const SVGStagingEl = document.getElementById('svg')
 
 export let iconsSVG = window.fetch('/assets/images/icons.svg')
   .then(function (response) {
-    SVGStagingEl.innerHTML = response.text()
+    return response.text()
+  })
+  .then(function (response) {
+    SVGStagingEl.innerHTML = response
     return response
   })
   .catch(function (error) {
