@@ -27,6 +27,9 @@ import './menus/_share'
 import './dialogs/_about'
 import './dialogs/_save_as_image'
 
+// Street
+import './streets/name'
+
 // Utilities
 import { startListening } from './app/keypress'
 

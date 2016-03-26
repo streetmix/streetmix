@@ -64,8 +64,6 @@ function _onResize () {
   document.querySelector('#street-section-editable').style.width =
     (street.width * TILE_SIZE) + 'px'
 
-  _resizeStreetName()
-
   _infoBubble.show(true)
   _updateScrollButtons()
 
@@ -73,6 +71,5 @@ function _onResize () {
   // TODO hack
   _createBuildings()
 
-  _updateStreetNameCanvasPos()
   _updateStreetScrollIndicators()
 }

@@ -1,7 +1,7 @@
 const MAX_RAND_SEED = 999999999
 
 export function generateRandSeed () {
-  const randSeed = 1 + Math.floor(Math.random() * MAX_RAND_SEED); // So it’s not zero
+  const randSeed = 1 + Math.floor(Math.random() * MAX_RAND_SEED) // So it’s not zero
   return randSeed
 }
 

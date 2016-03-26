@@ -310,7 +310,6 @@ function _onDeleteGalleryStreet (event) {
   var el = event.target.parentNode
   var name = el.streetName
 
-  _ignoreWindowFocusMomentarily()
   // TODO escape name
   if (confirm(msg('PROMPT_DELETE_STREET', { name: name }))) {
     if (el.getAttribute('streetId') == street.id) {

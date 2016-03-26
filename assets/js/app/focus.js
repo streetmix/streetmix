@@ -1,5 +1,3 @@
-var ignoreWindowFocus = false
-
 /**
  *  Refocusing on the body immediately after some other element is
  *  removed from the page allows the application to continue to receive
@@ -17,17 +15,8 @@ function _isFocusOnBody () {
   return document.activeElement == document.body
 }
 
-// Because Firefox is stupid and their prompt() dialog boxes are not quite
-// modal.
-function _ignoreWindowFocusMomentarily () {
-  ignoreWindowFocus = true
-  window.setTimeout(function () {
-    ignoreWindowFocus = false
-  }, 50)
-}
-
 function _onWindowFocus () {
-  if (abortEverything || ignoreWindowFocus) {
+  if (abortEverything) {
     return
   }
 
