@@ -12,9 +12,7 @@ import { showShield, hideShield } from './dialog_shield'
 const DIALOGS = new Map()
 
 export default class Dialog {
-  constructor (id, opts) {
-    opts = opts || {}
-
+  constructor (id, opts = {}) {
     this.id = id // Element id
 
     this.clickSelector = opts.clickSelector || null // Reference to element that activates this dialog when clicked

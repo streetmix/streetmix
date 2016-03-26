@@ -7,8 +7,6 @@ var KEYS = {
   BACKSPACE: 8,
   DELETE: 46,
   ESC: 27,
-  D: 68,
-  S: 83,
   Y: 89,
   Z: 90,
   EQUAL: 187, // = or +
@@ -16,8 +14,7 @@ var KEYS = {
   PLUS_KEYPAD: 107,
   MINUS: 189,
   MINUS_ALT: 173, // Firefox
-  MINUS_KEYPAD: 109,
-  SLASH: 191 // slash or question mark
+  MINUS_KEYPAD: 109
 }
 
 function _onGlobalKeyDown (event) {
