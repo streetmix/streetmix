@@ -1,4 +1,4 @@
-/* global system */
+/* global system, images */
 /* global TILE_SIZE, BACKGROUND_DIRT_COLOUR,
           BUILDING_DESTINATION_THUMBNAIL, SEGMENT_INFO */
 

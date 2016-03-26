@@ -69,9 +69,6 @@ Stmx.init = function () {
   // street data if necessary (depending on the mode)
   _loadSignIn()
 
-  // …images
-  _loadImages()
-
 // Note that we are waiting for sign in and image info to show the page,
 // but we give up on country info if it’s more than 1000ms.
 }
