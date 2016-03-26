@@ -1,0 +1,44 @@
+{
+  "name": "streetmix",
+  "scripts": {
+  },
+  "env": {
+    "COOKIE_SESSION_SECRET": {
+      "required": true
+    },
+    "ERROR_PAGE_URL": {
+      "required": true
+    },
+    "MAINTENANCE_PAGE_URL": {
+      "required": true
+    },
+    "NODE_ENV": {
+      "required": true
+    },
+    "PATH": {
+      "required": true
+    },
+    "TRANSIFEX_PASSWORD": {
+      "required": true
+    },
+    "TRANSIFEX_USERNAME": {
+      "required": true
+    },
+    "TWITTER_OAUTH_CONSUMER_KEY": {
+      "required": true
+    },
+    "TWITTER_OAUTH_CONSUMER_SECRET": {
+      "required": true
+    }
+  },
+  "addons": [
+    "sendgrid",
+    "mongohq",
+    "papertrail"
+  ],
+  "buildpacks": [
+    {
+      "url": "urn:buildpack:heroku/nodejs"
+    }
+  ]
+}
