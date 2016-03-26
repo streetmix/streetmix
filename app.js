@@ -1,3 +1,8 @@
+// Run this before other modules
+if (process.env.NEW_RELIC_LICENSE_KEY) {
+  require('newrelic')
+}
+
 var compression = require('compression')
 var cookieParser = require('cookie-parser')
 var cookieSession = require('cookie-session')
@@ -14,10 +19,6 @@ var requestHandlers = require('./lib/request_handlers')
 var middleware = require('./lib/middleware')
 var logger = require('./lib/logger')()
 var exec = require('child_process').exec
-
-if (process.env.NEW_RELIC_LICENSE_KEY) {
-  require('newrelic')
-}
 
 var app = module.exports = express()
 
