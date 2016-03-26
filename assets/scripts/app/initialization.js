@@ -2,6 +2,7 @@
 // Remember, the debug & system variables are global & attached to the window
 // because they are detected in a separate bundle. Require()ing them here will
 // not do what you expect.
+import { hideLoadingScreen } from './load_resources'
 import { initLocale } from './locale'
 import { scheduleNextLiveUpdateCheck } from './live_update'
 import { setEnvironmentBadge } from './env_badge'
@@ -92,6 +93,8 @@ export function _onEverythingLoaded2 () {
   if (debug.forceLiveUpdate) {
     scheduleNextLiveUpdateCheck()
   }
+
+  window.setTimeout(hideLoadingScreen, 0)
 }
 
 window._onEverythingLoaded2 = _onEverythingLoaded2

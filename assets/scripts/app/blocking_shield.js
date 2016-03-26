@@ -1,6 +1,7 @@
-/* global _blockingCancel, _blockingTryAgain, _goReload */
+/* global _blockingCancel, _blockingTryAgain */
 // TODO: Some shield-related functionality is wound up in gallery/xhr, util/xhr
 import { msg } from './messages'
+import { goReload } from './routing'
 
 const BLOCKING_SHIELD_DARKEN_DELAY = 800
 const BLOCKING_SHIELD_TOO_SLOW_DELAY = 10000
@@ -13,7 +14,7 @@ let blockingShieldTooSlowTimerId = -1
 // Adds event listeners to the respond to buttons.
 document.querySelector('#blocking-shield-cancel').addEventListener('pointerdown', _blockingCancel)
 document.querySelector('#blocking-shield-try-again').addEventListener('pointerdown', _blockingTryAgain)
-document.querySelector('#blocking-shield-reload').addEventListener('pointerdown', _goReload)
+document.querySelector('#blocking-shield-reload').addEventListener('pointerdown', goReload)
 
 function clearBlockingShieldTimers () {
   window.clearTimeout(blockingShieldTimerId)

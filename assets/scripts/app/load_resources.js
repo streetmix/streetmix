@@ -17,3 +17,12 @@ export let iconsSVG = window.fetch('/assets/images/icons.svg')
   .catch(function (error) {
     console.log('doh', error)
   })
+
+
+export function hideLoadingScreen () {
+  // NOTE:
+  // This function might be called on very old browsers. Please make
+  // sure not to use modern faculties.
+
+  document.getElementById('loading').className += ' hidden'
+}

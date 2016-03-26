@@ -116,8 +116,6 @@ function _onEverythingLoaded () {
     _remixStreet()
   }
 
-  window.setTimeout(_hideLoadingScreen, 0)
-
   // Track touch capability in Google Analytics
   if (system.touch === true) {
     trackEvent('System', TRACK_ACTION_TOUCH_CAPABLE, null, null, true)
@@ -138,12 +136,4 @@ function _onReadyStateChange () {
     document.querySelector('#loading-progress').value++
     _checkIfEverythingIsLoaded()
   }
-}
-
-function _hideLoadingScreen () {
-  // NOTE:
-  // This function might be called on very old browsers. Please make
-  // sure not to use modern faculties.
-
-  document.getElementById('loading').className += ' hidden'
 }
