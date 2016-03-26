@@ -1,4 +1,7 @@
-require('newrelic')
+// Run this before other modules
+if (process.env.NEW_RELIC_LICENSE_KEY) {
+  require('newrelic')
+}
 
 var compression = require('compression')
 var cookieParser = require('cookie-parser')
