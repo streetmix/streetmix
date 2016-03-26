@@ -7,6 +7,9 @@
  * convenience
  */
 
+import _ from 'lodash'
+window._ = _
+
 import { trackEvent } from './app/event_tracking'
 window.trackEvent = trackEvent
 
@@ -25,8 +28,13 @@ window._showError = showError
 window._hideError = hideError
 window._showErrorFromUrl = showErrorFromUrl
 
-import { getElAbsolutePos } from './util/helpers'
+import { getElAbsolutePos, normalizeSlug } from './util/helpers'
 window._getElAbsolutePos = getElAbsolutePos
+window.normalizeSlug = normalizeSlug
+
+// Gallery
+import { drawStreetThumbnail } from './gallery/thumbnail'
+window.drawStreetThumbnail = drawStreetThumbnail
 
 // Menus
 import { isAnyMenuVisible, hideAllMenus } from './menus/menu'
@@ -54,6 +62,15 @@ window._formatDate = formatDate
 import { updateStreetMetadata } from './streets/metadata'
 window._updateStreetMetadata = updateStreetMetadata
 
+import { StreetName } from './streets/name_sign'
+window.StreetName = StreetName
+
+import { updateStreetName } from './streets/name'
+window._updateStreetName = updateStreetName
+
+import { drawProgrammaticPeople } from './segments/people'
+window.drawProgrammaticPeople = drawProgrammaticPeople
+
 import { processWidthInput, prettifyWidth, undecorateWidth } from './util/width_units'
 window._processWidthInput = processWidthInput
 window._prettifyWidth = prettifyWidth
@@ -61,3 +78,7 @@ window.undecorateWidth = undecorateWidth
 
 import { removeElFromDOM } from './util/dom_helpers'
 window.removeElFromDOM = removeElFromDOM
+
+import { generateRandSeed, RandomGenerator } from './util/random'
+window.generateRandSeed = generateRandSeed
+window.RandomGenerator = RandomGenerator

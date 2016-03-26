@@ -29,8 +29,6 @@ function _onStreetWidthChange (event) {
     _updateUnits(SETTINGS_UNITS_IMPERIAL)
     return
   } else if (newStreetWidth == STREET_WIDTH_CUSTOM) {
-    _ignoreWindowFocusMomentarily()
-
     var promptValue = street.occupiedWidth
     if (promptValue < MIN_CUSTOM_STREET_WIDTH) promptValue = MIN_CUSTOM_STREET_WIDTH
     if (promptValue > MAX_CUSTOM_STREET_WIDTH) promptValue = MAX_CUSTOM_STREET_WIDTH

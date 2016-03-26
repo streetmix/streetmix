@@ -1,10 +1,10 @@
-/* global street, abortEverything,
-   _hideLoadingScreen, _goHome, _goSignIn, _goReload,
-   _goReloadClearSignIn, _goNewStreet, _goExampleStreet,
+/* global street, abortEverything, _goReloadClearSignIn,
    URL_ERROR_TWITTER_ACCESS_DENIED, URL_ERROR_NO_TWITTER_REQUEST_TOKEN,
    URL_ERROR_NO_TWITTER_ACCESS_TOKEN, URL_ERROR_AUTHENTICATION_API_PROBLEM */
 import { fetchAvatars } from '../users/avatars'
 import { removeElFromDOM } from '../util/dom_helpers'
+import { goReload, goHome, goNewStreet, goExampleStreet, goSignIn } from './routing'
+import { hideLoadingScreen } from './load_resources'
 
 export const ERRORS = {
   NOT_FOUND: 1,
@@ -27,7 +27,7 @@ export const ERRORS = {
   CANNOT_CREATE_NEW_STREET_ON_PHONE: 18,
   SIGN_IN_SERVER_FAILURE: 19,
   SIGN_IN_401: 20,
-  STREET_DATA_FAILURE: 21,
+  STREET_DATA_FAILURE: 21
 }
 
 export function showError (errorType, newAbortEverything) {
@@ -38,7 +38,7 @@ export function showError (errorType, newAbortEverything) {
   var title
   var description = ''
 
-  _hideLoadingScreen()
+  hideLoadingScreen()
 
   abortEverything = newAbortEverything
 
@@ -146,17 +146,17 @@ export function showError (errorType, newAbortEverything) {
 
   var el = document.getElementById('error-home')
   if (el) {
-    el.addEventListener('pointerdown', _goHome)
+    el.addEventListener('pointerdown', goHome)
   }
 
   var el = document.getElementById('error-sign-in')
   if (el) {
-    el.addEventListener('pointerdown', _goSignIn)
+    el.addEventListener('pointerdown', goSignIn)
   }
 
   var el = document.getElementById('error-reload')
   if (el) {
-    el && el.addEventListener('pointerdown', _goReload)
+    el && el.addEventListener('pointerdown', goReload)
   }
 
   var el = document.getElementById('error-clear-sign-in-reload')
@@ -166,12 +166,12 @@ export function showError (errorType, newAbortEverything) {
 
   var el = document.getElementById('error-new')
   if (el) {
-    el.addEventListener('pointerdown', _goNewStreet)
+    el.addEventListener('pointerdown', goNewStreet)
   }
 
   var el = document.getElementById('error-example')
   if (el) {
-    el.addEventListener('pointerdown', _goExampleStreet)
+    el.addEventListener('pointerdown', goExampleStreet)
   }
 
   document.getElementById('error').className += ' visible'

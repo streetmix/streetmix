@@ -65,7 +65,7 @@ function _displayStreetWidthRemaining (remainingWidth) {
  * @todo [refactor]
  */
 function _displayStreetAuthor (creatorId) {
-  /* global signedIn, signInData, readOnly, remixOnFirstEdit */
+  /* global signedIn, signInData, app, remixOnFirstEdit */
   var el = document.querySelector('#street-metadata-author')
 
   if (creatorId && (!signedIn || (creatorId !== signInData.userId))) {
@@ -78,7 +78,7 @@ function _displayStreetAuthor (creatorId) {
 
     fetchAvatars()
 
-    if (!readOnly) {
+    if (!app.readOnly) {
       el.querySelector('.user-gallery').addEventListener('pointerdown', _onAnotherUserIdClick)
     }
   } else if (!creatorId && (signedIn || remixOnFirstEdit)) {

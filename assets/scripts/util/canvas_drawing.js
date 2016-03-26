@@ -1,4 +1,6 @@
-function _drawLine (ctx, x1, y1, x2, y2) {
+/* global system */
+
+export function drawLine (ctx, x1, y1, x2, y2) {
   x1 *= system.hiDpi
   y1 *= system.hiDpi
   x2 *= system.hiDpi
@@ -10,11 +12,11 @@ function _drawLine (ctx, x1, y1, x2, y2) {
   ctx.stroke()
 }
 
-function _drawArrowLine (ctx, x1, y1, x2, y2, text) {
+export function drawArrowLine (ctx, x1, y1, x2, y2, text) {
   x1 += 2
   x2 -= 2
 
-  _drawLine(ctx, x1, y1, x2, y2)
+  drawLine(ctx, x1, y1, x2, y2)
 
   if (text) {
     ctx.font = (12 * system.hiDpi) + 'px Arial'

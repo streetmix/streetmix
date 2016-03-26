@@ -63,12 +63,31 @@ function _loadSignIn () {
 }
 
 function _fetchSignInDetails () {
-  // TODO const
   $.ajax({
     url: API_URL + 'v1/users/' + signInData.userId,
     dataType: 'json',
     headers: { 'Authorization': _getAuthHeader() }
   }).done(_receiveSignInDetails).fail(_errorReceiveSignInDetails)
+
+  // TODO: This doesn't work
+
+  // const options = {
+  //   method: 'GET',
+  //   headers: {
+  //     'Authorization': _getAuthHeader()
+  //   }
+  // }
+
+  // window.fetch(API_URL + 'v1/users/' + signInData.userId, options)
+  //   .then(function (response) {
+  //     if (response.status <= 200 || response.status >= 399) {
+  //       throw new Error(response)
+  //     }
+  //
+  //     return response.json()
+  //   })
+  //   .then(_receiveSignInDetails)
+  //   .catch(_errorReceiveSignInDetails) // TODO: Test this to make sure it works with fetch
 }
 
 function _receiveSignInDetails (details) {

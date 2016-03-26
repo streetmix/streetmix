@@ -6,7 +6,7 @@ var remixOnFirstEdit = false
 var promoteStreet = false
 
 function _remixStreet () {
-  if (readOnly) {
+  if (app.readOnly) {
     return
   }
 

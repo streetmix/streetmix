@@ -20,7 +20,7 @@ function _undoRedo (undo) {
     } else {
       undoPosition++
     }
-    street = _clone(undoStack[undoPosition])
+    street = _.cloneDeep(undoStack[undoPosition])
     _setUpdateTimeToNow()
 
     _infoBubble.hide()
@@ -61,7 +61,7 @@ function _createNewUndo () {
   // This removes future undo path in case we undo a few times and then do
   // something undoable.
   undoStack = undoStack.splice(0, undoPosition)
-  undoStack[undoPosition] = _clone(lastStreet)
+  undoStack[undoPosition] = _.cloneDeep(lastStreet)
   undoPosition++
 
   _trimUndoStack()

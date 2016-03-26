@@ -117,7 +117,7 @@ function _receiveGalleryData (transmission) {
     thumbnailEl.width = THUMBNAIL_WIDTH * system.hiDpi * 2
     thumbnailEl.height = THUMBNAIL_HEIGHT * system.hiDpi * 2
     var ctx = thumbnailEl.getContext('2d')
-    _drawStreetThumbnail(ctx, galleryStreet.data.street,
+    drawStreetThumbnail(ctx, galleryStreet.data.street,
       THUMBNAIL_WIDTH * 2, THUMBNAIL_HEIGHT * 2, THUMBNAIL_MULTIPLIER, true, false, true, false, false)
     anchorEl.appendChild(thumbnailEl)
 
@@ -187,7 +187,7 @@ function _loadGalleryContents () {
 }
 
 function _showGallery (userId, instant, signInPromo) {
-  if (readOnly) {
+  if (app.readOnly) {
     return
   }
 
@@ -310,7 +310,6 @@ function _onDeleteGalleryStreet (event) {
   var el = event.target.parentNode
   var name = el.streetName
 
-  _ignoreWindowFocusMomentarily()
   // TODO escape name
   if (confirm(msg('PROMPT_DELETE_STREET', { name: name }))) {
     if (el.getAttribute('streetId') == street.id) {

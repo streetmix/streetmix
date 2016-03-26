@@ -1,3 +1,7 @@
+var TILESET_POINT_PER_PIXEL = 2.0
+var TILE_SIZE = 12 // pixels
+var TILESET_CORRECTION = [null, 0, -84, -162]
+
 var CANVAS_HEIGHT = 480
 var CANVAS_GROUND = 35
 var CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND
@@ -201,13 +205,15 @@ function _drawSegmentContents (ctx, type, variantString, segmentWidth, offsetLef
   }
 
   if (type == 'sidewalk') {
-    _drawProgrammaticPeople(ctx, segmentWidth / multiplier, offsetLeft - left * TILE_SIZE * multiplier, offsetTop, randSeed, multiplier, variantString)
+    drawProgrammaticPeople(ctx, segmentWidth / multiplier, offsetLeft - left * TILE_SIZE * multiplier, offsetTop, randSeed, multiplier, variantString)
   }
 }
 
 function _setSegmentContents (el, type, variantString, segmentWidth, randSeed, palette, quickUpdate) {
   var segmentInfo = SEGMENT_INFO[type]
   var variantInfo = SEGMENT_INFO[type].details[variantString]
+
+  var WIDTH_PALETTE_MULTIPLIER = 4 // Dupe from palette.js
 
   var multiplier = palette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1
   var dimensions = _getVariantInfoDimensions(variantInfo, segmentWidth, multiplier)

@@ -1,10 +1,14 @@
-/* global debug, system, readOnly, ENV */
+/* global debug, system, app, ENV */
 // Remember, the debug & system variables are global & attached to the window
 // because they are detected in a separate bundle. Require()ing them here will
 // not do what you expect.
+import { hideLoadingScreen } from './load_resources'
 import { initLocale } from './locale'
+import { scheduleNextLiveUpdateCheck } from './live_update'
+import { setEnvironmentBadge } from './env_badge'
 import { shareMenu } from '../menus/_share'
 import { feedbackMenu } from '../menus/_feedback'
+import { createPalette } from '../segments/palette'
 import './load_resources'
 
 // Toggle debug features
@@ -23,6 +27,13 @@ if (!debug.experimental) {
 
 // Other
 addBodyClasses()
+setEnvironmentBadge()
+
+// Check if no internet mode
+if (system.noInternet === true) {
+  setEnvironmentBadge('Demo')
+  setupNoInternetMode()
+}
 
 function createDebugHoverPolygon () {
   var el = document.createElement('div')
@@ -50,7 +61,7 @@ function addBodyClasses () {
     document.body.classList.add('touch-support')
   }
 
-  if (readOnly) {
+  if (app.readOnly) {
     document.body.classList.add('read-only')
   }
 
@@ -63,10 +74,27 @@ function addBodyClasses () {
   }
 }
 
+function setupNoInternetMode () {
+  // Disable all external links
+  // CSS takes care of altering their appearance to resemble normal text
+  document.body.addEventListener('click', function (e) {
+    if (e.target.nodeName === 'A' && e.target.getAttribute('href').indexOf('http') === 0) {
+      e.preventDefault()
+    }
+  })
+}
+
 // Temp: use this while in transition
 export function _onEverythingLoaded2 () {
   shareMenu.update()
   feedbackMenu.update()
+  createPalette()
+
+  if (debug.forceLiveUpdate) {
+    scheduleNextLiveUpdateCheck()
+  }
+
+  window.setTimeout(hideLoadingScreen, 0)
 }
 
 window._onEverythingLoaded2 = _onEverythingLoaded2

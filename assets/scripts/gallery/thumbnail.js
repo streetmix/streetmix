@@ -1,17 +1,17 @@
-/* global system */
+/* global system, images */
 /* global TILE_SIZE, BACKGROUND_DIRT_COLOUR,
           BUILDING_DESTINATION_THUMBNAIL, SEGMENT_INFO */
 
-var SKY_COLOUR = 'rgb(169, 204, 219)'
-var SKY_WIDTH = 250
-var BOTTOM_BACKGROUND = 'rgb(216, 211, 203)'
+import { drawLine } from '../util/canvas_drawing'
+import { SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING } from '../streets/image'
 
-// DUPLICATE from streets/image.js
-var SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING = 65
+const SKY_COLOUR = 'rgb(169, 204, 219)'
+const SKY_WIDTH = 250
+const BOTTOM_BACKGROUND = 'rgb(216, 211, 203)'
 
-function _drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeight,
-multiplier, silhouette, bottomAligned,
-transparentSky, segmentNamesAndWidths, streetName) {
+export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeight,
+  multiplier, silhouette, bottomAligned,
+  transparentSky, segmentNamesAndWidths, streetName) {
   // Calculations
 
   var occupiedWidth = 0
@@ -154,7 +154,7 @@ transparentSky, segmentNamesAndWidths, streetName) {
         left--
       }
 
-      _drawLine(ctx,
+      drawLine(ctx,
         left, (groundLevel + 45 * multiplier),
         left, (groundLevel + 125 * multiplier))
 
@@ -179,7 +179,7 @@ transparentSky, segmentNamesAndWidths, streetName) {
     }
 
     var left = offsetLeft + 1
-    _drawLine(ctx,
+    drawLine(ctx,
       left, (groundLevel + 45 * multiplier),
       left, (groundLevel + 125 * multiplier))
 

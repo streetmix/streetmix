@@ -1,8 +1,11 @@
-var WIDTH_PALETTE_MULTIPLIER = 4
+/* global SEGMENT_INFO, TILE_SIZE, debug */
+/* global _getVariantInfoDimensions, _createSegment */
+import { generateRandSeed } from '../util/random'
 
-var PALETTE_EXTRA_SEGMENT_PADDING = 8
+const WIDTH_PALETTE_MULTIPLIER = 4
+const PALETTE_EXTRA_SEGMENT_PADDING = 8
 
-function _createPalette () {
+export function createPalette () {
   for (var id in SEGMENT_INFO) {
     var segmentInfo = SEGMENT_INFO[id]
 
@@ -36,7 +39,7 @@ function _createPalette () {
       width * TILE_SIZE / WIDTH_PALETTE_MULTIPLIER,
       false,
       true,
-      _generateRandSeed())
+      generateRandSeed())
 
     el.classList.add('palette')
 

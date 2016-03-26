@@ -342,7 +342,7 @@ function _fillDefaultSegments () {
     segment.variantString = _getVariantString(segment.variant)
 
     if (SEGMENT_INFO[segment.type].needRandSeed) {
-      segment.randSeed = _generateRandSeed()
+      segment.randSeed = generateRandSeed()
     }
 
     street.segments.push(segment)
@@ -369,7 +369,7 @@ function _getStreetUrl (street) {
   url += street.namespacedId
 
   if (street.creatorId) {
-    var slug = _normalizeSlug(street.name)
+    var slug = normalizeSlug(street.name)
     url += '/' + encodeURIComponent(slug)
   }
 

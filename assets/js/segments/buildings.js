@@ -266,7 +266,7 @@ function _drawBuilding (ctx, destination, street, left, totalWidth,
     var floorCorrection = left ? 0 : (attr.width - attr.floorRoofWidth)
 
     var randomGenerator = new RandomGenerator()
-    randomGenerator.seed(0)
+    randomGenerator.seed = 0
 
     for (var i = 1; i < attr.floorCount; i++) {
       if (attr.variantsCount == 0) {

@@ -37,14 +37,7 @@ Stmx.init = function () {
 
   _initGallery() // formerly _fillDom()
   _fillEmptySegments()
-  _setEnvironmentBadge()
   _prepareSegmentInfo()
-
-  // Check if no internet mode
-  if (system.noInternet === true) {
-    _setEnvironmentBadge('Demo')
-    _setupNoInternetMode()
-  }
 
   // TODO make it better
   // Related to Enter to 404 bug in Chrome
@@ -76,9 +69,6 @@ Stmx.init = function () {
   // street data if necessary (depending on the mode)
   _loadSignIn()
 
-  // …images
-  _loadImages()
-
 // Note that we are waiting for sign in and image info to show the page,
 // but we give up on country info if it’s more than 1000ms.
 }
@@ -95,7 +85,6 @@ function _onEverythingLoaded () {
   _onResize()
   _resizeStreetWidth()
   _updateStreetName()
-  _createPalette()
   _createDomFromData()
   _segmentsChanged()
 
@@ -124,12 +113,6 @@ function _onEverythingLoaded () {
     _remixStreet()
   }
 
-  window.setTimeout(_hideLoadingScreen, 0)
-
-  if (debug.forceLiveUpdate) {
-    _scheduleNextLiveUpdateCheck()
-  }
-
   // Track touch capability in Google Analytics
   if (system.touch === true) {
     trackEvent('System', TRACK_ACTION_TOUCH_CAPABLE, null, null, true)
@@ -150,46 +133,4 @@ function _onReadyStateChange () {
     document.querySelector('#loading-progress').value++
     _checkIfEverythingIsLoaded()
   }
-}
-
-function _hideLoadingScreen () {
-  // NOTE:
-  // This function might be called on very old browsers. Please make
-  // sure not to use modern faculties.
-
-  document.getElementById('loading').className += ' hidden'
-}
-
-function _setEnvironmentBadge (label) {
-  // If a label is not provided, determine one using ENV
-  if (!label) {
-    switch (ENV) {
-      case 'development':
-        label = 'Dev'
-        break
-      case 'staging':
-        label = 'Staging'
-        break
-      case 'sandbox':
-        label = 'Sandbox'
-        break
-      default:
-        break
-    }
-  }
-
-  // Set the label. Nothing happens if there isn't one.
-  if (label) {
-    document.querySelector('.environment-badge').textContent = label
-  }
-}
-
-function _setupNoInternetMode () {
-  // Disable all external links
-  // CSS takes care of altering their appearance to resemble normal text
-  document.body.addEventListener('click', function (e) {
-    if (e.target.nodeName === 'A' && e.target.getAttribute('href').indexOf('http') === 0) {
-      e.preventDefault()
-    }
-  })
 }
