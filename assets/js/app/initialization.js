@@ -126,10 +126,6 @@ function _onEverythingLoaded () {
 
   window.setTimeout(_hideLoadingScreen, 0)
 
-  if (debug.forceLiveUpdate) {
-    _scheduleNextLiveUpdateCheck()
-  }
-
   // Track touch capability in Google Analytics
   if (system.touch === true) {
     trackEvent('System', TRACK_ACTION_TOUCH_CAPABLE, null, null, true)

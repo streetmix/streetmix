@@ -1,6 +1,6 @@
 var TRACK_ACTION_ERROR_GEOLOCATION_TIMEOUT = 'Geolocation timeout'
 
-var IP_GEOLOCATION_API_URL = 'http://freegeoip.net/json/'
+var IP_GEOLOCATION_API_URL = 'https://freegeoip.net/json/'
 var IP_GEOLOCATION_TIMEOUT = 1000; // After this time, we don’t wait any more
 var geolocationLoaded
 
@@ -49,7 +49,14 @@ function _checkIfSignInAndGeolocationLoaded () {
 function _detectGeolocation () {
   geolocationLoaded = false
 
-  $.ajax({ url: IP_GEOLOCATION_API_URL }).done(_receiveGeolocation)
+  window.fetch(IP_GEOLOCATION_API_URL)
+    .then(function (response) {
+      return response.json()
+    })
+    .then(_receiveGeolocation)
+    .catch(function (error) {
+      console.log('_detectGeolocation', error)
+    })
 
   window.setTimeout(_detectGeolocationTimeout, IP_GEOLOCATION_TIMEOUT)
 }

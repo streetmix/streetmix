@@ -3,6 +3,7 @@
 // because they are detected in a separate bundle. Require()ing them here will
 // not do what you expect.
 import { initLocale } from './locale'
+import { scheduleNextLiveUpdateCheck } from './live_update'
 import { shareMenu } from '../menus/_share'
 import { feedbackMenu } from '../menus/_feedback'
 import './load_resources'
@@ -67,6 +68,10 @@ function addBodyClasses () {
 export function _onEverythingLoaded2 () {
   shareMenu.update()
   feedbackMenu.update()
+
+  if (debug.forceLiveUpdate) {
+    scheduleNextLiveUpdateCheck()
+  }
 }
 
 window._onEverythingLoaded2 = _onEverythingLoaded2
