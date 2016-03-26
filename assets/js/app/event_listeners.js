@@ -45,7 +45,7 @@ function _addEventListeners () {
   document.querySelector('#undo').addEventListener('pointerdown', _undo)
   document.querySelector('#redo').addEventListener('pointerdown', _redo)
 
-  if (!readOnly) {
+  if (!app.readOnly) {
     document.querySelector('#street-width-read').addEventListener('pointerdown', _onStreetWidthClick)
     document.querySelector('#street-width').addEventListener('change', _onStreetWidthChange)
   }

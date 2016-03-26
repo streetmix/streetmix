@@ -267,7 +267,7 @@ var _infoBubble = {
   },
 
   considerShowing: function (event, segmentEl, type) {
-    if (isAnyMenuVisible() === true || readOnly) {
+    if (isAnyMenuVisible() === true || app.readOnly) {
       return
     }
 

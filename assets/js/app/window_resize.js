@@ -19,7 +19,7 @@ function _onResize () {
     streetSectionTop = system.viewportHeight - streetSectionHeight + 70
   }
 
-  if (readOnly) {
+  if (app.readOnly) {
     streetSectionTop += 80
   }
 

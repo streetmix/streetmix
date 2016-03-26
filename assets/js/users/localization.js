@@ -36,7 +36,7 @@ function _checkIfSignInAndGeolocationLoaded () {
     switch (mode) {
       case MODES.NEW_STREET:
       case MODES.NEW_STREET_COPY_LAST:
-        if (readOnly) {
+        if (app.readOnly) {
           _showError(ERRORS.CANNOT_CREATE_NEW_STREET_ON_PHONE, true)
         } else {
           _createNewStreetOnServer()

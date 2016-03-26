@@ -187,7 +187,7 @@ function _loadGalleryContents () {
 }
 
 function _showGallery (userId, instant, signInPromo) {
-  if (readOnly) {
+  if (app.readOnly) {
     return
   }
 

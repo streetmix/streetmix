@@ -4,7 +4,7 @@ var WELCOME_FIRST_TIME_NEW_STREET = 2
 var WELCOME_FIRST_TIME_EXISTING_STREET = 3
 
 function _showWelcome () {
-  if (readOnly || system.phone) {
+  if (app.readOnly || system.phone) {
     return
   }
 

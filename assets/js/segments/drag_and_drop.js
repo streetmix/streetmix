@@ -66,7 +66,7 @@ function _changeDraggingType (newDraggingType) {
 }
 
 function _handleSegmentResizeStart (event) {
-  if (readOnly) {
+  if (app.readOnly) {
     return
   }
 
@@ -200,7 +200,7 @@ function _handleSegmentResizeMove (event) {
 }
 
 function _handleSegmentClickOrMoveStart (event) {
-  if (readOnly) {
+  if (app.readOnly) {
     return
   }
 
@@ -224,7 +224,7 @@ function _handleSegmentClickOrMoveStart (event) {
 }
 
 function _handleSegmentMoveStart () {
-  if (readOnly) {
+  if (app.readOnly) {
     return
   }
 
@@ -423,7 +423,7 @@ function _onBodyMouseOut (event) {
 function _onBodyMouseDown (event) {
   var el = event.target
 
-  if (readOnly || (event.touches && event.touches.length != 1)) {
+  if (app.readOnly || (event.touches && event.touches.length != 1)) {
     return
   }
 

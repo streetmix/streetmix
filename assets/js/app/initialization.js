@@ -37,14 +37,7 @@ Stmx.init = function () {
 
   _initGallery() // formerly _fillDom()
   _fillEmptySegments()
-  _setEnvironmentBadge()
   _prepareSegmentInfo()
-
-  // Check if no internet mode
-  if (system.noInternet === true) {
-    _setEnvironmentBadge('Demo')
-    _setupNoInternetMode()
-  }
 
   // TODO make it better
   // Related to Enter to 404 bug in Chrome
@@ -154,38 +147,4 @@ function _hideLoadingScreen () {
   // sure not to use modern faculties.
 
   document.getElementById('loading').className += ' hidden'
-}
-
-function _setEnvironmentBadge (label) {
-  // If a label is not provided, determine one using ENV
-  if (!label) {
-    switch (ENV) {
-      case 'development':
-        label = 'Dev'
-        break
-      case 'staging':
-        label = 'Staging'
-        break
-      case 'sandbox':
-        label = 'Sandbox'
-        break
-      default:
-        break
-    }
-  }
-
-  // Set the label. Nothing happens if there isn't one.
-  if (label) {
-    document.querySelector('.environment-badge').textContent = label
-  }
-}
-
-function _setupNoInternetMode () {
-  // Disable all external links
-  // CSS takes care of altering their appearance to resemble normal text
-  document.body.addEventListener('click', function (e) {
-    if (e.target.nodeName === 'A' && e.target.getAttribute('href').indexOf('http') === 0) {
-      e.preventDefault()
-    }
-  })
 }

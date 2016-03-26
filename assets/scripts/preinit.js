@@ -29,7 +29,6 @@ window.system = system
 
 import { app } from './preinit/app_settings'
 window.app = app
-window.readOnly = app.readOnly
 
 // Require early for scripts that ask for msg() immediately
 import { msg } from './app/messages'

@@ -90,7 +90,7 @@ function _errorReceiveStreet (data) {
 }
 
 function _saveStreetToServer (initial) {
-  if (readOnly) {
+  if (app.readOnly) {
     return
   }
 
