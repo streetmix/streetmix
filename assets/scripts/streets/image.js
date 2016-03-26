@@ -1,11 +1,17 @@
 /* global TILE_SIZE, BUILDING_SPACE */
 /* global street, system */
-/* global _getBuildingAttributes, _drawStreetThumbnail */
+/* global _getBuildingAttributes */
+
+import { drawStreetThumbnail } from '../gallery/thumbnail'
+
 const SAVE_AS_IMAGE_DPI = 2.0
 const SAVE_AS_IMAGE_MIN_HEIGHT = 400
 const SAVE_AS_IMAGE_MIN_HEIGHT_WITH_STREET_NAME = SAVE_AS_IMAGE_MIN_HEIGHT + 150
 const SAVE_AS_IMAGE_BOTTOM_PADDING = 60
-const SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING = 65
+
+// Used in thumbnail
+// TODO: a way to remove the circular dependency?!
+export const SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING = 65
 
 export function getStreetImage (transparentSky, segmentNamesAndWidths, streetName) {
   const width = TILE_SIZE * street.width + BUILDING_SPACE * 2
@@ -41,7 +47,7 @@ export function getStreetImage (transparentSky, segmentNamesAndWidths, streetNam
   // TODO hack
   const oldDpi = system.hiDpi
   system.hiDpi = SAVE_AS_IMAGE_DPI
-  _drawStreetThumbnail(ctx, street, width, height, 1.0, false, true, transparentSky, segmentNamesAndWidths, streetName)
+  drawStreetThumbnail(ctx, street, width, height, 1.0, false, true, transparentSky, segmentNamesAndWidths, streetName)
   system.hiDpi = oldDpi
 
   return el

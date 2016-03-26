@@ -94,25 +94,25 @@ function _updateWidthChart (ownerWidths) {
 
   var bottom = 70
 
-  _drawLine(ctx, left, 20, left, bottom)
+  drawLine(ctx, left, 20, left, bottom)
   if (maxWidth > street.width) {
-    _drawLine(ctx, left + street.width * multiplier, 20,
+    drawLine(ctx, left + street.width * multiplier, 20,
       left + street.width * multiplier, 40)
 
     ctx.save()
     // TODO const
     ctx.strokeStyle = 'red'
     ctx.fillStyle = 'red'
-    _drawArrowLine(ctx,
+    drawArrowLine(ctx,
       left + street.width * multiplier, 30,
       left + maxWidth * multiplier, 30,
       _prettifyWidth(-street.remainingWidth))
     ctx.restore()
   }
 
-  _drawLine(ctx, left + maxWidth * multiplier, 20,
+  drawLine(ctx, left + maxWidth * multiplier, 20,
     left + maxWidth * multiplier, bottom)
-  _drawArrowLine(ctx,
+  drawArrowLine(ctx,
     left, 30, left + street.width * multiplier, 30,
     _prettifyWidth(street.width))
 
@@ -122,9 +122,9 @@ function _updateWidthChart (ownerWidths) {
     if (ownerWidths[id] > 0) {
       var width = ownerWidths[id] * multiplier
 
-      _drawArrowLine(ctx, x, 60, x + width, 60,
+      drawArrowLine(ctx, x, 60, x + width, 60,
         _prettifyWidth(ownerWidths[id]))
-      _drawLine(ctx, x + width, 50, x + width, 70)
+      drawLine(ctx, x + width, 50, x + width, 70)
 
       var imageWidth = images[SEGMENT_OWNERS[id].imageUrl].width / 5 * SEGMENT_OWNERS[id].imageSize
       var imageHeight = images[SEGMENT_OWNERS[id].imageUrl].height / 5 * SEGMENT_OWNERS[id].imageSize
@@ -151,7 +151,7 @@ function _updateWidthChart (ownerWidths) {
     if (ctx.setLineDash) {
       ctx.setLineDash([15, 10])
     }
-    _drawArrowLine(ctx, x, 60, left + street.width * multiplier, 60, _prettifyWidth(street.remainingWidth))
+    drawArrowLine(ctx, x, 60, left + street.width * multiplier, 60, _prettifyWidth(street.remainingWidth))
     ctx.restore()
   }
 
@@ -164,8 +164,8 @@ function _updateWidthChart (ownerWidths) {
       ctx.fillStyle = 'rgb(100, 100, 100)'
       ctx.strokeStyle = 'rgb(100, 100, 100)'
 
-      _drawArrowLine(ctx, x, 60, x + width, 60, '–')
-      _drawLine(ctx, x + width, 50, x + width, 70)
+      drawArrowLine(ctx, x, 60, x + width, 60, '–')
+      drawLine(ctx, x + width, 50, x + width, 70)
 
       var imageWidth = images[SEGMENT_OWNERS[id].imageUrl].width / 5 * SEGMENT_OWNERS[id].imageSize
       var imageHeight = images[SEGMENT_OWNERS[id].imageUrl].height / 5 * SEGMENT_OWNERS[id].imageSize

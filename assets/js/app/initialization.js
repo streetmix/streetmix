@@ -88,7 +88,6 @@ function _onEverythingLoaded () {
   _onResize()
   _resizeStreetWidth()
   _updateStreetName()
-  _createPalette()
   _createDomFromData()
   _segmentsChanged()
 

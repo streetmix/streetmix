@@ -117,7 +117,7 @@ function _receiveGalleryData (transmission) {
     thumbnailEl.width = THUMBNAIL_WIDTH * system.hiDpi * 2
     thumbnailEl.height = THUMBNAIL_HEIGHT * system.hiDpi * 2
     var ctx = thumbnailEl.getContext('2d')
-    _drawStreetThumbnail(ctx, galleryStreet.data.street,
+    drawStreetThumbnail(ctx, galleryStreet.data.street,
       THUMBNAIL_WIDTH * 2, THUMBNAIL_HEIGHT * 2, THUMBNAIL_MULTIPLIER, true, false, true, false, false)
     anchorEl.appendChild(thumbnailEl)
 

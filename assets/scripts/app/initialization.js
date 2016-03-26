@@ -7,6 +7,7 @@ import { scheduleNextLiveUpdateCheck } from './live_update'
 import { setEnvironmentBadge } from './env_badge'
 import { shareMenu } from '../menus/_share'
 import { feedbackMenu } from '../menus/_feedback'
+import { createPalette } from '../segments/palette'
 import './load_resources'
 
 // Toggle debug features
@@ -86,6 +87,7 @@ function setupNoInternetMode () {
 export function _onEverythingLoaded2 () {
   shareMenu.update()
   feedbackMenu.update()
+  createPalette()
 
   if (debug.forceLiveUpdate) {
     scheduleNextLiveUpdateCheck()

@@ -32,6 +32,10 @@ import { getElAbsolutePos, normalizeSlug } from './util/helpers'
 window._getElAbsolutePos = getElAbsolutePos
 window.normalizeSlug = normalizeSlug
 
+// Gallery
+import { drawStreetThumbnail } from './gallery/thumbnail'
+window.drawStreetThumbnail = drawStreetThumbnail
+
 // Menus
 import { isAnyMenuVisible, hideAllMenus } from './menus/menu'
 window.isAnyMenuVisible = isAnyMenuVisible

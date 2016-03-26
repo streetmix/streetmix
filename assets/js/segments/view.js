@@ -209,6 +209,8 @@ function _setSegmentContents (el, type, variantString, segmentWidth, randSeed, p
   var segmentInfo = SEGMENT_INFO[type]
   var variantInfo = SEGMENT_INFO[type].details[variantString]
 
+  var WIDTH_PALETTE_MULTIPLIER = 4 // Dupe from palette.js
+
   var multiplier = palette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1
   var dimensions = _getVariantInfoDimensions(variantInfo, segmentWidth, multiplier)
 
