@@ -58,8 +58,10 @@ window._formatDate = formatDate
 import { updateStreetMetadata } from './streets/metadata'
 window._updateStreetMetadata = updateStreetMetadata
 
-import { StreetName, updateStreetName } from './streets/name'
+import { StreetName } from './streets/name_sign'
 window.StreetName = StreetName
+
+import { updateStreetName } from './streets/name'
 window._updateStreetName = updateStreetName
 
 import { drawProgrammaticPeople } from './segments/people'
