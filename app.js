@@ -94,8 +94,13 @@ app.use(assets({
   precompile: ['app.js']
 }))
 
+// SVG bundled images served directly from packages
 app.get('/assets/images/icons.svg', function (req, res) {
   res.sendFile(path.join(__dirname, '/node_modules/streetmix-icons/dist/icons.svg'))
+})
+
+app.get('/assets/images/images.svg', function (req, res) {
+  res.sendFile(path.join(__dirname, '/node_modules/streetmix-illustrations/dist/images.svg'))
 })
 
 app.use(express.static(path.join(__dirname, '/public')))

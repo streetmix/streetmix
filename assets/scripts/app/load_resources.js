@@ -18,12 +18,13 @@ const IMAGES_TO_BE_LOADED = [
 ]
 
 const SVGS_TO_BE_LOADED = [
-  '/assets/images/icons.svg'
+  '/assets/images/icons.svg',
+  '/assets/images/images.svg'
 ]
 
 const SVGStagingEl = document.getElementById('svg')
 
-let images = []
+let images = [] // This is an associative array; TODO: something else
 let loading = []
 
 // Set loading bar
