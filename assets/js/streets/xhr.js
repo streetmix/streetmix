@@ -69,7 +69,7 @@ function _fetchStreetFromServer () {
 function _errorReceiveStreet (data) {
   if ((mode == MODES.CONTINUE) || (mode == MODES.USER_GALLERY) ||
     (mode == MODES.ABOUT) || (mode == MODES.GLOBAL_GALLERY)) {
-    _goNewStreet()
+    goNewStreet()
   } else {
     if ((data.status === 404) || (data.status === 410)) {
       if (street.creatorId) {

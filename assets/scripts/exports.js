@@ -13,6 +13,9 @@ window._ = _
 import { trackEvent } from './app/event_tracking'
 window.trackEvent = trackEvent
 
+import { goNewStreet } from './app/routing'
+window.goNewStreet = goNewStreet
+
 import { showBlockingShield, hideBlockingShield, darkenBlockingShield } from './app/blocking_shield'
 window.showBlockingShield = showBlockingShield
 window.hideBlockingShield = hideBlockingShield
