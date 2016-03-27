@@ -4,7 +4,7 @@ var User = require('./user.js')
 
 var streetSchema = new mongoose.Schema({
   id: { type: String, index: { unique: true } },
-  namespaced_id: Number,
+  namespaced_id: { type: Number, index: true },
   status: { type: String, enum: [ 'ACTIVE', 'DELETED' ], default: 'ACTIVE' },
   name: String,
   creator_id: {
