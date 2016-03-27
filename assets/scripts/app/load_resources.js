@@ -5,31 +5,9 @@
  * TODO: Rely on Promises to resolve progress
  */
 /* global _checkIfEverythingIsLoaded */
-const SVGStagingEl = document.getElementById('svg')
-
-export let iconsSVG = window.fetch('/assets/images/icons.svg')
-  .then(function (response) {
-    return response.text()
-  })
-  .then(function (response) {
-    SVGStagingEl.innerHTML = response
-    return response
-  })
-  .catch(function (error) {
-    console.log('doh', error)
-  })
-
-export function hideLoadingScreen () {
-  // NOTE:
-  // This function might be called on very old browsers. Please make
-  // sure not to use modern faculties.
-
-  document.getElementById('loading').className += ' hidden'
-}
 
 // Image tileset loading
-// TODO: Deprecate in favor of inlined SVGs & loading by promises
-
+// TODO: Deprecate in favor of inlined SVGs
 const TILESET_IMAGE_VERSION = 55
 const IMAGES_TO_BE_LOADED = [
   '/images/tiles-1.png',
@@ -39,38 +17,80 @@ const IMAGES_TO_BE_LOADED = [
   '/images/sky-rear.png'
 ]
 
+const SVGS_TO_BE_LOADED = [
+  '/assets/images/icons.svg'
+]
+
+const SVGStagingEl = document.getElementById('svg')
+
 let images = []
-let imagesToBeLoaded
-// Global: TEMP
-window.images = images
-window.imagesToBeLoaded = imagesToBeLoaded
+let loading = []
+
+// Set loading bar
+const loadingEl = document.getElementById('loading-progress')
+loadingEl.max += 5 // Legacy; this is for other things that must load
+
+// Global for legacy reasons
+window.imagesToBeLoaded = 1
+
+// Load everything
+loadImages()
+loadSVGs()
+
+// When everything is loaded...
+Promise.all(loading)
+  .then(function () {
+    // Export to window (LEGACY)
+    window.images = images
+    window.imagesToBeLoaded = 0
+
+    // Also legacy, TODO: replace with promise
+    _checkIfEverythingIsLoaded()
+  })
+
 
 function loadImages () {
-  imagesToBeLoaded = IMAGES_TO_BE_LOADED.length
+  loadingEl.max += IMAGES_TO_BE_LOADED.length
 
-  for (var i in IMAGES_TO_BE_LOADED) {
-    var url = IMAGES_TO_BE_LOADED[i]
+  for (let url of IMAGES_TO_BE_LOADED) {
+    loading.push(window.fetch(url + '?v' + TILESET_IMAGE_VERSION)
+      .then(function (response) {
+        return response.blob()
+      })
+      .then(function (image) {
+        images[url] = document.createElement('img')
+        images[url].src = url + '?v' + TILESET_IMAGE_VERSION
 
-    images[url] = document.createElement('img')
-    images[url].addEventListener('load', onImageLoaded)
-    images[url].src = url + '?v' + TILESET_IMAGE_VERSION
+        loadingEl.value++
+      })
+      .catch(function (error) {
+        console.error('loading image error', error)
+      }))
   }
-
-  document.querySelector('#loading-progress').value = 0
-  document.querySelector('#loading-progress').max = imagesToBeLoaded + 5
 }
 
-function onImageLoaded () {
-  imagesToBeLoaded--
-  document.querySelector('#loading-progress').value++
+function loadSVGs () {
+  loadingEl.max += SVGS_TO_BE_LOADED.length
 
-  // Export to window (TEMP)
-  // Doing this as an export one time did not work,
-  // so we export to window each time loading occurs
-  window.images = images
-  window.imagesToBeLoaded = imagesToBeLoaded
-
-  _checkIfEverythingIsLoaded()
+  for (let url of SVGS_TO_BE_LOADED) {
+    loading.push(window.fetch(url)
+      .then(function (response) {
+        return response.text()
+      })
+      .then(function (response) {
+        SVGStagingEl.innerHTML += response
+        loadingEl.value++
+      })
+      .catch(function (error) {
+        console.error('loading svg error', error)
+      }))
+  }
 }
 
-loadImages()
+export function hideLoadingScreen () {
+  // NOTE:
+  // This function might be called on very old browsers. Please make
+  // sure not to use modern faculties.
+
+  document.getElementById('loading').className += ' hidden'
+}
