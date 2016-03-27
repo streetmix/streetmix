@@ -7,7 +7,7 @@ var request = require('superagent')
 var logger = require('../../../lib/logger.js')()
 
 exports.get = function (req, res) {
-  var handleGetTranslation = function (locale) {
+  var handleGetLocalTranslation = function (locale) {
     var translationFile = process.cwd() + '/assets/locales/' + locale + '/translation.json'
 
     fs.readFile(translationFile, 'utf8', function (err, data) {
@@ -36,7 +36,7 @@ exports.get = function (req, res) {
   var handleGetFromTransifex = function (locale) {
     if (!process.env.TRANSIFEX_USERNAME || !process.env.TRANSIFEX_PASSWORD) {
       logger.error('Need Transifex username or password.')
-      res.status(501).json({ status: 501, msg: 'Language API is not implemented.' })
+      handleGetLocalTranslation(locale) // fall back to local translation
       return
     }
 
@@ -50,7 +50,7 @@ exports.get = function (req, res) {
       .end(function (err, data) {
         if (err) {
           logger.error(err)
-          res.status(500).json({ status: 500, msg: 'There was an error retrieving the language.' })
+          handleGetLocalTranslation(locale) // fall back to local translation
           return
         }
 
