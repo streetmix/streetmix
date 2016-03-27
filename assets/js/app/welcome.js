@@ -38,7 +38,7 @@ function _showWelcome () {
       document.querySelector('#welcome-new-street').addEventListener('pointerdown', function () {
         settingsWelcomeDismissed = true
         _saveSettingsWelcomeDismissed()
-        _goNewStreet(true)
+        goNewStreet(true)
       })
 
       var streetName = new StreetName(document.getElementById('welcome-street-name'), street.name)
