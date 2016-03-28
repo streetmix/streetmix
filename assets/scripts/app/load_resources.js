@@ -108,7 +108,7 @@ function loadSVGs () {
             img.height = svg.viewBox.baseVal.height
             img.width = svg.viewBox.baseVal.width
 
-            // Store on the global images object
+            // Store on the global images object, using its simplified id as the key
             images[id] = img
           }
         }
