@@ -76,6 +76,35 @@ function loadSVGs () {
       })
       .then(function (response) {
         SVGStagingEl.innerHTML += response
+
+        // ctx.drawImage() can only draw things that are images (so you can't draw)
+        // an SVG directly. <use> doesn't seem to work directly (maybe <use> inside an
+        // image blob doesn't have access to the SVGs on the page?)
+        // So we have to create an image using a reconstructed SVG as a data blob.
+        // Here, let's cache all the artwork svgs as image elements for
+        // later rendering to canvas
+        let svgEls = SVGStagingEl.querySelectorAll('symbol')
+
+        for (let svg of svgEls) {
+          if (svg.id.indexOf('image-') === 0) {
+            let svgInternals = svg.innerHTML
+
+            // We need the namespacing and the original viewBox
+            // The other SVG attributes don't seem necessary (tested on Chrome)
+            let svgHTML = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="' + svg.getAttribute('viewBox') + '">' +
+              svgInternals +
+              '</svg>'
+
+            let svgBlob = new Blob([svgHTML], { type: 'image/svg+xml;charset=utf-8' })
+            let img = new Image()
+            let id = svg.id.replace(/^image-/, '')
+
+            img.src = window.URL.createObjectURL(svgBlob)
+
+            images[id] = img
+          }
+        }
+
         loadingEl.value++
       })
       .catch(function (error) {
