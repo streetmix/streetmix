@@ -105,6 +105,8 @@ function loadSVGs () {
             const img = new Image()
 
             img.src = window.URL.createObjectURL(svgBlob)
+            img.height = svg.viewBox.baseVal.height
+            img.width = svg.viewBox.baseVal.width
 
             // Store on the global images object
             images[id] = img
