@@ -5,6 +5,7 @@ export function drawSegmentImageSVG (id, ctx, dx, dy, dw, dh) {
     return
   }
 
+  // Set render dimensions based on pixel density
   dx *= system.hiDpi
   dy *= system.hiDpi
   dw *= system.hiDpi
@@ -16,6 +17,7 @@ export function drawSegmentImageSVG (id, ctx, dx, dy, dw, dh) {
     ctx.fillRect(dx, dy, dw, dh)
   }
 
+  // Draw the image to canvas
   const img = images[id]
   ctx.drawImage(img, dx, dy, dw, dh)
 }
