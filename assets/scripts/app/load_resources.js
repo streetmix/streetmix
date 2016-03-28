@@ -86,21 +86,27 @@ function loadSVGs () {
         let svgEls = SVGStagingEl.querySelectorAll('symbol')
 
         for (let svg of svgEls) {
+          // Only cache segment illustrations, don't need to cache icons
           if (svg.id.indexOf('image-') === 0) {
-            let svgInternals = svg.innerHTML
+            // Simplify id, removing namespace prefix
+            const id = svg.id.replace(/^image-/, '')
+            const svgInternals = svg.innerHTML
+            const svgViewbox = svg.getAttribute('viewBox')
 
             // We need the namespacing and the original viewBox
             // The other SVG attributes don't seem necessary (tested on Chrome)
-            let svgHTML = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="' + svg.getAttribute('viewBox') + '">' +
-              svgInternals +
-              '</svg>'
+            // TODO: This only works on Chrome
+            const svgHTML =
+              `<svg xmlns='http://www.w3.org/2000/svg' viewBox='${svgViewbox}'>
+                ${svgInternals}
+              </svg>`
 
-            let svgBlob = new Blob([svgHTML], { type: 'image/svg+xml;charset=utf-8' })
-            let img = new Image()
-            let id = svg.id.replace(/^image-/, '')
+            const svgBlob = new Blob([svgHTML], { type: 'image/svg+xml;charset=utf-8' })
+            const img = new Image()
 
             img.src = window.URL.createObjectURL(svgBlob)
 
+            // Store on the global images object
             images[id] = img
           }
         }
