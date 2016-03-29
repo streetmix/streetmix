@@ -25,9 +25,9 @@ const _elPreviewLoading = document.getElementById('save-as-image-preview-loading
 const _elPreviewPreview = document.getElementById('save-as-image-preview-preview')
 const _elDownloadLink = document.getElementById('save-as-image-download')
 
-var _imageCanvas
+let _imageCanvas
 
-new Dialog('#save-as-image-dialog', {
+export let saveAsImageDialog = new Dialog('#save-as-image-dialog', {
   clickSelector: '#save-as-image',
   onInit: function () {
     _elTransparentSky.addEventListener('change', _updateSaveAsImageOptions)

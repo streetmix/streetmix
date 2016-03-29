@@ -13,7 +13,7 @@ import './vendor/modernizr-custom'
 import 'babel-polyfill'
 import 'whatwg-fetch' // fetch API
 import 'handjs' // microsoft's pointer events / touch-action spec
-import './polyfills/customevent' // customEvent in IE
+import './vendor/polyfills/customevent' // customEvent in IE
 
 // Cookie handling
 import Cookies from 'js-cookie'

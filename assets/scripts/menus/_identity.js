@@ -1,3 +1,3 @@
 import Menu from './menu'
 
-new Menu('identity')
+export let identityMenu = new Menu('identity')
