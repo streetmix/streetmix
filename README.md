@@ -1,7 +1,6 @@
 [![Build Status](https://img.shields.io/travis/codeforamerica/streetmix/master.svg?style=flat-square)](https://travis-ci.org/codeforamerica/streetmix)
 [![Dependency Status](https://img.shields.io/david/codeforamerica/streetmix.svg?style=flat-square)](https://david-dm.org/codeforamerica/streetmix)
 [![Code Climate](https://img.shields.io/codeclimate/github/codeforamerica/streetmix.svg?style=flat-square)](https://codeclimate.com/github/codeforamerica/streetmix)
-[![Join the chat at https://gitter.im/codeforamerica/streetmix](https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-00d06f.svg?style=flat-square)](https://gitter.im/codeforamerica/streetmix?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Streetmix
 =========
@@ -55,7 +54,7 @@ These installation instructions assume that you have already installed the [Home
 2) Download, install and start [MongoDB](http://www.mongodb.org/).
 
     brew install mongodb
-    
+
 You'll also need to set up the [MongoDB data directory](https://docs.mongodb.org/manual/tutorial/install-mongodb-on-os-x/#run-mongodb). The easiest set up would be (you may need `sudo`):
 
     mkdir -p /data/db
