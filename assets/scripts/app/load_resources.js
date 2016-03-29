@@ -95,15 +95,14 @@ function loadSVGs () {
             let svgInternals = svg.innerHTML
 
             // innerHTML is not an available property for SVG elements in IE / Edge
-            // so if turns to be undefined, we use this alternate method below
-            // to clone the SVG's nodes to a dummy element and then grab the
-            // innerHTML out of that one.
+            // so if turns to be undefined, we use this alternate method below,
+            // which iterates through each of the symbol's child nodes and
+            // serializes each element to a string.
             if (typeof svgInternals === 'undefined') {
-              let tempEl = document.createElement('div')
+              svgInternals = ''
               Array.prototype.slice.call(svg.childNodes).forEach(function (node, index) {
-                tempEl.appendChild(node.cloneNode(true))
+                svgInternals += (new XMLSerializer()).serializeToString(node)
               })
-              svgInternals = tempEl.innerHTML
             }
 
             // SVG element requires the 'xmlns' namespace
