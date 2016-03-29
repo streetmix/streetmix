@@ -81,8 +81,8 @@ export function drawProgrammaticPeople (ctx, width, offsetLeft, offsetTop, randS
   }
 
   for (let person of people) {
-    let typeX = person.type % PERSON_TILESET_WRAP
-    let typeY = Math.floor(person.type / PERSON_TILESET_WRAP)
+    // let typeX = person.type % PERSON_TILESET_WRAP
+    // let typeY = Math.floor(person.type / PERSON_TILESET_WRAP)
 
     // _drawSegmentImage(2, ctx,
     //   1008 + 12 * 5 * typeX, 1756 / 2 + 24 * 4 * typeY,
