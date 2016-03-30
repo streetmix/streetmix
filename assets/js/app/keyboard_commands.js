@@ -24,9 +24,7 @@ function _onGlobalKeyDown (event) {
 
   switch (event.keyCode) {
     case KEYS.ESC:
-      if (document.querySelector('#welcome').classList.contains('visible')) {
-        _hideWelcome()
-      } else if (isAnyDialogVisible()) {
+      if (isAnyDialogVisible()) {
         hideAllDialogs()
       } else if (draggingType == DRAGGING_TYPE_RESIZE) {
         _handleSegmentResizeCancel()
@@ -34,8 +32,6 @@ function _onGlobalKeyDown (event) {
         _handleSegmentMoveCancel()
       } else if (isAnyMenuVisible() === true) {
         hideAllMenus()
-      } else if (document.querySelector('#status-message').classList.contains('visible')) {
-        hideStatusMessage()
       } else if (_infoBubble.visible && _infoBubble.descriptionVisible) {
         _infoBubble.hideDescription()
       } else if (_infoBubble.visible) {

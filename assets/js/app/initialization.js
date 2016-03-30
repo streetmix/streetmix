@@ -80,8 +80,6 @@ function _onEverythingLoaded () {
       break
   }
 
-  _showWelcome()
-
   _onResize()
   _resizeStreetWidth()
   _updateStreetName()
