@@ -74,9 +74,13 @@ function updateStreetNameCanvasPos () {
 }
 
 // Add window listeners to resize and reposition the street name when it resizes
-window.addEventListener('resize', (e) => {
-  resizeStreetName()
-  updateStreetNameCanvasPos()
+// Only do this after everything is loaded because you don't want to
+// fire it before the street name is ready
+window.addEventListener('stmx:everything_loaded', function (e) {
+  window.addEventListener('resize', (e) => {
+    resizeStreetName()
+    updateStreetNameCanvasPos()
+  })
 })
 
 // Add prompt event to main street name
