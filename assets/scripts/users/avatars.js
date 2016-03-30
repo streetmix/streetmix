@@ -40,7 +40,6 @@ function fetchAvatar (userId) {
     .catch(function (err) {
       console.error('error loading avatar for ' + userId + ':', err)
     })
-
 }
 
 export function receiveAvatar (details) {
