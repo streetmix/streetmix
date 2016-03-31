@@ -14,14 +14,14 @@ export function showStatusMessage (text, undo) {
   msgEl.innerHTML = text
 
   if (undo) {
-    var buttonEl = document.createElement('button')
+    const buttonEl = document.createElement('button')
     buttonEl.innerHTML = 'Undo'
     buttonEl.addEventListener('pointerdown', _undo)
 
     msgEl.appendChild(buttonEl)
   }
 
-  var closeEl = document.createElement('button')
+  const closeEl = document.createElement('button')
   closeEl.innerHTML = '×'
   closeEl.classList.add('close')
   closeEl.addEventListener('pointerdown', _onClickTheX)

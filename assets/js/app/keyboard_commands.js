@@ -24,9 +24,7 @@ function _onGlobalKeyDown (event) {
 
   switch (event.keyCode) {
     case KEYS.ESC:
-      if (isAnyDialogVisible()) {
-        hideAllDialogs()
-      } else if (draggingType == DRAGGING_TYPE_RESIZE) {
+      if (draggingType == DRAGGING_TYPE_RESIZE) {
         _handleSegmentResizeCancel()
       } else if (draggingType == DRAGGING_TYPE_MOVE) {
         _handleSegmentMoveCancel()
