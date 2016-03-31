@@ -4,7 +4,7 @@
  * Loads images, etc and tracks progress. (WIP)
  * TODO: Rely on Promises to resolve progress
  */
-/* global _checkIfEverythingIsLoaded */
+/* global _checkIfEverythingIsLoaded, Image */
 
 // Image tileset loading
 // TODO: Deprecate in favor of inlined SVGs
@@ -53,13 +53,10 @@ function loadImages () {
   loadingEl.max += IMAGES_TO_BE_LOADED.length
 
   for (let url of IMAGES_TO_BE_LOADED) {
-    loading.push(window.fetch(url + '?v' + TILESET_IMAGE_VERSION)
-      .then(function (response) {
-        return response.blob()
-      })
+    loading.push(getImage(url + '?v' + TILESET_IMAGE_VERSION)
       .then(function (image) {
-        images[url] = document.createElement('img')
-        images[url].src = url + '?v' + TILESET_IMAGE_VERSION
+        // Store on the global images object, using the url as the key
+        images[url] = image
 
         loadingEl.value++
       })
@@ -85,6 +82,27 @@ function loadSVGs () {
         console.error('loading svg error', error)
       }))
   }
+}
+
+/**
+ * Wraps `new Image()`'s onload and onerror properties with
+ * Promises. This provides a more reliable way of knowing when a
+ * image element is done loading (rather than fetch) because a
+ * fetch can successfully load an image file but be resolved
+ * before the image element is ready. So we must resolve only after
+ * the image's `onload` callback has been called.
+ */
+function getImage (url) {
+  return new Promise(function (resolve, reject) {
+    var img = new Image()
+    img.onload = function () {
+        resolve(img)
+    }
+    img.onerror = function () {
+        reject('unable to load image ' + url)
+    }
+    img.src = url
+  })
 }
 
 export function hideLoadingScreen () {
