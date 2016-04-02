@@ -782,7 +782,9 @@ export const infoBubble = {
     infoBubbleEl.appendChild(el)
 
     infoBubble.updateDescriptionInContents()
-    infoBubble.updateWarningsInContents(segment)
+    if (segment) {
+      infoBubble.updateWarningsInContents(segment)
+    }
     window.setTimeout(function () {
       if (infoBubble.type === INFO_BUBBLE_TYPE_SEGMENT) {
         infoBubble.updateWidthInContents(segment.el, segment.width)
