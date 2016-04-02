@@ -1,5 +1,5 @@
 /* global app, debug, street, system */
-/* global streetSectionTop, draggingType */
+/* global draggingType */
 /* global BUILDING_VARIANTS, BUILDING_VARIANT_NAMES, SEGMENT_INFO,
       VARIANT_SEPARATOR, VARIANTS, MAX_SEGMENT_WIDTH, MAX_BUILDING_HEIGHT,
       SEGMENT_WARNING_WIDTH_TOO_LARGE, TRACK_ACTION_CHANGE_WIDTH,
@@ -16,9 +16,9 @@
 // Look for remove.js (_onRemoveButtonClick) easy one to refactor next
 // Many things in resizing.js
 import { VARIANT_ICONS } from './variant_icons'
+import { updateDescription } from './description'
 import { msg } from '../app/messages'
 import { trackEvent } from '../app/event_tracking'
-import { removeElFromDOM } from '../util/dom_helpers'
 import { getElAbsolutePos } from '../util/helpers'
 import { prettifyWidth, undecorateWidth } from '../util/width_units'
 import { isAnyMenuVisible, hideAllMenus } from '../menus/menu'
@@ -27,7 +27,6 @@ export const INFO_BUBBLE_TYPE_SEGMENT = 1
 export const INFO_BUBBLE_TYPE_LEFT_BUILDING = 2
 export const INFO_BUBBLE_TYPE_RIGHT_BUILDING = 3
 
-const TRACK_ACTION_LEARN_MORE = 'Learn more about segment'
 const TRACK_LABEL_INPUT_FIELD = 'Input field'
 const TRACK_LABEL_INCREMENT_BUTTON = 'Increment button'
 
@@ -53,6 +52,7 @@ export const infoBubble = {
   startMouseY: null,
   hoverPolygon: null,
   segmentEl: null,
+  segment: null,
   type: null,
 
   lastMouseX: null,
@@ -273,6 +273,7 @@ export const infoBubble = {
       infoBubble.segmentEl.classList.remove('hide-drag-handles-when-inside-info-bubble')
       infoBubble.segmentEl.classList.remove('show-drag-handles')
       infoBubble.segmentEl = null
+      infoBubble.segment = null
     }
   },
 
@@ -379,83 +380,19 @@ export const infoBubble = {
     infoBubble.el.style.transformOrigin = '50% ' + height + 'px'
   },
 
-  updateDescriptionInContents: function (segment) {
-    if (!infoBubble.segmentEl || !segment || !segment.el ||
-      (infoBubble.segmentEl !== segment.el)) {
+  updateDescriptionInContents: function () {
+    // Not all info bubbles have a segment (e.g. buildings are not segments)
+    if (!infoBubble.segment) {
       return
     }
-
-    var segmentInfo = SEGMENT_INFO[segment.type]
-    var variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString]
-
-    removeElFromDOM(infoBubble.el.querySelector('.description-prompt'))
-    removeElFromDOM(infoBubble.el.querySelector('.description-canvas'))
-
-    var description = ''
-    if (variantInfo && variantInfo.description) {
-      description = variantInfo.description
-    } else if (segmentInfo && segmentInfo.description) {
-      description = segmentInfo.description
-    }
-
-    if (description) {
-      const promptEl = document.createElement('div')
-      promptEl.classList.add('description-prompt')
-      promptEl.innerHTML = (description.prompt) ? description.prompt : 'Learn more'
-
-      promptEl.addEventListener('pointerdown', infoBubble.showDescription)
-      promptEl.addEventListener('pointerenter', infoBubble.highlightTriangle)
-      promptEl.addEventListener('pointerleave', infoBubble.unhighlightTriangle)
-
-      infoBubble.el.appendChild(promptEl)
-
-      const el = document.createElement('div')
-      el.classList.add('description-canvas')
-
-      const innerEl = document.createElement('div')
-      innerEl.classList.add('description')
-
-      if (description.image) {
-        innerEl.innerHTML += '<img src="/images/info-bubble-examples/' + description.image + '">'
-      }
-      if (description.lede) {
-        innerEl.innerHTML += '<p class="lede">' + description.lede + '</p>'
-      }
-      for (let i = 0; i < description.text.length; i++) {
-        innerEl.innerHTML += '<p>' + description.text[i] + '</p>'
-      }
-      if (description.imageCaption) {
-        innerEl.innerHTML += '<footer>Photo: ' + description.imageCaption + '</footer>'
-      }
-      el.appendChild(innerEl)
-
-      const anchorEls = innerEl.querySelectorAll('a')
-      for (let anchorEl of anchorEls) {
-        anchorEl.target = '_blank'
-      }
-
-      const closeEl = document.createElement('div')
-      closeEl.classList.add('description-close')
-      closeEl.innerHTML = 'Close'
-      closeEl.addEventListener('pointerdown', infoBubble.hideDescription)
-      closeEl.addEventListener('pointerenter', infoBubble.highlightTriangle)
-      closeEl.addEventListener('pointerleave', infoBubble.unhighlightTriangle)
-
-      el.appendChild(closeEl)
-
-      const triangleEl = document.createElement('div')
-      triangleEl.classList.add('triangle')
-      el.appendChild(triangleEl)
-
-      infoBubble.el.appendChild(el)
-    }
+    updateDescription(infoBubble.segment)
   },
 
   updateWarningsInContents: function (segment) {
-    if (!infoBubble.segmentEl || !segment || !segment.el ||
-      (infoBubble.segmentEl !== segment.el)) {
+    if (!infoBubble.segment) {
       return
     }
+
     var el = infoBubble.el.querySelector('.warnings')
 
     var html = ''
@@ -605,6 +542,8 @@ export const infoBubble = {
         name = variantInfo.name || segmentInfo.name
         canBeDeleted = true
         showWidth = true
+
+        infoBubble.segment = segment
 
         infoBubble.el.setAttribute('type', 'segment')
         break
@@ -843,7 +782,7 @@ export const infoBubble = {
 
     infoBubbleEl.appendChild(el)
 
-    infoBubble.updateDescriptionInContents(segment)
+    infoBubble.updateDescriptionInContents()
     infoBubble.updateWarningsInContents(segment)
     window.setTimeout(function () {
       if (infoBubble.type === INFO_BUBBLE_TYPE_SEGMENT) {
@@ -852,53 +791,6 @@ export const infoBubble = {
         infoBubble.updateHeightInContents(infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING)
       }
     }, 0)
-  },
-
-  highlightTriangle: function () {
-    infoBubble.el.classList.add('highlight-triangle')
-  },
-
-  unhighlightTriangle: function () {
-    infoBubble.el.classList.remove('highlight-triangle')
-  },
-
-  unhighlightTriangleDelayed: function () {
-    window.setTimeout(function () {
-      infoBubble.unhighlightTriangle()
-    }, 200)
-  },
-
-  showDescription: function () {
-    infoBubble.descriptionVisible = true
-
-    var el = infoBubble.el.querySelector('.description-canvas')
-    el.style.height = (streetSectionTop + 200 + 50 - infoBubble.bubbleY) + 'px'
-
-    infoBubble.el.classList.add('show-description')
-    if (infoBubble.segmentEl) {
-      infoBubble.segmentEl.classList.add('hide-drag-handles-when-description-shown')
-    }
-    infoBubble.unhighlightTriangleDelayed()
-    window.setTimeout(function () {
-      infoBubble.getBubbleDimensions()
-      infoBubble.updateHoverPolygon()
-    }, 500)
-
-    var segment = street.segments[parseInt(infoBubble.segmentEl.dataNo)]
-    trackEvent('Interaction', TRACK_ACTION_LEARN_MORE,
-      segment.type, null, false)
-  },
-
-  hideDescription: function () {
-    infoBubble.descriptionVisible = false
-    infoBubble.el.classList.remove('show-description')
-    if (infoBubble.segmentEl) {
-      infoBubble.segmentEl.classList.remove('hide-drag-handles-when-description-shown')
-    }
-
-    infoBubble.getBubbleDimensions()
-    infoBubble.unhighlightTriangleDelayed()
-    infoBubble.updateHoverPolygon()
   },
 
   // TODO rename
