@@ -8,15 +8,15 @@
       */
 /* global _updateBuildingPosition, _switchSegmentElAway, _switchSegmentElIn,
       _onBuildingMouseEnter, _saveStreetToServerIfNecessary, _createBuildings,
-      _isFlooredBuilding, _onRemoveButtonClick, _changeBuildingHeight,
+      _isFlooredBuilding, _changeBuildingHeight,
       _loseAnyFocus, _getBuildingAttributes, _resizeSegment, _buildingHeightUpdated,
       _processWidthInput, _changeSegmentVariant, _incrementSegmentWidth,
       _scheduleControlsFadeout, _resumeFadeoutControls, _cancelFadeoutControls
       */
-// Look for remove.js (_onRemoveButtonClick) easy one to refactor next
 // Many things in resizing.js
 import { VARIANT_ICONS } from './variant_icons'
 import { updateDescription } from './description'
+import { removeSegment, removeAllSegments } from '../segments/remove'
 import { msg } from '../app/messages'
 import { trackEvent } from '../app/event_tracking'
 import { getElAbsolutePos } from '../util/helpers'
@@ -29,6 +29,9 @@ export const INFO_BUBBLE_TYPE_RIGHT_BUILDING = 3
 
 const TRACK_LABEL_INPUT_FIELD = 'Input field'
 const TRACK_LABEL_INCREMENT_BUTTON = 'Increment button'
+
+const TRACK_ACTION_REMOVE_SEGMENT = 'Remove segment'
+const TRACK_LABEL_BUTTON = 'Button'
 
 const INFO_BUBBLE_MARGIN_BUBBLE = 20
 const INFO_BUBBLE_MARGIN_MOUSE = 10
@@ -583,7 +586,7 @@ export const infoBubble = {
       innerEl.segmentEl = infoBubble.segmentEl
       innerEl.tabIndex = -1
       innerEl.setAttribute('title', msg('TOOLTIP_REMOVE_SEGMENT'))
-      innerEl.addEventListener('pointerdown', _onRemoveButtonClick)
+      innerEl.addEventListener('pointerdown', onRemoveButtonClick)
       headerEl.appendChild(innerEl)
     }
 
@@ -1094,6 +1097,21 @@ function _onHeightEditKeyDown (event) {
       _loseAnyFocus()
       break
   }
+}
+
+function onRemoveButtonClick (event) {
+  // Power move: a shift key will remove all segments
+  if (event.shiftKey) {
+    removeAllSegments()
+  } else {
+    // Otherwise, remove one segment
+    removeSegment(event.target.segmentEl)
+  }
+
+  trackEvent('Interaction', TRACK_ACTION_REMOVE_SEGMENT, TRACK_LABEL_BUTTON, null, true)
+
+  // Prevent this “leaking” to a segment below
+  event.preventDefault()
 }
 
 function _prettifyHeight (height) {

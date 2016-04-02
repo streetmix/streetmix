@@ -4,8 +4,6 @@ var KEYS = {
   LEFT_ARROW: 37,
   RIGHT_ARROW: 39,
   ENTER: 13,
-  BACKSPACE: 8,
-  DELETE: 46,
   ESC: 27,
   Y: 89,
   Z: 90,
@@ -79,20 +77,6 @@ function _onBodyKeyDown (event) {
           TRACK_LABEL_KEYBOARD, null, true)
       }
       break
-    case KEYS.BACKSPACE:
-    case KEYS.DELETE:
-      if (event.metaKey || event.ctrlKey || event.altKey) {
-        return
-      }
-
-      var segmentHoveredEl = _getHoveredSegmentEl()
-      _removeSegment(segmentHoveredEl, event.shiftKey)
-
-      trackEvent('Interaction', TRACK_ACTION_REMOVE_SEGMENT,
-        TRACK_LABEL_KEYBOARD, null, true)
-
-      event.preventDefault()
-      break
     case KEYS.LEFT_ARROW:
       if (event.metaKey || event.ctrlKey || event.altKey) {
         return
@@ -123,11 +107,6 @@ function _onBodyKeyDown (event) {
       }
       break
   }
-}
-
-function _getHoveredSegmentEl () {
-  var el = document.querySelector('.segment.hover')
-  return el
 }
 
 function _getHoveredEl () {

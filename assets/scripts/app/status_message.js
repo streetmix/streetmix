@@ -50,7 +50,9 @@ function _onClickTheX () {
   hideStatusMessage()
   // Force window to refocus on document.body after status-message is closed by X button
   // Required on Chrome
-  _loseAnyFocus()
+  window.setTimeout(function () {
+    _loseAnyFocus()
+  }, 0)
 }
 
 // As per issue #306.
