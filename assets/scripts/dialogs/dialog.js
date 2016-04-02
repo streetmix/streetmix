@@ -8,7 +8,7 @@ import _ from 'lodash'
 
 import { hideAllMenus } from '../menus/menu'
 import { showShield, hideShield } from './dialog_shield'
-import { registerKeypress, deregisterKeypress } from '../app/keypress'
+import { registerKeypress } from '../app/keypress'
 
 const DIALOGS = new Map()
 

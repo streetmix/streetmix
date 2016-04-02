@@ -15,13 +15,14 @@
       */
 // Many things in resizing.js
 import { VARIANT_ICONS } from './variant_icons'
-import { updateDescription } from './description'
+import { updateDescription, hideDescription } from './description'
 import { removeSegment, removeAllSegments } from '../segments/remove'
 import { msg } from '../app/messages'
 import { trackEvent } from '../app/event_tracking'
 import { getElAbsolutePos } from '../util/helpers'
 import { prettifyWidth, undecorateWidth } from '../util/width_units'
 import { isAnyMenuVisible, hideAllMenus } from '../menus/menu'
+import { registerKeypress } from '../app/keypress'
 
 export const INFO_BUBBLE_TYPE_SEGMENT = 1
 export const INFO_BUBBLE_TYPE_LEFT_BUILDING = 2
@@ -283,15 +284,8 @@ export const infoBubble = {
   hide: function () {
     infoBubble.mouseInside = false
 
-    if (infoBubble.descriptionVisible) {
-      infoBubble.descriptionVisible = false
-      infoBubble.el.classList.remove('show-description')
-      if (infoBubble.segmentEl) {
-        infoBubble.segmentEl.classList.remove('hide-drag-handles-when-description-shown')
-      }
-    }
-
     if (infoBubble.el) {
+      hideDescription()
       document.body.classList.remove('controls-fade-out')
 
       infoBubble.el.classList.remove('visible')
@@ -392,7 +386,7 @@ export const infoBubble = {
   },
 
   updateWarningsInContents: function (segment) {
-    if (!infoBubble.segment) {
+    if (!infoBubble.segment || infoBubble.segment !== segment) {
       return
     }
 
@@ -836,11 +830,7 @@ export const infoBubble = {
       segmentEl.classList.add('immediate-show-drag-handles')
 
       if (infoBubble.descriptionVisible) {
-        infoBubble.descriptionVisible = false
-        infoBubble.el.classList.remove('show-description')
-        if (infoBubble.segmentEl) {
-          infoBubble.segmentEl.classList.remove('hide-drag-handles-when-description-shown')
-        }
+        hideDescription()
       }
     }
 
@@ -1128,3 +1118,14 @@ function _prettifyHeight (height) {
 
   return heightText
 }
+
+// Register keyboard shortcuts to hide info bubble
+// Only hide if it's currently visible, and if the
+// description is NOT visible. (If the description
+// is visible, the escape key should hide that first.)
+registerKeypress('esc', {
+  condition: function () { return infoBubble.visible && !infoBubble.descriptionVisible}
+}, function () {
+  infoBubble.hide()
+  infoBubble.hideSegment(false)
+})

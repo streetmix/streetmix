@@ -8,6 +8,7 @@
 import { infoBubble } from './info_bubble'
 import { removeElFromDOM } from '../util/dom_helpers'
 import { trackEvent } from '../app/event_tracking'
+import { registerKeypress, deregisterKeypress } from '../app/keypress'
 
 const TRACK_ACTION_LEARN_MORE = 'Learn more about segment'
 
@@ -33,7 +34,7 @@ function getDescriptionData (segment) {
   }
 }
 
-function showDescription () {
+export function showDescription () {
   infoBubble.descriptionVisible = true
 
   var el = infoBubble.el.querySelector('.description-canvas')
@@ -44,19 +45,18 @@ function showDescription () {
     infoBubble.segmentEl.classList.add('hide-drag-handles-when-description-shown')
   }
 
+  infoBubble.getBubbleDimensions()
+  infoBubble.updateHoverPolygon()
   unhighlightTriangleDelayed()
-
-  window.setTimeout(function () {
-    infoBubble.getBubbleDimensions()
-    infoBubble.updateHoverPolygon()
-  }, 500)
+  registerKeypress('esc', hideDescription)
 
   trackEvent('Interaction', TRACK_ACTION_LEARN_MORE,
     infoBubble.segment.type, null, false)
 }
 
-function hideDescription () {
+export function hideDescription () {
   infoBubble.descriptionVisible = false
+
   infoBubble.el.classList.remove('show-description')
   if (infoBubble.segmentEl) {
     infoBubble.segmentEl.classList.remove('hide-drag-handles-when-description-shown')
@@ -64,8 +64,8 @@ function hideDescription () {
 
   infoBubble.getBubbleDimensions()
   infoBubble.updateHoverPolygon()
-
   unhighlightTriangleDelayed()
+  deregisterKeypress('esc', hideDescription)
 }
 
 function buildDescriptionDOM (description) {

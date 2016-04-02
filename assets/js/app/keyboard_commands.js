@@ -26,13 +26,6 @@ function _onGlobalKeyDown (event) {
         _handleSegmentResizeCancel()
       } else if (draggingType == DRAGGING_TYPE_MOVE) {
         _handleSegmentMoveCancel()
-      } else if (isAnyMenuVisible() === true) {
-        hideAllMenus()
-      } else if (_infoBubble.visible && _infoBubble.descriptionVisible) {
-        _infoBubble.hideDescription()
-      } else if (_infoBubble.visible) {
-        _infoBubble.hide()
-        _infoBubble.hideSegment(false)
       } else if (document.body.classList.contains('gallery-visible')) {
         _hideGallery(false)
       } else if (signedIn) {
