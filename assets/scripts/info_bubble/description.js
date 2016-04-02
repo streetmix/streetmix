@@ -12,6 +12,8 @@ import { registerKeypress, deregisterKeypress } from '../app/keypress'
 
 const TRACK_ACTION_LEARN_MORE = 'Learn more about segment'
 
+const DESCRIPTION_PROMPT_LABEL = 'Learn more'
+
 export function updateDescription (segment) {
   const description = getDescriptionData(segment)
 
@@ -37,8 +39,9 @@ function getDescriptionData (segment) {
 export function showDescription () {
   infoBubble.descriptionVisible = true
 
-  var el = infoBubble.el.querySelector('.description-canvas')
-  el.style.height = (streetSectionTop + 200 + 50 - infoBubble.bubbleY) + 'px'
+  const el = infoBubble.el.querySelector('.description-canvas')
+  // TODO document magic numbers
+  el.style.height = (streetSectionTop + 300 - infoBubble.bubbleY) + 'px'
 
   infoBubble.el.classList.add('show-description')
   if (infoBubble.segmentEl) {
@@ -71,7 +74,8 @@ export function hideDescription () {
 function buildDescriptionDOM (description) {
   const promptEl = document.createElement('div')
   promptEl.classList.add('description-prompt')
-  promptEl.innerHTML = (description.prompt) ? description.prompt : 'Learn more'
+  promptEl.innerHTML = (description.prompt) ?
+    description.prompt : DESCRIPTION_PROMPT_LABEL
 
   promptEl.addEventListener('pointerdown', showDescription)
   promptEl.addEventListener('pointerenter', highlightTriangle)
@@ -89,7 +93,7 @@ function buildDescriptionDOM (description) {
     descriptionInnerEl.innerHTML += '<img src="/images/info-bubble-examples/' + description.image + '">'
   }
   if (description.lede) {
-    descriptionInnerEl.innerHTML += '<p class="lede">' + description.lede + '</p>'
+    descriptionInnerEl.innerHTML += '<p class="description-lede">' + description.lede + '</p>'
   }
   for (let i = 0; i < description.text.length; i++) {
     descriptionInnerEl.innerHTML += '<p>' + description.text[i] + '</p>'

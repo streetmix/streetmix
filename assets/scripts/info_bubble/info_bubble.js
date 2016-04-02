@@ -385,11 +385,13 @@ export const infoBubble = {
     updateDescription(infoBubble.segment)
   },
 
+  /**
+   * Given a segment, update the infoBubble with its warnings
+   */
   updateWarningsInContents: function (segment) {
-    if (!infoBubble.segment || infoBubble.segment !== segment) {
-      return
-    }
-
+    // TOFIX: We may need to check whether the segment given
+    // matches the segment in the info bubble, but the
+    // infoBubble.segment value is currently unreliable.
     var el = infoBubble.el.querySelector('.warnings')
 
     var html = ''

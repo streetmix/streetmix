@@ -54,6 +54,9 @@ function _resizeSegment (el, resizeType, width, updateEdit, palette, initial) {
 
   if (!initial) {
     _segmentsChanged()
+
+    let segment = street.segments[parseInt(el.dataNo)]
+    _infoBubble.updateWarningsInContents(segment)
   }
 }
 
@@ -164,20 +167,7 @@ function _applyWarningsToSegments () {
         segment.el.classList.remove('outside')
       }
     }
-    _infoBubble.updateWarningsInContents(segment)
   }
-}
-
-function _onSegmentMouseEnter (event) {
-  if (suppressMouseEnter) {
-    return
-  }
-
-  _infoBubble.considerShowing(event, this, INFO_BUBBLE_TYPE_SEGMENT)
-}
-
-function _onSegmentMouseLeave () {
-  _infoBubble.dontConsiderShowing()
 }
 
 var controlsFadeoutDelayTimer = -1
