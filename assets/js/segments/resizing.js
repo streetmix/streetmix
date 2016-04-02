@@ -1,9 +1,6 @@
 var SHORT_DELAY = 100
-var WIDTH_EDIT_INPUT_DELAY = 200
 
 var TRACK_ACTION_CHANGE_WIDTH = 'Change width'
-var TRACK_LABEL_INCREMENT_BUTTON = 'Increment button'
-var TRACK_LABEL_INPUT_FIELD = 'Input field'
 
 var RESIZE_TYPE_INITIAL = 0
 var RESIZE_TYPE_INCREMENT = 1
@@ -14,14 +11,14 @@ var RESIZE_TYPE_TYPING = 4
 var MIN_SEGMENT_WIDTH = 1
 var MAX_SEGMENT_WIDTH = 400
 
+var TOUCH_CONTROLS_FADEOUT_TIME = 3000
+var TOUCH_CONTROLS_FADEOUT_DELAY = 3000
+
 var NORMALIZE_PRECISION = 5
 
 var segmentWidthResolution
 var segmentWidthClickIncrement
 var segmentWidthDraggingResolution
-
-var widthHeightEditHeld = false
-var widthHeightChangeTimerId = -1
 
 var suppressMouseEnter = false
 
@@ -57,31 +54,6 @@ function _resizeSegment (el, resizeType, width, updateEdit, palette, initial) {
 
   if (!initial) {
     _segmentsChanged()
-  }
-}
-
-function _onWidthHeightEditClick (event) {
-  var el = event.target
-
-  el.hold = true
-  widthHeightEditHeld = true
-
-  if (document.activeElement != el) {
-    el.select()
-  }
-}
-
-function _onWidthHeightEditMouseOver (event) {
-  if (!widthHeightEditHeld) {
-    event.target.focus()
-    event.target.select()
-  }
-}
-
-function _onWidthHeightEditMouseOut (event) {
-  var el = event.target
-  if (!widthHeightEditHeld) {
-    _loseAnyFocus()
   }
 }
 
@@ -173,186 +145,6 @@ function _incrementSegmentWidth (segmentEl, add, precise) {
     width * TILE_SIZE, true, false)
 }
 
-function _onWidthEditFocus (event) {
-  var el = event.target
-
-  el.oldValue = el.realValue
-  el.value = undecorateWidth(el.realValue)
-}
-
-function _onHeightEditFocus (event) {
-  var el = event.target
-
-  el.oldValue = el.realValue
-  el.value = el.realValue
-}
-
-function _onWidthEditBlur (event) {
-  var el = event.target
-
-  _widthEditInputChanged(el, true)
-
-  el.realValue = parseFloat(el.segmentEl.getAttribute('width'))
-  el.value = _prettifyWidth(el.realValue)
-
-  el.hold = false
-  widthHeightEditHeld = false
-}
-
-function _onHeightEditBlur (event) {
-  var el = event.target
-
-  _heightEditInputChanged(el, true)
-
-  el.realValue = (_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingHeight : street.rightBuildingHeight
-  el.value = _prettifyHeight(el.realValue)
-
-  el.hold = false
-  widthHeightEditHeld = false
-}
-
-function _heightEditInputChanged (el, immediate) {
-  window.clearTimeout(widthHeightChangeTimerId)
-
-  var height = parseInt(el.value)
-
-  if (!height || (height < 1)) {
-    height = 1
-  } else if (height > MAX_BUILDING_HEIGHT) {
-    height = MAX_BUILDING_HEIGHT
-  }
-
-  if (immediate) {
-    if (_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING) {
-      street.leftBuildingHeight = height
-    } else {
-      street.rightBuildingHeight = height
-    }
-    _buildingHeightUpdated()
-  } else {
-    widthHeightChangeTimerId = window.setTimeout(function () {
-      if (_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING) {
-        street.leftBuildingHeight = height
-      } else {
-        street.rightBuildingHeight = height
-      }
-      _buildingHeightUpdated()
-    }, WIDTH_EDIT_INPUT_DELAY)
-  }
-}
-
-function _widthEditInputChanged (el, immediate) {
-  window.clearTimeout(widthHeightChangeTimerId)
-
-  var width = _processWidthInput(el.value)
-
-  if (width) {
-    var segmentEl = el.segmentEl
-
-    if (immediate) {
-      _resizeSegment(segmentEl, RESIZE_TYPE_TYPING,
-        width * TILE_SIZE, false, false)
-      _infoBubble.updateWidthButtonsInContents(width)
-    } else {
-      widthHeightChangeTimerId = window.setTimeout(function () {
-        _resizeSegment(segmentEl, RESIZE_TYPE_TYPING,
-          width * TILE_SIZE, false, false)
-        _infoBubble.updateWidthButtonsInContents(width)
-      }, WIDTH_EDIT_INPUT_DELAY)
-    }
-  }
-}
-
-function _onWidthEditInput (event) {
-  _widthEditInputChanged(event.target, false)
-
-  trackEvent('Interaction', TRACK_ACTION_CHANGE_WIDTH,
-    TRACK_LABEL_INPUT_FIELD, null, true)
-}
-
-function _onHeightEditInput (event) {
-  _heightEditInputChanged(event.target, false)
-}
-
-function _onWidthEditKeyDown (event) {
-  var el = event.target
-
-  switch (event.keyCode) {
-    case KEYS.ENTER:
-      _widthEditInputChanged(el, true)
-      _loseAnyFocus()
-      el.value = undecorateWidth(el.segmentEl.getAttribute('width'))
-      el.focus()
-      el.select()
-      break
-    case KEYS.ESC:
-      el.value = el.oldValue
-      _widthEditInputChanged(el, true)
-      hideAllMenus()
-      _loseAnyFocus()
-      break
-  }
-}
-
-function _onHeightEditKeyDown (event) {
-  var el = event.target
-
-  switch (event.keyCode) {
-    case KEYS.ENTER:
-      _heightEditInputChanged(el, true)
-      _loseAnyFocus()
-      el.value = _prettifyHeight((_infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingHeight : street.rightBuildingHeight)
-      el.focus()
-      el.select()
-      break
-    case KEYS.ESC:
-      el.value = el.oldValue
-      _heightEditInputChanged(el, true)
-      hideAllMenus()
-      _loseAnyFocus()
-      break
-  }
-}
-
-function _prettifyHeight (height) {
-  var heightText = height
-
-  heightText += ' floor'
-  if (height > 1) {
-    heightText += 's'
-  }
-
-  var attr = _getBuildingAttributes(street, _infoBubble.type == INFO_BUBBLE_TYPE_LEFT_BUILDING)
-
-  heightText += ' (' + _prettifyWidth(attr.realHeight / TILE_SIZE) + ')'
-
-  return heightText
-}
-
-function _onWidthDecrementClick (event) {
-  var el = event.target
-  var segmentEl = el.segmentEl
-  var precise = event.shiftKey
-
-  _incrementSegmentWidth(segmentEl, false, precise)
-  _scheduleControlsFadeout(segmentEl)
-
-  trackEvent('Interaction', TRACK_ACTION_CHANGE_WIDTH,
-    TRACK_LABEL_INCREMENT_BUTTON, null, true)
-}
-
-function _onWidthIncrementClick (event) {
-  var el = event.target
-  var segmentEl = el.segmentEl
-  var precise = event.shiftKey
-
-  _incrementSegmentWidth(segmentEl, true, precise)
-  _scheduleControlsFadeout(segmentEl)
-
-  trackEvent('Interaction', TRACK_ACTION_CHANGE_WIDTH,
-    TRACK_LABEL_INCREMENT_BUTTON, null, true)
-}
-
 function _applyWarningsToSegments () {
   for (var i in street.segments) {
     var segment = street.segments[i]
@@ -373,5 +165,60 @@ function _applyWarningsToSegments () {
       }
     }
     _infoBubble.updateWarningsInContents(segment)
+  }
+}
+
+function _onSegmentMouseEnter (event) {
+  if (suppressMouseEnter) {
+    return
+  }
+
+  _infoBubble.considerShowing(event, this, INFO_BUBBLE_TYPE_SEGMENT)
+}
+
+function _onSegmentMouseLeave () {
+  _infoBubble.dontConsiderShowing()
+}
+
+var controlsFadeoutDelayTimer = -1
+var controlsFadeoutHideTimer = -1
+
+function _scheduleControlsFadeout (el) {
+  _infoBubble.considerShowing(null, el, INFO_BUBBLE_TYPE_SEGMENT)
+
+  _resumeFadeoutControls()
+}
+
+function _resumeFadeoutControls () {
+  if (!system.touch) {
+    return
+  }
+
+  _cancelFadeoutControls()
+
+  controlsFadeoutDelayTimer = window.setTimeout(_fadeoutControls, TOUCH_CONTROLS_FADEOUT_DELAY)
+}
+
+function _cancelFadeoutControls () {
+  document.body.classList.remove('controls-fade-out')
+  window.clearTimeout(controlsFadeoutDelayTimer)
+  window.clearTimeout(controlsFadeoutHideTimer)
+}
+
+function _fadeoutControls () {
+  document.body.classList.add('controls-fade-out')
+
+  controlsFadeoutHideTimer = window.setTimeout(_hideControls, TOUCH_CONTROLS_FADEOUT_TIME)
+}
+
+function _hideControls () {
+  document.body.classList.remove('controls-fade-out')
+  if (_infoBubble.segmentEl) {
+    _infoBubble.segmentEl.classList.remove('show-drag-handles')
+
+    window.setTimeout(function () {
+      _infoBubble.hide()
+      _infoBubble.hideSegment(true)
+    }, 0)
   }
 }
