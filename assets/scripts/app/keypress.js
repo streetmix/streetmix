@@ -15,8 +15,6 @@
  */
 import { trackEvent } from '../app/event_tracking'
 
-const TRACK_LABEL_KEYBOARD = 'Keyboard'
-
 // TODO: Flesh out this dictionary
 const KEYS = {
   'left': 37,
@@ -94,7 +92,7 @@ export function startListening () {
  *    registerKeypress('esc', hide)
  * @example
  *    registerKeypress('shift d',
- *      { trackMsg: 'Shift-D is pressed' },
+ *      { trackAction: 'Shift-D is pressed' },
  *      function () { console.log('Shift-D is pressed!') })
  * @param {(string|string[])} commands
  *    Human readable key or key combination to listen for, in the form of "a"
@@ -137,7 +135,7 @@ export function startListening () {
  *    on a specific element, like an input field.  Defaults to `true`, but as
  *    a special case, this is automatically set to `false` if the command is
  *    `esc`.
- * @param {(string)} [options.trackMsg=null]
+ * @param {(string)} [options.trackAction=null]
  *    If a string is provided, the action is logged in event tracking when
  *    triggered.
  * @param {(number)} [options.trackValue=null]
@@ -176,7 +174,7 @@ export function registerKeypress (commands, options, callback) {
     preventDefault: true,
     stopPropagation: false,
     requireFocusOnBody: true,
-    trackMsg: null,
+    trackAction: null,
     trackValue: null,
     trackOnce: true
   }
@@ -404,8 +402,8 @@ function execute (input, event) {
   if (event && input.stopPropagation) {
     event.stopPropagation()
   }
-  if (input.trackMsg) {
-    trackEvent('Interaction', input.trackMsg, TRACK_LABEL_KEYBOARD, input.trackValue, input.trackOnce)
+  if (input.trackAction) {
+    trackEvent('INTERACTION', input.trackAction, 'KEYBOARD', input.trackValue, input.trackOnce)
   }
 
   // Execute callback

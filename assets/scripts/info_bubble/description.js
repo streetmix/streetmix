@@ -10,8 +10,6 @@ import { removeElFromDOM } from '../util/dom_helpers'
 import { trackEvent } from '../app/event_tracking'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 
-const TRACK_ACTION_LEARN_MORE = 'Learn more about segment'
-
 const DESCRIPTION_PROMPT_LABEL = 'Learn more'
 
 export function updateDescription (segment) {
@@ -53,8 +51,7 @@ export function showDescription () {
   unhighlightTriangleDelayed()
   registerKeypress('esc', hideDescription)
 
-  trackEvent('Interaction', TRACK_ACTION_LEARN_MORE,
-    infoBubble.segment.type, null, false)
+  trackEvent('INTERACTION', 'LEARN_MORE', infoBubble.segment.type, null, false)
 }
 
 export function hideDescription () {

@@ -1,5 +1,3 @@
-var TRACK_LABEL_KEYBOARD = 'Keyboard'
-
 var KEYS = {
   LEFT_ARROW: 37,
   RIGHT_ARROW: 39,
@@ -66,8 +64,7 @@ function _onBodyKeyDown (event) {
         }
         event.preventDefault()
 
-        trackEvent('Interaction', TRACK_ACTION_CHANGE_WIDTH,
-          TRACK_LABEL_KEYBOARD, null, true)
+        trackEvent('INTERACTION', 'CHANGE_WIDTH', 'KEYBOARD', null, true)
       }
       break
     case KEYS.LEFT_ARROW:

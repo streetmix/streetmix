@@ -1,7 +1,5 @@
 var SHORT_DELAY = 100
 
-var TRACK_ACTION_CHANGE_WIDTH = 'Change width'
-
 var RESIZE_TYPE_INITIAL = 0
 var RESIZE_TYPE_INCREMENT = 1
 var RESIZE_TYPE_DRAGGING = 2
@@ -93,8 +91,7 @@ function _handleSegmentResizeEnd (event) {
   }, 50)
 
   if (draggingResize.width && (draggingResize.originalWidth != draggingResize.width)) {
-    trackEvent('Interaction', TRACK_ACTION_CHANGE_WIDTH,
-      TRACK_LABEL_DRAGGING, null, true)
+    trackEvent('INTERACTION', 'CHANGE_WIDTH', 'DRAGGING', null, true)
   }
 }
 

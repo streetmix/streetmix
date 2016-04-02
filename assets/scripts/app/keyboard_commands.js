@@ -6,7 +6,7 @@ import _ from 'lodash'
 // In case anyone tries a save shortcut key out of reflex,
 // we inform the user that it's not necessary.
 registerKeypress('ctrl s', {
-  trackMsg: 'Command-S or Ctrl-S save shortcut key pressed'
+  trackAction: 'Command-S or Ctrl-S save shortcut key pressed'
 }, function () {
   showStatusMessage(msg('STATUS_NO_NEED_TO_SAVE'))
 })

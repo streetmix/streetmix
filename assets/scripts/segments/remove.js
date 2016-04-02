@@ -43,7 +43,7 @@ export function removeAllSegments () {
 
 // Register keyboard shortcuts for segment removal
 registerKeypress(['backspace', 'delete'], {
-  trackMsg: 'Remove segment', // TRACK_ACTION_REMOVE_SEGMENT
+  trackAction: 'REMOVE_SEGMENT',
   // Prevent deletion from occurring of the description is visible
   condition: function () { return !infoBubble.descriptionVisible }
 }, function () {
@@ -54,7 +54,7 @@ registerKeypress(['backspace', 'delete'], {
 // Power shortcut for removing ALL segments. This is not
 // advertised anywhere in the UI.
 registerKeypress(['shift backspace', 'shift delete'], {
-  trackMsg: 'Remove all segments',
+  trackAction: 'Remove all segments',
   // Prevent deletion from occurring of the description is visible
   // Also, we don't need to know which segment is being hovered,
   // but we should only execute this IF an segment is being hovered

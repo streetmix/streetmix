@@ -2,7 +2,7 @@
 /* global draggingType */
 /* global BUILDING_VARIANTS, BUILDING_VARIANT_NAMES, SEGMENT_INFO,
       VARIANT_SEPARATOR, VARIANTS, MAX_SEGMENT_WIDTH, MAX_BUILDING_HEIGHT,
-      SEGMENT_WARNING_WIDTH_TOO_LARGE, TRACK_ACTION_CHANGE_WIDTH,
+      SEGMENT_WARNING_WIDTH_TOO_LARGE,
       RESIZE_TYPE_TYPING, TILE_SIZE, KEYS, SEGMENT_WARNING_OUTSIDE,
       SEGMENT_WARNING_WIDTH_TOO_SMALL, MIN_SEGMENT_WIDTH, DRAGGING_TYPE_NONE
       */
@@ -27,12 +27,6 @@ import { registerKeypress } from '../app/keypress'
 export const INFO_BUBBLE_TYPE_SEGMENT = 1
 export const INFO_BUBBLE_TYPE_LEFT_BUILDING = 2
 export const INFO_BUBBLE_TYPE_RIGHT_BUILDING = 3
-
-const TRACK_LABEL_INPUT_FIELD = 'Input field'
-const TRACK_LABEL_INCREMENT_BUTTON = 'Increment button'
-
-const TRACK_ACTION_REMOVE_SEGMENT = 'Remove segment'
-const TRACK_LABEL_BUTTON = 'Button'
 
 const INFO_BUBBLE_MARGIN_BUBBLE = 20
 const INFO_BUBBLE_MARGIN_MOUSE = 10
@@ -912,8 +906,7 @@ function _onWidthDecrementClick (event) {
   _incrementSegmentWidth(segmentEl, false, precise)
   _scheduleControlsFadeout(segmentEl)
 
-  trackEvent('Interaction', TRACK_ACTION_CHANGE_WIDTH,
-    TRACK_LABEL_INCREMENT_BUTTON, null, true)
+  trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INCREMENT_BUTTON', null, true)
 }
 
 function _onWidthIncrementClick (event) {
@@ -924,8 +917,7 @@ function _onWidthIncrementClick (event) {
   _incrementSegmentWidth(segmentEl, true, precise)
   _scheduleControlsFadeout(segmentEl)
 
-  trackEvent('Interaction', TRACK_ACTION_CHANGE_WIDTH,
-    TRACK_LABEL_INCREMENT_BUTTON, null, true)
+  trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INCREMENT_BUTTON', null, true)
 }
 
 function _onWidthHeightEditClick (event) {
@@ -1045,8 +1037,7 @@ function _widthEditInputChanged (el, immediate) {
 function _onWidthEditInput (event) {
   _widthEditInputChanged(event.target, false)
 
-  trackEvent('Interaction', TRACK_ACTION_CHANGE_WIDTH,
-    TRACK_LABEL_INPUT_FIELD, null, true)
+  trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INPUT_FIELD', null, true)
 }
 
 function _onHeightEditInput (event) {
@@ -1102,7 +1093,7 @@ function onRemoveButtonClick (event) {
     removeSegment(event.target.segmentEl)
   }
 
-  trackEvent('Interaction', TRACK_ACTION_REMOVE_SEGMENT, TRACK_LABEL_BUTTON, null, true)
+  trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'BUTTON', null, true)
 
   // Prevent this “leaking” to a segment below
   event.preventDefault()

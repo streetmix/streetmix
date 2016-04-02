@@ -1,5 +1,3 @@
-var TRACK_ACTION_ERROR_RM2 = 'Error RM2 (auth 401 failure mid-flight)'
-
 var LOCAL_STORAGE_SETTINGS_ID = 'settings'
 var LOCAL_STORAGE_SIGN_IN_ID = 'sign-in'
 var SAVE_SETTINGS_DELAY = 500
@@ -153,8 +151,7 @@ function _saveSettingsToServer () {
 
 function _errorSavingSettingsToServer (data) {
   if (!abortEverything && (data.status == 401)) {
-    trackEvent('Error', TRACK_ACTION_ERROR_RM2,
-      null, null, false)
+    trackEvent('ERROR', 'ERROR_RM2', null, null, false)
 
     mode = MODES.FORCE_RELOAD_SIGN_OUT_401
     _processMode()
