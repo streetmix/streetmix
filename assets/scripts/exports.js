@@ -36,8 +36,9 @@ window._getElAbsolutePos = getElAbsolutePos
 window.normalizeSlug = normalizeSlug
 
 // Gallery
-import { drawStreetThumbnail } from './gallery/thumbnail'
-window.drawStreetThumbnail = drawStreetThumbnail
+import { galleryState, showGallery } from './gallery/view'
+window.galleryState = galleryState
+window._showGallery = showGallery
 
 // Menus
 import { isAnyMenuVisible, hideAllMenus } from './menus/menu'

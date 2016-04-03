@@ -1,6 +1,5 @@
 /* global system, images */
-/* global TILE_SIZE, BACKGROUND_DIRT_COLOUR,
-          BUILDING_DESTINATION_THUMBNAIL, SEGMENT_INFO */
+/* global TILE_SIZE, BUILDING_DESTINATION_THUMBNAIL, SEGMENT_INFO */
 
 import { drawLine } from '../util/canvas_drawing'
 import { SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING } from '../streets/image'
@@ -8,6 +7,7 @@ import { SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING } from '../streets/image'
 const SKY_COLOUR = 'rgb(169, 204, 219)'
 const SKY_WIDTH = 250
 const BOTTOM_BACKGROUND = 'rgb(216, 211, 203)'
+const BACKGROUND_DIRT_COLOUR = 'rgb(53, 45, 39)'
 
 export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeight,
   multiplier, silhouette, bottomAligned,

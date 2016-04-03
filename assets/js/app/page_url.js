@@ -1,5 +1,8 @@
 var errorUrl = ''
 
+// TODO: replace with state obj in gallery
+var galleryUserId = null
+
 function _processUrl () {
   var url = location.pathname
 
@@ -77,7 +80,8 @@ function _processUrl () {
 
 function _updatePageUrl (forceGalleryUrl) {
   if (forceGalleryUrl) {
-    var url = '/' + galleryUserId
+    var slug = galleryUserId || 'gallery/'
+    var url = '/' + slug
   } else {
     var url = _getStreetUrl(street)
   }

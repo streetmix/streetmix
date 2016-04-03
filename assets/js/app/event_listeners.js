@@ -13,11 +13,7 @@ function _addEventListeners () {
   document.querySelector('.info-bubble').addEventListener('pointerleave', _infoBubble.onMouseLeave)
   document.querySelector('.info-bubble').addEventListener('pointerdown', _infoBubble.onTouchStart)
 
-  document.querySelector('#gallery-try-again').addEventListener('pointerdown', _repeatReceiveGalleryData)
-
   document.querySelector('#no-connection-try-again').addEventListener('pointerdown', _nonblockingAjaxTryAgain)
-
-  document.querySelector('#gallery-shield').addEventListener('pointerdown', _onGalleryShieldClick)
 
   // The following do not seem to work on pointerdown
   // click should also be fired by other input methods
@@ -26,8 +22,6 @@ function _addEventListeners () {
   document.querySelector('#new-street-last').addEventListener('click', _onNewStreetLastClick)
 
   window.addEventListener('storage', _onStorageChange)
-
-  document.querySelector('#gallery-link a').addEventListener('pointerdown', _onMyStreetsClick)
 
   document.querySelector('#sign-out-link').addEventListener('pointerdown', _onSignOutClick)
 

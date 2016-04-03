@@ -29,8 +29,6 @@ function _onResize () {
     streetSectionTop = paletteTop - 20 - streetSectionHeight + 180
   }
 
-  _updateGalleryShield()
-
   document.querySelector('#street-section-inner').style.top = streetSectionTop + 'px'
 
   document.querySelector('#street-section-sky').style.top =

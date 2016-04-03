@@ -16,18 +16,16 @@ function _isFocusOnBody () {
 }
 
 function _onWindowFocus () {
-  if (abortEverything) {
+  if (abortEverything || galleryState.visible) {
     return
   }
 
-  if (!galleryVisible) {
-    _fetchStreetForVerification()
+  _fetchStreetForVerification()
 
-    // Save settings on window focus, so the last edited street is the one you’re
-    // currently looking at (in case you’re looking at many streets in various
-    // tabs)
-    _saveSettingsLocally()
-  }
+  // Save settings on window focus, so the last edited street is the one you’re
+  // currently looking at (in case you’re looking at many streets in various
+  // tabs)
+  _saveSettingsLocally()
 }
 
 function _onWindowBlur () {
