@@ -23,8 +23,8 @@ const galleryEl = document.getElementById('gallery')
 
 window.addEventListener('stmx:init', function () {
   // Populate gallery UI button URLs on init
-  document.querySelector('#new-street').href = URL_NEW_STREET
-  document.querySelector('#copy-last-street').href = URL_NEW_STREET_COPY_LAST
+  document.querySelector('#new-street').href = '/' + URL_NEW_STREET
+  document.querySelector('#copy-last-street').href = '/' + URL_NEW_STREET_COPY_LAST
 
   document.querySelector('#gallery-try-again').addEventListener('pointerdown', repeatReceiveGalleryData)
   document.querySelector('#gallery-shield').addEventListener('pointerdown', onGalleryShieldClick)
