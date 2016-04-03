@@ -53,7 +53,7 @@ function _resizeSegment (el, resizeType, width, updateEdit, palette, initial) {
   if (!initial) {
     _segmentsChanged()
 
-    let segment = street.segments[parseInt(el.dataNo)]
+    var segment = street.segments[parseInt(el.dataNo)]
     _infoBubble.updateWarningsInContents(segment)
   }
 }
