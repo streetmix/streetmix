@@ -5,9 +5,6 @@ import { trackEvent } from '../app/event_tracking'
 import { getPageTitle } from '../app/page_title'
 import { getSharingUrl } from '../util/share_url'
 
-const TRACK_ACTION_FACEBOOK = 'Facebook'
-const TRACK_ACTION_TWITTER = 'Twitter'
-
 export let shareMenu = new Menu('share', {
   alignment: 'right',
   onInit: function () {
@@ -27,11 +24,11 @@ export let shareMenu = new Menu('share', {
 shareMenu.update = _updateShareMenu
 
 function _shareViaTwitter () {
-  trackEvent('Sharing', TRACK_ACTION_TWITTER, null, null, false)
+  trackEvent('SHARING', 'TWITTER', null, null, false)
 }
 
 function _shareViaFacebook () {
-  trackEvent('Sharing', TRACK_ACTION_FACEBOOK, null, null, false)
+  trackEvent('SHARING', 'FACEBOOK', null, null, false)
 }
 
 function _getSharingMessage () {

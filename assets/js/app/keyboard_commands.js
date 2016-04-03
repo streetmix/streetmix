@@ -1,11 +1,7 @@
-var TRACK_LABEL_KEYBOARD = 'Keyboard'
-
 var KEYS = {
   LEFT_ARROW: 37,
   RIGHT_ARROW: 39,
   ENTER: 13,
-  BACKSPACE: 8,
-  DELETE: 46,
   ESC: 27,
   Y: 89,
   Z: 90,
@@ -24,23 +20,10 @@ function _onGlobalKeyDown (event) {
 
   switch (event.keyCode) {
     case KEYS.ESC:
-      if (document.querySelector('#welcome').classList.contains('visible')) {
-        _hideWelcome()
-      } else if (isAnyDialogVisible()) {
-        hideAllDialogs()
-      } else if (draggingType == DRAGGING_TYPE_RESIZE) {
+      if (draggingType == DRAGGING_TYPE_RESIZE) {
         _handleSegmentResizeCancel()
       } else if (draggingType == DRAGGING_TYPE_MOVE) {
         _handleSegmentMoveCancel()
-      } else if (isAnyMenuVisible() === true) {
-        hideAllMenus()
-      } else if (document.querySelector('#status-message').classList.contains('visible')) {
-        hideStatusMessage()
-      } else if (_infoBubble.visible && _infoBubble.descriptionVisible) {
-        _infoBubble.hideDescription()
-      } else if (_infoBubble.visible) {
-        _infoBubble.hide()
-        _infoBubble.hideSegment(false)
       } else if (document.body.classList.contains('gallery-visible')) {
         _hideGallery(false)
       } else if (signedIn) {
@@ -81,23 +64,8 @@ function _onBodyKeyDown (event) {
         }
         event.preventDefault()
 
-        trackEvent('Interaction', TRACK_ACTION_CHANGE_WIDTH,
-          TRACK_LABEL_KEYBOARD, null, true)
+        trackEvent('INTERACTION', 'CHANGE_WIDTH', 'KEYBOARD', null, true)
       }
-      break
-    case KEYS.BACKSPACE:
-    case KEYS.DELETE:
-      if (event.metaKey || event.ctrlKey || event.altKey) {
-        return
-      }
-
-      var segmentHoveredEl = _getHoveredSegmentEl()
-      _removeSegment(segmentHoveredEl, event.shiftKey)
-
-      trackEvent('Interaction', TRACK_ACTION_REMOVE_SEGMENT,
-        TRACK_LABEL_KEYBOARD, null, true)
-
-      event.preventDefault()
       break
     case KEYS.LEFT_ARROW:
       if (event.metaKey || event.ctrlKey || event.altKey) {
@@ -129,11 +97,6 @@ function _onBodyKeyDown (event) {
       }
       break
   }
-}
-
-function _getHoveredSegmentEl () {
-  var el = document.querySelector('.segment.hover')
-  return el
 }
 
 function _getHoveredEl () {

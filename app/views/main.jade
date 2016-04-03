@@ -9,7 +9,7 @@ block main
   #loading
     div
       span(data-i18n='msg.loading') Loading…
-      progress(id='loading-progress')
+      progress(id='loading-progress', value=0, max=1)
 
   include ./ui/gallery
 
@@ -23,7 +23,7 @@ block main
     #error
       div
         h1#error-title
-        div#error-description.description
+        div#error-description.error-description
       .rear-clouds
       .front-clouds
 
