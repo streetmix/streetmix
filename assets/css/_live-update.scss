@@ -6,7 +6,7 @@
   top: 0;
   bottom: 0;
   border: 20px solid white;
-  z-index: 9999999;
+  z-index: $z-10-flash-border;
 
   &.visible {
     display: block;

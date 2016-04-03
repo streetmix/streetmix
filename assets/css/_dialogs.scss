@@ -6,10 +6,9 @@
 // Base styles for dialog boxes
 
 $dialog-box-default-width: 790px;
-$dialog-box-z-index: 99999999 + 3;
 
 #dialog-box-shield {
-  z-index: $dialog-box-z-index - 1;
+  z-index: $z-08-dialog-box-shield;
 
   position: absolute;
   left: 0;
@@ -28,7 +27,7 @@ $dialog-box-z-index: 99999999 + 3;
 .dialog-box {
   @include box-border;
 
-  z-index: $dialog-box-z-index;
+  z-index: $z-09-dialog-box;
   position: absolute;
 
   top: 100px;

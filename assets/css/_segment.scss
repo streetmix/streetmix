@@ -65,10 +65,6 @@ body.immediate-segment-resize .segment {
   transition: transform 50ms !important;
 }
 
-.segment:not(.unmovable).hover {
-  z-index: 5000 !important;
-}
-
 .segment:not(.unmovable).hover .hover-bk {
   background: $segment-hover-background;
   position: absolute;
@@ -133,7 +129,7 @@ body:not(.segment-resize-dragging) .segment.outside .image {
   left: 0;
   top: 0;
   opacity: 0.75;
-  z-index: 5000;
+  z-index: $z-02-segment-floating;
   pointer-events: none;
   transition: none !important;
 }
@@ -157,7 +153,7 @@ body.segment-resize-dragging * {
   font-size: 50px;
   font-family: 'Tahoma';
   color: lighten($ui-colour, 0%);
-  z-index: 99999999999;
+  z-index: $z-06-drag-handle;
 
   pointer-events: none;
 
@@ -347,7 +343,6 @@ body.segment-resize-dragging * {
 }
 
 .segment .drag-handle {
-  z-index: 10000;
   pointer-events: none;
   transition: transform 150ms, opacity 150ms;
   opacity: 0;
@@ -387,7 +382,7 @@ body.segment-resize-dragging .drag-handle.floating,
 
 .segment .guide {
   position: absolute;
-  z-index: 9999999;
+  z-index: $z-07-segment-guide;
   left: 50%;
   top: 0;
   bottom: 45px;
@@ -467,7 +462,6 @@ body.segment-resize-dragging .drag-handle.floating,
   text-rendering: optimizeLegibility;
   word-wrap: break-word;
   font-size: 13px;
-  z-index: 100;
   overflow: hidden;
   pointer-events: none;
 }
@@ -480,22 +474,10 @@ body.segment-resize-dragging .drag-handle.floating,
   color: $segment-warning-text;
 }
 
-.segment .commands {
-  position: absolute;
-  left: 50%;
-  width: 30px;
-  margin-left: -15px;
-  top: $canvas-baseline + 38;
-  height: 65px;
-  z-index: 150001;
-  padding-top: 10px;
-}
-
 .segment .width {
   position: absolute;
   left: 0;
   right: -1px;
-  z-index: 100000;
   border-left: 1px solid $segment-width-rule;
   border-right: 1px solid $segment-width-rule;
   top: $canvas-baseline;
@@ -543,7 +525,7 @@ body.segment-move-dragging #editable-street-section > div {
 
 .switching-away-pre {
   position: absolute;
-  z-index: 9999999999;
+  z-index: $z-10-switch-away;
   pointer-events: none;
 
   transform: none !important;
@@ -556,7 +538,7 @@ body.segment-move-dragging #editable-street-section > div {
 }
 
 .switching-away-post {
-  z-index: 99999999 !important;
+  z-index: $z-10-switch-away !important;
 }
 
 .switching-away-post canvas {

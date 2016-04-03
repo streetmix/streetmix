@@ -18,7 +18,7 @@
   transition: transform 100ms, opacity 100ms;
   pointer-events: none;
 
-  z-index: 99999999;
+  z-index: $z-04-menu;
 
   &.visible {
     transform: rotateX(0);
