@@ -151,6 +151,9 @@ export function startListening () {
  *    If additional conditions are required before executing a callback
  *    function after a key is pressed, this function is evaluated. It must
  *    return a `true` or truthy value for the callback to execute.
+ * @param {boolean} [options.fireOnce]
+ *    If `true`, the keypress is only activated one time and is immediately
+ *    deregistered when the callback is executed.
  * @param {function} [callback]
  *    Function to execute when key is pressed. Technically, this is optional
  *    (and you might prefer to set it on `options` instead). If there is no
@@ -165,7 +168,7 @@ export function registerKeypress (commands, options, callback) {
   // pressed. (Note that ctrlKey will be internally mapped to behave
   // the same as metaKey here.) The distinction is strict, pass the
   // value 'optional' to make the system ignore whether a key is pressed.
-  var defaults = {
+  const defaults = {
     shiftKey: false,
     metaKey: false,
     altKey: false,
@@ -174,6 +177,7 @@ export function registerKeypress (commands, options, callback) {
     preventDefault: true,
     stopPropagation: false,
     requireFocusOnBody: true,
+    fireOnce: false,
     trackAction: null,
     trackValue: null,
     trackOnce: true
@@ -189,38 +193,43 @@ export function registerKeypress (commands, options, callback) {
     callback = arguments[1]
   }
 
-  var commandObj = processCommands(commands)
+  const originalCommands = commands
+  const commandObj = processCommands(commands)
 
   // Process each command input
-  for (var keyCode in commandObj) {
-    var command = commandObj[keyCode]
+  for (let keyCode in commandObj) {
+    let commands = commandObj[keyCode]
 
-    for (var i = 0; i < command.length; i++) {
+    for (let command of commands) {
       // Get default settings
-      for (var key in defaults) {
-        if (typeof command[i][key] === 'undefined') {
-          command[i][key] = defaults[key]
+      for (let key in defaults) {
+        if (typeof command[key] === 'undefined') {
+          command[key] = defaults[key]
         }
       }
 
+      // Store the original commands entry
+      // This helps with deregistering later
+      command.originalCommands = originalCommands
+
       // Special case for 'ESC' key; it defaults to global (window) focus
       if (parseInt(keyCode, 10) === KEYS['esc']) {
-        command[i].requireFocusOnBody = false
-        command[i].stopPropagation = true
+        command.requireFocusOnBody = false
+        command.stopPropagation = true
       }
 
       // Attach callback function to execute
       if (typeof callback === 'function') {
-        command[i].onKeypress = callback
+        command.onKeypress = callback
       }
 
       // If options are specified, replace defaults
       // This basically allows other code to override settings via the
       // options object - it's dumb, but there's no protection against it,
       // and who knows, could be useful in edge cases
-      for (var k in options) {
-        if (typeof command[i][k] !== options[k]) {
-          command[i][k] = options[k]
+      for (let k in options) {
+        if (typeof command[k] !== options[k]) {
+          command[k] = options[k]
         }
       }
 
@@ -228,7 +237,7 @@ export function registerKeypress (commands, options, callback) {
       if (typeof inputs[keyCode] === 'undefined') {
         inputs[keyCode] = []
       }
-      inputs[keyCode].push(command[i])
+      inputs[keyCode].push(command)
     }
   }
 }
@@ -254,24 +263,24 @@ export function registerKeypress (commands, options, callback) {
  *    in this way result in a true test of equality.
  */
 export function deregisterKeypress (commands, callback) {
-  var commandObj = processCommands(commands)
+  const commandObj = processCommands(commands)
 
   // Process each command input
-  for (var keyCode in commandObj) {
-    var command = commandObj[keyCode]
+  for (let keyCode in commandObj) {
+    const commands = commandObj[keyCode]
 
-    for (var i = 0; i < command.length; i++) {
-      var items = inputs[keyCode]
-      var x = items.length
+    for (let command of commands) {
+      let items = inputs[keyCode]
+      let x = items.length
 
       // A reverse while loop quickly removes all duplicates that matches
       while (x--) {
-        var item = items[x]
+        let item = items[x]
         if (item.onKeypress === callback || typeof callback === 'undefined') {
           // Check for equality for command + function
-          if ((item.shiftKey === command[i].shiftKey || item.shiftKey === 'optional') &&
-              (item.altKey === command[i].altKey || item.altKey === 'optional') &&
-              (item.metaKey === command[i].metaKey || item.metaKey === 'optional')) {
+          if ((item.shiftKey === command.shiftKey || item.shiftKey === 'optional') &&
+              (item.altKey === command.altKey || item.altKey === 'optional') &&
+              (item.metaKey === command.metaKey || item.metaKey === 'optional')) {
             // If matches, remove it from the command list.
             inputs[keyCode].splice(x, 1)
           }
@@ -297,15 +306,18 @@ function processCommands (commands) {
     commands = new Array(commands)
   }
 
-  var commandsObj = {}
+  let commandsObj = {}
 
   // Process each command input
-  for (var i = 0; i < commands.length; i++) {
+  for (let command of commands) {
     // Normalize command
     //  - adjust to lower case
     //  - replace command/cmd/control/ctrl to meta (this does not remove dupes)
-    var command = commands[i].toLowerCase().replace(/(command|cmd|control|ctrl)/g, 'meta').split(' ')
-    var settings = {
+    command = command.toLowerCase()
+      .replace(/(command|cmd|control|ctrl)/g, 'meta')
+      .split(' ')
+
+    let settings = {
       shiftKey: false,
       altKey: false,
       metaKey: false
@@ -313,19 +325,19 @@ function processCommands (commands) {
 
     // Check for existence of modifier keys
     // Modifier keys are removed from input array
-    var isShift = command.indexOf('shift')
+    let isShift = command.indexOf('shift')
     if (isShift > -1) {
       settings.shiftKey = true
       command.splice(isShift, 1)
     }
 
-    var isAlt = command.indexOf('alt')
+    let isAlt = command.indexOf('alt')
     if (isAlt > -1) {
       settings.altKey = true
       command.splice(isAlt, 1)
     }
 
-    var isMeta = command.indexOf('meta')
+    let isMeta = command.indexOf('meta')
     if (isMeta > -1) {
       settings.metaKey = true
       command.splice(isMeta, 1)
@@ -333,11 +345,11 @@ function processCommands (commands) {
 
     // First remaining item in the input array is the key code to test for.
     // Does not support multi-keys, so rest of input (if provided) is ignored.
-    var keyCode = KEYS[command[0]]
+    let keyCode = KEYS[command[0]]
 
     // Keycodes might be a single number or an array
     if (keyCode) {
-      var keys = []
+      let keys = []
       // If keyCode is a number, convert to single-element array
       // Can't do a shortcut version of these with numbers :-/
       if (typeof keyCode === 'number') {
@@ -346,13 +358,13 @@ function processCommands (commands) {
         keys = keyCode
       }
 
-      for (var j = 0; j < keys.length; j++) {
-        settings.keyCode = keys[j]
-        if (typeof commandsObj[keys[j]] === 'undefined') {
-          commandsObj[keys[j]] = []
+      for (let key of keys) {
+        settings.keyCode = key
+        if (typeof commandsObj[key] === 'undefined') {
+          commandsObj[key] = []
         }
 
-        commandsObj[keys[j]].push(settings)
+        commandsObj[key].push(settings)
       }
     }
   }
@@ -361,10 +373,10 @@ function processCommands (commands) {
 }
 
 function onGlobalKeyDown (event) {
-  var toExecute = []
+  let toExecute = []
 
   // Find the right command object
-  var commandsForKeyCode = inputs[event.keyCode]
+  const commandsForKeyCode = inputs[event.keyCode]
   if (!commandsForKeyCode || commandsForKeyCode.length === 0) return
 
   // Check if the right meta keys are down
@@ -409,6 +421,11 @@ function execute (input, event) {
   // Execute callback
   // Pass event through to callback function
   input.onKeypress(event)
+
+  // Deregisters the input immediately if it is only supposed to be executed once
+  if (input.fireOnce === true) {
+    deregisterKeypress(input.originalCommands, input.onKeypress)
+  }
 }
 
 // Utility function
