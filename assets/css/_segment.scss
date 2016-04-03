@@ -65,6 +65,11 @@ body.immediate-segment-resize .segment {
   transition: transform 50ms !important;
 }
 
+
+.segment:not(.unmovable).hover {
+  z-index: $z-02-segment-focused !important;
+}
+
 .segment:not(.unmovable).hover .hover-bk {
   background: $segment-hover-background;
   position: absolute;
@@ -129,7 +134,7 @@ body:not(.segment-resize-dragging) .segment.outside .image {
   left: 0;
   top: 0;
   opacity: 0.75;
-  z-index: $z-02-segment-floating;
+  z-index: $z-02-segment-focused;
   pointer-events: none;
   transition: none !important;
 }
