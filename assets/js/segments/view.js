@@ -362,9 +362,9 @@ function _repositionSegments () {
       var width = parseFloat(el.getAttribute('width')) * TILE_SIZE
     }
 
-    el.savedLeft = parseInt(left); // so we don’t have to use offsetLeft
-    el.savedNoMoveLeft = parseInt(noMoveLeft); // so we don’t have to use offsetLeft
-    el.savedWidth = parseInt(width)
+    el.savedLeft = Math.round(left); // so we don’t have to use offsetLeft
+    el.savedNoMoveLeft = Math.round(noMoveLeft); // so we don’t have to use offsetLeft
+    el.savedWidth = Math.round(width)
 
     left += width
     noMoveLeft += width
