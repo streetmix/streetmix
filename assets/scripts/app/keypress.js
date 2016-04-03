@@ -15,8 +15,6 @@
  */
 import { trackEvent } from '../app/event_tracking'
 
-const TRACK_LABEL_KEYBOARD = 'Keyboard'
-
 // TODO: Flesh out this dictionary
 const KEYS = {
   'left': 37,
@@ -83,7 +81,7 @@ const returnTrue = function () { return true }
  */
 export function startListening () {
   // TODO: remove useCapture if we don't need it
-  window.addEventListener('keydown', _onGlobalKeyDown, true)
+  window.addEventListener('keydown', onGlobalKeyDown, true)
 }
 
 /**
@@ -94,7 +92,7 @@ export function startListening () {
  *    registerKeypress('esc', hide)
  * @example
  *    registerKeypress('shift d',
- *      { trackMsg: 'Shift-D is pressed' },
+ *      { trackAction: 'Shift-D is pressed' },
  *      function () { console.log('Shift-D is pressed!') })
  * @param {(string|string[])} commands
  *    Human readable key or key combination to listen for, in the form of "a"
@@ -137,7 +135,7 @@ export function startListening () {
  *    on a specific element, like an input field.  Defaults to `true`, but as
  *    a special case, this is automatically set to `false` if the command is
  *    `esc`.
- * @param {(string)} [options.trackMsg=null]
+ * @param {(string)} [options.trackAction=null]
  *    If a string is provided, the action is logged in event tracking when
  *    triggered.
  * @param {(number)} [options.trackValue=null]
@@ -176,7 +174,7 @@ export function registerKeypress (commands, options, callback) {
     preventDefault: true,
     stopPropagation: false,
     requireFocusOnBody: true,
-    trackMsg: null,
+    trackAction: null,
     trackValue: null,
     trackOnce: true
   }
@@ -191,7 +189,7 @@ export function registerKeypress (commands, options, callback) {
     callback = arguments[1]
   }
 
-  var commandObj = _processCommands(commands)
+  var commandObj = processCommands(commands)
 
   // Process each command input
   for (var keyCode in commandObj) {
@@ -256,7 +254,7 @@ export function registerKeypress (commands, options, callback) {
  *    in this way result in a true test of equality.
  */
 export function deregisterKeypress (commands, callback) {
-  var commandObj = _processCommands(commands)
+  var commandObj = processCommands(commands)
 
   // Process each command input
   for (var keyCode in commandObj) {
@@ -293,7 +291,7 @@ export function deregisterKeypress (commands, callback) {
  *    same action, pass in an array of strings, e.g. `['a', 'b', 'meta d']`
  * @returns object
  */
-function _processCommands (commands) {
+function processCommands (commands) {
   // If a string, force to one-element array, otherwise expect an array of strings
   if (typeof commands === 'string') {
     commands = new Array(commands)
@@ -362,26 +360,25 @@ function _processCommands (commands) {
   return commandsObj
 }
 
-function _onGlobalKeyDown (event) {
-  var input
+function onGlobalKeyDown (event) {
+  var toExecute = []
 
   // Find the right command object
   var commandsForKeyCode = inputs[event.keyCode]
   if (!commandsForKeyCode || commandsForKeyCode.length === 0) return
 
   // Check if the right meta keys are down
-  for (var i = 0; i < commandsForKeyCode.length; i++) {
-    var item = commandsForKeyCode[i]
+  for (let item of commandsForKeyCode) {
     if ((item.shiftKey === event.shiftKey || item.shiftKey === 'optional') &&
         (item.altKey === event.altKey || item.altKey === 'optional') &&
         (item.metaKey === event.metaKey || item.metaKey === 'optional')) {
-      input = item
+      toExecute.push(item)
     }
   }
 
-  // Execute input's callback, if found
-  if (input) {
-    _execute(input, event)
+  // Execute input's callbacks, if found
+  for (let input of toExecute) {
+    execute(input, event)
   }
 }
 
@@ -392,7 +389,7 @@ function _onGlobalKeyDown (event) {
  * @param {object} input - The input object to execute
  * @param {Event} [event] - The browser's `Event` object created when `keydown` is fired
  */
-function _execute (input, event) {
+function execute (input, event) {
   // Check if condition is satisfied
   if (!input.condition()) return
 
@@ -405,12 +402,13 @@ function _execute (input, event) {
   if (event && input.stopPropagation) {
     event.stopPropagation()
   }
-  if (input.trackMsg) {
-    trackEvent('Interaction', input.trackMsg, TRACK_LABEL_KEYBOARD, input.trackValue, input.trackOnce)
+  if (input.trackAction) {
+    trackEvent('INTERACTION', input.trackAction, 'KEYBOARD', input.trackValue, input.trackOnce)
   }
 
   // Execute callback
-  input.onKeypress()
+  // Pass event through to callback function
+  input.onKeypress(event)
 }
 
 // Utility function

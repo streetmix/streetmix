@@ -468,6 +468,7 @@ function _changeSegmentVariant (dataNo, variantName, variantChoice, variantStrin
   el.classList.add('immediate-show-drag-handles')
   el.classList.add('hide-drag-handles-when-inside-info-bubble')
   _infoBubble.segmentEl = el
+  _infoBubble.segment = segment
 
   _infoBubble.updateContents()
 
@@ -569,6 +570,8 @@ function _segmentsChanged () {
   }
 
   _recalculateWidth()
+  _repositionEmptySegments()
+  _applyWarningsToSegments()
   //_recalculateOwnerWidths()
 
   for (var i in street.segments) {
@@ -580,4 +583,16 @@ function _segmentsChanged () {
   _saveStreetToServerIfNecessary()
   _updateUndoButtons()
   _repositionSegments()
+}
+
+function _onSegmentMouseEnter (event) {
+  if (suppressMouseEnter) {
+    return
+  }
+
+  _infoBubble.considerShowing(event, this, INFO_BUBBLE_TYPE_SEGMENT)
+}
+
+function _onSegmentMouseLeave () {
+  _infoBubble.dontConsiderShowing()
 }

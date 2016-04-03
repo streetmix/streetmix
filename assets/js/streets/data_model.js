@@ -250,10 +250,10 @@ function _saveStreetToServerIfNecessary () {
       // console.log('not incrementing editCount since null')
     }
     _setUpdateTimeToNow()
-    _hideWelcome()
 
-    // As per issue #306.
-    hideStatusMessage()
+    // Some parts of the UI need to know this happened to respond to it
+    // TODO: figure out appropriate event name
+    window.dispatchEvent(new CustomEvent('stmx:save_street'))
 
     _updateStreetMetadata(street)
 

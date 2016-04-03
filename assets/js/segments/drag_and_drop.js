@@ -1,5 +1,3 @@
-var TRACK_LABEL_DRAGGING = 'Dragging'
-
 var DRAG_OFFSET_Y_PALETTE = -340 - 150
 // Disable Y offset on segments when touch dragging
 //var DRAG_OFFSET_Y_TOUCH_PALETTE = -100
@@ -707,8 +705,7 @@ function _handleSegmentMoveEnd (event) {
       removeElFromDOM(draggingMove.originalEl)
     }
 
-    trackEvent('Interaction', TRACK_ACTION_REMOVE_SEGMENT,
-      TRACK_LABEL_DRAGGING, null, true)
+    trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'DRAGGING', null, true)
   } else if (draggingMove.segmentBeforeEl || draggingMove.segmentAfterEl || (street.segments.length == 0)) {
     var smartDrop = _doDropHeuristics(draggingMove.originalType,
       draggingMove.originalVariantString, draggingMove.originalWidth)
