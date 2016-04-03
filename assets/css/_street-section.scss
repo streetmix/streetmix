@@ -25,6 +25,7 @@
   text-align: left;
   touch-action: pan-x;
 
+  // Empty area
   &::before {
     content: '';
     position: absolute;
@@ -34,6 +35,8 @@
     bottom: 115px + 5px;
     background: darken($sky-colour, 2%);
     pointer-events: none;
+    // Ensure that segments switching in stay above this
+    z-index: -1;
   }
 }
 
