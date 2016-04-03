@@ -23,7 +23,7 @@ body.phone #loading {
 #error,
 #loading {
   position: fixed;
-  z-index: 999999999;
+  z-index: $z-09-loading;
   left: 0;
   top: 0;
   width: 100%;
@@ -57,7 +57,7 @@ body.phone #loading {
 }
 
 #error {
-  z-index: 999999999 + 1;
+  z-index: $z-09-error;
 }
 
 #error:not(.visible) {
@@ -98,7 +98,7 @@ body.phone #loading {
 }
 
 #blocking-shield {
-  z-index: 999999999 - 1;
+  z-index: $z-08-blocking-shield;
 
   position: fixed;
   left: 0;
@@ -180,7 +180,7 @@ body.phone #loading {
   right: 20px;
   height: 20px;
   padding: 0;
-  z-index: 2000000;
+  z-index: $z-07-status-message;
   pointer-events: none;
   user-select: none;
 
@@ -231,7 +231,7 @@ body.no-connection-message-visible #status-message {
   top: -5px;
   left: 0;
   right: 0;
-  z-index: 99999999;
+  z-index: $z-05-welcome;
   text-align: center;
 
   user-select: none;

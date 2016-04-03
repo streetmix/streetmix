@@ -6,7 +6,6 @@ button.scroll-right {
   top: 0;
   width: 25px;
   height: 40px;
-  z-index: 9999999;
   cursor: pointer;
 
   &.scroll-left {
@@ -26,7 +25,7 @@ button.scroll-right {
 footer button.scroll-left,
 footer button.scroll-right {
   margin-top: 10px;
-  z-index: 100000;   // Match command menu
+  z-index: $z-04-palette-scroll;
 
   &.scroll-left {
     margin-left: -65px;

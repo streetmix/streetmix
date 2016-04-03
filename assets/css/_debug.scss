@@ -5,7 +5,7 @@
   right: 20px;
   left: 20px;
   padding: 10px;
-  z-index: 9999999;
+  z-index: $z-09-debug;
   background: white;
 
   display: none;
@@ -28,7 +28,7 @@
 
 #debug-hover-polygon {
   position: absolute;
-  z-index: 9999999999999;
+  z-index: $z-10-debug-hover-polygon;
   left: 0;
   top: 0;
   right: 0;

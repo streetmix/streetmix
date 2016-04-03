@@ -9,7 +9,7 @@
   transition: transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
   transform: rotateX(-80deg);
   perspective: 1200px;
-  z-index: 999999999 - 2;
+  z-index: $z-06-info-bubble;
   pointer-events: none;
   touch-action: none;
 

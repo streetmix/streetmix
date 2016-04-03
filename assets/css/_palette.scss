@@ -37,7 +37,7 @@
   top: -20px;
   height: $palette-height - 2 * 8px + 5px;
   line-height: $palette-height - 2 * 8px + 5px;
-  z-index: 500000;
+  z-index: $z-07-trashcan;
   border-top: 2px dashed rgb(150, 150, 150);
 
   text-align: center;
@@ -69,7 +69,7 @@
 
   height: $palette-height - 50px;
 
-  z-index: 100000;
+  z-index: $z-04-command-menu;
 
   text-align: right;
 

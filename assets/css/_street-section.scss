@@ -16,7 +16,6 @@
   left: 0;
   top: 0;
   height: $canvas-height + 45;
-  z-index: 5;
   user-select: none;
 }
 
@@ -24,14 +23,12 @@
   position: absolute;
   height: $canvas-height + 80;
   text-align: left;
-  z-index: 1;
   touch-action: pan-x;
 
   &::before {
     content: '';
     position: absolute;
     left: 0;
-    z-index: -1;
     top: 394px;
     right: 0;
     bottom: 115px + 5px;
@@ -53,7 +50,7 @@
   letter-spacing: -13px;
   cursor: pointer;
   user-select: none;
-  z-index: 999999;
+  z-index: $z-07-street-scroll;
 
   &:hover {
     opacity: 0.333;
@@ -74,7 +71,7 @@
 }
 
 #street-section-canvas {
-  z-index: 10;
+  z-index: $z-01-street-section;
   position: absolute;
   display: block;
   left: 0;

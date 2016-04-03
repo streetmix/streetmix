@@ -34,7 +34,7 @@ body.touch-support .non-touch-only {
   top: 0;
   right: 0;
   bottom: 0;
-  z-index: 100;
+  z-index: $z-01-main-screen;
 
   body:not(.safari) & {
     perspective: 2000px;

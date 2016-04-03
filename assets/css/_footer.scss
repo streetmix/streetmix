@@ -5,7 +5,7 @@
   height: $palette-height - 30px;
   bottom: 0;
   text-align: center;
-  z-index: 200000;
+  z-index: $z-02-palette;
   user-select: none;
   touch-action: none;
 }
