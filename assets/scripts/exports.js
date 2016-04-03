@@ -85,6 +85,10 @@ window.INFO_BUBBLE_TYPE_RIGHT_BUILDING = INFO_BUBBLE_TYPE_RIGHT_BUILDING
 import { drawProgrammaticPeople } from './segments/people'
 window.drawProgrammaticPeople = drawProgrammaticPeople
 
+import { getVariantString, getVariantArray } from './segments/variant_utils'
+window._getVariantString = getVariantString
+window._getVariantArray = getVariantArray
+
 import { processWidthInput, prettifyWidth, undecorateWidth } from './util/width_units'
 window._processWidthInput = processWidthInput
 window._prettifyWidth = prettifyWidth

@@ -1,7 +1,7 @@
 /* global app, debug, street, system */
 /* global draggingType */
 /* global BUILDING_VARIANTS, BUILDING_VARIANT_NAMES, SEGMENT_INFO,
-      VARIANT_SEPARATOR, VARIANTS, MAX_SEGMENT_WIDTH, MAX_BUILDING_HEIGHT,
+      MAX_SEGMENT_WIDTH, MAX_BUILDING_HEIGHT,
       SEGMENT_WARNING_WIDTH_TOO_LARGE,
       RESIZE_TYPE_TYPING, TILE_SIZE, KEYS, SEGMENT_WARNING_OUTSIDE,
       SEGMENT_WARNING_WIDTH_TOO_SMALL, MIN_SEGMENT_WIDTH, DRAGGING_TYPE_NONE
@@ -14,9 +14,9 @@
       _scheduleControlsFadeout, _resumeFadeoutControls, _cancelFadeoutControls
       */
 // Many things in resizing.js
-import { VARIANT_ICONS } from './variant_icons'
 import { updateDescription, hideDescription } from './description'
 import { removeSegment, removeAllSegments } from '../segments/remove'
+import { VARIANT_ICONS } from '../segments/variant_icons'
 import { msg } from '../app/messages'
 import { trackEvent } from '../app/event_tracking'
 import { getElAbsolutePos } from '../util/helpers'
@@ -489,13 +489,14 @@ export const infoBubble = {
     }
   },
 
-  createVariantIcon: function (name, buttonEl) {
-    var variantIcon = VARIANT_ICONS[name]
+  createVariantIcon: function (type, choice, buttonEl) {
+    const variantIcon = VARIANT_ICONS[type][choice]
 
     if (variantIcon) {
-      var svgEl = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+      const svgEl = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
       svgEl.setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns', 'http://www.w3.org/1999/svg')
       svgEl.setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xlink', 'http://www.w3.org/1999/xlink')
+
       if (svgEl.classList) {
         svgEl.classList.add('icon')
       } else {
@@ -507,7 +508,7 @@ export const infoBubble = {
         svgEl.style.fill = variantIcon.color
       }
 
-      var useEl = document.createElementNS('http://www.w3.org/2000/svg', 'use')
+      const useEl = document.createElementNS('http://www.w3.org/2000/svg', 'use')
       useEl.setAttributeNS('http://www.w3.org/1999/xlink', 'href', '#icon-' + variantIcon.id)
 
       buttonEl.appendChild(svgEl)
@@ -572,7 +573,6 @@ export const infoBubble = {
       var innerEl = document.createElement('button')
       innerEl.classList.add('remove')
       innerEl.innerHTML = 'Remove'
-      // infoBubble.createVariantIcon('trashcan', innerEl)
       innerEl.segmentEl = infoBubble.segmentEl
       innerEl.tabIndex = -1
       innerEl.setAttribute('title', msg('TOOLTIP_REMOVE_SEGMENT'))
@@ -706,9 +706,13 @@ export const infoBubble = {
 
     switch (infoBubble.type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
-        var first = true
+        let first = true
 
-        for (var i in segmentInfo.variants) {
+        // Each segment has some allowed variant types (e.g. "direction")
+        for (let variant in segmentInfo.variants ) {
+          const variantType = segmentInfo.variants[variant]
+
+          // New row for each variant type
           if (!first) {
             let el = document.createElement('hr')
             variantsEl.appendChild(el)
@@ -716,22 +720,24 @@ export const infoBubble = {
             first = false
           }
 
-          for (let j in VARIANTS[segmentInfo.variants[i]]) {
-            let variantName = segmentInfo.variants[i]
-            let variantChoice = VARIANTS[segmentInfo.variants[i]][j]
-
+          // Each variant type has some choices.
+          // VARIANT_ICONS is an object containing a list of what
+          // each of the choices are and data for building an icon.
+          // Different segments may refer to the same variant type
+          // ("direction" is a good example of this)
+          for (let variantChoice in VARIANT_ICONS[variantType]) {
             let el = document.createElement('button')
-            infoBubble.createVariantIcon(variantName + VARIANT_SEPARATOR + variantChoice, el)
+            infoBubble.createVariantIcon(variantType, variantChoice, el)
 
-            if (segment.variant[variantName] === variantChoice) {
+            if (segment.variant[variantType] === variantChoice) {
               el.disabled = true
             }
 
-            el.addEventListener('pointerdown', (function (dataNo, variantName, variantChoice) {
+            el.addEventListener('pointerdown', (function (dataNo, variantType, variantChoice) {
               return function () {
-                _changeSegmentVariant(dataNo, variantName, variantChoice)
+                _changeSegmentVariant(dataNo, variantType, variantChoice)
               }
-            })(segment.el.dataNo, variantName, variantChoice))
+            })(segment.el.dataNo, variantType, variantChoice))
 
             variantsEl.appendChild(el)
           }
@@ -749,7 +755,7 @@ export const infoBubble = {
         for (var j in BUILDING_VARIANTS) {
           var el = document.createElement('button')
           // TODO const
-          infoBubble.createVariantIcon('building' + VARIANT_SEPARATOR + BUILDING_VARIANTS[j], el)
+          infoBubble.createVariantIcon('building', BUILDING_VARIANTS[j], el)
           if (BUILDING_VARIANTS[j] === variant) {
             el.disabled = true
           }
