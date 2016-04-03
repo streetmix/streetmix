@@ -8,7 +8,6 @@ import _ from 'lodash'
 
 import { hideAllMenus } from '../menus/menu'
 import { showShield, hideShield } from './dialog_shield'
-import { registerKeypress } from '../app/keypress'
 
 const DIALOGS = new Map()
 
@@ -103,10 +102,3 @@ export function hideAllDialogs () {
     dialog.hide()
   }
 }
-
-// Set up keypress listener to close dialogs if open
-registerKeypress('esc', function () {
-  if (isAnyDialogVisible()) {
-    hideAllDialogs()
-  }
-})

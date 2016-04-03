@@ -48,49 +48,46 @@ $dialog-box-z-index: 99999999 + 3;
   }
 }
 
-// Content of #about dialog box
-.about-dialog {
+// Content of #about and #save-as-image dialog boxes
+
+#about {
   width: $dialog-box-default-width;
 
-  // Used by team list and external links
+  .description {
+    font-size: 16px;
+  }
+
+  .left {
+    width: 300px;
+    margin-right: 40px;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 40px;
+  }
+
+  .right {
+    width: 350px;
+    display: inline-block;
+    vertical-align: top;
+  }
+
   ul {
     list-style: none;
     padding: 0;
     margin: 0;
   }
-}
 
-.about-dialog-left {
-  width: 300px;
-  margin-right: 40px;
-  display: inline-block;
-  vertical-align: top;
-  margin-left: 40px;
-}
+  .team {
+    a {
+      color: black;
+    }
 
-.about-dialog-right {
-  width: 350px;
-  display: inline-block;
-  vertical-align: top;
-}
-
-.about-dialog-description {
-  font-size: 16px;
-  margin: 1em 0;
-}
-
-.about-dialog-team {
-  a {
-    color: black;
-  }
-
-  li {
-    margin-top: 5px;
+    li {
+      margin-top: 5px;
+    }
   }
 }
 
-// Content of #save-as-image dialog box
-// TODO: Less nesting and less id-based styling
 #save-as-image-dialog {
   width: $dialog-box-default-width;
   padding-left: 40px;

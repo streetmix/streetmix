@@ -71,17 +71,6 @@ window.StreetName = StreetName
 import { updateStreetName } from './streets/name'
 window._updateStreetName = updateStreetName
 
-import {
-  infoBubble,
-  INFO_BUBBLE_TYPE_SEGMENT,
-  INFO_BUBBLE_TYPE_LEFT_BUILDING,
-  INFO_BUBBLE_TYPE_RIGHT_BUILDING
-} from './info_bubble/info_bubble'
-window._infoBubble = infoBubble
-window.INFO_BUBBLE_TYPE_SEGMENT = INFO_BUBBLE_TYPE_SEGMENT
-window.INFO_BUBBLE_TYPE_LEFT_BUILDING = INFO_BUBBLE_TYPE_LEFT_BUILDING
-window.INFO_BUBBLE_TYPE_RIGHT_BUILDING = INFO_BUBBLE_TYPE_RIGHT_BUILDING
-
 import { drawProgrammaticPeople } from './segments/people'
 window.drawProgrammaticPeople = drawProgrammaticPeople
 

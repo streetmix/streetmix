@@ -1,5 +1,7 @@
 var UNDO_LIMIT = 1000
 
+var TRACK_ACTION_UNDO = 'Undo'
+
 var FLAG_SAVE_UNDO = false; // true to save undo with street data, false to not save undo
 
 var undoStack = []
@@ -29,7 +31,8 @@ function _undoRedo (undo) {
     hideStatusMessage()
   }
 
-  trackEvent('INTERACTION', 'UNDO', null, null, true)
+  trackEvent('Interaction', TRACK_ACTION_UNDO,
+    null, null, true)
 }
 
 function _clearUndoStack () {

@@ -73,9 +73,7 @@ function _receiveGalleryStreet (transmission) {
   _createDomFromData()
   _createDataFromDom()
 
-  // Some parts of the UI need to know this happened to respond to it
-  window.dispatchEvent(new CustomEvent('stmx:receive_gallery_street'))
-
+  _hideWelcome()
   _resizeStreetWidth()
   _updateStreetName()
   _createDomFromData()

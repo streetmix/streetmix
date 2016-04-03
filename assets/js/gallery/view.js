@@ -3,6 +3,8 @@ var THUMBNAIL_HEIGHT = 110
 var THUMBNAIL_MULTIPLIER = .1 * 2
 var BACKGROUND_DIRT_COLOUR = 'rgb(53, 45, 39)'
 
+var TRACK_ACTION_OPEN_GALLERY = 'Open gallery'
+
 var galleryVisible = false
 
 var galleryUserId = null
@@ -189,7 +191,8 @@ function _showGallery (userId, instant, signInPromo) {
     return
   }
 
-  trackEvent('INTERACTION', 'OPEN_GALLERY', userId, null, false)
+  trackEvent('Interaction', TRACK_ACTION_OPEN_GALLERY,
+    userId, null, false)
 
   galleryVisible = true
   galleryStreetLoaded = true

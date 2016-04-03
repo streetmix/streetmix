@@ -1,3 +1,5 @@
+var TRACK_ACTION_ERROR_GEOLOCATION_TIMEOUT = 'Geolocation timeout'
+
 var IP_GEOLOCATION_API_URL = 'https://freegeoip.net/json/'
 var IP_GEOLOCATION_TIMEOUT = 1000; // After this time, we don’t wait any more
 var geolocationLoaded
@@ -66,7 +68,8 @@ function _detectGeolocationTimeout () {
     _checkIfSignInAndGeolocationLoaded()
     _checkIfEverythingIsLoaded()
 
-    trackEvent('ERROR', 'ERROR_GEOLOCATION_TIMEOUT', null, null, false)
+    trackEvent('Error', TRACK_ACTION_ERROR_GEOLOCATION_TIMEOUT,
+      null, null, false)
   }
 }
 

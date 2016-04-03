@@ -1,4 +1,7 @@
+var TRACK_ACTION_ERROR_RM2 = 'Error RM2 (auth 401 failure mid-flight)'
+
 var LOCAL_STORAGE_SETTINGS_ID = 'settings'
+var LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED = 'settings-welcome-dismissed'
 var LOCAL_STORAGE_SIGN_IN_ID = 'sign-in'
 var SAVE_SETTINGS_DELAY = 500
 
@@ -13,6 +16,7 @@ var settings = {
   saveAsImageSegmentNamesAndWidths: null,
   saveAsImageStreetName: null
 }
+var settingsWelcomeDismissed = false
 
 var saveSettingsTimerId = -1
 
@@ -68,6 +72,18 @@ function _mergeAndFillDefaultSettings (secondSettings) {
   if (typeof settings.saveAsImageStreetName === 'undefined') {
     settings.saveAsImageStreetName = false
   }
+}
+
+function _loadSettingsWelcomeDismissed () {
+  if (window.localStorage[LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED]) {
+    settingsWelcomeDismissed =
+      JSON.parse(window.localStorage[LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED])
+  }
+}
+
+function _saveSettingsWelcomeDismissed () {
+  window.localStorage[LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED] =
+    JSON.stringify(settingsWelcomeDismissed)
 }
 
 function _loadSettings () {
@@ -151,7 +167,8 @@ function _saveSettingsToServer () {
 
 function _errorSavingSettingsToServer (data) {
   if (!abortEverything && (data.status == 401)) {
-    trackEvent('ERROR', 'ERROR_RM2', null, null, false)
+    trackEvent('Error', TRACK_ACTION_ERROR_RM2,
+      null, null, false)
 
     mode = MODES.FORCE_RELOAD_SIGN_OUT_401
     _processMode()

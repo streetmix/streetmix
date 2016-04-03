@@ -1,4 +1,4 @@
-export const VARIANT_ICONS = {
+var VARIANT_ICONS = {
   'trashcan': { id: 'trashcan' },
 
   'orientation|left': { id: 'orientation-left', title: 'Left' },

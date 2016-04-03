@@ -199,7 +199,6 @@ body.phone #loading {
     border-top: 3px solid darken(rgb(255, 230, 150), 20%);
     border-bottom: 3px solid darken(rgb(255, 230, 150), 20%);
     font-size: 13px;
-    line-height: 23px; // force height to be the same whether there is a button in the status message or not
     background: rgb(255, 230, 150);
     color: rgb(64, 32, 32);
     pointer-events: auto;

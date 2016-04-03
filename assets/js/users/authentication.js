@@ -1,4 +1,7 @@
 /* global Cookies */
+var TRACK_ACTION_ERROR_15A = 'Error 15A (sign in API failure)'
+var TRACK_ACTION_ERROR_RM1 = 'Error RM1 (auth 401 failure on load)'
+
 var USER_ID_COOKIE = 'user_id'
 var SIGN_IN_TOKEN_COOKIE = 'login_token'
 
@@ -112,14 +115,16 @@ function _errorReceiveSignInDetails (data) {
   }*/
 
   if (data.status == 401) {
-    trackEvent('ERROR', 'ERROR_RM1', null, null, false)
+    trackEvent('Error', TRACK_ACTION_ERROR_RM1,
+      null, null, false)
 
     _signOut(true)
 
     _showError(ERRORS.SIGN_IN_401, true)
     return
   } else if (data.status == 503) {
-    trackEvent('ERROR', 'ERROR_15A', null, null, false)
+    trackEvent('Error', TRACK_ACTION_ERROR_15A,
+      null, null, false)
 
     _showError(ERRORS.SIGN_IN_SERVER_FAILURE, true)
     return

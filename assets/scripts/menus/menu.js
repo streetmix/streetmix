@@ -9,7 +9,6 @@ import _ from 'lodash'
 
 import { hideStatusMessage } from '../app/status_message'
 import { getElAbsolutePos } from '../util/helpers'
-import { registerKeypress } from '../app/keypress'
 
 export default class Menu {
   constructor (name, opts = {}) {
@@ -99,10 +98,3 @@ export function hideAllMenus () {
     els[i].classList.remove('visible')
   }
 }
-
-// Set up keypress listener to hide menus if visible
-registerKeypress('esc', function () {
-  if (isAnyMenuVisible()) {
-    hideAllMenus()
-  }
-})

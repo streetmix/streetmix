@@ -254,4 +254,8 @@ function _recalculateWidth () {
   if (lastOverflow != document.body.classList.contains('street-overflows')) {
     _createBuildings()
   }
+
+  _repositionEmptySegments()
+
+  _applyWarningsToSegments()
 }

@@ -1,3 +1,5 @@
+var TRACK_ACTION_STREET_MODIFIED_ELSEWHERE = 'Street modified elsewhere'
+
 var SAVE_STREET_DELAY = 500
 
 var saveStreetTimerId = -1
@@ -170,7 +172,7 @@ function _receiveStreetForVerification (transmission, textStatus, request) {
     _unpackServerStreetData(transmission, null, null, false)
     _updateEverything(true)
 
-    trackEvent('EVENT', 'STREET_MODIFIED_ELSEWHERE', null, null, false)
+    trackEvent('Event', TRACK_ACTION_STREET_MODIFIED_ELSEWHERE, null, null, false)
   }
 }
 

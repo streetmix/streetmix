@@ -4,6 +4,8 @@ var readyStateCompleteLoaded
 
 var abortEverything
 
+var TRACK_ACTION_TOUCH_CAPABLE = 'Touch capability detected'
+
 // Some things are placed on the generic Stmx app object to keep it out of global scope
 // Do this as little as possible. Eventually, code becomes a collection of
 // individual modules that are require()'d by browserify
@@ -78,6 +80,8 @@ function _onEverythingLoaded () {
       break
   }
 
+  _showWelcome()
+
   _onResize()
   _resizeStreetWidth()
   _updateStreetName()
@@ -111,7 +115,7 @@ function _onEverythingLoaded () {
 
   // Track touch capability in Google Analytics
   if (system.touch === true) {
-    trackEvent('SYSTEM', 'TOUCH_CAPABLE', null, null, true)
+    trackEvent('System', TRACK_ACTION_TOUCH_CAPABLE, null, null, true)
   }
 }
 
