@@ -60,9 +60,6 @@ import { fetchAvatars, receiveAvatar } from './users/avatars'
 window._fetchAvatars = fetchAvatars
 window._receiveAvatar = receiveAvatar
 
-import { formatDate } from './util/date_format'
-window._formatDate = formatDate
-
 import { updateStreetMetadata } from './streets/metadata'
 window._updateStreetMetadata = updateStreetMetadata
 

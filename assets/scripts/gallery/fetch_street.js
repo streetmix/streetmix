@@ -1,6 +1,14 @@
+/* global street, ignoreStreetChanges, lastStreet */
+/* global API_URL, _getAuthHeader */
+/* global _unpackServerStreetData, _propagateUnits, _recalculateOccupiedWidth,
+      _createDomFromData, _createDataFromDom, _resizeStreetWidth,
+      _segmentsChanged, _trimStreetData */
+/* global CustomEvent */
 import { showBlockingShield, hideBlockingShield } from '../app/blocking_shield'
-import { galleryState, updateGallerySelection } from './view'
+import { hideError } from '../app/errors'
 import { shareMenu } from '../menus/_share'
+import { updateStreetName } from '../streets/name'
+import { galleryState, updateGallerySelection } from './view'
 
 export function fetchGalleryStreet (streetId) {
   showBlockingShield()
@@ -40,7 +48,7 @@ function receiveGalleryStreet (transmission) {
 
   ignoreStreetChanges = true
 
-  _hideError()
+  hideError()
   _unpackServerStreetData(transmission, null, null, true)
   _propagateUnits()
   _recalculateOccupiedWidth()
@@ -53,7 +61,7 @@ function receiveGalleryStreet (transmission) {
   window.dispatchEvent(new CustomEvent('stmx:receive_gallery_street'))
 
   _resizeStreetWidth()
-  _updateStreetName()
+  updateStreetName()
   _createDomFromData()
   _segmentsChanged()
   shareMenu.update()

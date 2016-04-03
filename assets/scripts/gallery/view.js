@@ -1,12 +1,23 @@
+/* global app, system, street, galleryUserId, signedIn, signInData, mode, abortEverything */
+/* global MODES, ERRORS, URL_NEW_STREET, URL_NEW_STREET_COPY_LAST, DEFAULT_NAME */
+/* global _sendDeleteStreetToServer, _sendDeleteStreetToServer, _hideControls,
+      _onWindowFocus, _updatePageUrl, _updateToLatestSchemaVersion, _getStreetUrl,
+      _updateScrollButtons */
+import { trackEvent } from '../app/event_tracking'
+import { showError } from '../app/errors'
+import { msg } from '../app/messages'
+import { formatDate } from '../util/date_format'
+import { removeElFromDOM } from '../util/dom_helpers'
 import { fetchGalleryData } from './fetch_data'
 import { fetchGalleryStreet } from './fetch_street'
 import { drawStreetThumbnail } from './thumbnail'
 import { hideStatusMessage } from '../app/status_message'
 import { StreetName } from '../streets/name_sign'
+import { fetchAvatars } from '../users/avatars'
 
 const THUMBNAIL_WIDTH = 180
 const THUMBNAIL_HEIGHT = 110
-const THUMBNAIL_MULTIPLIER = .1 * 2
+const THUMBNAIL_MULTIPLIER = 0.1 * 2
 
 export const galleryState = {
   visible: false,
@@ -18,8 +29,8 @@ export const galleryState = {
   noStreetSelected: false
 }
 
-// For later
-const galleryEl = document.getElementById('gallery')
+// Cache a reference to the gallery element
+const GALLERY_EL = document.getElementById('gallery')
 
 window.addEventListener('stmx:init', function () {
   // Populate gallery UI button URLs on init
@@ -51,7 +62,7 @@ export function showGallery (userId, instant, signInPromo) {
     if (userId) {
       document.querySelector('#gallery .avatar').setAttribute('userId', galleryUserId)
       document.querySelector('#gallery .avatar').removeAttribute('loaded')
-      _fetchAvatars()
+      fetchAvatars()
       document.querySelector('#gallery .user-id').innerHTML = galleryUserId
 
       var linkEl = document.createElement('a')
@@ -71,7 +82,7 @@ export function showGallery (userId, instant, signInPromo) {
     if (!userId) {
       document.querySelector('#gallery').classList.add('all-streets')
       document.querySelector('#gallery').classList.remove('another-user')
-    } else if (signedIn && (userId == signInData.userId)) {
+    } else if (signedIn && (userId === signInData.userId)) {
       document.querySelector('#gallery').classList.remove('another-user')
       document.querySelector('#gallery').classList.remove('all-streets')
     } else {
@@ -95,9 +106,9 @@ export function showGallery (userId, instant, signInPromo) {
     }, 0)
   }
 
-  if ((mode == MODES.USER_GALLERY) || (mode == MODES.GLOBAL_GALLERY)) {
+  if ((mode === MODES.USER_GALLERY) || (mode === MODES.GLOBAL_GALLERY)) {
     // Prevents showing old street before the proper street loads
-    _showError(ERRORS.NO_STREET, false)
+    showError(ERRORS.NO_STREET, false)
   }
 
   if (!signInPromo) {
@@ -154,10 +165,6 @@ export function receiveGalleryData (transmission) {
 
     var anchorEl = document.createElement('a')
 
-    /*if (!galleryUserId && (galleryStreet.data.undoStack.length <= 4)) {
-      anchorEl.classList.add('virgin')
-    }*/
-
     galleryStreet.creatorId =
       (galleryStreet.creator && galleryStreet.creator.id)
 
@@ -168,7 +175,7 @@ export function receiveGalleryData (transmission) {
     anchorEl.streetName = galleryStreet.name
     anchorEl.setAttribute('streetId', galleryStreet.id)
 
-    if (galleryState.streetId == galleryStreet.id) {
+    if (galleryState.streetId === galleryStreet.id) {
       anchorEl.classList.add('selected')
     }
 
@@ -186,11 +193,13 @@ export function receiveGalleryData (transmission) {
     nameEl.className = 'street-name'
     anchorEl.appendChild(nameEl)
 
+    // This adds the street name plaque to each thumbnail.
+    // the variable is assigned, but not re-used. Do not remove!
     var streetName = new StreetName(nameEl, galleryStreet.name)
 
     var dateEl = document.createElement('span')
     dateEl.classList.add('date')
-    dateEl.innerHTML = _formatDate(galleryStreet.updatedAt)
+    dateEl.innerHTML = formatDate(galleryStreet.updatedAt)
     anchorEl.appendChild(dateEl)
 
     if (!galleryUserId) {
@@ -204,7 +213,7 @@ export function receiveGalleryData (transmission) {
     }
 
     // Only show delete links if you own the street
-    if (signedIn && (galleryStreet.creatorId == signInData.userId)) {
+    if (signedIn && (galleryStreet.creatorId === signInData.userId)) {
       var removeEl = document.createElement('button')
       removeEl.classList.add('remove')
       removeEl.addEventListener('pointerdown', onDeleteGalleryStreet)
@@ -219,14 +228,14 @@ export function receiveGalleryData (transmission) {
 
   var streetCount = document.querySelectorAll('#gallery .streets li').length
 
-  if (((mode == MODES.USER_GALLERY) && streetCount) || (mode == MODES.GLOBAL_GALLERY)) {
+  if (((mode === MODES.USER_GALLERY) && streetCount) || (mode === MODES.GLOBAL_GALLERY)) {
     switchGalleryStreet(transmission.streets[0].id)
   }
 
-  var el = document.querySelector('#gallery .selected')
-  if (el) {
-    el.scrollIntoView()
-    document.querySelector('#gallery').scrollTop = 0
+  const selectedEl = GALLERY_EL.querySelector('.selected')
+  if (selectedEl) {
+    selectedEl.scrollIntoView()
+    GALLERY_EL.scrollTop = 0
   }
 
   _updateScrollButtons()
@@ -239,13 +248,13 @@ function repeatReceiveGalleryData () {
 }
 
 function updateGallerySelection () {
-  var els = document.querySelectorAll('#gallery .streets .selected')
-  for (var i = 0, el; el = els[i]; i++) {
+  const els = GALLERY_EL.querySelectorAll('.streets .selected')
+  for (let el of els) {
     el.classList.remove('selected')
   }
 
-  var el = document.querySelector('#gallery .streets [streetId="' +
-    galleryState.streetId + '"]')
+  const selector = `.streets [streetId="${galleryState.streetId}"]`
+  const el = GALLERY_EL.querySelector(selector)
   if (el) {
     el.classList.add('selected')
   }
@@ -271,35 +280,35 @@ function onGalleryStreetClick (event) {
 }
 
 function updateGalleryStreetCount () {
-  if (galleryUserId) {
-    var streetCount = document.querySelectorAll('#gallery .streets li').length
+  let text
 
+  if (galleryUserId) {
+    const streetCount = GALLERY_EL.querySelectorAll('.streets li').length
     switch (streetCount) {
       case 0:
-        var text = msg('STREET_COUNT_0')
+        text = msg('STREET_COUNT_0')
         break
       case 1:
-        var text = msg('STREET_COUNT_1')
+        text = msg('STREET_COUNT_1')
         break
       default:
-        var text = msg('STREET_COUNT_MANY', { streetCount: streetCount })
+        text = msg('STREET_COUNT_MANY', { streetCount: streetCount })
         break
     }
   } else {
-    var text = ''
+    text = ''
   }
-  document.querySelector('#gallery .street-count').innerHTML = text
+  GALLERY_EL.querySelector('.street-count').innerHTML = text
 }
 
 function loadGalleryContents () {
-  var els = document.querySelectorAll('#gallery .streets li')
-  for (var i = 0, el; el = els[i]; i++) {
+  const els = GALLERY_EL.querySelectorAll('.streets li')
+  for (let el of els) {
     removeElFromDOM(el)
   }
 
-  // document.querySelector('#gallery .streets').innerHTML = ''
-  document.querySelector('#gallery .loading').classList.add('visible')
-  document.querySelector('#gallery .error-loading').classList.remove('visible')
+  GALLERY_EL.querySelector('.loading').classList.add('visible')
+  GALLERY_EL.querySelector('.error-loading').classList.remove('visible')
 
   fetchGalleryData()
 }
@@ -323,10 +332,10 @@ function onDeleteGalleryStreet (event) {
   var name = el.streetName
 
   // TODO escape name
-  if (confirm(msg('PROMPT_DELETE_STREET', { name: name }))) {
-    if (el.getAttribute('streetId') == street.id) {
+  if (window.confirm(msg('PROMPT_DELETE_STREET', { name: name }))) {
+    if (el.getAttribute('streetId') === street.id) {
       galleryState.noStreetSelected = true
-      _showError(ERRORS.NO_STREET, false)
+      showError(ERRORS.NO_STREET, false)
     }
 
     _sendDeleteStreetToServer(el.getAttribute('streetId'))

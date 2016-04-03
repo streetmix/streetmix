@@ -1,4 +1,6 @@
-/* global MODE, _processMode */
+/* global MODES, mode, _processMode */
+/* global API_URL, _getAuthHeader */
+/* global galleryUserId */
 import { receiveGalleryData, hideGallery } from './view'
 
 export function fetchGalleryData () {
@@ -8,7 +10,7 @@ export function fetchGalleryData () {
       headers: { 'Authorization': _getAuthHeader() }
     }
 
-    window.fetch(url , options)
+    window.fetch(url, options)
       .then(function (response) {
         if (response.status < 200 || response.status >= 400) {
           throw new Error(response)
@@ -33,7 +35,7 @@ export function fetchGalleryData () {
 }
 
 function errorReceiveGalleryData (data) {
-  if ((mode == MODES.USER_GALLERY) && (data.status == 404)) {
+  if ((mode === MODES.USER_GALLERY) && (data.status === 404)) {
     mode = MODES.NOT_FOUND
     _processMode()
     hideGallery(true)
