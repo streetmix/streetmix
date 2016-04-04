@@ -1,0 +1,50 @@
+.status-message {
+  position: absolute;
+  bottom: 33px;
+  left: 20px;
+  right: 20px;
+  height: 20px;
+  padding: 0;
+  z-index: $z-07-status-message;
+  pointer-events: none;
+  user-select: none;
+
+  transition: opacity 200ms, transform 200ms;
+  transform: translateY(100px);
+
+  &.visible {
+    transform: translateY(0);
+  }
+
+  & > div {
+    position: relative;
+    display: inline-block;
+    padding: 5px 20px;
+    padding-right: 45px; // for close box
+    border-top: 3px solid darken(rgb(255, 230, 150), 20%);
+    border-bottom: 3px solid darken(rgb(255, 230, 150), 20%);
+    font-size: 13px;
+    line-height: 23px; // force height to be the same whether there is a button in the status message or not
+    background: rgb(255, 230, 150);
+    color: rgb(64, 32, 32);
+    pointer-events: auto;
+  }
+
+  button {
+    margin-left: 20px;
+    font-size: 100%;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  // Override styles for dialog box close button
+  .close {
+    height: 100%;
+  }
+}
+
+body.no-connection-message-visible #status-message {
+  bottom: 78px;
+}

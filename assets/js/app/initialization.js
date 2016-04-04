@@ -33,7 +33,8 @@ Stmx.init = function () {
     }
   }
 
-  _initGallery() // formerly _fillDom()
+  window.dispatchEvent(new CustomEvent('stmx:init'))
+
   _fillEmptySegments()
   _prepareSegmentInfo()
 

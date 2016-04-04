@@ -10,6 +10,7 @@
 import { formatDate } from '../util/date_format'
 import { prettifyWidth } from '../util/width_units'
 import { fetchAvatars } from '../users/avatars'
+import { showGallery } from '../gallery/view'
 import { msg } from '../app/messages'
 
 /**
@@ -17,10 +18,10 @@ import { msg } from '../app/messages'
  * @param {Object} street - Street information.
  */
 export function updateStreetMetadata (street) {
-  _displayStreetWidth(street.width)
-  _displayStreetWidthRemaining(street.remainingWidth)
-  _displayStreetAuthor(street.creatorId)
-  _displayLastUpdated(street.updatedAt)
+  displayStreetWidth(street.width)
+  displayStreetWidthRemaining(street.remainingWidth)
+  displayStreetAuthor(street.creatorId)
+  displayLastUpdated(street.updatedAt)
 }
 
 /**
@@ -28,7 +29,7 @@ export function updateStreetMetadata (street) {
  * @param {number} width - Width of the current street.
  * @todo [i18n] text display
  */
-function _displayStreetWidth (width) {
+function displayStreetWidth (width) {
   var el = document.getElementById('street-width-read-width')
   var contents = prettifyWidth(width, { markup: true }) + ' width'
 
@@ -41,7 +42,7 @@ function _displayStreetWidth (width) {
  * @param {number} remaingWidth - Width difference from actual street width.
  * @todo [i18n] text display
  */
-function _displayStreetWidthRemaining (remainingWidth) {
+function displayStreetWidthRemaining (remainingWidth) {
   var el = document.getElementById('street-width-read-difference')
   var width = prettifyWidth(Math.abs(remainingWidth), { markup: true })
 
@@ -64,7 +65,7 @@ function _displayStreetWidthRemaining (remainingWidth) {
  * @param {?} creatorId
  * @todo [refactor]
  */
-function _displayStreetAuthor (creatorId) {
+function displayStreetAuthor (creatorId) {
   /* global signedIn, signInData, app, remixOnFirstEdit */
   var el = document.querySelector('#street-metadata-author')
 
@@ -79,7 +80,7 @@ function _displayStreetAuthor (creatorId) {
     fetchAvatars()
 
     if (!app.readOnly) {
-      el.querySelector('.user-gallery').addEventListener('pointerdown', _onAnotherUserIdClick)
+      el.querySelector('.user-gallery').addEventListener('pointerdown', onAnotherUserIdClick)
     }
   } else if (!creatorId && (signedIn || remixOnFirstEdit)) {
     el.innerHTML = 'by ' + msg('USER_ANONYMOUS')
@@ -92,7 +93,7 @@ function _displayStreetAuthor (creatorId) {
  * Displays the street's last updated date
  * @param {string} updatedAt
  */
-function _displayLastUpdated (updatedAt) {
+function displayLastUpdated (updatedAt) {
   var el = document.querySelector('#street-metadata-date')
   var date = formatDate(updatedAt)
 
@@ -102,8 +103,7 @@ function _displayLastUpdated (updatedAt) {
 /**
  * @todo [jsdoc]
  */
-function _onAnotherUserIdClick (event) {
-  /* global _showGallery */
+function onAnotherUserIdClick (event) {
   if (event.shiftKey || event.ctrlKey || event.metaKey) {
     return
   }
@@ -111,7 +111,7 @@ function _onAnotherUserIdClick (event) {
   var el = event.target
   var userId = el.innerHTML
 
-  _showGallery(userId, false)
+  showGallery(userId, false)
 
   event.preventDefault()
 }

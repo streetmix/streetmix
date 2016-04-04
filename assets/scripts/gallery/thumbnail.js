@@ -1,22 +1,25 @@
 /* global system, images */
-/* global TILE_SIZE, BACKGROUND_DIRT_COLOUR,
-          BUILDING_DESTINATION_THUMBNAIL, SEGMENT_INFO */
-
+/* global TILE_SIZE, BUILDING_DESTINATION_THUMBNAIL, SEGMENT_INFO */
+/* global _drawBuilding, _getVariantInfoDimensions, _drawSegmentContents */
 import { drawLine } from '../util/canvas_drawing'
+import { prettifyWidth } from '../util/width_units'
 import { SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING } from '../streets/image'
+import { StreetName } from '../streets/name_sign'
 
 const SKY_COLOUR = 'rgb(169, 204, 219)'
 const SKY_WIDTH = 250
 const BOTTOM_BACKGROUND = 'rgb(216, 211, 203)'
+const BACKGROUND_DIRT_COLOUR = 'rgb(53, 45, 39)'
 
 export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeight,
   multiplier, silhouette, bottomAligned,
   transparentSky, segmentNamesAndWidths, streetName) {
   // Calculations
 
-  var occupiedWidth = 0
-  for (var i in street.segments) {
-    occupiedWidth += street.segments[i].width
+  // Determine how wide the street is
+  let occupiedWidth = 0
+  for (let segment of street.segments) {
+    occupiedWidth += segment.width
   }
 
   var offsetTop
@@ -40,20 +43,22 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
     ctx.fillStyle = SKY_COLOUR
     ctx.fillRect(0, 0, thumbnailWidth * system.hiDpi, (groundLevel + 20 * multiplier) * system.hiDpi)
 
-    var y = groundLevel - 280
+    // TODO document magic numbers
+    const y1 = groundLevel - 280
 
-    for (var i = 0; i < Math.floor(thumbnailWidth / SKY_WIDTH) + 1; i++) {
+    for (let i = 0; i < Math.floor(thumbnailWidth / SKY_WIDTH) + 1; i++) {
       ctx.drawImage(images['/images/sky-front.png'],
         0, 0, SKY_WIDTH * 2, 280 * 2,
-        i * SKY_WIDTH * system.hiDpi, y * system.hiDpi, SKY_WIDTH * system.hiDpi, 280 * system.hiDpi)
+        i * SKY_WIDTH * system.hiDpi, y1 * system.hiDpi, SKY_WIDTH * system.hiDpi, 280 * system.hiDpi)
     }
 
-    var y = groundLevel - 280 - 120
+    // TODO document magic numbers
+    const y2 = groundLevel - 280 - 120
 
-    for (var i = 0; i < Math.floor(thumbnailWidth / SKY_WIDTH) + 1; i++) {
+    for (let i = 0; i < Math.floor(thumbnailWidth / SKY_WIDTH) + 1; i++) {
       ctx.drawImage(images['/images/sky-rear.png'],
         0, 0, SKY_WIDTH * 2, 120 * 2,
-        i * SKY_WIDTH * system.hiDpi, y * system.hiDpi, SKY_WIDTH * system.hiDpi, 120 * system.hiDpi)
+        i * SKY_WIDTH * system.hiDpi, y2 * system.hiDpi, SKY_WIDTH * system.hiDpi, 120 * system.hiDpi)
     }
   }
 
@@ -80,13 +85,13 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
   // Buildings
 
-  var buildingWidth = buildingOffsetLeft / multiplier
+  const buildingWidth = buildingOffsetLeft / multiplier
 
-  var x = thumbnailWidth / 2 - street.width * TILE_SIZE * multiplier / 2
-  _drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street, true, buildingWidth, groundLevel + 45, true, x - (buildingWidth - 25) * multiplier, 0, multiplier)
+  const x1 = thumbnailWidth / 2 - street.width * TILE_SIZE * multiplier / 2
+  _drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street, true, buildingWidth, groundLevel + 45, true, x1 - (buildingWidth - 25) * multiplier, 0, multiplier)
 
-  var x = thumbnailWidth / 2 + street.width * TILE_SIZE * multiplier / 2
-  _drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street, false, buildingWidth, groundLevel + 45, true, x - 25 * multiplier, 0, multiplier)
+  const x2 = thumbnailWidth / 2 + street.width * TILE_SIZE * multiplier / 2
+  _drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street, false, buildingWidth, groundLevel + 45, true, x2 - 25 * multiplier, 0, multiplier)
 
   // Segments
 
@@ -94,27 +99,23 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
   // Collect z-indexes
   var zIndexes = []
-  for (var i in street.segments) {
-    var segment = street.segments[i]
-    var segmentInfo = SEGMENT_INFO[segment.type]
+  for (let segment of street.segments) {
+    const segmentInfo = SEGMENT_INFO[segment.type]
 
     if (zIndexes.indexOf(segmentInfo.zIndex) === -1) {
       zIndexes.push(segmentInfo.zIndex)
     }
   }
 
-  for (var j in zIndexes) {
-    var zIndex = zIndexes[j]
+  for (let zIndex of zIndexes) {
+    let offsetLeft = originalOffsetLeft
 
-    offsetLeft = originalOffsetLeft
-
-    for (var i in street.segments) {
-      var segment = street.segments[i]
-      var segmentInfo = SEGMENT_INFO[segment.type]
+    for (let segment of street.segments) {
+      const segmentInfo = SEGMENT_INFO[segment.type]
 
       if (segmentInfo.zIndex === zIndex) {
-        var variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString]
-        var dimensions = _getVariantInfoDimensions(variantInfo, segment.width * TILE_SIZE, 1)
+        const variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString]
+        const dimensions = _getVariantInfoDimensions(variantInfo, segment.width * TILE_SIZE, 1)
 
         _drawSegmentContents(ctx, segment.type, segment.variantString,
           segment.width * TILE_SIZE * multiplier,
@@ -126,29 +127,25 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
   }
 
   // Segment names
-
-  var offsetLeft = originalOffsetLeft
-
   if (segmentNamesAndWidths) {
+    let offsetLeft = originalOffsetLeft
     ctx.save()
 
     // TODO const
     ctx.strokeStyle = 'black'
-    ctx.lineWidth = .5
+    ctx.lineWidth = 0.5
     ctx.font = 'normal 300 26px Lato'
     ctx.fillStyle = 'black'
     ctx.textAlign = 'center'
     ctx.textBaseline = 'top'
 
-    for (var i = 0; i < street.segments.length; i++) {
-      var segment = street.segments[i]
+    for (let i in street.segments) {
+      const segment = street.segments[i]
+      const segmentInfo = SEGMENT_INFO[segment.type]
+      const variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString]
+      const availableWidth = segment.width * TILE_SIZE * multiplier
 
-      var segmentInfo = SEGMENT_INFO[segment.type]
-      var variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString]
-      var name = variantInfo.name || segmentInfo.name
-
-      var left = offsetLeft
-      var availableWidth = segment.width * TILE_SIZE * multiplier
+      let left = offsetLeft
 
       if (i === 0) {
         left--
@@ -158,19 +155,20 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
         left, (groundLevel + 45 * multiplier),
         left, (groundLevel + 125 * multiplier))
 
-      var x = (offsetLeft + availableWidth / 2) * system.hiDpi
+      const x = (offsetLeft + availableWidth / 2) * system.hiDpi
 
-      var text = _prettifyWidth(segment.width)
-      var width = ctx.measureText(text).width / 2
-      while ((width > availableWidth - 10 * multiplier) && (text.indexOf(' ') !== -1)) {
+      let text = prettifyWidth(segment.width)
+      let textWidth = ctx.measureText(text).width / 2
+      while ((textWidth > availableWidth - 10 * multiplier) && (text.indexOf(' ') !== -1)) {
         text = text.substr(0, text.lastIndexOf(' '))
-        width = ctx.measureText(text).width / 2
+        textWidth = ctx.measureText(text).width / 2
       }
       ctx.fillText(text, x,
         (groundLevel + 60 * multiplier) * system.hiDpi)
 
-      var width = ctx.measureText(name).width / 2
-      if (width <= availableWidth - 10 * multiplier) {
+      const name = variantInfo.name || segmentInfo.name
+      const nameWidth = ctx.measureText(name).width / 2
+      if (nameWidth <= availableWidth - 10 * multiplier) {
         ctx.fillText(name, x,
           (groundLevel + 83 * multiplier) * system.hiDpi)
       }
@@ -198,16 +196,18 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
   // Street name
 
   if (streetName) {
-    var text = street.name
+    let text = street.name
 
     ctx.textAlign = 'center'
     ctx.textBaseline = 'center'
 
+    let fallbackUnicodeFont
+
     if (StreetName.prototype.needsUnicodeFont(text)) {
-      var fallbackUnicodeFont = true
+      fallbackUnicodeFont = true
       ctx.font = 'normal 400 140px sans-serif'
     } else {
-      var fallbackUnicodeFont = false
+      fallbackUnicodeFont = false
       ctx.font = 'normal 400 160px Roadgeek'
     }
 
@@ -224,25 +224,27 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
     }
 
     ctx.fillStyle = 'white'
-    var x1 = thumbnailWidth * system.hiDpi / 2 - (measurement.width / 2 + 75 * system.hiDpi)
-    var x2 = thumbnailWidth * system.hiDpi / 2 + (measurement.width / 2 + 75 * system.hiDpi)
-    var y1 = (75 - 60) * system.hiDpi
-    var y2 = (75 + 60) * system.hiDpi
+    const x1 = thumbnailWidth * system.hiDpi / 2 - (measurement.width / 2 + 75 * system.hiDpi)
+    const x2 = thumbnailWidth * system.hiDpi / 2 + (measurement.width / 2 + 75 * system.hiDpi)
+    const y1 = (75 - 60) * system.hiDpi
+    const y2 = (75 + 60) * system.hiDpi
     ctx.fillRect(x1, y1, x2 - x1, y2 - y1)
 
     ctx.strokeStyle = 'black'
     ctx.lineWidth = 10
     ctx.strokeRect(x1 + 10 * 2, y1 + 10 * 2, x2 - x1 - 10 * 4, y2 - y1 - 10 * 4)
 
-    var x = thumbnailWidth * system.hiDpi / 2
+    const x = thumbnailWidth * system.hiDpi / 2
+
+    let baselineCorrection
 
     if (fallbackUnicodeFont) {
-      var baselineCorrection = 24
+      baselineCorrection = 24
     } else {
-      var baselineCorrection = 27
+      baselineCorrection = 27
     }
 
-    var y = (75 + baselineCorrection) * system.hiDpi
+    const y = (75 + baselineCorrection) * system.hiDpi
 
     ctx.strokeStyle = 'transparent'
     ctx.fillStyle = 'black'

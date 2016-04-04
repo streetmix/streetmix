@@ -3,7 +3,7 @@ import { registerKeypress, deregisterKeypress } from './keypress'
 const STATUS_MESSAGE_HIDE_DELAY = 15000
 
 const el = document.querySelector('#status-message')
-const msgEl = document.querySelector('#status-message > div')
+const msgEl = el.querySelector('.status-message-content')
 
 let timerId = -1
 let isVisible = false

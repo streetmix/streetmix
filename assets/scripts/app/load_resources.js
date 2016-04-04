@@ -48,7 +48,6 @@ Promise.all(loading)
     _checkIfEverythingIsLoaded()
   })
 
-
 function loadImages () {
   loadingEl.max += IMAGES_TO_BE_LOADED.length
 
@@ -96,10 +95,10 @@ function getImage (url) {
   return new Promise(function (resolve, reject) {
     var img = new Image()
     img.onload = function () {
-        resolve(img)
+      resolve(img)
     }
     img.onerror = function () {
-        reject('unable to load image ' + url)
+      reject('unable to load image ' + url)
     }
     img.src = url
   })

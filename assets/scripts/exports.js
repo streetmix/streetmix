@@ -36,8 +36,9 @@ window._getElAbsolutePos = getElAbsolutePos
 window.normalizeSlug = normalizeSlug
 
 // Gallery
-import { drawStreetThumbnail } from './gallery/thumbnail'
-window.drawStreetThumbnail = drawStreetThumbnail
+import { galleryState, showGallery } from './gallery/view'
+window.galleryState = galleryState
+window._showGallery = showGallery
 
 // Menus
 import { isAnyMenuVisible, hideAllMenus } from './menus/menu'
@@ -58,9 +59,6 @@ window.aboutDialog = aboutDialog
 import { fetchAvatars, receiveAvatar } from './users/avatars'
 window._fetchAvatars = fetchAvatars
 window._receiveAvatar = receiveAvatar
-
-import { formatDate } from './util/date_format'
-window._formatDate = formatDate
 
 import { updateStreetMetadata } from './streets/metadata'
 window._updateStreetMetadata = updateStreetMetadata
@@ -84,6 +82,10 @@ window.INFO_BUBBLE_TYPE_RIGHT_BUILDING = INFO_BUBBLE_TYPE_RIGHT_BUILDING
 
 import { drawProgrammaticPeople } from './segments/people'
 window.drawProgrammaticPeople = drawProgrammaticPeople
+
+import { getVariantString, getVariantArray } from './segments/variant_utils'
+window._getVariantString = getVariantString
+window._getVariantArray = getVariantArray
 
 import { processWidthInput, prettifyWidth, undecorateWidth } from './util/width_units'
 window._processWidthInput = processWidthInput
