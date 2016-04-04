@@ -7,6 +7,7 @@
  * The images that are referred to here have been deleted
  * and the DOM / styles for this feature have also been removed.
  */
+/* eslint-disable */
 var WIDTH_CHART_WIDTH = 500
 var WIDTH_CHART_EMPTY_OWNER_WIDTH = 40
 var WIDTH_CHART_MARGIN = 20
@@ -213,3 +214,4 @@ function _hideWidthChart () {
   // TODO const
   widthChartHideTimerId = window.setTimeout(_hideWidthChartImmediately, 2000)
 }
+/* eslint-enable */

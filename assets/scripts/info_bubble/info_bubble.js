@@ -709,7 +709,7 @@ export const infoBubble = {
         let first = true
 
         // Each segment has some allowed variant types (e.g. "direction")
-        for (let variant in segmentInfo.variants ) {
+        for (let variant in segmentInfo.variants) {
           const variantType = segmentInfo.variants[variant]
 
           // New row for each variant type
@@ -1125,7 +1125,7 @@ function _prettifyHeight (height) {
 // description is NOT visible. (If the description
 // is visible, the escape key should hide that first.)
 registerKeypress('esc', {
-  condition: function () { return infoBubble.visible && !infoBubble.descriptionVisible}
+  condition: function () { return infoBubble.visible && !infoBubble.descriptionVisible }
 }, function () {
   infoBubble.hide()
   infoBubble.hideSegment(false)

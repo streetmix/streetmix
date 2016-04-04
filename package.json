@@ -92,7 +92,6 @@
     "ignore": [
       "assets/js/vendor/",
       "assets/scripts/vendor/",
-      "assets/scripts/streets/width_chart.js",
       "test/integration/smoke.spec.js"
     ]
   },

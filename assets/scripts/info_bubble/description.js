@@ -3,7 +3,7 @@
  *
  * Additional descriptive text about segments.
  */
-/* global street, streetSectionTop */
+/* global streetSectionTop */
 /* global SEGMENT_INFO */
 import { infoBubble } from './info_bubble'
 import { removeElFromDOM } from '../util/dom_helpers'
@@ -71,8 +71,7 @@ export function hideDescription () {
 function buildDescriptionDOM (description) {
   const promptEl = document.createElement('div')
   promptEl.classList.add('description-prompt')
-  promptEl.innerHTML = (description.prompt) ?
-    description.prompt : DESCRIPTION_PROMPT_LABEL
+  promptEl.innerHTML = (description.prompt) ? description.prompt : DESCRIPTION_PROMPT_LABEL
 
   promptEl.addEventListener('pointerdown', showDescription)
   promptEl.addEventListener('pointerenter', highlightTriangle)

@@ -59,12 +59,12 @@ export function trackEvent (category, action, label, value, onlyFirstTime) {
   }
 
   const trackCategory = TRACK_CATEGORY[category] || category
-  const trackAction = TRACK_CATEGORY[action] || action
-  const trackLabel = TRACK_CATEGORY[label] || label
+  const trackAction = TRACK_ACTION[action] || action
+  const trackLabel = TRACK_LABEL[label] || label
 
   // If this should only be tracked once, do this
   if (onlyFirstTime) {
-    const id = category + '|' + action + '|' + label
+    const id = trackCategory + '|' + trackAction + '|' + trackLabel
 
     // If it has already tracked, exit this function
     if (alreadyTracked[id]) {
@@ -76,5 +76,5 @@ export function trackEvent (category, action, label, value, onlyFirstTime) {
   }
 
   // Send the event to Google Analytics
-  ga && ga('send', 'event', category, action, label, value)
+  ga && ga('send', 'event', trackCategory, trackAction, trackLabel, value)
 }

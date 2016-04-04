@@ -1,3 +1,4 @@
+/* global SEGMENT_INFO */
 const VARIANT_SEPARATOR = '|'
 
 /**

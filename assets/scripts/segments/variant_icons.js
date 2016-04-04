@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 // TODO This may be better if merged directly with segments,
 // but different segments may refer to the same variants (e.g. orientation)
 // Also this includes building variants, which are its own types of things
@@ -311,3 +312,4 @@ export const VARIANT_ICONS = {
     }
   }
 }
+/* eslint-enable */
