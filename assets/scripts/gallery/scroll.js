@@ -2,7 +2,7 @@
  * Adds scroll buttons to gallery and palette.
  *
  */
-/* global $ */
+import $ from 'jquery'
 import { getElAbsolutePos } from '../util/helpers'
 import { animateScrollLeft } from '../util/dom_helpers'
 

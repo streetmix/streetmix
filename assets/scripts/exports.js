@@ -6,6 +6,8 @@
  * Only keep imports that are needed and please remove them at earliest
  * convenience
  */
+import $ from 'jquery'
+window.$ = $
 
 import _ from 'lodash'
 window._ = _
