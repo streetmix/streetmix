@@ -69,6 +69,9 @@ window.StreetName = StreetName
 import { updateStreetName } from './streets/name'
 window._updateStreetName = updateStreetName
 
+import { onStreetSectionScroll } from './streets/scroll'
+window._onStreetSectionScroll = onStreetSectionScroll
+
 import {
   infoBubble,
   INFO_BUBBLE_TYPE_SEGMENT,

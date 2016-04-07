@@ -1,9 +1,4 @@
 function _addEventListeners () {
-  document.querySelector('#street-scroll-indicator-left').addEventListener('pointerdown', _onStreetLeftScrollClick)
-  document.querySelector('#street-scroll-indicator-right').addEventListener('pointerdown', _onStreetRightScrollClick)
-
-  document.querySelector('#street-section-outer').addEventListener('scroll', _onStreetSectionScroll)
-
   document.querySelector('#street-section-left-building').addEventListener('pointerenter', _onBuildingMouseEnter)
   document.querySelector('#street-section-left-building').addEventListener('pointerleave', _onBuildingMouseLeave)
   document.querySelector('#street-section-right-building').addEventListener('pointerenter', _onBuildingMouseEnter)

@@ -91,8 +91,6 @@ function _onEverythingLoaded () {
 
   _updatePageUrl()
   _buildStreetWidthMenu()
-  _addScrollButtons(document.querySelector('#palette'))
-  _addScrollButtons(document.querySelector('#gallery .streets'))
   _addEventListeners()
 
   var event = new CustomEvent('stmx:everything_loaded')
