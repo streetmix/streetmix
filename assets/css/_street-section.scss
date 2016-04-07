@@ -84,54 +84,6 @@
   height: $canvas-height + 40;
 }
 
-.rear-clouds,
-.front-clouds {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  background-repeat: repeat-x;
-  background-position: 0 0;
-  z-index: -1;
-
-  &.rear-clouds {
-    height: 120px;
-    bottom: 330px;
-    background-image: url('/images/sky-rear.png');
-    background-size: 250px 120px;
-  }
-
-  &.front-clouds {
-    height: 280px;
-    bottom: 330px - 330px;
-    border-bottom: 50px solid rgb(165, 196, 209);
-    background-image: url('/images/sky-front.png');
-    background-size: 250px 280px;
-    opacity: 0.5;
-  }
-}
-
-#street-section-sky {
-  position: absolute;
-  left: 0;
-  right: -2000px; // TODO hack
-  height: $canvas-baseline + 150px;
-  background-size: 100% 350px;
-  background-repeat: no-repeat;
-  background-position: 0 0;
-  background-color: $sky-colour;
-  pointer-events: none;
-
-  .rear-clouds {
-    bottom: 735px;
-    z-index: auto;
-  }
-
-  .front-clouds {
-    bottom: 735px - 330px;
-    z-index: auto;
-  }
-}
-
 #street-section-dirt {
   position: absolute;
   left: 0;
