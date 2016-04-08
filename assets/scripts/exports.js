@@ -15,6 +15,10 @@ window._ = _
 import { trackEvent } from './app/event_tracking'
 window.trackEvent = trackEvent
 
+import { loseAnyFocus, isFocusOnBody } from './app/focus'
+window._loseAnyFocus = loseAnyFocus
+window._isFocusOnBody = isFocusOnBody
+
 import { goNewStreet } from './app/routing'
 window.goNewStreet = goNewStreet
 
@@ -38,8 +42,7 @@ window._getElAbsolutePos = getElAbsolutePos
 window.normalizeSlug = normalizeSlug
 
 // Gallery
-import { galleryState, showGallery } from './gallery/view'
-window.galleryState = galleryState
+import { showGallery } from './gallery/view'
 window._showGallery = showGallery
 
 // Menus

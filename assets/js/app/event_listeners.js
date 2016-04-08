@@ -20,13 +20,6 @@ function _addEventListeners () {
 
   document.querySelector('#sign-out-link').addEventListener('pointerdown', _onSignOutClick)
 
-  if (system.pageVisibility) {
-    document.addEventListener(system.visibilityChange, _onVisibilityChange, false)
-  } else {
-    window.addEventListener('focus', _onWindowFocus)
-    window.addEventListener('blur', _onWindowBlur)
-  }
-
   window.addEventListener('beforeunload', _onWindowBeforeUnload)
 
   document.querySelector('#undo').addEventListener('pointerdown', _undo)

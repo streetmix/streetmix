@@ -6,9 +6,9 @@
  * @module debug_info
  * @requires keypress
  */
-/* global _loseAnyFocus */
 import _ from 'lodash'
 import { registerKeypress, deregisterKeypress } from './keypress'
+import { loseAnyFocus } from './focus'
 
 // Register keyboard input for show (shift-D)
 registerKeypress('shift d', showDebugInfo)
@@ -56,7 +56,7 @@ export function showDebugInfo () {
 
 export function hideDebugInfo () {
   document.querySelector('#debug').classList.remove('visible')
-  _loseAnyFocus()
+  loseAnyFocus()
 
   // Remove keypress listener
   deregisterKeypress('esc', hideDebugInfo)

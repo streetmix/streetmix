@@ -1,5 +1,7 @@
-/* global _undo, _loseAnyFocus */
+/* global _undo */
 import { registerKeypress, deregisterKeypress } from './keypress'
+import { loseAnyFocus } from './focus'
+
 const STATUS_MESSAGE_HIDE_DELAY = 15000
 
 const el = document.querySelector('#status-message')
@@ -51,7 +53,7 @@ function _onClickTheX () {
   // Force window to refocus on document.body after status-message is closed by X button
   // Required on Chrome
   window.setTimeout(function () {
-    _loseAnyFocus()
+    loseAnyFocus()
   }, 0)
 }
 
