@@ -12,7 +12,7 @@ import { fetchGalleryStreet } from './fetch_street'
 import { drawStreetThumbnail } from './thumbnail'
 import { hideStatusMessage } from '../app/status_message'
 import { StreetName } from '../streets/name_sign'
-import { updateScrollButtons } from '../streets/scroll'
+import { updateScrollButtons } from '../gallery/scroll'
 import { fetchAvatars } from '../users/avatars'
 
 const THUMBNAIL_WIDTH = 180
@@ -139,7 +139,7 @@ export function hideGallery (instant) {
       }, 0)
     }
 
-    _onWindowFocus()
+    onWindowFocus()
 
     if (!abortEverything) {
       _updatePageUrl()
