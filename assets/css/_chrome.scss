@@ -9,18 +9,35 @@ body.phone #loading {
 
 #error,
 #loading {
-  @include blocking-shield;
-
   background: $sky-colour;
   color: black;
 
-  & > div {
-    text-align: center;
-    line-height: 1.6;
-  }
-
   h1 {
     @include large-message-text;
+  }
+}
+
+#error {
+  z-index: $z-09-error;
+  @include blocking-shield;
+
+  // Errors may be displayed on old browsers without flexbox.
+  // This forces vertical centering
+  display: table;
+
+
+  &:not(.visible) {
+    display: none;
+  }
+
+  .error-content {
+    text-align: center;
+    line-height: 1.6;
+
+    // Errors may be displayed on old browsers without flexbox.
+    // This forces vertical centering
+    display: table-cell;
+    vertical-align: middle;
   }
 
   a {
@@ -35,20 +52,13 @@ body.phone #loading {
   }
 }
 
-#error {
-  z-index: $z-09-error;
-}
-
 #loading {
   z-index: $z-09-loading;
-}
+  @include blocking-shield;
 
-#error:not(.visible) {
-  display: none;
-}
-
-#loading.hidden {
-  display: none;
+  &.hidden {
+    display: none;
+  }
 }
 
 #loading-progress {

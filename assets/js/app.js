@@ -1,5 +1,4 @@
 // = require_self
-// = require_tree util
 // = require_tree app
 
 // = require_tree segments

@@ -4,7 +4,7 @@
  * Only one of these should be active at any time and
  * no other fetch / xhr / ajax should exist when they do.
  */
-/* global $ */
+import $ from 'jquery'
 import { showBlockingShield, hideBlockingShield, darkenBlockingShield } from '../app/blocking_shield'
 
 let blockingAjaxRequest
@@ -59,8 +59,8 @@ export function newBlockingAjaxRequest (message, request, doneFunc, cancelFunc) 
   blockingAjaxRequestDoneFunc = doneFunc
   blockingAjaxRequestCancelFunc = cancelFunc
 
-  $.ajax(blockingAjaxRequest).
-    done(successBlockingAjaxRequest).fail(errorBlockingAjaxRequest)
+  $.ajax(blockingAjaxRequest)
+    .done(successBlockingAjaxRequest).fail(errorBlockingAjaxRequest)
 }
 
 function successBlockingAjaxRequest (data) {
@@ -85,8 +85,8 @@ export function blockingTryAgain () {
   document.querySelector('#blocking-shield').classList.remove('show-try-again')
   document.querySelector('#blocking-shield').classList.remove('show-cancel')
 
-  $.ajax(blockingAjaxRequest).
-    done(successBlockingAjaxRequest).fail(errorBlockingAjaxRequest)
+  $.ajax(blockingAjaxRequest)
+    .done(successBlockingAjaxRequest).fail(errorBlockingAjaxRequest)
 }
 
 export function blockingCancel () {

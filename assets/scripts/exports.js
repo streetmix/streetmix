@@ -16,6 +16,11 @@ import { blockingAjaxRequestInProgress, newBlockingAjaxRequest } from './util/fe
 window.blockingAjaxRequestInProgress = blockingAjaxRequestInProgress
 window._newBlockingAjaxRequest = newBlockingAjaxRequest
 
+import { serverContacted, newNonblockingAjaxRequest, getNonblockingAjaxRequestCount } from './util/fetch_nonblocking'
+window.serverContacted = serverContacted
+window._newNonblockingAjaxRequest = newNonblockingAjaxRequest
+window._getNonblockingAjaxRequestCount = getNonblockingAjaxRequestCount
+
 import { trackEvent } from './app/event_tracking'
 window.trackEvent = trackEvent
 

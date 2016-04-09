@@ -72,6 +72,17 @@ Stmx.init = function () {
 // but we give up on country info if it’s more than 1000ms.
 }
 
+function _checkIfEverythingIsLoaded () {
+  if (abortEverything) {
+    return
+  }
+
+  if ((imagesToBeLoaded == 0) && signInLoaded && bodyLoaded &&
+    readyStateCompleteLoaded && geolocationLoaded && serverContacted) {
+    _onEverythingLoaded()
+  }
+}
+
 function _onEverythingLoaded () {
   switch (mode) {
     case MODES.NEW_STREET_COPY_LAST:

@@ -8,8 +8,6 @@ function _addEventListeners () {
   document.querySelector('.info-bubble').addEventListener('pointerleave', _infoBubble.onMouseLeave)
   document.querySelector('.info-bubble').addEventListener('pointerdown', _infoBubble.onTouchStart)
 
-  document.querySelector('#no-connection-try-again').addEventListener('pointerdown', _nonblockingAjaxTryAgain)
-
   // The following do not seem to work on pointerdown
   // click should also be fired by other input methods
   document.querySelector('#new-street-default').addEventListener('click', _onNewStreetDefaultClick)
@@ -19,8 +17,6 @@ function _addEventListeners () {
   window.addEventListener('storage', _onStorageChange)
 
   document.querySelector('#sign-out-link').addEventListener('pointerdown', _onSignOutClick)
-
-  window.addEventListener('beforeunload', _onWindowBeforeUnload)
 
   document.querySelector('#undo').addEventListener('pointerdown', _undo)
   document.querySelector('#redo').addEventListener('pointerdown', _redo)
