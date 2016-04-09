@@ -3,6 +3,16 @@ var SAVE_STREET_DELAY = 500
 var saveStreetTimerId = -1
 var saveStreetIncomplete = false
 
+var uniqueRequestId = 0
+
+var latestRequestId
+var latestVerificationStreet
+
+function _getUniqueRequestHeader () {
+  uniqueRequestId++
+  return uniqueRequestId
+}
+
 function _createNewStreetOnServer () {
   if (settings.newStreetPreference == NEW_STREET_EMPTY) {
     _prepareEmptyStreet()

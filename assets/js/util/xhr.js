@@ -1,8 +1,5 @@
 var serverContacted
 
-var latestRequestId
-var latestVerificationStreet
-
 var nonblockingAjaxRequests = []
 
 var nonblockingAjaxRequestTimer = 0
@@ -10,21 +7,12 @@ var nonblockingAjaxRequestTimer = 0
 var NON_BLOCKING_AJAX_REQUEST_TIME = [10, 500, 1000, 5000, 10000]
 var NON_BLOCKING_AJAX_REQUEST_BACKOFF_RANGE = 60000
 
-var NON_BLOCKING_NO_CONNECTION_MESSAGE_TIMER_COUNT = 4
-
 var NO_CONNECTION_MESSAGE_TIMEOUT = 10000
 
 var blockingAjaxRequest
 var blockingAjaxRequestDoneFunc
 var blockingAjaxRequestCancelFunc
 var blockingAjaxRequestInProgress = false
-
-var uniqueRequestId = 0
-
-function _getUniqueRequestHeader () {
-  uniqueRequestId++
-  return uniqueRequestId
-}
 
 var _noConnectionMessage = {
   visible: false,

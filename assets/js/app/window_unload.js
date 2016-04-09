@@ -1,3 +1,5 @@
+// TODO: Combine with related stuff in utils/xhr.js
+
 function _checkIfChangesSaved () {
   // don’t do for settings deliberately
 
