@@ -1,0 +1,65 @@
+
+#blocking-shield {
+  @include blocking-shield;
+  z-index: $z-09-blocking-shield;
+
+  background: transparent;
+  color: transparent;
+
+  &.darken,
+  &.darken-immediately {
+    background: fade-out($sky-colour, 0.15);
+    color: black;
+  }
+
+  &.darken {
+    transition: background 1500ms, color 1500ms;
+  }
+
+  &.darken-immediately {
+    transition: none;
+  }
+
+  .message {
+    @include large-message-text;
+  }
+
+  .try-again,
+  .too-slow {
+    margin-top: 20px;
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+
+    display: none;
+  }
+
+  &.show-try-again .try-again,
+  &.show-too-slow .too-slow {
+    display: block;
+  }
+
+  #blocking-shield-cancel {
+    display: none;
+  }
+
+  &.show-cancel #blocking-shield-cancel {
+    display: inline-block;
+  }
+
+  cursor: wait;
+
+  & * {
+    cursor: wait;
+  }
+
+  & button {
+    cursor: auto;
+  }
+
+  &:not(.visible) {
+    display: none;
+  }
+}

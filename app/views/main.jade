@@ -6,11 +6,7 @@ block main
   #debug
     textarea(readonly)
 
-  #loading
-    div
-      span(data-i18n='msg.loading') Loading…
-      progress(id='loading-progress', value=0, max=1)
-
+  include ./ui/blocking
   include ./ui/gallery
 
   #main-screen
@@ -19,34 +15,6 @@ block main
     include ./ui/menus
 
     .info-bubble
-
-    #error
-      div
-        h1#error-title
-        div#error-description.error-description
-      .rear-clouds
-      .front-clouds
-
-    #blocking-shield
-      div
-        .message
-        .try-again
-          | Streetmix is having trouble connecting to the Internet.
-          | <br>
-          button#blocking-shield-try-again.
-            Try again
-          button#blocking-shield-cancel.
-            Cancel
-        .too-slow
-          | Streetmix wasn’t able to connect to the Internet in awhile now.
-          | <br>
-          | <br>
-          | You might want to reload the page and try again. Please note you
-          | might lose the latest change to the street. Sorry!
-          | <br>
-          | <br>
-          button#blocking-shield-reload.
-            Reload
 
     #status-message.status-message
       .status-message-content
