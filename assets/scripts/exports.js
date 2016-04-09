@@ -12,6 +12,10 @@ window.$ = $
 import _ from 'lodash'
 window._ = _
 
+import { blockingAjaxRequestInProgress, newBlockingAjaxRequest } from './util/fetch_blocking'
+window.blockingAjaxRequestInProgress = blockingAjaxRequestInProgress
+window._newBlockingAjaxRequest = newBlockingAjaxRequest
+
 import { trackEvent } from './app/event_tracking'
 window.trackEvent = trackEvent
 
@@ -21,11 +25,6 @@ window._isFocusOnBody = isFocusOnBody
 
 import { goNewStreet } from './app/routing'
 window.goNewStreet = goNewStreet
-
-import { showBlockingShield, hideBlockingShield, darkenBlockingShield } from './app/blocking_shield'
-window.showBlockingShield = showBlockingShield
-window.hideBlockingShield = hideBlockingShield
-window.darkenBlockingShield = darkenBlockingShield
 
 import { showStatusMessage, hideStatusMessage } from './app/status_message'
 window.showStatusMessage = showStatusMessage

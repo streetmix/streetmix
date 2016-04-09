@@ -1,18 +1,12 @@
 var serverContacted
 
 var nonblockingAjaxRequests = []
-
 var nonblockingAjaxRequestTimer = 0
 
 var NON_BLOCKING_AJAX_REQUEST_TIME = [10, 500, 1000, 5000, 10000]
 var NON_BLOCKING_AJAX_REQUEST_BACKOFF_RANGE = 60000
 
 var NO_CONNECTION_MESSAGE_TIMEOUT = 10000
-
-var blockingAjaxRequest
-var blockingAjaxRequestDoneFunc
-var blockingAjaxRequestCancelFunc
-var blockingAjaxRequestInProgress = false
 
 var _noConnectionMessage = {
   visible: false,
@@ -162,53 +156,6 @@ function _successNonblockingAjaxRequest (data, request) {
   }
 
   _scheduleNextNonblockingAjaxRequest()
-}
-
-function _successBlockingAjaxRequest (data) {
-  hideBlockingShield()
-
-  blockingAjaxRequestInProgress = false
-
-  blockingAjaxRequestDoneFunc(data)
-}
-
-function _errorBlockingAjaxRequest () {
-  if (blockingAjaxRequestCancelFunc) {
-    document.querySelector('#blocking-shield').classList.add('show-cancel')
-  }
-
-  document.querySelector('#blocking-shield').classList.add('show-try-again')
-
-  darkenBlockingShield()
-}
-
-function _blockingTryAgain () {
-  document.querySelector('#blocking-shield').classList.remove('show-try-again')
-  document.querySelector('#blocking-shield').classList.remove('show-cancel')
-
-  $.ajax(blockingAjaxRequest).
-    done(_successBlockingAjaxRequest).fail(_errorBlockingAjaxRequest)
-}
-
-function _blockingCancel () {
-  hideBlockingShield()
-
-  blockingAjaxRequestInProgress = false
-
-  blockingAjaxRequestCancelFunc()
-}
-
-function _newBlockingAjaxRequest (message, request, doneFunc, cancelFunc) {
-  showBlockingShield(message)
-
-  blockingAjaxRequestInProgress = true
-
-  blockingAjaxRequest = request
-  blockingAjaxRequestDoneFunc = doneFunc
-  blockingAjaxRequestCancelFunc = cancelFunc
-
-  $.ajax(blockingAjaxRequest).
-    done(_successBlockingAjaxRequest).fail(_errorBlockingAjaxRequest)
 }
 
 function _checkIfEverythingIsLoaded () {
