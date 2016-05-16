@@ -142,5 +142,17 @@
   },
   "meta": {
     "description": "Design, remix, and share your neighborhood street – all in your browser! Add trees or bike paths, widen sidewalks or traffic lanes, learn how your decisions can impact your community."
+  },
+  "i18n": {
+    "lang": {
+      "en": "English",
+      "en@pirate": "English (Pirate)",
+      "fi": "Finnish",
+      "de": "German",
+      "es": "Spanish",
+      "es-mx": "Spanish (Mexico)",
+      "pl": "Polish",
+      "pt-br": "Portuguese (Brazil)"
+    }
   }
 }

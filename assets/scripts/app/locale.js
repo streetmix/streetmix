@@ -7,8 +7,8 @@
 import i18next from 'i18next'
 import i18nextXhr from 'i18next-xhr-backend'
 
-// Default language is set by browser, or is US English if undetermined
-const defaultLocale = navigator.language || 'en-US'
+// Default language is set by browser, or is English if undetermined
+const defaultLocale = navigator.language || 'en'
 
 export function initLocale () {
   // Current language is the one set by Streetmix or is the browser default, if unset
@@ -25,7 +25,7 @@ function initSettingDropdown (locale) {
   // If current language is not in the list, fallback to US English.
   el.value = locale
   if (!el.value) {
-    el.value = 'en-US'
+    el.value = 'en'
   }
 
   el.addEventListener('change', onNewLocaleSelected)
@@ -54,7 +54,7 @@ function doTheI18n (locale) {
     lng: locale,
     // ns: ['app'], //'segments'],
     // defaultNs: 'app',
-    fallbackLng: 'en-US',
+    fallbackLng: 'en',
     load: 'currentOnly',
     debug: false,
     backend: {

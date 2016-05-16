@@ -24,7 +24,7 @@ test('get api/v1/translate', function (t) {
   var app = setupMockServer()
 
   request(app)
-    .get('/api/v1/translate/en-US')
+    .get('/api/v1/translate/en')
     .end(function (err, res) {
       if (err) {
         t.error(err)
