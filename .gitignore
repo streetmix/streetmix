@@ -21,5 +21,6 @@ npm-debug.log*
 builtAssets
 
 .env
+.transifexrc
 
 newrelic_agent.log

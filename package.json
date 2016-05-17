@@ -78,6 +78,8 @@
     "grunt-express": "^1.4.1",
     "grunt-protractor-runner": "^3.0.0",
     "grunt-shell": "^1.1.2",
+    "grunt-transifex": "^0.1.1",
+    "json-stable-stringify": "^1.0.1",
     "load-grunt-tasks": "^3.4.0",
     "proxyquire": "^1.7.4",
     "sass-lint": "^1.5.0",

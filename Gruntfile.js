@@ -42,6 +42,16 @@ module.exports = function (grunt) {
       target: {
         command: './node_modules/grunt-protractor-runner/scripts/webdriver-manager-update'
       }
+    },
+    transifex: {
+      streetmix: {
+        options: {
+          endpoint: 'https://www.transifex.com/api/2',
+          targetDir: 'assets/locales',
+          // languages: ['en@pirate', 'fi', 'de', 'es', 'es_MX', 'pl', 'pt_BR'],
+          filename: '_lang_/_resource_.json',
+        }
+      }
     }
   })
   grunt.registerTask('test:travis', (
