@@ -89,7 +89,7 @@
     },
     "save": {
       "heading": "Save as image",
-      "option-label": "Segment names and widths",
+      "option-labels": "Segment names and widths",
       "option-name": "Street name",
       "option-sky": "Transparent sky",
       "loading": "Loading…",
