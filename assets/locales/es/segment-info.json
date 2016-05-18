@@ -1,0 +1,10 @@
+{
+  "segments": {
+    "sidewalk": {
+      "name": "Acera"
+    },
+    "sidewalk-tree": {
+      "name": "Acera con un árbol"
+    }
+  }
+}

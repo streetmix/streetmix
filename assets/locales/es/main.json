@@ -1,0 +1,146 @@
+{
+  "btn": {
+    "cancel": "Cancelar",
+    "copy": "Hacer una copia",
+    "create": "Crear una nueva calle",
+    "redo": "Rehacer",
+    "reload": "Recargar",
+    "try-again": "Intenta de nuevo",
+    "undo": "Deshacer"
+  },
+  "dialogs": {
+    "about": {
+      "credits": "Un proyecto paralelo de amigos %s 2013:",
+      "description": "Diseña, mezcla y comparte tu calle. Agrega vias para bicicletas, ensancha aceras o carriles de circulacion, analiza como impactan todo esto a tu comunidad",
+      "heading": "Sobre Streetmix",
+      "thanks": "Muchas gracias al equipo y amigos del CFA 2013 por su apoyo y paciencia, el equipo de Blckee por pavimentar el camino y todos nuestros evaluadores por su tiempo y retroalimentacion",
+      "view-source": "Ver codigo fuente"
+    },
+    "new-street": {
+      "default": "Comienza con una calle de ejemplo",
+      "empty": "Comienza con una calle vacia",
+      "heading": "Aquí esta tu nueva calle",
+      "last": "Empezar con una copia de tu ultima calle"
+    },
+    "save": {
+      "heading": "Guardar como imagen",
+      "license": "Esta imagen creada con Streetmix puede ser reusada en cualquier sitio, para cualquier proposito, bajo la licencia <br><a href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons Attribution-ShareAlike 4.0 International License</a>.",
+      "loading": "Cargando",
+      "option-labels": "Anchos y nombres de segmentos",
+      "option-name": "Nombre de la calle",
+      "option-sky": "Cielo Transparente",
+      "save-button": "Grabar en tu computador"
+    },
+    "welcome": {
+      "existing": {
+        "instruct": "Mezcla moviendo segmentos , o <button id=\"welcome-new-street\"> Empieza tu propia calle </button>.",
+        "intro": "Esto es <span class=\"street-name\"><span id=\"welcome-street-name\"></span></span> <span id=\"welcome-avatar-creator\"> hecho por <span class=\"avatar\" id=\"welcome-avatar\" userid=\"\"></span><span id=\"welcome-creator\"></span> </span>."
+      },
+      "heading": "Bienvenido a Streetmix.",
+      "new": {
+        "instruct": "Comienza moviendo algunos segmentos con <span class=\"touch-only\">tus dedos.</span> <span class=\"non-touch-only\">tu mouse.</span>",
+        "intro": "Diseña, mezcla y comparte la calle de tu vecindad. Agregar arboles o vías para bicicletas, aceras más anchas o carriles de circulación, aprende cómo impactan a tu comunidad tus decisiones."
+      }
+    }
+  },
+  "gallery": {
+    "all": "Todas las calles",
+    "delete-street-tooltip": "Eliminar la calle",
+    "fail": "Fallo al cargar la galeria"
+  },
+  "key": {
+    "backspace": "Retrocerder",
+    "shift": "Mover"
+  },
+  "menu": {
+    "contact": {
+      "blog": "Visita el blog de Streetmix",
+      "email": "Envia un correo electronico al Equipo de Streetmix",
+      "github": "Ver/comentar en GitHub:",
+      "twitter": "Envía un tweet a @streetmix"
+    },
+    "feedback": {
+      "confirm": "Lo hemos recibido, gracias!",
+      "email-placeholder": "Tu correo electronico (opcional)",
+      "error": "Disculpas, hubo un problema al enviar su retroalimentacion. Por favor intente despues",
+      "message-placeholder": "¿Que piensas de Streetmix?",
+      "prompt": "Envianos un mensaje:",
+      "send": "Enviar mensaje"
+    },
+    "help": {
+      "change": "Cambia lo ancho de un segmento al que estés apuntando <br> (mantén presionada la tecla <span class='key'>Shift</span> para más precision)",
+      "keyboard-label": "Teclas de acceso rápido",
+      "move": "Moverse alrededor de la calle (manten presionada la tecla  <span class='key'>Shift</span> para saltar a los bordes)",
+      "remove": "Remover un segmento al que esté apuntando <br> (mantén presionada la tecla <span class='key'>Shift</span> para remover todo)"
+    },
+    "item": {
+      "about": "Sobre Streetminx",
+      "contact": "Contacto",
+      "help": "Ayuda",
+      "my-streets": "Mis calles",
+      "new-street": "Nueva Calle",
+      "settings": "Ajustes",
+      "share": "Compartir",
+      "sign-in": "Acceder",
+      "sign-out": "Desconectarse"
+    },
+    "language": {
+      "heading": "Idioma"
+    },
+    "share": {
+      "facebook": "Compartir utilizando Facebook",
+      "link": "Copiar y pegar este enlace para compartir:",
+      "print": "Imprimir",
+      "save": "Guardar como imagen",
+      "save-byline": "Para incluir en un reporte, blog, etc",
+      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Ingresa a tu cuenta con Twitter</a>para mejores enlaces a tus calles y a tu galería de calles personal",
+      "twitter": "Compartir utilizando Twitter"
+    }
+  },
+  "meta": {
+    "description": "Diseña, mezcla y comparte la calle de tu barrio - ¡en todos los navegadores!. Agrega arboles o carriles para bicicletas, veredas mas amplias o carriles de circulacion. Analiza el impacto de tus decisiones en tu comunidad"
+  },
+  "msg": {
+    "having-trouble": "Teniendo problemas...",
+    "loading": "Cargando",
+    "no-connection": "Streetmix esta experimentando dificultades para conectarse a internet",
+    "no-street": "Ninguna calle seleccionada",
+    "slow-connection-1": "Streetmix ya ha estado tratando de conectarse a internet por un rato",
+    "slow-connection-2": "Probablemente necesites recargar la pagina e intentar de nuevo. Toma en cuenta que puede perder los ultimos cambios que le hiciste a la calle. ¡Disculpas!",
+    "trouble-loading": "Tenemos problemas cargando Streetmix"
+  },
+  "palette": {
+    "remove": "Arrasta aqui para remover"
+  },
+  "section": {
+    "empty": "Espacio Vacio"
+  },
+  "sign-in": {
+    "link": "Registrar on Twitter",
+    "promo-1": "Para vinculos mas vistosos a tus calles y galeria personal de calles",
+    "promo-2": "para tu galeria de calles personal"
+  },
+  "tooltip": {
+    "add-floor": "Adherir un piso",
+    "building-height": "Cambiar el número de pisos",
+    "decrease-width": "Reducir anchura (presione la tecla Shift para tener más precisión)",
+    "delete-street": "Eliminar la calle",
+    "increase-width": "Incrementar la anchura (presione la tecla Shift para tener más precisión)",
+    "remove-floor": "Eliminar piso ",
+    "remove-segment": "Retire el segmento",
+    "segment-width": "Cambiar la anchura del segmento",
+    "street-width": "Cambiar la anchura de la calle"
+  },
+  "users": {
+    "anonymous": "Anonimo"
+  },
+  "width": {
+    "building": "Ancho entre edificaciones",
+    "different": "Ancho diferente",
+    "imperial": "Cambiar al sistema ingles (pies)",
+    "label": "%s de ancho",
+    "metric": "Cambiar al sistema metrico",
+    "occupied": "Ancho ocupado:",
+    "room": "(%s espacio)"
+  }
+}

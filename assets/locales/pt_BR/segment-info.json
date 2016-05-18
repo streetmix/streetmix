@@ -1,0 +1,90 @@
+{
+  "segments": {
+    "bike-lane": {
+      "name": "Ciclofaixa"
+    },
+    "bus-lane": {
+      "details": {
+        "inbound|shared": {
+          "name": "Compartilhado ônibus/bike"
+        },
+        "outbound|shared": {
+          "name": "Compartilhado ônibus/bike"
+        }
+      },
+      "name": "Faixa de ônibux"
+    },
+    "divider": {
+      "details": {
+        "median": {
+          "name": "Médio"
+        }
+      }
+    },
+    "drive-lane": {
+      "name": "Faixa de direção"
+    },
+    "parking-lane": {
+      "name": "Área de estacionamento"
+    },
+    "parklet": {
+      "description": {
+        "prompt": "Saiba mais sobre estacionamentos permitidos"
+      },
+      "name": "Estacionamento permitido"
+    },
+    "sidewalk": {
+      "name": "Calçada"
+    },
+    "sidewalk-bench": {
+      "name": "Banco"
+    },
+    "sidewalk-bike-rack": {
+      "name": "Suporte de Bicicletas"
+    },
+    "sidewalk-lamp": {
+      "name": "Calçada com poste"
+    },
+    "sidewalk-tree": {
+      "name": "Calçada com árvore"
+    }
+  },
+  "variant-icons": {
+    "bench-orientation|center": "Centro",
+    "bench-orientation|left": "Esqueda",
+    "bench-orientation|right": "Dirieta",
+    "bike-asphalt|colored": "Faixa verde",
+    "building|grass": "Grama",
+    "building|residential": "Casa",
+    "bus-asphalt|colored": "Faixa vemelha",
+    "bus-asphalt|shared": "Faixa compartilhada: Ônibus e Bicicleta",
+    "car-type|car": "Carro",
+    "car-type|truck": "Caminhão",
+    "divider-type|median": "Médio",
+    "lamp-orientation|both": "Cabine",
+    "lamp-orientation|left": "Esqueda",
+    "lamp-orientation|right": "Dirieta",
+    "lamp-type|modern": "Moderno",
+    "lamp-type|traditional": "Tradicional",
+    "orientation|left": "Esqueda",
+    "orientation|right": "Direita",
+    "parking-lane-direction|sideways": "Perpendicular",
+    "parking-lane-orientation|left": "Esqueda",
+    "parking-lane-orientation|right": "Dirieta",
+    "public-transit-asphalt|colored": "Faixa vemelha",
+    "sidewalk-density|dense": "Denso",
+    "sidewalk-density|normal": "Normal",
+    "transit-shelter-elevation|street-level": "Nível da rua",
+    "tree-type|big": "Árvore",
+    "turn-lane-orientation|both": "Cabine",
+    "turn-lane-orientation|left": "Esquerda",
+    "turn-lane-orientation|left-straight": "Linha reta e à esquerda",
+    "turn-lane-orientation|right": "Direita",
+    "turn-lane-orientation|right-straight": "Direita e em frente",
+    "turn-lane-orientation|shared": "Compartilhar",
+    "turn-lane-orientation|straight": "Em frente",
+    "wayfinding-type|large": "Grande",
+    "wayfinding-type|medium": "Médio",
+    "wayfinding-type|small": "Pequeno"
+  }
+}
