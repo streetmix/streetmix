@@ -18,6 +18,7 @@
       "change": "Change width of a segment you’re pointing at<br> (hold <span class='key'>Shift</span> for more precision)"
     },
     "share": {
+      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Sign in with Twitter</a> for nicer links to your streets and your personal street gallery",
       "link": "Copy and paste this link to share:",
       "twitter": "Share using Twitter",
       "facebook": "Share using Facebook",
@@ -44,7 +45,7 @@
     }
   },
   "msg": {
-    "loading": "Loading…",
+    "loading": "Laden...",
     "having-trouble": "Having trouble…",
     "no-street": "No street selected.",
     "trouble-loading": "We’re having trouble loading Streetmix.",
@@ -74,7 +75,7 @@
       }
     },
     "new-street": {
-      "heading": "Here’s your new street.",
+      "heading": "Hier ist Deine neue Straße.",
       "default": "Beginne mit einer Beispiel-Straße",
       "empty": "Beginne mit einer leeren Straße",
       "last": "Beginne mit einer Kopie der letzten Straße"
@@ -91,13 +92,13 @@
       "option-labels": "Segment names and widths",
       "option-name": "Straßenname",
       "option-sky": "Transparenter Himmel",
-      "loading": "Loading…",
+      "loading": "Laden...",
       "save-button": "Speichere es auf Deinem Computer…",
       "license": "Dieses mit Streetmix erstellte Bild darf überall, für jeden Zweck unter der <br><a href=\"https://creativecommons.org/licenses/by-sa/4.0/deed.de\">Namensnennung - Weitergabe unter gleichen Bedingungen 4.0 International</a> verwendet werden."
     }
   },
   "palette": {
-    "drag-here": "Zum entfernen nach hier ziehen"
+    "remove": "Zum entfernen nach hier ziehen"
   },
   "width": {
     "label": "%s width",
@@ -112,12 +113,24 @@
     "backspace": "Backspace",
     "shift": "Shift"
   },
+  "tooltip": {
+    "remove-segment": "Remove segment",
+    "delete-street": "Delete street",
+    "segment-width": "Change width of the segment",
+    "building-height": "Change the number of floors",
+    "street-width": "Change width of the street",
+    "increase-width": "Increase width (hold Shift for more precision)",
+    "decrease-width": "Decrease width (hold Shift for more precision)",
+    "add-floor": "Add floor",
+    "remove-floor": "Remove floor"
+  },
   "section": {
     "empty": "Leerer Raum"
   },
   "gallery": {
     "fail": "Failed to load the gallery.",
-    "all": "All streets"
+    "all": "All streets",
+    "delete-street-tooltip": "Delete street"
   },
   "users": {
     "anonymous": "Anonymous"
@@ -129,5 +142,17 @@
   },
   "meta": {
     "description": "Design, remix, and share your neighborhood street – all in your browser! Add trees or bike paths, widen sidewalks or traffic lanes, learn how your decisions can impact your community."
+  },
+  "i18n": {
+    "lang": {
+      "en": "English",
+      "en@pirate": "English (Pirate)",
+      "fi": "Finnish",
+      "de": "German",
+      "es": "Spanish",
+      "es-mx": "Spanish (Mexico)",
+      "pl": "Polish",
+      "pt-br": "Portuguese (Brazil)"
+    }
   }
 }

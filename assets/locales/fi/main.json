@@ -1,0 +1,158 @@
+{
+  "menu": {
+    "item": {
+      "help": "Ohje",
+      "about": "Tietoja Streetmixistä…",
+      "contact": "Ota yhteyttä",
+      "sign-in": "Kirjaudu sisään",
+      "sign-out": "Kirjaudu ulos",
+      "new-street": "Uusi katu",
+      "my-streets": "Omat kadut",
+      "settings": "Asetukset",
+      "share": "Jaa"
+    },
+    "help": {
+      "keyboard-label": "Pikanäppäimet:",
+      "remove": "Poista osoittimen alla oleva kohde<br> (poista kaikki pitämällä <span class='key'>Shift</span> pohjassa)",
+      "move": "Siirry kadulla (hyppää reunaan pitämällä <span class='key'>Shift</span> pohjassa)",
+      "change": "Muuta osoittimen alla oleva kohteen leveyttä<br> (lisätarkkuutta pitämällä <span class='key'>Shift</span> pohjassa)"
+    },
+    "share": {
+      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Sign in with Twitter</a> for nicer links to your streets and your personal street gallery",
+      "link": "Jaa kopioimalla ja liittämällä tämä linkki:",
+      "twitter": "Jaa Twitterissä",
+      "facebook": "Jaa Facebookissa",
+      "print": "Tulosta…",
+      "save": "Tallenna kuvana…",
+      "save-byline": "Blogiin, liitteeksi raporttiin..."
+    },
+    "contact": {
+      "twitter": "Twiittaa käyttäjälle @streetmix",
+      "email": "Lähetä sähköpostia Streetmix-kehittäjille",
+      "github": "Tutustu/kommentoi GitHubissa",
+      "blog": "Vieraile Streetmix-blogissa"
+    },
+    "feedback": {
+      "prompt": "Lähetä meille palautetta:",
+      "message-placeholder": "Mitä mieltä olet Streetmixistä?",
+      "email-placeholder": "Sähköpostiosoite (vapaaehtoinen)",
+      "send": "Lähetä viesti",
+      "confirm": "Perille tuli. Kiitos!",
+      "error": "Pahoittelut, viestin lähetys ei nyt onnistunut. Yritäthän myöhemmin uudelleen."
+    },
+    "language": {
+      "heading": "Kieli"
+    }
+  },
+  "msg": {
+    "loading": "Ladataan…",
+    "having-trouble": "Pulassa ollaan…",
+    "no-street": "Katua ei ole valittu.",
+    "trouble-loading": "Streetmixin lataaminen ei nyt onnistu.",
+    "slow-connection-1": "Streetmix ei pystynyt muodostamaan Internet-yhteyttä.",
+    "slow-connection-2": "Kokeile korjata ongelma päivittämällä sivu, mutta huomaa, että viimeisimmät katuun tehdyt muutokset saatetaan menettää. Pahoittelut!",
+    "no-connection": "Streetmix ei pystynyt muodostamaan Internet-yhteyttä."
+  },
+  "btn": {
+    "reload": "Päivitä",
+    "undo": "Kumoa",
+    "redo": "Tee uudelleen",
+    "try-again": "Yritä uudelleen",
+    "cancel": "Peruuta",
+    "create": "Luo uusi katu",
+    "copy": "Kopioi katupohja"
+  },
+  "dialogs": {
+    "welcome": {
+      "heading": "Tervetuloa, tämä on Streetmix.",
+      "new": {
+        "intro": "Suunnittele, muokkaa ja jaa kotikatusi. Lisää kadullesi kaikkea puista pyöräteihin tai levennä katusi jalkakäytäviä ja ajoratoja. Samalla näet, miten muutokset vaikuttavat liikenteeseen.",
+        "instruct": "Aloita siirtelemällä elementtejä <span class=\"touch-only\">sormellasi.</span> <span class=\"non-touch-only\">hiirelläsi.</span>"
+      },
+      "existing": {
+        "intro": "Tämä on käyttäjän <span id=\"welcome-avatar-creator\"><span class=\"avatar\" id=\"welcome-avatar\" userid=\"\"></span><span id=\"welcome-creator\"></span></span> </span> suunnittelema katu <span class=\"street-name\"><span id=\"welcome-street-name\"></span></span>.",
+        "instruct": "Suunnittele se uudelleen siirtelemällä elementtejä tai <button id=\"welcome-new-street\">Suunnittele oma katusi</button>."
+      }
+    },
+    "new-street": {
+      "heading": "Tämä on uusi katusi.",
+      "default": "Aloita valmiilla esimerkkikadulla",
+      "empty": "Aloita tyhjästä",
+      "last": "Aloita viimeisimmän kadun pohjalta"
+    },
+    "about": {
+      "heading": "Tietoja Streetmixistä.",
+      "description": "Suunnittele, muokkaa ja jaa kotikatusi. Lisää kadullesi kaikkea puista pyöräteihin tai levennä katusi jalkakäytäviä ja ajoratoja. Samalla näet, miten muutokset vaikuttavat liikenteeseen.",
+      "thanks": "Tuhannet kiitokset työntekijöille ja vuoden 2013 CfA -osallistujille heidän tuestaan ja kärsivällisyydestään, Blockee-ryhmälle teiden päällystämisestä ja lukemattomille testaajille ajastaan ja palautteestaan!",
+      "credits": "Seuraavien %s 2013 -osallistujien sivuprojekti:",
+      "view-source": "Tutustu lähdekoodiin"
+    },
+    "save": {
+      "heading": "Tallenna kuvana",
+      "option-labels": "Elementtien nimet ja leveydet",
+      "option-name": "Kadunnimi",
+      "option-sky": "Läpinäkyvä taivas",
+      "loading": "Ladataan…",
+      "save-button": "Tallenna tietokoneelle…",
+      "license": "Tätä Streetmixillä luotua kuvaa saa käyttää missä tahansa mihin tahansa tarkoitukseen <br><a href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons Attribution-ShareAlike 4.0 International License</a> -lisenssin ehtojen mukaisesti."
+    }
+  },
+  "palette": {
+    "remove": "Poista vetämällä tähän"
+  },
+  "width": {
+    "label": "Leveys %s",
+    "room": "(%s käyttämättä)",
+    "occupied": "Käytetty tila:",
+    "building": "Rakennusten välinen leveys:",
+    "different": "Muu leveys...",
+    "metric": "Vaihda metreihin",
+    "imperial": "Vaihda jalkoihin"
+  },
+  "key": {
+    "backspace": "Askelpalautin",
+    "shift": "Shift"
+  },
+  "tooltip": {
+    "remove-segment": "Remove segment",
+    "delete-street": "Delete street",
+    "segment-width": "Change width of the segment",
+    "building-height": "Change the number of floors",
+    "street-width": "Change width of the street",
+    "increase-width": "Increase width (hold Shift for more precision)",
+    "decrease-width": "Decrease width (hold Shift for more precision)",
+    "add-floor": "Add floor",
+    "remove-floor": "Remove floor"
+  },
+  "section": {
+    "empty": "Käyttämätöntä tilaa"
+  },
+  "gallery": {
+    "fail": "Gallerian lataaminen epäonnistui.",
+    "all": "Kaikki kadut",
+    "delete-street-tooltip": "Delete street"
+  },
+  "users": {
+    "anonymous": "Tuntematon"
+  },
+  "sign-in": {
+    "link": "Kirjautumalla sisään Twitter-tunnuksella...",
+    "promo-1": "voit jakaa siistimmin kadut ja oman katugalleriasi",
+    "promo-2": "voit tallentaa tämän kadun omaan katugalleriaasi"
+  },
+  "meta": {
+    "description": "Suunnittele, muokkaa ja jaa kotikatusi verkkoselaimella! Lisää kadullesi kaikkea puista pyöräteihin tai levennä katusi jalkakäytäviä ja ajoratoja. Samalla näet, miten muutokset vaikuttavat liikenteeseen."
+  },
+  "i18n": {
+    "lang": {
+      "en": "English",
+      "en@pirate": "English (Pirate)",
+      "fi": "Finnish",
+      "de": "German",
+      "es": "Spanish",
+      "es-mx": "Spanish (Mexico)",
+      "pl": "Polish",
+      "pt-br": "Portuguese (Brazil)"
+    }
+  }
+}

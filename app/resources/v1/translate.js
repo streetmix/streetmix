@@ -21,54 +21,31 @@ exports.get = function (req, res) {
         return
       }
 
-      res.set({
-        'Content-Type': 'application/json; charset=utf-8',
-        'Location': config.restapi.baseuri + '/v1/translate/' + locale,
-        'Cache-Control': 'max-age=86400'
-      })
-      res.status(200).send(data)
+      sendSuccessResponse(locale, resource, data)
     })
   }
 
-  // Use the Transifex API
-  var handleGetFromTransifex = function (locale, resource) {
-    if (!process.env.TRANSIFEX_USERNAME || !process.env.TRANSIFEX_PASSWORD) {
-      logger.error('Need Transifex username or password.')
-      handleGetLocalTranslation(locale, resource) // fall back to local translation
-      return
-    }
+  var handleGetFromTransifex = require('../../../lib/transifex.js')
 
-    var authToken = btoa(process.env.TRANSIFEX_USERNAME + ':' + process.env.TRANSIFEX_PASSWORD)
-    var apiBaseURI = 'https://www.transifex.com/api/2/project/streetmix/resource/'
+  var sendSuccessResponse = function(locale, resource, translation) {
+    res.set({
+      'Content-Type': 'application/json; charset=utf-8',
+      'Location': config.restapi.baseuri + '/v1/translate/' + locale + '/' + resource,
+      'Cache-Control': 'max-age=86400'
+    })
 
-    request
-      .get(apiBaseURI + resource + '/translation/' + locale)
-      .set('Authorization', 'Basic ' + authToken)
-      .set('Accept', 'application/json')
-      .end(function (err, data) {
-        if (err) {
-          logger.error(err)
-          handleGetLocalTranslation(locale, resource) // fall back to local translation
-          return
-        }
-
-        var translation = JSON.parse(data.body.content)
-
-        res.set({
-          'Content-Type': 'application/json; charset=utf-8',
-          'Location': config.restapi.baseuri + '/v1/translate/' + locale + '/' + resource,
-          'Cache-Control': 'max-age=86400'
-        })
-
-        res.status(200).send(translation)
-      })
-
-  } // END function - handleGetFromTransifex
+    res.status(200).send(translation)
+  }
 
   if (!req.params.locale_code || !req.params.resource_name) {
     res.status(400).json({ status: 400, msg: 'Please provide locale code.' })
     return
   }
 
-  handleGetFromTransifex(req.params.locale_code, req.params.resource_name)
+  handleGetFromTransifex(
+    req.params.locale_code,
+    req.params.resource_name,
+    handleGetLocalTranslation,
+    sendSuccessResponse
+  )
 }

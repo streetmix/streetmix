@@ -17,7 +17,8 @@
     "stop": "mongo admin --eval 'db.shutdownServer()'",
     "pretest": "mongod --fork --logpath /dev/null",
     "test": "sass-lint --config .sass-lint.yml  --verbose; standard assets/scripts/**/*.js | snazzy; node test/index | tap-spec && grunt test:local",
-    "posttest": "mongo admin --eval 'db.shutdownServer()'"
+    "posttest": "mongo admin --eval 'db.shutdownServer()'",
+    "translationsDownload": "node bin/download_translations.js"
   },
   "dependencies": {
     "async": "^1.5.2",
