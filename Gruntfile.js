@@ -48,8 +48,22 @@ module.exports = function (grunt) {
         options: {
           endpoint: 'https://www.transifex.com/api/2',
           targetDir: 'assets/locales',
-          // languages: ['en@pirate', 'fi', 'de', 'es', 'es_MX', 'pl', 'pt_BR'],
+          languages: ['en@pirate', 'fi', 'de', 'es', 'es_MX', 'pl', 'pt_BR'],
           filename: '_lang_/_resource_.json',
+          templateFn: function (strings) {
+            var o = {}, keys, tempO
+            for (var s in strings) {
+              keys = strings[s].key.split('.')
+              tempO = o
+              for (var i = 0; i < keys.length - 1; i++) {
+                tempO = tempO[keys[i]] = tempO[keys[i]] || {}
+              }
+              tempO[keys[keys.length-1]] = strings[s].translation
+            }
+
+            var stringify = require('json-stable-stringify')
+            return stringify(o, {space: 2})
+          }
         }
       }
     }
