@@ -7,8 +7,8 @@ var request = require('superagent')
 var logger = require('../../../lib/logger.js')()
 
 exports.get = function (req, res) {
-  var handleGetLocalTranslation = function (locale) {
-    var translationFile = process.cwd() + '/assets/locales/' + locale + '/translation.json'
+  var handleGetLocalTranslation = function (locale, resource) {
+    var translationFile = process.cwd() + '/assets/locales/' + locale + '/' + resource + '.json'
 
     fs.readFile(translationFile, 'utf8', function (err, data) {
       if (err) {
@@ -27,30 +27,28 @@ exports.get = function (req, res) {
         'Cache-Control': 'max-age=86400'
       })
       res.status(200).send(data)
-
     })
-
-  } // END function - handleGetTranslation
+  }
 
   // Use the Transifex API
-  var handleGetFromTransifex = function (locale) {
+  var handleGetFromTransifex = function (locale, resource) {
     if (!process.env.TRANSIFEX_USERNAME || !process.env.TRANSIFEX_PASSWORD) {
       logger.error('Need Transifex username or password.')
-      handleGetLocalTranslation(locale) // fall back to local translation
+      handleGetLocalTranslation(locale, resource) // fall back to local translation
       return
     }
 
     var authToken = btoa(process.env.TRANSIFEX_USERNAME + ':' + process.env.TRANSIFEX_PASSWORD)
-    var apiBaseURI = 'https://www.transifex.com/api/2/project/streetmix/resource/main/translation/'
+    var apiBaseURI = 'https://www.transifex.com/api/2/project/streetmix/resource/'
 
     request
-      .get(apiBaseURI + locale)
+      .get(apiBaseURI + resource + '/translation/' + locale)
       .set('Authorization', 'Basic ' + authToken)
       .set('Accept', 'application/json')
       .end(function (err, data) {
         if (err) {
           logger.error(err)
-          handleGetLocalTranslation(locale) // fall back to local translation
+          handleGetLocalTranslation(locale, resource) // fall back to local translation
           return
         }
 
@@ -58,7 +56,7 @@ exports.get = function (req, res) {
 
         res.set({
           'Content-Type': 'application/json; charset=utf-8',
-          'Location': config.restapi.baseuri + '/v1/translate/' + locale,
+          'Location': config.restapi.baseuri + '/v1/translate/' + locale + '/' + resource,
           'Cache-Control': 'max-age=86400'
         })
 
@@ -67,11 +65,10 @@ exports.get = function (req, res) {
 
   } // END function - handleGetFromTransifex
 
-  if (!req.params.locale_code) {
+  if (!req.params.locale_code || !req.params.resource_name) {
     res.status(400).json({ status: 400, msg: 'Please provide locale code.' })
     return
   }
 
-  //handleGetTranslation(req.params.locale_code)
-  handleGetFromTransifex(req.params.locale_code)
+  handleGetFromTransifex(req.params.locale_code, req.params.resource_name)
 }

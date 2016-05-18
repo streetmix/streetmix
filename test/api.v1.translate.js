@@ -13,7 +13,7 @@ function setupMockServer () {
   var app = express()
   var translate = require(path.join(process.cwd(), '/app/resources/v1/translate'))
 
-  app.get('/api/v1/translate/:locale_code', translate.get)
+  app.get('/api/v1/translate/:locale_code/:resource_name', translate.get)
 
   return app
 }
@@ -24,7 +24,7 @@ test('get api/v1/translate', function (t) {
   var app = setupMockServer()
 
   request(app)
-    .get('/api/v1/translate/en')
+    .get('/api/v1/translate/en/main')
     .end(function (err, res) {
       if (err) {
         t.error(err)

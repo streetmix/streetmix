@@ -58,7 +58,7 @@ function doTheI18n (locale) {
     load: 'currentOnly',
     debug: false,
     backend: {
-      loadPath: API_URL + 'v1/translate/{{lng}}'
+      loadPath: API_URL + 'v1/translate/{{lng}}/main'
     }
   }
 
