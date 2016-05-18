@@ -15,7 +15,7 @@ var languages = ['en@pirate', 'fi', 'de', 'es', 'es_MX', 'pl', 'pt_BR']
 var downloadSuccess = function (locale, resource, data) {
   var localeDir = __dirname + '/../assets/locales/' + locale
   var translationFile = localeDir + '/' + resource + '.json'
-  var translationText = JSON.stringify(data, null, 2)
+  var translationText = JSON.stringify(data, null, 2) + '\n'
 
   fs.stat(localeDir, function (err, stats) {
     if (!stats) {
