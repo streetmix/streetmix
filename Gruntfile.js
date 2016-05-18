@@ -62,7 +62,7 @@ module.exports = function (grunt) {
             }
 
             var stringify = require('json-stable-stringify')
-            return stringify(o, {space: 2})
+            return stringify(o, {space: 2}) + '\n'
           }
         }
       }
