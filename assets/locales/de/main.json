@@ -1,133 +1,47 @@
 {
-  "menu": {
-    "item": {
-      "help": "Help",
-      "about": "About Streetmix…",
-      "contact": "Contact",
-      "sign-in": "Sign in",
-      "sign-out": "Sign out",
-      "new-street": "New street",
-      "my-streets": "My streets",
-      "settings": "Settings",
-      "share": "Share"
-    },
-    "help": {
-      "keyboard-label": "Keyboard shortcuts:",
-      "remove": "Remove a segment you’re pointing at<br> (hold <span class='key'>Shift</span> to remove all)",
-      "move": "Move around the street (hold <span class='key'>Shift</span> to jump to edges)",
-      "change": "Change width of a segment you’re pointing at<br> (hold <span class='key'>Shift</span> for more precision)"
-    },
-    "share": {
-      "link": "Copy and paste this link to share:",
-      "twitter": "Share using Twitter",
-      "facebook": "Share using Facebook",
-      "print": "Print…",
-      "save": "Als Bild speichern…",
-      "save-byline": "For including in a report, blog, etc."
-    },
-    "contact": {
-      "twitter": "Send a tweet to @streetmix",
-      "email": "Send an email to Streetmix team",
-      "github": "View/comment on GitHub",
-      "blog": "Visit Streetmix blog"
-    },
-    "feedback": {
-      "prompt": "Send us a message:",
-      "message-placeholder": "What do you think of Streetmix?",
-      "email-placeholder": "Your email (optional)",
-      "send": "Send message",
-      "confirm": "We got it. Thanks!",
-      "error": "We’re sorry, there was a problem sending feedback at this time. Please try again later."
-    },
-    "language": {
-      "heading": "Language"
-    }
-  },
-  "msg": {
-    "loading": "Loading…",
-    "having-trouble": "Having trouble…",
-    "no-street": "No street selected.",
-    "trouble-loading": "We’re having trouble loading Streetmix.",
-    "slow-connection-1": "Streetmix wasn’t able to connect to the Internet in awhile now.",
-    "slow-connection-2": "You might want to reload the page and try again. Please note you might lose the latest change to the street. Sorry!",
-    "no-connection": "Streetmix is having trouble connecting to the Internet."
-  },
   "btn": {
-    "reload": "Reload",
-    "undo": "Rückgängig",
     "redo": "Wiederherstellen",
-    "try-again": "Try again",
-    "cancel": "Cancel",
-    "create": "Create new street",
-    "copy": "Make a copy"
+    "undo": "Rückgängig"
   },
   "dialogs": {
-    "welcome": {
-      "heading": "Willkommen bei Streetmix.",
-      "new": {
-        "intro": "Gestalte, verändere und teile Deine Nachbarschaftsstraße. Ergänz' Bäume oder Fahrradwege, erweitere die Fußwege oder Fahrspuren, und erfahre, wie sich Deine Entscheidungen auf Deine Nachbarschaft auswirken können.",
-        "instruct": "Bewege Teile der Straße mit <span class=\"touch-only\">Deinem Finger.</span> <span class=\"non-touch-only\">Deiner Maus.</span>"
-      },
-      "existing": {
-        "intro": "Das ist <span class=\"street-name\"><span id=\"welcome-street-name\"></span></span> <span id=\"welcome-avatar-creator\">, erstellt von <span class=\"avatar\" id=\"welcome-avatar\" userid=\"\"></span><span id=\"welcome-creator\"></span> </span>.",
-        "instruct": "Verändere es, indem Du Teile der Straße bewegst, oder <button id=\"welcome-new-street\">beginne mit einer eigenen Straße</button>."
-      }
-    },
     "new-street": {
-      "heading": "Here’s your new street.",
       "default": "Beginne mit einer Beispiel-Straße",
       "empty": "Beginne mit einer leeren Straße",
+      "heading": "Hier ist Deine neue Straße.",
       "last": "Beginne mit einer Kopie der letzten Straße"
-    },
-    "about": {
-      "heading": "About Streetmix.",
-      "description": "Design, remix, and share your street. Add bike paths, widen sidewalks or traffic lanes, learn how all of this can impact your community.",
-      "thanks": "Many thanks to the staff and 2013 CfA fellows for their support and patience, the Blockee team for paving the way, and all of our testers for their time and feedback!",
-      "credits": "A side project by %s 2013 fellows:",
-      "view-source": "View source code"
     },
     "save": {
       "heading": "Als Bild speichern",
-      "option-labels": "Segment names and widths",
+      "license": "Dieses mit Streetmix erstellte Bild darf überall, für jeden Zweck unter der <br><a href=\"https://creativecommons.org/licenses/by-sa/4.0/deed.de\">Namensnennung - Weitergabe unter gleichen Bedingungen 4.0 International</a> verwendet werden.",
+      "loading": "Laden...",
       "option-name": "Straßenname",
       "option-sky": "Transparenter Himmel",
-      "loading": "Loading…",
-      "save-button": "Speichere es auf Deinem Computer…",
-      "license": "Dieses mit Streetmix erstellte Bild darf überall, für jeden Zweck unter der <br><a href=\"https://creativecommons.org/licenses/by-sa/4.0/deed.de\">Namensnennung - Weitergabe unter gleichen Bedingungen 4.0 International</a> verwendet werden."
+      "save-button": "Speichere es auf Deinem Computer…"
+    },
+    "welcome": {
+      "existing": {
+        "instruct": "Verändere es, indem Du Teile der Straße bewegst, oder <button id=\"welcome-new-street\">beginne mit einer eigenen Straße</button>.",
+        "intro": "Das ist <span class=\"street-name\"><span id=\"welcome-street-name\"></span></span> <span id=\"welcome-avatar-creator\">, erstellt von <span class=\"avatar\" id=\"welcome-avatar\" userid=\"\"></span><span id=\"welcome-creator\"></span> </span>."
+      },
+      "heading": "Willkommen bei Streetmix.",
+      "new": {
+        "instruct": "Bewege Teile der Straße mit <span class=\"touch-only\">Deinem Finger.</span> <span class=\"non-touch-only\">Deiner Maus.</span>",
+        "intro": "Gestalte, verändere und teile Deine Nachbarschaftsstraße. Ergänz' Bäume oder Fahrradwege, erweitere die Fußwege oder Fahrspuren, und erfahre, wie sich Deine Entscheidungen auf Deine Nachbarschaft auswirken können."
+      }
     }
   },
+  "menu": {
+    "share": {
+      "save": "Als Bild speichern…"
+    }
+  },
+  "msg": {
+    "loading": "Laden..."
+  },
   "palette": {
-    "drag-here": "Zum entfernen nach hier ziehen"
-  },
-  "width": {
-    "label": "%s width",
-    "room": "(%s room)",
-    "occupied": "Occupied width:",
-    "building": "Building-to-building width:",
-    "different": "Different width…",
-    "metric": "Switch to metric units",
-    "imperial": "Switch to imperial units (feet)"
-  },
-  "key": {
-    "backspace": "Backspace",
-    "shift": "Shift"
+    "remove": "Zum entfernen nach hier ziehen"
   },
   "section": {
     "empty": "Leerer Raum"
-  },
-  "gallery": {
-    "fail": "Failed to load the gallery.",
-    "all": "All streets"
-  },
-  "users": {
-    "anonymous": "Anonymous"
-  },
-  "sign-in": {
-    "link": "Sign in with Twitter",
-    "promo-1": "for nicer links to your streets and your personal street gallery",
-    "promo-2": "for your personal street gallery"
-  },
-  "meta": {
-    "description": "Design, remix, and share your neighborhood street – all in your browser! Add trees or bike paths, widen sidewalks or traffic lanes, learn how your decisions can impact your community."
   }
 }

@@ -1,0 +1,420 @@
+{
+  "segments": {
+    "bike-lane": {
+      "description": {
+        "lede": "Ścieżki rowerowe zwiększają bezpieczeństwo rowerzystów oddzielając ich zmotoryzownych.",
+        "prompt": "Dowiedz się więcej o ścieżkach rowerowych",
+        "text": {
+          "": {
+            "0": {
+              "": {
+                "": "W historii transportu osobowego - od czasów koni  do czasów, powiedzmy, Segwayów - samochody i rowery dominują na ulicach od ponad wieku. Pomimo tego, że samochody zajmują tak dużo miejsca to jednak rowerów jest więcej niż czegokolwiek innego na świecie. ponad miliard, wg szaucunków Worldometers i dziewięć milionów w Pekinie, wg piosenkarki <a href=\"http://en.wikipedia.org/wiki/Nine_Million_Bicycles\">Katie Melua</a>, gdzie podróże rowerem stanowią 32% wszystkich podróży."
+              }
+            },
+            "1": {
+              "": {
+                "": "Podczas gdy większość jurysdykcji zezwala rowerzystom na dzielenie jezdni z pojazdami silnikowymi (\"Osoba jadąca na rowerze... ma takie same prawa i obowiązki jak te, które stosuje się do kierowców pojazdów silnikowych\" - wg <a href=\"http://www.leginfo.ca.gov/cgi-bin/displaycode?section=veh&group=21001-22000&file=21200-21212\"> Kodeksu drogowego Stanu Kalifornia</a>). Jednak nie jest zaskoczeniem, że większość rowerzystów woli oddzielną ścieżkę rowerową. Jest bezpieczniejsza. A ponieważ jest bezpieczniejsza, motywuje więcej ludzi do jazdy rowerem. A więcej rowerzystów to lepsze zdrowie mieszkańców, zmniejszenie emisji spalin, mniejszy ruch i mitygacja utrudnień w ruchu. <a href=\"http://pdxcityclub.org/2013/Report/Portland-Bicycle-Transit/Economic-Effects-of-Increased-Bicycle-Usage\">Powstają także korzyści ekonomiczne</a>: mniej pieniędzy wydanych na infrastrukturę dla samochodów (jak mosty, jezdnie, parkingi) a możliwość zmieszczenia więcej ludzi na ciągach komunikacyjnych oznacza zwiększony biznes w strefach handlowych. "
+              }
+            },
+            "2": {
+              "": {
+                "": "Projekty ścieżek rowerowych mogą być bardzo różne. Wydzielanie pasu dla rowerów z użyciem linii ciągłej, słupków czy małej architektury tworzy ochronę zarówno dla rowerów jak i aut. Gdy pasy są wydzielone kolorem zielonym, jest to oznaką polityki miasta, by utrzymywać stałe ścieżki rowerowe wraz z synchronizacją świateł korzystną dla rowerzystów - tworzącą dla nich tzw. zieloną falę. Zajrzyj na <a href=\"http://nacto.org/cities-for-cycling/design-guide/\">NACTO Urban Bikeway Design Guide</a>, aby dowiedzieć się więcej."
+              }
+            }
+          }
+        }
+      },
+      "details": {
+        "inbound|colored": {
+          "description": {
+            "lede": "Oznakowane kolorem ścieżki rowerowe są bardziej widoczne i bezpieczniejsze dla rowerzystów.",
+            "prompt": "Dowiedz się więcej o oznaczonych kolorami ścieżkach rowerowych",
+            "text": {
+              "": {
+                "0": {
+                  "": {
+                    "": "Ponieważ jazda na rowerze jako środek codziennego transportu staje się coraz bardziej popularne, urbaniści muszą zadbać o bezpieczeństwo rowerzystów, eliminować kolizję samochodów z rowerami i uniemożliwiać samochodom zajmowanie przestrzeni przeznaczonej dla rowerów. Problemem jest to, że zmotoryzowani nie zawsze są świadomi obecności rowerzystów. Rozwiązaniem będzie uczynienie rowerzystów jak najbardziej widocznymi. I jedną z opcji na to jest oznakowanie ścieżek rowerowych zupełnie innymi kolorem niż reszta asfaltu."
+                  }
+                },
+                "1": {
+                  "": {
+                    "": "Pomimo, że korzyści w zakresie bezpieczeństwa rowerzystów wynikające z oznakowanie ścieżek rowerowych kolorem zostały wykazane w <a href=\"http://greenlaneproject.org/stats/#safety\">wielu badaniach</a>, każdy ma swoją opinię na temat tego, jakiego koloru używać: w Holandii są czerwone, w Danii niebieskie, we Francji zielone, jak w większości miast w USA (co stało się przypadkiem: wszystkie po prostu się nawzajem kopiowały), choć w Portland, jednym z najbardziej przyjaznych rowerom miast USA, używa się niebieskiego koloru od lat 90tych."
+                  }
+                },
+                "2": {
+                  "": {
+                    "": "Niezależnie od tego, który kolor lubisz najbardziej, ogólną zasadą jest aby wybrać taki, który wyróżnia się na tle koloru innych pasów. Poza tym ważne dla miast są też koszty utrzymania. Obecnie najpopularniejsze farby blakną i ścierają się dość szybko, choć pojawiają się nowej generacji farby, które są trwalsze. Ale jeśli koszty utrzymania są znaczące, nie można pozwolić, aby to przeważyło korzyści dotyczące bezpieczeństwa: wówczas rozważyć można inwestycję w  <a href=\"http://nacto.org/bufferedlane.html‎\">barierki ochronne</a>."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "outbound|colored": {
+          "description": {
+            "lede": "Oznakowane kolorem ścieżki rowerowe są bardziej widoczne i bezpieczniejsze dla rowerzystów.",
+            "prompt": "Dowiedz się więcej o oznaczonych kolorami ścieżkach rowerowych",
+            "text": {
+              "": {
+                "0": {
+                  "": {
+                    "": "Ponieważ jazda na rowerze jako środek codziennego transportu staje się coraz bardziej popularne, urbaniści muszą zadbać o bezpieczeństwo rowerzystów, eliminować kolizję samochodów z rowerami i uniemożliwiać samochodom zajmowanie przestrzeni przeznaczonej dla rowerów. Problemem jest to, że zmotoryzowani nie zawsze są świadomi obecności rowerzystów. Rozwiązaniem będzie uczynienie rowerzystów jak najbardziej widocznymi. I jedną z opcji na to jest oznakowanie ścieżek rowerowych zupełnie innymi kolorem niż reszta asfaltu."
+                  }
+                },
+                "1": {
+                  "": {
+                    "": "Pomimo, że korzyści w zakresie bezpieczeństwa rowerzystów wynikające z oznakowanie ścieżek rowerowych kolorem zostały wykazane w <a href=\"http://greenlaneproject.org/stats/#safety\">wielu badaniach</a>, każdy ma swoją opinię na temat tego, jakiego koloru używać: w Holandii są czerwone, w Danii niebieskie, we Francji zielone, jak w większości miast w USA (co stało się przypadkiem: wszystkie po prostu się nawzajem kopiowały), choć w Portland, jednym z najbardziej przyjaznych rowerom miast USA, używa się niebieskiego koloru od lat 90tych."
+                  }
+                },
+                "2": {
+                  "": {
+                    "": "Niezależnie od tego, który kolor lubisz najbardziej, ogólną zasadą jest aby wybrać taki, który wyróżnia się na tle koloru innych pasów. Poza tym ważne dla miast są też koszty utrzymania. Obecnie najpopularniejsze farby blakną i ścierają się dość szybko, choć pojawiają się nowej generacji farby, które są trwalsze. Ale jeśli koszty utrzymania są znaczące, nie można pozwolić, aby to przeważyło korzyści dotyczące bezpieczeństwa: wówczas rozważyć można inwestycję w  <a href=\"http://nacto.org/bufferedlane.html‎\">barierki ochronne</a>."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "name": "Scieżka rowerowa"
+    },
+    "bus-lane": {
+      "details": {
+        "inbound|shared": {
+          "name": "Buspas współdzielony ze ścieżką rowerową"
+        },
+        "outbound|shared": {
+          "name": "Buspas współdzielony ze ścieżką rowerową"
+        }
+      },
+      "name": "Buspas"
+    },
+    "divider": {
+      "details": {
+        "big-tree": {
+          "name": "Pas zieleni"
+        },
+        "bollard": {
+          "name": "Słupek"
+        },
+        "bush": {
+          "name": "Pas zieleni"
+        },
+        "dome": {
+          "name": "Strefa wyłączonego ruchu kołowego"
+        },
+        "flowers": {
+          "name": "Pas zieleni"
+        },
+        "median": {
+          "name": "Środkowy pas"
+        },
+        "palm-tree": {
+          "name": "Pas zieleni"
+        },
+        "planter-box": {
+          "name": "Donica"
+        },
+        "planting-strip": {
+          "name": "Pas zieleni"
+        },
+        "striped-buffer": {
+          "name": "Pobocze"
+        }
+      },
+      "name": "Pobocze"
+    },
+    "drive-lane": {
+      "details": {
+        "inbound|sharrow": {
+          "description": {
+            "lede": "Sierżanty drogowe markują pasy ruchu współdzielone przez auta i rowery.",
+            "prompt": "Dowiedz się więcej o sierżantach rowerowych",
+            "text": {
+              "": {
+                "0": {
+                  "": {
+                    "": "Znane wśród planistów oznakowanie pasów współdzielonych pod nazwą \"sierżantów rowerowych\" (od podobieństwa z oznakowaniem tego stopnia na pagonach munduru) uwidacznia współdzielenie, nie tworzy odrębnego<em>pasa</em> dla rowerzystów. W wielu miejscach są i tak dopuszczalne na drogach przeznaczonych dla samochodów i dotyczą ich te same przepisy."
+                  }
+                },
+                "1": {
+                  "": {
+                    "": "Przy tym nie potrzeba geniusza, aby zauważyć, że samochody i rowery poruszają się w różny sposób, a oddzielne ścieżki rowerowe są <a href=\"http://dc.streetsblog.org/2013/06/13/in-california-cities-drivers-want-more-bike-lanes-heres-why/\">zdecydowanie bardziej preferowane</a> i dla bezpieczeństwa rowerzystów i dla spokoju kierowców samochodów. Dla wielu rowerzystów jednak, w sytuacji gdy brakuje miejsca na oddzielną ścieżką, sierżant rowerowy jest i tak lepszy niż nic. Zmotoryzowani zapominają, że istnieją inni uczestnicy ruchu, więc rowerzyści doceniają każdą możliwość przypominania o swojej obecności i chęci zgodnego użytkowania dróg. Danie rowerzystom możliwości korzystania z własnego pasa ruchu chroni ich także przed wypadkami z udziałem zaparkowanych aut, zwane \"zdrzwiowaniem\"."
+                  }
+                },
+                "2": {
+                  "": {
+                    "": "Sierżanty drogowe są prostym sposobem na zwiększenie widoczności rowerzystów, ponieważ farba jest tańsza niż wybudowanie osobnej ścieżki rowerowej a rozwiązanie łatwiejsze w przeforsowaniu u decydentów. Jednak istnieją badania nad bezpieczeństwem (takie jak <a href=\"http://injuryprevention.bmj.com/content/early/2013/02/13/injuryprev-2012-040561.full.pdf\">2012 BMJ study</a> obrażeń wśród rowerzystów w Vancouver i Toronto), które wskazują, że prawdopodobieństwo doznania obrażeń jest nieco większe na współdzielonym pasie niż na wydzielonej ścieżce. Morał jest więc taki, żeby najpierw rozważyć budowę osobnej ścieżki a dopiero później ewentualnie malowanie sierżantów."
+                  }
+                }
+              }
+            }
+          },
+          "name": "Sierżant rowerowy"
+        },
+        "outbound|sharrow": {
+          "description": {
+            "lede": "Sierżanty drogowe markują pasy ruchu współdzielone przez auta i rowery.",
+            "prompt": "Dowiedz się więcej o sierżantach rowerowych",
+            "text": {
+              "": {
+                "0": {
+                  "": {
+                    "": "Znane wśród planistów oznakowanie pasów współdzielonych pod nazwą \"sierżantów rowerowych\" (od podobieństwa z oznakowaniem tego stopnia na pagonach munduru) uwidacznia współdzielenie, nie tworzy odrębnego<em>pasa</em> dla rowerzystów. W wielu miejscach są i tak dopuszczalne na drogach przeznaczonych dla samochodów i dotyczą ich te same przepisy."
+                  }
+                },
+                "1": {
+                  "": {
+                    "": "Przy tym nie potrzeba geniusza, aby zauważyć, że samochody i rowery poruszają się w różny sposób, a oddzielne ścieżki rowerowe są <a href=\"http://dc.streetsblog.org/2013/06/13/in-california-cities-drivers-want-more-bike-lanes-heres-why/\">zdecydowanie bardziej preferowane</a> i dla bezpieczeństwa rowerzystów i dla spokoju kierowców samochodów. Dla wielu rowerzystów jednak, w sytuacji gdy brakuje miejsca na oddzielną ścieżką, sierżant rowerowy jest i tak lepszy niż nic. Zmotoryzowani zapominają, że istnieją inni uczestnicy ruchu, więc rowerzyści doceniają każdą możliwość przypominania o swojej obecności i chęci zgodnego użytkowania dróg. Danie rowerzystom możliwości korzystania z własnego pasa ruchu chroni ich także przed wypadkami z udziałem zaparkowanych aut, zwane \"zdrzwiowaniem\"."
+                  }
+                },
+                "2": {
+                  "": {
+                    "": "Sierżanty drogowe są prostym sposobem na zwiększenie widoczności rowerzystów, ponieważ farba jest tańsza niż wybudowanie osobnej ścieżki rowerowej a rozwiązanie łatwiejsze w przeforsowaniu u decydentów. Jednak istnieją badania nad bezpieczeństwem (takie jak <a href=\"http://injuryprevention.bmj.com/content/early/2013/02/13/injuryprev-2012-040561.full.pdf\">2012 BMJ study</a> obrażeń wśród rowerzystów w Vancouver iToronto), które wskazują, że prawdopodobieństwo doznania obrażeń jest nieco większe na współdzielonym pasie niż na wydzielonej ścieżce. Morał jest więc taki, żeby najpierw rozważyć budowę osobnej ścieżki a dopiero później ewentualnie malowanie sierżantów."
+                  }
+                }
+              }
+            }
+          },
+          "name": "Sierżant rowerowy"
+        }
+      },
+      "name": "Pas ruchu"
+    },
+    "light-rail": {
+      "name": "Kolejka"
+    },
+    "parking-lane": {
+      "details": {
+        "sideways|left": {
+          "name": "Parkowanie prostopadłe"
+        },
+        "sideways|right": {
+          "name": "Parkowanie prostopadłe"
+        }
+      },
+      "name": "Strefa parkowania"
+    },
+    "parklet": {
+      "description": {
+        "imageCaption": "Parklet przy Judah Street 4033, dzięki uprzejmości Departamentu Planowania w San Francisco.",
+        "lede": "Parklety zmieniają dotychczasowe miejsca parkingowe w tymczasową przestrzeń publicznego odpoczynku.",
+        "prompt": "Dowiedz się więcej o parkletach",
+        "text": {
+          "": {
+            "0": {
+              "": {
+                "": "W 2005, studio projektowe z San Francisco <a href=\"http://rebargroup.org/\">Rebar</a> tymczasowo zmieniło niewielkie miejsce parkingowe na śródmiejskiej ulicy Mission Street w malutki park publiczny. Pierwszy parklet był prosty: jedynie ławka i drzewo na prostokątnym kawałku trawnika, ale zawierał mały manual i przyzwolenie dla innych, aby tworzyli kolejne. Gdy ludzie zdali sobie sprawę, że tak dużo przestrzeni publicznej poświęca się na przechowywanie samochodów, zrodził się międzynarodowy ruch i teraz doroczny <a href=\"http://parkingday.org/\">Park(ing) Day</a> wita około tysiąca tymczasowych parkletów na całym świecie."
+              }
+            },
+            "1": {
+              "": {
+                "": "Umiejąc docenić dobre pomysły, San Francisco stało się pierwszym miastem, w którym parklety stały się oficjalne dzięki <a href=\"http://sfpavementtoparks.sfplanning.org/\">programowi Pavement to Parks</a>  w 2010 roku. Dziś to miasto nad zatoką ma ponad 50 parkletów, których architektura projektowana jest z dużo lepszym efektem w porównaniu do skromnego prototypu firmy Rebar. Powstał ambitny, wspierany przez sponsora w postaci korporacji, parklet długości dwóch bloków w sercu najbardziej ruchliwego korytarza handlowego San Francisco, jak również kolekcja czerwonych parków przenośnych (parkmobiles) (domyślny widok Streetmixa) zaprojektowanych dla <a href=\"http://www.ybcbd.org/\">Yerba Buena Community Benefit District</a>.  Oficjalne programy parkletowe istnieją teraz w wielu miastach Ameryki Północnej takich jak Philadelphia, Oakland, Kansas City, New York, Chicago, and Vancouver i wiele miast niedługo podąży w ich ślady."
+              }
+            }
+          }
+        }
+      },
+      "name": "Parklet"
+    },
+    "sidewalk": {
+      "name": "Chodnik"
+    },
+    "sidewalk-bench": {
+      "name": "Ławka"
+    },
+    "sidewalk-bike-rack": {
+      "name": "Stojak na rowery"
+    },
+    "sidewalk-lamp": {
+      "name": "Chodnik z latarnią"
+    },
+    "sidewalk-tree": {
+      "name": "Chodnik z drzewem"
+    },
+    "sidewalk-wayfinding": {
+      "description": {
+        "lede": "Drogowskazy pomagają pieszym dotrzeć do popularnych miejsc.",
+        "prompt": "Dowiedz się więcej o drogowskazach",
+        "text": {
+          "": {
+            "0": {
+              "": {
+                "": "Urbaniści i architekci spędzili dekady analizując, co dzieje się w mózgu człowieka, który usiłuje dotrzeć z punktu A do puktu B - a nawet skąd wiedzą, gdzie jest punkt A. Już w 1960 roku urbanista Kevin Lynch pisał o \"czytelności\" miasta w swojej książce <em><a href=\"http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014\">The Image of the City</a></em>, opisując odnajdywanie drogi jako “spójne zastosowanie i organizacja określonych sygnałów sensorycznych ze środowiska zewnętrznego.” Sygnały mogą być one nienamacalne - węch, dotyk, poczucie równowagi lub nawet pól elektrycznych lub magnetycznych. Mogą też pochodzić z fizycznych, stosowanych na skalę światową \"przyrządów do odnajdywania drogi\" takich jak mapy, numery ulic, znaki drogowe."
+              }
+            },
+            "1": {
+              "": {
+                "": "Zaskakujące, jak powszechnie akceptowany jest fakt, że ogrom drogowskazów służy podróżującym samochodem, przy zdecydowanie mniejszej uwadze poświęconej pieszym. Może to dlatego, że jest nam dużo łatwiej zatrzymać się, określić nasze położenie i korzystać z własnych zmysłów bez obawy przed stworzeniem kolejki sześciu osób za naszymi plecami. W każdym razie urbaniści zwrócili większą uwagę na oznakowanie dla pieszych, zwłaszcza w strefach dużego ruchu pieszych, np. w okolicach handlowych i to oznakowanie, poza główną funkcją, stało się też okazją do kreowania wizerunku. I tak Nowy Jork  <a href=\"http://new.pentagram.com/2013/06/new-work-nyc-wayfinding/\"> zatrudnił światowej klasy projektanta</a> (a Streetmix wzorowało się na nim projektując swoje segmenty), inne miasta przyjeły tradycyjny styl staromiejski albo styl miejski formalny, jeszcze inne, z jakiegokolwiek powodu, nie posiadają w ogóle drogowskazów dla pieszych i wszelkie usprawnienia wymagają użycia <a href=\"http://walkyourcity.org/\">partyzanckich umiejętności</a>."
+              }
+            },
+            "2": {
+              "": {
+                "": "W końcu nie ma nic gorszego niż się zgubić. Jak pisał Lynch: \"Samo słowo <em>zgubić</em> w języku angielskim oznacza dużo więcej niż tylko geograficzną niepewność; zawiera w sobie całe tony doszczętnej porażki.\" A kto chce stać na ulicy czując się w ten sposób?"
+              }
+            }
+          }
+        }
+      },
+      "name": "Drogowskaz"
+    },
+    "streetcar": {
+      "name": "Tramwaj"
+    },
+    "train": {
+      "description": {
+        "lede": "To pociąg z filmu Christophera Nolana <em>Incepcja.</em>",
+        "text": {
+          "": {
+            "0": {
+              "": {
+                "": "Co jeszcze powinieneś wiedzieć?"
+              }
+            }
+          }
+        }
+      },
+      "name": "Pociąg z \"Incepcji\""
+    },
+    "transit-shelter": {
+      "details": {
+        "left|light-rail": {
+          "description": {
+            "lede": "Wzniesione przystanki obsługują pasażerów kolejki oraz autobusów.",
+            "prompt": "Dowiedz się więcej wzniesionych przystankach",
+            "text": {
+              "": {
+                "0": {
+                  "": {
+                    "": "W przypadku niektórych systemów transportowych autobusowych czy kolejkowych, gdzie szybkość transportu jest wielkim priorytetem, wzniesiony przystanek załatwia sprawę. Pozwala na przyjęcie pasażerów bez różnicy poziomów między platformą przystanku a podłogą pojazdu (np. w przypadku osób na wózku czy innych osób ze specjalnymi potrzebami związanymi z dostępem do pojazdu) a więc oszczędza kluczowe sekundy dla każdego przystanku co w sumie na całej trasie daje już istotny czas. "
+                  }
+                },
+                "1": {
+                  "": {
+                    "": "Z powodu priorytetu, jakim jest szybkość transportu, pojazdy, które korzystają z wzniesionych przystanków często korzystają też z oddzielnych pasów ruchu, zwykle w środkowym pasie drogowym. Gdy są one umieszczone pomiędzy jezdniami przeznaczonymi dla przeciwnych kierunków ruchu, mogą być wykorzystywane przez pasażerów po obu stronach platformy (i będziesz musiał zamieścić dwa takie pasy w Streetmix)."
+                  }
+                },
+                "2": {
+                  "": {
+                    "": "Wzniesione przystanki są też czasem projektowane jak perony kolejowe, zabudowane lub zadaszone, aby chronić podróżnych, stanowią też wówczas widoczne oznakowanie przystanku transportu publicznego na zatłoczonych ulicach. Ale w porównaniu z przystankami na wysokości krawężnika są droższe i zajmują więcej miejscach, uwzględniając także rampy dla wózków. To sprawia, że trudniej jest je uwzględniać w planowaniu w porównaniu ze zwykłymi przystankami. Ponadto przy wzroście popularności autobusów niskopodłogowych, spada potrzeba budowania wzniesionych platform przystankowych."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "right|light-rail": {
+          "description": {
+            "lede": "Wzniesione przystanki obsługują pasażerów kolejki oraz autobusów.",
+            "prompt": "Dowiedz się więcej wzniesionych przystankach",
+            "text": {
+              "": {
+                "0": {
+                  "": {
+                    "": "W przypadku niektórych systemów transportowych autobusowych czy kolejkowych, gdzie szybkość transportu jest wielkim priorytetem, wzniesiony przystanek załatwia sprawę. Pozwala na przyjęcie pasażerów bez różnicy poziomów między platformą przystanku a podłogą pojazdu (np. w przypadku osób na wózku czy innych osób ze specjalnymi potrzebami związanymi z dostępem do pojazdu) a więc oszczędza kluczowe sekundy dla każdego przystanku co w sumie na całej trasie daje już istotny czas."
+                  }
+                },
+                "1": {
+                  "": {
+                    "": "Z powodu priorytetu, jakim jest szybkość transportu, pojazdy, które korzystają z wzniesionych przystanków często korzystają też z oddzielnych pasów ruchu, zwykle w środkowym pasie drogowym. Gdy są one umieszczone pomiędzy jezdniami przeznaczonymi dla przeciwnych kierunków ruchu, mogą być wykorzystywane przez pasażerów po obu stronach platformy (i będziesz musiał zamieścić dwa takie pasy w Streetmix)."
+                  }
+                },
+                "2": {
+                  "": {
+                    "": "Wzniesione przystanki są też czasem projektowane jak perony kolejowe, zabudowane lub zadaszone, aby chronić podróżnych, stanowią też wówczas widoczne oznakowanie przystanku transportu publicznego na zatłoczonych ulicach. Ale w porównaniu z przystankami na wysokości krawężnika są droższe i zajmują więcej miejscach, uwzględniając także rampy dla wózków. To sprawia, że trudniej jest je uwzględniać w planowaniu w porównaniu ze zwykłymi przystankami. Ponadto przy wzroście popularności autobusów niskopodłogowych, spada potrzeba budowania wzniesionych platform przystankowych."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "name": "Przystanek"
+    },
+    "turn-lane": {
+      "details": {
+        "inbound|shared": {
+          "name": "Lewoskręt"
+        },
+        "inbound|straight": {
+          "name": "Zakaz skrętu"
+        },
+        "outbound|shared": {
+          "name": "Lewoskręt"
+        },
+        "outbound|straight": {
+          "name": "Zakaz skrętu"
+        }
+      },
+      "name": "Pas do skrętu"
+    }
+  },
+  "variant-icons": {
+    "bench-orientation|center": "Centrum",
+    "bench-orientation|left": "W lewo",
+    "bench-orientation|right": "W prawo",
+    "bike-asphalt|colored": "Pas wydzielony kolorem zielonym",
+    "bike-asphalt|regular": "Asfalt",
+    "bike-rack-elevation|road": "Parkowanie prostopadłe, poziom jezdni",
+    "bike-rack-elevation|sidewalk": "Parkowanie prostopadłe, poziom chodnika",
+    "bike-rack-elevation|sidewalk-parallel": "Parkowanie równoległe, poziom chodnika",
+    "building|fence": "Pusta przestrzeń",
+    "building|grass": "Trawa",
+    "building|narrow": "Wąski budynek",
+    "building|parking-lot": "Parking",
+    "building|residential": "Dom",
+    "building|waterfront": "Nabrzeże",
+    "building|wide": "Szeroki budynek",
+    "bus-asphalt|colored": "Pas wydzielony kolorem czerwonym",
+    "bus-asphalt|regular": "Asfalt",
+    "bus-asphalt|shared": "Buspas współdzielony ze ścieżką rowerową",
+    "car-type|car": "Samochód",
+    "car-type|sharrow": "Sierżant rowerowy",
+    "car-type|truck": "Ciężarówka",
+    "direction|inbound": "Wlotowy",
+    "direction|outbound": "Wylotowy",
+    "divider-type|big-tree": "Pas zieleni z drzewem",
+    "divider-type|bollard": "Słupek",
+    "divider-type|bush": "Pas zieleni z krzewem",
+    "divider-type|dome": "Strefa wyłączonego ruchu kołowego",
+    "divider-type|flowers": "Pas zieleni z kwiatami",
+    "divider-type|median": "Środkowy pas",
+    "divider-type|palm-tree": "Pas zieleni z palmą",
+    "divider-type|planter-box": "Skrzynia na zieleń miejską",
+    "divider-type|planting-strip": "Pas zieleni",
+    "divider-type|striped-buffer": "Pobocze",
+    "lamp-orientation|both": "Oba",
+    "lamp-orientation|left": "W lewo",
+    "lamp-orientation|right": "W prawo",
+    "lamp-type|modern": "Nowoczesny",
+    "lamp-type|pride": "Nowoczesny, z banerem równości",
+    "lamp-type|traditional": "Tradycyjny",
+    "orientation|left": "W lewo",
+    "orientation|right": "W prawo",
+    "parking-lane-direction|inbound": "Wlotowy",
+    "parking-lane-direction|outbound": "Wylotowy",
+    "parking-lane-direction|sideways": "Prostopadły",
+    "parking-lane-orientation|left": "W lewo",
+    "parking-lane-orientation|right": "W prawo",
+    "public-transit-asphalt|colored": "Pas wydzielony kolorem czerwonym",
+    "public-transit-asphalt|regular": "Asfalt",
+    "sidewalk-density|dense": "Zagęszczony",
+    "sidewalk-density|empty": "Pusty",
+    "sidewalk-density|normal": "Normalny",
+    "sidewalk-density|sparse": "Rzadki",
+    "transit-shelter-elevation|light-rail": "Przystanek kolejki",
+    "transit-shelter-elevation|street-level": "Poziom jezdni",
+    "tree-type|big": "Drzewo",
+    "tree-type|palm-tree": "Palma",
+    "turn-lane-orientation|both": "Oba",
+    "turn-lane-orientation|left": "W lewo",
+    "turn-lane-orientation|left-straight": "W lewo i prosto",
+    "turn-lane-orientation|right": "W prawo",
+    "turn-lane-orientation|right-straight": "W prawo i prosto",
+    "turn-lane-orientation|shared": "Dzielony",
+    "turn-lane-orientation|straight": "Prosto",
+    "wayfinding-type|large": "Wielki",
+    "wayfinding-type|medium": "Średni",
+    "wayfinding-type|small": "Mały"
+  }
+}

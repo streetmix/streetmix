@@ -1,0 +1,118 @@
+{
+  "segments": {
+    "bus-lane": {
+      "details": {
+        "inbound|shared": {
+          "name": "Linea compartida de bus/bici "
+        },
+        "outbound|shared": {
+          "name": "Linea compartida de bus/bici "
+        }
+      }
+    },
+    "divider": {
+      "details": {
+        "big-tree": {
+          "name": "Línea para plantar"
+        },
+        "bollard": {
+          "name": "Bolardo"
+        },
+        "bush": {
+          "name": "Línea para plantar"
+        },
+        "dome": {
+          "name": "Domo de exclusión de tráfico "
+        },
+        "flowers": {
+          "name": "Línea para plantar"
+        },
+        "median": {
+          "name": "Camellón"
+        },
+        "palm-tree": {
+          "name": "Línea para plantar"
+        },
+        "planter-box": {
+          "name": "Caja para plantar"
+        },
+        "planting-strip": {
+          "name": "Línea para plantar"
+        }
+      }
+    },
+    "drive-lane": {
+      "details": {
+        "inbound|sharrow": {
+          "name": "Biciflecha"
+        },
+        "outbound|sharrow": {
+          "name": "Biciflecha"
+        }
+      }
+    },
+    "sidewalk": {
+      "name": "Banqueta"
+    },
+    "sidewalk-tree": {
+      "name": "Banqueta con un árbol"
+    }
+  },
+  "variant-icons": {
+    "bench-orientation|left": "Izquierda",
+    "bench-orientation|right": "Derecha",
+    "bike-asphalt|colored": "Línea verde",
+    "bike-asphalt|regular": "Asfalto",
+    "bike-rack-elevation|road": "Estacionamiento perpendicular, al nivel de la calle",
+    "bike-rack-elevation|sidewalk": "Estacionamiento, al nivel de la banqueta",
+    "bike-rack-elevation|sidewalk-parallel": "Estacionamiento paralelo, al nivel de la banqueta",
+    "building|fence": "Lote vacío",
+    "building|grass": "Pasto",
+    "building|narrow": "Edificio angosto ",
+    "building|parking-lot": "Estacionamiento",
+    "building|residential": "Casa",
+    "building|waterfront": "Riberaña",
+    "building|wide": "Edificio ancho",
+    "bus-asphalt|colored": "Línea roja",
+    "bus-asphalt|regular": "Asfalto",
+    "bus-asphalt|shared": "Linea compartida de bus/bici ",
+    "car-type|car": "Carro",
+    "car-type|sharrow": "Biciflecha",
+    "car-type|truck": "Camión",
+    "divider-type|big-tree": "Linea para plantar con árbol ",
+    "divider-type|bollard": "Bolardo",
+    "divider-type|bush": "Línea para plantar con arbusto",
+    "divider-type|dome": "Domo de exclusión de tráfico ",
+    "divider-type|flowers": "Línea para plantar con flores",
+    "divider-type|median": "Camellón",
+    "divider-type|palm-tree": "Línea para plantar con palmera ",
+    "divider-type|planter-box": "Caja para plantar",
+    "divider-type|planting-strip": "Línea para plantar",
+    "divider-type|striped-buffer": "Tope de rayas",
+    "lamp-orientation|both": "Ambas",
+    "lamp-orientation|left": "Izquierda",
+    "lamp-orientation|right": "Derecha",
+    "lamp-type|modern": "Moderno",
+    "lamp-type|pride": "Moderno con cartel \"pride\"",
+    "lamp-type|traditional": "Tradicional",
+    "orientation|left": "Izquierda",
+    "orientation|right": "Derecha",
+    "parking-lane-orientation|left": "Izquierda",
+    "parking-lane-orientation|right": "Derecha",
+    "public-transit-asphalt|colored": "Línea roja",
+    "public-transit-asphalt|regular": "Asfalto",
+    "sidewalk-density|dense": "Denso",
+    "sidewalk-density|empty": "Vacío",
+    "sidewalk-density|normal": "Normal",
+    "sidewalk-density|sparse": "Escaso",
+    "transit-shelter-elevation|light-rail": "Plataforma de tren ligero ",
+    "transit-shelter-elevation|street-level": "Nivel de la calle",
+    "tree-type|palm-tree": "Palmera",
+    "turn-lane-orientation|both": "Ambas",
+    "turn-lane-orientation|left": "Izquierda",
+    "turn-lane-orientation|right": "Derecha",
+    "wayfinding-type|large": "Grande",
+    "wayfinding-type|medium": "Mediano",
+    "wayfinding-type|small": "Pequeño"
+  }
+}

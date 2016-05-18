@@ -1,0 +1,158 @@
+{
+  "btn": {
+    "cancel": "Anuluj",
+    "copy": "Utwórz kopię",
+    "create": "Utwórz nową ulicę",
+    "redo": "Powtórz",
+    "reload": "Odśwież",
+    "try-again": "Spróbuj ponownie",
+    "undo": "Cofnij"
+  },
+  "dialogs": {
+    "about": {
+      "credits": "Projekt poboczny od %s członków 2013:",
+      "description": "Projektuj, zmieniaj i udostępniaj projekty ulic. Dodawaj ścieżki rowerowe, poszerzaj chodniki lub jezdnie. Zobacz, jak wszystko to wpłynie na lokalną społeczność.",
+      "heading": "O Streetmix.",
+      "thanks": "Serdeczne podziękowania dla zespołu i członków 2013 CfA za ich wsparcie i cierpliwość, dla zespołu Blokee, który przecierał ścieżki i dla wszystkich naszych testerów za ich czas i wkład.",
+      "view-source": "Zobacz kod źródłowy"
+    },
+    "new-street": {
+      "default": "Zacznij od przykładowej ulicy",
+      "empty": "Zacznij od pustej ulicy",
+      "heading": "Oto Twoja nowa ulica.",
+      "last": "Edytuj kopię ostatniego projektu ulicy"
+    },
+    "save": {
+      "heading": "Zapisz jako obrazek",
+      "license": "Obrazy tworzone w Streetmix mogą być ponownie użytkowane gdziekolwiek i w jakimkolwiek celu na licencji <br><a href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons Attribution-ShareAlike 4.0 International License (uznanie autorstwa)</a>.",
+      "loading": "Ładuję...",
+      "option-labels": "Nazwy i szerokości segmentów",
+      "option-name": "Nazwa ulicy",
+      "option-sky": "Czyste niebo",
+      "save-button": "Zapisz na swoim komputerze"
+    },
+    "welcome": {
+      "existing": {
+        "instruct": "Zmieniaj ulicę przesuwając jej wybrane segmenty lub <button id=\"welcome-new-street\">Stwórz własną ulicę</button>.",
+        "intro": "To jest <span class=\"street-name\"><span id=\"welcome-street-name\"></span></span> <span id=\"welcome-avatar-creator\"> utworzony przez <span class=\"avatar\" id=\"welcome-avatar\" userid=\"\"></span><span id=\"welcome-creator\"></span> </span>."
+      },
+      "heading": "Witaj w Streetmix.",
+      "new": {
+        "instruct": "Zacznij od poprzestawiania wybranych segmentów w projekcie <span class=\"touch-only\">palcem.</span> <span class=\"non-touch-only\">myszką.</span>",
+        "intro": "Projektuj, zmieniaj i udostępniaj projekty ulic ze swojego sąsiedztwa. Sadź drzewa, dodawaj ścieżki rowerowe, poszerzaj chodniki lub jezdnie,. Zobacz, jak Twoje decyzje wpłyną na lokalną społeczność."
+      }
+    }
+  },
+  "gallery": {
+    "all": "Wszystkie ulice",
+    "delete-street-tooltip": "Usuń ulicę",
+    "fail": "Nie udało się załadować galerii"
+  },
+  "i18n": {
+    "lang": {
+      "de": "Niemiecki",
+      "en": "Angielski",
+      "en@pirate": "Angielski (Pirate)",
+      "es": "Hiszpański",
+      "es-mx": "Hiszpański (Meksyk)",
+      "fi": "Fiński",
+      "pl": "Polski",
+      "pt-br": "Portugalski (Brazylia)"
+    }
+  },
+  "key": {
+    "backspace": "Cofnij",
+    "shift": "Przesuń"
+  },
+  "menu": {
+    "contact": {
+      "blog": "Odwiedź blog Streetmixa",
+      "email": "Wyślij maila do zespołu Streetmix",
+      "github": "Zobacz/dodaj uwagi na GitHubie",
+      "twitter": "Wyślij tweeta do @streetmix"
+    },
+    "feedback": {
+      "confirm": "Mamy to. Dzięki!",
+      "email-placeholder": "Twój email (opcjonalnie)",
+      "error": "Niestety, mieliśmy problem z wysłaniem tej wiadomości. Spróbuj ponownie później.",
+      "message-placeholder": "Co sądzisz o projekcie Streetmix?",
+      "prompt": "Napisz do nas:",
+      "send": "Wyślij wiadomość"
+    },
+    "help": {
+      "change": "Zmień szerokość wskazanego segmentu<br> (przytrzymaj<span class='key'>Shift</span> dla zwiększenia precyzji)",
+      "keyboard-label": "Skróty klawiszowe:",
+      "move": "Przemieszczaj się po ulicy (przytrzymaj<span class='key'>Shift</span> aby ustawić się na krawędzi)",
+      "remove": "Usuń wskazany segment <br> (przytrzymaj <span class='key'>Shift</span>, aby usunąć wszystko)"
+    },
+    "item": {
+      "about": "O Streetmix",
+      "contact": "Kontakt",
+      "help": "Pomoc",
+      "my-streets": "Moje ulice",
+      "new-street": "Nowa ulica",
+      "settings": "Ustawienia",
+      "share": "Udostępnij",
+      "sign-in": "Zaloguj się",
+      "sign-out": "Wyloguj się"
+    },
+    "language": {
+      "heading": "Język"
+    },
+    "share": {
+      "facebook": "Udostępnij na Facebooku",
+      "link": "Skopiuj i wklej ten link, aby go udostępnić",
+      "print": "Drukuj...",
+      "save": "Zapisz jako obrazek...",
+      "save-byline": "Dla włączenia do raportu, bloga itp.",
+      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Zarejestruj się przez Twitter</a> dla lepszych linków do projektów Twoich ulic i Twojej galerii ulic",
+      "twitter": "Udostępnij na Twitterze"
+    }
+  },
+  "meta": {
+    "description": "Projektuj, zmieniaj i udostępniaj projekty ulic ze swojego sąsiedztwa - wszystko w przeglądarce! Sadź drzewa, dodawaj ścieżki rowerowe, poszerzaj chodniki lub jezdnie,. Zobacz, jak Twoje decyzje wpłyną na lokalną społeczność."
+  },
+  "msg": {
+    "having-trouble": "Chwilowe problemy...",
+    "loading": "Ładuję...",
+    "no-connection": "Streetmix nie może się połączyć z Internetem.",
+    "no-street": "Nie wybrano żadnej ulicy",
+    "slow-connection-1": "Streetmix nie był w stanie połączyć się z Internetem przez dłuższą chwilę.",
+    "slow-connection-2": "Najlepiej odśwież stronę i spróbuj ponownie. Niestety możliwe, że stracisz ostatnie zmiany. Przepraszamy!",
+    "trouble-loading": "Mamy chwilowy problem z załadowaniem Streetmix."
+  },
+  "palette": {
+    "remove": "Przeciągnij tutaj, aby usunąć."
+  },
+  "section": {
+    "empty": "Pusta przetrzeń"
+  },
+  "sign-in": {
+    "link": "Zaloguj się przez Twitter",
+    "promo-1": "dla lepszych linków do projektów Twoich ulic i Twojej galerii ulic",
+    "promo-2": "dla Twojej galerii ulicy"
+  },
+  "tooltip": {
+    "add-floor": "Dodaj piętro",
+    "building-height": "Zmień liczbę pięter",
+    "decrease-width": "Zmniejsz szerokość (przytrzymaj Shift dla zwiększenia precyzji)",
+    "delete-street": "Usuń ulicę",
+    "increase-width": "Zwiększa szerokość (przytrzymaj Shift dla zwiększonej precyzji)",
+    "remove-floor": "Usuń piętro",
+    "remove-segment": "Usuń segment",
+    "segment-width": "Zmień szerokość segmentu",
+    "street-width": "Zmień szerokość ulicy"
+  },
+  "users": {
+    "anonymous": "Anonim"
+  },
+  "width": {
+    "building": "Odelgłość między budynkami",
+    "different": "Inna szerokość...",
+    "imperial": "W stopach",
+    "label": "%s szerokości",
+    "metric": "W metrach",
+    "occupied": "Zagospodarowana szerokość:",
+    "room": "(%s powierzchni)"
+  }
+}
