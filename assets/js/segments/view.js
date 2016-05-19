@@ -273,6 +273,7 @@ function _createSegment (type, variantString, width, isUnmovable, palette, randS
 
     var innerEl = document.createElement('span')
     innerEl.classList.add('name')
+    innerEl.setAttribute('data-i18n', 'segment-info:segments.' + type + '.name')
     innerEl.innerHTML = name
     el.appendChild(innerEl)
 
