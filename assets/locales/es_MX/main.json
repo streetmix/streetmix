@@ -1,18 +1,18 @@
 {
   "menu": {
     "item": {
-      "help": "Yarr!!!",
-      "about": "Thar she blows",
-      "contact": "Avast!",
+      "help": "Help",
+      "about": "About Streetmix…",
+      "contact": "Contact",
       "sign-in": "Sign in",
       "sign-out": "Sign out",
       "new-street": "New street",
       "my-streets": "My streets",
-      "settings": "Settin's",
-      "share": "Sharrre"
+      "settings": "Settings",
+      "share": "Share"
     },
     "help": {
-      "keyboard-label": "Keyboarrrd shortcuts:",
+      "keyboard-label": "Keyboard shortcuts:",
       "remove": "Remove a segment you’re pointing at<br> (hold <span class='key'>Shift</span> to remove all)",
       "move": "Move around the street (hold <span class='key'>Shift</span> to jump to edges)",
       "change": "Change width of a segment you’re pointing at<br> (hold <span class='key'>Shift</span> for more precision)"
@@ -45,7 +45,7 @@
     }
   },
   "msg": {
-    "loading": "This be loadin’…",
+    "loading": "Loading…",
     "having-trouble": "Having trouble…",
     "no-street": "No street selected.",
     "trouble-loading": "We’re having trouble loading Streetmix.",
@@ -92,7 +92,7 @@
       "option-labels": "Segment names and widths",
       "option-name": "Street name",
       "option-sky": "Transparent sky",
-      "loading": "This be loadin’…",
+      "loading": "Loading…",
       "save-button": "Save to your computer…",
       "license": "This Streetmix-created image may be reused anywhere, for any purpose, under the <br><a href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons Attribution-ShareAlike 4.0 International License</a>."
     }
