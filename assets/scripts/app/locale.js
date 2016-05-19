@@ -52,13 +52,11 @@ export function clearLocale () {
 function doTheI18n (locale) {
   const options = {
     lng: locale,
-    // ns: ['app'], //'segments'],
-    // defaultNs: 'app',
+    ns: ['main', 'segment-info'],
     fallbackLng: 'en',
     load: 'currentOnly',
-    debug: false,
     backend: {
-      loadPath: API_URL + 'v1/translate/{{lng}}/main'
+      loadPath: API_URL + 'v1/translate/{{lng}}/{{ns}}'
     }
   }
 
@@ -68,7 +66,11 @@ function doTheI18n (locale) {
     }
     var els = document.querySelectorAll('[data-i18n]')
     for (var i = 0, j = els.length; i < j; i++) {
-      els[i].textContent = t(els[i].getAttribute('data-i18n'))
+      var translation = ''
+      for (var ns in options.ns) {
+        translation = translation || t(els[i].getAttribute('data-i18n'), {ns: options.ns[ns]})
+      }
+      els[i].textContent = translation
     }
   }
 
