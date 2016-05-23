@@ -61,17 +61,17 @@ window._fetchAvatars = fetchAvatars
 window._receiveAvatar = receiveAvatar
 
 import {
-  _makeDefaultStreet,
-  _onNewStreetDefaultClick,
-  _onNewStreetEmptyClick,
-  _onNewStreetLastClick,
+  makeDefaultStreet,
   NEW_STREET_DEFAULT,
-  NEW_STREET_EMPTY
+  NEW_STREET_EMPTY,
+  onNewStreetDefaultClick,
+  onNewStreetEmptyClick,
+  onNewStreetLastClick
 } from './streets/creation'
-window._makeDefaultStreet = _makeDefaultStreet
-window._onNewStreetDefaultClick = _onNewStreetDefaultClick
-window._onNewStreetEmptyClick = _onNewStreetEmptyClick
-window._onNewStreetLastClick = _onNewStreetLastClick
+window._makeDefaultStreet = makeDefaultStreet
+window._onNewStreetDefaultClick = onNewStreetDefaultClick
+window._onNewStreetEmptyClick = onNewStreetEmptyClick
+window._onNewStreetLastClick = onNewStreetLastClick
 window.NEW_STREET_DEFAULT = NEW_STREET_DEFAULT
 window.NEW_STREET_EMPTY = NEW_STREET_EMPTY
 

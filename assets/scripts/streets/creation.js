@@ -10,7 +10,7 @@ import { updateStreetName } from './name'
 export const NEW_STREET_DEFAULT = 1
 export const NEW_STREET_EMPTY = 2
 
-export function _makeDefaultStreet () {
+export function makeDefaultStreet () {
   ignoreStreetChanges = true
   _prepareDefaultStreet()
   _setUpdateTimeToNow()
@@ -27,14 +27,14 @@ export function _makeDefaultStreet () {
   _saveStreetToServer(false)
 }
 
-export function _onNewStreetDefaultClick () {
+export function onNewStreetDefaultClick () {
   settings.newStreetPreference = NEW_STREET_DEFAULT
   _saveSettingsLocally()
 
-  _makeDefaultStreet()
+  makeDefaultStreet()
 }
 
-export function _onNewStreetEmptyClick () {
+export function onNewStreetEmptyClick () {
   settings.newStreetPreference = NEW_STREET_EMPTY
   _saveSettingsLocally()
 
@@ -53,6 +53,6 @@ export function _onNewStreetEmptyClick () {
   _saveStreetToServer(false)
 }
 
-export function _onNewStreetLastClick () {
+export function onNewStreetLastClick () {
   _fetchLastStreet()
 }
