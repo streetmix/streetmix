@@ -63,11 +63,8 @@ function _onResize () {
     (street.width * TILE_SIZE) + 'px'
 
   _infoBubble.show(true)
-  _updateScrollButtons()
 
   _updateBuildingPosition()
   // TODO hack
   _createBuildings()
-
-  _updateStreetScrollIndicators()
 }

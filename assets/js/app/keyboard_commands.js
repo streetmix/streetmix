@@ -1,6 +1,4 @@
 var KEYS = {
-  LEFT_ARROW: 37,
-  RIGHT_ARROW: 39,
   ENTER: 13,
   ESC: 27,
   Y: 89,
@@ -66,20 +64,6 @@ function _onBodyKeyDown (event) {
 
         trackEvent('INTERACTION', 'CHANGE_WIDTH', 'KEYBOARD', null, true)
       }
-      break
-    case KEYS.LEFT_ARROW:
-      if (event.metaKey || event.ctrlKey || event.altKey) {
-        return
-      }
-      _scrollStreet(true, event.shiftKey)
-      event.preventDefault()
-      break
-    case KEYS.RIGHT_ARROW:
-      if (event.metaKey || event.ctrlKey || event.altKey) {
-        return
-      }
-      _scrollStreet(false, event.shiftKey)
-      event.preventDefault()
       break
     case KEYS.Z:
       if (!event.shiftKey && (event.metaKey || event.ctrlKey)) {

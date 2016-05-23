@@ -1,8 +1,7 @@
 /* global app, system, street, galleryUserId, signedIn, signInData, mode, abortEverything */
 /* global MODES, ERRORS, URL_NEW_STREET, URL_NEW_STREET_COPY_LAST, DEFAULT_NAME */
 /* global _sendDeleteStreetToServer, _sendDeleteStreetToServer, _hideControls,
-      _onWindowFocus, _updatePageUrl, _updateToLatestSchemaVersion, _getStreetUrl,
-      _updateScrollButtons */
+      _onWindowFocus, _updatePageUrl, _updateToLatestSchemaVersion, _getStreetUrl */
 import { trackEvent } from '../app/event_tracking'
 import { showError } from '../app/errors'
 import { msg } from '../app/messages'
@@ -13,6 +12,7 @@ import { fetchGalleryStreet } from './fetch_street'
 import { drawStreetThumbnail } from './thumbnail'
 import { hideStatusMessage } from '../app/status_message'
 import { StreetName } from '../streets/name_sign'
+import { updateScrollButtons } from '../gallery/scroll'
 import { fetchAvatars } from '../users/avatars'
 
 const THUMBNAIL_WIDTH = 180
@@ -139,7 +139,7 @@ export function hideGallery (instant) {
       }, 0)
     }
 
-    _onWindowFocus()
+    onWindowFocus()
 
     if (!abortEverything) {
       _updatePageUrl()
@@ -238,7 +238,7 @@ export function receiveGalleryData (transmission) {
     GALLERY_EL.scrollTop = 0
   }
 
-  _updateScrollButtons()
+  updateScrollButtons()
 
   updateGalleryStreetCount()
 }

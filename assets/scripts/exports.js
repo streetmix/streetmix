@@ -6,6 +6,8 @@
  * Only keep imports that are needed and please remove them at earliest
  * convenience
  */
+import $ from 'jquery'
+window.$ = $
 
 import _ from 'lodash'
 window._ = _
@@ -68,6 +70,9 @@ window.StreetName = StreetName
 
 import { updateStreetName } from './streets/name'
 window._updateStreetName = updateStreetName
+
+import { onStreetSectionScroll } from './streets/scroll'
+window._onStreetSectionScroll = onStreetSectionScroll
 
 import {
   infoBubble,
