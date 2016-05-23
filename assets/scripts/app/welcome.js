@@ -1,9 +1,10 @@
 /* global app, system, mode, street, signedIn, settings */
-/* global MODES, NEW_STREET_DEFAULT, NEW_STREET_EMPTY */
+/* global MODES */
 import { registerKeypress, deregisterKeypress } from './keypress'
 import { goNewStreet } from './routing'
 import { fetchAvatars } from '../users/avatars'
 import { StreetName } from '../streets/name_sign'
+import { NEW_STREET_DEFAULT, NEW_STREET_EMPTY } from '../streets/creation'
 
 const WELCOME_NONE = 0
 const WELCOME_NEW_STREET = 1

@@ -1,13 +1,22 @@
-var NEW_STREET_DEFAULT = 1
-var NEW_STREET_EMPTY = 2
+/* global ignoreStreetChanges, _prepareDefaultStreet, _setUpdateTimeToNow */
+/* global _resizeStreetWidth, _createDomFromData, _segmentsChanged */
+/* global lastStreet, street, _saveStreetToServer, settings */
+/* global _saveSettingsLocally, _prepareEmptyStreet, _fetchLastStreet */
 
-function _makeDefaultStreet () {
+import { shareMenu } from '../menus/_share'
+import { updateStreetName } from './name'
+
+
+export const NEW_STREET_DEFAULT = 1
+export const NEW_STREET_EMPTY = 2
+
+export function _makeDefaultStreet () {
   ignoreStreetChanges = true
   _prepareDefaultStreet()
   _setUpdateTimeToNow()
 
   _resizeStreetWidth()
-  _updateStreetName()
+  updateStreetName()
   _createDomFromData()
   _segmentsChanged()
   shareMenu.update()
@@ -18,14 +27,14 @@ function _makeDefaultStreet () {
   _saveStreetToServer(false)
 }
 
-function _onNewStreetDefaultClick () {
+export function _onNewStreetDefaultClick () {
   settings.newStreetPreference = NEW_STREET_DEFAULT
   _saveSettingsLocally()
 
   _makeDefaultStreet()
 }
 
-function _onNewStreetEmptyClick () {
+export function _onNewStreetEmptyClick () {
   settings.newStreetPreference = NEW_STREET_EMPTY
   _saveSettingsLocally()
 
@@ -33,7 +42,7 @@ function _onNewStreetEmptyClick () {
   _prepareEmptyStreet()
 
   _resizeStreetWidth()
-  _updateStreetName()
+  updateStreetName()
   _createDomFromData()
   _segmentsChanged()
   shareMenu.update()
@@ -44,6 +53,6 @@ function _onNewStreetEmptyClick () {
   _saveStreetToServer(false)
 }
 
-function _onNewStreetLastClick () {
+export function _onNewStreetLastClick () {
   _fetchLastStreet()
 }
