@@ -12,12 +12,11 @@ window.$ = $
 import _ from 'lodash'
 window._ = _
 
-import { blockingAjaxRequestInProgress, newBlockingAjaxRequest } from './util/fetch_blocking'
-window.blockingAjaxRequestInProgress = blockingAjaxRequestInProgress
+import { isblockingAjaxRequestInProgress, newBlockingAjaxRequest } from './util/fetch_blocking'
+window.isblockingAjaxRequestInProgress = isblockingAjaxRequestInProgress
 window._newBlockingAjaxRequest = newBlockingAjaxRequest
 
-import { serverContacted, newNonblockingAjaxRequest, getNonblockingAjaxRequestCount } from './util/fetch_nonblocking'
-window.serverContacted = serverContacted
+import { newNonblockingAjaxRequest, getNonblockingAjaxRequestCount } from './util/fetch_nonblocking'
 window._newNonblockingAjaxRequest = newNonblockingAjaxRequest
 window._getNonblockingAjaxRequestCount = getNonblockingAjaxRequestCount
 

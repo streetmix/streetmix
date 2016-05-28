@@ -11,8 +11,16 @@ let blockingAjaxRequest
 let blockingAjaxRequestDoneFunc
 let blockingAjaxRequestCancelFunc
 
-// This needs to be exported to window for streets/xhr (temp?)
-export let blockingAjaxRequestInProgress = false
+let blockingAjaxRequestInProgress = false
+
+// blockingAjaxRequestInProgress needs to be exported for streets/xhr
+// Exporting a variable to window causes it to lose its immutable
+// binding to the package, so we use a getter function to achieve
+// the same
+// TODO: Store application state differently
+export function isblockingAjaxRequestInProgress () {
+  return blockingAjaxRequestInProgress
+}
 
 // TODO: Migrate newBlockingAjaxRequest to Fetch-based API
 // Before, you had to pass in the success and error functions.
