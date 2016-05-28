@@ -11,9 +11,9 @@ import { removeElFromDOM } from '../util/dom_helpers'
 import { fetchGalleryData } from './fetch_data'
 import { fetchGalleryStreet } from './fetch_street'
 import { drawStreetThumbnail } from './thumbnail'
+import { updateScrollButtons } from './scroll'
 import { hideStatusMessage } from '../app/status_message'
 import { StreetName } from '../streets/name_sign'
-import { updateScrollButtons } from '../gallery/scroll'
 import { fetchAvatars } from '../users/avatars'
 
 const THUMBNAIL_WIDTH = 180
@@ -196,7 +196,7 @@ export function receiveGalleryData (transmission) {
 
     // This adds the street name plaque to each thumbnail.
     // the variable is assigned, but not re-used. Do not remove!
-    var streetName = new StreetName(nameEl, galleryStreet.name)
+    var streetName = new StreetName(nameEl, galleryStreet.name) // eslint-disable-line no-unused-vars
 
     var dateEl = document.createElement('span')
     dateEl.classList.add('date')

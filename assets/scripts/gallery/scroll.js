@@ -4,7 +4,6 @@
  */
 import $ from 'jquery'
 import { getElAbsolutePos } from '../util/helpers'
-import { animateScrollLeft } from '../util/dom_helpers'
 
 // This file is in the gallery directory but the same scroll buttons
 // are also added to the palette as well.
