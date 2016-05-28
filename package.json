@@ -63,6 +63,7 @@
     "sendgrid": "^2.0.0",
     "sprintf": "0.1.x",
     "streetmix-icons": "git://github.com/streetmix/icons.git",
+    "streetmix-illustrations": "git://github.com/streetmix/illustrations.git",
     "superagent": "^1.7.2",
     "supervisor": "^0.9.1",
     "twitter": "^1.2.5",

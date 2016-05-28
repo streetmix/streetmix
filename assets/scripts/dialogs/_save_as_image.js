@@ -25,7 +25,7 @@ const _elPreviewLoading = document.getElementById('save-as-image-preview-loading
 const _elPreviewPreview = document.getElementById('save-as-image-preview-preview')
 const _elDownloadLink = document.getElementById('save-as-image-download')
 
-let _imageCanvas
+let imageCanvas
 
 export let saveAsImageDialog = new Dialog('#save-as-image-dialog', {
   clickSelector: '#save-as-image',
@@ -63,17 +63,24 @@ function _updateSaveAsImageDialogBox () {
 function _updateSaveAsImageDialogBoxPart2 () {
   _elPreviewPreview.innerHTML = ''
 
-  _imageCanvas = getStreetImage(settings.saveAsImageTransparentSky, settings.saveAsImageSegmentNamesAndWidths, settings.saveAsImageStreetName)
-  var dataUrl = _imageCanvas.toDataURL('image/png')
+  imageCanvas = getStreetImage(settings.saveAsImageTransparentSky, settings.saveAsImageSegmentNamesAndWidths, settings.saveAsImageStreetName)
 
-  var imgEl = document.createElement('img')
-  imgEl.addEventListener('load', _saveAsImagePreviewReady)
-  imgEl.src = dataUrl
-  _elPreviewPreview.appendChild(imgEl)
+  try {
+    const dataUrl = imageCanvas.toDataURL('image/png')
+    const imgEl = document.createElement('img')
 
-  _elDownloadLink.download = _makeFilename() // Not supported in Safari/iOS
-  _elDownloadLink.href = dataUrl // Link should refer to data URL, even though
-                                 // _downloadImage() is used for direct download
+    imgEl.addEventListener('load', _saveAsImagePreviewReady)
+    imgEl.src = dataUrl
+    _elPreviewPreview.appendChild(imgEl)
+
+    _elDownloadLink.download = _makeFilename() // Not supported in Safari/iOS
+    _elDownloadLink.href = dataUrl // Link should refer to data URL, even though
+                                   // _downloadImage() is used for direct download
+  } catch (e) {
+    // .toDataURL is not available on IE11 when SVGs are part of the canvas.
+    // This should not appear on any of the newer evergreen browsers.
+    _elPreviewLoading.textContent = 'Saving to image is not available on this browser.'
+  }
 }
 
 function _saveAsImagePreviewReady () {
@@ -97,14 +104,14 @@ function _updateSaveAsImageOptions () {
  */
 function _downloadImage (event) {
   event.preventDefault()
-  _imageCanvas.toBlob(function (blob) {
-    var filename = _makeFilename()
+  imageCanvas.toBlob(function (blob) {
+    const filename = _makeFilename()
     saveAs(blob, filename)
   })
 }
 
 function _makeFilename () {
-  var filename = normalizeSlug(street.name)
+  let filename = normalizeSlug(street.name)
   if (!filename) {
     filename = 'street'
   }

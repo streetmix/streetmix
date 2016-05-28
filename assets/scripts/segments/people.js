@@ -1,6 +1,8 @@
-/* global _getVariantArray, _drawSegmentImage */
+/* global _drawSegmentImage */
 // TODO: Refactor this to have less magic numbers & stuff
 import { RandomGenerator } from '../util/random'
+import { drawSegmentImageSVG } from './view'
+import { getVariantArray } from './variant_utils'
 
 const PERSON_TYPES = 31
 const PERSON_CAN_GO_FIRST = [true, true, true, true, true, true, true, true, true, true,
@@ -19,7 +21,7 @@ export function drawProgrammaticPeople (ctx, width, offsetLeft, offsetTop, randS
   let peopleWidth = 0
 
   // Depending on the type of sidewalk, we would have different densities of people.
-  const variantArray = _getVariantArray('sidewalk', variantString)
+  const variantArray = getVariantArray('sidewalk', variantString)
 
   let widthConst
   let widthRand
@@ -80,12 +82,12 @@ export function drawProgrammaticPeople (ctx, width, offsetLeft, offsetTop, randS
   }
 
   for (let person of people) {
-    let typeX = person.type % PERSON_TILESET_WRAP
-    let typeY = Math.floor(person.type / PERSON_TILESET_WRAP)
+    // Change person.type to 1-index instead of 0-index,
+    // convert to string & zero-pad to two digits
+    let type = ('0' + (person.type + 1).toString()).slice(-2)
 
-    _drawSegmentImage(2, ctx,
-      1008 + 12 * 5 * typeX, 1756 / 2 + 24 * 4 * typeY,
-      12 * 5, 24 * 4,
+    // TODO: Document / refactor magic numbers
+    drawSegmentImageSVG('people--people-' + type, ctx,
       offsetLeft + (person.left - 5 * 12 / 2 - (4 - PERSON_WIDTH[person.type]) * 12 / 2 + startLeft) * multiplier,
       offsetTop + 37 * multiplier,
       12 * 5 * multiplier, 24 * 4 * multiplier)
