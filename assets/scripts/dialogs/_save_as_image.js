@@ -66,14 +66,14 @@ function _updateSaveAsImageDialogBoxPart2 () {
   _imageCanvas = getStreetImage(settings.saveAsImageTransparentSky, settings.saveAsImageSegmentNamesAndWidths, settings.saveAsImageStreetName)
 
   try {
-    var dataUrl = _imageCanvas.toDataURL('image/png')
+    const dataUrl = _imageCanvas.toDataURL('image/png')
   } catch (e) {
     // .toDataURL is not available on IE11 when SVGs are part of the canvas.
     // This should not appear on any of the newer evergreen browsers.
     _elPreviewLoading.textContent = 'Saving to image is not available on this browser.'
   }
 
-  var imgEl = document.createElement('img')
+  const imgEl = document.createElement('img')
   imgEl.addEventListener('load', _saveAsImagePreviewReady)
   imgEl.src = dataUrl
   _elPreviewPreview.appendChild(imgEl)
@@ -105,13 +105,13 @@ function _updateSaveAsImageOptions () {
 function _downloadImage (event) {
   event.preventDefault()
   _imageCanvas.toBlob(function (blob) {
-    var filename = _makeFilename()
+    const filename = _makeFilename()
     saveAs(blob, filename)
   })
 }
 
 function _makeFilename () {
-  var filename = normalizeSlug(street.name)
+  let filename = normalizeSlug(street.name)
   if (!filename) {
     filename = 'street'
   }
