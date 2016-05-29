@@ -60,6 +60,21 @@ import { fetchAvatars, receiveAvatar } from './users/avatars'
 window._fetchAvatars = fetchAvatars
 window._receiveAvatar = receiveAvatar
 
+import {
+  makeDefaultStreet,
+  NEW_STREET_DEFAULT,
+  NEW_STREET_EMPTY,
+  onNewStreetDefaultClick,
+  onNewStreetEmptyClick,
+  onNewStreetLastClick
+} from './streets/creation'
+window._makeDefaultStreet = makeDefaultStreet
+window._onNewStreetDefaultClick = onNewStreetDefaultClick
+window._onNewStreetEmptyClick = onNewStreetEmptyClick
+window._onNewStreetLastClick = onNewStreetLastClick
+window.NEW_STREET_DEFAULT = NEW_STREET_DEFAULT
+window.NEW_STREET_EMPTY = NEW_STREET_EMPTY
+
 import { updateStreetMetadata } from './streets/metadata'
 window._updateStreetMetadata = updateStreetMetadata
 
