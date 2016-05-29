@@ -135,7 +135,7 @@ function _clearScheduledSavingStreetToServer () {
 
 function _fetchStreetForVerification () {
   // Don’t do it with any network services pending
-  if (_getNonblockingAjaxRequestCount() || blockingAjaxRequestInProgress ||
+  if (_getNonblockingAjaxRequestCount() || isblockingAjaxRequestInProgress() ||
     saveStreetIncomplete || abortEverything || remixOnFirstEdit) {
     return
   }

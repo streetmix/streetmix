@@ -1,6 +1,7 @@
 var initializing = false
 var bodyLoaded
 var readyStateCompleteLoaded
+var serverContacted
 
 var abortEverything
 
