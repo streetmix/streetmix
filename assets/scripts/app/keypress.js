@@ -13,7 +13,8 @@
  * @exports registerKeypress
  * @exports deregisterKeypress
  */
-import { trackEvent } from '../app/event_tracking'
+import { trackEvent } from './event_tracking'
+import { isFocusOnBody } from './focus'
 
 // TODO: Flesh out this dictionary
 const KEYS = {
@@ -406,7 +407,7 @@ function execute (input, event) {
   if (!input.condition()) return
 
   // Check if focus is on the correct place
-  if (input.requireFocusOnBody === true && _isFocusOnBody() === false) return
+  if (input.requireFocusOnBody === true && isFocusOnBody() === false) return
 
   if (event && input.preventDefault) {
     event.preventDefault()
@@ -426,9 +427,4 @@ function execute (input, event) {
   if (input.fireOnce === true) {
     deregisterKeypress(input.originalCommands, input.onKeypress)
   }
-}
-
-// Utility function
-function _isFocusOnBody () {
-  return document.activeElement === document.body
 }

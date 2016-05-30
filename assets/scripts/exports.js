@@ -6,20 +6,29 @@
  * Only keep imports that are needed and please remove them at earliest
  * convenience
  */
+import $ from 'jquery'
+window.$ = $
 
 import _ from 'lodash'
 window._ = _
 
+import { isblockingAjaxRequestInProgress, newBlockingAjaxRequest } from './util/fetch_blocking'
+window.isblockingAjaxRequestInProgress = isblockingAjaxRequestInProgress
+window._newBlockingAjaxRequest = newBlockingAjaxRequest
+
+import { newNonblockingAjaxRequest, getNonblockingAjaxRequestCount } from './util/fetch_nonblocking'
+window._newNonblockingAjaxRequest = newNonblockingAjaxRequest
+window._getNonblockingAjaxRequestCount = getNonblockingAjaxRequestCount
+
 import { trackEvent } from './app/event_tracking'
 window.trackEvent = trackEvent
 
+import { loseAnyFocus, isFocusOnBody } from './app/focus'
+window._loseAnyFocus = loseAnyFocus
+window._isFocusOnBody = isFocusOnBody
+
 import { goNewStreet } from './app/routing'
 window.goNewStreet = goNewStreet
-
-import { showBlockingShield, hideBlockingShield, darkenBlockingShield } from './app/blocking_shield'
-window.showBlockingShield = showBlockingShield
-window.hideBlockingShield = hideBlockingShield
-window.darkenBlockingShield = darkenBlockingShield
 
 import { showStatusMessage, hideStatusMessage } from './app/status_message'
 window.showStatusMessage = showStatusMessage
@@ -36,8 +45,7 @@ window._getElAbsolutePos = getElAbsolutePos
 window.normalizeSlug = normalizeSlug
 
 // Gallery
-import { galleryState, showGallery } from './gallery/view'
-window.galleryState = galleryState
+import { showGallery } from './gallery/view'
 window._showGallery = showGallery
 
 // Menus
@@ -83,6 +91,9 @@ window.StreetName = StreetName
 
 import { updateStreetName } from './streets/name'
 window._updateStreetName = updateStreetName
+
+import { onStreetSectionScroll } from './streets/scroll'
+window._onStreetSectionScroll = onStreetSectionScroll
 
 import {
   infoBubble,

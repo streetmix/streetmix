@@ -1,16 +1,17 @@
 /* global app, system, street, galleryUserId, signedIn, signInData, mode, abortEverything */
 /* global MODES, ERRORS, URL_NEW_STREET, URL_NEW_STREET_COPY_LAST, DEFAULT_NAME */
 /* global _sendDeleteStreetToServer, _sendDeleteStreetToServer, _hideControls,
-      _onWindowFocus, _updatePageUrl, _updateToLatestSchemaVersion, _getStreetUrl,
-      _updateScrollButtons */
+      _updatePageUrl, _updateToLatestSchemaVersion, _getStreetUrl */
 import { trackEvent } from '../app/event_tracking'
 import { showError } from '../app/errors'
 import { msg } from '../app/messages'
+import { onWindowFocus } from '../app/focus'
 import { formatDate } from '../util/date_format'
 import { removeElFromDOM } from '../util/dom_helpers'
 import { fetchGalleryData } from './fetch_data'
 import { fetchGalleryStreet } from './fetch_street'
 import { drawStreetThumbnail } from './thumbnail'
+import { updateScrollButtons } from './scroll'
 import { hideStatusMessage } from '../app/status_message'
 import { StreetName } from '../streets/name_sign'
 import { fetchAvatars } from '../users/avatars'
@@ -139,7 +140,7 @@ export function hideGallery (instant) {
       }, 0)
     }
 
-    _onWindowFocus()
+    onWindowFocus()
 
     if (!abortEverything) {
       _updatePageUrl()
@@ -195,7 +196,7 @@ export function receiveGalleryData (transmission) {
 
     // This adds the street name plaque to each thumbnail.
     // the variable is assigned, but not re-used. Do not remove!
-    var streetName = new StreetName(nameEl, galleryStreet.name)
+    var streetName = new StreetName(nameEl, galleryStreet.name) // eslint-disable-line no-unused-vars
 
     var dateEl = document.createElement('span')
     dateEl.classList.add('date')
@@ -238,7 +239,7 @@ export function receiveGalleryData (transmission) {
     GALLERY_EL.scrollTop = 0
   }
 
-  _updateScrollButtons()
+  updateScrollButtons()
 
   updateGalleryStreetCount()
 }

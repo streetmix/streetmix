@@ -1,7 +1,14 @@
-/* global _blockingCancel, _blockingTryAgain */
-// TODO: Some shield-related functionality is wound up in gallery/xhr, util/xhr
+/**
+ * Blocking shield is an overlay over the screen that prevents
+ * interaction. At its most basic version it is fully transparent
+ * and allows other UI to take priority (e.g. gallery). At other
+ * times it can be "darkened" (creating a translucent overlay)
+ * showing messages or errors.
+ */
 import { msg } from './messages'
 import { goReload } from './routing'
+
+import { blockingCancel, blockingTryAgain } from '../util/fetch_blocking'
 
 const BLOCKING_SHIELD_DARKEN_DELAY = 800
 const BLOCKING_SHIELD_TOO_SLOW_DELAY = 10000
@@ -12,8 +19,8 @@ let blockingShieldTimerId = -1
 let blockingShieldTooSlowTimerId = -1
 
 // Adds event listeners to the respond to buttons.
-document.querySelector('#blocking-shield-cancel').addEventListener('pointerdown', _blockingCancel)
-document.querySelector('#blocking-shield-try-again').addEventListener('pointerdown', _blockingTryAgain)
+document.querySelector('#blocking-shield-cancel').addEventListener('pointerdown', blockingCancel)
+document.querySelector('#blocking-shield-try-again').addEventListener('pointerdown', blockingTryAgain)
 document.querySelector('#blocking-shield-reload').addEventListener('pointerdown', goReload)
 
 function clearBlockingShieldTimers () {

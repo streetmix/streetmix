@@ -1,16 +1,3 @@
-#error h1,
-#loading h1,
-#welcome h1,
-.dialog-box h1,
-#blocking-shield .message {
-  font-size: 250%;
-  font-weight: 300;
-  letter-spacing: -1px;
-  line-height: 1.1;
-  margin-top: 8px;
-  margin-bottom: 12px;
-}
-
 #welcome-avatar-creator:not(.visible) {
   display: none;
 }
@@ -22,26 +9,35 @@ body.phone #loading {
 
 #error,
 #loading {
-  position: fixed;
-  z-index: $z-09-loading;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  display: table;
-
   background: $sky-colour;
   color: black;
 
-  font-size: 16px;
+  h1 {
+    @include large-message-text;
+  }
+}
 
-  & > div {
-    display: table-cell;
+#error {
+  z-index: $z-09-error;
+  @include blocking-shield;
+
+  // Errors may be displayed on old browsers without flexbox.
+  // This forces vertical centering
+  display: table;
+
+
+  &:not(.visible) {
+    display: none;
+  }
+
+  .error-content {
     text-align: center;
-    vertical-align: middle;
-    padding: 0 50px;
-
     line-height: 1.6;
+
+    // Errors may be displayed on old browsers without flexbox.
+    // This forces vertical centering
+    display: table-cell;
+    vertical-align: middle;
   }
 
   a {
@@ -56,16 +52,13 @@ body.phone #loading {
   }
 }
 
-#error {
-  z-index: $z-09-error;
-}
+#loading {
+  z-index: $z-09-loading;
+  @include blocking-shield;
 
-#error:not(.visible) {
-  display: none;
-}
-
-#loading.hidden {
-  display: none;
+  &.hidden {
+    display: none;
+  }
 }
 
 #loading-progress {
@@ -94,81 +87,6 @@ body.phone #loading {
 
   &::-moz-progress-bar {
     background: $off-white;
-  }
-}
-
-#blocking-shield {
-  z-index: $z-08-blocking-shield;
-
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  display: table;
-
-  font-size: 16px;
-
-  background: transparent;
-  color: transparent;
-
-  & > div {
-    display: table-cell;
-    text-align: center;
-    vertical-align: middle;
-  }
-
-  &.darken,
-  &.darken-immediately {
-    background: fade-out($sky-colour, 0.15);
-    color: black;
-  }
-
-  &.darken {
-    transition: background 1500ms, color 1500ms;
-  }
-
-  &.darken-immediately {
-    transition: none;
-  }
-
-  .try-again,
-  .too-slow {
-    margin-top: 20px;
-
-    position: absolute;
-    left: 0;
-    right: 0;
-    text-align: center;
-
-    display: none;
-  }
-
-  &.show-try-again .try-again,
-  &.show-too-slow .too-slow {
-    display: block;
-  }
-
-  #blocking-shield-cancel {
-    display: none;
-  }
-
-  &.show-cancel #blocking-shield-cancel {
-    display: inline-block;
-  }
-
-  cursor: wait;
-
-  & * {
-    cursor: wait;
-  }
-
-  & button {
-    cursor: auto;
-  }
-
-  &:not(.visible) {
-    display: none;
   }
 }
 
@@ -204,6 +122,10 @@ body.phone #loading {
     font-size: 16px;
     color: rgb(64, 64, 64);
     pointer-events: auto;
+  }
+
+  h1 {
+    @include large-message-text;
   }
 
   button {
