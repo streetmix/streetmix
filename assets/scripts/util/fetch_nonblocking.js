@@ -118,7 +118,7 @@ function scheduleNextNonblockingAjaxRequest () {
 
     nonblockingAjaxRequestTimer++
   } else {
-    saveStreetIncomplete = false
+    saveStreetIncomplete = false // eslint-disable-line no-native-reassign
   }
 }
 

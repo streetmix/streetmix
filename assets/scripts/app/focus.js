@@ -1,5 +1,5 @@
 /* global system, abortEverything */
-/* _fetchStreetForVerification, _saveSettingsLocally */
+/* global _fetchStreetForVerification, _saveSettingsLocally */
 import { galleryState } from '../gallery/view'
 import { hideAllMenus } from '../menus/menu'
 
@@ -26,7 +26,7 @@ export function loseAnyFocus () {
 }
 
 export function isFocusOnBody () {
-  return document.activeElement == document.body
+  return document.activeElement === document.body
 }
 
 export function onWindowFocus () {
