@@ -36,7 +36,7 @@ export function fetchGalleryData () {
 
 function errorReceiveGalleryData (data) {
   if ((mode === MODES.USER_GALLERY) && (data.status === 404)) {
-    mode = MODES.NOT_FOUND
+    mode = MODES.NOT_FOUND // eslint-disable-line no-native-reassign
     _processMode()
     hideGallery(true)
   } else {

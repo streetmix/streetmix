@@ -573,7 +573,6 @@ function _segmentsChanged () {
   _recalculateWidth()
   _repositionEmptySegments()
   _applyWarningsToSegments()
-  //_recalculateOwnerWidths()
 
   for (var i in street.segments) {
     if (street.segments[i].el) {

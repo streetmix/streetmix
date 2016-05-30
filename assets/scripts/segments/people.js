@@ -1,4 +1,3 @@
-/* global _drawSegmentImage */
 // TODO: Refactor this to have less magic numbers & stuff
 import { RandomGenerator } from '../util/random'
 import { drawSegmentImageSVG } from './view'
@@ -13,7 +12,6 @@ const PERSON_WIDTH = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
   2, 2, 2, 3, 2, 3, 3, 3, 3, 3,
   1, 1, 3, 4, 2, 3, 2, 3, 4, 3,
   2]
-const PERSON_TILESET_WRAP = 10
 
 // TODO magic number - randSeed defaults to 35: why?
 export function drawProgrammaticPeople (ctx, width, offsetLeft, offsetTop, randSeed = 35, multiplier, variantString) {

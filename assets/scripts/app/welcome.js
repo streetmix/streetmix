@@ -50,7 +50,7 @@ function showWelcome (welcomeType = WELCOME_NONE) {
         goNewStreet(true)
       })
 
-      let streetName = new StreetName(document.getElementById('welcome-street-name'), street.name)
+      let streetName = new StreetName(document.getElementById('welcome-street-name'), street.name) // eslint-disable-line no-unused-vars
 
       if (street.creatorId) {
         document.querySelector('#welcome-avatar-creator').classList.add('visible')
