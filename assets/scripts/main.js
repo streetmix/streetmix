@@ -30,6 +30,10 @@ import './dialogs/_save_as_image'
 
 // Street
 import './streets/name'
+import './streets/scroll'
+
+// Gallery
+import './gallery/scroll'
 
 // Utilities
 import { startListening } from './app/keypress'

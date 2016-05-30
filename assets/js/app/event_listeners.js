@@ -1,9 +1,4 @@
 function _addEventListeners () {
-  document.querySelector('#street-scroll-indicator-left').addEventListener('pointerdown', _onStreetLeftScrollClick)
-  document.querySelector('#street-scroll-indicator-right').addEventListener('pointerdown', _onStreetRightScrollClick)
-
-  document.querySelector('#street-section-outer').addEventListener('scroll', _onStreetSectionScroll)
-
   document.querySelector('#street-section-left-building').addEventListener('pointerenter', _onBuildingMouseEnter)
   document.querySelector('#street-section-left-building').addEventListener('pointerleave', _onBuildingMouseLeave)
   document.querySelector('#street-section-right-building').addEventListener('pointerenter', _onBuildingMouseEnter)
@@ -12,8 +7,6 @@ function _addEventListeners () {
   document.querySelector('.info-bubble').addEventListener('pointerenter', _infoBubble.onMouseEnter)
   document.querySelector('.info-bubble').addEventListener('pointerleave', _infoBubble.onMouseLeave)
   document.querySelector('.info-bubble').addEventListener('pointerdown', _infoBubble.onTouchStart)
-
-  document.querySelector('#no-connection-try-again').addEventListener('pointerdown', _nonblockingAjaxTryAgain)
 
   // The following do not seem to work on pointerdown
   // click should also be fired by other input methods
@@ -24,15 +17,6 @@ function _addEventListeners () {
   window.addEventListener('storage', _onStorageChange)
 
   document.querySelector('#sign-out-link').addEventListener('pointerdown', _onSignOutClick)
-
-  if (system.pageVisibility) {
-    document.addEventListener(system.visibilityChange, _onVisibilityChange, false)
-  } else {
-    window.addEventListener('focus', _onWindowFocus)
-    window.addEventListener('blur', _onWindowBlur)
-  }
-
-  window.addEventListener('beforeunload', _onWindowBeforeUnload)
 
   document.querySelector('#undo').addEventListener('pointerdown', _undo)
   document.querySelector('#redo').addEventListener('pointerdown', _redo)

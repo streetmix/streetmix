@@ -9,7 +9,7 @@
 /* global _updateBuildingPosition, _switchSegmentElAway, _switchSegmentElIn,
       _onBuildingMouseEnter, _saveStreetToServerIfNecessary, _createBuildings,
       _isFlooredBuilding, _changeBuildingHeight,
-      _loseAnyFocus, _getBuildingAttributes, _resizeSegment, _buildingHeightUpdated,
+      _getBuildingAttributes, _resizeSegment, _buildingHeightUpdated,
       _processWidthInput, _changeSegmentVariant, _incrementSegmentWidth,
       _scheduleControlsFadeout, _resumeFadeoutControls, _cancelFadeoutControls
       */
@@ -23,6 +23,7 @@ import { getElAbsolutePos } from '../util/helpers'
 import { prettifyWidth, undecorateWidth } from '../util/width_units'
 import { isAnyMenuVisible, hideAllMenus } from '../menus/menu'
 import { registerKeypress } from '../app/keypress'
+import { loseAnyFocus } from '../app/focus'
 
 export const INFO_BUBBLE_TYPE_SEGMENT = 1
 export const INFO_BUBBLE_TYPE_LEFT_BUILDING = 2
@@ -946,7 +947,7 @@ function _onWidthHeightEditMouseOver (event) {
 
 function _onWidthHeightEditMouseOut (event) {
   if (!widthHeightEditHeld) {
-    _loseAnyFocus()
+    loseAnyFocus()
   }
 }
 
@@ -1056,7 +1057,7 @@ function _onWidthEditKeyDown (event) {
   switch (event.keyCode) {
     case KEYS.ENTER:
       _widthEditInputChanged(el, true)
-      _loseAnyFocus()
+      loseAnyFocus()
       el.value = undecorateWidth(el.segmentEl.getAttribute('width'))
       el.focus()
       el.select()
@@ -1065,7 +1066,7 @@ function _onWidthEditKeyDown (event) {
       el.value = el.oldValue
       _widthEditInputChanged(el, true)
       hideAllMenus()
-      _loseAnyFocus()
+      loseAnyFocus()
       break
   }
 }
@@ -1076,7 +1077,7 @@ function _onHeightEditKeyDown (event) {
   switch (event.keyCode) {
     case KEYS.ENTER:
       _heightEditInputChanged(el, true)
-      _loseAnyFocus()
+      loseAnyFocus()
       el.value = _prettifyHeight((infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingHeight : street.rightBuildingHeight)
       el.focus()
       el.select()
@@ -1085,7 +1086,7 @@ function _onHeightEditKeyDown (event) {
       el.value = el.oldValue
       _heightEditInputChanged(el, true)
       hideAllMenus()
-      _loseAnyFocus()
+      loseAnyFocus()
       break
   }
 }

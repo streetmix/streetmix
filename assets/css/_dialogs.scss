@@ -42,6 +42,10 @@ $dialog-box-default-width: 790px;
   line-height: 1.5;
   touch-action: none;
 
+  h1 {
+    @include large-message-text;
+  }
+
   &:not(.visible) {
     display: none;
   }

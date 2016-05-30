@@ -1,6 +1,7 @@
 var initializing = false
 var bodyLoaded
 var readyStateCompleteLoaded
+var serverContacted
 
 var abortEverything
 
@@ -72,6 +73,17 @@ Stmx.init = function () {
 // but we give up on country info if it’s more than 1000ms.
 }
 
+function _checkIfEverythingIsLoaded () {
+  if (abortEverything) {
+    return
+  }
+
+  if ((imagesToBeLoaded == 0) && signInLoaded && bodyLoaded &&
+    readyStateCompleteLoaded && geolocationLoaded && serverContacted) {
+    _onEverythingLoaded()
+  }
+}
+
 function _onEverythingLoaded () {
   switch (mode) {
     case MODES.NEW_STREET_COPY_LAST:
@@ -91,8 +103,6 @@ function _onEverythingLoaded () {
 
   _updatePageUrl()
   _buildStreetWidthMenu()
-  _addScrollButtons(document.querySelector('#palette'))
-  _addScrollButtons(document.querySelector('#gallery .streets'))
   _addEventListeners()
 
   var event = new CustomEvent('stmx:everything_loaded')

@@ -4,12 +4,13 @@
  *  Generic class instance of menu
  *
  */
-/* global _infoBubble, _loseAnyFocus */
 import _ from 'lodash'
 
+import { infoBubble } from '../info_bubble/info_bubble'
+import { loseAnyFocus } from '../app/focus'
 import { hideStatusMessage } from '../app/status_message'
-import { getElAbsolutePos } from '../util/helpers'
 import { registerKeypress } from '../app/keypress'
+import { getElAbsolutePos } from '../util/helpers'
 
 export default class Menu {
   constructor (name, opts = {}) {
@@ -52,7 +53,7 @@ export default class Menu {
 
   show (event) {
     // Hide other UI
-    _infoBubble.hide()
+    infoBubble.hide()
     hideStatusMessage()
     hideAllMenus()
 
@@ -75,7 +76,7 @@ export default class Menu {
   }
 
   hide () {
-    _loseAnyFocus()
+    loseAnyFocus()
     this.el.classList.remove('visible')
   }
 }
@@ -93,7 +94,7 @@ export function hideAllMenus () {
   var els = document.querySelectorAll('.menu.visible')
   // Do not force body focus if there is nothing to hide
   if (els.length > 0) {
-    _loseAnyFocus()
+    loseAnyFocus()
   }
   for (var i = 0, j = els.length; i < j; i++) {
     els[i].classList.remove('visible')

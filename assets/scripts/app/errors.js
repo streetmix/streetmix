@@ -115,9 +115,9 @@ export function showError (errorType, newAbortEverything) {
       description = 'There was a problem with Twitter authentication. Please try again later or let us know via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmix">Twitter</a>.<br><button id="error-home">Go to the homepage</button>'
       break
     case ERRORS.UNSUPPORTED_BROWSER:
-      title = 'Streetmix doesn’t work on your browser… yet.'
+      title = 'Streetmix doesn’t work on your browser.'
       // TODO const for feedback
-      description = 'Sorry about that. You might want to try <a target="_blank" href="http://www.google.com/chrome">Chrome</a>, <a target="_blank" href="http://www.mozilla.org/firefox">Firefox</a>, or Safari. <br><br>Are you on Internet Explorer? <a target="_blank" href="http://guidebook.streetmix.net/faq/#internet-explorer">Find out why IE is not supported.</a> <br><br>If you think your browser should be supported, please contact us via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a>.'
+      description = 'Sorry about that. You might want to try <a target="_blank" href="http://www.google.com/chrome">Chrome</a>, <a target="_blank" href="http://www.mozilla.org/firefox">Firefox</a>, <a target="_blank" href="https://www.microsoft.com/en-us/windows/microsoft-edge">Microsoft Edge</a>, or Safari. <br><br>Are you on Internet Explorer? <a target="_blank" href="https://streetmix.readme.io/docs/frequently-asked-questions/#internet-explorer">Find out more.</a> <br><br>If you think your browser should be supported, please contact us via <a target="_blank" href="mailto:streetmix@codeforamerica.org">email</a>.'
       break
     case ERRORS.CANNOT_CREATE_NEW_STREET_ON_PHONE:
       title = 'Streetmix works on tablets and desktops only.'
