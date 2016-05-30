@@ -16,8 +16,9 @@
     "start": "supervisor index.js",
     "stop": "mongo admin --eval 'db.shutdownServer()'",
     "pretest": "mongod --fork --logpath /dev/null",
-    "test": "sass-lint --config .sass-lint.yml  --verbose; standard assets/scripts/**/*.js | snazzy; node test/index | tap-spec && grunt test:local",
+    "test": "node test/index | tap-spec && grunt test:local",
     "posttest": "mongo admin --eval 'db.shutdownServer()'",
+    "lint": "sass-lint --config .sass-lint.yml  --verbose && standard assets/scripts/**/*.js | snazzy",
     "translationsDownload": "node bin/download_translations.js"
   },
   "dependencies": {
