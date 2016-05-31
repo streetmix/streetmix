@@ -85,7 +85,7 @@ export default class Dialog {
  * Returns a boolean value.
  */
 export function isAnyDialogVisible () {
-  for (let [id, dialog] of DIALOGS) {
+  for (let [, dialog] of DIALOGS) {
     if (dialog.isVisible === true) {
       return true
     }
@@ -99,7 +99,7 @@ export function isAnyDialogVisible () {
  * callback functions to be called as well.
  */
 export function hideAllDialogs () {
-  for (let [id, dialog] of DIALOGS) {
+  for (let [, dialog] of DIALOGS) {
     dialog.hide()
   }
 }

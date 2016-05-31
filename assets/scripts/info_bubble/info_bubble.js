@@ -522,8 +522,8 @@ export const infoBubble = {
   },
 
   updateContents: function () {
-    var infoBubbleEl = infoBubble.el
-    var name, canBeDeleted, showWidth
+    let infoBubbleEl = infoBubble.el
+    let name, canBeDeleted, showWidth, innerEl, widthCanvasEl, el
 
     // If info bubble changes, wake this back up if it's fading out
     _cancelFadeoutControls()
@@ -571,7 +571,7 @@ export const infoBubble = {
     headerEl.innerHTML = name
 
     if (canBeDeleted) {
-      var innerEl = document.createElement('button')
+      innerEl = document.createElement('button')
       innerEl.classList.add('remove')
       innerEl.innerHTML = 'Remove'
       innerEl.segmentEl = infoBubble.segmentEl
@@ -597,11 +597,11 @@ export const infoBubble = {
 
       var disabled = !_isFlooredBuilding(variant)
 
-      var widthCanvasEl = document.createElement('div')
+      widthCanvasEl = document.createElement('div')
       widthCanvasEl.classList.add('non-variant')
       widthCanvasEl.classList.add('building-height')
 
-      var innerEl = document.createElement('button')
+      innerEl = document.createElement('button')
       innerEl.classList.add('increment')
       innerEl.innerHTML = '+'
       innerEl.tabIndex = -1
@@ -614,7 +614,7 @@ export const infoBubble = {
 
       widthCanvasEl.appendChild(innerEl)
       if (!system.touch) {
-        var innerEl = document.createElement('input')
+        innerEl = document.createElement('input')
         innerEl.setAttribute('type', 'text')
         innerEl.classList.add('height')
         innerEl.title = msg('TOOLTIP_BUILDING_HEIGHT')
@@ -627,7 +627,7 @@ export const infoBubble = {
         innerEl.addEventListener('mouseout', _onWidthHeightEditMouseOut)
         innerEl.addEventListener('keydown', _onHeightEditKeyDown)
       } else {
-        var innerEl = document.createElement('span')
+        innerEl = document.createElement('span')
         innerEl.classList.add('height-non-editable')
       }
       if (disabled) {
@@ -635,7 +635,7 @@ export const infoBubble = {
       }
       widthCanvasEl.appendChild(innerEl)
 
-      var innerEl = document.createElement('button')
+      innerEl = document.createElement('button')
       innerEl.classList.add('decrement')
       innerEl.innerHTML = '–'
       innerEl.tabIndex = -1
@@ -652,14 +652,14 @@ export const infoBubble = {
     // Width canvas
 
     if (showWidth) {
-      var widthCanvasEl = document.createElement('div')
+      widthCanvasEl = document.createElement('div')
       widthCanvasEl.classList.add('non-variant')
 
       if (!segmentInfo.variants[0]) {
         widthCanvasEl.classList.add('entire-info-bubble')
       }
 
-      var innerEl = document.createElement('button')
+      innerEl = document.createElement('button')
       innerEl.classList.add('decrement')
       innerEl.innerHTML = '–'
       innerEl.segmentEl = segment.el
@@ -669,7 +669,7 @@ export const infoBubble = {
       widthCanvasEl.appendChild(innerEl)
 
       if (!system.touch) {
-        var innerEl = document.createElement('input')
+        innerEl = document.createElement('input')
         innerEl.setAttribute('type', 'text')
         innerEl.classList.add('width')
         innerEl.title = msg('TOOLTIP_SEGMENT_WIDTH')
@@ -683,12 +683,12 @@ export const infoBubble = {
         innerEl.addEventListener('mouseout', _onWidthHeightEditMouseOut)
         innerEl.addEventListener('keydown', _onWidthEditKeyDown)
       } else {
-        var innerEl = document.createElement('span')
+        innerEl = document.createElement('span')
         innerEl.classList.add('width-non-editable')
       }
       widthCanvasEl.appendChild(innerEl)
 
-      var innerEl = document.createElement('button')
+      innerEl = document.createElement('button')
       innerEl.classList.add('increment')
       innerEl.innerHTML = '+'
       innerEl.segmentEl = segment.el
@@ -754,7 +754,7 @@ export const infoBubble = {
         }
 
         for (var j in BUILDING_VARIANTS) {
-          var el = document.createElement('button')
+          el = document.createElement('button')
           // TODO const
           infoBubble.createVariantIcon('building', BUILDING_VARIANTS[j], el)
           if (BUILDING_VARIANTS[j] === variant) {
@@ -777,7 +777,7 @@ export const infoBubble = {
 
     // Warnings
 
-    var el = document.createElement('div')
+    el = document.createElement('div')
     el.classList.add('warnings')
 
     infoBubbleEl.appendChild(el)

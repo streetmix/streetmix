@@ -57,7 +57,7 @@ export function showGallery (userId, instant, signInPromo) {
   galleryState.visible = true
   galleryState.streetLoaded = true
   galleryState.streetId = street.id
-  galleryUserId = userId
+  galleryUserId = userId // eslint-disable-line no-native-reassign
 
   if (!signInPromo) {
     if (userId) {
@@ -146,7 +146,7 @@ export function hideGallery (instant) {
       _updatePageUrl()
     }
 
-    mode = MODES.CONTINUE
+    mode = MODES.CONTINUE // eslint-disable-line no-native-reassign
   }
 }
 
@@ -196,7 +196,7 @@ export function receiveGalleryData (transmission) {
 
     // This adds the street name plaque to each thumbnail.
     // the variable is assigned, but not re-used. Do not remove!
-    var streetName = new StreetName(nameEl, galleryStreet.name) // eslint-disable-line no-unused-vars
+    let streetName = new StreetName(nameEl, galleryStreet.name) // eslint-disable-line no-unused-vars
 
     var dateEl = document.createElement('span')
     dateEl.classList.add('date')

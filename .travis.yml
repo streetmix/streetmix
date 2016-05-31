@@ -23,6 +23,7 @@ before_install:
 script:
   - node test/index | node_modules/.bin/tap-spec
   - grunt test:travis
+  - npm run lint
 
 notifications:
   webhooks: http://project-monitor.codeforamerica.org/projects/4083b10b-11a4-4ac5-9a7f-51c5cb614243/status

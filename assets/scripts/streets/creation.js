@@ -1,17 +1,17 @@
-/* global ignoreStreetChanges, _prepareDefaultStreet, _setUpdateTimeToNow */
+/* global _trimStreetData, _prepareDefaultStreet, _setUpdateTimeToNow */
 /* global _resizeStreetWidth, _createDomFromData, _segmentsChanged */
-/* global lastStreet, street, _saveStreetToServer, settings */
+/* global street, _saveStreetToServer, settings */
 /* global _saveSettingsLocally, _prepareEmptyStreet, _fetchLastStreet */
+/* global ignoreStreetChanges, lastStreet */ // eslint-disable-line no-unused-vars
 
 import { shareMenu } from '../menus/_share'
 import { updateStreetName } from './name'
-
 
 export const NEW_STREET_DEFAULT = 1
 export const NEW_STREET_EMPTY = 2
 
 export function makeDefaultStreet () {
-  ignoreStreetChanges = true
+  ignoreStreetChanges = true // eslint-disable-line no-native-reassign
   _prepareDefaultStreet()
   _setUpdateTimeToNow()
 
@@ -21,8 +21,8 @@ export function makeDefaultStreet () {
   _segmentsChanged()
   shareMenu.update()
 
-  ignoreStreetChanges = false
-  lastStreet = _trimStreetData(street)
+  ignoreStreetChanges = false // eslint-disable-line no-native-reassign
+  lastStreet = _trimStreetData(street) // eslint-disable-line no-native-reassign
 
   _saveStreetToServer(false)
 }
@@ -38,7 +38,7 @@ export function onNewStreetEmptyClick () {
   settings.newStreetPreference = NEW_STREET_EMPTY
   _saveSettingsLocally()
 
-  ignoreStreetChanges = true
+  ignoreStreetChanges = true // eslint-disable-line no-native-reassign
   _prepareEmptyStreet()
 
   _resizeStreetWidth()
@@ -47,8 +47,8 @@ export function onNewStreetEmptyClick () {
   _segmentsChanged()
   shareMenu.update()
 
-  ignoreStreetChanges = false
-  lastStreet = _trimStreetData(street)
+  ignoreStreetChanges = false // eslint-disable-line no-native-reassign
+  lastStreet = _trimStreetData(street) // eslint-disable-line no-native-reassign
 
   _saveStreetToServer(false)
 }

@@ -40,7 +40,7 @@ export function showError (errorType, newAbortEverything) {
 
   hideLoadingScreen()
 
-  abortEverything = newAbortEverything
+  abortEverything = newAbortEverything // eslint-disable-line no-native-reassign
 
   switch (errorType) {
     case ERRORS.NOT_FOUND:
@@ -144,32 +144,32 @@ export function showError (errorType, newAbortEverything) {
   document.getElementById('error-title').innerHTML = title
   document.getElementById('error-description').innerHTML = description
 
-  var el = document.getElementById('error-home')
+  let el = document.getElementById('error-home')
   if (el) {
     el.addEventListener('pointerdown', goHome)
   }
 
-  var el = document.getElementById('error-sign-in')
+  el = document.getElementById('error-sign-in')
   if (el) {
     el.addEventListener('pointerdown', goSignIn)
   }
 
-  var el = document.getElementById('error-reload')
+  el = document.getElementById('error-reload')
   if (el) {
     el && el.addEventListener('pointerdown', goReload)
   }
 
-  var el = document.getElementById('error-clear-sign-in-reload')
+  el = document.getElementById('error-clear-sign-in-reload')
   if (el) {
     el.addEventListener('pointerdown', _goReloadClearSignIn)
   }
 
-  var el = document.getElementById('error-new')
+  el = document.getElementById('error-new')
   if (el) {
     el.addEventListener('pointerdown', goNewStreet)
   }
 
-  var el = document.getElementById('error-example')
+  el = document.getElementById('error-example')
   if (el) {
     el.addEventListener('pointerdown', goExampleStreet)
   }

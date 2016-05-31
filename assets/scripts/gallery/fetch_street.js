@@ -1,9 +1,9 @@
-/* global street, ignoreStreetChanges, lastStreet */
-/* global API_URL, _getAuthHeader */
+/* global street, API_URL, _getAuthHeader */
 /* global _unpackServerStreetData, _propagateUnits, _recalculateOccupiedWidth,
       _createDomFromData, _createDataFromDom, _resizeStreetWidth,
       _segmentsChanged, _trimStreetData */
 /* global CustomEvent */
+/* global ignoreStreetChanges, lastStreet */ // eslint-disable-line no-unused-vars
 import { showBlockingShield, hideBlockingShield } from '../app/blocking_shield'
 import { hideError } from '../app/errors'
 import { shareMenu } from '../menus/_share'
@@ -46,7 +46,7 @@ function receiveGalleryStreet (transmission) {
     return
   }
 
-  ignoreStreetChanges = true
+  ignoreStreetChanges = true // eslint-disable-line no-native-reassign
 
   hideError()
   _unpackServerStreetData(transmission, null, null, true)
@@ -66,6 +66,6 @@ function receiveGalleryStreet (transmission) {
   _segmentsChanged()
   shareMenu.update()
 
-  ignoreStreetChanges = false
-  lastStreet = _trimStreetData(street)
+  ignoreStreetChanges = false // eslint-disable-line no-native-reassign
+  lastStreet = _trimStreetData(street) // eslint-disable-line no-native-reassign
 }
