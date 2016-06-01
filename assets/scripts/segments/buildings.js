@@ -1,71 +1,84 @@
-var MAX_CANVAS_HEIGHT = 2048
+/* global TILE_SIZE, _drawSegmentImage, system, _saveStreetToServerIfNecessary
+   street, _resumeFadeoutControls */
 
-var BUILDING_DESTINATION_SCREEN = 1
-var BUILDING_DESTINATION_THUMBNAIL = 2
+import {
+  INFO_BUBBLE_TYPE_RIGHT_BUILDING,
+  INFO_BUBBLE_TYPE_LEFT_BUILDING,
+  infoBubble
+} from '../info_bubble/info_bubble'
+import { getElAbsolutePos } from '../util/helpers'
+import { RandomGenerator } from '../util/random'
 
-var BUILDING_SPACE = 360
+const MAX_CANVAS_HEIGHT = 2048
 
-var DEFAULT_BUILDING_HEIGHT_LEFT = 4
-var DEFAULT_BUILDING_HEIGHT_RIGHT = 3
-var DEFAULT_BUILDING_VARIANT_LEFT = 'narrow'
-var DEFAULT_BUILDING_VARIANT_RIGHT = 'wide'
-var DEFAULT_BUILDING_HEIGHT_EMPTY = 1
-var DEFAULT_BUILDING_VARIANT_EMPTY = 'grass'
+const BUILDING_DESTINATION_SCREEN = 1
+export const BUILDING_DESTINATION_THUMBNAIL = 2
 
-var BUILDING_VARIANTS = ['waterfront', 'grass', 'fence', 'parking-lot',
+export const BUILDING_SPACE = 360
+
+export const DEFAULT_BUILDING_HEIGHT_LEFT = 4
+export const DEFAULT_BUILDING_HEIGHT_RIGHT = 3
+export const DEFAULT_BUILDING_VARIANT_LEFT = 'narrow'
+export const DEFAULT_BUILDING_VARIANT_RIGHT = 'wide'
+export const DEFAULT_BUILDING_HEIGHT_EMPTY = 1
+export const DEFAULT_BUILDING_VARIANT_EMPTY = 'grass'
+
+export const BUILDING_VARIANTS = ['waterfront', 'grass', 'fence', 'parking-lot',
   'residential', 'narrow', 'wide']
-var BUILDING_VARIANT_NAMES = ['Waterfront', 'Grass', 'Empty lot', 'Parking lot',
+export const BUILDING_VARIANT_NAMES = ['Waterfront', 'Grass', 'Empty lot', 'Parking lot',
   'Home', 'Building', 'Building']
 
-var MAX_BUILDING_HEIGHT = 20
+export const MAX_BUILDING_HEIGHT = 20
 
-function _getBuildingAttributes (street, left) {
+export function getBuildingAttributes (street, left) {
+  let width, floorRoofWidth, variantsCount, tileset, floorHeight, roofHeight
+  let mainFloorHeight, height, tilePositionX, tilePositionY
   var buildingVariant = left ? street.leftBuildingVariant : street.rightBuildingVariant
-  var flooredBuilding = _isFlooredBuilding(buildingVariant)
+  var flooredBuilding = isFlooredBuilding(buildingVariant)
 
   // Non-directional
 
   switch (buildingVariant) {
     case 'narrow':
-      var width = 216
-      var floorRoofWidth = 216
-      var variantsCount = 1
-      var tileset = 2
+      width = 216
+      floorRoofWidth = 216
+      variantsCount = 1
+      tileset = 2
 
-      var floorHeight = 10
-      var roofHeight = 2
-      var mainFloorHeight = 14
+      floorHeight = 10
+      roofHeight = 2
+      mainFloorHeight = 14
       break
     case 'wide':
-      var width = 396
-      var floorRoofWidth = 396
-      var variantsCount = 1
-      var tileset = 3
+      width = 396
+      floorRoofWidth = 396
+      variantsCount = 1
+      tileset = 3
 
-      var floorHeight = 10
-      var roofHeight = 2
-      var mainFloorHeight = 14
+      floorHeight = 10
+      roofHeight = 2
+      mainFloorHeight = 14
       break
     case 'residential':
-      var width = 396
-      var floorRoofWidth = 240
-      var variantsCount = 0
+      width = 396
+      floorRoofWidth = 240
+      variantsCount = 0
 
-      var floorHeight = 10
-      var roofHeight = 6
-      var mainFloorHeight = 24.5
+      floorHeight = 10
+      roofHeight = 6
+      mainFloorHeight = 24.5
       break
     case 'waterfront':
-      var height = 12 * TILE_SIZE
+      height = 12 * TILE_SIZE
       break
     case 'parking-lot':
-      var height = 28 * TILE_SIZE
+      height = 28 * TILE_SIZE
       break
     case 'fence':
-      var height = 12 * TILE_SIZE
+      height = 12 * TILE_SIZE
       break
     case 'grass':
-      var height = 6 * TILE_SIZE
+      height = 6 * TILE_SIZE
       break
   }
   // Directional
@@ -73,40 +86,40 @@ function _getBuildingAttributes (street, left) {
   if (left) {
     switch (buildingVariant) {
       case 'narrow':
-        var tilePositionX = 1512 + 17
-        var tilePositionY = 576 - 1
+        tilePositionX = 1512 + 17
+        tilePositionY = 576 - 1
         break
       case 'wide':
-        var tilePositionX = 1956
-        var tilePositionY = 576 - 24 * 2
+        tilePositionX = 1956
+        tilePositionY = 576 - 24 * 2
         break
       case 'residential':
-        var tileset = 3
-        var tilePositionX = 1956 + 382 + 204
-        var tilePositionY = 576 + 740 / 2 - 1 - 12 + 8
+        tileset = 3
+        tilePositionX = 1956 + 382 + 204
+        tilePositionY = 576 + 740 / 2 - 1 - 12 + 8
         break
     }
   } else {
     switch (buildingVariant) {
       case 'narrow':
-        var tilePositionX = 1728 + 13
-        var tilePositionY = 576 - 1
+        tilePositionX = 1728 + 13
+        tilePositionY = 576 - 1
         break
       case 'wide':
-        var tilePositionX = 2351
-        var tilePositionY = 576 - 24 * 2 - 1
+        tilePositionX = 2351
+        tilePositionY = 576 - 24 * 2 - 1
         break
       case 'residential':
-        var tileset = 2
-        var tilePositionX = 1956 + 382 + 204 + 25 - 1008 - 12 - 1 + 48
-        var tilePositionY = 576 + 740 / 2 - 1 - 12 + 237 + 6
+        tileset = 2
+        tilePositionX = 1956 + 382 + 204 + 25 - 1008 - 12 - 1 + 48
+        tilePositionY = 576 + 740 / 2 - 1 - 12 + 237 + 6
         break
     }
   }
 
   if (flooredBuilding) {
     var floorCount = left ? street.leftBuildingHeight : street.rightBuildingHeight
-    var height = (roofHeight + floorHeight * (floorCount - 1) + mainFloorHeight) * TILE_SIZE + 45
+    height = (roofHeight + floorHeight * (floorCount - 1) + mainFloorHeight) * TILE_SIZE + 45
     var realHeight = height - 45 - 6
   }
 
@@ -120,19 +133,21 @@ function _getBuildingAttributes (street, left) {
 }
 
 // TODO change to array
-function _isFlooredBuilding (buildingVariant) {
-  if ((buildingVariant == 'narrow') || (buildingVariant == 'wide') ||
-    (buildingVariant == 'residential')) {
+export function isFlooredBuilding (buildingVariant) {
+  if ((buildingVariant === 'narrow') || (buildingVariant === 'wide') ||
+    (buildingVariant === 'residential')) {
     return true
   } else {
     return false
   }
 }
 
-function _drawBuilding (ctx, destination, street, left, totalWidth,
+export function drawBuilding (ctx, destination, street, left, totalWidth,
   totalHeight, bottomAligned, offsetLeft, offsetTop,
   multiplier) {
-  var attr = _getBuildingAttributes(street, left)
+  let x, y, posShift, leftPos, tileset, width, height, offsetY, lastX, firstX
+  let variant, currentX
+  var attr = getBuildingAttributes(street, left)
 
   if (bottomAligned) {
     offsetTop += totalHeight - attr.height * multiplier
@@ -141,94 +156,94 @@ function _drawBuilding (ctx, destination, street, left, totalWidth,
   if (!attr.flooredBuilding) {
     switch (attr.buildingVariant) {
       case 'fence':
-        var tileset = 1
+        tileset = 1
         if (left) {
-          var x = 1344 / 2
+          x = 1344 / 2
         } else {
-          var x = 1224 / 2
+          x = 1224 / 2
         }
-        var width = 48
-        var y = 0
-        var height = 168 + 12 - 24 - 24 - 24
-        var offsetY = 23 + 24
+        width = 48
+        y = 0
+        height = 168 + 12 - 24 - 24 - 24
+        offsetY = 23 + 24
         offsetTop -= 45
 
         if (left) {
-          var posShift = (totalWidth % width) - 121
+          posShift = (totalWidth % width) - 121
         } else {
-          var posShift = 25
+          posShift = 25
         }
         break
       case 'grass':
-        var tileset = 1
-        var x = 1104 / 2
-        var width = 48
-        var y = 0
-        var height = 168 + 12
-        var offsetY = 23 + 24 - 6 * 12
+        tileset = 1
+        x = 1104 / 2
+        width = 48
+        y = 0
+        height = 168 + 12
+        offsetY = 23 + 24 - 6 * 12
         offsetTop -= 45
 
         if (left) {
-          var posShift = (totalWidth % width) - 121
+          posShift = (totalWidth % width) - 121
         } else {
-          var posShift = 25
+          posShift = 25
         }
         break
 
       case 'parking-lot':
-        var tileset = 3
-        var width = 216
-        var height = 576 / 2
-        var offsetY = 3 + 45
+        tileset = 3
+        width = 216
+        height = 576 / 2
+        offsetY = 3 + 45
         offsetTop -= 45
 
         if (left) {
-          var posShift = (totalWidth % width) - width - width - 25
-          var y = 12 + 298
+          posShift = (totalWidth % width) - width - width - 25
+          y = 12 + 298
 
-          var x = 815 + 162 * 12
-          var lastX = 815 + 162 * 12 + 9 * 24
+          x = 815 + 162 * 12
+          lastX = 815 + 162 * 12 + 9 * 24
         } else {
-          var posShift = 25
-          var y = 12
+          posShift = 25
+          y = 12
 
-          var x = 815 + 162 * 12 + 9 * 24
-          var firstX = 815 + 162 * 12
+          x = 815 + 162 * 12 + 9 * 24
+          firstX = 815 + 162 * 12
         }
         break
 
       case 'waterfront':
-        var tileset = 1
-        var width = 120
-        var height = 192 / 2
-        var offsetY = 24 + 24 + 45
+        tileset = 1
+        width = 120
+        height = 192 / 2
+        offsetY = 24 + 24 + 45
         offsetTop -= 45
 
         if (left) {
-          var posShift = (totalWidth % width) - width - width - 25
-          var y = 120
+          posShift = (totalWidth % width) - width - width - 25
+          y = 120
 
-          var x = 0
-          var lastX = 120
+          x = 0
+          lastX = 120
         } else {
-          var posShift = 25
-          var y = 456 / 2
+          posShift = 25
+          y = 456 / 2
 
-          var x = 120
-          var firstX = 0
+          x = 120
+          firstX = 0
         }
         break
     }
 
     var count = Math.floor(totalWidth / width) + 2
 
-    for (var i = 0; i < count; i++) {
-      if ((i == 0) && (typeof firstX != 'undefined')) {
-        var currentX = firstX
-      } else if ((i == count - 1) && (typeof lastX != 'undefined')) {
-        var currentX = lastX
+    for (let i = 0; i < count; i++) {
+      if ((i === 0) && (typeof firstX !== 'undefined')) {
+        currentX = firstX
+      } else if ((i === count - 1) && (typeof lastX !== 'undefined')) {
+        currentX = lastX
       } else {
-        var currentX = x
+        currentX = x
       }
 
       _drawSegmentImage(tileset, ctx,
@@ -242,9 +257,9 @@ function _drawBuilding (ctx, destination, street, left, totalWidth,
     // Floored buildings
 
     if (left) {
-      var leftPos = totalWidth - attr.width - 2
+      leftPos = totalWidth - attr.width - 2
     } else {
-      var leftPos = 0
+      leftPos = 0
     }
 
     offsetTop -= 45
@@ -268,11 +283,11 @@ function _drawBuilding (ctx, destination, street, left, totalWidth,
     var randomGenerator = new RandomGenerator()
     randomGenerator.seed = 0
 
-    for (var i = 1; i < attr.floorCount; i++) {
-      if (attr.variantsCount == 0) {
-        var variant = 0
+    for (let i = 1; i < attr.floorCount; i++) {
+      if (attr.variantsCount === 0) {
+        variant = 0
       } else {
-        var variant = Math.floor(randomGenerator.rand() * attr.variantsCount) + 1
+        variant = Math.floor(randomGenerator.rand() * attr.variantsCount) + 1
       }
 
       _drawSegmentImage(attr.tileset, ctx,
@@ -299,7 +314,7 @@ function _drawBuilding (ctx, destination, street, left, totalWidth,
       attr.roofHeight * TILE_SIZE * multiplier)
   }
 
-  if ((street.remainingWidth < 0) && (destination == BUILDING_DESTINATION_SCREEN)) {
+  if ((street.remainingWidth < 0) && (destination === BUILDING_DESTINATION_SCREEN)) {
     ctx.save()
     ctx.globalCompositeOperation = 'source-atop'
     // TODO const
@@ -309,9 +324,9 @@ function _drawBuilding (ctx, destination, street, left, totalWidth,
   }
 }
 
-function _createBuilding (el, left) {
+function createBuilding (el, left) {
   var totalWidth = el.offsetWidth
-  var attr = _getBuildingAttributes(street, left)
+  var attr = getBuildingAttributes(street, left)
   var height = Math.min(MAX_CANVAS_HEIGHT, attr.height)
   var canvasEl = document.createElement('canvas')
   var oldCanvasEl = el.querySelector('canvas')
@@ -329,16 +344,16 @@ function _createBuilding (el, left) {
   }
 
   var ctx = canvasEl.getContext('2d')
-  _drawBuilding(ctx, BUILDING_DESTINATION_SCREEN, street, left,
+  drawBuilding(ctx, BUILDING_DESTINATION_SCREEN, street, left,
     totalWidth, height, true, 0, 0, 1.0)
 }
 
-function _buildingHeightUpdated () {
+export function buildingHeightUpdated () {
   _saveStreetToServerIfNecessary()
-  _createBuildings()
+  createBuildings()
 }
 
-function _changeBuildingHeight (left, increment) {
+export function changeBuildingHeight (left, increment) {
   if (left) {
     if (increment) {
       if (street.leftBuildingHeight < MAX_BUILDING_HEIGHT) {
@@ -357,38 +372,39 @@ function _changeBuildingHeight (left, increment) {
     }
   }
 
-  _infoBubble.updateHeightInContents(left)
-  _buildingHeightUpdated()
+  infoBubble.updateHeightInContents(left)
+  buildingHeightUpdated()
 }
 
-function _createBuildings () {
+export function createBuildings () {
   var leftEl = document.querySelector('#street-section-left-building')
   var rightEl = document.querySelector('#street-section-right-building')
 
-  _createBuilding(leftEl, true)
-  _createBuilding(rightEl, false)
+  createBuilding(leftEl, true)
+  createBuilding(rightEl, false)
 }
 
-function _onBuildingMouseEnter (event) {
-  if (this.id == 'street-section-left-building') {
-    var type = INFO_BUBBLE_TYPE_LEFT_BUILDING
+export function onBuildingMouseEnter (event) {
+  let type
+  if (this.id === 'street-section-left-building') {
+    type = INFO_BUBBLE_TYPE_LEFT_BUILDING
   } else {
-    var type = INFO_BUBBLE_TYPE_RIGHT_BUILDING
+    type = INFO_BUBBLE_TYPE_RIGHT_BUILDING
   }
 
-  _infoBubble.considerShowing(event, this, type)
+  infoBubble.considerShowing(event, this, type)
   _resumeFadeoutControls()
 }
 
-function _onBuildingMouseLeave (event) {
+export function onBuildingMouseLeave (event) {
   if (event.pointerType !== 'mouse') return
 
-  _infoBubble.dontConsiderShowing()
+  infoBubble.dontConsiderShowing()
 }
 
-function _updateBuildingPosition () {
+export function updateBuildingPosition () {
   var el = document.querySelector('#street-section-editable')
-  var pos = _getElAbsolutePos(el)
+  var pos = getElAbsolutePos(el)
 
   var width = pos[0] + 25
 

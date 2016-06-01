@@ -98,13 +98,38 @@ window._onStreetSectionScroll = onStreetSectionScroll
 import {
   infoBubble,
   INFO_BUBBLE_TYPE_SEGMENT,
-  INFO_BUBBLE_TYPE_LEFT_BUILDING,
-  INFO_BUBBLE_TYPE_RIGHT_BUILDING
+  INFO_BUBBLE_TYPE_LEFT_BUILDING
 } from './info_bubble/info_bubble'
 window._infoBubble = infoBubble
 window.INFO_BUBBLE_TYPE_SEGMENT = INFO_BUBBLE_TYPE_SEGMENT
 window.INFO_BUBBLE_TYPE_LEFT_BUILDING = INFO_BUBBLE_TYPE_LEFT_BUILDING
-window.INFO_BUBBLE_TYPE_RIGHT_BUILDING = INFO_BUBBLE_TYPE_RIGHT_BUILDING
+
+import {
+  BUILDING_SPACE,
+  DEFAULT_BUILDING_HEIGHT_LEFT,
+  DEFAULT_BUILDING_HEIGHT_RIGHT,
+  DEFAULT_BUILDING_VARIANT_LEFT,
+  DEFAULT_BUILDING_VARIANT_RIGHT,
+  DEFAULT_BUILDING_HEIGHT_EMPTY,
+  DEFAULT_BUILDING_VARIANT_EMPTY,
+  changeBuildingHeight,
+  createBuildings,
+  onBuildingMouseEnter,
+  onBuildingMouseLeave,
+  updateBuildingPosition
+} from './segments/buildings'
+window.BUILDING_SPACE = BUILDING_SPACE
+window.DEFAULT_BUILDING_HEIGHT_LEFT = DEFAULT_BUILDING_HEIGHT_LEFT
+window.DEFAULT_BUILDING_HEIGHT_RIGHT = DEFAULT_BUILDING_HEIGHT_RIGHT
+window.DEFAULT_BUILDING_VARIANT_LEFT = DEFAULT_BUILDING_VARIANT_LEFT
+window.DEFAULT_BUILDING_VARIANT_RIGHT = DEFAULT_BUILDING_VARIANT_RIGHT
+window.DEFAULT_BUILDING_HEIGHT_EMPTY = DEFAULT_BUILDING_HEIGHT_EMPTY
+window.DEFAULT_BUILDING_VARIANT_EMPTY = DEFAULT_BUILDING_VARIANT_EMPTY
+window._changeBuildingHeight = _changeBuildingHeight
+window._createBuildings = createBuildings
+window._onBuildingMouseEnter = onBuildingMouseEnter
+window._onBuildingMouseLeave = onBuildingMouseLeave
+window._updateBuildingPosition = updateBuildingPosition
 
 import { drawProgrammaticPeople } from './segments/people'
 window.drawProgrammaticPeople = drawProgrammaticPeople
@@ -121,6 +146,5 @@ window.undecorateWidth = undecorateWidth
 import { removeElFromDOM } from './util/dom_helpers'
 window.removeElFromDOM = removeElFromDOM
 
-import { generateRandSeed, RandomGenerator } from './util/random'
+import { generateRandSeed } from './util/random'
 window.generateRandSeed = generateRandSeed
-window.RandomGenerator = RandomGenerator

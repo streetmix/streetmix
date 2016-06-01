@@ -1,8 +1,7 @@
-/* global TILE_SIZE, BUILDING_SPACE */
-/* global street, system */
-/* global _getBuildingAttributes */
+/* global TILE_SIZE, street, system */
 
 import { drawStreetThumbnail } from '../gallery/thumbnail'
+import { BUILDING_SPACE, getBuildingAttributes } from '../segments/buildings'
 
 const SAVE_AS_IMAGE_DPI = 2.0
 const SAVE_AS_IMAGE_MIN_HEIGHT = 400
@@ -16,8 +15,8 @@ export const SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING = 65
 export function getStreetImage (transparentSky, segmentNamesAndWidths, streetName) {
   const width = TILE_SIZE * street.width + BUILDING_SPACE * 2
 
-  const leftBuildingAttr = _getBuildingAttributes(street, true)
-  const rightBuildingAttr = _getBuildingAttributes(street, false)
+  const leftBuildingAttr = getBuildingAttributes(street, true)
+  const rightBuildingAttr = getBuildingAttributes(street, false)
 
   const leftHeight = leftBuildingAttr.height
   const rightHeight = rightBuildingAttr.height

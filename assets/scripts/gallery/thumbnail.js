@@ -1,10 +1,11 @@
 /* global system, images */
-/* global TILE_SIZE, BUILDING_DESTINATION_THUMBNAIL, SEGMENT_INFO */
-/* global _drawBuilding, _getVariantInfoDimensions, _drawSegmentContents */
+/* global TILE_SIZE, SEGMENT_INFO */
+/* global _getVariantInfoDimensions, _drawSegmentContents */
 import { drawLine } from '../util/canvas_drawing'
 import { prettifyWidth } from '../util/width_units'
 import { SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING } from '../streets/image'
 import { StreetName } from '../streets/name_sign'
+import { BUILDING_DESTINATION_THUMBNAIL, drawBuilding } from '../segments/buildings'
 
 const SKY_COLOUR = 'rgb(169, 204, 219)'
 const SKY_WIDTH = 250
@@ -88,10 +89,10 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
   const buildingWidth = buildingOffsetLeft / multiplier
 
   const x1 = thumbnailWidth / 2 - street.width * TILE_SIZE * multiplier / 2
-  _drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street, true, buildingWidth, groundLevel + 45, true, x1 - (buildingWidth - 25) * multiplier, 0, multiplier)
+  drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street, true, buildingWidth, groundLevel + 45, true, x1 - (buildingWidth - 25) * multiplier, 0, multiplier)
 
   const x2 = thumbnailWidth / 2 + street.width * TILE_SIZE * multiplier / 2
-  _drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street, false, buildingWidth, groundLevel + 45, true, x2 - 25 * multiplier, 0, multiplier)
+  drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street, false, buildingWidth, groundLevel + 45, true, x2 - 25 * multiplier, 0, multiplier)
 
   // Segments
 
