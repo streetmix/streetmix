@@ -6,7 +6,7 @@
 import { msg } from '../app/messages'
 import { infoBubble, INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/info_bubble'
 import { removeElFromDOM, getElAbsolutePos } from '../util/dom_helpers'
-import { prettifyWidth } from './util/width_units'
+import { prettifyWidth } from '../util/width_units'
 import { drawProgrammaticPeople } from './people'
 import { getVariantArray, getVariantString } from './variant_utils'
 
