@@ -1,11 +1,15 @@
-/* global system, images */
-/* global TILE_SIZE, SEGMENT_INFO */
-/* global _getVariantInfoDimensions, _drawSegmentContents */
+/* global system, images, SEGMENT_INFO */
+
 import { drawLine } from '../util/canvas_drawing'
 import { prettifyWidth } from '../util/width_units'
 import { SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING } from '../streets/image'
 import { StreetName } from '../streets/name_sign'
 import { BUILDING_DESTINATION_THUMBNAIL, drawBuilding } from '../segments/buildings'
+import {
+  TILE_SIZE,
+  getVariantInfoDimensions,
+  drawSegmentContents
+} from '../segments/view'
 
 const SKY_COLOUR = 'rgb(169, 204, 219)'
 const SKY_WIDTH = 250
@@ -116,9 +120,9 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
       if (segmentInfo.zIndex === zIndex) {
         const variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString]
-        const dimensions = _getVariantInfoDimensions(variantInfo, segment.width * TILE_SIZE, 1)
+        const dimensions = getVariantInfoDimensions(variantInfo, segment.width * TILE_SIZE, 1)
 
-        _drawSegmentContents(ctx, segment.type, segment.variantString,
+        drawSegmentContents(ctx, segment.type, segment.variantString,
           segment.width * TILE_SIZE * multiplier,
           offsetLeft + dimensions.left * TILE_SIZE * multiplier, offsetTop, segment.randSeed, multiplier, false)
       }

@@ -1,5 +1,5 @@
-/* global TILE_SIZE, _drawSegmentImage, system, _saveStreetToServerIfNecessary
-   street, _resumeFadeoutControls */
+/* global system, _saveStreetToServerIfNecessary, street,
+   _resumeFadeoutControls */
 
 import {
   INFO_BUBBLE_TYPE_RIGHT_BUILDING,
@@ -8,6 +8,7 @@ import {
 } from '../info_bubble/info_bubble'
 import { getElAbsolutePos } from '../util/helpers'
 import { RandomGenerator } from '../util/random'
+import { TILE_SIZE, drawSegmentImage } from './view'
 
 const MAX_CANVAS_HEIGHT = 2048
 
@@ -246,7 +247,7 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
         currentX = x
       }
 
-      _drawSegmentImage(tileset, ctx,
+      drawSegmentImage(tileset, ctx,
         currentX, y, width, height,
         offsetLeft + (posShift + i * width) * multiplier,
         offsetTop + offsetY * multiplier,
@@ -266,7 +267,7 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
 
     // bottom floor
 
-    _drawSegmentImage(attr.tileset, ctx,
+    drawSegmentImage(attr.tileset, ctx,
       attr.tilePositionX,
       attr.tilePositionY - 240 + 120 * attr.variantsCount,
       attr.width,
@@ -290,7 +291,7 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
         variant = Math.floor(randomGenerator.rand() * attr.variantsCount) + 1
       }
 
-      _drawSegmentImage(attr.tileset, ctx,
+      drawSegmentImage(attr.tileset, ctx,
         attr.tilePositionX + floorCorrection,
         attr.tilePositionY - 240 + 120 * attr.variantsCount - (attr.floorHeight * TILE_SIZE * variant),
         attr.floorRoofWidth,
@@ -303,7 +304,7 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
 
     // roof
 
-    _drawSegmentImage(attr.tileset, ctx,
+    drawSegmentImage(attr.tileset, ctx,
       attr.tilePositionX + floorCorrection,
       attr.tilePositionY - 240 + 120 * attr.variantsCount - (attr.floorHeight * TILE_SIZE * attr.variantsCount + attr.roofHeight * TILE_SIZE),
       attr.floorRoofWidth,

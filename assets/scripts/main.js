@@ -28,6 +28,9 @@ import './menus/_share'
 import './dialogs/_about'
 import './dialogs/_save_as_image'
 
+// Segments
+import './segments/people'
+
 // Street
 import './streets/name'
 import './streets/scroll'

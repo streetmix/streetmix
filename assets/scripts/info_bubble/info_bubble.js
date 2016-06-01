@@ -1,14 +1,12 @@
 /* global app, debug, street, system */
 /* global draggingType */
 /* global SEGMENT_INFO, MAX_SEGMENT_WIDTH, SEGMENT_WARNING_WIDTH_TOO_LARGE,
-      RESIZE_TYPE_TYPING, TILE_SIZE, KEYS, SEGMENT_WARNING_OUTSIDE,
+      RESIZE_TYPE_TYPING, KEYS, SEGMENT_WARNING_OUTSIDE,
       SEGMENT_WARNING_WIDTH_TOO_SMALL, MIN_SEGMENT_WIDTH, DRAGGING_TYPE_NONE
       */
-/* global _switchSegmentElAway, _switchSegmentElIn,
-      _saveStreetToServerIfNecessary, _resizeSegment,
-      _processWidthInput, _changeSegmentVariant, _incrementSegmentWidth,
-      _scheduleControlsFadeout, _resumeFadeoutControls, _cancelFadeoutControls
-      */
+/* global _saveStreetToServerIfNecessary, _resizeSegment, _processWidthInput,
+   _incrementSegmentWidth, _scheduleControlsFadeout, _resumeFadeoutControls,
+   _cancelFadeoutControls */
 // Many things in resizing.js
 import { updateDescription, hideDescription } from './description'
 import {
@@ -32,6 +30,12 @@ import { prettifyWidth, undecorateWidth } from '../util/width_units'
 import { isAnyMenuVisible, hideAllMenus } from '../menus/menu'
 import { registerKeypress } from '../app/keypress'
 import { loseAnyFocus } from '../app/focus'
+import {
+  TILE_SIZE,
+  changeSegmentVariant,
+  switchSegmentElIn,
+  switchSegmentElAway
+} from '../segments/view'
 
 export const INFO_BUBBLE_TYPE_SEGMENT = 1
 export const INFO_BUBBLE_TYPE_LEFT_BUILDING = 2
@@ -349,8 +353,8 @@ export const infoBubble = {
 
     el.parentNode.appendChild(newEl)
     updateBuildingPosition()
-    _switchSegmentElIn(newEl)
-    _switchSegmentElAway(el)
+    switchSegmentElIn(newEl)
+    switchSegmentElAway(el)
 
     // TODO repeat
     newEl.addEventListener('pointerenter', onBuildingMouseEnter)
@@ -744,7 +748,7 @@ export const infoBubble = {
 
             el.addEventListener('pointerdown', (function (dataNo, variantType, variantChoice) {
               return function () {
-                _changeSegmentVariant(dataNo, variantType, variantChoice)
+                changeSegmentVariant(dataNo, variantType, variantChoice)
               }
             })(segment.el.dataNo, variantType, variantChoice))
 

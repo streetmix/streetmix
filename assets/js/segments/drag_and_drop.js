@@ -779,9 +779,6 @@ function _onBodyMouseUp (event) {
     case DRAGGING_TYPE_CLICK_OR_MOVE:
       _changeDraggingType(DRAGGING_TYPE_NONE)
       ignoreStreetChanges = false
-
-      // click!
-      // _nextSegmentVariant(draggingMove.originalEl.dataNo)
       break
     case DRAGGING_TYPE_MOVE:
       _handleSegmentMoveEnd(event)

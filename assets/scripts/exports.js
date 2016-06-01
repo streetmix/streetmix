@@ -131,12 +131,26 @@ window._onBuildingMouseEnter = onBuildingMouseEnter
 window._onBuildingMouseLeave = onBuildingMouseLeave
 window._updateBuildingPosition = updateBuildingPosition
 
-import { drawProgrammaticPeople } from './segments/people'
-window.drawProgrammaticPeople = drawProgrammaticPeople
-
 import { getVariantString, getVariantArray } from './segments/variant_utils'
 window._getVariantString = getVariantString
 window._getVariantArray = getVariantArray
+
+import {
+  TILE_SIZE,
+  setSegmentContents,
+  createSegment,
+  createSegmentDom,
+  fillEmptySegments,
+  repositionSegments,
+  segmentsChanged
+} from './segments/view'
+window.TILE_SIZE = TILE_SIZE
+window._setSegmentContents = setSegmentContents
+window._createSegment = createSegment
+window._createSegmentDom = createSegmentDom
+window._fillEmptySegments = fillEmptySegments
+window._repositionSegments = repositionSegments
+window._segmentsChanged = segmentsChanged
 
 import { processWidthInput, prettifyWidth, undecorateWidth } from './util/width_units'
 window._processWidthInput = processWidthInput

@@ -1,14 +1,13 @@
 /* global street, API_URL, _getAuthHeader */
 /* global _unpackServerStreetData, _propagateUnits, _recalculateOccupiedWidth,
-      _createDomFromData, _createDataFromDom, _resizeStreetWidth,
-      _segmentsChanged, _trimStreetData */
+   _createDomFromData, _createDataFromDom, _resizeStreetWidth, _trimStreetData */
 /* global CustomEvent */
 /* global ignoreStreetChanges, lastStreet */ // eslint-disable-line no-unused-vars
 import { showBlockingShield, hideBlockingShield } from '../app/blocking_shield'
 import { hideError } from '../app/errors'
 import { shareMenu } from '../menus/_share'
 import { updateStreetName } from '../streets/name'
-import { galleryState, updateGallerySelection } from './view'
+import { galleryState, updateGallerySelection, segmentsChanged } from './view'
 
 export function fetchGalleryStreet (streetId) {
   showBlockingShield()
@@ -63,7 +62,7 @@ function receiveGalleryStreet (transmission) {
   _resizeStreetWidth()
   updateStreetName()
   _createDomFromData()
-  _segmentsChanged()
+  segmentsChanged()
   shareMenu.update()
 
   ignoreStreetChanges = false // eslint-disable-line no-native-reassign
