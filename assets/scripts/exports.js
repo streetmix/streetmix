@@ -34,14 +34,12 @@ import { showStatusMessage, hideStatusMessage } from './app/status_message'
 window.showStatusMessage = showStatusMessage
 window.hideStatusMessage = hideStatusMessage
 
-import { ERRORS, showError, hideError, showErrorFromUrl } from './app/errors'
+import { ERRORS, showError, showErrorFromUrl } from './app/errors'
 window.ERRORS = ERRORS
 window._showError = showError
-window._hideError = hideError
 window._showErrorFromUrl = showErrorFromUrl
 
-import { getElAbsolutePos, normalizeSlug } from './util/helpers'
-window._getElAbsolutePos = getElAbsolutePos
+import { normalizeSlug } from './util/helpers'
 window.normalizeSlug = normalizeSlug
 
 // Gallery
@@ -49,18 +47,13 @@ import { showGallery } from './gallery/view'
 window._showGallery = showGallery
 
 // Menus
-import { isAnyMenuVisible, hideAllMenus } from './menus/menu'
-window.isAnyMenuVisible = isAnyMenuVisible
+import { hideAllMenus } from './menus/menu'
 window.hideAllMenus = hideAllMenus
 
 import { shareMenu } from './menus/_share'
 window.shareMenu = shareMenu
 
 // Dialogs
-import { isAnyDialogVisible, hideAllDialogs } from './dialogs/dialog'
-window.isAnyDialogVisible = isAnyDialogVisible
-window.hideAllDialogs = hideAllDialogs
-
 import { aboutDialog } from './dialogs/_about'
 window.aboutDialog = aboutDialog
 
@@ -86,23 +79,14 @@ window.NEW_STREET_EMPTY = NEW_STREET_EMPTY
 import { updateStreetMetadata } from './streets/metadata'
 window._updateStreetMetadata = updateStreetMetadata
 
-import { StreetName } from './streets/name_sign'
-window.StreetName = StreetName
-
 import { updateStreetName } from './streets/name'
 window._updateStreetName = updateStreetName
 
 import { onStreetSectionScroll } from './streets/scroll'
 window._onStreetSectionScroll = onStreetSectionScroll
 
-import {
-  infoBubble,
-  INFO_BUBBLE_TYPE_SEGMENT,
-  INFO_BUBBLE_TYPE_LEFT_BUILDING
-} from './info_bubble/info_bubble'
+import { infoBubble } from './info_bubble/info_bubble'
 window._infoBubble = infoBubble
-window.INFO_BUBBLE_TYPE_SEGMENT = INFO_BUBBLE_TYPE_SEGMENT
-window.INFO_BUBBLE_TYPE_LEFT_BUILDING = INFO_BUBBLE_TYPE_LEFT_BUILDING
 
 import {
   BUILDING_SPACE,
@@ -131,32 +115,31 @@ window._onBuildingMouseEnter = onBuildingMouseEnter
 window._onBuildingMouseLeave = onBuildingMouseLeave
 window._updateBuildingPosition = updateBuildingPosition
 
+import { DEFAULT_SEGMENTS } from './segments/default'
+window.DEFAULT_SEGMENTS = DEFAULT_SEGMENTS
+
 import {
-  DRAGGING_TYPE_NONE,
   DRAGGING_TYPE_MOVE,
   DRAGGING_TYPE_RESIZE,
-  draggingResize,
-  changeDraggingType,
   onBodyMouseOut,
   onBodyMouseDown,
   onBodyMouseMove,
   handleSegmentMoveCancel,
-  removeGuides,
   onBodyMouseUp,
   draggingType
 } from './segments/drag_and_drop'
-window.DRAGGING_TYPE_NONE = DRAGGING_TYPE_NONE
 window.DRAGGING_TYPE_MOVE = DRAGGING_TYPE_MOVE
 window.DRAGGING_TYPE_RESIZE = DRAGGING_TYPE_RESIZE
-window.draggingResize = draggingResize
-window._changeDraggingType = changeDraggingType
 window._onBodyMouseOut = onBodyMouseOut
 window._onBodyMouseDown = onBodyMouseDown
 window._onBodyMouseMove = onBodyMouseMove
 window._handleSegmentMoveCancel = handleSegmentMoveCancel
-window._removeGuides = removeGuides
 window._onBodyMouseUp = onBodyMouseUp
 window.draggingType = draggingType
+
+import { SEGMENT_INFO, prepareSegmentInfo } from './segments/info'
+window.SEGMENT_INFO = SEGMENT_INFO
+window._prepareSegmentInfo = prepareSegmentInfo
 
 import {
   getSegmentWidthResolution,
@@ -181,7 +164,6 @@ window._getVariantArray = getVariantArray
 
 import {
   TILE_SIZE,
-  setSegmentContents,
   createSegment,
   createSegmentDom,
   fillEmptySegments,
@@ -189,20 +171,15 @@ import {
   segmentsChanged
 } from './segments/view'
 window.TILE_SIZE = TILE_SIZE
-window._setSegmentContents = setSegmentContents
 window._createSegment = createSegment
 window._createSegmentDom = createSegmentDom
 window._fillEmptySegments = fillEmptySegments
 window._repositionSegments = repositionSegments
 window._segmentsChanged = segmentsChanged
 
-import { processWidthInput, prettifyWidth, undecorateWidth } from './util/width_units'
+import { processWidthInput, prettifyWidth } from './util/width_units'
 window._processWidthInput = processWidthInput
 window._prettifyWidth = prettifyWidth
-window.undecorateWidth = undecorateWidth
-
-import { removeElFromDOM } from './util/dom_helpers'
-window.removeElFromDOM = removeElFromDOM
 
 import { generateRandSeed } from './util/random'
 window.generateRandSeed = generateRandSeed

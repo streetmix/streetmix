@@ -1,10 +1,11 @@
-/* global system, images, SEGMENT_INFO */
+/* global system, images */
 
 import { drawLine } from '../util/canvas_drawing'
 import { prettifyWidth } from '../util/width_units'
 import { SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING } from '../streets/image'
 import { StreetName } from '../streets/name_sign'
 import { BUILDING_DESTINATION_THUMBNAIL, drawBuilding } from '../segments/buildings'
+import { SEGMENT_INFO } from '../segments/info'
 import {
   TILE_SIZE,
   getVariantInfoDimensions,

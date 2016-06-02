@@ -1,5 +1,5 @@
 /* global app, debug, street, system */
-/* global SEGMENT_INFO, SEGMENT_WARNING_WIDTH_TOO_LARGE,
+/* global SEGMENT_WARNING_WIDTH_TOO_LARGE,
       KEYS, SEGMENT_WARNING_OUTSIDE,
       SEGMENT_WARNING_WIDTH_TOO_SMALL */
 /* global _saveStreetToServerIfNecessary, _processWidthInput */
@@ -19,6 +19,7 @@ import {
   updateBuildingPosition
 } from '../segments/buildings'
 import { DRAGGING_TYPE_NONE, draggingType } from '../segments/drag_and_drop'
+import { SEGMENT_INFO } from '../segments/info'
 import { removeSegment, removeAllSegments } from '../segments/remove'
 import {
   RESIZE_TYPE_TYPING,

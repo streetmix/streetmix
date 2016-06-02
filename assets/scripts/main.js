@@ -27,6 +27,7 @@ import './menus/_share'
 // Dialogs
 import './dialogs/_about'
 import './dialogs/_save_as_image'
+import './dialogs/dialog'
 
 // Segments
 import './segments/people'

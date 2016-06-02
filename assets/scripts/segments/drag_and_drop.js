@@ -1,7 +1,5 @@
-/* global SEGMENT_INFO, street,
-   system, streetSectionCanvasLeft, streetSectionTop, streetSectionTop,
-   SEGMENT_OWNER_CAR, SEGMENT_OWNER_BIKE, SEGMENT_OWNER_PUBLIC_TRANSIT,
-   SEGMENT_OWNER_PEDESTRIAN */
+/* global street,
+   system, streetSectionCanvasLeft, streetSectionTop, streetSectionTop */
 /* global ignoreStreetChanges */ // eslint-disable-line no-unused-vars
 
 import { trackEvent } from '../app/event_tracking'
@@ -13,6 +11,13 @@ import { removeElFromDOM } from '../util/dom_helpers'
 import { getElAbsolutePos } from '../util/helpers'
 import { generateRandSeed } from '../util/random'
 import { BUILDING_SPACE } from './buildings'
+import {
+  SEGMENT_OWNER_CAR,
+  SEGMENT_OWNER_BIKE,
+  SEGMENT_OWNER_PEDESTRIAN,
+  SEGMENT_OWNER_PUBLIC_TRANSIT,
+  SEGMENT_INFO
+} from './info'
 import {
   SHORT_DELAY,
   RESIZE_TYPE_INITIAL,

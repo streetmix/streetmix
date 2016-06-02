@@ -1,4 +1,4 @@
-/* global system, debug, images, imagesToBeLoaded, SEGMENT_INFO,
+/* global system, debug, images, imagesToBeLoaded,
    street, _recalculateWidth, _saveStreetToServerIfNecessary, initializing,
    _createDataFromDom, _updateUndoButtons */
 
@@ -7,6 +7,7 @@ import { infoBubble, INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/info_bubble
 import { removeElFromDOM, getElAbsolutePos } from '../util/dom_helpers'
 import { prettifyWidth } from '../util/width_units'
 import { draggingMove } from './drag_and_drop'
+import { SEGMENT_INFO } from './info'
 import { drawProgrammaticPeople } from './people'
 import {
   RESIZE_TYPE_INITIAL,

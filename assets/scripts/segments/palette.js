@@ -1,6 +1,7 @@
-/* global SEGMENT_INFO, debug */
+/* global debug */
 
 import { generateRandSeed } from '../util/random'
+import { SEGMENT_INFO } from './info'
 import { TILE_SIZE, getVariantInfoDimensions, createSegment } from './view'
 
 const WIDTH_PALETTE_MULTIPLIER = 4

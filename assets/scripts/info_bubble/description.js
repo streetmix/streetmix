@@ -4,11 +4,12 @@
  * Additional descriptive text about segments.
  */
 /* global streetSectionTop */
-/* global SEGMENT_INFO */
+
 import { infoBubble } from './info_bubble'
 import { removeElFromDOM } from '../util/dom_helpers'
 import { trackEvent } from '../app/event_tracking'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
+import { SEGMENT_INFO } from '../segments/info'
 
 const DESCRIPTION_PROMPT_LABEL = 'Learn more'
 
