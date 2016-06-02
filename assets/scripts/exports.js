@@ -131,6 +131,33 @@ window._onBuildingMouseEnter = onBuildingMouseEnter
 window._onBuildingMouseLeave = onBuildingMouseLeave
 window._updateBuildingPosition = updateBuildingPosition
 
+import {
+  DRAGGING_TYPE_NONE,
+  DRAGGING_TYPE_MOVE,
+  DRAGGING_TYPE_RESIZE,
+  draggingResize,
+  changeDraggingType,
+  onBodyMouseOut,
+  onBodyMouseDown,
+  onBodyMouseMove,
+  handleSegmentMoveCancel,
+  removeGuides,
+  onBodyMouseUp,
+  draggingType
+} from './segments/drag_and_drop'
+window.DRAGGING_TYPE_NONE = DRAGGING_TYPE_NONE
+window.DRAGGING_TYPE_MOVE = DRAGGING_TYPE_MOVE
+window.DRAGGING_TYPE_RESIZE = DRAGGING_TYPE_RESIZE
+window.draggingResize = draggingResize
+window._changeDraggingType = changeDraggingType
+window._onBodyMouseOut = onBodyMouseOut
+window._onBodyMouseDown = onBodyMouseDown
+window._onBodyMouseMove = onBodyMouseMove
+window._handleSegmentMoveCancel = handleSegmentMoveCancel
+window._removeGuides = removeGuides
+window._onBodyMouseUp = onBodyMouseUp
+window.draggingType = draggingType
+
 import { getVariantString, getVariantArray } from './segments/variant_utils'
 window._getVariantString = getVariantString
 window._getVariantArray = getVariantArray

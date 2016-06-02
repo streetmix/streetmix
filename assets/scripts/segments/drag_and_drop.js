@@ -1,21 +1,49 @@
-var DRAG_OFFSET_Y_PALETTE = -340 - 150
-// Disable Y offset on segments when touch dragging
-//var DRAG_OFFSET_Y_TOUCH_PALETTE = -100
-//var DRAG_OFFSET_Y_TOUCH = -100
+/* global SEGMENT_INFO, street, MIN_SEGMENT_WIDTH, _cancelFadeoutControls,
+   _hideControls, RESIZE_TYPE_PRECISE_DRAGGING, RESIZE_TYPE_DRAGGING,
+   _resizeSegment, system, SHORT_DELAY, streetSectionCanvasLeft,
+   streetSectionTop, streetSectionTop, _normalizeSegmentWidth,
+   RESIZE_TYPE_INITIAL, SEGMENT_OWNER_CAR, SEGMENT_OWNER_BIKE,
+   SEGMENT_OWNER_PUBLIC_TRANSIT, SEGMENT_OWNER_PEDESTRIAN,
+   _scheduleControlsFadeout, _handleSegmentResizeEnd */
+/* global ignoreStreetChanges */ // eslint-disable-line no-unused-vars
 
-var DRAGGING_TYPE_NONE = 0
-var DRAGGING_TYPE_CLICK_OR_MOVE = 1
-var DRAGGING_TYPE_MOVE = 2
-var DRAGGING_TYPE_RESIZE = 3
+import { trackEvent } from '../app/event_tracking'
+import { loseAnyFocus } from '../app/focus'
+import { infoBubble } from '../info_bubble/info_bubble'
+import { hideAllMenus } from '../menus/menu'
+import { app } from '../preinit/app_settings'
+import { removeElFromDOM } from '../util/dom_helpers'
+import { getElAbsolutePos } from '../util/helpers'
+import { generateRandSeed } from '../util/random'
+import { BUILDING_SPACE } from './buildings'
+import { getVariantArray, getVariantString } from './variant_utils'
+import {
+  TILE_SIZE,
+  setSegmentContents,
+  repositionSegments,
+  createSegment,
+  segmentsChanged
+} from './view'
 
-var DRAGGING_TYPE_MOVE_TRANSFER = 1
-var DRAGGING_TYPE_MOVE_CREATE = 2
+const DRAG_OFFSET_Y_PALETTE = -340 - 150
 
-var MAX_DRAG_DEGREE = 20
+export const DRAGGING_TYPE_NONE = 0
+const DRAGGING_TYPE_CLICK_OR_MOVE = 1
+export const DRAGGING_TYPE_MOVE = 2
+export const DRAGGING_TYPE_RESIZE = 3
 
-var draggingType = DRAGGING_TYPE_NONE
+const DRAGGING_TYPE_MOVE_TRANSFER = 1
+const DRAGGING_TYPE_MOVE_CREATE = 2
 
-var draggingResize = {
+const MAX_DRAG_DEGREE = 20
+
+var _draggingType = DRAGGING_TYPE_NONE
+
+export function draggingType () {
+  return _draggingType
+}
+
+export var draggingResize = {
   segmentEl: null,
   floatingEl: null,
   mouseX: null,
@@ -28,7 +56,7 @@ var draggingResize = {
   right: false
 }
 
-var draggingMove = {
+export var draggingMove = {
   type: null,
   active: false,
   withinCanvas: null,
@@ -47,13 +75,13 @@ var draggingMove = {
   floatingElVisible: false
 }
 
-function _changeDraggingType (newDraggingType) {
-  draggingType = newDraggingType
+export function changeDraggingType (newDraggingType) {
+  _draggingType = newDraggingType
 
   document.body.classList.remove('segment-move-dragging')
   document.body.classList.remove('segment-resize-dragging')
 
-  switch (draggingType) {
+  switch (_draggingType) {
     case DRAGGING_TYPE_RESIZE:
       document.body.classList.add('segment-resize-dragging')
       break
@@ -63,26 +91,27 @@ function _changeDraggingType (newDraggingType) {
   }
 }
 
-function _handleSegmentResizeStart (event) {
+function handleSegmentResizeStart (event) {
+  let x, y, guideEl, width
   if (app.readOnly) {
     return
   }
 
   if (event.touches && event.touches[0]) {
-    var x = event.touches[0].pageX
-    var y = event.touches[0].pageY
+    x = event.touches[0].pageX
+    y = event.touches[0].pageY
   } else {
-    var x = event.pageX
-    var y = event.pageY
+    x = event.pageX
+    y = event.pageY
   }
 
-  ignoreStreetChanges = true
+  ignoreStreetChanges = true // eslint-disable-line no-native-reassign
 
   var el = event.target
 
-  _changeDraggingType(DRAGGING_TYPE_RESIZE)
+  changeDraggingType(DRAGGING_TYPE_RESIZE)
 
-  var pos = _getElAbsolutePos(el)
+  var pos = getElAbsolutePos(el)
 
   draggingResize.right = el.classList.contains('right')
 
@@ -112,15 +141,14 @@ function _handleSegmentResizeStart (event) {
 
   draggingResize.segmentEl.classList.add('hover')
 
-  var segmentInfo = SEGMENT_INFO[el.segmentEl.getAttribute('type')]
   var variantInfo = SEGMENT_INFO[el.segmentEl.getAttribute('type')].details[el.segmentEl.getAttribute('variant-string')]
 
   if (variantInfo.minWidth) {
-    var guideEl = document.createElement('div')
+    guideEl = document.createElement('div')
     guideEl.classList.add('guide')
     guideEl.classList.add('min')
 
-    var width = variantInfo.minWidth * TILE_SIZE
+    width = variantInfo.minWidth * TILE_SIZE
     guideEl.style.width = width + 'px'
     guideEl.style.marginLeft = (-width / 2) + 'px'
     el.segmentEl.appendChild(guideEl)
@@ -132,27 +160,27 @@ function _handleSegmentResizeStart (event) {
   if (remainingWidth &&
     (((!variantInfo.minWidth) && (remainingWidth >= MIN_SEGMENT_WIDTH)) || (remainingWidth >= variantInfo.minWidth)) &&
     ((!variantInfo.maxWidth) || (remainingWidth <= variantInfo.maxWidth))) {
-    var guideEl = document.createElement('div')
+    guideEl = document.createElement('div')
     guideEl.classList.add('guide')
     guideEl.classList.add('max')
 
-    var width = remainingWidth * TILE_SIZE
+    width = remainingWidth * TILE_SIZE
     guideEl.style.width = width + 'px'
     guideEl.style.marginLeft = (-width / 2) + 'px'
     el.segmentEl.appendChild(guideEl)
   } else if (variantInfo.maxWidth) {
-    var guideEl = document.createElement('div')
+    guideEl = document.createElement('div')
     guideEl.classList.add('guide')
     guideEl.classList.add('max')
 
-    var width = variantInfo.maxWidth * TILE_SIZE
+    width = variantInfo.maxWidth * TILE_SIZE
     guideEl.style.width = width + 'px'
     guideEl.style.marginLeft = (-width / 2) + 'px'
     el.segmentEl.appendChild(guideEl)
   }
 
-  _infoBubble.hide()
-  _infoBubble.hideSegment(true)
+  infoBubble.hide()
+  infoBubble.hideSegment(true)
   _cancelFadeoutControls()
   _hideControls()
 
@@ -161,17 +189,17 @@ function _handleSegmentResizeStart (event) {
   }, 0)
 }
 
-function _handleSegmentResizeMove (event) {
+function handleSegmentResizeMove (event) {
+  let x, y, resizeType
   if (event.touches && event.touches[0]) {
-    var x = event.touches[0].pageX
-    var y = event.touches[0].pageY
+    x = event.touches[0].pageX
+    y = event.touches[0].pageY
   } else {
-    var x = event.pageX
-    var y = event.pageY
+    x = event.pageX
+    y = event.pageY
   }
 
   var deltaX = x - draggingResize.mouseX
-  var deltaY = y - draggingResize.mouseY
 
   var deltaFromOriginal = draggingResize.elX - draggingResize.originalX
   if (!draggingResize.right) {
@@ -185,9 +213,9 @@ function _handleSegmentResizeMove (event) {
   var precise = event.shiftKey
 
   if (precise) {
-    var resizeType = RESIZE_TYPE_PRECISE_DRAGGING
+    resizeType = RESIZE_TYPE_PRECISE_DRAGGING
   } else {
-    var resizeType = RESIZE_TYPE_DRAGGING
+    resizeType = RESIZE_TYPE_DRAGGING
   }
 
   _resizeSegment(draggingResize.segmentEl, resizeType,
@@ -197,36 +225,37 @@ function _handleSegmentResizeMove (event) {
   draggingResize.mouseY = y
 }
 
-function _handleSegmentClickOrMoveStart (event) {
+function handleSegmentClickOrMoveStart (event) {
+  let x, y
   if (app.readOnly) {
     return
   }
 
-  ignoreStreetChanges = true
+  ignoreStreetChanges = true // eslint-disable-line no-native-reassign
 
   if (event.touches && event.touches[0]) {
-    var x = event.touches[0].pageX
-    var y = event.touches[0].pageY
+    x = event.touches[0].pageX
+    y = event.touches[0].pageY
   } else {
-    var x = event.pageX
-    var y = event.pageY
+    x = event.pageX
+    y = event.pageY
   }
 
   var el = event.target
   draggingMove.originalEl = el
 
-  _changeDraggingType(DRAGGING_TYPE_CLICK_OR_MOVE)
+  changeDraggingType(DRAGGING_TYPE_CLICK_OR_MOVE)
 
   draggingMove.mouseX = x
   draggingMove.mouseY = y
 }
 
-function _handleSegmentMoveStart () {
+function handleSegmentMoveStart () {
   if (app.readOnly) {
     return
   }
 
-  _changeDraggingType(DRAGGING_TYPE_MOVE)
+  changeDraggingType(DRAGGING_TYPE_MOVE)
 
   draggingMove.originalType = draggingMove.originalEl.getAttribute('type')
 
@@ -253,12 +282,12 @@ function _handleSegmentMoveStart () {
       draggingMove.originalEl.getAttribute('variant-string')
   }
 
-  var pos = _getElAbsolutePos(draggingMove.originalEl)
+  var pos = getElAbsolutePos(draggingMove.originalEl)
 
   draggingMove.elX = pos[0]
   draggingMove.elY = pos[1]
 
-  if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
+  if (draggingMove.type === DRAGGING_TYPE_MOVE_CREATE) {
     draggingMove.elY += DRAG_OFFSET_Y_PALETTE
     draggingMove.elX -= draggingMove.originalWidth / 3
   } else {
@@ -273,7 +302,7 @@ function _handleSegmentMoveStart () {
   draggingMove.floatingEl.setAttribute('variant-string',
     draggingMove.originalVariantString)
   draggingMove.floatingElVisible = false
-  _setSegmentContents(draggingMove.floatingEl,
+  setSegmentContents(draggingMove.floatingEl,
     draggingMove.originalType,
     draggingMove.originalVariantString,
     draggingMove.originalWidth,
@@ -289,7 +318,7 @@ function _handleSegmentMoveStart () {
     draggingMove.floatingEl.style.top = draggingMove.elY + 'px'
   }
 
-  if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
+  if (draggingMove.type === DRAGGING_TYPE_MOVE_TRANSFER) {
     draggingMove.originalEl.classList.add('dragged-out')
     draggingMove.originalEl.classList.remove('immediate-show-drag-handles')
     draggingMove.originalEl.classList.remove('show-drag-handles')
@@ -298,14 +327,14 @@ function _handleSegmentMoveStart () {
 
   draggingMove.segmentBeforeEl = null
   draggingMove.segmentAfterEl = null
-  _updateWithinCanvas(true)
+  updateWithinCanvas(true)
 
-  _infoBubble.hide()
+  infoBubble.hide()
   _cancelFadeoutControls()
   _hideControls()
 }
 
-function _updateWithinCanvas (_newWithinCanvas) {
+function updateWithinCanvas (_newWithinCanvas) {
   draggingMove.withinCanvas = _newWithinCanvas
 
   if (draggingMove.withinCanvas) {
@@ -315,13 +344,14 @@ function _updateWithinCanvas (_newWithinCanvas) {
   }
 }
 
-function _handleSegmentClickOrMoveMove (event) {
+function handleSegmentClickOrMoveMove (event) {
+  let x, y
   if (event.touches && event.touches[0]) {
-    var x = event.touches[0].pageX
-    var y = event.touches[0].pageY
+    x = event.touches[0].pageX
+    y = event.touches[0].pageY
   } else {
-    var x = event.pageX
-    var y = event.pageY
+    x = event.pageX
+    y = event.pageY
   }
 
   var deltaX = x - draggingMove.mouseX
@@ -329,18 +359,19 @@ function _handleSegmentClickOrMoveMove (event) {
 
   // TODO const
   if ((Math.abs(deltaX) > 5) || (Math.abs(deltaY) > 5)) {
-    _handleSegmentMoveStart()
-    _handleSegmentMoveMove(event)
+    handleSegmentMoveStart()
+    handleSegmentMoveMove(event)
   }
 }
 
-function _handleSegmentMoveMove (event) {
+function handleSegmentMoveMove (event) {
+  let x, y
   if (event.touches && event.touches[0]) {
-    var x = event.touches[0].pageX
-    var y = event.touches[0].pageY
+    x = event.touches[0].pageX
+    y = event.touches[0].pageY
   } else {
-    var x = event.pageX
-    var y = event.pageY
+    x = event.pageX
+    y = event.pageY
   }
 
   var deltaX = x - draggingMove.mouseX
@@ -351,16 +382,6 @@ function _handleSegmentMoveMove (event) {
 
   if (!draggingMove.floatingElVisible) {
     draggingMove.floatingElVisible = true
-
-    /* // Disable Y offset on segments when touch dragging
-    if (event.pointerType === 'touch') {
-      if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
-        draggingMove.elY += DRAG_OFFSET_Y_TOUCH_PALETTE
-      } else {
-        draggingMove.elY += DRAG_OFFSET_Y_TOUCH
-      }
-    }
-    */
 
     window.setTimeout(function () {
       draggingMove.floatingEl.classList.remove('first-drag-move')
@@ -393,12 +414,12 @@ function _handleSegmentMoveMove (event) {
 
   var newX = x - BUILDING_SPACE + document.querySelector('#street-section-outer').scrollLeft
 
-  if (_makeSpaceBetweenSegments(newX, y)) {
-    var smartDrop = _doDropHeuristics(draggingMove.originalType,
+  if (makeSpaceBetweenSegments(newX, y)) {
+    var smartDrop = doDropHeuristics(draggingMove.originalType,
       draggingMove.originalVariantString, draggingMove.originalWidth)
 
-    if ((smartDrop.type != draggingMove.originalType) || (smartDrop.variantString != draggingMove.originalVariantString)) {
-      _setSegmentContents(draggingMove.floatingEl,
+    if ((smartDrop.type !== draggingMove.originalType) || (smartDrop.variantString !== draggingMove.originalVariantString)) {
+      setSegmentContents(draggingMove.floatingEl,
         smartDrop.type,
         smartDrop.variantString,
         smartDrop.width,
@@ -409,48 +430,49 @@ function _handleSegmentMoveMove (event) {
     }
   }
 
-  if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
+  if (draggingMove.type === DRAGGING_TYPE_MOVE_TRANSFER) {
     document.querySelector('#trashcan').classList.add('visible')
   }
 }
 
-function _onBodyMouseOut (event) {
-  _infoBubble.hide()
+export function onBodyMouseOut (event) {
+  infoBubble.hide()
 }
 
-function _onBodyMouseDown (event) {
+export function onBodyMouseDown (event) {
+  let topEl, withinMenu
   var el = event.target
 
-  if (app.readOnly || (event.touches && event.touches.length != 1)) {
+  if (app.readOnly || (event.touches && event.touches.length !== 1)) {
     return
   }
 
-  var topEl = event.target
+  topEl = event.target
 
   // For street width editing on Firefox
 
-  while (topEl && (topEl.id != 'street-width')) {
+  while (topEl && (topEl.id !== 'street-width')) {
     topEl = topEl.parentNode
   }
 
-  var withinMenu = !!topEl
+  withinMenu = !!topEl
 
   if (withinMenu) {
     return
   }
 
-  _loseAnyFocus()
+  loseAnyFocus()
 
-  var topEl = event.target
+  topEl = event.target
 
-  while (topEl && (topEl.id != 'info-bubble') && (topEl.id != 'street-width') &&
+  while (topEl && (topEl.id !== 'info-bubble') && (topEl.id !== 'street-width') &&
     ((!topEl.classList) ||
     ((!topEl.classList.contains('menu-attached')) &&
     (!topEl.classList.contains('menu'))))) {
     topEl = topEl.parentNode
   }
 
-  var withinMenu = !!topEl
+  withinMenu = !!topEl
 
   if (withinMenu) {
     return
@@ -459,33 +481,34 @@ function _onBodyMouseDown (event) {
   hideAllMenus()
 
   if (el.classList.contains('drag-handle')) {
-    _handleSegmentResizeStart(event)
+    handleSegmentResizeStart(event)
   } else {
     if (!el.classList.contains('segment') ||
       el.classList.contains('unmovable')) {
       return
     }
 
-    _handleSegmentClickOrMoveStart(event)
+    handleSegmentClickOrMoveStart(event)
   }
 
   event.preventDefault()
 }
 
-function _makeSpaceBetweenSegments (x, y) {
+function makeSpaceBetweenSegments (x, y) {
+  let farLeft, farRight
   var left = x - streetSectionCanvasLeft
 
   var selectedSegmentBefore = null
   var selectedSegmentAfter = null
 
   if (street.segments.length) {
-    var farLeft = street.segments[0].el.savedNoMoveLeft
-    var farRight =
+    farLeft = street.segments[0].el.savedNoMoveLeft
+    farRight =
     street.segments[street.segments.length - 1].el.savedNoMoveLeft +
       street.segments[street.segments.length - 1].el.savedWidth
   } else {
-    var farLeft = 0
-    var farRight = street.width * TILE_SIZE
+    farLeft = 0
+    farRight = street.width * TILE_SIZE
   }
   // TODO const
   var space = (street.width - street.occupiedWidth) * TILE_SIZE / 2
@@ -496,9 +519,9 @@ function _makeSpaceBetweenSegments (x, y) {
   // TODO const
   if ((left < farLeft - space) || (left > farRight + space) ||
     (y < streetSectionTop - 100) || (y > streetSectionTop + 300)) {
-    _updateWithinCanvas(false)
+    updateWithinCanvas(false)
   } else {
-    _updateWithinCanvas(true)
+    updateWithinCanvas(true)
     for (var i in street.segments) {
       var segment = street.segments[i]
 
@@ -512,41 +535,41 @@ function _makeSpaceBetweenSegments (x, y) {
     }
   }
 
-  if ((selectedSegmentBefore != draggingMove.segmentBeforeEl) ||
-    (selectedSegmentAfter != draggingMove.segmentAfterEl)) {
+  if ((selectedSegmentBefore !== draggingMove.segmentBeforeEl) ||
+    (selectedSegmentAfter !== draggingMove.segmentAfterEl)) {
     draggingMove.segmentBeforeEl = selectedSegmentBefore
     draggingMove.segmentAfterEl = selectedSegmentAfter
-    _repositionSegments()
+    repositionSegments()
     return true
   } else {
     return false
   }
 }
 
-function _onBodyMouseMove (event) {
-  if (draggingType === DRAGGING_TYPE_NONE) {
+export function onBodyMouseMove (event) {
+  if (_draggingType === DRAGGING_TYPE_NONE) {
     return
   }
 
-  switch (draggingType) {
+  switch (_draggingType) {
     case DRAGGING_TYPE_CLICK_OR_MOVE:
-      _handleSegmentClickOrMoveMove(event)
+      handleSegmentClickOrMoveMove(event)
       break
     case DRAGGING_TYPE_MOVE:
-      _handleSegmentMoveMove(event)
+      handleSegmentMoveMove(event)
       break
     case DRAGGING_TYPE_RESIZE:
-      _handleSegmentResizeMove(event)
+      handleSegmentResizeMove(event)
       break
   }
 
   event.preventDefault()
 }
 
-function _doDropHeuristics (type, variantString, width) {
+function doDropHeuristics (type, variantString, width) {
   // Automatically figure out width
 
-  if (draggingMove.type == DRAGGING_TYPE_MOVE_CREATE) {
+  if (draggingMove.type === DRAGGING_TYPE_MOVE_CREATE) {
     if ((street.remainingWidth > 0) &&
       (width > street.remainingWidth * TILE_SIZE)) {
       var segmentMinWidth =
@@ -567,27 +590,24 @@ function _doDropHeuristics (type, variantString, width) {
   var left = leftEl ? street.segments[leftEl.dataNo] : null
   var right = rightEl ? street.segments[rightEl.dataNo] : null
 
-  var leftVariants = left && SEGMENT_INFO[left.type].variants
-  var rightVariants = right && SEGMENT_INFO[right.type].variants
-
   var leftOwner = left && SEGMENT_INFO[left.type].owner
   var rightOwner = right && SEGMENT_INFO[right.type].owner
 
   var leftOwnerAsphalt =
-  (leftOwner == SEGMENT_OWNER_CAR) || (leftOwner == SEGMENT_OWNER_BIKE) ||
-    (leftOwner == SEGMENT_OWNER_PUBLIC_TRANSIT)
+  (leftOwner === SEGMENT_OWNER_CAR) || (leftOwner === SEGMENT_OWNER_BIKE) ||
+    (leftOwner === SEGMENT_OWNER_PUBLIC_TRANSIT)
   var rightOwnerAsphalt =
-  (rightOwner == SEGMENT_OWNER_CAR) || (rightOwner == SEGMENT_OWNER_BIKE) ||
-    (rightOwner == SEGMENT_OWNER_PUBLIC_TRANSIT)
+  (rightOwner === SEGMENT_OWNER_CAR) || (rightOwner === SEGMENT_OWNER_BIKE) ||
+    (rightOwner === SEGMENT_OWNER_PUBLIC_TRANSIT)
 
-  var leftVariant = left && _getVariantArray(left.type, left.variantString)
-  var rightVariant = right && _getVariantArray(right.type, right.variantString)
+  var leftVariant = left && getVariantArray(left.type, left.variantString)
+  var rightVariant = right && getVariantArray(right.type, right.variantString)
 
-  var variant = _getVariantArray(type, variantString)
+  var variant = getVariantArray(type, variantString)
 
   // Direction
 
-  if (SEGMENT_INFO[type].variants.indexOf('direction') != -1) {
+  if (SEGMENT_INFO[type].variants.indexOf('direction') !== -1) {
     if (leftVariant && leftVariant['direction']) {
       variant['direction'] = leftVariant['direction']
     } else if (rightVariant && rightVariant['direction']) {
@@ -597,7 +617,7 @@ function _doDropHeuristics (type, variantString, width) {
 
   // Parking lane orientation
 
-  if (SEGMENT_INFO[type].variants.indexOf('parking-lane-orientation') != -1) {
+  if (SEGMENT_INFO[type].variants.indexOf('parking-lane-orientation') !== -1) {
     if (!right || !rightOwnerAsphalt) {
       variant['parking-lane-orientation'] = 'right'
     } else if (!left || !leftOwnerAsphalt) {
@@ -607,7 +627,7 @@ function _doDropHeuristics (type, variantString, width) {
 
   // Parklet orientation
 
-  if (type == 'parklet') {
+  if (type === 'parklet') {
     if (left && leftOwnerAsphalt) {
       variant['orientation'] = 'right'
     } else if (right && rightOwnerAsphalt) {
@@ -617,7 +637,7 @@ function _doDropHeuristics (type, variantString, width) {
 
   // Turn lane orientation
 
-  if (SEGMENT_INFO[type].variants.indexOf('turn-lane-orientation') != -1) {
+  if (SEGMENT_INFO[type].variants.indexOf('turn-lane-orientation') !== -1) {
     if (!right || !rightOwnerAsphalt) {
       variant['turn-lane-orientation'] = 'right'
     } else if (!left || !leftOwnerAsphalt) {
@@ -627,35 +647,35 @@ function _doDropHeuristics (type, variantString, width) {
 
   // Transit shelter orientation and elevation
 
-  if (type == 'transit-shelter') {
-    if (left && (leftOwner == SEGMENT_OWNER_PUBLIC_TRANSIT)) {
+  if (type === 'transit-shelter') {
+    if (left && (leftOwner === SEGMENT_OWNER_PUBLIC_TRANSIT)) {
       variant['orientation'] = 'right'
-    } else if (right && (rightOwner == SEGMENT_OWNER_PUBLIC_TRANSIT)) {
+    } else if (right && (rightOwner === SEGMENT_OWNER_PUBLIC_TRANSIT)) {
       variant['orientation'] = 'left'
     }
   }
 
-  if (SEGMENT_INFO[type].variants.indexOf('transit-shelter-elevation') != -1) {
-    if (variant['orientation'] == 'right' && left && left.type == 'light-rail') {
+  if (SEGMENT_INFO[type].variants.indexOf('transit-shelter-elevation') !== -1) {
+    if (variant['orientation'] === 'right' && left && left.type === 'light-rail') {
       variant['transit-shelter-elevation'] = 'light-rail'
-    } else if (variant['orientation'] == 'left' && right && right.type == 'light-rail') {
+    } else if (variant['orientation'] === 'left' && right && right.type === 'light-rail') {
       variant['transit-shelter-elevation'] = 'light-rail'
     }
   }
 
   // Bike rack orientation
 
-  if (type == 'sidewalk-bike-rack') {
-    if (left && (leftOwner != SEGMENT_OWNER_PEDESTRIAN)) {
+  if (type === 'sidewalk-bike-rack') {
+    if (left && (leftOwner !== SEGMENT_OWNER_PEDESTRIAN)) {
       variant['orientation'] = 'left'
-    } else if (right && (rightOwner != SEGMENT_OWNER_PEDESTRIAN)) {
+    } else if (right && (rightOwner !== SEGMENT_OWNER_PEDESTRIAN)) {
       variant['orientation'] = 'right'
     }
   }
 
   // Lamp orientation
 
-  if (SEGMENT_INFO[type].variants.indexOf('lamp-orientation') != -1) {
+  if (SEGMENT_INFO[type].variants.indexOf('lamp-orientation') !== -1) {
     if (left && right && leftOwnerAsphalt && rightOwnerAsphalt) {
       variant['lamp-orientation'] = 'both'
     } else if (left && leftOwnerAsphalt) {
@@ -673,54 +693,54 @@ function _doDropHeuristics (type, variantString, width) {
     }
   }
 
-  variantString = _getVariantString(variant)
+  variantString = getVariantString(variant)
 
   return { type: type, variantString: variantString, width: width }
 }
 
-function _handleSegmentMoveCancel () {
+export function handleSegmentMoveCancel () {
   draggingMove.originalEl.classList.remove('dragged-out')
 
   draggingMove.segmentBeforeEl = null
   draggingMove.segmentAfterEl = null
 
-  _repositionSegments()
-  _updateWithinCanvas(true)
+  repositionSegments()
+  updateWithinCanvas(true)
 
   removeElFromDOM(draggingMove.floatingEl)
   document.querySelector('#trashcan').classList.remove('visible')
 
-  _changeDraggingType(DRAGGING_TYPE_NONE)
+  changeDraggingType(DRAGGING_TYPE_NONE)
 }
 
-function _handleSegmentMoveEnd (event) {
-  ignoreStreetChanges = false
+function handleSegmentMoveEnd (event) {
+  ignoreStreetChanges = false // eslint-disable-line no-native-reassign
 
   var failedDrop = false
 
   var segmentElControls = null
 
   if (!draggingMove.withinCanvas) {
-    if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
+    if (draggingMove.type === DRAGGING_TYPE_MOVE_TRANSFER) {
       removeElFromDOM(draggingMove.originalEl)
     }
 
     trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'DRAGGING', null, true)
-  } else if (draggingMove.segmentBeforeEl || draggingMove.segmentAfterEl || (street.segments.length == 0)) {
-    var smartDrop = _doDropHeuristics(draggingMove.originalType,
+  } else if (draggingMove.segmentBeforeEl || draggingMove.segmentAfterEl || (street.segments.length === 0)) {
+    var smartDrop = doDropHeuristics(draggingMove.originalType,
       draggingMove.originalVariantString, draggingMove.originalWidth)
 
-    var newEl = _createSegment(smartDrop.type,
+    var newEl = createSegment(smartDrop.type,
       smartDrop.variantString, smartDrop.width, false, false, draggingMove.originalRandSeed)
 
     newEl.classList.add('create')
 
     if (draggingMove.segmentBeforeEl) {
-      document.querySelector('#street-section-editable').
-        insertBefore(newEl, draggingMove.segmentBeforeEl)
+      document.querySelector('#street-section-editable')
+        .insertBefore(newEl, draggingMove.segmentBeforeEl)
     } else if (draggingMove.segmentAfterEl) {
-      document.querySelector('#street-section-editable').
-        insertBefore(newEl, draggingMove.segmentAfterEl.nextSibling)
+      document.querySelector('#street-section-editable')
+        .insertBefore(newEl, draggingMove.segmentAfterEl.nextSibling)
     } else {
       // empty street
       document.querySelector('#street-section-editable').appendChild(newEl)
@@ -730,7 +750,7 @@ function _handleSegmentMoveEnd (event) {
       newEl.classList.remove('create')
     }, SHORT_DELAY)
 
-    if (draggingMove.type == DRAGGING_TYPE_MOVE_TRANSFER) {
+    if (draggingMove.type === DRAGGING_TYPE_MOVE_TRANSFER) {
       var draggedOutEl = document.querySelector('.segment.dragged-out')
       removeElFromDOM(draggedOutEl)
     }
@@ -747,41 +767,42 @@ function _handleSegmentMoveEnd (event) {
   draggingMove.segmentBeforeEl = null
   draggingMove.segmentAfterEl = null
 
-  _repositionSegments()
-  _segmentsChanged()
-  _updateWithinCanvas(true)
+  repositionSegments()
+  segmentsChanged()
+  updateWithinCanvas(true)
 
   removeElFromDOM(draggingMove.floatingEl)
   document.querySelector('#trashcan').classList.remove('visible')
 
-  _changeDraggingType(DRAGGING_TYPE_NONE)
+  changeDraggingType(DRAGGING_TYPE_NONE)
 
   if (segmentElControls) {
     _scheduleControlsFadeout(segmentElControls)
   }
 
   if (failedDrop) {
-    _infoBubble.show(true)
+    infoBubble.show(true)
   }
 }
 
-function _removeGuides (el) {
-  var guideEl
-  while (guideEl = el.querySelector('.guide')) {
+export function removeGuides (el) {
+  let guideEl = el.querySelector('.guide')
+  while (guideEl) {
     removeElFromDOM(guideEl)
+    guideEl = el.querySelector('.guide')
   }
 }
 
-function _onBodyMouseUp (event) {
-  switch (draggingType) {
+export function onBodyMouseUp (event) {
+  switch (_draggingType) {
     case DRAGGING_TYPE_NONE:
       return
     case DRAGGING_TYPE_CLICK_OR_MOVE:
-      _changeDraggingType(DRAGGING_TYPE_NONE)
-      ignoreStreetChanges = false
+      changeDraggingType(DRAGGING_TYPE_NONE)
+      ignoreStreetChanges = false // eslint-disable-line no-native-reassign
       break
     case DRAGGING_TYPE_MOVE:
-      _handleSegmentMoveEnd(event)
+      handleSegmentMoveEnd(event)
       break
     case DRAGGING_TYPE_RESIZE:
       _handleSegmentResizeEnd(event)

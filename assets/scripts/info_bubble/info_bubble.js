@@ -1,13 +1,12 @@
 /* global app, debug, street, system */
-/* global draggingType */
 /* global SEGMENT_INFO, MAX_SEGMENT_WIDTH, SEGMENT_WARNING_WIDTH_TOO_LARGE,
       RESIZE_TYPE_TYPING, KEYS, SEGMENT_WARNING_OUTSIDE,
-      SEGMENT_WARNING_WIDTH_TOO_SMALL, MIN_SEGMENT_WIDTH, DRAGGING_TYPE_NONE
-      */
+      SEGMENT_WARNING_WIDTH_TOO_SMALL, MIN_SEGMENT_WIDTH */
 /* global _saveStreetToServerIfNecessary, _resizeSegment, _processWidthInput,
    _incrementSegmentWidth, _scheduleControlsFadeout, _resumeFadeoutControls,
    _cancelFadeoutControls */
 // Many things in resizing.js
+
 import { updateDescription, hideDescription } from './description'
 import {
   BUILDING_VARIANTS,
@@ -21,6 +20,7 @@ import {
   onBuildingMouseEnter,
   updateBuildingPosition
 } from '../segments/buildings'
+import { DRAGGING_TYPE_NONE, draggingType } from '../segments/drag_and_drop'
 import { removeSegment, removeAllSegments } from '../segments/remove'
 import { VARIANT_ICONS } from '../segments/variant_icons'
 import { msg } from '../app/messages'
@@ -814,7 +814,7 @@ export const infoBubble = {
       return
     }
 
-    if (draggingType !== DRAGGING_TYPE_NONE) {
+    if (draggingType() !== DRAGGING_TYPE_NONE) {
       return
     }
 
