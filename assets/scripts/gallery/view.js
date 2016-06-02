@@ -1,11 +1,12 @@
 /* global app, system, street, galleryUserId, signedIn, signInData, mode, abortEverything */
 /* global MODES, ERRORS, URL_NEW_STREET, URL_NEW_STREET_COPY_LAST, DEFAULT_NAME */
-/* global _sendDeleteStreetToServer, _sendDeleteStreetToServer, _hideControls,
+/* global _sendDeleteStreetToServer, _sendDeleteStreetToServer,
       _updatePageUrl, _updateToLatestSchemaVersion, _getStreetUrl */
 import { trackEvent } from '../app/event_tracking'
 import { showError } from '../app/errors'
 import { msg } from '../app/messages'
 import { onWindowFocus } from '../app/focus'
+import { hideControls } from '../segments/resizing'
 import { formatDate } from '../util/date_format'
 import { removeElFromDOM } from '../util/dom_helpers'
 import { fetchGalleryData } from './fetch_data'
@@ -92,7 +93,7 @@ export function showGallery (userId, instant, signInPromo) {
     }
   }
 
-  _hideControls()
+  hideControls()
   hideStatusMessage()
   document.querySelector('#gallery .sign-in-promo').classList.remove('visible')
 

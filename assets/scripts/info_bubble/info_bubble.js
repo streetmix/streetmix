@@ -1,10 +1,8 @@
 /* global app, debug, street, system */
-/* global SEGMENT_INFO, MAX_SEGMENT_WIDTH, SEGMENT_WARNING_WIDTH_TOO_LARGE,
-      RESIZE_TYPE_TYPING, KEYS, SEGMENT_WARNING_OUTSIDE,
-      SEGMENT_WARNING_WIDTH_TOO_SMALL, MIN_SEGMENT_WIDTH */
-/* global _saveStreetToServerIfNecessary, _resizeSegment, _processWidthInput,
-   _incrementSegmentWidth, _scheduleControlsFadeout, _resumeFadeoutControls,
-   _cancelFadeoutControls */
+/* global SEGMENT_INFO, SEGMENT_WARNING_WIDTH_TOO_LARGE,
+      KEYS, SEGMENT_WARNING_OUTSIDE,
+      SEGMENT_WARNING_WIDTH_TOO_SMALL */
+/* global _saveStreetToServerIfNecessary, _processWidthInput */
 // Many things in resizing.js
 
 import { updateDescription, hideDescription } from './description'
@@ -22,6 +20,16 @@ import {
 } from '../segments/buildings'
 import { DRAGGING_TYPE_NONE, draggingType } from '../segments/drag_and_drop'
 import { removeSegment, removeAllSegments } from '../segments/remove'
+import {
+  RESIZE_TYPE_TYPING,
+  MIN_SEGMENT_WIDTH,
+  MAX_SEGMENT_WIDTH,
+  resizeSegment,
+  incrementSegmentWidth,
+  scheduleControlsFadeout,
+  resumeFadeoutControls,
+  cancelFadeoutControls
+} from '../segments/resizing'
 import { VARIANT_ICONS } from '../segments/variant_icons'
 import { msg } from '../app/messages'
 import { trackEvent } from '../app/event_tracking'
@@ -104,7 +112,7 @@ export const infoBubble = {
   },
 
   onTouchStart: function () {
-    _resumeFadeoutControls()
+    resumeFadeoutControls()
   },
 
   onMouseEnter: function () {
@@ -538,7 +546,7 @@ export const infoBubble = {
     let name, canBeDeleted, showWidth, innerEl, widthCanvasEl, el
 
     // If info bubble changes, wake this back up if it's fading out
-    _cancelFadeoutControls()
+    cancelFadeoutControls()
 
     switch (infoBubble.type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
@@ -922,8 +930,8 @@ function _onWidthDecrementClick (event) {
   var segmentEl = el.segmentEl
   var precise = event.shiftKey
 
-  _incrementSegmentWidth(segmentEl, false, precise)
-  _scheduleControlsFadeout(segmentEl)
+  incrementSegmentWidth(segmentEl, false, precise)
+  scheduleControlsFadeout(segmentEl)
 
   trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INCREMENT_BUTTON', null, true)
 }
@@ -933,8 +941,8 @@ function _onWidthIncrementClick (event) {
   var segmentEl = el.segmentEl
   var precise = event.shiftKey
 
-  _incrementSegmentWidth(segmentEl, true, precise)
-  _scheduleControlsFadeout(segmentEl)
+  incrementSegmentWidth(segmentEl, true, precise)
+  scheduleControlsFadeout(segmentEl)
 
   trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INCREMENT_BUTTON', null, true)
 }
@@ -1040,12 +1048,12 @@ function _widthEditInputChanged (el, immediate) {
     var segmentEl = el.segmentEl
 
     if (immediate) {
-      _resizeSegment(segmentEl, RESIZE_TYPE_TYPING,
+      resizeSegment(segmentEl, RESIZE_TYPE_TYPING,
         width * TILE_SIZE, false, false)
       infoBubble.updateWidthButtonsInContents(width)
     } else {
       widthHeightChangeTimerId = window.setTimeout(function () {
-        _resizeSegment(segmentEl, RESIZE_TYPE_TYPING,
+        resizeSegment(segmentEl, RESIZE_TYPE_TYPING,
           width * TILE_SIZE, false, false)
         infoBubble.updateWidthButtonsInContents(width)
       }, WIDTH_EDIT_INPUT_DELAY)

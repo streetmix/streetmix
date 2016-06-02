@@ -158,6 +158,23 @@ window._removeGuides = removeGuides
 window._onBodyMouseUp = onBodyMouseUp
 window.draggingType = draggingType
 
+import {
+  getSegmentWidthResolution,
+  setSegmentWidthResolution,
+  setSegmentWidthClickIncrement,
+  setSegmentWidthDraggingResolution,
+  handleSegmentResizeCancel,
+  normalizeAllSegmentWidths,
+  incrementSegmentWidth
+} from './segments/resizing'
+window._getSegmentWidthResolution = getSegmentWidthResolution
+window._setSegmentWidthResolution = setSegmentWidthResolution
+window._setSegmentWidthClickIncrement = setSegmentWidthClickIncrement
+window._setSegmentWidthDraggingResolution = setSegmentWidthDraggingResolution
+window._handleSegmentResizeCancel = handleSegmentResizeCancel
+window._normalizeAllSegmentWidths = normalizeAllSegmentWidths
+window._incrementSegmentWidth = incrementSegmentWidth
+
 import { getVariantString, getVariantArray } from './segments/variant_utils'
 window._getVariantString = getVariantString
 window._getVariantArray = getVariantArray

@@ -184,7 +184,7 @@ function _normalizeStreetWidth (width) {
     width = MAX_CUSTOM_STREET_WIDTH
   }
 
-  var resolution = segmentWidthResolution
+  var resolution = _getSegmentWidthResolution()
   width = Math.round(width / resolution) * resolution
 
   return width

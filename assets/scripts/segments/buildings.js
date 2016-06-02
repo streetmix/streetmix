@@ -1,5 +1,4 @@
-/* global system, _saveStreetToServerIfNecessary, street,
-   _resumeFadeoutControls */
+/* global system, _saveStreetToServerIfNecessary, street */
 
 import {
   INFO_BUBBLE_TYPE_RIGHT_BUILDING,
@@ -8,6 +7,7 @@ import {
 } from '../info_bubble/info_bubble'
 import { getElAbsolutePos } from '../util/helpers'
 import { RandomGenerator } from '../util/random'
+import { resumeFadeoutControls } from './resizing'
 import { TILE_SIZE, drawSegmentImage } from './view'
 
 const MAX_CANVAS_HEIGHT = 2048
@@ -394,7 +394,7 @@ export function onBuildingMouseEnter (event) {
   }
 
   infoBubble.considerShowing(event, this, type)
-  _resumeFadeoutControls()
+  resumeFadeoutControls()
 }
 
 export function onBuildingMouseLeave (event) {

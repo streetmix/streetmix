@@ -1,7 +1,6 @@
-/* global system, debug, images, imagesToBeLoaded, SEGMENT_INFO, _resizeSegment,
-   RESIZE_TYPE_INITIAL, street, _recalculateWidth,
-   _applyWarningsToSegments, _saveStreetToServerIfNecessary, initializing,
-   _createDataFromDom, _updateUndoButtons, suppressMouseEnter */
+/* global system, debug, images, imagesToBeLoaded, SEGMENT_INFO,
+   street, _recalculateWidth, _saveStreetToServerIfNecessary, initializing,
+   _createDataFromDom, _updateUndoButtons */
 
 import { msg } from '../app/messages'
 import { infoBubble, INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/info_bubble'
@@ -9,6 +8,12 @@ import { removeElFromDOM, getElAbsolutePos } from '../util/dom_helpers'
 import { prettifyWidth } from '../util/width_units'
 import { draggingMove } from './drag_and_drop'
 import { drawProgrammaticPeople } from './people'
+import {
+  RESIZE_TYPE_INITIAL,
+  suppressMouseEnter,
+  resizeSegment,
+  applyWarningsToSegments
+} from './resizing'
 import { getVariantArray, getVariantString } from './variant_utils'
 
 const TILESET_POINT_PER_PIXEL = 2.0
@@ -339,7 +344,7 @@ export function createSegment (type, variantString, width, isUnmovable, palette,
   }
 
   if (width) {
-    _resizeSegment(el, RESIZE_TYPE_INITIAL, width, true, palette, true)
+    resizeSegment(el, RESIZE_TYPE_INITIAL, width, true, palette, true)
   }
 
   if (!palette) {
@@ -485,7 +490,7 @@ export function changeSegmentVariant (dataNo, variantName, variantChoice, varian
 
   repositionSegments()
   _recalculateWidth()
-  _applyWarningsToSegments()
+  applyWarningsToSegments()
 
   _saveStreetToServerIfNecessary()
 }
@@ -583,7 +588,7 @@ export function segmentsChanged () {
 
   _recalculateWidth()
   repositionEmptySegments()
-  _applyWarningsToSegments()
+  applyWarningsToSegments()
 
   for (var i in street.segments) {
     if (street.segments[i].el) {
@@ -597,7 +602,7 @@ export function segmentsChanged () {
 }
 
 function onSegmentMouseEnter (event) {
-  if (suppressMouseEnter) {
+  if (suppressMouseEnter()) {
     return
   }
 

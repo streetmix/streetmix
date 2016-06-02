@@ -1,10 +1,7 @@
-/* global SEGMENT_INFO, street, MIN_SEGMENT_WIDTH, _cancelFadeoutControls,
-   _hideControls, RESIZE_TYPE_PRECISE_DRAGGING, RESIZE_TYPE_DRAGGING,
-   _resizeSegment, system, SHORT_DELAY, streetSectionCanvasLeft,
-   streetSectionTop, streetSectionTop, _normalizeSegmentWidth,
-   RESIZE_TYPE_INITIAL, SEGMENT_OWNER_CAR, SEGMENT_OWNER_BIKE,
-   SEGMENT_OWNER_PUBLIC_TRANSIT, SEGMENT_OWNER_PEDESTRIAN,
-   _scheduleControlsFadeout, _handleSegmentResizeEnd */
+/* global SEGMENT_INFO, street,
+   system, streetSectionCanvasLeft, streetSectionTop, streetSectionTop,
+   SEGMENT_OWNER_CAR, SEGMENT_OWNER_BIKE, SEGMENT_OWNER_PUBLIC_TRANSIT,
+   SEGMENT_OWNER_PEDESTRIAN */
 /* global ignoreStreetChanges */ // eslint-disable-line no-unused-vars
 
 import { trackEvent } from '../app/event_tracking'
@@ -16,6 +13,19 @@ import { removeElFromDOM } from '../util/dom_helpers'
 import { getElAbsolutePos } from '../util/helpers'
 import { generateRandSeed } from '../util/random'
 import { BUILDING_SPACE } from './buildings'
+import {
+  SHORT_DELAY,
+  RESIZE_TYPE_INITIAL,
+  RESIZE_TYPE_DRAGGING,
+  RESIZE_TYPE_PRECISE_DRAGGING,
+  MIN_SEGMENT_WIDTH,
+  resizeSegment,
+  handleSegmentResizeEnd,
+  normalizeSegmentWidth,
+  scheduleControlsFadeout,
+  cancelFadeoutControls,
+  hideControls
+} from './resizing'
 import { getVariantArray, getVariantString } from './variant_utils'
 import {
   TILE_SIZE,
@@ -181,8 +191,8 @@ function handleSegmentResizeStart (event) {
 
   infoBubble.hide()
   infoBubble.hideSegment(true)
-  _cancelFadeoutControls()
-  _hideControls()
+  cancelFadeoutControls()
+  hideControls()
 
   window.setTimeout(function () {
     el.segmentEl.classList.add('hover')
@@ -218,7 +228,7 @@ function handleSegmentResizeMove (event) {
     resizeType = RESIZE_TYPE_DRAGGING
   }
 
-  _resizeSegment(draggingResize.segmentEl, resizeType,
+  resizeSegment(draggingResize.segmentEl, resizeType,
     draggingResize.width * TILE_SIZE, true, false)
 
   draggingResize.mouseX = x
@@ -330,8 +340,8 @@ function handleSegmentMoveStart () {
   updateWithinCanvas(true)
 
   infoBubble.hide()
-  _cancelFadeoutControls()
-  _hideControls()
+  cancelFadeoutControls()
+  hideControls()
 }
 
 function updateWithinCanvas (_newWithinCanvas) {
@@ -577,7 +587,7 @@ function doDropHeuristics (type, variantString, width) {
 
       if ((street.remainingWidth >= MIN_SEGMENT_WIDTH) &&
         (street.remainingWidth >= segmentMinWidth)) {
-        width = _normalizeSegmentWidth(street.remainingWidth, RESIZE_TYPE_INITIAL) * TILE_SIZE
+        width = normalizeSegmentWidth(street.remainingWidth, RESIZE_TYPE_INITIAL) * TILE_SIZE
       }
     }
   }
@@ -777,7 +787,7 @@ function handleSegmentMoveEnd (event) {
   changeDraggingType(DRAGGING_TYPE_NONE)
 
   if (segmentElControls) {
-    _scheduleControlsFadeout(segmentElControls)
+    scheduleControlsFadeout(segmentElControls)
   }
 
   if (failedDrop) {
@@ -805,7 +815,7 @@ export function onBodyMouseUp (event) {
       handleSegmentMoveEnd(event)
       break
     case DRAGGING_TYPE_RESIZE:
-      _handleSegmentResizeEnd(event)
+      handleSegmentResizeEnd(event)
       break
   }
 
