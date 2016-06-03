@@ -18,9 +18,9 @@ function _onGlobalKeyDown (event) {
 
   switch (event.keyCode) {
     case KEYS.ESC:
-      if (draggingType == DRAGGING_TYPE_RESIZE) {
+      if (draggingType() == DRAGGING_TYPE_RESIZE) {
         _handleSegmentResizeCancel()
-      } else if (draggingType == DRAGGING_TYPE_MOVE) {
+      } else if (draggingType() == DRAGGING_TYPE_MOVE) {
         _handleSegmentMoveCancel()
       } else if (document.body.classList.contains('gallery-visible')) {
         _hideGallery(false)

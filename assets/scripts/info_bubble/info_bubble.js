@@ -1,21 +1,36 @@
 /* global app, debug, street, system */
-/* global draggingType */
-/* global BUILDING_VARIANTS, BUILDING_VARIANT_NAMES, SEGMENT_INFO,
-      MAX_SEGMENT_WIDTH, MAX_BUILDING_HEIGHT,
-      SEGMENT_WARNING_WIDTH_TOO_LARGE,
-      RESIZE_TYPE_TYPING, TILE_SIZE, KEYS, SEGMENT_WARNING_OUTSIDE,
-      SEGMENT_WARNING_WIDTH_TOO_SMALL, MIN_SEGMENT_WIDTH, DRAGGING_TYPE_NONE
-      */
-/* global _updateBuildingPosition, _switchSegmentElAway, _switchSegmentElIn,
-      _onBuildingMouseEnter, _saveStreetToServerIfNecessary, _createBuildings,
-      _isFlooredBuilding, _changeBuildingHeight,
-      _getBuildingAttributes, _resizeSegment, _buildingHeightUpdated,
-      _processWidthInput, _changeSegmentVariant, _incrementSegmentWidth,
-      _scheduleControlsFadeout, _resumeFadeoutControls, _cancelFadeoutControls
-      */
+/* global SEGMENT_WARNING_WIDTH_TOO_LARGE,
+      KEYS, SEGMENT_WARNING_OUTSIDE,
+      SEGMENT_WARNING_WIDTH_TOO_SMALL */
+/* global _saveStreetToServerIfNecessary, _processWidthInput */
 // Many things in resizing.js
+
 import { updateDescription, hideDescription } from './description'
+import {
+  BUILDING_VARIANTS,
+  BUILDING_VARIANT_NAMES,
+  MAX_BUILDING_HEIGHT,
+  getBuildingAttributes,
+  isFlooredBuilding,
+  buildingHeightUpdated,
+  changeBuildingHeight,
+  createBuildings,
+  onBuildingMouseEnter,
+  updateBuildingPosition
+} from '../segments/buildings'
+import { DRAGGING_TYPE_NONE, draggingType } from '../segments/drag_and_drop'
+import { SEGMENT_INFO } from '../segments/info'
 import { removeSegment, removeAllSegments } from '../segments/remove'
+import {
+  RESIZE_TYPE_TYPING,
+  MIN_SEGMENT_WIDTH,
+  MAX_SEGMENT_WIDTH,
+  resizeSegment,
+  incrementSegmentWidth,
+  scheduleControlsFadeout,
+  resumeFadeoutControls,
+  cancelFadeoutControls
+} from '../segments/resizing'
 import { VARIANT_ICONS } from '../segments/variant_icons'
 import { msg } from '../app/messages'
 import { trackEvent } from '../app/event_tracking'
@@ -24,6 +39,12 @@ import { prettifyWidth, undecorateWidth } from '../util/width_units'
 import { isAnyMenuVisible, hideAllMenus } from '../menus/menu'
 import { registerKeypress } from '../app/keypress'
 import { loseAnyFocus } from '../app/focus'
+import {
+  TILE_SIZE,
+  changeSegmentVariant,
+  switchSegmentElIn,
+  switchSegmentElAway
+} from '../segments/view'
 
 export const INFO_BUBBLE_TYPE_SEGMENT = 1
 export const INFO_BUBBLE_TYPE_LEFT_BUILDING = 2
@@ -92,7 +113,7 @@ export const infoBubble = {
   },
 
   onTouchStart: function () {
-    _resumeFadeoutControls()
+    resumeFadeoutControls()
   },
 
   onMouseEnter: function () {
@@ -340,16 +361,16 @@ export const infoBubble = {
     newEl.id = 'street-section-' + side + '-building'
 
     el.parentNode.appendChild(newEl)
-    _updateBuildingPosition()
-    _switchSegmentElIn(newEl)
-    _switchSegmentElAway(el)
+    updateBuildingPosition()
+    switchSegmentElIn(newEl)
+    switchSegmentElAway(el)
 
     // TODO repeat
-    newEl.addEventListener('pointerenter', _onBuildingMouseEnter)
-    newEl.addEventListener('pointerleave', _onBuildingMouseEnter)
+    newEl.addEventListener('pointerenter', onBuildingMouseEnter)
+    newEl.addEventListener('pointerleave', onBuildingMouseEnter)
 
     _saveStreetToServerIfNecessary()
-    _createBuildings()
+    createBuildings()
 
     infoBubble.updateContents()
   },
@@ -421,13 +442,13 @@ export const infoBubble = {
     var height = (infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingHeight : street.rightBuildingHeight
     var variant = (infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingVariant : street.rightBuildingVariant
 
-    if (!_isFlooredBuilding(variant) || (height === 1)) {
+    if (!isFlooredBuilding(variant) || (height === 1)) {
       infoBubble.el.querySelector('.non-variant .decrement').disabled = true
     } else {
       infoBubble.el.querySelector('.non-variant .decrement').disabled = false
     }
 
-    if (!_isFlooredBuilding(variant) || (height === MAX_BUILDING_HEIGHT)) {
+    if (!isFlooredBuilding(variant) || (height === MAX_BUILDING_HEIGHT)) {
       infoBubble.el.querySelector('.non-variant .increment').disabled = true
     } else {
       infoBubble.el.querySelector('.non-variant .increment').disabled = false
@@ -460,7 +481,7 @@ export const infoBubble = {
 
     infoBubble.updateHeightButtonsInContents()
 
-    if (_isFlooredBuilding(variant)) {
+    if (isFlooredBuilding(variant)) {
       var el = infoBubble.el.querySelector('.non-variant .height')
       if (el) {
         el.realValue = height
@@ -526,7 +547,7 @@ export const infoBubble = {
     let name, canBeDeleted, showWidth, innerEl, widthCanvasEl, el
 
     // If info bubble changes, wake this back up if it's fading out
-    _cancelFadeoutControls()
+    cancelFadeoutControls()
 
     switch (infoBubble.type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
@@ -595,7 +616,7 @@ export const infoBubble = {
         variant = street.rightBuildingVariant
       }
 
-      var disabled = !_isFlooredBuilding(variant)
+      var disabled = !isFlooredBuilding(variant)
 
       widthCanvasEl = document.createElement('div')
       widthCanvasEl.classList.add('non-variant')
@@ -607,7 +628,7 @@ export const infoBubble = {
       innerEl.tabIndex = -1
       innerEl.title = msg('TOOLTIP_ADD_FLOOR')
       var addFloor = function () {
-        _changeBuildingHeight(infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING, true)
+        changeBuildingHeight(infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING, true)
       }
 
       innerEl.addEventListener('pointerdown', addFloor)
@@ -641,7 +662,7 @@ export const infoBubble = {
       innerEl.tabIndex = -1
       innerEl.title = msg('TOOLTIP_REMOVE_FLOOR')
       var removeFloor = function () {
-        _changeBuildingHeight(infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING, false)
+        changeBuildingHeight(infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING, false)
       }
       innerEl.addEventListener('pointerdown', removeFloor)
 
@@ -736,7 +757,7 @@ export const infoBubble = {
 
             el.addEventListener('pointerdown', (function (dataNo, variantType, variantChoice) {
               return function () {
-                _changeSegmentVariant(dataNo, variantType, variantChoice)
+                changeSegmentVariant(dataNo, variantType, variantChoice)
               }
             })(segment.el.dataNo, variantType, variantChoice))
 
@@ -802,7 +823,7 @@ export const infoBubble = {
       return
     }
 
-    if (draggingType !== DRAGGING_TYPE_NONE) {
+    if (draggingType() !== DRAGGING_TYPE_NONE) {
       return
     }
 
@@ -910,8 +931,8 @@ function _onWidthDecrementClick (event) {
   var segmentEl = el.segmentEl
   var precise = event.shiftKey
 
-  _incrementSegmentWidth(segmentEl, false, precise)
-  _scheduleControlsFadeout(segmentEl)
+  incrementSegmentWidth(segmentEl, false, precise)
+  scheduleControlsFadeout(segmentEl)
 
   trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INCREMENT_BUTTON', null, true)
 }
@@ -921,8 +942,8 @@ function _onWidthIncrementClick (event) {
   var segmentEl = el.segmentEl
   var precise = event.shiftKey
 
-  _incrementSegmentWidth(segmentEl, true, precise)
-  _scheduleControlsFadeout(segmentEl)
+  incrementSegmentWidth(segmentEl, true, precise)
+  scheduleControlsFadeout(segmentEl)
 
   trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INCREMENT_BUTTON', null, true)
 }
@@ -1006,7 +1027,7 @@ function _heightEditInputChanged (el, immediate) {
     } else {
       street.rightBuildingHeight = height
     }
-    _buildingHeightUpdated()
+    buildingHeightUpdated()
   } else {
     widthHeightChangeTimerId = window.setTimeout(function () {
       if (infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING) {
@@ -1014,7 +1035,7 @@ function _heightEditInputChanged (el, immediate) {
       } else {
         street.rightBuildingHeight = height
       }
-      _buildingHeightUpdated()
+      buildingHeightUpdated()
     }, WIDTH_EDIT_INPUT_DELAY)
   }
 }
@@ -1028,12 +1049,12 @@ function _widthEditInputChanged (el, immediate) {
     var segmentEl = el.segmentEl
 
     if (immediate) {
-      _resizeSegment(segmentEl, RESIZE_TYPE_TYPING,
+      resizeSegment(segmentEl, RESIZE_TYPE_TYPING,
         width * TILE_SIZE, false, false)
       infoBubble.updateWidthButtonsInContents(width)
     } else {
       widthHeightChangeTimerId = window.setTimeout(function () {
-        _resizeSegment(segmentEl, RESIZE_TYPE_TYPING,
+        resizeSegment(segmentEl, RESIZE_TYPE_TYPING,
           width * TILE_SIZE, false, false)
         infoBubble.updateWidthButtonsInContents(width)
       }, WIDTH_EDIT_INPUT_DELAY)
@@ -1114,7 +1135,7 @@ function _prettifyHeight (height) {
     heightText += 's'
   }
 
-  var attr = _getBuildingAttributes(street, infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING)
+  var attr = getBuildingAttributes(street, infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING)
 
   heightText += ' (' + prettifyWidth(attr.realHeight / TILE_SIZE) + ')'
 

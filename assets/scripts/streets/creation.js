@@ -1,10 +1,11 @@
 /* global _trimStreetData, _prepareDefaultStreet, _setUpdateTimeToNow */
-/* global _resizeStreetWidth, _createDomFromData, _segmentsChanged */
+/* global _resizeStreetWidth, _createDomFromData */
 /* global street, _saveStreetToServer, settings */
 /* global _saveSettingsLocally, _prepareEmptyStreet, _fetchLastStreet */
 /* global ignoreStreetChanges, lastStreet */ // eslint-disable-line no-unused-vars
 
 import { shareMenu } from '../menus/_share'
+import { segmentsChanged } from '../segments/view'
 import { updateStreetName } from './name'
 
 export const NEW_STREET_DEFAULT = 1
@@ -18,7 +19,7 @@ export function makeDefaultStreet () {
   _resizeStreetWidth()
   updateStreetName()
   _createDomFromData()
-  _segmentsChanged()
+  segmentsChanged()
   shareMenu.update()
 
   ignoreStreetChanges = false // eslint-disable-line no-native-reassign
@@ -44,7 +45,7 @@ export function onNewStreetEmptyClick () {
   _resizeStreetWidth()
   updateStreetName()
   _createDomFromData()
-  _segmentsChanged()
+  segmentsChanged()
   shareMenu.update()
 
   ignoreStreetChanges = false // eslint-disable-line no-native-reassign

@@ -158,20 +158,20 @@ function _updateUnits (newUnits) {
 function _propagateUnits () {
   switch (street.units) {
     case SETTINGS_UNITS_IMPERIAL:
-      segmentWidthResolution = SEGMENT_WIDTH_RESOLUTION_IMPERIAL
-      segmentWidthClickIncrement = SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL
-      segmentWidthDraggingResolution =
-        SEGMENT_WIDTH_DRAGGING_RESOLUTION_IMPERIAL
+      _setSegmentWidthResolution(SEGMENT_WIDTH_RESOLUTION_IMPERIAL)
+      _setSegmentWidthClickIncrement(SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL)
+      _setSegmentWidthDraggingResolution(
+        SEGMENT_WIDTH_DRAGGING_RESOLUTION_IMPERIAL)
 
       document.body.classList.add('units-imperial')
       document.body.classList.remove('units-metric')
 
       break
     case SETTINGS_UNITS_METRIC:
-      segmentWidthResolution = SEGMENT_WIDTH_RESOLUTION_METRIC
-      segmentWidthClickIncrement = SEGMENT_WIDTH_CLICK_INCREMENT_METRIC
-      segmentWidthDraggingResolution =
-        SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC
+      _setSegmentWidthResolution(SEGMENT_WIDTH_RESOLUTION_METRIC)
+      _setSegmentWidthClickIncrement(SEGMENT_WIDTH_CLICK_INCREMENT_METRIC)
+      _setSegmentWidthDraggingResolution(
+        SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC)
 
       document.body.classList.add('units-metric')
       document.body.classList.remove('units-imperial')

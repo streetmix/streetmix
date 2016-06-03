@@ -18,8 +18,8 @@ body.phone #loading {
 }
 
 #error {
-  z-index: $z-09-error;
   @include blocking-shield;
+  z-index: $z-09-error;
 
   // Errors may be displayed on old browsers without flexbox.
   // This forces vertical centering
@@ -53,8 +53,8 @@ body.phone #loading {
 }
 
 #loading {
-  z-index: $z-09-loading;
   @include blocking-shield;
+  z-index: $z-09-loading;
 
   &.hidden {
     display: none;

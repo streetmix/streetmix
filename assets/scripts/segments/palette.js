@@ -1,6 +1,8 @@
-/* global SEGMENT_INFO, TILE_SIZE, debug */
-/* global _getVariantInfoDimensions, _createSegment */
+/* global debug */
+
 import { generateRandSeed } from '../util/random'
+import { SEGMENT_INFO } from './info'
+import { TILE_SIZE, getVariantInfoDimensions, createSegment } from './view'
 
 const WIDTH_PALETTE_MULTIPLIER = 4
 const PALETTE_EXTRA_SEGMENT_PADDING = 8
@@ -26,7 +28,7 @@ export function createPalette () {
 
     var variantInfo = segmentInfo.details[variantName]
 
-    var dimensions = _getVariantInfoDimensions(variantInfo, 0, 1)
+    var dimensions = getVariantInfoDimensions(variantInfo, 0, 1)
 
     var width = dimensions.right - dimensions.left
     if (!width) {
@@ -34,7 +36,7 @@ export function createPalette () {
     }
     width += PALETTE_EXTRA_SEGMENT_PADDING
 
-    var el = _createSegment(id,
+    var el = createSegment(id,
       variantName,
       width * TILE_SIZE / WIDTH_PALETTE_MULTIPLIER,
       false,

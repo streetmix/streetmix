@@ -1,8 +1,8 @@
-var SEGMENT_OWNER_CAR = 'car'
-var SEGMENT_OWNER_BIKE = 'bike'
-var SEGMENT_OWNER_PEDESTRIAN = 'pedestrian'
-var SEGMENT_OWNER_PUBLIC_TRANSIT = 'public-transit'
-var SEGMENT_OWNER_NATURE = 'nature'
+export const SEGMENT_OWNER_CAR = 'car'
+export const SEGMENT_OWNER_BIKE = 'bike'
+export const SEGMENT_OWNER_PEDESTRIAN = 'pedestrian'
+export const SEGMENT_OWNER_PUBLIC_TRANSIT = 'public-transit'
+const SEGMENT_OWNER_NATURE = 'nature'
 
 /*
 Segment info documentation
@@ -187,7 +187,7 @@ How to fill in the data for a segment:
 
 */
 
-var SEGMENT_INFO = {
+export const SEGMENT_INFO = {
   'sidewalk': {
     name: 'Sidewalk',
     owner: SEGMENT_OWNER_PEDESTRIAN,
@@ -1298,7 +1298,7 @@ var SEGMENT_INFO = {
   }
 }
 
-function _prepareSegmentInfo () {
+export function prepareSegmentInfo () {
   // TODO should not modify const
 
   for (var i in SEGMENT_INFO) {

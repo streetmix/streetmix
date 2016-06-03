@@ -1,4 +1,5 @@
-/* global SEGMENT_INFO */
+import { SEGMENT_INFO } from './info'
+
 const VARIANT_SEPARATOR = '|'
 
 /**
