@@ -76,13 +76,13 @@ function _createNewUndoIfNecessary (lastStreet, currentStreet) {
 function _isUndoAvailable () {
   // Don’t allow undo/redo unless you own the street
 
-  return (undoPosition > 0) && !remixOnFirstEdit
+  return (undoPosition > 0) && !getRemixOnFirstEdit()
 }
 
 function _isRedoAvailable () {
   // Don’t allow undo/redo unless you own the street
 
-  return (undoPosition < undoStack.length - 1) && !remixOnFirstEdit
+  return (undoPosition < undoStack.length - 1) && !getRemixOnFirstEdit()
 }
 
 function _updateUndoButtons () {

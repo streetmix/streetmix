@@ -137,7 +137,7 @@ function _clearScheduledSavingStreetToServer () {
 function _fetchStreetForVerification () {
   // Don’t do it with any network services pending
   if (_getNonblockingAjaxRequestCount() || isblockingAjaxRequestInProgress() ||
-    saveStreetIncomplete || abortEverything || remixOnFirstEdit) {
+    saveStreetIncomplete || abortEverything || getRemixOnFirstEdit()) {
     return
   }
 
@@ -261,12 +261,12 @@ function _unpackServerStreetData (transmission, id, namespacedId, checkIfNeedsTo
 
   if (checkIfNeedsToBeRemixed) {
     if (!signedIn || (street.creatorId != signInData.userId)) {
-      remixOnFirstEdit = true
+      setRemixOnFirstEdit(true)
     } else {
-      remixOnFirstEdit = false
+      setRemixOnFirstEdit(false)
     }
 
-    if (updatedSchema && !remixOnFirstEdit) {
+    if (updatedSchema && !getRemixOnFirstEdit()) {
       _saveStreetToServer()
     }
   }
@@ -324,7 +324,7 @@ function _scheduleSavingStreetToServer () {
 
   _clearScheduledSavingStreetToServer()
 
-  if (remixOnFirstEdit) {
+  if (getRemixOnFirstEdit()) {
     _remixStreet()
   } else {
     saveStreetTimerId =

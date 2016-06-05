@@ -227,7 +227,7 @@ function _signInLoaded () {
       street.namespacedId = settings.lastStreetNamespacedId
 
       if ((mode == MODES.JUST_SIGNED_IN) && (!street.creatorId)) {
-        promoteStreet = true
+        setPromoteStreet(true)
       }
 
       if (mode == MODES.JUST_SIGNED_IN) {

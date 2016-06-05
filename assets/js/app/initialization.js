@@ -116,7 +116,7 @@ function _onEverythingLoaded () {
     aboutDialog.show()
   }
 
-  if (promoteStreet) {
+  if (getPromoteStreet()) {
     _remixStreet()
   }
 

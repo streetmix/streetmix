@@ -82,6 +82,21 @@ window._updateStreetMetadata = updateStreetMetadata
 import { updateStreetName } from './streets/name'
 window._updateStreetName = updateStreetName
 
+import {
+  getRemixOnFirstEdit,
+  setRemixOnFirstEdit,
+  getPromoteStreet,
+  setPromoteStreet,
+  remixStreet,
+  addRemixSuffixToName
+} from './streets/remix'
+window.getRemixOnFirstEdit = getRemixOnFirstEdit
+window.setRemixOnFirstEdit = setRemixOnFirstEdit
+window.getPromoteStreet = getPromoteStreet
+window.setPromoteStreet = setPromoteStreet
+window._remixStreet = remixStreet
+window._addRemixSuffixToName = addRemixSuffixToName
+
 import { onStreetSectionScroll } from './streets/scroll'
 window._onStreetSectionScroll = onStreetSectionScroll
 
