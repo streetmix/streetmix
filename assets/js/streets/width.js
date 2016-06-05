@@ -17,6 +17,7 @@ var SEGMENT_WARNING_WIDTH_TOO_LARGE = 3
 function _onStreetWidthChange (event) {
   var el = event.target
   var newStreetWidth = el.value
+  var street = _getStreet()
 
   document.body.classList.remove('edit-street-width')
 
@@ -88,6 +89,7 @@ function _buildStreetWidthMenu () {
   el.innerHTML = 'Occupied width:'
   document.querySelector('#street-width').appendChild(el)
 
+  var street = _getStreet()
   var el = document.createElement('option')
   el.disabled = true
   el.innerHTML = _prettifyWidth(street.occupiedWidth)
@@ -165,7 +167,7 @@ function _onStreetWidthClick (event) {
 }
 
 function _resizeStreetWidth (dontScroll) {
-  var width = street.width * TILE_SIZE
+  var width = _getStreet().width * TILE_SIZE
 
   document.querySelector('#street-section-canvas').style.width = width + 'px'
   if (!dontScroll) {
@@ -191,6 +193,7 @@ function _normalizeStreetWidth (width) {
 }
 
 function _recalculateOccupiedWidth () {
+  var street = _getStreet()
   street.occupiedWidth = 0
 
   for (var i in street.segments) {
@@ -212,6 +215,7 @@ function _recalculateOccupiedWidth () {
 function _recalculateWidth () {
   _recalculateOccupiedWidth()
 
+  var street = _getStreet()
   var position = street.width / 2 - street.occupiedWidth / 2
 
   for (var i in street.segments) {

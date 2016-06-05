@@ -1,9 +1,9 @@
-/* global street, app */
-/* global _unifyUndoStack, _updatePageUrl, _saveStreetToServerIfNecessary */
+/* global app, _unifyUndoStack, _updatePageUrl */
 
 import { msg } from '../app/messages'
 import { updatePageTitle } from '../app/page_title'
 import { getElAbsolutePos } from '../util/helpers'
+import { getStreet, saveStreetToServerIfNecessary } from './data_model'
 import { updateStreetMetadata } from './metadata'
 import { StreetName, normalizeStreetName } from './name_sign'
 
@@ -19,6 +19,7 @@ let streetName
 // TODO: Create a specific init / create function?
 // TODO: Updating the street name as a response to events?
 export function updateStreetName () {
+  let street = getStreet()
   streetName = new StreetName(streetNameEl, street.name)
   streetName.text = street.name
 
@@ -33,6 +34,7 @@ export function updateStreetName () {
 }
 
 function askForStreetName () {
+  let street = getStreet()
   const newName = window.prompt(msg('PROMPT_NEW_STREET_NAME'), street.name)
 
   if (newName) {
@@ -41,7 +43,7 @@ function askForStreetName () {
     updateStreetName()
     updateStreetNameCanvasPos()
 
-    _saveStreetToServerIfNecessary()
+    saveStreetToServerIfNecessary()
   }
 }
 

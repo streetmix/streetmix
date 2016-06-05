@@ -99,7 +99,7 @@ function _onEverythingLoaded () {
 
   initializing = false
   ignoreStreetChanges = false
-  lastStreet = _trimStreetData(street)
+  _setLastStreet(_trimStreetData(_getStreet()))
 
   _updatePageUrl()
   _buildStreetWidthMenu()

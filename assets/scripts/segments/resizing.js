@@ -1,9 +1,10 @@
-/* global street, system, SEGMENT_WARNING_OUTSIDE,
+/* global system, SEGMENT_WARNING_OUTSIDE,
    SEGMENT_WARNING_WIDTH_TOO_SMALL, SEGMENT_WARNING_WIDTH_TOO_LARGE,
    SEGMENT_WARNING_OUTSIDE */
 /* global ignoreStreetChanges */ // eslint-disable-line no-unused-vars
 import { trackEvent } from '../app/event_tracking'
 import { INFO_BUBBLE_TYPE_SEGMENT, infoBubble } from '../info_bubble/info_bubble'
+import { getStreet } from '../streets/data_model'
 import { removeElFromDOM } from '../util/dom_helpers'
 import { prettifyWidth } from '../util/width_units'
 import {
@@ -88,7 +89,7 @@ export function resizeSegment (el, resizeType, width, updateEdit, palette, initi
   if (!initial) {
     segmentsChanged()
 
-    var segment = street.segments[parseInt(el.dataNo)]
+    var segment = getStreet().segments[parseInt(el.dataNo)]
     infoBubble.updateWarningsInContents(segment)
   }
 }
@@ -131,6 +132,7 @@ export function handleSegmentResizeEnd (event) {
 }
 
 export function normalizeAllSegmentWidths () {
+  let street = getStreet()
   for (var i in street.segments) {
     street.segments[i].width =
       normalizeSegmentWidth(street.segments[i].width, RESIZE_TYPE_INITIAL)
@@ -183,6 +185,7 @@ export function incrementSegmentWidth (segmentEl, add, precise) {
 }
 
 export function applyWarningsToSegments () {
+  let street = getStreet()
   for (var i in street.segments) {
     var segment = street.segments[i]
 

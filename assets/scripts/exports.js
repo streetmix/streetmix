@@ -177,6 +177,41 @@ window._fillEmptySegments = fillEmptySegments
 window._repositionSegments = repositionSegments
 window._segmentsChanged = segmentsChanged
 
+import {
+  getLastStreet,
+  setLastStreet,
+  DEFAULT_NAME,
+  getStreet,
+  setStreet,
+  updateToLatestSchemaVersion,
+  createDomFromData,
+  setStreetCreatorId,
+  setUpdateTimeToNow,
+  saveStreetToServerIfNecessary,
+  trimStreetData,
+  createDataFromDom,
+  getStreetUrl,
+  prepareDefaultStreet,
+  prepareEmptyStreet,
+  updateEverything
+} from './streets/data_model'
+window._getLastStreet = getLastStreet
+window._setLastStreet = setLastStreet
+window.DEFAULT_NAME = DEFAULT_NAME
+window._getStreet = getStreet
+window._setStreet = setStreet
+window._updateToLatestSchemaVersion = updateToLatestSchemaVersion
+window._createDomFromData = createDomFromData
+window._setStreetCreatorId = setStreetCreatorId
+window._setUpdateTimeToNow = setUpdateTimeToNow
+window._saveStreetToServerIfNecessary = saveStreetToServerIfNecessary
+window._trimStreetData = trimStreetData
+window._createDataFromDom = createDataFromDom
+window._getStreetUrl = getStreetUrl
+window._prepareDefaultStreet = prepareDefaultStreet
+window._prepareEmptyStreet = prepareEmptyStreet
+window._updateEverything = updateEverything
+
 import { processWidthInput, prettifyWidth } from './util/width_units'
 window._processWidthInput = processWidthInput
 window._prettifyWidth = prettifyWidth

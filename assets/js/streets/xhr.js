@@ -45,6 +45,7 @@ function _errorReceiveNewStreet (data) {
 
 function _getFetchStreetUrl () {
   // TODO const
+  var street = _getStreet()
   if (street.creatorId) {
     var url = API_URL + 'v1/streets?namespacedId=' +
       encodeURIComponent(street.namespacedId) + '&creatorId=' +
@@ -80,7 +81,7 @@ function _errorReceiveStreet (data) {
     goNewStreet()
   } else {
     if ((data.status === 404) || (data.status === 410)) {
-      if (street.creatorId) {
+      if (_getStreet().creatorId) {
         if (data.status === 410) {
           mode = MODES.STREET_410_BUT_LINK_TO_USER
         } else {
@@ -106,7 +107,7 @@ function _saveStreetToServer (initial) {
 
   if (initial) {
     // blocking
-
+    var street = _getStreet()
     $.ajax({
       // TODO const
       url: API_URL + 'v1/streets/' + street.id,
@@ -143,7 +144,7 @@ function _fetchStreetForVerification () {
   var url = _getFetchStreetUrl()
 
   latestRequestId = _getUniqueRequestHeader()
-  latestVerificationStreet = _trimStreetData(street)
+  latestVerificationStreet = _trimStreetData(_getStreet())
 
   $.ajax({
     url: url,
@@ -234,7 +235,8 @@ function _unpackStreetDataFromServerTransmission (transmission) {
 }
 
 function _unpackServerStreetData (transmission, id, namespacedId, checkIfNeedsToBeRemixed) {
-  street = _unpackStreetDataFromServerTransmission(transmission)
+  _setStreet(_unpackStreetDataFromServerTransmission(transmission))
+  var street = _getStreet()
 
   if (transmission.data.undoStack) {
     undoStack = _.cloneDeep(transmission.data.undoStack)
@@ -273,7 +275,7 @@ function _unpackServerStreetData (transmission, id, namespacedId, checkIfNeedsTo
 function _packServerStreetData () {
   var data = {}
 
-  data.street = _trimStreetData(street)
+  data.street = _trimStreetData(_getStreet())
 
   // Those go above data in the structure, so they need to be cleared here
   delete data.street.name
@@ -288,6 +290,7 @@ function _packServerStreetData () {
     data.undoPosition = undoPosition
   }
 
+  var street = _getStreet()
   var transmission = {
     name: street.name,
     originalStreetId: street.originalStreetId,
@@ -298,6 +301,7 @@ function _packServerStreetData () {
 }
 
 function _setStreetId (newId, newNamespacedId) {
+  var street = _getStreet()
   street.id = newId
   street.namespacedId = newNamespacedId
 
@@ -307,6 +311,7 @@ function _setStreetId (newId, newNamespacedId) {
 }
 
 function _updateLastStreetInfo () {
+  var street = _getStreet()
   settings.lastStreetId = street.id
   settings.lastStreetNamespacedId = street.namespacedId
   settings.lastStreetCreatorId = street.creatorId
@@ -346,7 +351,7 @@ function _cancelReceiveLastStreet () {
 
 function _receiveLastStreet (transmission) {
   ignoreStreetChanges = true
-
+  var street = _getStreet()
   _unpackServerStreetData(transmission, street.id, street.namespacedId, false)
   street.originalStreetId = settings.priorLastStreetId
   _addRemixSuffixToName()
@@ -375,7 +380,7 @@ function _receiveLastStreet (transmission) {
   shareMenu.update()
 
   ignoreStreetChanges = false
-  lastStreet = _trimStreetData(street)
+  _setLastStreet(_trimStreetData(street))
 
   _saveStreetToServer(false)
 }

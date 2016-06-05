@@ -1,11 +1,18 @@
-/* global _trimStreetData, _prepareDefaultStreet, _setUpdateTimeToNow */
-/* global _resizeStreetWidth, _createDomFromData */
-/* global street, _saveStreetToServer, settings */
-/* global _saveSettingsLocally, _prepareEmptyStreet, _fetchLastStreet */
-/* global ignoreStreetChanges, lastStreet */ // eslint-disable-line no-unused-vars
+/* global _resizeStreetWidth, _saveStreetToServer, settings */
+/* global _saveSettingsLocally, _fetchLastStreet */
+/* global ignoreStreetChanges */ // eslint-disable-line no-unused-vars
 
 import { shareMenu } from '../menus/_share'
 import { segmentsChanged } from '../segments/view'
+import {
+  setLastStreet,
+  getStreet,
+  createDomFromData,
+  setUpdateTimeToNow,
+  trimStreetData,
+  prepareDefaultStreet,
+  prepareEmptyStreet
+} from './data_model'
 import { updateStreetName } from './name'
 
 export const NEW_STREET_DEFAULT = 1
@@ -13,17 +20,17 @@ export const NEW_STREET_EMPTY = 2
 
 export function makeDefaultStreet () {
   ignoreStreetChanges = true // eslint-disable-line no-native-reassign
-  _prepareDefaultStreet()
-  _setUpdateTimeToNow()
+  prepareDefaultStreet()
+  setUpdateTimeToNow()
 
   _resizeStreetWidth()
   updateStreetName()
-  _createDomFromData()
+  createDomFromData()
   segmentsChanged()
   shareMenu.update()
 
   ignoreStreetChanges = false // eslint-disable-line no-native-reassign
-  lastStreet = _trimStreetData(street) // eslint-disable-line no-native-reassign
+  setLastStreet(trimStreetData(getStreet()))
 
   _saveStreetToServer(false)
 }
@@ -40,16 +47,16 @@ export function onNewStreetEmptyClick () {
   _saveSettingsLocally()
 
   ignoreStreetChanges = true // eslint-disable-line no-native-reassign
-  _prepareEmptyStreet()
+  prepareEmptyStreet()
 
   _resizeStreetWidth()
   updateStreetName()
-  _createDomFromData()
+  createDomFromData()
   segmentsChanged()
   shareMenu.update()
 
   ignoreStreetChanges = false // eslint-disable-line no-native-reassign
-  lastStreet = _trimStreetData(street) // eslint-disable-line no-native-reassign
+  setLastStreet(trimStreetData(getStreet()))
 
   _saveStreetToServer(false)
 }

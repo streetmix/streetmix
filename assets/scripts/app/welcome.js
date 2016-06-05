@@ -1,10 +1,10 @@
-/* global app, system, mode, street, signedIn, settings */
-/* global MODES */
+/* global app, system, mode, signedIn, settings, MODES */
 import { registerKeypress, deregisterKeypress } from './keypress'
 import { goNewStreet } from './routing'
 import { fetchAvatars } from '../users/avatars'
 import { StreetName } from '../streets/name_sign'
 import { NEW_STREET_DEFAULT, NEW_STREET_EMPTY } from '../streets/creation'
+import { getStreet } from '../streets/data_model'
 
 const WELCOME_NONE = 0
 const WELCOME_NEW_STREET = 1
@@ -50,6 +50,7 @@ function showWelcome (welcomeType = WELCOME_NONE) {
         goNewStreet(true)
       })
 
+      let street = getStreet()
       let streetName = new StreetName(document.getElementById('welcome-street-name'), street.name) // eslint-disable-line no-unused-vars
 
       if (street.creatorId) {
@@ -73,7 +74,7 @@ function showWelcome (welcomeType = WELCOME_NONE) {
           break
       }
 
-      if (settings.priorLastStreetId && settings.priorLastStreetId !== street.id) {
+      if (settings.priorLastStreetId && settings.priorLastStreetId !== getStreet().id) {
         document.querySelector('#new-street-last').parentNode.classList.add('visible')
       }
       break

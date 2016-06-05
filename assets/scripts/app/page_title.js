@@ -1,4 +1,6 @@
-/* global street, signedIn, signInData */
+/* global signedIn, signInData */
+
+import { getStreet } from '../streets/data_model'
 
 /**
  * Updates page title.
@@ -7,6 +9,7 @@
  */
 export function updatePageTitle () {
   let title = ''
+  let street = getStreet()
 
   if (street.creatorId && (!signedIn || (signInData.userId !== street.creatorId))) {
     title = getPageTitleWithAuthor()
@@ -24,6 +27,7 @@ export function updatePageTitle () {
  * e.g. Facebook sharing
  */
 export function getPageTitle () {
+  let street = getStreet()
   return `${street.name} – Streetmix`
 }
 
@@ -32,5 +36,6 @@ export function getPageTitle () {
  * Displayed when a street has an creator
  */
 export function getPageTitleWithAuthor () {
+  let street = getStreet()
   return `${street.name} (by ${street.creatorId}) – Streetmix`
 }

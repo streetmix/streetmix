@@ -1,9 +1,10 @@
-/* global street, _switchSegmentElAway, _createDomFromData */
+/* global _switchSegmentElAway */
 
 import { msg } from '../app/messages'
 import { registerKeypress } from '../app/keypress'
 import { showStatusMessage } from '../app/status_message'
 import { infoBubble } from '../info_bubble/info_bubble'
+import { getStreet, createDomFromData } from '../streets/data_model'
 import { getHoveredSegmentEl } from './hover'
 import { segmentsChanged } from './view'
 
@@ -35,8 +36,8 @@ export function removeSegment (el) {
  * and it is not advertised in the UI.
  */
 export function removeAllSegments () {
-  street.segments = []
-  _createDomFromData()
+  getStreet().segments = []
+  createDomFromData()
   segmentsChanged()
   infoBubble.hide()
   showStatusMessage(msg('STATUS_ALL_SEGMENTS_DELETED'), true)

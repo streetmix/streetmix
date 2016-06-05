@@ -17,7 +17,7 @@ function _remixStreet () {
   } else {
     _setStreetCreatorId(null)
   }
-
+  var street = _getStreet()
   street.originalStreetId = street.id
   street.editCount = 0
   // console.log('editCount = 0 on remix!')
@@ -67,6 +67,7 @@ function _receiveRemixedStreet (data) {
 }
 
 function _addRemixSuffixToName () {
+  var street = _getStreet()
   if (street.name.substr(street.name.length - STREET_NAME_REMIX_SUFFIX.length,
       STREET_NAME_REMIX_SUFFIX.length) != STREET_NAME_REMIX_SUFFIX) {
     street.name += ' ' + STREET_NAME_REMIX_SUFFIX

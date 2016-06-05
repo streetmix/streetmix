@@ -13,12 +13,12 @@ function _undoRedo (undo) {
     showStatusMessage(msg('STATUS_NOTHING_TO_REDO'))
   } else {
     if (undo) {
-      undoStack[undoPosition] = _trimStreetData(street)
+      undoStack[undoPosition] = _trimStreetData(_getStreet())
       undoPosition--
     } else {
       undoPosition++
     }
-    street = _.cloneDeep(undoStack[undoPosition])
+    _setStreet(_.cloneDeep(undoStack[undoPosition]))
     _setUpdateTimeToNow()
 
     _infoBubble.hide()
@@ -58,7 +58,7 @@ function _createNewUndo () {
   // This removes future undo path in case we undo a few times and then do
   // something undoable.
   undoStack = undoStack.splice(0, undoPosition)
-  undoStack[undoPosition] = _.cloneDeep(lastStreet)
+  undoStack[undoPosition] = _.cloneDeep(_getLastStreet())
   undoPosition++
 
   _trimUndoStack()
@@ -91,6 +91,7 @@ function _updateUndoButtons () {
 }
 
 function _unifyUndoStack () {
+  var street = _getStreet()
   for (var i = 0; i < undoStack.length; i++) {
     undoStack[i].id = street.id
     undoStack[i].name = street.name

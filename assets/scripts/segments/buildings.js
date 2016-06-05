@@ -1,10 +1,11 @@
-/* global system, _saveStreetToServerIfNecessary, street */
+/* global system */
 
 import {
   INFO_BUBBLE_TYPE_RIGHT_BUILDING,
   INFO_BUBBLE_TYPE_LEFT_BUILDING,
   infoBubble
 } from '../info_bubble/info_bubble'
+import { getStreet, saveStreetToServerIfNecessary } from '../streets/data_model'
 import { getElAbsolutePos } from '../util/helpers'
 import { RandomGenerator } from '../util/random'
 import { resumeFadeoutControls } from './resizing'
@@ -326,6 +327,7 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
 }
 
 function createBuilding (el, left) {
+  var street = getStreet()
   var totalWidth = el.offsetWidth
   var attr = getBuildingAttributes(street, left)
   var height = Math.min(MAX_CANVAS_HEIGHT, attr.height)
@@ -350,11 +352,12 @@ function createBuilding (el, left) {
 }
 
 export function buildingHeightUpdated () {
-  _saveStreetToServerIfNecessary()
+  saveStreetToServerIfNecessary()
   createBuildings()
 }
 
 export function changeBuildingHeight (left, increment) {
+  let street = getStreet()
   if (left) {
     if (increment) {
       if (street.leftBuildingHeight < MAX_BUILDING_HEIGHT) {

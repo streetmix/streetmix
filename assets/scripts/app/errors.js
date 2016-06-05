@@ -1,6 +1,8 @@
-/* global street, abortEverything, _goReloadClearSignIn,
+/* global abortEverything, _goReloadClearSignIn,
    URL_ERROR_TWITTER_ACCESS_DENIED, URL_ERROR_NO_TWITTER_REQUEST_TOKEN,
    URL_ERROR_NO_TWITTER_ACCESS_TOKEN, URL_ERROR_AUTHENTICATION_API_PROBLEM */
+
+import { getStreet } from '../streets/data_model'
 import { fetchAvatars } from '../users/avatars'
 import { removeElFromDOM } from '../util/dom_helpers'
 import { goReload, goHome, goNewStreet, goExampleStreet, goSignIn } from './routing'
@@ -37,6 +39,7 @@ export function showError (errorType, newAbortEverything) {
 
   var title
   var description = ''
+  var street = getStreet()
 
   hideLoadingScreen()
 

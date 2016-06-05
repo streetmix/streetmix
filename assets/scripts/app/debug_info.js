@@ -7,6 +7,7 @@
  * @requires keypress
  */
 import _ from 'lodash'
+import { getStreet } from '../streets/data_model'
 import { registerKeypress, deregisterKeypress } from './keypress'
 import { loseAnyFocus } from './focus'
 
@@ -14,8 +15,8 @@ import { loseAnyFocus } from './focus'
 registerKeypress('shift d', showDebugInfo)
 
 export function showDebugInfo () {
-  /* global street, undoStack, settings */
-  const debugStreetData = _.cloneDeep(street)
+  /* global undoStack, settings */
+  const debugStreetData = _.cloneDeep(getStreet())
   const debugUndo = _.cloneDeep(undoStack)
   const debugSettings = _.cloneDeep(settings)
   const debugEl = document.querySelector('#debug')

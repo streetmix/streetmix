@@ -1,5 +1,4 @@
-/* global street,
-   system, streetSectionCanvasLeft, streetSectionTop, streetSectionTop */
+/* global system, streetSectionCanvasLeft, streetSectionTop, streetSectionTop */
 /* global ignoreStreetChanges */ // eslint-disable-line no-unused-vars
 
 import { trackEvent } from '../app/event_tracking'
@@ -7,6 +6,7 @@ import { loseAnyFocus } from '../app/focus'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { hideAllMenus } from '../menus/menu'
 import { app } from '../preinit/app_settings'
+import { getStreet } from '../streets/data_model'
 import { removeElFromDOM } from '../util/dom_helpers'
 import { getElAbsolutePos } from '../util/helpers'
 import { generateRandSeed } from '../util/random'
@@ -170,7 +170,7 @@ function handleSegmentResizeStart (event) {
   }
 
   var remainingWidth =
-  street.remainingWidth + parseFloat(el.segmentEl.getAttribute('width'))
+  getStreet().remainingWidth + parseFloat(el.segmentEl.getAttribute('width'))
 
   if (remainingWidth &&
     (((!variantInfo.minWidth) && (remainingWidth >= MIN_SEGMENT_WIDTH)) || (remainingWidth >= variantInfo.minWidth)) &&
@@ -511,6 +511,7 @@ export function onBodyMouseDown (event) {
 
 function makeSpaceBetweenSegments (x, y) {
   let farLeft, farRight
+  let street = getStreet()
   var left = x - streetSectionCanvasLeft
 
   var selectedSegmentBefore = null
@@ -583,6 +584,7 @@ export function onBodyMouseMove (event) {
 
 function doDropHeuristics (type, variantString, width) {
   // Automatically figure out width
+  let street = getStreet()
 
   if (draggingMove.type === DRAGGING_TYPE_MOVE_CREATE) {
     if ((street.remainingWidth > 0) &&
@@ -741,7 +743,7 @@ function handleSegmentMoveEnd (event) {
     }
 
     trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'DRAGGING', null, true)
-  } else if (draggingMove.segmentBeforeEl || draggingMove.segmentAfterEl || (street.segments.length === 0)) {
+  } else if (draggingMove.segmentBeforeEl || draggingMove.segmentAfterEl || (getStreet().segments.length === 0)) {
     var smartDrop = doDropHeuristics(draggingMove.originalType,
       draggingMove.originalVariantString, draggingMove.originalWidth)
 

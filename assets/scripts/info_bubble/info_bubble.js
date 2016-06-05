@@ -1,9 +1,6 @@
-/* global app, debug, street, system */
-/* global SEGMENT_WARNING_WIDTH_TOO_LARGE,
-      KEYS, SEGMENT_WARNING_OUTSIDE,
-      SEGMENT_WARNING_WIDTH_TOO_SMALL */
-/* global _saveStreetToServerIfNecessary, _processWidthInput */
-// Many things in resizing.js
+/* global app, debug, system, SEGMENT_WARNING_WIDTH_TOO_LARGE, KEYS,
+   SEGMENT_WARNING_OUTSIDE, SEGMENT_WARNING_WIDTH_TOO_SMALL,
+   _processWidthInput */
 
 import { updateDescription, hideDescription } from './description'
 import {
@@ -45,6 +42,7 @@ import {
   switchSegmentElIn,
   switchSegmentElAway
 } from '../segments/view'
+import { getStreet, saveStreetToServerIfNecessary } from '../streets/data_model'
 
 export const INFO_BUBBLE_TYPE_SEGMENT = 1
 export const INFO_BUBBLE_TYPE_LEFT_BUILDING = 2
@@ -343,6 +341,7 @@ export const infoBubble = {
   },
 
   onBuildingVariantButtonClick: function (event, left, variantChoice) {
+    let street = getStreet()
     var side
 
     if (left) {
@@ -369,7 +368,7 @@ export const infoBubble = {
     newEl.addEventListener('pointerenter', onBuildingMouseEnter)
     newEl.addEventListener('pointerleave', onBuildingMouseEnter)
 
-    _saveStreetToServerIfNecessary()
+    saveStreetToServerIfNecessary()
     createBuildings()
 
     infoBubble.updateContents()
@@ -439,6 +438,7 @@ export const infoBubble = {
   },
 
   updateHeightButtonsInContents: function () {
+    let street = getStreet()
     var height = (infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingHeight : street.rightBuildingHeight
     var variant = (infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingVariant : street.rightBuildingVariant
 
@@ -470,6 +470,7 @@ export const infoBubble = {
   },
 
   updateHeightInContents: function (left) {
+    let street = getStreet()
     if (!infoBubble.visible ||
       (left && (infoBubble.type !== INFO_BUBBLE_TYPE_LEFT_BUILDING)) ||
       (!left && (infoBubble.type !== INFO_BUBBLE_TYPE_RIGHT_BUILDING))) {
@@ -543,6 +544,7 @@ export const infoBubble = {
   },
 
   updateContents: function () {
+    let street = getStreet()
     let infoBubbleEl = infoBubble.el
     let name, canBeDeleted, showWidth, innerEl, widthCanvasEl, el
 
@@ -999,6 +1001,7 @@ function _onWidthEditBlur (event) {
 }
 
 function _onHeightEditBlur (event) {
+  let street = getStreet()
   var el = event.target
 
   _heightEditInputChanged(el, true)
@@ -1012,6 +1015,7 @@ function _onHeightEditBlur (event) {
 
 function _heightEditInputChanged (el, immediate) {
   window.clearTimeout(widthHeightChangeTimerId)
+  let street = getStreet()
 
   var height = parseInt(el.value)
 
@@ -1093,6 +1097,7 @@ function _onWidthEditKeyDown (event) {
 }
 
 function _onHeightEditKeyDown (event) {
+  let street = getStreet()
   var el = event.target
 
   switch (event.keyCode) {
@@ -1135,7 +1140,7 @@ function _prettifyHeight (height) {
     heightText += 's'
   }
 
-  var attr = getBuildingAttributes(street, infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING)
+  var attr = getBuildingAttributes(getStreet(), infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING)
 
   heightText += ' (' + prettifyWidth(attr.realHeight / TILE_SIZE) + ')'
 

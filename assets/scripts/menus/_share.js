@@ -1,9 +1,11 @@
-/* global signedIn, street, signInData */
+/* global signedIn, signInData */
 /* global FACEBOOK_APP_ID */
-import Menu from './menu'
+
 import { trackEvent } from '../app/event_tracking'
 import { getPageTitle } from '../app/page_title'
+import { getStreet } from '../streets/data_model'
 import { getSharingUrl } from '../util/share_url'
+import Menu from './menu'
 
 export let shareMenu = new Menu('share', {
   alignment: 'right',
@@ -33,6 +35,7 @@ function _shareViaFacebook () {
 
 function _getSharingMessage () {
   let message = ''
+  let street = getStreet()
 
   if (street.creatorId) {
     if (signedIn && street.creatorId === signInData.userId) {

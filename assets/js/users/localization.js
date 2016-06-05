@@ -114,6 +114,7 @@ function _updateUnits (newUnits) {
   }
 
   units = newUnits
+  var street = _getStreet()
   street.units = newUnits
 
   // If the user converts and then straight converts back, we just reach
@@ -140,7 +141,7 @@ function _updateUnits (newUnits) {
       street.width = _normalizeStreetWidth(street.width)
     }
   } else {
-    street = _.cloneDeep(undoStack[undoPosition - 1])
+    _setStreet(_.cloneDeep(undoStack[undoPosition - 1]))
   }
   _createDomFromData()
   _segmentsChanged()
@@ -156,7 +157,7 @@ function _updateUnits (newUnits) {
 }
 
 function _propagateUnits () {
-  switch (street.units) {
+  switch (_getStreet().units) {
     case SETTINGS_UNITS_IMPERIAL:
       _setSegmentWidthResolution(SEGMENT_WIDTH_RESOLUTION_IMPERIAL)
       _setSegmentWidthClickIncrement(SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL)

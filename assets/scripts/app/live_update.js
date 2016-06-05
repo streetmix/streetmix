@@ -1,6 +1,8 @@
-/* global $ */
-/* global street */
-/* global _getFetchStreetUrl, _unpackServerStreetData, _updateEverything */
+/* global _getFetchStreetUrl, _unpackServerStreetData */
+
+import $ from 'jquery'
+import { getStreet, updateEverything } from '../streets/data_model'
+
 const LIVE_UPDATE_DELAY = 5000
 
 const flashEl = document.getElementById('flash')
@@ -23,7 +25,7 @@ function receiveLiveUpdateCheck (data, textStatus, jqXHR) {
   var newUpdatedDate =
     Math.floor((new Date(jqXHR.getResponseHeader('last-modified')).getTime()) / 1000)
   var oldUpdatedDate =
-    Math.floor((new Date(street.updatedAt).getTime()) / 1000)
+    Math.floor((new Date(getStreet().updatedAt).getTime()) / 1000)
 
   if (newUpdatedDate !== oldUpdatedDate) {
     var url = _getFetchStreetUrl()
@@ -40,7 +42,7 @@ function receiveLiveUpdateCheck (data, textStatus, jqXHR) {
 function receiveLiveUpdateStreet (transmission) {
   window.setTimeout(function () {
     _unpackServerStreetData(transmission, null, null, false)
-    _updateEverything(true)
+    updateEverything(true)
   }, 1000)
 
   flash()
