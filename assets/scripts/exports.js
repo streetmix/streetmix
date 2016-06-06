@@ -227,6 +227,19 @@ window._prepareDefaultStreet = prepareDefaultStreet
 window._prepareEmptyStreet = prepareEmptyStreet
 window._updateEverything = updateEverything
 
+import {
+  onStreetWidthChange,
+  buildStreetWidthMenu,
+  onStreetWidthClick,
+  resizeStreetWidth,
+  normalizeStreetWidth
+} from './streets/width'
+window._onStreetWidthChange = onStreetWidthChange
+window._buildStreetWidthMenu = buildStreetWidthMenu
+window._onStreetWidthClick = onStreetWidthClick
+window._resizeStreetWidth = resizeStreetWidth
+window._normalizeStreetWidth = normalizeStreetWidth
+
 import { processWidthInput, prettifyWidth } from './util/width_units'
 window._processWidthInput = processWidthInput
 window._prettifyWidth = prettifyWidth

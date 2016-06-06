@@ -1,4 +1,4 @@
-/* global _resizeStreetWidth, _saveStreetToServer, settings */
+/* global _saveStreetToServer, settings */
 /* global _saveSettingsLocally, _fetchLastStreet */
 /* global ignoreStreetChanges */ // eslint-disable-line no-unused-vars
 
@@ -14,6 +14,7 @@ import {
   prepareEmptyStreet
 } from './data_model'
 import { updateStreetName } from './name'
+import { resizeStreetWidth } from './width'
 
 export const NEW_STREET_DEFAULT = 1
 export const NEW_STREET_EMPTY = 2
@@ -23,7 +24,7 @@ export function makeDefaultStreet () {
   prepareDefaultStreet()
   setUpdateTimeToNow()
 
-  _resizeStreetWidth()
+  resizeStreetWidth()
   updateStreetName()
   createDomFromData()
   segmentsChanged()
@@ -49,7 +50,7 @@ export function onNewStreetEmptyClick () {
   ignoreStreetChanges = true // eslint-disable-line no-native-reassign
   prepareEmptyStreet()
 
-  _resizeStreetWidth()
+  resizeStreetWidth()
   updateStreetName()
   createDomFromData()
   segmentsChanged()

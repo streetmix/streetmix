@@ -1,6 +1,5 @@
 /* global API_URL, _getAuthHeader */
-/* global _unpackServerStreetData, _propagateUnits, _recalculateOccupiedWidth,
-   _resizeStreetWidth,  CustomEvent */
+/* global _unpackServerStreetData, _propagateUnits, CustomEvent */
 /* global ignoreStreetChanges */ // eslint-disable-line no-unused-vars
 
 import { showBlockingShield, hideBlockingShield } from '../app/blocking_shield'
@@ -14,6 +13,7 @@ import {
   createDataFromDom
 } from '../streets/data_model'
 import { updateStreetName } from '../streets/name'
+import { resizeStreetWidth, recalculateOccupiedWidth } from '../streets/width'
 import { galleryState, updateGallerySelection, segmentsChanged } from './view'
 
 export function fetchGalleryStreet (streetId) {
@@ -57,7 +57,7 @@ function receiveGalleryStreet (transmission) {
   hideError()
   _unpackServerStreetData(transmission, null, null, true)
   _propagateUnits()
-  _recalculateOccupiedWidth()
+  recalculateOccupiedWidth()
 
   // TODO this is stupid, only here to fill some structures
   createDomFromData()
@@ -66,7 +66,7 @@ function receiveGalleryStreet (transmission) {
   // Some parts of the UI need to know this happened to respond to it
   window.dispatchEvent(new CustomEvent('stmx:receive_gallery_street'))
 
-  _resizeStreetWidth()
+  resizeStreetWidth()
   updateStreetName()
   createDomFromData()
   segmentsChanged()

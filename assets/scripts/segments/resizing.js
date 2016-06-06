@@ -1,10 +1,14 @@
-/* global system, SEGMENT_WARNING_OUTSIDE,
-   SEGMENT_WARNING_WIDTH_TOO_SMALL, SEGMENT_WARNING_WIDTH_TOO_LARGE,
-   SEGMENT_WARNING_OUTSIDE */
+/* global system */
 /* global ignoreStreetChanges */ // eslint-disable-line no-unused-vars
+
 import { trackEvent } from '../app/event_tracking'
 import { INFO_BUBBLE_TYPE_SEGMENT, infoBubble } from '../info_bubble/info_bubble'
 import { getStreet } from '../streets/data_model'
+import {
+  SEGMENT_WARNING_OUTSIDE,
+  SEGMENT_WARNING_WIDTH_TOO_SMALL,
+  SEGMENT_WARNING_WIDTH_TOO_LARGE
+} from '../streets/width'
 import { removeElFromDOM } from '../util/dom_helpers'
 import { prettifyWidth } from '../util/width_units'
 import {

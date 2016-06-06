@@ -1,5 +1,4 @@
-/* global app, debug, system, SEGMENT_WARNING_WIDTH_TOO_LARGE, KEYS,
-   SEGMENT_WARNING_OUTSIDE, SEGMENT_WARNING_WIDTH_TOO_SMALL,
+/* global app, debug, system, KEYS,
    _processWidthInput */
 
 import { updateDescription, hideDescription } from './description'
@@ -43,6 +42,11 @@ import {
   switchSegmentElAway
 } from '../segments/view'
 import { getStreet, saveStreetToServerIfNecessary } from '../streets/data_model'
+import {
+  SEGMENT_WARNING_OUTSIDE,
+  SEGMENT_WARNING_WIDTH_TOO_SMALL,
+  SEGMENT_WARNING_WIDTH_TOO_LARGE
+} from '../streets/width'
 
 export const INFO_BUBBLE_TYPE_SEGMENT = 1
 export const INFO_BUBBLE_TYPE_LEFT_BUILDING = 2

@@ -1,6 +1,6 @@
 /* global _scheduleSavingStreetToServer, _updateUndoButtons,
-   _resizeStreetWidth, _buildStreetWidthMenu, _propagateUnits, signInData,
-   signedIn, DEFAULT_STREET_WIDTH, _normalizeStreetWidth, units, URL_NO_USER,
+   _propagateUnits, signInData,
+   signedIn, units, URL_NO_USER,
    URL_RESERVED_PREFIX, RESERVED_URLS, leftHandTraffic,
    _createNewUndoIfNecessary, CustomEvent, abortEverything, _unifyUndoStack,
    _updateLastStreetInfo, */
@@ -31,6 +31,12 @@ import { normalizeSlug } from '../util/helpers'
 import { generateRandSeed } from '../util/random'
 import { updateStreetMetadata } from './metadata'
 import { updateStreetName } from './name'
+import {
+  DEFAULT_STREET_WIDTH,
+  buildStreetWidthMenu,
+  normalizeStreetWidth,
+  resizeStreetWidth
+} from './width'
 
 let _lastStreet
 
@@ -431,7 +437,7 @@ export function prepareDefaultStreet () {
   street.units = units
   _propagateUnits()
   street.name = DEFAULT_NAME
-  street.width = _normalizeStreetWidth(DEFAULT_STREET_WIDTH)
+  street.width = normalizeStreetWidth(DEFAULT_STREET_WIDTH)
   street.leftBuildingHeight = DEFAULT_BUILDING_HEIGHT_LEFT
   street.rightBuildingHeight = DEFAULT_BUILDING_HEIGHT_RIGHT
   street.leftBuildingVariant = DEFAULT_BUILDING_VARIANT_LEFT
@@ -452,7 +458,7 @@ export function prepareEmptyStreet () {
   _propagateUnits()
 
   street.name = DEFAULT_NAME
-  street.width = _normalizeStreetWidth(DEFAULT_STREET_WIDTH)
+  street.width = normalizeStreetWidth(DEFAULT_STREET_WIDTH)
   street.leftBuildingHeight = DEFAULT_BUILDING_HEIGHT_EMPTY
   street.rightBuildingHeight = DEFAULT_BUILDING_HEIGHT_EMPTY
   street.leftBuildingVariant = DEFAULT_BUILDING_VARIANT_EMPTY
@@ -471,11 +477,11 @@ export function prepareEmptyStreet () {
 export function updateEverything (dontScroll) {
   ignoreStreetChanges = true // eslint-disable-line no-native-reassign
   _propagateUnits()
-  _buildStreetWidthMenu()
+  buildStreetWidthMenu()
   shareMenu.update()
   createDomFromData()
   segmentsChanged()
-  _resizeStreetWidth(dontScroll)
+  resizeStreetWidth(dontScroll)
   updateStreetName()
   ignoreStreetChanges = false // eslint-disable-line no-native-reassign
   _updateUndoButtons()

@@ -1,4 +1,4 @@
-/* global system, debug, images, imagesToBeLoaded, _recalculateWidth,
+/* global system, debug, images, imagesToBeLoaded,
    initializing, _updateUndoButtons */
 
 import { msg } from '../app/messages'
@@ -8,6 +8,7 @@ import {
   saveStreetToServerIfNecessary,
   createDataFromDom
 } from '../streets/data_model'
+import { recalculateWidth } from '../streets/width'
 import { removeElFromDOM, getElAbsolutePos } from '../util/dom_helpers'
 import { prettifyWidth } from '../util/width_units'
 import { draggingMove } from './drag_and_drop'
@@ -496,7 +497,7 @@ export function changeSegmentVariant (dataNo, variantName, variantChoice, varian
   infoBubble.updateContents()
 
   repositionSegments()
-  _recalculateWidth()
+  recalculateWidth()
   applyWarningsToSegments()
 
   saveStreetToServerIfNecessary()
@@ -594,7 +595,7 @@ export function segmentsChanged () {
     createDataFromDom()
   }
 
-  _recalculateWidth()
+  recalculateWidth()
   repositionEmptySegments()
   applyWarningsToSegments()
 
