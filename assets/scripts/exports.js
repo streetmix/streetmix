@@ -100,6 +100,15 @@ window._addRemixSuffixToName = addRemixSuffixToName
 import { onStreetSectionScroll } from './streets/scroll'
 window._onStreetSectionScroll = onStreetSectionScroll
 
+import {
+  setSaveStreetIncomplete,
+  createNewStreetOnServer,
+  fetchStreetFromServer
+} from './streets/xhr'
+window.setSaveStreetIncomplete = setSaveStreetIncomplete
+window._createNewStreetOnServer = createNewStreetOnServer
+window._fetchStreetFromServer = fetchStreetFromServer
+
 import { infoBubble } from './info_bubble/info_bubble'
 window._infoBubble = infoBubble
 

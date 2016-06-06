@@ -1,6 +1,6 @@
-/* global _scheduleSavingStreetToServer, _updateUndoButtons, _propagateUnits,
+/* global _propagateUnits,
    signInData, signedIn, units, URL_NO_USER, URL_RESERVED_PREFIX, RESERVED_URLS,
-   leftHandTraffic, CustomEvent, abortEverything, _updateLastStreetInfo, */
+   leftHandTraffic, CustomEvent, abortEverything */
 
 import { msg } from '../app/messages'
 import { shareMenu } from '../menus/_share'
@@ -33,7 +33,8 @@ import {
   getIgnoreStreetChanges,
   setIgnoreStreetChanges,
   createNewUndoIfNecessary,
-  unifyUndoStack
+  unifyUndoStack,
+  updateUndoButtons
 } from './undo_stack'
 import {
   DEFAULT_STREET_WIDTH,
@@ -41,6 +42,7 @@ import {
   normalizeStreetWidth,
   resizeStreetWidth
 } from './width'
+import { updateLastStreetInfo, scheduleSavingStreetToServer } from './xhr'
 
 let _lastStreet
 
@@ -287,7 +289,7 @@ export function setStreetCreatorId (newId) {
   street.creatorId = newId
 
   unifyUndoStack()
-  _updateLastStreetInfo()
+  updateLastStreetInfo()
 }
 
 export function setUpdateTimeToNow () {
@@ -320,11 +322,11 @@ export function saveStreetToServerIfNecessary () {
 
     createNewUndoIfNecessary(_lastStreet, currentData)
 
-    _scheduleSavingStreetToServer()
+    scheduleSavingStreetToServer()
 
     _lastStreet = currentData
 
-    _updateUndoButtons()
+    updateUndoButtons()
   }
 }
 
@@ -488,8 +490,8 @@ export function updateEverything (dontScroll) {
   resizeStreetWidth(dontScroll)
   updateStreetName()
   setIgnoreStreetChanges(false)
-  _updateUndoButtons()
+  updateUndoButtons()
   _lastStreet = trimStreetData(street)
 
-  _scheduleSavingStreetToServer()
+  scheduleSavingStreetToServer()
 }

@@ -1,5 +1,5 @@
-/* global app, signedIn, signInData, _packServerStreetData, API_URL,
-   _getAuthHeader, URL_SIGN_IN_REDIRECT, _setStreetId, _saveStreetToServer */
+/* global app, signedIn, signInData, API_URL, _getAuthHeader,
+   URL_SIGN_IN_REDIRECT */
 
 import { msg } from '../app/messages'
 import { showStatusMessage } from '../app/status_message'
@@ -7,6 +7,7 @@ import { newBlockingAjaxRequest } from '../util/fetch_blocking'
 import { setStreetCreatorId, getStreet } from './data_model'
 import { updateStreetName } from './name'
 import { getUndoStack, getUndoPosition, unifyUndoStack } from './undo_stack'
+import { saveStreetToServer, packServerStreetData, setStreetId } from './xhr'
 
 const STREET_NAME_REMIX_SUFFIX = '(remix)'
 let remixOnFirstEdit = false
@@ -65,7 +66,7 @@ export function remixStreet () {
     addRemixSuffixToName()
   }
 
-  var transmission = _packServerStreetData()
+  var transmission = packServerStreetData()
 
   newBlockingAjaxRequest(msg('BLOCKING_REMIXING'),
     {
@@ -89,10 +90,10 @@ function receiveRemixedStreet (data) {
     }
   }
 
-  _setStreetId(data.id, data.namespacedId)
+  setStreetId(data.id, data.namespacedId)
   updateStreetName()
 
-  _saveStreetToServer(false)
+  saveStreetToServer(false)
 }
 
 export function addRemixSuffixToName () {

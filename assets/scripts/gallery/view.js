@@ -1,7 +1,6 @@
 /* global app, system, galleryUserId, signedIn, signInData, mode, abortEverything */
 /* global MODES, ERRORS, URL_NEW_STREET, URL_NEW_STREET_COPY_LAST */
-/* global _sendDeleteStreetToServer, _sendDeleteStreetToServer,
-      _updatePageUrl */
+/* global _updatePageUrl */
 
 import { trackEvent } from '../app/event_tracking'
 import { showError } from '../app/errors'
@@ -22,6 +21,7 @@ import {
   getStreetUrl
 } from '../streets/data_model'
 import { StreetName } from '../streets/name_sign'
+import { sendDeleteStreetToServer } from '../streets/xhr'
 import { fetchAvatars } from '../users/avatars'
 
 const THUMBNAIL_WIDTH = 180
@@ -347,7 +347,7 @@ function onDeleteGalleryStreet (event) {
       showError(ERRORS.NO_STREET, false)
     }
 
-    _sendDeleteStreetToServer(el.getAttribute('streetId'))
+    sendDeleteStreetToServer(el.getAttribute('streetId'))
 
     removeElFromDOM(el.parentNode)
     updateGalleryStreetCount()

@@ -1,5 +1,4 @@
-/* global API_URL, _getAuthHeader */
-/* global _unpackServerStreetData, _propagateUnits, CustomEvent */
+/* global API_URL, _getAuthHeader, _propagateUnits, CustomEvent */
 
 import { showBlockingShield, hideBlockingShield } from '../app/blocking_shield'
 import { hideError } from '../app/errors'
@@ -13,6 +12,7 @@ import {
 } from '../streets/data_model'
 import { updateStreetName } from '../streets/name'
 import { setIgnoreStreetChanges } from '../streets/undo_stack'
+import { unpackServerStreetData } from '../streets/xhr'
 import { resizeStreetWidth, recalculateOccupiedWidth } from '../streets/width'
 import { galleryState, updateGallerySelection, segmentsChanged } from './view'
 
@@ -55,7 +55,7 @@ function receiveGalleryStreet (transmission) {
   setIgnoreStreetChanges(true)
 
   hideError()
-  _unpackServerStreetData(transmission, null, null, true)
+  unpackServerStreetData(transmission, null, null, true)
   _propagateUnits()
   recalculateOccupiedWidth()
 

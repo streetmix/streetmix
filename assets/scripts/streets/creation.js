@@ -1,5 +1,4 @@
-/* global _saveStreetToServer, settings */
-/* global _saveSettingsLocally, _fetchLastStreet */
+/* global settings, _saveSettingsLocally */
 
 import { shareMenu } from '../menus/_share'
 import { segmentsChanged } from '../segments/view'
@@ -15,6 +14,7 @@ import {
 import { updateStreetName } from './name'
 import { setIgnoreStreetChanges } from './undo_stack'
 import { resizeStreetWidth } from './width'
+import { saveStreetToServer, fetchLastStreet } from './xhr'
 
 export const NEW_STREET_DEFAULT = 1
 export const NEW_STREET_EMPTY = 2
@@ -33,7 +33,7 @@ export function makeDefaultStreet () {
   setIgnoreStreetChanges(false)
   setLastStreet(trimStreetData(getStreet()))
 
-  _saveStreetToServer(false)
+  saveStreetToServer(false)
 }
 
 export function onNewStreetDefaultClick () {
@@ -59,9 +59,9 @@ export function onNewStreetEmptyClick () {
   setIgnoreStreetChanges(false)
   setLastStreet(trimStreetData(getStreet()))
 
-  _saveStreetToServer(false)
+  saveStreetToServer(false)
 }
 
 export function onNewStreetLastClick () {
-  _fetchLastStreet()
+  fetchLastStreet()
 }

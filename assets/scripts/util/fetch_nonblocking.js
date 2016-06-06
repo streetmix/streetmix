@@ -1,5 +1,10 @@
-/* global abortEverything, saveStreetIncomplete */
+/* global abortEverything */
 import $ from 'jquery'
+
+import {
+  getSaveStreetIncomplete,
+  setSaveStreetIncomplete
+} from '../streets/xhr'
 
 const NON_BLOCKING_AJAX_REQUEST_TIME = [10, 500, 1000, 5000, 10000]
 const NON_BLOCKING_AJAX_REQUEST_BACKOFF_RANGE = 60000
@@ -118,7 +123,7 @@ function scheduleNextNonblockingAjaxRequest () {
 
     nonblockingAjaxRequestTimer++
   } else {
-    saveStreetIncomplete = false // eslint-disable-line no-native-reassign
+    setSaveStreetIncomplete(false)
   }
 }
 
@@ -178,7 +183,7 @@ function checkIfChangesSaved () {
 
   var showWarning = false
 
-  if (saveStreetIncomplete) {
+  if (getSaveStreetIncomplete()) {
     showWarning = true
   } else {
     for (var i in nonblockingAjaxRequests) {

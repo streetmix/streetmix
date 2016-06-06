@@ -1,7 +1,7 @@
-/* global _getFetchStreetUrl, _unpackServerStreetData */
-
 import $ from 'jquery'
+
 import { getStreet, updateEverything } from '../streets/data_model'
+import { getFetchStreetUrl, unpackServerStreetData } from '../streets/xhr'
 
 const LIVE_UPDATE_DELAY = 5000
 
@@ -12,7 +12,7 @@ export function scheduleNextLiveUpdateCheck () {
 }
 
 function checkForLiveUpdate () {
-  var url = _getFetchStreetUrl()
+  var url = getFetchStreetUrl()
 
   $.ajax({
     url: url,
@@ -28,7 +28,7 @@ function receiveLiveUpdateCheck (data, textStatus, jqXHR) {
     Math.floor((new Date(getStreet().updatedAt).getTime()) / 1000)
 
   if (newUpdatedDate !== oldUpdatedDate) {
-    var url = _getFetchStreetUrl()
+    var url = getFetchStreetUrl()
     $.ajax({
       url: url,
       dataType: 'json',
@@ -41,7 +41,7 @@ function receiveLiveUpdateCheck (data, textStatus, jqXHR) {
 
 function receiveLiveUpdateStreet (transmission) {
   window.setTimeout(function () {
-    _unpackServerStreetData(transmission, null, null, false)
+    unpackServerStreetData(transmission, null, null, false)
     updateEverything(true)
   }, 1000)
 

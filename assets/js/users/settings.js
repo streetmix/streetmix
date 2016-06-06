@@ -125,7 +125,7 @@ function _saveSettingsLocally () {
 }
 
 function _confirmSaveStreetToServerInitial () {
-  saveStreetIncomplete = false
+  setSaveStreetIncomplete(false)
 
   serverContacted = true
   _checkIfEverythingIsLoaded()
