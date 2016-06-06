@@ -239,14 +239,15 @@ function _unpackServerStreetData (transmission, id, namespacedId, checkIfNeedsTo
   var street = _getStreet()
 
   if (transmission.data.undoStack) {
-    undoStack = _.cloneDeep(transmission.data.undoStack)
-    undoPosition = transmission.data.undoPosition
+    setUndoStack(_.cloneDeep(transmission.data.undoStack))
+    setUndoPosition(transmission.data.undoPosition)
   } else {
-    undoStack = []
-    undoPosition = 0
+    setUndoStack([])
+    setUndoPosition(0)
   }
 
   var updatedSchema = _updateToLatestSchemaVersion(street)
+  var undoStack = getUndoStack()
   for (var i = 0; i < undoStack.length; i++) {
     if (_updateToLatestSchemaVersion(undoStack[i])) {
       updatedSchema = true
@@ -286,8 +287,8 @@ function _packServerStreetData () {
   delete data.street.creatorId
 
   if (FLAG_SAVE_UNDO) {
-    data.undoStack = _.cloneDeep(undoStack)
-    data.undoPosition = undoPosition
+    data.undoStack = _.cloneDeep(getUndoStack())
+    data.undoPosition = getUndoPosition()
   }
 
   var street = _getStreet()
@@ -350,7 +351,7 @@ function _cancelReceiveLastStreet () {
 }
 
 function _receiveLastStreet (transmission) {
-  ignoreStreetChanges = true
+  setIgnoreStreetChanges(true)
   var street = _getStreet()
   _unpackServerStreetData(transmission, street.id, street.namespacedId, false)
   street.originalStreetId = settings.priorLastStreetId
@@ -379,7 +380,7 @@ function _receiveLastStreet (transmission) {
   _segmentsChanged()
   shareMenu.update()
 
-  ignoreStreetChanges = false
+  setIgnoreStreetChanges(false)
   _setLastStreet(_trimStreetData(street))
 
   _saveStreetToServer(false)

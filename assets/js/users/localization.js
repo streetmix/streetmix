@@ -119,6 +119,8 @@ function _updateUnits (newUnits) {
 
   // If the user converts and then straight converts back, we just reach
   // to undo stack instead of double conversion (which could be lossy).
+  var undoStack = getUndoStack()
+  var undoPosition = getUndoPosition()
   if (undoStack[undoPosition - 1] &&
     (undoStack[undoPosition - 1].units == newUnits)) {
     var fromUndo = true
@@ -128,7 +130,7 @@ function _updateUnits (newUnits) {
 
   _propagateUnits()
 
-  ignoreStreetChanges = true
+  setIgnoreStreetChanges(true)
   if (!fromUndo) {
     _normalizeAllSegmentWidths()
 
@@ -147,7 +149,7 @@ function _updateUnits (newUnits) {
   _segmentsChanged()
   _resizeStreetWidth()
 
-  ignoreStreetChanges = false
+  setIgnoreStreetChanges(false)
 
   _buildStreetWidthMenu()
   hideAllMenus()

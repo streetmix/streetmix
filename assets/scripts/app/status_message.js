@@ -1,4 +1,4 @@
-/* global _undo */
+import { undo as _undo } from '../streets/undo_stack'
 import { registerKeypress, deregisterKeypress } from './keypress'
 import { loseAnyFocus } from './focus'
 

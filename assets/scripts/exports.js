@@ -228,6 +228,27 @@ window._prepareEmptyStreet = prepareEmptyStreet
 window._updateEverything = updateEverything
 
 import {
+  FLAG_SAVE_UNDO,
+  getUndoStack,
+  setUndoStack,
+  getUndoPosition,
+  setUndoPosition,
+  setIgnoreStreetChanges,
+  undo,
+  redo,
+  unifyUndoStack
+} from './streets/undo_stack'
+window.FLAG_SAVE_UNDO = FLAG_SAVE_UNDO
+window.getUndoStack = getUndoStack
+window.setUndoStack = setUndoStack
+window.getUndoPosition = getUndoPosition
+window.setUndoPosition = setUndoPosition
+window.setIgnoreStreetChanges = setIgnoreStreetChanges
+window._undo = undo
+window._redo = redo
+window._unifyUndoStack = unifyUndoStack
+
+import {
   onStreetWidthChange,
   buildStreetWidthMenu,
   onStreetWidthClick,

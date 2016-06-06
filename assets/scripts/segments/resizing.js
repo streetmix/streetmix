@@ -1,9 +1,9 @@
 /* global system */
-/* global ignoreStreetChanges */ // eslint-disable-line no-unused-vars
 
 import { trackEvent } from '../app/event_tracking'
 import { INFO_BUBBLE_TYPE_SEGMENT, infoBubble } from '../info_bubble/info_bubble'
 import { getStreet } from '../streets/data_model'
+import { setIgnoreStreetChanges } from '../streets/undo_stack'
 import {
   SEGMENT_WARNING_OUTSIDE,
   SEGMENT_WARNING_WIDTH_TOO_SMALL,
@@ -106,7 +106,7 @@ export function handleSegmentResizeCancel () {
 }
 
 export function handleSegmentResizeEnd (event) {
-  ignoreStreetChanges = false // eslint-disable-line no-native-reassign
+  setIgnoreStreetChanges(false)
 
   segmentsChanged()
 

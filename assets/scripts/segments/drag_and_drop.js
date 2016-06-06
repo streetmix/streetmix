@@ -1,5 +1,4 @@
 /* global system, streetSectionCanvasLeft, streetSectionTop, streetSectionTop */
-/* global ignoreStreetChanges */ // eslint-disable-line no-unused-vars
 
 import { trackEvent } from '../app/event_tracking'
 import { loseAnyFocus } from '../app/focus'
@@ -7,6 +6,7 @@ import { infoBubble } from '../info_bubble/info_bubble'
 import { hideAllMenus } from '../menus/menu'
 import { app } from '../preinit/app_settings'
 import { getStreet } from '../streets/data_model'
+import { setIgnoreStreetChanges } from '../streets/undo_stack'
 import { removeElFromDOM } from '../util/dom_helpers'
 import { getElAbsolutePos } from '../util/helpers'
 import { generateRandSeed } from '../util/random'
@@ -120,7 +120,7 @@ function handleSegmentResizeStart (event) {
     y = event.pageY
   }
 
-  ignoreStreetChanges = true // eslint-disable-line no-native-reassign
+  setIgnoreStreetChanges(true)
 
   var el = event.target
 
@@ -246,7 +246,7 @@ function handleSegmentClickOrMoveStart (event) {
     return
   }
 
-  ignoreStreetChanges = true // eslint-disable-line no-native-reassign
+  setIgnoreStreetChanges(true)
 
   if (event.touches && event.touches[0]) {
     x = event.touches[0].pageX
@@ -731,7 +731,7 @@ export function handleSegmentMoveCancel () {
 }
 
 function handleSegmentMoveEnd (event) {
-  ignoreStreetChanges = false // eslint-disable-line no-native-reassign
+  setIgnoreStreetChanges(false)
 
   var failedDrop = false
 
@@ -816,7 +816,7 @@ export function onBodyMouseUp (event) {
       return
     case DRAGGING_TYPE_CLICK_OR_MOVE:
       changeDraggingType(DRAGGING_TYPE_NONE)
-      ignoreStreetChanges = false // eslint-disable-line no-native-reassign
+      setIgnoreStreetChanges(false)
       break
     case DRAGGING_TYPE_MOVE:
       handleSegmentMoveEnd(event)

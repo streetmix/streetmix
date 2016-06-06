@@ -1,12 +1,12 @@
-/* global app, signedIn, signInData, _unifyUndoStack, undoStack, undoPosition,
-   _packServerStreetData, API_URL, _getAuthHeader, URL_SIGN_IN_REDIRECT,
-   _setStreetId, _saveStreetToServer */
+/* global app, signedIn, signInData, _packServerStreetData, API_URL,
+   _getAuthHeader, URL_SIGN_IN_REDIRECT, _setStreetId, _saveStreetToServer */
 
 import { msg } from '../app/messages'
 import { showStatusMessage } from '../app/status_message'
 import { newBlockingAjaxRequest } from '../util/fetch_blocking'
 import { setStreetCreatorId, getStreet } from './data_model'
 import { updateStreetName } from './name'
+import { getUndoStack, getUndoPosition, unifyUndoStack } from './undo_stack'
 
 const STREET_NAME_REMIX_SUFFIX = '(remix)'
 let remixOnFirstEdit = false
@@ -49,8 +49,10 @@ export function remixStreet () {
   street.editCount = 0
   // console.log('editCount = 0 on remix!')
 
-  _unifyUndoStack()
+  unifyUndoStack()
 
+  var undoStack = getUndoStack()
+  var undoPosition = getUndoPosition()
   if (undoStack[undoPosition - 1] && (undoStack[undoPosition - 1].name !== street.name)) {
     // The street was remixed as a result of editing its name. Don’t be
     // a douche and add (remixed) to it then.

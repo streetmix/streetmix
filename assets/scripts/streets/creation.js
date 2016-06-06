@@ -1,6 +1,5 @@
 /* global _saveStreetToServer, settings */
 /* global _saveSettingsLocally, _fetchLastStreet */
-/* global ignoreStreetChanges */ // eslint-disable-line no-unused-vars
 
 import { shareMenu } from '../menus/_share'
 import { segmentsChanged } from '../segments/view'
@@ -14,13 +13,14 @@ import {
   prepareEmptyStreet
 } from './data_model'
 import { updateStreetName } from './name'
+import { setIgnoreStreetChanges } from './undo_stack'
 import { resizeStreetWidth } from './width'
 
 export const NEW_STREET_DEFAULT = 1
 export const NEW_STREET_EMPTY = 2
 
 export function makeDefaultStreet () {
-  ignoreStreetChanges = true // eslint-disable-line no-native-reassign
+  setIgnoreStreetChanges(true)
   prepareDefaultStreet()
   setUpdateTimeToNow()
 
@@ -30,7 +30,7 @@ export function makeDefaultStreet () {
   segmentsChanged()
   shareMenu.update()
 
-  ignoreStreetChanges = false // eslint-disable-line no-native-reassign
+  setIgnoreStreetChanges(false)
   setLastStreet(trimStreetData(getStreet()))
 
   _saveStreetToServer(false)
@@ -47,7 +47,7 @@ export function onNewStreetEmptyClick () {
   settings.newStreetPreference = NEW_STREET_EMPTY
   _saveSettingsLocally()
 
-  ignoreStreetChanges = true // eslint-disable-line no-native-reassign
+  setIgnoreStreetChanges(true)
   prepareEmptyStreet()
 
   resizeStreetWidth()
@@ -56,7 +56,7 @@ export function onNewStreetEmptyClick () {
   segmentsChanged()
   shareMenu.update()
 
-  ignoreStreetChanges = false // eslint-disable-line no-native-reassign
+  setIgnoreStreetChanges(false)
   setLastStreet(trimStreetData(getStreet()))
 
   _saveStreetToServer(false)

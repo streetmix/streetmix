@@ -1,6 +1,5 @@
 /* global API_URL, _getAuthHeader */
 /* global _unpackServerStreetData, _propagateUnits, CustomEvent */
-/* global ignoreStreetChanges */ // eslint-disable-line no-unused-vars
 
 import { showBlockingShield, hideBlockingShield } from '../app/blocking_shield'
 import { hideError } from '../app/errors'
@@ -13,6 +12,7 @@ import {
   createDataFromDom
 } from '../streets/data_model'
 import { updateStreetName } from '../streets/name'
+import { setIgnoreStreetChanges } from '../streets/undo_stack'
 import { resizeStreetWidth, recalculateOccupiedWidth } from '../streets/width'
 import { galleryState, updateGallerySelection, segmentsChanged } from './view'
 
@@ -52,7 +52,7 @@ function receiveGalleryStreet (transmission) {
     return
   }
 
-  ignoreStreetChanges = true // eslint-disable-line no-native-reassign
+  setIgnoreStreetChanges(true)
 
   hideError()
   _unpackServerStreetData(transmission, null, null, true)
@@ -72,6 +72,6 @@ function receiveGalleryStreet (transmission) {
   segmentsChanged()
   shareMenu.update()
 
-  ignoreStreetChanges = false // eslint-disable-line no-native-reassign
+  setIgnoreStreetChanges(false)
   setLastStreet(trimStreetData(getStreet()))
 }

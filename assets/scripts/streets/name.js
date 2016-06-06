@@ -1,4 +1,4 @@
-/* global app, _unifyUndoStack, _updatePageUrl */
+/* global app, _updatePageUrl */
 
 import { msg } from '../app/messages'
 import { updatePageTitle } from '../app/page_title'
@@ -6,6 +6,7 @@ import { getElAbsolutePos } from '../util/helpers'
 import { getStreet, saveStreetToServerIfNecessary } from './data_model'
 import { updateStreetMetadata } from './metadata'
 import { StreetName, normalizeStreetName } from './name_sign'
+import { unifyUndoStack } from './undo_stack'
 
 // The following are only for the main street name
 // We can cache selectors outside the functions here.
@@ -28,7 +29,7 @@ export function updateStreetName () {
   updateStreetMetadata(street)
   updateStreetNameCanvasPos()
 
-  _unifyUndoStack()
+  unifyUndoStack()
   _updatePageUrl()
   updatePageTitle()
 }

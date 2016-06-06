@@ -1,5 +1,5 @@
 /* global system, debug, images, imagesToBeLoaded,
-   initializing, _updateUndoButtons */
+   initializing */
 
 import { msg } from '../app/messages'
 import { infoBubble, INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/info_bubble'
@@ -8,6 +8,7 @@ import {
   saveStreetToServerIfNecessary,
   createDataFromDom
 } from '../streets/data_model'
+import { updateUndoButtons } from '../streets/undo_stack'
 import { recalculateWidth } from '../streets/width'
 import { removeElFromDOM, getElAbsolutePos } from '../util/dom_helpers'
 import { prettifyWidth } from '../util/width_units'
@@ -607,7 +608,7 @@ export function segmentsChanged () {
   }
 
   saveStreetToServerIfNecessary()
-  _updateUndoButtons()
+  updateUndoButtons()
   repositionSegments()
 }
 

@@ -1,10 +1,6 @@
-/* global _scheduleSavingStreetToServer, _updateUndoButtons,
-   _propagateUnits, signInData,
-   signedIn, units, URL_NO_USER,
-   URL_RESERVED_PREFIX, RESERVED_URLS, leftHandTraffic,
-   _createNewUndoIfNecessary, CustomEvent, abortEverything, _unifyUndoStack,
-   _updateLastStreetInfo, */
-/* global ignoreStreetChanges, undoPosition, undoStack */ // eslint-disable-line no-unused-vars
+/* global _scheduleSavingStreetToServer, _updateUndoButtons, _propagateUnits,
+   signInData, signedIn, units, URL_NO_USER, URL_RESERVED_PREFIX, RESERVED_URLS,
+   leftHandTraffic, CustomEvent, abortEverything, _updateLastStreetInfo, */
 
 import { msg } from '../app/messages'
 import { shareMenu } from '../menus/_share'
@@ -31,6 +27,14 @@ import { normalizeSlug } from '../util/helpers'
 import { generateRandSeed } from '../util/random'
 import { updateStreetMetadata } from './metadata'
 import { updateStreetName } from './name'
+import {
+  setUndoStack,
+  setUndoPosition,
+  getIgnoreStreetChanges,
+  setIgnoreStreetChanges,
+  createNewUndoIfNecessary,
+  unifyUndoStack
+} from './undo_stack'
 import {
   DEFAULT_STREET_WIDTH,
   buildStreetWidthMenu,
@@ -243,8 +247,8 @@ function incrementSchemaVersion (street) {
       }
       break
     case 15:
-      undoStack = [] // eslint-disable-line no-native-reassign
-      undoPosition = 0 // eslint-disable-line no-native-reassign
+      setUndoStack([])
+      setUndoPosition(0)
       break
   }
 
@@ -282,18 +286,18 @@ export function createDomFromData () {
 export function setStreetCreatorId (newId) {
   street.creatorId = newId
 
-  _unifyUndoStack()
+  unifyUndoStack()
   _updateLastStreetInfo()
 }
 
 export function setUpdateTimeToNow () {
   street.updatedAt = new Date().getTime()
-  _unifyUndoStack()
+  unifyUndoStack()
   updateStreetMetadata(street)
 }
 
 export function saveStreetToServerIfNecessary () {
-  if (ignoreStreetChanges || abortEverything) {
+  if (getIgnoreStreetChanges() || abortEverything) {
     return
   }
 
@@ -314,7 +318,7 @@ export function saveStreetToServerIfNecessary () {
 
     updateStreetMetadata(street)
 
-    _createNewUndoIfNecessary(_lastStreet, currentData)
+    createNewUndoIfNecessary(_lastStreet, currentData)
 
     _scheduleSavingStreetToServer()
 
@@ -475,7 +479,7 @@ export function prepareEmptyStreet () {
 }
 
 export function updateEverything (dontScroll) {
-  ignoreStreetChanges = true // eslint-disable-line no-native-reassign
+  setIgnoreStreetChanges(true)
   _propagateUnits()
   buildStreetWidthMenu()
   shareMenu.update()
@@ -483,7 +487,7 @@ export function updateEverything (dontScroll) {
   segmentsChanged()
   resizeStreetWidth(dontScroll)
   updateStreetName()
-  ignoreStreetChanges = false // eslint-disable-line no-native-reassign
+  setIgnoreStreetChanges(false)
   _updateUndoButtons()
   _lastStreet = trimStreetData(street)
 
