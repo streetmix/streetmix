@@ -1,5 +1,4 @@
-/* global system, debug, images, imagesToBeLoaded,
-   initializing */
+/* global system, debug, images, imagesToBeLoaded, initializing */
 
 import { msg } from '../app/messages'
 import { infoBubble, INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/info_bubble'
@@ -10,7 +9,8 @@ import {
 } from '../streets/data_model'
 import { updateUndoButtons } from '../streets/undo_stack'
 import { recalculateWidth } from '../streets/width'
-import { removeElFromDOM, getElAbsolutePos } from '../util/dom_helpers'
+import { removeElFromDOM } from '../util/dom_helpers'
+import { getElAbsolutePos } from '../util/helpers'
 import { prettifyWidth } from '../util/width_units'
 import { draggingMove } from './drag_and_drop'
 import { SEGMENT_INFO } from './info'
