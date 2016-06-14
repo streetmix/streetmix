@@ -1,11 +1,11 @@
-/* global street, _switchSegmentElAway, _createDomFromData */
+/* global street, _createDomFromData */
 
 import { msg } from '../app/messages'
 import { registerKeypress } from '../app/keypress'
 import { showStatusMessage } from '../app/status_message'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { getHoveredSegmentEl } from './hover'
-import { segmentsChanged } from './view'
+import { segmentsChanged, switchSegmentElAway } from './view'
 
 /**
  * Removes a segment, given the element to remove
@@ -24,7 +24,7 @@ export function removeSegment (el) {
   infoBubble.hideSegment()
 
   // Animates segment away
-  _switchSegmentElAway(el)
+  switchSegmentElAway(el)
 
   segmentsChanged()
   showStatusMessage(msg('STATUS_SEGMENT_DELETED'), true)
