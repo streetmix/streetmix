@@ -60,6 +60,7 @@
     "node-sass": "^3.4.2",
     "oauth": "0.9.x",
     "postcss": "^5.0.16",
+    "raven-js": "3.0.5",
     "request": "^2.69.x",
     "requireindex": "1.1.x",
     "sendgrid": "^2.0.0",
