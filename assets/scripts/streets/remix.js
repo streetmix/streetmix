@@ -48,7 +48,6 @@ export function remixStreet () {
   var street = getStreet()
   street.originalStreetId = street.id
   street.editCount = 0
-  // console.log('editCount = 0 on remix!')
 
   unifyUndoStack()
 
@@ -103,4 +102,3 @@ export function addRemixSuffixToName () {
     street.name += ' ' + STREET_NAME_REMIX_SUFFIX
   }
 }
-

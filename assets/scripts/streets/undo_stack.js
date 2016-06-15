@@ -102,7 +102,7 @@ function createNewUndo () {
 }
 
 export function createNewUndoIfNecessary (lastStreet, currentStreet) {
-  if (lastStreet.name !== -currentStreet.name) {
+  if (lastStreet.name !== currentStreet.name) {
     return
   }
 
