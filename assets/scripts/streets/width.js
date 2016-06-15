@@ -31,11 +31,10 @@ export const SEGMENT_WARNING_WIDTH_TOO_LARGE = 3
 
 export function onStreetWidthChange (event) {
   var el = event.target
-  var newStreetWidth = el.value
+  var newStreetWidth = parseInt(el.value)
   var street = getStreet()
 
   document.body.classList.remove('edit-street-width')
-
   if (newStreetWidth === street.width) {
     return
   } else if (newStreetWidth === STREET_WIDTH_SWITCH_TO_METRIC) {

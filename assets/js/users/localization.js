@@ -109,12 +109,12 @@ function _receiveGeolocation (info) {
 }
 
 function _updateUnits (newUnits) {
+  var street = _getStreet()
   if (street.units == newUnits) {
     return
   }
 
   units = newUnits
-  var street = _getStreet()
   street.units = newUnits
 
   // If the user converts and then straight converts back, we just reach

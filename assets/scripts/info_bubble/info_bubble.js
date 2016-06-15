@@ -1,5 +1,4 @@
-/* global app, debug, system, KEYS,
-   _processWidthInput */
+/* global app, debug, system, KEYS */
 
 import { updateDescription, hideDescription } from './description'
 import {
@@ -31,7 +30,11 @@ import { VARIANT_ICONS } from '../segments/variant_icons'
 import { msg } from '../app/messages'
 import { trackEvent } from '../app/event_tracking'
 import { getElAbsolutePos } from '../util/helpers'
-import { prettifyWidth, undecorateWidth } from '../util/width_units'
+import {
+  prettifyWidth,
+  undecorateWidth,
+  processWidthInput
+} from '../util/width_units'
 import { isAnyMenuVisible, hideAllMenus } from '../menus/menu'
 import { registerKeypress } from '../app/keypress'
 import { loseAnyFocus } from '../app/focus'
@@ -1051,7 +1054,7 @@ function _heightEditInputChanged (el, immediate) {
 function _widthEditInputChanged (el, immediate) {
   window.clearTimeout(widthHeightChangeTimerId)
 
-  var width = _processWidthInput(el.value)
+  var width = processWidthInput(el.value)
 
   if (width) {
     var segmentEl = el.segmentEl

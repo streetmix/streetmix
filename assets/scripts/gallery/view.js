@@ -256,7 +256,7 @@ function repeatReceiveGalleryData () {
   loadGalleryContents()
 }
 
-function updateGallerySelection () {
+export function updateGallerySelection () {
   const els = GALLERY_EL.querySelectorAll('.streets .selected')
   for (let el of els) {
     el.classList.remove('selected')
