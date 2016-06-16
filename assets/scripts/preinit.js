@@ -15,6 +15,15 @@ import 'whatwg-fetch' // fetch API
 import 'handjs' // microsoft's pointer events / touch-action spec
 import './vendor/polyfills/customevent' // customEvent in IE
 
+// Error tracking
+// Load this before all other modules. Only load when run in production.
+import Raven from 'raven-js'
+if (window.location.hostname === 'streetmix.net' || window.location.hostname === 'www.streetmix.net') {
+  Raven.config('https://fac2c23600414d2fb78c128cdbdeaf6f@app.getsentry.com/82756', {
+    whitelistUrls: [/streetmix\.net/, /www\.streetmix\.net/]
+  }).install()
+}
+
 // Cookie handling
 import Cookies from 'js-cookie'
 window.Cookies = Cookies // Momentary global export for authentication.js
