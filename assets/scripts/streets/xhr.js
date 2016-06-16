@@ -1,4 +1,4 @@
-/* global settings, API_URL, _getAuthHeader, MODES, _processMode, app, mode,
+/* global settings, API_URL, MODES, _processMode, app, mode,
    _confirmSaveStreetToServerInitial, abortEverything, signedIn,
    _propagateUnits, _checkIfEverythingIsLoaded, signInData,
    _saveSettingsLocally, _saveSettingsToServer */
@@ -15,6 +15,7 @@ import { showStatusMessage } from '../app/status_message'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { shareMenu } from '../menus/_share'
 import { segmentsChanged } from '../segments/view'
+import { getAuthHeader } from '../users/authentication'
 import {
   isblockingAjaxRequestInProgress,
   newBlockingAjaxRequest
@@ -95,7 +96,7 @@ export function createNewStreetOnServer () {
     data: transmission,
     type: 'POST',
     dataType: 'json',
-    headers: { 'Authorization': _getAuthHeader() }
+    headers: { 'Authorization': getAuthHeader() }
   }).done(receiveNewStreet)
     .fail(errorReceiveNewStreet)
 }
@@ -177,7 +178,7 @@ export function saveStreetToServer (initial) {
       dataType: 'json',
       type: 'PUT',
       contentType: 'application/json',
-      headers: { 'Authorization': _getAuthHeader() }
+      headers: { 'Authorization': getAuthHeader() }
     }).done(_confirmSaveStreetToServerInitial)
   } else {
     newNonblockingAjaxRequest({
@@ -187,7 +188,7 @@ export function saveStreetToServer (initial) {
       dataType: 'json',
       type: 'PUT',
       contentType: 'application/json',
-      headers: { 'Authorization': _getAuthHeader() }
+      headers: { 'Authorization': getAuthHeader() }
     }, false)
   }
 }
@@ -402,7 +403,7 @@ export function fetchLastStreet () {
       url: API_URL + 'v1/streets/' + settings.priorLastStreetId,
       dataType: 'json',
       type: 'GET',
-      headers: { 'Authorization': _getAuthHeader() }
+      headers: { 'Authorization': getAuthHeader() }
     }, receiveLastStreet, cancelReceiveLastStreet
   )
 }
@@ -464,6 +465,6 @@ export function sendDeleteStreetToServer (id) {
     url: API_URL + 'v1/streets/' + id,
     dataType: 'json',
     type: 'DELETE',
-    headers: { 'Authorization': _getAuthHeader() }
+    headers: { 'Authorization': getAuthHeader() }
   }, false)
 }

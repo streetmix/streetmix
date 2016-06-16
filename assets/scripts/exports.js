@@ -41,6 +41,15 @@ window.shareMenu = shareMenu
 import { aboutDialog } from './dialogs/_about'
 window.aboutDialog = aboutDialog
 
+import {
+  loadSignIn,
+  onSignOutClick,
+  getAuthHeader
+} from './users/authentication'
+window._loadSignIn = loadSignIn
+window._onSignOutClick = onSignOutClick
+window._getAuthHeader = getAuthHeader
+
 import { fetchAvatars, receiveAvatar } from './users/avatars'
 window._fetchAvatars = fetchAvatars
 window._receiveAvatar = receiveAvatar

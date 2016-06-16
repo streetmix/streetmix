@@ -1,8 +1,8 @@
-/* global app, signedIn, signInData, API_URL, _getAuthHeader,
-   URL_SIGN_IN_REDIRECT */
+/* global app, signedIn, signInData, API_URL, URL_SIGN_IN_REDIRECT */
 
 import { msg } from '../app/messages'
 import { showStatusMessage } from '../app/status_message'
+import { getAuthHeader } from '../users/authentication'
 import { newBlockingAjaxRequest } from '../util/fetch_blocking'
 import { setStreetCreatorId, getStreet } from './data_model'
 import { updateStreetName } from './name'
@@ -75,7 +75,7 @@ export function remixStreet () {
       data: transmission,
       dataType: 'json',
       contentType: 'application/json',
-      headers: { 'Authorization': _getAuthHeader() }
+      headers: { 'Authorization': getAuthHeader() }
     }, receiveRemixedStreet
   )
 }

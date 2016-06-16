@@ -1,4 +1,4 @@
-/* global API_URL, _getAuthHeader, _propagateUnits, CustomEvent */
+/* global API_URL, _propagateUnits, CustomEvent */
 
 import { showBlockingShield, hideBlockingShield } from '../app/blocking_shield'
 import { hideError } from '../app/errors'
@@ -14,6 +14,7 @@ import { updateStreetName } from '../streets/name'
 import { setIgnoreStreetChanges } from '../streets/undo_stack'
 import { unpackServerStreetData } from '../streets/xhr'
 import { resizeStreetWidth, recalculateOccupiedWidth } from '../streets/width'
+import { getAuthHeader } from '../users/authentication'
 import { galleryState, updateGallerySelection, segmentsChanged } from './view'
 
 export function fetchGalleryStreet (streetId) {
@@ -21,7 +22,7 @@ export function fetchGalleryStreet (streetId) {
 
   const url = API_URL + 'v1/streets/' + streetId
   const options = {
-    headers: { 'Authorization': _getAuthHeader() }
+    headers: { 'Authorization': getAuthHeader() }
   }
 
   window.fetch(url, options)

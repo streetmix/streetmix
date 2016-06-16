@@ -1,16 +1,31 @@
-/* global Cookies */
-var USER_ID_COOKIE = 'user_id'
-var SIGN_IN_TOKEN_COOKIE = 'login_token'
+/* global signInData, location, LOCAL_STORAGE_SIGN_IN_ID, signedIn, API_URL,
+   MODES, settings, mode, _saveSettingsLocally, _processMode,
+   URL_SIGN_IN_REDIRECT, _loadSettings, _checkIfSignInAndGeolocationLoaded,
+   _checkIfEverythingIsLoaded */
+/* global signInLoaded */ // eslint-disable-line no-unused-vars
 
-function _goReloadClearSignIn () {
-  signInData = null
-  _saveSignInDataLocally()
-  _removeSignInCookies()
+import $ from 'jquery'
+import Cookies from 'js-cookie'
+
+import { showError, ERRORS } from '../app/errors'
+import { trackEvent } from '../app/event_tracking'
+import { getStreet } from '../streets/data_model'
+import { setPromoteStreet } from '../streets/remix'
+import { fetchStreetFromServer } from '../streets/xhr'
+import { receiveAvatar, fetchAvatars } from './avatars'
+
+const USER_ID_COOKIE = 'user_id'
+const SIGN_IN_TOKEN_COOKIE = 'login_token'
+
+export function goReloadClearSignIn () {
+  signInData = null // eslint-disable-line no-native-reassign
+  saveSignInDataLocally()
+  removeSignInCookies()
 
   location.reload()
 }
 
-function _saveSignInDataLocally () {
+function saveSignInDataLocally () {
   if (signInData) {
     window.localStorage[LOCAL_STORAGE_SIGN_IN_ID] = JSON.stringify(signInData)
   } else {
@@ -18,60 +33,59 @@ function _saveSignInDataLocally () {
   }
 }
 
-function _removeSignInCookies () {
+function removeSignInCookies () {
   Cookies.remove(SIGN_IN_TOKEN_COOKIE)
   Cookies.remove(USER_ID_COOKIE)
 }
 
-function _loadSignIn () {
-  signInLoaded = false
+export function loadSignIn () {
+  signInLoaded = false // eslint-disable-line no-native-reassign
 
   var signInCookie = Cookies.get(SIGN_IN_TOKEN_COOKIE)
   var userIdCookie = Cookies.get(USER_ID_COOKIE)
 
   if (signInCookie && userIdCookie) {
-    signInData = { token: signInCookie, userId: userIdCookie }
+    signInData = { token: signInCookie, userId: userIdCookie } // eslint-disable-line no-native-reassign
 
-    _removeSignInCookies()
-    _saveSignInDataLocally()
+    removeSignInCookies()
+    saveSignInDataLocally()
   } else {
     if (window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
-      signInData = JSON.parse(window.localStorage[LOCAL_STORAGE_SIGN_IN_ID])
+      signInData = JSON.parse(window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) // eslint-disable-line no-native-reassign
     }
   }
 
   if (signInData && signInData.token && signInData.userId) {
-    _fetchSignInDetails()
+    fetchSignInDetails()
 
     // This block was commented out because caching username causes
     // failures when the database is cleared. TODO Perhaps we should
     // be handling this more deftly.
-    /*if (signInData.details) {
+    /* if (signInData.details) {
       signedIn = true
       _signInLoaded()
     } else {
-      _fetchSignInDetails()
-    }*/
-
+      fetchSignInDetails()
+    } */
   } else {
-    signedIn = false
+    signedIn = false // eslint-disable-line no-native-reassign
     _signInLoaded()
   }
 }
 
-function _fetchSignInDetails () {
+function fetchSignInDetails () {
   $.ajax({
     url: API_URL + 'v1/users/' + signInData.userId,
     dataType: 'json',
-    headers: { 'Authorization': _getAuthHeader() }
-  }).done(_receiveSignInDetails).fail(_errorReceiveSignInDetails)
+    headers: { 'Authorization': getAuthHeader() }
+  }).done(receiveSignInDetails).fail(errorReceiveSignInDetails)
 
   // TODO: This doesn't work
 
   // const options = {
   //   method: 'GET',
   //   headers: {
-  //     'Authorization': _getAuthHeader()
+  //     'Authorization': getAuthHeader()
   //   }
   // }
 
@@ -83,22 +97,22 @@ function _fetchSignInDetails () {
   //
   //     return response.json()
   //   })
-  //   .then(_receiveSignInDetails)
-  //   .catch(_errorReceiveSignInDetails) // TODO: Test this to make sure it works with fetch
+  //   .then(receiveSignInDetails)
+  //   .catch(errorReceiveSignInDetails) // TODO: Test this to make sure it works with fetch
 }
 
-function _receiveSignInDetails (details) {
+function receiveSignInDetails (details) {
   signInData.details = details
-  _saveSignInDataLocally()
+  saveSignInDataLocally()
 
-  _receiveAvatar(details)
+  receiveAvatar(details)
 
-  signedIn = true
+  signedIn = true // eslint-disable-line no-native-reassign
   _signInLoaded()
 }
 
-function _errorReceiveSignInDetails (data) {
-  // If we get data.status == 0, it means that the user opened the page and
+function errorReceiveSignInDetails (data) {
+  // If we get data.status === 0, it means that the user opened the page and
   // closed is quickly, so the request was aborted. We choose to do nothing
   // instead of clobbering sign in data below and effectively signing the
   // user out. Issue #302.
@@ -106,52 +120,52 @@ function _errorReceiveSignInDetails (data) {
   // It also, unfortunately, might mean regular server failure, too. Marcin
   // doesn’t know what to do with it yet. Open issue #339.
 
-  /*if (data.status == 0) {
-    _showError(ERRORS.NEW_STREET_SERVER_FAILURE, true)
+  /* if (data.status === 0) {
+    showError(ERRORS.NEW_STREET_SERVER_FAILURE, true)
     return
-  }*/
+  } */
 
-  if (data.status == 401) {
+  if (data.status === 401) {
     trackEvent('ERROR', 'ERROR_RM1', null, null, false)
 
-    _signOut(true)
+    signOut(true)
 
-    _showError(ERRORS.SIGN_IN_401, true)
+    showError(ERRORS.SIGN_IN_401, true)
     return
-  } else if (data.status == 503) {
+  } else if (data.status === 503) {
     trackEvent('ERROR', 'ERROR_15A', null, null, false)
 
-    _showError(ERRORS.SIGN_IN_SERVER_FAILURE, true)
+    showError(ERRORS.SIGN_IN_SERVER_FAILURE, true)
     return
   }
 
   // Fail silently
 
-  signInData = null
-  signedIn = false
+  signInData = null // eslint-disable-line no-native-reassign
+  signedIn = false // eslint-disable-line no-native-reassign
   _signInLoaded()
 }
 
-function _onSignOutClick (event) {
-  _signOut(false)
+export function onSignOutClick (event) {
+  signOut(false)
 
   if (event) {
     event.preventDefault()
   }
 }
 
-function _signOut (quiet) {
+function signOut (quiet) {
   settings.lastStreetId = null
   settings.lastStreetNamespacedId = null
   settings.lastStreetCreatorId = null
   _saveSettingsLocally()
 
-  _removeSignInCookies()
+  removeSignInCookies()
   window.localStorage.removeItem(LOCAL_STORAGE_SIGN_IN_ID)
-  _sendSignOutToServer(quiet)
+  sendSignOutToServer(quiet)
 }
 
-function _getAuthHeader () {
+export function getAuthHeader () {
   if (signInData && signInData.token) {
     return 'Streetmix realm="" loginToken="' + signInData.token + '"'
   } else {
@@ -159,34 +173,34 @@ function _getAuthHeader () {
   }
 }
 
-function _sendSignOutToServer (quiet) {
+function sendSignOutToServer (quiet) {
   var call = {
     // TODO const
     url: API_URL + 'v1/users/' + signInData.userId + '/login-token',
     dataType: 'json',
     type: 'DELETE',
-    headers: { 'Authorization': _getAuthHeader() }
+    headers: { 'Authorization': getAuthHeader() }
   }
 
   if (quiet) {
     $.ajax(call)
   } else {
-    $.ajax(call).done(_receiveSignOutConfirmationFromServer)
-      .fail(_errorReceiveSignOutConfirmationFromServer)
+    $.ajax(call).done(receiveSignOutConfirmationFromServer)
+      .fail(errorReceiveSignOutConfirmationFromServer)
   }
 }
 
-function _receiveSignOutConfirmationFromServer () {
-  mode = MODES.SIGN_OUT
+function receiveSignOutConfirmationFromServer () {
+  mode = MODES.SIGN_OUT // eslint-disable-line no-native-reassign
   _processMode()
 }
 
-function _errorReceiveSignOutConfirmationFromServer () {
-  mode = MODES.SIGN_OUT
+function errorReceiveSignOutConfirmationFromServer () {
+  mode = MODES.SIGN_OUT // eslint-disable-line no-native-reassign
   _processMode()
 }
 
-function _createSignInUI () {
+function createSignInUI () {
   if (signedIn) {
     var avatarEl = document.createElement('div')
     avatarEl.classList.add('avatar')
@@ -200,7 +214,7 @@ function _createSignInUI () {
 
     document.querySelector('#identity-menu-item').classList.add('visible')
 
-    _fetchAvatars()
+    fetchAvatars()
   } else {
     var el = document.createElement('a')
     el.href = '/' + URL_SIGN_IN_REDIRECT
@@ -215,26 +229,26 @@ function _createSignInUI () {
 function _signInLoaded () {
   _loadSettings()
 
-  _createSignInUI()
+  createSignInUI()
 
-  var street = _getStreet()
-  if ((mode == MODES.CONTINUE) || (mode == MODES.JUST_SIGNED_IN) ||
-    (mode == MODES.ABOUT) ||
-    (mode == MODES.USER_GALLERY) || (mode == MODES.GLOBAL_GALLERY)) {
+  var street = getStreet()
+  if ((mode === MODES.CONTINUE) || (mode === MODES.JUST_SIGNED_IN) ||
+    (mode === MODES.ABOUT) ||
+    (mode === MODES.USER_GALLERY) || (mode === MODES.GLOBAL_GALLERY)) {
     if (settings.lastStreetId) {
       street.creatorId = settings.lastStreetCreatorId
       street.id = settings.lastStreetId
       street.namespacedId = settings.lastStreetNamespacedId
 
-      if ((mode == MODES.JUST_SIGNED_IN) && (!street.creatorId)) {
+      if ((mode === MODES.JUST_SIGNED_IN) && (!street.creatorId)) {
         setPromoteStreet(true)
       }
 
-      if (mode == MODES.JUST_SIGNED_IN) {
-        mode = MODES.CONTINUE
+      if (mode === MODES.JUST_SIGNED_IN) {
+        mode = MODES.CONTINUE // eslint-disable-line no-native-reassign
       }
     } else {
-      mode = MODES.NEW_STREET
+      mode = MODES.NEW_STREET // eslint-disable-line no-native-reassign
     }
   }
 
@@ -244,7 +258,7 @@ function _signInLoaded () {
     case MODES.USER_GALLERY:
     case MODES.ABOUT:
     case MODES.GLOBAL_GALLERY:
-      _fetchStreetFromServer()
+      fetchStreetFromServer()
       break
   }
 
@@ -252,7 +266,7 @@ function _signInLoaded () {
     document.querySelector('#gallery-link a').href = '/' + signInData.userId
   }
 
-  signInLoaded = true
+  signInLoaded = true // eslint-disable-line no-native-reassign
   document.querySelector('#loading-progress').value++
   _checkIfSignInAndGeolocationLoaded()
   _checkIfEverythingIsLoaded()
