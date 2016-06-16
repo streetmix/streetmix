@@ -1,7 +1,8 @@
-/* global system, abortEverything */
-/* global _fetchStreetForVerification, _saveSettingsLocally */
+/* global system, abortEverything, _saveSettingsLocally */
+
 import { galleryState } from '../gallery/view'
 import { hideAllMenus } from '../menus/menu'
+import { fetchStreetForVerification } from '../streets/xhr'
 
 window.addEventListener('stmx:everything_loaded', function () {
   if (system.pageVisibility) {
@@ -34,7 +35,7 @@ export function onWindowFocus () {
     return
   }
 
-  _fetchStreetForVerification()
+  fetchStreetForVerification()
 
   // Save settings on window focus, so the last edited street is the one you’re
   // currently looking at (in case you’re looking at many streets in various

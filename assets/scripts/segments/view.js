@@ -1,9 +1,14 @@
-/* global system, debug, images, imagesToBeLoaded,
-   street, _recalculateWidth, _saveStreetToServerIfNecessary, initializing,
-   _createDataFromDom, _updateUndoButtons */
+/* global system, debug, images, imagesToBeLoaded, initializing */
 
 import { msg } from '../app/messages'
 import { infoBubble, INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/info_bubble'
+import {
+  getStreet,
+  saveStreetToServerIfNecessary,
+  createDataFromDom
+} from '../streets/data_model'
+import { updateUndoButtons } from '../streets/undo_stack'
+import { recalculateWidth } from '../streets/width'
 import { removeElFromDOM } from '../util/dom_helpers'
 import { getElAbsolutePos } from '../util/helpers'
 import { prettifyWidth } from '../util/width_units'
@@ -389,6 +394,7 @@ export function repositionSegments () {
 
   var extraWidth = 0
 
+  let street = getStreet()
   for (let i in street.segments) {
     el = street.segments[i].el
 
@@ -460,6 +466,7 @@ export function repositionSegments () {
 }
 
 export function changeSegmentVariant (dataNo, variantName, variantChoice, variantString) {
+  let street = getStreet()
   var segment = street.segments[dataNo]
 
   if (variantString) {
@@ -491,10 +498,10 @@ export function changeSegmentVariant (dataNo, variantName, variantChoice, varian
   infoBubble.updateContents()
 
   repositionSegments()
-  _recalculateWidth()
+  recalculateWidth()
   applyWarningsToSegments()
 
-  _saveStreetToServerIfNecessary()
+  saveStreetToServerIfNecessary()
 }
 
 export function switchSegmentElIn (el) {
@@ -567,6 +574,7 @@ function showEmptySegment (position, width) {
 
 function repositionEmptySegments () {
   let width
+  let street = getStreet()
   if (street.remainingWidth <= 0) {
     hideEmptySegment('left')
     hideEmptySegment('right')
@@ -585,21 +593,22 @@ function repositionEmptySegments () {
 
 export function segmentsChanged () {
   if (!initializing) {
-    _createDataFromDom()
+    createDataFromDom()
   }
 
-  _recalculateWidth()
+  recalculateWidth()
   repositionEmptySegments()
   applyWarningsToSegments()
 
+  let street = getStreet()
   for (var i in street.segments) {
     if (street.segments[i].el) {
       street.segments[i].el.dataNo = i
     }
   }
 
-  _saveStreetToServerIfNecessary()
-  _updateUndoButtons()
+  saveStreetToServerIfNecessary()
+  updateUndoButtons()
   repositionSegments()
 }
 

@@ -2,10 +2,13 @@
  * Handles scrolling the street.
  *
  */
-/* global $ */
-/* global street, system, MAX_CUSTOM_STREET_WIDTH */
+/* global system */
+
+import $ from 'jquery'
 import { registerKeypress } from '../app/keypress'
 import { infoBubble } from '../info_bubble/info_bubble'
+import { getStreet } from './data_model'
+import { MAX_CUSTOM_STREET_WIDTH } from './width'
 
 window.addEventListener('stmx:everything_loaded', function () {
   document.querySelector('#street-scroll-indicator-left').addEventListener('pointerdown', onStreetLeftScrollClick)
@@ -61,7 +64,7 @@ function updateStreetScrollIndicators () {
     var left = el.scrollLeft / (el.scrollWidth - el.offsetWidth)
 
     // TODO const off max width street
-    var posMax = Math.round(street.width / MAX_CUSTOM_STREET_WIDTH * 6)
+    var posMax = Math.round(getStreet().width / MAX_CUSTOM_STREET_WIDTH * 6)
     if (posMax < 2) {
       posMax = 2
     }

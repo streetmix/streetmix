@@ -1,4 +1,7 @@
-/* global street, SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC */
+/* global SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC */
+
+import { getStreet } from '../streets/data_model'
+
 const IMPERIAL_METRIC_MULTIPLIER = 30 / 100
 const METRIC_PRECISION = 3
 
@@ -42,7 +45,7 @@ export function processWidthInput (widthInput) {
     let multiplier = 1
 
     // Default unit
-    if (street.units === SETTINGS_UNITS_METRIC) {
+    if (getStreet().units === SETTINGS_UNITS_METRIC) {
       multiplier = 1 / IMPERIAL_METRIC_MULTIPLIER
     }
 
@@ -70,7 +73,7 @@ export function processWidthInput (widthInput) {
 export function prettifyWidth (width, { markup = false } = {}) {
   let widthText = ''
 
-  switch (street.units) {
+  switch (getStreet().units) {
     case SETTINGS_UNITS_IMPERIAL:
       widthText = width
 
@@ -118,7 +121,7 @@ export function prettifyWidth (width, { markup = false } = {}) {
 export function undecorateWidth (width) {
   let widthText = ''
 
-  switch (street.units) {
+  switch (getStreet().units) {
     // Width is stored as imperial units by default, so return it as is
     case SETTINGS_UNITS_IMPERIAL:
       widthText = width

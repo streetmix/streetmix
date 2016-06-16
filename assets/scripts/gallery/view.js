@@ -1,7 +1,7 @@
-/* global app, system, street, galleryUserId, signedIn, signInData, mode, abortEverything */
-/* global MODES, ERRORS, URL_NEW_STREET, URL_NEW_STREET_COPY_LAST, DEFAULT_NAME */
-/* global _sendDeleteStreetToServer, _sendDeleteStreetToServer,
-      _updatePageUrl, _updateToLatestSchemaVersion, _getStreetUrl */
+/* global app, system, galleryUserId, signedIn, signInData, mode, abortEverything */
+/* global MODES, ERRORS, URL_NEW_STREET, URL_NEW_STREET_COPY_LAST */
+/* global _updatePageUrl */
+
 import { trackEvent } from '../app/event_tracking'
 import { showError } from '../app/errors'
 import { msg } from '../app/messages'
@@ -14,7 +14,14 @@ import { fetchGalleryStreet } from './fetch_street'
 import { drawStreetThumbnail } from './thumbnail'
 import { updateScrollButtons } from './scroll'
 import { hideStatusMessage } from '../app/status_message'
+import {
+  DEFAULT_NAME,
+  getStreet,
+  updateToLatestSchemaVersion,
+  getStreetUrl
+} from '../streets/data_model'
 import { StreetName } from '../streets/name_sign'
+import { sendDeleteStreetToServer } from '../streets/xhr'
 import { fetchAvatars } from '../users/avatars'
 
 const THUMBNAIL_WIDTH = 180
@@ -57,7 +64,7 @@ export function showGallery (userId, instant, signInPromo) {
 
   galleryState.visible = true
   galleryState.streetLoaded = true
-  galleryState.streetId = street.id
+  galleryState.streetId = getStreet().id
   galleryUserId = userId // eslint-disable-line no-native-reassign
 
   if (!signInPromo) {
@@ -161,7 +168,7 @@ export function receiveGalleryData (transmission) {
     // Skip over so that the rest of gallery will display
     if (!galleryStreet.data) continue
 
-    _updateToLatestSchemaVersion(galleryStreet.data.street)
+    updateToLatestSchemaVersion(galleryStreet.data.street)
 
     var el = document.createElement('li')
 
@@ -172,7 +179,7 @@ export function receiveGalleryData (transmission) {
 
     galleryStreet.name = galleryStreet.name || DEFAULT_NAME
 
-    anchorEl.href = _getStreetUrl(galleryStreet)
+    anchorEl.href = getStreetUrl(galleryStreet)
 
     anchorEl.streetName = galleryStreet.name
     anchorEl.setAttribute('streetId', galleryStreet.id)
@@ -249,7 +256,7 @@ function repeatReceiveGalleryData () {
   loadGalleryContents()
 }
 
-function updateGallerySelection () {
+export function updateGallerySelection () {
   const els = GALLERY_EL.querySelectorAll('.streets .selected')
   for (let el of els) {
     el.classList.remove('selected')
@@ -335,12 +342,12 @@ function onDeleteGalleryStreet (event) {
 
   // TODO escape name
   if (window.confirm(msg('PROMPT_DELETE_STREET', { name: name }))) {
-    if (el.getAttribute('streetId') === street.id) {
+    if (el.getAttribute('streetId') === getStreet().id) {
       galleryState.noStreetSelected = true
       showError(ERRORS.NO_STREET, false)
     }
 
-    _sendDeleteStreetToServer(el.getAttribute('streetId'))
+    sendDeleteStreetToServer(el.getAttribute('streetId'))
 
     removeElFromDOM(el.parentNode)
     updateGalleryStreetCount()

@@ -12,35 +12,19 @@ window.$ = $
 import _ from 'lodash'
 window._ = _
 
-import { isblockingAjaxRequestInProgress, newBlockingAjaxRequest } from './util/fetch_blocking'
-window.isblockingAjaxRequestInProgress = isblockingAjaxRequestInProgress
-window._newBlockingAjaxRequest = newBlockingAjaxRequest
-
-import { newNonblockingAjaxRequest, getNonblockingAjaxRequestCount } from './util/fetch_nonblocking'
+import { newNonblockingAjaxRequest } from './util/fetch_nonblocking'
 window._newNonblockingAjaxRequest = newNonblockingAjaxRequest
-window._getNonblockingAjaxRequestCount = getNonblockingAjaxRequestCount
 
 import { trackEvent } from './app/event_tracking'
 window.trackEvent = trackEvent
 
-import { loseAnyFocus, isFocusOnBody } from './app/focus'
-window._loseAnyFocus = loseAnyFocus
+import { isFocusOnBody } from './app/focus'
 window._isFocusOnBody = isFocusOnBody
-
-import { goNewStreet } from './app/routing'
-window.goNewStreet = goNewStreet
-
-import { showStatusMessage, hideStatusMessage } from './app/status_message'
-window.showStatusMessage = showStatusMessage
-window.hideStatusMessage = hideStatusMessage
 
 import { ERRORS, showError, showErrorFromUrl } from './app/errors'
 window.ERRORS = ERRORS
 window._showError = showError
 window._showErrorFromUrl = showErrorFromUrl
-
-import { normalizeSlug } from './util/helpers'
-window.normalizeSlug = normalizeSlug
 
 // Gallery
 import { showGallery } from './gallery/view'
@@ -62,40 +46,42 @@ window._fetchAvatars = fetchAvatars
 window._receiveAvatar = receiveAvatar
 
 import {
-  makeDefaultStreet,
   NEW_STREET_DEFAULT,
-  NEW_STREET_EMPTY,
   onNewStreetDefaultClick,
   onNewStreetEmptyClick,
   onNewStreetLastClick
 } from './streets/creation'
-window._makeDefaultStreet = makeDefaultStreet
 window._onNewStreetDefaultClick = onNewStreetDefaultClick
 window._onNewStreetEmptyClick = onNewStreetEmptyClick
 window._onNewStreetLastClick = onNewStreetLastClick
 window.NEW_STREET_DEFAULT = NEW_STREET_DEFAULT
-window.NEW_STREET_EMPTY = NEW_STREET_EMPTY
-
-import { updateStreetMetadata } from './streets/metadata'
-window._updateStreetMetadata = updateStreetMetadata
 
 import { updateStreetName } from './streets/name'
 window._updateStreetName = updateStreetName
 
-import { onStreetSectionScroll } from './streets/scroll'
-window._onStreetSectionScroll = onStreetSectionScroll
+import {
+  getPromoteStreet,
+  setPromoteStreet,
+  remixStreet,
+} from './streets/remix'
+window.getPromoteStreet = getPromoteStreet
+window.setPromoteStreet = setPromoteStreet
+window._remixStreet = remixStreet
+
+import {
+  setSaveStreetIncomplete,
+  createNewStreetOnServer,
+  fetchStreetFromServer
+} from './streets/xhr'
+window.setSaveStreetIncomplete = setSaveStreetIncomplete
+window._createNewStreetOnServer = createNewStreetOnServer
+window._fetchStreetFromServer = fetchStreetFromServer
 
 import { infoBubble } from './info_bubble/info_bubble'
 window._infoBubble = infoBubble
 
 import {
   BUILDING_SPACE,
-  DEFAULT_BUILDING_HEIGHT_LEFT,
-  DEFAULT_BUILDING_HEIGHT_RIGHT,
-  DEFAULT_BUILDING_VARIANT_LEFT,
-  DEFAULT_BUILDING_VARIANT_RIGHT,
-  DEFAULT_BUILDING_HEIGHT_EMPTY,
-  DEFAULT_BUILDING_VARIANT_EMPTY,
   changeBuildingHeight,
   createBuildings,
   onBuildingMouseEnter,
@@ -103,20 +89,11 @@ import {
   updateBuildingPosition
 } from './segments/buildings'
 window.BUILDING_SPACE = BUILDING_SPACE
-window.DEFAULT_BUILDING_HEIGHT_LEFT = DEFAULT_BUILDING_HEIGHT_LEFT
-window.DEFAULT_BUILDING_HEIGHT_RIGHT = DEFAULT_BUILDING_HEIGHT_RIGHT
-window.DEFAULT_BUILDING_VARIANT_LEFT = DEFAULT_BUILDING_VARIANT_LEFT
-window.DEFAULT_BUILDING_VARIANT_RIGHT = DEFAULT_BUILDING_VARIANT_RIGHT
-window.DEFAULT_BUILDING_HEIGHT_EMPTY = DEFAULT_BUILDING_HEIGHT_EMPTY
-window.DEFAULT_BUILDING_VARIANT_EMPTY = DEFAULT_BUILDING_VARIANT_EMPTY
 window._changeBuildingHeight = changeBuildingHeight
 window._createBuildings = createBuildings
 window._onBuildingMouseEnter = onBuildingMouseEnter
 window._onBuildingMouseLeave = onBuildingMouseLeave
 window._updateBuildingPosition = updateBuildingPosition
-
-import { DEFAULT_SEGMENTS } from './segments/default'
-window.DEFAULT_SEGMENTS = DEFAULT_SEGMENTS
 
 import {
   DRAGGING_TYPE_MOVE,
@@ -137,12 +114,10 @@ window._handleSegmentMoveCancel = handleSegmentMoveCancel
 window._onBodyMouseUp = onBodyMouseUp
 window.draggingType = draggingType
 
-import { SEGMENT_INFO, prepareSegmentInfo } from './segments/info'
-window.SEGMENT_INFO = SEGMENT_INFO
+import { prepareSegmentInfo } from './segments/info'
 window._prepareSegmentInfo = prepareSegmentInfo
 
 import {
-  getSegmentWidthResolution,
   setSegmentWidthResolution,
   setSegmentWidthClickIncrement,
   setSegmentWidthDraggingResolution,
@@ -150,7 +125,6 @@ import {
   normalizeAllSegmentWidths,
   incrementSegmentWidth
 } from './segments/resizing'
-window._getSegmentWidthResolution = getSegmentWidthResolution
 window._setSegmentWidthResolution = setSegmentWidthResolution
 window._setSegmentWidthClickIncrement = setSegmentWidthClickIncrement
 window._setSegmentWidthDraggingResolution = setSegmentWidthDraggingResolution
@@ -158,28 +132,50 @@ window._handleSegmentResizeCancel = handleSegmentResizeCancel
 window._normalizeAllSegmentWidths = normalizeAllSegmentWidths
 window._incrementSegmentWidth = incrementSegmentWidth
 
-import { getVariantString, getVariantArray } from './segments/variant_utils'
-window._getVariantString = getVariantString
-window._getVariantArray = getVariantArray
-
-import {
-  TILE_SIZE,
-  createSegment,
-  createSegmentDom,
-  fillEmptySegments,
-  repositionSegments,
-  segmentsChanged
-} from './segments/view'
+import { TILE_SIZE, fillEmptySegments, segmentsChanged } from './segments/view'
 window.TILE_SIZE = TILE_SIZE
-window._createSegment = createSegment
-window._createSegmentDom = createSegmentDom
 window._fillEmptySegments = fillEmptySegments
-window._repositionSegments = repositionSegments
 window._segmentsChanged = segmentsChanged
 
-import { processWidthInput, prettifyWidth } from './util/width_units'
-window._processWidthInput = processWidthInput
-window._prettifyWidth = prettifyWidth
+import {
+  setLastStreet,
+  getStreet,
+  setStreet,
+  createDomFromData,
+  saveStreetToServerIfNecessary,
+  trimStreetData,
+  getStreetUrl
+} from './streets/data_model'
+window._setLastStreet = setLastStreet
+window._getStreet = getStreet
+window._setStreet = setStreet
+window._createDomFromData = createDomFromData
+window._saveStreetToServerIfNecessary = saveStreetToServerIfNecessary
+window._trimStreetData = trimStreetData
+window._getStreetUrl = getStreetUrl
 
-import { generateRandSeed } from './util/random'
-window.generateRandSeed = generateRandSeed
+import {
+  getUndoStack,
+  getUndoPosition,
+  setIgnoreStreetChanges,
+  undo,
+  redo,
+} from './streets/undo_stack'
+window.getUndoStack = getUndoStack
+window.getUndoPosition = getUndoPosition
+window.setIgnoreStreetChanges = setIgnoreStreetChanges
+window._undo = undo
+window._redo = redo
+
+import {
+  onStreetWidthChange,
+  buildStreetWidthMenu,
+  onStreetWidthClick,
+  resizeStreetWidth,
+  normalizeStreetWidth
+} from './streets/width'
+window._onStreetWidthChange = onStreetWidthChange
+window._buildStreetWidthMenu = buildStreetWidthMenu
+window._onStreetWidthClick = onStreetWidthClick
+window._resizeStreetWidth = resizeStreetWidth
+window._normalizeStreetWidth = normalizeStreetWidth

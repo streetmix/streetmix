@@ -5,6 +5,7 @@ var galleryUserId = null
 
 function _processUrl () {
   var url = location.pathname
+  var street = _getStreet()
 
   // Remove heading slash
   if (!url) {
@@ -83,7 +84,7 @@ function _updatePageUrl (forceGalleryUrl) {
     var slug = galleryUserId || 'gallery/'
     var url = '/' + slug
   } else {
-    var url = _getStreetUrl(street)
+    var url = _getStreetUrl(_getStreet())
   }
 
   if (debug.hoverPolygon) {

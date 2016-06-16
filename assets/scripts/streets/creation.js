@@ -1,31 +1,39 @@
-/* global _trimStreetData, _prepareDefaultStreet, _setUpdateTimeToNow */
-/* global _resizeStreetWidth, _createDomFromData */
-/* global street, _saveStreetToServer, settings */
-/* global _saveSettingsLocally, _prepareEmptyStreet, _fetchLastStreet */
-/* global ignoreStreetChanges, lastStreet */ // eslint-disable-line no-unused-vars
+/* global settings, _saveSettingsLocally */
 
 import { shareMenu } from '../menus/_share'
 import { segmentsChanged } from '../segments/view'
+import {
+  setLastStreet,
+  getStreet,
+  createDomFromData,
+  setUpdateTimeToNow,
+  trimStreetData,
+  prepareDefaultStreet,
+  prepareEmptyStreet
+} from './data_model'
 import { updateStreetName } from './name'
+import { setIgnoreStreetChanges } from './undo_stack'
+import { resizeStreetWidth } from './width'
+import { saveStreetToServer, fetchLastStreet } from './xhr'
 
 export const NEW_STREET_DEFAULT = 1
 export const NEW_STREET_EMPTY = 2
 
 export function makeDefaultStreet () {
-  ignoreStreetChanges = true // eslint-disable-line no-native-reassign
-  _prepareDefaultStreet()
-  _setUpdateTimeToNow()
+  setIgnoreStreetChanges(true)
+  prepareDefaultStreet()
+  setUpdateTimeToNow()
 
-  _resizeStreetWidth()
+  resizeStreetWidth()
   updateStreetName()
-  _createDomFromData()
+  createDomFromData()
   segmentsChanged()
   shareMenu.update()
 
-  ignoreStreetChanges = false // eslint-disable-line no-native-reassign
-  lastStreet = _trimStreetData(street) // eslint-disable-line no-native-reassign
+  setIgnoreStreetChanges(false)
+  setLastStreet(trimStreetData(getStreet()))
 
-  _saveStreetToServer(false)
+  saveStreetToServer(false)
 }
 
 export function onNewStreetDefaultClick () {
@@ -39,21 +47,21 @@ export function onNewStreetEmptyClick () {
   settings.newStreetPreference = NEW_STREET_EMPTY
   _saveSettingsLocally()
 
-  ignoreStreetChanges = true // eslint-disable-line no-native-reassign
-  _prepareEmptyStreet()
+  setIgnoreStreetChanges(true)
+  prepareEmptyStreet()
 
-  _resizeStreetWidth()
+  resizeStreetWidth()
   updateStreetName()
-  _createDomFromData()
+  createDomFromData()
   segmentsChanged()
   shareMenu.update()
 
-  ignoreStreetChanges = false // eslint-disable-line no-native-reassign
-  lastStreet = _trimStreetData(street) // eslint-disable-line no-native-reassign
+  setIgnoreStreetChanges(false)
+  setLastStreet(trimStreetData(getStreet()))
 
-  _saveStreetToServer(false)
+  saveStreetToServer(false)
 }
 
 export function onNewStreetLastClick () {
-  _fetchLastStreet()
+  fetchLastStreet()
 }

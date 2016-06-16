@@ -217,6 +217,7 @@ function _signInLoaded () {
 
   _createSignInUI()
 
+  var street = _getStreet()
   if ((mode == MODES.CONTINUE) || (mode == MODES.JUST_SIGNED_IN) ||
     (mode == MODES.ABOUT) ||
     (mode == MODES.USER_GALLERY) || (mode == MODES.GLOBAL_GALLERY)) {
@@ -226,7 +227,7 @@ function _signInLoaded () {
       street.namespacedId = settings.lastStreetNamespacedId
 
       if ((mode == MODES.JUST_SIGNED_IN) && (!street.creatorId)) {
-        promoteStreet = true
+        setPromoteStreet(true)
       }
 
       if (mode == MODES.JUST_SIGNED_IN) {

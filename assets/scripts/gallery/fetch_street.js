@@ -1,12 +1,19 @@
-/* global street, API_URL, _getAuthHeader */
-/* global _unpackServerStreetData, _propagateUnits, _recalculateOccupiedWidth,
-   _createDomFromData, _createDataFromDom, _resizeStreetWidth, _trimStreetData */
-/* global CustomEvent */
-/* global ignoreStreetChanges, lastStreet */ // eslint-disable-line no-unused-vars
+/* global API_URL, _getAuthHeader, _propagateUnits, CustomEvent */
+
 import { showBlockingShield, hideBlockingShield } from '../app/blocking_shield'
 import { hideError } from '../app/errors'
 import { shareMenu } from '../menus/_share'
+import {
+  setLastStreet,
+  getStreet,
+  createDomFromData,
+  trimStreetData,
+  createDataFromDom
+} from '../streets/data_model'
 import { updateStreetName } from '../streets/name'
+import { setIgnoreStreetChanges } from '../streets/undo_stack'
+import { unpackServerStreetData } from '../streets/xhr'
+import { resizeStreetWidth, recalculateOccupiedWidth } from '../streets/width'
 import { galleryState, updateGallerySelection, segmentsChanged } from './view'
 
 export function fetchGalleryStreet (streetId) {
@@ -34,7 +41,7 @@ export function fetchGalleryStreet (streetId) {
 }
 
 function errorReceiveGalleryStreet () {
-  galleryState.streetId = street.id
+  galleryState.streetId = getStreet().id
   updateGallerySelection()
 }
 
@@ -45,26 +52,26 @@ function receiveGalleryStreet (transmission) {
     return
   }
 
-  ignoreStreetChanges = true // eslint-disable-line no-native-reassign
+  setIgnoreStreetChanges(true)
 
   hideError()
-  _unpackServerStreetData(transmission, null, null, true)
+  unpackServerStreetData(transmission, null, null, true)
   _propagateUnits()
-  _recalculateOccupiedWidth()
+  recalculateOccupiedWidth()
 
   // TODO this is stupid, only here to fill some structures
-  _createDomFromData()
-  _createDataFromDom()
+  createDomFromData()
+  createDataFromDom()
 
   // Some parts of the UI need to know this happened to respond to it
   window.dispatchEvent(new CustomEvent('stmx:receive_gallery_street'))
 
-  _resizeStreetWidth()
+  resizeStreetWidth()
   updateStreetName()
-  _createDomFromData()
+  createDomFromData()
   segmentsChanged()
   shareMenu.update()
 
-  ignoreStreetChanges = false // eslint-disable-line no-native-reassign
-  lastStreet = _trimStreetData(street) // eslint-disable-line no-native-reassign
+  setIgnoreStreetChanges(false)
+  setLastStreet(trimStreetData(getStreet()))
 }

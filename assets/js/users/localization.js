@@ -109,6 +109,7 @@ function _receiveGeolocation (info) {
 }
 
 function _updateUnits (newUnits) {
+  var street = _getStreet()
   if (street.units == newUnits) {
     return
   }
@@ -118,6 +119,8 @@ function _updateUnits (newUnits) {
 
   // If the user converts and then straight converts back, we just reach
   // to undo stack instead of double conversion (which could be lossy).
+  var undoStack = getUndoStack()
+  var undoPosition = getUndoPosition()
   if (undoStack[undoPosition - 1] &&
     (undoStack[undoPosition - 1].units == newUnits)) {
     var fromUndo = true
@@ -127,7 +130,7 @@ function _updateUnits (newUnits) {
 
   _propagateUnits()
 
-  ignoreStreetChanges = true
+  setIgnoreStreetChanges(true)
   if (!fromUndo) {
     _normalizeAllSegmentWidths()
 
@@ -140,13 +143,13 @@ function _updateUnits (newUnits) {
       street.width = _normalizeStreetWidth(street.width)
     }
   } else {
-    street = _.cloneDeep(undoStack[undoPosition - 1])
+    _setStreet(_.cloneDeep(undoStack[undoPosition - 1]))
   }
   _createDomFromData()
   _segmentsChanged()
   _resizeStreetWidth()
 
-  ignoreStreetChanges = false
+  setIgnoreStreetChanges(false)
 
   _buildStreetWidthMenu()
   hideAllMenus()
@@ -156,7 +159,7 @@ function _updateUnits (newUnits) {
 }
 
 function _propagateUnits () {
-  switch (street.units) {
+  switch (_getStreet().units) {
     case SETTINGS_UNITS_IMPERIAL:
       _setSegmentWidthResolution(SEGMENT_WIDTH_RESOLUTION_IMPERIAL)
       _setSegmentWidthClickIncrement(SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL)

@@ -7,11 +7,12 @@
  *
  * @exports updateStreetMetadata
  */
+import { msg } from '../app/messages'
+import { showGallery } from '../gallery/view'
+import { fetchAvatars } from '../users/avatars'
 import { formatDate } from '../util/date_format'
 import { prettifyWidth } from '../util/width_units'
-import { fetchAvatars } from '../users/avatars'
-import { showGallery } from '../gallery/view'
-import { msg } from '../app/messages'
+import { getRemixOnFirstEdit } from './remix'
 
 /**
  * Updates all street metadata at once.
@@ -66,7 +67,7 @@ function displayStreetWidthRemaining (remainingWidth) {
  * @todo [refactor]
  */
 function displayStreetAuthor (creatorId) {
-  /* global signedIn, signInData, app, remixOnFirstEdit */
+  /* global signedIn, signInData, app */
   var el = document.querySelector('#street-metadata-author')
 
   if (creatorId && (!signedIn || (creatorId !== signInData.userId))) {
@@ -82,7 +83,7 @@ function displayStreetAuthor (creatorId) {
     if (!app.readOnly) {
       el.querySelector('.user-gallery').addEventListener('pointerdown', onAnotherUserIdClick)
     }
-  } else if (!creatorId && (signedIn || remixOnFirstEdit)) {
+  } else if (!creatorId && (signedIn || getRemixOnFirstEdit())) {
     el.innerHTML = 'by ' + msg('USER_ANONYMOUS')
   } else {
     el.innerHTML = ''

@@ -1,6 +1,60 @@
-var lastStreet
+/* global _propagateUnits,
+   signInData, signedIn, units, URL_NO_USER, URL_RESERVED_PREFIX, RESERVED_URLS,
+   leftHandTraffic, CustomEvent, abortEverything */
 
-var LATEST_SCHEMA_VERSION = 16
+import { msg } from '../app/messages'
+import { shareMenu } from '../menus/_share'
+import {
+  DEFAULT_BUILDING_HEIGHT_LEFT,
+  DEFAULT_BUILDING_HEIGHT_RIGHT,
+  DEFAULT_BUILDING_VARIANT_EMPTY,
+  DEFAULT_BUILDING_HEIGHT_EMPTY,
+  DEFAULT_BUILDING_VARIANT_RIGHT,
+  DEFAULT_BUILDING_VARIANT_LEFT,
+  createBuildings,
+  updateBuildingPosition
+} from '../segments/buildings'
+import { DEFAULT_SEGMENTS } from '../segments/default'
+import { SEGMENT_INFO } from '../segments/info'
+import { normalizeAllSegmentWidths } from '../segments/resizing'
+import { getVariantString, getVariantArray } from '../segments/variant_utils'
+import {
+  segmentsChanged,
+  repositionSegments,
+  createSegmentDom
+} from '../segments/view'
+import { normalizeSlug } from '../util/helpers'
+import { generateRandSeed } from '../util/random'
+import { updateStreetMetadata } from './metadata'
+import { updateStreetName } from './name'
+import {
+  setUndoStack,
+  setUndoPosition,
+  getIgnoreStreetChanges,
+  setIgnoreStreetChanges,
+  createNewUndoIfNecessary,
+  unifyUndoStack,
+  updateUndoButtons
+} from './undo_stack'
+import {
+  DEFAULT_STREET_WIDTH,
+  buildStreetWidthMenu,
+  normalizeStreetWidth,
+  resizeStreetWidth
+} from './width'
+import { updateLastStreetInfo, scheduleSavingStreetToServer } from './xhr'
+
+let _lastStreet
+
+export function getLastStreet () {
+  return _lastStreet
+}
+
+export function setLastStreet (value) {
+  _lastStreet = value
+}
+
+const LATEST_SCHEMA_VERSION = 16
 // 1: starting point
 // 2: adding leftBuildingHeight and rightBuildingHeight
 // 3: adding leftBuildingVariant and rightBuildingVariant
@@ -18,9 +72,9 @@ var LATEST_SCHEMA_VERSION = 16
 // 15: sidewalks have rand seed
 // 16: stop saving undo stack
 
-var DEFAULT_NAME = msg('DEFAULT_STREET_NAME')
+export const DEFAULT_NAME = msg('DEFAULT_STREET_NAME')
 
-var street = {
+let street = {
   schemaVersion: LATEST_SCHEMA_VERSION,
 
   id: null,
@@ -44,7 +98,16 @@ var street = {
   units: null
 }
 
-function _incrementSchemaVersion (street) {
+export function getStreet () {
+  return street
+}
+
+export function setStreet (value) {
+  street = value
+}
+
+function incrementSchemaVersion (street) {
+  let segment, variant
   if (!street.schemaVersion) {
     street.schemaVersion = 1
   }
@@ -60,77 +123,77 @@ function _incrementSchemaVersion (street) {
       break
     case 3:
       for (var i in street.segments) {
-        var segment = street.segments[i]
+        segment = street.segments[i]
         if (segment.type === 'transit-shelter') {
-          var variant = _getVariantArray(segment.type, segment.variantString)
+          variant = getVariantArray(segment.type, segment.variantString)
           variant['transit-shelter-elevation'] = 'street-level'
-          segment.variantString = _getVariantString(variant)
+          segment.variantString = getVariantString(variant)
         }
       }
       break
     case 4:
-      for (var i in street.segments) {
-        var segment = street.segments[i]
+      for (let i in street.segments) {
+        segment = street.segments[i]
         if (segment.type === 'sidewalk-lamp') {
-          var variant = _getVariantArray(segment.type, segment.variantString)
+          variant = getVariantArray(segment.type, segment.variantString)
           variant['lamp-type'] = 'modern'
-          segment.variantString = _getVariantString(variant)
+          segment.variantString = getVariantString(variant)
         }
       }
       break
     case 5:
-      for (var i in street.segments) {
-        var segment = street.segments[i]
+      for (let i in street.segments) {
+        segment = street.segments[i]
         if (segment.type === 'streetcar') {
-          var variant = _getVariantArray(segment.type, segment.variantString)
+          variant = getVariantArray(segment.type, segment.variantString)
           variant['public-transit-asphalt'] = 'regular'
-          segment.variantString = _getVariantString(variant)
+          segment.variantString = getVariantString(variant)
         }
       }
       break
     case 6:
-      for (var i in street.segments) {
-        var segment = street.segments[i]
+      for (let i in street.segments) {
+        segment = street.segments[i]
         if ((segment.type === 'bus-lane') || (segment.type === 'light-rail')) {
-          var variant = _getVariantArray(segment.type, segment.variantString)
+          variant = getVariantArray(segment.type, segment.variantString)
           variant['public-transit-asphalt'] = 'regular'
-          segment.variantString = _getVariantString(variant)
+          segment.variantString = getVariantString(variant)
         }
       }
       break
     case 7:
-      for (var i in street.segments) {
-        var segment = street.segments[i]
+      for (let i in street.segments) {
+        segment = street.segments[i]
         if (segment.type === 'bike-lane') {
-          var variant = _getVariantArray(segment.type, segment.variantString)
+          variant = getVariantArray(segment.type, segment.variantString)
           variant['bike-asphalt'] = 'regular'
-          segment.variantString = _getVariantString(variant)
+          segment.variantString = getVariantString(variant)
         }
       }
       break
     case 8:
-      for (var i in street.segments) {
-        var segment = street.segments[i]
+      for (let i in street.segments) {
+        segment = street.segments[i]
         if (segment.type === 'drive-lane') {
-          var variant = _getVariantArray(segment.type, segment.variantString)
+          variant = getVariantArray(segment.type, segment.variantString)
           variant['car-type'] = 'car'
-          segment.variantString = _getVariantString(variant)
+          segment.variantString = getVariantString(variant)
         }
       }
       break
     case 9:
-      for (var i in street.segments) {
-        var segment = street.segments[i]
+      for (let i in street.segments) {
+        segment = street.segments[i]
         if (segment.type === 'sidewalk') {
-          var variant = _getVariantArray(segment.type, segment.variantString)
+          variant = getVariantArray(segment.type, segment.variantString)
           variant['sidewalk-density'] = 'normal'
-          segment.variantString = _getVariantString(variant)
+          segment.variantString = getVariantString(variant)
         }
       }
       break
     case 10:
-      for (var i in street.segments) {
-        var segment = street.segments[i]
+      for (let i in street.segments) {
+        segment = street.segments[i]
         if (segment.type === 'planting-strip') {
           segment.type = 'divider'
 
@@ -144,8 +207,8 @@ function _incrementSchemaVersion (street) {
       }
       break
     case 11:
-      for (var i in street.segments) {
-        var segment = street.segments[i]
+      for (let i in street.segments) {
+        segment = street.segments[i]
         if (segment.type === 'divider') {
           if (segment.variantString === 'small-tree') {
             segment.variantString = 'big-tree'
@@ -158,117 +221,117 @@ function _incrementSchemaVersion (street) {
       }
       break
     case 12:
-      for (var i in street.segments) {
-        var segment = street.segments[i]
+      for (let i in street.segments) {
+        segment = street.segments[i]
         if (segment.type === 'sidewalk-bike-rack') {
-          var variant = _getVariantArray(segment.type, segment.variantString)
+          variant = getVariantArray(segment.type, segment.variantString)
           variant['bike-rack-elevation'] = 'sidewalk'
-          segment.variantString = _getVariantString(variant)
+          segment.variantString = getVariantString(variant)
         }
       }
       break
     case 13:
-      for (var i in street.segments) {
-        var segment = street.segments[i]
+      for (let i in street.segments) {
+        segment = street.segments[i]
         if (segment.type === 'sidewalk-wayfinding') {
-          var variant = _getVariantArray(segment.type, segment.variantString)
+          variant = getVariantArray(segment.type, segment.variantString)
           variant['wayfinding-type'] = 'large'
-          segment.variantString = _getVariantString(variant)
+          segment.variantString = getVariantString(variant)
         }
       }
       break
     case 14:
-      for (var i in street.segments) {
-        var segment = street.segments[i]
+      for (let i in street.segments) {
+        segment = street.segments[i]
         if (segment.type === 'sidewalk') {
           segment.randSeed = 35
         }
       }
       break
     case 15:
-      undoStack = []
-      undoPosition = 0
+      setUndoStack([])
+      setUndoPosition(0)
       break
   }
 
   street.schemaVersion++
 }
 
-function _updateToLatestSchemaVersion (street) {
+export function updateToLatestSchemaVersion (street) {
   var updated = false
   while (!street.schemaVersion || (street.schemaVersion < LATEST_SCHEMA_VERSION)) {
-    _incrementSchemaVersion(street)
+    incrementSchemaVersion(street)
     updated = true
   }
 
   return updated
 }
 
-function _createDomFromData () {
+export function createDomFromData () {
   document.querySelector('#street-section-editable').innerHTML = ''
 
   for (var i in street.segments) {
     var segment = street.segments[i]
 
-    var el = _createSegmentDom(segment)
+    var el = createSegmentDom(segment)
     document.querySelector('#street-section-editable').appendChild(el)
 
     segment.el = el
     segment.el.dataNo = i
   }
 
-  _repositionSegments()
-  _updateBuildingPosition()
-  _createBuildings()
+  repositionSegments()
+  updateBuildingPosition()
+  createBuildings()
 }
 
-function _setStreetCreatorId (newId) {
+export function setStreetCreatorId (newId) {
   street.creatorId = newId
 
-  _unifyUndoStack()
-  _updateLastStreetInfo()
+  unifyUndoStack()
+  updateLastStreetInfo()
 }
 
-function _setUpdateTimeToNow () {
+export function setUpdateTimeToNow () {
   street.updatedAt = new Date().getTime()
-  _unifyUndoStack()
-  _updateStreetMetadata(street)
+  unifyUndoStack()
+  updateStreetMetadata(street)
 }
 
-function _saveStreetToServerIfNecessary () {
-  if (ignoreStreetChanges || abortEverything) {
+export function saveStreetToServerIfNecessary () {
+  if (getIgnoreStreetChanges() || abortEverything) {
     return
   }
 
-  var currentData = _trimStreetData(street)
+  var currentData = trimStreetData(street)
 
-  if (JSON.stringify(currentData) != JSON.stringify(lastStreet)) {
+  if (JSON.stringify(currentData) !== JSON.stringify(_lastStreet)) {
     if (street.editCount !== null) {
       street.editCount++
     // console.log('increment editCount', street.editCount)
     } else {
       // console.log('not incrementing editCount since null')
     }
-    _setUpdateTimeToNow()
+    setUpdateTimeToNow()
 
     // Some parts of the UI need to know this happened to respond to it
     // TODO: figure out appropriate event name
     window.dispatchEvent(new CustomEvent('stmx:save_street'))
 
-    _updateStreetMetadata(street)
+    updateStreetMetadata(street)
 
-    _createNewUndoIfNecessary(lastStreet, currentData)
+    createNewUndoIfNecessary(_lastStreet, currentData)
 
-    _scheduleSavingStreetToServer()
+    scheduleSavingStreetToServer()
 
-    lastStreet = currentData
+    _lastStreet = currentData
 
-    _updateUndoButtons()
+    updateUndoButtons()
   }
 }
 
 // Copies only the data necessary for save/undo.
-function _trimStreetData (street) {
+export function trimStreetData (street) {
   var newData = {}
 
   newData.schemaVersion = street.schemaVersion
@@ -313,19 +376,19 @@ function _trimStreetData (street) {
 
 // TODO this function should not exist; all the data should be in street.
 // object to begin with
-function _createDataFromDom () {
+export function createDataFromDom () {
   var els = document.querySelectorAll('#street-section-editable > .segment')
 
   street.segments = []
 
-  for (var i = 0, el; el = els[i]; i++) {
+  for (var i = 0, el; el = els[i]; i++) { // eslint-disable-line no-cond-assign
     var segment = {}
     segment.type = el.getAttribute('type')
     if (el.getAttribute('rand-seed')) {
       segment.randSeed = parseInt(el.getAttribute('rand-seed'))
     }
     segment.variantString = el.getAttribute('variant-string')
-    segment.variant = _getVariantArray(segment.type, segment.variantString)
+    segment.variant = getVariantArray(segment.type, segment.variantString)
     segment.width = parseFloat(el.getAttribute('width'))
     segment.el = el
     segment.warnings = []
@@ -333,13 +396,13 @@ function _createDataFromDom () {
   }
 }
 
-function _fillDefaultSegments () {
+function fillDefaultSegments () {
   street.segments = []
 
   for (var i in DEFAULT_SEGMENTS[leftHandTraffic]) {
     var segment = DEFAULT_SEGMENTS[leftHandTraffic][i]
     segment.warnings = []
-    segment.variantString = _getVariantString(segment.variant)
+    segment.variantString = getVariantString(segment.variant)
 
     if (SEGMENT_INFO[segment.type].needRandSeed) {
       segment.randSeed = generateRandSeed()
@@ -348,14 +411,14 @@ function _fillDefaultSegments () {
     street.segments.push(segment)
   }
 
-  _normalizeAllSegmentWidths()
+  normalizeAllSegmentWidths()
 }
 
-function _getStreetUrl (street) {
+export function getStreetUrl (street) {
   var url = '/'
 
   if (street.creatorId) {
-    if (RESERVED_URLS.indexOf(street.creatorId) != -1) {
+    if (RESERVED_URLS.indexOf(street.creatorId) !== -1) {
       url += URL_RESERVED_PREFIX
     }
 
@@ -376,11 +439,11 @@ function _getStreetUrl (street) {
   return url
 }
 
-function _prepareDefaultStreet () {
+export function prepareDefaultStreet () {
   street.units = units
   _propagateUnits()
   street.name = DEFAULT_NAME
-  street.width = _normalizeStreetWidth(DEFAULT_STREET_WIDTH)
+  street.width = normalizeStreetWidth(DEFAULT_STREET_WIDTH)
   street.leftBuildingHeight = DEFAULT_BUILDING_HEIGHT_LEFT
   street.rightBuildingHeight = DEFAULT_BUILDING_HEIGHT_RIGHT
   street.leftBuildingVariant = DEFAULT_BUILDING_VARIANT_LEFT
@@ -388,20 +451,20 @@ function _prepareDefaultStreet () {
   street.editCount = 0
   // console.log('editCount = 0 on default street')
   if (signedIn) {
-    _setStreetCreatorId(signInData.userId)
+    setStreetCreatorId(signInData.userId)
   }
 
-  _fillDefaultSegments()
+  fillDefaultSegments()
 
-  _setUpdateTimeToNow()
+  setUpdateTimeToNow()
 }
 
-function _prepareEmptyStreet () {
+export function prepareEmptyStreet () {
   street.units = units
   _propagateUnits()
 
   street.name = DEFAULT_NAME
-  street.width = _normalizeStreetWidth(DEFAULT_STREET_WIDTH)
+  street.width = normalizeStreetWidth(DEFAULT_STREET_WIDTH)
   street.leftBuildingHeight = DEFAULT_BUILDING_HEIGHT_EMPTY
   street.rightBuildingHeight = DEFAULT_BUILDING_HEIGHT_EMPTY
   street.leftBuildingVariant = DEFAULT_BUILDING_VARIANT_EMPTY
@@ -409,26 +472,26 @@ function _prepareEmptyStreet () {
   street.editCount = 0
   // console.log('editCount = 0 on empty street!')
   if (signedIn) {
-    _setStreetCreatorId(signInData.userId)
+    setStreetCreatorId(signInData.userId)
   }
 
   street.segments = []
 
-  _setUpdateTimeToNow()
+  setUpdateTimeToNow()
 }
 
-function _updateEverything (dontScroll) {
-  ignoreStreetChanges = true
+export function updateEverything (dontScroll) {
+  setIgnoreStreetChanges(true)
   _propagateUnits()
-  _buildStreetWidthMenu()
+  buildStreetWidthMenu()
   shareMenu.update()
-  _createDomFromData()
-  _segmentsChanged()
-  _resizeStreetWidth(dontScroll)
-  _updateStreetName()
-  ignoreStreetChanges = false
-  _updateUndoButtons()
-  lastStreet = _trimStreetData(street)
+  createDomFromData()
+  segmentsChanged()
+  resizeStreetWidth(dontScroll)
+  updateStreetName()
+  setIgnoreStreetChanges(false)
+  updateUndoButtons()
+  _lastStreet = trimStreetData(street)
 
-  _scheduleSavingStreetToServer()
+  scheduleSavingStreetToServer()
 }

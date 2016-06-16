@@ -6,9 +6,10 @@
  * Exports nothing
  *
  */
-/* global street, settings, _saveSettingsLocally */
+/* global settings, _saveSettingsLocally */
 import Dialog from './dialog'
 import { trackEvent } from '../app/event_tracking'
+import { getStreet } from '../streets/data_model'
 import { getStreetImage } from '../streets/image'
 import { normalizeSlug } from '../util/helpers'
 
@@ -111,7 +112,7 @@ function _downloadImage (event) {
 }
 
 function _makeFilename () {
-  let filename = normalizeSlug(street.name)
+  let filename = normalizeSlug(getStreet().name)
   if (!filename) {
     filename = 'street'
   }

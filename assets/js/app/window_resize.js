@@ -50,7 +50,7 @@ function _onResize () {
   }
   document.querySelector('#street-section-sky').style.paddingTop = skyTop + 'px'
   document.querySelector('#street-section-sky').style.marginTop = -skyTop + 'px'
-
+  var street = _getStreet()
   streetSectionCanvasLeft =
     ((system.viewportWidth - street.width * TILE_SIZE) / 2) - BUILDING_SPACE
   if (streetSectionCanvasLeft < 0) {

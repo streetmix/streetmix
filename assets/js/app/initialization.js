@@ -12,7 +12,7 @@ var Stmx = {}
 
 Stmx.preInit = function () {
   initializing = true
-  ignoreStreetChanges = true
+  setIgnoreStreetChanges(true)
 
   var language = window.navigator.userLanguage || window.navigator.language
   if (language) {
@@ -98,8 +98,8 @@ function _onEverythingLoaded () {
   _segmentsChanged()
 
   initializing = false
-  ignoreStreetChanges = false
-  lastStreet = _trimStreetData(street)
+  setIgnoreStreetChanges(false)
+  _setLastStreet(_trimStreetData(_getStreet()))
 
   _updatePageUrl()
   _buildStreetWidthMenu()
@@ -116,7 +116,7 @@ function _onEverythingLoaded () {
     aboutDialog.show()
   }
 
-  if (promoteStreet) {
+  if (getPromoteStreet()) {
     _remixStreet()
   }
 
