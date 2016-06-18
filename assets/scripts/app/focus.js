@@ -1,8 +1,9 @@
-/* global system, abortEverything, _saveSettingsLocally */
+/* global system, abortEverything */
 
 import { galleryState } from '../gallery/view'
 import { hideAllMenus } from '../menus/menu'
 import { fetchStreetForVerification } from '../streets/xhr'
+import { saveSettingsLocally } from '../users/settings'
 
 window.addEventListener('stmx:everything_loaded', function () {
   if (system.pageVisibility) {
@@ -40,7 +41,7 @@ export function onWindowFocus () {
   // Save settings on window focus, so the last edited street is the one you’re
   // currently looking at (in case you’re looking at many streets in various
   // tabs)
-  _saveSettingsLocally()
+  saveSettingsLocally()
 }
 
 function onWindowBlur () {

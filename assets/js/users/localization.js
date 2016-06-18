@@ -30,7 +30,7 @@ var COUNTRIES_LEFT_HAND_TRAFFIC =
   'TO', 'TT', 'TC', 'TV', 'UG', 'GB', 'VG', 'VI', 'ZM', 'ZW']
 
 function _checkIfSignInAndGeolocationLoaded () {
-  if (geolocationLoaded && signInLoaded) {
+  if (geolocationLoaded && isSignInLoaded()) {
     switch (mode) {
       case MODES.NEW_STREET:
       case MODES.NEW_STREET_COPY_LAST:

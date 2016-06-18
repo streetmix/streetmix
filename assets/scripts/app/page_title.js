@@ -1,5 +1,7 @@
-/* global signedIn, signInData */
-
+/* global getSignInData, isSignedIn */
+// these imports need to be restored after fixing registering key in module
+// of scope menu/menu.js
+// import { getSignInData, isSignedIn } from '../users/authentication'
 import { getStreet } from '../streets/data_model'
 
 /**
@@ -11,7 +13,7 @@ export function updatePageTitle () {
   let title = ''
   let street = getStreet()
 
-  if (street.creatorId && (!signedIn || (signInData.userId !== street.creatorId))) {
+  if (street.creatorId && (!isSignedIn() || (getSignInData().userId !== street.creatorId))) {
     title = getPageTitleWithAuthor()
   } else {
     title = getPageTitle()

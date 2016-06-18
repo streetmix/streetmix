@@ -1,8 +1,19 @@
-var LOCAL_STORAGE_SETTINGS_ID = 'settings'
-var LOCAL_STORAGE_SIGN_IN_ID = 'sign-in'
-var SAVE_SETTINGS_DELAY = 500
+/* global mode, MODES, _processMode, API_URL,
+   _checkIfEverythingIsLoaded, abortEverything */
+/* global serverContacted */ // eslint-disable-line no-unused-vars
 
-var settings = {
+import { trackEvent } from '../app/event_tracking'
+import { NEW_STREET_DEFAULT } from '../streets/creation'
+import { setSaveStreetIncomplete } from '../streets/xhr'
+import { newNonblockingAjaxRequest } from '../util/fetch_nonblocking'
+import { getAuthHeader, getSignInData, isSignedIn } from './authentication'
+
+const LOCAL_STORAGE_SETTINGS_ID = 'settings'
+const SAVE_SETTINGS_DELAY = 500
+export const LOCAL_STORAGE_SIGN_IN_ID = 'sign-in'
+let saveSettingsTimerId = -1
+
+let settings = {
   lastStreetId: null,
   lastStreetNamespacedId: null,
   lastStreetUserId: null,
@@ -14,13 +25,11 @@ var settings = {
   saveAsImageStreetName: null
 }
 
-var saveSettingsTimerId = -1
+export function getSettings () {
+  return settings
+}
 
-var signedIn = false
-var signInLoaded = false
-var signInData = null
-
-function _mergeAndFillDefaultSettings (secondSettings) {
+function mergeAndFillDefaultSettings (secondSettings) {
   // Merge with local settings
 
   if (!settings.newStreetPreference) {
@@ -70,18 +79,20 @@ function _mergeAndFillDefaultSettings (secondSettings) {
   }
 }
 
-function _loadSettings () {
-  if (signedIn && signInData.details) {
-    var serverSettings = signInData.details.data
+export function loadSettings () {
+  let serverSettings, localSettings
+  let signInData = getSignInData()
+  if (isSignedIn() && signInData.details) {
+    serverSettings = signInData.details.data
   } else {
-    var serverSettings = {}
+    serverSettings = {}
   }
 
   // TODO handle better if corrupted
   if (window.localStorage[LOCAL_STORAGE_SETTINGS_ID]) {
-    var localSettings = JSON.parse(window.localStorage[LOCAL_STORAGE_SETTINGS_ID])
+    localSettings = JSON.parse(window.localStorage[LOCAL_STORAGE_SETTINGS_ID])
   } else {
-    var localSettings = {}
+    localSettings = {}
   }
 
   settings = {}
@@ -89,9 +100,9 @@ function _loadSettings () {
   if (serverSettings) {
     settings = serverSettings
   }
-  _mergeAndFillDefaultSettings(localSettings)
+  mergeAndFillDefaultSettings(localSettings)
 
-  if (mode == MODES.JUST_SIGNED_IN) {
+  if (mode === MODES.JUST_SIGNED_IN) {
     settings.lastStreetId = localSettings.lastStreetId
     settings.lastStreetNamespacedId = localSettings.lastStreetNamespacedId
     settings.lastStreetCreatorId = localSettings.lastStreetCreatorId
@@ -99,10 +110,10 @@ function _loadSettings () {
 
   settings.priorLastStreetId = settings.lastStreetId
 
-  _saveSettingsLocally()
+  saveSettingsLocally()
 }
 
-function _trimSettings () {
+function trimSettings () {
   var data = {}
 
   data.lastStreetId = settings.lastStreetId
@@ -117,68 +128,68 @@ function _trimSettings () {
   return data
 }
 
-function _saveSettingsLocally () {
+export function saveSettingsLocally () {
   window.localStorage[LOCAL_STORAGE_SETTINGS_ID] =
-    JSON.stringify(_trimSettings())
+    JSON.stringify(trimSettings())
 
-  _scheduleSavingSettingsToServer()
+  scheduleSavingSettingsToServer()
 }
 
-function _confirmSaveStreetToServerInitial () {
+export function confirmSaveStreetToServerInitial () {
   setSaveStreetIncomplete(false)
 
-  serverContacted = true
+  serverContacted = true // eslint-disable-line no-native-reassign
   _checkIfEverythingIsLoaded()
 }
 
-function _saveSettingsToServer () {
-  if (!signedIn || abortEverything) {
+export function saveSettingsToServer () {
+  if (!isSignedIn() || abortEverything) {
     return
   }
 
-  var transmission = JSON.stringify({ data: _trimSettings() })
+  var transmission = JSON.stringify({ data: trimSettings() })
 
-  _newNonblockingAjaxRequest({
+  newNonblockingAjaxRequest({
     // TODO const
-    url: API_URL + 'v1/users/' + signInData.userId,
+    url: API_URL + 'v1/users/' + getSignInData().userId,
     data: transmission,
     dataType: 'json',
     type: 'PUT',
     contentType: 'application/json',
-    headers: { 'Authorization': _getAuthHeader() }
-  }, true, null, _errorSavingSettingsToServer)
+    headers: { 'Authorization': getAuthHeader() }
+  }, true, null, errorSavingSettingsToServer)
 }
 
-function _errorSavingSettingsToServer (data) {
-  if (!abortEverything && (data.status == 401)) {
+function errorSavingSettingsToServer (data) {
+  if (!abortEverything && (data.status === 401)) {
     trackEvent('ERROR', 'ERROR_RM2', null, null, false)
 
-    mode = MODES.FORCE_RELOAD_SIGN_OUT_401
+    mode = MODES.FORCE_RELOAD_SIGN_OUT_401 // eslint-disable-line no-native-reassign
     _processMode()
   }
 }
 
-function _scheduleSavingSettingsToServer () {
-  if (!signedIn) {
+function scheduleSavingSettingsToServer () {
+  if (!isSignedIn()) {
     return
   }
 
-  _clearScheduledSavingSettingsToServer()
+  clearScheduledSavingSettingsToServer()
 
-  saveSettingsTimerId =
-    window.setTimeout(function () { _saveSettingsToServer(); }, SAVE_SETTINGS_DELAY)
+  saveSettingsTimerId = // eslint-disable-line no-native-reassign
+    window.setTimeout(function () { saveSettingsToServer() }, SAVE_SETTINGS_DELAY)
 }
 
-function _clearScheduledSavingSettingsToServer () {
+function clearScheduledSavingSettingsToServer () {
   window.clearTimeout(saveSettingsTimerId)
 }
 
-function _onStorageChange () {
-  if (signedIn && !window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
-    mode = MODES.FORCE_RELOAD_SIGN_OUT
+export function onStorageChange () {
+  if (isSignedIn() && !window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
+    mode = MODES.FORCE_RELOAD_SIGN_OUT // eslint-disable-line no-native-reassign
     _processMode()
-  } else if (!signedIn && window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
-    mode = MODES.FORCE_RELOAD_SIGN_IN
+  } else if (!isSignedIn() && window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
+    mode = MODES.FORCE_RELOAD_SIGN_IN // eslint-disable-line no-native-reassign
     _processMode()
   }
 }

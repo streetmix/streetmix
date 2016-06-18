@@ -12,9 +12,6 @@ window.$ = $
 import _ from 'lodash'
 window._ = _
 
-import { newNonblockingAjaxRequest } from './util/fetch_nonblocking'
-window._newNonblockingAjaxRequest = newNonblockingAjaxRequest
-
 import { trackEvent } from './app/event_tracking'
 window.trackEvent = trackEvent
 
@@ -44,15 +41,24 @@ window.aboutDialog = aboutDialog
 import {
   loadSignIn,
   onSignOutClick,
-  getAuthHeader
+  getAuthHeader,
+  getSignInData,
+  isSignedIn,
+  isSignInLoaded
 } from './users/authentication'
 window._loadSignIn = loadSignIn
 window._onSignOutClick = onSignOutClick
-window._getAuthHeader = getAuthHeader
+window.getSignInData = getSignInData
+window.isSignedIn = isSignedIn
+window.isSignInLoaded = isSignInLoaded
 
 import { fetchAvatars, receiveAvatar } from './users/avatars'
 window._fetchAvatars = fetchAvatars
 window._receiveAvatar = receiveAvatar
+
+import { saveSettingsLocally, onStorageChange } from './users/settings'
+window._saveSettingsLocally = saveSettingsLocally
+window._onStorageChange = onStorageChange
 
 import {
   NEW_STREET_DEFAULT,
@@ -78,11 +84,9 @@ window.setPromoteStreet = setPromoteStreet
 window._remixStreet = remixStreet
 
 import {
-  setSaveStreetIncomplete,
   createNewStreetOnServer,
   fetchStreetFromServer
 } from './streets/xhr'
-window.setSaveStreetIncomplete = setSaveStreetIncomplete
 window._createNewStreetOnServer = createNewStreetOnServer
 window._fetchStreetFromServer = fetchStreetFromServer
 

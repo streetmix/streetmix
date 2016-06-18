@@ -1,8 +1,6 @@
-/* global signInData, location, LOCAL_STORAGE_SIGN_IN_ID, signedIn, API_URL,
-   MODES, settings, mode, _saveSettingsLocally, _processMode,
-   URL_SIGN_IN_REDIRECT, _loadSettings, _checkIfSignInAndGeolocationLoaded,
+/* global location, API_URL, MODES, mode, _processMode,
+   URL_SIGN_IN_REDIRECT, _checkIfSignInAndGeolocationLoaded,
    _checkIfEverythingIsLoaded */
-/* global signInLoaded */ // eslint-disable-line no-unused-vars
 
 import $ from 'jquery'
 import Cookies from 'js-cookie'
@@ -13,9 +11,33 @@ import { getStreet } from '../streets/data_model'
 import { setPromoteStreet } from '../streets/remix'
 import { fetchStreetFromServer } from '../streets/xhr'
 import { receiveAvatar, fetchAvatars } from './avatars'
+import {
+  loadSettings,
+  saveSettingsLocally,
+  LOCAL_STORAGE_SIGN_IN_ID,
+  getSettings
+} from './settings'
 
 const USER_ID_COOKIE = 'user_id'
 const SIGN_IN_TOKEN_COOKIE = 'login_token'
+
+let signInData = null
+
+export function getSignInData () {
+  return signInData
+}
+
+let signedIn = false
+
+export function isSignedIn () {
+  return signedIn
+}
+
+let signInLoaded = false
+
+export function isSignInLoaded () {
+  return signInLoaded
+}
 
 export function goReloadClearSignIn () {
   signInData = null // eslint-disable-line no-native-reassign
@@ -39,19 +61,19 @@ function removeSignInCookies () {
 }
 
 export function loadSignIn () {
-  signInLoaded = false // eslint-disable-line no-native-reassign
+  signInLoaded = false
 
   var signInCookie = Cookies.get(SIGN_IN_TOKEN_COOKIE)
   var userIdCookie = Cookies.get(USER_ID_COOKIE)
 
   if (signInCookie && userIdCookie) {
-    signInData = { token: signInCookie, userId: userIdCookie } // eslint-disable-line no-native-reassign
+    signInData = { token: signInCookie, userId: userIdCookie }
 
     removeSignInCookies()
     saveSignInDataLocally()
   } else {
     if (window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
-      signInData = JSON.parse(window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) // eslint-disable-line no-native-reassign
+      signInData = JSON.parse(window.localStorage[LOCAL_STORAGE_SIGN_IN_ID])
     }
   }
 
@@ -68,7 +90,7 @@ export function loadSignIn () {
       fetchSignInDetails()
     } */
   } else {
-    signedIn = false // eslint-disable-line no-native-reassign
+    signedIn = false
     _signInLoaded()
   }
 }
@@ -107,7 +129,7 @@ function receiveSignInDetails (details) {
 
   receiveAvatar(details)
 
-  signedIn = true // eslint-disable-line no-native-reassign
+  signedIn = true
   _signInLoaded()
 }
 
@@ -141,8 +163,8 @@ function errorReceiveSignInDetails (data) {
 
   // Fail silently
 
-  signInData = null // eslint-disable-line no-native-reassign
-  signedIn = false // eslint-disable-line no-native-reassign
+  signInData = null
+  signedIn = false
   _signInLoaded()
 }
 
@@ -155,10 +177,11 @@ export function onSignOutClick (event) {
 }
 
 function signOut (quiet) {
+  let settings = getSettings()
   settings.lastStreetId = null
   settings.lastStreetNamespacedId = null
   settings.lastStreetCreatorId = null
-  _saveSettingsLocally()
+  saveSettingsLocally()
 
   removeSignInCookies()
   window.localStorage.removeItem(LOCAL_STORAGE_SIGN_IN_ID)
@@ -227,7 +250,7 @@ function createSignInUI () {
 }
 
 function _signInLoaded () {
-  _loadSettings()
+  loadSettings()
 
   createSignInUI()
 
@@ -235,6 +258,7 @@ function _signInLoaded () {
   if ((mode === MODES.CONTINUE) || (mode === MODES.JUST_SIGNED_IN) ||
     (mode === MODES.ABOUT) ||
     (mode === MODES.USER_GALLERY) || (mode === MODES.GLOBAL_GALLERY)) {
+    let settings = getSettings()
     if (settings.lastStreetId) {
       street.creatorId = settings.lastStreetCreatorId
       street.id = settings.lastStreetId
@@ -266,7 +290,7 @@ function _signInLoaded () {
     document.querySelector('#gallery-link a').href = '/' + signInData.userId
   }
 
-  signInLoaded = true // eslint-disable-line no-native-reassign
+  signInLoaded = true
   document.querySelector('#loading-progress').value++
   _checkIfSignInAndGeolocationLoaded()
   _checkIfEverythingIsLoaded()

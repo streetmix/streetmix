@@ -1,6 +1,5 @@
-/* global _propagateUnits,
-   signInData, signedIn, units, URL_NO_USER, URL_RESERVED_PREFIX, RESERVED_URLS,
-   leftHandTraffic, CustomEvent, abortEverything */
+/* global _propagateUnits, units, URL_NO_USER, URL_RESERVED_PREFIX,
+   RESERVED_URLS, leftHandTraffic, CustomEvent, abortEverything */
 
 import { msg } from '../app/messages'
 import { shareMenu } from '../menus/_share'
@@ -23,6 +22,7 @@ import {
   repositionSegments,
   createSegmentDom
 } from '../segments/view'
+import { getSignInData, isSignedIn } from '../users/authentication'
 import { normalizeSlug } from '../util/helpers'
 import { generateRandSeed } from '../util/random'
 import { updateStreetMetadata } from './metadata'
@@ -450,8 +450,8 @@ export function prepareDefaultStreet () {
   street.rightBuildingVariant = DEFAULT_BUILDING_VARIANT_RIGHT
   street.editCount = 0
   // console.log('editCount = 0 on default street')
-  if (signedIn) {
-    setStreetCreatorId(signInData.userId)
+  if (isSignedIn()) {
+    setStreetCreatorId(getSignInData().userId)
   }
 
   fillDefaultSegments()
@@ -471,8 +471,8 @@ export function prepareEmptyStreet () {
   street.rightBuildingVariant = DEFAULT_BUILDING_VARIANT_EMPTY
   street.editCount = 0
   // console.log('editCount = 0 on empty street!')
-  if (signedIn) {
-    setStreetCreatorId(signInData.userId)
+  if (isSignedIn()) {
+    setStreetCreatorId(getSignInData().userId)
   }
 
   street.segments = []

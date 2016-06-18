@@ -10,6 +10,7 @@
 import { msg } from '../app/messages'
 import { showGallery } from '../gallery/view'
 import { fetchAvatars } from '../users/avatars'
+import { getSignInData, isSignedIn } from '../users/authentication'
 import { formatDate } from '../util/date_format'
 import { prettifyWidth } from '../util/width_units'
 import { getRemixOnFirstEdit } from './remix'
@@ -67,10 +68,10 @@ function displayStreetWidthRemaining (remainingWidth) {
  * @todo [refactor]
  */
 function displayStreetAuthor (creatorId) {
-  /* global signedIn, signInData, app */
+  /* global app */
   var el = document.querySelector('#street-metadata-author')
 
-  if (creatorId && (!signedIn || (creatorId !== signInData.userId))) {
+  if (creatorId && (!isSignedIn() || (creatorId !== getSignInData().userId))) {
     // TODO const
     var html = "by <div class='avatar' userId='" + creatorId + "'></div>" +
       "<a class='user-gallery' href='/" +
@@ -83,7 +84,7 @@ function displayStreetAuthor (creatorId) {
     if (!app.readOnly) {
       el.querySelector('.user-gallery').addEventListener('pointerdown', onAnotherUserIdClick)
     }
-  } else if (!creatorId && (signedIn || getRemixOnFirstEdit())) {
+  } else if (!creatorId && (isSignedIn() || getRemixOnFirstEdit())) {
     el.innerHTML = 'by ' + msg('USER_ANONYMOUS')
   } else {
     el.innerHTML = ''

@@ -1,4 +1,4 @@
-/* global app, system, galleryUserId, signedIn, signInData, mode, abortEverything */
+/* global app, system, galleryUserId, mode, abortEverything */
 /* global MODES, ERRORS, URL_NEW_STREET, URL_NEW_STREET_COPY_LAST */
 /* global _updatePageUrl */
 
@@ -23,6 +23,7 @@ import {
 import { StreetName } from '../streets/name_sign'
 import { sendDeleteStreetToServer } from '../streets/xhr'
 import { fetchAvatars } from '../users/avatars'
+import { getSignInData, isSignedIn } from '../users/authentication'
 
 const THUMBNAIL_WIDTH = 180
 const THUMBNAIL_HEIGHT = 110
@@ -91,7 +92,7 @@ export function showGallery (userId, instant, signInPromo) {
     if (!userId) {
       document.querySelector('#gallery').classList.add('all-streets')
       document.querySelector('#gallery').classList.remove('another-user')
-    } else if (signedIn && (userId === signInData.userId)) {
+    } else if (isSignedIn() && (userId === getSignInData().userId)) {
       document.querySelector('#gallery').classList.remove('another-user')
       document.querySelector('#gallery').classList.remove('all-streets')
     } else {
@@ -222,7 +223,7 @@ export function receiveGalleryData (transmission) {
     }
 
     // Only show delete links if you own the street
-    if (signedIn && (galleryStreet.creatorId === signInData.userId)) {
+    if (isSignedIn() && (galleryStreet.creatorId === getSignInData().userId)) {
       var removeEl = document.createElement('button')
       removeEl.classList.add('remove')
       removeEl.addEventListener('pointerdown', onDeleteGalleryStreet)
@@ -362,8 +363,8 @@ function onMyStreetsClick (event) {
     return
   }
 
-  if (signedIn) {
-    showGallery(signInData.userId, false)
+  if (isSignedIn()) {
+    showGallery(getSignInData().userId, false)
   } else {
     showGallery(false, false, true)
   }

@@ -1,7 +1,5 @@
-/* global settings, API_URL, MODES, _processMode, app, mode,
-   _confirmSaveStreetToServerInitial, abortEverything, signedIn,
-   _propagateUnits, _checkIfEverythingIsLoaded, signInData,
-   _saveSettingsLocally, _saveSettingsToServer */
+/* global API_URL, MODES, _processMode, app, mode, abortEverything,
+   _propagateUnits, _checkIfEverythingIsLoaded */
 /* global serverContacted */ // eslint-disable-line no-unused-vars
 
 import $ from 'jquery'
@@ -15,7 +13,17 @@ import { showStatusMessage } from '../app/status_message'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { shareMenu } from '../menus/_share'
 import { segmentsChanged } from '../segments/view'
-import { getAuthHeader } from '../users/authentication'
+import {
+  getAuthHeader,
+  getSignInData,
+  isSignedIn
+} from '../users/authentication'
+import {
+  saveSettingsLocally,
+  confirmSaveStreetToServerInitial,
+  saveSettingsToServer,
+  getSettings
+} from '../users/settings'
 import {
   isblockingAjaxRequestInProgress,
   newBlockingAjaxRequest
@@ -82,7 +90,7 @@ function getUniqueRequestHeader () {
 }
 
 export function createNewStreetOnServer () {
-  if (settings.newStreetPreference === NEW_STREET_EMPTY) {
+  if (getSettings().newStreetPreference === NEW_STREET_EMPTY) {
     prepareEmptyStreet()
   } else {
     prepareDefaultStreet()
@@ -179,7 +187,7 @@ export function saveStreetToServer (initial) {
       type: 'PUT',
       contentType: 'application/json',
       headers: { 'Authorization': getAuthHeader() }
-    }).done(_confirmSaveStreetToServerInitial)
+    }).done(confirmSaveStreetToServerInitial)
   } else {
     newNonblockingAjaxRequest({
       // TODO const
@@ -252,7 +260,7 @@ function errorReceiveStreetForVerification (data) {
   // 404 should never happen here, since 410 designates streets that have
   // been deleted (but remain hidden on the server)
 
-  if (signedIn && ((data.status === 404) || (data.status === 410))) {
+  if (isSignedIn() && ((data.status === 404) || (data.status === 410))) {
     showError(ERRORS.STREET_DELETED_ELSEWHERE, true)
   }
 }
@@ -324,7 +332,7 @@ export function unpackServerStreetData (transmission, id, namespacedId, checkIfN
   }
 
   if (checkIfNeedsToBeRemixed) {
-    if (!signedIn || (street.creatorId !== signInData.userId)) {
+    if (!isSignedIn() || (street.creatorId !== getSignInData().userId)) {
       setRemixOnFirstEdit(true)
     } else {
       setRemixOnFirstEdit(false)
@@ -376,11 +384,12 @@ export function setStreetId (newId, newNamespacedId) {
 
 export function updateLastStreetInfo () {
   var street = getStreet()
+  let settings = getSettings()
   settings.lastStreetId = street.id
   settings.lastStreetNamespacedId = street.namespacedId
   settings.lastStreetCreatorId = street.creatorId
 
-  _saveSettingsLocally()
+  saveSettingsLocally()
 }
 
 export function scheduleSavingStreetToServer () {
@@ -400,7 +409,7 @@ export function fetchLastStreet () {
   newBlockingAjaxRequest(msg('LOADING'),
     {
       // TODO const
-      url: API_URL + 'v1/streets/' + settings.priorLastStreetId,
+      url: API_URL + 'v1/streets/' + getSettings().priorLastStreetId,
       dataType: 'json',
       type: 'GET',
       headers: { 'Authorization': getAuthHeader() }
@@ -417,11 +426,11 @@ function receiveLastStreet (transmission) {
   setIgnoreStreetChanges(true)
   var street = getStreet()
   unpackServerStreetData(transmission, street.id, street.namespacedId, false)
-  street.originalStreetId = settings.priorLastStreetId
+  street.originalStreetId = getSettings().priorLastStreetId
   addRemixSuffixToName()
 
-  if (signedIn) {
-    setStreetCreatorId(signInData.userId)
+  if (isSignedIn()) {
+    setStreetCreatorId(getSignInData().userId)
   } else {
     setStreetCreatorId(null)
   }
@@ -451,13 +460,14 @@ function receiveLastStreet (transmission) {
 
 export function sendDeleteStreetToServer (id) {
   // Prevents new street submenu from showing the last street
+  let settings = getSettings()
   if (settings.lastStreetId === id) {
     settings.lastStreetId = null
     settings.lastStreetCreatorId = null
     settings.lastStreetNamespacedId = null
 
-    _saveSettingsLocally()
-    _saveSettingsToServer()
+    saveSettingsLocally()
+    saveSettingsToServer()
   }
 
   newNonblockingAjaxRequest({

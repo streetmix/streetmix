@@ -1,7 +1,6 @@
-/* global settings, _saveSettingsLocally */
-
 import { shareMenu } from '../menus/_share'
 import { segmentsChanged } from '../segments/view'
+import { saveSettingsLocally, getSettings } from '../users/settings'
 import {
   setLastStreet,
   getStreet,
@@ -37,15 +36,15 @@ export function makeDefaultStreet () {
 }
 
 export function onNewStreetDefaultClick () {
-  settings.newStreetPreference = NEW_STREET_DEFAULT
-  _saveSettingsLocally()
+  getSettings().newStreetPreference = NEW_STREET_DEFAULT
+  saveSettingsLocally()
 
   makeDefaultStreet()
 }
 
 export function onNewStreetEmptyClick () {
-  settings.newStreetPreference = NEW_STREET_EMPTY
-  _saveSettingsLocally()
+  getSettings().newStreetPreference = NEW_STREET_EMPTY
+  saveSettingsLocally()
 
   setIgnoreStreetChanges(true)
   prepareEmptyStreet()

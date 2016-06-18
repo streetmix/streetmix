@@ -78,7 +78,7 @@ function _checkIfEverythingIsLoaded () {
     return
   }
 
-  if ((imagesToBeLoaded == 0) && signInLoaded && bodyLoaded &&
+  if ((imagesToBeLoaded == 0) && isSignInLoaded() && bodyLoaded &&
     readyStateCompleteLoaded && geolocationLoaded && serverContacted) {
     _onEverythingLoaded()
   }

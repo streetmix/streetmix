@@ -42,6 +42,7 @@ import './gallery/scroll'
 
 // Utilities
 import { startListening } from './app/keypress'
+import './util/fetch_nonblocking'
 
 // Start listening for keypresses
 startListening()

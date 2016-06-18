@@ -6,11 +6,12 @@
  * Exports nothing
  *
  */
-/* global settings, _saveSettingsLocally */
+
 import Dialog from './dialog'
 import { trackEvent } from '../app/event_tracking'
 import { getStreet } from '../streets/data_model'
 import { getStreetImage } from '../streets/image'
+import { saveSettingsLocally, getSettings } from '../users/settings'
 import { normalizeSlug } from '../util/helpers'
 
 // Require save-as polyfills
@@ -38,6 +39,7 @@ export let saveAsImageDialog = new Dialog('#save-as-image-dialog', {
     _elDownloadLink.addEventListener('click', _downloadImage)
   },
   onShow: function () {
+    let settings = getSettings()
     _elTransparentSky.checked = settings.saveAsImageTransparentSky
     _elSegmentNames.checked = settings.saveAsImageSegmentNamesAndWidths
     _elStreetName.checked = settings.saveAsImageStreetName
@@ -63,7 +65,7 @@ function _updateSaveAsImageDialogBox () {
 
 function _updateSaveAsImageDialogBoxPart2 () {
   _elPreviewPreview.innerHTML = ''
-
+  let settings = getSettings()
   imageCanvas = getStreetImage(settings.saveAsImageTransparentSky, settings.saveAsImageSegmentNamesAndWidths, settings.saveAsImageStreetName)
 
   try {
@@ -90,11 +92,12 @@ function _saveAsImagePreviewReady () {
 }
 
 function _updateSaveAsImageOptions () {
+  let settings = getSettings()
   settings.saveAsImageTransparentSky = _elTransparentSky.checked
   settings.saveAsImageSegmentNamesAndWidths = _elSegmentNames.checked
   settings.saveAsImageStreetName = _elStreetName.checked
 
-  _saveSettingsLocally()
+  saveSettingsLocally()
 
   window.setTimeout(_updateSaveAsImageDialogBox, 0)
 }

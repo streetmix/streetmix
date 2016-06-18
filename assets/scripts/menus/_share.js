@@ -1,5 +1,8 @@
-/* global signedIn, signInData */
 /* global FACEBOOK_APP_ID */
+/* global getSignInData, isSignedIn */
+// these imports need to be restored after fixing registering key in module
+// of scope menu/menu.js
+// import { getSignInData, isSignedIn } from '../users/authentication'
 
 import { trackEvent } from '../app/event_tracking'
 import { getPageTitle } from '../app/page_title'
@@ -38,7 +41,7 @@ function _getSharingMessage () {
   let street = getStreet()
 
   if (street.creatorId) {
-    if (signedIn && street.creatorId === signInData.userId) {
+    if (isSignedIn() && street.creatorId === getSignInData().userId) {
       message = `Check out my street, ${street.name}, on Streetmix!`
     } else {
       message = `Check out ${street.name} by @${street.creatorId} on Streetmix!`
@@ -83,7 +86,7 @@ function _updateShareMenu () {
   _updateTwitterLink(url)
   _updateFacebookLink(url)
 
-  if (!signedIn) {
+  if (!isSignedIn()) {
     document.querySelector('#sign-in-promo').classList.add('visible')
   }
 }
