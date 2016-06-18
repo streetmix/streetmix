@@ -1,5 +1,5 @@
 /* global API_URL, MODES, _processMode, app, mode, abortEverything,
-   _propagateUnits, _checkIfEverythingIsLoaded */
+   _checkIfEverythingIsLoaded */
 /* global serverContacted */ // eslint-disable-line no-unused-vars
 
 import $ from 'jquery'
@@ -18,6 +18,7 @@ import {
   getSignInData,
   isSignedIn
 } from '../users/authentication'
+import { propagateUnits } from '../users/localization'
 import {
   saveSettingsLocally,
   confirmSaveStreetToServerInitial,
@@ -268,7 +269,7 @@ function errorReceiveStreetForVerification (data) {
 function receiveStreet (transmission) {
   unpackServerStreetData(transmission, null, null, true)
 
-  _propagateUnits()
+  propagateUnits()
 
   // TODO this is stupid, only here to fill some structures
   createDomFromData()
@@ -438,7 +439,7 @@ function receiveLastStreet (transmission) {
   street.editCount = 0
   // console.log('editCount = 0 on last street!')
 
-  _propagateUnits()
+  propagateUnits()
 
   // TODO this is stupid, only here to fill some structures
   createDomFromData()

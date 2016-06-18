@@ -1,5 +1,5 @@
-/* global _propagateUnits, units, URL_NO_USER, URL_RESERVED_PREFIX,
-   RESERVED_URLS, leftHandTraffic, CustomEvent, abortEverything */
+/* global URL_NO_USER, URL_RESERVED_PREFIX, RESERVED_URLS, CustomEvent,
+   abortEverything */
 
 import { msg } from '../app/messages'
 import { shareMenu } from '../menus/_share'
@@ -23,6 +23,7 @@ import {
   createSegmentDom
 } from '../segments/view'
 import { getSignInData, isSignedIn } from '../users/authentication'
+import { getUnits, getLeftHandTraffic, propagateUnits } from '../users/localization'
 import { normalizeSlug } from '../util/helpers'
 import { generateRandSeed } from '../util/random'
 import { updateStreetMetadata } from './metadata'
@@ -398,6 +399,7 @@ export function createDataFromDom () {
 
 function fillDefaultSegments () {
   street.segments = []
+  let leftHandTraffic = getLeftHandTraffic()
 
   for (var i in DEFAULT_SEGMENTS[leftHandTraffic]) {
     var segment = DEFAULT_SEGMENTS[leftHandTraffic][i]
@@ -440,8 +442,8 @@ export function getStreetUrl (street) {
 }
 
 export function prepareDefaultStreet () {
-  street.units = units
-  _propagateUnits()
+  street.units = getUnits()
+  propagateUnits()
   street.name = DEFAULT_NAME
   street.width = normalizeStreetWidth(DEFAULT_STREET_WIDTH)
   street.leftBuildingHeight = DEFAULT_BUILDING_HEIGHT_LEFT
@@ -460,8 +462,8 @@ export function prepareDefaultStreet () {
 }
 
 export function prepareEmptyStreet () {
-  street.units = units
-  _propagateUnits()
+  street.units = getUnits()
+  propagateUnits()
 
   street.name = DEFAULT_NAME
   street.width = normalizeStreetWidth(DEFAULT_STREET_WIDTH)
@@ -482,7 +484,7 @@ export function prepareEmptyStreet () {
 
 export function updateEverything (dontScroll) {
   setIgnoreStreetChanges(true)
-  _propagateUnits()
+  propagateUnits()
   buildStreetWidthMenu()
   shareMenu.update()
   createDomFromData()

@@ -1,5 +1,4 @@
-/* global SETTINGS_UNITS_METRIC, SETTINGS_UNITS_IMPERIAL, _updateUnits,
-   prompt, _onResize, system */
+/* global prompt, _onResize, system */
 /* global initializing */ // eslint-disable-line no-unused-vars
 
 import { loseAnyFocus } from '../app/focus'
@@ -8,6 +7,11 @@ import { BUILDING_SPACE, createBuildings } from '../segments/buildings'
 import { SEGMENT_INFO } from '../segments/info'
 import { getSegmentWidthResolution } from '../segments/resizing'
 import { TILE_SIZE, segmentsChanged } from '../segments/view'
+import {
+  SETTINGS_UNITS_IMPERIAL,
+  SETTINGS_UNITS_METRIC,
+  updateUnits
+} from '../users/localization'
 import { processWidthInput, prettifyWidth } from '../util/width_units'
 import { getStreet, createDomFromData } from './data_model'
 import { updateStreetMetadata } from './metadata'
@@ -38,10 +42,10 @@ export function onStreetWidthChange (event) {
   if (newStreetWidth === street.width) {
     return
   } else if (newStreetWidth === STREET_WIDTH_SWITCH_TO_METRIC) {
-    _updateUnits(SETTINGS_UNITS_METRIC)
+    updateUnits(SETTINGS_UNITS_METRIC)
     return
   } else if (newStreetWidth === STREET_WIDTH_SWITCH_TO_IMPERIAL) {
-    _updateUnits(SETTINGS_UNITS_IMPERIAL)
+    updateUnits(SETTINGS_UNITS_IMPERIAL)
     return
   } else if (newStreetWidth === STREET_WIDTH_CUSTOM) {
     var promptValue = street.occupiedWidth

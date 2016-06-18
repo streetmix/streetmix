@@ -1,5 +1,4 @@
-/* global location, API_URL, MODES, mode, _processMode,
-   URL_SIGN_IN_REDIRECT, _checkIfSignInAndGeolocationLoaded,
+/* global location, API_URL, MODES, mode, _processMode, URL_SIGN_IN_REDIRECT,
    _checkIfEverythingIsLoaded */
 
 import $ from 'jquery'
@@ -11,6 +10,7 @@ import { getStreet } from '../streets/data_model'
 import { setPromoteStreet } from '../streets/remix'
 import { fetchStreetFromServer } from '../streets/xhr'
 import { receiveAvatar, fetchAvatars } from './avatars'
+import { checkIfSignInAndGeolocationLoaded } from './localization'
 import {
   loadSettings,
   saveSettingsLocally,
@@ -292,6 +292,6 @@ function _signInLoaded () {
 
   signInLoaded = true
   document.querySelector('#loading-progress').value++
-  _checkIfSignInAndGeolocationLoaded()
+  checkIfSignInAndGeolocationLoaded()
   _checkIfEverythingIsLoaded()
 }

@@ -19,6 +19,7 @@ import './app/status_message'
 import './app/welcome'
 
 // Menus
+import './menus/menu'
 import './menus/_feedback'
 import './menus/_help'
 import './menus/_identity'

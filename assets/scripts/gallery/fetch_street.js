@@ -1,4 +1,4 @@
-/* global API_URL, _propagateUnits, CustomEvent */
+/* global API_URL, CustomEvent */
 
 import { showBlockingShield, hideBlockingShield } from '../app/blocking_shield'
 import { hideError } from '../app/errors'
@@ -15,6 +15,7 @@ import { setIgnoreStreetChanges } from '../streets/undo_stack'
 import { unpackServerStreetData } from '../streets/xhr'
 import { resizeStreetWidth, recalculateOccupiedWidth } from '../streets/width'
 import { getAuthHeader } from '../users/authentication'
+import { propagateUnits } from '../users/localization'
 import { galleryState, updateGallerySelection, segmentsChanged } from './view'
 
 export function fetchGalleryStreet (streetId) {
@@ -57,7 +58,7 @@ function receiveGalleryStreet (transmission) {
 
   hideError()
   unpackServerStreetData(transmission, null, null, true)
-  _propagateUnits()
+  propagateUnits()
   recalculateOccupiedWidth()
 
   // TODO this is stupid, only here to fill some structures

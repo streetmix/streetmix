@@ -27,10 +27,6 @@ window._showErrorFromUrl = showErrorFromUrl
 import { showGallery } from './gallery/view'
 window._showGallery = showGallery
 
-// Menus
-import { hideAllMenus } from './menus/menu'
-window.hideAllMenus = hideAllMenus
-
 import { shareMenu } from './menus/_share'
 window.shareMenu = shareMenu
 
@@ -52,16 +48,21 @@ window.getSignInData = getSignInData
 window.isSignedIn = isSignedIn
 window.isSignInLoaded = isSignInLoaded
 
-import { fetchAvatars, receiveAvatar } from './users/avatars'
-window._fetchAvatars = fetchAvatars
-window._receiveAvatar = receiveAvatar
+import {
+  getGeolocationLoaded,
+  setGeolocationLoaded,
+  detectGeolocation,
+  updateSettingsFromCountryCode
+} from './users/localization'
+window.getGeolocationLoaded = getGeolocationLoaded
+window.setGeolocationLoaded = setGeolocationLoaded
+window._detectGeolocation = detectGeolocation
+window._updateSettingsFromCountryCode = updateSettingsFromCountryCode
 
-import { saveSettingsLocally, onStorageChange } from './users/settings'
-window._saveSettingsLocally = saveSettingsLocally
+import { onStorageChange } from './users/settings'
 window._onStorageChange = onStorageChange
 
 import {
-  NEW_STREET_DEFAULT,
   onNewStreetDefaultClick,
   onNewStreetEmptyClick,
   onNewStreetLastClick
@@ -69,26 +70,13 @@ import {
 window._onNewStreetDefaultClick = onNewStreetDefaultClick
 window._onNewStreetEmptyClick = onNewStreetEmptyClick
 window._onNewStreetLastClick = onNewStreetLastClick
-window.NEW_STREET_DEFAULT = NEW_STREET_DEFAULT
 
 import { updateStreetName } from './streets/name'
 window._updateStreetName = updateStreetName
 
-import {
-  getPromoteStreet,
-  setPromoteStreet,
-  remixStreet,
-} from './streets/remix'
+import { getPromoteStreet, remixStreet } from './streets/remix'
 window.getPromoteStreet = getPromoteStreet
-window.setPromoteStreet = setPromoteStreet
 window._remixStreet = remixStreet
-
-import {
-  createNewStreetOnServer,
-  fetchStreetFromServer
-} from './streets/xhr'
-window._createNewStreetOnServer = createNewStreetOnServer
-window._fetchStreetFromServer = fetchStreetFromServer
 
 import { infoBubble } from './info_bubble/info_bubble'
 window._infoBubble = infoBubble
@@ -131,18 +119,10 @@ import { prepareSegmentInfo } from './segments/info'
 window._prepareSegmentInfo = prepareSegmentInfo
 
 import {
-  setSegmentWidthResolution,
-  setSegmentWidthClickIncrement,
-  setSegmentWidthDraggingResolution,
   handleSegmentResizeCancel,
-  normalizeAllSegmentWidths,
   incrementSegmentWidth
 } from './segments/resizing'
-window._setSegmentWidthResolution = setSegmentWidthResolution
-window._setSegmentWidthClickIncrement = setSegmentWidthClickIncrement
-window._setSegmentWidthDraggingResolution = setSegmentWidthDraggingResolution
 window._handleSegmentResizeCancel = handleSegmentResizeCancel
-window._normalizeAllSegmentWidths = normalizeAllSegmentWidths
 window._incrementSegmentWidth = incrementSegmentWidth
 
 import { TILE_SIZE, fillEmptySegments, segmentsChanged } from './segments/view'
@@ -153,29 +133,17 @@ window._segmentsChanged = segmentsChanged
 import {
   setLastStreet,
   getStreet,
-  setStreet,
   createDomFromData,
-  saveStreetToServerIfNecessary,
   trimStreetData,
   getStreetUrl
 } from './streets/data_model'
 window._setLastStreet = setLastStreet
 window._getStreet = getStreet
-window._setStreet = setStreet
 window._createDomFromData = createDomFromData
-window._saveStreetToServerIfNecessary = saveStreetToServerIfNecessary
 window._trimStreetData = trimStreetData
 window._getStreetUrl = getStreetUrl
 
-import {
-  getUndoStack,
-  getUndoPosition,
-  setIgnoreStreetChanges,
-  undo,
-  redo,
-} from './streets/undo_stack'
-window.getUndoStack = getUndoStack
-window.getUndoPosition = getUndoPosition
+import { setIgnoreStreetChanges, undo, redo } from './streets/undo_stack'
 window.setIgnoreStreetChanges = setIgnoreStreetChanges
 window._undo = undo
 window._redo = redo
@@ -184,11 +152,9 @@ import {
   onStreetWidthChange,
   buildStreetWidthMenu,
   onStreetWidthClick,
-  resizeStreetWidth,
-  normalizeStreetWidth
+  resizeStreetWidth
 } from './streets/width'
 window._onStreetWidthChange = onStreetWidthChange
 window._buildStreetWidthMenu = buildStreetWidthMenu
 window._onStreetWidthClick = onStreetWidthClick
 window._resizeStreetWidth = resizeStreetWidth
-window._normalizeStreetWidth = normalizeStreetWidth

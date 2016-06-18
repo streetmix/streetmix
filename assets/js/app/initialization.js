@@ -62,7 +62,7 @@ Stmx.init = function () {
   if ((mode == MODES.NEW_STREET) || (mode == MODES.NEW_STREET_COPY_LAST)) {
     _detectGeolocation()
   } else {
-    geolocationLoaded = true
+    setGeolocationLoaded(true)
   }
 
   // …sign in info from our API (if not previously cached) – and subsequent
@@ -79,7 +79,7 @@ function _checkIfEverythingIsLoaded () {
   }
 
   if ((imagesToBeLoaded == 0) && isSignInLoaded() && bodyLoaded &&
-    readyStateCompleteLoaded && geolocationLoaded && serverContacted) {
+    readyStateCompleteLoaded && getGeolocationLoaded() && serverContacted) {
     _onEverythingLoaded()
   }
 }
