@@ -12,7 +12,7 @@ import { segmentsChanged, switchSegmentElAway } from './view'
  * @param {Node} the segment element to remove
  */
 export function removeSegment (el) {
-  if (!el && !el.parentNode) {
+  if (!el || !el.parentNode) {
     return
   }
 
