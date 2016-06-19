@@ -1,7 +1,6 @@
 /* global system, abortEverything */
 
 import { galleryState } from '../gallery/view'
-import { hideAllMenus } from '../menus/menu'
 import { fetchStreetForVerification } from '../streets/xhr'
 import { saveSettingsLocally } from '../users/settings'
 
@@ -10,7 +9,6 @@ window.addEventListener('stmx:everything_loaded', function () {
     document.addEventListener(system.visibilityChange, onVisibilityChange, false)
   } else {
     window.addEventListener('focus', onWindowFocus)
-    window.addEventListener('blur', onWindowBlur)
   }
 })
 
@@ -44,18 +42,8 @@ export function onWindowFocus () {
   saveSettingsLocally()
 }
 
-function onWindowBlur () {
-  if (abortEverything) {
-    return
-  }
-
-  hideAllMenus()
-}
-
 function onVisibilityChange () {
-  if (document[system.visibilityState] === 'hidden') {
-    onWindowBlur()
-  } else {
+  if (document[system.visibilityState] !== 'hidden') {
     onWindowFocus()
   }
 }

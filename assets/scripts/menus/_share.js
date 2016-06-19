@@ -1,9 +1,6 @@
 /* global FACEBOOK_APP_ID */
-/* global getSignInData, isSignedIn */
-// these imports need to be restored after fixing registering key in module
-// of scope menu/menu.js
-// import { getSignInData, isSignedIn } from '../users/authentication'
 
+import { getSignInData, isSignedIn } from '../users/authentication'
 import { trackEvent } from '../app/event_tracking'
 import { getPageTitle } from '../app/page_title'
 import { getStreet } from '../streets/data_model'

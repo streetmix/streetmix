@@ -7,7 +7,6 @@
 import _ from 'lodash'
 
 import { infoBubble } from '../info_bubble/info_bubble'
-import { loseAnyFocus } from '../app/focus'
 import { hideStatusMessage } from '../app/status_message'
 import { registerKeypress } from '../app/keypress'
 import { getElAbsolutePos } from '../util/helpers'
@@ -76,7 +75,7 @@ export default class Menu {
   }
 
   hide () {
-    loseAnyFocus()
+    document.body.focus()
     this.el.classList.remove('visible')
   }
 }
@@ -92,18 +91,29 @@ export function isAnyMenuVisible () {
 
 export function hideAllMenus () {
   var els = document.querySelectorAll('.menu.visible')
-  // Do not force body focus if there is nothing to hide
-  if (els.length > 0) {
-    loseAnyFocus()
-  }
+
   for (var i = 0, j = els.length; i < j; i++) {
     els[i].classList.remove('visible')
   }
+
+  // If there are menus to hide, they might have focus. When they are hidden,
+  // force document.body to become the active element. Do not re-focus on
+  // document.body if there were no menus to hide.
+  if (els.length > 0) {
+    document.body.focus()
+  }
 }
 
+window.addEventListener('blur', hideAllMenus)
+
 // Set up keypress listener to hide menus if visible
-registerKeypress('esc', function () {
-  if (isAnyMenuVisible()) {
-    hideAllMenus()
-  }
+// Wrapped in this event right now because this module is required too early
+// by other modules, when the `keypress` module is not fully loaded.
+window.addEventListener('stmx:everything_loaded', function () {
+  registerKeypress('esc', function () {
+    if (isAnyMenuVisible()) {
+      hideAllMenus()
+    }
+  })
 })
+

@@ -1,7 +1,4 @@
-/* global getSignInData, isSignedIn */
-// these imports need to be restored after fixing registering key in module
-// of scope menu/menu.js
-// import { getSignInData, isSignedIn } from '../users/authentication'
+import { getSignInData, isSignedIn } from '../users/authentication'
 import { getStreet } from '../streets/data_model'
 
 /**
