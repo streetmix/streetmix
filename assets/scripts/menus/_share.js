@@ -1,6 +1,6 @@
-/* global signedIn, signInData */
 /* global FACEBOOK_APP_ID */
 
+import { getSignInData, isSignedIn } from '../users/authentication'
 import { trackEvent } from '../app/event_tracking'
 import { getPageTitle } from '../app/page_title'
 import { getStreet } from '../streets/data_model'
@@ -38,7 +38,7 @@ function _getSharingMessage () {
   let street = getStreet()
 
   if (street.creatorId) {
-    if (signedIn && street.creatorId === signInData.userId) {
+    if (isSignedIn() && street.creatorId === getSignInData().userId) {
       message = `Check out my street, ${street.name}, on Streetmix!`
     } else {
       message = `Check out ${street.name} by @${street.creatorId} on Streetmix!`
@@ -83,7 +83,7 @@ function _updateShareMenu () {
   _updateTwitterLink(url)
   _updateFacebookLink(url)
 
-  if (!signedIn) {
+  if (!isSignedIn()) {
     document.querySelector('#sign-in-promo').classList.add('visible')
   }
 }

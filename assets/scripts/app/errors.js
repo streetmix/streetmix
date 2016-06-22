@@ -1,12 +1,19 @@
-/* global abortEverything, _goReloadClearSignIn,
+/* global abortEverything,
    URL_ERROR_TWITTER_ACCESS_DENIED, URL_ERROR_NO_TWITTER_REQUEST_TOKEN,
    URL_ERROR_NO_TWITTER_ACCESS_TOKEN, URL_ERROR_AUTHENTICATION_API_PROBLEM */
 
 import { getStreet } from '../streets/data_model'
+import { goReloadClearSignIn } from '../users/authentication'
 import { fetchAvatars } from '../users/avatars'
 import { removeElFromDOM } from '../util/dom_helpers'
-import { goReload, goHome, goNewStreet, goExampleStreet, goSignIn } from './routing'
 import { hideLoadingScreen } from './load_resources'
+import {
+  goReload,
+  goHome,
+  goNewStreet,
+  goExampleStreet,
+  goSignIn
+} from './routing'
 
 export const ERRORS = {
   NOT_FOUND: 1,
@@ -164,7 +171,7 @@ export function showError (errorType, newAbortEverything) {
 
   el = document.getElementById('error-clear-sign-in-reload')
   if (el) {
-    el.addEventListener('pointerdown', _goReloadClearSignIn)
+    el.addEventListener('pointerdown', goReloadClearSignIn)
   }
 
   el = document.getElementById('error-new')

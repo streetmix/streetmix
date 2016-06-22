@@ -1,6 +1,8 @@
-/* global SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC */
-
 import { getStreet } from '../streets/data_model'
+import {
+  SETTINGS_UNITS_IMPERIAL,
+  SETTINGS_UNITS_METRIC
+} from '../users/localization'
 
 const IMPERIAL_METRIC_MULTIPLIER = 30 / 100
 const METRIC_PRECISION = 3

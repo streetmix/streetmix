@@ -1,5 +1,7 @@
-/* global system, KEYS, API_URL, _newNonblockingAjaxRequest */
+/* global system, KEYS, API_URL */
+
 import Menu from './menu'
+import { newNonblockingAjaxRequest } from '../util/fetch_nonblocking'
 import { getSharingUrl } from '../util/share_url'
 
 const LOCAL_STORAGE_FEEDBACK_BACKUP = 'feedback-backup'
@@ -54,7 +56,7 @@ function _feedbackFormSend () {
       additionalInformation: additionalInformation
     }
 
-    _newNonblockingAjaxRequest({
+    newNonblockingAjaxRequest({
       // TODO const
       url: API_URL + 'v1/feedback',
       data: JSON.stringify(transmission),

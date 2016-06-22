@@ -1,8 +1,12 @@
-/* global app, signedIn, signInData, API_URL, _getAuthHeader,
-   URL_SIGN_IN_REDIRECT */
+/* global app, API_URL, URL_SIGN_IN_REDIRECT */
 
 import { msg } from '../app/messages'
 import { showStatusMessage } from '../app/status_message'
+import {
+  getAuthHeader,
+  getSignInData,
+  isSignedIn
+} from '../users/authentication'
 import { newBlockingAjaxRequest } from '../util/fetch_blocking'
 import { setStreetCreatorId, getStreet } from './data_model'
 import { updateStreetName } from './name'
@@ -40,8 +44,8 @@ export function remixStreet () {
 
   remixOnFirstEdit = false
 
-  if (signedIn) {
-    setStreetCreatorId(signInData.userId)
+  if (isSignedIn()) {
+    setStreetCreatorId(getSignInData().userId)
   } else {
     setStreetCreatorId(null)
   }
@@ -75,14 +79,14 @@ export function remixStreet () {
       data: transmission,
       dataType: 'json',
       contentType: 'application/json',
-      headers: { 'Authorization': _getAuthHeader() }
+      headers: { 'Authorization': getAuthHeader() }
     }, receiveRemixedStreet
   )
 }
 
 function receiveRemixedStreet (data) {
   if (!promoteStreet) {
-    if (signedIn) {
+    if (isSignedIn()) {
       showStatusMessage(msg('STATUS_NOW_REMIXING'))
     } else {
       showStatusMessage(msg('STATUS_NOW_REMIXING_SIGN_IN', { signInUrl: URL_SIGN_IN_REDIRECT }))

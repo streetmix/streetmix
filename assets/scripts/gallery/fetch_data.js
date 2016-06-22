@@ -1,13 +1,15 @@
 /* global MODES, mode, _processMode */
-/* global API_URL, _getAuthHeader */
+/* global API_URL */
 /* global galleryUserId */
+
+import { getAuthHeader } from '../users/authentication'
 import { receiveGalleryData, hideGallery } from './view'
 
 export function fetchGalleryData () {
   if (galleryUserId) {
     const url = API_URL + 'v1/users/' + galleryUserId + '/streets'
     const options = {
-      headers: { 'Authorization': _getAuthHeader() }
+      headers: { 'Authorization': getAuthHeader() }
     }
 
     window.fetch(url, options)

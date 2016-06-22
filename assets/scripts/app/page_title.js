@@ -1,5 +1,4 @@
-/* global signedIn, signInData */
-
+import { getSignInData, isSignedIn } from '../users/authentication'
 import { getStreet } from '../streets/data_model'
 
 /**
@@ -11,7 +10,7 @@ export function updatePageTitle () {
   let title = ''
   let street = getStreet()
 
-  if (street.creatorId && (!signedIn || (signInData.userId !== street.creatorId))) {
+  if (street.creatorId && (!isSignedIn() || (getSignInData().userId !== street.creatorId))) {
     title = getPageTitleWithAuthor()
   } else {
     title = getPageTitle()

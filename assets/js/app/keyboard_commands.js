@@ -24,8 +24,8 @@ function _onGlobalKeyDown (event) {
         _handleSegmentMoveCancel()
       } else if (document.body.classList.contains('gallery-visible')) {
         _hideGallery(false)
-      } else if (signedIn) {
-        _showGallery(signInData.userId, false)
+      } else if (isSignedIn()) {
+        _showGallery(getSignInData().userId, false)
       } else {
         return
       }

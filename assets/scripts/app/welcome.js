@@ -1,7 +1,10 @@
-/* global app, system, mode, signedIn, settings, MODES */
+/* global app, system, mode, MODES */
+
 import { registerKeypress, deregisterKeypress } from './keypress'
 import { goNewStreet } from './routing'
+import { isSignedIn } from '../users/authentication'
 import { fetchAvatars } from '../users/avatars'
+import { getSettings } from '../users/settings'
 import { StreetName } from '../streets/name_sign'
 import { NEW_STREET_DEFAULT, NEW_STREET_EMPTY } from '../streets/creation'
 import { getStreet } from '../streets/data_model'
@@ -22,7 +25,7 @@ function showWelcome (welcomeType = WELCOME_NONE) {
   loadSettingsWelcomeDismissed()
 
   if (mode === MODES.NEW_STREET) {
-    if (signedIn || settingsWelcomeDismissed) {
+    if (isSignedIn() || settingsWelcomeDismissed) {
       welcomeType = WELCOME_NEW_STREET
     } else {
       welcomeType = WELCOME_FIRST_TIME_NEW_STREET
@@ -64,7 +67,7 @@ function showWelcome (welcomeType = WELCOME_NONE) {
       break
     case WELCOME_NEW_STREET:
       welcomeEl.classList.add('new-street')
-
+      let settings = getSettings()
       switch (settings.newStreetPreference) {
         case NEW_STREET_EMPTY:
           document.querySelector('#new-street-empty').checked = true
