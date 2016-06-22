@@ -23,6 +23,27 @@ window.ERRORS = ERRORS
 window._showError = showError
 window._showErrorFromUrl = showErrorFromUrl
 
+import {
+  URL_JUST_SIGNED_IN,
+  URL_NEW_STREET,
+  URL_NEW_STREET_COPY_LAST,
+  URL_GLOBAL_GALLERY,
+  URL_ERROR,
+  URL_NO_USER,
+  URL_HELP,
+  URL_ABOUT,
+  URL_RESERVED_PREFIX
+} from './app/routing'
+window.URL_JUST_SIGNED_IN = URL_JUST_SIGNED_IN
+window.URL_NEW_STREET = URL_NEW_STREET
+window.URL_NEW_STREET_COPY_LAST = URL_NEW_STREET_COPY_LAST
+window.URL_GLOBAL_GALLERY = URL_GLOBAL_GALLERY
+window.URL_ERROR = URL_ERROR
+window.URL_NO_USER = URL_NO_USER
+window.URL_HELP = URL_HELP
+window.URL_ABOUT = URL_ABOUT
+window.URL_RESERVED_PREFIX = URL_RESERVED_PREFIX
+
 // Gallery
 import { showGallery } from './gallery/view'
 window._showGallery = showGallery

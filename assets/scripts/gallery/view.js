@@ -1,19 +1,13 @@
 /* global app, system, galleryUserId, mode, abortEverything */
-/* global MODES, ERRORS, URL_NEW_STREET, URL_NEW_STREET_COPY_LAST */
-/* global _updatePageUrl */
+/* global MODES, ERRORS, _updatePageUrl */
 
 import { trackEvent } from '../app/event_tracking'
 import { showError } from '../app/errors'
 import { msg } from '../app/messages'
 import { onWindowFocus } from '../app/focus'
-import { hideControls } from '../segments/resizing'
-import { formatDate } from '../util/date_format'
-import { removeElFromDOM } from '../util/dom_helpers'
-import { fetchGalleryData } from './fetch_data'
-import { fetchGalleryStreet } from './fetch_street'
-import { drawStreetThumbnail } from './thumbnail'
-import { updateScrollButtons } from './scroll'
 import { hideStatusMessage } from '../app/status_message'
+import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/routing'
+import { hideControls } from '../segments/resizing'
 import {
   DEFAULT_NAME,
   getStreet,
@@ -22,8 +16,14 @@ import {
 } from '../streets/data_model'
 import { StreetName } from '../streets/name_sign'
 import { sendDeleteStreetToServer } from '../streets/xhr'
-import { fetchAvatars } from '../users/avatars'
 import { getSignInData, isSignedIn } from '../users/authentication'
+import { fetchAvatars } from '../users/avatars'
+import { formatDate } from '../util/date_format'
+import { removeElFromDOM } from '../util/dom_helpers'
+import { fetchGalleryData } from './fetch_data'
+import { fetchGalleryStreet } from './fetch_street'
+import { updateScrollButtons } from './scroll'
+import { drawStreetThumbnail } from './thumbnail'
 
 const THUMBNAIL_WIDTH = 180
 const THUMBNAIL_HEIGHT = 110

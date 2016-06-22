@@ -1,6 +1,4 @@
-/* global abortEverything,
-   URL_ERROR_TWITTER_ACCESS_DENIED, URL_ERROR_NO_TWITTER_REQUEST_TOKEN,
-   URL_ERROR_NO_TWITTER_ACCESS_TOKEN, URL_ERROR_AUTHENTICATION_API_PROBLEM */
+/* global abortEverything */
 
 import { getStreet } from '../streets/data_model'
 import { goReloadClearSignIn } from '../users/authentication'
@@ -12,7 +10,11 @@ import {
   goHome,
   goNewStreet,
   goExampleStreet,
-  goSignIn
+  goSignIn,
+  URL_ERROR_TWITTER_ACCESS_DENIED,
+  URL_ERROR_NO_TWITTER_REQUEST_TOKEN,
+  URL_ERROR_NO_TWITTER_ACCESS_TOKEN,
+  URL_ERROR_AUTHENTICATION_API_PROBLEM
 } from './routing'
 
 export const ERRORS = {

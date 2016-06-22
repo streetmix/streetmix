@@ -1,4 +1,4 @@
-/* global location, API_URL, MODES, mode, _processMode, URL_SIGN_IN_REDIRECT,
+/* global location, API_URL, MODES, mode, _processMode,
    _checkIfEverythingIsLoaded */
 
 import $ from 'jquery'
@@ -6,6 +6,7 @@ import Cookies from 'js-cookie'
 
 import { showError, ERRORS } from '../app/errors'
 import { trackEvent } from '../app/event_tracking'
+import { URL_SIGN_IN_REDIRECT } from '../app/routing'
 import { getStreet } from '../streets/data_model'
 import { setPromoteStreet } from '../streets/remix'
 import { fetchStreetFromServer } from '../streets/xhr'

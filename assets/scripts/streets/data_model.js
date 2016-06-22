@@ -1,7 +1,7 @@
-/* global URL_NO_USER, URL_RESERVED_PREFIX, RESERVED_URLS, CustomEvent,
-   abortEverything */
+/* global CustomEvent, abortEverything */
 
 import { msg } from '../app/messages'
+import { URL_NO_USER, RESERVED_URLS, URL_RESERVED_PREFIX } from '../app/routing'
 import { shareMenu } from '../menus/_share'
 import {
   DEFAULT_BUILDING_HEIGHT_LEFT,
