@@ -1,8 +1,9 @@
-/* global prompt, _onResize, system */
+/* global prompt, system */
 /* global initializing */ // eslint-disable-line no-unused-vars
 
 import { loseAnyFocus } from '../app/focus'
 import { msg } from '../app/messages'
+import { onResize } from '../app/window_resize'
 import { BUILDING_SPACE, createBuildings } from '../segments/buildings'
 import { SEGMENT_INFO } from '../segments/info'
 import { getSegmentWidthResolution } from '../segments/resizing'
@@ -195,7 +196,7 @@ export function resizeStreetWidth (dontScroll) {
     onStreetSectionScroll()
   }
 
-  _onResize()
+  onResize()
 }
 
 export function normalizeStreetWidth (width) {

@@ -44,6 +44,9 @@ window.URL_HELP = URL_HELP
 window.URL_ABOUT = URL_ABOUT
 window.URL_RESERVED_PREFIX = URL_RESERVED_PREFIX
 
+import { onResize } from './app/window_resize'
+window._onResize = onResize
+
 // Gallery
 import { showGallery } from './gallery/view'
 window._showGallery = showGallery

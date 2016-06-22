@@ -3,13 +3,13 @@
  *
  * Additional descriptive text about segments.
  */
-/* global streetSectionTop */
 
-import { infoBubble } from './info_bubble'
-import { removeElFromDOM } from '../util/dom_helpers'
 import { trackEvent } from '../app/event_tracking'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
+import { getStreetSectionTop } from '../app/window_resize'
 import { SEGMENT_INFO } from '../segments/info'
+import { removeElFromDOM } from '../util/dom_helpers'
+import { infoBubble } from './info_bubble'
 
 const DESCRIPTION_PROMPT_LABEL = 'Learn more'
 
@@ -40,7 +40,7 @@ export function showDescription () {
 
   const el = infoBubble.el.querySelector('.description-canvas')
   // TODO document magic numbers
-  el.style.height = (streetSectionTop + 300 - infoBubble.bubbleY) + 'px'
+  el.style.height = (getStreetSectionTop() + 300 - infoBubble.bubbleY) + 'px'
 
   infoBubble.el.classList.add('show-description')
   if (infoBubble.segmentEl) {

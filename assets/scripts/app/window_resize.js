@@ -1,7 +1,27 @@
-var streetSectionCanvasLeft
-var streetSectionTop
+/* global system, app */
 
-function _onResize () {
+import { infoBubble } from '../info_bubble/info_bubble'
+import {
+  BUILDING_SPACE,
+  updateBuildingPosition,
+  createBuildings
+} from '../segments/buildings'
+import { TILE_SIZE } from '../segments/view'
+import { getStreet } from '../streets/data_model'
+
+let streetSectionCanvasLeft
+
+export function getStreetSectionCanvasLeft () {
+  return streetSectionCanvasLeft
+}
+
+let streetSectionTop
+
+export function getStreetSectionTop () {
+  return streetSectionTop
+}
+
+export function onResize () {
   system.viewportWidth = window.innerWidth
   system.viewportHeight = window.innerHeight
 
@@ -32,7 +52,7 @@ function _onResize () {
   document.querySelector('#street-section-inner').style.top = streetSectionTop + 'px'
 
   document.querySelector('#street-section-sky').style.top =
-    (streetSectionTop * .8) + 'px'
+    (streetSectionTop * 0.8) + 'px'
 
   document.querySelector('#street-scroll-indicator-left').style.top =
     (streetSectionTop + streetSectionHeight) + 'px'
@@ -50,7 +70,7 @@ function _onResize () {
   }
   document.querySelector('#street-section-sky').style.paddingTop = skyTop + 'px'
   document.querySelector('#street-section-sky').style.marginTop = -skyTop + 'px'
-  var street = _getStreet()
+  var street = getStreet()
   streetSectionCanvasLeft =
     ((system.viewportWidth - street.width * TILE_SIZE) / 2) - BUILDING_SPACE
   if (streetSectionCanvasLeft < 0) {
@@ -62,9 +82,9 @@ function _onResize () {
   document.querySelector('#street-section-editable').style.width =
     (street.width * TILE_SIZE) + 'px'
 
-  _infoBubble.show(true)
+  infoBubble.show(true)
 
-  _updateBuildingPosition()
+  updateBuildingPosition()
   // TODO hack
-  _createBuildings()
+  createBuildings()
 }

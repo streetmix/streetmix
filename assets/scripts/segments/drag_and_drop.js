@@ -1,7 +1,11 @@
-/* global system, streetSectionCanvasLeft, streetSectionTop, streetSectionTop */
+/* global system */
 
 import { trackEvent } from '../app/event_tracking'
 import { loseAnyFocus } from '../app/focus'
+import {
+  getStreetSectionCanvasLeft,
+  getStreetSectionTop
+} from '../app/window_resize'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { hideAllMenus } from '../menus/menu'
 import { app } from '../preinit/app_settings'
@@ -512,7 +516,7 @@ export function onBodyMouseDown (event) {
 function makeSpaceBetweenSegments (x, y) {
   let farLeft, farRight
   let street = getStreet()
-  var left = x - streetSectionCanvasLeft
+  var left = x - getStreetSectionCanvasLeft()
 
   var selectedSegmentBefore = null
   var selectedSegmentAfter = null
@@ -534,7 +538,7 @@ function makeSpaceBetweenSegments (x, y) {
 
   // TODO const
   if ((left < farLeft - space) || (left > farRight + space) ||
-    (y < streetSectionTop - 100) || (y > streetSectionTop + 300)) {
+    (y < getStreetSectionTop() - 100) || (y > getStreetSectionTop() + 300)) {
     updateWithinCanvas(false)
   } else {
     updateWithinCanvas(true)
