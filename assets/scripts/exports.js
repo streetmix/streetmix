@@ -23,6 +23,9 @@ window.ERRORS = ERRORS
 window._showError = showError
 window._showErrorFromUrl = showErrorFromUrl
 
+import { addEventListeners } from './app/event_listeners'
+window._addEventListeners = addEventListeners
+
 import { onGlobalKeyDown } from './app/keyboard_commands'
 window._onGlobalKeyDown = onGlobalKeyDown
 
