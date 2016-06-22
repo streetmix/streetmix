@@ -28,7 +28,7 @@ Stmx.init = function () {
     if ((navigator.userAgent.indexOf('Opera') != -1) ||
       (navigator.userAgent.indexOf('Internet Explorer') != -1) ||
       (navigator.userAgent.indexOf('MSIE') != -1)) {
-      mode = MODES.UNSUPPORTED_BROWSER
+      setMode(MODES.UNSUPPORTED_BROWSER)
       _processMode()
       return
     }
@@ -59,6 +59,7 @@ Stmx.init = function () {
   // Asynchronously loading…
 
   // …detecting country from IP for units and left/right-hand driving
+  var mode = getMode()
   if ((mode == MODES.NEW_STREET) || (mode == MODES.NEW_STREET_COPY_LAST)) {
     _detectGeolocation()
   } else {
@@ -85,7 +86,7 @@ function _checkIfEverythingIsLoaded () {
 }
 
 function _onEverythingLoaded () {
-  switch (mode) {
+  switch (getMode()) {
     case MODES.NEW_STREET_COPY_LAST:
       _onNewStreetLastClick()
       break
@@ -108,6 +109,7 @@ function _onEverythingLoaded () {
   var event = new CustomEvent('stmx:everything_loaded')
   window.dispatchEvent(event)
 
+  var mode = getMode()
   if (mode == MODES.USER_GALLERY) {
     _showGallery(galleryUserId, true)
   } else if (mode == MODES.GLOBAL_GALLERY) {

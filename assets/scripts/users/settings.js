@@ -1,8 +1,8 @@
-/* global mode, MODES, _processMode, API_URL,
-   _checkIfEverythingIsLoaded, abortEverything */
+/* global API_URL, _checkIfEverythingIsLoaded, abortEverything */
 /* global serverContacted */ // eslint-disable-line no-unused-vars
 
 import { trackEvent } from '../app/event_tracking'
+import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { NEW_STREET_DEFAULT } from '../streets/creation'
 import { setSaveStreetIncomplete } from '../streets/xhr'
 import { newNonblockingAjaxRequest } from '../util/fetch_nonblocking'
@@ -102,7 +102,7 @@ export function loadSettings () {
   }
   mergeAndFillDefaultSettings(localSettings)
 
-  if (mode === MODES.JUST_SIGNED_IN) {
+  if (getMode() === MODES.JUST_SIGNED_IN) {
     settings.lastStreetId = localSettings.lastStreetId
     settings.lastStreetNamespacedId = localSettings.lastStreetNamespacedId
     settings.lastStreetCreatorId = localSettings.lastStreetCreatorId
@@ -164,8 +164,8 @@ function errorSavingSettingsToServer (data) {
   if (!abortEverything && (data.status === 401)) {
     trackEvent('ERROR', 'ERROR_RM2', null, null, false)
 
-    mode = MODES.FORCE_RELOAD_SIGN_OUT_401 // eslint-disable-line no-native-reassign
-    _processMode()
+    setMode(MODES.FORCE_RELOAD_SIGN_OUT_401)
+    processMode()
   }
 }
 
@@ -186,10 +186,10 @@ function clearScheduledSavingSettingsToServer () {
 
 export function onStorageChange () {
   if (isSignedIn() && !window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
-    mode = MODES.FORCE_RELOAD_SIGN_OUT // eslint-disable-line no-native-reassign
-    _processMode()
+    setMode(MODES.FORCE_RELOAD_SIGN_OUT)
+    processMode()
   } else if (!isSignedIn() && window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
-    mode = MODES.FORCE_RELOAD_SIGN_IN // eslint-disable-line no-native-reassign
-    _processMode()
+    setMode(MODES.FORCE_RELOAD_SIGN_IN)
+    processMode()
   }
 }

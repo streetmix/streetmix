@@ -1,13 +1,14 @@
-/* global app, system, mode, MODES */
+/* global app, system */
 
-import { registerKeypress, deregisterKeypress } from './keypress'
-import { goNewStreet } from './routing'
+import { NEW_STREET_DEFAULT, NEW_STREET_EMPTY } from '../streets/creation'
+import { getStreet } from '../streets/data_model'
+import { StreetName } from '../streets/name_sign'
 import { isSignedIn } from '../users/authentication'
 import { fetchAvatars } from '../users/avatars'
 import { getSettings } from '../users/settings'
-import { StreetName } from '../streets/name_sign'
-import { NEW_STREET_DEFAULT, NEW_STREET_EMPTY } from '../streets/creation'
-import { getStreet } from '../streets/data_model'
+import { registerKeypress, deregisterKeypress } from './keypress'
+import { MODES, getMode } from './mode'
+import { goNewStreet } from './routing'
 
 const WELCOME_NONE = 0
 const WELCOME_NEW_STREET = 1
@@ -24,7 +25,7 @@ let isVisible = false
 function showWelcome (welcomeType = WELCOME_NONE) {
   loadSettingsWelcomeDismissed()
 
-  if (mode === MODES.NEW_STREET) {
+  if (getMode() === MODES.NEW_STREET) {
     if (isSignedIn() || settingsWelcomeDismissed) {
       welcomeType = WELCOME_NEW_STREET
     } else {

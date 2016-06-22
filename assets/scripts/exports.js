@@ -23,6 +23,12 @@ window.ERRORS = ERRORS
 window._showError = showError
 window._showErrorFromUrl = showErrorFromUrl
 
+import { MODES, processMode, getMode, setMode } from './app/mode'
+window.MODES = MODES
+window._processMode = processMode
+window.getMode = getMode
+window.setMode = setMode
+
 import {
   URL_JUST_SIGNED_IN,
   URL_NEW_STREET,

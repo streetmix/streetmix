@@ -1,7 +1,6 @@
-/* global MODES, mode, _processMode */
-/* global API_URL */
-/* global galleryUserId */
+/* global API_URL, galleryUserId */
 
+import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { getAuthHeader } from '../users/authentication'
 import { receiveGalleryData, hideGallery } from './view'
 
@@ -37,9 +36,9 @@ export function fetchGalleryData () {
 }
 
 function errorReceiveGalleryData (data) {
-  if ((mode === MODES.USER_GALLERY) && (data.status === 404)) {
-    mode = MODES.NOT_FOUND // eslint-disable-line no-native-reassign
-    _processMode()
+  if ((getMode() === MODES.USER_GALLERY) && (data.status === 404)) {
+    setMode(MODES.NOT_FOUND)
+    processMode()
     hideGallery(true)
   } else {
     document.querySelector('#gallery .loading').classList.remove('visible')

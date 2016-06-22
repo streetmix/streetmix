@@ -1,9 +1,10 @@
-/* global mode, MODES, app, _checkIfEverythingIsLoaded, debug, system */
+/* global app, _checkIfEverythingIsLoaded, debug, system */
 
 import _ from 'lodash'
 
 import { ERRORS, showError } from '../app/errors'
 import { trackEvent } from '../app/event_tracking'
+import { MODES, getMode } from '../app/mode'
 import { hideAllMenus } from '../menus/menu'
 import {
   normalizeAllSegmentWidths,
@@ -82,7 +83,7 @@ const COUNTRIES_LEFT_HAND_TRAFFIC =
 
 export function checkIfSignInAndGeolocationLoaded () {
   if (geolocationLoaded && isSignInLoaded()) {
-    switch (mode) {
+    switch (getMode()) {
       case MODES.NEW_STREET:
       case MODES.NEW_STREET_COPY_LAST:
         if (app.readOnly) {

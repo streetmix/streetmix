@@ -1,9 +1,9 @@
-/* global app, system, galleryUserId, mode, abortEverything */
-/* global MODES, ERRORS, _updatePageUrl */
+/* global app, system, galleryUserId, abortEverything, ERRORS, _updatePageUrl */
 
 import { trackEvent } from '../app/event_tracking'
 import { showError } from '../app/errors'
 import { msg } from '../app/messages'
+import { MODES, getMode, setMode } from '../app/mode'
 import { onWindowFocus } from '../app/focus'
 import { hideStatusMessage } from '../app/status_message'
 import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/routing'
@@ -116,7 +116,7 @@ export function showGallery (userId, instant, signInPromo) {
     }, 0)
   }
 
-  if ((mode === MODES.USER_GALLERY) || (mode === MODES.GLOBAL_GALLERY)) {
+  if ((getMode() === MODES.USER_GALLERY) || (getMode() === MODES.GLOBAL_GALLERY)) {
     // Prevents showing old street before the proper street loads
     showError(ERRORS.NO_STREET, false)
   }
@@ -155,7 +155,7 @@ export function hideGallery (instant) {
       _updatePageUrl()
     }
 
-    mode = MODES.CONTINUE // eslint-disable-line no-native-reassign
+    setMode(MODES.CONTINUE)
   }
 }
 
@@ -238,7 +238,7 @@ export function receiveGalleryData (transmission) {
 
   var streetCount = document.querySelectorAll('#gallery .streets li').length
 
-  if (((mode === MODES.USER_GALLERY) && streetCount) || (mode === MODES.GLOBAL_GALLERY)) {
+  if (((getMode() === MODES.USER_GALLERY) && streetCount) || (getMode() === MODES.GLOBAL_GALLERY)) {
     switchGalleryStreet(transmission.streets[0].id)
   }
 

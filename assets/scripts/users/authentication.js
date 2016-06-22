@@ -1,11 +1,11 @@
-/* global location, API_URL, MODES, mode, _processMode,
-   _checkIfEverythingIsLoaded */
+/* global location, API_URL, _checkIfEverythingIsLoaded */
 
 import $ from 'jquery'
 import Cookies from 'js-cookie'
 
 import { showError, ERRORS } from '../app/errors'
 import { trackEvent } from '../app/event_tracking'
+import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { URL_SIGN_IN_REDIRECT } from '../app/routing'
 import { getStreet } from '../streets/data_model'
 import { setPromoteStreet } from '../streets/remix'
@@ -215,13 +215,13 @@ function sendSignOutToServer (quiet) {
 }
 
 function receiveSignOutConfirmationFromServer () {
-  mode = MODES.SIGN_OUT // eslint-disable-line no-native-reassign
-  _processMode()
+  setMode(MODES.SIGN_OUT)
+  processMode()
 }
 
 function errorReceiveSignOutConfirmationFromServer () {
-  mode = MODES.SIGN_OUT // eslint-disable-line no-native-reassign
-  _processMode()
+  setMode(MODES.SIGN_OUT)
+  processMode()
 }
 
 function createSignInUI () {
@@ -256,6 +256,7 @@ function _signInLoaded () {
   createSignInUI()
 
   var street = getStreet()
+  let mode = getMode()
   if ((mode === MODES.CONTINUE) || (mode === MODES.JUST_SIGNED_IN) ||
     (mode === MODES.ABOUT) ||
     (mode === MODES.USER_GALLERY) || (mode === MODES.GLOBAL_GALLERY)) {
@@ -270,13 +271,13 @@ function _signInLoaded () {
       }
 
       if (mode === MODES.JUST_SIGNED_IN) {
-        mode = MODES.CONTINUE // eslint-disable-line no-native-reassign
+        setMode(MODES.CONTINUE)
       }
     } else {
-      mode = MODES.NEW_STREET // eslint-disable-line no-native-reassign
+      setMode(MODES.NEW_STREET)
     }
   }
-
+  mode = getMode()
   switch (mode) {
     case MODES.EXISTING_STREET:
     case MODES.CONTINUE:
