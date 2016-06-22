@@ -63,7 +63,7 @@ export default class Menu {
       this.el.classList.add('align-right')
     } else {
       // Aligns menu to the left side of the menu item.
-      var pos = getElAbsolutePos(document.querySelector(`#${this.name}-menu-item`))
+      const pos = getElAbsolutePos(document.querySelector(`#${this.name}-menu-item`))
       this.el.style.left = pos[0] + 'px'
     }
 
@@ -85,35 +85,35 @@ export default class Menu {
  * Returns a boolean value.
  */
 export function isAnyMenuVisible () {
-  var els = document.querySelectorAll('.menu.visible')
+  const els = document.querySelectorAll('.menu.visible')
   return !(els.length === 0)
 }
 
 export function hideAllMenus () {
-  var els = document.querySelectorAll('.menu.visible')
+  const els = document.querySelectorAll('.menu.visible')
 
-  for (var i = 0, j = els.length; i < j; i++) {
-    els[i].classList.remove('visible')
-  }
-
-  // If there are menus to hide, they might have focus. When they are hidden,
-  // force document.body to become the active element. Do not re-focus on
-  // document.body if there were no menus to hide.
   if (els.length > 0) {
+    for (let i = 0, j = els.length; i < j; i++) {
+      els[i].classList.remove('visible')
+    }
+
+    // Force document.body to become the active element. Do not re-focus on
+    // document.body if there were no menus to hide.
     document.body.focus()
   }
 }
 
-window.addEventListener('blur', hideAllMenus)
+// Hide menus if page loses visibility.
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden === true) {
+    hideAllMenus()
+  }
+}, false)
 
 // Set up keypress listener to hide menus if visible
 // Wrapped in this event right now because this module is required too early
 // by other modules, when the `keypress` module is not fully loaded.
 window.addEventListener('stmx:everything_loaded', function () {
-  registerKeypress('esc', function () {
-    if (isAnyMenuVisible()) {
-      hideAllMenus()
-    }
-  })
+  registerKeypress('esc', hideAllMenus)
 })
 
