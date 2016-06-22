@@ -1,11 +1,40 @@
-var errorUrl = ''
+/* global location, debug */
+
+import { shareMenu } from '../menus/_share'
+import { getStreet, getStreetUrl } from '../streets/data_model'
+import { setMode, MODES } from './mode'
+import {
+  URL_NEW_STREET,
+  URL_NEW_STREET_COPY_LAST,
+  URL_JUST_SIGNED_IN,
+  URL_ERROR,
+  URL_GLOBAL_GALLERY,
+  URL_HELP,
+  URL_ABOUT,
+  URL_NO_USER,
+  URL_RESERVED_PREFIX
+} from './routing'
+
+let errorUrl = ''
+
+export function getErrorUrl () {
+  return errorUrl
+}
 
 // TODO: replace with state obj in gallery
-var galleryUserId = null
+let galleryUserId = null
 
-function _processUrl () {
+export function getGalleryUserId () {
+  return galleryUserId
+}
+
+export function setGalleryUserId (value) {
+  galleryUserId = value
+}
+
+export function processUrl () {
   var url = location.pathname
-  var street = _getStreet()
+  var street = getStreet()
 
   // Remove heading slash
   if (!url) {
@@ -22,38 +51,38 @@ function _processUrl () {
     // Continue where we left off… or start with a default (demo) street
 
     setMode(MODES.CONTINUE)
-  } else if ((urlParts.length == 1) && (urlParts[0] == URL_NEW_STREET)) {
+  } else if ((urlParts.length === 1) && (urlParts[0] === URL_NEW_STREET)) {
     // New street
 
     setMode(MODES.NEW_STREET)
-  } else if ((urlParts.length == 1) && (urlParts[0] == URL_NEW_STREET_COPY_LAST)) {
+  } else if ((urlParts.length === 1) && (urlParts[0] === URL_NEW_STREET_COPY_LAST)) {
     // New street (but start with copying last street)
 
     setMode(MODES.NEW_STREET_COPY_LAST)
-  } else if ((urlParts.length == 1) && (urlParts[0] == URL_JUST_SIGNED_IN)) {
+  } else if ((urlParts.length === 1) && (urlParts[0] === URL_JUST_SIGNED_IN)) {
     // Coming back from a successful sign in
 
     setMode(MODES.JUST_SIGNED_IN)
-  } else if ((urlParts.length >= 1) && (urlParts[0] == URL_ERROR)) {
+  } else if ((urlParts.length >= 1) && (urlParts[0] === URL_ERROR)) {
     // Error
 
     setMode(MODES.ERROR)
     errorUrl = urlParts[1]
-  } else if ((urlParts.length == 1) && (urlParts[0] == URL_GLOBAL_GALLERY)) {
+  } else if ((urlParts.length === 1) && (urlParts[0] === URL_GLOBAL_GALLERY)) {
     // Global gallery
 
     setMode(MODES.GLOBAL_GALLERY)
-  } else if ((urlParts.length == 1) && urlParts[0]) {
+  } else if ((urlParts.length === 1) && urlParts[0]) {
     // User gallery
 
     galleryUserId = urlParts[0]
 
     setMode(MODES.USER_GALLERY)
-  } else if ((urlParts.length == 2) && (urlParts[0] == URL_HELP) && (urlParts[1] == URL_ABOUT)) {
+  } else if ((urlParts.length === 2) && (urlParts[0] === URL_HELP) && (urlParts[1] === URL_ABOUT)) {
     // About
 
     setMode(MODES.ABOUT)
-  } else if ((urlParts.length == 2) && (urlParts[0] == URL_NO_USER) && urlParts[1]) {
+  } else if ((urlParts.length === 2) && (urlParts[0] === URL_NO_USER) && urlParts[1]) {
     // TODO add is integer urlParts[1]
     // Existing street by an anonymous person
 
@@ -67,7 +96,7 @@ function _processUrl () {
 
     street.creatorId = urlParts[0]
 
-    if (street.creatorId.charAt(0) == URL_RESERVED_PREFIX) {
+    if (street.creatorId.charAt(0) === URL_RESERVED_PREFIX) {
       street.creatorId = street.creatorId.substr(1)
     }
 
@@ -79,12 +108,13 @@ function _processUrl () {
   }
 }
 
-function _updatePageUrl (forceGalleryUrl) {
+export function updatePageUrl (forceGalleryUrl) {
+  let url
   if (forceGalleryUrl) {
     var slug = galleryUserId || 'gallery/'
-    var url = '/' + slug
+    url = '/' + slug
   } else {
-    var url = _getStreetUrl(_getStreet())
+    url = getStreetUrl(getStreet())
   }
 
   if (debug.hoverPolygon) {

@@ -111,7 +111,7 @@ function _onEverythingLoaded () {
 
   var mode = getMode()
   if (mode == MODES.USER_GALLERY) {
-    _showGallery(galleryUserId, true)
+    _showGallery(getGalleryUserId(), true)
   } else if (mode == MODES.GLOBAL_GALLERY) {
     _showGallery(null, true)
   } else if (mode == MODES.ABOUT) {

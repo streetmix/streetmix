@@ -1,12 +1,13 @@
-/* global API_URL, galleryUserId */
+/* global API_URL */
 
 import { MODES, processMode, getMode, setMode } from '../app/mode'
+import { getGalleryUserId } from '../app/page_url'
 import { getAuthHeader } from '../users/authentication'
 import { receiveGalleryData, hideGallery } from './view'
 
 export function fetchGalleryData () {
-  if (galleryUserId) {
-    const url = API_URL + 'v1/users/' + galleryUserId + '/streets'
+  if (getGalleryUserId()) {
+    const url = API_URL + 'v1/users/' + getGalleryUserId() + '/streets'
     const options = {
       headers: { 'Authorization': getAuthHeader() }
     }

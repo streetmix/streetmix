@@ -1,7 +1,7 @@
-/* global errorUrl */
 /* global serverContacted */ // eslint-disable-line no-unused-vars
 
 import { ERRORS, showError, showErrorFromUrl } from './errors'
+import { getErrorUrl } from './page_url'
 
 export const MODES = {
   CONTINUE: 1,
@@ -39,7 +39,7 @@ export function processMode () {
 
   switch (mode) {
     case MODES.ERROR:
-      showErrorFromUrl(errorUrl) // errorUrl stored globally. TODO: refactor
+      showErrorFromUrl(getErrorUrl())
       break
     case MODES.UNSUPPORTED_BROWSER:
       showError(ERRORS.UNSUPPORTED_BROWSER, true)

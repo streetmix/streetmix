@@ -1,12 +1,17 @@
-/* global app, system, galleryUserId, abortEverything, ERRORS, _updatePageUrl */
+/* global app, system, abortEverything, ERRORS */
 
 import { trackEvent } from '../app/event_tracking'
 import { showError } from '../app/errors'
+import { onWindowFocus } from '../app/focus'
 import { msg } from '../app/messages'
 import { MODES, getMode, setMode } from '../app/mode'
-import { onWindowFocus } from '../app/focus'
-import { hideStatusMessage } from '../app/status_message'
+import {
+  getGalleryUserId,
+  setGalleryUserId,
+  updatePageUrl
+} from '../app/page_url'
 import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/routing'
+import { hideStatusMessage } from '../app/status_message'
 import { hideControls } from '../segments/resizing'
 import {
   DEFAULT_NAME,
@@ -66,18 +71,18 @@ export function showGallery (userId, instant, signInPromo) {
   galleryState.visible = true
   galleryState.streetLoaded = true
   galleryState.streetId = getStreet().id
-  galleryUserId = userId // eslint-disable-line no-native-reassign
+  setGalleryUserId(userId)
 
   if (!signInPromo) {
     if (userId) {
-      document.querySelector('#gallery .avatar').setAttribute('userId', galleryUserId)
+      document.querySelector('#gallery .avatar').setAttribute('userId', getGalleryUserId())
       document.querySelector('#gallery .avatar').removeAttribute('loaded')
       fetchAvatars()
-      document.querySelector('#gallery .user-id').innerHTML = galleryUserId
+      document.querySelector('#gallery .user-id').innerHTML = getGalleryUserId()
 
       var linkEl = document.createElement('a')
       // TODO const
-      linkEl.href = 'https://twitter.com/' + galleryUserId
+      linkEl.href = 'https://twitter.com/' + getGalleryUserId()
       linkEl.innerHTML = 'Twitter profile »'
       linkEl.classList.add('twitter-profile')
       linkEl.target = '_blank'
@@ -123,7 +128,7 @@ export function showGallery (userId, instant, signInPromo) {
 
   if (!signInPromo) {
     loadGalleryContents()
-    _updatePageUrl(true)
+    updatePageUrl(true)
   } else {
     document.querySelector('#gallery .sign-in-promo').classList.add('visible')
   }
@@ -152,7 +157,7 @@ export function hideGallery (instant) {
     onWindowFocus()
 
     if (!abortEverything) {
-      _updatePageUrl()
+      updatePageUrl()
     }
 
     setMode(MODES.CONTINUE)
@@ -212,7 +217,7 @@ export function receiveGalleryData (transmission) {
     dateEl.innerHTML = formatDate(galleryStreet.updatedAt)
     anchorEl.appendChild(dateEl)
 
-    if (!galleryUserId) {
+    if (!getGalleryUserId()) {
       var creatorEl = document.createElement('span')
       creatorEl.classList.add('creator')
 
@@ -292,7 +297,7 @@ function onGalleryStreetClick (event) {
 function updateGalleryStreetCount () {
   let text
 
-  if (galleryUserId) {
+  if (getGalleryUserId()) {
     const streetCount = GALLERY_EL.querySelectorAll('.streets li').length
     switch (streetCount) {
       case 0:

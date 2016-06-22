@@ -29,6 +29,11 @@ window._processMode = processMode
 window.getMode = getMode
 window.setMode = setMode
 
+import { getGalleryUserId, processUrl, updatePageUrl } from './app/page_url'
+window.getGalleryUserId = getGalleryUserId
+window._processUrl = processUrl
+window._updatePageUrl = updatePageUrl
+
 import {
   URL_JUST_SIGNED_IN,
   URL_NEW_STREET,
