@@ -1,8 +1,9 @@
-/* global system, KEYS, API_URL */
+/* global system, API_URL */
 
-import Menu from './menu'
+import { KEYS } from '../app/keyboard_commands'
 import { newNonblockingAjaxRequest } from '../util/fetch_nonblocking'
 import { getSharingUrl } from '../util/share_url'
+import Menu from './menu'
 
 const LOCAL_STORAGE_FEEDBACK_BACKUP = 'feedback-backup'
 const LOCAL_STORAGE_FEEDBACK_EMAIL_BACKUP = 'feedback-email-backup'
