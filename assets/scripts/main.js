@@ -3,47 +3,32 @@
  *
  */
 
-// Initalization scripts
-import './app/initialization'
+import $ from 'jquery'
+window.$ = $
 
-// Export modules to window for the global-scoped JavaScript
-import './exports'
+import _ from 'lodash'
+window._ = _
 
-// Load things that are needed
-import './app/event_tracking'
+import { Stmx } from './app/initialization'
+window.Stmx = Stmx
+
+// import modules for side-effects
 import './app/blocking_shield'
 import './app/debug_info'
 import './app/keyboard_commands'
 import './app/print'
 import './app/status_message'
 import './app/welcome'
-
-// Menus
-import './menus/menu'
-import './menus/_feedback'
-import './menus/_help'
-import './menus/_identity'
-import './menus/_settings'
-import './menus/_share'
-
-// Dialogs
-import './dialogs/_about'
-import './dialogs/_save_as_image'
 import './dialogs/dialog'
-
-// Segments
-import './segments/people'
-
-// Street
+import './gallery/scroll'
+import './gallery/view'
+import './info_bubble/info_bubble'
+import './menus/_help'
+import './menus/menu'
 import './streets/name'
 import './streets/scroll'
-
-// Gallery
-import './gallery/scroll'
-
-// Utilities
-import { startListening } from './app/keypress'
 import './util/fetch_nonblocking'
 
+import { startListening } from './app/keypress'
 // Start listening for keypresses
 startListening()
