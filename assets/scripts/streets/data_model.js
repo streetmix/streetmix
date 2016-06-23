@@ -1,5 +1,6 @@
-/* global CustomEvent, abortEverything */
+/* global CustomEvent */
 
+import { getAbortEverything } from '../app/initialization'
 import { msg } from '../app/messages'
 import { URL_NO_USER, RESERVED_URLS, URL_RESERVED_PREFIX } from '../app/routing'
 import { shareMenu } from '../menus/_share'
@@ -300,7 +301,7 @@ export function setUpdateTimeToNow () {
 }
 
 export function saveStreetToServerIfNecessary () {
-  if (getIgnoreStreetChanges() || abortEverything) {
+  if (getIgnoreStreetChanges() || getAbortEverything()) {
     return
   }
 

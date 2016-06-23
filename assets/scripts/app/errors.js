@@ -1,9 +1,8 @@
-/* global abortEverything */
-
 import { getStreet } from '../streets/data_model'
 import { goReloadClearSignIn } from '../users/authentication'
 import { fetchAvatars } from '../users/avatars'
 import { removeElFromDOM } from '../util/dom_helpers'
+import { getAbortEverything, setAbortEverything } from './initialization'
 import { hideLoadingScreen } from './load_resources'
 import {
   goReload,
@@ -52,7 +51,7 @@ export function showError (errorType, newAbortEverything) {
 
   hideLoadingScreen()
 
-  abortEverything = newAbortEverything // eslint-disable-line no-native-reassign
+  setAbortEverything(newAbortEverything)
 
   switch (errorType) {
     case ERRORS.NOT_FOUND:
@@ -142,7 +141,7 @@ export function showError (errorType, newAbortEverything) {
       break
   }
 
-  if (abortEverything) {
+  if (getAbortEverything()) {
     // Opera
     removeElFromDOM(document.getElementById('gallery'))
   }

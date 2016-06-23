@@ -7,7 +7,6 @@ var compression = require('compression')
 var cookieParser = require('cookie-parser')
 var cookieSession = require('cookie-session')
 var express = require('express')
-var assets = require('connect-assets')
 var browserify = require('browserify-middleware')
 var babelify = require('babelify')
 var bodyParser = require('body-parser')
@@ -85,13 +84,6 @@ app.get('/assets/scripts/main.js', browserify(__dirname + '/assets/scripts/main.
   precompile: true,
   transform: [[{ presets: ['es2015'] }, babelify]],
   external: [__dirname + '/assets/scripts/preinit.js']
-}))
-
-// Build JavaScript bundle via concatenation
-// Deprecated. Remove after scripts moved to browserify
-app.use(assets({
-  paths: ['assets/js'],
-  precompile: ['app.js']
 }))
 
 // SVG bundled images served directly from packages

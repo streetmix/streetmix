@@ -1,5 +1,6 @@
-/* global system, debug, images, imagesToBeLoaded, initializing */
+/* global system, debug, images, imagesToBeLoaded */
 
+import { getInitializing } from '../app/initialization'
 import { msg } from '../app/messages'
 import { infoBubble, INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/info_bubble'
 import {
@@ -592,7 +593,7 @@ function repositionEmptySegments () {
 }
 
 export function segmentsChanged () {
-  if (!initializing) {
+  if (!getInitializing()) {
     createDataFromDom()
   }
 

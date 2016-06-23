@@ -1,10 +1,11 @@
-/* global location, API_URL, _checkIfEverythingIsLoaded */
+/* global location, API_URL */
 
 import $ from 'jquery'
 import Cookies from 'js-cookie'
 
 import { showError, ERRORS } from '../app/errors'
 import { trackEvent } from '../app/event_tracking'
+import { checkIfEverythingIsLoaded } from '../app/initialization'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { URL_SIGN_IN_REDIRECT } from '../app/routing'
 import { getStreet } from '../streets/data_model'
@@ -295,5 +296,5 @@ function _signInLoaded () {
   signInLoaded = true
   document.querySelector('#loading-progress').value++
   checkIfSignInAndGeolocationLoaded()
-  _checkIfEverythingIsLoaded()
+  checkIfEverythingIsLoaded()
 }

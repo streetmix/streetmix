@@ -4,7 +4,9 @@
  * Loads images, etc and tracks progress. (WIP)
  * TODO: Rely on Promises to resolve progress
  */
-/* global _checkIfEverythingIsLoaded, Image, XMLSerializer */
+/* global Image, XMLSerializer */
+
+import { checkIfEverythingIsLoaded } from './initialization'
 
 // Image tileset loading
 // TODO: Deprecate in favor of inlined SVGs
@@ -46,7 +48,7 @@ Promise.all(loading)
     window.imagesToBeLoaded = 0
 
     // Also legacy, TODO: replace with promise
-    _checkIfEverythingIsLoaded()
+    checkIfEverythingIsLoaded()
   })
 
 function loadImages () {

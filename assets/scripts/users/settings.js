@@ -1,7 +1,11 @@
-/* global API_URL, _checkIfEverythingIsLoaded, abortEverything */
-/* global serverContacted */ // eslint-disable-line no-unused-vars
+/* global API_URL */
 
 import { trackEvent } from '../app/event_tracking'
+import {
+  checkIfEverythingIsLoaded,
+  getAbortEverything,
+  setServerContacted
+} from '../app/initialization'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { NEW_STREET_DEFAULT } from '../streets/creation'
 import { setSaveStreetIncomplete } from '../streets/xhr'
@@ -138,12 +142,12 @@ export function saveSettingsLocally () {
 export function confirmSaveStreetToServerInitial () {
   setSaveStreetIncomplete(false)
 
-  serverContacted = true // eslint-disable-line no-native-reassign
-  _checkIfEverythingIsLoaded()
+  setServerContacted(true)
+  checkIfEverythingIsLoaded()
 }
 
 export function saveSettingsToServer () {
-  if (!isSignedIn() || abortEverything) {
+  if (!isSignedIn() || getAbortEverything()) {
     return
   }
 
@@ -161,7 +165,7 @@ export function saveSettingsToServer () {
 }
 
 function errorSavingSettingsToServer (data) {
-  if (!abortEverything && (data.status === 401)) {
+  if (!getAbortEverything() && (data.status === 401)) {
     trackEvent('ERROR', 'ERROR_RM2', null, null, false)
 
     setMode(MODES.FORCE_RELOAD_SIGN_OUT_401)

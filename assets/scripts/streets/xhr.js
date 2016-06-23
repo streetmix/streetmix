@@ -1,11 +1,15 @@
-/* global API_URL, app, abortEverything, _checkIfEverythingIsLoaded */
-/* global serverContacted */ // eslint-disable-line no-unused-vars
+/* global API_URL, app */
 
 import $ from 'jquery'
 import _ from 'lodash'
 
 import { showError, ERRORS } from '../app/errors'
 import { trackEvent } from '../app/event_tracking'
+import {
+  checkIfEverythingIsLoaded,
+  getAbortEverything,
+  setServerContacted
+} from '../app/initialization'
 import { msg } from '../app/messages'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { goNewStreet } from '../app/routing'
@@ -210,7 +214,7 @@ function clearScheduledSavingStreetToServer () {
 export function fetchStreetForVerification () {
   // Don’t do it with any network services pending
   if (getNonblockingAjaxRequestCount() || isblockingAjaxRequestInProgress() ||
-    saveStreetIncomplete || abortEverything || getRemixOnFirstEdit()) {
+    saveStreetIncomplete || getAbortEverything() || getRemixOnFirstEdit()) {
     return
   }
 
@@ -276,8 +280,8 @@ function receiveStreet (transmission) {
   createDomFromData()
   createDataFromDom()
 
-  serverContacted = true // eslint-disable-line no-native-reassign
-  _checkIfEverythingIsLoaded()
+  setServerContacted(true)
+  checkIfEverythingIsLoaded()
 }
 
 function unpackStreetDataFromServerTransmission (transmission) {

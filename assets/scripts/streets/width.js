@@ -1,7 +1,7 @@
 /* global prompt, system */
-/* global initializing */ // eslint-disable-line no-unused-vars
 
 import { loseAnyFocus } from '../app/focus'
+import { setInitializing } from '../app/initialization'
 import { msg } from '../app/messages'
 import { onResize } from '../app/window_resize'
 import { BUILDING_SPACE, createBuildings } from '../segments/buildings'
@@ -83,12 +83,12 @@ export function onStreetWidthChange (event) {
   buildStreetWidthMenu()
   resizeStreetWidth()
 
-  initializing = true // eslint-disable-line no-native-reassign
+  setInitializing(true)
 
   createDomFromData()
   segmentsChanged()
 
-  initializing = false // eslint-disable-line no-native-reassign
+  setInitializing(false)
 
   loseAnyFocus()
 }

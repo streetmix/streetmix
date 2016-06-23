@@ -1,6 +1,5 @@
-/* global serverContacted */ // eslint-disable-line no-unused-vars
-
 import { ERRORS, showError, showErrorFromUrl } from './errors'
+import { setServerContacted } from './initialization'
 import { getErrorUrl } from './page_url'
 
 export const MODES = {
@@ -35,7 +34,7 @@ export function setMode (value) {
 }
 
 export function processMode () {
-  serverContacted = true // eslint-disable-line no-native-reassign
+  setServerContacted(true)
 
   switch (mode) {
     case MODES.ERROR:
@@ -69,22 +68,22 @@ export function processMode () {
       showError(ERRORS.FORCE_RELOAD_SIGN_IN, true)
       break
     case MODES.NEW_STREET:
-      serverContacted = false // eslint-disable-line no-native-reassign
+      setServerContacted(false)
       break
     case MODES.NEW_STREET_COPY_LAST:
-      serverContacted = false // eslint-disable-line no-native-reassign
+      setServerContacted(false)
       break
     case MODES.CONTINUE:
     case MODES.USER_GALLERY:
     case MODES.ABOUT:
     case MODES.GLOBAL_GALLERY:
-      serverContacted = false // eslint-disable-line no-native-reassign
+      setServerContacted(false)
       break
     case MODES.JUST_SIGNED_IN:
-      serverContacted = false // eslint-disable-line no-native-reassign
+      setServerContacted(false)
       break
     case MODES.EXISTING_STREET:
-      serverContacted = false // eslint-disable-line no-native-reassign
+      setServerContacted(false)
       break
   }
 }

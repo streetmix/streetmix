@@ -26,6 +26,9 @@ window._showErrorFromUrl = showErrorFromUrl
 import { addEventListeners } from './app/event_listeners'
 window._addEventListeners = addEventListeners
 
+import { Stmx } from './app/initialization'
+window.Stmx = Stmx
+
 import { onGlobalKeyDown } from './app/keyboard_commands'
 window._onGlobalKeyDown = onGlobalKeyDown
 

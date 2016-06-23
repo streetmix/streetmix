@@ -1,9 +1,10 @@
-/* global app, _checkIfEverythingIsLoaded, debug, system */
+/* global app, debug, system */
 
 import _ from 'lodash'
 
 import { ERRORS, showError } from '../app/errors'
 import { trackEvent } from '../app/event_tracking'
+import { checkIfEverythingIsLoaded } from '../app/initialization'
 import { MODES, getMode } from '../app/mode'
 import { hideAllMenus } from '../menus/menu'
 import {
@@ -116,7 +117,7 @@ function detectGeolocationTimeout () {
     geolocationLoaded = true
     document.querySelector('#loading-progress').value++
     checkIfSignInAndGeolocationLoaded()
-    _checkIfEverythingIsLoaded()
+    checkIfEverythingIsLoaded()
 
     trackEvent('ERROR', 'ERROR_GEOLOCATION_TIMEOUT', null, null, false)
   }
@@ -157,7 +158,7 @@ function receiveGeolocation (info) {
   geolocationLoaded = true
   document.querySelector('#loading-progress').value++
   checkIfSignInAndGeolocationLoaded()
-  _checkIfEverythingIsLoaded()
+  checkIfEverythingIsLoaded()
 }
 
 export function updateUnits (newUnits) {

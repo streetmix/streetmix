@@ -1,8 +1,9 @@
-/* global app, system, abortEverything, ERRORS */
+/* global app, system, ERRORS */
 
 import { trackEvent } from '../app/event_tracking'
 import { showError } from '../app/errors'
 import { onWindowFocus } from '../app/focus'
+import { getAbortEverything } from '../app/initialization'
 import { msg } from '../app/messages'
 import { MODES, getMode, setMode } from '../app/mode'
 import {
@@ -156,7 +157,7 @@ export function hideGallery (instant) {
 
     onWindowFocus()
 
-    if (!abortEverything) {
+    if (!getAbortEverything()) {
       updatePageUrl()
     }
 
