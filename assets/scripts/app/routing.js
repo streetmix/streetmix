@@ -1,15 +1,15 @@
-/* global URL_SIGN_IN_CALLBACK_REL, location */
+/* global URL_SIGN_IN_CALLBACK_REL */
 
 // TODO replace the URLs in index.html dynamically
 const URL_SIGN_IN = 'twitter-sign-in'
 
 const URL_SIGN_IN_CALLBACK_ABS =
-location.protocol + '//' + location.host + URL_SIGN_IN_CALLBACK_REL
+window.location.protocol + '//' + window.location.host + URL_SIGN_IN_CALLBACK_REL
 const URL_SIGN_IN_CALLBACK = URL_SIGN_IN_CALLBACK_REL.replace(/^\//, '')
 
 const URL_JUST_SIGNED_IN_REL = '/just-signed-in'
 const URL_JUST_SIGNED_IN_ABS =
-location.protocol + '//' + location.host + URL_JUST_SIGNED_IN_REL
+window.location.protocol + '//' + window.location.host + URL_JUST_SIGNED_IN_REL
 
 // const URL_JUST_SIGNED_IN = URL_JUST_SIGNED_IN_REL.replace(/^\//, '')
 export const URL_JUST_SIGNED_IN = 'just-signed-in' // TODO fix this

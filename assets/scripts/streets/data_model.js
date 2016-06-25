@@ -1,5 +1,3 @@
-/* global CustomEvent */
-
 import { getAbortEverything } from '../app/initialization'
 import { msg } from '../app/messages'
 import { URL_NO_USER, RESERVED_URLS, URL_RESERVED_PREFIX } from '../app/routing'
@@ -318,7 +316,7 @@ export function saveStreetToServerIfNecessary () {
 
     // Some parts of the UI need to know this happened to respond to it
     // TODO: figure out appropriate event name
-    window.dispatchEvent(new CustomEvent('stmx:save_street'))
+    window.dispatchEvent(new window.CustomEvent('stmx:save_street'))
 
     updateStreetMetadata(street)
 

@@ -1,7 +1,7 @@
-/* global app, system, ERRORS */
+/* global app, system */
 
 import { trackEvent } from '../app/event_tracking'
-import { showError } from '../app/errors'
+import { showError, ERRORS } from '../app/errors'
 import { onWindowFocus } from '../app/focus'
 import { getAbortEverything } from '../app/initialization'
 import { msg } from '../app/messages'

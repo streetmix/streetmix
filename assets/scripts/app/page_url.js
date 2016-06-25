@@ -1,4 +1,4 @@
-/* global location, debug */
+/* global debug */
 
 import { shareMenu } from '../menus/_share'
 import { getStreet, getStreetUrl } from '../streets/data_model'
@@ -33,7 +33,7 @@ export function setGalleryUserId (value) {
 }
 
 export function processUrl () {
-  var url = location.pathname
+  var url = window.location.pathname
   var street = getStreet()
 
   // Remove heading slash

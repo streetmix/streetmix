@@ -1,4 +1,4 @@
-/* global debug, system, app, ENV, CustomEvent, imagesToBeLoaded */
+/* global debug, system, app, ENV */
 // Remember, the debug & system variables are global & attached to the window
 // because they are detected in a separate bundle. Require()ing them here will
 // not do what you expect.
@@ -36,6 +36,7 @@ import {
 } from '../users/localization'
 import { addEventListeners } from './event_listeners'
 import { trackEvent } from './event_tracking'
+import { getImagesToBeLoaded } from './load_resources'
 import { getMode, setMode, MODES, processMode } from './mode'
 import { processUrl, updatePageUrl, getGalleryUserId } from './page_url'
 import { onResize } from './window_resize'
@@ -94,7 +95,7 @@ Stmx.init = function () {
     }
   }
 
-  window.dispatchEvent(new CustomEvent('stmx:init'))
+  window.dispatchEvent(new window.CustomEvent('stmx:init'))
 
   fillEmptySegments()
   prepareSegmentInfo()
@@ -139,7 +140,7 @@ export function checkIfEverythingIsLoaded () {
     return
   }
 
-  if ((imagesToBeLoaded === 0) && isSignInLoaded() && bodyLoaded &&
+  if ((getImagesToBeLoaded() === 0) && isSignInLoaded() && bodyLoaded &&
     readyStateCompleteLoaded && getGeolocationLoaded() && serverContacted) {
     onEverythingLoaded()
   }
@@ -166,7 +167,7 @@ function onEverythingLoaded () {
   buildStreetWidthMenu()
   addEventListeners()
 
-  var event = new CustomEvent('stmx:everything_loaded')
+  var event = new window.CustomEvent('stmx:everything_loaded')
   window.dispatchEvent(event)
 
   var mode = getMode()

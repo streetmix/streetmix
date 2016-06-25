@@ -1,4 +1,4 @@
-/* global prompt, system */
+/* global system */
 
 import { loseAnyFocus } from '../app/focus'
 import { setInitializing } from '../app/initialization'
@@ -54,7 +54,7 @@ export function onStreetWidthChange (event) {
     if (promptValue > MAX_CUSTOM_STREET_WIDTH) promptValue = MAX_CUSTOM_STREET_WIDTH
 
     // TODO string
-    var width = prompt(
+    var width = window.prompt(
       msg('PROMPT_NEW_STREET_WIDTH', {
         minWidth: prettifyWidth(MIN_CUSTOM_STREET_WIDTH),
         maxWidth: prettifyWidth(MAX_CUSTOM_STREET_WIDTH)

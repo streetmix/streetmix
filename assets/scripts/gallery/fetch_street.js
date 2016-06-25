@@ -1,4 +1,4 @@
-/* global API_URL, CustomEvent */
+/* global API_URL */
 
 import { showBlockingShield, hideBlockingShield } from '../app/blocking_shield'
 import { hideError } from '../app/errors'
@@ -66,7 +66,7 @@ function receiveGalleryStreet (transmission) {
   createDataFromDom()
 
   // Some parts of the UI need to know this happened to respond to it
-  window.dispatchEvent(new CustomEvent('stmx:receive_gallery_street'))
+  window.dispatchEvent(new window.CustomEvent('stmx:receive_gallery_street'))
 
   resizeStreetWidth()
   updateStreetName()

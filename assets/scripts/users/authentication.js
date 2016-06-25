@@ -1,4 +1,4 @@
-/* global location, API_URL */
+/* global API_URL */
 
 import $ from 'jquery'
 import Cookies from 'js-cookie'
@@ -46,7 +46,7 @@ export function goReloadClearSignIn () {
   saveSignInDataLocally()
   removeSignInCookies()
 
-  location.reload()
+  window.location.reload()
 }
 
 function saveSignInDataLocally () {

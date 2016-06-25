@@ -4,7 +4,6 @@
  * Loads images, etc and tracks progress. (WIP)
  * TODO: Rely on Promises to resolve progress
  */
-/* global Image, XMLSerializer */
 
 import { checkIfEverythingIsLoaded } from './initialization'
 
@@ -26,7 +25,7 @@ const SVGS_TO_BE_LOADED = [
 
 const SVGStagingEl = document.getElementById('svg')
 
-let images = [] // This is an associative array; TODO: something else
+export const images = [] // This is an associative array; TODO: something else
 let loading = []
 
 // Set loading bar
@@ -34,7 +33,11 @@ const loadingEl = document.getElementById('loading-progress')
 loadingEl.max += 5 // Legacy; this is for other things that must load
 
 // Global for legacy reasons
-window.imagesToBeLoaded = 1
+let imagesToBeLoaded = 1
+
+export function getImagesToBeLoaded () {
+  return imagesToBeLoaded
+}
 
 // Load everything
 loadImages()
@@ -43,11 +46,9 @@ loadSVGs()
 // When everything is loaded...
 Promise.all(loading)
   .then(function () {
-    // Export to window (LEGACY)
-    window.images = images
-    window.imagesToBeLoaded = 0
+    imagesToBeLoaded = 0
 
-    // Also legacy, TODO: replace with promise
+    // legacy, TODO: replace with promise
     checkIfEverythingIsLoaded()
   })
 
@@ -103,7 +104,7 @@ function loadSVGs () {
             if (typeof svgInternals === 'undefined') {
               svgInternals = ''
               Array.prototype.slice.call(svg.childNodes).forEach(function (node, index) {
-                svgInternals += (new XMLSerializer()).serializeToString(node)
+                svgInternals += (new window.XMLSerializer()).serializeToString(node)
               })
             }
 
@@ -115,7 +116,7 @@ function loadSVGs () {
             const svgHeight = svg.viewBox.baseVal.height
             const svgHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${svgViewbox}" width="${svgWidth}" height="${svgHeight}">${svgInternals}</svg>`
 
-            const img = new Image()
+            const img = new window.Image()
             // Browsers appear to do better with base-64 URLs rather than Blobs
             // (Chrome works with blobs, but setting width and height on SVG
             // makes rendering intermittent)
@@ -144,7 +145,7 @@ function loadSVGs () {
  */
 function getImage (url) {
   return new Promise(function (resolve, reject) {
-    var img = new Image()
+    var img = new window.Image()
     img.onload = function () {
       resolve(img)
     }
