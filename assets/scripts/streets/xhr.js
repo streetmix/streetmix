@@ -1,13 +1,17 @@
-/* global API_URL, MODES, _processMode, app, mode, abortEverything,
-   _checkIfEverythingIsLoaded */
-/* global serverContacted */ // eslint-disable-line no-unused-vars
+/* global API_URL, app */
 
 import $ from 'jquery'
 import _ from 'lodash'
 
 import { showError, ERRORS } from '../app/errors'
 import { trackEvent } from '../app/event_tracking'
+import {
+  checkIfEverythingIsLoaded,
+  getAbortEverything,
+  setServerContacted
+} from '../app/initialization'
 import { msg } from '../app/messages'
+import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { goNewStreet } from '../app/routing'
 import { showStatusMessage } from '../app/status_message'
 import { infoBubble } from '../info_bubble/info_bubble'
@@ -148,6 +152,7 @@ export function fetchStreetFromServer () {
 }
 
 function errorReceiveStreet (data) {
+  let mode = getMode()
   if ((mode === MODES.CONTINUE) || (mode === MODES.USER_GALLERY) ||
     (mode === MODES.ABOUT) || (mode === MODES.GLOBAL_GALLERY)) {
     goNewStreet()
@@ -155,15 +160,15 @@ function errorReceiveStreet (data) {
     if ((data.status === 404) || (data.status === 410)) {
       if (getStreet().creatorId) {
         if (data.status === 410) {
-          mode = MODES.STREET_410_BUT_LINK_TO_USER // eslint-disable-line no-native-reassign
+          setMode(MODES.STREET_410_BUT_LINK_TO_USER)
         } else {
-          mode = MODES.STREET_404_BUT_LINK_TO_USER // eslint-disable-line no-native-reassign
+          setMode(MODES.STREET_404_BUT_LINK_TO_USER)
         }
       } else {
-        mode = MODES.STREET_404 // eslint-disable-line no-native-reassign
+        setMode(MODES.STREET_404)
       }
       // TODO swap for showError (here and elsewhere)
-      _processMode()
+      processMode()
     } else {
       showError(ERRORS.NEW_STREET_SERVER_FAILURE, true)
     }
@@ -209,7 +214,7 @@ function clearScheduledSavingStreetToServer () {
 export function fetchStreetForVerification () {
   // Don’t do it with any network services pending
   if (getNonblockingAjaxRequestCount() || isblockingAjaxRequestInProgress() ||
-    saveStreetIncomplete || abortEverything || getRemixOnFirstEdit()) {
+    saveStreetIncomplete || getAbortEverything() || getRemixOnFirstEdit()) {
     return
   }
 
@@ -275,8 +280,8 @@ function receiveStreet (transmission) {
   createDomFromData()
   createDataFromDom()
 
-  serverContacted = true // eslint-disable-line no-native-reassign
-  _checkIfEverythingIsLoaded()
+  setServerContacted(true)
+  checkIfEverythingIsLoaded()
 }
 
 function unpackStreetDataFromServerTransmission (transmission) {

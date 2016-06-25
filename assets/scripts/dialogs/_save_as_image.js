@@ -16,8 +16,6 @@ import { normalizeSlug } from '../util/helpers'
 
 // Require save-as polyfills
 import saveAs from '../vendor/FileSaver'
-import '../vendor/canvas-toBlob.js'
-import '../vendor/Blob.js'
 
 // Cache references to elements
 const _elTransparentSky = document.getElementById('save-as-image-transparent-sky')

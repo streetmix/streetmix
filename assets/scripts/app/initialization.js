@@ -2,14 +2,208 @@
 // Remember, the debug & system variables are global & attached to the window
 // because they are detected in a separate bundle. Require()ing them here will
 // not do what you expect.
+
+import $ from 'jquery'
+
 import { hideLoadingScreen } from './load_resources'
 import { initLocale } from './locale'
 import { scheduleNextLiveUpdateCheck } from './live_update'
 import { setEnvironmentBadge } from './env_badge'
+import { aboutDialog } from '../dialogs/_about'
 import { shareMenu } from '../menus/_share'
+import { showGallery } from '../gallery/view'
 import { feedbackMenu } from '../menus/_feedback'
+import { prepareSegmentInfo } from '../segments/info'
 import { createPalette } from '../segments/palette'
+import { fillEmptySegments, segmentsChanged } from '../segments/view'
+import { onNewStreetLastClick } from '../streets/creation'
+import {
+  createDomFromData,
+  setLastStreet,
+  trimStreetData,
+  getStreet
+} from '../streets/data_model'
+import { updateStreetName } from '../streets/name'
+import { getPromoteStreet, remixStreet } from '../streets/remix'
+import { setIgnoreStreetChanges } from '../streets/undo_stack'
+import { resizeStreetWidth, buildStreetWidthMenu } from '../streets/width'
+import { loadSignIn, isSignInLoaded } from '../users/authentication'
+import {
+  updateSettingsFromCountryCode,
+  detectGeolocation,
+  setGeolocationLoaded,
+  getGeolocationLoaded
+} from '../users/localization'
+import { addEventListeners } from './event_listeners'
+import { trackEvent } from './event_tracking'
+import { getImagesToBeLoaded } from './load_resources'
+import { getMode, setMode, MODES, processMode } from './mode'
+import { processUrl, updatePageUrl, getGalleryUserId } from './page_url'
+import { onResize } from './window_resize'
 import './load_resources'
+
+let initializing = false
+
+export function getInitializing () {
+  return initializing
+}
+
+export function setInitializing (value) {
+  initializing = value
+}
+
+let bodyLoaded
+let readyStateCompleteLoaded
+let serverContacted
+
+export function setServerContacted (value) {
+  serverContacted = value
+}
+
+let abortEverything
+
+export function getAbortEverything () {
+  return abortEverything
+}
+
+export function setAbortEverything (value) {
+  abortEverything = value
+}
+
+export const Stmx = {}
+
+Stmx.preInit = function () {
+  initializing = true
+  setIgnoreStreetChanges(true)
+
+  var language = window.navigator.userLanguage || window.navigator.language
+  if (language) {
+    language = language.substr(0, 2).toUpperCase()
+    updateSettingsFromCountryCode(language)
+  }
+}
+
+Stmx.init = function () {
+  if (!debug.forceUnsupportedBrowser) {
+    // TODO temporary ban
+    if ((navigator.userAgent.indexOf('Opera') !== -1) ||
+      (navigator.userAgent.indexOf('Internet Explorer') !== -1) ||
+      (navigator.userAgent.indexOf('MSIE') !== -1)) {
+      setMode(MODES.UNSUPPORTED_BROWSER)
+      processMode()
+      return
+    }
+  }
+
+  window.dispatchEvent(new window.CustomEvent('stmx:init'))
+
+  fillEmptySegments()
+  prepareSegmentInfo()
+
+  // TODO make it better
+  // Related to Enter to 404 bug in Chrome
+  $.ajaxSetup({ cache: false })
+
+  readyStateCompleteLoaded = false
+  document.addEventListener('readystatechange', onReadyStateChange)
+
+  bodyLoaded = false
+  window.addEventListener('load', onBodyLoad)
+
+  processUrl()
+  processMode()
+
+  if (abortEverything) {
+    return
+  }
+
+  // Asynchronously loading…
+
+  // …detecting country from IP for units and left/right-hand driving
+  var mode = getMode()
+  if ((mode === MODES.NEW_STREET) || (mode === MODES.NEW_STREET_COPY_LAST)) {
+    detectGeolocation()
+  } else {
+    setGeolocationLoaded(true)
+  }
+
+  // …sign in info from our API (if not previously cached) – and subsequent
+  // street data if necessary (depending on the mode)
+  loadSignIn()
+
+// Note that we are waiting for sign in and image info to show the page,
+// but we give up on country info if it’s more than 1000ms.
+}
+
+export function checkIfEverythingIsLoaded () {
+  if (abortEverything) {
+    return
+  }
+
+  if ((getImagesToBeLoaded() === 0) && isSignInLoaded() && bodyLoaded &&
+    readyStateCompleteLoaded && getGeolocationLoaded() && serverContacted) {
+    onEverythingLoaded()
+  }
+}
+
+function onEverythingLoaded () {
+  switch (getMode()) {
+    case MODES.NEW_STREET_COPY_LAST:
+      onNewStreetLastClick()
+      break
+  }
+
+  onResize()
+  resizeStreetWidth()
+  updateStreetName()
+  createDomFromData()
+  segmentsChanged()
+
+  initializing = false
+  setIgnoreStreetChanges(false)
+  setLastStreet(trimStreetData(getStreet()))
+
+  updatePageUrl()
+  buildStreetWidthMenu()
+  addEventListeners()
+
+  var event = new window.CustomEvent('stmx:everything_loaded')
+  window.dispatchEvent(event)
+
+  var mode = getMode()
+  if (mode === MODES.USER_GALLERY) {
+    showGallery(getGalleryUserId(), true)
+  } else if (mode === MODES.GLOBAL_GALLERY) {
+    showGallery(null, true)
+  } else if (mode === MODES.ABOUT) {
+    aboutDialog.show()
+  }
+
+  if (getPromoteStreet()) {
+    remixStreet()
+  }
+
+  // Track touch capability in Google Analytics
+  if (system.touch === true) {
+    trackEvent('SYSTEM', 'TOUCH_CAPABLE', null, null, true)
+  }
+}
+
+function onBodyLoad () {
+  bodyLoaded = true
+
+  document.querySelector('#loading-progress').value++
+  checkIfEverythingIsLoaded()
+}
+
+function onReadyStateChange () {
+  if (document.readyState === 'complete') {
+    readyStateCompleteLoaded = true
+
+    document.querySelector('#loading-progress').value++
+    checkIfEverythingIsLoaded()
+  }
+}
 
 // Toggle debug features
 if (debug.hoverPolygon) {

@@ -1,19 +1,19 @@
-/* global app, system, galleryUserId, mode, abortEverything */
-/* global MODES, ERRORS, URL_NEW_STREET, URL_NEW_STREET_COPY_LAST */
-/* global _updatePageUrl */
+/* global app, system */
 
 import { trackEvent } from '../app/event_tracking'
-import { showError } from '../app/errors'
-import { msg } from '../app/messages'
+import { showError, ERRORS } from '../app/errors'
 import { onWindowFocus } from '../app/focus'
-import { hideControls } from '../segments/resizing'
-import { formatDate } from '../util/date_format'
-import { removeElFromDOM } from '../util/dom_helpers'
-import { fetchGalleryData } from './fetch_data'
-import { fetchGalleryStreet } from './fetch_street'
-import { drawStreetThumbnail } from './thumbnail'
-import { updateScrollButtons } from './scroll'
+import { getAbortEverything } from '../app/initialization'
+import { msg } from '../app/messages'
+import { MODES, getMode, setMode } from '../app/mode'
+import {
+  getGalleryUserId,
+  setGalleryUserId,
+  updatePageUrl
+} from '../app/page_url'
+import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/routing'
 import { hideStatusMessage } from '../app/status_message'
+import { hideControls } from '../segments/resizing'
 import {
   DEFAULT_NAME,
   getStreet,
@@ -22,8 +22,14 @@ import {
 } from '../streets/data_model'
 import { StreetName } from '../streets/name_sign'
 import { sendDeleteStreetToServer } from '../streets/xhr'
-import { fetchAvatars } from '../users/avatars'
 import { getSignInData, isSignedIn } from '../users/authentication'
+import { fetchAvatars } from '../users/avatars'
+import { formatDate } from '../util/date_format'
+import { removeElFromDOM } from '../util/dom_helpers'
+import { fetchGalleryData } from './fetch_data'
+import { fetchGalleryStreet } from './fetch_street'
+import { updateScrollButtons } from './scroll'
+import { drawStreetThumbnail } from './thumbnail'
 
 const THUMBNAIL_WIDTH = 180
 const THUMBNAIL_HEIGHT = 110
@@ -66,18 +72,18 @@ export function showGallery (userId, instant, signInPromo) {
   galleryState.visible = true
   galleryState.streetLoaded = true
   galleryState.streetId = getStreet().id
-  galleryUserId = userId // eslint-disable-line no-native-reassign
+  setGalleryUserId(userId)
 
   if (!signInPromo) {
     if (userId) {
-      document.querySelector('#gallery .avatar').setAttribute('userId', galleryUserId)
+      document.querySelector('#gallery .avatar').setAttribute('userId', getGalleryUserId())
       document.querySelector('#gallery .avatar').removeAttribute('loaded')
       fetchAvatars()
-      document.querySelector('#gallery .user-id').innerHTML = galleryUserId
+      document.querySelector('#gallery .user-id').innerHTML = getGalleryUserId()
 
       var linkEl = document.createElement('a')
       // TODO const
-      linkEl.href = 'https://twitter.com/' + galleryUserId
+      linkEl.href = 'https://twitter.com/' + getGalleryUserId()
       linkEl.innerHTML = 'Twitter profile »'
       linkEl.classList.add('twitter-profile')
       linkEl.target = '_blank'
@@ -116,14 +122,14 @@ export function showGallery (userId, instant, signInPromo) {
     }, 0)
   }
 
-  if ((mode === MODES.USER_GALLERY) || (mode === MODES.GLOBAL_GALLERY)) {
+  if ((getMode() === MODES.USER_GALLERY) || (getMode() === MODES.GLOBAL_GALLERY)) {
     // Prevents showing old street before the proper street loads
     showError(ERRORS.NO_STREET, false)
   }
 
   if (!signInPromo) {
     loadGalleryContents()
-    _updatePageUrl(true)
+    updatePageUrl(true)
   } else {
     document.querySelector('#gallery .sign-in-promo').classList.add('visible')
   }
@@ -151,11 +157,11 @@ export function hideGallery (instant) {
 
     onWindowFocus()
 
-    if (!abortEverything) {
-      _updatePageUrl()
+    if (!getAbortEverything()) {
+      updatePageUrl()
     }
 
-    mode = MODES.CONTINUE // eslint-disable-line no-native-reassign
+    setMode(MODES.CONTINUE)
   }
 }
 
@@ -212,7 +218,7 @@ export function receiveGalleryData (transmission) {
     dateEl.innerHTML = formatDate(galleryStreet.updatedAt)
     anchorEl.appendChild(dateEl)
 
-    if (!galleryUserId) {
+    if (!getGalleryUserId()) {
       var creatorEl = document.createElement('span')
       creatorEl.classList.add('creator')
 
@@ -238,7 +244,7 @@ export function receiveGalleryData (transmission) {
 
   var streetCount = document.querySelectorAll('#gallery .streets li').length
 
-  if (((mode === MODES.USER_GALLERY) && streetCount) || (mode === MODES.GLOBAL_GALLERY)) {
+  if (((getMode() === MODES.USER_GALLERY) && streetCount) || (getMode() === MODES.GLOBAL_GALLERY)) {
     switchGalleryStreet(transmission.streets[0].id)
   }
 
@@ -292,7 +298,7 @@ function onGalleryStreetClick (event) {
 function updateGalleryStreetCount () {
   let text
 
-  if (galleryUserId) {
+  if (getGalleryUserId()) {
     const streetCount = GALLERY_EL.querySelectorAll('.streets li').length
     switch (streetCount) {
       case 0:

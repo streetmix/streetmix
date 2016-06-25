@@ -1,8 +1,9 @@
-/* global system, abortEverything */
+/* global system */
 
 import { galleryState } from '../gallery/view'
 import { fetchStreetForVerification } from '../streets/xhr'
 import { saveSettingsLocally } from '../users/settings'
+import { getAbortEverything } from './initialization'
 
 window.addEventListener('stmx:everything_loaded', function () {
   if (system.pageVisibility) {
@@ -30,7 +31,7 @@ export function isFocusOnBody () {
 }
 
 export function onWindowFocus () {
-  if (abortEverything || galleryState.visible) {
+  if (getAbortEverything() || galleryState.visible) {
     return
   }
 

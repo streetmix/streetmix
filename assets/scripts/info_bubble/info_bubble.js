@@ -1,4 +1,4 @@
-/* global app, debug, system, KEYS */
+/* global app, debug, system */
 
 import { updateDescription, hideDescription } from './description'
 import {
@@ -29,6 +29,7 @@ import {
 import { VARIANT_ICONS } from '../segments/variant_icons'
 import { msg } from '../app/messages'
 import { trackEvent } from '../app/event_tracking'
+import { KEYS } from '../app/keyboard_commands'
 import { getElAbsolutePos } from '../util/helpers'
 import {
   prettifyWidth,

@@ -1,4 +1,8 @@
-var MODES = {
+import { ERRORS, showError, showErrorFromUrl } from './errors'
+import { setServerContacted } from './initialization'
+import { getErrorUrl } from './page_url'
+
+export const MODES = {
   CONTINUE: 1,
   NEW_STREET: 2,
   NEW_STREET_COPY_LAST: 3,
@@ -19,59 +23,67 @@ var MODES = {
   ABOUT: 18
 }
 
-var mode
+let mode
 
-function _processMode () {
-  serverContacted = true
+export function getMode () {
+  return mode
+}
+
+export function setMode (value) {
+  mode = value
+}
+
+export function processMode () {
+  setServerContacted(true)
 
   switch (mode) {
     case MODES.ERROR:
-      _showErrorFromUrl(errorUrl) // errorUrl stored globally. TODO: refactor
+      showErrorFromUrl(getErrorUrl())
       break
     case MODES.UNSUPPORTED_BROWSER:
-      _showError(ERRORS.UNSUPPORTED_BROWSER, true)
+      showError(ERRORS.UNSUPPORTED_BROWSER, true)
       break
     case MODES.NOT_FOUND:
-      _showError(ERRORS.NOT_FOUND, true)
+      showError(ERRORS.NOT_FOUND, true)
       break
     case MODES.STREET_404:
-      _showError(ERRORS.STREET_404, true)
+      showError(ERRORS.STREET_404, true)
       break
     case MODES.STREET_404_BUT_LINK_TO_USER:
-      _showError(ERRORS.STREET_404_BUT_LINK_TO_USER, true)
+      showError(ERRORS.STREET_404_BUT_LINK_TO_USER, true)
       break
     case MODES.STREET_410_BUT_LINK_TO_USER:
-      _showError(ERRORS.STREET_410_BUT_LINK_TO_USER, true)
+      showError(ERRORS.STREET_410_BUT_LINK_TO_USER, true)
       break
     case MODES.SIGN_OUT:
-      _showError(ERRORS.SIGN_OUT, true)
+      showError(ERRORS.SIGN_OUT, true)
       break
     case MODES.FORCE_RELOAD_SIGN_OUT:
-      _showError(ERRORS.FORCE_RELOAD_SIGN_OUT, true)
+      showError(ERRORS.FORCE_RELOAD_SIGN_OUT, true)
       break
     case MODES.FORCE_RELOAD_SIGN_OUT_401:
-      _showError(ERRORS.FORCE_RELOAD_SIGN_OUT_401, true)
+      showError(ERRORS.FORCE_RELOAD_SIGN_OUT_401, true)
       break
     case MODES.FORCE_RELOAD_SIGN_IN:
-      _showError(ERRORS.FORCE_RELOAD_SIGN_IN, true)
+      showError(ERRORS.FORCE_RELOAD_SIGN_IN, true)
       break
     case MODES.NEW_STREET:
-      serverContacted = false
+      setServerContacted(false)
       break
     case MODES.NEW_STREET_COPY_LAST:
-      serverContacted = false
+      setServerContacted(false)
       break
     case MODES.CONTINUE:
     case MODES.USER_GALLERY:
     case MODES.ABOUT:
     case MODES.GLOBAL_GALLERY:
-      serverContacted = false
+      setServerContacted(false)
       break
     case MODES.JUST_SIGNED_IN:
-      serverContacted = false
+      setServerContacted(false)
       break
     case MODES.EXISTING_STREET:
-      serverContacted = false
+      setServerContacted(false)
       break
   }
 }

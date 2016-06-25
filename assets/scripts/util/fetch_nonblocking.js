@@ -1,6 +1,6 @@
-/* global abortEverything */
 import $ from 'jquery'
 
+import { getAbortEverything } from '../app/initialization'
 import {
   getSaveStreetIncomplete,
   setSaveStreetIncomplete
@@ -82,7 +82,7 @@ function nonblockingAjaxTryAgain () {
 }
 
 function sendNextNonblockingAjaxRequest () {
-  if (abortEverything) {
+  if (getAbortEverything()) {
     return
   }
 
@@ -177,7 +177,7 @@ function successNonblockingAjaxRequest (data, request) {
 function checkIfChangesSaved () {
   // don’t do for settings deliberately
 
-  if (abortEverything) {
+  if (getAbortEverything()) {
     return
   }
 

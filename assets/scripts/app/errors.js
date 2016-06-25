@@ -1,18 +1,19 @@
-/* global abortEverything,
-   URL_ERROR_TWITTER_ACCESS_DENIED, URL_ERROR_NO_TWITTER_REQUEST_TOKEN,
-   URL_ERROR_NO_TWITTER_ACCESS_TOKEN, URL_ERROR_AUTHENTICATION_API_PROBLEM */
-
 import { getStreet } from '../streets/data_model'
 import { goReloadClearSignIn } from '../users/authentication'
 import { fetchAvatars } from '../users/avatars'
 import { removeElFromDOM } from '../util/dom_helpers'
+import { getAbortEverything, setAbortEverything } from './initialization'
 import { hideLoadingScreen } from './load_resources'
 import {
   goReload,
   goHome,
   goNewStreet,
   goExampleStreet,
-  goSignIn
+  goSignIn,
+  URL_ERROR_TWITTER_ACCESS_DENIED,
+  URL_ERROR_NO_TWITTER_REQUEST_TOKEN,
+  URL_ERROR_NO_TWITTER_ACCESS_TOKEN,
+  URL_ERROR_AUTHENTICATION_API_PROBLEM
 } from './routing'
 
 export const ERRORS = {
@@ -50,7 +51,7 @@ export function showError (errorType, newAbortEverything) {
 
   hideLoadingScreen()
 
-  abortEverything = newAbortEverything // eslint-disable-line no-native-reassign
+  setAbortEverything(newAbortEverything)
 
   switch (errorType) {
     case ERRORS.NOT_FOUND:
@@ -140,7 +141,7 @@ export function showError (errorType, newAbortEverything) {
       break
   }
 
-  if (abortEverything) {
+  if (getAbortEverything()) {
     // Opera
     removeElFromDOM(document.getElementById('gallery'))
   }

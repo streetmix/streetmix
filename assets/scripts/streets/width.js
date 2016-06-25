@@ -1,8 +1,9 @@
-/* global prompt, _onResize, system */
-/* global initializing */ // eslint-disable-line no-unused-vars
+/* global system */
 
 import { loseAnyFocus } from '../app/focus'
+import { setInitializing } from '../app/initialization'
 import { msg } from '../app/messages'
+import { onResize } from '../app/window_resize'
 import { BUILDING_SPACE, createBuildings } from '../segments/buildings'
 import { SEGMENT_INFO } from '../segments/info'
 import { getSegmentWidthResolution } from '../segments/resizing'
@@ -53,7 +54,7 @@ export function onStreetWidthChange (event) {
     if (promptValue > MAX_CUSTOM_STREET_WIDTH) promptValue = MAX_CUSTOM_STREET_WIDTH
 
     // TODO string
-    var width = prompt(
+    var width = window.prompt(
       msg('PROMPT_NEW_STREET_WIDTH', {
         minWidth: prettifyWidth(MIN_CUSTOM_STREET_WIDTH),
         maxWidth: prettifyWidth(MAX_CUSTOM_STREET_WIDTH)
@@ -82,12 +83,12 @@ export function onStreetWidthChange (event) {
   buildStreetWidthMenu()
   resizeStreetWidth()
 
-  initializing = true // eslint-disable-line no-native-reassign
+  setInitializing(true)
 
   createDomFromData()
   segmentsChanged()
 
-  initializing = false // eslint-disable-line no-native-reassign
+  setInitializing(false)
 
   loseAnyFocus()
 }
@@ -195,7 +196,7 @@ export function resizeStreetWidth (dontScroll) {
     onStreetSectionScroll()
   }
 
-  _onResize()
+  onResize()
 }
 
 export function normalizeStreetWidth (width) {

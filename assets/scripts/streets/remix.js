@@ -1,7 +1,8 @@
-/* global app, API_URL, URL_SIGN_IN_REDIRECT */
+/* global app, API_URL */
 
 import { msg } from '../app/messages'
 import { showStatusMessage } from '../app/status_message'
+import { URL_SIGN_IN_REDIRECT } from '../app/routing'
 import {
   getAuthHeader,
   getSignInData,

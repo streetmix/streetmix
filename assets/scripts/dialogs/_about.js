@@ -6,11 +6,11 @@
  * Exports nothing
  *
  */
-/* global URL_HELP_ABOUT */
-/* global _updatePageUrl */
-import Dialog from './dialog'
-import { fetchAvatars } from '../users/avatars'
 import { trackEvent } from '../app/event_tracking'
+import { updatePageUrl } from '../app/page_url'
+import { URL_HELP_ABOUT } from '../app/routing'
+import { fetchAvatars } from '../users/avatars'
+import Dialog from './dialog'
 
 export let aboutDialog = new Dialog('#about', {
   clickSelector: '#about-streetmix',
@@ -28,6 +28,6 @@ export let aboutDialog = new Dialog('#about', {
     fetchAvatars()
   },
   onHide: function () {
-    _updatePageUrl()
+    updatePageUrl()
   }
 })
