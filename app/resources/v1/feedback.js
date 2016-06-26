@@ -1,6 +1,6 @@
 var config = require('config')
 var sendgrid = require('sendgrid')(config.email.sendgrid.username, config.email.sendgrid.password)
-var validator = require('validator')
+var isEmail = require('validator/lib/isEmail')
 var logger = require('../../../lib/logger.js')()
 
 exports.post = function (req, res) {
@@ -39,7 +39,7 @@ exports.post = function (req, res) {
 
   // Validate and add from e-mail address
   if (body.from) {
-    if (validator.isEmail(body.from)) {
+    if (isEmail(body.from)) {
       from = body.from
       to.push(body.from)
       subject += ' from ' + from
