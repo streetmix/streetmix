@@ -8,8 +8,8 @@
   },
   "license": "BSD-3-Clause",
   "engines": {
-    "node": ">=6.2.0",
-    "npm": ">=3.9.0"
+    "node": "6.2.2",
+    "npm": "3.10.2"
   },
   "scripts": {
     "prestart": "mongod --fork --logpath /dev/null",
