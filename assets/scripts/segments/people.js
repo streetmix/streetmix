@@ -52,9 +52,11 @@ export function drawProgrammaticPeople (ctx, width, offsetLeft, offsetTop, randS
       left: peopleWidth
     }
 
+    /* eslint-disable no-unmodified-loop-condition */
     do {
       person.type = Math.floor(randomGenerator.rand() * PERSON_TYPES)
     } while ((person.type === lastPersonType) || ((peopleCount === 0) && !PERSON_CAN_GO_FIRST[person.type]))
+    /* eslint-enable no-unmodified-loop-condition */
 
     lastPersonType = person.type
 

@@ -18,7 +18,9 @@
     "pretest": "mongod --fork --logpath /dev/null",
     "test": "node test/index | tap-spec && grunt test:local",
     "posttest": "mongo admin --eval 'db.shutdownServer()'",
-    "lint": "sass-lint --config .sass-lint.yml  --verbose && standard assets/scripts/**/*.js | snazzy",
+    "lint": "npm run lint-css && npm run lint-js",
+    "lint-css": "sass-lint --config .sass-lint.yml  --verbose",
+    "lint-js": "standard assets/scripts/**/*.js --verbose | snazzy",
     "translationsDownload": "node bin/download_translations.js"
   },
   "dependencies": {

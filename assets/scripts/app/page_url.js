@@ -156,7 +156,7 @@ export function updatePageUrl (forceGalleryUrl) {
     url += '&debug-experimental'
   }
 
-  url = url.replace(/\&/, '?')
+  url = url.replace(/&/, '?')
 
   window.history.replaceState(null, null, url)
 
