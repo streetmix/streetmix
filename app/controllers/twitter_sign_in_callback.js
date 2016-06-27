@@ -3,7 +3,7 @@ var request = require('request')
 var oauth = require('../../lib/oauth.js')
 
 var oauthAccessTokenHandler = function (req, res) {
-  return function (err, oauth_access_token_key, oauth_access_token_secret, results) {
+  return function (err, oauthAccessTokenKey, oauthAccessTokenSecret, results) {
     if (err) {
       console.error('Error obtaining access token from Twitter:')
       console.log(err)
@@ -17,8 +17,8 @@ var oauthAccessTokenHandler = function (req, res) {
       twitter: {
         userId: results.user_id,
         screenName: results.screen_name,
-        oauthAccessTokenKey: oauth_access_token_key,
-        oauthAccessTokenSecret: oauth_access_token_secret
+        oauthAccessTokenKey: oauthAccessTokenKey,
+        oauthAccessTokenSecret: oauthAccessTokenSecret
       }
     }
 

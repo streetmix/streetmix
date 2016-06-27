@@ -11,15 +11,14 @@ var daysBetween = function (date1, date2) {
   var ONE_DAY = 1000 * 60 * 60 * 24
 
   // Convert both dates to milliseconds
-  var date1_ms = date1.getTime()
-  var date2_ms = date2.getTime()
+  var date1Ms = date1.getTime()
+  var date2Ms = date2.getTime()
 
   // Calculate the difference in milliseconds
-  var difference_ms = Math.abs(date1_ms - date2_ms)
+  var differenceMs = Math.abs(date1Ms - date2Ms)
 
   // Convert back to days and return
-  return Math.round(difference_ms / ONE_DAY)
-
+  return Math.round(differenceMs / ONE_DAY)
 }
 
 var mapper = function () {
@@ -33,7 +32,6 @@ var mapper = function () {
       'updated_at': this.updated_at
     }
   )
-
 }
 
 var reducer = function (key, values) { return { _id: key, size: values } }

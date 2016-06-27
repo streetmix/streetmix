@@ -1,9 +1,10 @@
 var fs = require('fs')
-var envFile = __dirname + '/../.env'
+var path = require('path')
+var envFile = path.join(__dirname, '/../.env')
 
 if (fs.existsSync(envFile)) {
   var env = require('node-env-file')
-  env(__dirname + '/../.env')
+  env(envFile)
 }
 
 var port = process.env.PORT || 8000

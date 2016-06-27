@@ -5,7 +5,7 @@
 
 import $ from 'jquery'
 
-import { hideLoadingScreen } from './load_resources'
+import { hideLoadingScreen, getImagesToBeLoaded } from './load_resources'
 import { initLocale } from './locale'
 import { scheduleNextLiveUpdateCheck } from './live_update'
 import { setEnvironmentBadge } from './env_badge'
@@ -36,11 +36,9 @@ import {
 } from '../users/localization'
 import { addEventListeners } from './event_listeners'
 import { trackEvent } from './event_tracking'
-import { getImagesToBeLoaded } from './load_resources'
 import { getMode, setMode, MODES, processMode } from './mode'
 import { processUrl, updatePageUrl, getGalleryUserId } from './page_url'
 import { onResize } from './window_resize'
-import './load_resources'
 
 let initializing = false
 

@@ -17,13 +17,13 @@ exports.get = function (req, res) {
   async.parallel([
     fetchStreetFromDb
   ], function (err, results) {
-      if (err) {
-        response.status = err
-      } else {
-        response.status = 'ok'
-      }
-      res.send(200, response)
-    })
+    if (err) {
+      response.status = err
+    } else {
+      response.status = 'ok'
+    }
+    res.send(200, response)
+  })
 }
 
 var fetchStreetFromDb = function (cb) {
