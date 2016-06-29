@@ -1,4 +1,19 @@
-languages:
-  JavaScript: true
+engines:
+  eslint:
+    enabled: true
+    channel: "eslint-2"
+    config:
+      config: .eslintrc.json
+  fixme:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+        - javascript
+ratings:
+   paths:
+   - "**.js"
 exclude_paths:
-  - "app/js/vendor"
+  - assets/scripts/vendor/*.js
+  - test/integration/smoke.spec.js
