@@ -1,4 +1,4 @@
-/* global debug, system, app, ENV */
+/* global ENV */
 // Remember, the debug & system variables are global & attached to the window
 // because they are detected in a separate bundle. Require()ing them here will
 // not do what you expect.
@@ -13,6 +13,9 @@ import { aboutDialog } from '../dialogs/_about'
 import { shareMenu } from '../menus/_share'
 import { showGallery } from '../gallery/view'
 import { feedbackMenu } from '../menus/_feedback'
+import { app } from '../preinit/app_settings'
+import { debug } from '../preinit/debug_settings'
+import { system } from '../preinit/system_capabilities'
 import { prepareSegmentInfo } from '../segments/info'
 import { createPalette } from '../segments/palette'
 import { fillEmptySegments, segmentsChanged } from '../segments/view'

@@ -38,7 +38,6 @@ html(lang='en')
       var ENV = '#{ config.env }'
       var NO_INTERNET_MODE = #{ config.no_internet_mode }
 
-    script(src='/assets/scripts/preinit.js')
 
   body(tabindex='1')
 
@@ -47,9 +46,9 @@ html(lang='en')
 
     block main
 
+    script(src='https://platform.twitter.com/widgets.js')
     script(src='/assets/scripts/main.js')
     script.
       Stmx.preInit()
-    script(src='https://platform.twitter.com/widgets.js')
     script.
       Stmx.init()

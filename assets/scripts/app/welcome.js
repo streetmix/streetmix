@@ -1,5 +1,5 @@
-/* global app, system */
-
+import { app } from '../preinit/app_settings'
+import { system } from '../preinit/system_capabilities'
 import { NEW_STREET_DEFAULT, NEW_STREET_EMPTY } from '../streets/creation'
 import { getStreet } from '../streets/data_model'
 import { StreetName } from '../streets/name_sign'

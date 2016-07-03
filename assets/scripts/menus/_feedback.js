@@ -1,6 +1,7 @@
-/* global system, API_URL */
+/* global API_URL */
 
 import { KEYS } from '../app/keyboard_commands'
+import { system } from '../preinit/system_capabilities'
 import { newNonblockingAjaxRequest } from '../util/fetch_nonblocking'
 import { getSharingUrl } from '../util/share_url'
 import Menu from './menu'

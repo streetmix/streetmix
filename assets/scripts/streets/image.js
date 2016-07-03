@@ -1,6 +1,5 @@
-/* global system */
-
 import { drawStreetThumbnail } from '../gallery/thumbnail'
+import { system } from '../preinit/system_capabilities'
 import { BUILDING_SPACE, getBuildingAttributes } from '../segments/buildings'
 import { TILE_SIZE } from '../segments/view'
 import { getStreet } from './data_model'

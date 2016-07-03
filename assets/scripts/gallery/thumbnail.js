@@ -1,6 +1,5 @@
-/* global system */
-
 import { images } from '../app/load_resources'
+import { system } from '../preinit/system_capabilities'
 import { drawLine } from '../util/canvas_drawing'
 import { prettifyWidth } from '../util/width_units'
 import { SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING } from '../streets/image'

@@ -74,16 +74,10 @@ app.get('/.well-known/status', resources.well_known_status.get)
 app.use('/assets/css/styles.css', middleware.styles)
 
 // Build JavaScript bundle via browserify
-app.get('/assets/scripts/preinit.js', browserify(__dirname + '/assets/scripts/preinit.js', {
-  cache: true,
-  precompile: true,
-  transform: [[{ presets: ['es2015'] }, babelify]]
-}))
 app.get('/assets/scripts/main.js', browserify(__dirname + '/assets/scripts/main.js', {
   cache: true,
   precompile: true,
   transform: [[{ presets: ['es2015'] }, babelify]],
-  external: [__dirname + '/assets/scripts/preinit.js']
 }))
 
 // SVG bundled images served directly from packages

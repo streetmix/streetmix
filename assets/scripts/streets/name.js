@@ -1,8 +1,7 @@
-/* global app */
-
 import { msg } from '../app/messages'
 import { updatePageTitle } from '../app/page_title'
 import { updatePageUrl } from '../app/page_url'
+import { app } from '../preinit/app_settings'
 import { getElAbsolutePos } from '../util/helpers'
 import { getStreet, saveStreetToServerIfNecessary } from './data_model'
 import { updateStreetMetadata } from './metadata'

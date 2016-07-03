@@ -1,4 +1,4 @@
-/* global system */
+import { system } from '../preinit/system_capabilities'
 
 export function drawLine (ctx, x1, y1, x2, y2) {
   x1 *= system.hiDpi

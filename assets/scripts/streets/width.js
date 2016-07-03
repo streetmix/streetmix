@@ -1,9 +1,8 @@
-/* global system */
-
 import { loseAnyFocus } from '../app/focus'
 import { setInitializing } from '../app/initialization'
 import { msg } from '../app/messages'
 import { onResize } from '../app/window_resize'
+import { system } from '../preinit/system_capabilities'
 import { BUILDING_SPACE, createBuildings } from '../segments/buildings'
 import { SEGMENT_INFO } from '../segments/info'
 import { getSegmentWidthResolution } from '../segments/resizing'

@@ -1,5 +1,4 @@
-/* global debug */
-
+import { debug } from '../preinit/debug_settings'
 import { generateRandSeed } from '../util/random'
 import { SEGMENT_INFO } from './info'
 import { TILE_SIZE, getVariantInfoDimensions, createSegment } from './view'

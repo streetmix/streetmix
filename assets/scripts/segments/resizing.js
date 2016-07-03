@@ -1,7 +1,6 @@
-/* global system */
-
 import { trackEvent } from '../app/event_tracking'
 import { INFO_BUBBLE_TYPE_SEGMENT, infoBubble } from '../info_bubble/info_bubble'
+import { system } from '../preinit/system_capabilities'
 import { getStreet } from '../streets/data_model'
 import { setIgnoreStreetChanges } from '../streets/undo_stack'
 import {

@@ -1,5 +1,6 @@
-/* global app, debug, system */
-
+import { app } from '../preinit/app_settings'
+import { debug } from '../preinit/debug_settings'
+import { system } from '../preinit/system_capabilities'
 import { updateDescription, hideDescription } from './description'
 import {
   BUILDING_VARIANTS,

@@ -1,6 +1,5 @@
-/* global app */
-
 import { infoBubble } from '../info_bubble/info_bubble'
+import { app } from '../preinit/app_settings'
 import {
   onBuildingMouseEnter,
   onBuildingMouseLeave

@@ -1,4 +1,4 @@
-/* global API_URL, app */
+/* global API_URL */
 
 import $ from 'jquery'
 import _ from 'lodash'
@@ -16,6 +16,7 @@ import { goNewStreet } from '../app/routing'
 import { showStatusMessage } from '../app/status_message'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { shareMenu } from '../menus/_share'
+import { app } from '../preinit/app_settings'
 import { segmentsChanged } from '../segments/view'
 import {
   getAuthHeader,
