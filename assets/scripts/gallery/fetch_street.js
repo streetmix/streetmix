@@ -1,6 +1,5 @@
-/* global API_URL */
-
 import { showBlockingShield, hideBlockingShield } from '../app/blocking_shield'
+import { API_URL } from '../app/config'
 import { hideError } from '../app/errors'
 import { shareMenu } from '../menus/_share'
 import {

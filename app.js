@@ -6,6 +6,7 @@ if (process.env.NEW_RELIC_LICENSE_KEY) {
 var compression = require('compression')
 var cookieParser = require('cookie-parser')
 var cookieSession = require('cookie-session')
+var envify = require('envify/custom')
 var express = require('express')
 var browserify = require('browserify-middleware')
 var babelify = require('babelify')
@@ -77,7 +78,14 @@ app.use('/assets/css/styles.css', middleware.styles)
 app.get('/assets/scripts/main.js', browserify(__dirname + '/assets/scripts/main.js', {
   cache: true,
   precompile: true,
-  transform: [[{ presets: ['es2015'] }, babelify]],
+  transform: [[{ presets: ['es2015'] }, babelify], envify({
+    APP_HOST_PORT: config.get('app_host_port'),
+    FACEBOOK_APP_ID: config.get('facebook_app_id'),
+    API_URL: config.get('restapi_proxy_baseuri_rel'),
+    TWITTER_CALLBACK_URI: config.get('twitter').oauth_callback_uri,
+    ENV: config.get('env'),
+    NO_INTERNET_MODE: config.get('no_internet_mode')
+  })],
 }))
 
 // SVG bundled images served directly from packages

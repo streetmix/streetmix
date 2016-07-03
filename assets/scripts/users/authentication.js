@@ -1,8 +1,7 @@
-/* global API_URL */
-
 import $ from 'jquery'
 import Cookies from 'js-cookie'
 
+import { API_URL } from '../app/config'
 import { showError, ERRORS } from '../app/errors'
 import { trackEvent } from '../app/event_tracking'
 import { checkIfEverythingIsLoaded } from '../app/initialization'

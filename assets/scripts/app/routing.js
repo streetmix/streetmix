@@ -1,4 +1,4 @@
-/* global URL_SIGN_IN_CALLBACK_REL */
+import { URL_SIGN_IN_CALLBACK_REL } from './config'
 
 // TODO replace the URLs in index.html dynamically
 const URL_SIGN_IN = 'twitter-sign-in'

@@ -30,15 +30,6 @@ html(lang='en')
     if config.google_analytics_account
       include ./misc/ga
 
-    script.
-      var SITE_URL = 'http://#{ config.app_host_port }/'
-      var API_URL = '#{ config.restapi_proxy_baseuri_rel }/'
-      var FACEBOOK_APP_ID = '#{ config.facebook_app_id }'
-      var URL_SIGN_IN_CALLBACK_REL = '#{ config.twitter.oauth_callback_uri }'
-      var ENV = '#{ config.env }'
-      var NO_INTERNET_MODE = #{ config.no_internet_mode }
-
-
   body(tabindex='1')
 
     //- SVG staging area

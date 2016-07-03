@@ -1,8 +1,3 @@
-/* global ENV */
-// Remember, the debug & system variables are global & attached to the window
-// because they are detected in a separate bundle. Require()ing them here will
-// not do what you expect.
-
 import $ from 'jquery'
 
 import { hideLoadingScreen, getImagesToBeLoaded } from './load_resources'
@@ -37,6 +32,7 @@ import {
   setGeolocationLoaded,
   getGeolocationLoaded
 } from '../users/localization'
+import { ENV } from './config'
 import { addEventListeners } from './event_listeners'
 import { trackEvent } from './event_tracking'
 import { getMode, setMode, MODES, processMode } from './mode'

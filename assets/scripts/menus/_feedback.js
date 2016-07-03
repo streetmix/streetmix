@@ -1,5 +1,4 @@
-/* global API_URL */
-
+import { API_URL } from '../app/config'
 import { KEYS } from '../app/keyboard_commands'
 import { system } from '../preinit/system_capabilities'
 import { newNonblockingAjaxRequest } from '../util/fetch_nonblocking'
