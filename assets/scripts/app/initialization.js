@@ -1,8 +1,3 @@
-/* global debug, system, app, ENV */
-// Remember, the debug & system variables are global & attached to the window
-// because they are detected in a separate bundle. Require()ing them here will
-// not do what you expect.
-
 import $ from 'jquery'
 
 import { hideLoadingScreen, getImagesToBeLoaded } from './load_resources'
@@ -13,6 +8,9 @@ import { aboutDialog } from '../dialogs/_about'
 import { shareMenu } from '../menus/_share'
 import { showGallery } from '../gallery/view'
 import { feedbackMenu } from '../menus/_feedback'
+import { app } from '../preinit/app_settings'
+import { debug } from '../preinit/debug_settings'
+import { system } from '../preinit/system_capabilities'
 import { prepareSegmentInfo } from '../segments/info'
 import { createPalette } from '../segments/palette'
 import { fillEmptySegments, segmentsChanged } from '../segments/view'
@@ -34,6 +32,7 @@ import {
   setGeolocationLoaded,
   getGeolocationLoaded
 } from '../users/localization'
+import { ENV } from './config'
 import { addEventListeners } from './event_listeners'
 import { trackEvent } from './event_tracking'
 import { getMode, setMode, MODES, processMode } from './mode'

@@ -5,8 +5,8 @@
  * browser, connection, etc).
  *
  */
-/* global NO_INTERNET_MODE */
 /* global Modernizr */
+import { NO_INTERNET_MODE } from '../app/config'
 import { debug } from './debug_settings'
 
 // Default settings

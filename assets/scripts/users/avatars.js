@@ -1,4 +1,5 @@
-/* global API_URL */
+import { API_URL } from '../app/config'
+
 let avatarCache = {}
 
 export function fetchAvatars () {

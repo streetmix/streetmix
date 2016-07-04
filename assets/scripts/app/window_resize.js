@@ -1,6 +1,6 @@
-/* global system, app */
-
 import { infoBubble } from '../info_bubble/info_bubble'
+import { app } from '../preinit/app_settings'
+import { system } from '../preinit/system_capabilities'
 import {
   BUILDING_SPACE,
   updateBuildingPosition,

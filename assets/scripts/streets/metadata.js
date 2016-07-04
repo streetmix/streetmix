@@ -9,6 +9,7 @@
  */
 import { msg } from '../app/messages'
 import { showGallery } from '../gallery/view'
+import { app } from '../preinit/app_settings'
 import { fetchAvatars } from '../users/avatars'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { formatDate } from '../util/date_format'
@@ -68,7 +69,6 @@ function displayStreetWidthRemaining (remainingWidth) {
  * @todo [refactor]
  */
 function displayStreetAuthor (creatorId) {
-  /* global app */
   var el = document.querySelector('#street-metadata-author')
 
   if (creatorId && (!isSignedIn() || (creatorId !== getSignInData().userId))) {

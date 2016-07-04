@@ -1,5 +1,4 @@
-/* global API_URL */
-
+import { API_URL } from '../app/config'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { getGalleryUserId } from '../app/page_url'
 import { getAuthHeader } from '../users/authentication'

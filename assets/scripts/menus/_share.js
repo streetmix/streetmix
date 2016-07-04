@@ -1,5 +1,4 @@
-/* global FACEBOOK_APP_ID */
-
+import { FACEBOOK_APP_ID } from '../app/config'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { trackEvent } from '../app/event_tracking'
 import { getPageTitle } from '../app/page_title'

@@ -1,10 +1,9 @@
-/* global system */
-
 import {
   INFO_BUBBLE_TYPE_RIGHT_BUILDING,
   INFO_BUBBLE_TYPE_LEFT_BUILDING,
   infoBubble
 } from '../info_bubble/info_bubble'
+import { system } from '../preinit/system_capabilities'
 import { getStreet, saveStreetToServerIfNecessary } from '../streets/data_model'
 import { getElAbsolutePos } from '../util/helpers'
 import { RandomGenerator } from '../util/random'

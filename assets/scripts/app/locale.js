@@ -3,9 +3,10 @@
  * handles internationalization (i18n)
  *
  */
-/* global API_URL */
 import i18next from 'i18next'
 import i18nextXhr from 'i18next-xhr-backend'
+
+import { API_URL } from './config'
 
 // Default language is set by browser, or is English if undetermined
 const defaultLocale = navigator.language || 'en'

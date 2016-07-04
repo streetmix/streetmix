@@ -1,5 +1,3 @@
-/* global app, debug, system */
-
 import _ from 'lodash'
 
 import { ERRORS, showError } from '../app/errors'
@@ -7,6 +5,9 @@ import { trackEvent } from '../app/event_tracking'
 import { checkIfEverythingIsLoaded } from '../app/initialization'
 import { MODES, getMode } from '../app/mode'
 import { hideAllMenus } from '../menus/menu'
+import { app } from '../preinit/app_settings'
+import { debug } from '../preinit/debug_settings'
+import { system } from '../preinit/system_capabilities'
 import {
   normalizeAllSegmentWidths,
   setSegmentWidthResolution,

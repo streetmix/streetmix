@@ -1,5 +1,3 @@
-/* global app, system */
-
 import { trackEvent } from '../app/event_tracking'
 import { showError, ERRORS } from '../app/errors'
 import { onWindowFocus } from '../app/focus'
@@ -13,6 +11,8 @@ import {
 } from '../app/page_url'
 import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/routing'
 import { hideStatusMessage } from '../app/status_message'
+import { app } from '../preinit/app_settings'
+import { system } from '../preinit/system_capabilities'
 import { hideControls } from '../segments/resizing'
 import {
   DEFAULT_NAME,

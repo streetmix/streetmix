@@ -1,5 +1,3 @@
-/* global system */
-
 import { trackEvent } from '../app/event_tracking'
 import { loseAnyFocus } from '../app/focus'
 import {
@@ -9,6 +7,7 @@ import {
 import { infoBubble } from '../info_bubble/info_bubble'
 import { hideAllMenus } from '../menus/menu'
 import { app } from '../preinit/app_settings'
+import { system } from '../preinit/system_capabilities'
 import { getStreet } from '../streets/data_model'
 import { setIgnoreStreetChanges } from '../streets/undo_stack'
 import { removeElFromDOM } from '../util/dom_helpers'

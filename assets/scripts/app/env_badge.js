@@ -1,4 +1,4 @@
-/* global ENV */
+import { ENV } from './config'
 
 export function setEnvironmentBadge (label) {
   // If a label is not provided, determine one using ENV

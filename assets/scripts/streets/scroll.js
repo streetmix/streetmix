@@ -2,11 +2,10 @@
  * Handles scrolling the street.
  *
  */
-/* global system */
-
 import $ from 'jquery'
 import { registerKeypress } from '../app/keypress'
 import { infoBubble } from '../info_bubble/info_bubble'
+import { system } from '../preinit/system_capabilities'
 import { getStreet } from './data_model'
 import { MAX_CUSTOM_STREET_WIDTH } from './width'
 
