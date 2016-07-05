@@ -14,7 +14,7 @@ exports.post = function (req, res) {
 
   street.id = uuid.v1()
 
-  var request_ip = function (req) {
+  var requestIp = function (req) {
     if (req.headers['x-forwarded-for'] !== undefined) {
       return req.headers['x-forwarded-for'].split(', ')[0]
     } else {
@@ -34,7 +34,7 @@ exports.post = function (req, res) {
 
     street.name = body.name
     street.data = body.data
-    street.creator_ip = request_ip(req)
+    street.creator_ip = requestIp(req)
   }
 
   var handleCreateStreet = function (err, s) {
@@ -55,7 +55,6 @@ exports.post = function (req, res) {
       res.header('Location', config.restapi.baseuri + '/v1/streets/' + s.id)
       res.status(201).send(streetJson)
     })
-
   } // END function - handleCreateStreet
 
   var handleNewStreetNamespacedId = function (err, namespacedId) {
@@ -67,7 +66,6 @@ exports.post = function (req, res) {
 
     street.namespaced_id = namespacedId
     street.save(handleCreateStreet)
-
   } // END function - handleNewStreetNamespacedId
 
   var makeNamespacedId = function () {
@@ -86,7 +84,6 @@ exports.post = function (req, res) {
           handleNewStreetNamespacedId(err, (row ? row.seq : null))
         })
     }
-
   } // END function - makeNamespacedId
 
   var handleFindStreet = function (err, origStreet) {
@@ -102,7 +99,6 @@ exports.post = function (req, res) {
 
     street.original_street_id = origStreet
     makeNamespacedId()
-
   } // END function - handleFindStreet
 
   var saveStreet = function () {
@@ -111,7 +107,6 @@ exports.post = function (req, res) {
     } else {
       makeNamespacedId()
     }
-
   } // END function - saveStreet
 
   var handleFindUser = function (err, user) {
@@ -122,7 +117,6 @@ exports.post = function (req, res) {
 
     street.creator_id = user
     saveStreet()
-
   } // END function - handleFindUser
 
   if (req.loginToken) {
@@ -130,7 +124,6 @@ exports.post = function (req, res) {
   } else {
     saveStreet()
   }
-
 } // END function - exports.post
 
 exports.delete = function (req, res) {
@@ -142,7 +135,6 @@ exports.delete = function (req, res) {
     }
 
     res.status(204).end()
-
   } // END function - handleDeleteStreet
 
   var handleFindStreet = function (err, street) {
@@ -181,11 +173,9 @@ exports.delete = function (req, res) {
 
       street.status = 'DELETED'
       street.save(handleDeleteStreet)
-
     } // END function - handleFindUser
 
     User.findOne({ login_tokens: { $in: [ req.loginToken ] } }, handleFindUser)
-
   } // END function - handleFindStreet
 
   if (!req.loginToken) {
@@ -199,7 +189,6 @@ exports.delete = function (req, res) {
   }
 
   Street.findOne({ id: req.params.street_id }, handleFindStreet)
-
 } // END function - exports.delete
 
 exports.get = function (req, res) {
@@ -237,7 +226,6 @@ exports.get = function (req, res) {
       res.set('Location', config.restapi.baseuri + '/v1/streets/' + street.id)
       res.status(200).send(streetJson)
     })
-
   } // END function - handleFindStreet
 
   if (!req.params.street_id) {
@@ -246,7 +234,6 @@ exports.get = function (req, res) {
   }
 
   Street.findOne({ id: req.params.street_id }, handleFindStreet)
-
 } // END function - exports.get
 
 exports.find = function (req, res) {
@@ -284,7 +271,6 @@ exports.find = function (req, res) {
     }
 
     Street.findOne({ namespaced_id: namespacedId, creator_id: user._id }, handleFindStreet)
-
   } // END function - handleFindUser
 
   var handleFindStreets = function (err, results) {
@@ -339,9 +325,7 @@ exports.find = function (req, res) {
 
         json.streets = results
         res.status(200).send(json)
-
       }) // END - async.map
-
   } // END function - handleFindStreets
 
   if (creatorId) {
@@ -360,7 +344,6 @@ exports.find = function (req, res) {
       }
     ], handleFindStreets)
   }
-
 } // END function - exports.find
 
 exports.put = function (req, res) {
@@ -386,7 +369,6 @@ exports.put = function (req, res) {
     }
 
     res.status(204).end()
-
   } // END function - handleUpdateStreet
 
   var handleFindStreet = function (err, street) {
@@ -414,7 +396,6 @@ exports.put = function (req, res) {
 
       street.original_street_id = origStreet
       street.save(handleUpdateStreet)
-
     } // END function - handleFindOriginalStreet
 
     var updateStreetData = function () {
@@ -426,7 +407,6 @@ exports.put = function (req, res) {
       } else {
         street.save(handleUpdateStreet)
       }
-
     } // END function - updateStreetData
 
     var handleFindUser = function (err, user) {
@@ -452,7 +432,6 @@ exports.put = function (req, res) {
       }
 
       updateStreetData()
-
     } // END function - handleFindUser
 
     if (!street.creator_id) {
@@ -464,9 +443,7 @@ exports.put = function (req, res) {
       }
 
       User.findOne({ login_tokens: { $in: [ req.loginToken ] } }, handleFindUser)
-
     } // END else - street has a creator
-
   } // END function - handleFindStreet
 
   if (!req.params.street_id) {
@@ -475,5 +452,4 @@ exports.put = function (req, res) {
   }
 
   Street.findOne({ id: req.params.street_id }, handleFindStreet)
-
 } // END function - exports.put

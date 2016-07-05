@@ -39,15 +39,12 @@ exports.get = function (req, res) {
 
           json.streets = results
           res.status(200).send(json)
-
         }) // END - async.map
-
     } // END function - handleFindStreets
 
     Street.find({ creator_id: user._id, status: 'ACTIVE' })
       .sort({ updated_at: 'descending' })
       .exec(handleFindStreets)
-
   } // END function - handleFindUser
 
   // Flag error if user ID is not provided
@@ -57,5 +54,4 @@ exports.get = function (req, res) {
   }
 
   User.findOne({ id: req.params.user_id }, handleFindUser)
-
 } // END function - exports.get

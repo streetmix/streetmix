@@ -20,7 +20,7 @@
     "posttest": "mongo admin --eval 'db.shutdownServer()'",
     "lint": "npm run lint-css && npm run lint-js",
     "lint-css": "sass-lint --config .sass-lint.yml  --verbose",
-    "lint-js": "standard ./**/*.js --verbose | snazzy",
+    "lint-js": "standard --verbose | snazzy",
     "translationsDownload": "node bin/download_translations.js"
   },
   "dependencies": {

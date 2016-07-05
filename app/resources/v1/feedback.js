@@ -1,5 +1,6 @@
 var config = require('config')
-var sendgrid = require('sendgrid')(config.email.sendgrid.username, config.email.sendgrid.password)
+var sendgrid = require('sendgrid')(
+  config.email.sendgrid.username, config.email.sendgrid.password)
 var isEmail = require('validator/lib/isEmail')
 var logger = require('../../../lib/logger.js')()
 
@@ -66,5 +67,4 @@ exports.post = function (req, res) {
     logger.info('Sendgrid: Feedback accepted. ', json)
     res.status(202).json({ msg: 'Feedback accepted.' })
   })
-
 } // END function - exports.post
