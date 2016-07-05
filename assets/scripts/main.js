@@ -16,8 +16,6 @@ import './vendor/polyfills/customevent' // customEvent in IE
 
 // Main object
 import { Stmx } from './app/initialization'
-window.Stmx = Stmx
-
 import { startListening } from './app/keypress'
 import { system } from './preinit/system_capabilities'
 // import modules for side-effects
@@ -74,3 +72,6 @@ window.addEventListener('stmx:everything_loaded', function (e) {
 
 // Start listening for keypresses
 startListening()
+
+Stmx.preInit()
+Stmx.init()
