@@ -2,8 +2,6 @@
 
 var config = require('config')
 var fs = require('fs')
-var btoa = require('btoa')
-var request = require('superagent')
 var logger = require('../../../lib/logger.js')()
 
 exports.get = function (req, res) {
@@ -27,7 +25,7 @@ exports.get = function (req, res) {
 
   var handleGetFromTransifex = require('../../../lib/transifex.js')
 
-  var sendSuccessResponse = function(locale, resource, translation) {
+  var sendSuccessResponse = function (locale, resource, translation) {
     res.set({
       'Content-Type': 'application/json; charset=utf-8',
       'Location': config.restapi.baseuri + '/v1/translate/' + locale + '/' + resource,

@@ -21,7 +21,6 @@ exports.post = function (req, res) {
       logger.info({ user: userJson }, 'New user created.')
       res.header('Location', config.restapi.baseuri + '/v1/users/' + user.id)
       res.status(201).send(userJson)
-
     } // END function - handleCreateUser
 
     var handleUpdateUser = function (err, user) {
@@ -36,7 +35,6 @@ exports.post = function (req, res) {
 
       res.header('Location', config.restapi.baseuri + '/v1/users/' + user.id)
       res.status(200).send(userJson)
-
     } // END function - handleUpdateUser
 
     var handleFindUser = function (err, user) {
@@ -58,7 +56,6 @@ exports.post = function (req, res) {
           login_tokens: [ loginToken ]
         })
         u.save(handleCreateUser)
-
       } else {
         user.id = twitterCredentials.screenName
         user.twitter_credentials = {
@@ -68,12 +65,10 @@ exports.post = function (req, res) {
         user.login_tokens.push(loginToken)
         user.save(handleUpdateUser)
       }
-
     } // END function - handleFindUser
 
     // Try to find user with twitter ID
     User.findOne({ twitter_id: twitterCredentials.userId }, handleFindUser)
-
   } // END function - handleTwitterSignIn
 
   var body
@@ -91,7 +86,6 @@ exports.post = function (req, res) {
   } else {
     res.status(400).send('Unknown sign-in method used.')
   }
-
 } // END function - exports.post
 
 exports.get = function (req, res) {
@@ -174,7 +168,6 @@ exports.get = function (req, res) {
     } else {
       sendUserJson()
     }
-
   } // END function - handleFindUserById
 
   // Flag error if user ID is not provided
@@ -215,7 +208,6 @@ exports.delete = function (req, res) {
       return
     }
     res.status(204).end()
-
   } // END function - handleSaveUser
 
   var handleFindUser = function (err, user) {
@@ -238,7 +230,6 @@ exports.delete = function (req, res) {
 
     user.login_tokens.splice(idx, 1)
     user.save(handleSaveUser)
-
   } // END function - handleFindUser
 
   // Flag error if user ID is not provided
@@ -249,7 +240,6 @@ exports.delete = function (req, res) {
 
   var userId = req.params.user_id
   User.findOne({ id: userId }, handleFindUser)
-
 } // END function - exports.delete
 
 exports.put = function (req, res) {
@@ -268,7 +258,6 @@ exports.put = function (req, res) {
       return
     }
     res.status(204).end()
-
   } // END function - handleSaveUser
 
   var handleFindUser = function (err, user) {
@@ -290,7 +279,6 @@ exports.put = function (req, res) {
 
     user.data = body.data || user.data
     user.save(handleSaveUser)
-
   } // END function - handleFindUser
 
   // Flag error if user ID is not provided
@@ -301,5 +289,4 @@ exports.put = function (req, res) {
 
   var userId = req.params.user_id
   User.findOne({ id: userId }, handleFindUser)
-
 } // END function - exports.put

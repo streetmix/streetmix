@@ -17,7 +17,6 @@ var controllers = require('./app/controllers')
 var resources = require('./app/resources')
 var requestHandlers = require('./lib/request_handlers')
 var middleware = require('./lib/middleware')
-var logger = require('./lib/logger')()
 var exec = require('child_process').exec
 
 var app = module.exports = express()
@@ -34,7 +33,7 @@ app.use(requestHandlers.request_log)
 app.use(requestHandlers.request_id_echo)
 
 app.set('view engine', 'jade')
-app.set('views', __dirname + '/app/views')
+app.set('views', path.join(__dirname, '/app/views'))
 
 // Redirect to environment-appropriate domain, if necessary
 app.all('*', function (req, res, next) {
@@ -75,7 +74,7 @@ app.get('/.well-known/status', resources.well_known_status.get)
 app.use('/assets/css/styles.css', middleware.styles)
 
 // Build JavaScript bundle via browserify
-app.get('/assets/scripts/main.js', browserify(__dirname + '/assets/scripts/main.js', {
+app.get('/assets/scripts/main.js', browserify(path.join(__dirname, '/assets/scripts/main.js'), {
   cache: true,
   precompile: true,
   transform: [[{ presets: ['es2015'] }, babelify], envify({
@@ -85,7 +84,7 @@ app.get('/assets/scripts/main.js', browserify(__dirname + '/assets/scripts/main.
     TWITTER_CALLBACK_URI: config.get('twitter').oauth_callback_uri,
     ENV: config.get('env'),
     NO_INTERNET_MODE: config.get('no_internet_mode')
-  })],
+  })]
 }))
 
 // SVG bundled images served directly from packages
