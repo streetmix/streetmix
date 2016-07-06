@@ -46,6 +46,10 @@ app.all('*', function (req, res, next) {
   }
 })
 
+app.get('/help/about', function (req, res, next) {
+  res.redirect('https://www.opencollective.com/streetmix/')
+})
+
 app.get('/twitter-sign-in', controllers.twitter_sign_in.get)
 app.get(config.twitter.oauth_callback_uri, controllers.twitter_sign_in_callback.get)
 
