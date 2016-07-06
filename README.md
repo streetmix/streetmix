@@ -36,7 +36,7 @@ Streetmix can be used as a tool to promote and engage citizens around streetscap
 
 #### How did this project start?
 
-Streetmix was started as a [Code for America][cfa] hackathon project in January 2013, inspired by community meetings like the one described above, and a similar CfA project in 2012 called [Blockee](http://blockee.org/).
+Streetmix started as a [Code for America][cfa] hackathon project in January 2013, inspired by community meetings like the one described above.
 
 
 ## Sponsors
@@ -44,31 +44,11 @@ Streetmix was started as a [Code for America][cfa] hackathon project in January 
 ![https://opencollective.com/streetmix/sponsors.svg](https://opencollective.com/streetmix)
 
 
-## Credits
+## Collaborators
 
-The team is comprised of 2013 Code for America fellows.
+Find out more about the team and project collaborators at [Open Collective](opencollective.com/streetmix). For feedback, feature requests, bug reports, and contributions, see our [Contributing Guide][contributing].
 
-* [Ans Bradford][ans], media production
-* [Ezra Spier][ahhrrr], cat herder, proto-urbanist
-* [Katie Lewis][katie], illustrator
-* [Lou Huang][louh], project lead, research, outreach, transit fan
-* [Marc Hébert][marccfa], UX researcher, design anthropologist
-* [Marcin Wichary][mwichary], UX, FE, PM, sharrow whisperer
-* [Shaunak Kashyap][ycombinator], rear end engineering
-
-[cfa]: http://codeforamerica.org/
-[ahhrrr]: https://github.com/ahhrrr
-[louh]: https://github.com/louh
-[mwichary]: https://github.com/mwichary
-[ans]: https://github.com/anselmbradford
-[katie]: https://github.com/katielewis
-[ycombinator]: https://github.com/ycombinator
-[marccfa]: https://github.com/MarcCfA
-
-You can contact the team at streetmix@codeforamerica.org.
-
-Also, this project was made possible by the support of Code for America staff and other 2013 fellows, as well as our network of urbanists, design and planning professionals, and testers, who have provided us countless amounts of time and feedback towards this development.
-
+[contributing]: https://github.com/codeforamerica/streetmix/blob/master/CONTRIBUTING.md
 
 ### Copyright
 
