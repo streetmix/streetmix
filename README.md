@@ -9,6 +9,8 @@ Streetmix is a browser-based interactive tool that lets you design, remix, and s
 
 Streetmix is currently live at http://streetmix.net/
 
+**Have questions? Looking for support or advice?** [Join our Slack community!](https://streetmix-slack.herokuapp.com/)
+
 ![screenshot](doc/images/screenshot-beta.jpg)
 
 ## About
