@@ -41,7 +41,9 @@ Streetmix started as a [Code for America][cfa] hackathon project in January 2013
 
 ## Sponsors
 
-![https://opencollective.com/streetmix/sponsors.svg](https://opencollective.com/streetmix)
+<p align="center">
+  <a href="https://opencollective.com/streetmix"><img src="https://opencollective.com/streetmix/sponsors.svg" alt="Become a sponsor"></a>
+</p>
 
 
 ## Collaborators
