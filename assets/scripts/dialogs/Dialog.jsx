@@ -39,7 +39,7 @@ export default class Dialog extends React.Component {
     }
 
     return (
-      <div>
+      <div className='dialog-box-container'>
         <div className='dialog-box-shield' onClick={this.unmountDialog}></div>
         <div className={className}>
           <button className='close' onClick={this.unmountDialog}>×</button>

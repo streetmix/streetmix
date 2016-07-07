@@ -20,8 +20,8 @@ export default class AboutDialog extends React.Component {
   render () {
     return (
       <Dialog className='about-dialog'>
+        <h1 data-i18n='dialogs.about.heading'>About Streetmix.</h1>
         <div className='about-dialog-left'>
-          <h1 data-i18n='dialogs.about.heading'>About Streetmix.</h1>
           <div className='about-dialog-description' data-i18n='dialogs.about.description'>
             Design, remix, and share your street.
             Add bike paths, widen sidewalks or traffic lanes, learn
