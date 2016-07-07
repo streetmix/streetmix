@@ -140,7 +140,7 @@ $dialog-box-default-width: 790px;
   }
 }
 
-#save-as-image-preview-loading {
+.save-as-image-preview-loading {
   position: absolute;
   left: 0;
   top: 0;
@@ -150,10 +150,6 @@ $dialog-box-default-width: 790px;
 
   font-size: 16px;
   text-align: center;
-
-  &:not(.visible) {
-    display: none;
-  }
 }
 
 #save-as-image-preview {
@@ -164,18 +160,13 @@ $dialog-box-default-width: 790px;
   margin-bottom: 20px;
 }
 
-#save-as-image-preview-preview {
+.save-as-image-preview-image {
   @include touch-callout(default);
 
   display: table-cell;
   vertical-align: middle;
   text-align: center;
   font-size: 0;
-
-  &:not(.visible) {
-    opacity: 0;
-    pointer-events: none;
-  }
 
   img {
     max-width: 700px;
