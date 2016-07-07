@@ -7,8 +7,6 @@
  *
  */
 import React from 'react'
-import ReactDOM from 'react-dom'
-
 import Dialog from './dialog'
 import { trackEvent } from '../app/event_tracking'
 import { getStreet } from '../streets/data_model'
@@ -19,7 +17,7 @@ import { normalizeSlug } from '../util/helpers'
 // Require save-as polyfills
 import saveAs from '../vendor/FileSaver'
 
-export class SaveAsImageDialog extends React.Component {
+export default class SaveAsImageDialog extends React.Component {
   constructor (props) {
     super(props)
 
@@ -127,7 +125,7 @@ export class SaveAsImageDialog extends React.Component {
 
   render () {
     return (
-      <div>
+      <Dialog className='save-as-image-dialog'>
         <h1 data-i18n='dialogs.save.heading'>Save as image</h1>
         <p>
           <input
@@ -210,18 +208,10 @@ export class SaveAsImageDialog extends React.Component {
           This Streetmix-created image may be reused anywhere, for any purpose, under the
           <br /><a href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons Attribution-ShareAlike 4.0 International License</a>.
         </footer>
-      </div>
+      </Dialog>
     )
   }
 }
-
-export let saveAsImageDialog = new Dialog('#save-as-image-dialog', {
-  clickSelector: '#save-as-image',
-  onShow: function () {
-    const mountNode = document.getElementById('save-as-image-dialog-react')
-    ReactDOM.render(<SaveAsImageDialog />, mountNode)
-  }
-})
 
 function makeFilename () {
   let filename = normalizeSlug(getStreet().name)

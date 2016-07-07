@@ -7,7 +7,7 @@
 
 $dialog-box-default-width: 790px;
 
-#dialog-box-shield {
+.dialog-box-shield {
   z-index: $z-08-dialog-box-shield;
 
   position: absolute;
@@ -18,10 +18,6 @@ $dialog-box-default-width: 790px;
   background: fade-out($sky-colour, 0.5);
   cursor: pointer;
   touch-action: none;
-
-  &:not(.visible) {
-    display: none;
-  }
 }
 
 .dialog-box {
@@ -46,8 +42,19 @@ $dialog-box-default-width: 790px;
     @include large-message-text;
   }
 
-  &:not(.visible) {
-    display: none;
+  footer {
+    color: rgb(160, 160, 160);
+    font-size: 11px;
+    line-height: 14px;
+    margin-top: 15px;
+
+    a {
+      color: inherit;
+    }
+
+    a:hover {
+      color: rgb(120, 120, 120);
+    }
   }
 }
 
@@ -92,9 +99,9 @@ $dialog-box-default-width: 790px;
   }
 }
 
-// Content of #save-as-image dialog box
-// TODO: Less nesting and less id-based styling
-#save-as-image-dialog {
+// Content of Save as Image dialog box
+// TODO: Less nesting
+.save-as-image-dialog {
   width: $dialog-box-default-width;
   padding-left: 40px;
   padding-right: 40px;
@@ -121,22 +128,6 @@ $dialog-box-default-width: 790px;
 
   footer {
     text-align: center;
-  }
-}
-
-#about footer,
-#save-as-image-dialog footer {
-  color: rgb(160, 160, 160);
-  font-size: 11px;
-  line-height: 14px;
-  margin-top: 15px;
-
-  a {
-    color: inherit;
-
-    &:hover {
-      color: rgb(120, 120, 120);
-    }
   }
 }
 

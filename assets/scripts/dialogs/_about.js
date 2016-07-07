@@ -7,17 +7,11 @@
  *
  */
 import React from 'react'
-import ReactDOM from 'react-dom'
-
+import Dialog from './dialog'
 import { trackEvent } from '../app/event_tracking'
 import { fetchAvatars } from '../users/avatars'
-import Dialog from './dialog'
 
-export class AboutDialog extends React.Component {
-  constructor (props) {
-    super(props)
-  }
-
+export default class AboutDialog extends React.Component {
   componentDidMount () {
     trackEvent('Interaction', 'Open about dialog box', null, null, false)
     fetchAvatars()
@@ -25,7 +19,7 @@ export class AboutDialog extends React.Component {
 
   render () {
     return (
-      <div>
+      <Dialog className='about-dialog'>
         <div className='about-dialog-left'>
           <h1 data-i18n='dialogs.about.heading'>About Streetmix.</h1>
           <div className='about-dialog-description' data-i18n='dialogs.about.description'>
@@ -84,15 +78,7 @@ export class AboutDialog extends React.Component {
             the Blockee team for paving the way, and all of our testers for their time and feedback!
           </footer>
         </div>
-      </div>
+      </Dialog>
     )
   }
 }
-
-export let aboutDialog = new Dialog('#about', {
-  clickSelector: '#about-streetmix',
-  onShow: function () {
-    const mountNode = document.getElementById('about-dialog-react')
-    ReactDOM.render(<AboutDialog />, mountNode)
-  }
-})
