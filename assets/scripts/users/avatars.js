@@ -15,10 +15,9 @@ export function fetchAvatars () {
 
   for (var i = 0, j = els.length; i < j; i++) {
     var el = els[i]
-    var userId = el.getAttribute('userId')
-    var postpone = el.getAttribute('postpone')
+    var userId = el.getAttribute('userId') || el.getAttribute('data-user-id')
 
-    if (userId && !postpone && (typeof avatarCache[userId] === 'undefined')) {
+    if (userId && (typeof avatarCache[userId] === 'undefined')) {
       fetchAvatar(userId)
     }
   }

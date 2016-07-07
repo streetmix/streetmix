@@ -258,7 +258,6 @@ function _signInLoaded () {
   var street = getStreet()
   let mode = getMode()
   if ((mode === MODES.CONTINUE) || (mode === MODES.JUST_SIGNED_IN) ||
-    (mode === MODES.ABOUT) ||
     (mode === MODES.USER_GALLERY) || (mode === MODES.GLOBAL_GALLERY)) {
     let settings = getSettings()
     if (settings.lastStreetId) {
@@ -282,7 +281,6 @@ function _signInLoaded () {
     case MODES.EXISTING_STREET:
     case MODES.CONTINUE:
     case MODES.USER_GALLERY:
-    case MODES.ABOUT:
     case MODES.GLOBAL_GALLERY:
       fetchStreetFromServer()
       break

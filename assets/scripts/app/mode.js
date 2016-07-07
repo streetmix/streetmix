@@ -75,7 +75,6 @@ export function processMode () {
       break
     case MODES.CONTINUE:
     case MODES.USER_GALLERY:
-    case MODES.ABOUT:
     case MODES.GLOBAL_GALLERY:
       setServerContacted(false)
       break
