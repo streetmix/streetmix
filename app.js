@@ -77,6 +77,7 @@ app.use('/assets/css/styles.css', middleware.styles)
 app.get('/assets/scripts/main.js', browserify(path.join(__dirname, '/assets/scripts/main.js'), {
   cache: true,
   precompile: true,
+  extensions: [ '.jsx' ],
   transform: [[{ presets: ['es2015', 'react'] }, babelify], envify({
     APP_HOST_PORT: config.get('app_host_port'),
     FACEBOOK_APP_ID: config.get('facebook_app_id'),

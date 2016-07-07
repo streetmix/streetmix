@@ -7,7 +7,7 @@ import { getSharingUrl } from '../util/share_url'
 import Menu from './menu'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import SaveAsImageDialog from '../dialogs/_save_as_image'
+import SaveAsImageDialog from '../dialogs/SaveAsImageDialog'
 
 export let shareMenu = new Menu('share', {
   alignment: 'right',

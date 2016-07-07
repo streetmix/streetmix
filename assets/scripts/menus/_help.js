@@ -1,7 +1,7 @@
 import Menu from './menu'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import AboutDialog from '../dialogs/_about'
+import AboutDialog from '../dialogs/AboutDialog'
 import { registerKeypress } from '../app/keypress'
 import { trackEvent } from '../app/event_tracking'
 

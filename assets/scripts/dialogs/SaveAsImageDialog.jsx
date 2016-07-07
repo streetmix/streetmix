@@ -7,7 +7,7 @@
  *
  */
 import React from 'react'
-import Dialog from './dialog'
+import Dialog from './Dialog'
 import { trackEvent } from '../app/event_tracking'
 import { getStreet } from '../streets/data_model'
 import { getStreetImage } from '../streets/image'
