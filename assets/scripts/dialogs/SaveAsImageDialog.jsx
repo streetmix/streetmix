@@ -13,6 +13,7 @@ import { getStreet } from '../streets/data_model'
 import { getStreetImage } from '../streets/image'
 import { saveSettingsLocally, getSettings } from '../users/settings'
 import { normalizeSlug } from '../util/helpers'
+import { t } from '../app/locale'
 
 // Require save-as polyfills
 import saveAs from '../vendor/FileSaver'
@@ -118,7 +119,7 @@ export default class SaveAsImageDialog extends React.Component {
       })
     } catch (e) {
       this.setState({
-        errorMessage: 'Saving to image is not available on this browser.'
+        errorMessage: t('dialogs.save.error-unavailable', 'Saving to image is not available on this browser.')
       })
     }
   }
@@ -126,7 +127,7 @@ export default class SaveAsImageDialog extends React.Component {
   render () {
     return (
       <Dialog className='save-as-image-dialog'>
-        <h1 data-i18n='dialogs.save.heading'>Save as image</h1>
+        <h1>{t('dialogs.save.heading', 'Save as image')}</h1>
         <p>
           <input
             type='checkbox'
@@ -134,10 +135,8 @@ export default class SaveAsImageDialog extends React.Component {
             checked={this.state.optionSegmentNames}
             id='save-as-image-segment-names'
           />
-          <label
-            htmlFor='save-as-image-segment-names'
-            data-i18n='dialogs.save.option-labels'>
-            Segment names and widths
+          <label htmlFor='save-as-image-segment-names'>
+            {t('dialogs.save.option-labels', 'Segment names and widths')}
           </label>
 
           <input
@@ -146,10 +145,8 @@ export default class SaveAsImageDialog extends React.Component {
             checked={this.state.optionStreetName}
             id='save-as-image-street-name'
           />
-          <label
-            htmlFor='save-as-image-street-name'
-            data-i18n='dialogs.save.option-name'>
-            Street name
+          <label htmlFor='save-as-image-street-name'>
+            {t('dialogs.save.option-name', 'Street name')}
           </label>
 
           <input
@@ -158,10 +155,8 @@ export default class SaveAsImageDialog extends React.Component {
             checked={this.state.optionTransparentSky}
             id='save-as-image-transparent-sky'
           />
-          <label
-            htmlFor='save-as-image-transparent-sky'
-            data-i18n='dialogs.save.option-sky'>
-            Transparent sky
+          <label htmlFor='save-as-image-transparent-sky'>
+            {t('dialogs.save.option-sky', 'Transparent sky')}
           </label>
         </p>
         {(() => {
@@ -177,14 +172,14 @@ export default class SaveAsImageDialog extends React.Component {
             return (
               <div id='save-as-image-preview'>
                 <div className='save-as-image-preview-loading' style={{display: this.state.isLoading ? 'block' : 'none'}}>
-                  <span data-i18n='dialogs.save.loading'>Loading…</span>
+                  {t('dialogs.save.loading', 'Loading…')}
                 </div>
                 <div className='save-as-image-preview-image' style={{display: this.state.isLoading ? 'none' : 'block'}}>
                   <img
                     src={this.state.download.dataUrl}
                     onLoad={this.onPreviewLoaded}
                     onError={this.onPreviewError}
-                    alt='Preview'
+                    alt={t('dialogs.save.preview-image-alt', 'Preview')}
                   />
                 </div>
               </div>
@@ -199,14 +194,13 @@ export default class SaveAsImageDialog extends React.Component {
             // Note that this property is not supported in Safari/iOS
             download={this.state.download.filename}
             // Link should refer to data URL, even though onClickDownloadImage() is used for direct download
-            href={this.state.download.dataUrl}
-            data-i18n='dialogs.save.save-button'>
-            Save to your computer…
+            href={this.state.download.dataUrl}>
+            {t('dialogs.save.save-button', 'Save to your computer…')}
           </a>
         </p>
-        <footer data-i18n='dialogs.save.license'>
-          This Streetmix-created image may be reused anywhere, for any purpose, under the
-          <br /><a href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        <footer dangerouslySetInnerHTML={{ __html: t('dialogs.save.license') }}>
+          {/* This Streetmix-created image may be reused anywhere, for any purpose, under the
+          <br /><a href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons Attribution-ShareAlike 4.0 International License</a>. */}
         </footer>
       </Dialog>
     )

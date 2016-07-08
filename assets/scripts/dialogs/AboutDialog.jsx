@@ -10,6 +10,7 @@ import React from 'react'
 import Dialog from './Dialog.jsx'
 import { trackEvent } from '../app/event_tracking'
 import { fetchAvatars } from '../users/avatars'
+import { t } from '../app/locale'
 
 export default class AboutDialog extends React.Component {
   componentDidMount () {
@@ -20,28 +21,23 @@ export default class AboutDialog extends React.Component {
   render () {
     return (
       <Dialog className='about-dialog'>
-        <h1 data-i18n='dialogs.about.heading'>About Streetmix.</h1>
+        <h1>{t('dialogs.about.heading', 'About Streetmix.')}</h1>
         <div className='about-dialog-left'>
-          <div className='about-dialog-description' data-i18n='dialogs.about.description'>
-            Design, remix, and share your street.
+          <div className='about-dialog-description'>
+            {t('dialogs.about.description', 'About Streetmix.')}
+            {/* Design, remix, and share your street.
             Add bike paths, widen sidewalks or traffic lanes, learn
-            how all of this can impact your community.
+            how all of this can impact your community. */}
           </div>
           <ul>
             <li>
-              <a
-                href='http://blog.streetmix.net'
-                target='_blank'
-                data-i18n='menu.contact.blog'>
-                Visit Streetmix blog
+              <a href='http://blog.streetmix.net' target='_blank'>
+                {t('menu.contact.blog', 'Visit Streetmix blog')}
               </a>
             </li>
             <li>
-              <a
-                href='https://github.com/codeforamerica/streetmix/'
-                target='_blank'
-                data-i18n='dialogs.about.view-source'>
-                View source code
+              <a href='https://github.com/codeforamerica/streetmix/' target='_blank'>
+                {t('dialogs.about.view-source', 'View source code')}
               </a>
             </li>
           </ul>
