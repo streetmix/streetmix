@@ -5,15 +5,18 @@
 </p>
 
 <p align="center">
-  <b>Design, remix, and share your neighborhood street.</b> Make change in your community at <a href="http://streetmix.net/">streetmix.net</a>.
+  <b>Design, remix, and share your neighborhood street.</b>
+  <br>Make change in your community at <a href="http://streetmix.net/">streetmix.net</a>.
 </p>
 
 <p align="center">
-  <b>Have questions? Looking for support or advice?</b> <a href="https://streetmix-slack.herokuapp.com/">Join our Slack community!</a>
+  <b>Have questions? Looking for support or advice?</b>
+  <br><a href="https://streetmix-slack.herokuapp.com/">Join our Slack community!</a>
 </p>
 
 <p align="center">
-  Learn more about the team and project collaborators at <a href="https://opencollective.com/streetmix">Open Collective</a>. We welcome contributions! Please see our <a href="https://github.com/codeforamerica/streetmix/blob/master/CONTRIBUTING.md">contributor guidelines</a>.
+  Learn more about the team and project collaborators at <a href="https://opencollective.com/streetmix">Open Collective</a>.
+  <br>We welcome contributions! Please see our <a href="https://github.com/codeforamerica/streetmix/blob/master/CONTRIBUTING.md">contributor guidelines</a>.
 </p>
 
 <p align="center">
@@ -22,6 +25,7 @@
   <a href="https://codeclimate.com/github/codeforamerica/streetmix"><img alt="Code Climate" src="https://img.shields.io/codeclimate/github/codeforamerica/streetmix.svg?style=flat-square"></a>
 </p>
 
+<hr>
 
 ![screenshot](doc/images/screenshot-beta.jpg)
 
