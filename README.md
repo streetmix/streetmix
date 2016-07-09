@@ -10,6 +10,10 @@
 </p>
 
 <p align="center">
+  :couple: :palm_tree: :oncoming_automobile: :oncoming_bus: :palm_tree: :dancer:
+</p>
+
+<p align="center">
   <b>Have questions? Looking for support or advice?</b>
   <br><a href="https://streetmix-slack.herokuapp.com/">Join our Slack community!</a>
 </p>
@@ -27,7 +31,9 @@
 
 <hr>
 
-![screenshot](doc/images/screenshot-beta.jpg)
+<p align="center">
+  <img src="https://github.com/codeforamerica/streetmix/raw/master/doc/images/screenshot-beta.jpg" alt="screenshot">
+</p>
 
 ## About
 
@@ -56,6 +62,7 @@ Streetmix can be used as a tool to promote and engage citizens around streetscap
 
 Streetmix started as a [Code for America][cfa] hackathon project in January 2013, inspired by community meetings like the one described above.
 
+[cfa]: https://codeforamerica.org/
 
 ## Sponsors
 
