@@ -66,6 +66,14 @@
     border: 1px solid $form-element-border;
     resize: none;
   }
+
+  .icon {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 16px;
+    height: 16px;
+  }
 }
 
 body.safari .menu {
@@ -172,15 +180,6 @@ body.safari .menu {
     padding: 8px 5px;
     width: 100%;
   }
-}
-
-#share-via-twitter .icon,
-#share-via-facebook .icon {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  width: 16px;
-  height: 16px;
 }
 
 #share-via-link-canvas {
