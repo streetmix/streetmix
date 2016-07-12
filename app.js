@@ -46,7 +46,7 @@ app.all('*', function (req, res, next) {
   }
 })
 
-app.get('/help/about', function (req, res, next) {
+app.get('/help/about', function (req, res) {
   res.redirect('https://www.opencollective.com/streetmix/')
 })
 
