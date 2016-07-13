@@ -7,7 +7,7 @@
  *
  */
 import React from 'react'
-import Dialog from './Dialog.jsx'
+import Dialog from './Dialog'
 import { trackEvent } from '../app/event_tracking'
 import { fetchAvatars } from '../users/avatars'
 import { t } from '../app/locale'
