@@ -198,10 +198,7 @@ export default class SaveAsImageDialog extends React.Component {
             {t('dialogs.save.save-button', 'Save to your computer…')}
           </a>
         </p>
-        <footer dangerouslySetInnerHTML={{ __html: t('dialogs.save.license') }}>
-          {/* This Streetmix-created image may be reused anywhere, for any purpose, under the
-          <br /><a href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons Attribution-ShareAlike 4.0 International License</a>. */}
-        </footer>
+        <footer dangerouslySetInnerHTML={{ __html: t('dialogs.save.license', 'This Streetmix-created image may be reused anywhere, for any purpose, under the<br /><a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.') }} />
       </Dialog>
     )
   }

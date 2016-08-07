@@ -84,7 +84,7 @@ function doTheI18n (locale) {
 
 export function t (key, fallback, options) {
   const text = i18next.t(key, options)
-  if (text === key) {
+  if (!text || text === key) {
     return fallback
   } else {
     return text

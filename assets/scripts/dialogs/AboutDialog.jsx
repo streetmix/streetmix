@@ -24,10 +24,7 @@ export default class AboutDialog extends React.Component {
         <h1>{t('dialogs.about.heading', 'About Streetmix.')}</h1>
         <div className='about-dialog-left'>
           <div className='about-dialog-description'>
-            {t('dialogs.about.description', 'About Streetmix.')}
-            {/* Design, remix, and share your street.
-            Add bike paths, widen sidewalks or traffic lanes, learn
-            how all of this can impact your community. */}
+            {t('dialogs.about.description', 'Design, remix, and share your street. Add bike paths, widen sidewalks or traffic lanes, learn how all of this can impact your community.')}
           </div>
           <ul>
             <li>
