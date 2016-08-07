@@ -32,8 +32,8 @@ function initSettingDropdown (locale) {
   el.addEventListener('change', onNewLocaleSelected)
 }
 
-function onNewLocaleSelected () {
-  setLocale(this.value)
+function onNewLocaleSelected (event) {
+  setLocale(event.target.value)
 }
 
 export function getLocale () {
@@ -54,8 +54,9 @@ function doTheI18n (locale) {
   const options = {
     lng: locale,
     ns: ['main', 'segment-info'],
+    defaultNS: 'main',
     fallbackLng: 'en',
-    load: 'currentOnly',
+    load: 'all',
     backend: {
       loadPath: API_URL + 'v1/translate/{{lng}}/{{ns}}'
     }
@@ -65,11 +66,12 @@ function doTheI18n (locale) {
     if (err) {
       console.log(err)
     }
-    var els = document.querySelectorAll('[data-i18n]')
-    for (var i = 0, j = els.length; i < j; i++) {
-      var translation = ''
-      for (var ns in options.ns) {
-        translation = translation || t(els[i].getAttribute('data-i18n'), {ns: options.ns[ns]})
+    const els = document.querySelectorAll('[data-i18n]')
+    for (let i = 0, j = els.length; i < j; i++) {
+      const key = els[i].getAttribute('data-i18n')
+      let translation = ''
+      for (let ns of options.ns) {
+        translation = translation || t(key, {ns: options.ns[ns]})
       }
       els[i].textContent = translation
     }
@@ -78,4 +80,13 @@ function doTheI18n (locale) {
   i18next
     .use(i18nextXhr)
     .init(options, callback)
+}
+
+export function t (key, fallback, options) {
+  const text = i18next.t(key, options)
+  if (!text || text === key) {
+    return fallback
+  } else {
+    return text
+  }
 }

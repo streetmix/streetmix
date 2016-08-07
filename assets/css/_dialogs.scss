@@ -7,7 +7,13 @@
 
 $dialog-box-default-width: 790px;
 
-#dialog-box-shield {
+.dialog-box-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dialog-box-shield {
   z-index: $z-08-dialog-box-shield;
 
   position: absolute;
@@ -18,43 +24,45 @@ $dialog-box-default-width: 790px;
   background: fade-out($sky-colour, 0.5);
   cursor: pointer;
   touch-action: none;
-
-  &:not(.visible) {
-    display: none;
-  }
 }
 
 .dialog-box {
   @include box-border;
 
-  z-index: $z-09-dialog-box;
-  position: absolute;
-
-  top: 100px;
-  left: 50%;
-  margin-left: -($dialog-box-default-width / 2);
-
+  position: relative;
   box-sizing: border-box;
-  padding: 15px;
+  width: $dialog-box-default-width;
+  margin-top: 100px;
+  padding: 15px 40px;
 
   background: white;
   font-size: 13px;
   line-height: 1.5;
+  z-index: $z-09-dialog-box;
   touch-action: none;
 
   h1 {
     @include large-message-text;
   }
 
-  &:not(.visible) {
-    display: none;
+  footer {
+    color: rgb(160, 160, 160);
+    font-size: 11px;
+    line-height: 14px;
+    margin-top: 15px;
+
+    a {
+      color: inherit;
+    }
+
+    a:hover {
+      color: rgb(120, 120, 120);
+    }
   }
 }
 
 // Content of #about dialog box
 .about-dialog {
-  width: $dialog-box-default-width;
-
   // Used by team list and external links
   ul {
     list-style: none;
@@ -64,15 +72,14 @@ $dialog-box-default-width: 790px;
 }
 
 .about-dialog-left {
-  width: 300px;
-  margin-right: 40px;
+  width: 340px;
+  margin-right: 30px;
   display: inline-block;
   vertical-align: top;
-  margin-left: 40px;
 }
 
 .about-dialog-right {
-  width: 350px;
+  width: 340px;
   display: inline-block;
   vertical-align: top;
 }
@@ -92,13 +99,9 @@ $dialog-box-default-width: 790px;
   }
 }
 
-// Content of #save-as-image dialog box
-// TODO: Less nesting and less id-based styling
-#save-as-image-dialog {
-  width: $dialog-box-default-width;
-  padding-left: 40px;
-  padding-right: 40px;
-
+// Content of Save as Image dialog box
+// TODO: Less nesting
+.save-as-image-dialog {
   p {
     font-size: 16px;
     text-align: center;
@@ -124,23 +127,7 @@ $dialog-box-default-width: 790px;
   }
 }
 
-#about footer,
-#save-as-image-dialog footer {
-  color: rgb(160, 160, 160);
-  font-size: 11px;
-  line-height: 14px;
-  margin-top: 15px;
-
-  a {
-    color: inherit;
-
-    &:hover {
-      color: rgb(120, 120, 120);
-    }
-  }
-}
-
-#save-as-image-preview-loading {
+.save-as-image-preview-loading {
   position: absolute;
   left: 0;
   top: 0;
@@ -150,10 +137,6 @@ $dialog-box-default-width: 790px;
 
   font-size: 16px;
   text-align: center;
-
-  &:not(.visible) {
-    display: none;
-  }
 }
 
 #save-as-image-preview {
@@ -164,18 +147,13 @@ $dialog-box-default-width: 790px;
   margin-bottom: 20px;
 }
 
-#save-as-image-preview-preview {
+.save-as-image-preview-image {
   @include touch-callout(default);
 
   display: table-cell;
   vertical-align: middle;
   text-align: center;
   font-size: 0;
-
-  &:not(.visible) {
-    opacity: 0;
-    pointer-events: none;
-  }
 
   img {
     max-width: 700px;

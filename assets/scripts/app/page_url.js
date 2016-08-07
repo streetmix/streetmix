@@ -8,8 +8,6 @@ import {
   URL_JUST_SIGNED_IN,
   URL_ERROR,
   URL_GLOBAL_GALLERY,
-  URL_HELP,
-  URL_ABOUT,
   URL_NO_USER,
   URL_RESERVED_PREFIX
 } from './routing'
@@ -77,10 +75,6 @@ export function processUrl () {
     galleryUserId = urlParts[0]
 
     setMode(MODES.USER_GALLERY)
-  } else if ((urlParts.length === 2) && (urlParts[0] === URL_HELP) && (urlParts[1] === URL_ABOUT)) {
-    // About
-
-    setMode(MODES.ABOUT)
   } else if ((urlParts.length === 2) && (urlParts[0] === URL_NO_USER) && urlParts[1]) {
     // TODO add is integer urlParts[1]
     // Existing street by an anonymous person

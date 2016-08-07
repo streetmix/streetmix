@@ -5,12 +5,24 @@ import { getPageTitle } from '../app/page_title'
 import { getStreet } from '../streets/data_model'
 import { getSharingUrl } from '../util/share_url'
 import Menu from './menu'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import SaveAsImageDialog from '../dialogs/SaveAsImageDialog'
 
 export let shareMenu = new Menu('share', {
   alignment: 'right',
-  onInit: function () {
+  init: function () {
     document.querySelector('#share-via-twitter').addEventListener('pointerdown', _shareViaTwitter)
     document.querySelector('#share-via-facebook').addEventListener('pointerdown', _shareViaFacebook)
+
+    // Attach React trigger here.
+    document.querySelector('#save-as-image').addEventListener('pointerdown', _mountReactComponent)
+
+    function _mountReactComponent (event) {
+      event.preventDefault()
+      const mountNode = document.getElementById('dialogs-react')
+      ReactDOM.render(<SaveAsImageDialog />, mountNode)
+    }
   },
   onShow: function () {
     // Auto-focus and select link when share menu is active

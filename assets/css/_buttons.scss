@@ -67,6 +67,7 @@ button.close {
   background: transparent;
   color: rgb(64, 32, 32);
   cursor: pointer;
+  user-select: none;
 
   &:hover {
     color: black;

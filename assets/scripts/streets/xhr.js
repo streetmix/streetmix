@@ -154,7 +154,7 @@ export function fetchStreetFromServer () {
 function errorReceiveStreet (data) {
   let mode = getMode()
   if ((mode === MODES.CONTINUE) || (mode === MODES.USER_GALLERY) ||
-    (mode === MODES.ABOUT) || (mode === MODES.GLOBAL_GALLERY)) {
+    (mode === MODES.GLOBAL_GALLERY)) {
     goNewStreet()
   } else {
     if ((data.status === 404) || (data.status === 410)) {

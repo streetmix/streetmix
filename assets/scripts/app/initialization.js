@@ -4,7 +4,6 @@ import { hideLoadingScreen, getImagesToBeLoaded } from './load_resources'
 import { initLocale } from './locale'
 import { scheduleNextLiveUpdateCheck } from './live_update'
 import { setEnvironmentBadge } from './env_badge'
-import { aboutDialog } from '../dialogs/_about'
 import { shareMenu } from '../menus/_share'
 import { showGallery } from '../gallery/view'
 import { feedbackMenu } from '../menus/_feedback'
@@ -172,8 +171,6 @@ function onEverythingLoaded () {
     showGallery(getGalleryUserId(), true)
   } else if (mode === MODES.GLOBAL_GALLERY) {
     showGallery(null, true)
-  } else if (mode === MODES.ABOUT) {
-    aboutDialog.show()
   }
 
   if (getPromoteStreet()) {

@@ -20,8 +20,6 @@ const URL_LOCALES = 'locales'
 export const URL_ERROR = 'error'
 export const URL_NO_USER = '-'
 export const URL_HELP = 'help'
-export const URL_ABOUT = 'about'
-export const URL_HELP_ABOUT = '/' + URL_HELP + '/' + URL_ABOUT
 
 export const URL_ERROR_TWITTER_ACCESS_DENIED = 'twitter-access-denied'
 export const URL_ERROR_NO_TWITTER_REQUEST_TOKEN = 'no-twitter-request-token'
