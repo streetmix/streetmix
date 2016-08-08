@@ -20,50 +20,50 @@ export default class AboutDialog extends React.Component {
 
   render () {
     return (
-      <Dialog className='about-dialog'>
+      <Dialog className="about-dialog">
         <h1>{t('dialogs.about.heading', 'About Streetmix.')}</h1>
-        <div className='about-dialog-left'>
-          <div className='about-dialog-description'>
+        <div className="about-dialog-left">
+          <div className="about-dialog-description">
             {t('dialogs.about.description', 'Design, remix, and share your street. Add bike paths, widen sidewalks or traffic lanes, learn how all of this can impact your community.')}
           </div>
           <ul>
             <li>
-              <a href='http://blog.streetmix.net' target='_blank'>
+              <a href="http://blog.streetmix.net" target="_blank">
                 {t('menu.contact.blog', 'Visit Streetmix blog')}
               </a>
             </li>
             <li>
-              <a href='https://github.com/codeforamerica/streetmix/' target='_blank'>
+              <a href="https://github.com/codeforamerica/streetmix/" target="_blank">
                 {t('dialogs.about.view-source', 'View source code')}
               </a>
             </li>
           </ul>
         </div>
-        <div className='about-dialog-right'>
+        <div className="about-dialog-right">
           <p>
-            A side project by <a target='_blank' href='http://codeforamerica.org'>Code for America</a> 2013 fellows:
+            A side project by <a target="_blank" href="http://codeforamerica.org">Code for America</a> 2013 fellows:
           </p>
-          <ul className='about-dialog-team'>
+          <ul className="about-dialog-team">
             <li>
-              <a target='_blank' href='http://twitter.com/anselmbradford'><div className='avatar' data-user-id='anselmbradford'></div>Anselm Bradford</a> · media production
+              <a target="_blank" href="http://twitter.com/anselmbradford"><div className="avatar" data-user-id="anselmbradford" />Anselm Bradford</a> · media production
             </li>
             <li>
-              <a target='_blank' href='http://ahhrrr.com'><div className='avatar' data-user-id='ahhrrr'></div>Ezra Spier</a> · cat herder, proto-urbanist
+              <a target="_blank" href="http://ahhrrr.com"><div className="avatar" data-user-id="ahhrrr" />Ezra Spier</a> · cat herder, proto-urbanist
             </li>
             <li>
-              <a target='_blank' href='http://twitter.com/klizlewis'><div className='avatar' data-user-id='klizlewis'></div>Katie Lewis</a> · illustrator
+              <a target="_blank" href="http://twitter.com/klizlewis"><div className="avatar" data-user-id="klizlewis" />Katie Lewis</a> · illustrator
             </li>
             <li>
-              <a target='_blank' href='http://louhuang.com'><div className='avatar' data-user-id='saikofish'></div>Lou Huang</a> · project lead, research, outreach, transit fan
+              <a target="_blank" href="http://louhuang.com"><div className="avatar" data-user-id="saikofish" />Lou Huang</a> · project lead, research, outreach, transit fan
             </li>
             <li>
-              <a target='_blank' href='http://www.linkedin.com/pub/marc-hebert/1/2bb/66'><div className='avatar' data-user-id='anthromarc'></div>Marc Hébert</a> · UX researcher, design anthropologist
+              <a target="_blank" href="http://www.linkedin.com/pub/marc-hebert/1/2bb/66"><div className="avatar" data-user-id="anthromarc" />Marc Hébert</a> · UX researcher, design anthropologist
             </li>
             <li>
-              <a target='_blank' href='http://aresluna.org'><div className='avatar' data-user-id='mwichary'></div>Marcin Wichary</a> · UX, FE, PM, sharrow whisperer
+              <a target="_blank" href="http://aresluna.org"><div className="avatar" data-user-id="mwichary" />Marcin Wichary</a> · UX, FE, PM, sharrow whisperer
             </li>
             <li>
-              <a target='_blank' href='http://twitter.com/shaunak'><div className='avatar' data-user-id='shaunak'></div>Shaunak Kashyap</a> · rear end engineering
+              <a target="_blank" href="http://twitter.com/shaunak"><div className="avatar" data-user-id="shaunak" />Shaunak Kashyap</a> · rear end engineering
             </li>
           </ul>
           <footer>
