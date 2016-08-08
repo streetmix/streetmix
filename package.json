@@ -20,7 +20,7 @@
     "posttest": "mongo admin --eval 'db.shutdownServer()'",
     "lint": "npm run lint-css && npm run lint-js",
     "lint-css": "sass-lint --config .sass-lint.yml  --verbose",
-    "lint-js": "standard --verbose | snazzy",
+    "lint-js": "eslint \"**/*.js\" \"**/*.jsx\"",
     "translationsDownload": "node bin/download_translations.js"
   },
   "dependencies": {
@@ -83,6 +83,11 @@
   },
   "devDependencies": {
     "eslint": "2.13.1",
+    "eslint-config-standard": "5.3.5",
+    "eslint-config-standard-react": "3.0.0",
+    "eslint-plugin-promise": "2.0.1",
+    "eslint-plugin-react": "6.0.0",
+    "eslint-plugin-standard": "2.0.0",
     "grunt": "1.0.1",
     "grunt-env": "0.4.4",
     "grunt-express": "1.4.1",
@@ -91,19 +96,10 @@
     "load-grunt-tasks": "3.5.0",
     "proxyquire": "1.7.9",
     "sass-lint": "1.8.2",
-    "snazzy": "4.0.0",
-    "standard": "7.1.2",
-    "standard-react": "2.1.0",
     "supertest": "1.2.0",
     "tap-spec": "4.1.1",
     "tape": "4.6.0",
     "tape-catch": "1.0.6"
-  },
-  "standard": {
-    "ignore": [
-      "assets/scripts/vendor/",
-      "test/integration/smoke.spec.js"
-    ]
   },
   "browserify": {
     "transform": [

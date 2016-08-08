@@ -39,13 +39,18 @@ export default class Dialog extends React.Component {
     }
 
     return (
-      <div className='dialog-box-container'>
-        <div className='dialog-box-shield' onClick={this.unmountDialog}></div>
+      <div className="dialog-box-container">
+        <div className="dialog-box-shield" onClick={this.unmountDialog} />
         <div className={className}>
-          <button className='close' onClick={this.unmountDialog}>×</button>
+          <button className="close" onClick={this.unmountDialog}>×</button>
           {this.props.children}
         </div>
       </div>
     )
   }
+}
+
+Dialog.propTypes = {
+  className: React.PropTypes.string,
+  children: React.PropTypes.node
 }
