@@ -17,10 +17,10 @@ export let feedbackMenu = new Menu('feedback', {
 feedbackMenu.update = _updateFeedbackMenu
 
 function _addEventListeners () {
-  document.querySelector('#feedback-form-message').addEventListener('input', _onFeedbackFormInput)
-  document.querySelector('#feedback-form-email').addEventListener('input', _onFeedbackFormInput)
-  document.querySelector('#feedback-form-email').addEventListener('keydown', _onFeedbackFormEmailKeyDown)
-  document.querySelector('#feedback-form-send').addEventListener('pointerdown', _feedbackFormSend)
+  // document.querySelector('#feedback-form-message').addEventListener('input', _onFeedbackFormInput)
+  // document.querySelector('#feedback-form-email').addEventListener('input', _onFeedbackFormInput)
+  // document.querySelector('#feedback-form-email').addEventListener('keydown', _onFeedbackFormEmailKeyDown)
+  // document.querySelector('#feedback-form-send').addEventListener('pointerdown', _feedbackFormSend)
 }
 
 function _isFeedbackFormMessagePresent () {
@@ -123,6 +123,7 @@ function _updateFeedbackMenu () {
 
 function _prepareFeedbackForm (event) {
   // Event comes from the onShow handler on the menu
+  return;
   if (event && event.pointerType === 'mouse') {
     window.setTimeout(function () {
       document.querySelector('#feedback-form-message').focus()
