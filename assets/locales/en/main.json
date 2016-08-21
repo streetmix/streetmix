@@ -27,9 +27,9 @@
       "save-byline": "For including in a report, blog, etc."
     },
     "contact": {
-      "twitter": "Follow us @streetmix",
+      "twitter": "Send a tweet to @streetmix",
       "email": "Send an email to Streetmix team",
-      "github": "View/comment on GitHub",
+      "github": "View source code on GitHub",
       "blog": "Visit Streetmix blog",
       "slack": "Join Slack chat"
     },
