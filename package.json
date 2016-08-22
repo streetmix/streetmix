@@ -70,7 +70,7 @@
     "requireindex": "1.1.0",
     "sendgrid": "2.0.0",
     "sprintf": "0.1.5",
-    "streetmix-icons": "git://github.com/streetmix/icons.git#0.4.0",
+    "streetmix-icons": "git://github.com/streetmix/icons.git#v0.4.1",
     "streetmix-illustrations": "git://github.com/streetmix/illustrations.git",
     "superagent": "2.0.0",
     "supervisor": "0.11.0",
