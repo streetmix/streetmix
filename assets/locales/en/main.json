@@ -61,7 +61,8 @@
     "try-again": "Try again",
     "cancel": "Cancel",
     "create": "Create new street",
-    "copy": "Make a copy"
+    "copy": "Make a copy",
+    "remove": "Remove"
   },
   "dialogs": {
     "welcome": {
@@ -104,6 +105,7 @@
   "width": {
     "label": "%s width",
     "room": "(%s room)",
+    "over": "(%s over)",
     "occupied": "Occupied width:",
     "building": "Building-to-building width:",
     "different": "Different width…",
@@ -124,6 +126,16 @@
     "decrease-width": "Decrease width (hold Shift for more precision)",
     "add-floor": "Add floor",
     "remove-floor": "Remove floor"
+  },
+  "street": {
+    "default-name": "Unnamed St"
+  },
+  "segments": {
+    "warnings": {
+      "does-not-fit": "This segment doesn’t fit within the street.",
+      "not-wide": "This segment might not be wide enough.",
+      "too-wide": "This segment might be too wide."
+    }
   },
   "section": {
     "empty": "Empty space"
@@ -153,7 +165,9 @@
       "es": "Spanish",
       "es-mx": "Spanish (Mexico)",
       "pl": "Polish",
-      "pt-br": "Portuguese (Brazil)"
+      "pt-br": "Portuguese (Brazil)",
+      "sv": "Swedish",
+      "zh-hant": "Chinese (Traditional)"
     }
   }
 }
