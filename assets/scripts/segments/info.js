@@ -248,7 +248,7 @@ export const SEGMENT_INFO = {
     }
   },
   'sidewalk-bike-rack': {
-    name: 'Bike rack',
+    name: 'CityRack',
     owner: SEGMENT_OWNER_BIKE,
     zIndex: 2,
     defaultWidth: 5,
