@@ -295,7 +295,7 @@ export const SEGMENT_INFO = {
   },
 
   'sidewalk-bench': {
-    name: 'Bench',
+    name: 'CityBench',
     owner: SEGMENT_OWNER_PEDESTRIAN,
     zIndex: 2,
     defaultWidth: 4,
@@ -323,12 +323,12 @@ export const SEGMENT_INFO = {
   },
 
   'sidewalk-wayfinding': {
-    name: 'Wayfinding sign',
+    name: 'WalkNYC Sign',
     owner: SEGMENT_OWNER_PEDESTRIAN,
     zIndex: 2,
     defaultWidth: 4,
     variants: ['wayfinding-type'],
-    description: {
+    /*description: {
       prompt: 'Learn more about wayfinding signs',
       image: 'wayfinding-02.jpg',
       imageCaption: '',
@@ -338,7 +338,7 @@ export const SEGMENT_INFO = {
         'It’s surprising how readily acceptable it is for ample signage to cater to car travel, with less of this investment made at the pedestrian level. Maybe it’s because it’s easier for us to stand still, take stock of our surroundings, and use our senses without fear of accidentally causing a six-person pileup behind us. At any rate, urban designers have pushed for pedestrian-friendly wayfinding signage, particularly in walkable commercial neighborhoods, and these signs have become branding opportunities in addition to being functional. So New York City <a href="http://new.pentagram.com/2013/06/new-work-nyc-wayfinding/">hired an internationally renowned design consultant</a> (and Streetmix has modeled its segments after it), many others have adopted a traditional old-town or civic-formal take (pictured above), and then there are those, for whatever reason, who lack any pedestrian wayfinding signage of significance, such that any improvement must be made with <a href="http://walkyourcity.org/">guerrilla wayfinding tactics</a>.',
         'After all, there’s nothing worse than being lost. As Lynch wrote: “The very word <em>lost</em> in our language means much more than simple geographical uncertainty; it carries overtones of utter disaster.” And who wants to be on the street feeling like that?'
       ]
-    },
+    },*/
     details: {
       'large': {
         graphics: {
@@ -362,7 +362,7 @@ export const SEGMENT_INFO = {
   },
 
   'sidewalk-lamp': {
-    name: 'Sidewalk with a lamp',
+    name: 'CityLight',
     owner: SEGMENT_OWNER_PEDESTRIAN,
     zIndex: 2,
     defaultWidth: 4,
@@ -435,12 +435,12 @@ export const SEGMENT_INFO = {
     }
   },
   'parklet': {
-    name: 'Parklet',
+    name: 'Street Seat',
     owner: SEGMENT_OWNER_NATURE,
     zIndex: 2,
     defaultWidth: 8,
     variants: ['orientation'],
-    description: {
+    /*description: {
       prompt: 'Learn more about parklets',
       image: 'parklets-01.jpg',
       imageCaption: '4033 Judah Street Parklet, courtesy of San Francisco Planning Department.',
@@ -449,7 +449,7 @@ export const SEGMENT_INFO = {
         'In 2005, San Francisco-based design studio <a href="http://rebargroup.org/">Rebar</a> temporarily converted a single metered parking space on downtown Mission Street into a tiny public park. The first parklet was simple: just a bench and a tree on a rectangular piece of turf, but it featured a brief instruction manual and a charge for others to make their own. With people realizing that so much of public space was really devoted to storing cars, an international movement was born, and now, the annual <a href="http://parkingday.org/">Park(ing) Day</a> hosts nearly a thousand temporarily converted spots around the world.',
         'Knowing a good idea when it sees one, San Francisco became the first city to make parklets official with its <a href="http://sfpavementtoparks.sfplanning.org/">Pavement to Parks program</a> in 2010. Today, the City by the Bay has over 50 parklets, many of which are now architecturally designed objects much improved beyond Rebar’s modest prototype. There’s an ambitious, corporate-sponsored two-block-long parklet in the heart of San Francisco’s busiest shopping corridor, and also a collection of movable, bright red “parkmobiles” (Streetmix’s default look) designed for the <a href="http://www.ybcbd.org/">Yerba Buena Community Benefit District</a>. Official parklet programs now exist in many other cities in North America, such as Philadelphia, Oakland, Kansas City, New York, Chicago, and Vancouver, and many more cities are soon to follow.'
       ]
-    },
+    },*/
     details: {
       'left': {
         minWidth: 8,
@@ -476,7 +476,7 @@ export const SEGMENT_INFO = {
     paletteIcon: 'planting-strip',
     details: {
       'planting-strip': {
-        name: 'Planting strip',
+        name: 'Greenstreet Planting',
         graphics: {
           repeat: [
             { tileset: 2, x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
@@ -517,7 +517,7 @@ export const SEGMENT_INFO = {
         }
       },
       'bush': {
-        name: 'Planting strip',
+        name: 'Greenstreet Planting',
         graphics: {
           center: { tileset: 2, x: 122, y: 55, width: 2, height: 5, offsetY: 7 },
           repeat: [
@@ -527,7 +527,7 @@ export const SEGMENT_INFO = {
         }
       },
       'flowers': {
-        name: 'Planting strip',
+        name: 'Greenstreet Planting',
         graphics: {
           center: { tileset: 2, x: 122, y: 59, width: 2, height: 5, offsetY: 7 },
           repeat: [
@@ -537,7 +537,7 @@ export const SEGMENT_INFO = {
         }
       },
       'big-tree': {
-        name: 'Planting strip',
+        name: 'Tree',
         graphics: {
           center: { tileset: 1, x: 40, y: 56, width: 9, height: 21, offsetY: -10 }, // Big tree
           repeat: [
@@ -547,7 +547,7 @@ export const SEGMENT_INFO = {
         }
       },
       'palm-tree': {
-        name: 'Planting strip',
+        name: 'Palm Tree',
         graphics: {
           center: { tileset: 1, x: 83, y: 24, offsetX: 0, offsetY: -19, width: 14, /* 14 */ height: 31 },
           repeat: [
@@ -588,7 +588,7 @@ export const SEGMENT_INFO = {
     zIndex: 2,
     defaultWidth: 6,
     variants: ['direction', 'bike-asphalt'],
-    description: {
+    /*description: {
       prompt: 'Learn more about bike lanes',
       image: 'bike-lane-02.jpg',
       imageCaption: '',
@@ -598,7 +598,7 @@ export const SEGMENT_INFO = {
         'While most jurisdictions allow bicycles to share the road with motor vehicles (“A person riding a bicycle… has all the rights and is subject to all the provisions applicable to the driver of a vehicle” <a href="http://www.leginfo.ca.gov/cgi-bin/displaycode?section=veh&group=21001-22000&file=21200-21212">says the California Vehicle Code</a>, in one particular instance) it goes without saying that most cyclists prefer to be in their own lane. It’s safer, for one thing. And because it’s safer, it actually encourages more bikers. And more bikers means healthier citizens, reduced carbon emissions, higher traffic throughput, and congestion mitigation. The <a href="http://pdxcityclub.org/2013/Report/Portland-Bicycle-Transit/Economic-Effects-of-Increased-Bicycle-Usage">economic benefits accrue as well</a>: less money spent on automobile infrastructure (like bridges, roadways, and parking), and with the ability to fit more people on a road, it leads to more business in commercial corridors.',
         'Bike lane design can be extremely varied. Using medians, planters, bollards, or even parking lanes create better protection between bikes and cars. When lanes are painted green, it shows their city’s commitment to a continuous bike lane, and synchronized signal light timing to limit bike stops are called a “green wave.” For more information, check out the <a href="http://nacto.org/cities-for-cycling/design-guide/">NACTO Urban Bikeway Design Guide</a>.'
       ]
-    },
+    },*/
     details: {
       'inbound|regular': {
         minWidth: 5,
@@ -621,7 +621,7 @@ export const SEGMENT_INFO = {
         }
       },
       'inbound|colored': {
-        description: {
+        /*description: {
           prompt: 'Learn more about colored bike lanes',
           image: 'bike-lane-colored-01.jpg',
           imageCaption: '',
@@ -631,7 +631,7 @@ export const SEGMENT_INFO = {
             'Although the safety benefits for colored bike lanes have been proven in <a href="http://greenlaneproject.org/stats/#safety">numerous studies</a>, everyone’s got an opinion on <em>which</em> color to use: the Netherlands uses red lanes, Denmark uses blue, and France uses green. The United Kingdom has a mixture of red and green, and most municipalities in the United States ended up going green (by accident: they all just copied each other), though Portland, one of the most bike-friendly cities in the U.S., have been using <a href="http://www.portlandoregon.gov/transportation/article/58842">blue lanes since the 1990s</a>.',
             'No matter which color you like best, the general rule of thumb is to pick something that sticks out and doesn’t look like other lane markings in your area. Beyond that, the more pressing budgetary concern for most cities is maintenance. Right now, the most commonly used type of paint dulls and wears off fairly quickly, although new improvements in paint are starting to make it more durable. But if recurring costs are a significant concern, don’t let that outweigh the safety benefits: you might want to consider an up-front cost in the form of <a href="http://nacto.org/bufferedlane.html‎">protective barriers</a>, instead.'
           ]
-        },
+        },*/
         minWidth: 5,
         graphics: {
           center: [
@@ -642,7 +642,7 @@ export const SEGMENT_INFO = {
         }
       },
       'outbound|colored': {
-        description: {
+        /*description: {
           prompt: 'Learn more about colored bike lanes',
           image: 'bike-lane-colored-01.jpg',
           imageCaption: '',
@@ -652,7 +652,7 @@ export const SEGMENT_INFO = {
             'Although the safety benefits for colored bike lanes have been proven in <a href="http://greenlaneproject.org/stats/#safety">numerous studies</a>, everyone’s got an opinion on <em>which</em> color to use: the Netherlands uses red lanes, Denmark uses blue, and France uses green. The United Kingdom has a mixture of red and green, and most municipalities in the United States ended up going green (by accident: they all just copied each other), though Portland, one of the most bike-friendly cities in the U.S., have been using <a href="http://www.portlandoregon.gov/transportation/article/58842">blue lanes since the 1990s</a>.',
             'No matter which color you like best, the general rule of thumb is to pick something that sticks out and doesn’t look like other lane markings in your area. Beyond that, the more pressing budgetary concern for most cities is maintenance. Right now, the most commonly used type of paint dulls and wears off fairly quickly, although new improvements in paint are starting to make it more durable. But if recurring costs are a significant concern, don’t let that outweigh the safety benefits: you might want to consider an up-front cost in the form of <a href="http://nacto.org/bufferedlane.html‎">protective barriers</a>, instead.'
           ]
-        },
+        },*/
         minWidth: 5,
         graphics: {
           center: [
@@ -768,7 +768,7 @@ export const SEGMENT_INFO = {
           repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
         }
       },
-      'inbound|sharrow': {
+      /*'inbound|sharrow': {
         name: 'Sharrow',
         minWidth: 12,
         maxWidth: 14,
@@ -817,7 +817,7 @@ export const SEGMENT_INFO = {
           ],
           repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
         }
-      },
+      },*/
       'inbound|truck': {
         minWidth: 8,
         maxWidth: 11.9,
@@ -1235,7 +1235,7 @@ export const SEGMENT_INFO = {
       },
       'left|light-rail': {
         minWidth: 8,
-        description: {
+        /*description: {
           prompt: 'Learn more about elevated transit shelters',
           image: 'transit-station-elevated.jpg',
           imageCaption: '',
@@ -1245,7 +1245,7 @@ export const SEGMENT_INFO = {
             'Because of this focus on efficiency, transit vehicles that use elevated platforms are also usually in their own dedicated lanes, so these platforms are placed where they can access these lanes easily, usually in the median.  If placed inbetween lanes going in opposite directions, they can easily serve passengers on both sides of the platform (and you’ll need to place two of them in Streetmix).',
             'Elevated shelters are also sometimes designed like heavy rail train stations, enclosed or with a roof to protect passengers from the elements, and are handy visual beacons of public transit on a busy boulevard. But compared with shelters that are at curb height, they tend to be more expensive pieces of infrastructure and take up more space with of wheelchair ramps. This makes it more difficult for BRT services to be provided with as much flexibility as a normal bus service. Furthermore, with low-floor buses becoming increasingly more common, it starts to reduce the need to have higher platforms.'
           ]
-        },
+        },*/
         graphics: {
           left: { tileset: 3, x: 171, y: 51, width: 9, height: 12, offsetY: -3 },
           repeat: { tileset: 2, x: 110, y: 63, width: 9, height: 9, offsetY: 6 } // Raised concrete
@@ -1253,7 +1253,7 @@ export const SEGMENT_INFO = {
       },
       'right|light-rail': {
         minWidth: 8,
-        description: {
+        /*description: {
           prompt: 'Learn more about elevated transit shelters',
           image: 'transit-station-elevated.jpg',
           imageCaption: '',
@@ -1263,7 +1263,7 @@ export const SEGMENT_INFO = {
             'Because of this focus on efficiency, transit vehicles that use elevated platforms are also usually in their own dedicated lanes, so these platforms are placed where they can access these lanes easily, usually in the median.  If placed inbetween lanes going in opposite directions, they can easily serve passengers on both sides of the platform (and you’ll need to place two of them in Streetmix).',
             'Elevated shelters are also sometimes designed like heavy rail train stations, enclosed or with a roof to protect passengers from the elements, and are handy visual beacons of public transit on a busy boulevard. But compared with shelters that are at curb height, they tend to be more expensive pieces of infrastructure and take up more space with of wheelchair ramps. This makes it more difficult for BRT services to be provided with as much flexibility as a normal bus service. Furthermore, with low-floor buses becoming increasingly more common, it starts to reduce the need to have higher platforms.'
           ]
-        },
+        },*/
         graphics: {
           right: { tileset: 3, x: 181, y: 51, width: 9, height: 13, offsetY: -3 },
           repeat: { tileset: 2, x: 110, y: 63, width: 9, height: 9, offsetY: 6 } // Raised concrete
