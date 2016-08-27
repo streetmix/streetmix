@@ -125,11 +125,11 @@ function detectGeolocationTimeout () {
 }
 
 export function updateSettingsFromCountryCode (countryCode) {
-  if (COUNTRIES_IMPERIAL_UNITS.indexOf(countryCode) !== -1) {
+  /*if (COUNTRIES_IMPERIAL_UNITS.indexOf(countryCode) !== -1) {
     units = SETTINGS_UNITS_IMPERIAL
   } else {
     units = SETTINGS_UNITS_METRIC
-  }
+  }*/
 
   if (COUNTRIES_LEFT_HAND_TRAFFIC.indexOf(countryCode) !== -1) {
     leftHandTraffic = true
