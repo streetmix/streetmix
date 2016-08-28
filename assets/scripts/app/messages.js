@@ -1,4 +1,5 @@
 // TODO: Localize
+// These strings have been added to translation.json, but are still read from here
 const messages = {
   UI_GLYPH_X: '×',
 
@@ -6,7 +7,6 @@ const messages = {
   PROMPT_DELETE_STREET: 'Are you sure you want to permanently delete [[name]]? This cannot be undone.',
   PROMPT_NEW_STREET_WIDTH: 'New street width (from [[minWidth]] to [[maxWidth]]):',
 
-  // -- Added to translation.json, but still updated dynamically --
   MENU_SWITCH_TO_IMPERIAL: 'Switch to imperial units (feet)',
   MENU_SWITCH_TO_METRIC: 'Switch to metric units',
 
@@ -18,7 +18,6 @@ const messages = {
   TOOLTIP_DECREASE_WIDTH: 'Decrease width (hold Shift for more precision)',
   TOOLTIP_ADD_FLOOR: 'Add floor',
   TOOLTIP_REMOVE_FLOOR: 'Remove floor',
-  // -- Above: Added to translation.json, but still updated dynamically --
 
   STATUS_SEGMENT_DELETED: 'The segment has been removed.',
   STATUS_ALL_SEGMENTS_DELETED: 'All segments have been removed.',

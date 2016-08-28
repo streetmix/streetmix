@@ -47,6 +47,7 @@
   },
   "msg": {
     "loading": "Loading…",
+    "remixing": "Remixing…",
     "having-trouble": "Having trouble…",
     "no-street": "No street selected.",
     "trouble-loading": "We’re having trouble loading Streetmix.",
@@ -99,6 +100,21 @@
       "license": "This Streetmix-created image may be reused anywhere, for any purpose, under the <br><a href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons Attribution-ShareAlike 4.0 International License</a>."
     }
   },
+  "prompt": {
+    "new-street": "New street name:",
+    "delete-street": "Are you sure you want to permanently delete %s? This cannot be undone.",
+    "new-width": "New street width (from {{minWidth}} to {{maxWidth}}):",
+  },
+  "toast": {
+    "segment-deleted": "The segment has been removed.",
+    "all-segments-deleted": "All segments have been removed.",
+    "no-undo": "Nothing to undo.",
+    "no-redo": "Nothing to redo.",
+    "no-save": "No need to save by hand; Streetmix automatically saves your street!",
+    "remixing": "Now editing a freshly-made duplicate of the original street. The duplicate has been put in your gallery.",
+    "remixing-sign-in": "Now editing a freshly-made duplicate of the original street. <a href=\"/%s\">Sign in</a> to start your own gallery of streets.",
+    "reloaded": "Your street was reloaded from the server as it was modified elsewhere.",
+  },
   "palette": {
     "remove": "Drag here to remove"
   },
@@ -143,7 +159,12 @@
   "gallery": {
     "fail": "Failed to load the gallery.",
     "all": "All streets",
-    "delete-street-tooltip": "Delete street"
+    "delete-street-tooltip": "Delete street",
+    "count": {
+      "none": "No streets yet",
+      "one": "1 street",
+      "many": "%s streets"
+    }
   },
   "users": {
     "anonymous": "Anonymous"
