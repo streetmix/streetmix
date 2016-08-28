@@ -13,5 +13,8 @@
     "mocha": true
   },
   "plugins": ["react"],
-  "extends": ["standard", "standard-react"]
+  "extends": ["standard", "standard-react"],
+  "rules": {
+    "react/jsx-no-bind": [2, { "ignoreRefs": true }]
+  }
 }
