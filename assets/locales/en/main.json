@@ -103,7 +103,7 @@
   "prompt": {
     "new-street": "New street name:",
     "delete-street": "Are you sure you want to permanently delete %s? This cannot be undone.",
-    "new-width": "New street width (from {{minWidth}} to {{maxWidth}}):",
+    "new-width": "New street width (from {{minWidth}} to {{maxWidth}}):"
   },
   "toast": {
     "segment-deleted": "The segment has been removed.",
@@ -113,7 +113,7 @@
     "no-save": "No need to save by hand; Streetmix automatically saves your street!",
     "remixing": "Now editing a freshly-made duplicate of the original street. The duplicate has been put in your gallery.",
     "remixing-sign-in": "Now editing a freshly-made duplicate of the original street. <a href=\"/%s\">Sign in</a> to start your own gallery of streets.",
-    "reloaded": "Your street was reloaded from the server as it was modified elsewhere.",
+    "reloaded": "Your street was reloaded from the server as it was modified elsewhere."
   },
   "palette": {
     "remove": "Drag here to remove"
