@@ -1,5 +1,5 @@
 import { getSharingUrl } from '../util/share_url'
-import Menu from './menu'
+import Menu from './menu_old'
 
 const TWITTER_ID = '@streetmix'
 

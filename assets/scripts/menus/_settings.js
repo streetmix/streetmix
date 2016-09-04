@@ -1,4 +1,4 @@
-import Menu from './menu'
+import Menu from './menu_old'
 import { trackEvent } from '../app/event_tracking'
 
 export let settingsMenu = new Menu('settings', {

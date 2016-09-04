@@ -1,3 +1,3 @@
-import Menu from './menu'
+import Menu from './menu_old'
 
 export let identityMenu = new Menu('identity')

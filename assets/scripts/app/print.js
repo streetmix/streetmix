@@ -1,6 +1,6 @@
 import { infoBubble } from '../info_bubble/info_bubble'
 import { getStreetImage } from '../streets/image'
-import { hideAllMenus } from '../menus/menu'
+import { hideAllMenus } from '../menus/menu_old'
 
 // Add event listeners
 // Chrome does not have the 'beforeprint' or 'afterprint' events

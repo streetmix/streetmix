@@ -37,7 +37,7 @@ import {
   undecorateWidth,
   processWidthInput
 } from '../util/width_units'
-import { isAnyMenuVisible, hideAllMenus } from '../menus/menu'
+import { isAnyMenuVisible, hideAllMenus } from '../menus/menu_old'
 import { registerKeypress } from '../app/keypress'
 import { loseAnyFocus } from '../app/focus'
 import {
