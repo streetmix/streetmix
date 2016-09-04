@@ -3,7 +3,6 @@ import $ from 'jquery'
 import { hideLoadingScreen, getImagesToBeLoaded } from './load_resources'
 import { initLocale } from './locale'
 import { scheduleNextLiveUpdateCheck } from './live_update'
-import { setEnvironmentBadge } from './env_badge'
 import { shareMenu } from '../menus/_share'
 import { showGallery } from '../gallery/view'
 import { feedbackMenu } from '../menus/_feedback'
@@ -205,9 +204,7 @@ if (debug.hoverPolygon) {
 }
 
 // Toggle experimental features
-if (!debug.experimental) {
-  document.getElementById('settings-menu-item').style.display = 'none'
-} else {
+if (debug.experimental) {
   // Initalize i18n / localization
   // Currently experimental-only
   initLocale()
@@ -215,11 +212,9 @@ if (!debug.experimental) {
 
 // Other
 addBodyClasses()
-setEnvironmentBadge()
 
 // Check if no internet mode
 if (system.noInternet === true) {
-  setEnvironmentBadge('Demo')
   setupNoInternetMode()
 }
 

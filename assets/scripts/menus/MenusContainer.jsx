@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import MenuBar from './MenuBar'
 import HelpMenu from './HelpMenu'
 
 export default class MenusContainer extends React.Component {
@@ -14,6 +14,7 @@ export default class MenusContainer extends React.Component {
   render () {
     return (
       <div>
+        <MenuBar />
         <HelpMenu />
       </div>
     )
