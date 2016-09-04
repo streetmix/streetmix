@@ -5,7 +5,6 @@ import { initLocale } from './locale'
 import { scheduleNextLiveUpdateCheck } from './live_update'
 import { shareMenu } from '../menus/_share'
 import { showGallery } from '../gallery/view'
-import { feedbackMenu } from '../menus/_feedback'
 import { app } from '../preinit/app_settings'
 import { debug } from '../preinit/debug_settings'
 import { system } from '../preinit/system_capabilities'
@@ -270,7 +269,6 @@ function setupNoInternetMode () {
 // Temp: use this while in transition
 export function _onEverythingLoaded2 () {
   shareMenu.update()
-  feedbackMenu.update()
   createPalette()
 
   if (debug.forceLiveUpdate) {

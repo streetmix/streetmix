@@ -1,6 +1,7 @@
 import React from 'react'
 import MenuBar from './MenuBar'
 import HelpMenu from './HelpMenu'
+import ContactMenu from './ContactMenu'
 
 export default class MenusContainer extends React.Component {
   constructor (props) {
@@ -16,6 +17,7 @@ export default class MenusContainer extends React.Component {
       <div>
         <MenuBar />
         <HelpMenu />
+        <ContactMenu />
       </div>
     )
   }
