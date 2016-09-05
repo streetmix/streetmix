@@ -17,8 +17,8 @@ export default class MenuBar extends React.Component {
               Help
             </button>
           </li>
-          <li id='feedback-menu-item'>
-            <button id='feedback-menu-button' data-i18n='menu.item.contact' className='menu-attached'>
+          <li id='contact-menu-item'>
+            <button id='contact-menu-button' data-i18n='menu.item.contact' className='menu-attached'>
               Contact
             </button>
           </li>
