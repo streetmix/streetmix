@@ -16,9 +16,6 @@ export default class Menu extends React.Component {
     const menuButtonEl = document.querySelector(`#${this.props.name}-menu-button`)
 
     if (menuButtonEl) {
-      // Firefox sometimes disables some buttons… unsure why
-      menuButtonEl.disabled = false
-
       // Bind event listeners to the menu button
       menuButtonEl.addEventListener('pointerdown', (event) => {
         // Toggle visibility state
@@ -94,6 +91,7 @@ Menu.propTypes = {
   name: React.PropTypes.string, // TODO: transition
   className: React.PropTypes.string,
   alignment: React.PropTypes.oneOf(['left', 'right']).isRequired,
+  position: React.PropTypes.array,
   onShow: React.PropTypes.func,
   onHide: React.PropTypes.func,
   children: React.PropTypes.node

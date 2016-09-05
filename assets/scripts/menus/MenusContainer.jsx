@@ -15,10 +15,15 @@ export default class MenusContainer extends React.Component {
     }
   }
 
+  onMenuDropdownClick (clickedMenu) {
+    // We get clickedMenu.name and clickedMenu.position
+    // console.log(clickedMenu)
+  }
+
   render () {
     return (
       <div>
-        <MenuBar />
+        <MenuBar onMenuDropdownClick={this.onMenuDropdownClick} />
         <HelpMenu />
         <ContactMenu />
         <IdentityMenu />

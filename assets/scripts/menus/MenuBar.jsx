@@ -5,6 +5,7 @@ import { debug } from '../preinit/debug_settings'
 import { URL_SIGN_IN_REDIRECT } from '../app/routing'
 import { onMyStreetsClick } from '../gallery/view'
 import { fetchAvatars } from '../users/avatars'
+import { getElAbsolutePos } from '../util/helpers'
 
 export default class MenuBar extends React.Component {
   constructor (props) {
@@ -14,6 +15,7 @@ export default class MenuBar extends React.Component {
       userId: null
     }
 
+    this.onClickMenuButton = this.onClickMenuButton.bind(this)
     this.updateSignInUI = this.updateSignInUI.bind(this)
 
     // Listen for sign-in. This updates the sign-in button.
@@ -28,6 +30,18 @@ export default class MenuBar extends React.Component {
   componentDidUpdate () {
     // This fills in avatar elements on the page after mounting
     fetchAvatars()
+  }
+
+  /**
+   * Handles clicks on <button> elements which result in a dropdown menu.
+   */
+  onClickMenuButton (event) {
+    // We need to send to the parent component (which handles menus) information
+    // about what button was clicked and its position, so that the specified
+    // menu can open in the correct place.
+    const name = event.target.dataset.name
+    const position = getElAbsolutePos(event.target.parentNode)
+    this.props.onMenuDropdownClick({ name, position })
   }
 
   updateSignInUI (event) {
@@ -50,6 +64,9 @@ export default class MenuBar extends React.Component {
     // Note on `*-menu-item` and `*-menu-button` elements - these are there
     // for the Menu component to attach events too. This is legacy behavior
     // and should be replaced eventually
+
+    // Buttons have `disabled={false}` because
+    // Firefox sometimes disables some buttons… unsure why
     return (
       <nav className='menu-bar'>
         <ul className='menu-bar-left'>
@@ -58,19 +75,39 @@ export default class MenuBar extends React.Component {
             <h1>Streetmix</h1>
           </li>
           <li id='help-menu-item'>
-            <button id='help-menu-button' data-i18n='menu.item.help' className='menu-attached'>
+            <button
+              id='help-menu-button'
+              data-name='help'
+              data-i18n='menu.item.help'
+              className='menu-attached'
+              disabled={false}
+              onClick={this.onClickMenuButton}
+            >
               Help
             </button>
           </li>
           <li id='contact-menu-item'>
-            <button id='contact-menu-button' data-i18n='menu.item.contact' className='menu-attached'>
+            <button
+              id='contact-menu-button'
+              data-name='contact'
+              data-i18n='menu.item.contact'
+              className='menu-attached'
+              disabled={false}
+              onClick={this.onClickMenuButton}
+            >
               Contact
             </button>
           </li>
         </ul>
         <ul className='menu-bar-right'>
           <li id='identity-menu-item' style={identityMenuVisibilityStyle}>
-            <button id='identity-menu-button' className='menu-attached'>
+            <button
+              id='identity-menu-button'
+              data-name='identity'
+              className='menu-attached'
+              disabled={false}
+              onClick={this.onClickMenuButton}
+            >
               <div className='avatar' data-user-id={userId} />
               <span className='user-id'>{userId}</span>
             </button>
@@ -95,7 +132,14 @@ export default class MenuBar extends React.Component {
               if (debug.experimental) {
                 return (
                   <li id='settings-menu-item'>
-                    <button id='settings-menu-button' data-i18n='menu.item.settings' className='menu-attached'>
+                    <button
+                      id='settings-menu-button'
+                      data-name='settings'
+                      data-i18n='menu.item.settings'
+                      className='menu-attached'
+                      disabled={false}
+                      onClick={this.onClickMenuButton}
+                    >
                       Settings
                     </button>
                   </li>
@@ -104,7 +148,14 @@ export default class MenuBar extends React.Component {
             })()
           }
           <li id='share-menu-item'>
-            <button id='share-menu-button' data-i18n='menu.item.share' className='menu-attached'>
+            <button
+              id='share-menu-button'
+              data-name='share'
+              data-i18n='menu.item.share'
+              className='menu-attached'
+              disabled={false}
+              onClick={this.onClickMenuButton}
+            >
               Share
             </button>
           </li>
@@ -113,4 +164,8 @@ export default class MenuBar extends React.Component {
       </nav>
     )
   }
+}
+
+MenuBar.propTypes = {
+  onMenuDropdownClick: React.PropTypes.func
 }
