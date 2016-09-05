@@ -3,23 +3,16 @@ import Menu from './Menu'
 import { t } from '../app/locale'
 
 export default class ContactMenu extends React.PureComponent {
-  constructor (props) {
-    super(props)
-  }
-
-  componentDidMount () {
-  }
-
   render () {
     return (
-      <Menu name='feedback'>
+      <Menu name='contact'>
         <a href='http://forums.streetmix.net/' target='_blank'>
           <svg className='icon'>
             <use xlinkHref='#icon-forums' />
           </svg>
           <span data-i18n='menu.contact.forums'>Discuss on the forums</span>
         </a>
-        <a id='feedback-via-twitter' href='https://twitter.com/intent/tweet?text=@streetmix' target='_blank'>
+        <a href='https://twitter.com/intent/tweet?text=@streetmix' target='_blank'>
           <svg className='icon'>
             <use xlinkHref='#icon-twitter' />
           </svg>

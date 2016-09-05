@@ -11,10 +11,13 @@ export function fetchAvatars () {
     return
   }
 
-  var els = document.querySelectorAll('.avatar:not([loaded])')
+  var els = document.querySelectorAll('.avatar:not([data-loaded])')
 
   for (var i = 0, j = els.length; i < j; i++) {
     var el = els[i]
+
+    // `userId` attribute is no longer valid, use `data-*` attributes instead.
+    // This is still here for compatibility purposes but remove when no longer needed.
     var userId = el.getAttribute('userId') || el.getAttribute('data-user-id')
 
     if (userId && (typeof avatarCache[userId] === 'undefined')) {
@@ -50,15 +53,15 @@ export function receiveAvatar (details) {
 }
 
 function updateAvatars () {
-  var els = document.querySelectorAll('.avatar:not([loaded])')
+  var els = document.querySelectorAll('.avatar:not([data-loaded])')
 
   for (var i = 0, j = els.length; i < j; i++) {
     var el = els[i]
-    var userId = el.getAttribute('userId')
+    var userId = el.getAttribute('userId') || el.getAttribute('data-user-id')
 
     if (avatarCache[userId]) {
       el.style.backgroundImage = 'url(' + avatarCache[userId] + ')'
-      el.setAttribute('loaded', true)
+      el.setAttribute('data-loaded', true)
     }
   }
 }

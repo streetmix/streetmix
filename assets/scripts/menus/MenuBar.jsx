@@ -2,11 +2,56 @@ import React from 'react'
 import EnvironmentBadge from './EnvironmentBadge'
 
 import { debug } from '../preinit/debug_settings'
+import { URL_SIGN_IN_REDIRECT } from '../app/routing'
+import { onMyStreetsClick } from '../gallery/view'
+import { fetchAvatars } from '../users/avatars'
 
 export default class MenuBar extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      userId: null
+    }
+
+    this.updateSignInUI = this.updateSignInUI.bind(this)
+
+    // Listen for sign-in. This updates the sign-in button.
+    window.addEventListener('stmx:signed_in', this.updateSignInUI)
+  }
+
+  componentDidMount () {
+    // This fills in avatar elements on the page after mounting
+    fetchAvatars()
+  }
+
+  componentDidUpdate () {
+    // This fills in avatar elements on the page after mounting
+    fetchAvatars()
+  }
+
+  updateSignInUI (event) {
+    // Sign-in details are passed in via `event.detail`. If a user is not
+    // signed in, the event that calls this will pass an empty object for
+    // `event.detail`
+    if (event.detail.userId) {
+      this.setState({ userId: event.detail.userId })
+    }
+  }
+
   render () {
+    const userId = this.state.userId
+    const myStreetsLink = userId ? `/${userId}` : ''
+    const identityMenuVisibilityStyle = userId
+      ? {} : { display: 'none' }
+    const signInVisibilityStyle = userId
+      ? { display: 'none' } : {}
+
+    // Note on `*-menu-item` and `*-menu-button` elements - these are there
+    // for the Menu component to attach events too. This is legacy behavior
+    // and should be replaced eventually
     return (
-      <nav id='#top-menu-bar' className='menu-bar'>
+      <nav className='menu-bar'>
         <ul className='menu-bar-left'>
           <li className='menu-bar-title'>
             <div className='streetmix-logo' />
@@ -24,17 +69,26 @@ export default class MenuBar extends React.Component {
           </li>
         </ul>
         <ul className='menu-bar-right'>
-          <li id='identity-menu-item'>
-            <button id='identity-menu-button' className='menu-attached' />
+          <li id='identity-menu-item' style={identityMenuVisibilityStyle}>
+            <button id='identity-menu-button' className='menu-attached'>
+              <div className='avatar' data-user-id={userId} />
+              <span className='user-id'>{userId}</span>
+            </button>
           </li>
-          <li id='sign-in-menu-item'>
-            <span id='sign-in-link' />
+          <li id='sign-in-menu-item' style={signInVisibilityStyle}>
+            <a href={`/${URL_SIGN_IN_REDIRECT}`} className='command' data-i18n='menu.item.sign-in'>
+              Sign in
+            </a>
           </li>
           <li>
-            <a target='_blank' href='/new' data-i18n='menu.item.new-street'>New street</a>
+            <a href='/new' target='_blank' data-i18n='menu.item.new-street'>
+              New street
+            </a>
           </li>
           <li id='gallery-link'>
-            <a href='' data-i18n='menu.item.my-streets'>My streets</a>
+            <a href={myStreetsLink} data-i18n='menu.item.my-streets' onClick={onMyStreetsClick}>
+              My streets
+            </a>
           </li>
           {
             (() => {

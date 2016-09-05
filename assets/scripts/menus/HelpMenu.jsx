@@ -7,10 +7,6 @@ import { trackEvent } from '../app/event_tracking'
 import { t } from '../app/locale'
 
 export default class HelpMenu extends React.PureComponent {
-  constructor (props) {
-    super(props)
-  }
-
   componentDidMount () {
     // TODO: This does not really need to be here?
     registerKeypress('?', { shiftKey: 'optional' }, () => {
@@ -29,7 +25,7 @@ export default class HelpMenu extends React.PureComponent {
 
   render () {
     return (
-      <Menu onShow={this.onShow} name='help'>
+      <Menu name='help' onShow={this.onShow}>
         <a
           href='#'
           data-i18n='menu.item.about'
