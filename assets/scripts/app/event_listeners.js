@@ -17,7 +17,6 @@ import {
 } from '../streets/creation'
 import { undo, redo } from '../streets/undo_stack'
 import { onStreetWidthChange, onStreetWidthClick } from '../streets/width'
-import { onSignOutClick } from '../users/authentication'
 import { onStorageChange } from '../users/settings'
 import { onGlobalKeyDown } from './keyboard_commands'
 import { onResize } from './window_resize'
@@ -39,8 +38,6 @@ export function addEventListeners () {
   document.querySelector('#new-street-last').addEventListener('click', onNewStreetLastClick)
 
   window.addEventListener('storage', onStorageChange)
-
-  document.querySelector('#sign-out-link').addEventListener('pointerdown', onSignOutClick)
 
   document.querySelector('#undo').addEventListener('pointerdown', undo)
   document.querySelector('#redo').addEventListener('pointerdown', redo)

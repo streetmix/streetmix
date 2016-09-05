@@ -2,6 +2,7 @@ import React from 'react'
 import MenuBar from './MenuBar'
 import HelpMenu from './HelpMenu'
 import ContactMenu from './ContactMenu'
+import IdentityMenu from './IdentityMenu'
 import ShareMenu from './ShareMenu'
 
 export default class MenusContainer extends React.Component {
@@ -19,6 +20,7 @@ export default class MenusContainer extends React.Component {
         <MenuBar />
         <HelpMenu />
         <ContactMenu />
+        <IdentityMenu />
         <ShareMenu />
       </div>
     )
