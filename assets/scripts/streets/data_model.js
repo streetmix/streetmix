@@ -1,7 +1,6 @@
 import { getAbortEverything } from '../app/initialization'
 import { msg } from '../app/messages'
 import { URL_NO_USER, RESERVED_URLS, URL_RESERVED_PREFIX } from '../app/routing'
-import { shareMenu } from '../menus/_share'
 import {
   DEFAULT_BUILDING_HEIGHT_LEFT,
   DEFAULT_BUILDING_HEIGHT_RIGHT,
@@ -485,7 +484,6 @@ export function updateEverything (dontScroll) {
   setIgnoreStreetChanges(true)
   propagateUnits()
   buildStreetWidthMenu()
-  shareMenu.update()
   createDomFromData()
   segmentsChanged()
   resizeStreetWidth(dontScroll)

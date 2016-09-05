@@ -16,8 +16,6 @@ mediaQueryList.addListener(function (mql) {
   }
 })
 
-document.querySelector('#invoke-print').addEventListener('pointerdown', printImage)
-
 function updatePrintImage () {
   document.querySelector('#print > div').innerHTML = ''
 

@@ -1,4 +1,3 @@
-import { shareMenu } from '../menus/_share'
 import { debug } from '../preinit/debug_settings'
 import { getStreet, getStreetUrl } from '../streets/data_model'
 import { setMode, MODES } from './mode'
@@ -152,6 +151,4 @@ export function updatePageUrl (forceGalleryUrl) {
   url = url.replace(/&/, '?')
 
   window.history.replaceState(null, null, url)
-
-  shareMenu.update()
 }

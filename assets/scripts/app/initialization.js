@@ -3,7 +3,6 @@ import $ from 'jquery'
 import { hideLoadingScreen, getImagesToBeLoaded } from './load_resources'
 import { initLocale } from './locale'
 import { scheduleNextLiveUpdateCheck } from './live_update'
-import { shareMenu } from '../menus/_share'
 import { showGallery } from '../gallery/view'
 import { app } from '../preinit/app_settings'
 import { debug } from '../preinit/debug_settings'
@@ -268,7 +267,6 @@ function setupNoInternetMode () {
 
 // Temp: use this while in transition
 export function _onEverythingLoaded2 () {
-  shareMenu.update()
   createPalette()
 
   if (debug.forceLiveUpdate) {

@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 
 import { getElAbsolutePos } from '../util/helpers'
 
@@ -29,10 +28,11 @@ export default class Menu extends React.Component {
   }
 
   /**
-   * Optimize menu rendering with `shouldComponentUpdate`. State changes only
-   * needs to add or remove the `visible` class from the menu, and run callback
-   * functions - we don't need to do any virtual DOM comparison or rebuilding
-   * of child elements.
+   * Show or hide the menu, and run callback functions, depending on whether
+   * the next visible state is different from the previous one.
+   *
+   * Callback functions may mutate state, so `shouldComponentUpdate` still
+   * returns `true`.
    */
   shouldComponentUpdate (nextProps, nextState) {
     if (!this.state.visible && nextState.visible) {
@@ -41,8 +41,7 @@ export default class Menu extends React.Component {
       this.hide()
     }
 
-    // Prevent re-rendering
-    return false
+    return true
   }
 
   show () {
@@ -72,6 +71,10 @@ export default class Menu extends React.Component {
   render () {
     let className = 'menu'
 
+    if (this.props.className) {
+      className += ` ${this.props.className}`
+    }
+
     // Determine positioning
     if (this.props.alignment === 'right') {
       // Note: this aligns to right edge of menu bar,
@@ -80,7 +83,7 @@ export default class Menu extends React.Component {
     }
 
     return (
-      <div className={className} ref={(ref) => { this.el  = ref }}>
+      <div className={className} ref={(ref) => { this.el = ref }}>
         {this.props.children}
       </div>
     )
@@ -89,9 +92,11 @@ export default class Menu extends React.Component {
 
 Menu.propTypes = {
   name: React.PropTypes.string, // TODO: transition
+  className: React.PropTypes.string,
   alignment: React.PropTypes.oneOf(['left', 'right']).isRequired,
   onShow: React.PropTypes.func,
-  onHide: React.PropTypes.func
+  onHide: React.PropTypes.func,
+  children: React.PropTypes.node
 }
 
 Menu.defaultProps = {
