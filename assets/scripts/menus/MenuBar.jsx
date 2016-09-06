@@ -6,6 +6,7 @@ import { URL_SIGN_IN_REDIRECT } from '../app/routing'
 import { onMyStreetsClick } from '../gallery/view'
 import { fetchAvatars } from '../users/avatars'
 import { getElAbsolutePos } from '../util/helpers'
+import { closestEl } from '../util/dom_helpers'
 
 export default class MenuBar extends React.Component {
   constructor (props) {
@@ -38,9 +39,11 @@ export default class MenuBar extends React.Component {
   onClickMenuButton (event) {
     // We need to send to the parent component (which handles menus) information
     // about what button was clicked and its position, so that the specified
-    // menu can open in the correct place.
-    const name = event.target.dataset.name
-    const position = getElAbsolutePos(event.target.parentNode)
+    // menu can open in the correct place. The clicked button stores `data-name`
+    // on its attributes, and position is based on its parent `li` element.
+    const buttonEl = closestEl(event.target, 'button')
+    const name = buttonEl.dataset.name
+    const position = getElAbsolutePos(buttonEl.parentNode)
     this.props.onMenuDropdownClick({ name, position })
   }
 
@@ -60,10 +63,6 @@ export default class MenuBar extends React.Component {
       ? {} : { display: 'none' }
     const signInVisibilityStyle = userId
       ? { display: 'none' } : {}
-
-    // Note on `*-menu-item` and elements - these are there
-    // for the Menu component to attach events too. This is legacy behavior
-    // and should be replaced eventually
 
     // Buttons have `disabled={false}` because
     // Firefox sometimes disables some buttons… unsure why
