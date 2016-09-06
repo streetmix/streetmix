@@ -5,6 +5,7 @@ import ContactMenu from './ContactMenu'
 import IdentityMenu from './IdentityMenu'
 import SettingsMenu from './SettingsMenu'
 import ShareMenu from './ShareMenu'
+import { registerKeypress } from '../app/keypress'
 
 export default class MenusContainer extends React.Component {
   constructor (props) {
@@ -12,10 +13,28 @@ export default class MenusContainer extends React.Component {
 
     this.state = {
       activeMenu: null,
-      activeMenuPos: null
+      activeMenuPos: [0, 0]
     }
 
     this.onMenuDropdownClick = this.onMenuDropdownClick.bind(this)
+    this.hideAllMenus = this.hideAllMenus.bind(this)
+  }
+
+  componentDidMount () {
+    // Hide menus if page loses visibility.
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden === true) {
+        this.hideAllMenus()
+      }
+    }, false)
+
+    // Set up keypress listener to hide menus if visible
+    registerKeypress('esc', this.hideAllMenus)
+
+    // Set up a generic event listener to hide menus if visible.
+    // This is triggered by the exported function `hideAllMenus` from
+    // menu_controller.js, which contain legacy functions from pre-React
+    window.addEventListener('stmx:hide_menus', this.hideAllMenus)
   }
 
   /**
@@ -29,8 +48,24 @@ export default class MenusContainer extends React.Component {
     const activeMenu = this.state.activeMenu === clickedItem.name ? null : clickedItem.name
     this.setState({
       activeMenu: activeMenu,
-      activeMenuPos: activeMenu ? clickedItem.position : [0]
+      activeMenuPos: activeMenu ? clickedItem.position : [0, 0]
     })
+  }
+
+  hideAllMenus () {
+    // Only act if there is currently an active menu.
+    if (this.state.activeMenu) {
+      this.setState({
+        activeMenu: null,
+        activeMenuPos: [0, 0]
+      })
+
+      // Force document.body to become the active element. Do not re-focus on
+      // document.body if there were no menus to hide. This is sometimes
+      // triggered by actions that do not check if a menu has closed, so we don't
+      // want it to refocus needlessly.
+      document.body.focus()
+    }
   }
 
   render () {

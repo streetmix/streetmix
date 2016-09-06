@@ -5,7 +5,7 @@ import {
   getStreetSectionTop
 } from '../app/window_resize'
 import { infoBubble } from '../info_bubble/info_bubble'
-import { hideAllMenus } from '../menus/menu_old'
+import { hideAllMenus } from '../menus/menu_controller'
 import { app } from '../preinit/app_settings'
 import { system } from '../preinit/system_capabilities'
 import { getStreet } from '../streets/data_model'
