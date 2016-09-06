@@ -1,6 +1,7 @@
 import React from 'react'
 import EnvironmentBadge from './EnvironmentBadge'
 
+// import { t } from '../app/locale'
 import { debug } from '../preinit/debug_settings'
 import { URL_SIGN_IN_REDIRECT } from '../app/routing'
 import { onMyStreetsClick } from '../gallery/view'
@@ -66,6 +67,10 @@ export default class MenuBar extends React.Component {
 
     // Buttons have `disabled={false}` because
     // Firefox sometimes disables some buttons… unsure why
+    // --
+    // Note on translations - the {t()} method doesn't re-render when the
+    // language changes, so this still uses the `data-i18n` method to pick up
+    // on text content changes. Individual menus will re-render with {t()}.
     return (
       <nav className='menu-bar'>
         <ul className='menu-bar-left'>

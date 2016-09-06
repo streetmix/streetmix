@@ -1,6 +1,7 @@
 import React from 'react'
 import Menu from './Menu'
-import { t, getLocale, onNewLocaleSelected } from '../app/locale'
+// { t } is not currently imported / used
+import { getLocale, onNewLocaleSelected } from '../app/locale'
 import { trackEvent } from '../app/event_tracking'
 
 export default class SettingsMenu extends React.PureComponent {

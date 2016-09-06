@@ -107,13 +107,9 @@ export default class ShareMenu extends React.Component {
       <Menu name='share' alignment='right' onShow={this.onShow} className='share-menu' {...this.props}>
         <div
           className='share-sign-in-promo'
-          data-i18n='menu.share.sign-in'
           ref={(ref) => { this.signInPromo = ref }}
-        >
-          <a href='/twitter-sign-in?redirectUri=/just-signed-in'>Sign in with
-          Twitter</a> for nicer links to your streets and your personal
-          street gallery
-        </div>
+          dangerouslySetInnerHTML={{ __html: t('menu.share.sign-in', '<a href="/twitter-sign-in?redirectUri=/just-signed-in">Sign in with Twitter</a> for nicer links to your streets and your personal street gallery') }}
+        />
         <div className='share-via-link-container'>
           <span data-i18n='menu.share.link'>
             Copy and paste this link to share:

@@ -1,6 +1,6 @@
 import React from 'react'
 import Menu from './Menu'
-import { t } from '../app/locale'
+// import { t } from '../app/locale'
 
 export default class ContactMenu extends React.PureComponent {
   render () {

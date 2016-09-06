@@ -46,30 +46,21 @@ export default class HelpMenu extends React.PureComponent {
                 <td>
                   <span className='key' data-i18n='key.backspace'>Backspace</span>
                 </td>
-                <td>
-                  Remove a segment you’re pointing at<br />
-                  (hold <span className='key'>Shift</span> to remove all)
-                </td>
+                <td dangerouslySetInnerHTML={{ __html: t('menu.help.remove', 'Remove a segment you’re pointing at<br />(hold <span className="key">Shift</span> to remove all)') }} />
               </tr>
               <tr>
                 <td>
                   <span className='key'>-</span>
                   <span className='key'>+</span>
                 </td>
-                <td>
-                  Change width of a segment you’re pointing at<br />
-                  (hold <span className='key'>Shift</span> for more precision)
-                </td>
+                <td dangerouslySetInnerHTML={{ __html: t('menu.help.move', 'Change width of a segment you’re pointing at<br />(hold <span className="key">Shift</span> for more precision)') }} />
               </tr>
               <tr>
                 <td>
                   <span className='key'>&larr;</span>
                   <span className='key'>&rarr;</span>
                 </td>
-                <td>
-                  Move around the street
-                  (hold <span className='key'>Shift</span> to jump to edges)
-                </td>
+                <td dangerouslySetInnerHTML={{ __html: t('menu.help.change', 'Move around the street(hold <span className="key">Shift</span> to jump to edges)') }} />
               </tr>
             </tbody>
           </table>
