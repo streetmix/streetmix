@@ -1,44 +1,19 @@
 import React from 'react'
 
-import { getElAbsolutePos } from '../util/helpers'
-
 export default class Menu extends React.Component {
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      visible: false
-    }
-  }
-
-  componentDidMount () {
-    // Set up menu bar button - TODO: Reactify - don't do it here
-    const menuButtonEl = document.querySelector(`#${this.props.name}-menu-button`)
-
-    if (menuButtonEl) {
-      // Bind event listeners to the menu button
-      menuButtonEl.addEventListener('pointerdown', (event) => {
-        // Toggle visibility state
-        this.setState({ visible: !this.state.visible })
-      })
-    }
-  }
-
   /**
    * Show or hide the menu, and run callback functions, depending on whether
-   * the next visible state is different from the previous one.
+   * the next active state is different from the previous one.
    *
-   * Callback functions may mutate state, so `shouldComponentUpdate` still
-   * returns `true`.
+   * This check occurs in `componentDidUpdate` so that `this.show` has access
+   * to current props, which contains the position the menu should be displayed at.
    */
-  shouldComponentUpdate (nextProps, nextState) {
-    if (!this.state.visible && nextState.visible) {
+  componentDidUpdate (prevProps, prevState) {
+    if (!prevProps.isActive && this.props.isActive) {
       this.show()
-    } else if (this.state.visible && !nextState.visible) {
+    } else if (prevProps.isActive && !this.props.isActive) {
       this.hide()
     }
-
-    return true
   }
 
   show () {
@@ -46,10 +21,9 @@ export default class Menu extends React.Component {
 
     // Determine positioning
     // Aligns menu to the left side of the menu item.
+    // Position is provided by the MenuBar component and passed in through props.
     if (this.props.alignment === 'left') {
-      // TODO: don't rely on hard-coded ID of menu
-      const pos = getElAbsolutePos(document.querySelector(`#${this.props.name}-menu-item`))
-      this.el.style.left = pos[0] + 'px'
+      this.el.style.left = this.props.position[0] + 'px'
     }
 
     if (this.props.onShow) {
@@ -91,6 +65,7 @@ Menu.propTypes = {
   name: React.PropTypes.string, // TODO: transition
   className: React.PropTypes.string,
   alignment: React.PropTypes.oneOf(['left', 'right']).isRequired,
+  isActive: React.PropTypes.bool.isRequired,
   position: React.PropTypes.array,
   onShow: React.PropTypes.func,
   onHide: React.PropTypes.func,
@@ -99,6 +74,7 @@ Menu.propTypes = {
 
 Menu.defaultProps = {
   alignment: 'left',
+  isActive: false,
   onShow: function () {}, // A no-op
   onHide: function () {}
 }

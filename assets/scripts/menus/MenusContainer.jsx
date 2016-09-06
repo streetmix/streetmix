@@ -11,24 +11,39 @@ export default class MenusContainer extends React.Component {
     super(props)
 
     this.state = {
-      activeMenu: null
+      activeMenu: null,
+      activeMenuPos: null
     }
+
+    this.onMenuDropdownClick = this.onMenuDropdownClick.bind(this)
   }
 
-  onMenuDropdownClick (clickedMenu) {
-    // We get clickedMenu.name and clickedMenu.position
-    // console.log(clickedMenu)
+  /**
+   * Callback function passed to the MenuBar component.
+   * Clicked buttons that have a menu component will report back to this component
+   * what was clicked and where it should be placed, which is then passed to
+   * individual menus.
+   */
+  onMenuDropdownClick (clickedItem) {
+    // If the clicked menu is already active, it's toggled off.
+    const activeMenu = this.state.activeMenu === clickedItem.name ? null : clickedItem.name
+    this.setState({
+      activeMenu: activeMenu,
+      activeMenuPos: activeMenu ? clickedItem.position : [0]
+    })
   }
 
   render () {
+    const { activeMenu, activeMenuPos } = this.state
+
     return (
       <div>
         <MenuBar onMenuDropdownClick={this.onMenuDropdownClick} />
-        <HelpMenu />
-        <ContactMenu />
-        <IdentityMenu />
-        <SettingsMenu />
-        <ShareMenu />
+        <HelpMenu isActive={activeMenu === 'help'} position={activeMenuPos} />
+        <ContactMenu isActive={activeMenu === 'contact'} position={activeMenuPos} />
+        <IdentityMenu isActive={activeMenu === 'identity'} position={activeMenuPos} />
+        <SettingsMenu isActive={activeMenu === 'settings'} position={activeMenuPos} />
+        <ShareMenu isActive={activeMenu === 'share'} position={activeMenuPos} />
       </div>
     )
   }

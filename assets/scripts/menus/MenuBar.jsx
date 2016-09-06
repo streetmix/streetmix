@@ -61,7 +61,7 @@ export default class MenuBar extends React.Component {
     const signInVisibilityStyle = userId
       ? { display: 'none' } : {}
 
-    // Note on `*-menu-item` and `*-menu-button` elements - these are there
+    // Note on `*-menu-item` and elements - these are there
     // for the Menu component to attach events too. This is legacy behavior
     // and should be replaced eventually
 
@@ -76,7 +76,6 @@ export default class MenuBar extends React.Component {
           </li>
           <li id='help-menu-item'>
             <button
-              id='help-menu-button'
               data-name='help'
               data-i18n='menu.item.help'
               className='menu-attached'
@@ -88,7 +87,6 @@ export default class MenuBar extends React.Component {
           </li>
           <li id='contact-menu-item'>
             <button
-              id='contact-menu-button'
               data-name='contact'
               data-i18n='menu.item.contact'
               className='menu-attached'
@@ -102,7 +100,6 @@ export default class MenuBar extends React.Component {
         <ul className='menu-bar-right'>
           <li id='identity-menu-item' style={identityMenuVisibilityStyle}>
             <button
-              id='identity-menu-button'
               data-name='identity'
               className='menu-attached'
               disabled={false}
@@ -133,7 +130,6 @@ export default class MenuBar extends React.Component {
                 return (
                   <li id='settings-menu-item'>
                     <button
-                      id='settings-menu-button'
                       data-name='settings'
                       data-i18n='menu.item.settings'
                       className='menu-attached'
@@ -149,7 +145,6 @@ export default class MenuBar extends React.Component {
           }
           <li id='share-menu-item'>
             <button
-              id='share-menu-button'
               data-name='share'
               data-i18n='menu.item.share'
               className='menu-attached'
