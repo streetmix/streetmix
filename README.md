@@ -1,6 +1,6 @@
 <p align="center">
   <a href="http://streetmix.net/">
-    <img alt="Streetmix" src="https://cdn.rawgit.com/streetmix/logo/master/streetmix-logo.svg" width="450">
+    <img alt="Streetmix" src="https://streetmix.github.io/assets/logos/streetmix-logo.svg" width="450">
   </a>
 </p>
 
