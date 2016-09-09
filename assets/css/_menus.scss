@@ -127,61 +127,6 @@ body.safari .menu {
   line-height: 18px;
 }
 
-#feedback-form {
-  position: relative;
-  height: 295px;
-
-  .feedback-notice {
-    display: none;
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-
-    // Creates a false sense of vertical centering within this box
-    padding: 140px 20px 20px;
-
-    background: white;
-    text-align: center;
-    font-size: 13px;
-
-    &.visible {
-      display: block;
-    }
-  }
-
-  #feedback-form-message {
-    margin-top: 0.5em;
-    height: 200px;
-
-    font-size: 13px;
-    line-height: 18px;
-    width: 100%;
-    display: block;
-    box-sizing: border-box;
-
-    outline: none;
-  }
-
-  #feedback-form-email {
-    margin-top: 0.5em;
-    font-size: 13px;
-    line-height: 18px;
-    width: 100%;
-    display: block;
-    box-sizing: border-box;
-
-    outline: none;
-  }
-
-  #feedback-form-send {
-    margin-top: 0.5em;
-    padding: 8px 5px;
-    width: 100%;
-  }
-}
-
 #share-via-link-canvas {
   margin-left: 30px;
   margin-right: 10px;
