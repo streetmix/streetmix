@@ -65,6 +65,19 @@ export default class MenuBar extends React.Component {
     const signInVisibilityStyle = userId
       ? { display: 'none' } : {}
 
+    const SettingsButton = (debug.experimental)
+      ? (<li id='settings-menu-item'>
+        <button
+          data-name='settings'
+          data-i18n='menu.item.settings'
+          className='menu-attached'
+          disabled={false}
+          onClick={this.onClickMenuButton}
+        >
+          Settings
+        </button>
+      </li>) : null
+
     // Buttons have `disabled={false}` because
     // Firefox sometimes disables some buttons… unsure why
     // --
@@ -128,25 +141,7 @@ export default class MenuBar extends React.Component {
               My streets
             </a>
           </li>
-          {
-            (() => {
-              if (debug.experimental) {
-                return (
-                  <li id='settings-menu-item'>
-                    <button
-                      data-name='settings'
-                      data-i18n='menu.item.settings'
-                      className='menu-attached'
-                      disabled={false}
-                      onClick={this.onClickMenuButton}
-                    >
-                      Settings
-                    </button>
-                  </li>
-                )
-              }
-            })()
-          }
+          {SettingsButton}
           <li id='share-menu-item'>
             <button
               data-name='share'
