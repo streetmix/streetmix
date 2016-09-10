@@ -42,7 +42,7 @@ export function createPalette () {
       true,
       generateRandSeed())
 
-    el.classList.add('palette')
+    el.classList.add('segment-in-palette')
 
     document.querySelector('.palette-canvas').appendChild(el)
   }

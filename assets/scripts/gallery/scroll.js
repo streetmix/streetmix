@@ -8,7 +8,7 @@ import { getElAbsolutePos } from '../util/helpers'
 // This file is in the gallery directory but the same scroll buttons
 // are also added to the palette as well.
 window.addEventListener('stmx:everything_loaded', function () {
-  addScrollButtons(document.querySelector('#palette'))
+  addScrollButtons(document.querySelector('.palette'))
   addScrollButtons(document.querySelector('#gallery .streets'))
 })
 

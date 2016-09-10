@@ -48,7 +48,8 @@ body.immediate-segment-resize .segment {
   transition: none !important;
 }
 
-.segment.palette {
+// Segments in palette
+.segment.segment-in-palette {
   display: inline-block;
   position: relative;
 
@@ -65,7 +66,6 @@ body.immediate-segment-resize .segment {
   transition: transform 50ms !important;
 }
 
-
 .segment:not(.unmovable).hover {
   z-index: $z-02-segment-focused !important;
 }
@@ -81,7 +81,7 @@ body.immediate-segment-resize .segment {
   pointer-events: none;
 }
 
-.segment:not(.palette):not(.unmovable).hover .hover-bk {
+.segment:not(.segment-in-palette):not(.unmovable).hover .hover-bk {
   top: 10px;
   height: $canvas-baseline - 10px;
 }
@@ -108,7 +108,7 @@ body:not(.read-only) .segment:not(.unmovable) {
   pointer-events: none;
 }
 
-.segment.palette .image {
+.segment.segment-in-palette .image {
   top: 0;
 }
 
@@ -120,7 +120,7 @@ body:not(.segment-resize-dragging) .segment.outside .image {
   opacity: 0;
 }
 
-.segment.palette:hover {
+.segment.segment-in-palette:hover {
   background: fade-out($sky-colour, .05);
 
   canvas {
@@ -504,8 +504,8 @@ body.segment-resize-dragging .drag-handle.floating,
   color: $segment-warning-text;
 }
 
-.segment.palette .name,
-.segment.palette .width {
+.segment.segment-in-palette .name,
+.segment.segment-in-palette .width {
   display: none;
 }
 

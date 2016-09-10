@@ -29,7 +29,7 @@ export function onResize () {
   document.querySelector('#street-section-inner').offsetHeight
 
   var paletteTop =
-  document.querySelector('#main-screen > footer').offsetTop || system.viewportHeight
+  document.querySelector('.palette-container').offsetTop || system.viewportHeight
 
   // TODO const
   if (system.viewportHeight - streetSectionHeight > 450) {
