@@ -61,15 +61,14 @@ block main
     #street-scroll-indicator-left
     #street-scroll-indicator-right
 
-    footer
+    .palette-container
+      .palette-trashcan(data-i18n='palette.remove') Drag here to remove
       .footer-canvas
-        .regular-canvas
-          #commands
-            button#undo(data-i18n='btn.undo') Undo
-            button#redo(data-i18n='btn.redo') Redo
-          #palette
-            .palette-canvas
-          #trashcan(data-i18n='palette.remove') Drag here to remove
+        .palette-commands
+          button#undo(data-i18n='btn.undo') Undo
+          button#redo(data-i18n='btn.redo') Redo
+        .palette
+          .palette-canvas
 
   #print
     div

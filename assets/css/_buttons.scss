@@ -22,20 +22,6 @@ button.scroll-right {
   }
 }
 
-footer button.scroll-left,
-footer button.scroll-right {
-  margin-top: 10px;
-  z-index: $z-04-palette-scroll;
-
-  &.scroll-left {
-    margin-left: -65px;
-  }
-
-  &.scroll-right {
-    margin-left: -60px;
-  }
-}
-
 #gallery button.scroll-left,
 #gallery button.scroll-right {
   margin-top: 95px;

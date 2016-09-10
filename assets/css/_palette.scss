@@ -1,15 +1,58 @@
 // TODO
-// Not included here: footer (layout), buttons (left/right scroll), segments
+// Not included here: segments
 
-.regular-canvas {
+.palette-container {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
+  left: $left-right-inset;
+  right: $left-right-inset;
+  height: $palette-height - 30px;
   bottom: 0;
+  text-align: center;
+  z-index: $z-02-palette;
+  user-select: none;
+  touch-action: none;
 }
 
-#palette {
+body.read-only .palette-container {
+  display: none;
+}
+
+.footer-canvas {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  height: $palette-height;
+  background: $header-footer-background;
+  border-top: 3px solid darken($bottom-background, 5%);
+  margin-top: -3px;
+}
+
+body.safari .footer-canvas {
+  // Address a bug where switching building types
+  // will momentarily cause this element to disappear from view
+  // Only in Safari (observed in v8.0.2)
+  transform: rotateZ(0);
+}
+
+body:not(.safari) .footer-canvas {
+  perspective: 2000px;
+
+  &::before {
+    content: '';
+    left: 0;
+    top: 3px;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    position: absolute;
+    background: $header-footer-background;
+    pointer-events: none;
+    transform: rotateX(5deg) translateY(-3px);
+    transform-origin: 50% 0;
+  }
+}
+
+.palette {
   height: $palette-height + 20px; // To cover scroll bars
 
   padding-left: 15px;
@@ -30,37 +73,23 @@
   white-space: nowrap;
 }
 
-#trashcan {
-  position: absolute;
-  left: -50px;
-  right: -50px;
-  top: -20px;
-  height: $palette-height - 2 * 8px + 5px;
-  line-height: $palette-height - 2 * 8px + 5px;
-  z-index: $z-07-trashcan;
-  border-top: 2px dashed rgb(150, 150, 150);
+// Overrides button.scroll-left and button.scroll-right default styles
+// from _buttons.scss
+.palette button.scroll-left,
+.palette button.scroll-right {
+  margin-top: 10px;
+  z-index: $z-04-palette-scroll;
 
-  text-align: center;
+  &.scroll-left {
+    margin-left: -65px;
+  }
 
-  color: rgb(150, 150, 150);
-  font-size: 24px;
-  font-weight: 400;
-
-  background: lighten($bottom-background, 5%);
-
-  pointer-events: none;
-  opacity: 0;
-
-  transform: translateY(150px);
-  transition: transform 150ms, opacity 150ms;
-
-  &.visible {
-    opacity: 1;
-    transform: translateY(0);
+  &.scroll-right {
+    margin-left: -60px;
   }
 }
 
-#commands {
+.palette-commands {
   vertical-align: top;
 
   position: absolute;
@@ -86,5 +115,36 @@
   // Spacing between buttons
   button + button {
     margin-left: 0.25em;
+  }
+}
+
+.palette-trashcan {
+  position: absolute;
+  // This needs to stretch out to fit the width of the window
+  left: -$left-right-inset;
+  right: -$left-right-inset;
+  top: -20px;
+  height: $palette-height - 2 * 8px + 5px;
+  line-height: $palette-height - 2 * 8px + 5px;
+  z-index: $z-07-trashcan;
+  border-top: 2px dashed rgb(150, 150, 150);
+
+  text-align: center;
+
+  color: rgb(150, 150, 150);
+  font-size: 24px;
+  font-weight: 400;
+
+  background: lighten($bottom-background, 5%);
+
+  pointer-events: none;
+  opacity: 0;
+
+  transform: translateY(150px);
+  transition: transform 150ms, opacity 150ms;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
