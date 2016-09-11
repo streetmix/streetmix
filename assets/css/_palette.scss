@@ -7,49 +7,21 @@
   right: $left-right-inset;
   height: $palette-height - 30px;
   bottom: 0;
+  background: $header-footer-background;
+  border-top: 3px solid darken($bottom-background, 5%);
   text-align: center;
   z-index: $z-02-palette;
   user-select: none;
   touch-action: none;
+
+  // Address a bug where switching building types
+  // will momentarily cause this element to disappear from view
+  // Only in Safari (observed in v8.0.2, still present in v9.1.2)
+  transform: rotateZ(0);
 }
 
 body.read-only .palette-container {
   display: none;
-}
-
-.footer-canvas {
-  display: inline-block;
-  position: relative;
-  width: 100%;
-  height: $palette-height;
-  background: $header-footer-background;
-  border-top: 3px solid darken($bottom-background, 5%);
-  margin-top: -3px;
-}
-
-body.safari .footer-canvas {
-  // Address a bug where switching building types
-  // will momentarily cause this element to disappear from view
-  // Only in Safari (observed in v8.0.2)
-  transform: rotateZ(0);
-}
-
-body:not(.safari) .footer-canvas {
-  perspective: 2000px;
-
-  &::before {
-    content: '';
-    left: 0;
-    top: 3px;
-    bottom: 0;
-    right: 0;
-    z-index: -1;
-    position: absolute;
-    background: $header-footer-background;
-    pointer-events: none;
-    transform: rotateX(5deg) translateY(-3px);
-    transform-origin: 50% 0;
-  }
 }
 
 .palette {
@@ -75,8 +47,7 @@ body:not(.safari) .footer-canvas {
 
 // Overrides button.scroll-left and button.scroll-right default styles
 // from _buttons.scss
-.palette button.scroll-left,
-.palette button.scroll-right {
+.palette-container button.scroll {
   margin-top: 10px;
   z-index: $z-04-palette-scroll;
 
