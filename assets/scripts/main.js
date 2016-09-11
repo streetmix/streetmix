@@ -21,6 +21,7 @@ import { initialize } from './app/initialization'
 import { startListening } from './app/keypress'
 import { system } from './preinit/system_capabilities'
 import MenusContainer from './menus/MenusContainer'
+import Palette from './app/Palette'
 
 // Error tracking
 // Load this before all other modules. Only load when run in production.
@@ -56,6 +57,7 @@ window.addEventListener('stmx:everything_loaded', function (e) {
 
 // Temp: mount React components
 ReactDOM.render(<MenusContainer />, document.getElementById('menus'))
+ReactDOM.render(<Palette />, document.getElementById('palette'))
 
 // Start listening for keypresses
 startListening()
