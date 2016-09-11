@@ -1,5 +1,4 @@
-button.scroll-left,
-button.scroll-right {
+button.scroll {
   @include tap-highlight-color(transparent);
 
   position: absolute;
@@ -22,8 +21,7 @@ button.scroll-right {
   }
 }
 
-#gallery button.scroll-left,
-#gallery button.scroll-right {
+#gallery button.scroll {
   margin-top: 95px;
 
   &.scroll-left {
