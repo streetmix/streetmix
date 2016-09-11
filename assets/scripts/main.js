@@ -31,6 +31,7 @@ import './gallery/scroll'
 import './gallery/view'
 import './info_bubble/info_bubble'
 import MenusContainer from './menus/MenusContainer'
+import Palette from './app/Palette'
 import './streets/name'
 import './streets/scroll'
 import './util/fetch_nonblocking'
@@ -69,6 +70,7 @@ window.addEventListener('stmx:everything_loaded', function (e) {
 
 // Temp: mount React components
 ReactDOM.render(<MenusContainer />, document.getElementById('menus'))
+ReactDOM.render(<Palette />, document.getElementById('palette'))
 
 // Start listening for keypresses
 startListening()
