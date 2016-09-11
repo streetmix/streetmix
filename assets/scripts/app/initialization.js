@@ -8,7 +8,6 @@ import { app } from '../preinit/app_settings'
 import { debug } from '../preinit/debug_settings'
 import { system } from '../preinit/system_capabilities'
 import { prepareSegmentInfo } from '../segments/info'
-import { createPalette } from '../segments/palette'
 import { fillEmptySegments, segmentsChanged } from '../segments/view'
 import { onNewStreetLastClick } from '../streets/creation'
 import {
@@ -163,6 +162,12 @@ function onEverythingLoaded () {
   var event = new window.CustomEvent('stmx:everything_loaded')
   window.dispatchEvent(event)
 
+  if (debug.forceLiveUpdate) {
+    scheduleNextLiveUpdateCheck()
+  }
+
+  window.setTimeout(hideLoadingScreen, 0)
+
   var mode = getMode()
   if (mode === MODES.USER_GALLERY) {
     showGallery(getGalleryUserId(), true)
@@ -264,16 +269,3 @@ function setupNoInternetMode () {
     }
   })
 }
-
-// Temp: use this while in transition
-export function _onEverythingLoaded2 () {
-  createPalette()
-
-  if (debug.forceLiveUpdate) {
-    scheduleNextLiveUpdateCheck()
-  }
-
-  window.setTimeout(hideLoadingScreen, 0)
-}
-
-window._onEverythingLoaded2 = _onEverythingLoaded2

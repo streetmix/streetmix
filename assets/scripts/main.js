@@ -59,15 +59,6 @@ function setScaleForPhone () {
 }
 setScaleForPhone()
 
-// This event is fired by _onEverythingLoaded() in the deprecated
-// global bundle. This allows things in the modular bundle to respond
-// to that function without needing to be exported globally.
-// This should eventually not be required & can be removed.
-window.addEventListener('stmx:everything_loaded', function (e) {
-  /* global _onEverythingLoaded2 */
-  _onEverythingLoaded2()
-})
-
 // Temp: mount React components
 ReactDOM.render(<MenusContainer />, document.getElementById('menus'))
 ReactDOM.render(<Palette />, document.getElementById('palette'))
