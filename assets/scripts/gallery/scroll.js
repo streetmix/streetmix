@@ -5,10 +5,10 @@
 import $ from 'jquery'
 import { getElAbsolutePos } from '../util/helpers'
 
-// This file is in the gallery directory but the same scroll buttons
-// are also added to the palette as well.
+// Scroll buttons were added to gallery and palette
+// but right now palette is using a React proof of concept
 window.addEventListener('stmx:everything_loaded', function () {
-  addScrollButtons(document.querySelector('.palette'))
+  // addScrollButtons(document.querySelector('.palette'))
   addScrollButtons(document.querySelector('#gallery .streets'))
 })
 
