@@ -26,10 +26,6 @@ body.read-only .palette-container {
 
 .palette {
   height: $palette-height + 20px; // To cover scroll bars
-
-  padding-left: 15px;
-  padding-right: 15px;
-
   position: absolute;
   left: 140px;
   top: -30px;
