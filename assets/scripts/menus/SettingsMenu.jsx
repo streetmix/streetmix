@@ -25,6 +25,7 @@ export default class SettingsMenu extends React.PureComponent {
           <p><span data-i18n='menu.language.heading'>Language</span></p>
           <p>
             <select onChange={onNewLocaleSelected} ref={(ref) => { this.localeSelect = ref }}>
+              <option value='zh-Hant' data-i18n='i18n.lang.zh-hant'>Chinese (Traditional)</option>
               <option value='en' data-i18n='i18n.lang.en'>English</option>
               {/* <option value='en@pirate' data-i18n='i18n.lang.en@pirate'>English (Pirate)</option> */}
               <option value='fi' data-i18n='i18n.lang.fi'>Finnish</option>
