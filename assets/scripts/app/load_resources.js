@@ -48,6 +48,8 @@ Promise.all(loading)
   .then(function () {
     imagesToBeLoaded = 0
 
+    window.dispatchEvent(new window.CustomEvent('stmx:assets_loaded'))
+
     // legacy, TODO: replace with promise
     checkIfEverythingIsLoaded()
   })
