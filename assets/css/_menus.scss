@@ -88,8 +88,46 @@ body.safari .menu {
   min-width: 200px;
 }
 
-#share-menu {
+.share-menu {
   min-width: 350px;
+}
+
+.share-via-link-container {
+  margin-left: 30px;
+  margin-right: 10px;
+  margin-top: 9px;
+  margin-bottom: 15px;
+}
+
+.share-via-link {
+  font-size: 13px;
+  line-height: 18px;
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.share-sign-in-promo {
+  width: 300px;
+  text-align: center;
+
+  color: rgb(128, 128, 128);
+  font-size: 13px;
+  line-height: 18px;
+  padding: 15px 40px;
+  border-bottom: 1px solid rgb(224, 224, 224);
+  margin-bottom: 15px;
+
+  display: none;
+
+  a {
+    color: inherit;
+  }
+
+  &.visible {
+    display: block;
+  }
 }
 
 .menu .form {
@@ -122,45 +160,7 @@ body.safari .menu {
   font-size: 11px;
 }
 
-#help-shortcuts {
+.help-menu-shortcuts {
   max-width: 400px;
   line-height: 18px;
-}
-
-#share-via-link-canvas {
-  margin-left: 30px;
-  margin-right: 10px;
-  margin-top: 9px;
-  margin-bottom: 15px;
-}
-
-#sign-in-promo {
-  width: 300px;
-  text-align: center;
-
-  color: rgb(128, 128, 128);
-  font-size: 13px;
-  line-height: 18px;
-  padding: 15px 40px;
-  border-bottom: 1px solid rgb(224, 224, 224);
-  margin-bottom: 15px;
-
-  display: none;
-
-  a {
-    color: inherit;
-  }
-
-  &.visible {
-    display: block;
-  }
-}
-
-#share-via-link {
-  font-size: 13px;
-  line-height: 18px;
-  width: 100%;
-  display: block;
-  box-sizing: border-box;
-  outline: none;
 }

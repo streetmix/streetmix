@@ -1,6 +1,6 @@
 import { infoBubble } from '../info_bubble/info_bubble'
 import { getStreetImage } from '../streets/image'
-import { hideAllMenus } from '../menus/menu'
+import { hideAllMenus } from '../menus/menu_controller'
 
 // Add event listeners
 // Chrome does not have the 'beforeprint' or 'afterprint' events
@@ -15,8 +15,6 @@ mediaQueryList.addListener(function (mql) {
     onBeforePrint(true)
   }
 })
-
-document.querySelector('#invoke-print').addEventListener('pointerdown', printImage)
 
 function updatePrintImage () {
   document.querySelector('#print > div').innerHTML = ''

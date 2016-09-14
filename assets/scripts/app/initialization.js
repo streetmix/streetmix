@@ -3,10 +3,7 @@ import $ from 'jquery'
 import { hideLoadingScreen, getImagesToBeLoaded } from './load_resources'
 import { initLocale } from './locale'
 import { scheduleNextLiveUpdateCheck } from './live_update'
-import { setEnvironmentBadge } from './env_badge'
-import { shareMenu } from '../menus/_share'
 import { showGallery } from '../gallery/view'
-import { feedbackMenu } from '../menus/_feedback'
 import { app } from '../preinit/app_settings'
 import { debug } from '../preinit/debug_settings'
 import { system } from '../preinit/system_capabilities'
@@ -205,9 +202,7 @@ if (debug.hoverPolygon) {
 }
 
 // Toggle experimental features
-if (!debug.experimental) {
-  document.getElementById('settings-menu-item').style.display = 'none'
-} else {
+if (debug.experimental) {
   // Initalize i18n / localization
   // Currently experimental-only
   initLocale()
@@ -215,11 +210,9 @@ if (!debug.experimental) {
 
 // Other
 addBodyClasses()
-setEnvironmentBadge()
 
 // Check if no internet mode
 if (system.noInternet === true) {
-  setEnvironmentBadge('Demo')
   setupNoInternetMode()
 }
 
@@ -274,8 +267,6 @@ function setupNoInternetMode () {
 
 // Temp: use this while in transition
 export function _onEverythingLoaded2 () {
-  shareMenu.update()
-  feedbackMenu.update()
   createPalette()
 
   if (debug.forceLiveUpdate) {

@@ -7,7 +7,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { hideAllMenus } from '../menus/menu'
+import { hideAllMenus } from '../menus/menu_controller'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 
 export default class Dialog extends React.Component {

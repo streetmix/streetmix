@@ -4,6 +4,8 @@
  */
 
 import Raven from 'raven-js'
+import React from 'react'
+import ReactDOM from 'react-dom'
 
 // Polyfills
 import 'babel-polyfill'
@@ -28,10 +30,7 @@ import './app/welcome'
 import './gallery/scroll'
 import './gallery/view'
 import './info_bubble/info_bubble'
-import './menus/_help'
-import './menus/_identity'
-import './menus/_settings'
-import './menus/menu'
+import MenusContainer from './menus/MenusContainer'
 import './streets/name'
 import './streets/scroll'
 import './util/fetch_nonblocking'
@@ -67,6 +66,9 @@ window.addEventListener('stmx:everything_loaded', function (e) {
   /* global _onEverythingLoaded2 */
   _onEverythingLoaded2()
 })
+
+// Temp: mount React components
+ReactDOM.render(<MenusContainer />, document.getElementById('menus'))
 
 // Start listening for keypresses
 startListening()

@@ -6,11 +6,10 @@ import { showError, ERRORS } from '../app/errors'
 import { trackEvent } from '../app/event_tracking'
 import { checkIfEverythingIsLoaded } from '../app/initialization'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
-import { URL_SIGN_IN_REDIRECT } from '../app/routing'
 import { getStreet } from '../streets/data_model'
 import { setPromoteStreet } from '../streets/remix'
 import { fetchStreetFromServer } from '../streets/xhr'
-import { receiveAvatar, fetchAvatars } from './avatars'
+import { receiveAvatar } from './avatars'
 import { checkIfSignInAndGeolocationLoaded } from './localization'
 import {
   loadSettings,
@@ -224,36 +223,14 @@ function errorReceiveSignOutConfirmationFromServer () {
   processMode()
 }
 
-function createSignInUI () {
-  if (signedIn) {
-    var avatarEl = document.createElement('div')
-    avatarEl.classList.add('avatar')
-    avatarEl.setAttribute('userId', signInData.userId)
-    document.querySelector('#identity-menu-button').appendChild(avatarEl)
-
-    var userIdEl = document.createElement('span')
-    userIdEl.classList.add('user-id')
-    userIdEl.textContent = signInData.userId
-    document.querySelector('#identity-menu-button').appendChild(userIdEl)
-
-    document.querySelector('#identity-menu-item').classList.add('visible')
-
-    fetchAvatars()
-  } else {
-    var el = document.createElement('a')
-    el.href = '/' + URL_SIGN_IN_REDIRECT
-    el.classList.add('command')
-    el.innerHTML = 'Sign in'
-    document.querySelector('#sign-in-link').appendChild(el)
-
-    document.querySelector('#identity-menu-item').classList.remove('visible')
-  }
-}
-
 function _signInLoaded () {
   loadSettings()
 
-  createSignInUI()
+  // This gets sent to the MenuBar component for rendering.
+  // Send an empty object for `event.detail` if `signInData` does not exist.
+  window.dispatchEvent(new window.CustomEvent('stmx:signed_in', {
+    detail: signInData || {}
+  }))
 
   var street = getStreet()
   let mode = getMode()
@@ -284,10 +261,6 @@ function _signInLoaded () {
     case MODES.GLOBAL_GALLERY:
       fetchStreetFromServer()
       break
-  }
-
-  if (signedIn) {
-    document.querySelector('#gallery-link a').href = '/' + signInData.userId
   }
 
   signInLoaded = true

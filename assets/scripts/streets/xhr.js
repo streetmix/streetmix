@@ -14,7 +14,6 @@ import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { goNewStreet } from '../app/routing'
 import { showStatusMessage } from '../app/status_message'
 import { infoBubble } from '../info_bubble/info_bubble'
-import { shareMenu } from '../menus/_share'
 import { app } from '../preinit/app_settings'
 import { segmentsChanged } from '../segments/view'
 import {
@@ -456,7 +455,6 @@ function receiveLastStreet (transmission) {
   updateStreetName()
   createDomFromData()
   segmentsChanged()
-  shareMenu.update()
 
   setIgnoreStreetChanges(false)
   setLastStreet(trimStreetData(street))

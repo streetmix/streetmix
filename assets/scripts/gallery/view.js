@@ -55,7 +55,6 @@ window.addEventListener('stmx:init', function () {
 
   document.querySelector('#gallery-try-again').addEventListener('pointerdown', repeatReceiveGalleryData)
   document.querySelector('#gallery-shield').addEventListener('pointerdown', onGalleryShieldClick)
-  document.querySelector('#gallery-link a').addEventListener('pointerdown', onMyStreetsClick)
 })
 
 window.addEventListener('stmx:everything_loaded', function () {
@@ -364,7 +363,7 @@ function onDeleteGalleryStreet (event) {
   event.stopPropagation()
 }
 
-function onMyStreetsClick (event) {
+export function onMyStreetsClick (event) {
   if (event.shiftKey || event.ctrlKey || event.metaKey) {
     return
   }

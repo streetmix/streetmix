@@ -1,7 +1,6 @@
 import { showBlockingShield, hideBlockingShield } from '../app/blocking_shield'
 import { API_URL } from '../app/config'
 import { hideError } from '../app/errors'
-import { shareMenu } from '../menus/_share'
 import {
   setLastStreet,
   getStreet,
@@ -71,7 +70,6 @@ function receiveGalleryStreet (transmission) {
   updateStreetName()
   createDomFromData()
   segmentsChanged()
-  shareMenu.update()
 
   setIgnoreStreetChanges(false)
   setLastStreet(trimStreetData(getStreet()))
