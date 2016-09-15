@@ -21,25 +21,28 @@ import { onStreetWidthChange, onStreetWidthClick } from '../streets/width'
 import { onStorageChange } from '../users/settings'
 import { onGlobalKeyDown } from './keyboard_commands'
 import { onResize } from './window_resize'
+import { goReload } from './routing'
+import { blockingCancel, blockingTryAgain } from '../util/fetch_blocking'
 import { system } from '../preinit/system_capabilities'
 import { onVisibilityChange, onWindowFocus } from './focus'
 import { registerKeypress } from './keypress'
 import { msg } from './messages'
 import { showStatusMessage } from './status_message'
 import { showDebugInfo } from './debug_info'
-import Print from './print'
+import { onBeforePrint } from './print'
 import { hideStatusMessage } from './status_message'
 import { addScrollButtons, updateScrollButtons } from '../gallery/scroll'
 import { updateGalleryShield, repeatReceiveGalleryData, onGalleryShieldClick  } from '../gallery/view'
 import { attachNonBlockingAjaxListeners } from '../util/fetch_nonblocking'
 import { attachNameResizeListener, askForStreetName } from '../streets/name'
 import { updateStreetScrollIndicators, attachStreetScrollListeners, scrollStreet } from '../streets/scroll'
-import BlockingShield from './blocking_shield'
 
 export function addEventListeners () {
 
-  BlockingShield.attachListeners()
-  Print.attachEventListeners()
+  // Adds event listeners to the respond to buttons.
+  document.querySelector('#blocking-shield-cancel').addEventListener('pointerdown', blockingCancel)
+  document.querySelector('#blocking-shield-try-again').addEventListener('pointerdown', blockingTryAgain)
+  document.querySelector('#blocking-shield-reload').addEventListener('pointerdown', goReload)
 
   document.querySelector('#gallery-try-again').addEventListener('pointerdown', repeatReceiveGalleryData)
   document.querySelector('#gallery-shield').addEventListener('pointerdown', onGalleryShieldClick)
@@ -111,6 +114,25 @@ export function addEventListeners () {
   window.addEventListener('keydown', onGlobalKeyDown)
 
   registerKeyPressListeners();
+  registerPrintListeners();
+}
+
+function registerPrintListeners()
+{
+  // Add event listeners
+  // Chrome does not have the 'beforeprint' or 'afterprint' events
+  window.addEventListener('beforeprint', () => {
+    onBeforePrint(false)
+  })
+
+  // Listening for media query change for Chrome
+  var mediaQueryList = window.matchMedia('print')
+  mediaQueryList.addListener(function (mql) {
+    if (mql.matches) {
+      onBeforePrint(true)
+    }
+  })
+
 }
 
 

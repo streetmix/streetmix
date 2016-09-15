@@ -5,7 +5,7 @@
  * no other fetch / xhr / ajax should exist when they do.
  */
 import $ from 'jquery'
-import BlockingShield from '../app/blocking_shield'
+import { showBlockingShield, hideBlockingShield, darkenBlockingShield } from '../app/blocking_shield'
 
 let blockingAjaxRequest
 let blockingAjaxRequestDoneFunc
@@ -59,7 +59,7 @@ export function isblockingAjaxRequestInProgress () {
 // }
 
 export function newBlockingAjaxRequest (message, request, doneFunc, cancelFunc) {
-  BlockingShield.show(message)
+  showBlockingShield(message)
 
   blockingAjaxRequestInProgress = true
 
@@ -72,7 +72,7 @@ export function newBlockingAjaxRequest (message, request, doneFunc, cancelFunc) 
 }
 
 function successBlockingAjaxRequest (data) {
-  BlockingShield.hide()
+  hideBlockingShield()
   blockingAjaxRequestInProgress = false
   blockingAjaxRequestDoneFunc(data)
 }
@@ -84,7 +84,7 @@ function errorBlockingAjaxRequest () {
 
   document.querySelector('#blocking-shield').classList.add('show-try-again')
 
-  BlockingShield.darken()
+  darkenBlockingShield()
 }
 
 // These export to the blocking shield to retry or cancel requests
@@ -98,7 +98,7 @@ export function blockingTryAgain () {
 }
 
 export function blockingCancel () {
-  BlockingShield.hide()
+  hideBlockingShield()
   blockingAjaxRequestInProgress = false
   blockingAjaxRequestCancelFunc()
 }
