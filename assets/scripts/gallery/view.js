@@ -45,22 +45,6 @@ export const galleryState = {
   noStreetSelected: false
 }
 
-// Cache a reference to the gallery element
-const GALLERY_EL = document.getElementById('gallery')
-
-window.addEventListener('stmx:init', function () {
-  // Populate gallery UI button URLs on init
-  document.querySelector('#new-street').href = '/' + URL_NEW_STREET
-  document.querySelector('#copy-last-street').href = '/' + URL_NEW_STREET_COPY_LAST
-
-  document.querySelector('#gallery-try-again').addEventListener('pointerdown', repeatReceiveGalleryData)
-  document.querySelector('#gallery-shield').addEventListener('pointerdown', onGalleryShieldClick)
-})
-
-window.addEventListener('stmx:everything_loaded', function () {
-  updateGalleryShield()
-})
-
 export function showGallery (userId, instant, signInPromo) {
   if (app.readOnly) {
     return
@@ -247,6 +231,7 @@ export function receiveGalleryData (transmission) {
     switchGalleryStreet(transmission.streets[0].id)
   }
 
+  const GALLERY_EL = document.getElementById('gallery')
   const selectedEl = GALLERY_EL.querySelector('.selected')
   if (selectedEl) {
     selectedEl.scrollIntoView()
@@ -258,11 +243,12 @@ export function receiveGalleryData (transmission) {
   updateGalleryStreetCount()
 }
 
-function repeatReceiveGalleryData () {
+export function repeatReceiveGalleryData () {
   loadGalleryContents()
 }
 
 export function updateGallerySelection () {
+  const GALLERY_EL = document.getElementById('gallery')
   const els = GALLERY_EL.querySelectorAll('.streets .selected')
   for (let el of els) {
     el.classList.remove('selected')
@@ -297,6 +283,7 @@ function onGalleryStreetClick (event) {
 function updateGalleryStreetCount () {
   let text
 
+  const GALLERY_EL = document.getElementById('gallery')
   if (getGalleryUserId()) {
     const streetCount = GALLERY_EL.querySelectorAll('.streets li').length
     switch (streetCount) {
@@ -317,6 +304,7 @@ function updateGalleryStreetCount () {
 }
 
 function loadGalleryContents () {
+  const GALLERY_EL = document.getElementById('gallery')
   const els = GALLERY_EL.querySelectorAll('.streets li')
   for (let el of els) {
     removeElFromDOM(el)
@@ -328,11 +316,11 @@ function loadGalleryContents () {
   fetchGalleryData()
 }
 
-function onGalleryShieldClick (event) {
+export function onGalleryShieldClick (event) {
   hideGallery(false)
 }
 
-function updateGalleryShield () {
+export function updateGalleryShield () {
   document.querySelector('#gallery-shield').style.width = 0
   window.setTimeout(function () {
     document.querySelector('#gallery-shield').style.height =

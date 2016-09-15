@@ -2,19 +2,6 @@ import { infoBubble } from '../info_bubble/info_bubble'
 import { getStreetImage } from '../streets/image'
 import { hideAllMenus } from '../menus/menu_controller'
 
-// Add event listeners
-// Chrome does not have the 'beforeprint' or 'afterprint' events
-window.addEventListener('beforeprint', () => {
-  onBeforePrint(false)
-})
-
-// Listening for media query change for Chrome
-var mediaQueryList = window.matchMedia('print')
-mediaQueryList.addListener(function (mql) {
-  if (mql.matches) {
-    onBeforePrint(true)
-  }
-})
 
 function updatePrintImage () {
   document.querySelector('#print > div').innerHTML = ''
@@ -27,7 +14,7 @@ function updatePrintImage () {
   document.querySelector('#print > div').appendChild(imgEl)
 }
 
-function onBeforePrint (mediaMatch) {
+export function onBeforePrint (mediaMatch) {
   // So that max-height: 100% works
   if (mediaMatch) {
     document.querySelector('#print > div').style.width = window.innerWidth + 'px'

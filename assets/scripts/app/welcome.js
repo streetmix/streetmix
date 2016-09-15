@@ -17,8 +17,6 @@ const WELCOME_FIRST_TIME_EXISTING_STREET = 3
 
 const LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED = 'settings-welcome-dismissed'
 
-const welcomeEl = document.querySelector('#welcome')
-
 let settingsWelcomeDismissed = false
 let isVisible = false
 
@@ -41,6 +39,7 @@ function showWelcome (welcomeType = WELCOME_NONE) {
     return
   }
 
+  const welcomeEl = document.querySelector('#welcome')
   switch (welcomeType) {
     case WELCOME_FIRST_TIME_NEW_STREET:
       welcomeEl.classList.add('first-time-new-street')
@@ -104,6 +103,7 @@ export function hideWelcome () {
   settingsWelcomeDismissed = true
   saveSettingsWelcomeDismissed()
 
+  const welcomeEl = document.querySelector('#welcome')
   welcomeEl.classList.remove('visible')
   document.querySelector('#street-name-canvas').classList.remove('hidden')
 

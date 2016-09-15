@@ -3,31 +3,19 @@
  *
  */
 import $ from 'jquery'
-import { registerKeypress } from '../app/keypress'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { system } from '../preinit/system_capabilities'
 import { getStreet } from './data_model'
 import { MAX_CUSTOM_STREET_WIDTH } from './width'
 
-window.addEventListener('stmx:everything_loaded', function () {
+export function attachStreetScrollListeners() {
   document.querySelector('#street-scroll-indicator-left').addEventListener('pointerdown', onStreetLeftScrollClick)
   document.querySelector('#street-scroll-indicator-right').addEventListener('pointerdown', onStreetRightScrollClick)
 
   document.querySelector('#street-section-outer').addEventListener('scroll', onStreetSectionScroll)
+}
 
-  registerKeypress('left', function (event) {
-    scrollStreet(true, event.shiftKey)
-  })
-  registerKeypress('right', function (event) {
-    scrollStreet(false, event.shiftKey)
-  })
-})
-
-window.addEventListener('resize', function () {
-  updateStreetScrollIndicators()
-})
-
-function scrollStreet (left, far = false) {
+export function scrollStreet (left, far = false) {
   const el = document.querySelector('#street-section-outer')
   let newScrollLeft
 
@@ -51,7 +39,7 @@ function scrollStreet (left, far = false) {
   $(el).animate({ scrollLeft: newScrollLeft }, 300)
 }
 
-function updateStreetScrollIndicators () {
+export function updateStreetScrollIndicators () {
   const el = document.querySelector('#street-section-outer')
   let posLeft
   let posRight
