@@ -19,6 +19,8 @@ import { isFocusOnBody } from './focus'
 import { registerKeypress } from './keypress'
 import { msg } from './messages'
 import { showStatusMessage } from './status_message'
+import { showDebugInfo } from './debug_info'
+import { infoBubble } from '../info_bubble/info_bubble'
 
 export const KEYS = {
   ENTER: 13,
@@ -110,24 +112,40 @@ function getHoveredEl () {
   return el
 }
 
-// In case anyone tries a save shortcut key out of reflex,
-// we inform the user that it's not necessary.
-registerKeypress('ctrl s', {
-  trackAction: 'Command-S or Ctrl-S save shortcut key pressed'
-}, function () {
-  showStatusMessage(msg('STATUS_NO_NEED_TO_SAVE'))
-})
+export function registerKeypresses () {
+  // In case anyone tries a save shortcut key out of reflex,
+  // we inform the user that it's not necessary.
+  registerKeypress('ctrl s', {
+    trackAction: 'Command-S or Ctrl-S save shortcut key pressed'
+  }, function () {
+    showStatusMessage(msg('STATUS_NO_NEED_TO_SAVE'))
+  })
 
-// Catch-all for the Ctrl-S shortcut from ever trying to
-// save the page contents
-registerKeypress('ctrl s', {
-  preventDefault: true,
-  requireFocusOnBody: false
-}, _.noop)
+  // Catch-all for the Ctrl-S shortcut from ever trying to
+  // save the page contents
+  registerKeypress('ctrl s', {
+    preventDefault: true,
+    requireFocusOnBody: false
+  }, _.noop)
 
-// Catch-all for the backspace or delete buttons to prevent
-// browsers from going back in history
-registerKeypress(['backspace', 'delete'], {
-  preventDefault: true,
-  requireFocusOnBody: true
-}, _.noop)
+  // Catch-all for the backspace or delete buttons to prevent
+  // browsers from going back in history
+  registerKeypress(['backspace', 'delete'], {
+    preventDefault: true,
+    requireFocusOnBody: true
+  }, _.noop)
+
+  // Register keyboard input for show (shift-D)
+  registerKeypress('shift d', showDebugInfo)
+
+  // Register keyboard shortcuts to hide info bubble
+  // Only hide if it's currently visible, and if the
+  // description is NOT visible. (If the description
+  // is visible, the escape key should hide that first.)
+  registerKeypress('esc', {
+    condition: function () { return infoBubble.visible && !infoBubble.descriptionVisible }
+  }, function () {
+    infoBubble.hide()
+    infoBubble.hideSegment(false)
+  })
+}

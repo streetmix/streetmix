@@ -40,10 +40,12 @@ const noConnectionMessage = {
   }
 }
 
-window.addEventListener('stmx:everything_loaded', function () {
-  document.querySelector('#no-connection-try-again').addEventListener('pointerdown', nonblockingAjaxTryAgain)
-  window.addEventListener('beforeunload', onWindowBeforeUnload)
-})
+export function attachFetchNonBlockingEventListeners () {
+  window.addEventListener('stmx:everything_loaded', function () {
+    document.querySelector('#no-connection-try-again').addEventListener('pointerdown', nonblockingAjaxTryAgain)
+    window.addEventListener('beforeunload', onWindowBeforeUnload)
+  })
+}
 
 export function newNonblockingAjaxRequest (request, allowToClosePage, doneFunc, errorFunc, maxRetries) {
   nonblockingAjaxRequestTimer = 0

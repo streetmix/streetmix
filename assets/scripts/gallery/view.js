@@ -45,21 +45,20 @@ export const galleryState = {
   noStreetSelected: false
 }
 
-// Cache a reference to the gallery element
-const GALLERY_EL = document.getElementById('gallery')
+export function attachGalleryViewEventListeners () {
+  window.addEventListener('stmx:init', function () {
+    // Populate gallery UI button URLs on init
+    document.querySelector('#new-street').href = '/' + URL_NEW_STREET
+    document.querySelector('#copy-last-street').href = '/' + URL_NEW_STREET_COPY_LAST
 
-window.addEventListener('stmx:init', function () {
-  // Populate gallery UI button URLs on init
-  document.querySelector('#new-street').href = '/' + URL_NEW_STREET
-  document.querySelector('#copy-last-street').href = '/' + URL_NEW_STREET_COPY_LAST
+    document.querySelector('#gallery-try-again').addEventListener('pointerdown', repeatReceiveGalleryData)
+    document.querySelector('#gallery-shield').addEventListener('pointerdown', onGalleryShieldClick)
+  })
 
-  document.querySelector('#gallery-try-again').addEventListener('pointerdown', repeatReceiveGalleryData)
-  document.querySelector('#gallery-shield').addEventListener('pointerdown', onGalleryShieldClick)
-})
-
-window.addEventListener('stmx:everything_loaded', function () {
-  updateGalleryShield()
-})
+  window.addEventListener('stmx:everything_loaded', function () {
+    updateGalleryShield()
+  })
+}
 
 export function showGallery (userId, instant, signInPromo) {
   if (app.readOnly) {
@@ -247,10 +246,11 @@ export function receiveGalleryData (transmission) {
     switchGalleryStreet(transmission.streets[0].id)
   }
 
-  const selectedEl = GALLERY_EL.querySelector('.selected')
+  const galleryEl = document.getElementById('gallery')
+  const selectedEl = galleryEl.querySelector('.selected')
   if (selectedEl) {
     selectedEl.scrollIntoView()
-    GALLERY_EL.scrollTop = 0
+    galleryEl.scrollTop = 0
   }
 
   updateScrollButtons()
@@ -263,13 +263,14 @@ function repeatReceiveGalleryData () {
 }
 
 export function updateGallerySelection () {
-  const els = GALLERY_EL.querySelectorAll('.streets .selected')
+  const galleryEl = document.getElementById('gallery')
+  const els = galleryEl.querySelectorAll('.streets .selected')
   for (let el of els) {
     el.classList.remove('selected')
   }
 
   const selector = `.streets [streetId="${galleryState.streetId}"]`
-  const el = GALLERY_EL.querySelector(selector)
+  const el = galleryEl.querySelector(selector)
   if (el) {
     el.classList.add('selected')
   }
@@ -297,8 +298,9 @@ function onGalleryStreetClick (event) {
 function updateGalleryStreetCount () {
   let text
 
+  const galleryEl = document.getElementById('gallery')
   if (getGalleryUserId()) {
-    const streetCount = GALLERY_EL.querySelectorAll('.streets li').length
+    const streetCount = galleryEl.querySelectorAll('.streets li').length
     switch (streetCount) {
       case 0:
         text = msg('STREET_COUNT_0')
@@ -313,17 +315,18 @@ function updateGalleryStreetCount () {
   } else {
     text = ''
   }
-  GALLERY_EL.querySelector('.street-count').innerHTML = text
+  galleryEl.querySelector('.street-count').innerHTML = text
 }
 
 function loadGalleryContents () {
-  const els = GALLERY_EL.querySelectorAll('.streets li')
+  const galleryEl = document.getElementById('gallery')
+  const els = galleryEl.querySelectorAll('.streets li')
   for (let el of els) {
     removeElFromDOM(el)
   }
 
-  GALLERY_EL.querySelector('.loading').classList.add('visible')
-  GALLERY_EL.querySelector('.error-loading').classList.remove('visible')
+  galleryEl.querySelector('.loading').classList.add('visible')
+  galleryEl.querySelector('.error-loading').classList.remove('visible')
 
   fetchGalleryData()
 }

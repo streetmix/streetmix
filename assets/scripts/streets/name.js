@@ -8,18 +8,32 @@ import { updateStreetMetadata } from './metadata'
 import { StreetName, normalizeStreetName } from './name_sign'
 import { unifyUndoStack } from './undo_stack'
 
-// The following are only for the main street name
-// We can cache selectors outside the functions here.
-const streetNameCanvasEl = document.getElementById('street-name-canvas')
-const streetNameEl = document.getElementById('street-name')
-
 // Reference to the main street name instance
 let streetName
+
+export function attachStreetNameEventListeners () {
+  // Add window listeners to resize and reposition the street name when it resizes
+  // Only do this after everything is loaded because you don't want to
+  // fire it before the street name is ready
+  window.addEventListener('stmx:everything_loaded', function (e) {
+    window.addEventListener('resize', (e) => {
+      resizeStreetName()
+      updateStreetNameCanvasPos()
+    })
+  })
+
+  // Add prompt event to main street name
+  if (!app.readOnly) {
+    const streetNameEl = document.getElementById('street-name')
+    streetNameEl.addEventListener('pointerdown', askForStreetName)
+  }
+}
 
 // This is called everywhere.
 // TODO: Create a specific init / create function?
 // TODO: Updating the street name as a response to events?
 export function updateStreetName () {
+  const streetNameEl = document.getElementById('street-name')
   let street = getStreet()
   streetName = new StreetName(streetNameEl, street.name)
   streetName.text = street.name
@@ -49,6 +63,7 @@ function askForStreetName () {
 }
 
 function resizeStreetName () {
+  const streetNameCanvasEl = document.getElementById('street-name-canvas')
   const streetNameCanvasWidth = streetNameCanvasEl.offsetWidth
   const streetNameWidth = streetName.textEl.scrollWidth
 
@@ -60,6 +75,8 @@ function resizeStreetName () {
 }
 
 function updateStreetNameCanvasPos () {
+  const streetNameCanvasEl = document.getElementById('street-name-canvas')
+  const streetNameEl = document.getElementById('street-name')
   const menuEl = document.querySelector('.menu-bar-right')
   const menuElPos = getElAbsolutePos(menuEl)
   const streetNameElPos = getElAbsolutePos(streetName.el)
@@ -74,20 +91,5 @@ function updateStreetNameCanvasPos () {
   window.setTimeout(function () {
     streetNameCanvasEl.classList.remove('no-movement')
   }, 50)
-}
-
-// Add window listeners to resize and reposition the street name when it resizes
-// Only do this after everything is loaded because you don't want to
-// fire it before the street name is ready
-window.addEventListener('stmx:everything_loaded', function (e) {
-  window.addEventListener('resize', (e) => {
-    resizeStreetName()
-    updateStreetNameCanvasPos()
-  })
-})
-
-// Add prompt event to main street name
-if (!app.readOnly) {
-  streetNameEl.addEventListener('pointerdown', askForStreetName)
 }
 
