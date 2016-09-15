@@ -8,7 +8,7 @@ import { FACEBOOK_APP_ID } from '../app/config'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { trackEvent } from '../app/event_tracking'
 import { getPageTitle } from '../app/page_title'
-import { printImage } from '../app/print'
+import Print from '../app/print'
 import { getStreet } from '../streets/data_model'
 import { getSharingUrl } from '../util/share_url'
 
@@ -144,7 +144,7 @@ export default class ShareMenu extends React.Component {
           </svg>
           <span data-i18n='menu.share.facebook'>Share using Facebook</span>
         </a>
-        <a href='#' onClick={printImage}>
+        <a href='#' onClick={Print.printImage}>
           <span data-i18n='menu.share.print'>Print…</span>
         </a>
         <a id='save-as-image' href='#' onClick={this.onClickSaveAsImage}>

@@ -1,4 +1,4 @@
-import { showBlockingShield, hideBlockingShield } from '../app/blocking_shield'
+import BlockingShield from '../app/blocking_shield'
 import { API_URL } from '../app/config'
 import { hideError } from '../app/errors'
 import {
@@ -17,7 +17,7 @@ import { propagateUnits } from '../users/localization'
 import { galleryState, updateGallerySelection, segmentsChanged } from './view'
 
 export function fetchGalleryStreet (streetId) {
-  showBlockingShield()
+  BlockingShield.show()
 
   const url = API_URL + 'v1/streets/' + streetId
   const options = {
@@ -32,7 +32,7 @@ export function fetchGalleryStreet (streetId) {
       return response.json()
     })
     .then(function (data) {
-      hideBlockingShield()
+      BlockingShield.hide()
       galleryState.loaded = true
       return data
     })
