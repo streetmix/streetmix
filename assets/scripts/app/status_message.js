@@ -4,13 +4,13 @@ import { loseAnyFocus } from './focus'
 
 const STATUS_MESSAGE_HIDE_DELAY = 15000
 
+const el = document.querySelector('#status-message')
+const msgEl = el.querySelector('.status-message-content')
+
 let timerId = -1
 let isVisible = false
 
 export function showStatusMessage (text, undo) {
-  const el = document.querySelector('#status-message')
-  const msgEl = el.querySelector('.status-message-content')
-
   window.clearTimeout(timerId)
 
   msgEl.innerHTML = text
@@ -44,7 +44,6 @@ export function hideStatusMessage () {
     return
   }
 
-  const el = document.querySelector('#status-message')
   el.classList.remove('visible')
   deregisterKeypress('esc', hideStatusMessage)
 }
@@ -58,3 +57,5 @@ function _onClickTheX () {
   }, 0)
 }
 
+// As per issue #306.
+window.addEventListener('stmx:save_street', hideStatusMessage)

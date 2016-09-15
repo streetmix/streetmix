@@ -1155,3 +1155,14 @@ function _prettifyHeight (height) {
 
   return heightText
 }
+
+// Register keyboard shortcuts to hide info bubble
+// Only hide if it's currently visible, and if the
+// description is NOT visible. (If the description
+// is visible, the escape key should hide that first.)
+registerKeypress('esc', {
+  condition: function () { return infoBubble.visible && !infoBubble.descriptionVisible }
+}, function () {
+  infoBubble.hide()
+  infoBubble.hideSegment(false)
+})

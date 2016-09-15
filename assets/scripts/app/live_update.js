@@ -5,6 +5,8 @@ import { getFetchStreetUrl, unpackServerStreetData } from '../streets/xhr'
 
 const LIVE_UPDATE_DELAY = 5000
 
+const flashEl = document.getElementById('flash')
+
 export function scheduleNextLiveUpdateCheck () {
   window.setTimeout(checkForLiveUpdate, LIVE_UPDATE_DELAY)
 }
@@ -47,7 +49,6 @@ function receiveLiveUpdateStreet (transmission) {
 }
 
 function flash () {
-  const flashEl = document.getElementById('flash')
   flashEl.classList.add('visible')
 
   window.setTimeout(function () {

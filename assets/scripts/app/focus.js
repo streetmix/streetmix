@@ -4,6 +4,14 @@ import { fetchStreetForVerification } from '../streets/xhr'
 import { saveSettingsLocally } from '../users/settings'
 import { getAbortEverything } from './initialization'
 
+window.addEventListener('stmx:everything_loaded', function () {
+  if (system.pageVisibility) {
+    document.addEventListener(system.visibilityChange, onVisibilityChange, false)
+  } else {
+    window.addEventListener('focus', onWindowFocus)
+  }
+})
+
 /**
  * Refocusing on the body immediately after some other element is
  * removed from the page allows the application to continue to receive
@@ -34,7 +42,7 @@ export function onWindowFocus () {
   saveSettingsLocally()
 }
 
-export function onVisibilityChange () {
+function onVisibilityChange () {
   if (document[system.visibilityState] !== 'hidden') {
     onWindowFocus()
   }
