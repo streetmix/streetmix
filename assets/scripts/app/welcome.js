@@ -123,21 +123,19 @@ function saveSettingsWelcomeDismissed () {
     JSON.stringify(settingsWelcomeDismissed)
 }
 
-export function attachWelcomeEventListeners () {
-  // Show welcome panel on load
-  window.addEventListener('stmx:everything_loaded', function (e) {
-    // Do not do anything in these cases
-    if (app.readOnly || system.phone) {
-      return
-    }
+// Show welcome panel on load
+window.addEventListener('stmx:everything_loaded', function (e) {
+  // Do not do anything in these cases
+  if (app.readOnly || system.phone) {
+    return
+  }
 
-    showWelcome()
+  showWelcome()
 
-    // Add the event listener for hiding it
-    document.querySelector('#welcome .close').addEventListener('pointerdown', hideWelcome)
-  })
+  // Add the event listener for hiding it
+  document.querySelector('#welcome .close').addEventListener('pointerdown', hideWelcome)
+})
 
-  // Hide welcome panel on certain events
-  window.addEventListener('stmx:receive_gallery_street', hideWelcome)
-  window.addEventListener('stmx:save_street', hideWelcome)
-}
+// Hide welcome panel on certain events
+window.addEventListener('stmx:receive_gallery_street', hideWelcome)
+window.addEventListener('stmx:save_street', hideWelcome)
