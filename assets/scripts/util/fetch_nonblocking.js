@@ -40,7 +40,7 @@ const noConnectionMessage = {
   }
 }
 
-export function attachNonBlockingAjaxListeners() {
+export function attachNonBlockingAjaxListeners () {
   document.querySelector('#no-connection-try-again').addEventListener('pointerdown', nonblockingAjaxTryAgain)
   window.addEventListener('beforeunload', onWindowBeforeUnload)
 }

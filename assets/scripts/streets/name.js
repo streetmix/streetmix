@@ -80,11 +80,10 @@ function updateStreetNameCanvasPos () {
 // Add window listeners to resize and reposition the street name when it resizes
 // Only do this after everything is loaded because you don't want to
 // fire it before the street name is ready
-export function attachNameResizeListener() {
+export function attachNameResizeListener () {
   window.addEventListener('resize', (e) => {
     resizeStreetName()
     updateStreetNameCanvasPos()
   })
 }
-
 

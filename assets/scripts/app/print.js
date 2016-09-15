@@ -4,13 +4,8 @@ import { hideAllMenus } from '../menus/menu_controller'
 
 class Print
 {
-  constructor()
-  {
-  }
-
-  attachEventListeners()
-  {
-    var self = this;
+  attachEventListeners () {
+    var self = this
     // Add event listeners
     // Chrome does not have the 'beforeprint' or 'afterprint' events
     window.addEventListener('beforeprint', () => {
