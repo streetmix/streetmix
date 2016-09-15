@@ -1,6 +1,6 @@
 exports.config = {
   chromeOnly: true,
-  chromeDriver: '../../node_modules/protractor/selenium/chromedriver',
+  // chromeDriver: '../../node_modules/protractor/selenium/chromedriver',
   capabilities: {
     'browserName': 'chrome'
   },
