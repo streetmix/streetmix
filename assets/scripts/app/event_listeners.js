@@ -34,10 +34,12 @@ import { attachNonBlockingAjaxListeners } from '../util/fetch_nonblocking'
 import { attachNameResizeListener, askForStreetName } from '../streets/name'
 import { updateStreetScrollIndicators, attachStreetScrollListeners, scrollStreet } from '../streets/scroll'
 import BlockingShield from './blocking_shield'
+import { attachWelcomeEventListeners } from '../app/welcome'
 
 export function addEventListeners () {
   BlockingShield.attachListeners()
   Print.attachEventListeners()
+  attachWelcomeEventListeners()
 
   document.querySelector('#gallery-try-again').addEventListener('pointerdown', repeatReceiveGalleryData)
   document.querySelector('#gallery-shield').addEventListener('pointerdown', onGalleryShieldClick)
