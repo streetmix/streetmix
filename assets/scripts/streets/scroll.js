@@ -8,7 +8,7 @@ import { system } from '../preinit/system_capabilities'
 import { getStreet } from './data_model'
 import { MAX_CUSTOM_STREET_WIDTH } from './width'
 
-export function attachStreetScrollListeners () {
+export function attachStreetScrollListeners() {
   document.querySelector('#street-scroll-indicator-left').addEventListener('pointerdown', onStreetLeftScrollClick)
   document.querySelector('#street-scroll-indicator-right').addEventListener('pointerdown', onStreetRightScrollClick)
 

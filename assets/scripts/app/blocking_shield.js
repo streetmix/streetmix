@@ -15,26 +15,27 @@ const BLOCKING_SHIELD_TOO_SLOW_DELAY = 10000
 let blockingShieldTimerId = -1
 let blockingShieldTooSlowTimerId = -1
 
-function clearBlockingShieldTimers () {
+function clearBlockingShieldTimers() {
   window.clearTimeout(blockingShieldTimerId)
   window.clearTimeout(blockingShieldTooSlowTimerId)
 }
 
 class BlockingShield
 {
-  constructor () {
-    this.show = this.show.bind(this)
-    this.hide = this.hide.bind(this)
+  constructor()
+  {
+    this.show = this.show.bind(this);
+    this.hide = this.hide.bind(this);
   }
 
-  attachListeners () {
+  attachListeners() {
     // Adds event listeners to the respond to buttons.
     document.querySelector('#blocking-shield-cancel').addEventListener('pointerdown', blockingCancel)
     document.querySelector('#blocking-shield-try-again').addEventListener('pointerdown', blockingTryAgain)
     document.querySelector('#blocking-shield-reload').addEventListener('pointerdown', goReload)
   }
 
-  show (message = msg('LOADING')) {
+  show(message = msg('LOADING')) {
     this.hide()
     clearBlockingShieldTimers()
 
@@ -51,13 +52,13 @@ class BlockingShield
     }, BLOCKING_SHIELD_TOO_SLOW_DELAY)
   }
 
-  darken (message) {
+  darken(message) {
     clearBlockingShieldTimers()
     const shieldEl = document.querySelector('#blocking-shield')
     shieldEl.classList.add('darken-immediately')
   }
 
-  hide () {
+  hide() {
     clearBlockingShieldTimers()
     const shieldEl = document.querySelector('#blocking-shield')
     shieldEl.classList.remove('visible')
@@ -69,6 +70,5 @@ class BlockingShield
   }
 
 }
-
 export default new BlockingShield()
 

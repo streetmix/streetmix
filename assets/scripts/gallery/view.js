@@ -9,6 +9,7 @@ import {
   setGalleryUserId,
   updatePageUrl
 } from '../app/page_url'
+import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/routing'
 import { hideStatusMessage } from '../app/status_message'
 import { app } from '../preinit/app_settings'
 import { system } from '../preinit/system_capabilities'

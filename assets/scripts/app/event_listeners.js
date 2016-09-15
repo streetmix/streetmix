@@ -25,17 +25,19 @@ import { system } from '../preinit/system_capabilities'
 import { onVisibilityChange, onWindowFocus } from './focus'
 import { registerKeypress } from './keypress'
 import { msg } from './messages'
-import { showStatusMessage, hideStatusMessage } from './status_message'
+import { showStatusMessage } from './status_message'
 import { showDebugInfo } from './debug_info'
 import Print from './print'
+import { hideStatusMessage } from './status_message'
 import { addScrollButtons, updateScrollButtons } from '../gallery/scroll'
-import { updateGalleryShield, repeatReceiveGalleryData, onGalleryShieldClick } from '../gallery/view'
+import { updateGalleryShield, repeatReceiveGalleryData, onGalleryShieldClick  } from '../gallery/view'
 import { attachNonBlockingAjaxListeners } from '../util/fetch_nonblocking'
 import { attachNameResizeListener, askForStreetName } from '../streets/name'
 import { updateStreetScrollIndicators, attachStreetScrollListeners, scrollStreet } from '../streets/scroll'
 import BlockingShield from './blocking_shield'
 
 export function addEventListeners () {
+
   BlockingShield.attachListeners()
   Print.attachEventListeners()
 
@@ -108,10 +110,12 @@ export function addEventListeners () {
   window.addEventListener('pointerup', onBodyMouseUp)
   window.addEventListener('keydown', onGlobalKeyDown)
 
-  registerKeyPressListeners()
+  registerKeyPressListeners();
 }
 
-function registerKeyPressListeners () {
+
+function registerKeyPressListeners()
+{
   // In case anyone tries a save shortcut key out of reflex,
   // we inform the user that it's not necessary.
   registerKeypress('ctrl s', {
@@ -147,6 +151,7 @@ function registerKeyPressListeners () {
     infoBubble.hide()
     infoBubble.hideSegment(false)
   })
+
 
   registerKeypress('left', function (event) {
     scrollStreet(true, event.shiftKey)
