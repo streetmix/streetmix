@@ -10,32 +10,45 @@ export default class Scrollable extends React.PureComponent {
 
     this.duration = 300
 
-    this.updateScrollButtons = this.updateScrollButtons.bind(this)
-    this.repositionButtons = this.repositionButtons.bind(this)
-    this.checkButtonVisibilityState = this.checkButtonVisibilityState.bind(this)
     this.onClickLeft = this.onClickLeft.bind(this)
     this.onClickRight = this.onClickRight.bind(this)
     this.onScrollContainer = this.onScrollContainer.bind(this)
+    this.setWrapperElementRef = this.setWrapperElementRef.bind(this)
+    this.checkButtonVisibilityState = this.checkButtonVisibilityState.bind(this)
   }
 
   componentDidMount () {
     window.addEventListener('resize', () => {
-      this.updateScrollButtons()
+      this.checkButtonVisibilityState()
     })
 
-    this.updateScrollButtons()
-  }
+    this.leftButton.style.left = '-15px'
+    this.rightButton.style.right = '-15px'
 
-  updateScrollButtons () {
-    this.repositionButtons()
     this.checkButtonVisibilityState()
   }
 
-  repositionButtons () {
+  onClickLeft (event) {
     const el = this.scroller
+    const position = el.scrollLeft - (el.offsetWidth - 150) // TODO: document magic number
 
-    this.leftButton.style.left = el.getBoundingClientRect().left + 'px'
-    this.rightButton.style.left = (el.getBoundingClientRect().left + el.offsetWidth) + 'px'
+    $(el).animate({ scrollLeft: position }, this.duration)
+  }
+
+  onClickRight (event) {
+    const el = this.scroller
+    const position = el.scrollLeft + (el.offsetWidth - 150) // TODO: document magic number
+
+    $(el).animate({ scrollLeft: position }, this.duration)
+  }
+
+  onScrollContainer (event) {
+    this.checkButtonVisibilityState()
+  }
+
+  // Allows parent component to obtain a ref to the wrapping element created here.
+  setWrapperElementRef (ref) {
+    this.props.setRef(ref)
   }
 
   checkButtonVisibilityState () {
@@ -61,39 +74,31 @@ export default class Scrollable extends React.PureComponent {
     }
   }
 
-  onClickLeft (event) {
-    const el = this.scroller
-    const position = el.scrollLeft - (el.offsetWidth - 150) // TODO: document magic number
-
-    $(el).animate({ scrollLeft: position }, this.duration)
-  }
-
-  onClickRight (event) {
-    const el = this.scroller
-    const position = el.scrollLeft + (el.offsetWidth - 150) // TODO: document magic number
-
-    $(el).animate({ scrollLeft: position }, this.duration)
-  }
-
-  onScrollContainer (event) {
-    this.checkButtonVisibilityState()
-  }
-
   render () {
+    let containerClassName
+
+    if (this.props.className) {
+      containerClassName = `${this.props.className}-scrollable-container`
+    }
+
     return (
-      <div>
-        <div {...this.props} onScroll={this.onScrollContainer} ref={(ref) => { this.scroller = ref }}>
+      <div className={containerClassName} ref={this.setWrapperElementRef}>
+        <div
+          className={this.props.className}
+          onScroll={this.onScrollContainer}
+          ref={(ref) => { this.scroller = ref }}
+        >
           {this.props.children}
         </div>
         <button
-          className='scroll scroll-left'
+          className='scrollable scroll-left'
           onClick={this.onClickLeft}
           ref={(ref) => { this.leftButton = ref }}
         >
           «
         </button>
         <button
-          className='scroll scroll-right'
+          className='scrollable scroll-right'
           onClick={this.onClickRight}
           ref={(ref) => { this.rightButton = ref }}
         >
@@ -105,5 +110,7 @@ export default class Scrollable extends React.PureComponent {
 }
 
 Scrollable.propTypes = {
-  children: React.PropTypes.node
+  className: React.PropTypes.string,
+  children: React.PropTypes.node,
+  setRef: React.PropTypes.func
 }

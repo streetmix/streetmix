@@ -1,4 +1,5 @@
-button.scroll {
+button.scroll,
+.scrollable {
   @include tap-highlight-color(transparent);
 
   position: absolute;
@@ -6,14 +7,6 @@ button.scroll {
   width: 25px;
   height: 40px;
   cursor: pointer;
-
-  &.scroll-left {
-    margin-left: -20px;
-  }
-
-  &.scroll-right {
-    margin-left: -5px;
-  }
 
   &[disabled] {
     opacity: 0;

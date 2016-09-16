@@ -24,14 +24,26 @@ body.read-only .palette-container {
   display: none;
 }
 
+// Applied by the wrapping element created by Scrollable.jsx component
+.palette-scrollable-container {
+  height: $palette-height;
+  position: absolute;
+  top: 0;
+  left: 140px;
+  right: 140px;
+
+  button.scrollable {
+    margin-top: 10px;
+    z-index: $z-04-palette-scroll;
+  }
+}
+
 .palette {
   height: $palette-height + 20px; // To cover scroll bars
   position: absolute;
-  left: 140px;
-  top: -30px;
-  right: 140px;
-
-  text-align: center;
+  top: -30px; // To cover scroll bars
+  left: 0;
+  right: 0;
 
   overflow-x: scroll;
   overflow-y: hidden;
@@ -39,21 +51,6 @@ body.read-only .palette-container {
 
 .palette-canvas {
   white-space: nowrap;
-}
-
-// Overrides button.scroll-left and button.scroll-right default styles
-// from _buttons.scss
-.palette-container button.scroll {
-  margin-top: 10px;
-  z-index: $z-04-palette-scroll;
-
-  &.scroll-left {
-    margin-left: -65px;
-  }
-
-  &.scroll-right {
-    margin-left: -60px;
-  }
 }
 
 .palette-commands {
