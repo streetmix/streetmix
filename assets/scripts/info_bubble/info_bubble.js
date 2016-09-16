@@ -100,7 +100,7 @@ export const infoBubble = {
   hoverPolygonUpdateTimerId: -1,
   suppressTimerId: -1,
 
-  registerKeypresses: function() {
+  registerKeypresses: function () {
     // Register keyboard shortcuts to hide info bubble
     // Only hide if it's currently visible, and if the
     // description is NOT visible. (If the description

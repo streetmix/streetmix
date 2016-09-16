@@ -132,5 +132,5 @@ export function registerKeypresses () {
     preventDefault: true,
     requireFocusOnBody: true
   }, _.noop)
-
 }
+
