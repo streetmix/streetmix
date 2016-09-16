@@ -13,6 +13,12 @@ import { getSettings } from '../users/settings'
 import { registerKeypress, deregisterKeypress } from './keypress'
 import { loseAnyFocus } from './focus'
 
+
+export function registerDebugKeypresses () {
+  // Register keyboard input for show (shift-D)
+  registerKeypress('shift d', showDebugInfo)
+}
+
 export function showDebugInfo () {
   const debugStreetData = _.cloneDeep(getStreet())
   const debugUndo = _.cloneDeep(getUndoStack())

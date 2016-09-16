@@ -19,8 +19,6 @@ import { isFocusOnBody } from './focus'
 import { registerKeypress } from './keypress'
 import { msg } from './messages'
 import { showStatusMessage } from './status_message'
-import { showDebugInfo } from './debug_info'
-import { infoBubble } from '../info_bubble/info_bubble'
 
 export const KEYS = {
   ENTER: 13,
@@ -135,17 +133,4 @@ export function registerKeypresses () {
     requireFocusOnBody: true
   }, _.noop)
 
-  // Register keyboard input for show (shift-D)
-  registerKeypress('shift d', showDebugInfo)
-
-  // Register keyboard shortcuts to hide info bubble
-  // Only hide if it's currently visible, and if the
-  // description is NOT visible. (If the description
-  // is visible, the escape key should hide that first.)
-  registerKeypress('esc', {
-    condition: function () { return infoBubble.visible && !infoBubble.descriptionVisible }
-  }, function () {
-    infoBubble.hide()
-    infoBubble.hideSegment(false)
-  })
 }

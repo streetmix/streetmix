@@ -17,7 +17,7 @@ import './vendor/modernizr-custom'
 import './vendor/polyfills/customevent' // customEvent in IE
 
 // Main object
-import { Stmx } from './app/initialization'
+import { initialize } from './app/initialization'
 import { startListening } from './app/keypress'
 import { system } from './preinit/system_capabilities'
 import MenusContainer from './menus/MenusContainer'
@@ -60,6 +60,4 @@ ReactDOM.render(<MenusContainer />, document.getElementById('menus'))
 // Start listening for keypresses
 startListening()
 
-Stmx.preInit()
-Stmx.attachListeners()
-Stmx.init()
+initialize()

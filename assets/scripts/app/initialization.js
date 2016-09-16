@@ -35,7 +35,9 @@ import { getMode, setMode, MODES, processMode } from './mode'
 import { processUrl, updatePageUrl, getGalleryUserId } from './page_url'
 import { onResize } from './window_resize'
 import { attachBlockingShieldEventListeners } from './blocking_shield'
+import { registerDebugKeypresses } from './debug_info'
 import { registerKeypresses } from './keyboard_commands'
+import { infoBubble } from '../info_bubble/info_bubble'
 import { attachPrintEventListeners } from './print'
 import { attachStatusMessageEventListeners } from './status_message'
 import { attachWelcomeEventListeners } from './welcome'
@@ -71,9 +73,7 @@ export function setAbortEverything (value) {
   abortEverything = value
 }
 
-export const Stmx = {}
-
-Stmx.preInit = function () {
+function preInit () {
   initializing = true
   setIgnoreStreetChanges(true)
 
@@ -82,11 +82,11 @@ Stmx.preInit = function () {
     language = language.substr(0, 2).toUpperCase()
     updateSettingsFromCountryCode(language)
   }
-}
 
-Stmx.attachListeners = function () {
   attachBlockingShieldEventListeners()
+  registerDebugKeypresses()
   registerKeypresses()
+  infoBubble.registerKeypresses()
   attachPrintEventListeners()
   attachStatusMessageEventListeners()
   attachWelcomeEventListeners()
@@ -97,7 +97,8 @@ Stmx.attachListeners = function () {
   attachFetchNonBlockingEventListeners()
 }
 
-Stmx.init = function () {
+export function initialize () {
+  preInit()
   if (!debug.forceUnsupportedBrowser) {
     // TODO temporary ban
     if ((navigator.userAgent.indexOf('Opera') !== -1) ||
