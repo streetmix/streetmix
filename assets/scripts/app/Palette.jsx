@@ -39,6 +39,10 @@ export default class Palette extends React.PureComponent {
       const newPaletteRightPos = paletteRightPos + delta
       this.paletteEl.style.right = newPaletteRightPos + 'px'
     }
+
+    // Check button visibility state by calling this method on the Scrollable
+    // component directly.
+    this.scrollable.checkButtonVisibilityState()
   }
 
   render () {
@@ -51,7 +55,7 @@ export default class Palette extends React.PureComponent {
           <button id='undo' data-i18n='btn.undo' onClick={undo}>Undo</button>
           <button id='redo' data-i18n='btn.redo' onClick={redo}>Redo</button>
         </div>
-        <Scrollable className='palette' setRef={this.setScrollableRef}>
+        <Scrollable className='palette' setRef={this.setScrollableRef} ref={(ref) => { this.scrollable = ref }}>
           <div className='palette-canvas' />
         </Scrollable>
       </div>
