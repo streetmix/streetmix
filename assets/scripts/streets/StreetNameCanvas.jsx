@@ -20,11 +20,13 @@ export default class StreetNameCanvas extends React.Component {
 
   componentDidMount () {
     window.addEventListener('stmx:set_street', this.streetUpdated)
+    window.addEventListener('stmx:width_updated', this.streetUpdated)
     window.addEventListener('resize', this.updatePositions)
   }
 
   componentWillUnmount () {
     window.removeEventListener('stmx:set_street', this.streetUpdated)
+    window.removeEventListener('stmx:width_updated', this.streetUpdated)
     window.removeEventListener('resize', this.updatePositions)
   }
 

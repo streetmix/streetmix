@@ -38,11 +38,6 @@ export function addEventListeners () {
 
   window.addEventListener('storage', onStorageChange)
 
-  if (!app.readOnly) {
-    document.querySelector('#street-width-read').addEventListener('pointerdown', onStreetWidthClick)
-    document.querySelector('#street-width').addEventListener('change', onStreetWidthChange)
-  }
-
   window.addEventListener('resize', onResize)
 
   // This listener hides the info bubble when the mouse leaves the

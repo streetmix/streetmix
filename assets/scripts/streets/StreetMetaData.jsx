@@ -1,4 +1,10 @@
 import React from 'react'
+import { formatDate } from '../util/date_format'
+import { msg } from '../app/messages'
+import { getSignInData, isSignedIn } from '../users/authentication'
+import { getRemixOnFirstEdit } from './remix'
+import { fetchAvatars } from '../users/avatars'
+import StreetWidth from './StreetWidth'
 
 export default class StreetMetaData extends React.Component {
   constructor (props) {
@@ -14,24 +20,40 @@ export default class StreetMetaData extends React.Component {
     })
   }
 
+  componentDidUpdate () {
+    // TODO might want to look into changing how this is done
+    fetchAvatars()
+  }
+
   render () {
-    return (
-      <div>
-        <span id='street-metadata-width'>
-          <span id='street-width-read' title='Change width of the street'>
-            <span id='street-width-read-width' />
-            &nbsp;
-            <span id='street-width-read-difference' />
-          </span>
-          <select id='street-width' />
+
+    let author = null
+    const creatorId = this.state.street.creatorId
+    if (creatorId && (!isSignedIn() || (creatorId !== getSignInData().userId))) {
+
+      // TODO handle clicks on usernames with: showGallery(userId, false)
+
+      author = <span>
+          by <div className='avatar' data-user-id={creatorId} />
+          <a className='user-gallery' href={'/' + creatorId}>{creatorId}</a>
         </span>
-        <span id='street-metadata-author' />
-        <span id='street-metadata-date' />
+    } else if (!creatorId && (isSignedIn() || getRemixOnFirstEdit())) {
+      author = <span> by {msg('USER_ANONYMOUS')} </span>
+    }
+
+    return (
+      <div id={this.props.id}>
+        <StreetWidth street={this.state.street} readOnly={this.props.readOnly} />
+        <span id='street-metadata-author'>{author}</span>
+        <span id='street-metadata-date'>{formatDate(this.state.street.updatedAt)}</span>
       </div>
     )
   }
 }
 
 StreetMetaData.propTypes = {
+  id: React.PropTypes.string,
+  readOnly: React.PropTypes.bool,
   street: React.PropTypes.any
 }
+

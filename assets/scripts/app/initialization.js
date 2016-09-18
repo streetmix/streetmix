@@ -156,7 +156,7 @@ function onEverythingLoaded () {
   setLastStreet(trimStreetData(getStreet()))
 
   updatePageUrl()
-  buildStreetWidthMenu()
+  //buildStreetWidthMenu()
   addEventListeners()
 
   var event = new window.CustomEvent('stmx:everything_loaded')

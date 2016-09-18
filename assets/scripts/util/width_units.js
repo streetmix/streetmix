@@ -46,6 +46,7 @@ export function processWidthInput (widthInput) {
     // Default multiplier, is true if units are imperial
     let multiplier = 1
 
+    // TODO remove call to getStreet. Pass in units instead
     // Default unit
     if (getStreet().units === SETTINGS_UNITS_METRIC) {
       multiplier = 1 / IMPERIAL_METRIC_MULTIPLIER

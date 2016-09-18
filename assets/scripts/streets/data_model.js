@@ -24,7 +24,6 @@ import { getSignInData, isSignedIn } from '../users/authentication'
 import { getUnits, getLeftHandTraffic, propagateUnits } from '../users/localization'
 import { normalizeSlug } from '../util/helpers'
 import { generateRandSeed } from '../util/random'
-import { updateStreetMetadata } from './metadata'
 import { updateStreetName } from './name'
 import {
   setUndoStack,
@@ -300,7 +299,6 @@ export function setStreetCreatorId (newId) {
 export function setUpdateTimeToNow () {
   street.updatedAt = new Date().getTime()
   unifyUndoStack()
-  updateStreetMetadata(street)
 }
 
 export function saveStreetToServerIfNecessary () {
@@ -323,7 +321,8 @@ export function saveStreetToServerIfNecessary () {
     // TODO: figure out appropriate event name
     window.dispatchEvent(new window.CustomEvent('stmx:save_street'))
 
-    updateStreetMetadata(street)
+    // TODO check if we need to throw another event here to rerender
+    // updateStreetMetadata(street)
 
     createNewUndoIfNecessary(_lastStreet, currentData)
 
@@ -489,7 +488,7 @@ export function prepareEmptyStreet () {
 export function updateEverything (dontScroll) {
   setIgnoreStreetChanges(true)
   propagateUnits()
-  buildStreetWidthMenu()
+  //buildStreetWidthMenu()
   createDomFromData()
   segmentsChanged()
   resizeStreetWidth(dontScroll)
