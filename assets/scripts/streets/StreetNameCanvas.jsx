@@ -70,7 +70,7 @@ export default class StreetNameCanvas extends React.Component {
           ref='streetName'
           street={this.state.street}
           allowEditing={this.props.allowEditing}
-          parentOffsetWidth={this.props.streetNameCanvasEl.offsetWidth}
+          parentOffsetWidth={this.props.parentOffsetWidth}
         />
         <StreetMetaData id='street-metadata' street={this.state.street} />
       </div>
@@ -80,5 +80,5 @@ export default class StreetNameCanvas extends React.Component {
 
 StreetNameCanvas.propTypes = {
   allowEditing: React.PropTypes.bool,
-  streetNameCanvasEl: React.PropTypes.any
+  parentOffsetWidth: React.PropTypes.any
 }

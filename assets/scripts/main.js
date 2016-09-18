@@ -65,7 +65,8 @@ setScaleForPhone()
 // Temp: mount React components
 ReactDOM.render(<MenusContainer />, document.getElementById('menus'))
 ReactDOM.render(<Palette />, document.getElementById('palette'))
-ReactDOM.render(<StreetNameCanvas allowEditing={!app.readOnly} streetNameCanvasEl={document.getElementById('street-header')} />, document.getElementById('street-header'))
+const streetHeader = document.getElementById('street-header')
+ReactDOM.render(<StreetNameCanvas allowEditing={!app.readOnly} parentOffsetWidth={streetHeader.offsetWidth} />, streetHeader)
 
 // Start listening for keypresses
 startListening()
