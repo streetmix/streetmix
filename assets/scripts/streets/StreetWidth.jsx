@@ -206,6 +206,7 @@ export default class StreetWidth extends React.Component {
 
       loseAnyFocus()
     }
+  }
 
     render()
     {
