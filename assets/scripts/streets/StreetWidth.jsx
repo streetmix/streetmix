@@ -10,7 +10,7 @@ import {
   updateUnits
 } from '../users/localization'
 import { segmentsChanged } from '../segments/view'
-import { createDomFromData } from './data_model'
+import { getStreet, createDomFromData } from './data_model'
 import { resizeStreetWidth } from './width'
 
 const STREET_WIDTH_CUSTOM = -1
@@ -190,6 +190,7 @@ export default class StreetWidth extends React.Component {
       }
 
       // TODO figure out what to do with street here
+      let street = getStreet()
       street.width = this.normalizeStreetWidth(newStreetWidth)
 
       // TODO clean up the rest of this function
@@ -208,24 +209,23 @@ export default class StreetWidth extends React.Component {
     }
   }
 
-    render()
-    {
-      // TODO prettifyWidth calls getStreet(). refactor this to use units passed by argument instead
-      // TODO work on this so that we can use markup
-      const width = prettifyWidth(this.state.street.width, {markup: false}) + ' width'
-      const difference = this.displayStreetWidthRemaining()
+  render()
+  {
+    // TODO prettifyWidth calls getStreet(). refactor this to use units passed by argument instead
+    // TODO work on this so that we can use markup
+    const width = prettifyWidth(this.state.street.width, {markup: false}) + ' width'
+    const difference = this.displayStreetWidthRemaining()
 
-      return (
-        <span id='street-metadata-width'>
+    return (
+      <span id='street-metadata-width'>
         <span id='street-width-read' title='Change width of the street' onClick={this.clickStreetWidth}>
           <span id='street-width-read-width'>{width}</span>
           &nbsp;
           <span id='street-width-read-difference' className={difference.class}>{difference.width}</span>
         </span>
-          {this.renderStreetWidthMenu()}
+        {this.renderStreetWidthMenu()}
       </span>
-      )
-    }
+    )
   }
 }
 
