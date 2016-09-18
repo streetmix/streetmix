@@ -1,7 +1,6 @@
 import React from 'react'
 import { processWidthInput, prettifyWidth } from '../util/width_units'
 import { getSegmentWidthResolution } from '../segments/resizing'
-import { msg } from '../app/messages'
 import { loseAnyFocus } from '../app/focus'
 import { setInitializing } from '../app/initialization'
 import { msg } from '../app/messages'
