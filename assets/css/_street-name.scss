@@ -60,8 +60,8 @@ body.windows .street-name-text {
   user-select: none;
   white-space: nowrap;
 
-  & > div,
-  & > span {
+  & > div.street-name-text,
+  & > span.street-name-text {
     @include street-name-inside-mixin;
 
     font-family: 'Roadgeek', sans-serif;
@@ -70,7 +70,7 @@ body.windows .street-name-text {
     text-overflow: ellipsis;
   }
 
-  &.fallback-unicode-font > div {
+  &.fallback-unicode-font > div.street-name-text {
     @include street-name-fallback-mixin;
 
     font-family: sans-serif;
