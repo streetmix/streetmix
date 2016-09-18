@@ -34,7 +34,6 @@ import { getMode, setMode, MODES, processMode } from './mode'
 import { processUrl, updatePageUrl, getGalleryUserId } from './page_url'
 import { onResize } from './window_resize'
 import { attachBlockingShieldEventListeners } from './blocking_shield'
-import { registerDebugKeypresses } from './debug_info'
 import { registerKeypresses } from './keyboard_commands'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { attachPrintEventListeners } from './print'
@@ -83,7 +82,6 @@ function preInit () {
   }
 
   attachBlockingShieldEventListeners()
-  registerDebugKeypresses()
   registerKeypresses()
   infoBubble.registerKeypresses()
   attachPrintEventListeners()
