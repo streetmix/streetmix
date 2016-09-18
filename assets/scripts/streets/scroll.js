@@ -9,23 +9,25 @@ import { system } from '../preinit/system_capabilities'
 import { getStreet } from './data_model'
 import { MAX_CUSTOM_STREET_WIDTH } from './width'
 
-window.addEventListener('stmx:everything_loaded', function () {
-  document.querySelector('#street-scroll-indicator-left').addEventListener('pointerdown', onStreetLeftScrollClick)
-  document.querySelector('#street-scroll-indicator-right').addEventListener('pointerdown', onStreetRightScrollClick)
+export function attachStreetScrollEventListeners () {
+  window.addEventListener('stmx:everything_loaded', function () {
+    document.querySelector('#street-scroll-indicator-left').addEventListener('pointerdown', onStreetLeftScrollClick)
+    document.querySelector('#street-scroll-indicator-right').addEventListener('pointerdown', onStreetRightScrollClick)
 
-  document.querySelector('#street-section-outer').addEventListener('scroll', onStreetSectionScroll)
+    document.querySelector('#street-section-outer').addEventListener('scroll', onStreetSectionScroll)
 
-  registerKeypress('left', function (event) {
-    scrollStreet(true, event.shiftKey)
+    registerKeypress('left', function (event) {
+      scrollStreet(true, event.shiftKey)
+    })
+    registerKeypress('right', function (event) {
+      scrollStreet(false, event.shiftKey)
+    })
   })
-  registerKeypress('right', function (event) {
-    scrollStreet(false, event.shiftKey)
-  })
-})
 
-window.addEventListener('resize', function () {
-  updateStreetScrollIndicators()
-})
+  window.addEventListener('resize', function () {
+    updateStreetScrollIndicators()
+  })
+}
 
 function scrollStreet (left, far = false) {
   const el = document.querySelector('#street-section-outer')

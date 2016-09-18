@@ -17,23 +17,10 @@ import './vendor/modernizr-custom'
 import './vendor/polyfills/customevent' // customEvent in IE
 
 // Main object
-import { Stmx } from './app/initialization'
+import { initialize } from './app/initialization'
 import { startListening } from './app/keypress'
 import { system } from './preinit/system_capabilities'
-// import modules for side-effects
-import './app/blocking_shield'
-import './app/debug_info'
-import './app/keyboard_commands'
-import './app/print'
-import './app/status_message'
-import './app/welcome'
-import './gallery/scroll'
-import './gallery/view'
-import './info_bubble/info_bubble'
 import MenusContainer from './menus/MenusContainer'
-import './streets/name'
-import './streets/scroll'
-import './util/fetch_nonblocking'
 
 // Error tracking
 // Load this before all other modules. Only load when run in production.
@@ -73,5 +60,4 @@ ReactDOM.render(<MenusContainer />, document.getElementById('menus'))
 // Start listening for keypresses
 startListening()
 
-Stmx.preInit()
-Stmx.init()
+initialize()
