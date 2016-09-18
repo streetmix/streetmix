@@ -100,7 +100,7 @@ export default class StreetName extends React.Component {
   }
 
   clickStreetName () {
-    if ( ! this.props.allowEditing) {
+    if (!this.props.allowEditing) {
       return
     }
 
