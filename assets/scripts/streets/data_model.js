@@ -106,6 +106,11 @@ export function setStreet (value) {
   window.dispatchEvent(new window.CustomEvent('stmx:set_street'))
 }
 
+export function setAndSaveStreet (value) {
+  setStreet(value)
+  saveStreetToServerIfNecessary()
+}
+
 function incrementSchemaVersion (street) {
   let segment, variant
   if (!street.schemaVersion) {
