@@ -6,10 +6,7 @@ import $ from 'jquery'
 import { getElAbsolutePos } from '../util/helpers'
 
 export function attachGalleryScrollEventListeners () {
-// This file is in the gallery directory but the same scroll buttons
-// are also added to the palette as well.
   window.addEventListener('stmx:everything_loaded', function () {
-    addScrollButtons(document.querySelector('#palette'))
     addScrollButtons(document.querySelector('#gallery .streets'))
   })
 
@@ -21,6 +18,7 @@ export function attachGalleryScrollEventListeners () {
 function addScrollButtons (el) {
   const leftButtonEl = document.createElement('button')
   leftButtonEl.innerHTML = '«'
+  leftButtonEl.classList.add('scroll')
   leftButtonEl.classList.add('scroll-left')
   leftButtonEl.el = el
   leftButtonEl.disabled = true
@@ -29,13 +27,14 @@ function addScrollButtons (el) {
 
   const rightButtonEl = document.createElement('button')
   rightButtonEl.innerHTML = '»'
+  rightButtonEl.classList.add('scroll')
   rightButtonEl.classList.add('scroll-right')
   rightButtonEl.el = el
   rightButtonEl.disabled = true
   rightButtonEl.addEventListener('pointerdown', onScrollButtonRight)
   el.parentNode.appendChild(rightButtonEl)
 
-  el.setAttribute('scroll-buttons', true)
+  el.setAttribute('data-scroll-buttons', true)
   el.addEventListener('scroll', onScrollButtonScroll)
 
   repositionScrollButtons(el)
@@ -43,7 +42,7 @@ function addScrollButtons (el) {
 }
 
 export function updateScrollButtons () {
-  const els = document.querySelectorAll('[scroll-buttons]')
+  const els = document.querySelectorAll('[data-scroll-buttons]')
   for (let el of els) {
     repositionScrollButtons(el)
     scrollButtonScroll(el)

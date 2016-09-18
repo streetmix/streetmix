@@ -60,6 +60,9 @@ function doTheI18n (locale) {
       }
       els[i].textContent = translation
     }
+
+    // Some parts of the UI need to know language has changed
+    window.dispatchEvent(new window.CustomEvent('stmx:language_changed'))
   }
 
   i18next
