@@ -21,12 +21,14 @@ export default class Avatar extends React.Component {
     if (this.props.userId && !avatarCache[this.props.userId]) {
       this.fetchAvatar()
     }
+    this.checkCache()
   }
 
   componentDidUpdate () {
     if (this.props.userId && !avatarCache[this.props.userId]) {
       this.fetchAvatar()
     }
+    this.checkCache()
   }
 
   fetchAvatar () {
@@ -50,10 +52,6 @@ export default class Avatar extends React.Component {
     })
     .then(Avatar.receiveAvatar)
     .then(this.checkCache)
-    .then(() => {
-      // throw an event so other Avatar instances can check if the user they need was loaded
-      window.dispatchEvent(new CustomEvent('stmx:user_details_loaded'))
-    })
     .catch((err) => {
       console.error('error loading avatar for ' + this.props.userId + ':', err)
     })
@@ -63,11 +61,13 @@ export default class Avatar extends React.Component {
   static receiveAvatar (details) {
     if (details && details.id && details.profileImageUrl) {
       avatarCache[details.id] = details.profileImageUrl
+      // throw an event so other Avatar instances can check if the user they need was loaded
+      window.dispatchEvent(new CustomEvent('stmx:user_details_loaded'))
     }
   }
 
   checkCache () {
-    if (this.props.userId && avatarCache[this.props.userId]) {
+    if (this.props.userId && avatarCache[this.props.userId] && this.state.backgroundImage !== avatarCache[this.props.userId]) {
       this.setState({
         backgroundImage: avatarCache[this.props.userId]
       })
