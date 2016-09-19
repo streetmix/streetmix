@@ -33,7 +33,6 @@
     "body-parser": "1.15.2",
     "browserify": "13.0.1",
     "browserify-middleware": "7.0.0",
-    "browserify-shim": "3.8.12",
     "btoa": "1.1.2",
     "compression": "1.6.2",
     "config": "1.21.0",
@@ -42,6 +41,7 @@
     "dateformat": "1.0.12",
     "envify": "3.4.1",
     "express": "4.14.0",
+    "file-saver": "1.3.2",
     "gulp-if": "2.0.1",
     "gulp-plumber": "1.1.0",
     "gulp-postcss": "6.1.1",
@@ -100,13 +100,5 @@
     "tap-spec": "4.1.1",
     "tape": "4.6.0",
     "tape-catch": "1.0.6"
-  },
-  "browserify": {
-    "transform": [
-      "browserify-shim"
-    ]
-  },
-  "browserify-shim": {
-    "./assets/scripts/vendor/FileSaver.js": "saveAs"
   }
 }
