@@ -10,7 +10,7 @@ import {
   updateUnits
 } from '../users/localization'
 import { segmentsChanged } from '../segments/view'
-import { getStreet, createDomFromData } from './data_model'
+import { setAndSaveStreet, createDomFromData } from './data_model'
 import { resizeStreetWidth } from './width'
 
 const STREET_WIDTH_CUSTOM = -1
@@ -20,7 +20,6 @@ const STREET_WIDTH_SWITCH_TO_IMPERIAL = -3
 const MIN_CUSTOM_STREET_WIDTH = 10
 export const MAX_CUSTOM_STREET_WIDTH = 400
 
-export const DEFAULT_STREET_WIDTH = 80
 const DEFAULT_STREET_WIDTHS = [40, 60, 80]
 
 export default class StreetWidth extends React.Component {
@@ -99,7 +98,7 @@ export default class StreetWidth extends React.Component {
     if (this.state.street.width) {
       selectedValue = this.state.street.width
     }
-    return <select ref="streetWidth" onChange={this.changeStreetWidth} id='street-width' value={selectedValue}>
+    return <select ref={(ref) => { this.streetWidth = ref }} onChange={this.changeStreetWidth} id='street-width' value={selectedValue}>
       <option disabled="true">Occupied width:</option>
       <option disabled="true">{prettifyWidth(this.state.street.occupiedWidth)}</option>
       <option disabled="true"/>
@@ -132,21 +131,20 @@ export default class StreetWidth extends React.Component {
     if (!this.props.readOnly) {
       document.body.classList.add('edit-street-width')
 
-      this.refs.streetWidth.focus()
+      this.streetWidth.focus()
 
       window.setTimeout(() => {
         var trigger = document.createEvent('MouseEvents')
         trigger.initEvent('mousedown', true, true, window)
-        this.refs.streetWidth.dispatchEvent(trigger)
+        this.streetWidth.dispatchEvent(trigger)
       }, 0)
     }
   }
 
-  changeStreetWidth (e) {
+  changeStreetWidth () {
+    debugger
     if (!this.props.readOnly) {
-
-      var el = event.target
-      var newStreetWidth = parseInt(el.value)
+      var newStreetWidth = parseInt(this.streetWidth.value)
 
       document.body.classList.remove('edit-street-width')
 
@@ -190,12 +188,12 @@ export default class StreetWidth extends React.Component {
       }
 
       // TODO figure out what to do with street here
-      let street = getStreet()
+
+      const street = Object.assign({}, this.state.street)
       street.width = this.normalizeStreetWidth(newStreetWidth)
+      setAndSaveStreet(street)
 
       // TODO clean up the rest of this function
-
-      window.dispatchEvent(new CustomEvent('stmx:width_updated'))
       resizeStreetWidth()
 
       setInitializing(true)
