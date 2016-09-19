@@ -5,9 +5,9 @@ import EnvironmentBadge from './EnvironmentBadge'
 import { debug } from '../preinit/debug_settings'
 import { URL_SIGN_IN_REDIRECT } from '../app/routing'
 import { onMyStreetsClick } from '../gallery/view'
-import { fetchAvatars } from '../users/avatars'
 import { getElAbsolutePos } from '../util/helpers'
 import { closestEl } from '../util/dom_helpers'
+import Avatar from '../app/Avatar'
 
 export default class MenuBar extends React.Component {
   constructor (props) {
@@ -22,16 +22,6 @@ export default class MenuBar extends React.Component {
 
     // Listen for sign-in. This updates the sign-in button.
     window.addEventListener('stmx:signed_in', this.updateSignInUI)
-  }
-
-  componentDidMount () {
-    // This fills in avatar elements on the page after mounting
-    fetchAvatars()
-  }
-
-  componentDidUpdate () {
-    // This fills in avatar elements on the page after mounting
-    fetchAvatars()
   }
 
   /**
@@ -122,7 +112,7 @@ export default class MenuBar extends React.Component {
               disabled={false}
               onClick={this.onClickMenuButton}
             >
-              <div className='avatar' data-user-id={userId} />
+              <Avatar userId={userId} />
               <span className='user-id'>{userId}</span>
             </button>
           </li>

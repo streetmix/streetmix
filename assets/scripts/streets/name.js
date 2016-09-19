@@ -1,6 +1,5 @@
 import { updatePageTitle } from '../app/page_title'
 import { updatePageUrl } from '../app/page_url'
-import { getStreet } from './data_model'
 import { unifyUndoStack } from './undo_stack'
 
 // This is called everywhere.

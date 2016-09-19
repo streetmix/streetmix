@@ -23,13 +23,15 @@ import {
 import { StreetName } from '../streets/name_sign'
 import { sendDeleteStreetToServer } from '../streets/xhr'
 import { getSignInData, isSignedIn } from '../users/authentication'
-import { fetchAvatars } from '../users/avatars'
 import { formatDate } from '../util/date_format'
 import { removeElFromDOM } from '../util/dom_helpers'
 import { fetchGalleryData } from './fetch_data'
 import { fetchGalleryStreet } from './fetch_street'
 import { updateScrollButtons } from './scroll'
 import { drawStreetThumbnail } from './thumbnail'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Avatar from '../app/Avatar'
 
 const THUMBNAIL_WIDTH = 180
 const THUMBNAIL_HEIGHT = 110
@@ -75,9 +77,7 @@ export function showGallery (userId, instant, signInPromo) {
 
   if (!signInPromo) {
     if (userId) {
-      document.querySelector('#gallery .avatar').setAttribute('userId', getGalleryUserId())
-      document.querySelector('#gallery .avatar').removeAttribute('loaded')
-      fetchAvatars()
+      ReactDOM.render(<Avatar userId={getGalleryUserId()} />, document.querySelector('#gallery .avatar-wrap'))
       document.querySelector('#gallery .user-id').innerHTML = getGalleryUserId()
 
       var linkEl = document.createElement('a')

@@ -18,8 +18,6 @@ export const SEGMENT_WARNING_OUTSIDE = 1
 export const SEGMENT_WARNING_WIDTH_TOO_SMALL = 2
 export const SEGMENT_WARNING_WIDTH_TOO_LARGE = 3
 
-
-
 export function resizeStreetWidth (dontScroll) {
   var width = getStreet().width * TILE_SIZE
 

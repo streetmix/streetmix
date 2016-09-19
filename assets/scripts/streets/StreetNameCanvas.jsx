@@ -44,7 +44,7 @@ export default class StreetNameCanvas extends React.Component {
     const menuRect = document.querySelector('.menu-bar-right').getBoundingClientRect()
 
     // TODO there might be a better way to do this than findDomNode
-    const streetNameRect = ReactDOM.findDOMNode(this.refs.streetName).getBoundingClientRect()
+    const streetNameRect = ReactDOM.findDOMNode(this.streetName).getBoundingClientRect()
     const classNames = this.state.classNames.splice()
 
     const index = classNames.indexOf('move-down-for-menu')
@@ -67,9 +67,9 @@ export default class StreetNameCanvas extends React.Component {
 
   render () {
     return (
-      <div ref='street-name-canvas' id='street-name-canvas' className={this.state.classNames.join(' ')}>
+      <div id='street-name-canvas' className={this.state.classNames.join(' ')}>
         <StreetName
-          ref='streetName'
+          ref={(ref) => { this.streetName = ref }}
           street={this.state.street}
           allowEditing={this.props.allowEditing}
           parentOffsetWidth={this.props.parentOffsetWidth}

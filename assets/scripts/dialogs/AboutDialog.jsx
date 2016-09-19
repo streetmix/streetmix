@@ -8,14 +8,13 @@
  */
 import React from 'react'
 import Dialog from './Dialog'
+import Avatar from '../app/Avatar'
 import { trackEvent } from '../app/event_tracking'
-import { fetchAvatars } from '../users/avatars'
 import { t } from '../app/locale'
 
 export default class AboutDialog extends React.Component {
   componentDidMount () {
     trackEvent('Interaction', 'Open about dialog box', null, null, false)
-    fetchAvatars()
   }
 
   render () {
@@ -45,25 +44,25 @@ export default class AboutDialog extends React.Component {
           </p>
           <ul className='about-dialog-team'>
             <li>
-              <a target='_blank' href='http://twitter.com/anselmbradford'><div className='avatar' data-user-id='anselmbradford' />Anselm Bradford</a> · media production
+              <a target='_blank' href='http://twitter.com/anselmbradford'><Avatar userId='anselmbradford' />Anselm Bradford</a> · media production
             </li>
             <li>
-              <a target='_blank' href='http://ahhrrr.com'><div className='avatar' data-user-id='ahhrrr' />Ezra Spier</a> · cat herder, proto-urbanist
+              <a target='_blank' href='http://ahhrrr.com'><Avatar userId='ahhrrr' />Ezra Spier</a> · cat herder, proto-urbanist
             </li>
             <li>
-              <a target='_blank' href='http://twitter.com/klizlewis'><div className='avatar' data-user-id='klizlewis' />Katie Lewis</a> · illustrator
+              <a target='_blank' href='http://twitter.com/klizlewis'><Avatar userId='klizlewis' />Katie Lewis</a> · illustrator
             </li>
             <li>
-              <a target='_blank' href='http://louhuang.com'><div className='avatar' data-user-id='saikofish' />Lou Huang</a> · project lead, research, outreach, transit fan
+              <a target='_blank' href='http://louhuang.com'><Avatar userId='saikofish' />Lou Huang</a> · project lead, research, outreach, transit fan
             </li>
             <li>
-              <a target='_blank' href='http://www.linkedin.com/pub/marc-hebert/1/2bb/66'><div className='avatar' data-user-id='anthromarc' />Marc Hébert</a> · UX researcher, design anthropologist
+              <a target='_blank' href='http://www.linkedin.com/pub/marc-hebert/1/2bb/66'><Avatar userId='anthromarc' />Marc Hébert</a> · UX researcher, design anthropologist
             </li>
             <li>
-              <a target='_blank' href='http://aresluna.org'><div className='avatar' data-user-id='mwichary' />Marcin Wichary</a> · UX, FE, PM, sharrow whisperer
+              <a target='_blank' href='http://aresluna.org'><Avatar userId='mwichary' />Marcin Wichary</a> · UX, FE, PM, sharrow whisperer
             </li>
             <li>
-              <a target='_blank' href='http://twitter.com/shaunak'><div className='avatar' data-user-id='shaunak' />Shaunak Kashyap</a> · rear end engineering
+              <a target='_blank' href='http://twitter.com/shaunak'><Avatar userId='shaunak' />Shaunak Kashyap</a> · rear end engineering
             </li>
           </ul>
           <footer>

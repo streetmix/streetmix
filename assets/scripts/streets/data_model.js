@@ -36,7 +36,6 @@ import {
 } from './undo_stack'
 import {
   DEFAULT_STREET_WIDTH,
-  buildStreetWidthMenu,
   normalizeStreetWidth,
   resizeStreetWidth
 } from './width'
@@ -488,7 +487,7 @@ export function prepareEmptyStreet () {
 export function updateEverything (dontScroll) {
   setIgnoreStreetChanges(true)
   propagateUnits()
-  //buildStreetWidthMenu()
+  // TODO Verify that we don't need to dispatch an update width event here
   createDomFromData()
   segmentsChanged()
   resizeStreetWidth(dontScroll)

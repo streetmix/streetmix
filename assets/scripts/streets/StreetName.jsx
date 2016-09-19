@@ -117,7 +117,6 @@ export default class StreetName extends React.Component {
     let classString = 'street-name-text ' + (this.needsUnicodeFont() ? 'fallback-unicode-font' : 'fallback-unicode-font')
     return (
       <div
-        ref='streetName'
         id='street-name'
         className='street-name'
         style={{width: this.state.width}}

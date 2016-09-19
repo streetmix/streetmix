@@ -3,8 +3,9 @@ import { formatDate } from '../util/date_format'
 import { msg } from '../app/messages'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { getRemixOnFirstEdit } from './remix'
-import { fetchAvatars } from '../users/avatars'
+import { showGallery } from '../gallery/view'
 import StreetWidth from './StreetWidth'
+import Avatar from '../app/Avatar'
 
 export default class StreetMetaData extends React.Component {
   constructor (props) {
@@ -12,6 +13,7 @@ export default class StreetMetaData extends React.Component {
     this.state = {
       street: this.props.street
     }
+    this.onAuthorClick = this.onAuthorClick.bind(this)
   }
 
   componentWillReceiveProps (nextProps) {
@@ -20,23 +22,21 @@ export default class StreetMetaData extends React.Component {
     })
   }
 
-  componentDidUpdate () {
-    // TODO might want to look into changing how this is done
-    fetchAvatars()
+  onAuthorClick (e) {
+    if (e) {
+      e.preventDefault()
+    }
+    showGallery(this.state.street.creatorId, false)
   }
 
   render () {
-
     let author = null
     const creatorId = this.state.street.creatorId
     if (creatorId && (!isSignedIn() || (creatorId !== getSignInData().userId))) {
-
-      // TODO handle clicks on usernames with: showGallery(userId, false)
-
       author = <span>
-          by <div className='avatar' data-user-id={creatorId} />
-          <a className='user-gallery' href={'/' + creatorId}>{creatorId}</a>
-        </span>
+        by <Avatar userId={creatorId} />
+        <a className='user-gallery' href={'/' + creatorId} onClick={this.onAuthorClick}>{creatorId}</a>
+      </span>
     } else if (!creatorId && (isSignedIn() || getRemixOnFirstEdit())) {
       author = <span> by {msg('USER_ANONYMOUS')} </span>
     }

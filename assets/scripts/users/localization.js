@@ -29,8 +29,7 @@ import {
 import { createNewStreetOnServer } from '../streets/xhr'
 import {
   normalizeStreetWidth,
-  resizeStreetWidth,
-  buildStreetWidthMenu
+  resizeStreetWidth
 } from '../streets/width'
 import { isSignInLoaded } from './authentication'
 import { saveSettingsLocally } from './settings'

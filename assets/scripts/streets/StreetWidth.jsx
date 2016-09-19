@@ -81,8 +81,8 @@ export default class StreetWidth extends React.Component {
 
   renderStreetWidthMenu () {
     var widths = []
-    const defaultWidths = DEFAULT_STREET_WIDTHS.map((default_width) => {
-      let width = this.normalizeStreetWidth(default_width)
+    const defaultWidths = DEFAULT_STREET_WIDTHS.map((defaultWidth) => {
+      let width = this.normalizeStreetWidth(defaultWidth)
       widths.push(width)
       return this.createStreetWidthOption(width)
     })
@@ -90,7 +90,7 @@ export default class StreetWidth extends React.Component {
     let customWidthBlank = null
     let customWidth = null
     if (widths.indexOf(parseFloat(this.state.street.width)) === -1) {
-      customWidthBlank = <option disabled="true"/>
+      customWidthBlank = <option disabled='true' />
       customWidth = this.createStreetWidthOption(this.state.street.width)
     }
 
@@ -99,26 +99,26 @@ export default class StreetWidth extends React.Component {
       selectedValue = this.state.street.width
     }
     return <select ref={(ref) => { this.streetWidth = ref }} onChange={this.changeStreetWidth} id='street-width' value={selectedValue}>
-      <option disabled="true">Occupied width:</option>
-      <option disabled="true">{prettifyWidth(this.state.street.occupiedWidth)}</option>
-      <option disabled="true"/>
-      <option disabled="true">Building-to-building width:</option>
+      <option disabled='true'>Occupied width:</option>
+      <option disabled='true'>{prettifyWidth(this.state.street.occupiedWidth)}</option>
+      <option disabled='true' />
+      <option disabled='true'>Building-to-building width:</option>
       {defaultWidths}
       {customWidthBlank}
       {customWidth}
       <option value={STREET_WIDTH_CUSTOM} >
         Different width…
       </option>
-      <option disabled="true"/>
+      <option disabled='true' />
       <option
-        id="switch-to-imperial-units"
+        id='switch-to-imperial-units'
         value={STREET_WIDTH_SWITCH_TO_IMPERIAL}
         disabled={this.state.street.units === SETTINGS_UNITS_IMPERIAL}
       >
         {msg('MENU_SWITCH_TO_IMPERIAL')}
       </option>
       <option
-        id="switch-to-metric-units"
+        id='switch-to-metric-units'
         value={STREET_WIDTH_SWITCH_TO_METRIC}
         disabled={this.state.street.units === SETTINGS_UNITS_METRIC}
       >
@@ -199,8 +199,7 @@ export default class StreetWidth extends React.Component {
     }
   }
 
-  render()
-  {
+  render () {
     // TODO prettifyWidth calls getStreet(). refactor this to use units passed by argument instead
     // TODO work on this so that we can use markup
     const width = prettifyWidth(this.state.street.width, {markup: false}) + ' width'

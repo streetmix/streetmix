@@ -19,7 +19,7 @@ import {
 import { updateStreetName } from '../streets/name'
 import { getPromoteStreet, remixStreet } from '../streets/remix'
 import { setIgnoreStreetChanges } from '../streets/undo_stack'
-import { resizeStreetWidth, buildStreetWidthMenu } from '../streets/width'
+import { resizeStreetWidth } from '../streets/width'
 import { loadSignIn, isSignInLoaded } from '../users/authentication'
 import {
   updateSettingsFromCountryCode,
@@ -156,7 +156,6 @@ function onEverythingLoaded () {
   setLastStreet(trimStreetData(getStreet()))
 
   updatePageUrl()
-  //buildStreetWidthMenu()
   addEventListeners()
 
   var event = new window.CustomEvent('stmx:everything_loaded')
