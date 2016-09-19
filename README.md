@@ -73,6 +73,6 @@ Streetmix started as a [Code for America][cfa] hackathon project in January 2013
 
 ### Copyright
 
-Copyright (c) 2013-2016 Code for America. See [LICENSE][] for details.
+Copyright (c) 2013-2016 Code for America and contributors. See [LICENSE][] for details.
 
 [license]: https://github.com/codeforamerica/streetmix/blob/master/LICENSE.md
