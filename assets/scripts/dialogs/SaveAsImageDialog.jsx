@@ -16,7 +16,7 @@ import { normalizeSlug } from '../util/helpers'
 import { t } from '../app/locale'
 
 // Require save-as polyfills
-import saveAs from '../vendor/FileSaver'
+import { saveAs } from 'file-saver'
 
 export default class SaveAsImageDialog extends React.Component {
   constructor (props) {

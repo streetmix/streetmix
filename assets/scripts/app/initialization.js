@@ -3,7 +3,7 @@ import $ from 'jquery'
 import { hideLoadingScreen, getImagesToBeLoaded } from './load_resources'
 import { initLocale } from './locale'
 import { scheduleNextLiveUpdateCheck } from './live_update'
-import { showGallery } from '../gallery/view'
+import { showGallery, attachGalleryViewEventListeners } from '../gallery/view'
 import { app } from '../preinit/app_settings'
 import { debug } from '../preinit/debug_settings'
 import { system } from '../preinit/system_capabilities'
@@ -33,6 +33,15 @@ import { trackEvent } from './event_tracking'
 import { getMode, setMode, MODES, processMode } from './mode'
 import { processUrl, updatePageUrl, getGalleryUserId } from './page_url'
 import { onResize } from './window_resize'
+import { attachBlockingShieldEventListeners } from './blocking_shield'
+import { registerKeypresses } from './keyboard_commands'
+import { infoBubble } from '../info_bubble/info_bubble'
+import { attachPrintEventListeners } from './print'
+import { attachStatusMessageEventListeners } from './status_message'
+import { attachWelcomeEventListeners } from './welcome'
+import { attachGalleryScrollEventListeners } from '../gallery/scroll'
+import { attachStreetScrollEventListeners } from '../streets/scroll'
+import { attachFetchNonBlockingEventListeners } from '../util/fetch_nonblocking'
 
 let initializing = false
 
@@ -62,9 +71,7 @@ export function setAbortEverything (value) {
   abortEverything = value
 }
 
-export const Stmx = {}
-
-Stmx.preInit = function () {
+function preInit () {
   initializing = true
   setIgnoreStreetChanges(true)
 
@@ -73,9 +80,21 @@ Stmx.preInit = function () {
     language = language.substr(0, 2).toUpperCase()
     updateSettingsFromCountryCode(language)
   }
+
+  attachBlockingShieldEventListeners()
+  registerKeypresses()
+  infoBubble.registerKeypresses()
+  attachPrintEventListeners()
+  attachStatusMessageEventListeners()
+  attachWelcomeEventListeners()
+  attachGalleryScrollEventListeners()
+  attachGalleryViewEventListeners()
+  attachStreetScrollEventListeners()
+  attachFetchNonBlockingEventListeners()
 }
 
-Stmx.init = function () {
+export function initialize () {
+  preInit()
   if (!debug.forceUnsupportedBrowser) {
     // TODO temporary ban
     if ((navigator.userAgent.indexOf('Opera') !== -1) ||

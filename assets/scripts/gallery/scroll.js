@@ -5,16 +5,15 @@
 import $ from 'jquery'
 import { getElAbsolutePos } from '../util/helpers'
 
-// Scroll buttons were added to gallery and palette
-// but right now palette is using a React proof of concept
-window.addEventListener('stmx:everything_loaded', function () {
-  // addScrollButtons(document.querySelector('.palette'))
-  addScrollButtons(document.querySelector('#gallery .streets'))
-})
+export function attachGalleryScrollEventListeners () {
+  window.addEventListener('stmx:everything_loaded', function () {
+    addScrollButtons(document.querySelector('#gallery .streets'))
+  })
 
-window.addEventListener('resize', function () {
-  updateScrollButtons()
-})
+  window.addEventListener('resize', function () {
+    updateScrollButtons()
+  })
+}
 
 function addScrollButtons (el) {
   const leftButtonEl = document.createElement('button')

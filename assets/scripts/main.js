@@ -17,27 +17,14 @@ import './vendor/modernizr-custom'
 import './vendor/polyfills/customevent' // customEvent in IE
 
 // Main object
-import { Stmx } from './app/initialization'
+import { initialize } from './app/initialization'
 import { startListening } from './app/keypress'
 import { system } from './preinit/system_capabilities'
 import { app } from './preinit/app_settings'
-
-// import modules for side-effects
-import './app/blocking_shield'
-import './app/debug_info'
-import './app/keyboard_commands'
-import './app/print'
-import './app/status_message'
-import './app/welcome'
-import './gallery/scroll'
-import './gallery/view'
-import './info_bubble/info_bubble'
 import MenusContainer from './menus/MenusContainer'
 import Palette from './app/Palette'
+import DebugInfo from './app/DebugInfo'
 import StreetNameCanvas from './streets/StreetNameCanvas'
-import './streets/name'
-import './streets/scroll'
-import './util/fetch_nonblocking'
 
 // Error tracking
 // Load this before all other modules. Only load when run in production.
@@ -67,9 +54,9 @@ ReactDOM.render(<MenusContainer />, document.getElementById('menus'))
 ReactDOM.render(<Palette />, document.getElementById('palette'))
 const streetHeader = document.getElementById('street-header')
 ReactDOM.render(<StreetNameCanvas allowEditing={!app.readOnly} parentOffsetWidth={streetHeader.offsetWidth} />, streetHeader)
+ReactDOM.render(<DebugInfo />, document.getElementById('debug'))
 
 // Start listening for keypresses
 startListening()
 
-Stmx.preInit()
-Stmx.init()
+initialize()

@@ -19,10 +19,27 @@ const WELCOME_FIRST_TIME_EXISTING_STREET = 3
 
 const LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED = 'settings-welcome-dismissed'
 
-const welcomeEl = document.querySelector('#welcome')
-
 let settingsWelcomeDismissed = false
 let isVisible = false
+
+export function attachWelcomeEventListeners () {
+  // Show welcome panel on load
+  window.addEventListener('stmx:everything_loaded', function (e) {
+    // Do not do anything in these cases
+    if (app.readOnly || system.phone) {
+      return
+    }
+
+    showWelcome()
+
+    // Add the event listener for hiding it
+    document.querySelector('#welcome .close').addEventListener('pointerdown', hideWelcome)
+  })
+
+  // Hide welcome panel on certain events
+  window.addEventListener('stmx:receive_gallery_street', hideWelcome)
+  window.addEventListener('stmx:save_street', hideWelcome)
+}
 
 function showWelcome (welcomeType = WELCOME_NONE) {
   loadSettingsWelcomeDismissed()
@@ -43,6 +60,7 @@ function showWelcome (welcomeType = WELCOME_NONE) {
     return
   }
 
+  const welcomeEl = document.querySelector('#welcome')
   switch (welcomeType) {
     case WELCOME_FIRST_TIME_NEW_STREET:
       welcomeEl.classList.add('first-time-new-street')
@@ -105,6 +123,7 @@ export function hideWelcome () {
   settingsWelcomeDismissed = true
   saveSettingsWelcomeDismissed()
 
+  const welcomeEl = document.querySelector('#welcome')
   welcomeEl.classList.remove('visible')
   document.querySelector('#street-name-canvas').classList.remove('hidden')
 
@@ -124,19 +143,3 @@ function saveSettingsWelcomeDismissed () {
     JSON.stringify(settingsWelcomeDismissed)
 }
 
-// Show welcome panel on load
-window.addEventListener('stmx:everything_loaded', function (e) {
-  // Do not do anything in these cases
-  if (app.readOnly || system.phone) {
-    return
-  }
-
-  showWelcome()
-
-  // Add the event listener for hiding it
-  document.querySelector('#welcome .close').addEventListener('pointerdown', hideWelcome)
-})
-
-// Hide welcome panel on certain events
-window.addEventListener('stmx:receive_gallery_street', hideWelcome)
-window.addEventListener('stmx:save_street', hideWelcome)
