@@ -76,7 +76,7 @@ export default class StreetWidth extends React.Component {
   }
 
   createStreetWidthOption (width) {
-    return <option key={width}>{prettifyWidth(width)}</option>
+    return <option key={width} value={width}>{prettifyWidth(width)}</option>
   }
 
   renderStreetWidthMenu () {
@@ -89,7 +89,7 @@ export default class StreetWidth extends React.Component {
 
     let customWidthBlank = null
     let customWidth = null
-    if (widths.indexOf(parseFloat(this.state.street.width))) {
+    if (widths.indexOf(parseFloat(this.state.street.width)) === -1) {
       customWidthBlank = <option disabled="true"/>
       customWidth = this.createStreetWidthOption(this.state.street.width)
     }
@@ -142,7 +142,6 @@ export default class StreetWidth extends React.Component {
   }
 
   changeStreetWidth () {
-    debugger
     if (!this.props.readOnly) {
       var newStreetWidth = parseInt(this.streetWidth.value)
 
@@ -173,8 +172,6 @@ export default class StreetWidth extends React.Component {
         }
 
         if (!width) {
-          // buildStreetWidthMenu()
-
           loseAnyFocus()
           return
         }
@@ -187,20 +184,15 @@ export default class StreetWidth extends React.Component {
         newStreetWidth = width
       }
 
-      // TODO figure out what to do with street here
-
       const street = Object.assign({}, this.state.street)
       street.width = this.normalizeStreetWidth(newStreetWidth)
       setAndSaveStreet(street)
 
-      // TODO clean up the rest of this function
       resizeStreetWidth()
 
       setInitializing(true)
-
       createDomFromData()
       segmentsChanged()
-
       setInitializing(false)
 
       loseAnyFocus()
