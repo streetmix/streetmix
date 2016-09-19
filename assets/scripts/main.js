@@ -22,6 +22,7 @@ import { startListening } from './app/keypress'
 import { system } from './preinit/system_capabilities'
 import MenusContainer from './menus/MenusContainer'
 import Palette from './app/Palette'
+import DebugInfo from './app/DebugInfo'
 
 // Error tracking
 // Load this before all other modules. Only load when run in production.
@@ -49,6 +50,7 @@ setScaleForPhone()
 // Temp: mount React components
 ReactDOM.render(<MenusContainer />, document.getElementById('menus'))
 ReactDOM.render(<Palette />, document.getElementById('palette'))
+ReactDOM.render(<DebugInfo />, document.getElementById('debug'))
 
 // Start listening for keypresses
 startListening()
