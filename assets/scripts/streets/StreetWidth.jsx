@@ -10,7 +10,7 @@ import {
   updateUnits
 } from '../users/localization'
 import { segmentsChanged } from '../segments/view'
-import { setAndSaveStreet, createDomFromData } from './data_model'
+import { setStreet, createDomFromData } from './data_model'
 import { resizeStreetWidth } from './width'
 
 const STREET_WIDTH_CUSTOM = -1
@@ -186,7 +186,7 @@ export default class StreetWidth extends React.Component {
 
       const street = Object.assign({}, this.state.street)
       street.width = this.normalizeStreetWidth(newStreetWidth)
-      setAndSaveStreet(street)
+      setStreet(street)
 
       resizeStreetWidth()
 
