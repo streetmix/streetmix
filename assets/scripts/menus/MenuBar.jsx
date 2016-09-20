@@ -19,9 +19,14 @@ export default class MenuBar extends React.Component {
 
     this.onClickMenuButton = this.onClickMenuButton.bind(this)
     this.updateSignInUI = this.updateSignInUI.bind(this)
+    this.onResize = this.onResize.bind(this)
 
     // Listen for sign-in. This updates the sign-in button.
     window.addEventListener('stmx:signed_in', this.updateSignInUI)
+    window.addEventListener('resize', this.onResize)
+
+    // StreetNameCanvas needs to know the left position of the right menu bar when it's mounted
+    window.addEventListener('stmx:streetnamecanvas_mounted', this.onResize)
   }
 
   /**
@@ -45,6 +50,13 @@ export default class MenuBar extends React.Component {
     if (event.detail.userId) {
       this.setState({ userId: event.detail.userId })
     }
+  }
+
+  onResize () {
+    // Throw this event so that the StreetName can figure out if it needs to push itself lower than the menubar
+    window.dispatchEvent(new CustomEvent('stmx:menu_bar_resized', { detail: {
+      rightMenuBarLeftPos: this.menuBarRight.getBoundingClientRect().left
+    }}))
   }
 
   render () {
@@ -104,7 +116,7 @@ export default class MenuBar extends React.Component {
             </button>
           </li>
         </ul>
-        <ul className='menu-bar-right'>
+        <ul ref={(ref) => { this.menuBarRight = ref }} className='menu-bar-right'>
           <li id='identity-menu-item' style={identityMenuVisibilityStyle}>
             <button
               data-name='identity'

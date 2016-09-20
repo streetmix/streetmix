@@ -1,6 +1,5 @@
 import React from 'react'
 import { msg } from '../app/messages'
-import ReactDOM from 'react-dom'
 import { setAndSaveStreet } from './data_model'
 
 // Output using cmap2file as per
@@ -14,46 +13,34 @@ export default class StreetName extends React.Component {
   constructor (props) {
     super(props)
 
-    this.state = {
-      width: 'auto',
-      street: props.street
-    }
+    this.lastSentCoords = null
+
     this.clickStreetName = this.clickStreetName.bind(this)
-    this.updateWidths = this.updateWidths.bind(this)
+    this.updateCoords = this.updateCoords.bind(this)
   }
 
   componentDidMount () {
-    this._node = ReactDOM.findDOMNode(this)
-    window.addEventListener('resize', this.updateWidths)
+    window.addEventListener('resize', this.updateCoords)
   }
 
   componentWillUnmount () {
-    window.removeEventListener('resize', this.updateWidths)
+    window.removeEventListener('resize', this.updateCoords)
   }
 
-  componentWillReceiveProps (nextProps) {
-    this.setState({
-      street: nextProps.street
-    })
-  }
-
-  updateWidths () {
-    var rect = this._node.getBoundingClientRect()
-
-    if (rect.width > this.props.parentOffsetWidth) {
-      var width = this.props.parentOffsetWidth + 'px'
-      if (this.state.width !== width) {
-        this.setState({
-          width
-        })
-      }
-    } else {
-      if (this.state.width !== 'auto') {
-        this.setState({
-          width: 'auto'
-        })
-      }
+  updateCoords () {
+    var rect = this.streetName.getBoundingClientRect()
+    const coords = {
+      left: rect.left,
+      width: rect.width
     }
+    if (!this.lastSentCoords || coords.left !== this.lastSentCoords.left || coords.width !== this.lastSentCoords.width) {
+      this.lastSentCoords = coords
+      this.props.handleResize(coords)
+    }
+  }
+
+  componentDidUpdate(nextProps, nextState) {
+    this.updateCoords()
   }
 
   /**
@@ -85,11 +72,11 @@ export default class StreetName extends React.Component {
   needsUnicodeFont () {
     let needUnicodeFont = false
 
-    if (!this.state.street.name) {
+    if (!this.props.street.name) {
       return false
     }
 
-    for (let character of this.state.street.name) {
+    for (let character of this.props.street.name) {
       if (STREET_NAME_FONT_GLYPHS.indexOf(character) === -1) {
         needUnicodeFont = true
         break
@@ -104,25 +91,25 @@ export default class StreetName extends React.Component {
       return
     }
 
-    const newName = window.prompt(msg('PROMPT_NEW_STREET_NAME'), this.state.street.name)
+    const newName = window.prompt(msg('PROMPT_NEW_STREET_NAME'), this.props.street.name)
 
     if (newName) {
-      const street = Object.assign({}, this.state.street)
+      const street = Object.assign({}, this.props.street)
       street.name = StreetName.normalizeStreetName(newName)
       setAndSaveStreet(street)
     }
   }
 
   render () {
-    let classString = 'street-name-text ' + (this.needsUnicodeFont() ? 'fallback-unicode-font' : 'fallback-unicode-font')
+    let classString = 'street-name-text ' + (!this.needsUnicodeFont() ? '' : 'fallback-unicode-font')
     return (
       <div
+        ref={(ref) => { this.streetName = ref }}
         id='street-name'
         className='street-name'
-        style={{width: this.state.width}}
         onClick={this.clickStreetName}
       >
-        <div className={classString}>{StreetName.normalizeStreetName(this.state.street.name)}</div>
+        <div className={classString}>{StreetName.normalizeStreetName(this.props.street.name)}</div>
       </div>
     )
   }
@@ -131,6 +118,6 @@ export default class StreetName extends React.Component {
 StreetName.propTypes = {
   allowEditing: React.PropTypes.bool,
   street: React.PropTypes.any,
-  parentOffsetWidth: React.PropTypes.number
+  handleResize: React.PropTypes.func
 }
 

@@ -13,7 +13,7 @@ export default class StreetMetaData extends React.Component {
     this.state = {
       street: this.props.street
     }
-    this.onAuthorClick = this.onAuthorClick.bind(this)
+    this.onClickAuthor = this.onClickAuthor.bind(this)
   }
 
   componentWillReceiveProps (nextProps) {
@@ -22,7 +22,7 @@ export default class StreetMetaData extends React.Component {
     })
   }
 
-  onAuthorClick (e) {
+  onClickAuthor(e) {
     if (e) {
       e.preventDefault()
     }
@@ -35,10 +35,10 @@ export default class StreetMetaData extends React.Component {
     if (creatorId && (!isSignedIn() || (creatorId !== getSignInData().userId))) {
       author = <span>
         by <Avatar userId={creatorId} />
-        <a className='user-gallery' href={'/' + creatorId} onClick={this.onAuthorClick}>{creatorId}</a>
+        <a className='user-gallery' href={'/' + creatorId} onClick={this.onClickAuthor}>{creatorId}</a>
       </span>
     } else if (!creatorId && (isSignedIn() || getRemixOnFirstEdit())) {
-      author = <span> by {msg('USER_ANONYMOUS')} </span>
+      author = <span>by {msg('USER_ANONYMOUS')}</span>
     }
 
     return (

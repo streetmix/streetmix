@@ -11,27 +11,28 @@ export default class StreetNameCanvas extends React.Component {
 
     var street = getStreet()
     this.state = {
-      classNames: [],
-      street: street
+      street: street,
+      rightMenuBarLeftPos: 0,
+      streetNameLeftPos: 0,
+      streetNameWidth: 0
     }
+
     this.streetUpdated = this.streetUpdated.bind(this)
     this.updatePositions = this.updatePositions.bind(this)
+    this.onResizeStreetName = this.onResizeStreetName.bind(this)
   }
 
   componentDidMount () {
     window.addEventListener('stmx:set_street', this.streetUpdated)
     window.addEventListener('stmx:width_updated', this.streetUpdated)
-    window.addEventListener('resize', this.updatePositions)
+    window.addEventListener('stmx:menu_bar_resized', this.updatePositions);
+    window.dispatchEvent(new CustomEvent('stmx:streetnamecanvas_mounted'))
   }
 
   componentWillUnmount () {
     window.removeEventListener('stmx:set_street', this.streetUpdated)
     window.removeEventListener('stmx:width_updated', this.streetUpdated)
-    window.removeEventListener('resize', this.updatePositions)
-  }
-
-  componentDidUpdate () {
-    this.updatePositions()
+    window.removeEventListener('stmx:menu_bar_resized', this.updatePositions);
   }
 
   streetUpdated (e) {
@@ -39,40 +40,37 @@ export default class StreetNameCanvas extends React.Component {
     this.setState({street})
   }
 
-  updatePositions () {
-    // TODO don't use the DOM when the whole app is react
-    const menuRect = document.querySelector('.menu-bar-right').getBoundingClientRect()
+  onResizeStreetName (coords) {
+    this.setState({
+      streetNameLeftPos: coords.left,
+      streetNameWidth: coords.width
+    });
+  }
 
-    // TODO there might be a better way to do this than findDomNode
-    const streetNameRect = ReactDOM.findDOMNode(this.streetName).getBoundingClientRect()
-    const classNames = this.state.classNames.splice()
-
-    const index = classNames.indexOf('move-down-for-menu')
-    if (streetNameRect.left + streetNameRect.width > menuRect.left) {
-      if (index === -1) {
-        classNames.push('move-down-for-menu')
-      }
-    } else {
-      if (index !== -1) {
-        classNames.splice(index, 1)
-      }
-    }
-
-    if (!_.isEqual(this.state.classNames, classNames)) {
+  updatePositions (event) {
+    if (event.detail && event.detail.rightMenuBarLeftPos) {
       this.setState({
-        classNames
-      })
+        rightMenuBarLeftPos: event.detail.rightMenuBarLeftPos
+      });
     }
+  }
+
+  determineClassNames () {
+      const classNames = []
+      if (this.state.streetNameLeftPos + this.state.streetNameWidth > this.state.rightMenuBarLeftPos) {
+          classNames.push('move-down-for-menu')
+      }
+      return classNames
   }
 
   render () {
     return (
-      <div id='street-name-canvas' className={this.state.classNames.join(' ')}>
+      <div id='street-name-canvas' className={this.determineClassNames().join(' ')}>
         <StreetName
           ref={(ref) => { this.streetName = ref }}
           street={this.state.street}
           allowEditing={this.props.allowEditing}
-          parentOffsetWidth={this.props.parentOffsetWidth}
+          handleResize={this.onResizeStreetName}
         />
         <StreetMetaData id='street-metadata' street={this.state.street} />
       </div>
@@ -81,6 +79,5 @@ export default class StreetNameCanvas extends React.Component {
 }
 
 StreetNameCanvas.propTypes = {
-  allowEditing: React.PropTypes.bool,
-  parentOffsetWidth: React.PropTypes.any
+  allowEditing: React.PropTypes.bool
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { API_URL } from '../app/config'
+import { receiveUserDetails, hasCachedProfileImageUrl, getCachedProfileImageUrl } from '../users/profile_image_cache'
 
-const avatarCache = {}
 const requests = {}
 
 export default class Avatar extends React.Component {
@@ -9,7 +9,7 @@ export default class Avatar extends React.Component {
     super(props)
 
     this.state = {
-      backgroundImage: (this.props.userId && avatarCache[this.props.userId] ? avatarCache[this.props.userId] : 'none')
+      backgroundImage: (this.props.userId && hasCachedProfileImageUrl(this.props.userId) ? getCachedProfileImageUrl(this.props.userId) : null)
     }
 
     this.fetchAvatar = this.fetchAvatar.bind(this)
@@ -17,22 +17,22 @@ export default class Avatar extends React.Component {
   }
 
   componentDidMount () {
-    window.addEventListener('stmx:user_details_loaded', this.checkCache)
-    if (this.props.userId && !avatarCache[this.props.userId]) {
+    window.addEventListener('stmx:user_details_received', this.checkCache)
+    if (this.props.userId && !hasCachedProfileImageUrl(this.props.userId)) {
       this.fetchAvatar()
     }
     this.checkCache()
   }
 
   componentDidUpdate () {
-    if (this.props.userId && !avatarCache[this.props.userId]) {
+    if (this.props.userId && !hasCachedProfileImageUrl(this.props.userId)) {
       this.fetchAvatar()
     }
     this.checkCache()
   }
 
   fetchAvatar () {
-    if (avatarCache[this.props.userId] || !this.props.userId) {
+    if (hasCachedProfileImageUrl(this.props.userId) || !this.props.userId) {
       return
     }
 
@@ -50,32 +50,26 @@ export default class Avatar extends React.Component {
 
       return response.json()
     })
-    .then(Avatar.receiveAvatar)
+    .then(receiveUserDetails)
     .then(this.checkCache)
     .catch((err) => {
       console.error('error loading avatar for ' + this.props.userId + ':', err)
     })
   }
 
-  // keep this static so that other code can add profile iamges to the cache (namely user auth)
-  static receiveAvatar (details) {
-    if (details && details.id && details.profileImageUrl) {
-      avatarCache[details.id] = details.profileImageUrl
-      // throw an event so other Avatar instances can check if the user they need was loaded
-      window.dispatchEvent(new CustomEvent('stmx:user_details_loaded'))
-    }
-  }
-
   checkCache () {
-    if (this.props.userId && avatarCache[this.props.userId] && this.state.backgroundImage !== avatarCache[this.props.userId]) {
+    const cachedProfileImageUrl = getCachedProfileImageUrl(this.props.userId)
+    if (this.props.userId && cachedProfileImageUrl && this.state.backgroundImage !== cachedProfileImageUrl) {
       this.setState({
-        backgroundImage: avatarCache[this.props.userId]
+        backgroundImage: cachedProfileImageUrl
       })
     }
   }
 
   render () {
-    var style = {backgroundImage: 'url(' + this.state.backgroundImage + ')'}
+    var style = {
+      backgroundImage: this.state.backgroundImage ? 'url(' + this.state.backgroundImage + ')' : 'none'
+    }
     return (
       <div className='avatar' style={style} />
     )

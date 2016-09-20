@@ -9,7 +9,7 @@ import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { getStreet } from '../streets/data_model'
 import { setPromoteStreet } from '../streets/remix'
 import { fetchStreetFromServer } from '../streets/xhr'
-import Avatar from '../app/Avatar'
+import { receiveUserDetails } from './profile_image_cache'
 import { checkIfSignInAndGeolocationLoaded } from './localization'
 import {
   loadSettings,
@@ -128,7 +128,7 @@ function receiveSignInDetails (details) {
   saveSignInDataLocally()
 
   // cache the users profile image so we don't have to request it later
-  Avatar.receiveAvatar(details)
+  receiveUserDetails(details)
 
   signedIn = true
   _signInLoaded()
