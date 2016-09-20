@@ -39,7 +39,7 @@ export default class StreetName extends React.Component {
     }
   }
 
-  componentDidUpdate(nextProps, nextState) {
+  componentDidUpdate (nextProps, nextState) {
     this.updateCoords()
   }
 

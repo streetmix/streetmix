@@ -1,9 +1,7 @@
-import _ from 'lodash'
 import React from 'react'
 import StreetName from './StreetName'
 import StreetMetaData from './StreetMetaData'
 import { getStreet } from './data_model'
-import ReactDOM from 'react-dom'
 
 export default class StreetNameCanvas extends React.Component {
   constructor (props) {
@@ -25,14 +23,14 @@ export default class StreetNameCanvas extends React.Component {
   componentDidMount () {
     window.addEventListener('stmx:set_street', this.streetUpdated)
     window.addEventListener('stmx:width_updated', this.streetUpdated)
-    window.addEventListener('stmx:menu_bar_resized', this.updatePositions);
+    window.addEventListener('stmx:menu_bar_resized', this.updatePositions)
     window.dispatchEvent(new CustomEvent('stmx:streetnamecanvas_mounted'))
   }
 
   componentWillUnmount () {
     window.removeEventListener('stmx:set_street', this.streetUpdated)
     window.removeEventListener('stmx:width_updated', this.streetUpdated)
-    window.removeEventListener('stmx:menu_bar_resized', this.updatePositions);
+    window.removeEventListener('stmx:menu_bar_resized', this.updatePositions)
   }
 
   streetUpdated (e) {
@@ -44,30 +42,32 @@ export default class StreetNameCanvas extends React.Component {
     this.setState({
       streetNameLeftPos: coords.left,
       streetNameWidth: coords.width
-    });
+    })
   }
 
   updatePositions (event) {
     if (event.detail && event.detail.rightMenuBarLeftPos) {
       this.setState({
         rightMenuBarLeftPos: event.detail.rightMenuBarLeftPos
-      });
+      })
     }
   }
 
   determineClassNames () {
-      const classNames = []
-      if (this.state.streetNameLeftPos + this.state.streetNameWidth > this.state.rightMenuBarLeftPos) {
-          classNames.push('move-down-for-menu')
-      }
-      return classNames
+    const classNames = []
+    if (this.state.streetNameLeftPos + this.state.streetNameWidth > this.state.rightMenuBarLeftPos) {
+      classNames.push('move-down-for-menu')
+    }
+    return classNames
   }
 
   render () {
     return (
       <div id='street-name-canvas' className={this.determineClassNames().join(' ')}>
         <StreetName
-          ref={(ref) => { this.streetName = ref }}
+          ref={(ref) => {
+            this.streetName = ref
+          }}
           street={this.state.street}
           allowEditing={this.props.allowEditing}
           handleResize={this.onResizeStreetName}

@@ -22,7 +22,7 @@ export default class StreetMetaData extends React.Component {
     })
   }
 
-  onClickAuthor(e) {
+  onClickAuthor (e) {
     if (e) {
       e.preventDefault()
     }
