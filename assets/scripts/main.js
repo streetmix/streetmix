@@ -23,8 +23,8 @@ import { system } from './preinit/system_capabilities'
 import { app } from './preinit/app_settings'
 import MenusContainer from './menus/MenusContainer'
 import Palette from './app/Palette'
-import DebugInfo from './app/DebugInfo'
 import StreetNameCanvas from './streets/StreetNameCanvas'
+import DebugInfo from './app/DebugInfo'
 
 // Error tracking
 // Load this before all other modules. Only load when run in production.
