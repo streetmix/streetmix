@@ -1,11 +1,8 @@
 import React from 'react'
 import { msg } from '../app/messages'
 import { setAndSaveStreet } from './data_model'
+import { needsUnicodeFont } from '../util/unicode'
 
-// Output using cmap2file as per
-// http://www.typophile.com/node/64147#comment-380776
-
-const STREET_NAME_FONT_GLYPHS = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^_`abcdefghijklmnopqrstuvwxyz{|}~¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿĀāĂăĆćĈĉĊċČčĎďĒĔĕĖėĜĝĞğĠġĤĥĨĩĪīĬĭİıĴĵĹĺĽľŁłŃŇňŌōŎŏŐőŒœŔŕŘřŚśŜŝŞşŠšŤťŨũŪūŬŭŮůŰűŴŵŶŷŸŹźŻżŽžƒˆˇ˘˙˚˛˜˝–—‘’‚“”„†‡•…‰‹›⁄€™−'
 const MAX_STREET_NAME_WIDTH = 50
 
 export default class StreetName extends React.Component {
@@ -28,7 +25,7 @@ export default class StreetName extends React.Component {
   }
 
   updateCoords () {
-    var rect = this.streetName.getBoundingClientRect()
+    const rect = this.streetName.getBoundingClientRect()
     const coords = {
       left: rect.left,
       width: rect.width
@@ -70,20 +67,10 @@ export default class StreetName extends React.Component {
    * @params {string} name - Street name to check
    */
   needsUnicodeFont () {
-    let needUnicodeFont = false
-
     if (!this.props.street.name) {
       return false
     }
-
-    for (let character of this.props.street.name) {
-      if (STREET_NAME_FONT_GLYPHS.indexOf(character) === -1) {
-        needUnicodeFont = true
-        break
-      }
-    }
-
-    return needUnicodeFont
+    return needsUnicodeFont(this.props.street.name)
   }
 
   clickStreetName () {
@@ -105,7 +92,7 @@ export default class StreetName extends React.Component {
     return (
       <div
         ref={(ref) => { this.streetName = ref }}
-        id='street-name'
+        id={this.props.id}
         className='street-name'
         onClick={this.clickStreetName}
       >
@@ -116,6 +103,7 @@ export default class StreetName extends React.Component {
 }
 
 StreetName.propTypes = {
+  id: React.PropTypes.string,
   allowEditing: React.PropTypes.bool,
   street: React.PropTypes.any,
   handleResize: React.PropTypes.func

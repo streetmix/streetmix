@@ -6,9 +6,6 @@ import { unifyUndoStack } from './undo_stack'
 // TODO: Create a specific init / create function?
 // TODO: Updating the street name as a response to events?
 export function updateStreetName () {
-  // let street = getStreet()
-  // TODO make sure things get rerendered if needed now that we don't have updateStreetMetadata
-  // updateStreetMetadata(street)
   unifyUndoStack()
   updatePageUrl()
   updatePageTitle()

@@ -7,7 +7,7 @@ export default class StreetNameCanvas extends React.Component {
   constructor (props) {
     super(props)
 
-    var street = getStreet()
+    const street = getStreet()
     this.state = {
       street: street,
       rightMenuBarLeftPos: 0,
@@ -65,6 +65,7 @@ export default class StreetNameCanvas extends React.Component {
     return (
       <div id='street-name-canvas' className={this.determineClassNames().join(' ')}>
         <StreetName
+          id='street-name'
           ref={(ref) => {
             this.streetName = ref
           }}

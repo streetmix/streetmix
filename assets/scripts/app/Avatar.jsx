@@ -9,7 +9,7 @@ export default class Avatar extends React.Component {
     super(props)
 
     this.state = {
-      backgroundImage: (this.props.userId && hasCachedProfileImageUrl(this.props.userId) ? getCachedProfileImageUrl(this.props.userId) : null)
+      backgroundImage: (this.props.userId && getCachedProfileImageUrl(this.props.userId)) || null
     }
 
     this.fetchAvatar = this.fetchAvatar.bind(this)
@@ -67,7 +67,7 @@ export default class Avatar extends React.Component {
   }
 
   render () {
-    var style = {
+    const style = {
       backgroundImage: this.state.backgroundImage ? 'url(' + this.state.backgroundImage + ')' : 'none'
     }
     return (

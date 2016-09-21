@@ -320,9 +320,6 @@ export function saveStreetToServerIfNecessary () {
     // TODO: figure out appropriate event name
     window.dispatchEvent(new window.CustomEvent('stmx:save_street'))
 
-    // TODO check if we need to throw another event here to rerender
-    // updateStreetMetadata(street)
-
     createNewUndoIfNecessary(_lastStreet, currentData)
 
     scheduleSavingStreetToServer()

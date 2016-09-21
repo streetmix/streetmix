@@ -20,7 +20,7 @@ import {
   updateToLatestSchemaVersion,
   getStreetUrl
 } from '../streets/data_model'
-import { StreetName } from '../streets/name_sign'
+import StreetName from '../streets/StreetName'
 import { sendDeleteStreetToServer } from '../streets/xhr'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { formatDate } from '../util/date_format'
@@ -204,12 +204,10 @@ export function receiveGalleryData (transmission) {
     anchorEl.appendChild(thumbnailEl)
 
     var nameEl = document.createElement('div')
-    nameEl.className = 'street-name'
+    nameEl.className = 'street-name-wrap'
     anchorEl.appendChild(nameEl)
 
-    // This adds the street name plaque to each thumbnail.
-    // the variable is assigned, but not re-used. Do not remove!
-    let streetName = new StreetName(nameEl, galleryStreet.name) // eslint-disable-line no-unused-vars
+    ReactDOM.render(<StreetName street={galleryStreet} />, nameEl)
 
     var dateEl = document.createElement('span')
     dateEl.classList.add('date')

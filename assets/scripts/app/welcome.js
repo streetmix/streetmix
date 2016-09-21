@@ -2,7 +2,7 @@ import { app } from '../preinit/app_settings'
 import { system } from '../preinit/system_capabilities'
 import { NEW_STREET_DEFAULT, NEW_STREET_EMPTY } from '../streets/creation'
 import { getStreet } from '../streets/data_model'
-import { StreetName } from '../streets/name_sign'
+import StreetName from '../streets/StreetName'
 import { isSignedIn } from '../users/authentication'
 import { getSettings } from '../users/settings'
 import { registerKeypress, deregisterKeypress } from './keypress'
@@ -75,7 +75,7 @@ function showWelcome (welcomeType = WELCOME_NONE) {
       })
 
       let street = getStreet()
-      let streetName = new StreetName(document.getElementById('welcome-street-name'), street.name) // eslint-disable-line no-unused-vars
+      ReactDOM.render(<StreetName street={street} />, document.getElementById('welcome-street-name'))
 
       if (street.creatorId) {
         document.querySelector('#welcome-avatar-creator').classList.add('visible')
