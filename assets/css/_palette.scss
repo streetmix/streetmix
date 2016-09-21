@@ -66,13 +66,7 @@ body.read-only .palette-container {
 
   text-align: right;
 
-  #undo {
-    //width: 50px;
-    height: $palette-height - 50px;
-  }
-
-  #redo {
-    //width: 50px;
+  button {
     height: $palette-height - 50px;
   }
 
