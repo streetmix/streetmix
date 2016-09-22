@@ -20,16 +20,18 @@ import {
   updateToLatestSchemaVersion,
   getStreetUrl
 } from '../streets/data_model'
-import { StreetName } from '../streets/name_sign'
+import StreetName from '../streets/StreetName'
 import { sendDeleteStreetToServer } from '../streets/xhr'
 import { getSignInData, isSignedIn } from '../users/authentication'
-import { fetchAvatars } from '../users/avatars'
 import { formatDate } from '../util/date_format'
 import { removeElFromDOM } from '../util/dom_helpers'
 import { fetchGalleryData } from './fetch_data'
 import { fetchGalleryStreet } from './fetch_street'
 import { updateScrollButtons } from './scroll'
 import { drawStreetThumbnail } from './thumbnail'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Avatar from '../app/Avatar'
 
 const THUMBNAIL_WIDTH = 180
 const THUMBNAIL_HEIGHT = 110
@@ -74,9 +76,7 @@ export function showGallery (userId, instant, signInPromo) {
 
   if (!signInPromo) {
     if (userId) {
-      document.querySelector('#gallery .avatar').setAttribute('userId', getGalleryUserId())
-      document.querySelector('#gallery .avatar').removeAttribute('loaded')
-      fetchAvatars()
+      ReactDOM.render(<Avatar userId={getGalleryUserId()} />, document.querySelector('#gallery .avatar-wrap'))
       document.querySelector('#gallery .user-id').innerHTML = getGalleryUserId()
 
       var linkEl = document.createElement('a')
@@ -204,12 +204,10 @@ export function receiveGalleryData (transmission) {
     anchorEl.appendChild(thumbnailEl)
 
     var nameEl = document.createElement('div')
-    nameEl.className = 'street-name'
+    nameEl.className = 'street-name-wrap'
     anchorEl.appendChild(nameEl)
 
-    // This adds the street name plaque to each thumbnail.
-    // the variable is assigned, but not re-used. Do not remove!
-    let streetName = new StreetName(nameEl, galleryStreet.name) // eslint-disable-line no-unused-vars
+    ReactDOM.render(<StreetName street={galleryStreet} />, nameEl)
 
     var dateEl = document.createElement('span')
     dateEl.classList.add('date')

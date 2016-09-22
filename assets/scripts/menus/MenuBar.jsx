@@ -5,9 +5,9 @@ import EnvironmentBadge from './EnvironmentBadge'
 import { debug } from '../preinit/debug_settings'
 import { URL_SIGN_IN_REDIRECT } from '../app/routing'
 import { onMyStreetsClick } from '../gallery/view'
-import { fetchAvatars } from '../users/avatars'
 import { getElAbsolutePos } from '../util/helpers'
 import { closestEl } from '../util/dom_helpers'
+import Avatar from '../app/Avatar'
 
 export default class MenuBar extends React.Component {
   constructor (props) {
@@ -19,19 +19,14 @@ export default class MenuBar extends React.Component {
 
     this.onClickMenuButton = this.onClickMenuButton.bind(this)
     this.updateSignInUI = this.updateSignInUI.bind(this)
+    this.onResize = this.onResize.bind(this)
 
     // Listen for sign-in. This updates the sign-in button.
     window.addEventListener('stmx:signed_in', this.updateSignInUI)
-  }
+    window.addEventListener('resize', this.onResize)
 
-  componentDidMount () {
-    // This fills in avatar elements on the page after mounting
-    fetchAvatars()
-  }
-
-  componentDidUpdate () {
-    // This fills in avatar elements on the page after mounting
-    fetchAvatars()
+    // StreetNameCanvas needs to know the left position of the right menu bar when it's mounted
+    window.addEventListener('stmx:streetnamecanvas_mounted', this.onResize)
   }
 
   /**
@@ -55,6 +50,13 @@ export default class MenuBar extends React.Component {
     if (event.detail.userId) {
       this.setState({ userId: event.detail.userId })
     }
+  }
+
+  onResize () {
+    // Throw this event so that the StreetName can figure out if it needs to push itself lower than the menubar
+    window.dispatchEvent(new CustomEvent('stmx:menu_bar_resized', { detail: {
+      rightMenuBarLeftPos: this.menuBarRight.getBoundingClientRect().left
+    }}))
   }
 
   render () {
@@ -114,7 +116,7 @@ export default class MenuBar extends React.Component {
             </button>
           </li>
         </ul>
-        <ul className='menu-bar-right'>
+        <ul ref={(ref) => { this.menuBarRight = ref }} className='menu-bar-right'>
           <li id='identity-menu-item' style={identityMenuVisibilityStyle}>
             <button
               data-name='identity'
@@ -122,7 +124,7 @@ export default class MenuBar extends React.Component {
               disabled={false}
               onClick={this.onClickMenuButton}
             >
-              <div className='avatar' data-user-id={userId} />
+              <Avatar userId={userId} />
               <span className='user-id'>{userId}</span>
             </button>
           </li>

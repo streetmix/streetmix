@@ -1,5 +1,4 @@
 import { infoBubble } from '../info_bubble/info_bubble'
-import { app } from '../preinit/app_settings'
 import {
   onBuildingMouseEnter,
   onBuildingMouseLeave
@@ -15,7 +14,6 @@ import {
   onNewStreetEmptyClick,
   onNewStreetLastClick
 } from '../streets/creation'
-import { onStreetWidthChange, onStreetWidthClick } from '../streets/width'
 import { onStorageChange } from '../users/settings'
 import { onGlobalKeyDown } from './keyboard_commands'
 import { onResize } from './window_resize'
@@ -37,11 +35,6 @@ export function addEventListeners () {
   document.querySelector('#new-street-last').addEventListener('click', onNewStreetLastClick)
 
   window.addEventListener('storage', onStorageChange)
-
-  if (!app.readOnly) {
-    document.querySelector('#street-width-read').addEventListener('pointerdown', onStreetWidthClick)
-    document.querySelector('#street-width').addEventListener('change', onStreetWidthChange)
-  }
 
   window.addEventListener('resize', onResize)
 

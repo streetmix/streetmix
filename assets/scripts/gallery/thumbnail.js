@@ -3,7 +3,7 @@ import { system } from '../preinit/system_capabilities'
 import { drawLine } from '../util/canvas_drawing'
 import { prettifyWidth } from '../util/width_units'
 import { SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING } from '../streets/image'
-import { StreetName } from '../streets/name_sign'
+import { needsUnicodeFont } from '../util/unicode'
 import { BUILDING_DESTINATION_THUMBNAIL, drawBuilding } from '../segments/buildings'
 import { SEGMENT_INFO } from '../segments/info'
 import {
@@ -209,7 +209,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
     let fallbackUnicodeFont
 
-    if (StreetName.prototype.needsUnicodeFont(text)) {
+    if (needsUnicodeFont(text)) {
       fallbackUnicodeFont = true
       ctx.font = 'normal 400 140px sans-serif'
     } else {

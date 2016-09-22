@@ -16,10 +16,10 @@ import {
   trimStreetData,
   getStreet
 } from '../streets/data_model'
-import { updateStreetName, attachStreetNameEventListeners } from '../streets/name'
+import { updateStreetName } from '../streets/name'
 import { getPromoteStreet, remixStreet } from '../streets/remix'
 import { setIgnoreStreetChanges } from '../streets/undo_stack'
-import { resizeStreetWidth, buildStreetWidthMenu } from '../streets/width'
+import { resizeStreetWidth } from '../streets/width'
 import { loadSignIn, isSignInLoaded } from '../users/authentication'
 import {
   updateSettingsFromCountryCode,
@@ -89,7 +89,6 @@ function preInit () {
   attachWelcomeEventListeners()
   attachGalleryScrollEventListeners()
   attachGalleryViewEventListeners()
-  attachStreetNameEventListeners()
   attachStreetScrollEventListeners()
   attachFetchNonBlockingEventListeners()
 }
@@ -176,7 +175,6 @@ function onEverythingLoaded () {
   setLastStreet(trimStreetData(getStreet()))
 
   updatePageUrl()
-  buildStreetWidthMenu()
   addEventListeners()
 
   var event = new window.CustomEvent('stmx:everything_loaded')

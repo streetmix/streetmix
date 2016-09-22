@@ -20,8 +20,10 @@ import './vendor/polyfills/customevent' // customEvent in IE
 import { initialize } from './app/initialization'
 import { startListening } from './app/keypress'
 import { system } from './preinit/system_capabilities'
+import { app } from './preinit/app_settings'
 import MenusContainer from './menus/MenusContainer'
 import Palette from './app/Palette'
+import StreetNameCanvas from './streets/StreetNameCanvas'
 import DebugInfo from './app/DebugInfo'
 
 // Error tracking
@@ -50,6 +52,7 @@ setScaleForPhone()
 // Temp: mount React components
 ReactDOM.render(<MenusContainer />, document.getElementById('menus'))
 ReactDOM.render(<Palette />, document.getElementById('palette'))
+ReactDOM.render(<StreetNameCanvas allowEditing={!app.readOnly} />, document.getElementById('street-header'))
 ReactDOM.render(<DebugInfo />, document.getElementById('debug'))
 
 // Start listening for keypresses
