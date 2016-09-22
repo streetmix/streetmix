@@ -109,3 +109,6 @@ StreetName.propTypes = {
   handleResize: React.PropTypes.func
 }
 
+StreetName.defaultProps = {
+  handleResize: function () { } // no-op
+}
