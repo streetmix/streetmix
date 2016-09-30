@@ -2,7 +2,7 @@
  * Adds scroll buttons to UI elements.
  */
 import React from 'react'
-import $ from 'jquery'
+import { animate } from '../util/helpers'
 
 export default class Scrollable extends React.PureComponent {
   constructor (props) {
@@ -32,14 +32,14 @@ export default class Scrollable extends React.PureComponent {
     const el = this.scroller
     const position = el.scrollLeft - (el.offsetWidth - 150) // TODO: document magic number
 
-    $(el).animate({ scrollLeft: position }, this.duration)
+    animate(el, { scrollLeft: position }, this.duration)
   }
 
   onClickRight (event) {
     const el = this.scroller
     const position = el.scrollLeft + (el.offsetWidth - 150) // TODO: document magic number
 
-    $(el).animate({ scrollLeft: position }, this.duration)
+    animate(el, { scrollLeft: position }, this.duration)
   }
 
   onScrollContainer (event) {

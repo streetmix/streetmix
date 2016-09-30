@@ -1,3 +1,5 @@
+import Tweenable from 'shifty'
+
 /**
  * Gets the absolute position in pixels of a given element,
  * taking into account its CSS transformed position.
@@ -34,4 +36,31 @@ export function normalizeSlug (slug) {
   slug = slug.replace(/^[-]+|[-]+$/g, '')
 
   return slug
+}
+
+/**
+ * Tweens the given numeric properties on an element over time.
+ *
+ * @param {Element} el
+ * @param {Object<string, number>} props
+ * @param {number} duration
+ */
+export function animate (el, props, duration) {
+  const initialProps = {}
+
+  Object.keys(props).forEach(function (prop) {
+    initialProps[prop] = el[prop] || 0
+  })
+
+  if (el.tweenable) {
+    el.tweenable.stop()
+  }
+
+  el.tweenable = new Tweenable()
+  el.tweenable.tween({
+    from: initialProps,
+    to: props,
+    duration: duration,
+    step: (state) => Object.assign(el, state)
+  })
 }

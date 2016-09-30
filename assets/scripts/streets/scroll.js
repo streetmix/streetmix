@@ -2,12 +2,12 @@
  * Handles scrolling the street.
  *
  */
-import $ from 'jquery'
 import { registerKeypress } from '../app/keypress'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { system } from '../preinit/system_capabilities'
 import { getStreet } from './data_model'
 import { MAX_CUSTOM_STREET_WIDTH } from './width'
+import { animate } from '../util/helpers'
 
 export function attachStreetScrollEventListeners () {
   window.addEventListener('stmx:everything_loaded', function () {
@@ -33,8 +33,6 @@ function scrollStreet (left, far = false) {
   const el = document.querySelector('#street-section-outer')
   let newScrollLeft
 
-  $(el).stop(true, true)
-
   if (left) {
     if (far) {
       newScrollLeft = 0
@@ -49,8 +47,7 @@ function scrollStreet (left, far = false) {
     }
   }
 
-  // TODO const
-  $(el).animate({ scrollLeft: newScrollLeft }, 300)
+  animate(el, { scrollLeft: newScrollLeft }, 300)
 }
 
 function updateStreetScrollIndicators () {
