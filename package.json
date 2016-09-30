@@ -69,6 +69,7 @@
     "request": "2.72.0",
     "requireindex": "1.1.0",
     "sendgrid": "2.0.0",
+    "shifty": "1.5.2",
     "sprintf": "0.1.5",
     "streetmix-icons": "git://github.com/streetmix/icons.git#v0.4.1",
     "streetmix-illustrations": "git://github.com/streetmix/illustrations.git",
