@@ -430,8 +430,7 @@ export function fetchLastStreet () {
     {
       // TODO const
       url: API_URL + 'v1/streets/' + getSettings().priorLastStreetId,
-      dataType: 'json',
-      type: 'GET',
+      method: 'GET',
       headers: { 'Authorization': getAuthHeader() }
     }, receiveLastStreet, cancelReceiveLastStreet
   )
