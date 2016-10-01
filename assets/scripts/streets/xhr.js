@@ -194,14 +194,13 @@ export function saveStreetToServer (initial) {
       headers: { 'Authorization': getAuthHeader() }
     }).done(confirmSaveStreetToServerInitial)
   } else {
-    newNonblockingAjaxRequest({
-      // TODO const
-      url: API_URL + 'v1/streets/' + street.id,
-      data: transmission,
-      dataType: 'json',
-      type: 'PUT',
-      contentType: 'application/json',
-      headers: { 'Authorization': getAuthHeader() }
+    newNonblockingAjaxRequest(API_URL + 'v1/streets/' + street.id, {
+      method: 'PUT',
+      body: transmission,
+      headers: {
+        'Authorization': getAuthHeader(),
+        'Content-Type': 'application/json'
+      }
     }, false)
   }
 }
@@ -474,11 +473,9 @@ export function sendDeleteStreetToServer (id) {
     saveSettingsToServer()
   }
 
-  newNonblockingAjaxRequest({
-    // TODO const
-    url: API_URL + 'v1/streets/' + id,
-    dataType: 'json',
-    type: 'DELETE',
+  // TODO const url
+  newNonblockingAjaxRequest(API_URL + 'v1/streets/' + id, {
+    method: 'DELETE',
     headers: { 'Authorization': getAuthHeader() }
   }, false)
 }

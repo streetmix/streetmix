@@ -151,16 +151,16 @@ export function saveSettingsToServer () {
     return
   }
 
-  var transmission = JSON.stringify({ data: trimSettings() })
+  const transmission = JSON.stringify({ data: trimSettings() })
 
-  newNonblockingAjaxRequest({
-    // TODO const
-    url: API_URL + 'v1/users/' + getSignInData().userId,
-    data: transmission,
-    dataType: 'json',
-    type: 'PUT',
-    contentType: 'application/json',
-    headers: { 'Authorization': getAuthHeader() }
+  // TODO const url
+  newNonblockingAjaxRequest(API_URL + 'v1/users/' + getSignInData().userId, {
+    method: 'PUT',
+    body: transmission,
+    headers: {
+      'Authorization': getAuthHeader(),
+      'Content-Type': 'application/json'
+    }
   }, true, null, errorSavingSettingsToServer)
 }
 
