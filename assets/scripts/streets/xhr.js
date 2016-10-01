@@ -1,4 +1,3 @@
-import $ from 'jquery'
 import _ from 'lodash'
 
 import { API_URL } from '../app/config'
@@ -100,17 +99,25 @@ export function createNewStreetOnServer () {
     prepareDefaultStreet()
   }
 
-  var transmission = packServerStreetData()
+  const options = {
+    method: 'POST',
+    body: packServerStreetData(),
+    headers: {
+      'Authorization': getAuthHeader(),
+      'Content-Type': 'application/json'
+    }
+  }
 
-  $.ajax({
-    // TODO const
-    url: API_URL + 'v1/streets',
-    data: transmission,
-    type: 'POST',
-    dataType: 'json',
-    headers: { 'Authorization': getAuthHeader() }
-  }).done(receiveNewStreet)
-    .fail(errorReceiveNewStreet)
+  // TODO const url
+  window.fetch(API_URL + 'v1/streets', options)
+    .then(response => {
+      if (!response.ok) {
+        throw response
+      }
+      return response.json()
+    })
+    .then(receiveNewStreet)
+    .catch(errorReceiveNewStreet)
 }
 
 function receiveNewStreet (data) {
@@ -143,9 +150,7 @@ export function fetchStreetFromServer () {
   var url = getFetchStreetUrl()
 
   window.fetch(url)
-    .then(function (response) {
-      return response.json()
-    })
+    .then(response => response.json())
     .then(receiveStreet)
     .catch(errorReceiveStreet)
 }
@@ -179,29 +184,24 @@ export function saveStreetToServer (initial) {
     return
   }
 
-  var transmission = packServerStreetData()
-  var street = getStreet()
+  const transmission = packServerStreetData()
+  const street = getStreet()
+  const url = API_URL + 'v1/streets/' + street.id
+  const options = {
+    method: 'PUT',
+    body: transmission,
+    headers: {
+      'Authorization': getAuthHeader(),
+      'Content-Type': 'application/json'
+    }
+  }
 
   if (initial) {
     // blocking
-    $.ajax({
-      // TODO const
-      url: API_URL + 'v1/streets/' + street.id,
-      data: transmission,
-      dataType: 'json',
-      type: 'PUT',
-      contentType: 'application/json',
-      headers: { 'Authorization': getAuthHeader() }
-    }).done(confirmSaveStreetToServerInitial)
+    window.fetch(url, options)
+      .then(confirmSaveStreetToServerInitial)
   } else {
-    newNonblockingAjaxRequest(API_URL + 'v1/streets/' + street.id, {
-      method: 'PUT',
-      body: transmission,
-      headers: {
-        'Authorization': getAuthHeader(),
-        'Content-Type': 'application/json'
-      }
-    }, false)
+    newNonblockingAjaxRequest(url, options, false)
   }
 }
 
@@ -216,29 +216,45 @@ export function fetchStreetForVerification () {
     return
   }
 
-  var url = getFetchStreetUrl()
+  const url = getFetchStreetUrl()
 
   latestRequestId = getUniqueRequestHeader()
   latestVerificationStreet = trimStreetData(getStreet())
 
-  $.ajax({
-    url: url,
-    dataType: 'json',
-    type: 'GET',
-    // TODO const
+  const options = {
     headers: { 'X-Streetmix-Request-Id': latestRequestId }
-  }).done(receiveStreetForVerification).fail(errorReceiveStreetForVerification)
-}
-
-function receiveStreetForVerification (transmission, textStatus, request) {
-  var requestId = parseInt(request.getResponseHeader('X-Streetmix-Request-Id'))
-
-  if (requestId !== latestRequestId) {
-    return
   }
 
-  var localStreetData = trimStreetData(latestVerificationStreet)
-  var serverStreetData = trimStreetData(unpackStreetDataFromServerTransmission(transmission))
+  window.fetch(url, options)
+    .then(response => {
+      if (!response.ok) {
+        throw response
+      }
+
+      const requestId = parseInt(response.headers.get('X-Streetmix-Request-Id'), 10)
+
+      if (requestId !== latestRequestId) {
+        throw new Error('1')
+      } else {
+        return response.json()
+      }
+    })
+    .then(transmission => {
+      receiveStreetForVerification(transmission)
+    })
+    .catch(error => {
+      // Early exit if requestId does not equal the latestRequestId
+      if (error.message === '1') {
+        return
+      } else {
+        errorReceiveStreetForVerification(error)
+      }
+    })
+}
+
+function receiveStreetForVerification (transmission) {
+  const localStreetData = trimStreetData(latestVerificationStreet)
+  const serverStreetData = trimStreetData(unpackStreetDataFromServerTransmission(transmission))
 
   if (JSON.stringify(localStreetData) !== JSON.stringify(serverStreetData)) {
     console.log('NOT EQUAL')
