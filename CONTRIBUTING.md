@@ -149,14 +149,14 @@ You may additionally specify the name of the directory to install to, if you wis
 
 1) Setup environment variables. You can either set these in your `.bash_profile` (or equivalent, on Mac OSX or *nix-based systems) or place them in a file named `.env` in the project root directory (great for development environments or Windows environments).
 
-| Variable name                   | Description                                                                            | Required?            |
-| ------------------------------- | -------------------------------------------------------------------------------------- | -------------------- |
-| `SENDGRID_USERNAME`             | Your SendGrid username                                                                 | Yes                  |
-| `SENDGRID_PASSWORD`             | Your SendGrid password                                                                 | Yes                  |
-| `TWITTER_OAUTH_CONSUMER_KEY`    | Development Twitter OAuth consumer key, obtained from @streetmix Twitter account    | Yes                  |
-| `TWITTER_OAUTH_CONSUMER_SECRET` | Development Twitter OAuth consumer secret, obtained from @streetmix Twitter account | Yes                  |
-| `EMAIL_FEEDBACK_RECIPIENT`      | Your e-mail address                                                                    | No                   |
-| `NO_INTERNET_MODE`              | Boolean. Set to `true` to run a local "demo" without external Internet access          | No                   |
+| Variable name                   | Description                   | Required?            |
+| ------------------------------- | ----------------------------- | -------------------- |
+| `SENDGRID_USERNAME`             | Your SendGrid username        | Yes                  |
+| `SENDGRID_PASSWORD`             | Your SendGrid password        | Yes                  |
+| `TWITTER_OAUTH_CONSUMER_KEY`    | Twitter OAuth consumer key    | Yes                  |
+| `TWITTER_OAUTH_CONSUMER_SECRET` | Twitter OAuth consumer secret | Yes                  |
+| `EMAIL_FEEDBACK_RECIPIENT`      | Your e-mail address           | No                   |
+| `NO_INTERNET_MODE`              | Boolean. Set to `true` to run a local "demo" without external Internet access | No                   |
 
 A sample `.env` file will look like this:
 

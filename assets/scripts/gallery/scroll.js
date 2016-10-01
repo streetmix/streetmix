@@ -2,8 +2,7 @@
  * Adds scroll buttons to gallery and palette.
  *
  */
-import $ from 'jquery'
-import { getElAbsolutePos } from '../util/helpers'
+import { animate, getElAbsolutePos } from '../util/helpers'
 
 export function attachGalleryScrollEventListeners () {
   window.addEventListener('stmx:everything_loaded', function () {
@@ -54,7 +53,7 @@ function onScrollButtonLeft (event) {
   const position = el.scrollLeft - (el.offsetWidth - 150) // TODO: document magic number
   const duration = 300
 
-  $(el).animate({ scrollLeft: position }, duration)
+  animate(el, { scrollLeft: position }, duration)
 }
 
 function onScrollButtonRight (event) {
@@ -62,7 +61,7 @@ function onScrollButtonRight (event) {
   const position = el.scrollLeft + (el.offsetWidth - 150) // TODO: document magic number
   const duration = 300
 
-  $(el).animate({ scrollLeft: position }, duration)
+  animate(el, { scrollLeft: position }, duration)
 }
 
 function onScrollButtonScroll (event) {
