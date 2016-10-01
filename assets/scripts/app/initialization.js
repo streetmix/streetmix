@@ -1,5 +1,3 @@
-import $ from 'jquery'
-
 import { hideLoadingScreen, getImagesToBeLoaded } from './load_resources'
 import { initLocale } from './locale'
 import { scheduleNextLiveUpdateCheck } from './live_update'
@@ -110,10 +108,6 @@ export function initialize () {
 
   fillEmptySegments()
   prepareSegmentInfo()
-
-  // TODO make it better
-  // Related to Enter to 404 bug in Chrome
-  $.ajaxSetup({ cache: false })
 
   readyStateCompleteLoaded = false
   document.addEventListener('readystatechange', onReadyStateChange)
