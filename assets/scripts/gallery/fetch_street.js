@@ -26,8 +26,8 @@ export function fetchGalleryStreet (streetId) {
 
   window.fetch(url, options)
     .then(function (response) {
-      if (response.status < 200 || response.status >= 400) {
-        throw new Error(response)
+      if (!response.ok) {
+        throw response
       }
       return response.json()
     })

@@ -101,9 +101,8 @@ function sendNextNonblockingAjaxRequest () {
         window.fetch(request.url, request.options)
           .then(response => {
             if (!response.ok) {
-              throw new Error(response)
+              throw response
             }
-
             return response
           })
           .then(data => {

@@ -102,7 +102,7 @@ function fetchSignInDetails () {
   window.fetch(API_URL + 'v1/users/' + signInData.userId, options)
     .then(response => {
       if (!response.ok) {
-        throw new Error(response)
+        throw response
       }
 
       return response.json()
