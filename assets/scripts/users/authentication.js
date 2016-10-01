@@ -1,4 +1,3 @@
-import $ from 'jquery'
 import Cookies from 'js-cookie'
 
 import { API_URL } from '../app/config'
@@ -96,31 +95,20 @@ export function loadSignIn () {
 }
 
 function fetchSignInDetails () {
-  $.ajax({
-    url: API_URL + 'v1/users/' + signInData.userId,
-    dataType: 'json',
+  const options = {
     headers: { 'Authorization': getAuthHeader() }
-  }).done(receiveSignInDetails).fail(errorReceiveSignInDetails)
+  }
 
-  // TODO: This doesn't work
+  window.fetch(API_URL + 'v1/users/' + signInData.userId, options)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(response)
+      }
 
-  // const options = {
-  //   method: 'GET',
-  //   headers: {
-  //     'Authorization': getAuthHeader()
-  //   }
-  // }
-
-  // window.fetch(API_URL + 'v1/users/' + signInData.userId, options)
-  //   .then(function (response) {
-  //     if (response.status <= 200 || response.status >= 399) {
-  //       throw new Error(response)
-  //     }
-  //
-  //     return response.json()
-  //   })
-  //   .then(receiveSignInDetails)
-  //   .catch(errorReceiveSignInDetails) // TODO: Test this to make sure it works with fetch
+      return response.json()
+    })
+    .then(receiveSignInDetails)
+    .catch(errorReceiveSignInDetails)
 }
 
 function receiveSignInDetails (details) {
@@ -198,20 +186,19 @@ export function getAuthHeader () {
 }
 
 function sendSignOutToServer (quiet) {
-  var call = {
-    // TODO const
-    url: API_URL + 'v1/users/' + signInData.userId + '/login-token',
-    dataType: 'json',
-    type: 'DELETE',
+  const options = {
+    method: 'DELETE',
     headers: { 'Authorization': getAuthHeader() }
   }
 
-  if (quiet) {
-    $.ajax(call)
-  } else {
-    $.ajax(call).done(receiveSignOutConfirmationFromServer)
-      .fail(errorReceiveSignOutConfirmationFromServer)
-  }
+  // TODO const
+  window.fetch(API_URL + 'v1/users/' + signInData.userId + '/login-token', options)
+    .then(response => {
+      if (!quiet) {
+        receiveSignOutConfirmationFromServer()
+      }
+    })
+    .catch(errorReceiveSignOutConfirmationFromServer)
 }
 
 function receiveSignOutConfirmationFromServer () {
