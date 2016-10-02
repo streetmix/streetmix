@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import { cloneDeep } from 'lodash'
 
 import { API_URL } from '../app/config'
 import { showError, ERRORS } from '../app/errors'
@@ -306,7 +306,7 @@ function unpackStreetDataFromServerTransmission (transmission) {
     return
   }
 
-  var street = _.cloneDeep(transmission.data.street)
+  var street = cloneDeep(transmission.data.street)
 
   street.creatorId = (transmission.creator && transmission.creator.id) || null
   street.originalStreetId = transmission.originalStreetId || null
@@ -330,7 +330,7 @@ export function unpackServerStreetData (transmission, id, namespacedId, checkIfN
   var street = getStreet()
 
   if (transmission.data.undoStack) {
-    setUndoStack(_.cloneDeep(transmission.data.undoStack))
+    setUndoStack(cloneDeep(transmission.data.undoStack))
     setUndoPosition(transmission.data.undoPosition)
   } else {
     setUndoStack([])
@@ -378,7 +378,7 @@ export function packServerStreetData () {
   delete data.street.creatorId
 
   if (FLAG_SAVE_UNDO) {
-    data.undoStack = _.cloneDeep(getUndoStack())
+    data.undoStack = cloneDeep(getUndoStack())
     data.undoPosition = getUndoPosition()
   }
 

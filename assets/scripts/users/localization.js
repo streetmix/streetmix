@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import { cloneDeep } from 'lodash'
 
 import { ERRORS, showError } from '../app/errors'
 import { trackEvent } from '../app/event_tracking'
@@ -197,7 +197,7 @@ export function updateUnits (newUnits) {
       street.width = normalizeStreetWidth(street.width)
     }
   } else {
-    setStreet(_.cloneDeep(undoStack[undoPosition - 1]))
+    setStreet(cloneDeep(undoStack[undoPosition - 1]))
   }
   createDomFromData()
   segmentsChanged()
