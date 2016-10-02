@@ -165,7 +165,10 @@ export default class WelcomePanel extends React.Component {
             <h1 data-i18n='dialogs.welcome.heading'>
               Welcome to Streetmix.
             </h1>
-            <p>
+            {/* Enclose child elements in a paragraph-like <div> to get around
+                React's warning that <div> elements from StreetName and
+                Avatar components cannot exist inside a <p> */}
+            <div className='paragraph'>
               This is <StreetName street={street} />
               {(() => {
                 // Display street creator if creatorId is available.
@@ -180,7 +183,7 @@ export default class WelcomePanel extends React.Component {
                 return null
               })()}
               .
-            </p>
+            </div>
             <p className='important'>
               Remix it by moving some segments around,
               or <button onClick={this.onClickGoNewStreet}>Start your own street</button>.
