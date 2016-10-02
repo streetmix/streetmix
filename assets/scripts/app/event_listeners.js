@@ -9,11 +9,6 @@ import {
   onBodyMouseMove,
   onBodyMouseUp
 } from '../segments/drag_and_drop'
-import {
-  onNewStreetDefaultClick,
-  onNewStreetEmptyClick,
-  onNewStreetLastClick
-} from '../streets/creation'
 import { onStorageChange } from '../users/settings'
 import { onGlobalKeyDown } from './keyboard_commands'
 import { onResize } from './window_resize'
@@ -27,12 +22,6 @@ export function addEventListeners () {
   document.querySelector('.info-bubble').addEventListener('pointerenter', infoBubble.onMouseEnter)
   document.querySelector('.info-bubble').addEventListener('pointerleave', infoBubble.onMouseLeave)
   document.querySelector('.info-bubble').addEventListener('pointerdown', infoBubble.onTouchStart)
-
-  // The following do not seem to work on pointerdown
-  // click should also be fired by other input methods
-  document.querySelector('#new-street-default').addEventListener('click', onNewStreetDefaultClick)
-  document.querySelector('#new-street-empty').addEventListener('click', onNewStreetEmptyClick)
-  document.querySelector('#new-street-last').addEventListener('click', onNewStreetLastClick)
 
   window.addEventListener('storage', onStorageChange)
 

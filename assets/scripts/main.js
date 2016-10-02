@@ -25,6 +25,7 @@ import MenusContainer from './menus/MenusContainer'
 import Palette from './app/Palette'
 import StreetNameCanvas from './streets/StreetNameCanvas'
 import DebugInfo from './app/DebugInfo'
+import WelcomePanel from './app/WelcomePanel'
 
 // Error tracking
 // Load this before all other modules. Only load when run in production.
@@ -54,6 +55,7 @@ ReactDOM.render(<MenusContainer />, document.getElementById('menus'))
 ReactDOM.render(<Palette />, document.getElementById('palette'))
 ReactDOM.render(<StreetNameCanvas allowEditing={!app.readOnly} />, document.getElementById('street-header'))
 ReactDOM.render(<DebugInfo />, document.getElementById('debug'))
+ReactDOM.render(<WelcomePanel />, document.getElementById('welcome'))
 
 // Start listening for keypresses
 startListening()
