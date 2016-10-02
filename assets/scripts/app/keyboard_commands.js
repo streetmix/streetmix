@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import { noop } from 'lodash'
 
 import { showGallery, hideGallery } from '../gallery/view'
 import { changeBuildingHeight } from '../segments/buildings'
@@ -124,13 +124,12 @@ export function registerKeypresses () {
   registerKeypress('ctrl s', {
     preventDefault: true,
     requireFocusOnBody: false
-  }, _.noop)
+  }, noop)
 
   // Catch-all for the backspace or delete buttons to prevent
   // browsers from going back in history
   registerKeypress(['backspace', 'delete'], {
     preventDefault: true,
     requireFocusOnBody: true
-  }, _.noop)
+  }, noop)
 }
-
