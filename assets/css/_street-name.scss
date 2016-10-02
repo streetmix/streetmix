@@ -86,8 +86,7 @@ body.windows .street-name-text {
   overflow: hidden;
 }
 
-#gallery .streets .street-name,
-#welcome .street-name {
+#gallery .streets .street-name {
   @include street-name-mixin($street-name-gallery-size);
 
   max-width: 100%;
@@ -102,11 +101,6 @@ body.windows .street-name-text {
   &.fallback-unicode-font > div {
     @include street-name-fallback-mixin($street-name-gallery-size);
   }
-}
-
-#welcome .street-name {
-  display: inline-block;
-  top: 0;
 }
 
 #street-name {
