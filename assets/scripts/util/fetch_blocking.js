@@ -4,7 +4,6 @@
  * Only one of these should be active at any time and
  * no other fetch / xhr / ajax should exist when they do.
  */
-import $ from 'jquery'
 import { showBlockingShield, hideBlockingShield, darkenBlockingShield } from '../app/blocking_shield'
 
 let blockingAjaxRequest
@@ -22,42 +21,6 @@ export function isblockingAjaxRequestInProgress () {
   return blockingAjaxRequestInProgress
 }
 
-// TODO: Migrate newBlockingAjaxRequest to Fetch-based API
-// Before, you had to pass in the success and error functions.
-// Instead return a promise and let the requesting script respond
-// with what it needs to do
-
-// Something like this:
-// function newBlockingFetchRequest (message, url, options) {
-//   showBlockingShield(message)
-
-//   return window.fetch(url, options)
-//     .then((response) => {
-//       if (response.ok) {
-//         return response.json()
-//       } else {
-//         throw new Error(`Unable to fetch ${url} because ${response.status}`)
-//       }
-//     })
-//     .then((data) => {
-//       // Success, pass data and control to next .then()
-//       hideBlockingShield()
-//       blockingAjaxRequestInProgress = false
-
-//       return data
-//     })
-//     .catch((error) => {
-//       console.error(error)
-//       if (blockingAjaxRequestCancelFunc) {
-//         document.querySelector('#blocking-shield').classList.add('show-cancel')
-//       }
-
-//       document.querySelector('#blocking-shield').classList.add('show-try-again')
-
-//       darkenBlockingShield()
-//     })
-// }
-
 export function newBlockingAjaxRequest (message, request, doneFunc, cancelFunc) {
   showBlockingShield(message)
 
@@ -67,8 +30,16 @@ export function newBlockingAjaxRequest (message, request, doneFunc, cancelFunc) 
   blockingAjaxRequestDoneFunc = doneFunc
   blockingAjaxRequestCancelFunc = cancelFunc
 
-  $.ajax(blockingAjaxRequest)
-    .done(successBlockingAjaxRequest).fail(errorBlockingAjaxRequest)
+  window.fetch(blockingAjaxRequest.url, blockingAjaxRequest)
+    .then(response => {
+      if (!response.ok) {
+        throw response
+      }
+
+      return response.json()
+    })
+    .then(successBlockingAjaxRequest)
+    .catch(errorBlockingAjaxRequest)
 }
 
 function successBlockingAjaxRequest (data) {
@@ -93,8 +64,16 @@ export function blockingTryAgain () {
   document.querySelector('#blocking-shield').classList.remove('show-try-again')
   document.querySelector('#blocking-shield').classList.remove('show-cancel')
 
-  $.ajax(blockingAjaxRequest)
-    .done(successBlockingAjaxRequest).fail(errorBlockingAjaxRequest)
+  window.fetch(blockingAjaxRequest.url, blockingAjaxRequest)
+    .then(response => {
+      if (!response.ok) {
+        throw response
+      }
+
+      return response.json()
+    })
+    .then(successBlockingAjaxRequest)
+    .catch(errorBlockingAjaxRequest)
 }
 
 export function blockingCancel () {

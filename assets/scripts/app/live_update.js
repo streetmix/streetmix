@@ -1,5 +1,3 @@
-import $ from 'jquery'
-
 import { getStreet, updateEverything } from '../streets/data_model'
 import { getFetchStreetUrl, unpackServerStreetData } from '../streets/xhr'
 
@@ -12,28 +10,24 @@ export function scheduleNextLiveUpdateCheck () {
 }
 
 function checkForLiveUpdate () {
-  var url = getFetchStreetUrl()
+  const url = getFetchStreetUrl()
 
-  $.ajax({
-    url: url,
-    dataType: 'json',
-    type: 'HEAD'
-  }).done(receiveLiveUpdateCheck)
+  window.fetch(url, { method: 'HEAD' })
+    .then(receiveLiveUpdateCheck)
 }
 
-function receiveLiveUpdateCheck (data, textStatus, jqXHR) {
-  var newUpdatedDate =
-    Math.floor((new Date(jqXHR.getResponseHeader('last-modified')).getTime()) / 1000)
-  var oldUpdatedDate =
+function receiveLiveUpdateCheck (response) {
+  const newUpdatedDate =
+    Math.floor((new Date(response.headers.get('last-modified')).getTime()) / 1000)
+  const oldUpdatedDate =
     Math.floor((new Date(getStreet().updatedAt).getTime()) / 1000)
 
   if (newUpdatedDate !== oldUpdatedDate) {
-    var url = getFetchStreetUrl()
-    $.ajax({
-      url: url,
-      dataType: 'json',
-      type: 'GET'
-    }).done(receiveLiveUpdateStreet)
+    const url = getFetchStreetUrl()
+
+    window.fetch(url)
+      .then(response => response.json())
+      .then(receiveLiveUpdateStreet)
   }
 
   scheduleNextLiveUpdateCheck()

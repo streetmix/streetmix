@@ -1,5 +1,3 @@
-import $ from 'jquery'
-
 import { getAbortEverything } from '../app/initialization'
 import {
   getSaveStreetIncomplete,
@@ -47,21 +45,22 @@ export function attachFetchNonBlockingEventListeners () {
   })
 }
 
-export function newNonblockingAjaxRequest (request, allowToClosePage, doneFunc, errorFunc, maxRetries) {
+export function newNonblockingAjaxRequest (url, options, allowToClosePage, doneFunc, errorFunc, maxRetries) {
   nonblockingAjaxRequestTimer = 0
 
-  var signature = getAjaxRequestSignature(request)
+  var signature = getAjaxRequestSignature(url, options)
 
   removeNonblockingAjaxRequest(signature)
   nonblockingAjaxRequests.push({
-    request: request,
-    allowToClosePage: allowToClosePage,
-    doneFunc: doneFunc,
-    errorFunc: errorFunc,
+    url,
+    options,
+    allowToClosePage,
+    doneFunc,
+    errorFunc,
     inProgress: false,
-    signature: signature,
+    signature,
     tryCount: 0,
-    maxRetries: maxRetries
+    maxRetries
   })
 
   scheduleNextNonblockingAjaxRequest()
@@ -71,8 +70,8 @@ export function getNonblockingAjaxRequestCount () {
   return nonblockingAjaxRequests.length
 }
 
-function getAjaxRequestSignature (request) {
-  return request.type + ' ' + request.url
+function getAjaxRequestSignature (url, request) {
+  return request.method + ' ' + url
 }
 
 function nonblockingAjaxTryAgain () {
@@ -99,11 +98,19 @@ function sendNextNonblockingAjaxRequest () {
       if (!request.inProgress) {
         request.inProgress = true
 
-        $.ajax(request.request).done(function (data) {
-          successNonblockingAjaxRequest(data, request)
-        }).fail(function (data) {
-          errorNonblockingAjaxRequest(data, request)
-        })
+        window.fetch(request.url, request.options)
+          .then(response => {
+            if (!response.ok) {
+              throw response
+            }
+            return response
+          })
+          .then(data => {
+            successNonblockingAjaxRequest(data, request)
+          })
+          .catch(data => {
+            errorNonblockingAjaxRequest(data, request)
+          })
       }
     }
 

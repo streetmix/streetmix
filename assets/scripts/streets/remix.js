@@ -76,11 +76,12 @@ export function remixStreet () {
     {
       // TODO const
       url: API_URL + 'v1/streets',
-      type: 'POST',
-      data: transmission,
-      dataType: 'json',
-      contentType: 'application/json',
-      headers: { 'Authorization': getAuthHeader() }
+      method: 'POST',
+      body: transmission,
+      headers: {
+        'Authorization': getAuthHeader(),
+        'Content-Type': 'application/json'
+      }
     }, receiveRemixedStreet
   )
 }
