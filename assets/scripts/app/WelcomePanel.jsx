@@ -151,9 +151,8 @@ export default class WelcomePanel extends React.Component {
               sidewalks or traffic lanes, learn how your decisions can impact your community.
             </p>
             <p className='important'>
-              Start by moving some segments around with
-              <span className='touch-only'>your finger.</span>
-              <span className='non-touch-only'>your mouse.</span>
+              Start by moving some segments around
+              with <span className='touch-only'>your finger</span><span className='non-touch-only'>your mouse</span>.
             </p>
           </div>
         )
