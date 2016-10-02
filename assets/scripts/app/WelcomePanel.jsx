@@ -32,12 +32,14 @@ export default class WelcomePanel extends React.Component {
     this.state = {
       visible: false,
       welcomeType: WELCOME_NONE,
-      welcomeDismissed: this.getSettingsWelcomeDismissed()
+      welcomeDismissed: this.getSettingsWelcomeDismissed(),
+      selectedNewStreetType: null
     }
 
     this.showWelcome = this.showWelcome.bind(this)
     this.hideWelcome = this.hideWelcome.bind(this)
     this.onClickGoNewStreet = this.onClickGoNewStreet.bind(this)
+    this.onChangeNewStreetType = this.onChangeNewStreetType.bind(this)
   }
 
   componentDidMount () {
@@ -81,10 +83,28 @@ export default class WelcomePanel extends React.Component {
       return
     }
 
+    // If welcomeType is WELCOME_NEW_STREET, there is an additional state
+    // property that determines which of the new street modes is selected
+    const settings = getSettings()
+
+    let selectedNewStreetType
+
+    switch (settings.newStreetPreference) {
+      case NEW_STREET_EMPTY:
+        selectedNewStreetType = 'new-street-empty'
+        break
+      case NEW_STREET_DEFAULT:
+        selectedNewStreetType = 'new-street-default'
+        break
+      default:
+        break
+    }
+
     // Record state
     this.setState({
       visible: true,
-      welcomeType
+      welcomeType,
+      selectedNewStreetType
     })
 
     // TODO: Don't hide this by querying DOM directly
@@ -133,6 +153,14 @@ export default class WelcomePanel extends React.Component {
     this.setState({ welcomeDismissed: true })
     this.setSettingsWelcomeDismissed(true)
     goNewStreet(true)
+  }
+
+  // The following handler is only used with the WELCOME_NEW_STREET mode.
+  // It handles changing the "checked" state of the input buttons.
+  onChangeNewStreetType (event) {
+    this.setState({
+      selectedNewStreetType: event.target.id
+    })
   }
 
   render () {
@@ -193,22 +221,6 @@ export default class WelcomePanel extends React.Component {
 
         break
       case WELCOME_NEW_STREET:
-        const settings = getSettings()
-
-        let newStreetEmptyChecked = false
-        let newStreetDefaultChecked = false
-
-        switch (settings.newStreetPreference) {
-          case NEW_STREET_EMPTY:
-            newStreetEmptyChecked = true
-            break
-          case NEW_STREET_DEFAULT:
-            newStreetDefaultChecked = true
-            break
-          default:
-            break
-        }
-
         welcomeContent = (
           <div className='welcome-panel-content new-street'>
             <h1 data-i18n='dialogs.new-street.heading'>
@@ -220,7 +232,8 @@ export default class WelcomePanel extends React.Component {
                   type='radio'
                   name='new-street'
                   id='new-street-default'
-                  checked={newStreetDefaultChecked}
+                  checked={this.state.selectedNewStreetType === 'new-street-default' || !this.state.selectedNewStreetType}
+                  onChange={this.onChangeNewStreetType}
                   onClick={onNewStreetDefaultClick}
                 />
                 <label htmlFor='new-street-default' data-i18n='dialogs.new-street.default'>
@@ -232,7 +245,8 @@ export default class WelcomePanel extends React.Component {
                   type='radio'
                   name='new-street'
                   id='new-street-empty'
-                  checked={newStreetEmptyChecked}
+                  checked={this.state.selectedNewStreetType === 'new-street-empty'}
+                  onChange={this.onChangeNewStreetType}
                   onClick={onNewStreetEmptyClick}
                 />
                 <label htmlFor='new-street-empty' data-i18n='dialogs.new-street.empty'>
@@ -242,6 +256,7 @@ export default class WelcomePanel extends React.Component {
               {(() => {
                 // Display this button only if there is a previous street to copy
                 // from that is not the same as the current street
+                const settings = getSettings()
                 if (settings.priorLastStreetId && settings.priorLastStreetId !== getStreet().id) {
                   return (
                     <li>
@@ -249,6 +264,8 @@ export default class WelcomePanel extends React.Component {
                         type='radio'
                         name='new-street'
                         id='new-street-last'
+                        checked={this.state.selectedNewStreetType === 'new-street-last'}
+                        onChange={this.onChangeNewStreetType}
                         onClick={onNewStreetLastClick}
                       />
                       <label htmlFor='new-street-last' data-i18n='dialogs.new-street.last'>
