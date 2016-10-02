@@ -1,7 +1,3 @@
-#welcome-avatar-creator:not(.visible) {
-  display: none;
-}
-
 body.phone #error,
 body.phone #loading {
   font-size: 32px;
@@ -92,43 +88,42 @@ body.phone #loading {
 
 // --------------------------------------------------------
 
-#welcome {
+.welcome-panel-container {
   position: absolute;
-  top: -5px;
+  top: -5px; // Hides top border
   left: 0;
   right: 0;
   z-index: $z-05-welcome;
   text-align: center;
-
   user-select: none;
-
   pointer-events: none;
 
-  &:not(.first-time-new-street) .first-time-new-street,
-  &:not(.first-time-existing-street) .first-time-existing-street,
-  &:not(.new-street) .new-street {
+  &:not(.visible) {
     display: none;
   }
+}
 
-  > div {
-    @include box-border;
+.welcome-panel {
+  @include box-border;
 
-    display: inline-block;
-    position: relative;
-    padding: 6px 15px;
-    margin: 0;
-    background: white;
-    text-align: center;
-    font-size: 16px;
-    color: rgb(64, 64, 64);
-    pointer-events: auto;
-  }
+  display: inline-block;
+  position: relative;
+  padding: 6px 15px;
+  margin: 0;
+  background: white;
+  text-align: center;
+  font-size: 16px;
+  color: rgb(64, 64, 64);
+  pointer-events: auto;
+}
 
+.welcome-panel-content {
   h1 {
     @include large-message-text;
   }
 
   button {
+    margin: 0 0.25em;
     font-size: 100%;
   }
 
@@ -158,10 +153,6 @@ body.phone #loading {
       color: darken($ui-colour, 40%);
       padding-left: 0;
     }
-
-    &:nth-child(3):not(.visible) {
-      display: none;
-    }
   }
 
   input[type='radio'] {
@@ -187,10 +178,6 @@ body.phone #loading {
 
   input[type='radio']:not(:checked) + label {
     text-decoration: underline;
-  }
-
-  &:not(.visible) {
-    display: none;
   }
 }
 
@@ -245,4 +232,3 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
     margin-left: 0.25em;
   }
 }
-
