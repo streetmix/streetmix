@@ -182,10 +182,9 @@
   .non-variant {
     float: right;
     text-align: right;
-    padding-top: 7px;
-    padding-bottom: 5px;
-    padding-left: 8px;
-    padding-right: 7px;
+    margin-top: 9px;
+    margin-left: 8px;
+    margin-right: 7px;
     min-height: 30px;
     white-space: nowrap;
     -webkit-user-select: none;
@@ -193,7 +192,9 @@
     -ms-user-select: none;
     user-select: none;
 
-    user-select: none;;
+    // @-moz-document url-prefix() {
+    //   margin-top: 9px;
+    // }
 
     &.entire-info-bubble {
       width: auto;
@@ -228,6 +229,7 @@
 
         vertical-align: bottom;
         height: 22px;
+        line-height: 22px;
         outline: none;
       }
 
@@ -248,7 +250,49 @@
         margin-bottom: 2px;
       }
     }
+
+        button {
+      margin-left: 3px;
+      margin-top: 0;
+      white-space: nowrap;
+
+      position: relative;
+
+      .icon {
+        opacity: 0.666;
+      }
+
+      &:active {
+        .icon {
+          margin-top: 1px;
+          opacity: 0.9;
+        }
+      }
+
+      &[disabled] {
+        background: darken($ui-colour, 10%);
+        color: black;
+        opacity: 1;
+        border-top-color: darken($ui-colour, 30%);
+        border-bottom-color: darken($ui-colour, 30%);
+
+        .icon {
+          opacity: 1;
+        }
+      }
+    }
   }
+
+      @media screen and (-webkit-min-device-pixel-ratio:0) and (min-resolution:.001dpcm)
+{
+    .non-variant {
+
+       margin-top:8px;
+
+    }
+}
+
+
 
   button {
     width: $info-bubble-button-size;
