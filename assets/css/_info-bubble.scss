@@ -247,7 +247,7 @@
       }
     }
 
-        button {
+    button {
       margin-left: 3px;
       margin-top: 0;
       white-space: nowrap;
@@ -279,16 +279,11 @@
     }
   }
 
-      @media screen and (-webkit-min-device-pixel-ratio:0) and (min-resolution:.001dpcm)
-{
+  @media screen and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) {
     .non-variant {
-
-       margin-top:8px;
-
+       margin-top: 8px;
     }
-}
-
-
+  }
 
   button {
     width: $info-bubble-button-size;
