@@ -181,18 +181,19 @@
 
   .non-variant {
     float: right;
-    margin-right: 8px;
-    margin-top: 5px;
-    margin-bottom: 8px;
-    width: 150px;
-    height: $info-bubble-button-size;
-    line-height: $info-bubble-button-size;
-
+    text-align: right;
+    padding-top: 7px;
+    padding-bottom: 5px;
+    padding-left: 8px;
+    padding-right: 7px;
+    min-height: 30px;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     user-select: none;
 
-    white-space: nowrap;
-
-    text-align: right;
+    user-select: none;;
 
     &.entire-info-bubble {
       width: auto;
@@ -227,7 +228,6 @@
 
         vertical-align: bottom;
         height: 22px;
-
         outline: none;
       }
 
