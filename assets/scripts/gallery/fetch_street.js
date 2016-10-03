@@ -1,7 +1,6 @@
 import { showBlockingShield, hideBlockingShield } from '../app/blocking_shield'
 import { API_URL } from '../app/config'
 import { hideError } from '../app/errors'
-import { shareMenu } from '../menus/_share'
 import {
   setLastStreet,
   getStreet,
@@ -27,8 +26,8 @@ export function fetchGalleryStreet (streetId) {
 
   window.fetch(url, options)
     .then(function (response) {
-      if (response.status < 200 || response.status >= 400) {
-        throw new Error(response)
+      if (!response.ok) {
+        throw response
       }
       return response.json()
     })
@@ -71,7 +70,6 @@ function receiveGalleryStreet (transmission) {
   updateStreetName()
   createDomFromData()
   segmentsChanged()
-  shareMenu.update()
 
   setIgnoreStreetChanges(false)
   setLastStreet(trimStreetData(getStreet()))

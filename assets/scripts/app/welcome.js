@@ -2,13 +2,15 @@ import { app } from '../preinit/app_settings'
 import { system } from '../preinit/system_capabilities'
 import { NEW_STREET_DEFAULT, NEW_STREET_EMPTY } from '../streets/creation'
 import { getStreet } from '../streets/data_model'
-import { StreetName } from '../streets/name_sign'
+import StreetName from '../streets/StreetName'
 import { isSignedIn } from '../users/authentication'
-import { fetchAvatars } from '../users/avatars'
 import { getSettings } from '../users/settings'
 import { registerKeypress, deregisterKeypress } from './keypress'
 import { MODES, getMode } from './mode'
 import { goNewStreet } from './routing'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Avatar from './Avatar'
 
 const WELCOME_NONE = 0
 const WELCOME_NEW_STREET = 1
@@ -17,10 +19,27 @@ const WELCOME_FIRST_TIME_EXISTING_STREET = 3
 
 const LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED = 'settings-welcome-dismissed'
 
-const welcomeEl = document.querySelector('#welcome')
-
 let settingsWelcomeDismissed = false
 let isVisible = false
+
+export function attachWelcomeEventListeners () {
+  // Show welcome panel on load
+  window.addEventListener('stmx:everything_loaded', function (e) {
+    // Do not do anything in these cases
+    if (app.readOnly || system.phone) {
+      return
+    }
+
+    showWelcome()
+
+    // Add the event listener for hiding it
+    document.querySelector('#welcome .close').addEventListener('pointerdown', hideWelcome)
+  })
+
+  // Hide welcome panel on certain events
+  window.addEventListener('stmx:receive_gallery_street', hideWelcome)
+  window.addEventListener('stmx:save_street', hideWelcome)
+}
 
 function showWelcome (welcomeType = WELCOME_NONE) {
   loadSettingsWelcomeDismissed()
@@ -41,6 +60,7 @@ function showWelcome (welcomeType = WELCOME_NONE) {
     return
   }
 
+  const welcomeEl = document.querySelector('#welcome')
   switch (welcomeType) {
     case WELCOME_FIRST_TIME_NEW_STREET:
       welcomeEl.classList.add('first-time-new-street')
@@ -55,15 +75,14 @@ function showWelcome (welcomeType = WELCOME_NONE) {
       })
 
       let street = getStreet()
-      let streetName = new StreetName(document.getElementById('welcome-street-name'), street.name) // eslint-disable-line no-unused-vars
+      ReactDOM.render(<StreetName street={street} />, document.getElementById('welcome-street-name'))
 
       if (street.creatorId) {
         document.querySelector('#welcome-avatar-creator').classList.add('visible')
-        document.getElementById('welcome-avatar').setAttribute('userId', street.creatorId)
+
+        ReactDOM.render(<Avatar userId={street.creatorId} />, document.getElementById('welcome-avatar'))
         document.getElementById('welcome-creator').textContent = street.creatorId
       }
-
-      fetchAvatars()
 
       break
     case WELCOME_NEW_STREET:
@@ -104,6 +123,7 @@ export function hideWelcome () {
   settingsWelcomeDismissed = true
   saveSettingsWelcomeDismissed()
 
+  const welcomeEl = document.querySelector('#welcome')
   welcomeEl.classList.remove('visible')
   document.querySelector('#street-name-canvas').classList.remove('hidden')
 
@@ -123,19 +143,3 @@ function saveSettingsWelcomeDismissed () {
     JSON.stringify(settingsWelcomeDismissed)
 }
 
-// Show welcome panel on load
-window.addEventListener('stmx:everything_loaded', function (e) {
-  // Do not do anything in these cases
-  if (app.readOnly || system.phone) {
-    return
-  }
-
-  showWelcome()
-
-  // Add the event listener for hiding it
-  document.querySelector('#welcome .close').addEventListener('pointerdown', hideWelcome)
-})
-
-// Hide welcome panel on certain events
-window.addEventListener('stmx:receive_gallery_street', hideWelcome)
-window.addEventListener('stmx:save_street', hideWelcome)

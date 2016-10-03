@@ -1,4 +1,3 @@
-import $ from 'jquery'
 import Cookies from 'js-cookie'
 
 import { API_URL } from '../app/config'
@@ -6,11 +5,10 @@ import { showError, ERRORS } from '../app/errors'
 import { trackEvent } from '../app/event_tracking'
 import { checkIfEverythingIsLoaded } from '../app/initialization'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
-import { URL_SIGN_IN_REDIRECT } from '../app/routing'
 import { getStreet } from '../streets/data_model'
 import { setPromoteStreet } from '../streets/remix'
 import { fetchStreetFromServer } from '../streets/xhr'
-import { receiveAvatar, fetchAvatars } from './avatars'
+import { receiveUserDetails } from './profile_image_cache'
 import { checkIfSignInAndGeolocationLoaded } from './localization'
 import {
   loadSettings,
@@ -97,38 +95,28 @@ export function loadSignIn () {
 }
 
 function fetchSignInDetails () {
-  $.ajax({
-    url: API_URL + 'v1/users/' + signInData.userId,
-    dataType: 'json',
+  const options = {
     headers: { 'Authorization': getAuthHeader() }
-  }).done(receiveSignInDetails).fail(errorReceiveSignInDetails)
+  }
 
-  // TODO: This doesn't work
+  window.fetch(API_URL + 'v1/users/' + signInData.userId, options)
+    .then(response => {
+      if (!response.ok) {
+        throw response
+      }
 
-  // const options = {
-  //   method: 'GET',
-  //   headers: {
-  //     'Authorization': getAuthHeader()
-  //   }
-  // }
-
-  // window.fetch(API_URL + 'v1/users/' + signInData.userId, options)
-  //   .then(function (response) {
-  //     if (response.status <= 200 || response.status >= 399) {
-  //       throw new Error(response)
-  //     }
-  //
-  //     return response.json()
-  //   })
-  //   .then(receiveSignInDetails)
-  //   .catch(errorReceiveSignInDetails) // TODO: Test this to make sure it works with fetch
+      return response.json()
+    })
+    .then(receiveSignInDetails)
+    .catch(errorReceiveSignInDetails)
 }
 
 function receiveSignInDetails (details) {
   signInData.details = details
   saveSignInDataLocally()
 
-  receiveAvatar(details)
+  // cache the users profile image so we don't have to request it later
+  receiveUserDetails(details)
 
   signedIn = true
   _signInLoaded()
@@ -198,20 +186,19 @@ export function getAuthHeader () {
 }
 
 function sendSignOutToServer (quiet) {
-  var call = {
-    // TODO const
-    url: API_URL + 'v1/users/' + signInData.userId + '/login-token',
-    dataType: 'json',
-    type: 'DELETE',
+  const options = {
+    method: 'DELETE',
     headers: { 'Authorization': getAuthHeader() }
   }
 
-  if (quiet) {
-    $.ajax(call)
-  } else {
-    $.ajax(call).done(receiveSignOutConfirmationFromServer)
-      .fail(errorReceiveSignOutConfirmationFromServer)
-  }
+  // TODO const
+  window.fetch(API_URL + 'v1/users/' + signInData.userId + '/login-token', options)
+    .then(response => {
+      if (!quiet) {
+        receiveSignOutConfirmationFromServer()
+      }
+    })
+    .catch(errorReceiveSignOutConfirmationFromServer)
 }
 
 function receiveSignOutConfirmationFromServer () {
@@ -224,36 +211,14 @@ function errorReceiveSignOutConfirmationFromServer () {
   processMode()
 }
 
-function createSignInUI () {
-  if (signedIn) {
-    var avatarEl = document.createElement('div')
-    avatarEl.classList.add('avatar')
-    avatarEl.setAttribute('userId', signInData.userId)
-    document.querySelector('#identity-menu-button').appendChild(avatarEl)
-
-    var userIdEl = document.createElement('span')
-    userIdEl.classList.add('user-id')
-    userIdEl.textContent = signInData.userId
-    document.querySelector('#identity-menu-button').appendChild(userIdEl)
-
-    document.querySelector('#identity-menu-item').classList.add('visible')
-
-    fetchAvatars()
-  } else {
-    var el = document.createElement('a')
-    el.href = '/' + URL_SIGN_IN_REDIRECT
-    el.classList.add('command')
-    el.innerHTML = 'Sign in'
-    document.querySelector('#sign-in-link').appendChild(el)
-
-    document.querySelector('#identity-menu-item').classList.remove('visible')
-  }
-}
-
 function _signInLoaded () {
   loadSettings()
 
-  createSignInUI()
+  // This gets sent to the MenuBar component for rendering.
+  // Send an empty object for `event.detail` if `signInData` does not exist.
+  window.dispatchEvent(new window.CustomEvent('stmx:signed_in', {
+    detail: signInData || {}
+  }))
 
   var street = getStreet()
   let mode = getMode()
@@ -284,10 +249,6 @@ function _signInLoaded () {
     case MODES.GLOBAL_GALLERY:
       fetchStreetFromServer()
       break
-  }
-
-  if (signedIn) {
-    document.querySelector('#gallery-link a').href = '/' + signInData.userId
   }
 
   signInLoaded = true

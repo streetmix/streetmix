@@ -48,6 +48,11 @@ Promise.all(loading)
   .then(function () {
     imagesToBeLoaded = 0
 
+    // Event stmx:assets_loaded - dispatched when all IMG and SVG assets have been loaded.
+    // If you're trying to render a street thumbnail before rendering a whole street, you'll need to wait for
+    // this event to be dispatched so that all IMG and SVGs can be rendered in canvas
+    window.dispatchEvent(new window.CustomEvent('stmx:assets_loaded'))
+
     // legacy, TODO: replace with promise
     checkIfEverythingIsLoaded()
   })

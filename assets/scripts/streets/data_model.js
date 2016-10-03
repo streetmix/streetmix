@@ -1,7 +1,6 @@
 import { getAbortEverything } from '../app/initialization'
 import { msg } from '../app/messages'
 import { URL_NO_USER, RESERVED_URLS, URL_RESERVED_PREFIX } from '../app/routing'
-import { shareMenu } from '../menus/_share'
 import {
   DEFAULT_BUILDING_HEIGHT_LEFT,
   DEFAULT_BUILDING_HEIGHT_RIGHT,
@@ -25,7 +24,6 @@ import { getSignInData, isSignedIn } from '../users/authentication'
 import { getUnits, getLeftHandTraffic, propagateUnits } from '../users/localization'
 import { normalizeSlug } from '../util/helpers'
 import { generateRandSeed } from '../util/random'
-import { updateStreetMetadata } from './metadata'
 import { updateStreetName } from './name'
 import {
   setUndoStack,
@@ -38,7 +36,6 @@ import {
 } from './undo_stack'
 import {
   DEFAULT_STREET_WIDTH,
-  buildStreetWidthMenu,
   normalizeStreetWidth,
   resizeStreetWidth
 } from './width'
@@ -104,6 +101,12 @@ export function getStreet () {
 
 export function setStreet (value) {
   street = value
+  window.dispatchEvent(new window.CustomEvent('stmx:set_street'))
+}
+
+export function setAndSaveStreet (value) {
+  setStreet(value)
+  saveStreetToServerIfNecessary()
 }
 
 function incrementSchemaVersion (street) {
@@ -295,7 +298,6 @@ export function setStreetCreatorId (newId) {
 export function setUpdateTimeToNow () {
   street.updatedAt = new Date().getTime()
   unifyUndoStack()
-  updateStreetMetadata(street)
 }
 
 export function saveStreetToServerIfNecessary () {
@@ -317,8 +319,6 @@ export function saveStreetToServerIfNecessary () {
     // Some parts of the UI need to know this happened to respond to it
     // TODO: figure out appropriate event name
     window.dispatchEvent(new window.CustomEvent('stmx:save_street'))
-
-    updateStreetMetadata(street)
 
     createNewUndoIfNecessary(_lastStreet, currentData)
 
@@ -484,8 +484,7 @@ export function prepareEmptyStreet () {
 export function updateEverything (dontScroll) {
   setIgnoreStreetChanges(true)
   propagateUnits()
-  buildStreetWidthMenu()
-  shareMenu.update()
+  // TODO Verify that we don't need to dispatch an update width event here
   createDomFromData()
   segmentsChanged()
   resizeStreetWidth(dontScroll)

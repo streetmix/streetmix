@@ -5,7 +5,7 @@ import {
   getStreetSectionTop
 } from '../app/window_resize'
 import { infoBubble } from '../info_bubble/info_bubble'
-import { hideAllMenus } from '../menus/menu'
+import { hideAllMenus } from '../menus/menu_controller'
 import { app } from '../preinit/app_settings'
 import { system } from '../preinit/system_capabilities'
 import { getStreet } from '../streets/data_model'
@@ -277,7 +277,7 @@ function handleSegmentMoveStart () {
 
   draggingMove.originalType = draggingMove.originalEl.getAttribute('type')
 
-  if (draggingMove.originalEl.classList.contains('palette')) {
+  if (draggingMove.originalEl.classList.contains('segment-in-palette')) {
     if (SEGMENT_INFO[draggingMove.originalType].needRandSeed) {
       draggingMove.originalRandSeed = generateRandSeed()
     }
@@ -449,7 +449,7 @@ function handleSegmentMoveMove (event) {
   }
 
   if (draggingMove.type === DRAGGING_TYPE_MOVE_TRANSFER) {
-    document.querySelector('#trashcan').classList.add('visible')
+    document.querySelector('.palette-trashcan').classList.add('visible')
   }
 }
 
@@ -728,7 +728,7 @@ export function handleSegmentMoveCancel () {
   updateWithinCanvas(true)
 
   removeElFromDOM(draggingMove.floatingEl)
-  document.querySelector('#trashcan').classList.remove('visible')
+  document.querySelector('.palette-trashcan').classList.remove('visible')
 
   changeDraggingType(DRAGGING_TYPE_NONE)
 }
@@ -792,7 +792,7 @@ function handleSegmentMoveEnd (event) {
   updateWithinCanvas(true)
 
   removeElFromDOM(draggingMove.floatingEl)
-  document.querySelector('#trashcan').classList.remove('visible')
+  document.querySelector('.palette-trashcan').classList.remove('visible')
 
   changeDraggingType(DRAGGING_TYPE_NONE)
 

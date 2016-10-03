@@ -1,10 +1,10 @@
-import _ from 'lodash'
+import { cloneDeep } from 'lodash'
 
 import { ERRORS, showError } from '../app/errors'
 import { trackEvent } from '../app/event_tracking'
 import { checkIfEverythingIsLoaded } from '../app/initialization'
 import { MODES, getMode } from '../app/mode'
-import { hideAllMenus } from '../menus/menu'
+import { hideAllMenus } from '../menus/menu_controller'
 import { app } from '../preinit/app_settings'
 import { debug } from '../preinit/debug_settings'
 import { system } from '../preinit/system_capabilities'
@@ -29,8 +29,7 @@ import {
 import { createNewStreetOnServer } from '../streets/xhr'
 import {
   normalizeStreetWidth,
-  resizeStreetWidth,
-  buildStreetWidthMenu
+  resizeStreetWidth
 } from '../streets/width'
 import { isSignInLoaded } from './authentication'
 import { saveSettingsLocally } from './settings'
@@ -198,7 +197,7 @@ export function updateUnits (newUnits) {
       street.width = normalizeStreetWidth(street.width)
     }
   } else {
-    setStreet(_.cloneDeep(undoStack[undoPosition - 1]))
+    setStreet(cloneDeep(undoStack[undoPosition - 1]))
   }
   createDomFromData()
   segmentsChanged()
@@ -206,7 +205,7 @@ export function updateUnits (newUnits) {
 
   setIgnoreStreetChanges(false)
 
-  buildStreetWidthMenu()
+  window.dispatchEvent(new CustomEvent('stmx:width_updated'))
   hideAllMenus()
 
   saveStreetToServerIfNecessary()
@@ -237,5 +236,6 @@ export function propagateUnits () {
       break
   }
 
-  buildStreetWidthMenu()
+  // TODO verify this is the right event to dispatch, and a good place to throw this event
+  window.dispatchEvent(new CustomEvent('stmx:width_updated'))
 }

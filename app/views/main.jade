@@ -3,16 +3,16 @@ extends _layout
 block main
   #flash
 
+  //- Mount point for React DebugInfo component
   #debug
-    textarea(readonly)
 
   include ./ui/blocking
   include ./ui/gallery
 
   #main-screen
 
-    include ./ui/menu-bar
-    include ./ui/menus
+    //- Mount point for React-based menus
+    #menus
 
     .info-bubble
 
@@ -25,17 +25,7 @@ block main
         button#no-connection-try-again.
           Try again
 
-    #street-name-canvas
-      #street-name.street-name
-      #street-metadata
-        span#street-metadata-width
-          span#street-width-read(title='Change width of the street')
-            span#street-width-read-width
-            | &nbsp;
-            span#street-width-read-difference
-          select#street-width
-        span#street-metadata-author
-        span#street-metadata-date
+    #street-header
 
     #dialogs-react
 
@@ -61,15 +51,8 @@ block main
     #street-scroll-indicator-left
     #street-scroll-indicator-right
 
-    footer
-      .footer-canvas
-        .regular-canvas
-          #commands
-            button#undo(data-i18n='btn.undo') Undo
-            button#redo(data-i18n='btn.redo') Redo
-          #palette
-            .palette-canvas
-          #trashcan(data-i18n='palette.remove') Drag here to remove
+    //- Mount point for React
+    #palette
 
   #print
     div

@@ -1,4 +1,3 @@
-import { shareMenu } from '../menus/_share'
 import { segmentsChanged } from '../segments/view'
 import { saveSettingsLocally, getSettings } from '../users/settings'
 import {
@@ -27,7 +26,6 @@ export function makeDefaultStreet () {
   updateStreetName()
   createDomFromData()
   segmentsChanged()
-  shareMenu.update()
 
   setIgnoreStreetChanges(false)
   setLastStreet(trimStreetData(getStreet()))
@@ -53,7 +51,6 @@ export function onNewStreetEmptyClick () {
   updateStreetName()
   createDomFromData()
   segmentsChanged()
-  shareMenu.update()
 
   setIgnoreStreetChanges(false)
   setLastStreet(trimStreetData(getStreet()))

@@ -1,17 +1,11 @@
-import $ from 'jquery'
-
 import { hideLoadingScreen, getImagesToBeLoaded } from './load_resources'
 import { initLocale } from './locale'
 import { scheduleNextLiveUpdateCheck } from './live_update'
-import { setEnvironmentBadge } from './env_badge'
-import { shareMenu } from '../menus/_share'
-import { showGallery } from '../gallery/view'
-import { feedbackMenu } from '../menus/_feedback'
+import { showGallery, attachGalleryViewEventListeners } from '../gallery/view'
 import { app } from '../preinit/app_settings'
 import { debug } from '../preinit/debug_settings'
 import { system } from '../preinit/system_capabilities'
 import { prepareSegmentInfo } from '../segments/info'
-import { createPalette } from '../segments/palette'
 import { fillEmptySegments, segmentsChanged } from '../segments/view'
 import { onNewStreetLastClick } from '../streets/creation'
 import {
@@ -23,7 +17,7 @@ import {
 import { updateStreetName } from '../streets/name'
 import { getPromoteStreet, remixStreet } from '../streets/remix'
 import { setIgnoreStreetChanges } from '../streets/undo_stack'
-import { resizeStreetWidth, buildStreetWidthMenu } from '../streets/width'
+import { resizeStreetWidth } from '../streets/width'
 import { loadSignIn, isSignInLoaded } from '../users/authentication'
 import {
   updateSettingsFromCountryCode,
@@ -37,6 +31,15 @@ import { trackEvent } from './event_tracking'
 import { getMode, setMode, MODES, processMode } from './mode'
 import { processUrl, updatePageUrl, getGalleryUserId } from './page_url'
 import { onResize } from './window_resize'
+import { attachBlockingShieldEventListeners } from './blocking_shield'
+import { registerKeypresses } from './keyboard_commands'
+import { infoBubble } from '../info_bubble/info_bubble'
+import { attachPrintEventListeners } from './print'
+import { attachStatusMessageEventListeners } from './status_message'
+import { attachWelcomeEventListeners } from './welcome'
+import { attachGalleryScrollEventListeners } from '../gallery/scroll'
+import { attachStreetScrollEventListeners } from '../streets/scroll'
+import { attachFetchNonBlockingEventListeners } from '../util/fetch_nonblocking'
 
 let initializing = false
 
@@ -66,9 +69,7 @@ export function setAbortEverything (value) {
   abortEverything = value
 }
 
-export const Stmx = {}
-
-Stmx.preInit = function () {
+function preInit () {
   initializing = true
   setIgnoreStreetChanges(true)
 
@@ -77,9 +78,21 @@ Stmx.preInit = function () {
     language = language.substr(0, 2).toUpperCase()
     updateSettingsFromCountryCode(language)
   }
+
+  attachBlockingShieldEventListeners()
+  registerKeypresses()
+  infoBubble.registerKeypresses()
+  attachPrintEventListeners()
+  attachStatusMessageEventListeners()
+  attachWelcomeEventListeners()
+  attachGalleryScrollEventListeners()
+  attachGalleryViewEventListeners()
+  attachStreetScrollEventListeners()
+  attachFetchNonBlockingEventListeners()
 }
 
-Stmx.init = function () {
+export function initialize () {
+  preInit()
   if (!debug.forceUnsupportedBrowser) {
     // TODO temporary ban
     if ((navigator.userAgent.indexOf('Opera') !== -1) ||
@@ -95,10 +108,6 @@ Stmx.init = function () {
 
   fillEmptySegments()
   prepareSegmentInfo()
-
-  // TODO make it better
-  // Related to Enter to 404 bug in Chrome
-  $.ajaxSetup({ cache: false })
 
   readyStateCompleteLoaded = false
   document.addEventListener('readystatechange', onReadyStateChange)
@@ -160,11 +169,16 @@ function onEverythingLoaded () {
   setLastStreet(trimStreetData(getStreet()))
 
   updatePageUrl()
-  buildStreetWidthMenu()
   addEventListeners()
 
   var event = new window.CustomEvent('stmx:everything_loaded')
   window.dispatchEvent(event)
+
+  if (debug.forceLiveUpdate) {
+    scheduleNextLiveUpdateCheck()
+  }
+
+  window.setTimeout(hideLoadingScreen, 0)
 
   var mode = getMode()
   if (mode === MODES.USER_GALLERY) {
@@ -205,9 +219,7 @@ if (debug.hoverPolygon) {
 }
 
 // Toggle experimental features
-if (!debug.experimental) {
-  document.getElementById('settings-menu-item').style.display = 'none'
-} else {
+if (debug.experimental) {
   // Initalize i18n / localization
   // Currently experimental-only
   initLocale()
@@ -215,11 +227,9 @@ if (!debug.experimental) {
 
 // Other
 addBodyClasses()
-setEnvironmentBadge()
 
 // Check if no internet mode
 if (system.noInternet === true) {
-  setEnvironmentBadge('Demo')
   setupNoInternetMode()
 }
 
@@ -271,18 +281,3 @@ function setupNoInternetMode () {
     }
   })
 }
-
-// Temp: use this while in transition
-export function _onEverythingLoaded2 () {
-  shareMenu.update()
-  feedbackMenu.update()
-  createPalette()
-
-  if (debug.forceLiveUpdate) {
-    scheduleNextLiveUpdateCheck()
-  }
-
-  window.setTimeout(hideLoadingScreen, 0)
-}
-
-window._onEverythingLoaded2 = _onEverythingLoaded2

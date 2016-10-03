@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import { cloneDeep } from 'lodash'
 
 import { trackEvent } from '../app/event_tracking'
 import { msg } from '../app/messages'
@@ -60,7 +60,7 @@ function undoRedo (undo) {
     } else {
       undoPosition++
     }
-    setStreet(_.cloneDeep(undoStack[undoPosition]))
+    setStreet(cloneDeep(undoStack[undoPosition]))
     setUpdateTimeToNow()
 
     infoBubble.hide()
@@ -94,7 +94,7 @@ function createNewUndo () {
   // This removes future undo path in case we undo a few times and then do
   // something undoable.
   undoStack = undoStack.splice(0, undoPosition)
-  undoStack[undoPosition] = _.cloneDeep(getLastStreet())
+  undoStack[undoPosition] = cloneDeep(getLastStreet())
   undoPosition++
 
   trimUndoStack()

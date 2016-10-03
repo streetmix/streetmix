@@ -1,26 +1,49 @@
 // TODO
-// Not included here: footer (layout), buttons (left/right scroll), segments
+// Not included here: segments
 
-.regular-canvas {
+.palette-container {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
+  left: $left-right-inset;
+  right: $left-right-inset;
+  height: $palette-height - 30px;
   bottom: 0;
+  background: $header-footer-background;
+  border-top: 3px solid darken($bottom-background, 5%);
+  text-align: center;
+  z-index: $z-02-palette;
+  user-select: none;
+  touch-action: none;
+
+  // Address a bug where switching building types
+  // will momentarily cause this element to disappear from view
+  // Only in Safari (observed in v8.0.2, still present in v9.1.2)
+  transform: rotateZ(0);
 }
 
-#palette {
-  height: $palette-height + 20px; // To cover scroll bars
+body.read-only .palette-container {
+  display: none;
+}
 
-  padding-left: 15px;
-  padding-right: 15px;
-
+// Applied by the wrapping element created by Scrollable.jsx component
+.palette-scrollable-container {
+  height: $palette-height;
   position: absolute;
+  top: 0;
   left: 140px;
-  top: -30px;
   right: 140px;
 
-  text-align: center;
+  button.scrollable {
+    margin-top: 10px;
+    z-index: $z-04-palette-scroll;
+  }
+}
+
+.palette {
+  height: $palette-height + 20px; // To cover scroll bars
+  position: absolute;
+  top: -30px; // To cover scroll bars
+  left: 0;
+  right: 0;
 
   overflow-x: scroll;
   overflow-y: hidden;
@@ -30,10 +53,34 @@
   white-space: nowrap;
 }
 
-#trashcan {
+.palette-commands {
+  vertical-align: top;
+
   position: absolute;
-  left: -50px;
-  right: -50px;
+  right: 10px;
+  top: 10px;
+
+  height: $palette-height - 50px;
+
+  z-index: $z-04-command-menu;
+
+  text-align: right;
+
+  button {
+    height: $palette-height - 50px;
+  }
+
+  // Spacing between buttons
+  button + button {
+    margin-left: 0.25em;
+  }
+}
+
+.palette-trashcan {
+  position: absolute;
+  // This needs to stretch out to fit the width of the window
+  left: -$left-right-inset;
+  right: -$left-right-inset;
   top: -20px;
   height: $palette-height - 2 * 8px + 5px;
   line-height: $palette-height - 2 * 8px + 5px;
@@ -57,34 +104,5 @@
   &.visible {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-#commands {
-  vertical-align: top;
-
-  position: absolute;
-  right: 10px;
-  top: 10px;
-
-  height: $palette-height - 50px;
-
-  z-index: $z-04-command-menu;
-
-  text-align: right;
-
-  #undo {
-    //width: 50px;
-    height: $palette-height - 50px;
-  }
-
-  #redo {
-    //width: 50px;
-    height: $palette-height - 50px;
-  }
-
-  // Spacing between buttons
-  button + button {
-    margin-left: 0.25em;
   }
 }

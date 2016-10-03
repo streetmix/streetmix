@@ -20,16 +20,18 @@ import {
   updateToLatestSchemaVersion,
   getStreetUrl
 } from '../streets/data_model'
-import { StreetName } from '../streets/name_sign'
+import StreetName from '../streets/StreetName'
 import { sendDeleteStreetToServer } from '../streets/xhr'
 import { getSignInData, isSignedIn } from '../users/authentication'
-import { fetchAvatars } from '../users/avatars'
 import { formatDate } from '../util/date_format'
 import { removeElFromDOM } from '../util/dom_helpers'
 import { fetchGalleryData } from './fetch_data'
 import { fetchGalleryStreet } from './fetch_street'
 import { updateScrollButtons } from './scroll'
 import { drawStreetThumbnail } from './thumbnail'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Avatar from '../app/Avatar'
 
 const THUMBNAIL_WIDTH = 180
 const THUMBNAIL_HEIGHT = 110
@@ -45,22 +47,20 @@ export const galleryState = {
   noStreetSelected: false
 }
 
-// Cache a reference to the gallery element
-const GALLERY_EL = document.getElementById('gallery')
+export function attachGalleryViewEventListeners () {
+  window.addEventListener('stmx:init', function () {
+    // Populate gallery UI button URLs on init
+    document.querySelector('#new-street').href = '/' + URL_NEW_STREET
+    document.querySelector('#copy-last-street').href = '/' + URL_NEW_STREET_COPY_LAST
 
-window.addEventListener('stmx:init', function () {
-  // Populate gallery UI button URLs on init
-  document.querySelector('#new-street').href = '/' + URL_NEW_STREET
-  document.querySelector('#copy-last-street').href = '/' + URL_NEW_STREET_COPY_LAST
+    document.querySelector('#gallery-try-again').addEventListener('pointerdown', repeatReceiveGalleryData)
+    document.querySelector('#gallery-shield').addEventListener('pointerdown', onGalleryShieldClick)
+  })
 
-  document.querySelector('#gallery-try-again').addEventListener('pointerdown', repeatReceiveGalleryData)
-  document.querySelector('#gallery-shield').addEventListener('pointerdown', onGalleryShieldClick)
-  document.querySelector('#gallery-link a').addEventListener('pointerdown', onMyStreetsClick)
-})
-
-window.addEventListener('stmx:everything_loaded', function () {
-  updateGalleryShield()
-})
+  window.addEventListener('stmx:everything_loaded', function () {
+    updateGalleryShield()
+  })
+}
 
 export function showGallery (userId, instant, signInPromo) {
   if (app.readOnly) {
@@ -76,9 +76,7 @@ export function showGallery (userId, instant, signInPromo) {
 
   if (!signInPromo) {
     if (userId) {
-      document.querySelector('#gallery .avatar').setAttribute('userId', getGalleryUserId())
-      document.querySelector('#gallery .avatar').removeAttribute('loaded')
-      fetchAvatars()
+      ReactDOM.render(<Avatar userId={getGalleryUserId()} />, document.querySelector('#gallery .avatar-wrap'))
       document.querySelector('#gallery .user-id').innerHTML = getGalleryUserId()
 
       var linkEl = document.createElement('a')
@@ -206,12 +204,10 @@ export function receiveGalleryData (transmission) {
     anchorEl.appendChild(thumbnailEl)
 
     var nameEl = document.createElement('div')
-    nameEl.className = 'street-name'
+    nameEl.className = 'street-name-wrap'
     anchorEl.appendChild(nameEl)
 
-    // This adds the street name plaque to each thumbnail.
-    // the variable is assigned, but not re-used. Do not remove!
-    let streetName = new StreetName(nameEl, galleryStreet.name) // eslint-disable-line no-unused-vars
+    ReactDOM.render(<StreetName street={galleryStreet} />, nameEl)
 
     var dateEl = document.createElement('span')
     dateEl.classList.add('date')
@@ -248,10 +244,11 @@ export function receiveGalleryData (transmission) {
     switchGalleryStreet(transmission.streets[0].id)
   }
 
-  const selectedEl = GALLERY_EL.querySelector('.selected')
+  const galleryEl = document.getElementById('gallery')
+  const selectedEl = galleryEl.querySelector('.selected')
   if (selectedEl) {
     selectedEl.scrollIntoView()
-    GALLERY_EL.scrollTop = 0
+    galleryEl.scrollTop = 0
   }
 
   updateScrollButtons()
@@ -264,13 +261,14 @@ function repeatReceiveGalleryData () {
 }
 
 export function updateGallerySelection () {
-  const els = GALLERY_EL.querySelectorAll('.streets .selected')
+  const galleryEl = document.getElementById('gallery')
+  const els = galleryEl.querySelectorAll('.streets .selected')
   for (let el of els) {
     el.classList.remove('selected')
   }
 
   const selector = `.streets [streetId="${galleryState.streetId}"]`
-  const el = GALLERY_EL.querySelector(selector)
+  const el = galleryEl.querySelector(selector)
   if (el) {
     el.classList.add('selected')
   }
@@ -298,8 +296,9 @@ function onGalleryStreetClick (event) {
 function updateGalleryStreetCount () {
   let text
 
+  const galleryEl = document.getElementById('gallery')
   if (getGalleryUserId()) {
-    const streetCount = GALLERY_EL.querySelectorAll('.streets li').length
+    const streetCount = galleryEl.querySelectorAll('.streets li').length
     switch (streetCount) {
       case 0:
         text = msg('STREET_COUNT_0')
@@ -314,17 +313,18 @@ function updateGalleryStreetCount () {
   } else {
     text = ''
   }
-  GALLERY_EL.querySelector('.street-count').innerHTML = text
+  galleryEl.querySelector('.street-count').innerHTML = text
 }
 
 function loadGalleryContents () {
-  const els = GALLERY_EL.querySelectorAll('.streets li')
+  const galleryEl = document.getElementById('gallery')
+  const els = galleryEl.querySelectorAll('.streets li')
   for (let el of els) {
     removeElFromDOM(el)
   }
 
-  GALLERY_EL.querySelector('.loading').classList.add('visible')
-  GALLERY_EL.querySelector('.error-loading').classList.remove('visible')
+  galleryEl.querySelector('.loading').classList.add('visible')
+  galleryEl.querySelector('.error-loading').classList.remove('visible')
 
   fetchGalleryData()
 }
@@ -364,7 +364,7 @@ function onDeleteGalleryStreet (event) {
   event.stopPropagation()
 }
 
-function onMyStreetsClick (event) {
+export function onMyStreetsClick (event) {
   if (event.shiftKey || event.ctrlKey || event.metaKey) {
     return
   }

@@ -1,22 +1,22 @@
 import { infoBubble } from '../info_bubble/info_bubble'
 import { getStreetImage } from '../streets/image'
-import { hideAllMenus } from '../menus/menu'
+import { hideAllMenus } from '../menus/menu_controller'
 
-// Add event listeners
-// Chrome does not have the 'beforeprint' or 'afterprint' events
-window.addEventListener('beforeprint', () => {
-  onBeforePrint(false)
-})
+export function attachPrintEventListeners () {
+  // Add event listeners
+  // Chrome does not have the 'beforeprint' or 'afterprint' events
+  window.addEventListener('beforeprint', () => {
+    onBeforePrint(false)
+  })
 
-// Listening for media query change for Chrome
-var mediaQueryList = window.matchMedia('print')
-mediaQueryList.addListener(function (mql) {
-  if (mql.matches) {
-    onBeforePrint(true)
-  }
-})
-
-document.querySelector('#invoke-print').addEventListener('pointerdown', printImage)
+  // Listening for media query change for Chrome
+  var mediaQueryList = window.matchMedia('print')
+  mediaQueryList.addListener(function (mql) {
+    if (mql.matches) {
+      onBeforePrint(true)
+    }
+  })
+}
 
 function updatePrintImage () {
   document.querySelector('#print > div').innerHTML = ''

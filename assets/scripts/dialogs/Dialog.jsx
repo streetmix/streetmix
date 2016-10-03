@@ -7,7 +7,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { hideAllMenus } from '../menus/menu'
+import { hideAllMenus } from '../menus/menu_controller'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 
 export default class Dialog extends React.Component {
@@ -29,7 +29,7 @@ export default class Dialog extends React.Component {
   }
 
   unmountDialog () {
-    ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(this).parentNode)
+    ReactDOM.unmountComponentAtNode(this.dialogEl.parentNode)
   }
 
   render () {
@@ -39,10 +39,10 @@ export default class Dialog extends React.Component {
     }
 
     return (
-      <div className="dialog-box-container">
-        <div className="dialog-box-shield" onClick={this.unmountDialog} />
+      <div className='dialog-box-container' ref={(ref) => { this.dialogEl = ref }}>
+        <div className='dialog-box-shield' onClick={this.unmountDialog} />
         <div className={className}>
-          <button className="close" onClick={this.unmountDialog}>×</button>
+          <button className='close' onClick={this.unmountDialog}>×</button>
           {this.props.children}
         </div>
       </div>

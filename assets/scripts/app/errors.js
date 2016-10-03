@@ -1,6 +1,5 @@
 import { getStreet } from '../streets/data_model'
 import { goReloadClearSignIn } from '../users/authentication'
-import { fetchAvatars } from '../users/avatars'
 import { removeElFromDOM } from '../util/dom_helpers'
 import { getAbortEverything, setAbortEverything } from './initialization'
 import { hideLoadingScreen } from './load_resources'
@@ -186,8 +185,6 @@ export function showError (errorType, newAbortEverything) {
   }
 
   document.getElementById('error').className += ' visible'
-
-  fetchAvatars()
 }
 
 export function hideError () {

@@ -124,13 +124,22 @@ export function getBuildingAttributes (street, left) {
     var realHeight = height - 45 - 6
   }
 
-  return { tilePositionX: tilePositionX, tilePositionY: tilePositionY,
-    width: width, variantsCount: variantsCount, tileset: tileset,
-    mainFloorHeight: mainFloorHeight, floorHeight: floorHeight,
-    flooredBuilding: flooredBuilding, floorRoofWidth: floorRoofWidth,
+  return {
+    tilePositionX: tilePositionX,
+    tilePositionY: tilePositionY,
+    width: width,
+    variantsCount: variantsCount,
+    tileset: tileset,
+    mainFloorHeight: mainFloorHeight,
+    floorHeight: floorHeight,
+    flooredBuilding: flooredBuilding,
+    floorRoofWidth: floorRoofWidth,
     floorCount: floorCount,
     realHeight: realHeight,
-  roofHeight: roofHeight, height: height, buildingVariant: buildingVariant }
+    roofHeight: roofHeight,
+    height: height,
+    buildingVariant: buildingVariant
+  }
 }
 
 // TODO change to array

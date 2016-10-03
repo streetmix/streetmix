@@ -35,17 +35,17 @@ body.no-internet {
   }
 
   #identity-menu-item,
-  #feedback-menu-item,
+  #contact-menu-item,
   #sign-in-menu-item,
   #gallery-link {
     display: none;
   }
 
   // Share menu
-  #sign-in-promo,
-  #share-via-link-canvas,
-  #share-via-twitter,
-  #share-via-facebook {
+  .share-sign-in-promo,
+  .share-via-link-container,
+  .share-via-twitter,
+  .share-via-facebook {
     display: none;
   }
 }

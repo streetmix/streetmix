@@ -1,6 +1,6 @@
 <p align="center">
   <a href="http://streetmix.net/">
-    <img alt="Streetmix" src="https://cdn.rawgit.com/streetmix/logo/master/streetmix-logo.svg" width="450">
+    <img alt="Streetmix" src="https://streetmix.github.io/assets/logos/streetmix-logo.svg" width="450">
   </a>
 </p>
 
@@ -73,6 +73,6 @@ Streetmix started as a [Code for America][cfa] hackathon project in January 2013
 
 ### Copyright
 
-Copyright (c) 2013-2016 Code for America. See [LICENSE][] for details.
+Copyright (c) 2013-2016 Code for America and contributors. See [LICENSE][] for details.
 
 [license]: https://github.com/codeforamerica/streetmix/blob/master/LICENSE.md

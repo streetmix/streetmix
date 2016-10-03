@@ -2,23 +2,22 @@
  * Adds scroll buttons to gallery and palette.
  *
  */
-import $ from 'jquery'
-import { getElAbsolutePos } from '../util/helpers'
+import { animate, getElAbsolutePos } from '../util/helpers'
 
-// This file is in the gallery directory but the same scroll buttons
-// are also added to the palette as well.
-window.addEventListener('stmx:everything_loaded', function () {
-  addScrollButtons(document.querySelector('#palette'))
-  addScrollButtons(document.querySelector('#gallery .streets'))
-})
+export function attachGalleryScrollEventListeners () {
+  window.addEventListener('stmx:everything_loaded', function () {
+    addScrollButtons(document.querySelector('#gallery .streets'))
+  })
 
-window.addEventListener('resize', function () {
-  updateScrollButtons()
-})
+  window.addEventListener('resize', function () {
+    updateScrollButtons()
+  })
+}
 
 function addScrollButtons (el) {
   const leftButtonEl = document.createElement('button')
   leftButtonEl.innerHTML = '«'
+  leftButtonEl.classList.add('scroll')
   leftButtonEl.classList.add('scroll-left')
   leftButtonEl.el = el
   leftButtonEl.disabled = true
@@ -27,13 +26,14 @@ function addScrollButtons (el) {
 
   const rightButtonEl = document.createElement('button')
   rightButtonEl.innerHTML = '»'
+  rightButtonEl.classList.add('scroll')
   rightButtonEl.classList.add('scroll-right')
   rightButtonEl.el = el
   rightButtonEl.disabled = true
   rightButtonEl.addEventListener('pointerdown', onScrollButtonRight)
   el.parentNode.appendChild(rightButtonEl)
 
-  el.setAttribute('scroll-buttons', true)
+  el.setAttribute('data-scroll-buttons', true)
   el.addEventListener('scroll', onScrollButtonScroll)
 
   repositionScrollButtons(el)
@@ -41,7 +41,7 @@ function addScrollButtons (el) {
 }
 
 export function updateScrollButtons () {
-  const els = document.querySelectorAll('[scroll-buttons]')
+  const els = document.querySelectorAll('[data-scroll-buttons]')
   for (let el of els) {
     repositionScrollButtons(el)
     scrollButtonScroll(el)
@@ -53,7 +53,7 @@ function onScrollButtonLeft (event) {
   const position = el.scrollLeft - (el.offsetWidth - 150) // TODO: document magic number
   const duration = 300
 
-  $(el).animate({ scrollLeft: position }, duration)
+  animate(el, { scrollLeft: position }, duration)
 }
 
 function onScrollButtonRight (event) {
@@ -61,7 +61,7 @@ function onScrollButtonRight (event) {
   const position = el.scrollLeft + (el.offsetWidth - 150) // TODO: document magic number
   const duration = 300
 
-  $(el).animate({ scrollLeft: position }, duration)
+  animate(el, { scrollLeft: position }, duration)
 }
 
 function onScrollButtonScroll (event) {

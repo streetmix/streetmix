@@ -13,31 +13,16 @@ const defaultLocale = navigator.language || 'en'
 
 export function initLocale () {
   // Current language is the one set by Streetmix or is the browser default, if unset
-  const locale = getLocale() || defaultLocale
-
-  initSettingDropdown(locale)
+  const locale = getLocale()
   doTheI18n(locale)
 }
 
-function initSettingDropdown (locale) {
-  const el = document.querySelector('#language-select')
-
-  // Set the dropdown to the current language.
-  // If current language is not in the list, fallback to US English.
-  el.value = locale
-  if (!el.value) {
-    el.value = 'en'
-  }
-
-  el.addEventListener('change', onNewLocaleSelected)
-}
-
-function onNewLocaleSelected (event) {
+export function onNewLocaleSelected (event) {
   setLocale(event.target.value)
 }
 
 export function getLocale () {
-  return window.localStorage.getItem('locale')
+  return window.localStorage.getItem('locale') || defaultLocale
 }
 
 export function setLocale (locale) {
@@ -75,6 +60,9 @@ function doTheI18n (locale) {
       }
       els[i].textContent = translation
     }
+
+    // Some parts of the UI need to know language has changed
+    window.dispatchEvent(new window.CustomEvent('stmx:language_changed'))
   }
 
   i18next

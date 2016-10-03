@@ -4,6 +4,8 @@
  */
 
 import Raven from 'raven-js'
+import React from 'react'
+import ReactDOM from 'react-dom'
 
 // Polyfills
 import 'babel-polyfill'
@@ -15,26 +17,14 @@ import './vendor/modernizr-custom'
 import './vendor/polyfills/customevent' // customEvent in IE
 
 // Main object
-import { Stmx } from './app/initialization'
+import { initialize } from './app/initialization'
 import { startListening } from './app/keypress'
 import { system } from './preinit/system_capabilities'
-// import modules for side-effects
-import './app/blocking_shield'
-import './app/debug_info'
-import './app/keyboard_commands'
-import './app/print'
-import './app/status_message'
-import './app/welcome'
-import './gallery/scroll'
-import './gallery/view'
-import './info_bubble/info_bubble'
-import './menus/_help'
-import './menus/_identity'
-import './menus/_settings'
-import './menus/menu'
-import './streets/name'
-import './streets/scroll'
-import './util/fetch_nonblocking'
+import { app } from './preinit/app_settings'
+import MenusContainer from './menus/MenusContainer'
+import Palette from './app/Palette'
+import StreetNameCanvas from './streets/StreetNameCanvas'
+import DebugInfo from './app/DebugInfo'
 
 // Error tracking
 // Load this before all other modules. Only load when run in production.
@@ -59,17 +49,13 @@ function setScaleForPhone () {
 }
 setScaleForPhone()
 
-// This event is fired by _onEverythingLoaded() in the deprecated
-// global bundle. This allows things in the modular bundle to respond
-// to that function without needing to be exported globally.
-// This should eventually not be required & can be removed.
-window.addEventListener('stmx:everything_loaded', function (e) {
-  /* global _onEverythingLoaded2 */
-  _onEverythingLoaded2()
-})
+// Temp: mount React components
+ReactDOM.render(<MenusContainer />, document.getElementById('menus'))
+ReactDOM.render(<Palette />, document.getElementById('palette'))
+ReactDOM.render(<StreetNameCanvas allowEditing={!app.readOnly} />, document.getElementById('street-header'))
+ReactDOM.render(<DebugInfo />, document.getElementById('debug'))
 
 // Start listening for keypresses
 startListening()
 
-Stmx.preInit()
-Stmx.init()
+initialize()

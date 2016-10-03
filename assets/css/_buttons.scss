@@ -1,5 +1,5 @@
-button.scroll-left,
-button.scroll-right {
+button.scroll,
+.scrollable {
   @include tap-highlight-color(transparent);
 
   position: absolute;
@@ -8,36 +8,13 @@ button.scroll-right {
   height: 40px;
   cursor: pointer;
 
-  &.scroll-left {
-    margin-left: -20px;
-  }
-
-  &.scroll-right {
-    margin-left: -5px;
-  }
-
   &[disabled] {
     opacity: 0;
     pointer-events: none;
   }
 }
 
-footer button.scroll-left,
-footer button.scroll-right {
-  margin-top: 10px;
-  z-index: $z-04-palette-scroll;
-
-  &.scroll-left {
-    margin-left: -65px;
-  }
-
-  &.scroll-right {
-    margin-left: -60px;
-  }
-}
-
-#gallery button.scroll-left,
-#gallery button.scroll-right {
+#gallery button.scroll {
   margin-top: 95px;
 
   &.scroll-left {

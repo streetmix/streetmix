@@ -13,7 +13,7 @@
   },
   "scripts": {
     "prestart": "mongod --fork --logpath /dev/null",
-    "start": "supervisor index.js",
+    "start": "supervisor -e node,js,jsx index.js",
     "stop": "mongo admin --eval 'db.shutdownServer()'",
     "pretest": "mongod --fork --logpath /dev/null",
     "test": "node test/index | tap-spec && grunt test:local",
@@ -33,7 +33,6 @@
     "body-parser": "1.15.2",
     "browserify": "13.0.1",
     "browserify-middleware": "7.0.0",
-    "browserify-shim": "3.8.12",
     "btoa": "1.1.2",
     "compression": "1.6.2",
     "config": "1.21.0",
@@ -42,6 +41,7 @@
     "dateformat": "1.0.12",
     "envify": "3.4.1",
     "express": "4.14.0",
+    "file-saver": "1.3.2",
     "gulp-if": "2.0.1",
     "gulp-plumber": "1.1.0",
     "gulp-postcss": "6.1.1",
@@ -52,7 +52,6 @@
     "i18next": "3.3.1",
     "i18next-xhr-backend": "0.6.0",
     "jade": "1.11.0",
-    "jquery": "3.0.0",
     "js-cookie": "2.1.2",
     "kerberos": "0.0.21",
     "lodash": "4.13.1",
@@ -69,8 +68,9 @@
     "request": "2.72.0",
     "requireindex": "1.1.0",
     "sendgrid": "2.0.0",
+    "shifty": "1.5.2",
     "sprintf": "0.1.5",
-    "streetmix-icons": "git://github.com/streetmix/icons.git#0.4.0",
+    "streetmix-icons": "git://github.com/streetmix/icons.git#v0.4.1",
     "streetmix-illustrations": "git://github.com/streetmix/illustrations.git",
     "superagent": "2.0.0",
     "supervisor": "0.11.0",
@@ -82,11 +82,11 @@
     "winston": "2.2.0"
   },
   "devDependencies": {
-    "eslint": "2.13.1",
-    "eslint-config-standard": "5.3.5",
-    "eslint-config-standard-react": "3.0.0",
+    "eslint": "3.5.0",
+    "eslint-config-standard": "6.0.0",
+    "eslint-config-standard-react": "4.0.1",
     "eslint-plugin-promise": "2.0.1",
-    "eslint-plugin-react": "6.0.0",
+    "eslint-plugin-react": "6.2.0",
     "eslint-plugin-standard": "2.0.0",
     "grunt": "1.0.1",
     "grunt-env": "0.4.4",
@@ -100,13 +100,5 @@
     "tap-spec": "4.1.1",
     "tape": "4.6.0",
     "tape-catch": "1.0.6"
-  },
-  "browserify": {
-    "transform": [
-      "browserify-shim"
-    ]
-  },
-  "browserify-shim": {
-    "./assets/scripts/vendor/FileSaver.js": "saveAs"
   }
 }
