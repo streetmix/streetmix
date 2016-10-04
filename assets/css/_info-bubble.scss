@@ -161,10 +161,6 @@
     white-space: nowrap;
     user-select: none;
 
-    button {
-      margin-bottom: 0px;
-    }
-
     &.entire-info-bubble {
       width: auto;
       left: 8px;
@@ -225,10 +221,9 @@
   .non-variant {
     button {
       margin-left: 3px;
-      margin-top: 0;
       white-space: nowrap;
       position: relative;
-        
+
       .icon {
         opacity: 0.666;
       }
