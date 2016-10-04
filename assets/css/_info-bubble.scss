@@ -113,35 +113,7 @@
     user-select: none;
 
     button {
-      margin-left: 3px;
-      margin-top: 0;
       margin-bottom: 2px;
-      white-space: nowrap;
-
-      position: relative;
-
-      .icon {
-        opacity: 0.666;
-      }
-
-      &:active {
-        .icon {
-          margin-top: 1px;
-          opacity: 0.9;
-        }
-      }
-
-      &[disabled] {
-        background: darken($ui-colour, 10%);
-        color: black;
-        opacity: 1;
-        border-top-color: darken($ui-colour, 30%);
-        border-bottom-color: darken($ui-colour, 30%);
-
-        .icon {
-          opacity: 1;
-        }
-      }
     }
 
     hr {
@@ -182,15 +154,16 @@
   .non-variant {
     float: right;
     text-align: right;
-    margin-top: 9px;
+    margin-top: 8px;
     margin-left: 8px;
     margin-right: 7px;
     min-height: 30px;
     white-space: nowrap;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
     user-select: none;
+
+    button {
+      margin-bottom: 0px;
+    }
 
     &.entire-info-bubble {
       width: auto;
@@ -246,14 +219,16 @@
         margin-bottom: 2px;
       }
     }
+  }
 
+  .variants,
+  .non-variant {
     button {
       margin-left: 3px;
       margin-top: 0;
       white-space: nowrap;
-
       position: relative;
-
+        
       .icon {
         opacity: 0.666;
       }
@@ -279,9 +254,21 @@
     }
   }
 
+  .building-height {
+    .decrement {
+      margin-top: 3px;
+      margin-bottom: 5px;
+    }
+
+    .increment {
+      margin-bottom: 2px;
+    }
+  }
+
+  // Chrome  
   @media screen and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: .001dpcm) {
     .non-variant {
-      margin-top: 8px;
+      margin-top: 7px;
     }
   }
 
