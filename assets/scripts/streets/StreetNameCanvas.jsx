@@ -2,7 +2,6 @@ import React from 'react'
 import StreetName from './StreetName'
 import StreetMetaData from './StreetMetaData'
 import { getStreet } from './data_model'
-import { updateStreetName } from './name'
 
 export default class StreetNameCanvas extends React.Component {
   constructor (props) {
@@ -37,7 +36,6 @@ export default class StreetNameCanvas extends React.Component {
   streetUpdated (e) {
     const street = getStreet()
     this.setState({street})
-    updateStreetName()
   }
 
   onResizeStreetName (coords) {
