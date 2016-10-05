@@ -113,35 +113,7 @@
     user-select: none;
 
     button {
-      margin-left: 3px;
-      margin-top: 0;
       margin-bottom: 2px;
-      white-space: nowrap;
-
-      position: relative;
-
-      .icon {
-        opacity: 0.666;
-      }
-
-      &:active {
-        .icon {
-          margin-top: 1px;
-          opacity: 0.9;
-        }
-      }
-
-      &[disabled] {
-        background: darken($ui-colour, 10%);
-        color: black;
-        opacity: 1;
-        border-top-color: darken($ui-colour, 30%);
-        border-bottom-color: darken($ui-colour, 30%);
-
-        .icon {
-          opacity: 1;
-        }
-      }
     }
 
     hr {
@@ -181,18 +153,13 @@
 
   .non-variant {
     float: right;
-    margin-right: 8px;
-    margin-top: 5px;
-    margin-bottom: 8px;
-    width: 150px;
-    height: $info-bubble-button-size;
-    line-height: $info-bubble-button-size;
-
-    user-select: none;
-
-    white-space: nowrap;
-
     text-align: right;
+    margin-top: 8px;
+    margin-left: 8px;
+    margin-right: 7px;
+    min-height: 30px;
+    white-space: nowrap;
+    user-select: none;
 
     &.entire-info-bubble {
       width: auto;
@@ -227,7 +194,7 @@
 
         vertical-align: bottom;
         height: 22px;
-
+        line-height: 22px;
         outline: none;
       }
 
@@ -247,6 +214,55 @@
         margin-top: 4px;
         margin-bottom: 2px;
       }
+    }
+  }
+
+  .variants,
+  .non-variant {
+    button {
+      white-space: nowrap;
+      position: relative;
+
+      .icon {
+        opacity: 0.666;
+      }
+
+      &:active {
+        .icon {
+          margin-top: 1px;
+          opacity: 0.9;
+        }
+      }
+
+      &[disabled] {
+        background: darken($ui-colour, 10%);
+        color: black;
+        opacity: 1;
+        border-top-color: darken($ui-colour, 30%);
+        border-bottom-color: darken($ui-colour, 30%);
+
+        .icon {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  .building-height {
+    .decrement {
+      margin-top: 3px;
+      margin-bottom: 5px;
+    }
+
+    .increment {
+      margin-bottom: 2px;
+    }
+  }
+
+  // Chrome  
+  @media screen and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: .001dpcm) {
+    .non-variant {
+      margin-top: 7px;
     }
   }
 
