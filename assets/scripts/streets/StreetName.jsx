@@ -2,6 +2,7 @@ import React from 'react'
 import { msg } from '../app/messages'
 import { setAndSaveStreet } from './data_model'
 import { needsUnicodeFont } from '../util/unicode'
+import { updateStreetName } from './name'
 
 const MAX_STREET_NAME_WIDTH = 50
 
@@ -84,6 +85,7 @@ export default class StreetName extends React.Component {
       const street = Object.assign({}, this.props.street)
       street.name = StreetName.normalizeStreetName(newName)
       setAndSaveStreet(street)
+      updateStreetName()
     }
   }
 
