@@ -8,8 +8,8 @@ import moment from 'moment'
 import { msg } from '../app/messages'
 
 export function formatDate (dateString) {
-  const now = moment();
-  const date = moment(dateString);
+  const now = moment()
+  const date = moment(dateString)
   const diff = now - date
 
   if (diff >= 0) {
