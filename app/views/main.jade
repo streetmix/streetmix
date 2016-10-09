@@ -11,8 +11,9 @@ block main
 
   #main-screen
 
-    //- Mount point for React-based menus
-    #menus
+    //- Mount point for React
+    #react-app
+    #dialogs-react
 
     .info-bubble
 
@@ -24,10 +25,6 @@ block main
         | Streetmix is having trouble connecting to the Internet.
         button#no-connection-try-again.
           Try again
-
-    #street-header
-
-    #dialogs-react
 
     include ./ui/welcome
 
@@ -50,9 +47,6 @@ block main
       .front-clouds
     #street-scroll-indicator-left
     #street-scroll-indicator-right
-
-    //- Mount point for React
-    #palette
 
   #print
     div
