@@ -114,6 +114,7 @@
 
     button {
       margin-bottom: 2px;
+      margin-left: 3px;
     }
 
     hr {
@@ -259,7 +260,7 @@
     }
   }
 
-  // Chrome  
+  // Chrome
   @media screen and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: .001dpcm) {
     .non-variant {
       margin-top: 7px;
