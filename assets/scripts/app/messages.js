@@ -45,10 +45,10 @@ const messages = {
 
   SEGMENT_NAME_EMPTY: 'Empty space',
 
-  DATE_MINUTES_AGO: 'few minutes ago',
-  DATE_SECONDS_AGO: 'few seconds ago',
-  DATE_YESTERDAY: 'yesterday, [[time]]',
-  DATE_TODAY: 'today, [[time]]'
+  DATE_MINUTES_AGO: 'A few minutes ago',
+  DATE_SECONDS_AGO: 'A few seconds ago',
+  DATE_YESTERDAY: 'Yesterday at [[time]]',
+  DATE_TODAY: 'Today at [[time]]'
 }
 
 export function msg (messageId, data) {
