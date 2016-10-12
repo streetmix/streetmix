@@ -43,7 +43,12 @@ const messages = {
 
   DEFAULT_STREET_NAME: 'Unnamed St',
 
-  SEGMENT_NAME_EMPTY: 'Empty space'
+  SEGMENT_NAME_EMPTY: 'Empty space',
+
+  DATE_MINUTES_AGO: 'A few minutes ago',
+  DATE_SECONDS_AGO: 'A few seconds ago',
+  DATE_YESTERDAY: 'Yesterday at [[time]]',
+  DATE_TODAY: 'Today at [[time]]'
 }
 
 export function msg (messageId, data) {
