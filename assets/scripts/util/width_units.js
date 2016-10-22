@@ -42,7 +42,7 @@ export function processWidthInput (widthInput) {
 
   let width
 
-  // The conditional makes sure we only parse when the input includes ' as any character except the last
+  // The conditional makes sure we only split and parse separately when the input includes ' as any character except the last
   if (widthInput.indexOf("'") !== -1 && widthInput.length > widthInput.indexOf("'") + 1) {
     widthInput = widthInput.split("'")
     width = widthInput.reduce(function (prev, cur) {
@@ -176,7 +176,7 @@ function stringifyMetricWidth (width) {
  * value multiplied by the appropriate multiplier.
  *
  * @param {String} widthInput to convert to number
- * @returns {Number} formated width as number
+ * @returns {Number} formatted width as number
  */
 function parseStringForUnits (widthInput) {
   if (widthInput.indexOf('-') !== -1) {
