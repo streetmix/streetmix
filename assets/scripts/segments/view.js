@@ -372,7 +372,8 @@ function fillEmptySegment (el) {
   let innerEl
   innerEl = document.createElement('span')
   innerEl.classList.add('name')
-  innerEl.innerHTML = msg('SEGMENT_NAME_EMPTY')
+  innerEl.textContent = msg('SEGMENT_NAME_EMPTY')
+  innerEl.setAttribute('data-i18n', 'section.empty')
   el.appendChild(innerEl)
 
   innerEl = document.createElement('span')
