@@ -45,6 +45,7 @@ export function processWidthInput (widthInput) {
   // The conditional makes sure we only split and parse separately when the input includes ' as any character except the last
   if (widthInput.indexOf("'") !== -1 && widthInput.length > widthInput.indexOf("'") + 1) {
     widthInput = widthInput.split("'")
+    widthInput[0] += "'" // Add the ' to the first value so the parser knows to convert in feet, not in unitless, when in metric
     width = widthInput.reduce(function (prev, cur) {
       if (cur.indexOf('"') === -1) { // Assuming anything coming after feet is going to be inches
         cur += '"'
