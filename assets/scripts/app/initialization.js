@@ -214,16 +214,16 @@ function onReadyStateChange () {
 }
 
 // Toggle debug features
-if (debug.hoverPolygon) {
+/*if (debug.hoverPolygon) {
   createDebugHoverPolygon()
 }
 
 // Toggle experimental features
 if (debug.experimental) {
   // Initalize i18n / localization
-  // Currently experimental-only
+  // Currently experimental-only*/
   initLocale()
-}
+//}
 
 // Other
 addBodyClasses()

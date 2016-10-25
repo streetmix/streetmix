@@ -2,7 +2,7 @@
   "menu": {
     "item": {
       "help": "Ayuda",
-      "about": "Sobre Streetmix...",
+      "about": "Sobre Streetminx",
       "contact": "Contacto",
       "sign-in": "Acceder",
       "sign-out": "Desconectarse",
@@ -22,8 +22,8 @@
       "link": "Copiar y pegar este enlace para compartir:",
       "twitter": "Compartir utilizando Twitter",
       "facebook": "Compartir utilizando Facebook",
-      "print": "Imprimir...",
-      "save": "Guardar como imagen...",
+      "print": "Imprimir",
+      "save": "Guardar como imagen",
       "save-byline": "Para incluir en un reporte, blog, etc"
     },
     "contact": {
@@ -104,8 +104,8 @@
     "label": "%s de ancho",
     "room": "(%s espacio)",
     "occupied": "Ancho ocupado:",
-    "building": "Ancho entre edificaciones:",
-    "different": "Ancho diferente:",
+    "building": "Ancho entre edificaciones",
+    "different": "Ancho diferente",
     "metric": "Cambiar al sistema metrico",
     "imperial": "Cambiar al sistema ingles (pies)"
   },
@@ -133,10 +133,10 @@
     "delete-street-tooltip": "Eliminar la calle"
   },
   "users": {
-    "anonymous": "Anónimo"
+    "anonymous": "Anonimo"
   },
   "sign-in": {
-    "link": "Registrar en Twitter",
+    "link": "Registrar on Twitter",
     "promo-1": "Para vinculos mas vistosos a tus calles y galeria personal de calles",
     "promo-2": "para tu galeria de calles personal"
   },
