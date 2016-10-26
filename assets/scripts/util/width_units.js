@@ -40,26 +40,21 @@ export function processWidthInput (widthInput) {
     }
   }
 
-  let width = parseFloat(widthInput)
+  let width
 
-  if (width) {
-    // Default multiplier, is true if units are imperial
-    let multiplier = 1
-
-    // TODO remove call to getStreet. Pass in units instead
-    // Default unit
-    if (getStreet().units === SETTINGS_UNITS_METRIC) {
-      multiplier = 1 / IMPERIAL_METRIC_MULTIPLIER
-    }
-
-    for (let i in WIDTH_INPUT_CONVERSION) {
-      if (widthInput.match(new RegExp('[\\d\\.]' + WIDTH_INPUT_CONVERSION[i].text + '$'))) {
-        multiplier = WIDTH_INPUT_CONVERSION[i].multiplier
-        break
+  // The conditional makes sure we only split and parse separately when the input includes ' as any character except the last
+  if (widthInput.indexOf("'") !== -1 && widthInput.length > widthInput.indexOf("'") + 1) {
+    widthInput = widthInput.split("'")
+    widthInput[0] += "'" // Add the ' to the first value so the parser knows to convert in feet, not in unitless, when in metric
+    width = widthInput.reduce(function (prev, cur) {
+      if (cur.indexOf('"') === -1) { // Assuming anything coming after feet is going to be inches
+        cur += '"'
       }
-    }
 
-    width *= multiplier
+      return parseStringForUnits(prev.toString()) + parseStringForUnits(cur.toString())
+    })
+  } else {
+    width = parseStringForUnits(widthInput)
   }
 
   return width
@@ -175,4 +170,41 @@ function stringifyMetricWidth (width) {
   }
 
   return widthText
+}
+
+/**
+ * Given a width in any unit (including no unit), parses for units and returns
+ * value multiplied by the appropriate multiplier.
+ *
+ * @param {String} widthInput to convert to number
+ * @returns {Number} formatted width as number
+ */
+function parseStringForUnits (widthInput) {
+  if (widthInput.indexOf('-') !== -1) {
+    widthInput = widthInput.replace(/-/g, '') // Dashes would mean negative in the parseFloat
+  }
+
+  let width = parseFloat(widthInput)
+
+  if (width) {
+    // Default multiplier, is true if units are imperial
+    let multiplier = 1
+
+    // TODO remove call to getStreet. Pass in units instead
+    // Default unit
+    if (getStreet().units === SETTINGS_UNITS_METRIC) { // Checks for a unitless input when metric
+      multiplier = 1 / IMPERIAL_METRIC_MULTIPLIER
+    }
+
+    for (let i in WIDTH_INPUT_CONVERSION) {
+      if (widthInput.match(new RegExp('[\\d\\.]' + WIDTH_INPUT_CONVERSION[i].text + '$'))) {
+        multiplier = WIDTH_INPUT_CONVERSION[i].multiplier
+        break
+      }
+    }
+    width *= multiplier
+    return width
+  } else {
+    return 0 // Allows for leading zeros, like 0'7"
+  }
 }
