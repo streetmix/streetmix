@@ -35,7 +35,7 @@ module.exports = {
     baseuri: '/api'
   },
   db: {
-    url: process.env.MONGOHQ_URL || 'mongodb://localhost/streetmix'
+    url: process.env.MONGODB_URI || 'mongodb://localhost/streetmix'
   },
   email: {
     sendgrid: {

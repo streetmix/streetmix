@@ -7,13 +7,13 @@
       "name": "Acera con un árbol"
     },
     "sidewalk-bike-rack": {
-      "name": "CityRack (Estacionamiento para bicicletas)"
+      "name": "Bike rack"
     },
     "sidewalk-bench": {
-      "name": "CityBench (Banco)"
+      "name": "Bench"
     },
     "sidewalk-wayfinding": {
-      "name": "Señalética informativa (WalkNYC)",
+      "name": "Wayfinding sign",
       "description": {
         "prompt": "Learn more about wayfinding signs",
         "lede": "Wayfinding signs help pedestrians get to common destinations.",
@@ -25,10 +25,10 @@
       }
     },
     "sidewalk-lamp": {
-      "name": "CityLight (Acera con farola)"
+      "name": "Sidewalk with a lamp"
     },
     "parklet": {
-      "name": "Street Seat (Parque de bolsillo)",
+      "name": "Parklet",
       "description": {
         "prompt": "Learn more about parklets",
         "imageCaption": "4033 Judah Street Parklet, courtesy of San Francisco Planning Department.",
@@ -40,37 +40,37 @@
       }
     },
     "divider": {
-      "name": "Segregación",
+      "name": "Buffer",
       "details": {
         "planting-strip": {
-          "name": "Greenstreet (Franja vegetal)"
+          "name": "Planting strip"
         },
         "planter-box": {
-          "name": "Matera"
+          "name": "Planter box"
         },
         "median": {
-          "name": "Separador"
+          "name": "Median"
         },
         "striped-buffer": {
           "name": "Buffer"
         },
         "bush": {
-          "name": "Greenstreet (Franja vegetal)"
+          "name": "Planting strip"
         },
         "flowers": {
-          "name": "Greenstreet (Franja vegetal)"
+          "name": "Planting strip"
         },
         "big-tree": {
-          "name": "Greenstreet (Franja vegetal)"
+          "name": "Planting strip"
         },
         "palm-tree": {
-          "name": "Greenstreet (Franja vegetal)"
+          "name": "Planting strip"
         },
         "bollard": {
-          "name": "Bolardo"
+          "name": "Bollard"
         },
         "dome": {
-          "name": "Tacha"
+          "name": "Traffic exclusion dome"
         }
       }
     },
@@ -111,18 +111,18 @@
       }
     },
     "parking-lane": {
-      "name": "Carril de estacionamiento",
+      "name": "Parking lane",
       "details": {
         "sideways|left": {
-          "name": "Estacionamiento en perpendicular"
+          "name": "Perpendicular parking"
         },
         "sideways|right": {
-          "name": "Estacionamiento en perpendicular"
+          "name": "Perpendicular parking"
         }
       }
     },
     "drive-lane": {
-      "name": "Carril",
+      "name": "Drive lane",
       "details": {
         "inbound|sharrow": {
           "name": "Sharrow",
@@ -151,41 +151,41 @@
       }
     },
     "turn-lane": {
-      "name": "Carril de giro",
+      "name": "Turn lane",
       "details": {
         "inbound|straight": {
-          "name": "Carril con restricción de giros"
+          "name": "No turn lane"
         },
         "inbound|shared": {
-          "name": "Carril de giros central"
+          "name": "Center turn lane"
         },
         "outbound|straight": {
-          "name": "Carril con restricción de giros"
+          "name": "No turn lane"
         },
         "outbound|shared": {
-          "name": "Carril de giros central"
+          "name": "Center turn lane"
         }
       }
     },
     "bus-lane": {
-      "name": "Carril de autobús",
+      "name": "Bus lane",
       "details": {
         "inbound|shared": {
-          "name": "Carril compartido entre autobuses y bicicletas"
+          "name": "Shared bus/bike lane"
         },
         "outbound|shared": {
-          "name": "Carril compartido entre autobuses y bicicletas"
+          "name": "Shared bus/bike lane"
         }
       }
     },
     "streetcar": {
-      "name": "Tranvía"
+      "name": "Streetcar"
     },
     "light-rail": {
-      "name": "Tren ligero"
+      "name": "Light rail"
     },
     "transit-shelter": {
-      "name": "Estación de transporte colectivo",
+      "name": "Transit shelter",
       "details": {
         "left|light-rail": {
           "description": {
@@ -278,13 +278,13 @@
     "bike-rack-elevation|sidewalk-parallel": "Parallel parking, sidewalk level",
     "bike-rack-elevation|sidewalk": "Perpendicular parking, sidewalk level",
     "bike-rack-elevation|road": "Perpendicular parking, road level",
-    "building|waterfront": "Malecón",
-    "building|grass": "Pasto",
-    "building|fence": "Lote baldío",
-    "building|parking-lot": "Lote de estacionamiento",
-    "building|residential": "Casa",
-    "building|narrow": "Edificio",
-    "building|wide": "Edificio",
+    "building|waterfront": "Waterfront",
+    "building|grass": "Grass",
+    "building|fence": "Empty lot",
+    "building|parking-lot": "Parking lot",
+    "building|residential": "Home",
+    "building|narrow": "Narrow building",
+    "building|wide": "Wide building",
     "wayfinding-type|large": "Large",
     "wayfinding-type|medium": "Medium",
     "wayfinding-type|small": "Small"

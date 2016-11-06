@@ -4,10 +4,13 @@
 
     .first-time-new-street
       h1(data-i18n='dialogs.welcome.heading').
-        Welcome to Streetmix.
+        Welcome to Streetmix Lower East Side!
       p.
-        Design, remix, and share your neighborhood street. Add trees or bike paths, widen
-        sidewalks or traffic lanes, learn how your decisions can impact your community.
+        Design, envision and share your Lower East Side street. Add trees, street seats and
+        protected bike lanes, change lane widths, and help us re-imagine Lower East Side streets.
+        Learn more about our street visioning project at
+        <strong>makeourstreet.nyc</strong>
+
       p(class='important').
         Start by moving some segments around with
         <span class='touch-only'>your finger.</span>
@@ -15,7 +18,7 @@
 
     .first-time-existing-street
       h1(data-i18n='dialogs.welcome.heading').
-        Welcome to Streetmix.
+        Welcome to Streetmix Lower East Side!
       p.
         This is
         #[span#welcome-street-name]
@@ -30,7 +33,7 @@
 
     .new-street
       h1(data-i18n='dialogs.new-street.heading').
-        Here’s your new street.
+        Here’s your new Lower East Side street.
       ul
         li
           input#new-street-default(type='radio', name='new-street')
@@ -44,4 +47,3 @@
           input#new-street-last(type='radio', name='new-street')
           label(for='new-street-last', data-i18n='dialogs.new-street.last').
             Start with a copy of last street
-

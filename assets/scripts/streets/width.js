@@ -7,7 +7,13 @@ import { TILE_SIZE } from '../segments/view'
 import { getStreet } from './data_model'
 import { onStreetSectionScroll } from './scroll'
 
-export const DEFAULT_STREET_WIDTH = 80
+const STREET_WIDTH_CUSTOM = -1
+const STREET_WIDTH_SWITCH_TO_METRIC = -2
+const STREET_WIDTH_SWITCH_TO_IMPERIAL = -3
+
+export const DEFAULT_STREET_WIDTH = 74
+const DEFAULT_STREET_WIDTHS = [40, 60, 80]
+
 
 const MIN_CUSTOM_STREET_WIDTH = 10
 export const MAX_CUSTOM_STREET_WIDTH = 400
