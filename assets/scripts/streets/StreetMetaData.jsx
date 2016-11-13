@@ -56,4 +56,3 @@ StreetMetaData.propTypes = {
   readOnly: React.PropTypes.bool,
   street: React.PropTypes.any
 }
-

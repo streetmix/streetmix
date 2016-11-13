@@ -6,6 +6,7 @@ const SECONDS_AGO = 1000 * 60
 
 import moment from 'moment'
 import { msg } from '../app/messages'
+import { t } from '../app/locale'
 
 export function formatDate (dateString) {
   const now = moment()
@@ -14,6 +15,7 @@ export function formatDate (dateString) {
 
   if (diff >= 0) {
     if (diff < SECONDS_AGO) {
+      return t('datetime.seconds-ago')
       return msg('DATE_SECONDS_AGO')
     }
 
