@@ -120,9 +120,9 @@
     "remove": "Drag here to remove"
   },
   "width": {
-    "label": "%s width",
-    "room": "(%s room)",
-    "over": "(%s over)",
+    "label": "{{width}} width",
+    "under": "({{width}} room)",
+    "over": "({{width}} over)",
     "occupied": "Occupied width:",
     "building": "Building-to-building width:",
     "different": "Different width…",
@@ -178,7 +178,7 @@
   },
   "users": {
     "anonymous": "Anonymous",
-    "byline": "by %s"
+    "byline": "by {{user}}"
   },
   "sign-in": {
     "link": "Sign in with Twitter",

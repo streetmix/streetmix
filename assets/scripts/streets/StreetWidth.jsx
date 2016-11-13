@@ -49,18 +49,16 @@ export default class StreetWidth extends React.Component {
 
     let differenceClass = ''
     let differenceString = ''
-    let widthDifference = ''
 
     if (this.state.street.remainingWidth > 0) {
       differenceClass = 'street-width-under'
-      differenceString = t('width.room', '(%s room)')
+      differenceString = t('width.room', '({{width}} room)', { width })
     } else if (this.state.street.remainingWidth < 0) {
       differenceClass = 'street-width-over'
-      differenceString = t('width.over', '(% over)')
+      differenceString = t('width.over', '({{width}} over)', { width })
     }
 
-    widthDifference = replace(differenceString, '%s', width)
-    return { class: differenceClass, width: widthDifference }
+    return { class: differenceClass, width: differenceString }
   }
 
   normalizeStreetWidth (width) {
@@ -210,14 +208,13 @@ export default class StreetWidth extends React.Component {
     // TODO prettifyWidth calls getStreet(). refactor this to use units passed by argument instead
     // TODO work on this so that we can use markup
     const width = prettifyWidth(this.state.street.width, { markup: false })
-    const widthString = t('width.label', '%s width')
-    const widthTranslated = replace(widthString, '%s', width)
+    const widthString = t('width.label', '{{width}} width', { width })
     const difference = this.displayStreetWidthRemaining()
 
     return (
       <span id='street-metadata-width'>
         <span id='street-width-read' title='Change width of the street' onClick={this.clickStreetWidth}>
-          <span id='street-width-read-width'>{widthTranslated}</span>
+          <span id='street-width-read-width'>{widthString}</span>
           &nbsp;
           <span id='street-width-read-difference' className={difference.class}>{difference.width}</span>
         </span>
