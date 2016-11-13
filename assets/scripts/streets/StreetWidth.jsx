@@ -1,4 +1,5 @@
 import React from 'react'
+import { replace } from 'lodash'
 import { processWidthInput, prettifyWidth } from '../util/width_units'
 import { getSegmentWidthResolution } from '../segments/resizing'
 import { loseAnyFocus } from '../app/focus'
@@ -12,6 +13,7 @@ import {
 import { segmentsChanged } from '../segments/view'
 import { setStreet, createDomFromData } from './data_model'
 import { resizeStreetWidth } from './width'
+import { t } from '../app/locale'
 
 const STREET_WIDTH_CUSTOM = -1
 const STREET_WIDTH_SWITCH_TO_METRIC = -2
@@ -44,18 +46,22 @@ export default class StreetWidth extends React.Component {
 
   displayStreetWidthRemaining () {
     // TODO work on this so that we can use markup
-    const width = prettifyWidth(Math.abs(this.state.street.remainingWidth), {markup: false})
+    const width = prettifyWidth(Math.abs(this.state.street.remainingWidth), { markup: false })
 
     let differenceClass = ''
+    let differenceString = ''
     let widthDifference = ''
+
     if (this.state.street.remainingWidth > 0) {
       differenceClass = 'street-width-under'
-      widthDifference = '(' + width + ' room)'
+      differenceString = t('width.room', '(%s room)')
     } else if (this.state.street.remainingWidth < 0) {
       differenceClass = 'street-width-over'
-      widthDifference = '(' + width + ' over)'
+      differenceString = t('width.over', '(% over)')
     }
-    return {class: differenceClass, width: widthDifference}
+
+    widthDifference = replace(differenceString, '%s', width)
+    return { class: differenceClass, width: widthDifference }
   }
 
   normalizeStreetWidth (width) {
@@ -202,13 +208,15 @@ export default class StreetWidth extends React.Component {
   render () {
     // TODO prettifyWidth calls getStreet(). refactor this to use units passed by argument instead
     // TODO work on this so that we can use markup
-    const width = prettifyWidth(this.state.street.width, {markup: false}) + ' width'
+    const width = prettifyWidth(this.state.street.width, { markup: false })
+    const widthString = t('width.label', '%s width')
+    const widthTranslated = replace(widthString, '%s', width)
     const difference = this.displayStreetWidthRemaining()
 
     return (
       <span id='street-metadata-width'>
         <span id='street-width-read' title='Change width of the street' onClick={this.clickStreetWidth}>
-          <span id='street-width-read-width'>{width}</span>
+          <span id='street-width-read-width'>{widthTranslated}</span>
           &nbsp;
           <span id='street-width-read-difference' className={difference.class}>{difference.width}</span>
         </span>
@@ -222,4 +230,3 @@ StreetWidth.propTypes = {
   readOnly: React.PropTypes.bool,
   street: React.PropTypes.any
 }
-
