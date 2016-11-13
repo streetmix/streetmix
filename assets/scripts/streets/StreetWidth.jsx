@@ -4,7 +4,6 @@ import { processWidthInput, prettifyWidth } from '../util/width_units'
 import { getSegmentWidthResolution } from '../segments/resizing'
 import { loseAnyFocus } from '../app/focus'
 import { setInitializing } from '../app/initialization'
-import { msg } from '../app/messages'
 import {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC,
@@ -104,33 +103,35 @@ export default class StreetWidth extends React.Component {
     if (this.state.street.width) {
       selectedValue = this.state.street.width
     }
-    return <select ref={(ref) => { this.streetWidth = ref }} onChange={this.changeStreetWidth} id='street-width' value={selectedValue}>
-      <option disabled='true'>Occupied width:</option>
-      <option disabled='true'>{prettifyWidth(this.state.street.occupiedWidth)}</option>
-      <option disabled='true' />
-      <option disabled='true'>Building-to-building width:</option>
-      {defaultWidths}
-      {customWidthBlank}
-      {customWidth}
-      <option value={STREET_WIDTH_CUSTOM} >
-        Different width…
-      </option>
-      <option disabled='true' />
-      <option
-        id='switch-to-imperial-units'
-        value={STREET_WIDTH_SWITCH_TO_IMPERIAL}
-        disabled={this.state.street.units === SETTINGS_UNITS_IMPERIAL}
-      >
-        {msg('MENU_SWITCH_TO_IMPERIAL')}
-      </option>
-      <option
-        id='switch-to-metric-units'
-        value={STREET_WIDTH_SWITCH_TO_METRIC}
-        disabled={this.state.street.units === SETTINGS_UNITS_METRIC}
-      >
-        {msg('MENU_SWITCH_TO_METRIC')}
-      </option>
-    </select>
+    return (
+      <select ref={(ref) => { this.streetWidth = ref }} onChange={this.changeStreetWidth} id='street-width' value={selectedValue}>
+        <option disabled='true'>{t('width.occupied', 'Occupied width:')}</option>
+        <option disabled='true'>{prettifyWidth(this.state.street.occupiedWidth)}</option>
+        <option disabled='true' />
+        <option disabled='true'>{t('width.building', 'Building-to-building width:')}</option>
+        {defaultWidths}
+        {customWidthBlank}
+        {customWidth}
+        <option value={STREET_WIDTH_CUSTOM} >
+          {t('width.different', 'Different width…')}
+        </option>
+        <option disabled='true' />
+        <option
+          id='switch-to-imperial-units'
+          value={STREET_WIDTH_SWITCH_TO_IMPERIAL}
+          disabled={this.state.street.units === SETTINGS_UNITS_IMPERIAL}
+        >
+          {t('width.imperial', 'Switch to imperial units (feet)')}
+        </option>
+        <option
+          id='switch-to-metric-units'
+          value={STREET_WIDTH_SWITCH_TO_METRIC}
+          disabled={this.state.street.units === SETTINGS_UNITS_METRIC}
+        >
+          {t('width.metric', 'Switch to metric units')}
+        </option>
+      </select>
+    )
   }
 
   clickStreetWidth (e) {
@@ -162,16 +163,16 @@ export default class StreetWidth extends React.Component {
         updateUnits(SETTINGS_UNITS_IMPERIAL)
         return
       } else if (newStreetWidth === STREET_WIDTH_CUSTOM) {
-        var promptValue = this.state.street.occupiedWidth
+        let promptValue = this.state.street.occupiedWidth
         if (promptValue < MIN_CUSTOM_STREET_WIDTH) promptValue = MIN_CUSTOM_STREET_WIDTH
         if (promptValue > MAX_CUSTOM_STREET_WIDTH) promptValue = MAX_CUSTOM_STREET_WIDTH
 
-        // TODO string
-        var width = window.prompt(
-          msg('PROMPT_NEW_STREET_WIDTH', {
-            minWidth: prettifyWidth(MIN_CUSTOM_STREET_WIDTH),
-            maxWidth: prettifyWidth(MAX_CUSTOM_STREET_WIDTH)
-          }), prettifyWidth(promptValue))
+        const replacements = {
+          minWidth: prettifyWidth(MIN_CUSTOM_STREET_WIDTH),
+          maxWidth: prettifyWidth(MAX_CUSTOM_STREET_WIDTH)
+        }
+        const promptString = t('prompt.new-width', 'New street width (from {{minWidth}} to {{maxWidth}}):', replacements)
+        let width = window.prompt(promptString, prettifyWidth(promptValue))
 
         if (width) {
           width = this.normalizeStreetWidth(processWidthInput(width))
