@@ -177,7 +177,8 @@
     }
   },
   "users": {
-    "anonymous": "Anonymous"
+    "anonymous": "Anonymous",
+    "byline": "by %s"
   },
   "sign-in": {
     "link": "Sign in with Twitter",
