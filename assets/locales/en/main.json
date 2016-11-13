@@ -132,8 +132,8 @@
   "datetime": {
     "minutes-ago": "A few minutes ago",
     "seconds-ago": "A few seconds ago",
-    "yesterday": "Yesterday at %s",
-    "today": "Today at %s",
+    "yesterday": "Yesterday at {{time}}",
+    "today": "Today at {{time}}",
     "format-date-no-year": "MMM D",
     "format-date-with-year": "MMM D, YYYY",
     "format-time": "HH:MM"
