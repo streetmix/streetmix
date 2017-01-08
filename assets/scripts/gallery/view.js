@@ -71,7 +71,8 @@ export function showGallery (userId, instant, signInPromo = false) {
     type: SET_GALLERY_STATE,
     visible: true,
     userId: userId,
-    signInPromo: signInPromo
+    // TODO: Handle modes better.
+    mode: (signInPromo) ? 'SIGN_IN_PROMO' : 'NONE'
   })
 
   if (!signInPromo) {

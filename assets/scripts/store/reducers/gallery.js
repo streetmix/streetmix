@@ -3,7 +3,14 @@ import { SHOW_GALLERY, SET_GALLERY_STATE } from '../actions'
 const initialState = {
   visible: false,
   userId: null,
-  signInPromo: false
+
+  // Available modes:
+  // NONE - null state
+  // SIGN_IN_PROMO - user is not signed in, show a message promoting it
+  // LOADING - loading streets from server
+  // ERROR - there is an error loading streets from server
+  // GALLERY - displaying street gallery
+  mode: 'NONE'
 }
 
 const gallery = (state = initialState, action) => {

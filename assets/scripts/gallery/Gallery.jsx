@@ -15,7 +15,7 @@ export default class Gallery extends React.Component {
   render () {
     let childElements
 
-    if (this.props.signInPromo === true) {
+    if (this.props.mode === 'SIGN_IN_PROMO') {
       childElements = (
         <div id='gallery'>
           <div className='sign-in-promo'>
@@ -79,14 +79,14 @@ export default class Gallery extends React.Component {
 Gallery.propTypes = {
   visible: React.PropTypes.bool,
   userId: React.PropTypes.string,
-  signInPromo: React.PropTypes.bool
+  mode: React.PropTypes.string
 }
 
 function mapStateToProps (state) {
   return {
     visible: state.gallery.visible,
     userId: state.gallery.userId,
-    signInPromo: state.gallery.signInPromo
+    mode: state.gallery.mode
   }
 }
 
