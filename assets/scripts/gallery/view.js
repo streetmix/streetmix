@@ -9,7 +9,6 @@ import {
   setGalleryUserId,
   updatePageUrl
 } from '../app/page_url'
-import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/routing'
 import { hideStatusMessage } from '../app/status_message'
 import { app } from '../preinit/app_settings'
 import { system } from '../preinit/system_capabilities'
@@ -49,11 +48,6 @@ export const galleryState = {
 
 export function attachGalleryViewEventListeners () {
   window.addEventListener('stmx:init', function () {
-    // Populate gallery UI button URLs on init
-    document.querySelector('#new-street').href = '/' + URL_NEW_STREET
-    document.querySelector('#copy-last-street').href = '/' + URL_NEW_STREET_COPY_LAST
-
-    document.querySelector('#gallery-try-again').addEventListener('pointerdown', repeatReceiveGalleryData)
     document.querySelector('#gallery-shield').addEventListener('pointerdown', onGalleryShieldClick)
   })
 
@@ -246,7 +240,7 @@ export function receiveGalleryData (transmission) {
   updateGalleryStreetCount()
 }
 
-function repeatReceiveGalleryData () {
+export function repeatReceiveGalleryData () {
   loadGalleryContents()
 }
 

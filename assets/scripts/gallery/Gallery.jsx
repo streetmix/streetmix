@@ -8,6 +8,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Scrollable from '../ui/Scrollable'
 import Avatar from '../app/Avatar'
+import { repeatReceiveGalleryData } from './view'
+import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/routing'
 
 export default class Gallery extends React.Component {
   render () {
@@ -52,16 +54,16 @@ export default class Gallery extends React.Component {
           <div className='loading' data-i18n='msg.loading'>Loading…</div>
           <div className='error-loading'>
             <span data-i18n='gallery.fail'>Failed to load the gallery.</span>
-            <button id='gallery-try-again' data-i18n='btn.try-again'>Try again</button>
+            <button id='gallery-try-again' data-i18n='btn.try-again' onClick={repeatReceiveGalleryData}>Try again</button>
           </div>
 
           {label}
 
           <div className='street-count' />
-          <a className='button-like' id='new-street' href='#' target='_blank' data-i18n='btn.create'>
+          <a className='button-like' id='new-street' href={`/${URL_NEW_STREET}`} target='_blank' data-i18n='btn.create'>
             Create new street
           </a>
-          <a className='button-like' id='copy-last-street' href='#' target='_blank' data-i18n='btn.copy'>
+          <a className='button-like' id='copy-last-street' href={`/${URL_NEW_STREET_COPY_LAST}`} target='_blank' data-i18n='btn.copy'>
             Make a copy
           </a>
 
