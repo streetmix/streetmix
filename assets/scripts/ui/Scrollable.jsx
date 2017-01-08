@@ -115,3 +115,7 @@ Scrollable.propTypes = {
   children: PropTypes.node,
   setRef: PropTypes.func
 }
+
+Scrollable.defaultProps = {
+  setRef: function noop () {}
+}

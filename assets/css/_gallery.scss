@@ -96,6 +96,27 @@ body:not(.safari).gallery-visible #street-section-sky {
     display: none !important;
   }
 
+  // Applied by the wrapping element created by Scrollable.jsx component
+  .streets-scrollable-container {
+    position: absolute;
+    left: 130px + 10px;
+    right: 5px + 10px;
+    top: 50px;
+    height: $gallery-height;
+  }
+
+  button.scrollable {
+    margin-top: 45px;
+
+    &.scroll-left {
+      left: -10px !important;
+    }
+
+    &.scroll-right {
+      right: -10px !important;
+    }
+  }
+
   .streets {
     list-style: none;
     padding: 0;
@@ -103,115 +124,8 @@ body:not(.safari).gallery-visible #street-section-sky {
 
     white-space: nowrap;
 
-    position: absolute;
-    left: 130px + 10px;
-    right: 5px + 10px;
-    top: 50px;
     height: $gallery-height + 20px; // To cover the scroll bar
     overflow-x: scroll;
-
-    & > li {
-      display: inline-block;
-    }
-
-    & > li > a {
-      display: inline-block;
-
-      color: black;
-      text-decoration: none;
-
-      vertical-align: top;
-
-      width: $thumbnail-width;
-      height: $thumbnail-height - 10px;
-      margin: 10px;
-      margin-top: 5px;
-      background: fade-out($sky-colour, 0.2);
-      padding: 5px 0;
-
-      border-top: 3px solid darken($ui-colour, 10%);
-      border-bottom: 3px solid darken($ui-colour, 10%);
-      text-align: center;
-      white-space: normal;
-
-      cursor: pointer;
-
-      font-size: 13px;
-
-      position: relative;
-
-      canvas {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: $thumbnail-width;
-        height: $thumbnail-height;
-      }
-
-      &:first-child {
-        margin-left: 0;
-      }
-
-      .creator {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 18px;
-        text-align: center;
-        display: block;
-
-        font-size: 11px;
-        color: black;
-      }
-
-      .date {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 5px;
-        text-align: center;
-        display: block;
-
-        font-size: 11px;
-        color: black;
-        font-weight: 300;
-      }
-
-      button.remove {
-        position: absolute;
-        font-size: 16px;
-        padding: 0 10px;
-        line-height: 25px;
-
-        top: -10px;
-        right: -5px;
-
-        display: none;
-      }
-
-      &:hover {
-        background: fade-out($ui-colour, 0.1);
-
-        button.remove {
-          display: block;
-        }
-      }
-
-      &.virgin:not(.selected) {
-        opacity: 0.33;
-      }
-
-      &.selected {
-        background: darken($ui-colour, 10%);
-
-        border-top-color: black;
-        border-bottom-color: black;
-
-        canvas {
-          opacity: 1;
-        }
-      }
-    }
   }
 
   &.another-user .streets,
@@ -264,6 +178,109 @@ body:not(.safari).gallery-visible #street-section-sky {
 
 #gallery-try-again {
   margin-left: 10px;
+}
+
+.gallery-street-item {
+  display: inline-block;
+}
+
+.gallery-street-item > a {
+  display: inline-block;
+
+  color: black;
+  text-decoration: none;
+
+  vertical-align: top;
+
+  width: $thumbnail-width;
+  height: $thumbnail-height - 10px;
+  margin: 10px;
+  margin-top: 5px;
+  background: fade-out($sky-colour, 0.2);
+  padding: 5px 0;
+
+  border-top: 3px solid darken($ui-colour, 10%);
+  border-bottom: 3px solid darken($ui-colour, 10%);
+  text-align: center;
+  white-space: normal;
+
+  cursor: pointer;
+
+  font-size: 13px;
+
+  position: relative;
+
+  canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: $thumbnail-width;
+    height: $thumbnail-height;
+  }
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  .creator {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 18px;
+    text-align: center;
+    display: block;
+
+    font-size: 11px;
+    color: black;
+  }
+
+  .date {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 5px;
+    text-align: center;
+    display: block;
+
+    font-size: 11px;
+    color: black;
+    font-weight: 300;
+  }
+
+  button.remove {
+    position: absolute;
+    font-size: 16px;
+    padding: 0 10px;
+    line-height: 25px;
+
+    top: -10px;
+    right: -5px;
+
+    display: none;
+  }
+
+  &:hover {
+    background: fade-out($ui-colour, 0.1);
+
+    button.remove {
+      display: block;
+    }
+  }
+
+  &.virgin:not(.selected) {
+    opacity: 0.33;
+  }
+
+  &.selected {
+    background: darken($ui-colour, 10%);
+
+    border-top-color: black;
+    border-bottom-color: black;
+
+    canvas {
+      opacity: 1;
+    }
+  }
 }
 
 body:not(.gallery-no-move-transition) #main-screen,

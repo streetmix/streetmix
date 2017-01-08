@@ -5,6 +5,7 @@
  *
  */
 import React from 'react'
+import Scrollable from '../ui/Scrollable'
 
 export default class Gallery extends React.Component {
   render () {
@@ -27,7 +28,8 @@ export default class Gallery extends React.Component {
         <a className='button-like' id='copy-last-street' href='#' target='_blank' data-i18n='btn.copy'>
           Make a copy
         </a>
-        <ul className='streets' />
+
+        <Scrollable className='streets' />
       </div>
     )
   }

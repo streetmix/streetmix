@@ -27,7 +27,6 @@ import { formatDate } from '../util/date_format'
 import { removeElFromDOM } from '../util/dom_helpers'
 import { fetchGalleryData } from './fetch_data'
 import { fetchGalleryStreet } from './fetch_street'
-import { updateScrollButtons } from './scroll'
 import { drawStreetThumbnail } from './thumbnail'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -175,7 +174,8 @@ export function receiveGalleryData (transmission) {
 
     updateToLatestSchemaVersion(galleryStreet.data.street)
 
-    var el = document.createElement('li')
+    var el = document.createElement('div')
+    el.className = 'gallery-street-item'
 
     var anchorEl = document.createElement('a')
 
@@ -250,8 +250,6 @@ export function receiveGalleryData (transmission) {
     selectedEl.scrollIntoView()
     galleryEl.scrollTop = 0
   }
-
-  updateScrollButtons()
 
   updateGalleryStreetCount()
 }
