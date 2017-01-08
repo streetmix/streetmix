@@ -28,9 +28,9 @@ export default class Gallery extends React.Component {
       // otherwise it shows the label "all streets"
       if (this.props.userId) {
         label = (
-          <div>
+          <div className='gallery-label'>
             <Avatar userId={this.props.userId} />
-            <div className='user-id'>
+            <div className='gallery-user-id'>
               {this.props.userId}
               <a
                 href={`https://twitter.com/${this.props.userId}`}
@@ -43,7 +43,7 @@ export default class Gallery extends React.Component {
           </div>
         )
       } else {
-        label = <div className='user-id'>All streets</div>
+        label = <div className='gallery-label'>All streets</div>
       }
 
       childElements = (

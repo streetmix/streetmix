@@ -31,19 +31,8 @@ body:not(.safari).gallery-visible #street-section-sky {
   transform-origin: 50% 0;
 
   .avatar {
-    position: absolute;
-    left: 20px;
-    top: 12px;
     width: 32px;
     height: 32px;
-  }
-
-  .user-id {
-    position: absolute;
-    left: 60px;
-    top: 15px;
-
-    font-size: 24px;
   }
 
   .twitter-profile {
@@ -128,9 +117,9 @@ body:not(.safari).gallery-visible #street-section-sky {
     overflow-x: scroll;
   }
 
-  &.another-user .streets,
-  &.all-streets .streets {
-    left: 23px;
+  &.another-user .streets-scrollable-container,
+  &.all-streets .streets-scrollable-container {
+    left: 16px;
   }
 
   .loading {
@@ -176,6 +165,18 @@ body:not(.safari).gallery-visible #street-section-sky {
       display: block;
     }
   }
+}
+
+.gallery-label {
+  position: absolute;
+  left: 17px;
+  top: 11px;
+  font-size: 1.5em;
+}
+
+.gallery-user-id {
+  display: inline-block;
+  vertical-align: bottom;
 }
 
 #gallery-try-again {
