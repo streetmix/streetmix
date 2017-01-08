@@ -176,6 +176,7 @@
   "gallery": {
     "fail": "Failed to load the gallery.",
     "all": "All streets",
+    "twitter-link": "Twitter profile",
     "delete-street-tooltip": "Delete street",
     "count": {
       "none": "No streets yet",

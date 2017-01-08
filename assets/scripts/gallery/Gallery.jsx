@@ -36,6 +36,7 @@ export default class Gallery extends React.Component {
                 href={`https://twitter.com/${this.props.userId}`}
                 className='twitter-profile'
                 target='_blank'
+                data-i18n='gallery.twitter-link'
               >
                 Twitter profile »
               </a>
@@ -43,7 +44,7 @@ export default class Gallery extends React.Component {
           </div>
         )
       } else {
-        label = <div className='gallery-label'>All streets</div>
+        label = <div className='gallery-label' data-i18n='gallery.all'>All streets</div>
       }
 
       childElements = (
