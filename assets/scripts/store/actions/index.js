@@ -42,6 +42,10 @@ export const SET_DEBUG_FLAGS = 'SET_DEBUG_FLAGS'
 export const SHOW_DIALOG = 'SHOW_DIALOG'
 export const CLEAR_DIALOGS = 'CLEAR_DIALOGS'
 
+/* gallery */
+export const SHOW_GALLERY = 'SHOW_GALLERY'
+export const SET_GALLERY_STATE = 'SET_GALLERY_STATE'
+
 /* menus */
 export const SHOW_MENU = 'SHOW_MENU'
 export const CLEAR_MENUS = 'CLEAR_MENUS'

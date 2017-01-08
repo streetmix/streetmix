@@ -5,9 +5,14 @@
  *
  */
 import React from 'react'
+import { connect } from 'react-redux'
 import Scrollable from '../ui/Scrollable'
 
 export default class Gallery extends React.Component {
+  componentDidMount () {
+    console.log(this.props)
+  }
+
   render () {
     return (
       <div id='gallery'>
@@ -34,3 +39,15 @@ export default class Gallery extends React.Component {
     )
   }
 }
+
+Gallery.propTypes = {
+  visible: React.PropTypes.bool
+}
+
+function mapStateToProps (state) {
+  return {
+    visible: state.gallery.visible
+  }
+}
+
+export default connect(mapStateToProps)(Gallery)

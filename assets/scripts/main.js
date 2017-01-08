@@ -17,8 +17,10 @@ import './vendor/Blob.js'
 import './vendor/modernizr-custom'
 import './vendor/polyfills/customevent' // customEvent in IE
 
-// Main object
+// Redux
 import store from './store'
+
+// Main object
 import { initialize } from './app/initialization'
 import { startListening } from './app/keypress'
 import { system } from './preinit/system_capabilities'
@@ -54,7 +56,12 @@ ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>, document.getElementById('react-app'))
-ReactDOM.render(<Gallery />, document.getElementById('gallery-react'))
+ReactDOM.render(
+  <Provider store={store}>
+    <Gallery />
+  </Provider>,
+  document.getElementById('gallery-react')
+)
 
 // Start listening for keypresses
 startListening()
