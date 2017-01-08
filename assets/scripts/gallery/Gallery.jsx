@@ -7,12 +7,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Scrollable from '../ui/Scrollable'
+import Avatar from '../app/Avatar'
 
 export default class Gallery extends React.Component {
-  componentDidMount () {
-    console.log(this.props)
-  }
-
   render () {
     let childElements
 
@@ -25,6 +22,30 @@ export default class Gallery extends React.Component {
         </div>
       )
     } else {
+      let label
+
+      // Displays user avatar and twitter link if showing a user's streets,
+      // otherwise it shows the label "all streets"
+      if (this.props.userId) {
+        label = (
+          <div>
+            <Avatar userId={this.props.userId} />
+            <div className='user-id'>
+              {this.props.userId}
+              <a
+                href={`https://twitter.com/${this.props.userId}`}
+                className='twitter-profile'
+                target='_blank'
+              >
+                Twitter profile »
+              </a>
+            </div>
+          </div>
+        )
+      } else {
+        label = <div className='user-id'>All streets</div>
+      }
+
       childElements = (
         <div id='gallery'>
           <div className='loading' data-i18n='msg.loading'>Loading…</div>
@@ -32,8 +53,9 @@ export default class Gallery extends React.Component {
             <span data-i18n='gallery.fail'>Failed to load the gallery.</span>
             <button id='gallery-try-again' data-i18n='btn.try-again'>Try again</button>
           </div>
-          <div className='avatar-wrap' />
-          <div className='user-id' />
+
+          {label}
+
           <div className='street-count' />
           <a className='button-like' id='new-street' href='#' target='_blank' data-i18n='btn.create'>
             Create new street

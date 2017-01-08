@@ -30,7 +30,6 @@ import { fetchGalleryStreet } from './fetch_street'
 import { drawStreetThumbnail } from './thumbnail'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Avatar from '../app/Avatar'
 
 // Redux
 import store from '../store'
@@ -41,8 +40,6 @@ const THUMBNAIL_HEIGHT = 110
 const THUMBNAIL_MULTIPLIER = 0.1 * 2
 
 export const galleryState = {
-  visible: false,
-  // userId: null, // TODO: replace galleryUserId in globals
   streetId: null,
   streetLoaded: false,
   // set to true when the current street is deleted from the gallery
@@ -72,7 +69,6 @@ export function showGallery (userId, instant, signInPromo = false) {
 
   trackEvent('INTERACTION', 'OPEN_GALLERY', userId, null, false)
 
-  galleryState.visible = true
   galleryState.streetLoaded = true
   galleryState.streetId = getStreet().id
   setGalleryUserId(userId)
@@ -85,21 +81,6 @@ export function showGallery (userId, instant, signInPromo = false) {
   })
 
   if (!signInPromo) {
-    if (userId) {
-      ReactDOM.render(<Avatar userId={getGalleryUserId()} />, document.querySelector('#gallery .avatar-wrap'))
-      document.querySelector('#gallery .user-id').innerHTML = getGalleryUserId()
-
-      var linkEl = document.createElement('a')
-      // TODO const
-      linkEl.href = 'https://twitter.com/' + getGalleryUserId()
-      linkEl.innerHTML = 'Twitter profile »'
-      linkEl.classList.add('twitter-profile')
-      linkEl.target = '_blank'
-      document.querySelector('#gallery .user-id').appendChild(linkEl)
-    } else {
-      document.querySelector('#gallery .user-id').innerHTML = 'All streets'
-    }
-
     document.querySelector('#gallery .street-count').innerHTML = ''
 
     // TODO no class, but type?
@@ -147,7 +128,10 @@ export function hideGallery (instant) {
   }
 
   if (galleryState.streetLoaded) {
-    galleryState.visible = false
+    store.dispatch({
+      type: SET_GALLERY_STATE,
+      visible: false
+    })
 
     if (instant) {
       document.body.classList.add('gallery-no-move-transition')

@@ -3,6 +3,7 @@ import { system } from '../preinit/system_capabilities'
 import { fetchStreetForVerification } from '../streets/xhr'
 import { saveSettingsLocally } from '../users/settings'
 import { getAbortEverything } from './initialization'
+import store from '../store'
 
 window.addEventListener('stmx:everything_loaded', function () {
   if (system.pageVisibility) {
@@ -30,7 +31,7 @@ export function isFocusOnBody () {
 }
 
 export function onWindowFocus () {
-  if (getAbortEverything() || galleryState.visible) {
+  if (getAbortEverything() || store.getState().gallery.visible) {
     return
   }
 
