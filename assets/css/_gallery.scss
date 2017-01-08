@@ -18,7 +18,7 @@ body:not(.safari).gallery-visible #street-section-sky {
   right: $left-right-inset + 20px;
   top: 0;
   height: $gallery-height;
-  z-index: $z-03-gallery;
+  z-index: $z-09-gallery;
 
   border-bottom: 3px solid darken($ui-colour, 30%);
 
@@ -248,7 +248,7 @@ body:not(.safari).gallery-visible #street-section-sky {
     z-index: $z-03-gallery-message;
     background: white;
 
-    padding-top: 85px;
+    padding-top: 80px;
 
     display: none;
 
