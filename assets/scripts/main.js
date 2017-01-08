@@ -23,6 +23,7 @@ import { initialize } from './app/initialization'
 import { startListening } from './app/keypress'
 import { system } from './preinit/system_capabilities'
 import App from './app/App'
+import Gallery from './gallery/Gallery'
 
 // Error tracking
 // Load this before all other modules. Only load when run in production.
@@ -45,6 +46,7 @@ function setScaleForPhone () {
   var headEls = document.getElementsByTagName('head')
   headEls[0].appendChild(meta)
 }
+
 setScaleForPhone()
 
 // Temp: mount React components
@@ -52,6 +54,7 @@ ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>, document.getElementById('react-app'))
+ReactDOM.render(<Gallery />, document.getElementById('gallery-react'))
 
 // Start listening for keypresses
 startListening()
