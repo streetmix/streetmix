@@ -1,7 +1,9 @@
 import { SHOW_GALLERY, SET_GALLERY_STATE } from '../actions'
 
 const initialState = {
-  visible: false
+  visible: false,
+  userId: null,
+  signInPromo: false
 }
 
 const gallery = (state = initialState, action) => {

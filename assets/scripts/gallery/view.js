@@ -32,6 +32,10 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Avatar from '../app/Avatar'
 
+// Redux
+import store from '../store'
+import { SET_GALLERY_STATE } from '../store/actions'
+
 const THUMBNAIL_WIDTH = 180
 const THUMBNAIL_HEIGHT = 110
 const THUMBNAIL_MULTIPLIER = 0.1 * 2
@@ -61,7 +65,7 @@ export function attachGalleryViewEventListeners () {
   })
 }
 
-export function showGallery (userId, instant, signInPromo) {
+export function showGallery (userId, instant, signInPromo = false) {
   if (app.readOnly) {
     return
   }
@@ -72,6 +76,13 @@ export function showGallery (userId, instant, signInPromo) {
   galleryState.streetLoaded = true
   galleryState.streetId = getStreet().id
   setGalleryUserId(userId)
+
+  store.dispatch({
+    type: SET_GALLERY_STATE,
+    visible: true,
+    userId: userId,
+    signInPromo: signInPromo
+  })
 
   if (!signInPromo) {
     if (userId) {
@@ -106,7 +117,6 @@ export function showGallery (userId, instant, signInPromo) {
 
   hideControls()
   hideStatusMessage()
-  document.querySelector('#gallery .sign-in-promo').classList.remove('visible')
 
   if (instant) {
     document.body.classList.add('gallery-no-move-transition')
@@ -127,8 +137,6 @@ export function showGallery (userId, instant, signInPromo) {
   if (!signInPromo) {
     loadGalleryContents()
     updatePageUrl(true)
-  } else {
-    document.querySelector('#gallery .sign-in-promo').classList.add('visible')
   }
 }
 
@@ -370,7 +378,7 @@ export function onMyStreetsClick (event) {
   if (isSignedIn()) {
     showGallery(getSignInData().userId, false)
   } else {
-    showGallery(false, false, true)
+    showGallery(null, false, true)
   }
 
   event.preventDefault()

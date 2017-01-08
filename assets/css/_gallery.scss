@@ -164,14 +164,16 @@ body:not(.safari).gallery-visible #street-section-sky {
 
     padding-top: 80px;
 
+    a {
+      color: inherit;
+    }
+  }
+
+  .error-loading {
     display: none;
 
     &.visible {
       display: block;
-    }
-
-    a {
-      color: inherit;
     }
   }
 }
