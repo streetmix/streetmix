@@ -52,7 +52,7 @@ export function onResize () {
   document.querySelector('#street-section-inner').style.top = streetSectionTop + 'px'
 
   document.querySelector('#street-section-sky').style.top =
-    (streetSectionTop * 0.8) + 'px'
+    (streetSectionTop * 0.8 - 255) + 'px'
 
   document.querySelector('#street-scroll-indicator-left').style.top =
     (streetSectionTop + streetSectionHeight) + 'px'

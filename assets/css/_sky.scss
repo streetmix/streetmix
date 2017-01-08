@@ -21,15 +21,15 @@
 
 .rear-clouds {
   height: 120px;
-  bottom: 735px;
+  bottom: 480px;
   background-image: url('/images/sky-rear.png');
   background-size: 250px 120px;
 }
 
 .front-clouds {
   height: 280px;
-  bottom: 735px - 330px;
-  border-bottom: 50px solid rgb(165, 196, 209);
+  bottom: 0;
+  border-bottom: 200px solid rgb(165, 196, 209);
   background-image: url('/images/sky-front.png');
   background-size: 250px 280px;
   opacity: 0.5;
