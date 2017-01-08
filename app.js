@@ -78,11 +78,16 @@ app.get('/.well-known/status', resources.well_known_status.get)
 app.use('/assets/css/styles.css', middleware.styles)
 
 // Build JavaScript bundle via browserify
+var babelOpts = {
+  presets: ['es2015', 'react'],
+  plugins: ['transform-object-rest-spread']
+}
+
 app.get('/assets/scripts/main.js', browserify(path.join(__dirname, '/assets/scripts/main.js'), {
   cache: true,
   precompile: true,
   extensions: [ '.jsx' ],
-  transform: [[{ presets: ['es2015', 'react'] }, babelify], envify({
+  transform: [[babelOpts, babelify], envify({
     APP_HOST_PORT: config.get('app_host_port'),
     FACEBOOK_APP_ID: config.get('facebook_app_id'),
     API_URL: config.get('restapi_proxy_baseuri_rel'),

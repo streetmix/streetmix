@@ -6,6 +6,7 @@
 import Raven from 'raven-js'
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 
 // Polyfills
 import 'babel-polyfill'
@@ -17,6 +18,7 @@ import './vendor/modernizr-custom'
 import './vendor/polyfills/customevent' // customEvent in IE
 
 // Main object
+import store from './store'
 import { initialize } from './app/initialization'
 import { startListening } from './app/keypress'
 import { system } from './preinit/system_capabilities'
@@ -47,7 +49,10 @@ function setScaleForPhone () {
 setScaleForPhone()
 
 // Temp: mount React components
-ReactDOM.render(<App />, document.getElementById('react-app'))
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>, document.getElementById('react-app'))
 ReactDOM.render(<DebugInfo />, document.getElementById('debug'))
 
 // Start listening for keypresses
