@@ -77,18 +77,6 @@ export function showGallery (userId, instant, signInPromo = false) {
 
   if (!signInPromo) {
     document.querySelector('#gallery .street-count').innerHTML = ''
-
-    // TODO no class, but type?
-    if (!userId) {
-      document.querySelector('#gallery').classList.add('all-streets')
-      document.querySelector('#gallery').classList.remove('another-user')
-    } else if (isSignedIn() && (userId === getSignInData().userId)) {
-      document.querySelector('#gallery').classList.remove('another-user')
-      document.querySelector('#gallery').classList.remove('all-streets')
-    } else {
-      document.querySelector('#gallery').classList.add('another-user')
-      document.querySelector('#gallery').classList.remove('all-streets')
-    }
   }
 
   hideControls()

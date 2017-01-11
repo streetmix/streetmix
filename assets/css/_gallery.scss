@@ -52,46 +52,38 @@ body:not(.safari).gallery-visible #street-section-sky {
   }
 
   #new-street {
-    left: 20px;
-    top: 60px;
+    position: absolute;
+    top: 10px;
     width: 100px;
     height: 43px;
-
-    position: absolute;
-
     padding-top: 15px;
     padding-left: 0;
     padding-right: 0;
     line-height: 15px;
-
     font-weight: bold;
   }
 
   #copy-last-street {
-    left: 20px;
-    top: 130px;
+    position: absolute;
+    top: 80px;
     width: 100px;
     height: 40px;
     padding-left: 0;
     padding-right: 0;
     line-height: 40px;
-    position: absolute;
-  }
-
-  &.another-user #new-street,
-  &.another-user #copy-last-street,
-  &.all-streets #new-street,
-  &.all-streets #copy-last-street {
-    display: none !important;
   }
 
   // Applied by the wrapping element created by Scrollable.jsx component
   .streets-scrollable-container {
     position: absolute;
-    left: 130px + 10px;
-    right: 5px + 10px;
-    top: 50px;
+    left: 110px + 10px;
+    right: 0;
+    top: 1px;
     height: $gallery-height;
+  }
+
+  .gallery-streets-container-full .streets-scrollable-container {
+    left: 0;
   }
 
   button.scrollable {
@@ -115,11 +107,6 @@ body:not(.safari).gallery-visible #street-section-sky {
 
     height: $gallery-height + 20px; // To cover the scroll bar
     overflow-x: scroll;
-  }
-
-  &.another-user .streets-scrollable-container,
-  &.all-streets .streets-scrollable-container {
-    left: 16px;
   }
 }
 
@@ -154,12 +141,23 @@ body:not(.safari).gallery-visible #street-section-sky {
   vertical-align: bottom;
 }
 
+.gallery-streets-container {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  top: 50px;
+}
+
 #gallery-try-again {
   margin-left: 10px;
 }
 
 .gallery-street-item {
   display: inline-block;
+
+  &:last-child a {
+    margin-right: 0;
+  }
 }
 
 .gallery-street-item > a {

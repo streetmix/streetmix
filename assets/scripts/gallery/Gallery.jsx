@@ -9,6 +9,7 @@ import { connect } from 'react-redux'
 import Scrollable from '../ui/Scrollable'
 import Avatar from '../app/Avatar'
 import { repeatReceiveGalleryData } from './view'
+import { getSignInData, isSignedIn } from '../users/authentication'
 import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/routing'
 
 export default class Gallery extends React.Component {
@@ -63,19 +64,39 @@ export default class Gallery extends React.Component {
           label = <div className='gallery-label' data-i18n='gallery.all'>All streets</div>
         }
 
+        // Applies a class to the containing element if no user ID is provided
+        // (which displays all streets) or if the user ID provided is different
+        // from a currently signed-in user
+        let galleryFullWidthClass
+        if (!this.props.userId || !((isSignedIn() && (this.props.userId === getSignInData().userId)))) {
+          galleryFullWidthClass = 'gallery-streets-container-full'
+        }
+
+        // Display these buttons for a user viewing their own gallery
+        let buttons
+        if (isSignedIn() && (this.props.userId === getSignInData().userId)) {
+          buttons = (
+            <div className='gallery-user-buttons'>
+              <a className='button-like' id='new-street' href={`/${URL_NEW_STREET}`} target='_blank' data-i18n='btn.create'>
+                Create new street
+              </a>
+              <a className='button-like' id='copy-last-street' href={`/${URL_NEW_STREET_COPY_LAST}`} target='_blank' data-i18n='btn.copy'>
+                Make a copy
+              </a>
+            </div>
+          )
+        }
+
         childElements = (
           <div>
             {label}
 
             <div className='street-count' />
-            <a className='button-like' id='new-street' href={`/${URL_NEW_STREET}`} target='_blank' data-i18n='btn.create'>
-              Create new street
-            </a>
-            <a className='button-like' id='copy-last-street' href={`/${URL_NEW_STREET_COPY_LAST}`} target='_blank' data-i18n='btn.copy'>
-              Make a copy
-            </a>
 
-            <Scrollable className='streets' />
+            <div className={'gallery-streets-container ' + galleryFullWidthClass}>
+              {buttons}
+              <Scrollable className='streets' />
+            </div>
           </div>
         )
         break
