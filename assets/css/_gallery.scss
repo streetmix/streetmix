@@ -121,49 +121,24 @@ body:not(.safari).gallery-visible #street-section-sky {
   &.all-streets .streets-scrollable-container {
     left: 16px;
   }
+}
 
-  .loading {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: $gallery-height;
-    line-height: $gallery-height;
-    text-align: center;
-    z-index: $z-03-gallery-message;
-    display: none;
-    background: white;
+.gallery-loading,
+.gallery-error,
+.gallery-sign-in-promo {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: $z-03-gallery-message;
 
-    &.visible {
-      display: block;
-    }
-  }
-
-  .error-loading,
-  .sign-in-promo {
-    position: absolute;
-    left: 5px;
-    right: 5px;
-    top: 5px;
-    height: $gallery-height;
-
-    text-align: center;
-    z-index: $z-03-gallery-message;
-    background: white;
-
-    padding-top: 80px;
-
-    a {
-      color: inherit;
-    }
-  }
-
-  .error-loading {
-    display: none;
-
-    &.visible {
-      display: block;
-    }
+  a {
+    color: inherit;
   }
 }
 

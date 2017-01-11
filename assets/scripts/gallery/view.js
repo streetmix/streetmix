@@ -150,7 +150,10 @@ export function hideGallery (instant) {
 }
 
 export function receiveGalleryData (transmission) {
-  document.querySelector('#gallery .loading').classList.remove('visible')
+  store.dispatch({
+    type: SET_GALLERY_STATE,
+    mode: 'GALLERY'
+  })
 
   for (var i in transmission.streets) {
     var galleryStreet = transmission.streets[i]
@@ -302,14 +305,10 @@ function updateGalleryStreetCount () {
 }
 
 function loadGalleryContents () {
-  const galleryEl = document.getElementById('gallery')
-  const els = galleryEl.querySelectorAll('.streets li')
-  for (let el of els) {
-    removeElFromDOM(el)
-  }
-
-  galleryEl.querySelector('.loading').classList.add('visible')
-  galleryEl.querySelector('.error-loading').classList.remove('visible')
+  store.dispatch({
+    type: SET_GALLERY_STATE,
+    mode: 'LOADING'
+  })
 
   fetchGalleryData()
 }

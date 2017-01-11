@@ -4,6 +4,10 @@ import { getGalleryUserId } from '../app/page_url'
 import { getAuthHeader } from '../users/authentication'
 import { receiveGalleryData, hideGallery } from './view'
 
+// Redux
+import store from '../store'
+import { SET_GALLERY_STATE } from '../store/actions'
+
 export function fetchGalleryData () {
   if (getGalleryUserId()) {
     const url = API_URL + 'v1/users/' + getGalleryUserId() + '/streets'
@@ -41,7 +45,9 @@ function errorReceiveGalleryData (data) {
     processMode()
     hideGallery(true)
   } else {
-    document.querySelector('#gallery .loading').classList.remove('visible')
-    document.querySelector('#gallery .error-loading').classList.add('visible')
+    store.dispatch({
+      type: SET_GALLERY_STATE,
+      mode: 'ERROR'
+    })
   }
 }
