@@ -33,12 +33,13 @@ export const URL_SIGN_IN_REDIRECT = URL_SIGN_IN + '?callbackUri=' +
 
 // Since URLs like “streetmix.net/new” are reserved, but we still want
 // @new to be able to use Streetmix, we prefix any reserved URLs with ~
-export const RESERVED_URLS =
-[URL_SIGN_IN, URL_SIGN_IN_CALLBACK,
+export const RESERVED_URLS = [
+  URL_SIGN_IN, URL_SIGN_IN_CALLBACK,
   URL_NEW_STREET, URL_NEW_STREET_COPY_LAST,
   URL_JUST_SIGNED_IN,
   URL_LOCALES,
-  URL_HELP, URL_GLOBAL_GALLERY, URL_ERROR, 'streets']
+  URL_HELP, URL_GLOBAL_GALLERY, URL_ERROR, 'streets'
+]
 export const URL_RESERVED_PREFIX = '~'
 
 export function goReload () {

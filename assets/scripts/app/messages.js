@@ -69,7 +69,7 @@ export function msg (messageId, data) {
  * that returns a supplanted string, rather than extending the String prototype.
  */
 function supplant (string, data) {
-  return string.replace(/\[\[([^\[\]]*)\]\]/g,
+  return string.replace(/\[\[([^[\]]*)\]\]/g,
     function (a, b) {
       var r = data[b]
       return typeof r === 'string' || typeof r === 'number' ? r : a
