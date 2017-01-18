@@ -97,7 +97,13 @@ These installation instructions assume that you have already installed the [Home
 
     brew install nodejs
 
-2) Download, install and start [MongoDB](http://www.mongodb.org/).
+2) Download and install [Yarn](https://yarnpkg.com/en/docs/install) (optional).
+
+    brew install yarn
+
+Yarn is preferred because it guarantees that the dependency versions will be the same across different environments. However, if you choose not to use `yarn`, the `npm` equivalent commands will continue to work (without the benefits that `yarn` brings).
+
+3) Download, install and start [MongoDB](http://www.mongodb.org/).
 
     brew install mongodb
 
@@ -106,14 +112,16 @@ You'll also need to set up the [MongoDB data directory](https://docs.mongodb.org
     mkdir -p /data/db
     chmod 777 /data/db
 
-3) Clone this remote repository to a folder on your computer.
+4) Clone this remote repository to a folder on your computer.
 
     git clone https://github.com/codeforamerica/streetmix.git
 
-4) Install project dependencies.
+5) Install project dependencies.
 
     cd streetmix
-    npm install
+    yarn
+
+If you did not install Yarn, use `npm install` instead.
 
 
 #### On Windows
@@ -128,6 +136,7 @@ You may skip each of these steps if a fairly recent stable version is already pr
 * Install [Git](http://git-scm.com/download/win).
 * Install [node.js](http://nodejs.org/). The site should detect your system and provide you with the correct installer, but you may specify the package at http://nodejs.org/download/ (e.g. Windows 64-bit installer).
 * Install [MongoDB](http://www.mongodb.org/downloads). Select the appropriate Windows installer package from their downloads page.
+* Install [Yarn](https://yarnpkg.com/en/docs/install). Use the Windows installer from their downloads page or follow their instructions for other methods.
 * Install [a modern browser](http://browsehappy.com/). Streetmix has been tested in Chrome (preferred), Firefox, Safari, and Internet Explorer 11. (Previous versions of Internet Explorer will not work.)
 
 ##### Installing Streetmix
@@ -141,7 +150,9 @@ You may additionally specify the name of the directory to install to, if you wis
 2) Go into the project’s root directory and install all Node libraries.
 
     cd streetmix
-    npm install
+    yarn
+
+You may use the usual `npm install` if you wish.
 
 3) Set up the MongoDB environment. [Follow the instructions under “Set up the MongoDB environment” from the MongoDB website.](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-windows/#run-mongodb)
 
@@ -186,13 +197,9 @@ NO_INTERNET_MODE=true
 
 ### HOWTO: Run browser integration tests
 
-1) Install test dependencies (only required once, or after major updates to depedencies)
+1) Run browser tests locally
 
-    grunt test:local:setup
-
-2) Run browser tests locally
-
-    grunt test:local
+    npm test
 
 
 [issues]: https://github.com/codeforamerica/streetmix/issues

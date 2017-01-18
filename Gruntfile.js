@@ -40,7 +40,7 @@ module.exports = function (grunt) {
         stderr: false
       },
       target: {
-        command: './node_modules/grunt-protractor-runner/scripts/webdriver-manager-update'
+        command: './node_modules/protractor/bin/webdriver-manager update'
       }
     }
   })
