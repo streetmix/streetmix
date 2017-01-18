@@ -248,6 +248,12 @@ async@1.5.2, async@^1.4.0, async@^1.5.2, async@~1.5.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
 
+async@2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/async/-/async-2.1.4.tgz#2d2160c7788032e4dd6cbe2502f1f9a2c8f6cde4"
+  dependencies:
+    lodash "^4.14.0"
+
 async@~0.1.22:
   version "0.1.22"
   resolved "https://registry.yarnpkg.com/async/-/async-0.1.22.tgz#0fc1aaa088a0e3ef0ebe2d8831bab0dcf8845061"
@@ -431,10 +437,6 @@ babel-plugin-syntax-jsx@^6.3.13, babel-plugin-syntax-jsx@^6.8.0:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-syntax-jsx/-/babel-plugin-syntax-jsx-6.18.0.tgz#0af32a9a6e13ca7a3fd5069e62d7b0f58d0d8946"
 
-babel-plugin-syntax-object-rest-spread@^6.8.0:
-  version "6.13.0"
-  resolved "https://registry.yarnpkg.com/babel-plugin-syntax-object-rest-spread/-/babel-plugin-syntax-object-rest-spread-6.13.0.tgz#fd6536f2bce13836ffa3a5458c4903a597bb3bf5"
-
 babel-plugin-transform-es2015-arrow-functions@^6.3.13:
   version "6.8.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-es2015-arrow-functions/-/babel-plugin-transform-es2015-arrow-functions-6.8.0.tgz#5b63afc3181bdc9a8c4d481b5a4f3f7d7fef3d9d"
@@ -586,13 +588,6 @@ babel-plugin-transform-flow-strip-types@^6.3.13:
   dependencies:
     babel-plugin-syntax-flow "^6.18.0"
     babel-runtime "^6.0.0"
-
-babel-plugin-transform-object-rest-spread@6.20.2:
-  version "6.20.2"
-  resolved "https://registry.yarnpkg.com/babel-plugin-transform-object-rest-spread/-/babel-plugin-transform-object-rest-spread-6.20.2.tgz#e816c55bba77b14c16365d87e2ae48c8fd18fc2e"
-  dependencies:
-    babel-plugin-syntax-object-rest-spread "^6.8.0"
-    babel-runtime "^6.20.0"
 
 babel-plugin-transform-react-display-name@^6.3.13:
   version "6.8.0"
@@ -1384,13 +1379,13 @@ concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
 
-concat-stream@^1.4.6, concat-stream@^1.5.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/concat-stream/-/concat-stream-1.6.0.tgz#0aac662fd52be78964d5532f694784e70110acf7"
+concat-stream@^1.4.6, concat-stream@^1.5.0, concat-stream@~1.5.0, concat-stream@~1.5.1:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/concat-stream/-/concat-stream-1.5.2.tgz#708978624d856af41a5a741defdd261da752c266"
   dependencies:
-    inherits "^2.0.3"
-    readable-stream "^2.2.2"
-    typedarray "^0.0.6"
+    inherits "~2.0.1"
+    readable-stream "~2.0.0"
+    typedarray "~0.0.5"
 
 concat-stream@~1.4.1, concat-stream@~1.4.5:
   version "1.4.10"
@@ -1398,14 +1393,6 @@ concat-stream@~1.4.1, concat-stream@~1.4.5:
   dependencies:
     inherits "~2.0.1"
     readable-stream "~1.1.9"
-    typedarray "~0.0.5"
-
-concat-stream@~1.5.0, concat-stream@~1.5.1:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/concat-stream/-/concat-stream-1.5.2.tgz#708978624d856af41a5a741defdd261da752c266"
-  dependencies:
-    inherits "~2.0.1"
-    readable-stream "~2.0.0"
     typedarray "~0.0.5"
 
 config@1.21.0:
@@ -3167,7 +3154,7 @@ inherits@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-1.0.2.tgz#ca4309dadee6b54cc0b8d247e8d7c7a0975bdc9b"
 
-inherits@2, inherits@2.0.3, inherits@^2.0.1, inherits@^2.0.3, inherits@~2.0.0, inherits@~2.0.1:
+inherits@2, inherits@2.0.3, inherits@^2.0.1, inherits@~2.0.0, inherits@~2.0.1:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
 
@@ -3694,10 +3681,6 @@ load-json-file@^1.0.0:
     pinkie-promise "^2.0.0"
     strip-bom "^2.0.0"
 
-lodash-es@^4.2.1:
-  version "4.17.4"
-  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.4.tgz#dcc1d7552e150a0640073ba9cb31d70f032950e7"
-
 lodash._basecopy@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/lodash._basecopy/-/lodash._basecopy-3.0.1.tgz#8da0e6a876cf344c0ad8a54882111dd3c5c7ca36"
@@ -3805,7 +3788,7 @@ lodash.templatesettings@^3.0.0:
     lodash._reinterpolate "^3.0.0"
     lodash.escape "^3.0.0"
 
-lodash@4.13.1, lodash@^4.0.0, lodash@^4.2.0, lodash@^4.2.1:
+lodash@4.13.1, lodash@^4.0.0, lodash@^4.2.0, lodash@^4.3.0:
   version "4.13.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.13.1.tgz#83e4b10913f48496d4d16fec4a560af2ee744b68"
 
@@ -3813,7 +3796,7 @@ lodash@4.13.1, lodash@^4.0.0, lodash@^4.2.0, lodash@^4.2.1:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
-lodash@^4.3.0, lodash@~4.16.4:
+lodash@^4.14.0, lodash@~4.16.4:
   version "4.16.6"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.16.6.tgz#d22c9ac660288f3843e16ba7d2b5d06cca27d777"
 
@@ -4872,7 +4855,7 @@ readable-stream@1.0.31:
     isarray "0.0.1"
     string_decoder "~0.10.x"
 
-readable-stream@^2.0.0, "readable-stream@^2.0.0 || ^1.1.13", readable-stream@^2.0.1, readable-stream@^2.0.2, readable-stream@^2.0.4, readable-stream@^2.0.5, readable-stream@^2.1.0, readable-stream@^2.1.5, readable-stream@^2.2.2:
+readable-stream@^2.0.0, "readable-stream@^2.0.0 || ^1.1.13", readable-stream@^2.0.1, readable-stream@^2.0.2, readable-stream@^2.0.4, readable-stream@^2.0.5, readable-stream@^2.1.0, readable-stream@^2.1.5:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.2.2.tgz#a9e6fec3c7dda85f8bb1b3ba7028604556fc825e"
   dependencies:
@@ -4949,15 +4932,6 @@ redent@^1.0.0:
 reduce-component@1.0.1, reduce-component@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/reduce-component/-/reduce-component-1.0.1.tgz#e0c93542c574521bea13df0f9488ed82ab77c5da"
-
-redux@3.6.0:
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/redux/-/redux-3.6.0.tgz#887c2b3d0b9bd86eca2be70571c27654c19e188d"
-  dependencies:
-    lodash "^4.2.1"
-    lodash-es "^4.2.1"
-    loose-envify "^1.1.0"
-    symbol-observable "^1.0.2"
 
 regenerate@^1.2.1:
   version "1.3.2"
@@ -5725,10 +5699,6 @@ supports-color@^3.1.2:
   dependencies:
     has-flag "^1.0.0"
 
-symbol-observable@^1.0.2:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.0.4.tgz#29bf615d4aa7121bdd898b22d4b3f9bc4e2aa03d"
-
 syntax-error@^1.1.1:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/syntax-error/-/syntax-error-1.1.6.tgz#b4549706d386cc1c1dc7c2423f18579b6cade710"
@@ -5979,7 +5949,7 @@ type-is@~1.6.13, type-is@~1.6.6:
     media-typer "0.3.0"
     mime-types "~2.1.13"
 
-typedarray@^0.0.6, typedarray@~0.0.5:
+typedarray@~0.0.5:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
