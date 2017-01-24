@@ -1,0 +1,132 @@
+/**
+ * GalleryStreetItem
+ *
+ * One street in the gallery
+ */
+import React from 'react'
+import { connect } from 'react-redux'
+import StreetName from '../streets/StreetName'
+import { msg } from '../app/messages'
+import { system } from '../preinit/system_capabilities'
+import { formatDate } from '../util/date_format'
+import { switchGalleryStreet } from './view'
+import { drawStreetThumbnail } from './thumbnail'
+import { getSignInData, isSignedIn } from '../users/authentication'
+import { sendDeleteStreetToServer } from '../streets/xhr'
+import { getStreet, getStreetUrl } from '../streets/data_model'
+import { showError, ERRORS } from '../app/errors'
+
+const THUMBNAIL_WIDTH = 180
+const THUMBNAIL_HEIGHT = 110
+const THUMBNAIL_MULTIPLIER = 0.1 * 2
+
+export default class GalleryStreetItem extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.onClickGalleryStreet = this.onClickGalleryStreet.bind(this)
+  }
+
+  drawCanvas () {
+    const ctx = this.thumbnailEl.getContext('2d')
+    drawStreetThumbnail(ctx, this.props.galleryStreet.data.street,
+      THUMBNAIL_WIDTH * 2, THUMBNAIL_HEIGHT * 2, THUMBNAIL_MULTIPLIER, true, false, true, false, false)
+  }
+
+  onClickGalleryStreet (event) {
+    if (event.shiftKey || event.ctrlKey || event.metaKey) {
+      return
+    }
+
+    switchGalleryStreet(this.props.galleryStreet.id)
+
+    event.preventDefault()
+  }
+
+  onClickDeleteGalleryStreet (event) {
+    const name = this.props.galleryStreet.name
+
+    // TODO escape name
+    if (window.confirm(msg('PROMPT_DELETE_STREET', { name: name }))) {
+      if (this.props.galleryStreet.id === getStreet().id) {
+        // TODO: affect gallery state
+        galleryState.noStreetSelected = true
+        showError(ERRORS.NO_STREET, false)
+      }
+
+      sendDeleteStreetToServer(this.props.galleryStreet.id)
+
+      // Instead, remove data from memory, and trigger re-render from data
+      // removeElFromDOM(el.parentNode)
+      // updateGalleryStreetCount()
+    }
+
+    event.preventDefault()
+    event.stopPropagation()
+  }
+
+  render () {
+    const className = (this.props.selected) ? 'selected' : ''
+
+    return (
+      <div className='gallery-street-item'>
+        <a
+          href={getStreetUrl(this.props.galleryStreet)}
+          data-street-id={this.props.galleryStreet.id}
+          onClick={this.onClickGalleryStreet}
+          className={className}
+        >
+          <canvas
+            width={THUMBNAIL_WIDTH * system.hiDpi * 2}
+            height={THUMBNAIL_HEIGHT * system.hiDpi * 2}
+            ref={(ref) => { this.thumbnailEl = ref }}
+          />
+
+          <StreetName name={this.props.galleryStreet.name} />
+
+          <span className='date'>
+            {formatDate(this.props.galleryStreet.updatedAt)}
+          </span>
+
+          {(() => {
+            if (!this.props.userId) {
+              return (
+                <span className='creator'>{this.galleryStreet.creatorId || msg('USER_ANONYMOUS')}</span>
+              )
+            }
+          })()}
+
+          {(() => {
+            // Only show delete links if you own the street
+            if (isSignedIn() && (this.props.galleryStreet.creatorId === getSignInData().userId)) {
+              return (
+                <button
+                  className='remove'
+                  title={msg('TOOLTIP_DELETE_STREET')}
+                  onClick={this.onClickDeleteGalleryStreet}
+                >
+                  {msg('UI_GLYPH_X')}
+                </button>
+              )
+            }
+          })()}
+
+        </a>
+      </div>
+    )
+  }
+}
+
+GalleryStreetItem.propTypes = {
+  userId: React.PropTypes.string,
+  selected: React.PropTypes.bool,
+  galleryStreet: React.PropTypes.object
+}
+
+function mapStateToProps (state) {
+  return {
+    userId: state.gallery.userId
+  }
+}
+
+export default connect(mapStateToProps)(GalleryStreetItem)

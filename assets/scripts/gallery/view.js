@@ -16,27 +16,15 @@ import { hideControls } from '../segments/resizing'
 import {
   DEFAULT_NAME,
   getStreet,
-  updateToLatestSchemaVersion,
-  getStreetUrl
+  updateToLatestSchemaVersion
 } from '../streets/data_model'
-import StreetName from '../streets/StreetName'
-import { sendDeleteStreetToServer } from '../streets/xhr'
 import { getSignInData, isSignedIn } from '../users/authentication'
-import { formatDate } from '../util/date_format'
-import { removeElFromDOM } from '../util/dom_helpers'
 import { fetchGalleryData } from './fetch_data'
 import { fetchGalleryStreet } from './fetch_street'
-import { drawStreetThumbnail } from './thumbnail'
-import React from 'react'
-import ReactDOM from 'react-dom'
 
 // Redux
 import store from '../store'
 import { SET_GALLERY_STATE } from '../store/actions'
-
-const THUMBNAIL_WIDTH = 180
-const THUMBNAIL_HEIGHT = 110
-const THUMBNAIL_MULTIPLIER = 0.1 * 2
 
 export const galleryState = {
   streetId: null,
@@ -152,68 +140,16 @@ export function receiveGalleryData (transmission) {
 
     updateToLatestSchemaVersion(galleryStreet.data.street)
 
-    var el = document.createElement('div')
-    el.className = 'gallery-street-item'
-
-    var anchorEl = document.createElement('a')
-
     galleryStreet.creatorId =
       (galleryStreet.creator && galleryStreet.creator.id)
 
     galleryStreet.name = galleryStreet.name || DEFAULT_NAME
 
-    anchorEl.href = getStreetUrl(galleryStreet)
-
-    anchorEl.streetName = galleryStreet.name
-    anchorEl.setAttribute('streetId', galleryStreet.id)
-
     if (galleryState.streetId === galleryStreet.id) {
-      anchorEl.classList.add('selected')
+      props.selected = true
     }
 
-    anchorEl.addEventListener('click', onGalleryStreetClick)
-
-    var thumbnailEl = document.createElement('canvas')
-    thumbnailEl.width = THUMBNAIL_WIDTH * system.hiDpi * 2
-    thumbnailEl.height = THUMBNAIL_HEIGHT * system.hiDpi * 2
-    var ctx = thumbnailEl.getContext('2d')
-    drawStreetThumbnail(ctx, galleryStreet.data.street,
-      THUMBNAIL_WIDTH * 2, THUMBNAIL_HEIGHT * 2, THUMBNAIL_MULTIPLIER, true, false, true, false, false)
-    anchorEl.appendChild(thumbnailEl)
-
-    var nameEl = document.createElement('div')
-    nameEl.className = 'street-name-wrap'
-    anchorEl.appendChild(nameEl)
-
-    ReactDOM.render(<StreetName name={galleryStreet.name} />, nameEl)
-
-    var dateEl = document.createElement('span')
-    dateEl.classList.add('date')
-    dateEl.innerHTML = formatDate(galleryStreet.updatedAt)
-    anchorEl.appendChild(dateEl)
-
-    if (!getGalleryUserId()) {
-      var creatorEl = document.createElement('span')
-      creatorEl.classList.add('creator')
-
-      var creatorName = galleryStreet.creatorId || msg('USER_ANONYMOUS')
-
-      creatorEl.innerHTML = creatorName
-      anchorEl.appendChild(creatorEl)
-    }
-
-    // Only show delete links if you own the street
-    if (isSignedIn() && (galleryStreet.creatorId === getSignInData().userId)) {
-      var removeEl = document.createElement('button')
-      removeEl.classList.add('remove')
-      removeEl.addEventListener('pointerdown', onDeleteGalleryStreet)
-      removeEl.innerHTML = msg('UI_GLYPH_X')
-      removeEl.title = msg('TOOLTIP_DELETE_STREET')
-      anchorEl.appendChild(removeEl)
-    }
-
-    el.appendChild(anchorEl)
-    document.querySelector('#gallery .streets').appendChild(el)
+    // document.querySelector('#gallery .streets').appendChild(el)
   }
 
   var streetCount = document.querySelectorAll('#gallery .streets li').length
@@ -243,30 +179,19 @@ export function updateGallerySelection () {
     el.classList.remove('selected')
   }
 
-  const selector = `.streets [streetId="${galleryState.streetId}"]`
+  const selector = `.streets [data-street-id="${galleryState.streetId}"]`
   const el = galleryEl.querySelector(selector)
   if (el) {
     el.classList.add('selected')
   }
 }
 
-function switchGalleryStreet (id) {
+export function switchGalleryStreet (id) {
   galleryState.streetId = id
   galleryState.noStreetSelected = false
 
   updateGallerySelection()
   fetchGalleryStreet(galleryState.streetId)
-}
-
-function onGalleryStreetClick (event) {
-  if (event.shiftKey || event.ctrlKey || event.metaKey) {
-    return
-  }
-
-  var el = this
-  switchGalleryStreet(el.getAttribute('streetId'))
-
-  event.preventDefault()
 }
 
 function updateGalleryStreetCount () {
@@ -313,27 +238,6 @@ function updateGalleryShield () {
     document.querySelector('#gallery-shield').style.width =
       document.querySelector('#street-section-outer').scrollWidth + 'px'
   }, 0)
-}
-
-function onDeleteGalleryStreet (event) {
-  var el = event.target.parentNode
-  var name = el.streetName
-
-  // TODO escape name
-  if (window.confirm(msg('PROMPT_DELETE_STREET', { name: name }))) {
-    if (el.getAttribute('streetId') === getStreet().id) {
-      galleryState.noStreetSelected = true
-      showError(ERRORS.NO_STREET, false)
-    }
-
-    sendDeleteStreetToServer(el.getAttribute('streetId'))
-
-    removeElFromDOM(el.parentNode)
-    updateGalleryStreetCount()
-  }
-
-  event.preventDefault()
-  event.stopPropagation()
 }
 
 export function onMyStreetsClick (event) {
