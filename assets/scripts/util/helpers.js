@@ -32,7 +32,7 @@ export function normalizeSlug (slug) {
   slug = slug.toLowerCase()
   slug = slug.replace(/ /g, '-')
   slug = slug.replace(/-{2,}/, '-')
-  slug = slug.replace(/[^a-zA-Z0-9\-]/g, '')
+  slug = slug.replace(/[^a-zA-Z0-9-]/g, '')
   slug = slug.replace(/^[-]+|[-]+$/g, '')
 
   return slug

@@ -5,6 +5,15 @@
 
   background: transparent;
   color: transparent;
+  cursor: wait;
+
+  & * {
+    cursor: wait;
+  }
+
+  & button {
+    cursor: auto;
+  }
 
   &.darken,
   &.darken-immediately {
@@ -47,16 +56,6 @@
 
   &.show-cancel #blocking-shield-cancel {
     display: inline-block;
-  }
-
-  cursor: wait;
-
-  & * {
-    cursor: wait;
-  }
-
-  & button {
-    cursor: auto;
   }
 
   &:not(.visible) {
