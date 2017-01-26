@@ -23,7 +23,10 @@ export const system = {
   hiDpi: 1.0,
   cssTransform: false,
   ipAddress: null,
-  apiUrl: null
+  pageVisibility: false,
+  hiddenProperty: false,
+  visibilityState: false,
+  visibilityChange: false
 }
 
 // NOTE:

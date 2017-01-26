@@ -11,7 +11,10 @@ const initialState = {
   hiDpi: 1.0,
   cssTransform: false,
   ipAddress: null,
-  apiUrl: null
+  pageVisibility: false,
+  hiddenProperty: false,
+  visibilityState: false,
+  visibilityChange: false
 }
 
 const system = (state = initialState, action) => {
