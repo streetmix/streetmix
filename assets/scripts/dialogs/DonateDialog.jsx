@@ -10,18 +10,19 @@ import React from 'react'
 import Dialog from './Dialog'
 import { trackEvent } from '../app/event_tracking'
 
-export default class AboutDialog extends React.Component {
+export default class DonateDialog extends React.Component {
   componentDidMount () {
     trackEvent('Interaction', 'Display donate dialog box', null, null, false)
   }
 
   render () {
     return (
-      <Dialog className='about-dialog'>
-        <h1>Thanks for using Streetmix.</h1>
+      <Dialog className='about-dialog' disableShieldExit>
+        <h1>Thank you for using Streetmix.</h1>
         <div className='about-dialog-left'>
           <div className='about-dialog-description'>
-            Streetmix needs your support to help us keep the lights on.
+            Streetmix is a community-supported project and it needs your support
+            to keep the lights on.
           </div>
         </div>
         <div className='about-dialog-right'>
