@@ -176,3 +176,19 @@ $dialog-box-default-width: 790px;
     border-bottom: 3px dashed $ui-colour;
   }
 }
+
+.donate-dialog {
+  width: 560px;
+  text-align: center;
+}
+
+.donate-dialog-lede {
+  font-size: 1.25em;
+  margin: 1em 0;
+}
+
+// Override .button-like specificity
+.button-like.donate-dialog-button {
+  padding: 1em 1.5em;
+  margin-top: 1em;
+}
