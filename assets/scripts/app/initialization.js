@@ -1,3 +1,6 @@
+import React from 'react'
+import ReactDOM from 'react-dom'
+import DonateDialog from '../dialogs/DonateDialog'
 import { hideLoadingScreen, getImagesToBeLoaded } from './load_resources'
 import { initLocale } from './locale'
 import { scheduleNextLiveUpdateCheck } from './live_update'
@@ -193,6 +196,10 @@ function onEverythingLoaded () {
   if (system.touch === true) {
     trackEvent('SYSTEM', 'TOUCH_CAPABLE', null, null, true)
   }
+
+  // Display "support Streetmix" dialog for returning users
+  const mountNode = document.getElementById('dialogs-react')
+  ReactDOM.render(<DonateDialog />, mountNode)
 }
 
 function onBodyLoad () {
