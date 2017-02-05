@@ -1,9 +1,10 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import StreetName from './StreetName'
 import StreetMetaData from './StreetMetaData'
 import { getStreet } from './data_model'
 
-export default class StreetNameCanvas extends React.Component {
+class StreetNameCanvas extends React.Component {
   constructor (props) {
     super(props)
 
@@ -66,11 +67,9 @@ export default class StreetNameCanvas extends React.Component {
       <div id='street-name-canvas' className={this.determineClassNames().join(' ')}>
         <StreetName
           id='street-name'
-          ref={(ref) => {
-            this.streetName = ref
-          }}
+          ref={(ref) => { this.streetName = ref }}
           street={this.state.street}
-          allowEditing={this.props.allowEditing}
+          editable={this.props.editable}
           handleResize={this.onResizeStreetName}
         />
         <StreetMetaData id='street-metadata' street={this.state.street} />
@@ -80,5 +79,17 @@ export default class StreetNameCanvas extends React.Component {
 }
 
 StreetNameCanvas.propTypes = {
-  allowEditing: React.PropTypes.bool
+  editable: React.PropTypes.bool
 }
+
+StreetNameCanvas.defaultProps = {
+  editable: true
+}
+
+function mapStateToProps (state) {
+  return {
+    editable: !state.app.readOnly
+  }
+}
+
+export default connect(mapStateToProps)(StreetNameCanvas)
