@@ -8,6 +8,8 @@
  * Later scripts may use these settings.
  *
  */
+import store from '../store'
+import { SET_DEBUG_FLAGS } from '../store/actions'
 
 export const debug = {
   hoverPolygon: false,
@@ -17,6 +19,9 @@ export const debug = {
   forceUnsupportedBrowser: false,
   forceNonRetina: false,
   forceNoInternet: false,
+  forceReadOnly: false,
+  forceTouch: false,
+  forceLiveUpdate: false,
   secretSegments: false,
   experimental: false
 }
@@ -49,12 +54,8 @@ if (url.match(/[?&]debug-force-non-retina&?/)) {
   debug.forceNonRetina = true
 }
 
-if (url.match(/[?&]debug-secret-segments&?/)) {
-  debug.secretSegments = true
-}
-
-if (url.match(/[?&]debug-hover-polygon&?/)) {
-  debug.hoverPolygon = true
+if (url.match(/[?&]debug-force-no-internet&?/)) {
+  debug.forceNoInternet = true
 }
 
 if (url.match(/[?&]debug-force-read-only&?/)) {
@@ -69,10 +70,15 @@ if (url.match(/[?&]debug-force-live-update&?/)) {
   debug.forceLiveUpdate = true
 }
 
-if (url.match(/[?&]debug-force-no-internet&?/)) {
-  debug.forceNoInternet = true
+if (url.match(/[?&]debug-secret-segments&?/)) {
+  debug.secretSegments = true
 }
 
 if (url.match(/[?&]debug-experimental&?/)) {
   debug.experimental = true
 }
+
+store.dispatch({
+  type: SET_DEBUG_FLAGS,
+  ...debug
+})

@@ -32,5 +32,8 @@
  * > have to write them!
  */
 
+/* debug */
+export const SET_DEBUG_FLAGS = 'SET_DEBUG_FLAGS'
+
 /* system */
 export const SET_SYSTEM_FLAGS = 'SET_SYSTEM_FLAGS'
