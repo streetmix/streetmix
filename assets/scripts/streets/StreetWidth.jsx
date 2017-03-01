@@ -1,5 +1,4 @@
 import React from 'react'
-import { replace } from 'lodash'
 import { processWidthInput, prettifyWidth } from '../util/width_units'
 import { getSegmentWidthResolution } from '../segments/resizing'
 import { loseAnyFocus } from '../app/focus'
