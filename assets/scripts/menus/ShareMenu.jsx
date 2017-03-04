@@ -1,7 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import Menu from './Menu'
-import SaveAsImageDialog from '../dialogs/SaveAsImageDialog'
 
 import { t } from '../app/locale'
 import { FACEBOOK_APP_ID } from '../app/config'
@@ -11,6 +9,9 @@ import { getPageTitle } from '../app/page_title'
 import { printImage } from '../app/print'
 import { getStreet } from '../streets/data_model'
 import { getSharingUrl } from '../util/share_url'
+
+import store from '../store'
+import { SHOW_DIALOG } from '../store/actions'
 
 function _getSharingMessage () {
   let message = ''
@@ -87,7 +88,10 @@ export default class ShareMenu extends React.Component {
 
   onClickSaveAsImage (event) {
     event.preventDefault()
-    ReactDOM.render(<SaveAsImageDialog />, document.getElementById('dialogs-react'))
+    store.dispatch({
+      type: SHOW_DIALOG,
+      name: 'SAVE_AS_IMAGE'
+    })
   }
 
   render () {

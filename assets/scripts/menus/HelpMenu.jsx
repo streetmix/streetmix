@@ -1,10 +1,10 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import Menu from './Menu'
-import AboutDialog from '../dialogs/AboutDialog'
 import { registerKeypress } from '../app/keypress'
 import { trackEvent } from '../app/event_tracking'
 import { t } from '../app/locale'
+import store from '../store'
+import { SHOW_DIALOG } from '../store/actions'
 
 export default class HelpMenu extends React.PureComponent {
   componentDidMount () {
@@ -19,8 +19,10 @@ export default class HelpMenu extends React.PureComponent {
   }
 
   onClickAbout () {
-    const mountNode = document.getElementById('dialogs-react')
-    ReactDOM.render(<AboutDialog />, mountNode)
+    store.dispatch({
+      type: SHOW_DIALOG,
+      name: 'ABOUT'
+    })
   }
 
   render () {
