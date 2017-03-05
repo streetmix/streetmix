@@ -51,7 +51,7 @@ export function setLastStreet (value) {
   _lastStreet = value
 }
 
-const LATEST_SCHEMA_VERSION = 16
+const LATEST_SCHEMA_VERSION = 17
 // 1: starting point
 // 2: adding leftBuildingHeight and rightBuildingHeight
 // 3: adding leftBuildingVariant and rightBuildingVariant
@@ -68,6 +68,7 @@ const LATEST_SCHEMA_VERSION = 16
 // 14: wayfinding has three types
 // 15: sidewalks have rand seed
 // 16: stop saving undo stack
+// 17: alternative colors for bike lanes
 
 export const DEFAULT_NAME = msg('DEFAULT_STREET_NAME')
 
@@ -254,6 +255,18 @@ function incrementSchemaVersion (street) {
     case 15:
       setUndoStack([])
       setUndoPosition(0)
+      break
+    case 16:
+      for (let i in street.segments) {
+        segment = street.segments[i]
+        if (segment.type === 'bike-lane') {
+          variant = getVariantArray(segment.type, segment.variantString)
+          if (variant['bike-asphalt'] === 'colored') {
+            variant['bike-asphalt'] = 'green'
+          }
+          segment.variantString = getVariantString(variant)
+        }
+      }
       break
   }
 
