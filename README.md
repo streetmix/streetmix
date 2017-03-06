@@ -37,8 +37,6 @@
 
 ## About
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/streetmix/streetmix.svg)](https://greenkeeper.io/)
-
 #### What are street sections?
 
 A "section" is shortened way of saying "cross-section view", a type of 2D non-perspectival drawing commonly used in engineering and architecture to show what something looks like when you take a slice of it and look at it head-on. Similarly, a street section is a cross section view of a street, showing the widths and placement of vehicle lanes, bike lanes, sidewalks, trees, street furniture or accessories (like benches or street lamps), as well as engineering information like how the road is sloped to facilitate drainage, or the locations of underground utilities. Although sections can be simplified line drawings, urban designers and landscape architects have created very colorful illustrative street sections, removing most of the engineering particulars to communicate how a street could be designed to feel safe, walkable or habitable.
@@ -78,3 +76,5 @@ Streetmix started as a [Code for America][cfa] hackathon project in January 2013
 Copyright (c) 2013-2016 Code for America and contributors. See [LICENSE][] for details.
 
 [license]: https://github.com/streetmix/streetmix/blob/master/LICENSE.md
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/streetmix/streetmix.svg)](https://greenkeeper.io/)
