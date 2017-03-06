@@ -244,11 +244,9 @@ export function fetchStreetForVerification () {
     })
     .catch(error => {
       // Early exit if requestId does not equal the latestRequestId
-      if (error.message === '1') {
-        return
-      } else {
-        errorReceiveStreetForVerification(error)
-      }
+      if (error.message !== '1') return
+
+      errorReceiveStreetForVerification(error)
     })
 }
 

@@ -34,7 +34,7 @@ export function onResize () {
   // TODO const
   if (system.viewportHeight - streetSectionHeight > 450) {
     streetSectionTop =
-      (system.viewportHeight - streetSectionHeight - 450) / 2 + 450 + 80
+      ((system.viewportHeight - streetSectionHeight - 450) / 2) + 450 + 80
   } else {
     streetSectionTop = system.viewportHeight - streetSectionHeight + 70
   }
@@ -52,7 +52,7 @@ export function onResize () {
   document.querySelector('#street-section-inner').style.top = streetSectionTop + 'px'
 
   document.querySelector('#street-section-sky').style.top =
-    (streetSectionTop * 0.8 - 255) + 'px'
+    ((streetSectionTop * 0.8) - 255) + 'px'
 
   document.querySelector('#street-scroll-indicator-left').style.top =
     (streetSectionTop + streetSectionHeight) + 'px'
@@ -72,7 +72,7 @@ export function onResize () {
   document.querySelector('#street-section-sky').style.marginTop = -skyTop + 'px'
   var street = getStreet()
   streetSectionCanvasLeft =
-    ((system.viewportWidth - street.width * TILE_SIZE) / 2) - BUILDING_SPACE
+    ((system.viewportWidth - (street.width * TILE_SIZE)) / 2) - BUILDING_SPACE
   if (streetSectionCanvasLeft < 0) {
     streetSectionCanvasLeft = 0
   }

@@ -79,4 +79,3 @@ export default class Avatar extends React.Component {
 Avatar.propTypes = {
   userId: React.PropTypes.string
 }
-

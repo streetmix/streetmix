@@ -43,7 +43,6 @@ var oauthAccessTokenHandler = function (req, res) {
 exports.get = function (req, res) {
   if (req.query.denied) {
     res.redirect('/error/twitter-access-denied')
-    return
   } else if (req.session.oauth) {
     req.session.oauth.verifier = req.query.oauth_verifier
     var oa = req.session.oauth

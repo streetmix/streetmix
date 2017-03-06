@@ -20,7 +20,6 @@ var oauthRequestTokenHandler = function (req, res) {
 
     // Redirect user to Twitter sign-in flow
     res.redirect(sprintf(config.twitter.oauth_authenticate_uri, oauthToken))
-    return
   }
 }
 

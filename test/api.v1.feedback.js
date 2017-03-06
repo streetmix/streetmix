@@ -81,4 +81,3 @@ test('post api/v1/feedback', function (t) {
       t.equal(res.statusCode, 400, 'should respond with 400 bad request when no message is sent')
     })
 })
-

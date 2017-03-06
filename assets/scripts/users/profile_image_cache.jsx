@@ -15,4 +15,3 @@ export function receiveUserDetails (details) {
     window.dispatchEvent(new CustomEvent('stmx:user_details_received'))
   }
 }
-

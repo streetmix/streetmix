@@ -15,7 +15,7 @@ export const SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING = 65
 
 export function getStreetImage (transparentSky, segmentNamesAndWidths, streetName) {
   let street = getStreet()
-  const width = TILE_SIZE * street.width + BUILDING_SPACE * 2
+  const width = (TILE_SIZE * street.width) + (BUILDING_SPACE * 2)
 
   const leftBuildingAttr = getBuildingAttributes(street, true)
   const rightBuildingAttr = getBuildingAttributes(street, false)

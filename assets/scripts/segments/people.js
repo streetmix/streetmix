@@ -60,7 +60,7 @@ export function drawProgrammaticPeople (ctx, width, offsetLeft, offsetTop, randS
 
     lastPersonType = person.type
 
-    var lastWidth = widthConst + PERSON_WIDTH[person.type] * 12 - 24 + randomGenerator.rand() * widthRand
+    var lastWidth = widthConst + (PERSON_WIDTH[person.type] * 12) - 24 + (randomGenerator.rand() * widthRand)
 
     peopleWidth += lastWidth
     people.push(person)
@@ -88,8 +88,8 @@ export function drawProgrammaticPeople (ctx, width, offsetLeft, offsetTop, randS
 
     // TODO: Document / refactor magic numbers
     drawSegmentImageSVG('people--people-' + type, ctx,
-      offsetLeft + (person.left - 5 * 12 / 2 - (4 - PERSON_WIDTH[person.type]) * 12 / 2 + startLeft) * multiplier,
-      offsetTop + 37 * multiplier,
+      offsetLeft + ((person.left - (5 * 12 / 2) - ((4 - PERSON_WIDTH[person.type]) * 12 / 2) + startLeft) * multiplier),
+      offsetTop + (37 * multiplier),
       12 * 5 * multiplier, 24 * 4 * multiplier)
   }
 }
