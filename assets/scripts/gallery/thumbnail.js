@@ -30,24 +30,24 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
   var offsetTop
   if (bottomAligned) {
-    offsetTop = thumbnailHeight - 180 * multiplier
+    offsetTop = thumbnailHeight - (180 * multiplier)
   } else {
-    offsetTop = (thumbnailHeight + 5 * TILE_SIZE * multiplier) / 2
+    offsetTop = (thumbnailHeight + (5 * TILE_SIZE * multiplier)) / 2
   }
   if (segmentNamesAndWidths) {
     offsetTop -= SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING * multiplier
   }
 
-  var offsetLeft = (thumbnailWidth - occupiedWidth * TILE_SIZE * multiplier) / 2
-  var buildingOffsetLeft = (thumbnailWidth - street.width * TILE_SIZE * multiplier) / 2
+  var offsetLeft = (thumbnailWidth - (occupiedWidth * TILE_SIZE * multiplier)) / 2
+  var buildingOffsetLeft = (thumbnailWidth - (street.width * TILE_SIZE * multiplier)) / 2
 
-  var groundLevel = offsetTop + 135 * multiplier
+  var groundLevel = offsetTop + (135 * multiplier)
 
   // Sky
 
   if (!transparentSky) {
     ctx.fillStyle = SKY_COLOUR
-    ctx.fillRect(0, 0, thumbnailWidth * system.hiDpi, (groundLevel + 20 * multiplier) * system.hiDpi)
+    ctx.fillRect(0, 0, thumbnailWidth * system.hiDpi, (groundLevel + (20 * multiplier)) * system.hiDpi)
 
     // TODO document magic numbers
     const y1 = groundLevel - 280
@@ -71,14 +71,14 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
   // Dirt
 
   ctx.fillStyle = BACKGROUND_DIRT_COLOUR
-  ctx.fillRect(0, (groundLevel + 20 * multiplier) * system.hiDpi,
+  ctx.fillRect(0, (groundLevel + (20 * multiplier)) * system.hiDpi,
     thumbnailWidth * system.hiDpi, (25 * multiplier) * system.hiDpi)
 
   ctx.fillRect(0, groundLevel * system.hiDpi,
-    (thumbnailWidth / 2 - street.width * TILE_SIZE * multiplier / 2) * system.hiDpi,
+    ((thumbnailWidth / 2) - (street.width * TILE_SIZE * multiplier / 2)) * system.hiDpi,
     (20 * multiplier) * system.hiDpi)
 
-  ctx.fillRect((thumbnailWidth / 2 + street.width * TILE_SIZE * multiplier / 2) * system.hiDpi,
+  ctx.fillRect(((thumbnailWidth / 2) + (street.width * TILE_SIZE * multiplier / 2)) * system.hiDpi,
     groundLevel * system.hiDpi,
     thumbnailWidth * system.hiDpi,
     (20 * multiplier) * system.hiDpi)
@@ -86,18 +86,18 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
   // Segment names
 
   ctx.fillStyle = BOTTOM_BACKGROUND
-  ctx.fillRect(0, (groundLevel + 45 * multiplier) * system.hiDpi,
-    thumbnailWidth * system.hiDpi, (thumbnailHeight - groundLevel - 45 * multiplier) * system.hiDpi)
+  ctx.fillRect(0, (groundLevel + (45 * multiplier)) * system.hiDpi,
+    thumbnailWidth * system.hiDpi, (thumbnailHeight - groundLevel - (45 * multiplier)) * system.hiDpi)
 
   // Buildings
 
   const buildingWidth = buildingOffsetLeft / multiplier
 
-  const x1 = thumbnailWidth / 2 - street.width * TILE_SIZE * multiplier / 2
-  drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street, true, buildingWidth, groundLevel + 45, true, x1 - (buildingWidth - 25) * multiplier, 0, multiplier)
+  const x1 = (thumbnailWidth / 2) - (street.width * TILE_SIZE * multiplier / 2)
+  drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street, true, buildingWidth, groundLevel + 45, true, x1 - ((buildingWidth - 25) * multiplier), 0, multiplier)
 
-  const x2 = thumbnailWidth / 2 + street.width * TILE_SIZE * multiplier / 2
-  drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street, false, buildingWidth, groundLevel + 45, true, x2 - 25 * multiplier, 0, multiplier)
+  const x2 = (thumbnailWidth / 2) + (street.width * TILE_SIZE * multiplier / 2)
+  drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street, false, buildingWidth, groundLevel + 45, true, x2 - (25 * multiplier), 0, multiplier)
 
   // Segments
 
@@ -125,7 +125,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
         drawSegmentContents(ctx, segment.type, segment.variantString,
           segment.width * TILE_SIZE * multiplier,
-          offsetLeft + dimensions.left * TILE_SIZE * multiplier, offsetTop, segment.randSeed, multiplier, false)
+          offsetLeft + (dimensions.left * TILE_SIZE * multiplier), offsetTop, segment.randSeed, multiplier, false)
       }
 
       offsetLeft += segment.width * TILE_SIZE * multiplier
@@ -158,25 +158,25 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
       }
 
       drawLine(ctx,
-        left, (groundLevel + 45 * multiplier),
-        left, (groundLevel + 125 * multiplier))
+        left, (groundLevel + (45 * multiplier)),
+        left, (groundLevel + (125 * multiplier)))
 
-      const x = (offsetLeft + availableWidth / 2) * system.hiDpi
+      const x = (offsetLeft + (availableWidth / 2)) * system.hiDpi
 
       let text = prettifyWidth(segment.width)
       let textWidth = ctx.measureText(text).width / 2
-      while ((textWidth > availableWidth - 10 * multiplier) && (text.indexOf(' ') !== -1)) {
+      while ((textWidth > availableWidth - (10 * multiplier)) && (text.indexOf(' ') !== -1)) {
         text = text.substr(0, text.lastIndexOf(' '))
         textWidth = ctx.measureText(text).width / 2
       }
       ctx.fillText(text, x,
-        (groundLevel + 60 * multiplier) * system.hiDpi)
+        (groundLevel + (60 * multiplier)) * system.hiDpi)
 
       const name = variantInfo.name || segmentInfo.name
       const nameWidth = ctx.measureText(name).width / 2
-      if (nameWidth <= availableWidth - 10 * multiplier) {
+      if (nameWidth <= availableWidth - (10 * multiplier)) {
         ctx.fillText(name, x,
-          (groundLevel + 83 * multiplier) * system.hiDpi)
+          (groundLevel + (83 * multiplier)) * system.hiDpi)
       }
 
       offsetLeft += availableWidth
@@ -184,8 +184,8 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
     var left = offsetLeft + 1
     drawLine(ctx,
-      left, (groundLevel + 45 * multiplier),
-      left, (groundLevel + 125 * multiplier))
+      left, (groundLevel + (45 * multiplier)),
+      left, (groundLevel + (125 * multiplier)))
 
     ctx.restore()
   }
@@ -230,15 +230,15 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
     }
 
     ctx.fillStyle = 'white'
-    const x1 = thumbnailWidth * system.hiDpi / 2 - (measurement.width / 2 + 75 * system.hiDpi)
-    const x2 = thumbnailWidth * system.hiDpi / 2 + (measurement.width / 2 + 75 * system.hiDpi)
+    const x1 = (thumbnailWidth * system.hiDpi / 2) - ((measurement.width / 2) + (75 * system.hiDpi))
+    const x2 = (thumbnailWidth * system.hiDpi / 2) + ((measurement.width / 2) + (75 * system.hiDpi))
     const y1 = (75 - 60) * system.hiDpi
     const y2 = (75 + 60) * system.hiDpi
     ctx.fillRect(x1, y1, x2 - x1, y2 - y1)
 
     ctx.strokeStyle = 'black'
     ctx.lineWidth = 10
-    ctx.strokeRect(x1 + 10 * 2, y1 + 10 * 2, x2 - x1 - 10 * 4, y2 - y1 - 10 * 4)
+    ctx.strokeRect(x1 + (10 * 2), y1 + (10 * 2), x2 - x1 - (10 * 4), y2 - y1 - (10 * 4))
 
     const x = thumbnailWidth * system.hiDpi / 2
 

@@ -216,7 +216,7 @@ export const infoBubble = {
         bottomY2 = bottomY
       }
 
-      var diffX = 60 - (mouseY - bubbleY) / 5
+      var diffX = 60 - ((mouseY - bubbleY) / 5)
       if (diffX < 0) {
         diffX = 0
       } else if (diffX > 50) {
@@ -226,12 +226,12 @@ export const infoBubble = {
       infoBubble.hoverPolygon = [
         [bubbleX - marginBubble, bubbleY - marginBubble],
         [bubbleX - marginBubble, bubbleY + bubbleHeight + marginBubble],
-        [(bubbleX - marginBubble + mouseX - INFO_BUBBLE_MARGIN_MOUSE - diffX) / 2, bottomY + (bubbleY + bubbleHeight + marginBubble - bottomY) * 0.2],
+        [(bubbleX - marginBubble + mouseX - INFO_BUBBLE_MARGIN_MOUSE - diffX) / 2, bottomY + ((bubbleY + bubbleHeight + marginBubble - bottomY) * 0.2)],
         [mouseX - INFO_BUBBLE_MARGIN_MOUSE - diffX, bottomY],
         [mouseX - INFO_BUBBLE_MARGIN_MOUSE, bottomY2],
         [mouseX + INFO_BUBBLE_MARGIN_MOUSE, bottomY2],
         [mouseX + INFO_BUBBLE_MARGIN_MOUSE + diffX, bottomY],
-        [(bubbleX + bubbleWidth + marginBubble + mouseX + INFO_BUBBLE_MARGIN_MOUSE + diffX) / 2, bottomY + (bubbleY + bubbleHeight + marginBubble - bottomY) * 0.2],
+        [(bubbleX + bubbleWidth + marginBubble + mouseX + INFO_BUBBLE_MARGIN_MOUSE + diffX) / 2, bottomY + ((bubbleY + bubbleHeight + marginBubble - bottomY) * 0.2)],
         [bubbleX + bubbleWidth + marginBubble, bubbleY + bubbleHeight + marginBubble],
         [bubbleX + bubbleWidth + marginBubble, bubbleY - marginBubble],
         [bubbleX - marginBubble, bubbleY - marginBubble]
@@ -942,7 +942,7 @@ function _isPointInPoly (vs, point) {
     var yj = vs[j][1]
 
     var intersect = ((yi > y) !== (yj > y)) &&
-      (x < (xj - xi) * (y - yi) / (yj - yi) + xi)
+      (x < ((xj - xi) * (y - yi) / (yj - yi)) + xi)
     if (intersect) inside = !inside
   }
 

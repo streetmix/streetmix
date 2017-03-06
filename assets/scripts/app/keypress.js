@@ -229,9 +229,7 @@ export function registerKeypress (commands, options, callback) {
       // options object - it's dumb, but there's no protection against it,
       // and who knows, could be useful in edge cases
       for (let k in options) {
-        if (typeof command[k] !== options[k]) {
-          command[k] = options[k]
-        }
+        command[k] = options[k]
       }
 
       // Add processed commands to module's inputs holder

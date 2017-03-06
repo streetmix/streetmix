@@ -69,7 +69,7 @@ function loadImages () {
         loadingEl.value++
       })
       .catch(function (error) {
-        console.error('loading image error', error)
+        console.error('loading image error', error.message)
       }))
   }
 }
@@ -155,7 +155,7 @@ function getImage (url) {
       resolve(img)
     }
     img.onerror = function () {
-      reject('unable to load image ' + url)
+      reject(new Error('unable to load image ' + url))
     }
     img.src = url
   })

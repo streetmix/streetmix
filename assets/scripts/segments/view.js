@@ -103,8 +103,8 @@ export function getVariantInfoDimensions (variantInfo, initialSegmentWidth, mult
   if (variantInfo.graphics.center) {
     graphic = variantInfo.graphics.center
     for (let l = 0; l < graphic.length; l++) {
-      newLeft = center - graphic[l].width / 2 + (graphic[l].offsetX || 0)
-      newRight = center + graphic[l].width / 2 + (graphic[l].offsetX || 0)
+      newLeft = center - (graphic[l].width / 2) + (graphic[l].offsetX || 0)
+      newRight = center + (graphic[l].width / 2) + (graphic[l].offsetX || 0)
 
       if (newLeft < left) {
         left = newLeft
@@ -174,7 +174,7 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
       var repeatPositionY = (variantInfo.graphics.repeat[l].y || 0) * TILE_SIZE
       w = variantInfo.graphics.repeat[l].width * TILE_SIZE * multiplier
 
-      var count = Math.floor((segmentWidth) / w + 1)
+      var count = Math.floor((segmentWidth / w) + 1)
 
       if (left < 0) {
         repeatStartX = -left * TILE_SIZE
@@ -185,13 +185,13 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
       for (var i = 0; i < count; i++) {
         // remainder
         if (i === count - 1) {
-          w = segmentWidth - (count - 1) * w
+          w = segmentWidth - ((count - 1) * w)
         }
 
         drawSegmentImage(variantInfo.graphics.repeat[l].tileset, ctx,
           repeatPositionX, repeatPositionY,
           w, variantInfo.graphics.repeat[l].height * TILE_SIZE,
-          offsetLeft + (repeatStartX + (i * variantInfo.graphics.repeat[l].width) * TILE_SIZE) * multiplier,
+          offsetLeft + ((repeatStartX + (i * variantInfo.graphics.repeat[l].width * TILE_SIZE)) * multiplier),
           offsetTop + (multiplier * TILE_SIZE * (variantInfo.graphics.repeat[l].offsetY || 0)),
           w,
           variantInfo.graphics.repeat[l].height * TILE_SIZE * multiplier)
@@ -206,7 +206,7 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
 
       w = variantInfo.graphics.left[l].width * TILE_SIZE
 
-      x = 0 + (-left + (variantInfo.graphics.left[l].offsetX || 0)) * TILE_SIZE * multiplier
+      x = 0 + ((-left + (variantInfo.graphics.left[l].offsetX || 0)) * TILE_SIZE * multiplier)
 
       drawSegmentImage(variantInfo.graphics.left[l].tileset, ctx,
         leftPositionX, leftPositionY,
@@ -224,7 +224,7 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
 
       w = variantInfo.graphics.right[l].width * TILE_SIZE
 
-      x = (-left + segmentWidth / TILE_SIZE / multiplier - variantInfo.graphics.right[l].width - (variantInfo.graphics.right[l].offsetX || 0)) * TILE_SIZE * multiplier
+      x = (-left + (segmentWidth / TILE_SIZE / multiplier) - variantInfo.graphics.right[l].width - (variantInfo.graphics.right[l].offsetX || 0)) * TILE_SIZE * multiplier
 
       drawSegmentImage(variantInfo.graphics.right[l].tileset, ctx,
         rightPositionX, rightPositionY,
@@ -242,7 +242,7 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
 
       var width = variantInfo.graphics.center[l].width
 
-      x = (center - variantInfo.graphics.center[l].width / 2 - left - (variantInfo.graphics.center[l].offsetX || 0)) * TILE_SIZE * multiplier
+      x = (center - (variantInfo.graphics.center[l].width / 2) - left - (variantInfo.graphics.center[l].offsetX || 0)) * TILE_SIZE * multiplier
 
       drawSegmentImage(variantInfo.graphics.center[l].tileset, ctx,
         bkPositionX, bkPositionY,
@@ -254,7 +254,7 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
   }
 
   if (type === 'sidewalk') {
-    drawProgrammaticPeople(ctx, segmentWidth / multiplier, offsetLeft - left * TILE_SIZE * multiplier, offsetTop, randSeed, multiplier, variantString)
+    drawProgrammaticPeople(ctx, segmentWidth / multiplier, offsetLeft - (left * TILE_SIZE * multiplier), offsetTop, randSeed, multiplier, variantString)
   }
 }
 
@@ -438,8 +438,8 @@ export function repositionSegments () {
   var occupiedWidth = left
   var noMoveOccupiedWidth = noMoveLeft
 
-  var mainLeft = Math.round((street.width * TILE_SIZE - occupiedWidth) / 2)
-  var mainNoMoveLeft = Math.round((street.width * TILE_SIZE - noMoveOccupiedWidth) / 2)
+  var mainLeft = Math.round(((street.width * TILE_SIZE) - occupiedWidth) / 2)
+  var mainNoMoveLeft = Math.round(((street.width * TILE_SIZE) - noMoveOccupiedWidth) / 2)
 
   for (let i in street.segments) {
     el = street.segments[i].el
@@ -512,7 +512,7 @@ export function switchSegmentElIn (el) {
 
   window.setTimeout(function () {
     var pos = getElAbsolutePos(el)
-    var perspective = -(pos[0] - document.querySelector('#street-section-outer').scrollLeft - system.viewportWidth / 2)
+    var perspective = -(pos[0] - document.querySelector('#street-section-outer').scrollLeft - (system.viewportWidth / 2))
     // TODO const
     // TODO cross-browser
 
@@ -533,7 +533,7 @@ export function switchSegmentElAway (el) {
   var pos = getElAbsolutePos(el)
 
   // TODO func
-  var perspective = -(pos[0] - document.querySelector('#street-section-outer').scrollLeft - system.viewportWidth / 2)
+  var perspective = -(pos[0] - document.querySelector('#street-section-outer').scrollLeft - (system.viewportWidth / 2))
   // TODO const
   // TODO cross-browser
 

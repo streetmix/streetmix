@@ -227,7 +227,7 @@ function handleSegmentResizeMove (event) {
   draggingResize.elX += deltaX
   draggingResize.floatingEl.style.left = (draggingResize.elX - document.querySelector('#street-section-outer').scrollLeft) + 'px'
 
-  draggingResize.width = draggingResize.originalWidth + deltaFromOriginal / TILE_SIZE * 2
+  draggingResize.width = draggingResize.originalWidth + (deltaFromOriginal / TILE_SIZE * 2)
   var precise = event.shiftKey
 
   if (precise) {
@@ -544,11 +544,11 @@ function makeSpaceBetweenSegments (x, y) {
     for (var i in street.segments) {
       var segment = street.segments[i]
 
-      if (!selectedSegmentBefore && ((segment.el.savedLeft + segment.el.savedWidth / 2) > left)) {
+      if (!selectedSegmentBefore && ((segment.el.savedLeft + (segment.el.savedWidth / 2)) > left)) {
         selectedSegmentBefore = segment.el
       }
 
-      if ((segment.el.savedLeft + segment.el.savedWidth / 2) <= left) {
+      if ((segment.el.savedLeft + (segment.el.savedWidth / 2)) <= left) {
         selectedSegmentAfter = segment.el
       }
     }

@@ -239,8 +239,8 @@ exports.get = function (req, res) {
 exports.find = function (req, res) {
   var creatorId = req.query.creatorId
   var namespacedId = req.query.namespacedId
-  var start = (req.query.start && parseInt(req.query.start, 10) || 0)
-  var count = (req.query.count && parseInt(req.query.count, 10) || 20)
+  var start = (req.query.start && parseInt(req.query.start, 10)) || 0
+  var count = (req.query.count && parseInt(req.query.count, 10)) || 20
 
   var handleFindStreet = function (err, street) {
     if (err) {

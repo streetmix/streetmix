@@ -92,12 +92,12 @@ export function getBuildingAttributes (street, left) {
         break
       case 'wide':
         tilePositionX = 1956
-        tilePositionY = 576 - 24 * 2
+        tilePositionY = 576 - (24 * 2)
         break
       case 'residential':
         tileset = 3
         tilePositionX = 1956 + 382 + 204
-        tilePositionY = 576 + 740 / 2 - 1 - 12 + 8
+        tilePositionY = 576 + (740 / 2) - 1 - 12 + 8
         break
     }
   } else {
@@ -108,19 +108,19 @@ export function getBuildingAttributes (street, left) {
         break
       case 'wide':
         tilePositionX = 2351
-        tilePositionY = 576 - 24 * 2 - 1
+        tilePositionY = 576 - (24 * 2) - 1
         break
       case 'residential':
         tileset = 2
         tilePositionX = 1956 + 382 + 204 + 25 - 1008 - 12 - 1 + 48
-        tilePositionY = 576 + 740 / 2 - 1 - 12 + 237 + 6
+        tilePositionY = 576 + (740 / 2) - 1 - 12 + 237 + 6
         break
     }
   }
 
   if (flooredBuilding) {
     var floorCount = left ? street.leftBuildingHeight : street.rightBuildingHeight
-    height = (roofHeight + floorHeight * (floorCount - 1) + mainFloorHeight) * TILE_SIZE + 45
+    height = ((roofHeight + (floorHeight * (floorCount - 1)) + mainFloorHeight) * TILE_SIZE) + 45
     var realHeight = height - 45 - 6
   }
 
@@ -160,7 +160,7 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
   var attr = getBuildingAttributes(street, left)
 
   if (bottomAligned) {
-    offsetTop += totalHeight - attr.height * multiplier
+    offsetTop += totalHeight - (attr.height * multiplier)
   }
 
   if (!attr.flooredBuilding) {
@@ -190,7 +190,7 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
         width = 48
         y = 0
         height = 168 + 12
-        offsetY = 23 + 24 - 6 * 12
+        offsetY = 23 + 24 - (6 * 12)
         offsetTop -= 45
 
         if (left) {
@@ -211,14 +211,14 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
           posShift = (totalWidth % width) - width - width - 25
           y = 12 + 298
 
-          x = 815 + 162 * 12
-          lastX = 815 + 162 * 12 + 9 * 24
+          x = 815 + (162 * 12)
+          lastX = 815 + (162 * 12) + (9 * 24)
         } else {
           posShift = 25
           y = 12
 
-          x = 815 + 162 * 12 + 9 * 24
-          firstX = 815 + 162 * 12
+          x = 815 + (162 * 12) + (9 * 24)
+          firstX = 815 + (162 * 12)
         }
         break
 
@@ -258,8 +258,8 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
 
       drawSegmentImage(tileset, ctx,
         currentX, y, width, height,
-        offsetLeft + (posShift + i * width) * multiplier,
-        offsetTop + offsetY * multiplier,
+        offsetLeft + ((posShift + (i * width)) * multiplier),
+        offsetTop + (offsetY * multiplier),
         width * multiplier,
         height * multiplier)
     }
@@ -278,13 +278,13 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
 
     drawSegmentImage(attr.tileset, ctx,
       attr.tilePositionX,
-      attr.tilePositionY - 240 + 120 * attr.variantsCount,
+      attr.tilePositionY - 240 + (120 * attr.variantsCount),
       attr.width,
-      attr.mainFloorHeight * TILE_SIZE + TILE_SIZE,
-      offsetLeft + leftPos * multiplier,
-      offsetTop + (attr.height - attr.mainFloorHeight * TILE_SIZE) * multiplier,
+      (attr.mainFloorHeight * TILE_SIZE) + TILE_SIZE,
+      offsetLeft + (leftPos * multiplier),
+      offsetTop + ((attr.height - (attr.mainFloorHeight * TILE_SIZE)) * multiplier),
       attr.width * multiplier,
-      (attr.mainFloorHeight * TILE_SIZE + TILE_SIZE) * multiplier)
+      ((attr.mainFloorHeight * TILE_SIZE) + TILE_SIZE) * multiplier)
 
     // middle floors
 
@@ -302,11 +302,11 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
 
       drawSegmentImage(attr.tileset, ctx,
         attr.tilePositionX + floorCorrection,
-        attr.tilePositionY - 240 + 120 * attr.variantsCount - (attr.floorHeight * TILE_SIZE * variant),
+        attr.tilePositionY - 240 + (120 * attr.variantsCount) - (attr.floorHeight * TILE_SIZE * variant),
         attr.floorRoofWidth,
         attr.floorHeight * TILE_SIZE,
-        offsetLeft + (leftPos + floorCorrection) * multiplier,
-        offsetTop + attr.height * multiplier - (attr.mainFloorHeight + attr.floorHeight * i) * TILE_SIZE * multiplier,
+        offsetLeft + ((leftPos + floorCorrection) * multiplier),
+        offsetTop + (attr.height * multiplier) - ((attr.mainFloorHeight + (attr.floorHeight * i)) * TILE_SIZE * multiplier),
         attr.floorRoofWidth * multiplier,
         attr.floorHeight * TILE_SIZE * multiplier)
     }
@@ -315,11 +315,11 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
 
     drawSegmentImage(attr.tileset, ctx,
       attr.tilePositionX + floorCorrection,
-      attr.tilePositionY - 240 + 120 * attr.variantsCount - (attr.floorHeight * TILE_SIZE * attr.variantsCount + attr.roofHeight * TILE_SIZE),
+      attr.tilePositionY - 240 + (120 * attr.variantsCount) - ((attr.floorHeight * TILE_SIZE * attr.variantsCount) + (attr.roofHeight * TILE_SIZE)),
       attr.floorRoofWidth,
       attr.roofHeight * TILE_SIZE,
-      offsetLeft + (leftPos + floorCorrection) * multiplier,
-      offsetTop + attr.height * multiplier - (attr.mainFloorHeight + attr.floorHeight * (attr.floorCount - 1) + attr.roofHeight) * TILE_SIZE * multiplier,
+      offsetLeft + ((leftPos + floorCorrection) * multiplier),
+      offsetTop + (attr.height * multiplier) - ((attr.mainFloorHeight + (attr.floorHeight * (attr.floorCount - 1)) + attr.roofHeight) * TILE_SIZE * multiplier),
       attr.floorRoofWidth * multiplier,
       attr.roofHeight * TILE_SIZE * multiplier)
   }

@@ -24,7 +24,7 @@ export function resizeStreetWidth (dontScroll) {
   document.querySelector('#street-section-canvas').style.width = width + 'px'
   if (!dontScroll) {
     document.querySelector('#street-section-outer').scrollLeft =
-      (width + BUILDING_SPACE * 2 - system.viewportWidth) / 2
+      (width + (BUILDING_SPACE * 2) - system.viewportWidth) / 2
     onStreetSectionScroll()
   }
 
@@ -68,7 +68,7 @@ export function recalculateWidth () {
   recalculateOccupiedWidth()
 
   var street = getStreet()
-  var position = street.width / 2 - street.occupiedWidth / 2
+  var position = (street.width / 2) - (street.occupiedWidth / 2)
 
   for (var i in street.segments) {
     var segment = street.segments[i]

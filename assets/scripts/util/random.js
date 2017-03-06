@@ -13,7 +13,7 @@ export class RandomGenerator {
   rand () {
     const t32 = 0x100000000
     const constant = 134775813
-    const x = (constant * this.randSeed + 1)
+    const x = (constant * this.randSeed) + 1
     return (this.randSeed = x % t32) / t32
   }
 
