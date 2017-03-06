@@ -101,6 +101,15 @@ app.get('/assets/images/images.svg', function (req, res) {
   res.sendFile(path.join(__dirname, '/node_modules/streetmix-illustrations/dist/images.svg'))
 })
 
+// Let's encrypt
+app.get('/.well-known/acme-challenge/:content', function (req, res) {
+  if (req.params.content === '7pdEii0_x8CMKs4_-dxxMqZEjyG6kf1kqvQyCAWwX0o') {
+    res.send('7pdEii0_x8CMKs4_-dxxMqZEjyG6kf1kqvQyCAWwX0o.l9FkLMU3VDDT2G0Jl6bjhubMR7F5KYti6fYByoOIMrY')
+  } else {
+    res.status(403).end()
+  }
+})
+
 app.use(express.static(path.join(__dirname, '/public')))
 
 // Catch-all
