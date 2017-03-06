@@ -125,7 +125,7 @@ exports.get = function (req, res) {
         }
 
         if (twitterData) {
-          userJson.profileImageUrl = twitterData.profile_image_url
+          userJson.profileImageUrl = twitterData.profile_image_url_https
         }
 
         res.status(200).send(userJson)
