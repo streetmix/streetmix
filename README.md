@@ -20,19 +20,19 @@
 
 <p align="center">
   Learn more about the team and project collaborators at <a href="https://opencollective.com/streetmix">Open Collective</a>.
-  <br>We welcome contributions! Please see our <a href="https://github.com/codeforamerica/streetmix/blob/master/CONTRIBUTING.md">contributor guidelines</a>.
+  <br>We welcome contributions! Please see our <a href="https://github.com/streetmix/streetmix/blob/master/CONTRIBUTING.md">contributor guidelines</a>.
 </p>
 
 <p align="center">
-  <a href="https://travis-ci.org/codeforamerica/streetmix"><img alt="Build Status" src="https://img.shields.io/travis/codeforamerica/streetmix/master.svg?style=flat-square"></a>
-  <a href="https://david-dm.org/codeforamerica/streetmix"><img alt="Dependency Status" src="https://img.shields.io/david/codeforamerica/streetmix.svg?style=flat-square"></a>
-  <a href="https://codeclimate.com/github/codeforamerica/streetmix"><img alt="Code Climate" src="https://img.shields.io/codeclimate/github/codeforamerica/streetmix.svg?style=flat-square"></a>
+  <a href="https://travis-ci.org/streetmix/streetmix"><img alt="Build Status" src="https://img.shields.io/travis/streetmix/streetmix/master.svg?style=flat-square"></a>
+  <a href="https://david-dm.org/streetmix/streetmix"><img alt="Dependency Status" src="https://img.shields.io/david/streetmix/streetmix.svg?style=flat-square"></a>
+  <a href="https://codeclimate.com/github/streetmix/streetmix"><img alt="Code Climate" src="https://img.shields.io/codeclimate/github/streetmix/streetmix.svg?style=flat-square"></a>
 </p>
 
 <hr>
 
 <p align="center">
-  <img src="https://github.com/codeforamerica/streetmix/raw/master/doc/images/screenshot-beta.jpg" alt="screenshot">
+  <img src="https://github.com/streetmix/streetmix/raw/master/doc/images/screenshot-beta.jpg" alt="screenshot">
 </p>
 
 ## About
@@ -75,4 +75,4 @@ Streetmix started as a [Code for America][cfa] hackathon project in January 2013
 
 Copyright (c) 2013-2016 Code for America and contributors. See [LICENSE][] for details.
 
-[license]: https://github.com/codeforamerica/streetmix/blob/master/LICENSE.md
+[license]: https://github.com/streetmix/streetmix/blob/master/LICENSE.md
