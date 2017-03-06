@@ -7,7 +7,6 @@ import { updateStreetName } from './name'
 const MAX_STREET_NAME_WIDTH = 50
 
 export default class StreetName extends React.Component {
-
   constructor (props) {
     super(props)
 

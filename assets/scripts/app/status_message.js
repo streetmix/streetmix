@@ -62,4 +62,3 @@ function _onClickTheX () {
     loseAnyFocus()
   }, 0)
 }
-

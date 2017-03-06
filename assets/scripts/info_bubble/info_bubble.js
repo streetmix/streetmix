@@ -1167,4 +1167,3 @@ function _prettifyHeight (height) {
 
   return heightText
 }
-
