@@ -100,5 +100,11 @@
     "tap-spec": "4.1.1",
     "tape": "4.6.3",
     "tape-catch": "1.0.6"
+  },
+  "greenkeeper": {
+    "ignore": [
+      "sendgrid",
+      "you-want-me-to-ignore"
+    ]
   }
 }
