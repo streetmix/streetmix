@@ -36,7 +36,6 @@ import { registerKeypresses } from './keyboard_commands'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { attachPrintEventListeners } from './print'
 import { attachStatusMessageEventListeners } from './status_message'
-import { attachWelcomeEventListeners } from './welcome'
 import { attachGalleryScrollEventListeners } from '../gallery/scroll'
 import { attachStreetScrollEventListeners } from '../streets/scroll'
 import { attachFetchNonBlockingEventListeners } from '../util/fetch_nonblocking'
@@ -84,7 +83,6 @@ function preInit () {
   infoBubble.registerKeypresses()
   attachPrintEventListeners()
   attachStatusMessageEventListeners()
-  attachWelcomeEventListeners()
   attachGalleryScrollEventListeners()
   attachGalleryViewEventListeners()
   attachStreetScrollEventListeners()

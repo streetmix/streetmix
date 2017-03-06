@@ -7,7 +7,7 @@ order to make your contributions as useful as possible.
 Please note that this project is released with a [Contributor Code of Conduct][code_of_conduct].
 By participating in this project you agree to abide by its terms.
 
-[code_of_conduct]: https://github.com/codeforamerica/streetmix/blob/master/CODE_OF_CONDUCT.md
+[code_of_conduct]: https://github.com/streetmix/streetmix/blob/master/CODE_OF_CONDUCT.md
 
 ## Bug reports and feedback
 
@@ -44,7 +44,7 @@ Streetmix could be more useful. Shoot us
 
 ## Code contributions
 
-[![Waffle.io stories in Ready](https://badge.waffle.io/codeforamerica/streetmix.png?label=ready&title=Issues ready)](https://waffle.io/codeforamerica/streetmix)
+[![Waffle.io stories in Ready](https://badge.waffle.io/streetmix/streetmix.png?label=ready&title=Issues ready)](https://waffle.io/streetmix/streetmix)
 
 If you have the capacity to write code, and wish to contribute to
 Streetmix, we'd love your help!
@@ -118,7 +118,7 @@ You'll also need to set up the [MongoDB data directory](https://docs.mongodb.org
 
 4) Clone this remote repository to a folder on your computer.
 
-    git clone https://github.com/codeforamerica/streetmix.git
+    git clone https://github.com/streetmix/streetmix.git
 
 5) Install project dependencies.
 
@@ -147,7 +147,7 @@ You may skip each of these steps if a fairly recent stable version is already pr
 
 1) In the command line terminal, clone a copy of the Streetmix repository to your local machine:
 
-    git clone https://github.com/codeforamerica/streetmix.git
+    git clone https://github.com/streetmix/streetmix.git
 
 You may additionally specify the name of the directory to install to, if you wish.
 
@@ -206,5 +206,5 @@ NO_INTERNET_MODE=true
     npm test
 
 
-[issues]: https://github.com/codeforamerica/streetmix/issues
-[open an issue]: https://github.com/codeforamerica/streetmix/issues/new
+[issues]: https://github.com/streetmix/streetmix/issues
+[open an issue]: https://github.com/streetmix/streetmix/issues/new

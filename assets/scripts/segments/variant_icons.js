@@ -224,10 +224,15 @@ export const VARIANT_ICONS = {
       'color': '#292a29',
       'title': 'Asphalt'
     },
-    'colored': {
+    'green': {
       'id': 'asphalt',
       'color': '#2b6750',
       'title': 'Green lane'
+    },
+    'red': {
+      'id': 'asphalt',
+      'color': '#9b1f22',
+      'title': 'Red lane '
     }
   },
   'transit-shelter-elevation': {

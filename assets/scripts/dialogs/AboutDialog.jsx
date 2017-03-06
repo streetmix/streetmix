@@ -32,7 +32,7 @@ export default class AboutDialog extends React.Component {
               </a>
             </li>
             <li>
-              <a href='https://github.com/codeforamerica/streetmix/' target='_blank'>
+              <a href='https://github.com/streetmix/streetmix/' target='_blank'>
                 {t('dialogs.about.view-source', 'View source code')}
               </a>
             </li>
