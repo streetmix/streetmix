@@ -158,7 +158,11 @@ function incrementSchemaVersion (street) {
     case 6:
       for (let i in street.segments) {
         segment = street.segments[i]
-        if ((segment.type === 'bus-lane') || (segment.type === 'light-rail')) {
+        if (segment.type === 'bus-lane') {
+          variant = getVariantArray(segment.type, segment.variantString)
+          variant['bus-asphalt'] = 'regular'
+          segment.variantString = getVariantString(variant)
+        } else if (segment.type === 'light-rail') {
           variant = getVariantArray(segment.type, segment.variantString)
           variant['public-transit-asphalt'] = 'regular'
           segment.variantString = getVariantString(variant)
