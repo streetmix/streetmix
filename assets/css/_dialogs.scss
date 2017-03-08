@@ -11,6 +11,11 @@ $dialog-box-default-width: 790px;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .dialog-box-shield {
@@ -32,7 +37,8 @@ $dialog-box-default-width: 790px;
   position: relative;
   box-sizing: border-box;
   width: $dialog-box-default-width;
-  margin-top: 100px;
+  // balance the dialog by making it slightly north of center
+  margin-top: -6%;
   padding: 15px 40px;
 
   background: white;
