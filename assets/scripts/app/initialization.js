@@ -1,5 +1,3 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
 import { hideLoadingScreen, getImagesToBeLoaded } from './load_resources'
 import { initLocale } from './locale'
 import { scheduleNextLiveUpdateCheck } from './live_update'
@@ -41,7 +39,9 @@ import { attachStatusMessageEventListeners } from './status_message'
 import { attachGalleryScrollEventListeners } from '../gallery/scroll'
 import { attachStreetScrollEventListeners } from '../streets/scroll'
 import { attachFetchNonBlockingEventListeners } from '../util/fetch_nonblocking'
-import DonateDialog from '../dialogs/DonateDialog'
+
+import store from '../store'
+import { SHOW_DIALOG } from '../store/actions'
 
 let initializing = false
 
@@ -205,8 +205,10 @@ function onEverythingLoaded () {
         JSON.parse(window.localStorage['settings-welcome-dismissed'])
     }
     if (settingsWelcomeDismissed) {
-      const mountNode = document.getElementById('dialogs-react')
-      ReactDOM.render(<DonateDialog />, mountNode)
+      store.dispatch({
+        type: SHOW_DIALOG,
+        name: 'DONATE'
+      })
     }
   }
 }

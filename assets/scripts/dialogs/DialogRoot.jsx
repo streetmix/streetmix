@@ -4,10 +4,12 @@ import { connect } from 'react-redux'
 // Import all dialogs here
 import AboutDialog from './AboutDialog'
 import SaveAsImageDialog from './SaveAsImageDialog'
+import DonateDialog from './DonateDialog'
 
 const DIALOG_COMPONENTS = {
   ABOUT: AboutDialog,
-  SAVE_AS_IMAGE: SaveAsImageDialog
+  SAVE_AS_IMAGE: SaveAsImageDialog,
+  DONATE: DonateDialog
 }
 
 const DialogRoot = ({ name, props }) => {
