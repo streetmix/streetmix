@@ -44,7 +44,10 @@ export default class Avatar extends React.Component {
 
     requests[this.props.userId] = window.fetch(API_URL + 'v1/users/' + this.props.userId)
     .then(function (response) {
-      if (response.status !== 200) {
+      // Ignore 404 errors; this happens frequently in staging/dev environments.
+      if (response.status === 404) {
+        return
+      } else if (response.status !== 200) {
         throw new Error('status code ' + response.status)
       }
 
