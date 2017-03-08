@@ -20,7 +20,7 @@ export default class SettingsMenu extends React.PureComponent {
 
   render () {
     return (
-      <Menu name='settings' alignment='right' onShow={this.onShow} {...this.props}>
+      <Menu alignment='right' onShow={this.onShow} {...this.props}>
         <div className='form'>
           <p><span data-i18n='menu.language.heading'>Language</span></p>
           <p>

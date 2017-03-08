@@ -25,7 +25,7 @@ export default class HelpMenu extends React.PureComponent {
 
   render () {
     return (
-      <Menu name='help' onShow={this.onShow} {...this.props}>
+      <Menu onShow={this.onShow} {...this.props}>
         <a
           href='#'
           data-i18n='menu.item.about'

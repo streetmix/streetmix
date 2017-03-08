@@ -5,7 +5,7 @@ import Menu from './Menu'
 export default class ContactMenu extends React.PureComponent {
   render () {
     return (
-      <Menu name='contact' {...this.props}>
+      <Menu {...this.props}>
         <a href='http://forums.streetmix.net/' target='_blank'>
           <svg className='icon'>
             <use xlinkHref='#icon-forums' />
