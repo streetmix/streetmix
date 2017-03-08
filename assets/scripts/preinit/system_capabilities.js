@@ -8,6 +8,8 @@
 /* global Modernizr */
 import { NO_INTERNET_MODE } from '../app/config'
 import { debug } from './debug_settings'
+import store from '../store'
+import { SET_SYSTEM_FLAGS } from '../store/actions'
 
 // Default settings
 export const system = {
@@ -21,7 +23,10 @@ export const system = {
   hiDpi: 1.0,
   cssTransform: false,
   ipAddress: null,
-  apiUrl: null
+  pageVisibility: false,
+  hiddenProperty: false,
+  visibilityState: false,
+  visibilityChange: false
 }
 
 // NOTE:
@@ -35,7 +40,7 @@ if (debug.forceNoInternet || NO_INTERNET_MODE === true) {
 if (debug.forceTouch) {
   system.touch = true
 } else {
-  system.touch = Modernizr.touch
+  system.touch = Modernizr.touch || false
 }
 
 // Get system prefixes for page visibility API, page hidden and visibility state
@@ -87,3 +92,8 @@ if ((navigator.userAgent.indexOf('Safari') !== -1) &&
   (navigator.userAgent.indexOf('Chrome') === -1)) {
   system.safari = true
 }
+
+store.dispatch({
+  type: SET_SYSTEM_FLAGS,
+  ...system
+})
