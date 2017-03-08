@@ -120,9 +120,9 @@
     "remove": "Drag here to remove"
   },
   "width": {
-    "label": "%s width",
-    "room": "(%s room)",
-    "over": "(%s over)",
+    "label": "{{width}} width",
+    "under": "({{width}} room)",
+    "over": "({{width}} over)",
     "occupied": "Occupied width:",
     "building": "Building-to-building width:",
     "different": "Different width…",
@@ -132,8 +132,8 @@
   "datetime": {
     "minutes-ago": "A few minutes ago",
     "seconds-ago": "A few seconds ago",
-    "yesterday": "Yesterday at %s",
-    "today": "Today at %s",
+    "yesterday": "Yesterday at {{time}}",
+    "today": "Today at {{time}}",
     "format-date-no-year": "MMM D",
     "format-date-with-year": "MMM D, YYYY",
     "format-time": "HH:MM"
@@ -177,7 +177,8 @@
     }
   },
   "users": {
-    "anonymous": "Anonymous"
+    "anonymous": "Anonymous",
+    "byline": "by {{user}}"
   },
   "sign-in": {
     "link": "Sign in with Twitter",

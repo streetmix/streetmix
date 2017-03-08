@@ -3,7 +3,6 @@ import { processWidthInput, prettifyWidth } from '../util/width_units'
 import { getSegmentWidthResolution } from '../segments/resizing'
 import { loseAnyFocus } from '../app/focus'
 import { setInitializing } from '../app/initialization'
-import { msg } from '../app/messages'
 import {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC,
@@ -12,6 +11,7 @@ import {
 import { segmentsChanged } from '../segments/view'
 import { setStreet, createDomFromData } from './data_model'
 import { resizeStreetWidth } from './width'
+import { t } from '../app/locale'
 
 const STREET_WIDTH_CUSTOM = -1
 const STREET_WIDTH_SWITCH_TO_METRIC = -2
@@ -44,18 +44,20 @@ export default class StreetWidth extends React.Component {
 
   displayStreetWidthRemaining () {
     // TODO work on this so that we can use markup
-    const width = prettifyWidth(Math.abs(this.state.street.remainingWidth), {markup: false})
+    const width = prettifyWidth(Math.abs(this.state.street.remainingWidth), { markup: false })
 
     let differenceClass = ''
-    let widthDifference = ''
+    let differenceString = ''
+
     if (this.state.street.remainingWidth > 0) {
       differenceClass = 'street-width-under'
-      widthDifference = '(' + width + ' room)'
+      differenceString = t('width.room', '({{width}} room)', { width })
     } else if (this.state.street.remainingWidth < 0) {
       differenceClass = 'street-width-over'
-      widthDifference = '(' + width + ' over)'
+      differenceString = t('width.over', '({{width}} over)', { width })
     }
-    return {class: differenceClass, width: widthDifference}
+
+    return { class: differenceClass, width: differenceString }
   }
 
   normalizeStreetWidth (width) {
@@ -98,33 +100,35 @@ export default class StreetWidth extends React.Component {
     if (this.state.street.width) {
       selectedValue = this.state.street.width
     }
-    return <select ref={(ref) => { this.streetWidth = ref }} onChange={this.changeStreetWidth} id='street-width' value={selectedValue}>
-      <option disabled='true'>Occupied width:</option>
-      <option disabled='true'>{prettifyWidth(this.state.street.occupiedWidth)}</option>
-      <option disabled='true' />
-      <option disabled='true'>Building-to-building width:</option>
-      {defaultWidths}
-      {customWidthBlank}
-      {customWidth}
-      <option value={STREET_WIDTH_CUSTOM} >
-        Different width…
-      </option>
-      <option disabled='true' />
-      <option
-        id='switch-to-imperial-units'
-        value={STREET_WIDTH_SWITCH_TO_IMPERIAL}
-        disabled={this.state.street.units === SETTINGS_UNITS_IMPERIAL}
-      >
-        {msg('MENU_SWITCH_TO_IMPERIAL')}
-      </option>
-      <option
-        id='switch-to-metric-units'
-        value={STREET_WIDTH_SWITCH_TO_METRIC}
-        disabled={this.state.street.units === SETTINGS_UNITS_METRIC}
-      >
-        {msg('MENU_SWITCH_TO_METRIC')}
-      </option>
-    </select>
+    return (
+      <select ref={(ref) => { this.streetWidth = ref }} onChange={this.changeStreetWidth} id='street-width' value={selectedValue}>
+        <option disabled='true'>{t('width.occupied', 'Occupied width:')}</option>
+        <option disabled='true'>{prettifyWidth(this.state.street.occupiedWidth)}</option>
+        <option disabled='true' />
+        <option disabled='true'>{t('width.building', 'Building-to-building width:')}</option>
+        {defaultWidths}
+        {customWidthBlank}
+        {customWidth}
+        <option value={STREET_WIDTH_CUSTOM} >
+          {t('width.different', 'Different width…')}
+        </option>
+        <option disabled='true' />
+        <option
+          id='switch-to-imperial-units'
+          value={STREET_WIDTH_SWITCH_TO_IMPERIAL}
+          disabled={this.state.street.units === SETTINGS_UNITS_IMPERIAL}
+        >
+          {t('width.imperial', 'Switch to imperial units (feet)')}
+        </option>
+        <option
+          id='switch-to-metric-units'
+          value={STREET_WIDTH_SWITCH_TO_METRIC}
+          disabled={this.state.street.units === SETTINGS_UNITS_METRIC}
+        >
+          {t('width.metric', 'Switch to metric units')}
+        </option>
+      </select>
+    )
   }
 
   clickStreetWidth (e) {
@@ -156,16 +160,16 @@ export default class StreetWidth extends React.Component {
         updateUnits(SETTINGS_UNITS_IMPERIAL)
         return
       } else if (newStreetWidth === STREET_WIDTH_CUSTOM) {
-        var promptValue = this.state.street.occupiedWidth
+        let promptValue = this.state.street.occupiedWidth
         if (promptValue < MIN_CUSTOM_STREET_WIDTH) promptValue = MIN_CUSTOM_STREET_WIDTH
         if (promptValue > MAX_CUSTOM_STREET_WIDTH) promptValue = MAX_CUSTOM_STREET_WIDTH
 
-        // TODO string
-        var width = window.prompt(
-          msg('PROMPT_NEW_STREET_WIDTH', {
-            minWidth: prettifyWidth(MIN_CUSTOM_STREET_WIDTH),
-            maxWidth: prettifyWidth(MAX_CUSTOM_STREET_WIDTH)
-          }), prettifyWidth(promptValue))
+        const replacements = {
+          minWidth: prettifyWidth(MIN_CUSTOM_STREET_WIDTH),
+          maxWidth: prettifyWidth(MAX_CUSTOM_STREET_WIDTH)
+        }
+        const promptString = t('prompt.new-width', 'New street width (from {{minWidth}} to {{maxWidth}}):', replacements)
+        let width = window.prompt(promptString, prettifyWidth(promptValue))
 
         if (width) {
           width = this.normalizeStreetWidth(processWidthInput(width))
@@ -202,13 +206,14 @@ export default class StreetWidth extends React.Component {
   render () {
     // TODO prettifyWidth calls getStreet(). refactor this to use units passed by argument instead
     // TODO work on this so that we can use markup
-    const width = prettifyWidth(this.state.street.width, {markup: false}) + ' width'
+    const width = prettifyWidth(this.state.street.width, { markup: false })
+    const widthString = t('width.label', '{{width}} width', { width })
     const difference = this.displayStreetWidthRemaining()
 
     return (
       <span id='street-metadata-width'>
         <span id='street-width-read' title='Change width of the street' onClick={this.clickStreetWidth}>
-          <span id='street-width-read-width'>{width}</span>
+          <span id='street-width-read-width'>{widthString}</span>
           &nbsp;
           <span id='street-width-read-difference' className={difference.class}>{difference.width}</span>
         </span>

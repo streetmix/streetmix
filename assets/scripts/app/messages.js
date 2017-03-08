@@ -5,10 +5,6 @@ const messages = {
 
   PROMPT_NEW_STREET_NAME: 'New street name:',
   PROMPT_DELETE_STREET: 'Are you sure you want to permanently delete [[name]]? This cannot be undone.',
-  PROMPT_NEW_STREET_WIDTH: 'New street width (from [[minWidth]] to [[maxWidth]]):',
-
-  MENU_SWITCH_TO_IMPERIAL: 'Switch to imperial units (feet)',
-  MENU_SWITCH_TO_METRIC: 'Switch to metric units',
 
   TOOLTIP_REMOVE_SEGMENT: 'Remove segment',
   TOOLTIP_DELETE_STREET: 'Delete street',
@@ -43,12 +39,7 @@ const messages = {
 
   DEFAULT_STREET_NAME: 'Unnamed St',
 
-  SEGMENT_NAME_EMPTY: 'Empty space',
-
-  DATE_MINUTES_AGO: 'A few minutes ago',
-  DATE_SECONDS_AGO: 'A few seconds ago',
-  DATE_YESTERDAY: 'Yesterday at [[time]]',
-  DATE_TODAY: 'Today at [[time]]'
+  SEGMENT_NAME_EMPTY: 'Empty space'
 }
 
 export function msg (messageId, data) {
