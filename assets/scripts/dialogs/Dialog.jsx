@@ -1,14 +1,14 @@
 /**
  * Dialog (class)
  *
- * Generic class instance of menu
+ * Generic class instance of dialog
  *
  */
 import React from 'react'
-import ReactDOM from 'react-dom'
-
 import { hideAllMenus } from '../menus/menu_controller'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
+import store from '../store'
+import { CLEAR_DIALOGS } from '../store/actions'
 
 export default class Dialog extends React.Component {
   constructor (props) {
@@ -29,7 +29,7 @@ export default class Dialog extends React.Component {
   }
 
   unmountDialog () {
-    ReactDOM.unmountComponentAtNode(this.dialogEl.parentNode)
+    store.dispatch({ type: CLEAR_DIALOGS })
   }
 
   render () {
