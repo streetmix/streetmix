@@ -62,7 +62,6 @@ export default class Menu extends React.Component {
 }
 
 Menu.propTypes = {
-  name: React.PropTypes.string, // TODO: transition
   className: React.PropTypes.string,
   alignment: React.PropTypes.oneOf(['left', 'right']).isRequired,
   isActive: React.PropTypes.bool.isRequired,

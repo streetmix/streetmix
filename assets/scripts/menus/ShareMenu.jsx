@@ -108,7 +108,7 @@ export default class ShareMenu extends React.Component {
       '&description=' + encodeURIComponent(shareText)
 
     return (
-      <Menu name='share' alignment='right' onShow={this.onShow} className='share-menu' {...this.props}>
+      <Menu alignment='right' onShow={this.onShow} className='share-menu' {...this.props}>
         <div
           className='share-sign-in-promo'
           ref={(ref) => { this.signInPromo = ref }}
