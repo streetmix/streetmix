@@ -7,104 +7,59 @@ import {
   setServerContacted
 } from '../app/initialization'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
-import { NEW_STREET_DEFAULT } from '../streets/creation'
+
 import { setSaveStreetIncomplete } from '../streets/xhr'
 import { newNonblockingAjaxRequest } from '../util/fetch_nonblocking'
 import { getAuthHeader, getSignInData, isSignedIn } from './authentication'
+import store from '../store'
+import { SET_USER_SETTINGS } from '../store/actions'
 
 const LOCAL_STORAGE_SETTINGS_ID = 'settings'
 const SAVE_SETTINGS_DELAY = 500
 export const LOCAL_STORAGE_SIGN_IN_ID = 'sign-in'
 let saveSettingsTimerId = -1
 
-let settings = {
-  lastStreetId: null,
-  lastStreetNamespacedId: null,
-  lastStreetUserId: null,
-  priorLastStreetId: null, // Do not save
-  newStreetPreference: null,
-
-  saveAsImageTransparentSky: null,
-  saveAsImageSegmentNamesAndWidths: null,
-  saveAsImageStreetName: null
-}
-
 export function getSettings () {
-  return settings
+  return store.getState().user
 }
 
-function mergeAndFillDefaultSettings (secondSettings) {
+// Action creator
+function createSetSettingsAction (settings) {
+  return {
+    ...settings,
+    type: SET_USER_SETTINGS
+  }
+}
+
+export function setSettings (settings) {
+  store.dispatch(createSetSettingsAction(settings))
+
+  // Legacy: auto save changes to localstorage
+  saveSettingsLocally(settings)
+}
+
+function mergeAndFillDefaultSettings (serverSettings = {}, localSettings = {}) {
+  const settings = getSettings()
+
   // Merge with local settings
-
-  if (!settings.newStreetPreference) {
-    settings.newStreetPreference = secondSettings.newStreetPreference
-  }
-  if (typeof settings.lastStreetId === 'undefined') {
-    settings.lastStreetId = secondSettings.lastStreetId
-  }
-  if (typeof settings.lastStreetNamespacedId === 'undefined') {
-    settings.lastStreetNamespacedId = secondSettings.lastStreetNamespacedId
-  }
-  if (typeof settings.lastStreetCreatorId === 'undefined') {
-    settings.lastStreetCreatorId = secondSettings.lastStreetCreatorId
-  }
-  if (typeof settings.saveAsImageTransparentSky === 'undefined') {
-    settings.saveAsImageTransparentSky = secondSettings.saveAsImageTransparentSky
-  }
-  if (typeof settings.saveAsImageSegmentNamesAndWidths === 'undefined') {
-    settings.saveAsImageSegmentNamesAndWidths = secondSettings.saveAsImageSegmentNamesAndWidths
-  }
-  if (typeof settings.saveAsImageStreetName === 'undefined') {
-    settings.saveAsImageStreetName = secondSettings.saveAsImageStreetName
-  }
-
-  // Provide defaults if the above failed
-
-  if (!settings.newStreetPreference) {
-    settings.newStreetPreference = NEW_STREET_DEFAULT
-  }
-  if (typeof settings.lastStreetId === 'undefined') {
-    settings.lastStreetId = null
-  }
-  if (typeof settings.lastStreetNamespacedId === 'undefined') {
-    settings.lastStreetNamespacedId = null
-  }
-  if (typeof settings.lastStreetCreatorId === 'undefined') {
-    settings.lastStreetCreatorId = null
-  }
-  if (typeof settings.saveAsImageTransparentSky === 'undefined') {
-    settings.saveAsImageTransparentSky = false
-  }
-  if (typeof settings.saveAsImageSegmentNamesAndWidths === 'undefined') {
-    settings.saveAsImageSegmentNamesAndWidths = false
-  }
-  if (typeof settings.saveAsImageStreetName === 'undefined') {
-    settings.saveAsImageStreetName = false
-  }
+  return Object.assign({}, settings, serverSettings, localSettings)
 }
 
 export function loadSettings () {
-  let serverSettings, localSettings
+  let serverSettings = {}
+  let localSettings = {}
   let signInData = getSignInData()
+
   if (isSignedIn() && signInData.details) {
     serverSettings = signInData.details.data
-  } else {
-    serverSettings = {}
   }
 
   // TODO handle better if corrupted
   if (window.localStorage[LOCAL_STORAGE_SETTINGS_ID]) {
     localSettings = JSON.parse(window.localStorage[LOCAL_STORAGE_SETTINGS_ID])
-  } else {
-    localSettings = {}
   }
 
-  settings = {}
-
-  if (serverSettings) {
-    settings = serverSettings
-  }
-  mergeAndFillDefaultSettings(localSettings)
+  const settings = mergeAndFillDefaultSettings(serverSettings, localSettings)
 
   if (getMode() === MODES.JUST_SIGNED_IN) {
     settings.lastStreetId = localSettings.lastStreetId
@@ -114,11 +69,11 @@ export function loadSettings () {
 
   settings.priorLastStreetId = settings.lastStreetId
 
-  saveSettingsLocally()
+  setSettings(settings)
 }
 
-function trimSettings () {
-  var data = {}
+function trimSettings (settings) {
+  const data = {}
 
   data.lastStreetId = settings.lastStreetId
   data.lastStreetNamespacedId = settings.lastStreetNamespacedId
@@ -132,9 +87,9 @@ function trimSettings () {
   return data
 }
 
-export function saveSettingsLocally () {
+export function saveSettingsLocally (settings = getSettings()) {
   window.localStorage[LOCAL_STORAGE_SETTINGS_ID] =
-    JSON.stringify(trimSettings())
+    JSON.stringify(trimSettings(settings))
 
   scheduleSavingSettingsToServer()
 }
@@ -151,7 +106,8 @@ export function saveSettingsToServer () {
     return
   }
 
-  const transmission = JSON.stringify({ data: trimSettings() })
+  const settings = getSettings()
+  const transmission = JSON.stringify({ data: trimSettings(settings) })
 
   // TODO const url
   newNonblockingAjaxRequest(API_URL + 'v1/users/' + getSignInData().userId, {

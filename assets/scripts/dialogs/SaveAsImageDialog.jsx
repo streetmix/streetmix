@@ -11,7 +11,7 @@ import Dialog from './Dialog'
 import { trackEvent } from '../app/event_tracking'
 import { getStreet } from '../streets/data_model'
 import { getStreetImage } from '../streets/image'
-import { saveSettingsLocally, getSettings } from '../users/settings'
+import { getSettings, setSettings } from '../users/settings'
 import { normalizeSlug } from '../util/helpers'
 import { t } from '../app/locale'
 
@@ -91,16 +91,17 @@ export default class SaveAsImageDialog extends React.Component {
   }
 
   updateOptions () {
-    const settings = getSettings()
-    settings.saveAsImageTransparentSky = this.state.optionTransparentSky
-    settings.saveAsImageSegmentNamesAndWidths = this.state.optionSegmentNames
-    settings.saveAsImageStreetName = this.state.optionStreetName
-
-    saveSettingsLocally()
-
     this.setState({ isLoading: true })
 
-    window.setTimeout(this.updatePreview, 50)
+    // setState is async, we need to refresh with current options after it's set
+    window.setTimeout(() => {
+      setSettings({
+        saveAsImageTransparentSky: this.state.optionTransparentSky,
+        saveAsImageSegmentNamesAndWidths: this.state.optionSegmentNames,
+        saveAsImageStreetName: this.state.optionStreetName
+      })
+      this.updatePreview()
+    }, 50)
   }
 
   updatePreview () {

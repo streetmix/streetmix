@@ -44,3 +44,6 @@ export const CLEAR_DIALOGS = 'CLEAR_DIALOGS'
 
 /* system */
 export const SET_SYSTEM_FLAGS = 'SET_SYSTEM_FLAGS'
+
+/* user */
+export const SET_USER_SETTINGS = 'SET_USER_SETTINGS'

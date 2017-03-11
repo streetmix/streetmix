@@ -12,7 +12,6 @@ import { receiveUserDetails } from './profile_image_cache'
 import { checkIfSignInAndGeolocationLoaded } from './localization'
 import {
   loadSettings,
-  saveSettingsLocally,
   LOCAL_STORAGE_SIGN_IN_ID,
   getSettings
 } from './settings'
@@ -166,11 +165,12 @@ export function onSignOutClick (event) {
 }
 
 function signOut (quiet) {
-  let settings = getSettings()
-  settings.lastStreetId = null
-  settings.lastStreetNamespacedId = null
-  settings.lastStreetCreatorId = null
-  saveSettingsLocally()
+  const settings = getSettings()
+  setSettings({
+    lastStreetId: null,
+    lastStreetNamespacedId: null,
+    lastStreetCreatorId: null
+  })
 
   removeSignInCookies()
   window.localStorage.removeItem(LOCAL_STORAGE_SIGN_IN_ID)
