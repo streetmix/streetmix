@@ -7,14 +7,14 @@
  * @requires keypress
  */
 import React from 'react'
+import { connect } from 'react-redux'
 import { cloneDeep } from 'lodash'
 import { getStreet } from '../streets/data_model'
 import { getUndoStack } from '../streets/undo_stack'
-import { getSettings } from '../users/settings'
 import { registerKeypress, deregisterKeypress } from './keypress'
 import { loseAnyFocus } from './focus'
 
-export default class DebugInfo extends React.Component {
+class DebugInfo extends React.Component {
   constructor (props) {
     super(props)
 
@@ -25,6 +25,7 @@ export default class DebugInfo extends React.Component {
 
     this.showDebugInfo = this.showDebugInfo.bind(this)
     this.hideDebugInfo = this.hideDebugInfo.bind(this)
+    this.getTextareaContent = this.getTextareaContent.bind(this)
   }
 
   componentDidMount () {
@@ -35,7 +36,6 @@ export default class DebugInfo extends React.Component {
   getTextareaContent () {
     const debugStreetData = cloneDeep(getStreet())
     const debugUndo = cloneDeep(getUndoStack())
-    const debugSettings = cloneDeep(getSettings())
 
     // Some things just shouldn't be seen...
     for (let i in debugStreetData.segments) {
@@ -51,7 +51,7 @@ export default class DebugInfo extends React.Component {
     // Create a JSON object, this parses better in editors
     const debugObj = {
       'DATA': debugStreetData,
-      'SETTINGS': debugSettings,
+      'SETTINGS': this.props.settings,
       'UNDO': debugUndo
     }
 
@@ -103,3 +103,15 @@ export default class DebugInfo extends React.Component {
     )
   }
 }
+
+DebugInfo.propTypes = {
+  settings: React.PropTypes.object.isRequired
+}
+
+function mapStateToProps (state) {
+  return {
+    settings: state.user
+  }
+}
+
+export default connect(mapStateToProps)(DebugInfo)

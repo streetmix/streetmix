@@ -53,7 +53,7 @@ ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>, document.getElementById('react-app'))
-ReactDOM.render(<DebugInfo />, document.getElementById('debug'))
+ReactDOM.render(<DebugInfo store={store} />, document.getElementById('debug'))
 
 // Start listening for keypresses
 startListening()

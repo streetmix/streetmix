@@ -1,12 +1,13 @@
 import { SET_USER_SETTINGS } from '../actions'
+// Note: turning this constant on runs too much side-effect code too early.
 // import { NEW_STREET_DEFAULT } from '../../streets/creation'
 
 const initialState = {
   lastStreetId: null,
   lastStreetNamespacedId: null,
   lastStreetCreatorId: null,
-  priorLastStreetId: null, // Do not save
-  newStreetPreference: 1,
+  priorLastStreetId: null, // NOTE: Do not save to localstorage or server side, only used for current client session
+  newStreetPreference: 1, // TODO: use NEW_STREET_DEFAULT constant
 
   saveAsImageTransparentSky: false,
   saveAsImageSegmentNamesAndWidths: false,
