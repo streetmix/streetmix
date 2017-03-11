@@ -7,26 +7,24 @@
  *
  */
 import React from 'react'
+import { connect } from 'react-redux'
+import { isEqual } from 'lodash'
 import Dialog from './Dialog'
 import { trackEvent } from '../app/event_tracking'
 import { getStreet } from '../streets/data_model'
 import { getStreetImage } from '../streets/image'
-import { getSettings, setSettings } from '../users/settings'
+import { setSettings } from '../users/settings'
 import { normalizeSlug } from '../util/helpers'
 import { t } from '../app/locale'
 
 // Require save-as polyfills
 import { saveAs } from 'file-saver'
 
-export default class SaveAsImageDialog extends React.Component {
+class SaveAsImageDialog extends React.Component {
   constructor (props) {
     super(props)
 
-    const settings = getSettings()
     this.state = {
-      optionTransparentSky: settings.saveAsImageTransparentSky,
-      optionSegmentNames: settings.saveAsImageSegmentNamesAndWidths,
-      optionStreetName: settings.saveAsImageStreetName,
       isLoading: true,
       isShowingPreview: false,
       errorMessage: null,
@@ -39,7 +37,6 @@ export default class SaveAsImageDialog extends React.Component {
     this.onChangeOptionTransparentSky = this.onChangeOptionTransparentSky.bind(this)
     this.onChangeOptionSegmentNames = this.onChangeOptionSegmentNames.bind(this)
     this.onChangeOptionStreetName = this.onChangeOptionStreetName.bind(this)
-    this.updateOptions = this.updateOptions.bind(this)
     this.updatePreview = this.updatePreview.bind(this)
     this.onPreviewLoaded = this.onPreviewLoaded.bind(this)
     this.onClickDownloadImage = this.onClickDownloadImage.bind(this)
@@ -51,19 +48,31 @@ export default class SaveAsImageDialog extends React.Component {
     this.updatePreview()
   }
 
+  componentDidUpdate (prevProps, prevState) {
+    // When props change, update image.
+    if (!isEqual(prevProps, this.props)) {
+      this.setState({ isLoading: true })
+
+      // Update preview when props change; make a slight delay because there is
+      // a slight lag on image creation, but it's so short it feels weird.
+      // Time delay makes the "Loading" feel "right."
+      window.setTimeout(() => {
+        this.updatePreview()
+      }, 50)
+    }
+  }
+
+  // When options change, this changes props.
   onChangeOptionTransparentSky (event) {
-    this.setState({ optionTransparentSky: event.target.checked })
-    this.updateOptions()
+    setSettings({ saveAsImageTransparentSky: event.target.checked })
   }
 
   onChangeOptionSegmentNames (event) {
-    this.setState({ optionSegmentNames: event.target.checked })
-    this.updateOptions()
+    setSettings({ saveAsImageSegmentNamesAndWidths: event.target.checked })
   }
 
   onChangeOptionStreetName (event) {
-    this.setState({ optionStreetName: event.target.checked })
-    this.updateOptions()
+    setSettings({ saveAsImageStreetName: event.target.checked })
   }
 
   onPreviewLoaded () {
@@ -90,27 +99,13 @@ export default class SaveAsImageDialog extends React.Component {
     })
   }
 
-  updateOptions () {
-    this.setState({ isLoading: true })
-
-    // setState is async, we need to refresh with current options after it's set
-    window.setTimeout(() => {
-      setSettings({
-        saveAsImageTransparentSky: this.state.optionTransparentSky,
-        saveAsImageSegmentNamesAndWidths: this.state.optionSegmentNames,
-        saveAsImageStreetName: this.state.optionStreetName
-      })
-      this.updatePreview()
-    }, 50)
-  }
-
   updatePreview () {
-    const imageCanvas = this.imageCanvas = getStreetImage(this.state.optionTransparentSky, this.state.optionSegmentNames, this.state.optionStreetName)
+    this.imageCanvas = getStreetImage(this.props.transparentSky, this.props.segmentNames, this.props.streetName)
 
     // .toDataURL is not available on IE11 when SVGs are part of the canvas.
     // The error in catch() should not appear on any of the newer evergreen browsers.
     try {
-      const dataUrl = imageCanvas.toDataURL('image/png')
+      const dataUrl = this.imageCanvas.toDataURL('image/png')
       this.setState({
         download: {
           filename: makeFilename(),
@@ -133,7 +128,7 @@ export default class SaveAsImageDialog extends React.Component {
           <input
             type='checkbox'
             onChange={this.onChangeOptionSegmentNames}
-            checked={this.state.optionSegmentNames}
+            checked={this.props.segmentNames}
             id='save-as-image-segment-names'
           />
           <label htmlFor='save-as-image-segment-names'>
@@ -143,7 +138,7 @@ export default class SaveAsImageDialog extends React.Component {
           <input
             type='checkbox'
             onChange={this.onChangeOptionStreetName}
-            checked={this.state.optionStreetName}
+            checked={this.props.streetName}
             id='save-as-image-street-name'
           />
           <label htmlFor='save-as-image-street-name'>
@@ -153,7 +148,7 @@ export default class SaveAsImageDialog extends React.Component {
           <input
             type='checkbox'
             onChange={this.onChangeOptionTransparentSky}
-            checked={this.state.optionTransparentSky}
+            checked={this.props.transparentSky}
             id='save-as-image-transparent-sky'
           />
           <label htmlFor='save-as-image-transparent-sky'>
@@ -204,6 +199,22 @@ export default class SaveAsImageDialog extends React.Component {
     )
   }
 }
+
+SaveAsImageDialog.propTypes = {
+  transparentSky: React.PropTypes.bool.isRequired,
+  segmentNames: React.PropTypes.bool.isRequired,
+  streetName: React.PropTypes.bool.isRequired
+}
+
+function mapStateToProps (state) {
+  return {
+    transparentSky: state.user.saveAsImageTransparentSky,
+    segmentNames: state.user.saveAsImageSegmentNamesAndWidths,
+    streetName: state.user.saveAsImageStreetName
+  }
+}
+
+export default connect(mapStateToProps)(SaveAsImageDialog)
 
 function makeFilename () {
   let filename = normalizeSlug(getStreet().name)
