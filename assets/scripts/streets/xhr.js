@@ -22,10 +22,10 @@ import {
 } from '../users/authentication'
 import { propagateUnits } from '../users/localization'
 import {
-  saveSettingsLocally,
   confirmSaveStreetToServerInitial,
   saveSettingsToServer,
-  getSettings
+  getSettings,
+  setSettings
 } from '../users/settings'
 import {
   isblockingAjaxRequestInProgress,
@@ -401,13 +401,12 @@ export function setStreetId (newId, newNamespacedId) {
 }
 
 export function updateLastStreetInfo () {
-  var street = getStreet()
-  let settings = getSettings()
-  settings.lastStreetId = street.id
-  settings.lastStreetNamespacedId = street.namespacedId
-  settings.lastStreetCreatorId = street.creatorId
-
-  saveSettingsLocally()
+  const street = getStreet()
+  setSettings({
+    lastStreetId: street.id,
+    lastStreetNamespacedId: street.namespacedId,
+    lastStreetCreatorId: street.creatorId
+  })
 }
 
 export function scheduleSavingStreetToServer () {
@@ -476,13 +475,14 @@ function receiveLastStreet (transmission) {
 
 export function sendDeleteStreetToServer (id) {
   // Prevents new street submenu from showing the last street
-  let settings = getSettings()
+  const settings = getSettings()
   if (settings.lastStreetId === id) {
-    settings.lastStreetId = null
-    settings.lastStreetCreatorId = null
-    settings.lastStreetNamespacedId = null
+    setSettings({
+      lastStreetId: null,
+      lastStreetCreatorId: null,
+      lastStreetNamespacedId: null
+    })
 
-    saveSettingsLocally()
     saveSettingsToServer()
   }
 

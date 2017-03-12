@@ -1,5 +1,5 @@
 import { segmentsChanged } from '../segments/view'
-import { saveSettingsLocally, getSettings } from '../users/settings'
+import { setSettings } from '../users/settings'
 import {
   setLastStreet,
   getStreet,
@@ -34,15 +34,17 @@ export function makeDefaultStreet () {
 }
 
 export function onNewStreetDefaultClick () {
-  getSettings().newStreetPreference = NEW_STREET_DEFAULT
-  saveSettingsLocally()
+  setSettings({
+    newStreetPreference: NEW_STREET_DEFAULT
+  })
 
   makeDefaultStreet()
 }
 
 export function onNewStreetEmptyClick () {
-  getSettings().newStreetPreference = NEW_STREET_EMPTY
-  saveSettingsLocally()
+  setSettings({
+    newStreetPreference: NEW_STREET_EMPTY
+  })
 
   setIgnoreStreetChanges(true)
   prepareEmptyStreet()

@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import { app } from '../preinit/app_settings'
 import { system } from '../preinit/system_capabilities'
@@ -12,7 +13,6 @@ import {
 import { getStreet } from '../streets/data_model'
 import StreetName from '../streets/StreetName'
 import { isSignedIn } from '../users/authentication'
-import { getSettings } from '../users/settings'
 import { registerKeypress, deregisterKeypress } from './keypress'
 import { MODES, getMode } from './mode'
 import { goNewStreet } from './routing'
@@ -25,7 +25,7 @@ const WELCOME_FIRST_TIME_EXISTING_STREET = 3
 
 const LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED = 'settings-welcome-dismissed'
 
-export default class WelcomePanel extends React.Component {
+class WelcomePanel extends React.Component {
   constructor (props) {
     super(props)
 
@@ -85,11 +85,9 @@ export default class WelcomePanel extends React.Component {
 
     // If welcomeType is WELCOME_NEW_STREET, there is an additional state
     // property that determines which of the new street modes is selected
-    const settings = getSettings()
-
     let selectedNewStreetType
 
-    switch (settings.newStreetPreference) {
+    switch (this.props.newStreetPreference) {
       case NEW_STREET_EMPTY:
         selectedNewStreetType = 'new-street-empty'
         break
@@ -256,8 +254,7 @@ export default class WelcomePanel extends React.Component {
               {(() => {
                 // Display this button only if there is a previous street to copy
                 // from that is not the same as the current street
-                const settings = getSettings()
-                if (settings.priorLastStreetId && settings.priorLastStreetId !== getStreet().id) {
+                if (this.props.priorLastStreetId && this.props.priorLastStreetId !== getStreet().id) {
                   return (
                     <li>
                       <input
@@ -309,3 +306,21 @@ export default class WelcomePanel extends React.Component {
     )
   }
 }
+
+WelcomePanel.propTypes = {
+  newStreetPreference: React.PropTypes.number,
+  priorLastStreetId: React.PropTypes.string
+}
+
+WelcomePanel.defaultProps = {
+  priorLastStreetId: null
+}
+
+function mapStateToProps (state) {
+  return {
+    newStreetPreference: state.user.newStreetPreference,
+    priorLastStreetId: state.user.priorLastStreetId
+  }
+}
+
+export default connect(mapStateToProps)(WelcomePanel)

@@ -10,15 +10,11 @@ import { setPromoteStreet } from '../streets/remix'
 import { fetchStreetFromServer } from '../streets/xhr'
 import { receiveUserDetails } from './profile_image_cache'
 import { checkIfSignInAndGeolocationLoaded } from './localization'
-import {
-  loadSettings,
-  saveSettingsLocally,
-  LOCAL_STORAGE_SIGN_IN_ID,
-  getSettings
-} from './settings'
+import { loadSettings, getSettings, setSettings } from './settings'
 
 const USER_ID_COOKIE = 'user_id'
 const SIGN_IN_TOKEN_COOKIE = 'login_token'
+const LOCAL_STORAGE_SIGN_IN_ID = 'sign-in'
 
 let signInData = null
 
@@ -44,6 +40,16 @@ export function goReloadClearSignIn () {
   removeSignInCookies()
 
   window.location.reload()
+}
+
+export function onStorageChange () {
+  if (isSignedIn() && !window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
+    setMode(MODES.FORCE_RELOAD_SIGN_OUT)
+    processMode()
+  } else if (!isSignedIn() && window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
+    setMode(MODES.FORCE_RELOAD_SIGN_IN)
+    processMode()
+  }
 }
 
 function saveSignInDataLocally () {
@@ -166,11 +172,11 @@ export function onSignOutClick (event) {
 }
 
 function signOut (quiet) {
-  let settings = getSettings()
-  settings.lastStreetId = null
-  settings.lastStreetNamespacedId = null
-  settings.lastStreetCreatorId = null
-  saveSettingsLocally()
+  setSettings({
+    lastStreetId: null,
+    lastStreetNamespacedId: null,
+    lastStreetCreatorId: null
+  })
 
   removeSignInCookies()
   window.localStorage.removeItem(LOCAL_STORAGE_SIGN_IN_ID)
