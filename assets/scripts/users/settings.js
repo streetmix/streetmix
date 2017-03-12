@@ -16,7 +16,6 @@ import { SET_USER_SETTINGS } from '../store/actions'
 
 const LOCAL_STORAGE_SETTINGS_ID = 'settings'
 const SAVE_SETTINGS_DELAY = 500
-export const LOCAL_STORAGE_SIGN_IN_ID = 'sign-in'
 let saveSettingsTimerId = -1
 
 export function getSettings () {
@@ -38,10 +37,11 @@ export function setSettings (settings) {
   saveSettingsLocally(settings)
 }
 
-function mergeAndFillDefaultSettings (serverSettings = {}, localSettings = {}) {
+function mergeSettings (serverSettings = {}, localSettings = {}) {
   const settings = getSettings()
 
-  // Merge with local settings
+  // Redux initial state will contain default settings. Merge in
+  // server and local settings with it.
   return Object.assign({}, settings, serverSettings, localSettings)
 }
 
@@ -54,12 +54,14 @@ export function loadSettings () {
     serverSettings = signInData.details.data
   }
 
-  // TODO handle better if corrupted
   if (window.localStorage[LOCAL_STORAGE_SETTINGS_ID]) {
-    localSettings = JSON.parse(window.localStorage[LOCAL_STORAGE_SETTINGS_ID])
+    // Skip this if localStorage is corrupted
+    try {
+      localSettings = JSON.parse(window.localStorage[LOCAL_STORAGE_SETTINGS_ID])
+    } catch (e) {}
   }
 
-  const settings = mergeAndFillDefaultSettings(serverSettings, localSettings)
+  const settings = mergeSettings(serverSettings, localSettings)
 
   if (getMode() === MODES.JUST_SIGNED_IN) {
     settings.lastStreetId = localSettings.lastStreetId
@@ -72,6 +74,8 @@ export function loadSettings () {
   setSettings(settings)
 }
 
+// Called before saving settings to LocalStorage or server. Ensures only some
+// data we want to save are saved.
 function trimSettings (settings) {
   const data = {}
 
@@ -87,6 +91,8 @@ function trimSettings (settings) {
   return data
 }
 
+// Legacy: exporting because some parts of Streetmix code manually force current
+// settings to write to localstorage.
 export function saveSettingsLocally (settings = getSettings()) {
   window.localStorage[LOCAL_STORAGE_SETTINGS_ID] =
     JSON.stringify(trimSettings(settings))
@@ -142,14 +148,4 @@ function scheduleSavingSettingsToServer () {
 
 function clearScheduledSavingSettingsToServer () {
   window.clearTimeout(saveSettingsTimerId)
-}
-
-export function onStorageChange () {
-  if (isSignedIn() && !window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
-    setMode(MODES.FORCE_RELOAD_SIGN_OUT)
-    processMode()
-  } else if (!isSignedIn() && window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
-    setMode(MODES.FORCE_RELOAD_SIGN_IN)
-    processMode()
-  }
 }

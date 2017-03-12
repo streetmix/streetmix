@@ -9,7 +9,7 @@ import {
   onBodyMouseMove,
   onBodyMouseUp
 } from '../segments/drag_and_drop'
-import { onStorageChange } from '../users/settings'
+import { onStorageChange } from '../users/authentication'
 import { onGlobalKeyDown } from './keyboard_commands'
 import { onResize } from './window_resize'
 
