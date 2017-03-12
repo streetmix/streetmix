@@ -172,7 +172,6 @@ export function onSignOutClick (event) {
 }
 
 function signOut (quiet) {
-  const settings = getSettings()
   setSettings({
     lastStreetId: null,
     lastStreetNamespacedId: null,

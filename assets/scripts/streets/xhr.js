@@ -402,7 +402,6 @@ export function setStreetId (newId, newNamespacedId) {
 
 export function updateLastStreetInfo () {
   const street = getStreet()
-  const settings = getSettings()
   setSettings({
     lastStreetId: street.id,
     lastStreetNamespacedId: street.namespacedId,

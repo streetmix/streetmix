@@ -48,9 +48,9 @@ class SaveAsImageDialog extends React.Component {
     this.updatePreview()
   }
 
-  componentDidUpdate (prevProps, prevState) {
+  componentWillReceiveProps (nextProps) {
     // When props change, update image.
-    if (!isEqual(prevProps, this.props)) {
+    if (isEqual(nextProps, this.props) === false) {
       this.setState({ isLoading: true })
 
       // Update preview when props change; make a slight delay because there is
