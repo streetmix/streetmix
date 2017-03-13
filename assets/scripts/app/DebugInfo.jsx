@@ -110,7 +110,7 @@ DebugInfo.propTypes = {
 
 function mapStateToProps (state) {
   return {
-    settings: state.user
+    settings: state.settings
   }
 }
 

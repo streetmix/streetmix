@@ -208,9 +208,9 @@ SaveAsImageDialog.propTypes = {
 
 function mapStateToProps (state) {
   return {
-    transparentSky: state.user.saveAsImageTransparentSky,
-    segmentNames: state.user.saveAsImageSegmentNamesAndWidths,
-    streetName: state.user.saveAsImageStreetName
+    transparentSky: state.settings.saveAsImageTransparentSky,
+    segmentNames: state.settings.saveAsImageSegmentNamesAndWidths,
+    streetName: state.settings.saveAsImageStreetName
   }
 }
 

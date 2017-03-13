@@ -14,7 +14,7 @@ const initialState = {
   saveAsImageStreetName: false
 }
 
-const user = (state = initialState, action) => {
+const settings = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER_SETTINGS:
       const obj = Object.assign({}, state, action)
@@ -25,4 +25,4 @@ const user = (state = initialState, action) => {
   }
 }
 
-export default user
+export default settings

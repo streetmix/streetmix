@@ -19,7 +19,7 @@ const SAVE_SETTINGS_DELAY = 500
 let saveSettingsTimerId = -1
 
 export function getSettings () {
-  return store.getState().user
+  return store.getState().settings
 }
 
 // Action creator
