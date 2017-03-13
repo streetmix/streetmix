@@ -12,7 +12,11 @@ import { receiveUserDetails } from './profile_image_cache'
 import { checkIfSignInAndGeolocationLoaded } from './localization'
 import { loadSettings, getSettings, setSettings } from './settings'
 import store from '../store'
-import { SET_USER_SIGN_IN_DATA } from '../store/actions'
+import {
+  SET_USER_SIGN_IN_DATA,
+  SET_USER_SIGNED_IN_STATE,
+  SET_USER_SIGN_IN_LOADED_STATE
+} from '../store/actions'
 
 const USER_ID_COOKIE = 'user_id'
 const SIGN_IN_TOKEN_COOKIE = 'login_token'
@@ -38,16 +42,36 @@ function clearSignInData () {
   store.dispatch(createSetSignInData(null))
 }
 
-let signedIn = false
-
 export function isSignedIn () {
-  return signedIn
+  return store.getState().user.signedIn
 }
 
-let signInLoaded = false
+// Action creator
+function createSignedInState (bool) {
+  return {
+    type: SET_USER_SIGNED_IN_STATE,
+    signedIn: bool
+  }
+}
+
+function setSignedInState (bool) {
+  store.dispatch(createSignedInState(bool))
+}
 
 export function isSignInLoaded () {
-  return signInLoaded
+  return store.getState().user.signInLoaded
+}
+
+// Action creator
+function createSignInLoadedState (bool) {
+  return {
+    type: SET_USER_SIGN_IN_LOADED_STATE,
+    signInLoaded: bool
+  }
+}
+
+function setSignInLoadedState (bool) {
+  store.dispatch(createSignInLoadedState(bool))
 }
 
 export function goReloadClearSignIn () {
@@ -83,7 +107,7 @@ function removeSignInCookies () {
 }
 
 export function loadSignIn () {
-  signInLoaded = false
+  setSignInLoadedState(false)
 
   var signInCookie = Cookies.get(SIGN_IN_TOKEN_COOKIE)
   var userIdCookie = Cookies.get(USER_ID_COOKIE)
@@ -114,7 +138,7 @@ export function loadSignIn () {
       fetchSignInDetails(signInData.userId)
     } */
   } else {
-    signedIn = false
+    setSignedInState(false)
     _signInLoaded()
   }
 }
@@ -145,7 +169,7 @@ function receiveSignInDetails (details) {
   // cache the users profile image so we don't have to request it later
   receiveUserDetails(details)
 
-  signedIn = true
+  setSignedInState(true)
   _signInLoaded()
 }
 
@@ -180,7 +204,7 @@ function errorReceiveSignInDetails (data) {
   // Fail silently
 
   clearSignInData()
-  signedIn = false
+  setSignedInState(false)
   _signInLoaded()
 }
 
@@ -281,7 +305,7 @@ function _signInLoaded () {
       break
   }
 
-  signInLoaded = true
+  setSignInLoadedState(true)
   document.querySelector('#loading-progress').value++
   checkIfSignInAndGeolocationLoaded()
   checkIfEverythingIsLoaded()
