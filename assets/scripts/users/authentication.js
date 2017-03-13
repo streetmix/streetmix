@@ -11,15 +11,31 @@ import { fetchStreetFromServer } from '../streets/xhr'
 import { receiveUserDetails } from './profile_image_cache'
 import { checkIfSignInAndGeolocationLoaded } from './localization'
 import { loadSettings, getSettings, setSettings } from './settings'
+import store from '../store'
+import { SET_USER_SIGN_IN_DATA } from '../store/actions'
 
 const USER_ID_COOKIE = 'user_id'
 const SIGN_IN_TOKEN_COOKIE = 'login_token'
 const LOCAL_STORAGE_SIGN_IN_ID = 'sign-in'
 
-let signInData = null
-
 export function getSignInData () {
-  return signInData
+  return store.getState().user.signInData
+}
+
+// Action creator
+function createSetSignInData (data) {
+  return {
+    type: SET_USER_SIGN_IN_DATA,
+    signInData: data
+  }
+}
+
+function setSignInData (data) {
+  store.dispatch(createSetSignInData(data))
+}
+
+function clearSignInData () {
+  store.dispatch(createSetSignInData(null))
 }
 
 let signedIn = false
@@ -35,7 +51,7 @@ export function isSignInLoaded () {
 }
 
 export function goReloadClearSignIn () {
-  signInData = null // eslint-disable-line no-native-reassign
+  clearSignInData()
   saveSignInDataLocally()
   removeSignInCookies()
 
@@ -53,6 +69,7 @@ export function onStorageChange () {
 }
 
 function saveSignInDataLocally () {
+  const signInData = getSignInData()
   if (signInData) {
     window.localStorage[LOCAL_STORAGE_SIGN_IN_ID] = JSON.stringify(signInData)
   } else {
@@ -72,18 +89,20 @@ export function loadSignIn () {
   var userIdCookie = Cookies.get(USER_ID_COOKIE)
 
   if (signInCookie && userIdCookie) {
-    signInData = { token: signInCookie, userId: userIdCookie }
+    setSignInData({ token: signInCookie, userId: userIdCookie })
 
     removeSignInCookies()
     saveSignInDataLocally()
   } else {
     if (window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
-      signInData = JSON.parse(window.localStorage[LOCAL_STORAGE_SIGN_IN_ID])
+      setSignInData(JSON.parse(window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]))
     }
   }
 
+  const signInData = getSignInData()
+
   if (signInData && signInData.token && signInData.userId) {
-    fetchSignInDetails()
+    fetchSignInDetails(signInData.userId)
 
     // This block was commented out because caching username causes
     // failures when the database is cleared. TODO Perhaps we should
@@ -92,7 +111,7 @@ export function loadSignIn () {
       signedIn = true
       _signInLoaded()
     } else {
-      fetchSignInDetails()
+      fetchSignInDetails(signInData.userId)
     } */
   } else {
     signedIn = false
@@ -100,12 +119,12 @@ export function loadSignIn () {
   }
 }
 
-function fetchSignInDetails () {
+function fetchSignInDetails (userId) {
   const options = {
     headers: { 'Authorization': getAuthHeader() }
   }
 
-  window.fetch(API_URL + 'v1/users/' + signInData.userId, options)
+  window.fetch(API_URL + 'v1/users/' + userId, options)
     .then(response => {
       if (!response.ok) {
         throw response
@@ -118,7 +137,9 @@ function fetchSignInDetails () {
 }
 
 function receiveSignInDetails (details) {
+  const signInData = getSignInData()
   signInData.details = details
+  setSignInData(signInData)
   saveSignInDataLocally()
 
   // cache the users profile image so we don't have to request it later
@@ -158,7 +179,7 @@ function errorReceiveSignInDetails (data) {
 
   // Fail silently
 
-  signInData = null
+  clearSignInData()
   signedIn = false
   _signInLoaded()
 }
@@ -184,6 +205,7 @@ function signOut (quiet) {
 }
 
 export function getAuthHeader () {
+  const signInData = getSignInData()
   if (signInData && signInData.token) {
     return 'Streetmix realm="" loginToken="' + signInData.token + '"'
   } else {
@@ -192,6 +214,7 @@ export function getAuthHeader () {
 }
 
 function sendSignOutToServer (quiet) {
+  const signInData = getSignInData()
   const options = {
     method: 'DELETE',
     headers: { 'Authorization': getAuthHeader() }
@@ -222,6 +245,7 @@ function _signInLoaded () {
 
   // This gets sent to the MenuBar component for rendering.
   // Send an empty object for `event.detail` if `signInData` does not exist.
+  const signInData = getSignInData()
   window.dispatchEvent(new window.CustomEvent('stmx:signed_in', {
     detail: signInData || {}
   }))

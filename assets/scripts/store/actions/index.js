@@ -42,8 +42,11 @@ export const SET_DEBUG_FLAGS = 'SET_DEBUG_FLAGS'
 export const SHOW_DIALOG = 'SHOW_DIALOG'
 export const CLEAR_DIALOGS = 'CLEAR_DIALOGS'
 
+/* settings */
+export const SET_USER_SETTINGS = 'SET_USER_SETTINGS'
+
 /* system */
 export const SET_SYSTEM_FLAGS = 'SET_SYSTEM_FLAGS'
 
 /* user */
-export const SET_USER_SETTINGS = 'SET_USER_SETTINGS'
+export const SET_USER_SIGN_IN_DATA = 'SET_USER_SIGN_IN_DATA'
