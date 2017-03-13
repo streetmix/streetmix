@@ -267,13 +267,6 @@ function errorReceiveSignOutConfirmationFromServer () {
 function _signInLoaded () {
   loadSettings()
 
-  // This gets sent to the MenuBar component for rendering.
-  // Send an empty object for `event.detail` if `signInData` does not exist.
-  const signInData = getSignInData()
-  window.dispatchEvent(new window.CustomEvent('stmx:signed_in', {
-    detail: signInData || {}
-  }))
-
   var street = getStreet()
   let mode = getMode()
   if ((mode === MODES.CONTINUE) || (mode === MODES.JUST_SIGNED_IN) ||

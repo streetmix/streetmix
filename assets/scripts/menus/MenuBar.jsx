@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import EnvironmentBadge from './EnvironmentBadge'
 
 // import { t } from '../app/locale'
@@ -9,20 +10,13 @@ import { getElAbsolutePos } from '../util/helpers'
 import { closestEl } from '../util/dom_helpers'
 import Avatar from '../app/Avatar'
 
-export default class MenuBar extends React.Component {
+class MenuBar extends React.Component {
   constructor (props) {
     super(props)
 
-    this.state = {
-      userId: null
-    }
-
     this.onClickMenuButton = this.onClickMenuButton.bind(this)
-    this.updateSignInUI = this.updateSignInUI.bind(this)
     this.onResize = this.onResize.bind(this)
 
-    // Listen for sign-in. This updates the sign-in button.
-    window.addEventListener('stmx:signed_in', this.updateSignInUI)
     window.addEventListener('resize', this.onResize)
 
     // StreetNameCanvas needs to know the left position of the right menu bar when it's mounted
@@ -43,15 +37,6 @@ export default class MenuBar extends React.Component {
     this.props.onMenuDropdownClick({ name, position })
   }
 
-  updateSignInUI (event) {
-    // Sign-in details are passed in via `event.detail`. If a user is not
-    // signed in, the event that calls this will pass an empty object for
-    // `event.detail`
-    if (event.detail.userId) {
-      this.setState({ userId: event.detail.userId })
-    }
-  }
-
   onResize () {
     // Throw this event so that the StreetName can figure out if it needs to push itself lower than the menubar
     window.dispatchEvent(new CustomEvent('stmx:menu_bar_resized', { detail: {
@@ -60,7 +45,7 @@ export default class MenuBar extends React.Component {
   }
 
   render () {
-    const userId = this.state.userId
+    const userId = this.props.userId
     const myStreetsLink = userId ? `/${userId}` : ''
     const identityMenuVisibilityStyle = userId
       ? {} : { display: 'none' }
@@ -163,5 +148,18 @@ export default class MenuBar extends React.Component {
 }
 
 MenuBar.propTypes = {
-  onMenuDropdownClick: React.PropTypes.func
+  onMenuDropdownClick: React.PropTypes.func,
+  userId: React.PropTypes.string
 }
+
+MenuBar.defaultProps = {
+  userId: ''
+}
+
+function mapStateToProps (state) {
+  return {
+    userId: state.user.signInData && state.user.signInData.userId
+  }
+}
+
+export default connect(mapStateToProps)(MenuBar)
