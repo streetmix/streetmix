@@ -86,7 +86,7 @@
   },
   "devDependencies": {
     "eslint": "3.18.0",
-    "eslint-config-standard": "7.0.0",
+    "eslint-config-standard": "7.1.0",
     "eslint-config-standard-react": "4.3.0",
     "eslint-plugin-promise": "latest",
     "eslint-plugin-react": "6.10.0",
