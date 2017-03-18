@@ -57,7 +57,7 @@
     "kerberos": "0.0.23",
     "lodash": "4.17.4",
     "moment": "2.17.1",
-    "mongoose": "4.8.5",
+    "mongoose": "4.8.7",
     "newrelic": "1.37.2",
     "node-env-file": "0.1.8",
     "node-sass": "4.5.0",
