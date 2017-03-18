@@ -94,7 +94,7 @@
     "grunt": "1.0.1",
     "grunt-env": "0.4.4",
     "grunt-express": "1.4.1",
-    "grunt-protractor-runner": "4.0.0",
+    "grunt-protractor-runner": "5.0.0",
     "grunt-shell": "2.1.0",
     "load-grunt-tasks": "3.5.2",
     "proxyquire": "1.7.11",
