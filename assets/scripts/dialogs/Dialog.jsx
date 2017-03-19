@@ -5,12 +5,12 @@
  *
  */
 import React from 'react'
+import { connect } from 'react-redux'
 import { hideAllMenus } from '../menus/menu_controller'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
-import store from '../store'
-import { CLEAR_DIALOGS } from '../store/actions'
+import { clearDialogs } from '../store/actions/dialogs'
 
-export default class Dialog extends React.Component {
+class Dialog extends React.Component {
   constructor (props) {
     super(props)
 
@@ -30,7 +30,7 @@ export default class Dialog extends React.Component {
   }
 
   unmountDialog () {
-    store.dispatch({ type: CLEAR_DIALOGS })
+    this.props.dispatch(clearDialogs())
   }
 
   onClickShield () {
@@ -63,6 +63,7 @@ export default class Dialog extends React.Component {
 }
 
 Dialog.propTypes = {
+  dispatch: React.PropTypes.func.isRequired,
   className: React.PropTypes.string,
   children: React.PropTypes.node.isRequired,
   disableShieldExit: React.PropTypes.bool
@@ -72,3 +73,5 @@ Dialog.defaultProps = {
   className: '',
   disableShieldExit: false
 }
+
+export default connect()(Dialog)
