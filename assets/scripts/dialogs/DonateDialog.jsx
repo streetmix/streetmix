@@ -19,15 +19,14 @@ export default class DonateDialog extends React.Component {
     return (
       <Dialog className='donate-dialog' disableShieldExit>
         <h1>Thank you for using Streetmix.</h1>
-        <p className='donate-dialog-lede'>
-          We are a community-supported project. With your support, you’ll help
-          us cover all the expenses Streetmix needs to keep going!
-        </p>
-        <p>
-          You can make a donation through OpenCollective here. Donations
-          are totally transparent so you can see how your contributions are
-          being used to work on Streetmix.
-        </p>
+        <div className='donate-dialog-text'>
+          <p className='donate-dialog-lede'>
+            Streetmix is a community-supported project. We do not show ads or make money by abusing your privacy. Instead, we depend on your support to keep Streetmix up and running.
+          </p>
+          <p>
+            Please consider supporting us with a one-time or recurring contribution through our partners at OpenCollective. Your donations will pay for the infrastructure to support other non-profits, advocacy groups, and students working to improve our streets, and additional revenue will be invested into further development, and new features. Through OpenCollective's platform, our expenses are completely transparent, so you can see how your contributions are used by the Streetmix team.
+          </p>
+        </div>
         <p>
           <a
             className='button-like donate-dialog-button'
