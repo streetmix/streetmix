@@ -1,5 +1,8 @@
 import { SET_USER_SETTINGS } from '../actions'
-// Note: turning this constant on runs too much side-effect code too early.
+
+// TODO: the following imported module has been commented out because something
+// in its import tree runs some side-effect code too early, before it's ready to.
+// We would like to depend on the NEW_STREET_DEFAULT constant in the future.
 // import { NEW_STREET_DEFAULT } from '../../streets/creation'
 
 const initialState = {
