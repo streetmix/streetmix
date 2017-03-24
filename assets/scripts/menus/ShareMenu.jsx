@@ -1,36 +1,17 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import Menu from './Menu'
 
 import { t } from '../app/locale'
 import { FACEBOOK_APP_ID } from '../app/config'
-import { getSignInData, isSignedIn } from '../users/authentication'
 import { trackEvent } from '../app/event_tracking'
 import { getPageTitle } from '../app/page_title'
 import { printImage } from '../app/print'
 import { getStreet } from '../streets/data_model'
 import { getSharingUrl } from '../util/share_url'
-
-import store from '../store'
 import { SHOW_DIALOG } from '../store/actions'
 
-function _getSharingMessage () {
-  let message = ''
-  let street = getStreet()
-
-  if (street.creatorId) {
-    if (isSignedIn() && street.creatorId === getSignInData().userId) {
-      message = `Check out my street, ${street.name}, on Streetmix!`
-    } else {
-      message = `Check out ${street.name} by @${street.creatorId} on Streetmix!`
-    }
-  } else {
-    message = `Check out ${street.name} on Streetmix!`
-  }
-
-  return message
-}
-
-export default class ShareMenu extends React.Component {
+class ShareMenu extends React.Component {
   constructor (props) {
     super(props)
 
@@ -38,19 +19,14 @@ export default class ShareMenu extends React.Component {
       shareUrl: ''
     }
 
-    this.update = this.update.bind(this)
     this.updateLinks = this.updateLinks.bind(this)
-    this.updateSignInPromo = this.updateSignInPromo.bind(this)
+    this.getSharingMessage = this.getSharingMessage.bind(this)
     this.onShow = this.onShow.bind(this)
+    this.onClickSaveAsImage = this.onClickSaveAsImage.bind(this)
   }
 
   componentDidMount () {
-    this.update()
-  }
-
-  update () {
     this.updateLinks()
-    this.updateSignInPromo()
   }
 
   updateLinks () {
@@ -59,17 +35,26 @@ export default class ShareMenu extends React.Component {
     this.setState({ shareUrl: url })
   }
 
-  updateSignInPromo () {
-    if (!isSignedIn()) {
-      this.signInPromo.classList.add('visible')
+  getSharingMessage () {
+    let message = ''
+    let street = getStreet()
+
+    if (street.creatorId) {
+      if (this.props.signedIn && street.creatorId === this.props.userId) {
+        message = `Check out my street, ${street.name}, on Streetmix!`
+      } else {
+        message = `Check out ${street.name} by @${street.creatorId} on Streetmix!`
+      }
     } else {
-      this.signInPromo.classList.remove('visible')
+      message = `Check out ${street.name} on Streetmix!`
     }
+
+    return message
   }
 
   onShow () {
     // Make sure links are updated when the menu is opened
-    this.update()
+    this.updateLinks()
 
     // Auto-focus and select link when share menu is active
     window.setTimeout(() => {
@@ -88,14 +73,14 @@ export default class ShareMenu extends React.Component {
 
   onClickSaveAsImage (event) {
     event.preventDefault()
-    store.dispatch({
+    this.props.dispatch({
       type: SHOW_DIALOG,
       name: 'SAVE_AS_IMAGE'
     })
   }
 
   render () {
-    const shareText = _getSharingMessage()
+    const shareText = this.getSharingMessage()
     const twitterLink = 'https://twitter.com/intent/tweet' +
       '?text=' + encodeURIComponent(shareText) +
       '&url=' + encodeURIComponent(this.state.shareUrl)
@@ -107,13 +92,15 @@ export default class ShareMenu extends React.Component {
       '&name=' + encodeURIComponent(getPageTitle()) +
       '&description=' + encodeURIComponent(shareText)
 
+    const signInPromo = (!this.props.signedIn)
+      ? (<div
+        className='share-sign-in-promo'
+        dangerouslySetInnerHTML={{ __html: t('menu.share.sign-in', '<a href="/twitter-sign-in?redirectUri=/just-signed-in">Sign in with Twitter</a> for nicer links to your streets and your personal street gallery') }}
+      />) : null
+
     return (
       <Menu alignment='right' onShow={this.onShow} className='share-menu' {...this.props}>
-        <div
-          className='share-sign-in-promo'
-          ref={(ref) => { this.signInPromo = ref }}
-          dangerouslySetInnerHTML={{ __html: t('menu.share.sign-in', '<a href="/twitter-sign-in?redirectUri=/just-signed-in">Sign in with Twitter</a> for nicer links to your streets and your personal street gallery') }}
-        />
+        {signInPromo}
         <div className='share-via-link-container'>
           <span data-i18n='menu.share.link'>
             Copy and paste this link to share:
@@ -161,3 +148,22 @@ export default class ShareMenu extends React.Component {
     )
   }
 }
+
+ShareMenu.propTypes = {
+  dispatch: React.PropTypes.func.isRequired, // supplied by connect()
+  signedIn: React.PropTypes.bool.isRequired,
+  userId: React.PropTypes.string
+}
+
+ShareMenu.defaultProps = {
+  userId: ''
+}
+
+function mapStateToProps (state) {
+  return {
+    signedIn: state.user.signedIn,
+    userId: state.user.signInData && state.user.signInData.userId
+  }
+}
+
+export default connect(mapStateToProps)(ShareMenu)

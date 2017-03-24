@@ -11,31 +11,71 @@ import { fetchStreetFromServer } from '../streets/xhr'
 import { receiveUserDetails } from './profile_image_cache'
 import { checkIfSignInAndGeolocationLoaded } from './localization'
 import { loadSettings, getSettings, setSettings } from './settings'
+import store from '../store'
+import {
+  SET_USER_SIGN_IN_DATA,
+  SET_USER_SIGNED_IN_STATE,
+  SET_USER_SIGN_IN_LOADED_STATE
+} from '../store/actions'
 
 const USER_ID_COOKIE = 'user_id'
 const SIGN_IN_TOKEN_COOKIE = 'login_token'
 const LOCAL_STORAGE_SIGN_IN_ID = 'sign-in'
 
-let signInData = null
-
 export function getSignInData () {
-  return signInData
+  return store.getState().user.signInData
 }
 
-let signedIn = false
+// Action creator
+function createSetSignInData (data) {
+  return {
+    type: SET_USER_SIGN_IN_DATA,
+    signInData: data
+  }
+}
+
+function setSignInData (data) {
+  store.dispatch(createSetSignInData(data))
+}
+
+function clearSignInData () {
+  store.dispatch(createSetSignInData(null))
+}
 
 export function isSignedIn () {
-  return signedIn
+  return store.getState().user.signedIn
 }
 
-let signInLoaded = false
+// Action creator
+function createSignedInState (bool) {
+  return {
+    type: SET_USER_SIGNED_IN_STATE,
+    signedIn: bool
+  }
+}
+
+function setSignedInState (bool) {
+  store.dispatch(createSignedInState(bool))
+}
 
 export function isSignInLoaded () {
-  return signInLoaded
+  return store.getState().user.signInLoaded
+}
+
+// Action creator
+function createSignInLoadedState (bool) {
+  return {
+    type: SET_USER_SIGN_IN_LOADED_STATE,
+    signInLoaded: bool
+  }
+}
+
+function setSignInLoadedState (bool) {
+  store.dispatch(createSignInLoadedState(bool))
 }
 
 export function goReloadClearSignIn () {
-  signInData = null // eslint-disable-line no-native-reassign
+  clearSignInData()
   saveSignInDataLocally()
   removeSignInCookies()
 
@@ -53,6 +93,7 @@ export function onStorageChange () {
 }
 
 function saveSignInDataLocally () {
+  const signInData = getSignInData()
   if (signInData) {
     window.localStorage[LOCAL_STORAGE_SIGN_IN_ID] = JSON.stringify(signInData)
   } else {
@@ -66,24 +107,26 @@ function removeSignInCookies () {
 }
 
 export function loadSignIn () {
-  signInLoaded = false
+  setSignInLoadedState(false)
 
   var signInCookie = Cookies.get(SIGN_IN_TOKEN_COOKIE)
   var userIdCookie = Cookies.get(USER_ID_COOKIE)
 
   if (signInCookie && userIdCookie) {
-    signInData = { token: signInCookie, userId: userIdCookie }
+    setSignInData({ token: signInCookie, userId: userIdCookie })
 
     removeSignInCookies()
     saveSignInDataLocally()
   } else {
     if (window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
-      signInData = JSON.parse(window.localStorage[LOCAL_STORAGE_SIGN_IN_ID])
+      setSignInData(JSON.parse(window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]))
     }
   }
 
+  const signInData = getSignInData()
+
   if (signInData && signInData.token && signInData.userId) {
-    fetchSignInDetails()
+    fetchSignInDetails(signInData.userId)
 
     // This block was commented out because caching username causes
     // failures when the database is cleared. TODO Perhaps we should
@@ -92,20 +135,20 @@ export function loadSignIn () {
       signedIn = true
       _signInLoaded()
     } else {
-      fetchSignInDetails()
+      fetchSignInDetails(signInData.userId)
     } */
   } else {
-    signedIn = false
+    setSignedInState(false)
     _signInLoaded()
   }
 }
 
-function fetchSignInDetails () {
+function fetchSignInDetails (userId) {
   const options = {
     headers: { 'Authorization': getAuthHeader() }
   }
 
-  window.fetch(API_URL + 'v1/users/' + signInData.userId, options)
+  window.fetch(API_URL + 'v1/users/' + userId, options)
     .then(response => {
       if (!response.ok) {
         throw response
@@ -118,13 +161,15 @@ function fetchSignInDetails () {
 }
 
 function receiveSignInDetails (details) {
+  const signInData = getSignInData()
   signInData.details = details
+  setSignInData(signInData)
   saveSignInDataLocally()
 
   // cache the users profile image so we don't have to request it later
   receiveUserDetails(details)
 
-  signedIn = true
+  setSignedInState(true)
   _signInLoaded()
 }
 
@@ -158,8 +203,8 @@ function errorReceiveSignInDetails (data) {
 
   // Fail silently
 
-  signInData = null
-  signedIn = false
+  clearSignInData()
+  setSignedInState(false)
   _signInLoaded()
 }
 
@@ -184,6 +229,7 @@ function signOut (quiet) {
 }
 
 export function getAuthHeader () {
+  const signInData = getSignInData()
   if (signInData && signInData.token) {
     return 'Streetmix realm="" loginToken="' + signInData.token + '"'
   } else {
@@ -192,6 +238,7 @@ export function getAuthHeader () {
 }
 
 function sendSignOutToServer (quiet) {
+  const signInData = getSignInData()
   const options = {
     method: 'DELETE',
     headers: { 'Authorization': getAuthHeader() }
@@ -219,12 +266,6 @@ function errorReceiveSignOutConfirmationFromServer () {
 
 function _signInLoaded () {
   loadSettings()
-
-  // This gets sent to the MenuBar component for rendering.
-  // Send an empty object for `event.detail` if `signInData` does not exist.
-  window.dispatchEvent(new window.CustomEvent('stmx:signed_in', {
-    detail: signInData || {}
-  }))
 
   var street = getStreet()
   let mode = getMode()
@@ -257,7 +298,7 @@ function _signInLoaded () {
       break
   }
 
-  signInLoaded = true
+  setSignInLoadedState(true)
   document.querySelector('#loading-progress').value++
   checkIfSignInAndGeolocationLoaded()
   checkIfEverythingIsLoaded()

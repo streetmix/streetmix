@@ -1,28 +1,35 @@
-import { SET_USER_SETTINGS } from '../actions'
-// Note: turning this constant on runs too much side-effect code too early.
-// import { NEW_STREET_DEFAULT } from '../../streets/creation'
+import {
+  SET_USER_SIGN_IN_DATA,
+  SET_USER_SIGNED_IN_STATE,
+  SET_USER_SIGN_IN_LOADED_STATE
+} from '../actions'
 
 const initialState = {
-  lastStreetId: null,
-  lastStreetNamespacedId: null,
-  lastStreetCreatorId: null,
-  priorLastStreetId: null, // NOTE: Do not save to localstorage or server side, only used for current client session
-  newStreetPreference: 1, // TODO: use NEW_STREET_DEFAULT constant
-
-  saveAsImageTransparentSky: false,
-  saveAsImageSegmentNamesAndWidths: false,
-  saveAsImageStreetName: false
+  signInData: null,
+  signedIn: false,
+  signInLoaded: false
 }
 
-const user = (state = initialState, action) => {
+const settings = (state = initialState, action) => {
   switch (action.type) {
-    case SET_USER_SETTINGS:
-      const obj = Object.assign({}, state, action)
-      delete obj.type // Do not save action type.
-      return obj
+    case SET_USER_SIGN_IN_DATA:
+      return {
+        ...state,
+        signInData: action.signInData
+      }
+    case SET_USER_SIGNED_IN_STATE:
+      return {
+        ...state,
+        signedIn: action.signedIn
+      }
+    case SET_USER_SIGN_IN_LOADED_STATE:
+      return {
+        ...state,
+        signInLoaded: action.signInLoaded
+      }
     default:
       return state
   }
 }
 
-export default user
+export default settings

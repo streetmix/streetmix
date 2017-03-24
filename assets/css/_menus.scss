@@ -119,14 +119,8 @@ body.safari .menu {
   border-bottom: 1px solid rgb(224, 224, 224);
   margin-bottom: 15px;
 
-  display: none;
-
   a {
     color: inherit;
-  }
-
-  &.visible {
-    display: block;
   }
 }
 

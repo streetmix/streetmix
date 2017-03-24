@@ -318,8 +318,8 @@ WelcomePanel.defaultProps = {
 
 function mapStateToProps (state) {
   return {
-    newStreetPreference: state.user.newStreetPreference,
-    priorLastStreetId: state.user.priorLastStreetId
+    newStreetPreference: state.settings.newStreetPreference,
+    priorLastStreetId: state.settings.priorLastStreetId
   }
 }
 
