@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import MenuBar from './MenuBar'
 import HelpMenu from './HelpMenu'
 import ContactMenu from './ContactMenu'
@@ -7,12 +8,11 @@ import SettingsMenu from './SettingsMenu'
 import ShareMenu from './ShareMenu'
 import { registerKeypress } from '../app/keypress'
 
-export default class MenusContainer extends React.Component {
+class MenusContainer extends React.Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      activeMenu: null,
       activeMenuPos: [0, 0]
     }
 
@@ -45,20 +45,21 @@ export default class MenusContainer extends React.Component {
    */
   onMenuDropdownClick (clickedItem) {
     // If the clicked menu is already active, it's toggled off.
-    const activeMenu = this.state.activeMenu === clickedItem.name ? null : clickedItem.name
+    const activeMenu = (this.props.activeMenu === clickedItem.name) ? null : clickedItem.name
     this.setState({
-      activeMenu: activeMenu,
       activeMenuPos: activeMenu ? clickedItem.position : [0, 0]
     })
+    this.props.dispatch({ type: 'SHOW_MENU', name: activeMenu })
   }
 
   hideAllMenus () {
     // Only act if there is currently an active menu.
-    if (this.state.activeMenu) {
+    if (this.props.activeMenu) {
       this.setState({
-        activeMenu: null,
         activeMenuPos: [0, 0]
       })
+
+      this.props.dispatch({ type: 'CLEAR_MENUS' })
 
       // Force document.body to become the active element. Do not re-focus on
       // document.body if there were no menus to hide. This is sometimes
@@ -69,7 +70,8 @@ export default class MenusContainer extends React.Component {
   }
 
   render () {
-    const { activeMenu, activeMenuPos } = this.state
+    const { activeMenu } = this.props
+    const { activeMenuPos } = this.state
 
     return (
       <div>
@@ -83,3 +85,20 @@ export default class MenusContainer extends React.Component {
     )
   }
 }
+
+MenusContainer.propTypes = {
+  dispatch: React.PropTypes.func.isRequired,
+  activeMenu: React.PropTypes.string
+}
+
+MenusContainer.defaultProps = {
+  activeMenu: ''
+}
+
+function mapStateToProps (state) {
+  return {
+    activeMenu: state.menus.activeMenu
+  }
+}
+
+export default connect(mapStateToProps)(MenusContainer)
