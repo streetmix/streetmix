@@ -1,18 +1,18 @@
+import store from '../store'
+import { clearMenus } from '../store/actions/menus'
+
 /**
  * Determine if any of the menus are currently visible.
  * Returns a boolean value.
  */
 export function isAnyMenuVisible () {
-  const els = document.querySelectorAll('.menu.visible')
-  return !(els.length === 0)
+  const activeMenu = store.getState().menus.activeMenu
+  return Boolean(activeMenu)
 }
 
 /**
- * Hides all menus.
- * Menu state is controlled via the React component MenusContainer, so for
- * functions outside of React, this function sends an event that the component
- * listens for.
+ * Hides all menus by dispatching a CLEAR_MENUS action to Redux store.
  */
 export function hideAllMenus () {
-  window.dispatchEvent(new CustomEvent('stmx:hide_menus'))
+  store.dispatch(clearMenus())
 }
