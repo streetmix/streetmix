@@ -39,6 +39,8 @@ import { attachStatusMessageEventListeners } from './status_message'
 import { attachGalleryScrollEventListeners } from '../gallery/scroll'
 import { attachStreetScrollEventListeners } from '../streets/scroll'
 import { attachFetchNonBlockingEventListeners } from '../util/fetch_nonblocking'
+import store from '../store'
+import { showDialog } from '../store/actions/dialogs'
 
 let initializing = false
 
@@ -192,6 +194,24 @@ function onEverythingLoaded () {
   // Track touch capability in Google Analytics
   if (system.touch === true) {
     trackEvent('SYSTEM', 'TOUCH_CAPABLE', null, null, true)
+  }
+
+  // Display "support Streetmix" dialog for returning users
+  if (mode === MODES.EXISTING_STREET) {
+    let settingsWelcomeDismissed
+    let settingsDonateDismissed
+    if (window.localStorage['settings-welcome-dismissed']) {
+      settingsWelcomeDismissed =
+        JSON.parse(window.localStorage['settings-welcome-dismissed'])
+    }
+    if (window.localStorage['settings-donate-dismissed']) {
+      settingsDonateDismissed =
+        JSON.parse(window.localStorage['settings-donate-dismissed'])
+    }
+
+    if (settingsWelcomeDismissed && !settingsDonateDismissed) {
+      store.dispatch(showDialog('DONATE'))
+    }
   }
 }
 
