@@ -75,7 +75,7 @@
     "sprintf": "0.1.5",
     "streetmix-icons": "git://github.com/streetmix/icons.git#v0.4.2",
     "streetmix-illustrations": "git://github.com/streetmix/illustrations.git",
-    "superagent": "3.5.0",
+    "superagent": "3.5.1",
     "supervisor": "0.12.0",
     "twitter": "1.7.0",
     "uuid": "3.0.1",
