@@ -1,4 +1,4 @@
-Copyright (c) 2013, Code for America
+Copyright (c) 2013-2017, Code for America and contributors
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
