@@ -60,7 +60,7 @@
     "mongoose": "4.9.0",
     "newrelic": "1.38.1",
     "node-env-file": "0.1.8",
-    "node-sass": "4.5.0",
+    "node-sass": "4.5.1",
     "oauth": "0.9.15",
     "postcss": "5.2.16",
     "raven-js": "3.12.1",
