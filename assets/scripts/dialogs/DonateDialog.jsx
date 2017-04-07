@@ -12,7 +12,9 @@ import Dialog from './Dialog'
 import { trackEvent } from '../app/event_tracking'
 import { clearDialogs } from '../store/actions/dialogs'
 
-const LOCAL_STORAGE_SETTINGS_DONATE_DISMISSED = 'settings-donate-dismissed'
+const LOCALSTORAGE_DONATE_DISMISSED = 'settings-donate-dismissed'
+const LOCALSTORAGE_DONATE_DELAYED = 'settings-donate-delayed'
+const LOCALSTORAGE_DONATE_DELAYED_TIMESTAMP = 'settings-donate-delayed-timestamp'
 
 class DonateDialog extends React.Component {
   constructor (props) {
@@ -34,11 +36,17 @@ class DonateDialog extends React.Component {
 
   onClickClose (event) {
     trackEvent('Interaction', 'Clicked close donate dialog link', null, null, false)
+    this.setSettingsDonateDelayed(true)
     this.props.dispatch(clearDialogs())
   }
 
   setSettingsDonateDismissed (value = true) {
-    window.localStorage[LOCAL_STORAGE_SETTINGS_DONATE_DISMISSED] = JSON.stringify(value)
+    window.localStorage[LOCALSTORAGE_DONATE_DISMISSED] = JSON.stringify(value)
+  }
+
+  setSettingsDonateDelayed (value = true) {
+    window.localStorage[LOCALSTORAGE_DONATE_DELAYED] = JSON.stringify(value)
+    window.localStorage[LOCALSTORAGE_DONATE_DELAYED_TIMESTAMP] = Date.now().toString()
   }
 
   render () {

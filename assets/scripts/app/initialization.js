@@ -197,19 +197,28 @@ function onEverythingLoaded () {
   }
 
   // Display "support Streetmix" dialog for returning users
-  if (mode === MODES.EXISTING_STREET) {
-    let settingsWelcomeDismissed
-    let settingsDonateDismissed
+  console.log(mode)
+  if (mode === MODES.EXISTING_STREET || mode === MODES.CONTINUE) {
+    let welcomeDismissed
+    let donateDismissed
+    let donateDelayed
+    let delayedTimestamp
+    const twoWeeksAgo = Date.now() - 12096e5
     if (window.localStorage['settings-welcome-dismissed']) {
-      settingsWelcomeDismissed =
-        JSON.parse(window.localStorage['settings-welcome-dismissed'])
+      welcomeDismissed = JSON.parse(window.localStorage['settings-welcome-dismissed'])
     }
     if (window.localStorage['settings-donate-dismissed']) {
-      settingsDonateDismissed =
-        JSON.parse(window.localStorage['settings-donate-dismissed'])
+      donateDismissed = JSON.parse(window.localStorage['settings-donate-dismissed'])
+    }
+    if (window.localStorage['settings-donate-delayed']) {
+      donateDelayed = JSON.parse(window.localStorage['settings-donate-delayed'])
+    }
+    if (window.localStorage['settings-donate-delayed-timestamp']) {
+      delayedTimestamp = JSON.parse(window.localStorage['settings-donate-delayed-timestamp'])
     }
 
-    if (settingsWelcomeDismissed && !settingsDonateDismissed) {
+    if (welcomeDismissed &&
+      (!donateDismissed && donateDelayed && delayedTimestamp < twoWeeksAgo)) {
       store.dispatch(showDialog('DONATE'))
     }
   }
