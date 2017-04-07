@@ -31,6 +31,8 @@ var fetchStreetFromDb = function (cb) {
     if (err) {
       cb(err)
     } else if (count === 0) {
+      // TODO: does callback expect string values or would Error objects work?
+      // eslint-disable-next-line standard/no-callback-literal
       cb('0 streets returned.')
     } else {
       cb()

@@ -1,11 +1,11 @@
+import moment from 'moment'
+import { t, getLocale } from '../app/locale'
+
 const DATE_FORMAT_NO_YEAR = 'MMM D'
 const DATE_FORMAT_WITH_YEAR = 'MMM D, YYYY'
 const TIME_FORMAT = 'HH:MM'
 const MINUTES_AGO = 1000 * 60 * 10
 const SECONDS_AGO = 1000 * 60
-
-import moment from 'moment'
-import { t, getLocale } from '../app/locale'
 
 export function formatDate (dateString) {
   const now = moment()
