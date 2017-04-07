@@ -197,7 +197,6 @@ function onEverythingLoaded () {
   }
 
   // Display "support Streetmix" dialog for returning users
-  console.log(mode)
   if (mode === MODES.EXISTING_STREET || mode === MODES.CONTINUE) {
     let welcomeDismissed
     let donateDismissed
@@ -217,8 +216,8 @@ function onEverythingLoaded () {
       delayedTimestamp = JSON.parse(window.localStorage['settings-donate-delayed-timestamp'])
     }
 
-    if (welcomeDismissed &&
-      (!donateDismissed && donateDelayed && delayedTimestamp < twoWeeksAgo)) {
+    if (welcomeDismissed && !donateDismissed &&
+      (!donateDelayed || (donateDelayed && delayedTimestamp < twoWeeksAgo))) {
       store.dispatch(showDialog('DONATE'))
     }
   }
