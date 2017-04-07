@@ -1,4 +1,4 @@
-import Tweenable from 'shifty'
+import { tween } from 'shifty'
 
 /**
  * Gets the absolute position in pixels of a given element,
@@ -52,12 +52,7 @@ export function animate (el, props, duration) {
     initialProps[prop] = el[prop] || 0
   })
 
-  if (el.tweenable) {
-    el.tweenable.stop()
-  }
-
-  el.tweenable = new Tweenable()
-  el.tweenable.tween({
+  tween({
     from: initialProps,
     to: props,
     duration: duration,
