@@ -200,7 +200,6 @@ function onEverythingLoaded () {
   if (mode === MODES.EXISTING_STREET || mode === MODES.CONTINUE) {
     let welcomeDismissed
     let donateDismissed
-    let donateDelayed
     let delayedTimestamp
     const twoWeeksAgo = Date.now() - 12096e5
     if (window.localStorage['settings-welcome-dismissed']) {
@@ -209,15 +208,12 @@ function onEverythingLoaded () {
     if (window.localStorage['settings-donate-dismissed']) {
       donateDismissed = JSON.parse(window.localStorage['settings-donate-dismissed'])
     }
-    if (window.localStorage['settings-donate-delayed']) {
-      donateDelayed = JSON.parse(window.localStorage['settings-donate-delayed'])
-    }
     if (window.localStorage['settings-donate-delayed-timestamp']) {
       delayedTimestamp = JSON.parse(window.localStorage['settings-donate-delayed-timestamp'])
     }
 
     if (welcomeDismissed && !donateDismissed &&
-      (!donateDelayed || (donateDelayed && delayedTimestamp < twoWeeksAgo))) {
+      (!delayedTimestamp || delayedTimestamp < twoWeeksAgo)) {
       store.dispatch(showDialog('DONATE'))
     }
   }

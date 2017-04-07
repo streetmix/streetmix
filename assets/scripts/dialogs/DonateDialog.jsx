@@ -13,7 +13,6 @@ import { trackEvent } from '../app/event_tracking'
 import { clearDialogs } from '../store/actions/dialogs'
 
 const LOCALSTORAGE_DONATE_DISMISSED = 'settings-donate-dismissed'
-const LOCALSTORAGE_DONATE_DELAYED = 'settings-donate-delayed'
 const LOCALSTORAGE_DONATE_DELAYED_TIMESTAMP = 'settings-donate-delayed-timestamp'
 
 class DonateDialog extends React.Component {
@@ -45,7 +44,6 @@ class DonateDialog extends React.Component {
   }
 
   setSettingsDonateDelayed (value = true) {
-    window.localStorage[LOCALSTORAGE_DONATE_DELAYED] = JSON.stringify(value)
     window.localStorage[LOCALSTORAGE_DONATE_DELAYED_TIMESTAMP] = Date.now().toString()
   }
 
