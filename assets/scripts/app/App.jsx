@@ -4,16 +4,21 @@ import StreetNameCanvas from '../streets/StreetNameCanvas'
 import WelcomePanel from './WelcomePanel'
 import Palette from './Palette'
 import DialogRoot from '../dialogs/DialogRoot'
+import DebugInfo from './DebugInfo'
 
 export default class App extends React.PureComponent {
   render () {
     return (
       <div>
-        <MenusContainer />
-        <StreetNameCanvas />
-        <WelcomePanel />
-        <Palette />
-        <DialogRoot />
+        <div className='main-screen'>
+          <MenusContainer />
+          <StreetNameCanvas />
+          <WelcomePanel />
+          <Palette />
+          <DialogRoot />
+        </div>
+
+        <DebugInfo />
       </div>
     )
   }

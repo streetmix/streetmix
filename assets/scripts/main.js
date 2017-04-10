@@ -23,7 +23,6 @@ import { initialize } from './app/initialization'
 import { startListening } from './app/keypress'
 import { system } from './preinit/system_capabilities'
 import App from './app/App'
-import DebugInfo from './app/DebugInfo'
 
 // Error tracking
 // Load this before all other modules. Only load when run in production.
@@ -53,7 +52,6 @@ ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>, document.getElementById('react-app'))
-ReactDOM.render(<DebugInfo store={store} />, document.getElementById('debug'))
 
 // Start listening for keypresses
 startListening()
