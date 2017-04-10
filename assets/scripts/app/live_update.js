@@ -34,7 +34,7 @@ function receiveLiveUpdateCheck (response) {
 function receiveLiveUpdateStreet (transmission) {
   window.setTimeout(function () {
     unpackServerStreetData(transmission, null, null, false)
-    updateEverything(true)
+    updateEverything(true, false) // When receiving a street, don't save again
   }, 1000)
 
   window.dispatchEvent(new window.CustomEvent('stmx:live_update'))
