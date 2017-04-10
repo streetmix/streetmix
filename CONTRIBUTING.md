@@ -4,18 +4,32 @@ In the spirit of open source, **everyone** is encouraged to help
 improve this project! Please keep these guidelines in mind in
 order to make your contributions as useful as possible.
 
+There are many ways to contribute to the project, not just through code.
+For instance:
+
+- Design
+- Illustrations
+- Writing
+- Community management
+- Translation and localization
+- and of course, [financially](https://opencollective.com/streetmix).
+
 Please note that this project is released with a [Contributor Code of Conduct][code_of_conduct].
 By participating in this project you agree to abide by its terms.
 
 [code_of_conduct]: https://github.com/streetmix/streetmix/blob/master/CODE_OF_CONDUCT.md
 
+
 ## Bug reports and feedback
 
 We use the [GitHub issue tracker][issues] to track bugs and features
-in development. If you notice any bugs while [using Streetmix](http://streetmix.net), please let us know by opening a new issue.
+in development. We also have [forums](http://forums.streetmix.net) for feedback
+and discussion. 
 
-**Note:** before suggesting a new feature or reporting a bug, please check
-to make sure it hasn't already been reported. If there is already an
+### Bug reporting
+
+If you notice any bugs while using Streetmix, let us know by [opening a new issue]((https://github.com/streetmix/streetmix/issues/new).
+Please check to make sure it hasn't already been reported. If there is already an
 existing issue, feel free to add a comment or indicate support by voting
 it up.
 
@@ -32,14 +46,16 @@ version, and operating system.
 - Steps we can follow to reproduce the bug.
 - Any other information you think might be at all helpful.
 
-
-## Feature requests
+### Feature requests and feedback
 
 If you have any ideas for new features or functionality for Streetmix,
 we'd love to hear about them! Unfortunately, we can't promise to build
 everything, but we are receptive to all thoughts you have on how
-Streetmix could be more useful. Shoot us
-[an email](mailto:streetmix@codeforamerica.org) or [open an issue][].
+Streetmix could be more useful. You can [open an issue on GitHub](https://github.com/streetmix/streetmix/issues/new)
+or [post in the forums](http://forums.streetmix.net).
+
+Again, please make sure it hasn't already been posted. Posts or issues that
+are similar ones may be closed.
 
 
 ## Code contributions
