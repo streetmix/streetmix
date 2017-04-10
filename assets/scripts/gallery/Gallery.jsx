@@ -12,7 +12,7 @@ import { repeatReceiveGalleryData } from './view'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/routing'
 
-export default class Gallery extends React.Component {
+class Gallery extends React.Component {
   render () {
     let childElements
 
