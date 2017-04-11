@@ -29,16 +29,13 @@ body.no-internet {
     background-color: rgb(28, 189, 209);
   }
 
+  .hide-for-no-internet {
+    display: none;
+  }
+
   // Hiding menu items that should not exist
   #help-menu-item::after {
     content: '' !important;
-  }
-
-  #identity-menu-item,
-  #contact-menu-item,
-  #sign-in-menu-item,
-  #gallery-link {
-    display: none;
   }
 
   // Share menu
