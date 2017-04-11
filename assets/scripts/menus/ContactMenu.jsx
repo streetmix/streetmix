@@ -30,7 +30,9 @@ export default class ContactMenu extends React.PureComponent {
           </svg>
           <span data-i18n='menu.contact.github'>View source code on GitHub</span>
         </a>
-        <a href='http://blog.streetmix.net' target='_blank'>Visit Streetmix blog</a>
+        <a href='http://blog.streetmix.net' target='_blank'>
+          <span data-i18n='menu.contact.blog'>Visit Streetmix blog</span>
+        </a>
       </Menu>
     )
   }
