@@ -89,7 +89,7 @@ class MenuBar extends React.Component {
               Help
             </button>
           </li>
-          <li id='contact-menu-item'>
+          <li className='hide-for-no-internet'>
             <button
               data-name='contact'
               data-i18n='menu.item.contact'
@@ -100,9 +100,20 @@ class MenuBar extends React.Component {
               Contact
             </button>
           </li>
+          <li className='hide-for-no-internet'>
+            <button
+              data-name='contribute'
+              data-i18n='menu.item.contribute'
+              className='menu-attached'
+              disabled={false}
+              onClick={this.onClickMenuButton}
+            >
+              Contribute
+            </button>
+          </li>
         </ul>
         <ul ref={(ref) => { this.menuBarRight = ref }} className='menu-bar-right'>
-          <li id='identity-menu-item' style={identityMenuVisibilityStyle}>
+          <li className='hide-for-no-internet' style={identityMenuVisibilityStyle}>
             <button
               data-name='identity'
               className='menu-attached'
@@ -113,7 +124,7 @@ class MenuBar extends React.Component {
               <span className='user-id'>{userId}</span>
             </button>
           </li>
-          <li id='sign-in-menu-item' style={signInVisibilityStyle}>
+          <li className='hide-for-no-internet' style={signInVisibilityStyle}>
             <a href={`/${URL_SIGN_IN_REDIRECT}`} className='command' data-i18n='menu.item.sign-in'>
               Sign in
             </a>
@@ -123,13 +134,13 @@ class MenuBar extends React.Component {
               New street
             </a>
           </li>
-          <li id='gallery-link'>
+          <li className='hide-for-no-internet'>
             <a href={myStreetsLink} data-i18n='menu.item.my-streets' onClick={onMyStreetsClick}>
               My streets
             </a>
           </li>
           {SettingsButton}
-          <li id='share-menu-item'>
+          <li>
             <button
               data-name='share'
               data-i18n='menu.item.share'

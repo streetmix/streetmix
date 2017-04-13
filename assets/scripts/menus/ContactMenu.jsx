@@ -24,13 +24,9 @@ export default class ContactMenu extends React.PureComponent {
           </svg>
           <span data-i18n='menu.contact.slack'>Join Slack chat</span>
         </a>
-        <a href='https://github.com/streetmix/streetmix/' target='_blank'>
-          <svg className='icon'>
-            <use xlinkHref='#icon-github' />
-          </svg>
-          <span data-i18n='menu.contact.github'>View source code on GitHub</span>
+        <a href='http://blog.streetmix.net' target='_blank'>
+          <span data-i18n='menu.contact.blog'>Visit Streetmix blog</span>
         </a>
-        <a href='http://blog.streetmix.net' target='_blank'>Visit Streetmix blog</a>
       </Menu>
     )
   }

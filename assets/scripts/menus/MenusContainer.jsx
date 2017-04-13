@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import MenuBar from './MenuBar'
 import HelpMenu from './HelpMenu'
 import ContactMenu from './ContactMenu'
+import ContributeMenu from './ContributeMenu'
 import IdentityMenu from './IdentityMenu'
 import SettingsMenu from './SettingsMenu'
 import ShareMenu from './ShareMenu'
@@ -91,6 +92,7 @@ class MenusContainer extends React.Component {
         <MenuBar onMenuDropdownClick={this.onMenuDropdownClick} />
         <HelpMenu isActive={activeMenu === 'help'} position={activeMenuPos} />
         <ContactMenu isActive={activeMenu === 'contact'} position={activeMenuPos} />
+        <ContributeMenu isActive={activeMenu === 'contribute'} position={activeMenuPos} />
         <IdentityMenu isActive={activeMenu === 'identity'} position={activeMenuPos} />
         <SettingsMenu isActive={activeMenu === 'settings'} position={activeMenuPos} />
         <ShareMenu isActive={activeMenu === 'share'} position={activeMenuPos} />
