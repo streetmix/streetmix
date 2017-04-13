@@ -498,7 +498,15 @@ export function prepareEmptyStreet () {
   setUpdateTimeToNow()
 }
 
-export function updateEverything (dontScroll) {
+/**
+ * @todo: documentation
+ *
+ * @param {Boolean} dontScroll - document this
+ * @param {Boolean} save - if set to `false`, calling this function will not
+ *          cause a re-save of street to the server. (e.g. in the case of
+ *          live update feature.) Default is `true`.
+ */
+export function updateEverything (dontScroll, save = true) {
   setIgnoreStreetChanges(true)
   propagateUnits()
   // TODO Verify that we don't need to dispatch an update width event here
@@ -510,5 +518,7 @@ export function updateEverything (dontScroll) {
   updateUndoButtons()
   _lastStreet = trimStreetData(street)
 
-  scheduleSavingStreetToServer()
+  if (save === true) {
+    scheduleSavingStreetToServer()
+  }
 }

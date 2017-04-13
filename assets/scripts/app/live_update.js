@@ -3,8 +3,6 @@ import { getFetchStreetUrl, unpackServerStreetData } from '../streets/xhr'
 
 const LIVE_UPDATE_DELAY = 5000
 
-const flashEl = document.getElementById('flash')
-
 export function scheduleNextLiveUpdateCheck () {
   window.setTimeout(checkForLiveUpdate, LIVE_UPDATE_DELAY)
 }
@@ -36,21 +34,8 @@ function receiveLiveUpdateCheck (response) {
 function receiveLiveUpdateStreet (transmission) {
   window.setTimeout(function () {
     unpackServerStreetData(transmission, null, null, false)
-    updateEverything(true)
+    updateEverything(true, false) // When receiving a street, don't save again
   }, 1000)
 
-  flash()
-}
-
-function flash () {
-  flashEl.classList.add('visible')
-
-  window.setTimeout(function () {
-    flashEl.classList.add('fading-out')
-  }, 100)
-
-  window.setTimeout(function () {
-    flashEl.classList.remove('visible')
-    flashEl.classList.remove('fading-out')
-  }, 1000)
+  window.dispatchEvent(new window.CustomEvent('stmx:live_update'))
 }
