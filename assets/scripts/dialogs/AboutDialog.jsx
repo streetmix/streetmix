@@ -65,10 +65,6 @@ export default class AboutDialog extends React.Component {
               <a target='_blank' href='http://twitter.com/shaunak'><Avatar userId='shaunak' />Shaunak Kashyap</a> · rear end engineering
             </li>
           </ul>
-          <footer>
-            Many thanks to the staff and 2013 CfA fellows for their support and patience,
-            the Blockee team for paving the way, and all of our testers for their time and feedback!
-          </footer>
         </div>
       </Dialog>
     )
