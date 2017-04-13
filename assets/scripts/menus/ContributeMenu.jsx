@@ -6,7 +6,10 @@ export default class ContributeMenu extends React.PureComponent {
   render () {
     return (
       <Menu {...this.props}>
-        <a href='https://github.com/streetmix/streetmix/blob/master/CONTRIBUTING.md' target='_blank'>
+        <a href='https://github.com/streetmix/streetmix/' target='_blank'>
+          <svg className='icon'>
+            <use xlinkHref='#icon-github' />
+          </svg>
           <span data-i18n='menu.contribute.opensource'>Contribute to open source</span>
         </a>
         <a href='https://opencollective.com/streetmix/' target='_blank'>
