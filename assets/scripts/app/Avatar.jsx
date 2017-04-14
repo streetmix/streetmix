@@ -1,6 +1,6 @@
 import React from 'react'
 import { API_URL } from '../app/config'
-import { receiveUserDetails, hasCachedProfileImageUrl, getCachedProfileImageUrl } from '../users/profile_image_cache'
+import { getCachedProfileImageUrl, receiveUserDetails } from '../users/profile_image_cache'
 
 const requests = {}
 
@@ -9,76 +9,85 @@ export default class Avatar extends React.Component {
     super(props)
 
     this.state = {
-      backgroundImage: (this.props.userId && getCachedProfileImageUrl(this.props.userId)) || null
+      image: getCachedProfileImageUrl(this.props.userId) || null
     }
 
     this.fetchAvatar = this.fetchAvatar.bind(this)
-    this.checkCache = this.checkCache.bind(this)
+    this.testImageUrl = this.testImageUrl.bind(this)
   }
 
   componentDidMount () {
-    window.addEventListener('stmx:user_details_received', this.checkCache)
-    if (this.props.userId && !hasCachedProfileImageUrl(this.props.userId)) {
-      this.fetchAvatar()
+    // If a profile image had not been cached, initiate a fetch of it
+    if (!this.state.image) {
+      this.fetchAvatar(this.props.userId)
     }
-    this.checkCache()
   }
 
-  componentDidUpdate () {
-    if (this.props.userId && !hasCachedProfileImageUrl(this.props.userId)) {
-      this.fetchAvatar()
-    }
-    this.checkCache()
-  }
-
-  fetchAvatar () {
-    if (hasCachedProfileImageUrl(this.props.userId) || !this.props.userId) {
-      return
-    }
-
-    if (requests[this.props.userId]) {
-      // we already have a request for this user id
-      // so let the first request handle it and throw an event
-      return
-    }
-
-    requests[this.props.userId] = window.fetch(API_URL + 'v1/users/' + this.props.userId)
-    .then(function (response) {
-      // Ignore 404 errors; this happens frequently in staging/dev environments.
-      if (response.status === 404) {
-        return
-      } else if (response.status !== 200) {
-        throw new Error('status code ' + response.status)
+  componentWillReceiveProps (nextProps) {
+    if (this.props.userId !== nextProps.userId) {
+      const url = getCachedProfileImageUrl(nextProps.userId)
+      if (url) {
+        this.testImageUrl(url)
+      } else {
+        this.fetchAvatar(nextProps.userId)
       }
-
-      return response.json()
-    })
-    .then(receiveUserDetails)
-    .then(this.checkCache)
-    .catch((err) => {
-      console.error('error loading avatar for ' + this.props.userId + ':', err)
-    })
+    }
   }
 
-  checkCache () {
-    const cachedProfileImageUrl = getCachedProfileImageUrl(this.props.userId)
-    if (this.props.userId && cachedProfileImageUrl && this.state.backgroundImage !== cachedProfileImageUrl) {
-      this.setState({
-        backgroundImage: cachedProfileImageUrl
-      })
+  fetchAvatar (userId) {
+    // Requests are cached so that multiple Avatar components that have the
+    // same userId only need to make one request.
+    if (!requests[userId]) {
+      requests[userId] = window.fetch(API_URL + 'v1/users/' + userId)
+        .then((response) => {
+          if (!response.ok) throw new Error(response.status)
+          return response.json()
+        })
     }
+
+    requests[userId]
+      .then((details) => {
+        receiveUserDetails(details)
+        this.testImageUrl(details.profileImageUrl)
+      })
+      .catch((status) => {
+        this.setState({ image: null })
+      })
+  }
+
+  // Loads the image source url in a <img> element to test its validity.
+  // If it's good, we set it, otherwise, we record an error.
+  testImageUrl (url) {
+    let image = document.createElement('img')
+    image.onerror = () => {
+      this.setState({ image: null })
+      image = null
+    }
+    image.onload = () => {
+      this.setState({ image: url })
+      image = null
+    }
+    image.src = url
   }
 
   render () {
-    const style = {
-      backgroundImage: this.state.backgroundImage ? 'url(' + this.state.backgroundImage + ')' : 'none'
+    const state = this.state
+    const style = {}
+    let className = 'avatar'
+
+    // Displays the avatar image if we have it!
+    if (state.image) {
+      style.backgroundImage = `url(${state.image})`
+    } else {
+      className += ' avatar-blank'
     }
+
     return (
-      <div className='avatar' style={style} />
+      <div className={className} style={style} />
     )
   }
 }
 
 Avatar.propTypes = {
-  userId: React.PropTypes.string
+  userId: React.PropTypes.string.isRequired
 }

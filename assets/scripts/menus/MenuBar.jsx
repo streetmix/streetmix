@@ -47,10 +47,23 @@ class MenuBar extends React.Component {
   render () {
     const userId = this.props.userId
     const myStreetsLink = userId ? `/${userId}` : ''
-    const identityMenuVisibilityStyle = userId
-      ? {} : { display: 'none' }
-    const signInVisibilityStyle = userId
-      ? { display: 'none' } : {}
+
+    const UserAvatar = (userId)
+      ? (<li className='hide-for-no-internet'>
+        <button
+          data-name='identity'
+          className='menu-attached'
+          disabled={false}
+          onClick={this.onClickMenuButton}
+        >
+          <Avatar userId={userId} />
+          <span className='user-id'>{userId}</span>
+        </button>
+      </li>) : (<li className='hide-for-no-internet'>
+        <a href={`/${URL_SIGN_IN_REDIRECT}`} className='command' data-i18n='menu.item.sign-in'>
+          Sign in
+        </a>
+      </li>)
 
     const SettingsButton = (debug.experimental)
       ? (<li id='settings-menu-item'>
@@ -113,22 +126,7 @@ class MenuBar extends React.Component {
           </li>
         </ul>
         <ul ref={(ref) => { this.menuBarRight = ref }} className='menu-bar-right'>
-          <li className='hide-for-no-internet' style={identityMenuVisibilityStyle}>
-            <button
-              data-name='identity'
-              className='menu-attached'
-              disabled={false}
-              onClick={this.onClickMenuButton}
-            >
-              <Avatar userId={userId} />
-              <span className='user-id'>{userId}</span>
-            </button>
-          </li>
-          <li className='hide-for-no-internet' style={signInVisibilityStyle}>
-            <a href={`/${URL_SIGN_IN_REDIRECT}`} className='command' data-i18n='menu.item.sign-in'>
-              Sign in
-            </a>
-          </li>
+          {UserAvatar}
           <li>
             <a href='/new' target='_blank' data-i18n='menu.item.new-street'>
               New street
