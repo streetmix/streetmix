@@ -105,7 +105,7 @@ class Gallery extends React.Component {
           )
         }
 
-        const items = this.props.streets.map((item, i) => <GalleryStreetItem key={i} street={item} />)
+        const items = this.props.streets.map((item) => <GalleryStreetItem key={item.id} street={item} />)
         const streetCount = (this.props.userId) ? (
           <div className='street-count'>{getStreetCountText(this.props.streets.length)}</div>
         ) : null
