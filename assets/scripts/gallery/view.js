@@ -121,7 +121,6 @@ export function hideGallery (instant) {
 
 export function receiveGalleryData (transmission) {
   // Prepare data object
-  let streetCount = 0
   for (var i in transmission.streets) {
     var galleryStreet = transmission.streets[i]
 
@@ -135,13 +134,6 @@ export function receiveGalleryData (transmission) {
       (galleryStreet.creator && galleryStreet.creator.id)
 
     galleryStreet.name = galleryStreet.name || DEFAULT_NAME
-
-    // if (galleryState.streetId === galleryStreet.id) {
-    //   props.selected = true
-    // }
-
-    // document.querySelector('#gallery .streets').appendChild(el)
-    streetCount += 1
   }
 
   store.dispatch({
@@ -150,15 +142,8 @@ export function receiveGalleryData (transmission) {
     streets: transmission.streets
   })
 
-  if (((getMode() === MODES.USER_GALLERY) && streetCount) || (getMode() === MODES.GLOBAL_GALLERY)) {
+  if (((getMode() === MODES.USER_GALLERY) && transmission.streets.length) || (getMode() === MODES.GLOBAL_GALLERY)) {
     switchGalleryStreet(transmission.streets[0].id)
-  }
-
-  const galleryEl = document.getElementById('gallery')
-  const selectedEl = galleryEl.querySelector('.selected')
-  if (selectedEl) {
-    selectedEl.scrollIntoView()
-    galleryEl.scrollTop = 0
   }
 }
 
@@ -166,25 +151,10 @@ export function repeatReceiveGalleryData () {
   loadGalleryContents()
 }
 
-export function updateGallerySelection () {
-  const galleryEl = document.getElementById('gallery')
-  const els = galleryEl.querySelectorAll('.streets .selected')
-  for (let el of els) {
-    el.classList.remove('selected')
-  }
-
-  const selector = `.streets [data-street-id="${galleryState.streetId}"]`
-  const el = galleryEl.querySelector(selector)
-  if (el) {
-    el.classList.add('selected')
-  }
-}
-
 export function switchGalleryStreet (id) {
   galleryState.streetId = id
   galleryState.noStreetSelected = false
 
-  updateGallerySelection()
   fetchGalleryStreet(galleryState.streetId)
 }
 

@@ -9,7 +9,7 @@ import { connect } from 'react-redux'
 import Scrollable from '../ui/Scrollable'
 import Avatar from '../app/Avatar'
 import GalleryStreetItem from './GalleryStreetItem'
-import { repeatReceiveGalleryData } from './view'
+import { switchGalleryStreet, repeatReceiveGalleryData } from './view'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/routing'
 import { msg } from '../app/messages'
@@ -31,6 +31,41 @@ function getStreetCountText (count) {
 }
 
 class Gallery extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      selected: null,
+      preventHide: false
+    }
+
+    this.selectStreet = this.selectStreet.bind(this)
+    this.scrollSelectedStreetIntoView = this.scrollSelectedStreetIntoView.bind(this)
+  }
+
+  componentDidMount () {
+    this.scrollSelectedStreetIntoView()
+  }
+
+  componentDidUpdate () {
+    this.scrollSelectedStreetIntoView()
+  }
+
+  selectStreet (street) {
+    this.setState({
+      selected: street.id,
+      preventHide: false
+    })
+    switchGalleryStreet(street.id)
+  }
+
+  scrollSelectedStreetIntoView () {
+    if (this.state.selected) {
+      // selectedEl.scrollIntoView()
+      // galleryEl.scrollTop = 0
+    }
+  }
+
   render () {
     let childElements
 
@@ -105,7 +140,17 @@ class Gallery extends React.Component {
           )
         }
 
-        const items = this.props.streets.map((item) => <GalleryStreetItem key={item.id} street={item} />)
+        const items = this.props.streets.map((item) => {
+          const isSelected = this.state.selected === item.id
+          return (
+            <GalleryStreetItem
+              key={item.id}
+              street={item}
+              selected={isSelected}
+              handleSelect={this.selectStreet}
+            />
+          )
+        })
         const streetCount = (this.props.userId) ? (
           <div className='street-count'>{getStreetCountText(this.props.streets.length)}</div>
         ) : null

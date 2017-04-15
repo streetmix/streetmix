@@ -14,7 +14,7 @@ import { unpackServerStreetData } from '../streets/xhr'
 import { resizeStreetWidth, recalculateOccupiedWidth } from '../streets/width'
 import { getAuthHeader } from '../users/authentication'
 import { propagateUnits } from '../users/localization'
-import { galleryState, updateGallerySelection, segmentsChanged } from './view'
+import { galleryState, segmentsChanged } from './view'
 
 export function fetchGalleryStreet (streetId) {
   showBlockingShield()
@@ -42,7 +42,7 @@ export function fetchGalleryStreet (streetId) {
 
 function errorReceiveGalleryStreet () {
   galleryState.streetId = getStreet().id
-  updateGallerySelection()
+  // updateGallerySelection()
 }
 
 // TODO similar to receiveLastStreet

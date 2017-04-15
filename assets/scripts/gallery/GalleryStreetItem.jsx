@@ -9,7 +9,6 @@ import StreetName from '../streets/StreetName'
 import { msg } from '../app/messages'
 import { system } from '../preinit/system_capabilities'
 import { formatDate } from '../util/date_format'
-import { switchGalleryStreet } from './view'
 import { drawStreetThumbnail } from './thumbnail'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { sendDeleteStreetToServer } from '../streets/xhr'
@@ -25,6 +24,11 @@ class GalleryStreetItem extends React.Component {
     super(props)
 
     this.onClickGalleryStreet = this.onClickGalleryStreet.bind(this)
+    this.onClickDeleteGalleryStreet = this.onClickDeleteGalleryStreet.bind(this)
+  }
+
+  componentDidMount () {
+    this.drawCanvas()
   }
 
   drawCanvas () {
@@ -34,16 +38,14 @@ class GalleryStreetItem extends React.Component {
   }
 
   onClickGalleryStreet (event) {
-    if (event.shiftKey || event.ctrlKey || event.metaKey) {
-      return
-    }
-
-    switchGalleryStreet(this.props.street.id)
-
     event.preventDefault()
+    if (event.shiftKey || event.ctrlKey || event.metaKey) return
+    this.props.handleSelect(this.props.street)
   }
 
   onClickDeleteGalleryStreet (event) {
+    event.preventDefault()
+    event.stopPropagation()
     const name = this.props.street.name
 
     // TODO escape name
@@ -60,9 +62,6 @@ class GalleryStreetItem extends React.Component {
       // removeElFromDOM(el.parentNode)
       // updateGalleryStreetCount()
     }
-
-    event.preventDefault()
-    event.stopPropagation()
   }
 
   render () {
@@ -72,7 +71,6 @@ class GalleryStreetItem extends React.Component {
       <div className='gallery-street-item'>
         <a
           href={getStreetUrl(this.props.street)}
-          data-street-id={this.props.street.id}
           onClick={this.onClickGalleryStreet}
           className={className}
         >
@@ -120,7 +118,12 @@ class GalleryStreetItem extends React.Component {
 GalleryStreetItem.propTypes = {
   userId: React.PropTypes.string,
   selected: React.PropTypes.bool,
-  street: React.PropTypes.object
+  street: React.PropTypes.object,
+  handleSelect: React.PropTypes.func
+}
+
+GalleryStreetItem.defaultProps = {
+  selected: false
 }
 
 function mapStateToProps (state) {
