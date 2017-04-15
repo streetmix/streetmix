@@ -8,9 +8,27 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Scrollable from '../ui/Scrollable'
 import Avatar from '../app/Avatar'
+import GalleryStreetItem from './GalleryStreetItem'
 import { repeatReceiveGalleryData } from './view'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/routing'
+import { msg } from '../app/messages'
+
+function getStreetCountText (count) {
+  let text
+  switch (count) {
+    case 0:
+      text = msg('STREET_COUNT_0')
+      break
+    case 1:
+      text = msg('STREET_COUNT_1')
+      break
+    default:
+      text = msg('STREET_COUNT_MANY', { streetCount: count })
+      break
+  }
+  return text
+}
 
 class Gallery extends React.Component {
   render () {
@@ -68,7 +86,7 @@ class Gallery extends React.Component {
         // (which displays all streets) or if the user ID provided is different
         // from a currently signed-in user
         let galleryFullWidthClass
-        if (!this.props.userId || !((isSignedIn() && (this.props.userId === getSignInData().userId)))) {
+        if (!this.props.userId || !(isSignedIn() && (this.props.userId === getSignInData().userId))) {
           galleryFullWidthClass = 'gallery-streets-container-full'
         }
 
@@ -87,15 +105,22 @@ class Gallery extends React.Component {
           )
         }
 
+        const items = this.props.streets.map((item, i) => <GalleryStreetItem key={i} street={item} />)
+        const streetCount = (this.props.userId) ? (
+          <div className='street-count'>{getStreetCountText(this.props.streets.length)}</div>
+        ) : null
+
         childElements = (
           <div>
             {label}
 
-            <div className='street-count' />
+            {streetCount}
 
             <div className={'gallery-streets-container ' + galleryFullWidthClass}>
               {buttons}
-              <Scrollable className='streets' />
+              <Scrollable className='streets'>
+                {items}
+              </Scrollable>
             </div>
           </div>
         )
@@ -113,14 +138,16 @@ class Gallery extends React.Component {
 Gallery.propTypes = {
   visible: React.PropTypes.bool,
   userId: React.PropTypes.string,
-  mode: React.PropTypes.string
+  mode: React.PropTypes.string,
+  streets: React.PropTypes.array
 }
 
 function mapStateToProps (state) {
   return {
     visible: state.gallery.visible,
     userId: state.gallery.userId,
-    mode: state.gallery.mode
+    mode: state.gallery.mode,
+    streets: state.gallery.streets
   }
 }
 

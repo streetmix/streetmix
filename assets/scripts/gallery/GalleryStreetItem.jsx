@@ -20,7 +20,7 @@ const THUMBNAIL_WIDTH = 180
 const THUMBNAIL_HEIGHT = 110
 const THUMBNAIL_MULTIPLIER = 0.1 * 2
 
-export default class GalleryStreetItem extends React.Component {
+class GalleryStreetItem extends React.Component {
   constructor (props) {
     super(props)
 
@@ -29,7 +29,7 @@ export default class GalleryStreetItem extends React.Component {
 
   drawCanvas () {
     const ctx = this.thumbnailEl.getContext('2d')
-    drawStreetThumbnail(ctx, this.props.galleryStreet.data.street,
+    drawStreetThumbnail(ctx, this.props.street.data.street,
       THUMBNAIL_WIDTH * 2, THUMBNAIL_HEIGHT * 2, THUMBNAIL_MULTIPLIER, true, false, true, false, false)
   }
 
@@ -38,23 +38,23 @@ export default class GalleryStreetItem extends React.Component {
       return
     }
 
-    switchGalleryStreet(this.props.galleryStreet.id)
+    switchGalleryStreet(this.props.street.id)
 
     event.preventDefault()
   }
 
   onClickDeleteGalleryStreet (event) {
-    const name = this.props.galleryStreet.name
+    const name = this.props.street.name
 
     // TODO escape name
     if (window.confirm(msg('PROMPT_DELETE_STREET', { name: name }))) {
-      if (this.props.galleryStreet.id === getStreet().id) {
+      if (this.props.street.id === getStreet().id) {
         // TODO: affect gallery state
-        galleryState.noStreetSelected = true
+        // galleryState.noStreetSelected = true
         showError(ERRORS.NO_STREET, false)
       }
 
-      sendDeleteStreetToServer(this.props.galleryStreet.id)
+      sendDeleteStreetToServer(this.props.street.id)
 
       // Instead, remove data from memory, and trigger re-render from data
       // removeElFromDOM(el.parentNode)
@@ -71,8 +71,8 @@ export default class GalleryStreetItem extends React.Component {
     return (
       <div className='gallery-street-item'>
         <a
-          href={getStreetUrl(this.props.galleryStreet)}
-          data-street-id={this.props.galleryStreet.id}
+          href={getStreetUrl(this.props.street)}
+          data-street-id={this.props.street.id}
           onClick={this.onClickGalleryStreet}
           className={className}
         >
@@ -82,23 +82,23 @@ export default class GalleryStreetItem extends React.Component {
             ref={(ref) => { this.thumbnailEl = ref }}
           />
 
-          <StreetName name={this.props.galleryStreet.name} />
+          <StreetName name={this.props.street.name} />
 
           <span className='date'>
-            {formatDate(this.props.galleryStreet.updatedAt)}
+            {formatDate(this.props.street.updatedAt)}
           </span>
 
           {(() => {
             if (!this.props.userId) {
               return (
-                <span className='creator'>{this.galleryStreet.creatorId || msg('USER_ANONYMOUS')}</span>
+                <span className='creator'>{this.street.creatorId || msg('USER_ANONYMOUS')}</span>
               )
             }
           })()}
 
           {(() => {
             // Only show delete links if you own the street
-            if (isSignedIn() && (this.props.galleryStreet.creatorId === getSignInData().userId)) {
+            if (isSignedIn() && (this.props.street.creatorId === getSignInData().userId)) {
               return (
                 <button
                   className='remove'
@@ -120,7 +120,7 @@ export default class GalleryStreetItem extends React.Component {
 GalleryStreetItem.propTypes = {
   userId: React.PropTypes.string,
   selected: React.PropTypes.bool,
-  galleryStreet: React.PropTypes.object
+  street: React.PropTypes.object
 }
 
 function mapStateToProps (state) {

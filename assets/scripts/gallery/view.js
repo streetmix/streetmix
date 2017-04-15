@@ -2,10 +2,8 @@ import { trackEvent } from '../app/event_tracking'
 import { showError, ERRORS } from '../app/errors'
 import { onWindowFocus } from '../app/focus'
 import { getAbortEverything } from '../app/initialization'
-import { msg } from '../app/messages'
 import { MODES, getMode, setMode } from '../app/mode'
 import {
-  getGalleryUserId,
   setGalleryUserId,
   updatePageUrl
 } from '../app/page_url'
@@ -62,10 +60,6 @@ export function showGallery (userId, instant, signInPromo = false) {
     // TODO: Handle modes better.
     mode: (signInPromo) ? 'SIGN_IN_PROMO' : 'NONE'
   })
-
-  if (!signInPromo) {
-    document.querySelector('#gallery .street-count').innerHTML = ''
-  }
 
   hideControls()
   hideStatusMessage()
@@ -126,11 +120,8 @@ export function hideGallery (instant) {
 }
 
 export function receiveGalleryData (transmission) {
-  store.dispatch({
-    type: SET_GALLERY_STATE,
-    mode: 'GALLERY'
-  })
-
+  // Prepare data object
+  let streetCount = 0
   for (var i in transmission.streets) {
     var galleryStreet = transmission.streets[i]
 
@@ -145,14 +136,19 @@ export function receiveGalleryData (transmission) {
 
     galleryStreet.name = galleryStreet.name || DEFAULT_NAME
 
-    if (galleryState.streetId === galleryStreet.id) {
-      props.selected = true
-    }
+    // if (galleryState.streetId === galleryStreet.id) {
+    //   props.selected = true
+    // }
 
     // document.querySelector('#gallery .streets').appendChild(el)
+    streetCount += 1
   }
 
-  var streetCount = document.querySelectorAll('#gallery .streets li').length
+  store.dispatch({
+    type: SET_GALLERY_STATE,
+    mode: 'GALLERY',
+    streets: transmission.streets
+  })
 
   if (((getMode() === MODES.USER_GALLERY) && streetCount) || (getMode() === MODES.GLOBAL_GALLERY)) {
     switchGalleryStreet(transmission.streets[0].id)
@@ -164,8 +160,6 @@ export function receiveGalleryData (transmission) {
     selectedEl.scrollIntoView()
     galleryEl.scrollTop = 0
   }
-
-  updateGalleryStreetCount()
 }
 
 export function repeatReceiveGalleryData () {
@@ -194,29 +188,6 @@ export function switchGalleryStreet (id) {
   fetchGalleryStreet(galleryState.streetId)
 }
 
-function updateGalleryStreetCount () {
-  let text
-
-  const galleryEl = document.getElementById('gallery')
-  if (getGalleryUserId()) {
-    const streetCount = galleryEl.querySelectorAll('.streets li').length
-    switch (streetCount) {
-      case 0:
-        text = msg('STREET_COUNT_0')
-        break
-      case 1:
-        text = msg('STREET_COUNT_1')
-        break
-      default:
-        text = msg('STREET_COUNT_MANY', { streetCount: streetCount })
-        break
-    }
-  } else {
-    text = ''
-  }
-  galleryEl.querySelector('.street-count').innerHTML = text
-}
-
 function loadGalleryContents () {
   store.dispatch({
     type: SET_GALLERY_STATE,
@@ -241,6 +212,7 @@ function updateGalleryShield () {
 }
 
 export function onMyStreetsClick (event) {
+  event.preventDefault()
   if (event.shiftKey || event.ctrlKey || event.metaKey) {
     return
   }
@@ -250,6 +222,4 @@ export function onMyStreetsClick (event) {
   } else {
     showGallery(null, false, true)
   }
-
-  event.preventDefault()
 }

@@ -10,7 +10,8 @@ const initialState = {
   // LOADING - loading streets from server
   // ERROR - there is an error loading streets from server
   // GALLERY - displaying street gallery
-  mode: 'NONE'
+  mode: 'NONE',
+  streets: []
 }
 
 const gallery = (state = initialState, action) => {

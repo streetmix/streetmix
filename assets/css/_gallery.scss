@@ -233,6 +233,7 @@ body:not(.safari).gallery-visible #street-section-sky {
     right: -5px;
 
     display: none;
+    user-select: none;
   }
 
   &:hover {
