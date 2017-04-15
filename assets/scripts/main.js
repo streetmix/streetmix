@@ -2,7 +2,6 @@
  * Streetmix
  *
  */
-
 import Raven from 'raven-js'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -25,7 +24,6 @@ import { initialize } from './app/initialization'
 import { startListening } from './app/keypress'
 import { system } from './preinit/system_capabilities'
 import App from './app/App'
-import Gallery from './gallery/Gallery'
 
 // Error tracking
 // Load this before all other modules. Only load when run in production.
@@ -51,17 +49,11 @@ function setScaleForPhone () {
 
 setScaleForPhone()
 
-// Temp: mount React components
+// Mount React components
 ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>, document.getElementById('react-app'))
-ReactDOM.render(
-  <Provider store={store}>
-    <Gallery />
-  </Provider>,
-  document.getElementById('gallery-react')
-)
 
 // Start listening for keypresses
 startListening()
