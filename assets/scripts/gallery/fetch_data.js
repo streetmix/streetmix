@@ -6,7 +6,7 @@ import { receiveGalleryData, hideGallery } from './view'
 
 // Redux
 import store from '../store'
-import { SET_GALLERY_STATE } from '../store/actions'
+import { setGalleryMode } from '../store/actions/gallery'
 
 export function fetchGalleryData () {
   if (getGalleryUserId()) {
@@ -45,9 +45,6 @@ function errorReceiveGalleryData (data) {
     processMode()
     hideGallery(true)
   } else {
-    store.dispatch({
-      type: SET_GALLERY_STATE,
-      mode: 'ERROR'
-    })
+    store.dispatch(setGalleryMode('ERROR'))
   }
 }

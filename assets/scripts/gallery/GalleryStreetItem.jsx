@@ -11,9 +11,7 @@ import { system } from '../preinit/system_capabilities'
 import { formatDate } from '../util/date_format'
 import { drawStreetThumbnail } from './thumbnail'
 import { getSignInData, isSignedIn } from '../users/authentication'
-import { sendDeleteStreetToServer } from '../streets/xhr'
-import { getStreet, getStreetUrl } from '../streets/data_model'
-import { showError, ERRORS } from '../app/errors'
+import { getStreetUrl } from '../streets/data_model'
 
 const THUMBNAIL_WIDTH = 180
 const THUMBNAIL_HEIGHT = 110
@@ -40,27 +38,17 @@ class GalleryStreetItem extends React.Component {
   onClickGalleryStreet (event) {
     event.preventDefault()
     if (event.shiftKey || event.ctrlKey || event.metaKey) return
-    this.props.handleSelect(this.props.street)
+    this.props.handleSelect(this.props.street.id)
   }
 
   onClickDeleteGalleryStreet (event) {
     event.preventDefault()
     event.stopPropagation()
-    const name = this.props.street.name
+    const street = this.props.street
 
     // TODO escape name
-    if (window.confirm(msg('PROMPT_DELETE_STREET', { name: name }))) {
-      if (this.props.street.id === getStreet().id) {
-        // TODO: affect gallery state
-        // galleryState.noStreetSelected = true
-        showError(ERRORS.NO_STREET, false)
-      }
-
-      sendDeleteStreetToServer(this.props.street.id)
-
-      // Instead, remove data from memory, and trigger re-render from data
-      // removeElFromDOM(el.parentNode)
-      // updateGalleryStreetCount()
+    if (window.confirm(msg('PROMPT_DELETE_STREET', { name: street.name }))) {
+      this.props.handleDelete(street.id)
     }
   }
 
@@ -81,10 +69,7 @@ class GalleryStreetItem extends React.Component {
           />
 
           <StreetName name={this.props.street.name} />
-
-          <span className='date'>
-            {formatDate(this.props.street.updatedAt)}
-          </span>
+          <span className='date'>{formatDate(this.props.street.updatedAt)}</span>
 
           {(() => {
             if (!this.props.userId) {
@@ -117,9 +102,10 @@ class GalleryStreetItem extends React.Component {
 
 GalleryStreetItem.propTypes = {
   userId: React.PropTypes.string,
-  selected: React.PropTypes.bool,
-  street: React.PropTypes.object,
-  handleSelect: React.PropTypes.func
+  selected: React.PropTypes.bool.isRequired,
+  street: React.PropTypes.object.isRequired,
+  handleSelect: React.PropTypes.func.isRequired,
+  handleDelete: React.PropTypes.func.isRequired
 }
 
 GalleryStreetItem.defaultProps = {

@@ -13,6 +13,11 @@ import { switchGalleryStreet, repeatReceiveGalleryData } from './view'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/routing'
 import { msg } from '../app/messages'
+import { sendDeleteStreetToServer } from '../streets/xhr'
+import { getStreet } from '../streets/data_model'
+import { showError, ERRORS } from '../app/errors'
+
+import { deleteGalleryStreet } from '../store/actions/gallery'
 
 function getStreetCountText (count) {
   let text
@@ -40,6 +45,7 @@ class Gallery extends React.Component {
     }
 
     this.selectStreet = this.selectStreet.bind(this)
+    this.deleteStreet = this.deleteStreet.bind(this)
     this.scrollSelectedStreetIntoView = this.scrollSelectedStreetIntoView.bind(this)
   }
 
@@ -51,12 +57,27 @@ class Gallery extends React.Component {
     this.scrollSelectedStreetIntoView()
   }
 
-  selectStreet (street) {
+  selectStreet (streetId) {
     this.setState({
-      selected: street.id,
+      selected: streetId,
       preventHide: false
     })
-    switchGalleryStreet(street.id)
+    switchGalleryStreet(streetId)
+  }
+
+  deleteStreet (streetId) {
+    let preventHide = false
+    if (streetId === getStreet().id) {
+      preventHide = true
+      showError(ERRORS.NO_STREET, false)
+    }
+
+    sendDeleteStreetToServer(streetId)
+
+    // Optimistic delete: don't re-fetch, just remove street from memory
+    // and let the change in data store trigger a re-render
+    this.setState({ selected: null, preventHide })
+    this.props.dispatch(deleteGalleryStreet(streetId))
   }
 
   scrollSelectedStreetIntoView () {
@@ -148,6 +169,7 @@ class Gallery extends React.Component {
               street={item}
               selected={isSelected}
               handleSelect={this.selectStreet}
+              handleDelete={this.deleteStreet}
             />
           )
         })
@@ -158,9 +180,7 @@ class Gallery extends React.Component {
         childElements = (
           <div>
             {label}
-
             {streetCount}
-
             <div className={'gallery-streets-container ' + galleryFullWidthClass}>
               {buttons}
               <Scrollable className='streets'>
@@ -181,10 +201,15 @@ class Gallery extends React.Component {
 }
 
 Gallery.propTypes = {
+  dispatch: React.PropTypes.func.isRequired,
   visible: React.PropTypes.bool,
   userId: React.PropTypes.string,
   mode: React.PropTypes.string,
-  streets: React.PropTypes.array
+  streets: React.PropTypes.array.isRequired
+}
+
+Gallery.defaultProps = {
+  streets: []
 }
 
 function mapStateToProps (state) {

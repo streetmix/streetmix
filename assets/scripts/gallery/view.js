@@ -23,6 +23,7 @@ import { fetchGalleryStreet } from './fetch_street'
 // Redux
 import store from '../store'
 import { SET_GALLERY_STATE } from '../store/actions'
+import { setGalleryMode } from '../store/actions/gallery'
 
 export const galleryState = {
   streetId: null,
@@ -159,11 +160,7 @@ export function switchGalleryStreet (id) {
 }
 
 function loadGalleryContents () {
-  store.dispatch({
-    type: SET_GALLERY_STATE,
-    mode: 'LOADING'
-  })
-
+  store.dispatch(setGalleryMode('LOADING'))
   fetchGalleryData()
 }
 

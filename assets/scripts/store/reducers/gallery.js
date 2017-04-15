@@ -1,4 +1,9 @@
-import { SHOW_GALLERY, SET_GALLERY_STATE } from '../actions'
+import {
+  SHOW_GALLERY,
+  HIDE_GALLERY,
+  RECEIVE_GALLERY_STREETS,
+  DELETE_GALLERY_STREET,
+  SET_GALLERY_STATE } from '../actions'
 
 const initialState = {
   visible: false,
@@ -20,6 +25,23 @@ const gallery = (state = initialState, action) => {
       return {
         ...state,
         visible: true
+      }
+    case HIDE_GALLERY:
+      return {
+        ...state,
+        visible: false
+      }
+    case RECEIVE_GALLERY_STREETS:
+      return {
+        ...state,
+        streets: action.streets
+      }
+    case DELETE_GALLERY_STREET:
+      return {
+        ...state,
+        streets: state.streets.filter((street) => {
+          return street.id !== action.id
+        })
       }
     // This action allows setting arbitrary properties directly to the state
     // object. The only property we don't want to copy is `type`, which is
