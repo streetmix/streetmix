@@ -2,7 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import StreetName from './StreetName'
 import StreetMetaData from './StreetMetaData'
-import { getStreet } from './data_model'
+import { getStreet, setAndSaveStreet } from './data_model'
+import { msg } from '../app/messages'
+import { updateStreetName } from './name'
 
 class StreetNameCanvas extends React.Component {
   constructor (props) {
@@ -16,12 +18,17 @@ class StreetNameCanvas extends React.Component {
       streetNameWidth: 0
     }
 
+    this.lastSentCoords = null
+
+    this.updateCoords = this.updateCoords.bind(this)
     this.streetUpdated = this.streetUpdated.bind(this)
     this.updatePositions = this.updatePositions.bind(this)
-    this.onResizeStreetName = this.onResizeStreetName.bind(this)
+    this.handleResizeStreetName = this.handleResizeStreetName.bind(this)
+    this.onClickStreetName = this.onClickStreetName.bind(this)
   }
 
   componentDidMount () {
+    window.addEventListener('resize', this.updateCoords)
     window.addEventListener('stmx:set_street', this.streetUpdated)
     window.addEventListener('stmx:width_updated', this.streetUpdated)
     window.addEventListener('stmx:menu_bar_resized', this.updatePositions)
@@ -29,9 +36,14 @@ class StreetNameCanvas extends React.Component {
   }
 
   componentWillUnmount () {
+    window.removeEventListener('resize', this.updateCoords)
     window.removeEventListener('stmx:set_street', this.streetUpdated)
     window.removeEventListener('stmx:width_updated', this.streetUpdated)
     window.removeEventListener('stmx:menu_bar_resized', this.updatePositions)
+  }
+
+  componentDidUpdate (nextProps, nextState) {
+    this.updateCoords()
   }
 
   streetUpdated (e) {
@@ -39,11 +51,23 @@ class StreetNameCanvas extends React.Component {
     this.setState({street})
   }
 
-  onResizeStreetName (coords) {
+  handleResizeStreetName (coords) {
     this.setState({
       streetNameLeftPos: coords.left,
       streetNameWidth: coords.width
     })
+  }
+
+  updateCoords () {
+    const rect = this.streetName.el.getBoundingClientRect()
+    const coords = {
+      left: rect.left,
+      width: rect.width
+    }
+    if (!this.lastSentCoords || coords.left !== this.lastSentCoords.left || coords.width !== this.lastSentCoords.width) {
+      this.lastSentCoords = coords
+      this.handleResizeStreetName(coords)
+    }
   }
 
   updatePositions (event) {
@@ -62,15 +86,27 @@ class StreetNameCanvas extends React.Component {
     return classNames
   }
 
+  onClickStreetName () {
+    if (!this.props.editable) return
+
+    const newName = window.prompt(msg('PROMPT_NEW_STREET_NAME'), this.state.street.name)
+
+    if (newName) {
+      const street = Object.assign({}, this.state.street)
+      street.name = StreetName.normalizeStreetName(newName)
+      setAndSaveStreet(street)
+      updateStreetName()
+    }
+  }
+
   render () {
     return (
       <div id='street-name-canvas' className={this.determineClassNames().join(' ')}>
         <StreetName
           id='street-name'
           ref={(ref) => { this.streetName = ref }}
-          street={this.state.street}
-          editable={this.props.editable}
-          handleResize={this.onResizeStreetName}
+          name={this.state.street.name}
+          onClick={this.onClickStreetName}
         />
         <StreetMetaData id='street-metadata' street={this.state.street} />
       </div>

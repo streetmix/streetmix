@@ -207,7 +207,7 @@ export function receiveGalleryData (transmission) {
     nameEl.className = 'street-name-wrap'
     anchorEl.appendChild(nameEl)
 
-    ReactDOM.render(<StreetName street={galleryStreet} />, nameEl)
+    ReactDOM.render(<StreetName name={galleryStreet.name} />, nameEl)
 
     var dateEl = document.createElement('span')
     dateEl.classList.add('date')

@@ -195,7 +195,7 @@ class WelcomePanel extends React.Component {
                 React's warning that <div> elements from StreetName and
                 Avatar components cannot exist inside a <p> */}
             <div className='paragraph'>
-              This is <StreetName street={street} />
+              This is <StreetName name={street.name} />
               {(() => {
                 // Display street creator if creatorId is available.
                 if (street.creatorId) {
