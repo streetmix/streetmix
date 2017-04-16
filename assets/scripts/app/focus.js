@@ -1,4 +1,3 @@
-import { galleryState } from '../gallery/view'
 import { system } from '../preinit/system_capabilities'
 import { fetchStreetForVerification } from '../streets/xhr'
 import { saveSettingsLocally } from '../users/settings'

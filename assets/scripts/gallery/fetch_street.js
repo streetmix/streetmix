@@ -33,7 +33,6 @@ export function fetchGalleryStreet (streetId) {
     })
     .then(function (data) {
       hideBlockingShield()
-      galleryState.loaded = true
       return data
     })
     .then(receiveGalleryStreet)

@@ -23,7 +23,7 @@ import { fetchGalleryStreet } from './fetch_street'
 // Redux
 import store from '../store'
 import { SET_GALLERY_STATE } from '../store/actions'
-import { setGalleryMode } from '../store/actions/gallery'
+import { setGalleryMode, hideGallery as hideGalleryAction } from '../store/actions/gallery'
 
 export const galleryState = {
   streetId: null,
@@ -94,10 +94,7 @@ export function hideGallery (instant) {
   }
 
   if (galleryState.streetLoaded) {
-    store.dispatch({
-      type: SET_GALLERY_STATE,
-      visible: false
-    })
+    store.dispatch(hideGalleryAction())
 
     if (instant) {
       document.body.classList.add('gallery-no-move-transition')
