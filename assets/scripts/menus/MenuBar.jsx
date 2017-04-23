@@ -1,3 +1,4 @@
+/* global mixpanel */
 import React from 'react'
 import { connect } from 'react-redux'
 import EnvironmentBadge from './EnvironmentBadge'
@@ -21,6 +22,28 @@ class MenuBar extends React.Component {
 
     // StreetNameCanvas needs to know the left position of the right menu bar when it's mounted
     window.addEventListener('stmx:streetnamecanvas_mounted', this.onResize)
+  }
+
+  componentDidMount () {
+    this.attachSignInTracking()
+  }
+
+  componentDidUpdate (prevProps) {
+    if (this.props.userId && !prevProps.userId) {
+      this.attachSignInTracking()
+    }
+  }
+
+  /**
+   * Attaches mixpanel tracking to sign-in link, if element is present. Call
+   * only after DOM is rendered.
+   */
+  attachSignInTracking () {
+    if (window.mixpanel && document.getElementById('sign-in-link')) {
+      mixpanel.track_links('#sign-in-link', 'clicked sign in link', {
+        referrer: document.referrer
+      })
+    }
   }
 
   /**
@@ -60,7 +83,12 @@ class MenuBar extends React.Component {
           <span className='user-id'>{userId}</span>
         </button>
       </li>) : (<li className='hide-for-no-internet'>
-        <a href={`/${URL_SIGN_IN_REDIRECT}`} className='command' data-i18n='menu.item.sign-in'>
+        <a
+          href={`/${URL_SIGN_IN_REDIRECT}`}
+          className='command'
+          data-i18n='menu.item.sign-in'
+          id='sign-in-link'
+        >
           Sign in
         </a>
       </li>)
