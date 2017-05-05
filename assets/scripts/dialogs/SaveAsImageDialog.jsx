@@ -7,6 +7,7 @@
  *
  */
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { isEqual } from 'lodash'
 import Dialog from './Dialog'
@@ -201,9 +202,9 @@ class SaveAsImageDialog extends React.Component {
 }
 
 SaveAsImageDialog.propTypes = {
-  transparentSky: React.PropTypes.bool.isRequired,
-  segmentNames: React.PropTypes.bool.isRequired,
-  streetName: React.PropTypes.bool.isRequired
+  transparentSky: PropTypes.bool.isRequired,
+  segmentNames: PropTypes.bool.isRequired,
+  streetName: PropTypes.bool.isRequired
 }
 
 function mapStateToProps (state) {

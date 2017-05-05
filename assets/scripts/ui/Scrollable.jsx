@@ -2,6 +2,7 @@
  * Adds scroll buttons to UI elements.
  */
 import React from 'react'
+import PropTypes from 'prop-types'
 import { animate } from '../util/helpers'
 
 export default class Scrollable extends React.PureComponent {
@@ -110,7 +111,7 @@ export default class Scrollable extends React.PureComponent {
 }
 
 Scrollable.propTypes = {
-  className: React.PropTypes.string,
-  children: React.PropTypes.node,
-  setRef: React.PropTypes.func
+  className: PropTypes.string,
+  children: PropTypes.node,
+  setRef: PropTypes.func
 }

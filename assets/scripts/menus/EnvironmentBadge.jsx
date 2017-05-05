@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { ENV } from '../app/config'
 import { system } from '../preinit/system_capabilities'
 
@@ -52,5 +53,5 @@ export default class EnvironmentBadge extends React.Component {
 }
 
 EnvironmentBadge.propTypes = {
-  label: React.PropTypes.string
+  label: PropTypes.string
 }

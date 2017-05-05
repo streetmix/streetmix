@@ -7,6 +7,7 @@
  *
  */
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Dialog from './Dialog'
 import { trackEvent } from '../app/event_tracking'
@@ -79,7 +80,7 @@ class DonateDialog extends React.Component {
 
 DonateDialog.propTypes = {
   // Supplied by connect()
-  dispatch: React.PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired
 }
 
 export default connect()(DonateDialog)

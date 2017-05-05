@@ -1,5 +1,6 @@
 /* global mixpanel */
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import EnvironmentBadge from './EnvironmentBadge'
 
@@ -185,8 +186,8 @@ class MenuBar extends React.Component {
 }
 
 MenuBar.propTypes = {
-  onMenuDropdownClick: React.PropTypes.func,
-  userId: React.PropTypes.string
+  onMenuDropdownClick: PropTypes.func,
+  userId: PropTypes.string
 }
 
 MenuBar.defaultProps = {

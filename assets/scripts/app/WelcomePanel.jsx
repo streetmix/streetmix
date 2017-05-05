@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import { app } from '../preinit/app_settings'
@@ -308,8 +309,8 @@ class WelcomePanel extends React.Component {
 }
 
 WelcomePanel.propTypes = {
-  newStreetPreference: React.PropTypes.number,
-  priorLastStreetId: React.PropTypes.string
+  newStreetPreference: PropTypes.number,
+  priorLastStreetId: PropTypes.string
 }
 
 WelcomePanel.defaultProps = {

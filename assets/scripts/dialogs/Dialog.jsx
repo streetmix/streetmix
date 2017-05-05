@@ -5,6 +5,7 @@
  *
  */
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { hideAllMenus } from '../menus/menu_controller'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
@@ -63,10 +64,10 @@ class Dialog extends React.Component {
 }
 
 Dialog.propTypes = {
-  dispatch: React.PropTypes.func.isRequired,
-  className: React.PropTypes.string,
-  children: React.PropTypes.node.isRequired,
-  disableShieldExit: React.PropTypes.bool
+  dispatch: PropTypes.func.isRequired,
+  className: PropTypes.string,
+  children: PropTypes.node.isRequired,
+  disableShieldExit: PropTypes.bool
 }
 
 Dialog.defaultProps = {

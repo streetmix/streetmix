@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Menu from './Menu'
 
@@ -150,9 +151,9 @@ class ShareMenu extends React.Component {
 }
 
 ShareMenu.propTypes = {
-  dispatch: React.PropTypes.func.isRequired, // supplied by connect()
-  signedIn: React.PropTypes.bool.isRequired,
-  userId: React.PropTypes.string
+  dispatch: PropTypes.func.isRequired, // supplied by connect()
+  signedIn: PropTypes.bool.isRequired,
+  userId: PropTypes.string
 }
 
 ShareMenu.defaultProps = {

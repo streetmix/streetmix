@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { formatDate } from '../util/date_format'
 import { msg } from '../app/messages'
@@ -52,11 +53,11 @@ class StreetMetaData extends React.Component {
 }
 
 StreetMetaData.propTypes = {
-  id: React.PropTypes.string,
-  readOnly: React.PropTypes.bool,
-  street: React.PropTypes.any,
-  signedIn: React.PropTypes.bool.isRequired,
-  userId: React.PropTypes.string
+  id: PropTypes.string,
+  readOnly: PropTypes.bool,
+  street: PropTypes.any,
+  signedIn: PropTypes.bool.isRequired,
+  userId: PropTypes.string
 }
 
 StreetMetaData.defaultProps = {

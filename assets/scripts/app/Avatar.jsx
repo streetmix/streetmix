@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { API_URL } from '../app/config'
 import { getCachedProfileImageUrl, receiveUserDetails } from '../users/profile_image_cache'
 
@@ -89,5 +90,5 @@ export default class Avatar extends React.Component {
 }
 
 Avatar.propTypes = {
-  userId: React.PropTypes.string.isRequired
+  userId: PropTypes.string.isRequired
 }

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { needsUnicodeFont } from '../util/unicode'
 
 const MAX_STREET_NAME_WIDTH = 50
@@ -40,5 +41,5 @@ export default class StreetName extends React.PureComponent {
 }
 
 StreetName.propTypes = {
-  name: React.PropTypes.string.isRequired
+  name: PropTypes.string.isRequired
 }

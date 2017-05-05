@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import MenuBar from './MenuBar'
 import HelpMenu from './HelpMenu'
@@ -102,8 +103,8 @@ class MenusContainer extends React.Component {
 }
 
 MenusContainer.propTypes = {
-  dispatch: React.PropTypes.func.isRequired,
-  activeMenu: React.PropTypes.string
+  dispatch: PropTypes.func.isRequired,
+  activeMenu: PropTypes.string
 }
 
 MenusContainer.defaultProps = {

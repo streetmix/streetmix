@@ -7,6 +7,7 @@
  * @requires keypress
  */
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { cloneDeep } from 'lodash'
 import { getStreet } from '../streets/data_model'
@@ -105,7 +106,7 @@ class DebugInfo extends React.Component {
 }
 
 DebugInfo.propTypes = {
-  settings: React.PropTypes.object.isRequired
+  settings: PropTypes.object.isRequired
 }
 
 function mapStateToProps (state) {

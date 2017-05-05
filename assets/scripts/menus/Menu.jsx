@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 export default class Menu extends React.Component {
   /**
@@ -62,13 +63,13 @@ export default class Menu extends React.Component {
 }
 
 Menu.propTypes = {
-  className: React.PropTypes.string,
-  alignment: React.PropTypes.oneOf(['left', 'right']).isRequired,
-  isActive: React.PropTypes.bool.isRequired,
-  position: React.PropTypes.array,
-  onShow: React.PropTypes.func,
-  onHide: React.PropTypes.func,
-  children: React.PropTypes.node
+  className: PropTypes.string,
+  alignment: PropTypes.oneOf(['left', 'right']).isRequired,
+  isActive: PropTypes.bool.isRequired,
+  position: PropTypes.array,
+  onShow: PropTypes.func,
+  onHide: PropTypes.func,
+  children: PropTypes.node
 }
 
 Menu.defaultProps = {

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 // Import all dialogs here
@@ -20,8 +21,8 @@ const DialogRoot = ({ name, props }) => {
 }
 
 DialogRoot.propTypes = {
-  name: React.PropTypes.string,
-  props: React.PropTypes.object
+  name: PropTypes.string,
+  props: PropTypes.object
 }
 
 export default connect(

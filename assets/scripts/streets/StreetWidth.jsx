@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { processWidthInput, prettifyWidth } from '../util/width_units'
 import { getSegmentWidthResolution } from '../segments/resizing'
 import { loseAnyFocus } from '../app/focus'
@@ -224,6 +225,6 @@ export default class StreetWidth extends React.Component {
 }
 
 StreetWidth.propTypes = {
-  readOnly: React.PropTypes.bool,
-  street: React.PropTypes.any
+  readOnly: PropTypes.bool,
+  street: PropTypes.any
 }

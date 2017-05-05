@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import StreetName from './StreetName'
 import StreetMetaData from './StreetMetaData'
@@ -115,7 +116,7 @@ class StreetNameCanvas extends React.Component {
 }
 
 StreetNameCanvas.propTypes = {
-  editable: React.PropTypes.bool
+  editable: PropTypes.bool
 }
 
 StreetNameCanvas.defaultProps = {
