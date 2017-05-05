@@ -63,6 +63,7 @@
     "node-sass": "4.5.2",
     "oauth": "0.9.15",
     "postcss": "5.2.17",
+    "prop-types": "15.5.8",
     "raven-js": "3.14.2",
     "react": "15.5.4",
     "react-dom": "15.5.4",
