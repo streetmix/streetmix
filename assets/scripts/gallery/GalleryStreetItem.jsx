@@ -4,6 +4,7 @@
  * One street in the gallery
  */
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import StreetName from '../streets/StreetName'
 import { msg } from '../app/messages'
@@ -101,11 +102,11 @@ class GalleryStreetItem extends React.Component {
 }
 
 GalleryStreetItem.propTypes = {
-  userId: React.PropTypes.string,
-  selected: React.PropTypes.bool.isRequired,
-  street: React.PropTypes.object.isRequired,
-  handleSelect: React.PropTypes.func.isRequired,
-  handleDelete: React.PropTypes.func.isRequired
+  userId: PropTypes.string,
+  selected: PropTypes.bool.isRequired,
+  street: PropTypes.object.isRequired,
+  handleSelect: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired
 }
 
 GalleryStreetItem.defaultProps = {

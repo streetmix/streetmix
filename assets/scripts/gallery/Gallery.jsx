@@ -5,6 +5,7 @@
  *
  */
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Scrollable from '../ui/Scrollable'
 import Avatar from '../app/Avatar'
@@ -201,11 +202,11 @@ class Gallery extends React.Component {
 }
 
 Gallery.propTypes = {
-  dispatch: React.PropTypes.func.isRequired,
-  visible: React.PropTypes.bool,
-  userId: React.PropTypes.string,
-  mode: React.PropTypes.string,
-  streets: React.PropTypes.array.isRequired
+  dispatch: PropTypes.func.isRequired,
+  visible: PropTypes.bool,
+  userId: PropTypes.string,
+  mode: PropTypes.string,
+  streets: PropTypes.array.isRequired
 }
 
 Gallery.defaultProps = {
