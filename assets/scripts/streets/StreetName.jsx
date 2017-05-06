@@ -12,9 +12,7 @@ export default class StreetName extends React.PureComponent {
    * @params {string} name - Street name to check
    */
   static normalizeStreetName (name) {
-    if (!name) {
-      return ''
-    }
+    if (!name) return ''
 
     name = name.trim()
 
@@ -29,11 +27,7 @@ export default class StreetName extends React.PureComponent {
     let classString = 'street-name-text ' + (!needsUnicodeFont(this.props.name) ? '' : 'fallback-unicode-font')
 
     return (
-      <div
-        ref={(ref) => { this.el = ref }}
-        className='street-name'
-        {...this.props}
-      >
+      <div className='street-name' {...this.props}>
         <div className={classString}>{StreetName.normalizeStreetName(this.props.name)}</div>
       </div>
     )
