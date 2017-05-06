@@ -60,7 +60,7 @@ class StreetNameCanvas extends React.Component {
   }
 
   updateCoords () {
-    const rect = this.streetName.el.getBoundingClientRect()
+    const rect = this.streetName.getBoundingClientRect()
     const coords = {
       left: rect.left,
       width: rect.width
