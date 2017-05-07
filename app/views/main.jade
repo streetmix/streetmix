@@ -3,44 +3,10 @@ extends _layout
 block main
   include ./ui/blocking
 
-  //- Mount point for React Gallery component
-  #gallery-react
-
   #main-screen
 
     //- Mount point for React
     #react-app
-
-    .info-bubble
-
-    #status-message.status-message
-      .status-message-content
-
-    #no-connection-message.status-message
-      .status-message-content
-        | Streetmix is having trouble connecting to the Internet.
-        button#no-connection-try-again.
-          Try again
-
-    section#street-section-outer
-      #gallery-shield
-
-      section#street-section-inner
-        section#street-section-canvas
-          section.street-section-building#street-section-left-building
-            .hover-bk
-          section.street-section-building#street-section-right-building
-            .hover-bk
-          #street-section-editable
-          .segment.empty#street-section-left-empty-space
-          .segment.empty#street-section-right-empty-space
-          section#street-section-dirt
-
-    section#street-section-sky
-      .rear-clouds
-      .front-clouds
-    #street-scroll-indicator-left
-    #street-scroll-indicator-right
 
   #print
     div

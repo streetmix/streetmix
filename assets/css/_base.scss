@@ -34,6 +34,14 @@ body.touch-support .non-touch-only {
   top: 0;
   right: 0;
   bottom: 0;
+}
+
+.main-screen {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
   z-index: $z-01-main-screen;
 
   body:not(.safari) & {

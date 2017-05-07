@@ -8,6 +8,7 @@ import Flash from './Flash'
 import DebugInfo from './DebugInfo'
 import Gallery from '../gallery/Gallery'
 import BlockingError from './BlockingError'
+import MiscHTMLStuff from './MiscHTMLStuff'
 
 export default class App extends React.PureComponent {
   render () {
@@ -21,6 +22,7 @@ export default class App extends React.PureComponent {
           <WelcomePanel />
           <Palette />
           <DialogRoot />
+          <MiscHTMLStuff />
         </div>
 
         <Flash />
