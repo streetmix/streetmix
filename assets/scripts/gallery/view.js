@@ -174,16 +174,3 @@ function updateGalleryShield () {
       document.querySelector('#street-section-outer').scrollWidth + 'px'
   }, 0)
 }
-
-export function onMyStreetsClick (event) {
-  event.preventDefault()
-  if (event.shiftKey || event.ctrlKey || event.metaKey) {
-    return
-  }
-
-  if (isSignedIn()) {
-    showGallery(getSignInData().userId, false)
-  } else {
-    showGallery(null, false, true)
-  }
-}
