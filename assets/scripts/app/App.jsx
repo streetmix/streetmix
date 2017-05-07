@@ -7,11 +7,13 @@ import DialogRoot from '../dialogs/DialogRoot'
 import Flash from './Flash'
 import DebugInfo from './DebugInfo'
 import Gallery from '../gallery/Gallery'
+import BlockingError from './BlockingError'
 
 export default class App extends React.PureComponent {
   render () {
     return (
       <div>
+        <BlockingError />
         <Gallery />
         <div className='main-screen'>
           <MenusContainer />

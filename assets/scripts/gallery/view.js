@@ -65,6 +65,7 @@ export function showGallery (userId, instant, signInPromo = false) {
   hideControls()
   hideStatusMessage()
 
+  // TODO: Handle transition inside Gallery component.
   if (instant) {
     document.body.classList.add('gallery-no-move-transition')
   }
