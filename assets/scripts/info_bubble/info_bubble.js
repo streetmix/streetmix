@@ -890,7 +890,7 @@ export const infoBubble = {
     var bubbleX = pos[0] - document.querySelector('#street-section-outer').scrollLeft
     var bubbleY = pos[1]
 
-    infoBubble.el = document.querySelector('#main-screen .info-bubble')
+    infoBubble.el = document.querySelector('.info-bubble')
     infoBubble.updateContents()
 
     var bubbleWidth = infoBubble.el.offsetWidth
