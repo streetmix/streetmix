@@ -59,9 +59,7 @@ body.immediate-segment-resize .segment {
   height: 80px;
   top: 0;
   background-color: fade-out($sky-colour, 0.3);
-
   margin-right: 1px;
-
   transform-origin: 50% 75%;
   transition: transform 50ms !important;
 }
@@ -104,7 +102,6 @@ body:not(.read-only) .segment:not(.unmovable) {
   position: absolute;
   left: 0;
   top: 150px;
-
   pointer-events: none;
 }
 
@@ -121,7 +118,7 @@ body:not(.segment-resize-dragging) .segment.outside .image {
 }
 
 .segment.segment-in-palette:hover {
-  background: fade-out($sky-colour, .05);
+  background: fade-out($sky-colour, 0.05);
 
   canvas {
     transform: scale(1.15);
@@ -154,22 +151,17 @@ body.segment-resize-dragging * {
   top: 170px + 150px;
   width: 10px;
   height: 100px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-top: 3px solid darken($ui-colour, 30%);
+  border-bottom: 3px solid darken($ui-colour, 30%);
   line-height: 100px;
   font-size: 50px;
   font-family: 'Tahoma';
   color: lighten($ui-colour, 0%);
   z-index: $z-06-drag-handle;
-
   pointer-events: none;
-
-  padding-left: 10px;
-  padding-right: 10px;
-
   background: $info-bubble-background;
-
-  border-top: 3px solid darken($ui-colour, 30%);
-  border-bottom: 3px solid darken($ui-colour, 30%);
-
   cursor: col-resize;
 
   &.left {
@@ -391,10 +383,8 @@ body.segment-resize-dragging .drag-handle.floating,
   left: 50%;
   top: 0;
   bottom: 45px;
-
   border-left: 1px dashed fade-out(black, 0.6);
   border-right: 1px dashed fade-out(black, 0.6);
-
   box-sizing: border-box;
 
   &::before,
@@ -532,7 +522,6 @@ body.segment-move-dragging #editable-street-section > div {
   position: absolute;
   z-index: $z-10-switch-away;
   pointer-events: none;
-
   transform: none !important;
   perspective: 400px;
 
@@ -557,7 +546,7 @@ body.segment-move-dragging #editable-street-section > div {
   z-index: -1 !important;
   perspective: 400px;
 
-  & canvas {
+  canvas {
     transform: rotateX(90deg);
     transform-origin: 50% 100%;
     opacity: 0;

@@ -1,0 +1,11 @@
+{
+  "extends": "stylelint-config-standard",
+  "plugins": [
+    "stylelint-scss"
+  ],
+  "rules": {
+    "scss/at-import-no-partial-leading-underscore": true,
+    "scss/at-mixin-argumentless-call-parentheses": "never",
+    "scss/selector-no-redundant-nesting-selector": true
+  }
+}

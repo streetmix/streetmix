@@ -19,14 +19,10 @@ body:not(.safari).gallery-visible #street-section-sky {
   top: 0;
   height: $gallery-height;
   z-index: $z-09-gallery;
-
   border-bottom: 3px solid darken($ui-colour, 30%);
-
   background: white;
   overflow: hidden;
-
   pointer-events: none;
-
   transform: translateY(-$gallery-height) rotateX(25deg);
   transform-origin: 50% 0;
 
@@ -42,7 +38,6 @@ body:not(.safari).gallery-visible #street-section-sky {
     position: absolute;
     left: 60px;
     top: 15px;
-
     font-size: 24px;
   }
 
@@ -56,7 +51,6 @@ body:not(.safari).gallery-visible #street-section-sky {
     position: absolute;
     right: 20px;
     top: 12px;
-
     font-size: 24px;
     font-weight: 300;
     color: rgb(128, 128, 128);
@@ -67,14 +61,11 @@ body:not(.safari).gallery-visible #street-section-sky {
     top: 60px;
     width: 100px;
     height: 43px;
-
     position: absolute;
-
     padding-top: 15px;
     padding-left: 0;
     padding-right: 0;
     line-height: 15px;
-
     font-weight: bold;
   }
 
@@ -100,9 +91,7 @@ body:not(.safari).gallery-visible #street-section-sky {
     list-style: none;
     padding: 0;
     margin: 0;
-
     white-space: nowrap;
-
     position: absolute;
     left: 130px + 10px;
     right: 5px + 10px;
@@ -110,35 +99,28 @@ body:not(.safari).gallery-visible #street-section-sky {
     height: $gallery-height + 20px; // To cover the scroll bar
     overflow-x: scroll;
 
-    & > li {
+    > li {
       display: inline-block;
     }
 
-    & > li > a {
+    > li > a {
       display: inline-block;
-
-      color: black;
-      text-decoration: none;
-
-      vertical-align: top;
-
+      position: relative;
       width: $thumbnail-width;
       height: $thumbnail-height - 10px;
       margin: 10px;
       margin-top: 5px;
-      background: fade-out($sky-colour, 0.2);
       padding: 5px 0;
-
       border-top: 3px solid darken($ui-colour, 10%);
       border-bottom: 3px solid darken($ui-colour, 10%);
-      text-align: center;
-      white-space: normal;
-
-      cursor: pointer;
-
+      background: fade-out($sky-colour, 0.2);
+      color: black;
       font-size: 13px;
-
-      position: relative;
+      text-decoration: none;
+      text-align: center;
+      vertical-align: top;
+      white-space: normal;
+      cursor: pointer;
 
       canvas {
         position: absolute;
@@ -159,7 +141,6 @@ body:not(.safari).gallery-visible #street-section-sky {
         bottom: 18px;
         text-align: center;
         display: block;
-
         font-size: 11px;
         color: black;
       }
@@ -171,22 +152,19 @@ body:not(.safari).gallery-visible #street-section-sky {
         bottom: 5px;
         text-align: center;
         display: block;
-
         font-size: 11px;
         color: black;
         font-weight: 300;
       }
 
       button.remove {
+        display: none;
         position: absolute;
-        font-size: 16px;
-        padding: 0 10px;
-        line-height: 25px;
-
         top: -10px;
         right: -5px;
-
-        display: none;
+        padding: 0 10px;
+        font-size: 16px;
+        line-height: 25px;
       }
 
       &:hover {
@@ -203,7 +181,6 @@ body:not(.safari).gallery-visible #street-section-sky {
 
       &.selected {
         background: darken($ui-colour, 10%);
-
         border-top-color: black;
         border-bottom-color: black;
 
@@ -220,6 +197,7 @@ body:not(.safari).gallery-visible #street-section-sky {
   }
 
   .loading {
+    display: none;
     position: absolute;
     left: 0;
     right: 0;
@@ -228,7 +206,6 @@ body:not(.safari).gallery-visible #street-section-sky {
     line-height: $gallery-height;
     text-align: center;
     z-index: $z-03-gallery-message;
-    display: none;
     background: white;
 
     &.visible {
@@ -238,19 +215,16 @@ body:not(.safari).gallery-visible #street-section-sky {
 
   .error-loading,
   .sign-in-promo {
+    display: none;
     position: absolute;
     left: 5px;
     right: 5px;
     top: 5px;
     height: $gallery-height;
-
     text-align: center;
     z-index: $z-03-gallery-message;
     background: white;
-
     padding-top: 80px;
-
-    display: none;
 
     &.visible {
       display: block;

@@ -1,17 +1,17 @@
 
 #blocking-shield {
   @include blocking-shield;
-  z-index: $z-09-blocking-shield;
 
+  z-index: $z-09-blocking-shield;
   background: transparent;
   color: transparent;
   cursor: wait;
 
-  & * {
+  * {
     cursor: wait;
   }
 
-  & button {
+  button {
     cursor: auto;
   }
 
@@ -35,14 +35,12 @@
 
   .try-again,
   .too-slow {
-    margin-top: 20px;
-
+    display: none;
     position: absolute;
+    margin-top: 20px;
     left: 0;
     right: 0;
     text-align: center;
-
-    display: none;
   }
 
   &.show-try-again .try-again,

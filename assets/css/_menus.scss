@@ -9,7 +9,6 @@
   position: absolute;
   top: 35px;
   touch-action: none;
-
   opacity: 0;
   background: white;
   font-size: 13px;
@@ -17,7 +16,6 @@
   transform: rotateX(-90deg);
   transition: transform 100ms, opacity 100ms;
   pointer-events: none;
-
   z-index: $z-04-menu;
 
   &.visible {
@@ -30,20 +28,17 @@
     right: $left-right-inset;
   }
 
-  & > a {
-    text-decoration: none;
-    color: black;
+  > a {
     display: block;
-
     position: relative;
-
+    margin-bottom: -1px;
     padding: 8px 20px;
     padding-left: 30px;
     padding-right: 40px;
-
     border-top: 1px solid $ui-colour;
     border-bottom: 1px solid $ui-colour;
-    margin-bottom: -1px;
+    text-decoration: none;
+    color: black;
 
     &:last-child {
       border-bottom: 0;
@@ -93,10 +88,7 @@ body.safari .menu {
 }
 
 .share-via-link-container {
-  margin-left: 30px;
-  margin-right: 10px;
-  margin-top: 9px;
-  margin-bottom: 15px;
+  margin: 9px 10px 15px 30px;
 }
 
 .share-via-link {
@@ -111,7 +103,6 @@ body.safari .menu {
 .share-sign-in-promo {
   width: 300px;
   text-align: center;
-
   color: rgb(128, 128, 128);
   font-size: 13px;
   line-height: 18px;
@@ -125,10 +116,7 @@ body.safari .menu {
 }
 
 .menu .form {
-  padding-left: 30px;
-  padding-right: 10px;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
+  padding: 0.5em 10px 0.5em 30px;
 
   p:first-child {
     margin-top: 0;

@@ -60,8 +60,8 @@ body.windows .street-name-text {
   user-select: none;
   white-space: nowrap;
 
-  & > div.street-name-text,
-  & > span.street-name-text {
+  > div.street-name-text,
+  > span.street-name-text {
     @include street-name-inside-mixin;
 
     font-family: 'Roadgeek', sans-serif;
@@ -93,8 +93,8 @@ body.windows .street-name-text {
   position: relative;
   top: -15px;
 
-  & > div,
-  & > span {
+  > div,
+  > span {
     @include street-name-inside-mixin($street-name-gallery-size);
   }
 
@@ -118,7 +118,7 @@ body:not(.touch-support):not(.read-only) #street-name {
     color: rgb(220, 220, 220);
     background: white;
 
-    & > div {
+    > div {
       border-color: rgb(220, 220, 220);
     }
 
@@ -126,14 +126,12 @@ body:not(.touch-support):not(.read-only) #street-name {
       color: black;
       // TODO message
       content: 'Click to rename';
-
       position: absolute;
       left: 0;
       top: 0;
       right: 0;
       bottom: 0;
       line-height: 60px * $street-name-size;
-
       font-family: sans-serif;
       font-size: 12px;
     }
