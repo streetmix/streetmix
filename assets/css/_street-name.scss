@@ -126,14 +126,12 @@ body:not(.touch-support):not(.read-only) #street-name {
       color: black;
       // TODO message
       content: 'Click to rename';
-
       position: absolute;
       left: 0;
       top: 0;
       right: 0;
       bottom: 0;
       line-height: 60px * $street-name-size;
-
       font-family: sans-serif;
       font-size: 12px;
     }

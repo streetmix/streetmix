@@ -1,17 +1,13 @@
 #street-metadata {
   padding-top: 7px;
   padding-bottom: 40px;
-
   width: 500px;
   left: 50%;
   position: absolute;
   margin-left: -250px;
-
   color: black;
   font-size: 13px;
-
   user-select: none;
-
   pointer-events: auto;
 
   a {
@@ -37,7 +33,7 @@ body:not(.read-only) #street-width-read {
     padding-left: 5px;
     font-size: 9px;
     display: inline-block;
-    transform: scaleY(.75);
+    transform: scaleY(0.75);
   }
 }
 

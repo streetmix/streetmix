@@ -20,7 +20,6 @@ $dialog-box-default-width: 790px;
 
 .dialog-box-shield {
   z-index: $z-08-dialog-box-shield;
-
   position: absolute;
   left: 0;
   top: 0;
@@ -44,7 +43,6 @@ $dialog-box-default-width: 790px;
   // balance the dialog by making it slightly north of center
   margin-top: -6%;
   padding: 15px 40px;
-
   background: white;
   font-size: 13px;
   line-height: 1.5;
@@ -145,7 +143,6 @@ $dialog-box-default-width: 790px;
   right: 0;
   line-height: 300px;
   height: 300px;
-
   font-size: 16px;
   text-align: center;
 }
@@ -169,10 +166,8 @@ $dialog-box-default-width: 790px;
   img {
     max-width: 700px;
     max-height: 300px;
-
     cursor: move; // IE
     cursor: grab;
-
     border-top: 3px dashed $ui-colour;
     border-bottom: 3px dashed $ui-colour;
   }

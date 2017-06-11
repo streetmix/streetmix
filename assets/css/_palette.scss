@@ -44,7 +44,6 @@ body.read-only .palette-container {
   top: -30px; // To cover scroll bars
   left: 0;
   right: 0;
-
   overflow-x: scroll;
   overflow-y: hidden;
 }
@@ -54,17 +53,13 @@ body.read-only .palette-container {
 }
 
 .palette-commands {
-  vertical-align: top;
-
   position: absolute;
   right: 10px;
   top: 10px;
-
   height: $palette-height - 50px;
-
-  z-index: $z-04-command-menu;
-
+  vertical-align: top;
   text-align: right;
+  z-index: $z-04-command-menu;
 
   button {
     height: $palette-height - 50px;
@@ -86,18 +81,13 @@ body.read-only .palette-container {
   line-height: $palette-height - 2 * 8px + 5px;
   z-index: $z-07-trashcan;
   border-top: 2px dashed rgb(150, 150, 150);
-
   text-align: center;
-
   color: rgb(150, 150, 150);
   font-size: 24px;
   font-weight: 400;
-
   background: lighten($bottom-background, 5%);
-
   pointer-events: none;
   opacity: 0;
-
   transform: translateY(150px);
   transition: transform 150ms, opacity 150ms;
 

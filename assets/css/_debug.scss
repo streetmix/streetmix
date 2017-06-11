@@ -1,4 +1,5 @@
 .debug-info {
+  display: none;
   position: fixed;
   top: 20px;
   bottom: 20px;
@@ -7,8 +8,6 @@
   padding: 10px;
   z-index: $z-09-debug;
   background: white;
-
-  display: none;
 
   &.visible {
     display: block;

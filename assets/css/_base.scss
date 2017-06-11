@@ -58,6 +58,7 @@ a {
 a,
 button {
   @include tap-highlight-color('transparent !important');
+
   cursor: pointer;
 }
 

@@ -15,7 +15,7 @@
 @mixin tap-highlight-color($value: transparent) {
   -webkit-tap-highlight-color: $value;
   -moz-tap-highlight-color: $value;
-  tap-highlight-color: $value;
+  tap-highlight-color: $value; // stylelint-disable-line property-no-unknown
 }
 
 @mixin text-size-adjust($value: none) {
@@ -27,13 +27,17 @@
 @mixin touch-callout($value: default) {
   -webkit-touch-callout: default;
   // There is no -moz- version
-  touch-callout: default;
+  touch-callout: default; // stylelint-disable-line property-no-unknown
 }
 
 // Shared style mixins
 
 // Position and layout for error, loading, and blocking shield
 @mixin blocking-shield {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   position: fixed;
   left: 0;
   top: 0;
@@ -41,12 +45,6 @@
   height: 100%;
   padding: 50px;
   box-sizing: border-box;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
   font-size: 16px;
 }
 
@@ -58,4 +56,3 @@
   margin-top: 8px;
   margin-bottom: 12px;
 }
-
