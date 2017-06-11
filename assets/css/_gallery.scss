@@ -99,11 +99,11 @@ body:not(.safari).gallery-visible #street-section-sky {
     height: $gallery-height + 20px; // To cover the scroll bar
     overflow-x: scroll;
 
-    & > li {
+    > li {
       display: inline-block;
     }
 
-    & > li > a {
+    > li > a {
       display: inline-block;
       position: relative;
       width: $thumbnail-width;

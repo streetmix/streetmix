@@ -546,7 +546,7 @@ body.segment-move-dragging #editable-street-section > div {
   z-index: -1 !important;
   perspective: 400px;
 
-  & canvas {
+  canvas {
     transform: rotateX(90deg);
     transform-origin: 50% 100%;
     opacity: 0;

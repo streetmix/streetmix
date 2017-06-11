@@ -7,11 +7,11 @@
   color: transparent;
   cursor: wait;
 
-  & * {
+  * {
     cursor: wait;
   }
 
-  & button {
+  button {
     cursor: auto;
   }
 

@@ -145,7 +145,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
   color: rgb(64, 64, 64);
 
   // Spacing of multiple keys in series
-  & + .key {
+  + .key {
     margin-left: 0.25em;
   }
 }
