@@ -8,6 +8,7 @@ var cookieParser = require('cookie-parser')
 var cookieSession = require('cookie-session')
 var envify = require('envify/custom')
 var express = require('express')
+var helmet = require('helmet')
 var browserify = require('browserify-middleware')
 var babelify = require('babelify')
 var bodyParser = require('body-parser')
@@ -23,6 +24,7 @@ var app = module.exports = express()
 
 app.locals.config = config
 
+app.use(helmet())
 app.use(bodyParser.json())
 app.use(compression())
 app.use(cookieParser())
