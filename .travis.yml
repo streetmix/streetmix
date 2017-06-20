@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "6.9"
+  - "8"
 
 # Turns on newer container-based infrastructure
 # This generates a sudo warning with mongodb below, see here: https://github.com/travis-ci/travis-ci/issues/3044
@@ -29,6 +29,5 @@ notifications:
   webhooks: http://project-monitor.codeforamerica.org/projects/4083b10b-11a4-4ac5-9a7f-51c5cb614243/status
 
 cache:
-  yarn: true
   directories:
     - node_modules
