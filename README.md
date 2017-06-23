@@ -64,6 +64,10 @@ Streetmix started as a [Code for America][cfa] hackathon project in January 2013
 
 [cfa]: https://codeforamerica.org/
 
+#### How do I install / set up Streetmix myself?
+
+Streetmix is a [Node.js](https://nodejs.org/) based project. Set up your own by [following these instructions](https://github.com/streetmix/streetmix/blob/master/CONTRIBUTING.md#development-setup)!
+
 ## Sponsors
 
 <p align="center">
