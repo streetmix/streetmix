@@ -259,6 +259,7 @@ exports.find = function (req, res) {
       return
     }
 
+    res.set('Access-Control-Allow-Origin', '*')
     res.set('Location', config.restapi.baseuri + '/v1/streets/' + street.id)
     res.set('Content-Length', 0)
     res.status(307).end()
