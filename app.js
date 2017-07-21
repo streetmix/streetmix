@@ -29,8 +29,7 @@ app.locals.config = config
 const helmetConfig = {
   frameguard: false, // Allow Streetmix to be iframed in 3rd party sites
   hsts: {
-    maxAge: 7776000, // 90 days
-    includeSubDomains: false
+    maxAge: 7776000 // 90 days
   },
   referrerPolicy: {
     policy: 'no-referrer-when-downgrade'
@@ -39,8 +38,18 @@ const helmetConfig = {
     directives: {
       defaultSrc: ["'self'"],
       styleSrc: ["'self'", "'unsafe-inline'", 'fonts.googleapis.com'],
-      scriptSrc: ["'self'", 'platform.twitter.com'],
-      imgSrc: ["'self'", 'data:', 'pbs.twimg.com'],
+      scriptSrc: [
+        "'self'",
+        'platform.twitter.com',
+        'sha256-cVcViy/WbA6COI6DEjyQfnBNKF24fNLeLzoC9TPNuKw=', // Google Analytics?
+        'sha256-7N1wpoJYtgf8X14b14NyEnr45cLEQ0FqwzvKUGzezLs=' // Mixpanel?
+      ],
+      imgSrc: [
+        "'self'",
+        'data:',
+        'pbs.twimg.com',
+        'syndication.twitter.com'
+      ],
       fontSrc: ["'self'", 'fonts.gstatic.com']
     }
   }
