@@ -50,9 +50,11 @@ const helmetConfig = {
         "'self'",
         'data:',
         'pbs.twimg.com',
-        'syndication.twitter.com'
+        'syndication.twitter.com',
+        'www.google-analytics.com'
       ],
-      fontSrc: ["'self'", 'fonts.gstatic.com']
+      fontSrc: ["'self'", 'fonts.gstatic.com'],
+      connectSrc: ["'self'", 'api.mixpanel.com']
     }
   }
 }
