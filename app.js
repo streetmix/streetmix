@@ -41,8 +41,8 @@ const helmetConfig = {
       scriptSrc: [
         "'self'",
         'platform.twitter.com',
-        'sha256-cVcViy/WbA6COI6DEjyQfnBNKF24fNLeLzoC9TPNuKw=', // Google Analytics?
-        'sha256-7N1wpoJYtgf8X14b14NyEnr45cLEQ0FqwzvKUGzezLs=' // Mixpanel?
+        "'sha256-cVcViy/WbA6COI6DEjyQfnBNKF24fNLeLzoC9TPNuKw='", // Google Analytics?
+        "'sha256-7N1wpoJYtgf8X14b14NyEnr45cLEQ0FqwzvKUGzezLs='" // Mixpanel?
       ],
       imgSrc: [
         "'self'",
