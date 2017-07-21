@@ -24,7 +24,29 @@ var app = module.exports = express()
 
 app.locals.config = config
 
-app.use(helmet())
+// Not all headers from `helmet` are on by default. These turns on specific
+// off-by-default headers for better security as recommended by https://securityheaders.io/
+const helmetConfig = {
+  frameguard: false, // Allow Streetmix to be iframed in 3rd party sites
+  hsts: {
+    maxAge: 7776000, // 90 days
+    includeSubDomains: false
+  },
+  referrerPolicy: {
+    policy: 'no-referrer-when-downgrade'
+  },
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'", 'fonts.googleapis.com'],
+      scriptSrc: ["'self'", 'platform.twitter.com'],
+      imgSrc: ["'self'", 'data:', 'pbs.twimg.com'],
+      fontSrc: ["'self'", 'fonts.gstatic.com']
+    }
+  }
+}
+
+app.use(helmet(helmetConfig))
 app.use(bodyParser.json())
 app.use(compression())
 app.use(cookieParser())
