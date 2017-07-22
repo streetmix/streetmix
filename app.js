@@ -3,24 +3,24 @@ if (process.env.NEW_RELIC_LICENSE_KEY) {
   require('newrelic')
 }
 
-var compression = require('compression')
-var cookieParser = require('cookie-parser')
-var cookieSession = require('cookie-session')
-var envify = require('envify/custom')
-var express = require('express')
-var helmet = require('helmet')
-var browserify = require('browserify-middleware')
-var babelify = require('babelify')
-var bodyParser = require('body-parser')
-var config = require('config')
-var path = require('path')
-var controllers = require('./app/controllers')
-var resources = require('./app/resources')
-var requestHandlers = require('./lib/request_handlers')
-var middleware = require('./lib/middleware')
-var exec = require('child_process').exec
+const compression = require('compression')
+const cookieParser = require('cookie-parser')
+const cookieSession = require('cookie-session')
+const envify = require('envify/custom')
+const express = require('express')
+const helmet = require('helmet')
+const browserify = require('browserify-middleware')
+const babelify = require('babelify')
+const bodyParser = require('body-parser')
+const config = require('config')
+const path = require('path')
+const controllers = require('./app/controllers')
+const resources = require('./app/resources')
+const requestHandlers = require('./lib/request_handlers')
+const middleware = require('./lib/middleware')
+const exec = require('child_process').exec
 
-var app = module.exports = express()
+const app = module.exports = express()
 
 app.locals.config = config
 
@@ -91,7 +91,7 @@ app.set('views', path.join(__dirname, '/app/views'))
 // In production, this redirects streetmix-v2.herokuapp.com to https://streetmix.net/
 app.all('*', function (req, res, next) {
   if (config.header_host_port !== req.headers.host && app.locals.config.env !== 'development') {
-    var redirectUrl = 'https://' + config.header_host_port + req.url
+    const redirectUrl = 'https://' + config.header_host_port + req.url
     console.log('req.hostname = %s but config.header_host_port = %s; redirecting to %s...', req.hostname, config.header_host_port, redirectUrl)
     res.redirect(301, redirectUrl)
   } else {
