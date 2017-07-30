@@ -7,6 +7,7 @@ import { registerKeypress, deregisterKeypress } from './keypress'
 import { URL_SIGN_IN_REDIRECT } from './routing'
 import { undo } from '../streets/undo_stack'
 import { loseAnyFocus } from './focus'
+import { t } from '../app/locale'
 
 const STATUS_MESSAGE_HIDE_DELAY = 15000
 
@@ -62,14 +63,22 @@ class StatusMessage extends React.PureComponent {
     }
 
     // Create an undo button if requested.
+    // Translation of "undo" is reused from the undo palette.
     const undoButton = (undo)
-      ? <button onClick={this.onClickUndo}>Undo</button>
-      : null
+      ? (
+        <button onClick={this.onClickUndo}>
+          {t('btn.undo', 'Undo')}
+        </button>
+      ) : null
 
     // Create a sign-in button if requested.
+    // Translation of "sign in" is reused from the menu bar.
     const signInButton = (signIn)
-      ? <a href={`/${URL_SIGN_IN_REDIRECT}`} className='button-like'>Sign in</a>
-      : null
+      ? (
+        <a href={`/${URL_SIGN_IN_REDIRECT}`} className='button-like'>
+          {t('menu.item.sign-in', 'Sign in')}
+        </a>
+      ) : null
 
     return (
       <div id='status-message' className={className}>
