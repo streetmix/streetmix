@@ -4,6 +4,7 @@ import StreetNameCanvas from '../streets/StreetNameCanvas'
 import WelcomePanel from './WelcomePanel'
 import Palette from './Palette'
 import DialogRoot from '../dialogs/DialogRoot'
+import StatusMessage from './StatusMessage'
 import Flash from './Flash'
 import DebugInfo from './DebugInfo'
 
@@ -17,6 +18,7 @@ export default class App extends React.PureComponent {
           <WelcomePanel />
           <Palette />
           <DialogRoot />
+          <StatusMessage />
         </div>
 
         <Flash />
