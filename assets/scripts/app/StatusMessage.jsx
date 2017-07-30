@@ -15,8 +15,6 @@ class StatusMessage extends React.PureComponent {
     super(props)
 
     this.timerId = -1
-
-    this.onClickUndo = this.onClickUndo.bind(this)
   }
 
   componentDidMount () {
