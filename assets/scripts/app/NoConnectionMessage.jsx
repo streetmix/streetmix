@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { nonblockingAjaxTryAgain } from '../util/fetch_nonblocking'
+import { t } from '../app/locale'
 
 class NoConnectionMessage extends React.PureComponent {
   render () {
@@ -14,8 +15,10 @@ class NoConnectionMessage extends React.PureComponent {
     return (
       <div className={className}>
         <div className='status-message-content'>
-          Streetmix is having trouble connecting to the Internet.
-          <button onClick={nonblockingAjaxTryAgain}>Try again</button>
+          {t('msg.no-connection', 'Streetmix is having trouble connecting to the Internet.')}
+          <button onClick={nonblockingAjaxTryAgain}>
+            {t('btn.try-again', 'Try again')}
+          </button>
         </div>
       </div>
     )
