@@ -1,6 +1,6 @@
-import { undo as _undo } from '../streets/undo_stack'
+import store from '../store'
+import { showStatusMessage as show, hideStatusMessage as hide } from '../store/actions/status'
 import { registerKeypress, deregisterKeypress } from './keypress'
-import { loseAnyFocus } from './focus'
 
 const STATUS_MESSAGE_HIDE_DELAY = 15000
 
@@ -12,31 +12,11 @@ export function attachStatusMessageEventListeners () {
   window.addEventListener('stmx:save_street', hideStatusMessage)
 }
 
-export function showStatusMessage (text, undo) {
+export function showStatusMessage (message, undo) {
   window.clearTimeout(timerId)
 
-  const el = document.querySelector('#status-message')
-  const msgEl = el.querySelector('.status-message-content')
-
-  msgEl.innerHTML = text
-
-  if (undo) {
-    const buttonEl = document.createElement('button')
-    buttonEl.innerHTML = 'Undo'
-    buttonEl.addEventListener('pointerdown', _undo)
-
-    msgEl.appendChild(buttonEl)
-  }
-
-  const closeEl = document.createElement('button')
-  closeEl.innerHTML = '×'
-  closeEl.classList.add('close')
-  closeEl.addEventListener('pointerdown', _onClickTheX)
-
-  msgEl.appendChild(closeEl)
-
-  el.classList.add('visible')
   isVisible = true
+  store.dispatch(show(message, undo))
 
   timerId = window.setTimeout(hideStatusMessage, STATUS_MESSAGE_HIDE_DELAY)
 
@@ -49,16 +29,7 @@ export function hideStatusMessage () {
     return
   }
 
-  const el = document.querySelector('#status-message')
-  el.classList.remove('visible')
-  deregisterKeypress('esc', hideStatusMessage)
-}
+  store.dispatch(hide())
 
-function _onClickTheX () {
-  hideStatusMessage()
-  // Force window to refocus on document.body after status-message is closed by X button
-  // Required on Chrome
-  window.setTimeout(function () {
-    loseAnyFocus()
-  }, 0)
+  deregisterKeypress('esc', hideStatusMessage)
 }

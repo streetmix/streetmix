@@ -1,9 +1,20 @@
-import { SET_STATUS_MESSAGE, SHOW_NO_CONNECTION_MESSAGE } from './'
+import {
+  SHOW_STATUS_MESSAGE,
+  HIDE_STATUS_MESSAGE,
+  SHOW_NO_CONNECTION_MESSAGE
+} from './'
 
-export function setStatusMessage (message = null) {
+export function showStatusMessage (message = null, undo = false) {
   return {
-    type: SET_STATUS_MESSAGE,
-    message
+    type: SHOW_STATUS_MESSAGE,
+    message,
+    undo
+  }
+}
+
+export function hideStatusMessage () {
+  return {
+    type: HIDE_STATUS_MESSAGE
   }
 }
 
