@@ -30,10 +30,11 @@ export default class SettingsMenu extends React.PureComponent {
               <option value='fi' data-i18n='i18n.lang.fi'>Finnish</option>
               <option value='fr' data-i18n='i18n.lang.fr'>French</option>
               <option value='de' data-i18n='i18n.lang.de'>German</option>
-              <option value='es' data-i18n='i18n.lang.es'>Spanish</option>
-              <option value='es_MX' data-i18n='i18n.lang.es-mx'>Spanish (Mexico)</option>
               <option value='pl' data-i18n='i18n.lang.pl'>Polish</option>
               <option value='pt_BR' data-i18n='i18n.lang.pt-br'>Portuguese (Brazil)</option>
+              <option value='es' data-i18n='i18n.lang.es'>Spanish</option>
+              <option value='es_MX' data-i18n='i18n.lang.es-mx'>Spanish (Mexico)</option>
+              <option value='sv' data-i18n='i18n.lang.sv'>Swedish</option>
             </select>
           </p>
         </div>
