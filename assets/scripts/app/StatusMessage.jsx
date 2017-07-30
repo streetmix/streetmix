@@ -6,11 +6,17 @@ import { hideStatusMessage } from './status_message'
 import { undo } from '../streets/undo_stack'
 import { loseAnyFocus } from './focus'
 
+// TODO: Some logic needs to separate out as container vs presentational.
 class StatusMessage extends React.PureComponent {
   constructor (props) {
     super(props)
 
     this.onClickUndo = this.onClickUndo.bind(this)
+  }
+
+  componentDidMount () {
+    // As per issue #306.
+    window.addEventListener('stmx:save_street', hideStatusMessage)
   }
 
   onClickUndo (event) {
@@ -20,11 +26,9 @@ class StatusMessage extends React.PureComponent {
   onClickTheX (event) {
     hideStatusMessage()
 
-    // Force window to refocus on document.body after status-message is closed by X button
+    // Force window to refocus on document.body after StatusMessage is closed by X button
     // Required on Chrome
-    window.setTimeout(function () {
-      loseAnyFocus()
-    }, 0)
+    window.setTimeout(loseAnyFocus, 0)
   }
 
   render () {
@@ -42,10 +46,9 @@ class StatusMessage extends React.PureComponent {
     }
 
     // Create an undo button if requested.
-    let undoButton = null
-    if (undo) {
-      undoButton = <button onClick={this.onClickUndo}>Undo</button>
-    }
+    const undoButton = (undo)
+      ? <button onClick={this.onClickUndo}>Undo</button>
+      : null
 
     return (
       <div id='status-message' className={className}>

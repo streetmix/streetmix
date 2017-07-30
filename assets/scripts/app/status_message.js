@@ -5,17 +5,10 @@ import { registerKeypress, deregisterKeypress } from './keypress'
 const STATUS_MESSAGE_HIDE_DELAY = 15000
 
 let timerId = -1
-let isVisible = false
-
-export function attachStatusMessageEventListeners () {
-  // As per issue #306.
-  window.addEventListener('stmx:save_street', hideStatusMessage)
-}
 
 export function showStatusMessage (message, undo) {
   window.clearTimeout(timerId)
 
-  isVisible = true
   store.dispatch(show(message, undo))
 
   timerId = window.setTimeout(hideStatusMessage, STATUS_MESSAGE_HIDE_DELAY)
@@ -25,7 +18,7 @@ export function showStatusMessage (message, undo) {
 }
 
 export function hideStatusMessage () {
-  if (!isVisible) {
+  if (store.getState().status.showMessage === false) {
     return
   }
 
