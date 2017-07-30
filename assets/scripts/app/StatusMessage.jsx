@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 
 import { hideStatusMessage } from './status_message'
 import { registerKeypress, deregisterKeypress } from './keypress'
+import { URL_SIGN_IN_REDIRECT } from './routing'
 import { undo } from '../streets/undo_stack'
 import { loseAnyFocus } from './focus'
 
@@ -53,17 +54,11 @@ class StatusMessage extends React.PureComponent {
   }
 
   render () {
-    const { visible, message, undo } = this.props
+    const { visible, message, undo, signIn } = this.props
     let className = 'status-message'
 
     if (visible === true) {
       className += ' visible'
-    }
-
-    // Some messages contain inline HTML.
-    // TODO: refactor this out.
-    const html = {
-      __html: message
     }
 
     // Create an undo button if requested.
@@ -71,11 +66,17 @@ class StatusMessage extends React.PureComponent {
       ? <button onClick={this.onClickUndo}>Undo</button>
       : null
 
+    // Create a sign-in button if requested.
+    const signInButton = (signIn)
+      ? <a href={`/${URL_SIGN_IN_REDIRECT}`} className='button-like'>Sign in</a>
+      : null
+
     return (
       <div id='status-message' className={className}>
         <div className='status-message-content'>
-          <span dangerouslySetInnerHTML={html} />
+          {message}
           {undoButton}
+          {signInButton}
           <button className='close' onClick={this.onClickTheX}>×</button>
         </div>
       </div>
@@ -86,20 +87,23 @@ class StatusMessage extends React.PureComponent {
 StatusMessage.propTypes = {
   visible: PropTypes.bool.isRequired,
   message: PropTypes.string,
-  undo: PropTypes.bool
+  undo: PropTypes.bool,
+  signIn: PropTypes.bool
 }
 
 StatusMessage.defaultProps = {
   visible: false,
   message: '',
-  undo: false
+  undo: false,
+  signIn: PropTypes.bool
 }
 
 function mapStateToProps (state) {
   return {
     visible: state.status.showMessage,
     message: state.status.message,
-    undo: state.status.undoButton
+    undo: state.status.undoButton,
+    signIn: state.status.signInButton
   }
 }
 

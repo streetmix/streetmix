@@ -4,11 +4,12 @@ import {
   SHOW_NO_CONNECTION_MESSAGE
 } from './'
 
-export function showStatusMessage (message = null, undo = false) {
+export function showStatusMessage (message = null, undo = false, signIn = false) {
   return {
     type: SHOW_STATUS_MESSAGE,
     message,
-    undo
+    undo,
+    signIn
   }
 }
 

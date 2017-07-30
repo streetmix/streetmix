@@ -1,7 +1,6 @@
 import { API_URL } from '../app/config'
 import { msg } from '../app/messages'
 import { showStatusMessage } from '../app/status_message'
-import { URL_SIGN_IN_REDIRECT } from '../app/routing'
 import { app } from '../preinit/app_settings'
 import {
   getAuthHeader,
@@ -91,7 +90,7 @@ function receiveRemixedStreet (data) {
     if (isSignedIn()) {
       showStatusMessage(msg('STATUS_NOW_REMIXING'))
     } else {
-      showStatusMessage(msg('STATUS_NOW_REMIXING_SIGN_IN', { signInUrl: URL_SIGN_IN_REDIRECT }))
+      showStatusMessage(msg('STATUS_NOW_REMIXING_SIGN_IN'), false, true)
     }
   }
 

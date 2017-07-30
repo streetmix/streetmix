@@ -23,7 +23,7 @@ const messages = {
   STATUS_NOTHING_TO_REDO: 'Nothing to redo.',
   STATUS_NO_NEED_TO_SAVE: 'No need to save by hand; Streetmix automatically saves your street!',
   STATUS_NOW_REMIXING: 'Now editing a freshly-made duplicate of the original street. The duplicate has been put in your gallery.',
-  STATUS_NOW_REMIXING_SIGN_IN: 'Now editing a freshly-made duplicate of the original street. <a href="/{{signInUrl}}">Sign in</a> to start your own gallery of streets.',
+  STATUS_NOW_REMIXING_SIGN_IN: 'Now editing a freshly-made duplicate of the original street. Sign in to start your own gallery of streets.',
   STATUS_RELOADED_FROM_SERVER: 'Your street was reloaded from the server as it was modified elsewhere.',
 
   WARNING_TOO_WIDE: 'This segment might be too wide.',

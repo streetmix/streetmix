@@ -9,6 +9,7 @@ const initialState = {
   // possibly an undo button
   message: null,
   undoButton: false,
+  signInButton: false,
   showMessage: false,
 
   // A second type of status message exists for when there is
@@ -23,6 +24,7 @@ const status = (state = initialState, action) => {
         ...state,
         message: action.message,
         undoButton: action.undo,
+        signInButton: action.signIn,
         showMessage: true
       }
     case HIDE_STATUS_MESSAGE:
