@@ -40,7 +40,6 @@ const noConnectionMessage = {
 
 export function attachFetchNonBlockingEventListeners () {
   window.addEventListener('stmx:everything_loaded', function () {
-    document.querySelector('#no-connection-try-again').addEventListener('pointerdown', nonblockingAjaxTryAgain)
     window.addEventListener('beforeunload', onWindowBeforeUnload)
   })
 }
@@ -74,7 +73,7 @@ function getAjaxRequestSignature (url, request) {
   return request.method + ' ' + url
 }
 
-function nonblockingAjaxTryAgain () {
+export function nonblockingAjaxTryAgain () {
   noConnectionMessage.hide()
 
   nonblockingAjaxRequestTimer = 0
