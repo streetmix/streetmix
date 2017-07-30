@@ -3,6 +3,8 @@ import {
   getSaveStreetIncomplete,
   setSaveStreetIncomplete
 } from '../streets/xhr'
+import store from '../store'
+import { showNoConnectionMessage } from '../store/actions/status'
 
 const NON_BLOCKING_AJAX_REQUEST_TIME = [10, 500, 1000, 5000, 10000]
 const NON_BLOCKING_AJAX_REQUEST_BACKOFF_RANGE = 60000
@@ -25,7 +27,7 @@ const noConnectionMessage = {
   },
 
   show: function () {
-    document.querySelector('#no-connection-message').classList.add('visible')
+    store.dispatch(showNoConnectionMessage(true))
     document.body.classList.add('no-connection-message-visible')
   },
 
@@ -33,7 +35,7 @@ const noConnectionMessage = {
     window.clearTimeout(noConnectionMessage.timerId)
     noConnectionMessage.timerId = -1
 
-    document.querySelector('#no-connection-message').classList.remove('visible')
+    store.dispatch(showNoConnectionMessage(false))
     document.body.classList.remove('no-connection-message-visible')
   }
 }
