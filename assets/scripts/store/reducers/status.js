@@ -13,7 +13,8 @@ const initialState = {
   showMessage: false,
 
   // A second type of status message exists for when there is
-  // no connection to Internet
+  // no connection to Internet. This is a visibility toggle.
+  // It does not reflect actual connectivity.
   noConnectionMessage: false
 }
 

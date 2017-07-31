@@ -9,35 +9,15 @@ import { showNoConnectionMessage } from '../store/actions/status'
 const NON_BLOCKING_AJAX_REQUEST_TIME = [10, 500, 1000, 5000, 10000]
 const NON_BLOCKING_AJAX_REQUEST_BACKOFF_RANGE = 60000
 
-const NO_CONNECTION_MESSAGE_TIMEOUT = 10000
-
 let nonblockingAjaxRequests = []
 let nonblockingAjaxRequestTimer = 0
 
-const noConnectionMessage = {
-  visible: false,
-  timerId: -1,
+function scheduleNoConnectionMessage () {
+  store.dispatch(showNoConnectionMessage(true))
+}
 
-  schedule: function () {
-    if (noConnectionMessage.timerId === -1) {
-      // TODO const
-      noConnectionMessage.timerId =
-        window.setTimeout(noConnectionMessage.show, NO_CONNECTION_MESSAGE_TIMEOUT)
-    }
-  },
-
-  show: function () {
-    store.dispatch(showNoConnectionMessage(true))
-    document.body.classList.add('no-connection-message-visible')
-  },
-
-  hide: function () {
-    window.clearTimeout(noConnectionMessage.timerId)
-    noConnectionMessage.timerId = -1
-
-    store.dispatch(showNoConnectionMessage(false))
-    document.body.classList.remove('no-connection-message-visible')
-  }
+function hideNoConnectionMessage () {
+  store.dispatch(showNoConnectionMessage(false))
 }
 
 export function attachFetchNonBlockingEventListeners () {
@@ -76,7 +56,7 @@ function getAjaxRequestSignature (url, request) {
 }
 
 export function nonblockingAjaxTryAgain () {
-  noConnectionMessage.hide()
+  hideNoConnectionMessage()
 
   nonblockingAjaxRequestTimer = 0
 
@@ -89,7 +69,7 @@ function sendNextNonblockingAjaxRequest () {
   }
 
   if (getNonblockingAjaxRequestCount()) {
-    noConnectionMessage.schedule()
+    scheduleNoConnectionMessage()
 
     var request = null
 
@@ -159,7 +139,7 @@ function errorNonblockingAjaxRequest (data, request) {
   // Abort resending if the max number of tries has been hit.
   if (request.maxRetries && request.tryCount >= request.maxRetries) {
     nonblockingAjaxRequestTimer = 0
-    noConnectionMessage.hide()
+    hideNoConnectionMessage()
     removeNonblockingAjaxRequest(request.signature)
     if (request.errorFunc) {
       request.errorFunc(data)
@@ -170,7 +150,7 @@ function errorNonblockingAjaxRequest (data, request) {
 function successNonblockingAjaxRequest (data, request) {
   nonblockingAjaxRequestTimer = 0
 
-  noConnectionMessage.hide()
+  hideNoConnectionMessage()
 
   removeNonblockingAjaxRequest(request.signature)
 

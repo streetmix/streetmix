@@ -4,11 +4,50 @@ import { connect } from 'react-redux'
 import { nonblockingAjaxTryAgain } from '../util/fetch_nonblocking'
 import { t } from '../app/locale'
 
-class NoConnectionMessage extends React.PureComponent {
+const NO_CONNECTION_MESSAGE_TIMEOUT = 10000
+
+class NoConnectionMessage extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.timerId = -1
+    this.state = {
+      visible: false
+    }
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.scheduled === true) {
+      if (this.timerId === -1) {
+        this.timerId = window.setTimeout(() => {
+          this.setState({
+            visible: true
+          })
+        }, NO_CONNECTION_MESSAGE_TIMEOUT)
+      }
+    } else {
+      window.clearTimeout(this.timerId)
+      this.timerId = -1
+      this.setState({
+        visible: false
+      })
+    }
+  }
+
+  componentDidUpdate (prevProps, prevState) {
+    // When this is visible, this class on the body element repositions the
+    // normal status message above this one so that they don't overlap
+    if (this.state.visible) {
+      document.body.classList.add('no-connection-message-visible')
+    } else {
+      document.body.classList.remove('no-connection-message-visible')
+    }
+  }
+
   render () {
     let className = 'status-message'
 
-    if (this.props.visible === true) {
+    if (this.state.visible === true) {
       className += ' visible'
     }
 
@@ -26,12 +65,16 @@ class NoConnectionMessage extends React.PureComponent {
 }
 
 NoConnectionMessage.propTypes = {
-  visible: PropTypes.bool.isRequired
+  scheduled: PropTypes.bool.isRequired
+}
+
+NoConnectionMessage.defaultProps = {
+  scheduled: false
 }
 
 function mapStateToProps (state) {
   return {
-    visible: state.status.noConnectionMessage
+    scheduled: state.status.noConnectionMessage
   }
 }
 
