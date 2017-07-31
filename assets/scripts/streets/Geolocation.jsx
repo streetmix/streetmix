@@ -3,8 +3,6 @@ import React from 'react'
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
 import SearchAddress from './SearchAddress'
 import {apiurlReverse, apikey} from './config'
-import './../css/app.scss'
-import './../css/styles.scss'
 
 const OpenStreetMapTiles = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 const OpenStreetMapAttr = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
