@@ -52,7 +52,9 @@ const helmetConfig = {
         'pbs.twimg.com',
         'syndication.twitter.com',
         'www.google-analytics.com',
-        '*.tile.openstreetmap.org'
+        'a.tile.openstreetmap.org',
+        'b.tile.openstreetmap.org',
+        'c.tile.openstreetmap.org'
       ],
       fontSrc: ["'self'", 'fonts.gstatic.com'],
       connectSrc: ["'self'", 'api.mixpanel.com']
