@@ -9,6 +9,7 @@ export default class Avatar extends React.Component {
   constructor (props) {
     super(props)
 
+    this.image = null
     this.state = {
       image: getCachedProfileImageUrl(this.props.userId) || null
     }
@@ -35,6 +36,15 @@ export default class Avatar extends React.Component {
     }
   }
 
+  // Clean up residual image references and listeners before unmounting.
+  componentWillUnmount () {
+    if (this.image !== null) {
+      this.image.onerror = null
+      this.image.onload = null
+    }
+    this.image = null
+  }
+
   fetchAvatar (userId) {
     // Requests are cached so that multiple Avatar components that have the
     // same userId only need to make one request.
@@ -57,18 +67,22 @@ export default class Avatar extends React.Component {
   }
 
   // Loads the image source url in a <img> element to test its validity.
-  // If it's good, we set it, otherwise, we record an error.
+  // If it's good, we set it, otherwise, we record an error. Note that the
+  // event handlers call `setState` within them, which throws a warning if
+  // these handlers are called after the component is unmounted. We must
+  // clean up these handlers and the reference to the image element in
+  // `componentWillUnmount`.
   testImageUrl (url) {
-    let image = document.createElement('img')
-    image.onerror = () => {
+    this.image = document.createElement('img')
+    this.image.onerror = () => {
       this.setState({ image: null })
-      image = null
+      this.image = null
     }
-    image.onload = () => {
+    this.image.onload = () => {
       this.setState({ image: url })
-      image = null
+      this.image = null
     }
-    image.src = url
+    this.image.src = url
   }
 
   render () {
