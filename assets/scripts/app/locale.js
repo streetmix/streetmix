@@ -11,9 +11,15 @@ import { API_URL } from './config'
 // Default language is set by browser, or is English if undetermined
 const defaultLocale = navigator.language || 'en'
 
-export function initLocale () {
+export function initLocale (experimental) {
   // Current language is the one set by Streetmix or is the browser default, if unset
-  const locale = getLocale()
+  let locale
+  if (experimental) {
+    locale = getLocale()
+  } else {
+    locale = 'en'
+  }
+
   doTheI18n(locale)
 }
 
