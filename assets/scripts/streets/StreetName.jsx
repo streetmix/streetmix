@@ -42,5 +42,9 @@ export default class StreetName extends React.PureComponent {
 }
 
 StreetName.propTypes = {
-  name: PropTypes.string.isRequired
+  name: PropTypes.string
+}
+
+StreetName.defaultProps = {
+  name: ''
 }
