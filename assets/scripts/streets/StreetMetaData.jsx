@@ -7,6 +7,7 @@ import { getRemixOnFirstEdit } from './remix'
 import { showGallery } from '../gallery/view'
 import StreetWidth from './StreetWidth'
 import Avatar from '../app/Avatar'
+import Geolocation from './Geolocation'
 
 class StreetMetaData extends React.Component {
   constructor (props) {
@@ -47,6 +48,7 @@ class StreetMetaData extends React.Component {
         <StreetWidth street={this.state.street} readOnly={this.props.readOnly} />
         <span id='street-metadata-author'>{author}</span>
         <span id='street-metadata-date'>{formatDate(this.state.street.updatedAt)}</span>
+        <Geolocation />
       </div>
     )
   }
