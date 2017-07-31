@@ -20,7 +20,7 @@ const requestHandlers = require('./lib/request_handlers')
 const middleware = require('./lib/middleware')
 const exec = require('child_process').exec
 
-const app = module.exports = express()
+const app = (module.exports = express())
 
 app.locals.config = config
 
@@ -51,7 +51,8 @@ const helmetConfig = {
         'data:',
         'pbs.twimg.com',
         'syndication.twitter.com',
-        'www.google-analytics.com'
+        'www.google-analytics.com',
+        '*.tile.openstreetmap.org'
       ],
       fontSrc: ["'self'", 'fonts.gstatic.com'],
       connectSrc: ["'self'", 'api.mixpanel.com']
@@ -63,7 +64,7 @@ app.use(helmet(helmetConfig))
 app.use(bodyParser.json())
 app.use(compression())
 app.use(cookieParser())
-app.use(cookieSession({ secret: config.cookie_session_secret }))
+app.use(cookieSession({secret: config.cookie_session_secret}))
 
 app.use(requestHandlers.login_token_parser)
 app.use(requestHandlers.request_log)
@@ -90,9 +91,17 @@ app.set('views', path.join(__dirname, '/app/views'))
 // Redirect to environment-appropriate domain, if necessary
 // In production, this redirects streetmix-v2.herokuapp.com to https://streetmix.net/
 app.all('*', function (req, res, next) {
-  if (config.header_host_port !== req.headers.host && app.locals.config.env !== 'development') {
+  if (
+    config.header_host_port !== req.headers.host &&
+    app.locals.config.env !== 'development'
+  ) {
     const redirectUrl = 'https://' + config.header_host_port + req.url
-    console.log('req.hostname = %s but config.header_host_port = %s; redirecting to %s...', req.hostname, config.header_host_port, redirectUrl)
+    console.log(
+      'req.hostname = %s but config.header_host_port = %s; redirecting to %s...',
+      req.hostname,
+      config.header_host_port,
+      redirectUrl
+    )
     res.redirect(301, redirectUrl)
   } else {
     next('route')
@@ -104,7 +113,10 @@ app.get('/help/about', function (req, res) {
 })
 
 app.get('/twitter-sign-in', controllers.twitter_sign_in.get)
-app.get(config.twitter.oauth_callback_uri, controllers.twitter_sign_in_callback.get)
+app.get(
+  config.twitter.oauth_callback_uri,
+  controllers.twitter_sign_in_callback.get
+)
 
 app.post('/api/v1/users', resources.v1.users.post)
 app.get('/api/v1/users/:user_id', resources.v1.users.get)
@@ -123,34 +135,50 @@ app.put('/api/v1/streets/:street_id', resources.v1.streets.put)
 
 app.post('/api/v1/feedback', resources.v1.feedback.post)
 
-app.get('/api/v1/translate/:locale_code/:resource_name', resources.v1.translate.get)
+app.get(
+  '/api/v1/translate/:locale_code/:resource_name',
+  resources.v1.translate.get
+)
 
 app.get('/.well-known/status', resources.well_known_status.get)
 
 // Process stylesheets via Sass and PostCSS / Autoprefixer
 app.use('/assets/css/styles.css', middleware.styles)
 
-app.get('/assets/scripts/main.js', browserify(path.join(__dirname, '/assets/scripts/main.js'), {
-  cache: true,
-  precompile: true,
-  extensions: [ '.jsx' ],
-  transform: [babelify, envify({
-    APP_HOST_PORT: config.get('app_host_port'),
-    FACEBOOK_APP_ID: config.get('facebook_app_id'),
-    API_URL: config.get('restapi_proxy_baseuri_rel'),
-    TWITTER_CALLBACK_URI: config.get('twitter').oauth_callback_uri,
-    ENV: config.get('env'),
-    NO_INTERNET_MODE: config.get('no_internet_mode')
-  })]
-}))
+app.get(
+  '/assets/scripts/main.js',
+  browserify(path.join(__dirname, '/assets/scripts/main.js'), {
+    cache: true,
+    precompile: true,
+    extensions: ['.jsx'],
+    transform: [
+      babelify,
+      envify({
+        APP_HOST_PORT: config.get('app_host_port'),
+        FACEBOOK_APP_ID: config.get('facebook_app_id'),
+        API_URL: config.get('restapi_proxy_baseuri_rel'),
+        TWITTER_CALLBACK_URI: config.get('twitter').oauth_callback_uri,
+        ENV: config.get('env'),
+        NO_INTERNET_MODE: config.get('no_internet_mode')
+      })
+    ]
+  })
+)
 
 // SVG bundled images served directly from packages
 app.get('/assets/images/icons.svg', function (req, res) {
-  res.sendFile(path.join(__dirname, '/node_modules/streetmix-icons/dist/icons.svg'))
+  res.sendFile(
+    path.join(__dirname, '/node_modules/streetmix-icons/dist/icons.svg')
+  )
 })
 
 app.get('/assets/images/images.svg', function (req, res) {
-  res.sendFile(path.join(__dirname, '/node_modules/streetmix-illustrations/dist/images.svg'))
+  res.sendFile(
+    path.join(
+      __dirname,
+      '/node_modules/streetmix-illustrations/dist/images.svg'
+    )
+  )
 })
 
 app.use(express.static(path.join(__dirname, '/public')))
