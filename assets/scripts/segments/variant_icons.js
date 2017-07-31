@@ -208,10 +208,15 @@ export const VARIANT_ICONS = {
       'color': '#292a29',
       'title': 'Asphalt'
     },
-    'colored': {
+    'red': {
       'id': 'asphalt',
       'color': '#9b1f22',
       'title': 'Red lane'
+    },
+    'green': {
+      'id': 'asphalt',
+      'color': '#2b6750',
+      'title': 'Green lane'
     },
     'shared': {
       'id': 'sharrow',
