@@ -69,7 +69,7 @@ class SearchAddress extends Component {
 
       <div>
 
-        <input type='text' value={this.state.value} onChange={this.handleKeyUp} placeholder='enter address' />
+        <input type='text' value={this.state.value} onChange={this.handleKeyUp} placeholder='Enter Address' />
 
         <p><b>{loading}</b></p>
       </div>

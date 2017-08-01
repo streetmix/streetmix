@@ -68,7 +68,8 @@ body.read-only #street-metadata-author a {
 }
 
 #street-metadata-author:not(:empty)::before,
-#street-metadata-date:not(:empty)::before {
+#street-metadata-date:not(:empty)::before,
+#street-metadata-map:not(:empty)::before {
   content: ' · ';
   color: darken($ui-colour, 40%);
   margin: 0 4px;

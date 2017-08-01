@@ -13,7 +13,7 @@
   },
   "scripts": {
     "prestart": "mongod --fork --logpath /dev/null",
-    "start": "supervisor -e node,js,jsx index.js",
+    "start": "supervisor -e node,js,jsx,scss index.js",
     "stop": "mongo admin --eval 'db.shutdownServer()'",
     "pretest": "mongod --fork --logpath /dev/null",
     "test": "node test/index | tap-spec && grunt test:local:setup && grunt test:local",
