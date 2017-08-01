@@ -124,7 +124,10 @@ class Geolocation extends React.Component {
 
     return (
       <div id='rootDiv'>
-
+        <div id='dark-border'>
+        <div id='input-box'>
+        <SearchAddress searchResults={this.searchResults} />
+        </div>
         <Map
           center={this.state.mapCenter}
           zoom={zoomLevel}
@@ -138,11 +141,7 @@ class Geolocation extends React.Component {
           {popup}
           {markers}
         </Map>
-
-        <div id='input-box'>
-          <SearchAddress searchResults={this.searchResults} />
         </div>
-
       </div>
     )
   }

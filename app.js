@@ -44,6 +44,7 @@ const helmetConfig = {
         'www.google-analytics.com',
         'cdn.mxpnl.com',
         '*.tile.openstreetmap.org',
+        'search.mapzen.com',
         "'sha256-cVcViy/WbA6COI6DEjyQfnBNKF24fNLeLzoC9TPNuKw='", // Google Analytics?
         "'sha256-7N1wpoJYtgf8X14b14NyEnr45cLEQ0FqwzvKUGzezLs='" // Mixpanel?
       ],
@@ -53,13 +54,13 @@ const helmetConfig = {
         'pbs.twimg.com',
         'syndication.twitter.com',
         'www.google-analytics.com',
-        'a.tile.openstreetmap.org',
-        'b.tile.openstreetmap.org',
-        'c.tile.openstreetmap.org'
+        '*.tile.openstreetmap.org',
         'www.google-analytics.com'
       ],
       fontSrc: ["'self'", 'fonts.gstatic.com'],
-      connectSrc: ["'self'", 'api.mixpanel.com']
+      connectSrc: ["'self'",
+       'api.mixpanel.com',
+       'search.mapzen.com']
     }
   }
 }
