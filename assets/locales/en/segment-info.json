@@ -258,6 +258,8 @@
     "public-transit-asphalt|colored": "Red lane",
     "bus-asphalt|regular": "Asphalt",
     "bus-asphalt|colored": "Red lane",
+    "bus-asphalt|red": "Red lane",
+    "bus-asphalt|green": "Green lane",
     "bus-asphalt|shared": "Shared bus/bike lane",
     "bike-asphalt|regular": "Asphalt",
     "bike-asphalt|colored": "Green lane",

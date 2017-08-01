@@ -69,6 +69,7 @@ const LATEST_SCHEMA_VERSION = 17
 // 15: sidewalks have rand seed
 // 16: stop saving undo stack
 // 17: alternative colors for bike lanes
+// 18: alternative colors for bus lanes
 
 export const DEFAULT_NAME = msg('DEFAULT_STREET_NAME')
 
@@ -267,6 +268,18 @@ function incrementSchemaVersion (street) {
           variant = getVariantArray(segment.type, segment.variantString)
           if (variant['bike-asphalt'] === 'colored') {
             variant['bike-asphalt'] = 'green'
+          }
+          segment.variantString = getVariantString(variant)
+        }
+      }
+      break
+    case 17:
+      for (let i in street.segments) {
+        segment = street.segments[i]
+        if (segment.type === 'bus-lane') {
+          variant = getVariantArray(segment.type, segment.variantString)
+          if (variant['bus-asphalt'] === 'colored') {
+            variant['bus-asphalt'] = 'red'
           }
           segment.variantString = getVariantString(variant)
         }
