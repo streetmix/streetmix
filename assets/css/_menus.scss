@@ -116,7 +116,7 @@ body.safari .menu {
 }
 
 .menu .form {
-  padding: 0.5em 10px 0.5em 30px;
+  padding: 0.5em 10px 1em 30px;
 
   p:first-child {
     margin-top: 0;
@@ -129,6 +129,10 @@ body.safari .menu {
     td {
       vertical-align: top;
       padding: 5px;
+    }
+
+    td:first-child {
+      min-width: 60px;
     }
   }
 }
