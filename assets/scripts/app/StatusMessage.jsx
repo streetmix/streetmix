@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect, bindActionCreators } from 'react-redux'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-import { hideStatusMessage } from '../../store/actions/status'
+import { hideStatusMessage } from '../store/actions/status'
 import { registerKeypress, deregisterKeypress } from './keypress'
 import { URL_SIGN_IN_REDIRECT } from './routing'
 import { undo } from '../streets/undo_stack'
@@ -17,6 +18,8 @@ class StatusMessage extends React.PureComponent {
     super(props)
 
     this.timerId = -1
+
+    this.onClickTheX = this.onClickTheX.bind(this)
   }
 
   componentDidMount () {
@@ -118,7 +121,7 @@ function mapStateToProps (state) {
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators(hideStatusMessage, dispatch)
+  return bindActionCreators({ hideStatusMessage }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(StatusMessage)
