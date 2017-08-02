@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { connect, bindActionCreators } from 'react-redux'
 
-import { hideStatusMessage } from './status_message'
+import { hideStatusMessage } from '../../store/actions/status'
 import { registerKeypress, deregisterKeypress } from './keypress'
 import { URL_SIGN_IN_REDIRECT } from './routing'
 import { undo } from '../streets/undo_stack'
@@ -21,7 +21,7 @@ class StatusMessage extends React.PureComponent {
 
   componentDidMount () {
     // As per issue #306.
-    window.addEventListener('stmx:save_street', hideStatusMessage)
+    window.addEventListener('stmx:save_street', this.props.hideStatusMessage)
   }
 
   componentDidUpdate (prevProps) {
@@ -30,15 +30,15 @@ class StatusMessage extends React.PureComponent {
 
     // Whenever visibility is set to true, start the timer to auto-hide this
     if (this.props.visible === true) {
-      this.timerId = window.setTimeout(hideStatusMessage, STATUS_MESSAGE_HIDE_DELAY)
+      this.timerId = window.setTimeout(this.props.hideStatusMessage, STATUS_MESSAGE_HIDE_DELAY)
     }
 
     // Whenever the visibility state flips, set up or tear down a keypress
     // listener to show/hide the status message.
     if (prevProps.visible === false && this.props.visible === true) {
-      registerKeypress('esc', hideStatusMessage)
+      registerKeypress('esc', this.props.hideStatusMessage)
     } else if (prevProps.visible === true && this.props.visible === false) {
-      deregisterKeypress('esc', hideStatusMessage)
+      deregisterKeypress('esc', this.props.hideStatusMessage)
     }
   }
 
@@ -47,7 +47,7 @@ class StatusMessage extends React.PureComponent {
   }
 
   onClickTheX (event) {
-    hideStatusMessage()
+    this.props.hideStatusMessage()
 
     // Force window to refocus on document.body after StatusMessage is closed by X button
     // Required on Chrome
@@ -97,7 +97,8 @@ StatusMessage.propTypes = {
   visible: PropTypes.bool.isRequired,
   message: PropTypes.string,
   undo: PropTypes.bool,
-  signIn: PropTypes.bool
+  signIn: PropTypes.bool,
+  hideStatusMessage: PropTypes.func
 }
 
 StatusMessage.defaultProps = {
@@ -116,4 +117,8 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(StatusMessage)
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators(hideStatusMessage, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(StatusMessage)
