@@ -35,7 +35,6 @@ import { attachBlockingShieldEventListeners } from './blocking_shield'
 import { registerKeypresses } from './keyboard_commands'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { attachPrintEventListeners } from './print'
-import { attachStatusMessageEventListeners } from './status_message'
 import { attachGalleryScrollEventListeners } from '../gallery/scroll'
 import { attachStreetScrollEventListeners } from '../streets/scroll'
 import { attachFetchNonBlockingEventListeners } from '../util/fetch_nonblocking'
@@ -84,7 +83,6 @@ function preInit () {
   registerKeypresses()
   infoBubble.registerKeypresses()
   attachPrintEventListeners()
-  attachStatusMessageEventListeners()
   attachGalleryScrollEventListeners()
   attachGalleryViewEventListeners()
   attachStreetScrollEventListeners()
@@ -241,11 +239,12 @@ if (debug.hoverPolygon) {
 }
 
 // Toggle experimental features
-if (debug.experimental) {
-  // Initalize i18n / localization
-  // Currently experimental-only
-  initLocale()
-}
+// if (debug.experimental) {
+// }
+
+// Initalize i18n / localization
+// Currently experimental-only for all languages except English
+initLocale(debug.experimental)
 
 // Other
 addBodyClasses()

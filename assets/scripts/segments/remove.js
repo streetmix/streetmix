@@ -1,10 +1,10 @@
-import { msg } from '../app/messages'
 import { registerKeypress } from '../app/keypress'
 import { showStatusMessage } from '../app/status_message'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { getStreet, createDomFromData } from '../streets/data_model'
 import { getHoveredSegmentEl } from './hover'
 import { segmentsChanged, switchSegmentElAway } from './view'
+import { t } from '../app/locale'
 
 /**
  * Removes a segment, given the element to remove
@@ -26,7 +26,7 @@ export function removeSegment (el) {
   switchSegmentElAway(el)
 
   segmentsChanged()
-  showStatusMessage(msg('STATUS_SEGMENT_DELETED'), true)
+  showStatusMessage(t('toast.segment-deleted'), true)
 }
 
 /**
@@ -38,7 +38,7 @@ export function removeAllSegments () {
   createDomFromData()
   segmentsChanged()
   infoBubble.hide()
-  showStatusMessage(msg('STATUS_ALL_SEGMENTS_DELETED'), true)
+  showStatusMessage(t('toast.all-segments-deleted'), true)
 }
 
 // Register keyboard shortcuts for segment removal

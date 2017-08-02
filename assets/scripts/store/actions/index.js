@@ -49,6 +49,11 @@ export const CLEAR_MENUS = 'CLEAR_MENUS'
 /* settings */
 export const SET_USER_SETTINGS = 'SET_USER_SETTINGS'
 
+/* status */
+export const SHOW_STATUS_MESSAGE = 'SHOW_STATUS_MESSAGE'
+export const HIDE_STATUS_MESSAGE = 'HIDE_STATUS_MESSAGE'
+export const SHOW_NO_CONNECTION_MESSAGE = 'SHOW_NO_CONNECTION_MESSAGE'
+
 /* system */
 export const SET_SYSTEM_FLAGS = 'SET_SYSTEM_FLAGS'
 

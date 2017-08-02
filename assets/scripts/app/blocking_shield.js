@@ -5,7 +5,7 @@
  * times it can be "darkened" (creating a translucent overlay)
  * showing messages or errors.
  */
-import { msg } from './messages'
+import { t } from './locale'
 import { goReload } from './routing'
 
 import { blockingCancel, blockingTryAgain } from '../util/fetch_blocking'
@@ -28,7 +28,7 @@ function clearBlockingShieldTimers () {
   window.clearTimeout(blockingShieldTooSlowTimerId)
 }
 
-export function showBlockingShield (message = msg('LOADING')) {
+export function showBlockingShield (message = t('msg.loading')) {
   hideBlockingShield()
   clearBlockingShieldTimers()
 

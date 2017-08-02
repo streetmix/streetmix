@@ -8,7 +8,7 @@ import {
   getAbortEverything,
   setServerContacted
 } from '../app/initialization'
-import { msg } from '../app/messages'
+import { t } from '../app/locale'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { goNewStreet } from '../app/routing'
 import { showStatusMessage } from '../app/status_message'
@@ -263,7 +263,7 @@ function receiveStreetForVerification (transmission) {
     console.log('-')
     console.log(transmission)
 
-    showStatusMessage(msg('STATUS_RELOADED_FROM_SERVER'))
+    showStatusMessage(t('toast.reloaded'))
 
     infoBubble.suppress()
 
@@ -423,7 +423,7 @@ export function scheduleSavingStreetToServer () {
 }
 
 export function fetchLastStreet () {
-  newBlockingAjaxRequest(msg('LOADING'),
+  newBlockingAjaxRequest(t('msg.loading'),
     {
       // TODO const
       url: API_URL + 'v1/streets/' + getSettings().priorLastStreetId,

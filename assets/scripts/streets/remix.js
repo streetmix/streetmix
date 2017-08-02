@@ -1,7 +1,6 @@
 import { API_URL } from '../app/config'
-import { msg } from '../app/messages'
 import { showStatusMessage } from '../app/status_message'
-import { URL_SIGN_IN_REDIRECT } from '../app/routing'
+import { t } from '../app/locale'
 import { app } from '../preinit/app_settings'
 import {
   getAuthHeader,
@@ -72,7 +71,7 @@ export function remixStreet () {
 
   var transmission = packServerStreetData()
 
-  newBlockingAjaxRequest(msg('BLOCKING_REMIXING'),
+  newBlockingAjaxRequest(t('msg.remixing'),
     {
       // TODO const
       url: API_URL + 'v1/streets',
@@ -89,9 +88,9 @@ export function remixStreet () {
 function receiveRemixedStreet (data) {
   if (!promoteStreet) {
     if (isSignedIn()) {
-      showStatusMessage(msg('STATUS_NOW_REMIXING'))
+      showStatusMessage(t('toast.remixing'))
     } else {
-      showStatusMessage(msg('STATUS_NOW_REMIXING_SIGN_IN', { signInUrl: URL_SIGN_IN_REDIRECT }))
+      showStatusMessage(t('toast.remixing-sign-in'), false, true)
     }
   }
 

@@ -120,7 +120,7 @@
     "no-redo": "Nothing to redo.",
     "no-save": "No need to save by hand; Streetmix automatically saves your street!",
     "remixing": "Now editing a freshly-made duplicate of the original street. The duplicate has been put in your gallery.",
-    "remixing-sign-in": "Now editing a freshly-made duplicate of the original street. <a href=\"/%s\">Sign in</a> to start your own gallery of streets.",
+    "remixing-sign-in": "Now editing a freshly-made duplicate of the original street. Sign in to start your own gallery of streets.",
     "reloaded": "Your street was reloaded from the server as it was modified elsewhere."
   },
   "palette": {

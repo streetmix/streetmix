@@ -29,7 +29,8 @@
     pointer-events: auto;
   }
 
-  button {
+  button,
+  a.button-like {
     margin-left: 20px;
     font-size: 100%;
   }
