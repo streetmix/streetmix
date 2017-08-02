@@ -97,12 +97,12 @@ class Geolocation extends React.Component {
   }
 
   render () {
-  	const markers = this.state.markerLocation ? (
-    <Marker
-      position={this.state.markerLocation}
-      onDragEnd={this.markerDrag}
-      onDragStart={this.hidePopup}
-      draggable
+    const markers = this.state.markerLocation ? (
+      <Marker
+        position={this.state.markerLocation}
+        onDragEnd={this.markerDrag}
+        onDragStart={this.hidePopup}
+        draggable
       />
     ) : null
 
@@ -125,22 +125,22 @@ class Geolocation extends React.Component {
     return (
       <div id='rootDiv'>
         <div id='dark-border'>
-        <div id='input-box'>
-        <SearchAddress searchResults={this.searchResults} />
-        </div>
-        <Map
-          center={this.state.mapCenter}
-          zoom={zoomLevel}
-          onClick={this.gotClick}
-          ref={(ref) => { this.map = ref }}
-        >
-          <TileLayer
-            attribution={OpenStreetMapAttr}
-            url={OpenStreetMapTiles}
+          <div id='input-box'>
+            <SearchAddress searchResults={this.searchResults} />
+          </div>
+          <Map
+            center={this.state.mapCenter}
+            zoom={zoomLevel}
+            onClick={this.gotClick}
+            ref={(ref) => { this.map = ref }}
+            >
+            <TileLayer
+              attribution={OpenStreetMapAttr}
+              url={OpenStreetMapTiles}
           />
-          {popup}
-          {markers}
-        </Map>
+            {popup}
+            {markers}
+          </Map>
         </div>
       </div>
     )
