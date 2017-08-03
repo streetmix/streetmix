@@ -50,7 +50,10 @@ function doTheI18n (locale) {
     load: 'all',
     backend: {
       loadPath: API_URL + 'v1/translate/{{lng}}/{{ns}}'
-    }
+    },
+    // Do not escape characters automatically. React already escapes strings,
+    // so we want to avoid double-escaping output.
+    interpolation: { escapeValue: false }
   }
 
   const callback = function (err, t) {
