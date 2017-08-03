@@ -1,5 +1,8 @@
 /* global fetch */
 import React from 'react'
+import { connect } from 'react-redux'
+import { setSettings } from '../users/settings'
+import PropTypes from 'prop-types'
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
 import SearchAddress from './SearchAddress'
 import {apiurlReverse, apikey} from './config'
@@ -22,23 +25,14 @@ class Geolocation extends React.Component {
     this.hidePopup = this.hidePopup.bind(this)
   }
 
-  /* click event function */
+/* start click event function */
   gotClick (e) {
     const displayAddressData = (res) => {
-      const addressCoords = res.features[0].geometry.coordinates.reverse()
-      const addressLabel = res.features[0].properties.label
+      setSettings({ addressInformationLabel: res.features[0].properties.label })
+      setSettings({ markerLocation: res.features[0].geometry.coordinates.reverse() })
 
-      const position = {
-        latlng: addressCoords
-      }
-
-      this.setState({
-        addressName: addressLabel,
-        markerLocation: position.latlng
-      })
-
-      this.map.leafletElement.panTo(addressCoords)
-      console.log('Click Point Results : ', addressCoords, addressLabel)
+      this.map.leafletElement.panTo(this.props.markerLocation)
+      console.log('Click Point Results : ', this.props.markerLocation, this.props.addressInformationLabel)
     }
 
     function gotAddressData (res, err) {
@@ -56,18 +50,16 @@ class Geolocation extends React.Component {
 
 /* end click event function */
 
-/* on marker drag function */
+/* start on marker drag function */
   markerDrag (e) {
     const gotJson = (res) => {
-      const addressLabel = res.features[0].properties.label
-
       this.setState({
-        addressName: addressLabel,
-        renderPopup: true,
-        markerLocation: targetCoords
+        renderPopup: true
       })
 
-      console.log('Drag End Results : ', e.target.getLatLng(), res.features[0].properties.label)
+      setSettings({ addressInformationLabel: res.features[0].properties.label })
+      setSettings({ markerLocation: e.target.getLatLng() })
+      console.log('Drag End Results : ', e.target.getLatLng(), this.props.addressInformationLabel)
     }
 
     function gotAddress (res, err) {
@@ -75,6 +67,7 @@ class Geolocation extends React.Component {
     }
 
     const targetCoords = e.target.getLatLng()
+
     const dragEndUrl = `${apiurlReverse}?api_key=${apikey}&point.lat=${targetCoords.lat}&point.lon=${targetCoords.lng}`
     fetch(dragEndUrl).then(gotAddress)
   }
@@ -88,6 +81,8 @@ class Geolocation extends React.Component {
       mapCenter: p,
       markerLocation: p
     })
+
+    this.map.leafletElement.panTo(this.props.markerLocation)
   }
 
   hidePopup (e) {
@@ -97,24 +92,24 @@ class Geolocation extends React.Component {
   }
 
   render () {
-    const markers = this.state.markerLocation ? (
+    const markers = this.props.markerLocation ? (
       <Marker
-        position={this.state.markerLocation}
+        position={this.props.markerLocation}
         onDragEnd={this.markerDrag}
         onDragStart={this.hidePopup}
         draggable
       />
     ) : null
 
-    let popup = this.state.markerLocation ? (
+    let popup = this.props.markerLocation ? (
       <Popup
-        position={this.state.markerLocation}
+        position={this.props.markerLocation}
         maxWidth={300}
         closeOnClick={false}
         closeButton={false}
         offset={[0, -25]}
       >
-        <span>{this.state.addressName}</span>
+        <span>{this.props.addressInformationLabel}</span>
       </Popup>
     ) : null
 
@@ -147,4 +142,15 @@ class Geolocation extends React.Component {
   }
 }
 
-export default Geolocation
+Geolocation.propTypes = {
+  markerLocation: PropTypes.array
+}
+
+function mapStateToProps (state) {
+  return {
+    markerLocation: state.settings.markerLocation,
+    addressInformationLabel: state.settings.addressInformationLabel
+  }
+}
+
+export default connect(mapStateToProps)(Geolocation)

@@ -1,5 +1,7 @@
 /* global fetch */
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { setSettings } from '../users/settings'
 import {apiurl, apikey} from './config'
 
 class SearchAddress extends Component {
@@ -18,21 +20,26 @@ class SearchAddress extends Component {
     this.setState({
       value: e.target.value
     })
+
+    setSettings({ rawInputString: this.state.value })
   }
 
   handleJSON (res, err) {
+    this.setState({
+      loading: false
+    })
+
     if (res.features === undefined || res.features.length === 0) {
       return
     }
 
-    this.props.searchResults(res.features[0].geometry.coordinates.reverse(), res.features[0].properties.label)
+    this.props.searchResults(res.features[0].geometry.coordinates.reverse(), this.props.addressInformationLabel)
 
-    this.setState({
-      address: res.features[0].properties.label,
-      loading: false,
-      latlng: res.features[0].geometry.coordinates
+    setSettings({ addressInformationLabel: res.features[0].properties.label })
+    setSettings({ addressInformation: res.features[0].properties })
+    setSettings({ markerLocation: res.features[0].geometry.coordinates })
 
-    })
+    console.log('Searching Address Results : ', this.props.markerLocation, this.props.addressInformationLabel)
   }
 
   searchAddress (res, err) {
@@ -53,8 +60,6 @@ class SearchAddress extends Component {
 
     const searchUrl = `${apiurl}?api_key=${options.api_key}&text=${options.text}`
     fetch(searchUrl).then(this.searchAddress)
-
-    console.log('Component DID Update also fetched this url :', searchUrl)
   }
 
   render () {
@@ -78,4 +83,12 @@ class SearchAddress extends Component {
   }
 }
 
-export default SearchAddress
+function mapStateToProps (state) {
+  return {
+    markerLocation: state.settings.markerLocation,
+    addressInformation: state.settings.addressInformation,
+    addressInformationLabel: state.settings.addressInformationLabel
+  }
+}
+
+export default connect(mapStateToProps)(SearchAddress)
