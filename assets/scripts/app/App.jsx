@@ -8,6 +8,7 @@ import StatusMessage from './StatusMessage'
 import NoConnectionMessage from './NoConnectionMessage'
 import Flash from './Flash'
 import DebugInfo from './DebugInfo'
+import PrintContainer from './PrintContainer'
 
 export default class App extends React.PureComponent {
   render () {
@@ -25,6 +26,7 @@ export default class App extends React.PureComponent {
 
         <Flash />
         <DebugInfo />
+        <PrintContainer />
       </div>
     )
   }
