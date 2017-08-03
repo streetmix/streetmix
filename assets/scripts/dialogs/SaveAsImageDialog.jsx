@@ -159,7 +159,7 @@ class SaveAsImageDialog extends React.Component {
         {(() => {
           if (this.state.errorMessage) {
             return (
-              <div id='save-as-image-preview'>
+              <div className='save-as-image-preview'>
                 <div className='save-as-image-preview-loading'>
                   {this.state.errorMessage}
                 </div>
@@ -167,7 +167,7 @@ class SaveAsImageDialog extends React.Component {
             )
           } else {
             return (
-              <div id='save-as-image-preview'>
+              <div className='save-as-image-preview'>
                 <div className='save-as-image-preview-loading' style={{display: this.state.isLoading ? 'block' : 'none'}}>
                   {t('dialogs.save.loading', 'Loading…')}
                 </div>

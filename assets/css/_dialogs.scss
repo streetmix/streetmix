@@ -136,30 +136,22 @@ $dialog-box-default-width: 790px;
   }
 }
 
-.save-as-image-preview-loading {
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  line-height: 300px;
+.save-as-image-preview {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   height: 300px;
-  font-size: 16px;
-  text-align: center;
+  margin-bottom: 20px;
 }
 
-#save-as-image-preview {
-  position: relative;
-  display: table;
-  width: 700px + 3px + 3px;
-  height: 300px + 3px + 3px;
-  margin-bottom: 20px;
+.save-as-image-preview-loading {
+  font-size: 16px;
+  text-align: center;
 }
 
 .save-as-image-preview-image {
   @include touch-callout(default);
 
-  display: table-cell;
-  vertical-align: middle;
   text-align: center;
   font-size: 0;
 
