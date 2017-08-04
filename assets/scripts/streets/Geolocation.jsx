@@ -21,7 +21,7 @@ class Geolocation extends React.Component {
 
     this.searchResults = this.searchResults.bind(this)
     this.markerDrag = this.markerDrag.bind(this)
-    this.onClock = this.onClick.bind(this)
+    this.onClick = this.onClick.bind(this)
     this.hidePopup = this.hidePopup.bind(this)
   }
 
