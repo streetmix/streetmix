@@ -1,14 +1,14 @@
-/* global fetch */
 import React from 'react'
-import { connect } from 'react-redux'
-import { setSettings } from '../users/settings'
-import PropTypes from 'prop-types'
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import PropTypes from 'prop-types'
+import { setMapState } from '../store/actions/map'
 import SearchAddress from './SearchAddress'
-import {apiurlReverse, apikey} from './config'
+import { apiurlReverse, apikey } from './config'
 
-const OpenStreetMapTiles = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-const OpenStreetMapAttr = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+const OPEN_STREET_MAP_TILES = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png'
+const OPEN_STREET_MAP_ATTR = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
 
 const zoomLevel = 12
 
@@ -21,18 +21,21 @@ class Geolocation extends React.Component {
 
     this.searchResults = this.searchResults.bind(this)
     this.markerDrag = this.markerDrag.bind(this)
-    this.gotClick = this.gotClick.bind(this)
+    this.onClock = this.onClick.bind(this)
     this.hidePopup = this.hidePopup.bind(this)
   }
 
 /* start click event function */
-  gotClick (e) {
+  onClick (e) {
     const displayAddressData = (res) => {
-      setSettings({ addressInformationLabel: res.features[0].properties.label })
-      setSettings({ markerLocation: res.features[0].geometry.coordinates.reverse() })
+
+      this.props.setMapState({
+         addressInformationLabel: res.features[0].properties.label,
+         markerLocation: res.features[0].geometry.coordinates.reverse()
+
+      })
 
       this.map.leafletElement.panTo(this.props.markerLocation)
-      console.log('Click Point Results : ', this.props.markerLocation, this.props.addressInformationLabel)
     }
 
     function gotAddressData (res, err) {
@@ -45,7 +48,7 @@ class Geolocation extends React.Component {
     }
 
     const clickUrl = `${apiurlReverse}?api_key=${apikey}&point.lat=${options.lat}&point.lon=${options.lng}`
-    fetch(clickUrl).then(gotAddressData)
+    window.fetch(clickUrl).then(gotAddressData)
   }
 
 /* end click event function */
@@ -57,9 +60,12 @@ class Geolocation extends React.Component {
         renderPopup: true
       })
 
-      setSettings({ addressInformationLabel: res.features[0].properties.label })
-      setSettings({ markerLocation: e.target.getLatLng() })
-      console.log('Drag End Results : ', e.target.getLatLng(), this.props.addressInformationLabel)
+      this.props.setMapState({
+         addressInformationLabel: res.features[0].properties.label,
+         markerLocation: e.target.getLatLng()
+
+      })
+
     }
 
     function gotAddress (res, err) {
@@ -69,17 +75,16 @@ class Geolocation extends React.Component {
     const targetCoords = e.target.getLatLng()
 
     const dragEndUrl = `${apiurlReverse}?api_key=${apikey}&point.lat=${targetCoords.lat}&point.lon=${targetCoords.lng}`
-    fetch(dragEndUrl).then(gotAddress)
+    window.fetch(dragEndUrl).then(gotAddress)
   }
 
 /* end on marker drag function */
 
-// p = point , l = label
-  searchResults (p, l) {
+  searchResults (point, label) {
     this.setState({
-      addressName: l,
-      mapCenter: p,
-      markerLocation: p
+      addressName: label,
+      mapCenter: point,
+      markerLocation: point
     })
 
     this.map.leafletElement.panTo(this.props.markerLocation)
@@ -118,21 +123,21 @@ class Geolocation extends React.Component {
     }
 
     return (
-      <div id='rootDiv'>
-        <div id='dark-border'>
-          <div id='input-box'>
+      <div className='geolocation'>
+        <div className='geolocation-border'>
+          <div className='geolocation-input'>
             <SearchAddress searchResults={this.searchResults} />
           </div>
           <Map
             center={this.state.mapCenter}
             zoom={zoomLevel}
-            onClick={this.gotClick}
+            onClick={this.onClick}
             ref={(ref) => { this.map = ref }}
             >
             <TileLayer
-              attribution={OpenStreetMapAttr}
-              url={OpenStreetMapTiles}
-          />
+              attribution={OPEN_STREET_MAP_ATTR}
+              url={OPEN_STREET_MAP_TILES}
+            />
             {popup}
             {markers}
           </Map>
@@ -148,9 +153,13 @@ Geolocation.propTypes = {
 
 function mapStateToProps (state) {
   return {
-    markerLocation: state.settings.markerLocation,
-    addressInformationLabel: state.settings.addressInformationLabel
+    markerLocation: state.map.markerLocation,
+    addressInformationLabel: state.map.addressInformationLabel
   }
 }
 
-export default connect(mapStateToProps)(Geolocation)
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators({ setMapState }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Geolocation)

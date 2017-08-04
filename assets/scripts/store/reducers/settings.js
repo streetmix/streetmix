@@ -14,13 +14,7 @@ const initialState = {
 
   saveAsImageTransparentSky: false,
   saveAsImageSegmentNamesAndWidths: false,
-  saveAsImageStreetName: false,
-  markerLocation: null,
-  addressInformation: {},
-  addressInformationLabel: null,
-  rawInputString: null
-
-
+  saveAsImageStreetName: false
 }
 
 const settings = (state = initialState, action) => {

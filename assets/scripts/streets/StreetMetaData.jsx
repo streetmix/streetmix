@@ -17,9 +17,10 @@ class StreetMetaData extends React.Component {
       showMap: false
     }
     this.onClickAuthor = this.onClickAuthor.bind(this)
+    this.onClick = this.onClick.bind(this)
   }
 
-  onClick(e){
+  onClick( e ){
     e.preventDefault();
     this.setState({showMap: !this.state.showMap})
   }
@@ -54,7 +55,7 @@ class StreetMetaData extends React.Component {
         <StreetWidth street={this.state.street} readOnly={this.props.readOnly} />
         <span id='street-metadata-author'>{author}</span>
         <span id='street-metadata-date'>{formatDate(this.state.street.updatedAt)}</span>
-        <a id='street-metadata-map' onClick={this.onClick.bind(this)}><u>Geolocation!</u></a>
+        <a id='street-metadata-map' onClick={this.onClick}><u>Geolocation!</u></a>
         {this.state.showMap && <Geolocation />}
 
       </div>
