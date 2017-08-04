@@ -1,13 +1,13 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { startPrinting, stopPrinting } from '../store/actions/app'
 import { getStreetImage } from '../streets/image'
 
-export default class PrintContainer extends React.Component {
+class PrintContainer extends React.PureComponent {
   constructor (props) {
     super(props)
-
-    this.state = {
-      isPrinting: false
-    }
 
     this.createPrintImage = this.createPrintImage.bind(this)
   }
@@ -16,27 +16,30 @@ export default class PrintContainer extends React.Component {
     // Add event listeners
     // Chrome does not have the 'beforeprint' or 'afterprint' events
     window.addEventListener('beforeprint', () => {
-      this.setState({ isPrinting: true })
+      this.props.startPrinting()
     })
     window.addEventListener('afterprint', () => {
-      this.setState({ isPrinting: false })
+      this.props.stopPrinting()
     })
 
     // Listening for media query change for Chrome
     var mediaQueryList = window.matchMedia('print')
     mediaQueryList.addListener((mql) => {
       if (mql.matches) {
-        this.setState({ isPrinting: true })
+        this.props.startPrinting()
       } else {
-        this.setState({ isPrinting: false })
+        this.props.stopPrinting()
       }
     })
   }
 
   createPrintImage () {
-    const dataUrl = getStreetImage(true, true).toDataURL('image/png')
+    if (this.props.isPrinting) {
+      const dataUrl = getStreetImage(true, true).toDataURL('image/png')
+      return <img src={dataUrl} />
+    }
 
-    return (this.state.isPrinting) ? <img src={dataUrl} /> : null
+    return null
   }
 
   render () {
@@ -47,3 +50,25 @@ export default class PrintContainer extends React.Component {
     )
   }
 }
+
+PrintContainer.propTypes = {
+  isPrinting: PropTypes.bool.isRequired,
+  startPrinting: PropTypes.func.isRequired,
+  stopPrinting: PropTypes.func.isRequired
+}
+
+PrintContainer.defaultProps = {
+  isPrinting: false
+}
+
+function mapStateToProps (state) {
+  return {
+    isPrinting: state.app.printing
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators({ startPrinting, stopPrinting }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PrintContainer)
