@@ -17,7 +17,7 @@ class SearchAddress extends Component {
     this.searchAddress = this.searchAddress.bind(this)
   }
 
-  onKeyUp ( e ) {
+  onKeyUp (e) {
     this.setState({
       value: e.target.value
     })
@@ -85,6 +85,10 @@ class SearchAddress extends Component {
   }
 }
 
+SearchAddress.propTypes = {
+  markerLocation: PropTypes.array
+}
+
 function mapStateToProps (state) {
   return {
     markerLocation: state.map.markerLocation,
@@ -97,4 +101,4 @@ function mapDispatchToProps (dispatch) {
   return bindActionCreators({ setMapState }, dispatch)
 }
 
-export default connect(mapStateToProps)(SearchAddress)
+export default connect(mapStateToProps, mapDispatchToProps)(SearchAddress)

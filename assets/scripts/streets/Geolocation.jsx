@@ -28,10 +28,9 @@ class Geolocation extends React.Component {
 /* start click event function */
   onClick (e) {
     const displayAddressData = (res) => {
-
       this.props.setMapState({
-         addressInformationLabel: res.features[0].properties.label,
-         markerLocation: res.features[0].geometry.coordinates.reverse()
+        addressInformationLabel: res.features[0].properties.label,
+        markerLocation: res.features[0].geometry.coordinates.reverse()
 
       })
 
@@ -61,11 +60,10 @@ class Geolocation extends React.Component {
       })
 
       this.props.setMapState({
-         addressInformationLabel: res.features[0].properties.label,
-         markerLocation: e.target.getLatLng()
+        addressInformationLabel: res.features[0].properties.label,
+        markerLocation: e.target.getLatLng()
 
       })
-
     }
 
     function gotAddress (res, err) {
