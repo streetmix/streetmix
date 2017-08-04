@@ -23,7 +23,7 @@ class PrintContainer extends React.PureComponent {
     })
 
     // Listening for media query change for Chrome
-    var mediaQueryList = window.matchMedia('print')
+    const mediaQueryList = window.matchMedia('print')
     mediaQueryList.addListener((mql) => {
       if (mql.matches) {
         this.props.startPrinting()
