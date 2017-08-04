@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { startPrinting, stopPrinting } from '../store/actions/app'
+import { attachPrintEventListeners } from './print'
 import { getStreetImage } from '../streets/image'
 
 class PrintContainer extends React.PureComponent {
@@ -13,24 +12,7 @@ class PrintContainer extends React.PureComponent {
   }
 
   componentDidMount () {
-    // Add event listeners
-    // Chrome does not have the 'beforeprint' or 'afterprint' events
-    window.addEventListener('beforeprint', () => {
-      this.props.startPrinting()
-    })
-    window.addEventListener('afterprint', () => {
-      this.props.stopPrinting()
-    })
-
-    // Listening for media query change for Chrome
-    const mediaQueryList = window.matchMedia('print')
-    mediaQueryList.addListener((mql) => {
-      if (mql.matches) {
-        this.props.startPrinting()
-      } else {
-        this.props.stopPrinting()
-      }
-    })
+    attachPrintEventListeners()
   }
 
   createPrintImage () {
@@ -52,9 +34,7 @@ class PrintContainer extends React.PureComponent {
 }
 
 PrintContainer.propTypes = {
-  isPrinting: PropTypes.bool.isRequired,
-  startPrinting: PropTypes.func.isRequired,
-  stopPrinting: PropTypes.func.isRequired
+  isPrinting: PropTypes.bool.isRequired
 }
 
 PrintContainer.defaultProps = {
@@ -67,8 +47,4 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ startPrinting, stopPrinting }, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PrintContainer)
+export default connect(mapStateToProps)(PrintContainer)

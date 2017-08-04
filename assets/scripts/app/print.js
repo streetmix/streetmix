@@ -1,7 +1,28 @@
 import { infoBubble } from '../info_bubble/info_bubble'
 import { hideAllMenus } from '../menus/menu_controller'
 import store from '../store'
-import { startPrinting } from '../store/actions/app'
+import { startPrinting, stopPrinting } from '../store/actions/app'
+
+export function attachPrintEventListeners () {
+  // Add event listeners
+  // Chrome does not have the 'beforeprint' or 'afterprint' events
+  window.addEventListener('beforeprint', () => {
+    store.dispatch(startPrinting())
+  })
+  window.addEventListener('afterprint', () => {
+    store.dispatch(stopPrinting())
+  })
+
+  // Listening for media query change for Chrome
+  const mediaQueryList = window.matchMedia('print')
+  mediaQueryList.addListener((mql) => {
+    if (mql.matches) {
+      store.dispatch(startPrinting())
+    } else {
+      store.dispatch(stopPrinting())
+    }
+  })
+}
 
 export function printImage (event) {
   event.preventDefault()
