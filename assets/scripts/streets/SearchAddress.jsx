@@ -1,8 +1,8 @@
-/* global fetch */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { setSettings } from '../users/settings'
-import {apiurl, apikey} from './config'
+import { bindActionCreators } from 'redux'
+import PropTypes from 'prop-types'
+import { apiurl, apikey } from './config'
 
 class SearchAddress extends Component {
   constructor (props) {
@@ -11,17 +11,17 @@ class SearchAddress extends Component {
       value: ''
     }
 
-    this.handleKeyUp = this.handleKeyUp.bind(this)
+    this.onKeyUp = this.onKeyUp.bind(this)
     this.handleJSON = this.handleJSON.bind(this)
     this.searchAddress = this.searchAddress.bind(this)
   }
 
-  handleKeyUp (e) {
+  onKeyUp ( e ) {
     this.setState({
       value: e.target.value
     })
 
-    setSettings({ rawInputString: this.state.value })
+    this.props.setMapState({ rawInputString: this.state.value })
   }
 
   handleJSON (res, err) {
@@ -35,11 +35,12 @@ class SearchAddress extends Component {
 
     this.props.searchResults(res.features[0].geometry.coordinates.reverse(), this.props.addressInformationLabel)
 
-    setSettings({ addressInformationLabel: res.features[0].properties.label })
-    setSettings({ addressInformation: res.features[0].properties })
-    setSettings({ markerLocation: res.features[0].geometry.coordinates })
+    this.props.setMapState({
+      addressInformationLabel: res.features[0].properties.label,
+      addressInformation: res.features[0].properties,
+      markerLocation: res.features[0].geometry.coordinates
 
-    console.log('Searching Address Results : ', this.props.markerLocation, this.props.addressInformationLabel)
+    })
   }
 
   searchAddress (res, err) {
@@ -59,7 +60,7 @@ class SearchAddress extends Component {
     this.setState({loading: true})
 
     const searchUrl = `${apiurl}?api_key=${options.api_key}&text=${options.text}`
-    fetch(searchUrl).then(this.searchAddress)
+    window.fetch(searchUrl).then(this.searchAddress)
   }
 
   render () {
@@ -74,7 +75,7 @@ class SearchAddress extends Component {
 
       <div>
 
-        <input type='text' value={this.state.value} onChange={this.handleKeyUp} placeholder='Enter Address' />
+        <input type='text' value={this.state.value} onChange={this.onKeyUp} placeholder='Enter Address' />
 
         <p><b>{loading}</b></p>
       </div>
@@ -85,10 +86,14 @@ class SearchAddress extends Component {
 
 function mapStateToProps (state) {
   return {
-    markerLocation: state.settings.markerLocation,
-    addressInformation: state.settings.addressInformation,
-    addressInformationLabel: state.settings.addressInformationLabel
+    markerLocation: state.map.markerLocation,
+    addressInformation: state.map.addressInformation,
+    addressInformationLabel: state.map.addressInformationLabel
   }
+}
+
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators({ setMapState }, dispatch)
 }
 
 export default connect(mapStateToProps)(SearchAddress)

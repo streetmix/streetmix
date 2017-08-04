@@ -1,15 +1,15 @@
-#rootDiv{
+.geolocation{
 	position: relative;
 	padding-top: 7px;
 	width: 1000px;
-right: 250px;
+	right: 250px;
 
-	#dark-border{
-		padding: 4.5px;
-		background-color: white;
-	}
+	.geolocation-border{
+			padding: 4.5px;
+			background-color: white;
+		}
 
-	#input-box{
+	.geolocation-input{
 		position: absolute;
 
 		top: 15px;

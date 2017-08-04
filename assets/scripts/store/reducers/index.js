@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import app from './app'
 import debug from './debug'
 import dialogs from './dialogs'
+import map from './map'
 import menus from './menus'
 import settings from './settings'
 import status from './status'
@@ -12,6 +13,7 @@ const reducers = combineReducers({
   app,
   debug,
   dialogs,
+  map,
   menus,
   settings,
   status,
