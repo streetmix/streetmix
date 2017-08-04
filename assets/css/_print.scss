@@ -1,5 +1,7 @@
 .print-container {
   display: none;
+  align-items: center;
+  justify-content: center;
   position: fixed;
   left: 0;
   top: 0;
@@ -7,16 +9,6 @@
   height: 100%;
   background-color: white;
   z-index: $z-10-print;
-}
-
-.print-image {
-  display: table-cell;
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  margin: 0;
-  text-align: center;
-  vertical-align: middle;
 
   img {
     max-width: 100%;
@@ -26,6 +18,13 @@
 
 @media print {
   .print-container {
-    display: table;
+    display: flex !important;
+  }
+
+  // Hide all other stuff
+  body > *:not(#main-screen),
+  #main-screen > *:not(#react-app),
+  [data-reactroot] > *:not(.print-container) {
+    display: none;
   }
 }

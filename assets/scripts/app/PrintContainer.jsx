@@ -42,9 +42,7 @@ export default class PrintContainer extends React.Component {
   render () {
     return (
       <div id='print' className='print-container'>
-        <div className='print-image'>
-          {this.createPrintImage()}
-        </div>
+        {this.createPrintImage()}
       </div>
     )
   }
