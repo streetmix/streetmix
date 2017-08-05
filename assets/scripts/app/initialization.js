@@ -5,7 +5,6 @@ import { showGallery, attachGalleryViewEventListeners } from '../gallery/view'
 import { app } from '../preinit/app_settings'
 import { debug } from '../preinit/debug_settings'
 import { system } from '../preinit/system_capabilities'
-import { prepareSegmentInfo } from '../segments/info'
 import { fillEmptySegments, segmentsChanged } from '../segments/view'
 import { onNewStreetLastClick } from '../streets/creation'
 import {
@@ -105,7 +104,6 @@ export function initialize () {
   window.dispatchEvent(new window.CustomEvent('stmx:init'))
 
   fillEmptySegments()
-  prepareSegmentInfo()
 
   readyStateCompleteLoaded = false
   document.addEventListener('readystatechange', onReadyStateChange)
