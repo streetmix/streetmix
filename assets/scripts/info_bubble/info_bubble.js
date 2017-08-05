@@ -4,7 +4,6 @@ import { system } from '../preinit/system_capabilities'
 import { updateDescription, hideDescription } from './description'
 import {
   BUILDING_VARIANTS,
-  BUILDING_VARIANT_NAMES,
   MAX_BUILDING_HEIGHT,
   getBuildingAttributes,
   isFlooredBuilding,
@@ -16,7 +15,6 @@ import {
 } from '../segments/buildings'
 import { DRAGGING_TYPE_NONE, draggingType } from '../segments/drag_and_drop'
 import { SEGMENT_INFO } from '../segments/info'
-import { removeSegment, removeAllSegments } from '../segments/remove'
 import {
   RESIZE_TYPE_TYPING,
   MIN_SEGMENT_WIDTH,
@@ -71,6 +69,7 @@ export const infoBubble = {
 
   visible: false,
   el: null,
+  transitionEl: null, // Container element created in React to do vanilla DOM manipulation
 
   descriptionVisible: false,
 
@@ -559,66 +558,28 @@ export const infoBubble = {
 
   updateContents: function () {
     let street = getStreet()
-    let infoBubbleEl = infoBubble.el
-    let name, canBeDeleted, showWidth, innerEl, widthCanvasEl, el
+    let infoBubbleEl = infoBubble.transitionEl
+    let showWidth, innerEl, widthCanvasEl, el
 
     // If info bubble changes, wake this back up if it's fading out
     cancelFadeoutControls()
+
+    window.dispatchEvent(new window.CustomEvent('stmx:force_infobubble_update'))
 
     switch (infoBubble.type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
         var segment = street.segments[parseInt(infoBubble.segmentEl.dataNo)]
         var segmentInfo = SEGMENT_INFO[segment.type]
-        var variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString]
-
-        name = variantInfo.name || segmentInfo.name
-        canBeDeleted = true
         showWidth = true
-
         infoBubble.segment = segment
-
-        infoBubble.el.setAttribute('type', 'segment')
         break
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
-        name = BUILDING_VARIANT_NAMES[BUILDING_VARIANTS.indexOf(street.leftBuildingVariant)]
-        canBeDeleted = false
-        showWidth = false
-
-        infoBubble.el.setAttribute('type', 'building')
-        break
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
-        name = BUILDING_VARIANT_NAMES[BUILDING_VARIANTS.indexOf(street.rightBuildingVariant)]
-        canBeDeleted = false
         showWidth = false
-
-        infoBubble.el.setAttribute('type', 'building')
         break
     }
 
     infoBubbleEl.innerHTML = ''
-
-    var triangleEl = document.createElement('div')
-    triangleEl.classList.add('triangle')
-    infoBubbleEl.appendChild(triangleEl)
-
-    // Header
-
-    var headerEl = document.createElement('header')
-
-    headerEl.innerHTML = name
-
-    if (canBeDeleted) {
-      innerEl = document.createElement('button')
-      innerEl.classList.add('remove')
-      innerEl.innerHTML = 'Remove'
-      innerEl.segmentEl = infoBubble.segmentEl
-      innerEl.tabIndex = -1
-      innerEl.setAttribute('title', msg('TOOLTIP_REMOVE_SEGMENT'))
-      innerEl.addEventListener('pointerdown', onRemoveButtonClick)
-      headerEl.appendChild(innerEl)
-    }
-
-    infoBubbleEl.appendChild(headerEl)
 
     // Building height canvas
 
@@ -884,6 +845,7 @@ export const infoBubble = {
     var bubbleY = pos[1]
 
     infoBubble.el = document.querySelector('.info-bubble')
+    infoBubble.transitionEl = document.getElementById('info-bubble-transition-element')
     infoBubble.updateContents()
 
     var bubbleWidth = infoBubble.el.offsetWidth
@@ -1129,21 +1091,6 @@ function _onHeightEditKeyDown (event) {
       loseAnyFocus()
       break
   }
-}
-
-function onRemoveButtonClick (event) {
-  // Power move: a shift key will remove all segments
-  if (event.shiftKey) {
-    removeAllSegments()
-  } else {
-    // Otherwise, remove one segment
-    removeSegment(event.target.segmentEl)
-  }
-
-  trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'BUTTON', null, true)
-
-  // Prevent this “leaking” to a segment below
-  event.preventDefault()
 }
 
 function _prettifyHeight (height) {

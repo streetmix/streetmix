@@ -13,36 +13,13 @@
   pointer-events: none;
   touch-action: none;
 
-  .triangle {
-    position: absolute;
-    bottom: -30px;
-    height: 30px;
-    left: 0;
-    right: 0;
-    overflow: hidden;
-
-    &::before {
-      content: '';
-      position: absolute;
-      width: 30px;
-      height: 30px;
-      left: 50%;
-      bottom: 15px;
-      margin-left: -15px - 3px;
-      border: 3px solid darken($ui-colour, 20%);
-      transform: rotateZ(45deg);
-      background: $info-bubble-background;
-      pointer-events: none;
-    }
-  }
-
   &.visible {
     opacity: 1;
     transform: rotateY(0);
     pointer-events: auto;
   }
 
-  &[type='building'] header {
+  &[data-type='building'] header {
     margin-right: 90px + 50px;
 
     &::after {
@@ -98,11 +75,11 @@
     }
   }
 
-  &[type='segment'] .variants {
+  &[data-type='segment'] .variants {
     margin-right: 170px;
   }
 
-  &[type='building'] .variants {
+  &[data-type='building'] .variants {
     margin-right: 150px;
   }
 
@@ -262,7 +239,30 @@
   }
 }
 
-.info-bubble.highlight-triangle .triangle::before {
+.info-bubble-triangle {
+  position: absolute;
+  bottom: -30px;
+  height: 30px;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    left: 50%;
+    bottom: 15px;
+    margin-left: -15px - 3px;
+    border: 3px solid darken($ui-colour, 20%);
+    transform: rotateZ(45deg);
+    background: $info-bubble-background;
+    pointer-events: none;
+  }
+}
+
+.info-bubble.highlight-triangle .info-bubble-triangle::before {
   background: mix($ui-colour, white, 50%);
 }
 
