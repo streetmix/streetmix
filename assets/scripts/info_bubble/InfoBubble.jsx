@@ -1,5 +1,6 @@
 import React from 'react'
 import { infoBubble } from './info_bubble'
+import { resumeFadeoutControls } from '../segments/resizing'
 
 export default class InfoBubble extends React.PureComponent {
   componentDidMount () {
@@ -9,13 +10,17 @@ export default class InfoBubble extends React.PureComponent {
     document.addEventListener('mouseleave', infoBubble.hide)
   }
 
+  onTouchStart (event) {
+    resumeFadeoutControls()
+  }
+
   render () {
     return (
       <div
         className='info-bubble'
         onMouseEnter={infoBubble.onMouseEnter}
         onMouseLeave={infoBubble.onMouseLeave}
-        onTouchStart={infoBubble.onTouchStart}
+        onTouchStart={this.onTouchStart}
       />
     )
   }
