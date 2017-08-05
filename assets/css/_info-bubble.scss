@@ -228,18 +228,18 @@
           opacity: 0.9;
         }
       }
+    }
+  }
 
-      &[disabled] {
-        background: darken($ui-colour, 10%);
-        color: black;
-        opacity: 1;
-        border-top-color: darken($ui-colour, 30%);
-        border-bottom-color: darken($ui-colour, 30%);
+  .variants button[disabled] {
+    background: darken($ui-colour, 10%);
+    color: black;
+    opacity: 1;
+    border-top-color: darken($ui-colour, 30%);
+    border-bottom-color: darken($ui-colour, 30%);
 
-        .icon {
-          opacity: 1;
-        }
-      }
+    .icon {
+      opacity: 1;
     }
   }
 
