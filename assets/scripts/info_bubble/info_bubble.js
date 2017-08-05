@@ -24,7 +24,6 @@ import {
   resizeSegment,
   incrementSegmentWidth,
   scheduleControlsFadeout,
-  resumeFadeoutControls,
   cancelFadeoutControls
 } from '../segments/resizing'
 import { VARIANT_ICONS } from '../segments/variant_icons'
@@ -116,7 +115,6 @@ export const infoBubble = {
     if (!infoBubble.suppressed) {
       infoBubble.hide()
       infoBubble.hideSegment(true)
-      // infoBubble.el.classList.add('suppressed')
       infoBubble.suppressed = true
     }
 
@@ -125,14 +123,9 @@ export const infoBubble = {
   },
 
   unsuppress: function () {
-    // infoBubble.el.classList.remove('suppressed')
     infoBubble.suppressed = false
 
     window.clearTimeout(infoBubble.suppressTimerId)
-  },
-
-  onTouchStart: function () {
-    resumeFadeoutControls()
   },
 
   onMouseEnter: function () {
