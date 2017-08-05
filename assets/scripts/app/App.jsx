@@ -2,6 +2,7 @@ import React from 'react'
 import MessageBar from './MessageBar'
 import MenusContainer from '../menus/MenusContainer'
 import StreetNameCanvas from '../streets/StreetNameCanvas'
+import InfoBubble from '../info_bubble/InfoBubble'
 import WelcomePanel from './WelcomePanel'
 import Palette from './Palette'
 import DialogRoot from '../dialogs/DialogRoot'
@@ -24,6 +25,7 @@ export default class App extends React.PureComponent {
         <div className="main-screen">
           <MenusContainer />
           <StreetNameCanvas />
+          <InfoBubble />
           <WelcomePanel />
           <Palette />
           <DialogRoot />
