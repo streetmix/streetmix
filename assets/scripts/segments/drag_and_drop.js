@@ -452,10 +452,6 @@ function handleSegmentMoveMove (event) {
   }
 }
 
-export function onBodyMouseOut (event) {
-  infoBubble.hide()
-}
-
 export function onBodyMouseDown (event) {
   let topEl, withinMenu
   var el = event.target
