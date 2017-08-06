@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { msg } from '../app/messages'
 import { t } from '../app/locale'
 import { trackEvent } from '../app/event_tracking'
 import { removeSegment, removeAllSegments } from '../segments/remove'
@@ -28,18 +27,18 @@ export default class RemoveButton extends React.PureComponent {
   }
 
   render () {
-    const removeButton = (this.props.enabled) ? (
+    if (!this.props.enabled) return null
+
+    return (
       <button
-        className='remove'
+        className='info-bubble-remove'
         tabIndex={-1}
         title={t('tooltip.remove-segment', 'Remove segment')}
         onClick={this.onClick}
       >
         {t('btn.remove', 'Remove')}
       </button>
-    ) : null
-
-    return removeButton
+    )
   }
 }
 
