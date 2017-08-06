@@ -1,5 +1,4 @@
 import { app } from '../preinit/app_settings'
-import { debug } from '../preinit/debug_settings'
 import { system } from '../preinit/system_capabilities'
 import { updateDescription, hideDescription } from './description'
 import {
@@ -154,7 +153,7 @@ export const infoBubble = {
 
   updateHoverPolygon: function (mouseX, mouseY) {
     if (!infoBubble.visible) {
-      infoBubble.hideDebugHoverPolygon()
+      window.dispatchEvent(new CustomEvent('stmx:hide_debug_hover_polygon'))
       return
     }
 
@@ -230,38 +229,7 @@ export const infoBubble = {
       ]
     }
 
-    infoBubble.drawDebugHoverPolygon()
-  },
-
-  hideDebugHoverPolygon: function () {
-    if (!debug.hoverPolygon) {
-      return
-    }
-
-    var el = document.querySelector('#debug-hover-polygon canvas')
-
-    el.width = el.width // clear
-  },
-
-  drawDebugHoverPolygon: function () {
-    if (!debug.hoverPolygon) {
-      return
-    }
-
-    infoBubble.hideDebugHoverPolygon()
-    var el = document.querySelector('#debug-hover-polygon canvas')
-
-    var ctx = el.getContext('2d')
-    ctx.strokeStyle = 'red'
-    ctx.fillStyle = 'rgba(255, 0, 0, .1)'
-    ctx.beginPath()
-    ctx.moveTo(infoBubble.hoverPolygon[0][0], infoBubble.hoverPolygon[0][1])
-    for (var i = 1; i < infoBubble.hoverPolygon.length; i++) {
-      ctx.lineTo(infoBubble.hoverPolygon[i][0], infoBubble.hoverPolygon[i][1])
-    }
-    ctx.closePath()
-    ctx.fill()
-    ctx.stroke()
+    window.dispatchEvent(new CustomEvent('stmx:show_debug_hover_polygon'))
   },
 
   scheduleHoverPolygonUpdate: function () {
