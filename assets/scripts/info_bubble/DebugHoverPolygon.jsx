@@ -2,9 +2,31 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-class DebugHoverPolygon extends React.PureComponent {
+class DebugHoverPolygon extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      width: window.innerWidth,
+      height: window.innerHeight
+    }
+
+    this.updateDimensions = this.updateDimensions.bind(this)
+
+    window.addEventListener('resize', this.updateDimensions)
+  }
+
   shouldComponentUpdate () {
-    if (this.props.enabled === false) return false
+    return this.props.enabled
+  }
+
+  updateDimensions (event) {
+    if (this.props.enabled === false) return
+
+    this.setState({
+      width: window.innerWidth,
+      height: window.innerHeight
+    })
   }
 
   render () {
@@ -12,7 +34,10 @@ class DebugHoverPolygon extends React.PureComponent {
 
     return (
       <div id='debug-hover-polygon'>
-        <canvas width={window.innerWidth} height={window.innerHeight} />
+        <canvas
+          width={this.state.width}
+          height={this.state.height}
+        />
       </div>
     )
   }
