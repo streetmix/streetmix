@@ -58,23 +58,6 @@
     fill: #231f20;
   }
 
-  button {
-    width: $info-bubble-button-size;
-    height: $info-bubble-button-size;
-
-    &.remove {
-      position: absolute;
-      right: 6px;
-      top: 6px;
-      width: auto;
-      padding: 0;
-      padding-left: 10px;
-      padding-right: 10px;
-      margin-top: -3px;
-      font-size: 11px;
-    }
-  }
-
   &[data-type='segment'] .variants {
     margin-right: 170px;
   }
@@ -237,6 +220,23 @@
       margin-top: 7px;
     }
   }
+
+  button {
+    width: $info-bubble-button-size;
+    height: $info-bubble-button-size;
+  }
+}
+
+.info-bubble-remove {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  width: auto !important; /* Override button width of other buttons in infobubble */
+  padding: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: -3px;
+  font-size: 11px;
 }
 
 .info-bubble-triangle {
