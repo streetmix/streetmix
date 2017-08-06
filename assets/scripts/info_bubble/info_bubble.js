@@ -15,24 +15,15 @@ import {
 import { DRAGGING_TYPE_NONE, draggingType } from '../segments/drag_and_drop'
 import { SEGMENT_INFO } from '../segments/info'
 import {
-  RESIZE_TYPE_TYPING,
   MIN_SEGMENT_WIDTH,
   MAX_SEGMENT_WIDTH,
-  resizeSegment,
-  incrementSegmentWidth,
-  scheduleControlsFadeout,
   cancelFadeoutControls
 } from '../segments/resizing'
 import { VARIANT_ICONS } from '../segments/variant_icons'
 import { msg } from '../app/messages'
-import { trackEvent } from '../app/event_tracking'
 import { KEYS } from '../app/keyboard_commands'
 import { getElAbsolutePos } from '../util/helpers'
-import {
-  prettifyWidth,
-  undecorateWidth,
-  processWidthInput
-} from '../util/width_units'
+import { prettifyWidth } from '../util/width_units'
 import { isAnyMenuVisible, hideAllMenus } from '../menus/menu_controller'
 import { registerKeypress } from '../app/keypress'
 import { loseAnyFocus } from '../util/focus'
@@ -484,12 +475,8 @@ export const infoBubble = {
 
     infoBubble.updateWidthButtonsInContents(width)
 
-    var el = infoBubble.el.querySelector('.non-variant .width')
+    var el = infoBubble.el.querySelector('.non-variant .width-non-editable')
     if (el) {
-      el.realValue = width
-      el.value = prettifyWidth(width)
-    } else {
-      el = infoBubble.el.querySelector('.non-variant .width-non-editable')
       el.innerHTML = prettifyWidth(width, { markup: true })
     }
   },
@@ -528,7 +515,7 @@ export const infoBubble = {
   updateContents: function () {
     let street = getStreet()
     let infoBubbleEl = infoBubble.transitionEl
-    let showWidth, innerEl, widthCanvasEl, el
+    let innerEl, widthCanvasEl, el
 
     // If info bubble changes, wake this back up if it's fading out
     cancelFadeoutControls()
@@ -539,12 +526,7 @@ export const infoBubble = {
       case INFO_BUBBLE_TYPE_SEGMENT:
         var segment = street.segments[parseInt(infoBubble.segmentEl.dataNo)]
         var segmentInfo = SEGMENT_INFO[segment.type]
-        showWidth = true
         infoBubble.segment = segment
-        break
-      case INFO_BUBBLE_TYPE_LEFT_BUILDING:
-      case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
-        showWidth = false
         break
     }
 
@@ -613,57 +595,6 @@ export const infoBubble = {
       innerEl.addEventListener('pointerdown', removeFloor)
 
       widthCanvasEl.appendChild(innerEl)
-      infoBubbleEl.appendChild(widthCanvasEl)
-    }
-
-    // Width canvas
-
-    if (showWidth) {
-      widthCanvasEl = document.createElement('div')
-      widthCanvasEl.classList.add('non-variant')
-
-      if (!segmentInfo.variants[0]) {
-        widthCanvasEl.classList.add('entire-info-bubble')
-      }
-
-      innerEl = document.createElement('button')
-      innerEl.classList.add('decrement')
-      innerEl.innerHTML = '–'
-      innerEl.segmentEl = segment.el
-      innerEl.title = msg('TOOLTIP_DECREASE_WIDTH')
-      innerEl.tabIndex = -1
-      innerEl.addEventListener('pointerdown', _onWidthDecrementClick)
-      widthCanvasEl.appendChild(innerEl)
-
-      if (!system.touch) {
-        innerEl = document.createElement('input')
-        innerEl.setAttribute('type', 'text')
-        innerEl.classList.add('width')
-        innerEl.title = msg('TOOLTIP_SEGMENT_WIDTH')
-        innerEl.segmentEl = segment.el
-
-        innerEl.addEventListener('pointerdown', _onWidthHeightEditClick)
-        innerEl.addEventListener('focus', _onWidthEditFocus)
-        innerEl.addEventListener('blur', _onWidthEditBlur)
-        innerEl.addEventListener('input', _onWidthEditInput)
-        innerEl.addEventListener('mouseover', _onWidthHeightEditMouseOver)
-        innerEl.addEventListener('mouseout', _onWidthHeightEditMouseOut)
-        innerEl.addEventListener('keydown', _onWidthEditKeyDown)
-      } else {
-        innerEl = document.createElement('span')
-        innerEl.classList.add('width-non-editable')
-      }
-      widthCanvasEl.appendChild(innerEl)
-
-      innerEl = document.createElement('button')
-      innerEl.classList.add('increment')
-      innerEl.innerHTML = '+'
-      innerEl.segmentEl = segment.el
-      innerEl.tabIndex = -1
-      innerEl.title = msg('TOOLTIP_INCREASE_WIDTH')
-      innerEl.addEventListener('pointerdown', _onWidthIncrementClick)
-      widthCanvasEl.appendChild(innerEl)
-
       infoBubbleEl.appendChild(widthCanvasEl)
     }
 
@@ -754,9 +685,7 @@ export const infoBubble = {
       infoBubble.updateWarningsInContents(segment)
     }
     window.setTimeout(function () {
-      if (infoBubble.type === INFO_BUBBLE_TYPE_SEGMENT) {
-        infoBubble.updateWidthInContents(segment.el, segment.width)
-      } else {
+      if (infoBubble.type !== INFO_BUBBLE_TYPE_SEGMENT) {
         infoBubble.updateHeightInContents(infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING)
       }
     }, 0)
@@ -873,32 +802,9 @@ function _isPointInPoly (vs, point) {
   return inside
 }
 
-function _onWidthDecrementClick (event) {
-  var el = event.target
-  var segmentEl = el.segmentEl
-  var precise = event.shiftKey
-
-  incrementSegmentWidth(segmentEl, false, precise)
-  scheduleControlsFadeout(segmentEl)
-
-  trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INCREMENT_BUTTON', null, true)
-}
-
-function _onWidthIncrementClick (event) {
-  var el = event.target
-  var segmentEl = el.segmentEl
-  var precise = event.shiftKey
-
-  incrementSegmentWidth(segmentEl, true, precise)
-  scheduleControlsFadeout(segmentEl)
-
-  trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INCREMENT_BUTTON', null, true)
-}
-
 function _onWidthHeightEditClick (event) {
   var el = event.target
 
-  el.hold = true
   widthHeightEditHeld = true
 
   if (document.activeElement !== el) {
@@ -919,30 +825,11 @@ function _onWidthHeightEditMouseOut (event) {
   }
 }
 
-function _onWidthEditFocus (event) {
-  var el = event.target
-
-  el.oldValue = el.realValue
-  el.value = undecorateWidth(el.realValue)
-}
-
 function _onHeightEditFocus (event) {
   var el = event.target
 
   el.oldValue = el.realValue
   el.value = el.realValue
-}
-
-function _onWidthEditBlur (event) {
-  var el = event.target
-
-  _widthEditInputChanged(el, true)
-
-  el.realValue = parseFloat(el.segmentEl.getAttribute('width'))
-  el.value = prettifyWidth(el.realValue)
-
-  el.hold = false
-  widthHeightEditHeld = false
 }
 
 function _onHeightEditBlur (event) {
@@ -954,7 +841,6 @@ function _onHeightEditBlur (event) {
   el.realValue = (infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingHeight : street.rightBuildingHeight
   el.value = _prettifyHeight(el.realValue)
 
-  el.hold = false
   widthHeightEditHeld = false
 }
 
@@ -989,56 +875,8 @@ function _heightEditInputChanged (el, immediate) {
   }
 }
 
-function _widthEditInputChanged (el, immediate) {
-  window.clearTimeout(widthHeightChangeTimerId)
-
-  var width = processWidthInput(el.value)
-
-  if (width) {
-    var segmentEl = el.segmentEl
-
-    if (immediate) {
-      resizeSegment(segmentEl, RESIZE_TYPE_TYPING,
-        width * TILE_SIZE, false, false)
-      infoBubble.updateWidthButtonsInContents(width)
-    } else {
-      widthHeightChangeTimerId = window.setTimeout(function () {
-        resizeSegment(segmentEl, RESIZE_TYPE_TYPING,
-          width * TILE_SIZE, false, false)
-        infoBubble.updateWidthButtonsInContents(width)
-      }, WIDTH_EDIT_INPUT_DELAY)
-    }
-  }
-}
-
-function _onWidthEditInput (event) {
-  _widthEditInputChanged(event.target, false)
-
-  trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INPUT_FIELD', null, true)
-}
-
 function _onHeightEditInput (event) {
   _heightEditInputChanged(event.target, false)
-}
-
-function _onWidthEditKeyDown (event) {
-  var el = event.target
-
-  switch (event.keyCode) {
-    case KEYS.ENTER:
-      _widthEditInputChanged(el, true)
-      loseAnyFocus()
-      el.value = undecorateWidth(el.segmentEl.getAttribute('width'))
-      el.focus()
-      el.select()
-      break
-    case KEYS.ESC:
-      el.value = el.oldValue
-      _widthEditInputChanged(el, true)
-      hideAllMenus()
-      loseAnyFocus()
-      break
-  }
 }
 
 function _onHeightEditKeyDown (event) {
