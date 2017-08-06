@@ -237,11 +237,6 @@ function onReadyStateChange () {
   }
 }
 
-// Toggle debug features
-if (debug.hoverPolygon) {
-  createDebugHoverPolygon()
-}
-
 // Toggle experimental features
 // if (debug.experimental) {
 // }
@@ -256,17 +251,6 @@ addBodyClasses()
 // Check if no internet mode
 if (system.noInternet === true) {
   setupNoInternetMode()
-}
-
-function createDebugHoverPolygon () {
-  var el = document.createElement('div')
-  el.id = 'debug-hover-polygon'
-  document.body.appendChild(el)
-
-  var canvasEl = document.createElement('canvas')
-  canvasEl.width = window.innerWidth
-  canvasEl.height = window.innerHeight
-  el.appendChild(canvasEl)
 }
 
 function addBodyClasses () {
