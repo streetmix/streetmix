@@ -1,12 +1,12 @@
 import React from 'react'
+import RemoveButton from './RemoveButton'
 import { infoBubble } from './info_bubble'
 import { resumeFadeoutControls } from '../segments/resizing'
 import { getStreet } from '../streets/data_model'
-import { msg } from '../app/messages'
-import { trackEvent } from '../app/event_tracking'
+// import { msg } from '../app/messages'
+// import { trackEvent } from '../app/event_tracking'
 import { BUILDING_VARIANTS, BUILDING_VARIANT_NAMES } from '../segments/buildings'
 import { SEGMENT_INFO } from '../segments/info'
-import { removeSegment, removeAllSegments } from '../segments/remove'
 
 const INFO_BUBBLE_TYPE_SEGMENT = 1
 const INFO_BUBBLE_TYPE_LEFT_BUILDING = 2
@@ -39,21 +39,6 @@ export default class InfoBubble extends React.Component {
 
   onTouchStart (event) {
     resumeFadeoutControls()
-  }
-
-  onRemoveButtonClick (event) {
-    // Prevent this “leaking” to a segment below
-    event.preventDefault()
-
-    // Power move: a shift key will remove all segments
-    if (event.shiftKey) {
-      removeAllSegments()
-    } else {
-      // Otherwise, remove one segment
-      removeSegment(infoBubble.segmentEl) // this is the reference to the actual element.
-    }
-
-    trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'BUTTON', null, true)
   }
 
   updateInfoBubbleState () {
@@ -90,17 +75,6 @@ export default class InfoBubble extends React.Component {
     const canBeDeleted = (type === INFO_BUBBLE_TYPE_SEGMENT)
     // const showWidth = (type === INFO_BUBBLE_TYPE_SEGMENT)
 
-    const removeButton = (canBeDeleted) ? (
-      <button
-        className='remove'
-        tabIndex={-1}
-        title={msg('TOOLTIP_REMOVE_SEGMENT')}
-        onClick={this.onRemoveButtonClick}
-      >
-        Remove
-      </button>
-    ) : null
-
     return (
       <div
         className='info-bubble'
@@ -112,7 +86,7 @@ export default class InfoBubble extends React.Component {
         <div className='info-bubble-triangle' />
         <header>
           {this.getName()}
-          {removeButton}
+          <RemoveButton enabled={canBeDeleted} segment={infoBubble.segmentEl} />
         </header>
         <div id='info-bubble-transition-element' />
       </div>
