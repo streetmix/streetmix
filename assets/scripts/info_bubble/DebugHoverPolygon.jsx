@@ -9,19 +9,19 @@ class DebugHoverPolygon extends React.Component {
 
     this.state = {
       width: window.innerWidth,
-      height: window.innerHeight
+      height: window.innerHeight,
+      polygon: []
     }
 
     this.canvas = null
     this.updateDimensions = this.updateDimensions.bind(this)
-    this.hidePolygon = this.hidePolygon.bind(this)
+    this.updatePolygon = this.updatePolygon.bind(this)
     this.drawPolygon = this.drawPolygon.bind(this)
 
     window.addEventListener('resize', this.updateDimensions)
 
     // For now: events communicate with legacy `infoBubble` object
-    window.addEventListener('stmx:show_debug_hover_polygon', this.drawPolygon)
-    window.addEventListener('stmx:hide_debug_hover_polygon', this.hidePolygon)
+    window.addEventListener('stmx:update_debug_hover_polygon', this.updatePolygon)
   }
 
   shouldComponentUpdate () {
@@ -41,23 +41,32 @@ class DebugHoverPolygon extends React.Component {
     })
   }
 
-  hidePolygon () {
-    if (!this.canvas) return
-    this.canvas.width = this.canvas.width // Setting canvas width will clear it
+  updatePolygon () {
+    if (this.props.enabled === false) return
+
+    this.setState({
+      polygon: infoBubble.hoverPolygon
+    })
   }
 
   drawPolygon () {
     if (this.props.enabled === false) return
+    if (!this.canvas) return
 
-    this.hidePolygon()
+    this.canvas.width = this.canvas.width // Setting canvas width will clear it
+
+    const polygon = this.state.polygon
+
+    // Early exit if polygon isn't set
+    if (!polygon.length || !polygon[0].length) return
 
     const ctx = this.canvas.getContext('2d')
     ctx.strokeStyle = 'red'
     ctx.fillStyle = 'rgba(255, 0, 0, .1)'
     ctx.beginPath()
-    ctx.moveTo(infoBubble.hoverPolygon[0][0], infoBubble.hoverPolygon[0][1])
-    for (let i = 1; i < infoBubble.hoverPolygon.length; i++) {
-      ctx.lineTo(infoBubble.hoverPolygon[i][0], infoBubble.hoverPolygon[i][1])
+    ctx.moveTo(polygon[0][0], polygon[0][1])
+    for (let i = 1; i < polygon.length; i++) {
+      ctx.lineTo(polygon[i][0], polygon[i][1])
     }
     ctx.closePath()
     ctx.fill()
