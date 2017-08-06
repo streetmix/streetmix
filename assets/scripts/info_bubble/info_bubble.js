@@ -153,7 +153,8 @@ export const infoBubble = {
 
   updateHoverPolygon: function (mouseX, mouseY) {
     if (!infoBubble.visible) {
-      window.dispatchEvent(new CustomEvent('stmx:hide_debug_hover_polygon'))
+      infoBubble.hoverPolygon = []
+      window.dispatchEvent(new CustomEvent('stmx:update_debug_hover_polygon'))
       return
     }
 
@@ -229,7 +230,7 @@ export const infoBubble = {
       ]
     }
 
-    window.dispatchEvent(new CustomEvent('stmx:show_debug_hover_polygon'))
+    window.dispatchEvent(new CustomEvent('stmx:update_debug_hover_polygon'))
   },
 
   scheduleHoverPolygonUpdate: function () {
