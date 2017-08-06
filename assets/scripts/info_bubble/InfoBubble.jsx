@@ -1,5 +1,6 @@
 import React from 'react'
 import RemoveButton from './RemoveButton'
+import WidthControl from './WidthControl'
 import { infoBubble } from './info_bubble'
 import { resumeFadeoutControls } from '../segments/resizing'
 import { getStreet } from '../streets/data_model'
@@ -73,7 +74,8 @@ export default class InfoBubble extends React.Component {
   render () {
     const type = this.state.type
     const canBeDeleted = (type === INFO_BUBBLE_TYPE_SEGMENT)
-    // const showWidth = (type === INFO_BUBBLE_TYPE_SEGMENT)
+    const showWidth = (type === INFO_BUBBLE_TYPE_SEGMENT)
+    const segment = infoBubble.segmentEl
 
     return (
       <div
@@ -86,8 +88,9 @@ export default class InfoBubble extends React.Component {
         <div className='info-bubble-triangle' />
         <header>
           {this.getName()}
-          <RemoveButton enabled={canBeDeleted} segment={infoBubble.segmentEl} />
+          <RemoveButton enabled={canBeDeleted} segment={segment} />
         </header>
+        <WidthControl enabled={showWidth} segment={segment} />
         <div id='info-bubble-transition-element' />
       </div>
     )
