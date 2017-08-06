@@ -9,6 +9,7 @@ import StatusMessage from './StatusMessage'
 import NoConnectionMessage from './NoConnectionMessage'
 import Flash from './Flash'
 import DebugInfo from './DebugInfo'
+import DebugHoverPolygon from '../info_bubble/DebugHoverPolygon'
 import PrintContainer from './PrintContainer'
 
 export default class App extends React.PureComponent {
@@ -28,6 +29,7 @@ export default class App extends React.PureComponent {
 
         <Flash />
         <DebugInfo />
+        <DebugHoverPolygon />
         <PrintContainer />
       </div>
     )
