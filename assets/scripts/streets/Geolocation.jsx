@@ -25,7 +25,7 @@ class Geolocation extends React.Component {
     this.hidePopup = this.hidePopup.bind(this)
   }
 
-/* start click event function */
+  /* start click event function */
   onClick (e) {
     const displayAddressData = (res) => {
       this.props.setMapState({
@@ -50,9 +50,9 @@ class Geolocation extends React.Component {
     window.fetch(clickUrl).then(gotAddressData)
   }
 
-/* end click event function */
+  /* end click event function */
 
-/* start on marker drag function */
+  /* start on marker drag function */
   markerDrag (e) {
     const gotJson = (res) => {
       this.setState({
@@ -76,7 +76,7 @@ class Geolocation extends React.Component {
     window.fetch(dragEndUrl).then(gotAddress)
   }
 
-/* end on marker drag function */
+  /* end on marker drag function */
 
   searchResults (point, label) {
     this.setState({
@@ -131,7 +131,7 @@ class Geolocation extends React.Component {
             zoom={zoomLevel}
             onClick={this.onClick}
             ref={(ref) => { this.map = ref }}
-            >
+          >
             <TileLayer
               attribution={OPEN_STREET_MAP_ATTR}
               url={OPEN_STREET_MAP_TILES}

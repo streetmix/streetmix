@@ -20,8 +20,8 @@ class StreetMetaData extends React.Component {
     this.onClick = this.onClick.bind(this)
   }
 
-  onClick( e ){
-    e.preventDefault();
+  onClick (e) {
+    e.preventDefault()
     this.setState({showMap: !this.state.showMap})
   }
 

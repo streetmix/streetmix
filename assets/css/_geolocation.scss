@@ -1,23 +1,22 @@
-.geolocation{
-	position: relative;
-	padding-top: 7px;
-	width: 1000px;
-	right: 250px;
+.geolocation {
+  position: relative;
+  padding-top: 7px;
+  width: 1000px;
+  right: 250px;
 
-	.geolocation-border{
-			padding: 4.5px;
-			background-color: white;
-		}
+  .geolocation-border {
+    padding: 4.5px;
+    background-color: white;
+  }
 
-	.geolocation-input{
-		position: absolute;
+  .geolocation-input {
+    position: absolute;
+    top: 15px;
+    left: 450px;
+    z-index: 1001;
+  }
 
-		top: 15px;
-		left: 450px;
-		z-index: 1001;
-	}
-
-	#street-metadata-map {
+  #street-metadata-map {
     padding-top: 7px;
     padding-bottom: 40px;
     width: 500px;
@@ -31,10 +30,10 @@
     -ms-user-select: none;
     user-select: none;
     pointer-events: auto;
-}
+  }
 
-	.leaflet-container {
-		border: 4.5px solid #000;
-		height: 500px;
-	}
+  .leaflet-container {
+    border: 4.5px solid #000;
+    height: 500px;
+  }
 }

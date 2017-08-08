@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import PropTypes from 'prop-types'
 import { setMapState } from '../store/actions/map'
 import { apiurl, apikey } from './config'
 
@@ -40,8 +39,9 @@ class SearchAddress extends Component {
       addressInformationLabel: res.features[0].properties.label,
       addressInformation: res.features[0].properties,
       markerLocation: res.features[0].geometry.coordinates
-
     })
+
+    this.setState({loading: true})
   }
 
   searchAddress (res, err) {
@@ -57,8 +57,6 @@ class SearchAddress extends Component {
     if (prevState.value === this.state.value) {
       return false
     }
-
-    this.setState({loading: true})
 
     const searchUrl = `${apiurl}?api_key=${options.api_key}&text=${options.text}`
     window.fetch(searchUrl).then(this.searchAddress)
@@ -83,10 +81,6 @@ class SearchAddress extends Component {
 
     )
   }
-}
-
-SearchAddress.propTypes = {
-  markerLocation: PropTypes.array
 }
 
 function mapStateToProps (state) {
