@@ -43,6 +43,8 @@ const helmetConfig = {
         'platform.twitter.com',
         'www.google-analytics.com',
         'cdn.mxpnl.com',
+        '*.global.ssl.fastly.net',
+        'search.mapzen.com',
         "'sha256-cVcViy/WbA6COI6DEjyQfnBNKF24fNLeLzoC9TPNuKw='", // Google Analytics?
         "'sha256-7N1wpoJYtgf8X14b14NyEnr45cLEQ0FqwzvKUGzezLs='" // Mixpanel?
       ],
@@ -51,10 +53,13 @@ const helmetConfig = {
         'data:',
         'pbs.twimg.com',
         'syndication.twitter.com',
-        'www.google-analytics.com'
+        'www.google-analytics.com',
+        '*.global.ssl.fastly.net'
       ],
       fontSrc: ["'self'", 'fonts.gstatic.com'],
-      connectSrc: ["'self'", 'api.mixpanel.com']
+      connectSrc: ["'self'",
+        'api.mixpanel.com',
+        'search.mapzen.com']
     }
   }
 }
