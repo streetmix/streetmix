@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import PropTypes from 'prop-types'
 import { setMapState } from '../store/actions/map'
 import { apiurl, apikey } from './config'
 
@@ -81,6 +82,12 @@ class SearchAddress extends Component {
 
     )
   }
+}
+
+SearchAddress.propTypes = {
+  setMapState: PropTypes.object,
+  addressInformationLabel: PropTypes.string,
+  searchResults: PropTypes.array
 }
 
 function mapStateToProps (state) {

@@ -146,7 +146,9 @@ class Geolocation extends React.Component {
 }
 
 Geolocation.propTypes = {
-  markerLocation: PropTypes.array
+  markerLocation: PropTypes.array,
+  setMapState: PropTypes.object,
+  addressInformationLabel: PropTypes.string
 }
 
 function mapStateToProps (state) {
