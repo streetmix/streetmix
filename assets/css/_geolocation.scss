@@ -1,12 +1,11 @@
 .geolocation {
   position: relative;
-  padding-top: 7px;
   width: 1000px;
   right: 250px;
 
   .geolocation-border {
-    padding: 4.5px;
-    background-color: white;
+    border-top: 3px solid #85b7cc;
+    border-bottom: 3px solid #85b7cc;
   }
 
   .geolocation-input {
@@ -33,7 +32,26 @@
   }
 
   .leaflet-container {
-    border: 4.5px solid #000;
     height: 500px;
+  }
+
+  .geolocation-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    font-size: 14px;
+    z-index: 1002;
+    background: transparent;
+    color: #402020;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
   }
 }

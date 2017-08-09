@@ -30,6 +30,34 @@ $dialog-box-default-width: 790px;
   touch-action: none;
 }
 
+.dialog-box-shield-g {
+  z-index: 0;
+  position: absolute;
+  left: -100vh;
+  top: -100vh;
+  right: -100vh;
+  bottom: -100vh;
+  background: fade-out($sky-colour, 0.5);
+  cursor: pointer;
+  touch-action: none;
+}
+.dialog-box-geolocation {
+    border-top: 3px solid #85b7cc;
+    border-bottom: 3px solid #85b7cc;
+    position: relative;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 790px;
+    margin-top: -6%;
+    padding: 0px 0px;
+    background: white;
+    font-size: 13px;
+    line-height: 1.5;
+    z-index: 900;
+    -ms-touch-action: none;
+    touch-action: none;
+}
+
 .dialog-box-shield-unclickable {
   cursor: auto;
 }

@@ -23,6 +23,7 @@ class Geolocation extends React.Component {
     this.markerDrag = this.markerDrag.bind(this)
     this.onClick = this.onClick.bind(this)
     this.hidePopup = this.hidePopup.bind(this)
+    this.unmountDialog = this.unmountDialog.bind(this)
   }
 
   /* start click event function */
@@ -94,6 +95,9 @@ class Geolocation extends React.Component {
     })
   }
 
+  unmountDialog () {
+  this.props.dispatch(clearDialogs())
+  }
   render () {
     const markers = this.props.markerLocation ? (
       <Marker
@@ -121,26 +125,25 @@ class Geolocation extends React.Component {
     }
 
     return (
-      <div className='geolocation'>
-        <div className='geolocation-border'>
-          <div className='geolocation-input'>
-            <SearchAddress searchResults={this.searchResults} />
-          </div>
-          <Map
-            center={this.state.mapCenter}
-            zoom={zoomLevel}
-            onClick={this.onClick}
-            ref={(ref) => { this.map = ref }}
-          >
-            <TileLayer
-              attribution={OPEN_STREET_MAP_ATTR}
-              url={OPEN_STREET_MAP_TILES}
-            />
-            {popup}
-            {markers}
-          </Map>
+        <div className=' dialog-box-geolocation geolocation'>
+         <div className='dialog-box-shield-g' />
+            <div className='geolocation-input'>
+              <SearchAddress searchResults={this.searchResults} />
+            </div>
+            <Map
+              center={this.state.mapCenter}
+              zoom={zoomLevel}
+              onClick={this.onClick}
+              ref={(ref) => { this.map = ref }}
+            >
+              <TileLayer
+                attribution={OPEN_STREET_MAP_ATTR}
+                url={OPEN_STREET_MAP_TILES}
+              />
+              {popup}
+              {markers}
+            </Map>
         </div>
-      </div>
     )
   }
 }

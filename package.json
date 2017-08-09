@@ -71,6 +71,7 @@
     "react-dom": "15.6.1",
     "react-leaflet": "1.4.1",
     "react-redux": "5.0.5",
+    "react-suggest": "0.0.1",
     "redux": "3.7.2",
     "request": "2.81.0",
     "requireindex": "1.1.0",
