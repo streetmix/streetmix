@@ -1,7 +1,8 @@
-import { SET_APP_FLAGS } from '../actions'
+import { SET_APP_FLAGS, SET_PRINTING } from '../actions'
 
 const initialState = {
-  readOnly: false
+  readOnly: false,
+  printing: false
 }
 
 const app = (state = initialState, action) => {
@@ -10,6 +11,11 @@ const app = (state = initialState, action) => {
       const obj = Object.assign({}, state, action)
       delete obj.type // Do not save action type.
       return obj
+    case SET_PRINTING:
+      return {
+        ...state,
+        printing: action.printing
+      }
     default:
       return state
   }

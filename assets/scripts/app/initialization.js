@@ -33,7 +33,6 @@ import { onResize } from './window_resize'
 import { attachBlockingShieldEventListeners } from './blocking_shield'
 import { registerKeypresses } from './keyboard_commands'
 import { infoBubble } from '../info_bubble/info_bubble'
-import { attachPrintEventListeners } from './print'
 import { attachGalleryScrollEventListeners } from '../gallery/scroll'
 import { attachStreetScrollEventListeners } from '../streets/scroll'
 import { attachFetchNonBlockingEventListeners } from '../util/fetch_nonblocking'
@@ -81,7 +80,6 @@ function preInit () {
   attachBlockingShieldEventListeners()
   registerKeypresses()
   infoBubble.registerKeypresses()
-  attachPrintEventListeners()
   attachGalleryScrollEventListeners()
   attachGalleryViewEventListeners()
   attachStreetScrollEventListeners()
