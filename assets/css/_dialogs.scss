@@ -70,7 +70,6 @@ $dialog-box-default-width: 790px;
   width: $dialog-box-default-width;
   // balance the dialog by making it slightly north of center
   margin-top: -6%;
-  padding: 15px 40px;
   background: white;
   font-size: 13px;
   line-height: 1.5;
@@ -195,6 +194,11 @@ $dialog-box-default-width: 790px;
 
 .donate-dialog {
   width: 560px;
+  text-align: center;
+}
+
+.map-dialog {
+  width: 100vh;
   text-align: center;
 }
 

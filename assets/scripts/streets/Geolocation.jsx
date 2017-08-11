@@ -7,13 +7,14 @@ import { setMapState } from '../store/actions/map'
 import SearchAddress from './SearchAddress'
 import { apiurlReverse, apikey } from './config'
 import { clearDialogs } from '../store/actions/dialogs'
+import Dialog from '../dialogs/Dialog'
 
 const OPEN_STREET_MAP_TILES = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png'
 const OPEN_STREET_MAP_ATTR = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
 
 const zoomLevel = 12
 
-class Geolocation extends React.Component {
+class MapDialog extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -134,34 +135,31 @@ class Geolocation extends React.Component {
     }
 
     return (
-        <div className=' dialog-box-geolocation geolocation'>
-        <div className='geolocation-border'>
-        <div className='dialog-box-shield-g' onClick={this.props.closeMap} />
-            <div className='geolocation-input'>
-              <SearchAddress setSearchResults={this.setSearchResults} />
-            </div>
-            <Map
-              center={this.state.mapCenter}
-              zoom={zoomLevel}
-              onClick={this.onClick}
-              ref={(ref) => { this.map = ref }}
-            >
-              <TileLayer
-                attribution={OPEN_STREET_MAP_ATTR}
-                url={OPEN_STREET_MAP_TILES}
-              />
-              {popup}
-              {markers}
-            </Map>
-            </div>
+        <Dialog className='map-dialog' disableShieldExit>
+          <div className='geolocation-input'>
+            <SearchAddress setSearchResults={this.setSearchResults} />
           </div>
-
+          <Map
+            center={this.state.mapCenter}
+            zoom={zoomLevel}
+            onClick={this.onClick}
+            ref={(ref) => { this.map = ref }}
+            style={{height:'55vh'}}
+          >
+            <TileLayer
+              attribution={OPEN_STREET_MAP_ATTR}
+              url={OPEN_STREET_MAP_TILES}
+            />
+            {popup}
+            {markers}
+          </Map>
+        </Dialog>
     )
   }
 }
 
-Geolocation.propTypes = {
-  markerLocation: PropTypes.array,
+MapDialog.propTypes = {
+  markerLocation: PropTypes.object,
   setMapState: PropTypes.func,
   addressInformationLabel: PropTypes.string,
   dispatch: PropTypes.func.isRequired
@@ -179,4 +177,4 @@ function mapDispatchToProps (dispatch) {
   return {...boundActionCreators, dispatch}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Geolocation)
+export default connect(mapStateToProps, mapDispatchToProps)(MapDialog)
