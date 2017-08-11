@@ -23,6 +23,10 @@
     "lint-js": "eslint \"**/*.js\" \"**/*.jsx\"",
     "translationsDownload": "node bin/download_translations.js"
   },
+  "browserslist": [
+    "last 2 versions",
+    "IE 11"
+  ],
   "dependencies": {
     "async": "2.5.0",
     "autoprefixer": "7.1.2",
@@ -39,6 +43,7 @@
     "config": "1.26.1",
     "cookie-parser": "1.4.3",
     "cookie-session": "2.0.0-beta.2",
+    "cssnano": "3.10.0",
     "dateformat": "2.0.0",
     "envify": "4.1.0",
     "express": "4.15.3",
