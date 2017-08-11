@@ -5,25 +5,37 @@ import { formatDate } from '../util/date_format'
 import { msg } from '../app/messages'
 import { getRemixOnFirstEdit } from './remix'
 import { showGallery } from '../gallery/view'
+import store from '../store'
 import StreetWidth from './StreetWidth'
 import Avatar from '../app/Avatar'
+import { SHOW_DIALOG } from '../store/actions'
 import Geolocation from './Geolocation'
 
 class StreetMetaData extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      street: this.props.street,
-      showMap: false
+      street: this.props.street
+      //showMap: false
     }
     this.onClickAuthor = this.onClickAuthor.bind(this)
     this.onClick = this.onClick.bind(this)
+    this.closeMap = this.closeMap.bind(this)
   }
 
   onClick (e) {
     e.preventDefault()
-    this.setState({showMap: !this.state.showMap})
-    
+    //this.setState({showMap: !this.state.showMap})
+    store.dispatch({
+      type: SHOW_DIALOG,
+      name: 'MAP'
+    })
+  }
+
+  
+  closeMap(){
+    console.log("hi")
+    //this.setState({showMap: false})
   }
 
   componentWillReceiveProps (nextProps) {
@@ -57,7 +69,7 @@ class StreetMetaData extends React.Component {
         <span id='street-metadata-author'>{author}</span>
         <span id='street-metadata-date'>{formatDate(this.state.street.updatedAt)}</span>
         <a id='street-metadata-map' onClick={this.onClick}><u>Geolocation!</u></a>
-        {this.state.showMap && <Geolocation />}
+        {this.state.showMap && <Geolocation closeMap = {this.closeMap} />}
 
       </div>
     )

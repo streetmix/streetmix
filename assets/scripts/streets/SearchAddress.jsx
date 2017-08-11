@@ -34,7 +34,7 @@ class SearchAddress extends Component {
       return
     }
 
-    this.props.searchResults(res.features[0].geometry.coordinates.reverse(), this.props.addressInformationLabel)
+    this.props.setSearchResults(res.features[0].geometry.coordinates.reverse(), this.props.addressInformationLabel)
 
     this.props.setMapState({
       addressInformationLabel: res.features[0].properties.label,
@@ -85,9 +85,9 @@ class SearchAddress extends Component {
 }
 
 SearchAddress.propTypes = {
-  setMapState: PropTypes.object,
+  setMapState: PropTypes.func,
   addressInformationLabel: PropTypes.string,
-  searchResults: PropTypes.array
+  setSearchResults: PropTypes.func
 }
 
 function mapStateToProps (state) {

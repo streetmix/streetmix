@@ -1,12 +1,13 @@
+.geolocation-border {
+  border-top: 3px solid white;
+  border-bottom: 3px solid white;
+}
+
 .geolocation {
   position: relative;
-  width: 1000px;
-  right: 250px;
-
-  .geolocation-border {
-    border-top: 3px solid #85b7cc;
-    border-bottom: 3px solid #85b7cc;
-  }
+  padding-top: 7px;
+ width: 1000px;
+ right: 250px;
 
   .geolocation-input {
     position: absolute;

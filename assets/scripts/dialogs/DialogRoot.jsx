@@ -6,11 +6,13 @@ import { connect } from 'react-redux'
 import AboutDialog from './AboutDialog'
 import SaveAsImageDialog from './SaveAsImageDialog'
 import DonateDialog from './DonateDialog'
+import MapDialog from '../streets/Geolocation'
 
 const DIALOG_COMPONENTS = {
   ABOUT: AboutDialog,
   SAVE_AS_IMAGE: SaveAsImageDialog,
-  DONATE: DonateDialog
+  DONATE: DonateDialog,
+  MAP: MapDialog
 }
 
 const DialogRoot = ({ name, props }) => {

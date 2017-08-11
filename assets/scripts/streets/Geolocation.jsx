@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import { setMapState } from '../store/actions/map'
 import SearchAddress from './SearchAddress'
 import { apiurlReverse, apikey } from './config'
+import { clearDialogs } from '../store/actions/dialogs'
 
 const OPEN_STREET_MAP_TILES = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png'
 const OPEN_STREET_MAP_ATTR = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
@@ -19,7 +20,7 @@ class Geolocation extends React.Component {
       mapCenter: [40.645, -73.975]
     }
 
-    this.searchResults = this.searchResults.bind(this)
+    this.setSearchResults = this.setSearchResults.bind(this)
     this.markerDrag = this.markerDrag.bind(this)
     this.onClick = this.onClick.bind(this)
     this.hidePopup = this.hidePopup.bind(this)
@@ -53,6 +54,13 @@ class Geolocation extends React.Component {
 
   /* end click event function */
 
+  onClickMap () {
+    store.dispatch({
+      type: SHOW_DIALOG,
+      name: 'MAP'
+    })
+  }
+
   /* start on marker drag function */
   markerDrag (e) {
     const gotJson = (res) => {
@@ -79,14 +87,14 @@ class Geolocation extends React.Component {
 
   /* end on marker drag function */
 
-  searchResults (point, label) {
+  setSearchResults (point, label) {
     this.setState({
       addressName: label,
       mapCenter: point,
       markerLocation: point
     })
 
-    this.map.leafletElement.panTo(this.props.markerLocation)
+    this.map.leafletElement.panTo(point)
   }
 
   hidePopup (e) {
@@ -94,6 +102,7 @@ class Geolocation extends React.Component {
       renderPopup: false
     })
   }
+
 
   unmountDialog () {
   this.props.dispatch(clearDialogs())
@@ -126,9 +135,10 @@ class Geolocation extends React.Component {
 
     return (
         <div className=' dialog-box-geolocation geolocation'>
-         <div className='dialog-box-shield-g' />
+        <div className='geolocation-border'>
+        <div className='dialog-box-shield-g' onClick={this.props.closeMap} />
             <div className='geolocation-input'>
-              <SearchAddress searchResults={this.searchResults} />
+              <SearchAddress setSearchResults={this.setSearchResults} />
             </div>
             <Map
               center={this.state.mapCenter}
@@ -143,15 +153,18 @@ class Geolocation extends React.Component {
               {popup}
               {markers}
             </Map>
-        </div>
+            </div>
+          </div>
+
     )
   }
 }
 
 Geolocation.propTypes = {
   markerLocation: PropTypes.array,
-  setMapState: PropTypes.object,
-  addressInformationLabel: PropTypes.string
+  setMapState: PropTypes.func,
+  addressInformationLabel: PropTypes.string,
+  dispatch: PropTypes.func.isRequired
 }
 
 function mapStateToProps (state) {
@@ -162,7 +175,8 @@ function mapStateToProps (state) {
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ setMapState }, dispatch)
+  const boundActionCreators = bindActionCreators({ setMapState }, dispatch)
+  return {...boundActionCreators, dispatch}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Geolocation)
