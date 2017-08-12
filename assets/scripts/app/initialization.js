@@ -18,12 +18,12 @@ import { getPromoteStreet, remixStreet } from '../streets/remix'
 import { setIgnoreStreetChanges } from '../streets/undo_stack'
 import { resizeStreetWidth } from '../streets/width'
 import { loadSignIn, isSignInLoaded } from '../users/authentication'
+import { updateSettingsFromCountryCode } from '../users/localization'
 import {
-  updateSettingsFromCountryCode,
   detectGeolocation,
   setGeolocationLoaded,
-  getGeolocationLoaded
-} from '../users/localization'
+  isGeolocationLoaded
+} from '../users/geolocation'
 import { ENV } from './config'
 import { addEventListeners } from './event_listeners'
 import { trackEvent } from './event_tracking'
@@ -119,11 +119,18 @@ export function initialize () {
   // Asynchronously loading…
 
   // …detecting country from IP for units and left/right-hand driving
-  var mode = getMode()
+  const mode = getMode()
   if ((mode === MODES.NEW_STREET) || (mode === MODES.NEW_STREET_COPY_LAST)) {
+    // Geolocation requests are slow and rate-limited, so we only do it when
+    // we need the info
+    // TODO: this actually returns a Promise now, so use this to handle
+    // async loading
     detectGeolocation()
   } else {
-    setGeolocationLoaded(true)
+    // Otherwise just set it as loaded without info
+    // TODO: this should return a resolved Promise in the future so we don't
+    // need this bypass
+    setGeolocationLoaded()
   }
 
   // …sign in info from our API (if not previously cached) – and subsequent
@@ -140,7 +147,7 @@ export function checkIfEverythingIsLoaded () {
   }
 
   if ((getImagesToBeLoaded() === 0) && isSignInLoaded() && bodyLoaded &&
-    readyStateCompleteLoaded && getGeolocationLoaded() && serverContacted) {
+    readyStateCompleteLoaded && isGeolocationLoaded() && serverContacted) {
     onEverythingLoaded()
   }
 }
