@@ -10,7 +10,7 @@ import {
   updateUnits
 } from '../users/localization'
 import { segmentsChanged } from '../segments/view'
-import { setStreet, createDomFromData } from './data_model'
+import { setStreet, getStreet, createDomFromData } from './data_model'
 import { resizeStreetWidth } from './width'
 import { t } from '../app/locale'
 
@@ -35,6 +35,17 @@ export default class StreetWidth extends React.Component {
     this.renderStreetWidthMenu = this.renderStreetWidthMenu.bind(this)
     this.clickStreetWidth = this.clickStreetWidth.bind(this)
     this.changeStreetWidth = this.changeStreetWidth.bind(this)
+  }
+
+  componentDidMount () {
+    // HACK: set up an event listener when street width is updated. this
+    // prevents an issue where street width is recalculated but does not
+    // update in this component
+    window.addEventListener('stmx:width_updated', () => {
+      this.setState({
+        street: getStreet()
+      })
+    })
   }
 
   componentWillReceiveProps (nextProps) {
