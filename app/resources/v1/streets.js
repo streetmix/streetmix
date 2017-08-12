@@ -58,7 +58,7 @@ exports.post = function (req, res) {
   } // END function - handleCreateStreet
 
   var handleNewStreetNamespacedId = function (err, namespacedId) {
-    if (err) {
+    if (err || !namespacedId) {
       logger.error(err)
       res.status(500).send('Could not create new street ID.')
       return
@@ -72,7 +72,7 @@ exports.post = function (req, res) {
     if (street.creator_id) {
       User.findByIdAndUpdate(street.creator_id,
         { $inc: { 'last_street_id': 1 } },
-        null,
+        { new: true, upsert: true },
         function (err, row) {
           handleNewStreetNamespacedId(err, (row ? row.last_street_id : null))
         })
