@@ -11,7 +11,16 @@ import ShareMenu from './ShareMenu'
 import { registerKeypress } from '../app/keypress'
 import { showMenu, clearMenus } from '../store/actions/menus'
 
-class MenusContainer extends React.Component {
+class MenusContainer extends React.PureComponent {
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    activeMenu: PropTypes.string
+  }
+
+  static defaultProps = {
+    activeMenu: ''
+  }
+
   constructor (props) {
     super(props)
 
@@ -52,7 +61,7 @@ class MenusContainer extends React.Component {
    * what was clicked and where it should be placed, which is then passed to
    * individual menus.
    */
-  onMenuDropdownClick (clickedItem) {
+  onMenuDropdownClick = (clickedItem) => {
     // If the clicked menu is already active, it's toggled off.
     const activeMenu = (this.props.activeMenu === clickedItem.name) ? null : clickedItem.name
     this.setState({
@@ -65,7 +74,7 @@ class MenusContainer extends React.Component {
    * Handles component state and DOM changes when menus are cleared. Called from
    * `componentWillReceiveProps()` which will check if props have actually changed.
    */
-  handleMenuClear () {
+  handleMenuClear = () => {
     this.setState({
       activeMenuPos: [0, 0]
     })
@@ -77,7 +86,7 @@ class MenusContainer extends React.Component {
     document.body.focus()
   }
 
-  hideAllMenus () {
+  hideAllMenus = () => {
     // Only act if there is currently an active menu.
     if (this.props.activeMenu) {
       this.props.dispatch(clearMenus())
@@ -100,15 +109,6 @@ class MenusContainer extends React.Component {
       </div>
     )
   }
-}
-
-MenusContainer.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  activeMenu: PropTypes.string
-}
-
-MenusContainer.defaultProps = {
-  activeMenu: ''
 }
 
 function mapStateToProps (state) {

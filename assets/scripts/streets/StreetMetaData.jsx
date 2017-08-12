@@ -11,13 +11,25 @@ import Avatar from '../app/Avatar'
 import { SHOW_DIALOG } from '../store/actions'
 
 class StreetMetaData extends React.Component {
+  static propTypes = {
+    id: PropTypes.string,
+    readOnly: PropTypes.bool,
+    signedIn: PropTypes.bool.isRequired,
+    userId: PropTypes.string,
+    street: PropTypes.any,
+    experimental: PropTypes.bool
+  }
+
+  static defaultProps = {
+    userId: ''
+  }
+
   constructor (props) {
     super(props)
+
     this.state = {
       street: this.props.street
     }
-    this.onClickAuthor = this.onClickAuthor.bind(this)
-    this.onClick = this.onClick.bind(this)
   }
 
   onClick (e) {
@@ -28,22 +40,16 @@ class StreetMetaData extends React.Component {
     })
   }
 
-  componentWillReceiveProps (nextProps) {
-    this.setState({
-      street: nextProps.street
-    })
-  }
-
-  onClickAuthor (e) {
-    if (e) {
-      e.preventDefault()
+  onClickAuthor = (event) => {
+    if (event) {
+      event.preventDefault()
     }
-    showGallery(this.state.street.creatorId, false)
+    showGallery(this.props.street.creatorId, false)
   }
 
   render () {
     let author = null
-    const creatorId = this.state.street.creatorId
+    const creatorId = this.props.street.creatorId
     if (creatorId && (!this.props.signedIn || (creatorId !== this.props.userId))) {
       author = <span>
         by <Avatar userId={creatorId} />
@@ -61,26 +67,13 @@ class StreetMetaData extends React.Component {
 
     return (
       <div id={this.props.id}>
-        <StreetWidth street={this.state.street} readOnly={this.props.readOnly} />
+        <StreetWidth street={this.props.street} readOnly={this.props.readOnly} />
         <span id="street-metadata-author">{author}</span>
-        <span id="street-metadata-date">{formatDate(this.state.street.updatedAt)}</span>
+        <span id="street-metadata-date">{formatDate(this.props.street.updatedAt)}</span>
         {geolocation}
       </div>
     )
   }
-}
-
-StreetMetaData.propTypes = {
-  id: PropTypes.string,
-  readOnly: PropTypes.bool,
-  street: PropTypes.any,
-  signedIn: PropTypes.bool.isRequired,
-  userId: PropTypes.string,
-  experimental: PropTypes.bool
-}
-
-StreetMetaData.defaultProps = {
-  userId: ''
 }
 
 function mapStateToProps (state) {

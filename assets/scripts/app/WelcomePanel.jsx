@@ -27,6 +27,15 @@ const WELCOME_FIRST_TIME_EXISTING_STREET = 3
 const LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED = 'settings-welcome-dismissed'
 
 class WelcomePanel extends React.Component {
+  static propTypes = {
+    newStreetPreference: PropTypes.number,
+    priorLastStreetId: PropTypes.string
+  }
+
+  static defaultProps = {
+    priorLastStreetId: null
+  }
+
   constructor (props) {
     super(props)
 
@@ -36,11 +45,6 @@ class WelcomePanel extends React.Component {
       welcomeDismissed: this.getSettingsWelcomeDismissed(),
       selectedNewStreetType: null
     }
-
-    this.showWelcome = this.showWelcome.bind(this)
-    this.hideWelcome = this.hideWelcome.bind(this)
-    this.onClickGoNewStreet = this.onClickGoNewStreet.bind(this)
-    this.onChangeNewStreetType = this.onChangeNewStreetType.bind(this)
   }
 
   componentDidMount () {
@@ -59,7 +63,7 @@ class WelcomePanel extends React.Component {
     window.removeEventListener('stmx:save_street', this.hideWelcome)
   }
 
-  showWelcome () {
+  showWelcome = () => {
     // Do not do anything in these cases
     if (app.readOnly || system.phone) {
       return
@@ -113,7 +117,7 @@ class WelcomePanel extends React.Component {
     registerKeypress('esc', this.hideWelcome)
   }
 
-  hideWelcome () {
+  hideWelcome = () => {
     // Certain events will hide the welcome panel, if visible.
     // Here we check to make sure it is visible before doing anything else.
     if (this.state.visible === false) {
@@ -148,7 +152,7 @@ class WelcomePanel extends React.Component {
       JSON.stringify(value)
   }
 
-  onClickGoNewStreet (event) {
+  onClickGoNewStreet = (event) => {
     this.setState({ welcomeDismissed: true })
     this.setSettingsWelcomeDismissed(true)
     goNewStreet(true)
@@ -156,7 +160,7 @@ class WelcomePanel extends React.Component {
 
   // The following handler is only used with the WELCOME_NEW_STREET mode.
   // It handles changing the "checked" state of the input buttons.
-  onChangeNewStreetType (event) {
+  onChangeNewStreetType = (event) => {
     this.setState({
       selectedNewStreetType: event.target.id
     })
@@ -306,15 +310,6 @@ class WelcomePanel extends React.Component {
       </div>
     )
   }
-}
-
-WelcomePanel.propTypes = {
-  newStreetPreference: PropTypes.number,
-  priorLastStreetId: PropTypes.string
-}
-
-WelcomePanel.defaultProps = {
-  priorLastStreetId: null
 }
 
 function mapStateToProps (state) {

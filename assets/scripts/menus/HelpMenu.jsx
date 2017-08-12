@@ -1,12 +1,17 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import Menu from './Menu'
 import { registerKeypress } from '../app/keypress'
 import { trackEvent } from '../app/event_tracking'
 import { t } from '../app/locale'
-import store from '../store'
 import { SHOW_DIALOG } from '../store/actions'
 
-export default class HelpMenu extends React.PureComponent {
+class HelpMenu extends React.PureComponent {
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired
+  }
+
   componentDidMount () {
     // TODO: This does not really need to be here?
     registerKeypress('?', { shiftKey: 'optional' }, () => {
@@ -18,8 +23,8 @@ export default class HelpMenu extends React.PureComponent {
     trackEvent('Interaction', 'Open help menu', null, null, false)
   }
 
-  onClickAbout () {
-    store.dispatch({
+  onClickAbout = () => {
+    this.props.dispatch({
       type: SHOW_DIALOG,
       name: 'ABOUT'
     })
@@ -71,3 +76,5 @@ export default class HelpMenu extends React.PureComponent {
     )
   }
 }
+
+export default connect()(HelpMenu)

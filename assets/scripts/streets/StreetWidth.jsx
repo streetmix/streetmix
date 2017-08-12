@@ -24,17 +24,17 @@ export const MAX_CUSTOM_STREET_WIDTH = 400
 const DEFAULT_STREET_WIDTHS = [40, 60, 80]
 
 export default class StreetWidth extends React.Component {
+  static propTypes = {
+    readOnly: PropTypes.bool,
+    street: PropTypes.any
+  }
+
   constructor (props) {
     super(props)
+
     this.state = {
       street: this.props.street
     }
-    this.displayStreetWidthRemaining = this.displayStreetWidthRemaining.bind(this)
-    this.normalizeStreetWidth = this.normalizeStreetWidth.bind(this)
-    this.createStreetWidthOption = this.createStreetWidthOption.bind(this)
-    this.renderStreetWidthMenu = this.renderStreetWidthMenu.bind(this)
-    this.clickStreetWidth = this.clickStreetWidth.bind(this)
-    this.changeStreetWidth = this.changeStreetWidth.bind(this)
   }
 
   componentDidMount () {
@@ -54,7 +54,7 @@ export default class StreetWidth extends React.Component {
     })
   }
 
-  displayStreetWidthRemaining () {
+  displayStreetWidthRemaining = () => {
     // TODO work on this so that we can use markup
     const width = prettifyWidth(Math.abs(this.state.street.remainingWidth), { markup: false })
 
@@ -93,7 +93,7 @@ export default class StreetWidth extends React.Component {
     return <option key={width} value={width}>{prettifyWidth(width)}</option>
   }
 
-  renderStreetWidthMenu () {
+  renderStreetWidthMenu = () => {
     var widths = []
     const defaultWidths = DEFAULT_STREET_WIDTHS.map((defaultWidth) => {
       let width = this.normalizeStreetWidth(defaultWidth)
@@ -143,7 +143,7 @@ export default class StreetWidth extends React.Component {
     )
   }
 
-  clickStreetWidth (e) {
+  clickStreetWidth = (event) => {
     if (!this.props.readOnly) {
       document.body.classList.add('edit-street-width')
 
@@ -157,62 +157,62 @@ export default class StreetWidth extends React.Component {
     }
   }
 
-  changeStreetWidth () {
-    if (!this.props.readOnly) {
-      var newStreetWidth = parseInt(this.streetWidth.value)
+  changeStreetWidth = () => {
+    if (this.props.readOnly) return
 
-      document.body.classList.remove('edit-street-width')
+    var newStreetWidth = parseInt(this.streetWidth.value)
 
-      if (newStreetWidth === this.state.street.width) {
-        return
-      } else if (newStreetWidth === STREET_WIDTH_SWITCH_TO_METRIC) {
-        updateUnits(SETTINGS_UNITS_METRIC)
-        return
-      } else if (newStreetWidth === STREET_WIDTH_SWITCH_TO_IMPERIAL) {
-        updateUnits(SETTINGS_UNITS_IMPERIAL)
-        return
-      } else if (newStreetWidth === STREET_WIDTH_CUSTOM) {
-        let promptValue = this.state.street.occupiedWidth
-        if (promptValue < MIN_CUSTOM_STREET_WIDTH) promptValue = MIN_CUSTOM_STREET_WIDTH
-        if (promptValue > MAX_CUSTOM_STREET_WIDTH) promptValue = MAX_CUSTOM_STREET_WIDTH
+    document.body.classList.remove('edit-street-width')
 
-        const replacements = {
-          minWidth: prettifyWidth(MIN_CUSTOM_STREET_WIDTH),
-          maxWidth: prettifyWidth(MAX_CUSTOM_STREET_WIDTH)
-        }
-        const promptString = t('prompt.new-width', 'New street width (from {{minWidth}} to {{maxWidth}}):', replacements)
-        let width = window.prompt(promptString, prettifyWidth(promptValue))
+    if (newStreetWidth === this.state.street.width) {
+      return
+    } else if (newStreetWidth === STREET_WIDTH_SWITCH_TO_METRIC) {
+      updateUnits(SETTINGS_UNITS_METRIC)
+      return
+    } else if (newStreetWidth === STREET_WIDTH_SWITCH_TO_IMPERIAL) {
+      updateUnits(SETTINGS_UNITS_IMPERIAL)
+      return
+    } else if (newStreetWidth === STREET_WIDTH_CUSTOM) {
+      let promptValue = this.state.street.occupiedWidth
+      if (promptValue < MIN_CUSTOM_STREET_WIDTH) promptValue = MIN_CUSTOM_STREET_WIDTH
+      if (promptValue > MAX_CUSTOM_STREET_WIDTH) promptValue = MAX_CUSTOM_STREET_WIDTH
 
-        if (width) {
-          width = this.normalizeStreetWidth(processWidthInput(width))
-        }
+      const replacements = {
+        minWidth: prettifyWidth(MIN_CUSTOM_STREET_WIDTH),
+        maxWidth: prettifyWidth(MAX_CUSTOM_STREET_WIDTH)
+      }
+      const promptString = t('prompt.new-width', 'New street width (from {{minWidth}} to {{maxWidth}}):', replacements)
+      let width = window.prompt(promptString, prettifyWidth(promptValue))
 
-        if (!width) {
-          loseAnyFocus()
-          return
-        }
-
-        if (width < MIN_CUSTOM_STREET_WIDTH) {
-          width = MIN_CUSTOM_STREET_WIDTH
-        } else if (width > MAX_CUSTOM_STREET_WIDTH) {
-          width = MAX_CUSTOM_STREET_WIDTH
-        }
-        newStreetWidth = width
+      if (width) {
+        width = this.normalizeStreetWidth(processWidthInput(width))
       }
 
-      const street = Object.assign({}, this.state.street)
-      street.width = this.normalizeStreetWidth(newStreetWidth)
-      setStreet(street)
+      if (!width) {
+        loseAnyFocus()
+        return
+      }
 
-      resizeStreetWidth()
-
-      setInitializing(true)
-      createDomFromData()
-      segmentsChanged()
-      setInitializing(false)
-
-      loseAnyFocus()
+      if (width < MIN_CUSTOM_STREET_WIDTH) {
+        width = MIN_CUSTOM_STREET_WIDTH
+      } else if (width > MAX_CUSTOM_STREET_WIDTH) {
+        width = MAX_CUSTOM_STREET_WIDTH
+      }
+      newStreetWidth = width
     }
+
+    const street = Object.assign({}, this.state.street)
+    street.width = this.normalizeStreetWidth(newStreetWidth)
+    setStreet(street)
+
+    resizeStreetWidth()
+
+    setInitializing(true)
+    createDomFromData()
+    segmentsChanged()
+    setInitializing(false)
+
+    loseAnyFocus()
   }
 
   render () {
@@ -233,9 +233,4 @@ export default class StreetWidth extends React.Component {
       </span>
     )
   }
-}
-
-StreetWidth.propTypes = {
-  readOnly: PropTypes.bool,
-  street: PropTypes.any
 }

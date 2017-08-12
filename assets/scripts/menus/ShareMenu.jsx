@@ -13,30 +13,35 @@ import { getSharingUrl } from '../util/share_url'
 import { SHOW_DIALOG } from '../store/actions'
 
 class ShareMenu extends React.Component {
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired, // supplied by connect()
+    signedIn: PropTypes.bool.isRequired,
+    userId: PropTypes.string
+  }
+
+  static defaultProps = {
+    userId: ''
+  }
+
   constructor (props) {
     super(props)
 
     this.state = {
       shareUrl: ''
     }
-
-    this.updateLinks = this.updateLinks.bind(this)
-    this.getSharingMessage = this.getSharingMessage.bind(this)
-    this.onShow = this.onShow.bind(this)
-    this.onClickSaveAsImage = this.onClickSaveAsImage.bind(this)
   }
 
   componentDidMount () {
     this.updateLinks()
   }
 
-  updateLinks () {
+  updateLinks = () => {
     const url = getSharingUrl()
 
     this.setState({ shareUrl: url })
   }
 
-  getSharingMessage () {
+  getSharingMessage = () => {
     let message = ''
     let street = getStreet()
 
@@ -53,7 +58,7 @@ class ShareMenu extends React.Component {
     return message
   }
 
-  onShow () {
+  onShow = () => {
     // Make sure links are updated when the menu is opened
     this.updateLinks()
 
@@ -72,7 +77,7 @@ class ShareMenu extends React.Component {
     trackEvent('SHARING', 'FACEBOOK', null, null, false)
   }
 
-  onClickSaveAsImage (event) {
+  onClickSaveAsImage = (event) => {
     event.preventDefault()
     this.props.dispatch({
       type: SHOW_DIALOG,
@@ -148,16 +153,6 @@ class ShareMenu extends React.Component {
       </Menu>
     )
   }
-}
-
-ShareMenu.propTypes = {
-  dispatch: PropTypes.func.isRequired, // supplied by connect()
-  signedIn: PropTypes.bool.isRequired,
-  userId: PropTypes.string
-}
-
-ShareMenu.defaultProps = {
-  userId: ''
 }
 
 function mapStateToProps (state) {

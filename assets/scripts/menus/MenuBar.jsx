@@ -11,12 +11,18 @@ import { onMyStreetsClick } from '../gallery/view'
 import { getElAbsolutePos } from '../util/helpers'
 import Avatar from '../app/Avatar'
 
-class MenuBar extends React.Component {
+class MenuBar extends React.PureComponent {
+  static propTypes = {
+    onMenuDropdownClick: PropTypes.func,
+    userId: PropTypes.string
+  }
+
+  static defaultProps = {
+    userId: ''
+  }
+
   constructor (props) {
     super(props)
-
-    this.onClickMenuButton = this.onClickMenuButton.bind(this)
-    this.onResize = this.onResize.bind(this)
 
     window.addEventListener('resize', this.onResize)
 
@@ -49,7 +55,7 @@ class MenuBar extends React.Component {
   /**
    * Handles clicks on <button> elements which result in a dropdown menu.
    */
-  onClickMenuButton (event) {
+  onClickMenuButton = (event) => {
     // We need to send to the parent component (which handles menus) information
     // about what button was clicked and its position, so that the specified
     // menu can open in the correct place. The clicked button stores `data-name`
@@ -60,7 +66,7 @@ class MenuBar extends React.Component {
     this.props.onMenuDropdownClick({ name, position })
   }
 
-  onResize () {
+  onResize = () => {
     // Throw this event so that the StreetName can figure out if it needs to push itself lower than the menubar
     window.dispatchEvent(new CustomEvent('stmx:menu_bar_resized', { detail: {
       rightMenuBarLeftPos: this.menuBarRight.getBoundingClientRect().left
@@ -182,15 +188,6 @@ class MenuBar extends React.Component {
       </nav>
     )
   }
-}
-
-MenuBar.propTypes = {
-  onMenuDropdownClick: PropTypes.func,
-  userId: PropTypes.string
-}
-
-MenuBar.defaultProps = {
-  userId: ''
 }
 
 function mapStateToProps (state) {

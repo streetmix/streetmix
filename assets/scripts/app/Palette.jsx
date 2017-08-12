@@ -4,13 +4,6 @@ import { createPalette } from '../segments/palette'
 import { undo, redo } from '../streets/undo_stack'
 
 export default class Palette extends React.PureComponent {
-  constructor (props) {
-    super(props)
-
-    this.setScrollableRef = this.setScrollableRef.bind(this)
-    this.adjustPaletteLayout = this.adjustPaletteLayout.bind(this)
-  }
-
   componentDidMount () {
     // We have to run this after this event in order to give images time to load.
     window.addEventListener('stmx:everything_loaded', (event) => {
@@ -20,11 +13,11 @@ export default class Palette extends React.PureComponent {
     })
   }
 
-  setScrollableRef (ref) {
+  setScrollableRef = (ref) => {
     this.paletteEl = ref
   }
 
-  adjustPaletteLayout () {
+  adjustPaletteLayout = () => {
     const commandsWidth = this.commandsEl.getBoundingClientRect().width
 
     // Only do work if palette commands has increased in width

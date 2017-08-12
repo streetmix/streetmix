@@ -3,7 +3,6 @@
  *
  * Handles the "About" dialog box.
  * Instantiates an instance of Dialog
- * Exports nothing
  *
  */
 import React from 'react'
@@ -12,7 +11,7 @@ import Avatar from '../app/Avatar'
 import { trackEvent } from '../app/event_tracking'
 import { t } from '../app/locale'
 
-export default class AboutDialog extends React.Component {
+export default class AboutDialog extends React.PureComponent {
   componentDidMount () {
     trackEvent('Interaction', 'Open about dialog box', null, null, false)
   }

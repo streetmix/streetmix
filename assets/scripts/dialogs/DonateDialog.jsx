@@ -3,7 +3,6 @@
  *
  * Handles the "Donate" dialog box.
  * Instantiates an instance of Dialog
- * Exports nothing
  *
  */
 import React from 'react'
@@ -16,25 +15,23 @@ import { clearDialogs } from '../store/actions/dialogs'
 const LOCALSTORAGE_DONATE_DISMISSED = 'settings-donate-dismissed'
 const LOCALSTORAGE_DONATE_DELAYED_TIMESTAMP = 'settings-donate-delayed-timestamp'
 
-class DonateDialog extends React.Component {
-  constructor (props) {
-    super(props)
-
-    this.onClickDonateButton = this.onClickDonateButton.bind(this)
-    this.onClickClose = this.onClickClose.bind(this)
+class DonateDialog extends React.PureComponent {
+  static propTypes = {
+    // Supplied by connect()
+    dispatch: PropTypes.func.isRequired
   }
 
   componentDidMount () {
     trackEvent('Interaction', 'Display donate dialog box', null, null, false)
   }
 
-  onClickDonateButton (event) {
+  onClickDonateButton = (event) => {
     trackEvent('Interaction', 'Clicked donate button', null, null, false)
     this.setSettingsDonateDismissed(true)
     this.props.dispatch(clearDialogs())
   }
 
-  onClickClose (event) {
+  onClickClose = (event) => {
     trackEvent('Interaction', 'Clicked close donate dialog link', null, null, false)
     this.setSettingsDonateDelayed(true)
     this.props.dispatch(clearDialogs())
@@ -76,11 +73,6 @@ class DonateDialog extends React.Component {
       </Dialog>
     )
   }
-}
-
-DonateDialog.propTypes = {
-  // Supplied by connect()
-  dispatch: PropTypes.func.isRequired
 }
 
 export default connect()(DonateDialog)

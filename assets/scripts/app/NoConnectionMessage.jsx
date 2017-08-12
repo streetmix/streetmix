@@ -7,6 +7,14 @@ import { t } from '../app/locale'
 const NO_CONNECTION_MESSAGE_TIMEOUT = 10000
 
 class NoConnectionMessage extends React.Component {
+  static propTypes = {
+    scheduled: PropTypes.bool.isRequired
+  }
+
+  static defaultProps = {
+    scheduled: false
+  }
+
   constructor (props) {
     super(props)
 
@@ -62,14 +70,6 @@ class NoConnectionMessage extends React.Component {
       </div>
     )
   }
-}
-
-NoConnectionMessage.propTypes = {
-  scheduled: PropTypes.bool.isRequired
-}
-
-NoConnectionMessage.defaultProps = {
-  scheduled: false
 }
 
 function mapStateToProps (state) {
