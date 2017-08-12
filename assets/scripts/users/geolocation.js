@@ -30,10 +30,20 @@ export function detectGeolocation () {
   // Reset state
   store.dispatch(setGeolocationLoading())
 
-  // Detect and handle timeout
-  window.setTimeout(detectGeolocationTimeout, IP_GEOLOCATION_TIMEOUT)
-
   // Fetch geolocation data; return Promise to caller
+  // It resolves with either the result of the fetch or times out if it takes too long
+  return Promise.race([ fetchGeolocation(), detectGeolocationTimeout() ])
+    .catch((error) => {
+      console.warn('[detectGeolocation]', error)
+    })
+    .then(() => {
+      document.querySelector('#loading-progress').value++
+      checkIfSignInAndGeolocationLoaded()
+      checkIfEverythingIsLoaded()
+    })
+}
+
+function fetchGeolocation () {
   return window.fetch(IP_GEOLOCATION_API_URL)
     .then((response) => {
       if (!response.ok) {
@@ -43,11 +53,10 @@ export function detectGeolocation () {
       return response.json()
     })
     .then(receiveGeolocation)
-    .catch((error) => {
-      console.log('[detectGeolocation]', error)
-    })
 }
 
+// Note: it's possible to receive this information late, after the time out,
+// but we keep it anyway
 function receiveGeolocation (info) {
   if (info && info.country_code) {
     updateSettingsFromCountryCode(info.country_code)
@@ -58,19 +67,18 @@ function receiveGeolocation (info) {
 
   store.dispatch(setGeolocationData(info))
 
-  document.querySelector('#loading-progress').value++
-  checkIfSignInAndGeolocationLoaded()
-  checkIfEverythingIsLoaded()
+  return info
 }
 
 function detectGeolocationTimeout () {
-  if (isGeolocationLoaded() === false) {
-    setGeolocationLoaded()
+  return new Promise((resolve, reject) => {
+    return window.setTimeout(() => {
+      if (isGeolocationLoaded() === false) {
+        setGeolocationLoaded()
+        trackEvent('ERROR', 'ERROR_GEOLOCATION_TIMEOUT', null, null, false)
+      }
 
-    document.querySelector('#loading-progress').value++
-    checkIfSignInAndGeolocationLoaded()
-    checkIfEverythingIsLoaded()
-
-    trackEvent('ERROR', 'ERROR_GEOLOCATION_TIMEOUT', null, null, false)
-  }
+      return reject(new Error('timed out.'))
+    }, IP_GEOLOCATION_TIMEOUT)
+  })
 }
