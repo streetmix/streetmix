@@ -83,18 +83,21 @@ export function processUrl () {
 
     setMode(MODES.EXISTING_STREET)
   } else if ((urlParts.length >= 2) && urlParts[0] && urlParts[1]) {
-    // TODO add is integer urlParts[1]
-    // Existing street by a signed in person
-
+    // Existing street by a user person
     street.creatorId = urlParts[0]
 
     if (street.creatorId.charAt(0) === URL_RESERVED_PREFIX) {
       street.creatorId = street.creatorId.substr(1)
     }
 
-    street.namespacedId = urlParts[1]
-
-    setMode(MODES.EXISTING_STREET)
+    // if `urlParts[1]` is not an integer, redirect to user's gallery
+    if (Number.isInteger(window.parseInt(urlParts[1])) === false) {
+      galleryUserId = urlParts[0]
+      setMode(MODES.USER_GALLERY)
+    } else {
+      street.namespacedId = urlParts[1]
+      setMode(MODES.EXISTING_STREET)
+    }
   } else {
     setMode(MODES.NOT_FOUND)
   }
