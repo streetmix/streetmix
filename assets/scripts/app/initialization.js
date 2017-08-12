@@ -18,7 +18,10 @@ import { getPromoteStreet, remixStreet } from '../streets/remix'
 import { setIgnoreStreetChanges } from '../streets/undo_stack'
 import { resizeStreetWidth } from '../streets/width'
 import { loadSignIn, isSignInLoaded } from '../users/authentication'
-import { updateSettingsFromCountryCode } from '../users/localization'
+import {
+  checkIfSignInAndGeolocationLoaded,
+  updateSettingsFromCountryCode
+} from '../users/localization'
 import {
   detectGeolocation,
   setGeolocationLoaded,
@@ -123,14 +126,22 @@ export function initialize () {
   if ((mode === MODES.NEW_STREET) || (mode === MODES.NEW_STREET_COPY_LAST)) {
     // Geolocation requests are slow and rate-limited, so we only do it when
     // we need the info
-    // TODO: this actually returns a Promise now, so use this to handle
-    // async loading
     detectGeolocation()
+      .then((info) => {
+        if (info && info.country_code) {
+          updateSettingsFromCountryCode(info.country_code)
+        }
+
+        document.querySelector('#loading-progress').value++
+        checkIfSignInAndGeolocationLoaded()
+        checkIfEverythingIsLoaded()
+      })
   } else {
     // Otherwise just set it as loaded without info
-    // TODO: this should return a resolved Promise in the future so we don't
-    // need this bypass
     setGeolocationLoaded()
+      .then(() => {
+        document.querySelector('#loading-progress').value++
+      })
   }
 
   // …sign in info from our API (if not previously cached) – and subsequent
