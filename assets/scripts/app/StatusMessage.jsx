@@ -14,12 +14,25 @@ const STATUS_MESSAGE_HIDE_DELAY = 15000
 
 // TODO: Some logic needs to separate out as container vs presentational.
 class StatusMessage extends React.PureComponent {
+  static propTypes = {
+    visible: PropTypes.bool.isRequired,
+    message: PropTypes.string,
+    undo: PropTypes.bool,
+    signIn: PropTypes.bool,
+    hideStatusMessage: PropTypes.func
+  }
+
+  static defaultProps = {
+    visible: false,
+    message: '',
+    undo: false,
+    signIn: PropTypes.bool
+  }
+
   constructor (props) {
     super(props)
 
     this.timerId = -1
-
-    this.onClickTheX = this.onClickTheX.bind(this)
   }
 
   componentDidMount () {
@@ -45,11 +58,11 @@ class StatusMessage extends React.PureComponent {
     }
   }
 
-  onClickUndo (event) {
+  onClickUndo = (event) => {
     undo()
   }
 
-  onClickTheX (event) {
+  onClickTheX = (event) => {
     this.props.hideStatusMessage()
 
     // Force window to refocus on document.body after StatusMessage is closed by X button
@@ -94,21 +107,6 @@ class StatusMessage extends React.PureComponent {
       </div>
     )
   }
-}
-
-StatusMessage.propTypes = {
-  visible: PropTypes.bool.isRequired,
-  message: PropTypes.string,
-  undo: PropTypes.bool,
-  signIn: PropTypes.bool,
-  hideStatusMessage: PropTypes.func
-}
-
-StatusMessage.defaultProps = {
-  visible: false,
-  message: '',
-  undo: false,
-  signIn: PropTypes.bool
 }
 
 function mapStateToProps (state) {

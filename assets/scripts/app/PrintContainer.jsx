@@ -5,17 +5,19 @@ import { attachPrintEventListeners } from './print'
 import { getStreetImage } from '../streets/image'
 
 class PrintContainer extends React.PureComponent {
-  constructor (props) {
-    super(props)
+  static propTypes = {
+    isPrinting: PropTypes.bool.isRequired
+  }
 
-    this.createPrintImage = this.createPrintImage.bind(this)
+  static defaultProps = {
+    isPrinting: false
   }
 
   componentDidMount () {
     attachPrintEventListeners()
   }
 
-  createPrintImage () {
+  createPrintImage = () => {
     if (this.props.isPrinting) {
       const dataUrl = getStreetImage(true, true).toDataURL('image/png')
       return <img src={dataUrl} />
@@ -31,14 +33,6 @@ class PrintContainer extends React.PureComponent {
       </div>
     )
   }
-}
-
-PrintContainer.propTypes = {
-  isPrinting: PropTypes.bool.isRequired
-}
-
-PrintContainer.defaultProps = {
-  isPrinting: false
 }
 
 function mapStateToProps (state) {
