@@ -1,4 +1,3 @@
-/* global L */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
@@ -16,6 +15,7 @@ const MAP_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright
 
 const zoomLevel = 12
 
+/* global L */
 /* Override icon paths in stock Leaflet's stylesheet */
 delete L.Icon.Default.prototype._getIconUrl
 L.Icon.Default.mergeOptions({
@@ -145,8 +145,8 @@ class GeolocateDialog extends React.Component {
     const tileUrl = (window.devicePixelRatio > 1) ? MAP_TILES_2X : MAP_TILES
 
     return (
-      <Dialog className='geolocate-dialog'>
-        <div className='geolocate-input'>
+      <Dialog className="geolocate-dialog">
+        <div className="geolocate-input">
           <SearchAddress setSearchResults={this.setSearchResults} />
         </div>
         <Map

@@ -91,18 +91,18 @@ class StatusMessage extends React.PureComponent {
     // Translation of "sign in" is reused from the menu bar.
     const signInButton = (signIn)
       ? (
-        <a href={`/${URL_SIGN_IN_REDIRECT}`} className='button-like'>
+        <a href={`/${URL_SIGN_IN_REDIRECT}`} className="button-like">
           {t('menu.item.sign-in', 'Sign in')}
         </a>
       ) : null
 
     return (
-      <div id='status-message' className={className}>
-        <div className='status-message-content'>
+      <div id="status-message" className={className}>
+        <div className="status-message-content">
           {message}
           {undoButton}
           {signInButton}
-          <button className='close' onClick={this.onClickTheX}>×</button>
+          <button className="close" onClick={this.onClickTheX}>×</button>
         </div>
       </div>
     )

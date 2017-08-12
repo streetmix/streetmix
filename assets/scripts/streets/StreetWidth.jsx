@@ -104,7 +104,7 @@ export default class StreetWidth extends React.Component {
     let customWidthBlank = null
     let customWidth = null
     if (widths.indexOf(parseFloat(this.state.street.width)) === -1) {
-      customWidthBlank = <option disabled='true' />
+      customWidthBlank = <option disabled="true" />
       customWidth = this.createStreetWidthOption(this.state.street.width)
     }
 
@@ -113,27 +113,27 @@ export default class StreetWidth extends React.Component {
       selectedValue = this.state.street.width
     }
     return (
-      <select ref={(ref) => { this.streetWidth = ref }} onChange={this.changeStreetWidth} id='street-width' value={selectedValue}>
-        <option disabled='true'>{t('width.occupied', 'Occupied width:')}</option>
-        <option disabled='true'>{prettifyWidth(this.state.street.occupiedWidth)}</option>
-        <option disabled='true' />
-        <option disabled='true'>{t('width.building', 'Building-to-building width:')}</option>
+      <select ref={(ref) => { this.streetWidth = ref }} onChange={this.changeStreetWidth} id="street-width" value={selectedValue}>
+        <option disabled="true">{t('width.occupied', 'Occupied width:')}</option>
+        <option disabled="true">{prettifyWidth(this.state.street.occupiedWidth)}</option>
+        <option disabled="true" />
+        <option disabled="true">{t('width.building', 'Building-to-building width:')}</option>
         {defaultWidths}
         {customWidthBlank}
         {customWidth}
         <option value={STREET_WIDTH_CUSTOM} >
           {t('width.different', 'Different width…')}
         </option>
-        <option disabled='true' />
+        <option disabled="true" />
         <option
-          id='switch-to-imperial-units'
+          id="switch-to-imperial-units"
           value={STREET_WIDTH_SWITCH_TO_IMPERIAL}
           disabled={this.state.street.units === SETTINGS_UNITS_IMPERIAL}
         >
           {t('width.imperial', 'Switch to imperial units (feet)')}
         </option>
         <option
-          id='switch-to-metric-units'
+          id="switch-to-metric-units"
           value={STREET_WIDTH_SWITCH_TO_METRIC}
           disabled={this.state.street.units === SETTINGS_UNITS_METRIC}
         >
@@ -223,11 +223,11 @@ export default class StreetWidth extends React.Component {
     const difference = this.displayStreetWidthRemaining()
 
     return (
-      <span id='street-metadata-width'>
-        <span id='street-width-read' title='Change width of the street' onClick={this.clickStreetWidth}>
-          <span id='street-width-read-width'>{widthString}</span>
+      <span id="street-metadata-width">
+        <span id="street-width-read" title="Change width of the street" onClick={this.clickStreetWidth}>
+          <span id="street-width-read-width">{widthString}</span>
           &nbsp;
-          <span id='street-width-read-difference' className={difference.class}>{difference.width}</span>
+          <span id="street-width-read-difference" className={difference.class}>{difference.width}</span>
         </span>
         {this.renderStreetWidthMenu()}
       </span>

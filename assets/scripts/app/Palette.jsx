@@ -47,16 +47,16 @@ export default class Palette extends React.PureComponent {
 
   render () {
     return (
-      <div className='palette-container'>
-        <div className='palette-trashcan' data-i18n='palette.remove'>
+      <div className="palette-container">
+        <div className="palette-trashcan" data-i18n="palette.remove">
           Drag here to remove
         </div>
-        <div className='palette-commands' ref={(ref) => { this.commandsEl = ref }}>
-          <button id='undo' data-i18n='btn.undo' onClick={undo}>Undo</button>
-          <button id='redo' data-i18n='btn.redo' onClick={redo}>Redo</button>
+        <div className="palette-commands" ref={(ref) => { this.commandsEl = ref }}>
+          <button id="undo" data-i18n="btn.undo" onClick={undo}>Undo</button>
+          <button id="redo" data-i18n="btn.redo" onClick={redo}>Redo</button>
         </div>
-        <Scrollable className='palette' setRef={this.setScrollableRef} ref={(ref) => { this.scrollable = ref }}>
-          <div className='palette-canvas' />
+        <Scrollable className="palette" setRef={this.setScrollableRef} ref={(ref) => { this.scrollable = ref }}>
+          <div className="palette-canvas" />
         </Scrollable>
       </div>
     )

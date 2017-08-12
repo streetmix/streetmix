@@ -34,7 +34,7 @@ export default class StreetName extends React.PureComponent {
     let classString = 'street-name-text ' + (!needsUnicodeFont(this.props.name) ? '' : 'fallback-unicode-font')
 
     return (
-      <div className='street-name' ref={(ref) => { this.el = ref }} {...this.props}>
+      <div className="street-name" ref={(ref) => { this.el = ref }} {...this.props}>
         <div className={classString}>{StreetName.normalizeStreetName(this.props.name)}</div>
       </div>
     )

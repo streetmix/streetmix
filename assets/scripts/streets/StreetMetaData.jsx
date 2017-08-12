@@ -47,7 +47,7 @@ class StreetMetaData extends React.Component {
     if (creatorId && (!this.props.signedIn || (creatorId !== this.props.userId))) {
       author = <span>
         by <Avatar userId={creatorId} />
-        <a className='user-gallery' href={'/' + creatorId} onClick={this.onClickAuthor}>{creatorId}</a>
+        <a className="user-gallery" href={'/' + creatorId} onClick={this.onClickAuthor}>{creatorId}</a>
       </span>
     } else if (!creatorId && (this.props.signedIn || getRemixOnFirstEdit())) {
       author = <span>by {msg('USER_ANONYMOUS')}</span>
@@ -55,15 +55,15 @@ class StreetMetaData extends React.Component {
 
     const geolocation = (this.props.experimental) ? (
       <span>
-        <a id='street-metadata-map' onClick={this.onClick}><u>Geolocation!</u></a>
+        <a id="street-metadata-map" onClick={this.onClick}><u>Geolocation!</u></a>
       </span>
     ) : null
 
     return (
       <div id={this.props.id}>
         <StreetWidth street={this.state.street} readOnly={this.props.readOnly} />
-        <span id='street-metadata-author'>{author}</span>
-        <span id='street-metadata-date'>{formatDate(this.state.street.updatedAt)}</span>
+        <span id="street-metadata-author">{author}</span>
+        <span id="street-metadata-date">{formatDate(this.state.street.updatedAt)}</span>
         {geolocation}
       </div>
     )

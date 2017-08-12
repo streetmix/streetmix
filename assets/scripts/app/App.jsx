@@ -14,7 +14,7 @@ export default class App extends React.PureComponent {
   render () {
     return (
       <div>
-        <div className='main-screen'>
+        <div className="main-screen">
           <MenusContainer />
           <StreetNameCanvas />
           <WelcomePanel />

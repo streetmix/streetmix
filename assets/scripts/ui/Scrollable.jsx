@@ -92,14 +92,14 @@ export default class Scrollable extends React.PureComponent {
           {this.props.children}
         </div>
         <button
-          className='scrollable scroll-left'
+          className="scrollable scroll-left"
           onClick={this.onClickLeft}
           ref={(ref) => { this.leftButton = ref }}
         >
           «
         </button>
         <button
-          className='scrollable scroll-right'
+          className="scrollable scroll-right"
           onClick={this.onClickRight}
           ref={(ref) => { this.rightButton = ref }}
         >

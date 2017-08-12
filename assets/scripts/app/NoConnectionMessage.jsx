@@ -53,7 +53,7 @@ class NoConnectionMessage extends React.Component {
 
     return (
       <div className={className}>
-        <div className='status-message-content'>
+        <div className="status-message-content">
           {t('msg.no-connection', 'Streetmix is having trouble connecting to the Internet.')}
           <button onClick={nonblockingAjaxTryAgain}>
             {t('btn.try-again', 'Try again')}

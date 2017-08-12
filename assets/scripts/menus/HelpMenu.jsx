@@ -29,16 +29,16 @@ export default class HelpMenu extends React.PureComponent {
     return (
       <Menu onShow={this.onShow} {...this.props}>
         <a
-          href='#'
-          data-i18n='menu.item.about'
+          href="#"
+          data-i18n="menu.item.about"
           onClick={this.onClickAbout}
         >
           About Streetmix…
         </a>
 
-        <div className='form non-touch-only help-menu-shortcuts'>
+        <div className="form non-touch-only help-menu-shortcuts">
           <p>
-            <span data-i18n='menu.help.keyboard-label'>
+            <span data-i18n="menu.help.keyboard-label">
               Keyboard shortcuts:
             </span>
           </p>
@@ -46,21 +46,21 @@ export default class HelpMenu extends React.PureComponent {
             <tbody>
               <tr>
                 <td>
-                  <span className='key' data-i18n='key.backspace'>Backspace</span>
+                  <span className="key" data-i18n="key.backspace">Backspace</span>
                 </td>
                 <td dangerouslySetInnerHTML={{ __html: t('menu.help.remove', 'Remove a segment you’re pointing at<br />(hold <span class="key">Shift</span> to remove all)') }} />
               </tr>
               <tr>
                 <td>
-                  <span className='key'>-</span>
-                  <span className='key'>+</span>
+                  <span className="key">-</span>
+                  <span className="key">+</span>
                 </td>
                 <td dangerouslySetInnerHTML={{ __html: t('menu.help.move', 'Change width of a segment you’re pointing at<br />(hold <span class="key">Shift</span> for more precision)') }} />
               </tr>
               <tr>
                 <td>
-                  <span className='key'>&larr;</span>
-                  <span className='key'>&rarr;</span>
+                  <span className="key">&larr;</span>
+                  <span className="key">&rarr;</span>
                 </td>
                 <td dangerouslySetInnerHTML={{ __html: t('menu.help.change', 'Move around the street(hold <span class="key">Shift</span> to jump to edges)') }} />
               </tr>

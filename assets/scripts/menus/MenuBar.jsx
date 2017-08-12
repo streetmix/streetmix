@@ -72,33 +72,33 @@ class MenuBar extends React.Component {
     const myStreetsLink = userId ? `/${userId}` : ''
 
     const UserAvatar = (userId)
-      ? (<li className='hide-for-no-internet'>
+      ? (<li className="hide-for-no-internet">
         <button
-          data-name='identity'
-          className='menu-attached'
+          data-name="identity"
+          className="menu-attached"
           disabled={false}
           onClick={this.onClickMenuButton}
         >
           <Avatar userId={userId} />
-          <span className='user-id'>{userId}</span>
+          <span className="user-id">{userId}</span>
         </button>
-      </li>) : (<li className='hide-for-no-internet'>
+      </li>) : (<li className="hide-for-no-internet">
         <a
           href={`/${URL_SIGN_IN_REDIRECT}`}
-          className='command'
-          data-i18n='menu.item.sign-in'
-          id='sign-in-link'
+          className="command"
+          data-i18n="menu.item.sign-in"
+          id="sign-in-link"
         >
           Sign in
         </a>
       </li>)
 
     const SettingsButton = (debug.experimental)
-      ? (<li id='settings-menu-item'>
+      ? (<li id="settings-menu-item">
         <button
-          data-name='settings'
-          data-i18n='menu.item.settings'
-          className='menu-attached'
+          data-name="settings"
+          data-i18n="menu.item.settings"
+          className="menu-attached"
           disabled={false}
           onClick={this.onClickMenuButton}
         >
@@ -113,39 +113,39 @@ class MenuBar extends React.Component {
     // language changes, so this still uses the `data-i18n` method to pick up
     // on text content changes. Individual menus will re-render with {t()}.
     return (
-      <nav className='menu-bar'>
-        <ul className='menu-bar-left'>
-          <li className='menu-bar-title'>
-            <div className='streetmix-logo' />
+      <nav className="menu-bar">
+        <ul className="menu-bar-left">
+          <li className="menu-bar-title">
+            <div className="streetmix-logo" />
             <h1>Streetmix</h1>
           </li>
-          <li id='help-menu-item'>
+          <li id="help-menu-item">
             <button
-              data-name='help'
-              data-i18n='menu.item.help'
-              className='menu-attached'
+              data-name="help"
+              data-i18n="menu.item.help"
+              className="menu-attached"
               disabled={false}
               onClick={this.onClickMenuButton}
             >
               Help
             </button>
           </li>
-          <li className='hide-for-no-internet'>
+          <li className="hide-for-no-internet">
             <button
-              data-name='contact'
-              data-i18n='menu.item.contact'
-              className='menu-attached'
+              data-name="contact"
+              data-i18n="menu.item.contact"
+              className="menu-attached"
               disabled={false}
               onClick={this.onClickMenuButton}
             >
               Contact
             </button>
           </li>
-          <li className='hide-for-no-internet'>
+          <li className="hide-for-no-internet">
             <button
-              data-name='contribute'
-              data-i18n='menu.item.contribute'
-              className='menu-attached'
+              data-name="contribute"
+              data-i18n="menu.item.contribute"
+              className="menu-attached"
               disabled={false}
               onClick={this.onClickMenuButton}
             >
@@ -153,24 +153,24 @@ class MenuBar extends React.Component {
             </button>
           </li>
         </ul>
-        <ul ref={(ref) => { this.menuBarRight = ref }} className='menu-bar-right'>
+        <ul ref={(ref) => { this.menuBarRight = ref }} className="menu-bar-right">
           {UserAvatar}
           <li>
-            <a href='/new' target='_blank' data-i18n='menu.item.new-street'>
+            <a href="/new" target="_blank" data-i18n="menu.item.new-street">
               New street
             </a>
           </li>
-          <li className='hide-for-no-internet'>
-            <a href={myStreetsLink} data-i18n='menu.item.my-streets' onClick={onMyStreetsClick}>
+          <li className="hide-for-no-internet">
+            <a href={myStreetsLink} data-i18n="menu.item.my-streets" onClick={onMyStreetsClick}>
               My streets
             </a>
           </li>
           {SettingsButton}
           <li>
             <button
-              data-name='share'
-              data-i18n='menu.item.share'
-              className='menu-attached'
+              data-name="share"
+              data-i18n="menu.item.share"
+              className="menu-attached"
               disabled={false}
               onClick={this.onClickMenuButton}
             >

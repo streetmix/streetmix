@@ -45,7 +45,7 @@ export default class EnvironmentBadge extends React.Component {
   render () {
     // Set the label. Nothing happens if there isn't one.
     return (
-      <div className='environment-badge'>
+      <div className="environment-badge">
         {this.state.label}
       </div>
     )

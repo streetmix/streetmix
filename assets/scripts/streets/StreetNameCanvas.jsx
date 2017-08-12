@@ -102,14 +102,14 @@ class StreetNameCanvas extends React.Component {
 
   render () {
     return (
-      <div id='street-name-canvas' className={this.determineClassNames().join(' ')}>
+      <div id="street-name-canvas" className={this.determineClassNames().join(' ')}>
         <StreetName
-          id='street-name'
+          id="street-name"
           ref={(ref) => { this.streetName = ref }}
           name={this.state.street.name}
           onClick={this.onClickStreetName}
         />
-        <StreetMetaData id='street-metadata' street={this.state.street} />
+        <StreetMetaData id="street-metadata" street={this.state.street} />
       </div>
     )
   }

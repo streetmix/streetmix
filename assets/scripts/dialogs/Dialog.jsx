@@ -52,10 +52,10 @@ class Dialog extends React.Component {
     }
 
     return (
-      <div className='dialog-box-container' ref={(ref) => { this.dialogEl = ref }}>
+      <div className="dialog-box-container" ref={(ref) => { this.dialogEl = ref }}>
         <div className={shieldClassName} onClick={this.onClickShield} />
         <div className={className}>
-          <button className='close' onClick={this.unmountDialog}>×</button>
+          <button className="close" onClick={this.unmountDialog}>×</button>
           {this.props.children}
         </div>
       </div>

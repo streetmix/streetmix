@@ -123,55 +123,55 @@ class SaveAsImageDialog extends React.Component {
 
   render () {
     return (
-      <Dialog className='save-as-image-dialog'>
+      <Dialog className="save-as-image-dialog">
         <h1>{t('dialogs.save.heading', 'Save as image')}</h1>
         <p>
           <input
-            type='checkbox'
+            type="checkbox"
             onChange={this.onChangeOptionSegmentNames}
             checked={this.props.segmentNames}
-            id='save-as-image-segment-names'
+            id="save-as-image-segment-names"
           />
-          <label htmlFor='save-as-image-segment-names'>
+          <label htmlFor="save-as-image-segment-names">
             {t('dialogs.save.option-labels', 'Segment names and widths')}
           </label>
 
           <input
-            type='checkbox'
+            type="checkbox"
             onChange={this.onChangeOptionStreetName}
             checked={this.props.streetName}
-            id='save-as-image-street-name'
+            id="save-as-image-street-name"
           />
-          <label htmlFor='save-as-image-street-name'>
+          <label htmlFor="save-as-image-street-name">
             {t('dialogs.save.option-name', 'Street name')}
           </label>
 
           <input
-            type='checkbox'
+            type="checkbox"
             onChange={this.onChangeOptionTransparentSky}
             checked={this.props.transparentSky}
-            id='save-as-image-transparent-sky'
+            id="save-as-image-transparent-sky"
           />
-          <label htmlFor='save-as-image-transparent-sky'>
+          <label htmlFor="save-as-image-transparent-sky">
             {t('dialogs.save.option-sky', 'Transparent sky')}
           </label>
         </p>
         {(() => {
           if (this.state.errorMessage) {
             return (
-              <div className='save-as-image-preview'>
-                <div className='save-as-image-preview-loading'>
+              <div className="save-as-image-preview">
+                <div className="save-as-image-preview-loading">
                   {this.state.errorMessage}
                 </div>
               </div>
             )
           } else {
             return (
-              <div className='save-as-image-preview'>
-                <div className='save-as-image-preview-loading' style={{display: this.state.isLoading ? 'block' : 'none'}}>
+              <div className="save-as-image-preview">
+                <div className="save-as-image-preview-loading" style={{display: this.state.isLoading ? 'block' : 'none'}}>
                   {t('dialogs.save.loading', 'Loading…')}
                 </div>
-                <div className='save-as-image-preview-image' style={{display: this.state.isLoading ? 'none' : 'block'}}>
+                <div className="save-as-image-preview-image" style={{display: this.state.isLoading ? 'none' : 'block'}}>
                   <img
                     src={this.state.download.dataUrl}
                     onLoad={this.onPreviewLoaded}
@@ -185,7 +185,7 @@ class SaveAsImageDialog extends React.Component {
         })()}
         <p>
           <a
-            className='button-like'
+            className="button-like"
             onClick={this.onClickDownloadImage}
             // Sets the anchor's `download` attribute so that it saves a meaningful filename
             // Note that this property is not supported in Safari/iOS

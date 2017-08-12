@@ -16,6 +16,6 @@
   "plugins": ["react"],
   "extends": ["standard", "standard-react"],
   "rules": {
-    "jsx-quotes": ["warn", "prefer-double"]
+    "jsx-quotes": ["error", "prefer-double"]
   }
 }

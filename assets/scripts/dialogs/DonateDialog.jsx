@@ -50,10 +50,10 @@ class DonateDialog extends React.Component {
 
   render () {
     return (
-      <Dialog className='donate-dialog' disableShieldExit>
+      <Dialog className="donate-dialog" disableShieldExit>
         <h1>Streetmix needs your help!</h1>
-        <div className='donate-dialog-text'>
-          <p className='donate-dialog-lede'>
+        <div className="donate-dialog-text">
+          <p className="donate-dialog-lede">
             Streetmix is a community-supported project. Unlike other “free” services on the Internet, we do not show ads or inject trackers that abuse your privacy. Instead, we depend on your support to keep Streetmix up and running.
           </p>
           <p>
@@ -62,16 +62,16 @@ class DonateDialog extends React.Component {
         </div>
         <p>
           <a
-            className='button-like donate-dialog-button'
-            href='https://opencollective.com/streetmix'
-            target='_blank'
+            className="button-like donate-dialog-button"
+            href="https://opencollective.com/streetmix"
+            target="_blank"
             onClick={this.onClickDonateButton}
           >
             Donate to Streetmix
           </a>
         </p>
         <p>
-          <a href='#' onClick={this.onClickClose}>No thanks</a>
+          <a href="#" onClick={this.onClickClose}>No thanks</a>
         </p>
       </Dialog>
     )
