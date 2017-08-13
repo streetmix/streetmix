@@ -18,13 +18,21 @@ addons:
 services:
   - mongodb
 
+# Start the server and run it in background process
 before_script:
-  - node index
+  - node index &
 
 script:
   - npm run jest
-  - protractor ./test/integration/saucelabs.conf.js
   - npm run lint
+    # Sauce-based tests cannot be performed on pull request open by user that
+    # doesn't have write permission to main repository
+    # https://docs.travis-ci.com/user/pull-requests/#Pull-Requests-and-Security-Restrictions
+  - 'if [ "$SAUCE_USERNAME" ] && [ "$SAUCE_ACCESS_KEY" ]; then protractor ./test/integration/saucelabs.conf.js; fi'
+
+# Send exit signal to node process
+after_script:
+  - pkill node
 
 notifications:
   webhooks: http://project-monitor.codeforamerica.org/projects/4083b10b-11a4-4ac5-9a7f-51c5cb614243/status

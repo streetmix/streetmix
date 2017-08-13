@@ -19,25 +19,8 @@ module.exports = function (grunt) {
           noColor: false,
           args: {}
         }
-      },
-      saucelabs: {
-        options: {
-          configFile: './test/integration/saucelabs.conf.js',
-          args: {
-            sauceUser: process.env.SAUCE_USERNAME,
-            sauceKey: process.env.SAUCE_ACCESS_KEY
-          }
-        }
       }
     }
   })
-  grunt.registerTask('test:travis', (
-    // Sauce-based tests cannot be performed on pull request open by user that
-    // doesn't have write permission to main repository
-    // https://docs.travis-ci.com/user/pull-requests/#Security-Restrictions-when-testing-Pull-Requests
-    (process.env.SAUCE_USERNAME && process.env.SAUCE_ACCESS_KEY)
-      ? ['express:app', 'protractor:saucelabs']
-      : ['express:app']
-  ))
   grunt.registerTask('test:local', ['express:app', 'protractor:local'])
 }
