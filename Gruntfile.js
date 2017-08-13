@@ -3,11 +3,6 @@ var path = require('path')
 module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt)
   grunt.initConfig({
-    env: {
-      test: {
-        NODE_ENV: 'test'
-      }
-    },
     express: {
       app: {
         options: {
@@ -41,8 +36,8 @@ module.exports = function (grunt) {
     // doesn't have write permission to main repository
     // https://docs.travis-ci.com/user/pull-requests/#Security-Restrictions-when-testing-Pull-Requests
     (process.env.SAUCE_USERNAME && process.env.SAUCE_ACCESS_KEY)
-      ? ['env:test', 'express:app', 'protractor:saucelabs']
-      : ['env:test', 'express:app']
+      ? ['express:app', 'protractor:saucelabs']
+      : ['express:app']
   ))
-  grunt.registerTask('test:local', ['env:test', 'express:app', 'protractor:local'])
+  grunt.registerTask('test:local', ['express:app', 'protractor:local'])
 }
