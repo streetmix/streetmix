@@ -1,6 +1,5 @@
 import { getStreet } from '../streets/data_model'
 import { goReloadClearSignIn } from '../users/authentication'
-import { removeElFromDOM } from '../util/dom_helpers'
 import { getAbortEverything, setAbortEverything } from './initialization'
 import { hideLoadingScreen } from './load_resources'
 import {
@@ -142,7 +141,7 @@ export function showError (errorType, newAbortEverything) {
 
   if (getAbortEverything()) {
     // Opera
-    removeElFromDOM(document.getElementById('gallery'))
+    document.getElementById('gallery').remove()
   }
 
   if (navigator.userAgent.indexOf('MSIE 6.') !== -1) {

@@ -24,7 +24,6 @@ import StreetName from '../streets/StreetName'
 import { sendDeleteStreetToServer } from '../streets/xhr'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { formatDate } from '../util/date_format'
-import { removeElFromDOM } from '../util/dom_helpers'
 import { fetchGalleryData } from './fetch_data'
 import { fetchGalleryStreet } from './fetch_street'
 import { updateScrollButtons } from './scroll'
@@ -320,7 +319,7 @@ function loadGalleryContents () {
   const galleryEl = document.getElementById('gallery')
   const els = galleryEl.querySelectorAll('.streets li')
   for (let el of els) {
-    removeElFromDOM(el)
+    el.remove()
   }
 
   galleryEl.querySelector('.loading').classList.add('visible')
@@ -356,7 +355,7 @@ function onDeleteGalleryStreet (event) {
 
     sendDeleteStreetToServer(el.getAttribute('streetId'))
 
-    removeElFromDOM(el.parentNode)
+    el.parentNode.remove()
     updateGalleryStreetCount()
   }
 

@@ -8,7 +8,6 @@ import { trackEvent } from '../app/event_tracking'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { getStreetSectionTop } from '../app/window_resize'
 import { SEGMENT_INFO } from '../segments/info'
-import { removeElFromDOM } from '../util/dom_helpers'
 import { infoBubble } from './info_bubble'
 
 const DESCRIPTION_PROMPT_LABEL = 'Learn more'
@@ -124,8 +123,11 @@ function buildDescriptionDOM (description) {
 }
 
 function destroyDescriptionDOM () {
-  removeElFromDOM(infoBubble.el.querySelector('.description-prompt'))
-  removeElFromDOM(infoBubble.el.querySelector('.description-canvas'))
+  const el1 = infoBubble.el.querySelector('.description-prompt')
+  if (el1) el1.remove()
+
+  const el2 = infoBubble.el.querySelector('.description-canvas')
+  if (el2) el2.remove()
 }
 
 function highlightTriangle () {

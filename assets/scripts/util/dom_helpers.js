@@ -3,9 +3,3 @@ export function emptyEl (el) {
     el.removeChild(el.lastChild)
   }
 }
-
-export function removeElFromDOM (el) {
-  if (el && el.parentNode) {
-    el.parentNode.removeChild(el)
-  }
-}

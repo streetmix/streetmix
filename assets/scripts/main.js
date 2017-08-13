@@ -18,6 +18,7 @@ import './vendor/modernizr-custom'
 import './vendor/polyfills/customevent' // customEvent in IE
 import './vendor/polyfills/Number.isInteger' // for IE
 import './vendor/polyfills/Element.closest'
+import './vendor/polyfills/Element.remove'
 
 // Main object
 import store from './store'

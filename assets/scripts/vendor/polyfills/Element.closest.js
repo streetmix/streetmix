@@ -1,5 +1,5 @@
 /**
- * Element.closest() polyfill for Internet Explorer
+ * Element.closest() polyfill for Internet Explorer IE 9+
  * Matches jQuery.closest()
  *
  * source: https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
