@@ -21,7 +21,7 @@ before_install:
   - npm install -g grunt-cli
 
 script:
-  - node test/index | node_modules/.bin/tap-spec
+  - npm run jest
   - grunt test:travis
   - npm run lint
 
