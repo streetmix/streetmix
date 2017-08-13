@@ -23,6 +23,7 @@ before_script:
   - node index &
 
 script:
+    # Note: don't run `npm test` here directly, it's intended for local testing.
   - npm run jest
   - npm run lint
     # Sauce-based tests cannot be performed on pull request open by user that

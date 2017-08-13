@@ -12,18 +12,21 @@
     "npm": "5.3.0"
   },
   "scripts": {
-    "prestart": "mongod --fork --logpath /dev/null",
+    "prestart": "npm run mongo:start",
     "start": "supervisor -e node,js,jsx,scss index.js",
-    "stop": "mongo admin --eval 'db.shutdownServer()'",
-    "pretest": "mongod --fork --logpath /dev/null",
-    "test": "NODE_ENV=test npm run jest && npm run protractor-update && grunt test:local",
-    "posttest": "mongo admin --eval 'db.shutdownServer()'",
-    "lint": "npm run lint-css && npm run lint-js",
-    "lint-css": "stylelint ./assets/css/**/*.scss",
-    "lint-js": "eslint \"**/*.js\" \"**/*.jsx\"",
+    "stop": "npm run mongo:stop",
+    "pretest": "npm run mongo:start && npm run protractor:update",
+    "test": "NODE_ENV=test npm run jest && npm run lint && grunt test:local",
+    "posttest": "npm run mongo:stop",
+    "mongo:start": "mongod --fork --logpath /dev/null",
+    "mongo:stop": "mongo admin --eval 'db.shutdownServer()'",
+    "lint": "npm run lint:css && npm run lint:js",
+    "lint:css": "stylelint ./assets/css/**/*.scss",
+    "lint:js": "eslint \"**/*.js\" \"**/*.jsx\"",
     "jest": "jest",
-    "protractor-update": "./node_modules/protractor/bin/webdriver-manager update",
-    "translationsDownload": "node bin/download_translations.js"
+    "protractor:update": "./node_modules/protractor/bin/webdriver-manager update",
+    "protractor:local": "protractor ./test/integration/local.conf.js",
+    "translations:download": "node bin/download_translations.js"
   },
   "jest": {
     "roots": [
