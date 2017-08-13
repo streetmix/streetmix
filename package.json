@@ -25,7 +25,7 @@
     "translationsDownload": "node bin/download_translations.js"
   },
   "jest": {
-    "roots": ["assets/scripts"]
+    "roots": ["app", "assets/scripts"]
   },
   "browserslist": [
     "last 2 versions",
