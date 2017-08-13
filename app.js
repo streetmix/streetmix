@@ -58,8 +58,10 @@ const helmetConfig = {
       ],
       fontSrc: ["'self'", 'fonts.gstatic.com'],
       connectSrc: ["'self'",
+        'freegeoip.net',
         'api.mixpanel.com',
-        'search.mapzen.com']
+        'search.mapzen.com'
+      ]
     }
   }
 }
