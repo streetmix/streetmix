@@ -16,12 +16,13 @@
     "start": "supervisor -e node,js,jsx,scss index.js",
     "stop": "mongo admin --eval 'db.shutdownServer()'",
     "pretest": "mongod --fork --logpath /dev/null",
-    "test": "npm run jest && grunt test:local:setup && grunt test:local",
+    "test": "npm run jest && npm run protractor-update && grunt test:local",
     "posttest": "mongo admin --eval 'db.shutdownServer()'",
     "lint": "npm run lint-css && npm run lint-js",
     "lint-css": "stylelint ./assets/css/**/*.scss",
     "lint-js": "eslint \"**/*.js\" \"**/*.jsx\"",
     "jest": "jest",
+    "protractor-update": "./node_modules/protractor/bin/webdriver-manager update",
     "translationsDownload": "node bin/download_translations.js"
   },
   "jest": {
@@ -115,7 +116,6 @@
     "grunt-env": "0.4.4",
     "grunt-express": "1.4.1",
     "grunt-protractor-runner": "5.0.0",
-    "grunt-shell": "2.1.0",
     "jest": "20.0.4",
     "load-grunt-tasks": "3.5.2",
     "stylelint": "7.13.0",

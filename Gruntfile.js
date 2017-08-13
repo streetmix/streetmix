@@ -34,14 +34,6 @@ module.exports = function (grunt) {
           }
         }
       }
-    },
-    shell: {
-      options: {
-        stderr: false
-      },
-      target: {
-        command: './node_modules/protractor/bin/webdriver-manager update'
-      }
     }
   })
   grunt.registerTask('test:travis', (
@@ -52,6 +44,5 @@ module.exports = function (grunt) {
       ? ['env:test', 'express:app', 'protractor:saucelabs']
       : ['env:test', 'express:app']
   ))
-  grunt.registerTask('test:local:setup', ['shell'])
   grunt.registerTask('test:local', ['env:test', 'express:app', 'protractor:local'])
 }
