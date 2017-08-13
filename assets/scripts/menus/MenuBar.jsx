@@ -9,7 +9,6 @@ import { debug } from '../preinit/debug_settings'
 import { URL_SIGN_IN_REDIRECT } from '../app/routing'
 import { onMyStreetsClick } from '../gallery/view'
 import { getElAbsolutePos } from '../util/helpers'
-import { closestEl } from '../util/dom_helpers'
 import Avatar from '../app/Avatar'
 
 class MenuBar extends React.Component {
