@@ -16,7 +16,7 @@
     "start": "supervisor -e node,js,jsx,scss index.js",
     "stop": "mongo admin --eval 'db.shutdownServer()'",
     "pretest": "mongod --fork --logpath /dev/null",
-    "test": "node test/index | tap-spec && grunt test:local:setup && grunt test:local",
+    "test": "npm run jest && grunt test:local:setup && grunt test:local",
     "posttest": "mongo admin --eval 'db.shutdownServer()'",
     "lint": "npm run lint-css && npm run lint-js",
     "lint-css": "stylelint ./assets/css/**/*.scss",
@@ -25,7 +25,10 @@
     "translationsDownload": "node bin/download_translations.js"
   },
   "jest": {
-    "roots": ["app", "assets/scripts"]
+    "roots": [
+      "app",
+      "assets/scripts"
+    ]
   },
   "browserslist": [
     "last 2 versions",
@@ -115,13 +118,9 @@
     "grunt-shell": "2.1.0",
     "jest": "20.0.4",
     "load-grunt-tasks": "3.5.2",
-    "proxyquire": "1.8.0",
     "stylelint": "7.13.0",
     "stylelint-config-standard": "16.0.0",
     "stylelint-scss": "1.5.1",
-    "supertest": "3.0.0",
-    "tap-spec": "4.1.1",
-    "tape": "4.7.0",
-    "tape-catch": "1.0.6"
+    "supertest": "3.0.0"
   }
 }
