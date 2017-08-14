@@ -119,6 +119,7 @@
     "eslint-plugin-react": "7.2.0",
     "eslint-plugin-standard": "3.0.1",
     "jest": "20.0.4",
+    "protractor": "5.1.2",
     "stylelint": "7.13.0",
     "stylelint-config-standard": "16.0.0",
     "stylelint-scss": "1.5.1",
