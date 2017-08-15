@@ -6,15 +6,8 @@
 .geolocation {
   position: relative;
   padding-top: 7px;
- width: 1000px;
- right: 250px;
-
-  .geolocation-input {
-    position: absolute;
-    top: 15px;
-    left: 450px;
-    z-index: 1001;
-  }
+  width: 1000px;
+  right: 250px;
 
   #street-metadata-map {
     padding-top: 7px;

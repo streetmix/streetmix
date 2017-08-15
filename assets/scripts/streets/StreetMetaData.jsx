@@ -16,26 +16,17 @@ class StreetMetaData extends React.Component {
     super(props)
     this.state = {
       street: this.props.street
-      //showMap: false
     }
     this.onClickAuthor = this.onClickAuthor.bind(this)
     this.onClick = this.onClick.bind(this)
-    this.closeMap = this.closeMap.bind(this)
   }
 
   onClick (e) {
     e.preventDefault()
-    //this.setState({showMap: !this.state.showMap})
     store.dispatch({
       type: SHOW_DIALOG,
       name: 'MAP'
     })
-  }
-
-  
-  closeMap(){
-    console.log("hi")
-    //this.setState({showMap: false})
   }
 
   componentWillReceiveProps (nextProps) {
@@ -69,7 +60,7 @@ class StreetMetaData extends React.Component {
         <span id='street-metadata-author'>{author}</span>
         <span id='street-metadata-date'>{formatDate(this.state.street.updatedAt)}</span>
         <a id='street-metadata-map' onClick={this.onClick}><u>Geolocation!</u></a>
-        {this.state.showMap && <Geolocation closeMap = {this.closeMap} />}
+        {this.state.showMap && <Geolocation closeMap={this.closeMap} />}
 
       </div>
     )

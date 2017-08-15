@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import { setMapState } from '../store/actions/map'
 import SearchAddress from './SearchAddress'
 import { apiurlReverse, apikey } from './config'
-import { clearDialogs } from '../store/actions/dialogs'
+import { clearDialogs, SHOW_DIALOG, store } from '../store/actions/dialogs'
 import Dialog from '../dialogs/Dialog'
 
 const OPEN_STREET_MAP_TILES = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png'
@@ -104,9 +104,8 @@ class MapDialog extends React.Component {
     })
   }
 
-
   unmountDialog () {
-  this.props.dispatch(clearDialogs())
+    this.props.dispatch(clearDialogs())
   }
   render () {
     const markers = this.props.markerLocation ? (
@@ -124,7 +123,7 @@ class MapDialog extends React.Component {
         maxWidth={300}
         closeOnClick={false}
         closeButton={false}
-        offset={[0, -25]}
+        offset={[0, -30]}
       >
         <span>{this.props.addressInformationLabel}</span>
       </Popup>
@@ -135,25 +134,25 @@ class MapDialog extends React.Component {
     }
 
     return (
-        <Dialog className='map-dialog'>
-          <div className='geolocation-input'>
-            <SearchAddress setSearchResults={this.setSearchResults} />
-          </div>
-          <Map
-            center={this.state.mapCenter}
-            zoom={zoomLevel}
-            onClick={this.onClick}
-            ref={(ref) => { this.map = ref }}
-            style={{height:'55vh'}}
-          >
-            <TileLayer
-              attribution={OPEN_STREET_MAP_ATTR}
-              url={OPEN_STREET_MAP_TILES}
-            />
-            {popup}
-            {markers}
-          </Map>
-        </Dialog>
+      <Dialog className='map-dialog'>
+        <div className='geolocation-input'>
+          <SearchAddress setSearchResults={this.setSearchResults} />
+        </div>
+        <Map
+          center={this.state.mapCenter}
+          zoom={zoomLevel}
+          onClick={this.onClick}
+          ref={(ref) => { this.map = ref }}
+          style={{height: '55vh'}}
+        >
+          <TileLayer
+            attribution={OPEN_STREET_MAP_ATTR}
+            url={OPEN_STREET_MAP_TILES}
+          />
+          {popup}
+          {markers}
+        </Map>
+      </Dialog>
     )
   }
 }

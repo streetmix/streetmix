@@ -35,11 +35,9 @@ class Dialog extends React.Component {
   }
 
   onClickShield () {
-    console.log("func was clicked")
     if (!this.props.disableShieldExit) {
       this.unmountDialog()
     }
-
   }
 
   render () {

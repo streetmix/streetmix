@@ -41,21 +41,22 @@ $dialog-box-default-width: 790px;
   cursor: pointer;
   touch-action: none;
 }
+
 .dialog-box-geolocation {
-    border-top: 3px solid #85b7cc;
-    border-bottom: 3px solid #85b7cc;
-    position: relative;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    width: 790px;
-    margin-top: -6%;
-    padding: 0px 0px;
-    background: white;
-    font-size: 13px;
-    line-height: 1.5;
-    z-index: 900;
-    -ms-touch-action: none;
-    touch-action: none;
+  border-top: 3px solid #85b7cc;
+  border-bottom: 3px solid #85b7cc;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 790px;
+  margin-top: -6%;
+  padding: 0;
+  background: white;
+  font-size: 13px;
+  line-height: 1.5;
+  z-index: 900;
+  -ms-touch-action: none;
+  touch-action: none;
 }
 
 .dialog-box-shield-unclickable {
@@ -73,6 +74,7 @@ $dialog-box-default-width: 790px;
   background: white;
   font-size: 13px;
   line-height: 1.5;
+  padding: 15px 40px;
   z-index: $z-09-dialog-box;
   touch-action: none;
 
@@ -200,6 +202,25 @@ $dialog-box-default-width: 790px;
 .map-dialog {
   width: 100vh;
   text-align: center;
+  padding: 0;
+}
+
+button.close {
+  z-index: 1002;
+}
+
+.geolocation-input {
+  position: absolute;
+  padding-left: 44em;
+  z-index: 1001;
+}
+
+input {
+  background: #f1f7f9;
+  border: 1px solid #cde1ea;
+  resize: none;
+  font-size: 13px;
+  line-height: 18px;
 }
 
 .donate-dialog-text {
