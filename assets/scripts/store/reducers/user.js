@@ -2,7 +2,8 @@ import {
   SET_USER_SIGN_IN_DATA,
   SET_USER_SIGNED_IN_STATE,
   SET_USER_SIGN_IN_LOADED_STATE,
-  SET_GEOLOCATION_STATE
+  GEOLOCATION_ATTEMPTED,
+  GEOLOCATION_DATA
 } from '../actions'
 
 const initialState = {
@@ -10,7 +11,7 @@ const initialState = {
   signedIn: false,
   signInLoaded: false,
   geolocation: {
-    loaded: false,
+    attempted: false,
     data: null
   }
 }
@@ -32,13 +33,16 @@ const settings = (state = initialState, action) => {
         ...state,
         signInLoaded: action.signInLoaded
       }
-    case SET_GEOLOCATION_STATE:
-      const obj = Object.assign({}, state.geolocation, action)
-      delete obj.type // Do not save action type.
-      return {
-        ...state,
-        geolocation: obj
-      }
+    case GEOLOCATION_ATTEMPTED: {
+      const obj = Object.assign({}, state)
+      obj.geolocation.attempted = action.attempted
+      return obj
+    }
+    case GEOLOCATION_DATA: {
+      const obj = Object.assign({}, state)
+      obj.geolocation.data = action.data
+      return obj
+    }
     default:
       return state
   }

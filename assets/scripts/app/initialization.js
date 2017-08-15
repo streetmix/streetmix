@@ -24,8 +24,8 @@ import {
 } from '../users/localization'
 import {
   detectGeolocation,
-  setGeolocationLoaded,
-  isGeolocationLoaded
+  geolocationAttempted,
+  wasGeolocationAttempted
 } from '../users/geolocation'
 import { ENV } from './config'
 import { addEventListeners } from './event_listeners'
@@ -138,10 +138,8 @@ export function initialize () {
       })
   } else {
     // Otherwise just set it as loaded without info
-    setGeolocationLoaded()
-      .then(() => {
-        document.querySelector('#loading-progress').value++
-      })
+    geolocationAttempted()
+    document.querySelector('#loading-progress').value++
   }
 
   // …sign in info from our API (if not previously cached) – and subsequent
@@ -158,7 +156,7 @@ export function checkIfEverythingIsLoaded () {
   }
 
   if ((getImagesToBeLoaded() === 0) && isSignInLoaded() && bodyLoaded &&
-    readyStateCompleteLoaded && isGeolocationLoaded() && serverContacted) {
+    readyStateCompleteLoaded && wasGeolocationAttempted() && serverContacted) {
     onEverythingLoaded()
   }
 }

@@ -28,7 +28,7 @@ import {
   normalizeStreetWidth,
   resizeStreetWidth
 } from '../streets/width'
-import { isGeolocationLoaded } from './geolocation'
+import { wasGeolocationAttempted } from './geolocation'
 import { isSignInLoaded } from './authentication'
 import { saveSettingsLocally } from './settings'
 
@@ -69,7 +69,7 @@ const COUNTRIES_LEFT_HAND_TRAFFIC = [
 ]
 
 export function checkIfSignInAndGeolocationLoaded () {
-  if (isGeolocationLoaded() && isSignInLoaded()) {
+  if (wasGeolocationAttempted() && isSignInLoaded()) {
     switch (getMode()) {
       case MODES.NEW_STREET:
       case MODES.NEW_STREET_COPY_LAST:
