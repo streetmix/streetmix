@@ -135,7 +135,7 @@ class MapDialog extends React.Component {
     }
 
     return (
-        <Dialog className='map-dialog' disableShieldExit>
+        <Dialog className='map-dialog'>
           <div className='geolocation-input'>
             <SearchAddress setSearchResults={this.setSearchResults} />
           </div>
