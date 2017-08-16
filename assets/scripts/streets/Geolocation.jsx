@@ -18,6 +18,7 @@ class MapDialog extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+
       mapCenter: [40.645, -73.975]
     }
 

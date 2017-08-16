@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import Autosuggest from 'react-autosuggest'
+import { throttle } from 'lodash'
 import PropTypes from 'prop-types'
 import { setMapState } from '../store/actions/map'
 import { apiurl, apikey } from './config'
@@ -9,75 +11,116 @@ class SearchAddress extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      value: ''
+      value: '',
+      placeholder: 'Enter Address',
+      suggestions: []
     }
 
-    this.onKeyUp = this.onKeyUp.bind(this)
+    this.throttleMakeRequest = throttle(this.makeRequest, 250)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.getSuggestionValue = this.getSuggestionValue.bind(this)
+    this.onChange = this.onChange.bind(this)
+    this.renderSuggestion = this.renderSuggestion.bind(this)
+    this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this)
     this.handleJSON = this.handleJSON.bind(this)
     this.searchAddress = this.searchAddress.bind(this)
   }
 
-  onKeyUp (e) {
-    this.setState({
-      value: e.target.value
-    })
+  onSuggestionsFetchRequested (x) {
+    if (x.value.length >= 2) {
+      const searchUrl = `${apiurl}?api_key=${apikey}&text=${x.value}`
+      window.fetch(searchUrl).then(this.searchAddress)
+    }
+  }
 
-    this.props.setMapState({ rawInputString: this.state.value })
+  onChange (e, x) {
+    this.setState({
+      value: x.newValue
+    })
   }
 
   handleJSON (res, err) {
     this.setState({
-      loading: false
+      suggestions: res.features
     })
-
     if (res.features === undefined || res.features.length === 0) {
       return
     }
 
-    this.props.setSearchResults(res.features[0].geometry.coordinates.reverse(), this.props.addressInformationLabel)
+    this.setState({
+      coordReverse: res.features[0].geometry.coordinates.reverse(),
+      addressInfo: res.features[0].properties,
+      markerLocate: res.features[0].geometry.coordinates,
+      markerLabel: res.features[0].properties.label
+    })
+  }
+
+  handleSubmit (e) {
+    e.preventDefault()
+    const inputValue = this.state.value
+    if (inputValue !== '') {
+      this.search(inputValue)
+    }
 
     this.props.setMapState({
-      addressInformationLabel: res.features[0].properties.label,
-      addressInformation: res.features[0].properties,
-      markerLocation: res.features[0].geometry.coordinates
+      addressInformationLabel: this.state.markerLabel,
+      addressInformation: this.state.addresInfo,
+      markerLocation: this.state.markerLocate
     })
 
-    this.setState({loading: true})
+    this.props.setSearchResults(this.state.coordReverse, this.state.markerLabel)
   }
 
   searchAddress (res, err) {
     res.json().then(this.handleJSON)
   }
 
-  componentDidUpdate (prevProps, prevState) {
-    const options = {
-      api_key: apikey,
-      text: this.state.value
-    }
+  search (query) {
+    const endpoint = `https://search.mapzen.com/v1/search?text=${query}&api_key=${apikey}`
+    this.throttleMakeRequest(endpoint)
+  }
 
-    if (prevState.value === this.state.value) {
-      return false
-    }
+  makeRequest (endpoint) {
+    window.fetch(endpoint)
+      .then(response => response.json())
+      .then((results) => {
+        this.setState({
+          suggestions: results.features
+        })
+      })
+  }
 
-    const searchUrl = `${apiurl}?api_key=${options.api_key}&text=${options.text}`
-    window.fetch(searchUrl).then(this.searchAddress)
+  renderSuggestion (suggestion) {
+    return (
+      <div className='map-search-suggestion-item'>
+        {suggestion.properties.label}
+      </div>
+    )
+  }
+
+  getSuggestionValue (suggestion) {
+    return suggestion.properties.label
   }
 
   render () {
-    /* displays Loading */
-    let loading
-
-    if (this.state.loading === true) {
-      loading = <i>loading</i>
+    const inputProps = {
+      placeholder: this.state.placeholder,
+      value: this.state.value,
+      onChange: this.onChange
     }
-
     return (
-
       <div>
-
-        <input type='text' value={this.state.value} onChange={this.onKeyUp} placeholder='Enter Address' />
-
-        <p><b>{loading}</b></p>
+        <form ref='searchBar' onSubmit={this.handleSubmit} className='inputContainer'>
+          <Autosuggest
+            ref={(ref) => { this.autosuggestBar = ref }}
+            suggestions={this.state.suggestions}
+            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+            onSuggestionsClearRequested={() => {}}
+            getSuggestionValue={this.getSuggestionValue}
+            renderSuggestion={this.renderSuggestion}
+            inputProps={inputProps}
+          />
+        </form>
       </div>
 
     )
@@ -86,7 +129,6 @@ class SearchAddress extends Component {
 
 SearchAddress.propTypes = {
   setMapState: PropTypes.func,
-  addressInformationLabel: PropTypes.string,
   setSearchResults: PropTypes.func
 }
 

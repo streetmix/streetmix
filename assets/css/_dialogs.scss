@@ -201,7 +201,6 @@ $dialog-box-default-width: 790px;
 
 .map-dialog {
   width: 100vh;
-  text-align: center;
   padding: 0;
 }
 
@@ -211,8 +210,57 @@ button.close {
 
 .geolocation-input {
   position: absolute;
-  padding-left: 44em;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 20px;
   z-index: 1001;
+}
+
+.react-autosuggest__suggestions-container--open {
+  display: block;
+  position: relative;
+  top: 0;
+  width: 214px;
+  border: 1px solid #aaa;
+  background-color: #fff;
+  font-family: ‘Open Sans’, sans-serif;
+  font-weight: 100;
+  font-size: 14px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 4px;
+  z-index: 2;
+  list-style-type: none;
+}
+
+.react-autosuggest__suggestions-list {
+  padding-left: 10px;
+  list-style-type: none;
+  padding-right: 10px;
+}
+
+.map-search-suggestion-item {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.react-autosuggest__suggestion--highlighted {
+  background-color: #ddd;
+  padding-left: 10px;
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+.react-autosuggest__input {
+  width: 16em;
+  height: 25px;
+}
+
+.react-autosuggest__suggestion--highlighted {
+  background-color: #ddd;
+}
+
+.leaflet-top .leaflet-control {
+  margin-top: 50px;
 }
 
 input {
