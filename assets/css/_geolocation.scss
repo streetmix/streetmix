@@ -9,6 +9,14 @@
   width: 1000px;
   right: 250px;
 
+  .geolocation-input {
+    position: absolute;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    z-index: 1001;
+  }
+
   #street-metadata-map {
     padding-top: 7px;
     padding-bottom: 40px;
@@ -39,7 +47,7 @@
     width: 36px;
     height: 36px;
     border: 0;
-    font-size: 14px;
+    font-size: inherit;
     z-index: 1002;
     background: transparent;
     color: #402020;

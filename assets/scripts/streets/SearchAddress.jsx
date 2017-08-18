@@ -21,8 +21,11 @@ class SearchAddress extends Component {
     this.getSuggestionValue = this.getSuggestionValue.bind(this)
     this.onChange = this.onChange.bind(this)
     this.renderSuggestion = this.renderSuggestion.bind(this)
+    this.renderClearButton = this.renderClearButton.bind(this)
+    this.onSuggestionSelected = this.onSuggestionSelected.bind(this)
     this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this)
     this.handleJSON = this.handleJSON.bind(this)
+    this.clearSearch = this.clearSearch.bind(this)
     this.searchAddress = this.searchAddress.bind(this)
   }
 
@@ -33,9 +36,9 @@ class SearchAddress extends Component {
     }
   }
 
-  onChange (e, x) {
+  onChange (event, inputValue) {
     this.setState({
-      value: x.newValue
+      value: inputValue.newValue
     })
   }
 
@@ -44,14 +47,29 @@ class SearchAddress extends Component {
       suggestions: res.features
     })
     if (res.features === undefined || res.features.length === 0) {
-      return
     }
+  }
 
+  onSuggestionSelected (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) {
     this.setState({
-      coordReverse: res.features[0].geometry.coordinates.reverse(),
-      addressInfo: res.features[0].properties,
-      markerLocate: res.features[0].geometry.coordinates,
-      markerLabel: res.features[0].properties.label
+      coordReverse: suggestion.geometry.coordinates.reverse(),
+      addressInfo: suggestion.properties,
+      markerLocate: suggestion.geometry.coordinates,
+      markerLabel: suggestion.properties.label
+    })
+  }
+
+  renderClearButton (value) {
+    if (value.length > 2) {
+      return (
+        <span name='close' className='clear-search' onClick={this.clearSearch}> X </span>
+      )
+    }
+  }
+
+  clearSearch () {
+    this.setState({
+      value: ''
     })
   }
 
@@ -114,12 +132,14 @@ class SearchAddress extends Component {
           <Autosuggest
             ref={(ref) => { this.autosuggestBar = ref }}
             suggestions={this.state.suggestions}
+            onSuggestionSelected={this.onSuggestionSelected}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
             onSuggestionsClearRequested={() => {}}
             getSuggestionValue={this.getSuggestionValue}
             renderSuggestion={this.renderSuggestion}
             inputProps={inputProps}
           />
+          {this.renderClearButton(this.state.value)}
         </form>
       </div>
 
