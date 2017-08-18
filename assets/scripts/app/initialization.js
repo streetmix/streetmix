@@ -19,11 +19,14 @@ import { setIgnoreStreetChanges } from '../streets/undo_stack'
 import { resizeStreetWidth } from '../streets/width'
 import { loadSignIn, isSignInLoaded } from '../users/authentication'
 import {
-  updateSettingsFromCountryCode,
+  checkIfSignInAndGeolocationLoaded,
+  updateSettingsFromCountryCode
+} from '../users/localization'
+import {
   detectGeolocation,
   setGeolocationLoaded,
-  getGeolocationLoaded
-} from '../users/localization'
+  isGeolocationLoaded
+} from '../users/geolocation'
 import { ENV } from './config'
 import { addEventListeners } from './event_listeners'
 import { trackEvent } from './event_tracking'
@@ -33,7 +36,6 @@ import { onResize } from './window_resize'
 import { attachBlockingShieldEventListeners } from './blocking_shield'
 import { registerKeypresses } from './keyboard_commands'
 import { infoBubble } from '../info_bubble/info_bubble'
-import { attachPrintEventListeners } from './print'
 import { attachGalleryScrollEventListeners } from '../gallery/scroll'
 import { attachStreetScrollEventListeners } from '../streets/scroll'
 import { attachFetchNonBlockingEventListeners } from '../util/fetch_nonblocking'
@@ -81,7 +83,6 @@ function preInit () {
   attachBlockingShieldEventListeners()
   registerKeypresses()
   infoBubble.registerKeypresses()
-  attachPrintEventListeners()
   attachGalleryScrollEventListeners()
   attachGalleryViewEventListeners()
   attachStreetScrollEventListeners()
@@ -121,11 +122,26 @@ export function initialize () {
   // Asynchronously loading…
 
   // …detecting country from IP for units and left/right-hand driving
-  var mode = getMode()
+  const mode = getMode()
   if ((mode === MODES.NEW_STREET) || (mode === MODES.NEW_STREET_COPY_LAST)) {
+    // Geolocation requests are slow and rate-limited, so we only do it when
+    // we need the info
     detectGeolocation()
+      .then((info) => {
+        if (info && info.country_code) {
+          updateSettingsFromCountryCode(info.country_code)
+        }
+
+        document.querySelector('#loading-progress').value++
+        checkIfSignInAndGeolocationLoaded()
+        checkIfEverythingIsLoaded()
+      })
   } else {
-    setGeolocationLoaded(true)
+    // Otherwise just set it as loaded without info
+    setGeolocationLoaded()
+      .then(() => {
+        document.querySelector('#loading-progress').value++
+      })
   }
 
   // …sign in info from our API (if not previously cached) – and subsequent
@@ -142,7 +158,7 @@ export function checkIfEverythingIsLoaded () {
   }
 
   if ((getImagesToBeLoaded() === 0) && isSignInLoaded() && bodyLoaded &&
-    readyStateCompleteLoaded && getGeolocationLoaded() && serverContacted) {
+    readyStateCompleteLoaded && isGeolocationLoaded() && serverContacted) {
     onEverythingLoaded()
   }
 }

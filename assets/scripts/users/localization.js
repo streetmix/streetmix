@@ -1,13 +1,10 @@
 import { cloneDeep } from 'lodash'
 
 import { ERRORS, showError } from '../app/errors'
-import { trackEvent } from '../app/event_tracking'
-import { checkIfEverythingIsLoaded } from '../app/initialization'
 import { MODES, getMode } from '../app/mode'
 import { hideAllMenus } from '../menus/menu_controller'
 import { app } from '../preinit/app_settings'
 import { debug } from '../preinit/debug_settings'
-import { system } from '../preinit/system_capabilities'
 import {
   normalizeAllSegmentWidths,
   setSegmentWidthResolution,
@@ -31,21 +28,9 @@ import {
   normalizeStreetWidth,
   resizeStreetWidth
 } from '../streets/width'
+import { isGeolocationLoaded } from './geolocation'
 import { isSignInLoaded } from './authentication'
 import { saveSettingsLocally } from './settings'
-
-const IP_GEOLOCATION_API_URL = 'https://freegeoip.net/json/'
-const IP_GEOLOCATION_TIMEOUT = 1000 // After this time, we don’t wait any more
-
-let geolocationLoaded
-
-export function getGeolocationLoaded () {
-  return geolocationLoaded
-}
-
-export function setGeolocationLoaded (value) {
-  geolocationLoaded = value
-}
 
 export const SETTINGS_UNITS_IMPERIAL = 1
 export const SETTINGS_UNITS_METRIC = 2
@@ -84,7 +69,7 @@ const COUNTRIES_LEFT_HAND_TRAFFIC = [
 ]
 
 export function checkIfSignInAndGeolocationLoaded () {
-  if (geolocationLoaded && isSignInLoaded()) {
+  if (isGeolocationLoaded() && isSignInLoaded()) {
     switch (getMode()) {
       case MODES.NEW_STREET:
       case MODES.NEW_STREET_COPY_LAST:
@@ -95,32 +80,6 @@ export function checkIfSignInAndGeolocationLoaded () {
         }
         break
     }
-  }
-}
-
-export function detectGeolocation () {
-  geolocationLoaded = false
-
-  window.fetch(IP_GEOLOCATION_API_URL)
-    .then(function (response) {
-      return response.json()
-    })
-    .then(receiveGeolocation)
-    .catch(function (error) {
-      console.log('_detectGeolocation', error)
-    })
-
-  window.setTimeout(detectGeolocationTimeout, IP_GEOLOCATION_TIMEOUT)
-}
-
-function detectGeolocationTimeout () {
-  if (!geolocationLoaded) {
-    geolocationLoaded = true
-    document.querySelector('#loading-progress').value++
-    checkIfSignInAndGeolocationLoaded()
-    checkIfEverythingIsLoaded()
-
-    trackEvent('ERROR', 'ERROR_GEOLOCATION_TIMEOUT', null, null, false)
   }
 }
 
@@ -141,25 +100,6 @@ export function updateSettingsFromCountryCode (countryCode) {
   if (debug.forceMetric) {
     units = SETTINGS_UNITS_METRIC
   }
-}
-
-function receiveGeolocation (info) {
-  if (geolocationLoaded) {
-    // Timed out, discard results
-    return
-  }
-
-  if (info && info.country_code) {
-    updateSettingsFromCountryCode(info.country_code)
-  }
-  if (info && info.ip) {
-    system.ipAddress = info.ip
-  }
-
-  geolocationLoaded = true
-  document.querySelector('#loading-progress').value++
-  checkIfSignInAndGeolocationLoaded()
-  checkIfEverythingIsLoaded()
 }
 
 export function updateUnits (newUnits) {

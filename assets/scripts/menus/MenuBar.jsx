@@ -9,7 +9,6 @@ import { debug } from '../preinit/debug_settings'
 import { URL_SIGN_IN_REDIRECT } from '../app/routing'
 import { onMyStreetsClick } from '../gallery/view'
 import { getElAbsolutePos } from '../util/helpers'
-import { closestEl } from '../util/dom_helpers'
 import Avatar from '../app/Avatar'
 
 class MenuBar extends React.Component {
@@ -55,7 +54,7 @@ class MenuBar extends React.Component {
     // about what button was clicked and its position, so that the specified
     // menu can open in the correct place. The clicked button stores `data-name`
     // on its attributes, and position is based on its parent `li` element.
-    const buttonEl = closestEl(event.target, 'button')
+    const buttonEl = event.target.closest('button')
     const name = buttonEl.dataset.name
     const position = getElAbsolutePos(buttonEl.parentNode)
     this.props.onMenuDropdownClick({ name, position })

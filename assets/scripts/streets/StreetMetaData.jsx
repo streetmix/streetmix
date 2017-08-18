@@ -54,14 +54,19 @@ class StreetMetaData extends React.Component {
       author = <span>by {msg('USER_ANONYMOUS')}</span>
     }
 
+    const geolocation = (this.props.experimental) ? (
+      <span>
+        <a id='street-metadata-map' onClick={this.onClick}><u>Geolocation!</u></a>
+        {this.state.showMap && <Geolocation closeMap={this.closeMap} />}
+      </span>
+    ) : null
+
     return (
       <div id={this.props.id}>
         <StreetWidth street={this.state.street} readOnly={this.props.readOnly} />
         <span id='street-metadata-author'>{author}</span>
         <span id='street-metadata-date'>{formatDate(this.state.street.updatedAt)}</span>
-        <a id='street-metadata-map' onClick={this.onClick}><u>Geolocation!</u></a>
-        {this.state.showMap && <Geolocation closeMap={this.closeMap} />}
-
+        {geolocation}
       </div>
     )
   }
@@ -72,7 +77,8 @@ StreetMetaData.propTypes = {
   readOnly: PropTypes.bool,
   street: PropTypes.any,
   signedIn: PropTypes.bool.isRequired,
-  userId: PropTypes.string
+  userId: PropTypes.string,
+  experimental: PropTypes.bool
 }
 
 StreetMetaData.defaultProps = {
@@ -82,7 +88,8 @@ StreetMetaData.defaultProps = {
 function mapStateToProps (state) {
   return {
     signedIn: state.user.signedIn,
-    userId: state.user.signInData && state.user.signInData.userId
+    userId: state.user.signInData && state.user.signInData.userId,
+    experimental: state.debug.experimental
   }
 }
 
