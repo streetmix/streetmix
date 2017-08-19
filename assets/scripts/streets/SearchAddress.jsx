@@ -26,14 +26,11 @@ class SearchAddress extends Component {
   }
 
   componentDidMount () {
-    this.autosuggestBar.input.focus()
+    this.focusInput()
   }
 
-  onSuggestionsFetchRequested = (x) => {
-    if (x.value.length >= 2) {
-      const searchUrl = `${apiurl}?api_key=${apikey}&text=${x.value}`
-      window.fetch(searchUrl).then(this.searchAddress)
-    }
+  focusInput = () => {
+    this.autosuggestBar.input.focus()
   }
 
   onChange = (event, inputValue) => {
@@ -42,12 +39,26 @@ class SearchAddress extends Component {
     })
   }
 
-  handleJSON = (res, err) => {
-    this.setState({
-      suggestions: res.features
-    })
-    if (res.features === undefined || res.features.length === 0) {
+  onSuggestionsFetchRequested = (x) => {
+    if (x.value.length >= 2) {
+      const searchUrl = `${apiurl}?api_key=${apikey}&text=${x.value}`
+
+      window.fetch(searchUrl)
+        .then(response => response.json())
+        .then(this.handleJSON)
     }
+  }
+
+  handleJSON = (response) => {
+    if (response.features === undefined || response.features.length === 0) {
+      this.setState({
+        suggestions: []
+      })
+    }
+
+    this.setState({
+      suggestions: response.features
+    })
   }
 
   onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) => {
@@ -59,18 +70,11 @@ class SearchAddress extends Component {
     })
   }
 
-  renderClearButton = (value) => {
-    if (value.length > 2) {
-      return (
-        <span name="close" className="geolocate-input-clear" onClick={this.clearSearch}>×</span>
-      )
-    }
-  }
-
   clearSearch = () => {
     this.setState({
       value: ''
     })
+    this.focusInput()
   }
 
   handleSubmit = (event) => {
@@ -89,10 +93,6 @@ class SearchAddress extends Component {
     this.props.setSearchResults(this.state.coordReverse, this.state.markerLabel)
   }
 
-  searchAddress = (res, err) => {
-    res.json().then(this.handleJSON)
-  }
-
   search = (query) => {
     const endpoint = `https://search.mapzen.com/v1/search?text=${query}&api_key=${apikey}`
     this.throttleMakeRequest(endpoint)
@@ -108,6 +108,10 @@ class SearchAddress extends Component {
       })
   }
 
+  getSuggestionValue (suggestion) {
+    return suggestion.properties.label
+  }
+
   renderSuggestion (suggestion) {
     return (
       <div className="geolocate-suggestion-item">
@@ -116,8 +120,12 @@ class SearchAddress extends Component {
     )
   }
 
-  getSuggestionValue (suggestion) {
-    return suggestion.properties.label
+  renderClearButton = (value) => {
+    if (value.length > 0) {
+      return (
+        <span title="Clear search" className="geolocate-input-clear" onClick={this.clearSearch}>×</span>
+      )
+    }
   }
 
   render () {

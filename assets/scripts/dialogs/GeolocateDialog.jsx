@@ -4,11 +4,11 @@ import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
-import { apiurlReverse, apikey } from '../app/config'
+import { apiurlReverse, apikey } from '../streets/config'
 import Dialog from './Dialog'
 import SearchAddress from '../streets/SearchAddress'
 import { setMapState } from '../store/actions/map'
-import { clearDialogs, SHOW_DIALOG, store } from '../store/actions/dialogs'
+import { SHOW_DIALOG, store } from '../store/actions/dialogs'
 
 const MAP_TILES = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png'
 const MAP_TILES_2X = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}@2x.png'
@@ -26,10 +26,15 @@ L.Icon.Default.mergeOptions({
 
 class GeolocateDialog extends React.Component {
   static propTypes = {
-    markerLocation: PropTypes.object,
+    markerLocation: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.number),
+      PropTypes.shape({
+        lat: PropTypes.number,
+        lng: PropTypes.number
+      })
+    ]),
     setMapState: PropTypes.func,
-    addressInformationLabel: PropTypes.string,
-    dispatch: PropTypes.func.isRequired
+    addressInformationLabel: PropTypes.string
   }
 
   constructor (props) {
@@ -41,7 +46,13 @@ class GeolocateDialog extends React.Component {
   }
 
   /* start click event function */
-  onClick = (e) => {
+  onClickMap = (event) => {
+    const options = {
+      lat: event.latlng.lat,
+      lng: event.latlng.lng
+    }
+    const clickUrl = `${apiurlReverse}?api_key=${apikey}&point.lat=${options.lat}&point.lon=${options.lng}`
+
     const displayAddressData = (res) => {
       this.props.setMapState({
         addressInformationLabel: res.features[0].properties.label,
@@ -51,49 +62,31 @@ class GeolocateDialog extends React.Component {
       this.map.leafletElement.panTo(this.props.markerLocation)
     }
 
-    function gotAddressData (res, err) {
-      res.json().then(displayAddressData)
-    }
-
-    const options = {
-      lat: e.latlng.lat,
-      lng: e.latlng.lng
-    }
-
-    const clickUrl = `${apiurlReverse}?api_key=${apikey}&point.lat=${options.lat}&point.lon=${options.lng}`
-    window.fetch(clickUrl).then(gotAddressData)
+    window.fetch(clickUrl)
+      .then(response => response.json())
+      .then(displayAddressData)
   }
-
   /* end click event function */
 
-  onClickMap () {
-    store.dispatch({
-      type: SHOW_DIALOG,
-      name: 'MAP'
-    })
-  }
-
   /* start on marker drag function */
-  markerDrag = (e) => {
-    const gotJson = (res) => {
+  markerDrag = (event) => {
+    const targetCoords = event.target.getLatLng()
+    const dragEndUrl = `${apiurlReverse}?api_key=${apikey}&point.lat=${targetCoords.lat}&point.lon=${targetCoords.lng}`
+
+    const handleResponse = (res) => {
       this.setState({
         renderPopup: true
       })
 
       this.props.setMapState({
         addressInformationLabel: res.features[0].properties.label,
-        markerLocation: e.target.getLatLng()
+        markerLocation: targetCoords
       })
     }
 
-    function gotAddress (res, err) {
-      res.json().then(gotJson)
-    }
-
-    const targetCoords = e.target.getLatLng()
-
-    const dragEndUrl = `${apiurlReverse}?api_key=${apikey}&point.lat=${targetCoords.lat}&point.lon=${targetCoords.lng}`
-    window.fetch(dragEndUrl).then(gotAddress)
+    window.fetch(dragEndUrl)
+      .then(response => response.json())
+      .then(handleResponse)
   }
 
   /* end on marker drag function */
@@ -112,10 +105,6 @@ class GeolocateDialog extends React.Component {
     this.setState({
       renderPopup: false
     })
-  }
-
-  unmountDialog = () => {
-    this.props.dispatch(clearDialogs())
   }
 
   render () {
@@ -154,7 +143,7 @@ class GeolocateDialog extends React.Component {
         <Map
           center={this.state.mapCenter}
           zoom={zoomLevel}
-          onClick={this.onClick}
+          onClick={this.onClickMap}
           ref={(ref) => { this.map = ref }}
         >
           <TileLayer
