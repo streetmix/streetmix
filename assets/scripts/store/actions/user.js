@@ -1,17 +1,15 @@
-import { SET_GEOLOCATION_STATE } from './index'
+import { GEOLOCATION_ATTEMPTED, GEOLOCATION_DATA } from './index'
 
-export function setGeolocationLoading () {
+export function setGeolocationAttempted (attempted = true) {
   return {
-    type: SET_GEOLOCATION_STATE,
-    loaded: false,
-    data: null
+    type: GEOLOCATION_ATTEMPTED,
+    attempted
   }
 }
 
 export function setGeolocationData (data) {
   return {
-    type: SET_GEOLOCATION_STATE,
-    loaded: true,
-    data: data
+    type: GEOLOCATION_DATA,
+    data
   }
 }
