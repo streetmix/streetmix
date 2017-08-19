@@ -16,6 +16,10 @@ import { registerKeypress, deregisterKeypress } from './keypress'
 import { loseAnyFocus } from './focus'
 
 class DebugInfo extends React.Component {
+  static propTypes = {
+    settings: PropTypes.object.isRequired
+  }
+
   constructor (props) {
     super(props)
 
@@ -23,10 +27,6 @@ class DebugInfo extends React.Component {
       visible: false,
       content: ''
     }
-
-    this.showDebugInfo = this.showDebugInfo.bind(this)
-    this.hideDebugInfo = this.hideDebugInfo.bind(this)
-    this.getTextareaContent = this.getTextareaContent.bind(this)
   }
 
   componentDidMount () {
@@ -34,7 +34,7 @@ class DebugInfo extends React.Component {
     registerKeypress('shift d', this.showDebugInfo)
   }
 
-  getTextareaContent () {
+  getTextareaContent = () => {
     const debugStreetData = cloneDeep(getStreet())
     const debugUndo = cloneDeep(getUndoStack())
 
@@ -59,7 +59,7 @@ class DebugInfo extends React.Component {
     return JSON.stringify(debugObj, null, 2)
   }
 
-  showDebugInfo () {
+  showDebugInfo = () => {
     this.setState({
       visible: true,
       content: this.getTextareaContent()
@@ -78,7 +78,7 @@ class DebugInfo extends React.Component {
     // TODO: Register mouse inputs for hide
   }
 
-  hideDebugInfo () {
+  hideDebugInfo = () => {
     this.setState({
       visible: false,
       content: ''
@@ -103,10 +103,6 @@ class DebugInfo extends React.Component {
       </div>
     )
   }
-}
-
-DebugInfo.propTypes = {
-  settings: PropTypes.object.isRequired
 }
 
 function mapStateToProps (state) {

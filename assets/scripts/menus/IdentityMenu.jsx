@@ -7,7 +7,7 @@ export default class IdentityMenu extends React.PureComponent {
   render () {
     return (
       <Menu {...this.props}>
-        <a href='#' data-i18n='menu.item.sign-out' onClick={onSignOutClick}>
+        <a href="#" data-i18n="menu.item.sign-out" onClick={onSignOutClick}>
           Sign out
         </a>
       </Menu>

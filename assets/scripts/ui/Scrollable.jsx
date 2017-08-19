@@ -6,16 +6,16 @@ import PropTypes from 'prop-types'
 import { animate } from '../util/helpers'
 
 export default class Scrollable extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    children: PropTypes.node,
+    setRef: PropTypes.func
+  }
+
   constructor (props) {
     super(props)
 
     this.duration = 300
-
-    this.onClickLeft = this.onClickLeft.bind(this)
-    this.onClickRight = this.onClickRight.bind(this)
-    this.onScrollContainer = this.onScrollContainer.bind(this)
-    this.setWrapperElementRef = this.setWrapperElementRef.bind(this)
-    this.checkButtonVisibilityState = this.checkButtonVisibilityState.bind(this)
   }
 
   componentDidMount () {
@@ -29,30 +29,30 @@ export default class Scrollable extends React.PureComponent {
     this.checkButtonVisibilityState()
   }
 
-  onClickLeft (event) {
+  onClickLeft = (event) => {
     const el = this.scroller
     const position = el.scrollLeft - (el.offsetWidth - 150) // TODO: document magic number
 
     animate(el, { scrollLeft: position }, this.duration)
   }
 
-  onClickRight (event) {
+  onClickRight = (event) => {
     const el = this.scroller
     const position = el.scrollLeft + (el.offsetWidth - 150) // TODO: document magic number
 
     animate(el, { scrollLeft: position }, this.duration)
   }
 
-  onScrollContainer (event) {
+  onScrollContainer = (event) => {
     this.checkButtonVisibilityState()
   }
 
   // Allows parent component to obtain a ref to the wrapping element created here.
-  setWrapperElementRef (ref) {
+  setWrapperElementRef = (ref) => {
     this.props.setRef(ref)
   }
 
-  checkButtonVisibilityState () {
+  checkButtonVisibilityState = () => {
     const el = this.scroller
 
     // We set styles manually instead of setting `disabled` as before; it's
@@ -92,14 +92,14 @@ export default class Scrollable extends React.PureComponent {
           {this.props.children}
         </div>
         <button
-          className='scrollable scroll-left'
+          className="scrollable scroll-left"
           onClick={this.onClickLeft}
           ref={(ref) => { this.leftButton = ref }}
         >
           «
         </button>
         <button
-          className='scrollable scroll-right'
+          className="scrollable scroll-right"
           onClick={this.onClickRight}
           ref={(ref) => { this.rightButton = ref }}
         >
@@ -108,10 +108,4 @@ export default class Scrollable extends React.PureComponent {
       </div>
     )
   }
-}
-
-Scrollable.propTypes = {
-  className: PropTypes.string,
-  children: PropTypes.node,
-  setRef: PropTypes.func
 }

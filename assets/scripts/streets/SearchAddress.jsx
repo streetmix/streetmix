@@ -8,6 +8,11 @@ import { apiurl, apikey } from './config'
 import { setMapState } from '../store/actions/map'
 
 class SearchAddress extends Component {
+  static propTypes = {
+    setMapState: PropTypes.func,
+    setSearchResults: PropTypes.func
+  }
+
   constructor (props) {
     super(props)
 
@@ -18,36 +23,26 @@ class SearchAddress extends Component {
     }
 
     this.throttleMakeRequest = throttle(this.makeRequest, 250)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.getSuggestionValue = this.getSuggestionValue.bind(this)
-    this.onChange = this.onChange.bind(this)
-    this.renderSuggestion = this.renderSuggestion.bind(this)
-    this.renderClearButton = this.renderClearButton.bind(this)
-    this.onSuggestionSelected = this.onSuggestionSelected.bind(this)
-    this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this)
-    this.handleJSON = this.handleJSON.bind(this)
-    this.clearSearch = this.clearSearch.bind(this)
-    this.searchAddress = this.searchAddress.bind(this)
   }
 
   componentDidMount () {
     this.autosuggestBar.input.focus()
   }
 
-  onSuggestionsFetchRequested (x) {
+  onSuggestionsFetchRequested = (x) => {
     if (x.value.length >= 2) {
       const searchUrl = `${apiurl}?api_key=${apikey}&text=${x.value}`
       window.fetch(searchUrl).then(this.searchAddress)
     }
   }
 
-  onChange (event, inputValue) {
+  onChange = (event, inputValue) => {
     this.setState({
       value: inputValue.newValue
     })
   }
 
-  handleJSON (res, err) {
+  handleJSON = (res, err) => {
     this.setState({
       suggestions: res.features
     })
@@ -55,7 +50,7 @@ class SearchAddress extends Component {
     }
   }
 
-  onSuggestionSelected (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) {
+  onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) => {
     this.setState({
       coordReverse: suggestion.geometry.coordinates.reverse(),
       addressInfo: suggestion.properties,
@@ -64,21 +59,21 @@ class SearchAddress extends Component {
     })
   }
 
-  renderClearButton (value) {
+  renderClearButton = (value) => {
     if (value.length > 2) {
       return (
-        <span name='close' className='geolocate-input-clear' onClick={this.clearSearch}>×</span>
+        <span name="close" className="geolocate-input-clear" onClick={this.clearSearch}>×</span>
       )
     }
   }
 
-  clearSearch () {
+  clearSearch = () => {
     this.setState({
       value: ''
     })
   }
 
-  handleSubmit (event) {
+  handleSubmit = (event) => {
     event.preventDefault()
     const inputValue = this.state.value
     if (inputValue !== '') {
@@ -94,16 +89,16 @@ class SearchAddress extends Component {
     this.props.setSearchResults(this.state.coordReverse, this.state.markerLabel)
   }
 
-  searchAddress (res, err) {
+  searchAddress = (res, err) => {
     res.json().then(this.handleJSON)
   }
 
-  search (query) {
+  search = (query) => {
     const endpoint = `https://search.mapzen.com/v1/search?text=${query}&api_key=${apikey}`
     this.throttleMakeRequest(endpoint)
   }
 
-  makeRequest (endpoint) {
+  makeRequest = (endpoint) => {
     window.fetch(endpoint)
       .then(response => response.json())
       .then((results) => {
@@ -115,7 +110,7 @@ class SearchAddress extends Component {
 
   renderSuggestion (suggestion) {
     return (
-      <div className='geolocate-suggestion-item'>
+      <div className="geolocate-suggestion-item">
         {suggestion.properties.label}
       </div>
     )
@@ -133,7 +128,7 @@ class SearchAddress extends Component {
     }
 
     return (
-      <form className='geolocate-input-form' onSubmit={this.handleSubmit}>
+      <form className="geolocate-input-form" onSubmit={this.handleSubmit}>
         <Autosuggest
           ref={(ref) => { this.autosuggestBar = ref }}
           suggestions={this.state.suggestions}
@@ -148,11 +143,6 @@ class SearchAddress extends Component {
       </form>
     )
   }
-}
-
-SearchAddress.propTypes = {
-  setMapState: PropTypes.func,
-  setSearchResults: PropTypes.func
 }
 
 function mapStateToProps (state) {

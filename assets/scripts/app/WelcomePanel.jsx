@@ -27,6 +27,15 @@ const WELCOME_FIRST_TIME_EXISTING_STREET = 3
 const LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED = 'settings-welcome-dismissed'
 
 class WelcomePanel extends React.Component {
+  static propTypes = {
+    newStreetPreference: PropTypes.number,
+    priorLastStreetId: PropTypes.string
+  }
+
+  static defaultProps = {
+    priorLastStreetId: null
+  }
+
   constructor (props) {
     super(props)
 
@@ -36,11 +45,6 @@ class WelcomePanel extends React.Component {
       welcomeDismissed: this.getSettingsWelcomeDismissed(),
       selectedNewStreetType: null
     }
-
-    this.showWelcome = this.showWelcome.bind(this)
-    this.hideWelcome = this.hideWelcome.bind(this)
-    this.onClickGoNewStreet = this.onClickGoNewStreet.bind(this)
-    this.onChangeNewStreetType = this.onChangeNewStreetType.bind(this)
   }
 
   componentDidMount () {
@@ -59,7 +63,7 @@ class WelcomePanel extends React.Component {
     window.removeEventListener('stmx:save_street', this.hideWelcome)
   }
 
-  showWelcome () {
+  showWelcome = () => {
     // Do not do anything in these cases
     if (app.readOnly || system.phone) {
       return
@@ -113,7 +117,7 @@ class WelcomePanel extends React.Component {
     registerKeypress('esc', this.hideWelcome)
   }
 
-  hideWelcome () {
+  hideWelcome = () => {
     // Certain events will hide the welcome panel, if visible.
     // Here we check to make sure it is visible before doing anything else.
     if (this.state.visible === false) {
@@ -148,7 +152,7 @@ class WelcomePanel extends React.Component {
       JSON.stringify(value)
   }
 
-  onClickGoNewStreet (event) {
+  onClickGoNewStreet = (event) => {
     this.setState({ welcomeDismissed: true })
     this.setSettingsWelcomeDismissed(true)
     goNewStreet(true)
@@ -156,7 +160,7 @@ class WelcomePanel extends React.Component {
 
   // The following handler is only used with the WELCOME_NEW_STREET mode.
   // It handles changing the "checked" state of the input buttons.
-  onChangeNewStreetType (event) {
+  onChangeNewStreetType = (event) => {
     this.setState({
       selectedNewStreetType: event.target.id
     })
@@ -169,17 +173,17 @@ class WelcomePanel extends React.Component {
     switch (this.state.welcomeType) {
       case WELCOME_FIRST_TIME_NEW_STREET:
         welcomeContent = (
-          <div className='welcome-panel-content first-time-new-street'>
-            <h1 data-i18n='dialogs.welcome.heading'>
+          <div className="welcome-panel-content first-time-new-street">
+            <h1 data-i18n="dialogs.welcome.heading">
               Welcome to Streetmix.
             </h1>
             <p>
               Design, remix, and share your neighborhood street. Add trees or bike paths, widen
               sidewalks or traffic lanes, learn how your decisions can impact your community.
             </p>
-            <p className='important'>
+            <p className="important">
               Start by moving some segments around
-              with <span className='touch-only'>your finger</span><span className='non-touch-only'>your mouse</span>.
+              with <span className="touch-only">your finger</span><span className="non-touch-only">your mouse</span>.
             </p>
           </div>
         )
@@ -188,14 +192,14 @@ class WelcomePanel extends React.Component {
         const street = getStreet()
 
         welcomeContent = (
-          <div className='welcome-panel-content first-time-existing-street'>
-            <h1 data-i18n='dialogs.welcome.heading'>
+          <div className="welcome-panel-content first-time-existing-street">
+            <h1 data-i18n="dialogs.welcome.heading">
               Welcome to Streetmix.
             </h1>
             {/* Enclose child elements in a paragraph-like <div> to get around
                 React's warning that <div> elements from StreetName and
                 Avatar components cannot exist inside a <p> */}
-            <div className='paragraph'>
+            <div className="paragraph">
               This is <StreetName name={street.name} />
               {(() => {
                 // Display street creator if creatorId is available.
@@ -211,7 +215,7 @@ class WelcomePanel extends React.Component {
               })()}
               .
             </div>
-            <p className='important'>
+            <p className="important">
               Remix it by moving some segments around,
               or <button onClick={this.onClickGoNewStreet}>Start your own street</button>.
             </p>
@@ -221,34 +225,34 @@ class WelcomePanel extends React.Component {
         break
       case WELCOME_NEW_STREET:
         welcomeContent = (
-          <div className='welcome-panel-content new-street'>
-            <h1 data-i18n='dialogs.new-street.heading'>
+          <div className="welcome-panel-content new-street">
+            <h1 data-i18n="dialogs.new-street.heading">
               Here’s your new street.
             </h1>
             <ul>
               <li>
                 <input
-                  type='radio'
-                  name='new-street'
-                  id='new-street-default'
+                  type="radio"
+                  name="new-street"
+                  id="new-street-default"
                   checked={this.state.selectedNewStreetType === 'new-street-default' || !this.state.selectedNewStreetType}
                   onChange={this.onChangeNewStreetType}
                   onClick={onNewStreetDefaultClick}
                 />
-                <label htmlFor='new-street-default' data-i18n='dialogs.new-street.default'>
+                <label htmlFor="new-street-default" data-i18n="dialogs.new-street.default">
                   Start with an example street
                 </label>
               </li>
               <li>
                 <input
-                  type='radio'
-                  name='new-street'
-                  id='new-street-empty'
+                  type="radio"
+                  name="new-street"
+                  id="new-street-empty"
                   checked={this.state.selectedNewStreetType === 'new-street-empty'}
                   onChange={this.onChangeNewStreetType}
                   onClick={onNewStreetEmptyClick}
                 />
-                <label htmlFor='new-street-empty' data-i18n='dialogs.new-street.empty'>
+                <label htmlFor="new-street-empty" data-i18n="dialogs.new-street.empty">
                   Start with an empty street
                 </label>
               </li>
@@ -259,14 +263,14 @@ class WelcomePanel extends React.Component {
                   return (
                     <li>
                       <input
-                        type='radio'
-                        name='new-street'
-                        id='new-street-last'
+                        type="radio"
+                        name="new-street"
+                        id="new-street-last"
                         checked={this.state.selectedNewStreetType === 'new-street-last'}
                         onChange={this.onChangeNewStreetType}
                         onClick={onNewStreetLastClick}
                       />
-                      <label htmlFor='new-street-last' data-i18n='dialogs.new-street.last'>
+                      <label htmlFor="new-street-last" data-i18n="dialogs.new-street.last">
                         Start with a copy of last street
                       </label>
                     </li>
@@ -299,22 +303,13 @@ class WelcomePanel extends React.Component {
 
     return (
       <div className={classes}>
-        <div className='welcome-panel'>
-          <button className='close' onClick={this.hideWelcome}>×</button>
+        <div className="welcome-panel">
+          <button className="close" onClick={this.hideWelcome}>×</button>
           {welcomeContent}
         </div>
       </div>
     )
   }
-}
-
-WelcomePanel.propTypes = {
-  newStreetPreference: PropTypes.number,
-  priorLastStreetId: PropTypes.string
-}
-
-WelcomePanel.defaultProps = {
-  priorLastStreetId: null
 }
 
 function mapStateToProps (state) {

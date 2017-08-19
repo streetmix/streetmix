@@ -3,7 +3,6 @@
  *
  * Handles interaction on the "Save as image" dialog box.
  * Instantiates an instance of Dialog
- * Exports nothing
  *
  */
 import React from 'react'
@@ -22,6 +21,12 @@ import { t } from '../app/locale'
 import { saveAs } from 'file-saver'
 
 class SaveAsImageDialog extends React.Component {
+  static propTypes = {
+    transparentSky: PropTypes.bool.isRequired,
+    segmentNames: PropTypes.bool.isRequired,
+    streetName: PropTypes.bool.isRequired
+  }
+
   constructor (props) {
     super(props)
 
@@ -34,13 +39,6 @@ class SaveAsImageDialog extends React.Component {
         dataUrl: ''
       }
     }
-
-    this.onChangeOptionTransparentSky = this.onChangeOptionTransparentSky.bind(this)
-    this.onChangeOptionSegmentNames = this.onChangeOptionSegmentNames.bind(this)
-    this.onChangeOptionStreetName = this.onChangeOptionStreetName.bind(this)
-    this.updatePreview = this.updatePreview.bind(this)
-    this.onPreviewLoaded = this.onPreviewLoaded.bind(this)
-    this.onClickDownloadImage = this.onClickDownloadImage.bind(this)
   }
 
   componentDidMount () {
@@ -64,23 +62,23 @@ class SaveAsImageDialog extends React.Component {
   }
 
   // When options change, this changes props.
-  onChangeOptionTransparentSky (event) {
+  onChangeOptionTransparentSky = (event) => {
     setSettings({ saveAsImageTransparentSky: event.target.checked })
   }
 
-  onChangeOptionSegmentNames (event) {
+  onChangeOptionSegmentNames = (event) => {
     setSettings({ saveAsImageSegmentNamesAndWidths: event.target.checked })
   }
 
-  onChangeOptionStreetName (event) {
+  onChangeOptionStreetName = (event) => {
     setSettings({ saveAsImageStreetName: event.target.checked })
   }
 
-  onPreviewLoaded () {
+  onPreviewLoaded = () => {
     this.setState({ isLoading: false })
   }
 
-  onPreviewError () {
+  onPreviewError = () => {
     this.setState({
       isLoading: false,
       errorMessage: 'There was an error displaying a preview image.'
@@ -92,7 +90,7 @@ class SaveAsImageDialog extends React.Component {
    * Designed to get around a limitation in IE where a dataURL is not downloadable
    * directly (https://msdn.microsoft.com/en-us/library/cc848897(v=vs.85).aspx)
    */
-  onClickDownloadImage (event) {
+  onClickDownloadImage = (event) => {
     event.preventDefault()
     this.imageCanvas.toBlob((blob) => {
       const filename = makeFilename()
@@ -100,7 +98,7 @@ class SaveAsImageDialog extends React.Component {
     })
   }
 
-  updatePreview () {
+  updatePreview = () => {
     this.imageCanvas = getStreetImage(this.props.transparentSky, this.props.segmentNames, this.props.streetName)
 
     // .toDataURL is not available on IE11 when SVGs are part of the canvas.
@@ -123,55 +121,55 @@ class SaveAsImageDialog extends React.Component {
 
   render () {
     return (
-      <Dialog className='save-as-image-dialog'>
+      <Dialog className="save-as-image-dialog">
         <h1>{t('dialogs.save.heading', 'Save as image')}</h1>
         <p>
           <input
-            type='checkbox'
+            type="checkbox"
             onChange={this.onChangeOptionSegmentNames}
             checked={this.props.segmentNames}
-            id='save-as-image-segment-names'
+            id="save-as-image-segment-names"
           />
-          <label htmlFor='save-as-image-segment-names'>
+          <label htmlFor="save-as-image-segment-names">
             {t('dialogs.save.option-labels', 'Segment names and widths')}
           </label>
 
           <input
-            type='checkbox'
+            type="checkbox"
             onChange={this.onChangeOptionStreetName}
             checked={this.props.streetName}
-            id='save-as-image-street-name'
+            id="save-as-image-street-name"
           />
-          <label htmlFor='save-as-image-street-name'>
+          <label htmlFor="save-as-image-street-name">
             {t('dialogs.save.option-name', 'Street name')}
           </label>
 
           <input
-            type='checkbox'
+            type="checkbox"
             onChange={this.onChangeOptionTransparentSky}
             checked={this.props.transparentSky}
-            id='save-as-image-transparent-sky'
+            id="save-as-image-transparent-sky"
           />
-          <label htmlFor='save-as-image-transparent-sky'>
+          <label htmlFor="save-as-image-transparent-sky">
             {t('dialogs.save.option-sky', 'Transparent sky')}
           </label>
         </p>
         {(() => {
           if (this.state.errorMessage) {
             return (
-              <div className='save-as-image-preview'>
-                <div className='save-as-image-preview-loading'>
+              <div className="save-as-image-preview">
+                <div className="save-as-image-preview-loading">
                   {this.state.errorMessage}
                 </div>
               </div>
             )
           } else {
             return (
-              <div className='save-as-image-preview'>
-                <div className='save-as-image-preview-loading' style={{display: this.state.isLoading ? 'block' : 'none'}}>
+              <div className="save-as-image-preview">
+                <div className="save-as-image-preview-loading" style={{display: this.state.isLoading ? 'block' : 'none'}}>
                   {t('dialogs.save.loading', 'Loading…')}
                 </div>
-                <div className='save-as-image-preview-image' style={{display: this.state.isLoading ? 'none' : 'block'}}>
+                <div className="save-as-image-preview-image" style={{display: this.state.isLoading ? 'none' : 'block'}}>
                   <img
                     src={this.state.download.dataUrl}
                     onLoad={this.onPreviewLoaded}
@@ -185,7 +183,7 @@ class SaveAsImageDialog extends React.Component {
         })()}
         <p>
           <a
-            className='button-like'
+            className="button-like"
             onClick={this.onClickDownloadImage}
             // Sets the anchor's `download` attribute so that it saves a meaningful filename
             // Note that this property is not supported in Safari/iOS
@@ -199,12 +197,6 @@ class SaveAsImageDialog extends React.Component {
       </Dialog>
     )
   }
-}
-
-SaveAsImageDialog.propTypes = {
-  transparentSky: PropTypes.bool.isRequired,
-  segmentNames: PropTypes.bool.isRequired,
-  streetName: PropTypes.bool.isRequired
 }
 
 function mapStateToProps (state) {

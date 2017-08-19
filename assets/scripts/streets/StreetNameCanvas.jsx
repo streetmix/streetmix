@@ -8,6 +8,14 @@ import { msg } from '../app/messages'
 import { updateStreetName } from './name'
 
 class StreetNameCanvas extends React.Component {
+  static propTypes = {
+    editable: PropTypes.bool
+  }
+
+  static defaultProps = {
+    editable: true
+  }
+
   constructor (props) {
     super(props)
 
@@ -20,12 +28,6 @@ class StreetNameCanvas extends React.Component {
     }
 
     this.lastSentCoords = null
-
-    this.updateCoords = this.updateCoords.bind(this)
-    this.streetUpdated = this.streetUpdated.bind(this)
-    this.updatePositions = this.updatePositions.bind(this)
-    this.handleResizeStreetName = this.handleResizeStreetName.bind(this)
-    this.onClickStreetName = this.onClickStreetName.bind(this)
   }
 
   componentDidMount () {
@@ -47,19 +49,19 @@ class StreetNameCanvas extends React.Component {
     this.updateCoords()
   }
 
-  streetUpdated (e) {
+  streetUpdated = () => {
     const street = getStreet()
     this.setState({street})
   }
 
-  handleResizeStreetName (coords) {
+  handleResizeStreetName = (coords) => {
     this.setState({
       streetNameLeftPos: coords.left,
       streetNameWidth: coords.width
     })
   }
 
-  updateCoords () {
+  updateCoords = () => {
     const rect = this.streetName.getBoundingClientRect()
     const coords = {
       left: rect.left,
@@ -71,7 +73,7 @@ class StreetNameCanvas extends React.Component {
     }
   }
 
-  updatePositions (event) {
+  updatePositions = (event) => {
     if (event.detail && event.detail.rightMenuBarLeftPos) {
       this.setState({
         rightMenuBarLeftPos: event.detail.rightMenuBarLeftPos
@@ -79,7 +81,7 @@ class StreetNameCanvas extends React.Component {
     }
   }
 
-  determineClassNames () {
+  determineClassNames = () => {
     const classNames = []
     if (this.state.streetNameLeftPos + this.state.streetNameWidth > this.state.rightMenuBarLeftPos) {
       classNames.push('move-down-for-menu')
@@ -87,7 +89,7 @@ class StreetNameCanvas extends React.Component {
     return classNames
   }
 
-  onClickStreetName () {
+  onClickStreetName = () => {
     if (!this.props.editable) return
 
     const newName = window.prompt(msg('PROMPT_NEW_STREET_NAME'), this.state.street.name)
@@ -102,25 +104,17 @@ class StreetNameCanvas extends React.Component {
 
   render () {
     return (
-      <div id='street-name-canvas' className={this.determineClassNames().join(' ')}>
+      <div id="street-name-canvas" className={this.determineClassNames().join(' ')}>
         <StreetName
-          id='street-name'
+          id="street-name"
           ref={(ref) => { this.streetName = ref }}
           name={this.state.street.name}
           onClick={this.onClickStreetName}
         />
-        <StreetMetaData id='street-metadata' street={this.state.street} />
+        <StreetMetaData id="street-metadata" street={this.state.street} />
       </div>
     )
   }
-}
-
-StreetNameCanvas.propTypes = {
-  editable: PropTypes.bool
-}
-
-StreetNameCanvas.defaultProps = {
-  editable: true
 }
 
 function mapStateToProps (state) {

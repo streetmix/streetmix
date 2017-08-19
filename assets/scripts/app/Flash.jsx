@@ -21,6 +21,6 @@ export default class Flash extends React.PureComponent {
   }
 
   render () {
-    return <div className='flash' ref={(ref) => { this.el = ref }} />
+    return <div className="flash" ref={(ref) => { this.el = ref }} />
   }
 }

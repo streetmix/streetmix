@@ -3,7 +3,6 @@
  *
  * Handles the "Donate" dialog box.
  * Instantiates an instance of Dialog
- * Exports nothing
  *
  */
 import React from 'react'
@@ -16,25 +15,23 @@ import { clearDialogs } from '../store/actions/dialogs'
 const LOCALSTORAGE_DONATE_DISMISSED = 'settings-donate-dismissed'
 const LOCALSTORAGE_DONATE_DELAYED_TIMESTAMP = 'settings-donate-delayed-timestamp'
 
-class DonateDialog extends React.Component {
-  constructor (props) {
-    super(props)
-
-    this.onClickDonateButton = this.onClickDonateButton.bind(this)
-    this.onClickClose = this.onClickClose.bind(this)
+class DonateDialog extends React.PureComponent {
+  static propTypes = {
+    // Supplied by connect()
+    dispatch: PropTypes.func.isRequired
   }
 
   componentDidMount () {
     trackEvent('Interaction', 'Display donate dialog box', null, null, false)
   }
 
-  onClickDonateButton (event) {
+  onClickDonateButton = (event) => {
     trackEvent('Interaction', 'Clicked donate button', null, null, false)
     this.setSettingsDonateDismissed(true)
     this.props.dispatch(clearDialogs())
   }
 
-  onClickClose (event) {
+  onClickClose = (event) => {
     trackEvent('Interaction', 'Clicked close donate dialog link', null, null, false)
     this.setSettingsDonateDelayed(true)
     this.props.dispatch(clearDialogs())
@@ -50,10 +47,10 @@ class DonateDialog extends React.Component {
 
   render () {
     return (
-      <Dialog className='donate-dialog' disableShieldExit>
+      <Dialog className="donate-dialog" disableShieldExit>
         <h1>Streetmix needs your help!</h1>
-        <div className='donate-dialog-text'>
-          <p className='donate-dialog-lede'>
+        <div className="donate-dialog-text">
+          <p className="donate-dialog-lede">
             Streetmix is a community-supported project. Unlike other “free” services on the Internet, we do not show ads or inject trackers that abuse your privacy. Instead, we depend on your support to keep Streetmix up and running.
           </p>
           <p>
@@ -62,25 +59,20 @@ class DonateDialog extends React.Component {
         </div>
         <p>
           <a
-            className='button-like donate-dialog-button'
-            href='https://opencollective.com/streetmix'
-            target='_blank'
+            className="button-like donate-dialog-button"
+            href="https://opencollective.com/streetmix"
+            target="_blank"
             onClick={this.onClickDonateButton}
           >
             Donate to Streetmix
           </a>
         </p>
         <p>
-          <a href='#' onClick={this.onClickClose}>No thanks</a>
+          <a href="#" onClick={this.onClickClose}>No thanks</a>
         </p>
       </Dialog>
     )
   }
-}
-
-DonateDialog.propTypes = {
-  // Supplied by connect()
-  dispatch: PropTypes.func.isRequired
 }
 
 export default connect()(DonateDialog)

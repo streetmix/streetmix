@@ -13,30 +13,35 @@ import { getSharingUrl } from '../util/share_url'
 import { SHOW_DIALOG } from '../store/actions'
 
 class ShareMenu extends React.Component {
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired, // supplied by connect()
+    signedIn: PropTypes.bool.isRequired,
+    userId: PropTypes.string
+  }
+
+  static defaultProps = {
+    userId: ''
+  }
+
   constructor (props) {
     super(props)
 
     this.state = {
       shareUrl: ''
     }
-
-    this.updateLinks = this.updateLinks.bind(this)
-    this.getSharingMessage = this.getSharingMessage.bind(this)
-    this.onShow = this.onShow.bind(this)
-    this.onClickSaveAsImage = this.onClickSaveAsImage.bind(this)
   }
 
   componentDidMount () {
     this.updateLinks()
   }
 
-  updateLinks () {
+  updateLinks = () => {
     const url = getSharingUrl()
 
     this.setState({ shareUrl: url })
   }
 
-  getSharingMessage () {
+  getSharingMessage = () => {
     let message = ''
     let street = getStreet()
 
@@ -53,7 +58,7 @@ class ShareMenu extends React.Component {
     return message
   }
 
-  onShow () {
+  onShow = () => {
     // Make sure links are updated when the menu is opened
     this.updateLinks()
 
@@ -72,7 +77,7 @@ class ShareMenu extends React.Component {
     trackEvent('SHARING', 'FACEBOOK', null, null, false)
   }
 
-  onClickSaveAsImage (event) {
+  onClickSaveAsImage = (event) => {
     event.preventDefault()
     this.props.dispatch({
       type: SHOW_DIALOG,
@@ -95,69 +100,59 @@ class ShareMenu extends React.Component {
 
     const signInPromo = (!this.props.signedIn)
       ? (<div
-        className='share-sign-in-promo'
+        className="share-sign-in-promo"
         dangerouslySetInnerHTML={{ __html: t('menu.share.sign-in', '<a href="/twitter-sign-in?redirectUri=/just-signed-in">Sign in with Twitter</a> for nicer links to your streets and your personal street gallery') }}
       />) : null
 
     return (
-      <Menu alignment='right' onShow={this.onShow} className='share-menu' {...this.props}>
+      <Menu alignment="right" onShow={this.onShow} className="share-menu" {...this.props}>
         {signInPromo}
-        <div className='share-via-link-container'>
-          <span data-i18n='menu.share.link'>
+        <div className="share-via-link-container">
+          <span data-i18n="menu.share.link">
             Copy and paste this link to share:
           </span>
           <input
-            className='share-via-link'
-            type='text'
+            className="share-via-link"
+            type="text"
             value={this.state.shareUrl}
-            spellCheck='false'
+            spellCheck="false"
             ref={(ref) => { this.shareViaLinkInput = ref }}
           />
         </div>
         <a
-          className='share-via-twitter'
+          className="share-via-twitter"
           href={twitterLink}
-          target='_blank'
+          target="_blank"
           onClick={this.onClickShareViaTwitter}
         >
-          <svg className='icon'>
-            <use xlinkHref='#icon-twitter' />
+          <svg className="icon">
+            <use xlinkHref="#icon-twitter" />
           </svg>
-          <span data-i18n='menu.share.twitter'>Share using Twitter</span>
+          <span data-i18n="menu.share.twitter">Share using Twitter</span>
         </a>
         <a
-          className='share-via-facebook'
+          className="share-via-facebook"
           href={facebookLink}
-          target='_blank'
+          target="_blank"
           onClick={this.onClickShareViaFacebook}
         >
-          <svg className='icon'>
-            <use xlinkHref='#icon-facebook' />
+          <svg className="icon">
+            <use xlinkHref="#icon-facebook" />
           </svg>
-          <span data-i18n='menu.share.facebook'>Share using Facebook</span>
+          <span data-i18n="menu.share.facebook">Share using Facebook</span>
         </a>
-        <a href='#' onClick={printImage}>
-          <span data-i18n='menu.share.print'>Print…</span>
+        <a href="#" onClick={printImage}>
+          <span data-i18n="menu.share.print">Print…</span>
         </a>
-        <a id='save-as-image' href='#' onClick={this.onClickSaveAsImage}>
-          <span data-i18n='menu.share.save'>Save as image…</span>
-          <span data-i18n='menu.share.save-byline' className='menu-item-subtext'>
+        <a id="save-as-image" href="#" onClick={this.onClickSaveAsImage}>
+          <span data-i18n="menu.share.save">Save as image…</span>
+          <span data-i18n="menu.share.save-byline" className="menu-item-subtext">
             For including in a report, blog, etc.
           </span>
         </a>
       </Menu>
     )
   }
-}
-
-ShareMenu.propTypes = {
-  dispatch: PropTypes.func.isRequired, // supplied by connect()
-  signedIn: PropTypes.bool.isRequired,
-  userId: PropTypes.string
-}
-
-ShareMenu.defaultProps = {
-  userId: ''
 }
 
 function mapStateToProps (state) {

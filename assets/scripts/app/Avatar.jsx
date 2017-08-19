@@ -6,6 +6,10 @@ import { getCachedProfileImageUrl, receiveUserDetails } from '../users/profile_i
 const requests = {}
 
 export default class Avatar extends React.Component {
+  static propTypes = {
+    userId: PropTypes.string.isRequired
+  }
+
   constructor (props) {
     super(props)
 
@@ -13,9 +17,6 @@ export default class Avatar extends React.Component {
     this.state = {
       image: getCachedProfileImageUrl(this.props.userId) || null
     }
-
-    this.fetchAvatar = this.fetchAvatar.bind(this)
-    this.testImageUrl = this.testImageUrl.bind(this)
   }
 
   componentDidMount () {
@@ -45,7 +46,7 @@ export default class Avatar extends React.Component {
     this.image = null
   }
 
-  fetchAvatar (userId) {
+  fetchAvatar = (userId) => {
     // Requests are cached so that multiple Avatar components that have the
     // same userId only need to make one request.
     if (!requests[userId]) {
@@ -72,7 +73,7 @@ export default class Avatar extends React.Component {
   // these handlers are called after the component is unmounted. We must
   // clean up these handlers and the reference to the image element in
   // `componentWillUnmount`.
-  testImageUrl (url) {
+  testImageUrl = (url) => {
     this.image = document.createElement('img')
     this.image.onerror = () => {
       this.setState({ image: null })
@@ -101,8 +102,4 @@ export default class Avatar extends React.Component {
       <div className={className} style={style} />
     )
   }
-}
-
-Avatar.propTypes = {
-  userId: PropTypes.string.isRequired
 }
