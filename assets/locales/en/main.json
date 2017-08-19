@@ -106,6 +106,12 @@
       "loading": "Loading…",
       "save-button": "Save to your computer…",
       "license": "This Streetmix-created image may be reused anywhere, for any purpose, under the <br><a href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons Attribution-ShareAlike 4.0 International License</a>."
+    },
+    "geolocate": {
+      "search": "Search for a location",
+      "clear-search": "Clear search",
+      "zoom-in": "Zoom in",
+      "zoom-out": "Zoom out"
     }
   },
   "prompt": {

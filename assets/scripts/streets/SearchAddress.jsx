@@ -6,6 +6,7 @@ import Autosuggest from 'react-autosuggest'
 import { throttle } from 'lodash'
 import { MAPZEN_API_KEY } from '../app/config'
 import { setMapState } from '../store/actions/map'
+import { t } from '../app/locale'
 
 const AUTOCOMPLETE_API = 'https://search.mapzen.com/v1/autocomplete'
 const AUTOCOMPLETE_ENDPOINT = `${AUTOCOMPLETE_API}?api_key=${MAPZEN_API_KEY}`
@@ -186,14 +187,20 @@ export class SearchAddress extends React.Component {
   renderClearButton = (value) => {
     if (value.length > 0) {
       return (
-        <span title="Clear search" className="geolocate-input-clear" onClick={this.onClickClearSearch}>×</span>
+        <span
+          title={t('dialogs.geolocate.clear-search', 'Clear search')}
+          className="geolocate-input-clear"
+          onClick={this.onClickClearSearch}
+        >
+          ×
+        </span>
       )
     }
   }
 
   render () {
     const inputProps = {
-      placeholder: 'Search for a location',
+      placeholder: t('dialogs.geolocate.search', 'Search for a location'),
       value: this.state.value,
       onChange: this.onChangeInput,
       spellCheck: false

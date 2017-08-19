@@ -3,11 +3,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
+import { Map, TileLayer, ZoomControl, Marker, Popup } from 'react-leaflet'
 import { MAPZEN_API_KEY } from '../app/config'
 import Dialog from './Dialog'
 import SearchAddress from '../streets/SearchAddress'
 import { setMapState } from '../store/actions/map'
+import { t } from '../app/locale'
 
 const REVERSE_GEOCODE_API = 'https://search.mapzen.com/v1/reverse'
 const REVERSE_GEOCODE_ENDPOINT = `${REVERSE_GEOCODE_API}?api_key=${MAPZEN_API_KEY}`
@@ -155,6 +156,7 @@ class GeolocateDialog extends React.Component {
         </div>
         <Map
           center={this.state.mapCenter}
+          zoomControl={false}
           zoom={zoomLevel}
           onClick={this.onClickMap}
           ref={(ref) => { this.map = ref }}
@@ -162,6 +164,10 @@ class GeolocateDialog extends React.Component {
           <TileLayer
             attribution={MAP_ATTRIBUTION}
             url={tileUrl}
+          />
+          <ZoomControl
+            zoomInTitle={t('dialogs.geolocate.zoom-in', 'Zoom in')}
+            zoomOutTitle={t('dialogs.geolocate.zoom-out', 'Zoom out')}
           />
           {popup}
           {markers}
