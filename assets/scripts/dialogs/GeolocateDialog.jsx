@@ -1,3 +1,4 @@
+/* global L */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
@@ -15,7 +16,15 @@ const MAP_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright
 
 const zoomLevel = 12
 
-class MapDialog extends React.Component {
+/* Override icon paths in stock Leaflet's stylesheet */
+delete L.Icon.Default.prototype._getIconUrl
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: '/images/marker-icon-2x.png',
+  iconUrl: '/images/marker-icon.png',
+  shadowUrl: '/images/marker-shadow.png'
+})
+
+class GeolocateDialog extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -158,7 +167,7 @@ class MapDialog extends React.Component {
   }
 }
 
-MapDialog.propTypes = {
+GeolocateDialog.propTypes = {
   markerLocation: PropTypes.object,
   setMapState: PropTypes.func,
   addressInformationLabel: PropTypes.string,
@@ -177,4 +186,4 @@ function mapDispatchToProps (dispatch) {
   return {...boundActionCreators, dispatch}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MapDialog)
+export default connect(mapStateToProps, mapDispatchToProps)(GeolocateDialog)
