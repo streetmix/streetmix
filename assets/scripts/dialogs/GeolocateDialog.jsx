@@ -1,13 +1,13 @@
 import React from 'react'
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
+import { apiurlReverse, apikey } from '../app/config'
+import Dialog from './Dialog'
+import SearchAddress from '../streets/SearchAddress'
 import { setMapState } from '../store/actions/map'
-import SearchAddress from './SearchAddress'
-import { apiurlReverse, apikey } from './config'
 import { clearDialogs, SHOW_DIALOG, store } from '../store/actions/dialogs'
-import Dialog from '../dialogs/Dialog'
 
 const MAP_TILES = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png'
 const MAP_TILES_2X = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}@2x.png'
@@ -136,8 +136,8 @@ class MapDialog extends React.Component {
     const tileUrl = (window.devicePixelRatio > 1) ? MAP_TILES_2X : MAP_TILES
 
     return (
-      <Dialog className='map-dialog'>
-        <div className='geolocation-input'>
+      <Dialog className='geolocate-dialog'>
+        <div className='geolocate-input'>
           <SearchAddress setSearchResults={this.setSearchResults} />
         </div>
         <Map

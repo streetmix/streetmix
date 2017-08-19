@@ -67,7 +67,7 @@ class SearchAddress extends Component {
   renderClearButton (value) {
     if (value.length > 2) {
       return (
-        <span name='close' className='geolocation-input-clear' onClick={this.clearSearch}>×</span>
+        <span name='close' className='geolocate-input-clear' onClick={this.clearSearch}>×</span>
       )
     }
   }
@@ -115,7 +115,7 @@ class SearchAddress extends Component {
 
   renderSuggestion (suggestion) {
     return (
-      <div className='map-search-suggestion-item'>
+      <div className='geolocate-suggestion-item'>
         {suggestion.properties.label}
       </div>
     )
@@ -133,7 +133,7 @@ class SearchAddress extends Component {
     }
 
     return (
-      <form className='geolocation-input-form' onSubmit={this.handleSubmit}>
+      <form className='geolocate-input-form' onSubmit={this.handleSubmit}>
         <Autosuggest
           ref={(ref) => { this.autosuggestBar = ref }}
           suggestions={this.state.suggestions}

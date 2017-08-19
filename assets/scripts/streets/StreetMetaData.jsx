@@ -9,7 +9,6 @@ import store from '../store'
 import StreetWidth from './StreetWidth'
 import Avatar from '../app/Avatar'
 import { SHOW_DIALOG } from '../store/actions'
-import Geolocation from './Geolocation'
 
 class StreetMetaData extends React.Component {
   constructor (props) {
@@ -25,7 +24,7 @@ class StreetMetaData extends React.Component {
     e.preventDefault()
     store.dispatch({
       type: SHOW_DIALOG,
-      name: 'MAP'
+      name: 'GEOLOCATE'
     })
   }
 
@@ -57,7 +56,6 @@ class StreetMetaData extends React.Component {
     const geolocation = (this.props.experimental) ? (
       <span>
         <a id='street-metadata-map' onClick={this.onClick}><u>Geolocation!</u></a>
-        {this.state.showMap && <Geolocation closeMap={this.closeMap} />}
       </span>
     ) : null
 
