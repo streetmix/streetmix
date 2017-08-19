@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -14,7 +14,7 @@ const SEARCH_ENDPOINT = `${SEARCH_API}?api_key=${MAPZEN_API_KEY}`
 const REQUEST_THROTTLE = 250
 const MINIMUM_QUERY_LENGTH = 2
 
-class SearchAddress extends Component {
+export class SearchAddress extends React.PureComponent {
   static propTypes = {
     setMapState: PropTypes.func,
     setSearchResults: PropTypes.func
@@ -28,7 +28,9 @@ class SearchAddress extends Component {
       suggestions: []
     }
 
-    this.throttledMakeRequest = throttle(this.makeRequest, REQUEST_THROTTLE)
+    // Timestamp of the last response which was successfully rendered to the UI.
+    // The time represents when the request was *sent*, not when it was received.
+    this.requestRenderedTimestamp = new Date().getTime()
   }
 
   componentDidMount () {
@@ -48,6 +50,9 @@ class SearchAddress extends Component {
   }
 
   makeRequest = (endpoint) => {
+    // Track when this request began
+    const requestStartedAt = new Date().getTime()
+
     return window.fetch(endpoint)
       .then((response) => {
         if (!response.ok) {
@@ -57,22 +62,32 @@ class SearchAddress extends Component {
         return response.json()
       })
       .then((results) => {
+        // Throw away stale results if they are returned out of order.
+        if (this.requestRenderedTimestamp >= requestStartedAt) {
+          return
+        }
+
         this.setState({
           suggestions: results.features
         })
+
+        // Record the timestamp of the request.
+        this.requestRenderedTimestamp = requestStartedAt
 
         return results
       })
   }
 
+  throttledMakeRequest = throttle(this.makeRequest, REQUEST_THROTTLE)
+
   search = (query) => {
-    const endpoint = `${SEARCH_ENDPOINT}&text=${query}`
-    return this.throttledMakeRequest(endpoint)
+    const url = `${SEARCH_ENDPOINT}&text=${query}`
+    return this.throttledMakeRequest(url)
   }
 
   autocomplete = (query) => {
-    const endpoint = `${AUTOCOMPLETE_ENDPOINT}&text=${query}`
-    return this.throttledMakeRequest(endpoint)
+    const url = `${AUTOCOMPLETE_ENDPOINT}&text=${query}`
+    return this.throttledMakeRequest(url)
   }
 
   onSubmitInput = (event) => {
@@ -103,7 +118,14 @@ class SearchAddress extends Component {
   }
 
   onSuggestionSelected = (event, details) => {
-    const { suggestion, suggestionValue } = details
+    const { suggestion, suggestionValue, method } = details
+
+    // TODO: there is a bug where clicking a suggestion swallows the event
+
+    // Prevent 'enter' keydown on suggestion list from submitting the form.
+    if (method === 'enter') {
+      event.preventDefault()
+    }
 
     this.props.setMapState({
       addressInformationLabel: suggestionValue,

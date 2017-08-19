@@ -46,13 +46,24 @@ class GeolocateDialog extends React.Component {
     }
   }
 
-  /* start click event function */
+  componentDidMount () {
+    if (this.props.markerLocation) {
+      this.map.leafletElement.panTo(this.props.markerLocation)
+    }
+  }
+
+  reverseGeocode = (latlng) => {
+    const url = `${REVERSE_GEOCODE_ENDPOINT}&point.lat=${latlng.lat}&point.lon=${latlng.lng}`
+
+    return window.fetch(url)
+      .then(response => response.json())
+  }
+
   onClickMap = (event) => {
     const options = {
       lat: event.latlng.lat,
       lng: event.latlng.lng
     }
-    const clickUrl = `${REVERSE_GEOCODE_ENDPOINT}&point.lat=${options.lat}&point.lon=${options.lng}`
 
     const displayAddressData = (res) => {
       this.props.setMapState({
@@ -63,17 +74,12 @@ class GeolocateDialog extends React.Component {
       this.map.leafletElement.panTo(this.props.markerLocation)
     }
 
-    window.fetch(clickUrl)
-      .then(response => response.json())
+    this.reverseGeocode(options)
       .then(displayAddressData)
   }
-  /* end click event function */
 
-  /* start on marker drag function */
-  markerDrag = (event) => {
-    const targetCoords = event.target.getLatLng()
-    const dragEndUrl = `${REVERSE_GEOCODE_ENDPOINT}&point.lat=${targetCoords.lat}&point.lon=${targetCoords.lng}`
-
+  onDragEndMarker = (event) => {
+    const latlng = event.target.getLatLng()
     const handleResponse = (res) => {
       this.setState({
         renderPopup: true
@@ -81,16 +87,13 @@ class GeolocateDialog extends React.Component {
 
       this.props.setMapState({
         addressInformationLabel: res.features[0].properties.label,
-        markerLocation: targetCoords
+        markerLocation: latlng
       })
     }
 
-    window.fetch(dragEndUrl)
-      .then(response => response.json())
+    this.reverseGeocode(latlng)
       .then(handleResponse)
   }
-
-  /* end on marker drag function */
 
   setSearchResults = (point, label) => {
     this.setState({
@@ -112,7 +115,7 @@ class GeolocateDialog extends React.Component {
     const markers = this.props.markerLocation ? (
       <Marker
         position={this.props.markerLocation}
-        onDragEnd={this.markerDrag}
+        onDragEnd={this.onDragEndMarker}
         onDragStart={this.hidePopup}
         draggable
       />
@@ -138,7 +141,7 @@ class GeolocateDialog extends React.Component {
 
     return (
       <Dialog className="geolocate-dialog">
-        <div className="geolocate-input">
+        <div className="geolocate-input-container">
           <SearchAddress setSearchResults={this.setSearchResults} />
         </div>
         <Map
