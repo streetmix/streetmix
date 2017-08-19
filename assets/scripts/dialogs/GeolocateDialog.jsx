@@ -4,12 +4,13 @@ import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
-import { apiurlReverse, apikey } from '../streets/config'
+import { MAPZEN_API_KEY } from '../app/config'
 import Dialog from './Dialog'
 import SearchAddress from '../streets/SearchAddress'
 import { setMapState } from '../store/actions/map'
-import { SHOW_DIALOG, store } from '../store/actions/dialogs'
 
+const REVERSE_GEOCODE_API = 'https://search.mapzen.com/v1/reverse'
+const REVERSE_GEOCODE_ENDPOINT = `${REVERSE_GEOCODE_API}?api_key=${MAPZEN_API_KEY}`
 const MAP_TILES = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png'
 const MAP_TILES_2X = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}@2x.png'
 const MAP_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
@@ -51,7 +52,7 @@ class GeolocateDialog extends React.Component {
       lat: event.latlng.lat,
       lng: event.latlng.lng
     }
-    const clickUrl = `${apiurlReverse}?api_key=${apikey}&point.lat=${options.lat}&point.lon=${options.lng}`
+    const clickUrl = `${REVERSE_GEOCODE_ENDPOINT}&point.lat=${options.lat}&point.lon=${options.lng}`
 
     const displayAddressData = (res) => {
       this.props.setMapState({
@@ -71,7 +72,7 @@ class GeolocateDialog extends React.Component {
   /* start on marker drag function */
   markerDrag = (event) => {
     const targetCoords = event.target.getLatLng()
-    const dragEndUrl = `${apiurlReverse}?api_key=${apikey}&point.lat=${targetCoords.lat}&point.lon=${targetCoords.lng}`
+    const dragEndUrl = `${REVERSE_GEOCODE_ENDPOINT}&point.lat=${targetCoords.lat}&point.lon=${targetCoords.lng}`
 
     const handleResponse = (res) => {
       this.setState({
