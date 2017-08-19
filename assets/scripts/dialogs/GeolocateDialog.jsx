@@ -34,6 +34,10 @@ class GeolocateDialog extends React.Component {
         lng: PropTypes.number
       })
     ]),
+    userLocation: PropTypes.shape({
+      latitude: PropTypes.number,
+      longitude: PropTypes.number
+    }),
     setMapState: PropTypes.func,
     addressInformationLabel: PropTypes.string
   }
@@ -42,13 +46,18 @@ class GeolocateDialog extends React.Component {
     super(props)
 
     this.state = {
+      // Default location if geo IP not detected; this hovers over Brooklyn
       mapCenter: [40.645, -73.975]
     }
   }
 
   componentDidMount () {
-    if (this.props.markerLocation) {
-      this.map.leafletElement.panTo(this.props.markerLocation)
+    const { markerLocation, userLocation } = this.props
+
+    if (markerLocation) {
+      this.map.leafletElement.panTo(markerLocation)
+    } else if (userLocation) {
+      this.map.leafletElement.panTo([ userLocation.latitude, userLocation.longitude ])
     }
   }
 
@@ -165,7 +174,8 @@ class GeolocateDialog extends React.Component {
 function mapStateToProps (state) {
   return {
     markerLocation: state.map.markerLocation,
-    addressInformationLabel: state.map.addressInformationLabel
+    addressInformationLabel: state.map.addressInformationLabel,
+    userLocation: state.user.geolocation.data
   }
 }
 

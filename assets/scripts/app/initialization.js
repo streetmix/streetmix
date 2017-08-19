@@ -24,7 +24,6 @@ import {
 } from '../users/localization'
 import {
   detectGeolocation,
-  geolocationAttempted,
   wasGeolocationAttempted
 } from '../users/geolocation'
 import { ENV } from './config'
@@ -121,26 +120,18 @@ export function initialize () {
 
   // Asynchronously loading…
 
-  // …detecting country from IP for units and left/right-hand driving
-  const mode = getMode()
-  if ((mode === MODES.NEW_STREET) || (mode === MODES.NEW_STREET_COPY_LAST)) {
-    // Geolocation requests are slow and rate-limited, so we only do it when
-    // we need the info
-    detectGeolocation()
-      .then((info) => {
-        if (info && info.country_code) {
-          updateSettingsFromCountryCode(info.country_code)
-        }
+  // …detect country from IP for units, left/right-hand driving, and
+  // adding location to streets
+  detectGeolocation()
+    .then((info) => {
+      if (info && info.country_code) {
+        updateSettingsFromCountryCode(info.country_code)
+      }
 
-        document.querySelector('#loading-progress').value++
-        checkIfSignInAndGeolocationLoaded()
-        checkIfEverythingIsLoaded()
-      })
-  } else {
-    // Otherwise just set it as loaded without info
-    geolocationAttempted()
-    document.querySelector('#loading-progress').value++
-  }
+      document.querySelector('#loading-progress').value++
+      checkIfSignInAndGeolocationLoaded()
+      checkIfEverythingIsLoaded()
+    })
 
   // …sign in info from our API (if not previously cached) – and subsequent
   // street data if necessary (depending on the mode)
