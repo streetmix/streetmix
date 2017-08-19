@@ -1,39 +1,179 @@
-.geolocation {
+.geolocate-dialog {
+  width: 90vw;
+  height: 80vh;
+  padding: 0;
+}
+
+.geolocate-dialog .close {
+  z-index: $z-index-10;
+}
+
+.geolocate-input {
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  z-index: $z-index-10;
+  pointer-events: none;
+}
+
+.geolocate-input-form {
   position: relative;
-  padding-top: 7px;
-  width: 1000px;
-  right: 250px;
+  width: 30vw;
+  min-width: 220px;
+  margin: 0 auto;
+  pointer-events: auto;
+}
 
-  .geolocation-border {
-    padding: 4.5px;
-    background-color: white;
+.geolocate-input-clear {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.react-autosuggest__input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 3px 24px 3px 6px !important;
+  border: 1px solid $form-element-border;
+  resize: none;
+  font-size: inherit;
+  line-height: 2;
+  background-color: $form-element-background;
+}
+
+.react-autosuggest__suggestions-container--open {
+  border: 1px solid $form-element-border;
+  border-top: 0;
+  background-color: white;
+  font-family: $font-family;
+  list-style-type: none;
+}
+
+.react-autosuggest__suggestions-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.react-autosuggest__suggestion {
+  padding: 6px;
+}
+
+.react-autosuggest__suggestion--highlighted {
+  background-color: $form-element-background;
+}
+
+.leaflet-container {
+  background-color: white;
+  height: 100%;
+  font-family: $font-family;
+  font-size: inherit;
+}
+
+.leaflet-container .leaflet-control-attribution {
+  background: transparent;
+  margin: 0.25em;
+}
+
+.leaflet-popup-content-wrapper {
+  border: 3px solid darken($ui-colour, 20%);
+  border-left: 0;
+  border-right: 0;
+  border-radius: 0;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.25);
+}
+
+.leaflet-popup-tip-container {
+  bottom: -30px;
+  height: 33px;
+}
+
+.leaflet-popup-tip {
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  left: 50%;
+  bottom: 22px;
+  margin-left: -18px;
+  border: 3px solid darken($ui-colour, 20%);
+  transform: rotateZ(45deg);
+  background: $info-bubble-background;
+  box-shadow: none;
+}
+
+.leaflet-popup-content {
+  text-align: center;
+}
+
+/* Leaflet zoom-in/zoom-out buttons resemble Streetmix buttons */
+.leaflet-bar {
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.leaflet-touch .leaflet-bar {
+  border: 0;
+}
+
+.leaflet-touch .leaflet-control-zoom-in,
+.leaflet-touch .leaflet-control-zoom-out {
+  font-size: inherit;
+}
+
+.leaflet-bar a,
+.leaflet-bar a:hover {
+  background-color: mix($ui-colour, white, 50%);
+  border: 0;
+  border-top: 1px solid darken($ui-colour, 10%);
+  font-size: inherit;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  user-select: none;
+}
+
+.leaflet-bar a:first-child,
+.leaflet-touch .leaflet-bar a:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.leaflet-bar a:last-child,
+.leaflet-touch .leaflet-bar a:last-child {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.leaflet-bar a:last-child,
+.leaflet-bar a:last-child:hover {
+  border-bottom: 1px solid darken($ui-colour, 10%);
+}
+
+.leaflet-bar a {
+  &:hover {
+    background-color: mix($ui-colour, white, 70%);
   }
 
-  .geolocation-input {
-    position: absolute;
-    top: 15px;
-    left: 450px;
-    z-index: 1001;
+  &:active {
+    background-color: mix($ui-colour, white, 95%);
   }
 
-  #street-metadata-map {
-    padding-top: 7px;
-    padding-bottom: 40px;
-    width: 500px;
-    left: 50%;
-    position: absolute;
-    margin-left: -250px;
-    color: black;
-    font-size: 13px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    pointer-events: auto;
-  }
+  &.leaflet-disabled {
+    border-top-color: desaturate($ui-colour, 100%);
+    border-bottom-color: desaturate($ui-colour, 100%);
+    background-color: desaturate(fade-out($ui-colour, 0.7), 100%);
+    cursor: default;
 
-  .leaflet-container {
-    border: 4.5px solid #000;
-    height: 500px;
+    &:hover {
+      border-top-color: desaturate($ui-colour, 100%);
+      border-bottom-color: desaturate($ui-colour, 100%);
+      background-color: desaturate(fade-out($ui-colour, 0.7), 100%);
+    }
   }
 }

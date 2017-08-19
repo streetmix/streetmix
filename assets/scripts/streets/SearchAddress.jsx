@@ -1,93 +1,158 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import PropTypes from 'prop-types'
-import { setMapState } from '../store/actions/map'
+import Autosuggest from 'react-autosuggest'
+import { throttle } from 'lodash'
 import { apiurl, apikey } from './config'
+import { setMapState } from '../store/actions/map'
 
 class SearchAddress extends Component {
   constructor (props) {
     super(props)
+
     this.state = {
-      value: ''
+      value: '',
+      placeholder: 'Search for a location',
+      suggestions: []
     }
 
-    this.onKeyUp = this.onKeyUp.bind(this)
+    this.throttleMakeRequest = throttle(this.makeRequest, 250)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.getSuggestionValue = this.getSuggestionValue.bind(this)
+    this.onChange = this.onChange.bind(this)
+    this.renderSuggestion = this.renderSuggestion.bind(this)
+    this.renderClearButton = this.renderClearButton.bind(this)
+    this.onSuggestionSelected = this.onSuggestionSelected.bind(this)
+    this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this)
     this.handleJSON = this.handleJSON.bind(this)
+    this.clearSearch = this.clearSearch.bind(this)
     this.searchAddress = this.searchAddress.bind(this)
   }
 
-  onKeyUp (e) {
-    this.setState({
-      value: e.target.value
-    })
+  componentDidMount () {
+    this.autosuggestBar.input.focus()
+  }
 
-    this.props.setMapState({ rawInputString: this.state.value })
+  onSuggestionsFetchRequested (x) {
+    if (x.value.length >= 2) {
+      const searchUrl = `${apiurl}?api_key=${apikey}&text=${x.value}`
+      window.fetch(searchUrl).then(this.searchAddress)
+    }
+  }
+
+  onChange (event, inputValue) {
+    this.setState({
+      value: inputValue.newValue
+    })
   }
 
   handleJSON (res, err) {
     this.setState({
-      loading: false
+      suggestions: res.features
     })
-
     if (res.features === undefined || res.features.length === 0) {
-      return
+    }
+  }
+
+  onSuggestionSelected (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) {
+    this.setState({
+      coordReverse: suggestion.geometry.coordinates.reverse(),
+      addressInfo: suggestion.properties,
+      markerLocate: suggestion.geometry.coordinates,
+      markerLabel: suggestion.properties.label
+    })
+  }
+
+  renderClearButton (value) {
+    if (value.length > 2) {
+      return (
+        <span name='close' className='geolocate-input-clear' onClick={this.clearSearch}>×</span>
+      )
+    }
+  }
+
+  clearSearch () {
+    this.setState({
+      value: ''
+    })
+  }
+
+  handleSubmit (event) {
+    event.preventDefault()
+    const inputValue = this.state.value
+    if (inputValue !== '') {
+      this.search(inputValue)
     }
 
-    this.props.searchResults(res.features[0].geometry.coordinates.reverse(), this.props.addressInformationLabel)
-
     this.props.setMapState({
-      addressInformationLabel: res.features[0].properties.label,
-      addressInformation: res.features[0].properties,
-      markerLocation: res.features[0].geometry.coordinates
+      addressInformationLabel: this.state.markerLabel,
+      addressInformation: this.state.addresInfo,
+      markerLocation: this.state.markerLocate
     })
 
-    this.setState({loading: true})
+    this.props.setSearchResults(this.state.coordReverse, this.state.markerLabel)
   }
 
   searchAddress (res, err) {
     res.json().then(this.handleJSON)
   }
 
-  componentDidUpdate (prevProps, prevState) {
-    const options = {
-      api_key: apikey,
-      text: this.state.value
-    }
+  search (query) {
+    const endpoint = `https://search.mapzen.com/v1/search?text=${query}&api_key=${apikey}`
+    this.throttleMakeRequest(endpoint)
+  }
 
-    if (prevState.value === this.state.value) {
-      return false
-    }
+  makeRequest (endpoint) {
+    window.fetch(endpoint)
+      .then(response => response.json())
+      .then((results) => {
+        this.setState({
+          suggestions: results.features
+        })
+      })
+  }
 
-    const searchUrl = `${apiurl}?api_key=${options.api_key}&text=${options.text}`
-    window.fetch(searchUrl).then(this.searchAddress)
+  renderSuggestion (suggestion) {
+    return (
+      <div className='geolocate-suggestion-item'>
+        {suggestion.properties.label}
+      </div>
+    )
+  }
+
+  getSuggestionValue (suggestion) {
+    return suggestion.properties.label
   }
 
   render () {
-    /* displays Loading */
-    let loading
-
-    if (this.state.loading === true) {
-      loading = <i>loading</i>
+    const inputProps = {
+      placeholder: this.state.placeholder,
+      value: this.state.value,
+      onChange: this.onChange
     }
 
     return (
-
-      <div>
-
-        <input type='text' value={this.state.value} onChange={this.onKeyUp} placeholder='Enter Address' />
-
-        <p><b>{loading}</b></p>
-      </div>
-
+      <form className='geolocate-input-form' onSubmit={this.handleSubmit}>
+        <Autosuggest
+          ref={(ref) => { this.autosuggestBar = ref }}
+          suggestions={this.state.suggestions}
+          onSuggestionSelected={this.onSuggestionSelected}
+          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+          onSuggestionsClearRequested={() => {}}
+          getSuggestionValue={this.getSuggestionValue}
+          renderSuggestion={this.renderSuggestion}
+          inputProps={inputProps}
+        />
+        {this.renderClearButton(this.state.value)}
+      </form>
     )
   }
 }
 
 SearchAddress.propTypes = {
-  setMapState: PropTypes.object,
-  addressInformationLabel: PropTypes.string,
-  searchResults: PropTypes.array
+  setMapState: PropTypes.func,
+  setSearchResults: PropTypes.func
 }
 
 function mapStateToProps (state) {

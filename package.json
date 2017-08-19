@@ -90,6 +90,7 @@
     "prop-types": "15.5.10",
     "raven-js": "3.17.0",
     "react": "15.6.1",
+    "react-autosuggest": "9.3.2",
     "react-dom": "15.6.1",
     "react-leaflet": "1.4.1",
     "react-redux": "5.0.5",

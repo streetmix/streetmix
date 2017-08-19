@@ -5,16 +5,16 @@ import { formatDate } from '../util/date_format'
 import { msg } from '../app/messages'
 import { getRemixOnFirstEdit } from './remix'
 import { showGallery } from '../gallery/view'
+import store from '../store'
 import StreetWidth from './StreetWidth'
 import Avatar from '../app/Avatar'
-import Geolocation from './Geolocation'
+import { SHOW_DIALOG } from '../store/actions'
 
 class StreetMetaData extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      street: this.props.street,
-      showMap: false
+      street: this.props.street
     }
     this.onClickAuthor = this.onClickAuthor.bind(this)
     this.onClick = this.onClick.bind(this)
@@ -22,7 +22,10 @@ class StreetMetaData extends React.Component {
 
   onClick (e) {
     e.preventDefault()
-    this.setState({showMap: !this.state.showMap})
+    store.dispatch({
+      type: SHOW_DIALOG,
+      name: 'GEOLOCATE'
+    })
   }
 
   componentWillReceiveProps (nextProps) {
@@ -53,7 +56,6 @@ class StreetMetaData extends React.Component {
     const geolocation = (this.props.experimental) ? (
       <span>
         <a id='street-metadata-map' onClick={this.onClick}><u>Geolocation!</u></a>
-        {this.state.showMap && <Geolocation />}
       </span>
     ) : null
 
