@@ -81,7 +81,7 @@
     "leaflet": "1.2.0",
     "lodash": "4.17.4",
     "moment": "2.18.1",
-    "mongoose": "4.11.6",
+    "mongoose": "4.10.8",
     "newrelic": "2.1.0",
     "node-env-file": "0.1.8",
     "node-sass": "4.5.3",
