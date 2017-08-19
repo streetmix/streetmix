@@ -14,7 +14,7 @@ const SEARCH_ENDPOINT = `${SEARCH_API}?api_key=${MAPZEN_API_KEY}`
 const REQUEST_THROTTLE = 250
 const MINIMUM_QUERY_LENGTH = 2
 
-export class SearchAddress extends React.PureComponent {
+export class SearchAddress extends React.Component {
   static propTypes = {
     setMapState: PropTypes.func,
     setSearchResults: PropTypes.func
@@ -102,30 +102,50 @@ export class SearchAddress extends React.PureComponent {
     this.setState({
       value: newValue
     })
+
+    // Clears list if input is empty, currently needed because of the bug
+    // that requires `alwaysRenderSuggestions = true` and `onSuggestionsClearRequested`
+    // is a no-op
+    if (!newValue) {
+      this.setState({
+        suggestions: []
+      })
+    }
   }
 
-  onSuggestionsFetchRequested = ({ value }) => {
+  onSuggestionsFetchRequested = ({ value, reason }) => {
     const query = value.trim()
+
+    // Prevent suggestion selection or input focus from sending a new request
+    if (reason === 'suggestion-selected' || reason === 'input-focused') return
+
     if (query.length >= MINIMUM_QUERY_LENGTH) {
       this.autocomplete(value)
     }
   }
 
+  // TODO: there is a bug where clearing suggestions here will swallow
+  // click event, preventing them from ever firing. This is commented out
+  // until this is fixed.
   onSuggestionsClearRequested = () => {
-    this.setState({
-      suggestions: []
-    })
+    // this.setState({
+    //   suggestions: []
+    // })
   }
 
   onSuggestionSelected = (event, details) => {
     const { suggestion, suggestionValue, method } = details
 
-    // TODO: there is a bug where clicking a suggestion swallows the event
-
     // Prevent 'enter' keydown on suggestion list from submitting the form.
     if (method === 'enter') {
       event.preventDefault()
     }
+
+    // This takes the place of `onSuggestionsClearRequested` for now,
+    // clearing the suggestions only after the click event has registered.
+    this.setState({
+      suggestions: []
+    })
 
     this.props.setMapState({
       addressInformationLabel: suggestionValue,
@@ -179,11 +199,14 @@ export class SearchAddress extends React.PureComponent {
       spellCheck: false
     }
 
+    // Note: `alwaysRenderSuggestions` is required to be true otherwise
+    // click events on the item list is swallowed. This is a bug
     return (
       <form className="geolocate-input-form" onSubmit={this.onSubmitInput}>
         <Autosuggest
           ref={(ref) => { this.autosuggestBar = ref }}
           suggestions={this.state.suggestions}
+          alwaysRenderSuggestions
           onSuggestionSelected={this.onSuggestionSelected}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
