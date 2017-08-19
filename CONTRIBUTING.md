@@ -24,7 +24,7 @@ By participating in this project you agree to abide by its terms.
 
 We use the [GitHub issue tracker][issues] to track bugs and features
 in development. We also have [forums](http://forums.streetmix.net) for feedback
-and discussion. 
+and discussion.
 
 ### Bug reporting
 
@@ -204,11 +204,15 @@ NO_INTERNET_MODE=true
     open http://127.0.0.1:8000
 
 
-### HOWTO: Run browser integration tests
+### HOWTO: Run tests locally
 
-1) Run browser tests locally
+1) By default, local tests are unit tests, with CSS and JavaScript linting.
 
     npm test
+
+2) You can run a full browser integration test with this command. By default, we run tests similar to this in our continuous integration infrastructure on commits and pull requests to GitHub, so it is not required to run this locally.
+
+    npm test:full
 
 
 [issues]: https://github.com/streetmix/streetmix/issues

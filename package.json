@@ -12,16 +12,32 @@
     "npm": "5.3.0"
   },
   "scripts": {
-    "prestart": "mongod --fork --logpath /dev/null",
+    "prestart": "npm run mongo:start",
     "start": "supervisor -e node,js,jsx,scss index.js",
-    "stop": "mongo admin --eval 'db.shutdownServer()'",
-    "pretest": "mongod --fork --logpath /dev/null",
-    "test": "node test/index | tap-spec && grunt test:local:setup && grunt test:local",
-    "posttest": "mongo admin --eval 'db.shutdownServer()'",
-    "lint": "npm run lint-css && npm run lint-js",
-    "lint-css": "stylelint ./assets/css/**/*.scss",
-    "lint-js": "eslint \"**/*.js\" \"**/*.jsx\"",
-    "translationsDownload": "node bin/download_translations.js"
+    "stop": "npm run mongo:stop",
+    "test": "npm run lint && npm run jest:watch",
+    "pretest:full": "npm run mongo:start && npm run protractor:update && npm run test:server",
+    "test:full": "npm run jest && npm run lint && npm run protractor:local",
+    "posttest:full": "npm run test:cleanup",
+    "mongo:start": "mongod --fork --logpath /dev/null",
+    "mongo:stop": "mongo admin --eval 'db.shutdownServer()'",
+    "test:cleanup": "npm run test:server:close && npm run mongo:stop",
+    "test:server": "NODE_ENV=test PORT=3000 node index &",
+    "test:server:close": "pkill -SIGINT streetmix",
+    "lint": "npm run lint:css && npm run lint:js",
+    "lint:css": "stylelint ./assets/css/**/*.scss",
+    "lint:js": "eslint \"**/*.js\" \"**/*.jsx\"",
+    "jest": "jest",
+    "jest:watch": "jest --watch",
+    "protractor:update": "./node_modules/protractor/bin/webdriver-manager update",
+    "protractor:local": "protractor ./test/integration/local.conf.js",
+    "translations:download": "node bin/download_translations.js"
+  },
+  "jest": {
+    "roots": [
+      "app",
+      "assets/scripts"
+    ]
   },
   "browserslist": [
     "last 2 versions",
@@ -95,27 +111,20 @@
     "winston": "2.3.1"
   },
   "devDependencies": {
+    "babel-jest": "20.0.3",
     "eslint": "4.2.0",
     "eslint-config-standard": "10.2.1",
     "eslint-config-standard-react": "5.0.0",
     "eslint-plugin-import": "2.7.0",
     "eslint-plugin-node": "5.1.0",
     "eslint-plugin-promise": "3.5.0",
-    "eslint-plugin-react": "7.1.0",
+    "eslint-plugin-react": "7.2.0",
     "eslint-plugin-standard": "3.0.1",
-    "grunt": "1.0.1",
-    "grunt-env": "0.4.4",
-    "grunt-express": "1.4.1",
-    "grunt-protractor-runner": "5.0.0",
-    "grunt-shell": "2.1.0",
-    "load-grunt-tasks": "3.5.2",
-    "proxyquire": "1.8.0",
+    "jest": "20.0.4",
+    "protractor": "5.1.2",
     "stylelint": "7.13.0",
     "stylelint-config-standard": "16.0.0",
     "stylelint-scss": "1.5.1",
-    "supertest": "3.0.0",
-    "tap-spec": "4.1.1",
-    "tape": "4.7.0",
-    "tape-catch": "1.0.6"
+    "supertest": "3.0.0"
   }
 }
