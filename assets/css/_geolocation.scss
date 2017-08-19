@@ -89,27 +89,22 @@
   box-shadow: 0 3px 14px rgba(0, 0, 0, 0.25);
 }
 
+.leaflet-popup-tip-container {
+  bottom: -30px;
+  height: 33px;
+}
+
 .leaflet-popup-tip {
   position: absolute;
-  bottom: -30px;
   height: 30px;
-  left: 0;
-  right: 0;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    left: 50%;
-    bottom: 15px;
-    margin-left: -15px - 3px;
-    border: 3px solid darken($ui-colour, 20%);
-    transform: rotateZ(45deg);
-    background: $info-bubble-background;
-    pointer-events: none;
-  }
+  width: 30px;
+  left: 50%;
+  bottom: 22px;
+  margin-left: -18px;
+  border: 3px solid darken($ui-colour, 20%);
+  transform: rotateZ(45deg);
+  background: $info-bubble-background;
+  box-shadow: none;
 }
 
 .leaflet-popup-content {
