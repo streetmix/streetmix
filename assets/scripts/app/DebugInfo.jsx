@@ -27,10 +27,6 @@ class DebugInfo extends React.Component {
       visible: false,
       content: ''
     }
-
-    this.showDebugInfo = this.showDebugInfo.bind(this)
-    this.hideDebugInfo = this.hideDebugInfo.bind(this)
-    this.getTextareaContent = this.getTextareaContent.bind(this)
   }
 
   componentDidMount () {

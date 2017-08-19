@@ -27,10 +27,6 @@ class MenusContainer extends React.PureComponent {
     this.state = {
       activeMenuPos: [0, 0]
     }
-
-    this.onMenuDropdownClick = this.onMenuDropdownClick.bind(this)
-    this.handleMenuClear = this.handleMenuClear.bind(this)
-    this.hideAllMenus = this.hideAllMenus.bind(this)
   }
 
   componentDidMount () {

@@ -1,3 +1,4 @@
+/* global L */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
@@ -15,7 +16,6 @@ const MAP_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright
 
 const zoomLevel = 12
 
-/* global L */
 /* Override icon paths in stock Leaflet's stylesheet */
 delete L.Icon.Default.prototype._getIconUrl
 L.Icon.Default.mergeOptions({
@@ -25,21 +25,23 @@ L.Icon.Default.mergeOptions({
 })
 
 class GeolocateDialog extends React.Component {
+  static propTypes = {
+    markerLocation: PropTypes.object,
+    setMapState: PropTypes.func,
+    addressInformationLabel: PropTypes.string,
+    dispatch: PropTypes.func.isRequired
+  }
+
   constructor (props) {
     super(props)
+
     this.state = {
       mapCenter: [40.645, -73.975]
     }
-
-    this.setSearchResults = this.setSearchResults.bind(this)
-    this.markerDrag = this.markerDrag.bind(this)
-    this.onClick = this.onClick.bind(this)
-    this.hidePopup = this.hidePopup.bind(this)
-    this.unmountDialog = this.unmountDialog.bind(this)
   }
 
   /* start click event function */
-  onClick (e) {
+  onClick = (e) => {
     const displayAddressData = (res) => {
       this.props.setMapState({
         addressInformationLabel: res.features[0].properties.label,
@@ -72,7 +74,7 @@ class GeolocateDialog extends React.Component {
   }
 
   /* start on marker drag function */
-  markerDrag (e) {
+  markerDrag = (e) => {
     const gotJson = (res) => {
       this.setState({
         renderPopup: true
@@ -96,7 +98,7 @@ class GeolocateDialog extends React.Component {
 
   /* end on marker drag function */
 
-  setSearchResults (point, label) {
+  setSearchResults = (point, label) => {
     this.setState({
       addressName: label,
       mapCenter: point,
@@ -106,13 +108,13 @@ class GeolocateDialog extends React.Component {
     this.map.leafletElement.panTo(point)
   }
 
-  hidePopup (e) {
+  hidePopup = (e) => {
     this.setState({
       renderPopup: false
     })
   }
 
-  unmountDialog () {
+  unmountDialog = () => {
     this.props.dispatch(clearDialogs())
   }
 
@@ -165,13 +167,6 @@ class GeolocateDialog extends React.Component {
       </Dialog>
     )
   }
-}
-
-GeolocateDialog.propTypes = {
-  markerLocation: PropTypes.object,
-  setMapState: PropTypes.func,
-  addressInformationLabel: PropTypes.string,
-  dispatch: PropTypes.func.isRequired
 }
 
 function mapStateToProps (state) {
