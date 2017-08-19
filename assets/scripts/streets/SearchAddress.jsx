@@ -1,18 +1,19 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Autosuggest from 'react-autosuggest'
 import { throttle } from 'lodash'
-import PropTypes from 'prop-types'
-import { setMapState } from '../store/actions/map'
 import { apiurl, apikey } from './config'
+import { setMapState } from '../store/actions/map'
 
 class SearchAddress extends Component {
   constructor (props) {
     super(props)
+
     this.state = {
       value: '',
-      placeholder: 'Enter Address',
+      placeholder: 'Search for a location',
       suggestions: []
     }
 
@@ -27,6 +28,10 @@ class SearchAddress extends Component {
     this.handleJSON = this.handleJSON.bind(this)
     this.clearSearch = this.clearSearch.bind(this)
     this.searchAddress = this.searchAddress.bind(this)
+  }
+
+  componentDidMount () {
+    this.autosuggestBar.input.focus()
   }
 
   onSuggestionsFetchRequested (x) {
@@ -62,7 +67,7 @@ class SearchAddress extends Component {
   renderClearButton (value) {
     if (value.length > 2) {
       return (
-        <span name='close' className='clear-search' onClick={this.clearSearch}> X </span>
+        <span name='close' className='geolocation-input-clear' onClick={this.clearSearch}>×</span>
       )
     }
   }
@@ -73,8 +78,8 @@ class SearchAddress extends Component {
     })
   }
 
-  handleSubmit (e) {
-    e.preventDefault()
+  handleSubmit (event) {
+    event.preventDefault()
     const inputValue = this.state.value
     if (inputValue !== '') {
       this.search(inputValue)
@@ -126,23 +131,21 @@ class SearchAddress extends Component {
       value: this.state.value,
       onChange: this.onChange
     }
-    return (
-      <div>
-        <form ref='searchBar' onSubmit={this.handleSubmit} className='inputContainer'>
-          <Autosuggest
-            ref={(ref) => { this.autosuggestBar = ref }}
-            suggestions={this.state.suggestions}
-            onSuggestionSelected={this.onSuggestionSelected}
-            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-            onSuggestionsClearRequested={() => {}}
-            getSuggestionValue={this.getSuggestionValue}
-            renderSuggestion={this.renderSuggestion}
-            inputProps={inputProps}
-          />
-          {this.renderClearButton(this.state.value)}
-        </form>
-      </div>
 
+    return (
+      <form className='geolocation-input-form' onSubmit={this.handleSubmit}>
+        <Autosuggest
+          ref={(ref) => { this.autosuggestBar = ref }}
+          suggestions={this.state.suggestions}
+          onSuggestionSelected={this.onSuggestionSelected}
+          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+          onSuggestionsClearRequested={() => {}}
+          getSuggestionValue={this.getSuggestionValue}
+          renderSuggestion={this.renderSuggestion}
+          inputProps={inputProps}
+        />
+        {this.renderClearButton(this.state.value)}
+      </form>
     )
   }
 }

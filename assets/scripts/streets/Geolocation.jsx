@@ -9,8 +9,9 @@ import { apiurlReverse, apikey } from './config'
 import { clearDialogs, SHOW_DIALOG, store } from '../store/actions/dialogs'
 import Dialog from '../dialogs/Dialog'
 
-const OPEN_STREET_MAP_TILES = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png'
-const OPEN_STREET_MAP_ATTR = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
+const MAP_TILES = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png'
+const MAP_TILES_2X = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}@2x.png'
+const MAP_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
 
 const zoomLevel = 12
 
@@ -18,7 +19,6 @@ class MapDialog extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-
       mapCenter: [40.645, -73.975]
     }
 
@@ -35,7 +35,6 @@ class MapDialog extends React.Component {
       this.props.setMapState({
         addressInformationLabel: res.features[0].properties.label,
         markerLocation: res.features[0].geometry.coordinates.reverse()
-
       })
 
       this.map.leafletElement.panTo(this.props.markerLocation)
@@ -73,7 +72,6 @@ class MapDialog extends React.Component {
       this.props.setMapState({
         addressInformationLabel: res.features[0].properties.label,
         markerLocation: e.target.getLatLng()
-
       })
     }
 
@@ -108,6 +106,7 @@ class MapDialog extends React.Component {
   unmountDialog () {
     this.props.dispatch(clearDialogs())
   }
+
   render () {
     const markers = this.props.markerLocation ? (
       <Marker
@@ -134,6 +133,8 @@ class MapDialog extends React.Component {
       popup = null
     }
 
+    const tileUrl = (window.devicePixelRatio > 1) ? MAP_TILES_2X : MAP_TILES
+
     return (
       <Dialog className='map-dialog'>
         <div className='geolocation-input'>
@@ -144,11 +145,10 @@ class MapDialog extends React.Component {
           zoom={zoomLevel}
           onClick={this.onClick}
           ref={(ref) => { this.map = ref }}
-          style={{height: '55vh'}}
         >
           <TileLayer
-            attribution={OPEN_STREET_MAP_ATTR}
-            url={OPEN_STREET_MAP_TILES}
+            attribution={MAP_ATTRIBUTION}
+            url={tileUrl}
           />
           {popup}
           {markers}

@@ -98,15 +98,6 @@ $dialog-box-default-width: 790px;
   margin: 1em 0;
 }
 
-.clear-search {
-  position: absolute;
-  left: 190px;
-  top: 0;
-  padding: 8px;
-  cursor: pointer;
-  z-index: $z-index-10;
-}
-
 .about-dialog-team {
   a {
     color: black;
@@ -177,74 +168,6 @@ $dialog-box-default-width: 790px;
 .donate-dialog {
   width: 560px;
   text-align: center;
-}
-
-.map-dialog {
-  width: 100vh;
-  padding: 0;
-}
-
-.close {
-  z-index: $z-index-10;
-}
-
-.geolocation-input {
-  position: absolute;
-  margin-top: 10px;
-  margin-left: 10px;
-  margin-bottom: 20px;
-  z-index: $z-index-10 + 1;
-}
-
-.react-autosuggest__suggestions-container--open {
-  display: block;
-  position: relative;
-  width: 214px;
-  border: 1px solid #aaa;
-  background-color: #fff;
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 100;
-  z-index: 1;
-  list-style-type: none;
-}
-
-.react-autosuggest__suggestions-list {
-  padding-left: 10px;
-  list-style-type: none;
-  padding-right: 10px;
-}
-
-.map-search-suggestion-item {
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-
-.react-autosuggest__suggestion--highlighted {
-  background-color: #ddd;
-  padding-left: 10px;
-  margin-left: -10px;
-  margin-right: -10px;
-}
-
-.react-autosuggest__input {
-  width: 16em;
-  height: 25px;
-}
-
-.react-autosuggest__suggestion--highlighted {
-  background-color: #ddd;
-}
-
-.leaflet-top .leaflet-control {
-  margin-top: 50px;
-}
-
-input {
-  background: $form-element-background;
-  border: 1px solid $form-element-border;
-  resize: none;
-  font-size: 13px;
-  line-height: 18px;
 }
 
 .donate-dialog-text {
