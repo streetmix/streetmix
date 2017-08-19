@@ -4,12 +4,13 @@ import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
-import { apiurlReverse, apikey } from '../app/config'
+import { MAPZEN_API_KEY } from '../app/config'
 import Dialog from './Dialog'
 import SearchAddress from '../streets/SearchAddress'
 import { setMapState } from '../store/actions/map'
-import { clearDialogs, SHOW_DIALOG, store } from '../store/actions/dialogs'
 
+const REVERSE_GEOCODE_API = 'https://search.mapzen.com/v1/reverse'
+const REVERSE_GEOCODE_ENDPOINT = `${REVERSE_GEOCODE_API}?api_key=${MAPZEN_API_KEY}`
 const MAP_TILES = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png'
 const MAP_TILES_2X = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}@2x.png'
 const MAP_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
@@ -26,22 +27,53 @@ L.Icon.Default.mergeOptions({
 
 class GeolocateDialog extends React.Component {
   static propTypes = {
-    markerLocation: PropTypes.object,
+    markerLocation: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.number),
+      PropTypes.shape({
+        lat: PropTypes.number,
+        lng: PropTypes.number
+      })
+    ]),
+    userLocation: PropTypes.shape({
+      latitude: PropTypes.number,
+      longitude: PropTypes.number
+    }),
     setMapState: PropTypes.func,
-    addressInformationLabel: PropTypes.string,
-    dispatch: PropTypes.func.isRequired
+    addressInformationLabel: PropTypes.string
   }
 
   constructor (props) {
     super(props)
 
     this.state = {
+      // Default location if geo IP not detected; this hovers over Brooklyn
       mapCenter: [40.645, -73.975]
     }
   }
 
-  /* start click event function */
-  onClick = (e) => {
+  componentDidMount () {
+    const { markerLocation, userLocation } = this.props
+
+    if (markerLocation) {
+      this.map.leafletElement.panTo(markerLocation)
+    } else if (userLocation) {
+      this.map.leafletElement.panTo([ userLocation.latitude, userLocation.longitude ])
+    }
+  }
+
+  reverseGeocode = (latlng) => {
+    const url = `${REVERSE_GEOCODE_ENDPOINT}&point.lat=${latlng.lat}&point.lon=${latlng.lng}`
+
+    return window.fetch(url)
+      .then(response => response.json())
+  }
+
+  onClickMap = (event) => {
+    const options = {
+      lat: event.latlng.lat,
+      lng: event.latlng.lng
+    }
+
     const displayAddressData = (res) => {
       this.props.setMapState({
         addressInformationLabel: res.features[0].properties.label,
@@ -51,52 +83,26 @@ class GeolocateDialog extends React.Component {
       this.map.leafletElement.panTo(this.props.markerLocation)
     }
 
-    function gotAddressData (res, err) {
-      res.json().then(displayAddressData)
-    }
-
-    const options = {
-      lat: e.latlng.lat,
-      lng: e.latlng.lng
-    }
-
-    const clickUrl = `${apiurlReverse}?api_key=${apikey}&point.lat=${options.lat}&point.lon=${options.lng}`
-    window.fetch(clickUrl).then(gotAddressData)
+    this.reverseGeocode(options)
+      .then(displayAddressData)
   }
 
-  /* end click event function */
-
-  onClickMap () {
-    store.dispatch({
-      type: SHOW_DIALOG,
-      name: 'MAP'
-    })
-  }
-
-  /* start on marker drag function */
-  markerDrag = (e) => {
-    const gotJson = (res) => {
+  onDragEndMarker = (event) => {
+    const latlng = event.target.getLatLng()
+    const handleResponse = (res) => {
       this.setState({
         renderPopup: true
       })
 
       this.props.setMapState({
         addressInformationLabel: res.features[0].properties.label,
-        markerLocation: e.target.getLatLng()
+        markerLocation: latlng
       })
     }
 
-    function gotAddress (res, err) {
-      res.json().then(gotJson)
-    }
-
-    const targetCoords = e.target.getLatLng()
-
-    const dragEndUrl = `${apiurlReverse}?api_key=${apikey}&point.lat=${targetCoords.lat}&point.lon=${targetCoords.lng}`
-    window.fetch(dragEndUrl).then(gotAddress)
+    this.reverseGeocode(latlng)
+      .then(handleResponse)
   }
-
-  /* end on marker drag function */
 
   setSearchResults = (point, label) => {
     this.setState({
@@ -114,15 +120,11 @@ class GeolocateDialog extends React.Component {
     })
   }
 
-  unmountDialog = () => {
-    this.props.dispatch(clearDialogs())
-  }
-
   render () {
     const markers = this.props.markerLocation ? (
       <Marker
         position={this.props.markerLocation}
-        onDragEnd={this.markerDrag}
+        onDragEnd={this.onDragEndMarker}
         onDragStart={this.hidePopup}
         draggable
       />
@@ -148,13 +150,13 @@ class GeolocateDialog extends React.Component {
 
     return (
       <Dialog className="geolocate-dialog">
-        <div className="geolocate-input">
+        <div className="geolocate-input-container">
           <SearchAddress setSearchResults={this.setSearchResults} />
         </div>
         <Map
           center={this.state.mapCenter}
           zoom={zoomLevel}
-          onClick={this.onClick}
+          onClick={this.onClickMap}
           ref={(ref) => { this.map = ref }}
         >
           <TileLayer
@@ -172,7 +174,8 @@ class GeolocateDialog extends React.Component {
 function mapStateToProps (state) {
   return {
     markerLocation: state.map.markerLocation,
-    addressInformationLabel: state.map.addressInformationLabel
+    addressInformationLabel: state.map.addressInformationLabel,
+    userLocation: state.user.geolocation.data
   }
 }
 

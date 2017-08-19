@@ -1,13 +1,20 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Autosuggest from 'react-autosuggest'
 import { throttle } from 'lodash'
-import { apiurl, apikey } from './config'
+import { MAPZEN_API_KEY } from '../app/config'
 import { setMapState } from '../store/actions/map'
 
-class SearchAddress extends Component {
+const AUTOCOMPLETE_API = 'https://search.mapzen.com/v1/autocomplete'
+const AUTOCOMPLETE_ENDPOINT = `${AUTOCOMPLETE_API}?api_key=${MAPZEN_API_KEY}`
+const SEARCH_API = 'https://search.mapzen.com/v1/search'
+const SEARCH_ENDPOINT = `${SEARCH_API}?api_key=${MAPZEN_API_KEY}`
+const REQUEST_THROTTLE = 250
+const MINIMUM_QUERY_LENGTH = 2
+
+export class SearchAddress extends React.Component {
   static propTypes = {
     setMapState: PropTypes.func,
     setSearchResults: PropTypes.func
@@ -18,123 +25,191 @@ class SearchAddress extends Component {
 
     this.state = {
       value: '',
-      placeholder: 'Search for a location',
       suggestions: []
     }
 
-    this.throttleMakeRequest = throttle(this.makeRequest, 250)
+    // Timestamp of the last response which was successfully rendered to the UI.
+    // The time represents when the request was *sent*, not when it was received.
+    this.requestRenderedTimestamp = new Date().getTime()
   }
 
   componentDidMount () {
+    this.focusInput()
+  }
+
+  focusInput = () => {
     this.autosuggestBar.input.focus()
   }
 
-  onSuggestionsFetchRequested = (x) => {
-    if (x.value.length >= 2) {
-      const searchUrl = `${apiurl}?api_key=${apikey}&text=${x.value}`
-      window.fetch(searchUrl).then(this.searchAddress)
-    }
-  }
-
-  onChange = (event, inputValue) => {
+  onClickClearSearch = () => {
     this.setState({
-      value: inputValue.newValue
+      value: '',
+      suggestions: []
     })
-  }
-
-  handleJSON = (res, err) => {
-    this.setState({
-      suggestions: res.features
-    })
-    if (res.features === undefined || res.features.length === 0) {
-    }
-  }
-
-  onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) => {
-    this.setState({
-      coordReverse: suggestion.geometry.coordinates.reverse(),
-      addressInfo: suggestion.properties,
-      markerLocate: suggestion.geometry.coordinates,
-      markerLabel: suggestion.properties.label
-    })
-  }
-
-  renderClearButton = (value) => {
-    if (value.length > 2) {
-      return (
-        <span name="close" className="geolocate-input-clear" onClick={this.clearSearch}>×</span>
-      )
-    }
-  }
-
-  clearSearch = () => {
-    this.setState({
-      value: ''
-    })
-  }
-
-  handleSubmit = (event) => {
-    event.preventDefault()
-    const inputValue = this.state.value
-    if (inputValue !== '') {
-      this.search(inputValue)
-    }
-
-    this.props.setMapState({
-      addressInformationLabel: this.state.markerLabel,
-      addressInformation: this.state.addresInfo,
-      markerLocation: this.state.markerLocate
-    })
-
-    this.props.setSearchResults(this.state.coordReverse, this.state.markerLabel)
-  }
-
-  searchAddress = (res, err) => {
-    res.json().then(this.handleJSON)
-  }
-
-  search = (query) => {
-    const endpoint = `https://search.mapzen.com/v1/search?text=${query}&api_key=${apikey}`
-    this.throttleMakeRequest(endpoint)
+    this.focusInput()
   }
 
   makeRequest = (endpoint) => {
-    window.fetch(endpoint)
-      .then(response => response.json())
+    // Track when this request began
+    const requestStartedAt = new Date().getTime()
+
+    return window.fetch(endpoint)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(response.status)
+        }
+
+        return response.json()
+      })
       .then((results) => {
+        // Throw away stale results if they are returned out of order.
+        if (this.requestRenderedTimestamp >= requestStartedAt) {
+          return
+        }
+
         this.setState({
           suggestions: results.features
         })
+
+        // Record the timestamp of the request.
+        this.requestRenderedTimestamp = requestStartedAt
+
+        return results
       })
   }
 
-  renderSuggestion (suggestion) {
-    return (
-      <div className="geolocate-suggestion-item">
-        {suggestion.properties.label}
-      </div>
-    )
+  throttledMakeRequest = throttle(this.makeRequest, REQUEST_THROTTLE)
+
+  search = (query) => {
+    const url = `${SEARCH_ENDPOINT}&text=${query}`
+    return this.throttledMakeRequest(url)
+  }
+
+  autocomplete = (query) => {
+    const url = `${AUTOCOMPLETE_ENDPOINT}&text=${query}`
+    return this.throttledMakeRequest(url)
+  }
+
+  onSubmitInput = (event) => {
+    event.preventDefault()
+    const query = this.autosuggestBar.input.value.trim()
+    if (query && query.length >= MINIMUM_QUERY_LENGTH) {
+      this.search(query)
+    }
+  }
+
+  onChangeInput = (event, { newValue, method }) => {
+    this.setState({
+      value: newValue
+    })
+
+    // Clears list if input is empty, currently needed because of the bug
+    // that requires `alwaysRenderSuggestions = true` and `onSuggestionsClearRequested`
+    // is a no-op
+    if (!newValue) {
+      this.setState({
+        suggestions: []
+      })
+    }
+  }
+
+  onSuggestionsFetchRequested = ({ value, reason }) => {
+    const query = value.trim()
+
+    // Prevent suggestion selection or input focus from sending a new request
+    if (reason === 'suggestion-selected' || reason === 'input-focused') return
+
+    if (query.length >= MINIMUM_QUERY_LENGTH) {
+      this.autocomplete(value)
+    }
+  }
+
+  // TODO: there is a bug where clearing suggestions here will swallow
+  // click event, preventing them from ever firing. This is commented out
+  // until this is fixed.
+  onSuggestionsClearRequested = () => {
+    // this.setState({
+    //   suggestions: []
+    // })
+  }
+
+  onSuggestionSelected = (event, details) => {
+    const { suggestion, suggestionValue, method } = details
+
+    // Prevent 'enter' keydown on suggestion list from submitting the form.
+    if (method === 'enter') {
+      event.preventDefault()
+    }
+
+    // This takes the place of `onSuggestionsClearRequested` for now,
+    // clearing the suggestions only after the click event has registered.
+    this.setState({
+      suggestions: []
+    })
+
+    this.props.setMapState({
+      addressInformationLabel: suggestionValue,
+      addressInformation: suggestion.properties,
+      markerLocation: suggestion.geometry.coordinates
+    })
+    this.props.setSearchResults(suggestion.geometry.coordinates.reverse(), suggestionValue)
+  }
+
+  shouldRenderSuggestions = (value) => {
+    return value.trim().length > MINIMUM_QUERY_LENGTH
   }
 
   getSuggestionValue (suggestion) {
     return suggestion.properties.label
   }
 
-  render () {
-    const inputProps = {
-      placeholder: this.state.placeholder,
-      value: this.state.value,
-      onChange: this.onChange
-    }
+  renderSuggestion (suggestion, { query }) {
+    const label = suggestion.properties.label
+
+    // Highlight the input query
+    const regex = new RegExp(`(${query})`, 'gi')
+    const parts = label.split(regex)
+    const highlighted = parts.map((part, index) => {
+      if (part.toLowerCase() === query.toLowerCase()) {
+        return <strong key={index}>{part}</strong>
+      }
+      return part
+    })
 
     return (
-      <form className="geolocate-input-form" onSubmit={this.handleSubmit}>
+      <div className="geolocate-suggestion-item">
+        {highlighted}
+      </div>
+    )
+  }
+
+  renderClearButton = (value) => {
+    if (value.length > 0) {
+      return (
+        <span title="Clear search" className="geolocate-input-clear" onClick={this.onClickClearSearch}>×</span>
+      )
+    }
+  }
+
+  render () {
+    const inputProps = {
+      placeholder: 'Search for a location',
+      value: this.state.value,
+      onChange: this.onChangeInput,
+      spellCheck: false
+    }
+
+    // Note: `alwaysRenderSuggestions` is required to be true otherwise
+    // click events on the item list is swallowed. This is a bug
+    return (
+      <form className="geolocate-input-form" onSubmit={this.onSubmitInput}>
         <Autosuggest
           ref={(ref) => { this.autosuggestBar = ref }}
           suggestions={this.state.suggestions}
+          alwaysRenderSuggestions
           onSuggestionSelected={this.onSuggestionSelected}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-          onSuggestionsClearRequested={() => {}}
+          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
           getSuggestionValue={this.getSuggestionValue}
           renderSuggestion={this.renderSuggestion}
           inputProps={inputProps}
