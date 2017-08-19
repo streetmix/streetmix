@@ -31,14 +31,14 @@ import {
 import { wasGeolocationAttempted } from './geolocation'
 import { isSignInLoaded } from './authentication'
 import { saveSettingsLocally } from './settings'
+import store from '../store'
+import { setUserUnits } from '../store/actions/settings'
 
 export const SETTINGS_UNITS_IMPERIAL = 1
 export const SETTINGS_UNITS_METRIC = 2
 
-let units = SETTINGS_UNITS_IMPERIAL
-
 export function getUnits () {
-  return units
+  return store.getState().settings.units
 }
 
 const SEGMENT_WIDTH_RESOLUTION_IMPERIAL = 0.25
@@ -85,9 +85,9 @@ export function checkIfSignInAndGeolocationLoaded () {
 
 export function updateSettingsFromCountryCode (countryCode) {
   if (COUNTRIES_IMPERIAL_UNITS.indexOf(countryCode) !== -1) {
-    units = SETTINGS_UNITS_IMPERIAL
+    setUserUnits(SETTINGS_UNITS_IMPERIAL)
   } else {
-    units = SETTINGS_UNITS_METRIC
+    setUserUnits(SETTINGS_UNITS_METRIC)
   }
 
   if (COUNTRIES_LEFT_HAND_TRAFFIC.indexOf(countryCode) !== -1) {
@@ -98,7 +98,7 @@ export function updateSettingsFromCountryCode (countryCode) {
     leftHandTraffic = true
   }
   if (debug.forceMetric) {
-    units = SETTINGS_UNITS_METRIC
+    setUserUnits(SETTINGS_UNITS_METRIC)
   }
 }
 
@@ -109,7 +109,7 @@ export function updateUnits (newUnits) {
     return
   }
 
-  units = newUnits
+  setUserUnits(newUnits)
   street.units = newUnits
 
   // If the user converts and then straight converts back, we just reach
