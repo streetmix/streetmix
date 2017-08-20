@@ -22,6 +22,16 @@ import { infoBubble } from './info_bubble'
 const WIDTH_EDIT_INPUT_DELAY = 200
 
 class WidthControl extends React.Component {
+  static propTypes = {
+    enabled: PropTypes.bool,
+    touch: PropTypes.bool,
+    segment: PropTypes.object // TODO: this is the actual DOM element; change it to a value
+  }
+
+  static defaultProps = {
+    enabled: false
+  }
+
   constructor (props) {
     super(props)
 
@@ -34,17 +44,6 @@ class WidthControl extends React.Component {
       value: null,
       displayValue: ''
     }
-
-    this.onClickWidthDecrement = this.onClickWidthDecrement.bind(this)
-    this.onClickWidthIncrement = this.onClickWidthIncrement.bind(this)
-    this.onClickInput = this.onClickInput.bind(this)
-    this.onFocusInput = this.onFocusInput.bind(this)
-    this.onBlurInput = this.onBlurInput.bind(this)
-    this.onMouseOverInput = this.onMouseOverInput.bind(this)
-    this.onMouseOutInput = this.onMouseOutInput.bind(this)
-    this.onKeyDownInput = this.onKeyDownInput.bind(this)
-    this.onInput = this.onInput.bind(this)
-    this.getWidthFromSegment = this.getWidthFromSegment.bind(this)
   }
 
   componentWillReceiveProps (nextProps) {
@@ -62,7 +61,7 @@ class WidthControl extends React.Component {
     }
   }
 
-  onClickWidthDecrement (event) {
+  onClickWidthDecrement = (event) => {
     const segmentEl = this.props.segment
     const precise = event.shiftKey
 
@@ -72,7 +71,7 @@ class WidthControl extends React.Component {
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INCREMENT_BUTTON', null, true)
   }
 
-  onClickWidthIncrement (event) {
+  onClickWidthIncrement = (event) => {
     const segmentEl = this.props.segment
     const precise = event.shiftKey
 
@@ -82,13 +81,13 @@ class WidthControl extends React.Component {
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INCREMENT_BUTTON', null, true)
   }
 
-  onInput (event) {
+  onInput = (event) => {
     this._widthEditInputChanged(event.target, false)
 
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INPUT_FIELD', null, true)
   }
 
-  onClickInput (event) {
+  onClickInput = (event) => {
     const el = event.target
     this.held = true
 
@@ -97,14 +96,14 @@ class WidthControl extends React.Component {
     }
   }
 
-  onFocusInput (event) {
+  onFocusInput = (event) => {
     this.oldValue = this.state.value
     this.setState({
       displayValue: undecorateWidth(this.state.value)
     })
   }
 
-  onBlurInput (event) {
+  onBlurInput = (event) => {
     var segmentEl = this.props.segment
 
     this._widthEditInputChanged(segmentEl, true)
@@ -117,20 +116,20 @@ class WidthControl extends React.Component {
     this.held = false
   }
 
-  onMouseOverInput (event) {
+  onMouseOverInput = (event) => {
     if (!this.held) {
       event.target.focus()
       event.target.select() // This is usually broken in React for some reason
     }
   }
 
-  onMouseOutInput (event) {
+  onMouseOutInput = (event) => {
     if (!this.held) {
       event.target.blur()
     }
   }
 
-  onKeyDownInput (event) {
+  onKeyDownInput = (event) => {
     var el = event.target
 
     switch (event.keyCode) {
@@ -185,7 +184,7 @@ class WidthControl extends React.Component {
    * inputs, corrects for units, rounds strange decimals, etc. As a result,
    * when we update state, read the actual value from the segment element.
    */
-  getWidthFromSegment (el) {
+  getWidthFromSegment = (el) => {
     const segmentEl = el || this.props.segment
     return undecorateWidth(parseFloat(segmentEl.getAttribute('data-width')))
   }
@@ -198,8 +197,8 @@ class WidthControl extends React.Component {
 
     const inputEl = (this.props.touch === false) ? (
       <input
-        type='text'
-        className='width'
+        type="text"
+        className="width"
         title={msg('TOOLTIP_SEGMENT_WIDTH')}
         value={this.state.displayValue}
         onChange={this.onInput}
@@ -212,13 +211,13 @@ class WidthControl extends React.Component {
         ref={(ref) => { this.inputEl = ref }}
       />
     ) : (
-      <span className='width-non-editable' />
+      <span className="width-non-editable" />
     )
 
     return (
       <div className={widthClassName}>
         <button
-          className='decrement'
+          className="decrement"
           title={msg('TOOLTIP_DECREASE_WIDTH')}
           tabIndex={-1}
           onClick={this.onClickWidthDecrement}
@@ -227,7 +226,7 @@ class WidthControl extends React.Component {
         </button>
         {inputEl}
         <button
-          className='increment'
+          className="increment"
           title={msg('TOOLTIP_INCREASE_WIDTH')}
           tabIndex={-1}
           onClick={this.onClickWidthIncrement}
@@ -237,16 +236,6 @@ class WidthControl extends React.Component {
       </div>
     )
   }
-}
-
-WidthControl.propTypes = {
-  enabled: PropTypes.bool,
-  touch: PropTypes.bool,
-  segment: PropTypes.object // TODO: this is the actual DOM element; change it to a value
-}
-
-WidthControl.defaultProps = {
-  enabled: false
 }
 
 function mapStateToProps (state) {

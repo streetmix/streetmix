@@ -21,9 +21,6 @@ export default class InfoBubble extends React.Component {
       type: null,
       street: null
     }
-
-    this.updateInfoBubbleState = this.updateInfoBubbleState.bind(this)
-    this.getName = this.getName.bind(this)
   }
 
   componentDidMount () {
@@ -42,14 +39,14 @@ export default class InfoBubble extends React.Component {
     resumeFadeoutControls()
   }
 
-  updateInfoBubbleState () {
+  updateInfoBubbleState = () => {
     this.setState({
       type: infoBubble.type,
       street: getStreet()
     })
   }
 
-  getName () {
+  getName = () => {
     const street = this.state.street
     let name
 
@@ -79,19 +76,19 @@ export default class InfoBubble extends React.Component {
 
     return (
       <div
-        className='info-bubble'
+        className="info-bubble"
         data-type={(type === INFO_BUBBLE_TYPE_SEGMENT) ? 'segment' : 'building'}
         onMouseEnter={infoBubble.onMouseEnter}
         onMouseLeave={infoBubble.onMouseLeave}
         onTouchStart={this.onTouchStart}
       >
-        <div className='info-bubble-triangle' />
+        <div className="info-bubble-triangle" />
         <header>
           {this.getName()}
           <RemoveButton enabled={canBeDeleted} segment={segment} />
         </header>
         <WidthControl enabled={showWidth} segment={segment} />
-        <div id='info-bubble-transition-element' />
+        <div id="info-bubble-transition-element" />
       </div>
     )
   }

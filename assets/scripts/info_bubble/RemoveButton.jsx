@@ -5,13 +5,17 @@ import { trackEvent } from '../app/event_tracking'
 import { removeSegment, removeAllSegments } from '../segments/remove'
 
 export default class RemoveButton extends React.PureComponent {
-  constructor (props) {
-    super(props)
-
-    this.onClick = this.onClick.bind(this)
+  static propTypes = {
+    enabled: PropTypes.bool,
+    segment: PropTypes.object // TODO: this is the actual DOM element; change it to a value
   }
 
-  onClick (event) {
+  static defaultProps = {
+    enabled: true,
+    segment: null
+  }
+
+  onClick = (event) => {
     // Prevent this “leaking” to a segment below
     event.preventDefault()
 
@@ -31,7 +35,7 @@ export default class RemoveButton extends React.PureComponent {
 
     return (
       <button
-        className='info-bubble-remove'
+        className="info-bubble-remove"
         tabIndex={-1}
         title={t('tooltip.remove-segment', 'Remove segment')}
         onClick={this.onClick}
@@ -40,14 +44,4 @@ export default class RemoveButton extends React.PureComponent {
       </button>
     )
   }
-}
-
-RemoveButton.propTypes = {
-  enabled: PropTypes.bool,
-  segment: PropTypes.object // TODO: this is the actual DOM element; change it to a value
-}
-
-RemoveButton.defaultProps = {
-  enabled: true,
-  segment: null
 }
