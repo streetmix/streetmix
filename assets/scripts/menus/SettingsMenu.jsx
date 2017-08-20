@@ -3,6 +3,59 @@ import Menu from './Menu'
 import { t, getLocale, onNewLocaleSelected } from '../app/locale'
 import { trackEvent } from '../app/event_tracking'
 
+const LOCALES = [
+  {
+    label: 'Chinese (Traditional)',
+    value: 'zh-Hant',
+    key: 'i18n.lang.zh-hant'
+  },
+  {
+    label: 'English',
+    value: 'en',
+    key: 'i18n.lang.en'
+  },
+  {
+    label: 'Finnish',
+    value: 'fi',
+    key: 'i18n.lang.fi'
+  },
+  {
+    label: 'French',
+    value: 'fr',
+    key: 'i18n.lang.fr'
+  },
+  {
+    label: 'German',
+    value: 'de',
+    key: 'i18n.lang.de'
+  },
+  {
+    label: 'Polish',
+    value: 'pl',
+    key: 'i18n.lang.pl'
+  },
+  {
+    label: 'Portuguese (Brazil)',
+    value: 'pt_BR',
+    key: 'i18n.lang.pt-br'
+  },
+  {
+    label: 'Spanish',
+    value: 'es',
+    key: 'i18n.lang.es'
+  },
+  {
+    label: 'Spanish (Mexico)',
+    value: 'es_MX',
+    key: 'i18n.lang.es-mx'
+  },
+  {
+    label: 'Swedish',
+    value: 'sv',
+    key: 'i18n.lang.sv'
+  }
+]
+
 export default class SettingsMenu extends React.PureComponent {
   componentDidMount () {
     // Set the dropdown to the current language.
@@ -18,60 +71,7 @@ export default class SettingsMenu extends React.PureComponent {
   }
 
   renderLocaleOptions () {
-    const locales = [
-      {
-        label: 'Chinese (Traditional)',
-        value: 'zh-Hant',
-        key: 'i18n.lang.zh-hant'
-      },
-      {
-        label: 'English',
-        value: 'en',
-        key: 'i18n.lang.en'
-      },
-      {
-        label: 'Finnish',
-        value: 'fi',
-        key: 'i18n.lang.fi'
-      },
-      {
-        label: 'French',
-        value: 'fr',
-        key: 'i18n.lang.fr'
-      },
-      {
-        label: 'German',
-        value: 'de',
-        key: 'i18n.lang.de'
-      },
-      {
-        label: 'Polish',
-        value: 'pl',
-        key: 'i18n.lang.pl'
-      },
-      {
-        label: 'Portuguese (Brazil)',
-        value: 'pt_BR',
-        key: 'i18n.lang.pt-br'
-      },
-      {
-        label: 'Spanish',
-        value: 'es',
-        key: 'i18n.lang.es'
-      },
-      {
-        label: 'Spanish (Mexico)',
-        value: 'es_MX',
-        key: 'i18n.lang.es-mx'
-      },
-      {
-        label: 'Swedish',
-        value: 'sv',
-        key: 'i18n.lang.sv'
-      }
-    ]
-
-    return locales.map(locale =>
+    return LOCALES.map(locale =>
       <option
         value={locale.value}
         key={locale.value}
