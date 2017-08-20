@@ -7,7 +7,7 @@ import { hideStatusMessage } from '../store/actions/status'
 import { registerKeypress, deregisterKeypress } from './keypress'
 import { URL_SIGN_IN_REDIRECT } from './routing'
 import { undo } from '../streets/undo_stack'
-import { loseAnyFocus } from './focus'
+import { loseAnyFocus } from '../util/focus'
 import { t } from '../app/locale'
 
 const STATUS_MESSAGE_HIDE_DELAY = 15000

@@ -39,7 +39,7 @@ import {
 } from '../util/width_units'
 import { isAnyMenuVisible, hideAllMenus } from '../menus/menu_controller'
 import { registerKeypress } from '../app/keypress'
-import { loseAnyFocus } from '../app/focus'
+import { loseAnyFocus } from '../util/focus'
 import {
   TILE_SIZE,
   changeSegmentVariant,

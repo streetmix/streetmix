@@ -1,5 +1,5 @@
 import { trackEvent } from '../app/event_tracking'
-import { loseAnyFocus } from '../app/focus'
+import { loseAnyFocus } from '../util/focus'
 import {
   getStreetSectionCanvasLeft,
   getStreetSectionTop

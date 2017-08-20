@@ -15,7 +15,7 @@ import {
 import { undo, redo } from '../streets/undo_stack'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { trackEvent } from './event_tracking'
-import { isFocusOnBody } from './focus'
+import { isFocusOnBody } from '../util/focus'
 import { registerKeypress } from './keypress'
 import { showStatusMessage } from './status_message'
 import { t } from './locale'

@@ -13,7 +13,7 @@ import { cloneDeep } from 'lodash'
 import { getStreet } from '../streets/data_model'
 import { getUndoStack } from '../streets/undo_stack'
 import { registerKeypress, deregisterKeypress } from './keypress'
-import { loseAnyFocus } from './focus'
+import { loseAnyFocus } from '../util/focus'
 
 class DebugInfo extends React.Component {
   static propTypes = {

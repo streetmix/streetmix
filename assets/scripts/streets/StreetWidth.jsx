@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { processWidthInput, prettifyWidth } from '../util/width_units'
 import { getSegmentWidthResolution } from '../segments/resizing'
-import { loseAnyFocus } from '../app/focus'
+import { loseAnyFocus } from '../util/focus'
 import { setInitializing } from '../app/initialization'
 import {
   SETTINGS_UNITS_IMPERIAL,
