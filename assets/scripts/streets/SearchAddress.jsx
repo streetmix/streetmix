@@ -93,7 +93,7 @@ export class SearchAddress extends React.Component {
 
   onSubmitInput = (event) => {
     event.preventDefault()
-    const query = this.autosuggestBar.input.value.trim()
+    const query = this.state.value.trim()
     if (query && query.length >= MINIMUM_QUERY_LENGTH) {
       this.search(query)
     }
@@ -185,17 +185,17 @@ export class SearchAddress extends React.Component {
   }
 
   renderClearButton = (value) => {
-    if (value.length > 0) {
-      return (
-        <span
-          title={t('dialogs.geolocate.clear-search', 'Clear search')}
-          className="geolocate-input-clear"
-          onClick={this.onClickClearSearch}
-        >
-          ×
-        </span>
-      )
-    }
+    if (!value || value.length === 0) return null
+
+    return (
+      <span
+        title={t('dialogs.geolocate.clear-search', 'Clear search')}
+        className="geolocate-input-clear"
+        onClick={this.onClickClearSearch}
+      >
+        ×
+      </span>
+    )
   }
 
   render () {

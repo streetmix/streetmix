@@ -17,25 +17,24 @@ const geolocationResponse = {
 }
 
 // Mocks a successful response to geolocation.
-const successResponse = function (url) {
-  return Promise.resolve({
-    ok: true,
-    json: () => geolocationResponse
-  })
-}
+const successResponse = jest.fn(url =>
+  Promise.resolve(new window.Response(JSON.stringify(geolocationResponse), {
+    status: 200,
+    headers: {
+      'Content-type': 'application/json'
+    }
+  }))
+)
 
 // Mocks a failed response to geolocation.
-const failResponse = function (url) {
-  return Promise.resolve({
-    ok: false,
+const failResponse = jest.fn(url =>
+  Promise.resolve(new window.Response(undefined, {
     status: 404
-  })
-}
+  }))
+)
 
 // Mocks a response that never resolves
-const timeoutResponse = function (url) {
-  return Promise.race([])
-}
+const timeoutResponse = jest.fn(url => Promise.race([]))
 
 describe('geolocation', () => {
   it('on request success, response contains lat/lng properties', (done) => {
