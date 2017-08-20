@@ -3,7 +3,15 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { infoBubble } from './info_bubble'
 
-class DebugHoverPolygon extends React.Component {
+export class DebugHoverPolygon extends React.Component {
+  static propTypes = {
+    enabled: PropTypes.bool
+  }
+
+  static defaultProps = {
+    enabled: false
+  }
+
   constructor (props) {
     super(props)
 
@@ -14,10 +22,9 @@ class DebugHoverPolygon extends React.Component {
     }
 
     this.canvas = null
-    this.updateDimensions = this.updateDimensions.bind(this)
-    this.updatePolygon = this.updatePolygon.bind(this)
-    this.drawPolygon = this.drawPolygon.bind(this)
+  }
 
+  componentDidMount () {
     window.addEventListener('resize', this.updateDimensions)
 
     // For now: events communicate with legacy `infoBubble` object
@@ -32,7 +39,7 @@ class DebugHoverPolygon extends React.Component {
     this.drawPolygon()
   }
 
-  updateDimensions (event) {
+  updateDimensions = (event) => {
     if (this.props.enabled === false) return
 
     this.setState({
@@ -41,7 +48,7 @@ class DebugHoverPolygon extends React.Component {
     })
   }
 
-  updatePolygon () {
+  updatePolygon = () => {
     if (this.props.enabled === false) return
 
     this.setState({
@@ -49,7 +56,7 @@ class DebugHoverPolygon extends React.Component {
     })
   }
 
-  drawPolygon () {
+  drawPolygon = () => {
     if (this.props.enabled === false) return
     if (!this.canvas) return
 
@@ -77,7 +84,7 @@ class DebugHoverPolygon extends React.Component {
     if (this.props.enabled === false) return null
 
     return (
-      <div id='debug-hover-polygon'>
+      <div id="debug-hover-polygon">
         <canvas
           width={this.state.width}
           height={this.state.height}
@@ -86,14 +93,6 @@ class DebugHoverPolygon extends React.Component {
       </div>
     )
   }
-}
-
-DebugHoverPolygon.propTypes = {
-  enabled: PropTypes.bool
-}
-
-DebugHoverPolygon.defaultProps = {
-  enabled: false
 }
 
 function mapStateToProps (state) {
