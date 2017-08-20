@@ -6,6 +6,7 @@
 
 .geolocate-dialog .close {
   z-index: $z-index-10;
+  text-shadow: 0 1px white;
 }
 
 .geolocate-input-container {
@@ -21,6 +22,7 @@
   width: 30vw;
   min-width: 220px;
   margin: 0 auto;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.85);
   pointer-events: auto;
 }
 
@@ -31,6 +33,8 @@
   padding: 8px;
   cursor: pointer;
 }
+
+/* React-autosuggest overrides */
 
 .react-autosuggest__input {
   width: 100%;
@@ -66,6 +70,8 @@
   background-color: $form-element-background;
 }
 
+/* Leaflet overrides */
+
 .leaflet-container {
   background-color: white;
   height: 100%;
@@ -76,6 +82,7 @@
 .leaflet-container .leaflet-control-attribution {
   background: transparent;
   margin: 0.25em;
+  text-shadow: 0 1px white;
 }
 
 .leaflet-popup-content-wrapper {
@@ -114,11 +121,12 @@
 
 /* Leaflet zoom-in/zoom-out buttons resemble Streetmix buttons */
 .leaflet-bar {
-  box-shadow: none;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.85);
   border-radius: 0;
 }
 
 .leaflet-touch .leaflet-bar {
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.85);
   border: 0;
 }
 
