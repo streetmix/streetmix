@@ -83,6 +83,12 @@
   background: transparent;
   margin: 0.25em;
   text-shadow: 0 1px white;
+  pointer-events: none;
+  user-select: none;
+}
+
+.leaflet-container .leaflet-control-attribution a {
+  pointer-events: auto;
 }
 
 .leaflet-popup-content-wrapper {
