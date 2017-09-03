@@ -6,6 +6,7 @@ import map from './map'
 import menus from './menus'
 import settings from './settings'
 import status from './status'
+import street from './street'
 import system from './system'
 import user from './user'
 
@@ -17,6 +18,7 @@ const reducers = combineReducers({
   menus,
   settings,
   status,
+  street,
   system,
   user
 })
