@@ -103,14 +103,15 @@ class WidthControl extends React.Component {
     })
   }
 
+  /**
+   * On blur, input shows prettified width value.
+   */
   onBlurInput = (event) => {
-    var segmentEl = this.props.segment
-
-    this._widthEditInputChanged(segmentEl, true)
-
+    // Read actual width from segment, because width is normalized there.
     const value = this.getWidthFromSegment()
     this.setState({
-      value: value
+      value: value,
+      displayValue: prettifyWidth(value)
     })
 
     this.held = false
