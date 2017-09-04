@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { processWidthInput, prettifyWidth } from '../util/width_units'
 import { getSegmentWidthResolution } from '../segments/resizing'
 import { loseAnyFocus } from '../util/focus'
@@ -10,7 +11,7 @@ import {
   updateUnits
 } from '../users/localization'
 import { segmentsChanged } from '../segments/view'
-import { setStreet, getStreet, createDomFromData } from './data_model'
+import { setStreet, createDomFromData } from './data_model'
 import { resizeStreetWidth } from './width'
 import { t } from '../app/locale'
 
@@ -23,48 +24,23 @@ export const MAX_CUSTOM_STREET_WIDTH = 400
 
 const DEFAULT_STREET_WIDTHS = [40, 60, 80]
 
-export default class StreetWidth extends React.Component {
+class StreetWidth extends React.Component {
   static propTypes = {
     readOnly: PropTypes.bool,
-    street: PropTypes.any
-  }
-
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      street: this.props.street
-    }
-  }
-
-  componentDidMount () {
-    // HACK: set up an event listener when street width is updated. this
-    // prevents an issue where street width is recalculated but does not
-    // update in this component
-    window.addEventListener('stmx:width_updated', () => {
-      this.setState({
-        street: getStreet()
-      })
-    })
-  }
-
-  componentWillReceiveProps (nextProps) {
-    this.setState({
-      street: nextProps.street
-    })
+    street: PropTypes.object
   }
 
   displayStreetWidthRemaining = () => {
     // TODO work on this so that we can use markup
-    const width = prettifyWidth(Math.abs(this.state.street.remainingWidth), { markup: false })
+    const width = prettifyWidth(Math.abs(this.props.street.remainingWidth), { markup: false })
 
     let differenceClass = ''
     let differenceString = ''
 
-    if (this.state.street.remainingWidth > 0) {
+    if (this.props.street.remainingWidth > 0) {
       differenceClass = 'street-width-under'
       differenceString = t('width.room', '({{width}} room)', { width })
-    } else if (this.state.street.remainingWidth < 0) {
+    } else if (this.props.street.remainingWidth < 0) {
       differenceClass = 'street-width-over'
       differenceString = t('width.over', '({{width}} over)', { width })
     }
@@ -103,19 +79,19 @@ export default class StreetWidth extends React.Component {
 
     let customWidthBlank = null
     let customWidth = null
-    if (widths.indexOf(parseFloat(this.state.street.width)) === -1) {
+    if (widths.indexOf(parseFloat(this.props.street.width)) === -1) {
       customWidthBlank = <option disabled="true" />
-      customWidth = this.createStreetWidthOption(this.state.street.width)
+      customWidth = this.createStreetWidthOption(this.props.street.width)
     }
 
     let selectedValue = ''
-    if (this.state.street.width) {
-      selectedValue = this.state.street.width
+    if (this.props.street.width) {
+      selectedValue = this.props.street.width
     }
     return (
       <select ref={(ref) => { this.streetWidth = ref }} onChange={this.changeStreetWidth} id="street-width" value={selectedValue}>
         <option disabled="true">{t('width.occupied', 'Occupied width:')}</option>
-        <option disabled="true">{prettifyWidth(this.state.street.occupiedWidth)}</option>
+        <option disabled="true">{prettifyWidth(this.props.street.occupiedWidth)}</option>
         <option disabled="true" />
         <option disabled="true">{t('width.building', 'Building-to-building width:')}</option>
         {defaultWidths}
@@ -128,14 +104,14 @@ export default class StreetWidth extends React.Component {
         <option
           id="switch-to-imperial-units"
           value={STREET_WIDTH_SWITCH_TO_IMPERIAL}
-          disabled={this.state.street.units === SETTINGS_UNITS_IMPERIAL}
+          disabled={this.props.street.units === SETTINGS_UNITS_IMPERIAL}
         >
           {t('width.imperial', 'Switch to imperial units (feet)')}
         </option>
         <option
           id="switch-to-metric-units"
           value={STREET_WIDTH_SWITCH_TO_METRIC}
-          disabled={this.state.street.units === SETTINGS_UNITS_METRIC}
+          disabled={this.props.street.units === SETTINGS_UNITS_METRIC}
         >
           {t('width.metric', 'Switch to metric units')}
         </option>
@@ -164,7 +140,7 @@ export default class StreetWidth extends React.Component {
 
     document.body.classList.remove('edit-street-width')
 
-    if (newStreetWidth === this.state.street.width) {
+    if (newStreetWidth === this.props.street.width) {
       return
     } else if (newStreetWidth === STREET_WIDTH_SWITCH_TO_METRIC) {
       updateUnits(SETTINGS_UNITS_METRIC)
@@ -173,7 +149,7 @@ export default class StreetWidth extends React.Component {
       updateUnits(SETTINGS_UNITS_IMPERIAL)
       return
     } else if (newStreetWidth === STREET_WIDTH_CUSTOM) {
-      let promptValue = this.state.street.occupiedWidth
+      let promptValue = this.props.street.occupiedWidth
       if (promptValue < MIN_CUSTOM_STREET_WIDTH) promptValue = MIN_CUSTOM_STREET_WIDTH
       if (promptValue > MAX_CUSTOM_STREET_WIDTH) promptValue = MAX_CUSTOM_STREET_WIDTH
 
@@ -201,7 +177,7 @@ export default class StreetWidth extends React.Component {
       newStreetWidth = width
     }
 
-    const street = Object.assign({}, this.state.street)
+    const street = Object.assign({}, this.props.street)
     street.width = this.normalizeStreetWidth(newStreetWidth)
     setStreet(street)
 
@@ -218,7 +194,7 @@ export default class StreetWidth extends React.Component {
   render () {
     // TODO prettifyWidth calls getStreet(). refactor this to use units passed by argument instead
     // TODO work on this so that we can use markup
-    const width = prettifyWidth(this.state.street.width, { markup: false })
+    const width = prettifyWidth(this.props.street.width, { markup: false })
     const widthString = t('width.label', '{{width}} width', { width })
     const difference = this.displayStreetWidthRemaining()
 
@@ -234,3 +210,11 @@ export default class StreetWidth extends React.Component {
     )
   }
 }
+
+function mapStateToProps (state) {
+  return {
+    street: state.street
+  }
+}
+
+export default connect(mapStateToProps)(StreetWidth)

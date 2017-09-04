@@ -3,13 +3,14 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import StreetName from './StreetName'
 import StreetMetaData from './StreetMetaData'
-import { getStreet, setAndSaveStreet } from './data_model'
+import { setAndSaveStreet } from './data_model'
 import { msg } from '../app/messages'
 import { updateStreetName } from './name'
 
 class StreetNameCanvas extends React.Component {
   static propTypes = {
-    editable: PropTypes.bool
+    editable: PropTypes.bool,
+    street: PropTypes.object
   }
 
   static defaultProps = {
@@ -19,9 +20,7 @@ class StreetNameCanvas extends React.Component {
   constructor (props) {
     super(props)
 
-    const street = getStreet()
     this.state = {
-      street: street,
       rightMenuBarLeftPos: 0,
       streetNameLeftPos: 0,
       streetNameWidth: 0
@@ -32,26 +31,17 @@ class StreetNameCanvas extends React.Component {
 
   componentDidMount () {
     window.addEventListener('resize', this.updateCoords)
-    window.addEventListener('stmx:set_street', this.streetUpdated)
-    window.addEventListener('stmx:width_updated', this.streetUpdated)
     window.addEventListener('stmx:menu_bar_resized', this.updatePositions)
     window.dispatchEvent(new CustomEvent('stmx:streetnamecanvas_mounted'))
   }
 
   componentWillUnmount () {
     window.removeEventListener('resize', this.updateCoords)
-    window.removeEventListener('stmx:set_street', this.streetUpdated)
-    window.removeEventListener('stmx:width_updated', this.streetUpdated)
     window.removeEventListener('stmx:menu_bar_resized', this.updatePositions)
   }
 
   componentDidUpdate (nextProps, nextState) {
     this.updateCoords()
-  }
-
-  streetUpdated = () => {
-    const street = getStreet()
-    this.setState({street})
   }
 
   handleResizeStreetName = (coords) => {
@@ -92,10 +82,10 @@ class StreetNameCanvas extends React.Component {
   onClickStreetName = () => {
     if (!this.props.editable) return
 
-    const newName = window.prompt(msg('PROMPT_NEW_STREET_NAME'), this.state.street.name)
+    const newName = window.prompt(msg('PROMPT_NEW_STREET_NAME'), this.props.street.name)
 
     if (newName) {
-      const street = Object.assign({}, this.state.street)
+      const street = Object.assign({}, this.props.street)
       street.name = StreetName.normalizeStreetName(newName)
       setAndSaveStreet(street)
       updateStreetName()
@@ -108,10 +98,10 @@ class StreetNameCanvas extends React.Component {
         <StreetName
           id="street-name"
           ref={(ref) => { this.streetName = ref }}
-          name={this.state.street.name}
+          name={this.props.street.name}
           onClick={this.onClickStreetName}
         />
-        <StreetMetaData id="street-metadata" street={this.state.street} />
+        <StreetMetaData id="street-metadata" street={this.props.street} />
       </div>
     )
   }
@@ -119,7 +109,8 @@ class StreetNameCanvas extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    editable: !state.app.readOnly
+    editable: !state.app.readOnly,
+    street: state.street
   }
 }
 

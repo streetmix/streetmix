@@ -67,7 +67,7 @@ class StreetMetaData extends React.Component {
 
     return (
       <div id={this.props.id}>
-        <StreetWidth street={this.props.street} readOnly={this.props.readOnly} />
+        <StreetWidth readOnly={this.props.readOnly} />
         <span id="street-metadata-author">{author}</span>
         <span id="street-metadata-date">{formatDate(this.props.street.updatedAt)}</span>
         {geolocation}

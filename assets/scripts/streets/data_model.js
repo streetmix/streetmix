@@ -104,7 +104,7 @@ export function getStreet () {
 
 export function setStreet (value) {
   street = value
-  window.dispatchEvent(new window.CustomEvent('stmx:set_street'))
+  setStreetDataInRedux()
 }
 
 export function setAndSaveStreet (value) {
