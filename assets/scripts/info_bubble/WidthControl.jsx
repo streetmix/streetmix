@@ -68,6 +68,8 @@ class WidthControl extends React.Component {
     incrementSegmentWidth(segmentEl, false, precise)
     scheduleControlsFadeout(segmentEl)
 
+    this.updateWidthFromSegment()
+
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INCREMENT_BUTTON', null, true)
   }
 
@@ -77,6 +79,8 @@ class WidthControl extends React.Component {
 
     incrementSegmentWidth(segmentEl, true, precise)
     scheduleControlsFadeout(segmentEl)
+
+    this.updateWidthFromSegment()
 
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INCREMENT_BUTTON', null, true)
   }
@@ -107,13 +111,7 @@ class WidthControl extends React.Component {
    * On blur, input shows prettified width value.
    */
   onBlurInput = (event) => {
-    // Read actual width from segment, because width is normalized there.
-    const value = this.getWidthFromSegment()
-    this.setState({
-      value: value,
-      displayValue: prettifyWidth(value)
-    })
-
+    this.updateWidthFromSegment()
     this.held = false
   }
 
@@ -188,6 +186,16 @@ class WidthControl extends React.Component {
   getWidthFromSegment = (el) => {
     const segmentEl = el || this.props.segment
     return undecorateWidth(parseFloat(segmentEl.getAttribute('data-width')))
+  }
+
+  // Read actual width from segment, because width is normalized there.
+  // This is temporary while we transition to React/Redux
+  updateWidthFromSegment = (el) => {
+    const value = this.getWidthFromSegment()
+    this.setState({
+      value: value,
+      displayValue: prettifyWidth(value)
+    })
   }
 
   render () {
