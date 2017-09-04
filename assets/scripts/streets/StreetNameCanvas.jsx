@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import StreetName from './StreetName'
 import StreetMetaData from './StreetMetaData'
 import { setAndSaveStreet } from './data_model'
-import { msg } from '../app/messages'
 import { updateStreetName } from './name'
+import { t } from '../app/locale'
 
 class StreetNameCanvas extends React.Component {
   static propTypes = {
@@ -82,7 +82,7 @@ class StreetNameCanvas extends React.Component {
   onClickStreetName = () => {
     if (!this.props.editable) return
 
-    const newName = window.prompt(msg('PROMPT_NEW_STREET_NAME'), this.props.street.name)
+    const newName = window.prompt(t('prompt.new-street', 'New street name:'), this.props.street.name)
 
     if (newName) {
       const street = Object.assign({}, this.props.street)

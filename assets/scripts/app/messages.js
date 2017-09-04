@@ -5,7 +5,6 @@ import { supplant } from '../util/helpers'
 const messages = {
   UI_GLYPH_X: '×',
 
-  PROMPT_NEW_STREET_NAME: 'New street name:',
   PROMPT_DELETE_STREET: 'Are you sure you want to permanently delete {{name}}? This cannot be undone.',
 
   TOOLTIP_REMOVE_SEGMENT: 'Remove segment',
