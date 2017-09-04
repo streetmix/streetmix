@@ -171,7 +171,8 @@
     "remove-floor": "Remove floor"
   },
   "street": {
-    "default-name": "Unnamed St"
+    "default-name": "Unnamed St",
+    "rename": "Click to rename"
   },
   "segments": {
     "warnings": {
