@@ -60,7 +60,6 @@ export function recalculateOccupiedWidth () {
     street.remainingWidth = 0
   }
 
-  window.dispatchEvent(new CustomEvent('stmx:width_updated'))
   // updateStreetMetadata(street)
 }
 

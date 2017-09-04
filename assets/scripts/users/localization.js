@@ -146,7 +146,6 @@ export function updateUnits (newUnits) {
 
   setIgnoreStreetChanges(false)
 
-  window.dispatchEvent(new CustomEvent('stmx:width_updated'))
   hideAllMenus()
 
   saveStreetToServerIfNecessary()
@@ -176,7 +175,4 @@ export function propagateUnits () {
 
       break
   }
-
-  // TODO verify this is the right event to dispatch, and a good place to throw this event
-  window.dispatchEvent(new CustomEvent('stmx:width_updated'))
 }

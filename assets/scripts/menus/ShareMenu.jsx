@@ -8,7 +8,6 @@ import { FACEBOOK_APP_ID } from '../app/config'
 import { trackEvent } from '../app/event_tracking'
 import { getPageTitle } from '../app/page_title'
 import { printImage } from '../app/print'
-import { getStreet } from '../streets/data_model'
 import { getSharingUrl } from '../util/share_url'
 import { SHOW_DIALOG } from '../store/actions'
 
@@ -16,7 +15,8 @@ class ShareMenu extends React.Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired, // supplied by connect()
     signedIn: PropTypes.bool.isRequired,
-    userId: PropTypes.string
+    userId: PropTypes.string,
+    street: PropTypes.object
   }
 
   static defaultProps = {
@@ -43,7 +43,7 @@ class ShareMenu extends React.Component {
 
   getSharingMessage = () => {
     let message = ''
-    let street = getStreet()
+    const street = this.props.street
 
     if (street.creatorId) {
       if (this.props.signedIn && street.creatorId === this.props.userId) {
@@ -158,7 +158,8 @@ class ShareMenu extends React.Component {
 function mapStateToProps (state) {
   return {
     signedIn: state.user.signedIn,
-    userId: state.user.signInData && state.user.signInData.userId
+    userId: state.user.signInData && state.user.signInData.userId,
+    street: state.street
   }
 }
 

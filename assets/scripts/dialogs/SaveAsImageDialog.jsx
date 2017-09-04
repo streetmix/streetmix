@@ -11,7 +11,6 @@ import { connect } from 'react-redux'
 import { isEqual } from 'lodash'
 import Dialog from './Dialog'
 import { trackEvent } from '../app/event_tracking'
-import { getStreet } from '../streets/data_model'
 import { getStreetImage } from '../streets/image'
 import { setSettings } from '../users/settings'
 import { normalizeSlug } from '../util/helpers'
@@ -24,7 +23,8 @@ class SaveAsImageDialog extends React.Component {
   static propTypes = {
     transparentSky: PropTypes.bool.isRequired,
     segmentNames: PropTypes.bool.isRequired,
-    streetName: PropTypes.bool.isRequired
+    streetName: PropTypes.bool.isRequired,
+    name: PropTypes.string
   }
 
   constructor (props) {
@@ -93,7 +93,7 @@ class SaveAsImageDialog extends React.Component {
   onClickDownloadImage = (event) => {
     event.preventDefault()
     this.imageCanvas.toBlob((blob) => {
-      const filename = makeFilename()
+      const filename = this.makeFilename()
       saveAs(blob, filename)
     })
   }
@@ -107,7 +107,7 @@ class SaveAsImageDialog extends React.Component {
       const dataUrl = this.imageCanvas.toDataURL('image/png')
       this.setState({
         download: {
-          filename: makeFilename(),
+          filename: this.makeFilename(),
           dataUrl: dataUrl
         },
         errorMessage: null
@@ -117,6 +117,16 @@ class SaveAsImageDialog extends React.Component {
         errorMessage: t('dialogs.save.error-unavailable', 'Saving to image is not available on this browser.')
       })
     }
+  }
+
+  makeFilename = () => {
+    let filename = normalizeSlug(this.props.name)
+    if (!filename) {
+      filename = 'street'
+    }
+    filename += '.png'
+
+    return filename
   }
 
   render () {
@@ -203,18 +213,9 @@ function mapStateToProps (state) {
   return {
     transparentSky: state.settings.saveAsImageTransparentSky,
     segmentNames: state.settings.saveAsImageSegmentNamesAndWidths,
-    streetName: state.settings.saveAsImageStreetName
+    streetName: state.settings.saveAsImageStreetName,
+    name: state.street.name
   }
 }
 
 export default connect(mapStateToProps)(SaveAsImageDialog)
-
-function makeFilename () {
-  let filename = normalizeSlug(getStreet().name)
-  if (!filename) {
-    filename = 'street'
-  }
-  filename += '.png'
-
-  return filename
-}
