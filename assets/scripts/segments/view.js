@@ -23,8 +23,6 @@ import {
   applyWarningsToSegments
 } from './resizing'
 import { getVariantArray, getVariantString } from './variant_utils'
-import { replaceSegments } from '../store/actions/street'
-import store from '../store'
 
 const TILESET_POINT_PER_PIXEL = 2.0
 export const TILE_SIZE = 12 // pixels
@@ -616,10 +614,6 @@ export function segmentsChanged () {
   saveStreetToServerIfNecessary()
   updateUndoButtons()
   repositionSegments()
-
-  // Update in Redux store. Some components will read street data from there.
-  // todo: transition so Redux is single source of truth for street.
-  store.dispatch(replaceSegments(street.segments))
 }
 
 function onSegmentMouseEnter (event) {

@@ -2,7 +2,7 @@ import {
   ADD_SEGMENT,
   REMOVE_SEGMENT,
   MOVE_SEGMENT,
-  REPLACE_SEGMENTS,
+  REPLACE_STREET_DATA,
   CHANGE_SEGMENT_WIDTH
 } from './'
 
@@ -30,10 +30,10 @@ export function moveSegment (index, newIndex) {
 }
 
 // temporary while we migrate data stores
-export function replaceSegments (segments) {
+export function updateStreetData (street) {
   return {
-    type: REPLACE_SEGMENTS,
-    segments
+    type: REPLACE_STREET_DATA,
+    street
   }
 }
 

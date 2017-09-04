@@ -11,7 +11,8 @@ import {
   createDomFromData,
   setLastStreet,
   trimStreetData,
-  getStreet
+  getStreet,
+  setStreetDataInRedux
 } from '../streets/data_model'
 import { updateStreetName } from '../streets/name'
 import { getPromoteStreet, remixStreet } from '../streets/remix'
@@ -167,6 +168,7 @@ function onEverythingLoaded () {
 
   initializing = false
   setIgnoreStreetChanges(false)
+  setStreetDataInRedux()
   setLastStreet(trimStreetData(getStreet()))
 
   updatePageUrl()

@@ -2,7 +2,7 @@ import {
   ADD_SEGMENT,
   REMOVE_SEGMENT,
   MOVE_SEGMENT,
-  REPLACE_SEGMENTS,
+  REPLACE_STREET_DATA,
   CHANGE_SEGMENT_WIDTH
 } from '../actions'
 
@@ -44,10 +44,10 @@ const street = (state = initialState, action) => {
         ]
       }
     }
-    case REPLACE_SEGMENTS:
+    case REPLACE_STREET_DATA:
       return {
         ...state,
-        segments: action.segments
+        ...action.street
       }
     case CHANGE_SEGMENT_WIDTH: {
       const copy = state.segments.slice()
