@@ -29,7 +29,8 @@ const LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED = 'settings-welcome-dismissed'
 class WelcomePanel extends React.Component {
   static propTypes = {
     newStreetPreference: PropTypes.number,
-    priorLastStreetId: PropTypes.string
+    priorLastStreetId: PropTypes.string,
+    street: PropTypes.object
   }
 
   static defaultProps = {
@@ -189,7 +190,7 @@ class WelcomePanel extends React.Component {
         )
         break
       case WELCOME_FIRST_TIME_EXISTING_STREET:
-        const street = getStreet()
+        const street = this.props.street
 
         welcomeContent = (
           <div className="welcome-panel-content first-time-existing-street">
@@ -315,7 +316,8 @@ class WelcomePanel extends React.Component {
 function mapStateToProps (state) {
   return {
     newStreetPreference: state.settings.newStreetPreference,
-    priorLastStreetId: state.settings.priorLastStreetId
+    priorLastStreetId: state.settings.priorLastStreetId,
+    street: state.street
   }
 }
 
