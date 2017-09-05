@@ -7,10 +7,10 @@ import {
   setUpdateTimeToNow,
   trimStreetData,
   prepareDefaultStreet,
-  prepareEmptyStreet
+  prepareEmptyStreet,
+  setIgnoreStreetChanges
 } from './data_model'
 import { updateStreetName } from './name'
-import { setIgnoreStreetChanges } from './undo_stack'
 import { resizeStreetWidth } from './width'
 import { saveStreetToServer, fetchLastStreet } from './xhr'
 

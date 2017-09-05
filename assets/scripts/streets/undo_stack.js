@@ -25,8 +25,6 @@ import {
   redoAction
 } from '../store/actions/undo'
 
-export const FLAG_SAVE_UNDO = false // true to save undo with street data, false to not save undo
-
 export function getCurrentUndo () {
   const state = store.getState().undo
   return state.stack[state.position]
@@ -48,24 +46,7 @@ export function setUndoPosition (value) {
   replaceUndoPosition(value)
 }
 
-let ignoreStreetChanges = false
-
-export function getIgnoreStreetChanges () {
-  return ignoreStreetChanges
-}
-
-export function setIgnoreStreetChanges (value) {
-  ignoreStreetChanges = value
-}
-
-function undoRedo (undo) {
-  if (undo) {
-    // sends current street to update current position before undoing
-    store.dispatch(undoAction(trimStreetData(getStreet())))
-  } else {
-    store.dispatch(redoAction())
-  }
-
+function finishUndoOrRedo () {
   // set current street to the thing we just updated
   const state = store.getState().undo
   setStreet(cloneDeep(state.stack[state.position]))
@@ -88,7 +69,10 @@ export function undo () {
     return
   }
 
-  undoRedo(true)
+  // sends current street to update current position before undoing
+  store.dispatch(undoAction(trimStreetData(getStreet())))
+
+  finishUndoOrRedo()
 }
 
 export function redo () {
@@ -97,7 +81,9 @@ export function redo () {
     return
   }
 
-  undoRedo(false)
+  store.dispatch(redoAction())
+
+  finishUndoOrRedo()
 }
 
 export function createNewUndoIfNecessary (lastStreet, currentStreet) {

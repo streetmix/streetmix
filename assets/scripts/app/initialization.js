@@ -14,11 +14,11 @@ import {
   setLastStreet,
   trimStreetData,
   getStreet,
-  setStreetDataInRedux
+  setStreetDataInRedux,
+  setIgnoreStreetChanges
 } from '../streets/data_model'
 import { updateStreetName } from '../streets/name'
 import { getPromoteStreet, remixStreet } from '../streets/remix'
-import { setIgnoreStreetChanges } from '../streets/undo_stack'
 import { resizeStreetWidth } from '../streets/width'
 import { loadSignIn, isSignInLoaded } from '../users/authentication'
 import {

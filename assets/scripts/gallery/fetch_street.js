@@ -5,10 +5,10 @@ import {
   setLastStreet,
   getStreet,
   createDomFromData,
-  trimStreetData
+  trimStreetData,
+  setIgnoreStreetChanges
 } from '../streets/data_model'
 import { updateStreetName } from '../streets/name'
-import { setIgnoreStreetChanges } from '../streets/undo_stack'
 import { unpackServerStreetData } from '../streets/xhr'
 import { resizeStreetWidth, recalculateOccupiedWidth } from '../streets/width'
 import { getAuthHeader } from '../users/authentication'

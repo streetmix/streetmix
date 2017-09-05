@@ -16,12 +16,12 @@ import {
   getStreet,
   setStreet,
   createDomFromData,
-  saveStreetToServerIfNecessary
+  saveStreetToServerIfNecessary,
+  setIgnoreStreetChanges
 } from '../streets/data_model'
 import {
   getUndoStack,
-  getUndoPosition,
-  setIgnoreStreetChanges
+  getUndoPosition
 } from '../streets/undo_stack'
 import { createNewStreetOnServer } from '../streets/xhr'
 import {

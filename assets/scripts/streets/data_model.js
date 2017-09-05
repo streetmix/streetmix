@@ -21,8 +21,6 @@ import { updateStreetName } from './name'
 import {
   setUndoStack,
   setUndoPosition,
-  getIgnoreStreetChanges,
-  setIgnoreStreetChanges,
   createNewUndoIfNecessary,
   unifyUndoStack,
   updateUndoButtons
@@ -324,8 +322,14 @@ export function setUpdateTimeToNow () {
   unifyUndoStack()
 }
 
+let ignoreStreetChanges = false
+
+export function setIgnoreStreetChanges (value) {
+  ignoreStreetChanges = value
+}
+
 export function saveStreetToServerIfNecessary () {
-  if (getIgnoreStreetChanges() || store.getState().errors.abortEverything) {
+  if (ignoreStreetChanges || store.getState().errors.abortEverything) {
     return
   }
 
