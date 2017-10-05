@@ -162,8 +162,12 @@ You may additionally specify the name of the directory to install to, if you wis
 
     cd streetmix
     npm install
+    
+3) Go into `package.json` and remove  `"prestart": "npm run mongo:start"` and `"mongo:start": "mongod --fork --logpath /dev/null"`
 
-3) Set up the MongoDB environment. [Follow the instructions under “Set up the MongoDB environment” from the MongoDB website.](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-windows/#run-mongodb)
+4) Set up the MongoDB environment. [Follow the instructions under “Set up the MongoDB environment” from the MongoDB website.](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-windows/#run-mongodb
+
+5) Run `mongod.exe` and `mongo.exe`
 
 #### On all systems
 
