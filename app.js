@@ -57,7 +57,7 @@ const helmetConfig = {
         "'sha256-IMzN4+bO6T1+HPinMdHnMELrKiIAEcahLq9JBJ2sGso='",
         "'sha256-nNAB7wzHoZ2H2aPXc92gTFy5PUJbI0DgcTKKke1IAME='",
         "'sha256-f1HK/Dqj6PZZhqO05NmaOi3WSD+H8wH+8Hf8e1w8vQc='",
-        "'sha256-a3jrMYVXEEA6OiADmrxAYVqEyCuvciqKxYphw6Z0AiY='",
+        "'sha256-a3jrMYVXEEA6OiADmrxAYVqEyCuvciqKxYphw6Z0AiY='"
       ],
       childSrc: ['platform.twitter.com'],
       imgSrc: [
