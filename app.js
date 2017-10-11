@@ -48,8 +48,18 @@ const helmetConfig = {
         '*.global.ssl.fastly.net',
         'search.mapzen.com',
         "'sha256-cVcViy/WbA6COI6DEjyQfnBNKF24fNLeLzoC9TPNuKw='", // Google Analytics?
-        "'sha256-7N1wpoJYtgf8X14b14NyEnr45cLEQ0FqwzvKUGzezLs='" // Mixpanel?
+        "'sha256-7N1wpoJYtgf8X14b14NyEnr45cLEQ0FqwzvKUGzezLs='", // Mixpanel?
+        "'sha256-AmiIBiDMlUtAs2tJB7jErMe/d3rBPYNUQQIZZdI0/mw='",
+        "'sha256-tR4f5esF7ogSmVINwuWYjYLydFvDU/NenPTDeJQHINs='",
+        "'sha256-b0JiL6WgW/t6gnaiUl78Mlg1q3/pUtetuNGA6BYlnH4='",
+        "'sha256-6j87i3n9lWPVmuX+Udb9PQmkHb7ucVoDtHD6HKJXPLI='",
+        "'sha256-t6C3BkAxW5wuha7GldeGWafgEpleF3eDfNI3xT52/eU='",
+        "'sha256-IMzN4+bO6T1+HPinMdHnMELrKiIAEcahLq9JBJ2sGso='",
+        "'sha256-nNAB7wzHoZ2H2aPXc92gTFy5PUJbI0DgcTKKke1IAME='",
+        "'sha256-f1HK/Dqj6PZZhqO05NmaOi3WSD+H8wH+8Hf8e1w8vQc='",
+        "'sha256-a3jrMYVXEEA6OiADmrxAYVqEyCuvciqKxYphw6Z0AiY='"
       ],
+      childSrc: ['platform.twitter.com'],
       imgSrc: [
         "'self'",
         'data:',
@@ -62,7 +72,8 @@ const helmetConfig = {
       connectSrc: ["'self'",
         'freegeoip.net',
         'api.mixpanel.com',
-        'search.mapzen.com'
+        'search.mapzen.com',
+        'syndication.twitter.com'
       ]
     }
   }
