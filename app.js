@@ -50,6 +50,7 @@ const helmetConfig = {
         "'sha256-cVcViy/WbA6COI6DEjyQfnBNKF24fNLeLzoC9TPNuKw='", // Google Analytics?
         "'sha256-7N1wpoJYtgf8X14b14NyEnr45cLEQ0FqwzvKUGzezLs='" // Mixpanel?
       ],
+      childSrc: ['platform.twitter.com'],
       imgSrc: [
         "'self'",
         'data:',
@@ -62,7 +63,8 @@ const helmetConfig = {
       connectSrc: ["'self'",
         'freegeoip.net',
         'api.mixpanel.com',
-        'search.mapzen.com'
+        'search.mapzen.com',
+        'syndication.twitter.com'
       ]
     }
   }
