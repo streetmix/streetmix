@@ -1,25 +1,25 @@
-'use strict';
+'use strict'
 
-const path = require('path');
-const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path')
+const webpack = require('webpack')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const extractSass = new ExtractTextPlugin({
-  filename: "[name].css",
-});
+  filename: '[name].css'
+})
 
 module.exports = {
   target: 'node',
   node: {
     __dirname: false,
-    __filename: false,
+    __filename: false
   },
   entry: [
-    path.join(__dirname,'./assets/app.js')
+    path.join(__dirname, './assets/app.js')
   ],
   output: {
     path: '/',
-    filename: '[name].js',
+    filename: '[name].js'
   },
   plugins: [
     extractSass,
@@ -29,11 +29,16 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        loader: "babel-loader"
+        loader: 'babel-loader'
       },
       {
         test: /\.(gif|png|jpe?g|svg)$/i,
-        use: [{ loader: 'file-loader', options: {}}]
+        use: [
+          {
+            loader: 'file-loader',
+            options: {}
+          }
+        ]
       },
       {
         test: /\.scss|sass$/,
@@ -51,4 +56,4 @@ module.exports = {
       }
     ]
   }
-};
+}

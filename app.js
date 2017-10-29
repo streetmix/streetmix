@@ -19,17 +19,16 @@ const path = require('path')
 const controllers = require('./app/controllers')
 const resources = require('./app/resources')
 const requestHandlers = require('./lib/request_handlers')
-const middleware = require('./lib/middleware')
 const exec = require('child_process').exec
 
 const app = module.exports = express()
 
 // webpack setup here
-const webpack = require('webpack');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
-const webpackConfig = require('./webpack.dev.config');
-const compiler = webpack(webpackConfig);
+const webpack = require('webpack')
+const webpackDevMiddleware = require('webpack-dev-middleware')
+const webpackHotMiddleware = require('webpack-hot-middleware')
+const webpackConfig = require('./webpack.dev.config')
+const compiler = webpack(webpackConfig)
 
 app.locals.config = config
 
@@ -150,21 +149,21 @@ app.get('/.well-known/status', resources.well_known_status.get)
 
 // webpack instance
 app.use(webpackDevMiddleware(compiler, {
-   noInfo: false,
-   quiet: false,
-   lazy: true,
-   watchOptions: {
-		aggregateTimeout: 300,
-		poll: true
-	},
-   stats: {
-		colors: true
-	},
+  noInfo: false,
+  quiet: false,
+  lazy: true,
+  watchOptions: {
+    aggregateTimeout: 300,
+    poll: true
+  },
+  stats: {
+    colors: true
+  },
   publicPath: webpackConfig.output.publicPath,
   reporter: null,
   serverSideServer: false
- }));
-app.use(webpackHotMiddleware(compiler));
+}))
+app.use(webpackHotMiddleware(compiler))
 
 app.get('/assets/scripts/main.js', browserify(path.join(__dirname, '/assets/scripts/main.js'), {
   cache: true,
