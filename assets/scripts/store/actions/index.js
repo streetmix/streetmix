@@ -53,6 +53,9 @@ export const CLEAR_MENUS = 'CLEAR_MENUS'
 /* settings */
 export const SET_USER_SETTINGS = 'SET_USER_SETTINGS'
 
+/* persist settings -- settings saved in local storage */
+export const SET_USER_UNITS = 'SET_USER_UNITS'
+
 /* status */
 export const SHOW_STATUS_MESSAGE = 'SHOW_STATUS_MESSAGE'
 export const HIDE_STATUS_MESSAGE = 'HIDE_STATUS_MESSAGE'

@@ -30,15 +30,15 @@ import {
 } from '../streets/width'
 import { wasGeolocationAttempted } from './geolocation'
 import { isSignInLoaded } from './authentication'
-import { saveSettingsLocally } from './settings'
 import store from '../store'
-import { setUserUnits } from '../store/actions/settings'
+import { saveSettingsLocally, LOCAL_STORAGE_SETTINGS_UNITS_ID } from '../users/settings'
+import { setUserUnits } from '../store/actions/persistSettings'
 
 export const SETTINGS_UNITS_IMPERIAL = 1
 export const SETTINGS_UNITS_METRIC = 2
 
 export function getUnits () {
-  return store.getState().settings.units
+  return store.getState().persistSettings.units
 }
 
 const SEGMENT_WIDTH_RESOLUTION_IMPERIAL = 0.25
@@ -84,12 +84,6 @@ export function checkIfSignInAndGeolocationLoaded () {
 }
 
 export function updateSettingsFromCountryCode (countryCode) {
-  if (COUNTRIES_IMPERIAL_UNITS.indexOf(countryCode) !== -1) {
-    setUserUnits(SETTINGS_UNITS_IMPERIAL)
-  } else {
-    setUserUnits(SETTINGS_UNITS_METRIC)
-  }
-
   if (COUNTRIES_LEFT_HAND_TRAFFIC.indexOf(countryCode) !== -1) {
     leftHandTraffic = true
   }
@@ -97,8 +91,21 @@ export function updateSettingsFromCountryCode (countryCode) {
   if (debug.forceLeftHandTraffic) {
     leftHandTraffic = true
   }
-  if (debug.forceMetric) {
-    setUserUnits(SETTINGS_UNITS_METRIC)
+
+  updateUnitSettings(countryCode)
+}
+
+export function updateUnitSettings (countryCode) {
+  let localStorageUnits = window.localStorage[LOCAL_STORAGE_SETTINGS_UNITS_ID]
+
+  if (localStorageUnits) {
+    store.dispatch(setUserUnits(parseInt(localStorageUnits)))
+  } else if (debug.forceMetric) {
+    saveUserUnits(SETTINGS_UNITS_METRIC)
+  } else if (COUNTRIES_IMPERIAL_UNITS.indexOf(countryCode) !== -1) {
+    saveUserUnits(SETTINGS_UNITS_IMPERIAL)
+  } else {
+    saveUserUnits(SETTINGS_UNITS_METRIC)
   }
 }
 
@@ -109,7 +116,7 @@ export function updateUnits (newUnits) {
     return
   }
 
-  setUserUnits(newUnits)
+  saveUserUnits(newUnits)
   street.units = newUnits
 
   // If the user converts and then straight converts back, we just reach
@@ -175,4 +182,9 @@ export function propagateUnits () {
 
       break
   }
+}
+
+export function saveUserUnits (unitType) {
+  window.localStorage[LOCAL_STORAGE_SETTINGS_UNITS_ID] = unitType
+  store.dispatch(setUserUnits(parseInt(unitType)))
 }

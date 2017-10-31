@@ -5,6 +5,7 @@ import dialogs from './dialogs'
 import map from './map'
 import menus from './menus'
 import settings from './settings'
+import persistSettings from './persistSettings'
 import status from './status'
 import street from './street'
 import system from './system'
@@ -17,6 +18,7 @@ const reducers = combineReducers({
   map,
   menus,
   settings,
+  persistSettings,
   status,
   street,
   system,

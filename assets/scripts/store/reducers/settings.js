@@ -14,9 +14,7 @@ const initialState = {
 
   saveAsImageTransparentSky: false,
   saveAsImageSegmentNamesAndWidths: false,
-  saveAsImageStreetName: false,
-
-  units: 1
+  saveAsImageStreetName: false
 }
 
 const settings = (state = initialState, action) => {
