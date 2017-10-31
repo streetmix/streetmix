@@ -153,7 +153,7 @@ function handleSegmentResizeStart (event) {
   draggingResize.elY = pos[1]
 
   draggingResize.originalX = draggingResize.elX
-  draggingResize.originalWidth = parseFloat(el.segmentEl.getAttribute('width'))
+  draggingResize.originalWidth = parseFloat(el.segmentEl.getAttribute('data-width'))
   draggingResize.segmentEl = el.segmentEl
 
   draggingResize.segmentEl.classList.add('hover')
@@ -172,7 +172,7 @@ function handleSegmentResizeStart (event) {
   }
 
   var remainingWidth =
-  getStreet().remainingWidth + parseFloat(el.segmentEl.getAttribute('width'))
+  getStreet().remainingWidth + parseFloat(el.segmentEl.getAttribute('data-width'))
 
   if (remainingWidth &&
     (((!variantInfo.minWidth) && (remainingWidth >= MIN_SEGMENT_WIDTH)) || (remainingWidth >= variantInfo.minWidth)) &&
@@ -450,10 +450,6 @@ function handleSegmentMoveMove (event) {
   if (draggingMove.type === DRAGGING_TYPE_MOVE_TRANSFER) {
     document.querySelector('.palette-trashcan').classList.add('visible')
   }
-}
-
-export function onBodyMouseOut (event) {
-  infoBubble.hide()
 }
 
 export function onBodyMouseDown (event) {

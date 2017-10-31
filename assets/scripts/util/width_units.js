@@ -29,6 +29,8 @@ const IMPERIAL_VULGAR_FRACTIONS = {
 }
 
 export function processWidthInput (widthInput) {
+  if (!widthInput) return
+
   // Normalize certain input quirks. Spaces (more common at end or beginning of input)
   // go away, and comma-based decimals turn into period-based decimals
   widthInput = widthInput.replace(/ /g, '')

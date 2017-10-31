@@ -413,7 +413,7 @@ export function createDataFromDom () {
     }
     segment.variantString = el.getAttribute('variant-string')
     segment.variant = getVariantArray(segment.type, segment.variantString)
-    segment.width = parseFloat(el.getAttribute('width'))
+    segment.width = parseFloat(el.getAttribute('data-width'))
     segment.el = el
     segment.warnings = []
     street.segments.push(segment)

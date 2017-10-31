@@ -77,7 +77,7 @@ function buildDescriptionDOM (description) {
   promptEl.addEventListener('pointerenter', highlightTriangle)
   promptEl.addEventListener('pointerleave', unhighlightTriangle)
 
-  infoBubble.el.appendChild(promptEl)
+  infoBubble.transitionEl.appendChild(promptEl)
 
   const descriptionEl = document.createElement('div')
   descriptionEl.classList.add('description-canvas')
@@ -116,10 +116,10 @@ function buildDescriptionDOM (description) {
 
   // Decoration: a triangle pointing down
   const triangleEl = document.createElement('div')
-  triangleEl.classList.add('triangle')
+  triangleEl.classList.add('info-bubbble-triangle')
   descriptionEl.appendChild(triangleEl)
 
-  infoBubble.el.appendChild(descriptionEl)
+  infoBubble.transitionEl.appendChild(descriptionEl)
 }
 
 function destroyDescriptionDOM () {

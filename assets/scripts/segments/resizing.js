@@ -73,7 +73,7 @@ export function resizeSegment (el, resizeType, width, updateEdit, palette, initi
   }, SHORT_DELAY)
 
   el.style.width = width + 'px'
-  el.setAttribute('width', width / TILE_SIZE)
+  el.setAttribute('data-width', width / TILE_SIZE)
 
   var widthEl = el.querySelector('span.width')
   if (widthEl) {
@@ -169,7 +169,7 @@ export function normalizeSegmentWidth (width, resizeType) {
 
 export function incrementSegmentWidth (segmentEl, add, precise) {
   let increment
-  var width = parseFloat(segmentEl.getAttribute('width'))
+  var width = parseFloat(segmentEl.getAttribute('data-width'))
 
   if (precise) {
     increment = _segmentWidthResolution

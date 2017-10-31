@@ -415,7 +415,7 @@ export function repositionSegments () {
     if (el.classList.contains('dragged-out')) {
       width = 0
     } else {
-      width = parseFloat(el.getAttribute('width')) * TILE_SIZE
+      width = parseFloat(el.getAttribute('data-width')) * TILE_SIZE
     }
 
     el.savedLeft = Math.round(left) // so we don’t have to use offsetLeft
