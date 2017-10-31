@@ -17,7 +17,7 @@ var daysBetween = function (date1, date2) {
   // Calculate the difference in milliseconds
   var differenceMs = Math.abs(date1Ms - date2Ms)
 
-  // Convert back to days and return
+  // Convert the difference to days and return
   return Math.round(differenceMs / ONE_DAY)
 }
 
