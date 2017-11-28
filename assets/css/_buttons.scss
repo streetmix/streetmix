@@ -58,6 +58,7 @@ a.button-like {
   border: 0;
   border-top: 1px solid darken($ui-colour, 10%);
   border-bottom: 1px solid darken($ui-colour, 10%);
+  border-radius: 0; /* For Chrome 62 on Mac, which enforces a border-radius in its browser stylesheet. */
   padding-left: 10px;
   padding-right: 10px;
   background-color: mix($ui-colour, white, 50%);
