@@ -39,6 +39,7 @@
       "assets/scripts"
     ],
     "setupFiles": [
+      "./test/shims/raf.js",
       "./test/setup-jest.js"
     ]
   },
@@ -119,6 +120,7 @@
     "babel-eslint": "8.0.2",
     "babel-jest": "21.2.0",
     "enzyme": "3.2.0",
+    "enzyme-adapter-react-16": "1.1.0",
     "eslint": "4.12.0",
     "eslint-config-standard": "10.2.1",
     "eslint-config-standard-react": "5.0.0",

@@ -40,7 +40,9 @@ describe('SearchAddress', () => {
 
   it('focuses the input after mounting', () => {
     const component = mount(<SearchAddress />)
-    expect(component.find('input').node).toEqual(document.activeElement)
+
+    // Not referential equality
+    expect(component.find('input').instance().className).toEqual('react-autosuggest__input')
   })
 
   it('displays a "clear search" button when there is input', () => {
@@ -73,7 +75,7 @@ describe('SearchAddress', () => {
     component.find('input').simulate('change', { target: { value: 'foo' } })
 
     const el = component.find('.geolocate-input-clear')
-    expect(el.node.getAttribute('title')).toEqual('Clear search')
+    expect(el.instance().getAttribute('title')).toEqual('Clear search')
   })
 
   it('clears and focuses input when "clear search" button is clicked', () => {
@@ -92,8 +94,8 @@ describe('SearchAddress', () => {
     expect(component.find('.geolocate-input-clear').exists()).toEqual(false)
 
     // The input should be empty and it should be focused
-    expect(input.node.value).toEqual('')
-    expect(input.node).toEqual(document.activeElement)
+    expect(input.instance().value).toEqual('')
+    expect(input.instance()).toEqual(document.activeElement)
   })
 
   it('makes autocomplete requests for each input keystroke', () => {
@@ -147,7 +149,7 @@ describe('SearchAddress', () => {
 
   describe('react-autosuggest integration', () => {
     it('returns feature label for getSuggestionValue()', () => {
-      const component = shallow(<SearchAddress />)
+      const component = mount(<SearchAddress />)
       const value = component.instance().getSuggestionValue({ properties: { label: 'foo' } })
       expect(value).toEqual('foo')
     })

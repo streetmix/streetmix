@@ -23,7 +23,7 @@ describe('get api/v1/translate', function () {
       .get('/api/v1/translate/en/main')
       .then((response) => {
         expect(response.statusCode).toEqual(200)
-        expect(response.get('Content-Type').toLowerCase(), 'application/json; charset=utf-8')
+        expect(response.get('Content-Type').toLowerCase()).toEqual('application/json; charset=utf-8')
         expect(response.body.dialogs.welcome.heading).toEqual('Welcome to Streetmix.')
       })
   })
