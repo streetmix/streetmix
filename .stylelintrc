@@ -8,6 +8,7 @@
     "scss/at-mixin-argumentless-call-parentheses": "never",
     "scss/selector-no-redundant-nesting-selector": true,
     "at-rule-no-unknown": null,
-    "scss/at-rule-no-unknown": true
+    "scss/at-rule-no-unknown": true,
+    "no-descending-specificity": null
   }
 }

@@ -81,9 +81,21 @@
     fill: #231f20;
   }
 
-  button.remove {
-    padding: 0;
-    margin-top: -3px;
+  button {
+    width: $info-bubble-button-size;
+    height: $info-bubble-button-size;
+
+    &.remove {
+      position: absolute;
+      right: 6px;
+      top: 6px;
+      width: auto;
+      padding: 0;
+      padding-left: 10px;
+      padding-right: 10px;
+      margin-top: -3px;
+      font-size: 11px;
+    }
   }
 
   &[type='segment'] .variants {
@@ -246,21 +258,6 @@
   @media screen and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: 0.001dpcm) {
     .non-variant {
       margin-top: 7px;
-    }
-  }
-
-  button {
-    width: $info-bubble-button-size;
-    height: $info-bubble-button-size;
-
-    &.remove {
-      position: absolute;
-      right: 6px;
-      top: 6px;
-      width: auto;
-      padding-left: 10px;
-      padding-right: 10px;
-      font-size: 11px;
     }
   }
 }

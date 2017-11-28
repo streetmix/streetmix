@@ -28,7 +28,7 @@ body:not(.read-only) #street-width-read {
   }
 
   &::after {
-    font-family: 'Verdana';
+    font-family: 'Verdana', sans-serif;
     content: ' ▼';
     padding-left: 5px;
     font-size: 9px;

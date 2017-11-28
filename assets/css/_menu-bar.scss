@@ -93,7 +93,7 @@ $top-menu-active-text: darken($ui-colour, 40%);
       content: ' ▼';
       display: inline-block;
       padding-left: 5px;
-      font-family: 'Verdana';
+      font-family: 'Verdana', sans-serif;
       font-size: 9px;
       transform: scaleY(0.75);
     }

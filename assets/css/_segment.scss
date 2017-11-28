@@ -157,7 +157,7 @@ body.segment-resize-dragging * {
   border-bottom: 3px solid darken($ui-colour, 30%);
   line-height: 100px;
   font-size: 50px;
-  font-family: 'Tahoma';
+  font-family: 'Tahoma', sans-serif;
   color: lighten($ui-colour, 0%);
   z-index: $z-06-drag-handle;
   pointer-events: none;
