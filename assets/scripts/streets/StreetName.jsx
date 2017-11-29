@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { needsUnicodeFont } from '../util/unicode'
+import { t } from '../app/locale'
 
 const MAX_STREET_NAME_WIDTH = 50
 
@@ -60,7 +61,9 @@ class StreetName extends React.PureComponent {
     if (this.props.isStreetReadOnly || !this.props.isHoverable) return null
     if (typeof this.props.onClick === 'function' && this.state.isHovered) {
       return (
-        <div className="street-name-hover-prompt">Click to rename!</div>
+        <div className="street-name-hover-prompt">
+          {t('street.rename', 'Click to rename')}
+        </div>
       )
     }
 
