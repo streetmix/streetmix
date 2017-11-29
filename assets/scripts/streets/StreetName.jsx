@@ -82,8 +82,8 @@ class StreetName extends React.PureComponent {
         onClick={this.props.onClick || null}
         id={this.props.id}
       >
-        <div className={classString}>{StreetName.normalizeStreetName(this.props.name)}</div>
         {this.renderHoverPrompt()}
+        <div className={classString}>{StreetName.normalizeStreetName(this.props.name)}</div>
       </div>
     )
   }
