@@ -39,12 +39,11 @@ export function detectGeolocation () {
   // Fetch geolocation data; return Promise to caller
   // It resolves with either the result of the fetch or times out if it takes too long
   return Promise.race([ fetchGeolocation(), fetchGeolocationTimeout() ])
-    .catch(error => {
-      // Errors must also mark geolocation as attempted
+    .catch(() => {
+      // If errored, fail silently but mark geolocation as attempted.
+      // Geolocation attempts may fail if third-party service is
+      // blocked by uBlock or other ad/tracker blockers.
       geolocationAttempted()
-
-      // Throw again for consumers of this Promise
-      throw new Error(error)
     })
 }
 

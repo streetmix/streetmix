@@ -59,21 +59,11 @@ describe('geolocation', () => {
       })
   })
 
-  it('on request failure, throw an error', (done) => {
-    window.fetch = failResponse
-
-    return detectGeolocation()
-      .catch(error => {
-        expect(error.message).toEqual('Error: 404')
-        done()
-      })
-  })
-
   it('on request failure, records geolocation service contact was attempted', (done) => {
     window.fetch = failResponse
 
     return detectGeolocation()
-      .catch(() => {
+      .then(() => {
         const state = wasGeolocationAttempted()
         expect(state).toEqual(true)
         done()
@@ -91,24 +81,6 @@ describe('geolocation', () => {
         expect(response.timeout).toEqual(true)
         done()
       })
-  })
-
-  // Skipped for now because the error is still being thrown
-  it.skip('on request timeout, don’t throw an error', (done) => {
-    // Mock setTimeout to execute callbacks immediately
-    window.setTimeout = (callback) => callback()
-    window.fetch = timeoutResponse
-
-    // Mutes console warning
-    console.warn = jest.fn()
-
-    return detectGeolocation()
-      .catch(() => {
-        console.log('caught')
-        // This will fail the test if an error was thrown
-        expect(true).toEqual(false)
-      })
-      .then(done)
   })
 
   it('on request timeout, records geolocation service contact was attempted', (done) => {
