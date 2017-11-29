@@ -43,7 +43,7 @@ const helmetConfig = {
       scriptSrc: [
         "'self'",
         'platform.twitter.com',
-        'www.google-analytics.com',
+        'https://www.google-analytics.com',
         'cdn.mxpnl.com',
         '*.global.ssl.fastly.net',
         'search.mapzen.com',
@@ -56,7 +56,7 @@ const helmetConfig = {
         'data:',
         'pbs.twimg.com',
         'syndication.twitter.com',
-        'www.google-analytics.com',
+        'https://www.google-analytics.com',
         '*.global.ssl.fastly.net'
       ],
       fontSrc: ["'self'", 'fonts.gstatic.com'],
@@ -64,7 +64,8 @@ const helmetConfig = {
         'freegeoip.net',
         'api.mixpanel.com',
         'search.mapzen.com',
-        'syndication.twitter.com'
+        'syndication.twitter.com',
+        'https://www.google-analytics.com'
       ]
     }
   }
