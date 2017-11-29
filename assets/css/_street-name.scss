@@ -121,19 +121,17 @@ body:not(.touch-support):not(.read-only) #street-name {
     > div {
       border-color: rgb(220, 220, 220);
     }
-
-    &::after {
-      color: black;
-      // TODO message
-      content: 'Click to rename';
-      position: absolute;
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      line-height: 60px * $street-name-size;
-      font-family: sans-serif;
-      font-size: 12px;
-    }
   }
+}
+
+.street-name-hover-prompt {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  line-height: 60px * $street-name-size;
+  font-family: sans-serif;
+  font-size: 12px;
+  color: black;
 }
