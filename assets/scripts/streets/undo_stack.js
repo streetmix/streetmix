@@ -94,22 +94,17 @@ export function createNewUndoIfNecessary (lastStreet, currentStreet) {
   store.dispatch(createNewUndo(cloneDeep(getLastStreet())))
 }
 
-function isUndoAvailable () {
+export function isUndoAvailable () {
   const undoPosition = getUndoPosition()
   // Don’t allow undo/redo unless you own the street
   return (undoPosition > 0) && !getRemixOnFirstEdit()
 }
 
-function isRedoAvailable () {
+export function isRedoAvailable () {
   const undoStack = getUndoStack()
   const undoPosition = getUndoPosition()
   // Don’t allow undo/redo unless you own the street
   return (undoPosition >= 0 && undoPosition < undoStack.length - 1) && !getRemixOnFirstEdit()
-}
-
-export function updateUndoButtons () {
-  document.querySelector('#undo').disabled = !isUndoAvailable()
-  document.querySelector('#redo').disabled = !isRedoAvailable()
 }
 
 export function unifyUndoStack () {

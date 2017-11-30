@@ -7,7 +7,6 @@ import {
   saveStreetToServerIfNecessary,
   createDataFromDom
 } from '../streets/data_model'
-import { updateUndoButtons } from '../streets/undo_stack'
 import { recalculateWidth } from '../streets/width'
 import { getElAbsolutePos } from '../util/helpers'
 import { prettifyWidth } from '../util/width_units'
@@ -646,7 +645,6 @@ export function segmentsChanged (readDataFromDom = true, reassignElementRefs = f
   }
 
   saveStreetToServerIfNecessary()
-  updateUndoButtons()
   repositionSegments()
 }
 
