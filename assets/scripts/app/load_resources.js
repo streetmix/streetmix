@@ -5,8 +5,6 @@
  * TODO: Rely on Promises to resolve progress
  */
 
-import { checkIfEverythingIsLoaded } from './initialization'
-
 // Image tileset loading
 // TODO: Deprecate in favor of inlined SVGs
 const TILESET_IMAGE_VERSION = 55
