@@ -19,30 +19,38 @@ const THUMBNAIL_HEIGHT = 110
 const THUMBNAIL_MULTIPLIER = 0.1 * 2
 
 class GalleryStreetItem extends React.Component {
-  constructor (props) {
-    super(props)
+  static propTypes = {
+    userId: PropTypes.string,
+    selected: PropTypes.bool.isRequired,
+    street: PropTypes.object.isRequired,
+    handleSelect: PropTypes.func.isRequired,
+    handleDelete: PropTypes.func.isRequired
+  }
 
-    this.onClickGalleryStreet = this.onClickGalleryStreet.bind(this)
-    this.onClickDeleteGalleryStreet = this.onClickDeleteGalleryStreet.bind(this)
+  static defaultProps = {
+    selected: false
   }
 
   componentDidMount () {
     this.drawCanvas()
   }
 
-  drawCanvas () {
+  drawCanvas = () => {
     const ctx = this.thumbnailEl.getContext('2d')
+    if (!this.props.street.data) {
+      console.log(this.props.street)
+    }
     drawStreetThumbnail(ctx, this.props.street.data.street,
       THUMBNAIL_WIDTH * 2, THUMBNAIL_HEIGHT * 2, THUMBNAIL_MULTIPLIER, true, false, true, false, false)
   }
 
-  onClickGalleryStreet (event) {
+  onClickGalleryStreet = (event) => {
     event.preventDefault()
     if (event.shiftKey || event.ctrlKey || event.metaKey) return
     this.props.handleSelect(this.props.street.id)
   }
 
-  onClickDeleteGalleryStreet (event) {
+  onClickDeleteGalleryStreet = (event) => {
     event.preventDefault()
     event.stopPropagation()
     const street = this.props.street
@@ -57,7 +65,7 @@ class GalleryStreetItem extends React.Component {
     const className = (this.props.selected) ? 'selected' : ''
 
     return (
-      <div className='gallery-street-item'>
+      <div className="gallery-street-item">
         <a
           href={getStreetUrl(this.props.street)}
           onClick={this.onClickGalleryStreet}
@@ -70,12 +78,12 @@ class GalleryStreetItem extends React.Component {
           />
 
           <StreetName name={this.props.street.name} />
-          <span className='date'>{formatDate(this.props.street.updatedAt)}</span>
+          <span className="date">{formatDate(this.props.street.updatedAt)}</span>
 
           {(() => {
             if (!this.props.userId) {
               return (
-                <span className='creator'>{this.street.creatorId || msg('USER_ANONYMOUS')}</span>
+                <span className="creator">{this.street.creatorId || msg('USER_ANONYMOUS')}</span>
               )
             }
           })()}
@@ -85,7 +93,7 @@ class GalleryStreetItem extends React.Component {
             if (isSignedIn() && (this.props.street.creatorId === getSignInData().userId)) {
               return (
                 <button
-                  className='remove'
+                  className="remove"
                   title={msg('TOOLTIP_DELETE_STREET')}
                   onClick={this.onClickDeleteGalleryStreet}
                 >
@@ -99,18 +107,6 @@ class GalleryStreetItem extends React.Component {
       </div>
     )
   }
-}
-
-GalleryStreetItem.propTypes = {
-  userId: PropTypes.string,
-  selected: PropTypes.bool.isRequired,
-  street: PropTypes.object.isRequired,
-  handleSelect: PropTypes.func.isRequired,
-  handleDelete: PropTypes.func.isRequired
-}
-
-GalleryStreetItem.defaultProps = {
-  selected: false
 }
 
 function mapStateToProps (state) {

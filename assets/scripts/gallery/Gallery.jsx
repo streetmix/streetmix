@@ -37,12 +37,24 @@ function getStreetCountText (count) {
 }
 
 class Gallery extends React.Component {
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    userId: PropTypes.string,
+    mode: PropTypes.string,
+    streets: PropTypes.array.isRequired
+  }
+
+  static defaultProps = {
+    streets: []
+  }
+
   constructor (props) {
     super(props)
 
     this.state = {
       selected: null,
-      preventHide: false
+      preventHide: false,
+      mode: this.props.mode
     }
 
     this.selectStreet = this.selectStreet.bind(this)
@@ -54,11 +66,21 @@ class Gallery extends React.Component {
     this.scrollSelectedStreetIntoView()
   }
 
+  componentWillReceiveProps (nextProps) {
+    if (this.state.mode !== nextProps.mode) {
+      this.setState({ mode: nextProps.mode })
+    }
+  }
+
   componentDidUpdate () {
     this.scrollSelectedStreetIntoView()
   }
 
-  selectStreet (streetId) {
+  componentDidCatch () {
+    this.setState({ mode: 'ERROR' })
+  }
+
+  selectStreet = (streetId) => {
     this.setState({
       selected: streetId,
       preventHide: false
@@ -66,7 +88,7 @@ class Gallery extends React.Component {
     switchGalleryStreet(streetId)
   }
 
-  deleteStreet (streetId) {
+  deleteStreet = (streetId) => {
     let preventHide = false
     if (streetId === getStreet().id) {
       preventHide = true
@@ -81,7 +103,7 @@ class Gallery extends React.Component {
     this.props.dispatch(deleteGalleryStreet(streetId))
   }
 
-  scrollSelectedStreetIntoView () {
+  scrollSelectedStreetIntoView = () => {
     if (this.state.selected) {
       // selectedEl.scrollIntoView()
       // galleryEl.scrollTop = 0
@@ -91,24 +113,24 @@ class Gallery extends React.Component {
   render () {
     let childElements
 
-    switch (this.props.mode) {
+    switch (this.state.mode) {
       case 'SIGN_IN_PROMO':
         childElements = (
-          <div className='gallery-sign-in-promo'>
-            <a href='/twitter-sign-in?redirectUri=/just-signed-in'>Sign in with Twitter for your personal street gallery</a>
+          <div className="gallery-sign-in-promo">
+            <a href="/twitter-sign-in?redirectUri=/just-signed-in">Sign in with Twitter for your personal street gallery</a>
           </div>
         )
         break
       case 'LOADING':
         childElements = (
-          <div className='gallery-loading' data-i18n='msg.loading'>Loading…</div>
+          <div className="gallery-loading" data-i18n="msg.loading">Loading…</div>
         )
         break
       case 'ERROR':
         childElements = (
-          <div className='gallery-error'>
-            <span data-i18n='gallery.fail'>Failed to load the gallery.</span>
-            <button id='gallery-try-again' data-i18n='btn.try-again' onClick={repeatReceiveGalleryData}>Try again</button>
+          <div className="gallery-error">
+            <span data-i18n="gallery.fail">Failed to load the gallery.</span>
+            <button id="gallery-try-again" data-i18n="btn.try-again" onClick={repeatReceiveGalleryData}>Try again</button>
           </div>
         )
         break
@@ -120,15 +142,15 @@ class Gallery extends React.Component {
         // otherwise it shows the label "all streets"
         if (this.props.userId) {
           label = (
-            <div className='gallery-label'>
+            <div className="gallery-label">
               <Avatar userId={this.props.userId} />
-              <div className='gallery-user-id'>
+              <div className="gallery-user-id">
                 {this.props.userId}
                 <a
                   href={`https://twitter.com/${this.props.userId}`}
-                  className='twitter-profile'
-                  target='_blank'
-                  data-i18n='gallery.twitter-link'
+                  className="twitter-profile"
+                  target="_blank"
+                  data-i18n="gallery.twitter-link"
                 >
                   Twitter profile »
                 </a>
@@ -136,7 +158,7 @@ class Gallery extends React.Component {
             </div>
           )
         } else {
-          label = <div className='gallery-label' data-i18n='gallery.all'>All streets</div>
+          label = <div className="gallery-label" data-i18n="gallery.all">All streets</div>
         }
 
         // Applies a class to the containing element if no user ID is provided
@@ -151,11 +173,11 @@ class Gallery extends React.Component {
         let buttons
         if (isSignedIn() && (this.props.userId === getSignInData().userId)) {
           buttons = (
-            <div className='gallery-user-buttons'>
-              <a className='button-like' id='new-street' href={`/${URL_NEW_STREET}`} target='_blank' data-i18n='btn.create'>
+            <div className="gallery-user-buttons">
+              <a className="button-like" id="new-street" href={`/${URL_NEW_STREET}`} target="_blank" data-i18n="btn.create">
                 Create new street
               </a>
-              <a className='button-like' id='copy-last-street' href={`/${URL_NEW_STREET_COPY_LAST}`} target='_blank' data-i18n='btn.copy'>
+              <a className="button-like" id="copy-last-street" href={`/${URL_NEW_STREET_COPY_LAST}`} target="_blank" data-i18n="btn.copy">
                 Make a copy
               </a>
             </div>
@@ -175,7 +197,7 @@ class Gallery extends React.Component {
           )
         })
         const streetCount = (this.props.userId) ? (
-          <div className='street-count'>{getStreetCountText(this.props.streets.length)}</div>
+          <div className="street-count">{getStreetCountText(this.props.streets.length)}</div>
         ) : null
 
         childElements = (
@@ -184,7 +206,7 @@ class Gallery extends React.Component {
             {streetCount}
             <div className={'gallery-streets-container ' + galleryFullWidthClass}>
               {buttons}
-              <Scrollable className='streets'>
+              <Scrollable className="streets">
                 {items}
               </Scrollable>
             </div>
@@ -194,23 +216,11 @@ class Gallery extends React.Component {
     }
 
     return (
-      <div id='gallery'>
+      <div id="gallery">
         {childElements}
       </div>
     )
   }
-}
-
-Gallery.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  visible: PropTypes.bool,
-  userId: PropTypes.string,
-  mode: PropTypes.string,
-  streets: PropTypes.array.isRequired
-}
-
-Gallery.defaultProps = {
-  streets: []
 }
 
 function mapStateToProps (state) {

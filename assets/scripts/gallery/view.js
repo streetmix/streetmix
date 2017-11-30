@@ -120,6 +120,7 @@ export function hideGallery (instant) {
 
 export function receiveGalleryData (transmission) {
   // Prepare data object
+  const streets = []
   for (var i in transmission.streets) {
     var galleryStreet = transmission.streets[i]
 
@@ -133,16 +134,18 @@ export function receiveGalleryData (transmission) {
       (galleryStreet.creator && galleryStreet.creator.id)
 
     galleryStreet.name = galleryStreet.name || DEFAULT_NAME
+
+    streets.push(galleryStreet)
   }
 
   store.dispatch({
     type: SET_GALLERY_STATE,
     mode: 'GALLERY',
-    streets: transmission.streets
+    streets: streets
   })
 
-  if (((getMode() === MODES.USER_GALLERY) && transmission.streets.length) || (getMode() === MODES.GLOBAL_GALLERY)) {
-    switchGalleryStreet(transmission.streets[0].id)
+  if (((getMode() === MODES.USER_GALLERY) && streets.length) || (getMode() === MODES.GLOBAL_GALLERY)) {
+    switchGalleryStreet(streets[0].id)
   }
 }
 
