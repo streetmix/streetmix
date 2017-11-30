@@ -1,4 +1,4 @@
-import { hideLoadingScreen, getImagesToBeLoaded } from './load_resources'
+import { hideLoadingScreen, checkIfImagesLoaded } from './load_resources'
 import { initLocale } from './locale'
 import { scheduleNextLiveUpdateCheck } from './live_update'
 import { showGallery, attachGalleryViewEventListeners } from '../gallery/view'
@@ -145,10 +145,12 @@ export function checkIfEverythingIsLoaded () {
     return
   }
 
-  if ((getImagesToBeLoaded() === 0) && isSignInLoaded() && bodyLoaded &&
-    readyStateCompleteLoaded && wasGeolocationAttempted() && serverContacted) {
-    onEverythingLoaded()
-  }
+  checkIfImagesLoaded().then(() => {
+    if (isSignInLoaded() && bodyLoaded &&
+      readyStateCompleteLoaded && wasGeolocationAttempted() && serverContacted) {
+      onEverythingLoaded()
+    }
+  })
 }
 
 function onEverythingLoaded () {

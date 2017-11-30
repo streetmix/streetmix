@@ -8,6 +8,7 @@ import {
   getAbortEverything,
   setServerContacted
 } from '../app/initialization'
+import { checkIfImagesLoaded } from '../app/load_resources'
 import { t } from '../app/locale'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { goNewStreet } from '../app/routing'
@@ -151,8 +152,8 @@ export function fetchStreetFromServer () {
 
   window.fetch(url)
     .then(response => response.json())
-    .then(receiveStreet)
     .catch(errorReceiveStreet)
+    .then(receiveStreet)
 }
 
 function errorReceiveStreet (data) {
@@ -289,11 +290,16 @@ function receiveStreet (transmission) {
   propagateUnits()
 
   // TODO this is stupid, only here to fill some structures
-  createDomFromData()
-  createDataFromDom()
+  // window.addEventListener('stmx:assets_loaded', () => {
+  checkIfImagesLoaded().then(() => {
+    createDomFromData()
+    createDataFromDom()
 
-  setServerContacted(true)
-  checkIfEverythingIsLoaded()
+    setServerContacted(true)
+
+    // Legacy - remove once everything is Promise-based.
+    checkIfEverythingIsLoaded()
+  })
 }
 
 function unpackStreetDataFromServerTransmission (transmission) {
