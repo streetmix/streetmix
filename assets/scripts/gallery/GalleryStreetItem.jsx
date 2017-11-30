@@ -7,6 +7,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import StreetName from '../streets/StreetName'
+import { t } from '../app/locale'
 import { msg } from '../app/messages'
 import { system } from '../preinit/system_capabilities'
 import { formatDate } from '../util/date_format'
@@ -94,7 +95,7 @@ class GalleryStreetItem extends React.Component {
               return (
                 <button
                   className="remove"
-                  title={msg('TOOLTIP_DELETE_STREET')}
+                  title={t('gallery.delete-street-tooltip', 'Delete street')}
                   onClick={this.onClickDeleteGalleryStreet}
                 >
                   {msg('UI_GLYPH_X')}

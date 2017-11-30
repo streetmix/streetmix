@@ -8,7 +8,6 @@ const messages = {
   PROMPT_DELETE_STREET: 'Are you sure you want to permanently delete {{name}}? This cannot be undone.',
 
   TOOLTIP_REMOVE_SEGMENT: 'Remove segment',
-  TOOLTIP_DELETE_STREET: 'Delete street',
   TOOLTIP_SEGMENT_WIDTH: 'Change width of the segment',
   TOOLTIP_BUILDING_HEIGHT: 'Change the number of floors',
   TOOLTIP_INCREASE_WIDTH: 'Increase width (hold Shift for more precision)',

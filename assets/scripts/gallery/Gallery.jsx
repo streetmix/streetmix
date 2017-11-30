@@ -17,7 +17,7 @@ import { msg } from '../app/messages'
 import { sendDeleteStreetToServer } from '../streets/xhr'
 import { getStreet } from '../streets/data_model'
 import { showError, ERRORS } from '../app/errors'
-
+import { t } from '../app/locale'
 import { deleteGalleryStreet } from '../store/actions/gallery'
 
 function getStreetCountText (count) {
@@ -123,14 +123,14 @@ class Gallery extends React.Component {
         break
       case 'LOADING':
         childElements = (
-          <div className="gallery-loading" data-i18n="msg.loading">Loading…</div>
+          <div className="gallery-loading">{t('msg.loading', 'Loading…')}</div>
         )
         break
       case 'ERROR':
         childElements = (
           <div className="gallery-error">
-            <span data-i18n="gallery.fail">Failed to load the gallery.</span>
-            <button id="gallery-try-again" data-i18n="btn.try-again" onClick={repeatReceiveGalleryData}>Try again</button>
+            <span>{t('gallery.fail', 'Failed to load the gallery.')}</span>
+            <button className="gallery-try-again" onClick={repeatReceiveGalleryData}>{t('btn.try-again', 'Try again')}</button>
           </div>
         )
         break
@@ -150,15 +150,14 @@ class Gallery extends React.Component {
                   href={`https://twitter.com/${this.props.userId}`}
                   className="twitter-profile"
                   target="_blank"
-                  data-i18n="gallery.twitter-link"
                 >
-                  Twitter profile »
+                  {t('gallery.twitter-link', 'Twitter profile')} »
                 </a>
               </div>
             </div>
           )
         } else {
-          label = <div className="gallery-label" data-i18n="gallery.all">All streets</div>
+          label = <div className="gallery-label">{t('gallery.all', 'All streets')}</div>
         }
 
         // Applies a class to the containing element if no user ID is provided
@@ -174,11 +173,11 @@ class Gallery extends React.Component {
         if (isSignedIn() && (this.props.userId === getSignInData().userId)) {
           buttons = (
             <div className="gallery-user-buttons">
-              <a className="button-like" id="new-street" href={`/${URL_NEW_STREET}`} target="_blank" data-i18n="btn.create">
-                Create new street
+              <a className="button-like" id="new-street" href={`/${URL_NEW_STREET}`} target="_blank">
+                {t('btn.create', 'Create new street')}
               </a>
-              <a className="button-like" id="copy-last-street" href={`/${URL_NEW_STREET_COPY_LAST}`} target="_blank" data-i18n="btn.copy">
-                Make a copy
+              <a className="button-like" id="copy-last-street" href={`/${URL_NEW_STREET_COPY_LAST}`} target="_blank">
+                {t('btn.copy', 'Make a copy')}
               </a>
             </div>
           )
