@@ -289,11 +289,13 @@ function receiveStreet (transmission) {
   propagateUnits()
 
   // TODO this is stupid, only here to fill some structures
-  createDomFromData()
-  createDataFromDom()
+  window.addEventListener('stmx:assets_loaded', () => {
+    createDomFromData()
+    createDataFromDom()
 
-  setServerContacted(true)
-  checkIfEverythingIsLoaded()
+    setServerContacted(true)
+    checkIfEverythingIsLoaded()
+  })
 }
 
 function unpackStreetDataFromServerTransmission (transmission) {
