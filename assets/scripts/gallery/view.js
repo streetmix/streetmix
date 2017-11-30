@@ -16,7 +16,6 @@ import {
   getStreet,
   updateToLatestSchemaVersion
 } from '../streets/data_model'
-import { getSignInData, isSignedIn } from '../users/authentication'
 import { fetchGalleryData } from './fetch_data'
 import { fetchGalleryStreet } from './fetch_street'
 
