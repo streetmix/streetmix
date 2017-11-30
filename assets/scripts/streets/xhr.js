@@ -8,6 +8,7 @@ import {
   getAbortEverything,
   setServerContacted
 } from '../app/initialization'
+import { checkIfImagesLoaded } from '../app/load_resources'
 import { t } from '../app/locale'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { goNewStreet } from '../app/routing'
@@ -289,11 +290,14 @@ function receiveStreet (transmission) {
   propagateUnits()
 
   // TODO this is stupid, only here to fill some structures
-  window.addEventListener('stmx:assets_loaded', () => {
+  // window.addEventListener('stmx:assets_loaded', () => {
+  checkIfImagesLoaded().then(() => {
     createDomFromData()
     createDataFromDom()
 
     setServerContacted(true)
+
+    // Legacy - remove once everything is Promise-based.
     checkIfEverythingIsLoaded()
   })
 }

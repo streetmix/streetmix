@@ -1,5 +1,5 @@
 import { getInitializing } from '../app/initialization'
-import { images, getImagesToBeLoaded } from '../app/load_resources'
+import { images } from '../app/load_resources'
 import { msg } from '../app/messages'
 import { infoBubble, INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/info_bubble'
 import { debug } from '../preinit/debug_settings'
@@ -66,7 +66,7 @@ export function drawSegmentImage (tileset, ctx, sx, sy, sw, sh, dx, dy, dw, dh) 
     return
   }
 
-  if ((getImagesToBeLoaded() === 0) && (sw > 0) && (sh > 0) && (dw > 0) && (dh > 0)) {
+  if ((sw > 0) && (sh > 0) && (dw > 0) && (dh > 0)) {
     sx += TILESET_CORRECTION[tileset] * 12
 
     dx *= system.hiDpi

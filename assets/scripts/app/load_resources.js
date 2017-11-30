@@ -32,30 +32,14 @@ let loading = []
 const loadingEl = document.getElementById('loading-progress')
 loadingEl.max += 5 // Legacy; this is for other things that must load
 
-// Global for legacy reasons
-let imagesToBeLoaded = 1
-
-export function getImagesToBeLoaded () {
-  return imagesToBeLoaded
-}
-
 // Load everything
 loadImages()
 loadSVGs()
 
 // When everything is loaded...
-Promise.all(loading)
-  .then(function () {
-    imagesToBeLoaded = 0
-
-    // Event stmx:assets_loaded - dispatched when all IMG and SVG assets have been loaded.
-    // If you're trying to render a street thumbnail before rendering a whole street, you'll need to wait for
-    // this event to be dispatched so that all IMG and SVGs can be rendered in canvas
-    window.dispatchEvent(new window.CustomEvent('stmx:assets_loaded'))
-
-    // legacy, TODO: replace with promise
-    checkIfEverythingIsLoaded()
-  })
+export function checkIfImagesLoaded () {
+  return Promise.all(loading)
+}
 
 function loadImages () {
   loadingEl.max += IMAGES_TO_BE_LOADED.length
