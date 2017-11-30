@@ -14,7 +14,7 @@
  * @exports deregisterKeypress
  */
 import { trackEvent } from './event_tracking'
-import { isFocusOnBody } from './focus'
+import { isFocusOnBody } from '../util/focus'
 
 // TODO: Flesh out this dictionary
 const KEYS = {

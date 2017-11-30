@@ -3,18 +3,12 @@ import PropTypes from 'prop-types'
 import { ENV } from '../app/config'
 import { system } from '../preinit/system_capabilities'
 
-export default class EnvironmentBadge extends React.Component {
-  constructor (props) {
-    super(props)
-
-    this.determineLabel = this.determineLabel.bind(this)
-
-    this.state = {
-      label: this.props.label || this.determineLabel()
-    }
+export default class EnvironmentBadge extends React.PureComponent {
+  static propTypes = {
+    label: PropTypes.string
   }
 
-  determineLabel () {
+  determineLabel = () => {
     let label
 
     // If a label is not provided, determine one using ENV
@@ -45,13 +39,9 @@ export default class EnvironmentBadge extends React.Component {
   render () {
     // Set the label. Nothing happens if there isn't one.
     return (
-      <div className='environment-badge'>
-        {this.state.label}
+      <div className="environment-badge">
+        {this.props.label || this.determineLabel()}
       </div>
     )
   }
-}
-
-EnvironmentBadge.propTypes = {
-  label: PropTypes.string
 }

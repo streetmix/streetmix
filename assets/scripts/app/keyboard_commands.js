@@ -15,10 +15,10 @@ import {
 import { undo, redo } from '../streets/undo_stack'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { trackEvent } from './event_tracking'
-import { isFocusOnBody } from './focus'
+import { isFocusOnBody } from '../util/focus'
 import { registerKeypress } from './keypress'
-import { msg } from './messages'
 import { showStatusMessage } from './status_message'
+import { t } from './locale'
 
 export const KEYS = {
   ENTER: 13,
@@ -116,7 +116,7 @@ export function registerKeypresses () {
   registerKeypress('ctrl s', {
     trackAction: 'Command-S or Ctrl-S save shortcut key pressed'
   }, function () {
-    showStatusMessage(msg('STATUS_NO_NEED_TO_SAVE'))
+    showStatusMessage(t('toast.no-save'))
   })
 
   // Catch-all for the Ctrl-S shortcut from ever trying to

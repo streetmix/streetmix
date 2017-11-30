@@ -11,7 +11,6 @@ import {
 } from '../streets/data_model'
 import { updateUndoButtons } from '../streets/undo_stack'
 import { recalculateWidth } from '../streets/width'
-import { removeElFromDOM } from '../util/dom_helpers'
 import { getElAbsolutePos } from '../util/helpers'
 import { prettifyWidth } from '../util/width_units'
 import { draggingMove } from './drag_and_drop'
@@ -293,10 +292,12 @@ export function setSegmentContents (el, type, variantString, segmentWidth, randS
   drawSegmentContents(ctx, type, variantString, segmentWidth, 0, offsetTop, randSeed, multiplier, palette)
 
   if (!quickUpdate) {
-    removeElFromDOM(el.querySelector('canvas'))
+    const removeEl = el.querySelector('canvas')
+    if (removeEl) removeEl.remove()
     el.appendChild(canvasEl)
 
-    removeElFromDOM(el.querySelector('.hover-bk'))
+    const removeEl2 = el.querySelector('.hover-bk')
+    if (removeEl2) removeEl2.remove()
     el.appendChild(hoverBkEl)
   }
 }
@@ -553,7 +554,7 @@ export function switchSegmentElAway (el) {
   }, 0)
 
   window.setTimeout(function () {
-    removeElFromDOM(el)
+    el.remove()
   }, SEGMENT_SWITCHING_TIME)
 }
 

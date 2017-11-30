@@ -199,29 +199,45 @@ export const SEGMENT_INFO = {
       'dense': {
         minWidth: 6,
         graphics: {
-          center: { tileset: 1, x: 0, y: 0, width: 4, offsetX: -1, height: 1 },
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          center: [
+            { tileset: 1, x: 0, y: 0, width: 4, offsetX: -1, height: 1 }
+          ],
+          repeat: [
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          ]
         }
       },
       'normal': {
         minWidth: 6,
         graphics: {
-          center: { tileset: 1, x: 0, y: 0, width: 4, offsetX: -1, height: 1 },
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          center: [
+            { tileset: 1, x: 0, y: 0, width: 4, offsetX: -1, height: 1 }
+          ],
+          repeat: [
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          ]
         }
       },
       'sparse': {
         minWidth: 6,
         graphics: {
-          center: { tileset: 1, x: 0, y: 0, width: 4, offsetX: -1, height: 1 },
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          center: [
+            { tileset: 1, x: 0, y: 0, width: 4, offsetX: -1, height: 1 }
+          ],
+          repeat: [
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          ]
         }
       },
       'empty': {
         minWidth: 6,
         graphics: {
-          center: { tileset: 1, x: 0, y: 0, width: 4, offsetX: -1, height: 1 },
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          center: [
+            { tileset: 1, x: 0, y: 0, width: 4, offsetX: -1, height: 1 }
+          ],
+          repeat: [
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          ]
         }
       }
     }
@@ -235,14 +251,22 @@ export const SEGMENT_INFO = {
     details: {
       'big': {
         graphics: {
-          center: { tileset: 1, x: 40, y: 56, width: 9, height: 21, offsetY: -10 }, // Big tree
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          center: [
+            { tileset: 1, x: 40, y: 56, width: 9, height: 21, offsetY: -10 } // Big tree
+          ],
+          repeat: [
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          ]
         }
       },
       'palm-tree': {
         graphics: {
-          center: { tileset: 1, x: 83, y: 24, offsetX: 0, offsetY: -19, width: 14, height: 31 },
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          center: [
+            { tileset: 1, x: 83, y: 24, offsetX: 0, offsetY: -19, width: 14, height: 31 }
+          ],
+          repeat: [
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          ]
         }
       }
     }
@@ -257,43 +281,66 @@ export const SEGMENT_INFO = {
     details: {
       'left|sidewalk-parallel': {
         graphics: {
-          left: { tileset: 1, x: 53, y: 12, width: 3, height: 6, offsetY: 5 },
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          left: [
+            { tileset: 1, x: 53, y: 12, width: 3, height: 6, offsetY: 5 }
+          ],
+          repeat: [
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          ]
         }
       },
       'right|sidewalk-parallel': {
         graphics: {
-          right: { tileset: 1, x: 57, y: 12, width: 3, height: 6, offsetY: 5 },
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          right: [
+            { tileset: 1, x: 57, y: 12, width: 3, height: 6, offsetY: 5 }
+          ],
+          repeat: [
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          ]
         }
       },
       'left|sidewalk': {
         graphics: {
-          left: { tileset: 1, x: 67, y: 2, width: 6, height: 6, offsetY: 5 },
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          left: [
+            { tileset: 1, x: 67, y: 2, width: 6, height: 6, offsetY: 5 }
+          ],
+          repeat: [
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          ]
         }
       },
       'right|sidewalk': {
         graphics: {
-          right: { tileset: 1, x: 61, y: 2, width: 6, height: 6, offsetY: 5 },
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          right: [
+            { tileset: 1, x: 61, y: 2, width: 6, height: 6, offsetY: 5 }
+          ],
+          repeat: [
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          ]
         }
       },
       'left|road': {
         graphics: {
-          left: { tileset: 1, x: 67, y: 12, width: 6, height: 7, offsetY: 5 },
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          left: [
+            { tileset: 1, x: 67, y: 12, width: 6, height: 7, offsetY: 5 }
+          ],
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       },
       'right|road': {
         graphics: {
-          right: { tileset: 1, x: 61, y: 12, width: 6, height: 7, offsetY: 5 },
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          right: [
+            { tileset: 1, x: 61, y: 12, width: 6, height: 7, offsetY: 5 }
+          ],
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       }
     }
   },
-
   'sidewalk-bench': {
     name: 'Bench',
     owner: SEGMENT_OWNER_PEDESTRIAN,
@@ -303,25 +350,36 @@ export const SEGMENT_INFO = {
     details: {
       'left': {
         graphics: {
-          left: { tileset: 1, x: 81, y: 2, width: 3, height: 6, offsetY: 5 },
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          left: [
+            { tileset: 1, x: 81, y: 2, width: 3, height: 6, offsetY: 5 }
+          ],
+          repeat: [
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          ]
         }
       },
       'center': {
         graphics: {
-          center: { tileset: 1, x: 74, y: 2, width: 3, height: 6, offsetY: 5 },
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          center: [
+            { tileset: 1, x: 74, y: 2, width: 3, height: 6, offsetY: 5 }
+          ],
+          repeat: [
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          ]
         }
       },
       'right': {
         graphics: {
-          right: { tileset: 1, x: 78, y: 2, width: 3, height: 6, offsetY: 5 },
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          right: [
+            { tileset: 1, x: 78, y: 2, width: 3, height: 6, offsetY: 5 }
+          ],
+          repeat: [
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
+          ]
         }
       }
     }
   },
-
   'sidewalk-wayfinding': {
     name: 'Wayfinding sign',
     owner: SEGMENT_OWNER_PEDESTRIAN,
@@ -342,25 +400,36 @@ export const SEGMENT_INFO = {
     details: {
       'large': {
         graphics: {
-          center: { tileset: 1, x: 0, y: 0, width: 4, height: 11, offsetY: 1 },
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+          center: [
+            { tileset: 1, x: 0, y: 0, width: 4, height: 11, offsetY: 1 }
+          ],
+          repeat: [
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+          ]
         }
       },
       'medium': {
         graphics: {
-          center: { tileset: 1, x: 5, y: 0, width: 3, height: 11, offsetY: 1 },
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+          center: [
+            { tileset: 1, x: 5, y: 0, width: 3, height: 11, offsetY: 1 }
+          ],
+          repeat: [
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+          ]
         }
       },
       'small': {
         graphics: {
-          center: { tileset: 1, x: 9, y: 0, width: 2, height: 11, offsetY: 1 },
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+          center: [
+            { tileset: 1, x: 9, y: 0, width: 2, height: 11, offsetY: 1 }
+          ],
+          repeat: [
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+          ]
         }
       }
     }
   },
-
   'sidewalk-lamp': {
     name: 'Sidewalk with a lamp',
     owner: SEGMENT_OWNER_PEDESTRIAN,
@@ -371,38 +440,62 @@ export const SEGMENT_INFO = {
     details: {
       'right|modern': {
         graphics: {
-          right: { tileset: 1, x: 56, y: 24, offsetX: -10, offsetY: -19, width: 12, height: 31 },
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+          right: [
+            { tileset: 1, x: 56, y: 24, offsetX: -10, offsetY: -19, width: 12, height: 31 }
+          ],
+          repeat: [
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+          ]
         }
       },
       'both|modern': {
         graphics: {
-          center: { tileset: 1, x: 39, y: 24, offsetY: -19, width: 16, height: 31 },
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+          center: [
+            { tileset: 1, x: 39, y: 24, offsetY: -19, width: 16, height: 31 }
+          ],
+          repeat: [
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+          ]
         }
       },
       'left|modern': {
         graphics: {
-          left: { tileset: 1, x: 70, y: 24, offsetX: -10, offsetY: -19, width: 12, height: 31 },
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+          left: [
+            { tileset: 1, x: 70, y: 24, offsetX: -10, offsetY: -19, width: 12, height: 31 }
+          ],
+          repeat: [
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+          ]
         }
       },
       'right|traditional': {
         graphics: {
-          right: { tileset: 3, x: 201, y: 49, width: 4, height: 15, offsetX: -2, offsetY: -4 },
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+          right: [
+            { tileset: 3, x: 201, y: 49, width: 4, height: 15, offsetX: -2, offsetY: -4 }
+          ],
+          repeat: [
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+          ]
         }
       },
       'both|traditional': {
         graphics: {
-          center: { tileset: 3, x: 194, y: 49, width: 3, height: 15, offsetY: -4 },
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+          center: [
+            { tileset: 3, x: 194, y: 49, width: 3, height: 15, offsetY: -4 }
+          ],
+          repeat: [
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+          ]
         }
       },
       'left|traditional': {
         graphics: {
-          left: { tileset: 3, x: 197, y: 49, width: 3, height: 15, offsetY: -4, offsetX: -2 },
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+          left: [
+            { tileset: 3, x: 197, y: 49, width: 3, height: 15, offsetY: -4, offsetX: -2 }
+          ],
+          repeat: [
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+          ]
         }
       },
       'right|pride': {
@@ -411,7 +504,9 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 56, y: 24, offsetX: -10, offsetY: -19, width: 12, height: 31 },
             { tileset: 3, x: 206, y: 58, width: 4, height: 6, offsetX: -2.5, offsetY: -13 } // Banner
           ],
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+          repeat: [
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+          ]
         }
       },
       'both|pride': {
@@ -420,7 +515,9 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 39, y: 24, offsetY: -19, width: 16, height: 31 },
             { tileset: 3, x: 206, y: 50, width: 4, height: 6, offsetX: 1.4, offsetY: -13 } // Banner
           ],
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+          repeat: [
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+          ]
         }
       },
       'left|pride': {
@@ -429,7 +526,9 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 70, y: 24, offsetX: -10, offsetY: -19, width: 12, height: 31 },
             { tileset: 3, x: 206, y: 50, width: 4, height: 6, offsetX: -2.5, offsetY: -13 } // Banner
           ],
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+          repeat: [
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+          ]
         }
       }
     }
@@ -454,15 +553,23 @@ export const SEGMENT_INFO = {
       'left': {
         minWidth: 8,
         graphics: {
-          left: { tileset: 2, x: 136 - 20, y: 63 - 29, width: 8, height: 8, offsetY: 4 },
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          left: [
+            { tileset: 2, x: 136 - 20, y: 63 - 29, width: 8, height: 8, offsetY: 4 }
+          ],
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       },
       'right': {
         minWidth: 8,
         graphics: {
-          right: { tileset: 2, x: 126 - 20, y: 63 - 29, width: 8, height: 8, offsetY: 4 },
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          right: [
+            { tileset: 2, x: 126 - 20, y: 63 - 29, width: 8, height: 8, offsetY: 4 }
+          ],
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       }
     }
@@ -487,13 +594,19 @@ export const SEGMENT_INFO = {
       'planter-box': {
         name: 'Planter box',
         graphics: {
-          center: { tileset: 2, x: 125, y: 64, width: 4, height: 7, offsetY: 5 },
+          center: [
+            { tileset: 2, x: 125, y: 64, width: 4, height: 7, offsetY: 5 }
+          ],
           repeat: [
             { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
             { tileset: 2, x: 116, y: 21, width: 5, height: 5, offsetY: 10 } // Stripes
           ],
-          left: { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 }, // Marking
-          right: { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+          left: [
+            { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+          ],
+          right: [
+            { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+          ]
         }
       },
       'median': {
@@ -512,14 +625,20 @@ export const SEGMENT_INFO = {
             { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
             { tileset: 2, x: 116, y: 21, width: 5, height: 5, offsetY: 10 } // Stripes
           ],
-          left: { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 }, // Marking
-          right: { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+          left: [
+            { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+          ],
+          right: [
+            { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+          ]
         }
       },
       'bush': {
         name: 'Planting strip',
         graphics: {
-          center: { tileset: 2, x: 122, y: 55, width: 2, height: 5, offsetY: 7 },
+          center: [
+            { tileset: 2, x: 122, y: 55, width: 2, height: 5, offsetY: 7 }
+          ],
           repeat: [
             { tileset: 2, x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
             { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
@@ -529,7 +648,9 @@ export const SEGMENT_INFO = {
       'flowers': {
         name: 'Planting strip',
         graphics: {
-          center: { tileset: 2, x: 122, y: 59, width: 2, height: 5, offsetY: 7 },
+          center: [
+            { tileset: 2, x: 122, y: 59, width: 2, height: 5, offsetY: 7 }
+          ],
           repeat: [
             { tileset: 2, x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
             { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
@@ -539,7 +660,9 @@ export const SEGMENT_INFO = {
       'big-tree': {
         name: 'Planting strip',
         graphics: {
-          center: { tileset: 1, x: 40, y: 56, width: 9, height: 21, offsetY: -10 }, // Big tree
+          center: [
+            { tileset: 1, x: 40, y: 56, width: 9, height: 21, offsetY: -10 } // Big tree
+          ],
           repeat: [
             { tileset: 2, x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
             { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
@@ -549,7 +672,9 @@ export const SEGMENT_INFO = {
       'palm-tree': {
         name: 'Planting strip',
         graphics: {
-          center: { tileset: 1, x: 83, y: 24, offsetX: 0, offsetY: -19, width: 14, /* 14 */ height: 31 },
+          center: [
+            { tileset: 1, x: 83, y: 24, offsetX: 0, offsetY: -19, width: 14, height: 31 }
+          ],
           repeat: [
             { tileset: 2, x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 },
             { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 }
@@ -559,25 +684,37 @@ export const SEGMENT_INFO = {
       'bollard': {
         name: 'Bollard',
         graphics: {
-          center: { tileset: 2, x: 123, y: 64, width: 1, height: 7, offsetY: 5 },
+          center: [
+            { tileset: 2, x: 123, y: 64, width: 1, height: 7, offsetY: 5 }
+          ],
           repeat: [
             { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
             { tileset: 2, x: 116, y: 21, width: 5, height: 5, offsetY: 10 } // Stripes
           ],
-          left: { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 }, // Marking
-          right: { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+          left: [
+            { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+          ],
+          right: [
+            { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+          ]
         }
       },
       'dome': {
         name: 'Traffic exclusion dome',
         graphics: {
-          center: { tileset: 2, x: 121, y: 64, width: 1, height: 7, offsetY: 5 },
+          center: [
+            { tileset: 2, x: 121, y: 64, width: 1, height: 7, offsetY: 5 }
+          ],
           repeat: [
             { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
             { tileset: 2, x: 116, y: 21, width: 5, height: 5, offsetY: 10 } // Stripes
           ],
-          left: { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 }, // Marking
-          right: { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+          left: [
+            { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+          ],
+          right: [
+            { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+          ]
         }
       }
     }
@@ -610,7 +747,9 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 5, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
             { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (inbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       },
       'outbound|regular': {
@@ -620,7 +759,9 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 9, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
             { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (outbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       },
       'inbound|green': {
@@ -630,7 +771,9 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 5, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
             { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (inbound)
           ],
-          repeat: { tileset: 2, x: 98 - 10, y: 53 + 10, width: 8, height: 5, offsetY: 10 } // Green asphalt
+          repeat: [
+            { tileset: 2, x: 98 - 10, y: 53 + 10, width: 8, height: 5, offsetY: 10 } // Green asphalt
+          ]
         }
       },
       'outbound|green': {
@@ -640,7 +783,9 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 9, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
             { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (outbound)
           ],
-          repeat: { tileset: 2, x: 98 - 10, y: 53 + 10, width: 8, height: 5, offsetY: 10 } // Green asphalt
+          repeat: [
+            { tileset: 2, x: 98 - 10, y: 53 + 10, width: 8, height: 5, offsetY: 10 } // Green asphalt
+          ]
         }
       },
       'inbound|red': {
@@ -650,7 +795,9 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 5, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
             { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (inbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 } // Red asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 } // Red asphalt
+          ]
         }
       },
       'outbound|red': {
@@ -660,7 +807,9 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 9, y: 30 + 19, width: 3, height: 8, offsetY: 4 },
             { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (outbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 } // Red asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 } // Red asphalt
+          ]
         }
       }
     }
@@ -679,8 +828,12 @@ export const SEGMENT_INFO = {
           left: [
             { tileset: 1, x: 9, y: 32, width: 6, height: 8, offsetX: 0.25, offsetY: 5 } // Car (inbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-          right: { tileset: 2, x: 112, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ],
+          right: [
+            { tileset: 2, x: 112, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
+          ]
         }
       },
       'inbound|right': {
@@ -690,8 +843,12 @@ export const SEGMENT_INFO = {
           right: [
             { tileset: 1, x: 9, y: 32, width: 6, height: 8, offsetY: 5 } // Car (inbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-          left: { tileset: 1, x: 46, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ],
+          left: [
+            { tileset: 1, x: 46, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
+          ]
         }
       },
       'outbound|left': {
@@ -701,8 +858,12 @@ export const SEGMENT_INFO = {
           left: [
             { tileset: 1, x: 1, y: 32, width: 6, height: 8, offsetX: 0.25, offsetY: 5 } // Car (outbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-          right: { tileset: 2, x: 112, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ],
+          right: [
+            { tileset: 2, x: 112, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
+          ]
         }
       },
       'outbound|right': {
@@ -712,8 +873,12 @@ export const SEGMENT_INFO = {
           right: [
             { tileset: 1, x: 1, y: 32, width: 6, height: 8, offsetY: 5 } // Car (outbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-          left: { tileset: 1, x: 46, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ],
+          left: [
+            { tileset: 1, x: 46, y: 15, width: 2, height: 5, offsetY: 10 } // Parking marking
+          ]
         }
       },
       'sideways|left': {
@@ -724,7 +889,9 @@ export const SEGMENT_INFO = {
           left: [
             { tileset: 1, x: 38, y: 78, width: 14, height: 6, offsetY: 6 } // Car (side)
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       },
       'sideways|right': {
@@ -735,7 +902,9 @@ export const SEGMENT_INFO = {
           right: [
             { tileset: 1, x: 54, y: 78, width: 14, height: 6, offsetY: 6 } // Car (side)
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       }
     }
@@ -755,7 +924,9 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 8, y: 32, width: 8, height: 8, offsetY: 5 }, // Car (inbound)
             { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (inbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       },
       'outbound|car': {
@@ -766,7 +937,9 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 0, y: 32, width: 8, height: 8, offsetY: 5 }, // Car (outbound)
             { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (outbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       },
       'inbound|sharrow': {
@@ -791,7 +964,9 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 5, y: 10 + 30 + 19, width: 3, height: 8, offsetY: 4 }, // Bike (inbound)
             { tileset: 2, x: 101, y: 15, width: 4, height: 5, offsetY: 10 } // Sharrow arrow
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       },
       'outbound|sharrow': {
@@ -816,7 +991,9 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 9, y: 10 + 30 + 19, width: 3, height: 8, offsetY: 4 }, // Bike (outbound)
             { tileset: 2, x: 106, y: 15, width: 4, height: 5, offsetY: 10 } // Sharrow arrow
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       },
       'inbound|truck': {
@@ -827,7 +1004,9 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 17, y: 64, width: 10, height: 12, offsetY: 0 }, // Truck (inbound)
             { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (inbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       },
       'outbound|truck': {
@@ -838,7 +1017,9 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 29, y: 64, width: 9, height: 12, offsetY: 0 }, // Truck (outbound)
             { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (outbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       }
     }
@@ -858,7 +1039,9 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 20, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (inbound)
             { tileset: 2, x: 125, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       },
       'inbound|left-straight': {
@@ -869,7 +1052,9 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 20, y: 78, width: 8, height: 6, offsetY: 6 }, // Car (inbound)
             { tileset: 2, x: 125, y: 10, width: 4, height: 5, offsetY: 10 } // Arrow
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       },
       'inbound|straight': {
@@ -881,7 +1066,9 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 8, y: 32, width: 8, height: 8, offsetY: 5 }, // Car (inbound)
             { tileset: 1, x: 30, y: 5, width: 4, height: 5, offsetY: 10 } // Arrow (inbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       },
       'inbound|right-straight': {
@@ -892,7 +1079,9 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 83, y: 10, width: 4, height: 5, offsetY: 10 }, // Arrow
             { tileset: 1, x: 29, y: 78, width: 8, height: 6, offsetY: 6 } // Car (outbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       },
       'inbound|right': {
@@ -903,7 +1092,9 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 83, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow
             { tileset: 1, x: 29, y: 78, width: 8, height: 6, offsetY: 6 } // Car (outbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       },
       'inbound|both': {
@@ -914,7 +1105,9 @@ export const SEGMENT_INFO = {
             { tileset: 2, x: 153, y: 15, width: 5, height: 5, offsetY: 10 }, // Arrow
             { tileset: 1, x: 20, y: 78, width: 8, height: 6, offsetY: 6 } // Car (outbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       },
       'inbound|shared': {
@@ -925,9 +1118,15 @@ export const SEGMENT_INFO = {
           center: [
             { tileset: 2, x: 144, y: 20, width: 5, height: 5, offsetY: 10 } // Arrow
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-          left: { tileset: 2, x: 119, y: 10, width: 2, height: 5, offsetY: 10 }, // Marking
-          right: { tileset: 2, x: 116, y: 10, width: 2, height: 5, offsetY: 10 } // Marking
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ],
+          left: [
+            { tileset: 2, x: 119, y: 10, width: 2, height: 5, offsetY: 10 } // Marking
+          ],
+          right: [
+            { tileset: 2, x: 116, y: 10, width: 2, height: 5, offsetY: 10 } // Marking
+          ]
         }
       },
       'outbound|left': {
@@ -938,7 +1137,9 @@ export const SEGMENT_INFO = {
             { tileset: 2, x: 134, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow
             { tileset: 1, x: 1, y: 78, width: 8, height: 6, offsetY: 6 } // Car (outbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       },
       'outbound|left-straight': {
@@ -949,7 +1150,9 @@ export const SEGMENT_INFO = {
             { tileset: 2, x: 134, y: 10, width: 4, height: 5, offsetY: 10 }, // Arrow
             { tileset: 1, x: 1, y: 78, width: 8, height: 6, offsetY: 6 } // Car (outbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       },
       'outbound|straight': {
@@ -961,7 +1164,9 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 0, y: 32, width: 8, height: 8, offsetY: 5 }, // Car (outbound)
             { tileset: 1, x: 39, y: 5, width: 4, height: 5, offsetY: 10 } // Arrow (outbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       },
       'outbound|right-straight': {
@@ -972,7 +1177,9 @@ export const SEGMENT_INFO = {
             { tileset: 2, x: 143, y: 10, width: 4, height: 5, offsetY: 10 }, // Arrow
             { tileset: 1, x: 10, y: 78, width: 8, height: 6, offsetY: 6 } // Car (outbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       },
       'outbound|right': {
@@ -983,7 +1190,9 @@ export const SEGMENT_INFO = {
             { tileset: 2, x: 143, y: 15, width: 4, height: 5, offsetY: 10 }, // Arrow
             { tileset: 1, x: 10, y: 78, width: 8, height: 6, offsetY: 6 } // Car (outbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       },
       'outbound|both': {
@@ -994,7 +1203,9 @@ export const SEGMENT_INFO = {
             { tileset: 2, x: 148, y: 15, width: 5, height: 5, offsetY: 10 }, // Arrow
             { tileset: 1, x: 1, y: 78, width: 8, height: 6, offsetY: 6 } // Car (outbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       },
       'outbound|shared': {
@@ -1006,9 +1217,15 @@ export const SEGMENT_INFO = {
           center: [
             { tileset: 2, x: 134, y: 20, width: 5, height: 5, offsetY: 10 } // Arrow
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-          left: { tileset: 2, x: 119, y: 10, width: 2, height: 5, offsetY: 10 }, // Marking
-          right: { tileset: 2, x: 116, y: 10, width: 2, height: 5, offsetY: 10 } // Marking
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ],
+          left: [
+            { tileset: 2, x: 119, y: 10, width: 2, height: 5, offsetY: 10 } // Marking
+          ],
+          right: [
+            { tileset: 2, x: 116, y: 10, width: 2, height: 5, offsetY: 10 } // Marking
+          ]
         }
       }
     }
@@ -1028,7 +1245,9 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 28, y: 28, width: 11, height: 11, offsetY: 1 }, // Bus
             { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (inbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       },
       'outbound|regular': {
@@ -1039,7 +1258,9 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 16, y: 28, width: 12, height: 11, offsetY: 1 }, // Bus
             { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (outbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       },
       'inbound|colored': {
@@ -1050,7 +1271,9 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 28, y: 28, width: 11, height: 11, offsetY: 1 }, // Bus
             { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (inbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 } // Red asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 } // Red asphalt
+          ]
         }
       },
       'outbound|colored': {
@@ -1061,7 +1284,9 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 16, y: 28, width: 12, height: 11, offsetY: 1 }, // Bus
             { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (outbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 } // Red asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 } // Red asphalt
+          ]
         }
       },
       'inbound|shared': {
@@ -1075,9 +1300,15 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 5, y: 10 + 30 + 19, width: 3, height: 8, offsetX: 1, offsetY: 4 }, // Bike (inbound)
             { tileset: 2, x: 101, y: 15, width: 4, height: 5, offsetY: 10 } // Sharrow arrow
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-          left: { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 }, // Marking
-          right: { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ],
+          left: [
+            { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+          ],
+          right: [
+            { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+          ]
         }
       },
       'outbound|shared': {
@@ -1091,9 +1322,15 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 9, y: 10 + 30 + 19, width: 3, height: 8, offsetX: -1, offsetY: 4 }, // Bike (outbound)
             { tileset: 2, x: 106, y: 15, width: 4, height: 5, offsetY: 10 } // Sharrow arrow
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 }, // Asphalt
-          left: { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 }, // Marking
-          right: { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ],
+          left: [
+            { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+          ],
+          right: [
+            { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+          ]
         }
       }
     }
@@ -1114,7 +1351,9 @@ export const SEGMENT_INFO = {
             { tileset: 3, x: 192, y: 0, width: 12, height: 18, offsetY: -2 }, // Streetcar
             { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (inbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       },
       'outbound|regular': {
@@ -1126,7 +1365,9 @@ export const SEGMENT_INFO = {
             { tileset: 3, x: 204, y: 0, width: 12, height: 18, offsetY: -2 }, // Streetcar
             { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 } // Arrow (outbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
       },
       'inbound|colored': {
@@ -1138,7 +1379,9 @@ export const SEGMENT_INFO = {
             { tileset: 3, x: 192, y: 0, width: 12, height: 18, offsetY: -2 }, // Streetcar
             { tileset: 1, x: 29, y: 15, width: 4, height: 5, offsetX: 1, offsetY: 10 } // Dark arrow (inbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 } // Red asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 } // Red asphalt
+          ]
         }
       },
       'outbound|colored': {
@@ -1150,7 +1393,9 @@ export const SEGMENT_INFO = {
             { tileset: 3, x: 204, y: 0, width: 12, height: 18, offsetY: -2 }, // Streetcar
             { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 } // Dark arrow (outbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 } // Red asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 } // Red asphalt
+          ]
         }
       }
     }
@@ -1171,7 +1416,9 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
             { tileset: 1, x: 28, y: 15, width: 8, height: 5, offsetY: 10 } // Dark arrow (inbound)
           ],
-          repeat: { tileset: 2, x: 110, y: 43, width: 9, height: 5, offsetY: 10 } // Lower concrete
+          repeat: [
+            { tileset: 2, x: 110, y: 43, width: 9, height: 5, offsetY: 10 } // Lower concrete
+          ]
         }
       },
       'outbound|regular': {
@@ -1183,7 +1430,9 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
             { tileset: 1, x: 37, y: 15, width: 8, height: 5, offsetY: 10 } // Dark arrow (outbound)
           ],
-          repeat: { tileset: 2, x: 110, y: 43, width: 9, height: 5, offsetY: 10 } // Lower concrete
+          repeat: [
+            { tileset: 2, x: 110, y: 43, width: 9, height: 5, offsetY: 10 } // Lower concrete
+          ]
         }
       },
       'inbound|colored': {
@@ -1195,7 +1444,9 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
             { tileset: 1, x: 28, y: 15, width: 8, height: 5, offsetY: 10 } // Dark arrow (inbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 } // Red asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 } // Red asphalt
+          ]
         }
       },
       'outbound|colored': {
@@ -1207,7 +1458,9 @@ export const SEGMENT_INFO = {
             { tileset: 1, x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
             { tileset: 1, x: 37, y: 15, width: 8, height: 5, offsetY: 10 } // Dark arrow (outbound)
           ],
-          repeat: { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 } // Red asphalt
+          repeat: [
+            { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 } // Red asphalt
+          ]
         }
       }
     }
@@ -1223,15 +1476,23 @@ export const SEGMENT_INFO = {
       'left|street-level': {
         minWidth: 9,
         graphics: {
-          left: { tileset: 3, x: 171, y: 1, width: 9, height: 12, offsetY: -1 },
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+          left: [
+            { tileset: 3, x: 171, y: 1, width: 9, height: 12, offsetY: -1 }
+          ],
+          repeat: [
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+          ]
         }
       },
       'right|street-level': {
         minWidth: 9,
         graphics: {
-          right: { tileset: 3, x: 181, y: 1, width: 9, height: 12, offsetY: -1 },
-          repeat: { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+          right: [
+            { tileset: 3, x: 181, y: 1, width: 9, height: 12, offsetY: -1 }
+          ],
+          repeat: [
+            { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 } // Concrete
+          ]
         }
       },
       'left|light-rail': {
@@ -1248,8 +1509,12 @@ export const SEGMENT_INFO = {
           ]
         },
         graphics: {
-          left: { tileset: 3, x: 171, y: 51, width: 9, height: 12, offsetY: -3 },
-          repeat: { tileset: 2, x: 110, y: 63, width: 9, height: 9, offsetY: 6 } // Raised concrete
+          left: [
+            { tileset: 3, x: 171, y: 51, width: 9, height: 12, offsetY: -3 }
+          ],
+          repeat: [
+            { tileset: 2, x: 110, y: 63, width: 9, height: 9, offsetY: 6 } // Raised concrete
+          ]
         }
       },
       'right|light-rail': {
@@ -1266,8 +1531,12 @@ export const SEGMENT_INFO = {
           ]
         },
         graphics: {
-          right: { tileset: 3, x: 181, y: 51, width: 9, height: 13, offsetY: -3 },
-          repeat: { tileset: 2, x: 110, y: 63, width: 9, height: 9, offsetY: 6 } // Raised concrete
+          right: [
+            { tileset: 3, x: 181, y: 51, width: 9, height: 13, offsetY: -3 }
+          ],
+          repeat: [
+            { tileset: 2, x: 110, y: 63, width: 9, height: 9, offsetY: 6 } // Raised concrete
+          ]
         }
       }
     }
@@ -1291,32 +1560,13 @@ export const SEGMENT_INFO = {
       '': {
         minWidth: 14,
         graphics: {
-          center: { tileset: 1, x: 82, y: 68, width: 14, height: 16, offsetY: -4 },
-          repeat: { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          center: [
+            { tileset: 1, x: 82, y: 68, width: 14, height: 16, offsetY: -4 }
+          ],
+          repeat: [
+            { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 } // Asphalt
+          ]
         }
-      }
-    }
-  }
-}
-
-export function prepareSegmentInfo () {
-  // TODO should not modify const
-
-  for (var i in SEGMENT_INFO) {
-    for (var j in SEGMENT_INFO[i].details) {
-      var graphics = SEGMENT_INFO[i].details[j].graphics
-
-      if (graphics.repeat && !Array.isArray(graphics.repeat)) {
-        graphics.repeat = [graphics.repeat]
-      }
-      if (graphics.left && !Array.isArray(graphics.left)) {
-        graphics.left = [graphics.left]
-      }
-      if (graphics.right && !Array.isArray(graphics.right)) {
-        graphics.right = [graphics.right]
-      }
-      if (graphics.center && !Array.isArray(graphics.center)) {
-        graphics.center = [graphics.center]
       }
     }
   }

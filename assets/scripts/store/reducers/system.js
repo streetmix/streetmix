@@ -10,7 +10,6 @@ const initialState = {
   viewportHeight: null,
   hiDpi: 1.0,
   cssTransform: false,
-  ipAddress: null,
   pageVisibility: false,
   hiddenProperty: false,
   visibilityState: false,

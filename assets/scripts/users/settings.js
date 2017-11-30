@@ -14,7 +14,8 @@ import { getAuthHeader, getSignInData, isSignedIn } from './authentication'
 import store from '../store'
 import { SET_USER_SETTINGS } from '../store/actions'
 
-const LOCAL_STORAGE_SETTINGS_ID = 'settings'
+export const LOCAL_STORAGE_SETTINGS_ID = 'settings'
+export const LOCAL_STORAGE_SETTINGS_UNITS_ID = 'settings-units'
 const SAVE_SETTINGS_DELAY = 500
 let saveSettingsTimerId = -1
 

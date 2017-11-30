@@ -1,8 +1,12 @@
 @charset 'utf-8';
+
+// Import styles from node_modules
+@import '../../node_modules/leaflet/dist/leaflet.css';
+
+// Local imports
 @import 'variables';
 @import 'mixins';
 @import 'typography';
-
 @import 'base';
 @import 'chrome';
 @import 'blocking-shield';
@@ -24,3 +28,4 @@
 @import 'live-update';
 @import 'no-internet';
 @import 'print';
+@import 'geolocation';

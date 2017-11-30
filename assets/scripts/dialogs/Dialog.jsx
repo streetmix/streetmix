@@ -11,12 +11,17 @@ import { hideAllMenus } from '../menus/menu_controller'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { clearDialogs } from '../store/actions/dialogs'
 
-class Dialog extends React.Component {
-  constructor (props) {
-    super(props)
+class Dialog extends React.PureComponent {
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    className: PropTypes.string,
+    children: PropTypes.node.isRequired,
+    disableShieldExit: PropTypes.bool
+  }
 
-    this.onClickShield = this.onClickShield.bind(this)
-    this.unmountDialog = this.unmountDialog.bind(this)
+  static defaultProps = {
+    className: '',
+    disableShieldExit: false
   }
 
   componentDidMount () {
@@ -30,11 +35,11 @@ class Dialog extends React.Component {
     deregisterKeypress('esc', this.unmountDialog)
   }
 
-  unmountDialog () {
+  unmountDialog = () => {
     this.props.dispatch(clearDialogs())
   }
 
-  onClickShield () {
+  onClickShield = () => {
     if (!this.props.disableShieldExit) {
       this.unmountDialog()
     }
@@ -52,27 +57,15 @@ class Dialog extends React.Component {
     }
 
     return (
-      <div className='dialog-box-container' ref={(ref) => { this.dialogEl = ref }}>
+      <div className="dialog-box-container" ref={(ref) => { this.dialogEl = ref }}>
         <div className={shieldClassName} onClick={this.onClickShield} />
         <div className={className}>
-          <button className='close' onClick={this.unmountDialog}>×</button>
+          <button className="close" onClick={this.unmountDialog}>×</button>
           {this.props.children}
         </div>
       </div>
     )
   }
-}
-
-Dialog.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  className: PropTypes.string,
-  children: PropTypes.node.isRequired,
-  disableShieldExit: PropTypes.bool
-}
-
-Dialog.defaultProps = {
-  className: '',
-  disableShieldExit: false
 }
 
 export default connect()(Dialog)

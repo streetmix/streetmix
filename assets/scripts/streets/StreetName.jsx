@@ -5,6 +5,14 @@ import { needsUnicodeFont } from '../util/unicode'
 const MAX_STREET_NAME_WIDTH = 50
 
 export default class StreetName extends React.PureComponent {
+  static propTypes = {
+    name: PropTypes.string
+  }
+
+  static defaultProps = {
+    name: ''
+  }
+
   /**
    * Some processing needed to display street name
    *
@@ -34,13 +42,9 @@ export default class StreetName extends React.PureComponent {
     let classString = 'street-name-text ' + (!needsUnicodeFont(this.props.name) ? '' : 'fallback-unicode-font')
 
     return (
-      <div className='street-name' ref={(ref) => { this.el = ref }} {...this.props}>
+      <div className="street-name" ref={(ref) => { this.el = ref }} {...this.props}>
         <div className={classString}>{StreetName.normalizeStreetName(this.props.name)}</div>
       </div>
     )
   }
-}
-
-StreetName.propTypes = {
-  name: PropTypes.string.isRequired
 }

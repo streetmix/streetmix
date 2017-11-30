@@ -1,7 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export default class Menu extends React.Component {
+export default class Menu extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    alignment: PropTypes.oneOf(['left', 'right']).isRequired,
+    isActive: PropTypes.bool.isRequired,
+    position: PropTypes.array,
+    onShow: PropTypes.func,
+    onHide: PropTypes.func,
+    children: PropTypes.node
+  }
+
+  static defaultProps = {
+    alignment: 'left',
+    isActive: false,
+    onShow: function () {}, // A no-op
+    onHide: function () {}
+  }
+
   /**
    * Show or hide the menu, and run callback functions, depending on whether
    * the next active state is different from the previous one.
@@ -60,21 +77,4 @@ export default class Menu extends React.Component {
       </div>
     )
   }
-}
-
-Menu.propTypes = {
-  className: PropTypes.string,
-  alignment: PropTypes.oneOf(['left', 'right']).isRequired,
-  isActive: PropTypes.bool.isRequired,
-  position: PropTypes.array,
-  onShow: PropTypes.func,
-  onHide: PropTypes.func,
-  children: PropTypes.node
-}
-
-Menu.defaultProps = {
-  alignment: 'left',
-  isActive: false,
-  onShow: function () {}, // A no-op
-  onHide: function () {}
 }

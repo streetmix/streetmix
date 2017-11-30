@@ -10,12 +10,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { cloneDeep } from 'lodash'
-import { getStreet } from '../streets/data_model'
 import { getUndoStack } from '../streets/undo_stack'
 import { registerKeypress, deregisterKeypress } from './keypress'
-import { loseAnyFocus } from './focus'
+import { loseAnyFocus } from '../util/focus'
 
 class DebugInfo extends React.Component {
+  static propTypes = {
+    settings: PropTypes.object.isRequired,
+    street: PropTypes.object.isRequired
+  }
+
   constructor (props) {
     super(props)
 
@@ -23,10 +27,6 @@ class DebugInfo extends React.Component {
       visible: false,
       content: ''
     }
-
-    this.showDebugInfo = this.showDebugInfo.bind(this)
-    this.hideDebugInfo = this.hideDebugInfo.bind(this)
-    this.getTextareaContent = this.getTextareaContent.bind(this)
   }
 
   componentDidMount () {
@@ -34,8 +34,8 @@ class DebugInfo extends React.Component {
     registerKeypress('shift d', this.showDebugInfo)
   }
 
-  getTextareaContent () {
-    const debugStreetData = cloneDeep(getStreet())
+  getTextareaContent = () => {
+    const debugStreetData = cloneDeep(this.props.street)
     const debugUndo = cloneDeep(getUndoStack())
 
     // Some things just shouldn't be seen...
@@ -59,7 +59,7 @@ class DebugInfo extends React.Component {
     return JSON.stringify(debugObj, null, 2)
   }
 
-  showDebugInfo () {
+  showDebugInfo = () => {
     this.setState({
       visible: true,
       content: this.getTextareaContent()
@@ -78,7 +78,7 @@ class DebugInfo extends React.Component {
     // TODO: Register mouse inputs for hide
   }
 
-  hideDebugInfo () {
+  hideDebugInfo = () => {
     this.setState({
       visible: false,
       content: ''
@@ -105,13 +105,10 @@ class DebugInfo extends React.Component {
   }
 }
 
-DebugInfo.propTypes = {
-  settings: PropTypes.object.isRequired
-}
-
 function mapStateToProps (state) {
   return {
-    settings: state.settings
+    settings: state.settings,
+    street: state.street
   }
 }
 

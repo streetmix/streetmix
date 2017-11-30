@@ -1,5 +1,5 @@
 import { trackEvent } from '../app/event_tracking'
-import { loseAnyFocus } from '../app/focus'
+import { loseAnyFocus } from '../util/focus'
 import {
   getStreetSectionCanvasLeft,
   getStreetSectionTop
@@ -10,7 +10,6 @@ import { app } from '../preinit/app_settings'
 import { system } from '../preinit/system_capabilities'
 import { getStreet } from '../streets/data_model'
 import { setIgnoreStreetChanges } from '../streets/undo_stack'
-import { removeElFromDOM } from '../util/dom_helpers'
 import { getElAbsolutePos } from '../util/helpers'
 import { generateRandSeed } from '../util/random'
 import { BUILDING_SPACE } from './buildings'
@@ -727,7 +726,7 @@ export function handleSegmentMoveCancel () {
   repositionSegments()
   updateWithinCanvas(true)
 
-  removeElFromDOM(draggingMove.floatingEl)
+  draggingMove.floatingEl.remove()
   document.querySelector('.palette-trashcan').classList.remove('visible')
 
   changeDraggingType(DRAGGING_TYPE_NONE)
@@ -742,7 +741,7 @@ function handleSegmentMoveEnd (event) {
 
   if (!draggingMove.withinCanvas) {
     if (draggingMove.type === DRAGGING_TYPE_MOVE_TRANSFER) {
-      removeElFromDOM(draggingMove.originalEl)
+      draggingMove.originalEl.remove()
     }
 
     trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'DRAGGING', null, true)
@@ -772,7 +771,7 @@ function handleSegmentMoveEnd (event) {
 
     if (draggingMove.type === DRAGGING_TYPE_MOVE_TRANSFER) {
       var draggedOutEl = document.querySelector('.segment.dragged-out')
-      removeElFromDOM(draggedOutEl)
+      draggedOutEl.remove()
     }
 
     segmentElControls = newEl
@@ -791,7 +790,7 @@ function handleSegmentMoveEnd (event) {
   segmentsChanged()
   updateWithinCanvas(true)
 
-  removeElFromDOM(draggingMove.floatingEl)
+  draggingMove.floatingEl.remove()
   document.querySelector('.palette-trashcan').classList.remove('visible')
 
   changeDraggingType(DRAGGING_TYPE_NONE)
@@ -808,7 +807,7 @@ function handleSegmentMoveEnd (event) {
 export function removeGuides (el) {
   let guideEl = el.querySelector('.guide')
   while (guideEl) {
-    removeElFromDOM(guideEl)
+    guideEl.remove()
     guideEl = el.querySelector('.guide')
   }
 }

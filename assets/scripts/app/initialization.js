@@ -5,14 +5,14 @@ import { showGallery, attachGalleryViewEventListeners } from '../gallery/view'
 import { app } from '../preinit/app_settings'
 import { debug } from '../preinit/debug_settings'
 import { system } from '../preinit/system_capabilities'
-import { prepareSegmentInfo } from '../segments/info'
 import { fillEmptySegments, segmentsChanged } from '../segments/view'
 import { onNewStreetLastClick } from '../streets/creation'
 import {
   createDomFromData,
   setLastStreet,
   trimStreetData,
-  getStreet
+  getStreet,
+  setStreetDataInRedux
 } from '../streets/data_model'
 import { updateStreetName } from '../streets/name'
 import { getPromoteStreet, remixStreet } from '../streets/remix'
@@ -20,11 +20,13 @@ import { setIgnoreStreetChanges } from '../streets/undo_stack'
 import { resizeStreetWidth } from '../streets/width'
 import { loadSignIn, isSignInLoaded } from '../users/authentication'
 import {
-  updateSettingsFromCountryCode,
-  detectGeolocation,
-  setGeolocationLoaded,
-  getGeolocationLoaded
+  checkIfSignInAndGeolocationLoaded,
+  updateSettingsFromCountryCode
 } from '../users/localization'
+import {
+  detectGeolocation,
+  wasGeolocationAttempted
+} from '../users/geolocation'
 import { ENV } from './config'
 import { addEventListeners } from './event_listeners'
 import { trackEvent } from './event_tracking'
@@ -34,8 +36,6 @@ import { onResize } from './window_resize'
 import { attachBlockingShieldEventListeners } from './blocking_shield'
 import { registerKeypresses } from './keyboard_commands'
 import { infoBubble } from '../info_bubble/info_bubble'
-import { attachPrintEventListeners } from './print'
-import { attachStatusMessageEventListeners } from './status_message'
 import { attachStreetScrollEventListeners } from '../streets/scroll'
 import { attachFetchNonBlockingEventListeners } from '../util/fetch_nonblocking'
 import store from '../store'
@@ -82,8 +82,6 @@ function preInit () {
   attachBlockingShieldEventListeners()
   registerKeypresses()
   infoBubble.registerKeypresses()
-  attachPrintEventListeners()
-  attachStatusMessageEventListeners()
   attachGalleryViewEventListeners()
   attachStreetScrollEventListeners()
   attachFetchNonBlockingEventListeners()
@@ -105,7 +103,6 @@ export function initialize () {
   window.dispatchEvent(new window.CustomEvent('stmx:init'))
 
   fillEmptySegments()
-  prepareSegmentInfo()
 
   readyStateCompleteLoaded = false
   document.addEventListener('readystatechange', onReadyStateChange)
@@ -122,13 +119,18 @@ export function initialize () {
 
   // Asynchronously loading…
 
-  // …detecting country from IP for units and left/right-hand driving
-  var mode = getMode()
-  if ((mode === MODES.NEW_STREET) || (mode === MODES.NEW_STREET_COPY_LAST)) {
-    detectGeolocation()
-  } else {
-    setGeolocationLoaded(true)
-  }
+  // …detect country from IP for units, left/right-hand driving, and
+  // adding location to streets
+  detectGeolocation()
+    .then((info) => {
+      if (info && info.country_code) {
+        updateSettingsFromCountryCode(info.country_code)
+      }
+
+      document.querySelector('#loading-progress').value++
+      checkIfSignInAndGeolocationLoaded()
+      checkIfEverythingIsLoaded()
+    })
 
   // …sign in info from our API (if not previously cached) – and subsequent
   // street data if necessary (depending on the mode)
@@ -144,7 +146,7 @@ export function checkIfEverythingIsLoaded () {
   }
 
   if ((getImagesToBeLoaded() === 0) && isSignInLoaded() && bodyLoaded &&
-    readyStateCompleteLoaded && getGeolocationLoaded() && serverContacted) {
+    readyStateCompleteLoaded && wasGeolocationAttempted() && serverContacted) {
     onEverythingLoaded()
   }
 }
@@ -164,6 +166,7 @@ function onEverythingLoaded () {
 
   initializing = false
   setIgnoreStreetChanges(false)
+  setStreetDataInRedux()
   setLastStreet(trimStreetData(getStreet()))
 
   updatePageUrl()
@@ -239,11 +242,12 @@ if (debug.hoverPolygon) {
 }
 
 // Toggle experimental features
-if (debug.experimental) {
-  // Initalize i18n / localization
-  // Currently experimental-only
-  initLocale()
-}
+// if (debug.experimental) {
+// }
+
+// Initalize i18n / localization
+// Currently experimental-only for all languages except English
+initLocale(debug.experimental)
 
 // Other
 addBodyClasses()

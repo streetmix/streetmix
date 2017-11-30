@@ -19,14 +19,10 @@ body:not(.safari).gallery-visible #street-section-sky {
   top: 0;
   height: $gallery-height;
   z-index: $z-09-gallery;
-
   border-bottom: 3px solid darken($ui-colour, 30%);
-
   background: white;
   overflow: hidden;
-
   pointer-events: none;
-
   transform: translateY(-$gallery-height) rotateX(25deg);
   transform-origin: 50% 0;
 
@@ -45,7 +41,6 @@ body:not(.safari).gallery-visible #street-section-sky {
     position: absolute;
     right: 20px;
     top: 12px;
-
     font-size: 24px;
     font-weight: 300;
     color: rgb(128, 128, 128);
@@ -102,9 +97,7 @@ body:not(.safari).gallery-visible #street-section-sky {
     list-style: none;
     padding: 0;
     margin: 0;
-
     white-space: nowrap;
-
     height: $gallery-height + 20px; // To cover the scroll bar
     overflow-x: scroll;
   }
@@ -162,28 +155,21 @@ body:not(.safari).gallery-visible #street-section-sky {
 
 .gallery-street-item > a {
   display: inline-block;
-
   color: black;
   text-decoration: none;
-
   vertical-align: top;
-
   width: $thumbnail-width;
   height: $thumbnail-height - 10px;
   margin: 10px;
   margin-top: 5px;
   background: fade-out($sky-colour, 0.2);
   padding: 5px 0;
-
   border-top: 3px solid darken($ui-colour, 10%);
   border-bottom: 3px solid darken($ui-colour, 10%);
   text-align: center;
   white-space: normal;
-
   cursor: pointer;
-
   font-size: 13px;
-
   position: relative;
 
   canvas {
@@ -205,7 +191,6 @@ body:not(.safari).gallery-visible #street-section-sky {
     bottom: 18px;
     text-align: center;
     display: block;
-
     font-size: 11px;
     color: black;
   }
@@ -217,7 +202,6 @@ body:not(.safari).gallery-visible #street-section-sky {
     bottom: 5px;
     text-align: center;
     display: block;
-
     font-size: 11px;
     color: black;
     font-weight: 300;
@@ -228,10 +212,8 @@ body:not(.safari).gallery-visible #street-section-sky {
     font-size: 16px;
     padding: 0 10px;
     line-height: 25px;
-
     top: -10px;
     right: -5px;
-
     display: none;
     user-select: none;
   }
@@ -250,7 +232,6 @@ body:not(.safari).gallery-visible #street-section-sky {
 
   &.selected {
     background: darken($ui-colour, 10%);
-
     border-top-color: black;
     border-bottom-color: black;
 

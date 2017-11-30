@@ -1,7 +1,7 @@
 import { cloneDeep } from 'lodash'
 
 import { trackEvent } from '../app/event_tracking'
-import { msg } from '../app/messages'
+import { t } from '../app/locale'
 import { showStatusMessage, hideStatusMessage } from '../app/status_message'
 import { infoBubble } from '../info_bubble/info_bubble'
 import {
@@ -50,9 +50,9 @@ export function setIgnoreStreetChanges (value) {
 
 function undoRedo (undo) {
   if (undo && !isUndoAvailable()) {
-    showStatusMessage(msg('STATUS_NOTHING_TO_UNDO'))
+    showStatusMessage(t('toast.no-undo'))
   } else if (!undo && !isRedoAvailable()) {
-    showStatusMessage(msg('STATUS_NOTHING_TO_REDO'))
+    showStatusMessage(t('toast.no-redo'))
   } else {
     if (undo) {
       undoStack[undoPosition] = trimStreetData(getStreet())

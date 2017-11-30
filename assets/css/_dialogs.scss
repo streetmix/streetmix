@@ -20,7 +20,6 @@ $dialog-box-default-width: 790px;
 
 .dialog-box-shield {
   z-index: $z-08-dialog-box-shield;
-
   position: absolute;
   left: 0;
   top: 0;
@@ -43,11 +42,10 @@ $dialog-box-default-width: 790px;
   width: $dialog-box-default-width;
   // balance the dialog by making it slightly north of center
   margin-top: -6%;
-  padding: 15px 40px;
-
   background: white;
   font-size: 13px;
   line-height: 1.5;
+  padding: 15px 40px;
   z-index: $z-09-dialog-box;
   touch-action: none;
 
@@ -138,41 +136,30 @@ $dialog-box-default-width: 790px;
   }
 }
 
-.save-as-image-preview-loading {
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  line-height: 300px;
+.save-as-image-preview {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   height: 300px;
-
-  font-size: 16px;
-  text-align: center;
+  margin-bottom: 20px;
 }
 
-#save-as-image-preview {
-  position: relative;
-  display: table;
-  width: 700px + 3px + 3px;
-  height: 300px + 3px + 3px;
-  margin-bottom: 20px;
+.save-as-image-preview-loading {
+  font-size: 16px;
+  text-align: center;
 }
 
 .save-as-image-preview-image {
   @include touch-callout(default);
 
-  display: table-cell;
-  vertical-align: middle;
   text-align: center;
   font-size: 0;
 
   img {
     max-width: 700px;
     max-height: 300px;
-
     cursor: move; // IE
     cursor: grab;
-
     border-top: 3px dashed $ui-colour;
     border-bottom: 3px dashed $ui-colour;
   }

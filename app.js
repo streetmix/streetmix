@@ -3,26 +3,75 @@ if (process.env.NEW_RELIC_LICENSE_KEY) {
   require('newrelic')
 }
 
-var compression = require('compression')
-var cookieParser = require('cookie-parser')
-var cookieSession = require('cookie-session')
-var envify = require('envify/custom')
-var express = require('express')
-var browserify = require('browserify-middleware')
-var babelify = require('babelify')
-var bodyParser = require('body-parser')
-var config = require('config')
-var path = require('path')
-var controllers = require('./app/controllers')
-var resources = require('./app/resources')
-var requestHandlers = require('./lib/request_handlers')
-var middleware = require('./lib/middleware')
-var exec = require('child_process').exec
+process.title = 'streetmix'
 
-var app = module.exports = express()
+const compression = require('compression')
+const cookieParser = require('cookie-parser')
+const cookieSession = require('cookie-session')
+const envify = require('envify/custom')
+const express = require('express')
+const helmet = require('helmet')
+const browserify = require('browserify-middleware')
+const babelify = require('babelify')
+const bodyParser = require('body-parser')
+const config = require('config')
+const path = require('path')
+const controllers = require('./app/controllers')
+const resources = require('./app/resources')
+const requestHandlers = require('./lib/request_handlers')
+const middleware = require('./lib/middleware')
+const exec = require('child_process').exec
+
+const app = module.exports = express()
 
 app.locals.config = config
 
+// Not all headers from `helmet` are on by default. These turns on specific
+// off-by-default headers for better security as recommended by https://securityheaders.io/
+const helmetConfig = {
+  frameguard: false, // Allow Streetmix to be iframed in 3rd party sites
+  hsts: {
+    maxAge: 7776000 // 90 days
+  },
+  referrerPolicy: {
+    policy: 'no-referrer-when-downgrade'
+  },
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'", 'fonts.googleapis.com'],
+      scriptSrc: [
+        "'self'",
+        'platform.twitter.com',
+        'https://www.google-analytics.com',
+        'cdn.mxpnl.com',
+        '*.global.ssl.fastly.net',
+        'search.mapzen.com',
+        "'sha256-cVcViy/WbA6COI6DEjyQfnBNKF24fNLeLzoC9TPNuKw='", // Google Analytics?
+        "'sha256-7N1wpoJYtgf8X14b14NyEnr45cLEQ0FqwzvKUGzezLs='" // Mixpanel?
+      ],
+      childSrc: ['platform.twitter.com'],
+      imgSrc: [
+        "'self'",
+        'data:',
+        'pbs.twimg.com',
+        'syndication.twitter.com',
+        'https://www.google-analytics.com',
+        '*.global.ssl.fastly.net'
+      ],
+      fontSrc: ["'self'", 'fonts.gstatic.com'],
+      connectSrc: ["'self'",
+        'freegeoip.net',
+        'api.mixpanel.com',
+        'search.mapzen.com',
+        'syndication.twitter.com',
+        'https://www.google-analytics.com'
+      ]
+    }
+  }
+}
+
+app.use(helmet(helmetConfig))
 app.use(bodyParser.json())
 app.use(compression())
 app.use(cookieParser())
@@ -54,7 +103,7 @@ app.set('views', path.join(__dirname, '/app/views'))
 // In production, this redirects streetmix-v2.herokuapp.com to https://streetmix.net/
 app.all('*', function (req, res, next) {
   if (config.header_host_port !== req.headers.host && app.locals.config.env !== 'development') {
-    var redirectUrl = 'https://' + config.header_host_port + req.url
+    const redirectUrl = 'https://' + config.header_host_port + req.url
     console.log('req.hostname = %s but config.header_host_port = %s; redirecting to %s...', req.hostname, config.header_host_port, redirectUrl)
     res.redirect(301, redirectUrl)
   } else {

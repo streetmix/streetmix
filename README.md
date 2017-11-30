@@ -26,7 +26,7 @@
 <p align="center">
   <a href="https://travis-ci.org/streetmix/streetmix"><img alt="Build Status" src="https://img.shields.io/travis/streetmix/streetmix/master.svg?style=flat-square"></a>
   <a href="https://david-dm.org/streetmix/streetmix"><img alt="Dependency Status" src="https://img.shields.io/david/streetmix/streetmix.svg?style=flat-square"></a>
-  <a href="https://codeclimate.com/github/streetmix/streetmix"><img alt="Code Climate" src="https://img.shields.io/codeclimate/github/streetmix/streetmix.svg?style=flat-square"></a>
+  <a href="https://codeclimate.com/github/codeforamerica/streetmix"><img alt="Code Climate" src="https://img.shields.io/codeclimate/github/codeforamerica/streetmix.svg?style=flat-square"></a>
 </p>
 
 <hr>
@@ -63,6 +63,10 @@ Streetmix can be used as a tool to promote and engage citizens around streetscap
 Streetmix started as a [Code for America][cfa] hackathon project in January 2013, inspired by community meetings like the one described above.
 
 [cfa]: https://codeforamerica.org/
+
+#### How do I install / set up Streetmix myself?
+
+Streetmix is a [Node.js](https://nodejs.org/) based project. Set up your own by [following these instructions](https://github.com/streetmix/streetmix/blob/master/CONTRIBUTING.md#development-setup)!
 
 ## Sponsors
 

@@ -1,46 +1,27 @@
 import { infoBubble } from '../info_bubble/info_bubble'
-import { getStreetImage } from '../streets/image'
 import { hideAllMenus } from '../menus/menu_controller'
+import store from '../store'
+import { startPrinting, stopPrinting } from '../store/actions/app'
 
 export function attachPrintEventListeners () {
   // Add event listeners
   // Chrome does not have the 'beforeprint' or 'afterprint' events
   window.addEventListener('beforeprint', () => {
-    onBeforePrint(false)
+    store.dispatch(startPrinting())
+  })
+  window.addEventListener('afterprint', () => {
+    store.dispatch(stopPrinting())
   })
 
   // Listening for media query change for Chrome
-  var mediaQueryList = window.matchMedia('print')
-  mediaQueryList.addListener(function (mql) {
+  const mediaQueryList = window.matchMedia('print')
+  mediaQueryList.addListener((mql) => {
     if (mql.matches) {
-      onBeforePrint(true)
+      store.dispatch(startPrinting())
+    } else {
+      store.dispatch(stopPrinting())
     }
   })
-}
-
-function updatePrintImage () {
-  document.querySelector('#print > div').innerHTML = ''
-
-  var el = getStreetImage(true, true)
-  var dataUrl = el.toDataURL('image/png')
-
-  var imgEl = document.createElement('img')
-  imgEl.src = dataUrl
-  document.querySelector('#print > div').appendChild(imgEl)
-}
-
-function onBeforePrint (mediaMatch) {
-  // So that max-height: 100% works
-  if (mediaMatch) {
-    document.querySelector('#print > div').style.width = window.innerWidth + 'px'
-    document.querySelector('#print > div').style.height = window.innerHeight + 'px'
-  }
-
-  updatePrintImage()
-
-  if (!mediaMatch) {
-    document.querySelector('#print > div > img').style.width = '100%'
-  }
 }
 
 export function printImage (event) {
@@ -50,7 +31,12 @@ export function printImage (event) {
   infoBubble.hide()
   infoBubble.hideSegment(true)
 
+  // Manually dispatch printing state here. Workaround for Chrome bug where
+  // calling window.print() programatically (even with a timeout) render a
+  // blank image instead
+  store.dispatch(startPrinting())
+
   window.setTimeout(function () {
     window.print()
-  }, 50)
+  }, 0)
 }

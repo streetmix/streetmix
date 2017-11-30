@@ -1,17 +1,13 @@
 #street-metadata {
   padding-top: 7px;
   padding-bottom: 40px;
-
   width: 500px;
   left: 50%;
   position: absolute;
   margin-left: -250px;
-
   color: black;
   font-size: 13px;
-
   user-select: none;
-
   pointer-events: auto;
 
   a {
@@ -32,12 +28,12 @@ body:not(.read-only) #street-width-read {
   }
 
   &::after {
-    font-family: 'Verdana';
+    font-family: 'Verdana', sans-serif;
     content: ' ▼';
     padding-left: 5px;
     font-size: 9px;
     display: inline-block;
-    transform: scaleY(.75);
+    transform: scaleY(0.75);
   }
 }
 
@@ -72,7 +68,8 @@ body.read-only #street-metadata-author a {
 }
 
 #street-metadata-author:not(:empty)::before,
-#street-metadata-date:not(:empty)::before {
+#street-metadata-date:not(:empty)::before,
+#street-metadata-map:not(:empty)::before {
   content: ' · ';
   color: darken($ui-colour, 40%);
   margin: 0 4px;

@@ -8,31 +8,42 @@
   z-index: $z-07-status-message;
   pointer-events: none;
   user-select: none;
-
   transition: opacity 200ms, transform 200ms;
   transform: translateY(100px);
 
   &.visible {
     transform: translateY(0);
   }
+}
 
-  & > div {
-    position: relative;
-    display: inline-block;
-    padding: 5px 20px;
-    padding-right: 45px; // for close box
-    border-top: 3px solid darken(rgb(255, 230, 150), 20%);
-    border-bottom: 3px solid darken(rgb(255, 230, 150), 20%);
-    font-size: 13px;
-    line-height: 23px; // force height to be the same whether there is a button in the status message or not
-    background: rgb(255, 230, 150);
-    color: rgb(64, 32, 32);
-    pointer-events: auto;
-  }
+body.no-connection-message-visible #status-message {
+  bottom: 78px;
+}
+
+.status-message-content {
+  position: relative;
+  display: inline-block;
+  padding: 5px 20px;
+  padding-right: 45px; // for close box
+  border-top: 3px solid darken(rgb(255, 230, 150), 20%);
+  border-bottom: 3px solid darken(rgb(255, 230, 150), 20%);
+  font-size: 13px;
+  line-height: 23px; // force height to be the same whether there is a button in the status message or not
+  background: rgb(255, 230, 150);
+  color: rgb(64, 32, 32);
+  pointer-events: auto;
 
   button {
+    line-height: 1.4; // force button height to be the same as the a.button-like
+  }
+
+  button:not(.close),
+  a.button-like {
     margin-left: 20px;
-    font-size: 100%;
+
+    // Force buttons to not add a 2px height to .status-message-content
+    margin-top: -1px;
+    margin-bottom: -1px;
   }
 
   a {
@@ -43,8 +54,4 @@
   .close {
     height: 100%;
   }
-}
-
-body.no-connection-message-visible #status-message {
-  bottom: 78px;
 }

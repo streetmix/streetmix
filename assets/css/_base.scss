@@ -58,6 +58,7 @@ a {
 a,
 button {
   @include tap-highlight-color('transparent !important');
+
   cursor: pointer;
 }
 
@@ -76,4 +77,3 @@ textarea {
     border-color: desaturate($ui-colour, 100%) !important;
   }
 }
-

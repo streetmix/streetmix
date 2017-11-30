@@ -1,13 +1,10 @@
 import { cloneDeep } from 'lodash'
 
 import { ERRORS, showError } from '../app/errors'
-import { trackEvent } from '../app/event_tracking'
-import { checkIfEverythingIsLoaded } from '../app/initialization'
 import { MODES, getMode } from '../app/mode'
 import { hideAllMenus } from '../menus/menu_controller'
 import { app } from '../preinit/app_settings'
 import { debug } from '../preinit/debug_settings'
-import { system } from '../preinit/system_capabilities'
 import {
   normalizeAllSegmentWidths,
   setSegmentWidthResolution,
@@ -31,29 +28,17 @@ import {
   normalizeStreetWidth,
   resizeStreetWidth
 } from '../streets/width'
+import { wasGeolocationAttempted } from './geolocation'
 import { isSignInLoaded } from './authentication'
-import { saveSettingsLocally } from './settings'
-
-const IP_GEOLOCATION_API_URL = 'https://freegeoip.net/json/'
-const IP_GEOLOCATION_TIMEOUT = 1000 // After this time, we don’t wait any more
-
-let geolocationLoaded
-
-export function getGeolocationLoaded () {
-  return geolocationLoaded
-}
-
-export function setGeolocationLoaded (value) {
-  geolocationLoaded = value
-}
+import store from '../store'
+import { saveSettingsLocally, LOCAL_STORAGE_SETTINGS_UNITS_ID } from '../users/settings'
+import { setUserUnits } from '../store/actions/persistSettings'
 
 export const SETTINGS_UNITS_IMPERIAL = 1
 export const SETTINGS_UNITS_METRIC = 2
 
-let units = SETTINGS_UNITS_IMPERIAL
-
 export function getUnits () {
-  return units
+  return store.getState().persistSettings.units
 }
 
 const SEGMENT_WIDTH_RESOLUTION_IMPERIAL = 0.25
@@ -84,7 +69,7 @@ const COUNTRIES_LEFT_HAND_TRAFFIC = [
 ]
 
 export function checkIfSignInAndGeolocationLoaded () {
-  if (geolocationLoaded && isSignInLoaded()) {
+  if (wasGeolocationAttempted() && isSignInLoaded()) {
     switch (getMode()) {
       case MODES.NEW_STREET:
       case MODES.NEW_STREET_COPY_LAST:
@@ -98,39 +83,7 @@ export function checkIfSignInAndGeolocationLoaded () {
   }
 }
 
-export function detectGeolocation () {
-  geolocationLoaded = false
-
-  window.fetch(IP_GEOLOCATION_API_URL)
-    .then(function (response) {
-      return response.json()
-    })
-    .then(receiveGeolocation)
-    .catch(function (error) {
-      console.log('_detectGeolocation', error)
-    })
-
-  window.setTimeout(detectGeolocationTimeout, IP_GEOLOCATION_TIMEOUT)
-}
-
-function detectGeolocationTimeout () {
-  if (!geolocationLoaded) {
-    geolocationLoaded = true
-    document.querySelector('#loading-progress').value++
-    checkIfSignInAndGeolocationLoaded()
-    checkIfEverythingIsLoaded()
-
-    trackEvent('ERROR', 'ERROR_GEOLOCATION_TIMEOUT', null, null, false)
-  }
-}
-
 export function updateSettingsFromCountryCode (countryCode) {
-  if (COUNTRIES_IMPERIAL_UNITS.indexOf(countryCode) !== -1) {
-    units = SETTINGS_UNITS_IMPERIAL
-  } else {
-    units = SETTINGS_UNITS_METRIC
-  }
-
   if (COUNTRIES_LEFT_HAND_TRAFFIC.indexOf(countryCode) !== -1) {
     leftHandTraffic = true
   }
@@ -138,28 +91,22 @@ export function updateSettingsFromCountryCode (countryCode) {
   if (debug.forceLeftHandTraffic) {
     leftHandTraffic = true
   }
-  if (debug.forceMetric) {
-    units = SETTINGS_UNITS_METRIC
-  }
+
+  updateUnitSettings(countryCode)
 }
 
-function receiveGeolocation (info) {
-  if (geolocationLoaded) {
-    // Timed out, discard results
-    return
-  }
+export function updateUnitSettings (countryCode) {
+  let localStorageUnits = window.localStorage[LOCAL_STORAGE_SETTINGS_UNITS_ID]
 
-  if (info && info.country_code) {
-    updateSettingsFromCountryCode(info.country_code)
+  if (localStorageUnits) {
+    store.dispatch(setUserUnits(parseInt(localStorageUnits)))
+  } else if (debug.forceMetric) {
+    saveUserUnits(SETTINGS_UNITS_METRIC)
+  } else if (COUNTRIES_IMPERIAL_UNITS.indexOf(countryCode) !== -1) {
+    saveUserUnits(SETTINGS_UNITS_IMPERIAL)
+  } else {
+    saveUserUnits(SETTINGS_UNITS_METRIC)
   }
-  if (info && info.ip) {
-    system.ipAddress = info.ip
-  }
-
-  geolocationLoaded = true
-  document.querySelector('#loading-progress').value++
-  checkIfSignInAndGeolocationLoaded()
-  checkIfEverythingIsLoaded()
 }
 
 export function updateUnits (newUnits) {
@@ -169,7 +116,7 @@ export function updateUnits (newUnits) {
     return
   }
 
-  units = newUnits
+  saveUserUnits(newUnits)
   street.units = newUnits
 
   // If the user converts and then straight converts back, we just reach
@@ -206,7 +153,6 @@ export function updateUnits (newUnits) {
 
   setIgnoreStreetChanges(false)
 
-  window.dispatchEvent(new CustomEvent('stmx:width_updated'))
   hideAllMenus()
 
   saveStreetToServerIfNecessary()
@@ -236,7 +182,9 @@ export function propagateUnits () {
 
       break
   }
+}
 
-  // TODO verify this is the right event to dispatch, and a good place to throw this event
-  window.dispatchEvent(new CustomEvent('stmx:width_updated'))
+export function saveUserUnits (unitType) {
+  window.localStorage[LOCAL_STORAGE_SETTINGS_UNITS_ID] = unitType
+  store.dispatch(setUserUnits(parseInt(unitType)))
 }

@@ -15,12 +15,12 @@ body.phone #loading {
 
 #error {
   @include blocking-shield;
+
   z-index: $z-09-error;
 
   // Errors may be displayed on old browsers without flexbox.
   // This forces vertical centering
   display: table;
-
 
   &:not(.visible) {
     display: none;
@@ -51,6 +51,7 @@ body.phone #loading {
 
 #loading {
   @include blocking-shield;
+
   z-index: $z-09-loading;
 
   &.hidden {
@@ -91,7 +92,6 @@ body.phone #loading {
 
 .avatar {
   display: inline-block;
-
   background-size: 100%;
   background-color: white;
   width: 20px;
@@ -99,11 +99,10 @@ body.phone #loading {
   box-sizing: border-box;
   border: 1px solid darken($ui-colour, 30%);
   border-radius: 50%;
-
-  margin-right: 5px;
   vertical-align: middle;
   margin-top: -1px;
   margin-left: 3px;
+  margin-right: 5px;
 }
 
 .avatar-blank {
@@ -146,7 +145,7 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
   color: rgb(64, 64, 64);
 
   // Spacing of multiple keys in series
-  & + .key {
+  + .key {
     margin-left: 0.25em;
   }
 }

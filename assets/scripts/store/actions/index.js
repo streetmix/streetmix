@@ -34,6 +34,7 @@
 
 /* app */
 export const SET_APP_FLAGS = 'SET_APP_FLAGS'
+export const SET_PRINTING = 'SET_PRINTING'
 
 /* debug */
 export const SET_DEBUG_FLAGS = 'SET_DEBUG_FLAGS'
@@ -49,12 +50,30 @@ export const RECEIVE_GALLERY_STREETS = 'RECEIVE_GALLERY_STREETS'
 export const DELETE_GALLERY_STREET = 'DELETE_GALLERY_STREET'
 export const SET_GALLERY_STATE = 'SET_GALLERY_STATE'
 
+/* map */
+export const SET_MAP_STATE = 'SET_MAP_STATE'
+
 /* menus */
 export const SHOW_MENU = 'SHOW_MENU'
 export const CLEAR_MENUS = 'CLEAR_MENUS'
 
 /* settings */
 export const SET_USER_SETTINGS = 'SET_USER_SETTINGS'
+
+/* persist settings -- settings saved in local storage */
+export const SET_USER_UNITS = 'SET_USER_UNITS'
+
+/* status */
+export const SHOW_STATUS_MESSAGE = 'SHOW_STATUS_MESSAGE'
+export const HIDE_STATUS_MESSAGE = 'HIDE_STATUS_MESSAGE'
+export const SHOW_NO_CONNECTION_MESSAGE = 'SHOW_NO_CONNECTION_MESSAGE'
+
+/* street */
+export const ADD_SEGMENT = 'ADD_SEGMENT'
+export const REMOVE_SEGMENT = 'REMOVE_SEGMENT'
+export const MOVE_SEGMENT = 'MOVE_SEGMENT'
+export const REPLACE_STREET_DATA = 'REPLACE_STREET_DATA'
+export const CHANGE_SEGMENT_WIDTH = 'CHANGE_SEGMENT_WIDTH'
 
 /* system */
 export const SET_SYSTEM_FLAGS = 'SET_SYSTEM_FLAGS'
@@ -63,3 +82,5 @@ export const SET_SYSTEM_FLAGS = 'SET_SYSTEM_FLAGS'
 export const SET_USER_SIGN_IN_DATA = 'SET_USER_SIGN_IN_DATA'
 export const SET_USER_SIGNED_IN_STATE = 'SET_USER_SIGNED_IN_STATE'
 export const SET_USER_SIGN_IN_LOADED_STATE = 'SET_USER_SIGN_IN_LOADED_STATE'
+export const GEOLOCATION_DATA = 'GEOLOCATION_DATA'
+export const GEOLOCATION_ATTEMPTED = 'GEOLOCATION_ATTEMPTED'

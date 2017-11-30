@@ -40,6 +40,8 @@ import {
   resizeStreetWidth
 } from './width'
 import { updateLastStreetInfo, scheduleSavingStreetToServer } from './xhr'
+import { updateStreetData } from '../store/actions/street'
+import store from '../store'
 
 let _lastStreet
 
@@ -102,7 +104,7 @@ export function getStreet () {
 
 export function setStreet (value) {
   street = value
-  window.dispatchEvent(new window.CustomEvent('stmx:set_street'))
+  setStreetDataInRedux()
 }
 
 export function setAndSaveStreet (value) {
@@ -327,9 +329,6 @@ export function saveStreetToServerIfNecessary () {
   if (JSON.stringify(currentData) !== JSON.stringify(_lastStreet)) {
     if (street.editCount !== null) {
       street.editCount++
-    // console.log('increment editCount', street.editCount)
-    } else {
-      // console.log('not incrementing editCount since null')
     }
     setUpdateTimeToNow()
 
@@ -345,6 +344,14 @@ export function saveStreetToServerIfNecessary () {
 
     updateUndoButtons()
   }
+
+  setStreetDataInRedux()
+}
+
+// Update in Redux store. Some components will read street data from there.
+// todo: transition so Redux is single source of truth for street.
+export function setStreetDataInRedux () {
+  store.dispatch(updateStreetData(street))
 }
 
 // Copies only the data necessary for save/undo.

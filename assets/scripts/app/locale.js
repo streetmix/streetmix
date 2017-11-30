@@ -11,9 +11,15 @@ import { API_URL } from './config'
 // Default language is set by browser, or is English if undetermined
 const defaultLocale = navigator.language || 'en'
 
-export function initLocale () {
+export function initLocale (experimental) {
   // Current language is the one set by Streetmix or is the browser default, if unset
-  const locale = getLocale()
+  let locale
+  if (experimental) {
+    locale = getLocale()
+  } else {
+    locale = 'en'
+  }
+
   doTheI18n(locale)
 }
 
@@ -44,7 +50,10 @@ function doTheI18n (locale) {
     load: 'all',
     backend: {
       loadPath: API_URL + 'v1/translate/{{lng}}/{{ns}}'
-    }
+    },
+    // Do not escape characters automatically. React already escapes strings,
+    // so we want to avoid double-escaping output.
+    interpolation: { escapeValue: false }
   }
 
   const callback = function (err, t) {

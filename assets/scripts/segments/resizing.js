@@ -8,7 +8,6 @@ import {
   SEGMENT_WARNING_WIDTH_TOO_SMALL,
   SEGMENT_WARNING_WIDTH_TOO_LARGE
 } from '../streets/width'
-import { removeElFromDOM } from '../util/dom_helpers'
 import { prettifyWidth } from '../util/width_units'
 import {
   DRAGGING_TYPE_NONE,
@@ -112,7 +111,7 @@ export function handleSegmentResizeEnd (event) {
   changeDraggingType(DRAGGING_TYPE_NONE)
 
   var el = draggingResize.floatingEl
-  removeElFromDOM(el)
+  el.remove()
 
   draggingResize.segmentEl.classList.add('immediate-show-drag-handles')
 
