@@ -49,7 +49,6 @@ class StreetName extends React.PureComponent {
   }
 
   onMouseEnter = () => {
-    console.log('seeing it')
     this.setState({ isHovered: true })
   }
 
@@ -79,7 +78,7 @@ class StreetName extends React.PureComponent {
         ref={this.props.childRef}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
-        onClick={this.props.onClick || null}
+        onClick={this.props.onClick}
         id={this.props.id}
       >
         {this.renderHoverPrompt()}
