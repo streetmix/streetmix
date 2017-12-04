@@ -16,8 +16,12 @@ import { getAuthHeader } from '../users/authentication'
 import { propagateUnits } from '../users/localization'
 import { segmentsChanged } from './view'
 
+let lastRequestedStreetId = null
+
 export function fetchGalleryStreet (streetId) {
   showBlockingShield()
+
+  lastRequestedStreetId = streetId
 
   const url = API_URL + 'v1/streets/' + streetId
   const options = {
@@ -46,9 +50,9 @@ function errorReceiveGalleryStreet () {
 // TODO similar to receiveLastStreet
 function receiveGalleryStreet (transmission) {
   // Reject stale transmissions
-  // if (transmission.id !== store.getState().gallery.selected) {
-  //   return
-  // }
+  if (transmission.id !== lastRequestedStreetId) {
+    return
+  }
 
   setIgnoreStreetChanges(true)
 
