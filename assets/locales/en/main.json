@@ -120,7 +120,7 @@
   },
   "prompt": {
     "new-street": "New street name:",
-    "delete-street": "Are you sure you want to permanently delete %s? This cannot be undone.",
+    "delete-street": "Are you sure you want to permanently delete {{streetName}}? This cannot be undone.",
     "new-width": "New street width (from {{minWidth}} to {{maxWidth}}):"
   },
   "toast": {

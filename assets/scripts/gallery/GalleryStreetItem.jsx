@@ -8,8 +8,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import StreetName from '../streets/StreetName'
 import { t } from '../app/locale'
-import { msg } from '../app/messages'
-import { system } from '../preinit/system_capabilities'
 import { formatDate } from '../util/date_format'
 import { drawStreetThumbnail } from './thumbnail'
 import { getSignInData, isSignedIn } from '../users/authentication'
@@ -25,7 +23,8 @@ class GalleryStreetItem extends React.Component {
     selected: PropTypes.bool.isRequired,
     street: PropTypes.object.isRequired,
     handleSelect: PropTypes.func.isRequired,
-    handleDelete: PropTypes.func.isRequired
+    handleDelete: PropTypes.func.isRequired,
+    hiDpi: PropTypes.number
   }
 
   static defaultProps = {
@@ -57,7 +56,9 @@ class GalleryStreetItem extends React.Component {
     const street = this.props.street
 
     // TODO escape name
-    if (window.confirm(msg('PROMPT_DELETE_STREET', { name: street.name }))) {
+    const message = t('prompt.delete-street', 'Are you sure you want to permanently delete {{streetName}}? This cannot be undone.', { streetName: street.name })
+
+    if (window.confirm(message)) {
       this.props.handleDelete(street.id)
     }
   }
@@ -73,8 +74,8 @@ class GalleryStreetItem extends React.Component {
           className={className}
         >
           <canvas
-            width={THUMBNAIL_WIDTH * system.hiDpi * 2}
-            height={THUMBNAIL_HEIGHT * system.hiDpi * 2}
+            width={THUMBNAIL_WIDTH * this.props.hiDpi * 2}
+            height={THUMBNAIL_HEIGHT * this.props.hiDpi * 2}
             ref={(ref) => { this.thumbnailEl = ref }}
           />
 
@@ -84,7 +85,7 @@ class GalleryStreetItem extends React.Component {
           {(() => {
             if (!this.props.userId) {
               return (
-                <span className="creator">{this.street.creatorId || msg('USER_ANONYMOUS')}</span>
+                <span className="creator">{this.street.creatorId || t('users.anonymous', 'Anonymous')}</span>
               )
             }
           })()}
@@ -98,7 +99,7 @@ class GalleryStreetItem extends React.Component {
                   title={t('gallery.delete-street-tooltip', 'Delete street')}
                   onClick={this.onClickDeleteGalleryStreet}
                 >
-                  {msg('UI_GLYPH_X')}
+                  ×
                 </button>
               )
             }
@@ -112,7 +113,8 @@ class GalleryStreetItem extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    userId: state.gallery.userId
+    userId: state.gallery.userId,
+    hiDpi: state.system.hiDpi
   }
 }
 
