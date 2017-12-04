@@ -1,16 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { needsUnicodeFont } from '../util/unicode'
+import { t } from '../app/locale'
 
 const MAX_STREET_NAME_WIDTH = 50
 
-export default class StreetName extends React.PureComponent {
+class StreetName extends React.PureComponent {
   static propTypes = {
-    name: PropTypes.string
+    id: PropTypes.string,
+    name: PropTypes.string,
+    childRef: PropTypes.func,
+    onClick: PropTypes.func,
+    isStreetReadOnly: PropTypes.bool,
+    isHoverable: PropTypes.bool
   }
 
   static defaultProps = {
-    name: ''
+    name: '',
+    isStreetReadOnly: false,
+    isHoverable: false
   }
 
   /**
@@ -31,20 +40,59 @@ export default class StreetName extends React.PureComponent {
     return name
   }
 
-  /**
-   * For a parent component that needs to know the dimensions of this component
-   */
-  getBoundingClientRect () {
-    return this.el.getBoundingClientRect()
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      isHovered: false
+    }
+  }
+
+  onMouseEnter = () => {
+    this.setState({ isHovered: true })
+  }
+
+  onMouseLeave = () => {
+    this.setState({ isHovered: false })
+  }
+
+  renderHoverPrompt = () => {
+    if (this.props.isStreetReadOnly || !this.props.isHoverable) return null
+    if (typeof this.props.onClick === 'function' && this.state.isHovered) {
+      return (
+        <div className="street-name-hover-prompt">
+          {t('street.rename', 'Click to rename')}
+        </div>
+      )
+    }
+
+    return null
   }
 
   render () {
     let classString = 'street-name-text ' + (!needsUnicodeFont(this.props.name) ? '' : 'fallback-unicode-font')
 
     return (
-      <div className="street-name" ref={(ref) => { this.el = ref }} {...this.props}>
+      <div
+        className="street-name"
+        ref={this.props.childRef}
+        onMouseEnter={this.onMouseEnter}
+        onMouseLeave={this.onMouseLeave}
+        onClick={this.props.onClick}
+        id={this.props.id}
+      >
+        {this.renderHoverPrompt()}
         <div className={classString}>{StreetName.normalizeStreetName(this.props.name)}</div>
       </div>
     )
   }
 }
+
+function mapStateToProps (state) {
+  return {
+    isStreetReadOnly: state.app.readOnly,
+    isHoverable: !state.system.touch
+  }
+}
+
+export default connect(mapStateToProps)(StreetName)

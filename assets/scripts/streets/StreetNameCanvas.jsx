@@ -53,6 +53,7 @@ class StreetNameCanvas extends React.Component {
 
   updateCoords = () => {
     const rect = this.streetName.getBoundingClientRect()
+
     const coords = {
       left: rect.left,
       width: rect.width
@@ -97,7 +98,7 @@ class StreetNameCanvas extends React.Component {
       <div id="street-name-canvas" className={this.determineClassNames().join(' ')}>
         <StreetName
           id="street-name"
-          ref={(ref) => { this.streetName = ref }}
+          childRef={(ref) => { this.streetName = ref }}
           name={this.props.street.name}
           onClick={this.onClickStreetName}
         />
