@@ -10,7 +10,6 @@ import { system } from '../preinit/system_capabilities'
 import { hideControls } from '../segments/resizing'
 import {
   DEFAULT_NAME,
-  getStreet,
   updateToLatestSchemaVersion
 } from '../streets/data_model'
 import { fetchGalleryData } from './fetch_data'
@@ -21,9 +20,7 @@ import store from '../store'
 import { SET_GALLERY_STATE } from '../store/actions'
 import { setGalleryMode, hideGallery as hideGalleryAction } from '../store/actions/gallery'
 
-export const galleryState = {
-  streetId: null,
-  streetLoaded: false,
+const galleryState = {
   // set to true when the current street is deleted from the gallery
   // this prevents the gallery from being hidden while no street is shown
   noStreetSelected: false
@@ -45,9 +42,6 @@ export function showGallery (userId, instant, signInPromo = false) {
   }
 
   trackEvent('INTERACTION', 'OPEN_GALLERY', userId, null, false)
-
-  galleryState.streetLoaded = true
-  galleryState.streetId = getStreet().id
 
   store.dispatch({
     type: SET_GALLERY_STATE,
@@ -89,7 +83,7 @@ export function hideGallery (instant) {
     return
   }
 
-  if (galleryState.streetLoaded) {
+  if (store.getState().gallery.visible) {
     store.dispatch(hideGalleryAction())
 
     if (instant) {
@@ -149,10 +143,9 @@ export function repeatReceiveGalleryData () {
 }
 
 export function switchGalleryStreet (id) {
-  galleryState.streetId = id
   galleryState.noStreetSelected = false
 
-  fetchGalleryStreet(galleryState.streetId)
+  fetchGalleryStreet(id)
 }
 
 function loadGalleryContents () {

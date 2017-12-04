@@ -14,7 +14,7 @@ import { unpackServerStreetData } from '../streets/xhr'
 import { resizeStreetWidth, recalculateOccupiedWidth } from '../streets/width'
 import { getAuthHeader } from '../users/authentication'
 import { propagateUnits } from '../users/localization'
-import { galleryState, segmentsChanged } from './view'
+import { segmentsChanged } from './view'
 
 export function fetchGalleryStreet (streetId) {
   showBlockingShield()
@@ -40,16 +40,15 @@ export function fetchGalleryStreet (streetId) {
 }
 
 function errorReceiveGalleryStreet () {
-  galleryState.streetId = getStreet().id
   // updateGallerySelection()
 }
 
 // TODO similar to receiveLastStreet
 function receiveGalleryStreet (transmission) {
-  // Is this necessary?
-  if (transmission.id !== galleryState.streetId) {
-    return
-  }
+  // Reject stale transmissions
+  // if (transmission.id !== store.getState().gallery.selected) {
+  //   return
+  // }
 
   setIgnoreStreetChanges(true)
 

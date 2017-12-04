@@ -7,12 +7,9 @@ import { receiveGalleryData, hideGallery } from './view'
 import store from '../store'
 import { setGalleryMode } from '../store/actions/gallery'
 
-function getGalleryUserId () {
-  return store.getState().gallery.userId
-}
-
 export function fetchGalleryData () {
-  const galleryUserId = getGalleryUserId()
+  const galleryUserId = store.getState().gallery.userId
+
   if (galleryUserId) {
     const url = API_URL + 'v1/users/' + galleryUserId + '/streets'
     const options = {
