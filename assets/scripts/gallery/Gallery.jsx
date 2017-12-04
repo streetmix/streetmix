@@ -152,7 +152,7 @@ class Gallery extends React.Component {
         // Applies a class to the containing element if no user ID is provided
         // (which displays all streets) or if the user ID provided is different
         // from a currently signed-in user
-        let galleryFullWidthClass
+        let galleryFullWidthClass = ''
         if (!this.props.userId || !(isSignedIn() && (this.props.userId === getSignInData().userId))) {
           galleryFullWidthClass = 'gallery-streets-container-full'
         }
