@@ -162,10 +162,10 @@ class Gallery extends React.Component {
         if (isSignedIn() && (this.props.userId === getSignInData().userId)) {
           buttons = (
             <div className="gallery-user-buttons">
-              <a className="button-like" id="new-street" href={`/${URL_NEW_STREET}`} target="_blank">
+              <a className="button-like gallery-new-street" href={`/${URL_NEW_STREET}`} target="_blank">
                 {t('btn.create', 'Create new street')}
               </a>
-              <a className="button-like" id="copy-last-street" href={`/${URL_NEW_STREET_COPY_LAST}`} target="_blank">
+              <a className="button-like gallery-copy-last-street" href={`/${URL_NEW_STREET_COPY_LAST}`} target="_blank">
                 {t('btn.copy', 'Make a copy')}
               </a>
             </div>

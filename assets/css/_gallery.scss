@@ -46,28 +46,6 @@ body:not(.safari).gallery-visible #street-section-sky {
     color: rgb(128, 128, 128);
   }
 
-  #new-street {
-    position: absolute;
-    top: 10px;
-    width: 100px;
-    height: 43px;
-    padding-top: 15px;
-    padding-left: 0;
-    padding-right: 0;
-    line-height: 15px;
-    font-weight: bold;
-  }
-
-  #copy-last-street {
-    position: absolute;
-    top: 80px;
-    width: 100px;
-    height: 40px;
-    padding-left: 0;
-    padding-right: 0;
-    line-height: 40px;
-  }
-
   // Applied by the wrapping element created by Scrollable.jsx component
   .streets-scrollable-container {
     position: absolute;
@@ -239,6 +217,28 @@ body:not(.safari).gallery-visible #street-section-sky {
       opacity: 1;
     }
   }
+}
+
+a.gallery-new-street {
+  position: absolute;
+  top: 10px;
+  width: 100px;
+  height: 43px;
+  padding-top: 15px;
+  padding-left: 0;
+  padding-right: 0;
+  line-height: 15px;
+  font-weight: bold;
+}
+
+a.gallery-copy-last-street {
+  position: absolute;
+  top: 80px;
+  width: 100px;
+  height: 40px;
+  padding-left: 0;
+  padding-right: 0;
+  line-height: 40px;
 }
 
 body:not(.gallery-no-move-transition) .main-screen,
