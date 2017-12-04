@@ -6,7 +6,6 @@ import { MODES, getMode, setMode } from '../app/mode'
 import { updatePageUrl } from '../app/page_url'
 import { hideStatusMessage } from '../app/status_message'
 import { app } from '../preinit/app_settings'
-import { system } from '../preinit/system_capabilities'
 import { hideControls } from '../segments/resizing'
 import {
   DEFAULT_NAME,
@@ -24,16 +23,6 @@ const galleryState = {
   // set to true when the current street is deleted from the gallery
   // this prevents the gallery from being hidden while no street is shown
   noStreetSelected: false
-}
-
-export function attachGalleryViewEventListeners () {
-  window.addEventListener('stmx:init', function () {
-    document.querySelector('#gallery-shield').addEventListener('pointerdown', onGalleryShieldClick)
-  })
-
-  window.addEventListener('stmx:everything_loaded', function () {
-    updateGalleryShield()
-  })
 }
 
 export function showGallery (userId, instant, signInPromo = false) {
@@ -151,18 +140,4 @@ export function switchGalleryStreet (id) {
 function loadGalleryContents () {
   store.dispatch(setGalleryMode('LOADING'))
   fetchGalleryData()
-}
-
-function onGalleryShieldClick (event) {
-  hideGallery(false)
-}
-
-function updateGalleryShield () {
-  document.querySelector('#gallery-shield').style.width = 0
-  window.setTimeout(function () {
-    document.querySelector('#gallery-shield').style.height =
-      system.viewportHeight + 'px'
-    document.querySelector('#gallery-shield').style.width =
-      document.querySelector('#street-section-outer').scrollWidth + 'px'
-  }, 0)
 }

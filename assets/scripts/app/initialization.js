@@ -1,7 +1,7 @@
 import { hideLoadingScreen, checkIfImagesLoaded } from './load_resources'
 import { initLocale } from './locale'
 import { scheduleNextLiveUpdateCheck } from './live_update'
-import { showGallery, attachGalleryViewEventListeners } from '../gallery/view'
+import { showGallery } from '../gallery/view'
 import { app } from '../preinit/app_settings'
 import { debug } from '../preinit/debug_settings'
 import { system } from '../preinit/system_capabilities'
@@ -82,7 +82,6 @@ function preInit () {
   attachBlockingShieldEventListeners()
   registerKeypresses()
   infoBubble.registerKeypresses()
-  attachGalleryViewEventListeners()
   attachStreetScrollEventListeners()
   attachFetchNonBlockingEventListeners()
 }
