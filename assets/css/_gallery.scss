@@ -1,5 +1,5 @@
 body.gallery-visible {
-  #main-screen {
+  .main-screen {
     transform: translateY($gallery-height - 90px);
   }
 
@@ -27,18 +27,8 @@ body:not(.safari).gallery-visible #street-section-sky {
   transform-origin: 50% 0;
 
   .avatar {
-    position: absolute;
-    left: 20px;
-    top: 12px;
     width: 32px;
     height: 32px;
-  }
-
-  .user-id {
-    position: absolute;
-    left: 60px;
-    top: 15px;
-    font-size: 24px;
   }
 
   .twitter-profile {
@@ -56,35 +46,29 @@ body:not(.safari).gallery-visible #street-section-sky {
     color: rgb(128, 128, 128);
   }
 
-  #new-street {
-    left: 20px;
-    top: 60px;
-    width: 100px;
-    height: 43px;
+  // Applied by the wrapping element created by Scrollable.jsx component
+  .streets-scrollable-container {
     position: absolute;
-    padding-top: 15px;
-    padding-left: 0;
-    padding-right: 0;
-    line-height: 15px;
-    font-weight: bold;
+    left: 110px + 10px;
+    right: 0;
+    top: 1px;
+    height: $gallery-height;
   }
 
-  #copy-last-street {
-    left: 20px;
-    top: 130px;
-    width: 100px;
-    height: 40px;
-    padding-left: 0;
-    padding-right: 0;
-    line-height: 40px;
-    position: absolute;
+  .gallery-streets-container-full .streets-scrollable-container {
+    left: 0;
   }
 
-  &.another-user #new-street,
-  &.another-user #copy-last-street,
-  &.all-streets #new-street,
-  &.all-streets #copy-last-street {
-    display: none !important;
+  button.scrollable {
+    margin-top: 45px;
+
+    &.scroll-left {
+      left: -10px !important;
+    }
+
+    &.scroll-right {
+      right: -10px !important;
+    }
   }
 
   .streets {
@@ -92,155 +76,177 @@ body:not(.safari).gallery-visible #street-section-sky {
     padding: 0;
     margin: 0;
     white-space: nowrap;
-    position: absolute;
-    left: 130px + 10px;
-    right: 5px + 10px;
-    top: 50px;
     height: $gallery-height + 20px; // To cover the scroll bar
     overflow-x: scroll;
-
-    > li {
-      display: inline-block;
-    }
-
-    > li > a {
-      display: inline-block;
-      position: relative;
-      width: $thumbnail-width;
-      height: $thumbnail-height - 10px;
-      margin: 10px;
-      margin-top: 5px;
-      padding: 5px 0;
-      border-top: 3px solid darken($ui-colour, 10%);
-      border-bottom: 3px solid darken($ui-colour, 10%);
-      background: fade-out($sky-colour, 0.2);
-      color: black;
-      font-size: 13px;
-      text-decoration: none;
-      text-align: center;
-      vertical-align: top;
-      white-space: normal;
-      cursor: pointer;
-
-      canvas {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: $thumbnail-width;
-        height: $thumbnail-height;
-      }
-
-      &:first-child {
-        margin-left: 0;
-      }
-
-      .creator {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 18px;
-        text-align: center;
-        display: block;
-        font-size: 11px;
-        color: black;
-      }
-
-      .date {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 5px;
-        text-align: center;
-        display: block;
-        font-size: 11px;
-        color: black;
-        font-weight: 300;
-      }
-
-      button.remove {
-        display: none;
-        position: absolute;
-        top: -10px;
-        right: -5px;
-        padding: 0 10px;
-        font-size: 16px;
-        line-height: 25px;
-      }
-
-      &:hover {
-        background: fade-out($ui-colour, 0.1);
-
-        button.remove {
-          display: block;
-        }
-      }
-
-      &.virgin:not(.selected) {
-        opacity: 0.33;
-      }
-
-      &.selected {
-        background: darken($ui-colour, 10%);
-        border-top-color: black;
-        border-bottom-color: black;
-
-        canvas {
-          opacity: 1;
-        }
-      }
-    }
-  }
-
-  &.another-user .streets,
-  &.all-streets .streets {
-    left: 23px;
-  }
-
-  .loading {
-    display: none;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: $gallery-height;
-    line-height: $gallery-height;
-    text-align: center;
-    z-index: $z-03-gallery-message;
-    background: white;
-
-    &.visible {
-      display: block;
-    }
-  }
-
-  .error-loading,
-  .sign-in-promo {
-    display: none;
-    position: absolute;
-    left: 5px;
-    right: 5px;
-    top: 5px;
-    height: $gallery-height;
-    text-align: center;
-    z-index: $z-03-gallery-message;
-    background: white;
-    padding-top: 80px;
-
-    &.visible {
-      display: block;
-    }
-
-    a {
-      color: inherit;
-    }
   }
 }
 
-#gallery-try-again {
+.gallery-loading,
+.gallery-error,
+.gallery-sign-in-promo {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: $z-03-gallery-message;
+
+  a {
+    color: inherit;
+  }
+}
+
+.gallery-label {
+  position: absolute;
+  left: 17px;
+  top: 11px;
+  font-size: 1.5em;
+}
+
+.gallery-user-id {
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.gallery-streets-container {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  top: 50px;
+}
+
+.gallery-try-again {
   margin-left: 10px;
 }
 
-body:not(.gallery-no-move-transition) #main-screen,
+.gallery-street-item {
+  display: inline-block;
+
+  &:last-child a {
+    margin-right: 0;
+  }
+}
+
+.gallery-street-item > a {
+  display: inline-block;
+  color: black;
+  text-decoration: none;
+  vertical-align: top;
+  width: $thumbnail-width;
+  height: $thumbnail-height - 10px;
+  margin: 10px;
+  margin-top: 5px;
+  background: fade-out($sky-colour, 0.2);
+  padding: 5px 0;
+  border-top: 3px solid darken($ui-colour, 10%);
+  border-bottom: 3px solid darken($ui-colour, 10%);
+  text-align: center;
+  white-space: normal;
+  cursor: pointer;
+  font-size: 13px;
+  position: relative;
+
+  canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: $thumbnail-width;
+    height: $thumbnail-height;
+  }
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  .creator {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 18px;
+    text-align: center;
+    display: block;
+    font-size: 11px;
+    color: black;
+  }
+
+  .date {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 5px;
+    text-align: center;
+    display: block;
+    font-size: 11px;
+    color: black;
+    font-weight: 300;
+  }
+
+  button.remove {
+    position: absolute;
+    font-size: 16px;
+    padding: 0 10px;
+    line-height: 25px;
+    top: -10px;
+    right: -5px;
+    display: none;
+    user-select: none;
+  }
+
+  &:hover {
+    background: fade-out($ui-colour, 0.1);
+
+    button.remove {
+      display: block;
+    }
+  }
+
+  &.virgin:not(.selected) {
+    opacity: 0.33;
+  }
+
+  &.selected {
+    background: darken($ui-colour, 10%);
+    border-top-color: black;
+    border-bottom-color: black;
+
+    canvas {
+      opacity: 1;
+    }
+  }
+}
+
+.gallery-user-buttons {
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+  height: 115px;
+  margin-top: 6px;
+
+  a.button-like {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center;
+  }
+}
+
+a.gallery-new-street {
+  flex-grow: 1;
+  font-weight: bold;
+}
+
+a.gallery-copy-last-street {
+  height: 40px;
+  flex-basis: 40px;
+  margin-top: 10px;
+}
+
+body:not(.gallery-no-move-transition) .main-screen,
 body:not(.gallery-no-move-transition) #gallery,
 body:not(.gallery-no-move-transition) #street-name-canvas,
 body:not(.gallery-no-move-transition) #street-section-sky {

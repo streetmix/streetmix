@@ -12,6 +12,10 @@ export default class Scrollable extends React.PureComponent {
     setRef: PropTypes.func
   }
 
+  static defaultProps = {
+    setRef: function noop () {}
+  }
+
   constructor (props) {
     super(props)
 
@@ -19,14 +23,16 @@ export default class Scrollable extends React.PureComponent {
   }
 
   componentDidMount () {
-    window.addEventListener('resize', () => {
-      this.checkButtonVisibilityState()
-    })
+    window.addEventListener('resize', this.checkButtonVisibilityState)
 
     this.leftButton.style.left = '-15px'
     this.rightButton.style.right = '-15px'
 
     this.checkButtonVisibilityState()
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('resize', this.checkButtonVisibilityState)
   }
 
   onClickLeft = (event) => {

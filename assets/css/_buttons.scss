@@ -14,18 +14,6 @@ button.scroll,
   }
 }
 
-#gallery button.scroll {
-  margin-top: 95px;
-
-  &.scroll-left {
-    margin-left: -35px - 40px;
-  }
-
-  &.scroll-right {
-    margin-left: -20px - 70px;
-  }
-}
-
 button.close {
   @include appearance(none);
 

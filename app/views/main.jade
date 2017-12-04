@@ -2,31 +2,6 @@ extends _layout
 
 block main
   include ./ui/blocking
-  include ./ui/gallery
 
-  #main-screen
-
-    //- Mount point for React
-    #react-app
-
-    .info-bubble
-
-    section#street-section-outer
-      #gallery-shield
-
-      section#street-section-inner
-        section#street-section-canvas
-          section.street-section-building#street-section-left-building
-            .hover-bk
-          section.street-section-building#street-section-right-building
-            .hover-bk
-          #street-section-editable
-          .segment.empty#street-section-left-empty-space
-          .segment.empty#street-section-right-empty-space
-          section#street-section-dirt
-
-    section#street-section-sky
-      .rear-clouds
-      .front-clouds
-    #street-scroll-indicator-left
-    #street-scroll-indicator-right
+  //- Mount point for React
+  #react-app

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { formatDate } from '../util/date_format'
-import { msg } from '../app/messages'
+import { t } from '../app/locale'
 import { getRemixOnFirstEdit } from './remix'
 import { showGallery } from '../gallery/view'
 import store from '../store'
@@ -56,7 +56,7 @@ class StreetMetaData extends React.Component {
         <a className="user-gallery" href={'/' + creatorId} onClick={this.onClickAuthor}>{creatorId}</a>
       </span>
     } else if (!creatorId && (this.props.signedIn || getRemixOnFirstEdit())) {
-      author = <span>by {msg('USER_ANONYMOUS')}</span>
+      author = <span>by {t('users.anonymous', 'Anonymous')}</span>
     }
 
     const geolocation = (this.props.experimental) ? (

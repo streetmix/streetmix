@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import app from './app'
 import debug from './debug'
 import dialogs from './dialogs'
+import gallery from './gallery'
 import map from './map'
 import menus from './menus'
 import settings from './settings'
@@ -15,6 +16,7 @@ const reducers = combineReducers({
   app,
   debug,
   dialogs,
+  gallery,
   map,
   menus,
   settings,

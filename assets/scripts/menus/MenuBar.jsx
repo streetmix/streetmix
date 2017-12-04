@@ -7,7 +7,7 @@ import EnvironmentBadge from './EnvironmentBadge'
 // import { t } from '../app/locale'
 import { debug } from '../preinit/debug_settings'
 import { URL_SIGN_IN_REDIRECT } from '../app/routing'
-import { onMyStreetsClick } from '../gallery/view'
+import { showGallery } from '../gallery/view'
 import { getElAbsolutePos } from '../util/helpers'
 import Avatar from '../app/Avatar'
 
@@ -64,6 +64,19 @@ class MenuBar extends React.PureComponent {
     const name = buttonEl.dataset.name
     const position = getElAbsolutePos(buttonEl.parentNode)
     this.props.onMenuDropdownClick({ name, position })
+  }
+
+  onClickMyStreets = (event) => {
+    event.preventDefault()
+    if (event.shiftKey || event.ctrlKey || event.metaKey) {
+      return
+    }
+
+    if (this.props.userId) {
+      showGallery(this.props.userId, false)
+    } else {
+      showGallery(null, false, true)
+    }
   }
 
   onResize = () => {
@@ -167,7 +180,7 @@ class MenuBar extends React.PureComponent {
             </a>
           </li>
           <li className="hide-for-no-internet">
-            <a href={myStreetsLink} data-i18n="menu.item.my-streets" onClick={onMyStreetsClick}>
+            <a href={myStreetsLink} data-i18n="menu.item.my-streets" onClick={this.onClickMyStreets}>
               My streets
             </a>
           </li>

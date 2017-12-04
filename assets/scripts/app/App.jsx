@@ -8,18 +8,24 @@ import StatusMessage from './StatusMessage'
 import NoConnectionMessage from './NoConnectionMessage'
 import Flash from './Flash'
 import DebugInfo from './DebugInfo'
+import Gallery from '../gallery/Gallery'
+import BlockingError from './BlockingError'
+import MiscHTMLStuff from './MiscHTMLStuff'
 import PrintContainer from './PrintContainer'
 
 export default class App extends React.PureComponent {
   render () {
     return (
       <div>
+        <BlockingError />
+        <Gallery />
         <div className="main-screen">
           <MenusContainer />
           <StreetNameCanvas />
           <WelcomePanel />
           <Palette />
           <DialogRoot />
+          <MiscHTMLStuff />
           <StatusMessage />
           <NoConnectionMessage />
         </div>

@@ -2,7 +2,6 @@
  * Streetmix
  *
  */
-
 import Raven from 'raven-js'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -20,8 +19,10 @@ import './vendor/polyfills/Number.isInteger' // for IE
 import './vendor/polyfills/Element.closest'
 import './vendor/polyfills/Element.remove'
 
-// Main object
+// Redux
 import store from './store'
+
+// Main object
 import { initialize } from './app/initialization'
 import { startListening } from './app/keypress'
 import { system } from './preinit/system_capabilities'
@@ -48,9 +49,10 @@ function setScaleForPhone () {
   var headEls = document.getElementsByTagName('head')
   headEls[0].appendChild(meta)
 }
+
 setScaleForPhone()
 
-// Temp: mount React components
+// Mount React components
 ReactDOM.render(
   <Provider store={store}>
     <App />
