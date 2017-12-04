@@ -219,26 +219,31 @@ body:not(.safari).gallery-visible #street-section-sky {
   }
 }
 
-a.gallery-new-street {
-  position: absolute;
-  top: 10px;
+.gallery-user-buttons {
+  display: flex;
+  flex-direction: column;
   width: 100px;
-  height: 43px;
-  padding-top: 15px;
-  padding-left: 0;
-  padding-right: 0;
-  line-height: 15px;
+  height: 115px;
+  margin-top: 6px;
+
+  a.button-like {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center;
+  }
+}
+
+a.gallery-new-street {
+  flex-grow: 1;
   font-weight: bold;
 }
 
 a.gallery-copy-last-street {
-  position: absolute;
-  top: 80px;
-  width: 100px;
   height: 40px;
-  padding-left: 0;
-  padding-right: 0;
-  line-height: 40px;
+  flex-basis: 40px;
+  margin-top: 10px;
 }
 
 body:not(.gallery-no-move-transition) .main-screen,
