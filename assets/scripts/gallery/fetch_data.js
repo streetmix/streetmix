@@ -1,6 +1,5 @@
 import { API_URL } from '../app/config'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
-import { getGalleryUserId } from '../app/page_url'
 import { getAuthHeader } from '../users/authentication'
 import { receiveGalleryData, hideGallery } from './view'
 
@@ -8,9 +7,14 @@ import { receiveGalleryData, hideGallery } from './view'
 import store from '../store'
 import { setGalleryMode } from '../store/actions/gallery'
 
+function getGalleryUserId () {
+  return store.getState().gallery.userId
+}
+
 export function fetchGalleryData () {
-  if (getGalleryUserId()) {
-    const url = API_URL + 'v1/users/' + getGalleryUserId() + '/streets'
+  const galleryUserId = getGalleryUserId()
+  if (galleryUserId) {
+    const url = API_URL + 'v1/users/' + galleryUserId + '/streets'
     const options = {
       headers: { 'Authorization': getAuthHeader() }
     }

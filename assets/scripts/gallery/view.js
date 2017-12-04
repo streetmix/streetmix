@@ -3,10 +3,7 @@ import { showError, ERRORS } from '../app/errors'
 import { onWindowFocus } from '../app/focus'
 import { getAbortEverything } from '../app/initialization'
 import { MODES, getMode, setMode } from '../app/mode'
-import {
-  setGalleryUserId,
-  updatePageUrl
-} from '../app/page_url'
+import { updatePageUrl } from '../app/page_url'
 import { hideStatusMessage } from '../app/status_message'
 import { app } from '../preinit/app_settings'
 import { system } from '../preinit/system_capabilities'
@@ -51,7 +48,6 @@ export function showGallery (userId, instant, signInPromo = false) {
 
   galleryState.streetLoaded = true
   galleryState.streetId = getStreet().id
-  setGalleryUserId(userId)
 
   store.dispatch({
     type: SET_GALLERY_STATE,
