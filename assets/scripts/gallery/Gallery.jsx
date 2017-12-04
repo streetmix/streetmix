@@ -49,10 +49,6 @@ class Gallery extends React.Component {
       preventHide: false,
       mode: this.props.mode
     }
-
-    this.selectStreet = this.selectStreet.bind(this)
-    this.deleteStreet = this.deleteStreet.bind(this)
-    this.scrollSelectedStreetIntoView = this.scrollSelectedStreetIntoView.bind(this)
   }
 
   componentDidMount () {
