@@ -11,7 +11,6 @@ import Scrollable from '../ui/Scrollable'
 import Avatar from '../app/Avatar'
 import GalleryStreetItem from './GalleryStreetItem'
 import { switchGalleryStreet, repeatReceiveGalleryData } from './view'
-import { getSignInData, isSignedIn } from '../users/authentication'
 import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/routing'
 import { sendDeleteStreetToServer } from '../streets/xhr'
 import { getStreet } from '../streets/data_model'
@@ -34,11 +33,14 @@ class Gallery extends React.Component {
     dispatch: PropTypes.func.isRequired,
     userId: PropTypes.string,
     mode: PropTypes.string,
-    streets: PropTypes.array.isRequired
+    streets: PropTypes.array.isRequired,
+    signInData: PropTypes.object,
+    isSignedIn: PropTypes.bool
   }
 
   static defaultProps = {
-    streets: []
+    streets: [],
+    signInData: {}
   }
 
   constructor (props) {
@@ -47,7 +49,8 @@ class Gallery extends React.Component {
     this.state = {
       selected: null,
       preventHide: false,
-      mode: this.props.mode
+      mode: this.props.mode,
+      isOwnedByCurrentUser: this.props.isSignedIn && (this.props.userId === this.props.signInData.userId)
     }
   }
 
@@ -58,6 +61,14 @@ class Gallery extends React.Component {
   componentWillReceiveProps (nextProps) {
     if (this.state.mode !== nextProps.mode) {
       this.setState({ mode: nextProps.mode })
+    }
+
+    // If gallery's userId changes, check state (via props) to see whether
+    // it matches current signed in user.
+    if (this.props.userId !== nextProps.userId) {
+      this.setState({
+        isOwnedByCurrentUser: nextProps.isSignedIn && (nextProps.userId === nextProps.signInData.userId)
+      })
     }
   }
 
@@ -152,14 +163,14 @@ class Gallery extends React.Component {
         // Applies a class to the containing element if no user ID is provided
         // (which displays all streets) or if the user ID provided is different
         // from a currently signed-in user
-        let galleryFullWidthClass = ''
-        if (!this.props.userId || !(isSignedIn() && (this.props.userId === getSignInData().userId))) {
-          galleryFullWidthClass = 'gallery-streets-container-full'
+        let galleryClassName = 'gallery-streets-container'
+        if (!this.props.userId || !this.state.isOwnedByCurrentUser) {
+          galleryClassName += ' gallery-streets-container-full'
         }
 
         // Display these buttons for a user viewing their own gallery
         let buttons
-        if (isSignedIn() && (this.props.userId === getSignInData().userId)) {
+        if (this.state.isOwnedByCurrentUser) {
           buttons = (
             <div className="gallery-user-buttons">
               <a className="button-like gallery-new-street" href={`/${URL_NEW_STREET}`} target="_blank">
@@ -181,6 +192,7 @@ class Gallery extends React.Component {
               selected={isSelected}
               handleSelect={this.selectStreet}
               handleDelete={this.deleteStreet}
+              allowDelete={this.state.isOwnedByCurrentUser}
             />
           )
         })
@@ -192,7 +204,7 @@ class Gallery extends React.Component {
           <div>
             {label}
             {streetCount}
-            <div className={'gallery-streets-container ' + galleryFullWidthClass}>
+            <div className={galleryClassName}>
               {buttons}
               <Scrollable className="streets">
                 {items}
@@ -216,7 +228,9 @@ function mapStateToProps (state) {
     visible: state.gallery.visible,
     userId: state.gallery.userId,
     mode: state.gallery.mode,
-    streets: state.gallery.streets
+    streets: state.gallery.streets,
+    signInData: state.user.signInData,
+    isSignedIn: state.user.signedIn
   }
 }
 

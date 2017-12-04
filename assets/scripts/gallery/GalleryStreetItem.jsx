@@ -10,7 +10,6 @@ import StreetName from '../streets/StreetName'
 import { t } from '../app/locale'
 import { formatDate } from '../util/date_format'
 import { drawStreetThumbnail } from './thumbnail'
-import { getSignInData, isSignedIn } from '../users/authentication'
 import { getStreetUrl } from '../streets/data_model'
 
 const THUMBNAIL_WIDTH = 180
@@ -24,11 +23,14 @@ class GalleryStreetItem extends React.Component {
     street: PropTypes.object.isRequired,
     handleSelect: PropTypes.func.isRequired,
     handleDelete: PropTypes.func.isRequired,
+    allowDelete: PropTypes.bool,
     hiDpi: PropTypes.number
   }
 
   static defaultProps = {
-    selected: false
+    selected: false,
+    handleDelete: () => {}, // no-op
+    allowDelete: false
   }
 
   componentDidMount () {
@@ -92,7 +94,7 @@ class GalleryStreetItem extends React.Component {
 
           {(() => {
             // Only show delete links if you own the street
-            if (isSignedIn() && (this.props.street.creatorId === getSignInData().userId)) {
+            if (this.props.allowDelete) {
               return (
                 <button
                   className="remove"
