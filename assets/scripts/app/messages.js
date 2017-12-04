@@ -21,10 +21,6 @@ const messages = {
 
   USER_ANONYMOUS: 'Anonymous',
 
-  STREET_COUNT_0: 'No streets yet',
-  STREET_COUNT_1: '1 street',
-  STREET_COUNT_MANY: '{{streetCount}} streets',
-
   DEFAULT_STREET_NAME: 'Unnamed St',
 
   SEGMENT_NAME_EMPTY: 'Empty space'

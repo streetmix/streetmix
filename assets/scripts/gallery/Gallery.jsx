@@ -13,7 +13,6 @@ import GalleryStreetItem from './GalleryStreetItem'
 import { switchGalleryStreet, repeatReceiveGalleryData } from './view'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/routing'
-import { msg } from '../app/messages'
 import { sendDeleteStreetToServer } from '../streets/xhr'
 import { getStreet } from '../streets/data_model'
 import { showError, ERRORS } from '../app/errors'
@@ -22,16 +21,10 @@ import { deleteGalleryStreet } from '../store/actions/gallery'
 
 function getStreetCountText (count) {
   let text
-  switch (count) {
-    case 0:
-      text = msg('STREET_COUNT_0')
-      break
-    case 1:
-      text = msg('STREET_COUNT_1')
-      break
-    default:
-      text = msg('STREET_COUNT_MANY', { streetCount: count })
-      break
+  if (!count) {
+    text = t('gallery.street-count-none', 'No streets yet')
+  } else {
+    text = t('gallery.street-count', '{{count}} streets', { count })
   }
   return text
 }

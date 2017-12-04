@@ -189,11 +189,9 @@
     "all": "All streets",
     "twitter-link": "Twitter profile",
     "delete-street-tooltip": "Delete street",
-    "count": {
-      "none": "No streets yet",
-      "one": "1 street",
-      "many": "%s streets"
-    }
+    "street-count-none": "No streets yet",
+    "street-count": "{{count}} street",
+    "street-count_plural": "{{count}} streets"
   },
   "users": {
     "anonymous": "Anonymous",
