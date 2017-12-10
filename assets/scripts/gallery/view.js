@@ -3,17 +3,12 @@ import { showError, ERRORS } from '../app/errors'
 import { onWindowFocus } from '../app/focus'
 import { getAbortEverything } from '../app/initialization'
 import { MODES, getMode, setMode } from '../app/mode'
-import {
-  setGalleryUserId,
-  updatePageUrl
-} from '../app/page_url'
+import { updatePageUrl } from '../app/page_url'
 import { hideStatusMessage } from '../app/status_message'
 import { app } from '../preinit/app_settings'
-import { system } from '../preinit/system_capabilities'
 import { hideControls } from '../segments/resizing'
 import {
   DEFAULT_NAME,
-  getStreet,
   updateToLatestSchemaVersion
 } from '../streets/data_model'
 import { fetchGalleryData } from './fetch_data'
@@ -24,22 +19,10 @@ import store from '../store'
 import { SET_GALLERY_STATE } from '../store/actions'
 import { setGalleryMode, hideGallery as hideGalleryAction } from '../store/actions/gallery'
 
-export const galleryState = {
-  streetId: null,
-  streetLoaded: false,
+const galleryState = {
   // set to true when the current street is deleted from the gallery
   // this prevents the gallery from being hidden while no street is shown
   noStreetSelected: false
-}
-
-export function attachGalleryViewEventListeners () {
-  window.addEventListener('stmx:init', function () {
-    document.querySelector('#gallery-shield').addEventListener('pointerdown', onGalleryShieldClick)
-  })
-
-  window.addEventListener('stmx:everything_loaded', function () {
-    updateGalleryShield()
-  })
 }
 
 export function showGallery (userId, instant, signInPromo = false) {
@@ -48,10 +31,6 @@ export function showGallery (userId, instant, signInPromo = false) {
   }
 
   trackEvent('INTERACTION', 'OPEN_GALLERY', userId, null, false)
-
-  galleryState.streetLoaded = true
-  galleryState.streetId = getStreet().id
-  setGalleryUserId(userId)
 
   store.dispatch({
     type: SET_GALLERY_STATE,
@@ -93,7 +72,7 @@ export function hideGallery (instant) {
     return
   }
 
-  if (galleryState.streetLoaded) {
+  if (store.getState().gallery.visible) {
     store.dispatch(hideGalleryAction())
 
     if (instant) {
@@ -153,27 +132,12 @@ export function repeatReceiveGalleryData () {
 }
 
 export function switchGalleryStreet (id) {
-  galleryState.streetId = id
   galleryState.noStreetSelected = false
 
-  fetchGalleryStreet(galleryState.streetId)
+  fetchGalleryStreet(id)
 }
 
 function loadGalleryContents () {
   store.dispatch(setGalleryMode('LOADING'))
   fetchGalleryData()
-}
-
-function onGalleryShieldClick (event) {
-  hideGallery(false)
-}
-
-function updateGalleryShield () {
-  document.querySelector('#gallery-shield').style.width = 0
-  window.setTimeout(function () {
-    document.querySelector('#gallery-shield').style.height =
-      system.viewportHeight + 'px'
-    document.querySelector('#gallery-shield').style.width =
-      document.querySelector('#street-section-outer').scrollWidth + 'px'
-  }, 0)
 }

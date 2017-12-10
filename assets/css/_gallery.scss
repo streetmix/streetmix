@@ -257,11 +257,13 @@ body.safari #gallery {
   transform: translateY(-$gallery-height - 3px);
 }
 
-#gallery-shield {
+.gallery-shield {
   position: absolute;
   display: none;
   left: 0;
-  top: 90px;
+  top: -90px;
+  width: 100vw;
+  height: 100vh;
   cursor: pointer;
   z-index: $z-08-gallery-shield;
 }
@@ -271,6 +273,6 @@ body.gallery-visible #gallery {
   pointer-events: auto;
 }
 
-body.gallery-visible #gallery-shield {
+body.gallery-visible .gallery-shield {
   display: block;
 }

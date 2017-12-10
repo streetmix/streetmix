@@ -27,17 +27,16 @@ export function deleteGalleryStreet (streetId) {
   }
 }
 
-export function setGalleryState (state) {
+export function setGalleryMode (mode) {
   return {
-    ...state,
-    type: SET_GALLERY_STATE
+    type: SET_GALLERY_STATE,
+    mode
   }
 }
 
-export function setGalleryMode (mode, state) {
+export function setGalleryUserId (userId) {
   return {
-    ...state,
-    mode,
-    type: SET_GALLERY_STATE
+    type: SET_GALLERY_STATE,
+    userId
   }
 }

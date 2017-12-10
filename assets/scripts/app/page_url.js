@@ -10,22 +10,13 @@ import {
   URL_NO_USER,
   URL_RESERVED_PREFIX
 } from './routing'
+import { setGalleryUserId } from '../store/actions/gallery'
+import store from '../store'
 
 let errorUrl = ''
 
 export function getErrorUrl () {
   return errorUrl
-}
-
-// TODO: replace with state obj in gallery
-let galleryUserId = null
-
-export function getGalleryUserId () {
-  return galleryUserId
-}
-
-export function setGalleryUserId (value) {
-  galleryUserId = value
 }
 
 export function processUrl () {
@@ -71,7 +62,7 @@ export function processUrl () {
   } else if ((urlParts.length === 1) && urlParts[0]) {
     // User gallery
 
-    galleryUserId = urlParts[0]
+    store.dispatch(setGalleryUserId(urlParts[0]))
 
     setMode(MODES.USER_GALLERY)
   } else if ((urlParts.length === 2) && (urlParts[0] === URL_NO_USER) && urlParts[1]) {
@@ -92,7 +83,7 @@ export function processUrl () {
 
     // if `urlParts[1]` is not an integer, redirect to user's gallery
     if (Number.isInteger(window.parseInt(urlParts[1])) === false) {
-      galleryUserId = urlParts[0]
+      store.dispatch(setGalleryUserId(urlParts[0]))
       setMode(MODES.USER_GALLERY)
     } else {
       street.namespacedId = urlParts[1]
@@ -106,7 +97,8 @@ export function processUrl () {
 export function updatePageUrl (forceGalleryUrl) {
   let url
   if (forceGalleryUrl) {
-    var slug = galleryUserId || 'gallery/'
+    const galleryUserId = store.getState().gallery.userId
+    const slug = galleryUserId || 'gallery/'
     url = '/' + slug
   } else {
     url = getStreetUrl(getStreet())
