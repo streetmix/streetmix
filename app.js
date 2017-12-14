@@ -31,7 +31,8 @@ app.locals.config = config
 const helmetConfig = {
   frameguard: false, // Allow Streetmix to be iframed in 3rd party sites
   hsts: {
-    maxAge: 7776000 // 90 days
+    maxAge: 5184000, // 60 days
+    includeSubDomains: false // we don't have a wildcard ssl cert
   },
   referrerPolicy: {
     policy: 'no-referrer-when-downgrade'
