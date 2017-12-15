@@ -56,10 +56,13 @@ const WIDTH_EDIT_INPUT_DELAY = 200
 let widthHeightEditHeld = false
 let widthHeightChangeTimerId = -1
 
+function isInfoBubbleVisible () {
+  return store.getState().infoBubble.visible
+}
+
 export const infoBubble = {
   mouseInside: false,
 
-  visible: false,
   el: null,
   transitionEl: null, // Container element created in React to do vanilla DOM manipulation
 
@@ -96,7 +99,7 @@ export const infoBubble = {
     // description is NOT visible. (If the description
     // is visible, the escape key should hide that first.)
     registerKeypress('esc', {
-      condition: function () { return infoBubble.visible && !infoBubble.descriptionVisible }
+      condition: function () { return isInfoBubbleVisible() && !infoBubble.descriptionVisible }
     }, function () {
       infoBubble.hide()
       infoBubble.hideSegment(false)
@@ -145,7 +148,7 @@ export const infoBubble = {
   },
 
   updateHoverPolygon: function (mouseX, mouseY) {
-    if (!infoBubble.visible) {
+    if (!isInfoBubbleVisible()) {
       infoBubble.hoverPolygon = []
       window.dispatchEvent(new CustomEvent('stmx:update_debug_hover_polygon'))
       return
@@ -241,7 +244,7 @@ export const infoBubble = {
     infoBubble.lastMouseX = mouseX
     infoBubble.lastMouseY = mouseY
 
-    if (infoBubble.visible) {
+    if (isInfoBubbleVisible()) {
       if (!infoBubble._withinHoverPolygon(mouseX, mouseY)) {
         infoBubble.show(false)
       }
@@ -277,7 +280,6 @@ export const infoBubble = {
       hideDescription()
       document.body.classList.remove('controls-fade-out')
 
-      infoBubble.visible = false
       store.dispatch(hideInfoBubble())
 
       document.body.removeEventListener('mousemove', infoBubble.onBodyMouseMove)
@@ -305,7 +307,7 @@ export const infoBubble = {
       return
     }
 
-    if (!infoBubble.visible || !infoBubble._withinHoverPolygon(infoBubble.considerMouseX, infoBubble.considerMouseY)) {
+    if (!isInfoBubbleVisible() || !infoBubble._withinHoverPolygon(infoBubble.considerMouseX, infoBubble.considerMouseY)) {
       infoBubble.show(false)
     }
   },
@@ -446,7 +448,7 @@ export const infoBubble = {
 
   updateHeightInContents: function (left) {
     let street = getStreet()
-    if (!infoBubble.visible ||
+    if (!isInfoBubbleVisible() ||
       (left && (infoBubble.type !== INFO_BUBBLE_TYPE_LEFT_BUILDING)) ||
       (!left && (infoBubble.type !== INFO_BUBBLE_TYPE_RIGHT_BUILDING))) {
       return
@@ -470,7 +472,7 @@ export const infoBubble = {
   },
 
   updateWidthInContents: function (segmentEl, width) {
-    if (!infoBubble.visible || !infoBubble.segmentEl ||
+    if (!isInfoBubbleVisible() || !infoBubble.segmentEl ||
       (infoBubble.segmentEl !== segmentEl)) {
       return
     }
@@ -729,7 +731,7 @@ export const infoBubble = {
       segmentEl.classList.add('hover')
       segmentEl.classList.add('show-drag-handles')
     }
-    if (infoBubble.visible) {
+    if (isInfoBubbleVisible()) {
       segmentEl.classList.add('immediate-show-drag-handles')
 
       if (infoBubble.descriptionVisible) {
@@ -770,10 +772,9 @@ export const infoBubble = {
     infoBubble.el.style.left = bubbleX + 'px'
     infoBubble.el.style.top = bubbleY + 'px'
 
-    if (!infoBubble.visible) {
-      infoBubble.visible = true
+    if (!isInfoBubbleVisible()) {
+      store.dispatch(showInfoBubble())
     }
-    store.dispatch(showInfoBubble())
 
     const dataNo = segmentEl.dataNo
     store.dispatch(setInfoBubbleSegmentDataNo(dataNo))
