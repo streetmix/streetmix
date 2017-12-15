@@ -49,6 +49,26 @@ class InfoBubble extends React.Component {
   onTouchStart (event) {
     resumeFadeoutControls()
   }
+  
+  // TODO: verify this continues to work with pointer / touch taps
+  onMouseEnter = (event) => {
+    if (infoBubble.segmentEl) {
+      infoBubble.segmentEl.classList.add('hide-drag-handles-when-inside-info-bubble')
+    }
+
+    infoBubble.mouseInside = true
+
+    infoBubble.updateHoverPolygon()
+  }
+
+  onMouseLeave = (event) => {
+    // TODO: Prevent pointer taps from flashing the drag handles
+    if (infoBubble.segmentEl) {
+      infoBubble.segmentEl.classList.remove('hide-drag-handles-when-inside-info-bubble')
+    }
+
+    infoBubble.mouseInside = false
+  }
 
   updateInfoBubbleState = () => {
     this.setState({
@@ -94,8 +114,8 @@ class InfoBubble extends React.Component {
       <div
         className={className}
         data-type={(type === INFO_BUBBLE_TYPE_SEGMENT) ? 'segment' : 'building'}
-        onMouseEnter={infoBubble.onMouseEnter}
-        onMouseLeave={infoBubble.onMouseLeave}
+        onMouseEnter={this.onMouseEnter}
+        onMouseLeave={this.onMouseLeave}
         onTouchStart={this.onTouchStart}
       >
         <div className="info-bubble-triangle" />

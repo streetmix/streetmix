@@ -127,27 +127,6 @@ export const infoBubble = {
     window.clearTimeout(infoBubble.suppressTimerId)
   },
 
-  onMouseEnter: function () {
-    if (infoBubble.segmentEl) {
-      infoBubble.segmentEl.classList.add('hide-drag-handles-when-inside-info-bubble')
-    }
-
-    infoBubble.mouseInside = true
-
-    infoBubble.updateHoverPolygon()
-  },
-
-  onMouseLeave: function (event) {
-    // Prevent pointer taps from flashing the drag handles
-    if (event.pointerType === 'mouse') {
-      if (infoBubble.segmentEl) {
-        infoBubble.segmentEl.classList.remove('hide-drag-handles-when-inside-info-bubble')
-      }
-    }
-
-    infoBubble.mouseInside = false
-  },
-
   _withinHoverPolygon: function (x, y) {
     const hoverPolygon = store.getState().infoBubble.hoverPolygon
     return _isPointInPoly(hoverPolygon, [x, y])
