@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { msg } from '../app/messages'
+import { t } from '../app/locale'
 import { trackEvent } from '../app/event_tracking'
 import { KEYS } from '../app/keyboard_commands'
 
@@ -208,7 +208,7 @@ class WidthControl extends React.Component {
       <input
         type="text"
         className="width"
-        title={msg('TOOLTIP_SEGMENT_WIDTH')}
+        title={t('tooltip.segment-width', 'Change width of the segment')}
         value={this.state.displayValue}
         onChange={this.onInput}
         onClick={this.onClickInput}
@@ -227,7 +227,7 @@ class WidthControl extends React.Component {
       <div className={widthClassName}>
         <button
           className="decrement"
-          title={msg('TOOLTIP_DECREASE_WIDTH')}
+          title={t('tooltip.decrease-width', 'Decrease width (hold Shift for more precision)')}
           tabIndex={-1}
           onClick={this.onClickWidthDecrement}
         >
@@ -236,7 +236,7 @@ class WidthControl extends React.Component {
         {inputEl}
         <button
           className="increment"
-          title={msg('TOOLTIP_INCREASE_WIDTH')}
+          title={t('tooltip.increase-width', 'Increase width (hold Shift for more precision)')}
           tabIndex={-1}
           onClick={this.onClickWidthIncrement}
         >
