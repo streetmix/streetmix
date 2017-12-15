@@ -40,7 +40,12 @@ import {
   SEGMENT_WARNING_WIDTH_TOO_LARGE
 } from '../streets/width'
 import store from '../store'
-import { showInfoBubble, hideInfoBubble, setInfoBubbleSegmentDataNo } from '../store/actions/infoBubble'
+import {
+  showInfoBubble,
+  hideInfoBubble,
+  setInfoBubbleSegmentDataNo,
+  updateHoverPolygon
+} from '../store/actions/infoBubble'
 
 export const INFO_BUBBLE_TYPE_SEGMENT = 1
 export const INFO_BUBBLE_TYPE_LEFT_BUILDING = 2
@@ -144,14 +149,16 @@ export const infoBubble = {
   },
 
   _withinHoverPolygon: function (x, y) {
-    return _isPointInPoly(infoBubble.hoverPolygon, [x, y])
+    const hoverPolygon = store.getState().infoBubble.hoverPolygon
+    return _isPointInPoly(hoverPolygon, [x, y])
   },
 
-  updateHoverPolygon: function (mouseX, mouseY) {
+  // TODO: make this a pure(r) function
+  createHoverPolygon: function (mouseX, mouseY) {
+    let hoverPolygon = []
+
     if (!isInfoBubbleVisible()) {
-      infoBubble.hoverPolygon = []
-      window.dispatchEvent(new CustomEvent('stmx:update_debug_hover_polygon'))
-      return
+      return hoverPolygon
     }
 
     const bubbleX = infoBubble.bubbleX
@@ -178,7 +185,7 @@ export const infoBubble = {
 
       var segmentY = pos[1] + infoBubble.segmentEl.offsetHeight + INFO_BUBBLE_MARGIN_BUBBLE
 
-      infoBubble.hoverPolygon = [
+      hoverPolygon = [
         [bubbleX - marginBubble, bubbleY - marginBubble],
         [bubbleX - marginBubble, bubbleY + bubbleHeight + marginBubble],
         [segmentX1, bubbleY + bubbleHeight + marginBubble + 120],
@@ -211,7 +218,7 @@ export const infoBubble = {
         diffX = 50
       }
 
-      infoBubble.hoverPolygon = [
+      hoverPolygon = [
         [bubbleX - marginBubble, bubbleY - marginBubble],
         [bubbleX - marginBubble, bubbleY + bubbleHeight + marginBubble],
         [(bubbleX - marginBubble + mouseX - INFO_BUBBLE_MARGIN_MOUSE - diffX) / 2, bottomY + ((bubbleY + bubbleHeight + marginBubble - bottomY) * 0.2)],
@@ -226,7 +233,12 @@ export const infoBubble = {
       ]
     }
 
-    window.dispatchEvent(new CustomEvent('stmx:update_debug_hover_polygon'))
+    return hoverPolygon
+  },
+
+  updateHoverPolygon: function (mouseX, mouseY) {
+    const hoverPolygon = infoBubble.createHoverPolygon(mouseX, mouseY)
+    store.dispatch(updateHoverPolygon(hoverPolygon))
   },
 
   scheduleHoverPolygonUpdate: function () {
