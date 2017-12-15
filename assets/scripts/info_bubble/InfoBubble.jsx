@@ -1,4 +1,6 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import RemoveButton from './RemoveButton'
 import WidthControl from './WidthControl'
 import { infoBubble } from './info_bubble'
@@ -13,7 +15,16 @@ const INFO_BUBBLE_TYPE_SEGMENT = 1
 const INFO_BUBBLE_TYPE_LEFT_BUILDING = 2
 const INFO_BUBBLE_TYPE_RIGHT_BUILDING = 3
 
-export default class InfoBubble extends React.Component {
+class InfoBubble extends React.Component {
+  static propTypes = {
+    visible: PropTypes.bool.isRequired,
+    dataNo: PropTypes.number
+  }
+
+  static defaultProps = {
+    visible: false
+  }
+
   constructor (props) {
     super(props)
 
@@ -52,16 +63,20 @@ export default class InfoBubble extends React.Component {
 
     switch (this.state.type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
-        const segment = street.segments[parseInt(infoBubble.segmentEl.dataNo)]
-        const segmentInfo = SEGMENT_INFO[segment.type]
-        const variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString]
-        name = variantInfo.name || segmentInfo.name
+        const segment = street.segments[this.props.dataNo]
+        if (segment) {
+          const segmentInfo = SEGMENT_INFO[segment.type]
+          const variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString]
+          name = variantInfo.name || segmentInfo.name
+        }
         break
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
         name = BUILDING_VARIANT_NAMES[BUILDING_VARIANTS.indexOf(street.leftBuildingVariant)]
         break
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
         name = BUILDING_VARIANT_NAMES[BUILDING_VARIANTS.indexOf(street.rightBuildingVariant)]
+        break
+      default:
         break
     }
 
@@ -73,10 +88,11 @@ export default class InfoBubble extends React.Component {
     const canBeDeleted = (type === INFO_BUBBLE_TYPE_SEGMENT)
     const showWidth = (type === INFO_BUBBLE_TYPE_SEGMENT)
     const segment = infoBubble.segmentEl
+    const className = 'info-bubble' + ((this.props.visible) ? ' visible' : '')
 
     return (
       <div
-        className="info-bubble"
+        className={className}
         data-type={(type === INFO_BUBBLE_TYPE_SEGMENT) ? 'segment' : 'building'}
         onMouseEnter={infoBubble.onMouseEnter}
         onMouseLeave={infoBubble.onMouseLeave}
@@ -93,3 +109,12 @@ export default class InfoBubble extends React.Component {
     )
   }
 }
+
+function mapStateToProps (state) {
+  return {
+    visible: state.infoBubble.visible,
+    dataNo: state.infoBubble.dataNo
+  }
+}
+
+export default connect(mapStateToProps)(InfoBubble)

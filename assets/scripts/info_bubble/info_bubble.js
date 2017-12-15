@@ -39,6 +39,8 @@ import {
   SEGMENT_WARNING_WIDTH_TOO_SMALL,
   SEGMENT_WARNING_WIDTH_TOO_LARGE
 } from '../streets/width'
+import store from '../store'
+import { showInfoBubble, hideInfoBubble, setInfoBubbleSegmentDataNo } from '../store/actions/infoBubble'
 
 export const INFO_BUBBLE_TYPE_SEGMENT = 1
 export const INFO_BUBBLE_TYPE_LEFT_BUILDING = 2
@@ -275,8 +277,8 @@ export const infoBubble = {
       hideDescription()
       document.body.classList.remove('controls-fade-out')
 
-      infoBubble.el.classList.remove('visible')
       infoBubble.visible = false
+      store.dispatch(hideInfoBubble())
 
       document.body.removeEventListener('mousemove', infoBubble.onBodyMouseMove)
     }
@@ -771,7 +773,10 @@ export const infoBubble = {
     if (!infoBubble.visible) {
       infoBubble.visible = true
     }
-    infoBubble.el.classList.add('visible')
+    store.dispatch(showInfoBubble())
+
+    const dataNo = segmentEl.dataNo
+    store.dispatch(setInfoBubbleSegmentDataNo(dataNo))
 
     infoBubble.bubbleX = bubbleX
     infoBubble.bubbleY = bubbleY
