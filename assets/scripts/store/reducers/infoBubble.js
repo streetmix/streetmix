@@ -2,11 +2,13 @@ import {
   SHOW_INFO_BUBBLE,
   HIDE_INFO_BUBBLE,
   SET_SEGMENT_DATA_NO,
-  UPDATE_HOVER_POLYGON
+  UPDATE_HOVER_POLYGON,
+  SET_INFO_BUBBLE_MOUSE_INSIDE
 } from '../actions'
 
 const initialState = {
   visible: false,
+  mouseInside: false,
   dataNo: null,
   hoverPolygon: []
 }
@@ -21,7 +23,9 @@ const infoBubble = (state = initialState, action) => {
     case HIDE_INFO_BUBBLE:
       return {
         ...state,
-        visible: false
+        visible: false,
+        // When hidden, mouse is never considered to be "inside"
+        mouseInside: false
       }
     case SET_SEGMENT_DATA_NO:
       return {
@@ -32,6 +36,11 @@ const infoBubble = (state = initialState, action) => {
       return {
         ...state,
         hoverPolygon: action.hoverPolygon
+      }
+    case SET_INFO_BUBBLE_MOUSE_INSIDE:
+      return {
+        ...state,
+        mouseInside: action.value
       }
     default:
       return state

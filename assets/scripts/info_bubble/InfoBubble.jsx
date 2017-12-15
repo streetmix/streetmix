@@ -10,6 +10,7 @@ import { getStreet } from '../streets/data_model'
 // import { trackEvent } from '../app/event_tracking'
 import { BUILDING_VARIANTS, BUILDING_VARIANT_NAMES } from '../segments/buildings'
 import { SEGMENT_INFO } from '../segments/info'
+import { setInfoBubbleMouseInside } from '../store/actions/infoBubble'
 
 const INFO_BUBBLE_TYPE_SEGMENT = 1
 const INFO_BUBBLE_TYPE_LEFT_BUILDING = 2
@@ -18,7 +19,8 @@ const INFO_BUBBLE_TYPE_RIGHT_BUILDING = 3
 class InfoBubble extends React.Component {
   static propTypes = {
     visible: PropTypes.bool.isRequired,
-    dataNo: PropTypes.number
+    dataNo: PropTypes.number,
+    setInfoBubbleMouseInside: PropTypes.func
   }
 
   static defaultProps = {
@@ -49,14 +51,14 @@ class InfoBubble extends React.Component {
   onTouchStart (event) {
     resumeFadeoutControls()
   }
-  
+
   // TODO: verify this continues to work with pointer / touch taps
   onMouseEnter = (event) => {
     if (infoBubble.segmentEl) {
       infoBubble.segmentEl.classList.add('hide-drag-handles-when-inside-info-bubble')
     }
 
-    infoBubble.mouseInside = true
+    this.props.setInfoBubbleMouseInside(true)
 
     infoBubble.updateHoverPolygon()
   }
@@ -67,7 +69,7 @@ class InfoBubble extends React.Component {
       infoBubble.segmentEl.classList.remove('hide-drag-handles-when-inside-info-bubble')
     }
 
-    infoBubble.mouseInside = false
+    this.props.setInfoBubbleMouseInside(false)
   }
 
   updateInfoBubbleState = () => {
@@ -137,4 +139,10 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(InfoBubble)
+function mapDispatchToProps (dispatch) {
+  return {
+    setInfoBubbleMouseInside: (value) => { dispatch(setInfoBubbleMouseInside(value)) }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(InfoBubble)

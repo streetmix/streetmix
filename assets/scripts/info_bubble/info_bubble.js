@@ -66,8 +66,6 @@ function isInfoBubbleVisible () {
 }
 
 export const infoBubble = {
-  mouseInside: false,
-
   el: null,
   transitionEl: null, // Container element created in React to do vanilla DOM manipulation
 
@@ -154,7 +152,8 @@ export const infoBubble = {
       marginBubble = INFO_BUBBLE_MARGIN_BUBBLE
     }
 
-    if (infoBubble.mouseInside && !infoBubble.descriptionVisible) {
+    const mouseInside = store.getState().infoBubble.mouseInside
+    if (mouseInside && !infoBubble.descriptionVisible) {
       var pos = getElAbsolutePos(infoBubble.segmentEl)
 
       var x = pos[0] - document.querySelector('#street-section-outer').scrollLeft
@@ -265,8 +264,6 @@ export const infoBubble = {
   },
 
   hide: function () {
-    infoBubble.mouseInside = false
-
     if (infoBubble.el) {
       hideDescription()
       document.body.classList.remove('controls-fade-out')
