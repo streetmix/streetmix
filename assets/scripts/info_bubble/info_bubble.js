@@ -34,11 +34,6 @@ import {
   switchSegmentElAway
 } from '../segments/view'
 import { getStreet, saveStreetToServerIfNecessary } from '../streets/data_model'
-import {
-  SEGMENT_WARNING_OUTSIDE,
-  SEGMENT_WARNING_WIDTH_TOO_SMALL,
-  SEGMENT_WARNING_WIDTH_TOO_LARGE
-} from '../streets/width'
 import store from '../store'
 import {
   showInfoBubble,
@@ -364,41 +359,6 @@ export const infoBubble = {
     updateDescription(infoBubble.segment)
   },
 
-  /**
-   * Given a segment, update the infoBubble with its warnings
-   */
-  updateWarningsInContents: function (segment) {
-    // TOFIX: We may need to check whether the segment given
-    // matches the segment in the info bubble, but the
-    // infoBubble.segment value is currently unreliable.
-    var el = infoBubble.el.querySelector('.warnings')
-
-    var html = ''
-
-    if (segment.warnings[SEGMENT_WARNING_OUTSIDE]) {
-      html += '<p>'
-      html += msg('WARNING_DOESNT_FIT')
-      html += '</p>'
-    }
-    if (segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL]) {
-      html += '<p>'
-      html += msg('WARNING_NOT_WIDE_ENOUGH')
-      html += '</p>'
-    }
-    if (segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE]) {
-      html += '<p>'
-      html += msg('WARNING_TOO_WIDE')
-      html += '</p>'
-    }
-
-    if (html) {
-      el.innerHTML = html
-      el.classList.add('visible')
-    } else {
-      el.classList.remove('visible')
-    }
-  },
-
   updateHeightButtonsInContents: function () {
     let street = getStreet()
     var height = (infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingHeight : street.rightBuildingHeight
@@ -656,11 +616,6 @@ export const infoBubble = {
         break
     }
 
-    // Warnings
-    if (segment) {
-      infoBubble.updateWarningsInContents(segment)
-    }
-
     infoBubble.updateDescriptionInContents()
     infoBubble.getBubbleDimensions()
     window.setTimeout(function () {
@@ -721,6 +676,9 @@ export const infoBubble = {
     var bubbleX = pos[0] - document.querySelector('#street-section-outer').scrollLeft
     var bubbleY = pos[1]
 
+    const dataNo = segmentEl.dataNo
+    store.dispatch(setInfoBubbleSegmentDataNo(dataNo))
+
     infoBubble.el = document.querySelector('.info-bubble')
     infoBubble.updateContents()
 
@@ -749,9 +707,6 @@ export const infoBubble = {
     if (!isInfoBubbleVisible()) {
       store.dispatch(showInfoBubble())
     }
-
-    const dataNo = segmentEl.dataNo
-    store.dispatch(setInfoBubbleSegmentDataNo(dataNo))
 
     infoBubble.bubbleX = bubbleX
     infoBubble.bubbleY = bubbleY

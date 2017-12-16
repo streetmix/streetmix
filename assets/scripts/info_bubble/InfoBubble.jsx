@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import RemoveButton from './RemoveButton'
 import WidthControl from './WidthControl'
+import Warnings from './Warnings'
 import { infoBubble } from './info_bubble'
 import { resumeFadeoutControls } from '../segments/resizing'
 import { getStreet } from '../streets/data_model'
@@ -31,7 +32,8 @@ class InfoBubble extends React.Component {
 
     this.state = {
       type: null,
-      street: null
+      street: null,
+      segment: null
     }
   }
 
@@ -72,19 +74,20 @@ class InfoBubble extends React.Component {
   }
 
   updateInfoBubbleState = () => {
+    const street = getStreet()
     this.setState({
       type: infoBubble.type,
-      street: getStreet()
+      street,
+      segment: street.segments[this.props.dataNo]
     })
   }
 
   getName = () => {
-    const street = this.state.street
     let name
 
     switch (this.state.type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
-        const segment = street.segments[this.props.dataNo]
+        const segment = this.state.segment
         if (segment) {
           const segmentInfo = SEGMENT_INFO[segment.type]
           const variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString]
@@ -92,10 +95,10 @@ class InfoBubble extends React.Component {
         }
         break
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
-        name = BUILDING_VARIANT_NAMES[BUILDING_VARIANTS.indexOf(street.leftBuildingVariant)]
+        name = BUILDING_VARIANT_NAMES[BUILDING_VARIANTS.indexOf(this.state.street.leftBuildingVariant)]
         break
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
-        name = BUILDING_VARIANT_NAMES[BUILDING_VARIANTS.indexOf(street.rightBuildingVariant)]
+        name = BUILDING_VARIANT_NAMES[BUILDING_VARIANTS.indexOf(this.state.street.rightBuildingVariant)]
         break
       default:
         break
@@ -108,7 +111,7 @@ class InfoBubble extends React.Component {
     const type = this.state.type
     const canBeDeleted = (type === INFO_BUBBLE_TYPE_SEGMENT)
     const showWidth = (type === INFO_BUBBLE_TYPE_SEGMENT)
-    const segment = infoBubble.segmentEl
+    const segmentEl = infoBubble.segmentEl
     const className = 'info-bubble' + ((this.props.visible) ? ' visible' : '')
 
     return (
@@ -122,12 +125,12 @@ class InfoBubble extends React.Component {
         <div className="info-bubble-triangle" />
         <header>
           {this.getName()}
-          <RemoveButton enabled={canBeDeleted} segment={segment} />
+          <RemoveButton enabled={canBeDeleted} segment={segmentEl} />
         </header>
-        <WidthControl enabled={showWidth} segment={segment} />
+        <WidthControl enabled={showWidth} segment={segmentEl} />
         <div className="non-variant building-height" />
         <div className="variants" />
-        <div className="warnings" />
+        <Warnings segment={this.state.segment} />
       </div>
     )
   }
