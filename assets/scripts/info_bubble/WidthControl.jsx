@@ -185,7 +185,7 @@ class WidthControl extends React.Component {
    */
   getWidthFromSegment = (el) => {
     const segmentEl = el || this.props.segment
-    return undecorateWidth(parseFloat(segmentEl.getAttribute('data-width')))
+    return parseFloat(segmentEl.getAttribute('data-width'))
   }
 
   // Read actual width from segment, because width is normalized there.
