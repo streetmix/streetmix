@@ -7,10 +7,6 @@ const messages = {
   TOOLTIP_ADD_FLOOR: 'Add floor',
   TOOLTIP_REMOVE_FLOOR: 'Remove floor',
 
-  WARNING_TOO_WIDE: 'This segment might be too wide.',
-  WARNING_NOT_WIDE_ENOUGH: 'This segment might not be wide enough.',
-  WARNING_DOESNT_FIT: 'This segment doesn’t fit within the street.',
-
   DEFAULT_STREET_NAME: 'Unnamed St',
 
   SEGMENT_NAME_EMPTY: 'Empty space'

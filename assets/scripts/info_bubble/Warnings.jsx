@@ -5,7 +5,7 @@ import {
   SEGMENT_WARNING_WIDTH_TOO_SMALL,
   SEGMENT_WARNING_WIDTH_TOO_LARGE
 } from '../streets/width'
-import { msg } from '../app/messages'
+import { t } from '../app/locale'
 
 export default class Warnings extends React.Component {
   static propTypes = {
@@ -13,30 +13,22 @@ export default class Warnings extends React.Component {
   }
 
   render () {
-    let segment = this.props.segment
-    let warnings = false
-    let outside, small, large
+    const segment = this.props.segment
     const messages = []
 
     if (!segment) return null
 
     if (segment.warnings[SEGMENT_WARNING_OUTSIDE]) {
-      warnings = true
-      outside = true
-      messages.push(msg('WARNING_DOESNT_FIT'))
+      messages.push(t('segments.warnings.does-not-fit', 'This segment doesn’t fit within the street.'))
     }
     if (segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL]) {
-      warnings = true
-      small = true
-      messages.push(msg('WARNING_NOT_WIDE_ENOUGH'))
+      messages.push(t('segments.warnings.not-wide', 'This segment might not be wide enough.'))
     }
     if (segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE]) {
-      warnings = true
-      large = true
-      messages.push(msg('WARNING_TOO_WIDE'))
+      messages.push(t('segments.warnings.too-wide', 'This segment might be too wide.'))
     }
 
-    if (warnings) {
+    if (messages.length > 0) {
       return (
         <div className="info-bubble-warnings">
           {messages.map((message) => (<p key={message}>{message}</p>))}
