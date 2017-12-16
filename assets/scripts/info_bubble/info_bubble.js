@@ -67,7 +67,6 @@ function isInfoBubbleVisible () {
 
 export const infoBubble = {
   el: null,
-  transitionEl: null, // Container element created in React to do vanilla DOM manipulation
 
   descriptionVisible: false,
 
@@ -398,8 +397,6 @@ export const infoBubble = {
     } else {
       el.classList.remove('visible')
     }
-
-    infoBubble.getBubbleDimensions()
   },
 
   updateHeightButtonsInContents: function () {
@@ -506,7 +503,7 @@ export const infoBubble = {
 
   updateContents: function () {
     let street = getStreet()
-    let infoBubbleEl = infoBubble.transitionEl
+    let infoBubbleEl = infoBubble.el
     let innerEl, widthCanvasEl, el
 
     // If info bubble changes, wake this back up if it's fading out
@@ -522,9 +519,10 @@ export const infoBubble = {
         break
     }
 
-    infoBubbleEl.innerHTML = ''
-
     // Building height canvas
+
+    widthCanvasEl = document.querySelector('.non-variant.building-height')
+    widthCanvasEl.innerHTML = ''
 
     if ((infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING) ||
       (infoBubble.type === INFO_BUBBLE_TYPE_RIGHT_BUILDING)) {
@@ -537,10 +535,6 @@ export const infoBubble = {
       }
 
       var disabled = !isFlooredBuilding(variant)
-
-      widthCanvasEl = document.createElement('div')
-      widthCanvasEl.classList.add('non-variant')
-      widthCanvasEl.classList.add('building-height')
 
       innerEl = document.createElement('button')
       innerEl.classList.add('increment')
@@ -587,13 +581,12 @@ export const infoBubble = {
       innerEl.addEventListener('pointerdown', removeFloor)
 
       widthCanvasEl.appendChild(innerEl)
-      infoBubbleEl.appendChild(widthCanvasEl)
     }
 
     // Variants
 
-    var variantsEl = document.createElement('div')
-    variantsEl.classList.add('variants')
+    const variantsEl = infoBubbleEl.querySelector('.variants')
+    variantsEl.innerHTML = ''
 
     switch (infoBubble.type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
@@ -663,19 +656,13 @@ export const infoBubble = {
         break
     }
 
-    infoBubbleEl.appendChild(variantsEl)
-
     // Warnings
-
-    el = document.createElement('div')
-    el.classList.add('warnings')
-
-    infoBubbleEl.appendChild(el)
-
-    infoBubble.updateDescriptionInContents()
     if (segment) {
       infoBubble.updateWarningsInContents(segment)
     }
+
+    infoBubble.updateDescriptionInContents()
+    infoBubble.getBubbleDimensions()
     window.setTimeout(function () {
       if (infoBubble.type !== INFO_BUBBLE_TYPE_SEGMENT) {
         infoBubble.updateHeightInContents(infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING)
@@ -735,7 +722,6 @@ export const infoBubble = {
     var bubbleY = pos[1]
 
     infoBubble.el = document.querySelector('.info-bubble')
-    infoBubble.transitionEl = document.getElementById('info-bubble-transition-element')
     infoBubble.updateContents()
 
     var bubbleWidth = infoBubble.el.offsetWidth

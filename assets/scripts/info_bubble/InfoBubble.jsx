@@ -125,7 +125,9 @@ class InfoBubble extends React.Component {
           <RemoveButton enabled={canBeDeleted} segment={segment} />
         </header>
         <WidthControl enabled={showWidth} segment={segment} />
-        <div id="info-bubble-transition-element" />
+        <div className="non-variant building-height" />
+        <div className="variants" />
+        <div className="warnings" />
       </div>
     )
   }
