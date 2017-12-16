@@ -473,7 +473,7 @@ export const infoBubble = {
 
     switch (infoBubble.type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
-        var segment = street.segments[parseInt(infoBubble.segmentEl.dataNo)]
+        var segment = street.segments[store.getState().infoBubble.dataNo]
         var segmentInfo = SEGMENT_INFO[segment.type]
         infoBubble.segment = segment
         break

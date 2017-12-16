@@ -90,9 +90,7 @@ export function resizeSegment (el, resizeType, width, updateEdit, palette, initi
 
   if (!initial) {
     segmentsChanged()
-
-    var segment = getStreet().segments[parseInt(el.dataNo)]
-    infoBubble.updateWarningsInContents(segment)
+    infoBubble.updateContents()
   }
 }
 
