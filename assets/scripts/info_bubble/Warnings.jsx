@@ -38,7 +38,7 @@ export default class Warnings extends React.Component {
 
     if (warnings) {
       return (
-        <div className="warnings visible">
+        <div className="info-bubble-warnings">
           {messages.map((message) => (<p key={message}>{message}</p>))}
         </div>
       )

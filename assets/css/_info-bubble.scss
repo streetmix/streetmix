@@ -88,28 +88,6 @@
     }
   }
 
-  .warnings {
-    margin-top: 1px;
-    font-size: 13px;
-    padding: 5px;
-    border-top: 1px solid $ui-colour;
-    text-rendering: optimizeLegibility;
-    white-space: normal;
-    color: $warning-colour;
-    text-align: center;
-
-    &:not(.visible) {
-      display: none;
-    }
-
-    > p {
-      width: 100%;
-      box-sizing: border-box;
-      margin: 5px 0;
-      padding: 0;
-    }
-  }
-
   .non-variant {
     float: right;
     text-align: right;
@@ -237,6 +215,24 @@
   padding-right: 10px;
   margin-top: -3px;
   font-size: 11px;
+}
+
+.info-bubble-warnings {
+  margin-top: 1px;
+  font-size: 13px;
+  padding: 5px;
+  border-top: 1px solid $ui-colour;
+  text-rendering: optimizeLegibility;
+  white-space: normal;
+  color: $warning-colour;
+  text-align: center;
+
+  > p {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 5px 0;
+    padding: 0;
+  }
 }
 
 .info-bubble-triangle {
