@@ -2,7 +2,6 @@ import { app } from '../preinit/app_settings'
 import { system } from '../preinit/system_capabilities'
 import { updateDescription, hideDescription } from './description'
 import {
-  BUILDING_VARIANTS,
   MAX_BUILDING_HEIGHT,
   getBuildingAttributes,
   isFlooredBuilding,
@@ -13,13 +12,11 @@ import {
   updateBuildingPosition
 } from '../segments/buildings'
 import { DRAGGING_TYPE_NONE, draggingType } from '../segments/drag_and_drop'
-import { SEGMENT_INFO } from '../segments/info'
 import {
   MIN_SEGMENT_WIDTH,
   MAX_SEGMENT_WIDTH,
   cancelFadeoutControls
 } from '../segments/resizing'
-import { VARIANT_ICONS } from '../segments/variant_icons'
 import { msg } from '../app/messages'
 import { KEYS } from '../app/keyboard_commands'
 import { getElAbsolutePos } from '../util/helpers'
@@ -29,7 +26,6 @@ import { registerKeypress } from '../app/keypress'
 import { loseAnyFocus } from '../util/focus'
 import {
   TILE_SIZE,
-  changeSegmentVariant,
   switchSegmentElIn,
   switchSegmentElAway
 } from '../segments/view'
@@ -430,41 +426,9 @@ export const infoBubble = {
     }
   },
 
-  createVariantIcon: function (type, choice, buttonEl) {
-    const variantIcon = VARIANT_ICONS[type][choice]
-
-    if (variantIcon) {
-      const svgEl = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-      svgEl.setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns', 'http://www.w3.org/1999/svg')
-      svgEl.setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xlink', 'http://www.w3.org/1999/xlink')
-
-      if (svgEl.classList) {
-        svgEl.classList.add('icon')
-      } else {
-        // Internet Explorer does not have the .classList methods on SVGElements
-        svgEl.setAttribute('class', 'icon')
-      }
-
-      if (variantIcon.color) {
-        svgEl.style.fill = variantIcon.color
-      }
-
-      const useEl = document.createElementNS('http://www.w3.org/2000/svg', 'use')
-      useEl.setAttributeNS('http://www.w3.org/1999/xlink', 'href', '#icon-' + variantIcon.id)
-
-      buttonEl.appendChild(svgEl)
-      svgEl.appendChild(useEl)
-
-      if (variantIcon.title) {
-        buttonEl.title = variantIcon.title
-      }
-    }
-  },
-
   updateContents: function () {
     let street = getStreet()
-    let infoBubbleEl = infoBubble.el
-    let innerEl, widthCanvasEl, el
+    let innerEl, widthCanvasEl
 
     // If info bubble changes, wake this back up if it's fading out
     cancelFadeoutControls()
@@ -474,7 +438,6 @@ export const infoBubble = {
     switch (infoBubble.type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
         var segment = street.segments[store.getState().infoBubble.dataNo]
-        var segmentInfo = SEGMENT_INFO[segment.type]
         infoBubble.segment = segment
         break
     }
@@ -541,79 +504,6 @@ export const infoBubble = {
       innerEl.addEventListener('pointerdown', removeFloor)
 
       widthCanvasEl.appendChild(innerEl)
-    }
-
-    // Variants
-
-    const variantsEl = infoBubbleEl.querySelector('.variants')
-    variantsEl.innerHTML = ''
-
-    switch (infoBubble.type) {
-      case INFO_BUBBLE_TYPE_SEGMENT:
-        let first = true
-
-        // Each segment has some allowed variant types (e.g. "direction")
-        for (let variant in segmentInfo.variants) {
-          const variantType = segmentInfo.variants[variant]
-
-          // New row for each variant type
-          if (!first) {
-            let el = document.createElement('hr')
-            variantsEl.appendChild(el)
-          } else {
-            first = false
-          }
-
-          // Each variant type has some choices.
-          // VARIANT_ICONS is an object containing a list of what
-          // each of the choices are and data for building an icon.
-          // Different segments may refer to the same variant type
-          // ("direction" is a good example of this)
-          for (let variantChoice in VARIANT_ICONS[variantType]) {
-            let el = document.createElement('button')
-            infoBubble.createVariantIcon(variantType, variantChoice, el)
-
-            if (segment.variant[variantType] === variantChoice) {
-              el.disabled = true
-            }
-
-            el.addEventListener('pointerdown', (function (dataNo, variantType, variantChoice) {
-              return function () {
-                changeSegmentVariant(dataNo, variantType, variantChoice)
-              }
-            })(segment.el.dataNo, variantType, variantChoice))
-
-            variantsEl.appendChild(el)
-          }
-        }
-        break
-      case INFO_BUBBLE_TYPE_LEFT_BUILDING:
-      case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
-        let variant
-        if (infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING) {
-          variant = street.leftBuildingVariant
-        } else {
-          variant = street.rightBuildingVariant
-        }
-
-        for (var j in BUILDING_VARIANTS) {
-          el = document.createElement('button')
-          // TODO const
-          infoBubble.createVariantIcon('building', BUILDING_VARIANTS[j], el)
-          if (BUILDING_VARIANTS[j] === variant) {
-            el.disabled = true
-          }
-
-          variantsEl.appendChild(el)
-
-          el.addEventListener('pointerdown', (function (left, variantChoice) {
-            return function () {
-              infoBubble.onBuildingVariantButtonClick(null, left, variantChoice)
-            }
-          })(infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING, BUILDING_VARIANTS[j]))
-        }
-
-        break
     }
 
     infoBubble.updateDescriptionInContents()

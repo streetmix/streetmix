@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import RemoveButton from './RemoveButton'
+import Variants from './Variants'
 import WidthControl from './WidthControl'
 import Warnings from './Warnings'
 import { infoBubble } from './info_bubble'
@@ -129,7 +130,7 @@ class InfoBubble extends React.Component {
         </header>
         <WidthControl enabled={showWidth} segment={segmentEl} />
         <div className="non-variant building-height" />
-        <div className="variants" />
+        <Variants type={type} segment={this.state.segment} street={this.state.street} />
         <Warnings segment={this.state.segment} />
       </div>
     )
