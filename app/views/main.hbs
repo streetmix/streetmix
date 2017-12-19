@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Streetmix</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="description" content="Design, remix, and share your neighborhood street – all in your browser! Add trees or bike paths, widen sidewalks or traffic lanes, learn how your decisions can impact your community.">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="transparent">
+
+    {{! https://dev.twitter.com/web/overview/widgets-webpage-properties }}
+    {{! Disable DOM scan for widgets and buttons }}
+    <meta name="twitter:widgets:autoload" content="off">
+    {{! Disable functionality which may trigger Content Security Policy warnings }}
+    <meta name="twitter:widgets:csp" content="on">
+    {{! Do not track parameter }}
+    <meta name="twitter:dnt" content="on">
+
+    <link href="/favicon.ico" rel="shortcut icon">
+    <link href="/assets/css/styles.css" rel="stylesheet">
+
+    {{#config.google_analytics_account}}
+    {{! Placed in head per Google's instructions }} 
+    {{! This incurs no performance hit. The snippet creates an asynchronous (non-blocking) request. }}
+    {{! The CSP hash for this assumes the production environment analytics id }}
+    {{! This snippet has been edited to force analytics.js to load over https }}
+    {{! TODO: Generate a nonce for this snippet to account for variables and whitespace }}
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', '{{.}}', 'auto');
+      ga('send', 'pageview');
+    </script>
+    {{/config.google_analytics_account}}
+
+    {{#config.mixpanel_token}}
+    {{! The CSP hash for this assumes the production environment id }}
+    {{! TODO: Generate a nonce for this snippet to account for variables and whitespace }}
+    <script>
+      (function(e,a){if(!a.__SV){var b=window;try{var c,l,i,j=b.location,g=j.hash;c=function(a,b){return(l=a.match(RegExp(b+"=([^&]*)")))?l[1]:null};g&&c(g,"state")&&(i=JSON.parse(decodeURIComponent(c(g,"state"))),"mpeditor"===i.action&&(b.sessionStorage.setItem("_mpcehash",g),history.replaceState(i.desiredHash||"",e.title,j.pathname+j.search)))}catch(m){}var k,h;window.mixpanel=a;a._i=[];a.init=function(b,c,f){function e(b,a){var c=a.split(".");2==c.length&&(b=b[c[0]],a=c[1]);b[a]=function(){b.push([a].concat(Array.prototype.slice.call(arguments,
+      0)))}}var d=a;"undefined"!==typeof f?d=a[f]=[]:f="mixpanel";d.people=d.people||[];d.toString=function(b){var a="mixpanel";"mixpanel"!==f&&(a+="."+f);b||(a+=" (stub)");return a};d.people.toString=function(){return d.toString(1)+".people (stub)"};k="disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config reset people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
+      for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElement("script");b.type="text/javascript";b.async=!0;b.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";c=e.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c)}})(document,window.mixpanel||[]);
+      mixpanel.init("{{.}}");
+    </script>
+    {{/config.mixpanel_token}}
+
+  </head>
+  <body tabindex="1">
+
+    {{! SVG staging area }}
+    <div id="svg"></div>
+
+    {{! Blocking elements pre-React }}
+    <div id="loading"><span data-i18n="msg.loading">Loading…</span>
+      <progress id="loading-progress" value="0" max="1"></progress>
+    </div>
+    <div id="blocking-shield">
+      <div class="message"></div>
+      <div class="try-again">
+        Streetmix is having trouble connecting to the Internet.
+        <br>
+        <button id="blocking-shield-try-again">Try again</button>
+        <button id="blocking-shield-cancel">Cancel</button>
+      </div>
+      <div class="too-slow">
+        Streetmix wasn’t able to connect to the Internet in awhile now.
+        <br>
+        <br>
+        You might want to reload the page and try again. Please note you
+        might lose the latest change to the street. Sorry!
+        <br>
+        <br>
+        <button id="blocking-shield-reload">
+          Reload
+        </button>
+      </div>
+    </div>
+
+    {{! Mount point for React }}
+    <div id="react-app"></div>
+
+    <script src="https://platform.twitter.com/widgets.js"></script>
+    <script src="/assets/scripts/main.js"></script>
+  </body>
+</html>

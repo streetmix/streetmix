@@ -48,8 +48,8 @@ const helmetConfig = {
         'cdn.mxpnl.com',
         '*.global.ssl.fastly.net',
         'search.mapzen.com',
-        "'sha256-cVcViy/WbA6COI6DEjyQfnBNKF24fNLeLzoC9TPNuKw='", // Google Analytics?
-        "'sha256-7N1wpoJYtgf8X14b14NyEnr45cLEQ0FqwzvKUGzezLs='" // Mixpanel?
+        "'sha256-ZFVNSjbMCfXEvm7Udu+4fzj7uxtIasWHfUkYsyr9Xzc='", // Google Analytics (w/ production id)
+        "'sha256-80ZBre/y2+jBIlTB4jDA8maeor/DkrMKKHcR+VALCFg='" // Mixpanel (w/ production id)
       ],
       childSrc: ['platform.twitter.com'],
       imgSrc: [
@@ -97,7 +97,7 @@ app.use(function (req, res, next) {
   }
 })
 
-app.set('view engine', 'jade')
+app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, '/app/views'))
 
 // Redirect to environment-appropriate domain, if necessary
