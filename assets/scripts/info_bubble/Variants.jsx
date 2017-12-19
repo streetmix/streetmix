@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 // import { t } from '../app/locale'
 import { SEGMENT_INFO } from '../segments/info'
 import { VARIANT_ICONS } from '../segments/variant_icons'
+import { changeSegmentVariant } from '../segments/view'
+import { infoBubble } from './info_bubble'
 
 // Duped from InfoBubble
 const INFO_BUBBLE_TYPE_SEGMENT = 1
@@ -12,6 +14,7 @@ const INFO_BUBBLE_TYPE_RIGHT_BUILDING = 3
 export default class Variants extends React.Component {
   static propTypes = {
     type: PropTypes.number,
+    dataNo: PropTypes.number,
     segment: PropTypes.object,
     street: PropTypes.object
   }
@@ -37,23 +40,31 @@ export default class Variants extends React.Component {
     return value
   }
 
-  onClickButton = () => {
-    console.log('hi')
-    /*
-    // variants
-    el.addEventListener('pointerdown', (function (dataNo, variantType, variantChoice) {
-      return function () {
-        changeSegmentVariant(dataNo, variantType, variantChoice)
-      }
-    })(segment.el.dataNo, variantType, variantChoice))
+  getButtonOnClickHandler = (type, choice) => {
+    let handler
 
-    // buildings
-    el.addEventListener('pointerdown', (function (left, variantChoice) {
-      return function () {
-        infoBubble.onBuildingVariantButtonClick(null, left, variantChoice)
-      }
-    })(infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING, BUILDING_VARIANTS[j]))
-    */
+    switch (this.props.type) {
+      case INFO_BUBBLE_TYPE_SEGMENT:
+        handler = (event) => {
+          changeSegmentVariant(this.props.dataNo, type, choice)
+        }
+        break
+      case INFO_BUBBLE_TYPE_LEFT_BUILDING:
+        handler = (event) => {
+          infoBubble.onBuildingVariantButtonClick(null, true, choice)
+        }
+        break
+      case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
+        handler = (event) => {
+          infoBubble.onBuildingVariantButtonClick(null, false, choice)
+        }
+        break
+      default:
+        handler = () => {}
+        break
+    }
+
+    return handler
   }
 
   renderButton = (type, choice) => {
@@ -66,7 +77,7 @@ export default class Variants extends React.Component {
         key={type + '.' + choice}
         title={variantIcon.title}
         disabled={this.isVariantCurrentlySelected(type, choice)}
-        onClick={this.buttonHandler}
+        onClick={this.getButtonOnClickHandler(type, choice)}
       >
         <svg
           xmlns="http://www.w3.org/1999/svg"

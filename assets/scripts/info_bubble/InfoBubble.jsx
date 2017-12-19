@@ -130,7 +130,7 @@ class InfoBubble extends React.Component {
         </header>
         <WidthControl enabled={showWidth} segment={segmentEl} />
         <div className="non-variant building-height" />
-        <Variants type={type} segment={this.state.segment} street={this.state.street} />
+        <Variants type={type} segment={this.state.segment} street={this.state.street} dataNo={this.props.dataNo} />
         <Warnings segment={this.state.segment} />
       </div>
     )
