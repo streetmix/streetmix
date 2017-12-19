@@ -10,6 +10,14 @@ html(lang='en')
     meta(name='apple-mobile-web-app-capable', content='yes')
     meta(name='apple-mobile-web-app-status-bar-style', content='transparent')
 
+    //- https://dev.twitter.com/web/overview/widgets-webpage-properties
+    //- Disable DOM scan for widgets and buttons
+    meta(name='twitter:widgets:autoload', content='off')
+    //- Disable functionality which may trigger Content Security Policy warnings
+    meta(name='twitter:widgets:csp', content='on')
+    //- Do not track parameter
+    meta(name='twitter:dnt', content='on')
+
     link(href='/favicon.ico', rel='shortcut icon')
     link(href='/assets/css/styles.css', rel='stylesheet')
 
