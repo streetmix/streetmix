@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-// import { t } from '../app/locale'
+import { t } from '../app/locale'
 import { SEGMENT_INFO } from '../segments/info'
 import { VARIANT_ICONS } from '../segments/variant_icons'
 import { changeSegmentVariant } from '../segments/view'
@@ -72,10 +72,12 @@ export default class Variants extends React.Component {
 
     if (!variantIcon) return null
 
+    const title = t(`variant-icons.${type}|${choice}`, variantIcon.title, { ns: 'segment-info' })
+
     return (
       <button
         key={type + '.' + choice}
-        title={variantIcon.title}
+        title={title}
         disabled={this.isVariantCurrentlySelected(type, choice)}
         onClick={this.getButtonOnClickHandler(type, choice)}
       >
