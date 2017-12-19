@@ -48,6 +48,8 @@
     "IE 11"
   ],
   "dependencies": {
+    "@streetmix/icons": "0.4.2",
+    "@streetmix/illustrations": "0.3.0",
     "async": "2.6.0",
     "autoprefixer": "7.2.3",
     "babel-core": "6.26.0",
@@ -106,8 +108,6 @@
     "sendgrid": "2.0.0",
     "shifty": "2.3.1",
     "sprintf": "0.1.5",
-    "streetmix-icons": "git://github.com/streetmix/icons.git#v0.4.2",
-    "streetmix-illustrations": "git://github.com/streetmix/illustrations.git",
     "superagent": "3.8.2",
     "supervisor": "0.12.0",
     "twitter": "1.7.1",
