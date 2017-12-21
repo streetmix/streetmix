@@ -12,11 +12,11 @@ if (!Element.prototype.matches)
 
 if (!Element.prototype.closest)
     Element.prototype.closest = function(s) {
-        var ancestor = this;
+        var el = this;
         if (!document.documentElement.contains(el)) return null;
         do {
-            if (ancestor.matches(s)) return ancestor;
-            ancestor = ancestor.parentElement;
-        } while (ancestor !== null);
-        return el;
+            if (el.matches(s)) return el;
+            el = el.parentElement || el.parentNode;
+        } while (el !== null); 
+        return null;
     };
