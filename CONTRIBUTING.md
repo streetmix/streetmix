@@ -115,25 +115,35 @@ These installation instructions assume that you have already installed the [Home
 
 1) Download and install [Node.js](http://nodejs.org/).
 
+    ```
     brew install nodejs
+    ```
 
 2) Download, install and start [MongoDB](http://www.mongodb.org/).
 
+    ```
     brew install mongodb
+    ```
 
 You'll also need to set up the [MongoDB data directory](https://docs.mongodb.org/manual/tutorial/install-mongodb-on-os-x/#run-mongodb). The easiest set up would be (you may need `sudo`):
 
+    ```
     mkdir -p /data/db
     chmod 777 /data/db
+    ```
 
 3) Clone this remote repository to a folder on your computer.
 
+    ```
     git clone https://github.com/streetmix/streetmix.git
+    ```
 
 4) Install project dependencies.
 
+    ```
     cd streetmix
     npm install
+    ```
 
 
 #### On Windows
@@ -154,15 +164,19 @@ You may skip each of these steps if a fairly recent stable version is already pr
 
 1) In the command line terminal, clone a copy of the Streetmix repository to your local machine:
 
+    ```
     git clone https://github.com/streetmix/streetmix.git
+    ```
 
 You may additionally specify the name of the directory to install to, if you wish.
 
 2) Go into the project’s root directory and install all Node libraries.
 
+    ```
     cd streetmix
     npm install
-    
+    ```
+
 3) Go into `package.json` and remove  `"prestart": "npm run mongo:start"` and `"mongo:start": "mongod --fork --logpath /dev/null"`
 
 4) Set up the MongoDB environment. [Follow the instructions under “Set up the MongoDB environment” from the MongoDB website.](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-windows/#run-mongodb
@@ -200,23 +214,31 @@ NO_INTERNET_MODE=true
 
 1) Start the web server. (This also automatically starts MongoDB in the background.)
 
+    ```
     cd streetmix
     npm start
+    ```
 
 2) Load the application in your web browser.
 
+    ```
     open http://127.0.0.1:8000
+    ```
 
 
 ### HOWTO: Run tests locally
 
 1) By default, local tests are unit tests, with CSS and JavaScript linting.
 
+    ```
     npm test
+    ```
 
 2) You can run a full browser integration test with this command. By default, we run tests similar to this in our continuous integration infrastructure on commits and pull requests to GitHub, so it is not required to run this locally.
 
+    ```
     npm test:full
+    ```
 
 
 [issues]: https://github.com/streetmix/streetmix/issues
