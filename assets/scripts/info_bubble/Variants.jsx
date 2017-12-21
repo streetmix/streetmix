@@ -87,7 +87,8 @@ export default class Variants extends React.Component {
           className="icon"
           style={variantIcon.color ? { fill: variantIcon.color } : null}
         >
-          <use href={`#icon-${variantIcon.id}`} />
+          {/* `xlinkHref` is preferred over `href` for compatibility with Safari */}
+          <use xlinkHref={`#icon-${variantIcon.id}`} />
         </svg>
       </button>
     )
