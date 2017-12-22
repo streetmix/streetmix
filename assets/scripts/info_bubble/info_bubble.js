@@ -5,8 +5,6 @@ import {
   MAX_BUILDING_HEIGHT,
   getBuildingAttributes,
   isFlooredBuilding,
-  buildingHeightUpdated,
-  changeBuildingHeight,
   createBuildings,
   onBuildingMouseEnter,
   updateBuildingPosition
@@ -17,13 +15,10 @@ import {
   MAX_SEGMENT_WIDTH,
   cancelFadeoutControls
 } from '../segments/resizing'
-import { msg } from '../app/messages'
-import { KEYS } from '../app/keyboard_commands'
 import { getElAbsolutePos } from '../util/helpers'
 import { prettifyWidth } from '../util/width_units'
-import { isAnyMenuVisible, hideAllMenus } from '../menus/menu_controller'
+import { isAnyMenuVisible } from '../menus/menu_controller'
 import { registerKeypress } from '../app/keypress'
-import { loseAnyFocus } from '../util/focus'
 import {
   TILE_SIZE,
   switchSegmentElIn,
@@ -46,11 +41,6 @@ const INFO_BUBBLE_MARGIN_BUBBLE = 20
 const INFO_BUBBLE_MARGIN_MOUSE = 10
 
 const MIN_TOP_MARGIN_FROM_VIEWPORT = 120
-
-const WIDTH_EDIT_INPUT_DELAY = 200
-
-let widthHeightEditHeld = false
-let widthHeightChangeTimerId = -1
 
 function isInfoBubbleVisible () {
   return store.getState().infoBubble.visible
@@ -428,7 +418,6 @@ export const infoBubble = {
 
   updateContents: function () {
     let street = getStreet()
-    let innerEl, widthCanvasEl
 
     // If info bubble changes, wake this back up if it's fading out
     cancelFadeoutControls()
@@ -440,70 +429,6 @@ export const infoBubble = {
         var segment = street.segments[store.getState().infoBubble.dataNo]
         infoBubble.segment = segment
         break
-    }
-
-    // Building height canvas
-
-    widthCanvasEl = document.querySelector('.non-variant.building-height')
-    widthCanvasEl.innerHTML = ''
-
-    if ((infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING) ||
-      (infoBubble.type === INFO_BUBBLE_TYPE_RIGHT_BUILDING)) {
-      let variant
-
-      if (infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING) {
-        variant = street.leftBuildingVariant
-      } else {
-        variant = street.rightBuildingVariant
-      }
-
-      var disabled = !isFlooredBuilding(variant)
-
-      innerEl = document.createElement('button')
-      innerEl.classList.add('increment')
-      innerEl.innerHTML = '+'
-      innerEl.tabIndex = -1
-      innerEl.title = msg('TOOLTIP_ADD_FLOOR')
-      var addFloor = function () {
-        changeBuildingHeight(infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING, true)
-      }
-
-      innerEl.addEventListener('pointerdown', addFloor)
-
-      widthCanvasEl.appendChild(innerEl)
-      if (!system.touch) {
-        innerEl = document.createElement('input')
-        innerEl.setAttribute('type', 'text')
-        innerEl.classList.add('height')
-        innerEl.title = msg('TOOLTIP_BUILDING_HEIGHT')
-
-        innerEl.addEventListener('pointerdown', _onWidthHeightEditClick)
-        innerEl.addEventListener('focus', _onHeightEditFocus)
-        innerEl.addEventListener('blur', _onHeightEditBlur)
-        innerEl.addEventListener('input', _onHeightEditInput)
-        innerEl.addEventListener('mouseover', _onWidthHeightEditMouseOver)
-        innerEl.addEventListener('mouseout', _onWidthHeightEditMouseOut)
-        innerEl.addEventListener('keydown', _onHeightEditKeyDown)
-      } else {
-        innerEl = document.createElement('span')
-        innerEl.classList.add('height-non-editable')
-      }
-      if (disabled) {
-        innerEl.disabled = true
-      }
-      widthCanvasEl.appendChild(innerEl)
-
-      innerEl = document.createElement('button')
-      innerEl.classList.add('decrement')
-      innerEl.innerHTML = '–'
-      innerEl.tabIndex = -1
-      innerEl.title = msg('TOOLTIP_REMOVE_FLOOR')
-      var removeFloor = function () {
-        changeBuildingHeight(infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING, false)
-      }
-      innerEl.addEventListener('pointerdown', removeFloor)
-
-      widthCanvasEl.appendChild(innerEl)
     }
 
     infoBubble.updateDescriptionInContents()
@@ -627,105 +552,7 @@ function _isPointInPoly (vs, point) {
   return inside
 }
 
-function _onWidthHeightEditClick (event) {
-  var el = event.target
-
-  widthHeightEditHeld = true
-
-  if (document.activeElement !== el) {
-    el.select()
-  }
-}
-
-function _onWidthHeightEditMouseOver (event) {
-  if (!widthHeightEditHeld) {
-    event.target.focus()
-    event.target.select()
-  }
-}
-
-function _onWidthHeightEditMouseOut (event) {
-  if (!widthHeightEditHeld) {
-    loseAnyFocus()
-  }
-}
-
-function _onHeightEditFocus (event) {
-  var el = event.target
-
-  el.oldValue = el.realValue
-  el.value = el.realValue
-}
-
-function _onHeightEditBlur (event) {
-  let street = getStreet()
-  var el = event.target
-
-  _heightEditInputChanged(el, true)
-
-  el.realValue = (infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingHeight : street.rightBuildingHeight
-  el.value = _prettifyHeight(el.realValue)
-
-  widthHeightEditHeld = false
-}
-
-function _heightEditInputChanged (el, immediate) {
-  window.clearTimeout(widthHeightChangeTimerId)
-  let street = getStreet()
-
-  var height = parseInt(el.value)
-
-  if (!height || (height < 1)) {
-    height = 1
-  } else if (height > MAX_BUILDING_HEIGHT) {
-    height = MAX_BUILDING_HEIGHT
-  }
-
-  if (immediate) {
-    if (infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING) {
-      street.leftBuildingHeight = height
-    } else {
-      street.rightBuildingHeight = height
-    }
-    buildingHeightUpdated()
-  } else {
-    widthHeightChangeTimerId = window.setTimeout(function () {
-      if (infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING) {
-        street.leftBuildingHeight = height
-      } else {
-        street.rightBuildingHeight = height
-      }
-      buildingHeightUpdated()
-    }, WIDTH_EDIT_INPUT_DELAY)
-  }
-}
-
-function _onHeightEditInput (event) {
-  _heightEditInputChanged(event.target, false)
-}
-
-function _onHeightEditKeyDown (event) {
-  let street = getStreet()
-  var el = event.target
-
-  switch (event.keyCode) {
-    case KEYS.ENTER:
-      _heightEditInputChanged(el, true)
-      loseAnyFocus()
-      el.value = _prettifyHeight((infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingHeight : street.rightBuildingHeight)
-      el.focus()
-      el.select()
-      break
-    case KEYS.ESC:
-      el.value = el.oldValue
-      _heightEditInputChanged(el, true)
-      hideAllMenus()
-      loseAnyFocus()
-      break
-  }
-}
-
-function _prettifyHeight (height) {
+export function _prettifyHeight (height) {
   var heightText = height
 
   heightText += ' floor'

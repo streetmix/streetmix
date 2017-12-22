@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import RemoveButton from './RemoveButton'
 import Variants from './Variants'
 import WidthControl from './WidthControl'
+import BuildingHeightControl from './BuildingHeightControl'
 import Warnings from './Warnings'
 import { infoBubble } from './info_bubble'
 import { resumeFadeoutControls } from '../segments/resizing'
@@ -111,9 +112,37 @@ class InfoBubble extends React.Component {
   render () {
     const type = this.state.type
     const canBeDeleted = (type === INFO_BUBBLE_TYPE_SEGMENT)
-    const showWidth = (type === INFO_BUBBLE_TYPE_SEGMENT)
     const segmentEl = infoBubble.segmentEl
     const className = 'info-bubble' + ((this.props.visible) ? ' visible' : '')
+
+    // Determine width or height control type
+    let widthOrHeightControl
+    switch (type) {
+      case INFO_BUBBLE_TYPE_SEGMENT:
+        widthOrHeightControl = <WidthControl segment={segmentEl} />
+        break
+      case INFO_BUBBLE_TYPE_LEFT_BUILDING:
+        widthOrHeightControl = (
+          <BuildingHeightControl
+            position="left"
+            variant={this.state.street.leftBuildingVariant}
+            value={this.state.street.leftBuildingHeight}
+          />
+        )
+        break
+      case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
+        widthOrHeightControl = (
+          <BuildingHeightControl
+            position="right"
+            variant={this.state.street.rightBuildingVariant}
+            value={this.state.street.rightBuildingHeight}
+          />
+        )
+        break
+      default:
+        widthOrHeightControl = null
+        break
+    }
 
     return (
       <div
@@ -128,8 +157,7 @@ class InfoBubble extends React.Component {
           {this.getName()}
           <RemoveButton enabled={canBeDeleted} segment={segmentEl} />
         </header>
-        <WidthControl enabled={showWidth} segment={segmentEl} />
-        <div className="non-variant building-height" />
+        {widthOrHeightControl}
         <Variants type={type} segment={this.state.segment} street={this.state.street} dataNo={this.props.dataNo} />
         <Warnings segment={this.state.segment} />
       </div>

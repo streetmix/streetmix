@@ -23,13 +23,8 @@ const WIDTH_EDIT_INPUT_DELAY = 200
 
 class WidthControl extends React.Component {
   static propTypes = {
-    enabled: PropTypes.bool,
     touch: PropTypes.bool,
     segment: PropTypes.object // TODO: this is the actual DOM element; change it to a value
-  }
-
-  static defaultProps = {
-    enabled: false
   }
 
   constructor (props) {
@@ -115,6 +110,7 @@ class WidthControl extends React.Component {
     this.held = false
   }
 
+  /* same as BuildingHeightControl */
   onMouseOverInput = (event) => {
     if (!this.held) {
       event.target.focus()
@@ -122,6 +118,7 @@ class WidthControl extends React.Component {
     }
   }
 
+  /* same as BuildingHeightControl */
   onMouseOutInput = (event) => {
     if (!this.held) {
       event.target.blur()
@@ -199,12 +196,12 @@ class WidthControl extends React.Component {
   }
 
   render () {
-    if (this.props.enabled === false) return null
-
     let widthClassName = 'non-variant'
     // if (!segmentInfo.variants[0]) widthClassName += ' entire-info-bubble'
 
-    const inputEl = (this.props.touch === false) ? (
+    const inputEl = (this.props.touch) ? (
+      <span className="width-non-editable" />
+    ) : (
       <input
         type="text"
         className="width"
@@ -219,8 +216,6 @@ class WidthControl extends React.Component {
         onKeyDown={this.onKeyDownInput}
         ref={(ref) => { this.inputEl = ref }}
       />
-    ) : (
-      <span className="width-non-editable" />
     )
 
     return (
