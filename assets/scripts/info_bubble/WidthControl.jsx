@@ -35,9 +35,11 @@ class WidthControl extends React.Component {
     this.timerId = -1
     this.inputEl = null
 
+    const width = this.getWidthFromSegment(props.segment)
+
     this.state = {
-      value: null,
-      displayValue: ''
+      value: width,
+      displayValue: prettifyWidth(width)
     }
   }
 
