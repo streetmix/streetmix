@@ -220,7 +220,7 @@
 .info-bubble-warnings {
   margin-top: 1px;
   font-size: 13px;
-  padding: 5px;
+  padding: 0.5em 2em;
   border-top: 1px solid $ui-colour;
   text-rendering: optimizeLegibility;
   white-space: normal;
@@ -230,8 +230,9 @@
   > p {
     width: 100%;
     box-sizing: border-box;
-    margin: 5px 0;
+    margin: 0.5em auto; /* Ensure centering of text if not wide enough to fill width of bubble */
     padding: 0;
+    max-width: 280px; /* Prevent long text from extending the bubble too far*/
   }
 }
 
