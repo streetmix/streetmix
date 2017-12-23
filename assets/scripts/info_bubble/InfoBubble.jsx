@@ -15,6 +15,7 @@ import { getStreet } from '../streets/data_model'
 import { BUILDING_VARIANTS, BUILDING_VARIANT_NAMES } from '../segments/buildings'
 import { SEGMENT_INFO } from '../segments/info'
 import { setInfoBubbleMouseInside } from '../store/actions/infoBubble'
+import { t } from '../app/locale'
 
 const INFO_BUBBLE_TYPE_SEGMENT = 1
 const INFO_BUBBLE_TYPE_LEFT_BUILDING = 2
@@ -88,6 +89,10 @@ class InfoBubble extends React.Component {
     })
   }
 
+  /**
+   * Retrieve name from segment data. It should also find the equivalent strings from the
+   * translation files if provided.
+   */
   getName = () => {
     let name
 
@@ -95,9 +100,18 @@ class InfoBubble extends React.Component {
       case INFO_BUBBLE_TYPE_SEGMENT:
         const segment = this.state.segment
         if (segment) {
-          const segmentInfo = SEGMENT_INFO[segment.type]
-          const variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString]
-          name = variantInfo.name || segmentInfo.name
+          const segmentName = SEGMENT_INFO[segment.type].name
+          const segmentVariantName = SEGMENT_INFO[segment.type].details[segment.variantString].name
+          const segmentType = segment.type
+          const segmentVariant = segment.variantString
+
+          // Not all variants have custom names. If the custom segment variant name doesn't exist,
+          // then it should use the default name for the segment.
+          if (segmentVariantName) {
+            name = t(`segments.${segmentType}.details.${segmentVariant}.name`, segmentVariantName, { ns: 'segment-info' })
+          } else {
+            name = t(`segments.${segmentType}.name`, segmentName, { ns: 'segment-info' })
+          }
         }
         break
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
