@@ -71,7 +71,8 @@
     "cancel": "Cancel",
     "create": "Create new street",
     "copy": "Make a copy",
-    "remove": "Remove"
+    "remove": "Remove",
+    "close": "Close"
   },
   "dialogs": {
     "welcome": {
