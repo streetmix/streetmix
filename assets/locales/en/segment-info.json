@@ -221,6 +221,29 @@
       }
     }
   },
+  "buildings": {
+    "waterfront": {
+      "name": "Waterfront"
+    },
+    "grass": {
+      "name": "Grass"
+    },
+    "fence": {
+      "name": "Empty lot"
+    },
+    "parking-lot": {
+      "name": "Parking lot"
+    },
+    "residential": {
+      "name": "Home"
+    },
+    "narrow": {
+      "name": "Building"
+    },
+    "wide": {
+      "name": "Building"
+    }
+  },
   "variant-icons": {
     "orientation|left": "Left",
     "orientation|right": "Right",
