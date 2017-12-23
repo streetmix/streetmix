@@ -7,6 +7,7 @@ import WidthControl from './WidthControl'
 import BuildingHeightControl from './BuildingHeightControl'
 import Warnings from './Warnings'
 import { infoBubble } from './info_bubble'
+import { getDescriptionData, showDescription, highlightTriangle, unhighlightTriangle } from './description'
 import { resumeFadeoutControls } from '../segments/resizing'
 import { getStreet } from '../streets/data_model'
 // import { trackEvent } from '../app/event_tracking'
@@ -17,6 +18,8 @@ import { setInfoBubbleMouseInside } from '../store/actions/infoBubble'
 const INFO_BUBBLE_TYPE_SEGMENT = 1
 const INFO_BUBBLE_TYPE_LEFT_BUILDING = 2
 const INFO_BUBBLE_TYPE_RIGHT_BUILDING = 3
+
+const DESCRIPTION_PROMPT_LABEL = 'Learn more'
 
 class InfoBubble extends React.Component {
   static propTypes = {
@@ -109,6 +112,24 @@ class InfoBubble extends React.Component {
     return name
   }
 
+  renderDescription = () => {
+    const description = getDescriptionData(this.state.segment)
+    if (description) {
+      return (
+        <div
+          className="description-prompt"
+          onClick={showDescription}
+          onMouseOver={highlightTriangle}
+          onMouseOut={unhighlightTriangle}
+        >
+          {(description.prompt) ? description.prompt : DESCRIPTION_PROMPT_LABEL}
+        </div>
+      )
+    }
+
+    return null
+  }
+
   render () {
     const type = this.state.type
     const canBeDeleted = (type === INFO_BUBBLE_TYPE_SEGMENT)
@@ -160,6 +181,7 @@ class InfoBubble extends React.Component {
         {widthOrHeightControl}
         <Variants type={type} segment={this.state.segment} street={this.state.street} dataNo={this.props.dataNo} />
         <Warnings segment={this.state.segment} />
+        {this.renderDescription()}
       </div>
     )
   }

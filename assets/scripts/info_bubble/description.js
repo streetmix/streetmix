@@ -10,8 +10,6 @@ import { getStreetSectionTop } from '../app/window_resize'
 import { SEGMENT_INFO } from '../segments/info'
 import { infoBubble } from './info_bubble'
 
-const DESCRIPTION_PROMPT_LABEL = 'Learn more'
-
 export function updateDescription (segment) {
   const description = getDescriptionData(segment)
 
@@ -21,7 +19,9 @@ export function updateDescription (segment) {
   }
 }
 
-function getDescriptionData (segment) {
+export function getDescriptionData (segment) {
+  if (!segment) return null
+
   const segmentInfo = SEGMENT_INFO[segment.type]
   const variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString]
 
@@ -69,16 +69,6 @@ export function hideDescription () {
 }
 
 function buildDescriptionDOM (description) {
-  const promptEl = document.createElement('div')
-  promptEl.classList.add('description-prompt')
-  promptEl.innerHTML = (description.prompt) ? description.prompt : DESCRIPTION_PROMPT_LABEL
-
-  promptEl.addEventListener('pointerdown', showDescription)
-  promptEl.addEventListener('pointerenter', highlightTriangle)
-  promptEl.addEventListener('pointerleave', unhighlightTriangle)
-
-  infoBubble.transitionEl.appendChild(promptEl)
-
   const descriptionEl = document.createElement('div')
   descriptionEl.classList.add('description-canvas')
 
@@ -123,18 +113,15 @@ function buildDescriptionDOM (description) {
 }
 
 function destroyDescriptionDOM () {
-  const el1 = infoBubble.el.querySelector('.description-prompt')
-  if (el1) el1.remove()
-
   const el2 = infoBubble.el.querySelector('.description-canvas')
   if (el2) el2.remove()
 }
 
-function highlightTriangle () {
+export function highlightTriangle () {
   infoBubble.el.classList.add('highlight-triangle')
 }
 
-function unhighlightTriangle () {
+export function unhighlightTriangle () {
   infoBubble.el.classList.remove('highlight-triangle')
 }
 
