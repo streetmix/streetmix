@@ -81,7 +81,7 @@ class WidthControl extends React.Component {
   }
 
   onInput = (event) => {
-    this._widthEditInputChanged(event.target, false)
+    this._widthEditInputChanged(event.target.value, false)
 
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INPUT_FIELD', null, true)
   }
@@ -126,19 +126,17 @@ class WidthControl extends React.Component {
   }
 
   onKeyDownInput = (event) => {
-    var el = event.target
-
     switch (event.keyCode) {
       case KEYS.ENTER:
-        this._widthEditInputChanged(el, true)
-        el.focus()
-        el.select()
+        this._widthEditInputChanged(event.target.value, true)
+        this.inputEl.focus()
+        this.inputEl.select()
         break
       case KEYS.ESC:
         this.setState({
           displayValue: this.oldValue
         })
-        this._widthEditInputChanged(el, true)
+        this._widthEditInputChanged(event.target.value, true)
         this.inputEl.blur()
         break
     }
@@ -147,10 +145,8 @@ class WidthControl extends React.Component {
   /**
    * Any time the width input changes, run it through `resizeSegment()`
    */
-  _widthEditInputChanged (el, immediate = true) {
+  _widthEditInputChanged (inputValue, immediate = true) {
     window.clearTimeout(this.timerId)
-
-    const inputValue = el.value
 
     this.setState({
       displayValue: inputValue

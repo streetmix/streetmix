@@ -48,7 +48,11 @@ class BuildingHeightControl extends React.Component {
   }
 
   onInput = (event) => {
-    this._heightEditInputChanged(event.target, false)
+    this.setState({
+      displayValue: event.target.value
+    })
+
+    this._heightEditInputChanged(event.target.value, false)
   }
 
   onClickInput = (event) => {
@@ -75,10 +79,9 @@ class BuildingHeightControl extends React.Component {
    */
   onBlurInput = (event) => {
     const street = getStreet()
-    const el = event.target
     const position = this.props.position
 
-    this._heightEditInputChanged(el, true)
+    this._heightEditInputChanged(event.target.value, true)
 
     const value = (position === 'left') ? street.leftBuildingHeight : street.rightBuildingHeight
 
@@ -107,38 +110,57 @@ class BuildingHeightControl extends React.Component {
 
   onKeyDownInput = (event) => {
     const street = getStreet()
-    const el = event.target
 
     switch (event.keyCode) {
       case KEYS.ENTER:
-        this._heightEditInputChanged(el, true)
+        this._heightEditInputChanged(event.target.value, true)
+
+        // TODO: don't read height off the data again
+        const value = this.props.position === 'left' ? street.leftBuildingHeight : street.rightBuildingHeight
+        this.setState({
+          value,
+          displayValue: _prettifyHeight(value) // doesn't work?
+        })
+
+        // Apparently we need to lose focus first or we can't re-focus and select
         loseAnyFocus()
-        el.value = _prettifyHeight(this.props.position === 'left' ? street.leftBuildingHeight : street.rightBuildingHeight)
-        el.focus()
-        el.select()
+        this.inputEl.focus()
+        this.inputEl.select()
         break
       case KEYS.ESC:
         this.setState({
-          displayValue: this.oldValue
+          value: this.oldValue
         })
-        this._heightEditInputChanged(el, true)
+        this._heightEditInputChanged(event.target.value, true)
         hideAllMenus()
         loseAnyFocus()
         break
     }
   }
 
-  _heightEditInputChanged = (el, immediate) => {
-    window.clearTimeout(this.timerId)
-    let street = getStreet()
-
-    var height = parseInt(el.value)
+  /**
+   * Given an input value, convert it to an integer, then make sure it is within
+   * bounds for a building.
+   *
+   * @param {String|Number} value - input value to test
+   * @returns {Number} - number of floors
+   */
+  ensureHeightInBounds (value) {
+    let height = window.parseInt(value)
 
     if (!height || (height < 1)) {
       height = 1
     } else if (height > MAX_BUILDING_HEIGHT) {
       height = MAX_BUILDING_HEIGHT
     }
+
+    return height
+  }
+
+  _heightEditInputChanged = (value, immediate) => {
+    window.clearTimeout(this.timerId)
+    const street = getStreet()
+    const height = this.ensureHeightInBounds(value)
 
     if (immediate) {
       if (this.props.position === 'left') {
