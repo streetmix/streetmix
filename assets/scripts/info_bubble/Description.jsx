@@ -5,7 +5,8 @@ import { t } from '../app/locale'
 
 export default class Description extends React.Component {
   static propTypes = {
-    description: PropTypes.object
+    description: PropTypes.object,
+    type: PropTypes.string
   }
 
   constructor (props) {
@@ -49,6 +50,10 @@ export default class Description extends React.Component {
 
     if (!description) return null
 
+    // Get translated text for prompt, if it exists
+    const defaultPrompt = description.prompt || t('segments.learn-more', 'Learn more')
+    const prompt = t(`segments.${this.props.type}.description.prompt`, defaultPrompt, { ns: 'segment-info' })
+
     // TODO: add alt text and requisite a11y attributes
     const image = (description.image) ? (
       <img src={`/images/info-bubble-examples/${description.image}`} />
@@ -72,7 +77,7 @@ export default class Description extends React.Component {
           onMouseOver={highlightTriangle}
           onMouseOut={unhighlightTriangle}
         >
-          {(description.prompt) ? description.prompt : t('segments.learn-more', 'Learn more')}
+          {prompt}
         </div>
         <div className="description-canvas" style={height}>
           <div className="description" ref={(ref) => { this.text = ref }}>

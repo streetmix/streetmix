@@ -38,7 +38,8 @@ class InfoBubble extends React.Component {
     this.state = {
       type: null,
       street: null,
-      segment: null
+      segment: null,
+      description: null
     }
   }
 
@@ -185,7 +186,7 @@ class InfoBubble extends React.Component {
         {widthOrHeightControl}
         <Variants type={type} segment={this.state.segment} street={this.state.street} dataNo={this.props.dataNo} />
         <Warnings segment={this.state.segment} />
-        <Description description={this.state.description} />
+        <Description description={this.state.description} type={this.state.segment && this.state.segment.type} />
       </div>
     )
   }
