@@ -14,12 +14,11 @@ import { getStreet } from '../streets/data_model'
 import { BUILDING_VARIANTS, BUILDING_VARIANT_NAMES } from '../segments/buildings'
 import { SEGMENT_INFO } from '../segments/info'
 import { setInfoBubbleMouseInside } from '../store/actions/infoBubble'
+import { t } from '../app/locale'
 
 const INFO_BUBBLE_TYPE_SEGMENT = 1
 const INFO_BUBBLE_TYPE_LEFT_BUILDING = 2
 const INFO_BUBBLE_TYPE_RIGHT_BUILDING = 3
-
-const DESCRIPTION_PROMPT_LABEL = 'Learn more'
 
 class InfoBubble extends React.Component {
   static propTypes = {
@@ -122,7 +121,7 @@ class InfoBubble extends React.Component {
           onMouseOver={highlightTriangle}
           onMouseOut={unhighlightTriangle}
         >
-          {(description.prompt) ? description.prompt : DESCRIPTION_PROMPT_LABEL}
+          {(description.prompt) ? description.prompt : t('segments.learn-more', 'Learn more')}
         </div>
       )
     }
