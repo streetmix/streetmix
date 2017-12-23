@@ -97,7 +97,7 @@ class InfoBubble extends React.Component {
     let name
 
     switch (this.state.type) {
-      case INFO_BUBBLE_TYPE_SEGMENT:
+      case INFO_BUBBLE_TYPE_SEGMENT: {
         const segment = this.state.segment
         if (segment) {
           const segmentName = SEGMENT_INFO[segment.type].name
@@ -114,12 +114,19 @@ class InfoBubble extends React.Component {
           }
         }
         break
-      case INFO_BUBBLE_TYPE_LEFT_BUILDING:
-        name = BUILDING_VARIANT_NAMES[BUILDING_VARIANTS.indexOf(this.state.street.leftBuildingVariant)]
+      }
+      case INFO_BUBBLE_TYPE_LEFT_BUILDING: {
+        const variantId = this.state.street.leftBuildingVariant
+        const backupName = BUILDING_VARIANT_NAMES[BUILDING_VARIANTS.indexOf(variantId)]
+        name = t(`buildings.${variantId}.name`, backupName, { ns: 'segment-info' })
         break
-      case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
-        name = BUILDING_VARIANT_NAMES[BUILDING_VARIANTS.indexOf(this.state.street.rightBuildingVariant)]
+      }
+      case INFO_BUBBLE_TYPE_RIGHT_BUILDING: {
+        const variantId = this.state.street.rightBuildingVariant
+        const backupName = BUILDING_VARIANT_NAMES[BUILDING_VARIANTS.indexOf(variantId)]
+        name = t(`buildings.${variantId}.name`, backupName, { ns: 'segment-info' })
         break
+      }
       default:
         break
     }
