@@ -10,15 +10,6 @@ import { getStreetSectionTop } from '../app/window_resize'
 import { SEGMENT_INFO } from '../segments/info'
 import { infoBubble } from './info_bubble'
 
-export function updateDescription (segment) {
-  const description = getDescriptionData(segment)
-
-  destroyDescriptionDOM()
-  if (description) {
-    buildDescriptionDOM(description)
-  }
-}
-
 export function getDescriptionData (segment) {
   if (!segment) return null
 
@@ -66,55 +57,6 @@ export function hideDescription () {
   infoBubble.updateHoverPolygon()
   unhighlightTriangleDelayed()
   deregisterKeypress('esc', hideDescription)
-}
-
-function buildDescriptionDOM (description) {
-  const descriptionEl = document.createElement('div')
-  descriptionEl.classList.add('description-canvas')
-
-  const descriptionInnerEl = document.createElement('div')
-  descriptionInnerEl.classList.add('description')
-
-  if (description.image) {
-    descriptionInnerEl.innerHTML += '<img src="/images/info-bubble-examples/' + description.image + '">'
-  }
-  if (description.lede) {
-    descriptionInnerEl.innerHTML += '<p class="description-lede">' + description.lede + '</p>'
-  }
-  for (let i = 0; i < description.text.length; i++) {
-    descriptionInnerEl.innerHTML += '<p>' + description.text[i] + '</p>'
-  }
-  if (description.imageCaption) {
-    descriptionInnerEl.innerHTML += '<footer>Photo: ' + description.imageCaption + '</footer>'
-  }
-  descriptionEl.appendChild(descriptionInnerEl)
-
-  // Links should open in a new window
-  const anchorEls = descriptionInnerEl.querySelectorAll('a')
-  for (let anchorEl of anchorEls) {
-    anchorEl.target = '_blank'
-  }
-
-  // Lower close button
-  const closeEl = document.createElement('div')
-  closeEl.classList.add('description-close')
-  closeEl.innerHTML = 'Close'
-  closeEl.addEventListener('pointerdown', hideDescription)
-  closeEl.addEventListener('pointerenter', highlightTriangle)
-  closeEl.addEventListener('pointerleave', unhighlightTriangle)
-  descriptionEl.appendChild(closeEl)
-
-  // Decoration: a triangle pointing down
-  const triangleEl = document.createElement('div')
-  triangleEl.classList.add('info-bubbble-triangle')
-  descriptionEl.appendChild(triangleEl)
-
-  infoBubble.transitionEl.appendChild(descriptionEl)
-}
-
-function destroyDescriptionDOM () {
-  const el2 = infoBubble.el.querySelector('.description-canvas')
-  if (el2) el2.remove()
 }
 
 export function highlightTriangle () {

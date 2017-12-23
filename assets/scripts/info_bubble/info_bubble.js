@@ -1,6 +1,6 @@
 import { app } from '../preinit/app_settings'
 import { system } from '../preinit/system_capabilities'
-import { updateDescription, hideDescription } from './description'
+import { hideDescription } from './description'
 import {
   MAX_BUILDING_HEIGHT,
   getBuildingAttributes,
@@ -337,14 +337,6 @@ export const infoBubble = {
     infoBubble.el.style.transformOrigin = '50% ' + height + 'px'
   },
 
-  updateDescriptionInContents: function () {
-    // Not all info bubbles have a segment (e.g. buildings are not segments)
-    if (!infoBubble.segment) {
-      return
-    }
-    updateDescription(infoBubble.segment)
-  },
-
   updateHeightButtonsInContents: function () {
     let street = getStreet()
     var height = (infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingHeight : street.rightBuildingHeight
@@ -431,7 +423,6 @@ export const infoBubble = {
         break
     }
 
-    infoBubble.updateDescriptionInContents()
     infoBubble.getBubbleDimensions()
     window.setTimeout(function () {
       if (infoBubble.type !== INFO_BUBBLE_TYPE_SEGMENT) {

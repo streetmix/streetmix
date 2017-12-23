@@ -6,15 +6,15 @@ import Variants from './Variants'
 import WidthControl from './WidthControl'
 import BuildingHeightControl from './BuildingHeightControl'
 import Warnings from './Warnings'
+import Description from './Description.jsx'
 import { infoBubble } from './info_bubble'
-import { getDescriptionData, showDescription, highlightTriangle, unhighlightTriangle } from './description'
+import { getDescriptionData } from './description'
 import { resumeFadeoutControls } from '../segments/resizing'
 import { getStreet } from '../streets/data_model'
 // import { trackEvent } from '../app/event_tracking'
 import { BUILDING_VARIANTS, BUILDING_VARIANT_NAMES } from '../segments/buildings'
 import { SEGMENT_INFO } from '../segments/info'
 import { setInfoBubbleMouseInside } from '../store/actions/infoBubble'
-import { t } from '../app/locale'
 
 const INFO_BUBBLE_TYPE_SEGMENT = 1
 const INFO_BUBBLE_TYPE_LEFT_BUILDING = 2
@@ -79,10 +79,12 @@ class InfoBubble extends React.Component {
 
   updateInfoBubbleState = () => {
     const street = getStreet()
+    const segment = street.segments[this.props.dataNo]
     this.setState({
       type: infoBubble.type,
       street,
-      segment: street.segments[this.props.dataNo]
+      segment,
+      description: getDescriptionData(segment)
     })
   }
 
@@ -109,24 +111,6 @@ class InfoBubble extends React.Component {
     }
 
     return name
-  }
-
-  renderDescription = () => {
-    const description = getDescriptionData(this.state.segment)
-    if (description) {
-      return (
-        <div
-          className="description-prompt"
-          onClick={showDescription}
-          onMouseOver={highlightTriangle}
-          onMouseOut={unhighlightTriangle}
-        >
-          {(description.prompt) ? description.prompt : t('segments.learn-more', 'Learn more')}
-        </div>
-      )
-    }
-
-    return null
   }
 
   render () {
@@ -180,7 +164,7 @@ class InfoBubble extends React.Component {
         {widthOrHeightControl}
         <Variants type={type} segment={this.state.segment} street={this.state.street} dataNo={this.props.dataNo} />
         <Warnings segment={this.state.segment} />
-        {this.renderDescription()}
+        <Description description={this.state.description} />
       </div>
     )
   }
