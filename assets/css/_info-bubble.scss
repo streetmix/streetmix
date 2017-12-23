@@ -232,7 +232,6 @@
     box-sizing: border-box;
     margin: 0.5em auto; /* Ensure centering of text if not wide enough to fill width of bubble */
     padding: 0;
-    max-width: 280px; /* Prevent long text from extending the bubble too far*/
   }
 }
 
@@ -300,8 +299,7 @@
   text-rendering: optimizeLegibility;
   white-space: normal;
   text-align: center;
-  margin-top: 1px;
-  padding: 10px 5px;
+  padding: 1em 2em;
   font-size: 13px;
   user-select: none;
   color: darken($ui-colour, 20%);
@@ -314,14 +312,12 @@
 }
 
 .description-close {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
   pointer-events: none;
 }
 
 .description-canvas {
+  display: flex;
+  flex-direction: column;
   position: absolute;
   left: -50px;
   top: -50px;
@@ -337,15 +333,10 @@
 }
 
 .description {
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 37px;
-  padding: 12px;
+  padding: 1em;
   font-size: 16px;
   font-weight: 300;
-  line-height: 23px;
+  line-height: 1.4;
   overflow-y: auto;
   overflow-x: hidden;
   touch-action: pan-y;
