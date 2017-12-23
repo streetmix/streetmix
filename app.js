@@ -66,7 +66,8 @@ const helmetConfig = {
         'api.mixpanel.com',
         'search.mapzen.com',
         'syndication.twitter.com',
-        'https://www.google-analytics.com'
+        'https://www.google-analytics.com',
+        'app.getsentry.com'
       ]
     }
   }
