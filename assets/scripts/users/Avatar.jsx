@@ -17,6 +17,10 @@ export class Avatar extends React.PureComponent {
     rememberUserProfile: PropTypes.func
   }
 
+  static defaultProps = {
+    rememberUserProfile: () => {}
+  }
+
   constructor (props) {
     super(props)
 
