@@ -3,7 +3,8 @@ import {
   SET_USER_SIGNED_IN_STATE,
   SET_USER_SIGN_IN_LOADED_STATE,
   GEOLOCATION_ATTEMPTED,
-  GEOLOCATION_DATA
+  GEOLOCATION_DATA,
+  REMEMBER_USER_PROFILE
 } from '../actions'
 
 const initialState = {
@@ -13,7 +14,8 @@ const initialState = {
   geolocation: {
     attempted: false,
     data: null
-  }
+  },
+  profileCache: {}
 }
 
 const settings = (state = initialState, action) => {
@@ -42,6 +44,17 @@ const settings = (state = initialState, action) => {
       const obj = Object.assign({}, state)
       obj.geolocation.data = action.data
       return obj
+    }
+    case REMEMBER_USER_PROFILE: {
+      // Prevent a case where a bad action results in a corrupted cache
+      if (!action.profile || !action.profile.id) return state
+
+      return {
+        ...state,
+        profileCache: Object.assign(state.profileCache, {
+          [action.profile.id]: action.profile
+        })
+      }
     }
     default:
       return state

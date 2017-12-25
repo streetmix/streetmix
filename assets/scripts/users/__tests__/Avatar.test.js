@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { mount } from 'enzyme'
-import Avatar from '../Avatar'
+import { Avatar } from '../Avatar'
 
 describe('Avatar', () => {
   it.skip('shows avatar image', () => {
@@ -41,6 +41,19 @@ describe('Avatar', () => {
 
     // Component should include a class to render placeholder image
     expect(component.find('div').instance().className).toContain('avatar-blank')
+
+    window.fetch.resetMocks()
+  })
+
+  it('does not make a failed request twice', () => {
+    window.fetch.mockReject(new Error('mebbe a 500'))
+
+    // Mount the component with the same user id twice
+    mount(<Avatar userId="baz" />)
+    mount(<Avatar userId="baz" />)
+
+    // It should only try fetching once
+    expect(window.fetch).toHaveBeenCalledTimes(1)
 
     window.fetch.resetMocks()
   })

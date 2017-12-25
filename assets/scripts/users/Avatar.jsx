@@ -1,14 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { API_URL } from '../app/config'
-import { getCachedProfileImageUrl, receiveUserDetails } from '../users/profile_image_cache'
+import { rememberUserProfile } from '../store/actions/user'
 
-// Cache
+// Requests are cached so that multiple Avatar components that have the
+// same userId only need to make one request. Requests are cached separately
+// from user profile data because this also remembers a failed request (and
+// won't make subsequent requests if it failed previously.)
 const requests = {}
 
-export default class Avatar extends React.PureComponent {
+export class Avatar extends React.PureComponent {
   static propTypes = {
-    userId: PropTypes.string.isRequired
+    userId: PropTypes.string.isRequired,
+    profileCache: PropTypes.object,
+    rememberUserProfile: PropTypes.func
   }
 
   constructor (props) {
@@ -16,7 +22,7 @@ export default class Avatar extends React.PureComponent {
 
     this.image = null
     this.state = {
-      image: getCachedProfileImageUrl(this.props.userId) || null
+      image: this.getCachedProfileImageUrl(this.props.userId) || null
     }
   }
 
@@ -29,7 +35,7 @@ export default class Avatar extends React.PureComponent {
 
   componentWillReceiveProps (nextProps) {
     if (this.props.userId !== nextProps.userId) {
-      const url = getCachedProfileImageUrl(nextProps.userId)
+      const url = this.getCachedProfileImageUrl(nextProps.userId)
       if (url) {
         this.testImageUrl(url)
       } else {
@@ -47,31 +53,39 @@ export default class Avatar extends React.PureComponent {
     this.image = null
   }
 
+  getCachedProfileImageUrl = (userId) => {
+    try {
+      return this.props.profileCache[userId].profileImageUrl
+    } catch (error) {
+      return null
+    }
+  }
+
   fetchAvatar = async (userId) => {
-    const details = requests[userId]
-    // Requests are cached so that multiple Avatar components that have the
-    // same userId only need to make one request. If the request hasn't been
-    // cached, perform that now.
-    if (!details) {
+    const details = await requests[userId]
+
+    // If request was already made and cached, use it
+    if (details) {
+      this.props.rememberUserProfile(details)
+      this.testImageUrl(details.profileImageUrl)
+    } else {
+      // If the request hasn't been made and cached, do that now.
       // Use try / catch to handle rejections from Fetch
       try {
-        const response = await window.fetch(API_URL + 'v1/users/' + userId)
+        requests[userId] = window.fetch(API_URL + 'v1/users/' + userId)
 
+        const response = await requests[userId]
         if (response.ok) {
-          requests[userId] = await response.json()
-          receiveUserDetails(requests[userId])
-          this.testImageUrl(requests[userId].profileImageUrl)
+          const data = await response.json()
+          this.props.rememberUserProfile(data)
+          this.testImageUrl(data.profileImageUrl)
         } else {
           // Reject responses with a non-OK HTTP status code
-          throw new Error(response.status)
+          throw new Error(requests[userId].status)
         }
       } catch (error) {
         this.setState({ image: null })
       }
-    } else {
-      // Retrieve request from the cache
-      receiveUserDetails(details)
-      this.testImageUrl(details.profileImageUrl)
     }
   }
 
@@ -82,21 +96,18 @@ export default class Avatar extends React.PureComponent {
   // clean up these handlers and the reference to the image element in
   // `componentWillUnmount`.
   testImageUrl = (url) => {
+    // Bail if the `url` argument is a falsy value
+    if (!url) {
+      this.setState({ image: null })
+    }
+
     this.image = document.createElement('img')
     this.image.onerror = () => {
       this.setState({ image: null })
       this.image = null
     }
     this.image.onload = () => {
-      // Only set image url if `url` is not falsy. An image element can still
-      // "load" successfully with a falsy (e.g. undefined) `src` attribute.
-      if (url) {
-        this.setState({ image: url })
-      } else {
-        this.setState({ image: null })
-      }
-
-      // Clean up
+      this.setState({ image: url })
       this.image = null
     }
     this.image.src = url
@@ -119,3 +130,17 @@ export default class Avatar extends React.PureComponent {
     )
   }
 }
+
+function mapStateToProps (state) {
+  return {
+    profileCache: state.user.profileCache
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    rememberUserProfile: (profile) => { dispatch(rememberUserProfile(profile)) }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Avatar)
