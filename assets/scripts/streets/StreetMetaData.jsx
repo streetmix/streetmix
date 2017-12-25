@@ -7,7 +7,7 @@ import { getRemixOnFirstEdit } from './remix'
 import { showGallery } from '../gallery/view'
 import store from '../store'
 import StreetWidth from './StreetWidth'
-import Avatar from '../app/Avatar'
+import Avatar from '../users/Avatar'
 import { SHOW_DIALOG } from '../store/actions'
 
 class StreetMetaData extends React.Component {
