@@ -3,9 +3,10 @@ import PropTypes from 'prop-types'
 import { API_URL } from '../app/config'
 import { getCachedProfileImageUrl, receiveUserDetails } from '../users/profile_image_cache'
 
+// Cache
 const requests = {}
 
-export default class Avatar extends React.Component {
+export default class Avatar extends React.PureComponent {
   static propTypes = {
     userId: PropTypes.string.isRequired
   }
@@ -46,25 +47,32 @@ export default class Avatar extends React.Component {
     this.image = null
   }
 
-  fetchAvatar = (userId) => {
+  fetchAvatar = async (userId) => {
+    const details = requests[userId]
     // Requests are cached so that multiple Avatar components that have the
-    // same userId only need to make one request.
-    if (!requests[userId]) {
-      requests[userId] = window.fetch(API_URL + 'v1/users/' + userId)
-        .then((response) => {
-          if (!response.ok) throw new Error(response.status)
-          return response.json()
-        })
-    }
+    // same userId only need to make one request. If the request hasn't been
+    // cached, perform that now.
+    if (!details) {
+      // Use try / catch to handle rejections from Fetch
+      try {
+        const response = await window.fetch(API_URL + 'v1/users/' + userId)
 
-    requests[userId]
-      .then((details) => {
-        receiveUserDetails(details)
-        this.testImageUrl(details.profileImageUrl)
-      })
-      .catch((status) => {
+        if (response.ok) {
+          requests[userId] = await response.json()
+          receiveUserDetails(requests[userId])
+          this.testImageUrl(requests[userId].profileImageUrl)
+        } else {
+          // Reject responses with a non-OK HTTP status code
+          throw new Error(response.status)
+        }
+      } catch (error) {
         this.setState({ image: null })
-      })
+      }
+    } else {
+      // Retrieve request from the cache
+      receiveUserDetails(details)
+      this.testImageUrl(details.profileImageUrl)
+    }
   }
 
   // Loads the image source url in a <img> element to test its validity.
@@ -80,7 +88,15 @@ export default class Avatar extends React.Component {
       this.image = null
     }
     this.image.onload = () => {
-      this.setState({ image: url })
+      // Only set image url if `url` is not falsy. An image element can still
+      // "load" successfully with a falsy (e.g. undefined) `src` attribute.
+      if (url) {
+        this.setState({ image: url })
+      } else {
+        this.setState({ image: null })
+      }
+
+      // Clean up
       this.image = null
     }
     this.image.src = url
