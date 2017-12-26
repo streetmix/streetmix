@@ -103,6 +103,7 @@
     "react-dom": "16.2.0",
     "react-leaflet": "1.7.8",
     "react-redux": "5.0.6",
+    "react-transition-group": "2.2.1",
     "redux": "3.7.2",
     "request": "2.83.0",
     "requireindex": "1.1.0",
