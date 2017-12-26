@@ -7,7 +7,7 @@
  */
 import React from 'react'
 import Dialog from './Dialog'
-import Avatar from '../app/Avatar'
+import Avatar from '../users/Avatar'
 import { trackEvent } from '../app/event_tracking'
 import { t } from '../app/locale'
 

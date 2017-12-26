@@ -9,7 +9,7 @@ import { debug } from '../preinit/debug_settings'
 import { URL_SIGN_IN_REDIRECT } from '../app/routing'
 import { showGallery } from '../gallery/view'
 import { getElAbsolutePos } from '../util/helpers'
-import Avatar from '../app/Avatar'
+import Avatar from '../users/Avatar'
 
 class MenuBar extends React.PureComponent {
   static propTypes = {

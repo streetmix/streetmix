@@ -17,7 +17,7 @@ import { isSignedIn } from '../users/authentication'
 import { registerKeypress, deregisterKeypress } from './keypress'
 import { MODES, getMode } from './mode'
 import { goNewStreet } from './routing'
-import Avatar from './Avatar'
+import Avatar from '../users/Avatar'
 
 const WELCOME_NONE = 0
 const WELCOME_NEW_STREET = 1
