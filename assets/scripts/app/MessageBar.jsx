@@ -29,6 +29,11 @@ export default class MessageBar extends React.Component {
   }
 
   render () {
+    // No messages to display for now, so return null from this component.
+    // For now, manually edit this render and deploy for messages.
+    return null
+
+    /* eslint-disable no-unreachable */
     const margin = (this.state.visible) ? 0 : `-${this.state.height}px`
 
     return (
