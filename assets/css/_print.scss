@@ -22,9 +22,8 @@
   }
 
   // Hide all other stuff
-  body > *:not(#main-screen),
-  #main-screen > *:not(#react-app),
-  [data-reactroot] > *:not(.print-container) {
+  body > *:not(#react-app),
+  #react-app > div > *:not(.print-container) {
     display: none;
   }
 }
