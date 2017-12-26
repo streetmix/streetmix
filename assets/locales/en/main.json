@@ -72,7 +72,8 @@
     "create": "Create new street",
     "copy": "Make a copy",
     "remove": "Remove",
-    "close": "Close"
+    "close": "Close",
+    "dismiss": "Dismiss"
   },
   "dialogs": {
     "welcome": {
