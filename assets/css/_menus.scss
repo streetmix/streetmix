@@ -32,9 +32,7 @@
     display: block;
     position: relative;
     margin-bottom: -1px;
-    padding: 8px 20px;
-    padding-left: 30px;
-    padding-right: 40px;
+    padding: 0.75em 2.5em;
     border-top: 1px solid $ui-colour;
     border-bottom: 1px solid $ui-colour;
     text-decoration: none;
@@ -64,8 +62,8 @@
 
   .icon {
     position: absolute;
-    top: 8px;
-    left: 8px;
+    top: 0.75em;
+    left: 0.75em;
     width: 16px;
     height: 16px;
   }
