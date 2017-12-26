@@ -1,5 +1,6 @@
 import React from 'react'
 import { Transition } from 'react-transition-group'
+import { t } from '../app/locale'
 
 const TRANSITION_DURATION = 250
 const TRANSITION_BASE_STYLE = {
@@ -36,7 +37,7 @@ export default class MessageBar extends React.Component {
           <strong className="message-bar-intro">Heads up!</strong>
           <span className="message-bar-text">Streetmix will be offline for maintainance on January 1, 2018 at 19:00 GMT.</span>
           <a href="https://twitter.com/streetmix/" target="_blank" className="message-bar-link">Follow us on Twitter for updates.</a>
-          <button className="close" onClick={this.onClickDismiss} title="Dismiss">×</button>
+          <button className="close" onClick={this.onClickDismiss} title={t('btn.dismiss', 'Dismiss')}>×</button>
         </div>
       </Transition>
     )
