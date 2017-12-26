@@ -38,25 +38,6 @@ body.touch-support .non-touch-only {
   bottom: 0;
 }
 
-.message-bar {
-  position: relative;
-  z-index: 200;
-  padding: 0.5em calc(36px + 1.5em); /* Makes room for dismiss button */
-  font-size: 13px;
-  text-align: center; /* Since the app is very center-view oriented, this helps message legibility */
-  background-color: $alert-background;
-  border-bottom: 3px solid $alert-border;
-
-  button.close {
-    height: 100%;
-  }
-}
-
-.message-bar-text {
-  margin-left: 0.5em;
-  margin-right: 0.5em;
-}
-
 .main-screen {
   position: relative;
   z-index: $z-01-main-screen;
