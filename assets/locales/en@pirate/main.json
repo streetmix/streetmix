@@ -4,6 +4,8 @@
       "help": "Yarr!!!",
       "about": "Thar she blows",
       "contact": "Avast!",
+      "community": "Community",
+      "contribute": "Contribute",
       "sign-in": "Sign in",
       "sign-out": "Sign out",
       "new-street": "New street",
@@ -27,10 +29,17 @@
       "save-byline": "For including in a report, blog, etc."
     },
     "contact": {
+      "forums": "Discuss on the forums",
       "twitter": "Send a tweet to @streetmix",
       "email": "Send an email to Streetmix team",
-      "github": "View/comment on GitHub",
-      "blog": "Visit Streetmix blog"
+      "github": "View source code on GitHub",
+      "blog": "Visit Streetmix blog",
+      "slack": "Join Slack chat"
+    },
+    "contribute": {
+      "donate": "Donate",
+      "stickers": "Buy a sticker sheet!",
+      "opensource": "Contribute to open source"
     },
     "feedback": {
       "prompt": "Send us a message:",
@@ -46,6 +55,7 @@
   },
   "msg": {
     "loading": "This be loadin’…",
+    "remixing": "Remixing…",
     "having-trouble": "Having trouble…",
     "no-street": "No street selected.",
     "trouble-loading": "We’re having trouble loading Streetmix.",
@@ -60,7 +70,10 @@
     "try-again": "Try again",
     "cancel": "Cancel",
     "create": "Create new street",
-    "copy": "Make a copy"
+    "copy": "Make a copy",
+    "remove": "Remove",
+    "close": "Close",
+    "dismiss": "Dismiss"
   },
   "dialogs": {
     "welcome": {
@@ -85,7 +98,11 @@
       "description": "Design, remix, and share your street. Add bike paths, widen sidewalks or traffic lanes, learn how all of this can impact your community.",
       "thanks": "Many thanks to the staff and 2013 CfA fellows for their support and patience, the Blockee team for paving the way, and all of our testers for their time and feedback!",
       "credits": "A side project by %s 2013 fellows:",
-      "view-source": "View source code"
+      "team-heading": "Project team and maintainers",
+      "view-source": "View source code",
+      "sponsored-by": "Streetmix is generously sponsored by:",
+      "donate-link": "Support us financially",
+      "github-link": "Contribute to open source"
     },
     "save": {
       "heading": "Save as image",
@@ -95,19 +112,50 @@
       "loading": "This be loadin’…",
       "save-button": "Save to your computer…",
       "license": "This Streetmix-created image may be reused anywhere, for any purpose, under the <br><a href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons Attribution-ShareAlike 4.0 International License</a>."
+    },
+    "geolocate": {
+      "search": "Search for a location",
+      "clear-search": "Clear search",
+      "zoom-in": "Zoom in",
+      "zoom-out": "Zoom out"
     }
+  },
+  "prompt": {
+    "new-street": "New street name:",
+    "delete-street": "Are you sure you want to permanently delete {{streetName}}? This cannot be undone.",
+    "new-width": "New street width (from {{minWidth}} to {{maxWidth}}):"
+  },
+  "toast": {
+    "segment-deleted": "The segment has been removed.",
+    "all-segments-deleted": "All segments have been removed.",
+    "no-undo": "Nothing to undo.",
+    "no-redo": "Nothing to redo.",
+    "no-save": "No need to save by hand; Streetmix automatically saves your street!",
+    "remixing": "Now editing a freshly-made duplicate of the original street. The duplicate has been put in your gallery.",
+    "remixing-sign-in": "Now editing a freshly-made duplicate of the original street. Sign in to start your own gallery of streets.",
+    "reloaded": "Your street was reloaded from the server as it was modified elsewhere."
   },
   "palette": {
     "remove": "Drag here to remove"
   },
   "width": {
-    "label": "%s width",
-    "room": "(%s room)",
+    "label": "{{width}} width",
+    "under": "({{width}} room)",
+    "over": "({{width}} over)",
     "occupied": "Occupied width:",
     "building": "Building-to-building width:",
     "different": "Different width…",
     "metric": "Switch to metric units",
     "imperial": "Switch to imperial units (feet)"
+  },
+  "datetime": {
+    "minutes-ago": "A few minutes ago",
+    "seconds-ago": "A few seconds ago",
+    "yesterday": "Yesterday at {{time}}",
+    "today": "Today at {{time}}",
+    "format-date-no-year": "MMM D",
+    "format-date-with-year": "MMM D, YYYY",
+    "format-time": "HH:MM"
   },
   "key": {
     "backspace": "Backspace",
@@ -124,16 +172,33 @@
     "add-floor": "Add floor",
     "remove-floor": "Remove floor"
   },
+  "street": {
+    "default-name": "Unnamed St",
+    "rename": "Click to rename"
+  },
+  "segments": {
+    "warnings": {
+      "does-not-fit": "This segment doesn’t fit within the street.",
+      "not-wide": "This segment might not be wide enough.",
+      "too-wide": "This segment might be too wide."
+    },
+    "learn-more": "Learn more"
+  },
   "section": {
     "empty": "Empty space"
   },
   "gallery": {
     "fail": "Failed to load the gallery.",
     "all": "All streets",
-    "delete-street-tooltip": "Delete street"
+    "twitter-link": "Twitter profile",
+    "delete-street-tooltip": "Delete street",
+    "street-count-none": "No streets yet",
+    "street-count": "{{count}} street",
+    "street-count_plural": "{{count}} streets"
   },
   "users": {
-    "anonymous": "Anonymous"
+    "anonymous": "Anonymous",
+    "byline": "by {{user}}"
   },
   "sign-in": {
     "link": "Sign in with Twitter",
@@ -148,11 +213,14 @@
       "en": "English",
       "en@pirate": "English (Pirate)",
       "fi": "Finnish",
+      "fr": "French",
       "de": "German",
       "es": "Spanish",
       "es-mx": "Spanish (Mexico)",
       "pl": "Polish",
-      "pt-br": "Portuguese (Brazil)"
+      "pt-br": "Portuguese (Brazil)",
+      "sv": "Swedish",
+      "zh-hant": "Chinese (Traditional)"
     }
   }
 }

@@ -4,6 +4,8 @@
       "help": "Ajuda",
       "about": "Sobre o Streetmix...",
       "contact": "Contato",
+      "community": "Comunidade",
+      "contribute": "Contribuir",
       "sign-in": "Entrar",
       "sign-out": "Sair",
       "new-street": "Nova rua",
@@ -27,10 +29,17 @@
       "save-byline": "Para incluir em uma reportagem, blog, etc."
     },
     "contact": {
+      "forums": "Discutir em os foros",
       "twitter": "Envie um tweet para @streetmix",
       "email": "Enviar email para a equipe do Streetmix<br>",
-      "github": "Ver/comentar no GitHub",
-      "blog": "Visitar o blog do Streetmix"
+      "github": "View source code on GitHub",
+      "blog": "Visitar o blog do Streetmix",
+      "slack": "Join Slack chat"
+    },
+    "contribute": {
+      "donate": "Doar",
+      "stickers": "Buy a sticker sheet!",
+      "opensource": "Contribute to open source"
     },
     "feedback": {
       "prompt": "Envie-nos uma mensagem:",
@@ -46,6 +55,7 @@
   },
   "msg": {
     "loading": "Carregando...",
+    "remixing": "Remixing…",
     "having-trouble": "Tendo problemas...",
     "no-street": "Sem rua selecionada.",
     "trouble-loading": "Estamos com um problema para carregar o Streetmix.",
@@ -60,7 +70,10 @@
     "try-again": "Tente novamente",
     "cancel": "Cancelar",
     "create": "Criar nova rua",
-    "copy": "Fazer uma cópia"
+    "copy": "Fazer uma cópia",
+    "remove": "Tirar",
+    "close": "Close",
+    "dismiss": "Dismiss"
   },
   "dialogs": {
     "welcome": {
@@ -85,7 +98,11 @@
       "description": "<span>Construa, personalize e compartilhe as rua da sua vizinhança. Inclua árvores, ciclovias, alargue as calçadas ou vias de tráfego e aprenda como tudo isso pode impactar sua comunidade.</span>",
       "thanks": "Muito obrigado ao pessoal e aos companheiros CfA 2013, pelo apoio e paciência, também à equipe Blockee pela pavimentação do caminho, e a todos os nossos testadores por seu tempo e feedback!",
       "credits": "Um outro projeto de %s 2013 segue:",
-      "view-source": "Ver código fonte"
+      "team-heading": "Project team and maintainers",
+      "view-source": "Ver código fonte",
+      "sponsored-by": "Streetmix is generously sponsored by:",
+      "donate-link": "Support us financially",
+      "github-link": "Contribute to open source"
     },
     "save": {
       "heading": "Salvar como imagem",
@@ -95,27 +112,58 @@
       "loading": "Carregando...",
       "save-button": "Salvar no seu computador",
       "license": "Esta imagem criada pelo Streetmix poderá ser reutilizada em qualquer lugar, para qualquer propósito, sob a <br><ahref='http://creativecommons.org/licenses/by-sa/4.0/'>Licença Internacional Creative Commons Attribution-ShareAlike 4.0</a>"
+    },
+    "geolocate": {
+      "search": "Search for a location",
+      "clear-search": "Clear search",
+      "zoom-in": "Zoom in",
+      "zoom-out": "Zoom out"
     }
+  },
+  "prompt": {
+    "new-street": "Nome da nova rua:",
+    "delete-street": "Are you sure you want to permanently delete {{streetName}}? This cannot be undone.",
+    "new-width": "New street width (from {{minWidth}} to {{maxWidth}}):"
+  },
+  "toast": {
+    "segment-deleted": "The segment has been removed.",
+    "all-segments-deleted": "All segments have been removed.",
+    "no-undo": "Não tem nada para desfazer.",
+    "no-redo": "Não tem nada para refazer.",
+    "no-save": "No need to save by hand; Streetmix automatically saves your street!",
+    "remixing": "Now editing a freshly-made duplicate of the original street. The duplicate has been put in your gallery.",
+    "remixing-sign-in": "Now editing a freshly-made duplicate of the original street. Sign in to start your own gallery of streets.",
+    "reloaded": "Your street was reloaded from the server as it was modified elsewhere."
   },
   "palette": {
     "remove": "Arraste aqui para remover"
   },
   "width": {
-    "label": "%s largura",
-    "room": "(%s de sala)",
+    "label": "{{width}} width",
+    "under": "({{width}} room)",
+    "over": "({{width}} over)",
     "occupied": "Largura ocupada:",
     "building": "Largura de prédio a prédio:",
     "different": "Largura diferente...",
     "metric": "Mudar para unidades métricas",
     "imperial": "Mudar para unidades imperiais (pés)"
   },
+  "datetime": {
+    "minutes-ago": "A few minutes ago",
+    "seconds-ago": "A few seconds ago",
+    "yesterday": "Ontem ás {{time}}",
+    "today": "Today at {{time}}",
+    "format-date-no-year": "MMM D",
+    "format-date-with-year": "MMM D, YYYY",
+    "format-time": "HH:MM"
+  },
   "key": {
     "backspace": "Apagar",
     "shift": "Trocar"
   },
   "tooltip": {
-    "remove-segment": "Remove segment",
-    "delete-street": "Delete street",
+    "remove-segment": "Remover segmento",
+    "delete-street": "Deletar esta rua",
     "segment-width": "Change width of the segment",
     "building-height": "Change the number of floors",
     "street-width": "Change width of the street",
@@ -124,16 +172,33 @@
     "add-floor": "Add floor",
     "remove-floor": "Remove floor"
   },
+  "street": {
+    "default-name": "Rua sem nome",
+    "rename": "Click to rename"
+  },
+  "segments": {
+    "warnings": {
+      "does-not-fit": "This segment doesn’t fit within the street.",
+      "not-wide": "This segment might not be wide enough.",
+      "too-wide": "This segment might be too wide."
+    },
+    "learn-more": "Learn more"
+  },
   "section": {
     "empty": "Espaço vazio"
   },
   "gallery": {
     "fail": "Falha ao carregar a galeria.",
     "all": "Todas as ruas",
-    "delete-street-tooltip": "Delete street"
+    "twitter-link": "Twitter profile",
+    "delete-street-tooltip": "Deletar esta rua",
+    "street-count-none": "No streets yet",
+    "street-count": "{{count}} street",
+    "street-count_plural": "{{count}} streets"
   },
   "users": {
-    "anonymous": "Anônimo"
+    "anonymous": "Anônimo",
+    "byline": "by {{user}}"
   },
   "sign-in": {
     "link": "Entrar com Twitter",
@@ -148,11 +213,14 @@
       "en": "English",
       "en@pirate": "English (Pirate)",
       "fi": "Finnish",
+      "fr": "French",
       "de": "German",
       "es": "Spanish",
       "es-mx": "Spanish (Mexico)",
       "pl": "Polish",
-      "pt-br": "Portuguese (Brazil)"
+      "pt-br": "Portuguese (Brazil)",
+      "sv": "Swedish",
+      "zh-hant": "Chinese (Traditional)"
     }
   }
 }

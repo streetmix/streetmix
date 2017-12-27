@@ -4,6 +4,8 @@
       "help": "Ohje",
       "about": "Tietoja Streetmixistä…",
       "contact": "Ota yhteyttä",
+      "community": "Yhteisö",
+      "contribute": "Osallistu",
       "sign-in": "Kirjaudu sisään",
       "sign-out": "Kirjaudu ulos",
       "new-street": "Uusi katu",
@@ -18,7 +20,7 @@
       "change": "Muuta osoittimen alla oleva kohteen leveyttä<br> (lisätarkkuutta pitämällä <span class='key'>Shift</span> pohjassa)"
     },
     "share": {
-      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Sign in with Twitter</a> for nicer links to your streets and your personal street gallery",
+      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Kirjaudu sisään Twitter-tunnuksilla</a>, jolloin jakaminen on helpompaa ja näet katusi näppärästi galleriassa.",
       "link": "Jaa kopioimalla ja liittämällä tämä linkki:",
       "twitter": "Jaa Twitterissä",
       "facebook": "Jaa Facebookissa",
@@ -27,10 +29,17 @@
       "save-byline": "Blogiin, liitteeksi raporttiin..."
     },
     "contact": {
+      "forums": "Osallistu keskusteluun",
       "twitter": "Twiittaa käyttäjälle @streetmix",
       "email": "Lähetä sähköpostia Streetmix-kehittäjille",
-      "github": "Tutustu/kommentoi GitHubissa",
-      "blog": "Vieraile Streetmix-blogissa"
+      "github": "Näytä lähdekoodi GitHub-palvelussa",
+      "blog": "Vieraile Streetmix-blogissa",
+      "slack": "Liity Slack-keskusteluun"
+    },
+    "contribute": {
+      "donate": "Lahjoita",
+      "stickers": "Osta tarra-arkki!",
+      "opensource": "Osallistu avoimen lähdekoodin kehittämiseen"
     },
     "feedback": {
       "prompt": "Lähetä meille palautetta:",
@@ -46,11 +55,12 @@
   },
   "msg": {
     "loading": "Ladataan…",
+    "remixing": "Muokataan...",
     "having-trouble": "Pulassa ollaan…",
     "no-street": "Katua ei ole valittu.",
     "trouble-loading": "Streetmixin lataaminen ei nyt onnistu.",
-    "slow-connection-1": "Streetmix ei pystynyt muodostamaan Internet-yhteyttä.",
-    "slow-connection-2": "Kokeile korjata ongelma päivittämällä sivu, mutta huomaa, että viimeisimmät katuun tehdyt muutokset saatetaan menettää. Pahoittelut!",
+    "slow-connection-1": "Internet-yhteyden muodostaminen epäonnistui.",
+    "slow-connection-2": "Ongelma voi korjautua sivu päivittämällä, mutta huomaa, että viimeisimmät katuun tehdyt muutokset saatetaan menettää. Pahoittelut!",
     "no-connection": "Streetmix ei pystynyt muodostamaan Internet-yhteyttä."
   },
   "btn": {
@@ -60,7 +70,10 @@
     "try-again": "Yritä uudelleen",
     "cancel": "Peruuta",
     "create": "Luo uusi katu",
-    "copy": "Kopioi katupohja"
+    "copy": "Kopioi katupohja",
+    "remove": "Poista",
+    "close": "Close",
+    "dismiss": "Dismiss"
   },
   "dialogs": {
     "welcome": {
@@ -83,9 +96,13 @@
     "about": {
       "heading": "Tietoja Streetmixistä.",
       "description": "Suunnittele, muokkaa ja jaa kotikatusi. Lisää kadullesi kaikkea puista pyöräteihin tai levennä katusi jalkakäytäviä ja ajoratoja. Samalla näet, miten muutokset vaikuttavat liikenteeseen.",
-      "thanks": "Tuhannet kiitokset työntekijöille ja vuoden 2013 CfA -osallistujille heidän tuestaan ja kärsivällisyydestään, Blockee-ryhmälle teiden päällystämisestä ja lukemattomille testaajille ajastaan ja palautteestaan!",
+      "thanks": "Tuhannet kiitokset työntekijöille ja vuoden 2013 CfA osallistujille heidän tuestaan ja kärsivällisyydestään, Blockee-ryhmälle teiden päällystämisestä ja lukemattomille testaajille ajastaan ja palautteestaan!",
       "credits": "Seuraavien %s 2013 -osallistujien sivuprojekti:",
-      "view-source": "Tutustu lähdekoodiin"
+      "team-heading": "Kehitysryhmä ja ylläpitäjät",
+      "view-source": "Tutustu lähdekoodiin",
+      "sponsored-by": "Streetmixin avokätinen sponsori:",
+      "donate-link": "Tue meitä taloudellisesti",
+      "github-link": "Osallistu avoimen lähdekoodin kehittämiseen"
     },
     "save": {
       "heading": "Tallenna kuvana",
@@ -94,35 +111,78 @@
       "option-sky": "Läpinäkyvä taivas",
       "loading": "Ladataan…",
       "save-button": "Tallenna tietokoneelle…",
-      "license": "Tätä Streetmixillä luotua kuvaa saa käyttää missä tahansa mihin tahansa tarkoitukseen <br><a href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons Attribution-ShareAlike 4.0 International License</a> -lisenssin ehtojen mukaisesti."
+      "license": "Tätä Streetmixillä luotua kuvaa saa käyttää missä tahansa mihin tahansa tarkoitukseen <br><a href=\"https://creativecommons.org/licenses/by-sa/4.0/deed.fi\">Creative Commons Nimeä-JaaSamoin 4.0 Kansainvälinen</a> -lisenssin ehtojen mukaisesti."
+    },
+    "geolocate": {
+      "search": "Etsi sijaintia",
+      "clear-search": "Tyhjennä haku",
+      "zoom-in": "Lähennä",
+      "zoom-out": "Loitonna"
     }
+  },
+  "prompt": {
+    "new-street": "Kadun uusi nimi:",
+    "delete-street": "Are you sure you want to permanently delete {{streetName}}? This cannot be undone.",
+    "new-width": "Uusi kadunleveys ({{minWidth}}-{{maxWidth}}):"
+  },
+  "toast": {
+    "segment-deleted": "Tämä elementti on poistettu.",
+    "all-segments-deleted": "Kaikki elementit on poistettu.",
+    "no-undo": "Ei toimintohistoriaa.",
+    "no-redo": "Ei toimintohistoriaa.",
+    "no-save": "Ei Tallenna-painiketta: Streetmix tallentaa muutokset automaattisesti!",
+    "remixing": "Tämä on uunituore kopio alkuperäisestä kadusta, joka löytyy nyt galleriasta.",
+    "remixing-sign-in": "Tämä on uunituore kopio alkuperäisestä kadusta. Kirjaudu sisään, jotta voit tallentaa katuja galleriaan.",
+    "reloaded": "Katu ladattiin uudelleen, sillä sitä muokattiin samanaikaisesti jossain muualla."
   },
   "palette": {
     "remove": "Poista vetämällä tähän"
   },
   "width": {
-    "label": "Leveys %s",
-    "room": "(%s käyttämättä)",
-    "occupied": "Käytetty tila:",
+    "label": "{{width}} leveä",
+    "under": "({{width}} käytettävissä)",
+    "over": "({{width}} yli)",
+    "occupied": "Nykyinen leveys:",
     "building": "Rakennusten välinen leveys:",
     "different": "Muu leveys...",
     "metric": "Vaihda metreihin",
     "imperial": "Vaihda jalkoihin"
+  },
+  "datetime": {
+    "minutes-ago": "Muutama minuutti sitten",
+    "seconds-ago": "Muutama sekunti sitten",
+    "yesterday": "Eilen kello {{time}}",
+    "today": "Tänään kello {{time}}",
+    "format-date-no-year": "D.M.",
+    "format-date-with-year": "D.M.YYYY",
+    "format-time": "H:MM"
   },
   "key": {
     "backspace": "Askelpalautin",
     "shift": "Shift"
   },
   "tooltip": {
-    "remove-segment": "Remove segment",
-    "delete-street": "Delete street",
-    "segment-width": "Change width of the segment",
-    "building-height": "Change the number of floors",
-    "street-width": "Change width of the street",
-    "increase-width": "Increase width (hold Shift for more precision)",
-    "decrease-width": "Decrease width (hold Shift for more precision)",
-    "add-floor": "Add floor",
-    "remove-floor": "Remove floor"
+    "remove-segment": "Poista elementti",
+    "delete-street": "Poista katu",
+    "segment-width": "Muuta elementin leveyttä",
+    "building-height": "Muuta kerroslukua",
+    "street-width": "Muuta kadun leveyttä",
+    "increase-width": "Levennä (tarkempi ote pitämällä Shiftiä pohjassa)",
+    "decrease-width": "Kavenna (tarkempi ote pitämällä Shiftiä pohjassa)",
+    "add-floor": "Lisää kerros",
+    "remove-floor": "Poista kerros"
+  },
+  "street": {
+    "default-name": "Nimetön katu",
+    "rename": "Nimeä uudelleen napsauttamalla"
+  },
+  "segments": {
+    "warnings": {
+      "does-not-fit": "Elementti ei mahdu kadulle",
+      "not-wide": "Elementti ei ehkä ole riittävän leveä.",
+      "too-wide": "Elementti saattaa olla leveä."
+    },
+    "learn-more": "Learn more"
   },
   "section": {
     "empty": "Käyttämätöntä tilaa"
@@ -130,14 +190,19 @@
   "gallery": {
     "fail": "Gallerian lataaminen epäonnistui.",
     "all": "Kaikki kadut",
-    "delete-street-tooltip": "Delete street"
+    "twitter-link": "Twitter profile",
+    "delete-street-tooltip": "Poista katu",
+    "street-count-none": "Ei luotuja katuja",
+    "street-count": "{{count}} street",
+    "street-count_plural": "{{count}} streets"
   },
   "users": {
-    "anonymous": "Tuntematon"
+    "anonymous": "Tuntematon",
+    "byline": "käyttäjältä {{user}}"
   },
   "sign-in": {
-    "link": "Kirjautumalla sisään Twitter-tunnuksella...",
-    "promo-1": "voit jakaa siistimmin kadut ja oman katugalleriasi",
+    "link": "Kirjaudu Twitter-tunnuksella",
+    "promo-1": "voit jakaa kadut ja oman katugalleriasi näppärämmin",
     "promo-2": "voit tallentaa tämän kadun omaan katugalleriaasi"
   },
   "meta": {
@@ -145,14 +210,17 @@
   },
   "i18n": {
     "lang": {
-      "en": "English",
-      "en@pirate": "English (Pirate)",
-      "fi": "Finnish",
-      "de": "German",
-      "es": "Spanish",
-      "es-mx": "Spanish (Mexico)",
-      "pl": "Polish",
-      "pt-br": "Portuguese (Brazil)"
+      "en": "Englanti",
+      "en@pirate": "Englanti (piraatti)",
+      "fi": "Suomi",
+      "fr": "Ranska",
+      "de": "Saksa",
+      "es": "Espanja",
+      "es-mx": "Espanja (Meksiko)",
+      "pl": "Puola",
+      "pt-br": "Portugali (Brasilia)",
+      "sv": "Ruotsi",
+      "zh-hant": "Kiina (perinteinen)"
     }
   }
 }
