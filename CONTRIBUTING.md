@@ -119,18 +119,16 @@ These installation instructions assume that you have already installed the [Home
     brew install nodejs
     ```
 
-2) Download, install and start [MongoDB](http://www.mongodb.org/).
+2) Download, install and start [MongoDB v3.4](http://www.mongodb.org/).
 
     ```
-    brew install mongodb
+    brew install mongodb@3.4
     ```
 
 You'll also need to set up the [MongoDB data directory](https://docs.mongodb.org/manual/tutorial/install-mongodb-on-os-x/#run-mongodb). The easiest set up would be (you may need `sudo`):
 
-    ```
     mkdir -p /data/db
     chmod 777 /data/db
-    ```
 
 3) Clone this remote repository to a folder on your computer.
 
