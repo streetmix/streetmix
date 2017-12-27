@@ -1,22 +1,22 @@
 'use strict'
 
-var fs = require('fs')
-var path = require('path')
-var downloadTransifex = require('../lib/transifex.js')
+const fs = require('fs')
+const path = require('path')
+const getFromTransifex = require('../lib/transifex.js')
 
-var envFile = path.join(__dirname, '/../.env')
+const envFile = path.join(__dirname, '/../.env')
 if (fs.existsSync(envFile)) {
-  var env = require('node-env-file')
+  const env = require('node-env-file')
   env(envFile)
 }
 
-var resources = ['main', 'segment-info']
-var languages = ['en@pirate', 'fi', 'de', 'es', 'es_MX', 'pl', 'pt_BR']
+const resources = ['main', 'segment-info']
+const languages = ['en@pirate', 'fi', 'de', 'es', 'es_MX', 'pl', 'pt_BR']
 
-var downloadSuccess = function (locale, resource, data) {
-  var localeDir = path.join(__dirname, '/../assets/locales/', locale)
-  var translationFile = localeDir + '/' + resource + '.json'
-  var translationText = JSON.stringify(data, null, 2) + '\n'
+const downloadSuccess = function (locale, resource, data) {
+  const localeDir = path.join(__dirname, '/../assets/locales/', locale)
+  const translationFile = localeDir + '/' + resource + '.json'
+  const translationText = JSON.stringify(data, null, 2) + '\n'
 
   fs.stat(localeDir, function (err, stats) {
     if (err) {
@@ -34,12 +34,18 @@ var downloadSuccess = function (locale, resource, data) {
   })
 }
 
-var downloadError = function (locale, resource) {
-  console.log('Error occurs during downloading of ' + locale + ' translation of ' + resource + '.')
+const downloadError = function (locale, resource, error) {
+  console.log('Error occurred during downloading of ' + locale + ' translation of ' + resource + ': ' + error)
 }
 
-for (var r in resources) {
-  for (var l in languages) {
-    downloadTransifex(languages[l], resources[r], downloadError, downloadSuccess)
+for (let r in resources) {
+  for (let l in languages) {
+    getFromTransifex(languages[l], resources[r])
+      .then((data) => {
+        downloadSuccess(languages[l], resources[r], data)
+      })
+      .catch((error) => {
+        downloadError(languages[l], resources[r], error)
+      })
   }
 }

@@ -1,14 +1,15 @@
 'use strict'
 
-var config = require('config')
-var fs = require('fs')
-var logger = require('../../../lib/logger.js')()
+const config = require('config')
+const fs = require('fs')
+const logger = require('../../../lib/logger.js')()
+const getFromTransifex = require('../../../lib/transifex.js')
 
-exports.get = function (req, res) {
-  var handleGetLocalTranslation = function (locale, resource) {
-    var translationFile = process.cwd() + '/assets/locales/' + locale + '/' + resource + '.json'
+exports.get = (req, res) => {
+  const handleGetLocalTranslation = (locale, resource) => {
+    const translationFile = process.cwd() + '/assets/locales/' + locale + '/' + resource + '.json'
 
-    fs.readFile(translationFile, 'utf8', function (err, data) {
+    fs.readFile(translationFile, 'utf8', (err, data) => {
       if (err) {
         logger.error(err)
         if (err.code === 'ENOENT') {
@@ -23,9 +24,7 @@ exports.get = function (req, res) {
     })
   }
 
-  var handleGetFromTransifex = require('../../../lib/transifex.js')
-
-  var sendSuccessResponse = function (locale, resource, translation) {
+  const sendSuccessResponse = (locale, resource, translation) => {
     res.set({
       'Content-Type': 'application/json; charset=utf-8',
       'Location': config.restapi.baseuri + '/v1/translate/' + locale + '/' + resource,
@@ -35,15 +34,19 @@ exports.get = function (req, res) {
     res.status(200).send(translation)
   }
 
-  if (!req.params.locale_code || !req.params.resource_name) {
+  const locale = req.params.locale_code
+  const resource = req.params.resource_name
+
+  if (!locale || !resource) {
     res.status(400).json({ status: 400, msg: 'Please provide locale code.' })
     return
   }
 
-  handleGetFromTransifex(
-    req.params.locale_code,
-    req.params.resource_name,
-    handleGetLocalTranslation,
-    sendSuccessResponse
-  )
+  getFromTransifex(locale, resource)
+    .then((translation) => {
+      sendSuccessResponse(locale, resource, translation)
+    })
+    .catch(() => {
+      handleGetLocalTranslation(locale, resource)
+    })
 }
