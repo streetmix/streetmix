@@ -5,18 +5,16 @@ import Menu from './Menu'
 import { registerKeypress } from '../app/keypress'
 import { trackEvent } from '../app/event_tracking'
 import { t } from '../app/locale'
-import { SHOW_DIALOG } from '../store/actions'
+import { showDialog } from '../store/actions/dialogs'
 
 class HelpMenu extends React.PureComponent {
   static propTypes = {
-    dispatch: PropTypes.func.isRequired
+    showDialog: PropTypes.func.isRequired
   }
 
   componentDidMount () {
     // TODO: This does not really need to be here?
-    registerKeypress('?', { shiftKey: 'optional' }, () => {
-      this.onClickAbout()
-    })
+    registerKeypress('?', { shiftKey: 'optional' }, this.onClickAbout)
   }
 
   onShow () {
@@ -24,10 +22,7 @@ class HelpMenu extends React.PureComponent {
   }
 
   onClickAbout = () => {
-    this.props.dispatch({
-      type: SHOW_DIALOG,
-      name: 'ABOUT'
-    })
+    this.props.showDialog()
   }
 
   render () {
@@ -76,4 +71,10 @@ class HelpMenu extends React.PureComponent {
   }
 }
 
-export default connect()(HelpMenu)
+function mapDispatchToProps (dispatch) {
+  return {
+    showDialog: () => { dispatch(showDialog('ABOUT')) }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(HelpMenu)
