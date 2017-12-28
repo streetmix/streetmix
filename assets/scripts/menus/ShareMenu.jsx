@@ -9,11 +9,11 @@ import { trackEvent } from '../app/event_tracking'
 import { getPageTitle } from '../app/page_title'
 import { printImage } from '../app/print'
 import { getSharingUrl } from '../util/share_url'
-import { SHOW_DIALOG } from '../store/actions'
+import { showDialog } from '../store/actions/dialogs'
 
 class ShareMenu extends React.Component {
   static propTypes = {
-    dispatch: PropTypes.func.isRequired, // supplied by connect()
+    showDialog: PropTypes.func.isRequired,
     signedIn: PropTypes.bool.isRequired,
     userId: PropTypes.string,
     street: PropTypes.object
@@ -79,10 +79,7 @@ class ShareMenu extends React.Component {
 
   onClickSaveAsImage = (event) => {
     event.preventDefault()
-    this.props.dispatch({
-      type: SHOW_DIALOG,
-      name: 'SAVE_AS_IMAGE'
-    })
+    this.props.showDialog()
   }
 
   render () {
@@ -163,4 +160,10 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(ShareMenu)
+function mapDispatchToProps (dispatch) {
+  return {
+    showDialog: () => { dispatch(showDialog('SAVE_AS_IMAGE')) }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShareMenu)

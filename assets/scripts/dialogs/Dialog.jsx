@@ -13,7 +13,7 @@ import { clearDialogs } from '../store/actions/dialogs'
 
 class Dialog extends React.PureComponent {
   static propTypes = {
-    dispatch: PropTypes.func.isRequired,
+    clearDialogs: PropTypes.func.isRequired,
     className: PropTypes.string,
     children: PropTypes.node.isRequired,
     disableShieldExit: PropTypes.bool
@@ -36,7 +36,7 @@ class Dialog extends React.PureComponent {
   }
 
   unmountDialog = () => {
-    this.props.dispatch(clearDialogs())
+    this.props.clearDialogs()
   }
 
   onClickShield = () => {
@@ -68,4 +68,10 @@ class Dialog extends React.PureComponent {
   }
 }
 
-export default connect()(Dialog)
+function mapDispatchToProps (dispatch) {
+  return {
+    clearDialogs: () => { dispatch(clearDialogs()) }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Dialog)
