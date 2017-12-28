@@ -108,8 +108,8 @@ class ShareMenu extends React.Component {
       <Menu alignment="right" onShow={this.onShow} className="share-menu" {...this.props}>
         {signInPromo}
         <div className="share-via-link-container">
-          <span data-i18n="menu.share.link">
-            Copy and paste this link to share:
+          <span>
+            {t('menu.share.link', 'Copy and paste this link to share:')}
           </span>
           <input
             className="share-via-link"
@@ -128,7 +128,7 @@ class ShareMenu extends React.Component {
           <svg className="icon">
             <use xlinkHref="#icon-twitter" />
           </svg>
-          <span data-i18n="menu.share.twitter">Share using Twitter</span>
+          <span>{t('menu.share.twitter', 'Share using Twitter')}</span>
         </a>
         <a
           className="share-via-facebook"
@@ -139,15 +139,15 @@ class ShareMenu extends React.Component {
           <svg className="icon">
             <use xlinkHref="#icon-facebook" />
           </svg>
-          <span data-i18n="menu.share.facebook">Share using Facebook</span>
+          <span>{t('menu.share.facebook', 'Share using Facebook')}</span>
         </a>
         <a href="#" onClick={printImage}>
-          <span data-i18n="menu.share.print">Print…</span>
+          <span>{t('menu.share.print', 'Print…')}</span>
         </a>
         <a id="save-as-image" href="#" onClick={this.onClickSaveAsImage}>
-          <span data-i18n="menu.share.save">Save as image…</span>
-          <span data-i18n="menu.share.save-byline" className="menu-item-subtext">
-            For including in a report, blog, etc.
+          <span>{t('menu.share.save', 'Save as image…')}</span>
+          <span className="menu-item-subtext">
+            {t('menu.share.save-byline', 'For including in a report, blog, etc.')}
           </span>
         </a>
       </Menu>
