@@ -1,39 +1,39 @@
 'use strict'
 
-const config = require('config')
 const fs = require('fs')
+const config = require('config')
 const logger = require('../../../lib/logger.js')()
 const getFromTransifex = require('../../../lib/transifex.js')
 
-exports.get = (req, res) => {
-  const handleGetLocalTranslation = (locale, resource) => {
-    const translationFile = process.cwd() + '/assets/locales/' + locale + '/' + resource + '.json'
+function getLocalTranslation (res, locale, resource) {
+  const translationFile = process.cwd() + '/assets/locales/' + locale + '/' + resource + '.json'
 
-    fs.readFile(translationFile, 'utf8', (err, data) => {
-      if (err) {
-        logger.error(err)
-        if (err.code === 'ENOENT') {
-          res.status(404).json({ status: 404, msg: 'No translation found with locale code: ' + locale })
-        } else {
-          res.status(500).json({ status: 500, msg: 'Could not retrieve translation.' })
-        }
-        return
+  fs.readFile(translationFile, 'utf8', (err, data) => {
+    if (err) {
+      logger.error(err)
+      if (err.code === 'ENOENT') {
+        res.status(404).json({ status: 404, msg: 'No translation found with locale code: ' + locale })
+      } else {
+        res.status(500).json({ status: 500, msg: 'Could not retrieve translation.' })
       }
+      return
+    }
 
-      sendSuccessResponse(locale, resource, data)
-    })
-  }
+    sendSuccessResponse(locale, resource, data)
+  })
+}
 
-  const sendSuccessResponse = (locale, resource, translation) => {
-    res.set({
-      'Content-Type': 'application/json; charset=utf-8',
-      'Location': config.restapi.baseuri + '/v1/translate/' + locale + '/' + resource,
-      'Cache-Control': 'max-age=86400'
-    })
+function sendSuccessResponse (res, locale, resource, translation) {
+  res.set({
+    'Content-Type': 'application/json; charset=utf-8',
+    'Location': config.restapi.baseuri + '/v1/translate/' + locale + '/' + resource,
+    'Cache-Control': 'max-age=86400'
+  })
 
-    res.status(200).send(translation)
-  }
+  res.status(200).send(translation)
+}
 
+exports.get = (req, res) => {
   const locale = req.params.locale_code
   const resource = req.params.resource_name
 
@@ -44,9 +44,9 @@ exports.get = (req, res) => {
 
   getFromTransifex(locale, resource)
     .then((translation) => {
-      sendSuccessResponse(locale, resource, translation)
+      sendSuccessResponse(res, locale, resource, translation)
     })
     .catch(() => {
-      handleGetLocalTranslation(locale, resource)
+      getLocalTranslation(res, locale, resource)
     })
 }
