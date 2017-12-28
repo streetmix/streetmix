@@ -19,6 +19,41 @@ export default class Variants extends React.Component {
     street: PropTypes.object
   }
 
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      variantTypes: this.getVariantTypes(props) // should be an array or undefined
+    }
+  }
+
+  componentWillReceiveProps (nextProps) {
+    this.setState({
+      variantTypes: this.getVariantTypes(nextProps)
+    })
+  }
+
+  getVariantTypes = (props) => {
+    const { type, segment } = props
+    let variantTypes = []
+
+    switch (type) {
+      case INFO_BUBBLE_TYPE_SEGMENT:
+        const segmentInfo = SEGMENT_INFO[segment.type]
+        variantTypes = segmentInfo.variants
+        break
+      case INFO_BUBBLE_TYPE_LEFT_BUILDING:
+      case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
+        variantTypes = Object.keys(VARIANT_ICONS['building'])
+        break
+      default:
+        break
+    }
+
+    // Return the array, removing any empty entries
+    return variantTypes.filter((x) => x !== (undefined || null || ''))
+  }
+
   isVariantCurrentlySelected = (type, choice) => {
     let value
 
@@ -99,13 +134,11 @@ export default class Variants extends React.Component {
 
     switch (this.props.type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
-        const segment = this.props.segment
-        const segmentInfo = SEGMENT_INFO[segment.type]
         let first = true
 
         // Each segment has some allowed variant types (e.g. "direction")
-        for (let variant in segmentInfo.variants) {
-          const variantType = segmentInfo.variants[variant]
+        for (let variant in this.state.variantTypes) {
+          const variantType = this.state.variantTypes[variant]
 
           // New row for each variant type
           if (!first) {
@@ -129,7 +162,7 @@ export default class Variants extends React.Component {
         break
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
-        Object.keys(VARIANT_ICONS['building']).map((building) => {
+        this.state.variantTypes.map((building) => {
           const el = this.renderButton('building', building)
           variantEls.push(el)
         })
@@ -142,6 +175,9 @@ export default class Variants extends React.Component {
   }
 
   render () {
+    // Do not render this component if there are no variants to select
+    if (!this.state.variantTypes || this.state.variantTypes.length === 0) return null
+
     return (
       <div className="variants">
         {this.renderVariantsSelection()}

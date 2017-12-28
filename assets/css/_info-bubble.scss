@@ -58,17 +58,10 @@
     fill: #231f20;
   }
 
-  &[data-type='segment'] .variants {
-    margin-right: 170px;
-  }
-
-  &[data-type='building'] .variants {
-    margin-right: 150px;
-  }
-
   .variants {
     text-align: left;
     padding: 7px 8px 5px;
+    margin-right: 20px;
     min-height: $info-bubble-button-size;
     white-space: nowrap;
     user-select: none;
@@ -79,28 +72,24 @@
     }
 
     hr {
-      vertical-align: top;
+      display: block;
       margin: 0;
       padding: 0;
-      display: block;
       opacity: 0;
       height: 5px;
     }
   }
 
   .non-variant {
-    float: right;
     text-align: right;
-    margin-top: 8px;
-    margin-left: 8px;
-    margin-right: 7px;
+    margin: 8px;
     min-height: 30px;
     white-space: nowrap;
     user-select: none;
 
-    &.entire-info-bubble {
-      width: auto;
-      left: 8px;
+    /* Takes up the entire width of info-bubble if it is by itself */
+    &:only-child {
+      width: 100%;
       text-align: center;
     }
 
@@ -217,6 +206,16 @@
   font-size: 11px;
 }
 
+.info-bubble-controls {
+  display: flex;
+  justify-content: space-between;
+
+  .non-variant {
+    text-align: center;
+    width: auto;
+  }
+}
+
 .info-bubble-warnings {
   margin-top: 1px;
   font-size: 13px;
@@ -318,6 +317,7 @@
 .description-canvas {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   position: absolute;
   left: -50px;
   top: -50px;
@@ -333,6 +333,7 @@
 }
 
 .description {
+  height: 100%;
   padding: 1em;
   font-size: 16px;
   font-weight: 300;

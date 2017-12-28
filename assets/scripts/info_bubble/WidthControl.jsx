@@ -194,9 +194,6 @@ class WidthControl extends React.Component {
   }
 
   render () {
-    let widthClassName = 'non-variant'
-    // if (!segmentInfo.variants[0]) widthClassName += ' entire-info-bubble'
-
     const inputEl = (this.props.touch) ? (
       <span className="width-non-editable" />
     ) : (
@@ -217,7 +214,7 @@ class WidthControl extends React.Component {
     )
 
     return (
-      <div className={widthClassName}>
+      <div className="non-variant">
         <button
           className="decrement"
           title={t('tooltip.decrease-width', 'Decrease width (hold Shift for more precision)')}
