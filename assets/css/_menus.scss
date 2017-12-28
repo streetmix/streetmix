@@ -86,13 +86,14 @@ body.safari .menu {
 }
 
 .share-via-link-container {
-  margin: 9px 10px 15px 30px;
+  margin: 0.5em 1em 0.5em 2.5em;
 }
 
 .share-via-link {
   font-size: 13px;
   line-height: 18px;
   width: 100%;
+  margin-top: 0.5em;
   display: block;
   box-sizing: border-box;
   outline: none;
@@ -114,7 +115,7 @@ body.safari .menu {
 }
 
 .menu .form {
-  padding: 0.5em 10px 1em 30px;
+  padding: 0.5em 1em 1em 2.5em;
 
   p:first-child {
     margin-top: 0;
