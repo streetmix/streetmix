@@ -18,10 +18,7 @@
     "PATH": {
       "required": true
     },
-    "TRANSIFEX_PASSWORD": {
-      "required": true
-    },
-    "TRANSIFEX_USERNAME": {
+    "TRANSIFEX_API_TOKEN": {
       "required": true
     },
     "TWITTER_OAUTH_CONSUMER_KEY": {

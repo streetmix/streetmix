@@ -191,6 +191,7 @@ You may additionally specify the name of the directory to install to, if you wis
 | `SENDGRID_PASSWORD`             | Your SendGrid password        | Yes                  |
 | `TWITTER_OAUTH_CONSUMER_KEY`    | Twitter OAuth consumer key    | Yes                  |
 | `TWITTER_OAUTH_CONSUMER_SECRET` | Twitter OAuth consumer secret | Yes                  |
+| `TRANSIFEX_API_TOKEN`           | Your Transifex API token      | No                   |
 | `EMAIL_FEEDBACK_RECIPIENT`      | Your e-mail address           | No                   |
 | `NO_INTERNET_MODE`              | Boolean. Set to `true` to run a local "demo" without external Internet access | No                   |
 
