@@ -1,26 +1,27 @@
 'use strict'
 
 const fs = require('fs')
+const util = require('util')
 const config = require('config')
 const logger = require('../../../lib/logger.js')()
 const getFromTransifex = require('../../../lib/transifex.js')
 
-function getLocalTranslation (res, locale, resource) {
+const readFile = util.promisify(fs.readFile)
+
+async function getLocalTranslation (res, locale, resource) {
   const translationFile = process.cwd() + '/assets/locales/' + locale + '/' + resource + '.json'
 
-  fs.readFile(translationFile, 'utf8', (err, data) => {
-    if (err) {
-      logger.error(err)
-      if (err.code === 'ENOENT') {
-        res.status(404).json({ status: 404, msg: 'No translation found with locale code: ' + locale })
-      } else {
-        res.status(500).json({ status: 500, msg: 'Could not retrieve translation.' })
-      }
-      return
-    }
+  try {
+    return await readFile(translationFile, 'utf8')
+  } catch (err) {
+    logger.error(err)
 
-    sendSuccessResponse(locale, resource, data)
-  })
+    if (err.code === 'ENOENT') {
+      res.status(404).json({ status: 404, msg: 'No translation found with locale code: ' + locale })
+    } else {
+      res.status(500).json({ status: 500, msg: 'Could not retrieve translation.' })
+    }
+  }
 }
 
 function sendSuccessResponse (res, locale, resource, translation) {
@@ -33,7 +34,7 @@ function sendSuccessResponse (res, locale, resource, translation) {
   res.status(200).send(translation)
 }
 
-exports.get = (req, res) => {
+exports.get = async (req, res) => {
   const locale = req.params.locale_code
   const resource = req.params.resource_name
 
@@ -42,11 +43,15 @@ exports.get = (req, res) => {
     return
   }
 
-  getFromTransifex(locale, resource)
-    .then((translation) => {
-      sendSuccessResponse(res, locale, resource, translation)
-    })
-    .catch(() => {
-      getLocalTranslation(res, locale, resource)
-    })
+  let translation
+
+  try {
+    translation = await getFromTransifex(locale, resource)
+  } catch (err) {
+    translation = await getLocalTranslation(res, locale, resource)
+  }
+
+  if (translation) {
+    sendSuccessResponse(res, locale, resource, translation)
+  }
 }
