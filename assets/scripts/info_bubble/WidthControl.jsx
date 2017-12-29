@@ -115,8 +115,15 @@ class WidthControl extends React.Component {
   /* same as BuildingHeightControl */
   onMouseOverInput = (event) => {
     if (!this.held) {
-      event.target.focus()
-      event.target.select() // This is usually broken in React for some reason
+      // Automatically select the value on hover so that it's easy to start typing new values.
+      // In React, this only works if the .select() is called at the end of the execution
+      // stack. Since this is in a setTimeout() we need to either persist the React synthetic
+      // event or store the reference to the event target.
+      const target = event.target
+      window.setTimeout(() => {
+        target.focus()
+        target.select()
+      }, 0)
     }
   }
 
