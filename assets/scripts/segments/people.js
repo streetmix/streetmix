@@ -41,14 +41,16 @@ export function drawProgrammaticPeople (ctx, width, offsetLeft, offsetTop, randS
     let person
 
     do {
-      const id = Math.floor(randomGenerator.rand() * PEOPLE.length)
-      person = PEOPLE[id]
-    } while ((person.id === lastPersonId) || ((people.length === 0) && PEOPLE[person.id].disallowFirst === true))
+      const index = Math.floor(randomGenerator.rand() * PEOPLE.length)
+
+      // Clone the person object
+      person = Object.assign({}, PEOPLE[index])
+    } while ((person.id === lastPersonId) || ((people.length === 0) && person.disallowFirst === true))
 
     lastPersonId = person.id
     person.left = peopleWidth
 
-    var lastWidth = widthConst + (PEOPLE[person.id].width * 12) - 24 + (randomGenerator.rand() * widthRand)
+    var lastWidth = widthConst + (person.width * 12) - 24 + (randomGenerator.rand() * widthRand)
 
     peopleWidth += lastWidth
     people.push(person)
@@ -58,12 +60,12 @@ export function drawProgrammaticPeople (ctx, width, offsetLeft, offsetTop, randS
   peopleWidth -= lastWidth
 
   let startLeft = (width - peopleWidth) / 2
-  let firstPersonCorrection = (4 - PEOPLE[people[0].id].width) * 12 / 2
+  const firstPersonCorrection = (4 - people[0].width) * 12 / 2
 
   if (people.length === 1) {
     startLeft += firstPersonCorrection
   } else {
-    let lastPersonCorrection = (4 - PEOPLE[people[people.length - 1].id].width) * 12 / 2
+    const lastPersonCorrection = (4 - people[people.length - 1].width) * 12 / 2
 
     startLeft += (firstPersonCorrection + lastPersonCorrection) / 2
   }
@@ -71,11 +73,11 @@ export function drawProgrammaticPeople (ctx, width, offsetLeft, offsetTop, randS
   for (let person of people) {
     // Change person.id to 1-index instead of 0-index,
     // convert to string & zero-pad to two digits
-    let type = ('0' + (person.id + 1).toString()).slice(-2)
+    const type = ('0' + (person.id + 1).toString()).slice(-2)
 
     // TODO: Document / refactor magic numbers
     drawSegmentImageSVG('people--people-' + type, ctx,
-      offsetLeft + ((person.left - (5 * 12 / 2) - ((4 - PEOPLE[person.id].width) * 12 / 2) + startLeft) * multiplier),
+      offsetLeft + ((person.left - (5 * 12 / 2) - ((4 - person.width) * 12 / 2) + startLeft) * multiplier),
       offsetTop + (37 * multiplier),
       12 * 5 * multiplier, 24 * 4 * multiplier)
   }
