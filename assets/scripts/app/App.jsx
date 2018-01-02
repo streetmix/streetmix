@@ -1,4 +1,5 @@
 import React from 'react'
+import MessageBar from './MessageBar'
 import MenusContainer from '../menus/MenusContainer'
 import StreetNameCanvas from '../streets/StreetNameCanvas'
 import WelcomePanel from './WelcomePanel'
@@ -16,9 +17,10 @@ import PrintContainer from './PrintContainer'
 export default class App extends React.PureComponent {
   render () {
     return (
-      <div>
+      <div className="app-wrapper">
         <BlockingError />
         <Gallery />
+        <MessageBar />
         <div className="main-screen">
           <MenusContainer />
           <StreetNameCanvas />
