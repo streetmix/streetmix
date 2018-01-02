@@ -2,16 +2,7 @@
 import { RandomGenerator } from '../util/random'
 import { drawSegmentImageSVG } from './view'
 import { getVariantArray } from './variant_utils'
-
-const PERSON_TYPES = 31
-const PERSON_CAN_GO_FIRST = [true, true, true, true, true, true, true, true, true, true,
-  true, true, true, true, true, true, true, true, false, false,
-  true, true, true, true, true, true, true, true, true, true,
-  true]
-const PERSON_WIDTH = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-  2, 2, 2, 3, 2, 3, 3, 3, 3, 3,
-  1, 1, 3, 4, 2, 3, 2, 3, 4, 3,
-  2]
+import PEOPLE from './people.json'
 
 // TODO magic number - randSeed defaults to 35: why?
 export function drawProgrammaticPeople (ctx, width, offsetLeft, offsetTop, randSeed = 35, multiplier, variantString) {
@@ -44,51 +35,47 @@ export function drawProgrammaticPeople (ctx, width, offsetLeft, offsetTop, randS
   const randomGenerator = new RandomGenerator()
   randomGenerator.seed = randSeed + 16 // TODO magic number - randSeed adds 16: why?
 
-  let lastPersonType = 0
-  let peopleCount = 0
+  let lastPersonId = 0
 
-  while ((!peopleCount) || (peopleWidth < width - 40)) {
-    let person = {
-      left: peopleWidth
-    }
+  while ((people.length === 0) || (peopleWidth < width - 40)) {
+    let person
 
-    /* eslint-disable no-unmodified-loop-condition */
     do {
-      person.type = Math.floor(randomGenerator.rand() * PERSON_TYPES)
-    } while ((person.type === lastPersonType) || ((peopleCount === 0) && !PERSON_CAN_GO_FIRST[person.type]))
-    /* eslint-enable no-unmodified-loop-condition */
+      const id = Math.floor(randomGenerator.rand() * PEOPLE.length)
+      person = PEOPLE[id]
+    } while ((person.id === lastPersonId) || ((people.length === 0) && PEOPLE[person.id].disallowFirst === true))
 
-    lastPersonType = person.type
+    lastPersonId = person.id
+    person.left = peopleWidth
 
-    var lastWidth = widthConst + (PERSON_WIDTH[person.type] * 12) - 24 + (randomGenerator.rand() * widthRand)
+    var lastWidth = widthConst + (PEOPLE[person.id].width * 12) - 24 + (randomGenerator.rand() * widthRand)
 
     peopleWidth += lastWidth
     people.push(person)
-    peopleCount++
   }
 
   // This adjusts peopleWidth by the last value of lastWidth from the while loop above
   peopleWidth -= lastWidth
 
   let startLeft = (width - peopleWidth) / 2
-  let firstPersonCorrection = (4 - PERSON_WIDTH[people[0].type]) * 12 / 2
+  let firstPersonCorrection = (4 - PEOPLE[people[0].id].width) * 12 / 2
 
   if (people.length === 1) {
     startLeft += firstPersonCorrection
   } else {
-    let lastPersonCorrection = (4 - PERSON_WIDTH[people[people.length - 1].type]) * 12 / 2
+    let lastPersonCorrection = (4 - PEOPLE[people[people.length - 1].id].width) * 12 / 2
 
     startLeft += (firstPersonCorrection + lastPersonCorrection) / 2
   }
 
   for (let person of people) {
-    // Change person.type to 1-index instead of 0-index,
+    // Change person.id to 1-index instead of 0-index,
     // convert to string & zero-pad to two digits
-    let type = ('0' + (person.type + 1).toString()).slice(-2)
+    let type = ('0' + (person.id + 1).toString()).slice(-2)
 
     // TODO: Document / refactor magic numbers
     drawSegmentImageSVG('people--people-' + type, ctx,
-      offsetLeft + ((person.left - (5 * 12 / 2) - ((4 - PERSON_WIDTH[person.type]) * 12 / 2) + startLeft) * multiplier),
+      offsetLeft + ((person.left - (5 * 12 / 2) - ((4 - PEOPLE[person.id].width) * 12 / 2) + startLeft) * multiplier),
       offsetTop + (37 * multiplier),
       12 * 5 * multiplier, 24 * 4 * multiplier)
   }
