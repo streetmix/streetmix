@@ -206,7 +206,7 @@ class BuildingHeightControl extends React.Component {
         className="height"
         title={t('tooltip.building-height', 'Change the number of floors')}
         disabled={isNotFloored}
-        value={this.state.displayValue}
+        value={isNotFloored ? '' : this.state.displayValue}
         onChange={this.onInput}
         onClick={this.onClickInput}
         onFocus={this.onFocusInput}
