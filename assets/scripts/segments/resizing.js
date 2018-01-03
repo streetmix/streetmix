@@ -84,10 +84,6 @@ export function resizeSegment (el, resizeType, width, updateEdit, palette, initi
   setSegmentContents(el, el.getAttribute('type'),
     el.getAttribute('variant-string'), width, parseInt(el.getAttribute('rand-seed')), palette, false)
 
-  if (updateEdit) {
-    infoBubble.updateWidthInContents(el, width / TILE_SIZE)
-  }
-
   if (!initial) {
     segmentsChanged()
     infoBubble.updateContents()

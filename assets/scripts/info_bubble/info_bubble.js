@@ -370,20 +370,6 @@ export const infoBubble = {
     }
   },
 
-  updateWidthInContents: function (segmentEl, width) {
-    if (!isInfoBubbleVisible() || !infoBubble.segmentEl ||
-      (infoBubble.segmentEl !== segmentEl)) {
-      return
-    }
-
-    infoBubble.updateWidthButtonsInContents(width)
-
-    var el = infoBubble.el.querySelector('.non-variant .width-non-editable')
-    if (el) {
-      el.innerHTML = prettifyWidth(width, { markup: true })
-    }
-  },
-
   updateContents: function () {
     let street = getStreet()
 

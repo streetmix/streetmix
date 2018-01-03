@@ -6,6 +6,8 @@ import { trackEvent } from '../app/event_tracking'
 import { KEYS } from '../app/keyboard_commands'
 
 import {
+  MIN_SEGMENT_WIDTH,
+  MAX_SEGMENT_WIDTH,
   RESIZE_TYPE_TYPING,
   resizeSegment,
   incrementSegmentWidth,
@@ -202,7 +204,9 @@ class WidthControl extends React.Component {
 
   render () {
     const inputEl = (this.props.touch) ? (
-      <span className="width-non-editable" />
+      <span className="width-non-editable">
+        {this.state.displayValue}
+      </span>
     ) : (
       <input
         type="text"
@@ -227,6 +231,7 @@ class WidthControl extends React.Component {
           title={t('tooltip.decrease-width', 'Decrease width (hold Shift for more precision)')}
           tabIndex={-1}
           onClick={this.onClickWidthDecrement}
+          disabled={this.state.value === MIN_SEGMENT_WIDTH}
         >
           –
         </button>
@@ -236,6 +241,7 @@ class WidthControl extends React.Component {
           title={t('tooltip.increase-width', 'Increase width (hold Shift for more precision)')}
           tabIndex={-1}
           onClick={this.onClickWidthIncrement}
+          disabled={this.state.value === MAX_SEGMENT_WIDTH}
         >
           +
         </button>
