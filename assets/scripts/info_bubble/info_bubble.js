@@ -366,9 +366,6 @@ export const infoBubble = {
       if (el) {
         el.realValue = height
         el.value = _prettifyHeight(height)
-      } else {
-        el = infoBubble.el.querySelector('.non-variant .height-non-editable')
-        el.innerHTML = _prettifyHeight(height, { markup: true })
       }
     }
   },

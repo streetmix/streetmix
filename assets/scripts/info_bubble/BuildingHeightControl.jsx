@@ -202,7 +202,7 @@ class BuildingHeightControl extends React.Component {
     const isNotFloored = !isFlooredBuilding(this.props.variant)
 
     const inputEl = (this.props.touch) ? (
-      <span className="height-non-editable" />
+      <span className="height-non-editable">{this.state.displayValue}</span>
     ) : (
       <input
         type="text"
