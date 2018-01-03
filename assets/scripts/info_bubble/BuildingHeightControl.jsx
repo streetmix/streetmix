@@ -179,22 +179,19 @@ class BuildingHeightControl extends React.Component {
     const street = getStreet()
     const height = this.ensureHeightInBounds(value)
 
-    if (immediate) {
+    const update = () => {
       if (this.props.position === 'left') {
         street.leftBuildingHeight = height
       } else {
         street.rightBuildingHeight = height
       }
       buildingHeightUpdated()
+    }
+
+    if (immediate) {
+      update()
     } else {
-      this.timerId = window.setTimeout(() => {
-        if (this.props.position === 'left') {
-          street.leftBuildingHeight = height
-        } else {
-          street.rightBuildingHeight = height
-        }
-        buildingHeightUpdated()
-      }, WIDTH_EDIT_INPUT_DELAY)
+      this.timerId = window.setTimeout(update, WIDTH_EDIT_INPUT_DELAY)
     }
   }
 
