@@ -2,7 +2,6 @@ import { app } from '../preinit/app_settings'
 import { system } from '../preinit/system_capabilities'
 import { hideDescription } from './description'
 import {
-  MAX_BUILDING_HEIGHT,
   getBuildingAttributes,
   isFlooredBuilding,
   createBuildings,
@@ -337,24 +336,6 @@ export const infoBubble = {
     infoBubble.el.style.transformOrigin = '50% ' + height + 'px'
   },
 
-  updateHeightButtonsInContents: function () {
-    let street = getStreet()
-    var height = (infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingHeight : street.rightBuildingHeight
-    var variant = (infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingVariant : street.rightBuildingVariant
-
-    if (!isFlooredBuilding(variant) || (height === 1)) {
-      infoBubble.el.querySelector('.non-variant .decrement').disabled = true
-    } else {
-      infoBubble.el.querySelector('.non-variant .decrement').disabled = false
-    }
-
-    if (!isFlooredBuilding(variant) || (height === MAX_BUILDING_HEIGHT)) {
-      infoBubble.el.querySelector('.non-variant .increment').disabled = true
-    } else {
-      infoBubble.el.querySelector('.non-variant .increment').disabled = false
-    }
-  },
-
   updateWidthButtonsInContents: function (width) {
     if (width === MIN_SEGMENT_WIDTH) {
       infoBubble.el.querySelector('.non-variant .decrement').disabled = true
@@ -379,8 +360,6 @@ export const infoBubble = {
 
     var height = left ? street.leftBuildingHeight : street.rightBuildingHeight
     var variant = left ? street.leftBuildingVariant : street.rightBuildingVariant
-
-    infoBubble.updateHeightButtonsInContents()
 
     if (isFlooredBuilding(variant)) {
       var el = infoBubble.el.querySelector('.non-variant .height')
@@ -424,6 +403,7 @@ export const infoBubble = {
     }
 
     infoBubble.getBubbleDimensions()
+
     window.setTimeout(function () {
       if (infoBubble.type !== INFO_BUBBLE_TYPE_SEGMENT) {
         infoBubble.updateHeightInContents(infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING)

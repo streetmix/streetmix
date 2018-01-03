@@ -41,10 +41,20 @@ class BuildingHeightControl extends React.Component {
 
   addFloor = () => {
     changeBuildingHeight(this.props.position === 'left', true)
+    const value = this.state.value + 1
+    this.setState({
+      value,
+      displayValue: _prettifyHeight(value)
+    })
   }
 
   removeFloor = () => {
     changeBuildingHeight(this.props.position === 'left', false)
+    const value = this.state.value - 1
+    this.setState({
+      value,
+      displayValue: _prettifyHeight(value)
+    })
   }
 
   onInput = (event) => {
@@ -189,7 +199,7 @@ class BuildingHeightControl extends React.Component {
   }
 
   render () {
-    const disabled = !isFlooredBuilding(this.props.variant)
+    const isNotFloored = !isFlooredBuilding(this.props.variant)
 
     const inputEl = (this.props.touch) ? (
       <span className="height-non-editable" />
@@ -198,7 +208,7 @@ class BuildingHeightControl extends React.Component {
         type="text"
         className="height"
         title={t('tooltip.building-height', 'Change the number of floors')}
-        disabled={disabled}
+        disabled={isNotFloored}
         value={this.state.displayValue}
         onChange={this.onInput}
         onClick={this.onClickInput}
@@ -218,6 +228,7 @@ class BuildingHeightControl extends React.Component {
           title={t('tooltip.add-floor', 'Add floor')}
           tabIndex={-1}
           onClick={this.addFloor}
+          disabled={isNotFloored || (this.state.value === MAX_BUILDING_HEIGHT)}
         >
           +
         </button>
@@ -227,6 +238,7 @@ class BuildingHeightControl extends React.Component {
           title={t('tooltip.remove-floor', 'Remove floor')}
           tabIndex={-1}
           onClick={this.removeFloor}
+          disabled={isNotFloored || (this.state.value === 1)}
         >
           –
         </button>

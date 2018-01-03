@@ -142,6 +142,12 @@ export function getBuildingAttributes (street, left) {
   }
 }
 
+/**
+ * Returns true if the building type editable number of floors
+ *
+ * @param {string} buildingVariant
+ * @param {Boolean}
+ */
 // TODO change to array
 export function isFlooredBuilding (buildingVariant) {
   if ((buildingVariant === 'narrow') || (buildingVariant === 'wide') ||
