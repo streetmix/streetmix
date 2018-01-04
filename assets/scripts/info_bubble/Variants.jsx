@@ -1,22 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { t } from '../app/locale'
 import { SEGMENT_INFO } from '../segments/info'
 import { VARIANT_ICONS } from '../segments/variant_icons'
 import { changeSegmentVariant } from '../segments/view'
 import { infoBubble } from './info_bubble'
+import { setBuildingVariant } from '../store/actions/street'
 
 // Duped from InfoBubble
 const INFO_BUBBLE_TYPE_SEGMENT = 1
 const INFO_BUBBLE_TYPE_LEFT_BUILDING = 2
 const INFO_BUBBLE_TYPE_RIGHT_BUILDING = 3
 
-export default class Variants extends React.Component {
+class Variants extends React.Component {
   static propTypes = {
     type: PropTypes.number,
     dataNo: PropTypes.number,
     segment: PropTypes.object,
-    street: PropTypes.object
+    street: PropTypes.object, // eslint-disable-line react/no-unused-prop-types
+
+    // Building
+    variant: PropTypes.string,
+    setBuildingVariant: PropTypes.func
   }
 
   constructor (props) {
@@ -62,10 +68,8 @@ export default class Variants extends React.Component {
         value = (this.props.segment.variant[type] === choice)
         break
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
-        value = (choice === this.props.street.leftBuildingVariant)
-        break
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
-        value = (choice === this.props.street.rightBuildingVariant)
+        value = (choice === this.props.variant)
         break
       default:
         value = false
@@ -86,12 +90,18 @@ export default class Variants extends React.Component {
         break
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
         handler = (event) => {
-          infoBubble.onBuildingVariantButtonClick(null, true, choice)
+          this.props.setBuildingVariant('left', choice)
+
+          // TODO: remove legacy notification
+          infoBubble.onBuildingVariantButtonClick('left')
         }
         break
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
         handler = (event) => {
-          infoBubble.onBuildingVariantButtonClick(null, false, choice)
+          this.props.setBuildingVariant('right', choice)
+
+          // TODO: remove legacy notification
+          infoBubble.onBuildingVariantButtonClick('right')
         }
         break
       default:
@@ -185,3 +195,21 @@ export default class Variants extends React.Component {
     )
   }
 }
+
+function mapStateToProps (state, ownProps) {
+  const isLeft = ownProps.type === INFO_BUBBLE_TYPE_LEFT_BUILDING
+  const isRight = ownProps.type === INFO_BUBBLE_TYPE_RIGHT_BUILDING
+
+  return {
+    // Get the appropriate building data based on which side of street it's on
+    variant: (isLeft) ? state.street.leftBuildingVariant : (isRight) ? state.street.rightBuildingVariant : null
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    setBuildingVariant: (position, variant) => { dispatch(setBuildingVariant(position, variant)) }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Variants)

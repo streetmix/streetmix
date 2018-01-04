@@ -200,6 +200,28 @@ describe('street reducer', () => {
           rightBuildingHeight: 20
         })
       })
+
+      it('does nothing if position is not provided', () => {
+        const existingStreet = {
+          leftBuildingHeight: 1,
+          rightBuildingHeight: 1
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.addBuildingFloor())
+        ).toEqual(existingStreet)
+      })
+
+      it('does nothing if an unknown position is provided', () => {
+        const existingStreet = {
+          leftBuildingHeight: 1,
+          rightBuildingHeight: 1
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.addBuildingFloor('middle'))
+        ).toEqual(existingStreet)
+      })
     })
 
     describe('REMOVE_BUILDING_FLOOR', () => {
@@ -237,6 +259,28 @@ describe('street reducer', () => {
         ).toEqual({
           leftBuildingHeight: 1
         })
+      })
+
+      it('does nothing if position is not provided', () => {
+        const existingStreet = {
+          leftBuildingHeight: 1,
+          rightBuildingHeight: 1
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.removeBuildingFloor())
+        ).toEqual(existingStreet)
+      })
+
+      it('does nothing if an unknown position is provided', () => {
+        const existingStreet = {
+          leftBuildingHeight: 1,
+          rightBuildingHeight: 1
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.removeBuildingFloor('middle'))
+        ).toEqual(existingStreet)
       })
     })
 
@@ -323,6 +367,12 @@ describe('street reducer', () => {
         ).toEqual({
           leftBuildingHeight: 5
         })
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingFloorValue('left'))
+        ).toEqual({
+          leftBuildingHeight: 5
+        })
       })
 
       it('parses integer values from non-integer input', () => {
@@ -359,6 +409,106 @@ describe('street reducer', () => {
         ).toEqual({
           leftBuildingHeight: 5
         })
+      })
+
+      it('does nothing if position is not provided', () => {
+        const existingStreet = {
+          leftBuildingHeight: 1,
+          rightBuildingHeight: 1
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingFloorValue())
+        ).toEqual(existingStreet)
+      })
+
+      it('does nothing if an unknown position is provided', () => {
+        const existingStreet = {
+          leftBuildingHeight: 1,
+          rightBuildingHeight: 1
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingFloorValue('middle'))
+        ).toEqual(existingStreet)
+      })
+    })
+
+    describe('SET_BUILDING_VARIANT', () => {
+      it('sets a variant on the left building', () => {
+        const existingStreet = {
+          leftBuildingVariant: 'wide'
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingVariant('left', 'narrow'))
+        ).toEqual({
+          leftBuildingVariant: 'narrow'
+        })
+      })
+
+      it('sets a floor value on the right building', () => {
+        const existingStreet = {
+          rightBuildingVariant: 'narrow'
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingVariant('right', 'wide'))
+        ).toEqual({
+          rightBuildingVariant: 'wide'
+        })
+      })
+
+      it('refuses to set a value that is falsy', () => {
+        const existingStreet = {
+          leftBuildingVariant: 'waterfront'
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingVariant('left', null))
+        ).toEqual({
+          leftBuildingVariant: 'waterfront'
+        })
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingVariant('left', false))
+        ).toEqual({
+          leftBuildingVariant: 'waterfront'
+        })
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingVariant('left', ''))
+        ).toEqual({
+          leftBuildingVariant: 'waterfront'
+        })
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingVariant('left'))
+        ).toEqual({
+          leftBuildingVariant: 'waterfront'
+        })
+      })
+
+      it('does nothing if position is not provided', () => {
+        const existingStreet = {
+          leftBuildingVariant: 'fence',
+          rightBuildingVariant: 'parking'
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingVariant())
+        ).toEqual(existingStreet)
+      })
+
+      it('does nothing if an unknown position is provided', () => {
+        const existingStreet = {
+          leftBuildingVariant: 'fence',
+          rightBuildingVariant: 'parking'
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingVariant('middle'))
+        ).toEqual(existingStreet)
       })
     })
   })

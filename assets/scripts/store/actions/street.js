@@ -7,7 +7,8 @@ import {
   // BUILDINGS
   ADD_BUILDING_FLOOR,
   REMOVE_BUILDING_FLOOR,
-  SET_BUILDING_FLOOR_VALUE
+  SET_BUILDING_FLOOR_VALUE,
+  SET_BUILDING_VARIANT
 } from './'
 
 export function addSegment (index, segment) {
@@ -86,5 +87,19 @@ export function setBuildingFloorValue (position, value) {
     type: SET_BUILDING_FLOOR_VALUE,
     position,
     value
+  }
+}
+
+/**
+ * Sets building to a selected variant
+ *
+ * @param {string} position - must be 'left' or 'right
+ * @param {string} variant - the variant to set it to
+ */
+export function setBuildingVariant (position, variant) {
+  return {
+    type: SET_BUILDING_VARIANT,
+    position,
+    variant
   }
 }

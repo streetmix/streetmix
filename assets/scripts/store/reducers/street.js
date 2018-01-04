@@ -7,7 +7,8 @@ import {
   // BUILDINGS
   ADD_BUILDING_FLOOR,
   REMOVE_BUILDING_FLOOR,
-  SET_BUILDING_FLOOR_VALUE
+  SET_BUILDING_FLOOR_VALUE,
+  SET_BUILDING_VARIANT
 } from '../actions'
 
 const initialState = {
@@ -110,6 +111,24 @@ const street = (state = initialState, action) => {
           return {
             ...state,
             rightBuildingHeight: Math.min(Math.max(value, 1), MAX_BUILDING_HEIGHT)
+          }
+        default:
+          return state
+      }
+    }
+    case SET_BUILDING_VARIANT: {
+      if (!action.variant) return state
+
+      switch (action.position) {
+        case 'left':
+          return {
+            ...state,
+            leftBuildingVariant: action.variant
+          }
+        case 'right':
+          return {
+            ...state,
+            rightBuildingVariant: action.variant
           }
         default:
           return state

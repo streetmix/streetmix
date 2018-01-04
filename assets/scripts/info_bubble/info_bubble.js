@@ -283,16 +283,14 @@ export const infoBubble = {
     infoBubble.considerType = null
   },
 
-  onBuildingVariantButtonClick: function (event, left, variantChoice) {
-    let street = getStreet()
-    var side
+  onBuildingVariantButtonClick: function (side) {
+    const street = store.getState().street
+    const street2 = getStreet()
 
-    if (left) {
-      street.leftBuildingVariant = variantChoice
-      side = 'left'
+    if (side === 'left') {
+      street2.leftBuildingVariant = street.leftBuildingVariant
     } else {
-      street.rightBuildingVariant = variantChoice
-      side = 'right'
+      street2.rightBuildingVariant = street.rightBuildingVariant
     }
 
     var el = document.querySelector('#street-section-' + side + '-building')
