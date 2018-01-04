@@ -149,20 +149,12 @@ class InfoBubble extends React.Component {
         break
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
         widthOrHeightControl = (
-          <BuildingHeightControl
-            position="left"
-            variant={this.state.street.leftBuildingVariant}
-            value={this.state.street.leftBuildingHeight}
-          />
+          <BuildingHeightControl position="left" />
         )
         break
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
         widthOrHeightControl = (
-          <BuildingHeightControl
-            position="right"
-            variant={this.state.street.rightBuildingVariant}
-            value={this.state.street.rightBuildingHeight}
-          />
+          <BuildingHeightControl position="right" />
         )
         break
       default:

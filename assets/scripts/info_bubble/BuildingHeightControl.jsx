@@ -2,18 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { t } from '../app/locale'
-import {
-  MAX_BUILDING_HEIGHT,
-  isFlooredBuilding,
-  changeBuildingHeight,
-  buildingHeightUpdated
-} from '../segments/buildings'
+import { MAX_BUILDING_HEIGHT, isFlooredBuilding } from '../segments/buildings'
+import { addBuildingFloor, removeBuildingFloor, setBuildingFloorValue } from '../store/actions/street'
 import { _prettifyHeight } from './info_bubble'
-
 import { KEYS } from '../app/keyboard_commands'
 import { hideAllMenus } from '../menus/menu_controller'
 import { loseAnyFocus } from '../util/focus'
-import { getStreet } from '../streets/data_model'
 
 const WIDTH_EDIT_INPUT_DELAY = 200
 
@@ -22,52 +16,87 @@ class BuildingHeightControl extends React.Component {
     touch: PropTypes.bool,
     position: PropTypes.oneOf(['left', 'right']),
     variant: PropTypes.string,
-    value: PropTypes.number
+    value: PropTypes.number,
+    addBuildingFloor: PropTypes.func,
+    removeBuildingFloor: PropTypes.func,
+    setBuildingFloorValue: PropTypes.func
   }
 
   constructor (props) {
     super(props)
 
     this.oldValue = null
-    this.held = false
     this.timerId = -1
     this.inputEl = null
 
     this.state = {
-      value: props.value,
-      displayValue: ''
+      isEditing: false,
+      displayValue: _prettifyHeight(props.value)
     }
   }
 
-  addFloor = () => {
-    changeBuildingHeight(this.props.position === 'left', true)
-    const value = this.state.value + 1
-    this.setState({
-      value,
-      displayValue: _prettifyHeight(value)
-    })
+  /**
+   * If UI is not in user-editing mode, update the display
+   * when the value in store changes
+   *
+   * @param {Object} nextProps
+   */
+  componentWillReceiveProps (nextProps) {
+    if (!this.state.isEditing) {
+      this.setState({
+        displayValue: _prettifyHeight(nextProps.value)
+      })
+    }
   }
 
-  removeFloor = () => {
-    changeBuildingHeight(this.props.position === 'left', false)
-    const value = this.state.value - 1
-    this.setState({
-      value,
-      displayValue: _prettifyHeight(value)
-    })
+  /**
+   * If UI is going to enter user-editing mode, immediately
+   * save the previous value in case editing is cancelled
+   *
+   * @param {Object} nextProps
+   * @param {Object} nextState
+   */
+  componentWillUpdate (nextProps, nextState) {
+    if (!this.state.isEditing && nextState.isEditing) {
+      this.oldValue = this.props.value
+    }
+  }
+
+  onClickIncrement = () => {
+    this.props.addBuildingFloor(this.props.position)
+  }
+
+  onClickDecrement = () => {
+    this.props.removeBuildingFloor(this.props.position)
   }
 
   onInput = (event) => {
+    window.clearTimeout(this.timerId)
+
+    const value = event.target.value
+
+    // Update the input element to display user input
     this.setState({
-      displayValue: event.target.value
+      isEditing: true,
+      displayValue: value
     })
 
-    this._heightEditInputChanged(event.target.value, false)
+    // However, there is a short delay between inputs and updating the model
+    // to prevent rapid key entry from thrashing things
+    const update = () => {
+      this.props.setBuildingFloorValue(this.props.position, value)
+    }
+
+    this.timerId = window.setTimeout(update, WIDTH_EDIT_INPUT_DELAY)
   }
 
   onClickInput = (event) => {
     const el = event.target
-    this.held = true
+
+    this.setState({
+      isEditing: true,
+      displayValue: this.props.value
+    })
 
     if (document.activeElement !== el) {
       el.select()
@@ -75,123 +104,78 @@ class BuildingHeightControl extends React.Component {
   }
 
   onFocusInput = (event) => {
-    const street = getStreet()
-    const value = (this.props.position === 'left') ? street.leftBuildingHeight : street.rightBuildingHeight
-    this.oldValue = value
-    this.setState({
-      value,
-      displayValue: value
-    })
+    const el = event.target
+
+    if (document.activeElement !== el) {
+      el.select()
+    }
   }
 
   /**
    * On blur, input shows prettified value.
    */
   onBlurInput = (event) => {
-    const street = getStreet()
-    const position = this.props.position
-
-    this._heightEditInputChanged(event.target.value, true)
-
-    const value = (position === 'left') ? street.leftBuildingHeight : street.rightBuildingHeight
-
     this.setState({
-      value,
-      displayValue: _prettifyHeight(value)
+      isEditing: false,
+      displayValue: _prettifyHeight(this.props.value)
     })
-
-    this.held = false
-  }
-
-  /* same as WidthControl */
-  onMouseOverInput = (event) => {
-    if (!this.held) {
-      // Automatically select the value on hover so that it's easy to start typing new values.
-      // In React, this only works if the .select() is called at the end of the execution
-      // stack. Since this is in a setTimeout() we need to either persist the React synthetic
-      // event or store the reference to the event target.
-      const target = event.target
-      window.setTimeout(() => {
-        target.focus()
-        target.select()
-      }, 0)
-    }
-  }
-
-  /* same as WidthControl */
-  onMouseOutInput = (event) => {
-    if (!this.held) {
-      event.target.blur()
-    }
-  }
-
-  onKeyDownInput = (event) => {
-    const street = getStreet()
-
-    switch (event.keyCode) {
-      case KEYS.ENTER:
-        this._heightEditInputChanged(event.target.value, true)
-
-        // TODO: don't read height off the data again
-        const value = this.props.position === 'left' ? street.leftBuildingHeight : street.rightBuildingHeight
-        this.setState({
-          value,
-          displayValue: _prettifyHeight(value) // doesn't work?
-        })
-
-        // Apparently we need to lose focus first or we can't re-focus and select
-        loseAnyFocus()
-        this.inputEl.focus()
-        this.inputEl.select()
-        break
-      case KEYS.ESC:
-        this.setState({
-          value: this.oldValue
-        })
-        this._heightEditInputChanged(event.target.value, true)
-        hideAllMenus()
-        loseAnyFocus()
-        break
-    }
   }
 
   /**
-   * Given an input value, convert it to an integer, then make sure it is within
-   * bounds for a building.
-   *
-   * @param {String|Number} value - input value to test
-   * @returns {Number} - number of floors
+   * On mouse over, UI assumes user is ready to edit.
    */
-  ensureHeightInBounds (value) {
-    let height = window.parseInt(value)
+  onMouseOverInput = (event) => {
+    // Bail if already in editing mode.
+    if (this.state.isEditing) return
 
-    if (!height || (height < 1)) {
-      height = 1
-    } else if (height > MAX_BUILDING_HEIGHT) {
-      height = MAX_BUILDING_HEIGHT
-    }
+    this.setState({
+      displayValue: this.props.value
+    })
 
-    return height
+    // Automatically select the value on hover so that it's easy to start typing new values.
+    // In React, this only works if the .select() is called at the end of the execution
+    // stack, so we put it inside a setTimeout() with a timeout of zero. We also must
+    // store the reference to the event target because the React synthetic event will
+    // not persist into the setTimeout function.
+    const target = event.target
+    window.setTimeout(() => {
+      target.focus()
+      target.select()
+    }, 0)
   }
 
-  _heightEditInputChanged = (value, immediate) => {
-    window.clearTimeout(this.timerId)
-    const street = getStreet()
-    const height = this.ensureHeightInBounds(value)
+  /**
+   * On mouse out, if user is not editing, UI returns to default view.
+   */
+  onMouseOutInput = (event) => {
+    // Bail if already in editing mode.
+    if (this.state.isEditing) return
 
-    const update = () => {
-      if (this.props.position === 'left') {
-        street.leftBuildingHeight = height
-      } else {
-        street.rightBuildingHeight = height
-      }
-      buildingHeightUpdated()
-    }
+    this.setState({
+      displayValue: _prettifyHeight(this.props.value)
+    })
 
-    if (immediate) {
-      update()
-    } else {
-      this.timerId = window.setTimeout(update, WIDTH_EDIT_INPUT_DELAY)
+    event.target.blur()
+  }
+
+  onKeyDownInput = (event) => {
+    switch (event.keyCode) {
+      case KEYS.ENTER:
+        this.props.setBuildingFloorValue(this.props.position, event.target.value)
+        this.setState({
+          isEditing: false
+        })
+
+        this.inputEl.focus()
+        this.inputEl.select()
+
+        break
+      // TODO: this is bugged; escape key is not firing currently
+      case KEYS.ESC:
+        this.setBuildingFloorValue(this.props.position, this.oldValue)
+        hideAllMenus()
+        loseAnyFocus()
+        break
     }
   }
 
@@ -224,8 +208,8 @@ class BuildingHeightControl extends React.Component {
           className="increment"
           title={t('tooltip.add-floor', 'Add floor')}
           tabIndex={-1}
-          onClick={this.addFloor}
-          disabled={isNotFloored || (this.state.value === MAX_BUILDING_HEIGHT)}
+          onClick={this.onClickIncrement}
+          disabled={isNotFloored || (this.props.value === MAX_BUILDING_HEIGHT)}
         >
           +
         </button>
@@ -234,8 +218,8 @@ class BuildingHeightControl extends React.Component {
           className="decrement"
           title={t('tooltip.remove-floor', 'Remove floor')}
           tabIndex={-1}
-          onClick={this.removeFloor}
-          disabled={isNotFloored || (this.state.value === 1)}
+          onClick={this.onClickDecrement}
+          disabled={isNotFloored || (this.props.value === 1)}
         >
           –
         </button>
@@ -244,10 +228,28 @@ class BuildingHeightControl extends React.Component {
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps (state, ownProps) {
+  const isLeft = ownProps.position === 'left'
+  const isRight = ownProps.position === 'right'
+
   return {
-    touch: state.system.touch
+    touch: state.system.touch,
+
+    // Get the appropriate building data based on which side of street it's on
+    variant: (isLeft) ? state.street.leftBuildingVariant : (isRight) ? state.street.rightBuildingVariant : null,
+    value: (isLeft) ? state.street.leftBuildingHeight : (isRight) ? state.street.rightBuildingHeight : null
   }
 }
 
-export default connect(mapStateToProps)(BuildingHeightControl)
+function mapDispatchToProps (dispatch) {
+  return {
+    addBuildingFloor: (position) => { dispatch(addBuildingFloor(position)) },
+    removeBuildingFloor: (position) => { dispatch(removeBuildingFloor(position)) },
+    setBuildingFloorValue: (position, value) => {
+      if (!value) return
+      dispatch(setBuildingFloorValue(position, value))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BuildingHeightControl)

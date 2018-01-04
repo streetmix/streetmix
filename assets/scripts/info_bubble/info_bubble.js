@@ -3,7 +3,6 @@ import { system } from '../preinit/system_capabilities'
 import { hideDescription } from './description'
 import {
   getBuildingAttributes,
-  isFlooredBuilding,
   createBuildings,
   onBuildingMouseEnter,
   updateBuildingPosition
@@ -350,26 +349,6 @@ export const infoBubble = {
     }
   },
 
-  updateHeightInContents: function (left) {
-    let street = getStreet()
-    if (!isInfoBubbleVisible() ||
-      (left && (infoBubble.type !== INFO_BUBBLE_TYPE_LEFT_BUILDING)) ||
-      (!left && (infoBubble.type !== INFO_BUBBLE_TYPE_RIGHT_BUILDING))) {
-      return
-    }
-
-    var height = left ? street.leftBuildingHeight : street.rightBuildingHeight
-    var variant = left ? street.leftBuildingVariant : street.rightBuildingVariant
-
-    if (isFlooredBuilding(variant)) {
-      var el = infoBubble.el.querySelector('.non-variant .height')
-      if (el) {
-        el.realValue = height
-        el.value = _prettifyHeight(height)
-      }
-    }
-  },
-
   updateContents: function () {
     let street = getStreet()
 
@@ -386,12 +365,6 @@ export const infoBubble = {
     }
 
     infoBubble.getBubbleDimensions()
-
-    window.setTimeout(function () {
-      if (infoBubble.type !== INFO_BUBBLE_TYPE_SEGMENT) {
-        infoBubble.updateHeightInContents(infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING)
-      }
-    }, 0)
   },
 
   // TODO rename

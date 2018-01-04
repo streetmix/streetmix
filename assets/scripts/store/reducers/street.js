@@ -3,12 +3,18 @@ import {
   REMOVE_SEGMENT,
   MOVE_SEGMENT,
   REPLACE_STREET_DATA,
-  CHANGE_SEGMENT_WIDTH
+  CHANGE_SEGMENT_WIDTH,
+  // BUILDINGS
+  ADD_BUILDING_FLOOR,
+  REMOVE_BUILDING_FLOOR,
+  SET_BUILDING_FLOOR_VALUE
 } from '../actions'
 
 const initialState = {
   segments: []
 }
+
+const MAX_BUILDING_HEIGHT = 20
 
 const street = (state = initialState, action) => {
   switch (action.type) {
@@ -55,6 +61,58 @@ const street = (state = initialState, action) => {
       return {
         ...state,
         segments: copy
+      }
+    }
+    // TODO: Move buildings logic?
+    case ADD_BUILDING_FLOOR: {
+      switch (action.position) {
+        case 'left':
+          return {
+            ...state,
+            leftBuildingHeight: Math.min(state.leftBuildingHeight + 1, MAX_BUILDING_HEIGHT)
+          }
+        case 'right':
+          return {
+            ...state,
+            rightBuildingHeight: Math.min(state.rightBuildingHeight + 1, MAX_BUILDING_HEIGHT)
+          }
+        default:
+          return state
+      }
+    }
+    case REMOVE_BUILDING_FLOOR: {
+      switch (action.position) {
+        case 'left':
+          return {
+            ...state,
+            leftBuildingHeight: Math.max(state.leftBuildingHeight - 1, 1)
+          }
+        case 'right':
+          return {
+            ...state,
+            rightBuildingHeight: Math.max(state.rightBuildingHeight - 1, 1)
+          }
+        default:
+          return state
+      }
+    }
+    case SET_BUILDING_FLOOR_VALUE: {
+      const value = Number.parseInt(action.value, 10)
+      if (Number.isNaN(value)) return state
+
+      switch (action.position) {
+        case 'left':
+          return {
+            ...state,
+            leftBuildingHeight: Math.min(Math.max(value, 1), MAX_BUILDING_HEIGHT)
+          }
+        case 'right':
+          return {
+            ...state,
+            rightBuildingHeight: Math.min(Math.max(value, 1), MAX_BUILDING_HEIGHT)
+          }
+        default:
+          return state
       }
     }
     default:
