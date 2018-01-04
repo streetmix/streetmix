@@ -61,7 +61,7 @@ class StreetMetaData extends React.Component {
 
     const geolocation = (this.props.experimental) ? (
       <span>
-        <a id="street-metadata-map" onClick={this.onClick}><u>Geolocation!</u></a>
+        <a id="street-metadata-map" onClick={this.onClick}><u>Add location</u></a>
       </span>
     ) : null
 
