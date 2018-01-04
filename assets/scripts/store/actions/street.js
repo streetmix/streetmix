@@ -85,6 +85,6 @@ export function setBuildingFloorValue (position, value) {
   return {
     type: SET_BUILDING_FLOOR_VALUE,
     position,
-    value: window.parseInt(value, 10)
+    value
   }
 }
