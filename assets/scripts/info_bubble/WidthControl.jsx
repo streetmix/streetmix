@@ -45,6 +45,11 @@ class WidthControl extends React.Component {
     }
   }
 
+  componentDidMount () {
+    // Listen for external triggers to update contents here
+    window.addEventListener('stmx:force_infobubble_update', this.forceWidthUpdate)
+  }
+
   componentWillReceiveProps (nextProps) {
     const width = this.getWidthFromSegment(nextProps.segment)
     this.setState({
@@ -57,6 +62,20 @@ class WidthControl extends React.Component {
     // `inputEl` is null if this component is disabled
     if (this.inputEl) {
       this.inputEl.blur()
+    }
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('stmx:force_infobubble_update', this.forceWidthUpdate)
+  }
+
+  forceWidthUpdate = () => {
+    const width = this.getWidthFromSegment(this.props.segment)
+    if (width) {
+      this.setState({
+        value: width,
+        displayValue: prettifyWidth(width)
+      })
     }
   }
 
@@ -189,7 +208,8 @@ class WidthControl extends React.Component {
    */
   getWidthFromSegment = (el) => {
     const segmentEl = el || this.props.segment
-    return parseFloat(segmentEl.getAttribute('data-width'))
+    if (!segmentEl) return
+    return Number.parseFloat(segmentEl.getAttribute('data-width'))
   }
 
   // Read actual width from segment, because width is normalized there.
