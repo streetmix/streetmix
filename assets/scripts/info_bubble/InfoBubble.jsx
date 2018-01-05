@@ -14,6 +14,7 @@ import { getStreet } from '../streets/data_model'
 // import { trackEvent } from '../app/event_tracking'
 import { BUILDING_VARIANTS, BUILDING_VARIANT_NAMES } from '../segments/buildings'
 import { SEGMENT_INFO } from '../segments/info'
+import { loseAnyFocus } from '../util/focus'
 import { setInfoBubbleMouseInside } from '../store/actions/infoBubble'
 import { t } from '../app/locale'
 
@@ -77,6 +78,11 @@ class InfoBubble extends React.Component {
     }
 
     this.props.setInfoBubbleMouseInside(false)
+
+    // Returns focus to body when pointer leaves the info bubble area
+    // so that keyboard commands respond to pointer position rather than
+    // any focused buttons/inputs
+    loseAnyFocus()
   }
 
   updateInfoBubbleState = () => {
