@@ -372,26 +372,29 @@ export function buildingHeightUpdated () {
 }
 
 // transition: when state changes, update legacy street object.
-let oldLeftBuildingHeight
-let oldRightBuildingHeight
-store.subscribe(() => {
-  const state = store.getState().street
-  const street = getStreet()
-  let changed = false
-  if (state.leftBuildingHeight !== oldLeftBuildingHeight) {
-    street.leftBuildingHeight = state.leftBuildingHeight
-    oldLeftBuildingHeight = state.leftBuildingHeight
-    changed = true
-  }
-  if (state.rightBuildingHeight !== oldRightBuildingHeight) {
-    street.rightBuildingHeight = state.rightBuildingHeight
-    oldRightBuildingHeight = state.rightBuildingHeight
-    changed = true
-  }
-  if (changed) {
-    buildingHeightUpdated()
-  }
-})
+// todo: remove when no longer needed
+export function initBuildingReduxTransitionSubscriber () {
+  let oldLeftBuildingHeight
+  let oldRightBuildingHeight
+  store.subscribe(() => {
+    const state = store.getState().street
+    const street = getStreet()
+    let changed = false
+    if (state.leftBuildingHeight !== oldLeftBuildingHeight) {
+      street.leftBuildingHeight = state.leftBuildingHeight
+      oldLeftBuildingHeight = state.leftBuildingHeight
+      changed = true
+    }
+    if (state.rightBuildingHeight !== oldRightBuildingHeight) {
+      street.rightBuildingHeight = state.rightBuildingHeight
+      oldRightBuildingHeight = state.rightBuildingHeight
+      changed = true
+    }
+    if (changed) {
+      buildingHeightUpdated()
+    }
+  })
+}
 
 export function createBuildings () {
   var leftEl = document.querySelector('#street-section-left-building')
