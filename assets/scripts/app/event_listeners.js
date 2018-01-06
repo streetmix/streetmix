@@ -3,6 +3,7 @@ import {
   onBuildingMouseLeave
 } from '../segments/buildings'
 import {
+  onBodyMouseOut,
   onBodyMouseDown,
   onBodyMouseMove,
   onBodyMouseUp
@@ -20,6 +21,11 @@ export function addEventListeners () {
   window.addEventListener('storage', onStorageChange)
 
   window.addEventListener('resize', onResize)
+
+  // This listener hides the info bubble when the mouse leaves the
+  // document area. Do not normalize it to a pointerleave event
+  // because it doesn't make sense for other pointer types
+  document.addEventListener('mouseleave', onBodyMouseOut)
 
   window.addEventListener('pointerdown', onBodyMouseDown)
   window.addEventListener('pointermove', onBodyMouseMove)
