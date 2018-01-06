@@ -63,7 +63,7 @@ export function suppressMouseEnter () {
 
 export function resizeSegment (el, resizeType, width, updateEdit, palette, initial) {
   if (!palette) {
-    width = normalizeSegmentWidth(width / TILE_SIZE, resizeType) * TILE_SIZE
+    width = normalizeSegmentWidth(width, resizeType)
   }
 
   document.body.classList.add('immediate-segment-resize')
@@ -72,27 +72,28 @@ export function resizeSegment (el, resizeType, width, updateEdit, palette, initi
     document.body.classList.remove('immediate-segment-resize')
   }, SHORT_DELAY)
 
-  el.style.width = width + 'px'
-  el.setAttribute('data-width', width / TILE_SIZE)
+  el.style.width = (width * TILE_SIZE) + 'px'
+
+  el.setAttribute('data-width', width)
 
   var widthEl = el.querySelector('span.width')
   if (widthEl) {
-    widthEl.innerHTML =
-      prettifyWidth(width / TILE_SIZE, { markup: true })
+    widthEl.innerHTML = prettifyWidth(width, { markup: true })
   }
 
   setSegmentContents(el, el.getAttribute('type'),
-    el.getAttribute('variant-string'), width, parseInt(el.getAttribute('rand-seed')), palette, false)
+    el.getAttribute('variant-string'), width * TILE_SIZE, parseInt(el.getAttribute('rand-seed')), palette, false)
 
   if (!initial) {
     segmentsChanged()
     infoBubble.updateContents()
   }
+
+  return width
 }
 
 export function handleSegmentResizeCancel () {
-  resizeSegment(draggingResize.segmentEl, RESIZE_TYPE_INITIAL,
-    draggingResize.originalWidth * TILE_SIZE, true, false)
+  resizeSegment(draggingResize.segmentEl, RESIZE_TYPE_INITIAL, draggingResize.originalWidth, true, false)
 
   handleSegmentResizeEnd()
 }
@@ -156,14 +157,20 @@ export function normalizeSegmentWidth (width, resizeType) {
   }
 
   width = Math.round(width / resolution) * resolution
-  width = parseFloat(width.toFixed(NORMALIZE_PRECISION))
+  width = Number.parseFloat(width.toFixed(NORMALIZE_PRECISION))
 
   return width
 }
 
-export function incrementSegmentWidth (segmentEl, add, precise) {
-  let increment
-  var width = parseFloat(segmentEl.getAttribute('data-width'))
+// temp: add origWidth as 4th arg to pass in value from redux
+export function incrementSegmentWidth (segmentEl, add, precise, origWidth) {
+  let increment, width
+
+  if (typeof origWidth === 'number') {
+    width = origWidth
+  } else {
+    width = Number.parseFloat(segmentEl.getAttribute('data-width'))
+  }
 
   if (precise) {
     increment = _segmentWidthResolution
@@ -176,8 +183,9 @@ export function incrementSegmentWidth (segmentEl, add, precise) {
   }
   width = normalizeSegmentWidth(width + increment, RESIZE_TYPE_INCREMENT)
 
-  resizeSegment(segmentEl, RESIZE_TYPE_INCREMENT,
-    width * TILE_SIZE, true, false)
+  resizeSegment(segmentEl, RESIZE_TYPE_INCREMENT, width, true, false)
+
+  return width
 }
 
 export function applyWarningsToSegments () {

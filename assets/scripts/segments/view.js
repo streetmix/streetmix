@@ -354,7 +354,7 @@ export function createSegment (type, variantString, width, isUnmovable, palette,
   }
 
   if (width) {
-    resizeSegment(el, RESIZE_TYPE_INITIAL, width, true, palette, true)
+    resizeSegment(el, RESIZE_TYPE_INITIAL, width / TILE_SIZE, true, palette, true)
   }
 
   if (!palette) {

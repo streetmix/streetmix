@@ -235,8 +235,7 @@ function handleSegmentResizeMove (event) {
     resizeType = RESIZE_TYPE_DRAGGING
   }
 
-  resizeSegment(draggingResize.segmentEl, resizeType,
-    draggingResize.width * TILE_SIZE, true, false)
+  resizeSegment(draggingResize.segmentEl, resizeType, draggingResize.width, true, false)
 
   draggingResize.mouseX = x
   draggingResize.mouseY = y

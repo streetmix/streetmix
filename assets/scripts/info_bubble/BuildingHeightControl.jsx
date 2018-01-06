@@ -6,7 +6,6 @@ import { MAX_BUILDING_HEIGHT, isFlooredBuilding } from '../segments/buildings'
 import { addBuildingFloor, removeBuildingFloor, setBuildingFloorValue } from '../store/actions/street'
 import { _prettifyHeight } from './info_bubble'
 import { KEYS } from '../app/keyboard_commands'
-import { hideAllMenus } from '../menus/menu_controller'
 import { loseAnyFocus } from '../util/focus'
 
 const WIDTH_EDIT_INPUT_DELAY = 200
@@ -173,7 +172,6 @@ class BuildingHeightControl extends React.Component {
       // TODO: this is bugged; escape key is not firing currently
       case KEYS.ESC:
         this.setBuildingFloorValue(this.props.position, this.oldValue)
-        hideAllMenus()
         loseAnyFocus()
         break
     }

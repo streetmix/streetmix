@@ -1,10 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { changeSegmentWidth } from '../store/actions/street'
 import { t } from '../app/locale'
 import { trackEvent } from '../app/event_tracking'
 import { KEYS } from '../app/keyboard_commands'
 
+import { loseAnyFocus } from '../util/focus'
 import {
   MIN_SEGMENT_WIDTH,
   MAX_SEGMENT_WIDTH,
@@ -18,102 +20,122 @@ import {
   undecorateWidth,
   processWidthInput
 } from '../util/width_units'
-import { TILE_SIZE } from '../segments/view'
-import { infoBubble } from './info_bubble'
 
 const WIDTH_EDIT_INPUT_DELAY = 200
 
 class WidthControl extends React.Component {
   static propTypes = {
     touch: PropTypes.bool,
-    segment: PropTypes.object, // object from Redux
-    segmentEl: PropTypes.object, // TODO: this is the actual DOM element; change it to a value
-    position: PropTypes.number
+    segment: PropTypes.object, // eslint-disable-line react/no-unused-prop-types
+    segmentEl: PropTypes.object, // TODO: this is the actual DOM element; only here for legacy reasons
+    position: PropTypes.number,
+    value: PropTypes.number,
+    changeSegmentWidth: PropTypes.func
   }
 
   constructor (props) {
     super(props)
 
     this.oldValue = null
-    this.held = false
     this.timerId = -1
     this.inputEl = null
 
-    const width = this.getWidthFromSegment(props.segmentEl)
-
     this.state = {
-      value: width,
-      displayValue: prettifyWidth(width)
+      isEditing: false,
+      displayValue: prettifyWidth(props.value)
     }
   }
 
-  componentDidMount () {
-    // Listen for external triggers to update contents here
-    window.addEventListener('stmx:force_infobubble_update', this.forceWidthUpdate)
-  }
-
+  /**
+   * If UI is not in user-editing mode, update the display
+   * when the value in store changes
+   *
+   * @param {Object} nextProps
+   */
   componentWillReceiveProps (nextProps) {
-    const width = this.getWidthFromSegment(nextProps.segmentEl)
-    this.setState({
-      value: width,
-      displayValue: prettifyWidth(width)
-    })
-
-    this.held = false
-
-    // `inputEl` is null if this component is disabled
-    if (this.inputEl) {
-      this.inputEl.blur()
-    }
-  }
-
-  componentWillUnmount () {
-    window.removeEventListener('stmx:force_infobubble_update', this.forceWidthUpdate)
-  }
-
-  forceWidthUpdate = () => {
-    const width = this.getWidthFromSegment(this.props.segmentEl)
-    if (width) {
+    if (!this.state.isEditing) {
       this.setState({
-        value: width,
-        displayValue: prettifyWidth(width)
+        displayValue: prettifyWidth(nextProps.value)
       })
     }
   }
 
-  onClickWidthDecrement = (event) => {
+  /**
+   * If UI is going to enter user-editing mode, immediately
+   * save the previous value in case editing is cancelled
+   *
+   * @param {Object} nextProps
+   * @param {Object} nextState
+   */
+  componentWillUpdate (nextProps, nextState) {
+    if (!this.state.isEditing && nextState.isEditing) {
+      this.oldValue = this.props.value
+    }
+  }
+
+  onClickIncrement = (event) => {
     const segmentEl = this.props.segmentEl
     const precise = event.shiftKey
 
-    incrementSegmentWidth(segmentEl, false, precise)
-    scheduleControlsFadeout(segmentEl)
+    // Legacy: normalize value and update DOM, then return the normalized value
+    const newWidth = incrementSegmentWidth(segmentEl, true, precise, this.props.value)
 
-    this.updateWidthFromSegment()
+    // Set new value in Redux
+    this.props.changeSegmentWidth(this.props.position, newWidth)
+
+    scheduleControlsFadeout(segmentEl)
 
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INCREMENT_BUTTON', null, true)
   }
 
-  onClickWidthIncrement = (event) => {
+  onClickDecrement = (event) => {
     const segmentEl = this.props.segmentEl
     const precise = event.shiftKey
 
-    incrementSegmentWidth(segmentEl, true, precise)
-    scheduleControlsFadeout(segmentEl)
+    // Legacy: normalize value and update DOM, then return the normalized value
+    const newWidth = incrementSegmentWidth(segmentEl, false, precise, this.props.value)
 
-    this.updateWidthFromSegment()
+    // Set new value in Redux
+    this.props.changeSegmentWidth(this.props.position, newWidth)
+
+    scheduleControlsFadeout(segmentEl)
 
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INCREMENT_BUTTON', null, true)
   }
 
   onInput = (event) => {
-    this._widthEditInputChanged(event.target.value, false)
+    window.clearTimeout(this.timerId)
+
+    const value = event.target.value
+
+    // Update the input element to display user input
+    this.setState({
+      isEditing: true,
+      displayValue: value
+    })
+
+    // However, there is a short delay between inputs and updating the model
+    // to prevent rapid key entry from thrashing things
+    const update = () => {
+      const processedValue = processWidthInput(value)
+      if (processedValue) {
+        const normalizedValue = resizeSegment(this.props.segmentEl, RESIZE_TYPE_TYPING, processedValue, false, false)
+        this.props.changeSegmentWidth(this.props.position, normalizedValue)
+      }
+    }
+
+    this.timerId = window.setTimeout(update, WIDTH_EDIT_INPUT_DELAY)
 
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INPUT_FIELD', null, true)
   }
 
   onClickInput = (event) => {
     const el = event.target
-    this.held = true
+
+    this.setState({
+      isEditing: true,
+      displayValue: undecorateWidth(this.props.value)
+    })
 
     if (document.activeElement !== el) {
       el.select()
@@ -121,107 +143,80 @@ class WidthControl extends React.Component {
   }
 
   onFocusInput = (event) => {
-    this.oldValue = this.state.value
-    this.setState({
-      displayValue: undecorateWidth(this.state.value)
-    })
+    const el = event.target
+
+    if (document.activeElement !== el) {
+      el.select()
+    }
   }
 
   /**
    * On blur, input shows prettified width value.
    */
   onBlurInput = (event) => {
-    this.updateWidthFromSegment()
-    this.held = false
+    this.setState({
+      isEditing: false,
+      displayValue: prettifyWidth(this.props.value)
+    })
   }
 
-  /* same as BuildingHeightControl */
+  /**
+   * On mouse over, UI assumes user is ready to edit.
+   */
   onMouseOverInput = (event) => {
-    if (!this.held) {
-      // Automatically select the value on hover so that it's easy to start typing new values.
-      // In React, this only works if the .select() is called at the end of the execution
-      // stack. Since this is in a setTimeout() we need to either persist the React synthetic
-      // event or store the reference to the event target.
-      const target = event.target
-      window.setTimeout(() => {
-        target.focus()
-        target.select()
-      }, 0)
-    }
+    // Bail if already in editing mode.
+    if (this.state.isEditing) return
+
+    this.setState({
+      displayValue: undecorateWidth(this.props.value)
+    })
+
+    // Automatically select the value on hover so that it's easy to start typing new values.
+    // In React, this only works if the .select() is called at the end of the execution
+    // stack, so we put it inside a setTimeout() with a timeout of zero. We also must
+    // store the reference to the event target because the React synthetic event will
+    // not persist into the setTimeout function.
+    const target = event.target
+    window.setTimeout(() => {
+      target.focus()
+      target.select()
+    }, 0)
   }
 
-  /* same as BuildingHeightControl */
+  /**
+   * On mouse out, if user is not editing, UI returns to default view.
+   */
   onMouseOutInput = (event) => {
-    if (!this.held) {
-      event.target.blur()
-    }
+    // Bail if already in editing mode.
+    if (this.state.isEditing) return
+
+    this.setState({
+      displayValue: prettifyWidth(this.props.value)
+    })
+
+    event.target.blur()
   }
 
   onKeyDownInput = (event) => {
     switch (event.keyCode) {
       case KEYS.ENTER:
-        this._widthEditInputChanged(event.target.value, true)
+        const normalizedValue = resizeSegment(this.props.segmentEl, RESIZE_TYPE_TYPING, event.target.value, false, false)
+        this.props.changeSegmentWidth(this.props.position, normalizedValue)
+
+        this.setState({
+          isEditing: false
+        })
+
         this.inputEl.focus()
         this.inputEl.select()
+
         break
       case KEYS.ESC:
-        this.setState({
-          displayValue: this.oldValue
-        })
-        this._widthEditInputChanged(event.target.value, true)
-        this.inputEl.blur()
+        this.props.changeSegmentWidth(this.props.position, this.oldValue)
+        this.setBuildingFloorValue(this.props.position, this.oldValue)
+        loseAnyFocus()
         break
     }
-  }
-
-  /**
-   * Any time the width input changes, run it through `resizeSegment()`
-   */
-  _widthEditInputChanged (inputValue, immediate = true) {
-    window.clearTimeout(this.timerId)
-
-    this.setState({
-      displayValue: inputValue
-    })
-
-    const width = processWidthInput(inputValue)
-
-    if (width) {
-      const update = () => {
-        resizeSegment(this.props.segmentEl, RESIZE_TYPE_TYPING, width * TILE_SIZE, false, false)
-        infoBubble.updateWidthButtonsInContents(width)
-        this.setState({
-          value: this.getWidthFromSegment()
-        })
-      }
-
-      if (immediate) {
-        update()
-      } else {
-        this.timerId = window.setTimeout(update, WIDTH_EDIT_INPUT_DELAY)
-      }
-    }
-  }
-
-  /**
-   * Changes to width are run through `resizeSegment()` which normalizes
-   * inputs, corrects for units, rounds strange decimals, etc. As a result,
-   * when we update state, read the actual value from the segment element.
-   */
-  getWidthFromSegment = (el) => {
-    const segmentEl = el || this.props.segmentEl
-    if (!segmentEl) return
-    return Number.parseFloat(segmentEl.getAttribute('data-width'))
-  }
-
-  // Read actual width from segment, because width is normalized there.
-  // This is temporary while we transition to React/Redux
-  updateWidthFromSegment = () => {
-    const value = this.getWidthFromSegment()
-    this.setState({
-      value: value,
-      displayValue: prettifyWidth(value)
-    })
   }
 
   render () {
@@ -252,7 +247,7 @@ class WidthControl extends React.Component {
           className="decrement"
           title={t('tooltip.decrease-width', 'Decrease width (hold Shift for more precision)')}
           tabIndex={-1}
-          onClick={this.onClickWidthDecrement}
+          onClick={this.onClickDecrement}
           disabled={this.state.value === MIN_SEGMENT_WIDTH}
         >
           –
@@ -262,7 +257,7 @@ class WidthControl extends React.Component {
           className="increment"
           title={t('tooltip.increase-width', 'Increase width (hold Shift for more precision)')}
           tabIndex={-1}
-          onClick={this.onClickWidthIncrement}
+          onClick={this.onClickIncrement}
           disabled={this.state.value === MAX_SEGMENT_WIDTH}
         >
           +
@@ -273,10 +268,18 @@ class WidthControl extends React.Component {
 }
 
 function mapStateToProps (state, ownProps) {
+  const segment = state.street.segments[ownProps.position]
   return {
     touch: state.system.touch,
-    segment: state.street.segments[ownProps.position]
+    segment: segment,
+    value: (segment && segment.width) || null
   }
 }
 
-export default connect(mapStateToProps)(WidthControl)
+function mapDispatchToProps (dispatch) {
+  return {
+    changeSegmentWidth: (position, value) => { dispatch(changeSegmentWidth(position, value)) }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WidthControl)

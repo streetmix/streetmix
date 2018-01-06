@@ -8,11 +8,7 @@ import {
   updateBuildingPosition
 } from '../segments/buildings'
 import { DRAGGING_TYPE_NONE, draggingType } from '../segments/drag_and_drop'
-import {
-  MIN_SEGMENT_WIDTH,
-  MAX_SEGMENT_WIDTH,
-  cancelFadeoutControls
-} from '../segments/resizing'
+import { cancelFadeoutControls } from '../segments/resizing'
 import { getElAbsolutePos } from '../util/helpers'
 import { prettifyWidth } from '../util/width_units'
 import { isAnyMenuVisible } from '../menus/menu_controller'
@@ -331,20 +327,6 @@ export const infoBubble = {
     infoBubble.el.style.webkitTransformOrigin = '50% ' + height + 'px'
     infoBubble.el.style.MozTransformOrigin = '50% ' + height + 'px'
     infoBubble.el.style.transformOrigin = '50% ' + height + 'px'
-  },
-
-  updateWidthButtonsInContents: function (width) {
-    if (width === MIN_SEGMENT_WIDTH) {
-      infoBubble.el.querySelector('.non-variant .decrement').disabled = true
-    } else {
-      infoBubble.el.querySelector('.non-variant .decrement').disabled = false
-    }
-
-    if (width === MAX_SEGMENT_WIDTH) {
-      infoBubble.el.querySelector('.non-variant .increment').disabled = true
-    } else {
-      infoBubble.el.querySelector('.non-variant .increment').disabled = false
-    }
   },
 
   updateContents: function () {
