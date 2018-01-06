@@ -26,7 +26,9 @@ const WIDTH_EDIT_INPUT_DELAY = 200
 class WidthControl extends React.Component {
   static propTypes = {
     touch: PropTypes.bool,
-    segment: PropTypes.object // TODO: this is the actual DOM element; change it to a value
+    segment: PropTypes.object, // object from Redux
+    segmentEl: PropTypes.object, // TODO: this is the actual DOM element; change it to a value
+    position: PropTypes.number
   }
 
   constructor (props) {
@@ -37,7 +39,7 @@ class WidthControl extends React.Component {
     this.timerId = -1
     this.inputEl = null
 
-    const width = this.getWidthFromSegment(props.segment)
+    const width = this.getWidthFromSegment(props.segmentEl)
 
     this.state = {
       value: width,
@@ -51,7 +53,7 @@ class WidthControl extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    const width = this.getWidthFromSegment(nextProps.segment)
+    const width = this.getWidthFromSegment(nextProps.segmentEl)
     this.setState({
       value: width,
       displayValue: prettifyWidth(width)
@@ -70,7 +72,7 @@ class WidthControl extends React.Component {
   }
 
   forceWidthUpdate = () => {
-    const width = this.getWidthFromSegment(this.props.segment)
+    const width = this.getWidthFromSegment(this.props.segmentEl)
     if (width) {
       this.setState({
         value: width,
@@ -80,7 +82,7 @@ class WidthControl extends React.Component {
   }
 
   onClickWidthDecrement = (event) => {
-    const segmentEl = this.props.segment
+    const segmentEl = this.props.segmentEl
     const precise = event.shiftKey
 
     incrementSegmentWidth(segmentEl, false, precise)
@@ -92,7 +94,7 @@ class WidthControl extends React.Component {
   }
 
   onClickWidthIncrement = (event) => {
-    const segmentEl = this.props.segment
+    const segmentEl = this.props.segmentEl
     const precise = event.shiftKey
 
     incrementSegmentWidth(segmentEl, true, precise)
@@ -186,7 +188,7 @@ class WidthControl extends React.Component {
 
     if (width) {
       const update = () => {
-        resizeSegment(this.props.segment, RESIZE_TYPE_TYPING, width * TILE_SIZE, false, false)
+        resizeSegment(this.props.segmentEl, RESIZE_TYPE_TYPING, width * TILE_SIZE, false, false)
         infoBubble.updateWidthButtonsInContents(width)
         this.setState({
           value: this.getWidthFromSegment()
@@ -207,14 +209,14 @@ class WidthControl extends React.Component {
    * when we update state, read the actual value from the segment element.
    */
   getWidthFromSegment = (el) => {
-    const segmentEl = el || this.props.segment
+    const segmentEl = el || this.props.segmentEl
     if (!segmentEl) return
     return Number.parseFloat(segmentEl.getAttribute('data-width'))
   }
 
   // Read actual width from segment, because width is normalized there.
   // This is temporary while we transition to React/Redux
-  updateWidthFromSegment = (el) => {
+  updateWidthFromSegment = () => {
     const value = this.getWidthFromSegment()
     this.setState({
       value: value,
@@ -270,9 +272,10 @@ class WidthControl extends React.Component {
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps (state, ownProps) {
   return {
-    touch: state.system.touch
+    touch: state.system.touch,
+    segment: state.street.segments[ownProps.position]
   }
 }
 
