@@ -142,6 +142,11 @@ class WidthControl extends React.Component {
     }
   }
 
+  onDoubleClickInput = (event) => {
+    const el = event.target
+    el.select()
+  }
+
   onFocusInput = (event) => {
     const el = event.target
 
@@ -157,6 +162,16 @@ class WidthControl extends React.Component {
     this.setState({
       isEditing: false,
       displayValue: prettifyWidth(this.props.value)
+    })
+  }
+
+  /**
+   * Prevent mousedown event from resetting the input view.
+   */
+  onMouseDownInput = (event) => {
+    this.setState({
+      isEditing: true,
+      displayValue: undecorateWidth(this.props.value)
     })
   }
 
@@ -232,8 +247,10 @@ class WidthControl extends React.Component {
         value={this.state.displayValue}
         onChange={this.onInput}
         onClick={this.onClickInput}
+        onDoubleClick={this.onDoubleClickInput}
         onFocus={this.onFocusInput}
         onBlur={this.onBlurInput}
+        onMouseDown={this.onMouseDownInput}
         onMouseOver={this.onMouseOverInput}
         onMouseOut={this.onMouseOutInput}
         onKeyDown={this.onKeyDownInput}

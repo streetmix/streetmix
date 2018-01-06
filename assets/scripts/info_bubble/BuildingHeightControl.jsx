@@ -102,6 +102,11 @@ class BuildingHeightControl extends React.Component {
     }
   }
 
+  onDoubleClickInput = (event) => {
+    const el = event.target
+    el.select()
+  }
+
   onFocusInput = (event) => {
     const el = event.target
 
@@ -117,6 +122,16 @@ class BuildingHeightControl extends React.Component {
     this.setState({
       isEditing: false,
       displayValue: _prettifyHeight(this.props.value)
+    })
+  }
+
+  /**
+   * Prevent mousedown event from resetting the input view.
+   */
+  onMouseDownInput = (event) => {
+    this.setState({
+      isEditing: true,
+      displayValue: this.props.value
     })
   }
 
@@ -191,8 +206,10 @@ class BuildingHeightControl extends React.Component {
         value={isNotFloored ? '' : this.state.displayValue}
         onChange={this.onInput}
         onClick={this.onClickInput}
+        onDoubleClick={this.onDoubleClickInput}
         onFocus={this.onFocusInput}
         onBlur={this.onBlurInput}
+        onMouseDown={this.onMouseDownInput}
         onMouseOver={this.onMouseOverInput}
         onMouseOut={this.onMouseOutInput}
         onKeyDown={this.onKeyDownInput}
