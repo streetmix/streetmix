@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { debounce } from 'lodash'
 import { t } from '../app/locale'
 import { MAX_BUILDING_HEIGHT, isFlooredBuilding } from '../segments/buildings'
 import { addBuildingFloor, removeBuildingFloor, setBuildingFloorValue } from '../store/actions/street'
@@ -25,7 +26,6 @@ class BuildingHeightControl extends React.Component {
     super(props)
 
     this.oldValue = null
-    this.timerId = -1
     this.inputEl = null
 
     this.state = {
@@ -70,8 +70,6 @@ class BuildingHeightControl extends React.Component {
   }
 
   onInput = (event) => {
-    window.clearTimeout(this.timerId)
-
     const value = event.target.value
 
     // Update the input element to display user input
@@ -80,13 +78,8 @@ class BuildingHeightControl extends React.Component {
       displayValue: value
     })
 
-    // However, there is a short delay between inputs and updating the model
-    // to prevent rapid key entry from thrashing things
-    const update = () => {
-      this.props.setBuildingFloorValue(this.props.position, value)
-    }
-
-    this.timerId = window.setTimeout(update, WIDTH_EDIT_INPUT_DELAY)
+    // Update the model, but debounce inputs to prevent thrashing
+    this.debouncedUpdateModel(value)
   }
 
   onClickInput = (event) => {
@@ -175,7 +168,7 @@ class BuildingHeightControl extends React.Component {
   onKeyDownInput = (event) => {
     switch (event.keyCode) {
       case KEYS.ENTER:
-        this.props.setBuildingFloorValue(this.props.position, event.target.value)
+        this.updateModel(event.target.value)
         this.setState({
           isEditing: false
         })
@@ -186,11 +179,28 @@ class BuildingHeightControl extends React.Component {
         break
       // TODO: this is bugged; escape key is not firing currently
       case KEYS.ESC:
-        this.setBuildingFloorValue(this.props.position, this.oldValue)
+        this.updateModel(this.oldValue)
         loseAnyFocus()
         break
     }
   }
+
+  /**
+   * When given a new value from input, process it, then update the model.
+   *
+   * If the input must be debounced, used the debounced function instead.
+   *
+   * @param {string} value - raw input
+   */
+  updateModel = (value) => {
+    this.props.setBuildingFloorValue(this.props.position, value)
+  }
+
+  /**
+   * Debounced version of this.updateModel(). Call this instead of the
+   * undebounced function to prevent thrashing of model and layout.
+   */
+  debouncedUpdateModel = debounce(this.updateModel, WIDTH_EDIT_INPUT_DELAY)
 
   render () {
     const isNotFloored = !isFlooredBuilding(this.props.variant)

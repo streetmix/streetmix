@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { debounce } from 'lodash'
 import { changeSegmentWidth } from '../store/actions/street'
 import { t } from '../app/locale'
 import { trackEvent } from '../app/event_tracking'
@@ -37,7 +38,6 @@ class WidthControl extends React.Component {
     super(props)
 
     this.oldValue = null
-    this.timerId = -1
     this.inputEl = null
 
     this.state = {
@@ -85,7 +85,7 @@ class WidthControl extends React.Component {
 
     scheduleControlsFadeout(segmentEl)
 
-    trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INCREMENT_BUTTON', null, true)
+    trackEvent('INTERACTION', 'CHANGE_WIDTH', 'DECREMENT_BUTTON', null, true)
   }
 
   onClickDecrement = (event) => {
@@ -104,8 +104,6 @@ class WidthControl extends React.Component {
   }
 
   onInput = (event) => {
-    window.clearTimeout(this.timerId)
-
     const value = event.target.value
 
     // Update the input element to display user input
@@ -114,17 +112,8 @@ class WidthControl extends React.Component {
       displayValue: value
     })
 
-    // However, there is a short delay between inputs and updating the model
-    // to prevent rapid key entry from thrashing things
-    const update = () => {
-      const processedValue = processWidthInput(value)
-      if (processedValue) {
-        const normalizedValue = resizeSegment(this.props.segmentEl, RESIZE_TYPE_TYPING, processedValue, false, false)
-        this.props.changeSegmentWidth(this.props.position, normalizedValue)
-      }
-    }
-
-    this.timerId = window.setTimeout(update, WIDTH_EDIT_INPUT_DELAY)
+    // Update the model, but debounce inputs to prevent thrashing
+    this.debouncedUpdateModel(value)
 
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INPUT_FIELD', null, true)
   }
@@ -215,8 +204,9 @@ class WidthControl extends React.Component {
   onKeyDownInput = (event) => {
     switch (event.keyCode) {
       case KEYS.ENTER:
-        const normalizedValue = resizeSegment(this.props.segmentEl, RESIZE_TYPE_TYPING, event.target.value, false, false)
-        this.props.changeSegmentWidth(this.props.position, normalizedValue)
+        this.updateModel(event.target.value)
+        // const normalizedValue = resizeSegment(this.props.segmentEl, RESIZE_TYPE_TYPING, event.target.value, false, false)
+        // this.props.changeSegmentWidth(this.props.position, normalizedValue)
 
         this.setState({
           isEditing: false
@@ -226,13 +216,39 @@ class WidthControl extends React.Component {
         this.inputEl.select()
 
         break
+      // TODO: this is bugged; escape key is not firing currently
       case KEYS.ESC:
-        this.props.changeSegmentWidth(this.props.position, this.oldValue)
-        this.setBuildingFloorValue(this.props.position, this.oldValue)
+        this.updateModel(this.oldValue)
         loseAnyFocus()
         break
     }
   }
+
+  /**
+   * When given a new value from input, process it, then update the model.
+   * Right now the data exists in two places: in Redux, and in the DOM.
+   * Eventually we want to transition to fully Redux but while other parts
+   * of the application still depends on DOM we must update both places at
+   * the same time.
+   *
+   * If the input must be debounced, used the debounced function instead.
+   *
+   * @todo remove legacy DOM-based update
+   * @param {string} value - raw input
+   */
+  updateModel = (value) => {
+    const processedValue = processWidthInput(value)
+    if (processedValue) {
+      const normalizedValue = resizeSegment(this.props.segmentEl, RESIZE_TYPE_TYPING, processedValue, false, false)
+      this.props.changeSegmentWidth(this.props.position, normalizedValue)
+    }
+  }
+
+  /**
+   * Debounced version of this.updateModel(). Call this instead of the
+   * undebounced function to prevent thrashing of model and layout.
+   */
+  debouncedUpdateModel = debounce(this.updateModel, WIDTH_EDIT_INPUT_DELAY)
 
   render () {
     const inputEl = (this.props.touch) ? (
