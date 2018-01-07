@@ -12,16 +12,6 @@ class MiscHTMLStuff extends React.PureComponent {
   render () {
     return (
       <div>
-        <div id="status-message" className="status-message">
-          <div className="status-message-content" />
-        </div>
-        <div id="no-connection-message" className="status-message">
-          <div className="status-message-content">Streetmix is having trouble connecting to the Internet.
-            <button id="no-connection-try-again">
-              Try again
-            </button>
-          </div>
-        </div>
         <GalleryShield />
         <section id="street-section-outer">
           <section id="street-section-inner">
