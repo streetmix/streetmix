@@ -108,6 +108,11 @@ $dialog-box-default-width: 790px;
   }
 }
 
+.about-dialog-sponsors li {
+  display: inline-block;
+  margin-right: 1em;
+}
+
 // Content of Save as Image dialog box
 // TODO: Less nesting
 .save-as-image-dialog {
