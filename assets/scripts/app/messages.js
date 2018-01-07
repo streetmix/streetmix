@@ -3,20 +3,7 @@ import { supplant } from '../util/helpers'
 // TODO: Localize
 // These strings have been added to translation.json, but are still read from here
 const messages = {
-  TOOLTIP_REMOVE_SEGMENT: 'Remove segment',
-  TOOLTIP_SEGMENT_WIDTH: 'Change width of the segment',
-  TOOLTIP_BUILDING_HEIGHT: 'Change the number of floors',
-  TOOLTIP_INCREASE_WIDTH: 'Increase width (hold Shift for more precision)',
-  TOOLTIP_DECREASE_WIDTH: 'Decrease width (hold Shift for more precision)',
-  TOOLTIP_ADD_FLOOR: 'Add floor',
-  TOOLTIP_REMOVE_FLOOR: 'Remove floor',
-
-  WARNING_TOO_WIDE: 'This segment might be too wide.',
-  WARNING_NOT_WIDE_ENOUGH: 'This segment might not be wide enough.',
-  WARNING_DOESNT_FIT: 'This segment doesn’t fit within the street.',
-
   DEFAULT_STREET_NAME: 'Unnamed St',
-
   SEGMENT_NAME_EMPTY: 'Empty space'
 }
 

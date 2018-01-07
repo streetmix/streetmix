@@ -162,4 +162,354 @@ describe('street reducer', () => {
       ]
     })
   })
+
+  describe('buildings', () => {
+    describe('ADD_BUILDING_FLOOR', () => {
+      it('adds a floor on the left building', () => {
+        const existingStreet = {
+          leftBuildingHeight: 1
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.addBuildingFloor('left'))
+        ).toEqual({
+          leftBuildingHeight: 2
+        })
+      })
+
+      it('adds a floor on the right building', () => {
+        const existingStreet = {
+          rightBuildingHeight: 19
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.addBuildingFloor('right'))
+        ).toEqual({
+          rightBuildingHeight: 20
+        })
+      })
+
+      it('will not increase a building height past maximum', () => {
+        const existingStreet = {
+          rightBuildingHeight: 20
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.addBuildingFloor('right'))
+        ).toEqual({
+          rightBuildingHeight: 20
+        })
+      })
+
+      it('does nothing if position is not provided', () => {
+        const existingStreet = {
+          leftBuildingHeight: 1,
+          rightBuildingHeight: 1
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.addBuildingFloor())
+        ).toEqual(existingStreet)
+      })
+
+      it('does nothing if an unknown position is provided', () => {
+        const existingStreet = {
+          leftBuildingHeight: 1,
+          rightBuildingHeight: 1
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.addBuildingFloor('middle'))
+        ).toEqual(existingStreet)
+      })
+    })
+
+    describe('REMOVE_BUILDING_FLOOR', () => {
+      it('removes a floor on the left building', () => {
+        const existingStreet = {
+          leftBuildingHeight: 2
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.removeBuildingFloor('left'))
+        ).toEqual({
+          leftBuildingHeight: 1
+        })
+      })
+
+      it('removes a floor on the right building', () => {
+        const existingStreet = {
+          rightBuildingHeight: 19
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.removeBuildingFloor('right'))
+        ).toEqual({
+          rightBuildingHeight: 18
+        })
+      })
+
+      it('will not decrease a building height past minimum', () => {
+        const existingStreet = {
+          leftBuildingHeight: 1
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.removeBuildingFloor('left'))
+        ).toEqual({
+          leftBuildingHeight: 1
+        })
+      })
+
+      it('does nothing if position is not provided', () => {
+        const existingStreet = {
+          leftBuildingHeight: 1,
+          rightBuildingHeight: 1
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.removeBuildingFloor())
+        ).toEqual(existingStreet)
+      })
+
+      it('does nothing if an unknown position is provided', () => {
+        const existingStreet = {
+          leftBuildingHeight: 1,
+          rightBuildingHeight: 1
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.removeBuildingFloor('middle'))
+        ).toEqual(existingStreet)
+      })
+    })
+
+    describe('SET_BUILDING_FLOOR_VALUE', () => {
+      it('sets a floor value on the left building', () => {
+        const existingStreet = {
+          leftBuildingHeight: 1
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingFloorValue('left', 3))
+        ).toEqual({
+          leftBuildingHeight: 3
+        })
+      })
+
+      it('sets a floor value on the right building', () => {
+        const existingStreet = {
+          rightBuildingHeight: 1
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingFloorValue('right', 1))
+        ).toEqual({
+          rightBuildingHeight: 1
+        })
+      })
+
+      it('will clamp a value to minimum', () => {
+        const existingStreet = {
+          leftBuildingHeight: 20
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingFloorValue('left', 0))
+        ).toEqual({
+          leftBuildingHeight: 1
+        })
+      })
+
+      it('will clamp a value to maximum', () => {
+        const existingStreet = {
+          rightBuildingHeight: 1
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingFloorValue('right', 1000))
+        ).toEqual({
+          rightBuildingHeight: 20
+        })
+      })
+
+      it('refuses to set a value that is NaN', () => {
+        const existingStreet = {
+          rightBuildingHeight: 5
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingFloorValue('right', NaN))
+        ).toEqual({
+          rightBuildingHeight: 5
+        })
+      })
+
+      it('refuses to set a value that is falsy', () => {
+        const existingStreet = {
+          leftBuildingHeight: 5
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingFloorValue('left', null))
+        ).toEqual({
+          leftBuildingHeight: 5
+        })
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingFloorValue('left', false))
+        ).toEqual({
+          leftBuildingHeight: 5
+        })
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingFloorValue('left', ''))
+        ).toEqual({
+          leftBuildingHeight: 5
+        })
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingFloorValue('left'))
+        ).toEqual({
+          leftBuildingHeight: 5
+        })
+      })
+
+      it('parses integer values from non-integer input', () => {
+        const existingStreet = {
+          rightBuildingHeight: 5
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingFloorValue('right', 4.5))
+        ).toEqual({
+          rightBuildingHeight: 4
+        })
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingFloorValue('right', '9'))
+        ).toEqual({
+          rightBuildingHeight: 9
+        })
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingFloorValue('right', '6 floors'))
+        ).toEqual({
+          rightBuildingHeight: 6
+        })
+      })
+
+      it('does not set a value if integer value cannot be parsed from non-integer input', () => {
+        const existingStreet = {
+          leftBuildingHeight: 5
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingFloorValue('right', 'foo'))
+        ).toEqual({
+          leftBuildingHeight: 5
+        })
+      })
+
+      it('does nothing if position is not provided', () => {
+        const existingStreet = {
+          leftBuildingHeight: 1,
+          rightBuildingHeight: 1
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingFloorValue())
+        ).toEqual(existingStreet)
+      })
+
+      it('does nothing if an unknown position is provided', () => {
+        const existingStreet = {
+          leftBuildingHeight: 1,
+          rightBuildingHeight: 1
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingFloorValue('middle'))
+        ).toEqual(existingStreet)
+      })
+    })
+
+    describe('SET_BUILDING_VARIANT', () => {
+      it('sets a variant on the left building', () => {
+        const existingStreet = {
+          leftBuildingVariant: 'wide'
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingVariant('left', 'narrow'))
+        ).toEqual({
+          leftBuildingVariant: 'narrow'
+        })
+      })
+
+      it('sets a floor value on the right building', () => {
+        const existingStreet = {
+          rightBuildingVariant: 'narrow'
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingVariant('right', 'wide'))
+        ).toEqual({
+          rightBuildingVariant: 'wide'
+        })
+      })
+
+      it('refuses to set a value that is falsy', () => {
+        const existingStreet = {
+          leftBuildingVariant: 'waterfront'
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingVariant('left', null))
+        ).toEqual({
+          leftBuildingVariant: 'waterfront'
+        })
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingVariant('left', false))
+        ).toEqual({
+          leftBuildingVariant: 'waterfront'
+        })
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingVariant('left', ''))
+        ).toEqual({
+          leftBuildingVariant: 'waterfront'
+        })
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingVariant('left'))
+        ).toEqual({
+          leftBuildingVariant: 'waterfront'
+        })
+      })
+
+      it('does nothing if position is not provided', () => {
+        const existingStreet = {
+          leftBuildingVariant: 'fence',
+          rightBuildingVariant: 'parking'
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingVariant())
+        ).toEqual(existingStreet)
+      })
+
+      it('does nothing if an unknown position is provided', () => {
+        const existingStreet = {
+          leftBuildingVariant: 'fence',
+          rightBuildingVariant: 'parking'
+        }
+
+        expect(
+          reducer(Object.assign({}, existingStreet), actions.setBuildingVariant('middle'))
+        ).toEqual(existingStreet)
+      })
+    })
+  })
 })

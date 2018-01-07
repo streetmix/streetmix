@@ -12,7 +12,6 @@ class MiscHTMLStuff extends React.PureComponent {
   render () {
     return (
       <div>
-        <div className="info-bubble" />
         <div id="status-message" className="status-message">
           <div className="status-message-content" />
         </div>

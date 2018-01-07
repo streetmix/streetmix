@@ -9,6 +9,7 @@ import { getElAbsolutePos } from '../util/helpers'
 import { RandomGenerator } from '../util/random'
 import { resumeFadeoutControls } from './resizing'
 import { TILE_SIZE, drawSegmentImage } from './view'
+import store from '../store'
 
 const MAX_CANVAS_HEIGHT = 2048
 
@@ -142,6 +143,12 @@ export function getBuildingAttributes (street, left) {
   }
 }
 
+/**
+ * Returns true if the building type editable number of floors
+ *
+ * @param {string} buildingVariant
+ * @param {Boolean}
+ */
 // TODO change to array
 export function isFlooredBuilding (buildingVariant) {
   if ((buildingVariant === 'narrow') || (buildingVariant === 'wide') ||
@@ -364,28 +371,29 @@ export function buildingHeightUpdated () {
   createBuildings()
 }
 
-export function changeBuildingHeight (left, increment) {
-  let street = getStreet()
-  if (left) {
-    if (increment) {
-      if (street.leftBuildingHeight < MAX_BUILDING_HEIGHT) {
-        street.leftBuildingHeight++
-      }
-    } else if (street.leftBuildingHeight > 1) {
-      street.leftBuildingHeight--
+// transition: when state changes, update legacy street object.
+// todo: remove when no longer needed
+export function initBuildingReduxTransitionSubscriber () {
+  let oldLeftBuildingHeight
+  let oldRightBuildingHeight
+  store.subscribe(() => {
+    const state = store.getState().street
+    const street = getStreet()
+    let changed = false
+    if (state.leftBuildingHeight !== oldLeftBuildingHeight) {
+      street.leftBuildingHeight = state.leftBuildingHeight
+      oldLeftBuildingHeight = state.leftBuildingHeight
+      changed = true
     }
-  } else {
-    if (increment) {
-      if (street.rightBuildingHeight < MAX_BUILDING_HEIGHT) {
-        street.rightBuildingHeight++
-      }
-    } else if (street.rightBuildingHeight > 1) {
-      street.rightBuildingHeight--
+    if (state.rightBuildingHeight !== oldRightBuildingHeight) {
+      street.rightBuildingHeight = state.rightBuildingHeight
+      oldRightBuildingHeight = state.rightBuildingHeight
+      changed = true
     }
-  }
-
-  infoBubble.updateHeightInContents(left)
-  buildingHeightUpdated()
+    if (changed) {
+      buildingHeightUpdated()
+    }
+  })
 }
 
 export function createBuildings () {

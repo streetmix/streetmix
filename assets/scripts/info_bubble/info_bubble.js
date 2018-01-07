@@ -1,57 +1,31 @@
 import { app } from '../preinit/app_settings'
-import { debug } from '../preinit/debug_settings'
 import { system } from '../preinit/system_capabilities'
-import { updateDescription, hideDescription } from './description'
+import { hideDescription } from './description'
 import {
-  BUILDING_VARIANTS,
-  BUILDING_VARIANT_NAMES,
-  MAX_BUILDING_HEIGHT,
   getBuildingAttributes,
-  isFlooredBuilding,
-  buildingHeightUpdated,
-  changeBuildingHeight,
   createBuildings,
   onBuildingMouseEnter,
   updateBuildingPosition
 } from '../segments/buildings'
 import { DRAGGING_TYPE_NONE, draggingType } from '../segments/drag_and_drop'
-import { SEGMENT_INFO } from '../segments/info'
-import { removeSegment, removeAllSegments } from '../segments/remove'
-import {
-  RESIZE_TYPE_TYPING,
-  MIN_SEGMENT_WIDTH,
-  MAX_SEGMENT_WIDTH,
-  resizeSegment,
-  incrementSegmentWidth,
-  scheduleControlsFadeout,
-  resumeFadeoutControls,
-  cancelFadeoutControls
-} from '../segments/resizing'
-import { VARIANT_ICONS } from '../segments/variant_icons'
-import { msg } from '../app/messages'
-import { trackEvent } from '../app/event_tracking'
-import { KEYS } from '../app/keyboard_commands'
+import { cancelFadeoutControls } from '../segments/resizing'
 import { getElAbsolutePos } from '../util/helpers'
-import {
-  prettifyWidth,
-  undecorateWidth,
-  processWidthInput
-} from '../util/width_units'
-import { isAnyMenuVisible, hideAllMenus } from '../menus/menu_controller'
+import { prettifyWidth } from '../util/width_units'
+import { isAnyMenuVisible } from '../menus/menu_controller'
 import { registerKeypress } from '../app/keypress'
-import { loseAnyFocus } from '../util/focus'
 import {
   TILE_SIZE,
-  changeSegmentVariant,
   switchSegmentElIn,
   switchSegmentElAway
 } from '../segments/view'
 import { getStreet, saveStreetToServerIfNecessary } from '../streets/data_model'
+import store from '../store'
 import {
-  SEGMENT_WARNING_OUTSIDE,
-  SEGMENT_WARNING_WIDTH_TOO_SMALL,
-  SEGMENT_WARNING_WIDTH_TOO_LARGE
-} from '../streets/width'
+  showInfoBubble,
+  hideInfoBubble,
+  setInfoBubbleSegmentDataNo,
+  updateHoverPolygon
+} from '../store/actions/infoBubble'
 
 export const INFO_BUBBLE_TYPE_SEGMENT = 1
 export const INFO_BUBBLE_TYPE_LEFT_BUILDING = 2
@@ -62,15 +36,11 @@ const INFO_BUBBLE_MARGIN_MOUSE = 10
 
 const MIN_TOP_MARGIN_FROM_VIEWPORT = 120
 
-const WIDTH_EDIT_INPUT_DELAY = 200
-
-let widthHeightEditHeld = false
-let widthHeightChangeTimerId = -1
+function isInfoBubbleVisible () {
+  return store.getState().infoBubble.visible
+}
 
 export const infoBubble = {
-  mouseInside: false,
-
-  visible: false,
   el: null,
 
   descriptionVisible: false,
@@ -106,7 +76,7 @@ export const infoBubble = {
     // description is NOT visible. (If the description
     // is visible, the escape key should hide that first.)
     registerKeypress('esc', {
-      condition: function () { return infoBubble.visible && !infoBubble.descriptionVisible }
+      condition: function () { return isInfoBubbleVisible() && !infoBubble.descriptionVisible }
     }, function () {
       infoBubble.hide()
       infoBubble.hideSegment(false)
@@ -116,7 +86,6 @@ export const infoBubble = {
     if (!infoBubble.suppressed) {
       infoBubble.hide()
       infoBubble.hideSegment(true)
-      // infoBubble.el.classList.add('suppressed')
       infoBubble.suppressed = true
     }
 
@@ -125,45 +94,22 @@ export const infoBubble = {
   },
 
   unsuppress: function () {
-    // infoBubble.el.classList.remove('suppressed')
     infoBubble.suppressed = false
 
     window.clearTimeout(infoBubble.suppressTimerId)
   },
 
-  onTouchStart: function () {
-    resumeFadeoutControls()
-  },
-
-  onMouseEnter: function () {
-    if (infoBubble.segmentEl) {
-      infoBubble.segmentEl.classList.add('hide-drag-handles-when-inside-info-bubble')
-    }
-
-    infoBubble.mouseInside = true
-
-    infoBubble.updateHoverPolygon()
-  },
-
-  onMouseLeave: function (event) {
-    // Prevent pointer taps from flashing the drag handles
-    if (event.pointerType === 'mouse') {
-      if (infoBubble.segmentEl) {
-        infoBubble.segmentEl.classList.remove('hide-drag-handles-when-inside-info-bubble')
-      }
-    }
-
-    infoBubble.mouseInside = false
-  },
-
   _withinHoverPolygon: function (x, y) {
-    return _isPointInPoly(infoBubble.hoverPolygon, [x, y])
+    const hoverPolygon = store.getState().infoBubble.hoverPolygon
+    return _isPointInPoly(hoverPolygon, [x, y])
   },
 
-  updateHoverPolygon: function (mouseX, mouseY) {
-    if (!infoBubble.visible) {
-      infoBubble.hideDebugHoverPolygon()
-      return
+  // TODO: make this a pure(r) function
+  createHoverPolygon: function (mouseX, mouseY) {
+    let hoverPolygon = []
+
+    if (!isInfoBubbleVisible()) {
+      return hoverPolygon
     }
 
     const bubbleX = infoBubble.bubbleX
@@ -180,7 +126,8 @@ export const infoBubble = {
       marginBubble = INFO_BUBBLE_MARGIN_BUBBLE
     }
 
-    if (infoBubble.mouseInside && !infoBubble.descriptionVisible) {
+    const mouseInside = store.getState().infoBubble.mouseInside
+    if (mouseInside && !infoBubble.descriptionVisible) {
       var pos = getElAbsolutePos(infoBubble.segmentEl)
 
       var x = pos[0] - document.querySelector('#street-section-outer').scrollLeft
@@ -190,7 +137,7 @@ export const infoBubble = {
 
       var segmentY = pos[1] + infoBubble.segmentEl.offsetHeight + INFO_BUBBLE_MARGIN_BUBBLE
 
-      infoBubble.hoverPolygon = [
+      hoverPolygon = [
         [bubbleX - marginBubble, bubbleY - marginBubble],
         [bubbleX - marginBubble, bubbleY + bubbleHeight + marginBubble],
         [segmentX1, bubbleY + bubbleHeight + marginBubble + 120],
@@ -223,7 +170,7 @@ export const infoBubble = {
         diffX = 50
       }
 
-      infoBubble.hoverPolygon = [
+      hoverPolygon = [
         [bubbleX - marginBubble, bubbleY - marginBubble],
         [bubbleX - marginBubble, bubbleY + bubbleHeight + marginBubble],
         [(bubbleX - marginBubble + mouseX - INFO_BUBBLE_MARGIN_MOUSE - diffX) / 2, bottomY + ((bubbleY + bubbleHeight + marginBubble - bottomY) * 0.2)],
@@ -238,38 +185,12 @@ export const infoBubble = {
       ]
     }
 
-    infoBubble.drawDebugHoverPolygon()
+    return hoverPolygon
   },
 
-  hideDebugHoverPolygon: function () {
-    if (!debug.hoverPolygon) {
-      return
-    }
-
-    var el = document.querySelector('#debug-hover-polygon canvas')
-
-    el.width = el.width // clear
-  },
-
-  drawDebugHoverPolygon: function () {
-    if (!debug.hoverPolygon) {
-      return
-    }
-
-    infoBubble.hideDebugHoverPolygon()
-    var el = document.querySelector('#debug-hover-polygon canvas')
-
-    var ctx = el.getContext('2d')
-    ctx.strokeStyle = 'red'
-    ctx.fillStyle = 'rgba(255, 0, 0, .1)'
-    ctx.beginPath()
-    ctx.moveTo(infoBubble.hoverPolygon[0][0], infoBubble.hoverPolygon[0][1])
-    for (var i = 1; i < infoBubble.hoverPolygon.length; i++) {
-      ctx.lineTo(infoBubble.hoverPolygon[i][0], infoBubble.hoverPolygon[i][1])
-    }
-    ctx.closePath()
-    ctx.fill()
-    ctx.stroke()
+  updateHoverPolygon: function (mouseX, mouseY) {
+    const hoverPolygon = infoBubble.createHoverPolygon(mouseX, mouseY)
+    store.dispatch(updateHoverPolygon(hoverPolygon))
   },
 
   scheduleHoverPolygonUpdate: function () {
@@ -287,7 +208,7 @@ export const infoBubble = {
     infoBubble.lastMouseX = mouseX
     infoBubble.lastMouseY = mouseY
 
-    if (infoBubble.visible) {
+    if (isInfoBubbleVisible()) {
       if (!infoBubble._withinHoverPolygon(mouseX, mouseY)) {
         infoBubble.show(false)
       }
@@ -317,14 +238,11 @@ export const infoBubble = {
   },
 
   hide: function () {
-    infoBubble.mouseInside = false
-
     if (infoBubble.el) {
       hideDescription()
       document.body.classList.remove('controls-fade-out')
 
-      infoBubble.el.classList.remove('visible')
-      infoBubble.visible = false
+      store.dispatch(hideInfoBubble())
 
       document.body.removeEventListener('mousemove', infoBubble.onBodyMouseMove)
     }
@@ -351,7 +269,7 @@ export const infoBubble = {
       return
     }
 
-    if (!infoBubble.visible || !infoBubble._withinHoverPolygon(infoBubble.considerMouseX, infoBubble.considerMouseY)) {
+    if (!isInfoBubbleVisible() || !infoBubble._withinHoverPolygon(infoBubble.considerMouseX, infoBubble.considerMouseY)) {
       infoBubble.show(false)
     }
   },
@@ -361,16 +279,14 @@ export const infoBubble = {
     infoBubble.considerType = null
   },
 
-  onBuildingVariantButtonClick: function (event, left, variantChoice) {
-    let street = getStreet()
-    var side
+  onBuildingVariantButtonClick: function (side) {
+    const street = store.getState().street
+    const street2 = getStreet()
 
-    if (left) {
-      street.leftBuildingVariant = variantChoice
-      side = 'left'
+    if (side === 'left') {
+      street2.leftBuildingVariant = street.leftBuildingVariant
     } else {
-      street.rightBuildingVariant = variantChoice
-      side = 'right'
+      street2.rightBuildingVariant = street.rightBuildingVariant
     }
 
     var el = document.querySelector('#street-section-' + side + '-building')
@@ -413,430 +329,22 @@ export const infoBubble = {
     infoBubble.el.style.transformOrigin = '50% ' + height + 'px'
   },
 
-  updateDescriptionInContents: function () {
-    // Not all info bubbles have a segment (e.g. buildings are not segments)
-    if (!infoBubble.segment) {
-      return
-    }
-    updateDescription(infoBubble.segment)
-  },
-
-  /**
-   * Given a segment, update the infoBubble with its warnings
-   */
-  updateWarningsInContents: function (segment) {
-    // TOFIX: We may need to check whether the segment given
-    // matches the segment in the info bubble, but the
-    // infoBubble.segment value is currently unreliable.
-    var el = infoBubble.el.querySelector('.warnings')
-
-    var html = ''
-
-    if (segment.warnings[SEGMENT_WARNING_OUTSIDE]) {
-      html += '<p>'
-      html += msg('WARNING_DOESNT_FIT')
-      html += '</p>'
-    }
-    if (segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL]) {
-      html += '<p>'
-      html += msg('WARNING_NOT_WIDE_ENOUGH')
-      html += '</p>'
-    }
-    if (segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE]) {
-      html += '<p>'
-      html += msg('WARNING_TOO_WIDE')
-      html += '</p>'
-    }
-
-    if (html) {
-      el.innerHTML = html
-      el.classList.add('visible')
-    } else {
-      el.classList.remove('visible')
-    }
-
-    infoBubble.getBubbleDimensions()
-  },
-
-  updateHeightButtonsInContents: function () {
-    let street = getStreet()
-    var height = (infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingHeight : street.rightBuildingHeight
-    var variant = (infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingVariant : street.rightBuildingVariant
-
-    if (!isFlooredBuilding(variant) || (height === 1)) {
-      infoBubble.el.querySelector('.non-variant .decrement').disabled = true
-    } else {
-      infoBubble.el.querySelector('.non-variant .decrement').disabled = false
-    }
-
-    if (!isFlooredBuilding(variant) || (height === MAX_BUILDING_HEIGHT)) {
-      infoBubble.el.querySelector('.non-variant .increment').disabled = true
-    } else {
-      infoBubble.el.querySelector('.non-variant .increment').disabled = false
-    }
-  },
-
-  updateWidthButtonsInContents: function (width) {
-    if (width === MIN_SEGMENT_WIDTH) {
-      infoBubble.el.querySelector('.non-variant .decrement').disabled = true
-    } else {
-      infoBubble.el.querySelector('.non-variant .decrement').disabled = false
-    }
-
-    if (width === MAX_SEGMENT_WIDTH) {
-      infoBubble.el.querySelector('.non-variant .increment').disabled = true
-    } else {
-      infoBubble.el.querySelector('.non-variant .increment').disabled = false
-    }
-  },
-
-  updateHeightInContents: function (left) {
-    let street = getStreet()
-    if (!infoBubble.visible ||
-      (left && (infoBubble.type !== INFO_BUBBLE_TYPE_LEFT_BUILDING)) ||
-      (!left && (infoBubble.type !== INFO_BUBBLE_TYPE_RIGHT_BUILDING))) {
-      return
-    }
-
-    var height = left ? street.leftBuildingHeight : street.rightBuildingHeight
-    var variant = left ? street.leftBuildingVariant : street.rightBuildingVariant
-
-    infoBubble.updateHeightButtonsInContents()
-
-    if (isFlooredBuilding(variant)) {
-      var el = infoBubble.el.querySelector('.non-variant .height')
-      if (el) {
-        el.realValue = height
-        el.value = _prettifyHeight(height)
-      } else {
-        el = infoBubble.el.querySelector('.non-variant .height-non-editable')
-        el.innerHTML = _prettifyHeight(height, { markup: true })
-      }
-    }
-  },
-
-  updateWidthInContents: function (segmentEl, width) {
-    if (!infoBubble.visible || !infoBubble.segmentEl ||
-      (infoBubble.segmentEl !== segmentEl)) {
-      return
-    }
-
-    infoBubble.updateWidthButtonsInContents(width)
-
-    var el = infoBubble.el.querySelector('.non-variant .width')
-    if (el) {
-      el.realValue = width
-      el.value = prettifyWidth(width)
-    } else {
-      el = infoBubble.el.querySelector('.non-variant .width-non-editable')
-      el.innerHTML = prettifyWidth(width, { markup: true })
-    }
-  },
-
-  createVariantIcon: function (type, choice, buttonEl) {
-    const variantIcon = VARIANT_ICONS[type][choice]
-
-    if (variantIcon) {
-      const svgEl = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-      svgEl.setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns', 'http://www.w3.org/1999/svg')
-      svgEl.setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xlink', 'http://www.w3.org/1999/xlink')
-
-      if (svgEl.classList) {
-        svgEl.classList.add('icon')
-      } else {
-        // Internet Explorer does not have the .classList methods on SVGElements
-        svgEl.setAttribute('class', 'icon')
-      }
-
-      if (variantIcon.color) {
-        svgEl.style.fill = variantIcon.color
-      }
-
-      const useEl = document.createElementNS('http://www.w3.org/2000/svg', 'use')
-      useEl.setAttributeNS('http://www.w3.org/1999/xlink', 'href', '#icon-' + variantIcon.id)
-
-      buttonEl.appendChild(svgEl)
-      svgEl.appendChild(useEl)
-
-      if (variantIcon.title) {
-        buttonEl.title = variantIcon.title
-      }
-    }
-  },
-
   updateContents: function () {
     let street = getStreet()
-    let infoBubbleEl = infoBubble.el
-    let name, canBeDeleted, showWidth, innerEl, widthCanvasEl, el
 
     // If info bubble changes, wake this back up if it's fading out
     cancelFadeoutControls()
 
+    window.dispatchEvent(new window.CustomEvent('stmx:force_infobubble_update'))
+
     switch (infoBubble.type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
-        var segment = street.segments[parseInt(infoBubble.segmentEl.dataNo)]
-        var segmentInfo = SEGMENT_INFO[segment.type]
-        var variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString]
-
-        name = variantInfo.name || segmentInfo.name
-        canBeDeleted = true
-        showWidth = true
-
+        var segment = street.segments[store.getState().infoBubble.dataNo]
         infoBubble.segment = segment
-
-        infoBubble.el.setAttribute('type', 'segment')
-        break
-      case INFO_BUBBLE_TYPE_LEFT_BUILDING:
-        name = BUILDING_VARIANT_NAMES[BUILDING_VARIANTS.indexOf(street.leftBuildingVariant)]
-        canBeDeleted = false
-        showWidth = false
-
-        infoBubble.el.setAttribute('type', 'building')
-        break
-      case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
-        name = BUILDING_VARIANT_NAMES[BUILDING_VARIANTS.indexOf(street.rightBuildingVariant)]
-        canBeDeleted = false
-        showWidth = false
-
-        infoBubble.el.setAttribute('type', 'building')
         break
     }
 
-    infoBubbleEl.innerHTML = ''
-
-    var triangleEl = document.createElement('div')
-    triangleEl.classList.add('triangle')
-    infoBubbleEl.appendChild(triangleEl)
-
-    // Header
-
-    var headerEl = document.createElement('header')
-
-    headerEl.innerHTML = name
-
-    if (canBeDeleted) {
-      innerEl = document.createElement('button')
-      innerEl.classList.add('remove')
-      innerEl.innerHTML = 'Remove'
-      innerEl.segmentEl = infoBubble.segmentEl
-      innerEl.tabIndex = -1
-      innerEl.setAttribute('title', msg('TOOLTIP_REMOVE_SEGMENT'))
-      innerEl.addEventListener('pointerdown', onRemoveButtonClick)
-      headerEl.appendChild(innerEl)
-    }
-
-    infoBubbleEl.appendChild(headerEl)
-
-    // Building height canvas
-
-    if ((infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING) ||
-      (infoBubble.type === INFO_BUBBLE_TYPE_RIGHT_BUILDING)) {
-      let variant
-
-      if (infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING) {
-        variant = street.leftBuildingVariant
-      } else {
-        variant = street.rightBuildingVariant
-      }
-
-      var disabled = !isFlooredBuilding(variant)
-
-      widthCanvasEl = document.createElement('div')
-      widthCanvasEl.classList.add('non-variant')
-      widthCanvasEl.classList.add('building-height')
-
-      innerEl = document.createElement('button')
-      innerEl.classList.add('increment')
-      innerEl.innerHTML = '+'
-      innerEl.tabIndex = -1
-      innerEl.title = msg('TOOLTIP_ADD_FLOOR')
-      var addFloor = function () {
-        changeBuildingHeight(infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING, true)
-      }
-
-      innerEl.addEventListener('pointerdown', addFloor)
-
-      widthCanvasEl.appendChild(innerEl)
-      if (!system.touch) {
-        innerEl = document.createElement('input')
-        innerEl.setAttribute('type', 'text')
-        innerEl.classList.add('height')
-        innerEl.title = msg('TOOLTIP_BUILDING_HEIGHT')
-
-        innerEl.addEventListener('pointerdown', _onWidthHeightEditClick)
-        innerEl.addEventListener('focus', _onHeightEditFocus)
-        innerEl.addEventListener('blur', _onHeightEditBlur)
-        innerEl.addEventListener('input', _onHeightEditInput)
-        innerEl.addEventListener('mouseover', _onWidthHeightEditMouseOver)
-        innerEl.addEventListener('mouseout', _onWidthHeightEditMouseOut)
-        innerEl.addEventListener('keydown', _onHeightEditKeyDown)
-      } else {
-        innerEl = document.createElement('span')
-        innerEl.classList.add('height-non-editable')
-      }
-      if (disabled) {
-        innerEl.disabled = true
-      }
-      widthCanvasEl.appendChild(innerEl)
-
-      innerEl = document.createElement('button')
-      innerEl.classList.add('decrement')
-      innerEl.innerHTML = '–'
-      innerEl.tabIndex = -1
-      innerEl.title = msg('TOOLTIP_REMOVE_FLOOR')
-      var removeFloor = function () {
-        changeBuildingHeight(infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING, false)
-      }
-      innerEl.addEventListener('pointerdown', removeFloor)
-
-      widthCanvasEl.appendChild(innerEl)
-      infoBubbleEl.appendChild(widthCanvasEl)
-    }
-
-    // Width canvas
-
-    if (showWidth) {
-      widthCanvasEl = document.createElement('div')
-      widthCanvasEl.classList.add('non-variant')
-
-      if (!segmentInfo.variants[0]) {
-        widthCanvasEl.classList.add('entire-info-bubble')
-      }
-
-      innerEl = document.createElement('button')
-      innerEl.classList.add('decrement')
-      innerEl.innerHTML = '–'
-      innerEl.segmentEl = segment.el
-      innerEl.title = msg('TOOLTIP_DECREASE_WIDTH')
-      innerEl.tabIndex = -1
-      innerEl.addEventListener('pointerdown', _onWidthDecrementClick)
-      widthCanvasEl.appendChild(innerEl)
-
-      if (!system.touch) {
-        innerEl = document.createElement('input')
-        innerEl.setAttribute('type', 'text')
-        innerEl.classList.add('width')
-        innerEl.title = msg('TOOLTIP_SEGMENT_WIDTH')
-        innerEl.segmentEl = segment.el
-
-        innerEl.addEventListener('pointerdown', _onWidthHeightEditClick)
-        innerEl.addEventListener('focus', _onWidthEditFocus)
-        innerEl.addEventListener('blur', _onWidthEditBlur)
-        innerEl.addEventListener('input', _onWidthEditInput)
-        innerEl.addEventListener('mouseover', _onWidthHeightEditMouseOver)
-        innerEl.addEventListener('mouseout', _onWidthHeightEditMouseOut)
-        innerEl.addEventListener('keydown', _onWidthEditKeyDown)
-      } else {
-        innerEl = document.createElement('span')
-        innerEl.classList.add('width-non-editable')
-      }
-      widthCanvasEl.appendChild(innerEl)
-
-      innerEl = document.createElement('button')
-      innerEl.classList.add('increment')
-      innerEl.innerHTML = '+'
-      innerEl.segmentEl = segment.el
-      innerEl.tabIndex = -1
-      innerEl.title = msg('TOOLTIP_INCREASE_WIDTH')
-      innerEl.addEventListener('pointerdown', _onWidthIncrementClick)
-      widthCanvasEl.appendChild(innerEl)
-
-      infoBubbleEl.appendChild(widthCanvasEl)
-    }
-
-    // Variants
-
-    var variantsEl = document.createElement('div')
-    variantsEl.classList.add('variants')
-
-    switch (infoBubble.type) {
-      case INFO_BUBBLE_TYPE_SEGMENT:
-        let first = true
-
-        // Each segment has some allowed variant types (e.g. "direction")
-        for (let variant in segmentInfo.variants) {
-          const variantType = segmentInfo.variants[variant]
-
-          // New row for each variant type
-          if (!first) {
-            let el = document.createElement('hr')
-            variantsEl.appendChild(el)
-          } else {
-            first = false
-          }
-
-          // Each variant type has some choices.
-          // VARIANT_ICONS is an object containing a list of what
-          // each of the choices are and data for building an icon.
-          // Different segments may refer to the same variant type
-          // ("direction" is a good example of this)
-          for (let variantChoice in VARIANT_ICONS[variantType]) {
-            let el = document.createElement('button')
-            infoBubble.createVariantIcon(variantType, variantChoice, el)
-
-            if (segment.variant[variantType] === variantChoice) {
-              el.disabled = true
-            }
-
-            el.addEventListener('pointerdown', (function (dataNo, variantType, variantChoice) {
-              return function () {
-                changeSegmentVariant(dataNo, variantType, variantChoice)
-              }
-            })(segment.el.dataNo, variantType, variantChoice))
-
-            variantsEl.appendChild(el)
-          }
-        }
-        break
-      case INFO_BUBBLE_TYPE_LEFT_BUILDING:
-      case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
-        let variant
-        if (infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING) {
-          variant = street.leftBuildingVariant
-        } else {
-          variant = street.rightBuildingVariant
-        }
-
-        for (var j in BUILDING_VARIANTS) {
-          el = document.createElement('button')
-          // TODO const
-          infoBubble.createVariantIcon('building', BUILDING_VARIANTS[j], el)
-          if (BUILDING_VARIANTS[j] === variant) {
-            el.disabled = true
-          }
-
-          variantsEl.appendChild(el)
-
-          el.addEventListener('pointerdown', (function (left, variantChoice) {
-            return function () {
-              infoBubble.onBuildingVariantButtonClick(null, left, variantChoice)
-            }
-          })(infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING, BUILDING_VARIANTS[j]))
-        }
-
-        break
-    }
-
-    infoBubbleEl.appendChild(variantsEl)
-
-    // Warnings
-
-    el = document.createElement('div')
-    el.classList.add('warnings')
-
-    infoBubbleEl.appendChild(el)
-
-    infoBubble.updateDescriptionInContents()
-    if (segment) {
-      infoBubble.updateWarningsInContents(segment)
-    }
-    window.setTimeout(function () {
-      if (infoBubble.type === INFO_BUBBLE_TYPE_SEGMENT) {
-        infoBubble.updateWidthInContents(segment.el, segment.width)
-      } else {
-        infoBubble.updateHeightInContents(infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING)
-      }
-    }, 0)
+    infoBubble.getBubbleDimensions()
   },
 
   // TODO rename
@@ -875,7 +383,7 @@ export const infoBubble = {
       segmentEl.classList.add('hover')
       segmentEl.classList.add('show-drag-handles')
     }
-    if (infoBubble.visible) {
+    if (isInfoBubbleVisible()) {
       segmentEl.classList.add('immediate-show-drag-handles')
 
       if (infoBubble.descriptionVisible) {
@@ -889,6 +397,9 @@ export const infoBubble = {
     var pos = getElAbsolutePos(segmentEl)
     var bubbleX = pos[0] - document.querySelector('#street-section-outer').scrollLeft
     var bubbleY = pos[1]
+
+    const dataNo = segmentEl.dataNo
+    store.dispatch(setInfoBubbleSegmentDataNo(dataNo))
 
     infoBubble.el = document.querySelector('.info-bubble')
     infoBubble.updateContents()
@@ -915,10 +426,9 @@ export const infoBubble = {
     infoBubble.el.style.left = bubbleX + 'px'
     infoBubble.el.style.top = bubbleY + 'px'
 
-    if (!infoBubble.visible) {
-      infoBubble.visible = true
+    if (!isInfoBubbleVisible()) {
+      store.dispatch(showInfoBubble())
     }
-    infoBubble.el.classList.add('visible')
 
     infoBubble.bubbleX = bubbleX
     infoBubble.bubbleY = bubbleY
@@ -949,211 +459,7 @@ function _isPointInPoly (vs, point) {
   return inside
 }
 
-function _onWidthDecrementClick (event) {
-  var el = event.target
-  var segmentEl = el.segmentEl
-  var precise = event.shiftKey
-
-  incrementSegmentWidth(segmentEl, false, precise)
-  scheduleControlsFadeout(segmentEl)
-
-  trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INCREMENT_BUTTON', null, true)
-}
-
-function _onWidthIncrementClick (event) {
-  var el = event.target
-  var segmentEl = el.segmentEl
-  var precise = event.shiftKey
-
-  incrementSegmentWidth(segmentEl, true, precise)
-  scheduleControlsFadeout(segmentEl)
-
-  trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INCREMENT_BUTTON', null, true)
-}
-
-function _onWidthHeightEditClick (event) {
-  var el = event.target
-
-  el.hold = true
-  widthHeightEditHeld = true
-
-  if (document.activeElement !== el) {
-    el.select()
-  }
-}
-
-function _onWidthHeightEditMouseOver (event) {
-  if (!widthHeightEditHeld) {
-    event.target.focus()
-    event.target.select()
-  }
-}
-
-function _onWidthHeightEditMouseOut (event) {
-  if (!widthHeightEditHeld) {
-    loseAnyFocus()
-  }
-}
-
-function _onWidthEditFocus (event) {
-  var el = event.target
-
-  el.oldValue = el.realValue
-  el.value = undecorateWidth(el.realValue)
-}
-
-function _onHeightEditFocus (event) {
-  var el = event.target
-
-  el.oldValue = el.realValue
-  el.value = el.realValue
-}
-
-function _onWidthEditBlur (event) {
-  var el = event.target
-
-  _widthEditInputChanged(el, true)
-
-  el.realValue = parseFloat(el.segmentEl.getAttribute('width'))
-  el.value = prettifyWidth(el.realValue)
-
-  el.hold = false
-  widthHeightEditHeld = false
-}
-
-function _onHeightEditBlur (event) {
-  let street = getStreet()
-  var el = event.target
-
-  _heightEditInputChanged(el, true)
-
-  el.realValue = (infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingHeight : street.rightBuildingHeight
-  el.value = _prettifyHeight(el.realValue)
-
-  el.hold = false
-  widthHeightEditHeld = false
-}
-
-function _heightEditInputChanged (el, immediate) {
-  window.clearTimeout(widthHeightChangeTimerId)
-  let street = getStreet()
-
-  var height = parseInt(el.value)
-
-  if (!height || (height < 1)) {
-    height = 1
-  } else if (height > MAX_BUILDING_HEIGHT) {
-    height = MAX_BUILDING_HEIGHT
-  }
-
-  if (immediate) {
-    if (infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING) {
-      street.leftBuildingHeight = height
-    } else {
-      street.rightBuildingHeight = height
-    }
-    buildingHeightUpdated()
-  } else {
-    widthHeightChangeTimerId = window.setTimeout(function () {
-      if (infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING) {
-        street.leftBuildingHeight = height
-      } else {
-        street.rightBuildingHeight = height
-      }
-      buildingHeightUpdated()
-    }, WIDTH_EDIT_INPUT_DELAY)
-  }
-}
-
-function _widthEditInputChanged (el, immediate) {
-  window.clearTimeout(widthHeightChangeTimerId)
-
-  var width = processWidthInput(el.value)
-
-  if (width) {
-    var segmentEl = el.segmentEl
-
-    if (immediate) {
-      resizeSegment(segmentEl, RESIZE_TYPE_TYPING,
-        width * TILE_SIZE, false, false)
-      infoBubble.updateWidthButtonsInContents(width)
-    } else {
-      widthHeightChangeTimerId = window.setTimeout(function () {
-        resizeSegment(segmentEl, RESIZE_TYPE_TYPING,
-          width * TILE_SIZE, false, false)
-        infoBubble.updateWidthButtonsInContents(width)
-      }, WIDTH_EDIT_INPUT_DELAY)
-    }
-  }
-}
-
-function _onWidthEditInput (event) {
-  _widthEditInputChanged(event.target, false)
-
-  trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INPUT_FIELD', null, true)
-}
-
-function _onHeightEditInput (event) {
-  _heightEditInputChanged(event.target, false)
-}
-
-function _onWidthEditKeyDown (event) {
-  var el = event.target
-
-  switch (event.keyCode) {
-    case KEYS.ENTER:
-      _widthEditInputChanged(el, true)
-      loseAnyFocus()
-      el.value = undecorateWidth(el.segmentEl.getAttribute('width'))
-      el.focus()
-      el.select()
-      break
-    case KEYS.ESC:
-      el.value = el.oldValue
-      _widthEditInputChanged(el, true)
-      hideAllMenus()
-      loseAnyFocus()
-      break
-  }
-}
-
-function _onHeightEditKeyDown (event) {
-  let street = getStreet()
-  var el = event.target
-
-  switch (event.keyCode) {
-    case KEYS.ENTER:
-      _heightEditInputChanged(el, true)
-      loseAnyFocus()
-      el.value = _prettifyHeight((infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING) ? street.leftBuildingHeight : street.rightBuildingHeight)
-      el.focus()
-      el.select()
-      break
-    case KEYS.ESC:
-      el.value = el.oldValue
-      _heightEditInputChanged(el, true)
-      hideAllMenus()
-      loseAnyFocus()
-      break
-  }
-}
-
-function onRemoveButtonClick (event) {
-  // Power move: a shift key will remove all segments
-  if (event.shiftKey) {
-    removeAllSegments()
-  } else {
-    // Otherwise, remove one segment
-    removeSegment(event.target.segmentEl)
-  }
-
-  trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'BUTTON', null, true)
-
-  // Prevent this “leaking” to a segment below
-  event.preventDefault()
-}
-
-function _prettifyHeight (height) {
+export function _prettifyHeight (height) {
   var heightText = height
 
   heightText += ' floor'

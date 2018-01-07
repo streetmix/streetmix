@@ -1,7 +1,6 @@
 import { noop } from 'lodash'
 
 import { showGallery, hideGallery } from '../gallery/view'
-import { changeBuildingHeight } from '../segments/buildings'
 import {
   draggingType,
   DRAGGING_TYPE_RESIZE,
@@ -19,6 +18,8 @@ import { isFocusOnBody } from '../util/focus'
 import { registerKeypress } from './keypress'
 import { showStatusMessage } from './status_message'
 import { t } from './locale'
+import { addBuildingFloor, removeBuildingFloor } from '../store/actions/street'
+import store from '../store'
 
 export const KEYS = {
   ENTER: 13,
@@ -78,9 +79,17 @@ function onBodyKeyDown (event) {
         if (hoveredEl.classList.contains('segment')) {
           incrementSegmentWidth(hoveredEl, !negative, event.shiftKey)
         } else if (hoveredEl.id === 'street-section-left-building') {
-          changeBuildingHeight(true, !negative)
+          if (negative) {
+            store.dispatch(removeBuildingFloor('left'))
+          } else {
+            store.dispatch(addBuildingFloor('left'))
+          }
         } else if (hoveredEl.id === 'street-section-right-building') {
-          changeBuildingHeight(false, !negative)
+          if (negative) {
+            store.dispatch(removeBuildingFloor('right'))
+          } else {
+            store.dispatch(addBuildingFloor('right'))
+          }
         }
         event.preventDefault()
 

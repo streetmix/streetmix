@@ -1,0 +1,280 @@
+import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { debounce } from 'lodash'
+import { t } from '../app/locale'
+import { MAX_BUILDING_HEIGHT, isFlooredBuilding } from '../segments/buildings'
+import { addBuildingFloor, removeBuildingFloor, setBuildingFloorValue } from '../store/actions/street'
+import { _prettifyHeight } from './info_bubble'
+import { KEYS } from '../app/keyboard_commands'
+import { loseAnyFocus } from '../util/focus'
+
+const WIDTH_EDIT_INPUT_DELAY = 200
+
+class BuildingHeightControl extends React.Component {
+  static propTypes = {
+    touch: PropTypes.bool,
+    position: PropTypes.oneOf(['left', 'right']),
+    variant: PropTypes.string,
+    value: PropTypes.number,
+    addBuildingFloor: PropTypes.func,
+    removeBuildingFloor: PropTypes.func,
+    setBuildingFloorValue: PropTypes.func
+  }
+
+  constructor (props) {
+    super(props)
+
+    this.oldValue = null
+    this.inputEl = null
+
+    this.state = {
+      isEditing: false,
+      displayValue: _prettifyHeight(props.value)
+    }
+  }
+
+  /**
+   * If UI is not in user-editing mode, update the display
+   * when the value in store changes
+   *
+   * @param {Object} nextProps
+   */
+  componentWillReceiveProps (nextProps) {
+    if (!this.state.isEditing) {
+      this.setState({
+        displayValue: _prettifyHeight(nextProps.value)
+      })
+    }
+  }
+
+  /**
+   * If UI is going to enter user-editing mode, immediately
+   * save the previous value in case editing is cancelled
+   *
+   * @param {Object} nextProps
+   * @param {Object} nextState
+   */
+  componentWillUpdate (nextProps, nextState) {
+    if (!this.state.isEditing && nextState.isEditing) {
+      this.oldValue = this.props.value
+    }
+  }
+
+  onClickIncrement = () => {
+    this.props.addBuildingFloor(this.props.position)
+  }
+
+  onClickDecrement = () => {
+    this.props.removeBuildingFloor(this.props.position)
+  }
+
+  onInput = (event) => {
+    const value = event.target.value
+
+    // Update the input element to display user input
+    this.setState({
+      isEditing: true,
+      displayValue: value
+    })
+
+    // Update the model, but debounce inputs to prevent thrashing
+    this.debouncedUpdateModel(value)
+  }
+
+  onClickInput = (event) => {
+    const el = event.target
+
+    this.setState({
+      isEditing: true,
+      displayValue: this.props.value
+    })
+
+    if (document.activeElement !== el) {
+      el.select()
+    }
+  }
+
+  onDoubleClickInput = (event) => {
+    const el = event.target
+    el.select()
+  }
+
+  onFocusInput = (event) => {
+    const el = event.target
+
+    if (document.activeElement !== el) {
+      el.select()
+    }
+  }
+
+  /**
+   * On blur, input shows prettified value.
+   */
+  onBlurInput = (event) => {
+    this.setState({
+      isEditing: false,
+      displayValue: _prettifyHeight(this.props.value)
+    })
+  }
+
+  /**
+   * Prevent mousedown event from resetting the input view.
+   */
+  onMouseDownInput = (event) => {
+    this.setState({
+      isEditing: true,
+      displayValue: this.props.value
+    })
+  }
+
+  /**
+   * On mouse over, UI assumes user is ready to edit.
+   */
+  onMouseOverInput = (event) => {
+    // Bail if already in editing mode.
+    if (this.state.isEditing) return
+
+    this.setState({
+      displayValue: this.props.value
+    })
+
+    // Automatically select the value on hover so that it's easy to start typing new values.
+    // In React, this only works if the .select() is called at the end of the execution
+    // stack, so we put it inside a setTimeout() with a timeout of zero. We also must
+    // store the reference to the event target because the React synthetic event will
+    // not persist into the setTimeout function.
+    const target = event.target
+    window.setTimeout(() => {
+      target.focus()
+      target.select()
+    }, 0)
+  }
+
+  /**
+   * On mouse out, if user is not editing, UI returns to default view.
+   */
+  onMouseOutInput = (event) => {
+    // Bail if already in editing mode.
+    if (this.state.isEditing) return
+
+    this.setState({
+      displayValue: _prettifyHeight(this.props.value)
+    })
+
+    event.target.blur()
+  }
+
+  onKeyDownInput = (event) => {
+    switch (event.keyCode) {
+      case KEYS.ENTER:
+        this.updateModel(event.target.value)
+        this.setState({
+          isEditing: false
+        })
+
+        this.inputEl.focus()
+        this.inputEl.select()
+
+        break
+      // TODO: this is bugged; escape key is not firing currently
+      case KEYS.ESC:
+        this.updateModel(this.oldValue)
+        loseAnyFocus()
+        break
+    }
+  }
+
+  /**
+   * When given a new value from input, process it, then update the model.
+   *
+   * If the input must be debounced, used the debounced function instead.
+   *
+   * @param {string} value - raw input
+   */
+  updateModel = (value) => {
+    this.props.setBuildingFloorValue(this.props.position, value)
+  }
+
+  /**
+   * Debounced version of this.updateModel(). Call this instead of the
+   * undebounced function to prevent thrashing of model and layout.
+   */
+  debouncedUpdateModel = debounce(this.updateModel, WIDTH_EDIT_INPUT_DELAY)
+
+  render () {
+    const isNotFloored = !isFlooredBuilding(this.props.variant)
+
+    const inputEl = (this.props.touch) ? (
+      <span className="height-non-editable">{this.state.displayValue}</span>
+    ) : (
+      <input
+        type="text"
+        className="height"
+        title={t('tooltip.building-height', 'Change the number of floors')}
+        disabled={isNotFloored}
+        value={isNotFloored ? '' : this.state.displayValue}
+        onChange={this.onInput}
+        onClick={this.onClickInput}
+        onDoubleClick={this.onDoubleClickInput}
+        onFocus={this.onFocusInput}
+        onBlur={this.onBlurInput}
+        onMouseDown={this.onMouseDownInput}
+        onMouseOver={this.onMouseOverInput}
+        onMouseOut={this.onMouseOutInput}
+        onKeyDown={this.onKeyDownInput}
+        ref={(ref) => { this.inputEl = ref }}
+      />
+    )
+
+    return (
+      <div className="non-variant building-height">
+        <button
+          className="increment"
+          title={t('tooltip.add-floor', 'Add floor')}
+          tabIndex={-1}
+          onClick={this.onClickIncrement}
+          disabled={isNotFloored || (this.props.value === MAX_BUILDING_HEIGHT)}
+        >
+          +
+        </button>
+        {inputEl}
+        <button
+          className="decrement"
+          title={t('tooltip.remove-floor', 'Remove floor')}
+          tabIndex={-1}
+          onClick={this.onClickDecrement}
+          disabled={isNotFloored || (this.props.value === 1)}
+        >
+          –
+        </button>
+      </div>
+    )
+  }
+}
+
+function mapStateToProps (state, ownProps) {
+  const isLeft = ownProps.position === 'left'
+  const isRight = ownProps.position === 'right'
+
+  return {
+    touch: state.system.touch,
+
+    // Get the appropriate building data based on which side of street it's on
+    variant: (isLeft) ? state.street.leftBuildingVariant : (isRight) ? state.street.rightBuildingVariant : null,
+    value: (isLeft) ? state.street.leftBuildingHeight : (isRight) ? state.street.rightBuildingHeight : null
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    addBuildingFloor: (position) => { dispatch(addBuildingFloor(position)) },
+    removeBuildingFloor: (position) => { dispatch(removeBuildingFloor(position)) },
+    setBuildingFloorValue: (position, value) => {
+      if (!value) return
+      dispatch(setBuildingFloorValue(position, value))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BuildingHeightControl)

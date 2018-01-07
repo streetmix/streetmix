@@ -354,7 +354,7 @@ export function createSegment (type, variantString, width, isUnmovable, palette,
   }
 
   if (width) {
-    resizeSegment(el, RESIZE_TYPE_INITIAL, width, true, palette, true)
+    resizeSegment(el, RESIZE_TYPE_INITIAL, width / TILE_SIZE, true, palette, true)
   }
 
   if (!palette) {
@@ -415,7 +415,7 @@ export function repositionSegments () {
     if (el.classList.contains('dragged-out')) {
       width = 0
     } else {
-      width = parseFloat(el.getAttribute('width')) * TILE_SIZE
+      width = parseFloat(el.getAttribute('data-width')) * TILE_SIZE
     }
 
     el.savedLeft = Math.round(left) // so we don’t have to use offsetLeft

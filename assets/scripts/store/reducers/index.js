@@ -3,6 +3,7 @@ import app from './app'
 import debug from './debug'
 import dialogs from './dialogs'
 import gallery from './gallery'
+import infoBubble from './infoBubble'
 import map from './map'
 import menus from './menus'
 import settings from './settings'
@@ -17,6 +18,7 @@ const reducers = combineReducers({
   debug,
   dialogs,
   gallery,
+  infoBubble,
   map,
   menus,
   settings,

@@ -2,6 +2,7 @@ import React from 'react'
 import MessageBar from './MessageBar'
 import MenusContainer from '../menus/MenusContainer'
 import StreetNameCanvas from '../streets/StreetNameCanvas'
+import InfoBubble from '../info_bubble/InfoBubble'
 import WelcomePanel from './WelcomePanel'
 import Palette from './Palette'
 import DialogRoot from '../dialogs/DialogRoot'
@@ -12,6 +13,7 @@ import DebugInfo from './DebugInfo'
 import Gallery from '../gallery/Gallery'
 import BlockingError from './BlockingError'
 import MiscHTMLStuff from './MiscHTMLStuff'
+import DebugHoverPolygon from '../info_bubble/DebugHoverPolygon'
 import PrintContainer from './PrintContainer'
 
 export default class App extends React.PureComponent {
@@ -24,6 +26,7 @@ export default class App extends React.PureComponent {
         <div className="main-screen">
           <MenusContainer />
           <StreetNameCanvas />
+          <InfoBubble />
           <WelcomePanel />
           <Palette />
           <DialogRoot />
@@ -34,6 +37,7 @@ export default class App extends React.PureComponent {
 
         <Flash />
         <DebugInfo />
+        <DebugHoverPolygon />
         <PrintContainer />
       </div>
     )
