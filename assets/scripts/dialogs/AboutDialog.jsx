@@ -33,6 +33,11 @@ export default class AboutDialog extends React.PureComponent {
                 <img src="/images/sponsors/codeforamerica.png" alt="Code for America" height="48" />
               </a>
             </li>
+            <li>
+              <a href="https://lyft.com/" target="_blank">
+                <img src="/images/sponsors/lyft.svg" alt="Lyft" height="48" />
+              </a>
+            </li>
           </ul>
           <p>
             <a href="https://opencollective.com/streetmix/" target="_blank">{t('dialogs.about.donate-link', 'Support us financially')}</a>
