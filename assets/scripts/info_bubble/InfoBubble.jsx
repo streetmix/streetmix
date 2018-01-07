@@ -48,12 +48,21 @@ class InfoBubble extends React.Component {
     // This listener hides the info bubble when the mouse leaves the
     // document area. Do not normalize it to a pointerleave event
     // because it doesn't make sense for other pointer types
-    // document.addEventListener('mouseleave', infoBubble.hide)
+    document.addEventListener('mouseleave', this.hide)
 
     // Listen for external triggers to update contents here
     window.addEventListener('stmx:force_infobubble_update', (e) => {
       this.updateInfoBubbleState()
     })
+  }
+
+  componentWillUnmount () {
+    // Clean up event listener
+    document.removeEventListener('mouseleave', this.hide)
+  }
+
+  hide = () => {
+    infoBubble.hide()
   }
 
   onTouchStart (event) {
