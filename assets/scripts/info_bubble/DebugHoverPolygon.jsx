@@ -73,7 +73,7 @@ export class DebugHoverPolygon extends React.Component {
     if (this.props.enabled === false) return null
 
     return (
-      <div id="debug-hover-polygon">
+      <div className="debug-hover-polygon">
         <canvas
           width={this.state.width}
           height={this.state.height}
