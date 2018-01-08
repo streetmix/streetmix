@@ -191,7 +191,7 @@ class InfoBubble extends React.Component {
           <RemoveButton enabled={canBeDeleted} segment={segmentEl} />
         </header>
         <div className="info-bubble-controls">
-          <Variants type={type} segment={this.state.segment} street={this.state.street} dataNo={this.props.dataNo} />
+          <Variants type={type} segment={this.state.segment} dataNo={this.props.dataNo} />
           {widthOrHeightControl}
         </div>
         <Warnings segment={this.state.segment} />

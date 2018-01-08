@@ -18,7 +18,6 @@ class Variants extends React.Component {
     type: PropTypes.number,
     dataNo: PropTypes.number,
     segment: PropTypes.object,
-    street: PropTypes.object, // eslint-disable-line react/no-unused-prop-types
 
     // Building
     variant: PropTypes.string,
