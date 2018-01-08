@@ -65,7 +65,7 @@ export function drawSegmentImageSVG (id, ctx, dx, dy, dw, dh) {
     setTimeout(() => {
       console.error('drawImage failed for img id ' + id + ' with error: ' + e + ' - Retrying after 2 seconds')
       ctx.drawImage(img, dx, dy, dw, dh)
-    }, 2000);
+    }, 2000)
   }
 }
 
