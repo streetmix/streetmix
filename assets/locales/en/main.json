@@ -119,6 +119,13 @@
       "zoom-in": "Zoom in",
       "zoom-out": "Zoom out",
       "add-location": "Add location"
+    },
+    "donate": {
+      "heading": "Streetmix needs your help!",
+      "lede": "Streetmix is a community-supported project. Unlike other “free” services on the Internet, we do not show ads or inject trackers that abuse your privacy. Instead, we depend on your support to keep Streetmix up and running.",
+      "text": "Please consider supporting us with a one-time or recurring contribution. Your donation will pay for our servers and cloud infrastructure, supporting other non-profits, advocacy groups, and students working to improve our streets. Additional revenue will be invested into further development of new features. Our expenses are completely transparent, so you can see exactly how your contributions are used by the Streetmix team.",
+      "button": "Donate to Streetmix",
+      "cancel": "No thanks"
     }
   },
   "prompt": {
