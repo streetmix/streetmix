@@ -6,13 +6,11 @@
  * @module MiscHTMLStuff
  */
 import React from 'react'
-import GalleryShield from '../gallery/GalleryShield'
 
 class MiscHTMLStuff extends React.PureComponent {
   render () {
     return (
       <div>
-        <GalleryShield />
         <section id="street-section-outer">
           <section id="street-section-inner">
             <section id="street-section-canvas">

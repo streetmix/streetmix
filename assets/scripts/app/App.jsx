@@ -11,6 +11,7 @@ import NoConnectionMessage from './NoConnectionMessage'
 import Flash from './Flash'
 import DebugInfo from './DebugInfo'
 import Gallery from '../gallery/Gallery'
+import GalleryShield from '../gallery/GalleryShield'
 import BlockingError from './BlockingError'
 import MiscHTMLStuff from './MiscHTMLStuff'
 import DebugHoverPolygon from '../info_bubble/DebugHoverPolygon'
@@ -24,6 +25,7 @@ export default class App extends React.PureComponent {
         <Gallery />
         <MessageBar />
         <div className="main-screen">
+          <GalleryShield />
           <MenusContainer />
           <StreetNameCanvas />
           <InfoBubble />
