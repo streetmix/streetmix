@@ -5,19 +5,18 @@ import { formatDate } from '../util/date_format'
 import { t } from '../app/locale'
 import { getRemixOnFirstEdit } from './remix'
 import { showGallery } from '../gallery/view'
-import store from '../store'
 import StreetWidth from './StreetWidth'
 import Avatar from '../users/Avatar'
 import { SHOW_DIALOG } from '../store/actions'
 
 class StreetMetaData extends React.Component {
   static propTypes = {
-    id: PropTypes.string,
     readOnly: PropTypes.bool,
     signedIn: PropTypes.bool.isRequired,
     userId: PropTypes.string,
     street: PropTypes.any,
-    experimental: PropTypes.bool
+    experimental: PropTypes.bool,
+    showGeolocateDialog: PropTypes.func
   }
 
   static defaultProps = {
@@ -32,12 +31,9 @@ class StreetMetaData extends React.Component {
     }
   }
 
-  onClick (e) {
-    e.preventDefault()
-    store.dispatch({
-      type: SHOW_DIALOG,
-      name: 'GEOLOCATE'
-    })
+  onClickGeolocate = (event) => {
+    event.preventDefault()
+    this.props.showGeolocateDialog()
   }
 
   onClickAuthor = (event) => {
@@ -78,7 +74,7 @@ class StreetMetaData extends React.Component {
         return (
           <React.Fragment key={creatorId}>
             <Avatar userId={creatorId} />
-            <a className="user-gallery" href={'/' + creatorId} onClick={this.onClickAuthor}>{creatorId}</a>
+            <a href={'/' + creatorId} onClick={this.onClickAuthor}>{creatorId}</a>
           </React.Fragment>
         )
       } else return value
@@ -96,17 +92,17 @@ class StreetMetaData extends React.Component {
 
     const geolocation = (this.props.experimental) ? (
       <span>
-        <a id="street-metadata-map" onClick={this.onClick}>
+        <a className="street-metadata-map" onClick={this.onClickGeolocate}>
           <u>{t('dialogs.geolocate.add-location', 'Add location')}</u>
         </a>
       </span>
     ) : null
 
     return (
-      <div id={this.props.id}>
+      <div className="street-metadata">
         <StreetWidth readOnly={this.props.readOnly} />
-        <span id="street-metadata-author">{author}</span>
-        <span id="street-metadata-date">{formatDate(this.props.street.updatedAt)}</span>
+        <span className="street-metadata-author">{author}</span>
+        <span className="street-metadata-date">{formatDate(this.props.street.updatedAt)}</span>
         {geolocation}
       </div>
     )
@@ -121,4 +117,15 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(StreetMetaData)
+function mapDispatchToProps (dispatch) {
+  return {
+    showGeolocateDialog: () => {
+      dispatch({
+        type: SHOW_DIALOG,
+        name: 'GEOLOCATE'
+      })
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(StreetMetaData)

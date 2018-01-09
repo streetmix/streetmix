@@ -1,4 +1,4 @@
-#street-metadata {
+.street-metadata {
   padding-top: 7px;
   padding-bottom: 40px;
   width: 500px;
@@ -15,11 +15,11 @@
   }
 }
 
-#street-width-read {
+.street-width-read {
   padding: 5px 0;
 }
 
-body:not(.read-only) #street-width-read {
+body:not(.read-only) .street-width-read {
   cursor: pointer;
 
   &:hover,
@@ -37,7 +37,7 @@ body:not(.read-only) #street-width-read {
   }
 }
 
-body.edit-street-width #street-width-read {
+body.edit-street-width .street-width-read {
   display: none;
   pointer-events: none;
 }
@@ -58,18 +58,18 @@ body:not(.edit-street-width) #street-width {
   display: none;
 }
 
-body:not(.read-only) #street-metadata-author a:hover {
+body:not(.read-only) .street-metadata-author a:hover {
   color: darken($ui-colour, 40%);
 }
 
-body.read-only #street-metadata-author a {
+body.read-only .street-metadata-author a {
   text-decoration: none;
   cursor: default;
 }
 
-#street-metadata-author:not(:empty)::before,
-#street-metadata-date:not(:empty)::before,
-#street-metadata-map:not(:empty)::before {
+.street-metadata-author:not(:empty)::before,
+.street-metadata-date:not(:empty)::before,
+.street-metadata-map:not(:empty)::before {
   content: ' · ';
   color: darken($ui-colour, 40%);
   margin: 0 4px;

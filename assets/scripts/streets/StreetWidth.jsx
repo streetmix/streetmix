@@ -197,13 +197,14 @@ class StreetWidth extends React.Component {
     const width = prettifyWidth(this.props.street.width, { markup: false })
     const widthString = t('width.label', '{{width}} width', { width })
     const difference = this.displayStreetWidthRemaining()
+    const differenceClass = `street-width-read-difference ${difference.class}`
 
     return (
-      <span id="street-metadata-width">
-        <span id="street-width-read" title="Change width of the street" onClick={this.clickStreetWidth}>
-          <span id="street-width-read-width">{widthString}</span>
+      <span className="street-metadata-width">
+        <span className="street-width-read" title="Change width of the street" onClick={this.clickStreetWidth}>
+          <span className="street-width-read-width">{widthString}</span>
           &nbsp;
-          <span id="street-width-read-difference" className={difference.class}>{difference.width}</span>
+          <span className={differenceClass}>{difference.width}</span>
         </span>
         {this.renderStreetWidthMenu()}
       </span>

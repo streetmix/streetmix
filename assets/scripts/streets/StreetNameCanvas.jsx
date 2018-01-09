@@ -102,7 +102,7 @@ class StreetNameCanvas extends React.Component {
           name={this.props.street.name}
           onClick={this.onClickStreetName}
         />
-        <StreetMetaData id="street-metadata" street={this.props.street} />
+        <StreetMetaData street={this.props.street} />
       </div>
     )
   }
