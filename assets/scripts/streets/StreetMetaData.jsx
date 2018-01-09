@@ -47,16 +47,51 @@ class StreetMetaData extends React.Component {
     showGallery(this.props.street.creatorId, false)
   }
 
+  renderByline = (creatorId) => {
+    // i18next automatically interpolates {{variables}}, but in this case
+    // we want to supplant the string with a React component. i18next is
+    // only able to output strings, but we do not want it to convert a
+    // component to a string. To get around this, we will get the string,
+    // split it into an array of strings, then replace one of the items
+    // with the React component. This array is renderable by React.
+
+    // Why go through all this trouble instead of just rendering the different
+    // parts of the byline separately? It's because we don't necessarily
+    // know what comes first, the "by" (or translated equivalent) or the
+    // user name and Avatar. Word order _may_ differ by locale.
+
+    // We first get the translated string as usual, but i18next will want
+    // to interpolate {{user}}, and if we ignore it, it gets replaced with
+    // an empty string. We want to preserve the {{user}} in the string, so
+    // we tell it to supplant it with itself.
+    const string = t('users.byline', 'by {{user}}', { user: '{{user}}' })
+
+    // Next, split the string into an array of parts. One of the items
+    // in the array will just be the string `{{user}}`.
+    const split = string.split(/({{user}})/)
+
+    // For any item in the array that matches `{{user}}`, replace that
+    // item with a React fragment. This allows the render() function to
+    // render the "string" with a React component inside of it.
+    return split.map((value) => {
+      if (value === '{{user}}') {
+        return (
+          <React.Fragment key={creatorId}>
+            <Avatar userId={creatorId} />
+            <a className="user-gallery" href={'/' + creatorId} onClick={this.onClickAuthor}>{creatorId}</a>
+          </React.Fragment>
+        )
+      } else return value
+    })
+  }
+
   render () {
     let author = null
     const creatorId = this.props.street.creatorId
     if (creatorId && (!this.props.signedIn || (creatorId !== this.props.userId))) {
-      author = <span>
-        by <Avatar userId={creatorId} />
-        <a className="user-gallery" href={'/' + creatorId} onClick={this.onClickAuthor}>{creatorId}</a>
-      </span>
+      author = this.renderByline(creatorId)
     } else if (!creatorId && (this.props.signedIn || getRemixOnFirstEdit())) {
-      author = <span>by {t('users.anonymous', 'Anonymous')}</span>
+      author = t('users.byline', 'by {{user}}', { user: t('users.anonymous', 'Anonymous') })
     }
 
     const geolocation = (this.props.experimental) ? (
