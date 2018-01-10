@@ -2,6 +2,7 @@ import React from 'react'
 import Scrollable from '../ui/Scrollable'
 import { createPalette } from '../segments/palette'
 import { undo, redo } from '../streets/undo_stack'
+import { t } from '../app/locale'
 
 export default class Palette extends React.PureComponent {
   componentDidMount () {
@@ -9,8 +10,13 @@ export default class Palette extends React.PureComponent {
     window.addEventListener('stmx:everything_loaded', (event) => {
       createPalette()
       this.adjustPaletteLayout()
-      window.addEventListener('stmx:language_changed', this.adjustPaletteLayout)
+      window.addEventListener('stmx:language_changed', this.onLocaleChange)
     })
+  }
+
+  onLocaleChange = () => {
+    this.forceUpdate() // Forces translated text to re-render
+    this.adjustPaletteLayout()
   }
 
   setScrollableRef = (ref) => {
@@ -41,12 +47,12 @@ export default class Palette extends React.PureComponent {
   render () {
     return (
       <div className="palette-container">
-        <div className="palette-trashcan" data-i18n="palette.remove">
-          Drag here to remove
+        <div className="palette-trashcan">
+          {t('palette.remove', 'Drag here to remove')}
         </div>
         <div className="palette-commands" ref={(ref) => { this.commandsEl = ref }}>
-          <button id="undo" data-i18n="btn.undo" onClick={undo}>Undo</button>
-          <button id="redo" data-i18n="btn.redo" onClick={redo}>Redo</button>
+          <button id="undo" onClick={undo}>{t('btn.undo', 'Undo')}</button>
+          <button id="redo" onClick={redo}>{t('btn.redo', 'Redo')}</button>
         </div>
         <Scrollable className="palette" setRef={this.setScrollableRef} ref={(ref) => { this.scrollable = ref }}>
           <div className="palette-canvas" />
