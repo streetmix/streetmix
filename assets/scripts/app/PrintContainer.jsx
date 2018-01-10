@@ -28,7 +28,7 @@ class PrintContainer extends React.PureComponent {
 
   render () {
     return (
-      <div id="print" className="print-container">
+      <div className="print-container">
         {this.createPrintImage()}
       </div>
     )
