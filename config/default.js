@@ -42,9 +42,9 @@ module.exports = {
       username: process.env.SENDGRID_USERNAME,
       password: process.env.SENDGRID_PASSWORD
     },
-    feedback_recipient: process.env.EMAIL_FEEDBACK_RECIPIENT || 'streetmix@codeforamerica.org',
+    feedback_recipient: process.env.EMAIL_FEEDBACK_RECIPIENT || 'hello@streetmix.net',
     feedback_subject: 'Streetmix feedback',
-    feedback_sender_default: 'noreply@codeforamerica.org'
+    feedback_sender_default: 'noreply@streetmix.net'
   },
   log_level: 'debug',
   no_internet_mode: process.env.NO_INTERNET_MODE || false
