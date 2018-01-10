@@ -148,7 +148,7 @@ class Gallery extends React.Component {
                 {this.props.userId}
                 <a
                   href={`https://twitter.com/${this.props.userId}`}
-                  className="twitter-profile"
+                  className="gallery-user-twitter"
                   target="_blank"
                 >
                   {t('gallery.twitter-link', 'Twitter profile')} »
