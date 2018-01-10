@@ -47,6 +47,7 @@ function doTheI18n (locale) {
     ns: ['main', 'segment-info'],
     defaultNS: 'main',
     fallbackLng: 'en',
+    returnEmptyString: false,
     load: 'all',
     backend: {
       loadPath: API_URL + 'v1/translate/{{lng}}/{{ns}}'
@@ -65,7 +66,7 @@ function doTheI18n (locale) {
       const key = els[i].getAttribute('data-i18n')
       let translation = ''
       for (let ns of options.ns) {
-        translation = translation || t(key, {ns: options.ns[ns]})
+        translation = translation || t(key, { ns: options.ns[ns] })
       }
       els[i].textContent = translation
     }
