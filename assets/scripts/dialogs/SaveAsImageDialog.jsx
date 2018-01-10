@@ -12,7 +12,7 @@ import { isEqual } from 'lodash'
 import Dialog from './Dialog'
 import { trackEvent } from '../app/event_tracking'
 import { getStreetImage } from '../streets/image'
-import { setSettings } from '../users/settings'
+import { setSettings } from '../store/actions/settings'
 import { normalizeSlug } from '../util/helpers'
 import { t } from '../app/locale'
 
@@ -24,7 +24,8 @@ class SaveAsImageDialog extends React.Component {
     transparentSky: PropTypes.bool.isRequired,
     segmentNames: PropTypes.bool.isRequired,
     streetName: PropTypes.bool.isRequired,
-    name: PropTypes.string
+    name: PropTypes.string,
+    setSettings: PropTypes.func
   }
 
   constructor (props) {
@@ -63,15 +64,15 @@ class SaveAsImageDialog extends React.Component {
 
   // When options change, this changes props.
   onChangeOptionTransparentSky = (event) => {
-    setSettings({ saveAsImageTransparentSky: event.target.checked })
+    this.props.setSettings({ saveAsImageTransparentSky: event.target.checked })
   }
 
   onChangeOptionSegmentNames = (event) => {
-    setSettings({ saveAsImageSegmentNamesAndWidths: event.target.checked })
+    this.props.setSettings({ saveAsImageSegmentNamesAndWidths: event.target.checked })
   }
 
   onChangeOptionStreetName = (event) => {
-    setSettings({ saveAsImageStreetName: event.target.checked })
+    this.props.setSettings({ saveAsImageStreetName: event.target.checked })
   }
 
   onPreviewLoaded = () => {
@@ -218,4 +219,10 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(SaveAsImageDialog)
+function mapDispatchToProps (dispatch) {
+  return {
+    setSettings: (settings) => { dispatch(setSettings(settings)) }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SaveAsImageDialog)

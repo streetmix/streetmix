@@ -12,7 +12,7 @@ import { setSaveStreetIncomplete } from '../streets/xhr'
 import { newNonblockingAjaxRequest } from '../util/fetch_nonblocking'
 import { getAuthHeader, getSignInData, isSignedIn } from './authentication'
 import store from '../store'
-import { SET_USER_SETTINGS } from '../store/actions'
+import { setSettings as setSettingsActionCreator } from '../store/actions/settings'
 
 export const LOCAL_STORAGE_SETTINGS_ID = 'settings'
 export const LOCAL_STORAGE_SETTINGS_UNITS_ID = 'settings-units'
@@ -23,19 +23,9 @@ export function getSettings () {
   return store.getState().settings
 }
 
-// Action creator
-function createSetSettingsAction (settings) {
-  return {
-    ...settings,
-    type: SET_USER_SETTINGS
-  }
-}
-
+// Legacy: utility function for redux dispatch
 export function setSettings (settings) {
-  store.dispatch(createSetSettingsAction(settings))
-
-  // Legacy: auto save changes to localstorage
-  saveSettingsLocally(settings)
+  store.dispatch(setSettingsActionCreator(settings))
 }
 
 function mergeSettings (serverSettings = {}, localSettings = {}) {
@@ -55,12 +45,12 @@ export function loadSettings () {
     serverSettings = signInData.details.data
   }
 
-  if (window.localStorage[LOCAL_STORAGE_SETTINGS_ID]) {
-    // Skip this if localStorage is corrupted
-    try {
+  // Skip this if localStorage is corrupted
+  try {
+    if (window.localStorage[LOCAL_STORAGE_SETTINGS_ID]) {
       localSettings = JSON.parse(window.localStorage[LOCAL_STORAGE_SETTINGS_ID])
-    } catch (e) {}
-  }
+    }
+  } catch (e) {}
 
   const settings = mergeSettings(serverSettings, localSettings)
 
@@ -94,9 +84,10 @@ function trimSettings (settings) {
 
 // Legacy: exporting because some parts of Streetmix code manually force current
 // settings to write to localstorage.
-export function saveSettingsLocally (settings = getSettings()) {
+export function saveSettingsLocally (settings) {
+  const merged = Object.assign({}, getSettings(), settings)
   window.localStorage[LOCAL_STORAGE_SETTINGS_ID] =
-    JSON.stringify(trimSettings(settings))
+    JSON.stringify(trimSettings(merged))
 
   scheduleSavingSettingsToServer()
 }

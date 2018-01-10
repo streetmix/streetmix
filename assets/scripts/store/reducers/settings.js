@@ -20,9 +20,7 @@ const initialState = {
 const settings = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER_SETTINGS:
-      const obj = Object.assign({}, state, action)
-      delete obj.type // Do not save action type.
-      return obj
+      return Object.assign({}, state, action.settings)
     default:
       return state
   }
