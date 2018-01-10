@@ -82,7 +82,7 @@ class SaveAsImageDialog extends React.Component {
   onPreviewError = () => {
     this.setState({
       isLoading: false,
-      errorMessage: 'There was an error displaying a preview image.'
+      errorMessage: t('dialogs.save.error-preview', 'There was an error displaying a preview image.')
     })
   }
 

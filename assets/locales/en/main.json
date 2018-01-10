@@ -111,7 +111,10 @@
       "option-sky": "Transparent sky",
       "loading": "Loading…",
       "save-button": "Save to your computer…",
-      "license": "This Streetmix-created image may be reused anywhere, for any purpose, under the <br><a href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons Attribution-ShareAlike 4.0 International License</a>."
+      "license": "This Streetmix-created image may be reused anywhere, for any purpose, under the <br><a href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons Attribution-ShareAlike 4.0 International License</a>.",
+      "error-preview": "There was an error displaying a preview image.",
+      "error-unavailable": "Saving to image is not available on this browser.",
+      "preview-image-alt": "Preview"
     },
     "geolocate": {
       "search": "Search for a location",
