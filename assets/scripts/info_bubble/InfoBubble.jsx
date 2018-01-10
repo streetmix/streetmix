@@ -61,6 +61,10 @@ class InfoBubble extends React.Component {
     document.removeEventListener('mouseleave', this.hide)
   }
 
+  componentDidCatch (error) {
+    console.error(error)
+  }
+
   hide = () => {
     infoBubble.hide()
   }
