@@ -16,11 +16,11 @@ const VARIANT_SEPARATOR = '|'
  *    { 'direction': 'inbound', 'public-transit-asphalt': 'regular' }
  */
 export function getVariantArray (segmentType, variantString) {
-  var variantArray = {}
-  var variantSplit = variantString.split(VARIANT_SEPARATOR)
+  const variantArray = {}
+  const variantSplit = variantString.split(VARIANT_SEPARATOR)
 
-  for (var i in SEGMENT_INFO[segmentType].variants) {
-    var variantName = SEGMENT_INFO[segmentType].variants[i]
+  for (let i in SEGMENT_INFO[segmentType].variants) {
+    const variantName = SEGMENT_INFO[segmentType].variants[i]
     variantArray[variantName] = variantSplit[i]
   }
 
@@ -41,11 +41,5 @@ export function getVariantArray (segmentType, variantString) {
  *    'inbound|regular'
  */
 export function getVariantString (variant) {
-  var string = ''
-  for (var i in variant) {
-    string += variant[i] + VARIANT_SEPARATOR
-  }
-
-  string = string.substr(0, string.length - 1)
-  return string
+  return Object.values(variant).join(VARIANT_SEPARATOR)
 }
