@@ -197,11 +197,11 @@ class Gallery extends React.Component {
           )
         })
         const streetCount = (this.props.userId) ? (
-          <div className="street-count">{getStreetCountText(this.props.streets.length)}</div>
+          <div className="gallery-street-count">{getStreetCountText(this.props.streets.length)}</div>
         ) : null
 
         childElements = (
-          <div>
+          <React.Fragment>
             {label}
             {streetCount}
             <div className={galleryClassName}>
@@ -210,7 +210,7 @@ class Gallery extends React.Component {
                 {items}
               </Scrollable>
             </div>
-          </div>
+          </React.Fragment>
         )
         break
     }

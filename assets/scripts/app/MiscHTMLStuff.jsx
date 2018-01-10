@@ -10,7 +10,7 @@ import React from 'react'
 class MiscHTMLStuff extends React.PureComponent {
   render () {
     return (
-      <div>
+      <React.Fragment>
         <section id="street-section-outer">
           <section id="street-section-inner">
             <section id="street-section-canvas">
@@ -33,7 +33,7 @@ class MiscHTMLStuff extends React.PureComponent {
         </section>
         <div id="street-scroll-indicator-left" />
         <div id="street-scroll-indicator-right" />
-      </div>
+      </React.Fragment>
     )
   }
 }

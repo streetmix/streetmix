@@ -94,7 +94,7 @@ class MenusContainer extends React.PureComponent {
     const { activeMenuPos } = this.state
 
     return (
-      <div>
+      <React.Fragment>
         <MenuBar onMenuDropdownClick={this.onMenuDropdownClick} />
         <HelpMenu isActive={activeMenu === 'help'} position={activeMenuPos} />
         <ContactMenu isActive={activeMenu === 'contact'} position={activeMenuPos} />
@@ -102,7 +102,7 @@ class MenusContainer extends React.PureComponent {
         <IdentityMenu isActive={activeMenu === 'identity'} position={activeMenuPos} />
         <SettingsMenu isActive={activeMenu === 'settings'} position={activeMenuPos} />
         <ShareMenu isActive={activeMenu === 'share'} position={activeMenuPos} />
-      </div>
+      </React.Fragment>
     )
   }
 }

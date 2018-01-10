@@ -31,21 +31,6 @@ body:not(.safari).gallery-visible #street-section-sky {
     height: 32px;
   }
 
-  .twitter-profile {
-    font-size: 13px;
-    margin-left: 10px;
-    color: rgb(128, 128, 128);
-  }
-
-  .street-count {
-    position: absolute;
-    right: 20px;
-    top: 12px;
-    font-size: 24px;
-    font-weight: 300;
-    color: rgb(128, 128, 128);
-  }
-
   // Applied by the wrapping element created by Scrollable.jsx component
   .streets-scrollable-container {
     position: absolute;
@@ -110,6 +95,21 @@ body:not(.safari).gallery-visible #street-section-sky {
 .gallery-user-id {
   display: inline-block;
   vertical-align: bottom;
+}
+
+.gallery-user-twitter {
+  font-size: 13px;
+  margin-left: 10px;
+  color: rgb(128, 128, 128);
+}
+
+.gallery-street-count {
+  position: absolute;
+  right: 20px;
+  top: 12px;
+  font-size: 24px;
+  font-weight: 300;
+  color: rgb(128, 128, 128);
 }
 
 .gallery-streets-container {
