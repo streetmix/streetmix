@@ -18,6 +18,7 @@ import { registerKeypress, deregisterKeypress } from './keypress'
 import { MODES, getMode } from './mode'
 import { goNewStreet } from './routing'
 import Avatar from '../users/Avatar'
+import { showStreetNameCanvas, hideStreetNameCanvas } from '../store/actions/ui'
 
 const WELCOME_NONE = 0
 const WELCOME_NEW_STREET = 1
@@ -30,7 +31,9 @@ class WelcomePanel extends React.Component {
   static propTypes = {
     newStreetPreference: PropTypes.number,
     priorLastStreetId: PropTypes.string,
-    street: PropTypes.object
+    street: PropTypes.object,
+    showStreetNameCanvas: PropTypes.func,
+    hideStreetNameCanvas: PropTypes.func
   }
 
   static defaultProps = {
@@ -111,8 +114,10 @@ class WelcomePanel extends React.Component {
       selectedNewStreetType
     })
 
-    // TODO: Don't hide this by querying DOM directly
-    document.querySelector('#street-name-canvas').classList.add('hidden')
+    // The StreetNameCanvas might stick out from underneath the WelcomePanel
+    // if it's visible, so momentarily keep the UI clean by hiding it until
+    // the WelcomePanel goes away.
+    this.props.hideStreetNameCanvas()
 
     // Set up keypress listener to close welcome panel
     registerKeypress('esc', this.hideWelcome)
@@ -131,8 +136,8 @@ class WelcomePanel extends React.Component {
     })
     this.setSettingsWelcomeDismissed(true)
 
-    // TODO: Don't show this by querying DOM directly
-    document.querySelector('#street-name-canvas').classList.remove('hidden')
+    // Make the StreetNameCanvas re-appear
+    this.props.showStreetNameCanvas()
 
     // Remove keypress listener
     deregisterKeypress('esc', this.hideWelcome)
@@ -321,4 +326,11 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(WelcomePanel)
+function mapDispatchToProps (dispatch) {
+  return {
+    hideStreetNameCanvas: () => { dispatch(hideStreetNameCanvas()) },
+    showStreetNameCanvas: () => { dispatch(showStreetNameCanvas()) }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WelcomePanel)

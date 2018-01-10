@@ -1,7 +1,7 @@
 $street-name-size: 1.5;
 $street-name-top: 10px;
 
-#street-name-canvas {
+.street-name-canvas {
   position: absolute;
   left: 150px;
   right: 150px;
@@ -23,7 +23,7 @@ $street-name-top: 10px;
   }
 }
 
-body.read-only #street-name-canvas {
+body.read-only .street-name-canvas {
   transform: translateY(0);
 }
 

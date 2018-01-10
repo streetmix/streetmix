@@ -3,7 +3,7 @@ body.gallery-visible {
     transform: translateY($gallery-height - 90px);
   }
 
-  #street-name-canvas {
+  .street-name-canvas {
     transform: translateY(60px);
   }
 }
@@ -248,7 +248,7 @@ a.gallery-copy-last-street {
 
 body:not(.gallery-no-move-transition) .main-screen,
 body:not(.gallery-no-move-transition) #gallery,
-body:not(.gallery-no-move-transition) #street-name-canvas,
+body:not(.gallery-no-move-transition) .street-name-canvas,
 body:not(.gallery-no-move-transition) #street-section-sky {
   transition: transform 800ms;
 }

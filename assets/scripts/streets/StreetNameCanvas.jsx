@@ -9,11 +9,13 @@ import { t } from '../app/locale'
 
 class StreetNameCanvas extends React.Component {
   static propTypes = {
+    visible: PropTypes.bool,
     editable: PropTypes.bool,
     street: PropTypes.object
   }
 
   static defaultProps = {
+    visible: true,
     editable: true
   }
 
@@ -73,9 +75,12 @@ class StreetNameCanvas extends React.Component {
   }
 
   determineClassNames = () => {
-    const classNames = []
+    const classNames = ['street-name-canvas']
     if (this.state.streetNameLeftPos + this.state.streetNameWidth > this.state.rightMenuBarLeftPos) {
       classNames.push('move-down-for-menu')
+    }
+    if (!this.props.visible) {
+      classNames.push('hidden')
     }
     return classNames
   }
@@ -95,7 +100,7 @@ class StreetNameCanvas extends React.Component {
 
   render () {
     return (
-      <div id="street-name-canvas" className={this.determineClassNames().join(' ')}>
+      <div className={this.determineClassNames().join(' ')}>
         <StreetName
           id="street-name"
           childRef={(ref) => { this.streetName = ref }}
@@ -110,6 +115,7 @@ class StreetNameCanvas extends React.Component {
 
 function mapStateToProps (state) {
   return {
+    visible: state.ui.streetNameCanvasVisible,
     editable: !state.app.readOnly,
     street: state.street
   }

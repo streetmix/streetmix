@@ -11,6 +11,7 @@ import persistSettings from './persistSettings'
 import status from './status'
 import street from './street'
 import system from './system'
+import ui from './ui'
 import user from './user'
 
 const reducers = combineReducers({
@@ -26,6 +27,7 @@ const reducers = combineReducers({
   status,
   street,
   system,
+  ui,
   user
 })
 
