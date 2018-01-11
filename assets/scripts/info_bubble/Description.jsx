@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Triangle from './Triangle'
 import { showDescription, hideDescription } from './description'
 import { trackEvent } from '../app/event_tracking'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
@@ -104,12 +105,6 @@ export default class Description extends React.Component {
       <footer>Photo: {description.imageCaption}</footer>
     ) : null
 
-    // Triangle is highlighted when description button is hovered
-    let triangleClassNames = ['info-bubble-triangle']
-    if (this.state.highlightTriangle === true) {
-      triangleClassNames.push('info-bubble-triangle-highlight')
-    }
-
     return (
       <React.Fragment>
         <div
@@ -135,7 +130,7 @@ export default class Description extends React.Component {
           >
             {t('btn.close', 'Close')}
           </div>
-          <div className={triangleClassNames.join(' ')} />
+          <Triangle highlight={this.state.highlightTriangle} />
         </div>
       </React.Fragment>
     )

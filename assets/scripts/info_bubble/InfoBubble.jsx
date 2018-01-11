@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import Triangle from './Triangle'
 import RemoveButton from './RemoveButton'
 import Variants from './Variants'
 import WidthControl from './WidthControl'
@@ -231,12 +232,6 @@ class InfoBubble extends React.Component {
         break
     }
 
-    // Triangle is highlighted when description button is hovered
-    let triangleClassNames = ['info-bubble-triangle']
-    if (this.state.highlightTriangle === true) {
-      triangleClassNames.push('info-bubble-triangle-highlight')
-    }
-
     return (
       <div
         className={classNames.join(' ')}
@@ -245,7 +240,7 @@ class InfoBubble extends React.Component {
         onTouchStart={this.onTouchStart}
         ref={(ref) => { this.el = ref }}
       >
-        <div className={triangleClassNames.join(' ')} />
+        <Triangle highlight={this.state.highlightTriangle} />
         <header>
           <div className="info-bubble-header-label">{this.getName()}</div>
           <RemoveButton enabled={canBeDeleted} segment={segmentEl} />
