@@ -47,7 +47,9 @@ class Variants extends React.Component {
     switch (props.type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
         const segmentInfo = SEGMENT_INFO[props.segmentType]
-        variantSets = segmentInfo.variants
+        if (segmentInfo) {
+          variantSets = segmentInfo.variants
+        }
         break
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING:

@@ -36,6 +36,9 @@ class InfoBubble extends React.Component {
   constructor (props) {
     super(props)
 
+    // Stores a ref to the element
+    this.el = null
+
     this.state = {
       type: null,
       street: null,
@@ -158,7 +161,14 @@ class InfoBubble extends React.Component {
     const type = this.state.type
     const canBeDeleted = (type === INFO_BUBBLE_TYPE_SEGMENT)
     const segmentEl = infoBubble.segmentEl
-    const className = 'info-bubble' + ((this.props.visible) ? ' visible' : '')
+
+    // Set class names
+    const classNames = ['info-bubble']
+
+    classNames.push((type === INFO_BUBBLE_TYPE_SEGMENT) ? 'info-bubble-type-segment' : 'info-bubble-type-building')
+    if (this.props.visible) {
+      classNames.push('visible')
+    }
 
     // Determine position
     let position
@@ -194,11 +204,11 @@ class InfoBubble extends React.Component {
 
     return (
       <div
-        className={className}
-        data-type={(type === INFO_BUBBLE_TYPE_SEGMENT) ? 'segment' : 'building'}
+        className={classNames.join(' ')}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
         onTouchStart={this.onTouchStart}
+        ref={(ref) => { this.el = ref }}
       >
         <div className="info-bubble-triangle" />
         <header>
