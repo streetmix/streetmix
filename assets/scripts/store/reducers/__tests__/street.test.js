@@ -163,6 +163,40 @@ describe('street reducer', () => {
     })
   })
 
+  it('should handle CHANGE_SEGMENT_VARIANT', () => {
+    const existingStreet = {
+      segments: [
+        { type: 'foo' },
+        { type: 'bar' },
+        {
+          type: 'drive-lane',
+          variantString: 'inbound|car',
+          variant: {
+            direction: 'inbound',
+            'car-type': 'car'
+          }
+        }
+      ]
+    }
+
+    expect(
+      reducer(Object.assign({}, existingStreet), actions.changeSegmentVariant(2, 'direction', 'outbound'))
+    ).toEqual({
+      segments: [
+        { type: 'foo' },
+        { type: 'bar' },
+        {
+          type: 'drive-lane',
+          variantString: 'outbound|car',
+          variant: {
+            direction: 'outbound',
+            'car-type': 'car'
+          }
+        }
+      ]
+    })
+  })
+
   describe('buildings', () => {
     describe('ADD_BUILDING_FLOOR', () => {
       it('adds a floor on the left building', () => {
