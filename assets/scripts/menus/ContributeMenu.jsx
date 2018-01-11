@@ -28,9 +28,10 @@ export default class ContributeMenu extends React.PureComponent {
         <a href="https://opencollective.com/streetmix/" target="_blank" onClick={this.onClickDonate}>
           <span>{t('menu.contribute.donate', 'Donate')}</span>
         </a>
+        {/* Sticker link is broken
         <a href="https://www.stickermule.com/user/1069909781/stickers" target="_blank" onClick={this.onClickStickers}>
           <span>{t('menu.contribute.stickers', 'Buy a sticker sheet!')}</span>
-        </a>
+        </a> */}
       </Menu>
     )
   }
