@@ -10,7 +10,8 @@ import {
   setStreet,
   setUpdateTimeToNow,
   updateEverything,
-  getLastStreet
+  getLastStreet,
+  setStreetDataInRedux
 } from './data_model'
 import { getRemixOnFirstEdit } from './remix'
 
@@ -69,6 +70,11 @@ function undoRedo (undo) {
 
     updateEverything(true)
     hideStatusMessage()
+
+    // The `setStreet()` above only sets minimum (trimmed) data from the undo stack
+    // Code following that replaces and recalculates the data and adjusts the legacy global
+    // `street` object, which we have to put back onto Redux
+    setStreetDataInRedux()
   }
 
   trackEvent('INTERACTION', 'UNDO', null, null, true)

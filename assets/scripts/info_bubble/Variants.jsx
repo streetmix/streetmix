@@ -4,9 +4,10 @@ import { connect } from 'react-redux'
 import { t } from '../app/locale'
 import { SEGMENT_INFO } from '../segments/info'
 import { VARIANT_ICONS } from '../segments/variant_icons'
-import { changeSegmentVariant } from '../segments/view'
+import { getVariantArray } from '../segments/variant_utils'
+import { changeSegmentVariantLegacy } from '../segments/view'
 import { infoBubble } from './info_bubble'
-import { setBuildingVariant } from '../store/actions/street'
+import { setBuildingVariant, changeSegmentVariant } from '../store/actions/street'
 
 // Duped from InfoBubble
 const INFO_BUBBLE_TYPE_SEGMENT = 1
@@ -16,80 +17,84 @@ const INFO_BUBBLE_TYPE_RIGHT_BUILDING = 3
 class Variants extends React.Component {
   static propTypes = {
     type: PropTypes.number,
-    dataNo: PropTypes.number,
-    segment: PropTypes.object,
-
-    // Building
+    position: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.oneOf(['left', 'right'])
+    ]),
     variant: PropTypes.string,
-    setBuildingVariant: PropTypes.func
+    segmentType: PropTypes.string,
+    setBuildingVariant: PropTypes.func.isRequired,
+    changeSegmentVariant: PropTypes.func.isRequired
   }
 
   constructor (props) {
     super(props)
 
     this.state = {
-      variantTypes: this.getVariantTypes(props) // should be an array or undefined
+      variantSets: this.getVariantSets(props) // should be an array or undefined
     }
   }
 
   componentWillReceiveProps (nextProps) {
     this.setState({
-      variantTypes: this.getVariantTypes(nextProps)
+      variantSets: this.getVariantSets(nextProps)
     })
   }
 
-  getVariantTypes = (props) => {
-    const { type, segment } = props
-    let variantTypes = []
+  getVariantSets = (props) => {
+    let variantSets = []
 
-    switch (type) {
+    switch (props.type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
-        const segmentInfo = SEGMENT_INFO[segment.type]
-        variantTypes = segmentInfo.variants
+        const segmentInfo = SEGMENT_INFO[props.segmentType]
+        variantSets = segmentInfo.variants
         break
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
-        variantTypes = Object.keys(VARIANT_ICONS['building'])
+        variantSets = Object.keys(VARIANT_ICONS['building'])
         break
       default:
         break
     }
 
     // Return the array, removing any empty entries
-    return variantTypes.filter((x) => x !== (undefined || null || ''))
+    return variantSets.filter((x) => x !== (undefined || null || ''))
   }
 
-  isVariantCurrentlySelected = (type, choice) => {
-    let value
+  isVariantCurrentlySelected = (set, selection) => {
+    let bool
 
     switch (this.props.type) {
-      case INFO_BUBBLE_TYPE_SEGMENT:
-        value = (this.props.segment.variant[type] === choice)
+      case INFO_BUBBLE_TYPE_SEGMENT: {
+        const obj = getVariantArray(this.props.segmentType, this.props.variant)
+        bool = (selection === obj[set])
         break
+      }
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
-        value = (choice === this.props.variant)
+        bool = (selection === this.props.variant)
         break
       default:
-        value = false
+        bool = false
         break
     }
 
-    return value
+    return bool
   }
 
-  getButtonOnClickHandler = (type, choice) => {
+  getButtonOnClickHandler = (set, selection) => {
     let handler
 
     switch (this.props.type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
         handler = (event) => {
-          changeSegmentVariant(this.props.dataNo, type, choice)
+          this.props.changeSegmentVariant(this.props.position, set, selection)
+          changeSegmentVariantLegacy(this.props.position, set, selection)
         }
         break
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
         handler = (event) => {
-          this.props.setBuildingVariant('left', choice)
+          this.props.setBuildingVariant('left', selection)
 
           // TODO: remove legacy notification
           infoBubble.onBuildingVariantButtonClick('left')
@@ -97,7 +102,7 @@ class Variants extends React.Component {
         break
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
         handler = (event) => {
-          this.props.setBuildingVariant('right', choice)
+          this.props.setBuildingVariant('right', selection)
 
           // TODO: remove legacy notification
           infoBubble.onBuildingVariantButtonClick('right')
@@ -111,28 +116,28 @@ class Variants extends React.Component {
     return handler
   }
 
-  renderButton = (type, choice) => {
-    const variantIcon = VARIANT_ICONS[type][choice]
+  renderButton = (set, selection) => {
+    const icon = VARIANT_ICONS[set][selection]
 
-    if (!variantIcon) return null
+    if (!icon) return null
 
-    const title = t(`variant-icons.${type}|${choice}`, variantIcon.title, { ns: 'segment-info' })
+    const title = t(`variant-icons.${set}|${selection}`, icon.title, { ns: 'segment-info' })
 
     return (
       <button
-        key={type + '.' + choice}
+        key={set + '.' + selection}
         title={title}
-        disabled={this.isVariantCurrentlySelected(type, choice)}
-        onClick={this.getButtonOnClickHandler(type, choice)}
+        disabled={this.isVariantCurrentlySelected(set, selection)}
+        onClick={this.getButtonOnClickHandler(set, selection)}
       >
         <svg
           xmlns="http://www.w3.org/1999/svg"
           xmlnsXlink="http://www.w3.org/1999/xlink"
           className="icon"
-          style={variantIcon.color ? { fill: variantIcon.color } : null}
+          style={icon.color ? { fill: icon.color } : null}
         >
           {/* `xlinkHref` is preferred over `href` for compatibility with Safari */}
-          <use xlinkHref={`#icon-${variantIcon.id}`} />
+          <use xlinkHref={`#icon-${icon.id}`} />
         </svg>
       </button>
     )
@@ -145,25 +150,25 @@ class Variants extends React.Component {
       case INFO_BUBBLE_TYPE_SEGMENT:
         let first = true
 
-        // Each segment has some allowed variant types (e.g. "direction")
-        for (let variant in this.state.variantTypes) {
-          const variantType = this.state.variantTypes[variant]
+        // Each segment has some allowed variant sets (e.g. "direction")
+        for (let variant in this.state.variantSets) {
+          const set = this.state.variantSets[variant]
 
-          // New row for each variant type
+          // New row for each variant set
           if (!first) {
-            const el = <hr key={variantType} />
+            const el = <hr key={set} />
             variantEls.push(el)
           } else {
             first = false
           }
 
-          // Each variant type has some choices.
+          // Each variant set has some selection choices.
           // VARIANT_ICONS is an object containing a list of what
-          // each of the choices are and data for building an icon.
-          // Different segments may refer to the same variant type
+          // each of the selections are and data for building an icon.
+          // Different segments may refer to the same variant set
           // ("direction" is a good example of this)
-          for (let variantChoice in VARIANT_ICONS[variantType]) {
-            const el = this.renderButton(variantType, variantChoice)
+          for (let selection in VARIANT_ICONS[set]) {
+            const el = this.renderButton(set, selection)
 
             variantEls.push(el)
           }
@@ -171,7 +176,7 @@ class Variants extends React.Component {
         break
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
-        this.state.variantTypes.map((building) => {
+        this.state.variantSets.map((building) => {
           const el = this.renderButton('building', building)
           variantEls.push(el)
         })
@@ -185,7 +190,7 @@ class Variants extends React.Component {
 
   render () {
     // Do not render this component if there are no variants to select
-    if (!this.state.variantTypes || this.state.variantTypes.length === 0) return null
+    if (!this.state.variantSets || this.state.variantSets.length === 0) return null
 
     return (
       <div className="variants">
@@ -196,18 +201,30 @@ class Variants extends React.Component {
 }
 
 function mapStateToProps (state, ownProps) {
-  const isLeft = ownProps.type === INFO_BUBBLE_TYPE_LEFT_BUILDING
-  const isRight = ownProps.type === INFO_BUBBLE_TYPE_RIGHT_BUILDING
+  let variant
+  let segmentType
+
+  // Get the appropriate variant information
+  if (ownProps.position === 'left') {
+    variant = state.street.leftBuildingVariant
+  } else if (ownProps.position === 'right') {
+    variant = state.street.rightBuildingVariant
+  } else if (Number.isInteger(ownProps.position) && state.street.segments[ownProps.position]) {
+    const segment = state.street.segments[ownProps.position]
+    variant = segment.variantString
+    segmentType = segment.type
+  }
 
   return {
-    // Get the appropriate building data based on which side of street it's on
-    variant: (isLeft) ? state.street.leftBuildingVariant : (isRight) ? state.street.rightBuildingVariant : null
+    variant,
+    segmentType
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    setBuildingVariant: (position, variant) => { dispatch(setBuildingVariant(position, variant)) }
+    setBuildingVariant: (position, variant) => { dispatch(setBuildingVariant(position, variant)) },
+    changeSegmentVariant: (position, set, selection) => { dispatch(changeSegmentVariant(position, set, selection)) }
   }
 }
 

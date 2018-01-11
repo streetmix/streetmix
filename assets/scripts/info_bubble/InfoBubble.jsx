@@ -160,21 +160,32 @@ class InfoBubble extends React.Component {
     const segmentEl = infoBubble.segmentEl
     const className = 'info-bubble' + ((this.props.visible) ? ' visible' : '')
 
+    // Determine position
+    let position
+    switch (type) {
+      case INFO_BUBBLE_TYPE_SEGMENT:
+        position = this.props.dataNo
+        break
+      case INFO_BUBBLE_TYPE_LEFT_BUILDING:
+        position = 'left'
+        break
+      case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
+        position = 'right'
+        break
+      default:
+        position = null
+        break
+    }
+
     // Determine width or height control type
     let widthOrHeightControl
     switch (type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
-        widthOrHeightControl = <WidthControl segmentEl={segmentEl} position={this.props.dataNo} />
+        widthOrHeightControl = <WidthControl segmentEl={segmentEl} position={position} />
         break
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
-        widthOrHeightControl = (
-          <BuildingHeightControl position="left" />
-        )
-        break
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
-        widthOrHeightControl = (
-          <BuildingHeightControl position="right" />
-        )
+        widthOrHeightControl = <BuildingHeightControl position={position} />
         break
       default:
         widthOrHeightControl = null
@@ -195,7 +206,7 @@ class InfoBubble extends React.Component {
           <RemoveButton enabled={canBeDeleted} segment={segmentEl} />
         </header>
         <div className="info-bubble-controls">
-          <Variants type={type} segment={this.state.segment} dataNo={this.props.dataNo} />
+          <Variants type={type} position={position} />
           {widthOrHeightControl}
         </div>
         <Warnings segment={this.state.segment} />

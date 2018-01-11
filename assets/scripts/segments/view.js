@@ -469,19 +469,14 @@ export function repositionSegments () {
   }
 }
 
-export function changeSegmentVariant (dataNo, variantName, variantChoice, variantString) {
+export function changeSegmentVariantLegacy (dataNo, variantName, variantChoice) {
   let street = getStreet()
-  var segment = street.segments[dataNo]
+  const segment = street.segments[dataNo]
 
-  if (variantString) {
-    segment.variantString = variantString
-    segment.variant = getVariantArray(segment.type, segment.variantString)
-  } else {
-    segment.variant[variantName] = variantChoice
-    segment.variantString = getVariantString(segment.variant)
-  }
+  segment.variant[variantName] = variantChoice
+  segment.variantString = getVariantString(segment.variant)
 
-  var el = createSegmentDom(segment)
+  const el = createSegmentDom(segment)
 
   var oldEl = segment.el
   oldEl.parentNode.insertBefore(el, oldEl)

@@ -4,12 +4,14 @@ import {
   MOVE_SEGMENT,
   REPLACE_STREET_DATA,
   CHANGE_SEGMENT_WIDTH,
+  CHANGE_SEGMENT_VARIANT,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
   REMOVE_BUILDING_FLOOR,
   SET_BUILDING_FLOOR_VALUE,
   SET_BUILDING_VARIANT
 } from '../actions'
+import { getVariantString } from '../../segments/variant_utils'
 
 const initialState = {
   segments: []
@@ -57,8 +59,18 @@ const street = (state = initialState, action) => {
         ...action.street
       }
     case CHANGE_SEGMENT_WIDTH: {
-      const copy = state.segments.slice()
+      const copy = [...state.segments]
       copy[action.index].width = action.width
+      return {
+        ...state,
+        segments: copy
+      }
+    }
+    case CHANGE_SEGMENT_VARIANT: {
+      const copy = [...state.segments]
+      copy[action.index].variant[action.set] = action.selection
+      copy[action.index].variantString = getVariantString(copy[action.index].variant)
+
       return {
         ...state,
         segments: copy

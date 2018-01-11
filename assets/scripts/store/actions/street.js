@@ -4,6 +4,7 @@ import {
   MOVE_SEGMENT,
   REPLACE_STREET_DATA,
   CHANGE_SEGMENT_WIDTH,
+  CHANGE_SEGMENT_VARIANT,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
   REMOVE_BUILDING_FLOOR,
@@ -47,6 +48,15 @@ export function changeSegmentWidth (index, width) {
     type: CHANGE_SEGMENT_WIDTH,
     index,
     width
+  }
+}
+
+export function changeSegmentVariant (index, set, selection) {
+  return {
+    type: CHANGE_SEGMENT_VARIANT,
+    index,
+    set,
+    selection
   }
 }
 
