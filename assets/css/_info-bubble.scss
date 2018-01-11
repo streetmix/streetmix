@@ -20,9 +20,11 @@
   }
 
   header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     position: relative;
-    padding: 5px 12px;
-    padding-top: 2px;
+    padding: 2px 8px 5px;
     height: $info-bubble-button-size;
     line-height: $info-bubble-button-size + 1px;
     font-size: 16px;
@@ -53,7 +55,7 @@
 
     button {
       margin-bottom: 2px;
-      margin-left: 3px;
+      margin-right: 3px;
     }
 
     hr {
@@ -194,15 +196,20 @@
   }
 }
 
+.info-bubble-header-label {
+  /* If label exceeds maximum allowed width, cut it off */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .info-bubble-remove {
-  position: absolute;
-  right: 6px;
-  top: 6px;
   width: auto !important; /* Override button width of other buttons in infobubble */
   padding: 0;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-top: -3px;
+  padding-left: 1em;
+  padding-right: 1em;
+  margin-top: 1px;
+  margin-left: 1em;
   font-size: 11px;
 }
 
