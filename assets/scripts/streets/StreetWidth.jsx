@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { processWidthInput, prettifyWidth } from '../util/width_units'
 import { getSegmentWidthResolution } from '../segments/resizing'
 import { loseAnyFocus } from '../util/focus'
-import { setInitializing } from '../app/initialization'
 import {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC,
@@ -183,10 +182,8 @@ class StreetWidth extends React.Component {
 
     resizeStreetWidth()
 
-    setInitializing(true)
     createDomFromData()
-    segmentsChanged()
-    setInitializing(false)
+    segmentsChanged(false)
 
     loseAnyFocus()
   }

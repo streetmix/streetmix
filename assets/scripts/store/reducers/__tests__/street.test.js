@@ -69,7 +69,8 @@ describe('street reducer', () => {
       segments: [
         { type: 'foo' },
         { type: 'bar' },
-        { type: 'baz' }
+        { type: 'baz' },
+        { type: 'qux' }
       ]
     }
 
@@ -79,7 +80,8 @@ describe('street reducer', () => {
     ).toEqual({
       segments: [
         { type: 'foo' },
-        { type: 'baz' }
+        { type: 'baz' },
+        { type: 'qux' }
       ]
     })
 
@@ -89,7 +91,8 @@ describe('street reducer', () => {
     ).toEqual({
       segments: [
         { type: 'bar' },
-        { type: 'baz' }
+        { type: 'baz' },
+        { type: 'qux' }
       ]
     })
 
