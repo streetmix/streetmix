@@ -6,7 +6,8 @@ import { t } from '../app/locale'
 export default class Description extends React.Component {
   static propTypes = {
     description: PropTypes.object,
-    type: PropTypes.string
+    type: PropTypes.string,
+    updateBubbleDimensions: PropTypes.func.isRequired
   }
 
   constructor (props) {
@@ -21,6 +22,16 @@ export default class Description extends React.Component {
 
   componentDidUpdate () {
     this.retargetAnchors()
+  }
+
+  onClickShow = () => {
+    showDescription()
+    this.props.updateBubbleDimensions()
+  }
+
+  onClickHide = () => {
+    hideDescription()
+    this.props.updateBubbleDimensions()
   }
 
   /**
@@ -70,10 +81,10 @@ export default class Description extends React.Component {
     ) : null
 
     return (
-      <div>
+      <React.Fragment>
         <div
           className="description-prompt"
-          onClick={showDescription}
+          onClick={this.onClickShow}
           onMouseOver={highlightTriangle}
           onMouseOut={unhighlightTriangle}
         >
@@ -88,7 +99,7 @@ export default class Description extends React.Component {
           </div>
           <div
             className="description-close"
-            onClick={hideDescription}
+            onClick={this.onClickHide}
             onMouseOver={highlightTriangle}
             onMouseOut={unhighlightTriangle}
           >
@@ -96,7 +107,7 @@ export default class Description extends React.Component {
           </div>
           <div className="info-bubble-triangle" />
         </div>
-      </div>
+      </React.Fragment>
     )
   }
 }

@@ -37,7 +37,6 @@ export function showDescription () {
     infoBubble.segmentEl.classList.add('hide-drag-handles-when-description-shown')
   }
 
-  infoBubble.getBubbleDimensions()
   infoBubble.updateHoverPolygon()
   unhighlightTriangleDelayed()
   registerKeypress('esc', hideDescription)
@@ -53,7 +52,6 @@ export function hideDescription () {
     infoBubble.segmentEl.classList.remove('hide-drag-handles-when-description-shown')
   }
 
-  infoBubble.getBubbleDimensions()
   infoBubble.updateHoverPolygon()
   unhighlightTriangleDelayed()
   deregisterKeypress('esc', hideDescription)

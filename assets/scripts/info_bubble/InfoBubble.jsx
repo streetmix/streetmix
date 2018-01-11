@@ -15,6 +15,7 @@ import { getStreet } from '../streets/data_model'
 import { BUILDING_VARIANTS, BUILDING_VARIANT_NAMES } from '../segments/buildings'
 import { SEGMENT_INFO } from '../segments/info'
 import { loseAnyFocus } from '../util/focus'
+import { getElAbsolutePos } from '../util/helpers'
 import { setInfoBubbleMouseInside } from '../store/actions/infoBubble'
 import { t } from '../app/locale'
 
@@ -57,6 +58,10 @@ class InfoBubble extends React.Component {
     window.addEventListener('stmx:force_infobubble_update', (e) => {
       this.updateInfoBubbleState()
     })
+  }
+
+  componentDidUpdate () {
+    this.updateBubbleDimensions()
   }
 
   componentWillUnmount () {
@@ -110,6 +115,25 @@ class InfoBubble extends React.Component {
       segment,
       description: getDescriptionData(segment)
     })
+  }
+
+  updateBubbleDimensions = () => {
+    let bubbleHeight
+    if (infoBubble.descriptionVisible) {
+      const el = this.el.querySelector('.description-canvas')
+      const pos = getElAbsolutePos(el)
+      bubbleHeight = pos[1] + el.offsetHeight - 38
+    } else {
+      bubbleHeight = this.el.offsetHeight
+    }
+
+    const height = bubbleHeight + 30
+
+    infoBubble.bubbleHeight = bubbleHeight
+
+    this.el.style.webkitTransformOrigin = '50% ' + height + 'px'
+    this.el.style.MozTransformOrigin = '50% ' + height + 'px'
+    this.el.style.transformOrigin = '50% ' + height + 'px'
   }
 
   /**
@@ -220,7 +244,11 @@ class InfoBubble extends React.Component {
           {widthOrHeightControl}
         </div>
         <Warnings segment={this.state.segment} />
-        <Description description={this.state.description} type={this.state.segment && this.state.segment.type} />
+        <Description
+          description={this.state.description}
+          type={this.state.segment && this.state.segment.type}
+          updateBubbleDimensions={this.updateBubbleDimensions}
+        />
       </div>
     )
   }

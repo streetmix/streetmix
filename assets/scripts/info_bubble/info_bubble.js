@@ -311,24 +311,6 @@ export const infoBubble = {
     infoBubble.updateContents()
   },
 
-  getBubbleDimensions: function () {
-    infoBubble.bubbleWidth = infoBubble.el.offsetWidth
-
-    if (infoBubble.descriptionVisible) {
-      var el = infoBubble.el.querySelector('.description-canvas')
-      var pos = getElAbsolutePos(el)
-      infoBubble.bubbleHeight = pos[1] + el.offsetHeight - 38
-    } else {
-      infoBubble.bubbleHeight = infoBubble.el.offsetHeight
-    }
-
-    var height = infoBubble.bubbleHeight + 30
-
-    infoBubble.el.style.webkitTransformOrigin = '50% ' + height + 'px'
-    infoBubble.el.style.MozTransformOrigin = '50% ' + height + 'px'
-    infoBubble.el.style.transformOrigin = '50% ' + height + 'px'
-  },
-
   updateContents: function () {
     let street = getStreet()
 
@@ -343,8 +325,6 @@ export const infoBubble = {
         infoBubble.segment = segment
         break
     }
-
-    infoBubble.getBubbleDimensions()
   },
 
   // TODO rename
