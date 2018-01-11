@@ -4,8 +4,6 @@
  * Additional descriptive text about segments.
  */
 
-import { trackEvent } from '../app/event_tracking'
-import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { getStreetSectionTop } from '../app/window_resize'
 import { SEGMENT_INFO } from '../segments/info'
 import { infoBubble } from './info_bubble'
@@ -38,10 +36,6 @@ export function showDescription () {
   }
 
   infoBubble.updateHoverPolygon()
-  unhighlightTriangleDelayed()
-  registerKeypress('esc', hideDescription)
-
-  trackEvent('INTERACTION', 'LEARN_MORE', infoBubble.segment.type, null, false)
 }
 
 export function hideDescription () {
@@ -53,20 +47,4 @@ export function hideDescription () {
   }
 
   infoBubble.updateHoverPolygon()
-  unhighlightTriangleDelayed()
-  deregisterKeypress('esc', hideDescription)
-}
-
-export function highlightTriangle () {
-  infoBubble.el.classList.add('highlight-triangle')
-}
-
-export function unhighlightTriangle () {
-  infoBubble.el.classList.remove('highlight-triangle')
-}
-
-function unhighlightTriangleDelayed () {
-  window.setTimeout(function () {
-    unhighlightTriangle()
-  }, 200)
 }

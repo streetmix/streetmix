@@ -1,19 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { showDescription, hideDescription, highlightTriangle, unhighlightTriangle } from './description'
+import { showDescription, hideDescription } from './description'
+import { trackEvent } from '../app/event_tracking'
+import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { t } from '../app/locale'
 
 export default class Description extends React.Component {
   static propTypes = {
     description: PropTypes.object,
     type: PropTypes.string,
-    updateBubbleDimensions: PropTypes.func.isRequired
+    updateBubbleDimensions: PropTypes.func.isRequired,
+    toggleHighlightTriangle: PropTypes.func.isRequired
   }
 
   constructor (props) {
     super(props)
 
     this.text = null
+
+    this.state = {
+      highlightTriangle: false
+    }
   }
 
   componentDidMount () {
@@ -26,12 +33,29 @@ export default class Description extends React.Component {
 
   onClickShow = () => {
     showDescription()
+    this.unhighlightTriangleDelayed()
     this.props.updateBubbleDimensions()
+
+    registerKeypress('esc', this.onClickHide)
+    trackEvent('INTERACTION', 'LEARN_MORE', this.props.type, null, false)
   }
 
   onClickHide = () => {
     hideDescription()
+    this.unhighlightTriangleDelayed()
     this.props.updateBubbleDimensions()
+
+    deregisterKeypress('esc', hideDescription)
+  }
+
+  unhighlightTriangleDelayed = () => {
+    window.setTimeout(() => {
+      this.setState({ highlightTriangle: false })
+    }, 200)
+  }
+
+  toggleHighlightTriangle = () => {
+    this.setState({ highlightTriangle: !this.state.highlightTriangle })
   }
 
   /**
@@ -80,13 +104,19 @@ export default class Description extends React.Component {
       <footer>Photo: {description.imageCaption}</footer>
     ) : null
 
+    // Triangle is highlighted when description button is hovered
+    let triangleClassNames = ['info-bubble-triangle']
+    if (this.state.highlightTriangle === true) {
+      triangleClassNames.push('info-bubble-triangle-highlight')
+    }
+
     return (
       <React.Fragment>
         <div
           className="description-prompt"
           onClick={this.onClickShow}
-          onMouseOver={highlightTriangle}
-          onMouseOut={unhighlightTriangle}
+          onMouseOver={this.props.toggleHighlightTriangle}
+          onMouseOut={this.props.toggleHighlightTriangle}
         >
           {prompt}
         </div>
@@ -100,12 +130,12 @@ export default class Description extends React.Component {
           <div
             className="description-close"
             onClick={this.onClickHide}
-            onMouseOver={highlightTriangle}
-            onMouseOut={unhighlightTriangle}
+            onMouseOver={this.toggleHighlightTriangle}
+            onMouseOut={this.toggleHighlightTriangle}
           >
             {t('btn.close', 'Close')}
           </div>
-          <div className="info-bubble-triangle" />
+          <div className={triangleClassNames.join(' ')} />
         </div>
       </React.Fragment>
     )
