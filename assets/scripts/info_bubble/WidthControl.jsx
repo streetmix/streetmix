@@ -281,7 +281,7 @@ class WidthControl extends React.Component {
           title={t('tooltip.decrease-width', 'Decrease width (hold Shift for more precision)')}
           tabIndex={-1}
           onClick={this.onClickDecrement}
-          disabled={this.props.value === MIN_SEGMENT_WIDTH}
+          disabled={this.props.value <= MIN_SEGMENT_WIDTH}
         >
           –
         </button>
@@ -291,7 +291,7 @@ class WidthControl extends React.Component {
           title={t('tooltip.increase-width', 'Increase width (hold Shift for more precision)')}
           tabIndex={-1}
           onClick={this.onClickIncrement}
-          disabled={this.props.value === MAX_SEGMENT_WIDTH}
+          disabled={this.props.value >= MAX_SEGMENT_WIDTH}
         >
           +
         </button>

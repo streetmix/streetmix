@@ -234,7 +234,7 @@ class BuildingHeightControl extends React.Component {
           title={t('tooltip.add-floor', 'Add floor')}
           tabIndex={-1}
           onClick={this.onClickIncrement}
-          disabled={isNotFloored || (this.props.value === MAX_BUILDING_HEIGHT)}
+          disabled={isNotFloored || (this.props.value >= MAX_BUILDING_HEIGHT)}
         >
           +
         </button>
@@ -244,7 +244,7 @@ class BuildingHeightControl extends React.Component {
           title={t('tooltip.remove-floor', 'Remove floor')}
           tabIndex={-1}
           onClick={this.onClickDecrement}
-          disabled={isNotFloored || (this.props.value === 1)}
+          disabled={isNotFloored || (this.props.value <= 1)}
         >
           –
         </button>

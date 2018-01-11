@@ -25,7 +25,7 @@ export const RESIZE_TYPE_DRAGGING = 2
 export const RESIZE_TYPE_PRECISE_DRAGGING = 3
 export const RESIZE_TYPE_TYPING = 4
 
-export const MIN_SEGMENT_WIDTH = 1
+export const MIN_SEGMENT_WIDTH = (1 / 0.3) * 0.25 // This is equal to 0.25m in our conversion rate
 export const MAX_SEGMENT_WIDTH = 400
 
 const TOUCH_CONTROLS_FADEOUT_TIME = 3000
