@@ -295,6 +295,11 @@ export function createDomFromData () {
   for (var i in street.segments) {
     var segment = street.segments[i]
 
+    // Add some additional data structures
+    // TODO: populate data structure elsewhere
+    segment.variant = getVariantArray(segment.type, segment.variantString)
+    segment.warnings = []
+
     var el = createSegmentDom(segment)
     document.querySelector('#street-section-editable').appendChild(el)
 

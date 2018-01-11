@@ -5,8 +5,7 @@ import {
   setLastStreet,
   getStreet,
   createDomFromData,
-  trimStreetData,
-  createDataFromDom
+  trimStreetData
 } from '../streets/data_model'
 import { updateStreetName } from '../streets/name'
 import { setIgnoreStreetChanges } from '../streets/undo_stack'
@@ -60,10 +59,6 @@ function receiveGalleryStreet (transmission) {
   unpackServerStreetData(transmission, null, null, true)
   propagateUnits()
   recalculateOccupiedWidth()
-
-  // TODO this is stupid, only here to fill some structures
-  createDomFromData()
-  createDataFromDom()
 
   // Some parts of the UI need to know this happened to respond to it
   window.dispatchEvent(new window.CustomEvent('stmx:receive_gallery_street'))
