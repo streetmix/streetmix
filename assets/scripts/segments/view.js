@@ -22,7 +22,7 @@ import {
   resizeSegment,
   applyWarningsToSegments
 } from './resizing'
-import { getVariantArray, getVariantString } from './variant_utils'
+import { getVariantString } from './variant_utils'
 
 const TILESET_POINT_PER_PIXEL = 2.0
 export const TILE_SIZE = 12 // pixels
