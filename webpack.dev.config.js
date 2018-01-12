@@ -5,21 +5,23 @@ const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const extractSass = new ExtractTextPlugin({
-  filename: '[name].css'
+  filename: 'styles.css',
+  allChunks: true
 })
 
 module.exports = {
-  target: 'node',
-  node: {
-    __dirname: false,
-    __filename: false
-  },
+  target: 'web',
   entry: [
-    path.join(__dirname, './assets/app.js')
+    path.resolve(__dirname, './assets/app.js')
   ],
   output: {
-    path: '/',
+    path: path.resolve(__dirname, './assets/build'),
+    publicPath: '/assets/build',
     filename: '[name].js'
+  },
+  resolve: {
+    modules: ['node_modules'],
+    extensions: ['.js', '.jsx', '.json', '.css', '.scss']
   },
   plugins: [
     extractSass,
@@ -28,7 +30,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.js|jsx$/,
         loader: 'babel-loader'
       },
       {
@@ -46,7 +48,7 @@ module.exports = {
           use: [
             {
               loader: 'css-loader',
-              options: { minimize: true }
+              options: { minimize: false }
             },
             'postcss-loader',
             'sass-loader'
