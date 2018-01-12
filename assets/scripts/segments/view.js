@@ -58,7 +58,15 @@ export function drawSegmentImageSVG (id, ctx, dx, dy, dw, dh) {
 
   // Draw the image to canvas
   const img = images[id]
-  ctx.drawImage(img, dx, dy, dw, dh)
+  try {
+    ctx.drawImage(img, dx, dy, dw, dh)
+  } catch (e) {
+    // IE11 has some issues drawing SVG images soon after loading. https://stackoverflow.com/questions/25214395/unexpected-call-to-method-or-property-access-while-drawing-svg-image-onto-canvas
+    setTimeout(() => {
+      console.error('drawImage failed for img id ' + id + ' with error: ' + e + ' - Retrying after 2 seconds')
+      ctx.drawImage(img, dx, dy, dw, dh)
+    }, 2000)
+  }
 }
 
 export function drawSegmentImage (tileset, ctx, sx, sy, sw, sh, dx, dy, dw, dh) {
