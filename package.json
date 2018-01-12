@@ -31,7 +31,8 @@
     "jest:watch": "jest --watch",
     "protractor:update": "./node_modules/protractor/bin/webdriver-manager update",
     "protractor:local": "protractor ./test/integration/local.conf.js",
-    "translations:download": "node bin/download_translations.js"
+    "translations:download": "node bin/download_translations.js",
+    "dev:css": "webpack --config webpack.dev.config.js"
   },
   "jest": {
     "roots": [
@@ -119,6 +120,7 @@
     "babel-eslint": "7.2.3",
     "babel-jest": "20.0.3",
     "babel-loader": "7.1.2",
+    "concurrently": "3.5.1",
     "css-loader": "0.28.7",
     "enzyme": "2.9.1",
     "eslint": "4.4.1",
@@ -144,6 +146,7 @@
     "supertest": "3.0.0",
     "webpack": "3.8.1",
     "webpack-dev-middleware": "1.12.0",
-    "webpack-hot-middleware": "2.20.0"
+    "webpack-hot-middleware": "2.20.0",
+    "webpack-merge": "4.1.1"
   }
 }

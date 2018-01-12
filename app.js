@@ -23,13 +23,6 @@ const exec = require('child_process').exec
 
 const app = module.exports = express()
 
-// webpack setup here
-const webpack = require('webpack')
-const webpackDevMiddleware = require('webpack-dev-middleware')
-const webpackHotMiddleware = require('webpack-hot-middleware')
-const webpackConfig = require('./webpack.dev.config')
-const compiler = webpack(webpackConfig)
-
 app.locals.config = config
 
 // Not all headers from `helmet` are on by default. These turns on specific
@@ -144,26 +137,9 @@ app.get('/api/v1/translate/:locale_code/:resource_name', resources.v1.translate.
 
 app.get('/.well-known/status', resources.well_known_status.get)
 
-// Process stylesheets via Sass and PostCSS / Autoprefixer
-// app.use('/assets/css/styles.css', middleware.styles)
-
-// webpack instance
-app.use(webpackDevMiddleware(compiler, {
-  noInfo: false,
-  quiet: false,
-  lazy: true,
-  watchOptions: {
-    aggregateTimeout: 300,
-    poll: true
-  },
-  stats: {
-    colors: true
-  },
-  publicPath: webpackConfig.output.publicPath,
-  reporter: null,
-  serverSideServer: false
-}))
-app.use(webpackHotMiddleware(compiler))
+app.get('/assets/css/styles.css', function (req, res) {
+  res.sendFile(path.join(__dirname, '/assets/build/styles.css'))
+})
 
 app.get('/assets/scripts/main.js', browserify(path.join(__dirname, '/assets/scripts/main.js'), {
   cache: true,
