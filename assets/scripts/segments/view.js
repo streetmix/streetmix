@@ -1,4 +1,3 @@
-import { getInitializing } from '../app/initialization'
 import { images } from '../app/load_resources'
 import { msg } from '../app/messages'
 import { infoBubble, INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/info_bubble'
@@ -23,6 +22,7 @@ import {
   applyWarningsToSegments
 } from './resizing'
 import { getVariantString } from './variant_utils'
+import store from '../store'
 
 const TILESET_POINT_PER_PIXEL = 2.0
 export const TILE_SIZE = 12 // pixels
@@ -598,16 +598,33 @@ function repositionEmptySegments () {
   }
 }
 
-export function segmentsChanged () {
-  if (!getInitializing()) {
+/**
+ * Set `readDataFromDom` to false to prevent re-reading of segment
+ * data from the DOM. Do this whenever we refactor code to modify
+ * segments in Redux store. Also set `reassignElementRefs` to true
+ * so that new element references can be made
+ * @param {boolean} readDataFromDom
+ */
+export function segmentsChanged (readDataFromDom = true, reassignElementRefs = false) {
+  if (readDataFromDom === true) {
     createDataFromDom()
+  }
+
+  const street = getStreet()
+
+  // When segments have chaged in Redux and we want to depend on that data,
+  // other parts of the app still want a reference to the element. This will
+  // update it. It only happens if you pass `true` as the second argument to this function.
+  if (reassignElementRefs === true) {
+    street.segments = [...store.getState().street.segments]
+    const els = document.querySelectorAll('#street-section-editable > .segment')
+    street.segments.map((item, i) => { item.el = els[i] })
   }
 
   recalculateWidth()
   repositionEmptySegments()
   applyWarningsToSegments()
 
-  let street = getStreet()
   for (var i in street.segments) {
     if (street.segments[i].el) {
       street.segments[i].el.dataNo = i

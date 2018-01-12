@@ -33,10 +33,7 @@ const street = (state = initialState, action) => {
     case REMOVE_SEGMENT:
       return {
         ...state,
-        segments: [
-          ...state.segments.slice(0, action.index),
-          ...state.segments.slice(action.index + 1)
-        ]
+        segments: state.segments.filter((element, index) => index !== action.index)
       }
     case MOVE_SEGMENT: {
       const toMove = Object.assign({}, state.segments[action.index])

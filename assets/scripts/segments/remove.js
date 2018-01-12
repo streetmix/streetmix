@@ -5,6 +5,8 @@ import { getStreet, createDomFromData } from '../streets/data_model'
 import { getHoveredSegmentEl } from './hover'
 import { segmentsChanged, switchSegmentElAway } from './view'
 import { t } from '../app/locale'
+import { removeSegment as removeSegmentActionCreator } from '../store/actions/street'
+import store from '../store'
 
 /**
  * Removes a segment, given the element to remove
@@ -25,7 +27,12 @@ export function removeSegment (el) {
   // Animates segment away
   switchSegmentElAway(el)
 
-  segmentsChanged()
+  // Update the store
+  store.dispatch(removeSegmentActionCreator(window.parseInt(el.dataNo, 10)))
+
+  // update street data but do not re-read DOM
+  segmentsChanged(false, true)
+
   showStatusMessage(t('toast.segment-deleted'), true)
 }
 

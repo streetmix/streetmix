@@ -42,16 +42,6 @@ import { attachFetchNonBlockingEventListeners } from '../util/fetch_nonblocking'
 import store from '../store'
 import { showDialog } from '../store/actions/dialogs'
 
-let initializing = false
-
-export function getInitializing () {
-  return initializing
-}
-
-export function setInitializing (value) {
-  initializing = value
-}
-
 let bodyLoaded
 let readyStateCompleteLoaded
 let serverContacted
@@ -71,7 +61,6 @@ export function setAbortEverything (value) {
 }
 
 function preInit () {
-  initializing = true
   setIgnoreStreetChanges(true)
 
   var language = window.navigator.userLanguage || window.navigator.language
@@ -164,9 +153,8 @@ function onEverythingLoaded () {
   resizeStreetWidth()
   updateStreetName()
   createDomFromData()
-  segmentsChanged()
+  segmentsChanged(false)
 
-  initializing = false
   setIgnoreStreetChanges(false)
   setStreetDataInRedux()
   setLastStreet(trimStreetData(getStreet()))

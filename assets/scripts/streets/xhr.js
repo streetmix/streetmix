@@ -44,7 +44,6 @@ import {
   trimStreetData,
   updateEverything,
   createDomFromData,
-  createDataFromDom,
   DEFAULT_NAME,
   setStreet,
   updateToLatestSchemaVersion,
@@ -293,7 +292,6 @@ function receiveStreet (transmission) {
   // window.addEventListener('stmx:assets_loaded', () => {
   checkIfImagesLoaded().then(() => {
     createDomFromData()
-    createDataFromDom()
 
     setServerContacted(true)
 
@@ -461,10 +459,6 @@ function receiveLastStreet (transmission) {
   // console.log('editCount = 0 on last street!')
 
   propagateUnits()
-
-  // TODO this is stupid, only here to fill some structures
-  createDomFromData()
-  createDataFromDom()
 
   unifyUndoStack()
 

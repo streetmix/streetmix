@@ -736,6 +736,7 @@ function handleSegmentMoveEnd (event) {
 
   if (!draggingMove.withinCanvas) {
     if (draggingMove.type === DRAGGING_TYPE_MOVE_TRANSFER) {
+      // This deletes a segment when it's dragged out of the street
       draggingMove.originalEl.remove()
     }
 
