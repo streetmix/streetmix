@@ -104,14 +104,6 @@ export function updatePageUrl (forceGalleryUrl) {
     url = getStreetUrl(getStreet())
   }
 
-  if (debug.hoverPolygon) {
-    // TODO const
-    url += '&debug-hover-polygon'
-  }
-  if (debug.canvasRectangles) {
-    // TODO const
-    url += '&debug-canvas-rectangles'
-  }
   if (debug.forceLeftHandTraffic) {
     url += '&debug-force-left-hand-traffic'
   }

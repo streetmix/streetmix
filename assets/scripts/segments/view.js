@@ -51,7 +51,7 @@ export function drawSegmentImageSVG (id, ctx, dx, dy, dw, dh) {
   dh *= system.hiDpi
 
   // These rectangles are telling us that we're drawing at the right places.
-  if (debug.canvasRectangles) {
+  if (store.getState().flags.DEBUG_SEGMENT_CANVAS_RECTANGLES.value === true) {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.2)'
     ctx.fillRect(dx, dy, dw, dh)
   }
@@ -87,7 +87,7 @@ export function drawSegmentImage (tileset, ctx, sx, sy, sw, sh, dx, dy, dw, dh) 
       sx = 0
     }
 
-    if (debug.canvasRectangles) {
+    if (store.getState().flags.DEBUG_SEGMENT_CANVAS_RECTANGLES.value === true) {
       ctx.fillStyle = 'rgba(0, 0, 0, 0.2)'
       ctx.fillRect(dx, dy, dw, dh)
     }

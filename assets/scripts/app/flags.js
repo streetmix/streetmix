@@ -11,7 +11,7 @@ export const FEATURE_FLAGS = {
     defaultValue: false
   },
   INFO_BUBBLE_HOVER_POLYGON: {
-    label: 'Info bubble — show Tognazzini zone',
+    label: 'Info bubble — [debug] show Tognazzini zone',
     defaultValue: false
   },
   LOCALES_LEVEL_1: {
@@ -36,6 +36,10 @@ export const FEATURE_FLAGS = {
   },
   SEGMENT_ANGLED_PARKING: {
     label: 'Segment — angled parking',
+    defaultValue: false
+  },
+  DEBUG_SEGMENT_CANVAS_RECTANGLES: {
+    label: 'Segment — [debug] canvas rectangles',
     defaultValue: false
   }
 }

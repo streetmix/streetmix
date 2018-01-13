@@ -1,8 +1,6 @@
 import { SET_DEBUG_FLAGS } from '../actions'
 
 const initialState = {
-  hoverPolygon: false,
-  canvasRectangles: false,
   forceLeftHandTraffic: false,
   forceMetric: false,
   forceUnsupportedBrowser: false,

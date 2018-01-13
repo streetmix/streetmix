@@ -12,8 +12,6 @@ import store from '../store'
 import { SET_DEBUG_FLAGS } from '../store/actions'
 
 export const debug = {
-  hoverPolygon: false,
-  canvasRectangles: false,
   forceLeftHandTraffic: false,
   forceMetric: false,
   forceUnsupportedBrowser: false,
@@ -27,16 +25,6 @@ export const debug = {
 }
 
 const url = window.location.search
-
-// TODO const
-if (url.match(/[?&]debug-hover-polygon&?/)) {
-  debug.hoverPolygon = true
-}
-
-// TODO better
-if (url.match(/[?&]debug-canvas-rectangles&?/)) {
-  debug.canvasRectangles = true
-}
 
 if (url.match(/[?&]debug-force-left-hand-traffic&?/)) {
   debug.forceLeftHandTraffic = true
