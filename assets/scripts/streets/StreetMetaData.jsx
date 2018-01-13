@@ -113,7 +113,7 @@ function mapStateToProps (state) {
   return {
     signedIn: state.user.signedIn,
     userId: state.user.signInData && state.user.signInData.userId,
-    experimental: state.debug.experimental
+    experimental: state.flags.GEOLOCATION.value
   }
 }
 
