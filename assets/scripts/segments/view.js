@@ -1,7 +1,6 @@
 import { images } from '../app/load_resources'
 import { msg } from '../app/messages'
 import { infoBubble, INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/info_bubble'
-import { debug } from '../preinit/debug_settings'
 import { system } from '../preinit/system_capabilities'
 import {
   getStreet,

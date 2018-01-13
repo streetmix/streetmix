@@ -13,11 +13,23 @@ import { setFeatureFlag } from '../store/actions/flags'
 import { clearDialogs } from '../store/actions/dialogs'
 import { FEATURE_FLAGS } from '../app/flags'
 
+// Imported to force updates when state changes
+import { createDomFromData } from '../streets/data_model'
+
 class FeatureFlagDialog extends React.Component {
   static propTypes = {
     flags: PropTypes.object.isRequired,
     setFeatureFlag: PropTypes.func.isRequired,
     clearDialogs: PropTypes.func.isRequired
+  }
+
+  // When flags change, some things don't respond automatically, so use the
+  // lifecycle on this component to listen for changes and force app updates
+  // We should avoid this, so remove after refactoring
+  componentWillReceiveProps (nextProps) {
+    if (this.props.flags.DEBUG_SEGMENT_CANVAS_RECTANGLES !== nextProps.flags.DEBUG_SEGMENT_CANVAS_RECTANGLES) {
+      createDomFromData()
+    }
   }
 
   renderFlagList = () => {
