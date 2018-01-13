@@ -43,6 +43,9 @@ export const SET_DEBUG_FLAGS = 'SET_DEBUG_FLAGS'
 export const SHOW_DIALOG = 'SHOW_DIALOG'
 export const CLEAR_DIALOGS = 'CLEAR_DIALOGS'
 
+/* flags */
+export const SET_FEATURE_FLAG = 'SET_FEATURE_FLAG'
+
 /* gallery */
 export const SHOW_GALLERY = 'SHOW_GALLERY'
 export const HIDE_GALLERY = 'HIDE_GALLERY'
