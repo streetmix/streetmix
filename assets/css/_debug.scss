@@ -19,7 +19,7 @@
     box-sizing: border-box;
     border: 1px solid lightgray;
     background-color: whitesmoke;
-    font-family: Courier New, monospace;
+    font-family: 'Courier New', monospace;
     font-size: 1em;
     resize: none;
   }
@@ -27,7 +27,7 @@
 
 .debug-hover-polygon {
   position: absolute;
-  z-index: $z-10-debug-hover-polygon;
+  z-index: $z-07-debug-hover-polygon;
   left: 0;
   top: 0;
   right: 0;

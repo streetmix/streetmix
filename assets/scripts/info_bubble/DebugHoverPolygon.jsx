@@ -86,7 +86,7 @@ export class DebugHoverPolygon extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    enabled: state.debug.hoverPolygon,
+    enabled: state.flags.INFO_BUBBLE_HOVER_POLYGON.value,
     hoverPolygon: state.infoBubble.hoverPolygon
   }
 }
