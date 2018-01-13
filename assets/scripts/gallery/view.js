@@ -1,7 +1,6 @@
 import { trackEvent } from '../app/event_tracking'
 import { showError, ERRORS } from '../app/errors'
 import { onWindowFocus } from '../app/focus'
-import { getAbortEverything } from '../app/initialization'
 import { MODES, getMode, setMode } from '../app/mode'
 import { updatePageUrl } from '../app/page_url'
 import { hideStatusMessage } from '../app/status_message'
@@ -72,7 +71,8 @@ export function hideGallery (instant) {
     return
   }
 
-  if (store.getState().gallery.visible) {
+  const state = store.getState()
+  if (state.gallery.visible) {
     store.dispatch(hideGalleryAction())
 
     if (instant) {
@@ -88,7 +88,7 @@ export function hideGallery (instant) {
 
     onWindowFocus()
 
-    if (!getAbortEverything()) {
+    if (!state.errors.abortEverything) {
       updatePageUrl()
     }
 

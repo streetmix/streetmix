@@ -1,7 +1,6 @@
 import { system } from '../preinit/system_capabilities'
 import { fetchStreetForVerification } from '../streets/xhr'
 import { saveSettingsLocally } from '../users/settings'
-import { getAbortEverything } from './initialization'
 import store from '../store'
 
 window.addEventListener('stmx:everything_loaded', function () {
@@ -13,7 +12,8 @@ window.addEventListener('stmx:everything_loaded', function () {
 })
 
 export function onWindowFocus () {
-  if (getAbortEverything() || store.getState().gallery.visible) {
+  const state = store.getState()
+  if (state.errors.abortEverything || state.gallery.visible) {
     return
   }
 

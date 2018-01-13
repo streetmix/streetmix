@@ -5,7 +5,6 @@ import { showError, ERRORS } from '../app/errors'
 import { trackEvent } from '../app/event_tracking'
 import {
   checkIfEverythingIsLoaded,
-  getAbortEverything,
   setServerContacted
 } from '../app/initialization'
 import { checkIfImagesLoaded } from '../app/load_resources'
@@ -68,6 +67,7 @@ import {
   setIgnoreStreetChanges
 } from './undo_stack'
 import { resizeStreetWidth } from './width'
+import store from '../store'
 
 const SAVE_STREET_DELAY = 500
 
@@ -212,7 +212,7 @@ function clearScheduledSavingStreetToServer () {
 export function fetchStreetForVerification () {
   // Don’t do it with any network services pending
   if (getNonblockingAjaxRequestCount() || isblockingAjaxRequestInProgress() ||
-    saveStreetIncomplete || getAbortEverything() || getRemixOnFirstEdit()) {
+    saveStreetIncomplete || store.getState().errors.abortEverything || getRemixOnFirstEdit()) {
     return
   }
 

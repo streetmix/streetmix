@@ -50,16 +50,6 @@ export function setServerContacted (value) {
   serverContacted = value
 }
 
-let abortEverything
-
-export function getAbortEverything () {
-  return abortEverything
-}
-
-export function setAbortEverything (value) {
-  abortEverything = value
-}
-
 function preInit () {
   setIgnoreStreetChanges(true)
 
@@ -101,8 +91,7 @@ export function initialize () {
 
   processUrl()
   processMode()
-
-  if (abortEverything) {
+  if (store.getState().errors.abortEverything) {
     return
   }
 
@@ -125,12 +114,12 @@ export function initialize () {
   // street data if necessary (depending on the mode)
   loadSignIn()
 
-// Note that we are waiting for sign in and image info to show the page,
-// but we give up on country info if it’s more than 1000ms.
+  // Note that we are waiting for sign in and image info to show the page,
+  // but we give up on country info if it’s more than 1000ms.
 }
 
 export function checkIfEverythingIsLoaded () {
-  if (abortEverything) {
+  if (store.getState().errors.abortEverything) {
     return
   }
 

@@ -1,18 +1,12 @@
-import { getStreet } from '../streets/data_model'
-import { goReloadClearSignIn } from '../users/authentication'
-import { getAbortEverything, setAbortEverything } from './initialization'
 import { hideLoadingScreen } from './load_resources'
 import {
-  goReload,
-  goHome,
-  goNewStreet,
-  goExampleStreet,
-  goSignIn,
   URL_ERROR_TWITTER_ACCESS_DENIED,
   URL_ERROR_NO_TWITTER_REQUEST_TOKEN,
   URL_ERROR_NO_TWITTER_ACCESS_TOKEN,
   URL_ERROR_AUTHENTICATION_API_PROBLEM
 } from './routing'
+import store from '../store'
+import { showError as showErrorAction, hideError as hideErrorAction } from '../store/actions/errors'
 
 export const ERRORS = {
   NOT_FOUND: 1,
@@ -42,152 +36,12 @@ export function showError (errorType, newAbortEverything) {
   // NOTE:
   // This function might be called on very old browsers. Please make
   // sure not to use modern faculties.
-
-  var title
-  var description = ''
-  var street = getStreet()
-
   hideLoadingScreen()
-
-  setAbortEverything(newAbortEverything)
-
-  switch (errorType) {
-    case ERRORS.NOT_FOUND:
-      title = 'Page not found.'
-      description = 'Oh, boy. There is no page with this address!<br><button id="error-home">Go to the homepage</button>'
-      break
-    case ERRORS.STREET_404:
-      title = 'Street not found.'
-      description = 'Oh, boy. There is no street with this link!<br><button id="error-home">Go to the homepage</button>'
-      break
-    case ERRORS.STREET_404_BUT_LINK_TO_USER:
-      title = 'Street not found.'
-      description =
-        'There is no street with this link! But you can look at other streets by ' +
-        '<a href="/' + street.creatorId + '"><div class="avatar" userId="' + street.creatorId + '"></div>' + street.creatorId + '</a>.' +
-        '<br><button id="error-home">Go to the homepage</button>'
-      break
-    case ERRORS.STREET_410_BUT_LINK_TO_USER:
-      title = 'This street has been deleted.'
-      description = 'There is no longer a street with this link, but you can look at other streets by ' +
-        '<a href="/' + street.creatorId + '"><div class="avatar" userId="' + street.creatorId + '"></div>' + street.creatorId + '</a>.' +
-        '<br><button id="error-home">Go to the homepage</button>'
-      break
-    case ERRORS.SIGN_OUT:
-      title = 'You are now signed out.'
-      description = '<button id="error-sign-in">Sign in again</button> <button id="error-home">Go to the homepage</button>'
-      break
-    case ERRORS.NO_STREET:
-      title = 'No street selected.'
-      break
-    case ERRORS.FORCE_RELOAD_SIGN_OUT:
-      title = 'You signed out in another window.'
-      description = 'Please reload this page before continuing.<br><button id="error-reload">Reload the page</button>'
-      break
-    case ERRORS.FORCE_RELOAD_SIGN_OUT_401:
-      title = 'You signed out in another window.'
-      description = 'Please reload this page before continuing.<br>(Error RM2.)<br><button id="error-clear-sign-in-reload">Reload the page</button>'
-      break
-    case ERRORS.FORCE_RELOAD_SIGN_IN:
-      title = 'You signed in in another window.'
-      description = 'Please reload this page before continuing.<br><button id="error-reload">Reload the page</button>'
-      break
-    case ERRORS.STREET_DELETED_ELSEWHERE:
-      title = 'This street has been deleted elsewhere.'
-      description = 'This street has been deleted in another browser.<br><button id="error-home">Go to the homepage</button>'
-      break
-    case ERRORS.NEW_STREET_SERVER_FAILURE:
-      title = 'Having trouble…'
-      description = 'We’re having trouble loading Streetmix.<br><button id="error-new">Try again</button>'
-      break
-    case ERRORS.SIGN_IN_SERVER_FAILURE:
-      title = 'Having trouble…'
-      description = 'We’re having trouble loading Streetmix.<br>(Error 15A.)<br><button id="error-new">Try again</button>'
-      break
-    case ERRORS.SIGN_IN_401:
-      title = 'Having trouble…'
-      description = 'We’re having trouble loading Streetmix.<br>(Error RM1.)<br><button id="error-new">Try again</button>'
-      break
-    case ERRORS.STREET_DATA_FAILURE:
-      title = 'Having trouble…'
-      description = 'We’re having trouble loading Streetmix.<br>(Error 9B.)<br><button id="error-new">Try again</button>'
-      break
-    case ERRORS.TWITTER_ACCESS_DENIED:
-      title = 'You are not signed in.'
-      description = 'You cancelled the Twitter sign in process.<br><button id="error-home">Go to the homepage</button>'
-      break
-    case ERRORS.AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN:
-    case ERRORS.AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN:
-    case ERRORS.AUTH_PROBLEM_API_PROBLEM:
-      title = 'There was a problem with signing you in.'
-      // TODO const for feedback
-      description = 'There was a problem with Twitter authentication. Please try again later or let us know via <a target="_blank" href="mailto:hello@streetmix.net">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmix">Twitter</a>.<br><button id="error-home">Go to the homepage</button>'
-      break
-    case ERRORS.UNSUPPORTED_BROWSER:
-      title = 'Streetmix doesn’t work on your browser.'
-      // TODO const for feedback
-      description = 'Sorry about that. You might want to try <a target="_blank" href="http://www.google.com/chrome">Chrome</a>, <a target="_blank" href="http://www.mozilla.org/firefox">Firefox</a>, <a target="_blank" href="https://www.microsoft.com/en-us/windows/microsoft-edge">Microsoft Edge</a>, or Safari. <br><br>Are you on Internet Explorer? <a target="_blank" href="https://streetmix.readme.io/docs/frequently-asked-questions/#internet-explorer">Find out more.</a> <br><br>If you think your browser should be supported, please contact us via <a target="_blank" href="mailto:hello@streetmix.net">email</a>.'
-      break
-    case ERRORS.CANNOT_CREATE_NEW_STREET_ON_PHONE:
-      title = 'Streetmix works on tablets and desktops only.'
-      description = 'If you follow another link to a specific street, you can view it on your phone – but you cannot yet create new streets.<br><button id="error-example">View an example street</button>'
-      break
-    default: // also ERRORS.GENERIC_ERROR
-      title = 'Something went wrong.'
-      // TODO const for feedback
-      description = 'We’re sorry – something went wrong. Please try again later or let us know via <a target="_blank" href="mailto:hello@streetmix.net">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmix">Twitter</a>.<br><button id="error-home">Go to the homepage</button>'
-      break
-  }
-
-  if (getAbortEverything()) {
-    // Opera
-    document.getElementById('gallery').remove()
-  }
-
-  if (navigator.userAgent.indexOf('MSIE 6.') !== -1) {
-    document.body.style.display = 'none'
-    window.alert('Streetmix doesn’t work on your browser. Please update to a newer browser such as Chrome, Firefox, or Safari.')
-    return
-  }
-
-  document.getElementById('error-title').innerHTML = title
-  document.getElementById('error-description').innerHTML = description
-
-  let el = document.getElementById('error-home')
-  if (el) {
-    el.addEventListener('pointerdown', goHome)
-  }
-
-  el = document.getElementById('error-sign-in')
-  if (el) {
-    el.addEventListener('pointerdown', goSignIn)
-  }
-
-  el = document.getElementById('error-reload')
-  if (el) {
-    el && el.addEventListener('pointerdown', goReload)
-  }
-
-  el = document.getElementById('error-clear-sign-in-reload')
-  if (el) {
-    el.addEventListener('pointerdown', goReloadClearSignIn)
-  }
-
-  el = document.getElementById('error-new')
-  if (el) {
-    el.addEventListener('pointerdown', goNewStreet)
-  }
-
-  el = document.getElementById('error-example')
-  if (el) {
-    el.addEventListener('pointerdown', goExampleStreet)
-  }
-
-  document.getElementById('error').className += ' visible'
+  store.dispatch(showErrorAction(errorType, newAbortEverything))
 }
 
 export function hideError () {
-  document.querySelector('#error').classList.remove('visible')
+  store.dispatch(hideErrorAction())
 }
 
 export function showErrorFromUrl (errorUrl) {
