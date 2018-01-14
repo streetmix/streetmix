@@ -1,4 +1,3 @@
-import { getAbortEverything } from '../app/initialization'
 import {
   getSaveStreetIncomplete,
   setSaveStreetIncomplete
@@ -64,7 +63,7 @@ export function nonblockingAjaxTryAgain () {
 }
 
 function sendNextNonblockingAjaxRequest () {
-  if (getAbortEverything()) {
+  if (store.getState().errors.abortEverything) {
     return
   }
 
@@ -167,7 +166,7 @@ function successNonblockingAjaxRequest (data, request) {
 function checkIfChangesSaved () {
   // don’t do for settings deliberately
 
-  if (getAbortEverything()) {
+  if (store.getState().errors.abortEverything) {
     return
   }
 

@@ -1,4 +1,3 @@
-import { getAbortEverything } from '../app/initialization'
 import { msg } from '../app/messages'
 import { URL_NO_USER, RESERVED_URLS, URL_RESERVED_PREFIX } from '../app/routing'
 import {
@@ -325,7 +324,7 @@ export function setUpdateTimeToNow () {
 }
 
 export function saveStreetToServerIfNecessary () {
-  if (getIgnoreStreetChanges() || getAbortEverything()) {
+  if (getIgnoreStreetChanges() || store.getState().errors.abortEverything) {
     return
   }
 

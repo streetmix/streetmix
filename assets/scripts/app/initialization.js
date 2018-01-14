@@ -50,16 +50,6 @@ export function setServerContacted (value) {
   serverContacted = value
 }
 
-let abortEverything
-
-export function getAbortEverything () {
-  return abortEverything
-}
-
-export function setAbortEverything (value) {
-  abortEverything = value
-}
-
 function preInit () {
   setIgnoreStreetChanges(true)
 
@@ -101,8 +91,7 @@ export function initialize () {
 
   processUrl()
   processMode()
-
-  if (abortEverything) {
+  if (store.getState().errors.abortEverything) {
     return
   }
 
@@ -131,7 +120,7 @@ export function initialize () {
 
 let runningCheck = false
 export function checkIfEverythingIsLoaded () {
-  if (abortEverything) {
+  if (store.getState().errors.abortEverything) {
     return
   }
   if (runningCheck) {

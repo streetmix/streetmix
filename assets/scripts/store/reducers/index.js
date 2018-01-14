@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import app from './app'
 import debug from './debug'
 import dialogs from './dialogs'
+import errors from './errors'
 import gallery from './gallery'
 import infoBubble from './infoBubble'
 import map from './map'
@@ -18,6 +19,7 @@ const reducers = combineReducers({
   app,
   debug,
   dialogs,
+  errors,
   gallery,
   infoBubble,
   map,

@@ -22,10 +22,6 @@ body.phone #loading {
   // This forces vertical centering
   display: table;
 
-  &:not(.visible) {
-    display: none;
-  }
-
   .error-content {
     position: relative;
     text-align: center;

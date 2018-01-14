@@ -3,7 +3,6 @@ import { API_URL } from '../app/config'
 import { trackEvent } from '../app/event_tracking'
 import {
   checkIfEverythingIsLoaded,
-  getAbortEverything,
   setServerContacted
 } from '../app/initialization'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
@@ -100,7 +99,7 @@ export function confirmSaveStreetToServerInitial () {
 }
 
 export function saveSettingsToServer () {
-  if (!isSignedIn() || getAbortEverything()) {
+  if (!isSignedIn() || store.getState().errors.abortEverything) {
     return
   }
 
@@ -119,7 +118,7 @@ export function saveSettingsToServer () {
 }
 
 function errorSavingSettingsToServer (data) {
-  if (!getAbortEverything() && (data.status === 401)) {
+  if (!store.getState().errors.abortEverything && (data.status === 401)) {
     trackEvent('ERROR', 'ERROR_RM2', null, null, false)
 
     setMode(MODES.FORCE_RELOAD_SIGN_OUT_401)
