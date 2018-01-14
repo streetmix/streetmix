@@ -1,7 +1,6 @@
 /* global L */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Map, TileLayer, ZoomControl, Marker, Popup } from 'react-leaflet'
 import { MAPZEN_API_KEY } from '../app/config'
@@ -186,8 +185,9 @@ function mapStateToProps (state) {
 }
 
 function mapDispatchToProps (dispatch) {
-  const boundActionCreators = bindActionCreators({ setMapState }, dispatch)
-  return {...boundActionCreators, dispatch}
+  return {
+    setMapState: (...args) => { dispatch(setMapState(...args)) }
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GeolocateDialog)
