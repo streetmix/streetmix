@@ -25,6 +25,15 @@ class FeatureFlagDialog extends React.Component {
       const id = item[0]
       const deets = item[1]
       const htmlLabel = `feature-flag__input--${id.toLowerCase().replace(/_/g, '-')}`
+      const labelClassNames = []
+      const isNotDefault = deets.defaultValue !== this.props.flags[id].value
+
+      if (deets.disabled) {
+        labelClassNames.push('feature-flag-label-disabled')
+      }
+      if (isNotDefault) {
+        labelClassNames.push('feature-flag-label-modified')
+      }
 
       return (
         <tr key={id}>
@@ -36,10 +45,11 @@ class FeatureFlagDialog extends React.Component {
               }}
               checked={this.props.flags[id].value}
               id={htmlLabel}
+              disabled={deets.disabled}
             />
           </td>
           <td>
-            <label htmlFor={htmlLabel}>{deets.label}</label>
+            <label htmlFor={htmlLabel} className={labelClassNames.join(' ')}>{deets.label}</label>
           </td>
         </tr>
       )

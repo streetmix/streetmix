@@ -193,9 +193,21 @@ $dialog-box-default-width: 790px;
 // Feature flag dialog
 
 .feature-flag-dialog {
-  width: auto;
+  width: 350px;
+}
+
+.feature-flag-dialog td {
+  vertical-align: top;
 }
 
 .feature-flag-dialog p {
   text-align: center;
+}
+
+.feature-flag-label-disabled {
+  color: #b0baba;
+}
+
+.feature-flag-label-modified {
+  font-weight: bold;
 }
