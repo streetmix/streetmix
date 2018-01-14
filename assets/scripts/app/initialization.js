@@ -229,10 +229,6 @@ function onReadyStateChange () {
   }
 }
 
-// Toggle experimental features
-// if (debug.experimental) {
-// }
-
 // Initalize i18n / localization
 // Currently experimental-only for all languages except English
 initLocale(debug.experimental)

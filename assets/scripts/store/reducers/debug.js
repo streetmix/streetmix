@@ -8,8 +8,7 @@ const initialState = {
   forceNoInternet: false,
   forceReadOnly: false,
   forceTouch: false,
-  forceLiveUpdate: false,
-  experimental: false
+  forceLiveUpdate: false
 }
 
 const debug = (state = initialState, action) => {

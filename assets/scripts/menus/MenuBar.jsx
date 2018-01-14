@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import EnvironmentBadge from './EnvironmentBadge'
 
 // import { t } from '../app/locale'
-import { debug } from '../preinit/debug_settings'
 import { URL_SIGN_IN_REDIRECT } from '../app/routing'
 import { showGallery } from '../gallery/view'
 import { getElAbsolutePos } from '../util/helpers'
@@ -112,7 +111,7 @@ class MenuBar extends React.PureComponent {
         </a>
       </li>)
 
-    const SettingsButton = (debug.experimental)
+    const SettingsButton = (true)
       ? (<li id="settings-menu-item">
         <button
           data-name="settings"

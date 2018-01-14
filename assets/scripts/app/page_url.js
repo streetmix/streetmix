@@ -128,9 +128,6 @@ export function updatePageUrl (forceGalleryUrl) {
   if (debug.forceNoInternet) {
     url += '&debug-force-no-internet'
   }
-  if (debug.experimental) {
-    url += '&debug-experimental'
-  }
 
   url = url.replace(/&/, '?')
 

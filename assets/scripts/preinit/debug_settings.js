@@ -19,8 +19,7 @@ export const debug = {
   forceNoInternet: false,
   forceReadOnly: false,
   forceTouch: false,
-  forceLiveUpdate: false,
-  experimental: false
+  forceLiveUpdate: false
 }
 
 const url = window.location.search
@@ -55,10 +54,6 @@ if (url.match(/[?&]debug-force-touch&?/)) {
 
 if (url.match(/[?&]debug-force-live-update&?/)) {
   debug.forceLiveUpdate = true
-}
-
-if (url.match(/[?&]debug-experimental&?/)) {
-  debug.experimental = true
 }
 
 store.dispatch({
