@@ -20,7 +20,6 @@ export const debug = {
   forceReadOnly: false,
   forceTouch: false,
   forceLiveUpdate: false,
-  secretSegments: false,
   experimental: false
 }
 
@@ -56,10 +55,6 @@ if (url.match(/[?&]debug-force-touch&?/)) {
 
 if (url.match(/[?&]debug-force-live-update&?/)) {
   debug.forceLiveUpdate = true
-}
-
-if (url.match(/[?&]debug-secret-segments&?/)) {
-  debug.secretSegments = true
 }
 
 if (url.match(/[?&]debug-experimental&?/)) {

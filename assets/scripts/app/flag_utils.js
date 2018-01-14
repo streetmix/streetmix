@@ -7,6 +7,7 @@ import { createDomFromData } from '../streets/data_model'
 export function initializeFlagSubscribers () {
   initLocalStorageUpdateListener()
   initCanvasRectangleUpdateListener()
+  initRedrawPaletteUpdateListener()
 }
 
 function whatAreTheFlagsWeNeedToSave (flags) {
@@ -38,6 +39,15 @@ function initLocalStorageUpdateListener () {
 function initCanvasRectangleUpdateListener () {
   const select = (state) => state.flags.DEBUG_SEGMENT_CANVAS_RECTANGLES.value
   const onChange = () => { createDomFromData() }
+
+  return observeStore(select, onChange)
+}
+
+function initRedrawPaletteUpdateListener () {
+  const select = (state) => state.flags.SEGMENT_INCEPTION_TRAIN.value
+  const onChange = () => {
+    window.dispatchEvent(new window.CustomEvent('stmx:force_palette_redraw'))
+  }
 
   return observeStore(select, onChange)
 }

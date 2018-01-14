@@ -3,19 +3,33 @@ import Scrollable from '../ui/Scrollable'
 import { createPalette } from '../segments/palette'
 import { undo, redo } from '../streets/undo_stack'
 import { t } from '../app/locale'
+import { emptyEl } from '../util/dom_helpers'
 
 export default class Palette extends React.PureComponent {
   componentDidMount () {
+    let runOnce = 0
     // We have to run this after this event in order to give images time to load.
     window.addEventListener('stmx:everything_loaded', (event) => {
+      if (runOnce) return
       createPalette()
       this.adjustPaletteLayout()
       window.addEventListener('stmx:language_changed', this.onLocaleChange)
+      window.addEventListener('stmx:force_palette_redraw', this.onForceRedraw)
+      runOnce = 1
     })
   }
 
   onLocaleChange = () => {
     this.forceUpdate() // Forces translated text to re-render
+    this.adjustPaletteLayout()
+  }
+
+  // Todo: remove this method (and the paletteXEl ref) after palette contents are drawn via React
+  onForceRedraw = () => {
+    if (this.paletteXEl) {
+      emptyEl(this.paletteXEl)
+    }
+    createPalette()
     this.adjustPaletteLayout()
   }
 
@@ -55,7 +69,7 @@ export default class Palette extends React.PureComponent {
           <button id="redo" onClick={redo}>{t('btn.redo', 'Redo')}</button>
         </div>
         <Scrollable className="palette" setRef={this.setScrollableRef} ref={(ref) => { this.scrollable = ref }}>
-          <div className="palette-canvas" />
+          <div className="palette-canvas" ref={(ref) => { this.paletteXEl = ref }} />
         </Scrollable>
       </div>
     )

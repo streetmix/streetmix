@@ -37,7 +37,7 @@ export const FEATURE_FLAGS = {
   SEGMENT_INCEPTION_TRAIN: {
     label: 'Segment — the train from “Inception”',
     defaultValue: false,
-    disabled: true
+    disabled: false
   },
   SEGMENT_ANGLED_PARKING: {
     label: 'Segment — angled parking',

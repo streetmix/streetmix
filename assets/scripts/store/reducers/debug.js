@@ -9,7 +9,6 @@ const initialState = {
   forceReadOnly: false,
   forceTouch: false,
   forceLiveUpdate: false,
-  secretSegments: false,
   experimental: false
 }
 

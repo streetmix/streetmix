@@ -116,9 +116,6 @@ export function updatePageUrl (forceGalleryUrl) {
   if (debug.forceNonRetina) {
     url += '&debug-force-non-retina'
   }
-  if (debug.secretSegments) {
-    url += '&debug-secret-segments'
-  }
   if (debug.forceReadOnly) {
     url += '&debug-force-read-only'
   }
