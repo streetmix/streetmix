@@ -125,20 +125,30 @@ export function initialize () {
   // street data if necessary (depending on the mode)
   loadSignIn()
 
-// Note that we are waiting for sign in and image info to show the page,
-// but we give up on country info if it’s more than 1000ms.
+  // Note that we are waiting for sign in and image info to show the page,
+  // but we give up on country info if it’s more than 1000ms.
 }
 
+let runningCheck = false
 export function checkIfEverythingIsLoaded () {
   if (abortEverything) {
     return
   }
+  if (runningCheck) {
+    // We're already waiting for the checkIfImagesLoaded promise to load here and  we don't want to stack up
+    // multiple onEverythingLoaded() calls
+    return
+  }
+  runningCheck = true
 
   checkIfImagesLoaded().then(() => {
+    runningCheck = false
     if (isSignInLoaded() && bodyLoaded &&
       readyStateCompleteLoaded && wasGeolocationAttempted() && serverContacted) {
       onEverythingLoaded()
     }
+  }).catch(() => {
+    runningCheck = false
   })
 }
 
