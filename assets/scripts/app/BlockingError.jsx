@@ -151,8 +151,8 @@ class BlockingError extends React.Component {
           <div className="front-clouds" />
         </div>
         <div className="error-content">
-          <h1 id="error-title">{title}</h1>
-          <div id="error-description" className="error-description">{description}</div>
+          <h1>{title}</h1>
+          <div>{description}</div>
         </div>
       </div>
     ) : null
