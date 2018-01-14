@@ -12,10 +12,12 @@ function generateInitialFlags (flags) {
     }
 
     // get user-defined settings saved in local storage if present
-    if (storage && storage[key] && storage[key] !== value.defaultValue) {
+    // only keep it if it is different from the default value.
+    if (storage && typeof storage[key] === 'boolean' && storage[key] !== value.defaultValue) {
       obj[key].value = storage[key]
       obj[key].source = 'user'
     }
+
     return obj
   }, {})
 }

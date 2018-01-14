@@ -41,5 +41,9 @@ export const FEATURE_FLAGS = {
   DEBUG_SEGMENT_CANVAS_RECTANGLES: {
     label: 'Segment — [debug] canvas rectangles',
     defaultValue: false
+  },
+  DONATE_NAG_SCREEN: {
+    label: 'Donation nag screen',
+    defaultValue: true
   }
 }

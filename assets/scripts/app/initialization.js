@@ -195,6 +195,7 @@ function onEverythingLoaded () {
     let donateDismissed
     let delayedTimestamp
     const twoWeeksAgo = Date.now() - 12096e5
+    const flag = store.getState().flags.DONATE_NAG_SCREEN.value
     if (window.localStorage['settings-welcome-dismissed']) {
       welcomeDismissed = JSON.parse(window.localStorage['settings-welcome-dismissed'])
     }
@@ -205,8 +206,8 @@ function onEverythingLoaded () {
       delayedTimestamp = JSON.parse(window.localStorage['settings-donate-delayed-timestamp'])
     }
 
-    if (welcomeDismissed && !donateDismissed &&
-      (!delayedTimestamp || delayedTimestamp < twoWeeksAgo)) {
+    if (welcomeDismissed && !donateDismissed && flag &&
+       (!delayedTimestamp || delayedTimestamp < twoWeeksAgo)) {
       store.dispatch(showDialog('DONATE'))
     }
   }
