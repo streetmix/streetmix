@@ -231,7 +231,9 @@ function onReadyStateChange () {
 
 // Initalize i18n / localization
 // Currently experimental-only for all languages except English
-initLocale(debug.experimental)
+const flags = store.getState().flags
+const enableLocales = flags.LOCALES_LEVEL_1.value || flags.LOCALES_LEVEL_2.value || flags.LOCALES_LEVEL_3.value
+initLocale(enableLocales)
 
 // Other
 addBodyClasses()
