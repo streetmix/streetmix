@@ -2,10 +2,19 @@ import { SET_FEATURE_FLAG } from '../actions'
 import { FEATURE_FLAGS } from '../../app/flag_data'
 
 function generateInitialFlags (flags) {
+  const storage = JSON.parse(window.localStorage.getItem('flags'))
+
   return Object.entries(flags).reduce((obj, item) => {
-    obj[item[0]] = {
-      value: item[1].defaultValue,
+    const [key, value] = item
+    obj[key] = {
+      value: value.defaultValue,
       source: 'initial'
+    }
+
+    // get user-defined settings saved in local storage if present
+    if (storage && storage[key] && storage[key] !== value.defaultValue) {
+      obj[key].value = storage[key]
+      obj[key].source = 'user'
     }
     return obj
   }, {})
