@@ -5,6 +5,7 @@ import { showGallery } from '../gallery/view'
 import { app } from '../preinit/app_settings'
 import { debug } from '../preinit/debug_settings'
 import { system } from '../preinit/system_capabilities'
+import { initializeFlagSubscribers } from '../app/flag_utils'
 import { fillEmptySegments, segmentsChanged } from '../segments/view'
 import { initBuildingReduxTransitionSubscriber } from '../segments/buildings'
 import { onNewStreetLastClick } from '../streets/creation'
@@ -158,6 +159,7 @@ function onEverythingLoaded () {
   setStreetDataInRedux()
   setLastStreet(trimStreetData(getStreet()))
   initBuildingReduxTransitionSubscriber()
+  initializeFlagSubscribers()
 
   updatePageUrl()
   addEventListeners()

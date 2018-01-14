@@ -1,5 +1,5 @@
 import { SET_FEATURE_FLAG } from '../actions'
-import { FEATURE_FLAGS } from '../../app/flags'
+import { FEATURE_FLAGS } from '../../app/flag_data'
 
 function generateInitialFlags (flags) {
   return Object.entries(flags).reduce((obj, item) => {
