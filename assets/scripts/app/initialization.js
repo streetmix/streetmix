@@ -41,6 +41,7 @@ import { attachStreetScrollEventListeners } from '../streets/scroll'
 import { attachFetchNonBlockingEventListeners } from '../util/fetch_nonblocking'
 import store from '../store'
 import { showDialog } from '../store/actions/dialogs'
+import { everythingLoaded } from "../store/actions/app"
 
 let bodyLoaded
 let readyStateCompleteLoaded
@@ -162,6 +163,7 @@ function onEverythingLoaded () {
   updatePageUrl()
   addEventListeners()
 
+  store.dispatch(everythingLoaded())
   var event = new window.CustomEvent('stmx:everything_loaded')
   window.dispatchEvent(event)
 

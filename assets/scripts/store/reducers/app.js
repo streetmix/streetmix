@@ -1,8 +1,10 @@
 import { SET_APP_FLAGS, SET_PRINTING } from '../actions'
+import { EVERYTHING_LOADED } from "../actions/index"
 
 const initialState = {
   readOnly: false,
-  printing: false
+  printing: false,
+  everythingLoaded: false
 }
 
 const app = (state = initialState, action) => {
@@ -15,6 +17,11 @@ const app = (state = initialState, action) => {
       return {
         ...state,
         printing: action.printing
+      }
+    case EVERYTHING_LOADED:
+      return {
+        ...state,
+        everythingLoaded: true
       }
     default:
       return state
