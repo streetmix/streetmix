@@ -41,7 +41,7 @@ import { attachStreetScrollEventListeners } from '../streets/scroll'
 import { attachFetchNonBlockingEventListeners } from '../util/fetch_nonblocking'
 import store from '../store'
 import { showDialog } from '../store/actions/dialogs'
-import { everythingLoaded } from "../store/actions/app"
+import { everythingLoaded } from '../store/actions/app'
 
 let bodyLoaded
 let readyStateCompleteLoaded

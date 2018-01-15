@@ -1,5 +1,4 @@
-import { SET_APP_FLAGS, SET_PRINTING } from '../actions'
-import { EVERYTHING_LOADED } from "../actions/index"
+import { SET_APP_FLAGS, SET_PRINTING, EVERYTHING_LOADED } from '../actions'
 
 const initialState = {
   readOnly: false,
