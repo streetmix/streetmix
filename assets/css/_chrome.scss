@@ -127,21 +127,17 @@ body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
 // Keyboard button
 .key {
   display: inline-block;
-  position: relative;
-  top: -2px;
-  padding: 1px 6px;
-  border-top: 1px solid rgb(240, 240, 240);
-  border-left: 1px solid rgb(240, 240, 240);
-  border-bottom: 1px solid rgb(200, 200, 200);
-  border-right: 1px solid rgb(200, 200, 200);
-  border-radius: 2px;
-  font-size: 11px;
-  font-style: italic;
-  background: rgb(220, 220, 220);
+  padding: 0.2em 0.75em;
+  margin: 0 0.25em;
+  border: #ccc 1px solid;
+  border-radius: 4px;
+  font-size: 0.8em;
+  font-weight: bold;
+  // Mac OS X default monospace font has different sized left/right arrows, so use Menlo instead
+  font-family: 'Menlo', monospace;
+  background: #f4f4f4;
   color: rgb(64, 64, 64);
-
-  // Spacing of multiple keys in series
-  + .key {
-    margin-left: 0.25em;
-  }
+  text-shadow: #fff 0 1px 0;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 0 #fff inset;
+  white-space: nowrap;
 }

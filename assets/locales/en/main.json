@@ -15,9 +15,9 @@
     },
     "help": {
       "keyboard-label": "Keyboard shortcuts:",
-      "remove": "Remove a segment you’re pointing at<br> (hold <span class='key'>Shift</span> to remove all)",
-      "move": "Move around the street (hold <span class='key'>Shift</span> to jump to edges)",
-      "change": "Change width of a segment you’re pointing at<br> (hold <span class='key'>Shift</span> for more precision)"
+      "remove": "Remove a segment you’re pointing at<br />(hold <kbd class='key'>Shift</kbd> to remove all)",
+      "move": "Move around the street<br />(hold <kbd class='key'>Shift</kbd> to jump to edges)",
+      "change": "Change width of a segment you’re pointing at<br />(hold <kbd class='key'>Shift</kbd> for more precision)"
     },
     "share": {
       "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Sign in with Twitter</a> for nicer links to your streets and your personal street gallery",
