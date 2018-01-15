@@ -54,14 +54,14 @@ class HelpMenu extends React.PureComponent {
                   <kbd className="key">-</kbd>
                   <kbd className="key">+</kbd>
                 </td>
-                <td dangerouslySetInnerHTML={{ __html: t('menu.help.move', 'Change width of a segment you’re pointing at<br />(hold <kbd class="key">Shift</kbd> for more precision)') }} />
+                <td dangerouslySetInnerHTML={{ __html: t('menu.help.change', 'Move around the street<br />(hold <kbd class="key">Shift</kbd> to jump to edges)') }} />
               </tr>
               <tr>
                 <td>
                   <kbd className="key">&larr;</kbd>
                   <kbd className="key">&rarr;</kbd>
                 </td>
-                <td dangerouslySetInnerHTML={{ __html: t('menu.help.change', 'Move around the street<br />(hold <kbd class="key">Shift</kbd> to jump to edges)') }} />
+                <td dangerouslySetInnerHTML={{ __html: t('menu.help.move', 'Change width of a segment you’re pointing at<br />(hold <kbd class="key">Shift</kbd> for more precision)') }} />
               </tr>
             </tbody>
           </table>
