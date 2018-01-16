@@ -14,7 +14,7 @@ export function attachStreetScrollEventListeners () {
     document.querySelector('#street-scroll-indicator-left').addEventListener('pointerdown', onStreetLeftScrollClick)
     document.querySelector('#street-scroll-indicator-right').addEventListener('pointerdown', onStreetRightScrollClick)
 
-    document.querySelector('#street-section-outer').addEventListener('scroll', onStreetSectionScroll)
+    // document.querySelector('#street-section-outer').addEventListener('scroll', onStreetSectionScroll)
 
     registerKeypress('left', function (event) {
       scrollStreet(true, event.shiftKey)
