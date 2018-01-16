@@ -6,12 +6,39 @@
  * @module MiscHTMLStuff
  */
 import React from 'react'
+import SkyBackground from './SkyBackground'
+import { infoBubble } from '../info_bubble/info_bubble'
 
-class MiscHTMLStuff extends React.PureComponent {
+class MiscHTMLStuff extends React.Component {
+  constructor (props) {
+    super(props) 
+
+    this.state = {
+      streetSectionScroll: false,
+      scrollPos: 0
+    }
+  }
+
+  handleStreetScroll = (event) => {
+    infoBubble.suppress()
+
+    var scrollPos = this.refs.street_section_outer.scrollLeft
+    
+    this.setState({
+      streetSectionScroll: true,
+      scrollPos: scrollPos
+    })
+
+    if (event) {
+      event.preventDefault()
+      event.stopPropagation()
+    }
+  }
+
   render () {
     return (
       <React.Fragment>
-        <section id="street-section-outer">
+        <section id="street-section-outer" ref="street_section_outer" onScroll={this.handleStreetScroll}>
           <section id="street-section-inner">
             <section id="street-section-canvas">
               <section id="street-section-left-building" className="street-section-building">
@@ -27,10 +54,10 @@ class MiscHTMLStuff extends React.PureComponent {
             </section>
           </section>
         </section>
-        <section id="street-section-sky">
-          <div className="rear-clouds" />
-          <div className="front-clouds" />
-        </section>
+        <SkyBackground 
+          handleScroll={this.state.streetSectionScroll} 
+          scrollPos={this.state.scrollPos}
+        />
         <div id="street-scroll-indicator-left" />
         <div id="street-scroll-indicator-right" />
       </React.Fragment>
