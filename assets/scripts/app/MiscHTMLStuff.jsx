@@ -6,12 +6,29 @@
  * @module MiscHTMLStuff
  */
 import React from 'react'
+import ScrollIndicators from './ScrollIndicators'
+import { infoBubble } from '../info_bubble/info_bubble'
 
-class MiscHTMLStuff extends React.PureComponent {
+class MiscHTMLStuff extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      street_section_outer: null
+    }
+  }
+
+  componentDidMount () {
+    this.setState({
+      street_section_outer: this.street_section_outer
+    })
+    console.log(this.street_section_outer)
+  }
+
   render () {
     return (
       <React.Fragment>
-        <section id="street-section-outer">
+        <section id="street-section-outer" ref={(ref) => { this.street_section_outer = ref }}>
           <section id="street-section-inner">
             <section id="street-section-canvas">
               <section id="street-section-left-building" className="street-section-building">
@@ -28,11 +45,10 @@ class MiscHTMLStuff extends React.PureComponent {
           </section>
         </section>
         <section id="street-section-sky">
-          <div className="rear-clouds" />
-          <div className="front-clouds" />
+          <div className="rear-clouds" ref={(ref) => { this.rear_clouds = ref }} />
+          <div className="front-clouds" ref={(ref) => { this.front_clouds = ref }} />
         </section>
-        <div id="street-scroll-indicator-left" />
-        <div id="street-scroll-indicator-right" />
+        <ScrollIndicators outerSection={this.state.street_section_outer} onStreetSectionScroll={this.onStreetSectionScroll} />
       </React.Fragment>
     )
   }
