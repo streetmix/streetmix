@@ -273,29 +273,25 @@ function handleSegmentMoveStart () {
 
   changeDraggingType(DRAGGING_TYPE_MOVE)
 
-  draggingMove.originalType = draggingMove.originalEl.getAttribute('type')
+  const inPalette = draggingMove.originalEl.classList.contains('segment-in-palette')
+  const originalType = inPalette ? draggingMove.originalEl.dataset.segmentType : draggingMove.originalEl.getAttribute('type')
+  const randSeed = inPalette ? draggingMove.originalEl.dataset.randSeed : draggingMove.originalEl.getAttribute('rand-seed')
+  const variantString = inPalette ? draggingMove.originalEl.dataset.variantString : draggingMove.originalEl.getAttribute('variant-string')
 
-  if (draggingMove.originalEl.classList.contains('segment-in-palette')) {
+  draggingMove.originalType = originalType
+
+  if (inPalette) {
     if (SEGMENT_INFO[draggingMove.originalType].needRandSeed) {
       draggingMove.originalRandSeed = generateRandSeed()
     }
     draggingMove.type = DRAGGING_TYPE_MOVE_CREATE
-    draggingMove.originalWidth =
-      SEGMENT_INFO[draggingMove.originalType].defaultWidth * TILE_SIZE
-
-    // TODO hack to get the first
-    for (var j in SEGMENT_INFO[draggingMove.originalType].details) {
-      draggingMove.originalVariantString = j
-      break
-    }
+    draggingMove.originalWidth = SEGMENT_INFO[draggingMove.originalType].defaultWidth * TILE_SIZE
+    draggingMove.originalVariantString = Object.keys(SEGMENT_INFO[draggingMove.originalType].details).shift()
   } else {
-    draggingMove.originalRandSeed =
-      parseInt(draggingMove.originalEl.getAttribute('rand-seed'))
+    draggingMove.originalRandSeed = parseInt(randSeed)
     draggingMove.type = DRAGGING_TYPE_MOVE_TRANSFER
-    draggingMove.originalWidth =
-      draggingMove.originalEl.offsetWidth
-    draggingMove.originalVariantString =
-      draggingMove.originalEl.getAttribute('variant-string')
+    draggingMove.originalWidth = draggingMove.originalEl.offsetWidth
+    draggingMove.originalVariantString = variantString
   }
 
   var pos = getElAbsolutePos(draggingMove.originalEl)
