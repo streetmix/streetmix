@@ -1,8 +1,6 @@
 import { SET_DEBUG_FLAGS } from '../actions'
 
 const initialState = {
-  hoverPolygon: false,
-  canvasRectangles: false,
   forceLeftHandTraffic: false,
   forceMetric: false,
   forceUnsupportedBrowser: false,
@@ -10,9 +8,7 @@ const initialState = {
   forceNoInternet: false,
   forceReadOnly: false,
   forceTouch: false,
-  forceLiveUpdate: false,
-  secretSegments: false,
-  experimental: false
+  forceLiveUpdate: false
 }
 
 const debug = (state = initialState, action) => {

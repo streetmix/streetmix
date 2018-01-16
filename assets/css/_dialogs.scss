@@ -45,7 +45,7 @@ $dialog-box-default-width: 790px;
   background: white;
   font-size: 13px;
   line-height: 1.5;
-  padding: 15px 40px;
+  padding: 1rem 2rem;
   z-index: $z-09-dialog-box;
   touch-action: none;
 
@@ -188,4 +188,26 @@ $dialog-box-default-width: 790px;
 .button-like.donate-dialog-button {
   padding: 1em 1.5em;
   margin-top: 1em;
+}
+
+// Feature flag dialog
+
+.feature-flag-dialog {
+  width: 350px;
+}
+
+.feature-flag-dialog td {
+  vertical-align: top;
+}
+
+.feature-flag-dialog p {
+  text-align: center;
+}
+
+.feature-flag-label-disabled {
+  color: #b0baba;
+}
+
+.feature-flag-label-modified {
+  font-weight: bold;
 }

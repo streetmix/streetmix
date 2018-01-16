@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import EnvironmentBadge from './EnvironmentBadge'
 
 // import { t } from '../app/locale'
-import { debug } from '../preinit/debug_settings'
 import { URL_SIGN_IN_REDIRECT } from '../app/routing'
 import { showGallery } from '../gallery/view'
 import { getElAbsolutePos } from '../util/helpers'
@@ -14,11 +13,13 @@ import Avatar from '../users/Avatar'
 class MenuBar extends React.PureComponent {
   static propTypes = {
     onMenuDropdownClick: PropTypes.func,
-    userId: PropTypes.string
+    userId: PropTypes.string,
+    enableLocaleSettings: PropTypes.bool
   }
 
   static defaultProps = {
-    userId: ''
+    userId: '',
+    enableLocaleSettings: false
   }
 
   constructor (props) {
@@ -112,7 +113,7 @@ class MenuBar extends React.PureComponent {
         </a>
       </li>)
 
-    const SettingsButton = (debug.experimental)
+    const SettingsButton = (this.props.enableLocaleSettings)
       ? (<li id="settings-menu-item">
         <button
           data-name="settings"
@@ -205,7 +206,8 @@ class MenuBar extends React.PureComponent {
 
 function mapStateToProps (state) {
   return {
-    userId: state.user.signInData && state.user.signInData.userId
+    userId: state.user.signInData && state.user.signInData.userId,
+    enableLocaleSettings: state.flags.LOCALES_LEVEL_1.value || state.flags.LOCALES_LEVEL_2.value || state.flags.LOCALES_LEVEL_3.value
   }
 }
 

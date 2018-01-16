@@ -104,14 +104,6 @@ export function updatePageUrl (forceGalleryUrl) {
     url = getStreetUrl(getStreet())
   }
 
-  if (debug.hoverPolygon) {
-    // TODO const
-    url += '&debug-hover-polygon'
-  }
-  if (debug.canvasRectangles) {
-    // TODO const
-    url += '&debug-canvas-rectangles'
-  }
   if (debug.forceLeftHandTraffic) {
     url += '&debug-force-left-hand-traffic'
   }
@@ -124,9 +116,6 @@ export function updatePageUrl (forceGalleryUrl) {
   if (debug.forceNonRetina) {
     url += '&debug-force-non-retina'
   }
-  if (debug.secretSegments) {
-    url += '&debug-secret-segments'
-  }
   if (debug.forceReadOnly) {
     url += '&debug-force-read-only'
   }
@@ -138,9 +127,6 @@ export function updatePageUrl (forceGalleryUrl) {
   }
   if (debug.forceNoInternet) {
     url += '&debug-force-no-internet'
-  }
-  if (debug.experimental) {
-    url += '&debug-experimental'
   }
 
   url = url.replace(/&/, '?')

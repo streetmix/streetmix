@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import Scrollable from '../ui/Scrollable'
 import { connect } from 'react-redux'
 import { undo, redo } from '../streets/undo_stack'
-import { debug } from '../preinit/debug_settings'
 import { t } from '../app/locale'
 import { generateRandSeed } from '../util/random'
 import { SEGMENT_INFO } from '../segments/info'
@@ -15,7 +14,8 @@ const PALETTE_EXTRA_SEGMENT_PADDING = 8
 
 class Palette extends React.Component {
   static propTypes = {
-    everythingLoaded: PropTypes.bool.isRequired
+    everythingLoaded: PropTypes.bool.isRequired,
+    flags: PropTypes.object.isRequired
   }
 
   componentDidMount () {
@@ -62,8 +62,12 @@ class Palette extends React.Component {
     for (let id in SEGMENT_INFO) {
       let segmentInfo = SEGMENT_INFO[id]
 
-      if (segmentInfo.secret && !debug.secretSegments) {
-        break
+      // Segments that are only enabled with a flag checks to see if flag
+      // is set to true. If not, bail.
+      if (segmentInfo.enableWithFlag) {
+        const flag = this.props.flags[segmentInfo.enableWithFlag]
+        if (!flag) break
+        if (!flag.value) break
       }
 
       let variantName
@@ -113,7 +117,8 @@ class Palette extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    everythingLoaded: state.app.everythingLoaded
+    everythingLoaded: state.app.everythingLoaded,
+    flags: state.flags
   }
 }
 
