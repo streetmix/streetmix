@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 21.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg><symbol version="1.1" id="sky-rear" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 500 240" enable-background="new 0 0 500 240" xml:space="preserve">
+<g>
+	<linearGradient id="sky-rear-gradient-1" gradientUnits="userSpaceOnUse" x1="250" y1="236.045" x2="250" y2="104.42">
+		<stop  offset="0" style="stop-color:#B3D2DF;stop-opacity:0.58"/>
+		<stop  offset="0.9996" style="stop-color:#D2EDFA;stop-opacity:0.4"/>
+	</linearGradient>
+	<path fill="url(#sky-rear-gradient-1)" d="M411.6,158.8c-16.6-16-39.1-25.8-63.9-25.8c-31,0-58.5,15.4-75.2,38.9c-16.8-7-35.2-10.9-54.5-10.9
+		c-23.3,0-45.3,5.6-64.6,15.6c-23.8-44.6-70.8-74.9-124.9-74.9c-9.8,0-19.3,1-28.5,2.9V240h91H170h86.8H345h38.8h54.8H500V103.9
+		C463.9,110.4,432.6,130.6,411.6,158.8z"/>
+	<linearGradient id="sky-rear-gradient-2" gradientUnits="userSpaceOnUse" x1="250" y1="2.9093" x2="250" y2="172.8227">
+		<stop  offset="7.966747e-02" style="stop-color:#7D9BAA;stop-opacity:0"/>
+		<stop  offset="0.9996" style="stop-color:#7D9BAA;stop-opacity:0.22"/>
+	</linearGradient>
+	<path fill="url(#sky-rear-gradient-2)" d="M0,0v104.6c9.2-1.9,18.7-2.9,28.5-2.9c54.1,0,101,30.3,124.9,74.9c19.4-10,41.3-15.6,64.6-15.6
+		c19.3,0,37.7,3.9,54.5,10.9c16.7-23.5,44.1-38.9,75.2-38.9c24.8,0,47.4,9.8,63.9,25.8c21-28.3,52.3-48.4,88.4-54.9V0H0z"/>
+</g></symbol>
+</svg>

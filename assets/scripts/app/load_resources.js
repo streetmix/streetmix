@@ -11,12 +11,12 @@ const TILESET_IMAGE_VERSION = 55
 const IMAGES_TO_BE_LOADED = [
   '/images/tiles-1.png',
   '/images/tiles-2.png',
-  '/images/tiles-3.png',
-  '/images/sky-front.png',
-  '/images/sky-rear.png'
+  '/images/tiles-3.png'
 ]
 
 const SVGS_TO_BE_LOADED = [
+  '/images/sky-front-4canvas.svg',
+  '/images/sky-rear-4canvas.svg',
   '/assets/images/icons.svg',
   '/assets/images/images.svg'
 ]
@@ -76,7 +76,7 @@ function loadSVGs () {
 
         for (let svg of svgEls) {
           // Only cache segment illustrations, don't need to cache icons
-          if (svg.id.indexOf('image-') === 0) {
+          if (svg.id.indexOf('icon-') !== 0) {
             // Simplify id, removing namespace prefix
             const id = svg.id.replace(/^image-/, '')
 
