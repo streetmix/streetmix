@@ -1,4 +1,4 @@
-import { SET_PRINTING, SET_APP_FLAGS } from './'
+import { SET_PRINTING, SET_APP_FLAGS, EVERYTHING_LOADED } from './'
 
 export function setAppFlags (flags) {
   return {
@@ -18,5 +18,11 @@ export function stopPrinting () {
   return {
     type: SET_PRINTING,
     printing: false
+  }
+}
+
+export function everythingLoaded () {
+  return {
+    type: EVERYTHING_LOADED
   }
 }

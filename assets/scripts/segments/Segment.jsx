@@ -1,0 +1,126 @@
+import React from 'react'
+import PropTypes from 'prop-types'
+import { SEGMENT_INFO } from '../segments/info'
+import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, suppressMouseEnter } from './resizing'
+import { drawSegmentContents, getVariantInfoDimensions, segmentsChanged, TILE_SIZE } from './view'
+import { prettifyWidth } from '../util/width_units'
+import { infoBubble, INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/info_bubble'
+import { system } from '../preinit/system_capabilities'
+const WIDTH_PALETTE_MULTIPLIER = 4 // Dupe from palette.js
+const SEGMENT_Y_NORMAL = 265
+const SEGMENT_Y_PALETTE = 20
+const CANVAS_HEIGHT = 480
+const CANVAS_GROUND = 35
+const CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND
+
+export default class Segment extends React.Component {
+  static propTypes = {
+    type: PropTypes.string.isRequired,
+    variantString: PropTypes.string.isRequired,
+    randSeed: PropTypes.number,
+    isUnmovable: PropTypes.bool.isRequired,
+    width: PropTypes.number,
+    forPalette: PropTypes.bool.isRequired
+  }
+
+  calculateWidth = (resizeType) => {
+    let width = this.props.width / TILE_SIZE
+    if (!this.props.forPalette) {
+      width = normalizeSegmentWidth(width, resizeType)
+    }
+
+    // TODO - copied from resizeSegment. make sure we don't need
+    // document.body.classList.add('immediate-segment-resize')
+    // window.setTimeout(function () {
+    //   document.body.classList.remove('immediate-segment-resize')
+    // }, SHORT_DELAY)
+
+    width = (width * TILE_SIZE)
+    return width
+  }
+
+  componentWillMount = () => {
+    this.initialRender = true
+  }
+
+  componentDidMount = () => {
+    const multiplier = this.props.forPalette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1
+    const segmentWidth = this.props.width // may need to double check this. setSegmentContents() was called with other widths
+    const offsetTop = this.props.forPalette ? SEGMENT_Y_PALETTE : SEGMENT_Y_NORMAL
+    const ctx = this.refs.canvas.getContext('2d')
+    drawSegmentContents(ctx, this.props.type, this.props.variantString, segmentWidth, 0, offsetTop, this.props.randSeed, multiplier, this.props.forPalette)
+
+    if (this.initialRender) {
+      if (!this.props.forPalette) {
+        // TODO pretty sure the pointer events aren't working correctly.
+        this.refs.canvas.addEventListener('pointerenter', this.onSegmentMouseEnter)
+        this.refs.canvas.addEventListener('pointerleave', this.onSegmentMouseLeave)
+      }
+
+      this.initialRender = false
+    } else {
+      segmentsChanged()
+      infoBubble.updateContents()
+    }
+  }
+
+  render () {
+    const variantInfo = SEGMENT_INFO[this.props.type].details[this.props.variantString]
+    const name = variantInfo.name || SEGMENT_INFO[this.props.type].name
+    const width = this.calculateWidth(RESIZE_TYPE_INITIAL)
+    const widthText = <React.Fragment>{prettifyWidth(width)}<wbr />\'</React.Fragment>
+    const segmentWidth = this.props.width // may need to double check this. setSegmentContents() was called with other widths
+
+    const multiplier = this.props.forPalette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1
+    const dimensions = getVariantInfoDimensions(variantInfo, segmentWidth, multiplier)
+    const totalWidth = dimensions.right - dimensions.left
+
+    const canvasWidth = totalWidth * TILE_SIZE * system.hiDpi
+    const canvasHeight = CANVAS_BASELINE * system.hiDpi
+    const canvasStyle = {
+      width: (totalWidth * TILE_SIZE),
+      height: CANVAS_BASELINE,
+      left: (dimensions.left * TILE_SIZE * multiplier)
+    }
+
+    return (
+      <div
+        style={{
+          width: width,
+          zIndex: SEGMENT_INFO[this.props.type].zIndex
+        }}
+        className={'segment' + (this.props.isUnmovable ? ' unmovable' : '') + (this.props.forPalette ? ' segment-in-palette' : '')}
+        data-segment-type={this.props.type}
+        data-variant-string={this.props.variantString}
+        data-rand-seed={this.props.randSeed}
+        data-width={width}
+        title={this.props.forPalette ? SEGMENT_INFO[this.props.type].name : null}>
+        {!this.props.forPalette &&
+          <React.Fragment>
+            <span className="name" data-i18n={'segment-info:segments.' + this.props.type + '.name'}>
+              {name}
+            </span>
+            <span className="width">{widthText}</span>
+            <span className="drag-handle left">‹</span>
+            <span className="drag-handle right">›</span>
+            <span className="grid" />
+          </React.Fragment>
+        }
+        <canvas className="image" ref="canvas" width={canvasWidth} height={canvasHeight} style={canvasStyle} />
+        <div className="hover-bk" />
+      </div>
+    )
+  }
+
+  onSegmentMouseEnter = (event) => {
+    if (suppressMouseEnter()) {
+      return
+    }
+
+    infoBubble.considerShowing(event, this, INFO_BUBBLE_TYPE_SEGMENT)
+  }
+
+  onSegmentMouseLeave = () => {
+    infoBubble.dontConsiderShowing()
+  }
+}

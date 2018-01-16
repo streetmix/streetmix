@@ -1,35 +1,33 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Scrollable from '../ui/Scrollable'
-import { createPalette } from '../segments/palette'
+import { connect } from 'react-redux'
 import { undo, redo } from '../streets/undo_stack'
 import { t } from '../app/locale'
-import { emptyEl } from '../util/dom_helpers'
+import { generateRandSeed } from '../util/random'
+import { SEGMENT_INFO } from '../segments/info'
+import { TILE_SIZE, getVariantInfoDimensions } from '../segments/view'
+import Segment from '../segments/Segment'
 
-export default class Palette extends React.PureComponent {
+const WIDTH_PALETTE_MULTIPLIER = 4
+const PALETTE_EXTRA_SEGMENT_PADDING = 8
+
+class Palette extends React.Component {
+  static propTypes = {
+    everythingLoaded: PropTypes.bool.isRequired,
+    flags: PropTypes.object.isRequired
+  }
+
   componentDidMount () {
-    let runOnce = 0
     // We have to run this after this event in order to give images time to load.
     window.addEventListener('stmx:everything_loaded', (event) => {
-      if (runOnce) return
-      createPalette()
       this.adjustPaletteLayout()
       window.addEventListener('stmx:language_changed', this.onLocaleChange)
-      window.addEventListener('stmx:force_palette_redraw', this.onForceRedraw)
-      runOnce = 1
     })
   }
 
   onLocaleChange = () => {
     this.forceUpdate() // Forces translated text to re-render
-    this.adjustPaletteLayout()
-  }
-
-  // Todo: remove this method (and the paletteXEl ref) after palette contents are drawn via React
-  onForceRedraw = () => {
-    if (this.paletteXEl) {
-      emptyEl(this.paletteXEl)
-    }
-    createPalette()
     this.adjustPaletteLayout()
   }
 
@@ -59,6 +57,47 @@ export default class Palette extends React.PureComponent {
   }
 
   render () {
+    let paletteItems = []
+
+    for (let id in SEGMENT_INFO) {
+      let segmentInfo = SEGMENT_INFO[id]
+
+      // Segments that are only enabled with a flag checks to see if flag
+      // is set to true. If not, bail.
+      if (segmentInfo.enableWithFlag) {
+        const flag = this.props.flags[segmentInfo.enableWithFlag]
+        if (!flag) break
+        if (!flag.value) break
+      }
+
+      let variantName
+      if (segmentInfo.paletteIcon) {
+        variantName = segmentInfo.paletteIcon
+      } else {
+        variantName = Object.keys(segmentInfo.details).shift()
+      }
+
+      const variantInfo = segmentInfo.details[variantName]
+
+      const dimensions = getVariantInfoDimensions(variantInfo, 0, 1)
+
+      let width = dimensions.right - dimensions.left
+      if (!width) {
+        width = segmentInfo.defaultWidth
+      }
+      width += PALETTE_EXTRA_SEGMENT_PADDING
+
+      paletteItems.push(<Segment
+        key={id}
+        type={id}
+        variantString={variantName}
+        width={width * TILE_SIZE / WIDTH_PALETTE_MULTIPLIER}
+        isUnmovable={false}
+        forPalette
+        randSeed={generateRandSeed()}
+      />)
+    }
+
     return (
       <div className="palette-container">
         <div className="palette-trashcan">
@@ -69,9 +108,18 @@ export default class Palette extends React.PureComponent {
           <button id="redo" onClick={redo}>{t('btn.redo', 'Redo')}</button>
         </div>
         <Scrollable className="palette" setRef={this.setScrollableRef} ref={(ref) => { this.scrollable = ref }}>
-          <div className="palette-canvas" ref={(ref) => { this.paletteXEl = ref }} />
+          <div className="palette-canvas">{this.props.everythingLoaded && paletteItems}</div>
         </Scrollable>
       </div>
     )
   }
 }
+
+function mapStateToProps (state) {
+  return {
+    everythingLoaded: state.app.everythingLoaded,
+    flags: state.flags
+  }
+}
+
+export default connect(mapStateToProps)(Palette)
