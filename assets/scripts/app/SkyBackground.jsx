@@ -22,6 +22,8 @@ class SkyBackground extends React.Component {
 	  var rearPos = -scrollPos * 0.25
 	  this.refs.rear_clouds.style[system.cssTransform] =
 	    'translateX(' + rearPos + 'px)'
+
+	  this.props.stopStreetScroll()
 	}
 
 	render() {

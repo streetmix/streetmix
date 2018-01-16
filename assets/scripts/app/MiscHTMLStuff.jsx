@@ -35,6 +35,12 @@ class MiscHTMLStuff extends React.Component {
     }
   }
 
+  stopStreetScroll = () => {
+    this.setState({
+      streetSectionScroll: false
+    })
+  }
+
   render () {
     return (
       <React.Fragment>
@@ -57,6 +63,7 @@ class MiscHTMLStuff extends React.Component {
         <SkyBackground 
           handleScroll={this.state.streetSectionScroll} 
           scrollPos={this.state.scrollPos}
+          stopStreetScroll={this.stopStreetScroll}
         />
         <div id="street-scroll-indicator-left" />
         <div id="street-scroll-indicator-right" />
