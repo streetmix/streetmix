@@ -63,7 +63,6 @@ function preInit () {
   attachBlockingShieldEventListeners()
   registerKeypresses()
   infoBubble.registerKeypresses()
-  attachStreetScrollEventListeners()
   attachFetchNonBlockingEventListeners()
 }
 

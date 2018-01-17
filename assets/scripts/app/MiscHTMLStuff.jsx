@@ -6,8 +6,12 @@
  * @module MiscHTMLStuff
  */
 import React from 'react'
+import { connect } from 'react-redux'
 import SkyBackground from './SkyBackground'
+import ScrollIndicators from './ScrollIndicators'
 import { infoBubble } from '../info_bubble/info_bubble'
+import { animate } from '../util/helpers'
+import { MAX_CUSTOM_STREET_WIDTH } from '../streets/width'
 
 class MiscHTMLStuff extends React.Component {
   constructor (props) {
@@ -15,8 +19,14 @@ class MiscHTMLStuff extends React.Component {
 
     this.state = {
       isStreetScrolling: false,
-      scrollPos: 0
+      scrollPos: 0,
+      posLeft: 0,
+      postRight: 0
     }
+  }
+
+  componentDidMount () {
+    window.addEventListener('resize', this.calculateStreetIndicatorsPositions)
   }
 
   handleStreetScroll = (event) => {
@@ -24,21 +34,72 @@ class MiscHTMLStuff extends React.Component {
 
     var scrollPos = this.refs.street_section_outer.scrollLeft
     
+    this.calculateStreetIndicatorsPositions()
+
     this.setState({
       isStreetScrolling: true,
       scrollPos: scrollPos
     })
-
-    if (event) {
-      event.preventDefault()
-      event.stopPropagation()
-    }
   }
 
   stopStreetScroll = () => {
     this.setState({
       isStreetScrolling: false
     })
+  }
+
+  calculateStreetIndicatorsPositions = () => {
+    const el = this.refs.street_section_outer
+    let posLeft
+    let posRight
+
+    if (el.scrollWidth <= el.offsetWidth) {
+      posLeft = 0
+      posRight = 0
+    } else {
+      var left = el.scrollLeft / (el.scrollWidth - el.offsetWidth)
+
+      // TODO const off max width street
+      var posMax = Math.round(this.props.street.width / MAX_CUSTOM_STREET_WIDTH * 6)
+      if (posMax < 2) {
+        posMax = 2
+      }
+
+      posLeft = Math.round(posMax * left)
+      if ((left > 0) && (posLeft === 0)) {
+        posLeft = 1
+      }
+      if ((left < 1.0) && (posLeft === posMax)) {
+        posLeft = posMax - 1
+      }
+      posRight = posMax - posLeft
+    }
+
+    this.setState({
+      posLeft: posLeft,
+      posRight: posRight
+    })
+  }
+
+  scrollStreet = (left, far = false) => {
+    const el = this.refs.street_section_outer
+    let newScrollLeft
+
+    if (left) {
+      if (far) {
+        newScrollLeft = 0
+      } else {
+        newScrollLeft = el.scrollLeft - (el.offsetWidth * 0.5)
+      }
+    } else {
+      if (far) {
+        newScrollLeft = el.scrollWidth - el.offsetWidth
+      } else {
+        newScrollLeft = el.scrollLeft + (el.offsetWidth * 0.5)
+      }
+    }
+
+    animate(el, { scrollLeft: newScrollLeft }, 300)
   }
 
   render () {
@@ -65,11 +126,20 @@ class MiscHTMLStuff extends React.Component {
           scrollPos={this.state.scrollPos}
           stopStreetScroll={this.stopStreetScroll}
         />
-        <div id="street-scroll-indicator-left" />
-        <div id="street-scroll-indicator-right" />
+        <ScrollIndicators 
+          posLeft={this.state.posLeft}
+          posRight={this.state.posRight}
+          scrollStreet={this.scrollStreet}
+        />
       </React.Fragment>
     )
   }
 }
 
-export default MiscHTMLStuff
+function mapStateToProps (state) {
+  return {
+    street: state.street
+  }
+}
+
+export default connect(mapStateToProps)(MiscHTMLStuff)

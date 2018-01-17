@@ -1,8 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { updateStreetScrollIndicators } from '../streets/scroll'
-
 class SkyBackground extends React.Component {
 	constructor (props) {
 		super(props)
@@ -26,7 +24,6 @@ class SkyBackground extends React.Component {
 	  this.refs.rear_clouds.style[system.cssTransform] =
 	    'translateX(' + rearPos + 'px)'
 
-	  updateStreetScrollIndicators()
 	  this.props.stopStreetScroll()
 	}
 
