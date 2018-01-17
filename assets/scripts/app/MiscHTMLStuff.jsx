@@ -21,7 +21,7 @@ class MiscHTMLStuff extends React.Component {
       isStreetScrolling: false,
       scrollPos: 0,
       posLeft: 0,
-      postRight: 0
+      posRight: 0
     }
   }
 
