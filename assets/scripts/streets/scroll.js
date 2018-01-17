@@ -50,7 +50,7 @@ function scrollStreet (left, far = false) {
   animate(el, { scrollLeft: newScrollLeft }, 300)
 }
 
-function updateStreetScrollIndicators () {
+export function updateStreetScrollIndicators () {
   const el = document.querySelector('#street-section-outer')
   let posLeft
   let posRight

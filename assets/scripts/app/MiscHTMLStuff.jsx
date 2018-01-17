@@ -14,7 +14,7 @@ class MiscHTMLStuff extends React.Component {
     super(props) 
 
     this.state = {
-      streetSectionScroll: false,
+      isStreetScrolling: false,
       scrollPos: 0
     }
   }
@@ -25,7 +25,7 @@ class MiscHTMLStuff extends React.Component {
     var scrollPos = this.refs.street_section_outer.scrollLeft
     
     this.setState({
-      streetSectionScroll: true,
+      isStreetScrolling: true,
       scrollPos: scrollPos
     })
 
@@ -37,7 +37,7 @@ class MiscHTMLStuff extends React.Component {
 
   stopStreetScroll = () => {
     this.setState({
-      streetSectionScroll: false
+      isStreetScrolling: false
     })
   }
 
@@ -61,7 +61,7 @@ class MiscHTMLStuff extends React.Component {
           </section>
         </section>
         <SkyBackground 
-          handleScroll={this.state.streetSectionScroll} 
+          isStreetScrolling={this.state.isStreetScrolling} 
           scrollPos={this.state.scrollPos}
           stopStreetScroll={this.stopStreetScroll}
         />

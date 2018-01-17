@@ -1,19 +1,22 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import { updateStreetScrollIndicators } from '../streets/scroll'
+
 class SkyBackground extends React.Component {
 	constructor (props) {
 		super(props)
 	}
 
-	componentDidUpdate (prevProps) {
-		if (prevProps.handleScroll !== this.props.handleScroll && this.props.handleScroll === true) {
-			this.updateStreetSkyBackground()
+	shouldComponentUpdate (nextProps) {
+		if (this.props.isStreetScrolling !== nextProps.isStreetScrolling && nextProps.isStreetScrolling === true) {
+			this.updateStreetSkyBackground(nextProps.scrollPos)
+			return true
 		}
+		return false
 	}
 
 	updateStreetSkyBackground = () => {
-		console.log('updated sky background')
 		const { scrollPos, system } = this.props
 		var frontPos = -scrollPos * 0.5
 	  this.refs.front_clouds.style[system.cssTransform] =
@@ -23,6 +26,7 @@ class SkyBackground extends React.Component {
 	  this.refs.rear_clouds.style[system.cssTransform] =
 	    'translateX(' + rearPos + 'px)'
 
+	  updateStreetScrollIndicators()
 	  this.props.stopStreetScroll()
 	}
 
