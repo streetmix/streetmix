@@ -194,13 +194,22 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
           w = segmentWidth - ((count - 1) * w)
         }
 
-        drawSegmentImage(variantInfo.graphics.repeat[l].tileset, ctx,
-          repeatPositionX, repeatPositionY,
-          w, variantInfo.graphics.repeat[l].height * TILE_SIZE,
-          offsetLeft + ((repeatStartX + (i * variantInfo.graphics.repeat[l].width * TILE_SIZE)) * multiplier),
-          offsetTop + (multiplier * TILE_SIZE * (variantInfo.graphics.repeat[l].offsetY || 0)),
-          w,
-          variantInfo.graphics.repeat[l].height * TILE_SIZE * multiplier)
+        const id = variantInfo.graphics.repeat[l].id
+        if (id) {
+          drawSegmentImageSVG(variantInfo.graphics.repeat[l].id, ctx,
+            offsetLeft + ((repeatStartX + (i * variantInfo.graphics.repeat[l].width * TILE_SIZE)) * multiplier),
+            offsetTop + (multiplier * TILE_SIZE * (variantInfo.graphics.repeat[l].offsetY || 0)),
+            w,
+            variantInfo.graphics.repeat[l].height * TILE_SIZE * multiplier)
+        } else {
+          drawSegmentImage(variantInfo.graphics.repeat[l].tileset, ctx,
+            repeatPositionX, repeatPositionY,
+            w, variantInfo.graphics.repeat[l].height * TILE_SIZE,
+            offsetLeft + ((repeatStartX + (i * variantInfo.graphics.repeat[l].width * TILE_SIZE)) * multiplier),
+            offsetTop + (multiplier * TILE_SIZE * (variantInfo.graphics.repeat[l].offsetY || 0)),
+            w,
+            variantInfo.graphics.repeat[l].height * TILE_SIZE * multiplier)
+        }
       }
     }
   }
@@ -214,12 +223,20 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
 
       x = 0 + ((-left + (variantInfo.graphics.left[l].offsetX || 0)) * TILE_SIZE * multiplier)
 
-      drawSegmentImage(variantInfo.graphics.left[l].tileset, ctx,
-        leftPositionX, leftPositionY,
-        w, variantInfo.graphics.left[l].height * TILE_SIZE,
-        offsetLeft + x,
-        offsetTop + (multiplier * TILE_SIZE * (variantInfo.graphics.left[l].offsetY || 0)),
-        w * multiplier, variantInfo.graphics.left[l].height * TILE_SIZE * multiplier)
+      const id = variantInfo.graphics.left[l].id
+      if (id) {
+        drawSegmentImageSVG(variantInfo.graphics.left[l].id, ctx,
+          offsetLeft + x,
+          offsetTop + (multiplier * TILE_SIZE * (variantInfo.graphics.left[l].offsetY || 0)),
+          w * multiplier, variantInfo.graphics.left[l].height * TILE_SIZE * multiplier)
+      } else {
+        drawSegmentImage(variantInfo.graphics.left[l].tileset, ctx,
+          leftPositionX, leftPositionY,
+          w, variantInfo.graphics.left[l].height * TILE_SIZE,
+          offsetLeft + x,
+          offsetTop + (multiplier * TILE_SIZE * (variantInfo.graphics.left[l].offsetY || 0)),
+          w * multiplier, variantInfo.graphics.left[l].height * TILE_SIZE * multiplier)
+      }
     }
   }
 
@@ -232,12 +249,20 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
 
       x = (-left + (segmentWidth / TILE_SIZE / multiplier) - variantInfo.graphics.right[l].width - (variantInfo.graphics.right[l].offsetX || 0)) * TILE_SIZE * multiplier
 
-      drawSegmentImage(variantInfo.graphics.right[l].tileset, ctx,
-        rightPositionX, rightPositionY,
-        w, variantInfo.graphics.right[l].height * TILE_SIZE,
-        offsetLeft + x,
-        offsetTop + (multiplier * TILE_SIZE * (variantInfo.graphics.right[l].offsetY || 0)),
-        w * multiplier, variantInfo.graphics.right[l].height * TILE_SIZE * multiplier)
+      const id = variantInfo.graphics.right[l].id
+      if (id) {
+        drawSegmentImageSVG(variantInfo.graphics.right[l].id, ctx,
+          offsetLeft + x,
+          offsetTop + (multiplier * TILE_SIZE * (variantInfo.graphics.right[l].offsetY || 0)),
+          w * multiplier, variantInfo.graphics.right[l].height * TILE_SIZE * multiplier)
+      } else {
+        drawSegmentImage(variantInfo.graphics.right[l].tileset, ctx,
+          rightPositionX, rightPositionY,
+          w, variantInfo.graphics.right[l].height * TILE_SIZE,
+          offsetLeft + x,
+          offsetTop + (multiplier * TILE_SIZE * (variantInfo.graphics.right[l].offsetY || 0)),
+          w * multiplier, variantInfo.graphics.right[l].height * TILE_SIZE * multiplier)
+      }
     }
   }
 
@@ -250,12 +275,20 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
 
       x = (center - (variantInfo.graphics.center[l].width / 2) - left - (variantInfo.graphics.center[l].offsetX || 0)) * TILE_SIZE * multiplier
 
-      drawSegmentImage(variantInfo.graphics.center[l].tileset, ctx,
-        bkPositionX, bkPositionY,
-        width * TILE_SIZE, variantInfo.graphics.center[l].height * TILE_SIZE,
-        offsetLeft + x,
-        offsetTop + (multiplier * TILE_SIZE * (variantInfo.graphics.center[l].offsetY || 0)),
-        width * TILE_SIZE * multiplier, variantInfo.graphics.center[l].height * TILE_SIZE * multiplier)
+      const id = variantInfo.graphics.center[l].id
+      if (id) {
+        drawSegmentImageSVG(variantInfo.graphics.center[l].id, ctx,
+          offsetLeft + x,
+          offsetTop + (multiplier * TILE_SIZE * (variantInfo.graphics.center[l].offsetY || 0)),
+          width * TILE_SIZE * multiplier, variantInfo.graphics.center[l].height * TILE_SIZE * multiplier)
+      } else {
+        drawSegmentImage(variantInfo.graphics.center[l].tileset, ctx,
+          bkPositionX, bkPositionY,
+          width * TILE_SIZE, variantInfo.graphics.center[l].height * TILE_SIZE,
+          offsetLeft + x,
+          offsetTop + (multiplier * TILE_SIZE * (variantInfo.graphics.center[l].offsetY || 0)),
+          width * TILE_SIZE * multiplier, variantInfo.graphics.center[l].height * TILE_SIZE * multiplier)
+      }
     }
   }
 
