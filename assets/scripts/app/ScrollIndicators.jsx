@@ -1,7 +1,14 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { registerKeypress } from './keypress'
 
 class ScrollIndicators extends React.Component {
+	static propTypes = {
+		posLeft: PropTypes.number.isRequired,
+		posRight: PropTypes.number.isRequired,
+		scrollStreet: PropTypes.func.isRequired
+	}
+	
 	constructor (props) {
 		super(props)
 	}

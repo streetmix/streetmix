@@ -1,7 +1,14 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 class SkyBackground extends React.Component {
+	static propTypes = {
+		isStreetScrolling: PropTypes.bool.isRequired,
+		scrollPos: PropTypes.number.isRequired,
+		stopStreetScroll: PropTypes.func.isRequired
+	}
+	
 	constructor (props) {
 		super(props)
 	}
