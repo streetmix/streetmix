@@ -190,6 +190,8 @@ const IMAGE_IDS = {
   // things we don't have svgs for
   'asphalt': { tileset: 2, x: 98, y: 53, width: 10, height: 5, offsetY: 10 },
   'concrete': { tileset: 2, x: 110, y: 53, width: 9, height: 5, offsetY: 10 },
+  'marking-left': { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 },
+  'marking-right': { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 },
 
   // things we have svgs for
   'parklet-left': { id: 'parklet--yerba-buena-parklet-left-v02', width: 8, height: 8, offsetY: 3.4 },
@@ -619,10 +621,10 @@ export const SEGMENT_INFO = {
             { tileset: 2, x: 116, y: 21, width: 5, height: 5, offsetY: 10 } // Stripes
           ],
           left: [
-            { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+            IMAGE_IDS['marking-left'] // Marking
           ],
           right: [
-            { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+            IMAGE_IDS['marking-right'] // Marking
           ]
         }
       },
@@ -643,10 +645,10 @@ export const SEGMENT_INFO = {
             { tileset: 2, x: 116, y: 21, width: 5, height: 5, offsetY: 10 } // Stripes
           ],
           left: [
-            { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+            IMAGE_IDS['marking-left'] // Marking
           ],
           right: [
-            { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+            IMAGE_IDS['marking-right'] // Marking
           ]
         }
       },
@@ -709,10 +711,10 @@ export const SEGMENT_INFO = {
             { tileset: 2, x: 116, y: 21, width: 5, height: 5, offsetY: 10 } // Stripes
           ],
           left: [
-            { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+            IMAGE_IDS['marking-left'] // Marking
           ],
           right: [
-            { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+            IMAGE_IDS['marking-right'] // Marking
           ]
         }
       },
@@ -727,10 +729,10 @@ export const SEGMENT_INFO = {
             { tileset: 2, x: 116, y: 21, width: 5, height: 5, offsetY: 10 } // Stripes
           ],
           left: [
-            { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+            IMAGE_IDS['marking-left'] // Marking
           ],
           right: [
-            { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+            IMAGE_IDS['marking-right'] // Marking
           ]
         }
       }
@@ -1321,10 +1323,10 @@ export const SEGMENT_INFO = {
             IMAGE_IDS['asphalt']
           ],
           left: [
-            { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+            IMAGE_IDS['marking-left'] // Marking
           ],
           right: [
-            { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+            IMAGE_IDS['marking-right'] // Marking
           ]
         }
       },
@@ -1343,10 +1345,10 @@ export const SEGMENT_INFO = {
             IMAGE_IDS['asphalt']
           ],
           left: [
-            { tileset: 2, x: 119, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+            IMAGE_IDS['marking-left'] // Marking
           ],
           right: [
-            { tileset: 2, x: 117, y: 15, width: 1, height: 5, offsetY: 10 } // Marking
+            IMAGE_IDS['marking-right'] // Marking
           ]
         }
       }
