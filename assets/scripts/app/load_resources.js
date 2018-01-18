@@ -33,8 +33,6 @@ loadingEl.max += 5 // Legacy; this is for other things that must load
 // Load everything
 loadImages()
 loadSVGs()
-window.images = images
-console.log(JSON.stringify(Object.keys(images)))
 
 // When everything is loaded...
 export function checkIfImagesLoaded () {

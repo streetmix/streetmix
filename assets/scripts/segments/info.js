@@ -214,7 +214,6 @@ const IMAGE_IDS = {
   'arrow-turn-right-outbound': { tileset: 2, x: 143, y: 15, width: 4, height: 5, offsetY: 10 },
   'arrow-turn-both-outbound': { tileset: 2, x: 148, y: 15, width: 5, height: 5, offsetY: 10 },
   'arrow-turn-shared-outbound': { tileset: 2, x: 134, y: 20, width: 5, height: 5, offsetY: 10 },
-
   'asphalt-green': { tileset: 2, x: 98 - 10, y: 53 + 10, width: 8, height: 5, offsetY: 10 },
   'asphalt-red': { tileset: 2, x: 98, y: 53 + 10, width: 10, height: 5, offsetY: 10 },
   'parking-marking-left': { tileset: 2, x: 112, y: 15, width: 2, height: 5, offsetY: 10 },
@@ -257,30 +256,27 @@ const IMAGE_IDS = {
   'bike-outbound': { id: 'bikes--biker-01-outbound', width: 3, height: 8, offsetY: 3.25 },
   'bike-inbound-02': { id: 'bikes--biker-02-inbound', width: 3, height: 8, offsetY: 3.25 },
   'bike-outbound-02': { id: 'bikes--biker-02-outbound', width: 3, height: 8, offsetY: 3.25 },
-
-  'car-inbound': { tileset: 1, x: 8, y: 32, width: 8, height: 8, offsetY: 5 },
-  'car-outbound': { tileset: 1, x: 0, y: 32, width: 8, height: 8, offsetY: 5 },
-  'bus-inbound': { tileset: 1, x: 28, y: 28, width: 11, height: 11, offsetY: 1 }, // size discrepancy
-  'bus-outbound': { tileset: 1, x: 16, y: 27, width: 12, height: 13 },
-  'light-rail-inbound': { tileset: 1, x: 17, y: 40, width: 10, height: 17, offsetY: -5 },
-  'light-rail-outbound': { tileset: 1, x: 27, y: 40, width: 10, height: 17, offsetY: -5 },
-  'inception-train': { tileset: 1, x: 82, y: 68, width: 14, height: 16, offsetY: -4 },
-
-  'car-turn-left-inbound': { tileset: 1, x: 20, y: 78, width: 8, height: 6, offsetY: 6 },
-  'car-turn-right-inbound': { tileset: 1, x: 29, y: 78, width: 8, height: 6, offsetY: 6 },
-  'car-turn-left-outbound': { tileset: 1, x: 1, y: 78, width: 8, height: 6, offsetY: 6 },
-  'car-turn-right-outbound': { tileset: 1, x: 10, y: 78, width: 8, height: 6, offsetY: 6 },
-
-  'car-perpendicular-left': { tileset: 1, x: 38, y: 78, width: 14, height: 6, offsetY: 6 },
-  'car-perpendicular-right': { tileset: 1, x: 54, y: 78, width: 14, height: 6, offsetY: 6 },
-  'streetcar-inbound': { tileset: 3, x: 192, y: 0, width: 12, height: 18, offsetY: -2 },
-  'streetcar-outbound': { tileset: 3, x: 204, y: 0, width: 12, height: 18, offsetY: -2 },
-  'truck-inbound': { tileset: 1, x: 17, y: 64, width: 10, height: 12, offsetY: 0 },
-  'truck-outbound': { tileset: 1, x: 29, y: 64, width: 9, height: 12, offsetY: 0 },
-  'transit-shelter-left': { tileset: 3, x: 171, y: 1, width: 9, height: 12, offsetY: -1 },
-  'transit-shelter-right': { tileset: 3, x: 181, y: 1, width: 9, height: 12, offsetY: -1 },
-  'transit-shelter-elevated-left': { tileset: 3, x: 171, y: 51, width: 9, height: 12, offsetY: -3 },
-  'transit-shelter-elevated-right': { tileset: 3, x: 181, y: 51, width: 9, height: 13, offsetY: -3 },
+  'car-inbound': { id: 'vehicles--car-inbound', width: 12, height: 15, offsetY: -3.7 },
+  'car-outbound': { id: 'vehicles--car-outbound', width: 12, height: 15, offsetY: -3.7 },
+  'car-turn-left-inbound': { id: 'vehicles--car-inbound-turn-signal-right', width: 12, height: 15, offsetY: -3.7 }, // left/right flipped on purpose (see relevant issue/discussion about swapping it back)
+  'car-turn-right-inbound': { id: 'vehicles--car-inbound-turn-signal-left', width: 12, height: 15, offsetY: -3.7 }, // left/right flipped on purpose (see relevant issue/discussion about swapping it back)
+  'car-turn-left-outbound': { id: 'vehicles--car-outbound-turn-signal-left', width: 12, height: 15, offsetY: -3.7 },
+  'car-turn-right-outbound': { id: 'vehicles--car-outbound-turn-signal-right', width: 12, height: 15, offsetY: -3.7 },
+  'car-perpendicular-left': { id: 'vehicles--car-sideways-left', width: 14, height: 6, offsetY: 5.35 },
+  'car-perpendicular-right': { id: 'vehicles--car-sideways-right', width: 14, height: 6, offsetY: 5.35 },
+  'bus-inbound': { id: 'transit--bus-inbound', width: 12, height: 11, offsetY: 0.3 },
+  'bus-outbound': { id: 'transit--bus-outbound', width: 12, height: 11, offsetY: 0.3 },
+  'light-rail-inbound': { id: 'transit--light-rail-inbound', width: 10, height: 17, offsetY: -5.75 },
+  'light-rail-outbound': { id: 'transit--light-rail-outbound', width: 10, height: 17, offsetY: -5.75 },
+  'inception-train': { id: 'secret--inception-train', width: 14, height: 16, offsetY: -4.7 },
+  'streetcar-inbound': { id: 'transit--streetcar-inbound', width: 12, height: 18, offsetY: -6.75 },
+  'streetcar-outbound': { id: 'transit--streetcar-outbound', width: 12, height: 18, offsetY: -6.75 },
+  'truck-inbound': { id: 'vehicles--truck-inbound', width: 10, height: 12, offsetY: 0 },
+  'truck-outbound': { id: 'vehicles--truck-outbound', width: 9, height: 12, offsetY: 0 },
+  'transit-shelter-left': { id: 'transit--transit-shelter-01-left', width: 9, height: 12, offsetY: -1.3 },
+  'transit-shelter-right': { id: 'transit--transit-shelter-01-right', width: 9, height: 12, offsetY: -1.3 },
+  'transit-shelter-elevated-left': { id: 'transit--transit-shelter-02-left', width: 9, height: 12, offsetY: -3.8 },
+  'transit-shelter-elevated-right': { id: 'transit--transit-shelter-02-right', width: 9, height: 12, offsetY: -3.8 },
 
   // svgs that need to be remade
   'grass': { tileset: 2, x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 }
