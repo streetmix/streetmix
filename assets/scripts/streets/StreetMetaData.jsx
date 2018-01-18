@@ -15,7 +15,7 @@ class StreetMetaData extends React.Component {
     signedIn: PropTypes.bool.isRequired,
     userId: PropTypes.string,
     street: PropTypes.any,
-    experimental: PropTypes.bool,
+    enableLocation: PropTypes.bool,
     showGeolocateDialog: PropTypes.func
   }
 
@@ -90,7 +90,7 @@ class StreetMetaData extends React.Component {
       author = t('users.byline', 'by {{user}}', { user: t('users.anonymous', 'Anonymous') })
     }
 
-    const geolocation = (this.props.experimental) ? (
+    const geolocation = (this.props.enableLocation) ? (
       <span>
         <a className="street-metadata-map" onClick={this.onClickGeolocate}>
           <u>{t('dialogs.geolocate.add-location', 'Add location')}</u>
@@ -113,7 +113,7 @@ function mapStateToProps (state) {
   return {
     signedIn: state.user.signedIn,
     userId: state.user.signInData && state.user.signInData.userId,
-    experimental: state.debug.experimental
+    enableLocation: state.flags.GEOLOCATION.value
   }
 }
 

@@ -19,6 +19,7 @@ import { registerKeypress } from './keypress'
 import { showStatusMessage } from './status_message'
 import { t } from './locale'
 import { addBuildingFloor, removeBuildingFloor } from '../store/actions/street'
+import { showDialog } from '../store/actions/dialogs'
 import store from '../store'
 
 export const KEYS = {
@@ -141,4 +142,9 @@ export function registerKeypresses () {
     preventDefault: true,
     requireFocusOnBody: true
   }, noop)
+
+  // Secret menu to toggle feature flags
+  registerKeypress('shift f', () => {
+    store.dispatch(showDialog('FEATURE_FLAGS'))
+  })
 }

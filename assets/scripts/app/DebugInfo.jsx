@@ -17,7 +17,8 @@ import { loseAnyFocus } from '../util/focus'
 class DebugInfo extends React.Component {
   static propTypes = {
     settings: PropTypes.object.isRequired,
-    street: PropTypes.object.isRequired
+    street: PropTypes.object.isRequired,
+    flags: PropTypes.object.isRequired
   }
 
   constructor (props) {
@@ -53,6 +54,7 @@ class DebugInfo extends React.Component {
     const debugObj = {
       'DATA': debugStreetData,
       'SETTINGS': this.props.settings,
+      'FLAGS': this.props.flags,
       'UNDO': debugUndo
     }
 
@@ -69,7 +71,7 @@ class DebugInfo extends React.Component {
     this.textareaEl.select()
 
     // Prevent scrolling to bottom of textarea after select
-    setTimeout(() => {
+    window.setTimeout(() => {
       this.textareaEl.scrollTop = 0
     }, 0)
 
@@ -108,7 +110,8 @@ class DebugInfo extends React.Component {
 function mapStateToProps (state) {
   return {
     settings: state.settings,
-    street: state.street
+    street: state.street,
+    flags: state.flags
   }
 }
 

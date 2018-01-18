@@ -7,15 +7,12 @@
  */
 import { debug } from './debug_settings'
 import { system } from './system_capabilities'
+import { setAppFlags } from '../store/actions/app'
 import store from '../store'
-import { SET_APP_FLAGS } from '../store/actions'
 
 // Just set readOnly
 export const app = {
   readOnly: (system.phone || debug.forceReadOnly)
 }
 
-store.dispatch({
-  type: SET_APP_FLAGS,
-  ...app
-})
+store.dispatch(setAppFlags(app))

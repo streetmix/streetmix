@@ -53,13 +53,12 @@ How to fill in the data for a segment:
                 Sub-types of the segment, e.g. 'orientation' and 'color'
                 If there are no variants, use an array of a single
                 empty string, ['']
-  secret        Boolean (optional)
-                Default value: false
-                If true, the segment is hidden from users unless the
-                ?debug-secret-segments flag is set.
-                The 'Inception train' is an example of a secret
-                segment, and is good for testing segments in
-                production that are meant to be public yet.
+  enableWithFlag  String (optional)
+                Default value: none
+                If set, the segment is hidden from users unless the
+                its corresponding flag is set to true. These segments
+                may not be ready for production or are only enabled
+                under certain conditions.
   description   Object (optional)
                 If present, a "learn more" feature is added to the
                 segment's info box. For more info see below.
@@ -1547,7 +1546,7 @@ export const SEGMENT_INFO = {
     zIndex: 1,
     defaultWidth: 14,
     variants: [''],
-    secret: true,
+    enableWithFlag: 'SEGMENT_INCEPTION_TRAIN',
     description: {
       image: 'train.jpg',
       imageCaption: '',

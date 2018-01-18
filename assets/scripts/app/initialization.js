@@ -5,6 +5,7 @@ import { showGallery } from '../gallery/view'
 import { app } from '../preinit/app_settings'
 import { debug } from '../preinit/debug_settings'
 import { system } from '../preinit/system_capabilities'
+import { initializeFlagSubscribers } from '../app/flag_utils'
 import { fillEmptySegments, segmentsChanged } from '../segments/view'
 import { initBuildingReduxTransitionSubscriber } from '../segments/buildings'
 import { onNewStreetLastClick } from '../streets/creation'
@@ -157,6 +158,7 @@ function onEverythingLoaded () {
   setStreetDataInRedux()
   setLastStreet(trimStreetData(getStreet()))
   initBuildingReduxTransitionSubscriber()
+  initializeFlagSubscribers()
 
   updatePageUrl()
   addEventListeners()
@@ -193,6 +195,7 @@ function onEverythingLoaded () {
     let donateDismissed
     let delayedTimestamp
     const twoWeeksAgo = Date.now() - 12096e5
+    const flag = store.getState().flags.DONATE_NAG_SCREEN.value
     if (window.localStorage['settings-welcome-dismissed']) {
       welcomeDismissed = JSON.parse(window.localStorage['settings-welcome-dismissed'])
     }
@@ -203,8 +206,8 @@ function onEverythingLoaded () {
       delayedTimestamp = JSON.parse(window.localStorage['settings-donate-delayed-timestamp'])
     }
 
-    if (welcomeDismissed && !donateDismissed &&
-      (!delayedTimestamp || delayedTimestamp < twoWeeksAgo)) {
+    if (welcomeDismissed && !donateDismissed && flag &&
+       (!delayedTimestamp || delayedTimestamp < twoWeeksAgo)) {
       store.dispatch(showDialog('DONATE'))
     }
   }
@@ -226,13 +229,11 @@ function onReadyStateChange () {
   }
 }
 
-// Toggle experimental features
-// if (debug.experimental) {
-// }
-
 // Initalize i18n / localization
 // Currently experimental-only for all languages except English
-initLocale(debug.experimental)
+const flags = store.getState().flags
+const enableLocales = flags.LOCALES_LEVEL_1.value || flags.LOCALES_LEVEL_2.value || flags.LOCALES_LEVEL_3.value
+initLocale(enableLocales)
 
 // Other
 addBodyClasses()

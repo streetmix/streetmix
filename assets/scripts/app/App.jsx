@@ -29,6 +29,7 @@ export default class App extends React.PureComponent {
           <MenusContainer />
           <StreetNameCanvas />
           <InfoBubble />
+          <DebugHoverPolygon />
           <WelcomePanel />
           <Palette />
           <DialogRoot />
@@ -39,7 +40,6 @@ export default class App extends React.PureComponent {
 
         <Flash />
         <DebugInfo />
-        <DebugHoverPolygon />
         <PrintContainer />
       </div>
     )
