@@ -52,27 +52,11 @@ export function onResize () {
     streetSectionTop = paletteTop - 20 - streetSectionHeight + 180
   }
 
-  document.querySelector('#street-section-inner').style.top = streetSectionTop + 'px'
-
-  // document.querySelector('#street-section-sky').style.top =
-  //   ((streetSectionTop * 0.8) - 255) + 'px'
-
-  document.querySelector('#street-scroll-indicator-left').style.top =
-    (streetSectionTop + streetSectionHeight) + 'px'
-  document.querySelector('#street-scroll-indicator-right').style.top =
-    (streetSectionTop + streetSectionHeight) + 'px'
-
   var streetSectionDirtPos = system.viewportHeight - streetSectionTop - 400 + 180
 
   document.querySelector('#street-section-dirt').style.height =
     streetSectionDirtPos + 'px'
 
-  var skyTop = streetSectionTop
-  if (skyTop < 0) {
-    skyTop = 0
-  }
-  // document.querySelector('#street-section-sky').style.paddingTop = skyTop + 'px'
-  // document.querySelector('#street-section-sky').style.marginTop = -skyTop + 'px'
   var street = getStreet()
   streetSectionCanvasLeft =
     ((system.viewportWidth - (street.width * TILE_SIZE)) / 2) - BUILDING_SPACE
