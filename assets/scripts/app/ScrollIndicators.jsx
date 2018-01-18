@@ -20,6 +20,11 @@ class ScrollIndicators extends React.Component {
   		this.refs.right_indicator.innerHTML = Array(nextProps.posRight + 1).join('›')
   		return true
 		}
+		// Checking if window was resized
+		if (this.props.scrollTop !== nextProps.scrollTop) {
+			this.updateIndicatorsPosition(nextProps.scrollTop)
+			return true
+		}
 		return false
 	}
 
@@ -28,6 +33,11 @@ class ScrollIndicators extends React.Component {
 		registerKeypress('right', (event) => { this.props.scrollStreet(false, event.shiftKey) })
 	}
 
+	updateIndicatorsPosition = (scrollTop) => {
+		this.refs.left_indicator.style.top = scrollTop + 'px'
+		this.refs.right_indicator.style.top = scrollTop + 'px'
+	}
+	
 	render () {
 		return (
 			<div className="street-scroll-indicators">

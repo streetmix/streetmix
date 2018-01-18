@@ -185,6 +185,7 @@ class MiscHTMLStuff extends React.Component {
           posLeft={this.state.posLeft}
           posRight={this.state.posRight}
           scrollStreet={this.scrollStreet}
+          scrollTop={this.state.scrollTop}
         />
       </React.Fragment>
     )
