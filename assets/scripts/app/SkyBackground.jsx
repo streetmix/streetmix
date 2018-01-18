@@ -7,6 +7,8 @@ class SkyBackground extends React.Component {
 		isStreetScrolling: PropTypes.bool.isRequired,
 		scrollPos: PropTypes.number.isRequired,
 		stopStreetScroll: PropTypes.func.isRequired
+		streetSectionSkyTop: PropTypes.number.isRequired,
+		skyTop: PropTypes.number.isRequired
 	}
 	
 	constructor (props) {
