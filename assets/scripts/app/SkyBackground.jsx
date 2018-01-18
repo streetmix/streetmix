@@ -23,11 +23,11 @@ class SkyBackground extends React.Component {
 
 	updateStreetSkyBackground = () => {
 		const { scrollPos, system } = this.props
-		var frontPos = -scrollPos * 0.5
+		const frontPos = -scrollPos * 0.5
 	  this.refs.front_clouds.style[system.cssTransform] =
 	    'translateX(' + frontPos + 'px)'
 
-	  var rearPos = -scrollPos * 0.25
+	  const rearPos = -scrollPos * 0.25
 	  this.refs.rear_clouds.style[system.cssTransform] =
 	    'translateX(' + rearPos + 'px)'
 
