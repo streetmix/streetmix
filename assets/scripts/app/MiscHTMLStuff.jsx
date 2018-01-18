@@ -6,6 +6,7 @@
  * @module MiscHTMLStuff
  */
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import SkyBackground from './SkyBackground'
 import ScrollIndicators from './ScrollIndicators'
@@ -15,6 +16,11 @@ import { MAX_CUSTOM_STREET_WIDTH } from '../streets/width'
 import { app } from '../preinit/app_settings'
 
 class MiscHTMLStuff extends React.Component {
+  static propTypes = {
+    street: PropTypes.object.isRequired,
+    system: PropTypes.object.isRequired
+  }
+
   constructor (props) {
     super(props)
 
@@ -57,7 +63,7 @@ class MiscHTMLStuff extends React.Component {
     }
 
     let streetSectionSkyTop = ((streetSectionTop * 0.8) - 255)
-    let scrollTop = (streetSectionTop + streetSectionHeight) 
+    let scrollTop = (streetSectionTop + streetSectionHeight)
 
     let skyTop = streetSectionTop
     if (skyTop < 0) {
@@ -79,7 +85,6 @@ class MiscHTMLStuff extends React.Component {
     infoBubble.suppress()
 
     var scrollPos = this.refs.street_section_outer.scrollLeft
-    
     this.calculateStreetIndicatorsPositions()
 
     this.setState({
@@ -167,8 +172,8 @@ class MiscHTMLStuff extends React.Component {
             </section>
           </section>
         </section>
-        <SkyBackground 
-          isStreetScrolling={this.state.isStreetScrolling} 
+        <SkyBackground
+          isStreetScrolling={this.state.isStreetScrolling}
           scrollPos={this.state.scrollPos}
           stopStreetScroll={this.stopStreetScroll}
           streetSectionSkyTop={this.state.streetSectionSkyTop}
