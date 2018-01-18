@@ -9,6 +9,8 @@ import {
 import { TILE_SIZE } from '../segments/view'
 import { getStreet } from '../streets/data_model'
 
+import store from '../store'
+import { windowResize } from '../store/actions/system'
 let streetSectionCanvasLeft
 
 export function getStreetSectionCanvasLeft () {
@@ -22,6 +24,7 @@ export function getStreetSectionTop () {
 }
 
 export function onResize () {
+  store.dispatch(windowResize(window.innerWidth, window.innerHeight))
   system.viewportWidth = window.innerWidth
   system.viewportHeight = window.innerHeight
 
@@ -51,8 +54,8 @@ export function onResize () {
 
   document.querySelector('#street-section-inner').style.top = streetSectionTop + 'px'
 
-  document.querySelector('#street-section-sky').style.top =
-    ((streetSectionTop * 0.8) - 255) + 'px'
+  // document.querySelector('#street-section-sky').style.top =
+  //   ((streetSectionTop * 0.8) - 255) + 'px'
 
   document.querySelector('#street-scroll-indicator-left').style.top =
     (streetSectionTop + streetSectionHeight) + 'px'
@@ -68,8 +71,8 @@ export function onResize () {
   if (skyTop < 0) {
     skyTop = 0
   }
-  document.querySelector('#street-section-sky').style.paddingTop = skyTop + 'px'
-  document.querySelector('#street-section-sky').style.marginTop = -skyTop + 'px'
+  // document.querySelector('#street-section-sky').style.paddingTop = skyTop + 'px'
+  // document.querySelector('#street-section-sky').style.marginTop = -skyTop + 'px'
   var street = getStreet()
   streetSectionCanvasLeft =
     ((system.viewportWidth - (street.width * TILE_SIZE)) / 2) - BUILDING_SPACE

@@ -18,11 +18,25 @@ class SkyBackground extends React.Component {
 			this.updateStreetSkyBackground(nextProps.scrollPos)
 			return true
 		}
+		// Checking if window was resized 
+		if (this.props.streetSectionSkyTop !== nextProps.streetSectionSkyTop && 
+				this.props.skyTop !== nextProps.skyTop) {
+			this.updateSkyPosition(nextProps.streetSectionSkyTop, nextProps.skyTop)
+			return true
+		}
 		return false
 	}
 
-	updateStreetSkyBackground = () => {
-		const { scrollPos, system } = this.props
+	updateSkyPosition = (streetSectionSkyTop, skyTop) => {
+		if (streetSectionSkyTop !== 0 && skyTop !== 0) {
+			this.refs.street_section_sky.style.top = streetSectionSkyTop + 'px'
+			this.refs.street_section_sky.style.paddingTop = skyTop + 'px'
+			this.refs.street_section_sky.style.marginTop = -skyTop + 'px'
+		}
+	}
+
+	updateStreetSkyBackground = (scrollPos) => {
+		const { system } = this.props
 		if (scrollPos !== 0) {
 			const frontPos = -scrollPos * 0.5
 		  this.refs.front_clouds.style[system.cssTransform] =
@@ -38,7 +52,7 @@ class SkyBackground extends React.Component {
 
 	render() {
 		return (
-			<section id="street-section-sky">
+			<section id="street-section-sky" ref="street_section_sky">
         <div className="rear-clouds" ref="rear_clouds" />
         <div className="front-clouds" ref="front_clouds" />
       </section>
