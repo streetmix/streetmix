@@ -1,4 +1,4 @@
-import { SET_SYSTEM_FLAGS } from '../actions'
+import { SET_SYSTEM_FLAGS, UPDATE_WINDOW_SIZE } from '../actions'
 
 const initialState = {
   touch: false,
@@ -6,8 +6,8 @@ const initialState = {
   safari: false,
   windows: false,
   noInternet: false,
-  viewportWidth: null,
-  viewportHeight: null,
+  viewportWidth: window.innerWidth,
+  viewportHeight: window.innerHeight,
   hiDpi: 1.0,
   cssTransform: false,
   pageVisibility: false,
@@ -22,6 +22,12 @@ const system = (state = initialState, action) => {
       const obj = Object.assign({}, state, action)
       delete obj.type // Do not save action type.
       return obj
+    case UPDATE_WINDOW_SIZE:
+      return {
+        ...state,
+        viewportWidth: action.viewportWidth,
+        viewportHeight: action.viewportHeight 
+      }
     default:
       return state
   }
