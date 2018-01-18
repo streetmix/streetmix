@@ -16,7 +16,7 @@ import { app } from '../preinit/app_settings'
 
 class MiscHTMLStuff extends React.Component {
   constructor (props) {
-    super(props) 
+    super(props)
 
     this.state = {
       isStreetScrolling: false,
@@ -34,7 +34,7 @@ class MiscHTMLStuff extends React.Component {
 
   componentDidUpdate (prevProps) {
     const { viewportWidth, viewportHeight } = this.props.system
-    if (prevProps.system.viewportWidth !== viewportWidth || 
+    if (prevProps.system.viewportWidth !== viewportWidth ||
         prevProps.system.viewportHeight !== viewportHeight) {
       this.onResize()
       this.calculateStreetIndicatorsPositions()
@@ -42,7 +42,7 @@ class MiscHTMLStuff extends React.Component {
   }
 
   onResize = () => {
-    const { viewportHeight, viewportWidth } = this.props.system
+    const { viewportHeight } = this.props.system
     let streetSectionTop = null
     let streetSectionHeight = this.refs.street_section_inner.offsetHeight
 
@@ -56,22 +56,15 @@ class MiscHTMLStuff extends React.Component {
       streetSectionTop += 80
     }
 
-    //street-section-sky
     let streetSectionSkyTop = ((streetSectionTop * 0.8) - 255)
-    //street-scroll-indicators
     let scrollTop = (streetSectionTop + streetSectionHeight) 
 
-    // not adding streetSectionDirtPos
-
-    //street-section-sky
     let skyTop = streetSectionTop
     if (skyTop < 0) {
       skyTop = 0
     }
 
     this.refs.street_section_inner.style.top = streetSectionTop + 'px'
-    // not adding streetSectionCanvasLeft
-    // not adding editableWidth
 
     this.setState({
       streetSectionTop,
@@ -181,7 +174,7 @@ class MiscHTMLStuff extends React.Component {
           streetSectionSkyTop={this.state.streetSectionSkyTop}
           skyTop={this.state.skyTop}
         />
-        <ScrollIndicators 
+        <ScrollIndicators
           posLeft={this.state.posLeft}
           posRight={this.state.posRight}
           scrollStreet={this.scrollStreet}

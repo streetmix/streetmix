@@ -26,7 +26,7 @@ const system = (state = initialState, action) => {
       return {
         ...state,
         viewportWidth: action.viewportWidth,
-        viewportHeight: action.viewportHeight 
+        viewportHeight: action.viewportHeight
       }
     default:
       return state

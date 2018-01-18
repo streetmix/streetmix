@@ -9,10 +9,6 @@ class ScrollIndicators extends React.Component {
     scrollStreet: PropTypes.func.isRequired,
     scrollTop: PropTypes.number.isRequired
   }
-  
-  constructor (props) {
-    super(props)
-  }
 
   shouldComponentUpdate (nextProps) {
     if (this.props.posLeft !== nextProps.posLeft &&
@@ -38,7 +34,7 @@ class ScrollIndicators extends React.Component {
     this.refs.left_indicator.style.top = scrollTop + 'px'
     this.refs.right_indicator.style.top = scrollTop + 'px'
   }
-  
+
   render () {
     return (
       <div className="street-scroll-indicators">
