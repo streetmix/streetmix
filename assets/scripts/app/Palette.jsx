@@ -108,7 +108,7 @@ class Palette extends React.Component {
           <button id="redo" onClick={redo}>{t('btn.redo', 'Redo')}</button>
         </div>
         <Scrollable className="palette" setRef={this.setScrollableRef} ref={(ref) => { this.scrollable = ref }}>
-          <div className="palette-canvas">{this.props.everythingLoaded && paletteItems}</div>
+          <React.Fragment>{this.props.everythingLoaded && paletteItems}</React.Fragment>
         </Scrollable>
       </div>
     )
