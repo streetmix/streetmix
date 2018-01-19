@@ -23,7 +23,7 @@
 
   // Hide all other stuff
   body > *:not(#react-app),
-  #react-app > div > *:not(.print-container) {
+  #react-app > *:not(.print-container) {
     display: none;
   }
 }
