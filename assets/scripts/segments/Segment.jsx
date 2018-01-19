@@ -75,10 +75,11 @@ export default class Segment extends React.Component {
     const dimensions = getVariantInfoDimensions(variantInfo, segmentWidth, multiplier)
     const totalWidth = dimensions.right - dimensions.left
 
-    const canvasWidth = totalWidth * TILE_SIZE * system.hiDpi
+    // Canvas width and height must fit the div width in the palette to prevent extra right padding
+    const canvasWidth = this.props.forPalette ? width * system.hiDpi : totalWidth * TILE_SIZE * system.hiDpi
     const canvasHeight = CANVAS_BASELINE * system.hiDpi
     const canvasStyle = {
-      width: (totalWidth * TILE_SIZE),
+      width: this.props.forPalette ? width : totalWidth * TILE_SIZE,
       height: CANVAS_BASELINE,
       left: (dimensions.left * TILE_SIZE * multiplier)
     }
@@ -87,7 +88,10 @@ export default class Segment extends React.Component {
       <div
         style={{
           width: width,
-          zIndex: SEGMENT_INFO[this.props.type].zIndex
+          // In a street, certain segments have stacking priority over others (expressed as z-index).
+          // In a palette, segments are side-by-side so they don't need stacking priority.
+          // Setting a z-index here will clobber a separate z-index (applied via CSS) when hovered by mouse pointer
+          zIndex: (this.props.forPalette) ? null : SEGMENT_INFO[this.props.type].zIndex
         }}
         className={'segment' + (this.props.isUnmovable ? ' unmovable' : '') + (this.props.forPalette ? ' segment-in-palette' : '')}
         data-segment-type={this.props.type}
