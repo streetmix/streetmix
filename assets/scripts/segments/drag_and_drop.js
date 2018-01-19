@@ -294,8 +294,7 @@ function handleSegmentMoveStart () {
     draggingMove.originalVariantString = variantString
   }
 
-  var pos = getElAbsolutePos(draggingMove.originalEl)
-
+  var pos = getElAbsolutePos(draggingMove.originalEl, true)
   draggingMove.elX = pos[0]
   draggingMove.elY = pos[1]
 
