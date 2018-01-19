@@ -2,21 +2,31 @@ import { tween } from 'shifty'
 
 /**
  * Gets the absolute position in pixels of a given element,
- * taking into account its CSS transformed position.
+ * taking into account its CSS transformed position, and optionally,
+ * the scroll position of parent elements
  *
  * @param {Node} element
+ * @param {Boolean} includeScroll - if true, takes into account
+ *    scroll position of parent elements
  * @returns {Array} [x, y] where x is number of pixels from the
  *    left side of the viewport and y is the number of pixels
  *    from the top of the viewport.
  */
-export function getElAbsolutePos (el) {
+export function getElAbsolutePos (el, includeScroll = false) {
   let pos = [0, 0]
 
   do {
     pos[0] += el.offsetLeft + (el.cssTransformLeft || 0)
     pos[1] += el.offsetTop + (el.cssTransformTop || 0)
 
-    el = el.offsetParent
+    const parent = el.offsetParent
+
+    if (includeScroll && parent) {
+      pos[0] -= parent.scrollLeft
+      pos[1] -= parent.scrollTop
+    }
+
+    el = parent
   } while (el)
 
   return pos

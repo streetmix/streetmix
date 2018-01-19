@@ -119,10 +119,11 @@ body:not(.segment-resize-dragging) .segment.outside .image {
 
 .segment.segment-in-palette:hover {
   background: fade-out($sky-colour, 0.05);
+  z-index: 1;
 
   canvas {
     transform: scale(1.15);
-    transform-origin: 14% 75px;
+    transform-origin: 50% 75px;
   }
 }
 
