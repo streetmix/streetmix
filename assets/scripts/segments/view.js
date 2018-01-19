@@ -51,9 +51,10 @@ export function drawSegmentImageSVG (id, ctx, dx, dy, multiplier = 1) {
   const img = images[id]
 
   // Read natural width and height right from image.
-  // Don't need to multiply pixel density because it's an SVG, I guess
-  const dw = img.naturalWidth * multiplier
-  const dh = img.naturalHeight * multiplier
+  // All images are drawn at 2x pixel dimensions so divide in half to get
+  // actual width / height value then multiply by system pixel density
+  const dw = img.naturalWidth / 2 * system.hiDpi * multiplier
+  const dh = img.naturalHeight / 2 * system.hiDpi * multiplier
 
   // Set render dimensions based on pixel density
   dx *= system.hiDpi
