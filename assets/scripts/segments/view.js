@@ -38,16 +38,26 @@ const DRAGGING_MOVE_HOLE_WIDTH = 40
 
 const SEGMENT_SWITCHING_TIME = 250
 
-export function drawSegmentImageSVG (id, ctx, dx, dy, dw, dh) {
-  if (!dw || !dh || dw <= 0 || dh <= 0) {
-    return
-  }
+/**
+ * Draws SVG sprite to canvas
+ *
+ * @param {string} id - identifier of sprite
+ * @param {CanvasRenderingContext2D} ctx
+ * @param {Number} dx - x position on canvas
+ * @param {Number} dy - y position on canvas
+ * @param {Number} multiplier - scale to draw at
+ */
+export function drawSegmentImageSVG (id, ctx, dx, dy, multiplier = 1) {
+  const img = images[id]
+
+  // Read natural width and height right from image.
+  // Don't need to multiply pixel density because it's an SVG, I guess
+  const dw = img.naturalWidth * multiplier
+  const dh = img.naturalHeight * multiplier
 
   // Set render dimensions based on pixel density
   dx *= system.hiDpi
   dy *= system.hiDpi
-  dw *= system.hiDpi
-  dh *= system.hiDpi
 
   // These rectangles are telling us that we're drawing at the right places.
   if (store.getState().flags.DEBUG_SEGMENT_CANVAS_RECTANGLES.value === true) {
@@ -55,8 +65,6 @@ export function drawSegmentImageSVG (id, ctx, dx, dy, dw, dh) {
     ctx.fillRect(dx, dy, dw, dh)
   }
 
-  // Draw the image to canvas
-  const img = images[id]
   try {
     ctx.drawImage(img, dx, dy, dw, dh)
   } catch (e) {
@@ -207,7 +215,7 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
           drawSegmentImageSVG(sprite.id, ctx,
             offsetLeft + ((repeatStartX + (i * sprite.width * TILE_SIZE)) * multiplier),
             offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
-            width * multiplier, height * multiplier)
+            multiplier)
         } else {
           const repeatPositionX = sprite.x * TILE_SIZE
           const repeatPositionY = (sprite.y || 0) * TILE_SIZE
@@ -226,16 +234,16 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
   if (variantInfo.graphics.left) {
     for (let l = 0; l < variantInfo.graphics.left.length; l++) {
       const sprite = variantInfo.graphics.left[l]
-      const width = sprite.width * TILE_SIZE
-      const height = sprite.height * TILE_SIZE
       const x = 0 + ((-left + (sprite.offsetX || 0)) * TILE_SIZE * multiplier)
 
       if (sprite.id) {
         drawSegmentImageSVG(sprite.id, ctx,
           offsetLeft + x,
           offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
-          width * multiplier, height * multiplier)
+          multiplier)
       } else {
+        const width = sprite.width * TILE_SIZE
+        const height = sprite.height * TILE_SIZE
         const leftPositionX = sprite.x * TILE_SIZE
         const leftPositionY = (sprite.y || 0) * TILE_SIZE
 
@@ -252,16 +260,16 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
   if (variantInfo.graphics.right) {
     for (let l = 0; l < variantInfo.graphics.right.length; l++) {
       const sprite = variantInfo.graphics.right[l]
-      const width = sprite.width * TILE_SIZE
-      const height = sprite.height * TILE_SIZE
       const x = (-left + (segmentWidth / TILE_SIZE / multiplier) - sprite.width - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
 
       if (sprite.id) {
         drawSegmentImageSVG(sprite.id, ctx,
           offsetLeft + x,
           offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
-          width * multiplier, height * multiplier)
+          multiplier)
       } else {
+        const width = sprite.width * TILE_SIZE
+        const height = sprite.height * TILE_SIZE
         const rightPositionX = sprite.x * TILE_SIZE
         const rightPositionY = (sprite.y || 0) * TILE_SIZE
 
@@ -278,8 +286,6 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
   if (variantInfo.graphics.center) {
     for (let l = 0; l < variantInfo.graphics.center.length; l++) {
       const sprite = variantInfo.graphics.center[l]
-      const width = sprite.width * TILE_SIZE
-      const height = sprite.height * TILE_SIZE
       const center = dimensions.center
       const x = (center - (sprite.width / 2) - left - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
 
@@ -287,8 +293,10 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
         drawSegmentImageSVG(sprite.id, ctx,
           offsetLeft + x,
           offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
-          width * multiplier, height * multiplier)
+          multiplier)
       } else {
+        const width = sprite.width * TILE_SIZE
+        const height = sprite.height * TILE_SIZE
         const bkPositionX = (sprite.x || 0) * TILE_SIZE
         const bkPositionY = (sprite.y || 0) * TILE_SIZE
 

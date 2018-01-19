@@ -78,7 +78,6 @@ export function drawProgrammaticPeople (ctx, width, offsetLeft, offsetTop, randS
     // TODO: Document / refactor magic numbers
     drawSegmentImageSVG('people--people-' + type, ctx,
       offsetLeft + ((person.left - (5 * 12 / 2) - ((4 - person.width) * 12 / 2) + startLeft) * multiplier),
-      offsetTop + (37 * multiplier),
-      12 * 5 * multiplier, 24 * 4 * multiplier)
+      offsetTop + (37 * multiplier), multiplier)
   }
 }
