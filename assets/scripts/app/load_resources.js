@@ -26,6 +26,8 @@ const SVGStagingEl = document.getElementById('svg')
 export const images = [] // This is an associative array; TODO: something else
 let loading = []
 
+export const svgCache = new Map()
+
 // Set loading bar
 const loadingEl = document.getElementById('loading-progress')
 loadingEl.max += 5 // Legacy; this is for other things that must load
@@ -70,51 +72,38 @@ function loadSVGs () {
         // ctx.drawImage() can only draw things that are images, so you can't draw
         // an SVG directly. You also can't <use> a symbol reference from inside an
         // image tag. So we have to create an image using a reconstructed SVG as a
-        // data-URI. Here, let's cache all the artwork svgs as image elements for
+        // data-URI. Here, let's cache all the artwork svgs as image elements,
+        // and include the original svg + width/height information, to assist with
         // later rendering to canvas
-        // Captures anything with its own viewbox, whether that's an svg file
-        // or symbol elements within a svg.
-        let svgEls = SVGStagingEl.querySelectorAll('[viewBox]')
 
-        for (let svg of svgEls) {
+        // Get all the <symbol>s
+        let symbolEls = SVGStagingEl.querySelectorAll('symbol')
+
+        for (let svg of symbolEls) {
           // Skip icons, we don't need to cache these
           if (svg.id.indexOf('icon-') === 0) continue
 
           // Simplify id, removing namespace prefix
-          // If the id ends up being blank, use the url
-          const id = svg.id.replace(/^image-/, '') || url
+          const id = svg.id.replace(/^image-/, '')
 
-          // Get details of the SVG so we can reconstruct an image element
-          const svgViewbox = svg.getAttribute('viewBox')
-          let svgInternals = svg.innerHTML
+          // Get a string representation of symbol so we can reconstruct an image element
+          const svgHTML = convertSVGSymbolToSVGHTML(svg)
 
-          // innerHTML is not an available property for SVG elements in IE / Edge
-          // so if turns to be undefined, we use this alternate method below,
-          // which iterates through each of the symbol's child nodes and
-          // serializes each element to a string.
-          if (typeof svgInternals === 'undefined') {
-            svgInternals = ''
-            Array.prototype.slice.call(svg.childNodes).forEach(function (node, index) {
-              svgInternals += (new window.XMLSerializer()).serializeToString(node)
-            })
-          }
+          cacheSVGObject(id, svg, svgHTML)
+        }
 
-          // SVG element requires the 'xmlns' namespace
-          // As well as the original viewBox attribute
-          // The width and height values are required in Firefox
-          // and to display them at the correct size in IE / Edge
-          const svgWidth = svg.viewBox.baseVal.width
-          const svgHeight = svg.viewBox.baseVal.height
-          const svgHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${svgViewbox}" width="${svgWidth}" height="${svgHeight}">${svgInternals}</svg>`
+        // Captures anything with its own viewbox, whether that's an svg file
+        // or symbol elements within a svg.
+        let svgEls = SVGStagingEl.querySelectorAll('svg[viewBox]')
 
-          const img = new window.Image()
-          // Browsers appear to do better with base-64 URLs rather than Blobs
-          // (Chrome works with blobs, but setting width and height on SVG
-          // makes rendering intermittent)
-          img.src = 'data:image/svg+xml;base64,' + window.btoa(svgHTML)
+        for (let svg of svgEls) {
+          // Right now none of these have ids, use the url
+          const id = url
 
-          // Store on the global images object, using its simplified id as the key
-          images[id] = img
+          // Get a string representation of symbol so we can reconstruct an image element
+          const svgHTML = getSVGOuterHTML(svg)
+
+          cacheSVGObject(id, svg, svgHTML)
         }
 
         loadingEl.value++
@@ -143,6 +132,92 @@ function getImage (url) {
       reject(new Error('unable to load image ' + url))
     }
     img.src = url
+  })
+}
+
+/**
+ * Gets a string representation of an <svg> via its outerHTML property
+ * or with a fallback method if outerHTML is unavailable (IE / Edge)
+ *
+ * @param {SVGElement} svg
+ * @return {string}
+ */
+function getSVGOuterHTML (svg) {
+  let outerHTML = svg.outerHTML
+
+  // If `outerHTML` is not available, use this alternate method below
+  if (typeof outerHTML === 'undefined') {
+    outerHTML = new XMLSerializer().serializeToString(svg)
+  }
+
+  return outerHTML
+}
+
+/**
+ * Gets a string representation of an svg <symbol>'s contents via
+ * the innerHTML property or with a fallback method if innerHTML is
+ * unavailable (IE / Edge)
+ *
+ * @param {SVGSymbolElement}
+ * @return {string}
+ */
+function getSVGSymbolInnerHTML (symbol) {
+  let innerHTML = symbol.innerHTML
+
+  // If `innerHTML` is not available, use this alternate method below,
+  // which iterates through each of the symbol's child nodes and
+  // serializes each element to a string.
+  if (typeof innerHTML === 'undefined') {
+    innerHTML = ''
+    Array.prototype.slice.call(symbol.childNodes).forEach(function (node, index) {
+      innerHTML += (new window.XMLSerializer()).serializeToString(node)
+    })
+  }
+
+  return innerHTML
+}
+
+/**
+ * Given a <symbol> element wrap it in an <svg> so that it can be rendered
+ * as an individual image
+ *
+ * @param {SVGSymbolElement} symbol
+ * @return {string}
+ */
+function convertSVGSymbolToSVGHTML (symbol) {
+  // Get a string representation of <symbol>
+  const symbolHTML = getSVGSymbolInnerHTML(symbol)
+
+  // Create a new svg from the <symbol>
+  // SVG element requires the 'xmlns' namespace, as well as the original viewBox attribute
+  // The width and height values are required in Firefox
+  // and to display them at the correct size in IE / Edge
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${symbol.viewBox}" width="${symbol.viewBox.baseVal.width}" height="${symbol.viewBox.baseVal.height}">${symbolHTML}</svg>`
+}
+
+/**
+ * Caches the processed SVG object to the SVGCache
+ *
+ * @param {string} id - key to identify the svg
+ * @param {SVGElement|SVGSymbolElement} svg - original DOM nodes
+ * @param {string} svgHTML - string representation of SVG
+ */
+function cacheSVGObject (id, svg, svgHTML) {
+  // Browsers appear to do better with base-64 URLs rather than Blobs
+  // (Chrome works with blobs, but setting width and height on SVG
+  // makes rendering intermittent)
+  const src = 'data:image/svg+xml;base64,' + window.btoa(svgHTML)
+
+  const img = new window.Image()
+  img.src = src
+
+  // Store properties on svg cache, using its simplified id as the key
+  svgCache.set(id, {
+    el: svg,
+    src: src,
+    img: img,
+    width: svg.viewBox.baseVal.width,
+    height: svg.viewBox.baseVal.height
   })
 }
 

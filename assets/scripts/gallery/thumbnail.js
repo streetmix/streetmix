@@ -1,4 +1,4 @@
-import { images } from '../app/load_resources'
+import { svgCache } from '../app/load_resources'
 import { system } from '../preinit/system_capabilities'
 import { drawLine } from '../util/canvas_drawing'
 import { prettifyWidth } from '../util/width_units'
@@ -13,6 +13,7 @@ import {
 } from '../segments/view'
 
 const SKY_COLOUR = 'rgb(169, 204, 219)'
+// TODO: replace SKY_WIDTH with image's natural width
 const SKY_WIDTH = 250
 const BOTTOM_BACKGROUND = 'rgb(216, 211, 203)'
 const BACKGROUND_DIRT_COLOUR = 'rgb(53, 45, 39)'
@@ -53,7 +54,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
     const y1 = groundLevel - 280
 
     for (let i = 0; i < Math.floor(thumbnailWidth / SKY_WIDTH) + 1; i++) {
-      ctx.drawImage(images['/images/sky-front.svg'],
+      ctx.drawImage(svgCache.get('/images/sky-front.svg').img,
         0, 0, SKY_WIDTH * 2, 280 * 2,
         i * SKY_WIDTH * system.hiDpi, y1 * system.hiDpi, SKY_WIDTH * system.hiDpi, 280 * system.hiDpi)
     }
@@ -62,7 +63,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
     const y2 = groundLevel - 280 - 120
 
     for (let i = 0; i < Math.floor(thumbnailWidth / SKY_WIDTH) + 1; i++) {
-      ctx.drawImage(images['/images/sky-rear.svg'],
+      ctx.drawImage(svgCache.get('/images/sky-rear.svg').img,
         0, 0, SKY_WIDTH * 2, 120 * 2,
         i * SKY_WIDTH * system.hiDpi, y2 * system.hiDpi, SKY_WIDTH * system.hiDpi, 120 * system.hiDpi)
     }

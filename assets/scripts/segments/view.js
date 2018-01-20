@@ -1,4 +1,4 @@
-import { images } from '../app/load_resources'
+import { images, svgCache } from '../app/load_resources'
 import { msg } from '../app/messages'
 import { infoBubble, INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/info_bubble'
 import { system } from '../preinit/system_capabilities'
@@ -48,13 +48,15 @@ const SEGMENT_SWITCHING_TIME = 250
  * @param {Number} multiplier - scale to draw at
  */
 export function drawSegmentImageSVG (id, ctx, dx, dy, multiplier = 1) {
-  const img = images[id]
+  const svg = svgCache.get(id)
 
-  // Read natural width and height right from image.
+  // We can't read `.naturalWidth` and `.naturalHeight` properties from
+  // the image in IE11, which returns 0. This is why width and height are
+  // stored as properties from when the image is first cached
   // All images are drawn at 2x pixel dimensions so divide in half to get
   // actual width / height value then multiply by system pixel density
-  const dw = img.naturalWidth / 2 * system.hiDpi * multiplier
-  const dh = img.naturalHeight / 2 * system.hiDpi * multiplier
+  const dw = svg.width / 2 * system.hiDpi * multiplier
+  const dh = svg.height / 2 * system.hiDpi * multiplier
 
   // Set render dimensions based on pixel density
   dx *= system.hiDpi
@@ -67,12 +69,12 @@ export function drawSegmentImageSVG (id, ctx, dx, dy, multiplier = 1) {
   }
 
   try {
-    ctx.drawImage(img, dx, dy, dw, dh)
+    ctx.drawImage(svg.img, dx, dy, dw, dh)
   } catch (e) {
     // IE11 has some issues drawing SVG images soon after loading. https://stackoverflow.com/questions/25214395/unexpected-call-to-method-or-property-access-while-drawing-svg-image-onto-canvas
     setTimeout(() => {
       console.error('drawImage failed for img id ' + id + ' with error: ' + e + ' - Retrying after 2 seconds')
-      ctx.drawImage(img, dx, dy, dw, dh)
+      ctx.drawImage(svg.img, dx, dy, dw, dh)
     }, 2000)
   }
 }
