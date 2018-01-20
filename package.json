@@ -64,7 +64,7 @@
   },
   "dependencies": {
     "@streetmix/icons": "0.4.2",
-    "@streetmix/illustrations": "0.3.0",
+    "@streetmix/illustrations": "0.3.1",
     "async": "2.6.0",
     "autoprefixer": "7.2.3",
     "babel-core": "6.26.0",

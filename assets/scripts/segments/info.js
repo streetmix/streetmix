@@ -237,19 +237,20 @@ const IMAGE_IDS = {
   'wayfinding--nyc-wayfinding-pylon-large': { id: 'wayfinding--nyc-wayfinding-pylon-large', width: 4, height: 11, offsetY: -0.3 },
   'wayfinding--nyc-wayfinding-pylon-medium': { id: 'wayfinding--nyc-wayfinding-pylon-medium', width: 3, height: 11, offsetY: -0.3 },
   'wayfinding--nyc-wayfinding-pylon-small': { id: 'wayfinding--nyc-wayfinding-pylon-small', width: 2, height: 11, offsetY: -0.3 },
-  'lamps--lamp-modern-left': { id: 'lamps--lamp-modern-left', width: 12, height: 31, offsetX: -10.3, offsetY: -20.25 }, // ids swapped
+  'lamps--lamp-modern-left': { id: 'lamps--lamp-modern-left', width: 12, height: 31, offsetX: -10.3, offsetY: -20.25 },
   'lamps--lamp-modern-both': { id: 'lamps--lamp-modern-both', width: 16, height: 31, offsetY: -20.25 },
-  'lamps--lamp-modern-right': { id: 'lamps--lamp-modern-right', width: 12, height: 31, offsetX: -10.3, offsetY: -20.25 }, // ids swapped
+  'lamps--lamp-modern-right': { id: 'lamps--lamp-modern-right', width: 12, height: 31, offsetX: -10.3, offsetY: -20.25 },
   'lamps--lamp-traditional-right': { id: 'lamps--lamp-traditional-right', width: 4, height: 15, offsetX: -1.5, offsetY: -4.25 },
   'lamps--lamp-traditional-center': { id: 'lamps--lamp-traditional-center', width: 4, height: 15, offsetY: -4.25 },
   'lamps--lamp-traditional-left': { id: 'lamps--lamp-traditional-left', width: 4, height: 15, offsetX: -1.5, offsetY: -4.25 },
-  'lamps--pride-banner-right': { id: 'lamps--pride-banner-right', width: 4, height: 6, offsetX: -2.5, offsetY: -13 }, // ids swapped
-  'lamps--pride-banner-left': { id: 'lamps--pride-banner-left', width: 4, height: 6, offsetX: -2.5, offsetY: -13 }, // ids swapped
+  'lamps--pride-banner-right': { id: 'lamps--pride-banner-right', width: 4, height: 6, offsetX: -2.5, offsetY: -13 },
+  'lamps--pride-banner-left': { id: 'lamps--pride-banner-left', width: 4, height: 6, offsetX: -2.5, offsetY: -13 },
   'trees--tree': { id: 'trees--tree', width: 9, height: 21, offsetY: -10.25 },
   'trees--palm-tree': { id: 'trees--palm-tree', offsetX: 0, offsetY: -20.25, width: 14, height: 31 },
   'dividers--planter-box': { id: 'dividers--planter-box', width: 4, height: 7, offsetY: 4.25 },
   'plants--bush': { id: 'plants--bush', width: 4, height: 5, offsetY: 5.7 },
   'plants--flowers': { id: 'plants--flowers', width: 4, height: 5, offsetY: 5.5 },
+  'plants--grass': { id: 'plants--grass', width: 4, height: 1, offsetY: 9.7 },
   'dividers--bollard': { id: 'dividers--bollard', width: 1, height: 7, offsetY: 4.25 },
   'dividers--dome': { id: 'dividers--dome', width: 1, height: 7, offsetY: 4.25 },
   'bikes--biker-01-inbound': { id: 'bikes--biker-01-inbound', width: 3, height: 8, offsetY: 3.25 },
@@ -276,10 +277,7 @@ const IMAGE_IDS = {
   'transit--transit-shelter-01-left': { id: 'transit--transit-shelter-01-left', width: 9, height: 12, offsetY: -1.3 },
   'transit--transit-shelter-01-right': { id: 'transit--transit-shelter-01-right', width: 9, height: 12, offsetY: -1.3 },
   'transit--transit-shelter-02-left': { id: 'transit--transit-shelter-02-left', width: 9, height: 12, offsetY: -3.8 },
-  'transit--transit-shelter-02-right': { id: 'transit--transit-shelter-02-right', width: 9, height: 12, offsetY: -3.8 },
-
-  // svgs that need to be remade
-  'grass': { tileset: 2, x: 121, y: 53, width: 4, height: 5, offsetY: 10, offsetLeft: 0, offsetRight: 0 }
+  'transit--transit-shelter-02-right': { id: 'transit--transit-shelter-02-right', width: 9, height: 12, offsetY: -3.8 }
 }
 
 export const SEGMENT_INFO = {
@@ -524,7 +522,7 @@ export const SEGMENT_INFO = {
       'right|modern': {
         graphics: {
           right: [
-            IMAGE_IDS['lamps--lamp-modern-left']
+            IMAGE_IDS['lamps--lamp-modern-right']
           ],
           repeat: [
             IMAGE_IDS['concrete']
@@ -544,7 +542,7 @@ export const SEGMENT_INFO = {
       'left|modern': {
         graphics: {
           left: [
-            IMAGE_IDS['lamps--lamp-modern-right']
+            IMAGE_IDS['lamps--lamp-modern-left']
           ],
           repeat: [
             IMAGE_IDS['concrete']
@@ -584,8 +582,8 @@ export const SEGMENT_INFO = {
       'right|pride': {
         graphics: {
           right: [
-            IMAGE_IDS['lamps--lamp-modern-left'],
-            IMAGE_IDS['lamps--pride-banner-left']
+            IMAGE_IDS['lamps--lamp-modern-right'],
+            IMAGE_IDS['lamps--pride-banner-right']
           ],
           repeat: [
             IMAGE_IDS['concrete']
@@ -596,7 +594,7 @@ export const SEGMENT_INFO = {
         graphics: {
           center: [
             IMAGE_IDS['lamps--lamp-modern-both'],
-            Object.assign({}, IMAGE_IDS['lamps--pride-banner-right'], { offsetX: 1.5 })
+            Object.assign({}, IMAGE_IDS['lamps--pride-banner-left'], { offsetX: 1.5 })
           ],
           repeat: [
             IMAGE_IDS['concrete']
@@ -606,8 +604,8 @@ export const SEGMENT_INFO = {
       'left|pride': {
         graphics: {
           left: [
-            IMAGE_IDS['lamps--lamp-modern-right'],
-            IMAGE_IDS['lamps--pride-banner-right']
+            IMAGE_IDS['lamps--lamp-modern-left'],
+            IMAGE_IDS['lamps--pride-banner-left']
           ],
           repeat: [
             IMAGE_IDS['concrete']
@@ -669,7 +667,7 @@ export const SEGMENT_INFO = {
         name: 'Planting strip',
         graphics: {
           repeat: [
-            IMAGE_IDS['grass'],
+            IMAGE_IDS['plants--grass'],
             IMAGE_IDS['concrete']
           ]
         }
@@ -722,7 +720,7 @@ export const SEGMENT_INFO = {
             IMAGE_IDS['plants--bush']
           ],
           repeat: [
-            IMAGE_IDS['grass'],
+            IMAGE_IDS['plants--grass'],
             IMAGE_IDS['concrete']
           ]
         }
@@ -734,7 +732,7 @@ export const SEGMENT_INFO = {
             IMAGE_IDS['plants--flowers']
           ],
           repeat: [
-            IMAGE_IDS['grass'],
+            IMAGE_IDS['plants--grass'],
             IMAGE_IDS['concrete']
           ]
         }
@@ -746,7 +744,7 @@ export const SEGMENT_INFO = {
             IMAGE_IDS['trees--tree']
           ],
           repeat: [
-            IMAGE_IDS['grass'],
+            IMAGE_IDS['plants--grass'],
             IMAGE_IDS['concrete']
           ]
         }
@@ -758,7 +756,7 @@ export const SEGMENT_INFO = {
             IMAGE_IDS['trees--palm-tree']
           ],
           repeat: [
-            IMAGE_IDS['grass'],
+            IMAGE_IDS['plants--grass'],
             IMAGE_IDS['concrete']
           ]
         }
@@ -908,7 +906,7 @@ export const SEGMENT_INFO = {
         maxWidth: 10,
         graphics: {
           left: [
-            Object.assign({}, IMAGE_IDS['vehicles--car-inbound'], { offsetX: -0.75 })
+            Object.assign({}, IMAGE_IDS['vehicles--car-inbound'], { offsetX: -2.75 })
           ],
           repeat: [
             IMAGE_IDS['asphalt']
@@ -923,7 +921,7 @@ export const SEGMENT_INFO = {
         maxWidth: 10,
         graphics: {
           right: [
-            Object.assign({}, IMAGE_IDS['vehicles--car-inbound'], { offsetX: -1 })
+            Object.assign({}, IMAGE_IDS['vehicles--car-inbound'], { offsetX: -3 })
           ],
           repeat: [
             IMAGE_IDS['asphalt']
@@ -938,7 +936,7 @@ export const SEGMENT_INFO = {
         maxWidth: 10,
         graphics: {
           left: [
-            Object.assign({}, IMAGE_IDS['vehicles--car-outbound'], { offsetX: -0.75 })
+            Object.assign({}, IMAGE_IDS['vehicles--car-outbound'], { offsetX: -2.75 })
           ],
           repeat: [
             IMAGE_IDS['asphalt']
@@ -953,7 +951,7 @@ export const SEGMENT_INFO = {
         maxWidth: 10,
         graphics: {
           right: [
-            Object.assign({}, IMAGE_IDS['vehicles--car-outbound'], { offsetX: -1 })
+            Object.assign({}, IMAGE_IDS['vehicles--car-outbound'], { offsetX: -3 })
           ],
           repeat: [
             IMAGE_IDS['asphalt']
