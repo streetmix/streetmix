@@ -53,7 +53,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
     const y1 = groundLevel - 280
 
     for (let i = 0; i < Math.floor(thumbnailWidth / SKY_WIDTH) + 1; i++) {
-      ctx.drawImage(images['/images/sky-front.png'],
+      ctx.drawImage(images['/images/sky-front.svg'],
         0, 0, SKY_WIDTH * 2, 280 * 2,
         i * SKY_WIDTH * system.hiDpi, y1 * system.hiDpi, SKY_WIDTH * system.hiDpi, 280 * system.hiDpi)
     }
@@ -62,7 +62,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
     const y2 = groundLevel - 280 - 120
 
     for (let i = 0; i < Math.floor(thumbnailWidth / SKY_WIDTH) + 1; i++) {
-      ctx.drawImage(images['/images/sky-rear.png'],
+      ctx.drawImage(images['/images/sky-rear.svg'],
         0, 0, SKY_WIDTH * 2, 120 * 2,
         i * SKY_WIDTH * system.hiDpi, y2 * system.hiDpi, SKY_WIDTH * system.hiDpi, 120 * system.hiDpi)
     }

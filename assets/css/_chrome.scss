@@ -3,6 +3,10 @@ body.phone #loading {
   font-size: 32px;
 }
 
+#svg {
+  display: none;
+}
+
 #error,
 #loading {
   background: $sky-colour;
