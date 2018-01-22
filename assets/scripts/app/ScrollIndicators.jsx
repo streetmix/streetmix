@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { registerKeypress } from './keypress'
 
-class ScrollIndicators extends React.Component {
+class ScrollIndicators extends React.PureComponent {
   static propTypes = {
     posLeft: PropTypes.number.isRequired,
     posRight: PropTypes.number.isRequired,
@@ -10,36 +10,40 @@ class ScrollIndicators extends React.Component {
     scrollTop: PropTypes.number.isRequired
   }
 
-  shouldComponentUpdate (nextProps) {
-    if (this.props.posLeft !== nextProps.posLeft &&
-        this.props.posRight !== nextProps.posRight) {
-      this.refs.left_indicator.innerHTML = Array(nextProps.posLeft + 1).join('‹')
-      this.refs.right_indicator.innerHTML = Array(nextProps.posRight + 1).join('›')
-      return true
-    }
-    // Checking if window was resized
-    if (this.props.scrollTop !== nextProps.scrollTop) {
-      this.updateIndicatorsPosition(nextProps.scrollTop)
-      return true
-    }
-    return false
-  }
-
   componentDidMount () {
-    registerKeypress('left', (event) => { this.props.scrollStreet(true, event.shiftKey) })
-    registerKeypress('right', (event) => { this.props.scrollStreet(false, event.shiftKey) })
+    registerKeypress('left', this.handleLeftScroll)
+    registerKeypress('right', this.handleRightScroll)
   }
 
-  updateIndicatorsPosition = (scrollTop) => {
-    this.refs.left_indicator.style.top = scrollTop + 'px'
-    this.refs.right_indicator.style.top = scrollTop + 'px'
+  handleLeftScroll = (event) => {
+    this.props.scrollStreet(true, event.shiftKey)
+  }
+
+  handleRightScroll = (event) => {
+    this.props.scrollStreet(false, event.shiftKey)
   }
 
   render () {
+    const { scrollTop, posLeft, posRight } = this.props
+    const style = {
+      position: 'absolute',
+      top: scrollTop + 'px'
+    }
+
     return (
-      <div className="street-scroll-indicators">
-        <div id="street-scroll-indicator-left" onClick={(e) => this.props.scrollStreet(true, e.shiftKey)} ref="left_indicator" />
-        <div id="street-scroll-indicator-right" onClick={(e) => this.props.scrollStreet(false, e.shiftKey)} ref="right_indicator" />
+      <div className="street-scroll-indicators" style={style}>
+        <div 
+          id="street-scroll-indicator-left" 
+          onClick={this.handleLeftScroll} 
+        >
+          {Array(posLeft + 1).join('‹')}
+        </div>
+        <div 
+          id="street-scroll-indicator-right" 
+          onClick={this.handleRightScroll} 
+        >
+          {Array(posRight + 1).join('›')}
+        </div>
       </div>
     )
   }
