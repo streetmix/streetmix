@@ -32,15 +32,15 @@ class ScrollIndicators extends React.PureComponent {
 
     return (
       <div className="street-scroll-indicators" style={style}>
-        <div 
-          id="street-scroll-indicator-left" 
-          onClick={this.handleLeftScroll} 
+        <div
+          id="street-scroll-indicator-left"
+          onClick={this.handleLeftScroll}
         >
           {Array(posLeft + 1).join('‹')}
         </div>
-        <div 
-          id="street-scroll-indicator-right" 
-          onClick={this.handleRightScroll} 
+        <div
+          id="street-scroll-indicator-right"
+          onClick={this.handleRightScroll}
         >
           {Array(posRight + 1).join('›')}
         </div>
