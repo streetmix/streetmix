@@ -24,7 +24,7 @@ class SkyBackground extends React.PureComponent {
 
   render () {
     const { streetSectionSkyTop, skyTop, scrollPos, system } = this.props
-    
+
     const skyStyle = {
       top: streetSectionSkyTop + 'px',
       paddingTop: skyTop + 'px',
