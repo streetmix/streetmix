@@ -1,9 +1,9 @@
 /**
- * MiscHTMLStuff.jsx
+ * StreetView.jsx
  *
  * Temporary: Renders all the non-React HTML.
  *
- * @module MiscHTMLStuff
+ * @module StreetView
  */
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -15,7 +15,7 @@ import { animate } from '../util/helpers'
 import { MAX_CUSTOM_STREET_WIDTH } from '../streets/width'
 import { app } from '../preinit/app_settings'
 
-class MiscHTMLStuff extends React.Component {
+class StreetView extends React.Component {
   static propTypes = {
     street: PropTypes.object.isRequired,
     system: PropTypes.object.isRequired
@@ -189,4 +189,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(MiscHTMLStuff)
+export default connect(mapStateToProps)(StreetView)
