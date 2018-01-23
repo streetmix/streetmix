@@ -88,14 +88,7 @@ class MiscHTMLStuff extends React.Component {
     this.calculateStreetIndicatorsPositions()
 
     this.setState({
-      isStreetScrolling: true,
       scrollPos: scrollPos
-    })
-  }
-
-  stopStreetScroll = () => {
-    this.setState({
-      isStreetScrolling: false
     })
   }
 
@@ -173,7 +166,6 @@ class MiscHTMLStuff extends React.Component {
           </section>
         </section>
         <SkyBackground
-          isStreetScrolling={this.state.isStreetScrolling}
           scrollPos={this.state.scrollPos}
           stopStreetScroll={this.stopStreetScroll}
           streetSectionSkyTop={this.state.streetSectionSkyTop}

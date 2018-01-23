@@ -2,58 +2,46 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-class SkyBackground extends React.Component {
+class SkyBackground extends React.PureComponent {
   static propTypes = {
-    isStreetScrolling: PropTypes.bool.isRequired,
     scrollPos: PropTypes.number.isRequired,
-    stopStreetScroll: PropTypes.func.isRequired,
     streetSectionSkyTop: PropTypes.number.isRequired,
     skyTop: PropTypes.number.isRequired,
     system: PropTypes.object.isRequired
   }
 
-  shouldComponentUpdate (nextProps) {
-    if (this.props.isStreetScrolling !== nextProps.isStreetScrolling && nextProps.isStreetScrolling === true) {
-      this.updateStreetSkyBackground(nextProps.scrollPos)
-      return true
-    }
-    // Checking if window was resized
-    if (this.props.streetSectionSkyTop !== nextProps.streetSectionSkyTop &&
-        this.props.skyTop !== nextProps.skyTop) {
-      this.updateSkyPosition(nextProps.streetSectionSkyTop, nextProps.skyTop)
-      return true
-    }
-    return false
-  }
-
-  updateSkyPosition = (streetSectionSkyTop, skyTop) => {
-    if (streetSectionSkyTop !== 0 && skyTop !== 0) {
-      this.refs.street_section_sky.style.top = streetSectionSkyTop + 'px'
-      this.refs.street_section_sky.style.paddingTop = skyTop + 'px'
-      this.refs.street_section_sky.style.marginTop = -skyTop + 'px'
-    }
-  }
-
-  updateStreetSkyBackground = (scrollPos) => {
-    const { system } = this.props
-    if (scrollPos !== 0) {
+  updateStreetSkyBackground = (isFront, scrollPos) => {
+    let style = ''
+    if (isFront) {
       const frontPos = -scrollPos * 0.5
-      this.refs.front_clouds.style[system.cssTransform] =
-        'translateX(' + frontPos + 'px)'
-
+      style = 'translateX(' + frontPos + 'px)'
+    } else {
       const rearPos = -scrollPos * 0.25
-      this.refs.rear_clouds.style[system.cssTransform] =
-        'translateX(' + rearPos + 'px)'
+      style = 'translateX(' + rearPos + 'px)'
     }
-
-    this.props.stopStreetScroll()
+    return style
   }
 
   render () {
+    const { streetSectionSkyTop, skyTop, scrollPos, system } = this.props
+    
+    const skyStyle = {
+      top: streetSectionSkyTop + 'px',
+      paddingTop: skyTop + 'px',
+      marginTop: -skyTop + 'px'
+    }
+
+    const frontCloudStyle = {
+      [system.cssTransform]: this.updateStreetSkyBackground(true, scrollPos)
+    }
+    const rearCloudStyle = {
+      [system.cssTransform]: this.updateStreetSkyBackground(false, scrollPos)
+    }
+
     return (
-      <section id="street-section-sky" ref="street_section_sky">
-        <div className="rear-clouds" ref="rear_clouds" />
-        <div className="front-clouds" ref="front_clouds" />
+      <section id="street-section-sky" style={skyStyle}>
+        <div className="rear-clouds" style={frontCloudStyle} />
+        <div className="front-clouds" style={rearCloudStyle} />
       </section>
     )
   }
