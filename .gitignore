@@ -24,3 +24,6 @@ builtAssets
 
 newrelic_agent.log
 .idea
+
+# Ignore editor settings
+.vscode
