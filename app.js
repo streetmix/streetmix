@@ -46,7 +46,7 @@ const helmetConfig = {
         'platform.twitter.com',
         'https://www.google-analytics.com',
         'cdn.mxpnl.com',
-        '*.global.ssl.fastly.net',
+        '*.basemaps.cartocdn.com',
         'search.mapzen.com',
         "'sha256-ZFVNSjbMCfXEvm7Udu+4fzj7uxtIasWHfUkYsyr9Xzc='", // Google Analytics (w/ production id)
         "'sha256-80ZBre/y2+jBIlTB4jDA8maeor/DkrMKKHcR+VALCFg='" // Mixpanel (w/ production id)
@@ -58,7 +58,7 @@ const helmetConfig = {
         'pbs.twimg.com',
         'syndication.twitter.com',
         'https://www.google-analytics.com',
-        '*.global.ssl.fastly.net'
+        '*.basemaps.cartocdn.com'
       ],
       fontSrc: ["'self'", 'fonts.gstatic.com'],
       connectSrc: ["'self'",

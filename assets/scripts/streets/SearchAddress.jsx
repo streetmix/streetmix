@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import Autosuggest from 'react-autosuggest'
 import { throttle } from 'lodash'
 import { MAPZEN_API_KEY } from '../app/config'
@@ -236,7 +235,9 @@ function mapStateToProps (state) {
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ setMapState }, dispatch)
+  return {
+    setMapState: (...args) => { dispatch(setMapState(...args)) }
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchAddress)

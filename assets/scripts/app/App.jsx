@@ -20,7 +20,7 @@ import PrintContainer from './PrintContainer'
 export default class App extends React.PureComponent {
   render () {
     return (
-      <div className="app-wrapper">
+      <React.Fragment>
         <BlockingError />
         <Gallery />
         <MessageBar />
@@ -41,7 +41,7 @@ export default class App extends React.PureComponent {
         <Flash />
         <DebugInfo />
         <PrintContainer />
-      </div>
+      </React.Fragment>
     )
   }
 }

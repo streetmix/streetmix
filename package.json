@@ -13,7 +13,7 @@
   },
   "scripts": {
     "prestart": "npm run mongo:start",
-    "start": "supervisor -e node,js,jsx,scss index.js",
+    "start": "npm run app:start",
     "stop": "npm run mongo:stop",
     "test": "npm run lint && npm run jest:watch",
     "pretest:full": "npm run mongo:start && npm run protractor:update && npm run test:server",
@@ -21,6 +21,7 @@
     "posttest:full": "npm run test:cleanup",
     "mongo:start": "mongod --fork --logpath /dev/null",
     "mongo:stop": "mongo admin --eval 'db.shutdownServer()'",
+    "app:start": "supervisor -e node,js,jsx,scss index.js",
     "test:cleanup": "npm run test:server:close && npm run mongo:stop",
     "test:server": "NODE_ENV=test PORT=3000 node index &",
     "test:server:close": "pkill -SIGINT streetmix",
