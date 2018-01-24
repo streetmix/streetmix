@@ -25,7 +25,6 @@ export function resizeStreetWidth (dontScroll) {
   if (!dontScroll) {
     document.querySelector('#street-section-outer').scrollLeft =
       (width + (BUILDING_SPACE * 2) - system.viewportWidth) / 2
-    onStreetSectionScroll()
   }
 
   onResize()
