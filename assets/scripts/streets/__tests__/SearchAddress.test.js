@@ -111,13 +111,13 @@ describe('SearchAddress', () => {
     component.instance().autocomplete = jest.fn(component.instance().autocomplete)
 
     // Simulates input - should not make an autocomplete request until
-    // after input value is greater than 2 characters.
+    // after input value is greater than MINIMUM_QUERY_LENGTH characters.
     input.simulate('change', { target: { value: 'f' } })
     expect(component.instance().search).toHaveBeenCalledTimes(0)
     expect(component.instance().autocomplete).toHaveBeenCalledTimes(0)
 
-    // Makes one autocomplete call on the second letter
-    input.simulate('change', { target: { value: 'fo' } })
+    // Makes one autocomplete call on the third letter
+    input.simulate('change', { target: { value: 'fo0' } })
     expect(component.instance().search).toHaveBeenCalledTimes(0)
     expect(component.instance().autocomplete).toHaveBeenCalledTimes(1)
   })
