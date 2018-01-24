@@ -41,3 +41,7 @@ notifications:
 cache:
   directories:
     - node_modules
+
+notifications:
+  slack:
+    secure: cqfsAO9mXGrdUl+f558aOlM1Z46UkvVU7dB5TvnXPUq7oim1NowQqCbSayCLtE2qayz+cVW1Qtid5znUygMOHgr3pWOJqnIN2Bjc6M2X+dLlnL6KAj+PS6uPHmlhwsArIdpDxkO1auVKODZAJbBuBhaFNhQphIzBbW4Cqc2Zn5w=
