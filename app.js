@@ -47,7 +47,7 @@ const helmetConfig = {
         'https://www.google-analytics.com',
         'cdn.mxpnl.com',
         '*.basemaps.cartocdn.com',
-        'search.mapzen.com',
+        'api.geocode.earth',
         "'sha256-ZFVNSjbMCfXEvm7Udu+4fzj7uxtIasWHfUkYsyr9Xzc='", // Google Analytics (w/ production id)
         "'sha256-80ZBre/y2+jBIlTB4jDA8maeor/DkrMKKHcR+VALCFg='" // Mixpanel (w/ production id)
       ],
@@ -64,7 +64,7 @@ const helmetConfig = {
       connectSrc: ["'self'",
         'freegeoip.net',
         'api.mixpanel.com',
-        'search.mapzen.com',
+        'api.geocode.earth',
         'syndication.twitter.com',
         'https://www.google-analytics.com',
         'app.getsentry.com'

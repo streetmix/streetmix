@@ -3,16 +3,16 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Autosuggest from 'react-autosuggest'
 import { throttle } from 'lodash'
-import { MAPZEN_API_KEY } from '../app/config'
+import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../app/config'
 import { setMapState } from '../store/actions/map'
 import { t } from '../app/locale'
 
-const AUTOCOMPLETE_API = 'https://search.mapzen.com/v1/autocomplete'
-const AUTOCOMPLETE_ENDPOINT = `${AUTOCOMPLETE_API}?api_key=${MAPZEN_API_KEY}`
-const SEARCH_API = 'https://search.mapzen.com/v1/search'
-const SEARCH_ENDPOINT = `${SEARCH_API}?api_key=${MAPZEN_API_KEY}`
-const REQUEST_THROTTLE = 250
-const MINIMUM_QUERY_LENGTH = 2
+const AUTOCOMPLETE_API = `https://${PELIAS_HOST_NAME}/v1/autocomplete`
+const AUTOCOMPLETE_ENDPOINT = `${AUTOCOMPLETE_API}?api_key=${PELIAS_API_KEY}`
+const SEARCH_API = `https://${PELIAS_HOST_NAME}/v1/search`
+const SEARCH_ENDPOINT = `${SEARCH_API}?api_key=${PELIAS_API_KEY}`
+const REQUEST_THROTTLE = 300
+const MINIMUM_QUERY_LENGTH = 3
 
 export class SearchAddress extends React.Component {
   static propTypes = {
