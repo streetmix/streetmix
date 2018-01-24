@@ -5,7 +5,6 @@ import { SEGMENT_INFO } from '../segments/info'
 import { getSegmentWidthResolution } from '../segments/resizing'
 import { TILE_SIZE } from '../segments/view'
 import { getStreet } from './data_model'
-import { onStreetSectionScroll } from './scroll'
 
 export const DEFAULT_STREET_WIDTH = 80
 
