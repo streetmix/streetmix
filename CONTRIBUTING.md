@@ -28,7 +28,7 @@ and discussion.
 
 ### Bug reporting
 
-If you notice any bugs while using Streetmix, let us know by [opening a new issue]((https://github.com/streetmix/streetmix/issues/new).
+If you notice any bugs while using Streetmix, let us know by [opening a new issue](https://github.com/streetmix/streetmix/issues/new).
 Please check to make sure it hasn't already been reported. If there is already an
 existing issue, feel free to add a comment or indicate support by voting
 it up.
@@ -115,30 +115,38 @@ These installation instructions assume that you have already installed the [Home
 
 1) Download and install [Node.js](http://nodejs.org/).
 
-    ```
+    ```sh
     brew install nodejs
     ```
 
 2) Download, install and start [MongoDB v3.4](http://www.mongodb.org/).
 
-    ```
+    ```sh
     brew install mongodb@3.4
     ```
 
-You'll also need to set up the [MongoDB data directory](https://docs.mongodb.org/manual/tutorial/install-mongodb-on-os-x/#run-mongodb). The easiest set up would be (you may need `sudo`):
+3) Set up the [MongoDB data directory](https://docs.mongodb.org/manual/tutorial/install-mongodb-on-os-x/#run-mongodb). The easiest set up is this (you may need `sudo`):
 
+    ```sh
     mkdir -p /data/db
     chmod 777 /data/db
+    ```
 
-3) Clone this remote repository to a folder on your computer.
+4) Add MongoDB binaries to the PATH environment variable. The most common way this can be done by editing `~/.bash_profile`. Using a text editor, open that file and add this line at the bottom of it:
 
     ```
+    export PATH="/usr/local/opt/mongodb@3.4/bin:$PATH"
+    ```
+
+5) Clone this remote repository to a folder on your computer.
+
+    ```sh
     git clone https://github.com/streetmix/streetmix.git
     ```
 
-4) Install project dependencies.
+5) Install project dependencies.
 
-    ```
+    ```sh
     cd streetmix
     npm install
     ```
@@ -162,7 +170,7 @@ You may skip each of these steps if a fairly recent stable version is already pr
 
 1) In the command line terminal, clone a copy of the Streetmix repository to your local machine:
 
-    ```
+    ```sh
     git clone https://github.com/streetmix/streetmix.git
     ```
 
@@ -170,16 +178,18 @@ You may additionally specify the name of the directory to install to, if you wis
 
 2) Go into the project’s root directory and install all Node libraries.
 
-    ```
+    ```sh
     cd streetmix
     npm install
     ```
 
 3) Go into `package.json` and remove  `"prestart": "npm run mongo:start"` and `"mongo:start": "mongod --fork --logpath /dev/null"`
 
-4) Set up the MongoDB environment. [Follow the instructions under “Set up the MongoDB environment” from the MongoDB website.](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-windows/#run-mongodb
+4) Set up the MongoDB environment. [Follow the instructions under “Set up the MongoDB environment” from the MongoDB website.](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-windows/#run-mongodb)
 
-5) Run `mongod.exe` and `mongo.exe`
+5) Add MongoDB binaries to your system path. Open the Start Menu and type in "environment variables", and select _Edit the system environment variables_. You should see the _Advanced_ tab of _System Properties_. Click "Environment Variables..." at the lower right corner of the panel. In the user variables, select or create a variable called "Path", then edit it and add a new entry containing `C:\Program Files\MongoDB\Server\3.6\bin` (or the path you installed MongoDB to). Click OK until you return to the _System Properties_ window, click Apply then click OK to exit.
+
+6) Run `mongod.exe` and `mongo.exe`
 
 #### On all systems
 
@@ -211,16 +221,15 @@ NO_INTERNET_MODE=true
 
 ### HOWTO: Start the application
 
-1) Start the web server. (This also automatically starts MongoDB in the background.)
+1) Start the web server. (This also automatically starts MongoDB in the background.) In the Streetmix project directory, run:
 
-    ```
-    cd streetmix
+    ```sh
     npm start
     ```
 
-2) Load the application in your web browser.
+2) Load the application in your web browser by navigating to `http://localhost:8000` or by running in your terminal:
 
-    ```
+    ```sh
     open http://127.0.0.1:8000
     ```
 
@@ -229,13 +238,13 @@ NO_INTERNET_MODE=true
 
 1) By default, local tests are unit tests, with CSS and JavaScript linting.
 
-    ```
+    ```sh
     npm test
     ```
 
 2) You can run a full browser integration test with this command. By default, we run tests similar to this in our continuous integration infrastructure on commits and pull requests to GitHub, so it is not required to run this locally.
 
-    ```
+    ```sh
     npm test:full
     ```
 
