@@ -13,7 +13,7 @@ import DebugInfo from './DebugInfo'
 import Gallery from '../gallery/Gallery'
 import GalleryShield from '../gallery/GalleryShield'
 import BlockingError from './BlockingError'
-import MiscHTMLStuff from './MiscHTMLStuff'
+import StreetView from './StreetView'
 import DebugHoverPolygon from '../info_bubble/DebugHoverPolygon'
 import PrintContainer from './PrintContainer'
 
@@ -33,7 +33,7 @@ export default class App extends React.PureComponent {
           <WelcomePanel />
           <Palette />
           <DialogRoot />
-          <MiscHTMLStuff />
+          <StreetView />
           <StatusMessage />
           <NoConnectionMessage />
         </div>

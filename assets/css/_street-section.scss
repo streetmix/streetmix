@@ -40,8 +40,8 @@
   }
 }
 
-#street-scroll-indicator-left,
-#street-scroll-indicator-right {
+.street-scroll-indicator-left,
+.street-scroll-indicator-right {
   @include tap-highlight-color(transparent);
 
   position: fixed;
@@ -63,11 +63,11 @@
     opacity: 0.5;
   }
 
-  &#street-scroll-indicator-left {
+  &.street-scroll-indicator-left {
     left: 0;
   }
 
-  &#street-scroll-indicator-right {
+  &.street-scroll-indicator-right {
     right: 12px;
     text-align: right;
   }
