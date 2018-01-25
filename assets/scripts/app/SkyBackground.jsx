@@ -40,8 +40,8 @@ class SkyBackground extends React.PureComponent {
 
     return (
       <section className="street-section-sky" style={skyStyle}>
-        <div className="rear-clouds" style={frontCloudStyle} />
-        <div className="front-clouds" style={rearCloudStyle} />
+        <div className="rear-clouds" style={rearCloudStyle} />
+        <div className="front-clouds" style={frontCloudStyle} />
       </section>
     )
   }
