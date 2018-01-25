@@ -50,7 +50,7 @@ class StreetView extends React.Component {
   onResize = () => {
     const { viewportHeight } = this.props.system
     let streetSectionTop = null
-    let streetSectionHeight = this.refs.street_section_inner.offsetHeight
+    let streetSectionHeight = this.streetSectionInner.offsetHeight
 
     if (viewportHeight - streetSectionHeight > 450) {
       streetSectionTop = ((viewportHeight - streetSectionHeight - 450) / 2) + 450 + 80
@@ -70,7 +70,7 @@ class StreetView extends React.Component {
       skyTop = 0
     }
 
-    this.refs.street_section_inner.style.top = streetSectionTop + 'px'
+    this.streetSectionInner.style.top = streetSectionTop + 'px'
 
     this.setState({
       streetSectionTop,
@@ -84,7 +84,7 @@ class StreetView extends React.Component {
   handleStreetScroll = (event) => {
     infoBubble.suppress()
 
-    var scrollPos = this.refs.street_section_outer.scrollLeft
+    var scrollPos = this.streetSectionOuter.scrollLeft
     this.calculateStreetIndicatorsPositions()
 
     this.setState({
@@ -93,7 +93,7 @@ class StreetView extends React.Component {
   }
 
   calculateStreetIndicatorsPositions = () => {
-    const el = this.refs.street_section_outer
+    const el = this.streetSectionOuter
     let posLeft
     let posRight
 
@@ -126,7 +126,7 @@ class StreetView extends React.Component {
   }
 
   scrollStreet = (left, far = false) => {
-    const el = this.refs.street_section_outer
+    const el = this.streetSectionOuter
     let newScrollLeft
 
     if (left) {
@@ -149,8 +149,12 @@ class StreetView extends React.Component {
   render () {
     return (
       <React.Fragment>
-        <section id="street-section-outer" ref="street_section_outer" onScroll={this.handleStreetScroll}>
-          <section id="street-section-inner" ref="street_section_inner">
+        <section
+          id="street-section-outer"
+          onScroll={this.handleStreetScroll}
+          ref={(ref) => { this.streetSectionOuter = ref }}
+        >
+          <section id="street-section-inner" ref={(ref) => { this.streetSectionInner = ref }}>
             <section id="street-section-canvas">
               <section id="street-section-left-building" className="street-section-building">
                 <div className="hover-bk" />
