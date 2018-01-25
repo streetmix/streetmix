@@ -2,7 +2,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { mount } from 'enzyme'
-import { SearchAddress } from '../SearchAddress'
+import module, { SearchAddress } from '../SearchAddress'
 
 import autocompleteResponse from './fixtures/autocomplete.json'
 import searchResponse from './fixtures/search.json'
@@ -103,6 +103,9 @@ describe('SearchAddress', () => {
     // of times it's called is reset
     window.fetch = mapzenSearchMock
 
+    // Access a non-exported variable
+    const MINIMUM_QUERY_LENGTH = module.__get__('MINIMUM_QUERY_LENGTH')
+
     const component = mount(<SearchAddress />)
     const input = component.find('input')
 
@@ -112,12 +115,14 @@ describe('SearchAddress', () => {
 
     // Simulates input - should not make an autocomplete request until
     // after input value is greater than MINIMUM_QUERY_LENGTH characters.
-    input.simulate('change', { target: { value: 'f' } })
+    const input1 = Array(MINIMUM_QUERY_LENGTH - 1).fill('f').join('')
+    input.simulate('change', { target: { value: input1 } })
     expect(component.instance().search).toHaveBeenCalledTimes(0)
     expect(component.instance().autocomplete).toHaveBeenCalledTimes(0)
 
-    // Makes one autocomplete call on the third letter
-    input.simulate('change', { target: { value: 'fo0' } })
+    // Makes one autocomplete call when input meets the MINIMUM_QUERY_LENGTH
+    const input2 = Array(MINIMUM_QUERY_LENGTH).fill('f').join('')
+    input.simulate('change', { target: { value: input2 } })
     expect(component.instance().search).toHaveBeenCalledTimes(0)
     expect(component.instance().autocomplete).toHaveBeenCalledTimes(1)
   })

@@ -4,5 +4,12 @@
     "transform-object-rest-spread",
     "transform-class-properties",
     "transform-async-to-generator"
-  ]
+  ],
+  "env": {
+    "test": {
+      "plugins": [
+        "babel-plugin-rewire"
+      ]
+    }
+  }
 }
