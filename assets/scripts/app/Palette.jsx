@@ -2,12 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Scrollable from '../ui/Scrollable'
 import { connect } from 'react-redux'
-import { undo, redo } from '../streets/undo_stack'
 import { t } from '../app/locale'
 import { generateRandSeed } from '../util/random'
 import { SEGMENT_INFO } from '../segments/info'
 import { TILE_SIZE, getVariantInfoDimensions } from '../segments/view'
 import Segment from '../segments/Segment'
+import UndoRedo from './UndoRedo'
 
 const WIDTH_PALETTE_MULTIPLIER = 4
 const PALETTE_EXTRA_SEGMENT_PADDING = 8
@@ -108,8 +108,7 @@ class Palette extends React.Component {
           {t('palette.remove', 'Drag here to remove')}
         </div>
         <div className="palette-commands" ref={(ref) => { this.commandsEl = ref }}>
-          <button id="undo" onClick={undo}>{t('btn.undo', 'Undo')}</button>
-          <button id="redo" onClick={redo}>{t('btn.redo', 'Redo')}</button>
+          <UndoRedo />
         </div>
         <Scrollable className="palette" setRef={this.setScrollableRef} ref={(ref) => { this.scrollable = ref }}>
           <React.Fragment>{this.props.everythingLoaded && this.renderPaletteItems()}</React.Fragment>
