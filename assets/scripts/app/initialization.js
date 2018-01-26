@@ -193,7 +193,6 @@ function onEverythingLoaded () {
   if (mode === MODES.EXISTING_STREET || mode === MODES.CONTINUE) {
     let welcomeDismissed
     let donateDismissed
-    let delayedTimestamp
     const twoWeeksAgo = Date.now() - 12096e5
     const flag = store.getState().flags.DONATE_NAG_SCREEN.value
     if (window.localStorage['settings-welcome-dismissed']) {
@@ -202,9 +201,15 @@ function onEverythingLoaded () {
     if (window.localStorage['settings-donate-dismissed']) {
       donateDismissed = JSON.parse(window.localStorage['settings-donate-dismissed'])
     }
-    if (window.localStorage['settings-donate-delayed-timestamp']) {
-      delayedTimestamp = JSON.parse(window.localStorage['settings-donate-delayed-timestamp'])
+
+    // if there's no delayed timestamp, immediately set one
+    // This means the user should not see the donate nag until
+    // they have returned after 2 weeks.
+    if (!window.localStorage['settings-donate-delayed-timestamp']) {
+      window.localStorage['settings-donate-delayed-timestamp'] = Date.now().toString()
     }
+
+    const delayedTimestamp = JSON.parse(window.localStorage['settings-donate-delayed-timestamp'])
 
     if (welcomeDismissed && !donateDismissed && flag &&
        (!delayedTimestamp || delayedTimestamp < twoWeeksAgo)) {
