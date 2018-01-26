@@ -43,11 +43,13 @@ const SEGMENT_SWITCHING_TIME = 250
  *
  * @param {string} id - identifier of sprite
  * @param {CanvasRenderingContext2D} ctx
+ * @param {Number} sw - sub-rectangle width to draw
+ * @param {Number} sh - sub-rectangle height to draw
  * @param {Number} dx - x position on canvas
  * @param {Number} dy - y position on canvas
  * @param {Number} multiplier - scale to draw at
  */
-export function drawSegmentImageSVG (id, ctx, dx, dy, multiplier = 1) {
+export function drawSegmentImageSVG (id, ctx, sw, sh, dx, dy, dw, dh, multiplier = 1) {
   const svg = svgCache.get(id)
 
   // We can't read `.naturalWidth` and `.naturalHeight` properties from
@@ -55,8 +57,12 @@ export function drawSegmentImageSVG (id, ctx, dx, dy, multiplier = 1) {
   // stored as properties from when the image is first cached
   // All images are drawn at 2x pixel dimensions so divide in half to get
   // actual width / height value then multiply by system pixel density
-  const dw = svg.width / 2 * system.hiDpi * multiplier
-  const dh = svg.height / 2 * system.hiDpi * multiplier
+  //
+  // dw/dh (and later sw/sh) can be 0, so don't use falsy checks
+  dw = (dw === null) ? svg.width / 2 * system.hiDpi : dw
+  dh = (dh === null) ? svg.height / 2 * system.hiDpi : dh
+  dw *= multiplier
+  dh *= multiplier
 
   // Set render dimensions based on pixel density
   dx *= system.hiDpi
@@ -68,13 +74,22 @@ export function drawSegmentImageSVG (id, ctx, dx, dy, multiplier = 1) {
     ctx.fillRect(dx, dy, dw, dh)
   }
 
+  const sx = 0
+  const sy = 0
+
+  // Source width and height is based off of intrinsic image width and height,
+  // but it can be overridden in the parameters, e.g. when repeating sprites
+  // in a sequence and the last sprite needs to be truncated
+  sw = (sw === null) ? svg.width : sw
+  sh = (sh === null) ? svg.height : sh
+
   try {
-    ctx.drawImage(svg.img, dx, dy, dw, dh)
+    ctx.drawImage(svg.img, sx, sy, sw, sh, dx, dy, dw, dh)
   } catch (e) {
     // IE11 has some issues drawing SVG images soon after loading. https://stackoverflow.com/questions/25214395/unexpected-call-to-method-or-property-access-while-drawing-svg-image-onto-canvas
     setTimeout(() => {
       console.error('drawImage failed for img id ' + id + ' with error: ' + e + ' - Retrying after 2 seconds')
-      ctx.drawImage(svg.img, dx, dy, dw, dh)
+      ctx.drawImage(svg.img, sx, sy, sw, sh, dx, dy, dw, dh)
     }, 2000)
   }
 }
@@ -199,7 +214,7 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
       const sprite = variantInfo.graphics.repeat[l]
       let width = sprite.width * TILE_SIZE
       const height = sprite.height * TILE_SIZE
-      const count = Math.floor((segmentWidth / width * multiplier) + 1)
+      const count = Math.floor((segmentWidth / (width * multiplier)) + 1)
       let repeatStartX
 
       if (left < 0) {
@@ -211,14 +226,14 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
       for (let i = 0; i < count; i++) {
         // remainder
         if (i === count - 1) {
-          width = (segmentWidth - ((count - 1) * width * multiplier)) / multiplier
+          width = (segmentWidth / multiplier) - ((count - 1) * width)
         }
 
         if (sprite.id) {
-          drawSegmentImageSVG(sprite.id, ctx,
+          drawSegmentImageSVG(sprite.id, ctx, width * 2, null,
             offsetLeft + ((repeatStartX + (i * sprite.width * TILE_SIZE)) * multiplier),
             offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
-            multiplier)
+            width * 2, null, multiplier)
         } else {
           const repeatPositionX = sprite.x * TILE_SIZE
           const repeatPositionY = (sprite.y || 0) * TILE_SIZE
@@ -240,10 +255,10 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
       const x = 0 + ((-left + (sprite.offsetX || 0)) * TILE_SIZE * multiplier)
 
       if (sprite.id) {
-        drawSegmentImageSVG(sprite.id, ctx,
+        drawSegmentImageSVG(sprite.id, ctx, null, null,
           offsetLeft + x,
           offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
-          multiplier)
+          null, null, multiplier)
       } else {
         const width = sprite.width * TILE_SIZE
         const height = sprite.height * TILE_SIZE
@@ -266,10 +281,10 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
       const x = (-left + (segmentWidth / TILE_SIZE / multiplier) - sprite.width - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
 
       if (sprite.id) {
-        drawSegmentImageSVG(sprite.id, ctx,
+        drawSegmentImageSVG(sprite.id, ctx, null, null,
           offsetLeft + x,
           offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
-          multiplier)
+          null, null, multiplier)
       } else {
         const width = sprite.width * TILE_SIZE
         const height = sprite.height * TILE_SIZE
@@ -293,10 +308,10 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
       const x = (center - (sprite.width / 2) - left - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
 
       if (sprite.id) {
-        drawSegmentImageSVG(sprite.id, ctx,
+        drawSegmentImageSVG(sprite.id, ctx, null, null,
           offsetLeft + x,
           offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
-          multiplier)
+          null, null, multiplier)
       } else {
         const width = sprite.width * TILE_SIZE
         const height = sprite.height * TILE_SIZE
