@@ -59,7 +59,7 @@ function unifyUndoStack (undoStack, street) {
 
 const initialState = {
   stack: [],
-  position: -1,
+  position: 0,
   ignoreChanges: false
 }
 
