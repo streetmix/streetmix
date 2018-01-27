@@ -208,12 +208,15 @@ export function getVariantInfoDimensions (variantInfo, initialSegmentWidth, mult
  */
 export function drawSegmentContents (ctx, type, variantString, segmentWidth, offsetLeft, offsetTop, randSeed, multiplier, palette) {
   const variantInfo = SEGMENT_INFO[type].details[variantString]
+  const graphics = variantInfo.graphics
   const dimensions = getVariantInfoDimensions(variantInfo, segmentWidth, multiplier)
   const left = dimensions.left
 
-  if (variantInfo.graphics.repeat) {
-    for (let l = 0; l < variantInfo.graphics.repeat.length; l++) {
-      const sprite = getSpriteDef(variantInfo.graphics.repeat[l])
+  if (graphics.repeat) {
+    const sprites = Array.isArray(graphics.repeat) ? graphics.repeat : [graphics.repeat]
+
+    for (let l = 0; l < sprites.length; l++) {
+      const sprite = getSpriteDef(sprites[l])
       let width = sprite.width * TILE_SIZE
       const height = sprite.height * TILE_SIZE
       const count = Math.floor((segmentWidth / (width * multiplier)) + 1)
@@ -251,9 +254,11 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
     }
   }
 
-  if (variantInfo.graphics.left) {
-    for (let l = 0; l < variantInfo.graphics.left.length; l++) {
-      const sprite = getSpriteDef(variantInfo.graphics.left[l])
+  if (graphics.left) {
+    const sprites = Array.isArray(graphics.left) ? graphics.left : [graphics.left]
+
+    for (let l = 0; l < sprites.length; l++) {
+      const sprite = getSpriteDef(sprites[l])
       const x = 0 + ((-left + (sprite.offsetX || 0)) * TILE_SIZE * multiplier)
 
       if (sprite.id) {
@@ -277,9 +282,11 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
     }
   }
 
-  if (variantInfo.graphics.right) {
-    for (let l = 0; l < variantInfo.graphics.right.length; l++) {
-      const sprite = getSpriteDef(variantInfo.graphics.right[l])
+  if (graphics.right) {
+    const sprites = Array.isArray(graphics.right) ? graphics.right : [graphics.right]
+
+    for (let l = 0; l < sprites.length; l++) {
+      const sprite = getSpriteDef(sprites[l])
       const x = (-left + (segmentWidth / TILE_SIZE / multiplier) - sprite.width - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
 
       if (sprite.id) {
@@ -303,9 +310,11 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
     }
   }
 
-  if (variantInfo.graphics.center) {
-    for (let l = 0; l < variantInfo.graphics.center.length; l++) {
-      const sprite = getSpriteDef(variantInfo.graphics.center[l])
+  if (graphics.center) {
+    const sprites = Array.isArray(graphics.center) ? graphics.center : [graphics.center]
+
+    for (let l = 0; l < sprites.length; l++) {
+      const sprite = getSpriteDef(sprites[l])
       const center = dimensions.center
       const x = (center - (sprite.width / 2) - left - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
 

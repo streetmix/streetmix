@@ -127,14 +127,14 @@ How to fill in the data for a segment:
   but also the surface it's on (whether asphalt or sidewalk), and any road
   markings.
 
-  A display type is usually an array of strings referring to a sprite definition,
-  but in place of a string id, it can also be an object with `id` as
-  a property and any number of other properties, which will override
+  A display type is usually a string or an array of strings referring to at least
+  one sprite definition, but in place of a string id, it can also be an object with
+  `id` as a property and any number of other properties, which will override
   the corresponding property on the sprite definition.
 
   e.g. for one centered sprite
     graphics: {
-      center: ['sprite-id']
+      center: 'sprite-id'
     }
 
   for two (or more) centered sprites
@@ -314,25 +314,25 @@ export const SEGMENT_INFO = {
       'dense': {
         minWidth: 6,
         graphics: {
-          repeat: ['ground--concrete']
+          repeat: 'ground--concrete'
         }
       },
       'normal': {
         minWidth: 6,
         graphics: {
-          repeat: ['ground--concrete']
+          repeat: 'ground--concrete'
         }
       },
       'sparse': {
         minWidth: 6,
         graphics: {
-          repeat: ['ground--concrete']
+          repeat: 'ground--concrete'
         }
       },
       'empty': {
         minWidth: 6,
         graphics: {
-          repeat: ['ground--concrete']
+          repeat: 'ground--concrete'
         }
       }
     }
@@ -346,14 +346,14 @@ export const SEGMENT_INFO = {
     details: {
       'big': {
         graphics: {
-          center: ['trees--tree'],
-          repeat: ['ground--concrete']
+          center: 'trees--tree',
+          repeat: 'ground--concrete'
         }
       },
       'palm-tree': {
         graphics: {
-          center: ['trees--palm-tree'],
-          repeat: ['ground--concrete']
+          center: 'trees--palm-tree',
+          repeat: 'ground--concrete'
         }
       }
     }
@@ -368,38 +368,38 @@ export const SEGMENT_INFO = {
     details: {
       'left|sidewalk-parallel': {
         graphics: {
-          left: ['bikes--bike-rack-parallel-left'],
-          repeat: ['ground--concrete']
+          left: 'bikes--bike-rack-parallel-left',
+          repeat: 'ground--concrete'
         }
       },
       'right|sidewalk-parallel': {
         graphics: {
-          right: ['bikes--bike-rack-parallel-right'],
-          repeat: ['ground--concrete']
+          right: 'bikes--bike-rack-parallel-right',
+          repeat: 'ground--concrete'
         }
       },
       'left|sidewalk': {
         graphics: {
-          left: ['bikes--bike-rack-perpendicular-left'],
-          repeat: ['ground--concrete']
+          left: 'bikes--bike-rack-perpendicular-left',
+          repeat: 'ground--concrete'
         }
       },
       'right|sidewalk': {
         graphics: {
-          right: ['bikes--bike-rack-perpendicular-right'],
-          repeat: ['ground--concrete']
+          right: 'bikes--bike-rack-perpendicular-right',
+          repeat: 'ground--concrete'
         }
       },
       'left|road': {
         graphics: {
-          left: [{ id: 'bikes--bike-rack-perpendicular-left', offsetY: 5.25 }],
-          repeat: ['ground--asphalt']
+          left: { id: 'bikes--bike-rack-perpendicular-left', offsetY: 5.25 },
+          repeat: 'ground--asphalt'
         }
       },
       'right|road': {
         graphics: {
-          right: [{ id: 'bikes--bike-rack-perpendicular-right', offsetY: 5.25 }],
-          repeat: ['ground--asphalt']
+          right: { id: 'bikes--bike-rack-perpendicular-right', offsetY: 5.25 },
+          repeat: 'ground--asphalt'
         }
       }
     }
@@ -413,20 +413,20 @@ export const SEGMENT_INFO = {
     details: {
       'left': {
         graphics: {
-          left: ['furniture--bench-left'],
-          repeat: ['ground--concrete']
+          left: 'furniture--bench-left',
+          repeat: 'ground--concrete'
         }
       },
       'center': {
         graphics: {
-          center: ['furniture--bench-center'],
-          repeat: ['ground--concrete']
+          center: 'furniture--bench-center',
+          repeat: 'ground--concrete'
         }
       },
       'right': {
         graphics: {
-          right: ['furniture--bench-right'],
-          repeat: ['ground--concrete']
+          right: 'furniture--bench-right',
+          repeat: 'ground--concrete'
         }
       }
     }
@@ -451,20 +451,20 @@ export const SEGMENT_INFO = {
     details: {
       'large': {
         graphics: {
-          center: ['wayfinding--nyc-wayfinding-pylon-large'],
-          repeat: ['ground--concrete']
+          center: 'wayfinding--nyc-wayfinding-pylon-large',
+          repeat: 'ground--concrete'
         }
       },
       'medium': {
         graphics: {
-          center: ['wayfinding--nyc-wayfinding-pylon-medium'],
-          repeat: ['ground--concrete']
+          center: 'wayfinding--nyc-wayfinding-pylon-medium',
+          repeat: 'ground--concrete'
         }
       },
       'small': {
         graphics: {
-          center: ['wayfinding--nyc-wayfinding-pylon-small'],
-          repeat: ['ground--concrete']
+          center: 'wayfinding--nyc-wayfinding-pylon-small',
+          repeat: 'ground--concrete'
         }
       }
     }
@@ -479,44 +479,44 @@ export const SEGMENT_INFO = {
     details: {
       'right|modern': {
         graphics: {
-          right: ['lamps--lamp-modern-right'],
-          repeat: ['ground--concrete']
+          right: 'lamps--lamp-modern-right',
+          repeat: 'ground--concrete'
         }
       },
       'both|modern': {
         graphics: {
-          center: ['lamps--lamp-modern-both'],
-          repeat: ['ground--concrete']
+          center: 'lamps--lamp-modern-both',
+          repeat: 'ground--concrete'
         }
       },
       'left|modern': {
         graphics: {
-          left: ['lamps--lamp-modern-left'],
-          repeat: ['ground--concrete']
+          left: 'lamps--lamp-modern-left',
+          repeat: 'ground--concrete'
         }
       },
       'right|traditional': {
         graphics: {
-          right: ['lamps--lamp-traditional-right'],
-          repeat: ['ground--concrete']
+          right: 'lamps--lamp-traditional-right',
+          repeat: 'ground--concrete'
         }
       },
       'both|traditional': {
         graphics: {
-          center: ['lamps--lamp-traditional-center'],
-          repeat: ['ground--concrete']
+          center: 'lamps--lamp-traditional-center',
+          repeat: 'ground--concrete'
         }
       },
       'left|traditional': {
         graphics: {
-          left: ['lamps--lamp-traditional-left'],
-          repeat: ['ground--concrete']
+          left: 'lamps--lamp-traditional-left',
+          repeat: 'ground--concrete'
         }
       },
       'right|pride': {
         graphics: {
           right: ['lamps--lamp-modern-right', 'lamps--pride-banner-right'],
-          repeat: ['ground--concrete']
+          repeat: 'ground--concrete'
         }
       },
       'both|pride': {
@@ -525,13 +525,13 @@ export const SEGMENT_INFO = {
             'lamps--lamp-modern-both',
             { id: 'lamps--pride-banner-left', offsetX: 1.5 }
           ],
-          repeat: ['ground--concrete']
+          repeat: 'ground--concrete'
         }
       },
       'left|pride': {
         graphics: {
           left: ['lamps--lamp-modern-left', 'lamps--pride-banner-left'],
-          repeat: ['ground--concrete']
+          repeat: 'ground--concrete'
         }
       }
     }
@@ -556,15 +556,15 @@ export const SEGMENT_INFO = {
       'left': {
         minWidth: 8,
         graphics: {
-          left: ['parklet--yerba-buena-parklet-left-v02'],
-          repeat: ['ground--asphalt']
+          left: 'parklet--yerba-buena-parklet-left-v02',
+          repeat: 'ground--asphalt'
         }
       },
       'right': {
         minWidth: 8,
         graphics: {
-          right: ['parklet--yerba-buena-parklet-right-v02'],
-          repeat: ['ground--asphalt']
+          right: 'parklet--yerba-buena-parklet-right-v02',
+          repeat: 'ground--asphalt'
         }
       }
     }
@@ -586,70 +586,70 @@ export const SEGMENT_INFO = {
       'planter-box': {
         name: 'Planter box',
         graphics: {
-          center: ['dividers--planter-box'],
+          center: 'dividers--planter-box',
           repeat: ['ground--asphalt', 'markings--stripes-diagonal'],
-          left: ['markings--lane-left'],
-          right: ['markings--lane-right']
+          left: 'markings--lane-left',
+          right: 'markings--lane-right'
         }
       },
       'median': {
         name: 'Median',
         graphics: {
-          repeat: ['ground--concrete']
+          repeat: 'ground--concrete'
         }
       },
       'striped-buffer': {
         name: 'Buffer',
         graphics: {
           repeat: ['ground--asphalt', 'markings--stripes-diagonal'],
-          left: ['markings--lane-left'],
-          right: ['markings--lane-right']
+          left: 'markings--lane-left',
+          right: 'markings--lane-right'
         }
       },
       'bush': {
         name: 'Planting strip',
         graphics: {
-          center: ['plants--bush'],
+          center: 'plants--bush',
           repeat: ['plants--grass', 'ground--concrete']
         }
       },
       'flowers': {
         name: 'Planting strip',
         graphics: {
-          center: ['plants--flowers'],
+          center: 'plants--flowers',
           repeat: ['plants--grass', 'ground--concrete']
         }
       },
       'big-tree': {
         name: 'Planting strip',
         graphics: {
-          center: ['trees--tree'],
+          center: 'trees--tree',
           repeat: ['plants--grass', 'ground--concrete']
         }
       },
       'palm-tree': {
         name: 'Planting strip',
         graphics: {
-          center: ['trees--palm-tree'],
+          center: 'trees--palm-tree',
           repeat: ['plants--grass', 'ground--concrete']
         }
       },
       'bollard': {
         name: 'Bollard',
         graphics: {
-          center: ['dividers--bollard'],
+          center: 'dividers--bollard',
           repeat: ['ground--asphalt', 'markings--stripes-diagonal'],
-          left: ['markings--lane-left'],
-          right: ['markings--lane-right']
+          left: 'markings--lane-left',
+          right: 'markings--lane-right'
         }
       },
       'dome': {
         name: 'Traffic exclusion dome',
         graphics: {
-          center: ['dividers--dome'],
+          center: 'dividers--dome',
           repeat: ['ground--asphalt', 'markings--stripes-diagonal'],
-          left: ['markings--lane-left'],
-          right: ['markings--lane-right']
+          left: 'markings--lane-left',
+          right: 'markings--lane-right'
         }
       }
     }
@@ -679,42 +679,42 @@ export const SEGMENT_INFO = {
         minWidth: 5,
         graphics: {
           center: ['bikes--biker-01-inbound', 'markings--straight-inbound-light'],
-          repeat: ['ground--asphalt']
+          repeat: 'ground--asphalt'
         }
       },
       'outbound|regular': {
         minWidth: 5,
         graphics: {
           center: ['bikes--biker-01-outbound', 'markings--straight-outbound-light'],
-          repeat: ['ground--asphalt']
+          repeat: 'ground--asphalt'
         }
       },
       'inbound|green': {
         minWidth: 5,
         graphics: {
           center: ['bikes--biker-01-inbound', 'markings--straight-inbound-light'],
-          repeat: ['ground--asphalt-green']
+          repeat: 'ground--asphalt-green'
         }
       },
       'outbound|green': {
         minWidth: 5,
         graphics: {
           center: ['bikes--biker-01-outbound', 'markings--straight-outbound-light'],
-          repeat: ['ground--asphalt-green']
+          repeat: 'ground--asphalt-green'
         }
       },
       'inbound|red': {
         minWidth: 5,
         graphics: {
           center: ['bikes--biker-01-inbound', 'markings--straight-inbound-light'],
-          repeat: ['ground--asphalt-red']
+          repeat: 'ground--asphalt-red'
         }
       },
       'outbound|red': {
         minWidth: 5,
         graphics: {
           center: ['bikes--biker-01-outbound', 'markings--straight-outbound-light'],
-          repeat: ['ground--asphalt-red']
+          repeat: 'ground--asphalt-red'
         }
       }
     }
@@ -730,36 +730,36 @@ export const SEGMENT_INFO = {
         minWidth: 7,
         maxWidth: 10,
         graphics: {
-          left: [{ id: 'vehicles--car-inbound', offsetX: 0.25 }],
-          repeat: ['ground--asphalt'],
-          right: ['markings--parking-left']
+          left: { id: 'vehicles--car-inbound', offsetX: 0.25 },
+          repeat: 'ground--asphalt',
+          right: 'markings--parking-left'
         }
       },
       'inbound|right': {
         minWidth: 7,
         maxWidth: 10,
         graphics: {
-          right: ['vehicles--car-inbound'],
-          repeat: ['ground--asphalt'],
-          left: ['markings--parking-right']
+          right: 'vehicles--car-inbound',
+          repeat: 'ground--asphalt',
+          left: 'markings--parking-right'
         }
       },
       'outbound|left': {
         minWidth: 7,
         maxWidth: 10,
         graphics: {
-          left: [{ id: 'vehicles--car-outbound', offsetX: 0.25 }],
-          repeat: ['ground--asphalt'],
-          right: ['markings--parking-left']
+          left: { id: 'vehicles--car-outbound', offsetX: 0.25 },
+          repeat: 'ground--asphalt',
+          right: 'markings--parking-left'
         }
       },
       'outbound|right': {
         minWidth: 7,
         maxWidth: 10,
         graphics: {
-          right: ['vehicles--car-outbound'],
-          repeat: ['ground--asphalt'],
-          left: ['markings--parking-right']
+          right: 'vehicles--car-outbound',
+          repeat: 'ground--asphalt',
+          left: 'markings--parking-right'
         }
       },
       'sideways|left': {
@@ -767,8 +767,8 @@ export const SEGMENT_INFO = {
         minWidth: 14,
         maxWidth: 20,
         graphics: {
-          left: ['vehicles--car-sideways-left'],
-          repeat: ['ground--asphalt']
+          left: 'vehicles--car-sideways-left',
+          repeat: 'ground--asphalt'
         }
       },
       'sideways|right': {
@@ -776,8 +776,8 @@ export const SEGMENT_INFO = {
         minWidth: 14,
         maxWidth: 20,
         graphics: {
-          right: ['vehicles--car-sideways-right'],
-          repeat: ['ground--asphalt']
+          right: 'vehicles--car-sideways-right',
+          repeat: 'ground--asphalt'
         }
       }
     }
@@ -794,7 +794,7 @@ export const SEGMENT_INFO = {
         maxWidth: 11.9,
         graphics: {
           center: ['vehicles--car-inbound', 'markings--straight-inbound-light'],
-          repeat: ['ground--asphalt']
+          repeat: 'ground--asphalt'
         }
       },
       'outbound|car': {
@@ -802,7 +802,7 @@ export const SEGMENT_INFO = {
         maxWidth: 11.9,
         graphics: {
           center: ['vehicles--car-outbound', 'markings--straight-outbound-light'],
-          repeat: ['ground--asphalt']
+          repeat: 'ground--asphalt'
         }
       },
       'inbound|sharrow': {
@@ -823,7 +823,7 @@ export const SEGMENT_INFO = {
         },
         graphics: {
           center: ['vehicles--car-inbound', 'bikes--biker-02-inbound', 'markings--sharrow-inbound'],
-          repeat: ['ground--asphalt']
+          repeat: 'ground--asphalt'
         }
       },
       'outbound|sharrow': {
@@ -844,7 +844,7 @@ export const SEGMENT_INFO = {
         },
         graphics: {
           center: ['vehicles--car-outbound', 'bikes--biker-02-outbound', 'markings--sharrow-outbound'],
-          repeat: ['ground--asphalt']
+          repeat: 'ground--asphalt'
         }
       },
       'inbound|truck': {
@@ -852,7 +852,7 @@ export const SEGMENT_INFO = {
         maxWidth: 11.9,
         graphics: {
           center: ['vehicles--truck-inbound', 'markings--straight-inbound-light'],
-          repeat: ['ground--asphalt']
+          repeat: 'ground--asphalt'
         }
       },
       'outbound|truck': {
@@ -860,7 +860,7 @@ export const SEGMENT_INFO = {
         maxWidth: 11.9,
         graphics: {
           center: ['vehicles--truck-outbound', 'markings--straight-outbound-light'],
-          repeat: ['ground--asphalt']
+          repeat: 'ground--asphalt'
         }
       }
     }
@@ -877,7 +877,7 @@ export const SEGMENT_INFO = {
         maxWidth: 12,
         graphics: {
           center: ['vehicles--car-inbound-turn-signal-right', 'markings--left-inbound'],
-          repeat: ['ground--asphalt']
+          repeat: 'ground--asphalt'
         }
       },
       'inbound|left-straight': {
@@ -885,7 +885,7 @@ export const SEGMENT_INFO = {
         maxWidth: 12,
         graphics: {
           center: ['vehicles--car-inbound-turn-signal-right', 'markings--left-straight-inbound'],
-          repeat: ['ground--asphalt']
+          repeat: 'ground--asphalt'
         }
       },
       'inbound|straight': {
@@ -894,7 +894,7 @@ export const SEGMENT_INFO = {
         maxWidth: 12,
         graphics: {
           center: ['vehicles--car-inbound', 'markings--straight-inbound'],
-          repeat: ['ground--asphalt']
+          repeat: 'ground--asphalt'
         }
       },
       'inbound|right-straight': {
@@ -902,7 +902,7 @@ export const SEGMENT_INFO = {
         maxWidth: 12,
         graphics: {
           center: ['vehicles--car-inbound-turn-signal-left', 'markings--right-straight-inbound'],
-          repeat: ['ground--asphalt']
+          repeat: 'ground--asphalt'
         }
       },
       'inbound|right': {
@@ -910,7 +910,7 @@ export const SEGMENT_INFO = {
         maxWidth: 12,
         graphics: {
           center: ['vehicles--car-inbound-turn-signal-left', 'markings--right-inbound'],
-          repeat: ['ground--asphalt']
+          repeat: 'ground--asphalt'
         }
       },
       'inbound|both': {
@@ -918,7 +918,7 @@ export const SEGMENT_INFO = {
         maxWidth: 12,
         graphics: {
           center: ['vehicles--car-inbound-turn-signal-right', 'markings--both-inbound'],
-          repeat: ['ground--asphalt']
+          repeat: 'ground--asphalt'
         }
       },
       'inbound|shared': {
@@ -926,10 +926,10 @@ export const SEGMENT_INFO = {
         minWidth: 9,
         maxWidth: 12,
         graphics: {
-          center: ['markings--shared-inbound'],
-          repeat: ['ground--asphalt'],
-          left: ['markings--center-lane-left'],
-          right: ['markings--center-lane-right']
+          center: 'markings--shared-inbound',
+          repeat: 'ground--asphalt',
+          left: 'markings--center-lane-left',
+          right: 'markings--center-lane-right'
         }
       },
       'outbound|left': {
@@ -937,7 +937,7 @@ export const SEGMENT_INFO = {
         maxWidth: 12,
         graphics: {
           center: ['vehicles--car-outbound-turn-signal-left', 'markings--left-outbound'],
-          repeat: ['ground--asphalt']
+          repeat: 'ground--asphalt'
         }
       },
       'outbound|left-straight': {
@@ -945,7 +945,7 @@ export const SEGMENT_INFO = {
         maxWidth: 12,
         graphics: {
           center: ['vehicles--car-outbound-turn-signal-left', 'markings--left-straight-outbound'],
-          repeat: ['ground--asphalt']
+          repeat: 'ground--asphalt'
         }
       },
       'outbound|straight': {
@@ -954,7 +954,7 @@ export const SEGMENT_INFO = {
         maxWidth: 12,
         graphics: {
           center: ['vehicles--car-outbound', 'markings--straight-outbound'],
-          repeat: ['ground--asphalt']
+          repeat: 'ground--asphalt'
         }
       },
       'outbound|right-straight': {
@@ -962,7 +962,7 @@ export const SEGMENT_INFO = {
         maxWidth: 12,
         graphics: {
           center: ['vehicles--car-outbound-turn-signal-right', 'markings--right-straight-outbound'],
-          repeat: ['ground--asphalt']
+          repeat: 'ground--asphalt'
         }
       },
       'outbound|right': {
@@ -970,7 +970,7 @@ export const SEGMENT_INFO = {
         maxWidth: 12,
         graphics: {
           center: ['vehicles--car-outbound-turn-signal-right', 'markings--right-outbound'],
-          repeat: ['ground--asphalt']
+          repeat: 'ground--asphalt'
         }
       },
       'outbound|both': {
@@ -978,7 +978,7 @@ export const SEGMENT_INFO = {
         maxWidth: 12,
         graphics: {
           center: ['vehicles--car-outbound-turn-signal-left', 'markings--both-outbound'],
-          repeat: ['ground--asphalt']
+          repeat: 'ground--asphalt'
         }
       },
       'outbound|shared': {
@@ -987,10 +987,10 @@ export const SEGMENT_INFO = {
         maxWidth: 16,
         defaultWidth: 12,
         graphics: {
-          center: ['markings--shared-outbound'],
-          repeat: ['ground--asphalt'],
-          left: ['markings--center-lane-left'],
-          right: ['markings--center-lane-right']
+          center: 'markings--shared-outbound',
+          repeat: 'ground--asphalt',
+          left: 'markings--center-lane-left',
+          right: 'markings--center-lane-right'
         }
       }
     }
@@ -1007,7 +1007,7 @@ export const SEGMENT_INFO = {
         maxWidth: 13,
         graphics: {
           center: ['transit--bus-inbound', 'markings--straight-inbound-light'],
-          repeat: ['ground--asphalt']
+          repeat: 'ground--asphalt'
         }
       },
       'outbound|regular': {
@@ -1015,7 +1015,7 @@ export const SEGMENT_INFO = {
         maxWidth: 13,
         graphics: {
           center: ['transit--bus-outbound', 'markings--straight-outbound-light'],
-          repeat: ['ground--asphalt']
+          repeat: 'ground--asphalt'
         }
       },
       'inbound|colored': {
@@ -1023,7 +1023,7 @@ export const SEGMENT_INFO = {
         maxWidth: 13,
         graphics: {
           center: ['transit--bus-inbound', 'markings--straight-inbound-light'],
-          repeat: ['ground--asphalt-red']
+          repeat: 'ground--asphalt-red'
         }
       },
       'outbound|colored': {
@@ -1031,7 +1031,7 @@ export const SEGMENT_INFO = {
         maxWidth: 13,
         graphics: {
           center: ['transit--bus-outbound', 'markings--straight-outbound-light'],
-          repeat: ['ground--asphalt-red']
+          repeat: 'ground--asphalt-red'
         }
       },
       'inbound|shared': {
@@ -1045,9 +1045,9 @@ export const SEGMENT_INFO = {
             { id: 'bikes--biker-02-inbound', offsetX: 1 },
             'markings--sharrow-inbound'
           ],
-          repeat: ['ground--asphalt'],
-          left: ['markings--lane-left'],
-          right: ['markings--lane-right']
+          repeat: 'ground--asphalt',
+          left: 'markings--lane-left',
+          right: 'markings--lane-right'
         }
       },
       'outbound|shared': {
@@ -1061,9 +1061,9 @@ export const SEGMENT_INFO = {
             { id: 'bikes--biker-02-outbound', offsetX: -1 },
             'markings--sharrow-outbound'
           ],
-          repeat: ['ground--asphalt'],
-          left: ['markings--lane-left'],
-          right: ['markings--lane-right']
+          repeat: 'ground--asphalt',
+          left: 'markings--lane-left',
+          right: 'markings--lane-right'
         }
       }
     }
@@ -1080,7 +1080,7 @@ export const SEGMENT_INFO = {
         maxWidth: 14,
         graphics: {
           center: ['markings--streetcar-track-01', 'transit--streetcar-inbound', 'markings--straight-inbound-light'],
-          repeat: ['ground--asphalt']
+          repeat: 'ground--asphalt'
         }
       },
       'outbound|regular': {
@@ -1088,7 +1088,7 @@ export const SEGMENT_INFO = {
         maxWidth: 14,
         graphics: {
           center: ['markings--streetcar-track-01', 'transit--streetcar-outbound', 'markings--straight-outbound-light'],
-          repeat: ['ground--asphalt']
+          repeat: 'ground--asphalt'
         }
       },
       'inbound|colored': {
@@ -1096,7 +1096,7 @@ export const SEGMENT_INFO = {
         maxWidth: 14,
         graphics: {
           center: ['markings--streetcar-track-02', 'transit--streetcar-inbound', 'markings--straight-inbound-light'],
-          repeat: ['ground--asphalt-red']
+          repeat: 'ground--asphalt-red'
         }
       },
       'outbound|colored': {
@@ -1104,7 +1104,7 @@ export const SEGMENT_INFO = {
         maxWidth: 14,
         graphics: {
           center: ['markings--streetcar-track-02', 'transit--streetcar-outbound', 'markings--straight-outbound-light'],
-          repeat: ['ground--asphalt-red']
+          repeat: 'ground--asphalt-red'
         }
       }
     }
@@ -1121,7 +1121,7 @@ export const SEGMENT_INFO = {
         maxWidth: 14,
         graphics: {
           center: ['transit--light-rail-inbound', 'markings--streetcar-track-02', 'markings--straight-inbound-light'],
-          repeat: ['ground--asphalt-gray']
+          repeat: 'ground--asphalt-gray'
         }
       },
       'outbound|regular': {
@@ -1129,7 +1129,7 @@ export const SEGMENT_INFO = {
         maxWidth: 14,
         graphics: {
           center: ['transit--light-rail-outbound', 'markings--streetcar-track-02', 'markings--straight-outbound-light'],
-          repeat: ['ground--asphalt-gray']
+          repeat: 'ground--asphalt-gray'
         }
       },
       'inbound|colored': {
@@ -1137,7 +1137,7 @@ export const SEGMENT_INFO = {
         maxWidth: 14,
         graphics: {
           center: ['transit--light-rail-inbound', 'markings--streetcar-track-02', 'markings--straight-inbound-light'],
-          repeat: ['ground--asphalt-red']
+          repeat: 'ground--asphalt-red'
         }
       },
       'outbound|colored': {
@@ -1145,7 +1145,7 @@ export const SEGMENT_INFO = {
         maxWidth: 14,
         graphics: {
           center: ['transit--light-rail-outbound', 'markings--streetcar-track-02', 'markings--straight-outbound-light'],
-          repeat: ['ground--asphalt-red']
+          repeat: 'ground--asphalt-red'
         }
       }
     }
@@ -1161,15 +1161,15 @@ export const SEGMENT_INFO = {
       'left|street-level': {
         minWidth: 9,
         graphics: {
-          left: ['transit--transit-shelter-01-left'],
-          repeat: ['ground--concrete']
+          left: 'transit--transit-shelter-01-left',
+          repeat: 'ground--concrete'
         }
       },
       'right|street-level': {
         minWidth: 9,
         graphics: {
-          right: ['transit--transit-shelter-01-right'],
-          repeat: ['ground--concrete']
+          right: 'transit--transit-shelter-01-right',
+          repeat: 'ground--concrete'
         }
       },
       'left|light-rail': {
@@ -1186,8 +1186,8 @@ export const SEGMENT_INFO = {
           ]
         },
         graphics: {
-          left: ['transit--transit-shelter-02-left'],
-          repeat: ['ground--concrete-raised']
+          left: 'transit--transit-shelter-02-left',
+          repeat: 'ground--concrete-raised'
         }
       },
       'right|light-rail': {
@@ -1204,8 +1204,8 @@ export const SEGMENT_INFO = {
           ]
         },
         graphics: {
-          right: ['transit--transit-shelter-02-right'],
-          repeat: ['ground--concrete-raised']
+          right: 'transit--transit-shelter-02-right',
+          repeat: 'ground--concrete-raised'
         }
       }
     }
@@ -1229,8 +1229,8 @@ export const SEGMENT_INFO = {
       '': {
         minWidth: 14,
         graphics: {
-          center: ['secret--inception-train'],
-          repeat: ['ground--asphalt']
+          center: 'secret--inception-train',
+          repeat: 'ground--asphalt'
         }
       }
     }
