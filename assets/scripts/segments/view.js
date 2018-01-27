@@ -12,7 +12,7 @@ import { recalculateWidth } from '../streets/width'
 import { getElAbsolutePos } from '../util/helpers'
 import { prettifyWidth } from '../util/width_units'
 import { draggingMove } from './drag_and_drop'
-import { SEGMENT_INFO } from './info'
+import { SEGMENT_INFO, getSpriteDef } from './info'
 import { drawProgrammaticPeople } from './people'
 import {
   RESIZE_TYPE_INITIAL,
@@ -47,6 +47,8 @@ const SEGMENT_SWITCHING_TIME = 250
  * @param {Number} sh - sub-rectangle height to draw
  * @param {Number} dx - x position on canvas
  * @param {Number} dy - y position on canvas
+ * @param {Number} dw - destination width to draw
+ * @param {Number} dh - destination height to draw
  * @param {Number} multiplier - scale to draw at
  */
 export function drawSegmentImageSVG (id, ctx, sw, sh, dx, dy, dw, dh, multiplier = 1) {
@@ -211,7 +213,7 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
 
   if (variantInfo.graphics.repeat) {
     for (let l = 0; l < variantInfo.graphics.repeat.length; l++) {
-      const sprite = variantInfo.graphics.repeat[l]
+      const sprite = getSpriteDef(variantInfo.graphics.repeat[l])
       let width = sprite.width * TILE_SIZE
       const height = sprite.height * TILE_SIZE
       const count = Math.floor((segmentWidth / (width * multiplier)) + 1)
@@ -251,7 +253,7 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
 
   if (variantInfo.graphics.left) {
     for (let l = 0; l < variantInfo.graphics.left.length; l++) {
-      const sprite = variantInfo.graphics.left[l]
+      const sprite = getSpriteDef(variantInfo.graphics.left[l])
       const x = 0 + ((-left + (sprite.offsetX || 0)) * TILE_SIZE * multiplier)
 
       if (sprite.id) {
@@ -277,7 +279,7 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
 
   if (variantInfo.graphics.right) {
     for (let l = 0; l < variantInfo.graphics.right.length; l++) {
-      const sprite = variantInfo.graphics.right[l]
+      const sprite = getSpriteDef(variantInfo.graphics.right[l])
       const x = (-left + (segmentWidth / TILE_SIZE / multiplier) - sprite.width - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
 
       if (sprite.id) {
@@ -303,7 +305,7 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
 
   if (variantInfo.graphics.center) {
     for (let l = 0; l < variantInfo.graphics.center.length; l++) {
-      const sprite = variantInfo.graphics.center[l]
+      const sprite = getSpriteDef(variantInfo.graphics.center[l])
       const center = dimensions.center
       const x = (center - (sprite.width / 2) - left - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
 
