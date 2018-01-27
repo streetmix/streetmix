@@ -188,25 +188,24 @@ How to fill in the data for a segment:
 
 const IMAGE_IDS = {
   // things we don't have svgs for
-
-  'arrow-inbound': { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 },
-  'arrow-outbound': { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 },
-  'arrow-turn-left-inbound': { tileset: 2, x: 125, y: 15, width: 4, height: 5, offsetY: 10 },
-  'arrow-turn-left-straight-inbound': { tileset: 2, x: 125, y: 10, width: 4, height: 5, offsetY: 10 },
-  'arrow-straight-inbound': { tileset: 1, x: 30, y: 5, width: 4, height: 5, offsetY: 10 }, // white version of arrow-inbound
-  'arrow-turn-right-straight-inbound': { tileset: 1, x: 83, y: 10, width: 4, height: 5, offsetY: 10 },
-  'arrow-turn-right-inbound': { tileset: 1, x: 83, y: 15, width: 4, height: 5, offsetY: 10 },
-  'arrow-turn-both-inbound': { tileset: 2, x: 153, y: 15, width: 5, height: 5, offsetY: 10 },
-  'arrow-turn-shared-inbound': { tileset: 2, x: 144, y: 20, width: 5, height: 5, offsetY: 10 },
-  'arrow-turn-left-outbound': { tileset: 2, x: 134, y: 15, width: 4, height: 5, offsetY: 10 },
-  'arrow-turn-left-straight-outbound': { tileset: 2, x: 134, y: 10, width: 4, height: 5, offsetY: 10 },
-  'arrow-straight-outbound': { tileset: 1, x: 39, y: 5, width: 4, height: 5, offsetY: 10 },
-  'arrow-turn-right-straight-outbound': { tileset: 2, x: 143, y: 10, width: 4, height: 5, offsetY: 10 },
-  'arrow-turn-right-outbound': { tileset: 2, x: 143, y: 15, width: 4, height: 5, offsetY: 10 },
-  'arrow-turn-both-outbound': { tileset: 2, x: 148, y: 15, width: 5, height: 5, offsetY: 10 },
-  'arrow-turn-shared-outbound': { tileset: 2, x: 134, y: 20, width: 5, height: 5, offsetY: 10 },
-  'marking-sharrow-inbound': { tileset: 2, x: 101, y: 15, width: 4, height: 5, offsetY: 10 },
-  'marking-sharrow-outbound': { tileset: 2, x: 106, y: 15, width: 4, height: 5, offsetY: 10 },
+  'markings--straight-inbound-light': { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // translucent version of arrow
+  'markings--straight-outbound-light': { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 },
+  'markings--straight-inbound': { tileset: 1, x: 30, y: 5, width: 4, height: 5, offsetY: 10 },
+  'markings--straight-outbound': { tileset: 1, x: 39, y: 5, width: 4, height: 5, offsetY: 10 },
+  'markings--left-inbound': { tileset: 2, x: 125, y: 15, width: 4, height: 5, offsetY: 10 },
+  'markings--left-outbound': { tileset: 2, x: 134, y: 15, width: 4, height: 5, offsetY: 10 },
+  'markings--left-straight-inbound': { tileset: 2, x: 125, y: 10, width: 4, height: 5, offsetY: 10 },
+  'markings--left-straight-outbound': { tileset: 2, x: 134, y: 10, width: 4, height: 5, offsetY: 10 },
+  'markings--right-inbound': { tileset: 1, x: 83, y: 15, width: 4, height: 5, offsetY: 10 },
+  'markings--right-outbound': { tileset: 2, x: 143, y: 15, width: 4, height: 5, offsetY: 10 },
+  'markings--right-straight-inbound': { tileset: 1, x: 83, y: 10, width: 4, height: 5, offsetY: 10 },
+  'markings--right-straight-outbound': { tileset: 2, x: 143, y: 10, width: 4, height: 5, offsetY: 10 },
+  'markings--both-inbound': { tileset: 2, x: 153, y: 15, width: 5, height: 5, offsetY: 10 },
+  'markings--both-outbound': { tileset: 2, x: 148, y: 15, width: 5, height: 5, offsetY: 10 },
+  'markings--shared-inbound': { tileset: 2, x: 144, y: 20, width: 5, height: 5, offsetY: 10 },
+  'markings--shared-outbound': { tileset: 2, x: 134, y: 20, width: 5, height: 5, offsetY: 10 },
+  'markings--sharrow-inbound': { tileset: 2, x: 101, y: 15, width: 4, height: 5, offsetY: 10 },
+  'markings--sharrow-outbound': { tileset: 2, x: 106, y: 15, width: 4, height: 5, offsetY: 10 },
 
   // things we have svgs for
   'markings--lane-left': { id: 'markings--lane-left', width: 2, height: 4, offsetY: 11.28 },
@@ -825,7 +824,7 @@ export const SEGMENT_INFO = {
         graphics: {
           center: [
             IMAGE_IDS['bikes--biker-01-inbound'],
-            IMAGE_IDS['arrow-inbound']
+            IMAGE_IDS['markings--straight-inbound-light']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt']
@@ -837,7 +836,7 @@ export const SEGMENT_INFO = {
         graphics: {
           center: [
             IMAGE_IDS['bikes--biker-01-outbound'],
-            IMAGE_IDS['arrow-outbound']
+            IMAGE_IDS['markings--straight-outbound-light']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt']
@@ -849,7 +848,7 @@ export const SEGMENT_INFO = {
         graphics: {
           center: [
             IMAGE_IDS['bikes--biker-01-inbound'],
-            IMAGE_IDS['arrow-inbound']
+            IMAGE_IDS['markings--straight-inbound-light']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt-green']
@@ -861,7 +860,7 @@ export const SEGMENT_INFO = {
         graphics: {
           center: [
             IMAGE_IDS['bikes--biker-01-outbound'],
-            IMAGE_IDS['arrow-outbound']
+            IMAGE_IDS['markings--straight-outbound-light']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt-green']
@@ -873,7 +872,7 @@ export const SEGMENT_INFO = {
         graphics: {
           center: [
             IMAGE_IDS['bikes--biker-01-inbound'],
-            IMAGE_IDS['arrow-inbound']
+            IMAGE_IDS['markings--straight-inbound-light']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt-red']
@@ -885,7 +884,7 @@ export const SEGMENT_INFO = {
         graphics: {
           center: [
             IMAGE_IDS['bikes--biker-01-outbound'],
-            IMAGE_IDS['arrow-outbound']
+            IMAGE_IDS['markings--straight-outbound-light']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt-red']
@@ -1002,7 +1001,7 @@ export const SEGMENT_INFO = {
         graphics: {
           center: [
             IMAGE_IDS['vehicles--car-inbound'],
-            IMAGE_IDS['arrow-inbound']
+            IMAGE_IDS['markings--straight-inbound-light']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt']
@@ -1015,7 +1014,7 @@ export const SEGMENT_INFO = {
         graphics: {
           center: [
             IMAGE_IDS['vehicles--car-outbound'],
-            IMAGE_IDS['arrow-outbound']
+            IMAGE_IDS['markings--straight-outbound-light']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt']
@@ -1042,7 +1041,7 @@ export const SEGMENT_INFO = {
           center: [
             IMAGE_IDS['vehicles--car-inbound'],
             IMAGE_IDS['bikes--biker-02-inbound'],
-            IMAGE_IDS['marking-sharrow-inbound']
+            IMAGE_IDS['markings--sharrow-inbound']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt']
@@ -1069,7 +1068,7 @@ export const SEGMENT_INFO = {
           center: [
             IMAGE_IDS['vehicles--car-outbound'],
             IMAGE_IDS['bikes--biker-02-outbound'],
-            IMAGE_IDS['marking-sharrow-outbound']
+            IMAGE_IDS['markings--sharrow-outbound']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt']
@@ -1082,7 +1081,7 @@ export const SEGMENT_INFO = {
         graphics: {
           center: [
             IMAGE_IDS['vehicles--truck-inbound'],
-            IMAGE_IDS['arrow-inbound']
+            IMAGE_IDS['markings--straight-inbound-light']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt']
@@ -1095,7 +1094,7 @@ export const SEGMENT_INFO = {
         graphics: {
           center: [
             IMAGE_IDS['vehicles--truck-outbound'],
-            IMAGE_IDS['arrow-outbound']
+            IMAGE_IDS['markings--straight-outbound-light']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt']
@@ -1117,7 +1116,7 @@ export const SEGMENT_INFO = {
         graphics: {
           center: [
             IMAGE_IDS['vehicles--car-inbound-turn-signal-right'],
-            IMAGE_IDS['arrow-turn-left-inbound']
+            IMAGE_IDS['markings--left-inbound']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt']
@@ -1130,7 +1129,7 @@ export const SEGMENT_INFO = {
         graphics: {
           center: [
             IMAGE_IDS['vehicles--car-inbound-turn-signal-right'],
-            IMAGE_IDS['arrow-turn-left-straight-inbound']
+            IMAGE_IDS['markings--left-straight-inbound']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt']
@@ -1144,7 +1143,7 @@ export const SEGMENT_INFO = {
         graphics: {
           center: [
             IMAGE_IDS['vehicles--car-inbound'],
-            IMAGE_IDS['arrow-straight-inbound']
+            IMAGE_IDS['markings--straight-inbound']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt']
@@ -1157,7 +1156,7 @@ export const SEGMENT_INFO = {
         graphics: {
           center: [
             IMAGE_IDS['vehicles--car-inbound-turn-signal-left'],
-            IMAGE_IDS['arrow-turn-right-straight-inbound']
+            IMAGE_IDS['markings--right-straight-inbound']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt']
@@ -1170,7 +1169,7 @@ export const SEGMENT_INFO = {
         graphics: {
           center: [
             IMAGE_IDS['vehicles--car-inbound-turn-signal-left'],
-            IMAGE_IDS['arrow-turn-right-inbound']
+            IMAGE_IDS['markings--right-inbound']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt']
@@ -1183,7 +1182,7 @@ export const SEGMENT_INFO = {
         graphics: {
           center: [
             IMAGE_IDS['vehicles--car-inbound-turn-signal-right'],
-            IMAGE_IDS['arrow-turn-both-inbound']
+            IMAGE_IDS['markings--both-inbound']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt']
@@ -1196,7 +1195,7 @@ export const SEGMENT_INFO = {
         maxWidth: 12,
         graphics: {
           center: [
-            IMAGE_IDS['arrow-turn-shared-inbound']
+            IMAGE_IDS['markings--shared-inbound']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt']
@@ -1215,7 +1214,7 @@ export const SEGMENT_INFO = {
         graphics: {
           center: [
             IMAGE_IDS['vehicles--car-outbound-turn-signal-left'],
-            IMAGE_IDS['arrow-turn-left-outbound']
+            IMAGE_IDS['markings--left-outbound']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt']
@@ -1228,7 +1227,7 @@ export const SEGMENT_INFO = {
         graphics: {
           center: [
             IMAGE_IDS['vehicles--car-outbound-turn-signal-left'],
-            IMAGE_IDS['arrow-turn-left-straight-outbound']
+            IMAGE_IDS['markings--left-straight-outbound']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt']
@@ -1242,7 +1241,7 @@ export const SEGMENT_INFO = {
         graphics: {
           center: [
             IMAGE_IDS['vehicles--car-outbound'],
-            IMAGE_IDS['arrow-straight-outbound']
+            IMAGE_IDS['markings--straight-outbound']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt']
@@ -1255,7 +1254,7 @@ export const SEGMENT_INFO = {
         graphics: {
           center: [
             IMAGE_IDS['vehicles--car-outbound-turn-signal-right'],
-            IMAGE_IDS['arrow-turn-right-straight-outbound']
+            IMAGE_IDS['markings--right-straight-outbound']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt']
@@ -1268,7 +1267,7 @@ export const SEGMENT_INFO = {
         graphics: {
           center: [
             IMAGE_IDS['vehicles--car-outbound-turn-signal-right'],
-            IMAGE_IDS['arrow-turn-right-outbound']
+            IMAGE_IDS['markings--right-outbound']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt']
@@ -1281,7 +1280,7 @@ export const SEGMENT_INFO = {
         graphics: {
           center: [
             IMAGE_IDS['vehicles--car-outbound-turn-signal-left'],
-            IMAGE_IDS['arrow-turn-both-outbound']
+            IMAGE_IDS['markings--both-outbound']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt']
@@ -1295,7 +1294,7 @@ export const SEGMENT_INFO = {
         defaultWidth: 12,
         graphics: {
           center: [
-            IMAGE_IDS['arrow-turn-shared-outbound']
+            IMAGE_IDS['markings--shared-outbound']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt']
@@ -1323,7 +1322,7 @@ export const SEGMENT_INFO = {
         graphics: {
           center: [
             IMAGE_IDS['transit--bus-inbound'],
-            IMAGE_IDS['arrow-inbound']
+            IMAGE_IDS['markings--straight-inbound-light']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt']
@@ -1336,7 +1335,7 @@ export const SEGMENT_INFO = {
         graphics: {
           center: [
             IMAGE_IDS['transit--bus-outbound'],
-            IMAGE_IDS['arrow-outbound']
+            IMAGE_IDS['markings--straight-outbound-light']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt']
@@ -1349,7 +1348,7 @@ export const SEGMENT_INFO = {
         graphics: {
           center: [
             IMAGE_IDS['transit--bus-inbound'],
-            IMAGE_IDS['arrow-inbound']
+            IMAGE_IDS['markings--straight-inbound-light']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt-red']
@@ -1362,7 +1361,7 @@ export const SEGMENT_INFO = {
         graphics: {
           center: [
             IMAGE_IDS['transit--bus-outbound'],
-            IMAGE_IDS['arrow-outbound']
+            IMAGE_IDS['markings--straight-outbound-light']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt-red']
@@ -1378,7 +1377,7 @@ export const SEGMENT_INFO = {
           center: [
             IMAGE_IDS['transit--bus-inbound'],
             Object.assign({}, IMAGE_IDS['bikes--biker-02-inbound'], { offsetX: 1 }),
-            IMAGE_IDS['marking-sharrow-inbound']
+            IMAGE_IDS['markings--sharrow-inbound']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt']
@@ -1400,7 +1399,7 @@ export const SEGMENT_INFO = {
           center: [
             IMAGE_IDS['transit--bus-outbound'],
             Object.assign({}, IMAGE_IDS['bikes--biker-02-outbound'], { offsetX: -1 }),
-            IMAGE_IDS['marking-sharrow-outbound']
+            IMAGE_IDS['markings--sharrow-outbound']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt']
@@ -1429,7 +1428,7 @@ export const SEGMENT_INFO = {
           center: [
             IMAGE_IDS['markings--streetcar-track-01'],
             IMAGE_IDS['transit--streetcar-inbound'],
-            IMAGE_IDS['arrow-inbound']
+            IMAGE_IDS['markings--straight-inbound-light']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt']
@@ -1443,7 +1442,7 @@ export const SEGMENT_INFO = {
           center: [
             IMAGE_IDS['markings--streetcar-track-01'],
             IMAGE_IDS['transit--streetcar-outbound'],
-            IMAGE_IDS['arrow-outbound']
+            IMAGE_IDS['markings--straight-outbound-light']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt']
@@ -1457,7 +1456,7 @@ export const SEGMENT_INFO = {
           center: [
             IMAGE_IDS['markings--streetcar-track-02'],
             IMAGE_IDS['transit--streetcar-inbound'],
-            IMAGE_IDS['arrow-inbound']
+            IMAGE_IDS['markings--straight-inbound-light']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt-red']
@@ -1471,7 +1470,7 @@ export const SEGMENT_INFO = {
           center: [
             IMAGE_IDS['markings--streetcar-track-02'],
             IMAGE_IDS['transit--streetcar-outbound'],
-            IMAGE_IDS['arrow-outbound']
+            IMAGE_IDS['markings--straight-outbound-light']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt-red']
@@ -1494,7 +1493,7 @@ export const SEGMENT_INFO = {
           center: [
             IMAGE_IDS['transit--light-rail-inbound'],
             IMAGE_IDS['markings--streetcar-track-02'],
-            IMAGE_IDS['arrow-inbound']
+            IMAGE_IDS['markings--straight-inbound-light']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt-gray']
@@ -1508,7 +1507,7 @@ export const SEGMENT_INFO = {
           center: [
             IMAGE_IDS['transit--light-rail-outbound'],
             IMAGE_IDS['markings--streetcar-track-02'],
-            IMAGE_IDS['arrow-outbound']
+            IMAGE_IDS['markings--straight-outbound-light']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt-gray']
@@ -1522,7 +1521,7 @@ export const SEGMENT_INFO = {
           center: [
             IMAGE_IDS['transit--light-rail-inbound'],
             IMAGE_IDS['markings--streetcar-track-02'],
-            IMAGE_IDS['arrow-inbound']
+            IMAGE_IDS['markings--straight-inbound-light']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt-red']
@@ -1536,7 +1535,7 @@ export const SEGMENT_INFO = {
           center: [
             IMAGE_IDS['transit--light-rail-outbound'],
             IMAGE_IDS['markings--streetcar-track-02'],
-            IMAGE_IDS['arrow-outbound']
+            IMAGE_IDS['markings--straight-outbound-light']
           ],
           repeat: [
             IMAGE_IDS['ground--asphalt-red']
