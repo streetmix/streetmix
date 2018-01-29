@@ -19,6 +19,7 @@
     "pretest:full": "npm run mongo:start && npm run protractor:update && npm run test:server",
     "test:full": "npm run jest && npm run lint && npm run protractor:local",
     "posttest:full": "npm run test:cleanup",
+    "precommit": "lint-staged",
     "mongo:start": "mongod --fork --logpath /dev/null",
     "mongo:stop": "mongo admin --eval 'db.shutdownServer()'",
     "app:start": "supervisor -e node,js,jsx,scss index.js",
@@ -48,6 +49,11 @@
     "last 2 versions",
     "IE 11"
   ],
+  "lint-staged": {
+    "*.js": ["eslint --fix", "git add"],
+    "*.jsx": ["eslint --fix", "git add"],
+    "*.scss": ["stylelint --syntax=scss"]
+  },
   "dependencies": {
     "@streetmix/icons": "0.4.2",
     "@streetmix/illustrations": "0.3.0",
@@ -135,8 +141,10 @@
     "eslint-plugin-promise": "3.6.0",
     "eslint-plugin-react": "7.5.1",
     "eslint-plugin-standard": "3.0.1",
+    "husky": "0.14.3",
     "jest": "21.2.1",
     "jest-fetch-mock": "1.4.0",
+    "lint-staged": "6.1.0",
     "protractor": "5.2.2",
     "react-test-renderer": "16.2.0",
     "stylelint": "8.3.1",
