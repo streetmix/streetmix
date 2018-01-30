@@ -61,10 +61,10 @@ export function drawSegmentImageSVG (id, ctx, sw, sh, dx, dy, dw, dh, multiplier
   // actual width / height value then multiply by system pixel density
   //
   // dw/dh (and later sw/sh) can be 0, so don't use falsy checks
-  dw = (dw === null) ? svg.width / TILESET_POINT_PER_PIXEL * system.hiDpi : dw
-  dh = (dh === null) ? svg.height / TILESET_POINT_PER_PIXEL * system.hiDpi : dh
-  dw *= multiplier
-  dh *= multiplier
+  dw = (dw === null) ? svg.width / TILESET_POINT_PER_PIXEL : dw
+  dh = (dh === null) ? svg.height / TILESET_POINT_PER_PIXEL : dh
+  dw *= multiplier * system.hiDpi
+  dh *= multiplier * system.hiDpi
 
   // Set render dimensions based on pixel density
   dx *= system.hiDpi
