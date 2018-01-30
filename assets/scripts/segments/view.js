@@ -127,18 +127,23 @@ export function drawSegmentImage (tileset, ctx, sx, sy, sw, sh, dx, dy, dw, dh) 
 }
 
 export function getVariantInfoDimensions (variantInfo, initialSegmentWidth, multiplier) {
-  let graphic, newLeft, newRight
+  let newLeft, newRight
   var segmentWidth = initialSegmentWidth / TILE_SIZE / multiplier
 
   var center = segmentWidth / 2
   var left = center
   var right = center
 
-  if (variantInfo.graphics.center) {
-    graphic = variantInfo.graphics.center
-    for (let l = 0; l < graphic.length; l++) {
-      newLeft = center - (graphic[l].width / 2) + (graphic[l].offsetX || 0)
-      newRight = center + (graphic[l].width / 2) + (graphic[l].offsetX || 0)
+  const graphics = variantInfo.graphics
+
+  if (graphics.center) {
+    const sprites = Array.isArray(graphics.center) ? graphics.center : [graphics.center]
+
+    for (let l = 0; l < sprites.length; l++) {
+      const sprite = getSpriteDef(sprites[l])
+
+      newLeft = center - (sprite.width / 2) + (sprite.offsetX || 0)
+      newRight = center + (sprite.width / 2) + (sprite.offsetX || 0)
 
       if (newLeft < left) {
         left = newLeft
@@ -149,11 +154,13 @@ export function getVariantInfoDimensions (variantInfo, initialSegmentWidth, mult
     }
   }
 
-  if (variantInfo.graphics.left) {
-    graphic = variantInfo.graphics.left
-    for (let l = 0; l < graphic.length; l++) {
-      newLeft = graphic[l].offsetX || 0
-      newRight = graphic[l].width + (graphic[l].offsetX || 0)
+  if (graphics.left) {
+    const sprites = Array.isArray(graphics.left) ? graphics.left : [graphics.left]
+
+    for (let l = 0; l < sprites.length; l++) {
+      const sprite = getSpriteDef(sprites[l])
+      newLeft = sprite.offsetX || 0
+      newRight = sprite.width + (sprite.offsetX || 0)
 
       if (newLeft < left) {
         left = newLeft
@@ -164,11 +171,13 @@ export function getVariantInfoDimensions (variantInfo, initialSegmentWidth, mult
     }
   }
 
-  if (variantInfo.graphics.right) {
-    graphic = variantInfo.graphics.right
-    for (let l = 0; l < graphic.length; l++) {
-      newLeft = (segmentWidth) - (graphic[l].offsetX || 0) - graphic[l].width
-      newRight = (segmentWidth) - (graphic[l].offsetX || 0)
+  if (graphics.right) {
+    const sprites = Array.isArray(graphics.right) ? graphics.right : [graphics.right]
+
+    for (let l = 0; l < sprites.length; l++) {
+      const sprite = getSpriteDef(sprites[l])
+      newLeft = (segmentWidth) - (sprite.offsetX || 0) - sprite.width
+      newRight = (segmentWidth) - (sprite.offsetX || 0)
 
       if (newLeft < left) {
         left = newLeft
@@ -179,7 +188,7 @@ export function getVariantInfoDimensions (variantInfo, initialSegmentWidth, mult
     }
   }
 
-  if (variantInfo.graphics.repeat && variantInfo.graphics.repeat[0]) {
+  if (graphics.repeat && graphics.repeat[0]) {
     newLeft = center - (segmentWidth / 2)
     newRight = center + (segmentWidth / 2)
 
