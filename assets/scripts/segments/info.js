@@ -210,27 +210,25 @@ export function getSpriteDef (sprite) {
 }
 
 export const SPRITE_DEFS = {
-  // things we don't have svgs for
-  'markings--straight-inbound-light': { tileset: 1, x: 30, y: 15, width: 4, height: 5, offsetY: 10 }, // translucent version of arrow
-  'markings--straight-outbound-light': { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 },
-  'markings--straight-inbound': { tileset: 1, x: 30, y: 5, width: 4, height: 5, offsetY: 10 },
-  'markings--straight-outbound': { tileset: 1, x: 39, y: 5, width: 4, height: 5, offsetY: 10 },
-  'markings--left-inbound': { tileset: 2, x: 125, y: 15, width: 4, height: 5, offsetY: 10 },
-  'markings--left-outbound': { tileset: 2, x: 134, y: 15, width: 4, height: 5, offsetY: 10 },
-  'markings--left-straight-inbound': { tileset: 2, x: 125, y: 10, width: 4, height: 5, offsetY: 10 },
-  'markings--left-straight-outbound': { tileset: 2, x: 134, y: 10, width: 4, height: 5, offsetY: 10 },
-  'markings--right-inbound': { tileset: 1, x: 83, y: 15, width: 4, height: 5, offsetY: 10 },
-  'markings--right-outbound': { tileset: 2, x: 143, y: 15, width: 4, height: 5, offsetY: 10 },
-  'markings--right-straight-inbound': { tileset: 1, x: 83, y: 10, width: 4, height: 5, offsetY: 10 },
-  'markings--right-straight-outbound': { tileset: 2, x: 143, y: 10, width: 4, height: 5, offsetY: 10 },
-  'markings--both-inbound': { tileset: 2, x: 153, y: 15, width: 5, height: 5, offsetY: 10 },
-  'markings--both-outbound': { tileset: 2, x: 148, y: 15, width: 5, height: 5, offsetY: 10 },
-  'markings--shared-inbound': { tileset: 2, x: 144, y: 20, width: 5, height: 5, offsetY: 10 },
-  'markings--shared-outbound': { tileset: 2, x: 134, y: 20, width: 5, height: 5, offsetY: 10 },
-  'markings--sharrow-inbound': { tileset: 2, x: 101, y: 15, width: 4, height: 5, offsetY: 10 },
-  'markings--sharrow-outbound': { tileset: 2, x: 106, y: 15, width: 4, height: 5, offsetY: 10 },
+  'markings--straight-inbound-light': { id: 'markings--straight-inbound-light', width: 4, height: 4, offsetY: 11.12 }, // translucent version of arrow
+  'markings--straight-outbound-light': { id: 'markings--straight-outbound-light', width: 4, height: 4, offsetY: 11.12 },
+  'markings--straight-inbound': { id: 'markings--straight-inbound', width: 4, height: 4, offsetY: 11.12 },
+  'markings--straight-outbound': { id: 'markings--straight-outbound', width: 4, height: 4, offsetY: 11.12 },
+  'markings--left-inbound': { id: 'markings--left-inbound', width: 4, height: 4, offsetY: 11.12 },
+  'markings--left-outbound': { id: 'markings--left-outbound', width: 4, height: 4, offsetY: 11.12 },
+  'markings--left-straight-inbound': { id: 'markings--left-straight-inbound', width: 4, height: 4, offsetY: 11.12 },
+  'markings--left-straight-outbound': { id: 'markings--left-straight-outbound', width: 4, height: 4, offsetY: 11.12 },
+  'markings--right-inbound': { id: 'markings--right-inbound', width: 4, height: 4, offsetY: 11.12 },
+  'markings--right-outbound': { id: 'markings--right-outbound', width: 4, height: 4, offsetY: 11.12 },
+  'markings--right-straight-inbound': { id: 'markings--right-straight-inbound', width: 4, height: 4, offsetY: 11.12 },
+  'markings--right-straight-outbound': { id: 'markings--right-straight-outbound', width: 4, height: 4, offsetY: 11.12 },
+  'markings--both-inbound': { id: 'markings--both-inbound', width: 4, height: 4, offsetY: 11.12 },
+  'markings--both-outbound': { id: 'markings--both-outbound', width: 4, height: 4, offsetY: 11.12 },
+  'markings--shared-inbound': { id: 'markings--shared-inbound', width: 4, height: 4, offsetY: 11.12 },
+  'markings--shared-outbound': { id: 'markings--shared-outbound', width: 4, height: 4, offsetY: 11.12 },
+  'markings--sharrow-inbound': { id: 'markings--sharrow-inbound', width: 4, height: 4, offsetY: 11.12 },
+  'markings--sharrow-outbound': { id: 'markings--sharrow-outbound', width: 4, height: 4, offsetY: 11.12 },
 
-  // things we have svgs for
   'markings--lane-left': { id: 'markings--lane-left', width: 2, height: 4, offsetY: 11.28 },
   'markings--lane-right': { id: 'markings--lane-right', width: 2, height: 4, offsetY: 11.28 },
   'markings--center-lane-left': { id: 'markings--center-lane-left', width: 2, height: 4, offsetY: 11.28 },
