@@ -227,7 +227,6 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
       let width = sprite.width * TILE_SIZE
-      const height = sprite.height * TILE_SIZE
       const count = Math.floor((segmentWidth / (width * multiplier)) + 1)
       let repeatStartX
 
@@ -243,22 +242,10 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
           width = (segmentWidth / multiplier) - ((count - 1) * width)
         }
 
-        if (sprite.id) {
-          drawSegmentImageSVG(sprite.id, ctx, width, null,
-            offsetLeft + ((repeatStartX + (i * sprite.width * TILE_SIZE)) * multiplier),
-            offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
-            width, null, multiplier)
-        } else {
-          const repeatPositionX = sprite.x * TILE_SIZE
-          const repeatPositionY = (sprite.y || 0) * TILE_SIZE
-
-          drawSegmentImage(sprite.tileset, ctx,
-            repeatPositionX, repeatPositionY,
-            width * multiplier, sprite.height * TILE_SIZE,
-            offsetLeft + ((repeatStartX + (i * sprite.width * TILE_SIZE)) * multiplier),
-            offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
-            width * multiplier, height * multiplier)
-        }
+        drawSegmentImageSVG(sprite.id, ctx, width, null,
+          offsetLeft + ((repeatStartX + (i * sprite.width * TILE_SIZE)) * multiplier),
+          offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
+          width, null, multiplier)
       }
     }
   }
@@ -270,24 +257,10 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
       const sprite = getSpriteDef(sprites[l])
       const x = 0 + ((-left + (sprite.offsetX || 0)) * TILE_SIZE * multiplier)
 
-      if (sprite.id) {
-        drawSegmentImageSVG(sprite.id, ctx, null, null,
-          offsetLeft + x,
-          offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
-          null, null, multiplier)
-      } else {
-        const width = sprite.width * TILE_SIZE
-        const height = sprite.height * TILE_SIZE
-        const leftPositionX = sprite.x * TILE_SIZE
-        const leftPositionY = (sprite.y || 0) * TILE_SIZE
-
-        drawSegmentImage(sprite.tileset, ctx,
-          leftPositionX, leftPositionY,
-          width, height,
-          offsetLeft + x,
-          offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
-          width * multiplier, height * multiplier)
-      }
+      drawSegmentImageSVG(sprite.id, ctx, null, null,
+        offsetLeft + x,
+        offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
+        null, null, multiplier)
     }
   }
 
@@ -298,24 +271,10 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
       const sprite = getSpriteDef(sprites[l])
       const x = (-left + (segmentWidth / TILE_SIZE / multiplier) - sprite.width - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
 
-      if (sprite.id) {
-        drawSegmentImageSVG(sprite.id, ctx, null, null,
-          offsetLeft + x,
-          offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
-          null, null, multiplier)
-      } else {
-        const width = sprite.width * TILE_SIZE
-        const height = sprite.height * TILE_SIZE
-        const rightPositionX = sprite.x * TILE_SIZE
-        const rightPositionY = (sprite.y || 0) * TILE_SIZE
-
-        drawSegmentImage(sprite.tileset, ctx,
-          rightPositionX, rightPositionY,
-          width, height,
-          offsetLeft + x,
-          offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
-          width * multiplier, height * multiplier)
-      }
+      drawSegmentImageSVG(sprite.id, ctx, null, null,
+        offsetLeft + x,
+        offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
+        null, null, multiplier)
     }
   }
 
@@ -327,24 +286,10 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
       const center = dimensions.center
       const x = (center - (sprite.width / 2) - left - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
 
-      if (sprite.id) {
-        drawSegmentImageSVG(sprite.id, ctx, null, null,
-          offsetLeft + x,
-          offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
-          null, null, multiplier)
-      } else {
-        const width = sprite.width * TILE_SIZE
-        const height = sprite.height * TILE_SIZE
-        const bkPositionX = (sprite.x || 0) * TILE_SIZE
-        const bkPositionY = (sprite.y || 0) * TILE_SIZE
-
-        drawSegmentImage(sprite.tileset, ctx,
-          bkPositionX, bkPositionY,
-          width, height,
-          offsetLeft + x,
-          offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
-          width * multiplier, height * multiplier)
-      }
+      drawSegmentImageSVG(sprite.id, ctx, null, null,
+        offsetLeft + x,
+        offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
+        null, null, multiplier)
     }
   }
 
