@@ -61,8 +61,8 @@ export function drawSegmentImageSVG (id, ctx, sw, sh, dx, dy, dw, dh, multiplier
   // actual width / height value then multiply by system pixel density
   //
   // dw/dh (and later sw/sh) can be 0, so don't use falsy checks
-  dw = (dw === null) ? svg.width / 2 * system.hiDpi : dw
-  dh = (dh === null) ? svg.height / 2 * system.hiDpi : dh
+  dw = (dw === null) ? svg.width / TILESET_POINT_PER_PIXEL * system.hiDpi : dw
+  dh = (dh === null) ? svg.height / TILESET_POINT_PER_PIXEL * system.hiDpi : dh
   dw *= multiplier
   dh *= multiplier
 
@@ -82,8 +82,8 @@ export function drawSegmentImageSVG (id, ctx, sw, sh, dx, dy, dw, dh, multiplier
   // Source width and height is based off of intrinsic image width and height,
   // but it can be overridden in the parameters, e.g. when repeating sprites
   // in a sequence and the last sprite needs to be truncated
-  sw = (sw === null) ? svg.width : sw
-  sh = (sh === null) ? svg.height : sh
+  sw = (sw === null) ? svg.width : sw * TILESET_POINT_PER_PIXEL
+  sh = (sh === null) ? svg.height : sh * TILESET_POINT_PER_PIXEL
 
   try {
     ctx.drawImage(svg.img, sx, sy, sw, sh, dx, dy, dw, dh)
@@ -244,10 +244,10 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
         }
 
         if (sprite.id) {
-          drawSegmentImageSVG(sprite.id, ctx, width * 2, null,
+          drawSegmentImageSVG(sprite.id, ctx, width, null,
             offsetLeft + ((repeatStartX + (i * sprite.width * TILE_SIZE)) * multiplier),
             offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
-            width * 2, null, multiplier)
+            width, null, multiplier)
         } else {
           const repeatPositionX = sprite.x * TILE_SIZE
           const repeatPositionY = (sprite.y || 0) * TILE_SIZE
