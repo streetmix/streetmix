@@ -8,7 +8,7 @@ import { getStreet, saveStreetToServerIfNecessary } from '../streets/data_model'
 import { getElAbsolutePos } from '../util/helpers'
 import { RandomGenerator } from '../util/random'
 import { resumeFadeoutControls } from './resizing'
-import { TILE_SIZE, drawSegmentImage } from './view'
+import { TILE_SIZE, drawSegmentImage, drawSegmentImageSVG } from './view'
 import store from '../store'
 
 const MAX_CANVAS_HEIGHT = 2048
@@ -165,6 +165,7 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
   let x, y, posShift, leftPos, tileset, width, height, offsetY, lastX, firstX
   let variant, currentX
   var attr = getBuildingAttributes(street, left)
+  let spriteId
 
   if (bottomAligned) {
     offsetTop += totalHeight - (attr.height * multiplier)
@@ -215,12 +216,14 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
         offsetTop -= 45
 
         if (left) {
+          spriteId = 'buildings--parking-lot-left'
           posShift = (totalWidth % width) - width - width - 25
           y = 12 + 298
 
           x = 815 + (162 * 12)
           lastX = 815 + (162 * 12) + (9 * 24)
         } else {
+          spriteId = 'buildings--parking-lot-right'
           posShift = 25
           y = 12
 
@@ -263,12 +266,20 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
         currentX = x
       }
 
-      drawSegmentImage(tileset, ctx,
-        currentX, y, width, height,
-        offsetLeft + ((posShift + (i * width)) * multiplier),
-        offsetTop + (offsetY * multiplier),
-        width * multiplier,
-        height * multiplier)
+      if (spriteId) {
+        drawSegmentImageSVG(spriteId, ctx,
+          null, null,
+          offsetLeft + ((posShift + (i * width)) * multiplier),
+          offsetTop + (offsetY * multiplier),
+          null, null, multiplier)
+      } else {
+        drawSegmentImage(tileset, ctx,
+          currentX, y, width, height,
+          offsetLeft + ((posShift + (i * width)) * multiplier),
+          offsetTop + (offsetY * multiplier),
+          width * multiplier,
+          height * multiplier)
+      }
     }
   } else {
     // Floored buildings
