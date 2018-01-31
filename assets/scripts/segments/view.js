@@ -54,8 +54,13 @@ const SEGMENT_SWITCHING_TIME = 250
  * @param {Number} multiplier - scale to draw at (default = 1)
  */
 export function drawSegmentImageSVG (id, ctx, sx = 0, sy = 0, sw, sh, dx, dy, dw, dh, multiplier = 1) {
+  // Settings
+  const state = store.getState()
+  const dpi = state.system.hiDpi || 1
+  const debugRect = state.flags.DEBUG_SEGMENT_CANVAS_RECTANGLES.value || false
+
+  // Get image definition
   const svg = svgCache.get(id)
-  const dpi = store.getState().system.hiDpi
 
   // We can't read `.naturalWidth` and `.naturalHeight` properties from
   // the image in IE11, which returns 0. This is why width and height are
@@ -74,7 +79,7 @@ export function drawSegmentImageSVG (id, ctx, sx = 0, sy = 0, sw, sh, dx, dy, dw
   dy *= dpi
 
   // These rectangles are telling us that we're drawing at the right places.
-  if (store.getState().flags.DEBUG_SEGMENT_CANVAS_RECTANGLES.value === true) {
+  if (debugRect === true) {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.2)'
     ctx.fillRect(dx, dy, dw, dh)
   }
