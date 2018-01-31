@@ -76,7 +76,7 @@ export function drawProgrammaticPeople (ctx, width, offsetLeft, offsetTop, randS
     const type = ('0' + (person.id + 1).toString()).slice(-2)
 
     // TODO: Document / refactor magic numbers
-    drawSegmentImageSVG('people--people-' + type, ctx, null, null,
+    drawSegmentImageSVG('people--people-' + type, ctx, null, null, null, null,
       offsetLeft + ((person.left - (5 * 12 / 2) - ((4 - person.width) * 12 / 2) + startLeft) * multiplier),
       offsetTop + (37 * multiplier), null, null, multiplier)
   }

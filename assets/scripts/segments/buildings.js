@@ -7,6 +7,7 @@ import { system } from '../preinit/system_capabilities'
 import { getStreet, saveStreetToServerIfNecessary } from '../streets/data_model'
 import { getElAbsolutePos } from '../util/helpers'
 import { RandomGenerator } from '../util/random'
+import { svgCache } from '../app/load_resources'
 import { resumeFadeoutControls } from './resizing'
 import { TILE_SIZE, drawSegmentImage, drawSegmentImageSVG } from './view'
 import store from '../store'
@@ -159,6 +160,8 @@ export function isFlooredBuilding (buildingVariant) {
   }
 }
 
+// posShift = a building sprite can overlap the sidewalk by a certain amount. a posShift
+// value of 25 is NO overlap. a posShift value of 0 is 25 pixels of overlap.
 export function drawBuilding (ctx, destination, street, left, totalWidth,
   totalHeight, bottomAligned, offsetLeft, offsetTop,
   multiplier) {
@@ -208,30 +211,28 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
         }
         break
 
-      case 'parking-lot':
-        tileset = 3
-        width = 216
-        height = 576 / 2
-        offsetY = 3 + 45
+      case 'parking-lot': {
+        offsetY = 0
         offsetTop -= 45
 
+        spriteId = (left) ? 'buildings--parking-lot-left' : 'buildings--parking-lot-right'
+
+        const svg = svgCache.get(spriteId)
+        width = svg.width / 2 / 2 // 2 = PIXEL PER POINT? | 2 = halfway point is where repeat starts.
+
         if (left) {
-          spriteId = 'buildings--parking-lot-left'
           posShift = (totalWidth % width) - width - width - 25
-          y = 12 + 298
 
-          x = 815 + (162 * 12)
-          lastX = 815 + (162 * 12) + (9 * 24)
+          x = 0 // repeat the left half of this sprite
+          lastX = svg.width / 2 // anchor with right half of this sprite
         } else {
-          spriteId = 'buildings--parking-lot-right'
           posShift = 25
-          y = 12
 
-          x = 815 + (162 * 12) + (9 * 24)
-          firstX = 815 + (162 * 12)
+          x = svg.width / 2 // part to repeat.
+          firstX = 0
         }
         break
-
+      }
       case 'waterfront':
         tileset = 1
         width = 120
@@ -268,10 +269,11 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
 
       if (spriteId) {
         drawSegmentImageSVG(spriteId, ctx,
-          null, null,
+          currentX, null,
+          width, null,
           offsetLeft + ((posShift + (i * width)) * multiplier),
           offsetTop + (offsetY * multiplier),
-          null, null, multiplier)
+          width, null, multiplier)
       } else {
         drawSegmentImage(tileset, ctx,
           currentX, y, width, height,

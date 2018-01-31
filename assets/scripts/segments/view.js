@@ -43,15 +43,17 @@ const SEGMENT_SWITCHING_TIME = 250
  *
  * @param {string} id - identifier of sprite
  * @param {CanvasRenderingContext2D} ctx
+ * @param {Number} sx - x position of sprite to read from (default = 0)
+ * @param {Number} sy - y position of sprite to read from (default = 0)
  * @param {Number} sw - sub-rectangle width to draw
  * @param {Number} sh - sub-rectangle height to draw
  * @param {Number} dx - x position on canvas
  * @param {Number} dy - y position on canvas
  * @param {Number} dw - destination width to draw
  * @param {Number} dh - destination height to draw
- * @param {Number} multiplier - scale to draw at
+ * @param {Number} multiplier - scale to draw at (default = 1)
  */
-export function drawSegmentImageSVG (id, ctx, sw, sh, dx, dy, dw, dh, multiplier = 1) {
+export function drawSegmentImageSVG (id, ctx, sx = 0, sy = 0, sw, sh, dx, dy, dw, dh, multiplier = 1) {
   const svg = svgCache.get(id)
 
   // We can't read `.naturalWidth` and `.naturalHeight` properties from
@@ -75,9 +77,6 @@ export function drawSegmentImageSVG (id, ctx, sw, sh, dx, dy, dw, dh, multiplier
     ctx.fillStyle = 'rgba(0, 0, 0, 0.2)'
     ctx.fillRect(dx, dy, dw, dh)
   }
-
-  const sx = 0
-  const sy = 0
 
   // Source width and height is based off of intrinsic image width and height,
   // but it can be overridden in the parameters, e.g. when repeating sprites
@@ -242,7 +241,7 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
           width = (segmentWidth / multiplier) - ((count - 1) * width)
         }
 
-        drawSegmentImageSVG(sprite.id, ctx, width, null,
+        drawSegmentImageSVG(sprite.id, ctx, null, null, width, null,
           offsetLeft + ((repeatStartX + (i * sprite.width * TILE_SIZE)) * multiplier),
           offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
           width, null, multiplier)
@@ -257,7 +256,7 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
       const sprite = getSpriteDef(sprites[l])
       const x = 0 + ((-left + (sprite.offsetX || 0)) * TILE_SIZE * multiplier)
 
-      drawSegmentImageSVG(sprite.id, ctx, null, null,
+      drawSegmentImageSVG(sprite.id, ctx, null, null, null, null,
         offsetLeft + x,
         offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
         null, null, multiplier)
@@ -271,7 +270,7 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
       const sprite = getSpriteDef(sprites[l])
       const x = (-left + (segmentWidth / TILE_SIZE / multiplier) - sprite.width - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
 
-      drawSegmentImageSVG(sprite.id, ctx, null, null,
+      drawSegmentImageSVG(sprite.id, ctx, null, null, null, null,
         offsetLeft + x,
         offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
         null, null, multiplier)
@@ -286,7 +285,7 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
       const center = dimensions.center
       const x = (center - (sprite.width / 2) - left - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
 
-      drawSegmentImageSVG(sprite.id, ctx, null, null,
+      drawSegmentImageSVG(sprite.id, ctx, null, null, null, null,
         offsetLeft + x,
         offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
         null, null, multiplier)
