@@ -138,7 +138,16 @@ class GeolocateDialog extends React.Component {
         closeButton={false}
         offset={[0, -30]}
       >
-        <span>{this.props.addressInformationLabel}</span>
+        <span>
+          {this.props.addressInformationLabel} <br />
+          <button
+            className="confirm-button"
+            style={{marginTop: '10px'}}
+            onClick={this.handleConfirm}
+          >
+            <b> Confirm Location </b>
+          </button>
+        </span>
       </Popup>
     ) : null
 
