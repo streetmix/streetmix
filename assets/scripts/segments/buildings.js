@@ -74,9 +74,12 @@ export function getBuildingAttributes (street, left) {
     case 'waterfront':
       height = 12 * TILE_SIZE
       break
-    case 'parking-lot':
-      height = 28 * TILE_SIZE
+    // Define parking lot sprite height based on svg intrinsic value
+    case 'parking-lot': {
+      const svg = svgCache.get('buildings--parking-lot-left') // same for right
+      height = svg.height / 2 // == 28 * TILE_SIZE
       break
+    }
     case 'fence':
       height = 12 * TILE_SIZE
       break
