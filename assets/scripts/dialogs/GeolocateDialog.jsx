@@ -79,6 +79,7 @@ class GeolocateDialog extends React.Component {
 
     const displayAddressData = (res) => {
       this.props.setMapState({
+        addressInformation: res.features[0].properties,
         addressInformationLabel: res.features[0].properties.label,
         markerLocation: res.features[0].geometry.coordinates.reverse()
       })
@@ -98,6 +99,7 @@ class GeolocateDialog extends React.Component {
       })
 
       this.props.setMapState({
+        addressInformation: res.features[0].properties,
         addressInformationLabel: res.features[0].properties.label,
         markerLocation: latlng
       })
