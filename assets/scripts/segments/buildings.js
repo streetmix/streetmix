@@ -9,7 +9,7 @@ import { getElAbsolutePos } from '../util/helpers'
 import { RandomGenerator } from '../util/random'
 import { svgCache } from '../app/load_resources'
 import { resumeFadeoutControls } from './resizing'
-import { TILE_SIZE, drawSegmentImage, drawSegmentImageSVG } from './view'
+import { TILE_SIZE, TILESET_POINT_PER_PIXEL, drawSegmentImage, drawSegmentImageSVG } from './view'
 import store from '../store'
 
 const MAX_CANVAS_HEIGHT = 2048
@@ -179,26 +179,23 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
 
   if (!attr.flooredBuilding) {
     switch (attr.buildingVariant) {
-      case 'fence':
-        tileset = 1
-        if (left) {
-          x = 1344 / 2
-        } else {
-          x = 1224 / 2
-        }
-        width = 48
-        y = 0
-        height = 168 + 12 - 24 - 24 - 24
-        offsetY = 23 + 24
-        offsetTop -= 45
+      case 'fence': {
+        spriteId = (left) ? 'buildings--fenced-lot-left' : 'buildings--fenced-lot-right'
+
+        const svg = svgCache.get(spriteId)
+        width = svg.width / TILESET_POINT_PER_PIXEL
+
+        offsetY = 23 + 24 + 2 // todo: document magic number
+        offsetTop -= 45 // todo: document magic number
 
         if (left) {
-          posShift = (totalWidth % width) - 121
+          posShift = (totalWidth % width) - (width + width + 25)
         } else {
           posShift = 25
         }
         break
-      case 'grass':
+      }
+      case 'grass': {
         tileset = 1
         x = 1104 / 2
         width = 48
@@ -208,23 +205,23 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
         offsetTop -= 45
 
         if (left) {
-          posShift = (totalWidth % width) - 121
+          posShift = (totalWidth % width) - (width + width + 25)
         } else {
           posShift = 25
         }
         break
-
+      }
       case 'parking-lot': {
         offsetY = 0
-        offsetTop -= 45
+        offsetTop -= 45 // todo: document magic number
 
         spriteId = (left) ? 'buildings--parking-lot-left' : 'buildings--parking-lot-right'
 
         const svg = svgCache.get(spriteId)
-        width = svg.width / 2 / 2 // 2 = PIXEL PER POINT? | 2 = halfway point is where repeat starts.
+        width = svg.width / TILESET_POINT_PER_PIXEL / 2 // 2 = halfway point is where repeat starts.
 
         if (left) {
-          posShift = (totalWidth % width) - width - width - 25 // do not overhang right edge
+          posShift = (totalWidth % width) - (width + width + 25) // do not overhang right edge
 
           x = 0 // repeat the left half of this sprite
           lastX = svg.width / 2 // anchor the right half of this sprite
@@ -243,10 +240,10 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
         spriteId = (left) ? 'buildings--waterfront-left' : 'buildings--waterfront-right'
 
         const svg = svgCache.get(spriteId)
-        width = svg.width / 2 / 2 // 2 = PIXEL PER POINT? | 2 = halfway point is where repeat starts.
+        width = svg.width / TILESET_POINT_PER_PIXEL / 2 // 2 = halfway point is where repeat starts.
 
         if (left) {
-          posShift = (totalWidth % width) - width - width - 25 // do not overhang right edge
+          posShift = (totalWidth % width) - (width + width + 25) // do not overhang right edge
 
           x = 0 // repeat the left half of this sprite
           lastX = svg.width / 2 // anchor the right half of this sprite

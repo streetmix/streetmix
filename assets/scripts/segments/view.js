@@ -23,7 +23,7 @@ import {
 import { getVariantString } from './variant_utils'
 import store from '../store'
 
-const TILESET_POINT_PER_PIXEL = 2.0
+export const TILESET_POINT_PER_PIXEL = 2.0
 export const TILE_SIZE = 12 // pixels
 const TILESET_CORRECTION = [null, 0, -84, -162]
 
