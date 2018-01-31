@@ -5,12 +5,15 @@ import {
   REPLACE_STREET_DATA,
   CHANGE_SEGMENT_WIDTH,
   CHANGE_SEGMENT_VARIANT,
+  ADD_LOCATION,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
   REMOVE_BUILDING_FLOOR,
   SET_BUILDING_FLOOR_VALUE,
   SET_BUILDING_VARIANT
 } from './'
+
+import { getStreet } from '../../streets/data_model'
 
 export function addSegment (index, segment) {
   return {
@@ -40,6 +43,17 @@ export function updateStreetData (street) {
   return {
     type: REPLACE_STREET_DATA,
     street
+  }
+}
+
+export function addLocation (location) {
+  // Temporarily adding location to global street object
+  let street = getStreet()
+  street.location = location
+
+  return {
+    type: ADD_LOCATION,
+    location
   }
 }
 

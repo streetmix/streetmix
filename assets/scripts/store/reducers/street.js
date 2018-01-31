@@ -5,6 +5,7 @@ import {
   REPLACE_STREET_DATA,
   CHANGE_SEGMENT_WIDTH,
   CHANGE_SEGMENT_VARIANT,
+  ADD_LOCATION,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
   REMOVE_BUILDING_FLOOR,
@@ -54,6 +55,11 @@ const street = (state = initialState, action) => {
       return {
         ...state,
         ...action.street
+      }
+    case ADD_LOCATION:
+      return {
+        ...state,
+        location: action.location
       }
     case CHANGE_SEGMENT_WIDTH: {
       const copy = [...state.segments]

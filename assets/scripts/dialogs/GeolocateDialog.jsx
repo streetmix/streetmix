@@ -7,6 +7,7 @@ import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../app/config'
 import Dialog from './Dialog'
 import SearchAddress from '../streets/SearchAddress'
 import { setMapState } from '../store/actions/map'
+import { addLocation } from '../store/actions/street'
 import { t } from '../app/locale'
 
 const REVERSE_GEOCODE_API = `https://${PELIAS_HOST_NAME}/v1/reverse`
@@ -38,6 +39,8 @@ class GeolocateDialog extends React.Component {
       latitude: PropTypes.number,
       longitude: PropTypes.number
     }),
+    addressInformation: PropTypes.object,
+    addLocation: PropTypes.func,
     setMapState: PropTypes.func,
     addressInformationLabel: PropTypes.string
   }
@@ -120,6 +123,23 @@ class GeolocateDialog extends React.Component {
     })
   }
 
+  handleConfirm = (e) => {
+    const { markerLocation, addressInformation } = this.props
+
+    const location = {
+      latlng: markerLocation, // array of location
+      label: addressInformation.label,
+      hierarchy: {
+        country: addressInformation.country,
+        locality: addressInformation.locality,
+        neighbourhood: addressInformation.neighbourhood,
+        street: addressInformation.street
+      }
+    }
+
+    this.props.addLocation(location)
+  }
+
   render () {
     const markers = this.props.markerLocation ? (
       <Marker
@@ -189,13 +209,15 @@ function mapStateToProps (state) {
   return {
     markerLocation: state.map.markerLocation,
     addressInformationLabel: state.map.addressInformationLabel,
+    addressInformation: state.map.addressInformation,
     userLocation: state.user.geolocation.data
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    setMapState: (...args) => { dispatch(setMapState(...args)) }
+    setMapState: (...args) => { dispatch(setMapState(...args)) },
+    addLocation: (...args) => { dispatch(addLocation(...args)) }
   }
 }
 
