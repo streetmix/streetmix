@@ -238,10 +238,10 @@ export const SPRITE_DEFS = {
   'markings--streetcar-track-01': { id: 'markings--streetcar-track-01', width: 5, height: 4, offsetY: 11.28 }, // lighter (for dark backgrounds)
   'markings--streetcar-track-02': { id: 'markings--streetcar-track-02', width: 5, height: 4, offsetY: 11.28 }, // darker (for light backgrounds)
   'markings--stripes-diagonal': { id: 'markings--stripes-diagonal', width: 5, height: 5, offsetY: 11.28 },
-  'ground--asphalt': { id: 'ground--asphalt', width: 10, height: 5, offsetY: 11.23 },
-  'ground--asphalt-gray': { id: 'ground--asphalt-gray', width: 10, height: 5, offsetY: 11.23 },
-  'ground--asphalt-green': { id: 'ground--asphalt-green', width: 10, height: 5, offsetY: 11.23 },
-  'ground--asphalt-red': { id: 'ground--asphalt-red', width: 10, height: 5, offsetY: 11.23 },
+  'ground--asphalt': { id: 'ground--asphalt', width: 10, height: 5, offsetY: 11.25 },
+  'ground--asphalt-gray': { id: 'ground--asphalt-gray', width: 10, height: 5, offsetY: 11.25 },
+  'ground--asphalt-green': { id: 'ground--asphalt-green', width: 10, height: 5, offsetY: 11.25 },
+  'ground--asphalt-red': { id: 'ground--asphalt-red', width: 10, height: 5, offsetY: 11.25 },
   'ground--concrete': { id: 'ground--concrete', width: 10, height: 5, offsetY: 10.65 },
   'ground--concrete-raised': { id: 'ground--concrete-raised', width: 10, height: 9, offsetY: 6 + 2.2 },
 
@@ -265,7 +265,7 @@ export const SPRITE_DEFS = {
   'lamps--lamp-traditional-left': { id: 'lamps--lamp-traditional-left', width: 4, height: 15, offsetX: -1.5, offsetY: -4.25 },
   'lamps--pride-banner-right': { id: 'lamps--pride-banner-right', width: 4, height: 6, offsetX: -2.5, offsetY: -13 },
   'lamps--pride-banner-left': { id: 'lamps--pride-banner-left', width: 4, height: 6, offsetX: -2.5, offsetY: -13 },
-  'trees--tree': { id: 'trees--tree', width: 9, height: 21, offsetY: -10.25 },
+  'trees--tree': { id: 'trees--tree', width: 9, height: 21, offsetY: -10.3 },
   'trees--palm-tree': { id: 'trees--palm-tree', offsetX: 0, offsetY: -20.25, width: 14, height: 31 },
   'dividers--planter-box': { id: 'dividers--planter-box', width: 4, height: 7, offsetY: 4.25 },
   'plants--bush': { id: 'plants--bush', width: 4, height: 5, offsetY: 5.7 },
@@ -273,10 +273,10 @@ export const SPRITE_DEFS = {
   'plants--grass': { id: 'plants--grass', width: 4, height: 1, offsetY: 9.7 },
   'dividers--bollard': { id: 'dividers--bollard', width: 1, height: 7, offsetY: 4.25 },
   'dividers--dome': { id: 'dividers--dome', width: 1, height: 7, offsetY: 4.25 },
-  'bikes--biker-01-inbound': { id: 'bikes--biker-01-inbound', width: 3, height: 8, offsetY: 3.25 },
-  'bikes--biker-01-outbound': { id: 'bikes--biker-01-outbound', width: 3, height: 8, offsetY: 3.25 },
-  'bikes--biker-02-inbound': { id: 'bikes--biker-02-inbound', width: 3, height: 8, offsetY: 3.25 },
-  'bikes--biker-02-outbound': { id: 'bikes--biker-02-outbound', width: 3, height: 8, offsetY: 3.25 },
+  'bikes--biker-01-inbound': { id: 'bikes--biker-01-inbound', width: 3, height: 8, offsetY: 3.28 },
+  'bikes--biker-01-outbound': { id: 'bikes--biker-01-outbound', width: 3, height: 8, offsetY: 3.28 },
+  'bikes--biker-02-inbound': { id: 'bikes--biker-02-inbound', width: 3, height: 8, offsetY: 3.28 },
+  'bikes--biker-02-outbound': { id: 'bikes--biker-02-outbound', width: 3, height: 8, offsetY: 3.28 },
   'vehicles--car-inbound': { id: 'vehicles--car-inbound', width: 6, height: 15, offsetY: -3.7 },
   'vehicles--car-outbound': { id: 'vehicles--car-outbound', width: 6, height: 15, offsetY: -3.7 },
   'vehicles--car-inbound-turn-signal-right': { id: 'vehicles--car-inbound-turn-signal-right', width: 8, height: 15, offsetY: -3.7 }, // left/right flipped on purpose (see relevant issue/discussion about swapping it back)
@@ -285,8 +285,8 @@ export const SPRITE_DEFS = {
   'vehicles--car-outbound-turn-signal-right': { id: 'vehicles--car-outbound-turn-signal-right', width: 8, height: 15, offsetY: -3.7 },
   'vehicles--car-sideways-left': { id: 'vehicles--car-sideways-left', width: 14, height: 6, offsetY: 5.35 },
   'vehicles--car-sideways-right': { id: 'vehicles--car-sideways-right', width: 14, height: 6, offsetY: 5.35 },
-  'transit--bus-inbound': { id: 'transit--bus-inbound', width: 12, height: 11, offsetY: 0.3 },
-  'transit--bus-outbound': { id: 'transit--bus-outbound', width: 12, height: 11, offsetY: 0.3 },
+  'transit--bus-inbound': { id: 'transit--bus-inbound', width: 12, height: 11, offsetY: 0.35 },
+  'transit--bus-outbound': { id: 'transit--bus-outbound', width: 12, height: 11, offsetY: 0.35 },
   'transit--light-rail-inbound': { id: 'transit--light-rail-inbound', width: 10, height: 17, offsetY: -5.75 },
   'transit--light-rail-outbound': { id: 'transit--light-rail-outbound', width: 10, height: 17, offsetY: -5.75 },
   'secret--inception-train': { id: 'secret--inception-train', width: 14, height: 16, offsetY: -4.7 },
@@ -1040,7 +1040,7 @@ export const SEGMENT_INFO = {
         graphics: {
           center: [
             'transit--bus-inbound',
-            { id: 'bikes--biker-02-inbound', offsetX: 1 },
+            { id: 'bikes--biker-02-inbound', offsetX: 1.2 },
             'markings--sharrow-inbound'
           ],
           repeat: 'ground--asphalt',
@@ -1056,7 +1056,7 @@ export const SEGMENT_INFO = {
         graphics: {
           center: [
             'transit--bus-outbound',
-            { id: 'bikes--biker-02-outbound', offsetX: -1 },
+            { id: 'bikes--biker-02-outbound', offsetX: -1.2 },
             'markings--sharrow-outbound'
           ],
           repeat: 'ground--asphalt',
@@ -1118,7 +1118,11 @@ export const SEGMENT_INFO = {
         minWidth: 10,
         maxWidth: 14,
         graphics: {
-          center: ['transit--light-rail-inbound', 'markings--streetcar-track-02', 'markings--straight-inbound-light'],
+          center: [
+            'transit--light-rail-inbound',
+            { id: 'markings--streetcar-track-02', offsetY: 11.05 }, // slightly raised track
+            'markings--straight-inbound-light'
+          ],
           repeat: 'ground--asphalt-gray'
         }
       },
@@ -1126,7 +1130,11 @@ export const SEGMENT_INFO = {
         minWidth: 10,
         maxWidth: 14,
         graphics: {
-          center: ['transit--light-rail-outbound', 'markings--streetcar-track-02', 'markings--straight-outbound-light'],
+          center: [
+            'transit--light-rail-outbound',
+            { id: 'markings--streetcar-track-02', offsetY: 11.05 }, // slightly raised track
+            'markings--straight-outbound-light'
+          ],
           repeat: 'ground--asphalt-gray'
         }
       },
@@ -1134,7 +1142,11 @@ export const SEGMENT_INFO = {
         minWidth: 10,
         maxWidth: 14,
         graphics: {
-          center: ['transit--light-rail-inbound', 'markings--streetcar-track-02', 'markings--straight-inbound-light'],
+          center: [
+            'transit--light-rail-inbound',
+            { id: 'markings--streetcar-track-02', offsetY: 11.05 }, // slightly raised track
+            'markings--straight-inbound-light'
+          ],
           repeat: 'ground--asphalt-red'
         }
       },
@@ -1142,7 +1154,11 @@ export const SEGMENT_INFO = {
         minWidth: 10,
         maxWidth: 14,
         graphics: {
-          center: ['transit--light-rail-outbound', 'markings--streetcar-track-02', 'markings--straight-outbound-light'],
+          center: [
+            'transit--light-rail-outbound',
+            { id: 'markings--streetcar-track-02', offsetY: 11.05 }, // slightly raised track
+            'markings--straight-outbound-light'
+          ],
           repeat: 'ground--asphalt-red'
         }
       }
