@@ -224,39 +224,40 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
         width = svg.width / 2 / 2 // 2 = PIXEL PER POINT? | 2 = halfway point is where repeat starts.
 
         if (left) {
-          posShift = (totalWidth % width) - width - width - 25
+          posShift = (totalWidth % width) - width - width - 25 // do not overhang right edge
 
           x = 0 // repeat the left half of this sprite
-          lastX = svg.width / 2 // anchor with right half of this sprite
+          lastX = svg.width / 2 // anchor the right half of this sprite
         } else {
-          posShift = 25
+          posShift = 25 // do not overhang left edge
 
-          x = svg.width / 2 // part to repeat.
-          firstX = 0
+          x = svg.width / 2 // repeat the right half of this sprite
+          firstX = 0 // anchor the left half of this sprite
         }
         break
       }
-      case 'waterfront':
-        tileset = 1
-        width = 120
-        height = 192 / 2
-        offsetY = 24 + 24 + 45
-        offsetTop -= 45
+      case 'waterfront': {
+        offsetY = 24 + 45 // todo: document magic number
+        offsetTop -= 45 // todo: document magic number
+
+        spriteId = (left) ? 'buildings--waterfront-left' : 'buildings--waterfront-right'
+
+        const svg = svgCache.get(spriteId)
+        width = svg.width / 2 / 2 // 2 = PIXEL PER POINT? | 2 = halfway point is where repeat starts.
 
         if (left) {
-          posShift = (totalWidth % width) - width - width - 25
-          y = 120
+          posShift = (totalWidth % width) - width - width - 25 // do not overhang right edge
 
-          x = 0
-          lastX = 120
+          x = 0 // repeat the left half of this sprite
+          lastX = svg.width / 2 // anchor the right half of this sprite
         } else {
-          posShift = 25
-          y = 456 / 2
+          posShift = 25 // do not overhang left edge
 
-          x = 120
-          firstX = 0
+          x = svg.width / 2 // repeat the right half of this sprite
+          firstX = 0 // anchor the left half of this sprite
         }
         break
+      }
     }
 
     var count = Math.floor(totalWidth / width) + 2
