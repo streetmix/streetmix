@@ -196,13 +196,13 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
         break
       }
       case 'grass': {
-        tileset = 1
-        x = 1104 / 2
-        width = 48
-        y = 0
-        height = 168 + 12
-        offsetY = 23 + 24 - (6 * 12)
-        offsetTop -= 45
+        spriteId = 'buildings--grass'
+
+        const svg = svgCache.get(spriteId)
+        width = svg.width / TILESET_POINT_PER_PIXEL
+
+        offsetY = 23 + 24 + 2 // todo: document magic number
+        offsetTop -= 45 // todo: document magic number
 
         if (left) {
           posShift = (totalWidth % width) - (width + width + 25)
