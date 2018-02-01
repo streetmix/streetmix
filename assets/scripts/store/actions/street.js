@@ -6,6 +6,7 @@ import {
   CHANGE_SEGMENT_WIDTH,
   CHANGE_SEGMENT_VARIANT,
   ADD_LOCATION,
+  SAVE_STREET_NAME,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
   REMOVE_BUILDING_FLOOR,
@@ -49,11 +50,19 @@ export function updateStreetData (street) {
 export function addLocation (location) {
   // Temporarily adding location to global street object
   let street = getStreet()
-  street.location = location
+  street.location = Object.assign({}, location)
 
   return {
     type: ADD_LOCATION,
     location
+  }
+}
+
+export function saveStreetName (streetName, userUpdate) {
+  return {
+    type: SAVE_STREET_NAME,
+    streetName,
+    userUpdate
   }
 }
 

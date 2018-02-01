@@ -6,6 +6,7 @@ import {
   CHANGE_SEGMENT_WIDTH,
   CHANGE_SEGMENT_VARIANT,
   ADD_LOCATION,
+  SAVE_STREET_NAME,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
   REMOVE_BUILDING_FLOOR,
@@ -60,6 +61,12 @@ const street = (state = initialState, action) => {
       return {
         ...state,
         location: action.location
+      }
+    case SAVE_STREET_NAME:
+      return {
+        ...state,
+        name: action.streetName,
+        userUpdate: (state.userUpdate || action.userUpdate)
       }
     case CHANGE_SEGMENT_WIDTH: {
       const copy = [...state.segments]
