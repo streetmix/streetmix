@@ -3,7 +3,6 @@ import {
   INFO_BUBBLE_TYPE_LEFT_BUILDING,
   infoBubble
 } from '../info_bubble/info_bubble'
-import { system } from '../preinit/system_capabilities'
 import { getStreet, saveStreetToServerIfNecessary } from '../streets/data_model'
 import { getElAbsolutePos } from '../util/helpers'
 import { RandomGenerator } from '../util/random'
@@ -42,6 +41,31 @@ export function getBuildingAttributes (street, left) {
   // Non-directional
 
   switch (buildingVariant) {
+    // Define sprite heights based on svg intrinsic value
+    case 'waterfront': {
+      const svg = svgCache.get('buildings--waterfront-left') // same for right
+      height = svg.height / TILESET_POINT_PER_PIXEL
+      break
+    }
+    case 'parking-lot': {
+      const svg = svgCache.get('buildings--parking-lot-left') // same for right
+      height = svg.height / TILESET_POINT_PER_PIXEL
+      break
+    }
+    case 'fence': {
+      // TODO: use intrinsic height, but we need to figure out what the offsetY and offsetTop numbers are first
+      // const svg = svgCache.get('buildings--fenced-lot-left') // same for right
+      // height = svg.height / TILESET_POINT_PER_PIXEL
+      height = 12 * TILE_SIZE
+      break
+    }
+    case 'grass': {
+      // TODO: use intrinsic height, but we need to figure out what the offsetY and offsetTop numbers are first
+      // const svg = svgCache.get('buildings--grass')
+      // height = svg.height / TILESET_POINT_PER_PIXEL
+      height = 6 * TILE_SIZE
+      break
+    }
     case 'narrow':
       width = 216
       floorRoofWidth = 216
@@ -70,21 +94,6 @@ export function getBuildingAttributes (street, left) {
       floorHeight = 10
       roofHeight = 6
       mainFloorHeight = 24.5
-      break
-    case 'waterfront':
-      height = 12 * TILE_SIZE
-      break
-    // Define parking lot sprite height based on svg intrinsic value
-    case 'parking-lot': {
-      const svg = svgCache.get('buildings--parking-lot-left') // same for right
-      height = svg.height / 2 // == 28 * TILE_SIZE
-      break
-    }
-    case 'fence':
-      height = 12 * TILE_SIZE
-      break
-    case 'grass':
-      height = 6 * TILE_SIZE
       break
   }
   // Directional
@@ -163,140 +172,24 @@ export function isFlooredBuilding (buildingVariant) {
   }
 }
 
-// posShift = a building sprite can overlap the sidewalk by a certain amount. a posShift
-// value of 25 is NO overlap. a posShift value of 0 is 25 pixels of overlap.
 export function drawBuilding (ctx, destination, street, left, totalWidth,
   totalHeight, bottomAligned, offsetLeft, offsetTop,
   multiplier) {
-  let x, y, posShift, leftPos, tileset, width, height, offsetY, lastX, firstX
-  let variant, currentX
-  var attr = getBuildingAttributes(street, left)
-  let spriteId
+  const attr = getBuildingAttributes(street, left)
 
   if (bottomAligned) {
     offsetTop += totalHeight - (attr.height * multiplier)
   }
 
   if (!attr.flooredBuilding) {
-    switch (attr.buildingVariant) {
-      case 'fence': {
-        spriteId = (left) ? 'buildings--fenced-lot-left' : 'buildings--fenced-lot-right'
-
-        const svg = svgCache.get(spriteId)
-        width = svg.width / TILESET_POINT_PER_PIXEL
-
-        offsetY = 23 + 24 + 2 // todo: document magic number
-        offsetTop -= 45 // todo: document magic number
-
-        if (left) {
-          posShift = (totalWidth % width) - (width + width + 25)
-        } else {
-          posShift = 25
-        }
-        break
-      }
-      case 'grass': {
-        spriteId = 'buildings--grass'
-
-        const svg = svgCache.get(spriteId)
-        width = svg.width / TILESET_POINT_PER_PIXEL
-
-        offsetY = 23 + 24 + 2 // todo: document magic number
-        offsetTop -= 45 // todo: document magic number
-
-        if (left) {
-          posShift = (totalWidth % width) - (width + width + 25)
-        } else {
-          posShift = 25
-        }
-        break
-      }
-      case 'parking-lot': {
-        offsetY = 0
-        offsetTop -= 45 // todo: document magic number
-
-        spriteId = (left) ? 'buildings--parking-lot-left' : 'buildings--parking-lot-right'
-
-        const svg = svgCache.get(spriteId)
-        width = svg.width / TILESET_POINT_PER_PIXEL / 2 // 2 = halfway point is where repeat starts.
-
-        if (left) {
-          posShift = (totalWidth % width) - (width + width + 25) // do not overhang right edge
-
-          x = 0 // repeat the left half of this sprite
-          lastX = svg.width / 2 // anchor the right half of this sprite
-        } else {
-          posShift = 25 // do not overhang left edge
-
-          x = svg.width / 2 // repeat the right half of this sprite
-          firstX = 0 // anchor the left half of this sprite
-        }
-        break
-      }
-      case 'waterfront': {
-        offsetY = 24 + 45 // todo: document magic number
-        offsetTop -= 45 // todo: document magic number
-
-        spriteId = (left) ? 'buildings--waterfront-left' : 'buildings--waterfront-right'
-
-        const svg = svgCache.get(spriteId)
-        width = svg.width / TILESET_POINT_PER_PIXEL / 2 // 2 = halfway point is where repeat starts.
-
-        if (left) {
-          posShift = (totalWidth % width) - (width + width + 25) // do not overhang right edge
-
-          x = 0 // repeat the left half of this sprite
-          lastX = svg.width / 2 // anchor the right half of this sprite
-        } else {
-          posShift = 25 // do not overhang left edge
-
-          x = svg.width / 2 // repeat the right half of this sprite
-          firstX = 0 // anchor the left half of this sprite
-        }
-        break
-      }
-    }
-
-    var count = Math.floor(totalWidth / width) + 2
-
-    for (let i = 0; i < count; i++) {
-      if ((i === 0) && (typeof firstX !== 'undefined')) {
-        currentX = firstX
-      } else if ((i === count - 1) && (typeof lastX !== 'undefined')) {
-        currentX = lastX
-      } else {
-        currentX = x
-      }
-
-      if (spriteId) {
-        drawSegmentImageSVG(spriteId, ctx,
-          currentX, null,
-          width, null,
-          offsetLeft + ((posShift + (i * width)) * multiplier),
-          offsetTop + (offsetY * multiplier),
-          width, null, multiplier)
-      } else {
-        drawSegmentImage(tileset, ctx,
-          currentX, y, width, height,
-          offsetLeft + ((posShift + (i * width)) * multiplier),
-          offsetTop + (offsetY * multiplier),
-          width * multiplier,
-          height * multiplier)
-      }
-    }
+    drawSingleFloorBuilding(attr.buildingVariant, ctx, left, totalWidth, offsetLeft, offsetTop, multiplier)
   } else {
     // Floored buildings
-
-    if (left) {
-      leftPos = totalWidth - attr.width - 2
-    } else {
-      leftPos = 0
-    }
+    const leftPos = (left) ? totalWidth - attr.width - 2 : 0
 
     offsetTop -= 45
 
     // bottom floor
-
     drawSegmentImage(attr.tileset, ctx,
       attr.tilePositionX,
       attr.tilePositionY - 240 + (120 * attr.variantsCount),
@@ -308,18 +201,13 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
       ((attr.mainFloorHeight * TILE_SIZE) + TILE_SIZE) * multiplier)
 
     // middle floors
+    const floorCorrection = left ? 0 : (attr.width - attr.floorRoofWidth)
 
-    var floorCorrection = left ? 0 : (attr.width - attr.floorRoofWidth)
-
-    var randomGenerator = new RandomGenerator()
+    const randomGenerator = new RandomGenerator()
     randomGenerator.seed = 0
 
     for (let i = 1; i < attr.floorCount; i++) {
-      if (attr.variantsCount === 0) {
-        variant = 0
-      } else {
-        variant = Math.floor(randomGenerator.rand() * attr.variantsCount) + 1
-      }
+      const variant = (attr.variantsCount === 0) ? 0 : Math.floor(randomGenerator.rand() * attr.variantsCount) + 1
 
       drawSegmentImage(attr.tileset, ctx,
         attr.tilePositionX + floorCorrection,
@@ -333,7 +221,6 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
     }
 
     // roof
-
     drawSegmentImage(attr.tileset, ctx,
       attr.tilePositionX + floorCorrection,
       attr.tilePositionY - 240 + (120 * attr.variantsCount) - ((attr.floorHeight * TILE_SIZE * attr.variantsCount) + (attr.roofHeight * TILE_SIZE)),
@@ -345,13 +232,127 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
       attr.roofHeight * TILE_SIZE * multiplier)
   }
 
+  // If street width is exceeded, fade buildings
   if ((street.remainingWidth < 0) && (destination === BUILDING_DESTINATION_SCREEN)) {
-    ctx.save()
-    ctx.globalCompositeOperation = 'source-atop'
-    // TODO const
-    ctx.fillStyle = 'rgba(204, 163, 173, .9)'
-    ctx.fillRect(0, 0, totalWidth * system.hiDpi, totalHeight * system.hiDpi)
-    ctx.restore()
+    shadeInContext(ctx)
+  }
+}
+
+/**
+ * Fills the building rendered area with a color
+ *
+ * @param {CanvasRenderingContext2D} ctx
+ */
+function shadeInContext (ctx) {
+  ctx.save()
+  ctx.globalCompositeOperation = 'source-atop'
+  // TODO const
+  ctx.fillStyle = 'rgba(204, 163, 173, .9)'
+  ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+  ctx.restore()
+}
+
+function drawSingleFloorBuilding (buildingVariant, ctx, left, totalWidth, offsetLeft, offsetTop, multiplier) {
+  // posShift = a building sprite can overlap the sidewalk by a certain amount. a posShift
+  // value of 25 is NO overlap. a posShift value of 0 is 25 pixels of overlap.
+  let x, posShift, width, offsetY, lastX, firstX, currentX, spriteId
+
+  switch (buildingVariant) {
+    case 'fence': {
+      spriteId = (left) ? 'buildings--fenced-lot-left' : 'buildings--fenced-lot-right'
+
+      const svg = svgCache.get(spriteId)
+      width = svg.width / TILESET_POINT_PER_PIXEL
+
+      offsetY = 23 + 24 + 2 // todo: document magic number
+      offsetTop -= 45 // todo: document magic number
+
+      if (left) {
+        posShift = (totalWidth % width) - (width + width + 25)
+      } else {
+        posShift = 25
+      }
+      break
+    }
+    case 'grass': {
+      spriteId = 'buildings--grass'
+
+      const svg = svgCache.get(spriteId)
+      width = svg.width / TILESET_POINT_PER_PIXEL
+
+      offsetY = 23 + 24 + 2 // todo: document magic number
+      offsetTop -= 45 // todo: document magic number
+
+      if (left) {
+        posShift = (totalWidth % width) - (width + width + 25)
+      } else {
+        posShift = 25
+      }
+      break
+    }
+    case 'parking-lot': {
+      offsetY = 0
+      offsetTop -= 45 // todo: document magic number
+
+      spriteId = (left) ? 'buildings--parking-lot-left' : 'buildings--parking-lot-right'
+
+      const svg = svgCache.get(spriteId)
+      width = svg.width / TILESET_POINT_PER_PIXEL / 2 // 2 = halfway point is where repeat starts.
+
+      if (left) {
+        posShift = (totalWidth % width) - (width + width + 25) // do not overhang right edge
+
+        x = 0 // repeat the left half of this sprite
+        lastX = svg.width / 2 // anchor the right half of this sprite
+      } else {
+        posShift = 25 // do not overhang left edge
+
+        x = svg.width / 2 // repeat the right half of this sprite
+        firstX = 0 // anchor the left half of this sprite
+      }
+      break
+    }
+    case 'waterfront': {
+      offsetY = 0
+      offsetTop -= 0
+
+      spriteId = (left) ? 'buildings--waterfront-left' : 'buildings--waterfront-right'
+
+      const svg = svgCache.get(spriteId)
+      width = svg.width / TILESET_POINT_PER_PIXEL / 2 // 2 = halfway point is where repeat starts.
+
+      if (left) {
+        posShift = (totalWidth % width) - (width + width + 25) // do not overhang right edge
+
+        x = 0 // repeat the left half of this sprite
+        lastX = svg.width / 2 // anchor the right half of this sprite
+      } else {
+        posShift = 25 // do not overhang left edge
+
+        x = svg.width / 2 // repeat the right half of this sprite
+        firstX = 0 // anchor the left half of this sprite
+      }
+      break
+    }
+  }
+
+  const count = Math.floor(totalWidth / width) + 2
+
+  for (let i = 0; i < count; i++) {
+    if ((i === 0) && (typeof firstX !== 'undefined')) {
+      currentX = firstX
+    } else if ((i === count - 1) && (typeof lastX !== 'undefined')) {
+      currentX = lastX
+    } else {
+      currentX = x
+    }
+
+    drawSegmentImageSVG(spriteId, ctx,
+      currentX, null,
+      width, null,
+      offsetLeft + ((posShift + (i * width)) * multiplier),
+      offsetTop + (offsetY * multiplier),
+      width, null, multiplier)
   }
 }
 
@@ -362,9 +363,10 @@ function createBuilding (el, left) {
   var height = Math.min(MAX_CANVAS_HEIGHT, attr.height)
   var canvasEl = document.createElement('canvas')
   var oldCanvasEl = el.querySelector('canvas')
+  const dpi = store.getState().system.hiDpi
 
-  canvasEl.width = totalWidth * system.hiDpi
-  canvasEl.height = height * system.hiDpi
+  canvasEl.width = totalWidth * dpi
+  canvasEl.height = height * dpi
   canvasEl.style.width = totalWidth + 'px'
   canvasEl.style.height = height + 'px'
 
