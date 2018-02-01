@@ -6,8 +6,10 @@ import { Map, TileLayer, ZoomControl, Marker, Popup } from 'react-leaflet'
 import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../app/config'
 import Dialog from './Dialog'
 import SearchAddress from '../streets/SearchAddress'
+import { getStreet, saveStreetToServerIfNecessary } from '../streets/data_model'
+import { updateStreetName } from '../streets/name'
 import { setMapState } from '../store/actions/map'
-import { addLocation } from '../store/actions/street'
+import { addLocation, saveStreetName } from '../store/actions/street'
 import { t } from '../app/locale'
 
 const REVERSE_GEOCODE_API = `https://${PELIAS_HOST_NAME}/v1/reverse`
@@ -42,7 +44,9 @@ class GeolocateDialog extends React.Component {
     addressInformation: PropTypes.object,
     addLocation: PropTypes.func,
     setMapState: PropTypes.func,
-    addressInformationLabel: PropTypes.string
+    addressInformationLabel: PropTypes.string,
+    userUpdate: PropTypes.bool,
+    saveStreetName: PropTypes.func
   }
 
   constructor (props) {
@@ -126,7 +130,7 @@ class GeolocateDialog extends React.Component {
   }
 
   handleConfirm = (e) => {
-    const { markerLocation, addressInformation } = this.props
+    const { markerLocation, addressInformation, userUpdate } = this.props
 
     const location = {
       latlng: markerLocation, // array of location
@@ -139,7 +143,16 @@ class GeolocateDialog extends React.Component {
       }
     }
 
+    // Location added to global street variable in action creator
     this.props.addLocation(location)
+    if (!userUpdate) {
+      this.props.saveStreetName(location.hierarchy.street, false)
+      // Update street name of global street variable here
+      const street = getStreet()
+      street.name = location.hierarchy.street
+      saveStreetToServerIfNecessary()
+      updateStreetName()
+    }
   }
 
   render () {
@@ -212,14 +225,16 @@ function mapStateToProps (state) {
     markerLocation: state.map.markerLocation,
     addressInformationLabel: state.map.addressInformationLabel,
     addressInformation: state.map.addressInformation,
-    userLocation: state.user.geolocation.data
+    userLocation: state.user.geolocation.data,
+    userUpdate: state.street.userUpdate
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
     setMapState: (...args) => { dispatch(setMapState(...args)) },
-    addLocation: (...args) => { dispatch(addLocation(...args)) }
+    addLocation: (...args) => { dispatch(addLocation(...args)) },
+    saveStreetName: (...args) => { dispatch(saveStreetName(...args)) }
   }
 }
 

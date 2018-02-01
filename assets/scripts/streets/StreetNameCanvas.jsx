@@ -3,15 +3,17 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import StreetName from './StreetName'
 import StreetMetaData from './StreetMetaData'
-import { setAndSaveStreet } from './data_model'
+import { getStreet, saveStreetToServerIfNecessary } from './data_model'
 import { updateStreetName } from './name'
+import { saveStreetName } from '../store/actions/street'
 import { t } from '../app/locale'
 
 class StreetNameCanvas extends React.Component {
   static propTypes = {
     visible: PropTypes.bool,
     editable: PropTypes.bool,
-    street: PropTypes.object
+    street: PropTypes.object,
+    saveStreetName: PropTypes.func
   }
 
   static defaultProps = {
@@ -91,9 +93,12 @@ class StreetNameCanvas extends React.Component {
     const newName = window.prompt(t('prompt.new-street', 'New street name:'), this.props.street.name)
 
     if (newName) {
-      const street = Object.assign({}, this.props.street)
+      // const street = Object.assign({}, this.props.street)
+      const street = getStreet()
       street.name = StreetName.normalizeStreetName(newName)
-      setAndSaveStreet(street)
+      // setAndSaveStreet(street)
+      saveStreetToServerIfNecessary()
+      this.props.saveStreetName(street.name, true)
       updateStreetName()
     }
   }
@@ -121,4 +126,10 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(StreetNameCanvas)
+function mapDispatchToProps (dispatch) {
+  return {
+    saveStreetName: (...args) => { dispatch(saveStreetName(...args)) }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(StreetNameCanvas)
