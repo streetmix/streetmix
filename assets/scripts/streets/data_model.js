@@ -375,6 +375,9 @@ export function trimStreetData (street) {
   newData.originalStreetId = street.originalStreetId
   newData.units = street.units
 
+  newData.location = street.location
+  newData.userUpdated = street.userUpdated
+
   if (street.editCount !== null) {
     // console.log('saving editCount', street.editCount)
     newData.editCount = street.editCount
