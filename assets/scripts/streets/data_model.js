@@ -93,6 +93,8 @@ let street = {
   rightBuildingVariant: null,
 
   segments: [],
+  location: null,
+  userUpdated: false,
 
   units: null
 }
