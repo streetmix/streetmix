@@ -96,6 +96,7 @@ class StreetNameCanvas extends React.Component {
       // const street = Object.assign({}, this.props.street)
       const street = getStreet()
       street.name = StreetName.normalizeStreetName(newName)
+      street.userUpdated = true
       // setAndSaveStreet(street)
       saveStreetToServerIfNecessary()
       this.props.saveStreetName(street.name, true)
