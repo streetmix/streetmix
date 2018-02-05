@@ -47,7 +47,8 @@ class GeolocateDialog extends React.Component {
     addLocation: PropTypes.func,
     setMapState: PropTypes.func,
     addressInformationLabel: PropTypes.string,
-    userUpdated: PropTypes.bool,
+    street: PropTypes.object,
+    userData: PropTypes.object,
     saveStreetName: PropTypes.func,
     clearDialogs: PropTypes.func
   }
@@ -139,7 +140,7 @@ class GeolocateDialog extends React.Component {
   }
 
   handleConfirm = (e) => {
-    const { markerLocation, addressInformation, userUpdated } = this.props
+    const { markerLocation, addressInformation, street } = this.props
     const { bbox } = this.state
     const point = (typeof markerLocation.lng !== 'undefined') ? [markerLocation.lng, markerLocation.lat] : [markerLocation[1], markerLocation[0]]
     const location = {
@@ -164,7 +165,7 @@ class GeolocateDialog extends React.Component {
 
     // Location added to global street variable in action creator
     this.props.addLocation(location)
-    if (!userUpdated) {
+    if (!street.userUpdated) {
       this.props.saveStreetName(location.hierarchy.street, false)
       // Update street name of global street variable here
       const street = getStreet()
@@ -185,6 +186,17 @@ class GeolocateDialog extends React.Component {
       />
     ) : null
 
+    const { userData, street } = this.props
+    const confirmButton = ((userData && userData.userId === street.creatorId) || !street.location) ? (
+      <button
+        className="confirm-button"
+        style={{marginTop: '10px'}}
+        onClick={this.handleConfirm}
+      >
+        <b> Confirm Location </b>
+      </button>
+    ) : null
+
     let popup = this.props.markerLocation ? (
       <Popup
         position={this.props.markerLocation}
@@ -195,13 +207,7 @@ class GeolocateDialog extends React.Component {
       >
         <span>
           {this.props.addressInformationLabel} <br />
-          <button
-            className="confirm-button"
-            style={{marginTop: '10px'}}
-            onClick={this.handleConfirm}
-          >
-            <b> Confirm Location </b>
-          </button>
+          {confirmButton}
         </span>
       </Popup>
     ) : null
@@ -246,7 +252,8 @@ function mapStateToProps (state) {
     addressInformationLabel: state.map.addressInformationLabel,
     addressInformation: state.map.addressInformation,
     userLocation: state.user.geolocation.data,
-    userUpdated: state.street.userUpdated
+    street: state.street,
+    userData: state.user.signInData
   }
 }
 
