@@ -14,8 +14,6 @@ import {
   SET_BUILDING_VARIANT
 } from './'
 
-import { getStreet } from '../../streets/data_model'
-
 export function addSegment (index, segment) {
   return {
     type: ADD_SEGMENT,
@@ -48,10 +46,6 @@ export function updateStreetData (street) {
 }
 
 export function addLocation (location) {
-  // Temporarily adding location to global street object
-  let street = getStreet()
-  street.location = Object.assign({}, location)
-
   return {
     type: ADD_LOCATION,
     location

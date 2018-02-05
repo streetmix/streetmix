@@ -163,13 +163,14 @@ class GeolocateDialog extends React.Component {
       location.sharedStreets.geometryId = sharedstreets.geometryId(line)
     }
 
-    // Location added to global street variable in action creator
+    // Location added to global street variable
+    const globalStreet = getStreet()
+    globalStreet.location = location
     this.props.addLocation(location)
     if (!street.userUpdated) {
       this.props.saveStreetName(location.hierarchy.street, false)
       // Update street name of global street variable here
-      const street = getStreet()
-      street.name = location.hierarchy.street
+      globalStreet.name = location.hierarchy.street
       updateStreetName()
     }
     saveStreetToServerIfNecessary()
