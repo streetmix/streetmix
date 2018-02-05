@@ -10,6 +10,7 @@ import { getStreet, saveStreetToServerIfNecessary } from '../streets/data_model'
 import { updateStreetName } from '../streets/name'
 import { setMapState } from '../store/actions/map'
 import { addLocation, saveStreetName } from '../store/actions/street'
+import { clearDialogs } from '../store/actions/dialogs'
 import { t } from '../app/locale'
 
 const REVERSE_GEOCODE_API = `https://${PELIAS_HOST_NAME}/v1/reverse`
@@ -45,8 +46,9 @@ class GeolocateDialog extends React.Component {
     addLocation: PropTypes.func,
     setMapState: PropTypes.func,
     addressInformationLabel: PropTypes.string,
-    userUpdate: PropTypes.bool,
-    saveStreetName: PropTypes.func
+    userUpdated: PropTypes.bool,
+    saveStreetName: PropTypes.func,
+    clearDialogs: PropTypes.func
   }
 
   constructor (props) {
@@ -130,7 +132,7 @@ class GeolocateDialog extends React.Component {
   }
 
   handleConfirm = (e) => {
-    const { markerLocation, addressInformation, userUpdate } = this.props
+    const { markerLocation, addressInformation, userUpdated } = this.props
 
     const location = {
       latlng: markerLocation, // array of location
@@ -145,14 +147,15 @@ class GeolocateDialog extends React.Component {
 
     // Location added to global street variable in action creator
     this.props.addLocation(location)
-    if (!userUpdate) {
+    if (!userUpdated) {
       this.props.saveStreetName(location.hierarchy.street, false)
       // Update street name of global street variable here
       const street = getStreet()
       street.name = location.hierarchy.street
-      saveStreetToServerIfNecessary()
       updateStreetName()
     }
+    saveStreetToServerIfNecessary()
+    this.props.clearDialogs()
   }
 
   render () {
@@ -226,7 +229,7 @@ function mapStateToProps (state) {
     addressInformationLabel: state.map.addressInformationLabel,
     addressInformation: state.map.addressInformation,
     userLocation: state.user.geolocation.data,
-    userUpdate: state.street.userUpdate
+    userUpdated: state.street.userUpdated
   }
 }
 
@@ -234,7 +237,8 @@ function mapDispatchToProps (dispatch) {
   return {
     setMapState: (...args) => { dispatch(setMapState(...args)) },
     addLocation: (...args) => { dispatch(addLocation(...args)) },
-    saveStreetName: (...args) => { dispatch(saveStreetName(...args)) }
+    saveStreetName: (...args) => { dispatch(saveStreetName(...args)) },
+    clearDialogs: () => { dispatch(clearDialogs()) }
   }
 }
 
