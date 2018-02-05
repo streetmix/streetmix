@@ -141,6 +141,7 @@ class GeolocateDialog extends React.Component {
   handleConfirm = (e) => {
     const { markerLocation, addressInformation, userUpdated } = this.props
     const { bbox } = this.state
+    const point = (typeof markerLocation.lng !== 'undefined') ? [markerLocation.lng, markerLocation.lat] : [markerLocation[1], markerLocation[0]]
     const location = {
       latlng: markerLocation, // array of location
       label: addressInformation.label,
@@ -151,8 +152,8 @@ class GeolocateDialog extends React.Component {
         street: addressInformation.street
       },
       sharedStreets: {
-        geometryId: null,
-        intersectionId: null
+        geometryId: sharedstreets.geometryId([point]) || null,
+        intersectionId: sharedstreets.intersectionId(point) || null
       }
     }
 
@@ -160,8 +161,6 @@ class GeolocateDialog extends React.Component {
       const line = [bbox.slice(0, 2), bbox.slice(2, 4)]
       location.sharedStreets.geometryId = sharedstreets.geometryId(line)
     }
-    const point = (typeof markerLocation.lng !== 'undefined') ? [markerLocation.lng, markerLocation.lat] : [markerLocation[1], markerLocation[0]]
-    location.sharedStreets.intersectionId = sharedstreets.intersectionId(point)
 
     // Location added to global street variable in action creator
     this.props.addLocation(location)
