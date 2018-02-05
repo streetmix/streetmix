@@ -68,6 +68,7 @@ import {
 } from './undo_stack'
 import { resizeStreetWidth } from './width'
 import store from '../store'
+import { setMapState } from '../store/actions/map'
 
 const SAVE_STREET_DELAY = 500
 
@@ -314,6 +315,15 @@ function unpackStreetDataFromServerTransmission (transmission) {
   street.originalStreetId = transmission.originalStreetId || null
   street.updatedAt = transmission.updatedAt || null
   street.name = transmission.name || DEFAULT_NAME
+
+  // If there is a location, update map state to that location
+  if (street.location) {
+    store.dispatch(setMapState({
+      addressInformation: street.location.hierarchy,
+      addressInformationLabel: street.location.label,
+      markerLocation: street.location.latlng
+    }))
+  }
 
   // FIXME just read it and do 0 otherwise
   if (typeof transmission.data.street.editCount === 'undefined') {
