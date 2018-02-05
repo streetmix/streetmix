@@ -136,7 +136,6 @@ export class SearchAddress extends React.Component {
   onSuggestionSelected = (event, details) => {
     const { suggestion, suggestionValue, method } = details
 
-    console.log(details)
     // Prevent 'enter' keydown on suggestion list from submitting the form.
     if (method === 'enter') {
       event.preventDefault()
