@@ -90,10 +90,16 @@ class StreetMetaData extends React.Component {
       author = t('users.byline', 'by {{user}}', { user: t('users.anonymous', 'Anonymous') })
     }
 
+    let geolocationText = t('dialogs.geolocate.add-location', 'Add location')
+    if (this.props.street.location) {
+      const { hierarchy } = this.props.street.location
+      geolocationText = hierarchy.locality + ', ' + hierarchy.country
+    }
+
     const geolocation = (this.props.enableLocation) ? (
       <span>
         <a className="street-metadata-map" onClick={this.onClickGeolocate}>
-          <u>{t('dialogs.geolocate.add-location', 'Add location')}</u>
+          <u>{geolocationText}</u>
         </a>
       </span>
     ) : null
