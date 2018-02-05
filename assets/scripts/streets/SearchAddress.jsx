@@ -136,6 +136,7 @@ export class SearchAddress extends React.Component {
   onSuggestionSelected = (event, details) => {
     const { suggestion, suggestionValue, method } = details
 
+    console.log(details)
     // Prevent 'enter' keydown on suggestion list from submitting the form.
     if (method === 'enter') {
       event.preventDefault()
@@ -152,7 +153,7 @@ export class SearchAddress extends React.Component {
       addressInformation: suggestion.properties,
       markerLocation: suggestion.geometry.coordinates
     })
-    this.props.setSearchResults(suggestion.geometry.coordinates.reverse(), suggestionValue)
+    this.props.setSearchResults(suggestion.geometry.coordinates.reverse(), suggestionValue, suggestion.bbox)
   }
 
   shouldRenderSuggestions = (value) => {

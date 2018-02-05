@@ -3,6 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Map, TileLayer, ZoomControl, Marker, Popup } from 'react-leaflet'
+import * as sharedstreets from 'sharedstreets'
 import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../app/config'
 import Dialog from './Dialog'
 import SearchAddress from '../streets/SearchAddress'
@@ -84,6 +85,10 @@ class GeolocateDialog extends React.Component {
     }
 
     const displayAddressData = (res) => {
+      this.setState({
+        bbox: res.bbox || null
+      })
+
       this.props.setMapState({
         addressInformation: res.features[0].properties,
         addressInformationLabel: res.features[0].properties.label,
@@ -101,7 +106,8 @@ class GeolocateDialog extends React.Component {
     const latlng = event.target.getLatLng()
     const handleResponse = (res) => {
       this.setState({
-        renderPopup: true
+        renderPopup: true,
+        bbox: res.bbox || null
       })
 
       this.props.setMapState({
@@ -115,11 +121,12 @@ class GeolocateDialog extends React.Component {
       .then(handleResponse)
   }
 
-  setSearchResults = (point, label) => {
+  setSearchResults = (point, label, bbox) => {
     this.setState({
       addressName: label,
       mapCenter: point,
-      markerLocation: point
+      markerLocation: point,
+      bbox: bbox || null
     })
 
     this.map.leafletElement.panTo(point)
@@ -133,7 +140,7 @@ class GeolocateDialog extends React.Component {
 
   handleConfirm = (e) => {
     const { markerLocation, addressInformation, userUpdated } = this.props
-
+    const { bbox } = this.state
     const location = {
       latlng: markerLocation, // array of location
       label: addressInformation.label,
@@ -142,8 +149,19 @@ class GeolocateDialog extends React.Component {
         locality: addressInformation.locality,
         neighbourhood: addressInformation.neighbourhood,
         street: addressInformation.street
+      },
+      sharedStreets: {
+        geometryId: null,
+        intersectionId: null
       }
     }
+
+    if (bbox) {
+      const line = [bbox.slice(0, 2), bbox.slice(2, 4)]
+      location.sharedStreets.geometryId = sharedstreets.geometryId(line)
+    }
+    const point = (typeof markerLocation.lng !== 'undefined') ? [markerLocation.lng, markerLocation.lat] : [markerLocation[1], markerLocation[0]]
+    location.sharedStreets.intersectionId = sharedstreets.intersectionId(point)
 
     // Location added to global street variable in action creator
     this.props.addLocation(location)
