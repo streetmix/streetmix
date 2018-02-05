@@ -66,7 +66,7 @@ const street = (state = initialState, action) => {
       return {
         ...state,
         name: action.streetName,
-        userUpdate: (state.userUpdate || action.userUpdate)
+        userUpdated: (state.userUpdated || action.userUpdated)
       }
     case CHANGE_SEGMENT_WIDTH: {
       const copy = [...state.segments]

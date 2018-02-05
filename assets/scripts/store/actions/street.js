@@ -58,11 +58,11 @@ export function addLocation (location) {
   }
 }
 
-export function saveStreetName (streetName, userUpdate) {
+export function saveStreetName (streetName, userUpdated) {
   return {
     type: SAVE_STREET_NAME,
     streetName,
-    userUpdate
+    userUpdated
   }
 }
 
