@@ -152,15 +152,13 @@ class GeolocateDialog extends React.Component {
         neighbourhood: addressInformation.neighbourhood,
         street: addressInformation.street
       },
-      sharedStreets: {
-        geometryId: sharedstreets.geometryId([point]) || null,
-        intersectionId: sharedstreets.intersectionId(point) || null
-      }
+      geometryId: sharedstreets.geometryId([point]) || null,
+      intersectionId: sharedstreets.intersectionId(point) || null
     }
 
     if (bbox) {
       const line = [bbox.slice(0, 2), bbox.slice(2, 4)]
-      location.sharedStreets.geometryId = sharedstreets.geometryId(line)
+      location.geometryId = sharedstreets.geometryId(line)
     }
 
     // Location added to global street variable
