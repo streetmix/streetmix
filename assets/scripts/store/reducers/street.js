@@ -63,9 +63,10 @@ const street = (state = initialState, action) => {
         location: action.location
       }
     case SAVE_STREET_NAME:
+      const rename = (state.userUpdated && action.userUpdated) || (!state.userUpdated)
       return {
         ...state,
-        name: action.streetName,
+        name: (rename) ? action.streetName : state.name,
         userUpdated: (state.userUpdated || action.userUpdated)
       }
     case CHANGE_SEGMENT_WIDTH: {

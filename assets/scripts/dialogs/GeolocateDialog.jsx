@@ -152,15 +152,13 @@ class GeolocateDialog extends React.Component {
         neighbourhood: addressInformation.neighbourhood,
         street: addressInformation.street
       },
-      sharedStreets: {
-        geometryId: sharedstreets.geometryId([point]) || null,
-        intersectionId: sharedstreets.intersectionId(point) || null
-      }
+      geometryId: sharedstreets.geometryId([point]) || null,
+      intersectionId: sharedstreets.intersectionId(point) || null
     }
 
     if (bbox) {
       const line = [bbox.slice(0, 2), bbox.slice(2, 4)]
-      location.sharedStreets.geometryId = sharedstreets.geometryId(line)
+      location.geometryId = sharedstreets.geometryId(line)
     }
 
     // Location added to global street variable
@@ -168,8 +166,11 @@ class GeolocateDialog extends React.Component {
     globalStreet.location = location
     this.props.addLocation(location)
     if (!street.userUpdated) {
+      // The reducer already checks whether or not to rename the street
+      // For the sake of updating the global street variable,
+      // we are checking here as well whether or not to rename the street.
+      // Eventually, we will not need to check street.userUpdated here
       this.props.saveStreetName(location.hierarchy.street, false)
-      // Update street name of global street variable here
       globalStreet.name = location.hierarchy.street
       updateStreetName()
     }
