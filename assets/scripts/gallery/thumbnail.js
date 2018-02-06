@@ -3,7 +3,11 @@ import { drawLine } from '../util/canvas_drawing'
 import { prettifyWidth } from '../util/width_units'
 import { SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING } from '../streets/image'
 import { needsUnicodeFont } from '../util/unicode'
-import { BUILDING_DESTINATION_THUMBNAIL, drawBuilding } from '../segments/buildings'
+import {
+  BUILDING_DESTINATION_THUMBNAIL,
+  GROUND_BASELINE_HEIGHT,
+  drawBuilding
+} from '../segments/buildings'
 import { SEGMENT_INFO } from '../segments/info'
 import {
   TILE_SIZE,
@@ -86,18 +90,24 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
   // Segment names
 
   ctx.fillStyle = BOTTOM_BACKGROUND
-  ctx.fillRect(0, (groundLevel + (45 * multiplier)) * dpi,
-    thumbnailWidth * dpi, (thumbnailHeight - groundLevel - (45 * multiplier)) * dpi)
+  ctx.fillRect(0, (groundLevel + (GROUND_BASELINE_HEIGHT * multiplier)) * dpi,
+    thumbnailWidth * dpi, (thumbnailHeight - groundLevel - (GROUND_BASELINE_HEIGHT * multiplier)) * dpi)
 
   // Buildings
 
   const buildingWidth = buildingOffsetLeft / multiplier
 
   const x1 = (thumbnailWidth / 2) - (street.width * TILE_SIZE * multiplier / 2)
-  drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street, true, buildingWidth, groundLevel + 45, true, x1 - ((buildingWidth - 25) * multiplier), 0, multiplier, dpi)
+  drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street,
+    true, buildingWidth, groundLevel + GROUND_BASELINE_HEIGHT,
+    x1 - ((buildingWidth - 25) * multiplier),
+    multiplier, dpi)
 
   const x2 = (thumbnailWidth / 2) + (street.width * TILE_SIZE * multiplier / 2)
-  drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street, false, buildingWidth, groundLevel + 45, true, x2 - (25 * multiplier), 0, multiplier, dpi)
+  drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street,
+    false, buildingWidth, groundLevel + GROUND_BASELINE_HEIGHT,
+    x2 - (25 * multiplier),
+    multiplier, dpi)
 
   // Segments
 
@@ -158,7 +168,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
       }
 
       drawLine(ctx,
-        left, (groundLevel + (45 * multiplier)),
+        left, (groundLevel + (GROUND_BASELINE_HEIGHT * multiplier)),
         left, (groundLevel + (125 * multiplier)), dpi)
 
       const x = (offsetLeft + (availableWidth / 2)) * dpi
@@ -184,7 +194,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
     var left = offsetLeft + 1
     drawLine(ctx,
-      left, (groundLevel + (45 * multiplier)),
+      left, (groundLevel + (GROUND_BASELINE_HEIGHT * multiplier)),
       left, (groundLevel + (125 * multiplier)), dpi)
 
     ctx.restore()

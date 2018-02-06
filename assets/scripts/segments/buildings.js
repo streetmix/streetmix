@@ -27,6 +27,8 @@ export const DEFAULT_BUILDING_VARIANT_EMPTY = 'grass'
 
 export const MAX_BUILDING_HEIGHT = 20
 
+export const GROUND_BASELINE_HEIGHT = 44
+
 export const BUILDINGS = {
   'waterfront': {
     id: 'waterfront',
@@ -164,18 +166,6 @@ export function getBuildingImageHeight (variant, position, floors) {
     height = svg.height / TILESET_POINT_PER_PIXEL
   }
 
-  // TODO: use intrinsic height, but we need to figure out what the offsetY and offsetTop numbers are first
-  switch (variant) {
-    case 'fence': {
-      height = 12 * TILE_SIZE
-      break
-    }
-    case 'grass': {
-      height = 6 * TILE_SIZE
-      break
-    }
-  }
-
   return height
 }
 
@@ -190,14 +180,14 @@ export function calculateRealHeightNumber (street, left, floorCount) {
   return (getBuildingAttributesByVariant(street, left, floorCount).height - 45 - 6) / TILE_SIZE // todo: document magic numbers
 }
 
-export function drawBuilding (ctx, destination, street, left, totalWidth,
-  totalHeight, bottomAligned, offsetLeft, offsetTop,
+export function drawBuilding (
+  ctx, destination, street,
+  left, totalWidth, totalHeight,
+  offsetLeft,
   multiplier, dpi) {
   const attr = getBuildingAttributes(street, left)
 
-  if (bottomAligned) {
-    offsetTop += totalHeight - (attr.height * multiplier)
-  }
+  const offsetTop = totalHeight - (attr.height * multiplier)
 
   if (!BUILDINGS[attr.buildingVariant].hasFloors) {
     drawSingleFloorBuilding(attr.buildingVariant, ctx, left, totalWidth, offsetLeft, offsetTop, multiplier, dpi)
@@ -214,7 +204,7 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
 function drawSingleFloorBuilding (buildingVariant, ctx, left, totalWidth, offsetLeft, offsetTop, multiplier, dpi) {
   // posShift = a building sprite can overlap the sidewalk by a certain amount. a posShift
   // value of 25 is NO overlap. a posShift value of 0 is 25 pixels of overlap.
-  let x, posShift, width, offsetY, lastX, firstX, currentX, spriteId
+  let x, posShift, width, lastX, firstX, currentX, spriteId
 
   switch (buildingVariant) {
     case 'fence': {
@@ -222,9 +212,6 @@ function drawSingleFloorBuilding (buildingVariant, ctx, left, totalWidth, offset
 
       const svg = images.get(spriteId)
       width = svg.width / TILESET_POINT_PER_PIXEL
-
-      offsetY = 23 + 24 + 2 // todo: document magic number
-      offsetTop -= 45 // todo: document magic number
 
       if (left) {
         posShift = (totalWidth % width) - (width + width + 25)
@@ -239,9 +226,6 @@ function drawSingleFloorBuilding (buildingVariant, ctx, left, totalWidth, offset
       const svg = images.get(spriteId)
       width = svg.width / TILESET_POINT_PER_PIXEL
 
-      offsetY = 23 + 24 + 2 // todo: document magic number
-      offsetTop -= 45 // todo: document magic number
-
       if (left) {
         posShift = (totalWidth % width) - (width + width + 25)
       } else {
@@ -250,9 +234,6 @@ function drawSingleFloorBuilding (buildingVariant, ctx, left, totalWidth, offset
       break
     }
     case 'parking-lot': {
-      offsetY = 0
-      offsetTop -= 45 // todo: document magic number
-
       spriteId = (left) ? 'buildings--parking-lot-left' : 'buildings--parking-lot-right'
 
       const svg = images.get(spriteId)
@@ -272,8 +253,7 @@ function drawSingleFloorBuilding (buildingVariant, ctx, left, totalWidth, offset
       break
     }
     case 'waterfront': {
-      offsetY = 0
-      offsetTop -= 0
+      offsetTop = GROUND_BASELINE_HEIGHT
 
       spriteId = (left) ? 'buildings--waterfront-left' : 'buildings--waterfront-right'
 
@@ -310,7 +290,7 @@ function drawSingleFloorBuilding (buildingVariant, ctx, left, totalWidth, offset
       currentX, null,
       width, null,
       offsetLeft + ((posShift + (i * width)) * multiplier),
-      offsetTop + (offsetY * multiplier),
+      offsetTop || 0,
       width, null, multiplier, dpi)
   }
 }
@@ -322,8 +302,6 @@ function drawMultiFloorBuilding (attr, ctx, left, totalWidth, offsetLeft, offset
   const height = svg.height // actual pixels, don't need to divide by TILESET_POINT_PER_PIXEL
 
   const leftPos = (left) ? totalWidth - width + attr.offsetLeft : 0 + attr.offsetLeft
-
-  offsetTop -= 45
 
   // bottom floor
   drawSegmentImage(attr.spriteId, ctx,
@@ -394,9 +372,9 @@ function createBuilding (el, variant, position, floors, street) {
   const dpi = store.getState().system.hiDpi
 
   canvasEl.width = totalWidth * dpi
-  canvasEl.height = height * dpi
+  canvasEl.height = (height + GROUND_BASELINE_HEIGHT) * dpi
   canvasEl.style.width = totalWidth + 'px'
-  canvasEl.style.height = height + 'px'
+  canvasEl.style.height = height + GROUND_BASELINE_HEIGHT + 'px'
 
   // Replace previous canvas if present, otherwise append a new one
   if (oldCanvasEl) {
@@ -406,8 +384,10 @@ function createBuilding (el, variant, position, floors, street) {
   }
 
   const ctx = canvasEl.getContext('2d')
-  drawBuilding(ctx, BUILDING_DESTINATION_SCREEN, street, position === 'left',
-    totalWidth, height, true, 0, 0, 1.0, dpi)
+  drawBuilding(ctx, BUILDING_DESTINATION_SCREEN, street,
+    position === 'left', totalWidth, height,
+    0,
+    1.0, dpi)
 }
 
 export function buildingHeightUpdated () {
