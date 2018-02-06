@@ -166,8 +166,11 @@ class GeolocateDialog extends React.Component {
     globalStreet.location = location
     this.props.addLocation(location)
     if (!street.userUpdated) {
+      // The reducer already checks whether or not to rename the street
+      // For the sake of updating the global street variable,
+      // we are checking here as well whether or not to rename the street.
+      // Eventually, we will not need to check street.userUpdated here
       this.props.saveStreetName(location.hierarchy.street, false)
-      // Update street name of global street variable here
       globalStreet.name = location.hierarchy.street
       updateStreetName()
     }
