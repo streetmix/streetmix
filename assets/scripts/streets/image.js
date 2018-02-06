@@ -2,7 +2,9 @@ import { drawStreetThumbnail } from '../gallery/thumbnail'
 import { BUILDING_SPACE, getBuildingAttributes } from '../segments/buildings'
 import { TILE_SIZE } from '../segments/view'
 
+// This can be adjusted to create much more hi-definition images
 const SAVE_AS_IMAGE_DPI = 2.0
+
 const SAVE_AS_IMAGE_MIN_HEIGHT = 400
 const SAVE_AS_IMAGE_MIN_HEIGHT_WITH_STREET_NAME = SAVE_AS_IMAGE_MIN_HEIGHT + 150
 const SAVE_AS_IMAGE_BOTTOM_PADDING = 60

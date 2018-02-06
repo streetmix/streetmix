@@ -182,54 +182,7 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
   if (!attr.flooredBuilding) {
     drawSingleFloorBuilding(attr.buildingVariant, ctx, left, totalWidth, offsetLeft, offsetTop, multiplier, dpi)
   } else {
-    // Floored buildings
-    const leftPos = (left) ? totalWidth - attr.width + attr.offsetLeft : 0 + attr.offsetLeft
-
-    offsetTop -= 45
-
-    // bottom floor
-    drawSegmentImage(attr.spriteId, ctx,
-      0,
-      attr.spriteHeight - (attr.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL), // 0 - 240 + (120 * attr.variantsCount),
-      null,
-      attr.mainFloorHeight * TILE_SIZE,
-      offsetLeft + (leftPos * multiplier),
-      offsetTop + ((attr.height - (attr.mainFloorHeight * TILE_SIZE)) * multiplier),
-      null,
-      attr.mainFloorHeight * TILE_SIZE,
-      multiplier, dpi)
-
-    // middle floors
-    const randomGenerator = new RandomGenerator()
-    randomGenerator.seed = 0
-
-    for (let i = 1; i < attr.floorCount; i++) {
-      const variant = (attr.variantsCount === 0) ? 0 : Math.floor(randomGenerator.rand() * attr.variantsCount) + 1
-
-      drawSegmentImage(attr.spriteId, ctx,
-        0,
-        attr.spriteHeight - (attr.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL) - (attr.floorHeight * TILE_SIZE * variant * TILESET_POINT_PER_PIXEL),
-        // 168 - (attr.floorHeight * TILE_SIZE * variant), // 0 - 240 + (120 * attr.variantsCount) - (attr.floorHeight * TILE_SIZE * variant),
-        null,
-        attr.floorHeight * TILE_SIZE,
-        offsetLeft + (leftPos * multiplier),
-        offsetTop + (attr.height * multiplier) - ((attr.mainFloorHeight + (attr.floorHeight * i)) * TILE_SIZE * multiplier),
-        null,
-        attr.floorHeight * TILE_SIZE,
-        multiplier, dpi)
-    }
-
-    // roof
-    drawSegmentImage(attr.spriteId, ctx,
-      0,
-      0,
-      null,
-      attr.roofHeight * TILE_SIZE,
-      offsetLeft + (leftPos * multiplier),
-      offsetTop + (attr.height * multiplier) - ((attr.mainFloorHeight + (attr.floorHeight * (attr.floorCount - 1)) + attr.roofHeight) * TILE_SIZE * multiplier),
-      null,
-      attr.roofHeight * TILE_SIZE,
-      multiplier, dpi)
+    drawMultiFloorBuilding(attr, ctx, left, totalWidth, offsetLeft, offsetTop, multiplier, dpi)
   }
 
   // If street width is exceeded, fade buildings
@@ -354,6 +307,57 @@ function drawSingleFloorBuilding (buildingVariant, ctx, left, totalWidth, offset
       offsetTop + (offsetY * multiplier),
       width, null, multiplier, dpi)
   }
+}
+
+function drawMultiFloorBuilding (attr, ctx, left, totalWidth, offsetLeft, offsetTop, multiplier, dpi) {
+  // Floored buildings
+  const leftPos = (left) ? totalWidth - attr.width + attr.offsetLeft : 0 + attr.offsetLeft
+
+  offsetTop -= 45
+
+  // bottom floor
+  drawSegmentImage(attr.spriteId, ctx,
+    0,
+    attr.spriteHeight - (attr.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL), // 0 - 240 + (120 * attr.variantsCount),
+    null,
+    attr.mainFloorHeight * TILE_SIZE,
+    offsetLeft + (leftPos * multiplier),
+    offsetTop + ((attr.height - (attr.mainFloorHeight * TILE_SIZE)) * multiplier),
+    null,
+    attr.mainFloorHeight * TILE_SIZE,
+    multiplier, dpi)
+
+  // middle floors
+  const randomGenerator = new RandomGenerator()
+  randomGenerator.seed = 0
+
+  for (let i = 1; i < attr.floorCount; i++) {
+    const variant = (attr.variantsCount === 0) ? 0 : Math.floor(randomGenerator.rand() * attr.variantsCount) + 1
+
+    drawSegmentImage(attr.spriteId, ctx,
+      0,
+      attr.spriteHeight - (attr.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL) - (attr.floorHeight * TILE_SIZE * variant * TILESET_POINT_PER_PIXEL),
+      // 168 - (attr.floorHeight * TILE_SIZE * variant), // 0 - 240 + (120 * attr.variantsCount) - (attr.floorHeight * TILE_SIZE * variant),
+      null,
+      attr.floorHeight * TILE_SIZE,
+      offsetLeft + (leftPos * multiplier),
+      offsetTop + (attr.height * multiplier) - ((attr.mainFloorHeight + (attr.floorHeight * i)) * TILE_SIZE * multiplier),
+      null,
+      attr.floorHeight * TILE_SIZE,
+      multiplier, dpi)
+  }
+
+  // roof
+  drawSegmentImage(attr.spriteId, ctx,
+    0,
+    0,
+    null,
+    attr.roofHeight * TILE_SIZE,
+    offsetLeft + (leftPos * multiplier),
+    offsetTop + (attr.height * multiplier) - ((attr.mainFloorHeight + (attr.floorHeight * (attr.floorCount - 1)) + attr.roofHeight) * TILE_SIZE * multiplier),
+    null,
+    attr.roofHeight * TILE_SIZE,
+    multiplier, dpi)
 }
 
 function createBuilding (el, left) {

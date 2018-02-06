@@ -161,15 +161,6 @@ How to fill in the data for a segment:
 
   id            String (required)
                 Refers to an SVG sprite
-  tileset       Integer (deprecated)
-                Which tilesheet it's on. Currently 1, 2, or 3.
-                These are hand-made right now.
-  x             Number (deprecated) (units: 1 = 24 pixels (1 feet))
-                From the origin point of the tilesheet, the x position
-                is the left edge of the sprite.
-  y             Number (deprecated) (units: 1 = 24 pixels (1 feet))
-                From the origin point of the tilesheet, the y position
-                is the top edge of the sprite.
   width         Number (required) (units: 1 = 24 pixels (1 feet))
                 From the x position of the sprite, the width of the
                 sprite and the display canvas
@@ -209,7 +200,7 @@ export function getSpriteDef (sprite) {
   return def
 }
 
-export const SPRITE_DEFS = {
+const SPRITE_DEFS = {
   'markings--straight-inbound-light': { id: 'markings--straight-inbound-light', width: 4, height: 4, offsetY: 11.12 }, // translucent version of arrow
   'markings--straight-outbound-light': { id: 'markings--straight-outbound-light', width: 4, height: 4, offsetY: 11.12 },
   'markings--straight-inbound': { id: 'markings--straight-inbound', width: 4, height: 4, offsetY: 11.12 },
