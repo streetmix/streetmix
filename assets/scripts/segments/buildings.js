@@ -25,6 +25,8 @@ export const DEFAULT_BUILDING_VARIANT_RIGHT = 'wide'
 export const DEFAULT_BUILDING_HEIGHT_EMPTY = 1
 export const DEFAULT_BUILDING_VARIANT_EMPTY = 'grass'
 
+export const MAX_BUILDING_HEIGHT = 20
+
 export const BUILDINGS = {
   'waterfront': {
     id: 'waterfront',
@@ -35,8 +37,9 @@ export const BUILDINGS = {
   'grass': {
     id: 'grass',
     label: 'Grass',
-    spriteId: 'buildings--grass-', // append side later
-    hasFloors: false
+    spriteId: 'buildings--grass', // same sprite on both sides of street
+    hasFloors: false,
+    sameOnBothSides: true
   },
   'fence': {
     id: 'fence',
@@ -82,9 +85,7 @@ export const BUILDINGS = {
   }
 }
 
-export const MAX_BUILDING_HEIGHT = 20
-
-export function getBuildingAttributes (street, left) {
+function getBuildingAttributes (street, left) {
   const buildingVariant = left ? street.leftBuildingVariant : street.rightBuildingVariant
   const floorCount = left ? street.leftBuildingHeight : street.rightBuildingHeight
   return getBuildingAttributesByVariant(buildingVariant, left, floorCount)
@@ -97,54 +98,10 @@ export function getBuildingAttributes (street, left) {
  * @param {Number} floorCount - how many floors is it, if the building has floors
  */
 function getBuildingAttributesByVariant (buildingVariant, left, floorCount) {
-  let width, height
   const building = BUILDINGS[buildingVariant]
   const side = (left) ? 'left' : 'right'
   const spriteId = BUILDINGS[buildingVariant].spriteId + side
   let offsetLeft = 0
-  let spriteHeight
-
-  // Non-directional
-
-  switch (buildingVariant) {
-    // Define sprite heights based on svg intrinsic value
-    case 'waterfront': {
-      const svg = images.get(spriteId)
-      height = svg.height / TILESET_POINT_PER_PIXEL
-      break
-    }
-    case 'parking-lot': {
-      const svg = images.get(spriteId)
-      height = svg.height / TILESET_POINT_PER_PIXEL
-      break
-    }
-    case 'fence': {
-      // TODO: use intrinsic height, but we need to figure out what the offsetY and offsetTop numbers are first
-      // const svg = images.get('buildings--fenced-lot-left') // same for right
-      // height = svg.height / TILESET_POINT_PER_PIXEL
-      height = 12 * TILE_SIZE
-      break
-    }
-    case 'grass': {
-      // TODO: use intrinsic height, but we need to figure out what the offsetY and offsetTop numbers are first
-      // const svg = images.get('buildings--grass')
-      // height = svg.height / TILESET_POINT_PER_PIXEL
-      height = 6 * TILE_SIZE
-      break
-    }
-    case 'narrow':
-      width = 216
-      spriteHeight = 624 // actual px height
-      break
-    case 'wide':
-      width = 384
-      spriteHeight = 624 // actual px height
-      break
-    case 'residential':
-      width = 384
-      spriteHeight = 732 // actual px height
-      break
-  }
 
   // Directional
   if (left) {
@@ -173,13 +130,8 @@ function getBuildingAttributesByVariant (buildingVariant, left, floorCount) {
     }
   }
 
-  if (building.hasFloors) {
-    height = ((building.roofHeight + (building.floorHeight * (floorCount - 1)) + building.mainFloorHeight) * TILE_SIZE) + 45
-  }
-
   return {
     spriteId: spriteId,
-    width: width,
 
     variantsCount: building.variantsCount,
     floorHeight: building.floorHeight,
@@ -188,11 +140,43 @@ function getBuildingAttributesByVariant (buildingVariant, left, floorCount) {
 
     floorCount: floorCount,
 
-    height: height,
-    spriteHeight,
+    height: getBuildingImageHeight(buildingVariant, side, floorCount),
     buildingVariant: buildingVariant,
     offsetLeft
   }
+}
+
+/**
+ *
+ * @param {string} variant
+ * @param {string} position - either "left" or "right"
+ * @param {Number} floors
+ */
+export function getBuildingImageHeight (variant, position, floors) {
+  const building = BUILDINGS[variant]
+  let height
+
+  if (building.hasFloors) {
+    height = ((building.roofHeight + (building.floorHeight * (floors - 1)) + building.mainFloorHeight) * TILE_SIZE) + 45
+  } else {
+    const id = building.spriteId + (building.sameOnBothSides ? '' : position)
+    const svg = images.get(id)
+    height = svg.height / TILESET_POINT_PER_PIXEL
+  }
+
+  // TODO: use intrinsic height, but we need to figure out what the offsetY and offsetTop numbers are first
+  switch (variant) {
+    case 'fence': {
+      height = 12 * TILE_SIZE
+      break
+    }
+    case 'grass': {
+      height = 6 * TILE_SIZE
+      break
+    }
+  }
+
+  return height
 }
 
 /**
@@ -332,15 +316,19 @@ function drawSingleFloorBuilding (buildingVariant, ctx, left, totalWidth, offset
 }
 
 function drawMultiFloorBuilding (attr, ctx, left, totalWidth, offsetLeft, offsetTop, multiplier, dpi) {
-  // Floored buildings
-  const leftPos = (left) ? totalWidth - attr.width + attr.offsetLeft : 0 + attr.offsetLeft
+  const spriteId = attr.spriteId
+  const svg = images.get(spriteId)
+  const width = svg.width / TILESET_POINT_PER_PIXEL
+  const height = svg.height // actual pixels, don't need to divide by TILESET_POINT_PER_PIXEL
+
+  const leftPos = (left) ? totalWidth - width + attr.offsetLeft : 0 + attr.offsetLeft
 
   offsetTop -= 45
 
   // bottom floor
   drawSegmentImage(attr.spriteId, ctx,
     0,
-    attr.spriteHeight - (attr.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL), // 0 - 240 + (120 * attr.variantsCount),
+    height - (attr.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL), // 0 - 240 + (120 * attr.variantsCount),
     null,
     attr.mainFloorHeight * TILE_SIZE,
     offsetLeft + (leftPos * multiplier),
@@ -358,7 +346,7 @@ function drawMultiFloorBuilding (attr, ctx, left, totalWidth, offsetLeft, offset
 
     drawSegmentImage(attr.spriteId, ctx,
       0,
-      attr.spriteHeight - (attr.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL) - (attr.floorHeight * TILE_SIZE * variant * TILESET_POINT_PER_PIXEL),
+      height - (attr.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL) - (attr.floorHeight * TILE_SIZE * variant * TILESET_POINT_PER_PIXEL),
       // 168 - (attr.floorHeight * TILE_SIZE * variant), // 0 - 240 + (120 * attr.variantsCount) - (attr.floorHeight * TILE_SIZE * variant),
       null,
       attr.floorHeight * TILE_SIZE,
@@ -396,13 +384,13 @@ function shadeInContext (ctx) {
   ctx.restore()
 }
 
-function createBuilding (el, left) {
-  var street = getStreet()
-  var totalWidth = el.offsetWidth
-  var attr = getBuildingAttributes(street, left)
-  var height = Math.min(MAX_CANVAS_HEIGHT, attr.height)
-  var canvasEl = document.createElement('canvas')
-  var oldCanvasEl = el.querySelector('canvas')
+function createBuilding (el, variant, position, floors, street) {
+  const totalWidth = el.offsetWidth
+  const buildingHeight = getBuildingImageHeight(variant, position, floors)
+
+  const height = Math.min(MAX_CANVAS_HEIGHT, buildingHeight)
+  const canvasEl = document.createElement('canvas')
+  const oldCanvasEl = el.querySelector('canvas')
   const dpi = store.getState().system.hiDpi
 
   canvasEl.width = totalWidth * dpi
@@ -417,8 +405,8 @@ function createBuilding (el, left) {
     el.appendChild(canvasEl)
   }
 
-  var ctx = canvasEl.getContext('2d')
-  drawBuilding(ctx, BUILDING_DESTINATION_SCREEN, street, left,
+  const ctx = canvasEl.getContext('2d')
+  drawBuilding(ctx, BUILDING_DESTINATION_SCREEN, street, position === 'left',
     totalWidth, height, true, 0, 0, 1.0, dpi)
 }
 
@@ -453,11 +441,13 @@ export function initBuildingReduxTransitionSubscriber () {
 }
 
 export function createBuildings () {
-  var leftEl = document.querySelector('#street-section-left-building')
-  var rightEl = document.querySelector('#street-section-right-building')
+  const leftEl = document.querySelector('#street-section-left-building')
+  const rightEl = document.querySelector('#street-section-right-building')
 
-  createBuilding(leftEl, true)
-  createBuilding(rightEl, false)
+  const street = getStreet()
+
+  createBuilding(leftEl, street.leftBuildingVariant, 'left', street.leftBuildingHeight, street)
+  createBuilding(rightEl, street.rightBuildingVariant, 'right', street.rightBuildingHeight, street)
 }
 
 export function onBuildingMouseEnter (event) {
