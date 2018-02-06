@@ -33,10 +33,16 @@ export const BUILDING_VARIANT_NAMES = ['Waterfront', 'Grass', 'Empty lot', 'Park
 export const MAX_BUILDING_HEIGHT = 20
 
 export function getBuildingAttributes (street, left) {
+  const buildingVariant = left ? street.leftBuildingVariant : street.rightBuildingVariant
+  const floorCount = left ? street.leftBuildingHeight : street.rightBuildingHeight
+  return getBuildingAttributesByVariant(buildingVariant, left, floorCount)
+}
+
+function getBuildingAttributesByVariant (buildingVariant, left, floorCount) {
   let width, variantsCount, floorHeight, roofHeight
   let mainFloorHeight, height
-  const buildingVariant = left ? street.leftBuildingVariant : street.rightBuildingVariant
   const flooredBuilding = isFlooredBuilding(buildingVariant)
+  const side = (left) ? 'left' : 'right'
   let spriteId
   let offsetLeft = 0
   let spriteHeight
@@ -46,12 +52,12 @@ export function getBuildingAttributes (street, left) {
   switch (buildingVariant) {
     // Define sprite heights based on svg intrinsic value
     case 'waterfront': {
-      const svg = images.get('buildings--waterfront-left') // same for right
+      const svg = images.get(`buildings--waterfront-${side}`)
       height = svg.height / TILESET_POINT_PER_PIXEL
       break
     }
     case 'parking-lot': {
-      const svg = images.get('buildings--parking-lot-left') // same for right
+      const svg = images.get(`buildings--parking-lot-${side}`)
       height = svg.height / TILESET_POINT_PER_PIXEL
       break
     }
@@ -132,9 +138,7 @@ export function getBuildingAttributes (street, left) {
   }
 
   if (flooredBuilding) {
-    var floorCount = left ? street.leftBuildingHeight : street.rightBuildingHeight
     height = ((roofHeight + (floorHeight * (floorCount - 1)) + mainFloorHeight) * TILE_SIZE) + 45
-    var realHeight = height - 45 - 6
   }
 
   return {
@@ -145,13 +149,23 @@ export function getBuildingAttributes (street, left) {
     floorHeight: floorHeight,
     flooredBuilding: flooredBuilding,
     floorCount: floorCount,
-    realHeight: realHeight,
     roofHeight: roofHeight,
     height: height,
     spriteHeight,
     buildingVariant: buildingVariant,
     offsetLeft
   }
+}
+
+/**
+ * transition function with weird stuff in it
+ *
+ * @todo Document magic numbers used here
+ * @param {Object} street - street data
+ * @param {Boolean} left - is the building on the left or what
+ */
+export function calculateRealHeightNumber (street, left, floorCount) {
+  return (getBuildingAttributesByVariant(street, left, floorCount).height - 45 - 6) / TILE_SIZE // todo: document magic numbers
 }
 
 /**
@@ -189,20 +203,6 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
   if ((street.remainingWidth < 0) && (destination === BUILDING_DESTINATION_SCREEN)) {
     shadeInContext(ctx)
   }
-}
-
-/**
- * Fills the building rendered area with a color
- *
- * @param {CanvasRenderingContext2D} ctx
- */
-function shadeInContext (ctx) {
-  ctx.save()
-  ctx.globalCompositeOperation = 'source-atop'
-  // TODO const
-  ctx.fillStyle = 'rgba(204, 163, 173, .9)'
-  ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-  ctx.restore()
 }
 
 function drawSingleFloorBuilding (buildingVariant, ctx, left, totalWidth, offsetLeft, offsetTop, multiplier, dpi) {
@@ -358,6 +358,20 @@ function drawMultiFloorBuilding (attr, ctx, left, totalWidth, offsetLeft, offset
     null,
     attr.roofHeight * TILE_SIZE,
     multiplier, dpi)
+}
+
+/**
+ * Fills the building rendered area with a color
+ *
+ * @param {CanvasRenderingContext2D} ctx
+ */
+function shadeInContext (ctx) {
+  ctx.save()
+  ctx.globalCompositeOperation = 'source-atop'
+  // TODO const
+  ctx.fillStyle = 'rgba(204, 163, 173, .9)'
+  ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+  ctx.restore()
 }
 
 function createBuilding (el, left) {
