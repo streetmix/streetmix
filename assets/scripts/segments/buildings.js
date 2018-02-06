@@ -25,10 +25,62 @@ export const DEFAULT_BUILDING_VARIANT_RIGHT = 'wide'
 export const DEFAULT_BUILDING_HEIGHT_EMPTY = 1
 export const DEFAULT_BUILDING_VARIANT_EMPTY = 'grass'
 
-export const BUILDING_VARIANTS = ['waterfront', 'grass', 'fence', 'parking-lot',
-  'residential', 'narrow', 'wide']
-export const BUILDING_VARIANT_NAMES = ['Waterfront', 'Grass', 'Empty lot', 'Parking lot',
-  'Home', 'Building', 'Building']
+export const BUILDINGS = {
+  'waterfront': {
+    id: 'waterfront',
+    label: 'Waterfront',
+    spriteId: 'buildings--waterfront-', // append side later
+    hasFloors: false
+  },
+  'grass': {
+    id: 'grass',
+    label: 'Grass',
+    spriteId: 'buildings--grass-', // append side later
+    hasFloors: false
+  },
+  'fence': {
+    id: 'fence',
+    label: 'Empty lot',
+    spriteId: 'buildings--fenced-lot-', // append side later
+    hasFloors: false
+  },
+  'parking-lot': {
+    id: 'parking-lot',
+    label: 'Parking lot',
+    spriteId: 'buildings--parking-lot-', // append side later
+    hasFloors: false
+  },
+  'residential': {
+    id: 'residential',
+    label: 'Home',
+    spriteId: 'buildings--residential-', // append side later
+    hasFloors: true,
+    variantsCount: 0,
+    floorHeight: 10,
+    roofHeight: 6,
+    mainFloorHeight: 24.5
+  },
+  'narrow': {
+    id: 'narrow',
+    label: 'Building',
+    spriteId: 'buildings--apartments-narrow-', // append side later
+    hasFloors: true,
+    variantsCount: 1,
+    floorHeight: 10,
+    roofHeight: 2,
+    mainFloorHeight: 14
+  },
+  'wide': {
+    id: 'wide',
+    label: 'Building',
+    spriteId: 'buildings--apartments-wide-', // append side later
+    hasFloors: true,
+    variantsCount: 1,
+    floorHeight: 10,
+    roofHeight: 2,
+    mainFloorHeight: 14
+  }
+}
 
 export const MAX_BUILDING_HEIGHT = 20
 
@@ -38,12 +90,17 @@ export function getBuildingAttributes (street, left) {
   return getBuildingAttributesByVariant(buildingVariant, left, floorCount)
 }
 
+/**
+ *
+ * @param {string} buildingVariant - string id of building
+ * @param {Boolean} left - is this on the left
+ * @param {Number} floorCount - how many floors is it, if the building has floors
+ */
 function getBuildingAttributesByVariant (buildingVariant, left, floorCount) {
-  let width, variantsCount, floorHeight, roofHeight
-  let mainFloorHeight, height
-  const flooredBuilding = isFlooredBuilding(buildingVariant)
+  let width, height
+  const building = BUILDINGS[buildingVariant]
   const side = (left) ? 'left' : 'right'
-  let spriteId
+  const spriteId = BUILDINGS[buildingVariant].spriteId + side
   let offsetLeft = 0
   let spriteHeight
 
@@ -52,12 +109,12 @@ function getBuildingAttributesByVariant (buildingVariant, left, floorCount) {
   switch (buildingVariant) {
     // Define sprite heights based on svg intrinsic value
     case 'waterfront': {
-      const svg = images.get(`buildings--waterfront-${side}`)
+      const svg = images.get(spriteId)
       height = svg.height / TILESET_POINT_PER_PIXEL
       break
     }
     case 'parking-lot': {
-      const svg = images.get(`buildings--parking-lot-${side}`)
+      const svg = images.get(spriteId)
       height = svg.height / TILESET_POINT_PER_PIXEL
       break
     }
@@ -78,78 +135,59 @@ function getBuildingAttributesByVariant (buildingVariant, left, floorCount) {
     case 'narrow':
       width = 216
       spriteHeight = 624 // actual px height
-      variantsCount = 1
-
-      floorHeight = 10
-      roofHeight = 2
-      mainFloorHeight = 14
       break
     case 'wide':
       width = 384
       spriteHeight = 624 // actual px height
-      variantsCount = 1
-
-      floorHeight = 10
-      roofHeight = 2
-      mainFloorHeight = 14
       break
     case 'residential':
       width = 384
       spriteHeight = 732 // actual px height
-      variantsCount = 0
-
-      floorHeight = 10
-      roofHeight = 6
-      mainFloorHeight = 24.5
       break
   }
-  // Directional
 
+  // Directional
   if (left) {
     switch (buildingVariant) {
       case 'narrow':
-        spriteId = 'buildings--apartments-narrow-left'
         offsetLeft = -9
         break
       case 'wide':
-        spriteId = 'buildings--apartments-wide-left'
         offsetLeft = -5
         break
       case 'residential':
-        spriteId = 'buildings--residential-left'
         offsetLeft = -25
         break
     }
   } else {
     switch (buildingVariant) {
       case 'narrow':
-        spriteId = 'buildings--apartments-narrow-right'
         offsetLeft = 9
         break
       case 'wide':
-        spriteId = 'buildings--apartments-wide-right'
         offsetLeft = 5
         break
       case 'residential':
-        spriteId = 'buildings--residential-right'
         offsetLeft = 25
         break
     }
   }
 
-  if (flooredBuilding) {
-    height = ((roofHeight + (floorHeight * (floorCount - 1)) + mainFloorHeight) * TILE_SIZE) + 45
+  if (building.hasFloors) {
+    height = ((building.roofHeight + (building.floorHeight * (floorCount - 1)) + building.mainFloorHeight) * TILE_SIZE) + 45
   }
 
   return {
     spriteId: spriteId,
     width: width,
-    variantsCount: variantsCount,
-    mainFloorHeight: mainFloorHeight,
-    floorHeight: floorHeight,
-    flooredBuilding: flooredBuilding,
+
+    variantsCount: building.variantsCount,
+    floorHeight: building.floorHeight,
+    roofHeight: building.roofHeight,
+    mainFloorHeight: building.mainFloorHeight,
+
     floorCount: floorCount,
-    roofHeight: roofHeight,
+
     height: height,
     spriteHeight,
     buildingVariant: buildingVariant,
@@ -168,22 +206,6 @@ export function calculateRealHeightNumber (street, left, floorCount) {
   return (getBuildingAttributesByVariant(street, left, floorCount).height - 45 - 6) / TILE_SIZE // todo: document magic numbers
 }
 
-/**
- * Returns true if the building type editable number of floors
- *
- * @param {string} buildingVariant
- * @param {Boolean}
- */
-// TODO change to array
-export function isFlooredBuilding (buildingVariant) {
-  if ((buildingVariant === 'narrow') || (buildingVariant === 'wide') ||
-    (buildingVariant === 'residential')) {
-    return true
-  } else {
-    return false
-  }
-}
-
 export function drawBuilding (ctx, destination, street, left, totalWidth,
   totalHeight, bottomAligned, offsetLeft, offsetTop,
   multiplier, dpi) {
@@ -193,7 +215,7 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
     offsetTop += totalHeight - (attr.height * multiplier)
   }
 
-  if (!attr.flooredBuilding) {
+  if (!BUILDINGS[attr.buildingVariant].hasFloors) {
     drawSingleFloorBuilding(attr.buildingVariant, ctx, left, totalWidth, offsetLeft, offsetTop, multiplier, dpi)
   } else {
     drawMultiFloorBuilding(attr, ctx, left, totalWidth, offsetLeft, offsetTop, multiplier, dpi)

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { debounce } from 'lodash'
 import { t } from '../app/locale'
-import { MAX_BUILDING_HEIGHT, isFlooredBuilding, calculateRealHeightNumber } from '../segments/buildings'
+import { MAX_BUILDING_HEIGHT, BUILDINGS, calculateRealHeightNumber } from '../segments/buildings'
 import { addBuildingFloor, removeBuildingFloor, setBuildingFloorValue } from '../store/actions/street'
 import { prettifyWidth } from '../util/width_units'
 import { KEYS } from '../app/keyboard_commands'
@@ -230,7 +230,7 @@ class BuildingHeightControl extends React.Component {
   }
 
   render () {
-    const isNotFloored = !isFlooredBuilding(this.props.variant)
+    const isNotFloored = !BUILDINGS[this.props.variant].hasFloors
 
     const inputEl = (this.props.touch) ? (
       <span className="height-non-editable">{this.state.displayValue}</span>
