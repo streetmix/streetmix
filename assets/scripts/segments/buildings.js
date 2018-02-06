@@ -6,9 +6,9 @@ import {
 import { getStreet, saveStreetToServerIfNecessary } from '../streets/data_model'
 import { getElAbsolutePos } from '../util/helpers'
 import { RandomGenerator } from '../util/random'
-import { svgCache } from '../app/load_resources'
+import { images } from '../app/load_resources'
 import { resumeFadeoutControls } from './resizing'
-import { TILE_SIZE, TILESET_POINT_PER_PIXEL, drawSegmentImageSVG } from './view'
+import { TILE_SIZE, TILESET_POINT_PER_PIXEL, drawSegmentImage } from './view'
 import store from '../store'
 
 const MAX_CANVAS_HEIGHT = 2048
@@ -46,25 +46,25 @@ export function getBuildingAttributes (street, left) {
   switch (buildingVariant) {
     // Define sprite heights based on svg intrinsic value
     case 'waterfront': {
-      const svg = svgCache.get('buildings--waterfront-left') // same for right
+      const svg = images.get('buildings--waterfront-left') // same for right
       height = svg.height / TILESET_POINT_PER_PIXEL
       break
     }
     case 'parking-lot': {
-      const svg = svgCache.get('buildings--parking-lot-left') // same for right
+      const svg = images.get('buildings--parking-lot-left') // same for right
       height = svg.height / TILESET_POINT_PER_PIXEL
       break
     }
     case 'fence': {
       // TODO: use intrinsic height, but we need to figure out what the offsetY and offsetTop numbers are first
-      // const svg = svgCache.get('buildings--fenced-lot-left') // same for right
+      // const svg = images.get('buildings--fenced-lot-left') // same for right
       // height = svg.height / TILESET_POINT_PER_PIXEL
       height = 12 * TILE_SIZE
       break
     }
     case 'grass': {
       // TODO: use intrinsic height, but we need to figure out what the offsetY and offsetTop numbers are first
-      // const svg = svgCache.get('buildings--grass')
+      // const svg = images.get('buildings--grass')
       // height = svg.height / TILESET_POINT_PER_PIXEL
       height = 6 * TILE_SIZE
       break
@@ -188,7 +188,7 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
     offsetTop -= 45
 
     // bottom floor
-    drawSegmentImageSVG(attr.spriteId, ctx,
+    drawSegmentImage(attr.spriteId, ctx,
       0,
       attr.spriteHeight - (attr.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL), // 0 - 240 + (120 * attr.variantsCount),
       null,
@@ -206,7 +206,7 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
     for (let i = 1; i < attr.floorCount; i++) {
       const variant = (attr.variantsCount === 0) ? 0 : Math.floor(randomGenerator.rand() * attr.variantsCount) + 1
 
-      drawSegmentImageSVG(attr.spriteId, ctx,
+      drawSegmentImage(attr.spriteId, ctx,
         0,
         attr.spriteHeight - (attr.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL) - (attr.floorHeight * TILE_SIZE * variant * TILESET_POINT_PER_PIXEL),
         // 168 - (attr.floorHeight * TILE_SIZE * variant), // 0 - 240 + (120 * attr.variantsCount) - (attr.floorHeight * TILE_SIZE * variant),
@@ -220,7 +220,7 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
     }
 
     // roof
-    drawSegmentImageSVG(attr.spriteId, ctx,
+    drawSegmentImage(attr.spriteId, ctx,
       0,
       0,
       null,
@@ -261,7 +261,7 @@ function drawSingleFloorBuilding (buildingVariant, ctx, left, totalWidth, offset
     case 'fence': {
       spriteId = (left) ? 'buildings--fenced-lot-left' : 'buildings--fenced-lot-right'
 
-      const svg = svgCache.get(spriteId)
+      const svg = images.get(spriteId)
       width = svg.width / TILESET_POINT_PER_PIXEL
 
       offsetY = 23 + 24 + 2 // todo: document magic number
@@ -277,7 +277,7 @@ function drawSingleFloorBuilding (buildingVariant, ctx, left, totalWidth, offset
     case 'grass': {
       spriteId = 'buildings--grass'
 
-      const svg = svgCache.get(spriteId)
+      const svg = images.get(spriteId)
       width = svg.width / TILESET_POINT_PER_PIXEL
 
       offsetY = 23 + 24 + 2 // todo: document magic number
@@ -296,7 +296,7 @@ function drawSingleFloorBuilding (buildingVariant, ctx, left, totalWidth, offset
 
       spriteId = (left) ? 'buildings--parking-lot-left' : 'buildings--parking-lot-right'
 
-      const svg = svgCache.get(spriteId)
+      const svg = images.get(spriteId)
       width = svg.width / TILESET_POINT_PER_PIXEL / 2 // 2 = halfway point is where repeat starts.
 
       if (left) {
@@ -318,7 +318,7 @@ function drawSingleFloorBuilding (buildingVariant, ctx, left, totalWidth, offset
 
       spriteId = (left) ? 'buildings--waterfront-left' : 'buildings--waterfront-right'
 
-      const svg = svgCache.get(spriteId)
+      const svg = images.get(spriteId)
       width = svg.width / TILESET_POINT_PER_PIXEL / 2 // 2 = halfway point is where repeat starts.
 
       if (left) {
@@ -347,7 +347,7 @@ function drawSingleFloorBuilding (buildingVariant, ctx, left, totalWidth, offset
       currentX = x
     }
 
-    drawSegmentImageSVG(spriteId, ctx,
+    drawSegmentImage(spriteId, ctx,
       currentX, null,
       width, null,
       offsetLeft + ((posShift + (i * width)) * multiplier),

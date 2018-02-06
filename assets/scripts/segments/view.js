@@ -1,4 +1,4 @@
-import { images, svgCache } from '../app/load_resources'
+import { images } from '../app/load_resources'
 import { msg } from '../app/messages'
 import { infoBubble, INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/info_bubble'
 import { system } from '../preinit/system_capabilities'
@@ -25,7 +25,6 @@ import store from '../store'
 
 export const TILESET_POINT_PER_PIXEL = 2.0
 export const TILE_SIZE = 12 // pixels
-const TILESET_CORRECTION = [null, 0, -84, -162]
 
 const CANVAS_HEIGHT = 480
 const CANVAS_GROUND = 35
@@ -54,14 +53,14 @@ const SEGMENT_SWITCHING_TIME = 250
  * @param {Number} multiplier - scale to draw at (default = 1)
  * @param {Number} dpi
  */
-export function drawSegmentImageSVG (id, ctx, sx = 0, sy = 0, sw, sh, dx, dy, dw, dh, multiplier = 1, dpi) {
+export function drawSegmentImage (id, ctx, sx = 0, sy = 0, sw, sh, dx, dy, dw, dh, multiplier = 1, dpi) {
   // Settings
   const state = store.getState()
   dpi = dpi || state.system.hiDpi || 1
   const debugRect = state.flags.DEBUG_SEGMENT_CANVAS_RECTANGLES.value || false
 
   // Get image definition
-  const svg = svgCache.get(id)
+  const svg = images.get(id)
 
   // We can't read `.naturalWidth` and `.naturalHeight` properties from
   // the image in IE11, which returns 0. This is why width and height are
@@ -99,36 +98,6 @@ export function drawSegmentImageSVG (id, ctx, sx = 0, sy = 0, sw, sh, dx, dy, dw
       console.error('drawImage failed for img id ' + id + ' with error: ' + e + ' - Retrying after 2 seconds')
       ctx.drawImage(svg.img, sx, sy, sw, sh, dx, dy, dw, dh)
     }, 2000)
-  }
-}
-
-export function drawSegmentImage (tileset, ctx, sx, sy, sw, sh, dx, dy, dw, dh) {
-  if (!sw || !sh || !dw || !dh) {
-    return
-  }
-
-  if ((sw > 0) && (sh > 0) && (dw > 0) && (dh > 0)) {
-    sx += TILESET_CORRECTION[tileset] * 12
-
-    dx *= system.hiDpi
-    dy *= system.hiDpi
-    dw *= system.hiDpi
-    dh *= system.hiDpi
-
-    if (sx < 0) {
-      dw += sx
-      sx = 0
-    }
-
-    if (store.getState().flags.DEBUG_SEGMENT_CANVAS_RECTANGLES.value === true) {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.2)'
-      ctx.fillRect(dx, dy, dw, dh)
-    }
-
-    ctx.drawImage(images['/images/tiles-' + tileset + '.png'],
-      sx * TILESET_POINT_PER_PIXEL, sy * TILESET_POINT_PER_PIXEL,
-      sw * TILESET_POINT_PER_PIXEL, sh * TILESET_POINT_PER_PIXEL,
-      dx, dy, dw, dh)
   }
 }
 
@@ -249,7 +218,7 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
           width = (segmentWidth / multiplier) - ((count - 1) * width)
         }
 
-        drawSegmentImageSVG(sprite.id, ctx, null, null, width, null,
+        drawSegmentImage(sprite.id, ctx, null, null, width, null,
           offsetLeft + ((repeatStartX + (i * sprite.width * TILE_SIZE)) * multiplier),
           offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
           width, null, multiplier, dpi)
@@ -264,7 +233,7 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
       const sprite = getSpriteDef(sprites[l])
       const x = 0 + ((-left + (sprite.offsetX || 0)) * TILE_SIZE * multiplier)
 
-      drawSegmentImageSVG(sprite.id, ctx, null, null, null, null,
+      drawSegmentImage(sprite.id, ctx, null, null, null, null,
         offsetLeft + x,
         offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
         null, null, multiplier, dpi)
@@ -278,7 +247,7 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
       const sprite = getSpriteDef(sprites[l])
       const x = (-left + (segmentWidth / TILE_SIZE / multiplier) - sprite.width - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
 
-      drawSegmentImageSVG(sprite.id, ctx, null, null, null, null,
+      drawSegmentImage(sprite.id, ctx, null, null, null, null,
         offsetLeft + x,
         offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
         null, null, multiplier, dpi)
@@ -293,7 +262,7 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
       const center = dimensions.center
       const x = (center - (sprite.width / 2) - left - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
 
-      drawSegmentImageSVG(sprite.id, ctx, null, null, null, null,
+      drawSegmentImage(sprite.id, ctx, null, null, null, null,
         offsetLeft + x,
         offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
         null, null, multiplier, dpi)

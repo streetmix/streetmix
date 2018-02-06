@@ -1,4 +1,4 @@
-import { svgCache } from '../app/load_resources'
+import { images } from '../app/load_resources'
 import { drawLine } from '../util/canvas_drawing'
 import { prettifyWidth } from '../util/width_units'
 import { SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING } from '../streets/image'
@@ -53,7 +53,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
     const y1 = groundLevel - 280
 
     for (let i = 0; i < Math.floor(thumbnailWidth / SKY_WIDTH) + 1; i++) {
-      ctx.drawImage(svgCache.get('/images/sky-front.svg').img,
+      ctx.drawImage(images.get('/images/sky-front.svg').img,
         0, 0, SKY_WIDTH * 2, 280 * 2,
         i * SKY_WIDTH * dpi, y1 * dpi, SKY_WIDTH * dpi, 280 * dpi)
     }
@@ -62,7 +62,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
     const y2 = groundLevel - 280 - 120
 
     for (let i = 0; i < Math.floor(thumbnailWidth / SKY_WIDTH) + 1; i++) {
-      ctx.drawImage(svgCache.get('/images/sky-rear.svg').img,
+      ctx.drawImage(images.get('/images/sky-rear.svg').img,
         0, 0, SKY_WIDTH * 2, 120 * 2,
         i * SKY_WIDTH * dpi, y2 * dpi, SKY_WIDTH * dpi, 120 * dpi)
     }

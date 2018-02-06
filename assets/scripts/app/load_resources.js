@@ -2,19 +2,12 @@
  * load_resources
  *
  * Loads images, etc and tracks progress. (WIP)
- * TODO: Rely on Promises to resolve progress
  */
 
-// Image tileset loading
-// TODO: Deprecate in favor of inlined SVGs
-const TILESET_IMAGE_VERSION = 55
-const IMAGES_TO_BE_LOADED = [
-  '/images/tiles-1.png',
-  '/images/tiles-2.png',
-  '/images/tiles-3.png'
-]
+export const images = new Map()
 
-const SVGS_TO_BE_LOADED = [
+// Image tileset loading
+const IMAGES_TO_BE_LOADED = [
   '/images/sky-front.svg',
   '/images/sky-rear.svg',
   '/assets/images/icons.svg',
@@ -22,11 +15,7 @@ const SVGS_TO_BE_LOADED = [
 ]
 
 const SVGStagingEl = document.getElementById('svg')
-
-export const images = [] // This is an associative array; TODO: something else
 let loading = []
-
-export const svgCache = new Map()
 
 // Set loading bar
 const loadingEl = document.getElementById('loading-progress')
@@ -34,7 +23,6 @@ loadingEl.max += 5 // Legacy; this is for other things that must load
 
 // Load everything
 loadImages()
-loadSVGs()
 
 // When everything is loaded...
 export function checkIfImagesLoaded () {
@@ -45,23 +33,6 @@ function loadImages () {
   loadingEl.max += IMAGES_TO_BE_LOADED.length
 
   for (let url of IMAGES_TO_BE_LOADED) {
-    loading.push(getImage(url + '?v' + TILESET_IMAGE_VERSION)
-      .then(function (image) {
-        // Store on the global images object, using the url as the key
-        images[url] = image
-
-        loadingEl.value++
-      })
-      .catch(function (error) {
-        console.error('loading image error', error.message)
-      }))
-  }
-}
-
-function loadSVGs () {
-  loadingEl.max += SVGS_TO_BE_LOADED.length
-
-  for (let url of SVGS_TO_BE_LOADED) {
     loading.push(window.fetch(url)
       .then((response) => {
         return response.text()
@@ -112,27 +83,6 @@ function loadSVGs () {
         console.error('loading svg error', error)
       }))
   }
-}
-
-/**
- * Wraps `new Image()`'s onload and onerror properties with
- * Promises. This provides a more reliable way of knowing when a
- * image element is done loading (rather than fetch) because a
- * fetch can successfully load an image file but be resolved
- * before the image element is ready. So we must resolve only after
- * the image's `onload` callback has been called.
- */
-function getImage (url) {
-  return new Promise(function (resolve, reject) {
-    var img = new window.Image()
-    img.onload = function () {
-      resolve(img)
-    }
-    img.onerror = function () {
-      reject(new Error('unable to load image ' + url))
-    }
-    img.src = url
-  })
 }
 
 /**
@@ -196,7 +146,7 @@ function convertSVGSymbolToSVGHTML (symbol) {
 }
 
 /**
- * Caches the processed SVG object to the SVGCache
+ * Caches the processed SVG object to the image cache
  *
  * @param {string} id - key to identify the svg
  * @param {SVGElement|SVGSymbolElement} svg - original DOM nodes
@@ -212,7 +162,7 @@ function cacheSVGObject (id, svg, svgHTML) {
   img.src = src
 
   // Store properties on svg cache, using its simplified id as the key
-  svgCache.set(id, {
+  images.set(id, {
     el: svg,
     src: src,
     img: img,
