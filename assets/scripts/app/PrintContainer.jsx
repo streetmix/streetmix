@@ -6,7 +6,8 @@ import { getStreetImage } from '../streets/image'
 
 class PrintContainer extends React.PureComponent {
   static propTypes = {
-    isPrinting: PropTypes.bool.isRequired
+    isPrinting: PropTypes.bool.isRequired,
+    street: PropTypes.object.isRequired
   }
 
   static defaultProps = {
@@ -19,7 +20,7 @@ class PrintContainer extends React.PureComponent {
 
   createPrintImage = () => {
     if (this.props.isPrinting) {
-      const dataUrl = getStreetImage(true, true).toDataURL('image/png')
+      const dataUrl = getStreetImage(this.props.street, true, true, false).toDataURL('image/png')
       return <img src={dataUrl} />
     }
 
@@ -37,7 +38,8 @@ class PrintContainer extends React.PureComponent {
 
 function mapStateToProps (state) {
   return {
-    isPrinting: state.app.printing
+    isPrinting: state.app.printing,
+    street: state.street
   }
 }
 
