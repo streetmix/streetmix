@@ -94,10 +94,10 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
   const buildingWidth = buildingOffsetLeft / multiplier
 
   const x1 = (thumbnailWidth / 2) - (street.width * TILE_SIZE * multiplier / 2)
-  drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street, true, buildingWidth, groundLevel + 45, true, x1 - ((buildingWidth - 25) * multiplier), 0, multiplier)
+  drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street, true, buildingWidth, groundLevel + 45, true, x1 - ((buildingWidth - 25) * multiplier), 0, multiplier, dpi)
 
   const x2 = (thumbnailWidth / 2) + (street.width * TILE_SIZE * multiplier / 2)
-  drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street, false, buildingWidth, groundLevel + 45, true, x2 - (25 * multiplier), 0, multiplier)
+  drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street, false, buildingWidth, groundLevel + 45, true, x2 - (25 * multiplier), 0, multiplier, dpi)
 
   // Segments
 
@@ -125,7 +125,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
         drawSegmentContents(ctx, segment.type, segment.variantString,
           segment.width * TILE_SIZE * multiplier,
-          offsetLeft + (dimensions.left * TILE_SIZE * multiplier), offsetTop, segment.randSeed, multiplier, false)
+          offsetLeft + (dimensions.left * TILE_SIZE * multiplier), offsetTop, segment.randSeed, multiplier, false, dpi)
       }
 
       offsetLeft += segment.width * TILE_SIZE * multiplier
@@ -159,7 +159,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
       drawLine(ctx,
         left, (groundLevel + (45 * multiplier)),
-        left, (groundLevel + (125 * multiplier)))
+        left, (groundLevel + (125 * multiplier)), dpi)
 
       const x = (offsetLeft + (availableWidth / 2)) * dpi
 
@@ -185,7 +185,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
     var left = offsetLeft + 1
     drawLine(ctx,
       left, (groundLevel + (45 * multiplier)),
-      left, (groundLevel + (125 * multiplier)))
+      left, (groundLevel + (125 * multiplier)), dpi)
 
     ctx.restore()
   }

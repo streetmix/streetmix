@@ -52,11 +52,12 @@ const SEGMENT_SWITCHING_TIME = 250
  * @param {Number} dw - destination width to draw
  * @param {Number} dh - destination height to draw
  * @param {Number} multiplier - scale to draw at (default = 1)
+ * @param {Number} dpi
  */
-export function drawSegmentImageSVG (id, ctx, sx = 0, sy = 0, sw, sh, dx, dy, dw, dh, multiplier = 1) {
+export function drawSegmentImageSVG (id, ctx, sx = 0, sy = 0, sw, sh, dx, dy, dw, dh, multiplier = 1, dpi) {
   // Settings
   const state = store.getState()
-  const dpi = state.system.hiDpi || 1
+  dpi = dpi || state.system.hiDpi || 1
   const debugRect = state.flags.DEBUG_SEGMENT_CANVAS_RECTANGLES.value || false
 
   // Get image definition
@@ -219,8 +220,9 @@ export function getVariantInfoDimensions (variantInfo, initialSegmentWidth, mult
  * @param {Number} randSeed
  * @param {Number} multiplier
  * @param {Boolean} palette
+ * @param {Number} dpi
  */
-export function drawSegmentContents (ctx, type, variantString, segmentWidth, offsetLeft, offsetTop, randSeed, multiplier, palette) {
+export function drawSegmentContents (ctx, type, variantString, segmentWidth, offsetLeft, offsetTop, randSeed, multiplier, palette, dpi) {
   const variantInfo = SEGMENT_INFO[type].details[variantString]
   const graphics = variantInfo.graphics
   const dimensions = getVariantInfoDimensions(variantInfo, segmentWidth, multiplier)
@@ -250,7 +252,7 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
         drawSegmentImageSVG(sprite.id, ctx, null, null, width, null,
           offsetLeft + ((repeatStartX + (i * sprite.width * TILE_SIZE)) * multiplier),
           offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
-          width, null, multiplier)
+          width, null, multiplier, dpi)
       }
     }
   }
@@ -265,7 +267,7 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
       drawSegmentImageSVG(sprite.id, ctx, null, null, null, null,
         offsetLeft + x,
         offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
-        null, null, multiplier)
+        null, null, multiplier, dpi)
     }
   }
 
@@ -279,7 +281,7 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
       drawSegmentImageSVG(sprite.id, ctx, null, null, null, null,
         offsetLeft + x,
         offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
-        null, null, multiplier)
+        null, null, multiplier, dpi)
     }
   }
 
@@ -294,12 +296,12 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
       drawSegmentImageSVG(sprite.id, ctx, null, null, null, null,
         offsetLeft + x,
         offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
-        null, null, multiplier)
+        null, null, multiplier, dpi)
     }
   }
 
   if (type === 'sidewalk') {
-    drawProgrammaticPeople(ctx, segmentWidth / multiplier, offsetLeft - (left * TILE_SIZE * multiplier), offsetTop, randSeed, multiplier, variantString)
+    drawProgrammaticPeople(ctx, segmentWidth / multiplier, offsetLeft - (left * TILE_SIZE * multiplier), offsetTop, randSeed, multiplier, variantString, dpi)
   }
 }
 

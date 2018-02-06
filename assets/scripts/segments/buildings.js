@@ -172,7 +172,7 @@ export function isFlooredBuilding (buildingVariant) {
 
 export function drawBuilding (ctx, destination, street, left, totalWidth,
   totalHeight, bottomAligned, offsetLeft, offsetTop,
-  multiplier) {
+  multiplier, dpi) {
   const attr = getBuildingAttributes(street, left)
 
   if (bottomAligned) {
@@ -180,7 +180,7 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
   }
 
   if (!attr.flooredBuilding) {
-    drawSingleFloorBuilding(attr.buildingVariant, ctx, left, totalWidth, offsetLeft, offsetTop, multiplier)
+    drawSingleFloorBuilding(attr.buildingVariant, ctx, left, totalWidth, offsetLeft, offsetTop, multiplier, dpi)
   } else {
     // Floored buildings
     const leftPos = (left) ? totalWidth - attr.width + attr.offsetLeft : 0 + attr.offsetLeft
@@ -197,7 +197,7 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
       offsetTop + ((attr.height - (attr.mainFloorHeight * TILE_SIZE)) * multiplier),
       null,
       attr.mainFloorHeight * TILE_SIZE,
-      multiplier)
+      multiplier, dpi)
 
     // middle floors
     const randomGenerator = new RandomGenerator()
@@ -216,7 +216,7 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
         offsetTop + (attr.height * multiplier) - ((attr.mainFloorHeight + (attr.floorHeight * i)) * TILE_SIZE * multiplier),
         null,
         attr.floorHeight * TILE_SIZE,
-        multiplier)
+        multiplier, dpi)
     }
 
     // roof
@@ -229,7 +229,7 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
       offsetTop + (attr.height * multiplier) - ((attr.mainFloorHeight + (attr.floorHeight * (attr.floorCount - 1)) + attr.roofHeight) * TILE_SIZE * multiplier),
       null,
       attr.roofHeight * TILE_SIZE,
-      multiplier)
+      multiplier, dpi)
   }
 
   // If street width is exceeded, fade buildings
@@ -252,7 +252,7 @@ function shadeInContext (ctx) {
   ctx.restore()
 }
 
-function drawSingleFloorBuilding (buildingVariant, ctx, left, totalWidth, offsetLeft, offsetTop, multiplier) {
+function drawSingleFloorBuilding (buildingVariant, ctx, left, totalWidth, offsetLeft, offsetTop, multiplier, dpi) {
   // posShift = a building sprite can overlap the sidewalk by a certain amount. a posShift
   // value of 25 is NO overlap. a posShift value of 0 is 25 pixels of overlap.
   let x, posShift, width, offsetY, lastX, firstX, currentX, spriteId
@@ -352,7 +352,7 @@ function drawSingleFloorBuilding (buildingVariant, ctx, left, totalWidth, offset
       width, null,
       offsetLeft + ((posShift + (i * width)) * multiplier),
       offsetTop + (offsetY * multiplier),
-      width, null, multiplier)
+      width, null, multiplier, dpi)
   }
 }
 
@@ -379,7 +379,7 @@ function createBuilding (el, left) {
 
   var ctx = canvasEl.getContext('2d')
   drawBuilding(ctx, BUILDING_DESTINATION_SCREEN, street, left,
-    totalWidth, height, true, 0, 0, 1.0)
+    totalWidth, height, true, 0, 0, 1.0, dpi)
 }
 
 export function buildingHeightUpdated () {
