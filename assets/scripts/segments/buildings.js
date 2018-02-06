@@ -8,7 +8,7 @@ import { getElAbsolutePos } from '../util/helpers'
 import { RandomGenerator } from '../util/random'
 import { svgCache } from '../app/load_resources'
 import { resumeFadeoutControls } from './resizing'
-import { TILE_SIZE, TILESET_POINT_PER_PIXEL, drawSegmentImage, drawSegmentImageSVG } from './view'
+import { TILE_SIZE, TILESET_POINT_PER_PIXEL, drawSegmentImageSVG } from './view'
 import store from '../store'
 
 const MAX_CANVAS_HEIGHT = 2048
@@ -33,10 +33,13 @@ export const BUILDING_VARIANT_NAMES = ['Waterfront', 'Grass', 'Empty lot', 'Park
 export const MAX_BUILDING_HEIGHT = 20
 
 export function getBuildingAttributes (street, left) {
-  let width, floorRoofWidth, variantsCount, tileset, floorHeight, roofHeight
-  let mainFloorHeight, height, tilePositionX, tilePositionY
-  var buildingVariant = left ? street.leftBuildingVariant : street.rightBuildingVariant
-  var flooredBuilding = isFlooredBuilding(buildingVariant)
+  let width, variantsCount, floorHeight, roofHeight
+  let mainFloorHeight, height
+  const buildingVariant = left ? street.leftBuildingVariant : street.rightBuildingVariant
+  const flooredBuilding = isFlooredBuilding(buildingVariant)
+  let spriteId
+  let offsetLeft = 0
+  let spriteHeight
 
   // Non-directional
 
@@ -68,27 +71,25 @@ export function getBuildingAttributes (street, left) {
     }
     case 'narrow':
       width = 216
-      floorRoofWidth = 216
+      spriteHeight = 624 // actual px height
       variantsCount = 1
-      tileset = 2
 
       floorHeight = 10
       roofHeight = 2
       mainFloorHeight = 14
       break
     case 'wide':
-      width = 396
-      floorRoofWidth = 396
+      width = 384
+      spriteHeight = 624 // actual px height
       variantsCount = 1
-      tileset = 3
 
       floorHeight = 10
       roofHeight = 2
       mainFloorHeight = 14
       break
     case 'residential':
-      width = 396
-      floorRoofWidth = 240
+      width = 384
+      spriteHeight = 732 // actual px height
       variantsCount = 0
 
       floorHeight = 10
@@ -101,33 +102,31 @@ export function getBuildingAttributes (street, left) {
   if (left) {
     switch (buildingVariant) {
       case 'narrow':
-        tilePositionX = 1512 + 17
-        tilePositionY = 576 - 1
+        spriteId = 'buildings--apartments-narrow-left'
+        offsetLeft = -9
         break
       case 'wide':
-        tilePositionX = 1956
-        tilePositionY = 576 - (24 * 2)
+        spriteId = 'buildings--apartments-wide-left'
+        offsetLeft = -5
         break
       case 'residential':
-        tileset = 3
-        tilePositionX = 1956 + 382 + 204
-        tilePositionY = 576 + (740 / 2) - 1 - 12 + 8
+        spriteId = 'buildings--residential-left'
+        offsetLeft = -25
         break
     }
   } else {
     switch (buildingVariant) {
       case 'narrow':
-        tilePositionX = 1728 + 13
-        tilePositionY = 576 - 1
+        spriteId = 'buildings--apartments-narrow-right'
+        offsetLeft = 9
         break
       case 'wide':
-        tilePositionX = 2351
-        tilePositionY = 576 - (24 * 2) - 1
+        spriteId = 'buildings--apartments-wide-right'
+        offsetLeft = 5
         break
       case 'residential':
-        tileset = 2
-        tilePositionX = 1956 + 382 + 204 + 25 - 1008 - 12 - 1 + 48
-        tilePositionY = 576 + (740 / 2) - 1 - 12 + 237 + 6
+        spriteId = 'buildings--residential-right'
+        offsetLeft = 25
         break
     }
   }
@@ -139,20 +138,19 @@ export function getBuildingAttributes (street, left) {
   }
 
   return {
-    tilePositionX: tilePositionX,
-    tilePositionY: tilePositionY,
+    spriteId: spriteId,
     width: width,
     variantsCount: variantsCount,
-    tileset: tileset,
     mainFloorHeight: mainFloorHeight,
     floorHeight: floorHeight,
     flooredBuilding: flooredBuilding,
-    floorRoofWidth: floorRoofWidth,
     floorCount: floorCount,
     realHeight: realHeight,
     roofHeight: roofHeight,
     height: height,
-    buildingVariant: buildingVariant
+    spriteHeight,
+    buildingVariant: buildingVariant,
+    offsetLeft
   }
 }
 
@@ -185,51 +183,53 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
     drawSingleFloorBuilding(attr.buildingVariant, ctx, left, totalWidth, offsetLeft, offsetTop, multiplier)
   } else {
     // Floored buildings
-    const leftPos = (left) ? totalWidth - attr.width - 2 : 0
+    const leftPos = (left) ? totalWidth - attr.width + attr.offsetLeft : 0 + attr.offsetLeft
 
     offsetTop -= 45
 
     // bottom floor
-    drawSegmentImage(attr.tileset, ctx,
-      attr.tilePositionX,
-      attr.tilePositionY - 240 + (120 * attr.variantsCount),
-      attr.width,
-      (attr.mainFloorHeight * TILE_SIZE) + TILE_SIZE,
+    drawSegmentImageSVG(attr.spriteId, ctx,
+      0,
+      attr.spriteHeight - (attr.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL), // 0 - 240 + (120 * attr.variantsCount),
+      null,
+      attr.mainFloorHeight * TILE_SIZE,
       offsetLeft + (leftPos * multiplier),
       offsetTop + ((attr.height - (attr.mainFloorHeight * TILE_SIZE)) * multiplier),
-      attr.width * multiplier,
-      ((attr.mainFloorHeight * TILE_SIZE) + TILE_SIZE) * multiplier)
+      null,
+      attr.mainFloorHeight * TILE_SIZE,
+      multiplier)
 
     // middle floors
-    const floorCorrection = left ? 0 : (attr.width - attr.floorRoofWidth)
-
     const randomGenerator = new RandomGenerator()
     randomGenerator.seed = 0
 
     for (let i = 1; i < attr.floorCount; i++) {
       const variant = (attr.variantsCount === 0) ? 0 : Math.floor(randomGenerator.rand() * attr.variantsCount) + 1
 
-      drawSegmentImage(attr.tileset, ctx,
-        attr.tilePositionX + floorCorrection,
-        attr.tilePositionY - 240 + (120 * attr.variantsCount) - (attr.floorHeight * TILE_SIZE * variant),
-        attr.floorRoofWidth,
+      drawSegmentImageSVG(attr.spriteId, ctx,
+        0,
+        attr.spriteHeight - (attr.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL) - (attr.floorHeight * TILE_SIZE * variant * TILESET_POINT_PER_PIXEL),
+        // 168 - (attr.floorHeight * TILE_SIZE * variant), // 0 - 240 + (120 * attr.variantsCount) - (attr.floorHeight * TILE_SIZE * variant),
+        null,
         attr.floorHeight * TILE_SIZE,
-        offsetLeft + ((leftPos + floorCorrection) * multiplier),
+        offsetLeft + (leftPos * multiplier),
         offsetTop + (attr.height * multiplier) - ((attr.mainFloorHeight + (attr.floorHeight * i)) * TILE_SIZE * multiplier),
-        attr.floorRoofWidth * multiplier,
-        attr.floorHeight * TILE_SIZE * multiplier)
+        null,
+        attr.floorHeight * TILE_SIZE,
+        multiplier)
     }
 
     // roof
-    drawSegmentImage(attr.tileset, ctx,
-      attr.tilePositionX + floorCorrection,
-      attr.tilePositionY - 240 + (120 * attr.variantsCount) - ((attr.floorHeight * TILE_SIZE * attr.variantsCount) + (attr.roofHeight * TILE_SIZE)),
-      attr.floorRoofWidth,
+    drawSegmentImageSVG(attr.spriteId, ctx,
+      0,
+      0,
+      null,
       attr.roofHeight * TILE_SIZE,
-      offsetLeft + ((leftPos + floorCorrection) * multiplier),
+      offsetLeft + (leftPos * multiplier),
       offsetTop + (attr.height * multiplier) - ((attr.mainFloorHeight + (attr.floorHeight * (attr.floorCount - 1)) + attr.roofHeight) * TILE_SIZE * multiplier),
-      attr.floorRoofWidth * multiplier,
-      attr.roofHeight * TILE_SIZE * multiplier)
+      null,
+      attr.roofHeight * TILE_SIZE,
+      multiplier)
   }
 
   // If street width is exceeded, fade buildings
