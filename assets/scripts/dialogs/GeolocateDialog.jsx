@@ -144,7 +144,8 @@ class GeolocateDialog extends React.Component {
     const { bbox } = this.state
     const point = (typeof markerLocation.lng !== 'undefined') ? [markerLocation.lng, markerLocation.lat] : [markerLocation[1], markerLocation[0]]
     const location = {
-      latlng: markerLocation, // array of location
+      latlng: markerLocation,
+      wofId: addressInformation.id,
       label: addressInformation.label,
       hierarchy: {
         country: addressInformation.country,
