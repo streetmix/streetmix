@@ -81,6 +81,19 @@ class StreetMetaData extends React.Component {
     })
   }
 
+  getGeolocationText = () => {
+    const { hierarchy } = this.props.street.location
+    let text = ''
+    text = (hierarchy.locality) ? hierarchy.locality
+      : (hierarchy.region) ? hierarchy.region
+        : (hierarchy.neighbourhood) ? hierarchy.neighbourhood
+          : 'Unknown Location'
+    if (text !== 'Unknown Location' && hierarchy.country) {
+      text = text + ', ' + hierarchy.country
+    }
+    return text
+  }
+
   render () {
     let author = null
     const creatorId = this.props.street.creatorId
@@ -92,8 +105,7 @@ class StreetMetaData extends React.Component {
 
     let geolocationText = t('dialogs.geolocate.add-location', 'Add location')
     if (this.props.street.location) {
-      const { hierarchy } = this.props.street.location
-      geolocationText = hierarchy.locality + ', ' + hierarchy.country
+      geolocationText = this.getGeolocationText()
     }
 
     const geolocation = (this.props.enableLocation) ? (

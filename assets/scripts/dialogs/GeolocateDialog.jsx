@@ -149,6 +149,7 @@ class GeolocateDialog extends React.Component {
       label: addressInformation.label,
       hierarchy: {
         country: addressInformation.country,
+        region: addressInformation.region,
         locality: addressInformation.locality,
         neighbourhood: addressInformation.neighbourhood,
         street: addressInformation.street
