@@ -87,12 +87,6 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
     thumbnailWidth * dpi,
     (20 * multiplier) * dpi)
 
-  // Segment names
-
-  ctx.fillStyle = BOTTOM_BACKGROUND
-  ctx.fillRect(0, (groundLevel + (GROUND_BASELINE_HEIGHT * multiplier)) * dpi,
-    thumbnailWidth * dpi, (thumbnailHeight - groundLevel - (GROUND_BASELINE_HEIGHT * multiplier)) * dpi)
-
   // Buildings
 
   const buildingWidth = buildingOffsetLeft / multiplier
@@ -141,6 +135,12 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
       offsetLeft += segment.width * TILE_SIZE * multiplier
     }
   }
+
+  // Segment names background
+
+  ctx.fillStyle = BOTTOM_BACKGROUND
+  ctx.fillRect(0, (groundLevel + ((GROUND_BASELINE_HEIGHT + 1) * multiplier)) * dpi,
+    thumbnailWidth * dpi, (thumbnailHeight - groundLevel - ((GROUND_BASELINE_HEIGHT + 1) * multiplier)) * dpi)
 
   // Segment names
   if (segmentNamesAndWidths) {
