@@ -178,6 +178,16 @@ class GeolocateDialog extends React.Component {
     this.props.clearDialogs()
   }
 
+  // If there is no street information, returns false
+  // If there is no street owner, return true
+  // If there is the street owner is equal to the current user, return true
+  // If there is no street location, return true
+  canEditLocation = () => {
+    const { userData, street, addressInformation } = this.props
+    if (!addressInformation.street) return false
+    return (!street.creatorId || (userData && userData.userId === street.creatorId) || !street.location)
+  }
+
   render () {
     const markers = this.props.markerLocation ? (
       <Marker
@@ -188,8 +198,7 @@ class GeolocateDialog extends React.Component {
       />
     ) : null
 
-    const { userData, street } = this.props
-    const confirmButton = ((userData && userData.userId === street.creatorId) || !street.location) ? (
+    const confirmButton = this.canEditLocation() ? (
       <button
         className="confirm-button"
         style={{marginTop: '10px'}}
