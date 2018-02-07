@@ -18,47 +18,70 @@ export const BUILDING_DESTINATION_THUMBNAIL = 2
 
 export const BUILDING_SPACE = 360
 
-export const DEFAULT_BUILDING_HEIGHT_LEFT = 4
-export const DEFAULT_BUILDING_HEIGHT_RIGHT = 3
-export const DEFAULT_BUILDING_VARIANT_LEFT = 'narrow'
-export const DEFAULT_BUILDING_VARIANT_RIGHT = 'wide'
-export const DEFAULT_BUILDING_HEIGHT_EMPTY = 1
-export const DEFAULT_BUILDING_VARIANT_EMPTY = 'grass'
-
 export const MAX_BUILDING_HEIGHT = 20
 
 export const GROUND_BASELINE_HEIGHT = 44
 
+// TODO: default overhang should just be 0
+const OVERHANG_WIDTH = 25
+
+/**
+ * Define buildings here. Properties:
+ *
+ * -- IDENTITY --
+ * id         id used in street data
+ * label      label to display (English fallback)
+ * spriteId   sprite id prefix, should append `-left` or `-right` to this unless
+ *            `sameOnBothSides` is true
+ *
+ * -- CHARACTERISTICS --
+ * hasFloors        (boolean) true if building can have multiple floors
+ * sameOnBothSides  (boolean) true if the same sprite is used both sides of the street
+ * repeatHalf       (boolean) true if half of the sprite is repeating and the other half anchors to street edge
+ *                            todo: better property name
+ * alignAtBaseline  (boolean) true if bottom of sprite should be anchored at baseline rather than ground plane
+ *
+ * -- SPECIFICATIONS --
+ * variantsCount    (number) actually, not sure
+ * mainFloorHeight  (number) in feet, how tall is the ground floor
+ *                            todo: use pixel heights for these?
+ * floorHeight      (number) in feet, how tall are intermediate floors (which can repeat)
+ * roofHeight       (number) in feet, how tall is the roof structure
+ * overhangWidth    (number) in ??, amount to overhang the sidewalk (adjusts OVERHANG_WIDTH)
+ */
 export const BUILDINGS = {
-  'waterfront': {
-    id: 'waterfront',
-    label: 'Waterfront',
-    spriteId: 'buildings--waterfront-', // append side later
-    hasFloors: false
-  },
   'grass': {
     id: 'grass',
     label: 'Grass',
-    spriteId: 'buildings--grass', // same sprite on both sides of street
+    spriteId: 'buildings--grass',
     hasFloors: false,
     sameOnBothSides: true
   },
   'fence': {
     id: 'fence',
     label: 'Empty lot',
-    spriteId: 'buildings--fenced-lot-', // append side later
+    spriteId: 'buildings--fenced-lot',
     hasFloors: false
   },
   'parking-lot': {
     id: 'parking-lot',
     label: 'Parking lot',
-    spriteId: 'buildings--parking-lot-', // append side later
-    hasFloors: false
+    spriteId: 'buildings--parking-lot',
+    hasFloors: false,
+    repeatHalf: true
+  },
+  'waterfront': {
+    id: 'waterfront',
+    label: 'Waterfront',
+    spriteId: 'buildings--waterfront',
+    hasFloors: false,
+    alignAtBaseline: true,
+    repeatHalf: true
   },
   'residential': {
     id: 'residential',
     label: 'Home',
-    spriteId: 'buildings--residential-', // append side later
+    spriteId: 'buildings--residential',
     hasFloors: true,
     variantsCount: 0,
     floorHeight: 10,
@@ -68,100 +91,56 @@ export const BUILDINGS = {
   'narrow': {
     id: 'narrow',
     label: 'Building',
-    spriteId: 'buildings--apartments-narrow-', // append side later
+    spriteId: 'buildings--apartments-narrow',
     hasFloors: true,
     variantsCount: 1,
     floorHeight: 10,
     roofHeight: 2,
-    mainFloorHeight: 14
+    mainFloorHeight: 14,
+    overhangWidth: 9
   },
   'wide': {
     id: 'wide',
     label: 'Building',
-    spriteId: 'buildings--apartments-wide-', // append side later
+    spriteId: 'buildings--apartments-wide',
     hasFloors: true,
     variantsCount: 1,
     floorHeight: 10,
     roofHeight: 2,
-    mainFloorHeight: 14
+    mainFloorHeight: 14,
+    overhangWidth: 5
   }
 }
 
-function getBuildingAttributes (street, left) {
-  const buildingVariant = left ? street.leftBuildingVariant : street.rightBuildingVariant
-  const floorCount = left ? street.leftBuildingHeight : street.rightBuildingHeight
-  return getBuildingAttributesByVariant(buildingVariant, left, floorCount)
-}
-
 /**
+ * Create sprite id given variant and position
  *
- * @param {string} buildingVariant - string id of building
- * @param {Boolean} left - is this on the left
- * @param {Number} floorCount - how many floors is it, if the building has floors
+ * @param {string} variant
+ * @param {string} position - either "left" or "right"
+ * @returns {string}
  */
-function getBuildingAttributesByVariant (buildingVariant, left, floorCount) {
-  const building = BUILDINGS[buildingVariant]
-  const side = (left) ? 'left' : 'right'
-  const spriteId = BUILDINGS[buildingVariant].spriteId + side
-  let offsetLeft = 0
-
-  // Directional
-  if (left) {
-    switch (buildingVariant) {
-      case 'narrow':
-        offsetLeft = -9
-        break
-      case 'wide':
-        offsetLeft = -5
-        break
-      case 'residential':
-        offsetLeft = -25
-        break
-    }
-  } else {
-    switch (buildingVariant) {
-      case 'narrow':
-        offsetLeft = 9
-        break
-      case 'wide':
-        offsetLeft = 5
-        break
-      case 'residential':
-        offsetLeft = 25
-        break
-    }
-  }
-
-  return {
-    spriteId: spriteId,
-
-    variantsCount: building.variantsCount,
-    floorHeight: building.floorHeight,
-    roofHeight: building.roofHeight,
-    mainFloorHeight: building.mainFloorHeight,
-
-    floorCount: floorCount,
-
-    height: getBuildingImageHeight(buildingVariant, side, floorCount),
-    buildingVariant: buildingVariant,
-    offsetLeft
-  }
+function getSpriteId (variant, position) {
+  const building = BUILDINGS[variant]
+  return building.spriteId + (building.sameOnBothSides ? '' : '-' + position)
 }
 
 /**
+ * Calculate building image height. For buildings that do not have multiple floors, this
+ * is just the image's intrinsic height value. For buildings with multiple floors, this
+ * must be calculated from the number of floors and sprite pixel specifications.
  *
  * @param {string} variant
  * @param {string} position - either "left" or "right"
  * @param {Number} floors
  */
-export function getBuildingImageHeight (variant, position, floors) {
+export function getBuildingImageHeight (variant, position, floors = 1) {
   const building = BUILDINGS[variant]
   let height
 
   if (building.hasFloors) {
-    height = ((building.roofHeight + (building.floorHeight * (floors - 1)) + building.mainFloorHeight) * TILE_SIZE) + 45
+    height = ((building.roofHeight + (building.floorHeight * (floors - 1)) + building.mainFloorHeight) * TILE_SIZE)
   } else {
-    const id = building.spriteId + (building.sameOnBothSides ? '' : position)
+    const id = getSpriteId(variant, position)
     const svg = images.get(id)
     height = svg.height / TILESET_POINT_PER_PIXEL
   }
@@ -170,14 +149,16 @@ export function getBuildingImageHeight (variant, position, floors) {
 }
 
 /**
- * transition function with weird stuff in it
+ * Converts the number of floors to an actual height in feet
  *
- * @todo Document magic numbers used here
- * @param {Object} street - street data
- * @param {Boolean} left - is the building on the left or what
+ * @param {string} variant
+ * @param {string} position - "left" or "right"
+ * @param {Number} floors
+ * @returns {Number} height, in feet
  */
-export function calculateRealHeightNumber (street, left, floorCount) {
-  return (getBuildingAttributesByVariant(street, left, floorCount).height - 45 - 6) / TILE_SIZE // todo: document magic numbers
+export function calculateRealHeightNumber (variant, position, floors) {
+  const CURB_HEIGHT = 6
+  return (getBuildingImageHeight(variant, position, floors) - CURB_HEIGHT) / TILE_SIZE
 }
 
 export function drawBuilding (
@@ -185,96 +166,65 @@ export function drawBuilding (
   left, totalWidth, totalHeight,
   offsetLeft,
   multiplier, dpi) {
-  const attr = getBuildingAttributes(street, left)
+  const variant = left ? street.leftBuildingVariant : street.rightBuildingVariant
+  const floors = left ? street.leftBuildingHeight : street.rightBuildingHeight
+  const position = left ? 'left' : 'right'
 
-  const offsetTop = totalHeight - (attr.height * multiplier)
+  const buildingHeight = getBuildingImageHeight(variant, position, floors)
+  const offsetTop = totalHeight - (buildingHeight * multiplier)
 
-  if (!BUILDINGS[attr.buildingVariant].hasFloors) {
-    drawSingleFloorBuilding(attr.buildingVariant, ctx, left, totalWidth, offsetLeft, offsetTop, multiplier, dpi)
+  const building = BUILDINGS[variant]
+
+  if (!building.hasFloors) {
+    drawSingleFloorBuilding(ctx, variant, position, totalWidth, offsetLeft, offsetTop, multiplier, dpi)
   } else {
-    drawMultiFloorBuilding(attr, ctx, left, totalWidth, offsetLeft, offsetTop, multiplier, dpi)
+    drawMultiFloorBuilding(ctx, variant, position, floors, totalWidth, offsetLeft, offsetTop, multiplier, dpi)
   }
 
   // If street width is exceeded, fade buildings
+  // Note: it would make sense to also fade out buildings when drawing large canvases but that would
+  // shade in the entire background erroneously
   if ((street.remainingWidth < 0) && (destination === BUILDING_DESTINATION_SCREEN)) {
     shadeInContext(ctx)
   }
 }
 
-function drawSingleFloorBuilding (buildingVariant, ctx, left, totalWidth, offsetLeft, offsetTop, multiplier, dpi) {
-  // posShift = a building sprite can overlap the sidewalk by a certain amount. a posShift
-  // value of 25 is NO overlap. a posShift value of 0 is 25 pixels of overlap.
-  let x, posShift, width, lastX, firstX, currentX, spriteId
+function drawSingleFloorBuilding (ctx, variant, position, totalWidth, offsetLeft, offsetTop, multiplier, dpi) {
+  const spriteId = getSpriteId(variant, position)
+  const svg = images.get(spriteId)
 
-  switch (buildingVariant) {
-    case 'fence': {
-      spriteId = (left) ? 'buildings--fenced-lot-left' : 'buildings--fenced-lot-right'
+  const building = BUILDINGS[variant]
 
-      const svg = images.get(spriteId)
-      width = svg.width / TILESET_POINT_PER_PIXEL
+  let x, posShift, width, lastX, firstX, currentX
 
-      if (left) {
-        posShift = (totalWidth % width) - (width + width + 25)
-      } else {
-        posShift = 25
-      }
-      break
-    }
-    case 'grass': {
-      spriteId = 'buildings--grass'
-
-      const svg = images.get(spriteId)
-      width = svg.width / TILESET_POINT_PER_PIXEL
-
-      if (left) {
-        posShift = (totalWidth % width) - (width + width + 25)
-      } else {
-        posShift = 25
-      }
-      break
-    }
-    case 'parking-lot': {
-      spriteId = (left) ? 'buildings--parking-lot-left' : 'buildings--parking-lot-right'
-
-      const svg = images.get(spriteId)
-      width = svg.width / TILESET_POINT_PER_PIXEL / 2 // 2 = halfway point is where repeat starts.
-
-      if (left) {
-        posShift = (totalWidth % width) - (width + width + 25) // do not overhang right edge
-
-        x = 0 // repeat the left half of this sprite
-        lastX = svg.width / 2 // anchor the right half of this sprite
-      } else {
-        posShift = 25 // do not overhang left edge
-
-        x = svg.width / 2 // repeat the right half of this sprite
-        firstX = 0 // anchor the left half of this sprite
-      }
-      break
-    }
-    case 'waterfront': {
-      offsetTop = GROUND_BASELINE_HEIGHT
-
-      spriteId = (left) ? 'buildings--waterfront-left' : 'buildings--waterfront-right'
-
-      const svg = images.get(spriteId)
-      width = svg.width / TILESET_POINT_PER_PIXEL / 2 // 2 = halfway point is where repeat starts.
-
-      if (left) {
-        posShift = (totalWidth % width) - (width + width + 25) // do not overhang right edge
-
-        x = 0 // repeat the left half of this sprite
-        lastX = svg.width / 2 // anchor the right half of this sprite
-      } else {
-        posShift = 25 // do not overhang left edge
-
-        x = svg.width / 2 // repeat the right half of this sprite
-        firstX = 0 // anchor the left half of this sprite
-      }
-      break
-    }
+  // Adjust offset if the building should be aligned at baseline instead of ground plane
+  if (building.alignAtBaseline) {
+    offsetTop += GROUND_BASELINE_HEIGHT
   }
 
+  // Some building sprites tile itself, while others tile just half of it
+  if (building.repeatHalf) {
+    width = svg.width / TILESET_POINT_PER_PIXEL / 2 // 2 = halfway point is where repeat starts.
+
+    if (position === 'left') {
+      x = 0 // repeat the left half of this sprite
+      lastX = svg.width / 2 // anchor the right half of this sprite
+    } else {
+      x = svg.width / 2 // repeat the right half of this sprite
+      firstX = 0 // anchor the left half of this sprite
+    }
+  } else {
+    width = svg.width / TILESET_POINT_PER_PIXEL
+  }
+
+  // Calculate position, note that none of these overhang the sidewalk
+  if (position === 'left') {
+    posShift = (totalWidth % width) - (width + width + OVERHANG_WIDTH)
+  } else {
+    posShift = OVERHANG_WIDTH
+  }
+
+  // Determine how much tiling happens
   const count = Math.floor(totalWidth / width) + 2
 
   for (let i = 0; i < count; i++) {
@@ -290,61 +240,64 @@ function drawSingleFloorBuilding (buildingVariant, ctx, left, totalWidth, offset
       currentX, null,
       width, null,
       offsetLeft + ((posShift + (i * width)) * multiplier),
-      offsetTop || 0,
+      offsetTop,
       width, null, multiplier, dpi)
   }
 }
 
-function drawMultiFloorBuilding (attr, ctx, left, totalWidth, offsetLeft, offsetTop, multiplier, dpi) {
-  const spriteId = attr.spriteId
+function drawMultiFloorBuilding (ctx, variant, position, floors, totalWidth, offsetLeft, offsetTop, multiplier, dpi) {
+  const spriteId = getSpriteId(variant, position)
   const svg = images.get(spriteId)
   const width = svg.width / TILESET_POINT_PER_PIXEL
   const height = svg.height // actual pixels, don't need to divide by TILESET_POINT_PER_PIXEL
 
-  const leftPos = (left) ? totalWidth - width + attr.offsetLeft : 0 + attr.offsetLeft
+  const buildingHeight = getBuildingImageHeight(variant, position, floors)
+  const building = BUILDINGS[variant]
+  const offsetLeftPos = building.overhangWidth || OVERHANG_WIDTH
+  const leftPos = (position === 'left') ? totalWidth - width - offsetLeftPos : offsetLeftPos
 
   // bottom floor
-  drawSegmentImage(attr.spriteId, ctx,
+  drawSegmentImage(spriteId, ctx,
     0,
-    height - (attr.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL), // 0 - 240 + (120 * attr.variantsCount),
+    height - (building.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL), // 0 - 240 + (120 * building.variantsCount),
     null,
-    attr.mainFloorHeight * TILE_SIZE,
+    building.mainFloorHeight * TILE_SIZE,
     offsetLeft + (leftPos * multiplier),
-    offsetTop + ((attr.height - (attr.mainFloorHeight * TILE_SIZE)) * multiplier),
+    offsetTop + ((buildingHeight - (building.mainFloorHeight * TILE_SIZE)) * multiplier),
     null,
-    attr.mainFloorHeight * TILE_SIZE,
+    building.mainFloorHeight * TILE_SIZE,
     multiplier, dpi)
 
   // middle floors
   const randomGenerator = new RandomGenerator()
   randomGenerator.seed = 0
 
-  for (let i = 1; i < attr.floorCount; i++) {
-    const variant = (attr.variantsCount === 0) ? 0 : Math.floor(randomGenerator.rand() * attr.variantsCount) + 1
+  for (let i = 1; i < floors; i++) {
+    const variant = (building.variantsCount === 0) ? 0 : Math.floor(randomGenerator.rand() * building.variantsCount) + 1
 
-    drawSegmentImage(attr.spriteId, ctx,
+    drawSegmentImage(spriteId, ctx,
       0,
-      height - (attr.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL) - (attr.floorHeight * TILE_SIZE * variant * TILESET_POINT_PER_PIXEL),
-      // 168 - (attr.floorHeight * TILE_SIZE * variant), // 0 - 240 + (120 * attr.variantsCount) - (attr.floorHeight * TILE_SIZE * variant),
+      height - (building.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL) - (building.floorHeight * TILE_SIZE * variant * TILESET_POINT_PER_PIXEL),
+      // 168 - (building.floorHeight * TILE_SIZE * variant), // 0 - 240 + (120 * building.variantsCount) - (building.floorHeight * TILE_SIZE * variant),
       null,
-      attr.floorHeight * TILE_SIZE,
+      building.floorHeight * TILE_SIZE,
       offsetLeft + (leftPos * multiplier),
-      offsetTop + (attr.height * multiplier) - ((attr.mainFloorHeight + (attr.floorHeight * i)) * TILE_SIZE * multiplier),
+      offsetTop + (buildingHeight * multiplier) - ((building.mainFloorHeight + (building.floorHeight * i)) * TILE_SIZE * multiplier),
       null,
-      attr.floorHeight * TILE_SIZE,
+      building.floorHeight * TILE_SIZE,
       multiplier, dpi)
   }
 
   // roof
-  drawSegmentImage(attr.spriteId, ctx,
+  drawSegmentImage(spriteId, ctx,
     0,
     0,
     null,
-    attr.roofHeight * TILE_SIZE,
+    building.roofHeight * TILE_SIZE,
     offsetLeft + (leftPos * multiplier),
-    offsetTop + (attr.height * multiplier) - ((attr.mainFloorHeight + (attr.floorHeight * (attr.floorCount - 1)) + attr.roofHeight) * TILE_SIZE * multiplier),
+    offsetTop + (buildingHeight * multiplier) - ((building.mainFloorHeight + (building.floorHeight * (floors - 1)) + building.roofHeight) * TILE_SIZE * multiplier),
     null,
-    attr.roofHeight * TILE_SIZE,
+    building.roofHeight * TILE_SIZE,
     multiplier, dpi)
 }
 

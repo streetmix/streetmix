@@ -221,7 +221,7 @@ class BuildingHeightControl extends React.Component {
       text += 's'
     }
 
-    const realHeight = calculateRealHeightNumber(variant, position === 'left', floors)
+    const realHeight = calculateRealHeightNumber(variant, position, floors)
     const prettifiedHeight = prettifyWidth(realHeight)
 
     text += ` (${prettifiedHeight})`
