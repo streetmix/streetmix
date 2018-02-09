@@ -93,13 +93,13 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
   const x1 = (thumbnailWidth / 2) - (street.width * TILE_SIZE * multiplier / 2)
   drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street,
-    true, buildingWidth, groundLevel + GROUND_BASELINE_HEIGHT,
+    true, buildingWidth, groundLevel,
     x1 - ((buildingWidth - 25) * multiplier),
     multiplier, dpi)
 
   const x2 = (thumbnailWidth / 2) + (street.width * TILE_SIZE * multiplier / 2)
   drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street,
-    false, buildingWidth, groundLevel + GROUND_BASELINE_HEIGHT,
+    false, buildingWidth, groundLevel,
     x2 - (25 * multiplier),
     multiplier, dpi)
 
@@ -137,10 +137,11 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
   }
 
   // Segment names background
-
-  ctx.fillStyle = BOTTOM_BACKGROUND
-  ctx.fillRect(0, (groundLevel + ((GROUND_BASELINE_HEIGHT + 1) * multiplier)) * dpi,
-    thumbnailWidth * dpi, (thumbnailHeight - groundLevel - ((GROUND_BASELINE_HEIGHT + 1) * multiplier)) * dpi)
+  if (segmentNamesAndWidths || silhouette) {
+    ctx.fillStyle = BOTTOM_BACKGROUND
+    ctx.fillRect(0, (groundLevel + (GROUND_BASELINE_HEIGHT * multiplier)) * dpi,
+      thumbnailWidth * dpi, (thumbnailHeight - groundLevel - (GROUND_BASELINE_HEIGHT * multiplier)) * dpi)
+  }
 
   // Segment names
   if (segmentNamesAndWidths) {
