@@ -340,7 +340,6 @@ function unpackStreetDataFromServerTransmission (transmission) {
 export function unpackServerStreetData (transmission, id, namespacedId, checkIfNeedsToBeRemixed) {
   setStreet(unpackStreetDataFromServerTransmission(transmission))
   var street = getStreet()
-  console.log('unpackServerStreetData', street)
 
   if (transmission.data.undoStack) {
     setUndoStack(cloneDeep(transmission.data.undoStack))
