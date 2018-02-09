@@ -310,11 +310,11 @@ function unpackStreetDataFromServerTransmission (transmission) {
   }
 
   var street = cloneDeep(transmission.data.street)
-
   street.creatorId = (transmission.creator && transmission.creator.id) || null
   street.originalStreetId = transmission.originalStreetId || null
   street.updatedAt = transmission.updatedAt || null
   street.name = transmission.name || DEFAULT_NAME
+  street.location = transmission.data.street.location || null
 
   // If there is a location, update map state to that location
   if (street.location) {
@@ -340,6 +340,7 @@ function unpackStreetDataFromServerTransmission (transmission) {
 export function unpackServerStreetData (transmission, id, namespacedId, checkIfNeedsToBeRemixed) {
   setStreet(unpackStreetDataFromServerTransmission(transmission))
   var street = getStreet()
+  console.log('unpackServerStreetData', street)
 
   if (transmission.data.undoStack) {
     setUndoStack(cloneDeep(transmission.data.undoStack))
