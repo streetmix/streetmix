@@ -60,6 +60,10 @@ class GeolocateDialog extends React.Component {
       // Default location if geo IP not detected; this hovers over Brooklyn
       mapCenter: [40.645, -73.975]
     }
+
+    // If there is a location attached to the street,
+    // update the map to show a marker at location
+    if (props.street.location) this.updateMapToStreetLocation(props.street.location)
   }
 
   componentDidMount () {
@@ -72,11 +76,35 @@ class GeolocateDialog extends React.Component {
     }
   }
 
+  updateMapToStreetLocation = (location) => {
+    const latlng = {
+      lat: location.latlng[0],
+      lng: location.latlng[1]
+    }
+
+    this.reverseGeocode(latlng)
+      .then(this.displayAddressData)
+  }
+
   reverseGeocode = (latlng) => {
     const url = `${REVERSE_GEOCODE_ENDPOINT}&point.lat=${latlng.lat}&point.lon=${latlng.lng}`
 
     return window.fetch(url)
       .then(response => response.json())
+  }
+
+  displayAddressData = (res) => {
+    this.setState({
+      bbox: res.bbox || null
+    })
+
+    this.props.setMapState({
+      addressInformation: res.features[0].properties,
+      addressInformationLabel: res.features[0].properties.label,
+      markerLocation: res.features[0].geometry.coordinates.reverse()
+    })
+
+    this.map.leafletElement.panTo(this.props.markerLocation)
   }
 
   onClickMap = (event) => {
@@ -85,22 +113,8 @@ class GeolocateDialog extends React.Component {
       lng: event.latlng.lng
     }
 
-    const displayAddressData = (res) => {
-      this.setState({
-        bbox: res.bbox || null
-      })
-
-      this.props.setMapState({
-        addressInformation: res.features[0].properties,
-        addressInformationLabel: res.features[0].properties.label,
-        markerLocation: res.features[0].geometry.coordinates.reverse()
-      })
-
-      this.map.leafletElement.panTo(this.props.markerLocation)
-    }
-
     this.reverseGeocode(options)
-      .then(displayAddressData)
+      .then(this.displayAddressData)
   }
 
   onDragEndMarker = (event) => {
