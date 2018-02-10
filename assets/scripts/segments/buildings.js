@@ -161,41 +161,18 @@ export function calculateRealHeightNumber (variant, position, floors) {
   return (getBuildingImageHeight(variant, position, floors) - CURB_HEIGHT) / TILE_SIZE
 }
 
-export function drawBuilding (
-  ctx, destination, street,
-  left, totalWidth, totalHeight,
-  offsetLeft,
-  multiplier, dpi) {
+export function drawBuilding (ctx, destination, street, left, totalWidth, totalHeight, offsetLeft, multiplier, dpi) {
   const variant = left ? street.leftBuildingVariant : street.rightBuildingVariant
   const floors = left ? street.leftBuildingHeight : street.rightBuildingHeight
   const position = left ? 'left' : 'right'
 
-  const buildingHeight = getBuildingImageHeight(variant, position, floors)
-  const offsetTop = totalHeight - (buildingHeight * multiplier)
-
   const building = BUILDINGS[variant]
 
-  if (!building.hasFloors) {
-    drawSingleFloorBuilding(ctx, variant, position, totalWidth, offsetLeft, offsetTop, multiplier, dpi)
-  } else {
-    drawMultiFloorBuilding(ctx, variant, position, floors, totalWidth, offsetLeft, offsetTop, multiplier, dpi)
-  }
-
-  // If street width is exceeded, fade buildings
-  // Note: it would make sense to also fade out buildings when drawing large canvases but that would
-  // shade in the entire background erroneously
-  if ((street.remainingWidth < 0) && (destination === BUILDING_DESTINATION_SCREEN)) {
-    shadeInContext(ctx)
-  }
-}
-
-function drawSingleFloorBuilding (ctx, variant, position, totalWidth, offsetLeft, offsetTop, multiplier, dpi) {
   const spriteId = getSpriteId(variant, position)
   const svg = images.get(spriteId)
 
-  const building = BUILDINGS[variant]
-
-  let x, posShift, width, lastX, firstX, currentX
+  const buildingHeight = getBuildingImageHeight(variant, position, floors)
+  let offsetTop = totalHeight - (buildingHeight * multiplier)
 
   // Adjust offset if the building should be aligned at baseline instead of ground plane
   if (building.alignAtBaseline) {
@@ -203,6 +180,7 @@ function drawSingleFloorBuilding (ctx, variant, position, totalWidth, offsetLeft
   }
 
   // Some building sprites tile itself, while others tile just half of it
+  let width, x, lastX, firstX
   if (building.repeatHalf) {
     width = svg.width / TILESET_POINT_PER_PIXEL / 2 // 2 = halfway point is where repeat starts.
 
@@ -217,88 +195,97 @@ function drawSingleFloorBuilding (ctx, variant, position, totalWidth, offsetLeft
     width = svg.width / TILESET_POINT_PER_PIXEL
   }
 
-  // Calculate position, note that none of these overhang the sidewalk
-  if (position === 'left') {
-    posShift = (totalWidth % width) - (width + width + OVERHANG_WIDTH)
-  } else {
-    posShift = OVERHANG_WIDTH
-  }
-
-  // Determine how much tiling happens
-  const count = Math.floor(totalWidth / width) + 2
-
-  for (let i = 0; i < count; i++) {
-    if ((i === 0) && (typeof firstX !== 'undefined')) {
-      currentX = firstX
-    } else if ((i === count - 1) && (typeof lastX !== 'undefined')) {
-      currentX = lastX
-    } else {
-      currentX = x
-    }
-
-    drawSegmentImage(spriteId, ctx,
-      currentX, null,
-      width, null,
-      offsetLeft + ((posShift + (i * width)) * multiplier),
-      offsetTop,
-      width, null, multiplier, dpi)
-  }
-}
-
-function drawMultiFloorBuilding (ctx, variant, position, floors, totalWidth, offsetLeft, offsetTop, multiplier, dpi) {
-  const spriteId = getSpriteId(variant, position)
-  const svg = images.get(spriteId)
-  const width = svg.width / TILESET_POINT_PER_PIXEL
-  const height = svg.height // actual pixels, don't need to divide by TILESET_POINT_PER_PIXEL
-
-  const buildingHeight = getBuildingImageHeight(variant, position, floors)
-  const building = BUILDINGS[variant]
+  // Calculate overhang position
   const offsetLeftPos = building.overhangWidth || OVERHANG_WIDTH
-  const leftPos = (position === 'left') ? totalWidth - width - offsetLeftPos : offsetLeftPos
+  let leftPosShift
+  if (position === 'left') {
+    if (!building.hasFloors) {
+      // takes into consideration tiling
+      leftPosShift = (totalWidth % width) - (width + width + offsetLeftPos)
+    } else {
+      leftPosShift = totalWidth - (width + offsetLeftPos)
+    }
+  } else {
+    leftPosShift = offsetLeftPos
+  }
 
-  // bottom floor
-  drawSegmentImage(spriteId, ctx,
-    0,
-    height - (building.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL), // 0 - 240 + (120 * building.variantsCount),
-    null,
-    building.mainFloorHeight * TILE_SIZE,
-    offsetLeft + (leftPos * multiplier),
-    offsetTop + ((buildingHeight - (building.mainFloorHeight * TILE_SIZE)) * multiplier),
-    null,
-    building.mainFloorHeight * TILE_SIZE,
-    multiplier, dpi)
+  // Multifloor buildings
+  if (building.hasFloors) {
+    const height = svg.height // actual pixels, don't need to divide by TILESET_POINT_PER_PIXEL
 
-  // middle floors
-  const randomGenerator = new RandomGenerator()
-  randomGenerator.seed = 0
-
-  for (let i = 1; i < floors; i++) {
-    const variant = (building.variantsCount === 0) ? 0 : Math.floor(randomGenerator.rand() * building.variantsCount) + 1
-
+    // bottom floor
     drawSegmentImage(spriteId, ctx,
       0,
-      height - (building.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL) - (building.floorHeight * TILE_SIZE * variant * TILESET_POINT_PER_PIXEL),
-      // 168 - (building.floorHeight * TILE_SIZE * variant), // 0 - 240 + (120 * building.variantsCount) - (building.floorHeight * TILE_SIZE * variant),
+      height - (building.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL), // 0 - 240 + (120 * building.variantsCount),
       null,
-      building.floorHeight * TILE_SIZE,
-      offsetLeft + (leftPos * multiplier),
-      offsetTop + (buildingHeight * multiplier) - ((building.mainFloorHeight + (building.floorHeight * i)) * TILE_SIZE * multiplier),
+      building.mainFloorHeight * TILE_SIZE,
+      offsetLeft + (leftPosShift * multiplier),
+      offsetTop + ((buildingHeight - (building.mainFloorHeight * TILE_SIZE)) * multiplier),
       null,
-      building.floorHeight * TILE_SIZE,
+      building.mainFloorHeight * TILE_SIZE,
       multiplier, dpi)
+
+    // middle floors
+    const randomGenerator = new RandomGenerator()
+    randomGenerator.seed = 0
+
+    for (let i = 1; i < floors; i++) {
+      const variant = (building.variantsCount === 0) ? 0 : Math.floor(randomGenerator.rand() * building.variantsCount) + 1
+
+      drawSegmentImage(spriteId, ctx,
+        0,
+        height - (building.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL) - (building.floorHeight * TILE_SIZE * variant * TILESET_POINT_PER_PIXEL),
+        // 168 - (building.floorHeight * TILE_SIZE * variant), // 0 - 240 + (120 * building.variantsCount) - (building.floorHeight * TILE_SIZE * variant),
+        null,
+        building.floorHeight * TILE_SIZE,
+        offsetLeft + (leftPosShift * multiplier),
+        offsetTop + (buildingHeight * multiplier) - ((building.mainFloorHeight + (building.floorHeight * i)) * TILE_SIZE * multiplier),
+        null,
+        building.floorHeight * TILE_SIZE,
+        multiplier, dpi)
+    }
+
+    // roof
+    drawSegmentImage(spriteId, ctx,
+      0,
+      0,
+      null,
+      building.roofHeight * TILE_SIZE,
+      offsetLeft + (leftPosShift * multiplier),
+      offsetTop + (buildingHeight * multiplier) - ((building.mainFloorHeight + (building.floorHeight * (floors - 1)) + building.roofHeight) * TILE_SIZE * multiplier),
+      null,
+      building.roofHeight * TILE_SIZE,
+      multiplier, dpi)
+  } else {
+    // Single floor buildings
+    // Determine how much tiling happens
+    const count = Math.floor(totalWidth / width) + 2
+
+    let currentX
+    for (let i = 0; i < count; i++) {
+      if ((i === 0) && (typeof firstX !== 'undefined')) {
+        currentX = firstX
+      } else if ((i === count - 1) && (typeof lastX !== 'undefined')) {
+        currentX = lastX
+      } else {
+        currentX = x
+      }
+
+      drawSegmentImage(spriteId, ctx,
+        currentX, null,
+        width, null,
+        offsetLeft + ((leftPosShift + (i * width)) * multiplier),
+        offsetTop,
+        width, null, multiplier, dpi)
+    }
   }
 
-  // roof
-  drawSegmentImage(spriteId, ctx,
-    0,
-    0,
-    null,
-    building.roofHeight * TILE_SIZE,
-    offsetLeft + (leftPos * multiplier),
-    offsetTop + (buildingHeight * multiplier) - ((building.mainFloorHeight + (building.floorHeight * (floors - 1)) + building.roofHeight) * TILE_SIZE * multiplier),
-    null,
-    building.roofHeight * TILE_SIZE,
-    multiplier, dpi)
+  // If street width is exceeded, fade buildings
+  // Note: it would make sense to also fade out buildings when drawing large canvases but that would
+  // shade in the entire background erroneously
+  if ((street.remainingWidth < 0) && (destination === BUILDING_DESTINATION_SCREEN)) {
+    shadeInContext(ctx)
+  }
 }
 
 /**
