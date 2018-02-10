@@ -12,11 +12,11 @@ import { checkIfSignInAndGeolocationLoaded } from './localization'
 import { loadSettings, getSettings, setSettings } from './settings'
 import store from '../store'
 import {
-  SET_USER_SIGN_IN_DATA,
-  SET_USER_SIGNED_IN_STATE,
-  SET_USER_SIGN_IN_LOADED_STATE
-} from '../store/actions'
-import { rememberUserProfile } from '../store/actions/user'
+  createSetSignInData,
+  createSignedInState,
+  createSignInLoadedState,
+  rememberUserProfile
+} from '../store/actions/user'
 
 const USER_ID_COOKIE = 'user_id'
 const SIGN_IN_TOKEN_COOKIE = 'login_token'
@@ -24,14 +24,6 @@ const LOCAL_STORAGE_SIGN_IN_ID = 'sign-in'
 
 export function getSignInData () {
   return store.getState().user.signInData
-}
-
-// Action creator
-function createSetSignInData (data) {
-  return {
-    type: SET_USER_SIGN_IN_DATA,
-    signInData: data
-  }
 }
 
 function setSignInData (data) {
@@ -46,28 +38,12 @@ export function isSignedIn () {
   return store.getState().user.signedIn
 }
 
-// Action creator
-function createSignedInState (bool) {
-  return {
-    type: SET_USER_SIGNED_IN_STATE,
-    signedIn: bool
-  }
-}
-
 function setSignedInState (bool) {
   store.dispatch(createSignedInState(bool))
 }
 
 export function isSignInLoaded () {
   return store.getState().user.signInLoaded
-}
-
-// Action creator
-function createSignInLoadedState (bool) {
-  return {
-    type: SET_USER_SIGN_IN_LOADED_STATE,
-    signInLoaded: bool
-  }
 }
 
 function setSignInLoadedState (bool) {
