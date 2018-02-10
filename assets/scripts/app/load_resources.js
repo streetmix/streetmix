@@ -86,8 +86,7 @@ function loadImages () {
 }
 
 /**
- * Gets a string representation of an <svg> via its outerHTML property
- * or with a fallback method if outerHTML is unavailable (IE / Edge)
+ * Gets a string representation of an <svg>
  *
  * @param {SVGElement} svg
  * @return {string}
@@ -95,18 +94,17 @@ function loadImages () {
 function getSVGOuterHTML (svg) {
   let outerHTML = svg.outerHTML
 
-  // If `outerHTML` is not available, use this alternate method below
+  // The `outerHTML` property is not available on IE / Edge
+  // so if it's not present, use this alternate method below
   if (typeof outerHTML === 'undefined') {
-    outerHTML = new XMLSerializer().serializeToString(svg)
+    outerHTML = (new window.XMLSerializer()).serializeToString(svg)
   }
 
   return outerHTML
 }
 
 /**
- * Gets a string representation of an svg <symbol>'s contents via
- * the innerHTML property or with a fallback method if innerHTML is
- * unavailable (IE / Edge)
+ * Gets a string representation of an svg <symbol>'s contents
  *
  * @param {SVGSymbolElement}
  * @return {string}
@@ -114,7 +112,8 @@ function getSVGOuterHTML (svg) {
 function getSVGSymbolInnerHTML (symbol) {
   let innerHTML = symbol.innerHTML
 
-  // If `innerHTML` is not available, use this alternate method below,
+  // The `innerHTML` property is not available on IE / Edge
+  // so if it's not present, use this alternate method below
   // which iterates through each of the symbol's child nodes and
   // serializes each element to a string.
   if (typeof innerHTML === 'undefined') {
