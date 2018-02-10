@@ -1,10 +1,10 @@
 import { drawStreetThumbnail } from '../gallery/thumbnail'
-import { system } from '../preinit/system_capabilities'
-import { BUILDING_SPACE, getBuildingAttributes } from '../segments/buildings'
+import { BUILDING_SPACE, getBuildingImageHeight } from '../segments/buildings'
 import { TILE_SIZE } from '../segments/view'
-import { getStreet } from './data_model'
 
+// This can be adjusted to create much more hi-definition images
 const SAVE_AS_IMAGE_DPI = 2.0
+
 const SAVE_AS_IMAGE_MIN_HEIGHT = 400
 const SAVE_AS_IMAGE_MIN_HEIGHT_WITH_STREET_NAME = SAVE_AS_IMAGE_MIN_HEIGHT + 150
 const SAVE_AS_IMAGE_BOTTOM_PADDING = 60
@@ -13,15 +13,11 @@ const SAVE_AS_IMAGE_BOTTOM_PADDING = 60
 // TODO: a way to remove the circular dependency?!
 export const SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING = 65
 
-export function getStreetImage (transparentSky, segmentNamesAndWidths, streetName) {
-  let street = getStreet()
+export function getStreetImage (street, transparentSky, segmentNamesAndWidths, streetName) {
   const width = (TILE_SIZE * street.width) + (BUILDING_SPACE * 2)
 
-  const leftBuildingAttr = getBuildingAttributes(street, true)
-  const rightBuildingAttr = getBuildingAttributes(street, false)
-
-  const leftHeight = leftBuildingAttr.height
-  const rightHeight = rightBuildingAttr.height
+  const leftHeight = getBuildingImageHeight(street.leftBuildingVariant, 'left', street.leftBuildingHeight)
+  const rightHeight = getBuildingImageHeight(street.rightBuildingVariant, 'right', street.rightBuildingHeight)
 
   let height = Math.max(leftHeight, rightHeight)
 
@@ -45,11 +41,7 @@ export function getStreetImage (transparentSky, segmentNamesAndWidths, streetNam
 
   const ctx = el.getContext('2d')
 
-  // TODO hack
-  const oldDpi = system.hiDpi
-  system.hiDpi = SAVE_AS_IMAGE_DPI
-  drawStreetThumbnail(ctx, street, width, height, 1.0, false, true, transparentSky, segmentNamesAndWidths, streetName)
-  system.hiDpi = oldDpi
+  drawStreetThumbnail(ctx, street, width, height, SAVE_AS_IMAGE_DPI, 1.0, false, true, transparentSky, segmentNamesAndWidths, streetName)
 
   return el
 }

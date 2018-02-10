@@ -3,12 +3,12 @@ import {
   INFO_BUBBLE_TYPE_LEFT_BUILDING,
   infoBubble
 } from '../info_bubble/info_bubble'
-import { system } from '../preinit/system_capabilities'
 import { getStreet, saveStreetToServerIfNecessary } from '../streets/data_model'
 import { getElAbsolutePos } from '../util/helpers'
 import { RandomGenerator } from '../util/random'
+import { images } from '../app/load_resources'
 import { resumeFadeoutControls } from './resizing'
-import { TILE_SIZE, drawSegmentImage } from './view'
+import { TILE_SIZE, TILESET_POINT_PER_PIXEL, drawSegmentImage } from './view'
 import store from '../store'
 
 const MAX_CANVAS_HEIGHT = 2048
@@ -18,242 +18,250 @@ export const BUILDING_DESTINATION_THUMBNAIL = 2
 
 export const BUILDING_SPACE = 360
 
-export const DEFAULT_BUILDING_HEIGHT_LEFT = 4
-export const DEFAULT_BUILDING_HEIGHT_RIGHT = 3
-export const DEFAULT_BUILDING_VARIANT_LEFT = 'narrow'
-export const DEFAULT_BUILDING_VARIANT_RIGHT = 'wide'
-export const DEFAULT_BUILDING_HEIGHT_EMPTY = 1
-export const DEFAULT_BUILDING_VARIANT_EMPTY = 'grass'
-
-export const BUILDING_VARIANTS = ['waterfront', 'grass', 'fence', 'parking-lot',
-  'residential', 'narrow', 'wide']
-export const BUILDING_VARIANT_NAMES = ['Waterfront', 'Grass', 'Empty lot', 'Parking lot',
-  'Home', 'Building', 'Building']
-
 export const MAX_BUILDING_HEIGHT = 20
 
-export function getBuildingAttributes (street, left) {
-  let width, floorRoofWidth, variantsCount, tileset, floorHeight, roofHeight
-  let mainFloorHeight, height, tilePositionX, tilePositionY
-  var buildingVariant = left ? street.leftBuildingVariant : street.rightBuildingVariant
-  var flooredBuilding = isFlooredBuilding(buildingVariant)
+export const GROUND_BASELINE_HEIGHT = 44
 
-  // Non-directional
+// TODO: default overhang should just be 0
+const OVERHANG_WIDTH = 25
 
-  switch (buildingVariant) {
-    case 'narrow':
-      width = 216
-      floorRoofWidth = 216
-      variantsCount = 1
-      tileset = 2
-
-      floorHeight = 10
-      roofHeight = 2
-      mainFloorHeight = 14
-      break
-    case 'wide':
-      width = 396
-      floorRoofWidth = 396
-      variantsCount = 1
-      tileset = 3
-
-      floorHeight = 10
-      roofHeight = 2
-      mainFloorHeight = 14
-      break
-    case 'residential':
-      width = 396
-      floorRoofWidth = 240
-      variantsCount = 0
-
-      floorHeight = 10
-      roofHeight = 6
-      mainFloorHeight = 24.5
-      break
-    case 'waterfront':
-      height = 12 * TILE_SIZE
-      break
-    case 'parking-lot':
-      height = 28 * TILE_SIZE
-      break
-    case 'fence':
-      height = 12 * TILE_SIZE
-      break
-    case 'grass':
-      height = 6 * TILE_SIZE
-      break
-  }
-  // Directional
-
-  if (left) {
-    switch (buildingVariant) {
-      case 'narrow':
-        tilePositionX = 1512 + 17
-        tilePositionY = 576 - 1
-        break
-      case 'wide':
-        tilePositionX = 1956
-        tilePositionY = 576 - (24 * 2)
-        break
-      case 'residential':
-        tileset = 3
-        tilePositionX = 1956 + 382 + 204
-        tilePositionY = 576 + (740 / 2) - 1 - 12 + 8
-        break
-    }
-  } else {
-    switch (buildingVariant) {
-      case 'narrow':
-        tilePositionX = 1728 + 13
-        tilePositionY = 576 - 1
-        break
-      case 'wide':
-        tilePositionX = 2351
-        tilePositionY = 576 - (24 * 2) - 1
-        break
-      case 'residential':
-        tileset = 2
-        tilePositionX = 1956 + 382 + 204 + 25 - 1008 - 12 - 1 + 48
-        tilePositionY = 576 + (740 / 2) - 1 - 12 + 237 + 6
-        break
-    }
-  }
-
-  if (flooredBuilding) {
-    var floorCount = left ? street.leftBuildingHeight : street.rightBuildingHeight
-    height = ((roofHeight + (floorHeight * (floorCount - 1)) + mainFloorHeight) * TILE_SIZE) + 45
-    var realHeight = height - 45 - 6
-  }
-
-  return {
-    tilePositionX: tilePositionX,
-    tilePositionY: tilePositionY,
-    width: width,
-    variantsCount: variantsCount,
-    tileset: tileset,
-    mainFloorHeight: mainFloorHeight,
-    floorHeight: floorHeight,
-    flooredBuilding: flooredBuilding,
-    floorRoofWidth: floorRoofWidth,
-    floorCount: floorCount,
-    realHeight: realHeight,
-    roofHeight: roofHeight,
-    height: height,
-    buildingVariant: buildingVariant
+/**
+ * Define buildings here. Properties:
+ *
+ * -- IDENTITY --
+ * id         id used in street data
+ * label      label to display (English fallback)
+ * spriteId   sprite id prefix, should append `-left` or `-right` to this unless
+ *            `sameOnBothSides` is true
+ *
+ * -- CHARACTERISTICS --
+ * hasFloors        (boolean) true if building can have multiple floors
+ * sameOnBothSides  (boolean) true if the same sprite is used both sides of the street
+ * repeatHalf       (boolean) true if half of the sprite is repeating and the other half anchors to street edge
+ *                            todo: better property name
+ * alignAtBaseline  (boolean) true if bottom of sprite should be anchored at baseline rather than ground plane
+ *
+ * -- SPECIFICATIONS --
+ * variantsCount    (number) actually, not sure
+ * mainFloorHeight  (number) in feet, how tall is the ground floor
+ *                            todo: use pixel heights for these?
+ * floorHeight      (number) in feet, how tall are intermediate floors (which can repeat)
+ * roofHeight       (number) in feet, how tall is the roof structure
+ * overhangWidth    (number) in ??, amount to overhang the sidewalk (adjusts OVERHANG_WIDTH)
+ */
+export const BUILDINGS = {
+  'grass': {
+    id: 'grass',
+    label: 'Grass',
+    spriteId: 'buildings--grass',
+    hasFloors: false,
+    sameOnBothSides: true
+  },
+  'fence': {
+    id: 'fence',
+    label: 'Empty lot',
+    spriteId: 'buildings--fenced-lot',
+    hasFloors: false
+  },
+  'parking-lot': {
+    id: 'parking-lot',
+    label: 'Parking lot',
+    spriteId: 'buildings--parking-lot',
+    hasFloors: false,
+    repeatHalf: true
+  },
+  'waterfront': {
+    id: 'waterfront',
+    label: 'Waterfront',
+    spriteId: 'buildings--waterfront',
+    hasFloors: false,
+    alignAtBaseline: true,
+    repeatHalf: true
+  },
+  'residential': {
+    id: 'residential',
+    label: 'Home',
+    spriteId: 'buildings--residential',
+    hasFloors: true,
+    variantsCount: 0,
+    floorHeight: 10,
+    roofHeight: 6,
+    mainFloorHeight: 24.5
+  },
+  'narrow': {
+    id: 'narrow',
+    label: 'Building',
+    spriteId: 'buildings--apartments-narrow',
+    hasFloors: true,
+    variantsCount: 1,
+    floorHeight: 10,
+    roofHeight: 2,
+    mainFloorHeight: 14,
+    overhangWidth: 9
+  },
+  'wide': {
+    id: 'wide',
+    label: 'Building',
+    spriteId: 'buildings--apartments-wide',
+    hasFloors: true,
+    variantsCount: 1,
+    floorHeight: 10,
+    roofHeight: 2,
+    mainFloorHeight: 14,
+    overhangWidth: 5
   }
 }
 
 /**
- * Returns true if the building type editable number of floors
+ * Create sprite id given variant and position
  *
- * @param {string} buildingVariant
- * @param {Boolean}
+ * @param {string} variant
+ * @param {string} position - either "left" or "right"
+ * @returns {string}
  */
-// TODO change to array
-export function isFlooredBuilding (buildingVariant) {
-  if ((buildingVariant === 'narrow') || (buildingVariant === 'wide') ||
-    (buildingVariant === 'residential')) {
-    return true
-  } else {
-    return false
-  }
+function getSpriteId (variant, position) {
+  const building = BUILDINGS[variant]
+  return building.spriteId + (building.sameOnBothSides ? '' : '-' + position)
 }
 
-export function drawBuilding (ctx, destination, street, left, totalWidth,
-  totalHeight, bottomAligned, offsetLeft, offsetTop,
-  multiplier) {
-  let x, y, posShift, leftPos, tileset, width, height, offsetY, lastX, firstX
-  let variant, currentX
-  var attr = getBuildingAttributes(street, left)
+/**
+ * Calculate building image height. For buildings that do not have multiple floors, this
+ * is just the image's intrinsic height value. For buildings with multiple floors, this
+ * must be calculated from the number of floors and sprite pixel specifications.
+ *
+ * @param {string} variant
+ * @param {string} position - either "left" or "right"
+ * @param {Number} floors
+ */
+export function getBuildingImageHeight (variant, position, floors = 1) {
+  const building = BUILDINGS[variant]
+  let height
 
-  if (bottomAligned) {
-    offsetTop += totalHeight - (attr.height * multiplier)
+  if (building.hasFloors) {
+    height = ((building.roofHeight + (building.floorHeight * (floors - 1)) + building.mainFloorHeight) * TILE_SIZE)
+  } else {
+    const id = getSpriteId(variant, position)
+    const svg = images.get(id)
+    height = svg.height / TILESET_POINT_PER_PIXEL
   }
 
-  if (!attr.flooredBuilding) {
-    switch (attr.buildingVariant) {
-      case 'fence':
-        tileset = 1
-        if (left) {
-          x = 1344 / 2
-        } else {
-          x = 1224 / 2
-        }
-        width = 48
-        y = 0
-        height = 168 + 12 - 24 - 24 - 24
-        offsetY = 23 + 24
-        offsetTop -= 45
+  return height
+}
 
-        if (left) {
-          posShift = (totalWidth % width) - 121
-        } else {
-          posShift = 25
-        }
-        break
-      case 'grass':
-        tileset = 1
-        x = 1104 / 2
-        width = 48
-        y = 0
-        height = 168 + 12
-        offsetY = 23 + 24 - (6 * 12)
-        offsetTop -= 45
+/**
+ * Converts the number of floors to an actual height in feet
+ *
+ * @param {string} variant
+ * @param {string} position - "left" or "right"
+ * @param {Number} floors
+ * @returns {Number} height, in feet
+ */
+export function calculateRealHeightNumber (variant, position, floors) {
+  const CURB_HEIGHT = 6
+  return (getBuildingImageHeight(variant, position, floors) - CURB_HEIGHT) / TILE_SIZE
+}
 
-        if (left) {
-          posShift = (totalWidth % width) - 121
-        } else {
-          posShift = 25
-        }
-        break
+export function drawBuilding (ctx, destination, street, left, totalWidth, totalHeight, offsetLeft, multiplier, dpi) {
+  const variant = left ? street.leftBuildingVariant : street.rightBuildingVariant
+  const floors = left ? street.leftBuildingHeight : street.rightBuildingHeight
+  const position = left ? 'left' : 'right'
 
-      case 'parking-lot':
-        tileset = 3
-        width = 216
-        height = 576 / 2
-        offsetY = 3 + 45
-        offsetTop -= 45
+  const building = BUILDINGS[variant]
 
-        if (left) {
-          posShift = (totalWidth % width) - width - width - 25
-          y = 12 + 298
+  const spriteId = getSpriteId(variant, position)
+  const svg = images.get(spriteId)
 
-          x = 815 + (162 * 12)
-          lastX = 815 + (162 * 12) + (9 * 24)
-        } else {
-          posShift = 25
-          y = 12
+  const buildingHeight = getBuildingImageHeight(variant, position, floors)
+  let offsetTop = totalHeight - (buildingHeight * multiplier)
 
-          x = 815 + (162 * 12) + (9 * 24)
-          firstX = 815 + (162 * 12)
-        }
-        break
+  // Adjust offset if the building should be aligned at baseline instead of ground plane
+  if (building.alignAtBaseline) {
+    offsetTop += GROUND_BASELINE_HEIGHT
+  }
 
-      case 'waterfront':
-        tileset = 1
-        width = 120
-        height = 192 / 2
-        offsetY = 24 + 24 + 45
-        offsetTop -= 45
+  // Some building sprites tile itself, while others tile just half of it
+  let width, x, lastX, firstX
+  if (building.repeatHalf) {
+    width = svg.width / TILESET_POINT_PER_PIXEL / 2 // 2 = halfway point is where repeat starts.
 
-        if (left) {
-          posShift = (totalWidth % width) - width - width - 25
-          y = 120
+    if (position === 'left') {
+      x = 0 // repeat the left half of this sprite
+      lastX = svg.width / 2 // anchor the right half of this sprite
+    } else {
+      x = svg.width / 2 // repeat the right half of this sprite
+      firstX = 0 // anchor the left half of this sprite
+    }
+  } else {
+    width = svg.width / TILESET_POINT_PER_PIXEL
+  }
 
-          x = 0
-          lastX = 120
-        } else {
-          posShift = 25
-          y = 456 / 2
+  // Calculate overhang position
+  const offsetLeftPos = building.overhangWidth || OVERHANG_WIDTH
+  let leftPosShift
+  if (position === 'left') {
+    if (!building.hasFloors) {
+      // takes into consideration tiling
+      leftPosShift = (totalWidth % width) - (width + width + offsetLeftPos)
+    } else {
+      leftPosShift = totalWidth - (width + offsetLeftPos)
+    }
+  } else {
+    leftPosShift = offsetLeftPos
+  }
 
-          x = 120
-          firstX = 0
-        }
-        break
+  // Multifloor buildings
+  if (building.hasFloors) {
+    const height = svg.height // actual pixels, don't need to divide by TILESET_POINT_PER_PIXEL
+
+    // bottom floor
+    drawSegmentImage(spriteId, ctx,
+      0,
+      height - (building.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL), // 0 - 240 + (120 * building.variantsCount),
+      null,
+      building.mainFloorHeight * TILE_SIZE,
+      offsetLeft + (leftPosShift * multiplier),
+      offsetTop + ((buildingHeight - (building.mainFloorHeight * TILE_SIZE)) * multiplier),
+      null,
+      building.mainFloorHeight * TILE_SIZE,
+      multiplier, dpi)
+
+    // middle floors
+    const randomGenerator = new RandomGenerator()
+    randomGenerator.seed = 0
+
+    for (let i = 1; i < floors; i++) {
+      const variant = (building.variantsCount === 0) ? 0 : Math.floor(randomGenerator.rand() * building.variantsCount) + 1
+
+      drawSegmentImage(spriteId, ctx,
+        0,
+        height - (building.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL) - (building.floorHeight * TILE_SIZE * variant * TILESET_POINT_PER_PIXEL),
+        // 168 - (building.floorHeight * TILE_SIZE * variant), // 0 - 240 + (120 * building.variantsCount) - (building.floorHeight * TILE_SIZE * variant),
+        null,
+        building.floorHeight * TILE_SIZE,
+        offsetLeft + (leftPosShift * multiplier),
+        offsetTop + (buildingHeight * multiplier) - ((building.mainFloorHeight + (building.floorHeight * i)) * TILE_SIZE * multiplier),
+        null,
+        building.floorHeight * TILE_SIZE,
+        multiplier, dpi)
     }
 
-    var count = Math.floor(totalWidth / width) + 2
+    // roof
+    drawSegmentImage(spriteId, ctx,
+      0,
+      0,
+      null,
+      building.roofHeight * TILE_SIZE,
+      offsetLeft + (leftPosShift * multiplier),
+      offsetTop + (buildingHeight * multiplier) - ((building.mainFloorHeight + (building.floorHeight * (floors - 1)) + building.roofHeight) * TILE_SIZE * multiplier),
+      null,
+      building.roofHeight * TILE_SIZE,
+      multiplier, dpi)
+  } else {
+    // Single floor buildings
+    // Determine how much tiling happens
+    const count = Math.floor(totalWidth / width) + 2
 
+    let currentX
     for (let i = 0; i < count; i++) {
       if ((i === 0) && (typeof firstX !== 'undefined')) {
         currentX = firstX
@@ -263,96 +271,50 @@ export function drawBuilding (ctx, destination, street, left, totalWidth,
         currentX = x
       }
 
-      drawSegmentImage(tileset, ctx,
-        currentX, y, width, height,
-        offsetLeft + ((posShift + (i * width)) * multiplier),
-        offsetTop + (offsetY * multiplier),
-        width * multiplier,
-        height * multiplier)
+      drawSegmentImage(spriteId, ctx,
+        currentX, null,
+        width, null,
+        offsetLeft + ((leftPosShift + (i * width)) * multiplier),
+        offsetTop,
+        width, null, multiplier, dpi)
     }
-  } else {
-    // Floored buildings
-
-    if (left) {
-      leftPos = totalWidth - attr.width - 2
-    } else {
-      leftPos = 0
-    }
-
-    offsetTop -= 45
-
-    // bottom floor
-
-    drawSegmentImage(attr.tileset, ctx,
-      attr.tilePositionX,
-      attr.tilePositionY - 240 + (120 * attr.variantsCount),
-      attr.width,
-      (attr.mainFloorHeight * TILE_SIZE) + TILE_SIZE,
-      offsetLeft + (leftPos * multiplier),
-      offsetTop + ((attr.height - (attr.mainFloorHeight * TILE_SIZE)) * multiplier),
-      attr.width * multiplier,
-      ((attr.mainFloorHeight * TILE_SIZE) + TILE_SIZE) * multiplier)
-
-    // middle floors
-
-    var floorCorrection = left ? 0 : (attr.width - attr.floorRoofWidth)
-
-    var randomGenerator = new RandomGenerator()
-    randomGenerator.seed = 0
-
-    for (let i = 1; i < attr.floorCount; i++) {
-      if (attr.variantsCount === 0) {
-        variant = 0
-      } else {
-        variant = Math.floor(randomGenerator.rand() * attr.variantsCount) + 1
-      }
-
-      drawSegmentImage(attr.tileset, ctx,
-        attr.tilePositionX + floorCorrection,
-        attr.tilePositionY - 240 + (120 * attr.variantsCount) - (attr.floorHeight * TILE_SIZE * variant),
-        attr.floorRoofWidth,
-        attr.floorHeight * TILE_SIZE,
-        offsetLeft + ((leftPos + floorCorrection) * multiplier),
-        offsetTop + (attr.height * multiplier) - ((attr.mainFloorHeight + (attr.floorHeight * i)) * TILE_SIZE * multiplier),
-        attr.floorRoofWidth * multiplier,
-        attr.floorHeight * TILE_SIZE * multiplier)
-    }
-
-    // roof
-
-    drawSegmentImage(attr.tileset, ctx,
-      attr.tilePositionX + floorCorrection,
-      attr.tilePositionY - 240 + (120 * attr.variantsCount) - ((attr.floorHeight * TILE_SIZE * attr.variantsCount) + (attr.roofHeight * TILE_SIZE)),
-      attr.floorRoofWidth,
-      attr.roofHeight * TILE_SIZE,
-      offsetLeft + ((leftPos + floorCorrection) * multiplier),
-      offsetTop + (attr.height * multiplier) - ((attr.mainFloorHeight + (attr.floorHeight * (attr.floorCount - 1)) + attr.roofHeight) * TILE_SIZE * multiplier),
-      attr.floorRoofWidth * multiplier,
-      attr.roofHeight * TILE_SIZE * multiplier)
   }
 
+  // If street width is exceeded, fade buildings
+  // Note: it would make sense to also fade out buildings when drawing large canvases but that would
+  // shade in the entire background erroneously
   if ((street.remainingWidth < 0) && (destination === BUILDING_DESTINATION_SCREEN)) {
-    ctx.save()
-    ctx.globalCompositeOperation = 'source-atop'
-    // TODO const
-    ctx.fillStyle = 'rgba(204, 163, 173, .9)'
-    ctx.fillRect(0, 0, totalWidth * system.hiDpi, totalHeight * system.hiDpi)
-    ctx.restore()
+    shadeInContext(ctx)
   }
 }
 
-function createBuilding (el, left) {
-  var street = getStreet()
-  var totalWidth = el.offsetWidth
-  var attr = getBuildingAttributes(street, left)
-  var height = Math.min(MAX_CANVAS_HEIGHT, attr.height)
-  var canvasEl = document.createElement('canvas')
-  var oldCanvasEl = el.querySelector('canvas')
+/**
+ * Fills the building rendered area with a color
+ *
+ * @param {CanvasRenderingContext2D} ctx
+ */
+function shadeInContext (ctx) {
+  ctx.save()
+  ctx.globalCompositeOperation = 'source-atop'
+  // TODO const
+  ctx.fillStyle = 'rgba(204, 163, 173, .9)'
+  ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+  ctx.restore()
+}
 
-  canvasEl.width = totalWidth * system.hiDpi
-  canvasEl.height = height * system.hiDpi
+function createBuilding (el, variant, position, floors, street) {
+  const totalWidth = el.offsetWidth
+  const buildingHeight = getBuildingImageHeight(variant, position, floors)
+
+  const height = Math.min(MAX_CANVAS_HEIGHT, buildingHeight)
+  const canvasEl = document.createElement('canvas')
+  const oldCanvasEl = el.querySelector('canvas')
+  const dpi = store.getState().system.hiDpi
+
+  canvasEl.width = totalWidth * dpi
+  canvasEl.height = (height + GROUND_BASELINE_HEIGHT) * dpi
   canvasEl.style.width = totalWidth + 'px'
-  canvasEl.style.height = height + 'px'
+  canvasEl.style.height = height + GROUND_BASELINE_HEIGHT + 'px'
 
   // Replace previous canvas if present, otherwise append a new one
   if (oldCanvasEl) {
@@ -361,9 +323,11 @@ function createBuilding (el, left) {
     el.appendChild(canvasEl)
   }
 
-  var ctx = canvasEl.getContext('2d')
-  drawBuilding(ctx, BUILDING_DESTINATION_SCREEN, street, left,
-    totalWidth, height, true, 0, 0, 1.0)
+  const ctx = canvasEl.getContext('2d')
+  drawBuilding(ctx, BUILDING_DESTINATION_SCREEN, street,
+    position === 'left', totalWidth, height,
+    0,
+    1.0, dpi)
 }
 
 export function buildingHeightUpdated () {
@@ -397,11 +361,13 @@ export function initBuildingReduxTransitionSubscriber () {
 }
 
 export function createBuildings () {
-  var leftEl = document.querySelector('#street-section-left-building')
-  var rightEl = document.querySelector('#street-section-right-building')
+  const leftEl = document.querySelector('#street-section-left-building')
+  const rightEl = document.querySelector('#street-section-right-building')
 
-  createBuilding(leftEl, true)
-  createBuilding(rightEl, false)
+  const street = getStreet()
+
+  createBuilding(leftEl, street.leftBuildingVariant, 'left', street.leftBuildingHeight, street)
+  createBuilding(rightEl, street.rightBuildingVariant, 'right', street.rightBuildingHeight, street)
 }
 
 export function onBuildingMouseEnter (event) {

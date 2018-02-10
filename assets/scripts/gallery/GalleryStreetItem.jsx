@@ -24,7 +24,7 @@ class GalleryStreetItem extends React.Component {
     handleSelect: PropTypes.func.isRequired,
     handleDelete: PropTypes.func.isRequired,
     allowDelete: PropTypes.bool,
-    hiDpi: PropTypes.number
+    dpi: PropTypes.number
   }
 
   static defaultProps = {
@@ -43,7 +43,7 @@ class GalleryStreetItem extends React.Component {
       console.log(this.props.street)
     }
     drawStreetThumbnail(ctx, this.props.street.data.street,
-      THUMBNAIL_WIDTH * 2, THUMBNAIL_HEIGHT * 2, THUMBNAIL_MULTIPLIER, true, false, true, false, false)
+      THUMBNAIL_WIDTH * 2, THUMBNAIL_HEIGHT * 2, this.props.dpi, THUMBNAIL_MULTIPLIER, true, false, true, false, false)
   }
 
   onClickGalleryStreet = (event) => {
@@ -76,8 +76,8 @@ class GalleryStreetItem extends React.Component {
           className={className}
         >
           <canvas
-            width={THUMBNAIL_WIDTH * this.props.hiDpi * 2}
-            height={THUMBNAIL_HEIGHT * this.props.hiDpi * 2}
+            width={THUMBNAIL_WIDTH * this.props.dpi * 2}
+            height={THUMBNAIL_HEIGHT * this.props.dpi * 2}
             ref={(ref) => { this.thumbnailEl = ref }}
           />
 
@@ -116,7 +116,7 @@ class GalleryStreetItem extends React.Component {
 function mapStateToProps (state) {
   return {
     userId: state.gallery.userId,
-    hiDpi: state.system.hiDpi
+    dpi: state.system.hiDpi
   }
 }
 

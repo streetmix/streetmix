@@ -1,11 +1,11 @@
 // TODO: Refactor this to have less magic numbers & stuff
 import { RandomGenerator } from '../util/random'
-import { drawSegmentImageSVG } from './view'
+import { drawSegmentImage } from './view'
 import { getVariantArray } from './variant_utils'
 import PEOPLE from './people.json'
 
 // TODO magic number - randSeed defaults to 35: why?
-export function drawProgrammaticPeople (ctx, width, offsetLeft, offsetTop, randSeed = 35, multiplier, variantString) {
+export function drawProgrammaticPeople (ctx, width, offsetLeft, offsetTop, randSeed = 35, multiplier, variantString, dpi) {
   let people = []
   let peopleWidth = 0
 
@@ -76,9 +76,8 @@ export function drawProgrammaticPeople (ctx, width, offsetLeft, offsetTop, randS
     const type = ('0' + (person.id + 1).toString()).slice(-2)
 
     // TODO: Document / refactor magic numbers
-    drawSegmentImageSVG('people--people-' + type, ctx,
+    drawSegmentImage('people--people-' + type, ctx, null, null, null, null,
       offsetLeft + ((person.left - (5 * 12 / 2) - ((4 - person.width) * 12 / 2) + startLeft) * multiplier),
-      offsetTop + (37 * multiplier),
-      12 * 5 * multiplier, 24 * 4 * multiplier)
+      offsetTop + (37 * multiplier), null, null, multiplier, dpi)
   }
 }

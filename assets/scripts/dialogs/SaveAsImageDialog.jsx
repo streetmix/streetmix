@@ -24,6 +24,7 @@ class SaveAsImageDialog extends React.Component {
     transparentSky: PropTypes.bool.isRequired,
     segmentNames: PropTypes.bool.isRequired,
     streetName: PropTypes.bool.isRequired,
+    street: PropTypes.object.isRequired,
     name: PropTypes.string,
     setSettings: PropTypes.func
   }
@@ -100,7 +101,7 @@ class SaveAsImageDialog extends React.Component {
   }
 
   updatePreview = () => {
-    this.imageCanvas = getStreetImage(this.props.transparentSky, this.props.segmentNames, this.props.streetName)
+    this.imageCanvas = getStreetImage(this.props.street, this.props.transparentSky, this.props.segmentNames, this.props.streetName)
 
     // .toDataURL is not available on IE11 when SVGs are part of the canvas.
     // The error in catch() should not appear on any of the newer evergreen browsers.
@@ -215,6 +216,7 @@ function mapStateToProps (state) {
     transparentSky: state.settings.saveAsImageTransparentSky,
     segmentNames: state.settings.saveAsImageSegmentNamesAndWidths,
     streetName: state.settings.saveAsImageStreetName,
+    street: state.street,
     name: state.street.name
   }
 }

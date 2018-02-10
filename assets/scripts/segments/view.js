@@ -12,7 +12,7 @@ import { recalculateWidth } from '../streets/width'
 import { getElAbsolutePos } from '../util/helpers'
 import { prettifyWidth } from '../util/width_units'
 import { draggingMove } from './drag_and_drop'
-import { SEGMENT_INFO } from './info'
+import { SEGMENT_INFO, getSpriteDef } from './info'
 import { drawProgrammaticPeople } from './people'
 import {
   RESIZE_TYPE_INITIAL,
@@ -23,9 +23,8 @@ import {
 import { getVariantString } from './variant_utils'
 import store from '../store'
 
-const TILESET_POINT_PER_PIXEL = 2.0
+export const TILESET_POINT_PER_PIXEL = 2.0
 export const TILE_SIZE = 12 // pixels
-const TILESET_CORRECTION = [null, 0, -84, -162]
 
 const CANVAS_HEIGHT = 480
 const CANVAS_GROUND = 35
@@ -38,79 +37,88 @@ const DRAGGING_MOVE_HOLE_WIDTH = 40
 
 const SEGMENT_SWITCHING_TIME = 250
 
-export function drawSegmentImageSVG (id, ctx, dx, dy, dw, dh) {
-  if (!dw || !dh || dw <= 0 || dh <= 0) {
-    return
-  }
+/**
+ * Draws SVG sprite to canvas
+ *
+ * @param {string} id - identifier of sprite
+ * @param {CanvasRenderingContext2D} ctx
+ * @param {Number} sx - x position of sprite to read from (default = 0)
+ * @param {Number} sy - y position of sprite to read from (default = 0)
+ * @param {Number} sw - sub-rectangle width to draw
+ * @param {Number} sh - sub-rectangle height to draw
+ * @param {Number} dx - x position on canvas
+ * @param {Number} dy - y position on canvas
+ * @param {Number} dw - destination width to draw
+ * @param {Number} dh - destination height to draw
+ * @param {Number} multiplier - scale to draw at (default = 1)
+ * @param {Number} dpi
+ */
+export function drawSegmentImage (id, ctx, sx = 0, sy = 0, sw, sh, dx, dy, dw, dh, multiplier = 1, dpi) {
+  // Settings
+  const state = store.getState()
+  dpi = dpi || state.system.hiDpi || 1
+  const debugRect = state.flags.DEBUG_SEGMENT_CANVAS_RECTANGLES.value || false
+
+  // Get image definition
+  const svg = images.get(id)
+
+  // We can't read `.naturalWidth` and `.naturalHeight` properties from
+  // the image in IE11, which returns 0. This is why width and height are
+  // stored as properties from when the image is first cached
+  // All images are drawn at 2x pixel dimensions so divide in half to get
+  // actual width / height value then multiply by system pixel density
+  //
+  // dw/dh (and later sw/sh) can be 0, so don't use falsy checks
+  dw = (dw === null) ? svg.width / TILESET_POINT_PER_PIXEL : dw
+  dh = (dh === null) ? svg.height / TILESET_POINT_PER_PIXEL : dh
+  dw *= multiplier * dpi
+  dh *= multiplier * dpi
 
   // Set render dimensions based on pixel density
-  dx *= system.hiDpi
-  dy *= system.hiDpi
-  dw *= system.hiDpi
-  dh *= system.hiDpi
+  dx *= dpi
+  dy *= dpi
 
   // These rectangles are telling us that we're drawing at the right places.
-  if (store.getState().flags.DEBUG_SEGMENT_CANVAS_RECTANGLES.value === true) {
+  if (debugRect === true) {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.2)'
     ctx.fillRect(dx, dy, dw, dh)
   }
 
-  // Draw the image to canvas
-  const img = images[id]
+  // Source width and height is based off of intrinsic image width and height,
+  // but it can be overridden in the parameters, e.g. when repeating sprites
+  // in a sequence and the last sprite needs to be truncated
+  sw = (sw === null) ? svg.width : sw * TILESET_POINT_PER_PIXEL
+  sh = (sh === null) ? svg.height : sh * TILESET_POINT_PER_PIXEL
+
   try {
-    ctx.drawImage(img, dx, dy, dw, dh)
+    ctx.drawImage(svg.img, sx, sy, sw, sh, dx, dy, dw, dh)
   } catch (e) {
     // IE11 has some issues drawing SVG images soon after loading. https://stackoverflow.com/questions/25214395/unexpected-call-to-method-or-property-access-while-drawing-svg-image-onto-canvas
     setTimeout(() => {
       console.error('drawImage failed for img id ' + id + ' with error: ' + e + ' - Retrying after 2 seconds')
-      ctx.drawImage(img, dx, dy, dw, dh)
+      ctx.drawImage(svg.img, sx, sy, sw, sh, dx, dy, dw, dh)
     }, 2000)
   }
 }
 
-export function drawSegmentImage (tileset, ctx, sx, sy, sw, sh, dx, dy, dw, dh) {
-  if (!sw || !sh || !dw || !dh) {
-    return
-  }
-
-  if ((sw > 0) && (sh > 0) && (dw > 0) && (dh > 0)) {
-    sx += TILESET_CORRECTION[tileset] * 12
-
-    dx *= system.hiDpi
-    dy *= system.hiDpi
-    dw *= system.hiDpi
-    dh *= system.hiDpi
-
-    if (sx < 0) {
-      dw += sx
-      sx = 0
-    }
-
-    if (store.getState().flags.DEBUG_SEGMENT_CANVAS_RECTANGLES.value === true) {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.2)'
-      ctx.fillRect(dx, dy, dw, dh)
-    }
-
-    ctx.drawImage(images['/images/tiles-' + tileset + '.png'],
-      sx * TILESET_POINT_PER_PIXEL, sy * TILESET_POINT_PER_PIXEL,
-      sw * TILESET_POINT_PER_PIXEL, sh * TILESET_POINT_PER_PIXEL,
-      dx, dy, dw, dh)
-  }
-}
-
 export function getVariantInfoDimensions (variantInfo, initialSegmentWidth, multiplier) {
-  let graphic, newLeft, newRight
+  let newLeft, newRight
   var segmentWidth = initialSegmentWidth / TILE_SIZE / multiplier
 
   var center = segmentWidth / 2
   var left = center
   var right = center
 
-  if (variantInfo.graphics.center) {
-    graphic = variantInfo.graphics.center
-    for (let l = 0; l < graphic.length; l++) {
-      newLeft = center - (graphic[l].width / 2) + (graphic[l].offsetX || 0)
-      newRight = center + (graphic[l].width / 2) + (graphic[l].offsetX || 0)
+  const graphics = variantInfo.graphics
+
+  if (graphics.center) {
+    const sprites = Array.isArray(graphics.center) ? graphics.center : [graphics.center]
+
+    for (let l = 0; l < sprites.length; l++) {
+      const sprite = getSpriteDef(sprites[l])
+
+      newLeft = center - (sprite.width / 2) + (sprite.offsetX || 0)
+      newRight = center + (sprite.width / 2) + (sprite.offsetX || 0)
 
       if (newLeft < left) {
         left = newLeft
@@ -121,11 +129,13 @@ export function getVariantInfoDimensions (variantInfo, initialSegmentWidth, mult
     }
   }
 
-  if (variantInfo.graphics.left) {
-    graphic = variantInfo.graphics.left
-    for (let l = 0; l < graphic.length; l++) {
-      newLeft = graphic[l].offsetX || 0
-      newRight = graphic[l].width + (graphic[l].offsetX || 0)
+  if (graphics.left) {
+    const sprites = Array.isArray(graphics.left) ? graphics.left : [graphics.left]
+
+    for (let l = 0; l < sprites.length; l++) {
+      const sprite = getSpriteDef(sprites[l])
+      newLeft = sprite.offsetX || 0
+      newRight = sprite.width + (sprite.offsetX || 0)
 
       if (newLeft < left) {
         left = newLeft
@@ -136,11 +146,13 @@ export function getVariantInfoDimensions (variantInfo, initialSegmentWidth, mult
     }
   }
 
-  if (variantInfo.graphics.right) {
-    graphic = variantInfo.graphics.right
-    for (let l = 0; l < graphic.length; l++) {
-      newLeft = (segmentWidth) - (graphic[l].offsetX || 0) - graphic[l].width
-      newRight = (segmentWidth) - (graphic[l].offsetX || 0)
+  if (graphics.right) {
+    const sprites = Array.isArray(graphics.right) ? graphics.right : [graphics.right]
+
+    for (let l = 0; l < sprites.length; l++) {
+      const sprite = getSpriteDef(sprites[l])
+      newLeft = (segmentWidth) - (sprite.offsetX || 0) - sprite.width
+      newRight = (segmentWidth) - (sprite.offsetX || 0)
 
       if (newLeft < left) {
         left = newLeft
@@ -151,7 +163,7 @@ export function getVariantInfoDimensions (variantInfo, initialSegmentWidth, mult
     }
   }
 
-  if (variantInfo.graphics.repeat && variantInfo.graphics.repeat[0]) {
+  if (graphics.repeat && graphics.repeat[0]) {
     newLeft = center - (segmentWidth / 2)
     newRight = center + (segmentWidth / 2)
 
@@ -166,21 +178,33 @@ export function getVariantInfoDimensions (variantInfo, initialSegmentWidth, mult
   return { left: left, right: right, center: center }
 }
 
-export function drawSegmentContents (ctx, type, variantString, segmentWidth, offsetLeft, offsetTop, randSeed, multiplier, palette) {
-  let repeatStartX, w, x
-  var variantInfo = SEGMENT_INFO[type].details[variantString]
+/**
+ *
+ * @param {CanvasRenderingContext2D} ctx
+ * @param {string} type
+ * @param {string} variantString
+ * @param {Number} segmentWidth - width in feet (not display width)
+ * @param {Number} offsetLeft
+ * @param {Number} offsetTop
+ * @param {Number} randSeed
+ * @param {Number} multiplier
+ * @param {Boolean} palette
+ * @param {Number} dpi
+ */
+export function drawSegmentContents (ctx, type, variantString, segmentWidth, offsetLeft, offsetTop, randSeed, multiplier, palette, dpi) {
+  const variantInfo = SEGMENT_INFO[type].details[variantString]
+  const graphics = variantInfo.graphics
+  const dimensions = getVariantInfoDimensions(variantInfo, segmentWidth, multiplier)
+  const left = dimensions.left
 
-  var dimensions = getVariantInfoDimensions(variantInfo, segmentWidth, multiplier)
-  var left = dimensions.left
-  var center = dimensions.center
+  if (graphics.repeat) {
+    const sprites = Array.isArray(graphics.repeat) ? graphics.repeat : [graphics.repeat]
 
-  if (variantInfo.graphics.repeat) {
-    for (let l = 0; l < variantInfo.graphics.repeat.length; l++) {
-      var repeatPositionX = variantInfo.graphics.repeat[l].x * TILE_SIZE
-      var repeatPositionY = (variantInfo.graphics.repeat[l].y || 0) * TILE_SIZE
-      w = variantInfo.graphics.repeat[l].width * TILE_SIZE * multiplier
-
-      var count = Math.floor((segmentWidth / w) + 1)
+    for (let l = 0; l < sprites.length; l++) {
+      const sprite = getSpriteDef(sprites[l])
+      let width = sprite.width * TILE_SIZE
+      const count = Math.floor((segmentWidth / (width * multiplier)) + 1)
+      let repeatStartX
 
       if (left < 0) {
         repeatStartX = -left * TILE_SIZE
@@ -188,79 +212,65 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
         repeatStartX = 0
       }
 
-      for (var i = 0; i < count; i++) {
+      for (let i = 0; i < count; i++) {
         // remainder
         if (i === count - 1) {
-          w = segmentWidth - ((count - 1) * w)
+          width = (segmentWidth / multiplier) - ((count - 1) * width)
         }
 
-        drawSegmentImage(variantInfo.graphics.repeat[l].tileset, ctx,
-          repeatPositionX, repeatPositionY,
-          w, variantInfo.graphics.repeat[l].height * TILE_SIZE,
-          offsetLeft + ((repeatStartX + (i * variantInfo.graphics.repeat[l].width * TILE_SIZE)) * multiplier),
-          offsetTop + (multiplier * TILE_SIZE * (variantInfo.graphics.repeat[l].offsetY || 0)),
-          w,
-          variantInfo.graphics.repeat[l].height * TILE_SIZE * multiplier)
+        drawSegmentImage(sprite.id, ctx, null, null, width, null,
+          offsetLeft + ((repeatStartX + (i * sprite.width * TILE_SIZE)) * multiplier),
+          offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
+          width, null, multiplier, dpi)
       }
     }
   }
 
-  if (variantInfo.graphics.left) {
-    for (let l = 0; l < variantInfo.graphics.left.length; l++) {
-      var leftPositionX = variantInfo.graphics.left[l].x * TILE_SIZE
-      var leftPositionY = (variantInfo.graphics.left[l].y || 0) * TILE_SIZE
+  if (graphics.left) {
+    const sprites = Array.isArray(graphics.left) ? graphics.left : [graphics.left]
 
-      w = variantInfo.graphics.left[l].width * TILE_SIZE
+    for (let l = 0; l < sprites.length; l++) {
+      const sprite = getSpriteDef(sprites[l])
+      const x = 0 + ((-left + (sprite.offsetX || 0)) * TILE_SIZE * multiplier)
 
-      x = 0 + ((-left + (variantInfo.graphics.left[l].offsetX || 0)) * TILE_SIZE * multiplier)
-
-      drawSegmentImage(variantInfo.graphics.left[l].tileset, ctx,
-        leftPositionX, leftPositionY,
-        w, variantInfo.graphics.left[l].height * TILE_SIZE,
+      drawSegmentImage(sprite.id, ctx, null, null, null, null,
         offsetLeft + x,
-        offsetTop + (multiplier * TILE_SIZE * (variantInfo.graphics.left[l].offsetY || 0)),
-        w * multiplier, variantInfo.graphics.left[l].height * TILE_SIZE * multiplier)
+        offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
+        null, null, multiplier, dpi)
     }
   }
 
-  if (variantInfo.graphics.right) {
-    for (let l = 0; l < variantInfo.graphics.right.length; l++) {
-      var rightPositionX = variantInfo.graphics.right[l].x * TILE_SIZE
-      var rightPositionY = (variantInfo.graphics.right[l].y || 0) * TILE_SIZE
+  if (graphics.right) {
+    const sprites = Array.isArray(graphics.right) ? graphics.right : [graphics.right]
 
-      w = variantInfo.graphics.right[l].width * TILE_SIZE
+    for (let l = 0; l < sprites.length; l++) {
+      const sprite = getSpriteDef(sprites[l])
+      const x = (-left + (segmentWidth / TILE_SIZE / multiplier) - sprite.width - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
 
-      x = (-left + (segmentWidth / TILE_SIZE / multiplier) - variantInfo.graphics.right[l].width - (variantInfo.graphics.right[l].offsetX || 0)) * TILE_SIZE * multiplier
-
-      drawSegmentImage(variantInfo.graphics.right[l].tileset, ctx,
-        rightPositionX, rightPositionY,
-        w, variantInfo.graphics.right[l].height * TILE_SIZE,
+      drawSegmentImage(sprite.id, ctx, null, null, null, null,
         offsetLeft + x,
-        offsetTop + (multiplier * TILE_SIZE * (variantInfo.graphics.right[l].offsetY || 0)),
-        w * multiplier, variantInfo.graphics.right[l].height * TILE_SIZE * multiplier)
+        offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
+        null, null, multiplier, dpi)
     }
   }
 
-  if (variantInfo.graphics.center) {
-    for (let l = 0; l < variantInfo.graphics.center.length; l++) {
-      var bkPositionX = (variantInfo.graphics.center[l].x || 0) * TILE_SIZE
-      var bkPositionY = (variantInfo.graphics.center[l].y || 0) * TILE_SIZE
+  if (graphics.center) {
+    const sprites = Array.isArray(graphics.center) ? graphics.center : [graphics.center]
 
-      var width = variantInfo.graphics.center[l].width
+    for (let l = 0; l < sprites.length; l++) {
+      const sprite = getSpriteDef(sprites[l])
+      const center = dimensions.center
+      const x = (center - (sprite.width / 2) - left - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
 
-      x = (center - (variantInfo.graphics.center[l].width / 2) - left - (variantInfo.graphics.center[l].offsetX || 0)) * TILE_SIZE * multiplier
-
-      drawSegmentImage(variantInfo.graphics.center[l].tileset, ctx,
-        bkPositionX, bkPositionY,
-        width * TILE_SIZE, variantInfo.graphics.center[l].height * TILE_SIZE,
+      drawSegmentImage(sprite.id, ctx, null, null, null, null,
         offsetLeft + x,
-        offsetTop + (multiplier * TILE_SIZE * (variantInfo.graphics.center[l].offsetY || 0)),
-        width * TILE_SIZE * multiplier, variantInfo.graphics.center[l].height * TILE_SIZE * multiplier)
+        offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
+        null, null, multiplier, dpi)
     }
   }
 
   if (type === 'sidewalk') {
-    drawProgrammaticPeople(ctx, segmentWidth / multiplier, offsetLeft - (left * TILE_SIZE * multiplier), offsetTop, randSeed, multiplier, variantString)
+    drawProgrammaticPeople(ctx, segmentWidth / multiplier, offsetLeft - (left * TILE_SIZE * multiplier), offsetTop, randSeed, multiplier, variantString, dpi)
   }
 }
 
