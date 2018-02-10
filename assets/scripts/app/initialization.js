@@ -1,4 +1,4 @@
-import { hideLoadingScreen, checkIfImagesLoaded } from './load_resources'
+import { hideLoadingScreen, loadImages } from './load_resources'
 import { initLocale } from './locale'
 import { scheduleNextLiveUpdateCheck } from './live_update'
 import { showGallery } from '../gallery/view'
@@ -42,7 +42,6 @@ import store from '../store'
 import { showDialog } from '../store/actions/dialogs'
 import { everythingLoaded } from '../store/actions/app'
 
-let bodyLoaded
 let readyStateCompleteLoaded
 let serverContacted
 
@@ -65,7 +64,7 @@ function preInit () {
   attachFetchNonBlockingEventListeners()
 }
 
-export function initialize () {
+export async function initialize () {
   preInit()
   if (!debug.forceUnsupportedBrowser) {
     // TODO temporary ban
@@ -85,9 +84,6 @@ export function initialize () {
   readyStateCompleteLoaded = false
   document.addEventListener('readystatechange', onReadyStateChange)
 
-  bodyLoaded = false
-  window.addEventListener('load', onBodyLoad)
-
   processUrl()
   processMode()
   if (store.getState().errors.abortEverything) {
@@ -96,48 +92,40 @@ export function initialize () {
 
   // Asynchronously loading…
 
+  // Images
+  await loadImages()
+
+  // Geolocation
   // …detect country from IP for units, left/right-hand driving, and
   // adding location to streets
-  detectGeolocation()
-    .then((info) => {
-      if (info && info.country_code) {
-        updateSettingsFromCountryCode(info.country_code)
-      }
+  const geo = await detectGeolocation()
 
-      document.querySelector('#loading-progress').value++
-      checkIfSignInAndGeolocationLoaded()
-      checkIfEverythingIsLoaded()
-    })
+  if (geo && geo.country_code) {
+    updateSettingsFromCountryCode(geo.country_code)
+  }
 
+  document.querySelector('#loading-progress').value++
+
+  // Sign in
   // …sign in info from our API (if not previously cached) – and subsequent
   // street data if necessary (depending on the mode)
   loadSignIn()
 
   // Note that we are waiting for sign in and image info to show the page,
   // but we give up on country info if it’s more than 1000ms.
+
+  checkIfSignInAndGeolocationLoaded()
+  checkIfEverythingIsLoaded()
 }
 
-let runningCheck = false
 export function checkIfEverythingIsLoaded () {
   if (store.getState().errors.abortEverything) {
     return
   }
-  if (runningCheck) {
-    // We're already waiting for the checkIfImagesLoaded promise to load here and  we don't want to stack up
-    // multiple onEverythingLoaded() calls
-    return
-  }
-  runningCheck = true
 
-  checkIfImagesLoaded().then(() => {
-    runningCheck = false
-    if (isSignInLoaded() && bodyLoaded &&
-      readyStateCompleteLoaded && wasGeolocationAttempted() && serverContacted) {
-      onEverythingLoaded()
-    }
-  }).catch(() => {
-    runningCheck = false
-  })
+  if (isSignInLoaded() && readyStateCompleteLoaded && wasGeolocationAttempted() && serverContacted) {
+    onEverythingLoaded()
+  }
 }
 
 function onEverythingLoaded () {
@@ -215,13 +203,6 @@ function onEverythingLoaded () {
       store.dispatch(showDialog('DONATE'))
     }
   }
-}
-
-function onBodyLoad () {
-  bodyLoaded = true
-
-  document.querySelector('#loading-progress').value++
-  checkIfEverythingIsLoaded()
 }
 
 function onReadyStateChange () {
