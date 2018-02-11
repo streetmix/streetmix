@@ -217,11 +217,11 @@ export function drawBuilding (ctx, destination, street, left, totalWidth, totalH
     drawSegmentImage(spriteId, ctx,
       0,
       height - (building.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL), // 0 - 240 + (120 * building.variantsCount),
-      null,
+      undefined,
       building.mainFloorHeight * TILE_SIZE,
       offsetLeft + (leftPosShift * multiplier),
       offsetTop + ((buildingHeight - (building.mainFloorHeight * TILE_SIZE)) * multiplier),
-      null,
+      undefined,
       building.mainFloorHeight * TILE_SIZE,
       multiplier, dpi)
 
@@ -236,11 +236,11 @@ export function drawBuilding (ctx, destination, street, left, totalWidth, totalH
         0,
         height - (building.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL) - (building.floorHeight * TILE_SIZE * variant * TILESET_POINT_PER_PIXEL),
         // 168 - (building.floorHeight * TILE_SIZE * variant), // 0 - 240 + (120 * building.variantsCount) - (building.floorHeight * TILE_SIZE * variant),
-        null,
+        undefined,
         building.floorHeight * TILE_SIZE,
         offsetLeft + (leftPosShift * multiplier),
         offsetTop + (buildingHeight * multiplier) - ((building.mainFloorHeight + (building.floorHeight * i)) * TILE_SIZE * multiplier),
-        null,
+        undefined,
         building.floorHeight * TILE_SIZE,
         multiplier, dpi)
     }
@@ -249,11 +249,11 @@ export function drawBuilding (ctx, destination, street, left, totalWidth, totalH
     drawSegmentImage(spriteId, ctx,
       0,
       0,
-      null,
+      undefined,
       building.roofHeight * TILE_SIZE,
       offsetLeft + (leftPosShift * multiplier),
       offsetTop + (buildingHeight * multiplier) - ((building.mainFloorHeight + (building.floorHeight * (floors - 1)) + building.roofHeight) * TILE_SIZE * multiplier),
-      null,
+      undefined,
       building.roofHeight * TILE_SIZE,
       multiplier, dpi)
   } else {
@@ -272,11 +272,11 @@ export function drawBuilding (ctx, destination, street, left, totalWidth, totalH
       }
 
       drawSegmentImage(spriteId, ctx,
-        currentX, null,
-        width, null,
+        currentX, undefined,
+        width, undefined,
         offsetLeft + ((leftPosShift + (i * width)) * multiplier),
         offsetTop,
-        width, null, multiplier, dpi)
+        width, undefined, multiplier, dpi)
     }
   }
 

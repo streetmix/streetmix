@@ -69,8 +69,8 @@ export function drawSegmentImage (id, ctx, sx = 0, sy = 0, sw, sh, dx, dy, dw, d
   // actual width / height value then multiply by system pixel density
   //
   // dw/dh (and later sw/sh) can be 0, so don't use falsy checks
-  dw = (dw === null) ? svg.width / TILESET_POINT_PER_PIXEL : dw
-  dh = (dh === null) ? svg.height / TILESET_POINT_PER_PIXEL : dh
+  dw = (dw === undefined) ? svg.width / TILESET_POINT_PER_PIXEL : dw
+  dh = (dh === undefined) ? svg.height / TILESET_POINT_PER_PIXEL : dh
   dw *= multiplier * dpi
   dh *= multiplier * dpi
 
@@ -87,8 +87,8 @@ export function drawSegmentImage (id, ctx, sx = 0, sy = 0, sw, sh, dx, dy, dw, d
   // Source width and height is based off of intrinsic image width and height,
   // but it can be overridden in the parameters, e.g. when repeating sprites
   // in a sequence and the last sprite needs to be truncated
-  sw = (sw === null) ? svg.width : sw * TILESET_POINT_PER_PIXEL
-  sh = (sh === null) ? svg.height : sh * TILESET_POINT_PER_PIXEL
+  sw = (sw === undefined) ? svg.width : sw * TILESET_POINT_PER_PIXEL
+  sh = (sh === undefined) ? svg.height : sh * TILESET_POINT_PER_PIXEL
 
   try {
     ctx.drawImage(svg.img, sx, sy, sw, sh, dx, dy, dw, dh)
@@ -218,10 +218,10 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
           width = (segmentWidth / multiplier) - ((count - 1) * width)
         }
 
-        drawSegmentImage(sprite.id, ctx, null, null, width, null,
+        drawSegmentImage(sprite.id, ctx, undefined, undefined, width, undefined,
           offsetLeft + ((repeatStartX + (i * sprite.width * TILE_SIZE)) * multiplier),
           offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
-          width, null, multiplier, dpi)
+          width, undefined, multiplier, dpi)
       }
     }
   }
@@ -233,10 +233,10 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
       const sprite = getSpriteDef(sprites[l])
       const x = 0 + ((-left + (sprite.offsetX || 0)) * TILE_SIZE * multiplier)
 
-      drawSegmentImage(sprite.id, ctx, null, null, null, null,
+      drawSegmentImage(sprite.id, ctx, undefined, undefined, undefined, undefined,
         offsetLeft + x,
         offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
-        null, null, multiplier, dpi)
+        undefined, undefined, multiplier, dpi)
     }
   }
 
@@ -247,10 +247,10 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
       const sprite = getSpriteDef(sprites[l])
       const x = (-left + (segmentWidth / TILE_SIZE / multiplier) - sprite.width - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
 
-      drawSegmentImage(sprite.id, ctx, null, null, null, null,
+      drawSegmentImage(sprite.id, ctx, undefined, undefined, undefined, undefined,
         offsetLeft + x,
         offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
-        null, null, multiplier, dpi)
+        undefined, undefined, multiplier, dpi)
     }
   }
 
@@ -262,10 +262,10 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
       const center = dimensions.center
       const x = (center - (sprite.width / 2) - left - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
 
-      drawSegmentImage(sprite.id, ctx, null, null, null, null,
+      drawSegmentImage(sprite.id, ctx, undefined, undefined, undefined, undefined,
         offsetLeft + x,
         offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
-        null, null, multiplier, dpi)
+        undefined, undefined, multiplier, dpi)
     }
   }
 
