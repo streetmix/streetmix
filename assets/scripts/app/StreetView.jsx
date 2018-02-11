@@ -1,7 +1,7 @@
 /**
  * StreetView.jsx
  *
- * Temporary: Renders all the non-React HTML.
+ * Renders the street view.
  *
  * @module StreetView
  */
@@ -30,8 +30,6 @@ class StreetView extends React.Component {
       posLeft: 0,
       posRight: 0,
 
-      streetSectionTop: 0,
-      streetSectionHeight: 0,
       streetSectionSkyTop: 0,
       scrollTop: 0,
       skyTop: 0
@@ -49,7 +47,7 @@ class StreetView extends React.Component {
 
   onResize = () => {
     const { viewportHeight } = this.props.system
-    let streetSectionTop = null
+    let streetSectionTop
     let streetSectionHeight = this.streetSectionInner.offsetHeight
 
     if (viewportHeight - streetSectionHeight > 450) {
@@ -70,11 +68,7 @@ class StreetView extends React.Component {
       skyTop = 0
     }
 
-    this.streetSectionInner.style.top = streetSectionTop + 'px'
-
     this.setState({
-      streetSectionTop,
-      streetSectionHeight,
       streetSectionSkyTop,
       scrollTop,
       skyTop
