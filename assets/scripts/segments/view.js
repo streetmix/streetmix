@@ -54,6 +54,11 @@ const SEGMENT_SWITCHING_TIME = 250
  * @param {Number} dpi
  */
 export function drawSegmentImage (id, ctx, sx = 0, sy = 0, sw, sh, dx, dy, dw, dh, multiplier = 1, dpi) {
+  // If asked to render a source or destination image with width or height
+  // that is equal to or less than 0, bail. Attempting to render such an image
+  // will throw an IndexSizeError error in Firefox.
+  if (sw <= 0 || sh <= 0 || dw <= 0 || dh <= 0) return
+
   // Settings
   const state = store.getState()
   dpi = dpi || state.system.hiDpi || 1
