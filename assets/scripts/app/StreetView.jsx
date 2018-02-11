@@ -68,6 +68,8 @@ class StreetView extends React.Component {
       skyTop = 0
     }
 
+    this.streetSectionInner.style.top = streetSectionTop + 'px'
+
     this.setState({
       streetSectionSkyTop,
       scrollTop,
