@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { SEGMENT_INFO } from '../segments/info'
 import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, suppressMouseEnter } from './resizing'
 import { drawSegmentContents, getVariantInfoDimensions, segmentsChanged, TILE_SIZE } from './view'
 import { prettifyWidth } from '../util/width_units'
 import { infoBubble, INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/info_bubble'
-import { system } from '../preinit/system_capabilities'
+
 const WIDTH_PALETTE_MULTIPLIER = 4 // Dupe from palette.js
 const SEGMENT_Y_NORMAL = 265
 const SEGMENT_Y_PALETTE = 20
@@ -13,14 +14,15 @@ const CANVAS_HEIGHT = 480
 const CANVAS_GROUND = 35
 const CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND
 
-export default class Segment extends React.Component {
+class Segment extends React.Component {
   static propTypes = {
     type: PropTypes.string.isRequired,
     variantString: PropTypes.string.isRequired,
     randSeed: PropTypes.number,
     isUnmovable: PropTypes.bool.isRequired,
     width: PropTypes.number,
-    forPalette: PropTypes.bool.isRequired
+    forPalette: PropTypes.bool.isRequired,
+    dpi: PropTypes.number
   }
 
   calculateWidth = (resizeType) => {
@@ -76,8 +78,8 @@ export default class Segment extends React.Component {
     const totalWidth = dimensions.right - dimensions.left
 
     // Canvas width and height must fit the div width in the palette to prevent extra right padding
-    const canvasWidth = this.props.forPalette ? width * system.hiDpi : totalWidth * TILE_SIZE * system.hiDpi
-    const canvasHeight = CANVAS_BASELINE * system.hiDpi
+    const canvasWidth = this.props.forPalette ? width * this.props.dpi : totalWidth * TILE_SIZE * this.props.dpi
+    const canvasHeight = CANVAS_BASELINE * this.props.dpi
     const canvasStyle = {
       width: this.props.forPalette ? width : totalWidth * TILE_SIZE,
       height: CANVAS_BASELINE,
@@ -128,3 +130,11 @@ export default class Segment extends React.Component {
     infoBubble.dontConsiderShowing()
   }
 }
+
+function mapStateToProps (state) {
+  return {
+    dpi: state.system.hiDpi
+  }
+}
+
+export default connect(mapStateToProps)(Segment)
