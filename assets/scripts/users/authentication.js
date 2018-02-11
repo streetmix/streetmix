@@ -1,14 +1,13 @@
 import Cookies from 'js-cookie'
 
+import { app } from '../preinit/app_settings'
 import { API_URL } from '../app/config'
 import { showError, ERRORS } from '../app/errors'
 import { trackEvent } from '../app/event_tracking'
-import { checkIfEverythingIsLoaded } from '../app/initialization'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { getStreet } from '../streets/data_model'
 import { setPromoteStreet } from '../streets/remix'
-import { fetchStreetFromServer } from '../streets/xhr'
-import { checkIfSignInAndGeolocationLoaded } from './localization'
+import { fetchStreetFromServer, createNewStreetOnServer } from '../streets/xhr'
 import { loadSettings, getSettings, setSettings } from './settings'
 import store from '../store'
 import {
@@ -40,10 +39,6 @@ export function isSignedIn () {
 
 function setSignedInState (bool) {
   store.dispatch(createSignedInState(bool))
-}
-
-export function isSignInLoaded () {
-  return store.getState().user.signInLoaded
 }
 
 function setSignInLoadedState (bool) {
@@ -82,7 +77,7 @@ function removeSignInCookies () {
   Cookies.remove(USER_ID_COOKIE)
 }
 
-export function loadSignIn () {
+export async function loadSignIn () {
   setSignInLoadedState(false)
 
   var signInCookie = Cookies.get(SIGN_IN_TOKEN_COOKIE)
@@ -102,38 +97,36 @@ export function loadSignIn () {
   const signInData = getSignInData()
 
   if (signInData && signInData.token && signInData.userId) {
-    fetchSignInDetails(signInData.userId)
-
-    // This block was commented out because caching username causes
-    // failures when the database is cleared. TODO Perhaps we should
-    // be handling this more deftly.
-    /* if (signInData.details) {
-      signedIn = true
-      _signInLoaded()
-    } else {
-      fetchSignInDetails(signInData.userId)
-    } */
+    await fetchSignInDetails(signInData.userId)
   } else {
     setSignedInState(false)
-    _signInLoaded()
   }
+
+  setSignInLoadedState(true)
+  document.querySelector('#loading-progress').value++
+
+  _signInLoaded()
+
+  return true
 }
 
-function fetchSignInDetails (userId) {
+async function fetchSignInDetails (userId) {
   const options = {
     headers: { 'Authorization': getAuthHeader() }
   }
 
-  window.fetch(API_URL + 'v1/users/' + userId, options)
-    .then(response => {
-      if (!response.ok) {
-        throw response
-      }
+  try {
+    const response = await window.fetch(API_URL + 'v1/users/' + userId, options)
 
-      return response.json()
-    })
-    .then(receiveSignInDetails)
-    .catch(errorReceiveSignInDetails)
+    if (!response.ok) {
+      throw response
+    }
+
+    const json = await response.json()
+    receiveSignInDetails(json)
+  } catch (error) {
+    errorReceiveSignInDetails(error)
+  }
 }
 
 function receiveSignInDetails (details) {
@@ -146,7 +139,6 @@ function receiveSignInDetails (details) {
   store.dispatch(rememberUserProfile(details))
 
   setSignedInState(true)
-  _signInLoaded()
 }
 
 function errorReceiveSignInDetails (data) {
@@ -181,7 +173,6 @@ function errorReceiveSignInDetails (data) {
 
   clearSignInData()
   setSignedInState(false)
-  _signInLoaded()
 }
 
 export function onSignOutClick (event) {
@@ -265,6 +256,7 @@ function _signInLoaded () {
     }
   }
   mode = getMode()
+
   switch (mode) {
     case MODES.EXISTING_STREET:
     case MODES.CONTINUE:
@@ -272,10 +264,13 @@ function _signInLoaded () {
     case MODES.GLOBAL_GALLERY:
       fetchStreetFromServer()
       break
+    case MODES.NEW_STREET:
+    case MODES.NEW_STREET_COPY_LAST:
+      if (app.readOnly) {
+        showError(ERRORS.CANNOT_CREATE_NEW_STREET_ON_PHONE, true)
+      } else {
+        createNewStreetOnServer()
+      }
+      break
   }
-
-  setSignInLoadedState(true)
-  document.querySelector('#loading-progress').value++
-  checkIfSignInAndGeolocationLoaded()
-  checkIfEverythingIsLoaded()
 }

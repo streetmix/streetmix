@@ -20,15 +20,9 @@ import {
 import { updateStreetName } from '../streets/name'
 import { getPromoteStreet, remixStreet } from '../streets/remix'
 import { resizeStreetWidth } from '../streets/width'
-import { loadSignIn, isSignInLoaded } from '../users/authentication'
-import {
-  checkIfSignInAndGeolocationLoaded,
-  updateSettingsFromCountryCode
-} from '../users/localization'
-import {
-  detectGeolocation,
-  wasGeolocationAttempted
-} from '../users/geolocation'
+import { loadSignIn } from '../users/authentication'
+import { updateSettingsFromCountryCode } from '../users/localization'
+import { detectGeolocation } from '../users/geolocation'
 import { addEventListeners } from './event_listeners'
 import { trackEvent } from './event_tracking'
 import { getMode, setMode, MODES, processMode } from './mode'
@@ -42,7 +36,6 @@ import store from '../store'
 import { showDialog } from '../store/actions/dialogs'
 import { everythingLoaded } from '../store/actions/app'
 
-let readyStateCompleteLoaded
 let serverContacted
 
 export function setServerContacted (value) {
@@ -81,9 +74,6 @@ export async function initialize () {
 
   fillEmptySegments()
 
-  readyStateCompleteLoaded = false
-  document.addEventListener('readystatechange', onReadyStateChange)
-
   processUrl()
   processMode()
   if (store.getState().errors.abortEverything) {
@@ -92,13 +82,13 @@ export async function initialize () {
 
   // Asynchronously loading…
 
-  // Images
-  await loadImages()
-
   // Geolocation
   // …detect country from IP for units, left/right-hand driving, and
   // adding location to streets
   const geo = await detectGeolocation()
+
+  // Parallel tasks
+  await Promise.all([ loadImages(), geo ])
 
   if (geo && geo.country_code) {
     updateSettingsFromCountryCode(geo.country_code)
@@ -109,12 +99,11 @@ export async function initialize () {
   // Sign in
   // …sign in info from our API (if not previously cached) – and subsequent
   // street data if necessary (depending on the mode)
-  loadSignIn()
+  await loadSignIn()
 
   // Note that we are waiting for sign in and image info to show the page,
   // but we give up on country info if it’s more than 1000ms.
 
-  checkIfSignInAndGeolocationLoaded()
   checkIfEverythingIsLoaded()
 }
 
@@ -123,7 +112,7 @@ export function checkIfEverythingIsLoaded () {
     return
   }
 
-  if (isSignInLoaded() && readyStateCompleteLoaded && wasGeolocationAttempted() && serverContacted) {
+  if (serverContacted) {
     onEverythingLoaded()
   }
 }
@@ -202,15 +191,6 @@ function onEverythingLoaded () {
        (!delayedTimestamp || delayedTimestamp < twoWeeksAgo)) {
       store.dispatch(showDialog('DONATE'))
     }
-  }
-}
-
-function onReadyStateChange () {
-  if (document.readyState === 'complete') {
-    readyStateCompleteLoaded = true
-
-    document.querySelector('#loading-progress').value++
-    checkIfEverythingIsLoaded()
   }
 }
 
