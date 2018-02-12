@@ -69,9 +69,13 @@ class GeolocateDialog extends React.Component {
     if (updateMarker) {
       this.updateMapToStreetLocation(street.location)
     } else if (markerLocation) {
-      this.map.leafletElement.panTo(markerLocation)
+      this.setState({
+        mapCenter: markerLocation
+      })
     } else if (userLocation) {
-      this.map.leafletElement.panTo([ userLocation.latitude, userLocation.longitude ])
+      this.setState({
+        mapCenter: [ userLocation.latitude, userLocation.longitude ]
+      })
     }
   }
 
@@ -97,7 +101,7 @@ class GeolocateDialog extends React.Component {
       lng: location.latlng[1]
     }
 
-    this.reverseGeocode(latlng)
+    return this.reverseGeocode(latlng)
       .then(this.displayAddressData)
   }
 
@@ -109,17 +113,16 @@ class GeolocateDialog extends React.Component {
   }
 
   displayAddressData = (res) => {
-    this.setState({
-      bbox: res.bbox || null
-    })
-
     this.props.setMapState({
       addressInformation: res.features[0].properties,
       addressInformationLabel: res.features[0].properties.label,
       markerLocation: res.features[0].geometry.coordinates.reverse()
     })
 
-    this.map.leafletElement.panTo(this.props.markerLocation)
+    this.setState({
+      bbox: res.bbox || null,
+      mapCenter: this.props.markerLocation
+    })
   }
 
   onClickMap = (event) => {
@@ -158,8 +161,6 @@ class GeolocateDialog extends React.Component {
       markerLocation: point,
       bbox: bbox || null
     })
-
-    this.map.leafletElement.panTo(point)
   }
 
   hidePopup = (e) => {
@@ -270,6 +271,7 @@ class GeolocateDialog extends React.Component {
           zoomControl={false}
           zoom={zoomLevel}
           onClick={this.onClickMap}
+          useFlyTo
           ref={(ref) => { this.map = ref }}
         >
           <TileLayer
