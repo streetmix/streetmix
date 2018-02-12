@@ -162,14 +162,18 @@ $top-menu-active-text: darken($ui-colour, 40%);
   background-color: gray;
   pointer-events: none;
 
-  body.environment-development & {
+  &.environment-label-development {
     display: inline-block;
     background-color: rgb(200, 0, 0);
   }
 
-  body.environment-staging &,
-  body.environment-sandbox & {
+  &.environment-label-staging,
+  &.environment-label-sandbox {
     display: inline-block;
     background-color: green;
+  }
+
+  &.environment-label-demo {
+    background-color: rgb(28, 189, 209);
   }
 }

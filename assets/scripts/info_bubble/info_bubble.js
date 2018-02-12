@@ -2,7 +2,6 @@ import { app } from '../preinit/app_settings'
 import { system } from '../preinit/system_capabilities'
 import { hideDescription } from './description'
 import {
-  getBuildingAttributes,
   createBuildings,
   onBuildingMouseEnter,
   updateBuildingPosition
@@ -10,11 +9,9 @@ import {
 import { DRAGGING_TYPE_NONE, draggingType } from '../segments/drag_and_drop'
 import { cancelFadeoutControls } from '../segments/resizing'
 import { getElAbsolutePos } from '../util/helpers'
-import { prettifyWidth } from '../util/width_units'
 import { isAnyMenuVisible } from '../menus/menu_controller'
 import { registerKeypress } from '../app/keypress'
 import {
-  TILE_SIZE,
   switchSegmentElIn,
   switchSegmentElAway
 } from '../segments/view'
@@ -437,19 +434,4 @@ function _isPointInPoly (vs, point) {
   }
 
   return inside
-}
-
-export function _prettifyHeight (height) {
-  var heightText = height
-
-  heightText += ' floor'
-  if (height > 1) {
-    heightText += 's'
-  }
-
-  var attr = getBuildingAttributes(getStreet(), infoBubble.type === INFO_BUBBLE_TYPE_LEFT_BUILDING)
-
-  heightText += ' (' + prettifyWidth(attr.realHeight / TILE_SIZE) + ')'
-
-  return heightText
 }

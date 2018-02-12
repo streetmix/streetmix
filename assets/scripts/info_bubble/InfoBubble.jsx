@@ -13,7 +13,7 @@ import { getDescriptionData } from './description'
 import { resumeFadeoutControls } from '../segments/resizing'
 import { getStreet } from '../streets/data_model'
 // import { trackEvent } from '../app/event_tracking'
-import { BUILDING_VARIANTS, BUILDING_VARIANT_NAMES } from '../segments/buildings'
+import { BUILDINGS } from '../segments/buildings'
 import { SEGMENT_INFO } from '../segments/info'
 import { loseAnyFocus } from '../util/focus'
 import { getElAbsolutePos } from '../util/helpers'
@@ -170,13 +170,13 @@ class InfoBubble extends React.Component {
       }
       case INFO_BUBBLE_TYPE_LEFT_BUILDING: {
         const variantId = this.state.street.leftBuildingVariant
-        const backupName = BUILDING_VARIANT_NAMES[BUILDING_VARIANTS.indexOf(variantId)]
+        const backupName = BUILDINGS[variantId].label
         name = t(`buildings.${variantId}.name`, backupName, { ns: 'segment-info' })
         break
       }
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING: {
         const variantId = this.state.street.rightBuildingVariant
-        const backupName = BUILDING_VARIANT_NAMES[BUILDING_VARIANTS.indexOf(variantId)]
+        const backupName = BUILDINGS[variantId].label
         name = t(`buildings.${variantId}.name`, backupName, { ns: 'segment-info' })
         break
       }

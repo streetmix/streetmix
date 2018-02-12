@@ -56,8 +56,8 @@ class Palette extends React.Component {
     this.scrollable.checkButtonVisibilityState()
   }
 
-  render () {
-    let paletteItems = []
+  renderPaletteItems = () => {
+    const paletteItems = []
 
     for (let id in SEGMENT_INFO) {
       let segmentInfo = SEGMENT_INFO[id]
@@ -98,6 +98,10 @@ class Palette extends React.Component {
       />)
     }
 
+    return paletteItems
+  }
+
+  render () {
     return (
       <div className="palette-container">
         <div className="palette-trashcan">
@@ -108,7 +112,7 @@ class Palette extends React.Component {
           <button id="redo" onClick={redo}>{t('btn.redo', 'Redo')}</button>
         </div>
         <Scrollable className="palette" setRef={this.setScrollableRef} ref={(ref) => { this.scrollable = ref }}>
-          <React.Fragment>{this.props.everythingLoaded && paletteItems}</React.Fragment>
+          <React.Fragment>{this.props.everythingLoaded && this.renderPaletteItems()}</React.Fragment>
         </Scrollable>
       </div>
     )

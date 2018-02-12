@@ -294,7 +294,9 @@ function handleSegmentMoveStart () {
     draggingMove.originalVariantString = variantString
   }
 
-  var pos = getElAbsolutePos(draggingMove.originalEl, true)
+  // Only send `true` as the second argument if dragging occurs in palette to prevent offset of element
+  const pos = getElAbsolutePos(draggingMove.originalEl, inPalette)
+
   draggingMove.elX = pos[0]
   draggingMove.elY = pos[1]
 
