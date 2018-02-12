@@ -101,7 +101,7 @@ class GeolocateDialog extends React.Component {
       lng: location.latlng[1]
     }
 
-    return this.reverseGeocode(latlng)
+    this.reverseGeocode(latlng)
       .then(this.displayAddressData)
   }
 
