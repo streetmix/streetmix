@@ -60,20 +60,35 @@ class GeolocateDialog extends React.Component {
       // Default location if geo IP not detected; this hovers over Brooklyn
       mapCenter: [40.645, -73.975]
     }
-
-    // If there is a location attached to the street,
-    // update the map to show a marker at location
-    if (props.street.location) this.updateMapToStreetLocation(props.street.location)
   }
 
   componentDidMount () {
-    const { markerLocation, userLocation } = this.props
+    const { markerLocation, userLocation, street } = this.props
 
-    if (markerLocation) {
+    const updateMarker = this.shouldUpdateMarker(markerLocation, street.location)
+    if (updateMarker) {
+      this.updateMapToStreetLocation(street.location)
+    } else if (markerLocation) {
       this.map.leafletElement.panTo(markerLocation)
     } else if (userLocation) {
       this.map.leafletElement.panTo([ userLocation.latitude, userLocation.longitude ])
     }
+  }
+
+  // If there is a marker but no street, return false
+  // If there is no marker but has a street, return true
+  // If there is a marker and street, check
+  // If there is no marker and no street, return false
+  shouldUpdateMarker = (markerLocation, location) => {
+    let updateMarkerToStreet = (!markerLocation && location)
+    if (markerLocation && location) {
+      if (markerLocation.lat) {
+        updateMarkerToStreet = !(markerLocation.lat === location.latlng[0] && markerLocation.lng === location.latlng[1])
+      } else {
+        updateMarkerToStreet = !(markerLocation[0] === location.latlng[0] && markerLocation[1] === location.latlng[1])
+      }
+    }
+    return updateMarkerToStreet
   }
 
   updateMapToStreetLocation = (location) => {
