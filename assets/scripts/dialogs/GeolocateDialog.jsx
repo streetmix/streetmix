@@ -9,6 +9,7 @@ import Dialog from './Dialog'
 import SearchAddress from '../streets/SearchAddress'
 import { getStreet, saveStreetToServerIfNecessary } from '../streets/data_model'
 import { updateStreetName } from '../streets/name'
+import { getRemixOnFirstEdit } from '../streets/remix'
 import { setMapState } from '../store/actions/map'
 import { addLocation, saveStreetName } from '../store/actions/street'
 import { clearDialogs } from '../store/actions/dialogs'
@@ -48,7 +49,6 @@ class GeolocateDialog extends React.Component {
     setMapState: PropTypes.func,
     addressInformationLabel: PropTypes.string,
     street: PropTypes.object,
-    userData: PropTypes.object,
     saveStreetName: PropTypes.func,
     clearDialogs: PropTypes.func
   }
@@ -215,9 +215,9 @@ class GeolocateDialog extends React.Component {
   // If there is the street owner is equal to the current user, return true
   // If there is no street location, return true
   canEditLocation = () => {
-    const { userData, street, addressInformation } = this.props
+    const { street, addressInformation } = this.props
     if (!addressInformation.street) return false
-    return (!street.creatorId || (userData && userData.userId === street.creatorId) || !street.location)
+    return (!street.creatorId || !getRemixOnFirstEdit() || !street.location)
   }
 
   render () {
@@ -296,8 +296,7 @@ function mapStateToProps (state) {
     addressInformationLabel: state.map.addressInformationLabel,
     addressInformation: state.map.addressInformation,
     userLocation: state.user.geolocation.data,
-    street: state.street,
-    userData: state.user.signInData
+    street: state.street
   }
 }
 
