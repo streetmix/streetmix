@@ -142,7 +142,7 @@ app.get('/api/v1/translate/:locale_code/:resource_name', resources.v1.translate.
 app.get('/.well-known/status', resources.well_known_status.get)
 
 // Process stylesheets via Sass and PostCSS / Autoprefixer
-app.use('/assets/css/styles.css', middleware.styles)
+app.use('/assets/css/styles.css', middleware.styles.get)
 
 app.get('/assets/scripts/main.js', browserify(path.join(__dirname, '/assets/scripts/main.js'), {
   cache: true,
@@ -173,6 +173,20 @@ app.use(express.static(path.join(__dirname, '/public')))
 app.use(function (req, res) {
   res.render('main', {})
 })
+
+// Set up file watcher in development
+if (config.env === 'development') {
+  const chokidar = require('chokidar')
+  const compileStyles = require('./lib/middleware/styles').compile
+
+  // Watch SCSS files
+  const cssWatcher = chokidar.watch('assets/css/*.scss')
+
+  cssWatcher.on('change', path => {
+    console.log(`File ${path} has been changed`)
+    compileStyles()
+  })
+}
 
 // Provide a message after a Ctrl-C
 // Note: various sources tell us that this does not work on Windows

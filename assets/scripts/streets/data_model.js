@@ -1,12 +1,6 @@
 import { msg } from '../app/messages'
 import { URL_NO_USER, RESERVED_URLS, URL_RESERVED_PREFIX } from '../app/routing'
 import {
-  DEFAULT_BUILDING_HEIGHT_LEFT,
-  DEFAULT_BUILDING_HEIGHT_RIGHT,
-  DEFAULT_BUILDING_VARIANT_EMPTY,
-  DEFAULT_BUILDING_HEIGHT_EMPTY,
-  DEFAULT_BUILDING_VARIANT_RIGHT,
-  DEFAULT_BUILDING_VARIANT_LEFT,
   createBuildings,
   updateBuildingPosition
 } from '../segments/buildings'
@@ -41,6 +35,13 @@ import {
 import { updateLastStreetInfo, scheduleSavingStreetToServer } from './xhr'
 import { updateStreetData } from '../store/actions/street'
 import store from '../store'
+
+const DEFAULT_BUILDING_HEIGHT_LEFT = 4
+const DEFAULT_BUILDING_HEIGHT_RIGHT = 3
+const DEFAULT_BUILDING_VARIANT_LEFT = 'narrow'
+const DEFAULT_BUILDING_VARIANT_RIGHT = 'wide'
+const DEFAULT_BUILDING_HEIGHT_EMPTY = 1
+const DEFAULT_BUILDING_VARIANT_EMPTY = 'grass'
 
 let _lastStreet
 

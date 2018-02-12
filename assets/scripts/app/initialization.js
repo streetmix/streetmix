@@ -29,7 +29,6 @@ import {
   detectGeolocation,
   wasGeolocationAttempted
 } from '../users/geolocation'
-import { ENV } from './config'
 import { addEventListeners } from './event_listeners'
 import { trackEvent } from './event_tracking'
 import { getMode, setMode, MODES, processMode } from './mode'
@@ -249,8 +248,6 @@ if (system.noInternet === true) {
 }
 
 function addBodyClasses () {
-  document.body.classList.add('environment-' + ENV)
-
   if (system.windows) {
     document.body.classList.add('windows')
   }
