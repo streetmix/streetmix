@@ -31,8 +31,8 @@ class UndoRedo extends React.Component {
   render () {
     return (
       <React.Fragment>
-        <button id="undo" onClick={undo} disabled={!this.state.undo}>{t('btn.undo', 'Undo')}</button>
-        <button id="redo" onClick={redo} disabled={!this.state.redo}>{t('btn.redo', 'Redo')}</button>
+        <button onClick={undo} disabled={!this.state.undo}>{t('btn.undo', 'Undo')}</button>
+        <button onClick={redo} disabled={!this.state.redo}>{t('btn.redo', 'Redo')}</button>
       </React.Fragment>
     )
   }
