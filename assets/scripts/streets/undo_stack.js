@@ -9,9 +9,7 @@ import {
   getStreet,
   setStreet,
   setUpdateTimeToNow,
-  updateEverything,
-  getLastStreet,
-  setStreetDataInRedux
+  updateEverything
 } from './data_model'
 import { getRemixOnFirstEdit } from './remix'
 
@@ -91,7 +89,7 @@ export function createNewUndoIfNecessary (lastStreet, currentStreet) {
     return
   }
 
-  store.dispatch(createNewUndo(cloneDeep(getLastStreet())))
+  store.dispatch(createNewUndo(cloneDeep(lastStreet)))
 }
 
 export function isUndoAvailable () {
