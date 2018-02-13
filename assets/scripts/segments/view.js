@@ -66,6 +66,12 @@ export function drawSegmentImage (id, ctx, sx = 0, sy = 0, sw, sh, dx, dy, dw, d
   // Get image definition
   const svg = images.get(id)
 
+  // Source width and height is based off of intrinsic image width and height,
+  // but it can be overridden in the parameters, e.g. when repeating sprites
+  // in a sequence and the last sprite needs to be truncated
+  sw = (sw === undefined) ? svg.width : sw * TILESET_POINT_PER_PIXEL
+  sh = (sh === undefined) ? svg.height : sh * TILESET_POINT_PER_PIXEL
+
   // We can't read `.naturalWidth` and `.naturalHeight` properties from
   // the image in IE11, which returns 0. This is why width and height are
   // stored as properties from when the image is first cached
@@ -87,12 +93,6 @@ export function drawSegmentImage (id, ctx, sx = 0, sy = 0, sw, sh, dx, dy, dw, d
     ctx.fillStyle = 'rgba(0, 0, 0, 0.2)'
     ctx.fillRect(dx, dy, dw, dh)
   }
-
-  // Source width and height is based off of intrinsic image width and height,
-  // but it can be overridden in the parameters, e.g. when repeating sprites
-  // in a sequence and the last sprite needs to be truncated
-  sw = (sw === undefined) ? svg.width : sw * TILESET_POINT_PER_PIXEL
-  sh = (sh === undefined) ? svg.height : sh * TILESET_POINT_PER_PIXEL
 
   try {
     ctx.drawImage(svg.img, sx, sy, sw, sh, dx, dy, dw, dh)
