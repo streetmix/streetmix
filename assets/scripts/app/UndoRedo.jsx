@@ -6,7 +6,7 @@ import { t } from '../app/locale'
 
 class UndoRedo extends React.Component {
   static propTypes = {
-    undoPosition: PropTypes.number
+    undo: PropTypes.object
   }
 
   constructor (props) {
@@ -19,8 +19,8 @@ class UndoRedo extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    // Update undo or redo buttons if the undo position has changed.
-    if (this.props.undoPosition !== nextProps.undoPosition) {
+    // Update undo or redo buttons if the undo position or stack has changed.
+    if (this.props.undo.position !== nextProps.undo.position || this.props.undo.stack !== nextProps.undo.stack) {
       this.setState({
         undoAvailable: isUndoAvailable(),
         redoAvailable: isRedoAvailable()
@@ -40,7 +40,7 @@ class UndoRedo extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    undoPosition: state.undo.position
+    undo: state.undo
   }
 }
 
