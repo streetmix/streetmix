@@ -108,23 +108,30 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
   var originalOffsetLeft = offsetLeft
 
   // Collect z-indexes
-  var zIndexes = []
+  const zIndexes = []
   for (let segment of street.segments) {
     const segmentInfo = SEGMENT_INFO[segment.type]
+
+    // Skip segments that don't exist if it mismatches data
+    if (!segmentInfo) continue
 
     if (zIndexes.indexOf(segmentInfo.zIndex) === -1) {
       zIndexes.push(segmentInfo.zIndex)
     }
   }
 
+  // Render objects at each z-index level
   for (let zIndex of zIndexes) {
     let offsetLeft = originalOffsetLeft
 
     for (let segment of street.segments) {
       const segmentInfo = SEGMENT_INFO[segment.type]
 
+      // Skip segments that don't exist if it mismatches data
+      if (!segmentInfo) continue
+
       if (segmentInfo.zIndex === zIndex) {
-        const variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString]
+        const variantInfo = segmentInfo.details[segment.variantString]
         const dimensions = getVariantInfoDimensions(variantInfo, segment.width * TILE_SIZE, 1)
 
         drawSegmentContents(ctx, segment.type, segment.variantString,
