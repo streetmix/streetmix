@@ -6,7 +6,7 @@ describe('undo reducer', () => {
   it('creates a new undo', () => {
     expect(reducer(undefined, actions.createNewUndo({ foo: 'bar' })))
       .toMatchObject({
-        position: 0,
+        position: 1,
         stack: [
           { foo: 'bar' }
         ]
@@ -16,11 +16,11 @@ describe('undo reducer', () => {
   it('creates a new undo at the top of an existing stack', () => {
     const item = { foo: 'bar' }
     const state = reducer({
-      position: 9,
+      position: 10,
       stack: Array(10).fill({})
     }, actions.createNewUndo(item))
 
-    expect(state.position).toEqual(10)
+    expect(state.position).toEqual(11)
     expect(state.stack.length).toEqual(11)
     expect(state.stack[state.stack.length - 1]).toMatchObject(item)
   })
@@ -36,18 +36,18 @@ describe('undo reducer', () => {
     expect(state.position).toEqual(7)
 
     // Expect the stack to be truncated
-    expect(state.stack.length).toEqual(8)
+    expect(state.stack.length).toEqual(7)
 
     // Expect the last item on the stack to match what was added
-    expect(state.stack[state.position]).toMatchObject(item)
+    expect(state.stack[state.stack.length - 1]).toMatchObject(item)
   })
 
   it('trims an undo stack that is too large', () => {
-    const MAX_UNDO_POSITION = MAX_UNDO_LIMIT - 1 // Position is zero-index
+    const MAX_UNDO_POSITION = MAX_UNDO_LIMIT + 1 // The maximum position can be 1 past the actual stack length
     const item = { foo: 'bar' }
     const state = reducer({
       position: MAX_UNDO_POSITION,
-      stack: [{ foo: 'baz' }, ...Array(MAX_UNDO_POSITION).fill({})]
+      stack: [{ foo: 'baz' }, ...Array(MAX_UNDO_LIMIT).fill({})]
     }, actions.createNewUndo(item))
 
     // Stack size should max at MAX_UNDO_LIMIT
@@ -57,7 +57,7 @@ describe('undo reducer', () => {
     expect(state.position).toEqual(MAX_UNDO_POSITION)
 
     // Expect the last item on the stack to match what was added
-    expect(state.stack[MAX_UNDO_POSITION]).toMatchObject(item)
+    expect(state.stack[MAX_UNDO_LIMIT - 1]).toMatchObject(item)
 
     // Expect the first item on the stack to be trimmed out of existence
     expect(state.stack[0]).toMatchObject({})

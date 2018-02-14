@@ -81,7 +81,7 @@ const undo = (state = initialState, action) => {
       return {
         ...state,
         stack,
-        position: state.position + 1
+        position: Math.min(state.position, MAX_UNDO_LIMIT) + 1
       }
     }
     case UNIFY_UNDO_STACK: {
