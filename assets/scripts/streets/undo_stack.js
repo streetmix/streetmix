@@ -17,8 +17,6 @@ import store from '../store'
 import {
   createNewUndo,
   unifyStack,
-  replaceUndoStack,
-  replaceUndoPosition,
   undoAction,
   redoAction
 } from '../store/actions/undo'
@@ -32,16 +30,8 @@ export function getUndoStack () {
   return cloneDeep(store.getState().undo.stack)
 }
 
-export function setUndoStack (value) {
-  store.dispatch(replaceUndoStack(value))
-}
-
 export function getUndoPosition () {
   return store.getState().undo.position
-}
-
-export function setUndoPosition (value) {
-  replaceUndoPosition(value)
 }
 
 function finishUndoOrRedo () {
@@ -106,6 +96,6 @@ export function isRedoAvailable () {
 }
 
 export function unifyUndoStack () {
-  var street = getStreet()
+  const street = store.getState().street
   store.dispatch(unifyStack(street))
 }

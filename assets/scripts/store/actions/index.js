@@ -105,7 +105,6 @@ export const REPLACE_UNDO_STACK = 'REPLACE_UNDO_STACK'
 export const CREATE_NEW_UNDO = 'CREATE_NEW_UNDO'
 export const UNDO = 'UNDO'
 export const REDO = 'REDO'
-export const SET_UNDO_POSITION = 'SET_UNDO_POSITION'
 export const UNIFY_UNDO_STACK = 'UNIFY_UNDO_STACK'
 
 /* user */

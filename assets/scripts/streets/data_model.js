@@ -19,8 +19,6 @@ import { normalizeSlug } from '../util/helpers'
 import { generateRandSeed } from '../util/random'
 import { updateStreetName } from './name'
 import {
-  setUndoStack,
-  setUndoPosition,
   createNewUndoIfNecessary,
   unifyUndoStack
 } from './undo_stack'
@@ -31,6 +29,7 @@ import {
 } from './width'
 import { updateLastStreetInfo, scheduleSavingStreetToServer } from './xhr'
 import { updateStreetData } from '../store/actions/street'
+import { resetUndoStack } from '../store/actions/undo'
 import store from '../store'
 
 const DEFAULT_BUILDING_HEIGHT_LEFT = 4
@@ -256,8 +255,7 @@ function incrementSchemaVersion (street) {
       }
       break
     case 15:
-      setUndoStack([])
-      setUndoPosition(0)
+      store.dispatch(resetUndoStack())
       break
     case 16:
       for (let i in street.segments) {

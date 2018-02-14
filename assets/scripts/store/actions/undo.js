@@ -4,7 +4,6 @@ import {
   CREATE_NEW_UNDO,
   UNDO,
   REDO,
-  SET_UNDO_POSITION,
   UNIFY_UNDO_STACK
 } from './'
 
@@ -14,10 +13,12 @@ export function resetUndoStack () {
   }
 }
 
-export function replaceUndoStack (stack) {
+// todo: check to make sure position is set to a value within stack length
+export function replaceUndoStack (stack, position) {
   return {
     type: REPLACE_UNDO_STACK,
-    stack
+    stack,
+    position
   }
 }
 
@@ -38,13 +39,6 @@ export function undoAction (street) {
 export function redoAction () {
   return {
     type: REDO
-  }
-}
-
-export function replaceUndoPosition (position) {
-  return {
-    type: SET_UNDO_POSITION,
-    position
   }
 }
 

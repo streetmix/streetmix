@@ -4,7 +4,6 @@ import {
   CREATE_NEW_UNDO,
   UNDO,
   REDO,
-  SET_UNDO_POSITION,
   UNIFY_UNDO_STACK
 } from '../actions'
 
@@ -74,7 +73,8 @@ const undo = (state = initialState, action) => {
     case REPLACE_UNDO_STACK:
       return {
         ...state,
-        stack: action.stack
+        stack: action.stack,
+        position: action.position
       }
     case CREATE_NEW_UNDO: {
       const stack = createNewUndo(state, action.street)
@@ -111,11 +111,6 @@ const undo = (state = initialState, action) => {
         position: (newPosition > stackSize) ? stackSize : newPosition
       }
     }
-    case SET_UNDO_POSITION:
-      return {
-        ...state,
-        position: action.position
-      }
     default:
       return state
   }
