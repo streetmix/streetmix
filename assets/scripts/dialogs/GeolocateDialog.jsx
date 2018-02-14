@@ -210,7 +210,7 @@ class GeolocateDialog extends React.Component {
     this.props.clearDialogs()
   }
 
-  // If there is no street information, returns false
+  // If there addressInformation does not have a street, return false
   // If there is no street owner, return true
   // If there is the street owner is equal to the current user, return true
   // If there is no street location, return true
