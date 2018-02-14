@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { undo, redo, isUndoAvailable, isRedoAvailable } from '../streets/undo_stack'
 import { t } from '../app/locale'
 
-class UndoRedo extends React.Component {
+export class UndoRedo extends React.Component {
   static propTypes = {
     undo: PropTypes.object
   }
