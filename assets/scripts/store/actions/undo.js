@@ -1,5 +1,5 @@
 import {
-  CLEAR_UNDO_STACK,
+  RESET_UNDO_STACK,
   REPLACE_UNDO_STACK,
   CREATE_NEW_UNDO,
   UNDO,
@@ -8,9 +8,9 @@ import {
   UNIFY_UNDO_STACK
 } from './'
 
-export function clearUndoStack () {
+export function resetUndoStack () {
   return {
-    type: CLEAR_UNDO_STACK
+    type: RESET_UNDO_STACK
   }
 }
 

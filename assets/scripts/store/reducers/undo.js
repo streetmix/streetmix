@@ -1,5 +1,5 @@
 import {
-  CLEAR_UNDO_STACK,
+  RESET_UNDO_STACK,
   REPLACE_UNDO_STACK,
   CREATE_NEW_UNDO,
   UNDO,
@@ -15,7 +15,7 @@ function createNewUndo (state, street) {
 
   // This removes future undo path in case we undo a few times and then do
   // something undoable.
-  let stack = state.stack.slice(0, position + 1)
+  let stack = state.stack.slice(0, position)
 
   stack.push(Object.assign({}, street))
   stack = trimUndoStack(stack)
@@ -65,10 +65,11 @@ const initialState = {
 
 const undo = (state = initialState, action) => {
   switch (action.type) {
-    case CLEAR_UNDO_STACK:
+    case RESET_UNDO_STACK:
       return {
         ...state,
-        stack: []
+        stack: [],
+        position: 0
       }
     case REPLACE_UNDO_STACK:
       return {
@@ -80,7 +81,7 @@ const undo = (state = initialState, action) => {
       return {
         ...state,
         stack,
-        position: stack.length - 1
+        position: state.position + 1
       }
     }
     case UNIFY_UNDO_STACK: {
