@@ -65,7 +65,7 @@ export function undo () {
 
 export function redo () {
   if (!isRedoAvailable()) {
-    showStatusMessage(t('toast.no-undo'))
+    showStatusMessage(t('toast.no-redo'))
     return
   }
 

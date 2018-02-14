@@ -13,8 +13,8 @@ class UndoRedo extends React.Component {
     super(props)
 
     this.state = {
-      undo: false,
-      redo: false
+      undoAvailable: false,
+      redoAvailable: false
     }
   }
 
@@ -22,8 +22,8 @@ class UndoRedo extends React.Component {
     // Update undo or redo buttons if the undo position has changed.
     if (this.props.undoPosition !== nextProps.undoPosition) {
       this.setState({
-        undo: isUndoAvailable(),
-        redo: isRedoAvailable()
+        undoAvailable: isUndoAvailable(),
+        redoAvailable: isRedoAvailable()
       })
     }
   }
@@ -31,8 +31,8 @@ class UndoRedo extends React.Component {
   render () {
     return (
       <React.Fragment>
-        <button onClick={undo} disabled={!this.state.undo}>{t('btn.undo', 'Undo')}</button>
-        <button onClick={redo} disabled={!this.state.redo}>{t('btn.redo', 'Redo')}</button>
+        <button onClick={undo} disabled={!this.state.undoAvailable}>{t('btn.undo', 'Undo')}</button>
+        <button onClick={redo} disabled={!this.state.redoAvailable}>{t('btn.redo', 'Redo')}</button>
       </React.Fragment>
     )
   }
