@@ -25,8 +25,6 @@ import store from '../store'
 export const KEYS = {
   ENTER: 13,
   ESC: 27,
-  Y: 89,
-  Z: 90,
   EQUAL: 187, // = or +
   EQUAL_ALT: 61, // Firefox
   PLUS_KEYPAD: 107,
@@ -97,21 +95,6 @@ function onBodyKeyDown (event) {
         trackEvent('INTERACTION', 'CHANGE_WIDTH', 'KEYBOARD', null, true)
       }
       break
-    case KEYS.Z:
-      if (!event.shiftKey && (event.metaKey || event.ctrlKey)) {
-        undo()
-        event.preventDefault()
-      } else if (event.shiftKey && (event.metaKey || event.ctrlKey)) {
-        redo()
-        event.preventDefault()
-      }
-      break
-    case KEYS.Y:
-      if (event.metaKey || event.ctrlKey) {
-        redo()
-        event.preventDefault()
-      }
-      break
   }
 }
 
@@ -147,4 +130,17 @@ export function registerKeypresses () {
   registerKeypress('shift f', () => {
     store.dispatch(showDialog('FEATURE_FLAGS'))
   })
+
+  // Undo
+  registerKeypress('ctrl z', {
+    preventDefault: true,
+    requireFocusOnBody: true,
+    shiftKey: false
+  }, undo)
+
+  // Redo
+  registerKeypress(['shift ctrl z', 'ctrl y'], {
+    preventDefault: true,
+    requireFocusOnBody: true
+  }, redo)
 }
