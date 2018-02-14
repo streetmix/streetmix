@@ -13,7 +13,7 @@ import { unpackServerStreetData } from '../streets/xhr'
 import { resizeStreetWidth, recalculateOccupiedWidth } from '../streets/width'
 import { getAuthHeader } from '../users/authentication'
 import { propagateUnits } from '../users/localization'
-import { segmentsChanged } from './view'
+import { segmentsChanged } from '../segments/view'
 
 let lastRequestedStreetId = null
 
@@ -42,7 +42,8 @@ export function fetchGalleryStreet (streetId) {
     .catch(errorReceiveGalleryStreet)
 }
 
-function errorReceiveGalleryStreet () {
+function errorReceiveGalleryStreet (err) {
+  console.log(err)
   // updateGallerySelection()
 }
 

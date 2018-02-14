@@ -75,6 +75,7 @@ export function redo () {
 }
 
 export function createNewUndoIfNecessary (lastStreet, currentStreet) {
+  // If just the street name has changed, don't make a new undo step for it.
   if (lastStreet.name !== currentStreet.name) {
     return
   }
