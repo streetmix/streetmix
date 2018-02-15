@@ -3,8 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import StreetName from './StreetName'
 import StreetMetaData from './StreetMetaData'
-import { getStreet, saveStreetToServerIfNecessary } from './data_model'
-import { updateStreetName } from './name'
 import { saveStreetName } from '../store/actions/street'
 import { t } from '../app/locale'
 
@@ -93,12 +91,8 @@ class StreetNameCanvas extends React.Component {
     const newName = window.prompt(t('prompt.new-street', 'New street name:'), this.props.street.name)
 
     if (newName) {
-      const street = getStreet()
-      street.name = StreetName.normalizeStreetName(newName)
-      street.userUpdated = true
-      saveStreetToServerIfNecessary()
-      this.props.saveStreetName(street.name, true)
-      updateStreetName()
+      const name = StreetName.normalizeStreetName(newName)
+      this.props.saveStreetName(name, true)
     }
   }
 

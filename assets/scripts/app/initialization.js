@@ -7,7 +7,7 @@ import { debug } from '../preinit/debug_settings'
 import { system } from '../preinit/system_capabilities'
 import { initializeFlagSubscribers } from '../app/flag_utils'
 import { fillEmptySegments, segmentsChanged } from '../segments/view'
-import { initBuildingReduxTransitionSubscriber } from '../segments/buildings'
+import { initStreetReduxTransitionSubscriber } from '../streets/street'
 import { onNewStreetLastClick } from '../streets/creation'
 import {
   createDomFromData,
@@ -156,7 +156,7 @@ function onEverythingLoaded () {
   setIgnoreStreetChanges(false)
   setStreetDataInRedux()
   setLastStreet(trimStreetData(getStreet()))
-  initBuildingReduxTransitionSubscriber()
+  initStreetReduxTransitionSubscriber()
   initializeFlagSubscribers()
 
   updatePageUrl()

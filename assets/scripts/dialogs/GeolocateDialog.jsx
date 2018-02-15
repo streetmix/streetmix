@@ -7,8 +7,6 @@ import * as sharedstreets from 'sharedstreets'
 import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../app/config'
 import Dialog from './Dialog'
 import SearchAddress from '../streets/SearchAddress'
-import { getStreet, saveStreetToServerIfNecessary } from '../streets/data_model'
-import { updateStreetName } from '../streets/name'
 import { getRemixOnFirstEdit } from '../streets/remix'
 import { setMapState } from '../store/actions/map'
 import { addLocation, saveStreetName } from '../store/actions/street'
@@ -65,7 +63,7 @@ class GeolocateDialog extends React.Component {
   componentDidMount () {
     const { markerLocation, userLocation, street } = this.props
 
-    const updateMarker = this.shouldUpdateMarker(markerLocation, street.location)
+    const updateMarker = this.shouldUpdateMarker(street.location)
     if (updateMarker) {
       this.updateMapToStreetLocation(street.location)
     } else if (markerLocation) {
@@ -83,14 +81,11 @@ class GeolocateDialog extends React.Component {
   // If there is no marker but has a street, return true
   // If there is a marker and street, check
   // If there is no marker and no street, return false
-  shouldUpdateMarker = (markerLocation, location) => {
-    let updateMarkerToStreet = (!markerLocation && location)
-    if (markerLocation && location) {
-      if (markerLocation.lat) {
-        updateMarkerToStreet = !(markerLocation.lat === location.latlng[0] && markerLocation.lng === location.latlng[1])
-      } else {
-        updateMarkerToStreet = !(markerLocation[0] === location.latlng[0] && markerLocation[1] === location.latlng[1])
-      }
+  shouldUpdateMarker = (location) => {
+    const { addressInformation } = this.props
+    let updateMarkerToStreet = (!addressInformation && location)
+    if (addressInformation && location) {
+      return (addressInformation.id !== location.wofId)
     }
     return updateMarkerToStreet
   }
@@ -170,7 +165,7 @@ class GeolocateDialog extends React.Component {
   }
 
   handleConfirm = (e) => {
-    const { markerLocation, addressInformation, street } = this.props
+    const { markerLocation, addressInformation } = this.props
     const { bbox } = this.state
     const point = (typeof markerLocation.lng !== 'undefined') ? [markerLocation.lng, markerLocation.lat] : [markerLocation[1], markerLocation[0]]
     const location = {
@@ -193,20 +188,8 @@ class GeolocateDialog extends React.Component {
       location.geometryId = sharedstreets.geometryId(line)
     }
 
-    // Location added to global street variable
-    const globalStreet = getStreet()
-    globalStreet.location = location
     this.props.addLocation(location)
-    if (!street.userUpdated) {
-      // The reducer already checks whether or not to rename the street
-      // For the sake of updating the global street variable,
-      // we are checking here as well whether or not to rename the street.
-      // Eventually, we will not need to check street.userUpdated here
-      this.props.saveStreetName(location.hierarchy.street, false)
-      globalStreet.name = location.hierarchy.street
-      updateStreetName()
-    }
-    saveStreetToServerIfNecessary()
+    this.props.saveStreetName(location.hierarchy.street, false)
     this.props.clearDialogs()
   }
 
