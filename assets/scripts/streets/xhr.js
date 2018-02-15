@@ -60,7 +60,6 @@ import {
 } from './remix'
 import {
   getUndoStack,
-  getUndoPosition,
   unifyUndoStack
 } from './undo_stack'
 import { resizeStreetWidth } from './width'
@@ -68,7 +67,6 @@ import { resetUndoStack, replaceUndoStack } from '../store/actions/undo'
 import store from '../store'
 
 const SAVE_STREET_DELAY = 500
-const FLAG_SAVE_UNDO = false // true to save undo with street data, false to not save undo
 
 var saveStreetTimerId = -1
 let saveStreetIncomplete = false
@@ -376,9 +374,9 @@ export function packServerStreetData () {
   // This will be implied through authorization header
   delete data.street.creatorId
 
-  if (FLAG_SAVE_UNDO) {
-    data.undoStack = cloneDeep(getUndoStack())
-    data.undoPosition = getUndoPosition()
+  if (store.getState().flags.SAVE_UNDO.value === true) {
+    data.undoStack = cloneDeep(store.getState().undo.stack)
+    data.undoPosition = store.getState().undo.position
   }
 
   var street = getStreet()

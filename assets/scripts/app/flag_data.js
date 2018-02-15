@@ -10,6 +10,11 @@ export const FEATURE_FLAGS = {
     label: 'Geolocation',
     defaultValue: false
   },
+  SAVE_UNDO: {
+    label: 'Save undo data to server',
+    defaultValue: false,
+    disabled: true
+  },
   INFO_BUBBLE_HOVER_POLYGON: {
     label: 'Info bubble — [debug] show Tognazzini zone',
     defaultValue: false
