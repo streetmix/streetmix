@@ -9,136 +9,89 @@ import {
   getStreet,
   setStreet,
   setUpdateTimeToNow,
-  updateEverything,
-  getLastStreet,
-  setStreetDataInRedux
+  updateEverything
 } from './data_model'
 import { getRemixOnFirstEdit } from './remix'
 
-const UNDO_LIMIT = 1000
-
-export const FLAG_SAVE_UNDO = false // true to save undo with street data, false to not save undo
-
-let undoStack = []
+import store from '../store'
+import {
+  createNewUndo,
+  unifyStack,
+  undoAction,
+  redoAction
+} from '../store/actions/undo'
 
 export function getUndoStack () {
-  return undoStack
+  return cloneDeep(store.getState().undo.stack)
 }
-
-export function setUndoStack (value) {
-  undoStack = value
-}
-
-let undoPosition = 0
 
 export function getUndoPosition () {
-  return undoPosition
+  return store.getState().undo.position
 }
 
-export function setUndoPosition (value) {
-  undoPosition = value
-}
+function finishUndoOrRedo () {
+  // set current street to the thing we just updated
+  const state = store.getState().undo
+  setStreet(cloneDeep(state.stack[state.position]))
 
-let ignoreStreetChanges = false
+  setUpdateTimeToNow()
 
-export function getIgnoreStreetChanges () {
-  return ignoreStreetChanges
-}
+  infoBubble.hide()
+  infoBubble.hideSegment()
+  infoBubble.dontConsiderShowing()
 
-export function setIgnoreStreetChanges (value) {
-  ignoreStreetChanges = value
-}
-
-function undoRedo (undo) {
-  if (undo && !isUndoAvailable()) {
-    showStatusMessage(t('toast.no-undo'))
-  } else if (!undo && !isRedoAvailable()) {
-    showStatusMessage(t('toast.no-redo'))
-  } else {
-    if (undo) {
-      undoStack[undoPosition] = trimStreetData(getStreet())
-      undoPosition--
-    } else {
-      undoPosition++
-    }
-    setStreet(cloneDeep(undoStack[undoPosition]))
-    setUpdateTimeToNow()
-
-    infoBubble.hide()
-    infoBubble.hideSegment()
-    infoBubble.dontConsiderShowing()
-
-    updateEverything(true)
-    hideStatusMessage()
-
-    // The `setStreet()` above only sets minimum (trimmed) data from the undo stack
-    // Code following that replaces and recalculates the data and adjusts the legacy global
-    // `street` object, which we have to put back onto Redux
-    setStreetDataInRedux()
-  }
+  updateEverything(true)
+  hideStatusMessage()
 
   trackEvent('INTERACTION', 'UNDO', null, null, true)
 }
 
 export function undo () {
-  undoRedo(true)
+  if (!isUndoAvailable()) {
+    showStatusMessage(t('toast.no-undo'))
+    return
+  }
+
+  // sends current street to update current position before undoing
+  store.dispatch(undoAction(trimStreetData(getStreet())))
+
+  finishUndoOrRedo()
 }
 
 export function redo () {
-  undoRedo(false)
-}
-
-function trimUndoStack () {
-  // TODO optimize
-  while (undoPosition >= UNDO_LIMIT) {
-    undoPosition--
-    undoStack = undoStack.slice(1)
+  if (!isRedoAvailable()) {
+    showStatusMessage(t('toast.no-redo'))
+    return
   }
-}
 
-function createNewUndo () {
-  // This removes future undo path in case we undo a few times and then do
-  // something undoable.
-  undoStack = undoStack.splice(0, undoPosition)
-  undoStack[undoPosition] = cloneDeep(getLastStreet())
-  undoPosition++
+  store.dispatch(redoAction())
 
-  trimUndoStack()
-  unifyUndoStack()
+  finishUndoOrRedo()
 }
 
 export function createNewUndoIfNecessary (lastStreet, currentStreet) {
+  // If just the street name has changed, don't make a new undo step for it.
   if (lastStreet.name !== currentStreet.name) {
     return
   }
 
-  createNewUndo()
+  store.dispatch(createNewUndo(cloneDeep(lastStreet)))
 }
 
-function isUndoAvailable () {
+export function isUndoAvailable () {
+  const undoPosition = getUndoPosition()
   // Don’t allow undo/redo unless you own the street
-
   return (undoPosition > 0) && !getRemixOnFirstEdit()
 }
 
-function isRedoAvailable () {
+export function isRedoAvailable () {
+  const undoStack = getUndoStack()
+  const undoPosition = getUndoPosition()
   // Don’t allow undo/redo unless you own the street
-
-  return (undoPosition < undoStack.length - 1) && !getRemixOnFirstEdit()
-}
-
-export function updateUndoButtons () {
-  document.querySelector('#undo').disabled = !isUndoAvailable()
-  document.querySelector('#redo').disabled = !isRedoAvailable()
+  return (undoPosition >= 0 && undoPosition < undoStack.length - 1) && !getRemixOnFirstEdit()
 }
 
 export function unifyUndoStack () {
-  var street = getStreet()
-  for (var i = 0; i < undoStack.length; i++) {
-    undoStack[i].id = street.id
-    undoStack[i].name = street.name
-    undoStack[i].namespacedId = street.namespacedId
-    undoStack[i].creatorId = street.creatorId
-    undoStack[i].updatedAt = street.updatedAt
-  }
+  const street = store.getState().street
+  store.dispatch(unifyStack(street))
 }

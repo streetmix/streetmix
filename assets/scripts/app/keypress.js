@@ -382,7 +382,7 @@ function onGlobalKeyDown (event) {
   for (let item of commandsForKeyCode) {
     if ((item.shiftKey === event.shiftKey || item.shiftKey === 'optional') &&
         (item.altKey === event.altKey || item.altKey === 'optional') &&
-        (item.metaKey === event.metaKey || item.metaKey === 'optional')) {
+        (item.metaKey === event.metaKey || item.metaKey === event.ctrlKey || item.metaKey === 'optional')) {
       toExecute.push(item)
     }
   }

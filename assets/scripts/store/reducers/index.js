@@ -14,6 +14,7 @@ import status from './status'
 import street from './street'
 import system from './system'
 import ui from './ui'
+import undo from './undo'
 import user from './user'
 
 const reducers = combineReducers({
@@ -32,6 +33,7 @@ const reducers = combineReducers({
   street,
   system,
   ui,
+  undo,
   user
 })
 

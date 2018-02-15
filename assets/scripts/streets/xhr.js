@@ -48,7 +48,8 @@ import {
   updateToLatestSchemaVersion,
   setStreetCreatorId,
   setUpdateTimeToNow,
-  setLastStreet
+  setLastStreet,
+  setIgnoreStreetChanges
 } from './data_model'
 import { updateStreetName } from './name'
 import {
@@ -58,15 +59,11 @@ import {
   addRemixSuffixToName
 } from './remix'
 import {
-  setUndoStack,
-  setUndoPosition,
   getUndoStack,
-  FLAG_SAVE_UNDO,
-  getUndoPosition,
-  unifyUndoStack,
-  setIgnoreStreetChanges
+  unifyUndoStack
 } from './undo_stack'
 import { resizeStreetWidth } from './width'
+import { resetUndoStack, replaceUndoStack } from '../store/actions/undo'
 import store from '../store'
 
 const SAVE_STREET_DELAY = 500
@@ -332,11 +329,9 @@ export function unpackServerStreetData (transmission, id, namespacedId, checkIfN
   var street = getStreet()
 
   if (transmission.data.undoStack) {
-    setUndoStack(cloneDeep(transmission.data.undoStack))
-    setUndoPosition(transmission.data.undoPosition)
+    store.dispatch(replaceUndoStack(cloneDeep(transmission.data.undoStack), transmission.data.undoPosition))
   } else {
-    setUndoStack([])
-    setUndoPosition(0)
+    store.dispatch(resetUndoStack())
   }
 
   var updatedSchema = updateToLatestSchemaVersion(street)
@@ -379,9 +374,9 @@ export function packServerStreetData () {
   // This will be implied through authorization header
   delete data.street.creatorId
 
-  if (FLAG_SAVE_UNDO) {
-    data.undoStack = cloneDeep(getUndoStack())
-    data.undoPosition = getUndoPosition()
+  if (store.getState().flags.SAVE_UNDO.value === true) {
+    data.undoStack = cloneDeep(store.getState().undo.stack)
+    data.undoPosition = store.getState().undo.position
   }
 
   var street = getStreet()

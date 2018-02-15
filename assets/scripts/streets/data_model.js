@@ -19,13 +19,8 @@ import { normalizeSlug } from '../util/helpers'
 import { generateRandSeed } from '../util/random'
 import { updateStreetName } from './name'
 import {
-  setUndoStack,
-  setUndoPosition,
-  getIgnoreStreetChanges,
-  setIgnoreStreetChanges,
   createNewUndoIfNecessary,
-  unifyUndoStack,
-  updateUndoButtons
+  unifyUndoStack
 } from './undo_stack'
 import {
   DEFAULT_STREET_WIDTH,
@@ -34,6 +29,7 @@ import {
 } from './width'
 import { updateLastStreetInfo, scheduleSavingStreetToServer } from './xhr'
 import { updateStreetData } from '../store/actions/street'
+import { resetUndoStack } from '../store/actions/undo'
 import store from '../store'
 
 const DEFAULT_BUILDING_HEIGHT_LEFT = 4
@@ -261,8 +257,7 @@ function incrementSchemaVersion (street) {
       }
       break
     case 15:
-      setUndoStack([])
-      setUndoPosition(0)
+      store.dispatch(resetUndoStack())
       break
     case 16:
       for (let i in street.segments) {
@@ -326,8 +321,14 @@ export function setUpdateTimeToNow () {
   unifyUndoStack()
 }
 
+let ignoreStreetChanges = false
+
+export function setIgnoreStreetChanges (value) {
+  ignoreStreetChanges = value
+}
+
 export function saveStreetToServerIfNecessary () {
-  if (getIgnoreStreetChanges() || store.getState().errors.abortEverything) {
+  if (ignoreStreetChanges || store.getState().errors.abortEverything) {
     return
   }
 
@@ -348,8 +349,6 @@ export function saveStreetToServerIfNecessary () {
     scheduleSavingStreetToServer()
 
     _lastStreet = currentData
-
-    updateUndoButtons()
   }
 
   setStreetDataInRedux()
@@ -532,7 +531,6 @@ export function updateEverything (dontScroll, save = true) {
   resizeStreetWidth(dontScroll)
   updateStreetName()
   setIgnoreStreetChanges(false)
-  updateUndoButtons()
   _lastStreet = trimStreetData(street)
 
   if (save === true) {
