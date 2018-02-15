@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import { Map, TileLayer, ZoomControl, Marker, Popup } from 'react-leaflet'
 import * as sharedstreets from 'sharedstreets'
 import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../app/config'
-import Dialog from './Dialog'
 import SearchAddress from '../streets/SearchAddress'
 import { getRemixOnFirstEdit } from '../streets/remix'
 import { setMapState } from '../store/actions/map'
@@ -246,7 +245,7 @@ class GeolocateDialog extends React.Component {
     const tileUrl = (window.devicePixelRatio > 1) ? MAP_TILES_2X : MAP_TILES
 
     return (
-      <Dialog className="geolocate-dialog">
+      <React.Fragment>
         <div className="geolocate-input-container">
           <SearchAddress setSearchResults={this.setSearchResults} />
         </div>
@@ -269,7 +268,7 @@ class GeolocateDialog extends React.Component {
           {popup}
           {markers}
         </Map>
-      </Dialog>
+      </React.Fragment>
     )
   }
 }

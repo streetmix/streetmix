@@ -2,11 +2,9 @@
  * About Streetmix (dialog box)
  *
  * Handles the "About" dialog box.
- * Instantiates an instance of Dialog
  *
  */
 import React from 'react'
-import Dialog from './Dialog'
 import Avatar from '../users/Avatar'
 import { trackEvent } from '../app/event_tracking'
 import { t } from '../app/locale'
@@ -18,7 +16,7 @@ export default class AboutDialog extends React.PureComponent {
 
   render () {
     return (
-      <Dialog className="about-dialog">
+      <React.Fragment>
         <h1>{t('dialogs.about.heading', 'About Streetmix.')}</h1>
         <div className="about-dialog-left">
           <p className="about-dialog-description">
@@ -73,7 +71,7 @@ export default class AboutDialog extends React.PureComponent {
             <a href="https://github.com/streetmix/streetmix/blob/master/CONTRIBUTING.md" target="_blank">{t('dialogs.about.github-link', 'Contribute to open source')}</a>
           </p>
         </div>
-      </Dialog>
+      </React.Fragment>
     )
   }
 }

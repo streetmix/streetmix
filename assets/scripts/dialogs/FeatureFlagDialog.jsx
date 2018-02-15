@@ -2,13 +2,11 @@
  * Feature flags (dialog box)
  *
  * Secret menu.
- * Instantiates an instance of Dialog
  *
  */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import Dialog from './Dialog'
 import { FEATURE_FLAGS } from '../app/flag_data'
 import { setFeatureFlag } from '../store/actions/flags'
 import { clearDialogs } from '../store/actions/dialogs'
@@ -58,7 +56,7 @@ class FeatureFlagDialog extends React.Component {
 
   render () {
     return (
-      <Dialog className="feature-flag-dialog">
+      <React.Fragment>
         <h1>Feature flags</h1>
 
         <table>
@@ -72,7 +70,7 @@ class FeatureFlagDialog extends React.Component {
             Close
           </button>
         </p>
-      </Dialog>
+      </React.Fragment>
     )
   }
 }

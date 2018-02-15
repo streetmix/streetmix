@@ -9,6 +9,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { clearDialogs } from '../store/actions/dialogs'
+import { t } from '../app/locale'
 
 class Dialog extends React.PureComponent {
   static propTypes = {
@@ -23,6 +24,14 @@ class Dialog extends React.PureComponent {
     disableShieldExit: false
   }
 
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      error: null
+    }
+  }
+
   componentDidMount () {
     // Set up keypress listener to close dialogs if open
     registerKeypress('esc', this.unmountDialog)
@@ -30,6 +39,12 @@ class Dialog extends React.PureComponent {
 
   componentWillUnmount () {
     deregisterKeypress('esc', this.unmountDialog)
+  }
+
+  componentDidCatch (error, info) {
+    this.setState({
+      error
+    })
   }
 
   unmountDialog = () => {
@@ -49,17 +64,37 @@ class Dialog extends React.PureComponent {
     }
 
     let shieldClassName = 'dialog-box-shield'
-    if (this.props.disableShieldExit) {
+    if (this.props.disableShieldExit && !this.state.error) {
       shieldClassName += ' dialog-box-shield-unclickable'
     }
 
     return (
       <div className="dialog-box-container" ref={(ref) => { this.dialogEl = ref }}>
         <div className={shieldClassName} onClick={this.onClickShield} />
-        <div className={className}>
-          <button className="close" onClick={this.unmountDialog}>×</button>
-          {this.props.children}
-        </div>
+        {this.state.error ? (
+          <div className="dialog-box dialog-error">
+            <h1>{t('dialogs.error.heading', 'Oops!')}</h1>
+            <p>
+              {t('dialogs.error.text', 'Something unexpected happened 😢, please try again.')}
+            </p>
+            <p style={{ textAlign: 'center' }}>
+              <button onClick={this.unmountDialog} title={t('btn.close', 'Close')}>
+                {t('btn.close', 'Close')}
+              </button>
+            </p>
+          </div>
+        ) : (
+          <div className={className}>
+            <button
+              className="close"
+              onClick={this.unmountDialog}
+              title={t('btn.close', 'Close')}
+            >
+              ×
+            </button>
+            {this.props.children}
+          </div>
+        )}
       </div>
     )
   }

@@ -67,6 +67,19 @@ $dialog-box-default-width: 790px;
       color: rgb(120, 120, 120);
     }
   }
+
+  button:not(.close),
+  a.button-like {
+    margin: 0 auto;
+    display: inline-block !important;
+    padding: 0.75em 2em;
+    margin-top: 1em;
+  }
+}
+
+.dialog-error {
+  padding: 1.5em 3em;
+  max-width: 400px;
 }
 
 // Content of #about dialog box

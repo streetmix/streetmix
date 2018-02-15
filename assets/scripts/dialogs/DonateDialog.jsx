@@ -2,13 +2,11 @@
  * Donate (dialog box)
  *
  * Handles the "Donate" dialog box.
- * Instantiates an instance of Dialog
  *
  */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import Dialog from './Dialog'
 import { trackEvent } from '../app/event_tracking'
 import { clearDialogs } from '../store/actions/dialogs'
 
@@ -46,7 +44,7 @@ class DonateDialog extends React.PureComponent {
 
   render () {
     return (
-      <Dialog className="donate-dialog" disableShieldExit>
+      <React.Fragment>
         <h1>Streetmix needs your help!</h1>
         <div className="donate-dialog-text">
           <p className="donate-dialog-lede">
@@ -69,7 +67,7 @@ class DonateDialog extends React.PureComponent {
         <p>
           <a href="#" onClick={this.onClickClose}>No thanks</a>
         </p>
-      </Dialog>
+      </React.Fragment>
     )
   }
 }
