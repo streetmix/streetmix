@@ -85,6 +85,7 @@ class GeolocateDialog extends React.Component {
     const { addressInformation } = this.props
     let updateMarkerToStreet = (!addressInformation && location)
     if (addressInformation && location) {
+      // Checking if WOF ids match to see if need to update
       return (addressInformation.id !== location.wofId)
     }
     return updateMarkerToStreet
