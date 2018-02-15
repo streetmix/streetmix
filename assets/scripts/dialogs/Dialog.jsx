@@ -7,7 +7,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { hideAllMenus } from '../menus/menu_controller'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { clearDialogs } from '../store/actions/dialogs'
 
@@ -25,8 +24,6 @@ class Dialog extends React.PureComponent {
   }
 
   componentDidMount () {
-    hideAllMenus()
-
     // Set up keypress listener to close dialogs if open
     registerKeypress('esc', this.unmountDialog)
   }

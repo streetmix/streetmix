@@ -2,7 +2,6 @@ import { cloneDeep } from 'lodash'
 
 import { ERRORS, showError } from '../app/errors'
 import { MODES, getMode } from '../app/mode'
-import { hideAllMenus } from '../menus/menu_controller'
 import { app } from '../preinit/app_settings'
 import { debug } from '../preinit/debug_settings'
 import {
@@ -30,8 +29,9 @@ import {
 } from '../streets/width'
 import { wasGeolocationAttempted } from './geolocation'
 import { isSignInLoaded } from './authentication'
-import store from '../store'
 import { saveSettingsLocally, LOCAL_STORAGE_SETTINGS_UNITS_ID } from '../users/settings'
+import store from '../store'
+import { clearMenus } from '../store/actions/menus'
 import { setUserUnits } from '../store/actions/persistSettings'
 
 export const SETTINGS_UNITS_IMPERIAL = 1
@@ -153,7 +153,7 @@ export function updateUnits (newUnits) {
 
   setIgnoreStreetChanges(false)
 
-  hideAllMenus()
+  store.dispatch(clearMenus())
 
   saveStreetToServerIfNecessary()
   saveSettingsLocally()

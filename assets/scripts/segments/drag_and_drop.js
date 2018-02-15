@@ -5,7 +5,6 @@ import {
   getStreetSectionTop
 } from '../app/window_resize'
 import { infoBubble } from '../info_bubble/info_bubble'
-import { hideAllMenus } from '../menus/menu_controller'
 import { app } from '../preinit/app_settings'
 import { system } from '../preinit/system_capabilities'
 import { getStreet } from '../streets/data_model'
@@ -41,6 +40,8 @@ import {
   createSegment,
   segmentsChanged
 } from './view'
+import store from '../store'
+import { clearMenus } from '../store/actions/menus'
 
 const DRAG_OFFSET_Y_PALETTE = -340 - 150
 
@@ -487,7 +488,7 @@ export function onBodyMouseDown (event) {
     return
   }
 
-  hideAllMenus()
+  store.dispatch(clearMenus())
 
   if (el.classList.contains('drag-handle')) {
     handleSegmentResizeStart(event)

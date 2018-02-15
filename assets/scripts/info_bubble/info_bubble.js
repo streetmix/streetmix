@@ -9,7 +9,6 @@ import {
 import { DRAGGING_TYPE_NONE, draggingType } from '../segments/drag_and_drop'
 import { cancelFadeoutControls } from '../segments/resizing'
 import { getElAbsolutePos } from '../util/helpers'
-import { isAnyMenuVisible } from '../menus/menu_controller'
 import { registerKeypress } from '../app/keypress'
 import {
   switchSegmentElIn,
@@ -246,7 +245,7 @@ export const infoBubble = {
   },
 
   considerShowing: function (event, segmentEl, type) {
-    if (isAnyMenuVisible() === true || app.readOnly) {
+    if (Boolean(store.getState().menus.activeMenu) === true || app.readOnly) {
       return
     }
 

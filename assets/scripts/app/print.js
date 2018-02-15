@@ -1,6 +1,6 @@
 import { infoBubble } from '../info_bubble/info_bubble'
-import { hideAllMenus } from '../menus/menu_controller'
 import store from '../store'
+import { clearMenus } from '../store/actions/menus'
 import { startPrinting, stopPrinting } from '../store/actions/app'
 
 export function attachPrintEventListeners () {
@@ -27,7 +27,7 @@ export function attachPrintEventListeners () {
 export function printImage (event) {
   event.preventDefault()
 
-  hideAllMenus()
+  store.dispatch(clearMenus())
   infoBubble.hide()
   infoBubble.hideSegment(true)
 

@@ -1,4 +1,4 @@
-import { SHOW_MENU, CLEAR_MENUS } from '../actions'
+import { SHOW_MENU, CLEAR_MENUS, SHOW_DIALOG } from '../actions'
 
 const initialState = {
   activeMenu: null
@@ -11,6 +11,7 @@ const menus = (state = initialState, action) => {
         activeMenu: action.name
       }
     case CLEAR_MENUS:
+    case SHOW_DIALOG: // Whenever a dialog is shown, also hide menus.
       return initialState
     default:
       return state

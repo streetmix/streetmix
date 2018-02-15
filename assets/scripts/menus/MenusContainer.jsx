@@ -13,7 +13,8 @@ import { showMenu, clearMenus } from '../store/actions/menus'
 
 class MenusContainer extends React.PureComponent {
   static propTypes = {
-    dispatch: PropTypes.func.isRequired,
+    showMenu: PropTypes.func.isRequired,
+    clearMenus: PropTypes.func.isRequired,
     activeMenu: PropTypes.string
   }
 
@@ -63,7 +64,7 @@ class MenusContainer extends React.PureComponent {
     this.setState({
       activeMenuPos: activeMenu ? clickedItem.position : [0, 0]
     })
-    this.props.dispatch(showMenu(activeMenu))
+    this.props.showMenu(activeMenu)
   }
 
   /**
@@ -85,7 +86,7 @@ class MenusContainer extends React.PureComponent {
   hideAllMenus = () => {
     // Only act if there is currently an active menu.
     if (this.props.activeMenu) {
-      this.props.dispatch(clearMenus())
+      this.props.clearMenus()
     }
   }
 
@@ -113,4 +114,11 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(MenusContainer)
+function mapDispatchToProps (dispatch) {
+  return {
+    showMenu: (menu) => { dispatch(showMenu(menu)) },
+    clearMenus: () => { dispatch(clearMenus()) }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MenusContainer)
