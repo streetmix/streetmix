@@ -18,4 +18,11 @@ describe('FeatureFlagDialog', () => {
     )
     expect(wrapper.exists()).toEqual(true)
   })
+
+  it('renders a list of flags and values from state')
+  it('renders a disabled flag')
+  it('renders a flag whose value differs from the default value')
+  it('sets a feature flag when the checkbox is clicked')
+  it('sets a feature flag when the label is clicked')
+  it('closes the dialog when "Close" button is clicked')
 })
