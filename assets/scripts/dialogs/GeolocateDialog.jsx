@@ -17,8 +17,7 @@ const REVERSE_GEOCODE_ENDPOINT = `${REVERSE_GEOCODE_API}?api_key=${PELIAS_API_KE
 const MAP_TILES = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png'
 const MAP_TILES_2X = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png'
 const MAP_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
-
-const zoomLevel = 12
+const MAP_INITIAL_ZOOM = 12
 
 /* Override icon paths in stock Leaflet's stylesheet */
 delete L.Icon.Default.prototype._getIconUrl
@@ -252,7 +251,7 @@ class GeolocateDialog extends React.Component {
         <Map
           center={this.state.mapCenter}
           zoomControl={false}
-          zoom={zoomLevel}
+          zoom={MAP_INITIAL_ZOOM}
           onClick={this.onClickMap}
           useFlyTo
           ref={(ref) => { this.map = ref }}
