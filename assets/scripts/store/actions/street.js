@@ -5,6 +5,8 @@ import {
   REPLACE_STREET_DATA,
   CHANGE_SEGMENT_WIDTH,
   CHANGE_SEGMENT_VARIANT,
+  ADD_LOCATION,
+  SAVE_STREET_NAME,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
   REMOVE_BUILDING_FLOOR,
@@ -40,6 +42,21 @@ export function updateStreetData (street) {
   return {
     type: REPLACE_STREET_DATA,
     street
+  }
+}
+
+export function addLocation (location) {
+  return {
+    type: ADD_LOCATION,
+    location
+  }
+}
+
+export function saveStreetName (streetName, userUpdated) {
+  return {
+    type: SAVE_STREET_NAME,
+    streetName,
+    userUpdated
   }
 }
 

@@ -309,11 +309,11 @@ function unpackStreetDataFromServerTransmission (transmission) {
   }
 
   var street = cloneDeep(transmission.data.street)
-
   street.creatorId = (transmission.creator && transmission.creator.id) || null
   street.originalStreetId = transmission.originalStreetId || null
   street.updatedAt = transmission.updatedAt || null
   street.name = transmission.name || DEFAULT_NAME
+  street.location = transmission.data.street.location || null
 
   // FIXME just read it and do 0 otherwise
   if (typeof transmission.data.street.editCount === 'undefined') {

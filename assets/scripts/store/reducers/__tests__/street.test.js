@@ -200,6 +200,72 @@ describe('street reducer', () => {
     })
   })
 
+  it('should handle ADD_LOCATION', () => {
+    const existingStreet = {}
+    const location = {
+      latlng: [0, 0],
+      label: 'test street',
+      hierarchy: {
+        country: 'country',
+        locality: 'locality',
+        neighbourhood: 'neighbourhood',
+        street: 'street'
+      },
+      geometryId: null,
+      intersectionId: null
+    }
+
+    expect(
+      reducer(Object.assign({}, existingStreet), actions.addLocation(location))
+    ).toEqual({
+      location: location
+    })
+  })
+
+  describe('SAVE_STREET_NAME', () => {
+    it('renames street name if user updated and sets userUpdated to true', () => {
+      const existingStreet = {
+        name: 'street name',
+        userUpdated: false
+      }
+
+      expect(
+        reducer(Object.assign({}, existingStreet), actions.saveStreetName('new street name', true))
+      ).toEqual({
+        name: 'new street name',
+        userUpdated: true
+      })
+    })
+
+    it('does not rename street if not user updated and userUpdate = true', () => {
+      const existingStreet = {
+        name: 'street name',
+        userUpdated: true
+      }
+
+      expect(
+        reducer(Object.assign({}, existingStreet), actions.saveStreetName('new street name', false))
+      ).toEqual({
+        name: 'street name',
+        userUpdated: true
+      })
+    })
+
+    it('renames street if userUpdated = false', () => {
+      const existingStreet = {
+        name: 'street name',
+        userUpdated: false
+      }
+
+      expect(
+        reducer(Object.assign({}, existingStreet), actions.saveStreetName('new street name', false))
+      ).toEqual({
+        name: 'new street name',
+        userUpdated: false
+      })
+    })
+  })
+
   describe('buildings', () => {
     describe('ADD_BUILDING_FLOOR', () => {
       it('adds a floor on the left building', () => {

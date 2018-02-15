@@ -152,7 +152,7 @@ export class SearchAddress extends React.Component {
       addressInformation: suggestion.properties,
       markerLocation: suggestion.geometry.coordinates
     })
-    this.props.setSearchResults(suggestion.geometry.coordinates.reverse(), suggestionValue)
+    this.props.setSearchResults(suggestion.geometry.coordinates.reverse(), suggestionValue, suggestion.bbox)
   }
 
   shouldRenderSuggestions = (value) => {
