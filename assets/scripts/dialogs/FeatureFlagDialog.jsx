@@ -24,6 +24,10 @@ class FeatureFlagDialog extends React.Component {
       const deets = item[1]
       const htmlLabel = `feature-flag__input--${id.toLowerCase().replace(/_/g, '-')}`
       const labelClassNames = []
+
+      // Bail if a defined flag is not in the store (e.g. in tests with mock stores)
+      if (!this.props.flags[id]) return
+
       const isNotDefault = deets.defaultValue !== this.props.flags[id].value
 
       if (deets.disabled) {
