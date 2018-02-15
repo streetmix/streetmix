@@ -21,11 +21,6 @@ import {
   redoAction
 } from '../store/actions/undo'
 
-export function getCurrentUndo () {
-  const state = store.getState().undo
-  return state.stack[state.position]
-}
-
 export function getUndoStack () {
   return cloneDeep(store.getState().undo.stack)
 }

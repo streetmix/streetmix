@@ -10,7 +10,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { cloneDeep } from 'lodash'
-import { getUndoStack } from '../streets/undo_stack'
 import { registerKeypress, deregisterKeypress } from './keypress'
 import { loseAnyFocus } from '../util/focus'
 
@@ -18,7 +17,8 @@ class DebugInfo extends React.Component {
   static propTypes = {
     settings: PropTypes.object.isRequired,
     street: PropTypes.object.isRequired,
-    flags: PropTypes.object.isRequired
+    flags: PropTypes.object.isRequired,
+    undo: PropTypes.object.isRequired
   }
 
   constructor (props) {
@@ -37,7 +37,7 @@ class DebugInfo extends React.Component {
 
   getTextareaContent = () => {
     const debugStreetData = cloneDeep(this.props.street)
-    const debugUndo = cloneDeep(getUndoStack())
+    const debugUndo = cloneDeep(this.props.undo)
 
     // Some things just shouldn't be seen...
     for (let i in debugStreetData.segments) {
@@ -111,7 +111,8 @@ function mapStateToProps (state) {
   return {
     settings: state.settings,
     street: state.street,
-    flags: state.flags
+    flags: state.flags,
+    undo: state.undo
   }
 }
 
