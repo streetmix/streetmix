@@ -9,7 +9,7 @@ import Dialog from './Dialog'
 import SearchAddress from '../streets/SearchAddress'
 import { getRemixOnFirstEdit } from '../streets/remix'
 import { setMapState } from '../store/actions/map'
-import { addLocation, saveStreetName } from '../store/actions/street'
+import { addLocation, clearLocation, saveStreetName } from '../store/actions/street'
 import { clearDialogs } from '../store/actions/dialogs'
 import { t } from '../app/locale'
 
@@ -44,6 +44,7 @@ class GeolocateDialog extends React.Component {
     }),
     addressInformation: PropTypes.object,
     addLocation: PropTypes.func,
+    clearLocation: PropTypes.func,
     setMapState: PropTypes.func,
     addressInformationLabel: PropTypes.string,
     street: PropTypes.object,
@@ -204,6 +205,17 @@ class GeolocateDialog extends React.Component {
     return (!street.creatorId || !getRemixOnFirstEdit() || !street.location)
   }
 
+  canClearLocation = () => {
+    const { street, addressInformation } = this.props
+    if (!street.location) return false
+    return (street.location.wofId === addressInformation.id)
+  }
+
+  handleClear = (e) => {
+    this.props.clearLocation()
+    this.props.clearDialogs()
+  }
+
   render () {
     const markers = this.props.markerLocation ? (
       <Marker
@@ -214,13 +226,15 @@ class GeolocateDialog extends React.Component {
       />
     ) : null
 
-    const confirmButton = this.canEditLocation() ? (
+    const isClearButton = (this.canEditLocation() && this.canClearLocation()) ? true
+      : (this.canEditLocation()) ? false : null
+    const locationButton = (isClearButton !== null) ? (
       <button
-        className="confirm-button"
+        className="location-button"
         style={{marginTop: '10px'}}
-        onClick={this.handleConfirm}
+        onClick={(isClearButton) ? this.handleClear : this.handleConfirm}
       >
-        <b> Confirm Location </b>
+        <b> {(isClearButton) ? 'Clear Location' : 'Confirm Location' } </b>
       </button>
     ) : null
 
@@ -234,7 +248,7 @@ class GeolocateDialog extends React.Component {
       >
         <span>
           {this.props.addressInformationLabel} <br />
-          {confirmButton}
+          {locationButton}
         </span>
       </Popup>
     ) : null
@@ -288,6 +302,7 @@ function mapDispatchToProps (dispatch) {
   return {
     setMapState: (...args) => { dispatch(setMapState(...args)) },
     addLocation: (...args) => { dispatch(addLocation(...args)) },
+    clearLocation: () => { dispatch(clearLocation()) },
     saveStreetName: (...args) => { dispatch(saveStreetName(...args)) },
     clearDialogs: () => { dispatch(clearDialogs()) }
   }
