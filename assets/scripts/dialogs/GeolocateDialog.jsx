@@ -9,7 +9,6 @@ import SearchAddress from '../streets/SearchAddress'
 import { getRemixOnFirstEdit } from '../streets/remix'
 import { setMapState } from '../store/actions/map'
 import { addLocation, saveStreetName } from '../store/actions/street'
-import { clearDialogs } from '../store/actions/dialogs'
 import { t } from '../app/locale'
 
 const REVERSE_GEOCODE_API = `https://${PELIAS_HOST_NAME}/v1/reverse`
@@ -46,7 +45,7 @@ class GeolocateDialog extends React.Component {
     addressInformationLabel: PropTypes.string,
     street: PropTypes.object,
     saveStreetName: PropTypes.func,
-    clearDialogs: PropTypes.func
+    closeDialog: PropTypes.func
   }
 
   constructor (props) {
@@ -189,7 +188,7 @@ class GeolocateDialog extends React.Component {
 
     this.props.addLocation(location)
     this.props.saveStreetName(location.hierarchy.street, false)
-    this.props.clearDialogs()
+    this.props.closeDialog()
   }
 
   // If addressInformation does not have a street, return false
@@ -286,8 +285,7 @@ function mapDispatchToProps (dispatch) {
   return {
     setMapState: (...args) => { dispatch(setMapState(...args)) },
     addLocation: (...args) => { dispatch(addLocation(...args)) },
-    saveStreetName: (...args) => { dispatch(saveStreetName(...args)) },
-    clearDialogs: () => { dispatch(clearDialogs()) }
+    saveStreetName: (...args) => { dispatch(saveStreetName(...args)) }
   }
 }
 
