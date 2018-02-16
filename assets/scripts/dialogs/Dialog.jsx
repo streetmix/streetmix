@@ -6,14 +6,12 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
-import { clearDialogs } from '../store/actions/dialogs'
 import { t } from '../app/locale'
 
-class Dialog extends React.PureComponent {
+export default class Dialog extends React.PureComponent {
   static propTypes = {
-    clearDialogs: PropTypes.func.isRequired,
+    closeDialog: PropTypes.func.isRequired,
     className: PropTypes.string,
     children: PropTypes.node.isRequired,
     disableShieldExit: PropTypes.bool
@@ -34,11 +32,11 @@ class Dialog extends React.PureComponent {
 
   componentDidMount () {
     // Set up keypress listener to close dialogs if open
-    registerKeypress('esc', this.unmountDialog)
+    registerKeypress('esc', this.props.closeDialog)
   }
 
   componentWillUnmount () {
-    deregisterKeypress('esc', this.unmountDialog)
+    deregisterKeypress('esc', this.props.closeDialog)
   }
 
   componentDidCatch (error, info) {
@@ -47,13 +45,9 @@ class Dialog extends React.PureComponent {
     })
   }
 
-  unmountDialog = () => {
-    this.props.clearDialogs()
-  }
-
   onClickShield = () => {
     if (!this.props.disableShieldExit) {
-      this.unmountDialog()
+      this.props.closeDialog()
     }
   }
 
@@ -78,7 +72,7 @@ class Dialog extends React.PureComponent {
               {t('dialogs.error.text', 'Something unexpected happened 😢, please try again.')}
             </p>
             <p style={{ textAlign: 'center' }}>
-              <button onClick={this.unmountDialog} title={t('btn.close', 'Close')}>
+              <button onClick={this.props.closeDialog} title={t('btn.close', 'Close')}>
                 {t('btn.close', 'Close')}
               </button>
             </p>
@@ -87,23 +81,15 @@ class Dialog extends React.PureComponent {
           <div className={className}>
             <button
               className="close"
-              onClick={this.unmountDialog}
+              onClick={this.props.closeDialog}
               title={t('btn.close', 'Close')}
             >
               ×
             </button>
-            {React.cloneElement(this.props.children, { closeDialog: this.props.clearDialogs })}
+            {React.cloneElement(this.props.children, { closeDialog: this.props.closeDialog })}
           </div>
         )}
       </div>
     )
   }
 }
-
-function mapDispatchToProps (dispatch) {
-  return {
-    clearDialogs: () => { dispatch(clearDialogs()) }
-  }
-}
-
-export default connect(null, mapDispatchToProps)(Dialog)

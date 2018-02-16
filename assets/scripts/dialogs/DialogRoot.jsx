@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { clearDialogs } from '../store/actions/dialogs'
 
 // Import all dialogs here
 import Dialog from './Dialog'
@@ -44,22 +45,30 @@ const DIALOG_COMPONENTS = {
   }
 }
 
-const DialogRoot = ({ name }) => {
+const DialogRoot = ({ name, clearDialogs }) => {
   if (!name) return null
 
   const SpecificDialog = DIALOG_COMPONENTS[name].component
 
   return (
-    <Dialog {...DIALOG_COMPONENTS[name].props}>
+    <Dialog {...DIALOG_COMPONENTS[name].props} closeDialog={clearDialogs}>
       <SpecificDialog />
     </Dialog>
   )
 }
 
 DialogRoot.propTypes = {
-  name: PropTypes.string
+  name: PropTypes.string,
+  clearDialogs: PropTypes.func
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    clearDialogs: () => { dispatch(clearDialogs()) }
+  }
 }
 
 export default connect(
-  state => state.dialogs
+  state => state.dialogs,
+  mapDispatchToProps
 )(DialogRoot)
