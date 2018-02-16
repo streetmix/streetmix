@@ -243,7 +243,7 @@ class GeolocateDialog extends React.Component {
     const tileUrl = (window.devicePixelRatio > 1) ? MAP_TILES_2X : MAP_TILES
 
     return (
-      <React.Fragment>
+      <div className="geolocate-dialog">
         <div className="geolocate-input-container">
           <SearchAddress setSearchResults={this.setSearchResults} />
         </div>
@@ -266,7 +266,7 @@ class GeolocateDialog extends React.Component {
           {popup}
           {markers}
         </Map>
-      </React.Fragment>
+      </div>
     )
   }
 }

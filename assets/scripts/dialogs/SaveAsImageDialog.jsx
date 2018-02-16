@@ -131,7 +131,7 @@ class SaveAsImageDialog extends React.Component {
 
   render () {
     return (
-      <React.Fragment>
+      <div className="save-as-image-dialog">
         <h1>{t('dialogs.save.heading', 'Save as image')}</h1>
         <p>
           <input
@@ -204,7 +204,7 @@ class SaveAsImageDialog extends React.Component {
           </a>
         </p>
         <footer dangerouslySetInnerHTML={{ __html: t('dialogs.save.license', 'This Streetmix-created image may be reused anywhere, for any purpose, under the<br /><a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.') }} />
-      </React.Fragment>
+      </div>
     )
   }
 }

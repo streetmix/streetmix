@@ -16,7 +16,7 @@ export default class AboutDialog extends React.PureComponent {
 
   render () {
     return (
-      <React.Fragment>
+      <div className="about-dialog">
         <h1>{t('dialogs.about.heading', 'About Streetmix.')}</h1>
         <div className="about-dialog-left">
           <p className="about-dialog-description">
@@ -71,7 +71,7 @@ export default class AboutDialog extends React.PureComponent {
             <a href="https://github.com/streetmix/streetmix/blob/master/CONTRIBUTING.md" target="_blank">{t('dialogs.about.github-link', 'Contribute to open source')}</a>
           </p>
         </div>
-      </React.Fragment>
+      </div>
     )
   }
 }

@@ -12,7 +12,6 @@ import { t } from '../app/locale'
 export default class Dialog extends React.PureComponent {
   static propTypes = {
     closeDialog: PropTypes.func.isRequired,
-    className: PropTypes.string,
     children: PropTypes.node.isRequired,
     disableShieldExit: PropTypes.bool
   }
@@ -52,11 +51,6 @@ export default class Dialog extends React.PureComponent {
   }
 
   render () {
-    let className = 'dialog-box'
-    if (this.props.className !== undefined) {
-      className += ` ${this.props.className}`
-    }
-
     let shieldClassName = 'dialog-box-shield'
     if (this.props.disableShieldExit && !this.state.error) {
       shieldClassName += ' dialog-box-shield-unclickable'
@@ -78,7 +72,7 @@ export default class Dialog extends React.PureComponent {
             </p>
           </div>
         ) : (
-          <div className={className}>
+          <div className="dialog-box">
             <button
               className="close"
               onClick={this.props.closeDialog}

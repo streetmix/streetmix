@@ -5,8 +5,6 @@
 
 // Base styles for dialog boxes
 
-$dialog-box-default-width: 790px;
-
 .dialog-box-container {
   display: flex;
   align-items: center;
@@ -39,7 +37,6 @@ $dialog-box-default-width: 790px;
 
   position: relative;
   box-sizing: border-box;
-  width: $dialog-box-default-width;
   // balance the dialog by making it slightly north of center
   margin-top: -6%;
   background: white;
@@ -66,6 +63,10 @@ $dialog-box-default-width: 790px;
     a:hover {
       color: rgb(120, 120, 120);
     }
+  }
+
+  button.close {
+    z-index: $z-09-dialog-box;
   }
 
   button:not(.close),
@@ -129,6 +130,8 @@ $dialog-box-default-width: 790px;
 // Content of Save as Image dialog box
 // TODO: Less nesting
 .save-as-image-dialog {
+  width: 700px;
+
   p {
     font-size: 16px;
     text-align: center;

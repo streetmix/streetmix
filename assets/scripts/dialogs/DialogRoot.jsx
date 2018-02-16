@@ -13,35 +13,22 @@ import SaveAsImageDialog from './SaveAsImageDialog'
 
 const DIALOG_COMPONENTS = {
   ABOUT: {
-    component: AboutDialog,
-    props: {
-      className: 'about-dialog'
-    }
+    component: AboutDialog
   },
   DONATE: {
     component: DonateDialog,
     props: {
-      className: 'donate-dialog',
       disableShieldExit: true
     }
   },
   FEATURE_FLAGS: {
-    component: FeatureFlagDialog,
-    props: {
-      className: 'feature-flag-dialog'
-    }
+    component: FeatureFlagDialog
   },
   GEOLOCATE: {
-    component: GeolocateDialog,
-    props: {
-      className: 'geolocate-dialog'
-    }
+    component: GeolocateDialog
   },
   SAVE_AS_IMAGE: {
-    component: SaveAsImageDialog,
-    props: {
-      className: 'save-as-image-dialog'
-    }
+    component: SaveAsImageDialog
   }
 }
 

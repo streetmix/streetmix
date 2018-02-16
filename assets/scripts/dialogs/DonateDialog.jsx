@@ -42,7 +42,7 @@ export default class DonateDialog extends React.PureComponent {
 
   render () {
     return (
-      <React.Fragment>
+      <div className="donate-dialog">
         <h1>Streetmix needs your help!</h1>
         <div className="donate-dialog-text">
           <p className="donate-dialog-lede">
@@ -65,7 +65,7 @@ export default class DonateDialog extends React.PureComponent {
         <p>
           <a href="#" onClick={this.onClickClose}>No thanks</a>
         </p>
-      </React.Fragment>
+      </div>
     )
   }
 }
