@@ -6,6 +6,7 @@ import {
   CHANGE_SEGMENT_WIDTH,
   CHANGE_SEGMENT_VARIANT,
   ADD_LOCATION,
+  CLEAR_LOCATION,
   SAVE_STREET_NAME,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
@@ -61,6 +62,12 @@ const street = (state = initialState, action) => {
       return {
         ...state,
         location: action.location
+      }
+    case CLEAR_LOCATION:
+      return {
+        ...state,
+        location: null,
+        name: (state.userUpdated) ? state.name : action.defaultName
       }
     case SAVE_STREET_NAME:
       const rename = (state.userUpdated && action.userUpdated) || (!state.userUpdated)

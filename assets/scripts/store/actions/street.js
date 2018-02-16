@@ -6,6 +6,7 @@ import {
   CHANGE_SEGMENT_WIDTH,
   CHANGE_SEGMENT_VARIANT,
   ADD_LOCATION,
+  CLEAR_LOCATION,
   SAVE_STREET_NAME,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
@@ -13,6 +14,7 @@ import {
   SET_BUILDING_FLOOR_VALUE,
   SET_BUILDING_VARIANT
 } from './'
+import { DEFAULT_NAME } from '../../streets/data_model'
 
 export function addSegment (index, segment) {
   return {
@@ -49,6 +51,13 @@ export function addLocation (location) {
   return {
     type: ADD_LOCATION,
     location
+  }
+}
+
+export function clearLocation () {
+  return {
+    type: CLEAR_LOCATION,
+    defaultName: DEFAULT_NAME
   }
 }
 
