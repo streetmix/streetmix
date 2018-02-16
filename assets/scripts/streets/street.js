@@ -17,6 +17,7 @@ export function initStreetReduxTransitionSubscriber () {
     updateIfBuildingsChanged(state, street)
     updateIfStreetNameChanged(state, street)
     updateIfLocationChanged(state, street)
+    updateIfLocationCleared(state, street)
   })
 }
 
@@ -49,8 +50,16 @@ function updateIfStreetNameChanged (state, street) {
 
 function updateIfLocationChanged (state, street) {
   if (state.location && state.location.wofId !== oldStreetLocation) {
-    street.location = state.location
+    street.location = Object.assign({}, state.location)
     oldStreetLocation = state.location.wofId
+    saveStreetToServerIfNecessary()
+  }
+}
+
+function updateIfLocationCleared (state, street) {
+  if (street.location && !state.location) {
+    street.location = null
+    oldStreetLocation = null
     saveStreetToServerIfNecessary()
   }
 }
