@@ -92,7 +92,7 @@ class Dialog extends React.PureComponent {
             >
               ×
             </button>
-            {this.props.children}
+            {React.cloneElement(this.props.children, { closeDialog: this.props.clearDialogs })}
           </div>
         )}
       </div>

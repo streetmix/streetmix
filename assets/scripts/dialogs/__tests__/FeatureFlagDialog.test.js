@@ -12,7 +12,7 @@ describe('FeatureFlagDialog', () => {
       <FeatureFlagDialog.WrappedComponent
         {...props}
         setFeatureFlag={jest.fn()}
-        clearDialogs={jest.fn()}
+        closeDialog={jest.fn()}
         flags={{}}
       />
     )

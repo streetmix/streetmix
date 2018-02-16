@@ -44,21 +44,20 @@ const DIALOG_COMPONENTS = {
   }
 }
 
-const DialogRoot = ({ name, props }) => {
+const DialogRoot = ({ name }) => {
   if (!name) return null
 
   const SpecificDialog = DIALOG_COMPONENTS[name].component
 
   return (
     <Dialog {...DIALOG_COMPONENTS[name].props}>
-      <SpecificDialog {...props} />
+      <SpecificDialog />
     </Dialog>
   )
 }
 
 DialogRoot.propTypes = {
-  name: PropTypes.string,
-  props: PropTypes.object
+  name: PropTypes.string
 }
 
 export default connect(

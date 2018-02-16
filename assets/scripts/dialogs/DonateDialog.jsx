@@ -6,16 +6,14 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import { trackEvent } from '../app/event_tracking'
-import { clearDialogs } from '../store/actions/dialogs'
 
 const LOCALSTORAGE_DONATE_DISMISSED = 'settings-donate-dismissed'
 const LOCALSTORAGE_DONATE_DELAYED_TIMESTAMP = 'settings-donate-delayed-timestamp'
 
-class DonateDialog extends React.PureComponent {
+export default class DonateDialog extends React.PureComponent {
   static propTypes = {
-    clearDialogs: PropTypes.func.isRequired
+    closeDialog: PropTypes.func.isRequired
   }
 
   componentDidMount () {
@@ -25,13 +23,13 @@ class DonateDialog extends React.PureComponent {
   onClickDonateButton = (event) => {
     trackEvent('Interaction', 'Clicked donate button', null, null, false)
     this.setSettingsDonateDismissed(true)
-    this.props.clearDialogs()
+    this.props.closeDialog()
   }
 
   onClickClose = (event) => {
     trackEvent('Interaction', 'Clicked close donate dialog link', null, null, false)
     this.setSettingsDonateDelayed(true)
-    this.props.clearDialogs()
+    this.props.closeDialog()
   }
 
   setSettingsDonateDismissed (value = true) {
@@ -71,11 +69,3 @@ class DonateDialog extends React.PureComponent {
     )
   }
 }
-
-function mapDispatchToProps (dispatch) {
-  return {
-    clearDialogs: () => { dispatch(clearDialogs()) }
-  }
-}
-
-export default connect(null, mapDispatchToProps)(DonateDialog)

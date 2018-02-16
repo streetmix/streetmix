@@ -5,11 +5,7 @@ import { shallow } from 'enzyme'
 
 describe('DonateDialog', () => {
   it('renders without crashing', () => {
-    const wrapper = shallow(
-      <DonateDialog.WrappedComponent
-        clearDialogs={jest.fn()}
-      />
-    )
+    const wrapper = shallow(<DonateDialog closeDialog={jest.fn()} />)
     expect(wrapper.exists()).toEqual(true)
   })
 })
