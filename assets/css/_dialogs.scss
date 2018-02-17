@@ -133,12 +133,7 @@
   width: 700px;
 
   p {
-    font-size: 16px;
     text-align: center;
-
-    a {
-      font-size: 16px;
-    }
   }
 
   input[type='checkbox'] {
@@ -148,6 +143,7 @@
   }
 
   label {
+    font-size: 16px;
     padding-left: 1px;
     user-select: none;
   }
@@ -162,7 +158,6 @@
   flex-direction: column;
   justify-content: center;
   height: 300px;
-  margin-bottom: 20px;
 }
 
 .save-as-image-preview-loading {
@@ -187,7 +182,7 @@
 }
 
 .donate-dialog {
-  width: 560px;
+  width: 500px;
   text-align: center;
 }
 
@@ -198,12 +193,6 @@
 .donate-dialog-lede {
   font-size: 1.25em;
   margin: 1em 0;
-}
-
-// Override .button-like specificity
-.button-like.donate-dialog-button {
-  padding: 1em 1.5em;
-  margin-top: 1em;
 }
 
 // Feature flag dialog
