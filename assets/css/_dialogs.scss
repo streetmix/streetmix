@@ -5,8 +5,6 @@
 
 // Base styles for dialog boxes
 
-$dialog-box-default-width: 790px;
-
 .dialog-box-container {
   display: flex;
   align-items: center;
@@ -39,7 +37,6 @@ $dialog-box-default-width: 790px;
 
   position: relative;
   box-sizing: border-box;
-  width: $dialog-box-default-width;
   // balance the dialog by making it slightly north of center
   margin-top: -6%;
   background: white;
@@ -67,6 +64,23 @@ $dialog-box-default-width: 790px;
       color: rgb(120, 120, 120);
     }
   }
+
+  button.close {
+    z-index: $z-09-dialog-box;
+  }
+
+  button:not(.close),
+  a.button-like {
+    margin: 0 auto;
+    display: inline-block !important;
+    padding: 0.75em 2em;
+    margin-top: 1em;
+  }
+}
+
+.dialog-error {
+  padding: 1.5em 3em;
+  max-width: 400px;
 }
 
 // Content of #about dialog box
@@ -116,13 +130,10 @@ $dialog-box-default-width: 790px;
 // Content of Save as Image dialog box
 // TODO: Less nesting
 .save-as-image-dialog {
-  p {
-    font-size: 16px;
-    text-align: center;
+  width: 700px;
 
-    a {
-      font-size: 16px;
-    }
+  p {
+    text-align: center;
   }
 
   input[type='checkbox'] {
@@ -132,6 +143,7 @@ $dialog-box-default-width: 790px;
   }
 
   label {
+    font-size: 16px;
     padding-left: 1px;
     user-select: none;
   }
@@ -146,7 +158,6 @@ $dialog-box-default-width: 790px;
   flex-direction: column;
   justify-content: center;
   height: 300px;
-  margin-bottom: 20px;
 }
 
 .save-as-image-preview-loading {
@@ -171,7 +182,7 @@ $dialog-box-default-width: 790px;
 }
 
 .donate-dialog {
-  width: 560px;
+  width: 500px;
   text-align: center;
 }
 
@@ -182,12 +193,6 @@ $dialog-box-default-width: 790px;
 .donate-dialog-lede {
   font-size: 1.25em;
   margin: 1em 0;
-}
-
-// Override .button-like specificity
-.button-like.donate-dialog-button {
-  padding: 1em 1.5em;
-  margin-top: 1em;
 }
 
 // Feature flag dialog

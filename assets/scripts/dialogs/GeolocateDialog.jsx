@@ -5,12 +5,10 @@ import { connect } from 'react-redux'
 import { Map, TileLayer, ZoomControl, Marker, Popup } from 'react-leaflet'
 import * as sharedstreets from 'sharedstreets'
 import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../app/config'
-import Dialog from './Dialog'
 import SearchAddress from '../streets/SearchAddress'
 import { getRemixOnFirstEdit } from '../streets/remix'
 import { setMapState } from '../store/actions/map'
 import { addLocation, saveStreetName } from '../store/actions/street'
-import { clearDialogs } from '../store/actions/dialogs'
 import { t } from '../app/locale'
 
 const REVERSE_GEOCODE_API = `https://${PELIAS_HOST_NAME}/v1/reverse`
@@ -18,8 +16,7 @@ const REVERSE_GEOCODE_ENDPOINT = `${REVERSE_GEOCODE_API}?api_key=${PELIAS_API_KE
 const MAP_TILES = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png'
 const MAP_TILES_2X = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png'
 const MAP_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
-
-const zoomLevel = 12
+const MAP_INITIAL_ZOOM = 12
 
 /* Override icon paths in stock Leaflet's stylesheet */
 delete L.Icon.Default.prototype._getIconUrl
@@ -48,7 +45,7 @@ class GeolocateDialog extends React.Component {
     addressInformationLabel: PropTypes.string,
     street: PropTypes.object,
     saveStreetName: PropTypes.func,
-    clearDialogs: PropTypes.func
+    closeDialog: PropTypes.func
   }
 
   constructor (props) {
@@ -191,7 +188,7 @@ class GeolocateDialog extends React.Component {
 
     this.props.addLocation(location)
     this.props.saveStreetName(location.hierarchy.street, false)
-    this.props.clearDialogs()
+    this.props.closeDialog()
   }
 
   // If addressInformation does not have a street, return false
@@ -246,14 +243,14 @@ class GeolocateDialog extends React.Component {
     const tileUrl = (window.devicePixelRatio > 1) ? MAP_TILES_2X : MAP_TILES
 
     return (
-      <Dialog className="geolocate-dialog">
+      <div className="geolocate-dialog">
         <div className="geolocate-input-container">
           <SearchAddress setSearchResults={this.setSearchResults} />
         </div>
         <Map
           center={this.state.mapCenter}
           zoomControl={false}
-          zoom={zoomLevel}
+          zoom={MAP_INITIAL_ZOOM}
           onClick={this.onClickMap}
           useFlyTo
           ref={(ref) => { this.map = ref }}
@@ -269,7 +266,7 @@ class GeolocateDialog extends React.Component {
           {popup}
           {markers}
         </Map>
-      </Dialog>
+      </div>
     )
   }
 }
@@ -288,8 +285,7 @@ function mapDispatchToProps (dispatch) {
   return {
     setMapState: (...args) => { dispatch(setMapState(...args)) },
     addLocation: (...args) => { dispatch(addLocation(...args)) },
-    saveStreetName: (...args) => { dispatch(saveStreetName(...args)) },
-    clearDialogs: () => { dispatch(clearDialogs()) }
+    saveStreetName: (...args) => { dispatch(saveStreetName(...args)) }
   }
 }
 

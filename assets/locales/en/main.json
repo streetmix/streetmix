@@ -76,6 +76,10 @@
     "dismiss": "Dismiss"
   },
   "dialogs": {
+    "error": {
+      "heading": "Oops!",
+      "text": "Something unexpected happened 😢. We’ve logged the error, but if you can remember what happened on the way here, <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\">please tell us about it</a>. This could also be a temporary problem, so please try one more time."
+    },
     "welcome": {
       "heading": "Welcome to Streetmix.",
       "new": {

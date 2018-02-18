@@ -1,8 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { clearDialogs } from '../store/actions/dialogs'
 
 // Import all dialogs here
+import Dialog from './Dialog'
 import AboutDialog from './AboutDialog'
 import DonateDialog from './DonateDialog'
 import FeatureFlagDialog from './FeatureFlagDialog'
@@ -10,25 +12,50 @@ import GeolocateDialog from './GeolocateDialog'
 import SaveAsImageDialog from './SaveAsImageDialog'
 
 const DIALOG_COMPONENTS = {
-  ABOUT: AboutDialog,
-  DONATE: DonateDialog,
-  FEATURE_FLAGS: FeatureFlagDialog,
-  GEOLOCATE: GeolocateDialog,
-  SAVE_AS_IMAGE: SaveAsImageDialog
+  ABOUT: {
+    contents: AboutDialog
+  },
+  DONATE: {
+    contents: DonateDialog,
+    disableShieldExit: true
+  },
+  FEATURE_FLAGS: {
+    contents: FeatureFlagDialog
+  },
+  GEOLOCATE: {
+    contents: GeolocateDialog
+  },
+  SAVE_AS_IMAGE: {
+    contents: SaveAsImageDialog
+  }
 }
 
-const DialogRoot = ({ name, props }) => {
+const DialogRoot = (props) => {
+  const { name, clearDialogs } = props
+
   if (!name) return null
 
-  const SpecificDialog = DIALOG_COMPONENTS[name]
-  return <SpecificDialog {...props} />
+  const { contents: DialogContents, ...restProps } = DIALOG_COMPONENTS[name]
+
+  return (
+    <Dialog {...restProps} closeDialog={clearDialogs}>
+      <DialogContents />
+    </Dialog>
+  )
 }
 
 DialogRoot.propTypes = {
   name: PropTypes.string,
-  props: PropTypes.object
+  clearDialogs: PropTypes.func
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    clearDialogs: () => { dispatch(clearDialogs()) }
+  }
 }
 
 export default connect(
-  state => state.dialogs
+  state => state.dialogs,
+  mapDispatchToProps
 )(DialogRoot)

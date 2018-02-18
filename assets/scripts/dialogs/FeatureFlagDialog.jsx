@@ -2,22 +2,19 @@
  * Feature flags (dialog box)
  *
  * Secret menu.
- * Instantiates an instance of Dialog
  *
  */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import Dialog from './Dialog'
 import { FEATURE_FLAGS } from '../app/flag_data'
 import { setFeatureFlag } from '../store/actions/flags'
-import { clearDialogs } from '../store/actions/dialogs'
 
 class FeatureFlagDialog extends React.Component {
   static propTypes = {
     flags: PropTypes.object.isRequired,
     setFeatureFlag: PropTypes.func.isRequired,
-    clearDialogs: PropTypes.func.isRequired
+    closeDialog: PropTypes.func.isRequired
   }
 
   renderFlagList = () => {
@@ -26,6 +23,10 @@ class FeatureFlagDialog extends React.Component {
       const deets = item[1]
       const htmlLabel = `feature-flag__input--${id.toLowerCase().replace(/_/g, '-')}`
       const labelClassNames = []
+
+      // Bail if a defined flag is not in the store (e.g. in tests with mock stores)
+      if (!this.props.flags[id]) return
+
       const isNotDefault = deets.defaultValue !== this.props.flags[id].value
 
       if (deets.disabled) {
@@ -58,7 +59,7 @@ class FeatureFlagDialog extends React.Component {
 
   render () {
     return (
-      <Dialog className="feature-flag-dialog">
+      <div className="feature-flag-dialog">
         <h1>Feature flags</h1>
 
         <table>
@@ -68,11 +69,11 @@ class FeatureFlagDialog extends React.Component {
         </table>
 
         <p>
-          <button onClick={this.props.clearDialogs}>
+          <button onClick={this.props.closeDialog}>
             Close
           </button>
         </p>
-      </Dialog>
+      </div>
     )
   }
 }
@@ -85,8 +86,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    setFeatureFlag: (flag, value) => { dispatch(setFeatureFlag(flag, value)) },
-    clearDialogs: () => { dispatch(clearDialogs()) }
+    setFeatureFlag: (flag, value) => { dispatch(setFeatureFlag(flag, value)) }
   }
 }
 
