@@ -17,7 +17,6 @@ export default class Dialog extends React.PureComponent {
   }
 
   static defaultProps = {
-    className: '',
     disableShieldExit: false
   }
 

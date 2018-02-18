@@ -13,33 +13,33 @@ import SaveAsImageDialog from './SaveAsImageDialog'
 
 const DIALOG_COMPONENTS = {
   ABOUT: {
-    component: AboutDialog
+    contents: AboutDialog
   },
   DONATE: {
-    component: DonateDialog,
-    props: {
-      disableShieldExit: true
-    }
+    contents: DonateDialog,
+    disableShieldExit: true
   },
   FEATURE_FLAGS: {
-    component: FeatureFlagDialog
+    contents: FeatureFlagDialog
   },
   GEOLOCATE: {
-    component: GeolocateDialog
+    contents: GeolocateDialog
   },
   SAVE_AS_IMAGE: {
-    component: SaveAsImageDialog
+    contents: SaveAsImageDialog
   }
 }
 
-const DialogRoot = ({ name, clearDialogs }) => {
+const DialogRoot = (props) => {
+  const { name, clearDialogs } = props
+
   if (!name) return null
 
-  const SpecificDialog = DIALOG_COMPONENTS[name].component
+  const { contents: DialogContents, ...restProps } = DIALOG_COMPONENTS[name]
 
   return (
-    <Dialog {...DIALOG_COMPONENTS[name].props} closeDialog={clearDialogs}>
-      <SpecificDialog />
+    <Dialog {...restProps} closeDialog={clearDialogs}>
+      <DialogContents />
     </Dialog>
   )
 }
