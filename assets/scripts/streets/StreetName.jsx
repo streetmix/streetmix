@@ -73,6 +73,7 @@ class StreetName extends React.PureComponent {
   handleKeyUp = (evt) => {
     if (evt.key === 'Enter') {
       this.handleStreetNameChange()
+      this.onMouseLeave()
     }
     if (evt.key === 'Escape') {
       this.setState({
