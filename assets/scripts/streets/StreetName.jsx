@@ -59,8 +59,6 @@ class StreetName extends React.PureComponent {
   }
 
   handleStreetNameChange = () => {
-    if (!this.props.editable) return
-
     let newName = this.state.inpVal
 
     if (newName) {
@@ -79,7 +77,8 @@ class StreetName extends React.PureComponent {
     if (evt.key === 'Escape') {
       this.setState({
         modify: false,
-        inpVal: ''
+        inpVal: '',
+        isHovered: false
       })
     }
   }
@@ -88,6 +87,7 @@ class StreetName extends React.PureComponent {
     window.addEventListener('mousedown', (event) => {
       if (!document.getElementById(this.props.id).contains(event.target)) {
         this.toggleModify()
+        this.onMouseLeave()
       }
     })
   }
@@ -96,6 +96,7 @@ class StreetName extends React.PureComponent {
     window.removeEventListener('mousedown', (event) => {
       if (!document.getElementById(this.props.id).contains(event.target)) {
         this.toggleModify()
+        this.onMouseLeave() // to remove hover prompt
       }
     })
   }
@@ -138,7 +139,7 @@ class StreetName extends React.PureComponent {
           <div className={classString}>{StreetName.normalizeStreetName(this.props.name)}</div>
         </div>
       )
-    } else {
+    } else if (this.state.modify && this.props.editable) {
       return (
         <div
           className="street-name"
