@@ -10,8 +10,7 @@ class StreetNameCanvas extends React.Component {
   static propTypes = {
     visible: PropTypes.bool,
     editable: PropTypes.bool,
-    street: PropTypes.object,
-    saveStreetName: PropTypes.func
+    street: PropTypes.object
   }
 
   static defaultProps = {
@@ -116,10 +115,4 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    saveStreetName: (...args) => { dispatch(saveStreetName(...args)) }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(StreetNameCanvas)
+export default connect(mapStateToProps)(StreetNameCanvas)
