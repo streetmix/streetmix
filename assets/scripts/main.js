@@ -24,7 +24,6 @@ import store from './store'
 
 // Main object
 import { initialize } from './app/initialization'
-import { startListening } from './app/keypress'
 import { system } from './preinit/system_capabilities'
 import App from './app/App'
 
@@ -57,8 +56,5 @@ ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>, document.getElementById('react-app'))
-
-// Start listening for keypresses
-startListening()
 
 initialize()

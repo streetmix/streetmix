@@ -19,7 +19,7 @@ let loading = []
 
 // Set loading bar
 const loadingEl = document.getElementById('loading-progress')
-loadingEl.max += 5 // Legacy; this is for other things that must load
+loadingEl.max += 3 // Legacy; this is for other things that must load
 
 export async function loadImages () {
   loadingEl.max += IMAGES_TO_BE_LOADED.length
