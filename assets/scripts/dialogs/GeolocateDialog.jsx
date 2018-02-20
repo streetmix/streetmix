@@ -8,7 +8,7 @@ import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../app/config'
 import SearchAddress from '../streets/SearchAddress'
 import { getRemixOnFirstEdit } from '../streets/remix'
 import { setMapState } from '../store/actions/map'
-import { addLocation, saveStreetName } from '../store/actions/street'
+import { addLocation, clearLocation, saveStreetName } from '../store/actions/street'
 import { t } from '../app/locale'
 
 const REVERSE_GEOCODE_API = `https://${PELIAS_HOST_NAME}/v1/reverse`
@@ -41,6 +41,7 @@ class GeolocateDialog extends React.Component {
     }),
     addressInformation: PropTypes.object,
     addLocation: PropTypes.func,
+    clearLocation: PropTypes.func,
     setMapState: PropTypes.func,
     addressInformationLabel: PropTypes.string,
     street: PropTypes.object,
@@ -201,6 +202,31 @@ class GeolocateDialog extends React.Component {
     return (!street.creatorId || !getRemixOnFirstEdit() || !street.location)
   }
 
+  canClearLocation = () => {
+    const { street, addressInformation } = this.props
+    if (!street.location) return false
+    return (street.location.wofId === addressInformation.id)
+  }
+
+  handleClear = (e) => {
+    this.props.clearLocation()
+    this.props.closeDialog()
+  }
+
+  renderLocationButton = () => {
+    if (!this.canEditLocation()) return
+    const isConfirmButton = (!this.canClearLocation())
+    return (
+      <button
+        className={isConfirmButton ? 'confirm-button' : 'clear-button'}
+        style={{ marginTop: '10px' }}
+        onClick={isConfirmButton ? this.handleConfirm : this.handleClear}
+      >
+        <b> { isConfirmButton ? 'Confirm Location' : 'Clear Location' } </b>
+      </button>
+    )
+  }
+
   render () {
     const markers = this.props.markerLocation ? (
       <Marker
@@ -209,16 +235,6 @@ class GeolocateDialog extends React.Component {
         onDragStart={this.hidePopup}
         draggable
       />
-    ) : null
-
-    const confirmButton = this.canEditLocation() ? (
-      <button
-        className="confirm-button"
-        style={{marginTop: '10px'}}
-        onClick={this.handleConfirm}
-      >
-        <b> Confirm Location </b>
-      </button>
     ) : null
 
     let popup = this.props.markerLocation ? (
@@ -231,7 +247,7 @@ class GeolocateDialog extends React.Component {
       >
         <span>
           {this.props.addressInformationLabel} <br />
-          {confirmButton}
+          {this.renderLocationButton()}
         </span>
       </Popup>
     ) : null
@@ -285,6 +301,7 @@ function mapDispatchToProps (dispatch) {
   return {
     setMapState: (...args) => { dispatch(setMapState(...args)) },
     addLocation: (...args) => { dispatch(addLocation(...args)) },
+    clearLocation: () => { dispatch(clearLocation()) },
     saveStreetName: (...args) => { dispatch(saveStreetName(...args)) }
   }
 }
