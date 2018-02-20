@@ -51,21 +51,14 @@ class StreetName extends React.PureComponent {
     }
   }
 
-  toggleModify = () => {
-    console.log('toggleModify fired')
-    this.setState({
-      modify: !this.state.modify
-    })
-  }
-
   handleStreetNameChange = () => {
     let newName = this.state.inpVal
-
     if (newName) {
       this.props.handleStreetNameChange(newName)
       this.setState({
         modify: false,
-        inpVal: ''
+        inpVal: '',
+        isHovered: false
       })
     }
   }
@@ -73,7 +66,6 @@ class StreetName extends React.PureComponent {
   handleKeyUp = (evt) => {
     if (evt.key === 'Enter') {
       this.handleStreetNameChange()
-      this.onMouseLeave()
     }
     if (evt.key === 'Escape') {
       this.setState({
@@ -87,8 +79,11 @@ class StreetName extends React.PureComponent {
   componentDidMount () {
     window.addEventListener('mousedown', (event) => {
       if (!document.getElementById(this.props.id).contains(event.target)) {
-        this.toggleModify()
-        this.onMouseLeave()
+        this.setState({
+          isHovered: false,
+          modify: false,
+          inpVal: ''
+        })
       }
     })
   }
@@ -96,8 +91,11 @@ class StreetName extends React.PureComponent {
   componentWillUnmount () {
     window.removeEventListener('mousedown', (event) => {
       if (!document.getElementById(this.props.id).contains(event.target)) {
-        this.toggleModify()
-        this.onMouseLeave() // to remove hover prompt
+        this.setState({
+          isHovered: false,
+          modify: false,
+          inpVal: ''
+        })
       }
     })
   }
@@ -119,39 +117,32 @@ class StreetName extends React.PureComponent {
         </div>
       )
     }
-
     return null
   }
 
   render () {
     let classString = 'street-name-text ' + (!needsUnicodeFont(this.props.name) ? '' : 'fallback-unicode-font')
-
     if (!this.state.modify) {
-      return (
-        <div
-          className="street-name"
-          ref={this.props.childRef}
-          onMouseEnter={this.onMouseEnter}
-          onMouseLeave={this.onMouseLeave}
-          onClick={this.toggleModify}
-          id={this.props.id}
-        >
-          {this.renderHoverPrompt()}
-          <div className={classString}>{StreetName.normalizeStreetName(this.props.name)}</div>
-        </div>
-      )
+      return (<div
+        className="street-name"
+        ref={this.props.childRef}
+        onMouseEnter={this.onMouseEnter}
+        onMouseLeave={this.onMouseLeave}
+        onClick={() => this.setState({modify: true})}
+        id={this.props.id}>
+        {this.renderHoverPrompt()}
+        <div className={classString}>{StreetName.normalizeStreetName(this.props.name)}</div>
+      </div>)
     } else if (this.state.modify && this.props.editable) {
-      return (
-        <div
-          className="street-name"
-          ref={this.props.childRef}
-          id={this.props.id}>
-          <input className={classString} type="text"
-            placeholder={StreetName.normalizeStreetName(this.props.name)}
-            onChange={(evt) => this.setState({ inpVal: evt.target.value })}
-            onKeyUp={(evt) => this.handleKeyUp(evt)} autoFocus />
-        </div>
-      )
+      return (<div
+        className="street-name"
+        ref={this.props.childRef}
+        id={this.props.id}>
+        <input className={classString} type="text"
+          placeholder={StreetName.normalizeStreetName(this.props.name)}
+          onChange={(evt) => this.setState({ inpVal: evt.target.value })}
+          onKeyUp={(evt) => this.handleKeyUp(evt)} autoFocus />
+      </div>)
     }
   }
 }
