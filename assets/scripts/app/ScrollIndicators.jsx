@@ -11,8 +11,8 @@ class ScrollIndicators extends React.PureComponent {
   }
 
   componentDidMount () {
-    registerKeypress('left', this.handleLeftScroll)
-    registerKeypress('right', this.handleRightScroll)
+    registerKeypress(['left', 'shift left'], this.handleLeftScroll)
+    registerKeypress(['right', 'shift right'], this.handleRightScroll)
   }
 
   handleLeftScroll = (event) => {
