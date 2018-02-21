@@ -222,7 +222,10 @@ class GeolocateDialog extends React.Component {
         style={{ marginTop: '10px' }}
         onClick={isConfirmButton ? this.handleConfirm : this.handleClear}
       >
-        <b> { isConfirmButton ? 'Confirm Location' : 'Clear Location' } </b>
+        <b>{ isConfirmButton
+          ? t('dialogs.geolocate.confirm-location', 'Confirm location')
+          : t('dialogs.geolocate.clear-location', 'Clear location')
+        }</b>
       </button>
     )
   }
