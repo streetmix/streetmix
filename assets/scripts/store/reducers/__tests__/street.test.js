@@ -222,6 +222,35 @@ describe('street reducer', () => {
     })
   })
 
+  describe('CLEAR_LOCATION', () => {
+    it('sets street.location to be null and street name to DEFAULT_NAME if userUpdated = False', () => {
+      const existingStreet = {
+        name: 'test street',
+        userUpdated: false,
+        location: {
+          latlng: [0, 0],
+          label: 'test street',
+          hierarchy: {
+            country: 'country',
+            locality: 'locality',
+            neighbourhood: 'neighbourhood',
+            street: 'street'
+          },
+          geometryId: null,
+          intersectionId: null
+        }
+      }
+
+      expect(
+        reducer(Object.assign({}, existingStreet), actions.clearLocation())
+      ).toEqual({
+        name: 'Unnamed St',
+        userUpdated: false,
+        location: null
+      })
+    })
+  })
+
   describe('SAVE_STREET_NAME', () => {
     it('renames street name if user updated and sets userUpdated to true', () => {
       const existingStreet = {
