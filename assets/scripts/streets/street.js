@@ -48,9 +48,19 @@ function updateIfStreetNameChanged (state, street) {
 }
 
 function updateIfLocationChanged (state, street) {
+  let changed = false
   if (state.location && state.location.wofId !== oldStreetLocation) {
-    street.location = state.location
+    street.location = {...state.location}
     oldStreetLocation = state.location.wofId
+    changed = true
+  }
+  // If location was cleared
+  if (street.location && !state.location) {
+    street.location = null
+    oldStreetLocation = null
+    changed = true
+  }
+  if (changed) {
     saveStreetToServerIfNecessary()
   }
 }
