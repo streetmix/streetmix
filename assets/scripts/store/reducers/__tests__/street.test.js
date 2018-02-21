@@ -201,7 +201,6 @@ describe('street reducer', () => {
   })
 
   it('should handle ADD_LOCATION', () => {
-    const existingStreet = {}
     const location = {
       latlng: [0, 0],
       label: 'test street',
@@ -216,7 +215,7 @@ describe('street reducer', () => {
     }
 
     expect(
-      reducer(Object.assign({}, existingStreet), actions.addLocation(location))
+      reducer({}, actions.addLocation(location))
     ).toEqual({
       location: location
     })
@@ -242,7 +241,7 @@ describe('street reducer', () => {
       }
 
       expect(
-        reducer(Object.assign({}, existingStreet), actions.clearLocation())
+        reducer({...existingStreet}, actions.clearLocation())
       ).toEqual({
         name: 'Unnamed St',
         userUpdated: false,
@@ -259,35 +258,35 @@ describe('street reducer', () => {
       }
 
       expect(
-        reducer(Object.assign({}, existingStreet), actions.saveStreetName('new street name', true))
+        reducer({...existingStreet}, actions.saveStreetName('new street name', true))
       ).toEqual({
         name: 'new street name',
         userUpdated: true
       })
     })
 
-    it('does not rename street if not user updated and userUpdate = true', () => {
+    it('does not rename street if not user updated and userUpdate is true', () => {
       const existingStreet = {
         name: 'street name',
         userUpdated: true
       }
 
       expect(
-        reducer(Object.assign({}, existingStreet), actions.saveStreetName('new street name', false))
+        reducer({...existingStreet}, actions.saveStreetName('new street name', false))
       ).toEqual({
         name: 'street name',
         userUpdated: true
       })
     })
 
-    it('renames street if userUpdated = false', () => {
+    it('renames street if userUpdated is false', () => {
       const existingStreet = {
         name: 'street name',
         userUpdated: false
       }
 
       expect(
-        reducer(Object.assign({}, existingStreet), actions.saveStreetName('new street name', false))
+        reducer({...existingStreet}, actions.saveStreetName('new street name', false))
       ).toEqual({
         name: 'new street name',
         userUpdated: false

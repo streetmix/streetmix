@@ -50,7 +50,7 @@ function updateIfStreetNameChanged (state, street) {
 function updateIfLocationChanged (state, street) {
   let changed = false
   if (state.location && state.location.wofId !== oldStreetLocation) {
-    street.location = Object.assign({}, state.location)
+    street.location = {...state.location}
     oldStreetLocation = state.location.wofId
     changed = true
   }
