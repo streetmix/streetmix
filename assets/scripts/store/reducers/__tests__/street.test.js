@@ -222,7 +222,7 @@ describe('street reducer', () => {
   })
 
   describe('CLEAR_LOCATION', () => {
-    it('sets street.location to be null and street name to DEFAULT_NAME if userUpdated = False', () => {
+    it('sets street.location to be null and clears original street name if userUpdated was false', () => {
       const existingStreet = {
         name: 'test street',
         userUpdated: false,
