@@ -8,7 +8,7 @@
 export const FEATURE_FLAGS = {
   GEOLOCATION: {
     label: 'Geolocation',
-    defaultValue: false
+    defaultValue: true
   },
   SAVE_UNDO: {
     label: 'Save undo data to server',
