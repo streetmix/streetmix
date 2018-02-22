@@ -127,7 +127,8 @@
       "zoom-out": "Zoom out",
       "add-location": "Add location",
       "confirm-location": "Confirm location",
-      "clear-location": "Clear location"
+      "clear-location": "Clear location",
+      "unknown-location": "Unknown location"
     },
     "donate": {
       "heading": "Streetmix needs your help!",

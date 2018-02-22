@@ -89,12 +89,13 @@ class StreetMetaData extends React.Component {
 
   getGeolocationText = () => {
     const { hierarchy } = this.props.street.location
+    const unknownLabel = t('dialogs.geolocate.unknown-location', 'Unknown location')
     let text = ''
     text = (hierarchy.locality) ? hierarchy.locality
       : (hierarchy.region) ? hierarchy.region
         : (hierarchy.neighbourhood) ? hierarchy.neighbourhood
-          : 'Unknown Location'
-    if (text !== 'Unknown Location' && hierarchy.country) {
+          : unknownLabel
+    if (text !== unknownLabel && hierarchy.country) {
       text = text + ', ' + hierarchy.country
     }
     return text
