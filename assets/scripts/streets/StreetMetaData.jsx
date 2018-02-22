@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { formatDate } from '../util/date_format'
+import { trackEvent } from '../app/event_tracking'
 import { t } from '../app/locale'
 import { getRemixOnFirstEdit } from './remix'
 import { showGallery } from '../gallery/view'
@@ -33,6 +34,11 @@ class StreetMetaData extends React.Component {
 
   onClickGeolocate = (event) => {
     event.preventDefault()
+    if (!this.props.street.location) {
+      trackEvent('Interaction', 'Clicked add location', null, null, true)
+    } else {
+      trackEvent('Interaction', 'Clicked existing location', null, null, true)
+    }
     this.props.showGeolocateDialog()
   }
 
