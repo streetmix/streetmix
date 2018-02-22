@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { Map, TileLayer, ZoomControl, Marker, Popup } from 'react-leaflet'
 import * as sharedstreets from 'sharedstreets'
 import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../app/config'
+import { trackEvent } from '../app/event_tracking'
 import SearchAddress from '../streets/SearchAddress'
 import { getRemixOnFirstEdit } from '../streets/remix'
 import { setMapState } from '../store/actions/map'
@@ -187,6 +188,7 @@ class GeolocateDialog extends React.Component {
       location.geometryId = sharedstreets.geometryId(line)
     }
 
+    trackEvent('Interaction', 'Geolocate dialog: confirm chosen location', null, null, true)
     this.props.addLocation(location)
     this.props.saveStreetName(location.hierarchy.street, false)
     this.props.closeDialog()
@@ -209,6 +211,7 @@ class GeolocateDialog extends React.Component {
   }
 
   handleClear = (e) => {
+    trackEvent('Interaction', 'Geolocate dialog: cleared existing location', null, null, true)
     this.props.clearLocation()
     this.props.closeDialog()
   }
