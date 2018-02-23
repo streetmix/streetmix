@@ -70,3 +70,7 @@ body.read-only .street-metadata-author a {
   color: darken($ui-colour, 40%);
   margin: 0 4px;
 }
+
+.street-metadata-map a {
+  text-decoration: underline;
+}
