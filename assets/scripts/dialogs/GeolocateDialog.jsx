@@ -267,7 +267,7 @@ class GeolocateDialog extends React.Component {
     return (
       <div className="geolocate-dialog">
         <div className="geolocate-input-container">
-          <SearchAddress setSearchResults={this.setSearchResults} />
+          <SearchAddress setSearchResults={this.setSearchResults} focus={this.state.mapCenter} />
         </div>
         <Map
           center={this.state.mapCenter}
