@@ -15,6 +15,7 @@ const WIDTH_INPUT_CONVERSION = [
   { text: 'inches', multiplier: 1 / 12 },
   { text: "'", multiplier: 1 },
   { text: 'ft', multiplier: 1 },
+  { text: 'ft.', multiplier: 1 },
   { text: 'feet', multiplier: 1 }
 ]
 
@@ -33,10 +34,10 @@ const IMPERIAL_VULGAR_FRACTIONS = {
  *
  * @param {string} widthInput
  * @param {Number} units - either SETTINGS_UNITS_METRIC or SETTINGS_UNITS_IMPERIAL
- * @returns {Number} width
+ * @returns {Number} width - in default units, regardless of provided units
  */
 export function processWidthInput (widthInput, units) {
-  if (!widthInput) return
+  if (!widthInput || !units) return
 
   // Normalize certain input quirks. Spaces (more common at end or beginning of input)
   // go away, and comma-based decimals turn into period-based decimals
