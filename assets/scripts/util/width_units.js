@@ -1,8 +1,8 @@
-import { getStreet } from '../streets/data_model'
 import {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC
 } from '../users/localization'
+import store from '../store'
 
 const IMPERIAL_METRIC_MULTIPLIER = 30 / 100
 const METRIC_PRECISION = 3
@@ -28,7 +28,14 @@ const IMPERIAL_VULGAR_FRACTIONS = {
   '.875': '⅞'
 }
 
-export function processWidthInput (widthInput) {
+/**
+ * Processes width input from user
+ *
+ * @param {string} widthInput
+ * @param {Number} units - either SETTINGS_UNITS_METRIC or SETTINGS_UNITS_IMPERIAL
+ * @returns {Number} width
+ */
+export function processWidthInput (widthInput, units) {
   if (!widthInput) return
 
   // Normalize certain input quirks. Spaces (more common at end or beginning of input)
@@ -53,10 +60,10 @@ export function processWidthInput (widthInput) {
         cur += '"'
       }
 
-      return parseStringForUnits(prev.toString()) + parseStringForUnits(cur.toString())
+      return parseStringForUnits(prev.toString()) + parseStringForUnits(cur.toString(), units)
     })
   } else {
-    width = parseStringForUnits(widthInput)
+    width = parseStringForUnits(widthInput, units)
   }
 
   return width
@@ -67,13 +74,22 @@ export function processWidthInput (widthInput) {
  * current units settings (imperial or metric).
  *
  * @param {Number} width to display
- * @param {(boolean)} [options.markup = false]
+ * @param {Boolean} [options.markup = false]
+ * @param {Number} [options.units] - units, either SETTINGS_UNITS_METRIC or
+ *            SETTINGS_UNITS_IMPERIAL, to format width as. If undefined,
+ *            temporarily run get street data from store to obtain units.
+ *            Todo: refactor this so that units is a required argument.
  *    If true, <wbr> (word break opportunity) tags are inserted into return value.
  */
-export function prettifyWidth (width, { markup = false } = {}) {
+export function prettifyWidth (width, { markup = false, units } = {}) {
   let widthText = ''
 
-  switch (getStreet().units) {
+  // TODO: temporary; refactor so `units` is required
+  if (units === undefined) {
+    units = store.getState().street.units
+  }
+
+  switch (units) {
     case SETTINGS_UNITS_IMPERIAL:
       widthText = width
 
@@ -95,6 +111,7 @@ export function prettifyWidth (width, { markup = false } = {}) {
 
       break
     case SETTINGS_UNITS_METRIC:
+    default:
       widthText = undecorateWidth(width)
 
       // Add word break opportunity <wbr> tags and units, assuming
@@ -117,17 +134,24 @@ export function prettifyWidth (width, { markup = false } = {}) {
  * Used primarily when converting input box values to a simple number format
  *
  * @param {Number} width to display
+ * @param {Number} units - either SETTINGS_UNITS_METRIC or SETTINGS_UNITS_IMPERIAL
  */
-export function undecorateWidth (width) {
+export function undecorateWidth (width, units) {
   let widthText = ''
 
-  switch (getStreet().units) {
+  // TODO: temporary; refactor so `units` is required
+  if (units === undefined) {
+    units = store.getState().street.units
+  }
+
+  switch (units) {
     // Width is stored as imperial units by default, so return it as is
     case SETTINGS_UNITS_IMPERIAL:
       widthText = width
       break
     // Otherwise convert it metric
     case SETTINGS_UNITS_METRIC:
+    default:
       widthText = convertWidthToMetric(width)
       widthText = stringifyMetricWidth(widthText)
       break
@@ -179,23 +203,26 @@ function stringifyMetricWidth (width) {
  * value multiplied by the appropriate multiplier.
  *
  * @param {String} widthInput to convert to number
+ * @param {Number} units - either SETTINGS_UNITS_METRIC or SETTINGS_UNITS_IMPERIAL
  * @returns {Number} formatted width as number
  */
-function parseStringForUnits (widthInput) {
+function parseStringForUnits (widthInput, units) {
   if (widthInput.indexOf('-') !== -1) {
     widthInput = widthInput.replace(/-/g, '') // Dashes would mean negative in the parseFloat
   }
 
-  let width = parseFloat(widthInput)
+  let width = Number.parseFloat(widthInput)
 
   if (width) {
-    // Default multiplier, is true if units are imperial
-    let multiplier = 1
+    let multiplier
 
-    // TODO remove call to getStreet. Pass in units instead
-    // Default unit
-    if (getStreet().units === SETTINGS_UNITS_METRIC) { // Checks for a unitless input when metric
+    if (units === SETTINGS_UNITS_METRIC) {
+      // Checks for a unitless input when metric
       multiplier = 1 / IMPERIAL_METRIC_MULTIPLIER
+    } else {
+      // Default multiplier, is true if units are imperial
+      // TODO: metric units should be default
+      multiplier = 1
     }
 
     for (let i in WIDTH_INPUT_CONVERSION) {

@@ -1,13 +1,6 @@
 /* eslint-env jest */
 import { processWidthInput } from '../width_units'
 
-jest.mock('../../streets/data_model', () => {
-  return {
-    getStreet: () => ({
-      units: 1
-    })
-  }
-})
 jest.mock('../../users/localization', () => {
   return {
     SETTINGS_UNITS_IMPERIAL: 1,

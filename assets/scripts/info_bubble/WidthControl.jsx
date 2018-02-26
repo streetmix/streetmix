@@ -31,7 +31,8 @@ class WidthControl extends React.Component {
     segmentEl: PropTypes.object, // TODO: this is the actual DOM element; only here for legacy reasons
     position: PropTypes.number,
     value: PropTypes.number,
-    changeSegmentWidth: PropTypes.func
+    changeSegmentWidth: PropTypes.func,
+    units: PropTypes.number
   }
 
   constructor (props) {
@@ -237,7 +238,7 @@ class WidthControl extends React.Component {
    * @param {string} value - raw input
    */
   updateModel = (value) => {
-    const processedValue = processWidthInput(value)
+    const processedValue = processWidthInput(value, this.props.units)
     if (processedValue) {
       const normalizedValue = resizeSegment(this.props.segmentEl, RESIZE_TYPE_TYPING, processedValue, false, false)
       this.props.changeSegmentWidth(this.props.position, normalizedValue)
@@ -305,7 +306,8 @@ function mapStateToProps (state, ownProps) {
   return {
     touch: state.system.touch,
     segment: segment,
-    value: (segment && segment.width) || null
+    value: (segment && segment.width) || null,
+    units: state.street.units
   }
 }
 

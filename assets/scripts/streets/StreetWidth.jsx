@@ -160,7 +160,7 @@ class StreetWidth extends React.Component {
       let width = window.prompt(promptString, prettifyWidth(promptValue))
 
       if (width) {
-        width = this.normalizeStreetWidth(processWidthInput(width))
+        width = this.normalizeStreetWidth(processWidthInput(width, this.props.street.units))
       }
 
       if (!width) {
