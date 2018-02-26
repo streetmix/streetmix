@@ -181,7 +181,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
       const x = (offsetLeft + (availableWidth / 2)) * dpi
 
-      let text = prettifyWidth(segment.width)
+      let text = prettifyWidth(segment.width, street.units)
       let textWidth = ctx.measureText(text).width / 2
       while ((textWidth > availableWidth - (10 * multiplier)) && (text.indexOf(' ') !== -1)) {
         text = text.substr(0, text.lastIndexOf(' '))

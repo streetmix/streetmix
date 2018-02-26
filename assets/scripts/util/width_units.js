@@ -77,17 +77,18 @@ export function processWidthInput (widthInput, units) {
  * current units settings (imperial or metric).
  *
  * @param {Number} width to display
- * @param {Boolean} [options.markup = false]
- * @param {Number} [options.units] - units, either SETTINGS_UNITS_METRIC or
+ * @param {Number} units - units, either SETTINGS_UNITS_METRIC or
  *            SETTINGS_UNITS_IMPERIAL, to format width as. If undefined,
  *            temporarily run get street data from store to obtain units.
  *            Todo: refactor this so that units is a required argument.
+ * @param {Boolean} [options.markup = false]
  *    If true, <wbr> (word break opportunity) tags are inserted into return value.
  */
-export function prettifyWidth (width, { markup = false, units } = {}) {
+export function prettifyWidth (width, units, { markup = false } = {}) {
   let widthText = ''
 
-  // TODO: temporary; refactor so `units` is required
+  // TODO: temporary; refactor so `units` is required.
+  // Only a couple of places (`resizing.js` and `view.js` currently does not pass in units.)
   if (units === undefined) {
     units = store.getState().street.units
   }
@@ -133,19 +134,16 @@ export function prettifyWidth (width, { markup = false, units } = {}) {
 
 /**
  * Returns a width as a numeral-only string without decoration, and converts
- * the value to the user's current units settings (imperial or metric).
+ * to the desired units, if necessary.
  * Used primarily when converting input box values to a simple number format
  *
- * @param {Number} width to display
+ * @param {Number} width - original display value
  * @param {Number} units - either SETTINGS_UNITS_METRIC or SETTINGS_UNITS_IMPERIAL
+ *          Defaults to metric.
+ * @returns {Number|string} width - undecorated value
  */
 export function undecorateWidth (width, units) {
   let widthText = ''
-
-  // TODO: temporary; refactor so `units` is required
-  if (units === undefined) {
-    units = store.getState().street.units
-  }
 
   switch (units) {
     // Width is stored as imperial units by default, so return it as is

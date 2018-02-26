@@ -43,7 +43,7 @@ class WidthControl extends React.Component {
 
     this.state = {
       isEditing: false,
-      displayValue: prettifyWidth(props.value)
+      displayValue: prettifyWidth(props.value, props.units)
     }
   }
 
@@ -56,7 +56,7 @@ class WidthControl extends React.Component {
   componentWillReceiveProps (nextProps) {
     if (!this.state.isEditing) {
       this.setState({
-        displayValue: prettifyWidth(nextProps.value)
+        displayValue: prettifyWidth(nextProps.value, nextProps.units)
       })
     }
   }
@@ -124,7 +124,7 @@ class WidthControl extends React.Component {
 
     this.setState({
       isEditing: true,
-      displayValue: undecorateWidth(this.props.value)
+      displayValue: undecorateWidth(this.props.value, this.props.units)
     })
 
     if (document.activeElement !== el) {
@@ -151,7 +151,7 @@ class WidthControl extends React.Component {
   onBlurInput = (event) => {
     this.setState({
       isEditing: false,
-      displayValue: prettifyWidth(this.props.value)
+      displayValue: prettifyWidth(this.props.value, this.props.units)
     })
   }
 
@@ -161,7 +161,7 @@ class WidthControl extends React.Component {
   onMouseDownInput = (event) => {
     this.setState({
       isEditing: true,
-      displayValue: undecorateWidth(this.props.value)
+      displayValue: undecorateWidth(this.props.value, this.props.units)
     })
   }
 
@@ -173,7 +173,7 @@ class WidthControl extends React.Component {
     if (this.state.isEditing) return
 
     this.setState({
-      displayValue: undecorateWidth(this.props.value)
+      displayValue: undecorateWidth(this.props.value, this.props.units)
     })
 
     // Automatically select the value on hover so that it's easy to start typing new values.
@@ -196,7 +196,7 @@ class WidthControl extends React.Component {
     if (this.state.isEditing) return
 
     this.setState({
-      displayValue: prettifyWidth(this.props.value)
+      displayValue: prettifyWidth(this.props.value, this.props.units)
     })
 
     event.target.blur()

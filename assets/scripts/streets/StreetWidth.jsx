@@ -31,7 +31,7 @@ class StreetWidth extends React.Component {
 
   displayStreetWidthRemaining = () => {
     // TODO work on this so that we can use markup
-    const width = prettifyWidth(Math.abs(this.props.street.remainingWidth), { markup: false })
+    const width = prettifyWidth(Math.abs(this.props.street.remainingWidth), this.props.street.units)
 
     let differenceClass = ''
     let differenceString = ''
@@ -64,8 +64,8 @@ class StreetWidth extends React.Component {
     return width
   }
 
-  createStreetWidthOption (width) {
-    return <option key={width} value={width}>{prettifyWidth(width)}</option>
+  createStreetWidthOption = (width) => {
+    return <option key={width} value={width}>{prettifyWidth(width, this.props.street.units)}</option>
   }
 
   renderStreetWidthMenu = () => {
@@ -90,7 +90,7 @@ class StreetWidth extends React.Component {
     return (
       <select ref={(ref) => { this.streetWidth = ref }} onChange={this.changeStreetWidth} id="street-width" value={selectedValue}>
         <option disabled="true">{t('width.occupied', 'Occupied width:')}</option>
-        <option disabled="true">{prettifyWidth(this.props.street.occupiedWidth)}</option>
+        <option disabled="true">{prettifyWidth(this.props.street.occupiedWidth, this.props.street.units)}</option>
         <option disabled="true" />
         <option disabled="true">{t('width.building', 'Building-to-building width:')}</option>
         {defaultWidths}
@@ -153,11 +153,11 @@ class StreetWidth extends React.Component {
       if (promptValue > MAX_CUSTOM_STREET_WIDTH) promptValue = MAX_CUSTOM_STREET_WIDTH
 
       const replacements = {
-        minWidth: prettifyWidth(MIN_CUSTOM_STREET_WIDTH),
-        maxWidth: prettifyWidth(MAX_CUSTOM_STREET_WIDTH)
+        minWidth: prettifyWidth(MIN_CUSTOM_STREET_WIDTH, this.props.street.units),
+        maxWidth: prettifyWidth(MAX_CUSTOM_STREET_WIDTH, this.props.street.units)
       }
       const promptString = t('prompt.new-width', 'New street width (from {{minWidth}} to {{maxWidth}}):', replacements)
-      let width = window.prompt(promptString, prettifyWidth(promptValue))
+      let width = window.prompt(promptString, prettifyWidth(promptValue, this.props.street.units))
 
       if (width) {
         width = this.normalizeStreetWidth(processWidthInput(width, this.props.street.units))
@@ -189,9 +189,8 @@ class StreetWidth extends React.Component {
   }
 
   render () {
-    // TODO prettifyWidth calls getStreet(). refactor this to use units passed by argument instead
     // TODO work on this so that we can use markup
-    const width = prettifyWidth(this.props.street.width, { markup: false })
+    const width = prettifyWidth(this.props.street.width, this.props.street.units, { markup: false })
     const widthString = t('width.label', '{{width}} width', { width })
     const difference = this.displayStreetWidthRemaining()
     const differenceClass = `street-width-read-difference ${difference.class}`
