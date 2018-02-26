@@ -116,9 +116,9 @@ class StreetMetaData extends React.Component {
     }
 
     const geolocation = (this.props.enableLocation) ? (
-      <span>
-        <a className="street-metadata-map" onClick={this.onClickGeolocate}>
-          <u>{geolocationText}</u>
+      <span className="street-metadata-map">
+        <a onClick={this.onClickGeolocate}>
+          {geolocationText}
         </a>
       </span>
     ) : null

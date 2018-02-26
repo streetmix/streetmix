@@ -17,7 +17,12 @@ const MINIMUM_QUERY_LENGTH = 3
 export class SearchAddress extends React.Component {
   static propTypes = {
     setMapState: PropTypes.func,
-    setSearchResults: PropTypes.func
+    setSearchResults: PropTypes.func,
+    focus: PropTypes.arrayOf(PropTypes.number).isRequired
+  }
+
+  static defaultProps = {
+    focus: [0, 0]
   }
 
   constructor (props) {
@@ -80,13 +85,13 @@ export class SearchAddress extends React.Component {
 
   throttledMakeRequest = throttle(this.makeRequest, REQUEST_THROTTLE)
 
-  search = (query) => {
-    const url = `${SEARCH_ENDPOINT}&text=${query}`
+  search = (query, focus) => {
+    const url = `${SEARCH_ENDPOINT}&text=${query}&focus.point.lat=${focus[0]}&focus.point.lon=${focus[1]}`
     return this.throttledMakeRequest(url)
   }
 
-  autocomplete = (query) => {
-    const url = `${AUTOCOMPLETE_ENDPOINT}&text=${query}`
+  autocomplete = (query, focus) => {
+    const url = `${AUTOCOMPLETE_ENDPOINT}&text=${query}&focus.point.lat=${focus[0]}&focus.point.lon=${focus[1]}`
     return this.throttledMakeRequest(url)
   }
 
@@ -94,7 +99,7 @@ export class SearchAddress extends React.Component {
     event.preventDefault()
     const query = this.state.value.trim()
     if (query && query.length >= MINIMUM_QUERY_LENGTH) {
-      this.search(query)
+      this.search(query, this.props.focus)
     }
   }
 
@@ -120,7 +125,7 @@ export class SearchAddress extends React.Component {
     if (reason === 'suggestion-selected' || reason === 'input-focused') return
 
     if (query.length >= MINIMUM_QUERY_LENGTH) {
-      this.autocomplete(value)
+      this.autocomplete(value, this.props.focus)
     }
   }
 
