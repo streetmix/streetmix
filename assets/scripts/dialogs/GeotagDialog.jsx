@@ -27,7 +27,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: '/images/marker-shadow.png'
 })
 
-class GeolocateDialog extends React.Component {
+class GeotagDialog extends React.Component {
   static propTypes = {
     markerLocation: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.number),
@@ -188,7 +188,7 @@ class GeolocateDialog extends React.Component {
       location.geometryId = sharedstreets.geometryId(line)
     }
 
-    trackEvent('Interaction', 'Geolocate dialog: confirm chosen location', null, null, true)
+    trackEvent('Interaction', 'Geotag dialog: confirm chosen location', null, null, true)
     this.props.addLocation(location)
     this.props.saveStreetName(location.hierarchy.street, false)
     this.props.closeDialog()
@@ -211,7 +211,7 @@ class GeolocateDialog extends React.Component {
   }
 
   handleClear = (e) => {
-    trackEvent('Interaction', 'Geolocate dialog: cleared existing location', null, null, true)
+    trackEvent('Interaction', 'Geotag dialog: cleared existing location', null, null, true)
     this.props.clearLocation()
     this.props.closeDialog()
   }
@@ -226,8 +226,8 @@ class GeolocateDialog extends React.Component {
         onClick={isConfirmButton ? this.handleConfirm : this.handleClear}
       >
         <b>{ isConfirmButton
-          ? t('dialogs.geolocate.confirm-location', 'Confirm location')
-          : t('dialogs.geolocate.clear-location', 'Clear location')
+          ? t('dialogs.geotag.confirm-location', 'Confirm location')
+          : t('dialogs.geotag.clear-location', 'Clear location')
         }</b>
       </button>
     )
@@ -265,8 +265,8 @@ class GeolocateDialog extends React.Component {
     const tileUrl = (window.devicePixelRatio > 1) ? MAP_TILES_2X : MAP_TILES
 
     return (
-      <div className="geolocate-dialog">
-        <div className="geolocate-input-container">
+      <div className="geotag-dialog">
+        <div className="geotag-input-container">
           <SearchAddress setSearchResults={this.setSearchResults} focus={this.state.mapCenter} />
         </div>
         <Map
@@ -282,8 +282,8 @@ class GeolocateDialog extends React.Component {
             url={tileUrl}
           />
           <ZoomControl
-            zoomInTitle={t('dialogs.geolocate.zoom-in', 'Zoom in')}
-            zoomOutTitle={t('dialogs.geolocate.zoom-out', 'Zoom out')}
+            zoomInTitle={t('dialogs.geotag.zoom-in', 'Zoom in')}
+            zoomOutTitle={t('dialogs.geotag.zoom-out', 'Zoom out')}
           />
           {popup}
           {markers}
@@ -312,4 +312,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(GeolocateDialog)
+export default connect(mapStateToProps, mapDispatchToProps)(GeotagDialog)
