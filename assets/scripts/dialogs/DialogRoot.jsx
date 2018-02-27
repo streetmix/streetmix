@@ -8,7 +8,7 @@ import Dialog from './Dialog'
 import AboutDialog from './AboutDialog'
 import DonateDialog from './DonateDialog'
 import FeatureFlagDialog from './FeatureFlagDialog'
-import GeolocateDialog from './GeolocateDialog'
+import GeotagDialog from './GeotagDialog'
 import SaveAsImageDialog from './SaveAsImageDialog'
 
 const DIALOG_COMPONENTS = {
@@ -22,8 +22,8 @@ const DIALOG_COMPONENTS = {
   FEATURE_FLAGS: {
     contents: FeatureFlagDialog
   },
-  GEOLOCATE: {
-    contents: GeolocateDialog
+  GEOTAG: {
+    contents: GeotagDialog
   },
   SAVE_AS_IMAGE: {
     contents: SaveAsImageDialog
