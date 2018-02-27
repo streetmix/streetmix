@@ -1,15 +1,15 @@
 /* eslint-env jest */
 import React from 'react'
-import GeolocateDialog from '../GeolocateDialog'
+import GeotagDialog from '../GeotagDialog'
 import { shallow } from 'enzyme'
 
 // Mock dependencies that could break tests
 jest.mock('../../streets/remix', () => {})
 
-describe('GeolocateDialog', () => {
+describe('GeotagDialog', () => {
   it('renders without crashing', () => {
     const wrapper = shallow(
-      <GeolocateDialog.WrappedComponent
+      <GeotagDialog.WrappedComponent
         street={{}}
         addressInformation={{}}
       />
