@@ -32,7 +32,7 @@ class StreetMetaData extends React.Component {
     }
   }
 
-  onClickGeolocate = (event) => {
+  onClickGeotag = (event) => {
     event.preventDefault()
     if (!this.props.street.location) {
       trackEvent('Interaction', 'Clicked add location', null, null, true)
@@ -87,9 +87,9 @@ class StreetMetaData extends React.Component {
     })
   }
 
-  getGeolocationText = () => {
+  getGeotagText = () => {
     const { hierarchy } = this.props.street.location
-    const unknownLabel = t('dialogs.geolocate.unknown-location', 'Unknown location')
+    const unknownLabel = t('dialogs.geotag.unknown-location', 'Unknown location')
     let text = ''
     text = (hierarchy.locality) ? hierarchy.locality
       : (hierarchy.region) ? hierarchy.region
@@ -110,15 +110,15 @@ class StreetMetaData extends React.Component {
       author = t('users.byline', 'by {{user}}', { user: t('users.anonymous', 'Anonymous') })
     }
 
-    let geolocationText = t('dialogs.geolocate.add-location', 'Add location')
+    let geotagText = t('dialogs.geotag.add-location', 'Add location')
     if (this.props.street.location) {
-      geolocationText = this.getGeolocationText()
+      geotagText = this.getGeotagText()
     }
 
     const geolocation = (this.props.enableLocation) ? (
       <span className="street-metadata-map">
-        <a onClick={this.onClickGeolocate}>
-          {geolocationText}
+        <a onClick={this.onClickGeotag}>
+          {geotagText}
         </a>
       </span>
     ) : null
@@ -147,7 +147,7 @@ function mapDispatchToProps (dispatch) {
     showGeotagDialog: () => {
       dispatch({
         type: SHOW_DIALOG,
-        name: 'GEOLOCATE'
+        name: 'GEOTAG'
       })
     }
   }

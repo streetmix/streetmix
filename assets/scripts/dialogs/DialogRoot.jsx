@@ -22,7 +22,7 @@ const DIALOG_COMPONENTS = {
   FEATURE_FLAGS: {
     contents: FeatureFlagDialog
   },
-  GEOLOCATE: {
+  GEOTAG: {
     contents: GeotagDialog
   },
   SAVE_AS_IMAGE: {
