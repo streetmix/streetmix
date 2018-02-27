@@ -17,7 +17,7 @@ class StreetMetaData extends React.Component {
     userId: PropTypes.string,
     street: PropTypes.any,
     enableLocation: PropTypes.bool,
-    showGeolocateDialog: PropTypes.func
+    showGeotagDialog: PropTypes.func
   }
 
   static defaultProps = {
@@ -39,7 +39,7 @@ class StreetMetaData extends React.Component {
     } else {
       trackEvent('Interaction', 'Clicked existing location', null, null, true)
     }
-    this.props.showGeolocateDialog()
+    this.props.showGeotagDialog()
   }
 
   onClickAuthor = (event) => {
@@ -144,7 +144,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    showGeolocateDialog: () => {
+    showGeotagDialog: () => {
       dispatch({
         type: SHOW_DIALOG,
         name: 'GEOLOCATE'
