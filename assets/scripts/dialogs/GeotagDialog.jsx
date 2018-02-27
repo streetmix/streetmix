@@ -27,7 +27,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: '/images/marker-shadow.png'
 })
 
-class GeolocateDialog extends React.Component {
+class GeotagDialog extends React.Component {
   static propTypes = {
     markerLocation: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.number),
@@ -312,4 +312,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(GeolocateDialog)
+export default connect(mapStateToProps, mapDispatchToProps)(GeotagDialog)
