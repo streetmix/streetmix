@@ -135,7 +135,7 @@ app.head('/api/v1/streets/:street_id', resources.v1.streets.get)
 app.get('/api/v1/streets/:street_id', resources.v1.streets.get)
 app.put('/api/v1/streets/:street_id', resources.v1.streets.put)
 
-app.get('/api/v1/location', resources.v1.location.get)
+app.get('/api/v1/geo', resources.v1.geo.get)
 
 app.post('/api/v1/feedback', resources.v1.feedback.post)
 

@@ -1,9 +1,9 @@
 require('../../../lib/db.js')
-var Street = require('../../models/street.js')
-var logger = require('../../../lib/logger.js')()
+const Street = require('../../models/street.js')
+const logger = require('../../../lib/logger.js')()
 
 exports.get = function (req, res) {
-  var handleFindStreets = function (err, results) {
+  const handleFindStreets = function (err, results) {
     if (err) {
       logger.error(err)
       res.status(500).send('Could not find streets with locations.')
@@ -29,9 +29,10 @@ exports.get = function (req, res) {
         }
         const { location } = streetJson.data.street
         const feature = {
+          type: 'Feature',
           geometry: {
             type: 'Point',
-            coordinates: location.latlng
+            coordinates: [location.latlng[1], location.latlng[0]]
           },
           properties: results[i]
         }
