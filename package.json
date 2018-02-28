@@ -83,6 +83,7 @@
     "config": "1.30.0",
     "cookie-parser": "1.4.3",
     "cookie-session": "2.0.0-beta.3",
+    "cors": "2.8.4",
     "cssnano": "3.10.0",
     "dateformat": "3.0.3",
     "envify": "4.1.0",
