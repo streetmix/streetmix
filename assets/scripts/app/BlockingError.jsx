@@ -132,8 +132,10 @@ class BlockingError extends React.Component {
       case ERRORS.CANNOT_CREATE_NEW_STREET_ON_PHONE:
         title = 'Streetmix works on tablets and desktops only.'
         description =
-          <React.Fragment>If you follow another link to a specific street, you can view it on your phone – but you
-            cannot yet create new streets.<br />
+          <React.Fragment>
+            If you follow another link to a specific street, you can view it on your phone – but you
+            cannot yet create new streets.
+            <br />
             <button id="error-example" onClick={goExampleStreet}>View an example street</button>
           </React.Fragment>
         break
