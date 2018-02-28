@@ -3,7 +3,8 @@ import {
   HIDE_INFO_BUBBLE,
   SET_SEGMENT_DATA_NO,
   UPDATE_HOVER_POLYGON,
-  SET_INFO_BUBBLE_MOUSE_INSIDE
+  SET_INFO_BUBBLE_MOUSE_INSIDE,
+  START_PRINTING
 } from '../actions'
 
 const initialState = {
@@ -21,6 +22,7 @@ const infoBubble = (state = initialState, action) => {
         visible: true
       }
     case HIDE_INFO_BUBBLE:
+    case START_PRINTING: // Also hide when printing
       return {
         ...state,
         visible: false,
