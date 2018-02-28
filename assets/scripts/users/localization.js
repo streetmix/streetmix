@@ -16,7 +16,8 @@ import {
   setStreet,
   createDomFromData,
   saveStreetToServerIfNecessary,
-  setIgnoreStreetChanges
+  setIgnoreStreetChanges,
+  setStreetDataInRedux
 } from '../streets/data_model'
 import {
   getUndoStack,
@@ -118,6 +119,7 @@ export function updateUnits (newUnits) {
 
   saveUserUnits(newUnits)
   street.units = newUnits
+  setStreetDataInRedux()
 
   // If the user converts and then straight converts back, we just reach
   // to undo stack instead of double conversion (which could be lossy).
