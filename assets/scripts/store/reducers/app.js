@@ -1,4 +1,4 @@
-import { SET_APP_FLAGS, SET_PRINTING, EVERYTHING_LOADED } from '../actions'
+import { SET_APP_FLAGS, START_PRINTING, STOP_PRINTING, EVERYTHING_LOADED } from '../actions'
 
 const initialState = {
   readOnly: false,
@@ -13,11 +13,18 @@ const app = (state = initialState, action) => {
         ...state,
         ...action.flags
       }
-    case SET_PRINTING:
+    case START_PRINTING: {
       return {
         ...state,
-        printing: action.printing
+        printing: true
       }
+    }
+    case STOP_PRINTING: {
+      return {
+        ...state,
+        printing: false
+      }
+    }
     case EVERYTHING_LOADED:
       return {
         ...state,

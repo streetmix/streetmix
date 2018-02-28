@@ -5,6 +5,7 @@ import { SEGMENT_INFO } from '../segments/info'
 import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, suppressMouseEnter } from './resizing'
 import { drawSegmentContents, getVariantInfoDimensions, segmentsChanged, TILE_SIZE } from './view'
 import { prettifyWidth } from '../util/width_units'
+import { SETTINGS_UNITS_METRIC } from '../users/localization'
 import { infoBubble, INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/info_bubble'
 
 const WIDTH_PALETTE_MULTIPLIER = 4 // Dupe from palette.js
@@ -22,7 +23,12 @@ class Segment extends React.Component {
     isUnmovable: PropTypes.bool.isRequired,
     width: PropTypes.number,
     forPalette: PropTypes.bool.isRequired,
-    dpi: PropTypes.number
+    dpi: PropTypes.number,
+    units: PropTypes.number
+  }
+
+  static defaultProps = {
+    units: SETTINGS_UNITS_METRIC
   }
 
   calculateWidth = (resizeType) => {
@@ -70,7 +76,7 @@ class Segment extends React.Component {
     const variantInfo = SEGMENT_INFO[this.props.type].details[this.props.variantString]
     const name = variantInfo.name || SEGMENT_INFO[this.props.type].name
     const width = this.calculateWidth(RESIZE_TYPE_INITIAL)
-    const widthText = <React.Fragment>{prettifyWidth(width)}<wbr />\'</React.Fragment>
+    const widthText = <React.Fragment>{prettifyWidth(width, this.props.units)}<wbr />\'</React.Fragment>
     const segmentWidth = this.props.width // may need to double check this. setSegmentContents() was called with other widths
 
     const multiplier = this.props.forPalette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1

@@ -1,4 +1,4 @@
-import { SHOW_MENU, CLEAR_MENUS, SHOW_DIALOG } from '../actions'
+import { SHOW_MENU, CLEAR_MENUS, SHOW_DIALOG, START_PRINTING } from '../actions'
 
 const initialState = {
   activeMenu: null
@@ -12,6 +12,7 @@ const menus = (state = initialState, action) => {
       }
     case CLEAR_MENUS:
     case SHOW_DIALOG: // Whenever a dialog is shown, also hide menus.
+    case START_PRINTING: // Whenever in print mode, also hide menus.
       return initialState
     default:
       return state

@@ -34,7 +34,8 @@
 
 /* app */
 export const SET_APP_FLAGS = 'SET_APP_FLAGS'
-export const SET_PRINTING = 'SET_PRINTING'
+export const START_PRINTING = 'START_PRINTING'
+export const STOP_PRINTING = 'STOP_PRINTING'
 export const EVERYTHING_LOADED = 'EVERYTHING_LOADED'
 
 /* debug */

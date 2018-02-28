@@ -31,7 +31,8 @@ class WidthControl extends React.Component {
     segmentEl: PropTypes.object, // TODO: this is the actual DOM element; only here for legacy reasons
     position: PropTypes.number,
     value: PropTypes.number,
-    changeSegmentWidth: PropTypes.func
+    changeSegmentWidth: PropTypes.func,
+    units: PropTypes.number
   }
 
   constructor (props) {
@@ -42,7 +43,7 @@ class WidthControl extends React.Component {
 
     this.state = {
       isEditing: false,
-      displayValue: prettifyWidth(props.value)
+      displayValue: prettifyWidth(props.value, props.units)
     }
   }
 
@@ -55,7 +56,7 @@ class WidthControl extends React.Component {
   componentWillReceiveProps (nextProps) {
     if (!this.state.isEditing) {
       this.setState({
-        displayValue: prettifyWidth(nextProps.value)
+        displayValue: prettifyWidth(nextProps.value, nextProps.units)
       })
     }
   }
@@ -123,7 +124,7 @@ class WidthControl extends React.Component {
 
     this.setState({
       isEditing: true,
-      displayValue: undecorateWidth(this.props.value)
+      displayValue: undecorateWidth(this.props.value, this.props.units)
     })
 
     if (document.activeElement !== el) {
@@ -150,7 +151,7 @@ class WidthControl extends React.Component {
   onBlurInput = (event) => {
     this.setState({
       isEditing: false,
-      displayValue: prettifyWidth(this.props.value)
+      displayValue: prettifyWidth(this.props.value, this.props.units)
     })
   }
 
@@ -160,7 +161,7 @@ class WidthControl extends React.Component {
   onMouseDownInput = (event) => {
     this.setState({
       isEditing: true,
-      displayValue: undecorateWidth(this.props.value)
+      displayValue: undecorateWidth(this.props.value, this.props.units)
     })
   }
 
@@ -172,7 +173,7 @@ class WidthControl extends React.Component {
     if (this.state.isEditing) return
 
     this.setState({
-      displayValue: undecorateWidth(this.props.value)
+      displayValue: undecorateWidth(this.props.value, this.props.units)
     })
 
     // Automatically select the value on hover so that it's easy to start typing new values.
@@ -195,7 +196,7 @@ class WidthControl extends React.Component {
     if (this.state.isEditing) return
 
     this.setState({
-      displayValue: prettifyWidth(this.props.value)
+      displayValue: prettifyWidth(this.props.value, this.props.units)
     })
 
     event.target.blur()
@@ -237,7 +238,7 @@ class WidthControl extends React.Component {
    * @param {string} value - raw input
    */
   updateModel = (value) => {
-    const processedValue = processWidthInput(value)
+    const processedValue = processWidthInput(value, this.props.units)
     if (processedValue) {
       const normalizedValue = resizeSegment(this.props.segmentEl, RESIZE_TYPE_TYPING, processedValue, false, false)
       this.props.changeSegmentWidth(this.props.position, normalizedValue)
@@ -305,7 +306,8 @@ function mapStateToProps (state, ownProps) {
   return {
     touch: state.system.touch,
     segment: segment,
-    value: (segment && segment.width) || null
+    value: (segment && segment.width) || null,
+    units: state.street.units
   }
 }
 

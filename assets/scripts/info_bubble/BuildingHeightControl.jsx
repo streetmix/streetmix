@@ -17,6 +17,7 @@ class BuildingHeightControl extends React.Component {
     position: PropTypes.oneOf(['left', 'right']),
     variant: PropTypes.string,
     value: PropTypes.number,
+    units: PropTypes.number,
     addBuildingFloor: PropTypes.func,
     removeBuildingFloor: PropTypes.func,
     setBuildingFloorValue: PropTypes.func
@@ -222,7 +223,7 @@ class BuildingHeightControl extends React.Component {
     }
 
     const realHeight = calculateRealHeightNumber(variant, position, floors)
-    const prettifiedHeight = prettifyWidth(realHeight)
+    const prettifiedHeight = prettifyWidth(realHeight, this.props.units)
 
     text += ` (${prettifiedHeight})`
 
@@ -289,7 +290,10 @@ function mapStateToProps (state, ownProps) {
 
     // Get the appropriate building data based on which side of street it's on
     variant: (isLeft) ? state.street.leftBuildingVariant : (isRight) ? state.street.rightBuildingVariant : null,
-    value: (isLeft) ? state.street.leftBuildingHeight : (isRight) ? state.street.rightBuildingHeight : null
+    value: (isLeft) ? state.street.leftBuildingHeight : (isRight) ? state.street.rightBuildingHeight : null,
+
+    // Units
+    units: state.street.units
   }
 }
 

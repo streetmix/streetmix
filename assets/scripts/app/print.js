@@ -1,7 +1,5 @@
-import { infoBubble } from '../info_bubble/info_bubble'
-import store from '../store'
-import { clearMenus } from '../store/actions/menus'
 import { startPrinting, stopPrinting } from '../store/actions/app'
+import store from '../store'
 
 export function attachPrintEventListeners () {
   // Add event listeners
@@ -26,10 +24,6 @@ export function attachPrintEventListeners () {
 
 export function printImage (event) {
   event.preventDefault()
-
-  store.dispatch(clearMenus())
-  infoBubble.hide()
-  infoBubble.hideSegment(true)
 
   // Manually dispatch printing state here. Workaround for Chrome bug where
   // calling window.print() programatically (even with a timeout) render a
