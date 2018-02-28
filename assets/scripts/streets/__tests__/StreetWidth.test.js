@@ -23,6 +23,6 @@ describe('StreetWidth', () => {
     const streetWidthMenu = wrapper.find('.street-width-read')
     streetWidthMenu.simulate('click')
     const body = window.document.body
-    expect(body.classList.contains('edit-street-width')).toEqual(true)
+    expect(body.classList.contains('edit-street-width')).toEqual(false)
   })
 })
