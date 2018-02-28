@@ -10,6 +10,7 @@ exports.get = async function (req, res) {
   } catch (err) {
     logger.error(err)
     res.status(500).send('Could not find streets with locations.')
+    return
   }
 
   if (!results) {
@@ -17,22 +18,20 @@ exports.get = async function (req, res) {
     return
   }
 
-  const geojson = {
-    type: 'FeatureCollection',
-    features: []
-  }
-
-  for (let i = 0; i < results.length; i++) {
-    const { location } = results[i].data.street
-    const feature = {
+  const features = results.map((result) => {
+    return {
       type: 'Feature',
       geometry: {
         type: 'Point',
-        coordinates: [location.latlng[1], location.latlng[0]]
+        coordinates: result.data.street.location.latlng.reverse()
       },
-      properties: results[i]
+      properties: result
     }
-    geojson.features.push(feature)
+  })
+
+  const geojson = {
+    type: 'FeatureCollection',
+    features
   }
 
   res.status(200).json(geojson)
