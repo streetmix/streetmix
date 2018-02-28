@@ -10,6 +10,7 @@ const cookieParser = require('cookie-parser')
 const cookieSession = require('cookie-session')
 const envify = require('envify/custom')
 const express = require('express')
+const cors = require('cors')
 const helmet = require('helmet')
 const browserify = require('browserify-middleware')
 const babelify = require('babelify')
@@ -135,7 +136,7 @@ app.head('/api/v1/streets/:street_id', resources.v1.streets.get)
 app.get('/api/v1/streets/:street_id', resources.v1.streets.get)
 app.put('/api/v1/streets/:street_id', resources.v1.streets.put)
 
-app.get('/api/v1/geo', resources.v1.geo.get)
+app.get('/api/v1/geo', cors(), resources.v1.geo.get)
 
 app.post('/api/v1/feedback', resources.v1.feedback.post)
 
