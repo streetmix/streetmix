@@ -2,6 +2,7 @@
  * Streetmix
  *
  */
+import { detect } from 'detect-browser'
 import Raven from 'raven-js'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -36,6 +37,15 @@ if (window.location.hostname === 'streetmix.net' || window.location.hostname ===
   }).install()
 }
 
+function unsupportedBrowser () {
+  const browser = detect()
+  const { unsupportedBrowser } = system
+  if (browser.name === unsupportedBrowser.name && browser.version === unsupportedBrowser.version) {
+    return true
+  }
+  return false
+}
+
 function setScaleForPhone () {
   var meta = document.createElement('meta')
   meta.setAttribute('name', 'viewport')
@@ -50,15 +60,31 @@ function setScaleForPhone () {
   headEls[0].appendChild(meta)
 }
 
-setScaleForPhone()
+if (unsupportedBrowser()) {
+  let loadingContainer = document.getElementById('loading')
+  loadingContainer.style.display = 'none'
+  let body = document.getElementsByTagName('body')[0]
+  body.style.background = '#a9ccdb'
+  let div = document.createElement('div')
+  div.style.cssText = `color: #000; justify-content: center; 
+                       display: block; margin: 150px 20px; text-align: center;
+                      `
+  div.innerHTML = `
+    <h1>Oops! Your version of Internet Explorer is not supported</h1>
+    <p>Download version 9 and above. <a href='https://www.microsoft.com/en-us/download/internet-explorer.aspx' target="_blank" >Click here to download</a>
+  `
+  body.appendChild(div)
+} else {
+  setScaleForPhone()
 
-// Mount React components
-ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>, document.getElementById('react-app'))
+  // Mount React components
+  ReactDOM.render(
+    <Provider store={store}>
+      <App />
+    </Provider>, document.getElementById('react-app'))
 
-// Start listening for keypresses
-startListening()
+  // Start listening for keypresses
+  startListening()
 
-initialize()
+  initialize()
+}

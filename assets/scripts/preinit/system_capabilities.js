@@ -25,7 +25,11 @@ export const system = {
   pageVisibility: false,
   hiddenProperty: false,
   visibilityState: false,
-  visibilityChange: false
+  visibilityChange: false,
+  unsupportedBrowser: {
+    name: 'ie',
+    version: '8'
+  }
 }
 
 // NOTE:
