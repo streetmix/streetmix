@@ -182,7 +182,7 @@ export class SearchAddress extends React.Component {
     })
 
     return (
-      <div className="geolocate-suggestion-item">
+      <div className="geotag-suggestion-item">
         {highlighted}
       </div>
     )
@@ -193,8 +193,8 @@ export class SearchAddress extends React.Component {
 
     return (
       <span
-        title={t('dialogs.geolocate.clear-search', 'Clear search')}
-        className="geolocate-input-clear"
+        title={t('dialogs.geotag.clear-search', 'Clear search')}
+        className="geotag-input-clear"
         onClick={this.onClickClearSearch}
       >
         ×
@@ -204,7 +204,7 @@ export class SearchAddress extends React.Component {
 
   render () {
     const inputProps = {
-      placeholder: t('dialogs.geolocate.search', 'Search for a location'),
+      placeholder: t('dialogs.geotag.search', 'Search for a location'),
       value: this.state.value,
       onChange: this.onChangeInput,
       spellCheck: false
@@ -213,7 +213,7 @@ export class SearchAddress extends React.Component {
     // Note: `alwaysRenderSuggestions` is required to be true otherwise
     // click events on the item list is swallowed. This is a bug
     return (
-      <form className="geolocate-input-form" onSubmit={this.onSubmitInput}>
+      <form className="geotag-input-form" onSubmit={this.onSubmitInput}>
         <Autosuggest
           ref={(ref) => { this.autosuggestBar = ref }}
           suggestions={this.state.suggestions}

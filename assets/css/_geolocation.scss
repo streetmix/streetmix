@@ -1,16 +1,16 @@
-.geolocate-dialog {
+.geotag-dialog {
   width: 90vw;
   height: 80vh;
   margin: -1rem -2rem; /* overrides padding from .dialog-box */
   padding: 0;
 }
 
-.geolocate-dialog .close {
+.geotag-dialog .close {
   z-index: $z-index-10;
   text-shadow: 0 1px white;
 }
 
-.geolocate-input-container {
+.geotag-input-container {
   position: absolute;
   top: 10px;
   width: 100%;
@@ -18,7 +18,7 @@
   pointer-events: none;
 }
 
-.geolocate-input-form {
+.geotag-input-form {
   position: relative;
   width: 30vw;
   min-width: 220px;
@@ -27,7 +27,7 @@
   pointer-events: auto;
 }
 
-.geolocate-input-clear {
+.geotag-input-clear {
   position: absolute;
   right: 0;
   top: 0;

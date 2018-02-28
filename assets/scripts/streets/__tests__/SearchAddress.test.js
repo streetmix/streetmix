@@ -50,21 +50,21 @@ describe('SearchAddress', () => {
     const input = component.find('input')
 
     // The close button should not render when the input is empty
-    const close1 = component.find('.geolocate-input-clear')
+    const close1 = component.find('.geotag-input-clear')
     expect(close1.exists()).toEqual(false)
 
     // Simulates input, which should also trigger events
     input.simulate('change', { target: { value: 'f' } })
 
     // The close button should appear after one keystroke
-    const close2 = component.find('.geolocate-input-clear')
+    const close2 = component.find('.geotag-input-clear')
     expect(close2.exists()).toEqual(true)
 
     // Deletes input
     input.simulate('change', { target: { value: '' } })
 
     // The close button should now disappear
-    const close3 = component.find('.geolocate-input-clear')
+    const close3 = component.find('.geotag-input-clear')
     expect(close3.exists()).toEqual(false)
   })
 
@@ -74,7 +74,7 @@ describe('SearchAddress', () => {
     const component = mount(<SearchAddress />)
     component.find('input').simulate('change', { target: { value: 'foo' } })
 
-    const el = component.find('.geolocate-input-clear')
+    const el = component.find('.geotag-input-clear')
     expect(el.instance().getAttribute('title')).toEqual('Clear search')
   })
 
@@ -88,10 +88,10 @@ describe('SearchAddress', () => {
     input.simulate('change', { target: { value: 'foo' } })
 
     // Simulates click on "clear search"
-    component.find('.geolocate-input-clear').simulate('click')
+    component.find('.geotag-input-clear').simulate('click')
 
     // The close button should be undefined now
-    expect(component.find('.geolocate-input-clear').exists()).toEqual(false)
+    expect(component.find('.geotag-input-clear').exists()).toEqual(false)
 
     // The input should be empty and it should be focused
     expect(input.instance().value).toEqual('')
