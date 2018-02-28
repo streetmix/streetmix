@@ -19,11 +19,12 @@ exports.get = async function (req, res) {
   }
 
   const features = results.map((result) => {
+    const { location } = result.data.street
     return {
       type: 'Feature',
       geometry: {
         type: 'Point',
-        coordinates: result.data.street.location.latlng.reverse()
+        coordinates: [location.latlng[1], location.latlng[0]]
       },
       properties: result
     }
