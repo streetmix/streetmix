@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash'
+import { cloneDeep, throttle } from 'lodash'
 
 import { ERRORS, showError } from '../app/errors'
 import { MODES, getMode } from '../app/mode'
@@ -98,16 +98,19 @@ export function updateSettingsFromCountryCode (countryCode) {
 
 export function updateUnitSettings (countryCode) {
   const localStorageUnits = window.localStorage[LOCAL_STORAGE_SETTINGS_UNITS_ID]
+  let unitType
 
   if (localStorageUnits) {
-    saveUserUnits(localStorageUnits)
+    unitType = localStorageUnits
   } else if (debug.forceMetric) {
-    saveUserUnits(SETTINGS_UNITS_METRIC)
+    unitType = SETTINGS_UNITS_METRIC
   } else if (COUNTRIES_IMPERIAL_UNITS.indexOf(countryCode) !== -1) {
-    saveUserUnits(SETTINGS_UNITS_IMPERIAL)
+    unitType = SETTINGS_UNITS_IMPERIAL
   } else {
-    saveUserUnits(SETTINGS_UNITS_METRIC)
+    unitType = SETTINGS_UNITS_METRIC
   }
+
+  store.dispatch(setUserUnits(unitType))
 }
 
 export function updateUnits (newUnits) {
@@ -117,7 +120,7 @@ export function updateUnits (newUnits) {
     return
   }
 
-  saveUserUnits(newUnits)
+  store.dispatch(setUserUnits(newUnits))
   street.units = newUnits
   setStreetDataInRedux()
 
@@ -186,7 +189,19 @@ export function propagateUnits () {
   }
 }
 
-function saveUserUnits (unitType) {
-  window.localStorage[LOCAL_STORAGE_SETTINGS_UNITS_ID] = unitType
-  store.dispatch(setUserUnits(unitType))
-}
+/**
+ * Use subscribe() model to set localstorage (a Redux pattern)
+ * https://egghead.io/lessons/javascript-redux-persisting-the-state-to-the-local-storage
+ * https://twitter.com/dan_abramov/status/703684128416333825
+ *
+ * Benefit: LocalStorage is always reflects the store, no matter how it's updated
+ * Uses a throttle to prevent continuous rewrites
+ */
+store.subscribe(throttle(() => {
+  const unitType = store.getState().persistSettings.units
+  try {
+    window.localStorage.setItem(LOCAL_STORAGE_SETTINGS_UNITS_ID, JSON.stringify(unitType))
+  } catch (err) {
+    // Ignore write errors.
+  }
+}, 1000))
