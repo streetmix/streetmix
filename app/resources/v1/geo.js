@@ -20,7 +20,7 @@ exports.get = async function (req, res) {
 
   const features = results.map((result) => {
     const { latlng } = result.data.street.location
-    const coordinates = (typeof latlng.lat !== 'undefined') ? [latlng.lng, latlng.lat] : [latlng[1], latlng[0]]
+    const coordinates = (Array.isArray(latlng)) ? [latlng[1], latlng[0]] : [latlng.lng, latlng.lat]
     return {
       type: 'Feature',
       geometry: {
