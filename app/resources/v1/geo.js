@@ -19,12 +19,13 @@ exports.get = async function (req, res) {
   }
 
   const features = results.map((result) => {
-    const { location } = result.data.street
+    const { latlng } = result.data.street.location
+    const coordinates = (typeof latlng.lat !== 'undefined') ? [latlng.lng, latlng.lat] : [latlng[1], latlng[0]]
     return {
       type: 'Feature',
       geometry: {
         type: 'Point',
-        coordinates: [location.latlng[1], location.latlng[0]]
+        coordinates: coordinates
       },
       properties: result
     }
