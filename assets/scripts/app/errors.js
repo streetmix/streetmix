@@ -29,7 +29,8 @@ export const ERRORS = {
   CANNOT_CREATE_NEW_STREET_ON_PHONE: 18,
   SIGN_IN_SERVER_FAILURE: 19,
   SIGN_IN_401: 20,
-  STREET_DATA_FAILURE: 21
+  STREET_DATA_FAILURE: 21,
+  STREET_FETCH_FAILURE: 22
 }
 
 export function showError (errorType, newAbortEverything) {
