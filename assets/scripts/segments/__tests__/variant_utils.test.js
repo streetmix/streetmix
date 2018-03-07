@@ -6,6 +6,11 @@ describe('getVariantArray', () => {
     const result = getVariantArray('streetcar', 'inbound|regular')
     expect(result).toEqual({ 'direction': 'inbound', 'public-transit-asphalt': 'regular' })
   })
+
+  it('returns an empty object if the segment is not found', () => {
+    const result = getVariantArray('foo', '')
+    expect(result).toEqual({})
+  })
 })
 
 describe('getVariantString', () => {

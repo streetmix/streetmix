@@ -9,6 +9,8 @@ const VARIANT_SEPARATOR = '|'
  * looks up the segment data, and assigns the string to a key name.
  * It does not validate data to make sure strings are valid.
  *
+ * If the `segmentType` cannot be found, returns the empty object.
+ *
  * @param {string} segmentType - Name of the segment type, e.g. 'streetcar'
  * @param {string} variantString - String representation of segment variant, e.g. 'inbound|regular'
  * @returns {object} variantArray
@@ -18,10 +20,13 @@ const VARIANT_SEPARATOR = '|'
 export function getVariantArray (segmentType, variantString) {
   const variantArray = {}
   const variantSplit = variantString.split(VARIANT_SEPARATOR)
+  const segment = SEGMENT_INFO[segmentType]
 
-  for (let i in SEGMENT_INFO[segmentType].variants) {
-    const variantName = SEGMENT_INFO[segmentType].variants[i]
-    variantArray[variantName] = variantSplit[i]
+  if (segment && segment.variants) {
+    for (let i in segment.variants) {
+      const variantName = segment.variants[i]
+      variantArray[variantName] = variantSplit[i]
+    }
   }
 
   return variantArray
