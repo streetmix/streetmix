@@ -18,11 +18,14 @@ export class SearchAddress extends React.Component {
   static propTypes = {
     setMapState: PropTypes.func,
     setSearchResults: PropTypes.func,
-    focus: PropTypes.arrayOf(PropTypes.number).isRequired
+    focus: PropTypes.shape({
+      lat: PropTypes.number,
+      lng: PropTypes.number
+    }).isRequired
   }
 
   static defaultProps = {
-    focus: [0, 0]
+    focus: { lat: 0, lng: 0 }
   }
 
   constructor (props) {
@@ -86,12 +89,12 @@ export class SearchAddress extends React.Component {
   throttledMakeRequest = throttle(this.makeRequest, REQUEST_THROTTLE)
 
   search = (query, focus) => {
-    const url = `${SEARCH_ENDPOINT}&text=${query}&focus.point.lat=${focus[0]}&focus.point.lon=${focus[1]}`
+    const url = `${SEARCH_ENDPOINT}&text=${query}&focus.point.lat=${focus.lat}&focus.point.lon=${focus.lng}`
     return this.throttledMakeRequest(url)
   }
 
   autocomplete = (query, focus) => {
-    const url = `${AUTOCOMPLETE_ENDPOINT}&text=${query}&focus.point.lat=${focus[0]}&focus.point.lon=${focus[1]}`
+    const url = `${AUTOCOMPLETE_ENDPOINT}&text=${query}&focus.point.lat=${focus.lat}&focus.point.lon=${focus.lng}`
     return this.throttledMakeRequest(url)
   }
 
@@ -155,7 +158,10 @@ export class SearchAddress extends React.Component {
     this.props.setMapState({
       addressInformationLabel: suggestionValue,
       addressInformation: suggestion.properties,
-      markerLocation: suggestion.geometry.coordinates
+      markerLocation: {
+        lat: suggestion.geometry.coordinates[1],
+        lng: suggestion.geometry.coordinates[0]
+      }
     })
     this.props.setSearchResults(suggestion.geometry.coordinates.reverse(), suggestionValue, suggestion.bbox)
   }

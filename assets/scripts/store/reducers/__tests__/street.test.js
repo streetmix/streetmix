@@ -202,7 +202,7 @@ describe('street reducer', () => {
 
   it('should handle ADD_LOCATION', () => {
     const location = {
-      latlng: [0, 0],
+      latlng: { lat: 0, lng: 0 },
       label: 'test street',
       hierarchy: {
         country: 'country',
@@ -227,7 +227,7 @@ describe('street reducer', () => {
         name: 'test street',
         userUpdated: false,
         location: {
-          latlng: [0, 0],
+          latlng: { lat: 0, lng: 0 },
           label: 'test street',
           hierarchy: {
             country: 'country',

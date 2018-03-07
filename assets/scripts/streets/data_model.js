@@ -49,7 +49,7 @@ export function setLastStreet (value) {
   _lastStreet = value
 }
 
-const LATEST_SCHEMA_VERSION = 17
+const LATEST_SCHEMA_VERSION = 18
 // 1: starting point
 // 2: adding leftBuildingHeight and rightBuildingHeight
 // 3: adding leftBuildingVariant and rightBuildingVariant
@@ -67,6 +67,7 @@ const LATEST_SCHEMA_VERSION = 17
 // 15: sidewalks have rand seed
 // 16: stop saving undo stack
 // 17: alternative colors for bike lanes
+// 18: change lat/lng format from array to object
 
 export const DEFAULT_NAME = msg('DEFAULT_STREET_NAME')
 
@@ -271,6 +272,13 @@ function incrementSchemaVersion (street) {
         }
       }
       break
+    case 17:
+      if (street.location && street.location.latlng) {
+        street.location.latlng = {
+          lat: street.location.latlng[0],
+          lng: street.location.latlng[1]
+        }
+      }
   }
 
   street.schemaVersion++
