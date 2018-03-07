@@ -33,7 +33,6 @@ class StreetMetaData extends React.Component {
   }
 
   onClickGeotag = (event) => {
-    if (this.props.readOnly) return
     event.preventDefault()
     if (!this.props.street.location) {
       trackEvent('Interaction', 'Clicked add location', null, null, true)
@@ -102,7 +101,7 @@ class StreetMetaData extends React.Component {
     return text
   }
 
-  renderGeotag = (readOnly, street) => {
+  renderGeotag = (street, readOnly) => {
     const geotagText = (street.location) ? this.getGeotagText() : t('dialogs.geotag.add-location', 'Add location')
     const geolocation = (
       <span className="street-metadata-map">
@@ -124,7 +123,7 @@ class StreetMetaData extends React.Component {
       author = t('users.byline', 'by {{user}}', { user: t('users.anonymous', 'Anonymous') })
     }
 
-    const geolocation = (this.props.enableLocation) ? this.renderGeotag(this.props.readOnly, this.props.street) : null
+    const geolocation = (this.props.enableLocation) ? this.renderGeotag(this.props.street, this.props.readOnly) : null
 
     return (
       <div className="street-metadata">
