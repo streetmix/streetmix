@@ -29,13 +29,10 @@ L.Icon.Default.mergeOptions({
 
 class GeotagDialog extends React.Component {
   static propTypes = {
-    markerLocation: PropTypes.oneOfType([
-      PropTypes.arrayOf(PropTypes.number),
-      PropTypes.shape({
-        lat: PropTypes.number,
-        lng: PropTypes.number
-      })
-    ]),
+    markerLocation: PropTypes.shape({
+      lat: PropTypes.number,
+      lng: PropTypes.number
+    }),
     userLocation: PropTypes.shape({
       latitude: PropTypes.number,
       longitude: PropTypes.number
@@ -55,7 +52,10 @@ class GeotagDialog extends React.Component {
 
     this.state = {
       // Default location if geo IP not detected; this hovers over Brooklyn
-      mapCenter: [40.645, -73.975]
+      mapCenter: {
+        lat: 40.645,
+        lng: -73.975
+      }
     }
   }
 
@@ -71,7 +71,10 @@ class GeotagDialog extends React.Component {
       })
     } else if (userLocation) {
       this.setState({
-        mapCenter: [ userLocation.latitude, userLocation.longitude ]
+        mapCenter: {
+          lat: userLocation.latitude,
+          lng: userLocation.longitude
+        }
       })
     }
   }
@@ -91,12 +94,7 @@ class GeotagDialog extends React.Component {
   }
 
   updateMapToStreetLocation = (location) => {
-    const latlng = {
-      lat: location.latlng[0],
-      lng: location.latlng[1]
-    }
-
-    this.reverseGeocode(latlng)
+    this.reverseGeocode(location.latlng)
       .then(this.displayAddressData)
   }
 
@@ -111,7 +109,10 @@ class GeotagDialog extends React.Component {
     this.props.setMapState({
       addressInformation: res.features[0].properties,
       addressInformationLabel: res.features[0].properties.label,
-      markerLocation: res.features[0].geometry.coordinates.reverse()
+      markerLocation: {
+        lat: res.features[0].geometry.coordinates[1],
+        lng: res.features[0].geometry.coordinates[0]
+      }
     })
 
     this.setState({
@@ -150,10 +151,15 @@ class GeotagDialog extends React.Component {
   }
 
   setSearchResults = (point, label, bbox) => {
+    const latlng = {
+      lat: point[0],
+      lng: point[1]
+    }
+
     this.setState({
       addressName: label,
-      mapCenter: point,
-      markerLocation: point,
+      mapCenter: latlng,
+      markerLocation: latlng,
       bbox: bbox || null
     })
   }
@@ -167,7 +173,7 @@ class GeotagDialog extends React.Component {
   handleConfirm = (e) => {
     const { markerLocation, addressInformation } = this.props
     const { bbox } = this.state
-    const point = (typeof markerLocation.lng !== 'undefined') ? [markerLocation.lng, markerLocation.lat] : [markerLocation[1], markerLocation[0]]
+    const point = [markerLocation.lng, markerLocation.lat]
     const location = {
       latlng: markerLocation,
       wofId: addressInformation.id,

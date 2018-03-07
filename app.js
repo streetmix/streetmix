@@ -118,6 +118,10 @@ app.get('/help/about', function (req, res) {
   res.redirect('https://www.opencollective.com/streetmix/')
 })
 
+app.get('/map', function (req, res) {
+  res.redirect('https://streetmix.github.io/famous-streets/')
+})
+
 app.get('/twitter-sign-in', controllers.twitter_sign_in.get)
 app.get(config.twitter.oauth_callback_uri, controllers.twitter_sign_in_callback.get)
 
