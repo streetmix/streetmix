@@ -57,7 +57,7 @@ describe('segment info', () => {
       expect(variant).toEqual({
         name: 'Unknown',
         graphics: {
-          repeat: 'ground--concrete'
+          center: 'missing'
         }
       })
     })
@@ -67,7 +67,7 @@ describe('segment info', () => {
       expect(variant).toEqual({
         name: 'Unknown',
         graphics: {
-          repeat: 'ground--concrete'
+          center: 'missing'
         }
       })
     })

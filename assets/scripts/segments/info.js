@@ -288,7 +288,8 @@ const SPRITE_DEFS = {
   'transit--transit-shelter-01-left': { id: 'transit--transit-shelter-01-left', width: 9, offsetY: -1.3 },
   'transit--transit-shelter-01-right': { id: 'transit--transit-shelter-01-right', width: 9, offsetY: -1.3 },
   'transit--transit-shelter-02-left': { id: 'transit--transit-shelter-02-left', width: 9, offsetY: -3.8 },
-  'transit--transit-shelter-02-right': { id: 'transit--transit-shelter-02-right', width: 9, offsetY: -3.8 }
+  'transit--transit-shelter-02-right': { id: 'transit--transit-shelter-02-right', width: 9, offsetY: -3.8 },
+  'missing': { id: 'missing', width: 4, offsetY: 10.5 }
 }
 
 /**
@@ -299,13 +300,14 @@ const SEGMENT_UNKNOWN = {
   name: 'Unknown',
   owner: 'NONE',
   zIndex: 1,
-  variants: []
+  variants: [],
+  details: {}
 }
 
 const SEGMENT_UNKNOWN_VARIANT = {
   name: 'Unknown',
   graphics: {
-    repeat: 'ground--concrete'
+    center: 'missing'
   }
 }
 
