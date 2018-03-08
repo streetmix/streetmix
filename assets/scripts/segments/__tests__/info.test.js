@@ -32,41 +32,29 @@ describe('segment info', () => {
   describe('getSegmentInfo()', () => {
     it('returns data for a segment type', () => {
       const segment = getSegmentInfo('sidewalk')
-      expect(segment.name).toEqual('Sidewalk')
+      expect(segment.unknown).toBeFalsy()
     })
 
     it('returns placeholder data for an unknown segment type', () => {
       const segment = getSegmentInfo('foo')
-      expect(segment.name).toEqual('Unknown')
+      expect(segment.unknown).toBe(true)
     })
   })
 
   describe('getSegmentVariantInfo()', () => {
     it('returns data for a segment variant', () => {
       const variant = getSegmentVariantInfo('sidewalk', 'normal')
-      expect(variant).toEqual({
-        minWidth: 6,
-        graphics: {
-          repeat: 'ground--concrete'
-        }
-      })
+      expect(variant.unknown).toBeFalsy()
     })
-
-    const unknownVariant = {
-      name: 'Unknown',
-      graphics: {
-        center: 'missing'
-      }
-    }
 
     it('returns placeholder data for an unknown variant', () => {
       const variant = getSegmentVariantInfo('sidewalk', 'foo')
-      expect(variant).toEqual(unknownVariant)
+      expect(variant.unknown).toBe(true)
     })
 
     it('returns placeholder data for an unknown segment type and variant', () => {
       const variant = getSegmentVariantInfo('foo', 'bar')
-      expect(variant).toEqual(unknownVariant)
+      expect(variant.unknown).toBe(true)
     })
   })
 })

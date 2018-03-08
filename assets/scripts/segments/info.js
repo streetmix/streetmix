@@ -295,8 +295,13 @@ const SPRITE_DEFS = {
 /**
  * The placeholder object for unknown segments, to be used for rendering
  * in place of bad data, experimental data, missing data, etc.
+ *
+ * Placeholder objects have a property `unknown` set to `true` so that
+ * receivers of this object can tell the difference between a placeholder
+ * and normal segment / variant data.
  */
 const SEGMENT_UNKNOWN = {
+  unknown: true,
   name: 'Unknown',
   owner: 'NONE',
   zIndex: 1,
@@ -305,6 +310,7 @@ const SEGMENT_UNKNOWN = {
 }
 
 const SEGMENT_UNKNOWN_VARIANT = {
+  unknown: true,
   name: 'Unknown',
   graphics: {
     center: 'missing'
