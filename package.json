@@ -41,7 +41,6 @@
       "assets/scripts"
     ],
     "setupFiles": [
-      "./test/shims/raf.js",
       "./test/setup-jest.js"
     ]
   },
