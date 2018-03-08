@@ -1,6 +1,6 @@
 import { showBlockingShield, hideBlockingShield } from '../app/blocking_shield'
 import { API_URL } from '../app/config'
-import { hideError } from '../app/errors'
+import { hideError, showError, ERRORS } from '../app/errors'
 import {
   setLastStreet,
   getStreet,
@@ -44,6 +44,7 @@ export function fetchGalleryStreet (streetId) {
 
 function errorReceiveGalleryStreet (err) {
   console.log(err)
+  showError(ERRORS.GALLERY_STREET_FAILURE, false)
   // updateGallerySelection()
 }
 
