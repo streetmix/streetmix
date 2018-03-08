@@ -203,6 +203,9 @@ You may additionally specify the name of the directory to install to, if you wis
 | `TWITTER_OAUTH_CONSUMER_SECRET` | Twitter OAuth consumer secret | Yes                  |
 | `TRANSIFEX_API_TOKEN`           | Your Transifex API token      | No                   |
 | `EMAIL_FEEDBACK_RECIPIENT`      | Your e-mail address           | No                   |
+| `CLOUDFLARE_ZONE`               | Cloudflare zone ID            | No                   |
+| `CLOUDFLARE_USER`               | Cloudflare user e-mail        | No                   |
+| `CLOUDFLARE_API_KEY`            | Cloudflare API key            | No                   |
 | `NO_INTERNET_MODE`              | Boolean. Set to `true` to run a local "demo" without external Internet access | No                   |
 
 A sample `.env` file will look like this:
