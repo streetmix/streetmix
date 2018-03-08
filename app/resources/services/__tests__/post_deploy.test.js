@@ -9,8 +9,7 @@ function setupMockServer () {
   const app = express()
 
   // Only allow query-string URL-encoded data
-  app.use(express.urlencoded({ extended: false }))
-  app.post(SERVICE_PATH, postDeploy.post)
+  app.post(SERVICE_PATH, express.urlencoded({ extended: false }), postDeploy.post)
 
   return app
 }

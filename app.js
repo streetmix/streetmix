@@ -173,7 +173,12 @@ app.get('/assets/images/images.svg', function (req, res) {
   res.sendFile(path.join(__dirname, '/node_modules/@streetmix/illustrations/dist/images.svg'))
 })
 
-app.post('/services/post-deploy', resources.services.post_deploy.post)
+// Post-deploy hook handler
+app.post(
+  '/services/post-deploy',
+  express.urlencoded({ extended: false }),
+  resources.services.post_deploy.post
+)
 
 app.use(express.static(path.join(__dirname, '/public')))
 
