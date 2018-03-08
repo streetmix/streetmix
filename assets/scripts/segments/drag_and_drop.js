@@ -7,7 +7,10 @@ import {
 import { infoBubble } from '../info_bubble/info_bubble'
 import { app } from '../preinit/app_settings'
 import { system } from '../preinit/system_capabilities'
-import { getStreet, setIgnoreStreetChanges } from '../streets/data_model'
+import {
+  // getStreet,
+  setIgnoreStreetChanges
+} from '../streets/data_model'
 import { getElAbsolutePos } from '../util/helpers'
 import { generateRandSeed } from '../util/random'
 import { BUILDING_SPACE } from './buildings'
@@ -172,7 +175,7 @@ function handleSegmentResizeStart (event) {
   }
 
   var remainingWidth =
-  getStreet().remainingWidth + parseFloat(el.segmentEl.getAttribute('data-width'))
+  store.getState().street.remainingWidth + parseFloat(el.segmentEl.getAttribute('data-width'))
 
   if (remainingWidth &&
     (((!variantInfo.minWidth) && (remainingWidth >= MIN_SEGMENT_WIDTH)) || (remainingWidth >= variantInfo.minWidth)) &&
@@ -505,7 +508,8 @@ export function onBodyMouseDown (event) {
 
 function makeSpaceBetweenSegments (x, y) {
   let farLeft, farRight
-  let street = getStreet()
+  // let street = getStreet()
+  let street = store.getState().street
   var left = x - getStreetSectionCanvasLeft()
 
   var selectedSegmentBefore = null
@@ -578,7 +582,8 @@ export function onBodyMouseMove (event) {
 
 function doDropHeuristics (type, variantString, width) {
   // Automatically figure out width
-  let street = getStreet()
+  // let street = getStreet()
+  let street = store.getState().street
 
   if (draggingMove.type === DRAGGING_TYPE_MOVE_CREATE) {
     if ((street.remainingWidth > 0) &&
@@ -738,7 +743,7 @@ function handleSegmentMoveEnd (event) {
     }
 
     trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'DRAGGING', null, true)
-  } else if (draggingMove.segmentBeforeEl || draggingMove.segmentAfterEl || (getStreet().segments.length === 0)) {
+  } else if (draggingMove.segmentBeforeEl || draggingMove.segmentAfterEl || (store.getState().street.segments.length === 0)) {
     var smartDrop = doDropHeuristics(draggingMove.originalType,
       draggingMove.originalVariantString, draggingMove.originalWidth)
 
