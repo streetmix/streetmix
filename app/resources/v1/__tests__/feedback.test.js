@@ -1,7 +1,6 @@
 /* eslint-env jest */
 import request from 'supertest'
 import express from 'express'
-import bodyParser from 'body-parser'
 import feedback from '../feedback'
 
 jest.mock('sendgrid')
@@ -21,8 +20,7 @@ const transmission = {
 function setupMockServer () {
   const app = express()
 
-  // Need body-parser middleware to handle JSON request body
-  app.use(bodyParser.json())
+  app.use(express.json())
   app.post('/api/v1/feedback', feedback.post)
 
   return app

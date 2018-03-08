@@ -14,7 +14,6 @@ const cors = require('cors')
 const helmet = require('helmet')
 const browserify = require('browserify-middleware')
 const babelify = require('babelify')
-const bodyParser = require('body-parser')
 const config = require('config')
 const path = require('path')
 const controllers = require('./app/controllers')
@@ -75,7 +74,7 @@ const helmetConfig = {
 }
 
 app.use(helmet(helmetConfig))
-app.use(bodyParser.json())
+app.use(express.json())
 app.use(compression())
 app.use(cookieParser())
 app.use(cookieSession({ secret: config.cookie_session_secret }))
