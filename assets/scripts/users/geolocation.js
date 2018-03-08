@@ -53,22 +53,20 @@ export function detectGeolocation () {
  *
  * @returns {Promise} - resolved with value of data
  */
-function fetchGeolocation () {
-  return window.fetch(IP_GEOLOCATION_API_URL)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(response.status)
-      }
+async function fetchGeolocation () {
+  const response = await window.fetch(IP_GEOLOCATION_API_URL)
 
-      return response.json()
-    })
-    .then(data => {
-      // Note: it's possible to receive this information late, after
-      // the timeout, but we keep it anyway
-      geolocationAttempted()
-      store.dispatch(setGeolocationData(data))
-      return data
-    })
+  if (!response.ok) {
+    throw new Error(response.status)
+  }
+
+  const data = await response.json()
+
+  // Note: it's possible to receive this information late, after
+  // the timeout, but we keep it anyway
+  geolocationAttempted()
+  store.dispatch(setGeolocationData(data))
+  return data
 }
 
 /**
