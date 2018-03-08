@@ -3,7 +3,7 @@ import { API_URL } from '../app/config'
 import { hideError } from '../app/errors'
 import {
   setLastStreet,
-  getStreet,
+  // getStreet,
   createDomFromData,
   trimStreetData,
   setIgnoreStreetChanges
@@ -14,6 +14,7 @@ import { resizeStreetWidth, recalculateOccupiedWidth } from '../streets/width'
 import { getAuthHeader } from '../users/authentication'
 import { propagateUnits } from '../users/localization'
 import { segmentsChanged } from '../segments/view'
+import store from '../store'
 
 let lastRequestedStreetId = null
 
@@ -70,5 +71,6 @@ function receiveGalleryStreet (transmission) {
   segmentsChanged()
 
   setIgnoreStreetChanges(false)
-  setLastStreet(trimStreetData(getStreet()))
+  // setLastStreet(trimStreetData(getStreet()))
+  setLastStreet(trimStreetData(store.getState().street))
 }
