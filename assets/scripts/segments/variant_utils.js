@@ -1,4 +1,4 @@
-import { SEGMENT_INFO } from './info'
+import { getSegmentInfo } from './info'
 
 const VARIANT_SEPARATOR = '|'
 
@@ -20,7 +20,7 @@ const VARIANT_SEPARATOR = '|'
 export function getVariantArray (segmentType, variantString) {
   const variantArray = {}
   const variantSplit = variantString.split(VARIANT_SEPARATOR)
-  const segment = SEGMENT_INFO[segmentType]
+  const segment = getSegmentInfo(segmentType)
 
   if (segment && segment.variants) {
     for (let i in segment.variants) {

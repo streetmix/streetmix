@@ -291,7 +291,25 @@ const SPRITE_DEFS = {
   'transit--transit-shelter-02-right': { id: 'transit--transit-shelter-02-right', width: 9, offsetY: -3.8 }
 }
 
-export const SEGMENT_INFO = {
+/**
+ * The placeholder object for unknown segments, to be used for rendering
+ * in place of bad data, experimental data, missing data, etc.
+ */
+const SEGMENT_UNKNOWN = {
+  name: 'Unknown',
+  owner: 'NONE',
+  zIndex: 1,
+  variants: []
+}
+
+const SEGMENT_UNKNOWN_VARIANT = {
+  name: 'Unknown',
+  graphics: {
+    repeat: 'ground--concrete'
+  }
+}
+
+const SEGMENT_INFO = {
   'sidewalk': {
     name: 'Sidewalk',
     owner: SEGMENT_OWNER_PEDESTRIAN,
@@ -1240,4 +1258,40 @@ export const SEGMENT_INFO = {
       }
     }
   }
+}
+
+/**
+ * Returns all segment data. Safer than exporting `SEGMENT_INFO` directly.
+ *
+ * @returns {Object}
+ */
+export function getAllSegmentInfo () {
+  return SEGMENT_INFO
+}
+
+/**
+ * Gets segment data for segment `type`. Safer than reading `type` directly
+ * from `SEGMENT_INFO`, because this will return the `SEGMENT_UNKNOWN`
+ * placeholder if the type is not found. The unknown segment placeholder
+ * allows means bad data, experimental segments, etc. won't break rendering.
+ *
+ * @param {string} type
+ * @returns {Object}
+ */
+export function getSegmentInfo (type) {
+  return SEGMENT_INFO[type] || SEGMENT_UNKNOWN
+}
+
+/**
+ * Gets variant data for segment `type` and `variant`. Safer than reading
+ * `type` directly from `SEGMENT_INFO`, or `variant` from the segment,
+ * because this will return a placeholder if the variant is not found.
+ *
+ * @param {string} type
+ * @param {string} variant
+ * @returns {Object}
+ */
+export function getSegmentVariantInfo (type, variant) {
+  const segment = getSegmentInfo(type)
+  return (segment && segment.details && segment.details[variant]) || SEGMENT_UNKNOWN_VARIANT
 }

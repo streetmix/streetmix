@@ -5,14 +5,14 @@
  */
 
 import { getStreetSectionTop } from '../app/window_resize'
-import { SEGMENT_INFO } from '../segments/info'
+import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
 import { infoBubble } from './info_bubble'
 
 export function getDescriptionData (segment) {
   if (!segment) return null
 
-  const segmentInfo = SEGMENT_INFO[segment.type]
-  const variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString]
+  const segmentInfo = getSegmentInfo(segment.type)
+  const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
 
   if (variantInfo && variantInfo.description) {
     return variantInfo.description
