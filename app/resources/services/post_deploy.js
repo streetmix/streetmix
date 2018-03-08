@@ -1,3 +1,5 @@
+const purgeCache = require('../../../lib/cloudflare.js')
+
 /**
  * After a deploy, Heroku can be set up with an HTTP deploy hook that POSTs
  * a payload to the `/services/post-deploy/` URL, which is handled here.
@@ -15,6 +17,7 @@ exports.post = (req, res) => {
   }
 
   // Cloudflare - clear stylesheet cache
+  purgeCache()
 
   res.status(202).send()
 }
