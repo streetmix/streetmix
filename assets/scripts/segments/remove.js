@@ -1,11 +1,14 @@
 import { registerKeypress } from '../app/keypress'
 import { showStatusMessage } from '../app/status_message'
 import { infoBubble } from '../info_bubble/info_bubble'
-import { getStreet, createDomFromData } from '../streets/data_model'
+import {
+  // getStreet,
+  createDomFromData
+} from '../streets/data_model'
 import { getHoveredSegmentEl } from './hover'
 import { segmentsChanged, switchSegmentElAway } from './view'
 import { t } from '../app/locale'
-import { removeSegment as removeSegmentActionCreator } from '../store/actions/street'
+import { removeSegment as removeSegmentActionCreator, clearSegments } from '../store/actions/street'
 import store from '../store'
 
 /**
@@ -41,7 +44,8 @@ export function removeSegment (el) {
  * and it is not advertised in the UI.
  */
 export function removeAllSegments () {
-  getStreet().segments = []
+  // getStreet().segments = []
+  store.dispatch(clearSegments())
   createDomFromData()
   segmentsChanged()
   infoBubble.hide()

@@ -13,6 +13,7 @@ import {
   SET_UPDATE_TIME,
   SAVE_ORIGINAL_STREET_ID,
   UPDATE_EDIT_COUNT,
+  UPDATE_SEGMENTS,
   UPDATE_STREET,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
@@ -89,6 +90,11 @@ const street = (state = initialState, action) => {
       return {
         ...state,
         editCount: action.count
+      }
+    case UPDATE_SEGMENTS:
+      return {
+        ...state,
+        segments: action.segments
       }
     case UPDATE_STREET:
       return {

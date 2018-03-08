@@ -13,6 +13,7 @@ import {
   SET_UPDATE_TIME,
   SAVE_ORIGINAL_STREET_ID,
   UPDATE_EDIT_COUNT,
+  UPDATE_SEGMENTS,
   UPDATE_STREET,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
@@ -87,6 +88,20 @@ export function updateStreet (key, value) {
     type: UPDATE_STREET,
     key,
     value
+  }
+}
+
+export function updateSegments (segments) {
+  return {
+    type: UPDATE_SEGMENTS,
+    segments
+  }
+}
+
+export function clearSegments () {
+  return {
+    type: UPDATE_SEGMENTS,
+    segments: []
   }
 }
 
