@@ -67,9 +67,9 @@ class BlockingError extends React.Component {
       case ERRORS.NO_STREET:
         title = 'No street selected.'
         break
-      case ERRORS.STREET_FETCH_FAILURE:
+      case ERRORS.GALLERY_STREET_FAILURE:
         title = 'Having trouble…'
-        description = <React.Fragment>We’re having trouble loading street.</React.Fragment>
+        description = <React.Fragment>We’re having trouble loading this street.</React.Fragment>
         break
       case ERRORS.FORCE_RELOAD_SIGN_OUT:
         title = 'You signed out in another window.'

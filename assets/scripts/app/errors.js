@@ -30,7 +30,7 @@ export const ERRORS = {
   SIGN_IN_SERVER_FAILURE: 19,
   SIGN_IN_401: 20,
   STREET_DATA_FAILURE: 21,
-  STREET_FETCH_FAILURE: 22
+  GALLERY_STREET_FAILURE: 22
 }
 
 export function showError (errorType, newAbortEverything) {

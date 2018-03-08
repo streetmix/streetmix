@@ -44,7 +44,7 @@ export function fetchGalleryStreet (streetId) {
 
 function errorReceiveGalleryStreet (err) {
   console.log(err)
-  showError(ERRORS.STREET_FETCH_FAILURE, false)
+  showError(ERRORS.GALLERY_STREET_FAILURE, false)
   // updateGallerySelection()
 }
 
