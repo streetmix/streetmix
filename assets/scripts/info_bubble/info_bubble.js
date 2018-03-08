@@ -308,7 +308,8 @@ export const infoBubble = {
   },
 
   updateContents: function () {
-    let street = getStreet()
+    // let street = getStreet()
+    const street = store.getState().street
 
     // If info bubble changes, wake this back up if it's fading out
     cancelFadeoutControls()

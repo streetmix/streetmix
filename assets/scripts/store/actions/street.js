@@ -8,6 +8,12 @@ import {
   ADD_LOCATION,
   CLEAR_LOCATION,
   SAVE_STREET_NAME,
+  SAVE_CREATOR_ID,
+  SAVE_STREET_ID,
+  SET_UPDATE_TIME,
+  SAVE_ORIGINAL_STREET_ID,
+  UPDATE_EDIT_COUNT,
+  UPDATE_STREET,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
   REMOVE_BUILDING_FLOOR,
@@ -44,6 +50,50 @@ export function updateStreetData (street) {
   return {
     type: REPLACE_STREET_DATA,
     street
+  }
+}
+
+export function saveCreatorId (creatorId) {
+  return {
+    type: SAVE_CREATOR_ID,
+    creatorId
+  }
+}
+
+export function saveStreetId (id, namespacedId) {
+  return {
+    type: SAVE_STREET_ID,
+    id,
+    namespacedId
+  }
+}
+
+export function setUpdateTime (time) {
+  return {
+    type: SET_UPDATE_TIME,
+    time
+  }
+}
+
+export function saveOriginalStreetId (id) {
+  return {
+    type: SAVE_ORIGINAL_STREET_ID,
+    id
+  }
+}
+
+export function updateStreet (key, value) {
+  return {
+    type: UPDATE_STREET,
+    key,
+    value
+  }
+}
+
+export function updateEditCount (count) {
+  return {
+    type: UPDATE_EDIT_COUNT,
+    count
   }
 }
 

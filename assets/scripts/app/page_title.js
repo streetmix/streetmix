@@ -1,5 +1,6 @@
 import { getSignInData, isSignedIn } from '../users/authentication'
-import { getStreet } from '../streets/data_model'
+// import { getStreet } from '../streets/data_model'
+import store from '../store'
 
 /**
  * Updates page title.
@@ -8,7 +9,8 @@ import { getStreet } from '../streets/data_model'
  */
 export function updatePageTitle () {
   let title = ''
-  let street = getStreet()
+  // let street = getStreet()
+  const street = store.getState().street
 
   if (street.creatorId && (!isSignedIn() || (getSignInData().userId !== street.creatorId))) {
     title = getPageTitleWithAuthor()
@@ -26,7 +28,8 @@ export function updatePageTitle () {
  * e.g. Facebook sharing
  */
 export function getPageTitle () {
-  let street = getStreet()
+  // let street = getStreet()
+  const street = store.getState().street
   return `${street.name} – Streetmix`
 }
 
@@ -35,6 +38,7 @@ export function getPageTitle () {
  * Displayed when a street has an creator
  */
 export function getPageTitleWithAuthor () {
-  let street = getStreet()
+  // let street = getStreet()
+  const street = store.getState().street
   return `${street.name} (by ${street.creatorId}) – Streetmix`
 }

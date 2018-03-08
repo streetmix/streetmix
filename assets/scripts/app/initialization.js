@@ -13,8 +13,8 @@ import {
   createDomFromData,
   setLastStreet,
   trimStreetData,
-  getStreet,
-  setStreetDataInRedux,
+  // getStreet,
+  // setStreetDataInRedux,
   setIgnoreStreetChanges
 } from '../streets/data_model'
 import { updateStreetName } from '../streets/name'
@@ -88,6 +88,7 @@ export function initialize () {
   bodyLoaded = false
   window.addEventListener('load', onBodyLoad)
 
+  // processUrl() - global street free
   processUrl()
   processMode()
   if (store.getState().errors.abortEverything) {
@@ -105,7 +106,9 @@ export function initialize () {
       }
 
       document.querySelector('#loading-progress').value++
+      // checkIfSignInAndGeolocationLoaded() - global street free
       checkIfSignInAndGeolocationLoaded()
+      // checkIfEverythingIsLoaded() - global street free
       checkIfEverythingIsLoaded()
     })
 
@@ -119,6 +122,7 @@ export function initialize () {
 
 let runningCheck = false
 export function checkIfEverythingIsLoaded () {
+  console.log('checkIfEverythingIsLoaded')
   if (store.getState().errors.abortEverything) {
     return
   }
@@ -141,6 +145,7 @@ export function checkIfEverythingIsLoaded () {
 }
 
 function onEverythingLoaded () {
+  console.log('onEverythingLoaded')
   switch (getMode()) {
     case MODES.NEW_STREET_COPY_LAST:
       onNewStreetLastClick()
@@ -154,8 +159,9 @@ function onEverythingLoaded () {
   segmentsChanged(false)
 
   setIgnoreStreetChanges(false)
-  setStreetDataInRedux()
-  setLastStreet(trimStreetData(getStreet()))
+  // setStreetDataInRedux()
+  // setLastStreet(trimStreetData(getStreet()))
+  setLastStreet(trimStreetData(store.getState().street))
   initStreetReduxTransitionSubscriber()
   initializeFlagSubscribers()
 

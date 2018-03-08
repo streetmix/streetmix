@@ -28,7 +28,11 @@ import {
   resizeStreetWidth
 } from './width'
 import { updateLastStreetInfo, scheduleSavingStreetToServer } from './xhr'
-import { updateStreetData } from '../store/actions/street'
+import {
+  updateStreetData,
+  saveCreatorId,
+  setUpdateTime
+} from '../store/actions/street'
 import { resetUndoStack } from '../store/actions/undo'
 import store from '../store'
 
@@ -113,6 +117,7 @@ export function setAndSaveStreet (value) {
 
 function incrementSchemaVersion (street) {
   let segment, variant
+
   if (!street.schemaVersion) {
     street.schemaVersion = 1
   }
@@ -282,6 +287,7 @@ function incrementSchemaVersion (street) {
   }
 
   street.schemaVersion++
+  store.dispatch(updateStreetData(street))
 }
 
 export function updateToLatestSchemaVersion (street) {
@@ -296,6 +302,7 @@ export function updateToLatestSchemaVersion (street) {
 
 export function createDomFromData () {
   document.querySelector('#street-section-editable').innerHTML = ''
+  const street = store.getState().street
 
   for (var i in street.segments) {
     var segment = street.segments[i]
@@ -318,14 +325,16 @@ export function createDomFromData () {
 }
 
 export function setStreetCreatorId (newId) {
-  street.creatorId = newId
+  // street.creatorId = newId
+  store.dispatch(saveCreatorId(newId))
 
   unifyUndoStack()
   updateLastStreetInfo()
 }
 
 export function setUpdateTimeToNow () {
-  street.updatedAt = new Date().getTime()
+  store.dispatch(setUpdateTime(new Date().getTime()))
+  // street.updatedAt = new Date().getTime()
   unifyUndoStack()
 }
 
@@ -340,6 +349,7 @@ export function saveStreetToServerIfNecessary () {
     return
   }
 
+  const street = store.getState().street
   var currentData = trimStreetData(street)
 
   if (JSON.stringify(currentData) !== JSON.stringify(_lastStreet)) {
@@ -359,7 +369,7 @@ export function saveStreetToServerIfNecessary () {
     _lastStreet = currentData
   }
 
-  setStreetDataInRedux()
+  // setStreetDataInRedux()
 }
 
 // Update in Redux store. Some components will read street data from there.
@@ -420,6 +430,7 @@ export function trimStreetData (street) {
 export function createDataFromDom () {
   var els = document.querySelectorAll('#street-section-editable > .segment')
 
+  const street = store.getState().street
   street.segments = []
 
   for (var i = 0, el; el = els[i]; i++) { // eslint-disable-line no-cond-assign
@@ -435,9 +446,11 @@ export function createDataFromDom () {
     segment.warnings = []
     street.segments.push(segment)
   }
+  store.dispatch(updateStreetData(street))
 }
 
 function fillDefaultSegments () {
+  const street = store.getState().street
   street.segments = []
   let leftHandTraffic = getLeftHandTraffic()
 
@@ -452,13 +465,12 @@ function fillDefaultSegments () {
 
     street.segments.push(segment)
   }
-
+  store.dispatch(updateStreetData(street))
   normalizeAllSegmentWidths()
 }
 
 export function getStreetUrl (street) {
   var url = '/'
-
   if (street.creatorId) {
     if (RESERVED_URLS.indexOf(street.creatorId) !== -1) {
       url += URL_RESERVED_PREFIX
@@ -482,6 +494,7 @@ export function getStreetUrl (street) {
 }
 
 export function prepareDefaultStreet () {
+  const street = store.getState().street
   street.units = getUnits()
   propagateUnits()
   street.name = DEFAULT_NAME
@@ -492,16 +505,16 @@ export function prepareDefaultStreet () {
   street.rightBuildingVariant = DEFAULT_BUILDING_VARIANT_RIGHT
   street.editCount = 0
   // console.log('editCount = 0 on default street')
+  store.dispatch(updateStreetData(street))
   if (isSignedIn()) {
     setStreetCreatorId(getSignInData().userId)
   }
-
   fillDefaultSegments()
-
   setUpdateTimeToNow()
 }
 
 export function prepareEmptyStreet () {
+  const street = store.getState().street
   street.units = getUnits()
   propagateUnits()
 
@@ -512,13 +525,13 @@ export function prepareEmptyStreet () {
   street.leftBuildingVariant = DEFAULT_BUILDING_VARIANT_EMPTY
   street.rightBuildingVariant = DEFAULT_BUILDING_VARIANT_EMPTY
   street.editCount = 0
+  street.segments = []
   // console.log('editCount = 0 on empty street!')
+  store.dispatch(updateStreetData(street))
   if (isSignedIn()) {
     setStreetCreatorId(getSignInData().userId)
   }
-
-  street.segments = []
-
+  // street.segments = []
   setUpdateTimeToNow()
 }
 

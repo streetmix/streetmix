@@ -21,6 +21,7 @@ import {
 } from './resizing'
 import { getVariantString } from './variant_utils'
 import store from '../store'
+import { updateStreetData } from '../store/actions/street'
 
 export const TILESET_POINT_PER_PIXEL = 2.0
 export const TILE_SIZE = 12 // pixels
@@ -419,7 +420,8 @@ export function repositionSegments () {
 
   var extraWidth = 0
 
-  let street = getStreet()
+  // let street = getStreet()
+  const street = store.getState().street
   for (let i in street.segments) {
     el = street.segments[i].el
 
@@ -594,7 +596,8 @@ function showEmptySegment (position, width) {
 
 function repositionEmptySegments () {
   let width
-  let street = getStreet()
+  // let street = getStreet()
+  const street = store.getState().street
   if (street.remainingWidth <= 0) {
     hideEmptySegment('left')
     hideEmptySegment('right')
@@ -619,11 +622,13 @@ function repositionEmptySegments () {
  * @param {boolean} readDataFromDom
  */
 export function segmentsChanged (readDataFromDom = true, reassignElementRefs = false) {
+  console.log('segmentsChanged')
   if (readDataFromDom === true) {
     createDataFromDom()
   }
 
-  const street = getStreet()
+  // const street = getStreet()
+  const street = store.getState().street
 
   // When segments have chaged in Redux and we want to depend on that data,
   // other parts of the app still want a reference to the element. This will
@@ -644,6 +649,7 @@ export function segmentsChanged (readDataFromDom = true, reassignElementRefs = f
     }
   }
 
+  store.dispatch(updateStreetData(street))
   saveStreetToServerIfNecessary()
   repositionSegments()
 }

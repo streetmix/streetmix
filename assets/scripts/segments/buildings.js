@@ -364,7 +364,8 @@ export function createBuildings () {
   const leftEl = document.querySelector('#street-section-left-building')
   const rightEl = document.querySelector('#street-section-right-building')
 
-  const street = getStreet()
+  // const street = getStreet()
+  const street = store.getState().street
 
   createBuilding(leftEl, street.leftBuildingVariant, 'left', street.leftBuildingHeight, street)
   createBuilding(rightEl, street.rightBuildingVariant, 'right', street.rightBuildingHeight, street)

@@ -5,7 +5,7 @@ import { showError, ERRORS } from '../app/errors'
 import { trackEvent } from '../app/event_tracking'
 import { checkIfEverythingIsLoaded } from '../app/initialization'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
-import { getStreet } from '../streets/data_model'
+// import { getStreet } from '../streets/data_model'
 import { setPromoteStreet } from '../streets/remix'
 import { fetchStreetFromServer } from '../streets/xhr'
 import { checkIfSignInAndGeolocationLoaded } from './localization'
@@ -16,6 +16,7 @@ import {
   SET_USER_SIGNED_IN_STATE,
   SET_USER_SIGN_IN_LOADED_STATE
 } from '../store/actions'
+import { updateStreetData } from '../store/actions/street'
 import { rememberUserProfile } from '../store/actions/user'
 
 const USER_ID_COOKIE = 'user_id'
@@ -265,9 +266,11 @@ function errorReceiveSignOutConfirmationFromServer () {
 }
 
 function _signInLoaded () {
+  console.log('_signInLoaded')
   loadSettings()
 
-  var street = getStreet()
+  // var street = getStreet()
+  const street = store.getState().street
   let mode = getMode()
   if ((mode === MODES.CONTINUE) || (mode === MODES.JUST_SIGNED_IN) ||
     (mode === MODES.USER_GALLERY) || (mode === MODES.GLOBAL_GALLERY)) {
@@ -300,6 +303,7 @@ function _signInLoaded () {
 
   setSignInLoadedState(true)
   document.querySelector('#loading-progress').value++
+  store.dispatch(updateStreetData(street))
   checkIfSignInAndGeolocationLoaded()
   checkIfEverythingIsLoaded()
 }

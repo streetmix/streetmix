@@ -7,7 +7,7 @@ import {
   createBuildings
 } from '../segments/buildings'
 import { TILE_SIZE } from '../segments/view'
-import { getStreet } from '../streets/data_model'
+// import { getStreet } from '../streets/data_model'
 
 import store from '../store'
 import { windowResize } from '../store/actions/system'
@@ -57,7 +57,8 @@ export function onResize () {
   document.querySelector('#street-section-dirt').style.height =
     streetSectionDirtPos + 'px'
 
-  var street = getStreet()
+  // var street = getStreet()
+  const street = store.getState().street
   streetSectionCanvasLeft =
     ((system.viewportWidth - (street.width * TILE_SIZE)) / 2) - BUILDING_SPACE
   if (streetSectionCanvasLeft < 0) {

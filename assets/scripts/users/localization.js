@@ -162,7 +162,7 @@ export function updateUnits (newUnits) {
 }
 
 export function propagateUnits () {
-  switch (getStreet().units) {
+  switch (store.getState().street.units) {
     case SETTINGS_UNITS_IMPERIAL:
       setSegmentWidthResolution(SEGMENT_WIDTH_RESOLUTION_IMPERIAL)
       setSegmentWidthClickIncrement(SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL)
