@@ -7,6 +7,8 @@ import i18next from 'i18next'
 import i18nextXhr from 'i18next-xhr-backend'
 import { supplant } from '../util/helpers'
 import { API_URL } from './config'
+import store from '../store'
+import { setLocale as storeLocale } from '../store/actions/locale'
 
 // Default language is set by browser, or is English if undetermined
 const defaultLocale = navigator.language || 'en'
@@ -70,6 +72,9 @@ function doTheI18n (locale) {
       }
       els[i].textContent = translation
     }
+
+    // Set the thing in Redux
+    store.dispatch(storeLocale(locale, i18next.getResourceBundle(locale, 'main')))
 
     // Some parts of the UI need to know language has changed
     window.dispatchEvent(new window.CustomEvent('stmx:language_changed'))

@@ -62,6 +62,9 @@ export const SET_SEGMENT_DATA_NO = 'SET_SEGMENT_DATA_NO'
 export const UPDATE_HOVER_POLYGON = 'UPDATE_HOVER_POLYGON'
 export const SET_INFO_BUBBLE_MOUSE_INSIDE = 'SET_INFO_BUBBLE_MOUSE_INSIDE'
 
+/* locale */
+export const SET_LOCALE = 'SET_LOCALE'
+
 /* map */
 export const SET_MAP_STATE = 'SET_MAP_STATE'
 
