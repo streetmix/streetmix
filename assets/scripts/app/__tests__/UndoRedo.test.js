@@ -8,7 +8,7 @@ jest.mock('../../streets/undo_stack')
 
 describe('UndoRedo', () => {
   it('renders two buttons', () => {
-    const wrapper = shallow(<UndoRedo />)
+    const wrapper = shallow(<UndoRedo locale={{}} />)
     expect(wrapper.find('button').length).toEqual(2)
   })
 

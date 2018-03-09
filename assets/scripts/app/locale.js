@@ -15,12 +15,13 @@ import { setLocale as storeLocale } from '../store/actions/locale'
 import es from 'react-intl/locale-data/es'
 import de from 'react-intl/locale-data/de'
 import fi from 'react-intl/locale-data/fi'
+import fr from 'react-intl/locale-data/fr'
 import pl from 'react-intl/locale-data/pl'
 import pt from 'react-intl/locale-data/pt'
 import zh from 'react-intl/locale-data/zh'
 
 // Add react-intl locale data
-addLocaleData([...es, ...de, ...fi, ...pl, ...pt, ...zh])
+addLocaleData([...es, ...de, ...fi, ...fr, ...pl, ...pt, ...zh])
 
 // Default language is set by browser, or is English if undetermined
 const defaultLocale = navigator.language || 'en'
@@ -87,9 +88,6 @@ function doTheI18n (locale) {
 
     // Set the thing in Redux
     store.dispatch(storeLocale(locale, i18next.getResourceBundle(locale, 'main')))
-
-    // Some parts of the UI need to know language has changed
-    window.dispatchEvent(new window.CustomEvent('stmx:language_changed'))
   }
 
   i18next
