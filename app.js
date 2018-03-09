@@ -104,7 +104,7 @@ app.set('views', path.join(__dirname, '/app/views'))
 // Redirect to environment-appropriate domain, if necessary
 // In production, this redirects streetmix-v2.herokuapp.com to https://streetmix.net/
 app.all('*', function (req, res, next) {
-  if (config.header_host_port !== req.headers.host && app.locals.config.env !== 'development') {
+  if (config.header_host_port !== req.headers.host && app.locals.config.env === 'production') {
     const redirectUrl = 'https://' + config.header_host_port + req.url
     console.log('req.hostname = %s but config.header_host_port = %s; redirecting to %s...', req.hostname, config.header_host_port, redirectUrl)
     res.redirect(301, redirectUrl)
