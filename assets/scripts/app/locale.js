@@ -3,12 +3,24 @@
  * handles internationalization (i18n)
  *
  */
+import { addLocaleData } from 'react-intl'
 import i18next from 'i18next'
 import i18nextXhr from 'i18next-xhr-backend'
 import { supplant } from '../util/helpers'
 import { API_URL } from './config'
 import store from '../store'
 import { setLocale as storeLocale } from '../store/actions/locale'
+
+// Add react-intl files for all the languages we support (added manually for now)
+import es from 'react-intl/locale-data/es'
+import de from 'react-intl/locale-data/de'
+import fi from 'react-intl/locale-data/fi'
+import pl from 'react-intl/locale-data/pl'
+import pt from 'react-intl/locale-data/pt'
+import zh from 'react-intl/locale-data/zh'
+
+// Add react-intl locale data
+addLocaleData([...es, ...de, ...fi, ...pl, ...pt, ...zh])
 
 // Default language is set by browser, or is English if undetermined
 const defaultLocale = navigator.language || 'en'
