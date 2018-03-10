@@ -18,7 +18,7 @@ describe('locale action creators', () => {
 
     const expectedAction = {
       type: types.SET_LOCALE,
-      locale: 'en',
+      locale: 'pt-BR',
       messages: {
         'foo.bar': 'baz',
         'foo.qux': 'bar',
@@ -26,6 +26,6 @@ describe('locale action creators', () => {
       }
     }
 
-    expect(actions.setLocale('en', translation)).toEqual(expectedAction)
+    expect(actions.setLocale('pt_BR', translation)).toEqual(expectedAction)
   })
 })

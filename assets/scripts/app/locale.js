@@ -18,10 +18,11 @@ import fi from 'react-intl/locale-data/fi'
 import fr from 'react-intl/locale-data/fr'
 import pl from 'react-intl/locale-data/pl'
 import pt from 'react-intl/locale-data/pt'
+import sv from 'react-intl/locale-data/sv'
 import zh from 'react-intl/locale-data/zh'
 
 // Add react-intl locale data
-addLocaleData([...es, ...de, ...fi, ...fr, ...pl, ...pt, ...zh])
+addLocaleData([...es, ...de, ...fi, ...fr, ...pl, ...pt, ...sv, ...zh])
 
 // Default language is set by browser, or is English if undetermined
 const defaultLocale = navigator.language || 'en'

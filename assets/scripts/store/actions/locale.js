@@ -25,7 +25,8 @@ function flattenObject (obj) {
 export function setLocale (locale, messages) {
   return {
     type: SET_LOCALE,
-    locale,
+    // Converts "es_MX" to "en-MX" (and similar) for react-intl
+    locale: locale.replace('_', '-'),
     messages: flattenObject(messages)
   }
 }
