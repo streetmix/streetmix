@@ -118,7 +118,7 @@ app.get('/help/about', function (req, res) {
 })
 
 app.get('/map', function (req, res) {
-  res.redirect('https://streetmix.github.io/famous-streets/')
+  res.redirect('https://streetmix.github.io/map/')
 })
 
 app.get('/twitter-sign-in', controllers.twitter_sign_in.get)
