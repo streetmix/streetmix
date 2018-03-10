@@ -2,9 +2,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { FormattedMessage } from 'react-intl'
 import EnvironmentBadge from './EnvironmentBadge'
-
-// import { t } from '../app/locale'
 import { URL_SIGN_IN_REDIRECT } from '../app/routing'
 import { showGallery } from '../gallery/view'
 import { getElAbsolutePos } from '../util/helpers'
@@ -106,10 +105,9 @@ class MenuBar extends React.PureComponent {
         <a
           href={`/${URL_SIGN_IN_REDIRECT}`}
           className="command"
-          data-i18n="menu.item.sign-in"
           id="sign-in-link"
         >
-          Sign in
+          <FormattedMessage id="menu.item.sign-in" defaultMessage="Sign in" />
         </a>
       </li>)
 
@@ -117,21 +115,16 @@ class MenuBar extends React.PureComponent {
       ? (<li id="settings-menu-item">
         <button
           data-name="settings"
-          data-i18n="menu.item.settings"
           className="menu-attached"
           disabled={false}
           onClick={this.onClickMenuButton}
         >
-          Settings
+          <FormattedMessage id="menu.item.settings" defaultMessage="Settings" />
         </button>
       </li>) : null
 
     // Buttons have `disabled={false}` because
     // Firefox sometimes disables some buttons… unsure why
-    // --
-    // Note on translations - the {t()} method doesn't re-render when the
-    // language changes, so this still uses the `data-i18n` method to pick up
-    // on text content changes. Individual menus will re-render with {t()}.
     return (
       <nav className="menu-bar">
         <ul className="menu-bar-left">
@@ -142,59 +135,55 @@ class MenuBar extends React.PureComponent {
           <li id="help-menu-item">
             <button
               data-name="help"
-              data-i18n="menu.item.help"
               className="menu-attached"
               disabled={false}
               onClick={this.onClickMenuButton}
             >
-              Help
+              <FormattedMessage id="menu.item.help" defaultMessage="Help" />
             </button>
           </li>
           <li className="hide-for-no-internet">
             <button
               data-name="contact"
-              data-i18n="menu.item.contact"
               className="menu-attached"
               disabled={false}
               onClick={this.onClickMenuButton}
             >
-              Contact
+              <FormattedMessage id="menu.item.contact" defaultMessage="Contact" />
             </button>
           </li>
           <li className="hide-for-no-internet">
             <button
               data-name="contribute"
-              data-i18n="menu.item.contribute"
               className="menu-attached"
               disabled={false}
               onClick={this.onClickMenuButton}
             >
-              Contribute
+              <FormattedMessage id="menu.item.contribute" defaultMessage="Contribute" />
             </button>
           </li>
         </ul>
         <ul ref={(ref) => { this.menuBarRight = ref }} className="menu-bar-right">
           {UserAvatar}
           <li>
-            <a href="/new" target="_blank" data-i18n="menu.item.new-street">
-              New street
+            <a href="/new" target="_blank">
+              <FormattedMessage id="menu.item.new-street" defaultMessage="New street" />
             </a>
           </li>
           <li className="hide-for-no-internet">
-            <a href={myStreetsLink} data-i18n="menu.item.my-streets" onClick={this.onClickMyStreets}>
-              My streets
+            <a href={myStreetsLink} onClick={this.onClickMyStreets}>
+              <FormattedMessage id="menu.item.my-streets" defaultMessage="My streets" />
             </a>
           </li>
           {SettingsButton}
           <li>
             <button
               data-name="share"
-              data-i18n="menu.item.share"
               className="menu-attached"
               disabled={false}
               onClick={this.onClickMenuButton}
             >
-              Share
+              <FormattedMessage id="menu.item.share" defaultMessage="Share" />
             </button>
           </li>
         </ul>

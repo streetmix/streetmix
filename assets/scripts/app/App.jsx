@@ -33,7 +33,15 @@ class App extends React.PureComponent {
         <MessageBar />
         <div className="main-screen">
           <GalleryShield />
-          <MenusContainer />
+
+          <IntlProvider
+            locale={this.props.locale.locale}
+            key={`locale_${this.props.locale.locale}`}
+            messages={this.props.locale.messages}
+          >
+            <MenusContainer />
+          </IntlProvider>
+
           <StreetNameCanvas />
           <InfoBubble />
           <DebugHoverPolygon />
