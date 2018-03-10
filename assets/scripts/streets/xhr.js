@@ -39,7 +39,7 @@ import { NEW_STREET_EMPTY, makeDefaultStreet } from './creation'
 import {
   prepareEmptyStreet,
   prepareDefaultStreet,
-  getStreet,
+  // getStreet,
   trimStreetData,
   updateEverything,
   createDomFromData,
@@ -167,7 +167,8 @@ function errorReceiveStreet (data) {
     goNewStreet()
   } else {
     if ((data.status === 404) || (data.status === 410)) {
-      if (getStreet().creatorId) {
+      // if (getStreet().creatorId) {
+      if (store.getState().street.creatorId) {
         if (data.status === 410) {
           setMode(MODES.STREET_410_BUT_LINK_TO_USER)
         } else {
@@ -225,7 +226,8 @@ export function fetchStreetForVerification () {
   const url = getFetchStreetUrl()
 
   latestRequestId = getUniqueRequestHeader()
-  latestVerificationStreet = trimStreetData(getStreet())
+  // latestVerificationStreet = trimStreetData(getStreet())
+  latestVerificationStreet = trimStreetData(store.getState().street)
 
   const options = {
     headers: { 'X-Streetmix-Request-Id': latestRequestId }

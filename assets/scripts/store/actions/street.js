@@ -14,6 +14,7 @@ import {
   SAVE_ORIGINAL_STREET_ID,
   UPDATE_EDIT_COUNT,
   UPDATE_SEGMENTS,
+  SET_UNITS,
   UPDATE_STREET,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
@@ -109,6 +110,13 @@ export function updateEditCount (count) {
   return {
     type: UPDATE_EDIT_COUNT,
     count
+  }
+}
+
+export function setUnits (units) {
+  return {
+    type: SET_UNITS,
+    units
   }
 }
 

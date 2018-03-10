@@ -1,5 +1,9 @@
-import { getStreet, updateEverything } from '../streets/data_model'
+import {
+  // getStreet,
+  updateEverything
+} from '../streets/data_model'
 import { getFetchStreetUrl, unpackServerStreetData } from '../streets/xhr'
+import store from '../store'
 
 const LIVE_UPDATE_DELAY = 5000
 
@@ -15,10 +19,12 @@ function checkForLiveUpdate () {
 }
 
 function receiveLiveUpdateCheck (response) {
+  console.log('receiveLiveUpdateCheck')
   const newUpdatedDate =
     Math.floor((new Date(response.headers.get('last-modified')).getTime()) / 1000)
   const oldUpdatedDate =
-    Math.floor((new Date(getStreet().updatedAt).getTime()) / 1000)
+    // Math.floor((new Date(getStreet().updatedAt).getTime()) / 1000)
+    Math.floor((new Date(store.getState().street.updatedAt).getTime()) / 1000)
 
   if (newUpdatedDate !== oldUpdatedDate) {
     const url = getFetchStreetUrl()

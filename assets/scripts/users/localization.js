@@ -12,12 +12,12 @@ import {
 } from '../segments/resizing'
 import { segmentsChanged } from '../segments/view'
 import {
-  getStreet,
+  // getStreet,
   setStreet,
   createDomFromData,
   saveStreetToServerIfNecessary,
-  setIgnoreStreetChanges,
-  setStreetDataInRedux
+  setIgnoreStreetChanges
+  // setStreetDataInRedux
 } from '../streets/data_model'
 import {
   getUndoStack,
@@ -32,6 +32,7 @@ import { wasGeolocationAttempted } from './geolocation'
 import { isSignInLoaded } from './authentication'
 import { saveSettingsLocally, LOCAL_STORAGE_SETTINGS_UNITS_ID } from '../users/settings'
 import store from '../store'
+import { setUnits } from '../store/actions/street'
 import { clearMenus } from '../store/actions/menus'
 import { setUserUnits } from '../store/actions/persistSettings'
 
@@ -112,14 +113,16 @@ export function updateUnitSettings (countryCode) {
 
 export function updateUnits (newUnits) {
   let fromUndo
-  var street = getStreet()
+  // var street = getStreet()
+  const street = store.getState().street
   if (street.units === newUnits) {
     return
   }
 
   saveUserUnits(newUnits)
-  street.units = newUnits
-  setStreetDataInRedux()
+  // street.units = newUnits
+  // setStreetDataInRedux()
+  store.dispatch(setUnits(newUnits))
 
   // If the user converts and then straight converts back, we just reach
   // to undo stack instead of double conversion (which could be lossy).

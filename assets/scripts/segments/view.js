@@ -3,7 +3,7 @@ import { msg } from '../app/messages'
 import { infoBubble, INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/info_bubble'
 import { system } from '../preinit/system_capabilities'
 import {
-  getStreet,
+  // getStreet,
   saveStreetToServerIfNecessary,
   createDataFromDom
 } from '../streets/data_model'
@@ -493,7 +493,8 @@ export function repositionSegments () {
 }
 
 export function changeSegmentVariantLegacy (dataNo, variantName, variantChoice) {
-  let street = getStreet()
+  // let street = getStreet()
+  const street = store.getState().street
   const segment = street.segments[dataNo]
 
   segment.variant[variantName] = variantChoice

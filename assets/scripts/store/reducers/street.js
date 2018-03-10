@@ -14,6 +14,7 @@ import {
   SAVE_ORIGINAL_STREET_ID,
   UPDATE_EDIT_COUNT,
   UPDATE_SEGMENTS,
+  SET_UNITS,
   UPDATE_STREET,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
@@ -100,6 +101,11 @@ const street = (state = initialState, action) => {
       return {
         ...state,
         [action.key]: action.value
+      }
+    case SET_UNITS:
+      return {
+        ...state,
+        units: action.units
       }
     case ADD_LOCATION:
       return {
