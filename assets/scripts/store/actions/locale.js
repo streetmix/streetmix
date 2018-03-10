@@ -22,11 +22,19 @@ function flattenObject (obj) {
   return toReturn
 }
 
+// Replace double bracket {{placeholders}} with {single} for react-intl
+function replacePlaceholders (messages) {
+  return Object.entries(messages).reduce((accumulator, entry) => {
+    accumulator[entry[0]] = entry[1].replace('{{', '{').replace('}}', '}')
+    return accumulator
+  }, {})
+}
+
 export function setLocale (locale, messages) {
   return {
     type: SET_LOCALE,
     // Converts "es_MX" to "en-MX" (and similar) for react-intl
     locale: locale.replace('_', '-'),
-    messages: flattenObject(messages)
+    messages: replacePlaceholders(flattenObject(messages))
   }
 }

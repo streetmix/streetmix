@@ -11,7 +11,7 @@ describe('locale action creators', () => {
       },
       qux: {
         baz: {
-          bar: 'foo'
+          bar: 'foo {{boop}}'
         }
       }
     }
@@ -22,7 +22,7 @@ describe('locale action creators', () => {
       messages: {
         'foo.bar': 'baz',
         'foo.qux': 'bar',
-        'qux.baz.bar': 'foo'
+        'qux.baz.bar': 'foo {boop}'
       }
     }
 
