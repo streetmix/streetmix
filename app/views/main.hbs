@@ -55,7 +55,9 @@
     <div id="svg"></div>
 
     {{! Blocking elements pre-React }}
-    <div id="loading"><span data-i18n="msg.loading">Loading…</span>
+    <div id="loading">
+      {{! Don't show loading text because there could be a flash of untranslated text }}
+      <span data-i18n="msg.loading">&nbsp;</span>
       <progress id="loading-progress" value="0" max="1"></progress>
     </div>
     <div id="blocking-shield">
@@ -83,7 +85,7 @@
     {{! Mount point for React }}
     <div id="react-app" class="app"></div>
 
-    <script src="https://platform.twitter.com/widgets.js"></script>
+    <script src="https://platform.twitter.com/widgets.js" async></script>
     <script src="/assets/scripts/main.js"></script>
   </body>
 </html>

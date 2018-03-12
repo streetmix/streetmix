@@ -14,7 +14,6 @@ const cors = require('cors')
 const helmet = require('helmet')
 const browserify = require('browserify-middleware')
 const babelify = require('babelify')
-const bodyParser = require('body-parser')
 const config = require('config')
 const path = require('path')
 const controllers = require('./app/controllers')
@@ -75,7 +74,7 @@ const helmetConfig = {
 }
 
 app.use(helmet(helmetConfig))
-app.use(bodyParser.json())
+app.use(express.json())
 app.use(compression())
 app.use(cookieParser())
 app.use(cookieSession({ secret: config.cookie_session_secret }))
@@ -105,7 +104,7 @@ app.set('views', path.join(__dirname, '/app/views'))
 // Redirect to environment-appropriate domain, if necessary
 // In production, this redirects streetmix-v2.herokuapp.com to https://streetmix.net/
 app.all('*', function (req, res, next) {
-  if (config.header_host_port !== req.headers.host && app.locals.config.env !== 'development') {
+  if (config.header_host_port !== req.headers.host && app.locals.config.env === 'production') {
     const redirectUrl = 'https://' + config.header_host_port + req.url
     console.log('req.hostname = %s but config.header_host_port = %s; redirecting to %s...', req.hostname, config.header_host_port, redirectUrl)
     res.redirect(301, redirectUrl)
@@ -119,7 +118,7 @@ app.get('/help/about', function (req, res) {
 })
 
 app.get('/map', function (req, res) {
-  res.redirect('https://streetmix.github.io/famous-streets/')
+  res.redirect('https://streetmix.github.io/map/')
 })
 
 app.get('/twitter-sign-in', controllers.twitter_sign_in.get)
@@ -173,6 +172,13 @@ app.get('/assets/images/icons.svg', function (req, res) {
 app.get('/assets/images/images.svg', function (req, res) {
   res.sendFile(path.join(__dirname, '/node_modules/@streetmix/illustrations/dist/images.svg'))
 })
+
+// Post-deploy hook handler
+app.post(
+  '/services/post-deploy',
+  express.urlencoded({ extended: false }),
+  resources.services.post_deploy.post
+)
 
 app.use(express.static(path.join(__dirname, '/public')))
 

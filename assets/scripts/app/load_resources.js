@@ -19,69 +19,67 @@ let loading = []
 
 // Set loading bar
 const loadingEl = document.getElementById('loading-progress')
-loadingEl.max += 5 // Legacy; this is for other things that must load
+loadingEl.max += 3 // Legacy; this is for other things that must load
 
-// Load everything
-loadImages()
-
-// When everything is loaded...
-export function checkIfImagesLoaded () {
-  return Promise.all(loading)
-}
-
-function loadImages () {
+export async function loadImages () {
   loadingEl.max += IMAGES_TO_BE_LOADED.length
 
   for (let url of IMAGES_TO_BE_LOADED) {
-    loading.push(window.fetch(url)
-      .then((response) => {
-        return response.text()
-      })
-      .then((response) => {
-        SVGStagingEl.innerHTML += response
+    loading.push(loadImage(url))
+  }
 
-        // ctx.drawImage() can only draw things that are images, so you can't draw
-        // an SVG directly. You also can't <use> a symbol reference from inside an
-        // image tag. So we have to create an image using a reconstructed SVG as a
-        // data-URI. Here, let's cache all the artwork svgs as image elements,
-        // and include the original svg + width/height information, to assist with
-        // later rendering to canvas
+  return Promise.all(loading)
+}
 
-        // Get all the <symbol>s
-        let symbolEls = SVGStagingEl.querySelectorAll('symbol')
+async function loadImage (url) {
+  try {
+    const response = await window.fetch(url)
+    const body = await response.text()
 
-        for (let svg of symbolEls) {
-          // Skip icons, we don't need to cache these
-          if (svg.id.indexOf('icon-') === 0) continue
+    SVGStagingEl.innerHTML += body
 
-          // Simplify id, removing namespace prefix
-          const id = svg.id.replace(/^image-/, '')
+    // ctx.drawImage() can only draw things that are images, so you can't draw
+    // an SVG directly. You also can't <use> a symbol reference from inside an
+    // image tag. So we have to create an image using a reconstructed SVG as a
+    // data-URI. Here, let's cache all the artwork svgs as image elements,
+    // and include the original svg + width/height information, to assist with
+    // later rendering to canvas
 
-          // Get a string representation of symbol so we can reconstruct an image element
-          const svgHTML = convertSVGSymbolToSVGHTML(svg)
+    // Get all the <symbol>s
+    let symbolEls = SVGStagingEl.querySelectorAll('symbol')
 
-          cacheSVGObject(id, svg, svgHTML)
-        }
+    for (let svg of symbolEls) {
+      // Skip icons, we don't need to cache these
+      if (svg.id.indexOf('icon-') === 0) continue
 
-        // Captures anything with its own viewbox, whether that's an svg file
-        // or symbol elements within a svg.
-        let svgEls = SVGStagingEl.querySelectorAll('svg[viewBox]')
+      // Simplify id, removing namespace prefix
+      const id = svg.id.replace(/^image-/, '')
 
-        for (let svg of svgEls) {
-          // Right now none of these have ids, use the url
-          const id = url
+      // Get a string representation of symbol so we can reconstruct an image element
+      const svgHTML = convertSVGSymbolToSVGHTML(svg)
 
-          // Get a string representation of symbol so we can reconstruct an image element
-          const svgHTML = getSVGOuterHTML(svg)
+      cacheSVGObject(id, svg, svgHTML)
+    }
 
-          cacheSVGObject(id, svg, svgHTML)
-        }
+    // Captures anything with its own viewbox, whether that's an svg file
+    // or symbol elements within a svg.
+    let svgEls = SVGStagingEl.querySelectorAll('svg[viewBox]')
 
-        loadingEl.value++
-      })
-      .catch(function (error) {
-        console.error('loading svg error', error)
-      }))
+    for (let svg of svgEls) {
+      // Right now none of these have ids, use the url
+      const id = url
+
+      // Get a string representation of symbol so we can reconstruct an image element
+      const svgHTML = getSVGOuterHTML(svg)
+
+      cacheSVGObject(id, svg, svgHTML)
+    }
+
+    loadingEl.value++
+
+    return body
+  } catch (error) {
+    console.error('loading svg error', error)
   }
 }
 

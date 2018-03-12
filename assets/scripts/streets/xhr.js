@@ -7,7 +7,6 @@ import {
   checkIfEverythingIsLoaded,
   setServerContacted
 } from '../app/initialization'
-import { checkIfImagesLoaded } from '../app/load_resources'
 import { t } from '../app/locale'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { goNewStreet } from '../app/routing'
@@ -298,14 +297,12 @@ function receiveStreet (transmission) {
 
   // TODO this is stupid, only here to fill some structures
   // window.addEventListener('stmx:assets_loaded', () => {
-  checkIfImagesLoaded().then(() => {
-    createDomFromData()
+  createDomFromData()
 
-    setServerContacted(true)
+  setServerContacted(true)
 
-    // Legacy - remove once everything is Promise-based.
-    checkIfEverythingIsLoaded()
-  })
+  // Legacy - remove once everything is Promise-based.
+  checkIfEverythingIsLoaded()
 }
 
 function unpackStreetDataFromServerTransmission (transmission) {

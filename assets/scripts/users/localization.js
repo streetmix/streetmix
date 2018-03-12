@@ -1,8 +1,5 @@
 import { cloneDeep } from 'lodash'
 
-import { ERRORS, showError } from '../app/errors'
-import { MODES, getMode } from '../app/mode'
-import { app } from '../preinit/app_settings'
 import { debug } from '../preinit/debug_settings'
 import {
   normalizeAllSegmentWidths,
@@ -23,13 +20,10 @@ import {
   getUndoStack,
   getUndoPosition
 } from '../streets/undo_stack'
-import { createNewStreetOnServer } from '../streets/xhr'
 import {
   normalizeStreetWidth,
   resizeStreetWidth
 } from '../streets/width'
-import { wasGeolocationAttempted } from './geolocation'
-import { isSignInLoaded } from './authentication'
 import { saveSettingsLocally, LOCAL_STORAGE_SETTINGS_UNITS_ID } from '../users/settings'
 import store from '../store'
 import {
@@ -73,21 +67,6 @@ const COUNTRIES_LEFT_HAND_TRAFFIC = [
   'WS', 'SC', 'SG', 'SB', 'ZA', 'LK', 'SR', 'SZ', 'TZ', 'TH', 'TK',
   'TO', 'TT', 'TC', 'TV', 'UG', 'GB', 'VG', 'VI', 'ZM', 'ZW'
 ]
-
-export function checkIfSignInAndGeolocationLoaded () {
-  if (wasGeolocationAttempted() && isSignInLoaded()) {
-    switch (getMode()) {
-      case MODES.NEW_STREET:
-      case MODES.NEW_STREET_COPY_LAST:
-        if (app.readOnly) {
-          showError(ERRORS.CANNOT_CREATE_NEW_STREET_ON_PHONE, true)
-        } else {
-          createNewStreetOnServer()
-        }
-        break
-    }
-  }
-}
 
 export function updateSettingsFromCountryCode (countryCode) {
   if (COUNTRIES_LEFT_HAND_TRAFFIC.indexOf(countryCode) !== -1) {

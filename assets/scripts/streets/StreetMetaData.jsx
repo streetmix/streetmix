@@ -101,6 +101,19 @@ class StreetMetaData extends React.Component {
     return text
   }
 
+  renderGeotag = (street, readOnly) => {
+    const geotagText = (street.location) ? this.getGeotagText() : t('dialogs.geotag.add-location', 'Add location')
+    const geolocation = (
+      <span className="street-metadata-map">
+        { (readOnly) ? geotagText : (
+          <a onClick={this.onClickGeotag}> {geotagText} </a>
+        ) }
+      </span>
+    )
+
+    return (readOnly && !street.location) ? null : geolocation
+  }
+
   render () {
     let author = null
     const creatorId = this.props.street.creatorId
@@ -110,18 +123,7 @@ class StreetMetaData extends React.Component {
       author = t('users.byline', 'by {{user}}', { user: t('users.anonymous', 'Anonymous') })
     }
 
-    let geotagText = t('dialogs.geotag.add-location', 'Add location')
-    if (this.props.street.location) {
-      geotagText = this.getGeotagText()
-    }
-
-    const geolocation = (this.props.enableLocation) ? (
-      <span className="street-metadata-map">
-        <a onClick={this.onClickGeotag}>
-          {geotagText}
-        </a>
-      </span>
-    ) : null
+    const geolocation = (this.props.enableLocation) ? this.renderGeotag(this.props.street, this.props.readOnly) : null
 
     return (
       <div className="street-metadata">
