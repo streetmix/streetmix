@@ -59,6 +59,7 @@
     "having-trouble": "Having trouble…",
     "no-street": "No street selected.",
     "trouble-loading": "We’re having trouble loading Streetmix.",
+    "error-code": "(Error {{code}}.)",
     "slow-connection-1": "Streetmix wasn’t able to connect to the Internet in awhile now.",
     "slow-connection-2": "You might want to reload the page and try again. Please note you might lose the latest change to the street. Sorry!",
     "no-connection": "Streetmix is having trouble connecting to the Internet."
@@ -86,10 +87,6 @@
 		"reload-sign-in-description": "Please reload this page before continuing.<br />{reloadButton}",
 		"street-deleted-elsewhere-title": "This street has been deleted elsewhere.",
 		"street-deleted-elsewhere-description": "This street has been deleted in another browser.<br />{homeButton}",
-		"new-street-server-failure-description": "We’re having trouble loading Streetmix.<br />{tryAgainButton}",
-		"sign-in-server-failure-description": "We’re having trouble loading Streetmix.<br />(Error 15A.)<br />{tryAgainButton}",
-		"sign-in-401-description": "We’re having trouble loading Streetmix.<br />(Error RM1.)<br />{tryAgainButton}",
-		"street-data-failure-description": "We’re having trouble loading Streetmix.<br />(Error 9B.)<br />{tryAgainButton}",
 		"twitter-access-denied-title": "You are not signed in.",
 		"twitter-access-denied-description": "You cancelled the Twitter sign in process.<br />{homeButton}",
 		"auth-api-problem-title": "There was a problem with signing you in.",
