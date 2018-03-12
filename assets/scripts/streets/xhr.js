@@ -44,7 +44,7 @@ import {
   updateEverything,
   createDomFromData,
   DEFAULT_NAME,
-  setStreet,
+  // setStreet,
   updateToLatestSchemaVersion,
   setStreetCreatorId,
   setUpdateTimeToNow,
@@ -338,7 +338,7 @@ function unpackStreetDataFromServerTransmission (transmission) {
 export function unpackServerStreetData (transmission, id, namespacedId, checkIfNeedsToBeRemixed) {
   console.log('unpackServerStreetData')
   store.dispatch(updateStreetData(unpackStreetDataFromServerTransmission(transmission)))
-  setStreet(unpackStreetDataFromServerTransmission(transmission))
+  // setStreet(unpackStreetDataFromServerTransmission(transmission))
   // var street = getStreet()
   const street = store.getState().street
 
