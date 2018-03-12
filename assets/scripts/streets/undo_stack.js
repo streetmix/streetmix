@@ -6,8 +6,8 @@ import { showStatusMessage, hideStatusMessage } from '../app/status_message'
 import { infoBubble } from '../info_bubble/info_bubble'
 import {
   trimStreetData,
-  getStreet,
-  setStreet,
+  // getStreet,
+  // setStreet,
   setUpdateTimeToNow,
   updateEverything
 } from './data_model'
@@ -20,6 +20,7 @@ import {
   undoAction,
   redoAction
 } from '../store/actions/undo'
+import { updateStreetData } from '../store/actions/street'
 
 export function getUndoStack () {
   return cloneDeep(store.getState().undo.stack)
@@ -32,7 +33,8 @@ export function getUndoPosition () {
 function finishUndoOrRedo () {
   // set current street to the thing we just updated
   const state = store.getState().undo
-  setStreet(cloneDeep(state.stack[state.position]))
+  // setStreet(cloneDeep(state.stack[state.position]))
+  store.dispatch(updateStreetData(cloneDeep(state.stack[state.position])))
 
   setUpdateTimeToNow()
 
@@ -53,7 +55,8 @@ export function undo () {
   }
 
   // sends current street to update current position before undoing
-  store.dispatch(undoAction(trimStreetData(getStreet())))
+  // store.dispatch(undoAction(trimStreetData(getStreet())))
+  store.dispatch(undoAction(trimStreetData(store.getState().street)))
 
   finishUndoOrRedo()
 }
