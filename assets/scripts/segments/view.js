@@ -11,7 +11,7 @@ import { recalculateWidth } from '../streets/width'
 import { getElAbsolutePos } from '../util/helpers'
 import { prettifyWidth } from '../util/width_units'
 import { draggingMove } from './drag_and_drop'
-import { SEGMENT_INFO, getSpriteDef } from './info'
+import { getSegmentInfo, getSegmentVariantInfo, getSpriteDef } from './info'
 import { drawProgrammaticPeople } from './people'
 import {
   RESIZE_TYPE_INITIAL,
@@ -196,7 +196,7 @@ export function getVariantInfoDimensions (variantInfo, initialSegmentWidth, mult
  * @param {Number} dpi
  */
 export function drawSegmentContents (ctx, type, variantString, segmentWidth, offsetLeft, offsetTop, randSeed, multiplier, palette, dpi) {
-  const variantInfo = SEGMENT_INFO[type].details[variantString]
+  const variantInfo = getSegmentVariantInfo(type, variantString)
   const graphics = variantInfo.graphics
   const dimensions = getVariantInfoDimensions(variantInfo, segmentWidth, multiplier)
   const left = dimensions.left
@@ -280,7 +280,7 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
 
 export function setSegmentContents (el, type, variantString, segmentWidth, randSeed, palette, quickUpdate) {
   let canvasEl
-  var variantInfo = SEGMENT_INFO[type].details[variantString]
+  const variantInfo = getSegmentVariantInfo(type, variantString)
 
   var WIDTH_PALETTE_MULTIPLIER = 4 // Dupe from palette.js
 
@@ -337,11 +337,13 @@ export function createSegment (type, variantString, width, isUnmovable, palette,
     el.classList.add('unmovable')
   }
 
-  if (!palette) {
-    el.style.zIndex = SEGMENT_INFO[type].zIndex
+  const segmentInfo = getSegmentInfo(type)
 
-    var variantInfo = SEGMENT_INFO[type].details[variantString]
-    var name = variantInfo.name || SEGMENT_INFO[type].name
+  if (!palette) {
+    el.style.zIndex = segmentInfo.zIndex
+
+    const variantInfo = getSegmentVariantInfo(type, variantString)
+    const name = variantInfo.name || segmentInfo.name
 
     innerEl = document.createElement('span')
     innerEl.classList.add('name')
@@ -371,7 +373,7 @@ export function createSegment (type, variantString, width, isUnmovable, palette,
     innerEl.classList.add('grid')
     el.appendChild(innerEl)
   } else {
-    el.setAttribute('title', SEGMENT_INFO[type].name)
+    el.setAttribute('title', segmentInfo.name)
   }
 
   if (width) {

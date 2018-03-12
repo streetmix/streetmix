@@ -5,7 +5,7 @@ import {
   updateBuildingPosition
 } from '../segments/buildings'
 import { DEFAULT_SEGMENTS } from '../segments/default'
-import { SEGMENT_INFO } from '../segments/info'
+import { getSegmentInfo } from '../segments/info'
 import { normalizeAllSegmentWidths } from '../segments/resizing'
 import { getVariantString, getVariantArray } from '../segments/variant_utils'
 import {
@@ -446,7 +446,7 @@ function fillDefaultSegments () {
     segment.warnings = []
     segment.variantString = getVariantString(segment.variant)
 
-    if (SEGMENT_INFO[segment.type].needRandSeed) {
+    if (getSegmentInfo(segment.type).needRandSeed) {
       segment.randSeed = generateRandSeed()
     }
 
