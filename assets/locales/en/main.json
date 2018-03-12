@@ -63,68 +63,53 @@
     "slow-connection-2": "You might want to reload the page and try again. Please note you might lose the latest change to the street. Sorry!",
     "no-connection": "Streetmix is having trouble connecting to the Internet."
   },
-  "error-msg": {
-      "buttons": {
-        "home-button": "Go to the homepage",
-        "sign-in-button": "Sign in again",
-        "reload-button": "Reload the page",
-        "try-again-button": "Try again"
-	"general-help-buttons": "<a target="_blank" href="mailto:hello@streetmix.net">email</a> or <a target="_blank" href="https://twitter.com/intent/tweet?text=@streetmix">Twitter</a>. <br />
-      <button id="error-home" onClick={goHome}>Go to the homepage</button>"
-      },
-      "page-not-found-title": "Page not found.",
-      "page-not-found-description": "Oh, boy. There is no page with this address!<br />{homeButton}",
-      "street-not-found-title": "Street not found.",
-      "street-not-found-description": "Oh, boy. There is no street with this link!<br />{homeButton}",
-      "street-not-found-but-user-title": "Street not found.",
-      "street-not-found-but-user-description": "There is no street with this link! But you can look at other streets by {linkToUser(this.props.street)} <br />{homeButton}",
-      "street-deleted-title": "This street has been deleted.",
-      "street-deleted-description": "There is no longer a street with this link, but you can look at other streets by {linkToUser(this.props.street)} <br />{homeButton}",
-      "sign-out-title": "You are now signed out.",
-      "no-street-selected-title": "No street selected.",
-      "reload-sign-out-title": "You signed out in another window.",
-      "gallery-street-failure-title": "Having trouble…"
-      "gallery-street-failure-description": "We’re having trouble loading this street."
-      "reload-sign-out-description": "Please reload this page before continuing.<br />{reloadButton}",
-      "reload-sign-out-title-401": "You signed out in another window.",
-      "reload-sign-out-description-401": "Please reload this page before continuing.<br />(Error RM2.)<br />
-          <button id="error-clear-sign-in-reload" onClick={goReloadClearSignIn}>Reload the page</button>",
-      "reload-sign-in-title": "You signed in in another window.",
-      "reload-sign-in-description": "Please reload this page before continuing.<br />{reloadButton}",
-      "street-deleted-elsewhere-title": "This street has been deleted elsewhere.",
-      "street-deleted-elsewhere-description": "This street has been deleted in another browser.<br />{homeButton}",
-      "new-street-server-failure-title": "Having trouble…",
-      "new-street-server-failure-description": "We’re having trouble loading Streetmix.<br />{tryAgainButton}",
-      "sign-in-server-failure-title": "Having trouble…",
-      "sign-in-server-failure-description": "We’re having trouble loading Streetmix.<br />(Error 15A.)<br />{tryAgainButton}",
-      "sign-in-401-title": "Having trouble…",
-      "sign-in-401-description": "We’re having trouble loading Streetmix.<br />(Error RM1.)<br />{tryAgainButton}",
-      "street-data-failure-title": "Having trouble…",
-      "street-data-failure-description": "We’re having trouble loading Streetmix.<br />(Error 9B.)<br />{tryAgainButton}",
-
-
-      "twitter-access-denied-title": "You are not signed in.",
-      "twitter-access-denied-description": "You cancelled the Twitter sign in process.<br />{homeButton}",
-      "auth-api-problem-title": "There was a problem with signing you in.",
-      "auth-api-problem-description": "There was a problem with Twitter authentication. Please try again later or let us know
-            via {generalHelpButtons}",
-      "unsupported-browser-title": "Streetmix doesn’t work on your browser.",
-      "unsupported-browser-description": "Sorry about that. You might want to try <a target="_blank" href="http://www.google.com/chrome">Chrome</a>,&nbsp;
-          <a target="_blank" href="http://www.mozilla.org/firefox">Firefox</a>,&nbsp;
-          <a target="_blank" href="https://www.microsoft.com/en-us/windows/microsoft-edge">Microsoft Edge</a>, or Safari.
-          <br /><br />Are you on Internet Explorer?&nbsp;
-          <a target="_blank" href="https://streetmix.readme.io/docs/frequently-asked-questions/#internet-explorer">Find
-            out more.</a><br /><br />
-          If you think your browser should be supported, please contact us via&nbsp;
-          <a target="_blank" href="mailto:hello@streetmix.net">email</a>.",
-      "cannot-create-new-street-on-phone-title": "Streetmix works on tablets and desktops only.",
-      "cannot-create-new-street-on-phone-description": "If you follow another link to a specific street, you can view it on your phone – but you
-            cannot yet create new streets.<br />
-            <button id="error-example" onClick={goExampleStreet}>View an example street</button>" 
-      "generic-error-title": "Something went wrong.",
-      "generic-error-description": "We’re sorry – something went wrong. Please try again later or let us know
-          via {generalHelpButtons}" 
-}
+	"error-msg": {
+		"buttons": {
+			"home-button": "Go to the homepage",
+			"sign-in-button": "Sign in again",
+			"reload-button": "Reload the page",
+			"try-again-button": "Try again",
+			"general-help-buttons": "<a target='_blank' href='mailto:hello@streetmix.net'>email</a> or <a target='_blank' href='https://twitter.com/intent/tweet?text=@streetmix'>Twitter</a>. <br /> <button id = 'error-home'onClick = {goHome} > Go to the homepage < /button>"
+		},
+		"page-not-found-title": "Page not found.",
+		"page-not-found-description": "Oh, boy. There is no page with this address!<br />{homeButton}",
+		"street-not-found-title": "Street not found.",
+		"street-not-found-description": "Oh, boy. There is no street with this link!<br />{homeButton}",
+		"street-not-found-but-user-title": "Street not found.",
+		"street-not-found-but-user-description": "There is no street with this link! But you can look at other streets by {linkToUser(this.props.street)} <br />{homeButton}",
+		"street-deleted-title": "This street has been deleted.",
+		"street-deleted-description": "There is no longer a street with this link, but you can look at other streets by {linkToUser(this.props.street)} <br />{homeButton}",
+		"sign-out-title": "You are now signed out.",
+		"no-street-selected-title": "No street selected.",
+		"reload-sign-out-title": "You signed out in another window.",
+		"gallery-street-failure-title": "Having trouble…",
+		"gallery-street-failure-description": "We’re having trouble loading this street.",
+		"reload-sign-out-description": "Please reload this page before continuing.<br />{reloadButton}",
+		"reload-sign-out-title-401": "You signed out in another window.",
+		"reload-sign-out-description-401": "Please reload this page before continuing.<br />(Error RM2.)<br /><button id='error-clear-sign-in-reload' onClick={goReloadClearSignIn}>Reload the page</button>",
+		"reload-sign-in-title": "You signed in in another window.",
+		"reload-sign-in-description": "Please reload this page before continuing.<br />{reloadButton}",
+		"street-deleted-elsewhere-title": "This street has been deleted elsewhere.",
+		"street-deleted-elsewhere-description": "This street has been deleted in another browser.<br />{homeButton}",
+		"new-street-server-failure-title": "Having trouble…",
+		"new-street-server-failure-description": "We’re having trouble loading Streetmix.<br />{tryAgainButton}",
+		"sign-in-server-failure-title": "Having trouble…",
+		"sign-in-server-failure-description": "We’re having trouble loading Streetmix.<br />(Error 15A.)<br />{tryAgainButton}",
+		"sign-in-401-title": "Having trouble…",
+		"sign-in-401-description": "We’re having trouble loading Streetmix.<br />(Error RM1.)<br />{tryAgainButton}",
+		"street-data-failure-title": "Having trouble…",
+		"street-data-failure-description": "We’re having trouble loading Streetmix.<br />(Error 9B.)<br />{tryAgainButton}",
+		"twitter-access-denied-title": "You are not signed in.",
+		"twitter-access-denied-description": "You cancelled the Twitter sign in process.<br />{homeButton}",
+		"auth-api-problem-title": "There was a problem with signing you in.",
+		"auth-api-problem-description": "There was a problem with Twitter authentication. Please try again later or let us know via {generalHelpButtons}",
+		"unsupported-browser-title": "Streetmix doesn’t work on your browser.",
+		"unsupported-browser-description": "Sorry about that. You might want to try <a target='_blank' href='http://www.google.com/chrome'>Chrome</a>,&nbsp;<a target='_blank' href='http://www.mozilla.org/firefox'>Firefox</a>,&nbsp;<a target='_blank' href='https://www.microsoft.com/en-us/windows/microsoft-edge'>Microsoft Edge</a>, or Safari.<br /><br />Are you on Internet Explorer?&nbsp;<a target='_blank' href='https://streetmix.readme.io/docs/frequently-asked-questions/#internet-explorer'>Find out more.</a><br /><br />If you think your browser should be supported, please contact us via&nbsp;<a target='_blank' href='mailto:hello@streetmix.net'>email</a>.",
+		"cannot-create-new-street-on-phone-title": "Streetmix works on tablets and desktops only.",
+		"cannot-create-new-street-on-phone-description": "If you follow another link to a specific street, you can view it on your phone – but you cannot yet create new streets.<br /> <button id='error-example' onClick={goExampleStreet}>View an example street</button>",
+		"generic-error-title": "Something went wrong.",
+		"generic-error-description": "We’re sorry – something went wrong. Please try again later or let us know via {generalHelpButtons}"
+  },
   "btn": {
     "reload": "Reload",
     "undo": "Undo",
