@@ -15,6 +15,7 @@ import {
   UPDATE_EDIT_COUNT,
   UPDATE_SEGMENTS,
   SET_UNITS,
+  UPDATE_STREET_WIDTH,
   UPDATE_STREET,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
@@ -117,6 +118,13 @@ export function setUnits (units) {
   return {
     type: SET_UNITS,
     units
+  }
+}
+
+export function updateStreetWidth (width) {
+  return {
+    type: UPDATE_STREET_WIDTH,
+    width
   }
 }
 

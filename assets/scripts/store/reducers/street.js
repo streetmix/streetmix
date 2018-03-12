@@ -15,6 +15,7 @@ import {
   UPDATE_EDIT_COUNT,
   UPDATE_SEGMENTS,
   SET_UNITS,
+  UPDATE_STREET_WIDTH,
   UPDATE_STREET,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
@@ -106,6 +107,11 @@ const street = (state = initialState, action) => {
       return {
         ...state,
         units: action.units
+      }
+    case UPDATE_STREET_WIDTH:
+      return {
+        ...state,
+        width: action.width
       }
     case ADD_LOCATION:
       return {

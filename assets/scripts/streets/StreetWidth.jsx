@@ -10,9 +10,14 @@ import {
   updateUnits
 } from '../users/localization'
 import { segmentsChanged } from '../segments/view'
-import { setStreet, createDomFromData } from './data_model'
+import {
+  // setStreet,
+  createDomFromData
+} from './data_model'
 import { resizeStreetWidth } from './width'
 import { t } from '../app/locale'
+
+import { updateStreetWidth } from '../store/actions/street'
 
 const STREET_WIDTH_CUSTOM = -1
 const STREET_WIDTH_SWITCH_TO_METRIC = -2
@@ -26,7 +31,8 @@ const DEFAULT_STREET_WIDTHS = [40, 60, 80]
 class StreetWidth extends React.Component {
   static propTypes = {
     readOnly: PropTypes.bool,
-    street: PropTypes.object
+    street: PropTypes.object,
+    updateStreetWidth: PropTypes.func
   }
 
   displayStreetWidthRemaining = () => {
@@ -176,9 +182,10 @@ class StreetWidth extends React.Component {
       newStreetWidth = width
     }
 
-    const street = Object.assign({}, this.props.street)
-    street.width = this.normalizeStreetWidth(newStreetWidth)
-    setStreet(street)
+    this.props.updateStreetWidth(this.normalizeStreetWidth(newStreetWidth))
+    // const street = Object.assign({}, this.props.street)
+    // street.width = this.normalizeStreetWidth(newStreetWidth)
+    // setStreet(street)
 
     resizeStreetWidth()
 
@@ -214,4 +221,9 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(StreetWidth)
+function mapDispatchToProps (dispatch) {
+  return {
+    updateStreetWidth: (...args) => { dispatch(updateStreetWidth(...args)) }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(StreetWidth)
