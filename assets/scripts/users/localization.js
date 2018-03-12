@@ -13,7 +13,7 @@ import {
 import { segmentsChanged } from '../segments/view'
 import {
   // getStreet,
-  setStreet,
+  // setStreet,
   createDomFromData,
   saveStreetToServerIfNecessary,
   setIgnoreStreetChanges
@@ -32,7 +32,11 @@ import { wasGeolocationAttempted } from './geolocation'
 import { isSignInLoaded } from './authentication'
 import { saveSettingsLocally, LOCAL_STORAGE_SETTINGS_UNITS_ID } from '../users/settings'
 import store from '../store'
-import { setUnits } from '../store/actions/street'
+import {
+  setUnits,
+  updateStreetData,
+  updateStreetWidth
+} from '../store/actions/street'
 import { clearMenus } from '../store/actions/menus'
 import { setUserUnits } from '../store/actions/persistSettings'
 
@@ -142,15 +146,19 @@ export function updateUnits (newUnits) {
     normalizeAllSegmentWidths()
 
     if (street.remainingWidth === 0) {
-      street.width = 0
+      // street.width = 0
+      let width = 0
       for (var i in street.segments) {
-        street.width += street.segments[i].width
+        width += street.segments[i].width
       }
+      store.dispatch(updateStreetWidth(width))
     } else {
-      street.width = normalizeStreetWidth(street.width)
+      // street.width = normalizeStreetWidth(street.width)
+      store.dispatch(updateStreetWidth(normalizeStreetWidth(street.width)))
     }
   } else {
-    setStreet(cloneDeep(undoStack[undoPosition - 1]))
+    // setStreet(cloneDeep(undoStack[undoPosition - 1]))
+    store.dispatch(updateStreetData(cloneDeep(undoStack[undoPosition - 1])))
   }
   createDomFromData()
   segmentsChanged()
