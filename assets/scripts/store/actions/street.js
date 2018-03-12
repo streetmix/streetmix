@@ -16,7 +16,6 @@ import {
   UPDATE_SEGMENTS,
   SET_UNITS,
   UPDATE_STREET_WIDTH,
-  UPDATE_STREET,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
   REMOVE_BUILDING_FLOOR,
@@ -82,14 +81,6 @@ export function saveOriginalStreetId (id) {
   return {
     type: SAVE_ORIGINAL_STREET_ID,
     id
-  }
-}
-
-export function updateStreet (key, value) {
-  return {
-    type: UPDATE_STREET,
-    key,
-    value
   }
 }
 

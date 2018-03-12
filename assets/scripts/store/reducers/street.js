@@ -16,7 +16,6 @@ import {
   UPDATE_SEGMENTS,
   SET_UNITS,
   UPDATE_STREET_WIDTH,
-  UPDATE_STREET,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
   REMOVE_BUILDING_FLOOR,
@@ -97,11 +96,6 @@ const street = (state = initialState, action) => {
       return {
         ...state,
         segments: action.segments
-      }
-    case UPDATE_STREET:
-      return {
-        ...state,
-        [action.key]: action.value
       }
     case SET_UNITS:
       return {
