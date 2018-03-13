@@ -1121,6 +1121,36 @@ const SEGMENT_INFO = {
           center: ['markings--streetcar-track-02', 'transit--streetcar-outbound', 'markings--straight-outbound-light'],
           repeat: 'ground--asphalt-red'
         }
+      },
+      'inbound|grass': {
+        minWidth: 10,
+        maxWidth: 14,
+        graphics: {
+          center: [
+            { tileset: 1, x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
+            { tileset: 3, x: 192, y: 0, width: 12, height: 18, offsetY: -2 }, // Streetcar
+            { tileset: 1, x: 29, y: 15, width: 4, height: 5, offsetX: 1, offsetY: 10 } // Dark arrow (inbound)
+          ],
+          repeat: [
+            { tileset: 2, x: 121, y: 53, width: 4, height: 1, offsetY: 10.6, offsetLeft: 0, offsetRight: 0 }, // Grass
+            { tileset: 2, x: 98 - 12, y: 53 + 10, width: 10, height: 5, offsetY: 10 } // Green asphalt
+          ]
+        }
+      },
+      'outbound|grass': {
+        minWidth: 10,
+        maxWidth: 14,
+        graphics: {
+          center: [
+            { tileset: 1, x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
+            { tileset: 3, x: 204, y: 0, width: 12, height: 18, offsetY: -2 }, // Streetcar
+            { tileset: 1, x: 39, y: 15, width: 4, height: 5, offsetY: 10 } // Dark arrow (outbound)
+          ],
+          repeat: [
+            { tileset: 2, x: 121, y: 53, width: 4, height: 1, offsetY: 10.6, offsetLeft: 0, offsetRight: 0 }, // Grass
+            { tileset: 2, x: 98 - 12, y: 53 + 10, width: 10, height: 5, offsetY: 10 } // Green asphalt
+          ]
+        }
       }
     }
   },
@@ -1177,6 +1207,36 @@ const SEGMENT_INFO = {
             'markings--straight-outbound-light'
           ],
           repeat: 'ground--asphalt-red'
+        }
+      },
+      'inbound|grass': {
+        minWidth: 10,
+        maxWidth: 14,
+        graphics: {
+          center: [
+            { tileset: 1, x: 27, y: 40, width: 10, height: 17, offsetY: -5 }, // Light rail
+            { tileset: 1, x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
+            { tileset: 1, x: 37, y: 15, width: 8, height: 5, offsetY: 10 } // Dark arrow (outbound)
+          ],
+          repeat: [
+            { tileset: 2, x: 121, y: 53, width: 4, height: 1, offsetY: 10.6, offsetLeft: 0, offsetRight: 0 }, // Grass
+            { tileset: 2, x: 98 - 12, y: 53 + 10, width: 10, height: 5, offsetY: 10 } // Green asphalt
+          ]
+        }
+      },
+      'outbound|grass': {
+        minWidth: 10,
+        maxWidth: 14,
+        graphics: {
+          center: [
+            { tileset: 1, x: 27, y: 40, width: 10, height: 17, offsetY: -5 }, // Light rail
+            { tileset: 1, x: 18, y: 57, width: 8, height: 5, offsetY: 10 }, // Track
+            { tileset: 1, x: 37, y: 15, width: 8, height: 5, offsetY: 10 } // Dark arrow (outbound)
+          ],
+          repeat: [
+            { tileset: 2, x: 121, y: 53, width: 4, height: 1, offsetY: 10.6, offsetLeft: 0, offsetRight: 0 }, // Grass
+            { tileset: 2, x: 98 - 12, y: 53 + 10, width: 10, height: 5, offsetY: 10 } // Green asphalt
+          ]
         }
       }
     }
