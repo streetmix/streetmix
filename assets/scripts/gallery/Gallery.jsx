@@ -13,7 +13,6 @@ import GalleryStreetItem from './GalleryStreetItem'
 import { switchGalleryStreet, repeatReceiveGalleryData } from './view'
 import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/routing'
 import { sendDeleteStreetToServer } from '../streets/xhr'
-// import { getStreet } from '../streets/data_model'
 import { showError, ERRORS } from '../app/errors'
 import { t } from '../app/locale'
 import { deleteGalleryStreet } from '../store/actions/gallery'
@@ -91,7 +90,6 @@ class Gallery extends React.Component {
 
   deleteStreet = (streetId) => {
     let preventHide = false
-    // if (streetId === getStreet().id) {
     if (streetId === this.props.street.id) {
       preventHide = true
       showError(ERRORS.NO_STREET, false)

@@ -2,11 +2,7 @@ import { images } from '../app/load_resources'
 import { msg } from '../app/messages'
 import { infoBubble, INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/info_bubble'
 import { system } from '../preinit/system_capabilities'
-import {
-  // getStreet,
-  saveStreetToServerIfNecessary,
-  createDataFromDom
-} from '../streets/data_model'
+import { saveStreetToServerIfNecessary, createDataFromDom } from '../streets/data_model'
 import { recalculateWidth } from '../streets/width'
 import { getElAbsolutePos } from '../util/helpers'
 import { prettifyWidth } from '../util/width_units'
@@ -422,7 +418,6 @@ export function repositionSegments () {
 
   var extraWidth = 0
 
-  // let street = getStreet()
   const street = store.getState().street
   for (let i in street.segments) {
     el = street.segments[i].el
@@ -495,7 +490,6 @@ export function repositionSegments () {
 }
 
 export function changeSegmentVariantLegacy (dataNo, variantName, variantChoice) {
-  // let street = getStreet()
   const street = store.getState().street
   const segment = street.segments[dataNo]
 
@@ -599,7 +593,6 @@ function showEmptySegment (position, width) {
 
 function repositionEmptySegments () {
   let width
-  // let street = getStreet()
   const street = store.getState().street
   if (street.remainingWidth <= 0) {
     hideEmptySegment('left')
@@ -625,12 +618,10 @@ function repositionEmptySegments () {
  * @param {boolean} readDataFromDom
  */
 export function segmentsChanged (readDataFromDom = true, reassignElementRefs = false) {
-  console.log('segmentsChanged')
   if (readDataFromDom === true) {
     createDataFromDom()
   }
 
-  // const street = getStreet()
   const street = store.getState().street
 
   // When segments have chaged in Redux and we want to depend on that data,

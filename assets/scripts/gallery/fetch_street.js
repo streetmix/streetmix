@@ -3,7 +3,6 @@ import { API_URL } from '../app/config'
 import { hideError, showError, ERRORS } from '../app/errors'
 import {
   setLastStreet,
-  // getStreet,
   createDomFromData,
   trimStreetData,
   setIgnoreStreetChanges
@@ -72,6 +71,5 @@ function receiveGalleryStreet (transmission) {
   segmentsChanged()
 
   setIgnoreStreetChanges(false)
-  // setLastStreet(trimStreetData(getStreet()))
   setLastStreet(trimStreetData(store.getState().street))
 }

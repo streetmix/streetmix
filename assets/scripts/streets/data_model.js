@@ -75,46 +75,6 @@ const LATEST_SCHEMA_VERSION = 18
 
 export const DEFAULT_NAME = msg('DEFAULT_STREET_NAME')
 
-let street = {
-  schemaVersion: LATEST_SCHEMA_VERSION,
-
-  id: null,
-  creatorId: null,
-  namespacedId: null,
-  originalStreetId: null, // id of the street the current street is remixed from (could be null)
-  name: null,
-  editCount: null, // Since new street or remix · FIXME: can be null (meaning = don’t touch), but this will change
-
-  width: null,
-  occupiedWidth: null, // Can be recreated, do not save
-  remainingWidth: null, // Can be recreated, do not save
-
-  leftBuildingHeight: null,
-  rightBuildingHeight: null,
-  leftBuildingVariant: null,
-  rightBuildingVariant: null,
-
-  segments: [],
-  location: null,
-  userUpdated: false,
-
-  units: null
-}
-
-export function getStreet () {
-  return street
-}
-
-export function setStreet (value) {
-  street = value
-  setStreetDataInRedux()
-}
-
-export function setAndSaveStreet (value) {
-  setStreet(value)
-  saveStreetToServerIfNecessary()
-}
-
 function incrementSchemaVersion (street) {
   let segment, variant
 
@@ -325,7 +285,6 @@ export function createDomFromData () {
 }
 
 export function setStreetCreatorId (newId) {
-  // street.creatorId = newId
   store.dispatch(saveCreatorId(newId))
 
   unifyUndoStack()
@@ -334,7 +293,6 @@ export function setStreetCreatorId (newId) {
 
 export function setUpdateTimeToNow () {
   store.dispatch(setUpdateTime(new Date().getTime()))
-  // street.updatedAt = new Date().getTime()
   unifyUndoStack()
 }
 
@@ -368,15 +326,13 @@ export function saveStreetToServerIfNecessary () {
 
     _lastStreet = currentData
   }
-
-  // setStreetDataInRedux()
 }
 
 // Update in Redux store. Some components will read street data from there.
 // todo: transition so Redux is single source of truth for street.
-export function setStreetDataInRedux () {
-  store.dispatch(updateStreetData(street))
-}
+// export function setStreetDataInRedux () {
+//   store.dispatch(updateStreetData(street))
+// }
 
 // Copies only the data necessary for save/undo.
 export function trimStreetData (street) {
@@ -531,7 +487,6 @@ export function prepareEmptyStreet () {
   if (isSignedIn()) {
     setStreetCreatorId(getSignInData().userId)
   }
-  // street.segments = []
   setUpdateTimeToNow()
 }
 

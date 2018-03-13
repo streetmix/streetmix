@@ -9,12 +9,9 @@ import {
 } from '../segments/resizing'
 import { segmentsChanged } from '../segments/view'
 import {
-  // getStreet,
-  // setStreet,
   createDomFromData,
   saveStreetToServerIfNecessary,
   setIgnoreStreetChanges
-  // setStreetDataInRedux
 } from '../streets/data_model'
 import {
   getUndoStack,
@@ -96,15 +93,12 @@ export function updateUnitSettings (countryCode) {
 
 export function updateUnits (newUnits) {
   let fromUndo
-  // var street = getStreet()
   const street = store.getState().street
   if (street.units === newUnits) {
     return
   }
 
   saveUserUnits(newUnits)
-  // street.units = newUnits
-  // setStreetDataInRedux()
   store.dispatch(setUnits(newUnits))
 
   // If the user converts and then straight converts back, we just reach
@@ -125,18 +119,15 @@ export function updateUnits (newUnits) {
     normalizeAllSegmentWidths()
 
     if (street.remainingWidth === 0) {
-      // street.width = 0
       let width = 0
       for (var i in street.segments) {
         width += street.segments[i].width
       }
       store.dispatch(updateStreetWidth(width))
     } else {
-      // street.width = normalizeStreetWidth(street.width)
       store.dispatch(updateStreetWidth(normalizeStreetWidth(street.width)))
     }
   } else {
-    // setStreet(cloneDeep(undoStack[undoPosition - 1]))
     store.dispatch(updateStreetData(cloneDeep(undoStack[undoPosition - 1])))
   }
   createDomFromData()

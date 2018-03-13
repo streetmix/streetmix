@@ -7,10 +7,7 @@ import {
 import { infoBubble } from '../info_bubble/info_bubble'
 import { app } from '../preinit/app_settings'
 import { system } from '../preinit/system_capabilities'
-import {
-  // getStreet,
-  setIgnoreStreetChanges
-} from '../streets/data_model'
+import { setIgnoreStreetChanges } from '../streets/data_model'
 import { getElAbsolutePos } from '../util/helpers'
 import { generateRandSeed } from '../util/random'
 import { BUILDING_SPACE } from './buildings'
@@ -510,8 +507,7 @@ export function onBodyMouseDown (event) {
 
 function makeSpaceBetweenSegments (x, y) {
   let farLeft, farRight
-  // let street = getStreet()
-  let street = store.getState().street
+  const street = store.getState().street
   var left = x - getStreetSectionCanvasLeft()
 
   var selectedSegmentBefore = null
@@ -584,8 +580,7 @@ export function onBodyMouseMove (event) {
 
 function doDropHeuristics (type, variantString, width) {
   // Automatically figure out width
-  // let street = getStreet()
-  let street = store.getState().street
+  const street = store.getState().street
 
   if (draggingMove.type === DRAGGING_TYPE_MOVE_CREATE) {
     if ((street.remainingWidth > 0) &&

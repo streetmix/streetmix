@@ -11,7 +11,6 @@ import Description from './Description.jsx'
 import { infoBubble } from './info_bubble'
 import { getDescriptionData } from './description'
 import { resumeFadeoutControls } from '../segments/resizing'
-// import { getStreet } from '../streets/data_model'
 // import { trackEvent } from '../app/event_tracking'
 import { BUILDINGS } from '../segments/buildings'
 import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
@@ -114,8 +113,7 @@ class InfoBubble extends React.Component {
   }
 
   updateInfoBubbleState = () => {
-    // const street = getStreet()
-    const street = this.props.street
+    const { street } = this.props
     const segment = street.segments[this.props.dataNo]
     this.setState({
       type: infoBubble.type,

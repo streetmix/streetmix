@@ -10,10 +10,7 @@ import {
   updateUnits
 } from '../users/localization'
 import { segmentsChanged } from '../segments/view'
-import {
-  // setStreet,
-  createDomFromData
-} from './data_model'
+import { createDomFromData } from './data_model'
 import { resizeStreetWidth } from './width'
 import { t } from '../app/locale'
 
@@ -183,10 +180,6 @@ class StreetWidth extends React.Component {
     }
 
     this.props.updateStreetWidth(this.normalizeStreetWidth(newStreetWidth))
-    // const street = Object.assign({}, this.props.street)
-    // street.width = this.normalizeStreetWidth(newStreetWidth)
-    // setStreet(street)
-
     resizeStreetWidth()
 
     createDomFromData()

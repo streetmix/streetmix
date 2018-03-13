@@ -7,17 +7,15 @@ import { debug } from '../preinit/debug_settings'
 import { system } from '../preinit/system_capabilities'
 import { initializeFlagSubscribers } from '../app/flag_utils'
 import { fillEmptySegments, segmentsChanged } from '../segments/view'
-import { initStreetReduxTransitionSubscriber } from '../streets/street'
 import { onNewStreetLastClick } from '../streets/creation'
 import {
   createDomFromData,
   setLastStreet,
   trimStreetData,
-  // getStreet,
-  // setStreetDataInRedux,
   setIgnoreStreetChanges
 } from '../streets/data_model'
 import { updateStreetName } from '../streets/name'
+import { initStreetReduxTransitionSubscriber } from '../streets/street'
 import { getPromoteStreet, remixStreet } from '../streets/remix'
 import { resizeStreetWidth } from '../streets/width'
 import { loadSignIn } from '../users/authentication'
@@ -113,7 +111,6 @@ export async function initialize () {
 }
 
 export function checkIfEverythingIsLoaded () {
-  console.log('checkIfEverythingIsLoaded')
   if (store.getState().errors.abortEverything) {
     return
   }
@@ -124,7 +121,6 @@ export function checkIfEverythingIsLoaded () {
 }
 
 function onEverythingLoaded () {
-  console.log('onEverythingLoaded')
   switch (getMode()) {
     case MODES.NEW_STREET_COPY_LAST:
       onNewStreetLastClick()
@@ -138,8 +134,6 @@ function onEverythingLoaded () {
   segmentsChanged(false)
 
   setIgnoreStreetChanges(false)
-  // setStreetDataInRedux()
-  // setLastStreet(trimStreetData(getStreet()))
   setLastStreet(trimStreetData(store.getState().street))
   initStreetReduxTransitionSubscriber()
   initializeFlagSubscribers()

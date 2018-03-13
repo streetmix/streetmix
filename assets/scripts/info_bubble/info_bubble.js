@@ -14,10 +14,7 @@ import {
   switchSegmentElIn,
   switchSegmentElAway
 } from '../segments/view'
-import {
-  // getStreet,
-  saveStreetToServerIfNecessary
-} from '../streets/data_model'
+import { saveStreetToServerIfNecessary } from '../streets/data_model'
 import store from '../store'
 import {
   showInfoBubble,
@@ -279,16 +276,6 @@ export const infoBubble = {
   },
 
   onBuildingVariantButtonClick: function (side) {
-    console.log('onBuildingVariantButtonClick')
-    // const street = store.getState().street
-    // const street2 = getStreet()
-
-    // if (side === 'left') {
-    //   street2.leftBuildingVariant = street.leftBuildingVariant
-    // } else {
-    //   street2.rightBuildingVariant = street.rightBuildingVariant
-    // }
-
     var el = document.querySelector('#street-section-' + side + '-building')
     el.id = 'street-section-' + side + '-building-old'
 
@@ -312,7 +299,6 @@ export const infoBubble = {
   },
 
   updateContents: function () {
-    // let street = getStreet()
     const street = store.getState().street
 
     // If info bubble changes, wake this back up if it's fading out

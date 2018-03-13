@@ -1,8 +1,5 @@
 import { debug } from '../preinit/debug_settings'
-import {
-  // getStreet,
-  getStreetUrl
-} from '../streets/data_model'
+import { getStreetUrl } from '../streets/data_model'
 import { setMode, MODES } from './mode'
 import {
   URL_NEW_STREET,
@@ -15,7 +12,6 @@ import {
 } from './routing'
 import { setGalleryUserId } from '../store/actions/gallery'
 import store from '../store'
-
 import { updateStreetData } from '../store/actions/street'
 
 let errorUrl = ''
@@ -25,10 +21,8 @@ export function getErrorUrl () {
 }
 
 export function processUrl () {
-  console.log('processUrl')
   var url = window.location.pathname
   const street = store.getState().street
-  // var street = getStreet()
 
   // Remove heading slash
   if (!url) {
@@ -110,7 +104,6 @@ export function updatePageUrl (forceGalleryUrl) {
     const slug = galleryUserId || 'gallery/'
     url = '/' + slug
   } else {
-    // url = getStreetUrl(getStreet())
     url = getStreetUrl(store.getState().street)
   }
 
