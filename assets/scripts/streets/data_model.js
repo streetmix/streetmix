@@ -552,7 +552,7 @@ export function updateEverything (dontScroll, save = true) {
   resizeStreetWidth(dontScroll)
   updateStreetName()
   setIgnoreStreetChanges(false)
-  _lastStreet = trimStreetData(street)
+  _lastStreet = trimStreetData(store.getState().street)
 
   if (save === true) {
     scheduleSavingStreetToServer()
