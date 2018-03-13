@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { t } from '../app/locale'
-import { SEGMENT_INFO } from '../segments/info'
+import { getSegmentInfo } from '../segments/info'
 import { VARIANT_ICONS } from '../segments/variant_icons'
 import { getVariantArray } from '../segments/variant_utils'
 import { changeSegmentVariantLegacy } from '../segments/view'
@@ -46,7 +46,7 @@ class Variants extends React.Component {
 
     switch (props.type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
-        const segmentInfo = SEGMENT_INFO[props.segmentType]
+        const segmentInfo = getSegmentInfo(props.segmentType)
         if (segmentInfo) {
           variantSets = segmentInfo.variants
         }

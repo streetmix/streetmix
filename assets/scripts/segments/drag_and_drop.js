@@ -19,7 +19,8 @@ import {
   SEGMENT_OWNER_BIKE,
   SEGMENT_OWNER_PEDESTRIAN,
   SEGMENT_OWNER_PUBLIC_TRANSIT,
-  SEGMENT_INFO
+  getSegmentInfo,
+  getSegmentVariantInfo
 } from './info'
 import {
   SHORT_DELAY,
@@ -161,7 +162,7 @@ function handleSegmentResizeStart (event) {
 
   draggingResize.segmentEl.classList.add('hover')
 
-  var variantInfo = SEGMENT_INFO[el.segmentEl.getAttribute('type')].details[el.segmentEl.getAttribute('variant-string')]
+  const variantInfo = getSegmentVariantInfo(el.segmentEl.getAttribute('type'), el.segmentEl.getAttribute('variant-string'))
 
   if (variantInfo.minWidth) {
     guideEl = document.createElement('div')
@@ -284,12 +285,13 @@ function handleSegmentMoveStart () {
   draggingMove.originalType = originalType
 
   if (inPalette) {
-    if (SEGMENT_INFO[draggingMove.originalType].needRandSeed) {
+    const segmentInfo = getSegmentInfo(draggingMove.originalType)
+    if (segmentInfo.needRandSeed) {
       draggingMove.originalRandSeed = generateRandSeed()
     }
     draggingMove.type = DRAGGING_TYPE_MOVE_CREATE
-    draggingMove.originalWidth = SEGMENT_INFO[draggingMove.originalType].defaultWidth * TILE_SIZE
-    draggingMove.originalVariantString = Object.keys(SEGMENT_INFO[draggingMove.originalType].details).shift()
+    draggingMove.originalWidth = segmentInfo.defaultWidth * TILE_SIZE
+    draggingMove.originalVariantString = Object.keys(segmentInfo.details).shift()
   } else {
     draggingMove.originalRandSeed = parseInt(randSeed)
     draggingMove.type = DRAGGING_TYPE_MOVE_TRANSFER
@@ -588,8 +590,7 @@ function doDropHeuristics (type, variantString, width) {
   if (draggingMove.type === DRAGGING_TYPE_MOVE_CREATE) {
     if ((street.remainingWidth > 0) &&
       (width > street.remainingWidth * TILE_SIZE)) {
-      var segmentMinWidth =
-      SEGMENT_INFO[type].details[variantString].minWidth || 0
+      var segmentMinWidth = getSegmentVariantInfo(type, variantString).minWidth || 0
 
       if ((street.remainingWidth >= MIN_SEGMENT_WIDTH) &&
         (street.remainingWidth >= segmentMinWidth)) {
@@ -606,8 +607,8 @@ function doDropHeuristics (type, variantString, width) {
   var left = leftEl ? street.segments[leftEl.dataNo] : null
   var right = rightEl ? street.segments[rightEl.dataNo] : null
 
-  var leftOwner = left && SEGMENT_INFO[left.type].owner
-  var rightOwner = right && SEGMENT_INFO[right.type].owner
+  var leftOwner = left && getSegmentInfo(left.type).owner
+  var rightOwner = right && getSegmentInfo(right.type).owner
 
   var leftOwnerAsphalt =
   (leftOwner === SEGMENT_OWNER_CAR) || (leftOwner === SEGMENT_OWNER_BIKE) ||
@@ -620,10 +621,11 @@ function doDropHeuristics (type, variantString, width) {
   var rightVariant = right && getVariantArray(right.type, right.variantString)
 
   var variant = getVariantArray(type, variantString)
+  const segmentInfo = getSegmentInfo(type)
 
   // Direction
 
-  if (SEGMENT_INFO[type].variants.indexOf('direction') !== -1) {
+  if (segmentInfo.variants.indexOf('direction') !== -1) {
     if (leftVariant && leftVariant['direction']) {
       variant['direction'] = leftVariant['direction']
     } else if (rightVariant && rightVariant['direction']) {
@@ -633,7 +635,7 @@ function doDropHeuristics (type, variantString, width) {
 
   // Parking lane orientation
 
-  if (SEGMENT_INFO[type].variants.indexOf('parking-lane-orientation') !== -1) {
+  if (segmentInfo.variants.indexOf('parking-lane-orientation') !== -1) {
     if (!right || !rightOwnerAsphalt) {
       variant['parking-lane-orientation'] = 'right'
     } else if (!left || !leftOwnerAsphalt) {
@@ -653,7 +655,7 @@ function doDropHeuristics (type, variantString, width) {
 
   // Turn lane orientation
 
-  if (SEGMENT_INFO[type].variants.indexOf('turn-lane-orientation') !== -1) {
+  if (segmentInfo.variants.indexOf('turn-lane-orientation') !== -1) {
     if (!right || !rightOwnerAsphalt) {
       variant['turn-lane-orientation'] = 'right'
     } else if (!left || !leftOwnerAsphalt) {
@@ -671,7 +673,7 @@ function doDropHeuristics (type, variantString, width) {
     }
   }
 
-  if (SEGMENT_INFO[type].variants.indexOf('transit-shelter-elevation') !== -1) {
+  if (segmentInfo.variants.indexOf('transit-shelter-elevation') !== -1) {
     if (variant['orientation'] === 'right' && left && left.type === 'light-rail') {
       variant['transit-shelter-elevation'] = 'light-rail'
     } else if (variant['orientation'] === 'left' && right && right.type === 'light-rail') {
@@ -691,7 +693,7 @@ function doDropHeuristics (type, variantString, width) {
 
   // Lamp orientation
 
-  if (SEGMENT_INFO[type].variants.indexOf('lamp-orientation') !== -1) {
+  if (segmentInfo.variants.indexOf('lamp-orientation') !== -1) {
     if (left && right && leftOwnerAsphalt && rightOwnerAsphalt) {
       variant['lamp-orientation'] = 'both'
     } else if (left && leftOwnerAsphalt) {

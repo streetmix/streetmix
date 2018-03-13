@@ -1,7 +1,7 @@
 import { onResize } from '../app/window_resize'
 import { system } from '../preinit/system_capabilities'
 import { BUILDING_SPACE, createBuildings } from '../segments/buildings'
-import { SEGMENT_INFO } from '../segments/info'
+import { getSegmentVariantInfo } from '../segments/info'
 import { getSegmentWidthResolution } from '../segments/resizing'
 import { TILE_SIZE } from '../segments/view'
 // import { getStreet } from './data_model'
@@ -74,7 +74,7 @@ export function recalculateWidth () {
 
   for (var i in street.segments) {
     var segment = street.segments[i]
-    var variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString]
+    const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
 
     if (segment.el) {
       if ((street.remainingWidth < 0) &&

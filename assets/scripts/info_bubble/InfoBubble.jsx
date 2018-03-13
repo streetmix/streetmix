@@ -14,7 +14,7 @@ import { resumeFadeoutControls } from '../segments/resizing'
 // import { getStreet } from '../streets/data_model'
 // import { trackEvent } from '../app/event_tracking'
 import { BUILDINGS } from '../segments/buildings'
-import { SEGMENT_INFO } from '../segments/info'
+import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
 import { loseAnyFocus } from '../util/focus'
 import { getElAbsolutePos } from '../util/helpers'
 import { setInfoBubbleMouseInside } from '../store/actions/infoBubble'
@@ -155,8 +155,8 @@ class InfoBubble extends React.Component {
       case INFO_BUBBLE_TYPE_SEGMENT: {
         const segment = this.state.segment
         if (segment) {
-          const segmentName = SEGMENT_INFO[segment.type].name
-          const segmentVariantName = SEGMENT_INFO[segment.type].details[segment.variantString].name
+          const segmentName = getSegmentInfo(segment.type).name
+          const segmentVariantName = getSegmentVariantInfo(segment.type, segment.variantString).name
           const segmentType = segment.type
           const segmentVariant = segment.variantString
 

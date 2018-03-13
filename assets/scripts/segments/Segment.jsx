@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { SEGMENT_INFO } from '../segments/info'
+import { getSegmentVariantInfo, getSegmentInfo } from '../segments/info'
 import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, suppressMouseEnter } from './resizing'
 import { drawSegmentContents, getVariantInfoDimensions, segmentsChanged, TILE_SIZE } from './view'
 import { prettifyWidth } from '../util/width_units'
@@ -73,8 +73,9 @@ class Segment extends React.Component {
   }
 
   render () {
-    const variantInfo = SEGMENT_INFO[this.props.type].details[this.props.variantString]
-    const name = variantInfo.name || SEGMENT_INFO[this.props.type].name
+    const segmentInfo = getSegmentInfo(this.props.type)
+    const variantInfo = getSegmentVariantInfo(this.props.type, this.props.variantString)
+    const name = variantInfo.name || segmentInfo.name
     const width = this.calculateWidth(RESIZE_TYPE_INITIAL)
     const widthText = <React.Fragment>{prettifyWidth(width, this.props.units)}<wbr />\'</React.Fragment>
     const segmentWidth = this.props.width // may need to double check this. setSegmentContents() was called with other widths
@@ -99,14 +100,14 @@ class Segment extends React.Component {
           // In a street, certain segments have stacking priority over others (expressed as z-index).
           // In a palette, segments are side-by-side so they don't need stacking priority.
           // Setting a z-index here will clobber a separate z-index (applied via CSS) when hovered by mouse pointer
-          zIndex: (this.props.forPalette) ? null : SEGMENT_INFO[this.props.type].zIndex
+          zIndex: (this.props.forPalette) ? null : segmentInfo.zIndex
         }}
         className={'segment' + (this.props.isUnmovable ? ' unmovable' : '') + (this.props.forPalette ? ' segment-in-palette' : '')}
         data-segment-type={this.props.type}
         data-variant-string={this.props.variantString}
         data-rand-seed={this.props.randSeed}
         data-width={width}
-        title={this.props.forPalette ? SEGMENT_INFO[this.props.type].name : null}>
+        title={this.props.forPalette ? segmentInfo.name : null}>
         {!this.props.forPalette &&
           <React.Fragment>
             <span className="name" data-i18n={'segment-info:segments.' + this.props.type + '.name'}>

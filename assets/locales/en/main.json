@@ -210,7 +210,10 @@
       "not-wide": "This segment might not be wide enough.",
       "too-wide": "This segment might be too wide."
     },
-    "learn-more": "Learn more"
+    "learn-more": "Learn more",
+    "unknown": {
+      "label": "Unknown"
+    }
   },
   "section": {
     "empty": "Empty space"

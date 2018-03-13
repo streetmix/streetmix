@@ -4,7 +4,7 @@ import Scrollable from '../ui/Scrollable'
 import { connect } from 'react-redux'
 import { t } from '../app/locale'
 import { generateRandSeed } from '../util/random'
-import { SEGMENT_INFO } from '../segments/info'
+import { getAllSegmentInfo } from '../segments/info'
 import { TILE_SIZE, getVariantInfoDimensions } from '../segments/view'
 import Segment from '../segments/Segment'
 import UndoRedo from './UndoRedo'
@@ -58,9 +58,10 @@ class Palette extends React.Component {
 
   renderPaletteItems = () => {
     const paletteItems = []
+    const segments = getAllSegmentInfo()
 
-    for (let id in SEGMENT_INFO) {
-      let segmentInfo = SEGMENT_INFO[id]
+    for (let id in segments) {
+      const segmentInfo = segments[id]
 
       // Segments that are only enabled with a flag checks to see if flag
       // is set to true. If not, bail.

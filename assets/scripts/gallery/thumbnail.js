@@ -8,7 +8,7 @@ import {
   GROUND_BASELINE_HEIGHT,
   drawBuilding
 } from '../segments/buildings'
-import { SEGMENT_INFO } from '../segments/info'
+import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
 import {
   TILE_SIZE,
   getVariantInfoDimensions,
@@ -110,10 +110,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
   // Collect z-indexes
   const zIndexes = []
   for (let segment of street.segments) {
-    const segmentInfo = SEGMENT_INFO[segment.type]
-
-    // Skip segments that don't exist if it mismatches data
-    if (!segmentInfo) continue
+    const segmentInfo = getSegmentInfo(segment.type)
 
     if (zIndexes.indexOf(segmentInfo.zIndex) === -1) {
       zIndexes.push(segmentInfo.zIndex)
@@ -125,13 +122,10 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
     let offsetLeft = originalOffsetLeft
 
     for (let segment of street.segments) {
-      const segmentInfo = SEGMENT_INFO[segment.type]
-
-      // Skip segments that don't exist if it mismatches data
-      if (!segmentInfo) continue
+      const segmentInfo = getSegmentInfo(segment.type)
 
       if (segmentInfo.zIndex === zIndex) {
-        const variantInfo = segmentInfo.details[segment.variantString]
+        const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
         const dimensions = getVariantInfoDimensions(variantInfo, segment.width * TILE_SIZE, 1)
 
         drawSegmentContents(ctx, segment.type, segment.variantString,
@@ -165,8 +159,8 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
     for (let i in street.segments) {
       const segment = street.segments[i]
-      const segmentInfo = SEGMENT_INFO[segment.type]
-      const variantInfo = SEGMENT_INFO[segment.type].details[segment.variantString]
+      const segmentInfo = getSegmentInfo(segment.type)
+      const variantInfo = getSegmentVariantInfo(segment.variantString)
       const availableWidth = segment.width * TILE_SIZE * multiplier
 
       let left = offsetLeft
