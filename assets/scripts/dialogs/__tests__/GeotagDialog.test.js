@@ -9,26 +9,18 @@ jest.mock('../../streets/remix', () => ({
   getRemixOnFirstEdit: jest.fn()
 }))
 
-function getTestComponent (addressInformation = null, street = null) {
+function getTestComponent (addressInformation, street) {
   const testMarker = { lat: 0, lng: 0 }
-  let testAddressInfo = {
+  const testAddressInfo = addressInformation || {
     street: 'foo',
     id: 'foo'
   }
-  let testStreet = {
+  const testStreet = street || {
     creatorId: 'foo',
     location: {
       label: 'foo',
       wofId: 'foo'
     }
-  }
-
-  if (addressInformation) {
-    testAddressInfo = addressInformation
-  }
-
-  if (street) {
-    testStreet = street
   }
 
   return (
