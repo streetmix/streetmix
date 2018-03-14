@@ -22,8 +22,8 @@ class MenuBar extends React.PureComponent {
     noInternet: false
   }
 
-  constructor (props) {
-    super(props)
+  componentDidMount () {
+    this.attachSignInTracking()
 
     window.addEventListener('resize', this.onResize)
 
@@ -31,14 +31,16 @@ class MenuBar extends React.PureComponent {
     window.addEventListener('stmx:streetnamecanvas_mounted', this.onResize)
   }
 
-  componentDidMount () {
-    this.attachSignInTracking()
-  }
-
   componentDidUpdate (prevProps) {
     if (this.props.userId && !prevProps.userId) {
       this.attachSignInTracking()
     }
+  }
+
+  componentWillUnmount () {
+    // Clean up event listeners
+    window.removeEventListener('resize', this.onResize)
+    window.removeEventListener('stmx:streetnamecanvas_mounted', this.onResize)
   }
 
   /**
