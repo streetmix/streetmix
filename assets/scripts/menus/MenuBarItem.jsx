@@ -9,9 +9,8 @@ export class MenuBarItem extends React.PureComponent {
     children: PropTypes.any,
 
     // Otherwise, uses a <FormattedMessage /> component to render menu label
-    name: PropTypes.string,
-    translation: PropTypes.string,
     label: PropTypes.string,
+    translation: PropTypes.string,
 
     // If provided, renders using anchor tags intead of buttons
     url: PropTypes.string,
@@ -35,7 +34,7 @@ export class MenuBarItem extends React.PureComponent {
   }
 
   render () {
-    const { name, translation, label, requireInternet, url, handleClick, noInternet, dispatch, ...restProps } = this.props
+    const { translation, label, requireInternet, url, handleClick, noInternet, dispatch, ...restProps } = this.props
 
     if (requireInternet && noInternet) return null
 
@@ -56,7 +55,6 @@ export class MenuBarItem extends React.PureComponent {
       return (
         <li>
           <button
-            data-name={name}
             className="menu-attached"
             disabled={false}
             onClick={handleClick}

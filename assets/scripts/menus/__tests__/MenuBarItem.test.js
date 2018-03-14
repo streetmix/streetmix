@@ -9,7 +9,7 @@ function FormattedMessage () {
 
 describe('MenuBarItem', () => {
   it('renders without crashing', () => {
-    const wrapper = shallow(<MenuBarItem translation="foo" label="foo" />)
+    const wrapper = shallow(<MenuBarItem label="foo" translation="foo" />)
     expect(wrapper.children().length).toEqual(1)
   })
 

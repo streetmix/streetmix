@@ -57,16 +57,15 @@ class MenuBar extends React.PureComponent {
 
   /**
    * Handles clicks on <button> elements which result in a dropdown menu.
+   * Pass in the name of this menu, and it returns (curries) a function
+   * that handles the event.
    */
-  onClickMenuButton = (event) => {
-    // We need to send to the parent component (which handles menus) information
-    // about what button was clicked and its position, so that the specified
-    // menu can open in the correct place. The clicked button stores `data-name`
-    // on its attributes, and position is based on its parent `li` element.
-    const buttonEl = event.target.closest('button')
-    const name = buttonEl.dataset.name
-    const position = getElAbsolutePos(buttonEl.parentNode)
-    this.props.onMenuDropdownClick({ name, position })
+  onClickMenuButton = (menu) => {
+    return (event) => {
+      const buttonEl = event.target.closest('button')
+      const position = getElAbsolutePos(buttonEl)
+      this.props.onMenuDropdownClick(menu, position)
+    }
   }
 
   onClickMyStreets = (event) => {
@@ -92,7 +91,7 @@ class MenuBar extends React.PureComponent {
   renderUserAvatar = (userId) => {
     return (userId)
       ? (
-        <MenuBarItem name="identity" handleClick={this.onClickMenuButton} requireInternet>
+        <MenuBarItem handleClick={this.onClickMenuButton('identity')} requireInternet>
           <Avatar userId={userId} />
           <span className="user-id">{userId}</span>
         </MenuBarItem>
@@ -114,10 +113,9 @@ class MenuBar extends React.PureComponent {
 
     const SettingsButton = this.props.enableLocaleSettings &&
       <MenuBarItem
-        name="settings"
-        translation="menu.item.settings"
         label="Settings"
-        handleClick={this.onClickMenuButton}
+        translation="menu.item.settings"
+        handleClick={this.onClickMenuButton('settings')}
       />
 
     return (
@@ -127,27 +125,27 @@ class MenuBar extends React.PureComponent {
             <div className="streetmix-logo" />
             <h1>Streetmix</h1>
           </li>
-          <MenuBarItem name="help" translation="menu.item.help" label="Help" handleClick={this.onClickMenuButton} />
-          <MenuBarItem name="contact" translation="menu.item.contact" label="Contact" handleClick={this.onClickMenuButton} requireInternet />
-          <MenuBarItem name="contribute" translation="menu.item.contribute" label="Contribute" handleClick={this.onClickMenuButton} requireInternet />
+          <MenuBarItem label="Help" translation="menu.item.help" handleClick={this.onClickMenuButton('help')} />
+          <MenuBarItem label="Contact" translation="menu.item.contact" handleClick={this.onClickMenuButton('contact')} requireInternet />
+          <MenuBarItem label="Contribute" translation="menu.item.contribute" handleClick={this.onClickMenuButton('contribute')} requireInternet />
         </ul>
         <ul className="menu-bar-right" ref={(ref) => { this.menuBarRight = ref }}>
           {this.renderUserAvatar(userId)}
           <MenuBarItem
-            url="/new"
-            translation="menu.item.new-street"
             label="New street"
+            translation="menu.item.new-street"
+            url="/new"
             target="_blank"
           />
           <MenuBarItem
-            url={myStreetsLink}
-            translation="menu.item.my-streets"
             label="My streets"
+            translation="menu.item.my-streets"
+            url={myStreetsLink}
             handleClick={this.onClickMyStreets}
             requireInternet
           />
           {SettingsButton}
-          <MenuBarItem name="share" translation="menu.item.share" label="Share" handleClick={this.onClickMenuButton} />
+          <MenuBarItem label="Share" translation="menu.item.share" handleClick={this.onClickMenuButton('share')} />
         </ul>
         <EnvironmentBadge />
       </nav>

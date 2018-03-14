@@ -57,12 +57,15 @@ class MenusContainer extends React.PureComponent {
    * Clicked buttons that have a menu component will report back to this component
    * what was clicked and where it should be placed, which is then passed to
    * individual menus.
+   *
+   * @param {string} menu - name of the menu that was clicked
+   * @param {Array} position - [x, y] position to place the menu at
    */
-  onMenuDropdownClick = (clickedItem) => {
+  onMenuDropdownClick = (menu, position) => {
     // If the clicked menu is already active, it's toggled off.
-    const activeMenu = (this.props.activeMenu === clickedItem.name) ? null : clickedItem.name
+    const activeMenu = (this.props.activeMenu === menu) ? null : menu
     this.setState({
-      activeMenuPos: activeMenu ? clickedItem.position : [0, 0]
+      activeMenuPos: activeMenu ? position : [0, 0]
     })
     this.props.showMenu(activeMenu)
   }

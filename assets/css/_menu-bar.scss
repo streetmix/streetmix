@@ -75,8 +75,7 @@ $top-menu-active-text: darken($ui-colour, 40%);
     @include tap-highlight-color(transparent);
 
     border: 0;
-    padding: 10px;
-    margin: -10px;
+    padding: 0;
     font-size: inherit;
     font-weight: inherit;
     text-rendering: optimizeLegibility;
