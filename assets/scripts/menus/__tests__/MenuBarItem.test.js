@@ -10,8 +10,7 @@ function FormattedMessage () {
 describe('MenuBarItem', () => {
   it('renders without crashing', () => {
     const wrapper = shallow(<MenuBarItem translation="foo" label="foo" />)
-    // expect(wrapper.find(FormattedMessage).exists()).toEqual(true)
-    expect(wrapper.find('div').length).toEqual(1)
+    expect(wrapper.children().length).toEqual(1)
   })
 
   it('handles the click', () => {
@@ -19,11 +18,6 @@ describe('MenuBarItem', () => {
     const wrapper = shallow(<MenuBarItem handleClick={showDialog} />)
     wrapper.find('button').simulate('click')
     expect(showDialog).toBeCalled()
-  })
-
-  it('does not render if it requires Internet access, and there is no Internet', () => {
-    const wrapper = shallow(<MenuBarItem requireInternet />)
-    expect(wrapper.find('div').length).toEqual(1)
   })
 
   it('renders children instead of default label if provided', () => {
@@ -41,5 +35,22 @@ describe('MenuBarItem', () => {
   it('passes unhandled props to child elements', () => {
     const wrapper = shallow(<MenuBarItem className="foo" />)
     expect(wrapper.find('.foo').exists()).toEqual(true)
+  })
+
+  describe('internet connectivity behavior', () => {
+    it('does not render if it requires Internet access, and there is no Internet', () => {
+      const wrapper = shallow(<MenuBarItem requireInternet noInternet />)
+      expect(wrapper.children().length).toEqual(0)
+    })
+
+    it('renders if it requires Internet access, and there is Internet', () => {
+      const wrapper = shallow(<MenuBarItem requireInternet noInternet={false} />)
+      expect(wrapper.children().length).toEqual(1)
+    })
+
+    it('renders if it does not require Internet access, and there is no Internet', () => {
+      const wrapper = shallow(<MenuBarItem noInternet />)
+      expect(wrapper.children().length).toEqual(1)
+    })
   })
 })

@@ -29,7 +29,9 @@ export class MenuBarItem extends React.PureComponent {
 
   static defaultProps = {
     requireInternet: false,
-    handleClick: () => {}
+    handleClick: () => {},
+    translation: '',
+    label: ''
   }
 
   render () {
