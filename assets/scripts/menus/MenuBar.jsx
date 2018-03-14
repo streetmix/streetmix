@@ -91,7 +91,7 @@ class MenuBar extends React.PureComponent {
   renderUserAvatar = (userId) => {
     return (userId)
       ? (
-        <MenuBarItem handleClick={this.onClickMenuButton('identity')} requireInternet>
+        <MenuBarItem onClick={this.onClickMenuButton('identity')} requireInternet>
           <Avatar userId={userId} />
           <span className="user-id">{userId}</span>
         </MenuBarItem>
@@ -115,7 +115,7 @@ class MenuBar extends React.PureComponent {
       <MenuBarItem
         label="Settings"
         translation="menu.item.settings"
-        handleClick={this.onClickMenuButton('settings')}
+        onClick={this.onClickMenuButton('settings')}
       />
 
     return (
@@ -125,9 +125,9 @@ class MenuBar extends React.PureComponent {
             <div className="streetmix-logo" />
             <h1>Streetmix</h1>
           </li>
-          <MenuBarItem label="Help" translation="menu.item.help" handleClick={this.onClickMenuButton('help')} />
-          <MenuBarItem label="Contact" translation="menu.item.contact" handleClick={this.onClickMenuButton('contact')} requireInternet />
-          <MenuBarItem label="Contribute" translation="menu.item.contribute" handleClick={this.onClickMenuButton('contribute')} requireInternet />
+          <MenuBarItem label="Help" translation="menu.item.help" onClick={this.onClickMenuButton('help')} />
+          <MenuBarItem label="Contact" translation="menu.item.contact" onClick={this.onClickMenuButton('contact')} requireInternet />
+          <MenuBarItem label="Contribute" translation="menu.item.contribute" onClick={this.onClickMenuButton('contribute')} requireInternet />
         </ul>
         <ul className="menu-bar-right" ref={(ref) => { this.menuBarRight = ref }}>
           {this.renderUserAvatar(userId)}
@@ -141,11 +141,11 @@ class MenuBar extends React.PureComponent {
             label="My streets"
             translation="menu.item.my-streets"
             url={myStreetsLink}
-            handleClick={this.onClickMyStreets}
+            onClick={this.onClickMyStreets}
             requireInternet
           />
           {SettingsButton}
-          <MenuBarItem label="Share" translation="menu.item.share" handleClick={this.onClickMenuButton('share')} />
+          <MenuBarItem label="Share" translation="menu.item.share" onClick={this.onClickMenuButton('share')} />
         </ul>
         <EnvironmentBadge />
       </nav>

@@ -16,7 +16,7 @@ export class MenuBarItem extends React.PureComponent {
     url: PropTypes.string,
 
     // Event handlers
-    handleClick: PropTypes.func,
+    onClick: PropTypes.func,
 
     // Won't display if there's no internet detected
     requireInternet: PropTypes.bool,
@@ -28,13 +28,13 @@ export class MenuBarItem extends React.PureComponent {
 
   static defaultProps = {
     requireInternet: false,
-    handleClick: () => {},
+    onClick: () => {},
     translation: '',
     label: ''
   }
 
   render () {
-    const { translation, label, requireInternet, url, handleClick, noInternet, dispatch, ...restProps } = this.props
+    const { translation, label, requireInternet, url, onClick, noInternet, dispatch, ...restProps } = this.props
 
     if (requireInternet && noInternet) return null
 
@@ -44,7 +44,7 @@ export class MenuBarItem extends React.PureComponent {
     if (url) {
       return (
         <li>
-          <a href={url} onClick={handleClick} {...restProps}>
+          <a href={url} onClick={onClick} {...restProps}>
             {children}
           </a>
         </li>
@@ -57,7 +57,7 @@ export class MenuBarItem extends React.PureComponent {
           <button
             className="menu-attached"
             disabled={false}
-            onClick={handleClick}
+            onClick={onClick}
             {...restProps}
           >
             {children}

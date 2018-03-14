@@ -14,10 +14,10 @@ describe('MenuBarItem', () => {
   })
 
   it('handles the click', () => {
-    const showDialog = jest.fn()
-    const wrapper = shallow(<MenuBarItem handleClick={showDialog} />)
+    const handleClick = jest.fn()
+    const wrapper = shallow(<MenuBarItem onClick={handleClick} />)
     wrapper.find('button').simulate('click')
-    expect(showDialog).toBeCalled()
+    expect(handleClick).toBeCalled()
   })
 
   it('renders children instead of default label if provided', () => {
