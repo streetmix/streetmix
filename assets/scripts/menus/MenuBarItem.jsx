@@ -3,40 +3,68 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 
-export class MenuBarItem extends React.Component {
+export class MenuBarItem extends React.PureComponent {
   static propTypes = {
+    // Accepts children
     children: PropTypes.any,
+
+    // Otherwise, uses a <FormattedMessage /> component to render menu label
     name: PropTypes.string,
-    translation: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
+    translation: PropTypes.string,
+    label: PropTypes.string,
+
+    // If provided, renders using anchor tags intead of buttons
+    url: PropTypes.string,
+
+    // Event handlers
     handleClick: PropTypes.func,
+
+    // Won't display if there's no internet detected
     requireInternet: PropTypes.bool,
+
+    // Props from store
+    dispatch: PropTypes.func,
     noInternet: PropTypes.bool
   }
 
   static defaultProps = {
-    requireInternet: false
+    requireInternet: false,
+    handleClick: () => {}
   }
 
   render () {
-    const { name, translation, label, requireInternet } = this.props
+    const { name, translation, label, requireInternet, url, handleClick, noInternet, dispatch, ...restProps } = this.props
 
-    if (requireInternet && this.props.noInternet) return null
+    if (requireInternet && noInternet) return null
 
-    // Buttons have `disabled={false}` because Firefox
-    // sometimes disables some buttons… unsure why
-    return (
-      <li>
-        <button
-          data-name={name}
-          className="menu-attached"
-          disabled={false}
-          onClick={this.props.handleClick}
-        >
-          {this.props.children || <FormattedMessage id={translation} defaultMessage={label} />}
-        </button>
-      </li>
-    )
+    const children = this.props.children ||
+      <FormattedMessage id={translation} defaultMessage={label} />
+
+    if (url) {
+      return (
+        <li>
+          <a href={url} onClick={handleClick} {...restProps}>
+            {children}
+          </a>
+        </li>
+      )
+    } else {
+      // Buttons have `disabled={false}` because Firefox
+      // sometimes disables some buttons… unsure why
+      return (
+        <li>
+          <button
+            data-name={name}
+            className="menu-attached"
+            disabled={false}
+            onClick={handleClick}
+            {...restProps}
+          >
+            {children}
+          </button>
+        </li>
+      )
+    }
   }
 }
 

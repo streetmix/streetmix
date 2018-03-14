@@ -2,7 +2,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { FormattedMessage } from 'react-intl'
 import EnvironmentBadge from './EnvironmentBadge'
 import { URL_SIGN_IN_REDIRECT } from '../app/routing'
 import { showGallery } from '../gallery/view'
@@ -14,8 +13,7 @@ class MenuBar extends React.PureComponent {
   static propTypes = {
     onMenuDropdownClick: PropTypes.func,
     userId: PropTypes.string,
-    enableLocaleSettings: PropTypes.bool,
-    noInternet: PropTypes.bool
+    enableLocaleSettings: PropTypes.bool
   }
 
   static defaultProps = {
@@ -90,45 +88,35 @@ class MenuBar extends React.PureComponent {
   }
 
   renderUserAvatar = (userId) => {
-    if (this.props.noInternet) return null
-
     return (userId)
-      ? (<li>
-        <button
-          data-name="identity"
-          className="menu-attached"
-          disabled={false}
-          onClick={this.onClickMenuButton}
-        >
+      ? (
+        <MenuBarItem name="identity" handleClick={this.onClickMenuButton} requireInternet>
           <Avatar userId={userId} />
           <span className="user-id">{userId}</span>
-        </button>
-      </li>) : (<li>
-        <a
-          href={`/${URL_SIGN_IN_REDIRECT}`}
+        </MenuBarItem>
+      ) : (
+        <MenuBarItem
+          url={`/${URL_SIGN_IN_REDIRECT}`}
+          translation="menu.item.sign-in"
+          label="Sign in"
+          requireInternet
           className="command"
           id="sign-in-link"
-        >
-          <FormattedMessage id="menu.item.sign-in" defaultMessage="Sign in" />
-        </a>
-      </li>)
+        />
+      )
   }
 
   render () {
     const userId = this.props.userId
     const myStreetsLink = userId ? `/${userId}` : ''
 
-    const UserAvatar = this.renderUserAvatar(userId)
-    const MyStreetsButton = (this.props.noInternet) ? null : (
-      <li>
-        <a href={myStreetsLink} onClick={this.onClickMyStreets}>
-          <FormattedMessage id="menu.item.my-streets" defaultMessage="My streets" />
-        </a>
-      </li>
-    )
-    const SettingsButton = (this.props.enableLocaleSettings)
-      ? <MenuBarItem name="settings" translation="menu.item.settings" label="Settings" handleClick={this.onClickMenuButton} />
-      : null
+    const SettingsButton = this.props.enableLocaleSettings &&
+      <MenuBarItem
+        name="settings"
+        translation="menu.item.settings"
+        label="Settings"
+        handleClick={this.onClickMenuButton}
+      />
 
     return (
       <nav className="menu-bar">
@@ -141,14 +129,21 @@ class MenuBar extends React.PureComponent {
           <MenuBarItem name="contact" translation="menu.item.contact" label="Contact" handleClick={this.onClickMenuButton} requireInternet />
           <MenuBarItem name="contribute" translation="menu.item.contribute" label="Contribute" handleClick={this.onClickMenuButton} requireInternet />
         </ul>
-        <ul ref={(ref) => { this.menuBarRight = ref }} className="menu-bar-right">
-          {UserAvatar}
-          <li>
-            <a href="/new" target="_blank">
-              <FormattedMessage id="menu.item.new-street" defaultMessage="New street" />
-            </a>
-          </li>
-          {MyStreetsButton}
+        <ul className="menu-bar-right" ref={(ref) => { this.menuBarRight = ref }}>
+          {this.renderUserAvatar(userId)}
+          <MenuBarItem
+            url="/new"
+            translation="menu.item.new-street"
+            label="New street"
+            target="_blank"
+          />
+          <MenuBarItem
+            url={myStreetsLink}
+            translation="menu.item.my-streets"
+            label="My streets"
+            handleClick={this.onClickMyStreets}
+            requireInternet
+          />
           {SettingsButton}
           <MenuBarItem name="share" translation="menu.item.share" label="Share" handleClick={this.onClickMenuButton} />
         </ul>
@@ -161,8 +156,7 @@ class MenuBar extends React.PureComponent {
 function mapStateToProps (state) {
   return {
     userId: state.user.signInData && state.user.signInData.userId,
-    enableLocaleSettings: state.flags.LOCALES_LEVEL_1.value || state.flags.LOCALES_LEVEL_2.value || state.flags.LOCALES_LEVEL_3.value,
-    noInternet: state.system.noInternet
+    enableLocaleSettings: state.flags.LOCALES_LEVEL_1.value || state.flags.LOCALES_LEVEL_2.value || state.flags.LOCALES_LEVEL_3.value
   }
 }
 
