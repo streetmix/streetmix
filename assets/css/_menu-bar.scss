@@ -40,19 +40,14 @@ $top-menu-active-text: darken($ui-colour, 40%);
   li {
     display: inline-block;
     white-space: nowrap;
+  }
 
-    // Dot separator between menu items
-    &::after {
+  // Dot separator between menu items
+  li + li {
+    &::before {
       content: '·';
       margin-left: 0.5em;
       margin-right: 0.5em;
-    }
-
-    // No dot separator on the last menu item
-    &:last-child::after {
-      content: '';
-      margin-left: 0;
-      margin-right: 0;
     }
   }
 

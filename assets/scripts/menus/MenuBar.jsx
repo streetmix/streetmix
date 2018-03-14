@@ -112,7 +112,7 @@ class MenuBar extends React.PureComponent {
       </li>)
 
     const SettingsButton = (this.props.enableLocaleSettings)
-      ? (<li id="settings-menu-item">
+      ? (<li>
         <button
           data-name="settings"
           className="menu-attached"
@@ -132,7 +132,7 @@ class MenuBar extends React.PureComponent {
             <div className="streetmix-logo" />
             <h1>Streetmix</h1>
           </li>
-          <li id="help-menu-item">
+          <li>
             <button
               data-name="help"
               className="menu-attached"
