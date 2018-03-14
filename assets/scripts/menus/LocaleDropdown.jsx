@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { t, getLocale, onNewLocaleSelected } from '../app/locale'
+import { t, onNewLocaleSelected } from '../app/locale'
 import { trackEvent } from '../app/event_tracking'
 
 /**
@@ -82,6 +82,7 @@ const LOCALES = [
 
 export class LocaleDropdown extends React.Component {
   static propTypes = {
+    locale: PropTypes.string,
     /* eslint-disable react/no-unused-prop-types */
     // These props _are_ used but linter can't tell
     level1: PropTypes.bool.isRequired,
@@ -107,7 +108,7 @@ export class LocaleDropdown extends React.Component {
   componentDidMount () {
     // Set the dropdown to the current language.
     // If current language is not in the list, fallback to US English.
-    this.localeSelect.value = getLocale()
+    this.localeSelect.value = this.props.locale.replace('-', '_')
     if (!this.localeSelect.value) {
       this.localeSelect.value = 'en'
     }
@@ -152,6 +153,7 @@ export class LocaleDropdown extends React.Component {
 
 function mapStateToProps (state) {
   return {
+    locale: state.locale.locale,
     level1: state.flags.LOCALES_LEVEL_1.value,
     level2: state.flags.LOCALES_LEVEL_2.value,
     level3: state.flags.LOCALES_LEVEL_3.value

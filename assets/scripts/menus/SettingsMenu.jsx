@@ -1,4 +1,5 @@
 import React from 'react'
+import { FormattedMessage } from 'react-intl'
 import Menu from './Menu'
 import LocaleDropdown from './LocaleDropdown'
 
@@ -7,7 +8,7 @@ export default class SettingsMenu extends React.PureComponent {
     return (
       <Menu alignment="right" onShow={this.onShow} {...this.props}>
         <div className="form">
-          <p><span data-i18n="menu.language.heading">Language</span></p>
+          <p><FormattedMessage id="menu.language.heading" defaultMessage="Language" /></p>
           <LocaleDropdown />
         </div>
       </Menu>

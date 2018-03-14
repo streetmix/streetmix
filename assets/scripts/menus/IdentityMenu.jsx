@@ -1,6 +1,6 @@
 import React from 'react'
+import { FormattedMessage } from 'react-intl'
 import Menu from './Menu'
-import { t } from '../app/locale'
 import { onSignOutClick } from '../users/authentication'
 
 export default class IdentityMenu extends React.PureComponent {
@@ -8,7 +8,7 @@ export default class IdentityMenu extends React.PureComponent {
     return (
       <Menu {...this.props}>
         <a href="#" onClick={onSignOutClick}>
-          {t('menu.item.sign-out', 'Sign out')}
+          <FormattedMessage id="menu.item.sign-out" defaultMessage="Sign out" />
         </a>
       </Menu>
     )

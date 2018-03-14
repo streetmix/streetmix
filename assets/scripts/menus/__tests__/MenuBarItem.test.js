@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { MenuBarItem } from '../MenuBarItem'
 import { shallow } from 'enzyme'
+import { MenuBarItem } from '../MenuBarItem'
 
 function FormattedMessage () {
   return <span />

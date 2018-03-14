@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import SettingsMenu from '../SettingsMenu'
 import { shallow } from 'enzyme'
+import SettingsMenu from '../SettingsMenu'
 
 describe('SettingsMenu', () => {
   it('renders without crashing', () => {
