@@ -7,6 +7,7 @@ import EnvironmentBadge from './EnvironmentBadge'
 import { URL_SIGN_IN_REDIRECT } from '../app/routing'
 import { showGallery } from '../gallery/view'
 import { getElAbsolutePos } from '../util/helpers'
+import MenuBarItem from './MenuBarItem'
 import Avatar from '../users/Avatar'
 
 class MenuBar extends React.PureComponent {
@@ -113,23 +114,6 @@ class MenuBar extends React.PureComponent {
       </li>)
   }
 
-  renderMenuButton = (name, translation, label, requireInternet = false) => {
-    if (requireInternet && this.props.noInternet) return null
-
-    return (
-      <li>
-        <button
-          data-name={name}
-          className="menu-attached"
-          disabled={false}
-          onClick={this.onClickMenuButton}
-        >
-          <FormattedMessage id={translation} defaultMessage={label} />
-        </button>
-      </li>
-    )
-  }
-
   render () {
     const userId = this.props.userId
     const myStreetsLink = userId ? `/${userId}` : ''
@@ -143,10 +127,9 @@ class MenuBar extends React.PureComponent {
       </li>
     )
     const SettingsButton = (this.props.enableLocaleSettings)
-      ? this.renderMenuButton('settings', 'menu.item.settings', 'Settings') : null
+      ? <MenuBarItem name="settings" translation="menu.item.settings" label="Settings" handleClick={this.onClickMenuButton} />
+      : null
 
-    // Buttons have `disabled={false}` because
-    // Firefox sometimes disables some buttons… unsure why
     return (
       <nav className="menu-bar">
         <ul className="menu-bar-left">
@@ -154,9 +137,9 @@ class MenuBar extends React.PureComponent {
             <div className="streetmix-logo" />
             <h1>Streetmix</h1>
           </li>
-          {this.renderMenuButton('help', 'menu.item.help', 'Help')}
-          {this.renderMenuButton('contact', 'menu.item.contact', 'Contact', true)}
-          {this.renderMenuButton('contribute', 'menu.item.contribute', 'Contribute', true)}
+          <MenuBarItem name="help" translation="menu.item.help" label="Help" handleClick={this.onClickMenuButton} />
+          <MenuBarItem name="contact" translation="menu.item.contact" label="Contact" handleClick={this.onClickMenuButton} requireInternet />
+          <MenuBarItem name="contribute" translation="menu.item.contribute" label="Contribute" handleClick={this.onClickMenuButton} requireInternet />
         </ul>
         <ul ref={(ref) => { this.menuBarRight = ref }} className="menu-bar-right">
           {UserAvatar}
@@ -167,7 +150,7 @@ class MenuBar extends React.PureComponent {
           </li>
           {MyStreetsButton}
           {SettingsButton}
-          {this.renderMenuButton('share', 'menu.item.share', 'Share')}
+          <MenuBarItem name="share" translation="menu.item.share" label="Share" handleClick={this.onClickMenuButton} />
         </ul>
         <EnvironmentBadge />
       </nav>
