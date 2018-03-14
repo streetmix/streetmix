@@ -21,6 +21,7 @@ describe('StreetMetaData', () => {
       <StreetMetaData.WrappedComponent
         street={{}}
         signedIn
+        locale={{}}
       />
     )
     expect(wrapper.exists()).toEqual(true)
@@ -42,6 +43,7 @@ describe('StreetMetaData', () => {
         readOnly
         enableLocation
         signedIn
+        locale={{}}
       />
     )
 
@@ -55,6 +57,7 @@ describe('StreetMetaData', () => {
         readOnly
         enableLocation
         signedIn
+        locale={{}}
       />
     )
 
