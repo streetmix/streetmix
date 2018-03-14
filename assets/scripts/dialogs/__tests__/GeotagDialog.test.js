@@ -9,6 +9,47 @@ jest.mock('../../streets/remix', () => ({
   getRemixOnFirstEdit: jest.fn()
 }))
 
+function getTestComponent (addressInformation = null, street = null) {
+  const testMarker = { lat: 0, lng: 0 }
+  let testAddressInfo = {
+    street: 'foo',
+    id: 'foo'
+  }
+  let testStreet = {
+    creatorId: 'foo',
+    location: {
+      label: 'foo',
+      wofId: 'foo'
+    }
+  }
+
+  if (addressInformation) {
+    testAddressInfo = addressInformation
+  }
+
+  if (street) {
+    testStreet = street
+  }
+
+  return (
+    <GeotagDialog.WrappedComponent
+      street={testStreet}
+      addressInformation={testAddressInfo}
+      markerLocation={testMarker}
+    />
+  )
+}
+
+function updateProps (wrapper) {
+  wrapper.setProps({
+    markerLocation: { lat: 10, lng: 10 },
+    addressInformation: {
+      street: 'bar',
+      id: 'bar'
+    }
+  })
+}
+
 describe('GeotagDialog', () => {
   it('renders without crashing', () => {
     const wrapper = shallow(
@@ -21,164 +62,49 @@ describe('GeotagDialog', () => {
   })
 
   it('does not allow a location to be confirmed when geocoded data does not have street data', () => {
-    const testMarker = { lat: 0, lng: 0 }
     const testAddressInfo = {
       street: null
     }
-    const wrapper = shallow(
-      <GeotagDialog.WrappedComponent
-        street={{}}
-        addressInformation={testAddressInfo}
-        markerLocation={testMarker}
-      />
-    )
+    const wrapper = shallow(getTestComponent(testAddressInfo, {}))
     expect(wrapper.find('button .confirm-button')).toHaveLength(0)
   })
+
   it('allows a location to be confirmed when the current signed-in user is the street owner', () => {
-    const testMarker = { lat: 0, lng: 0 }
-    const testAddressInfo = {
-      street: 'test street',
-      id: 'test id'
-    }
-    const testStreet = {
-      creatorId: 'test creator',
-      location: {
-        label: 'test location',
-        wofId: 'test id'
-      }
-    }
-    const wrapper = shallow(
-      <GeotagDialog.WrappedComponent
-        street={testStreet}
-        addressInformation={testAddressInfo}
-        markerLocation={testMarker}
-      />
-    )
+    const wrapper = shallow(getTestComponent())
     getRemixOnFirstEdit.mockReturnValueOnce(false)
-    wrapper.setProps({
-      markerLocation: { lat: 10, lng: 10 },
-      addressInformation: {
-        street: 'test street 2',
-        id: 'test id 2'
-      }
-    })
+    updateProps(wrapper)
     expect(wrapper.find('button .confirm-button')).toHaveLength(1)
   })
+
   it('allows a location to be confirmed when the current anonymous user started this street', () => {
-    const testMarker = { lat: 0, lng: 0 }
-    const testAddressInfo = {
-      street: 'test street',
-      id: 'test id'
-    }
-    const testStreet = {
-      creatorId: null,
-      location: {
-        label: 'test location',
-        wofId: 'test id'
-      }
-    }
-    const wrapper = shallow(
-      <GeotagDialog.WrappedComponent
-        street={testStreet}
-        addressInformation={testAddressInfo}
-        markerLocation={testMarker}
-      />
-    )
+    const wrapper = shallow(getTestComponent())
     getRemixOnFirstEdit.mockReturnValueOnce(false)
-    wrapper.setProps({
-      markerLocation: { lat: 10, lng: 10 },
-      addressInformation: {
-        street: 'test street 2',
-        id: 'test id 2'
-      }
-    })
+    updateProps(wrapper)
     expect(wrapper.find('button .confirm-button')).toHaveLength(1)
   })
+
   it('does not allow a location to be confirmed when the current signed-in user is not the street owner', () => {
-    const testMarker = { lat: 0, lng: 0 }
-    const testAddressInfo = {
-      street: 'test street',
-      id: 'test id'
-    }
-    const testStreet = {
-      creatorId: 'test creator',
-      location: {
-        label: 'test location',
-        wofId: 'test id'
-      }
-    }
-    const wrapper = shallow(
-      <GeotagDialog.WrappedComponent
-        street={testStreet}
-        addressInformation={testAddressInfo}
-        markerLocation={testMarker}
-      />
-    )
+    const wrapper = shallow(getTestComponent())
     getRemixOnFirstEdit.mockReturnValueOnce(true)
-    wrapper.setProps({
-      markerLocation: { lat: 10, lng: 10 },
-      addressInformation: {
-        street: 'test street 2',
-        id: 'test id 2'
-      }
-    })
+    updateProps(wrapper)
     expect(wrapper.find('button .confirm-button')).toHaveLength(0)
   })
+
   it('does not allow a location to be confirmed when the current anonymous user is not the street owner and there is already an existing location attached', () => {
-    const testMarker = { lat: 0, lng: 0 }
-    const testAddressInfo = {
-      street: 'test street',
-      id: 'test id'
-    }
-    const testStreet = {
-      creatorId: 'test creator',
-      location: {
-        label: 'test location',
-        wofId: 'test id'
-      }
-    }
-    const wrapper = shallow(
-      <GeotagDialog.WrappedComponent
-        street={testStreet}
-        addressInformation={testAddressInfo}
-        markerLocation={testMarker}
-      />
-    )
+    const wrapper = shallow(getTestComponent())
     getRemixOnFirstEdit.mockReturnValueOnce(true)
-    wrapper.setProps({
-      markerLocation: { lat: 10, lng: 10 },
-      addressInformation: {
-        street: 'test street 2',
-        id: 'test id 2'
-      }
-    })
+    updateProps(wrapper)
     expect(wrapper.find('button .confirm-button')).toHaveLength(0)
   })
+
   it('allows a location to be confirmed when the current anonymous user is not the street owner but there is no existing location attached', () => {
-    const testMarker = { lat: 0, lng: 0 }
-    const testAddressInfo = {
-      street: 'test street',
-      id: 'test id'
-    }
     const testStreet = {
-      creatorId: 'test creator',
+      creatorId: 'foo',
       location: null
     }
-    const wrapper = shallow(
-      <GeotagDialog.WrappedComponent
-        street={testStreet}
-        addressInformation={testAddressInfo}
-        markerLocation={testMarker}
-      />
-    )
+    const wrapper = shallow(getTestComponent(null, testStreet))
     getRemixOnFirstEdit.mockReturnValueOnce(true)
-    wrapper.setProps({
-      markerLocation: { lat: 10, lng: 10 },
-      addressInformation: {
-        street: 'test street 2',
-        id: 'test id 2'
-      }
-    })
+    updateProps(wrapper)
     expect(wrapper.find('button .confirm-button')).toHaveLength(1)
   })
 })
