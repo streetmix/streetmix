@@ -13,12 +13,14 @@ class MenuBar extends React.PureComponent {
   static propTypes = {
     onMenuDropdownClick: PropTypes.func,
     userId: PropTypes.string,
-    enableLocaleSettings: PropTypes.bool
+    enableLocaleSettings: PropTypes.bool,
+    noInternet: PropTypes.bool
   }
 
   static defaultProps = {
     userId: '',
-    enableLocaleSettings: false
+    enableLocaleSettings: false,
+    noInternet: false
   }
 
   constructor (props) {
@@ -86,12 +88,11 @@ class MenuBar extends React.PureComponent {
     }}))
   }
 
-  render () {
-    const userId = this.props.userId
-    const myStreetsLink = userId ? `/${userId}` : ''
+  renderUserAvatar = (userId) => {
+    if (this.props.noInternet) return null
 
-    const UserAvatar = (userId)
-      ? (<li className="hide-for-no-internet">
+    return (userId)
+      ? (<li>
         <button
           data-name="identity"
           className="menu-attached"
@@ -101,7 +102,7 @@ class MenuBar extends React.PureComponent {
           <Avatar userId={userId} />
           <span className="user-id">{userId}</span>
         </button>
-      </li>) : (<li className="hide-for-no-internet">
+      </li>) : (<li>
         <a
           href={`/${URL_SIGN_IN_REDIRECT}`}
           className="command"
@@ -110,18 +111,39 @@ class MenuBar extends React.PureComponent {
           <FormattedMessage id="menu.item.sign-in" defaultMessage="Sign in" />
         </a>
       </li>)
+  }
 
-    const SettingsButton = (this.props.enableLocaleSettings)
-      ? (<li>
+  renderMenuButton = (name, translation, label, requireInternet = false) => {
+    if (requireInternet && this.props.noInternet) return null
+
+    return (
+      <li>
         <button
-          data-name="settings"
+          data-name={name}
           className="menu-attached"
           disabled={false}
           onClick={this.onClickMenuButton}
         >
-          <FormattedMessage id="menu.item.settings" defaultMessage="Settings" />
+          <FormattedMessage id={translation} defaultMessage={label} />
         </button>
-      </li>) : null
+      </li>
+    )
+  }
+
+  render () {
+    const userId = this.props.userId
+    const myStreetsLink = userId ? `/${userId}` : ''
+
+    const UserAvatar = this.renderUserAvatar(userId)
+    const MyStreetsButton = (this.props.noInternet) ? null : (
+      <li>
+        <a href={myStreetsLink} onClick={this.onClickMyStreets}>
+          <FormattedMessage id="menu.item.my-streets" defaultMessage="My streets" />
+        </a>
+      </li>
+    )
+    const SettingsButton = (this.props.enableLocaleSettings)
+      ? this.renderMenuButton('settings', 'menu.item.settings', 'Settings') : null
 
     // Buttons have `disabled={false}` because
     // Firefox sometimes disables some buttons… unsure why
@@ -132,36 +154,9 @@ class MenuBar extends React.PureComponent {
             <div className="streetmix-logo" />
             <h1>Streetmix</h1>
           </li>
-          <li>
-            <button
-              data-name="help"
-              className="menu-attached"
-              disabled={false}
-              onClick={this.onClickMenuButton}
-            >
-              <FormattedMessage id="menu.item.help" defaultMessage="Help" />
-            </button>
-          </li>
-          <li className="hide-for-no-internet">
-            <button
-              data-name="contact"
-              className="menu-attached"
-              disabled={false}
-              onClick={this.onClickMenuButton}
-            >
-              <FormattedMessage id="menu.item.contact" defaultMessage="Contact" />
-            </button>
-          </li>
-          <li className="hide-for-no-internet">
-            <button
-              data-name="contribute"
-              className="menu-attached"
-              disabled={false}
-              onClick={this.onClickMenuButton}
-            >
-              <FormattedMessage id="menu.item.contribute" defaultMessage="Contribute" />
-            </button>
-          </li>
+          {this.renderMenuButton('help', 'menu.item.help', 'Help')}
+          {this.renderMenuButton('contact', 'menu.item.contact', 'Contact', true)}
+          {this.renderMenuButton('contribute', 'menu.item.contribute', 'Contribute', true)}
         </ul>
         <ul ref={(ref) => { this.menuBarRight = ref }} className="menu-bar-right">
           {UserAvatar}
@@ -170,22 +165,9 @@ class MenuBar extends React.PureComponent {
               <FormattedMessage id="menu.item.new-street" defaultMessage="New street" />
             </a>
           </li>
-          <li className="hide-for-no-internet">
-            <a href={myStreetsLink} onClick={this.onClickMyStreets}>
-              <FormattedMessage id="menu.item.my-streets" defaultMessage="My streets" />
-            </a>
-          </li>
+          {MyStreetsButton}
           {SettingsButton}
-          <li>
-            <button
-              data-name="share"
-              className="menu-attached"
-              disabled={false}
-              onClick={this.onClickMenuButton}
-            >
-              <FormattedMessage id="menu.item.share" defaultMessage="Share" />
-            </button>
-          </li>
+          {this.renderMenuButton('share', 'menu.item.share', 'Share')}
         </ul>
         <EnvironmentBadge />
       </nav>
@@ -196,7 +178,8 @@ class MenuBar extends React.PureComponent {
 function mapStateToProps (state) {
   return {
     userId: state.user.signInData && state.user.signInData.userId,
-    enableLocaleSettings: state.flags.LOCALES_LEVEL_1.value || state.flags.LOCALES_LEVEL_2.value || state.flags.LOCALES_LEVEL_3.value
+    enableLocaleSettings: state.flags.LOCALES_LEVEL_1.value || state.flags.LOCALES_LEVEL_2.value || state.flags.LOCALES_LEVEL_3.value,
+    noInternet: state.system.noInternet
   }
 }
 
