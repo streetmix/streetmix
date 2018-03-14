@@ -12,10 +12,7 @@ import { getElAbsolutePos } from '../util/helpers'
 import { generateRandSeed } from '../util/random'
 import { BUILDING_SPACE } from './buildings'
 import {
-  SEGMENT_OWNER_CAR,
-  SEGMENT_OWNER_BIKE,
-  SEGMENT_OWNER_PEDESTRIAN,
-  SEGMENT_OWNER_PUBLIC_TRANSIT,
+  SegmentTypes,
   getSegmentInfo,
   getSegmentVariantInfo
 } from './info'
@@ -602,15 +599,15 @@ function doDropHeuristics (type, variantString, width) {
   var left = leftEl ? street.segments[leftEl.dataNo] : null
   var right = rightEl ? street.segments[rightEl.dataNo] : null
 
-  var leftOwner = left && getSegmentInfo(left.type).owner
-  var rightOwner = right && getSegmentInfo(right.type).owner
+  var leftOwner = left && SegmentTypes[getSegmentInfo(left.type).owner]
+  var rightOwner = right && SegmentTypes[getSegmentInfo(right.type).owner]
 
-  var leftOwnerAsphalt =
-  (leftOwner === SEGMENT_OWNER_CAR) || (leftOwner === SEGMENT_OWNER_BIKE) ||
-    (leftOwner === SEGMENT_OWNER_PUBLIC_TRANSIT)
-  var rightOwnerAsphalt =
-  (rightOwner === SEGMENT_OWNER_CAR) || (rightOwner === SEGMENT_OWNER_BIKE) ||
-    (rightOwner === SEGMENT_OWNER_PUBLIC_TRANSIT)
+  var leftOwnerAsphalt = (leftOwner === SegmentTypes.CAR) ||
+    (leftOwner === SegmentTypes.BIKE) ||
+    (leftOwner === SegmentTypes.TRANSIT)
+  var rightOwnerAsphalt = (rightOwner === SegmentTypes.CAR) ||
+    (rightOwner === SegmentTypes.BIKE) ||
+    (rightOwner === SegmentTypes.TRANSIT)
 
   var leftVariant = left && getVariantArray(left.type, left.variantString)
   var rightVariant = right && getVariantArray(right.type, right.variantString)
@@ -661,9 +658,9 @@ function doDropHeuristics (type, variantString, width) {
   // Transit shelter orientation and elevation
 
   if (type === 'transit-shelter') {
-    if (left && (leftOwner === SEGMENT_OWNER_PUBLIC_TRANSIT)) {
+    if (left && (leftOwner === SegmentTypes.TRANSIT)) {
       variant['orientation'] = 'right'
-    } else if (right && (rightOwner === SEGMENT_OWNER_PUBLIC_TRANSIT)) {
+    } else if (right && (rightOwner === SegmentTypes.TRANSIT)) {
       variant['orientation'] = 'left'
     }
   }
@@ -679,9 +676,9 @@ function doDropHeuristics (type, variantString, width) {
   // Bike rack orientation
 
   if (type === 'sidewalk-bike-rack') {
-    if (left && (leftOwner !== SEGMENT_OWNER_PEDESTRIAN)) {
+    if (left && (leftOwner !== SegmentTypes.PEDESTRIAN)) {
       variant['orientation'] = 'left'
-    } else if (right && (rightOwner !== SEGMENT_OWNER_PEDESTRIAN)) {
+    } else if (right && (rightOwner !== SegmentTypes.PEDESTRIAN)) {
       variant['orientation'] = 'right'
     }
   }
