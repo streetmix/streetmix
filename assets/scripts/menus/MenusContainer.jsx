@@ -52,6 +52,10 @@ class MenusContainer extends React.PureComponent {
     }
   }
 
+  componentDidCatch (error) {
+    console.log(error)
+  }
+
   /**
    * Callback function passed to the MenuBar component.
    * Clicked buttons that have a menu component will report back to this component
