@@ -133,14 +133,24 @@ export class LocaleDropdown extends React.Component {
   }
 
   renderLocaleOptions = () => {
-    return LOCALES.filter((item) => item.level >= this.state.level).map(locale =>
-      <option value={locale.value} key={locale.value}>
-        {this.props.intl.formatMessage({
+    return LOCALES
+      .filter((item) => item.level >= this.state.level)
+      // Replace each locale with the translated label
+      .map((locale) => ({
+        ...locale,
+        label: this.props.intl.formatMessage({
           id: locale.key,
           defaultMessage: `[${locale.label}]`
-        })}
-      </option>
-    )
+        })
+      }))
+      // Sort the list of languages alphabetically
+      .sort((a, b) => {
+        if (a.label < b.label) return -1
+        if (a.label > b.label) return 1
+        return 0
+      })
+      // Render each option
+      .map((locale) => <option value={locale.value} key={locale.value}>{locale.label}</option>)
   }
 
   render () {

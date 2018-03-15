@@ -44,7 +44,11 @@ export function onNewLocaleSelected (event) {
 }
 
 export function getLocale () {
-  return window.localStorage.getItem('locale') || defaultLocale
+  try {
+    return JSON.parse(window.localStorage.getItem('locale')) || defaultLocale
+  } catch (err) {
+    return defaultLocale
+  }
 }
 
 function doTheI18n (locale) {
@@ -66,6 +70,7 @@ function doTheI18n (locale) {
   const callback = function (err, t) {
     if (err) {
       console.log(err)
+      return
     }
     const els = document.querySelectorAll('[data-i18n]')
     for (let i = 0, j = els.length; i < j; i++) {
