@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { ENV } from '../app/config'
 
-class EnvironmentBadge extends React.PureComponent {
+export class EnvironmentBadge extends React.PureComponent {
   static propTypes = {
     label: PropTypes.string,
     noInternet: PropTypes.bool
