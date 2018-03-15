@@ -79,13 +79,13 @@ export function updateUnitSettings (countryCode) {
   let localStorageUnits = window.localStorage[LOCAL_STORAGE_SETTINGS_UNITS_ID]
 
   if (localStorageUnits) {
-    store.dispatch(setUserUnits(parseInt(localStorageUnits)))
+    store.dispatch(setUserUnits(localStorageUnits))
   } else if (debug.forceMetric) {
-    saveUserUnits(SETTINGS_UNITS_METRIC)
+    store.dispatch(setUserUnits(SETTINGS_UNITS_METRIC))
   } else if (COUNTRIES_IMPERIAL_UNITS.indexOf(countryCode) !== -1) {
-    saveUserUnits(SETTINGS_UNITS_IMPERIAL)
+    store.dispatch(setUserUnits(SETTINGS_UNITS_IMPERIAL))
   } else {
-    saveUserUnits(SETTINGS_UNITS_METRIC)
+    store.dispatch(setUserUnits(SETTINGS_UNITS_METRIC))
   }
 }
 
@@ -96,7 +96,7 @@ export function updateUnits (newUnits) {
     return
   }
 
-  saveUserUnits(newUnits)
+  store.dispatch(setUserUnits(newUnits))
   street.units = newUnits
   setStreetDataInRedux()
 
@@ -163,9 +163,4 @@ export function propagateUnits () {
 
       break
   }
-}
-
-export function saveUserUnits (unitType) {
-  window.localStorage[LOCAL_STORAGE_SETTINGS_UNITS_ID] = unitType
-  store.dispatch(setUserUnits(parseInt(unitType)))
 }
