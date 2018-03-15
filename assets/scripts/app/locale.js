@@ -9,7 +9,7 @@ import i18nextXhr from 'i18next-xhr-backend'
 import { supplant } from '../util/helpers'
 import { API_URL } from './config'
 import store from '../store'
-import { setLocale as storeLocale } from '../store/actions/locale'
+import { setLocale } from '../store/actions/locale'
 
 // Add react-intl files for all the languages we support (added manually for now)
 import es from 'react-intl/locale-data/es'
@@ -40,21 +40,11 @@ export function initLocale (experimental) {
 }
 
 export function onNewLocaleSelected (event) {
-  setLocale(event.target.value)
+  doTheI18n(event.target.value)
 }
 
 export function getLocale () {
   return window.localStorage.getItem('locale') || defaultLocale
-}
-
-export function setLocale (locale) {
-  window.localStorage.setItem('locale', locale)
-  doTheI18n(locale)
-}
-
-export function clearLocale () {
-  window.localStorage.removeItem('locale')
-// TODO: clear language cache here if it's activated
 }
 
 function doTheI18n (locale) {
@@ -88,7 +78,7 @@ function doTheI18n (locale) {
     }
 
     // Set the thing in Redux
-    store.dispatch(storeLocale(locale, i18next.getResourceBundle(locale, 'main')))
+    store.dispatch(setLocale(locale, i18next.getResourceBundle(locale, 'main')))
   }
 
   i18next

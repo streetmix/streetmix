@@ -147,6 +147,11 @@ export function initPersistedSettingsStoreObserver () {
   const select = (state) => state.persistSettings
   const onChange = (settings) => {
     window.localStorage.setItem(LOCAL_STORAGE_SETTINGS_UNITS_ID, settings.units)
+    if (typeof settings.locale !== 'undefined') {
+      window.localStorage.setItem('locale', settings.locale)
+    } else {
+      window.localStorage.removeItem('locale')
+    }
   }
 
   return observeStore(select, onChange)
