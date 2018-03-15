@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash'
+import { cloneDeep, throttle } from 'lodash'
 
 import { debug } from '../preinit/debug_settings'
 import {
@@ -76,17 +76,20 @@ export function updateSettingsFromCountryCode (countryCode) {
 }
 
 export function updateUnitSettings (countryCode) {
-  let localStorageUnits = window.localStorage[LOCAL_STORAGE_SETTINGS_UNITS_ID]
+  const localStorageUnits = window.localStorage[LOCAL_STORAGE_SETTINGS_UNITS_ID]
+  let unitType
 
   if (localStorageUnits) {
-    store.dispatch(setUserUnits(localStorageUnits))
+    unitType = localStorageUnits
   } else if (debug.forceMetric) {
-    store.dispatch(setUserUnits(SETTINGS_UNITS_METRIC))
+    unitType = SETTINGS_UNITS_METRIC
   } else if (COUNTRIES_IMPERIAL_UNITS.indexOf(countryCode) !== -1) {
-    store.dispatch(setUserUnits(SETTINGS_UNITS_IMPERIAL))
+    unitType = SETTINGS_UNITS_IMPERIAL
   } else {
-    store.dispatch(setUserUnits(SETTINGS_UNITS_METRIC))
+    unitType = SETTINGS_UNITS_METRIC
   }
+
+  store.dispatch(setUserUnits(unitType))
 }
 
 export function updateUnits (newUnits) {
@@ -164,3 +167,20 @@ export function propagateUnits () {
       break
   }
 }
+
+/**
+ * Use subscribe() model to set localstorage (a Redux pattern)
+ * https://egghead.io/lessons/javascript-redux-persisting-the-state-to-the-local-storage
+ * https://twitter.com/dan_abramov/status/703684128416333825
+ *
+ * Benefit: LocalStorage is always reflects the store, no matter how it's updated
+ * Uses a throttle to prevent continuous rewrites
+ */
+store.subscribe(throttle(() => {
+  const unitType = store.getState().persistSettings.units
+  try {
+    window.localStorage.setItem(LOCAL_STORAGE_SETTINGS_UNITS_ID, JSON.stringify(unitType))
+  } catch (err) {
+    // Ignore write errors.
+  }
+}, 1000))

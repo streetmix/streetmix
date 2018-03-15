@@ -16,4 +16,12 @@ describe('persistSettings reducer', () => {
       units: 2
     })
   })
+
+  it('should parse string arguments as integers', () => {
+    expect(
+      reducer(undefined, actions.setUserUnits('2'))
+    ).toEqual({
+      units: 2
+    })
+  })
 })
