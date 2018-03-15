@@ -1,5 +1,5 @@
+import { throttle } from 'lodash'
 import { API_URL } from '../app/config'
-
 import { trackEvent } from '../app/event_tracking'
 import {
   checkIfEverythingIsLoaded,
@@ -141,18 +141,30 @@ function clearScheduledSavingSettingsToServer () {
   window.clearTimeout(saveSettingsTimerId)
 }
 
-// Persisted settings
-
+/**
+ * Use an observer model to set localstorage (a Redux pattern)
+ *
+ * Similar to:
+ * https://egghead.io/lessons/javascript-redux-persisting-the-state-to-the-local-storage
+ * https://twitter.com/dan_abramov/status/703684128416333825
+ *
+ * Benefit: LocalStorage is always reflects the store, no matter how it's updated
+ * Uses a throttle to prevent continuous rewrites
+ */
 export function initPersistedSettingsStoreObserver () {
   const select = (state) => state.persistSettings
-  const onChange = (settings) => {
-    window.localStorage.setItem(LOCAL_STORAGE_SETTINGS_UNITS_ID, settings.units)
-    if (typeof settings.locale !== 'undefined') {
-      window.localStorage.setItem('locale', settings.locale)
-    } else {
-      window.localStorage.removeItem('locale')
+  const onChange = throttle((settings) => {
+    try {
+      window.localStorage.setItem(LOCAL_STORAGE_SETTINGS_UNITS_ID, JSON.stringify(settings.units))
+      if (typeof settings.locale !== 'undefined') {
+        window.localStorage.setItem('locale', JSON.stringify(settings.locale))
+      } else {
+        window.localStorage.removeItem('locale')
+      }
+    } catch (err) {
+      // Ignore write errors.
     }
-  }
+  }, 1000)
 
   return observeStore(select, onChange)
 }
