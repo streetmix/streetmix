@@ -23,6 +23,7 @@ import { resizeStreetWidth } from '../streets/width'
 import { loadSignIn } from '../users/authentication'
 import { updateSettingsFromCountryCode } from '../users/localization'
 import { detectGeolocation } from '../users/geolocation'
+import { initPersistedSettingsStoreObserver } from '../users/settings'
 import { addEventListeners } from './event_listeners'
 import { trackEvent } from './event_tracking'
 import { getMode, setMode, MODES, processMode } from './mode'
@@ -140,6 +141,7 @@ function onEverythingLoaded () {
   setLastStreet(trimStreetData(getStreet()))
   initStreetReduxTransitionSubscriber()
   initializeFlagSubscribers()
+  initPersistedSettingsStoreObserver()
 
   updatePageUrl()
   addEventListeners()

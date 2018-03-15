@@ -10,7 +10,7 @@ import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { setSaveStreetIncomplete } from '../streets/xhr'
 import { newNonblockingAjaxRequest } from '../util/fetch_nonblocking'
 import { getAuthHeader, getSignInData, isSignedIn } from './authentication'
-import store from '../store'
+import store, { observeStore } from '../store'
 import { setSettings as setSettingsActionCreator } from '../store/actions/settings'
 
 export const LOCAL_STORAGE_SETTINGS_ID = 'settings'
@@ -139,4 +139,20 @@ function scheduleSavingSettingsToServer () {
 
 function clearScheduledSavingSettingsToServer () {
   window.clearTimeout(saveSettingsTimerId)
+}
+
+// Persisted settings
+
+export function initPersistedSettingsStoreObserver () {
+  const select = (state) => state.persistSettings
+  const onChange = (settings) => {
+    window.localStorage.setItem(LOCAL_STORAGE_SETTINGS_UNITS_ID, settings.units)
+    if (typeof settings.locale !== 'undefined') {
+      window.localStorage.setItem('locale', settings.locale)
+    } else {
+      window.localStorage.removeItem('locale')
+    }
+  }
+
+  return observeStore(select, onChange)
 }

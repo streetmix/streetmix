@@ -1,7 +1,8 @@
 import { SET_LOCALE } from '../actions'
 
 const initialState = {
-  locale: 'en',
+  // Default language is set by browser, or is English if undetermined
+  locale: navigator.language || 'en',
   messages: {}
 }
 

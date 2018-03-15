@@ -1,7 +1,8 @@
-import { SET_USER_UNITS } from '../actions'
+import { SET_USER_UNITS, SET_LOCALE } from '../actions'
 
 const initialState = {
-  units: 1
+  units: 1,
+  locale: null
 }
 
 const persistSettings = (state = initialState, action) => {
@@ -10,6 +11,11 @@ const persistSettings = (state = initialState, action) => {
       return {
         ...state,
         units: action.units
+      }
+    case SET_LOCALE:
+      return {
+        ...state,
+        locale: action.locale
       }
     default:
       return state
