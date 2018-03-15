@@ -52,10 +52,12 @@ class App extends React.PureComponent {
             key={this.props.locale.locale}
             messages={this.props.locale.messages}
           >
-            <Palette />
+            <React.Fragment>
+              <Palette />
+              <DialogRoot />
+            </React.Fragment>
           </IntlProvider>
 
-          <DialogRoot />
           <StreetView />
           <StatusMessage />
           <NoConnectionMessage />

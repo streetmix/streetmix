@@ -6,11 +6,12 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
+import { FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape } from 'react-intl'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
-import { t } from '../app/locale'
 
-export default class Dialog extends React.PureComponent {
+export class Dialog extends React.PureComponent {
   static propTypes = {
+    intl: intlShape.isRequired,
     closeDialog: PropTypes.func.isRequired,
     children: PropTypes.node.isRequired,
     disableShieldExit: PropTypes.bool
@@ -55,18 +56,20 @@ export default class Dialog extends React.PureComponent {
       shieldClassName += ' dialog-box-shield-unclickable'
     }
 
+    const closeLabel = this.props.intl.formatMessage({ id: 'btn.close', defaultMessage: 'Close' })
+
     return (
       <div className="dialog-box-container" ref={(ref) => { this.dialogEl = ref }}>
         <div className={shieldClassName} onClick={this.onClickShield} />
         {this.state.error ? (
           <div className="dialog-box dialog-error">
-            <h1>{t('dialogs.error.heading', 'Oops!')}</h1>
+            <h1><FormattedMessage id="dialogs.error.heading" defaultMessage="Oops!" /></h1>
             <p>
-              {t('dialogs.error.text', 'Something unexpected happened 😢, please try again.')}
+              <FormattedHTMLMessage id="dialogs.error.text" defaultMessage="Something unexpected happened 😢, please try again." />
             </p>
             <p style={{ textAlign: 'center' }}>
-              <button onClick={this.props.closeDialog} title={t('btn.close', 'Close')}>
-                {t('btn.close', 'Close')}
+              <button onClick={this.props.closeDialog} title={closeLabel}>
+                <FormattedMessage id="btn.close" defaultMessage="Close" />
               </button>
             </p>
           </div>
@@ -75,7 +78,7 @@ export default class Dialog extends React.PureComponent {
             <button
               className="close"
               onClick={this.props.closeDialog}
-              title={t('btn.close', 'Close')}
+              title={closeLabel}
             >
               ×
             </button>
@@ -86,3 +89,5 @@ export default class Dialog extends React.PureComponent {
     )
   }
 }
+
+export default injectIntl(Dialog)
