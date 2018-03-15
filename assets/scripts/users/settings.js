@@ -156,7 +156,7 @@ export function initPersistedSettingsStoreObserver () {
   const onChange = throttle((settings) => {
     try {
       window.localStorage.setItem(LOCAL_STORAGE_SETTINGS_UNITS_ID, JSON.stringify(settings.units))
-      if (typeof settings.locale !== 'undefined') {
+      if (settings.locale) {
         window.localStorage.setItem('locale', JSON.stringify(settings.locale))
       } else {
         window.localStorage.removeItem('locale')

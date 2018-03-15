@@ -24,14 +24,19 @@ import zh from 'react-intl/locale-data/zh'
 // Add react-intl locale data
 addLocaleData([...es, ...de, ...fi, ...fr, ...pl, ...pt, ...sv, ...zh])
 
-// Default language is set by browser, or is English if undetermined
-const defaultLocale = navigator.language || 'en'
-
 export function initLocale (experimental) {
   // Current language is the one set by Streetmix or is the browser default, if unset
   let locale
+
   if (experimental) {
-    locale = getLocale()
+    // Default language is set by browser, or is English if undetermined
+    const defaultLocale = navigator.language || 'en'
+
+    try {
+      locale = JSON.parse(window.localStorage.getItem('locale')) || defaultLocale
+    } catch (err) {
+      locale = defaultLocale
+    }
   } else {
     locale = 'en'
   }
@@ -44,11 +49,7 @@ export function onNewLocaleSelected (event) {
 }
 
 export function getLocale () {
-  try {
-    return JSON.parse(window.localStorage.getItem('locale')) || defaultLocale
-  } catch (err) {
-    return defaultLocale
-  }
+  return store.getState().locale.locale
 }
 
 function doTheI18n (locale) {
