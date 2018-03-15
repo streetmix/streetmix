@@ -120,16 +120,6 @@
       "error-unavailable": "Saving to image is not available on this browser.",
       "preview-image-alt": "Preview"
     },
-    "geolocate": {
-      "search": "Search for a location",
-      "clear-search": "Clear search",
-      "zoom-in": "Zoom in",
-      "zoom-out": "Zoom out",
-      "add-location": "Add location",
-      "confirm-location": "Confirm location",
-      "clear-location": "Clear location",
-      "unknown-location": "Unknown location"
-    },
     "geotag": {
       "search": "Search for a location",
       "clear-search": "Clear search",
