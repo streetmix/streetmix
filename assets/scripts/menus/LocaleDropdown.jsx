@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { t, onNewLocaleSelected } from '../app/locale'
+import { injectIntl, intlShape } from 'react-intl'
+import { onNewLocaleSelected } from '../app/locale'
 import { trackEvent } from '../app/event_tracking'
 
 /**
@@ -82,6 +83,7 @@ const LOCALES = [
 
 export class LocaleDropdown extends React.Component {
   static propTypes = {
+    intl: intlShape.isRequired,
     locale: PropTypes.string,
     /* eslint-disable react/no-unused-prop-types */
     // These props _are_ used but linter can't tell
@@ -132,12 +134,11 @@ export class LocaleDropdown extends React.Component {
 
   renderLocaleOptions = () => {
     return LOCALES.filter((item) => item.level >= this.state.level).map(locale =>
-      <option
-        value={locale.value}
-        key={locale.value}
-        data-i18n={locale.key}
-      >
-        {t(locale.key, `[${locale.label}]`)}
+      <option value={locale.value} key={locale.value}>
+        {this.props.intl.formatMessage({
+          id: locale.key,
+          defaultMessage: `[${locale.label}]`
+        })}
       </option>
     )
   }
@@ -160,4 +161,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(LocaleDropdown)
+export default injectIntl(connect(mapStateToProps)(LocaleDropdown))
