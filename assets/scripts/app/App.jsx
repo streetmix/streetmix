@@ -28,7 +28,13 @@ class App extends React.PureComponent {
   render () {
     return (
       <React.Fragment>
-        <BlockingError />
+        <IntlProvider
+          locale={this.props.locale.locale}
+          key={`3_${this.props.locale.locale}`}
+          messages={this.props.locale.messages}
+        >
+          <BlockingError />
+        </IntlProvider>
         <Gallery />
         <MessageBar />
         <div className="main-screen">
