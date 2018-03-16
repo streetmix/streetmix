@@ -16,6 +16,7 @@ const browserify = require('browserify-middleware')
 const babelify = require('babelify')
 const config = require('config')
 const path = require('path')
+const uuid = require('node-uuid')
 const controllers = require('./app/controllers')
 const resources = require('./app/resources')
 const requestHandlers = require('./lib/request_handlers')
@@ -36,41 +37,48 @@ const helmetConfig = {
   },
   referrerPolicy: {
     policy: 'no-referrer-when-downgrade'
-  },
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'", 'fonts.googleapis.com'],
-      scriptSrc: [
-        "'self'",
-        'platform.twitter.com',
-        'https://www.google-analytics.com',
-        'cdn.mxpnl.com',
-        '*.basemaps.cartocdn.com',
-        'api.geocode.earth',
-        "'sha256-ZFVNSjbMCfXEvm7Udu+4fzj7uxtIasWHfUkYsyr9Xzc='", // Google Analytics (w/ production id)
-        "'sha256-80ZBre/y2+jBIlTB4jDA8maeor/DkrMKKHcR+VALCFg='" // Mixpanel (w/ production id)
-      ],
-      childSrc: ['platform.twitter.com'],
-      imgSrc: [
-        "'self'",
-        'data:',
-        'pbs.twimg.com',
-        'syndication.twitter.com',
-        'https://www.google-analytics.com',
-        '*.basemaps.cartocdn.com'
-      ],
-      fontSrc: ["'self'", 'fonts.gstatic.com'],
-      connectSrc: ["'self'",
-        'freegeoip.net',
-        'api.mixpanel.com',
-        'api.geocode.earth',
-        'syndication.twitter.com',
-        'https://www.google-analytics.com',
-        'app.getsentry.com'
-      ]
-    }
   }
+}
+
+// CSP directives are defined separately so we can generate nonces
+const csp = {
+  directives: {
+    defaultSrc: ["'self'"],
+    styleSrc: ["'self'", "'unsafe-inline'", 'fonts.googleapis.com'],
+    scriptSrc: [
+      "'self'",
+      'platform.twitter.com',
+      'https://www.google-analytics.com',
+      'cdn.mxpnl.com',
+      '*.basemaps.cartocdn.com',
+      'api.geocode.earth',
+      (req, res) => "'nonce-" + res.locals.nonce.google_analytics + "'",
+      (req, res) => "'nonce-" + res.locals.nonce.mixpanel + "'"
+    ],
+    childSrc: ['platform.twitter.com'],
+    imgSrc: [
+      "'self'",
+      'data:',
+      'pbs.twimg.com',
+      'syndication.twitter.com',
+      'https://www.google-analytics.com',
+      '*.basemaps.cartocdn.com'
+    ],
+    fontSrc: ["'self'", 'fonts.gstatic.com'],
+    connectSrc: ["'self'",
+      'freegeoip.net',
+      'api.mixpanel.com',
+      'api.geocode.earth',
+      'syndication.twitter.com',
+      'https://www.google-analytics.com',
+      'app.getsentry.com'
+    ]
+  }
+}
+
+// Allow arbitrary injected code (e.g. Redux dispatches from dev tools) in development
+if (app.locals.config.env === 'development') {
+  csp.directives.scriptSrc.push("'unsafe-eval'")
 }
 
 app.use(helmet(helmetConfig))
@@ -97,6 +105,18 @@ app.use(function (req, res, next) {
     next()
   }
 })
+
+// Generate nonces for inline scripts
+app.use(function (req, res, next) {
+  res.locals.nonce = {
+    google_analytics: uuid.v4(),
+    mixpanel: uuid.v4()
+  }
+  next()
+})
+
+// Set CSP directives
+app.use(helmet.contentSecurityPolicy(csp))
 
 app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, '/app/views'))
