@@ -84,11 +84,15 @@
       "heading": "Welcome to Streetmix.",
       "new": {
         "intro": "Design, remix, and share your neighborhood street. Add trees or bike paths, widen sidewalks or traffic lanes, learn how your decisions can impact your community.",
-        "instruct": "Start by moving some segments around with <span class=\"touch-only\">your finger.</span> <span class=\"non-touch-only\">your mouse.</span>"
+        "instruct": "Start by moving some segments around with {pointer}.",
+        "instruct-pointer-finger": "your finger",
+        "instruct-pointer-mouse": "your mouse"
       },
       "existing": {
-        "intro": "This is <span class=\"street-name\"><span id=\"welcome-street-name\"></span></span> <span id=\"welcome-avatar-creator\"> made by <span class=\"avatar\" id=\"welcome-avatar\" userid=\"\"></span><span id=\"welcome-creator\"></span> </span>.",
-        "instruct": "Remix it by moving some segments around, or <button id=\"welcome-new-street\">Start your own street</button>."
+        "intro": "This is {streetName} made by {creator}.",
+        "intro-without-creator": "This is {streetName}.",
+        "instruct": "Remix it by moving some segments around, or {startYourOwnStreet}.",
+        "instruct-start-own-street": "Start your own street"
       }
     },
     "new-street": {
