@@ -20,6 +20,7 @@ import { saveAs } from 'file-saver'
 export class SaveAsImageDialog extends React.Component {
   static propTypes = {
     intl: intlShape,
+    locale: PropTypes.string,
     transparentSky: PropTypes.bool.isRequired,
     segmentNames: PropTypes.bool.isRequired,
     streetName: PropTypes.bool.isRequired,
@@ -136,6 +137,51 @@ export class SaveAsImageDialog extends React.Component {
     return filename
   }
 
+  getCCLinkByLocale = () => {
+    let url
+
+    switch (this.props.locale) {
+      case 'ar':
+        url = 'https://creativecommons.org/licenses/by-sa/4.0/deed.ar'
+        break
+      case 'de':
+        url = 'https://creativecommons.org/licenses/by-sa/4.0/deed.de'
+        break
+      case 'es':
+      case 'es-MX':
+        url = 'https://creativecommons.org/licenses/by-sa/4.0/deed.es'
+        break
+      case 'fi':
+        url = 'https://creativecommons.org/licenses/by-sa/4.0/deed.fi'
+        break
+      case 'fr':
+        url = 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr'
+        break
+      case 'pl':
+        url = 'https://creativecommons.org/licenses/by-sa/4.0/deed.pl'
+        break
+      case 'pt':
+        url = 'https://creativecommons.org/licenses/by-sa/4.0/deed.pt'
+        break
+      case 'pt-BR':
+        url = 'https://creativecommons.org/licenses/by-sa/4.0/deed.pt_BR'
+        break
+      case 'sv':
+        url = 'https://creativecommons.org/licenses/by-sa/4.0/deed.sv'
+        break
+      case 'zh-Hant':
+      case 'zh-TW':
+        url = 'https://creativecommons.org/licenses/by-sa/4.0/deed.zh_TW'
+        break
+      case 'en':
+      default:
+        url = 'https://creativecommons.org/licenses/by-sa/4.0/'
+        break
+    }
+
+    return url
+  }
+
   render () {
     return (
       <div className="save-as-image-dialog">
@@ -219,8 +265,8 @@ export class SaveAsImageDialog extends React.Component {
             id="dialogs.save.license"
             defaultMessage="This Streetmix-created image may be reused anywhere, for any purpose, under the<br /><a href='{url}'>Creative Commons Attribution-ShareAlike 4.0 International License</a>."
             values={{
-              // TODO: locale-specific license text, e.g. https://creativecommons.org/licenses/by-sa/4.0/deed.zh
-              url: 'https://creativecommons.org/licenses/by-sa/4.0/'
+              // Get locale-specific license links!
+              url: this.getCCLinkByLocale()
             }}
           />
         </footer>
@@ -231,6 +277,7 @@ export class SaveAsImageDialog extends React.Component {
 
 function mapStateToProps (state) {
   return {
+    locale: state.locale.locale,
     transparentSky: state.settings.saveAsImageTransparentSky,
     segmentNames: state.settings.saveAsImageSegmentNamesAndWidths,
     streetName: state.settings.saveAsImageStreetName,
