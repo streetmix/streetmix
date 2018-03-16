@@ -5,9 +5,9 @@
  *
  */
 import React from 'react'
+import { FormattedMessage } from 'react-intl'
 import Avatar from '../users/Avatar'
 import { trackEvent } from '../app/event_tracking'
-import { t } from '../app/locale'
 
 export default class AboutDialog extends React.PureComponent {
   componentDidMount () {
@@ -17,13 +17,13 @@ export default class AboutDialog extends React.PureComponent {
   render () {
     return (
       <div className="about-dialog">
-        <h1>{t('dialogs.about.heading', 'About Streetmix.')}</h1>
+        <h1><FormattedMessage id="dialogs.about.heading" defaultMessage="About Streetmix." /></h1>
         <div className="about-dialog-left">
           <p className="about-dialog-description">
-            {t('dialogs.about.description', 'Design, remix, and share your street. Add bike paths, widen sidewalks or traffic lanes, learn how all of this can impact your community.')}
+            <FormattedMessage id="dialogs.about.description" defaultMessage="Design, remix, and share your street. Add bike paths, widen sidewalks or traffic lanes, learn how all of this can impact your community." />
           </p>
           <p className="about-dialog-description">
-            {t('dialogs.about.sponsored-by', 'Streetmix is generously sponsored by:')}
+            <FormattedMessage id="dialogs.about.sponsored-by" defaultMessage="Streetmix is generously sponsored by:" />
           </p>
           <ul className="about-dialog-sponsors">
             <li>
@@ -38,11 +38,13 @@ export default class AboutDialog extends React.PureComponent {
             </li>
           </ul>
           <p>
-            <a href="https://opencollective.com/streetmix/" target="_blank">{t('dialogs.about.donate-link', 'Support us financially')}</a>
+            <a href="https://opencollective.com/streetmix/" target="_blank">
+              <FormattedMessage id="dialogs.about.donate-link" defaultMessage="Support us financially" />
+            </a>
           </p>
         </div>
         <div className="about-dialog-right">
-          <h3>{t('dialogs.about.team-heading', 'Project team and maintainers')}</h3>
+          <h3><FormattedMessage id="dialogs.about.team-heading" defaultMessage="Project team and maintainers" /></h3>
           <ul className="about-dialog-team">
             <li>
               <a target="_blank" href="https://twitter.com/anselmbradford"><Avatar userId="anselmbradford" />Anselm Bradford</a> · media production
@@ -68,7 +70,9 @@ export default class AboutDialog extends React.PureComponent {
           </ul>
 
           <p>
-            <a href="https://github.com/streetmix/streetmix/blob/master/CONTRIBUTING.md" target="_blank">{t('dialogs.about.github-link', 'Contribute to open source')}</a>
+            <a href="https://github.com/streetmix/streetmix/blob/master/CONTRIBUTING.md" target="_blank">
+              <FormattedMessage id="dialogs.about.github-link" defaultMessage="Contribute to open source" />
+            </a>
           </p>
         </div>
       </div>

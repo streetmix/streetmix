@@ -1,6 +1,6 @@
 import React from 'react'
+import { FormattedMessage } from 'react-intl'
 import Menu from './Menu'
-import { t } from '../app/locale'
 
 export default class ContactMenu extends React.PureComponent {
   render () {
@@ -10,22 +10,22 @@ export default class ContactMenu extends React.PureComponent {
           <svg className="icon">
             <use xlinkHref="#icon-forums" />
           </svg>
-          <span>{t('menu.contact.forums', 'Discuss on the forums')}</span>
+          <FormattedMessage id="menu.contact.forums" defaultMessage="Discuss on the forums" />
         </a>
         <a href="https://twitter.com/intent/tweet?text=@streetmix" target="_blank">
           <svg className="icon">
             <use xlinkHref="#icon-twitter" />
           </svg>
-          <span>{t('menu.contact.twitter', 'Send a tweet to @streetmix')}</span>
+          <FormattedMessage id="menu.contact.twitter" defaultMessage="Send a tweet to @streetmix" />
         </a>
         <a href="http://streetmix-slack.herokuapp.com/" target="_blank">
           <svg className="icon">
             <use xlinkHref="#icon-slack" />
           </svg>
-          <span>{t('menu.contact.slack', 'Join Slack chat')}</span>
+          <FormattedMessage id="menu.contact.slack" defaultMessage="Join Slack chat" />
         </a>
         <a href="http://blog.streetmix.net" target="_blank">
-          <span>{t('menu.contact.blog', 'Visit Streetmix blog')}</span>
+          <FormattedMessage id="menu.contact.blog" defaultMessage="Visit Streetmix blog" />
         </a>
       </Menu>
     )

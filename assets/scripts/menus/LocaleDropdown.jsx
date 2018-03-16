@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { t, getLocale, onNewLocaleSelected } from '../app/locale'
+import { injectIntl, intlShape } from 'react-intl'
+import { onNewLocaleSelected } from '../app/locale'
 import { trackEvent } from '../app/event_tracking'
 
 /**
@@ -82,6 +83,8 @@ const LOCALES = [
 
 export class LocaleDropdown extends React.Component {
   static propTypes = {
+    intl: intlShape.isRequired,
+    locale: PropTypes.string,
     /* eslint-disable react/no-unused-prop-types */
     // These props _are_ used but linter can't tell
     level1: PropTypes.bool.isRequired,
@@ -107,7 +110,7 @@ export class LocaleDropdown extends React.Component {
   componentDidMount () {
     // Set the dropdown to the current language.
     // If current language is not in the list, fallback to US English.
-    this.localeSelect.value = getLocale()
+    this.localeSelect.value = this.props.locale.replace('-', '_')
     if (!this.localeSelect.value) {
       this.localeSelect.value = 'en'
     }
@@ -130,15 +133,24 @@ export class LocaleDropdown extends React.Component {
   }
 
   renderLocaleOptions = () => {
-    return LOCALES.filter((item) => item.level >= this.state.level).map(locale =>
-      <option
-        value={locale.value}
-        key={locale.value}
-        data-i18n={locale.key}
-      >
-        {t(locale.key, `[${locale.label}]`)}
-      </option>
-    )
+    return LOCALES
+      .filter((item) => item.level >= this.state.level)
+      // Replace each locale with the translated label
+      .map((locale) => ({
+        ...locale,
+        label: this.props.intl.formatMessage({
+          id: locale.key,
+          defaultMessage: `[${locale.label}]`
+        })
+      }))
+      // Sort the list of languages alphabetically
+      .sort((a, b) => {
+        if (a.label < b.label) return -1
+        if (a.label > b.label) return 1
+        return 0
+      })
+      // Render each option
+      .map((locale) => <option value={locale.value} key={locale.value}>{locale.label}</option>)
   }
 
   render () {
@@ -152,10 +164,11 @@ export class LocaleDropdown extends React.Component {
 
 function mapStateToProps (state) {
   return {
+    locale: state.locale.locale,
     level1: state.flags.LOCALES_LEVEL_1.value,
     level2: state.flags.LOCALES_LEVEL_2.value,
     level3: state.flags.LOCALES_LEVEL_3.value
   }
 }
 
-export default connect(mapStateToProps)(LocaleDropdown)
+export default injectIntl(connect(mapStateToProps)(LocaleDropdown))

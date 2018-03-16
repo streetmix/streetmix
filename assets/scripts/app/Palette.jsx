@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { FormattedMessage } from 'react-intl'
 import Scrollable from '../ui/Scrollable'
 import { connect } from 'react-redux'
-import { t } from '../app/locale'
 import { generateRandSeed } from '../util/random'
 import { getAllSegmentInfo } from '../segments/info'
 import { TILE_SIZE, getVariantInfoDimensions } from '../segments/view'
@@ -19,15 +19,10 @@ class Palette extends React.Component {
   }
 
   componentDidMount () {
-    // We have to run this after this event in order to give images time to load.
-    window.addEventListener('stmx:everything_loaded', (event) => {
-      this.adjustPaletteLayout()
-      window.addEventListener('stmx:language_changed', this.onLocaleChange)
-    })
+    this.adjustPaletteLayout()
   }
 
-  onLocaleChange = () => {
-    this.forceUpdate() // Forces translated text to re-render
+  componentDidUpdate () {
     this.adjustPaletteLayout()
   }
 
@@ -106,7 +101,7 @@ class Palette extends React.Component {
     return (
       <div className="palette-container">
         <div className="palette-trashcan">
-          {t('palette.remove', 'Drag here to remove')}
+          <FormattedMessage id="palette.remove" defaultMessage="Drag here to remove" />
         </div>
         <div className="palette-commands" ref={(ref) => { this.commandsEl = ref }}>
           <UndoRedo />

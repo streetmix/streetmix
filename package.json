@@ -116,6 +116,7 @@
     "react": "16.2.0",
     "react-autosuggest": "9.3.4",
     "react-dom": "16.2.0",
+    "react-intl": "2.4.0",
     "react-leaflet": "1.8.2",
     "react-redux": "5.0.7",
     "react-transition-group": "2.2.1",

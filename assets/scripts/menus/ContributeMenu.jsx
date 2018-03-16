@@ -1,7 +1,7 @@
 import React from 'react'
+import { FormattedMessage } from 'react-intl'
 import Menu from './Menu'
 import { trackEvent } from '../app/event_tracking'
-import { t } from '../app/locale'
 
 export default class ContributeMenu extends React.PureComponent {
   onClickGitHub () {
@@ -23,14 +23,14 @@ export default class ContributeMenu extends React.PureComponent {
           <svg className="icon">
             <use xlinkHref="#icon-github" />
           </svg>
-          <span>{t('menu.contribute.opensource', 'Contribute to open source')}</span>
+          <FormattedMessage id="menu.contribute.opensource" defaultMessage="Contribute to open source" />
         </a>
         <a href="https://opencollective.com/streetmix/" target="_blank" onClick={this.onClickDonate}>
-          <span>{t('menu.contribute.donate', 'Donate')}</span>
+          <FormattedMessage id="menu.contribute.donate" defaultMessage="Donate" />
         </a>
         {/* Sticker link is broken
         <a href="https://www.stickermule.com/user/1069909781/stickers" target="_blank" onClick={this.onClickStickers}>
-          <span>{t('menu.contribute.stickers', 'Buy a sticker sheet!')}</span>
+          <FormattedMessage id="menu.contribute.stickers" defaultMessage="Buy a sticker sheet!" />
         </a> */}
       </Menu>
     )

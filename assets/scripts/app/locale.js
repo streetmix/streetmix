@@ -3,19 +3,40 @@
  * handles internationalization (i18n)
  *
  */
+import { addLocaleData } from 'react-intl'
 import i18next from 'i18next'
 import i18nextXhr from 'i18next-xhr-backend'
 import { supplant } from '../util/helpers'
 import { API_URL } from './config'
+import store from '../store'
+import { setLocale } from '../store/actions/locale'
 
-// Default language is set by browser, or is English if undetermined
-const defaultLocale = navigator.language || 'en'
+// Add react-intl files for all the languages we support (added manually for now)
+import es from 'react-intl/locale-data/es'
+import de from 'react-intl/locale-data/de'
+import fi from 'react-intl/locale-data/fi'
+import fr from 'react-intl/locale-data/fr'
+import pl from 'react-intl/locale-data/pl'
+import pt from 'react-intl/locale-data/pt'
+import sv from 'react-intl/locale-data/sv'
+import zh from 'react-intl/locale-data/zh'
+
+// Add react-intl locale data
+addLocaleData([...es, ...de, ...fi, ...fr, ...pl, ...pt, ...sv, ...zh])
 
 export function initLocale (experimental) {
   // Current language is the one set by Streetmix or is the browser default, if unset
   let locale
+
   if (experimental) {
-    locale = getLocale()
+    // Default language is set by browser, or is English if undetermined
+    const defaultLocale = navigator.language || 'en'
+
+    try {
+      locale = JSON.parse(window.localStorage.getItem('locale')) || defaultLocale
+    } catch (err) {
+      locale = defaultLocale
+    }
   } else {
     locale = 'en'
   }
@@ -24,21 +45,11 @@ export function initLocale (experimental) {
 }
 
 export function onNewLocaleSelected (event) {
-  setLocale(event.target.value)
+  doTheI18n(event.target.value)
 }
 
 export function getLocale () {
-  return window.localStorage.getItem('locale') || defaultLocale
-}
-
-export function setLocale (locale) {
-  window.localStorage.setItem('locale', locale)
-  doTheI18n(locale)
-}
-
-export function clearLocale () {
-  window.localStorage.removeItem('locale')
-// TODO: clear language cache here if it's activated
+  return store.getState().locale.locale
 }
 
 function doTheI18n (locale) {
@@ -60,6 +71,7 @@ function doTheI18n (locale) {
   const callback = function (err, t) {
     if (err) {
       console.log(err)
+      return
     }
     const els = document.querySelectorAll('[data-i18n]')
     for (let i = 0, j = els.length; i < j; i++) {
@@ -71,8 +83,8 @@ function doTheI18n (locale) {
       els[i].textContent = translation
     }
 
-    // Some parts of the UI need to know language has changed
-    window.dispatchEvent(new window.CustomEvent('stmx:language_changed'))
+    // Set the thing in Redux
+    store.dispatch(setLocale(locale, i18next.getResourceBundle(locale, 'main')))
   }
 
   i18next

@@ -6,6 +6,7 @@ import errors from './errors'
 import flags from './flags'
 import gallery from './gallery'
 import infoBubble from './infoBubble'
+import locale from './locale'
 import map from './map'
 import menus from './menus'
 import settings from './settings'
@@ -25,6 +26,7 @@ const reducers = combineReducers({
   flags,
   gallery,
   infoBubble,
+  locale,
   map,
   menus,
   settings,

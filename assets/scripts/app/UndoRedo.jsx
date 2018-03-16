@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { FormattedMessage } from 'react-intl'
 import { undo, redo, isUndoAvailable, isRedoAvailable } from '../streets/undo_stack'
-import { t } from '../app/locale'
 
 export class UndoRedo extends React.Component {
   static propTypes = {
@@ -31,8 +31,12 @@ export class UndoRedo extends React.Component {
   render () {
     return (
       <React.Fragment>
-        <button onClick={undo} disabled={!this.state.undoAvailable}>{t('btn.undo', 'Undo')}</button>
-        <button onClick={redo} disabled={!this.state.redoAvailable}>{t('btn.redo', 'Redo')}</button>
+        <button onClick={undo} disabled={!this.state.undoAvailable}>
+          <FormattedMessage id="btn.undo" defaultMessage="Undo" />
+        </button>
+        <button onClick={redo} disabled={!this.state.redoAvailable}>
+          <FormattedMessage id="btn.redo" defaultMessage="Redo" />
+        </button>
       </React.Fragment>
     )
   }

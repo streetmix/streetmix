@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { IntlProvider, FormattedMessage } from 'react-intl'
 import { formatDate } from '../util/date_format'
 import { trackEvent } from '../app/event_tracking'
 import { t } from '../app/locale'
@@ -17,7 +18,8 @@ class StreetMetaData extends React.Component {
     userId: PropTypes.string,
     street: PropTypes.any,
     enableLocation: PropTypes.bool,
-    showGeotagDialog: PropTypes.func
+    showGeotagDialog: PropTypes.func,
+    locale: PropTypes.object
   }
 
   static defaultProps = {
@@ -50,41 +52,20 @@ class StreetMetaData extends React.Component {
   }
 
   renderByline = (creatorId) => {
-    // i18next automatically interpolates {{variables}}, but in this case
-    // we want to supplant the string with a React component. i18next is
-    // only able to output strings, but we do not want it to convert a
-    // component to a string. To get around this, we will get the string,
-    // split it into an array of strings, then replace one of the items
-    // with the React component. This array is renderable by React.
-
-    // Why go through all this trouble instead of just rendering the different
-    // parts of the byline separately? It's because we don't necessarily
-    // know what comes first, the "by" (or translated equivalent) or the
-    // user name and Avatar. Word order _may_ differ by locale.
-
-    // We first get the translated string as usual, but i18next will want
-    // to interpolate {{user}}, and if we ignore it, it gets replaced with
-    // an empty string. We want to preserve the {{user}} in the string, so
-    // we tell it to supplant it with itself.
-    const string = t('users.byline', 'by {{user}}', { user: '{{user}}' })
-
-    // Next, split the string into an array of parts. One of the items
-    // in the array will just be the string `{{user}}`.
-    const split = string.split(/({{user}})/)
-
-    // For any item in the array that matches `{{user}}`, replace that
-    // item with a React fragment. This allows the render() function to
-    // render the "string" with a React component inside of it.
-    return split.map((value) => {
-      if (value === '{{user}}') {
-        return (
-          <React.Fragment key={creatorId}>
-            <Avatar userId={creatorId} />
-            <a href={'/' + creatorId} onClick={this.onClickAuthor}>{creatorId}</a>
-          </React.Fragment>
-        )
-      } else return value
-    })
+    return (
+      <FormattedMessage
+        id="users.byline"
+        defaultMessage="by {user}"
+        values={{
+          user: (
+            <React.Fragment key={creatorId}>
+              <Avatar userId={creatorId} />
+              <a href={'/' + creatorId} onClick={this.onClickAuthor}>{creatorId}</a>
+            </React.Fragment>
+          )
+        }}
+      />
+    )
   }
 
   getGeotagText = () => {
@@ -126,12 +107,18 @@ class StreetMetaData extends React.Component {
     const geolocation = (this.props.enableLocation) ? this.renderGeotag(this.props.street, this.props.readOnly) : null
 
     return (
-      <div className="street-metadata">
-        <StreetWidth readOnly={this.props.readOnly} />
-        <span className="street-metadata-author">{author}</span>
-        <span className="street-metadata-date">{formatDate(this.props.street.updatedAt)}</span>
-        {geolocation}
-      </div>
+      <IntlProvider
+        locale={this.props.locale.locale}
+        key={this.props.locale.locale}
+        messages={this.props.locale.messages}
+      >
+        <div className="street-metadata">
+          <StreetWidth readOnly={this.props.readOnly} />
+          <span className="street-metadata-author">{author}</span>
+          <span className="street-metadata-date">{formatDate(this.props.street.updatedAt)}</span>
+          {geolocation}
+        </div>
+      </IntlProvider>
     )
   }
 }
@@ -140,7 +127,8 @@ function mapStateToProps (state) {
   return {
     signedIn: state.user.signedIn,
     userId: state.user.signInData && state.user.signInData.userId,
-    enableLocation: state.flags.GEOLOCATION.value
+    enableLocation: state.flags.GEOLOCATION.value,
+    locale: state.locale
   }
 }
 

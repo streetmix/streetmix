@@ -1,4 +1,7 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { IntlProvider } from 'react-intl'
 import MessageBar from './MessageBar'
 import MenusContainer from '../menus/MenusContainer'
 import StreetNameCanvas from '../streets/StreetNameCanvas'
@@ -17,7 +20,11 @@ import StreetView from './StreetView'
 import DebugHoverPolygon from '../info_bubble/DebugHoverPolygon'
 import PrintContainer from './PrintContainer'
 
-export default class App extends React.PureComponent {
+class App extends React.PureComponent {
+  static propTypes = {
+    locale: PropTypes.object
+  }
+
   render () {
     return (
       <React.Fragment>
@@ -26,13 +33,31 @@ export default class App extends React.PureComponent {
         <MessageBar />
         <div className="main-screen">
           <GalleryShield />
-          <MenusContainer />
+
+          <IntlProvider
+            locale={this.props.locale.locale}
+            key={`locale_${this.props.locale.locale}`}
+            messages={this.props.locale.messages}
+          >
+            <MenusContainer />
+          </IntlProvider>
+
           <StreetNameCanvas />
           <InfoBubble />
           <DebugHoverPolygon />
           <WelcomePanel />
-          <Palette />
-          <DialogRoot />
+
+          <IntlProvider
+            locale={this.props.locale.locale}
+            key={this.props.locale.locale}
+            messages={this.props.locale.messages}
+          >
+            <React.Fragment>
+              <Palette />
+              <DialogRoot />
+            </React.Fragment>
+          </IntlProvider>
+
           <StreetView />
           <StatusMessage />
           <NoConnectionMessage />
@@ -45,3 +70,11 @@ export default class App extends React.PureComponent {
     )
   }
 }
+
+function mapStateToProps (state) {
+  return {
+    locale: state.locale
+  }
+}
+
+export default connect(mapStateToProps)(App)

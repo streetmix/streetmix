@@ -1,9 +1,9 @@
 import React from 'react'
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Menu from './Menu'
 
-import { t } from '../app/locale'
 import { FACEBOOK_APP_ID } from '../app/config'
 import { trackEvent } from '../app/event_tracking'
 import { getPageTitle } from '../app/page_title'
@@ -11,7 +11,7 @@ import { printImage } from '../app/print'
 import { getSharingUrl } from '../util/share_url'
 import { showDialog } from '../store/actions/dialogs'
 
-class ShareMenu extends React.Component {
+export class ShareMenu extends React.Component {
   static propTypes = {
     showDialog: PropTypes.func.isRequired,
     signedIn: PropTypes.bool.isRequired,
@@ -96,18 +96,20 @@ class ShareMenu extends React.Component {
       '&description=' + encodeURIComponent(shareText)
 
     const signInPromo = (!this.props.signedIn)
-      ? (<div
-        className="share-sign-in-promo"
-        dangerouslySetInnerHTML={{ __html: t('menu.share.sign-in', '<a href="/twitter-sign-in?redirectUri=/just-signed-in">Sign in with Twitter</a> for nicer links to your streets and your personal street gallery') }}
-      />) : null
+      ? (
+        <div className="share-sign-in-promo">
+          <FormattedHTMLMessage
+            id="menu.share.sign-in"
+            defaultMessage="<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Sign in with Twitter</a> for nicer links to your streets and your personal street gallery"
+          />
+        </div>
+      ) : null
 
     return (
       <Menu alignment="right" onShow={this.onShow} className="share-menu" {...this.props}>
         {signInPromo}
         <div className="share-via-link-container">
-          <span>
-            {t('menu.share.link', 'Copy and paste this link to share:')}
-          </span>
+          <FormattedMessage id="menu.share.link" defaultMessage="Copy and paste this link to share:" />
           <input
             className="share-via-link"
             type="text"
@@ -125,7 +127,7 @@ class ShareMenu extends React.Component {
           <svg className="icon">
             <use xlinkHref="#icon-twitter" />
           </svg>
-          <span>{t('menu.share.twitter', 'Share using Twitter')}</span>
+          <FormattedMessage id="menu.share.twitter" defaultMessage="Share using Twitter" />
         </a>
         <a
           className="share-via-facebook"
@@ -136,15 +138,15 @@ class ShareMenu extends React.Component {
           <svg className="icon">
             <use xlinkHref="#icon-facebook" />
           </svg>
-          <span>{t('menu.share.facebook', 'Share using Facebook')}</span>
+          <FormattedMessage id="menu.share.facebook" defaultMessage="Share using Facebook" />
         </a>
         <a href="#" onClick={printImage}>
-          <span>{t('menu.share.print', 'Print…')}</span>
+          <FormattedMessage id="menu.share.print" defaultMessage="Print…" />
         </a>
         <a id="save-as-image" href="#" onClick={this.onClickSaveAsImage}>
-          <span>{t('menu.share.save', 'Save as image…')}</span>
+          <FormattedMessage id="menu.share.save" defaultMessage="Save as image…" />
           <span className="menu-item-subtext">
-            {t('menu.share.save-byline', 'For including in a report, blog, etc.')}
+            <FormattedMessage id="menu.share.save-byline" defaultMessage="For including in a report, blog, etc." />
           </span>
         </a>
       </Menu>

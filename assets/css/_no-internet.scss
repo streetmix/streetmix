@@ -24,15 +24,6 @@ body.no-internet {
     display: none;
   }
 
-  .hide-for-no-internet {
-    display: none;
-  }
-
-  // Hiding menu items that should not exist
-  #help-menu-item::after {
-    content: '' !important;
-  }
-
   // Share menu
   .share-sign-in-promo,
   .share-via-link-container,

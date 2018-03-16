@@ -7,18 +7,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape } from 'react-intl'
 import { isEqual } from 'lodash'
 import { trackEvent } from '../app/event_tracking'
 import { getStreetImage } from '../streets/image'
 import { setSettings } from '../store/actions/settings'
 import { normalizeSlug } from '../util/helpers'
-import { t } from '../app/locale'
 
 // Require save-as polyfills
 import { saveAs } from 'file-saver'
 
-class SaveAsImageDialog extends React.Component {
+export class SaveAsImageDialog extends React.Component {
   static propTypes = {
+    intl: intlShape,
     transparentSky: PropTypes.bool.isRequired,
     segmentNames: PropTypes.bool.isRequired,
     streetName: PropTypes.bool.isRequired,
@@ -81,7 +82,10 @@ class SaveAsImageDialog extends React.Component {
   onPreviewError = () => {
     this.setState({
       isLoading: false,
-      errorMessage: t('dialogs.save.error-preview', 'There was an error displaying a preview image.')
+      errorMessage: this.props.intl.formatMessage({
+        id: 'dialogs.save.error-preview',
+        defaultMessage: 'There was an error displaying a preview image.'
+      })
     })
   }
 
@@ -114,7 +118,10 @@ class SaveAsImageDialog extends React.Component {
       })
     } catch (e) {
       this.setState({
-        errorMessage: t('dialogs.save.error-unavailable', 'Saving to image is not available on this browser.')
+        errorMessage: this.props.intl.formatMessage({
+          id: 'dialogs.save.error-unavailable',
+          defaultMessage: 'Saving to image is not available on this browser.'
+        })
       })
     }
   }
@@ -132,7 +139,7 @@ class SaveAsImageDialog extends React.Component {
   render () {
     return (
       <div className="save-as-image-dialog">
-        <h1>{t('dialogs.save.heading', 'Save as image')}</h1>
+        <h1><FormattedMessage id="dialogs.save.heading" defaultMessage="Save as image" /></h1>
         <p>
           <input
             type="checkbox"
@@ -141,7 +148,7 @@ class SaveAsImageDialog extends React.Component {
             id="save-as-image-segment-names"
           />
           <label htmlFor="save-as-image-segment-names">
-            {t('dialogs.save.option-labels', 'Segment names and widths')}
+            <FormattedMessage id="dialogs.save.option-labels" defaultMessage="Segment names and widths" />
           </label>
 
           <input
@@ -151,7 +158,7 @@ class SaveAsImageDialog extends React.Component {
             id="save-as-image-street-name"
           />
           <label htmlFor="save-as-image-street-name">
-            {t('dialogs.save.option-name', 'Street name')}
+            <FormattedMessage id="dialogs.save.option-name" defaultMessage="Street name" />
           </label>
 
           <input
@@ -161,7 +168,7 @@ class SaveAsImageDialog extends React.Component {
             id="save-as-image-transparent-sky"
           />
           <label htmlFor="save-as-image-transparent-sky">
-            {t('dialogs.save.option-sky', 'Transparent sky')}
+            <FormattedMessage id="dialogs.save.option-sky" defaultMessage="Transparent sky" />
           </label>
         </p>
         {(() => {
@@ -177,14 +184,17 @@ class SaveAsImageDialog extends React.Component {
             return (
               <div className="save-as-image-preview">
                 <div className="save-as-image-preview-loading" style={{display: this.state.isLoading ? 'block' : 'none'}}>
-                  {t('dialogs.save.loading', 'Loading…')}
+                  <FormattedMessage id="dialogs.save.loading" defaultMessage="Loading…" />
                 </div>
                 <div className="save-as-image-preview-image" style={{display: this.state.isLoading ? 'none' : 'block'}}>
                   <img
                     src={this.state.download.dataUrl}
                     onLoad={this.onPreviewLoaded}
                     onError={this.onPreviewError}
-                    alt={t('dialogs.save.preview-image-alt', 'Preview')}
+                    alt={this.props.intl.formatMessage({
+                      id: 'dialogs.save.preview-image-alt',
+                      defaultMessage: 'Preview'
+                    })}
                   />
                 </div>
               </div>
@@ -199,11 +209,21 @@ class SaveAsImageDialog extends React.Component {
             // Note that this property is not supported in Safari/iOS
             download={this.state.download.filename}
             // Link should refer to data URL, even though onClickDownloadImage() is used for direct download
-            href={this.state.download.dataUrl}>
-            {t('dialogs.save.save-button', 'Save to your computer…')}
+            href={this.state.download.dataUrl}
+          >
+            <FormattedMessage id="dialogs.save.save-button" defaultMessage="Save to your computer…" />
           </a>
         </p>
-        <footer dangerouslySetInnerHTML={{ __html: t('dialogs.save.license', 'This Streetmix-created image may be reused anywhere, for any purpose, under the<br /><a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.') }} />
+        <footer>
+          <FormattedHTMLMessage
+            id="dialogs.save.license"
+            defaultMessage="This Streetmix-created image may be reused anywhere, for any purpose, under the<br /><a href='{url}'>Creative Commons Attribution-ShareAlike 4.0 International License</a>."
+            values={{
+              // TODO: locale-specific license text, e.g. https://creativecommons.org/licenses/by-sa/4.0/deed.zh
+              url: 'https://creativecommons.org/licenses/by-sa/4.0/'
+            }}
+          />
+        </footer>
       </div>
     )
   }
@@ -225,4 +245,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SaveAsImageDialog)
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(SaveAsImageDialog))
