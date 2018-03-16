@@ -31,6 +31,9 @@ function replacePlaceholders (messages) {
 }
 
 export function setLocale (locale, messages) {
+  // Substitute 'en' for 'en-US' locales
+  if (locale === 'en-US') locale = 'en'
+
   return {
     type: SET_LOCALE,
     // Converts "es_MX" to "en-MX" (and similar) for react-intl
