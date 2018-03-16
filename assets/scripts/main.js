@@ -24,7 +24,6 @@ import store from './store'
 
 // Main object
 import { initialize } from './app/initialization'
-import { system } from './preinit/system_capabilities'
 import App from './app/App'
 
 // Error tracking
@@ -34,22 +33,6 @@ if (window.location.hostname === 'streetmix.net' || window.location.hostname ===
     whitelistUrls: [/streetmix\.net/, /www\.streetmix\.net/]
   }).install()
 }
-
-function setScaleForPhone () {
-  var meta = document.createElement('meta')
-  meta.setAttribute('name', 'viewport')
-
-  if (system.phone) {
-    meta.setAttribute('content', 'initial-scale=.5, maximum-scale=.5')
-  } else {
-    meta.setAttribute('content', 'initial-scale=1, maximum-scale=1')
-  }
-
-  var headEls = document.getElementsByTagName('head')
-  headEls[0].appendChild(meta)
-}
-
-setScaleForPhone()
 
 // Mount React components
 ReactDOM.render(
