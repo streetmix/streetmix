@@ -142,3 +142,11 @@
 #street-section-left-building-old .hover-bk {
   right: 25px;
 }
+
+[dir='rtl'] {
+  #street-section-canvas,
+  .street-scroll-indicator-left,
+  .street-scroll-indicator-right {
+    direction: ltr;
+  }
+}

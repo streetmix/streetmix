@@ -149,3 +149,17 @@ body.safari .menu {
   max-width: 400px;
   line-height: 18px;
 }
+
+[dir='rtl'] {
+  .menu {
+    &.align-right {
+      left: $left-right-inset;
+      right: auto;
+    }
+
+    .icon {
+      left: auto;
+      right: 0.75em;
+    }
+  }
+}
