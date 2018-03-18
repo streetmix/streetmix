@@ -171,3 +171,14 @@ $top-menu-active-text: darken($ui-colour, 40%);
     background-color: rgb(28, 189, 209);
   }
 }
+
+[dir='rtl'] {
+  .menu-bar-right {
+    float: left;
+  }
+
+  .environment-badge {
+    right: 14px;
+    left: auto;
+  }
+}

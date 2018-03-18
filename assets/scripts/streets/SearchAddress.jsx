@@ -219,7 +219,7 @@ export class SearchAddress extends React.Component {
     // Note: `alwaysRenderSuggestions` is required to be true otherwise
     // click events on the item list is swallowed. This is a bug
     return (
-      <form className="geotag-input-form" onSubmit={this.onSubmitInput}>
+      <form className="geotag-input-form" onSubmit={this.onSubmitInput} dir="auto">
         <Autosuggest
           ref={(ref) => { this.autosuggestBar = ref }}
           suggestions={this.state.suggestions}

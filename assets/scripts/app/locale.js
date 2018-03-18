@@ -41,6 +41,11 @@ export function initLocale (experimental) {
     locale = 'en'
   }
 
+  // right-to-left languages support
+  if (['ar', 'dv', 'fa', 'he'].indexOf(locale) > -1) {
+    document.body.dir = 'rtl'
+  }
+
   doTheI18n(locale)
 }
 
