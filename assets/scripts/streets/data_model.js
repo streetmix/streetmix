@@ -40,7 +40,8 @@ import {
   saveStreetName,
   setUnits,
   setUpdateTime,
-  updateSegments
+  updateSegments,
+  changeSegmentVariant
 } from '../store/actions/street'
 import { resetUndoStack } from '../store/actions/undo'
 import store from '../store'
@@ -100,13 +101,11 @@ function incrementSchemaVersion (street) {
       store.dispatch(setBuildingVariant('left', DEFAULT_BUILDING_VARIANT_LEFT))
       store.dispatch(setBuildingVariant('right', DEFAULT_BUILDING_VARIANT_RIGHT))
       break
-    case 3: // CHECK IF THIS NEEDS TO UPDATE STORE
+    case 3:
       for (var i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'transit-shelter') {
-          variant = getVariantArray(segment.type, segment.variantString)
-          variant['transit-shelter-elevation'] = 'street-level'
-          segment.variantString = getVariantString(variant)
+          store.dispatch(changeSegmentVariant(i, 'transit-shelter-elevation', 'street-level'))
         }
       }
       break
@@ -114,9 +113,7 @@ function incrementSchemaVersion (street) {
       for (let i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'sidewalk-lamp') {
-          variant = getVariantArray(segment.type, segment.variantString)
-          variant['lamp-type'] = 'modern'
-          segment.variantString = getVariantString(variant)
+          store.dispatch(changeSegmentVariant(i, 'lamp-type', 'modern'))
         }
       }
       break
@@ -124,9 +121,7 @@ function incrementSchemaVersion (street) {
       for (let i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'streetcar') {
-          variant = getVariantArray(segment.type, segment.variantString)
-          variant['public-transit-asphalt'] = 'regular'
-          segment.variantString = getVariantString(variant)
+          store.dispatch(changeSegmentVariant(i, 'public-transit-asphalt', 'regular'))
         }
       }
       break
@@ -134,13 +129,9 @@ function incrementSchemaVersion (street) {
       for (let i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'bus-lane') {
-          variant = getVariantArray(segment.type, segment.variantString)
-          variant['bus-asphalt'] = 'regular'
-          segment.variantString = getVariantString(variant)
+          store.dispatch(changeSegmentVariant(i, 'bus-asphalt', 'regular'))
         } else if (segment.type === 'light-rail') {
-          variant = getVariantArray(segment.type, segment.variantString)
-          variant['public-transit-asphalt'] = 'regular'
-          segment.variantString = getVariantString(variant)
+          store.dispatch(changeSegmentVariant(i, 'public-transit-asphalt', 'regular'))
         }
       }
       break
@@ -148,9 +139,7 @@ function incrementSchemaVersion (street) {
       for (let i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'bike-lane') {
-          variant = getVariantArray(segment.type, segment.variantString)
-          variant['bike-asphalt'] = 'regular'
-          segment.variantString = getVariantString(variant)
+          store.dispatch(changeSegmentVariant(i, 'bike-asphalt', 'regular'))
         }
       }
       break
@@ -158,9 +147,7 @@ function incrementSchemaVersion (street) {
       for (let i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'drive-lane') {
-          variant = getVariantArray(segment.type, segment.variantString)
-          variant['car-type'] = 'car'
-          segment.variantString = getVariantString(variant)
+          store.dispatch(changeSegmentVariant(i, 'car-type', 'car'))
         }
       }
       break
@@ -168,9 +155,7 @@ function incrementSchemaVersion (street) {
       for (let i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'sidewalk') {
-          variant = getVariantArray(segment.type, segment.variantString)
-          variant['sidewalk-density'] = 'normal'
-          segment.variantString = getVariantString(variant)
+          store.dispatch(changeSegmentVariant(i, 'sidewalk-density', 'normal'))
         }
       }
       break
@@ -207,9 +192,7 @@ function incrementSchemaVersion (street) {
       for (let i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'sidewalk-bike-rack') {
-          variant = getVariantArray(segment.type, segment.variantString)
-          variant['bike-rack-elevation'] = 'sidewalk'
-          segment.variantString = getVariantString(variant)
+          store.dispatch(changeSegmentVariant(i, 'bike-rack-elevation', 'sidewalk'))
         }
       }
       break
@@ -217,9 +200,7 @@ function incrementSchemaVersion (street) {
       for (let i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'sidewalk-wayfinding') {
-          variant = getVariantArray(segment.type, segment.variantString)
-          variant['wayfinding-type'] = 'large'
-          segment.variantString = getVariantString(variant)
+          store.dispatch(changeSegmentVariant(i, 'wayfinding-type', 'large'))
         }
       }
       break
