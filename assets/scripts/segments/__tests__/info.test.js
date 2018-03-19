@@ -1,25 +1,40 @@
 /* eslint-env jest */
-import {
+import module, {
   getSpriteDef,
   getAllSegmentInfo,
   getSegmentInfo,
   getSegmentVariantInfo
 } from '../info'
 
+const SPRITE_DEFS = module.__get__('SPRITE_DEFS')
+
 describe('segment info', () => {
   it('gets a sprite definition with a string id', () => {
-    const sprite = getSpriteDef('trees--palm-tree')
+    const id = 'trees--palm-tree'
+    const sprite = getSpriteDef(id)
 
-    expect(sprite).toEqual({ id: 'trees--palm-tree', offsetX: 0, offsetY: -20.25, width: 14 })
+    expect(sprite).toEqual(SPRITE_DEFS[id])
   })
 
   it('overwrites sprite definition properties with an object', () => {
-    const sprite = getSpriteDef({
-      id: 'bikes--bike-rack-perpendicular-left',
+    const id = 'bikes--bike-rack-perpendicular-left'
+    const ref = {
+      id,
       offsetY: 5.25
-    })
+    }
 
-    expect(sprite).toEqual({ id: 'bikes--bike-rack-perpendicular-left', width: 6, offsetY: 5.25 })
+    const sprite = getSpriteDef(ref)
+
+    expect(sprite).toEqual(Object.assign({}, SPRITE_DEFS[id], ref))
+  })
+
+  it('returns a cloned definition that does not allow modification of the original data', () => {
+    const id = 'ground--concrete'
+    const sprite = getSpriteDef(id)
+
+    sprite.foo = 'bar'
+
+    expect(SPRITE_DEFS[id].foo).toEqual(undefined)
   })
 
   describe('getAllSegmentInfo()', () => {

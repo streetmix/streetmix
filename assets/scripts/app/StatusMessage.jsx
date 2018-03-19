@@ -2,13 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { FormattedMessage } from 'react-intl'
 
 import { hideStatusMessage } from '../store/actions/status'
 import { registerKeypress, deregisterKeypress } from './keypress'
 import { URL_SIGN_IN_REDIRECT } from './routing'
 import { undo } from '../streets/undo_stack'
 import { loseAnyFocus } from '../util/focus'
-import { t } from '../app/locale'
 
 const STATUS_MESSAGE_HIDE_DELAY = 15000
 
@@ -83,7 +83,7 @@ class StatusMessage extends React.PureComponent {
     const undoButton = (undo)
       ? (
         <button onClick={this.onClickUndo}>
-          {t('btn.undo', 'Undo')}
+          <FormattedMessage id="btn.undo" defaultMessage="Undo" />
         </button>
       ) : null
 
@@ -92,7 +92,7 @@ class StatusMessage extends React.PureComponent {
     const signInButton = (signIn)
       ? (
         <a href={`/${URL_SIGN_IN_REDIRECT}`} className="button-like">
-          {t('menu.item.sign-in', 'Sign in')}
+          <FormattedMessage id="menu.item.sign-in" defaultMessage="Sign in" />
         </a>
       ) : null
 

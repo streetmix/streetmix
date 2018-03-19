@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { FormattedMessage } from 'react-intl'
 import { nonblockingAjaxTryAgain } from '../util/fetch_nonblocking'
-import { t } from '../app/locale'
 
 const NO_CONNECTION_MESSAGE_TIMEOUT = 10000
 
@@ -62,9 +62,9 @@ class NoConnectionMessage extends React.Component {
     return (
       <div className={className}>
         <div className="status-message-content">
-          {t('msg.no-connection', 'Streetmix is having trouble connecting to the Internet.')}
+          <FormattedMessage id="msg.no-connection" defaultMessage="Streetmix is having trouble connecting to the Internet." />
           <button onClick={nonblockingAjaxTryAgain}>
-            {t('btn.try-again', 'Try again')}
+            <FormattedMessage id="btn.try-again" defaultMessage="Try again" />
           </button>
         </div>
       </div>

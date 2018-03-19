@@ -29,7 +29,7 @@ class FeatureFlagDialog extends React.Component {
 
       const isNotDefault = deets.defaultValue !== this.props.flags[id].value
 
-      if (deets.disabled) {
+      if (deets.enabled === false) {
         labelClassNames.push('feature-flag-label-disabled')
       }
       if (isNotDefault) {
@@ -46,7 +46,7 @@ class FeatureFlagDialog extends React.Component {
               }}
               checked={this.props.flags[id].value}
               id={htmlLabel}
-              disabled={deets.disabled}
+              disabled={deets.enabled === false}
             />
           </td>
           <td>

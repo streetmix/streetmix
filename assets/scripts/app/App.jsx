@@ -55,12 +55,12 @@ class App extends React.PureComponent {
               <WelcomePanel />
               <Palette />
               <DialogRoot />
+              <StatusMessage />
+              <NoConnectionMessage />
             </React.Fragment>
           </IntlProvider>
 
           <StreetView />
-          <StatusMessage />
-          <NoConnectionMessage />
         </div>
 
         <Flash />
