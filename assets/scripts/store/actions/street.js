@@ -1,5 +1,4 @@
 import {
-  REPLACE_STREET_DATA,
   ADD_SEGMENT,
   REMOVE_SEGMENT,
   MOVE_SEGMENT,
@@ -26,14 +25,6 @@ import {
   SET_BUILDING_VARIANT
 } from './'
 import { t } from '../../app/locale'
-
-// temporary while we migrate data stores
-export function updateStreetData (street) {
-  return {
-    type: REPLACE_STREET_DATA,
-    street
-  }
-}
 
 export function addSegment (index, segment) {
   return {
