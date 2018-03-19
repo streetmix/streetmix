@@ -16,7 +16,7 @@ import {
 } from './drag_and_drop'
 import { TILE_SIZE, setSegmentContents, segmentsChanged } from './view'
 import store from '../store'
-import { updateStreetData } from '../store/actions/street'
+import { changeSegmentWidth } from '../store/actions/street'
 
 export const SHORT_DELAY = 100
 
@@ -132,10 +132,9 @@ export function handleSegmentResizeEnd (event) {
 export function normalizeAllSegmentWidths () {
   const street = store.getState().street
   for (var i in street.segments) {
-    street.segments[i].width =
-      normalizeSegmentWidth(street.segments[i].width, RESIZE_TYPE_INITIAL)
+    const width = normalizeSegmentWidth(street.segments[i].width, RESIZE_TYPE_INITIAL)
+    store.dispatch(changeSegmentWidth(i, width))
   }
-  store.dispatch(updateStreetData(street))
 }
 
 export function normalizeSegmentWidth (width, resizeType) {
