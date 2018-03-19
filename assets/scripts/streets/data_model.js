@@ -463,10 +463,8 @@ export function prepareDefaultStreet () {
 
   store.dispatch(saveStreetName(DEFAULT_NAME, false))
   store.dispatch(updateStreetWidth(normalizeStreetWidth(DEFAULT_STREET_WIDTH)))
-  store.dispatch(setBuildingFloorValue('left', DEFAULT_BUILDING_HEIGHT_LEFT))
-  store.dispatch(setBuildingFloorValue('right', DEFAULT_BUILDING_HEIGHT_RIGHT))
-  store.dispatch(setBuildingVariant('left', DEFAULT_BUILDING_VARIANT_LEFT))
-  store.dispatch(setBuildingVariant('right', DEFAULT_BUILDING_VARIANT_RIGHT))
+  setBuilding('left', DEFAULT_BUILDING_VARIANT_LEFT, DEFAULT_BUILDING_HEIGHT_LEFT)
+  setBuilding('right', DEFAULT_BUILDING_VARIANT_RIGHT, DEFAULT_BUILDING_HEIGHT_RIGHT)
   store.dispatch(updateEditCount(0))
 
   // console.log('editCount = 0 on default street')
@@ -483,10 +481,8 @@ export function prepareEmptyStreet () {
 
   store.dispatch(saveStreetName(DEFAULT_NAME, false))
   store.dispatch(updateStreetWidth(normalizeStreetWidth(DEFAULT_STREET_WIDTH)))
-  store.dispatch(setBuildingFloorValue('left', DEFAULT_BUILDING_HEIGHT_EMPTY))
-  store.dispatch(setBuildingFloorValue('right', DEFAULT_BUILDING_HEIGHT_EMPTY))
-  store.dispatch(setBuildingVariant('left', DEFAULT_BUILDING_VARIANT_EMPTY))
-  store.dispatch(setBuildingVariant('right', DEFAULT_BUILDING_VARIANT_EMPTY))
+  setBuilding('left', DEFAULT_BUILDING_VARIANT_EMPTY, DEFAULT_BUILDING_HEIGHT_EMPTY)
+  setBuilding('right', DEFAULT_BUILDING_VARIANT_EMPTY, DEFAULT_BUILDING_HEIGHT_EMPTY)
   store.dispatch(updateEditCount(0))
   store.dispatch(clearSegments())
 
