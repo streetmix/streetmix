@@ -11,7 +11,8 @@ import { segmentsChanged } from '../segments/view'
 import {
   createDomFromData,
   saveStreetToServerIfNecessary,
-  setIgnoreStreetChanges
+  setIgnoreStreetChanges,
+  updateStreetData
 } from '../streets/data_model'
 import {
   getUndoStack,
@@ -23,11 +24,7 @@ import {
 } from '../streets/width'
 import { saveSettingsLocally, LOCAL_STORAGE_SETTINGS_UNITS_ID } from '../users/settings'
 import store from '../store'
-import {
-  setUnits,
-  updateStreetData,
-  updateStreetWidth
-} from '../store/actions/street'
+import { setUnits, updateStreetWidth } from '../store/actions/street'
 import { clearMenus } from '../store/actions/menus'
 import { setUserUnits } from '../store/actions/persistSettings'
 
@@ -131,7 +128,7 @@ export function updateUnits (newUnits) {
       store.dispatch(updateStreetWidth(normalizeStreetWidth(street.width)))
     }
   } else {
-    store.dispatch(updateStreetData(cloneDeep(undoStack[undoPosition - 1])))
+    updateStreetData(cloneDeep(undoStack[undoPosition - 1]))
   }
   createDomFromData()
   segmentsChanged()
