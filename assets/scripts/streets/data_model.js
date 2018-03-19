@@ -39,9 +39,11 @@ import {
   updateStreetWidth,
   saveStreetName,
   setUnits,
-  setUpdateTime,
   updateSegments,
-  changeSegmentVariant
+  changeSegmentVariant,
+  saveStreetId,
+  setUpdateTime,
+  saveOriginalStreetId
 } from '../store/actions/street'
 import { resetUndoStack } from '../store/actions/undo'
 import store from '../store'
@@ -242,6 +244,27 @@ function incrementSchemaVersion (street) {
 
   schemaVersion++
   store.dispatch(updateSchemaVersion(schemaVersion))
+}
+
+export function updateStreetData (street) {
+  store.dispatch(saveCreatorId(street.creatorId))
+  store.dispatch(updateEditCount(street.editCount))
+  store.dispatch(saveStreetId(street.id, street.namespacedId))
+  setBuilding('left', street.leftBuildingVariant, street.leftBuildingHeight)
+  setBuilding('right', street.rightBuildingVariant, street.rightBuildingHeight)
+  store.dispatch(addLocation(street.location))
+  store.dispatch(saveStreetName(street.name, street.userUpdated))
+  store.dispatch(saveOriginalStreetId(street.originalStreetId))
+  store.dispatch(updateSchemaVersion(street.schemaVersion))
+  store.dispatch(updateSegments(street.segments))
+  store.dispatch(setUnits(street.units))
+  store.dispatch(setUpdateTime(street.updatedAt))
+  store.dispatch(updateStreetWidth(street.width))
+}
+
+function setBuilding (position, variant, height) {
+  store.dispatch(setBuildingVariant(position, variant))
+  store.dispatch(setBuildingFloorValue(position, height))
 }
 
 export function updateToLatestSchemaVersion (street) {
