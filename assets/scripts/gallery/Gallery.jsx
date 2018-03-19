@@ -22,7 +22,7 @@ function getStreetCountText (count) {
   if (!count) {
     text = t('gallery.street-count-none', 'No streets yet')
   } else {
-    text = t('gallery.street-count', '{{count}} streets', { count })
+    text = t('gallery.street-count', '{count} streets', { count })
   }
   return text
 }

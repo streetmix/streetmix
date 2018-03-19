@@ -105,7 +105,7 @@
       "heading": "About Streetmix.",
       "description": "Design, remix, and share your street. Add bike paths, widen sidewalks or traffic lanes, learn how all of this can impact your community.",
       "thanks": "Many thanks to the staff and 2013 CfA fellows for their support and patience, the Blockee team for paving the way, and all of our testers for their time and feedback!",
-      "credits": "A side project by {{cfaLink}} 2013 fellows:",
+      "credits": "A side project by {cfaLink} 2013 fellows:",
       "team-heading": "Project team and maintainers",
       "view-source": "View source code",
       "sponsored-by": "Streetmix is generously sponsored by:",
@@ -144,8 +144,8 @@
   },
   "prompt": {
     "new-street": "New street name:",
-    "delete-street": "Are you sure you want to permanently delete {{streetName}}? This cannot be undone.",
-    "new-width": "New street width (from {{minWidth}} to {{maxWidth}}):"
+    "delete-street": "Are you sure you want to permanently delete {streetName}? This cannot be undone.",
+    "new-width": "New street width (from {minWidth} to {maxWidth}):"
   },
   "toast": {
     "segment-deleted": "The segment has been removed.",
@@ -161,9 +161,9 @@
     "remove": "Drag here to remove"
   },
   "width": {
-    "label": "{{width}} width",
-    "under": "({{width}} room)",
-    "over": "({{width}} over)",
+    "label": "{width} width",
+    "under": "({width} room)",
+    "over": "({width} over)",
     "occupied": "Occupied width:",
     "building": "Building-to-building width:",
     "different": "Different width…",
@@ -173,8 +173,8 @@
   "datetime": {
     "minutes-ago": "A few minutes ago",
     "seconds-ago": "A few seconds ago",
-    "yesterday": "Yesterday at {{time}}",
-    "today": "Today at {{time}}",
+    "yesterday": "Yesterday at {time}",
+    "today": "Today at {time}",
     "format-date-no-year": "MMM D",
     "format-date-with-year": "MMM D, YYYY",
     "format-time": "HH:MM"
@@ -218,12 +218,12 @@
     "twitter-link": "Twitter profile",
     "delete-street-tooltip": "Delete street",
     "street-count-none": "No streets yet",
-    "street-count": "{{count}} street",
-    "street-count_plural": "{{count}} streets"
+    "street-count": "{count} street",
+    "street-count_plural": "{count} streets"
   },
   "users": {
     "anonymous": "Anonymous",
-    "byline": "by {{user}}"
+    "byline": "by {user}"
   },
   "sign-in": {
     "link": "Sign in with Twitter",
