@@ -61,11 +61,15 @@ function doTheI18n (locale) {
     returnEmptyString: false,
     load: 'all',
     backend: {
-      loadPath: API_URL + 'v1/translate/{{lng}}/{{ns}}'
+      loadPath: API_URL + 'v1/translate/{lng}/{ns}'
     },
-    // Do not escape characters automatically. React already escapes strings,
-    // so we want to avoid double-escaping output.
-    interpolation: { escapeValue: false }
+    interpolation: {
+      prefix: '{',
+      suffix: '}',
+      // Do not escape characters automatically. React already escapes strings,
+      // so we want to avoid double-escaping output.
+      escapeValue: false
+    }
   }
 
   const callback = function (err, t) {

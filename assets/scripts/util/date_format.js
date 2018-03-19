@@ -29,11 +29,11 @@ export function formatDate (dateString) {
   const timeFormat = t('datetime.format-time', TIME_FORMAT)
 
   if (now.isSame(date, 'day')) {
-    return t('datetime.today', 'Today at {{time}}', { time: date.format(timeFormat) })
+    return t('datetime.today', 'Today at {time}', { time: date.format(timeFormat) })
   }
 
   if (now.clone().subtract(1, 'day').isSame(date, 'day')) {
-    return t('datetime.yesterday', 'Yesterday at {{time}}', { time: date.format(timeFormat) })
+    return t('datetime.yesterday', 'Yesterday at {time}', { time: date.format(timeFormat) })
   }
 
   if (now.isSame(date, 'year')) {
