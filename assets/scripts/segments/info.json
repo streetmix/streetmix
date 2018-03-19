@@ -496,6 +496,204 @@
       }
     }
   },
+  "flex-zone": {
+    "name": "Flex zone",
+    "owner": "FLEX",
+    "zIndex": 2,
+    "defaultWidth": 7,
+    "variants": [
+      "flex-type",
+      "direction",
+      "orientation"
+    ],
+    "enableWithFlag": "SEGMENT_FLEX_ZONE",
+    "details": {
+      "taxi|inbound|left": {
+        "name": "Taxi pick-up / drop-off",
+        "minWidth": 7,
+        "maxWidth": 10,
+        "graphics": {
+          "left": {
+            "id": "vehicles--car-inbound",
+            "offsetX": 0.25
+          },
+          "repeat": "ground--asphalt",
+          "right": "markings--parking-left"
+        }
+      },
+      "taxi|inbound|right": {
+        "name": "Taxi pick-up / drop-off",
+        "minWidth": 7,
+        "maxWidth": 10,
+        "graphics": {
+          "right": "vehicles--car-inbound",
+          "repeat": "ground--asphalt",
+          "left": "markings--parking-right"
+        }
+      },
+      "taxi|outbound|left": {
+        "name": "Taxi pick-up / drop-off",
+        "minWidth": 7,
+        "maxWidth": 10,
+        "graphics": {
+          "left": {
+            "id": "vehicles--car-outbound",
+            "offsetX": 0.25
+          },
+          "repeat": "ground--asphalt",
+          "right": "markings--parking-left"
+        }
+      },
+      "taxi|outbound|right": {
+        "name": "Taxi pick-up / drop-off",
+        "minWidth": 7,
+        "maxWidth": 10,
+        "graphics": {
+          "right": "vehicles--car-outbound",
+          "repeat": "ground--asphalt",
+          "left": "markings--parking-right"
+        }
+      },
+      "rideshare|inbound|left": {
+        "name": "Rideshare pick-up / drop-off",
+        "minWidth": 7,
+        "maxWidth": 10,
+        "graphics": {
+          "left": {
+            "id": "vehicles--car-inbound",
+            "offsetX": 0.25
+          },
+          "repeat": "ground--asphalt",
+          "right": "markings--parking-left"
+        }
+      },
+      "rideshare|inbound|right": {
+        "name": "Rideshare pick-up / drop-off",
+        "minWidth": 7,
+        "maxWidth": 10,
+        "graphics": {
+          "right": "vehicles--car-inbound",
+          "repeat": "ground--asphalt",
+          "left": "markings--parking-right"
+        }
+      },
+      "rideshare|outbound|left": {
+        "name": "Rideshare pick-up / drop-off",
+        "minWidth": 7,
+        "maxWidth": 10,
+        "graphics": {
+          "left": {
+            "id": "vehicles--car-inbound",
+            "offsetX": 0.25
+          },
+          "repeat": "ground--asphalt",
+          "right": "markings--parking-left"
+        }
+      },
+      "rideshare|outbound|right": {
+        "name": "Rideshare pick-up / drop-off",
+        "minWidth": 7,
+        "maxWidth": 10,
+        "graphics": {
+          "right": "vehicles--car-inbound",
+          "repeat": "ground--asphalt",
+          "left": "markings--parking-right"
+        }
+      },
+      "bikeshare|inbound|left": {
+        "name": "Bikeshare station",
+        "minWidth": 7,
+        "maxWidth": 10,
+        "graphics": {
+          "left": {
+            "id": "vehicles--car-inbound",
+            "offsetX": 0.25
+          },
+          "repeat": "ground--asphalt",
+          "right": "markings--parking-left"
+        }
+      },
+      "bikeshare|inbound|right": {
+        "name": "Bikeshare station",
+        "minWidth": 7,
+        "maxWidth": 10,
+        "graphics": {
+          "right": "vehicles--car-inbound",
+          "repeat": "ground--asphalt",
+          "left": "markings--parking-right"
+        }
+      },
+      "bikeshare|outbound|left": {
+        "name": "Bikeshare station",
+        "minWidth": 7,
+        "maxWidth": 10,
+        "graphics": {
+          "left": {
+            "id": "vehicles--car-outbound",
+            "offsetX": 0.25
+          },
+          "repeat": "ground--asphalt",
+          "right": "markings--parking-left"
+        }
+      },
+      "bikeshare|outbound|right": {
+        "name": "Bikeshare station",
+        "minWidth": 7,
+        "maxWidth": 10,
+        "graphics": {
+          "right": "vehicles--car-outbound",
+          "repeat": "ground--asphalt",
+          "left": "markings--parking-right"
+        }
+      },
+      "foodtruck|inbound|left": {
+        "name": "Food truck",
+        "minWidth": 7,
+        "maxWidth": 10,
+        "graphics": {
+          "left": {
+            "id": "vehicles--car-inbound",
+            "offsetX": 0.25
+          },
+          "repeat": "ground--asphalt",
+          "right": "markings--parking-left"
+        }
+      },
+      "foodtruck|inbound|right": {
+        "name": "Food truck",
+        "minWidth": 7,
+        "maxWidth": 10,
+        "graphics": {
+          "right": "vehicles--car-inbound",
+          "repeat": "ground--asphalt",
+          "left": "markings--parking-right"
+        }
+      },
+      "foodtruck|outbound|left": {
+        "name": "Food truck",
+        "minWidth": 7,
+        "maxWidth": 10,
+        "graphics": {
+          "left": {
+            "id": "vehicles--car-outbound",
+            "offsetX": 0.25
+          },
+          "repeat": "ground--asphalt",
+          "right": "markings--parking-left"
+        }
+      },
+      "foodtruck|outbound|right": {
+        "name": "Food truck",
+        "minWidth": 7,
+        "maxWidth": 10,
+        "graphics": {
+          "right": "vehicles--car-outbound",
+          "repeat": "ground--asphalt",
+          "left": "markings--parking-right"
+        }
+      }
+    }
+  },
   "parking-lane": {
     "name": "Parking lane",
     "owner": "CAR",

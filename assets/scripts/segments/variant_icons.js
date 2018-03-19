@@ -334,5 +334,23 @@ export const VARIANT_ICONS = {
       'id': 'wayfinding-small',
       'title': 'Small'
     }
+  },
+  'flex-type': {
+    'taxi': {
+      'id': 'taxi',
+      'title': 'Taxi'
+    },
+    'rideshare': {
+      'id': 'rideshare',
+      'title': 'Rideshare'
+    },
+    'bikeshare': {
+      'id': 'bikeshare',
+      'title': 'Bikeshare'
+    },
+    'foodtruck': {
+      'id': 'foodtruck',
+      'title': 'Food truck'
+    }
   }
 }
