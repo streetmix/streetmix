@@ -101,7 +101,7 @@ class StreetMetaData extends React.Component {
     if (creatorId && (!this.props.signedIn || (creatorId !== this.props.userId))) {
       author = this.renderByline(creatorId)
     } else if (!creatorId && (this.props.signedIn || getRemixOnFirstEdit())) {
-      author = t('users.byline', 'by {{user}}', { user: t('users.anonymous', 'Anonymous') })
+      author = t('users.byline', 'by {user}', { user: t('users.anonymous', 'Anonymous') })
     }
 
     const geolocation = (this.props.enableLocation) ? this.renderGeotag(this.props.street, this.props.readOnly) : null

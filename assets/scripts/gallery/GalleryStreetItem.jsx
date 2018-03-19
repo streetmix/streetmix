@@ -58,7 +58,7 @@ class GalleryStreetItem extends React.Component {
     const street = this.props.street
 
     // TODO escape name
-    const message = t('prompt.delete-street', 'Are you sure you want to permanently delete {{streetName}}? This cannot be undone.', { streetName: street.name })
+    const message = t('prompt.delete-street', 'Are you sure you want to permanently delete {streetName}? This cannot be undone.', { streetName: street.name })
 
     if (window.confirm(message)) {
       this.props.handleDelete(street.id)

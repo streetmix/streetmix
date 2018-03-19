@@ -38,10 +38,10 @@ class StreetWidth extends React.Component {
 
     if (this.props.street.remainingWidth > 0) {
       differenceClass = 'street-width-under'
-      differenceString = t('width.room', '({{width}} room)', { width })
+      differenceString = t('width.room', '({width} room)', { width })
     } else if (this.props.street.remainingWidth < 0) {
       differenceClass = 'street-width-over'
-      differenceString = t('width.over', '({{width}} over)', { width })
+      differenceString = t('width.over', '({width} over)', { width })
     }
 
     return { class: differenceClass, width: differenceString }
@@ -156,7 +156,7 @@ class StreetWidth extends React.Component {
         minWidth: prettifyWidth(MIN_CUSTOM_STREET_WIDTH, this.props.street.units),
         maxWidth: prettifyWidth(MAX_CUSTOM_STREET_WIDTH, this.props.street.units)
       }
-      const promptString = t('prompt.new-width', 'New street width (from {{minWidth}} to {{maxWidth}}):', replacements)
+      const promptString = t('prompt.new-width', 'New street width (from {minWidth} to {maxWidth}):', replacements)
       let width = window.prompt(promptString, prettifyWidth(promptValue, this.props.street.units))
 
       if (width) {
@@ -191,7 +191,7 @@ class StreetWidth extends React.Component {
   render () {
     // TODO work on this so that we can use markup
     const width = prettifyWidth(this.props.street.width, this.props.street.units, { markup: false })
-    const widthString = t('width.label', '{{width}} width', { width })
+    const widthString = t('width.label', '{width} width', { width })
     const difference = this.displayStreetWidthRemaining()
     const differenceClass = `street-width-read-difference ${difference.class}`
 
