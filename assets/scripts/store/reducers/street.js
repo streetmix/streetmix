@@ -17,6 +17,8 @@ import {
   SET_UNITS,
   UPDATE_STREET_WIDTH,
   UPDATE_SCHEMA_VERSION,
+  UPDATE_OCCUPIED_WIDTH,
+  UPDATE_SEGMENT_WARNINGS,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
   REMOVE_BUILDING_FLOOR,
@@ -108,6 +110,12 @@ const street = (state = initialState, action) => {
         ...state,
         width: action.width
       }
+    case UPDATE_OCCUPIED_WIDTH:
+      return {
+        ...state,
+        occupiedWidth: action.occupiedWidth,
+        remainingWidth: action.remainingWidth
+      }
     case UPDATE_SCHEMA_VERSION:
       return {
         ...state,
@@ -144,6 +152,14 @@ const street = (state = initialState, action) => {
       copy[action.index].variant[action.set] = action.selection
       copy[action.index].variantString = getVariantString(copy[action.index].variant)
 
+      return {
+        ...state,
+        segments: copy
+      }
+    }
+    case UPDATE_SEGMENT_WARNINGS: {
+      const copy = [...state.segments]
+      copy[action.index].warnings = action.warnings
       return {
         ...state,
         segments: copy

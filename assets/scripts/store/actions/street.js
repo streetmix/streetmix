@@ -17,6 +17,8 @@ import {
   SET_UNITS,
   UPDATE_STREET_WIDTH,
   UPDATE_SCHEMA_VERSION,
+  UPDATE_OCCUPIED_WIDTH,
+  UPDATE_SEGMENT_WARNINGS,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
   REMOVE_BUILDING_FLOOR,
@@ -120,6 +122,14 @@ export function updateStreetWidth (width) {
   }
 }
 
+export function updateOccupiedWidth (occupiedWidth, remainingWidth) {
+  return {
+    type: UPDATE_OCCUPIED_WIDTH,
+    occupiedWidth,
+    remainingWidth
+  }
+}
+
 export function updateSchemaVersion (version) {
   return {
     type: UPDATE_SCHEMA_VERSION,
@@ -163,6 +173,14 @@ export function changeSegmentVariant (index, set, selection) {
     index,
     set,
     selection
+  }
+}
+
+export function updateSegmentWarnings (index, warnings) {
+  return {
+    type: UPDATE_SEGMENT_WARNINGS,
+    index,
+    warnings
   }
 }
 
