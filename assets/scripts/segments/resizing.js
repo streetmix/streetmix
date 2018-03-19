@@ -211,7 +211,6 @@ export function applyWarningsToSegments () {
       }
     }
   }
-  store.dispatch(updateStreetData(street))
 }
 
 let controlsFadeoutDelayTimer = -1
