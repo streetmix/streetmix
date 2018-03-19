@@ -62,8 +62,8 @@ class Palette extends React.Component {
       // is set to true. If not, bail.
       if (segmentInfo.enableWithFlag) {
         const flag = this.props.flags[segmentInfo.enableWithFlag]
-        if (!flag) break
-        if (!flag.value) break
+        if (!flag) continue
+        if (!flag.value) continue
       }
 
       let variantName
