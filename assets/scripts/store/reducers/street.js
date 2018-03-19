@@ -74,7 +74,7 @@ const street = (state = initialState, action) => {
     case SAVE_STREET_ID:
       return {
         ...state,
-        id: action.id,
+        id: (action.id) ? action.id : state.id,
         namespacedId: action.namespacedId
       }
     case SET_UPDATE_TIME:

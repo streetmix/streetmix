@@ -12,7 +12,7 @@ import {
 } from './routing'
 import { setGalleryUserId } from '../store/actions/gallery'
 import store from '../store'
-import { updateStreetData } from '../store/actions/street'
+import { saveCreatorId, saveStreetId } from '../store/actions/street'
 
 let errorUrl = ''
 
@@ -70,31 +70,31 @@ export function processUrl () {
     // TODO add is integer urlParts[1]
     // Existing street by an anonymous person
 
-    street.creatorId = null
-    street.namespacedId = urlParts[1]
+    store.dispatch(saveCreatorId(null))
+    store.dispatch(saveStreetId(null, urlParts[1]))
 
     setMode(MODES.EXISTING_STREET)
   } else if ((urlParts.length >= 2) && urlParts[0] && urlParts[1]) {
     // Existing street by a user person
-    street.creatorId = urlParts[0]
+    let creatorId = urlParts[0]
 
-    if (street.creatorId.charAt(0) === URL_RESERVED_PREFIX) {
-      street.creatorId = street.creatorId.substr(1)
+    if (creatorId.charAt(0) === URL_RESERVED_PREFIX) {
+      creatorId = street.creatorId.substr(1)
     }
+
+    store.dispatch(saveCreatorId(creatorId))
 
     // if `urlParts[1]` is not an integer, redirect to user's gallery
     if (Number.isInteger(window.parseInt(urlParts[1])) === false) {
       store.dispatch(setGalleryUserId(urlParts[0]))
       setMode(MODES.USER_GALLERY)
     } else {
-      street.namespacedId = urlParts[1]
+      store.dispatch(saveStreetId(null, urlParts[1]))
       setMode(MODES.EXISTING_STREET)
     }
   } else {
     setMode(MODES.NOT_FOUND)
   }
-
-  store.dispatch(updateStreetData(street))
 }
 
 export function updatePageUrl (forceGalleryUrl) {
