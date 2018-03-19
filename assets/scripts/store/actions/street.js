@@ -1,8 +1,10 @@
 import {
+  REPLACE_STREET_DATA,
   ADD_SEGMENT,
   REMOVE_SEGMENT,
   MOVE_SEGMENT,
-  REPLACE_STREET_DATA,
+  UPDATE_SEGMENT_WARNINGS,
+  UPDATE_SEGMENTS,
   CHANGE_SEGMENT_WIDTH,
   CHANGE_SEGMENT_VARIANT,
   ADD_LOCATION,
@@ -13,12 +15,10 @@ import {
   SET_UPDATE_TIME,
   SAVE_ORIGINAL_STREET_ID,
   UPDATE_EDIT_COUNT,
-  UPDATE_SEGMENTS,
   SET_UNITS,
   UPDATE_STREET_WIDTH,
   UPDATE_SCHEMA_VERSION,
   UPDATE_OCCUPIED_WIDTH,
-  UPDATE_SEGMENT_WARNINGS,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
   REMOVE_BUILDING_FLOOR,
@@ -26,6 +26,14 @@ import {
   SET_BUILDING_VARIANT
 } from './'
 import { t } from '../../app/locale'
+
+// temporary while we migrate data stores
+export function updateStreetData (street) {
+  return {
+    type: REPLACE_STREET_DATA,
+    street
+  }
+}
 
 export function addSegment (index, segment) {
   return {
@@ -50,11 +58,50 @@ export function moveSegment (index, newIndex) {
   }
 }
 
-// temporary while we migrate data stores
-export function updateStreetData (street) {
+export function updateSegments (segments) {
   return {
-    type: REPLACE_STREET_DATA,
-    street
+    type: UPDATE_SEGMENTS,
+    segments
+  }
+}
+
+export function clearSegments () {
+  return {
+    type: UPDATE_SEGMENTS,
+    segments: []
+  }
+}
+
+export function changeSegmentWidth (index, width) {
+  return {
+    type: CHANGE_SEGMENT_WIDTH,
+    index,
+    width
+  }
+}
+
+export function changeSegmentVariant (index, set, selection) {
+  return {
+    type: CHANGE_SEGMENT_VARIANT,
+    index,
+    set,
+    selection
+  }
+}
+
+export function updateSegmentWarnings (index, warnings) {
+  return {
+    type: UPDATE_SEGMENT_WARNINGS,
+    index,
+    warnings
+  }
+}
+
+export function saveStreetName (streetName, userUpdated) {
+  return {
+    type: SAVE_STREET_NAME,
+    streetName,
+    userUpdated
   }
 }
 
@@ -84,20 +131,6 @@ export function saveOriginalStreetId (id) {
   return {
     type: SAVE_ORIGINAL_STREET_ID,
     id
-  }
-}
-
-export function updateSegments (segments) {
-  return {
-    type: UPDATE_SEGMENTS,
-    segments
-  }
-}
-
-export function clearSegments () {
-  return {
-    type: UPDATE_SEGMENTS,
-    segments: []
   }
 }
 
@@ -148,39 +181,6 @@ export function clearLocation () {
   return {
     type: CLEAR_LOCATION,
     defaultName: t('street.default-name', 'Unnamed St')
-  }
-}
-
-export function saveStreetName (streetName, userUpdated) {
-  return {
-    type: SAVE_STREET_NAME,
-    streetName,
-    userUpdated
-  }
-}
-
-export function changeSegmentWidth (index, width) {
-  return {
-    type: CHANGE_SEGMENT_WIDTH,
-    index,
-    width
-  }
-}
-
-export function changeSegmentVariant (index, set, selection) {
-  return {
-    type: CHANGE_SEGMENT_VARIANT,
-    index,
-    set,
-    selection
-  }
-}
-
-export function updateSegmentWarnings (index, warnings) {
-  return {
-    type: UPDATE_SEGMENT_WARNINGS,
-    index,
-    warnings
   }
 }
 
