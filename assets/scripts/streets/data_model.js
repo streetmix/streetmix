@@ -29,9 +29,18 @@ import {
 } from './width'
 import { updateLastStreetInfo, scheduleSavingStreetToServer } from './xhr'
 import {
-  updateStreetData,
+  setBuildingVariant,
+  setBuildingFloorValue,
+  addLocation,
+  updateSchemaVersion,
+  clearSegments,
   saveCreatorId,
-  setUpdateTime
+  updateEditCount,
+  updateStreetWidth,
+  saveStreetName,
+  setUnits,
+  setUpdateTime,
+  updateSegments
 } from '../store/actions/street'
 import { resetUndoStack } from '../store/actions/undo'
 import store from '../store'
@@ -76,22 +85,22 @@ const LATEST_SCHEMA_VERSION = 18
 export const DEFAULT_NAME = msg('DEFAULT_STREET_NAME')
 
 function incrementSchemaVersion (street) {
-  let segment, variant
+  let segment, variant, schemaVersion
 
   if (!street.schemaVersion) {
-    street.schemaVersion = 1
+    schemaVersion = 1
   }
 
   switch (street.schemaVersion) {
     case 1:
-      street.leftBuildingHeight = DEFAULT_BUILDING_HEIGHT_LEFT
-      street.rightBuildingHeight = DEFAULT_BUILDING_HEIGHT_RIGHT
+      store.dispatch(setBuildingFloorValue('left', DEFAULT_BUILDING_HEIGHT_LEFT))
+      store.dispatch(setBuildingFloorValue('right', DEFAULT_BUILDING_HEIGHT_RIGHT))
       break
     case 2:
-      street.leftBuildingVariant = DEFAULT_BUILDING_VARIANT_LEFT
-      street.rightBuildingVariant = DEFAULT_BUILDING_VARIANT_RIGHT
+      store.dispatch(setBuildingVariant('left', DEFAULT_BUILDING_VARIANT_LEFT))
+      store.dispatch(setBuildingVariant('right', DEFAULT_BUILDING_VARIANT_RIGHT))
       break
-    case 3:
+    case 3: // CHECK IF THIS NEEDS TO UPDATE STORE
       for (var i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'transit-shelter') {
@@ -239,15 +248,19 @@ function incrementSchemaVersion (street) {
       break
     case 17:
       if (street.location && street.location.latlng) {
-        street.location.latlng = {
-          lat: street.location.latlng[0],
-          lng: street.location.latlng[1]
+        const location = {
+          ...street.location,
+          latlng: {
+            lat: street.location.latlng[0],
+            lng: street.location.latlng[1]
+          }
         }
+        store.dispatch(addLocation(location))
       }
   }
 
-  street.schemaVersion++
-  store.dispatch(updateStreetData(street))
+  schemaVersion++
+  store.dispatch(updateSchemaVersion(schemaVersion))
 }
 
 export function updateToLatestSchemaVersion (street) {
@@ -328,12 +341,6 @@ export function saveStreetToServerIfNecessary () {
   }
 }
 
-// Update in Redux store. Some components will read street data from there.
-// todo: transition so Redux is single source of truth for street.
-// export function setStreetDataInRedux () {
-//   store.dispatch(updateStreetData(street))
-// }
-
 // Copies only the data necessary for save/undo.
 export function trimStreetData (street) {
   var newData = {}
@@ -385,9 +392,7 @@ export function trimStreetData (street) {
 // object to begin with
 export function createDataFromDom () {
   var els = document.querySelectorAll('#street-section-editable > .segment')
-
-  const street = store.getState().street
-  street.segments = []
+  const segments = []
 
   for (var i = 0, el; el = els[i]; i++) { // eslint-disable-line no-cond-assign
     var segment = {}
@@ -400,14 +405,13 @@ export function createDataFromDom () {
     segment.width = parseFloat(el.getAttribute('data-width'))
     segment.el = el
     segment.warnings = []
-    street.segments.push(segment)
+    segments.push(segment)
   }
-  store.dispatch(updateStreetData(street))
+  store.dispatch(updateSegments(segments))
 }
 
 function fillDefaultSegments () {
-  const street = store.getState().street
-  street.segments = []
+  const segments = []
   let leftHandTraffic = getLeftHandTraffic()
 
   for (var i in DEFAULT_SEGMENTS[leftHandTraffic]) {
@@ -419,9 +423,9 @@ function fillDefaultSegments () {
       segment.randSeed = generateRandSeed()
     }
 
-    street.segments.push(segment)
+    segments.push(segment)
   }
-  store.dispatch(updateStreetData(street))
+  store.dispatch(updateSegments(segments))
   normalizeAllSegmentWidths()
 }
 
@@ -450,18 +454,18 @@ export function getStreetUrl (street) {
 }
 
 export function prepareDefaultStreet () {
-  const street = store.getState().street
-  street.units = getUnits()
+  store.dispatch(setUnits(getUnits()))
   propagateUnits()
-  street.name = DEFAULT_NAME
-  street.width = normalizeStreetWidth(DEFAULT_STREET_WIDTH)
-  street.leftBuildingHeight = DEFAULT_BUILDING_HEIGHT_LEFT
-  street.rightBuildingHeight = DEFAULT_BUILDING_HEIGHT_RIGHT
-  street.leftBuildingVariant = DEFAULT_BUILDING_VARIANT_LEFT
-  street.rightBuildingVariant = DEFAULT_BUILDING_VARIANT_RIGHT
-  street.editCount = 0
+
+  store.dispatch(saveStreetName(DEFAULT_NAME, false))
+  store.dispatch(updateStreetWidth(normalizeStreetWidth(DEFAULT_STREET_WIDTH)))
+  store.dispatch(setBuildingFloorValue('left', DEFAULT_BUILDING_HEIGHT_LEFT))
+  store.dispatch(setBuildingFloorValue('right', DEFAULT_BUILDING_HEIGHT_RIGHT))
+  store.dispatch(setBuildingVariant('left', DEFAULT_BUILDING_VARIANT_LEFT))
+  store.dispatch(setBuildingVariant('right', DEFAULT_BUILDING_VARIANT_RIGHT))
+  store.dispatch(updateEditCount(0))
+
   // console.log('editCount = 0 on default street')
-  store.dispatch(updateStreetData(street))
   if (isSignedIn()) {
     setStreetCreatorId(getSignInData().userId)
   }
@@ -470,20 +474,19 @@ export function prepareDefaultStreet () {
 }
 
 export function prepareEmptyStreet () {
-  const street = store.getState().street
-  street.units = getUnits()
+  store.dispatch(setUnits(getUnits()))
   propagateUnits()
 
-  street.name = DEFAULT_NAME
-  street.width = normalizeStreetWidth(DEFAULT_STREET_WIDTH)
-  street.leftBuildingHeight = DEFAULT_BUILDING_HEIGHT_EMPTY
-  street.rightBuildingHeight = DEFAULT_BUILDING_HEIGHT_EMPTY
-  street.leftBuildingVariant = DEFAULT_BUILDING_VARIANT_EMPTY
-  street.rightBuildingVariant = DEFAULT_BUILDING_VARIANT_EMPTY
-  street.editCount = 0
-  street.segments = []
+  store.dispatch(saveStreetName(DEFAULT_NAME, false))
+  store.dispatch(updateStreetWidth(normalizeStreetWidth(DEFAULT_STREET_WIDTH)))
+  store.dispatch(setBuildingFloorValue('left', DEFAULT_BUILDING_HEIGHT_EMPTY))
+  store.dispatch(setBuildingFloorValue('right', DEFAULT_BUILDING_HEIGHT_EMPTY))
+  store.dispatch(setBuildingVariant('left', DEFAULT_BUILDING_VARIANT_EMPTY))
+  store.dispatch(setBuildingVariant('right', DEFAULT_BUILDING_VARIANT_EMPTY))
+  store.dispatch(updateEditCount(0))
+  store.dispatch(clearSegments())
+
   // console.log('editCount = 0 on empty street!')
-  store.dispatch(updateStreetData(street))
   if (isSignedIn()) {
     setStreetCreatorId(getSignInData().userId)
   }
