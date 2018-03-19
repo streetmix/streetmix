@@ -17,7 +17,6 @@ import {
 } from './resizing'
 import { getVariantString } from './variant_utils'
 import store from '../store'
-import { updateStreetData } from '../store/actions/street'
 
 export const TILESET_POINT_PER_PIXEL = 2.0
 export const TILE_SIZE = 12 // pixels
@@ -623,27 +622,25 @@ export function segmentsChanged (readDataFromDom = true, reassignElementRefs = f
   }
 
   const street = store.getState().street
-
+  const segments = [...street.segments]
   // When segments have chaged in Redux and we want to depend on that data,
   // other parts of the app still want a reference to the element. This will
   // update it. It only happens if you pass `true` as the second argument to this function.
   if (reassignElementRefs === true) {
-    street.segments = [...store.getState().street.segments]
     const els = document.querySelectorAll('#street-section-editable > .segment')
-    street.segments.map((item, i) => { item.el = els[i] })
+    segments.map((item, i) => { item.el = els[i] })
   }
 
   recalculateWidth()
   repositionEmptySegments()
   applyWarningsToSegments()
 
-  for (var i in street.segments) {
-    if (street.segments[i].el) {
-      street.segments[i].el.dataNo = i
+  for (var i in segments) {
+    if (segments[i].el) {
+      segments[i].el.dataNo = i
     }
   }
 
-  store.dispatch(updateStreetData(street))
   saveStreetToServerIfNecessary()
   repositionSegments()
 }
