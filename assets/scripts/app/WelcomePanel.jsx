@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { FormattedMessage } from 'react-intl'
 
 import { app } from '../preinit/app_settings'
 import { system } from '../preinit/system_capabilities'
@@ -29,6 +30,7 @@ const LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED = 'settings-welcome-dismissed'
 
 class WelcomePanel extends React.Component {
   static propTypes = {
+    touch: PropTypes.bool,
     newStreetPreference: PropTypes.number,
     priorLastStreetId: PropTypes.string,
     street: PropTypes.object,
@@ -37,6 +39,7 @@ class WelcomePanel extends React.Component {
   }
 
   static defaultProps = {
+    touch: false,
     priorLastStreetId: null
   }
 
@@ -180,16 +183,27 @@ class WelcomePanel extends React.Component {
       case WELCOME_FIRST_TIME_NEW_STREET:
         welcomeContent = (
           <div className="welcome-panel-content first-time-new-street">
-            <h1 data-i18n="dialogs.welcome.heading">
-              Welcome to Streetmix.
+            <h1>
+              <FormattedMessage id="dialogs.welcome.heading" defaultMessage="Welcome to Streetmix." />
             </h1>
             <p>
-              Design, remix, and share your neighborhood street. Add trees or bike paths, widen
-              sidewalks or traffic lanes, learn how your decisions can impact your community.
+              <FormattedMessage
+                id="dialogs.welcome.new.intro"
+                defaultMessage="Design, remix, and share your neighborhood street.
+                  Add trees or bike paths, widen sidewalks or traffic lanes, learn
+                  how your decisions can impact your community."
+              />
             </p>
             <p className="important">
-              Start by moving some segments around
-              with <span className="touch-only">your finger</span><span className="non-touch-only">your mouse</span>.
+              <FormattedMessage
+                id="dialogs.welcome.new.instruct"
+                defaultMessage="Start by moving some segments around with {pointer}."
+                values={{
+                  pointer: (this.props.touch)
+                    ? <FormattedMessage id="dialogs.welcome.new.instruct-pointer-finger" defaultMessage="your finger" />
+                    : <FormattedMessage id="dialogs.welcome.new.instruct-pointer-mouse" defaultMessage="your mouse" />
+                }}
+              />
             </p>
           </div>
         )
@@ -199,31 +213,51 @@ class WelcomePanel extends React.Component {
 
         welcomeContent = (
           <div className="welcome-panel-content first-time-existing-street">
-            <h1 data-i18n="dialogs.welcome.heading">
-              Welcome to Streetmix.
+            <h1>
+              <FormattedMessage id="dialogs.welcome.heading" defaultMessage="Welcome to Streetmix." />
             </h1>
             {/* Enclose child elements in a paragraph-like <div> to get around
                 React's warning that <div> elements from StreetName and
                 Avatar components cannot exist inside a <p> */}
             <div className="paragraph">
-              This is <StreetName name={street.name} />
               {(() => {
                 // Display street creator if creatorId is available.
                 if (street.creatorId) {
                   return (
-                    <span>
-                      made by <Avatar userId={street.creatorId} /> {street.creatorId}
-                    </span>
+                    <FormattedMessage
+                      id="dialogs.welcome.existing.intro"
+                      defaultMessage="This is {streetName} made by {creator}."
+                      values={{
+                        streetName: <StreetName name={street.name} />,
+                        creator: <React.Fragment><Avatar userId={street.creatorId} /> {street.creatorId}</React.Fragment>
+                      }}
+                    />
+                  )
+                } else {
+                  return (
+                    <FormattedMessage
+                      id="dialogs.welcome.existing.intro-without-creator"
+                      defaultMessage="This is {streetName}."
+                      values={{
+                        streetName: <StreetName name={street.name} />
+                      }}
+                    />
                   )
                 }
-
-                return null
               })()}
-              .
             </div>
             <p className="important">
-              Remix it by moving some segments around,
-              or <button onClick={this.onClickGoNewStreet}>Start your own street</button>.
+              <FormattedMessage
+                id="dialogs.welcome.existing.instruct"
+                defaultMessage="Remix it by moving some segments around, or {startYourOwnStreet}."
+                values={{
+                  startYourOwnStreet: (
+                    <button onClick={this.onClickGoNewStreet}>
+                      <FormattedMessage id="dialogs.welcome.existing.instruct-start-own-street" defaultMessage="Start your own street" />
+                    </button>
+                  )
+                }}
+              />
             </p>
           </div>
         )
@@ -232,8 +266,8 @@ class WelcomePanel extends React.Component {
       case WELCOME_NEW_STREET:
         welcomeContent = (
           <div className="welcome-panel-content new-street">
-            <h1 data-i18n="dialogs.new-street.heading">
-              Here’s your new street.
+            <h1>
+              <FormattedMessage id="dialogs.new-street.heading" defaultMessage="Here’s your new street." />
             </h1>
             <ul>
               <li>
@@ -245,8 +279,8 @@ class WelcomePanel extends React.Component {
                   onChange={this.onChangeNewStreetType}
                   onClick={onNewStreetDefaultClick}
                 />
-                <label htmlFor="new-street-default" data-i18n="dialogs.new-street.default">
-                  Start with an example street
+                <label htmlFor="new-street-default">
+                  <FormattedMessage id="dialogs.new-street.default" defaultMessage="Start with an example street" />
                 </label>
               </li>
               <li>
@@ -258,8 +292,8 @@ class WelcomePanel extends React.Component {
                   onChange={this.onChangeNewStreetType}
                   onClick={onNewStreetEmptyClick}
                 />
-                <label htmlFor="new-street-empty" data-i18n="dialogs.new-street.empty">
-                  Start with an empty street
+                <label htmlFor="new-street-empty">
+                  <FormattedMessage id="dialogs.new-street.empty" defaultMessage="Start with an empty street" />
                 </label>
               </li>
               {(() => {
@@ -276,8 +310,8 @@ class WelcomePanel extends React.Component {
                         onChange={this.onChangeNewStreetType}
                         onClick={onNewStreetLastClick}
                       />
-                      <label htmlFor="new-street-last" data-i18n="dialogs.new-street.last">
-                        Start with a copy of last street
+                      <label htmlFor="new-street-last">
+                        <FormattedMessage id="dialogs.new-street.last" defaultMessage="Start with a copy of last street" />
                       </label>
                     </li>
                   )
@@ -320,6 +354,7 @@ class WelcomePanel extends React.Component {
 
 function mapStateToProps (state) {
   return {
+    touch: state.system.touch,
     newStreetPreference: state.settings.newStreetPreference,
     priorLastStreetId: state.settings.priorLastStreetId,
     street: state.street

@@ -45,7 +45,6 @@ class App extends React.PureComponent {
           <StreetNameCanvas />
           <InfoBubble />
           <DebugHoverPolygon />
-          <WelcomePanel />
 
           <IntlProvider
             locale={this.props.locale.locale}
@@ -53,6 +52,7 @@ class App extends React.PureComponent {
             messages={this.props.locale.messages}
           >
             <React.Fragment>
+              <WelcomePanel />
               <Palette />
               <DialogRoot />
             </React.Fragment>
