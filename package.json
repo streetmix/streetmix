@@ -26,9 +26,10 @@
     "test:cleanup": "npm run test:server:close && npm run mongo:stop",
     "test:server": "NODE_ENV=test PORT=3000 node index &",
     "test:server:close": "pkill -SIGINT streetmix",
-    "lint": "npm run lint:css && npm run lint:js",
+    "lint": "npm run lint:css && npm run lint:js && npm run lint:json",
     "lint:css": "stylelint ./assets/css/**/*.scss",
     "lint:js": "eslint \"**/*.js\" \"**/*.jsx\"",
+    "lint:json": "find assets -name '*.json' -exec jsonlint {} --quiet \\;",
     "jest": "jest",
     "jest:watch": "jest --watch",
     "protractor:update": "./node_modules/protractor/bin/webdriver-manager update",
@@ -55,6 +56,10 @@
     ],
     "*.jsx": [
       "eslint --fix",
+      "git add"
+    ],
+    "*.json": [
+      "jsonlint --in-place",
       "git add"
     ],
     "*.scss": [
@@ -154,6 +159,7 @@
     "husky": "0.14.3",
     "jest": "22.4.2",
     "jest-fetch-mock": "1.4.2",
+    "jsonlint": "1.6.3",
     "lint-staged": "7.0.0",
     "protractor": "5.3.0",
     "react-test-renderer": "16.2.0",
