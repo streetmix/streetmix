@@ -13,7 +13,6 @@ import GalleryStreetItem from './GalleryStreetItem'
 import { switchGalleryStreet, repeatReceiveGalleryData } from './view'
 import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/routing'
 import { sendDeleteStreetToServer } from '../streets/xhr'
-import { getStreet } from '../streets/data_model'
 import { showError, ERRORS } from '../app/errors'
 import { t } from '../app/locale'
 import { deleteGalleryStreet } from '../store/actions/gallery'
@@ -35,7 +34,8 @@ class Gallery extends React.Component {
     mode: PropTypes.string,
     streets: PropTypes.array.isRequired,
     signInData: PropTypes.object,
-    isSignedIn: PropTypes.bool
+    isSignedIn: PropTypes.bool,
+    street: PropTypes.object
   }
 
   static defaultProps = {
@@ -90,7 +90,7 @@ class Gallery extends React.Component {
 
   deleteStreet = (streetId) => {
     let preventHide = false
-    if (streetId === getStreet().id) {
+    if (streetId === this.props.street.id) {
       preventHide = true
       showError(ERRORS.NO_STREET, false)
     }
@@ -230,7 +230,8 @@ function mapStateToProps (state) {
     mode: state.gallery.mode,
     streets: state.gallery.streets,
     signInData: state.user.signInData,
-    isSignedIn: state.user.signedIn
+    isSignedIn: state.user.signedIn,
+    street: state.street
   }
 }
 

@@ -1,34 +1,30 @@
 import store from '../store'
-import { getStreet, saveStreetToServerIfNecessary } from './data_model'
+import { saveStreetToServerIfNecessary } from './data_model'
 import { buildingHeightUpdated } from '../segments/buildings'
 import { updateStreetName } from './name'
 
-let oldLeftBuildingHeight
-let oldRightBuildingHeight
-let oldStreetName
-let oldStreetLocation
+const street = store.getState().street
+let oldLeftBuildingHeight = street.leftBuildingHeight
+let oldRightBuildingHeight = street.rightBuildingHeight
+let oldStreetName = street.name
+let oldStreetLocation = (street.location) ? street.location.wofId : null
 
-// transition: when state changes, update legacy street object.
-// todo: remove when no longer needed
 export function initStreetReduxTransitionSubscriber () {
   store.subscribe(() => {
     const state = store.getState().street
-    const street = getStreet()
-    updateIfBuildingsChanged(state, street)
-    updateIfStreetNameChanged(state, street)
-    updateIfLocationChanged(state, street)
+    updateIfBuildingsChanged(state)
+    updateIfStreetNameChanged(state)
+    updateIfLocationChanged(state)
   })
 }
 
-function updateIfBuildingsChanged (state, street) {
+function updateIfBuildingsChanged (state) {
   let changed = false
   if (state.leftBuildingHeight !== oldLeftBuildingHeight) {
-    street.leftBuildingHeight = state.leftBuildingHeight
     oldLeftBuildingHeight = state.leftBuildingHeight
     changed = true
   }
   if (state.rightBuildingHeight !== oldRightBuildingHeight) {
-    street.rightBuildingHeight = state.rightBuildingHeight
     oldRightBuildingHeight = state.rightBuildingHeight
     changed = true
   }
@@ -37,25 +33,22 @@ function updateIfBuildingsChanged (state, street) {
   }
 }
 
-function updateIfStreetNameChanged (state, street) {
+function updateIfStreetNameChanged (state) {
   if (state.name !== oldStreetName) {
-    street.name = state.name
-    street.userUpdated = state.userUpdated
     oldStreetName = state.name
     saveStreetToServerIfNecessary()
     updateStreetName()
   }
 }
 
-function updateIfLocationChanged (state, street) {
+function updateIfLocationChanged (state) {
   let changed = false
   if (state.location && state.location.wofId !== oldStreetLocation) {
-    street.location = {...state.location}
     oldStreetLocation = state.location.wofId
     changed = true
   }
   // If location was cleared
-  if (street.location && !state.location) {
+  if (oldStreetLocation && !state.location) {
     street.location = null
     oldStreetLocation = null
     changed = true

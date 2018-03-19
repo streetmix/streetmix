@@ -8,6 +8,14 @@ import {
   ADD_LOCATION,
   CLEAR_LOCATION,
   SAVE_STREET_NAME,
+  SAVE_CREATOR_ID,
+  SAVE_STREET_ID,
+  SET_UPDATE_TIME,
+  SAVE_ORIGINAL_STREET_ID,
+  UPDATE_EDIT_COUNT,
+  UPDATE_SEGMENTS,
+  SET_UNITS,
+  UPDATE_STREET_WIDTH,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
   REMOVE_BUILDING_FLOOR,
@@ -44,6 +52,70 @@ export function updateStreetData (street) {
   return {
     type: REPLACE_STREET_DATA,
     street
+  }
+}
+
+export function saveCreatorId (creatorId) {
+  return {
+    type: SAVE_CREATOR_ID,
+    creatorId
+  }
+}
+
+export function saveStreetId (id, namespacedId) {
+  return {
+    type: SAVE_STREET_ID,
+    id,
+    namespacedId
+  }
+}
+
+export function setUpdateTime (time) {
+  return {
+    type: SET_UPDATE_TIME,
+    time
+  }
+}
+
+export function saveOriginalStreetId (id) {
+  return {
+    type: SAVE_ORIGINAL_STREET_ID,
+    id
+  }
+}
+
+export function updateSegments (segments) {
+  return {
+    type: UPDATE_SEGMENTS,
+    segments
+  }
+}
+
+export function clearSegments () {
+  return {
+    type: UPDATE_SEGMENTS,
+    segments: []
+  }
+}
+
+export function updateEditCount (count) {
+  return {
+    type: UPDATE_EDIT_COUNT,
+    count
+  }
+}
+
+export function setUnits (units) {
+  return {
+    type: SET_UNITS,
+    units
+  }
+}
+
+export function updateStreetWidth (width) {
+  return {
+    type: UPDATE_STREET_WIDTH,
+    width
   }
 }
 

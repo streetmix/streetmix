@@ -2,11 +2,7 @@ import { images } from '../app/load_resources'
 import { msg } from '../app/messages'
 import { infoBubble, INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/info_bubble'
 import { system } from '../preinit/system_capabilities'
-import {
-  getStreet,
-  saveStreetToServerIfNecessary,
-  createDataFromDom
-} from '../streets/data_model'
+import { saveStreetToServerIfNecessary, createDataFromDom } from '../streets/data_model'
 import { recalculateWidth } from '../streets/width'
 import { getElAbsolutePos } from '../util/helpers'
 import { prettifyWidth } from '../util/width_units'
@@ -21,6 +17,7 @@ import {
 } from './resizing'
 import { getVariantString } from './variant_utils'
 import store from '../store'
+import { updateStreetData } from '../store/actions/street'
 
 export const TILESET_POINT_PER_PIXEL = 2.0
 export const TILE_SIZE = 12 // pixels
@@ -421,7 +418,7 @@ export function repositionSegments () {
 
   var extraWidth = 0
 
-  let street = getStreet()
+  const street = store.getState().street
   for (let i in street.segments) {
     el = street.segments[i].el
 
@@ -493,7 +490,7 @@ export function repositionSegments () {
 }
 
 export function changeSegmentVariantLegacy (dataNo, variantName, variantChoice) {
-  let street = getStreet()
+  const street = store.getState().street
   const segment = street.segments[dataNo]
 
   segment.variant[variantName] = variantChoice
@@ -596,7 +593,7 @@ function showEmptySegment (position, width) {
 
 function repositionEmptySegments () {
   let width
-  let street = getStreet()
+  const street = store.getState().street
   if (street.remainingWidth <= 0) {
     hideEmptySegment('left')
     hideEmptySegment('right')
@@ -625,7 +622,7 @@ export function segmentsChanged (readDataFromDom = true, reassignElementRefs = f
     createDataFromDom()
   }
 
-  const street = getStreet()
+  const street = store.getState().street
 
   // When segments have chaged in Redux and we want to depend on that data,
   // other parts of the app still want a reference to the element. This will
@@ -646,6 +643,7 @@ export function segmentsChanged (readDataFromDom = true, reassignElementRefs = f
     }
   }
 
+  store.dispatch(updateStreetData(street))
   saveStreetToServerIfNecessary()
   repositionSegments()
 }

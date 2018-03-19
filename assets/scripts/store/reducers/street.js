@@ -8,6 +8,14 @@ import {
   ADD_LOCATION,
   CLEAR_LOCATION,
   SAVE_STREET_NAME,
+  SAVE_CREATOR_ID,
+  SAVE_STREET_ID,
+  SET_UPDATE_TIME,
+  SAVE_ORIGINAL_STREET_ID,
+  UPDATE_EDIT_COUNT,
+  UPDATE_SEGMENTS,
+  SET_UNITS,
+  UPDATE_STREET_WIDTH,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
   REMOVE_BUILDING_FLOOR,
@@ -57,6 +65,47 @@ const street = (state = initialState, action) => {
       return {
         ...state,
         ...action.street
+      }
+    case SAVE_CREATOR_ID:
+      return {
+        ...state,
+        creatorId: action.creatorId
+      }
+    case SAVE_STREET_ID:
+      return {
+        ...state,
+        id: action.id,
+        namespacedId: action.namespacedId
+      }
+    case SET_UPDATE_TIME:
+      return {
+        ...state,
+        updatedAt: action.time
+      }
+    case SAVE_ORIGINAL_STREET_ID:
+      return {
+        ...state,
+        originalStreetId: action.id
+      }
+    case UPDATE_EDIT_COUNT:
+      return {
+        ...state,
+        editCount: action.count
+      }
+    case UPDATE_SEGMENTS:
+      return {
+        ...state,
+        segments: action.segments
+      }
+    case SET_UNITS:
+      return {
+        ...state,
+        units: action.units
+      }
+    case UPDATE_STREET_WIDTH:
+      return {
+        ...state,
+        width: action.width
       }
     case ADD_LOCATION:
       return {
