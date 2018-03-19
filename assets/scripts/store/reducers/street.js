@@ -16,6 +16,7 @@ import {
   UPDATE_SEGMENTS,
   SET_UNITS,
   UPDATE_STREET_WIDTH,
+  UPDATE_SCHEMA_VERSION,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
   REMOVE_BUILDING_FLOOR,
@@ -106,6 +107,11 @@ const street = (state = initialState, action) => {
       return {
         ...state,
         width: action.width
+      }
+    case UPDATE_SCHEMA_VERSION:
+      return {
+        ...state,
+        schemaVersion: action.version
       }
     case ADD_LOCATION:
       return {

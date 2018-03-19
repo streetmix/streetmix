@@ -16,6 +16,7 @@ import {
   UPDATE_SEGMENTS,
   SET_UNITS,
   UPDATE_STREET_WIDTH,
+  UPDATE_SCHEMA_VERSION,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
   REMOVE_BUILDING_FLOOR,
@@ -116,6 +117,13 @@ export function updateStreetWidth (width) {
   return {
     type: UPDATE_STREET_WIDTH,
     width
+  }
+}
+
+export function updateSchemaVersion (version) {
+  return {
+    type: UPDATE_SCHEMA_VERSION,
+    version
   }
 }
 
