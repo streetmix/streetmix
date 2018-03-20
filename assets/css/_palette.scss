@@ -93,3 +93,10 @@ body.read-only .palette-container {
     transform: translateY(0);
   }
 }
+
+[dir='rtl'] {
+  .palette-commands {
+    left: 10px;
+    right: auto;
+  }
+}

@@ -12,6 +12,7 @@ import store from '../store'
 import { setLocale } from '../store/actions/locale'
 
 // Add react-intl files for all the languages we support (added manually for now)
+import ar from 'react-intl/locale-data/ar'
 import es from 'react-intl/locale-data/es'
 import de from 'react-intl/locale-data/de'
 import fi from 'react-intl/locale-data/fi'
@@ -22,7 +23,7 @@ import sv from 'react-intl/locale-data/sv'
 import zh from 'react-intl/locale-data/zh'
 
 // Add react-intl locale data
-addLocaleData([...es, ...de, ...fi, ...fr, ...pl, ...pt, ...sv, ...zh])
+addLocaleData([...ar, ...es, ...de, ...fi, ...fr, ...pl, ...pt, ...sv, ...zh])
 
 export function initLocale (experimental) {
   // Current language is the one set by Streetmix or is the browser default, if unset
@@ -89,6 +90,13 @@ function doTheI18n (locale) {
 
     // Set the thing in Redux
     store.dispatch(setLocale(locale, i18next.getResourceBundle(locale, 'main')))
+
+    // right-to-left languages support
+    if (['ar', 'dv', 'fa', 'he'].indexOf(locale) > -1) {
+      document.body.dir = 'rtl'
+    } else {
+      document.body.dir = 'ltr'
+    }
   }
 
   i18next

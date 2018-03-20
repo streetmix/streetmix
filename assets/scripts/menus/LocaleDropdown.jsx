@@ -20,6 +20,12 @@ import { trackEvent } from '../app/event_tracking'
  */
 const LOCALES = [
   {
+    label: 'Arabic',
+    value: 'ar',
+    key: 'i18n.lang.ar',
+    level: 1
+  },
+  {
     label: 'Chinese (Traditional)',
     value: 'zh-Hant',
     key: 'i18n.lang.zh-hant',

@@ -27,40 +27,45 @@ describe('StreetMetaData', () => {
     expect(wrapper.exists()).toEqual(true)
   })
 
-  it('does not indicate editability for location if read only', () => {
-    const testStreet = {
-      location: {
-        hierarchy: {
-          locality: 'test locality',
-          country: 'test country'
+  describe('geotag label', () => {
+    it('does not indicate editability for location if read only', () => {
+      const testStreet = {
+        location: {
+          hierarchy: {
+            locality: 'foo',
+            country: 'bar'
+          }
         }
       }
-    }
 
-    const wrapper = shallow(
-      <StreetMetaData.WrappedComponent
-        street={testStreet}
-        readOnly
-        enableLocation
-        signedIn
-        locale={{}}
-      />
-    )
+      const wrapper = shallow(
+        <StreetMetaData.WrappedComponent
+          street={testStreet}
+          readOnly
+          enableLocation
+          signedIn
+          locale={{}}
+        />
+      )
 
-    expect(wrapper.find('.street-metadata-map a').length).toEqual(0)
-  })
+      expect(wrapper.find('.street-metadata-map a').length).toEqual(0)
+    })
 
-  it('does not display geotag label if no location and application is read only', () => {
-    const wrapper = shallow(
-      <StreetMetaData.WrappedComponent
-        street={{}}
-        readOnly
-        enableLocation
-        signedIn
-        locale={{}}
-      />
-    )
+    it('does not display geotag label if no location and application is read only', () => {
+      const wrapper = shallow(
+        <StreetMetaData.WrappedComponent
+          street={{}}
+          readOnly
+          enableLocation
+          signedIn
+          locale={{}}
+        />
+      )
 
-    expect(wrapper.find('.street-metadata-map').length).toEqual(0)
+      expect(wrapper.find('.street-metadata-map').length).toEqual(0)
+    })
+
+    it.skip('displays the correct label for a given location hierarchy')
+    it.skip('displays a placeholder label if location hierarchy does not exist')
   })
 })

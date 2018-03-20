@@ -40,6 +40,10 @@ body.read-only .street-name-canvas {
   font-size: 40px * $size;
   line-height: 30px * $size;
   letter-spacing: 1px * $size;
+
+  [dir='rtl'] {
+    font-size: 30px * $size;
+  }
 }
 
 @mixin street-name-fallback-mixin($size: $street-name-size) {
