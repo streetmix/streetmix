@@ -42,11 +42,6 @@ export function initLocale (experimental) {
     locale = 'en'
   }
 
-  // right-to-left languages support
-  if (['ar', 'dv', 'fa', 'he'].indexOf(locale) > -1) {
-    document.body.dir = 'rtl'
-  }
-
   doTheI18n(locale)
 }
 
@@ -91,6 +86,13 @@ function doTheI18n (locale) {
 
     // Set the thing in Redux
     store.dispatch(setLocale(locale, i18next.getResourceBundle(locale, 'main')))
+
+    // right-to-left languages support
+    if (['ar', 'dv', 'fa', 'he'].indexOf(locale) > -1) {
+      document.body.dir = 'rtl'
+    } else {
+      document.body.dir = 'ltr'
+    }
   }
 
   i18next
