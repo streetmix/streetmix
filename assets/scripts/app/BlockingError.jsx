@@ -31,22 +31,22 @@ export class BlockingError extends React.Component {
     let description = ''
 
     const homeButton =
-      <button id="error-home" onClick={goHome}>
+      <button onClick={goHome}>
         <FormattedMessage id="error.button.home" defaultMessage="Go to the homepage" />
       </button>
     const linkToUser = (street) => {
       return street && street.creatorId ? <a href={'/' + street.creatorId}><Avatar userId={street.creatorId} />{street.creatorId}</a> : null
     }
     const signInButton =
-      <button id="error-sign-in" onClick={goSignIn}>
+      <button onClick={goSignIn}>
         <FormattedMessage id="error.button.sign-in" defaultMessage="Sign in again" />
       </button>
     const reloadButton =
-      <button id="error-reload" onClick={goReload}>
+      <button onClick={goReload}>
         <FormattedMessage id="error.button.reload" defaultMessage="Reload the page" />
       </button>
     const tryAgainButton =
-      <button id="error-new" onClick={goNewStreet}>
+      <button onClick={goNewStreet}>
         <FormattedMessage id="error.button.try-again" defaultMessage="Try again" />
       </button>
     const pleaseLetUsKnow = <FormattedMessage
@@ -139,7 +139,7 @@ export class BlockingError extends React.Component {
             <br />
             <FormattedMessage id="error.error-code" defaultMessage="(Error {code}.)" values={{ code: 'RM2' }} />
             <br />
-            <button id="error-clear-sign-in-reload" onClick={goReloadClearSignIn}>
+            <button onClick={goReloadClearSignIn}>
               <FormattedMessage id="error.button.reload" defaultMessage="Reload the page" />
             </button>
           </React.Fragment>
@@ -266,7 +266,7 @@ export class BlockingError extends React.Component {
           <React.Fragment>
             <FormattedMessage id="error.cannot-create-new-street-on-phone-description" defaultMessage="If you follow another link to a specific street, you can view it on your phone – but you cannot yet create new streets." />
             <br />
-            <button id="error-example" onClick={goExampleStreet}>
+            <button onClick={goExampleStreet}>
               <FormattedMessage id="error.button.view-example" defaultMessage="View an example street" />
             </button>
           </React.Fragment>
