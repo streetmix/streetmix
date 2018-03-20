@@ -378,3 +378,33 @@
   font-weight: 300;
   line-height: 1.25;
 }
+
+[dir='rtl'] {
+  .info-bubble-remove {
+    margin-left: 0;
+    margin-right: 1em;
+  }
+
+  .variants {
+    text-align: right;
+    margin-left: 20px;
+    margin-right: 0;
+    direction: ltr;
+  }
+
+  .non-variant > input {
+    direction: ltr;
+  }
+
+  .info-bubble-type-building header {
+    margin-left: 90px + 50px;
+    margin-right: 0;
+
+    &::after {
+      left: -37px;
+      right: auto;
+      border-left: 37px solid transparent;
+      border-right: none;
+    }
+  }
+}
