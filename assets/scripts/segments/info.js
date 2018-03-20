@@ -134,7 +134,21 @@ const SPRITE_DEFS = {
   'transit--transit-shelter-01-right': { id: 'transit--transit-shelter-01-right', width: 9, offsetY: -1.3 },
   'transit--transit-shelter-02-left': { id: 'transit--transit-shelter-02-left', width: 9, offsetY: -3.8 },
   'transit--transit-shelter-02-right': { id: 'transit--transit-shelter-02-right', width: 9, offsetY: -3.8 },
-  'missing': { id: 'missing', width: 4, offsetY: 10.5 }
+  'missing': { id: 'missing', width: 4, offsetY: 10.5 },
+
+  // test stuff
+  'vehicles--taxi-inbound-door-left': { id: 'vehicles--taxi-inbound-door-left', width: 12, offsetY: -3.7 },
+  'vehicles--taxi-inbound-door-right': { id: 'vehicles--taxi-inbound-door-right', width: 12, offsetY: -3.7 },
+  'vehicles--taxi-outbound-door-left': { id: 'vehicles--taxi-outbound-door-left', width: 12, offsetY: -3.7 },
+  'vehicles--taxi-outbound-door-right': { id: 'vehicles--taxi-outbound-door-right', width: 12, offsetY: -3.7 },
+  'vehicles--rideshare-inbound-door-left': { id: 'vehicles--rideshare-inbound-door-left', width: 12, offsetY: -3.7 },
+  'vehicles--rideshare-inbound-door-right': { id: 'vehicles--rideshare-inbound-door-right', width: 12, offsetY: -3.7 },
+  'vehicles--rideshare-outbound-door-left': { id: 'vehicles--rideshare-outbound-door-left', width: 12, offsetY: -3.7 },
+  'vehicles--rideshare-outbound-door-right': { id: 'vehicles--rideshare-outbound-door-right', width: 12, offsetY: -3.7 },
+  'bikes--bikeshare-left': { id: 'bikes--bikeshare-left', width: 7, offsetY: -3.7 },
+  'bikes--bikeshare-right': { id: 'bikes--bikeshare-right', width: 7, offsetY: -3.7 },
+  'vehicles--foodtruck-left': { id: 'vehicles--foodtruck-left', width: 15, offsetY: -3.7 },
+  'vehicles--foodtruck-right': { id: 'vehicles--foodtruck-right', width: 15, offsetY: -3.7 }
 }
 
 /**
