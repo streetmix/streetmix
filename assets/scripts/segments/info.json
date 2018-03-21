@@ -515,7 +515,7 @@
         "graphics": {
           "center": "vehicles--taxi-inbound-door-left",
           "repeat": "ground--asphalt",
-          "right": "markings--parking-left"
+          "right": "markings--lane-right"
         }
       },
       "taxi|inbound|right": {
@@ -525,7 +525,7 @@
         "graphics": {
           "center": "vehicles--taxi-inbound-door-right",
           "repeat": "ground--asphalt",
-          "left": "markings--parking-right"
+          "left": "markings--lane-left"
         }
       },
       "taxi|outbound|left": {
@@ -535,7 +535,7 @@
         "graphics": {
           "center": "vehicles--taxi-outbound-door-left",
           "repeat": "ground--asphalt",
-          "right": "markings--parking-left"
+          "right": "markings--lane-right"
         }
       },
       "taxi|outbound|right": {
@@ -545,7 +545,7 @@
         "graphics": {
           "center": "vehicles--taxi-outbound-door-right",
           "repeat": "ground--asphalt",
-          "left": "markings--parking-right"
+          "left": "markings--lane-left"
         }
       },
       "rideshare|inbound|left": {
@@ -555,7 +555,7 @@
         "graphics": {
           "center": "vehicles--rideshare-inbound-door-left",
           "repeat": "ground--asphalt",
-          "right": "markings--parking-left"
+          "right": "markings--lane-right"
         }
       },
       "rideshare|inbound|right": {
@@ -565,7 +565,7 @@
         "graphics": {
           "center": "vehicles--rideshare-inbound-door-right",
           "repeat": "ground--asphalt",
-          "left": "markings--parking-right"
+          "left": "markings--lane-left"
         }
       },
       "rideshare|outbound|left": {
@@ -575,7 +575,7 @@
         "graphics": {
           "center": "vehicles--rideshare-outbound-door-left",
           "repeat": "ground--asphalt",
-          "right": "markings--parking-left"
+          "right": "markings--lane-right"
         }
       },
       "rideshare|outbound|right": {
@@ -585,7 +585,7 @@
         "graphics": {
           "center": "vehicles--rideshare-outbound-door-right",
           "repeat": "ground--asphalt",
-          "left": "markings--parking-right"
+          "left": "markings--lane-left"
         }
       },
       "bikeshare|inbound|left": {
@@ -593,9 +593,12 @@
         "minWidth": 7,
         "maxWidth": 10,
         "graphics": {
-          "left": "bikes--bikeshare-left",
+          "left": [
+            "bikes--bikeshare-left",
+            "markings--lane-left"
+          ],
           "repeat": "ground--asphalt",
-          "right": "markings--lane-left"
+          "right": "markings--lane-right"
         }
       },
       "bikeshare|inbound|right": {
@@ -603,9 +606,12 @@
         "minWidth": 7,
         "maxWidth": 10,
         "graphics": {
-          "right": "bikes--bikeshare-right",
+          "right": [
+            "bikes--bikeshare-right",
+            "markings--lane-right"
+          ],
           "repeat": "ground--asphalt",
-          "left": "markings--lane-right"
+          "left": "markings--lane-left"
         }
       },
       "bikeshare|outbound|left": {
@@ -615,7 +621,7 @@
         "graphics": {
           "left": "bikes--bikeshare-left",
           "repeat": "ground--asphalt",
-          "right": "markings--lane-left"
+          "right": "markings--lane-right"
         }
       },
       "bikeshare|outbound|right": {
@@ -625,7 +631,7 @@
         "graphics": {
           "right": "bikes--bikeshare-right",
           "repeat": "ground--asphalt",
-          "left": "markings--lane-right"
+          "left": "markings--lane-left"
         }
       },
       "foodtruck|inbound|left": {
@@ -635,7 +641,7 @@
         "graphics": {
           "center": "vehicles--foodtruck-left",
           "repeat": "ground--asphalt",
-          "right": "markings--parking-left"
+          "right": "markings--lane-right"
         }
       },
       "foodtruck|inbound|right": {
@@ -645,7 +651,7 @@
         "graphics": {
           "center": "vehicles--foodtruck-right",
           "repeat": "ground--asphalt",
-          "left": "markings--parking-right"
+          "left": "markings--lane-left"
         }
       },
       "foodtruck|outbound|left": {
@@ -655,7 +661,7 @@
         "graphics": {
           "center": "vehicles--foodtruck-left",
           "repeat": "ground--asphalt",
-          "right": "markings--parking-left"
+          "right": "markings--lane-right"
         }
       },
       "foodtruck|outbound|right": {
@@ -665,7 +671,7 @@
         "graphics": {
           "center": "vehicles--foodtruck-right",
           "repeat": "ground--asphalt",
-          "left": "markings--parking-right"
+          "left": "markings--lane-left"
         }
       }
     }
