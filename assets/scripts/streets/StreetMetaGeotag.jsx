@@ -45,7 +45,7 @@ export class StreetMetaGeotag extends React.Component {
     const geolocation = (
       <span className="street-metadata-map">
         { (readOnly) ? geotagText : (
-          <a onClick={this.onClickGeotag}> {geotagText} </a>
+          <a onClick={this.onClickGeotag}>{geotagText}</a>
         ) }
       </span>
     )
