@@ -51,7 +51,6 @@ export function undo () {
   }
 
   // sends current street to update current position before undoing
-  // store.dispatch(undoAction(trimStreetData(getStreet())))
   store.dispatch(undoAction(trimStreetData(store.getState().street)))
 
   finishUndoOrRedo()
