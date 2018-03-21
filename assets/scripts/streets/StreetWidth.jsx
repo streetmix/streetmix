@@ -78,7 +78,7 @@ class StreetWidth extends React.Component {
 
     let customWidthBlank = null
     let customWidth = null
-    if (widths.indexOf(parseFloat(this.props.street.width)) === -1) {
+    if (widths.indexOf(Number.parseFloat(this.props.street.width)) === -1) {
       customWidthBlank = <option disabled="true" />
       customWidth = this.createStreetWidthOption(this.props.street.width)
     }
@@ -135,7 +135,7 @@ class StreetWidth extends React.Component {
   changeStreetWidth = () => {
     if (this.props.readOnly) return
 
-    var newStreetWidth = parseInt(this.streetWidth.value)
+    let newStreetWidth = Number.parseInt(this.streetWidth.value, 10)
 
     document.body.classList.remove('edit-street-width')
 
