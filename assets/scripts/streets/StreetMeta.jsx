@@ -21,9 +21,9 @@ class StreetMeta extends React.Component {
       >
         <div className="street-metadata">
           <StreetMetaWidth />
+          <StreetMetaGeotag />
           <StreetMetaAuthor />
           <StreetMetaDate />
-          <StreetMetaGeotag />
         </div>
       </IntlProvider>
     )
