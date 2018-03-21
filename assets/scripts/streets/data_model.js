@@ -40,7 +40,6 @@ import {
   saveStreetName,
   setUnits,
   updateSegments,
-  changeSegmentVariant,
   saveStreetId,
   setUpdateTime,
   saveOriginalStreetId
@@ -88,26 +87,27 @@ const LATEST_SCHEMA_VERSION = 18
 export const DEFAULT_NAME = msg('DEFAULT_STREET_NAME')
 
 function incrementSchemaVersion (street) {
-  let segment, variant, schemaVersion
-
+  let segment, variant
   if (!street.schemaVersion) {
-    schemaVersion = 1
+    street.schemaVersion = 1
   }
 
   switch (street.schemaVersion) {
     case 1:
-      store.dispatch(setBuildingFloorValue('left', DEFAULT_BUILDING_HEIGHT_LEFT))
-      store.dispatch(setBuildingFloorValue('right', DEFAULT_BUILDING_HEIGHT_RIGHT))
+      street.leftBuildingHeight = DEFAULT_BUILDING_HEIGHT_LEFT
+      street.rightBuildingHeight = DEFAULT_BUILDING_HEIGHT_RIGHT
       break
     case 2:
-      store.dispatch(setBuildingVariant('left', DEFAULT_BUILDING_VARIANT_LEFT))
-      store.dispatch(setBuildingVariant('right', DEFAULT_BUILDING_VARIANT_RIGHT))
+      street.leftBuildingVariant = DEFAULT_BUILDING_VARIANT_LEFT
+      street.rightBuildingVariant = DEFAULT_BUILDING_VARIANT_RIGHT
       break
     case 3:
       for (var i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'transit-shelter') {
-          store.dispatch(changeSegmentVariant(i, 'transit-shelter-elevation', 'street-level'))
+          variant = getVariantArray(segment.type, segment.variantString)
+          variant['transit-shelter-elevation'] = 'street-level'
+          segment.variantString = getVariantString(variant)
         }
       }
       break
@@ -115,7 +115,9 @@ function incrementSchemaVersion (street) {
       for (let i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'sidewalk-lamp') {
-          store.dispatch(changeSegmentVariant(i, 'lamp-type', 'modern'))
+          variant = getVariantArray(segment.type, segment.variantString)
+          variant['lamp-type'] = 'modern'
+          segment.variantString = getVariantString(variant)
         }
       }
       break
@@ -123,7 +125,9 @@ function incrementSchemaVersion (street) {
       for (let i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'streetcar') {
-          store.dispatch(changeSegmentVariant(i, 'public-transit-asphalt', 'regular'))
+          variant = getVariantArray(segment.type, segment.variantString)
+          variant['public-transit-asphalt'] = 'regular'
+          segment.variantString = getVariantString(variant)
         }
       }
       break
@@ -131,9 +135,13 @@ function incrementSchemaVersion (street) {
       for (let i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'bus-lane') {
-          store.dispatch(changeSegmentVariant(i, 'bus-asphalt', 'regular'))
+          variant = getVariantArray(segment.type, segment.variantString)
+          variant['bus-asphalt'] = 'regular'
+          segment.variantString = getVariantString(variant)
         } else if (segment.type === 'light-rail') {
-          store.dispatch(changeSegmentVariant(i, 'public-transit-asphalt', 'regular'))
+          variant = getVariantArray(segment.type, segment.variantString)
+          variant['public-transit-asphalt'] = 'regular'
+          segment.variantString = getVariantString(variant)
         }
       }
       break
@@ -141,7 +149,9 @@ function incrementSchemaVersion (street) {
       for (let i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'bike-lane') {
-          store.dispatch(changeSegmentVariant(i, 'bike-asphalt', 'regular'))
+          variant = getVariantArray(segment.type, segment.variantString)
+          variant['bike-asphalt'] = 'regular'
+          segment.variantString = getVariantString(variant)
         }
       }
       break
@@ -149,7 +159,9 @@ function incrementSchemaVersion (street) {
       for (let i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'drive-lane') {
-          store.dispatch(changeSegmentVariant(i, 'car-type', 'car'))
+          variant = getVariantArray(segment.type, segment.variantString)
+          variant['car-type'] = 'car'
+          segment.variantString = getVariantString(variant)
         }
       }
       break
@@ -157,7 +169,9 @@ function incrementSchemaVersion (street) {
       for (let i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'sidewalk') {
-          store.dispatch(changeSegmentVariant(i, 'sidewalk-density', 'normal'))
+          variant = getVariantArray(segment.type, segment.variantString)
+          variant['sidewalk-density'] = 'normal'
+          segment.variantString = getVariantString(variant)
         }
       }
       break
@@ -194,7 +208,9 @@ function incrementSchemaVersion (street) {
       for (let i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'sidewalk-bike-rack') {
-          store.dispatch(changeSegmentVariant(i, 'bike-rack-elevation', 'sidewalk'))
+          variant = getVariantArray(segment.type, segment.variantString)
+          variant['bike-rack-elevation'] = 'sidewalk'
+          segment.variantString = getVariantString(variant)
         }
       }
       break
@@ -202,7 +218,9 @@ function incrementSchemaVersion (street) {
       for (let i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'sidewalk-wayfinding') {
-          store.dispatch(changeSegmentVariant(i, 'wayfinding-type', 'large'))
+          variant = getVariantArray(segment.type, segment.variantString)
+          variant['wayfinding-type'] = 'large'
+          segment.variantString = getVariantString(variant)
         }
       }
       break
@@ -231,19 +249,14 @@ function incrementSchemaVersion (street) {
       break
     case 17:
       if (street.location && street.location.latlng) {
-        const location = {
-          ...street.location,
-          latlng: {
-            lat: street.location.latlng[0],
-            lng: street.location.latlng[1]
-          }
+        street.location.latlng = {
+          lat: street.location.latlng[0],
+          lng: street.location.latlng[1]
         }
-        store.dispatch(addLocation(location))
       }
   }
 
-  schemaVersion++
-  store.dispatch(updateSchemaVersion(schemaVersion))
+  street.schemaVersion++
 }
 
 export function updateStreetData (street) {
