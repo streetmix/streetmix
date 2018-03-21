@@ -92,10 +92,11 @@ export function recalculateWidth () {
       } else {
         warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = false
       }
+
+      store.dispatch(updateSegmentWarnings(i, warnings))
     }
 
     position += street.segments[i].width
-    store.dispatch(updateSegmentWarnings(i, warnings))
   }
 
   var lastOverflow = document.body.classList.contains('street-overflows')
