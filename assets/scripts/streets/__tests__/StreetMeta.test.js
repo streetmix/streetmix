@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import StreetMetaData from '../StreetMetaData'
+import StreetMeta from '../StreetMeta'
 import { shallow } from 'enzyme'
 
 jest.mock('../../streets/remix', () => {
@@ -15,12 +15,10 @@ jest.mock('../../app/initialization', () => {})
 jest.mock('../../preinit/system_capabilities', () => {})
 jest.mock('../../preinit/app_settings', () => {})
 
-describe('StreetMetaData', () => {
+describe('StreetMeta', () => {
   it('renders without crashing', () => {
     const wrapper = shallow(
-      <StreetMetaData.WrappedComponent
-        street={{}}
-        signedIn
+      <StreetMeta.WrappedComponent
         locale={{}}
       />
     )

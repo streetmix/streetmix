@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import StreetName from './StreetName'
-import StreetMetaData from './StreetMetaData'
+import StreetMeta from './StreetMeta'
 import { saveStreetName } from '../store/actions/street'
 import { t } from '../app/locale'
 
@@ -105,7 +105,7 @@ class StreetNameCanvas extends React.Component {
           name={this.props.street.name}
           onClick={this.onClickStreetName}
         />
-        <StreetMetaData />
+        <StreetMeta />
       </div>
     )
   }

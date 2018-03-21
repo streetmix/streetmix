@@ -7,7 +7,7 @@ import StreetMetaAuthor from './StreetMetaAuthor'
 import StreetMetaDate from './StreetMetaDate'
 import StreetMetaGeotag from './StreetMetaGeotag'
 
-class StreetMetaData extends React.Component {
+class StreetMeta extends React.Component {
   static propTypes = {
     locale: PropTypes.object
   }
@@ -36,4 +36,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(StreetMetaData)
+export default connect(mapStateToProps)(StreetMeta)
