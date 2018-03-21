@@ -19,7 +19,7 @@
         "lede": "Kävelyopasteet helpottavat oikean reitin löytämistä",
         "text": [
           "Kaupunkisuunnittelijat ja arkkitehdit ovat jo vuosia yrittäneet ottaa selkoa aivoissamme tapahtuvasta prosessista, kun yritämme hahmottaa reittiä kahden paikan välillä - ja jopa sitä, miten hahmotamme edes lähtöpisteen sijainnin kartalla. Vuonna 1960 kaupunkisuunnittelija Kevin Lynch kirjoitti kirjassaan <em><a href=\"http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014\">The Image of the City</a></em> (Kaupungin kuva) ihmisen kyvystä \"lukea kaupunkia\" johdonmukaisesti ja tarkkaan rajatusti aistimalla ympäristöään. Tällainen toiminta voi perustua abstrakteihin ärsykkeisiin, kuten hajuun, kosketukseen ja painovoiman tunteeseen tai varsinaisiin suunnistamista helpottaviin kohteisiin, kuten karttoihin, kadunnumeroihin ja opasteisiin.",
-          "It’s surprising how readily acceptable it is for ample signage to cater to car travel, with less of this investment made at the pedestrian level. Maybe it’s because it’s easier for us to stand still, take stock of our surroundings, and use our senses without fear of accidentally causing a six-person pileup behind us. At any rate, urban designers have pushed for pedestrian-friendly wayfinding signage, particularly in walkable commercial neighborhoods, and these signs have become branding opportunities in addition to being functional. For example, New York City <a href=\"https://www.pentagram.com/work/walknyc/story\">hired an internationally renowned design consultant</a> to create the now ubiquitous WalkNYC signs (Streetmix has modeled its segments after these). Other municipalities have adopted a traditional old-town or civic-formal take (pictured above), and some places have chosen to use <a href=\"http://walkyourcity.org/\">guerrilla wayfinding tactics.</a>",
+          "Autoliikenteen opastusjärjestelmälle löytyy laajaa, jopa itsestään selvää tukea, kun taas jalankulun opasteita on tähän verraten yllättävän vähän. Ehkä se johtuu vauhdista, sillä kävellen eksyessä on helppo pysähtyä havainnoimaan ympäristöä aiheuttamatta ketjukolaria. Pikku hiljaa kehitystä on kuitenkin tapahtunut, ja jalankulkuopasteita on asennettu erityisesti vilkkaille, ostospainotteisille jalankulun vyöhykkeille. Toiminnallisuuden lisäksi kaupungit pyrkivät erottumaan luomalla yhtenäistä, houkuttelevaa ilmettä; New Yorkissa <a href=\"https://www.pentagram.com/work/walknyc/story\">kaupunki palkkasi kansainvälisesti arvostetun suunnittelukonsultin</a>, ja muualla on suosittu esimerkiksi vanhankaupungin innoittamia tai asukaslähtöisiä (kuva yllä) ratkaisuja. Toki löytyy niitäkin, jotka jostain syystä eivät ole kokeneet tarpeelliseksi minkääntasoisen opastusjärjestelmän käyttöönottoa, vaikka <a href=\"http://walkyourcity.org/\">vaihtoehdot voivat olla myös nopeita ja halpoja</a>.",
           "Kyse ei ole kuitenkaan sen enempää kuin vähempääkään käyttäjän tappiosta, sillä Lynchin sanoin: \"<em>Eksyminen</em> ei ole pelkästään maantieteelliseen sijaintiin liittyvää epätarkkuutta; siihen liittyy sanoinkuvaamatonta epäonnistumisen ja onnettomuuden tunnetta.\" Kuka haluaa silloin seistä keskellä vierasta katua?"
         ]
       }
@@ -49,7 +49,7 @@
           "name": "Kukkaruukku"
         },
         "median": {
-          "name": "Median"
+          "name": "Mediaani"
         },
         "striped-buffer": {
           "name": "Erotuskaista"
@@ -81,7 +81,7 @@
         "lede": "Pyöräkaistoilla pyöräilijät etenevät omassa tilassaan, omalla vauhdillaan autoista erotettuna.",
         "text": [
           "Henkilöliikenteen aikajanan toisessa päässä hevoset, toisessa vaikkapa Segwayt, mutta aina kaksi kulkumuotoa ovat olleet ylitse muiden: pyörät ja autot ovat dominoineet katutilaamme yli vuosisadan ajan. Autot vievät enemmän tilaa lukumäärää kohden, mutta pyörien lukumäärä on omaa luokkaansa, sillä Worldometersin mukaan maailmassa on yli miljardi polkupyörää. <a href=\"http://en.wikipedia.org/wiki/Nine_Million_Bicycles\">Katie Meluan kappaleen</a> sanoin Kiinan Pekingissä on yhdeksän miljoonaa polkupyörää, ja pyöräilyn kulkutapaosuus on 32 %.",
-          "While most jurisdictions allow bicycles to share the road with motor vehicles (“A person riding a bicycle… has all the rights and is subject to all the provisions applicable to the driver of a vehicle” <a href=\"https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=VEH&sectionNum=21200.\">says the California Vehicle Code</a>, in one particular instance) it goes without saying that most cyclists prefer to be in their own lane. It’s safer, for one thing. And because it’s safer, it actually encourages more bikers. And more bikers means healthier citizens, reduced carbon emissions, higher traffic throughput, and congestion mitigation. The <a href=\"https://bikeleague.org/sites/default/files/Bicycling_and_the_Economy-Econ_Impact_Studies_web.pdf\">economic benefits accrue as well</a>: less money spent on automobile infrastructure (like bridges, roadways, and parking), and with the ability to fit more people on a road, it leads to more business in commercial corridors.",
+          "Vaikka lainsäädäntö yleensä sallii pyöräilijän käytää samaa ajorataa moottoriajoneuvoliikenteen kanssa (esimerkiksi <a href=\"https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=VEH&sectionNum=21200.\">Kalifornian tieliikennelaissa</a> todetaan \"Polkupyörää kuljettavaan sovelletaan kaikkia oikeuksia ja velvollisuuksia siinä missä muunkin ajoneuvon kuljettajaan\"), suurin osa pyöräilijöistä arvostaa enemmän omaa väylää. Kohentunut liikenneturvallisuus houkuttelee yhä useampia pyöräilemään, mikä edistää kansanterveyttä, vähentää hiilidioksidipäästöjä, sujuvoittaa liikennettä ja vähentää ruuhkia. <a href=\"https://bikeleague.org/sites/default/files/Bicycling_and_the_Economy-Econ_Impact_Studies_web.pdf\">Yhteiskuntataloudelliset hyödyt ovat merkittäviä</a>: tehottomaan autoinfrastuktuuriin sijoitettu pääoma ei ole yhtä kannattavaa, sillä se heikentää liiketoiminnan edellytyksiä.",
           "Pyöräkaistojen ominaisuuksissa on suurta vaihtelua. Erottelukaistoilla, viheralueilla, sulkutolpilla ja vaikkapa pysäköintitaskulla voidaan luoda parempaa erottelua autojen ja pyörien välille. Kaupunki voi osoittaa sitoutumistaan pyöräilyolosuhteiden kehittämiseen maalaamalla pyöräkaistat vihreiksi ja luomalla pyöräilijöille niin sanotun vihreän aallon liikennevaloihin. Lisätietoja yhdysvaltalaisittain löytyy <a href=\"http://nacto.org/cities-for-cycling/design-guide/\">NACTO:n nykyaikaisten pyöräväylien suunnitteluoppaasta</a> ja suomalaisittain <a href=\"http://www.pyoraliikenne.fi\">Helsingin kaupunkin pyöräliikenteen suunnitteluoppaasta</a>."
         ]
       },
@@ -92,8 +92,8 @@
             "lede": "Värjätyt pyöräkaistat erottuvat paremmin ja ovat pyöräilijälle turvallisempia.",
             "text": [
               "Päivittäisen asiointipyöräilyn lisääntyessä pyöräliikenneturvallisuuden varmistaminen muuttuu yhä tärkeämmäksi. Esimerkiksi pyöräilijöiden ja autoilijoiden kohtaamistilanteet ja autoilijoiden pyöräilijöille tarkoitettujen alueiden väärinkäyttö ovat ongelmia, mikä yleensä johtuu pyöräilijöiden olemassaolon tiedostoneisuuden puutteesta. Ratkaisuna on tehdä pyöräilystä mahdollisimman näkyvää, ja yksi keino tämän tavoitteen saavuttamiseksi on värjätä pyörätiet eriväriseksi kuin muut katutilan osat.",
-              "Although the safety benefits for colored bike lanes have been proven in <a href=\"https://nacto.org/publication/urban-bikeway-design-guide/bikeway-signing-marking/colored-bike-facilities\">numerous studies</a>, everyone’s got an opinion on <em>which</em> color to use: the Netherlands uses red lanes, Denmark uses blue, and France uses green. The United Kingdom has a mixture of red and green, and most municipalities in the United States ended up going green (by accident: they all just copied each other), though Portland, one of the most bike-friendly cities in the U.S., have been using <a href=\"http://www.portlandoregon.gov/transportation/article/58842\">blue lanes since the 1990s</a>.",
-              "No matter which color you like best, the general rule of thumb is to pick something that sticks out and doesn’t look like other lane markings in your area. Beyond that, the more pressing budgetary concern for most cities is maintenance. Right now, the most commonly used type of paint dulls and wears off fairly quickly, although new improvements in paint are starting to make it more durable. But if recurring costs are a significant concern, don’t let that outweigh the safety benefits: you might want to consider an up-front cost in the form of <a href=\"http://peopleforbikes.org/green-lane-project/protected-bike-lanes-101\">protective barriers</a>, instead."
+              "Värjättyjen pyöräkaistojen hyödyt on todistettu <a href=\"https://nacto.org/publication/urban-bikeway-design-guide/bikeway-signing-marking/colored-bike-facilities\">lukuisissa tutkimuksissa</a>, mutta itse <em>värivalinnasta</em> on montaa mielipidettä: Suomessa ja Ruotsissa suositaan Hollannin tapaan punaista, Tanskassa sinistä ja Ranskassa vihreää. Iso-Britanniassa käytetään sekä punaista että vihreää, ja myös Yhdysvalloissa vihreä väri on noussut yleisimmäksi - tosin Yhdysvaltain pyöräilyparatiisi Portlandissa <a href=\"http://www.portlandoregon.gov/transportation/article/58842\">pyöräkaistat ovat olleet sinisiä</a> jo 1990-luvulta lähtien.",
+              "Ei värillä väliä: tärkeintä on valita mahdollisimman silmiinpistävä väri, joka erottuu ympäristöstään. Myös kustannuskysymys erityisesti ylläpidon suhteen on merkillepantava: laajimmin käytetty, edullinen maalipinta haalistuu ja lopulta kuoriutuu pois verrattain nopeasti, vaikka tekniikka sen suhteen onkin kehittynyt. Jos juoksevat ylläpitokustannukset hirvittävät, turvallisuutta voi kohentaa myös vaikkapa <a href=\"http://peopleforbikes.org/green-lane-project/protected-bike-lanes-101\">suojatolpilla</a>."
             ]
           }
         },
@@ -103,8 +103,8 @@
             "lede": "Värjätyt pyöräkaistat erottuvat paremmin ja ovat pyöräilijälle turvallisempia.",
             "text": [
               "Päivittäisen asiointipyöräilyn lisääntyessä pyöräliikenneturvallisuuden varmistaminen muuttuu yhä tärkeämmäksi. Esimerkiksi pyöräilijöiden ja autoilijoiden kohtaamistilanteet ja autoilijoiden pyöräilijöille tarkoitettujen alueiden väärinkäyttö ovat ongelmia, mikä yleensä johtuu pyöräilijöiden olemassaolon tiedostoneisuuden puutteesta. Ratkaisuna on tehdä pyöräilystä mahdollisimman näkyvää, ja yksi keino tämän tavoitteen saavuttamiseksi on värjätä pyörätiet eriväriseksi kuin muut katutilan osat.",
-              "Although the safety benefits for colored bike lanes have been proven in <a href=\"https://nacto.org/publication/urban-bikeway-design-guide/bikeway-signing-marking/colored-bike-facilities\">numerous studies</a>, everyone’s got an opinion on <em>which</em> color to use: the Netherlands uses red lanes, Denmark uses blue, and France uses green. The United Kingdom has a mixture of red and green, and most municipalities in the United States ended up going green (by accident: they all just copied each other), though Portland, one of the most bike-friendly cities in the U.S., have been using <a href=\"http://www.portlandoregon.gov/transportation/article/58842\">blue lanes since the 1990s</a>.",
-              "No matter which color you like best, the general rule of thumb is to pick something that sticks out and doesn’t look like other lane markings in your area. Beyond that, the more pressing budgetary concern for most cities is maintenance. Right now, the most commonly used type of paint dulls and wears off fairly quickly, although new improvements in paint are starting to make it more durable. But if recurring costs are a significant concern, don’t let that outweigh the safety benefits: you might want to consider an up-front cost in the form of <a href=\"http://peopleforbikes.org/green-lane-project/protected-bike-lanes-101\">protective barriers</a>, instead."
+              "Värjättyjen pyöräkaistojen hyödyt on todistettu <a href=\"https://nacto.org/publication/urban-bikeway-design-guide/bikeway-signing-marking/colored-bike-facilities\">lukuisissa tutkimuksissa</a>, mutta itse <em>värivalinnasta</em> on montaa mielipidettä: Suomessa ja Ruotsissa suositaan Hollannin tapaan punaista, Tanskassa sinistä ja Ranskassa vihreää. Iso-Britanniassa käytetään sekä punaista että vihreää, ja myös Yhdysvalloissa vihreä väri on noussut yleisimmäksi - tosin Yhdysvaltain pyöräilyparatiisi Portlandissa <a href=\"http://www.portlandoregon.gov/transportation/article/58842\">pyöräkaistat ovat olleet sinisiä</a> jo 1990-luvulta lähtien.",
+              "Ei värillä väliä: tärkeintä on valita mahdollisimman silmiinpistävä väri, joka erottuu ympäristöstään. Myös kustannuskysymys erityisesti ylläpidon suhteen on merkillepantava: laajimmin käytetty, edullinen maalipinta haalistuu ja lopulta kuoriutuu pois verrattain nopeasti, vaikka tekniikka sen suhteen onkin kehittynyt. Jos juoksevat ylläpitokustannukset hirvittävät, turvallisuutta voi kohentaa myös vaikkapa <a href=\"http://peopleforbikes.org/green-lane-project/protected-bike-lanes-101\">suojatolpilla</a>."
             ]
           }
         }
@@ -194,7 +194,7 @@
             "text": [
               "Joissakin nopeaa matka-aikaa tavoittelevissa raitiotie- ja raskaammissa runkolinja-autojärjestelmissä korotetulla pysäkkikorkeudella voi olla iso merkitys. Tällöin kulkuneuvon ja laiturin välissä ei ole tasoeroa, jolloin lastaaminen nopeutuu ja esteettömyys esimerkiksi pyörätuolinkäyttäjille kohenee. Kriittiset sekunnit kerääntyvät matkan varrelta merkittävinä kustannus- ja aikasäästöinä.",
               "Yleensä korotettuja laitureita käyttävät joukkoliikennevälineet kulkevat myös omilla kaistoillaan, joten pysäkit sijaitsevat erotuskaistoilla muusta liikenteestä erotettuna. Vastakkaisten suuntien ajokaistojen väliin sijoitettuna ne mahdollistavat sujuvat vaihdot laiturin yli - Streetmixissäkin tämä onnistuu, kunhan lisäät kaksi pysäkkiä vierekkäin ja käännät ne selät vastakkain.",
-              "Elevated shelters are also sometimes designed like heavy rail train stations, enclosed or with a roof to protect passengers from the elements, and are handy visual beacons of public transit on a busy boulevard. But compared with shelters that are at curb height, they tend to be more expensive pieces of infrastructure and take up more space with wheelchair ramps. This makes it more difficult for BRT services to be provided with as much flexibility as a normal bus service. Furthermore, with low-floor buses becoming increasingly more common, it starts to reduce the need to have higher platforms."
+              "Korotetut pysäkkilaiturit ovat tyypillisesti vilkkaita, ja niitä saatetaankin kehittää voimakkaasti asematyyppiseksi ratkaisuksi esimerkiksi kattamalla ne kokonaan ja merkitsemällä ne selkeästi katukuvassa. Korotettu laituri on kuitenkin hieman kalliimpi rakentaa, ja se vaatii enemmän tilaa päihin tulevien luiskien takia. Lisäksi matalakalustoisen linja-autoliikenteen yleistyessä tarve korotetuille laitureille vähenee."
             ]
           }
         },
@@ -205,16 +205,16 @@
             "text": [
               "Joissakin nopeaa matka-aikaa tavoittelevissa raitiotie- ja raskaammissa runkolinja-autojärjestelmissä korotetulla pysäkkikorkeudella voi olla iso merkitys. Tällöin kulkuneuvon ja laiturin välissä ei ole tasoeroa, jolloin lastaaminen nopeutuu ja esteettömyys esimerkiksi pyörätuolinkäyttäjille kohenee. Kriittiset sekunnit kerääntyvät matkan varrelta merkittävinä kustannus- ja aikasäästöinä.",
               "Yleensä korotettuja laitureita käyttävät joukkoliikennevälineet kulkevat myös omilla kaistoillaan, joten pysäkit sijaitsevat erotuskaistoilla muusta liikenteestä erotettuna. Vastakkaisten suuntien ajokaistojen väliin sijoitettuna ne mahdollistavat sujuvat vaihdot laiturin yli - Streetmixissäkin tämä onnistuu, kunhan lisäät kaksi pysäkkiä vierekkäin ja käännät ne selät vastakkain.",
-              "Elevated shelters are also sometimes designed like heavy rail train stations, enclosed or with a roof to protect passengers from the elements, and are handy visual beacons of public transit on a busy boulevard. But compared with shelters that are at curb height, they tend to be more expensive pieces of infrastructure and take up more space with wheelchair ramps. This makes it more difficult for BRT services to be provided with as much flexibility as a normal bus service. Furthermore, with low-floor buses becoming increasingly more common, it starts to reduce the need to have higher platforms."
+              "Korotetut pysäkkilaiturit ovat tyypillisesti vilkkaita, ja niitä saatetaankin kehittää voimakkaasti asematyyppiseksi ratkaisuksi esimerkiksi kattamalla ne kokonaan ja merkitsemällä ne selkeästi katukuvassa. Korotettu laituri on kuitenkin hieman kalliimpi rakentaa, ja se vaatii enemmän tilaa päihin tulevien luiskien takia. Lisäksi matalakalustoisen linja-autoliikenteen yleistyessä tarve korotetuille laitureille vähenee."
             ]
           }
         }
       }
     },
     "train": {
-      "name": "“Inception” train",
+      "name": "Inception-juna",
       "description": {
-        "lede": "It’s the train from the Christopher Nolan movie <em>Inception.</em>",
+        "lede": "Juna Christopher Nolanin elokuvasta <em>Inception</em>.",
         "text": [
           "Mistä haluat tietää lisää?"
         ]
@@ -238,10 +238,10 @@
       "name": "Kerrostalo"
     },
     "narrow": {
-      "name": "Building"
+      "name": "Rakennus"
     },
     "wide": {
-      "name": "Building"
+      "name": "Rakennus"
     }
   },
   "variant-icons": {
@@ -286,8 +286,8 @@
     "bike-asphalt|colored": "Vihreä asfaltti",
     "tree-type|big": "Puu",
     "tree-type|palm-tree": "Palmu",
-    "divider-type|median": "Median",
-    "divider-type|striped-buffer": "Striped buffer",
+    "divider-type|median": "Mediaani",
+    "divider-type|striped-buffer": "Raidoitettu töyssy",
     "divider-type|planting-strip": "Viherkaista",
     "divider-type|planter-box": "Kukkaruukku",
     "divider-type|bush": "Viherkaista pensaalla",

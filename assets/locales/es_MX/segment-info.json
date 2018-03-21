@@ -35,7 +35,7 @@
         "lede": "Estacionaparquecitos transforman un estacionamiento de carro existente en un espacio publico temporal. ",
         "text": [
           "En 2005, el estudio de diseño <a href=\"http://rebargroup.org/\">Rebar</a>, basado en San Francisco, convirtió temporalmente un estacionamiento de parquímetro en la calle Mission en un pequeñito parque publico. El primer estacionaparquecito fue simple: solo una banca y un árbol en un pedazo de césped, pero exhibía un manual de instrucciones y un llamado para que otros crearan uno propio. Cuando la gente comenzó a darse cuenta que tanto espacio publico era en realidad dedicado a guardar carros, un movimiento internacional nació, y ahora, el <a href=\"http://parkingday.org/\">Día de Park(ing)</a> anfitriona casi mil espacios temporalmente convertidos alrededor del mundo. ",
-          "Reconociendo una buena idea cuando la ve, San Francisco fue la primera cuidad en hacer estacionaparquecitos oficiales en 2010, con su <a href=\"http://sfpavementtoparks.sfplanning.org/\">programa de Pavimento a Parques</a>. Hoy en día, la Cuidad de la Bahía tiene más de 50 estacionaparquecitos, muchos de los cuales son objetos diseñados por arquitectos, mejorados mucho mas allá del modesto prototipo de Rebar. En el corazón de uno de los corredores de compras mas ocupados en San Francisco hay un ambicioso estacionaparquecito de dos cuadras patrocinado por corporativos. También hay una colección de “parkmobiles” movibles, rojo brillante (el look estándar de Streetmix) diseñados para el <a href=\"http://www.ybcbd.org/\">Distrito de Beneficio a la Comunidad Yerba Buena</a>. Programas oficiales de estacionaparquecito ahora existen en muchas otras ciudades en Norteamérica, como en Filadelfia, Oakland, Kansas City, Nueva York, Chicago y Vancouver, y muchas otras ciudades están por seguir. "
+          "Reconociendo una buena idea cuando la ve, San Francisco fue la primera cuidad en hacer estacionaparquecitos oficiales en 2010, con su <a href=\"http://sfpavementtoparks.sfplanning.org/\">programa de Pavimento a Parques</a>. Hoy en día, la Cuidad de la Bahía tiene más de 50 estacionaparquecitos, muchos de los cuales son objetos diseñados por arquitectos, mejorados mucho mas allá del modesto prototipo de Rebar. En el corazón de uno de los corredores de compras mas ocupados en San Francisco hay un ambicioso estacionaparquecito de dos cuadras patrocinado por corporativos. También hay una colección de “parkmobiles” movibles, rojo brillante (el look estándar de Streetmix) diseñados para el <a href=\"http://www.ybcbd.org/\">Distrito de Beneficio a la Comunidad Yerba Buena</a>. Programas oficiales de estacionaparquecito ahora existen en muchas otras ciudades en Norteamérica, como en Filadelfia, Oakland, Kansas City, Nueva York, Chicago y Vancouver, y muchas otras ciudades están por seguir."
         ]
       }
     },
@@ -77,7 +77,7 @@
     "bike-lane": {
       "name": "Línea de bici ",
       "description": {
-        "prompt": "Aprende mas sobre líneas de bicis. ",
+        "prompt": "Aprende mas sobre líneas de bicis",
         "lede": "Líneas de bicicletas ayudan a mantener a bicicletitas seguros en una línea separada de los carros.",
         "text": [
           "En la línea histórica de vehículos de transporte personal – digamos, de caballos en un lado y Segways en el otro – los automóviles y las bicicletas han sido las tribus en guerra dominantes de las calles publicas por casi un siglo. A pesar de que los carros toman tanto espacio, aun hay mas bicicletas que nada en el mundo; mas de un billón, como estimado por Wordometers, y nueve millones en Beijing, conforme a la cantante de música popular <a href=\"http://en.wikipedia.org/wiki/Nine_Million_Bicycles\">Katie Melua</a>, donde andar en bicicleta representa el 32% de todos los viajes.  ",
@@ -99,7 +99,7 @@
         },
         "outbound|colored": {
           "description": {
-            "prompt": "Aprende mas sobre líneas de bicis de colores. ",
+            "prompt": "Aprende mas sobre líneas de bicis de colores",
             "lede": "Ciclovías coloradas son más visibles y seguras para los ciclistas.",
             "text": [
               "Mientras andar en bicicleta aumenta como uso de transportación diaria, planeadores urbanos tienen que asegurarse de la seguridad de los ciclistas, eliminar colisiones entre carros y bicicletas, y prevenir que carros usen el espacio designado legalmente a las bicis. El problema: los motoristas no siempre están completamente conscientes de los ciclistas. La solución: hacer a los ciclistas tan visibles como sea posible. Y una estrategia para esto es pintar las líneas de bicicletas de un color total diferente que el resto del asfalto.  ",
@@ -111,7 +111,7 @@
       }
     },
     "parking-lane": {
-      "name": "Línea de estacionamiento. ",
+      "name": "Línea de estacionamiento.",
       "details": {
         "sideways|left": {
           "name": "Estacionamiento perpendicular"
@@ -216,7 +216,7 @@
       "description": {
         "lede": "Es el tren de la película de Christopher Nolan- <em>El Origen.</em>",
         "text": [
-          "Qué más necesitas saber?"
+          "¿Qué más necesitas saber?"
         ]
       }
     }
@@ -238,10 +238,10 @@
       "name": "Casa"
     },
     "narrow": {
-      "name": "Building"
+      "name": "Edificio"
     },
     "wide": {
-      "name": "Building"
+      "name": "Edificio"
     }
   },
   "variant-icons": {

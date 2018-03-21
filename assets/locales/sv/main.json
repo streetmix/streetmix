@@ -1,0 +1,289 @@
+{
+  "menu": {
+    "item": {
+      "help": "Hjälp",
+      "about": "Om Streetmix...",
+      "contact": "Kontakt",
+      "community": "",
+      "contribute": "",
+      "sign-in": "Logga in",
+      "sign-out": "Logga ut",
+      "new-street": "Ny gata",
+      "my-streets": "Mina gator",
+      "settings": "Inställningar",
+      "share": "Dela"
+    },
+    "help": {
+      "keyboard-label": "Snabbkommandon:",
+      "remove": "",
+      "move": "",
+      "change": ""
+    },
+    "share": {
+      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Logga in med Twitter</a> för bättre tillgång till dina gator och ditt personliga gatubibliotek",
+      "link": "Kopiera och klistra in denna länk för att dela:",
+      "twitter": "Dela på Twitter",
+      "facebook": "Dela på Facebook",
+      "print": "Skriv ut...",
+      "save": "Spara som bild...",
+      "save-byline": "För att inkludera i en rapport, blogg etc."
+    },
+    "contact": {
+      "forums": "Diskutera i forumen.",
+      "twitter": "Skicka en tweet till @streetmix",
+      "email": "Skicka e-post till Streetmix-teamet",
+      "github": "Visa källkod på GitHub",
+      "blog": "Besök Streetmix-bloggen",
+      "slack": "Gå med i Slack-chatten"
+    },
+    "contribute": {
+      "donate": "",
+      "stickers": "",
+      "opensource": ""
+    },
+    "feedback": {
+      "prompt": "Skicka ett meddelande till oss:",
+      "message-placeholder": "Vad tycker du om Streetmix?",
+      "email-placeholder": "Din e-postadress (valfritt)",
+      "send": "Skicka meddelande",
+      "confirm": "Vi fattar. Tack!",
+      "error": "Vi ber om ursäkt, det var ett problem att skicka synpunkterna den här gången. Vänligen försök igen senare."
+    },
+    "language": {
+      "heading": "Språk"
+    }
+  },
+  "msg": {
+    "loading": "Laddar...",
+    "remixing": "Ändrar...",
+    "having-trouble": "Har problem...",
+    "no-street": "Ingen gata vald.",
+    "trouble-loading": "Vi har problem att ladda Streetmix.",
+    "slow-connection-1": "Streetmix har inte kunnat kontakta internet på ett tag nu.",
+    "slow-connection-2": "Du kan prova att ladda om sidan och försöka igen. Vänligen notera att du kan förlora dina senaste ändringar. Ursäkta!",
+    "no-connection": "Streetmix har problem med uppkopplingen till internet."
+  },
+  "error": {
+    "button": {
+      "home": "",
+      "sign-in": "",
+      "reload": "",
+      "try-again": "Försök igen",
+      "view-example": ""
+    },
+    "page-not-found-title": "",
+    "page-not-found-description": "",
+    "street-not-found-title": "",
+    "street-not-found-description": "",
+    "street-not-found-but-user-description": "",
+    "street-deleted-title": "",
+    "street-deleted-description": "",
+    "sign-out-title": "",
+    "reload-sign-out-title": "",
+    "gallery-street-failure-description": "",
+    "reload-sign-in-title": "",
+    "please-reload": "",
+    "street-deleted-elsewhere-title": "",
+    "street-deleted-elsewhere-description": "",
+    "twitter-access-denied-title": "",
+    "twitter-access-denied-description": "",
+    "auth-api-problem-title": "",
+    "auth-api-problem-description": "",
+    "please-try-again": "",
+    "unsupported-browser-title": "",
+    "unsupported-browser-description": "",
+    "unsupported-browser-internet-explorer": "",
+    "unsupported-browser-contact-us": "",
+    "cannot-create-new-street-on-phone-title": "",
+    "cannot-create-new-street-on-phone-description": "",
+    "generic-error-title": "",
+    "generic-error-description": "",
+    "error-code": ""
+  },
+  "btn": {
+    "reload": "Ladda om",
+    "undo": "Ångra",
+    "redo": "Upprepa",
+    "try-again": "Försök igen",
+    "cancel": "Stäng",
+    "create": "Skapa ny gata",
+    "copy": "Gör en kopia",
+    "remove": "Ta bort",
+    "close": "",
+    "dismiss": ""
+  },
+  "dialogs": {
+    "error": {
+      "heading": "",
+      "text": ""
+    },
+    "welcome": {
+      "heading": "Välkommen till Streetmix.",
+      "new": {
+        "intro": "Designa, ändra och dela din gata. Lägg till träd eller cykelbanor. Bredda gångbanor eller körbanor. Lär hur dina beslut kan påverka ditt närområde.",
+        "instruct": "",
+        "instruct-pointer-finger": "",
+        "instruct-pointer-mouse": ""
+      },
+      "existing": {
+        "intro": "",
+        "intro-without-creator": "",
+        "instruct": "",
+        "instruct-start-own-street": ""
+      }
+    },
+    "new-street": {
+      "heading": "Här är din nya gata.",
+      "default": "Börja med en typgata",
+      "empty": "Börja med en tom gata",
+      "last": "Börja med en kopia av din senaste gata"
+    },
+    "about": {
+      "heading": "Om Streetmix.",
+      "description": "Designa, ändra och dela din gata. Lägg till träd eller cykelbanor. Bredda gångbanor eller körbanor. Lär hur allt detta kan påverka ditt närområde.",
+      "thanks": "Stort tack till alla från 2013 års CfA för er support och tålamod, till Blockee-teamet för att ni ledde vägen och till alla våra testare för er tid och återkoppling!",
+      "credits": "",
+      "team-heading": "",
+      "view-source": "Visa källkod",
+      "sponsored-by": "",
+      "donate-link": "",
+      "github-link": ""
+    },
+    "save": {
+      "heading": "Spara som bild",
+      "option-labels": "Segmentnamn och -bredder",
+      "option-name": "Gatunamn",
+      "option-sky": "Transparent himmel",
+      "loading": "Laddar...",
+      "save-button": "Sparar till din dator...",
+      "license": "",
+      "error-preview": "",
+      "error-unavailable": "",
+      "preview-image-alt": ""
+    },
+    "geotag": {
+      "search": "",
+      "clear-search": "",
+      "zoom-in": "",
+      "zoom-out": "",
+      "add-location": "",
+      "confirm-location": "",
+      "clear-location": "",
+      "unknown-location": ""
+    },
+    "donate": {
+      "heading": "",
+      "lede": "",
+      "text": "",
+      "button": "",
+      "cancel": ""
+    }
+  },
+  "prompt": {
+    "new-street": "Nytt gatunamn:",
+    "delete-street": "",
+    "new-width": ""
+  },
+  "toast": {
+    "segment-deleted": "Segmentet har tagits bort.",
+    "all-segments-deleted": "Alla segment har tagits bort.",
+    "no-undo": "Inget att ångra.",
+    "no-redo": "Inget att ångra.",
+    "no-save": "Du slipper spara på egen hand - Streetmix sparar åt dig!",
+    "remixing": "Nu editeras en nyskapad kopia av originalgatan. Kopian har sparats i ditt bibliotek. ",
+    "remixing-sign-in": "",
+    "reloaded": "Din gata har hämtats från servern då den modifierats på annan plats."
+  },
+  "palette": {
+    "remove": "Dra hit för att ta bort"
+  },
+  "width": {
+    "label": "",
+    "under": "",
+    "over": "",
+    "occupied": "Använd bredd:",
+    "building": "Vägg-till-vägg-bredd:",
+    "different": "Annan bredd...",
+    "metric": "Ändra till metriska enheter",
+    "imperial": "Ändra till brittiska enheter (fot)"
+  },
+  "datetime": {
+    "minutes-ago": "",
+    "seconds-ago": "",
+    "yesterday": "",
+    "today": "",
+    "format-date-no-year": "",
+    "format-date-with-year": "",
+    "format-time": ""
+  },
+  "key": {
+    "backspace": "Backsteg",
+    "shift": "Shift"
+  },
+  "tooltip": {
+    "remove-segment": "Ta bort segment",
+    "delete-street": "Ta bort gata",
+    "segment-width": "Ändra bredd på segmentet",
+    "building-height": "Ändra antal våningar",
+    "street-width": "Ändra gatans bredd",
+    "increase-width": "Öka bredd (håll inne Shift för ökad precision)",
+    "decrease-width": "Minska bredd (håll inne Shift för ökad precision)",
+    "add-floor": "Lägg till våning",
+    "remove-floor": "Ta bort våning"
+  },
+  "street": {
+    "default-name": "Namnlös gata",
+    "rename": ""
+  },
+  "segments": {
+    "warnings": {
+      "does-not-fit": "Segmentet passar inte inom gatubredden.",
+      "not-wide": "Detta segment är kanske inte tillräckligt brett.",
+      "too-wide": "Detta segment kan vara för brett."
+    },
+    "learn-more": "",
+    "unknown": {
+      "label": ""
+    }
+  },
+  "section": {
+    "empty": "Tom yta"
+  },
+  "gallery": {
+    "fail": "Misslyckades att ladda biblioteket.",
+    "all": "Alla gator",
+    "twitter-link": "",
+    "delete-street-tooltip": "Ta bort gata",
+    "street-count-none": "Inga gator än",
+    "street-count": "",
+    "street-count_plural": ""
+  },
+  "users": {
+    "anonymous": "Anonym",
+    "byline": ""
+  },
+  "sign-in": {
+    "link": "Logga in med Twitter",
+    "promo-1": "för bättre koppling till ditt personliga gatubibliotek",
+    "promo-2": "för ditt personliga gatubibliotek"
+  },
+  "meta": {
+    "description": "Designa, ändra och dela din gata - allt i din webbläsare! Lägg till träd eller cykelbanor. Bredda gångbanor eller körbanor. Lär hur allt detta kan påverka ditt närområde."
+  },
+  "i18n": {
+    "lang": {
+      "ar": "",
+      "en": "Engelska",
+      "en@pirate": "Engelska (pirat)",
+      "fi": "Finska",
+      "fr": "",
+      "de": "Tyska",
+      "es": "Spanska",
+      "es-mx": "Spanska (Mexiko)",
+      "pl": "Polska",
+      "pt-br": "Portugisiska (Brasilien)",
+      "sv": "Svenska",
+      "zh-hant": "Chinesiska (Traditionell)"
+    }
+  }
+}

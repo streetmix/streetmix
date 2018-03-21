@@ -1,0 +1,289 @@
+{
+  "menu": {
+    "item": {
+      "help": "Aide",
+      "about": "A propos de Streetmix",
+      "contact": "Contact",
+      "community": "Communauté",
+      "contribute": "Contribuer",
+      "sign-in": "Se connecter",
+      "sign-out": "Se déconnecter",
+      "new-street": "Nouvelle rue",
+      "my-streets": "Mes rues",
+      "settings": "Paramètres",
+      "share": "Partager"
+    },
+    "help": {
+      "keyboard-label": "Raccourcis claviers:",
+      "remove": "",
+      "move": "",
+      "change": ""
+    },
+    "share": {
+      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'> Connectez-vous à Twitter</a> pour une obtenir un lien vers les rues et gallerie de rues vous concernant ",
+      "link": "Copier et coller ce lien pour le partager:",
+      "twitter": "Partager en utilisant Twitter",
+      "facebook": "Partager par Facebook",
+      "print": "Imprimer...",
+      "save": "Sauver en tant qu'image...",
+      "save-byline": "Pour inclure dans un rapport, un blogue, etc."
+    },
+    "contact": {
+      "forums": "Discuter sur les forums",
+      "twitter": "Envoyez un tweet à @streetmix",
+      "email": "Envoyer un e-mail à la team Streetmix",
+      "github": "Voir le code source sur GitHub",
+      "blog": "Visitez le blog Streetmix",
+      "slack": "Rejoindre le chat sur Slack"
+    },
+    "contribute": {
+      "donate": "Donner",
+      "stickers": "Acheter une feuille d'autocollant !",
+      "opensource": "Contribuer au code open source"
+    },
+    "feedback": {
+      "prompt": "Envoyez nous un message:",
+      "message-placeholder": "Que pensez-vous de streetmix?",
+      "email-placeholder": "Votre e-mail (optionnel)",
+      "send": "Envoyer un messager",
+      "confirm": "Bien reçu. Merci !",
+      "error": "Nous sommes désolés, une erreur c'est produite lors de l'envoie de votre commentaire. Veuillez ré-essayer plus tard."
+    },
+    "language": {
+      "heading": "Langue"
+    }
+  },
+  "msg": {
+    "loading": "Chargement...",
+    "remixing": "Remélanger...",
+    "having-trouble": "Il y a un problème",
+    "no-street": "Aucune rue sélectionnée",
+    "trouble-loading": "Nous avons rencontré des problèmes lors du chargement de Streetmix",
+    "slow-connection-1": "Streetmix n'a pas été en mesure de se connecter à internet depuis un moment",
+    "slow-connection-2": "Vous pouvez recharger la page et essayer à nouveau. Veuillez noter qu'il est possible que vous perdiez les dernières modifications sur la rue. Désolé!",
+    "no-connection": "Streetmix rencontre des problèmes de connection à internet."
+  },
+  "error": {
+    "button": {
+      "home": "",
+      "sign-in": "",
+      "reload": "",
+      "try-again": "Ré-essayer",
+      "view-example": ""
+    },
+    "page-not-found-title": "",
+    "page-not-found-description": "",
+    "street-not-found-title": "",
+    "street-not-found-description": "",
+    "street-not-found-but-user-description": "",
+    "street-deleted-title": "",
+    "street-deleted-description": "",
+    "sign-out-title": "",
+    "reload-sign-out-title": "",
+    "gallery-street-failure-description": "",
+    "reload-sign-in-title": "",
+    "please-reload": "",
+    "street-deleted-elsewhere-title": "",
+    "street-deleted-elsewhere-description": "",
+    "twitter-access-denied-title": "",
+    "twitter-access-denied-description": "",
+    "auth-api-problem-title": "",
+    "auth-api-problem-description": "",
+    "please-try-again": "",
+    "unsupported-browser-title": "",
+    "unsupported-browser-description": "",
+    "unsupported-browser-internet-explorer": "",
+    "unsupported-browser-contact-us": "",
+    "cannot-create-new-street-on-phone-title": "",
+    "cannot-create-new-street-on-phone-description": "",
+    "generic-error-title": "",
+    "generic-error-description": "",
+    "error-code": ""
+  },
+  "btn": {
+    "reload": "Recharger",
+    "undo": "Annuler",
+    "redo": "Rétablir",
+    "try-again": "Ré-essayer",
+    "cancel": "Annuler",
+    "create": "Créer une rue",
+    "copy": "Faire une copie",
+    "remove": "Retirer",
+    "close": "Fermer",
+    "dismiss": "Rejeter"
+  },
+  "dialogs": {
+    "error": {
+      "heading": "",
+      "text": ""
+    },
+    "welcome": {
+      "heading": "Bienvenue dans Streetmix",
+      "new": {
+        "intro": "Concevez, remixez et partagez la rue e votre quartier. Ajoutez des arbres ou des pistes cyclables, des trottoirs ou des routes. Découvrez comment votre décision peut impacter la communauté.",
+        "instruct": "",
+        "instruct-pointer-finger": "",
+        "instruct-pointer-mouse": ""
+      },
+      "existing": {
+        "intro": "",
+        "intro-without-creator": "",
+        "instruct": "",
+        "instruct-start-own-street": ""
+      }
+    },
+    "new-street": {
+      "heading": "Voici votre nouvelle rue.",
+      "default": "Commencez avec un exemple ",
+      "empty": "Commencez avec une rue vide",
+      "last": "Commencez avec une copie de la dernière rue"
+    },
+    "about": {
+      "heading": "Au sujet de Streetmix",
+      "description": "Concevez, modifiez et partagez votre rue. Ajoutez chemins piétons, trottoirs et voirie automobile, apprenez comment cela peut impacter votre communauté.",
+      "thanks": "Nous remercions beaucoup l'équipe et  les collègues du 2013 CfA pour leur support et leur patience, l'équipe Blockee pour avoir ouvert la voie à cette application et tous les testeurs pour leur temps et leur retours!",
+      "credits": "",
+      "team-heading": "Équipe de projet et mainteneurs",
+      "view-source": "Voir le code source",
+      "sponsored-by": "Streetmix est généreusement sponsorisé par:",
+      "donate-link": "Aider nous financièrement",
+      "github-link": "Contribuer à l'open source"
+    },
+    "save": {
+      "heading": "Sauver en tant qu'image",
+      "option-labels": "Les noms des éléments de voirie et leurs largeurs",
+      "option-name": "Nom de rue",
+      "option-sky": "Ciel transparent",
+      "loading": "Chargement...",
+      "save-button": "Enregistrer sur votre ordinateur…",
+      "license": "",
+      "error-preview": "",
+      "error-unavailable": "",
+      "preview-image-alt": ""
+    },
+    "geotag": {
+      "search": "Chercher un emplacement",
+      "clear-search": "Effacer la recherche",
+      "zoom-in": "Agrandir",
+      "zoom-out": "Dézoomer",
+      "add-location": "Ajouter un emplacement",
+      "confirm-location": "",
+      "clear-location": "",
+      "unknown-location": ""
+    },
+    "donate": {
+      "heading": "Streetmix a besoin de votre aide !",
+      "lede": "Streetmix est un projet qui est supporté par ça communauté. Contrairement aux autres services « gratuit » sur internet, nous n'affichons pas de publiclité ni n'injectons des traceurs qui abuse de voter vie privé.  Nous dépendons de votre support pour maintenir Streetmix en vie.",
+      "text": "",
+      "button": "Donner à Streetmix",
+      "cancel": "Non merci"
+    }
+  },
+  "prompt": {
+    "new-street": "Nouveau nom de rue:",
+    "delete-street": "",
+    "new-width": ""
+  },
+  "toast": {
+    "segment-deleted": "Les éléments de voirie ont été enlevés.",
+    "all-segments-deleted": "Tous les éléments de voirie ont été enlevés.",
+    "no-undo": "Rien à annuler.",
+    "no-redo": "Rien à refaire",
+    "no-save": "Il n'est pas nécessaire de sauvegarder manuellement; Streetmix sauvegarde automatiquement votre rue!",
+    "remixing": "Vous modifiez un double de la rue originale. Le double a été ajouté à votre galerie.",
+    "remixing-sign-in": "Vous modifiez un double de la rue originale. Connectez-vous pour commencer à utiliser votre propre galerie de rue.",
+    "reloaded": "Votre rue a été rechargée depuis le serveur, car elle a été modifiée ailleurs."
+  },
+  "palette": {
+    "remove": "Glisser ici pour enlever"
+  },
+  "width": {
+    "label": "",
+    "under": "",
+    "over": "",
+    "occupied": "Largeur occupée",
+    "building": "Largueur disponible:",
+    "different": "Largeur personnalisée ...",
+    "metric": "Passer aux unités métriques",
+    "imperial": "Passer aux unités impériales (pieds)"
+  },
+  "datetime": {
+    "minutes-ago": "Il y a quelques minutes",
+    "seconds-ago": "Il y a quelques secondes",
+    "yesterday": "",
+    "today": "",
+    "format-date-no-year": "MMM D",
+    "format-date-with-year": "MMM D, YYYY",
+    "format-time": "HH:MM"
+  },
+  "key": {
+    "backspace": "Retour arrière",
+    "shift": "Touche majuscule"
+  },
+  "tooltip": {
+    "remove-segment": "Enlever les éléments de voirie",
+    "delete-street": "Supprimer la rue",
+    "segment-width": "Changer la largeur de l'élément de voirie",
+    "building-height": "Changer le nombre d'étages",
+    "street-width": "Changer la largeur de la rue",
+    "increase-width": "Augmenter la largeur (Maintenir Shift enfoncé pour obtenir plus de précision)",
+    "decrease-width": "Diminuer la largeur (maintenir Shift enfoncé pour obtenir plus de précision)",
+    "add-floor": "Ajouter un étage",
+    "remove-floor": "Retirer un étage"
+  },
+  "street": {
+    "default-name": "Rue non nommée",
+    "rename": "Cliquez pour renommer"
+  },
+  "segments": {
+    "warnings": {
+      "does-not-fit": "Cet élément de voirie ne s'insère pas dans la route",
+      "not-wide": "Cet élément de voirie pourrait ne pas être suffisant.",
+      "too-wide": "Cet élément de voirie pourrait être trop large."
+    },
+    "learn-more": "Apprenez en davantage",
+    "unknown": {
+      "label": ""
+    }
+  },
+  "section": {
+    "empty": "Espace vide"
+  },
+  "gallery": {
+    "fail": "Échec du chargement de la galerie.",
+    "all": "Toutes les rues",
+    "twitter-link": "Profil Twitter",
+    "delete-street-tooltip": "Supprimer la rue",
+    "street-count-none": "Aucune rue pour le moment",
+    "street-count": "",
+    "street-count_plural": ""
+  },
+  "users": {
+    "anonymous": "Anonyme",
+    "byline": ""
+  },
+  "sign-in": {
+    "link": "Se connecter à Twitter",
+    "promo-1": "Pour accéder plus facilement à vos rues et à votre galerie personnelle de rues",
+    "promo-2": "Pour votre galerie de rues personnelle"
+  },
+  "meta": {
+    "description": "Concevez, remixez et partagez la rue de votre quartier - le tout dans votre navigateur! Ajoutez des arbres ou des pistes cyclables, élargissez des trottoirs ou des routes. Découvrez comment vos décisions peuvent impacter votre communauté."
+  },
+  "i18n": {
+    "lang": {
+      "ar": "",
+      "en": "Anglais",
+      "en@pirate": "Anglais (Pirate)",
+      "fi": "Finlandais",
+      "fr": "Français",
+      "de": "Allemand",
+      "es": "Espagnol",
+      "es-mx": "Espagnol (Mexique)",
+      "pl": "Polonais",
+      "pt-br": "Portugais (Brésil)",
+      "sv": "Suédois",
+      "zh-hant": "Chinois (traditionnel)"
+    }
+  }
+}

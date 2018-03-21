@@ -1,36 +1,36 @@
 {
   "segments": {
     "sidewalk": {
-      "name": "Calçada"
+      "name": "Trottoar"
     },
     "sidewalk-tree": {
-      "name": "Calçada com árvore"
+      "name": "Trottoar med träd"
     },
     "sidewalk-bike-rack": {
-      "name": "Suporte de Bicicletas"
+      "name": "Cykelställ"
     },
     "sidewalk-bench": {
-      "name": "Banco"
+      "name": "Bänk"
     },
     "sidewalk-wayfinding": {
-      "name": "",
+      "name": "Vägvisningsskylt",
       "description": {
-        "prompt": "",
-        "lede": "",
+        "prompt": "Läs mer om vägvisningsskyltar",
+        "lede": "Vägvisningsskyltar hjälper fotgängare att hitta till vanliga målpunkter.",
         "text": [
-          "",
+          "Stadsplanerare och arkitekter har tillbringat årtionden med att försöka lära sig vad som händer i människors hjärnor när de försöker komma på hur man tar sig från punkt A till punkt B - eller hur de ens vet var punkt A är till att börja med. Redan 1960 skrev stadsplaneraren Kevin Lynch om \"legibility\" i sin bok <em><a href=\"http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014\"> The Image of the City</a></em> genom \"ett konstant användande och organiserande av sinnenas ledtrådar från den omkringliggande miljön.\" Det kan vara immateriella - lukt, känsel, känsla av gravitation eller till och med elektriska eller magnetiska fält. Eller så kan det vara mycket mer fysiskt, med tillverkade redskap såsom kartor, gatunummer eller vägvisningsskyltar.",
           "",
           ""
         ]
       }
     },
     "sidewalk-lamp": {
-      "name": "Calçada com poste"
+      "name": "Trottoar med belysning"
     },
     "parklet": {
-      "name": "Estacionamento permitido",
+      "name": "Mikropark",
       "description": {
-        "prompt": "Saiba mais sobre estacionamentos permitidos",
+        "prompt": "Läs mer om mikroparker",
         "imageCaption": "",
         "lede": "",
         "text": [
@@ -40,7 +40,7 @@
       }
     },
     "divider": {
-      "name": "",
+      "name": "Buffert",
       "details": {
         "planting-strip": {
           "name": ""
@@ -49,10 +49,10 @@
           "name": ""
         },
         "median": {
-          "name": "Médio"
+          "name": ""
         },
         "striped-buffer": {
-          "name": ""
+          "name": "Buffert"
         },
         "bush": {
           "name": ""
@@ -75,7 +75,7 @@
       }
     },
     "bike-lane": {
-      "name": "Ciclofaixa",
+      "name": "",
       "description": {
         "prompt": "",
         "lede": "",
@@ -111,7 +111,7 @@
       }
     },
     "parking-lane": {
-      "name": "Área de estacionamento",
+      "name": "",
       "details": {
         "sideways|left": {
           "name": ""
@@ -122,7 +122,7 @@
       }
     },
     "drive-lane": {
-      "name": "Faixa de direção",
+      "name": "",
       "details": {
         "inbound|sharrow": {
           "name": "",
@@ -168,13 +168,13 @@
       }
     },
     "bus-lane": {
-      "name": "Faixa de ônibux",
+      "name": "",
       "details": {
         "inbound|shared": {
-          "name": "Compartilhado ônibus/bike"
+          "name": ""
         },
         "outbound|shared": {
-          "name": "Compartilhado ônibus/bike"
+          "name": ""
         }
       }
     },
@@ -226,7 +226,7 @@
       "name": ""
     },
     "grass": {
-      "name": "Grama"
+      "name": ""
     },
     "fence": {
       "name": ""
@@ -235,7 +235,7 @@
       "name": ""
     },
     "residential": {
-      "name": "Casa"
+      "name": ""
     },
     "narrow": {
       "name": ""
@@ -245,48 +245,48 @@
     }
   },
   "variant-icons": {
-    "orientation|left": "Esqueda",
-    "orientation|right": "Direita",
-    "turn-lane-orientation|left": "Esquerda",
-    "turn-lane-orientation|left-straight": "Linha reta e à esquerda",
-    "turn-lane-orientation|straight": "Em frente",
-    "turn-lane-orientation|right-straight": "Direita e em frente",
-    "turn-lane-orientation|right": "Direita",
-    "turn-lane-orientation|both": "Cabine",
-    "turn-lane-orientation|shared": "Compartilhar",
-    "bench-orientation|left": "Esqueda",
-    "bench-orientation|right": "Dirieta",
-    "bench-orientation|center": "Centro",
-    "parking-lane-orientation|left": "Esqueda",
-    "parking-lane-orientation|right": "Dirieta",
+    "orientation|left": "Vänster",
+    "orientation|right": "Höger",
+    "turn-lane-orientation|left": "Vänster",
+    "turn-lane-orientation|left-straight": "Vänster och rakt",
+    "turn-lane-orientation|straight": "Rakt",
+    "turn-lane-orientation|right-straight": "Höger och rakt",
+    "turn-lane-orientation|right": "Höger",
+    "turn-lane-orientation|both": "",
+    "turn-lane-orientation|shared": "",
+    "bench-orientation|left": "Vänster",
+    "bench-orientation|right": "Höger",
+    "bench-orientation|center": "",
+    "parking-lane-orientation|left": "Vänster",
+    "parking-lane-orientation|right": "Höger",
     "parking-lane-direction|inbound": "",
     "parking-lane-direction|outbound": "",
-    "parking-lane-direction|sideways": "Perpendicular",
+    "parking-lane-direction|sideways": "",
     "direction|inbound": "",
     "direction|outbound": "",
     "sidewalk-density|empty": "",
     "sidewalk-density|sparse": "",
-    "sidewalk-density|normal": "Normal",
-    "sidewalk-density|dense": "Denso",
-    "lamp-orientation|left": "Esqueda",
-    "lamp-orientation|both": "Cabine",
-    "lamp-orientation|right": "Dirieta",
-    "lamp-type|traditional": "Tradicional",
-    "lamp-type|modern": "Moderno",
+    "sidewalk-density|normal": "",
+    "sidewalk-density|dense": "",
+    "lamp-orientation|left": "Vänster",
+    "lamp-orientation|both": "",
+    "lamp-orientation|right": "Höger",
+    "lamp-type|traditional": "",
+    "lamp-type|modern": "",
     "lamp-type|pride": "",
-    "car-type|car": "Carro",
+    "car-type|car": "",
     "car-type|sharrow": "",
-    "car-type|truck": "Caminhão",
+    "car-type|truck": "",
     "public-transit-asphalt|regular": "",
-    "public-transit-asphalt|colored": "Faixa vemelha",
+    "public-transit-asphalt|colored": "",
     "bus-asphalt|regular": "",
-    "bus-asphalt|colored": "Faixa vemelha",
-    "bus-asphalt|shared": "Faixa compartilhada: Ônibus e Bicicleta",
+    "bus-asphalt|colored": "",
+    "bus-asphalt|shared": "",
     "bike-asphalt|regular": "",
-    "bike-asphalt|colored": "Faixa verde",
-    "tree-type|big": "Árvore",
+    "bike-asphalt|colored": "",
+    "tree-type|big": "",
     "tree-type|palm-tree": "",
-    "divider-type|median": "Médio",
+    "divider-type|median": "",
     "divider-type|striped-buffer": "",
     "divider-type|planting-strip": "",
     "divider-type|planter-box": "",
@@ -296,20 +296,20 @@
     "divider-type|palm-tree": "",
     "divider-type|bollard": "",
     "divider-type|dome": "",
-    "transit-shelter-elevation|street-level": "Nível da rua",
+    "transit-shelter-elevation|street-level": "",
     "transit-shelter-elevation|light-rail": "",
     "bike-rack-elevation|sidewalk-parallel": "",
     "bike-rack-elevation|sidewalk": "",
     "bike-rack-elevation|road": "",
     "building|waterfront": "",
-    "building|grass": "Grama",
+    "building|grass": "",
     "building|fence": "",
     "building|parking-lot": "",
-    "building|residential": "Casa",
+    "building|residential": "",
     "building|narrow": "",
     "building|wide": "",
-    "wayfinding-type|large": "Grande",
-    "wayfinding-type|medium": "Médio",
-    "wayfinding-type|small": "Pequeno"
+    "wayfinding-type|large": "",
+    "wayfinding-type|medium": "",
+    "wayfinding-type|small": ""
   }
 }

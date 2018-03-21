@@ -1,19 +1,19 @@
 {
   "segments": {
     "sidewalk": {
-      "name": "Calçada"
+      "name": "人行道"
     },
     "sidewalk-tree": {
-      "name": "Calçada com árvore"
+      "name": "有樹的人行道"
     },
     "sidewalk-bike-rack": {
-      "name": "Suporte de Bicicletas"
+      "name": "自行車架"
     },
     "sidewalk-bench": {
-      "name": "Banco"
+      "name": "長椅"
     },
     "sidewalk-wayfinding": {
-      "name": "",
+      "name": "尋路標誌",
       "description": {
         "prompt": "",
         "lede": "",
@@ -25,12 +25,12 @@
       }
     },
     "sidewalk-lamp": {
-      "name": "Calçada com poste"
+      "name": "有燈的行人道"
     },
     "parklet": {
-      "name": "Estacionamento permitido",
+      "name": "停車長椅微型公園",
       "description": {
-        "prompt": "Saiba mais sobre estacionamentos permitidos",
+        "prompt": "",
         "imageCaption": "",
         "lede": "",
         "text": [
@@ -40,19 +40,19 @@
       }
     },
     "divider": {
-      "name": "",
+      "name": "禁停區",
       "details": {
         "planting-strip": {
           "name": ""
         },
         "planter-box": {
-          "name": ""
+          "name": "種花箱"
         },
         "median": {
-          "name": "Médio"
+          "name": "分隔島"
         },
         "striped-buffer": {
-          "name": ""
+          "name": "禁停區"
         },
         "bush": {
           "name": ""
@@ -67,7 +67,7 @@
           "name": ""
         },
         "bollard": {
-          "name": ""
+          "name": "彈力護柱"
         },
         "dome": {
           "name": ""
@@ -75,7 +75,7 @@
       }
     },
     "bike-lane": {
-      "name": "Ciclofaixa",
+      "name": "自行車道",
       "description": {
         "prompt": "",
         "lede": "",
@@ -111,18 +111,18 @@
       }
     },
     "parking-lane": {
-      "name": "Área de estacionamento",
+      "name": "停車道",
       "details": {
         "sideways|left": {
-          "name": ""
+          "name": "横的停车位"
         },
         "sideways|right": {
-          "name": ""
+          "name": "横的停车位"
         }
       }
     },
     "drive-lane": {
-      "name": "Faixa de direção",
+      "name": "開車道",
       "details": {
         "inbound|sharrow": {
           "name": "",
@@ -151,41 +151,41 @@
       }
     },
     "turn-lane": {
-      "name": "",
+      "name": "轉車道",
       "details": {
         "inbound|straight": {
-          "name": ""
+          "name": "不能轉車的道"
         },
         "inbound|shared": {
-          "name": ""
+          "name": "中間的轉車道"
         },
         "outbound|straight": {
-          "name": ""
+          "name": "不能轉車的道"
         },
         "outbound|shared": {
-          "name": ""
+          "name": "中間的轉車道"
         }
       }
     },
     "bus-lane": {
-      "name": "Faixa de ônibux",
+      "name": "巴士道",
       "details": {
         "inbound|shared": {
-          "name": "Compartilhado ônibus/bike"
+          "name": "巴士和自行車共用的車道"
         },
         "outbound|shared": {
-          "name": "Compartilhado ônibus/bike"
+          "name": "巴士和自行車共用的車道"
         }
       }
     },
     "streetcar": {
-      "name": ""
+      "name": "電車"
     },
     "light-rail": {
-      "name": ""
+      "name": "火車"
     },
     "transit-shelter": {
-      "name": "",
+      "name": "巴士站",
       "details": {
         "left|light-rail": {
           "description": {
@@ -223,19 +223,19 @@
   },
   "buildings": {
     "waterfront": {
-      "name": ""
+      "name": "水岸"
     },
     "grass": {
-      "name": "Grama"
+      "name": "草"
     },
     "fence": {
-      "name": ""
+      "name": "空地"
     },
     "parking-lot": {
-      "name": ""
+      "name": "停車場"
     },
     "residential": {
-      "name": "Casa"
+      "name": "家"
     },
     "narrow": {
       "name": ""
@@ -245,71 +245,71 @@
     }
   },
   "variant-icons": {
-    "orientation|left": "Esqueda",
-    "orientation|right": "Direita",
-    "turn-lane-orientation|left": "Esquerda",
-    "turn-lane-orientation|left-straight": "Linha reta e à esquerda",
-    "turn-lane-orientation|straight": "Em frente",
-    "turn-lane-orientation|right-straight": "Direita e em frente",
-    "turn-lane-orientation|right": "Direita",
-    "turn-lane-orientation|both": "Cabine",
-    "turn-lane-orientation|shared": "Compartilhar",
-    "bench-orientation|left": "Esqueda",
-    "bench-orientation|right": "Dirieta",
-    "bench-orientation|center": "Centro",
-    "parking-lane-orientation|left": "Esqueda",
-    "parking-lane-orientation|right": "Dirieta",
+    "orientation|left": "",
+    "orientation|right": "",
+    "turn-lane-orientation|left": "",
+    "turn-lane-orientation|left-straight": "",
+    "turn-lane-orientation|straight": "",
+    "turn-lane-orientation|right-straight": "",
+    "turn-lane-orientation|right": "",
+    "turn-lane-orientation|both": "",
+    "turn-lane-orientation|shared": "",
+    "bench-orientation|left": "",
+    "bench-orientation|right": "",
+    "bench-orientation|center": "",
+    "parking-lane-orientation|left": "",
+    "parking-lane-orientation|right": "",
     "parking-lane-direction|inbound": "",
     "parking-lane-direction|outbound": "",
-    "parking-lane-direction|sideways": "Perpendicular",
+    "parking-lane-direction|sideways": "",
     "direction|inbound": "",
     "direction|outbound": "",
     "sidewalk-density|empty": "",
     "sidewalk-density|sparse": "",
-    "sidewalk-density|normal": "Normal",
-    "sidewalk-density|dense": "Denso",
-    "lamp-orientation|left": "Esqueda",
-    "lamp-orientation|both": "Cabine",
-    "lamp-orientation|right": "Dirieta",
-    "lamp-type|traditional": "Tradicional",
-    "lamp-type|modern": "Moderno",
+    "sidewalk-density|normal": "",
+    "sidewalk-density|dense": "",
+    "lamp-orientation|left": "",
+    "lamp-orientation|both": "",
+    "lamp-orientation|right": "",
+    "lamp-type|traditional": "",
+    "lamp-type|modern": "",
     "lamp-type|pride": "",
-    "car-type|car": "Carro",
+    "car-type|car": "",
     "car-type|sharrow": "",
-    "car-type|truck": "Caminhão",
+    "car-type|truck": "",
     "public-transit-asphalt|regular": "",
-    "public-transit-asphalt|colored": "Faixa vemelha",
+    "public-transit-asphalt|colored": "",
     "bus-asphalt|regular": "",
-    "bus-asphalt|colored": "Faixa vemelha",
-    "bus-asphalt|shared": "Faixa compartilhada: Ônibus e Bicicleta",
+    "bus-asphalt|colored": "",
+    "bus-asphalt|shared": "巴士和自行車共用的車道",
     "bike-asphalt|regular": "",
-    "bike-asphalt|colored": "Faixa verde",
-    "tree-type|big": "Árvore",
+    "bike-asphalt|colored": "",
+    "tree-type|big": "",
     "tree-type|palm-tree": "",
-    "divider-type|median": "Médio",
+    "divider-type|median": "分隔島",
     "divider-type|striped-buffer": "",
     "divider-type|planting-strip": "",
-    "divider-type|planter-box": "",
+    "divider-type|planter-box": "種花箱",
     "divider-type|bush": "",
     "divider-type|flowers": "",
     "divider-type|big-tree": "",
     "divider-type|palm-tree": "",
-    "divider-type|bollard": "",
+    "divider-type|bollard": "彈力護柱",
     "divider-type|dome": "",
-    "transit-shelter-elevation|street-level": "Nível da rua",
+    "transit-shelter-elevation|street-level": "",
     "transit-shelter-elevation|light-rail": "",
     "bike-rack-elevation|sidewalk-parallel": "",
     "bike-rack-elevation|sidewalk": "",
     "bike-rack-elevation|road": "",
-    "building|waterfront": "",
-    "building|grass": "Grama",
-    "building|fence": "",
-    "building|parking-lot": "",
-    "building|residential": "Casa",
-    "building|narrow": "",
-    "building|wide": "",
-    "wayfinding-type|large": "Grande",
-    "wayfinding-type|medium": "Médio",
-    "wayfinding-type|small": "Pequeno"
+    "building|waterfront": "水岸",
+    "building|grass": "草",
+    "building|fence": "空地",
+    "building|parking-lot": "停車場",
+    "building|residential": "家",
+    "building|narrow": "樓",
+    "building|wide": "樓",
+    "wayfinding-type|large": "",
+    "wayfinding-type|medium": "",
+    "wayfinding-type|small": ""
   }
 }
