@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { debounce } from 'lodash'
 import { t } from '../app/locale'
-import { MAX_BUILDING_HEIGHT, BUILDINGS, calculateRealHeightNumber } from '../segments/buildings'
+import { MAX_BUILDING_HEIGHT, BUILDINGS, calculateRealHeightNumber, buildingHeightUpdated } from '../segments/buildings'
 import { addBuildingFloor, removeBuildingFloor, setBuildingFloorValue } from '../store/actions/street'
 import { prettifyWidth } from '../util/width_units'
 import { KEYS } from '../app/keyboard_commands'
@@ -64,10 +64,12 @@ class BuildingHeightControl extends React.Component {
 
   onClickIncrement = () => {
     this.props.addBuildingFloor(this.props.position)
+    buildingHeightUpdated()
   }
 
   onClickDecrement = () => {
     this.props.removeBuildingFloor(this.props.position)
+    buildingHeightUpdated()
   }
 
   onInput = (event) => {
@@ -195,6 +197,7 @@ class BuildingHeightControl extends React.Component {
    */
   updateModel = (value) => {
     this.props.setBuildingFloorValue(this.props.position, value)
+    buildingHeightUpdated()
   }
 
   /**
