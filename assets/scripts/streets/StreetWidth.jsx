@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl'
 import { processWidthInput, prettifyWidth } from '../util/width_units'
 import { getSegmentWidthResolution } from '../segments/resizing'
 import { loseAnyFocus } from '../util/focus'
@@ -13,7 +13,6 @@ import {
 import { segmentsChanged } from '../segments/view'
 import { setStreet, createDomFromData } from './data_model'
 import { resizeStreetWidth } from './width'
-import { t } from '../app/locale'
 
 const STREET_WIDTH_CUSTOM = -1
 const STREET_WIDTH_SWITCH_TO_METRIC = -2
@@ -26,6 +25,7 @@ const DEFAULT_STREET_WIDTHS = [40, 60, 80]
 
 class StreetWidth extends React.Component {
   static propTypes = {
+    intl: intlShape,
     readOnly: PropTypes.bool,
     street: PropTypes.object
   }
@@ -69,6 +69,8 @@ class StreetWidth extends React.Component {
   }
 
   renderStreetWidthMenu = () => {
+    const formatMessage = this.props.intl.formatMessage
+
     var widths = []
     const defaultWidths = DEFAULT_STREET_WIDTHS.map((defaultWidth) => {
       let width = this.normalizeStreetWidth(defaultWidth)
@@ -89,15 +91,19 @@ class StreetWidth extends React.Component {
     }
     return (
       <select ref={(ref) => { this.streetWidth = ref }} onChange={this.changeStreetWidth} id="street-width" value={selectedValue}>
-        <option disabled="true">{t('width.occupied', 'Occupied width:')}</option>
+        <option disabled="true">
+          {formatMessage({ id: 'width.occupied', defaultMessage: 'Occupied width:' })}
+        </option>
         <option disabled="true">{prettifyWidth(this.props.street.occupiedWidth, this.props.street.units)}</option>
         <option disabled="true" />
-        <option disabled="true">{t('width.building', 'Building-to-building width:')}</option>
+        <option disabled="true">
+          {formatMessage({ id: 'width.building', defaultMessage: 'Building-to-building width:' })}
+        </option>
         {defaultWidths}
         {customWidthBlank}
         {customWidth}
         <option value={STREET_WIDTH_CUSTOM} >
-          {t('width.different', 'Different width…')}
+          {formatMessage({ id: 'width.different', defaultMessage: 'Different width…' })}
         </option>
         <option disabled="true" />
         <option
@@ -105,14 +111,14 @@ class StreetWidth extends React.Component {
           value={STREET_WIDTH_SWITCH_TO_IMPERIAL}
           disabled={this.props.street.units === SETTINGS_UNITS_IMPERIAL}
         >
-          {t('width.imperial', 'Switch to imperial units (feet)')}
+          {formatMessage({ id: 'width.imperial', defaultMessage: 'Switch to imperial units (feet)' })}
         </option>
         <option
           id="switch-to-metric-units"
           value={STREET_WIDTH_SWITCH_TO_METRIC}
           disabled={this.props.street.units === SETTINGS_UNITS_METRIC}
         >
-          {t('width.metric', 'Switch to metric units')}
+          {formatMessage({ id: 'width.metric', defaultMessage: 'Switch to metric units' })}
         </option>
       </select>
     )
@@ -152,11 +158,13 @@ class StreetWidth extends React.Component {
       if (promptValue < MIN_CUSTOM_STREET_WIDTH) promptValue = MIN_CUSTOM_STREET_WIDTH
       if (promptValue > MAX_CUSTOM_STREET_WIDTH) promptValue = MAX_CUSTOM_STREET_WIDTH
 
-      const replacements = {
+      const promptString = this.props.intl.formatMessage({
+        id: 'prompt.new-width',
+        defaultMessage: 'New street width (from {minWidth} to {maxWidth}):'
+      }, {
         minWidth: prettifyWidth(MIN_CUSTOM_STREET_WIDTH, this.props.street.units),
         maxWidth: prettifyWidth(MAX_CUSTOM_STREET_WIDTH, this.props.street.units)
-      }
-      const promptString = t('prompt.new-width', 'New street width (from {minWidth} to {maxWidth}):', replacements)
+      })
       let width = window.prompt(promptString, prettifyWidth(promptValue, this.props.street.units))
 
       if (width) {
@@ -214,4 +222,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(StreetWidth)
+export default injectIntl(connect(mapStateToProps)(StreetWidth))
