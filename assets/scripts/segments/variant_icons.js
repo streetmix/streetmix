@@ -352,5 +352,49 @@ export const VARIANT_ICONS = {
       'id': 'foodtruck',
       'title': 'Food truck'
     }
+  },
+  'person': {
+    'sparse': {
+      'id': 'sidewalk-density-sparse',
+      'title': 'Someone'
+    },
+    'empty': {
+      'id': '',
+      'title': 'No one'
+    }
+  },
+  'signage': {
+    'sign1': {
+      'id': 'sign1',
+      'title': 'Sign type 1'
+    },
+    'sign2': {
+      'id': 'sign2',
+      'title': 'Sign type 2'
+    },
+    'sign3': {
+      'id': 'sign3',
+      'title': 'Sign type 3'
+    },
+    'sign4': {
+      'id': 'sign4',
+      'title': 'Sign type 4'
+    },
+    'pylon1': {
+      'id': 'pylon1',
+      'title': 'Pylon type 1'
+    },
+    'pylon2': {
+      'id': 'pylon2',
+      'title': 'Pylon type 2'
+    },
+    'pylon3': {
+      'id': 'pylon3',
+      'title': 'Pylon type 3'
+    },
+    'pylon4': {
+      'id': 'pylon4',
+      'title': 'Pylon type 4'
+    }
   }
 }

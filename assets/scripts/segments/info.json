@@ -676,6 +676,180 @@
       }
     }
   },
+  "flex-zone-curb": {
+    "name": "Pick up / drop off waiting area",
+    "owner": "FLEX",
+    "zIndex": 2,
+    "defaultWidth": 4,
+    "variants": [
+      "person",
+      "signage",
+      "orientation"
+    ],
+    "enableWithFlag": "SEGMENT_FLEX_ZONE",
+    "details": {
+      "sparse|sign1|left": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "sparse|pylon1|left": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "sparse|sign2|left": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "sparse|pylon2|left": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "sparse|sign3|left": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "sparse|pylon3|left": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "sparse|sign4|left": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "sparse|pylon4|left": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "empty|sign1|left": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "empty|pylon1|left": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "empty|sign2|left": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "empty|pylon2|left": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "empty|sign3|left": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "empty|pylon3|left": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "empty|sign4|left": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "empty|pylon4|left": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "sparse|sign1|right": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "sparse|pylon1|right": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "sparse|sign2|right": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "sparse|pylon2|right": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "sparse|sign3|right": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "sparse|pylon3|right": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "sparse|sign4|right": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "sparse|pylon4|right": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "empty|sign1|right": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "empty|pylon1|right": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "empty|sign2|right": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "empty|pylon2|right": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "empty|sign3|right": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "empty|pylon3|right": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "empty|sign4|right": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      },
+      "empty|pylon4|right": {
+        "graphics": {
+          "repeat": "ground--concrete"
+        }
+      }
+    }
+  },
   "parking-lane": {
     "name": "Parking lane",
     "owner": "CAR",
