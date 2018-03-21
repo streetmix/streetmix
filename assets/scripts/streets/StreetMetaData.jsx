@@ -2,14 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { IntlProvider } from 'react-intl'
-import { formatDate } from '../util/date_format'
 import StreetMetaWidth from './StreetMetaWidth'
 import StreetMetaAuthor from './StreetMetaAuthor'
+import StreetMetaDate from './StreetMetaDate'
 import StreetMetaGeotag from './StreetMetaGeotag'
 
 class StreetMetaData extends React.Component {
   static propTypes = {
-    street: PropTypes.any,
     locale: PropTypes.object
   }
 
@@ -23,7 +22,7 @@ class StreetMetaData extends React.Component {
         <div className="street-metadata">
           <StreetMetaWidth />
           <StreetMetaAuthor />
-          <span className="street-metadata-date">{formatDate(this.props.street.updatedAt)}</span>
+          <StreetMetaDate />
           <StreetMetaGeotag />
         </div>
       </IntlProvider>
