@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import { getRemixOnFirstEdit } from './remix'
 import { showGallery } from '../gallery/view'
-import { t } from '../app/locale'
 import Avatar from '../users/Avatar'
 
 export class StreetMetaAuthor extends React.Component {
@@ -26,18 +25,20 @@ export class StreetMetaAuthor extends React.Component {
   }
 
   renderByline = (creatorId) => {
+    const user = (creatorId) ? (
+      <React.Fragment key={creatorId}>
+        <Avatar userId={creatorId} />
+        <a href={'/' + creatorId} onClick={this.onClickAuthor}>{creatorId}</a>
+      </React.Fragment>
+    ) : (
+      <FormattedMessage id="users.anonymous" defaultMessage="Anonymous" />
+    )
+
     return (
       <FormattedMessage
         id="users.byline"
         defaultMessage="by {user}"
-        values={{
-          user: (
-            <React.Fragment key={creatorId}>
-              <Avatar userId={creatorId} />
-              <a href={'/' + creatorId} onClick={this.onClickAuthor}>{creatorId}</a>
-            </React.Fragment>
-          )
-        }}
+        values={{ user }}
       />
     )
   }
@@ -48,7 +49,7 @@ export class StreetMetaAuthor extends React.Component {
     if (creatorId && (!this.props.signedIn || (creatorId !== this.props.userId))) {
       author = this.renderByline(creatorId)
     } else if (!creatorId && (this.props.signedIn || getRemixOnFirstEdit())) {
-      author = t('users.byline', 'by {user}', { user: t('users.anonymous', 'Anonymous') })
+      author = this.renderByline(null)
     }
 
     return <span className="street-metadata-author">{author}</span>
