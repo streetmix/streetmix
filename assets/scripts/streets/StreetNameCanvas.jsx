@@ -107,7 +107,6 @@ class StreetNameCanvas extends React.Component {
         />
         <StreetMetaData
           street={this.props.street}
-          readOnly={!this.props.editable}
         />
       </div>
     )
