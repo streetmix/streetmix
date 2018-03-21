@@ -41,7 +41,7 @@ class StreetWidth extends React.Component {
 
     if (this.props.street.remainingWidth > 0) {
       differenceClass = 'street-width-under'
-      differenceString = t('width.room', '({width} room)', { width })
+      differenceString = t('width.under', '({width} room)', { width })
     } else if (this.props.street.remainingWidth < 0) {
       differenceClass = 'street-width-over'
       differenceString = t('width.over', '({width} over)', { width })
