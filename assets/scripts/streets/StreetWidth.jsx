@@ -13,7 +13,6 @@ import { segmentsChanged } from '../segments/view'
 import { createDomFromData } from './data_model'
 import { resizeStreetWidth } from './width'
 import { t } from '../app/locale'
-
 import { updateStreetWidth } from '../store/actions/street'
 
 const STREET_WIDTH_CUSTOM = -1
