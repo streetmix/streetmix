@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { FormattedMessage } from 'react-intl'
 import { processWidthInput, prettifyWidth } from '../util/width_units'
 import { getSegmentWidthResolution } from '../segments/resizing'
 import { loseAnyFocus } from '../util/focus'
@@ -30,21 +31,20 @@ class StreetWidth extends React.Component {
   }
 
   displayStreetWidthRemaining = () => {
-    // TODO work on this so that we can use markup
     const width = prettifyWidth(Math.abs(this.props.street.remainingWidth), this.props.street.units)
 
     let differenceClass = ''
-    let differenceString = ''
+    let differenceEl = ''
 
     if (this.props.street.remainingWidth > 0) {
       differenceClass = 'street-width-under'
-      differenceString = t('width.under', '({width} room)', { width })
+      differenceEl = <FormattedMessage id="width.under" defaultMessage="({width} room)" values={{ width }} />
     } else if (this.props.street.remainingWidth < 0) {
       differenceClass = 'street-width-over'
-      differenceString = t('width.over', '({width} over)', { width })
+      differenceEl = <FormattedMessage id="width.over" defaultMessage="({width} over)" values={{ width }} />
     }
 
-    return { class: differenceClass, width: differenceString }
+    return { class: differenceClass, width: differenceEl }
   }
 
   normalizeStreetWidth (width) {
@@ -189,16 +189,16 @@ class StreetWidth extends React.Component {
   }
 
   render () {
-    // TODO work on this so that we can use markup
-    const width = prettifyWidth(this.props.street.width, this.props.street.units, { markup: false })
-    const widthString = t('width.label', '{width} width', { width })
+    const width = prettifyWidth(this.props.street.width, this.props.street.units)
     const difference = this.displayStreetWidthRemaining()
     const differenceClass = `street-width-read-difference ${difference.class}`
 
     return (
       <span className="street-metadata-width">
         <span className="street-width-read" title="Change width of the street" onClick={this.clickStreetWidth}>
-          <span className="street-width-read-width">{widthString}</span>
+          <span className="street-width-read-width">
+            <FormattedMessage id="width.label" defaultMessage="{width} width" values={{ width }} />
+          </span>
           &nbsp;
           <span className={differenceClass}>{difference.width}</span>
         </span>
