@@ -679,7 +679,7 @@
   "flex-zone-curb": {
     "name": "Pick up / drop off waiting area",
     "owner": "FLEX",
-    "zIndex": 2,
+    "zIndex": 3,
     "defaultWidth": 4,
     "variants": [
       "person",
@@ -690,161 +690,209 @@
     "details": {
       "sparse|sign1|left": {
         "graphics": {
+          "left": "curb--sign1",
+          "center": "curb--person-right",
           "repeat": "ground--concrete"
         }
       },
       "sparse|pylon1|left": {
         "graphics": {
+          "left": "curb--pylon1",
+          "center": "curb--person-right",
           "repeat": "ground--concrete"
         }
       },
       "sparse|sign2|left": {
         "graphics": {
+          "left": "curb--sign2",
+          "center": "curb--person-right",
           "repeat": "ground--concrete"
         }
       },
       "sparse|pylon2|left": {
         "graphics": {
+          "left": "curb--pylon2",
+          "center": "curb--person-right",
           "repeat": "ground--concrete"
         }
       },
       "sparse|sign3|left": {
         "graphics": {
+          "left": "curb--sign3",
+          "center": "curb--person-right",
           "repeat": "ground--concrete"
         }
       },
       "sparse|pylon3|left": {
         "graphics": {
+          "left": "curb--pylon3",
+          "center": "curb--person-right",
           "repeat": "ground--concrete"
         }
       },
       "sparse|sign4|left": {
         "graphics": {
+          "left": "curb--sign4",
+          "center": "curb--person-right",
           "repeat": "ground--concrete"
         }
       },
       "sparse|pylon4|left": {
         "graphics": {
+          "left": "curb--pylon4",
+          "center": "curb--person-right",
           "repeat": "ground--concrete"
         }
       },
       "empty|sign1|left": {
         "graphics": {
+          "left": "curb--sign1",
           "repeat": "ground--concrete"
         }
       },
       "empty|pylon1|left": {
         "graphics": {
+          "left": "curb--pylon1",
           "repeat": "ground--concrete"
         }
       },
       "empty|sign2|left": {
         "graphics": {
+          "left": "curb--sign2",
           "repeat": "ground--concrete"
         }
       },
       "empty|pylon2|left": {
         "graphics": {
+          "left": "curb--pylon2",
           "repeat": "ground--concrete"
         }
       },
       "empty|sign3|left": {
         "graphics": {
+          "left": "curb--sign3",
           "repeat": "ground--concrete"
         }
       },
       "empty|pylon3|left": {
         "graphics": {
+          "left": "curb--pylon3",
           "repeat": "ground--concrete"
         }
       },
       "empty|sign4|left": {
         "graphics": {
+          "left": "curb--sign4",
           "repeat": "ground--concrete"
         }
       },
       "empty|pylon4|left": {
         "graphics": {
+          "left": "curb--pylon4",
           "repeat": "ground--concrete"
         }
       },
       "sparse|sign1|right": {
         "graphics": {
+          "right": "curb--sign1",
+          "center": "curb--person-left",
           "repeat": "ground--concrete"
         }
       },
       "sparse|pylon1|right": {
         "graphics": {
+          "right": "curb--pylon1",
+          "center": "curb--person-left",
           "repeat": "ground--concrete"
         }
       },
       "sparse|sign2|right": {
         "graphics": {
+          "right": "curb--sign2",
+          "center": "curb--person-left",
           "repeat": "ground--concrete"
         }
       },
       "sparse|pylon2|right": {
         "graphics": {
+          "right": "curb--pylon2",
+          "center": "curb--person-left",
           "repeat": "ground--concrete"
         }
       },
       "sparse|sign3|right": {
         "graphics": {
+          "right": "curb--sign3",
+          "center": "curb--person-left",
           "repeat": "ground--concrete"
         }
       },
       "sparse|pylon3|right": {
         "graphics": {
+          "right": "curb--pylon3",
+          "center": "curb--person-left",
           "repeat": "ground--concrete"
         }
       },
       "sparse|sign4|right": {
         "graphics": {
+          "right": "curb--sign4",
+          "center": "curb--person-left",
           "repeat": "ground--concrete"
         }
       },
       "sparse|pylon4|right": {
         "graphics": {
+          "right": "curb--pylon4",
+          "center": "curb--person-left",
           "repeat": "ground--concrete"
         }
       },
       "empty|sign1|right": {
         "graphics": {
+          "right": "curb--sign1",
           "repeat": "ground--concrete"
         }
       },
       "empty|pylon1|right": {
         "graphics": {
+          "right": "curb--pylon1",
           "repeat": "ground--concrete"
         }
       },
       "empty|sign2|right": {
         "graphics": {
+          "right": "curb--sign2",
           "repeat": "ground--concrete"
         }
       },
       "empty|pylon2|right": {
         "graphics": {
+          "right": "curb--pylon2",
           "repeat": "ground--concrete"
         }
       },
       "empty|sign3|right": {
         "graphics": {
+          "right": "curb--sign3",
           "repeat": "ground--concrete"
         }
       },
       "empty|pylon3|right": {
         "graphics": {
+          "right": "curb--pylon3",
           "repeat": "ground--concrete"
         }
       },
       "empty|sign4|right": {
         "graphics": {
+          "right": "curb--sign4",
           "repeat": "ground--concrete"
         }
       },
       "empty|pylon4|right": {
         "graphics": {
+          "right": "curb--pylon4",
           "repeat": "ground--concrete"
         }
       }

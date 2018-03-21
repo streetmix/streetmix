@@ -148,7 +148,18 @@ const SPRITE_DEFS = {
   'bikes--bikeshare-left': { id: 'bikes--bikeshare-left', width: 7, offsetY: -3.7 },
   'bikes--bikeshare-right': { id: 'bikes--bikeshare-right', width: 7, offsetY: -3.7 },
   'vehicles--foodtruck-left': { id: 'vehicles--foodtruck-left', width: 15, offsetY: -3.7 },
-  'vehicles--foodtruck-right': { id: 'vehicles--foodtruck-right', width: 15, offsetY: -3.7 }
+  'vehicles--foodtruck-right': { id: 'vehicles--foodtruck-right', width: 15, offsetY: -3.7 },
+
+  'curb--sign1': { id: 'curb--sign1', width: 2, offsetY: -4.3 },
+  'curb--sign2': { id: 'curb--sign2', width: 2, offsetY: -4.3 },
+  'curb--sign3': { id: 'curb--sign3', width: 2, offsetY: -4.3 },
+  'curb--sign4': { id: 'curb--sign4', width: 2, offsetY: -4.3 },
+  'curb--pylon1': { id: 'curb--pylon1', width: 2, offsetY: -4.3 },
+  'curb--pylon2': { id: 'curb--pylon2', width: 2, offsetY: -4.3 },
+  'curb--pylon3': { id: 'curb--pylon3', width: 2, offsetY: -4.3 },
+  'curb--pylon4': { id: 'curb--pylon4', width: 2, offsetY: -4.3 },
+  'curb--person-left': { id: 'curb--person-left', width: 4, offsetY: -4.3 },
+  'curb--person-right': { id: 'curb--person-right', width: 4, offsetY: -4.3 }
 }
 
 /**
