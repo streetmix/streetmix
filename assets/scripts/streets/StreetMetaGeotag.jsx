@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { t } from '../app/locale'
+import { FormattedMessage } from 'react-intl'
 import { trackEvent } from '../app/event_tracking'
 import { SHOW_DIALOG } from '../store/actions'
 
@@ -25,20 +25,23 @@ export class StreetMetaGeotag extends React.Component {
 
   getGeotagText = () => {
     const { hierarchy } = this.props.street.location
-    const unknownLabel = t('dialogs.geotag.unknown-location', 'Unknown location')
+    const unknownLabel = <FormattedMessage id="dialogs.geotag.unknown-location" defaultMessage="Unknown location" />
     let text = ''
     text = (hierarchy.locality) ? hierarchy.locality
       : (hierarchy.region) ? hierarchy.region
         : (hierarchy.neighbourhood) ? hierarchy.neighbourhood
-          : unknownLabel
-    if (text !== unknownLabel && hierarchy.country) {
+          : null
+    if (text && hierarchy.country) {
       text = text + ', ' + hierarchy.country
     }
-    return text
+    return text || unknownLabel
   }
 
   renderGeotag = (street, readOnly) => {
-    const geotagText = (street.location) ? this.getGeotagText() : t('dialogs.geotag.add-location', 'Add location')
+    const geotagText = (street.location)
+      ? this.getGeotagText()
+      : <FormattedMessage id="dialogs.geotag.add-location" defaultMessage="Add location" />
+
     const geolocation = (
       <span className="street-metadata-map">
         { (readOnly) ? geotagText : (
