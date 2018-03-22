@@ -102,7 +102,7 @@ function receiveRemixedStreet (data) {
   }
 
   setStreetId(data.id, data.namespacedId)
-  updateStreetName()
+  updateStreetName(store.getState().street)
 
   saveStreetToServer(false)
 }

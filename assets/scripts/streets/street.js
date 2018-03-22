@@ -18,7 +18,7 @@ function updateIfStreetNameChanged (state) {
   if (state.name !== oldStreetName) {
     oldStreetName = state.name
     saveStreetToServerIfNecessary()
-    updateStreetName()
+    updateStreetName(state)
   }
 }
 
