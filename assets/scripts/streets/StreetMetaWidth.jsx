@@ -23,7 +23,7 @@ export const MAX_CUSTOM_STREET_WIDTH = 400
 
 const DEFAULT_STREET_WIDTHS = [40, 60, 80]
 
-class StreetMetaWidth extends React.Component {
+export class StreetMetaWidth extends React.Component {
   static propTypes = {
     intl: intlShape,
     readOnly: PropTypes.bool,
