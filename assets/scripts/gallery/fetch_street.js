@@ -66,7 +66,7 @@ function receiveGalleryStreet (transmission) {
   window.dispatchEvent(new window.CustomEvent('stmx:receive_gallery_street'))
 
   resizeStreetWidth()
-  updateStreetName()
+  updateStreetName(store.getState().street)
   createDomFromData()
   segmentsChanged()
 

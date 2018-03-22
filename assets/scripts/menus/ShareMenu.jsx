@@ -92,7 +92,7 @@ export class ShareMenu extends React.Component {
       '?app_id=' + encodeURIComponent(FACEBOOK_APP_ID) +
       '&redirect_uri=' + encodeURIComponent(this.state.shareUrl) +
       '&link=' + encodeURIComponent(this.state.shareUrl) +
-      '&name=' + encodeURIComponent(getPageTitle()) +
+      '&name=' + encodeURIComponent(getPageTitle(this.props.street)) +
       '&description=' + encodeURIComponent(shareText)
 
     const signInPromo = (!this.props.signedIn)
