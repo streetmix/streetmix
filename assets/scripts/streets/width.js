@@ -5,7 +5,7 @@ import { getSegmentVariantInfo } from '../segments/info'
 import { getSegmentWidthResolution } from '../segments/resizing'
 import { TILE_SIZE } from '../segments/view'
 import store from '../store'
-import { updateOccupiedWidth, updateSegmentWarnings } from '../store/actions/street'
+import { updateOccupiedWidth, updateSegments } from '../store/actions/street'
 
 export const DEFAULT_STREET_WIDTH = 80
 
@@ -68,36 +68,37 @@ export function recalculateWidth () {
   const street = store.getState().street
   var position = (street.width / 2) - (street.occupiedWidth / 2)
 
+  const segments = []
   for (var i in street.segments) {
     var segment = street.segments[i]
     const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
-    const warnings = [...segment.warnings]
 
     if (segment.el) {
       if ((street.remainingWidth < 0) &&
         ((position < 0) || ((position + segment.width) > street.width))) {
-        warnings[SEGMENT_WARNING_OUTSIDE] = true
+        segment.warnings[SEGMENT_WARNING_OUTSIDE] = true
       } else {
-        warnings[SEGMENT_WARNING_OUTSIDE] = false
+        segment.warnings[SEGMENT_WARNING_OUTSIDE] = false
       }
 
       if (variantInfo.minWidth && (segment.width < variantInfo.minWidth)) {
-        warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = true
+        segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = true
       } else {
-        warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = false
+        segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = false
       }
 
       if (variantInfo.maxWidth && (segment.width > variantInfo.maxWidth)) {
-        warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = true
+        segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = true
       } else {
-        warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = false
+        segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = false
       }
-
-      store.dispatch(updateSegmentWarnings(i, warnings))
     }
 
+    segments.push(segment)
     position += street.segments[i].width
   }
+
+  store.dispatch(updateSegments(segments))
 
   var lastOverflow = document.body.classList.contains('street-overflows')
 
