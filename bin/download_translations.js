@@ -11,12 +11,12 @@ if (fs.existsSync(envFile)) {
 }
 
 const resources = ['main', 'segment-info']
-const languages = ['en@pirate', 'fi', 'de', 'es', 'es_MX', 'pl', 'pt_BR']
+const languages = ['ar', 'fi', 'fr', 'de', 'es', 'es_MX', 'pl', 'pt_BR', 'sv', 'zh-Hant']
 
 const downloadSuccess = function (locale, resource, data) {
   const localeDir = path.join(__dirname, '/../assets/locales/', locale)
   const translationFile = localeDir + '/' + resource + '.json'
-  const translationText = JSON.stringify(data, null, 2) + '\n'
+  const translationText = JSON.stringify(JSON.parse(data), null, 2)// + '\n'
 
   fs.stat(localeDir, function (err, stats) {
     if (err) {

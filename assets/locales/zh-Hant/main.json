@@ -1,32 +1,32 @@
 {
   "menu": {
     "item": {
-      "help": "",
-      "about": "",
+      "help": "幫助",
+      "about": "關於Streetmix。。。",
       "contact": "",
       "community": "",
       "contribute": "",
-      "sign-in": "",
+      "sign-in": "登錄",
       "sign-out": "",
-      "new-street": "",
-      "my-streets": "",
+      "new-street": "新的一條街",
+      "my-streets": "我的街道",
       "settings": "",
-      "share": ""
+      "share": "分享"
     },
     "help": {
-      "keyboard-label": "",
+      "keyboard-label": "電腦鍵盤快捷鍵：",
       "remove": "",
       "move": "",
       "change": ""
     },
     "share": {
-      "sign-in": "",
-      "link": "",
-      "twitter": "",
-      "facebook": "",
-      "print": "",
-      "save": "Als Bild speichern…",
-      "save-byline": ""
+      "sign-in": "登錄推特，會有連到你的街和你各自的街廊的連接",
+      "link": "複製和粘貼這個連接來分享：",
+      "twitter": "用推特來分享",
+      "facebook": "用臉書來分享",
+      "print": "打印。。。",
+      "save": "把照片存到電腦上。。。",
+      "save-byline": "用來包括在報告，博客等等"
     },
     "contact": {
       "forums": "",
@@ -54,7 +54,7 @@
     }
   },
   "msg": {
-    "loading": "Laden...",
+    "loading": "",
     "remixing": "",
     "having-trouble": "",
     "no-street": "",
@@ -102,13 +102,13 @@
   },
   "btn": {
     "reload": "",
-    "undo": "Rückgängig",
-    "redo": "Wiederherstellen",
+    "undo": "解開",
+    "redo": "重做",
     "try-again": "",
     "cancel": "",
-    "create": "",
+    "create": "新的一條街",
     "copy": "",
-    "remove": "",
+    "remove": "去掉",
     "close": "",
     "dismiss": ""
   },
@@ -118,9 +118,9 @@
       "text": ""
     },
     "welcome": {
-      "heading": "Willkommen bei Streetmix.",
+      "heading": "",
       "new": {
-        "intro": "Gestalte, verändere und teile Deine Nachbarschaftsstraße. Ergänz' Bäume oder Fahrradwege, erweitere die Fußwege oder Fahrspuren, und erfahre, wie sich Deine Entscheidungen auf Deine Nachbarschaft auswirken können.",
+        "intro": "",
         "instruct": "",
         "instruct-pointer-finger": "",
         "instruct-pointer-mouse": ""
@@ -133,13 +133,13 @@
       }
     },
     "new-street": {
-      "heading": "Hier ist Deine neue Straße.",
-      "default": "Beginne mit einer Beispiel-Straße",
-      "empty": "Beginne mit einer leeren Straße",
-      "last": "Beginne mit einer Kopie der letzten Straße"
+      "heading": "",
+      "default": "",
+      "empty": "",
+      "last": ""
     },
     "about": {
-      "heading": "",
+      "heading": "關於Streetmix。。。",
       "description": "",
       "thanks": "",
       "credits": "",
@@ -150,12 +150,12 @@
       "github-link": ""
     },
     "save": {
-      "heading": "Als Bild speichern",
+      "heading": "把照片存到電腦上",
       "option-labels": "",
-      "option-name": "Straßenname",
-      "option-sky": "Transparenter Himmel",
-      "loading": "Laden...",
-      "save-button": "Speichere es auf Deinem Computer…",
+      "option-name": "",
+      "option-sky": "",
+      "loading": "",
+      "save-button": "",
       "license": "",
       "error-preview": "",
       "error-unavailable": "",
@@ -195,17 +195,17 @@
     "reloaded": ""
   },
   "palette": {
-    "remove": "Zum entfernen nach hier ziehen"
+    "remove": "拉到這裡來除掉"
   },
   "width": {
     "label": "",
     "under": "",
     "over": "",
     "occupied": "",
-    "building": "",
-    "different": "",
-    "metric": "",
-    "imperial": ""
+    "building": "樓與樓之間的寬度：",
+    "different": "不同的寬度：",
+    "metric": "轉換成公制單位",
+    "imperial": "轉換成英制單位（英尺）"
   },
   "datetime": {
     "minutes-ago": "",
@@ -217,11 +217,11 @@
     "format-time": ""
   },
   "key": {
-    "backspace": "",
+    "backspace": "退位鍵",
     "shift": ""
   },
   "tooltip": {
-    "remove-segment": "",
+    "remove-segment": "去掉",
     "delete-street": "",
     "segment-width": "",
     "building-height": "",
@@ -232,14 +232,14 @@
     "remove-floor": ""
   },
   "street": {
-    "default-name": "",
+    "default-name": "沒名街",
     "rename": ""
   },
   "segments": {
     "warnings": {
-      "does-not-fit": "",
-      "not-wide": "",
-      "too-wide": ""
+      "does-not-fit": "這部分在這條街放不下。",
+      "not-wide": "這部分有可能不夠寬。",
+      "too-wide": " 這個部分有可能太寬了。"
     },
     "learn-more": "",
     "unknown": {
@@ -247,7 +247,7 @@
     }
   },
   "section": {
-    "empty": "Leerer Raum"
+    "empty": "空位"
   },
   "gallery": {
     "fail": "",
@@ -283,7 +283,7 @@
       "pl": "",
       "pt-br": "",
       "sv": "",
-      "zh-hant": ""
+      "zh-hant": "中文"
     }
   }
 }

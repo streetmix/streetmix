@@ -15,9 +15,9 @@
     },
     "help": {
       "keyboard-label": "Pikanäppäimet:",
-      "remove": "Poista osoittimen alla oleva kohde<br> (poista kaikki pitämällä <span class='key'>Shift</span> pohjassa)",
-      "move": "Siirry kadulla (hyppää reunaan pitämällä <span class='key'>Shift</span> pohjassa)",
-      "change": "Muuta osoittimen alla oleva kohteen leveyttä<br> (lisätarkkuutta pitämällä <span class='key'>Shift</span> pohjassa)"
+      "remove": "Poista osoittimen alla oleva kohde<br />(poista kaikki pitämällä <kbd class='key'>Shift</kbd> pohjassa)",
+      "move": "Siirry kadulla<br />(hyppää reunaan pitämällä <kbd class='key'>Shift</kbd> pohjassa)",
+      "change": "Muuta osoittimen alla oleva kohteen leveyttä<br /> (lisää tarkkuutta pitämällä <kbd class='key'>Shift</kbd> pohjassa)"
     },
     "share": {
       "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Kirjaudu sisään Twitter-tunnuksilla</a>, jolloin jakaminen on helpompaa ja näet katusi näppärästi galleriassa.",
@@ -63,6 +63,43 @@
     "slow-connection-2": "Ongelma voi korjautua sivu päivittämällä, mutta huomaa, että viimeisimmät katuun tehdyt muutokset saatetaan menettää. Pahoittelut!",
     "no-connection": "Streetmix ei pystynyt muodostamaan Internet-yhteyttä."
   },
+  "error": {
+    "button": {
+      "home": "Siirry aloitussivulle",
+      "sign-in": "Kirjaudu sisään uudelleen",
+      "reload": "Lataa sivu uudelleen",
+      "try-again": "Yritä uudelleen",
+      "view-example": "Näytä esimerkkikatu"
+    },
+    "page-not-found-title": "Sivua ei löydy.",
+    "page-not-found-description": "Voi pojat, tässä osoitteessa ei ole mitään sisältöä!",
+    "street-not-found-title": "Katua ei löydy.",
+    "street-not-found-description": "Voi pojat, tämä linkki ei johtanut mihinkään!",
+    "street-not-found-but-user-description": "Tämä linkin takaa ei löydy mitään katua, mutta voit selailla muita käyttäjän {user} katuja",
+    "street-deleted-title": "Tämä katu on poistettu.",
+    "street-deleted-description": "Tämä linkin takaa ei enää löydy katua, mutta voit selailla muita käyttäjän {user} katuja",
+    "sign-out-title": "Olet nyt kirjautunut ulos.",
+    "reload-sign-out-title": "Kirjauduit ulos toisessa ikkunassa.",
+    "gallery-street-failure-description": "Kadun lataaminen ei onnistu.",
+    "reload-sign-in-title": "Kirjauduit sisään toisessa ikkunassa.",
+    "please-reload": "Päivitä sivu ennen jatkamista.",
+    "street-deleted-elsewhere-title": "Katu on poistettu muualla.",
+    "street-deleted-elsewhere-description": "Katu on poistettu toisessa selaimessa.",
+    "twitter-access-denied-title": "Et ole kirjautunut sisään.",
+    "twitter-access-denied-description": "Keskeytit Twitter-tunnistautumisen.",
+    "auth-api-problem-title": "Sisäänkirjautuminen epäonnistui.",
+    "auth-api-problem-description": "Twitter-tunnistautuminen epäonnistui.",
+    "please-try-again": "Yritä myöhemmin uudelleen ja tarvittaessa tee vikailmoitus <a target='_blank' href='{email}'>sähköpostitse</a> tai <a target='_blank' href='{tweet}'>Twitterissä</a>.",
+    "unsupported-browser-title": "Streetmix ei toimi tässä selaimessa.",
+    "unsupported-browser-description": "Pahoittelut! Suosittelemme kokeilemaan <a target='_blank' href='{chromeUrl}'>Chromea</a>,&nbsp;<a target='_blank' href='{mozillaUrl}'>Firefoxia</a>,&nbsp;<a target='_blank' href='{edgeUrl}'>Microsoft Edgeä</a> tai Safaria.",
+    "unsupported-browser-internet-explorer": "Käytätkö Internet Exploreria?&nbsp;<a target='_blank' href='{readmeIEUrl}'>Lue lisätietoja</a>",
+    "unsupported-browser-contact-us": "Jos tämä ilmoitus on virheellinen, tee vikailmoitus &nbsp;<a target='_blank' href='{email}'>sähköpostitse</a>.",
+    "cannot-create-new-street-on-phone-title": "Streetmix toimii vain tabletilla ja tietokoneella.",
+    "cannot-create-new-street-on-phone-description": "Voit tarkastella linkistä avaamasi katua, mutta et voi muokata tai luoda uusia katuja.",
+    "generic-error-title": "Jokin meni vikaan.",
+    "generic-error-description": "Pahoittelut – jokin meni vikaan.",
+    "error-code": "(Virhe {code}.)"
+  },
   "btn": {
     "reload": "Päivitä",
     "undo": "Kumoa",
@@ -72,19 +109,27 @@
     "create": "Luo uusi katu",
     "copy": "Kopioi katupohja",
     "remove": "Poista",
-    "close": "Close",
-    "dismiss": "Dismiss"
+    "close": "Sulje",
+    "dismiss": "Ohita"
   },
   "dialogs": {
+    "error": {
+      "heading": "Oho!",
+      "text": "Jotakin odottamatonta tapahtui 😢. Virheilmoitus on tallennettu automaattisesti, mutta <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\">voit myös kertoa siitä meille</a>. Kokeile hetken kuluttua uudelleen."
+    },
     "welcome": {
       "heading": "Tervetuloa, tämä on Streetmix.",
       "new": {
         "intro": "Suunnittele, muokkaa ja jaa kotikatusi. Lisää kadullesi kaikkea puista pyöräteihin tai levennä katusi jalkakäytäviä ja ajoratoja. Samalla näet, miten muutokset vaikuttavat liikenteeseen.",
-        "instruct": "Aloita siirtelemällä elementtejä <span class=\"touch-only\">sormellasi.</span> <span class=\"non-touch-only\">hiirelläsi.</span>"
+        "instruct": "Aloita siirtelemällä elementtejä {pointer}.",
+        "instruct-pointer-finger": "sormella",
+        "instruct-pointer-mouse": "hiirellä"
       },
       "existing": {
-        "intro": "Tämä on käyttäjän <span id=\"welcome-avatar-creator\"><span class=\"avatar\" id=\"welcome-avatar\" userid=\"\"></span><span id=\"welcome-creator\"></span></span> </span> suunnittelema katu <span class=\"street-name\"><span id=\"welcome-street-name\"></span></span>.",
-        "instruct": "Suunnittele se uudelleen siirtelemällä elementtejä tai <button id=\"welcome-new-street\">Suunnittele oma katusi</button>."
+        "intro": "Tämä on käyttäjän {creator} suunnittelema katu {streetName}.",
+        "intro-without-creator": "Tämä on {streetName}.",
+        "instruct": "Suunnittele se uudelleen siirtelemällä elementtejä tai {startYourOwnStreet}.",
+        "instruct-start-own-street": "Luo oma katusi"
       }
     },
     "new-street": {
@@ -97,7 +142,7 @@
       "heading": "Tietoja Streetmixistä.",
       "description": "Suunnittele, muokkaa ja jaa kotikatusi. Lisää kadullesi kaikkea puista pyöräteihin tai levennä katusi jalkakäytäviä ja ajoratoja. Samalla näet, miten muutokset vaikuttavat liikenteeseen.",
       "thanks": "Tuhannet kiitokset työntekijöille ja vuoden 2013 CfA osallistujille heidän tuestaan ja kärsivällisyydestään, Blockee-ryhmälle teiden päällystämisestä ja lukemattomille testaajille ajastaan ja palautteestaan!",
-      "credits": "Seuraavien %s 2013 -osallistujien sivuprojekti:",
+      "credits": "Seuraavien {cfaLink} 2013 -osallistujien sivuprojekti:",
       "team-heading": "Kehitysryhmä ja ylläpitäjät",
       "view-source": "Tutustu lähdekoodiin",
       "sponsored-by": "Streetmixin avokätinen sponsori:",
@@ -111,19 +156,33 @@
       "option-sky": "Läpinäkyvä taivas",
       "loading": "Ladataan…",
       "save-button": "Tallenna tietokoneelle…",
-      "license": "Tätä Streetmixillä luotua kuvaa saa käyttää missä tahansa mihin tahansa tarkoitukseen <br><a href=\"https://creativecommons.org/licenses/by-sa/4.0/deed.fi\">Creative Commons Nimeä-JaaSamoin 4.0 Kansainvälinen</a> -lisenssin ehtojen mukaisesti."
+      "license": "Tätä Streetmixillä luotua kuvaa saa käyttää missä tahansa mihin tahansa tarkoitukseen <br><a href='{url}'>Creative Commons Nimeä-JaaSamoin 4.0 Kansainvälinen</a> -lisenssin ehtojen mukaisesti.",
+      "error-preview": "Esikatselukuvan näyttäminen epäonnistui",
+      "error-unavailable": "Tallentaminen kuvana ei ole mahdollista tässä selaimessa.",
+      "preview-image-alt": "Esikatselu"
     },
-    "geolocate": {
+    "geotag": {
       "search": "Etsi sijaintia",
       "clear-search": "Tyhjennä haku",
       "zoom-in": "Lähennä",
-      "zoom-out": "Loitonna"
+      "zoom-out": "Loitonna",
+      "add-location": "Lisää sijainti",
+      "confirm-location": "Vahvista sijainti",
+      "clear-location": "Tyhjennä sijainti",
+      "unknown-location": "Tuntematon sijainti"
+    },
+    "donate": {
+      "heading": "Tarvitsemme apuasi!",
+      "lede": "Streetmix perustuu vapaaehtoisen yhteisön tekemään työhön. Muista \"ilmaisista\" verkkosivustoista poiketen emme näytä mainoksia tai tallenna yksityisyyttäsi rikkovia evästeitä tietokoneellesi. Sen sijaan olemme riippuvaisia käyttäjiemme tuesta Streetmixin kehittämiseen.",
+      "text": "Halutessasi voit tukea meitä kertaluontoisella tai kestolahjoituksella, joita käytetään palvelinkapasiteetin ylläpitämiseen, jotta voittoa tavoittelemattomat tahot voisivat osallistua liikenteen kehittämiseen. Tästä ylijäävän osuuden käytämme uusien ominaisuuksien kehittämiseen. Tilikirjamme ovat täysin julkisia, joten voit tarkistaa, miten juuri Streetmix-kehitysryhmä on käyttänyt juuri sinun lahjoituksesi.",
+      "button": "Lahjoita Streetmixille",
+      "cancel": "Ei kiitos"
     }
   },
   "prompt": {
     "new-street": "Kadun uusi nimi:",
-    "delete-street": "Are you sure you want to permanently delete {{streetName}}? This cannot be undone.",
-    "new-width": "Uusi kadunleveys ({{minWidth}}-{{maxWidth}}):"
+    "delete-street": "Haluatko varmasti poistaa kohteen {{streetName}} pysyvästi?",
+    "new-width": "Uusi kadunleveys ({{minWidth}-{{maxWidth}}):"
   },
   "toast": {
     "segment-deleted": "Tämä elementti on poistettu.",
@@ -139,9 +198,9 @@
     "remove": "Poista vetämällä tähän"
   },
   "width": {
-    "label": "{{width}} leveä",
-    "under": "({{width}} käytettävissä)",
-    "over": "({{width}} yli)",
+    "label": "{width} leveä",
+    "under": "({width} käytettävissä)",
+    "over": "({width} ylitetty)",
     "occupied": "Nykyinen leveys:",
     "building": "Rakennusten välinen leveys:",
     "different": "Muu leveys...",
@@ -151,8 +210,8 @@
   "datetime": {
     "minutes-ago": "Muutama minuutti sitten",
     "seconds-ago": "Muutama sekunti sitten",
-    "yesterday": "Eilen kello {{time}}",
-    "today": "Tänään kello {{time}}",
+    "yesterday": "Eilen kello {time}",
+    "today": "Tänään kello {time}",
     "format-date-no-year": "D.M.",
     "format-date-with-year": "D.M.YYYY",
     "format-time": "H:MM"
@@ -182,7 +241,10 @@
       "not-wide": "Elementti ei ehkä ole riittävän leveä.",
       "too-wide": "Elementti saattaa olla leveä."
     },
-    "learn-more": "Learn more"
+    "learn-more": "Lue lisää",
+    "unknown": {
+      "label": "Ei tiedossa"
+    }
   },
   "section": {
     "empty": "Käyttämätöntä tilaa"
@@ -190,15 +252,15 @@
   "gallery": {
     "fail": "Gallerian lataaminen epäonnistui.",
     "all": "Kaikki kadut",
-    "twitter-link": "Twitter profile",
+    "twitter-link": "Twitter-profiili",
     "delete-street-tooltip": "Poista katu",
     "street-count-none": "Ei luotuja katuja",
-    "street-count": "{{count}} street",
-    "street-count_plural": "{{count}} streets"
+    "street-count": "{count} katu",
+    "street-count_plural": "{count} katua"
   },
   "users": {
     "anonymous": "Tuntematon",
-    "byline": "käyttäjältä {{user}}"
+    "byline": "käyttäjältä {user}"
   },
   "sign-in": {
     "link": "Kirjaudu Twitter-tunnuksella",
@@ -210,6 +272,7 @@
   },
   "i18n": {
     "lang": {
+      "ar": "Arabia",
       "en": "Englanti",
       "en@pirate": "Englanti (piraatti)",
       "fi": "Suomi",
