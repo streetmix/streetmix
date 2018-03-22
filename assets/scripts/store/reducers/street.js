@@ -3,7 +3,6 @@ import {
   REMOVE_SEGMENT,
   MOVE_SEGMENT,
   UPDATE_SEGMENTS,
-  UPDATE_SEGMENT_WARNINGS,
   CHANGE_SEGMENT_WIDTH,
   CHANGE_SEGMENT_VARIANT,
   ADD_LOCATION,
@@ -81,14 +80,6 @@ const street = (state = initialState, action) => {
       copy[action.index].variant[action.set] = action.selection
       copy[action.index].variantString = getVariantString(copy[action.index].variant)
 
-      return {
-        ...state,
-        segments: copy
-      }
-    }
-    case UPDATE_SEGMENT_WARNINGS: {
-      const copy = [...state.segments]
-      copy[action.index].warnings = action.warnings
       return {
         ...state,
         segments: copy

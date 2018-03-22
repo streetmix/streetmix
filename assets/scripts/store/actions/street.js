@@ -2,7 +2,6 @@ import {
   ADD_SEGMENT,
   REMOVE_SEGMENT,
   MOVE_SEGMENT,
-  UPDATE_SEGMENT_WARNINGS,
   UPDATE_SEGMENTS,
   CHANGE_SEGMENT_WIDTH,
   CHANGE_SEGMENT_VARIANT,
@@ -77,14 +76,6 @@ export function changeSegmentVariant (index, set, selection) {
     index,
     set,
     selection
-  }
-}
-
-export function updateSegmentWarnings (index, warnings) {
-  return {
-    type: UPDATE_SEGMENT_WARNINGS,
-    index,
-    warnings
   }
 }
 
