@@ -22,7 +22,6 @@ export function getErrorUrl () {
 
 export function processUrl () {
   var url = window.location.pathname
-  const street = store.getState().street
 
   // Remove heading slash
   if (!url) {
@@ -79,7 +78,7 @@ export function processUrl () {
     let creatorId = urlParts[0]
 
     if (creatorId.charAt(0) === URL_RESERVED_PREFIX) {
-      creatorId = street.creatorId.substr(1)
+      creatorId = creatorId.substr(1)
     }
 
     store.dispatch(saveCreatorId(creatorId))
