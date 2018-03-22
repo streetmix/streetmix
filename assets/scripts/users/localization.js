@@ -9,12 +9,10 @@ import {
 } from '../segments/resizing'
 import { segmentsChanged } from '../segments/view'
 import {
-  getStreet,
-  setStreet,
   createDomFromData,
   saveStreetToServerIfNecessary,
   setIgnoreStreetChanges,
-  setStreetDataInRedux
+  updateStreetData
 } from '../streets/data_model'
 import {
   getUndoStack,
@@ -26,6 +24,7 @@ import {
 } from '../streets/width'
 import { saveSettingsLocally, LOCAL_STORAGE_SETTINGS_UNITS_ID } from '../users/settings'
 import store from '../store'
+import { setUnits, updateStreetWidth } from '../store/actions/street'
 import { clearMenus } from '../store/actions/menus'
 import { setUserUnits } from '../store/actions/persistSettings'
 
@@ -94,14 +93,13 @@ export function updateUnitSettings (countryCode) {
 
 export function updateUnits (newUnits) {
   let fromUndo
-  var street = getStreet()
+  const street = store.getState().street
   if (street.units === newUnits) {
     return
   }
 
   store.dispatch(setUserUnits(newUnits))
-  street.units = newUnits
-  setStreetDataInRedux()
+  store.dispatch(setUnits(newUnits))
 
   // If the user converts and then straight converts back, we just reach
   // to undo stack instead of double conversion (which could be lossy).
@@ -121,15 +119,16 @@ export function updateUnits (newUnits) {
     normalizeAllSegmentWidths()
 
     if (street.remainingWidth === 0) {
-      street.width = 0
+      let width = 0
       for (var i in street.segments) {
-        street.width += street.segments[i].width
+        width += street.segments[i].width
       }
+      store.dispatch(updateStreetWidth(width))
     } else {
-      street.width = normalizeStreetWidth(street.width)
+      store.dispatch(updateStreetWidth(normalizeStreetWidth(street.width)))
     }
   } else {
-    setStreet(cloneDeep(undoStack[undoPosition - 1]))
+    updateStreetData(cloneDeep(undoStack[undoPosition - 1]))
   }
   createDomFromData()
   segmentsChanged()
@@ -144,7 +143,7 @@ export function updateUnits (newUnits) {
 }
 
 export function propagateUnits () {
-  switch (getStreet().units) {
+  switch (store.getState().street.units) {
     case SETTINGS_UNITS_IMPERIAL:
       setSegmentWidthResolution(SEGMENT_WIDTH_RESOLUTION_IMPERIAL)
       setSegmentWidthClickIncrement(SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL)

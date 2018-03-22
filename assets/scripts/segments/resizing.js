@@ -1,7 +1,7 @@
 import { trackEvent } from '../app/event_tracking'
 import { INFO_BUBBLE_TYPE_SEGMENT, infoBubble } from '../info_bubble/info_bubble'
 import { system } from '../preinit/system_capabilities'
-import { getStreet, setIgnoreStreetChanges } from '../streets/data_model'
+import { setIgnoreStreetChanges } from '../streets/data_model'
 import {
   SEGMENT_WARNING_OUTSIDE,
   SEGMENT_WARNING_WIDTH_TOO_SMALL,
@@ -15,6 +15,8 @@ import {
   removeGuides
 } from './drag_and_drop'
 import { TILE_SIZE, setSegmentContents, segmentsChanged } from './view'
+import store from '../store'
+import { changeSegmentWidth } from '../store/actions/street'
 
 export const SHORT_DELAY = 100
 
@@ -128,10 +130,10 @@ export function handleSegmentResizeEnd (event) {
 }
 
 export function normalizeAllSegmentWidths () {
-  let street = getStreet()
+  const street = store.getState().street
   for (var i in street.segments) {
-    street.segments[i].width =
-      normalizeSegmentWidth(street.segments[i].width, RESIZE_TYPE_INITIAL)
+    const width = normalizeSegmentWidth(street.segments[i].width, RESIZE_TYPE_INITIAL)
+    store.dispatch(changeSegmentWidth(i, width))
   }
 }
 
@@ -188,7 +190,7 @@ export function incrementSegmentWidth (segmentEl, add, precise, origWidth) {
 }
 
 export function applyWarningsToSegments () {
-  let street = getStreet()
+  const street = store.getState().street
   for (var i in street.segments) {
     var segment = street.segments[i]
 

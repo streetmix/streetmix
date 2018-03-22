@@ -12,7 +12,6 @@ import {
   onNewStreetEmptyClick,
   onNewStreetLastClick
 } from '../streets/creation'
-import { getStreet } from '../streets/data_model'
 import StreetName from '../streets/StreetName'
 import { isSignedIn } from '../users/authentication'
 import { registerKeypress, deregisterKeypress } from './keypress'
@@ -299,7 +298,7 @@ class WelcomePanel extends React.Component {
               {(() => {
                 // Display this button only if there is a previous street to copy
                 // from that is not the same as the current street
-                if (this.props.priorLastStreetId && this.props.priorLastStreetId !== getStreet().id) {
+                if (this.props.priorLastStreetId && this.props.priorLastStreetId !== this.props.street.id) {
                   return (
                     <li>
                       <input

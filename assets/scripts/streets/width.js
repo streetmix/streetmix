@@ -4,7 +4,8 @@ import { BUILDING_SPACE, createBuildings } from '../segments/buildings'
 import { getSegmentVariantInfo } from '../segments/info'
 import { getSegmentWidthResolution } from '../segments/resizing'
 import { TILE_SIZE } from '../segments/view'
-import { getStreet } from './data_model'
+import store from '../store'
+import { updateOccupiedWidth, updateSegmentWarnings } from '../store/actions/street'
 
 export const DEFAULT_STREET_WIDTH = 80
 
@@ -18,7 +19,7 @@ export const SEGMENT_WARNING_WIDTH_TOO_SMALL = 2
 export const SEGMENT_WARNING_WIDTH_TOO_LARGE = 3
 
 export function resizeStreetWidth (dontScroll) {
-  var width = getStreet().width * TILE_SIZE
+  var width = store.getState().street.width * TILE_SIZE
 
   document.querySelector('#street-section-canvas').style.width = width + 'px'
   if (!dontScroll) {
@@ -43,53 +44,56 @@ export function normalizeStreetWidth (width) {
 }
 
 export function recalculateOccupiedWidth () {
-  var street = getStreet()
-  street.occupiedWidth = 0
+  const street = store.getState().street
+  let occupiedWidth = 0
 
   for (var i in street.segments) {
-    var segment = street.segments[i]
+    let segment = street.segments[i]
 
-    street.occupiedWidth += segment.width
+    occupiedWidth += segment.width
   }
 
-  street.remainingWidth = street.width - street.occupiedWidth
+  let remainingWidth = street.width - occupiedWidth
   // Rounding problems :·(
-  if (Math.abs(street.remainingWidth) < WIDTH_ROUNDING) {
-    street.remainingWidth = 0
+  if (Math.abs(remainingWidth) < WIDTH_ROUNDING) {
+    remainingWidth = 0
   }
-
+  store.dispatch(updateOccupiedWidth(occupiedWidth, remainingWidth))
   // updateStreetMetadata(street)
 }
 
 export function recalculateWidth () {
   recalculateOccupiedWidth()
 
-  var street = getStreet()
+  const street = store.getState().street
   var position = (street.width / 2) - (street.occupiedWidth / 2)
 
   for (var i in street.segments) {
     var segment = street.segments[i]
     const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
+    const warnings = [...segment.warnings]
 
     if (segment.el) {
       if ((street.remainingWidth < 0) &&
         ((position < 0) || ((position + segment.width) > street.width))) {
-        segment.warnings[SEGMENT_WARNING_OUTSIDE] = true
+        warnings[SEGMENT_WARNING_OUTSIDE] = true
       } else {
-        segment.warnings[SEGMENT_WARNING_OUTSIDE] = false
+        warnings[SEGMENT_WARNING_OUTSIDE] = false
       }
 
       if (variantInfo.minWidth && (segment.width < variantInfo.minWidth)) {
-        segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = true
+        warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = true
       } else {
-        segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = false
+        warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = false
       }
 
       if (variantInfo.maxWidth && (segment.width > variantInfo.maxWidth)) {
-        segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = true
+        warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = true
       } else {
-        segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = false
+        warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = false
       }
+
+      store.dispatch(updateSegmentWarnings(i, warnings))
     }
 
     position += street.segments[i].width

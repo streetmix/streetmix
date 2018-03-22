@@ -1,5 +1,4 @@
 import { cloneDeep } from 'lodash'
-
 import { API_URL } from '../app/config'
 import { showError, ERRORS } from '../app/errors'
 import { trackEvent } from '../app/event_tracking'
@@ -38,17 +37,16 @@ import { NEW_STREET_EMPTY, makeDefaultStreet } from './creation'
 import {
   prepareEmptyStreet,
   prepareDefaultStreet,
-  getStreet,
   trimStreetData,
   updateEverything,
   createDomFromData,
   DEFAULT_NAME,
-  setStreet,
   updateToLatestSchemaVersion,
   setStreetCreatorId,
   setUpdateTimeToNow,
   setLastStreet,
-  setIgnoreStreetChanges
+  setIgnoreStreetChanges,
+  updateStreetData
 } from './data_model'
 import { updateStreetName } from './name'
 import {
@@ -64,6 +62,11 @@ import {
 import { resizeStreetWidth } from './width'
 import { resetUndoStack, replaceUndoStack } from '../store/actions/undo'
 import store from '../store'
+import {
+  saveStreetId,
+  saveOriginalStreetId,
+  updateEditCount
+} from '../store/actions/street'
 
 const SAVE_STREET_DELAY = 500
 
@@ -129,7 +132,7 @@ function errorReceiveNewStreet (data) {
 export function getFetchStreetUrl () {
   // TODO const
   let url
-  var street = getStreet()
+  const street = store.getState().street
   if (street.creatorId) {
     url = API_URL + 'v1/streets?namespacedId=' +
       encodeURIComponent(street.namespacedId) + '&creatorId=' +
@@ -158,7 +161,7 @@ function errorReceiveStreet (data) {
     goNewStreet()
   } else {
     if ((data.status === 404) || (data.status === 410)) {
-      if (getStreet().creatorId) {
+      if (store.getState().street.creatorId) {
         if (data.status === 410) {
           setMode(MODES.STREET_410_BUT_LINK_TO_USER)
         } else {
@@ -181,7 +184,7 @@ export function saveStreetToServer (initial) {
   }
 
   const transmission = packServerStreetData()
-  const street = getStreet()
+  const street = store.getState().street
   const url = API_URL + 'v1/streets/' + street.id
   const options = {
     method: 'PUT',
@@ -215,7 +218,7 @@ export function fetchStreetForVerification () {
   const url = getFetchStreetUrl()
 
   latestRequestId = getUniqueRequestHeader()
-  latestVerificationStreet = trimStreetData(getStreet())
+  latestVerificationStreet = trimStreetData(store.getState().street)
 
   const options = {
     headers: { 'X-Streetmix-Request-Id': latestRequestId }
@@ -302,7 +305,7 @@ function unpackStreetDataFromServerTransmission (transmission) {
     return
   }
 
-  var street = cloneDeep(transmission.data.street)
+  const street = cloneDeep(transmission.data.street)
   street.creatorId = (transmission.creator && transmission.creator.id) || null
   street.originalStreetId = transmission.originalStreetId || null
   street.updatedAt = transmission.updatedAt || null
@@ -322,8 +325,8 @@ function unpackStreetDataFromServerTransmission (transmission) {
 }
 
 export function unpackServerStreetData (transmission, id, namespacedId, checkIfNeedsToBeRemixed) {
-  setStreet(unpackStreetDataFromServerTransmission(transmission))
-  var street = getStreet()
+  updateStreetData(unpackStreetDataFromServerTransmission(transmission))
+  const street = store.getState().street
 
   if (transmission.data.undoStack) {
     store.dispatch(replaceUndoStack(cloneDeep(transmission.data.undoStack), transmission.data.undoPosition))
@@ -360,8 +363,7 @@ export function unpackServerStreetData (transmission, id, namespacedId, checkIfN
 
 export function packServerStreetData () {
   var data = {}
-
-  data.street = trimStreetData(getStreet())
+  data.street = trimStreetData(store.getState().street)
 
   // Those go above data in the structure, so they need to be cleared here
   delete data.street.name
@@ -376,7 +378,7 @@ export function packServerStreetData () {
     data.undoPosition = store.getState().undo.position
   }
 
-  var street = getStreet()
+  const street = store.getState().street
   var transmission = {
     name: street.name,
     originalStreetId: street.originalStreetId,
@@ -387,17 +389,14 @@ export function packServerStreetData () {
 }
 
 export function setStreetId (newId, newNamespacedId) {
-  var street = getStreet()
-  street.id = newId
-  street.namespacedId = newNamespacedId
+  store.dispatch(saveStreetId(newId, newNamespacedId))
 
   unifyUndoStack()
-
   updateLastStreetInfo()
 }
 
 export function updateLastStreetInfo () {
-  const street = getStreet()
+  const street = store.getState().street
   setSettings({
     lastStreetId: street.id,
     lastStreetNamespacedId: street.namespacedId,
@@ -436,9 +435,9 @@ function cancelReceiveLastStreet () {
 
 function receiveLastStreet (transmission) {
   setIgnoreStreetChanges(true)
-  var street = getStreet()
+  const street = store.getState().street
   unpackServerStreetData(transmission, street.id, street.namespacedId, false)
-  street.originalStreetId = getSettings().priorLastStreetId
+  store.dispatch(saveOriginalStreetId(getSettings().priorLastStreetId))
   addRemixSuffixToName()
 
   if (isSignedIn()) {
@@ -447,9 +446,11 @@ function receiveLastStreet (transmission) {
     setStreetCreatorId(null)
   }
   setUpdateTimeToNow()
-  street.editCount = 0
+  store.dispatch(updateEditCount(0))
   // console.log('editCount = 0 on last street!')
 
+  // COMMENT - update street state to change originalStreetId above;
+  // now have to update again to change edit count - how to fix?
   propagateUnits()
 
   unifyUndoStack()
@@ -460,7 +461,7 @@ function receiveLastStreet (transmission) {
   segmentsChanged()
 
   setIgnoreStreetChanges(false)
-  setLastStreet(trimStreetData(street))
+  setLastStreet(trimStreetData(store.getState().street))
 
   saveStreetToServer(false)
 }

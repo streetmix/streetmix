@@ -2,11 +2,7 @@ import { images } from '../app/load_resources'
 import { msg } from '../app/messages'
 import { infoBubble, INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/info_bubble'
 import { system } from '../preinit/system_capabilities'
-import {
-  getStreet,
-  saveStreetToServerIfNecessary,
-  createDataFromDom
-} from '../streets/data_model'
+import { saveStreetToServerIfNecessary, createDataFromDom } from '../streets/data_model'
 import { recalculateWidth } from '../streets/width'
 import { getElAbsolutePos } from '../util/helpers'
 import { prettifyWidth } from '../util/width_units'
@@ -421,7 +417,7 @@ export function repositionSegments () {
 
   var extraWidth = 0
 
-  let street = getStreet()
+  const street = store.getState().street
   for (let i in street.segments) {
     el = street.segments[i].el
 
@@ -493,7 +489,7 @@ export function repositionSegments () {
 }
 
 export function changeSegmentVariantLegacy (dataNo, variantName, variantChoice) {
-  let street = getStreet()
+  const street = store.getState().street
   const segment = street.segments[dataNo]
 
   segment.variant[variantName] = variantChoice
@@ -596,7 +592,7 @@ function showEmptySegment (position, width) {
 
 function repositionEmptySegments () {
   let width
-  let street = getStreet()
+  const street = store.getState().street
   if (street.remainingWidth <= 0) {
     hideEmptySegment('left')
     hideEmptySegment('right')
@@ -625,24 +621,23 @@ export function segmentsChanged (readDataFromDom = true, reassignElementRefs = f
     createDataFromDom()
   }
 
-  const street = getStreet()
-
+  const street = store.getState().street
+  const segments = [...street.segments]
   // When segments have chaged in Redux and we want to depend on that data,
   // other parts of the app still want a reference to the element. This will
   // update it. It only happens if you pass `true` as the second argument to this function.
   if (reassignElementRefs === true) {
-    street.segments = [...store.getState().street.segments]
     const els = document.querySelectorAll('#street-section-editable > .segment')
-    street.segments.map((item, i) => { item.el = els[i] })
+    segments.map((item, i) => { item.el = els[i] })
   }
 
   recalculateWidth()
   repositionEmptySegments()
   applyWarningsToSegments()
 
-  for (var i in street.segments) {
-    if (street.segments[i].el) {
-      street.segments[i].el.dataNo = i
+  for (var i in segments) {
+    if (segments[i].el) {
+      segments[i].el.dataNo = i
     }
   }
 

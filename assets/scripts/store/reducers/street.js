@@ -2,12 +2,22 @@ import {
   ADD_SEGMENT,
   REMOVE_SEGMENT,
   MOVE_SEGMENT,
-  REPLACE_STREET_DATA,
+  UPDATE_SEGMENTS,
+  UPDATE_SEGMENT_WARNINGS,
   CHANGE_SEGMENT_WIDTH,
   CHANGE_SEGMENT_VARIANT,
   ADD_LOCATION,
   CLEAR_LOCATION,
   SAVE_STREET_NAME,
+  SAVE_CREATOR_ID,
+  SAVE_STREET_ID,
+  SET_UPDATE_TIME,
+  SAVE_ORIGINAL_STREET_ID,
+  UPDATE_EDIT_COUNT,
+  SET_UNITS,
+  UPDATE_STREET_WIDTH,
+  UPDATE_SCHEMA_VERSION,
+  UPDATE_OCCUPIED_WIDTH,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
   REMOVE_BUILDING_FLOOR,
@@ -53,28 +63,10 @@ const street = (state = initialState, action) => {
         ]
       }
     }
-    case REPLACE_STREET_DATA:
+    case UPDATE_SEGMENTS:
       return {
         ...state,
-        ...action.street
-      }
-    case ADD_LOCATION:
-      return {
-        ...state,
-        location: action.location
-      }
-    case CLEAR_LOCATION:
-      return {
-        ...state,
-        location: null,
-        name: (state.userUpdated) ? state.name : action.defaultName
-      }
-    case SAVE_STREET_NAME:
-      const rename = (state.userUpdated && action.userUpdated) || (!state.userUpdated)
-      return {
-        ...state,
-        name: (rename) ? action.streetName : state.name,
-        userUpdated: (state.userUpdated || action.userUpdated)
+        segments: action.segments
       }
     case CHANGE_SEGMENT_WIDTH: {
       const copy = [...state.segments]
@@ -94,6 +86,79 @@ const street = (state = initialState, action) => {
         segments: copy
       }
     }
+    case UPDATE_SEGMENT_WARNINGS: {
+      const copy = [...state.segments]
+      copy[action.index].warnings = action.warnings
+      return {
+        ...state,
+        segments: copy
+      }
+    }
+    case SAVE_STREET_NAME:
+      const rename = (state.userUpdated && action.userUpdated) || (!state.userUpdated)
+      return {
+        ...state,
+        name: (rename) ? action.streetName : state.name,
+        userUpdated: (state.userUpdated || action.userUpdated)
+      }
+    case SAVE_CREATOR_ID:
+      return {
+        ...state,
+        creatorId: action.creatorId
+      }
+    case SAVE_STREET_ID:
+      return {
+        ...state,
+        id: (action.id) ? action.id : state.id,
+        namespacedId: action.namespacedId
+      }
+    case SET_UPDATE_TIME:
+      return {
+        ...state,
+        updatedAt: action.time
+      }
+    case SAVE_ORIGINAL_STREET_ID:
+      return {
+        ...state,
+        originalStreetId: action.id
+      }
+    case UPDATE_EDIT_COUNT:
+      return {
+        ...state,
+        editCount: action.count
+      }
+    case SET_UNITS:
+      return {
+        ...state,
+        units: action.units
+      }
+    case UPDATE_STREET_WIDTH:
+      return {
+        ...state,
+        width: action.width
+      }
+    case UPDATE_OCCUPIED_WIDTH:
+      return {
+        ...state,
+        occupiedWidth: action.occupiedWidth,
+        remainingWidth: action.remainingWidth
+      }
+    case UPDATE_SCHEMA_VERSION:
+      return {
+        ...state,
+        schemaVersion: action.version
+      }
+    case ADD_LOCATION:
+      return {
+        ...state,
+        location: action.location
+      }
+    case CLEAR_LOCATION:
+      return {
+        ...state,
+        location: null,
+        name: (state.userUpdated) ? state.name : action.defaultName
+      }
     // TODO: Move buildings logic?
     case ADD_BUILDING_FLOOR: {
       switch (action.position) {
