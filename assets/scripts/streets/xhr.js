@@ -456,7 +456,7 @@ function receiveLastStreet (transmission) {
   unifyUndoStack()
 
   resizeStreetWidth()
-  updateStreetName(store.getState().street)
+  updateStreetName()
   createDomFromData()
   segmentsChanged()
 
