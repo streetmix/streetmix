@@ -70,6 +70,12 @@ exports.post = function (req, res) {
     // Try to find user with twitter ID
     User.findOne({ twitter_id: twitterCredentials.userId }, handleFindUser)
   } // END function - handleTwitterSignIn
+  function isValid ({userId, screenName, oauthAccessTokenKey, oauthAccessTokenSecret}) {
+    if (userId && screenName && oauthAccessTokenKey && oauthAccessTokenSecret) {
+      return true
+    }
+    return false
+  }
 
   var body
   try {
@@ -80,9 +86,11 @@ exports.post = function (req, res) {
   }
 
   if (body.hasOwnProperty('twitter')) {
-    // TODO: Validation
-
-    handleTwitterSignIn(body.twitter)
+    if (isValid(body.twitter)) {
+      handleTwitterSignIn(body.twitter)
+    } else {
+      res.status(401).send('Incomplete Twitter credentials')
+    }
   } else {
     res.status(400).send('Unknown sign-in method used.')
   }
