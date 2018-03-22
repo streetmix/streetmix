@@ -79,7 +79,7 @@ export function resizeSegment (el, resizeType, width, updateEdit, palette, initi
 
   var widthEl = el.querySelector('span.width')
   if (widthEl) {
-    widthEl.innerHTML = prettifyWidth(width, undefined, { markup: true })
+    widthEl.innerHTML = prettifyWidth(width, store.getState().street.units, { markup: true })
   }
 
   setSegmentContents(el, el.getAttribute('type'),
