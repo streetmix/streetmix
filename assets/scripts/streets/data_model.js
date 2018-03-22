@@ -522,7 +522,7 @@ export function updateEverything (dontScroll, save = true) {
   createDomFromData()
   segmentsChanged()
   resizeStreetWidth(dontScroll)
-  updateStreetName(store.getState().street)
+  updateStreetName()
   setIgnoreStreetChanges(false)
   _lastStreet = trimStreetData(store.getState().street)
 

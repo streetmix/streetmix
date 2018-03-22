@@ -23,7 +23,7 @@ export function makeDefaultStreet () {
   setUpdateTimeToNow()
 
   resizeStreetWidth()
-  updateStreetName(store.getState().street)
+  updateStreetName()
   createDomFromData()
   segmentsChanged()
 

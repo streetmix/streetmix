@@ -5,8 +5,8 @@ import { unifyUndoStack } from './undo_stack'
 // This is called everywhere.
 // TODO: Create a specific init / create function?
 // TODO: Updating the street name as a response to events?
-export function updateStreetName (street) {
+export function updateStreetName () {
   unifyUndoStack()
   updatePageUrl()
-  updatePageTitle(street)
+  updatePageTitle()
 }

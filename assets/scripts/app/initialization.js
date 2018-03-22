@@ -130,7 +130,7 @@ function onEverythingLoaded () {
 
   onResize()
   resizeStreetWidth()
-  updateStreetName(store.getState().street)
+  updateStreetName()
   createDomFromData()
   segmentsChanged(false)
 

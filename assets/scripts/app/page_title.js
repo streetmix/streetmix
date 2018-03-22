@@ -1,17 +1,19 @@
 import { getSignInData, isSignedIn } from '../users/authentication'
+import store from '../store'
 
 /**
  * Updates page title.
  * This is called whenever the name of the street changes and it affects
  * the document title.
  */
-export function updatePageTitle (street) {
+export function updatePageTitle () {
   let title = ''
+  const street = store.getState().street
 
   if (street.creatorId && (!isSignedIn() || (getSignInData().userId !== street.creatorId))) {
-    title = getPageTitleWithAuthor(street)
+    title = getPageTitleWithAuthor()
   } else {
-    title = getPageTitle(street)
+    title = getPageTitle()
   }
 
   document.title = title
@@ -23,7 +25,8 @@ export function updatePageTitle (street) {
  * current user, and for uses where displaying an author name is not needed,
  * e.g. Facebook sharing
  */
-export function getPageTitle (street) {
+export function getPageTitle () {
+  const street = store.getState().street
   return `${street.name} – Streetmix`
 }
 
@@ -31,6 +34,7 @@ export function getPageTitle (street) {
  * Gets page title with author name.
  * Displayed when a street has an creator
  */
-export function getPageTitleWithAuthor (street) {
+export function getPageTitleWithAuthor () {
+  const street = store.getState().street
   return `${street.name} (by ${street.creatorId}) – Streetmix`
 }
