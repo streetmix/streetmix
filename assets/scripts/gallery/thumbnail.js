@@ -160,7 +160,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
     for (let i in street.segments) {
       const segment = street.segments[i]
       const segmentInfo = getSegmentInfo(segment.type)
-      const variantInfo = getSegmentVariantInfo(segment.variantString)
+      const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
       const availableWidth = segment.width * TILE_SIZE * multiplier
 
       let left = offsetLeft
