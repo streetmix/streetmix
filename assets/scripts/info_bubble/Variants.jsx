@@ -24,7 +24,8 @@ class Variants extends React.Component {
     variant: PropTypes.string,
     segmentType: PropTypes.string,
     setBuildingVariant: PropTypes.func.isRequired,
-    changeSegmentVariant: PropTypes.func.isRequired
+    changeSegmentVariant: PropTypes.func.isRequired,
+    flags: PropTypes.object.isRequired
   }
 
   constructor (props) {
@@ -125,6 +126,14 @@ class Variants extends React.Component {
 
     const title = t(`variant-icons.${set}|${selection}`, icon.title, { ns: 'segment-info' })
 
+    // Segments that are only enabled with a flag checks to see if flag
+    // is set to true. If not, bail.
+    if (icon.enableWithFlag) {
+      const flag = this.props.flags[icon.enableWithFlag]
+      if (!flag) return null
+      if (!flag.value) return null
+    }
+
     return (
       <button
         key={set + '.' + selection}
@@ -219,7 +228,8 @@ function mapStateToProps (state, ownProps) {
 
   return {
     variant,
-    segmentType
+    segmentType,
+    flags: state.flags
   }
 }
 
