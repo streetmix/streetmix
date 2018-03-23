@@ -232,7 +232,7 @@ export class BlockingError extends React.Component {
             <p>
               <FormattedHTMLMessage
                 id="error.unsupported-browser-description"
-                defaultMessage="Sorry about that. You might want to try <a target='_blank' href='{chromeUrl}'>Chrome</a>,&nbsp;<a target='_blank' href='{firefoxUrl}'>Firefox</a>,&nbsp;<a target='_blank' href='{edgeUrl}'>Microsoft Edge</a>, or Safari."
+                defaultMessage="Sorry about that. You might want to try <a target='_blank' href='{chromeUrl}'>Chrome</a>, <a target='_blank' href='{firefoxUrl}'>Firefox</a>, <a target='_blank' href='{edgeUrl}'>Microsoft Edge</a>, or Safari."
                 values={{
                   chromeUrl: 'https://www.google.com/chrome',
                   firefoxUrl: 'https://www.mozilla.org/firefox',
@@ -243,7 +243,7 @@ export class BlockingError extends React.Component {
             <p>
               <FormattedHTMLMessage
                 id="error.unsupported-browser-internet-explorer"
-                defaultMessage="Are you on Internet Explorer?&nbsp;<a target='_blank' href='{readmeIEUrl}'>Find out more.</a>"
+                defaultMessage="Are you on Internet Explorer? <a target='_blank' href='{readmeIEUrl}'>Find out more.</a>"
                 values={{
                   readmeIEUrl: 'https://streetmix.readme.io/docs/frequently-asked-questions/#internet-explorer'
                 }}
@@ -252,7 +252,7 @@ export class BlockingError extends React.Component {
             <p>
               <FormattedHTMLMessage
                 id="error.unsupported-browser-contact-us"
-                defaultMessage="If you think your browser should be supported, please contact us via&nbsp;<a target='_blank' href='{email}'>email</a>."
+                defaultMessage="If you think your browser should be supported, please contact us via <a target='_blank' href='{email}'>email</a>."
                 values={{
                   email: 'mailto:hello@streetmix.net'
                 }}
