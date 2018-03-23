@@ -565,6 +565,78 @@
           "right": "vehicles--car-sideways-right",
           "repeat": "ground--asphalt"
         }
+      },
+      "angled-front-left|left": {
+        "name": "Angled parking",
+        "minWidth": 14,
+        "maxWidth": 18,
+        "graphics": {
+          "left": "vehicles--car-angled-front-left",
+          "repeat": "ground--asphalt"
+        }
+      },
+      "angled-front-right|left": {
+        "name": "Angled parking",
+        "minWidth": 14,
+        "maxWidth": 18,
+        "graphics": {
+          "left": "vehicles--car-angled-front-right",
+          "repeat": "ground--asphalt"
+        }
+      },
+      "angled-rear-left|left": {
+        "name": "Angled parking",
+        "minWidth": 14,
+        "maxWidth": 18,
+        "graphics": {
+          "left": "vehicles--car-angled-rear-left",
+          "repeat": "ground--asphalt"
+        }
+      },
+      "angled-rear-right|left": {
+        "name": "Angled parking",
+        "minWidth": 14,
+        "maxWidth": 18,
+        "graphics": {
+          "left": "vehicles--car-angled-rear-right",
+          "repeat": "ground--asphalt"
+        }
+      },
+      "angled-front-left|right": {
+        "name": "Angled parking",
+        "minWidth": 14,
+        "maxWidth": 18,
+        "graphics": {
+          "right": "vehicles--car-angled-front-left",
+          "repeat": "ground--asphalt"
+        }
+      },
+      "angled-front-right|right": {
+        "name": "Angled parking",
+        "minWidth": 14,
+        "maxWidth": 18,
+        "graphics": {
+          "right": "vehicles--car-angled-front-right",
+          "repeat": "ground--asphalt"
+        }
+      },
+      "angled-rear-left|right": {
+        "name": "Angled parking",
+        "minWidth": 14,
+        "maxWidth": 18,
+        "graphics": {
+          "right": "vehicles--car-angled-rear-left",
+          "repeat": "ground--asphalt"
+        }
+      },
+      "angled-rear-right|right": {
+        "name": "Angled parking",
+        "minWidth": 14,
+        "maxWidth": 18,
+        "graphics": {
+          "right": "vehicles--car-angled-rear-right",
+          "repeat": "ground--asphalt"
+        }
       }
     }
   },

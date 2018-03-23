@@ -46,8 +46,7 @@ export const FEATURE_FLAGS = {
   },
   SEGMENT_ANGLED_PARKING: {
     label: 'Segment — angled parking',
-    defaultValue: false,
-    enabled: false
+    defaultValue: false
   },
   DEBUG_SEGMENT_CANVAS_RECTANGLES: {
     label: 'Segment — [debug] canvas rectangles',

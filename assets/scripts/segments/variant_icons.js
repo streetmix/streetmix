@@ -54,6 +54,26 @@ export const VARIANT_ICONS = {
     'sideways': {
       'id': 'direction-both',
       'title': 'Perpendicular'
+    },
+    'angled-front-left': {
+      'enableWithFlag': 'SEGMENT_ANGLED_PARKING',
+      'id': 'direction-down-left',
+      'title': 'Angled'
+    },
+    'angled-front-right': {
+      'enableWithFlag': 'SEGMENT_ANGLED_PARKING',
+      'id': 'direction-down-right',
+      'title': 'Angled'
+    },
+    'angled-rear-left': {
+      'enableWithFlag': 'SEGMENT_ANGLED_PARKING',
+      'id': 'direction-up-left',
+      'title': 'Angled'
+    },
+    'angled-rear-right': {
+      'enableWithFlag': 'SEGMENT_ANGLED_PARKING',
+      'id': 'direction-up-right',
+      'title': 'Angled'
     }
   },
   'tree-type': {
