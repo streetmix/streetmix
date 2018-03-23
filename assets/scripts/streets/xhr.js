@@ -45,8 +45,7 @@ import {
   setStreetCreatorId,
   setUpdateTimeToNow,
   setLastStreet,
-  setIgnoreStreetChanges,
-  updateStreetData
+  setIgnoreStreetChanges
 } from './data_model'
 import { updateStreetName } from './name'
 import {
@@ -65,7 +64,8 @@ import store from '../store'
 import {
   saveStreetId,
   saveOriginalStreetId,
-  updateEditCount
+  updateEditCount,
+  updateStreetData
 } from '../store/actions/street'
 
 const SAVE_STREET_DELAY = 500
@@ -325,8 +325,8 @@ function unpackStreetDataFromServerTransmission (transmission) {
 }
 
 export function unpackServerStreetData (transmission, id, namespacedId, checkIfNeedsToBeRemixed) {
-  updateStreetData(unpackStreetDataFromServerTransmission(transmission))
-  const street = store.getState().street
+  const street = unpackStreetDataFromServerTransmission(transmission)
+  store.dispatch(updateStreetData(street))
 
   if (transmission.data.undoStack) {
     store.dispatch(replaceUndoStack(cloneDeep(transmission.data.undoStack), transmission.data.undoPosition))

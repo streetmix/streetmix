@@ -7,11 +7,11 @@ import { infoBubble } from '../info_bubble/info_bubble'
 import {
   trimStreetData,
   setUpdateTimeToNow,
-  updateEverything,
-  updateStreetData
+  updateEverything
 } from './data_model'
 import { getRemixOnFirstEdit } from './remix'
 import store from '../store'
+import { updateStreetData } from '../store/actions/street'
 import {
   createNewUndo,
   unifyStack,
@@ -30,7 +30,7 @@ export function getUndoPosition () {
 function finishUndoOrRedo () {
   // set current street to the thing we just updated
   const state = store.getState().undo
-  updateStreetData(cloneDeep(state.stack[state.position]))
+  store.dispatch(updateStreetData(cloneDeep(state.stack[state.position])))
 
   setUpdateTimeToNow()
 
