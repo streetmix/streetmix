@@ -42,7 +42,8 @@ import {
   updateSegments,
   saveStreetId,
   setUpdateTime,
-  saveOriginalStreetId
+  saveOriginalStreetId,
+  clearLocation
 } from '../store/actions/street'
 import { resetUndoStack } from '../store/actions/undo'
 import store from '../store'
@@ -266,7 +267,7 @@ export function updateStreetData (street) {
   setBuilding('left', street.leftBuildingVariant, street.leftBuildingHeight)
   setBuilding('right', street.rightBuildingVariant, street.rightBuildingHeight)
   store.dispatch(addLocation(street.location))
-  store.dispatch(saveStreetName(street.name, street.userUpdated))
+  store.dispatch(saveStreetName(street.name, street.userUpdated, true))
   store.dispatch(saveOriginalStreetId(street.originalStreetId))
   store.dispatch(updateSchemaVersion(street.schemaVersion))
   store.dispatch(updateSegments(street.segments))
@@ -474,8 +475,8 @@ export function getStreetUrl (street) {
 export function prepareDefaultStreet () {
   store.dispatch(setUnits(getUnits()))
   propagateUnits()
-
-  store.dispatch(saveStreetName(DEFAULT_NAME, false))
+  store.dispatch(clearLocation())
+  store.dispatch(saveStreetName(DEFAULT_NAME, false, true))
   store.dispatch(updateStreetWidth(normalizeStreetWidth(DEFAULT_STREET_WIDTH)))
   setBuilding('left', DEFAULT_BUILDING_VARIANT_LEFT, DEFAULT_BUILDING_HEIGHT_LEFT)
   setBuilding('right', DEFAULT_BUILDING_VARIANT_RIGHT, DEFAULT_BUILDING_HEIGHT_RIGHT)
@@ -492,8 +493,8 @@ export function prepareDefaultStreet () {
 export function prepareEmptyStreet () {
   store.dispatch(setUnits(getUnits()))
   propagateUnits()
-
-  store.dispatch(saveStreetName(DEFAULT_NAME, false))
+  store.dispatch(clearLocation())
+  store.dispatch(saveStreetName(DEFAULT_NAME, false, true))
   store.dispatch(updateStreetWidth(normalizeStreetWidth(DEFAULT_STREET_WIDTH)))
   setBuilding('left', DEFAULT_BUILDING_VARIANT_EMPTY, DEFAULT_BUILDING_HEIGHT_EMPTY)
   setBuilding('right', DEFAULT_BUILDING_VARIANT_EMPTY, DEFAULT_BUILDING_HEIGHT_EMPTY)
