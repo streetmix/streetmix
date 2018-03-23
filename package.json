@@ -67,8 +67,8 @@
     ]
   },
   "dependencies": {
-    "@streetmix/icons": "0.4.2",
-    "@streetmix/illustrations": "0.3.7",
+    "@streetmix/icons": "0.4.3",
+    "@streetmix/illustrations": "0.3.8",
     "async": "2.6.0",
     "autoprefixer": "8.0.0",
     "axios": "0.18.0",

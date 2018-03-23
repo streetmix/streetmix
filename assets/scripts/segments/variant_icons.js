@@ -54,6 +54,22 @@ export const VARIANT_ICONS = {
     'sideways': {
       'id': 'direction-both',
       'title': 'Perpendicular'
+    },
+    'angled-front-left': {
+      'id': 'direction-down-left',
+      'title': 'Angled'
+    },
+    'angled-front-right': {
+      'id': 'direction-down-right',
+      'title': 'Angled'
+    },
+    'angled-rear-left': {
+      'id': 'direction-up-left',
+      'title': 'Angled'
+    },
+    'angled-rear-right': {
+      'id': 'direction-up-right',
+      'title': 'Angled'
     }
   },
   'tree-type': {
