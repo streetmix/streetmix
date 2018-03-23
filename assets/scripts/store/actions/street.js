@@ -79,11 +79,12 @@ export function changeSegmentVariant (index, set, selection) {
   }
 }
 
-export function saveStreetName (streetName, userUpdated) {
+export function saveStreetName (streetName, userUpdated, system = false) {
   return {
     type: SAVE_STREET_NAME,
     streetName,
-    userUpdated
+    userUpdated,
+    system
   }
 }
 
