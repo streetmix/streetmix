@@ -28,7 +28,23 @@ import {
   resizeStreetWidth
 } from './width'
 import { updateLastStreetInfo, scheduleSavingStreetToServer } from './xhr'
-import { updateStreetData } from '../store/actions/street'
+import {
+  setBuildingVariant,
+  setBuildingFloorValue,
+  addLocation,
+  updateSchemaVersion,
+  clearSegments,
+  saveCreatorId,
+  updateEditCount,
+  updateStreetWidth,
+  saveStreetName,
+  setUnits,
+  updateSegments,
+  saveStreetId,
+  setUpdateTime,
+  saveOriginalStreetId,
+  clearLocation
+} from '../store/actions/street'
 import { resetUndoStack } from '../store/actions/undo'
 import store from '../store'
 
@@ -70,46 +86,6 @@ const LATEST_SCHEMA_VERSION = 18
 // 18: change lat/lng format from array to object
 
 export const DEFAULT_NAME = msg('DEFAULT_STREET_NAME')
-
-let street = {
-  schemaVersion: LATEST_SCHEMA_VERSION,
-
-  id: null,
-  creatorId: null,
-  namespacedId: null,
-  originalStreetId: null, // id of the street the current street is remixed from (could be null)
-  name: null,
-  editCount: null, // Since new street or remix · FIXME: can be null (meaning = don’t touch), but this will change
-
-  width: null,
-  occupiedWidth: null, // Can be recreated, do not save
-  remainingWidth: null, // Can be recreated, do not save
-
-  leftBuildingHeight: null,
-  rightBuildingHeight: null,
-  leftBuildingVariant: null,
-  rightBuildingVariant: null,
-
-  segments: [],
-  location: null,
-  userUpdated: false,
-
-  units: null
-}
-
-export function getStreet () {
-  return street
-}
-
-export function setStreet (value) {
-  street = value
-  setStreetDataInRedux()
-}
-
-export function setAndSaveStreet (value) {
-  setStreet(value)
-  saveStreetToServerIfNecessary()
-}
 
 function incrementSchemaVersion (street) {
   let segment, variant
@@ -284,6 +260,27 @@ function incrementSchemaVersion (street) {
   street.schemaVersion++
 }
 
+export function updateStreetData (street) {
+  store.dispatch(saveCreatorId(street.creatorId))
+  store.dispatch(updateEditCount(street.editCount))
+  store.dispatch(saveStreetId(street.id, street.namespacedId))
+  setBuilding('left', street.leftBuildingVariant, street.leftBuildingHeight)
+  setBuilding('right', street.rightBuildingVariant, street.rightBuildingHeight)
+  store.dispatch(addLocation(street.location))
+  store.dispatch(saveStreetName(street.name, street.userUpdated, true))
+  store.dispatch(saveOriginalStreetId(street.originalStreetId))
+  store.dispatch(updateSchemaVersion(street.schemaVersion))
+  store.dispatch(updateSegments(street.segments))
+  store.dispatch(setUnits(street.units))
+  store.dispatch(setUpdateTime(street.updatedAt))
+  store.dispatch(updateStreetWidth(street.width))
+}
+
+function setBuilding (position, variant, height) {
+  store.dispatch(setBuildingVariant(position, variant))
+  store.dispatch(setBuildingFloorValue(position, height))
+}
+
 export function updateToLatestSchemaVersion (street) {
   var updated = false
   while (!street.schemaVersion || (street.schemaVersion < LATEST_SCHEMA_VERSION)) {
@@ -296,6 +293,7 @@ export function updateToLatestSchemaVersion (street) {
 
 export function createDomFromData () {
   document.querySelector('#street-section-editable').innerHTML = ''
+  const street = store.getState().street
 
   for (var i in street.segments) {
     var segment = street.segments[i]
@@ -318,14 +316,15 @@ export function createDomFromData () {
 }
 
 export function setStreetCreatorId (newId) {
-  street.creatorId = newId
+  store.dispatch(saveCreatorId(newId))
 
   unifyUndoStack()
   updateLastStreetInfo()
 }
 
 export function setUpdateTimeToNow () {
-  street.updatedAt = new Date().getTime()
+  const updateTime = new Date().getTime()
+  store.dispatch(setUpdateTime(updateTime))
   unifyUndoStack()
 }
 
@@ -340,6 +339,7 @@ export function saveStreetToServerIfNecessary () {
     return
   }
 
+  const street = store.getState().street
   var currentData = trimStreetData(street)
 
   if (JSON.stringify(currentData) !== JSON.stringify(_lastStreet)) {
@@ -358,14 +358,6 @@ export function saveStreetToServerIfNecessary () {
 
     _lastStreet = currentData
   }
-
-  setStreetDataInRedux()
-}
-
-// Update in Redux store. Some components will read street data from there.
-// todo: transition so Redux is single source of truth for street.
-export function setStreetDataInRedux () {
-  store.dispatch(updateStreetData(street))
 }
 
 // Copies only the data necessary for save/undo.
@@ -419,8 +411,7 @@ export function trimStreetData (street) {
 // object to begin with
 export function createDataFromDom () {
   var els = document.querySelectorAll('#street-section-editable > .segment')
-
-  street.segments = []
+  const segments = []
 
   for (var i = 0, el; el = els[i]; i++) { // eslint-disable-line no-cond-assign
     var segment = {}
@@ -433,12 +424,13 @@ export function createDataFromDom () {
     segment.width = parseFloat(el.getAttribute('data-width'))
     segment.el = el
     segment.warnings = []
-    street.segments.push(segment)
+    segments.push(segment)
   }
+  store.dispatch(updateSegments(segments))
 }
 
 function fillDefaultSegments () {
-  street.segments = []
+  const segments = []
   let leftHandTraffic = getLeftHandTraffic()
 
   for (var i in DEFAULT_SEGMENTS[leftHandTraffic]) {
@@ -450,15 +442,14 @@ function fillDefaultSegments () {
       segment.randSeed = generateRandSeed()
     }
 
-    street.segments.push(segment)
+    segments.push(segment)
   }
-
+  store.dispatch(updateSegments(segments))
   normalizeAllSegmentWidths()
 }
 
 export function getStreetUrl (street) {
   var url = '/'
-
   if (street.creatorId) {
     if (RESERVED_URLS.indexOf(street.creatorId) !== -1) {
       url += URL_RESERVED_PREFIX
@@ -482,43 +473,38 @@ export function getStreetUrl (street) {
 }
 
 export function prepareDefaultStreet () {
-  street.units = getUnits()
+  store.dispatch(setUnits(getUnits()))
   propagateUnits()
-  street.name = DEFAULT_NAME
-  street.width = normalizeStreetWidth(DEFAULT_STREET_WIDTH)
-  street.leftBuildingHeight = DEFAULT_BUILDING_HEIGHT_LEFT
-  street.rightBuildingHeight = DEFAULT_BUILDING_HEIGHT_RIGHT
-  street.leftBuildingVariant = DEFAULT_BUILDING_VARIANT_LEFT
-  street.rightBuildingVariant = DEFAULT_BUILDING_VARIANT_RIGHT
-  street.editCount = 0
+  store.dispatch(clearLocation())
+  store.dispatch(saveStreetName(DEFAULT_NAME, false, true))
+  store.dispatch(updateStreetWidth(normalizeStreetWidth(DEFAULT_STREET_WIDTH)))
+  setBuilding('left', DEFAULT_BUILDING_VARIANT_LEFT, DEFAULT_BUILDING_HEIGHT_LEFT)
+  setBuilding('right', DEFAULT_BUILDING_VARIANT_RIGHT, DEFAULT_BUILDING_HEIGHT_RIGHT)
+  store.dispatch(updateEditCount(0))
+
   // console.log('editCount = 0 on default street')
   if (isSignedIn()) {
     setStreetCreatorId(getSignInData().userId)
   }
-
   fillDefaultSegments()
-
   setUpdateTimeToNow()
 }
 
 export function prepareEmptyStreet () {
-  street.units = getUnits()
+  store.dispatch(setUnits(getUnits()))
   propagateUnits()
+  store.dispatch(clearLocation())
+  store.dispatch(saveStreetName(DEFAULT_NAME, false, true))
+  store.dispatch(updateStreetWidth(normalizeStreetWidth(DEFAULT_STREET_WIDTH)))
+  setBuilding('left', DEFAULT_BUILDING_VARIANT_EMPTY, DEFAULT_BUILDING_HEIGHT_EMPTY)
+  setBuilding('right', DEFAULT_BUILDING_VARIANT_EMPTY, DEFAULT_BUILDING_HEIGHT_EMPTY)
+  store.dispatch(updateEditCount(0))
+  store.dispatch(clearSegments())
 
-  street.name = DEFAULT_NAME
-  street.width = normalizeStreetWidth(DEFAULT_STREET_WIDTH)
-  street.leftBuildingHeight = DEFAULT_BUILDING_HEIGHT_EMPTY
-  street.rightBuildingHeight = DEFAULT_BUILDING_HEIGHT_EMPTY
-  street.leftBuildingVariant = DEFAULT_BUILDING_VARIANT_EMPTY
-  street.rightBuildingVariant = DEFAULT_BUILDING_VARIANT_EMPTY
-  street.editCount = 0
   // console.log('editCount = 0 on empty street!')
   if (isSignedIn()) {
     setStreetCreatorId(getSignInData().userId)
   }
-
-  street.segments = []
-
   setUpdateTimeToNow()
 }
 
@@ -537,9 +523,9 @@ export function updateEverything (dontScroll, save = true) {
   createDomFromData()
   segmentsChanged()
   resizeStreetWidth(dontScroll)
-  updateStreetName()
+  updateStreetName(store.getState().street)
   setIgnoreStreetChanges(false)
-  _lastStreet = trimStreetData(street)
+  _lastStreet = trimStreetData(store.getState().street)
 
   if (save === true) {
     scheduleSavingStreetToServer()

@@ -2,7 +2,6 @@ import {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC
 } from '../users/localization'
-import store from '../store'
 
 const IMPERIAL_METRIC_MULTIPLIER = 30 / 100
 const METRIC_PRECISION = 3
@@ -86,12 +85,6 @@ export function processWidthInput (widthInput, units) {
  */
 export function prettifyWidth (width, units, { markup = false } = {}) {
   let widthText = ''
-
-  // TODO: temporary; refactor so `units` is required.
-  // Only a couple of places (`resizing.js` and `view.js` currently does not pass in units.)
-  if (units === undefined) {
-    units = store.getState().street.units
-  }
 
   switch (units) {
     case SETTINGS_UNITS_IMPERIAL:

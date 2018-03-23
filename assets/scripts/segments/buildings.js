@@ -3,7 +3,7 @@ import {
   INFO_BUBBLE_TYPE_LEFT_BUILDING,
   infoBubble
 } from '../info_bubble/info_bubble'
-import { getStreet, saveStreetToServerIfNecessary } from '../streets/data_model'
+import { saveStreetToServerIfNecessary } from '../streets/data_model'
 import { getElAbsolutePos } from '../util/helpers'
 import { RandomGenerator } from '../util/random'
 import { images } from '../app/load_resources'
@@ -335,36 +335,11 @@ export function buildingHeightUpdated () {
   createBuildings()
 }
 
-// transition: when state changes, update legacy street object.
-// todo: remove when no longer needed
-export function initBuildingReduxTransitionSubscriber () {
-  let oldLeftBuildingHeight
-  let oldRightBuildingHeight
-  store.subscribe(() => {
-    const state = store.getState().street
-    const street = getStreet()
-    let changed = false
-    if (state.leftBuildingHeight !== oldLeftBuildingHeight) {
-      street.leftBuildingHeight = state.leftBuildingHeight
-      oldLeftBuildingHeight = state.leftBuildingHeight
-      changed = true
-    }
-    if (state.rightBuildingHeight !== oldRightBuildingHeight) {
-      street.rightBuildingHeight = state.rightBuildingHeight
-      oldRightBuildingHeight = state.rightBuildingHeight
-      changed = true
-    }
-    if (changed) {
-      buildingHeightUpdated()
-    }
-  })
-}
-
 export function createBuildings () {
   const leftEl = document.querySelector('#street-section-left-building')
   const rightEl = document.querySelector('#street-section-right-building')
 
-  const street = getStreet()
+  const street = store.getState().street
 
   createBuilding(leftEl, street.leftBuildingVariant, 'left', street.leftBuildingHeight, street)
   createBuilding(rightEl, street.rightBuildingVariant, 'right', street.rightBuildingHeight, street)

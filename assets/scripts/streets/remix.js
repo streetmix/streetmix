@@ -8,10 +8,16 @@ import {
   isSignedIn
 } from '../users/authentication'
 import { newBlockingAjaxRequest } from '../util/fetch_blocking'
-import { setStreetCreatorId, getStreet } from './data_model'
+import { setStreetCreatorId } from './data_model'
 import { updateStreetName } from './name'
 import { getUndoStack, getUndoPosition, unifyUndoStack } from './undo_stack'
 import { saveStreetToServer, packServerStreetData, setStreetId } from './xhr'
+import store from '../store'
+import {
+  saveStreetName,
+  updateEditCount,
+  saveOriginalStreetId
+} from '../store/actions/street'
 
 const STREET_NAME_REMIX_SUFFIX = '(remix)'
 let remixOnFirstEdit = false
@@ -49,9 +55,10 @@ export function remixStreet () {
   } else {
     setStreetCreatorId(null)
   }
-  var street = getStreet()
-  street.originalStreetId = street.id
-  street.editCount = 0
+
+  const street = store.getState().street
+  store.dispatch(saveOriginalStreetId(street.id))
+  store.dispatch(updateEditCount(0))
 
   unifyUndoStack()
 
@@ -95,15 +102,16 @@ function receiveRemixedStreet (data) {
   }
 
   setStreetId(data.id, data.namespacedId)
-  updateStreetName()
+  updateStreetName(store.getState().street)
 
   saveStreetToServer(false)
 }
 
 export function addRemixSuffixToName () {
-  var street = getStreet()
+  const street = store.getState().street
   if (street.name.substr(street.name.length - STREET_NAME_REMIX_SUFFIX.length,
     STREET_NAME_REMIX_SUFFIX.length) !== STREET_NAME_REMIX_SUFFIX) {
     street.name += ' ' + STREET_NAME_REMIX_SUFFIX
   }
+  store.dispatch(saveStreetName(street.name, false))
 }

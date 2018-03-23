@@ -2,12 +2,21 @@ import {
   ADD_SEGMENT,
   REMOVE_SEGMENT,
   MOVE_SEGMENT,
-  REPLACE_STREET_DATA,
+  UPDATE_SEGMENTS,
   CHANGE_SEGMENT_WIDTH,
   CHANGE_SEGMENT_VARIANT,
   ADD_LOCATION,
   CLEAR_LOCATION,
   SAVE_STREET_NAME,
+  SAVE_CREATOR_ID,
+  SAVE_STREET_ID,
+  SET_UPDATE_TIME,
+  SAVE_ORIGINAL_STREET_ID,
+  UPDATE_EDIT_COUNT,
+  SET_UNITS,
+  UPDATE_STREET_WIDTH,
+  UPDATE_SCHEMA_VERSION,
+  UPDATE_OCCUPIED_WIDTH,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
   REMOVE_BUILDING_FLOOR,
@@ -39,33 +48,17 @@ export function moveSegment (index, newIndex) {
   }
 }
 
-// temporary while we migrate data stores
-export function updateStreetData (street) {
+export function updateSegments (segments) {
   return {
-    type: REPLACE_STREET_DATA,
-    street
+    type: UPDATE_SEGMENTS,
+    segments
   }
 }
 
-export function addLocation (location) {
+export function clearSegments () {
   return {
-    type: ADD_LOCATION,
-    location
-  }
-}
-
-export function clearLocation () {
-  return {
-    type: CLEAR_LOCATION,
-    defaultName: t('street.default-name', 'Unnamed St')
-  }
-}
-
-export function saveStreetName (streetName, userUpdated) {
-  return {
-    type: SAVE_STREET_NAME,
-    streetName,
-    userUpdated
+    type: UPDATE_SEGMENTS,
+    segments: []
   }
 }
 
@@ -83,6 +76,94 @@ export function changeSegmentVariant (index, set, selection) {
     index,
     set,
     selection
+  }
+}
+
+export function saveStreetName (streetName, userUpdated, system = false) {
+  return {
+    type: SAVE_STREET_NAME,
+    streetName,
+    userUpdated,
+    system
+  }
+}
+
+export function saveCreatorId (creatorId) {
+  return {
+    type: SAVE_CREATOR_ID,
+    creatorId
+  }
+}
+
+export function saveStreetId (id, namespacedId) {
+  return {
+    type: SAVE_STREET_ID,
+    id,
+    namespacedId
+  }
+}
+
+export function setUpdateTime (time) {
+  return {
+    type: SET_UPDATE_TIME,
+    time
+  }
+}
+
+export function saveOriginalStreetId (id) {
+  return {
+    type: SAVE_ORIGINAL_STREET_ID,
+    id
+  }
+}
+
+export function updateEditCount (count) {
+  return {
+    type: UPDATE_EDIT_COUNT,
+    count
+  }
+}
+
+export function setUnits (units) {
+  return {
+    type: SET_UNITS,
+    units
+  }
+}
+
+export function updateStreetWidth (width) {
+  return {
+    type: UPDATE_STREET_WIDTH,
+    width
+  }
+}
+
+export function updateOccupiedWidth (occupiedWidth, remainingWidth) {
+  return {
+    type: UPDATE_OCCUPIED_WIDTH,
+    occupiedWidth,
+    remainingWidth
+  }
+}
+
+export function updateSchemaVersion (version) {
+  return {
+    type: UPDATE_SCHEMA_VERSION,
+    version
+  }
+}
+
+export function addLocation (location) {
+  return {
+    type: ADD_LOCATION,
+    location
+  }
+}
+
+export function clearLocation () {
+  return {
+    type: CLEAR_LOCATION,
+    defaultName: t('street.default-name', 'Unnamed St')
   }
 }
 

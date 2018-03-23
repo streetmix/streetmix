@@ -6,13 +6,11 @@ import { showStatusMessage, hideStatusMessage } from '../app/status_message'
 import { infoBubble } from '../info_bubble/info_bubble'
 import {
   trimStreetData,
-  getStreet,
-  setStreet,
   setUpdateTimeToNow,
-  updateEverything
+  updateEverything,
+  updateStreetData
 } from './data_model'
 import { getRemixOnFirstEdit } from './remix'
-
 import store from '../store'
 import {
   createNewUndo,
@@ -32,7 +30,7 @@ export function getUndoPosition () {
 function finishUndoOrRedo () {
   // set current street to the thing we just updated
   const state = store.getState().undo
-  setStreet(cloneDeep(state.stack[state.position]))
+  updateStreetData(cloneDeep(state.stack[state.position]))
 
   setUpdateTimeToNow()
 
@@ -53,7 +51,7 @@ export function undo () {
   }
 
   // sends current street to update current position before undoing
-  store.dispatch(undoAction(trimStreetData(getStreet())))
+  store.dispatch(undoAction(trimStreetData(store.getState().street)))
 
   finishUndoOrRedo()
 }
