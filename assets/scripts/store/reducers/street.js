@@ -1,4 +1,5 @@
 import {
+  REPLACE_STREET_DATA,
   ADD_SEGMENT,
   REMOVE_SEGMENT,
   MOVE_SEGMENT,
@@ -33,6 +34,11 @@ const MAX_BUILDING_HEIGHT = 20
 
 const street = (state = initialState, action) => {
   switch (action.type) {
+    case REPLACE_STREET_DATA:
+      return {
+        ...state,
+        ...action.street
+      }
     case ADD_SEGMENT:
       return {
         ...state,
