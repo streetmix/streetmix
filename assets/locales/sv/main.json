@@ -2,7 +2,7 @@
   "menu": {
     "item": {
       "help": "Hjälp",
-      "about": "Om Streetmix...",
+      "about": "Om Streetmix…",
       "contact": "Kontakt",
       "community": "",
       "contribute": "",
@@ -15,7 +15,7 @@
     },
     "help": {
       "keyboard-label": "Snabbkommandon:",
-      "remove": "",
+      "remove": "Ta bort ett segment du pekar på<br />(håll inne <kbd class='key'>Shift</kbd> för att ta bort alla)",
       "move": "",
       "change": ""
     },
@@ -24,8 +24,8 @@
       "link": "Kopiera och klistra in denna länk för att dela:",
       "twitter": "Dela på Twitter",
       "facebook": "Dela på Facebook",
-      "print": "Skriv ut...",
-      "save": "Spara som bild...",
+      "print": "Skriv ut…",
+      "save": "Spara som bild…",
       "save-byline": "För att inkludera i en rapport, blogg etc."
     },
     "contact": {
@@ -54,9 +54,9 @@
     }
   },
   "msg": {
-    "loading": "Laddar...",
-    "remixing": "Ändrar...",
-    "having-trouble": "Har problem...",
+    "loading": "Laddar…",
+    "remixing": "Ändrar…",
+    "having-trouble": "Har problem…",
     "no-street": "Ingen gata vald.",
     "trouble-loading": "Vi har problem att ladda Streetmix.",
     "slow-connection-1": "Streetmix har inte kunnat kontakta internet på ett tag nu.",
@@ -154,8 +154,8 @@
       "option-labels": "Segmentnamn och -bredder",
       "option-name": "Gatunamn",
       "option-sky": "Transparent himmel",
-      "loading": "Laddar...",
-      "save-button": "Sparar till din dator...",
+      "loading": "Laddar…",
+      "save-button": "Sparar till din dator…",
       "license": "",
       "error-preview": "",
       "error-unavailable": "",
@@ -203,7 +203,7 @@
     "over": "",
     "occupied": "Använd bredd:",
     "building": "Vägg-till-vägg-bredd:",
-    "different": "Annan bredd...",
+    "different": "Annan bredd…",
     "metric": "Ändra till metriska enheter",
     "imperial": "Ändra till brittiska enheter (fot)"
   },

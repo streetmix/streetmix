@@ -7,13 +7,13 @@
       "name": "Acera con un árbol"
     },
     "sidewalk-bike-rack": {
-      "name": "Estacionamiento de Bici"
+      "name": "Estacionamiento de bici"
     },
     "sidewalk-bench": {
       "name": "Banco"
     },
     "sidewalk-wayfinding": {
-      "name": "Señal de Orientación",
+      "name": "Señal de orientación",
       "description": {
         "prompt": "Aprender más sobre señales de orientación",
         "lede": "Señales de Orientación ayudan a los pedestres llegar a destinos comunes.",
@@ -25,7 +25,7 @@
       }
     },
     "sidewalk-lamp": {
-      "name": "Acera con Farola"
+      "name": "Acera con farola"
     },
     "parklet": {
       "name": "Parklet (Parquecito en la calle)",
@@ -248,7 +248,7 @@
     "orientation|left": "Izquierda",
     "orientation|right": "Derecha",
     "turn-lane-orientation|left": "Izquierda",
-    "turn-lane-orientation|left-straight": "Izquierda y Derecho",
+    "turn-lane-orientation|left-straight": "Izquierda y derecho",
     "turn-lane-orientation|straight": "Derecho",
     "turn-lane-orientation|right-straight": "Derecha y derecho",
     "turn-lane-orientation|right": "Derecha",
@@ -283,7 +283,8 @@
     "bus-asphalt|colored": "Carril rojo",
     "bus-asphalt|shared": "Carril Compartido de Bús/Bici",
     "bike-asphalt|regular": "Asfalto",
-    "bike-asphalt|colored": "Carril verde",
+    "bike-asphalt|green": "Carril verde",
+    "bike-asphalt|red": "Carril rojo",
     "tree-type|big": "Árbol",
     "tree-type|palm-tree": "",
     "divider-type|median": "",

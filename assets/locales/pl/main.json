@@ -2,7 +2,7 @@
   "menu": {
     "item": {
       "help": "Pomoc",
-      "about": "O Streetmix",
+      "about": "O Streetmix…",
       "contact": "Kontakt",
       "community": "",
       "contribute": "",
@@ -15,17 +15,17 @@
     },
     "help": {
       "keyboard-label": "Skróty klawiszowe:",
-      "remove": "",
-      "move": "",
-      "change": ""
+      "remove": "Usuń wskazany segment<br />(przytrzymaj <kbd class='key'>Shift</kbd>, aby usunąć wszystko)",
+      "move": "Przemieszczaj się po ulicy<br />(przytrzymaj <kbd class='key'>Shift</kbd> aby ustawić się na krawędzi)",
+      "change": "Zmień szerokość wskazanego segmentu<br />(przytrzymaj <kbd class='key'>Shift</kbd> dla zwiększenia precyzji)"
     },
     "share": {
       "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Zarejestruj się przez Twitter</a> dla lepszych linków do projektów Twoich ulic i Twojej galerii ulic",
       "link": "Skopiuj i wklej ten link, aby go udostępnić",
       "twitter": "Udostępnij na Twitterze",
       "facebook": "Udostępnij na Facebooku",
-      "print": "Drukuj...",
-      "save": "Zapisz jako obrazek...",
+      "print": "Drukuj…",
+      "save": "Zapisz jako obrazek…",
       "save-byline": "Dla włączenia do raportu, bloga itp."
     },
     "contact": {
@@ -54,9 +54,9 @@
     }
   },
   "msg": {
-    "loading": "Ładuję...",
+    "loading": "Ładuję…",
     "remixing": "",
-    "having-trouble": "Chwilowe problemy...",
+    "having-trouble": "Chwilowe problemy…",
     "no-street": "Nie wybrano żadnej ulicy",
     "trouble-loading": "Mamy chwilowy problem z załadowaniem Streetmix.",
     "slow-connection-1": "Streetmix nie był w stanie połączyć się z Internetem przez dłuższą chwilę.",
@@ -121,15 +121,15 @@
       "heading": "Witaj w Streetmix.",
       "new": {
         "intro": "Projektuj, zmieniaj i udostępniaj projekty ulic ze swojego sąsiedztwa. Sadź drzewa, dodawaj ścieżki rowerowe, poszerzaj chodniki lub jezdnie,. Zobacz, jak Twoje decyzje wpłyną na lokalną społeczność.",
-        "instruct": "",
+        "instruct": "Zacznij od poprzestawiania wybranych segmentów w projekcie {pointer}.",
         "instruct-pointer-finger": "",
         "instruct-pointer-mouse": ""
       },
       "existing": {
-        "intro": "",
-        "intro-without-creator": "",
-        "instruct": "",
-        "instruct-start-own-street": ""
+        "intro": "To jest {streetName} utworzony przez {creator}.",
+        "intro-without-creator": "To jest {streetName}.",
+        "instruct": "Zmieniaj ulicę przesuwając jej wybrane segmenty lub {startYourOwnStreet}.",
+        "instruct-start-own-street": "Stwórz własną ulicę"
       }
     },
     "new-street": {
@@ -142,7 +142,7 @@
       "heading": "O Streetmix.",
       "description": "Projektuj, zmieniaj i udostępniaj projekty ulic. Dodawaj ścieżki rowerowe, poszerzaj chodniki lub jezdnie. Zobacz, jak wszystko to wpłynie na lokalną społeczność.",
       "thanks": "Serdeczne podziękowania dla zespołu i członków 2013 CfA za ich wsparcie i cierpliwość, dla zespołu Blokee, który przecierał ścieżki i dla wszystkich naszych testerów za ich czas i wkład.",
-      "credits": "",
+      "credits": "Projekt poboczny od {cfaLink} członków 2013:",
       "team-heading": "",
       "view-source": "Zobacz kod źródłowy",
       "sponsored-by": "",
@@ -154,9 +154,9 @@
       "option-labels": "Nazwy i szerokości segmentów",
       "option-name": "Nazwa ulicy",
       "option-sky": "Czyste niebo",
-      "loading": "Ładuję...",
-      "save-button": "Zapisz na swoim komputerze",
-      "license": "",
+      "loading": "Ładuję…",
+      "save-button": "Zapisz na swoim komputerze…",
+      "license": "Obrazy tworzone w Streetmix mogą być ponownie użytkowane gdziekolwiek i w jakimkolwiek celu na licencji <br><a href='{url}'>Creative Commons Attribution-ShareAlike 4.0 International License (uznanie autorstwa)</a>.",
       "error-preview": "",
       "error-unavailable": "",
       "preview-image-alt": ""
@@ -203,7 +203,7 @@
     "over": "",
     "occupied": "Zagospodarowana szerokość:",
     "building": "Odelgłość między budynkami",
-    "different": "Inna szerokość...",
+    "different": "Inna szerokość…",
     "metric": "W metrach",
     "imperial": "W stopach"
   },

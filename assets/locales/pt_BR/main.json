@@ -2,7 +2,7 @@
   "menu": {
     "item": {
       "help": "Ajuda",
-      "about": "Sobre o Streetmix...",
+      "about": "Sobre o Streetmix…",
       "contact": "Contato",
       "community": "Comunidade",
       "contribute": "Contribuir",
@@ -15,30 +15,30 @@
     },
     "help": {
       "keyboard-label": "Teclas de Atalho:",
-      "remove": "",
-      "move": "",
-      "change": ""
+      "remove": "Remover um segmento que você está apontando para<br />(aperte <kbd class='key'>Shift</kbd> para remover tudo)",
+      "move": "Movimente-se pela rua<br />(aperte <kbd class='key'>Shift</kbd> para saltar para as bordas)",
+      "change": "Mudar largura desse um segmento para o qual você está apontando<br />(segure <kbd class='key'>Shift</kbd> para obter mais precisão)"
     },
     "share": {
-      "sign-in": "",
+      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Faça o login com o Twitter</a> para obter melhores links para suas ruas e para sua galeria de ruas personalizada",
       "link": "Copie e cole este link para compartilhar:",
       "twitter": "Compartilhar usando Twitter",
       "facebook": "Compartilhar usando Facebook",
       "print": "Imprimir…",
-      "save": "Salvar como imagem...",
+      "save": "Salvar como imagem…",
       "save-byline": "Para incluir em uma reportagem, blog, etc."
     },
     "contact": {
       "forums": "Discutir em os foros",
       "twitter": "Envie um tweet para @streetmix",
-      "email": "Enviar email para a equipe do Streetmix<br>",
-      "github": "",
+      "email": "Enviar e-mail para a equipe do Streetmix",
+      "github": "Ver código fonte no GitHub",
       "blog": "Visitar o blog do Streetmix",
-      "slack": ""
+      "slack": "Participe no bate-papo do Slack"
     },
     "contribute": {
       "donate": "Doar",
-      "stickers": "",
+      "stickers": "Compre uma folha de adesivos!",
       "opensource": ""
     },
     "feedback": {
@@ -54,9 +54,9 @@
     }
   },
   "msg": {
-    "loading": "Carregando...",
-    "remixing": "",
-    "having-trouble": "Tendo problemas...",
+    "loading": "Carregando…",
+    "remixing": "Remixando…",
+    "having-trouble": "Tendo problemas…",
     "no-street": "Sem rua selecionada.",
     "trouble-loading": "Estamos com um problema para carregar o Streetmix.",
     "slow-connection-1": "Não foi possível conectar o Streetmix a internet no momento.",
@@ -65,40 +65,40 @@
   },
   "error": {
     "button": {
-      "home": "",
-      "sign-in": "",
+      "home": "Ir á página principal",
+      "sign-in": "Faça o login de novo",
       "reload": "",
       "try-again": "Tente novamente",
-      "view-example": ""
+      "view-example": "Ver uma rua modelo"
     },
-    "page-not-found-title": "",
+    "page-not-found-title": "Página não encontrada.",
     "page-not-found-description": "",
-    "street-not-found-title": "",
+    "street-not-found-title": "Rua não encontrada.",
     "street-not-found-description": "",
     "street-not-found-but-user-description": "",
-    "street-deleted-title": "",
+    "street-deleted-title": "Esta rua foi removida.",
     "street-deleted-description": "",
     "sign-out-title": "",
     "reload-sign-out-title": "",
-    "gallery-street-failure-description": "",
+    "gallery-street-failure-description": "Estamos com um problema para carregar esta rua.",
     "reload-sign-in-title": "",
     "please-reload": "",
-    "street-deleted-elsewhere-title": "",
-    "street-deleted-elsewhere-description": "",
+    "street-deleted-elsewhere-title": "Esta rua foi removida em outro lugar.",
+    "street-deleted-elsewhere-description": "Esta rua foi removida em outro navegador.",
     "twitter-access-denied-title": "",
     "twitter-access-denied-description": "",
     "auth-api-problem-title": "",
     "auth-api-problem-description": "",
-    "please-try-again": "",
-    "unsupported-browser-title": "",
-    "unsupported-browser-description": "",
-    "unsupported-browser-internet-explorer": "",
-    "unsupported-browser-contact-us": "",
-    "cannot-create-new-street-on-phone-title": "",
-    "cannot-create-new-street-on-phone-description": "",
-    "generic-error-title": "",
-    "generic-error-description": "",
-    "error-code": ""
+    "please-try-again": "Por favor tente novamente mais tarde ou contate-nos via <a target='_blank' href='{email}'>e-mail</a> ou <a target='_blank' href='{tweet}'>Twitter</a>.",
+    "unsupported-browser-title": "Streetmix não funciona no seu navegador.",
+    "unsupported-browser-description": "Desculpe. Você talvez deve tentar <a target='_blank' href='{chromeUrl}'>Chrome</a>, <a target='_blank' href='{mozillaUrl}'>Firefox</a>, <a target='_blank' href='{edgeUrl}'>Microsoft Edge</a>, ou Safari.",
+    "unsupported-browser-internet-explorer": "Você está usando o Internet Explorer? <a target='_blank' href='{readmeIEUrl}'>Descubra mais.</a>",
+    "unsupported-browser-contact-us": "Se você acha que o seu navegador deve ser suportado, por favor contate-nos via <a target='_blank' href='{email}'>e-mail</a>.",
+    "cannot-create-new-street-on-phone-title": "Streetmix só funciona em tablets e desktops.",
+    "cannot-create-new-street-on-phone-description": "Se você segue outro link a uma rua específica, a pode ver no seu celular - mas aínda não pode criar ruas novas.",
+    "generic-error-title": "Algo deu errado.",
+    "generic-error-description": "Desculpe - algo deu errado.",
+    "error-code": "(Erro {code}.)"
   },
   "btn": {
     "reload": "Recarregar",
@@ -114,22 +114,22 @@
   },
   "dialogs": {
     "error": {
-      "heading": "",
-      "text": ""
+      "heading": "Oops!",
+      "text": "Algo inesperado aconteceu 😢. Registramos o erro, mas se você pode lembrar o que passou no camino, <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\">por favor conte-nos sobre isso</a>. Isto também poderia ser um problema temporário, então tente uma vez mais."
     },
     "welcome": {
       "heading": "Bem-vindo ao Streetmix.",
       "new": {
         "intro": "Construa, personalize e compartilhe as rua da sua vizinhança. Inclua árvores, ciclovias, alargue as calçadas ou vias de tráfego e aprenda como suas decisões podem impactar sua comunidade.",
-        "instruct": "",
-        "instruct-pointer-finger": "",
-        "instruct-pointer-mouse": ""
+        "instruct": "Comece movendo alguns elementos com {pointer}.",
+        "instruct-pointer-finger": "seu dedo",
+        "instruct-pointer-mouse": "seu mouse"
       },
       "existing": {
-        "intro": "",
-        "intro-without-creator": "",
-        "instruct": "",
-        "instruct-start-own-street": ""
+        "intro": "Esta é a {streetName} feita por {creator}.",
+        "intro-without-creator": "Esta é a {streetName}.",
+        "instruct": "Remixe sua rua movendo os elementos ou {startYourOwnStreet}.",
+        "instruct-start-own-street": "Comece sua própria rua"
       }
     },
     "new-street": {
@@ -142,7 +142,7 @@
       "heading": "Sobre o Streetmix.",
       "description": "Construa, personalize e compartilhe as rua da sua vizinhança. Inclua árvores, ciclovias, alargue as calçadas ou vias de tráfego e aprenda como tudo isso pode impactar sua comunidade.",
       "thanks": "Muito obrigado ao pessoal e aos companheiros CfA 2013, pelo apoio e paciência, também à equipe Blockee pela pavimentação do caminho, e a todos os nossos testadores por seu tempo e feedback!",
-      "credits": "",
+      "credits": "Um outro projeto de {cfaLink} 2013 segue:",
       "team-heading": "",
       "view-source": "Ver código fonte",
       "sponsored-by": "",
@@ -154,9 +154,9 @@
       "option-labels": "Nome dos segmentos e larguras",
       "option-name": "Nome da rua",
       "option-sky": "Céu transparente",
-      "loading": "Carregando...",
-      "save-button": "Salvar no seu computador",
-      "license": "",
+      "loading": "Carregando…",
+      "save-button": "Salvar no seu computador…",
+      "license": "Esta imagem criada pelo Streetmix poderá ser reutilizada em qualquer lugar, para qualquer propósito, sob a <br><a href='{url}'>Licença Internacional Creative Commons Attribution-ShareAlike 4.0</a>.",
       "error-preview": "",
       "error-unavailable": "",
       "preview-image-alt": ""
@@ -181,12 +181,12 @@
   },
   "prompt": {
     "new-street": "Nome da nova rua:",
-    "delete-street": "",
-    "new-width": ""
+    "delete-street": "Você esta seguro que quer borrar {streetName} permanentemente? Não se pode desfazer esta ação.",
+    "new-width": "Largura nova (de {minWidth} a {maxWidth}):"
   },
   "toast": {
-    "segment-deleted": "",
-    "all-segments-deleted": "",
+    "segment-deleted": "O segmento foi removido.",
+    "all-segments-deleted": "Todos os segmentos foram removidos.",
     "no-undo": "Não tem nada para desfazer.",
     "no-redo": "Não tem nada para refazer.",
     "no-save": "",
@@ -198,20 +198,20 @@
     "remove": "Arraste aqui para remover"
   },
   "width": {
-    "label": "",
-    "under": "",
-    "over": "",
+    "label": "{width} largura",
+    "under": "({width} de sala)",
+    "over": "({width} demais)",
     "occupied": "Largura ocupada:",
     "building": "Largura de prédio a prédio:",
-    "different": "Largura diferente...",
+    "different": "Largura diferente…",
     "metric": "Mudar para unidades métricas",
     "imperial": "Mudar para unidades imperiais (pés)"
   },
   "datetime": {
     "minutes-ago": "",
     "seconds-ago": "",
-    "yesterday": "",
-    "today": "",
+    "yesterday": "Ontem ás {time}",
+    "today": "Hoje ás {time}",
     "format-date-no-year": "",
     "format-date-with-year": "",
     "format-time": ""
@@ -254,13 +254,13 @@
     "all": "Todas as ruas",
     "twitter-link": "",
     "delete-street-tooltip": "Deletar esta rua",
-    "street-count-none": "",
-    "street-count": "",
-    "street-count_plural": ""
+    "street-count-none": "Ainda não tem ruas",
+    "street-count": "{count} rua",
+    "street-count_plural": "{count} ruas"
   },
   "users": {
     "anonymous": "Anônimo",
-    "byline": ""
+    "byline": "por {user}"
   },
   "sign-in": {
     "link": "Entrar com Twitter",
@@ -272,18 +272,18 @@
   },
   "i18n": {
     "lang": {
-      "ar": "",
+      "ar": "Árabe",
       "en": "",
       "en@pirate": "",
-      "fi": "",
-      "fr": "",
-      "de": "",
-      "es": "",
-      "es-mx": "",
-      "pl": "",
-      "pt-br": "",
-      "sv": "",
-      "zh-hant": ""
+      "fi": "Finlandês",
+      "fr": "Francês",
+      "de": "Alemão",
+      "es": "Espanhol",
+      "es-mx": "Espanhol (México)",
+      "pl": "Polonês",
+      "pt-br": "Português (Brasil)",
+      "sv": "Sueco",
+      "zh-hant": "Chinês (Tradicional)"
     }
   }
 }

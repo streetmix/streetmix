@@ -2,7 +2,7 @@
   "menu": {
     "item": {
       "help": "Aide",
-      "about": "A propos de Streetmix",
+      "about": "A propos de Streetmix…",
       "contact": "Contact",
       "community": "Communauté",
       "contribute": "Contribuer",
@@ -15,17 +15,17 @@
     },
     "help": {
       "keyboard-label": "Raccourcis claviers:",
-      "remove": "",
-      "move": "",
-      "change": ""
+      "remove": "Enlever un élément de voirie que vous pointez<br /> (maintenir la touche <kbd class='key'>Shift</kbd> enfoncée pour tout enlever)",
+      "move": "Passer d'un segment de rue à un autre<br />(maintenir <kbd class='key'>Shift</kbd> appuyé pour atteindre les extrémités)",
+      "change": "Changer la largeur d'un élément de voirie pointé<br />(maintenir <kbd class='key'>Shift</kbd>pour plus de précision)"
     },
     "share": {
       "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'> Connectez-vous à Twitter</a> pour une obtenir un lien vers les rues et gallerie de rues vous concernant ",
       "link": "Copier et coller ce lien pour le partager:",
       "twitter": "Partager en utilisant Twitter",
       "facebook": "Partager par Facebook",
-      "print": "Imprimer...",
-      "save": "Sauver en tant qu'image...",
+      "print": "Imprimer…",
+      "save": "Sauver en tant qu'image…",
       "save-byline": "Pour inclure dans un rapport, un blogue, etc."
     },
     "contact": {
@@ -54,9 +54,9 @@
     }
   },
   "msg": {
-    "loading": "Chargement...",
-    "remixing": "Remélanger...",
-    "having-trouble": "Il y a un problème",
+    "loading": "Chargement…",
+    "remixing": "Remélanger…",
+    "having-trouble": "Il y a un problème…",
     "no-street": "Aucune rue sélectionnée",
     "trouble-loading": "Nous avons rencontré des problèmes lors du chargement de Streetmix",
     "slow-connection-1": "Streetmix n'a pas été en mesure de se connecter à internet depuis un moment",
@@ -65,22 +65,22 @@
   },
   "error": {
     "button": {
-      "home": "",
-      "sign-in": "",
-      "reload": "",
+      "home": "Aller à la page d'accueil",
+      "sign-in": "Se connecter de nouveau",
+      "reload": "Recharger la page",
       "try-again": "Ré-essayer",
-      "view-example": ""
+      "view-example": "Voir un exemple de rue"
     },
-    "page-not-found-title": "",
-    "page-not-found-description": "",
-    "street-not-found-title": "",
+    "page-not-found-title": "Page non trouvée.",
+    "page-not-found-description": "Oh. Il n'y a pas de page à cette adresse!",
+    "street-not-found-title": "Rue non trouvée",
     "street-not-found-description": "",
     "street-not-found-but-user-description": "",
-    "street-deleted-title": "",
+    "street-deleted-title": "Cette rue a été supprimée.",
     "street-deleted-description": "",
-    "sign-out-title": "",
-    "reload-sign-out-title": "",
-    "gallery-street-failure-description": "",
+    "sign-out-title": "Vous êtes maintenant déconnecté.",
+    "reload-sign-out-title": "Vous vous êtes déconnecté dans une autre fenêtre.",
+    "gallery-street-failure-description": "Nous avons rencontré des problèmes lors du chargement de cette rue.",
     "reload-sign-in-title": "",
     "please-reload": "",
     "street-deleted-elsewhere-title": "",
@@ -98,7 +98,7 @@
     "cannot-create-new-street-on-phone-description": "",
     "generic-error-title": "",
     "generic-error-description": "",
-    "error-code": ""
+    "error-code": "(Code d'erreur {code}.)"
   },
   "btn": {
     "reload": "Recharger",
@@ -114,22 +114,22 @@
   },
   "dialogs": {
     "error": {
-      "heading": "",
+      "heading": "Oops!",
       "text": ""
     },
     "welcome": {
       "heading": "Bienvenue dans Streetmix",
       "new": {
         "intro": "Concevez, remixez et partagez la rue e votre quartier. Ajoutez des arbres ou des pistes cyclables, des trottoirs ou des routes. Découvrez comment votre décision peut impacter la communauté.",
-        "instruct": "",
-        "instruct-pointer-finger": "",
-        "instruct-pointer-mouse": ""
+        "instruct": "Commencez par déplacer des éléments de voirie avec {pointer}.",
+        "instruct-pointer-finger": "votre doigt",
+        "instruct-pointer-mouse": "votre sourie"
       },
       "existing": {
-        "intro": "",
-        "intro-without-creator": "",
-        "instruct": "",
-        "instruct-start-own-street": ""
+        "intro": "{streetName} créé par {creator}.",
+        "intro-without-creator": "{streetName}",
+        "instruct": "Remixez la rue en déplaçant des éléments de voirie, ou {startYourOwnStreet}.",
+        "instruct-start-own-street": "Créer votre propre rue"
       }
     },
     "new-street": {
@@ -142,7 +142,7 @@
       "heading": "Au sujet de Streetmix",
       "description": "Concevez, modifiez et partagez votre rue. Ajoutez chemins piétons, trottoirs et voirie automobile, apprenez comment cela peut impacter votre communauté.",
       "thanks": "Nous remercions beaucoup l'équipe et  les collègues du 2013 CfA pour leur support et leur patience, l'équipe Blockee pour avoir ouvert la voie à cette application et tous les testeurs pour leur temps et leur retours!",
-      "credits": "",
+      "credits": "Un projet parallèle par {cfaLink} 2013 collaborateurs:",
       "team-heading": "Équipe de projet et mainteneurs",
       "view-source": "Voir le code source",
       "sponsored-by": "Streetmix est généreusement sponsorisé par:",
@@ -154,9 +154,9 @@
       "option-labels": "Les noms des éléments de voirie et leurs largeurs",
       "option-name": "Nom de rue",
       "option-sky": "Ciel transparent",
-      "loading": "Chargement...",
+      "loading": "Chargement…",
       "save-button": "Enregistrer sur votre ordinateur…",
-      "license": "",
+      "license": "Cette image créée sur Streetmix peut être réutilisée n'importe où, pour n'importe quel usage, sous la <br><a href='{url}'>Licence Creative Commons Attribution - Partage dans les Mêmes Conditions 4.0 International</a>.",
       "error-preview": "",
       "error-unavailable": "",
       "preview-image-alt": ""
@@ -167,7 +167,7 @@
       "zoom-in": "Agrandir",
       "zoom-out": "Dézoomer",
       "add-location": "Ajouter un emplacement",
-      "confirm-location": "",
+      "confirm-location": "Confirmer l'emplacement",
       "clear-location": "",
       "unknown-location": ""
     },
@@ -181,8 +181,8 @@
   },
   "prompt": {
     "new-street": "Nouveau nom de rue:",
-    "delete-street": "",
-    "new-width": ""
+    "delete-street": "Êtes-vous sûr de vouloir supprimer {streetName} de manière permanente? Ceci ne pourra être annulé.",
+    "new-width": "Nouvelle largeur de rue (entre {minWidth} et {maxWidth}):"
   },
   "toast": {
     "segment-deleted": "Les éléments de voirie ont été enlevés.",
@@ -198,20 +198,20 @@
     "remove": "Glisser ici pour enlever"
   },
   "width": {
-    "label": "",
-    "under": "",
-    "over": "",
+    "label": "{width} de largeur",
+    "under": "({width} libre)",
+    "over": "({width} supérieur à l'espace disponible)",
     "occupied": "Largeur occupée",
     "building": "Largueur disponible:",
-    "different": "Largeur personnalisée ...",
+    "different": "Largeur personnalisée…",
     "metric": "Passer aux unités métriques",
     "imperial": "Passer aux unités impériales (pieds)"
   },
   "datetime": {
     "minutes-ago": "Il y a quelques minutes",
     "seconds-ago": "Il y a quelques secondes",
-    "yesterday": "",
-    "today": "",
+    "yesterday": "Hier à {time}",
+    "today": "Aujourd'hui à {time}",
     "format-date-no-year": "MMM D",
     "format-date-with-year": "MMM D, YYYY",
     "format-time": "HH:MM"
@@ -243,7 +243,7 @@
     },
     "learn-more": "Apprenez en davantage",
     "unknown": {
-      "label": ""
+      "label": "Inconnu"
     }
   },
   "section": {
@@ -255,12 +255,12 @@
     "twitter-link": "Profil Twitter",
     "delete-street-tooltip": "Supprimer la rue",
     "street-count-none": "Aucune rue pour le moment",
-    "street-count": "",
-    "street-count_plural": ""
+    "street-count": "{count} rue",
+    "street-count_plural": "{count} rues"
   },
   "users": {
     "anonymous": "Anonyme",
-    "byline": ""
+    "byline": "par {user}"
   },
   "sign-in": {
     "link": "Se connecter à Twitter",
@@ -272,7 +272,7 @@
   },
   "i18n": {
     "lang": {
-      "ar": "",
+      "ar": "Arabe",
       "en": "Anglais",
       "en@pirate": "Anglais (Pirate)",
       "fi": "Finlandais",

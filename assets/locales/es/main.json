@@ -2,7 +2,7 @@
   "menu": {
     "item": {
       "help": "Ayuda",
-      "about": "Sobre Streetminx",
+      "about": "Sobre Streetmix…",
       "contact": "Contacto",
       "community": "",
       "contribute": "",
@@ -14,24 +14,24 @@
       "share": "Compartir"
     },
     "help": {
-      "keyboard-label": "Teclas de acceso rápido",
-      "remove": "",
-      "move": "",
-      "change": ""
+      "keyboard-label": "Teclas de acceso rápido:",
+      "remove": "Remover un segmento al que esté apuntando<br />(mantén presionada la tecla <kbd class='key'>Shift</kbd> para remover todo)",
+      "move": "Moverse alrededor de la calle<br />(manten presionada la tecla  <kbd class='key'>Shift</kbd> para saltar a los bordes)",
+      "change": "Cambiar lo ancho de un segmento al que estés apuntando<br />(mantén presionada la tecla <kbd class='key'>Shift</kbd> para más precision)"
     },
     "share": {
       "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Ingresa a tu cuenta con Twitter</a>para mejores enlaces a tus calles y a tu galería de calles personal",
       "link": "Copiar y pegar este enlace para compartir:",
       "twitter": "Compartir utilizando Twitter",
       "facebook": "Compartir utilizando Facebook",
-      "print": "Imprimir",
-      "save": "Guardar como imagen",
+      "print": "Imprimir…",
+      "save": "Guardar como imagen…",
       "save-byline": "Para incluir en un reporte, blog, etc"
     },
     "contact": {
       "forums": "Discutir en los foros",
       "twitter": "Envía un tweet a @streetmix",
-      "email": "Envia un correo electronico al Equipo de Streetmix",
+      "email": "Envía un correo electrónico al equipo de Streetmix",
       "github": "",
       "blog": "Visita el blog de Streetmix",
       "slack": "Participa en Slack chat"
@@ -54,11 +54,11 @@
     }
   },
   "msg": {
-    "loading": "Cargando",
+    "loading": "Cargando…",
     "remixing": "",
-    "having-trouble": "Teniendo problemas...",
-    "no-street": "Ninguna calle seleccionada",
-    "trouble-loading": "Tenemos problemas cargando Streetmix",
+    "having-trouble": "Teniendo problemas…",
+    "no-street": "Ninguna calle seleccionada.",
+    "trouble-loading": "Tenemos problemas cargando Streetmix.",
     "slow-connection-1": "Streetmix ya ha estado tratando de conectarse a internet por un rato",
     "slow-connection-2": "Probablemente necesites recargar la pagina e intentar de nuevo. Toma en cuenta que puede perder los ultimos cambios que le hiciste a la calle. ¡Disculpas!",
     "no-connection": "Streetmix esta experimentando dificultades para conectarse a internet"
@@ -121,15 +121,15 @@
       "heading": "Bienvenido a Streetmix.",
       "new": {
         "intro": "Diseña, mezcla y comparte la calle de tu vecindad. Agregar arboles o vías para bicicletas, aceras más anchas o carriles de circulación, aprende cómo impactan a tu comunidad tus decisiones.",
-        "instruct": "",
-        "instruct-pointer-finger": "",
-        "instruct-pointer-mouse": ""
+        "instruct": "Comienza moviendo algunos segmentos con {pointer}.",
+        "instruct-pointer-finger": "tu dedo",
+        "instruct-pointer-mouse": "tu mouse"
       },
       "existing": {
-        "intro": "",
-        "intro-without-creator": "",
-        "instruct": "",
-        "instruct-start-own-street": ""
+        "intro": "Esto es {streetName} hecho por {creator}.",
+        "intro-without-creator": "Esto es {streetName}.",
+        "instruct": "Mezcla moviendo segmentos, o {startYourOwnStreet}.",
+        "instruct-start-own-street": "Empieza tu propia calle"
       }
     },
     "new-street": {
@@ -142,7 +142,7 @@
       "heading": "Sobre Streetmix",
       "description": "Diseña, mezcla y comparte tu calle. Agrega vias para bicicletas, ensancha aceras o carriles de circulacion, analiza como impactan todo esto a tu comunidad",
       "thanks": "Muchas gracias al equipo y amigos del CFA 2013 por su apoyo y paciencia, el equipo de Blckee por pavimentar el camino y todos nuestros evaluadores por su tiempo y retroalimentacion",
-      "credits": "",
+      "credits": "Un proyecto paralelo de amigos {cfaLink} 2013:",
       "team-heading": "",
       "view-source": "Ver codigo fuente",
       "sponsored-by": "",
@@ -154,9 +154,9 @@
       "option-labels": "Anchos y nombres de segmentos",
       "option-name": "Nombre de la calle",
       "option-sky": "Cielo Transparente",
-      "loading": "Cargando",
-      "save-button": "Grabar en tu computador",
-      "license": "",
+      "loading": "Cargando…",
+      "save-button": "Grabar en tu computador…",
+      "license": "Esta imagen creada con Streetmix puede ser reusada en cualquier sitio, para cualquier propósito, bajo la licencia <br><a href='{url}'>Creative Commons Attribution-ShareAlike 4.0 International License</a>.",
       "error-preview": "",
       "error-unavailable": "",
       "preview-image-alt": ""
@@ -203,7 +203,7 @@
     "over": "",
     "occupied": "Ancho ocupado:",
     "building": "Ancho entre edificaciones",
-    "different": "Ancho diferente",
+    "different": "Ancho diferente…",
     "metric": "Cambiar al sistema metrico",
     "imperial": "Cambiar al sistema ingles (pies)"
   },

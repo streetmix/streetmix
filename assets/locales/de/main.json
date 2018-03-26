@@ -54,7 +54,7 @@
     }
   },
   "msg": {
-    "loading": "Laden...",
+    "loading": "Laden…",
     "remixing": "",
     "having-trouble": "",
     "no-street": "",
@@ -121,15 +121,15 @@
       "heading": "Willkommen bei Streetmix.",
       "new": {
         "intro": "Gestalte, verändere und teile Deine Nachbarschaftsstraße. Ergänz' Bäume oder Fahrradwege, erweitere die Fußwege oder Fahrspuren, und erfahre, wie sich Deine Entscheidungen auf Deine Nachbarschaft auswirken können.",
-        "instruct": "",
-        "instruct-pointer-finger": "",
-        "instruct-pointer-mouse": ""
+        "instruct": "Bewege Teile der Straße mit {pointer}.",
+        "instruct-pointer-finger": "Deinem Finger",
+        "instruct-pointer-mouse": "Deiner Maus"
       },
       "existing": {
-        "intro": "",
-        "intro-without-creator": "",
-        "instruct": "",
-        "instruct-start-own-street": ""
+        "intro": "Das ist {streetName}, erstellt von {creator}.",
+        "intro-without-creator": "Das ist {streetName}.",
+        "instruct": "Verändere es, indem Du Teile der Straße bewegst, oder {startYourOwnStreet}.",
+        "instruct-start-own-street": "Beginne mit einer eigenen Straße"
       }
     },
     "new-street": {
@@ -154,9 +154,9 @@
       "option-labels": "",
       "option-name": "Straßenname",
       "option-sky": "Transparenter Himmel",
-      "loading": "Laden...",
+      "loading": "Laden…",
       "save-button": "Speichere es auf Deinem Computer…",
-      "license": "",
+      "license": "Dieses mit Streetmix erstellte Bild darf überall, für jeden Zweck unter der <br><a href='{url}'>Namensnennung - Weitergabe unter gleichen Bedingungen 4.0 International</a> verwendet werden.",
       "error-preview": "",
       "error-unavailable": "",
       "preview-image-alt": ""

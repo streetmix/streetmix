@@ -16,7 +16,7 @@ const languages = ['ar', 'fi', 'fr', 'de', 'es', 'es_MX', 'pl', 'pt_BR', 'sv', '
 const downloadSuccess = function (locale, resource, data) {
   const localeDir = path.join(__dirname, '/../assets/locales/', locale)
   const translationFile = localeDir + '/' + resource + '.json'
-  const translationText = JSON.stringify(JSON.parse(data), null, 2)// + '\n'
+  const translationText = JSON.stringify(JSON.parse(data), null, 2) + '\n' // Add trailing newline at end of file
 
   fs.stat(localeDir, function (err, stats) {
     if (err) {
