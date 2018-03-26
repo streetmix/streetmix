@@ -119,7 +119,28 @@
         "sideways|right": {
           "name": "Perpendicular parking"
         },
-        "angled": {
+        "angled-front-left|left": {
+          "name": "Angled parking"
+        },
+        "angled-front-left|right": {
+          "name": "Angled parking"
+        },
+        "angled-front-right|left": {
+          "name": "Angled parking"
+        },
+        "angled-front-right|right": {
+          "name": "Angled parking"
+        },
+        "angled-rear-left|left": {
+          "name": "Angled parking"
+        },
+        "angled-rear-left|right": {
+          "name": "Angled parking"
+        },
+        "angled-rear-right|left": {
+          "name": "Angled parking"
+        },
+        "angled-rear-right|right": {
           "name": "Angled parking"
         }
       }
@@ -265,7 +286,10 @@
     "parking-lane-direction|inbound": "Inbound",
     "parking-lane-direction|outbound": "Outbound",
     "parking-lane-direction|sideways": "Perpendicular",
-    "parking-lane-direction|angled": "Angled",
+    "parking-lane-direction|angled-front-left": "Angled",
+    "parking-lane-direction|angled-front-right": "Angled",
+    "parking-lane-direction|angled-rear-left": "Angled",
+    "parking-lane-direction|angled-rear-right": "Angled",
     "direction|inbound": "Inbound",
     "direction|outbound": "Outbound",
     "sidewalk-density|empty": "Empty",
