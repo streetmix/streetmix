@@ -118,6 +118,9 @@
         },
         "sideways|right": {
           "name": "Perpendicular parking"
+        },
+        "angled": {
+          "name": "Angled parking"
         }
       }
     },
@@ -262,6 +265,7 @@
     "parking-lane-direction|inbound": "Inbound",
     "parking-lane-direction|outbound": "Outbound",
     "parking-lane-direction|sideways": "Perpendicular",
+    "parking-lane-direction|angled": "Angled",
     "direction|inbound": "Inbound",
     "direction|outbound": "Outbound",
     "sidewalk-density|empty": "Empty",
