@@ -239,7 +239,7 @@ function incrementSchemaVersion (street) {
       }
       break
     case 17:
-      if (street.location && street.location.latlng) {
+      if (street.location && Array.isArray(street.location.latlng)) {
         street.location.latlng = {
           lat: street.location.latlng[0],
           lng: street.location.latlng[1]
