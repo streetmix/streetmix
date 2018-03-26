@@ -7,6 +7,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { FormattedMessage } from 'react-intl'
 import Scrollable from '../ui/Scrollable'
 import Avatar from '../users/Avatar'
 import GalleryStreetItem from './GalleryStreetItem'
@@ -14,15 +15,14 @@ import { switchGalleryStreet, repeatReceiveGalleryData } from './view'
 import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/routing'
 import { sendDeleteStreetToServer } from '../streets/xhr'
 import { showError, ERRORS } from '../app/errors'
-import { t } from '../app/locale'
 import { deleteGalleryStreet } from '../store/actions/gallery'
 
 function getStreetCountText (count) {
   let text
   if (!count) {
-    text = t('gallery.street-count-none', 'No streets yet')
+    text = <FormattedMessage id="gallery.street-count-none" defaultMessage="No streets yet" />
   } else {
-    text = t('gallery.street-count', '{count} streets', { count })
+    text = <FormattedMessage id="gallery.street-count" defaultMessage="{count} streets" values={{ count }} />
   }
   return text
 }
@@ -117,20 +117,25 @@ class Gallery extends React.Component {
       case 'SIGN_IN_PROMO':
         childElements = (
           <div className="gallery-sign-in-promo">
-            <a href="/twitter-sign-in?redirectUri=/just-signed-in">Sign in with Twitter for your personal street gallery</a>
+            <a href="/twitter-sign-in?redirectUri=/just-signed-in">
+              <FormattedMessage id="sign-in.link" defaultMessage="Sign in with Twitter" />&nbsp;
+              <FormattedMessage id="sign-in.promo-2" defaultMessage="for your personal street gallery" />
+            </a>
           </div>
         )
         break
       case 'LOADING':
         childElements = (
-          <div className="gallery-loading">{t('msg.loading', 'Loading…')}</div>
+          <div className="gallery-loading"><FormattedMessage id="msg.loading" defaultMessage="Loading…" /></div>
         )
         break
       case 'ERROR':
         childElements = (
           <div className="gallery-error">
-            <span>{t('gallery.fail', 'Failed to load the gallery.')}</span>
-            <button className="gallery-try-again" onClick={repeatReceiveGalleryData}>{t('btn.try-again', 'Try again')}</button>
+            <FormattedMessage id="gallery.fail" defaultMessage="Failed to load the gallery." />
+            <button className="gallery-try-again" onClick={repeatReceiveGalleryData}>
+              <FormattedMessage id="btn.try-again" defaultMessage="Try again" />
+            </button>
           </div>
         )
         break
@@ -150,14 +155,15 @@ class Gallery extends React.Component {
                   href={`https://twitter.com/${this.props.userId}`}
                   className="gallery-user-twitter"
                   target="_blank"
+                  rel="noopener"
                 >
-                  {t('gallery.twitter-link', 'Twitter profile')} »
+                  <FormattedMessage id="gallery.twitter-link" defaultMessage="Twitter profile" /> »
                 </a>
               </div>
             </div>
           )
         } else {
-          label = <div className="gallery-label">{t('gallery.all', 'All streets')}</div>
+          label = <div className="gallery-label"><FormattedMessage id="gallery.all" defaultMessage="All streets" /></div>
         }
 
         // Applies a class to the containing element if no user ID is provided
@@ -174,10 +180,10 @@ class Gallery extends React.Component {
           buttons = (
             <div className="gallery-user-buttons">
               <a className="button-like gallery-new-street" href={`/${URL_NEW_STREET}`} target="_blank">
-                {t('btn.create', 'Create new street')}
+                <FormattedMessage id="btn.create" defaultMessage="Create new street" />
               </a>
               <a className="button-like gallery-copy-last-street" href={`/${URL_NEW_STREET_COPY_LAST}`} target="_blank">
-                {t('btn.copy', 'Make a copy')}
+                <FormattedMessage id="btn.copy" defaultMessage="Make a copy" />
               </a>
             </div>
           )

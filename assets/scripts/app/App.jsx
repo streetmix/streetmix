@@ -33,9 +33,11 @@ class App extends React.PureComponent {
           key={`3_${this.props.locale.locale}`}
           messages={this.props.locale.messages}
         >
-          <BlockingError />
+          <React.Fragment>
+            <BlockingError />
+            <Gallery />
+          </React.Fragment>
         </IntlProvider>
-        <Gallery />
         <MessageBar />
         <div className="main-screen">
           <GalleryShield />
