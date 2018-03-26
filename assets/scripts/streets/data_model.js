@@ -29,21 +29,11 @@ import {
 } from './width'
 import { updateLastStreetInfo, scheduleSavingStreetToServer } from './xhr'
 import {
-  setBuildingVariant,
-  setBuildingFloorValue,
-  addLocation,
-  updateSchemaVersion,
-  clearSegments,
-  saveCreatorId,
-  updateEditCount,
   updateStreetWidth,
-  saveStreetName,
-  setUnits,
   updateSegments,
-  saveStreetId,
   setUpdateTime,
-  saveOriginalStreetId,
-  clearLocation
+  saveCreatorId,
+  updateStreetData
 } from '../store/actions/street'
 import { resetUndoStack } from '../store/actions/undo'
 import store from '../store'
@@ -249,7 +239,7 @@ function incrementSchemaVersion (street) {
       }
       break
     case 17:
-      if (street.location && street.location.latlng) {
+      if (street.location && Array.isArray(street.location.latlng)) {
         street.location.latlng = {
           lat: street.location.latlng[0],
           lng: street.location.latlng[1]
@@ -258,27 +248,6 @@ function incrementSchemaVersion (street) {
   }
 
   street.schemaVersion++
-}
-
-export function updateStreetData (street) {
-  store.dispatch(saveCreatorId(street.creatorId))
-  store.dispatch(updateEditCount(street.editCount))
-  store.dispatch(saveStreetId(street.id, street.namespacedId))
-  setBuilding('left', street.leftBuildingVariant, street.leftBuildingHeight)
-  setBuilding('right', street.rightBuildingVariant, street.rightBuildingHeight)
-  store.dispatch(addLocation(street.location))
-  store.dispatch(saveStreetName(street.name, street.userUpdated, true))
-  store.dispatch(saveOriginalStreetId(street.originalStreetId))
-  store.dispatch(updateSchemaVersion(street.schemaVersion))
-  store.dispatch(updateSegments(street.segments))
-  store.dispatch(setUnits(street.units))
-  store.dispatch(setUpdateTime(street.updatedAt))
-  store.dispatch(updateStreetWidth(street.width))
-}
-
-function setBuilding (position, variant, height) {
-  store.dispatch(setBuildingVariant(position, variant))
-  store.dispatch(setBuildingFloorValue(position, height))
 }
 
 export function updateToLatestSchemaVersion (street) {
@@ -473,14 +442,21 @@ export function getStreetUrl (street) {
 }
 
 export function prepareDefaultStreet () {
-  store.dispatch(setUnits(getUnits()))
+  const defaultStreet = {
+    units: getUnits(),
+    location: null,
+    name: DEFAULT_NAME,
+    userUpdated: false,
+    editCount: 0,
+    leftBuildingHeight: DEFAULT_BUILDING_HEIGHT_LEFT,
+    leftBuildingVariant: DEFAULT_BUILDING_VARIANT_LEFT,
+    rightBuildingHeight: DEFAULT_BUILDING_HEIGHT_RIGHT,
+    rightBuildingVariant: DEFAULT_BUILDING_VARIANT_RIGHT
+  }
+
+  store.dispatch(updateStreetData(defaultStreet))
   propagateUnits()
-  store.dispatch(clearLocation())
-  store.dispatch(saveStreetName(DEFAULT_NAME, false, true))
   store.dispatch(updateStreetWidth(normalizeStreetWidth(DEFAULT_STREET_WIDTH)))
-  setBuilding('left', DEFAULT_BUILDING_VARIANT_LEFT, DEFAULT_BUILDING_HEIGHT_LEFT)
-  setBuilding('right', DEFAULT_BUILDING_VARIANT_RIGHT, DEFAULT_BUILDING_HEIGHT_RIGHT)
-  store.dispatch(updateEditCount(0))
 
   // console.log('editCount = 0 on default street')
   if (isSignedIn()) {
@@ -491,15 +467,22 @@ export function prepareDefaultStreet () {
 }
 
 export function prepareEmptyStreet () {
-  store.dispatch(setUnits(getUnits()))
+  const emptyStreet = {
+    units: getUnits(),
+    location: null,
+    name: DEFAULT_NAME,
+    userUpdated: false,
+    editCount: 0,
+    leftBuildingHeight: DEFAULT_BUILDING_HEIGHT_EMPTY,
+    leftBuildingVariant: DEFAULT_BUILDING_VARIANT_EMPTY,
+    rightBuildingHeight: DEFAULT_BUILDING_HEIGHT_EMPTY,
+    rightBuildingVariant: DEFAULT_BUILDING_VARIANT_EMPTY,
+    segments: []
+  }
+
+  store.dispatch(updateStreetData(emptyStreet))
   propagateUnits()
-  store.dispatch(clearLocation())
-  store.dispatch(saveStreetName(DEFAULT_NAME, false, true))
   store.dispatch(updateStreetWidth(normalizeStreetWidth(DEFAULT_STREET_WIDTH)))
-  setBuilding('left', DEFAULT_BUILDING_VARIANT_EMPTY, DEFAULT_BUILDING_HEIGHT_EMPTY)
-  setBuilding('right', DEFAULT_BUILDING_VARIANT_EMPTY, DEFAULT_BUILDING_HEIGHT_EMPTY)
-  store.dispatch(updateEditCount(0))
-  store.dispatch(clearSegments())
 
   // console.log('editCount = 0 on empty street!')
   if (isSignedIn()) {
