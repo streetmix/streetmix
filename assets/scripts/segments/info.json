@@ -2,7 +2,7 @@
   "sidewalk": {
     "name": "Sidewalk",
     "owner": "PEDESTRIAN",
-    "zIndex": 2,
+    "zIndex": 30,
     "defaultWidth": 6,
     "needRandSeed": true,
     "variants": [
@@ -38,7 +38,7 @@
   "sidewalk-tree": {
     "name": "Sidewalk with a tree",
     "owner": "NATURE",
-    "zIndex": 1,
+    "zIndex": 22,
     "defaultWidth": 4,
     "variants": [
       "tree-type"
@@ -61,7 +61,7 @@
   "sidewalk-bike-rack": {
     "name": "Bike rack",
     "owner": "BIKE",
-    "zIndex": 2,
+    "zIndex": 23,
     "defaultWidth": 5,
     "variants": [
       "orientation",
@@ -116,7 +116,7 @@
   "sidewalk-bench": {
     "name": "Bench",
     "owner": "PEDESTRIAN",
-    "zIndex": 2,
+    "zIndex": 24,
     "defaultWidth": 4,
     "variants": [
       "bench-orientation"
@@ -145,7 +145,7 @@
   "sidewalk-wayfinding": {
     "name": "Wayfinding sign",
     "owner": "PEDESTRIAN",
-    "zIndex": 2,
+    "zIndex": 21,
     "defaultWidth": 4,
     "variants": [
       "wayfinding-type"
@@ -185,7 +185,7 @@
   "sidewalk-lamp": {
     "name": "Sidewalk with a lamp",
     "owner": "PEDESTRIAN",
-    "zIndex": 2,
+    "zIndex": 19,
     "defaultWidth": 4,
     "variants": [
       "lamp-orientation",
@@ -264,7 +264,7 @@
   "parklet": {
     "name": "Parklet",
     "owner": "NATURE",
-    "zIndex": 2,
+    "zIndex": 15,
     "defaultWidth": 8,
     "variants": [
       "orientation"
@@ -299,7 +299,7 @@
   "divider": {
     "name": "Buffer",
     "owner": "NATURE",
-    "zIndex": 1,
+    "zIndex": 20,
     "defaultWidth": 2,
     "variants": [
       "divider-type"
@@ -413,7 +413,7 @@
   "bike-lane": {
     "name": "Bike lane",
     "owner": "BIKE",
-    "zIndex": 2,
+    "zIndex": 16,
     "defaultWidth": 6,
     "variants": [
       "direction",
@@ -499,7 +499,7 @@
   "parking-lane": {
     "name": "Parking lane",
     "owner": "CAR",
-    "zIndex": 2,
+    "zIndex": 13,
     "defaultWidth": 7,
     "variants": [
       "parking-lane-direction",
@@ -643,7 +643,7 @@
   "drive-lane": {
     "name": "Drive lane",
     "owner": "CAR",
-    "zIndex": 2,
+    "zIndex": 14,
     "defaultWidth": 10,
     "variants": [
       "direction",
@@ -749,7 +749,7 @@
   "turn-lane": {
     "name": "Turn lane",
     "owner": "CAR",
-    "zIndex": 2,
+    "zIndex": 13,
     "defaultWidth": 10,
     "variants": [
       "direction",
@@ -918,7 +918,7 @@
   "bus-lane": {
     "name": "Bus lane",
     "owner": "TRANSIT",
-    "zIndex": 2,
+    "zIndex": 15,
     "defaultWidth": 12,
     "variants": [
       "direction",
@@ -1012,7 +1012,7 @@
   "streetcar": {
     "name": "Streetcar",
     "owner": "TRANSIT",
-    "zIndex": 2,
+    "zIndex": 15,
     "defaultWidth": 12,
     "variants": [
       "direction",
@@ -1072,7 +1072,7 @@
   "light-rail": {
     "name": "Light rail",
     "owner": "TRANSIT",
-    "zIndex": 2,
+    "zIndex": 15,
     "defaultWidth": 12,
     "variants": [
       "direction",
@@ -1144,7 +1144,7 @@
   "transit-shelter": {
     "name": "Transit shelter",
     "owner": "TRANSIT",
-    "zIndex": 2,
+    "zIndex": 20,
     "defaultWidth": 9,
     "variants": [
       "orientation",
@@ -1207,7 +1207,7 @@
   "train": {
     "name": "“Inception” train",
     "owner": "TRANSIT",
-    "zIndex": 1,
+    "zIndex": 10,
     "defaultWidth": 14,
     "variants": [
       ""
