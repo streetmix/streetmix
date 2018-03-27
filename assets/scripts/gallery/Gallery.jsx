@@ -179,10 +179,10 @@ class Gallery extends React.Component {
         if (this.state.isOwnedByCurrentUser) {
           buttons = (
             <div className="gallery-user-buttons">
-              <a className="button-like gallery-new-street" href={`/${URL_NEW_STREET}`} target="_blank">
+              <a className="button-like gallery-new-street" href={`/${URL_NEW_STREET}`} target="_blank" rel="noopener">
                 <FormattedMessage id="btn.create" defaultMessage="Create new street" />
               </a>
-              <a className="button-like gallery-copy-last-street" href={`/${URL_NEW_STREET_COPY_LAST}`} target="_blank">
+              <a className="button-like gallery-copy-last-street" href={`/${URL_NEW_STREET_COPY_LAST}`} target="_blank" rel="noopener">
                 <FormattedMessage id="btn.copy" defaultMessage="Make a copy" />
               </a>
             </div>
