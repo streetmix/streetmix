@@ -89,12 +89,12 @@
     "twitter-access-denied-description": "Cancelaste el proceso de ingresar a Twitter.",
     "auth-api-problem-title": "Hubo un problema con ingresar.",
     "auth-api-problem-description": "Hubo un problema con la autenticación de Twitter.",
-    "please-try-again": "Por favor, intenta de nuevo más tarde o cuéntanos via <a target='_blank' href='{email}'>correo electrónico</a> o <a target='_blank' href='{tweet}'>Twitter</a>.",
+    "please-try-again": "Por favor, intenta de nuevo más tarde o cuéntanos via <a target='_blank' rel='noopener' href='{email}'>correo electrónico</a> o <a target='_blank' rel='noopener' href='{tweet}'>Twitter</a>.",
     "unsupported-browser-title": "Streetmix no funciona en su navegador.",
-    "unsupported-browser-description": "Desculpe. Tal vez debes probar <a target='_blank' href='{chromeUrl}'>Chrome</a>, <a target='_blank' href='{mozillaUrl}'>Firefox</a>, <a target='_blank' href='{edgeUrl}'>Microsoft Edge</a>, o Safari.",
-    "unsupported-browser-internet-explorer": "¿Estás usando Internet Explorer? <a target='_blank' href='{readmeIEUrl}'>Descubre más.</a>",
-    "unsupported-browser-contact-us": "Si crees que tu navegador debe ser compatible, por favor contáctanos via <a target='_blank' href='{email}'>correo electrónico</a>.",
-    "cannot-create-new-street-on-phone-title": "Streetmix solamente funciona en tabletas y computadoras de escritorio.",
+    "unsupported-browser-description": "Desculpe. Tal vez debes probar <a target='_blank' rel='noopener' href='{chromeUrl}'>Chrome</a>, <a target='_blank' rel='noopener' href='{mozillaUrl}'>Firefox</a>, <a target='_blank' rel='noopener' href='{edgeUrl}'>Microsoft Edge</a>, o Safari.",
+    "unsupported-browser-internet-explorer": "¿Estás usando Internet Explorer? <a target='_blank' rel='noopener' href='{readmeIEUrl}'>Descubre más.</a>",
+    "unsupported-browser-contact-us": "Si crees que tu navegador debe ser compatible, por favor contáctanos via <a target='_blank' rel='noopener' href='{email}'>correo electrónico</a>.",
+    "cannot-create-new-street-on-phone-title": "Streetmix solamente funciona en tabletas y computadoras de escritorio.", 
     "cannot-create-new-street-on-phone-description": "Si sigues un enlace a una calle específica, se la podrá ver en un celular – pero todavía no se puede crear calles nuevas.",
     "generic-error-title": "Algo salió mal.",
     "generic-error-description": "Desculpe – algo salió mal.",
@@ -115,7 +115,7 @@
   "dialogs": {
     "error": {
       "heading": "¡Uy!",
-      "text": "Algo inesperado sucedió 😢. Hemos notado el error, pero si puedes recordar lo que sucedió antes de este error, <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\">cuéntanos</a>. Es posible que éste sea un problema temporal, así que por favor intenta una vez más."
+      "text": "Algo inesperado sucedió 😢. Hemos notado el error, pero si puedes recordar lo que sucedió antes de este error, <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\" rel=\"noopener\">cuéntanos</a>. Es posible que éste sea un problema temporal, así que por favor intenta una vez más."
     },
     "welcome": {
       "heading": "Bienvenido a Streetmix.",

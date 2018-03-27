@@ -89,11 +89,11 @@
     "twitter-access-denied-description": "Keskeytit Twitter-tunnistautumisen.",
     "auth-api-problem-title": "Sisäänkirjautuminen epäonnistui.",
     "auth-api-problem-description": "Twitter-tunnistautuminen epäonnistui.",
-    "please-try-again": "Yritä myöhemmin uudelleen ja tarvittaessa tee vikailmoitus <a target='_blank' href='{email}'>sähköpostitse</a> tai <a target='_blank' href='{tweet}'>Twitterissä</a>.",
+    "please-try-again": "Yritä myöhemmin uudelleen ja tarvittaessa tee vikailmoitus <a target='_blank' rel='noopener' href='{email}'>sähköpostitse</a> tai <a target='_blank' rel='noopener' href='{tweet}'>Twitterissä</a>.",
     "unsupported-browser-title": "Streetmix ei toimi tässä selaimessa.",
-    "unsupported-browser-description": "Pahoittelut! Suosittelemme kokeilemaan <a target='_blank' href='{chromeUrl}'>Chromea</a>, <a target='_blank' href='{mozillaUrl}'>Firefoxia</a>, <a target='_blank' href='{edgeUrl}'>Microsoft Edgeä</a> tai Safaria.",
-    "unsupported-browser-internet-explorer": "Käytätkö Internet Exploreria? <a target='_blank' href='{readmeIEUrl}'>Lue lisätietoja.</a>",
-    "unsupported-browser-contact-us": "Jos tämä ilmoitus on virheellinen, tee vikailmoitus <a target='_blank' href='{email}'>sähköpostitse</a>.",
+    "unsupported-browser-description": "Pahoittelut! Suosittelemme kokeilemaan <a target='_blank' rel='noopener' href='{chromeUrl}'>Chromea</a>, <a target='_blank' rel='noopener' href='{mozillaUrl}'>Firefoxia</a>, <a target='_blank' rel='noopener' href='{edgeUrl}'>Microsoft Edgeä</a> tai Safaria.",
+    "unsupported-browser-internet-explorer": "Käytätkö Internet Exploreria? <a target='_blank' rel='noopener' href='{readmeIEUrl}'>Lue lisätietoja.</a>",
+    "unsupported-browser-contact-us": "Jos tämä ilmoitus on virheellinen, tee vikailmoitus <a target='_blank' rel='noopener' href='{email}'>sähköpostitse</a>.",
     "cannot-create-new-street-on-phone-title": "Streetmix toimii vain tabletilla ja tietokoneella.",
     "cannot-create-new-street-on-phone-description": "Voit tarkastella linkistä avaamasi katua, mutta et voi muokata tai luoda uusia katuja.",
     "generic-error-title": "Jokin meni vikaan.",
@@ -115,7 +115,7 @@
   "dialogs": {
     "error": {
       "heading": "Oho!",
-      "text": "Jotakin odottamatonta tapahtui 😢. Virheilmoitus on tallennettu automaattisesti, mutta <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\">voit myös kertoa siitä meille</a>. Kokeile hetken kuluttua uudelleen."
+      "text": "Jotakin odottamatonta tapahtui 😢. Virheilmoitus on tallennettu automaattisesti, mutta <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\" rel=\"noopener\">voit myös kertoa siitä meille</a>. Kokeile hetken kuluttua uudelleen."
     },
     "welcome": {
       "heading": "Tervetuloa, tämä on Streetmix.",
