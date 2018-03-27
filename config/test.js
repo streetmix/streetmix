@@ -9,7 +9,7 @@ module.exports = {
     baseuri: '/api'
   },
   db: {
-    url: 'mongodb://localhost/streetmix_test'
+    url: 'mongodb://127.0.0.1:27017/streetmix_test'
   },
   email: {
     feedback_recipient: 'nobody@example.com'
