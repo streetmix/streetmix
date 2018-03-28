@@ -122,6 +122,7 @@ export class ShareMenu extends React.Component {
           className="share-via-twitter"
           href={twitterLink}
           target="_blank"
+          rel="noopener noreferrer"
           onClick={this.onClickShareViaTwitter}
         >
           <svg className="icon">
@@ -133,6 +134,7 @@ export class ShareMenu extends React.Component {
           className="share-via-facebook"
           href={facebookLink}
           target="_blank"
+          rel="noopener noreferrer"
           onClick={this.onClickShareViaFacebook}
         >
           <svg className="icon">
