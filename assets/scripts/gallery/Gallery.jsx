@@ -155,7 +155,7 @@ class Gallery extends React.Component {
                   href={`https://twitter.com/${this.props.userId}`}
                   className="gallery-user-twitter"
                   target="_blank"
-                  rel="noopener"
+                  rel="noopener noreferrer"
                 >
                   <FormattedMessage id="gallery.twitter-link" defaultMessage="Twitter profile" /> »
                 </a>
