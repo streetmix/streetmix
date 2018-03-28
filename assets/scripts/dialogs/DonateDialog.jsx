@@ -57,6 +57,7 @@ export default class DonateDialog extends React.PureComponent {
             className="button-like donate-dialog-button"
             href="https://opencollective.com/streetmix"
             target="_blank"
+            rel="noopener noreferrer"
             onClick={this.onClickDonateButton}
           >
             Donate to Streetmix
