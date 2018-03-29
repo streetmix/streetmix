@@ -89,11 +89,11 @@
     "twitter-access-denied-description": "You cancelled the Twitter sign in process.",
     "auth-api-problem-title": "There was a problem with signing you in.",
     "auth-api-problem-description": "There was a problem with Twitter authentication.",
-    "please-try-again": "Please try again later or let us know via <a target='_blank' href='{email}'>email</a> or <a target='_blank' href='{tweet}'>Twitter</a>.",
+    "please-try-again": "Please try again later or let us know via <a target='_blank' rel='noopener noreferrer' href='{email}'>email</a> or <a target='_blank' rel='noopener noreferrer' href='{tweet}'>Twitter</a>.",
     "unsupported-browser-title": "Streetmix doesn’t work on your browser.",
-    "unsupported-browser-description": "Sorry about that. You might want to try <a target='_blank' href='{chromeUrl}'>Chrome</a>, <a target='_blank' href='{mozillaUrl}'>Firefox</a>, <a target='_blank' href='{edgeUrl}'>Microsoft Edge</a>, or Safari.",
-    "unsupported-browser-internet-explorer": "Are you on Internet Explorer? <a target='_blank' href='{readmeIEUrl}'>Find out more.</a>",
-    "unsupported-browser-contact-us": "If you think your browser should be supported, please contact us via <a target='_blank' href='{email}'>email</a>.",
+    "unsupported-browser-description": "Sorry about that. You might want to try <a target='_blank' rel='noopener noreferrer' href='{chromeUrl}'>Chrome</a>, <a target='_blank' rel='noopener noreferrer' href='{mozillaUrl}'>Firefox</a>, <a target='_blank' rel='noopener noreferrer' href='{edgeUrl}'>Microsoft Edge</a>, or Safari.",
+    "unsupported-browser-internet-explorer": "Are you on Internet Explorer? <a target='_blank' rel='noopener noreferrer' href='{readmeIEUrl}'>Find out more.</a>",
+    "unsupported-browser-contact-us": "If you think your browser should be supported, please contact us via <a target='_blank' rel='noopener noreferrer' href='{email}'>email</a>.",
     "cannot-create-new-street-on-phone-title": "Streetmix works on tablets and desktops only.",
     "cannot-create-new-street-on-phone-description": "If you follow another link to a specific street, you can view it on your phone – but you cannot yet create new streets.",
     "generic-error-title": "Something went wrong.",
@@ -115,7 +115,7 @@
   "dialogs": {
     "error": {
       "heading": "Oops!",
-      "text": "Something unexpected happened 😢. We’ve logged the error, but if you can remember what happened on the way here, <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\">please tell us about it</a>. This could also be a temporary problem, so please try one more time."
+      "text": "Something unexpected happened 😢. We’ve logged the error, but if you can remember what happened on the way here, <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\" rel=\"noopener noreferrer\">please tell us about it</a>. This could also be a temporary problem, so please try one more time."
     },
     "welcome": {
       "heading": "Welcome to Streetmix.",
