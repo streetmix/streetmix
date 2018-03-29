@@ -297,7 +297,7 @@ function shadeInContext (ctx) {
   ctx.restore()
 }
 
-function createBuilding (el, variant, position, floors, street) {
+export function createBuilding (el, variant, position, floors, street) {
   const totalWidth = el.offsetWidth
   const buildingHeight = getBuildingImageHeight(variant, position, floors)
 
