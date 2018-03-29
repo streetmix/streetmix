@@ -10,6 +10,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import SkyBackground from './SkyBackground'
 import ScrollIndicators from './ScrollIndicators'
+import Building from '../segments/Building'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { animate } from '../util/helpers'
 import { MAX_CUSTOM_STREET_WIDTH } from '../streets/width'
@@ -152,12 +153,8 @@ class StreetView extends React.Component {
         >
           <section id="street-section-inner" ref={(ref) => { this.streetSectionInner = ref }}>
             <section id="street-section-canvas">
-              <section id="street-section-left-building" className="street-section-building">
-                <div className="hover-bk" />
-              </section>
-              <section id="street-section-right-building" className="street-section-building">
-                <div className="hover-bk" />
-              </section>
+              <Building position="left" />
+              <Building position="right" />
               <div id="street-section-editable" />
               <div id="street-section-left-empty-space" className="segment empty" />
               <div id="street-section-right-empty-space" className="segment empty" />

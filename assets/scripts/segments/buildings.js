@@ -1,13 +1,8 @@
-import {
-  INFO_BUBBLE_TYPE_RIGHT_BUILDING,
-  INFO_BUBBLE_TYPE_LEFT_BUILDING,
-  infoBubble
-} from '../info_bubble/info_bubble'
 import { saveStreetToServerIfNecessary } from '../streets/data_model'
 import { getElAbsolutePos } from '../util/helpers'
 import { RandomGenerator } from '../util/random'
 import { images } from '../app/load_resources'
-import { resumeFadeoutControls } from './resizing'
+
 import { TILE_SIZE, TILESET_POINT_PER_PIXEL, drawSegmentImage } from './view'
 import store from '../store'
 
@@ -343,24 +338,6 @@ export function createBuildings () {
 
   createBuilding(leftEl, street.leftBuildingVariant, 'left', street.leftBuildingHeight, street)
   createBuilding(rightEl, street.rightBuildingVariant, 'right', street.rightBuildingHeight, street)
-}
-
-export function onBuildingMouseEnter (event) {
-  let type
-  if (this.id === 'street-section-left-building') {
-    type = INFO_BUBBLE_TYPE_LEFT_BUILDING
-  } else {
-    type = INFO_BUBBLE_TYPE_RIGHT_BUILDING
-  }
-
-  infoBubble.considerShowing(event, this, type)
-  resumeFadeoutControls()
-}
-
-export function onBuildingMouseLeave (event) {
-  if (event.pointerType !== 'mouse') return
-
-  infoBubble.dontConsiderShowing()
 }
 
 export function updateBuildingPosition () {
