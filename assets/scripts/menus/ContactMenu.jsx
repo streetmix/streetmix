@@ -12,13 +12,13 @@ export default class ContactMenu extends React.PureComponent {
           </svg>
           <FormattedMessage id="menu.contact.forums" defaultMessage="Discuss on the forums" />
         </a>
-        <a href="https://twitter.com/intent/tweet?text=@streetmix" target="_blank">
+        <a href="https://twitter.com/intent/tweet?text=@streetmix" target="_blank" rel="noopener noreferrer">
           <svg className="icon">
             <use xlinkHref="#icon-twitter" />
           </svg>
           <FormattedMessage id="menu.contact.twitter" defaultMessage="Send a tweet to @streetmix" />
         </a>
-        <a href="http://streetmix-slack.herokuapp.com/" target="_blank">
+        <a href="http://streetmix-slack.herokuapp.com/" target="_blank" rel="noopener noreferrer">
           <svg className="icon">
             <use xlinkHref="#icon-slack" />
           </svg>
