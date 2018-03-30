@@ -10,7 +10,7 @@ import {
 import { resumeFadeoutControls } from './resizing'
 import { KEYS } from '../app/keyboard_commands'
 import { addBuildingFloor, removeBuildingFloor } from '../store/actions/street'
-import store from '../store'
+
 class Building extends React.Component {
   static propTypes = {
     position: PropTypes.string.isRequired,
@@ -23,29 +23,21 @@ class Building extends React.Component {
     super(props)
 
     this.state = {
-      isHovering: false
+      variant: (props.position === 'left') ? 'leftBuildingVariant' : 'rightBuildingVariant',
+      height: (props.position === 'left') ? 'leftBuildingHeight' : 'rightBuildingHeight'
     }
   }
 
-  componentDidMount () {
-    window.addEventListener('keydown', this.handleKeyDown)
-  }
-
-  shouldComponentUpdate (nextState) {
-    return (this.state.isHovering !== nextState.isHovering)
-  }
-
   componentDidUpdate (prevProps) {
-    const { position, street } = this.props
-    const height = (position === 'left') ? 'leftBuildingHeight' : 'rightBuildingHeight'
-    const variant = (position === 'left') ? 'leftBuildingVariant' : 'rightBuildingVariant'
-
+    const { street, position } = this.props
+    const { variant, height } = this.state
     if (prevProps[height] !== street[height]) {
       createBuilding(this.streetSectionBuilding, street[variant], position, street[height], street)
     }
   }
 
   onBuildingMouseEnter = (event) => {
+    window.addEventListener('keydown', this.handleKeyDown)
     let type
     if (this.props.position === 'left') {
       type = INFO_BUBBLE_TYPE_LEFT_BUILDING
@@ -55,26 +47,15 @@ class Building extends React.Component {
 
     infoBubble.considerShowing(event, this.streetSectionBuilding, type)
     resumeFadeoutControls()
-
-    console.log(store.getState())
-
-    this.setState({
-      isHovering: true
-    })
   }
 
   onBuildingMouseLeave = (event) => {
+    window.removeEventListener('keydown', this.handleKeyDown)
     if (event.pointerType !== 'mouse') return
     infoBubble.dontConsiderShowing()
-
-    this.setState({
-      isHovering: false
-    })
   }
 
   handleKeyDown = (event) => {
-    if (!this.state.isHovering) return
-
     const negative = (event.keyCode === KEYS.MINUS) ||
       (event.keyCode === KEYS.MINUS_ALT) ||
       (event.keyCode === KEYS.MINUS_KEYPAD)
