@@ -1,20 +1,20 @@
 import { app } from '../preinit/app_settings'
 import { system } from '../preinit/system_capabilities'
 import { hideDescription } from './description'
-import {
-  createBuildings,
-  onBuildingMouseEnter,
-  updateBuildingPosition
-} from '../segments/buildings'
+// import {
+//   createBuildings,
+//   onBuildingMouseEnter,
+//   updateBuildingPosition
+// } from '../segments/buildings'
 import { DRAGGING_TYPE_NONE, draggingType } from '../segments/drag_and_drop'
 import { cancelFadeoutControls } from '../segments/resizing'
 import { getElAbsolutePos } from '../util/helpers'
 import { registerKeypress } from '../app/keypress'
-import {
-  switchSegmentElIn,
-  switchSegmentElAway
-} from '../segments/view'
-import { saveStreetToServerIfNecessary } from '../streets/data_model'
+// import {
+//   switchSegmentElIn,
+//   switchSegmentElAway
+// } from '../segments/view'
+// import { saveStreetToServerIfNecessary } from '../streets/data_model'
 import store from '../store'
 import {
   showInfoBubble,
@@ -275,28 +275,28 @@ export const infoBubble = {
     infoBubble.considerType = null
   },
 
-  onBuildingVariantButtonClick: function (side) {
-    var el = document.querySelector('#street-section-' + side + '-building')
-    el.id = 'street-section-' + side + '-building-old'
+  // onBuildingVariantButtonClick: function (side) {
+  //   var el = document.querySelector('#street-section-' + side + '-building')
+  //   el.id = 'street-section-' + side + '-building-old'
 
-    var newEl = document.createElement('div')
-    newEl.className = 'street-section-building'
-    newEl.id = 'street-section-' + side + '-building'
+  //   var newEl = document.createElement('div')
+  //   newEl.className = 'street-section-building'
+  //   newEl.id = 'street-section-' + side + '-building'
 
-    el.parentNode.appendChild(newEl)
-    updateBuildingPosition()
-    switchSegmentElIn(newEl)
-    switchSegmentElAway(el)
+  //   el.parentNode.appendChild(newEl)
+  //   updateBuildingPosition()
+  //   switchSegmentElIn(newEl)
+  //   switchSegmentElAway(el)
 
-    // TODO repeat
-    newEl.addEventListener('pointerenter', onBuildingMouseEnter)
-    newEl.addEventListener('pointerleave', onBuildingMouseEnter)
+  //   // TODO repeat
+  //   newEl.addEventListener('pointerenter', onBuildingMouseEnter)
+  //   newEl.addEventListener('pointerleave', onBuildingMouseEnter)
 
-    saveStreetToServerIfNecessary()
-    createBuildings()
+  //   saveStreetToServerIfNecessary()
+  //   createBuildings()
 
-    infoBubble.updateContents()
-  },
+  //   infoBubble.updateContents()
+  // },
 
   updateContents: function () {
     const street = store.getState().street

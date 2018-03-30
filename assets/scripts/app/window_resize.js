@@ -3,8 +3,8 @@ import { app } from '../preinit/app_settings'
 import { system } from '../preinit/system_capabilities'
 import {
   BUILDING_SPACE,
-  updateBuildingPosition,
-  createBuildings
+  updateBuildingPosition
+  // createBuildings
 } from '../segments/buildings'
 import { TILE_SIZE } from '../segments/view'
 import store from '../store'
@@ -73,5 +73,5 @@ export function onResize () {
 
   updateBuildingPosition()
   // TODO hack
-  createBuildings()
+  // createBuildings()
 }

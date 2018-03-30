@@ -31,7 +31,7 @@ class Building extends React.Component {
   componentDidUpdate (prevProps) {
     const { street, position } = this.props
     const { variant, height } = this.state
-    if (prevProps[height] !== street[height]) {
+    if (prevProps.street[height] !== street[height] || prevProps.street[variant] !== street[variant]) {
       createBuilding(this.streetSectionBuilding, street[variant], position, street[height], street)
     }
   }
@@ -75,6 +75,7 @@ class Building extends React.Component {
 
   render () {
     const buildingId = 'street-section-' + this.props.position + '-building'
+
     return (
       <section
         id={buildingId}
@@ -101,4 +102,5 @@ function mapDispatchToProps (dispatch) {
     addBuildingFloor: (...args) => { dispatch(addBuildingFloor(...args)) }
   }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(Building)
