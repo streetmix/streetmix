@@ -12,7 +12,7 @@ import SkyBackground from './SkyBackground'
 import ScrollIndicators from './ScrollIndicators'
 import Building from '../segments/Building'
 import { infoBubble } from '../info_bubble/info_bubble'
-import { animate } from '../util/helpers'
+import { animate, getElAbsolutePos } from '../util/helpers'
 import { MAX_CUSTOM_STREET_WIDTH } from '../streets/width'
 import { app } from '../preinit/app_settings'
 
@@ -33,8 +33,14 @@ class StreetView extends React.Component {
 
       streetSectionSkyTop: 0,
       scrollTop: 0,
-      skyTop: 0
+      skyTop: 0,
+
+      buildingWidth: 0
     }
+  }
+
+  componentDidMount () {
+    this.getBuildingWidth()
   }
 
   componentDidUpdate (prevProps) {
@@ -143,6 +149,35 @@ class StreetView extends React.Component {
     animate(el, { scrollLeft: newScrollLeft }, 300)
   }
 
+  getBuildingWidth = () => {
+    const el = this.streetSectionEditable
+    const pos = getElAbsolutePos(el)
+
+    let width = pos[0] + 25
+    if (width < 0) {
+      width = 0
+    }
+
+    this.setState({
+      buildingWidth: width
+    })
+  }
+
+  calculateBuildingPerspective = (el) => {
+    const pos = getElAbsolutePos(el)
+    const perspective = -(pos[0] - this.streetSectionOuter.scrollLeft - (this.props.system.viewportWidth / 2))
+    return perspective
+  }
+
+  calculateOldBuildingStyle = (el) => {
+    const pos = getElAbsolutePos(el)
+    const style = {
+      left: (pos[0] - this.streetSectionOuter.scrollLeft) + 'px',
+      top: pos[1] + 'px'
+    }
+    return style
+  }
+
   render () {
     return (
       <React.Fragment>
@@ -153,9 +188,19 @@ class StreetView extends React.Component {
         >
           <section id="street-section-inner" ref={(ref) => { this.streetSectionInner = ref }}>
             <section id="street-section-canvas">
-              <Building position="left" />
-              <Building position="right" />
-              <div id="street-section-editable" />
+              <Building
+                position="left"
+                buildingWidth={this.state.buildingWidth}
+                calculateBuildingPerspective={this.calculateBuildingPerspective}
+                calculateOldBuildingStyle={this.calculateOldBuildingStyle}
+              />
+              <Building
+                position="right"
+                buildingWidth={this.state.buildingWidth}
+                calculateBuildingPerspective={this.calculateBuildingPerspective}
+                calculateOldBuildingStyle={this.calculateOldBuildingStyle}
+              />
+              <div id="street-section-editable" ref={(ref) => { this.streetSectionEditable = ref }} />
               <div id="street-section-left-empty-space" className="segment empty" />
               <div id="street-section-right-empty-space" className="segment empty" />
               <section id="street-section-dirt" />
