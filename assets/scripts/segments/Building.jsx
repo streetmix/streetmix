@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { createBuilding } from './buildings'
 import {
   INFO_BUBBLE_TYPE_RIGHT_BUILDING,
@@ -24,16 +25,39 @@ class Building extends React.Component {
 
     this.state = {
       variant: (props.position === 'left') ? 'leftBuildingVariant' : 'rightBuildingVariant',
-      height: (props.position === 'left') ? 'leftBuildingHeight' : 'rightBuildingHeight'
+      height: (props.position === 'left') ? 'leftBuildingHeight' : 'rightBuildingHeight',
+      switchBuildings: false
     }
   }
 
-  componentDidUpdate (prevProps) {
+  componentDidUpdate (prevProps, prevState) {
     const { street, position } = this.props
     const { variant, height } = this.state
-    if (prevProps.street[height] !== street[height] || prevProps.street[variant] !== street[variant]) {
+    if (prevProps.street[height] !== street[height]) {
       createBuilding(this.streetSectionBuilding, street[variant], position, street[height], street)
     }
+
+    if (prevProps.street[variant] && prevProps.street[variant] !== street[variant]) {
+      this.setState({
+        switchBuildings: true
+      })
+    }
+
+    if (prevState.switchBuildings !== this.state.switchBuildings) {
+      this.handleBuildingSwitch()
+      createBuilding(this.streetSectionBuilding, street[variant], position, street[height], street)
+    }
+  }
+
+  handleBuildingSwitch = () => {
+    const el = this.oldStreetSectionBuilding
+    const perspective = this.props.calculateBuildingPerspective(el)
+
+    el.style.webkitPerspectiveOrigin = (perspective / 2) + 'px 50%'
+    el.style.MozPerspectiveOrigin = (perspective / 2) + 'px 50%'
+    el.style.perspectiveOrigin = (perspective / 2) + 'px 50%'
+
+    el.classList.remove('hover')
   }
 
   onBuildingMouseEnter = (event) => {
@@ -73,19 +97,79 @@ class Building extends React.Component {
     event.preventDefault()
   }
 
+  handleChangeInRefs = (ref) => {
+    if (this.state.switchBuildings) {
+      this.oldStreetSectionBuilding = ref
+    } else {
+      this.streetSectionBuilding = ref
+    }
+  }
+
+  switchBuildingAway = () => {
+    console.log('switching out')
+    const el = this.oldStreetSectionBuilding
+    const style = this.props.calculateOldBuildingStyle(el)
+    el.style.left = style.left 
+    el.style.top = style.top
+  }
+
+  switchBuildingIn = () => {
+    console.log('switching in', this.state.switchingIn)
+    const el = this.streetSectionBuilding
+    const perspective = this.props.calculateBuildingPerspective(el)
+
+    el.style.webkitPerspectiveOrigin = (perspective / 2) + 'px 50%'
+    el.style.MozPerspectiveOrigin = (perspective / 2) + 'px 50%'
+    el.style.perspectiveOrigin = (perspective / 2) + 'px 50%'
+  }
+
   render () {
     const buildingId = 'street-section-' + this.props.position + '-building'
+    const style = {
+      [this.props.position]: (-this.props.buildingWidth + 25) + 'px',
+      width: this.props.buildingWidth + 'px'
+    }
+
+    const newBuilding = (this.state.switchBuildings) ? (
+      <CSSTransition
+        in={this.state.switchBuildings}
+        timeout={500}
+        classNames="switching-in"
+        onEnter={this.switchBuildingIn}
+        onEntered={() => { this.setState({ switchBuildings: false }) }}
+      >
+        <section
+          className="street-section-building"
+          ref={(ref) => { this.streetSectionBuilding = ref }}
+          style={style}
+        >
+          <div className="hover-bk" />
+        </section>
+      </CSSTransition>
+    ) : null
 
     return (
-      <section
-        id={buildingId}
-        className="street-section-building"
-        ref={(ref) => { this.streetSectionBuilding = ref }}
-        onMouseEnter={this.onBuildingMouseEnter}
-        onMouseLeave={this.onBuildingMouseLeave}
-      >
-        <div className="hover-bk" />
-      </section>
+      <TransitionGroup>
+        <CSSTransition
+          in={!this.state.switchBuildings}
+          timeout={500}
+          classNames="switching-away"
+          onExit={this.switchBuildingAway}
+          unmountOnExit
+        >
+          <section
+            id={buildingId}
+            className="street-section-building"
+            ref={(ref) => { this.handleChangeInRefs(ref) }}
+            onMouseEnter={this.onBuildingMouseEnter}
+            onMouseLeave={this.onBuildingMouseLeave}
+            style={style}
+          >
+            <div className="hover-bk" />
+          </section>
+        </CSSTransition>
+        {newBuilding}
+      </TransitionGroup>
     )
   }
 }
