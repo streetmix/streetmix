@@ -350,11 +350,11 @@ export function updateBuildingPosition () {
     width = 0
   }
 
-  document.querySelector('#street-section-left-building').style.width = width + 'px'
-  document.querySelector('#street-section-right-building').style.width = width + 'px'
+  // document.querySelector('#street-section-left-building').style.width = width + 'px'
+  // document.querySelector('#street-section-right-building').style.width = width + 'px'
 
-  document.querySelector('#street-section-left-building').style.left = (-width + 25) + 'px'
-  document.querySelector('#street-section-right-building').style.right = (-width + 25) + 'px'
+  // document.querySelector('#street-section-left-building').style.left = (-width + 25) + 'px'
+  // document.querySelector('#street-section-right-building').style.right = (-width + 25) + 'px'
 
   document.querySelector('#street-section-dirt').style.marginLeft = -width + 'px'
   document.querySelector('#street-section-dirt').style.marginRight = -width + 'px'
