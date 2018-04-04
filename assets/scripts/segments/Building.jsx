@@ -18,7 +18,8 @@ class Building extends React.Component {
     addBuildingFloor: PropTypes.func,
     removeBuildingFloor: PropTypes.func,
     street: PropTypes.object,
-    buildingWidth: PropTypes.number
+    buildingWidth: PropTypes.number,
+    calculateBuildingPerspective: PropTypes.func
   }
 
   constructor (props) {
@@ -45,6 +46,8 @@ class Building extends React.Component {
     }
 
     if (prevState.switchBuildings !== this.state.switchBuildings) {
+      this.props.calculateBuildingPerspective(this.oldStreetSectionBuilding)
+      this.props.calculateBuildingPerspective(this.streetSectionBuilding)
       createBuilding(this.streetSectionBuilding, street[variant], position, street[height], street)
     }
   }
@@ -103,13 +106,12 @@ class Building extends React.Component {
   }
 
   render () {
-    const buildingId = 'street-section-' + this.props.position + '-building'
+    const { newBuildingEnter, oldBuildingEnter } = this.state
     const style = {
       [this.props.position]: (-this.props.buildingWidth + 25) + 'px',
       width: this.props.buildingWidth + 'px'
     }
 
-    const { newBuildingEnter, oldBuildingEnter } = this.state
     return (
       <div>
         <CSSTransition
@@ -136,7 +138,6 @@ class Building extends React.Component {
           classNames="switching-away"
         >
           <section
-            id={buildingId}
             className="street-section-building"
             ref={(ref) => { this.handleChangeInRefs(ref) }}
             onMouseEnter={this.onBuildingMouseEnter}
