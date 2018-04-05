@@ -173,6 +173,11 @@ class StreetView extends React.Component {
   }
 
   render () {
+    const dirtStyle = {
+      marginLeft: (-this.state.buildingWidth) + 'px',
+      marginRight: (-this.state.buildingWidth) + 'px'
+    }
+
     return (
       <React.Fragment>
         <section
@@ -186,18 +191,16 @@ class StreetView extends React.Component {
                 position="left"
                 buildingWidth={this.state.buildingWidth}
                 calculateBuildingPerspective={this.calculateBuildingPerspective}
-                calculateOldBuildingStyle={this.calculateOldBuildingStyle}
               />
               <Building
                 position="right"
                 buildingWidth={this.state.buildingWidth}
                 calculateBuildingPerspective={this.calculateBuildingPerspective}
-                calculateOldBuildingStyle={this.calculateOldBuildingStyle}
               />
               <div id="street-section-editable" ref={(ref) => { this.streetSectionEditable = ref }} />
               <div id="street-section-left-empty-space" className="segment empty" />
               <div id="street-section-right-empty-space" className="segment empty" />
-              <section id="street-section-dirt" />
+              <section id="street-section-dirt" style={dirtStyle} />
             </section>
           </section>
         </section>
