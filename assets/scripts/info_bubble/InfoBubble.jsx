@@ -169,13 +169,13 @@ class InfoBubble extends React.Component {
         break
       }
       case INFO_BUBBLE_TYPE_LEFT_BUILDING: {
-        const variantId = this.state.street.leftBuildingVariant
+        const variantId = this.props.street.leftBuildingVariant
         const backupName = BUILDINGS[variantId].label
         name = t(`buildings.${variantId}.name`, backupName, { ns: 'segment-info' })
         break
       }
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING: {
-        const variantId = this.state.street.rightBuildingVariant
+        const variantId = this.props.street.rightBuildingVariant
         const backupName = BUILDINGS[variantId].label
         name = t(`buildings.${variantId}.name`, backupName, { ns: 'segment-info' })
         break
