@@ -105,12 +105,26 @@ class Building extends React.Component {
     })
   }
 
-  render () {
-    const { newBuildingEnter, oldBuildingEnter } = this.state
+  renderBuilding = (building) => {
+    const isOldBuilding = (building === 'old')
     const style = {
       [this.props.position]: (-this.props.buildingWidth + 25) + 'px',
       width: this.props.buildingWidth + 'px'
     }
+
+    return (
+      <section
+        className="street-section-building"
+        ref={(ref) => { (isOldBuilding) ? this.handleChangeInRefs(ref) : this.streetSectionBuilding = ref }}
+        onMouseEnter={this.onBuildingMouseEnter}
+        onMouseLeave={this.onBuildingMouseLeave}
+        style={style}
+      />
+    )
+  }
+
+  render () {
+    const { newBuildingEnter, oldBuildingEnter } = this.state
 
     return (
       <div>
@@ -121,15 +135,7 @@ class Building extends React.Component {
           classNames="switching-in"
           onEntered={this.handleBuildingSwitch}
         >
-          <section
-            className="street-section-building"
-            ref={(ref) => { this.streetSectionBuilding = ref }}
-            onMouseEnter={this.onBuildingMouseEnter}
-            onMouseLeave={this.onBuildingMouseLeave}
-            style={style}
-          >
-            <div className="hover-bk" />
-          </section>
+          { this.renderBuilding('new') }
         </CSSTransition>
         <CSSTransition
           key="old-building"
@@ -137,15 +143,7 @@ class Building extends React.Component {
           timeout={250}
           classNames="switching-away"
         >
-          <section
-            className="street-section-building"
-            ref={(ref) => { this.handleChangeInRefs(ref) }}
-            onMouseEnter={this.onBuildingMouseEnter}
-            onMouseLeave={this.onBuildingMouseLeave}
-            style={style}
-          >
-            <div className="hover-bk" />
-          </section>
+          { this.renderBuilding('old') }
         </CSSTransition>
       </div>
     )
