@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
-import { createBuilding } from './buildings'
+import { createBuilding, BUILDINGS } from './buildings'
 import {
   INFO_BUBBLE_TYPE_RIGHT_BUILDING,
   INFO_BUBBLE_TYPE_LEFT_BUILDING,
@@ -80,17 +80,20 @@ class Building extends React.Component {
       (event.keyCode === KEYS.EQUAL_ALT) ||
       (event.keyCode === KEYS.PLUS_KEYPAD)
 
-    if (negative) {
+    const variant = this.props.street[this.state.variant]
+    const hasFloors = BUILDINGS[variant].hasFloors
+
+    if (negative && hasFloors) {
       this.props.removeBuildingFloor(this.props.position)
-    } else if (positive) {
+    } else if (positive && hasFloors) {
       this.props.addBuildingFloor(this.props.position)
     }
 
     event.preventDefault()
   }
 
-  handleChangeInRefs = (ref) => {
-    if (this.state.switchBuildings) {
+  handleChangeInRefs = (ref, isOldBuilding) => {
+    if (this.state.switchBuildings && isOldBuilding) {
       this.oldStreetSectionBuilding = ref
     } else {
       this.streetSectionBuilding = ref
@@ -107,6 +110,7 @@ class Building extends React.Component {
 
   renderBuilding = (building) => {
     const isOldBuilding = (building === 'old')
+
     const style = {
       [this.props.position]: (-this.props.buildingWidth + 25) + 'px',
       width: this.props.buildingWidth + 'px'
@@ -121,8 +125,9 @@ class Building extends React.Component {
 
     return (
       <section
+        id={(isOldBuilding) ? 'old-building' : 'new-building'}
         className="street-section-building"
-        ref={(ref) => { (isOldBuilding) ? this.handleChangeInRefs(ref) : this.streetSectionBuilding = ref }}
+        ref={(ref) => { this.handleChangeInRefs(ref, isOldBuilding) }}
         onMouseEnter={this.onBuildingMouseEnter}
         onMouseLeave={this.onBuildingMouseLeave}
         style={style}
@@ -143,6 +148,7 @@ class Building extends React.Component {
           timeout={250}
           classNames="switching-in"
           onEntered={this.handleBuildingSwitch}
+          unmountOnExit
         >
           { this.renderBuilding('new') }
         </CSSTransition>
@@ -151,6 +157,7 @@ class Building extends React.Component {
           in={oldBuildingEnter}
           timeout={250}
           classNames="switching-away"
+          unmountOnExit
         >
           { this.renderBuilding('old') }
         </CSSTransition>
