@@ -1,0 +1,344 @@
+{
+  "segments": {
+    "sidewalk": {
+      "name": "歩道"
+    },
+    "sidewalk-tree": {
+      "name": "街路樹つき歩道"
+    },
+    "sidewalk-bike-rack": {
+      "name": "自転車置場"
+    },
+    "sidewalk-bench": {
+      "name": "ベンチ"
+    },
+    "sidewalk-wayfinding": {
+      "name": "道路名標識",
+      "description": {
+        "prompt": "道路名標識 (wayfinding signs)について",
+        "lede": "道路名標識があることで、歩行者にとっても目的地までの道のりがわかりやすくなります。",
+        "text": [
+          "Urban planners and architects have spent a few decades trying to learn what happens in people’s brains when they figure out how to get from point A to point B – or how they even know where “point A” is to begin with. As early as 1960, urban planner Kevin Lynch wrote of the “legibility” of the city in his book <em><a href=\"http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014\">The Image of the City</a></em>, describing wayfinding as “a consistent use and organization of definite sensory cues from the external environment.” It could be intangible – smell, touch, a sense of gravity or even electric or magnetic fields. Or it could be much more physical, with intentionally designed “wayfinding devices” like maps, street numbers, or route signs.",
+          "It’s surprising how readily acceptable it is for ample signage to cater to car travel, with less of this investment made at the pedestrian level. Maybe it’s because it’s easier for us to stand still, take stock of our surroundings, and use our senses without fear of accidentally causing a six-person pileup behind us. At any rate, urban designers have pushed for pedestrian-friendly wayfinding signage, particularly in walkable commercial neighborhoods, and these signs have become branding opportunities in addition to being functional. For example, New York City <a href=\"https://www.pentagram.com/work/walknyc/story\">hired an internationally renowned design consultant</a> to create the now ubiquitous WalkNYC signs (Streetmix has modeled its segments after these). Other municipalities have adopted a traditional old-town or civic-formal take (pictured above), and some places have chosen to use <a href=\"http://walkyourcity.org/\">guerrilla wayfinding tactics.</a>",
+          "After all, there’s nothing worse than being lost. As Lynch wrote: “The very word <em>lost</em> in our language means much more than simple geographical uncertainty; it carries overtones of utter disaster.” And who wants to be on the street feeling like that?"
+        ]
+      }
+    },
+    "sidewalk-lamp": {
+      "name": "街灯つき歩道"
+    },
+    "parklet": {
+      "name": "パークレット",
+      "description": {
+        "prompt": "パークレットについて",
+        "imageCaption": "4033 Judah Streetのパークレット, 写真提供 San Francisco Planning Department.",
+        "lede": "パークレットを設置することで、路面駐車場が一時的な公共空間に生まれ変わります。",
+        "text": [
+          "In 2005, San Francisco-based design studio <a href=\"http://rebargroup.org/\">Rebar</a> temporarily converted a single metered parking space on downtown Mission Street into a tiny public park. The first parklet was simple: just a bench and a tree on a rectangular piece of turf, but it featured a brief instruction manual and a charge for others to make their own. With people realizing that so much of public space was really devoted to storing cars, an international movement was born, and now, the annual <a href=\"http://parkingday.org/\">Park(ing) Day</a> hosts nearly a thousand temporarily converted spots around the world.",
+          "Knowing a good idea when it sees one, San Francisco became the first city to make parklets official with its <a href=\"http://sfpavementtoparks.sfplanning.org/\">Pavement to Parks program</a> in 2010. Today, the City by the Bay has over 50 parklets, many of which are now architecturally designed objects much improved beyond Rebar’s modest prototype. There’s an ambitious, corporate-sponsored two-block-long parklet in the heart of San Francisco’s busiest shopping corridor, and also a collection of movable, bright red “parkmobiles” (Streetmix’s default look) designed for the <a href=\"http://www.ybcbd.org/\">Yerba Buena Community Benefit District</a>. Official parklet programs now exist in many other cities in North America, such as Philadelphia, Oakland, Kansas City, New York, Chicago, and Vancouver, and many more cities are soon to follow."
+        ]
+      }
+    },
+    "divider": {
+      "name": "バッファーゾーン",
+      "details": {
+        "planting-strip": {
+          "name": "緑地・花壇"
+        },
+        "planter-box": {
+          "name": "プランター"
+        },
+        "median": {
+          "name": "中央分離帯"
+        },
+        "striped-buffer": {
+          "name": "バッファー"
+        },
+        "bush": {
+          "name": "緑地・花壇"
+        },
+        "flowers": {
+          "name": "緑地・花壇"
+        },
+        "big-tree": {
+          "name": "緑地・花壇"
+        },
+        "palm-tree": {
+          "name": "緑地・花壇"
+        },
+        "bollard": {
+          "name": "ボラード"
+        },
+        "dome": {
+          "name": "車両除外ドーム"
+        }
+      }
+    },
+    "bike-lane": {
+      "name": "自転車専用レーン",
+      "description": {
+        "prompt": "自転車専用レーンについて",
+        "lede": "車両用とは別に自転車専用レーンを設置することで、自転車通行の安全性が増します。",
+        "text": [
+          "On the historical timeline of personal transportation vehicles – horses on one end, and, say, Segways on the other – automobiles and bicycles have been the dominant warring tribes of public streets for nearly a century. Despite all the cars taking up so much room, though, there’s more bicycles than anything else in the world: more than a billion, as estimated by Worldometers, and nine million in Beijing, according to folk singer <a href=\"http://en.wikipedia.org/wiki/Nine_Million_Bicycles\">Katie Melua</a>, where bicycling accounts for 32% of all trips.",
+          "While most jurisdictions allow bicycles to share the road with motor vehicles (“A person riding a bicycle… has all the rights and is subject to all the provisions applicable to the driver of a vehicle” <a href=\"https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=VEH&sectionNum=21200.\">says the California Vehicle Code</a>, in one particular instance) it goes without saying that most cyclists prefer to be in their own lane. It’s safer, for one thing. And because it’s safer, it actually encourages more bikers. And more bikers means healthier citizens, reduced carbon emissions, higher traffic throughput, and congestion mitigation. The <a href=\"https://bikeleague.org/sites/default/files/Bicycling_and_the_Economy-Econ_Impact_Studies_web.pdf\">economic benefits accrue as well</a>: less money spent on automobile infrastructure (like bridges, roadways, and parking), and with the ability to fit more people on a road, it leads to more business in commercial corridors.",
+          "Bike lane design can be extremely varied. Using medians, planters, bollards, or even parking lanes create better protection between bikes and cars. When lanes are painted green, it shows their city’s commitment to a continuous bike lane, and synchronized signal light timing to limit bike stops are called a “green wave.” For more information, check out the <a href=\"http://nacto.org/cities-for-cycling/design-guide/\">NACTO Urban Bikeway Design Guide</a>."
+        ]
+      },
+      "details": {
+        "inbound|colored": {
+          "description": {
+            "prompt": "色付き自転車専用レーンについて",
+            "lede": "自転車専用レーンを色分けすることで、自転車通行時に道路を見分けやすくなり、安全性が向上します。",
+            "text": [
+              "As bicycling for day-to-day transportation becomes more widespread, planners need to ensure the safety of cyclists, eliminate collisions between bikes and cars, and prevent cars from illegally taking up space designated for bikes. The problem: motorists aren’t always completely aware of cyclists. The solution: make cyclists as visible as possible. And one strategy for this is to make bike lanes a totally different color than the rest of the asphalt.",
+              "Although the safety benefits for colored bike lanes have been proven in <a href=\"https://nacto.org/publication/urban-bikeway-design-guide/bikeway-signing-marking/colored-bike-facilities\">numerous studies</a>, everyone’s got an opinion on <em>which</em> color to use: the Netherlands uses red lanes, Denmark uses blue, and France uses green. The United Kingdom has a mixture of red and green, and most municipalities in the United States ended up going green (by accident: they all just copied each other), though Portland, one of the most bike-friendly cities in the U.S., have been using <a href=\"http://www.portlandoregon.gov/transportation/article/58842\">blue lanes since the 1990s</a>.",
+              "No matter which color you like best, the general rule of thumb is to pick something that sticks out and doesn’t look like other lane markings in your area. Beyond that, the more pressing budgetary concern for most cities is maintenance. Right now, the most commonly used type of paint dulls and wears off fairly quickly, although new improvements in paint are starting to make it more durable. But if recurring costs are a significant concern, don’t let that outweigh the safety benefits: you might want to consider an up-front cost in the form of <a href=\"http://peopleforbikes.org/green-lane-project/protected-bike-lanes-101\">protective barriers</a>, instead."
+            ]
+          }
+        },
+        "outbound|colored": {
+          "description": {
+            "prompt": "色付き自転車専用レーンについて",
+            "lede": "自転車専用レーンを色分けすることで、自転車通行時に道路を見分けやすくなり、安全性が向上します。",
+            "text": [
+              "As bicycling for day-to-day transportation becomes more widespread, planners need to ensure the safety of cyclists, eliminate collisions between bikes and cars, and prevent cars from illegally taking up space designated for bikes. The problem: motorists aren’t always completely aware of cyclists. The solution: make cyclists as visible as possible. And one strategy for this is to make bike lanes a totally different color than the rest of the asphalt.",
+              "Although the safety benefits for colored bike lanes have been proven in <a href=\"https://nacto.org/publication/urban-bikeway-design-guide/bikeway-signing-marking/colored-bike-facilities\">numerous studies</a>, everyone’s got an opinion on <em>which</em> color to use: the Netherlands uses red lanes, Denmark uses blue, and France uses green. The United Kingdom has a mixture of red and green, and most municipalities in the United States ended up going green (by accident: they all just copied each other), though Portland, one of the most bike-friendly cities in the U.S., have been using <a href=\"http://www.portlandoregon.gov/transportation/article/58842\">blue lanes since the 1990s</a>.",
+              "No matter which color you like best, the general rule of thumb is to pick something that sticks out and doesn’t look like other lane markings in your area. Beyond that, the more pressing budgetary concern for most cities is maintenance. Right now, the most commonly used type of paint dulls and wears off fairly quickly, although new improvements in paint are starting to make it more durable. But if recurring costs are a significant concern, don’t let that outweigh the safety benefits: you might want to consider an up-front cost in the form of <a href=\"http://peopleforbikes.org/green-lane-project/protected-bike-lanes-101\">protective barriers</a>, instead."
+            ]
+          }
+        }
+      }
+    },
+    "parking-lane": {
+      "name": "路上駐車スペース",
+      "details": {
+        "sideways|left": {
+          "name": "道路に対して直角"
+        },
+        "sideways|right": {
+          "name": "道路に対して直角"
+        },
+        "angled-front-left|left": {
+          "name": "斜めに駐車"
+        },
+        "angled-front-left|right": {
+          "name": "斜めに駐車"
+        },
+        "angled-front-right|left": {
+          "name": "斜めに駐車"
+        },
+        "angled-front-right|right": {
+          "name": "斜めに駐車"
+        },
+        "angled-rear-left|left": {
+          "name": "斜めに駐車"
+        },
+        "angled-rear-left|right": {
+          "name": "斜めに駐車"
+        },
+        "angled-rear-right|left": {
+          "name": "斜めに駐車"
+        },
+        "angled-rear-right|right": {
+          "name": "斜めに駐車"
+        }
+      }
+    },
+    "drive-lane": {
+      "name": "車両用レーン",
+      "details": {
+        "inbound|sharrow": {
+          "name": "自転車共用",
+          "description": {
+            "prompt": "自転車共用レーンについて",
+            "lede": "自転車共用レーンは、車両と自転車のどちらも通行可能です。",
+            "text": [
+              "Officially known in transportation planning as “shared lane marking,” sharrows (a portmanteau of “shared” and “arrow”) refer to the arrow markings themselves, but aren’t actually a different <em>type</em> of lane. In many places, bicycles are already allowed on any street meant for cars, and are bound by the same laws.",
+              "That being said, it doesn’t take a rocket scientist to see that cars and bikes behave very differently, and so separate bike lanes are <a href=\"http://dc.streetsblog.org/2013/06/13/in-california-cities-drivers-want-more-bike-lanes-heres-why/\">much more preferable</a> for both the safety of cyclists and the sanity of car drivers. But for many cyclists, when there’s not enough road space for those bike lanes, the argument is that sharrows are better than nothing else at all. Motorists tend to forget there are other types of vehicles, and cyclists appreciate any opportunity to remind motorists that they exist and must coexist peacefully together. And giving cyclists more leeway to use the full width of a lane can also protect them from parked cars, in a particular type of accident cyclists call “getting doored.”",
+              "Sharrow markings are a simple way to provide more visibility to bicyclists, since paint is cheaper than building a dedicated bike lane, and more politically feasible. However, some research on safety (such as a <a href=\"http://injuryprevention.bmj.com/content/early/2013/02/13/injuryprev-2012-040561.full.pdf\">2012 BMJ study</a> of bicycle injuries in Vancouver and Toronto) indicate that there were slightly increased odds of injury in a shared lane, compared to those in a dedicated bike lane. The moral of the story is, take care of bicyclists by trying to put in a normal bike lane first before resorting to sharrows."
+            ]
+          }
+        },
+        "outbound|sharrow": {
+          "name": "自転車共用",
+          "description": {
+            "prompt": "自転車共用レーンについて",
+            "lede": "自転車共用レーンは、車両と自転車のどちらも通行可能です。",
+            "text": [
+              "Officially known in transportation planning as “shared lane marking,” sharrows (a portmanteau of “shared” and “arrow”) refer to the arrow markings themselves, but aren’t actually a different <em>type</em> of lane. In many places, bicycles are already allowed on any street meant for cars, and are bound by the same laws.",
+              "That being said, it doesn’t take a rocket scientist to see that cars and bikes behave very differently, and so separate bike lanes are <a href=\"http://dc.streetsblog.org/2013/06/13/in-california-cities-drivers-want-more-bike-lanes-heres-why/\">much more preferable</a> for both the safety of cyclists and the sanity of car drivers. But for many cyclists, when there’s not enough road space for those bike lanes, the argument is that sharrows are better than nothing else at all. Motorists tend to forget there are other types of vehicles, and cyclists appreciate any opportunity to remind motorists that they exist and must coexist peacefully together. And giving cyclists more leeway to use the full width of a lane can also protect them from parked cars, in a particular type of accident cyclists call “getting doored.”",
+              "Sharrow markings are a simple way to provide more visibility to bicyclists, since paint is cheaper than building a dedicated bike lane, and more politically feasible. However, some research on safety (such as a <a href=\"http://injuryprevention.bmj.com/content/early/2013/02/13/injuryprev-2012-040561.full.pdf\">2012 BMJ study</a> of bicycle injuries in Vancouver and Toronto) indicate that there were slightly increased odds of injury in a shared lane, compared to those in a dedicated bike lane. The moral of the story is, take care of bicyclists by trying to put in a normal bike lane first before resorting to sharrows."
+            ]
+          }
+        }
+      }
+    },
+    "turn-lane": {
+      "name": "方向転換レーン",
+      "details": {
+        "inbound|straight": {
+          "name": "方向転換なしレーン"
+        },
+        "inbound|shared": {
+          "name": "センター・ターンレーン"
+        },
+        "outbound|straight": {
+          "name": "方向転換なしレーン"
+        },
+        "outbound|shared": {
+          "name": "センター・ターンレーン"
+        }
+      }
+    },
+    "bus-lane": {
+      "name": "バス専用レーン",
+      "details": {
+        "inbound|shared": {
+          "name": "バス/自転車共用レーン"
+        },
+        "outbound|shared": {
+          "name": "バス/自転車共用レーン"
+        }
+      }
+    },
+    "streetcar": {
+      "name": "路面電車"
+    },
+    "light-rail": {
+      "name": "ライトレール"
+    },
+    "transit-shelter": {
+      "name": "屋根付き停留所",
+      "details": {
+        "left|light-rail": {
+          "description": {
+            "prompt": "屋根付き停留所の段差分けについて",
+            "lede": "停留所に段差をつけることで、ライトレールやバスがスムーズに停車し、運行することができます。",
+            "text": [
+              "For some light rail systems, and bus rapid transit (BRT) systems where speed of service is a huge priority, an elevated shelter does the trick. It allows patrons to board at the same level as the bus, which speeds up the boarding process (especially for wheelchairs and others with access needs) and shaves crucial seconds off the routes time, all of which add up over time.",
+              "Because of this focus on efficiency, transit vehicles that use elevated platforms are also usually in their own dedicated lanes, so these platforms are placed where they can access these lanes easily, usually in the median.  If placed inbetween lanes going in opposite directions, they can easily serve passengers on both sides of the platform (and you’ll need to place two of them in Streetmix).",
+              "Elevated shelters are also sometimes designed like heavy rail train stations, enclosed or with a roof to protect passengers from the elements, and are handy visual beacons of public transit on a busy boulevard. But compared with shelters that are at curb height, they tend to be more expensive pieces of infrastructure and take up more space with wheelchair ramps. This makes it more difficult for BRT services to be provided with as much flexibility as a normal bus service. Furthermore, with low-floor buses becoming increasingly more common, it starts to reduce the need to have higher platforms."
+            ]
+          }
+        },
+        "right|light-rail": {
+          "description": {
+            "prompt": "屋根付き停留所の段差分けについて",
+            "lede": "停留所に段差をつけることで、ライトレールやバスがスムーズに停車し、運行することができます。",
+            "text": [
+              "For some light rail systems, and bus rapid transit (BRT) systems where speed of service is a huge priority, an elevated shelter does the trick. It allows patrons to board at the same level as the bus, which speeds up the boarding process (especially for wheelchairs and others with access needs) and shaves crucial seconds off the routes time, all of which add up over time.",
+              "Because of this focus on efficiency, transit vehicles that use elevated platforms are also usually in their own dedicated lanes, so these platforms are placed where they can access these lanes easily, usually in the median.  If placed inbetween lanes going in opposite directions, they can easily serve passengers on both sides of the platform (and you’ll need to place two of them in Streetmix).",
+              "Elevated shelters are also sometimes designed like heavy rail train stations, enclosed or with a roof to protect passengers from the elements, and are handy visual beacons of public transit on a busy boulevard. But compared with shelters that are at curb height, they tend to be more expensive pieces of infrastructure and take up more space with wheelchair ramps. This makes it more difficult for BRT services to be provided with as much flexibility as a normal bus service. Furthermore, with low-floor buses becoming increasingly more common, it starts to reduce the need to have higher platforms."
+            ]
+          }
+        }
+      }
+    },
+    "train": {
+      "name": "“インセプション” 電車",
+      "description": {
+        "lede": "クリストファー・ノーラン監督の映画<em>インセプション</em>に登場する電車です。",
+        "text": [
+          "説明は不要でしょ？"
+        ]
+      }
+    }
+  },
+  "buildings": {
+    "waterfront": {
+      "name": "河岸"
+    },
+    "grass": {
+      "name": "芝生"
+    },
+    "fence": {
+      "name": "空き地"
+    },
+    "parking-lot": {
+      "name": "駐車場"
+    },
+    "residential": {
+      "name": "家屋"
+    },
+    "narrow": {
+      "name": "建物"
+    },
+    "wide": {
+      "name": "建物"
+    }
+  },
+  "variant-icons": {
+    "orientation|left": "左",
+    "orientation|right": "右",
+    "turn-lane-orientation|left": "左",
+    "turn-lane-orientation|left-straight": "左折と直進",
+    "turn-lane-orientation|straight": "直進",
+    "turn-lane-orientation|right-straight": "右折と直進",
+    "turn-lane-orientation|right": "右折",
+    "turn-lane-orientation|both": "両方",
+    "turn-lane-orientation|shared": "共用",
+    "bench-orientation|left": "左",
+    "bench-orientation|right": "右",
+    "bench-orientation|center": "中央",
+    "parking-lane-orientation|left": "左",
+    "parking-lane-orientation|right": "右",
+    "parking-lane-direction|inbound": "上り車線",
+    "parking-lane-direction|outbound": "下り車線",
+    "parking-lane-direction|sideways": "直角駐車",
+    "parking-lane-direction|angled-front-left": "斜め駐車",
+    "parking-lane-direction|angled-front-right": "斜め駐車",
+    "parking-lane-direction|angled-rear-left": "斜め駐車",
+    "parking-lane-direction|angled-rear-right": "斜め駐車",
+    "direction|inbound": "上り",
+    "direction|outbound": "下り",
+    "sidewalk-density|empty": "ごく少数",
+    "sidewalk-density|sparse": "少ない",
+    "sidewalk-density|normal": "普通",
+    "sidewalk-density|dense": "多い",
+    "lamp-orientation|left": "左",
+    "lamp-orientation|both": "両方",
+    "lamp-orientation|right": "右",
+    "lamp-type|traditional": "伝統的",
+    "lamp-type|modern": "現代風",
+    "lamp-type|pride": "虹色表記つきの現代風",
+    "car-type|car": "車両",
+    "car-type|sharrow": "共用",
+    "car-type|truck": "トラック",
+    "public-transit-asphalt|regular": "アスファルト",
+    "public-transit-asphalt|colored": "赤レーン",
+    "bus-asphalt|regular": "アスファルト",
+    "bus-asphalt|colored": "赤レーン",
+    "bus-asphalt|shared": "バス/自転車共用レーン",
+    "bike-asphalt|regular": "アスファルト",
+    "bike-asphalt|green": "緑レーン",
+    "bike-asphalt|red": "赤レーン",
+    "tree-type|big": "街路樹",
+    "tree-type|palm-tree": "ヤシの木",
+    "divider-type|median": "中央分離帯",
+    "divider-type|striped-buffer": "ストライプ表示",
+    "divider-type|planting-strip": "緑地・花壇",
+    "divider-type|planter-box": "プランター",
+    "divider-type|bush": "緑地",
+    "divider-type|flowers": "花壇",
+    "divider-type|big-tree": "街路樹と緑地",
+    "divider-type|palm-tree": "ヤシの木と緑地",
+    "divider-type|bollard": "ボラード",
+    "divider-type|dome": "車両除外ドーム",
+    "transit-shelter-elevation|street-level": "ストリートの段差",
+    "transit-shelter-elevation|light-rail": "ライトレール停留所",
+    "bike-rack-elevation|sidewalk-parallel": "並列駐車, 歩道と同じ高さ",
+    "bike-rack-elevation|sidewalk": "共用駐車, 歩道と同じ高さ",
+    "bike-rack-elevation|road": "共用駐車, 道路と同じ高さ",
+    "building|waterfront": "河岸",
+    "building|grass": "芝生",
+    "building|fence": "空き地",
+    "building|parking-lot": "駐車場",
+    "building|residential": "家屋",
+    "building|narrow": "小規模な建物",
+    "building|wide": "大規模な建物",
+    "wayfinding-type|large": "大",
+    "wayfinding-type|medium": "中",
+    "wayfinding-type|small": "小"
+  }
+}
