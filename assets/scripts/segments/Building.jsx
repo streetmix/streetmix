@@ -112,6 +112,13 @@ class Building extends React.Component {
       width: this.props.buildingWidth + 'px'
     }
 
+    const hoverStyle = {}
+    if (this.props.position === 'left') {
+      hoverStyle.right = '25px'
+    } else {
+      hoverStyle.left = '25px'
+    }
+
     return (
       <section
         className="street-section-building"
@@ -119,7 +126,9 @@ class Building extends React.Component {
         onMouseEnter={this.onBuildingMouseEnter}
         onMouseLeave={this.onBuildingMouseLeave}
         style={style}
-      />
+      >
+        <div className="hover-bk" style={hoverStyle} />
+      </section>
     )
   }
 
