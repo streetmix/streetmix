@@ -93,6 +93,8 @@ class Building extends React.Component {
   }
 
   handleChangeInRefs = (ref, isOldBuilding) => {
+    if (!this.state.switchBuildings && !isOldBuilding) return
+
     if (this.state.switchBuildings && isOldBuilding) {
       this.oldStreetSectionBuilding = ref
     } else {
