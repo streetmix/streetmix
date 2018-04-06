@@ -1,4 +1,3 @@
-import { saveStreetToServerIfNecessary } from '../streets/data_model'
 import { RandomGenerator } from '../util/random'
 import { images } from '../app/load_resources'
 
@@ -322,11 +321,6 @@ export function createBuilding (el, variant, position, floors, street) {
     position === 'left', totalWidth, height,
     0,
     1.0, dpi)
-}
-
-export function buildingHeightUpdated () {
-  saveStreetToServerIfNecessary()
-  createBuildings()
 }
 
 export function createBuildings () {
