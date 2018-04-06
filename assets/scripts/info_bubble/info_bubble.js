@@ -331,6 +331,7 @@ export const infoBubble = {
     infoBubble.startMouseY = mouseY
 
     var pos = getElAbsolutePos(segmentEl)
+
     var bubbleX = pos[0] - document.querySelector('#street-section-outer').scrollLeft
     var bubbleY = pos[1]
 
@@ -349,6 +350,7 @@ export const infoBubble = {
       bubbleY = MIN_TOP_MARGIN_FROM_VIEWPORT
     }
 
+    console.log('offsetWidth: ', segmentEl.offsetWidth)
     bubbleX += segmentEl.offsetWidth / 2
     bubbleX -= bubbleWidth / 2
 
