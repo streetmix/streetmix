@@ -7,6 +7,8 @@ let oldStreetName = street.name
 let oldStreetLocation = (street.location) ? street.location.wofId : null
 let oldLeftBuildingHeight = street.leftBuildingHeight
 let oldRightBuildingHeight = street.rightBuildingHeight
+let oldLeftBuildingVariant = street.leftBuildingVariant
+let oldRightBuildingVariant = street.rightBuildingVariant
 
 export function initStreetReduxTransitionSubscriber () {
   store.subscribe(() => {
@@ -19,6 +21,7 @@ export function initStreetReduxTransitionSubscriber () {
 
 function updateIfBuildingsChanged (state) {
   let changed = false
+  // Checking building heights
   if (state.leftBuildingHeight !== oldLeftBuildingHeight) {
     oldLeftBuildingHeight = state.leftBuildingHeight
     changed = true
@@ -27,6 +30,17 @@ function updateIfBuildingsChanged (state) {
     oldRightBuildingHeight = state.rightBuildingHeight
     changed = true
   }
+
+  // Checking building variants
+  if (state.leftBuildingVariant !== oldLeftBuildingVariant) {
+    oldLeftBuildingVariant = state.leftBuildingVariant
+    changed = true
+  }
+  if (state.rightBuildingVariant !== oldRightBuildingVariant) {
+    oldRightBuildingVariant = state.rightBuildingVariant
+    changed = true
+  }
+
   if (changed) {
     saveStreetToServerIfNecessary()
   }
