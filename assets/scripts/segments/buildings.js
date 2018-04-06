@@ -1,5 +1,4 @@
 import { saveStreetToServerIfNecessary } from '../streets/data_model'
-import { getElAbsolutePos } from '../util/helpers'
 import { RandomGenerator } from '../util/random'
 import { images } from '../app/load_resources'
 
@@ -338,24 +337,4 @@ export function createBuildings () {
 
   createBuilding(leftEl, street.leftBuildingVariant, 'left', street.leftBuildingHeight, street)
   createBuilding(rightEl, street.rightBuildingVariant, 'right', street.rightBuildingHeight, street)
-}
-
-export function updateBuildingPosition () {
-  var el = document.querySelector('#street-section-editable')
-  var pos = getElAbsolutePos(el)
-
-  var width = pos[0] + 25
-
-  if (width < 0) {
-    width = 0
-  }
-
-  // document.querySelector('#street-section-left-building').style.width = width + 'px'
-  // document.querySelector('#street-section-right-building').style.width = width + 'px'
-
-  // document.querySelector('#street-section-left-building').style.left = (-width + 25) + 'px'
-  // document.querySelector('#street-section-right-building').style.right = (-width + 25) + 'px'
-
-  document.querySelector('#street-section-dirt').style.marginLeft = -width + 'px'
-  document.querySelector('#street-section-dirt').style.marginRight = -width + 'px'
 }
