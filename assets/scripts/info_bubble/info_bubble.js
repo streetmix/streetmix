@@ -1,5 +1,4 @@
 import { app } from '../preinit/app_settings'
-import { system } from '../preinit/system_capabilities'
 import { hideDescription } from './description'
 import { DRAGGING_TYPE_NONE, draggingType } from '../segments/drag_and_drop'
 import { cancelFadeoutControls } from '../segments/resizing'
@@ -256,6 +255,9 @@ export const infoBubble = {
     }
 
     if (!isInfoBubbleVisible() || !infoBubble._withinHoverPolygon(infoBubble.considerMouseX, infoBubble.considerMouseY)) {
+      if (type === INFO_BUBBLE_TYPE_RIGHT_BUILDING) {
+        console.log(infoBubble.considerMouseX, infoBubble.considerMouseY)
+      }
       infoBubble.show(false)
     }
   },
@@ -350,6 +352,7 @@ export const infoBubble = {
     bubbleX += segmentEl.offsetWidth / 2
     bubbleX -= bubbleWidth / 2
 
+    const system = store.getState().system
     // TODO const
     if (bubbleX < 50) {
       bubbleX = 50
@@ -357,6 +360,7 @@ export const infoBubble = {
       bubbleX = system.viewportWidth - bubbleWidth - 50
     }
 
+    console.log('bubbleX: ', bubbleX)
     infoBubble.el.style.left = bubbleX + 'px'
     infoBubble.el.style.top = bubbleY + 'px'
 
