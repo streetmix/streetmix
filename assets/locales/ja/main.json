@@ -5,7 +5,7 @@
       "about": "Streetmixについて",
       "contact": "コンタクト",
       "community": "コミュニティ",
-      "contribute": "Contribute",
+      "contribute": "貢献",
       "sign-in": "サインイン",
       "sign-out": "サインアウト",
       "new-street": "新しいストリート",
@@ -156,7 +156,7 @@
       "option-sky": "空を透明化",
       "loading": "ロード中…",
       "save-button": "コンピュータに保存中…",
-      "license": "Streetmixで作成した画像は <br><a href='{url}'>Creative Commons Attribution-ShareAlike 4.0 International License</a> のもとで自由にお使いいただけます。",
+      "license": "Streetmixで作成した画像は <br><a href='{url}'>クリエイティブ・コモンズ 表示 - 継承 4.0 国際</a> のもとで自由にお使いいただけます。",
       "error-preview": "プレビュー画像の表示に失敗しました。",
       "error-unavailable": "ブラウザが画像の保存に対応していません。",
       "preview-image-alt": "プレビュー"
@@ -205,15 +205,15 @@
     "building": "建物から建物までの幅:",
     "different": "その他の値…",
     "metric": "メートル表示",
-    "imperial": "フォート表示"
+    "imperial": "フィート表示"
   },
   "datetime": {
     "minutes-ago": "数分以内",
     "seconds-ago": "数秒以内",
     "yesterday": "昨日 {time}",
     "today": "本日 {time}",
-    "format-date-no-year": "MMM D",
-    "format-date-with-year": "MMM D, YYYY",
+    "format-date-no-year": "MM月 D日",
+    "format-date-with-year": "YYYY年 MM月 D日",
     "format-time": "HH:MM"
   },
   "key": {
@@ -280,7 +280,7 @@
       "de": "German",
       "es": "Spanish",
       "es-mx": "Spanish (Mexico)",
-      "ja": "",
+      "ja": "日本語",
       "pl": "Polish",
       "pt-br": "Portuguese (Brazil)",
       "sv": "Swedish",
