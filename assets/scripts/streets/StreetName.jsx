@@ -11,9 +11,10 @@ class StreetName extends React.PureComponent {
     id: PropTypes.string,
     name: PropTypes.string,
     childRef: PropTypes.func,
-    onClick: PropTypes.func,
+    handleStreetNameChange: PropTypes.func,
     isStreetReadOnly: PropTypes.bool,
-    isHoverable: PropTypes.bool
+    isHoverable: PropTypes.bool,
+    editable: PropTypes.bool
   }
 
   static defaultProps = {
@@ -44,8 +45,59 @@ class StreetName extends React.PureComponent {
     super(props)
 
     this.state = {
-      isHovered: false
+      isHovered: false,
+      modify: false,
+      inpVal: ''
     }
+  }
+
+  handleStreetNameChange = () => {
+    let newName = this.state.inpVal
+    if (newName) {
+      this.props.handleStreetNameChange(newName)
+      this.setState({
+        modify: false,
+        inpVal: '',
+        isHovered: false
+      })
+    }
+  }
+
+  handleKeyUp = (evt) => {
+    if (evt.key === 'Enter') {
+      this.handleStreetNameChange()
+    }
+    if (evt.key === 'Escape') {
+      this.setState({
+        modify: false,
+        inpVal: '',
+        isHovered: false
+      })
+    }
+  }
+
+  componentDidMount () {
+    window.addEventListener('mousedown', (event) => {
+      if (!document.getElementById(this.props.id).contains(event.target)) {
+        this.setState({
+          isHovered: false,
+          modify: false,
+          inpVal: ''
+        })
+      }
+    })
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('mousedown', (event) => {
+      if (!document.getElementById(this.props.id).contains(event.target)) {
+        this.setState({
+          isHovered: false,
+          modify: false,
+          inpVal: ''
+        })
+      }
+    })
   }
 
   onMouseEnter = () => {
@@ -58,33 +110,40 @@ class StreetName extends React.PureComponent {
 
   renderHoverPrompt = () => {
     if (this.props.isStreetReadOnly || !this.props.isHoverable) return null
-    if (typeof this.props.onClick === 'function' && this.state.isHovered) {
+    if (typeof this.props.handleStreetNameChange === 'function' && this.state.isHovered) {
       return (
         <div className="street-name-hover-prompt">
           {t('street.rename', 'Click to rename')}
         </div>
       )
     }
-
     return null
   }
 
   render () {
     let classString = 'street-name-text ' + (!needsUnicodeFont(this.props.name) ? '' : 'fallback-unicode-font')
-
-    return (
-      <div
+    if (!this.state.modify) {
+      return (<div
         className="street-name"
         ref={this.props.childRef}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
-        onClick={this.props.onClick}
-        id={this.props.id}
-      >
+        onClick={() => this.setState({modify: true})}
+        id={this.props.id}>
         {this.renderHoverPrompt()}
         <div className={classString}>{StreetName.normalizeStreetName(this.props.name)}</div>
-      </div>
-    )
+      </div>)
+    } else if (this.state.modify && this.props.editable) {
+      return (<div
+        className="street-name"
+        ref={this.props.childRef}
+        id={this.props.id}>
+        <input className={classString} type="text"
+          placeholder={StreetName.normalizeStreetName(this.props.name)}
+          onChange={(evt) => this.setState({ inpVal: evt.target.value })}
+          onKeyUp={(evt) => this.handleKeyUp(evt)} autoFocus />
+      </div>)
+    }
   }
 }
 

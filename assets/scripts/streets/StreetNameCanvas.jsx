@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import StreetName from './StreetName'
 import StreetMeta from './StreetMeta'
 import { saveStreetName } from '../store/actions/street'
-import { t } from '../app/locale'
 
 class StreetNameCanvas extends React.Component {
   static propTypes = {
@@ -85,15 +84,9 @@ class StreetNameCanvas extends React.Component {
     return classNames
   }
 
-  onClickStreetName = () => {
-    if (!this.props.editable) return
-
-    const newName = window.prompt(t('prompt.new-street', 'New street name:'), this.props.street.name)
-
-    if (newName) {
-      const name = StreetName.normalizeStreetName(newName)
-      this.props.saveStreetName(name, true)
-    }
+  handleStreetNameChange = (newName) => {
+    const name = StreetName.normalizeStreetName(newName)
+    this.props.saveStreetName(name, true)
   }
 
   render () {
@@ -103,7 +96,8 @@ class StreetNameCanvas extends React.Component {
           id="street-name"
           childRef={(ref) => { this.streetName = ref }}
           name={this.props.street.name}
-          onClick={this.onClickStreetName}
+          handleStreetNameChange={this.handleStreetNameChange}
+          editable={this.props.editable}
         />
         <StreetMeta />
       </div>
