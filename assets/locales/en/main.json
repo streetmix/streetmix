@@ -259,7 +259,8 @@
     "delete-street-tooltip": "Delete street",
     "street-count-none": "No streets yet",
     "street-count": "{count} street",
-    "street-count_plural": "{count} streets"
+    "street-count_plural": "{count} streets",
+    "street-count_plural-large": "{count} streets"
   },
   "users": {
     "anonymous": "Anonymous",
