@@ -276,14 +276,13 @@
   "i18n": {
     "lang": {
       "ar": "Arabic",
+      "de": "German",
       "en": "English",
-      "en@pirate": "English (Pirate)",
+      "es": "Spanish",
+      "es-mx": "Spanish (Mexico)",
       "fi": "Finnish",
       "fr": "French",
       "ja": "Japanese",
-      "de": "German",
-      "es": "Spanish",
-      "es-mx": "Spanish (Mexico)",
       "pl": "Polish",
       "pt-br": "Portuguese (Brazil)",
       "sv": "Swedish",
