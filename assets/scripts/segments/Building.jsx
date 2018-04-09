@@ -43,6 +43,7 @@ class Building extends React.Component {
 
     if (prevProps.street[variant] && prevProps.street[variant] !== street[variant]) {
       this.handleBuildingSwitch()
+      infoBubble.updateContents()
     }
 
     if (prevState.switchBuildings !== this.state.switchBuildings) {
