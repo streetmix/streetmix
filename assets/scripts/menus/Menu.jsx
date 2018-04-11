@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 export default class Menu extends React.PureComponent {
   static propTypes = {
     className: PropTypes.string,
-    alignment: PropTypes.oneOf(['left', 'right']).isRequired,
     isActive: PropTypes.bool.isRequired,
     position: PropTypes.array,
     onShow: PropTypes.func,
@@ -38,11 +37,21 @@ export default class Menu extends React.PureComponent {
     this.el.classList.add('visible')
 
     // Determine positioning
-    // Aligns menu to the left side of the menu item.
+    // Aligns menu to the left side of the menu item, but aligns to the right side
+    // of the menu bar if the menu is too wide.
     // Position is provided by the MenuBar component and passed in through props.
-    if (this.props.alignment === 'left') {
-      this.el.style.left = this.props.position[0] + 'px'
+    const LEFT_RIGHT_INSET = 50 // match $left-right-inset in CSS
+    const left = this.props.position[0]
+    const width = this.el.offsetWidth
+    const maxXPos = document.documentElement.clientWidth - LEFT_RIGHT_INSET
+    let renderLeft
+    if (left + width > maxXPos) {
+      renderLeft = maxXPos - width
+    } else {
+      renderLeft = this.props.position[0]
     }
+    this.el.style.left = renderLeft + 'px'
+    // if rtl, style.right instead of style.left
 
     if (this.props.onShow) {
       this.props.onShow()
@@ -62,13 +71,6 @@ export default class Menu extends React.PureComponent {
 
     if (this.props.className) {
       className += ` ${this.props.className}`
-    }
-
-    // Determine positioning
-    if (this.props.alignment === 'right') {
-      // Note: this aligns to right edge of menu bar,
-      // instead of the right side of the menu item.
-      className += ' align-right'
     }
 
     return (

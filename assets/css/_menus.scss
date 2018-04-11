@@ -24,10 +24,6 @@
     pointer-events: auto;
   }
 
-  &.align-right {
-    right: $left-right-inset;
-  }
-
   > a {
     display: block;
     position: relative;
@@ -151,15 +147,8 @@ body.safari .menu {
 }
 
 [dir='rtl'] {
-  .menu {
-    &.align-right {
-      left: $left-right-inset;
-      right: auto;
-    }
-
-    .icon {
-      left: auto;
-      right: 0.75em;
-    }
+  .menu .icon {
+    left: auto;
+    right: 0.75em;
   }
 }
