@@ -1,4 +1,4 @@
-import { START_PRINTING, STOP_PRINTING, SET_APP_FLAGS, EVERYTHING_LOADED } from './'
+import { START_PRINTING, STOP_PRINTING, SET_APP_FLAGS, EVERYTHING_LOADED, SET_CONTENT_DIRECTION } from './'
 
 export function setAppFlags (flags) {
   return {
@@ -22,5 +22,12 @@ export function stopPrinting () {
 export function everythingLoaded () {
   return {
     type: EVERYTHING_LOADED
+  }
+}
+
+export function setContentDirection (dir) {
+  return {
+    type: SET_CONTENT_DIRECTION,
+    dir
   }
 }

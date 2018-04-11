@@ -1,8 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
-export default class Menu extends React.PureComponent {
+class Menu extends React.PureComponent {
   static propTypes = {
+    // contentDirection: PropTypes.oneOf(['rtl', 'ltr']),
     className: PropTypes.string,
     isActive: PropTypes.bool.isRequired,
     position: PropTypes.array,
@@ -51,7 +53,7 @@ export default class Menu extends React.PureComponent {
       renderLeft = this.props.position[0]
     }
     this.el.style.left = renderLeft + 'px'
-    // if rtl, style.right instead of style.left
+    // if rtl, recalculate left position based on right position of menu item
 
     if (this.props.onShow) {
       this.props.onShow()
@@ -80,3 +82,11 @@ export default class Menu extends React.PureComponent {
     )
   }
 }
+
+function mapStateToProps (state) {
+  return {
+    contentDirection: state.app.contentDirection
+  }
+}
+
+export default connect(mapStateToProps)(Menu)
