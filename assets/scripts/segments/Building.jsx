@@ -47,12 +47,12 @@ class Building extends React.Component {
 
     if (prevProps.street[variant] && prevProps.street[variant] !== street[variant]) {
       this.handleBuildingSwitch()
-      infoBubble.updateContents()
     }
 
     if (prevState.switchBuildings !== this.state.switchBuildings) {
       this.props.calculateBuildingPerspective(this.oldStreetSectionBuilding)
       this.props.calculateBuildingPerspective(this.streetSectionBuilding)
+      this.oldStreetSectionBuilding.classList.remove('hover')
       createBuilding(this.streetSectionBuilding, street[variant], position, street[height], street)
     }
   }
@@ -72,7 +72,7 @@ class Building extends React.Component {
 
   onBuildingMouseLeave = (event) => {
     window.removeEventListener('keydown', this.handleKeyDown)
-    if (event.pointerType !== 'mouse') return
+    // if (event.pointerType !== 'mouse') return
     infoBubble.dontConsiderShowing()
   }
 
@@ -132,7 +132,6 @@ class Building extends React.Component {
 
     return (
       <section
-        id={(isOldBuilding) ? 'old-building' : 'new-building'}
         className="street-section-building"
         ref={(ref) => { this.handleChangeInRefs(ref, isOldBuilding) }}
         onMouseEnter={this.onBuildingMouseEnter}
