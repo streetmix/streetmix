@@ -23,7 +23,7 @@ const LOCALES = [
     label: 'Arabic',
     value: 'ar',
     key: 'i18n.lang.ar',
-    level: 1
+    level: 2
   },
   {
     label: 'Chinese (Traditional)',
@@ -54,6 +54,12 @@ const LOCALES = [
     value: 'de',
     key: 'i18n.lang.de',
     level: 1
+  },
+  {
+    label: 'Japanese',
+    value: 'ja',
+    key: 'i18n.lang.ja',
+    level: 2
   },
   {
     label: 'Polish',
