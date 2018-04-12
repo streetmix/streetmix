@@ -17,13 +17,14 @@ import es from 'react-intl/locale-data/es'
 import de from 'react-intl/locale-data/de'
 import fi from 'react-intl/locale-data/fi'
 import fr from 'react-intl/locale-data/fr'
+import ja from 'react-intl/locale-data/ja'
 import pl from 'react-intl/locale-data/pl'
 import pt from 'react-intl/locale-data/pt'
 import sv from 'react-intl/locale-data/sv'
 import zh from 'react-intl/locale-data/zh'
 
 // Add react-intl locale data
-addLocaleData([...ar, ...es, ...de, ...fi, ...fr, ...pl, ...pt, ...sv, ...zh])
+addLocaleData([...ar, ...es, ...de, ...fi, ...fr, ...ja, ...pl, ...pt, ...sv, ...zh])
 
 export function initLocale (experimental) {
   // Current language is the one set by Streetmix or is the browser default, if unset
