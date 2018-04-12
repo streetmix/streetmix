@@ -65,7 +65,7 @@ const LOCALES = [
     label: 'Polish',
     value: 'pl',
     key: 'i18n.lang.pl',
-    level: 1
+    level: 2
   },
   {
     label: 'Portuguese (Brazil)',
