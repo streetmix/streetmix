@@ -28,10 +28,7 @@ const MIN_TOP_MARGIN_FROM_VIEWPORT = 120
 class InfoBubble extends React.Component {
   static propTypes = {
     visible: PropTypes.bool.isRequired,
-    dataNo: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]),
+    dataNo: PropTypes.string,
     setInfoBubbleMouseInside: PropTypes.func,
     street: PropTypes.object,
     system: PropTypes.object
