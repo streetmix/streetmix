@@ -78,7 +78,6 @@
     Denis Devillé, French
     Jean-Louis Stanus, French
     Philippe Provost, French
-    "iltarus", German
     Max Maaß, German
     Satoshi IIDA, Japanese
     Honorata Grzesikowska, Polish
