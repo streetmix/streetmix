@@ -255,9 +255,6 @@ export const infoBubble = {
     }
 
     if (!isInfoBubbleVisible() || !infoBubble._withinHoverPolygon(infoBubble.considerMouseX, infoBubble.considerMouseY)) {
-      if (type === INFO_BUBBLE_TYPE_RIGHT_BUILDING) {
-        console.log(infoBubble.considerMouseX, infoBubble.considerMouseY)
-      }
       infoBubble.show(false)
     }
   },
@@ -273,10 +270,11 @@ export const infoBubble = {
     // If info bubble changes, wake this back up if it's fading out
     cancelFadeoutControls()
 
-    window.dispatchEvent(new window.CustomEvent('stmx:force_infobubble_update'))
+    // window.dispatchEvent(new window.CustomEvent('stmx:force_infobubble_update'))
 
     switch (infoBubble.type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
+        window.dispatchEvent(new window.CustomEvent('stmx:force_infobubble_update'))
         var segment = street.segments[store.getState().infoBubble.dataNo]
         infoBubble.segment = segment
         break
@@ -335,7 +333,10 @@ export const infoBubble = {
     var bubbleX = pos[0] - document.querySelector('#street-section-outer').scrollLeft
     var bubbleY = pos[1]
 
-    const dataNo = segmentEl.dataNo
+    let dataNo = segmentEl.dataNo
+    if (!dataNo) {
+      dataNo = (type === INFO_BUBBLE_TYPE_LEFT_BUILDING) ? 'left' : 'right'
+    }
     store.dispatch(setInfoBubbleSegmentDataNo(dataNo))
 
     infoBubble.el = document.querySelector('.info-bubble')
@@ -350,7 +351,6 @@ export const infoBubble = {
       bubbleY = MIN_TOP_MARGIN_FROM_VIEWPORT
     }
 
-    console.log('offsetWidth: ', segmentEl.offsetWidth)
     bubbleX += segmentEl.offsetWidth / 2
     bubbleX -= bubbleWidth / 2
 
@@ -362,7 +362,6 @@ export const infoBubble = {
       bubbleX = system.viewportWidth - bubbleWidth - 50
     }
 
-    console.log('bubbleX: ', bubbleX)
     infoBubble.el.style.left = bubbleX + 'px'
     infoBubble.el.style.top = bubbleY + 'px'
 
