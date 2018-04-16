@@ -76,11 +76,15 @@
     Wen Jing Jiang, Chinese (Traditional)
     Aleksi Kinnunen, Finnish
     Denis Devillé, French
+    Jean-Louis Stanus, French
     Philippe Provost, French
     "iltarus", German
+    Max Maaß, German
+    Satoshi IIDA, Japanese
     Honorata Grzesikowska, Polish
     Tomasz Magulski, Polish
     Weronika Grzejszczak, Polish
+    Wojciech Patelka, Polish
     Carlos Jimenez, Portuguese (Brazil)
     Stephan Garcia, Portuguese (Brazil)
     Paco Marquez, Spanish (Mexico)
