@@ -23,12 +23,18 @@ const INFO_BUBBLE_TYPE_SEGMENT = 1
 const INFO_BUBBLE_TYPE_LEFT_BUILDING = 2
 const INFO_BUBBLE_TYPE_RIGHT_BUILDING = 3
 
+const MIN_TOP_MARGIN_FROM_VIEWPORT = 120
+
 class InfoBubble extends React.Component {
   static propTypes = {
     visible: PropTypes.bool.isRequired,
-    dataNo: PropTypes.number,
+    dataNo: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]),
     setInfoBubbleMouseInside: PropTypes.func,
-    street: PropTypes.object
+    street: PropTypes.object,
+    system: PropTypes.object
   }
 
   static defaultProps = {
@@ -63,6 +69,10 @@ class InfoBubble extends React.Component {
   }
 
   componentDidUpdate () {
+    const { dataNo } = this.props
+    if (dataNo === 'left' || dataNo === 'right') {
+      this.updateInfoBubbleForBuildings()
+    }
     this.updateBubbleDimensions()
   }
 
@@ -73,6 +83,21 @@ class InfoBubble extends React.Component {
 
   componentDidCatch (error) {
     console.error(error)
+  }
+
+  updateInfoBubbleForBuildings = () => {
+    const { street, dataNo } = this.props
+    const type = (dataNo === 'left') ? INFO_BUBBLE_TYPE_LEFT_BUILDING : INFO_BUBBLE_TYPE_RIGHT_BUILDING
+    if (this.state.type !== type) {
+      this.setState({
+        type,
+        street,
+        segment: null,
+        description: null
+      })
+    } else {
+      this.calculateInfoBubbleStyle()
+    }
   }
 
   hide = () => {
@@ -116,7 +141,7 @@ class InfoBubble extends React.Component {
     const { street } = this.props
     const segment = street.segments[this.props.dataNo]
     this.setState({
-      type: infoBubble.type,
+      type: INFO_BUBBLE_TYPE_SEGMENT,
       street,
       segment,
       description: getDescriptionData(segment)
@@ -134,7 +159,6 @@ class InfoBubble extends React.Component {
     }
 
     const height = bubbleHeight + 30
-
     infoBubble.bubbleHeight = bubbleHeight
 
     this.el.style.webkitTransformOrigin = '50% ' + height + 'px'
@@ -187,6 +211,36 @@ class InfoBubble extends React.Component {
     return name
   }
 
+  calculateInfoBubbleStyle = () => {
+    let bubbleX, bubbleY
+    const pos = getElAbsolutePos(infoBubble.segmentEl)
+
+    bubbleX = pos[0] - document.querySelector('#street-section-outer').scrollLeft
+    bubbleY = pos[1]
+
+    const bubbleWidth = (this.el && this.el.offsetWidth)
+    const bubbleHeight = (this.el && this.el.offsetHeight)
+
+    bubbleY -= bubbleHeight - 20
+    if (bubbleY < MIN_TOP_MARGIN_FROM_VIEWPORT) {
+      bubbleY = MIN_TOP_MARGIN_FROM_VIEWPORT
+    }
+
+    bubbleX += infoBubble.segmentEl.offsetWidth / 2
+    bubbleX -= bubbleWidth / 2
+
+    const { system } = this.props
+
+    if (bubbleX < 50) {
+      bubbleX = 50
+    } else if (bubbleX > system.viewportWidth - bubbleWidth - 50) {
+      bubbleX = system.viewportWidth - bubbleWidth - 50
+    }
+
+    this.el.style.left = bubbleX + 'px'
+    this.el.style.top = bubbleY + 'px'
+  }
+
   render () {
     const type = this.state.type
     const canBeDeleted = (type === INFO_BUBBLE_TYPE_SEGMENT)
@@ -204,7 +258,7 @@ class InfoBubble extends React.Component {
     let position
     switch (type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
-        position = this.props.dataNo
+        position = window.parseInt(this.props.dataNo)
         break
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
         position = 'left'
@@ -265,7 +319,8 @@ function mapStateToProps (state) {
   return {
     visible: state.infoBubble.visible,
     dataNo: state.infoBubble.dataNo,
-    street: state.street
+    street: state.street,
+    system: state.system
   }
 }
 
