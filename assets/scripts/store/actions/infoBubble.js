@@ -21,7 +21,7 @@ export function hideInfoBubble () {
 export function setInfoBubbleSegmentDataNo (dataNo) {
   return {
     type: SET_SEGMENT_DATA_NO,
-    dataNo: window.parseInt(dataNo)
+    dataNo: dataNo
   }
 }
 
