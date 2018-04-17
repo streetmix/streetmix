@@ -38,6 +38,9 @@ script:
 after_script:
   - pkill node
 
+after_failure:
+  - sudo service mongod status
+
 notifications:
   webhooks: http://project-monitor.codeforamerica.org/projects/4083b10b-11a4-4ac5-9a7f-51c5cb614243/status
 

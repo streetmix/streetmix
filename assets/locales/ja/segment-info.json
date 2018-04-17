@@ -1,0 +1,344 @@
+{
+  "segments": {
+    "sidewalk": {
+      "name": "歩道"
+    },
+    "sidewalk-tree": {
+      "name": "街路樹つき歩道"
+    },
+    "sidewalk-bike-rack": {
+      "name": "自転車置場"
+    },
+    "sidewalk-bench": {
+      "name": "ベンチ"
+    },
+    "sidewalk-wayfinding": {
+      "name": "道路名標識",
+      "description": {
+        "prompt": "道路名標識 (wayfinding signs)について",
+        "lede": "道路名標識があることで、歩行者にとっても目的地までの道のりがわかりやすくなります。",
+        "text": [
+          "",
+          "",
+          ""
+        ]
+      }
+    },
+    "sidewalk-lamp": {
+      "name": "街灯つき歩道"
+    },
+    "parklet": {
+      "name": "パークレット",
+      "description": {
+        "prompt": "パークレットについて",
+        "imageCaption": "4033 Judah Streetのパークレット, 写真提供 San Francisco Planning Department.",
+        "lede": "パークレットを設置することで、路面駐車場が一時的な公共空間に生まれ変わります。",
+        "text": [
+          "",
+          ""
+        ]
+      }
+    },
+    "divider": {
+      "name": "バッファーゾーン",
+      "details": {
+        "planting-strip": {
+          "name": "緑地・花壇"
+        },
+        "planter-box": {
+          "name": "プランター"
+        },
+        "median": {
+          "name": "中央分離帯"
+        },
+        "striped-buffer": {
+          "name": "バッファー"
+        },
+        "bush": {
+          "name": "緑地・花壇"
+        },
+        "flowers": {
+          "name": "緑地・花壇"
+        },
+        "big-tree": {
+          "name": "緑地・花壇"
+        },
+        "palm-tree": {
+          "name": "緑地・花壇"
+        },
+        "bollard": {
+          "name": "ボラード"
+        },
+        "dome": {
+          "name": "車両除外ドーム"
+        }
+      }
+    },
+    "bike-lane": {
+      "name": "自転車専用レーン",
+      "description": {
+        "prompt": "自転車専用レーンについて",
+        "lede": "車両用とは別に自転車専用レーンを設置することで、自転車通行の安全性が増します。",
+        "text": [
+          "",
+          "",
+          ""
+        ]
+      },
+      "details": {
+        "inbound|colored": {
+          "description": {
+            "prompt": "色付き自転車専用レーンについて",
+            "lede": "自転車専用レーンを色分けすることで、自転車通行時に道路を見分けやすくなり、安全性が向上します。",
+            "text": [
+              "",
+              "",
+              ""
+            ]
+          }
+        },
+        "outbound|colored": {
+          "description": {
+            "prompt": "色付き自転車専用レーンについて",
+            "lede": "自転車専用レーンを色分けすることで、自転車通行時に道路を見分けやすくなり、安全性が向上します。",
+            "text": [
+              "",
+              "",
+              ""
+            ]
+          }
+        }
+      }
+    },
+    "parking-lane": {
+      "name": "路上駐車スペース",
+      "details": {
+        "sideways|left": {
+          "name": "道路に対して直角"
+        },
+        "sideways|right": {
+          "name": "道路に対して直角"
+        },
+        "angled-front-left|left": {
+          "name": "斜めに駐車"
+        },
+        "angled-front-left|right": {
+          "name": "斜めに駐車"
+        },
+        "angled-front-right|left": {
+          "name": "斜めに駐車"
+        },
+        "angled-front-right|right": {
+          "name": "斜めに駐車"
+        },
+        "angled-rear-left|left": {
+          "name": "斜めに駐車"
+        },
+        "angled-rear-left|right": {
+          "name": "斜めに駐車"
+        },
+        "angled-rear-right|left": {
+          "name": "斜めに駐車"
+        },
+        "angled-rear-right|right": {
+          "name": "斜めに駐車"
+        }
+      }
+    },
+    "drive-lane": {
+      "name": "車両用レーン",
+      "details": {
+        "inbound|sharrow": {
+          "name": "自転車共用",
+          "description": {
+            "prompt": "自転車共用レーンについて",
+            "lede": "自転車共用レーンは、車両と自転車のどちらも通行可能です。",
+            "text": [
+              "",
+              "",
+              ""
+            ]
+          }
+        },
+        "outbound|sharrow": {
+          "name": "自転車共用",
+          "description": {
+            "prompt": "自転車共用レーンについて",
+            "lede": "自転車共用レーンは、車両と自転車のどちらも通行可能です。",
+            "text": [
+              "",
+              "",
+              ""
+            ]
+          }
+        }
+      }
+    },
+    "turn-lane": {
+      "name": "方向転換レーン",
+      "details": {
+        "inbound|straight": {
+          "name": "方向転換なしレーン"
+        },
+        "inbound|shared": {
+          "name": "センター・ターンレーン"
+        },
+        "outbound|straight": {
+          "name": "方向転換なしレーン"
+        },
+        "outbound|shared": {
+          "name": "センター・ターンレーン"
+        }
+      }
+    },
+    "bus-lane": {
+      "name": "バス専用レーン",
+      "details": {
+        "inbound|shared": {
+          "name": "バス/自転車共用レーン"
+        },
+        "outbound|shared": {
+          "name": "バス/自転車共用レーン"
+        }
+      }
+    },
+    "streetcar": {
+      "name": "路面電車"
+    },
+    "light-rail": {
+      "name": "ライトレール"
+    },
+    "transit-shelter": {
+      "name": "屋根付き停留所",
+      "details": {
+        "left|light-rail": {
+          "description": {
+            "prompt": "屋根付き停留所の段差分けについて",
+            "lede": "停留所に段差をつけることで、ライトレールやバスがスムーズに停車し、運行することができます。",
+            "text": [
+              "",
+              "",
+              ""
+            ]
+          }
+        },
+        "right|light-rail": {
+          "description": {
+            "prompt": "屋根付き停留所の段差分けについて",
+            "lede": "停留所に段差をつけることで、ライトレールやバスがスムーズに停車し、運行することができます。",
+            "text": [
+              "",
+              "",
+              ""
+            ]
+          }
+        }
+      }
+    },
+    "train": {
+      "name": "“インセプション” 電車",
+      "description": {
+        "lede": "クリストファー・ノーラン監督の映画<em>インセプション</em>に登場する電車です。",
+        "text": [
+          "説明は不要でしょ？"
+        ]
+      }
+    }
+  },
+  "buildings": {
+    "waterfront": {
+      "name": "河岸"
+    },
+    "grass": {
+      "name": "芝生"
+    },
+    "fence": {
+      "name": "空き地"
+    },
+    "parking-lot": {
+      "name": "駐車場"
+    },
+    "residential": {
+      "name": "家屋"
+    },
+    "narrow": {
+      "name": "建物"
+    },
+    "wide": {
+      "name": "建物"
+    }
+  },
+  "variant-icons": {
+    "orientation|left": "左",
+    "orientation|right": "右",
+    "turn-lane-orientation|left": "左",
+    "turn-lane-orientation|left-straight": "左折と直進",
+    "turn-lane-orientation|straight": "直進",
+    "turn-lane-orientation|right-straight": "右折と直進",
+    "turn-lane-orientation|right": "右折",
+    "turn-lane-orientation|both": "両方",
+    "turn-lane-orientation|shared": "共用",
+    "bench-orientation|left": "左",
+    "bench-orientation|right": "右",
+    "bench-orientation|center": "中央",
+    "parking-lane-orientation|left": "左",
+    "parking-lane-orientation|right": "右",
+    "parking-lane-direction|inbound": "上り車線",
+    "parking-lane-direction|outbound": "下り車線",
+    "parking-lane-direction|sideways": "直角駐車",
+    "parking-lane-direction|angled-front-left": "斜め駐車",
+    "parking-lane-direction|angled-front-right": "斜め駐車",
+    "parking-lane-direction|angled-rear-left": "斜め駐車",
+    "parking-lane-direction|angled-rear-right": "斜め駐車",
+    "direction|inbound": "上り",
+    "direction|outbound": "下り",
+    "sidewalk-density|empty": "ごく少数",
+    "sidewalk-density|sparse": "少ない",
+    "sidewalk-density|normal": "普通",
+    "sidewalk-density|dense": "多い",
+    "lamp-orientation|left": "左",
+    "lamp-orientation|both": "両方",
+    "lamp-orientation|right": "右",
+    "lamp-type|traditional": "伝統的",
+    "lamp-type|modern": "現代風",
+    "lamp-type|pride": "虹色表記つきの現代風",
+    "car-type|car": "車両",
+    "car-type|sharrow": "共用",
+    "car-type|truck": "トラック",
+    "public-transit-asphalt|regular": "アスファルト",
+    "public-transit-asphalt|colored": "赤レーン",
+    "bus-asphalt|regular": "アスファルト",
+    "bus-asphalt|colored": "赤レーン",
+    "bus-asphalt|shared": "バス/自転車共用レーン",
+    "bike-asphalt|regular": "アスファルト",
+    "bike-asphalt|green": "緑レーン",
+    "bike-asphalt|red": "赤レーン",
+    "tree-type|big": "街路樹",
+    "tree-type|palm-tree": "ヤシの木",
+    "divider-type|median": "中央分離帯",
+    "divider-type|striped-buffer": "ストライプ表示",
+    "divider-type|planting-strip": "緑地・花壇",
+    "divider-type|planter-box": "プランター",
+    "divider-type|bush": "緑地",
+    "divider-type|flowers": "花壇",
+    "divider-type|big-tree": "街路樹と緑地",
+    "divider-type|palm-tree": "ヤシの木と緑地",
+    "divider-type|bollard": "ボラード",
+    "divider-type|dome": "車両除外ドーム",
+    "transit-shelter-elevation|street-level": "ストリートの段差",
+    "transit-shelter-elevation|light-rail": "ライトレール停留所",
+    "bike-rack-elevation|sidewalk-parallel": "並列駐車, 歩道と同じ高さ",
+    "bike-rack-elevation|sidewalk": "共用駐車, 歩道と同じ高さ",
+    "bike-rack-elevation|road": "共用駐車, 道路と同じ高さ",
+    "building|waterfront": "河岸",
+    "building|grass": "芝生",
+    "building|fence": "空き地",
+    "building|parking-lot": "駐車場",
+    "building|residential": "家屋",
+    "building|narrow": "小規模な建物",
+    "building|wide": "大規模な建物",
+    "wayfinding-type|large": "大",
+    "wayfinding-type|medium": "中",
+    "wayfinding-type|small": "小"
+  }
+}

@@ -95,6 +95,10 @@ body.read-only .palette-container {
 }
 
 [dir='rtl'] {
+  .palette-scrollable-container {
+    direction: ltr;
+  }
+
   .palette-commands {
     left: 10px;
     right: auto;
