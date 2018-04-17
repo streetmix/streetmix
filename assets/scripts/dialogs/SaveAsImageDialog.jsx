@@ -157,6 +157,9 @@ export class SaveAsImageDialog extends React.Component {
       case 'fr':
         url = 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr'
         break
+      case 'ja':
+        url = 'https://creativecommons.org/licenses/by-sa/4.0/deed.ja'
+        break
       case 'pl':
         url = 'https://creativecommons.org/licenses/by-sa/4.0/deed.pl'
         break

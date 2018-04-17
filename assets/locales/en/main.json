@@ -229,7 +229,10 @@
     "increase-width": "Increase width (hold Shift for more precision)",
     "decrease-width": "Decrease width (hold Shift for more precision)",
     "add-floor": "Add floor",
-    "remove-floor": "Remove floor"
+    "remove-floor": "Remove floor",
+    "number-floor": "{number} floor",
+    "number-floors": "{number} floors",
+    "number-floors-large": "{number} floors"
   },
   "street": {
     "default-name": "Unnamed St",
@@ -273,13 +276,13 @@
   "i18n": {
     "lang": {
       "ar": "Arabic",
-      "en": "English",
-      "en@pirate": "English (Pirate)",
-      "fi": "Finnish",
-      "fr": "French",
       "de": "German",
+      "en": "English",
       "es": "Spanish",
       "es-mx": "Spanish (Mexico)",
+      "fi": "Finnish",
+      "fr": "French",
+      "ja": "Japanese",
       "pl": "Polish",
       "pt-br": "Portuguese (Brazil)",
       "sv": "Swedish",
