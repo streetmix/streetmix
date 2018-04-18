@@ -241,15 +241,17 @@ function incrementSchemaVersion (street) {
           lng: street.location.latlng[1]
         }
       }
+      break
   }
 
   street.schemaVersion++
+  return street
 }
 
 export function updateToLatestSchemaVersion (street) {
   var updated = false
   while (!street.schemaVersion || (street.schemaVersion < LATEST_SCHEMA_VERSION)) {
-    incrementSchemaVersion(street)
+    street = incrementSchemaVersion(street)
     updated = true
   }
 
