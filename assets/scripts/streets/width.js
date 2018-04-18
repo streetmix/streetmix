@@ -99,10 +99,4 @@ export function recalculateWidth () {
   }
 
   store.dispatch(updateSegments(segments))
-
-  if (street.remainingWidth >= 0) {
-    document.body.classList.remove('street-overflows')
-  } else {
-    document.body.classList.add('street-overflows')
-  }
 }
