@@ -26,7 +26,10 @@ const INFO_BUBBLE_TYPE_RIGHT_BUILDING = 3
 class InfoBubble extends React.Component {
   static propTypes = {
     visible: PropTypes.bool.isRequired,
-    dataNo: PropTypes.string,
+    dataNo: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]),
     setInfoBubbleMouseInside: PropTypes.func,
     street: PropTypes.object,
     system: PropTypes.object
@@ -240,7 +243,7 @@ class InfoBubble extends React.Component {
     let position
     switch (type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
-        position = window.parseInt(this.props.dataNo)
+        position = this.props.dataNo
         break
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
         position = 'left'

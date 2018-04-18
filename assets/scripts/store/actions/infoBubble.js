@@ -19,9 +19,10 @@ export function hideInfoBubble () {
 }
 
 export function setInfoBubbleSegmentDataNo (dataNo) {
+  const isBuilding = (dataNo === 'left' || dataNo === 'right')
   return {
     type: SET_SEGMENT_DATA_NO,
-    dataNo: dataNo
+    dataNo: (isBuilding) ? dataNo : Number.parseInt(dataNo)
   }
 }
 
