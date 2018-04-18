@@ -46,7 +46,7 @@ class Building extends React.Component {
     }
 
     if (prevProps.street[variant] && prevProps.street[variant] !== street[variant]) {
-      this.handleBuildingSwitch()
+      this.switchBuildings()
     }
 
     if (prevState.switchBuildings !== this.state.switchBuildings) {
@@ -96,7 +96,7 @@ class Building extends React.Component {
     event.preventDefault()
   }
 
-  handleChangeInRefs = (ref, isOldBuilding) => {
+  changeRefs = (ref, isOldBuilding) => {
     if (!this.state.switchBuildings && !isOldBuilding) return
 
     if (this.state.switchBuildings && isOldBuilding) {
@@ -106,7 +106,7 @@ class Building extends React.Component {
     }
   }
 
-  handleBuildingSwitch = () => {
+  switchBuildings = () => {
     this.setState({
       switchBuildings: !(this.state.switchBuildings),
       newBuildingEnter: !(this.state.newBuildingEnter),
@@ -132,7 +132,7 @@ class Building extends React.Component {
     return (
       <section
         className="street-section-building"
-        ref={(ref) => { this.handleChangeInRefs(ref, isOldBuilding) }}
+        ref={(ref) => { this.changeRefs(ref, isOldBuilding) }}
         onMouseEnter={this.onBuildingMouseEnter}
         onMouseLeave={this.onBuildingMouseLeave}
         style={style}
@@ -152,7 +152,7 @@ class Building extends React.Component {
           in={newBuildingEnter}
           timeout={250}
           classNames="switching-in"
-          onEntered={this.handleBuildingSwitch}
+          onEntered={this.switchBuildings}
           unmountOnExit
         >
           { this.renderBuilding('new') }
