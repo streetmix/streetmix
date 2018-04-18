@@ -164,6 +164,13 @@ class InfoBubble extends React.Component {
     this.el.style.MozTransformOrigin = '50% ' + height + 'px'
     this.el.style.transformOrigin = '50% ' + height + 'px'
 
+    // When the infoBubble needed to be shown for the right building,the offsetWidth
+    // used to calculate the left style was from the previous rendering of this component.
+    // This meant that if the last time the infoBubble was shown was for a segment, then the
+    // offsetWidth used to calculate the new left style would be smaller than it should be.
+    // The current solution is to manually recalculate the left style and set the style
+    // when hovering over the right building.
+
     if (this.state.type === INFO_BUBBLE_TYPE_RIGHT_BUILDING) {
       const bubbleX = this.props.system.viewportWidth - this.el.offsetWidth - 50
       infoBubble.bubbleX = bubbleX
