@@ -72,7 +72,6 @@ class Building extends React.Component {
 
   onBuildingMouseLeave = (event) => {
     window.removeEventListener('keydown', this.handleKeyDown)
-    // if (event.pointerType !== 'mouse') return
     infoBubble.dontConsiderShowing()
   }
 
