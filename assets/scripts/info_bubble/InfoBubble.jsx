@@ -23,8 +23,6 @@ const INFO_BUBBLE_TYPE_SEGMENT = 1
 const INFO_BUBBLE_TYPE_LEFT_BUILDING = 2
 const INFO_BUBBLE_TYPE_RIGHT_BUILDING = 3
 
-const MIN_TOP_MARGIN_FROM_VIEWPORT = 120
-
 class InfoBubble extends React.Component {
   static propTypes = {
     visible: PropTypes.bool.isRequired,
@@ -65,11 +63,17 @@ class InfoBubble extends React.Component {
     })
   }
 
-  componentDidUpdate () {
-    const { dataNo } = this.props
-    if (dataNo === 'left' || dataNo === 'right') {
-      this.updateInfoBubbleForBuildings()
+  // TODO: Will be deprecated after Version 17
+  // Use getDerivedStateFromProps throughout application after updating ReactJS
+  componentWillReceiveProps (nextProps) {
+    const { dataNo, street } = nextProps
+    const isBuilding = (dataNo === 'left' || dataNo === 'right')
+    if (isBuilding) {
+      this.updateInfoBubbleForBuildings(dataNo, street)
     }
+  }
+
+  componentDidUpdate () {
     this.updateBubbleDimensions()
   }
 
@@ -80,21 +84,6 @@ class InfoBubble extends React.Component {
 
   componentDidCatch (error) {
     console.error(error)
-  }
-
-  updateInfoBubbleForBuildings = () => {
-    const { street, dataNo } = this.props
-    const type = (dataNo === 'left') ? INFO_BUBBLE_TYPE_LEFT_BUILDING : INFO_BUBBLE_TYPE_RIGHT_BUILDING
-    if (this.state.type !== type) {
-      this.setState({
-        type,
-        street,
-        segment: null,
-        description: null
-      })
-    } else {
-      this.calculateInfoBubbleStyle()
-    }
   }
 
   hide = () => {
@@ -134,6 +123,21 @@ class InfoBubble extends React.Component {
     this.setState({ highlightTriangle: !this.state.highlightTriangle })
   }
 
+  updateInfoBubbleForBuildings = (dataNo, street) => {
+    const type = (dataNo === 'left') ? INFO_BUBBLE_TYPE_LEFT_BUILDING
+      : (dataNo === 'right') ? INFO_BUBBLE_TYPE_RIGHT_BUILDING
+        : INFO_BUBBLE_TYPE_SEGMENT
+
+    if (this.state.type !== type) {
+      this.setState({
+        type,
+        street,
+        segment: null,
+        description: null
+      })
+    }
+  }
+
   updateInfoBubbleState = () => {
     const { street } = this.props
     const segment = street.segments[this.props.dataNo]
@@ -161,6 +165,12 @@ class InfoBubble extends React.Component {
     this.el.style.webkitTransformOrigin = '50% ' + height + 'px'
     this.el.style.MozTransformOrigin = '50% ' + height + 'px'
     this.el.style.transformOrigin = '50% ' + height + 'px'
+
+    if (this.state.type === INFO_BUBBLE_TYPE_RIGHT_BUILDING) {
+      const bubbleX = this.props.system.viewportWidth - this.el.offsetWidth - 50
+      infoBubble.bubbleX = bubbleX
+      this.el.style.left = bubbleX + 'px'
+    }
   }
 
   /**
@@ -206,36 +216,6 @@ class InfoBubble extends React.Component {
     }
 
     return name
-  }
-
-  calculateInfoBubbleStyle = () => {
-    let bubbleX, bubbleY
-    const pos = getElAbsolutePos(infoBubble.segmentEl)
-
-    bubbleX = pos[0] - document.querySelector('#street-section-outer').scrollLeft
-    bubbleY = pos[1]
-
-    const bubbleWidth = (this.el && this.el.offsetWidth)
-    const bubbleHeight = (this.el && this.el.offsetHeight)
-
-    bubbleY -= bubbleHeight - 20
-    if (bubbleY < MIN_TOP_MARGIN_FROM_VIEWPORT) {
-      bubbleY = MIN_TOP_MARGIN_FROM_VIEWPORT
-    }
-
-    bubbleX += infoBubble.segmentEl.offsetWidth / 2
-    bubbleX -= bubbleWidth / 2
-
-    const { system } = this.props
-
-    if (bubbleX < 50) {
-      bubbleX = 50
-    } else if (bubbleX > system.viewportWidth - bubbleWidth - 50) {
-      bubbleX = system.viewportWidth - bubbleWidth - 50
-    }
-
-    this.el.style.left = bubbleX + 'px'
-    this.el.style.top = bubbleY + 'px'
   }
 
   render () {
