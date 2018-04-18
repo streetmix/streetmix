@@ -123,10 +123,8 @@ class InfoBubble extends React.Component {
     this.setState({ highlightTriangle: !this.state.highlightTriangle })
   }
 
-  updateInfoBubbleForBuildings = (dataNo, street) => {
-    const type = (dataNo === 'left') ? INFO_BUBBLE_TYPE_LEFT_BUILDING
-      : (dataNo === 'right') ? INFO_BUBBLE_TYPE_RIGHT_BUILDING
-        : INFO_BUBBLE_TYPE_SEGMENT
+  updateInfoBubbleForBuildings = (position, street) => {
+    const type = (position === 'left') ? INFO_BUBBLE_TYPE_LEFT_BUILDING : INFO_BUBBLE_TYPE_RIGHT_BUILDING
 
     if (this.state.type !== type) {
       this.setState({
