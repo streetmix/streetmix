@@ -1,20 +1,9 @@
 import { app } from '../preinit/app_settings'
-import { system } from '../preinit/system_capabilities'
 import { hideDescription } from './description'
-import {
-  createBuildings,
-  onBuildingMouseEnter,
-  updateBuildingPosition
-} from '../segments/buildings'
 import { DRAGGING_TYPE_NONE, draggingType } from '../segments/drag_and_drop'
 import { cancelFadeoutControls } from '../segments/resizing'
 import { getElAbsolutePos } from '../util/helpers'
 import { registerKeypress } from '../app/keypress'
-import {
-  switchSegmentElIn,
-  switchSegmentElAway
-} from '../segments/view'
-import { saveStreetToServerIfNecessary } from '../streets/data_model'
 import store from '../store'
 import {
   showInfoBubble,
@@ -275,39 +264,15 @@ export const infoBubble = {
     infoBubble.considerType = null
   },
 
-  onBuildingVariantButtonClick: function (side) {
-    var el = document.querySelector('#street-section-' + side + '-building')
-    el.id = 'street-section-' + side + '-building-old'
-
-    var newEl = document.createElement('div')
-    newEl.className = 'street-section-building'
-    newEl.id = 'street-section-' + side + '-building'
-
-    el.parentNode.appendChild(newEl)
-    updateBuildingPosition()
-    switchSegmentElIn(newEl)
-    switchSegmentElAway(el)
-
-    // TODO repeat
-    newEl.addEventListener('pointerenter', onBuildingMouseEnter)
-    newEl.addEventListener('pointerleave', onBuildingMouseEnter)
-
-    saveStreetToServerIfNecessary()
-    createBuildings()
-
-    infoBubble.updateContents()
-  },
-
   updateContents: function () {
     const street = store.getState().street
 
     // If info bubble changes, wake this back up if it's fading out
     cancelFadeoutControls()
 
-    window.dispatchEvent(new window.CustomEvent('stmx:force_infobubble_update'))
-
     switch (infoBubble.type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
+        window.dispatchEvent(new window.CustomEvent('stmx:force_infobubble_update'))
         var segment = street.segments[store.getState().infoBubble.dataNo]
         infoBubble.segment = segment
         break
@@ -362,10 +327,14 @@ export const infoBubble = {
     infoBubble.startMouseY = mouseY
 
     var pos = getElAbsolutePos(segmentEl)
+
     var bubbleX = pos[0] - document.querySelector('#street-section-outer').scrollLeft
     var bubbleY = pos[1]
 
-    const dataNo = segmentEl.dataNo
+    let dataNo = segmentEl.dataNo
+    if (!dataNo) {
+      dataNo = (type === INFO_BUBBLE_TYPE_LEFT_BUILDING) ? 'left' : 'right'
+    }
     store.dispatch(setInfoBubbleSegmentDataNo(dataNo))
 
     infoBubble.el = document.querySelector('.info-bubble')
@@ -383,6 +352,7 @@ export const infoBubble = {
     bubbleX += segmentEl.offsetWidth / 2
     bubbleX -= bubbleWidth / 2
 
+    const system = store.getState().system
     // TODO const
     if (bubbleX < 50) {
       bubbleX = 50

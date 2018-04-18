@@ -1,13 +1,6 @@
-import {
-  INFO_BUBBLE_TYPE_RIGHT_BUILDING,
-  INFO_BUBBLE_TYPE_LEFT_BUILDING,
-  infoBubble
-} from '../info_bubble/info_bubble'
-import { saveStreetToServerIfNecessary } from '../streets/data_model'
-import { getElAbsolutePos } from '../util/helpers'
 import { RandomGenerator } from '../util/random'
 import { images } from '../app/load_resources'
-import { resumeFadeoutControls } from './resizing'
+
 import { TILE_SIZE, TILESET_POINT_PER_PIXEL, drawSegmentImage } from './view'
 import store from '../store'
 
@@ -302,7 +295,7 @@ function shadeInContext (ctx) {
   ctx.restore()
 }
 
-function createBuilding (el, variant, position, floors, street) {
+export function createBuilding (el, variant, position, floors, street) {
   const totalWidth = el.offsetWidth
   const buildingHeight = getBuildingImageHeight(variant, position, floors)
 
@@ -328,57 +321,4 @@ function createBuilding (el, variant, position, floors, street) {
     position === 'left', totalWidth, height,
     0,
     1.0, dpi)
-}
-
-export function buildingHeightUpdated () {
-  saveStreetToServerIfNecessary()
-  createBuildings()
-}
-
-export function createBuildings () {
-  const leftEl = document.querySelector('#street-section-left-building')
-  const rightEl = document.querySelector('#street-section-right-building')
-
-  const street = store.getState().street
-
-  createBuilding(leftEl, street.leftBuildingVariant, 'left', street.leftBuildingHeight, street)
-  createBuilding(rightEl, street.rightBuildingVariant, 'right', street.rightBuildingHeight, street)
-}
-
-export function onBuildingMouseEnter (event) {
-  let type
-  if (this.id === 'street-section-left-building') {
-    type = INFO_BUBBLE_TYPE_LEFT_BUILDING
-  } else {
-    type = INFO_BUBBLE_TYPE_RIGHT_BUILDING
-  }
-
-  infoBubble.considerShowing(event, this, type)
-  resumeFadeoutControls()
-}
-
-export function onBuildingMouseLeave (event) {
-  if (event.pointerType !== 'mouse') return
-
-  infoBubble.dontConsiderShowing()
-}
-
-export function updateBuildingPosition () {
-  var el = document.querySelector('#street-section-editable')
-  var pos = getElAbsolutePos(el)
-
-  var width = pos[0] + 25
-
-  if (width < 0) {
-    width = 0
-  }
-
-  document.querySelector('#street-section-left-building').style.width = width + 'px'
-  document.querySelector('#street-section-right-building').style.width = width + 'px'
-
-  document.querySelector('#street-section-left-building').style.left = (-width + 25) + 'px'
-  document.querySelector('#street-section-right-building').style.right = (-width + 25) + 'px'
-
-  document.querySelector('#street-section-dirt').style.marginLeft = -width + 'px'
-  document.querySelector('#street-section-dirt').style.marginRight = -width + 'px'
 }

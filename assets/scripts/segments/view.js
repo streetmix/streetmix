@@ -523,7 +523,7 @@ export function changeSegmentVariantLegacy (dataNo, variantName, variantChoice) 
 }
 
 export function switchSegmentElIn (el) {
-  el.classList.add('switching-in-pre')
+  el.classList.add('switching-in-enter')
 
   window.setTimeout(function () {
     var pos = getElAbsolutePos(el)
@@ -535,12 +535,14 @@ export function switchSegmentElIn (el) {
     el.style.MozPerspectiveOrigin = (perspective / 2) + 'px 50%'
     el.style.perspectiveOrigin = (perspective / 2) + 'px 50%'
 
-    el.classList.add('switching-in-post')
+    el.classList.add('switching-in-enter-active')
+    el.classList.add('switching-in-enter-done')
   }, SEGMENT_SWITCHING_TIME / 2)
 
   window.setTimeout(function () {
-    el.classList.remove('switching-in-pre')
-    el.classList.remove('switching-in-post')
+    el.classList.remove('switching-in-enter')
+    el.classList.remove('switching-in-enter-active')
+    el.classList.remove('switching-in-enter-done')
   }, SEGMENT_SWITCHING_TIME * 1.5)
 }
 
@@ -558,13 +560,14 @@ export function switchSegmentElAway (el) {
 
   el.parentNode.removeChild(el)
   el.classList.remove('hover')
-  el.classList.add('switching-away-pre')
+  el.classList.add('switching-away-exit')
   el.style.left = (pos[0] - document.querySelector('#street-section-outer').scrollLeft) + 'px'
   el.style.top = pos[1] + 'px'
   document.body.appendChild(el)
 
   window.setTimeout(function () {
-    el.classList.add('switching-away-post')
+    el.classList.add('switching-away-exit-active')
+    el.classList.add('switching-away-exit-done')
   }, 0)
 
   window.setTimeout(function () {

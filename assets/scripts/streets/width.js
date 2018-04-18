@@ -1,6 +1,6 @@
 import { onResize } from '../app/window_resize'
 import { system } from '../preinit/system_capabilities'
-import { BUILDING_SPACE, createBuildings } from '../segments/buildings'
+import { BUILDING_SPACE } from '../segments/buildings'
 import { getSegmentVariantInfo } from '../segments/info'
 import { getSegmentWidthResolution } from '../segments/resizing'
 import { TILE_SIZE } from '../segments/view'
@@ -99,16 +99,4 @@ export function recalculateWidth () {
   }
 
   store.dispatch(updateSegments(segments))
-
-  var lastOverflow = document.body.classList.contains('street-overflows')
-
-  if (street.remainingWidth >= 0) {
-    document.body.classList.remove('street-overflows')
-  } else {
-    document.body.classList.add('street-overflows')
-  }
-
-  if (lastOverflow !== document.body.classList.contains('street-overflows')) {
-    createBuildings()
-  }
 }

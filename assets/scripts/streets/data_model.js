@@ -1,9 +1,5 @@
 import { msg } from '../app/messages'
 import { URL_NO_USER, RESERVED_URLS, URL_RESERVED_PREFIX } from '../app/routing'
-import {
-  createBuildings,
-  updateBuildingPosition
-} from '../segments/buildings'
 import { DEFAULT_SEGMENTS } from '../segments/default'
 import { getSegmentInfo } from '../segments/info'
 import { normalizeAllSegmentWidths } from '../segments/resizing'
@@ -280,8 +276,6 @@ export function createDomFromData () {
   }
 
   repositionSegments()
-  updateBuildingPosition()
-  createBuildings()
 }
 
 export function setStreetCreatorId (newId) {

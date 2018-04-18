@@ -26,9 +26,13 @@ const INFO_BUBBLE_TYPE_RIGHT_BUILDING = 3
 class InfoBubble extends React.Component {
   static propTypes = {
     visible: PropTypes.bool.isRequired,
-    dataNo: PropTypes.number,
+    dataNo: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]),
     setInfoBubbleMouseInside: PropTypes.func,
-    street: PropTypes.object
+    street: PropTypes.object,
+    system: PropTypes.object
   }
 
   static defaultProps = {
@@ -60,6 +64,16 @@ class InfoBubble extends React.Component {
     window.addEventListener('stmx:force_infobubble_update', (e) => {
       this.updateInfoBubbleState()
     })
+  }
+
+  // TODO: Will be deprecated after Version 17
+  // Use getDerivedStateFromProps throughout application after updating ReactJS
+  componentWillReceiveProps (nextProps) {
+    const { dataNo, street } = nextProps
+    const isBuilding = (dataNo === 'left' || dataNo === 'right')
+    if (isBuilding) {
+      this.updateInfoBubbleForBuildings(dataNo, street)
+    }
   }
 
   componentDidUpdate () {
@@ -112,11 +126,24 @@ class InfoBubble extends React.Component {
     this.setState({ highlightTriangle: !this.state.highlightTriangle })
   }
 
+  updateInfoBubbleForBuildings = (position, street) => {
+    const type = (position === 'left') ? INFO_BUBBLE_TYPE_LEFT_BUILDING : INFO_BUBBLE_TYPE_RIGHT_BUILDING
+
+    if (this.state.type !== type) {
+      this.setState({
+        type,
+        street,
+        segment: null,
+        description: null
+      })
+    }
+  }
+
   updateInfoBubbleState = () => {
     const { street } = this.props
     const segment = street.segments[this.props.dataNo]
     this.setState({
-      type: infoBubble.type,
+      type: INFO_BUBBLE_TYPE_SEGMENT,
       street,
       segment,
       description: getDescriptionData(segment)
@@ -134,12 +161,24 @@ class InfoBubble extends React.Component {
     }
 
     const height = bubbleHeight + 30
-
     infoBubble.bubbleHeight = bubbleHeight
 
     this.el.style.webkitTransformOrigin = '50% ' + height + 'px'
     this.el.style.MozTransformOrigin = '50% ' + height + 'px'
     this.el.style.transformOrigin = '50% ' + height + 'px'
+
+    // When the infoBubble needed to be shown for the right building,the offsetWidth
+    // used to calculate the left style was from the previous rendering of this component.
+    // This meant that if the last time the infoBubble was shown was for a segment, then the
+    // offsetWidth used to calculate the new left style would be smaller than it should be.
+    // The current solution is to manually recalculate the left style and set the style
+    // when hovering over the right building.
+
+    if (this.state.type === INFO_BUBBLE_TYPE_RIGHT_BUILDING) {
+      const bubbleX = this.props.system.viewportWidth - this.el.offsetWidth - 50
+      infoBubble.bubbleX = bubbleX
+      this.el.style.left = bubbleX + 'px'
+    }
   }
 
   /**
@@ -169,13 +208,13 @@ class InfoBubble extends React.Component {
         break
       }
       case INFO_BUBBLE_TYPE_LEFT_BUILDING: {
-        const variantId = this.state.street.leftBuildingVariant
+        const variantId = this.props.street.leftBuildingVariant
         const backupName = BUILDINGS[variantId].label
         name = t(`buildings.${variantId}.name`, backupName, { ns: 'segment-info' })
         break
       }
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING: {
-        const variantId = this.state.street.rightBuildingVariant
+        const variantId = this.props.street.rightBuildingVariant
         const backupName = BUILDINGS[variantId].label
         name = t(`buildings.${variantId}.name`, backupName, { ns: 'segment-info' })
         break
@@ -265,7 +304,8 @@ function mapStateToProps (state) {
   return {
     visible: state.infoBubble.visible,
     dataNo: state.infoBubble.dataNo,
-    street: state.street
+    street: state.street,
+    system: state.system
   }
 }
 

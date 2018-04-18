@@ -1,11 +1,7 @@
 import { infoBubble } from '../info_bubble/info_bubble'
 import { app } from '../preinit/app_settings'
 import { system } from '../preinit/system_capabilities'
-import {
-  BUILDING_SPACE,
-  updateBuildingPosition,
-  createBuildings
-} from '../segments/buildings'
+import { BUILDING_SPACE } from '../segments/buildings'
 import { TILE_SIZE } from '../segments/view'
 import store from '../store'
 import { windowResize } from '../store/actions/system'
@@ -70,8 +66,4 @@ export function onResize () {
     (street.width * TILE_SIZE) + 'px'
 
   infoBubble.show(true)
-
-  updateBuildingPosition()
-  // TODO hack
-  createBuildings()
 }

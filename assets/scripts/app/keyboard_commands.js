@@ -18,7 +18,6 @@ import { isFocusOnBody } from '../util/focus'
 import { registerKeypress } from './keypress'
 import { showStatusMessage } from './status_message'
 import { t } from './locale'
-import { addBuildingFloor, removeBuildingFloor } from '../store/actions/street'
 import { showDialog } from '../store/actions/dialogs'
 import store from '../store'
 
@@ -77,18 +76,6 @@ function onBodyKeyDown (event) {
       if (hoveredEl) {
         if (hoveredEl.classList.contains('segment')) {
           incrementSegmentWidth(hoveredEl, !negative, event.shiftKey)
-        } else if (hoveredEl.id === 'street-section-left-building') {
-          if (negative) {
-            store.dispatch(removeBuildingFloor('left'))
-          } else {
-            store.dispatch(addBuildingFloor('left'))
-          }
-        } else if (hoveredEl.id === 'street-section-right-building') {
-          if (negative) {
-            store.dispatch(removeBuildingFloor('right'))
-          } else {
-            store.dispatch(addBuildingFloor('right'))
-          }
         }
         event.preventDefault()
 
