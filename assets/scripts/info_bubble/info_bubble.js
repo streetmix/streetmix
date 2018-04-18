@@ -270,8 +270,6 @@ export const infoBubble = {
     // If info bubble changes, wake this back up if it's fading out
     cancelFadeoutControls()
 
-    // window.dispatchEvent(new window.CustomEvent('stmx:force_infobubble_update'))
-
     switch (infoBubble.type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
         window.dispatchEvent(new window.CustomEvent('stmx:force_infobubble_update'))
