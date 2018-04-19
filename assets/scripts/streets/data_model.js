@@ -70,8 +70,6 @@ const LATEST_SCHEMA_VERSION = 18
 // 17: alternative colors for bike lanes
 // 18: change lat/lng format from array to object
 
-export const DEFAULT_NAME = 'Unnamed St'
-
 function incrementSchemaVersion (street) {
   let segment, variant
 
@@ -436,7 +434,9 @@ export function getStreetUrl (street) {
 
   if (street.creatorId) {
     var slug = normalizeSlug(street.name)
-    url += '/' + encodeURIComponent(slug)
+    if (slug) {
+      url += '/' + encodeURIComponent(slug)
+    }
   }
 
   return url
@@ -446,7 +446,7 @@ export function prepareDefaultStreet () {
   const defaultStreet = {
     units: getUnits(),
     location: null,
-    name: DEFAULT_NAME,
+    name: null,
     userUpdated: false,
     editCount: 0,
     leftBuildingHeight: DEFAULT_BUILDING_HEIGHT_LEFT,
@@ -472,7 +472,7 @@ export function prepareEmptyStreet () {
   const emptyStreet = {
     units: getUnits(),
     location: null,
-    name: DEFAULT_NAME,
+    name: null,
     userUpdated: false,
     editCount: 0,
     leftBuildingHeight: DEFAULT_BUILDING_HEIGHT_EMPTY,
