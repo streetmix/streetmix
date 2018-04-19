@@ -447,7 +447,8 @@ export function prepareDefaultStreet () {
     leftBuildingHeight: DEFAULT_BUILDING_HEIGHT_LEFT,
     leftBuildingVariant: DEFAULT_BUILDING_VARIANT_LEFT,
     rightBuildingHeight: DEFAULT_BUILDING_HEIGHT_RIGHT,
-    rightBuildingVariant: DEFAULT_BUILDING_VARIANT_RIGHT
+    rightBuildingVariant: DEFAULT_BUILDING_VARIANT_RIGHT,
+    schemaVersion: LATEST_SCHEMA_VERSION
   }
 
   store.dispatch(updateStreetData(defaultStreet))
@@ -473,6 +474,7 @@ export function prepareEmptyStreet () {
     leftBuildingVariant: DEFAULT_BUILDING_VARIANT_EMPTY,
     rightBuildingHeight: DEFAULT_BUILDING_HEIGHT_EMPTY,
     rightBuildingVariant: DEFAULT_BUILDING_VARIANT_EMPTY,
+    schemaVersion: LATEST_SCHEMA_VERSION,
     segments: []
   }
 
