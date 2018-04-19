@@ -21,6 +21,7 @@
     },
     "share": {
       "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Sign in with Twitter</a> for nicer links to your streets and your personal street gallery",
+      "sign-in-2": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Sign in with Twitter for your personal street gallery</a>",
       "link": "Copy and paste this link to share:",
       "twitter": "Share using Twitter",
       "facebook": "Share using Facebook",
@@ -267,7 +268,6 @@
   },
   "sign-in": {
     "link": "Sign in with Twitter",
-    "promo-1": "for nicer links to your streets and your personal street gallery",
     "promo-2": "for your personal street gallery"
   },
   "meta": {
