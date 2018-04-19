@@ -75,8 +75,14 @@ export const DEFAULT_NAME = msg('DEFAULT_STREET_NAME')
 
 function incrementSchemaVersion (street) {
   let segment, variant
+
   if (!street.schemaVersion) {
-    street.schemaVersion = 1
+    // Fix a bug in 2018 where a street does not have a schema version when it should.
+    if ((street.createdAt && street.createdAt.indexOf('2018') === 0) || (street.updatedAt && street.updatedAt.indexOf('2018') === 0)) {
+      street.schemaVersion = 17
+    } else {
+      street.schemaVersion = 1
+    }
   }
 
   switch (street.schemaVersion) {
