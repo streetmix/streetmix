@@ -326,13 +326,6 @@ function unpackStreetDataFromServerTransmission (transmission) {
 
 export function unpackServerStreetData (transmission, id, namespacedId, checkIfNeedsToBeRemixed) {
   const street = unpackStreetDataFromServerTransmission(transmission)
-  store.dispatch(updateStreetData(street))
-
-  if (transmission.data.undoStack) {
-    store.dispatch(replaceUndoStack(cloneDeep(transmission.data.undoStack), transmission.data.undoPosition))
-  } else {
-    store.dispatch(resetUndoStack())
-  }
 
   var updatedSchema = updateToLatestSchemaVersion(street)
   var undoStack = getUndoStack()
@@ -340,6 +333,13 @@ export function unpackServerStreetData (transmission, id, namespacedId, checkIfN
     if (updateToLatestSchemaVersion(undoStack[i])) {
       updatedSchema = true
     }
+  }
+  store.dispatch(updateStreetData(street))
+
+  if (transmission.data.undoStack) {
+    store.dispatch(replaceUndoStack(cloneDeep(transmission.data.undoStack), transmission.data.undoPosition))
+  } else {
+    store.dispatch(resetUndoStack())
   }
 
   if (id) {

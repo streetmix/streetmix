@@ -75,8 +75,14 @@ export const DEFAULT_NAME = msg('DEFAULT_STREET_NAME')
 
 function incrementSchemaVersion (street) {
   let segment, variant
+
   if (!street.schemaVersion) {
-    street.schemaVersion = 1
+    // Fix a bug in 2018 where a street does not have a schema version when it should.
+    if ((street.createdAt && street.createdAt.indexOf('2018') === 0) || (street.updatedAt && street.updatedAt.indexOf('2018') === 0)) {
+      street.schemaVersion = 17
+    } else {
+      street.schemaVersion = 1
+    }
   }
 
   switch (street.schemaVersion) {
@@ -241,15 +247,17 @@ function incrementSchemaVersion (street) {
           lng: street.location.latlng[1]
         }
       }
+      break
   }
 
   street.schemaVersion++
+  return street
 }
 
 export function updateToLatestSchemaVersion (street) {
   var updated = false
   while (!street.schemaVersion || (street.schemaVersion < LATEST_SCHEMA_VERSION)) {
-    incrementSchemaVersion(street)
+    street = incrementSchemaVersion(street)
     updated = true
   }
 
@@ -445,7 +453,8 @@ export function prepareDefaultStreet () {
     leftBuildingHeight: DEFAULT_BUILDING_HEIGHT_LEFT,
     leftBuildingVariant: DEFAULT_BUILDING_VARIANT_LEFT,
     rightBuildingHeight: DEFAULT_BUILDING_HEIGHT_RIGHT,
-    rightBuildingVariant: DEFAULT_BUILDING_VARIANT_RIGHT
+    rightBuildingVariant: DEFAULT_BUILDING_VARIANT_RIGHT,
+    schemaVersion: LATEST_SCHEMA_VERSION
   }
 
   store.dispatch(updateStreetData(defaultStreet))
@@ -471,6 +480,7 @@ export function prepareEmptyStreet () {
     leftBuildingVariant: DEFAULT_BUILDING_VARIANT_EMPTY,
     rightBuildingHeight: DEFAULT_BUILDING_HEIGHT_EMPTY,
     rightBuildingVariant: DEFAULT_BUILDING_VARIANT_EMPTY,
+    schemaVersion: LATEST_SCHEMA_VERSION,
     segments: []
   }
 
