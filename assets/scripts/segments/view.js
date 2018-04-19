@@ -1,5 +1,4 @@
 import { images } from '../app/load_resources'
-import { msg } from '../app/messages'
 import { infoBubble, INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/info_bubble'
 import { system } from '../preinit/system_capabilities'
 import { saveStreetToServerIfNecessary, createDataFromDom } from '../streets/data_model'
@@ -9,6 +8,7 @@ import { prettifyWidth } from '../util/width_units'
 import { draggingMove } from './drag_and_drop'
 import { getSegmentInfo, getSegmentVariantInfo, getSpriteDef } from './info'
 import { drawProgrammaticPeople } from './people'
+import { t } from '../app/locale'
 import {
   RESIZE_TYPE_INITIAL,
   suppressMouseEnter,
@@ -392,7 +392,7 @@ function fillEmptySegment (el) {
   let innerEl
   innerEl = document.createElement('span')
   innerEl.classList.add('name')
-  innerEl.textContent = msg('SEGMENT_NAME_EMPTY')
+  innerEl.textContent = t('section.empty', 'Empty space')
   innerEl.setAttribute('data-i18n', 'section.empty')
   el.appendChild(innerEl)
 

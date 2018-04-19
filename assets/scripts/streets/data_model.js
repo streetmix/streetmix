@@ -1,4 +1,3 @@
-import { msg } from '../app/messages'
 import { URL_NO_USER, RESERVED_URLS, URL_RESERVED_PREFIX } from '../app/routing'
 import { DEFAULT_SEGMENTS } from '../segments/default'
 import { getSegmentInfo } from '../segments/info'
@@ -71,7 +70,7 @@ const LATEST_SCHEMA_VERSION = 18
 // 17: alternative colors for bike lanes
 // 18: change lat/lng format from array to object
 
-export const DEFAULT_NAME = msg('DEFAULT_STREET_NAME')
+export const DEFAULT_NAME = 'Unnamed St'
 
 function incrementSchemaVersion (street) {
   let segment, variant
