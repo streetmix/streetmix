@@ -88,7 +88,8 @@ class StreetNameCanvas extends React.Component {
   onClickStreetName = () => {
     if (!this.props.editable) return
 
-    const newName = window.prompt(t('prompt.new-street', 'New street name:'), this.props.street.name)
+    const streetName = this.props.street.name || t('street.default-name', 'Unnamed St')
+    const newName = window.prompt(t('prompt.new-street', 'New street name:'), streetName)
 
     if (newName) {
       const name = StreetName.normalizeStreetName(newName)

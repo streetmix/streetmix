@@ -6,10 +6,7 @@ import { updatePageUrl } from '../app/page_url'
 import { hideStatusMessage } from '../app/status_message'
 import { app } from '../preinit/app_settings'
 import { hideControls } from '../segments/resizing'
-import {
-  DEFAULT_NAME,
-  updateToLatestSchemaVersion
-} from '../streets/data_model'
+import { updateToLatestSchemaVersion } from '../streets/data_model'
 import { fetchGalleryData } from './fetch_data'
 import { fetchGalleryStreet } from './fetch_street'
 
@@ -110,8 +107,6 @@ export function receiveGalleryData (transmission) {
 
     galleryStreet.creatorId =
       (galleryStreet.creator && galleryStreet.creator.id)
-
-    galleryStreet.name = galleryStreet.name || DEFAULT_NAME
 
     streets.push(galleryStreet)
   }

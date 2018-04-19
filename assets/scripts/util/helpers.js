@@ -39,6 +39,8 @@ export function getElAbsolutePos (el, includeScroll = false) {
  * @returns {string}
  */
 export function normalizeSlug (slug) {
+  if (!slug) return
+
   slug = slug.toLowerCase()
   slug = slug.replace(/ /g, '-')
   slug = slug.replace(/-{2,}/, '-')

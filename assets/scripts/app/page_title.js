@@ -1,4 +1,5 @@
 import { getSignInData, isSignedIn } from '../users/authentication'
+import { t } from '../app/locale'
 
 /**
  * Updates page title.
@@ -24,7 +25,8 @@ export function updatePageTitle (street) {
  * e.g. Facebook sharing
  */
 export function getPageTitle (street) {
-  return `${street.name} – Streetmix`
+  const streetName = street.name || t('street.default-name', 'Unnamed St')
+  return `${streetName} – Streetmix`
 }
 
 /**
@@ -32,5 +34,6 @@ export function getPageTitle (street) {
  * Displayed when a street has an creator
  */
 export function getPageTitleWithAuthor (street) {
-  return `${street.name} (by ${street.creatorId}) – Streetmix`
+  const streetName = street.name || t('street.default-name', 'Unnamed St')
+  return `${streetName} (by ${street.creatorId}) – Streetmix`
 }
