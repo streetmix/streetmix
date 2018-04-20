@@ -17,16 +17,6 @@ import { sendDeleteStreetToServer } from '../streets/xhr'
 import { showError, ERRORS } from '../app/errors'
 import { setGalleryMode, deleteGalleryStreet } from '../store/actions/gallery'
 
-function getStreetCountText (count) {
-  let text
-  if (!count) {
-    text = <FormattedMessage id="gallery.street-count-none" defaultMessage="No streets yet" />
-  } else {
-    text = <FormattedMessage id="gallery.street-count" defaultMessage="{count} streets" values={{ count }} />
-  }
-  return text
-}
-
 class Gallery extends React.Component {
   static propTypes = {
     setGalleryMode: PropTypes.func,
@@ -200,7 +190,13 @@ class Gallery extends React.Component {
           )
         })
         const streetCount = (this.props.userId) ? (
-          <div className="gallery-street-count">{getStreetCountText(this.props.streets.length)}</div>
+          <div className="gallery-street-count">
+            <FormattedMessage
+              id="gallery.street-count"
+              defaultMessage="{count, plural, =0 {No streets yet} one {# street} other {# streets}}"
+              values={{ count: this.props.streets.length }}
+            />
+          </div>
         ) : null
 
         childElements = (
