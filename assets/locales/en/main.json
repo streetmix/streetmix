@@ -26,7 +26,15 @@
       "facebook": "Share using Facebook",
       "print": "Print…",
       "save": "Save as image…",
-      "save-byline": "For including in a report, blog, etc."
+      "save-byline": "For including in a report, blog, etc.",
+      "messages": {
+        "my-street": "Check out my street, {streetName}, on Streetmix!",
+        "my-street-unnamed": "Check out my street on Streetmix!",
+        "someone-elses-street": "Check out {streetName} by {streetCreator} on Streetmix!",
+        "someone-elses-street-unnamed": "Check out this street by {streetCreator} on Streetmix!",
+        "anonymous-creator-street": "Check out {streetName} on Streetmix!",
+        "anonymous-creator-street-unnamed": "Check out this street on Streetmix!"
+      }
     },
     "contact": {
       "forums": "Discuss on the forums",

@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormattedMessage, FormattedHTMLMessage } from 'react-intl'
+import { FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape } from 'react-intl'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Menu from './Menu'
@@ -13,6 +13,7 @@ import { showDialog } from '../store/actions/dialogs'
 
 export class ShareMenu extends React.Component {
   static propTypes = {
+    intl: intlShape,
     showDialog: PropTypes.func.isRequired,
     signedIn: PropTypes.bool.isRequired,
     userId: PropTypes.string,
@@ -42,20 +43,47 @@ export class ShareMenu extends React.Component {
   }
 
   getSharingMessage = () => {
-    let message = ''
     const street = this.props.street
+    let message = ''
 
     if (street.creatorId) {
       if (this.props.signedIn && street.creatorId === this.props.userId) {
-        message = `Check out my street, ${street.name}, on Streetmix!`
+        if (street.name) {
+          message = this.formatSharingMessage('share.messages.my-street', 'Check out my street, {streetName}, on Streetmix!', { streetName: street.name })
+        } else {
+          message = this.formatSharingMessage('share.messages.my-street-unnamed', 'Check out my street on Streetmix!')
+        }
       } else {
-        message = `Check out ${street.name} by @${street.creatorId} on Streetmix!`
+        if (street.name) {
+          message = this.formatSharingMessage('share.messages.someone-elses-street', 'Check out {streetName} by {streetCreator} on Streetmix!', { streetName: street.name, streetCreator: `@${street.creatorId}` })
+        } else {
+          message = this.formatSharingMessage('share.messages.someone-elses-street-unnamed', 'Check out this street by {streetCreator} on Streetmix!', { streetCreator: `@${street.creatorId}` })
+        }
       }
     } else {
-      message = `Check out ${street.name} on Streetmix!`
+      if (street.name) {
+        message = this.formatSharingMessage('share.messages.anonymous-creator-street', 'Check out {streetName} on Streetmix!', { streetName: street.name })
+      } else {
+        message = this.formatSharingMessage('share.messages.anonymous-creator-street-unnamed', 'Check out this street on Streetmix!')
+      }
     }
 
     return message
+  }
+
+  /**
+   * Wrapper around props.intl.formatMessage
+   *
+   * @param {string} key
+   * @param {string} defaultMsg - default message (fallback)
+   * @param {Object} values - object of values to replace
+   * @returns {string}
+   */
+  formatSharingMessage = (key, defaultMsg, values = {}) => {
+    return this.props.intl.formatMessage({
+      id: key,
+      defaultMessage: defaultMsg
+    }, values)
   }
 
   onShow = () => {
@@ -170,4 +198,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShareMenu)
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(ShareMenu))
