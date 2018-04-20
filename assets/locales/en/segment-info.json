@@ -19,7 +19,7 @@
         "lede": "Wayfinding signs help pedestrians get to common destinations.",
         "text": [
           "Urban planners and architects have spent a few decades trying to learn what happens in people’s brains when they figure out how to get from point A to point B – or how they even know where “point A” is to begin with. As early as 1960, urban planner Kevin Lynch wrote of the “legibility” of the city in his book <em><a href=\"http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014\">The Image of the City</a></em>, describing wayfinding as “a consistent use and organization of definite sensory cues from the external environment.” It could be intangible – smell, touch, a sense of gravity or even electric or magnetic fields. Or it could be much more physical, with intentionally designed “wayfinding devices” like maps, street numbers, or route signs.",
-          "It’s surprising how readily acceptable it is for ample signage to cater to car travel, with less of this investment made at the pedestrian level. Maybe it’s because it’s easier for us to stand still, take stock of our surroundings, and use our senses without fear of accidentally causing a six-person pileup behind us. At any rate, urban designers have pushed for pedestrian-friendly wayfinding signage, particularly in walkable commercial neighborhoods, and these signs have become branding opportunities in addition to being functional. For example, New York City <a href=\"https://www.pentagram.com/work/walknyc/story\">hired an internationally renowned design consultant</a> to create the now ubiquitous WalkNYC signs (Streetmix has modeled its segments after these). Other municipalities have adopted a traditional old-town or civic-formal take (pictured above), and some places have chosen to use <a href=\"http://walkyourcity.org/\">guerrilla wayfinding tactics.</a>",
+          "It’s surprising how readily acceptable it is for ample signage to cater to car travel, with less of this investment made at the pedestrian level. Maybe it’s because it’s easier for us to stand still, take stock of our surroundings, and use our senses without fear of accidentally causing a six-person pileup behind us. At any rate, urban designers have pushed for pedestrian-friendly wayfinding signage, particularly in walkable commercial neighborhoods, and these signs have become branding opportunities in addition to being functional. For example, New York City <a href=\"https://www.pentagram.com/work/walknyc/story\">hired an internationally renowned design consultant</a> to create the now ubiquitous WalkNYC signs (Streetmix has modeled its segments after these). Other municipalities have adopted a traditional old-town or civic-formal take (pictured above), and some places have chosen to use <a href=\"http://walkyourcity.org/\">guerrilla wayfinding tactics</a>.",
           "After all, there’s nothing worse than being lost. As Lynch wrote: “The very word <em>lost</em> in our language means much more than simple geographical uncertainty; it carries overtones of utter disaster.” And who wants to be on the street feeling like that?"
         ]
       }
@@ -238,7 +238,7 @@
     "train": {
       "name": "“Inception” train",
       "description": {
-        "lede": "It’s the train from the Christopher Nolan movie <em>Inception.</em>",
+        "lede": "It’s the train from the Christopher Nolan movie <em>Inception</em>.",
         "text": [
           "What more do you need to know?"
         ]
