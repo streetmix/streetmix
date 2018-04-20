@@ -72,7 +72,7 @@ class Building extends React.Component {
 
   onBuildingMouseLeave = (event) => {
     window.removeEventListener('keydown', this.handleKeyDown)
-    if (infoBubble.segmentEl === this.streetSectionBuilding) {
+    if (infoBubble.considerSegmentEl === this.streetSectionBuilding) {
       infoBubble.dontConsiderShowing()
     }
   }
