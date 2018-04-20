@@ -71,6 +71,7 @@ class StreetName extends React.PureComponent {
 
   render () {
     let classString = 'street-name-text ' + (!needsUnicodeFont(this.props.name) ? '' : 'fallback-unicode-font')
+    const streetName = StreetName.normalizeStreetName(this.props.name) || t('street.default-name', 'Unnamed St')
 
     return (
       <div
@@ -82,7 +83,7 @@ class StreetName extends React.PureComponent {
         id={this.props.id}
       >
         {this.renderHoverPrompt()}
-        <div className={classString}>{StreetName.normalizeStreetName(this.props.name)}</div>
+        <div className={classString}>{streetName}</div>
       </div>
     )
   }

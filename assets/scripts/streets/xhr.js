@@ -40,7 +40,6 @@ import {
   trimStreetData,
   updateEverything,
   createDomFromData,
-  DEFAULT_NAME,
   updateToLatestSchemaVersion,
   setStreetCreatorId,
   setUpdateTimeToNow,
@@ -309,7 +308,7 @@ function unpackStreetDataFromServerTransmission (transmission) {
   street.creatorId = (transmission.creator && transmission.creator.id) || null
   street.originalStreetId = transmission.originalStreetId || null
   street.updatedAt = transmission.updatedAt || null
-  street.name = transmission.name || DEFAULT_NAME
+  street.name = transmission.name || null
   street.location = transmission.data.street.location || null
 
   // FIXME just read it and do 0 otherwise
