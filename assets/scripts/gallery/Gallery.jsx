@@ -24,14 +24,12 @@ class Gallery extends React.Component {
     userId: PropTypes.string,
     mode: PropTypes.string,
     streets: PropTypes.array.isRequired,
-    signInData: PropTypes.object,
-    isSignedIn: PropTypes.bool,
-    street: PropTypes.object
+    isOwnedByCurrentUser: PropTypes.bool,
+    currentStreetId: PropTypes.string
   }
 
   static defaultProps = {
-    streets: [],
-    signInData: {}
+    streets: []
   }
 
   constructor (props) {
@@ -39,24 +37,12 @@ class Gallery extends React.Component {
 
     this.state = {
       selected: null,
-      preventHide: false,
-      isOwnedByCurrentUser: this.props.isSignedIn && (this.props.userId === this.props.signInData.userId)
+      preventHide: false
     }
   }
 
   componentDidMount () {
     this.scrollSelectedStreetIntoView()
-  }
-
-  static getDerivedStateFromProps (nextProps, prevState) {
-    // If user signs in or signs out, gallery ownership state will change.
-    if (nextProps.isSignedIn && (nextProps.userId === nextProps.signInData.userId)) {
-      return {
-        isOwnedByCurrentUser: true
-      }
-    }
-
-    return null
   }
 
   componentDidUpdate () {
@@ -77,7 +63,7 @@ class Gallery extends React.Component {
 
   deleteStreet = (streetId) => {
     let preventHide = false
-    if (streetId === this.props.street.id) {
+    if (streetId === this.props.currentStreetId) {
       preventHide = true
       showError(ERRORS.NO_STREET, false)
     }
@@ -157,13 +143,13 @@ class Gallery extends React.Component {
         // (which displays all streets) or if the user ID provided is different
         // from a currently signed-in user
         let galleryClassName = 'gallery-streets-container'
-        if (!this.props.userId || !this.state.isOwnedByCurrentUser) {
+        if (!this.props.userId || !this.props.isOwnedByCurrentUser) {
           galleryClassName += ' gallery-streets-container-full'
         }
 
         // Display these buttons for a user viewing their own gallery
         let buttons
-        if (this.state.isOwnedByCurrentUser) {
+        if (this.props.isOwnedByCurrentUser) {
           buttons = (
             <div className="gallery-user-buttons">
               <a className="button-like gallery-new-street" href={`/${URL_NEW_STREET}`} target="_blank">
@@ -185,7 +171,7 @@ class Gallery extends React.Component {
               selected={isSelected}
               handleSelect={this.selectStreet}
               handleDelete={this.deleteStreet}
-              allowDelete={this.state.isOwnedByCurrentUser}
+              allowDelete={this.props.isOwnedByCurrentUser}
             />
           )
         })
@@ -228,9 +214,8 @@ function mapStateToProps (state) {
     userId: state.gallery.userId,
     mode: state.gallery.mode,
     streets: state.gallery.streets,
-    signInData: state.user.signInData,
-    isSignedIn: state.user.signedIn,
-    street: state.street
+    currentStreetId: state.street.id,
+    isOwnedByCurrentUser: state.user.signedIn && (state.gallery.userId === state.user.signInData.userId)
   }
 }
 
