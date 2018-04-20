@@ -15,7 +15,7 @@ import { switchGalleryStreet, repeatReceiveGalleryData } from './view'
 import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/routing'
 import { sendDeleteStreetToServer } from '../streets/xhr'
 import { showError, ERRORS } from '../app/errors'
-import { deleteGalleryStreet } from '../store/actions/gallery'
+import { setGalleryMode, deleteGalleryStreet } from '../store/actions/gallery'
 
 function getStreetCountText (count) {
   let text
@@ -29,7 +29,8 @@ function getStreetCountText (count) {
 
 class Gallery extends React.Component {
   static propTypes = {
-    dispatch: PropTypes.func.isRequired,
+    setGalleryMode: PropTypes.func,
+    deleteGalleryStreet: PropTypes.func,
     userId: PropTypes.string,
     mode: PropTypes.string,
     streets: PropTypes.array.isRequired,
@@ -49,7 +50,6 @@ class Gallery extends React.Component {
     this.state = {
       selected: null,
       preventHide: false,
-      mode: this.props.mode,
       isOwnedByCurrentUser: this.props.isSignedIn && (this.props.userId === this.props.signInData.userId)
     }
   }
@@ -58,18 +58,15 @@ class Gallery extends React.Component {
     this.scrollSelectedStreetIntoView()
   }
 
-  componentWillReceiveProps (nextProps) {
-    if (this.state.mode !== nextProps.mode) {
-      this.setState({ mode: nextProps.mode })
+  static getDerivedStateFromProps (nextProps, prevState) {
+    // If user signs in or signs out, gallery ownership state will change.
+    if (nextProps.isSignedIn && (nextProps.userId === nextProps.signInData.userId)) {
+      return {
+        isOwnedByCurrentUser: true
+      }
     }
 
-    // If gallery's userId changes, check state (via props) to see whether
-    // it matches current signed in user.
-    if (this.props.userId !== nextProps.userId) {
-      this.setState({
-        isOwnedByCurrentUser: nextProps.isSignedIn && (nextProps.userId === nextProps.signInData.userId)
-      })
-    }
+    return null
   }
 
   componentDidUpdate () {
@@ -77,7 +74,7 @@ class Gallery extends React.Component {
   }
 
   componentDidCatch () {
-    this.setState({ mode: 'ERROR' })
+    this.props.setGalleryMode('ERROR')
   }
 
   selectStreet = (streetId) => {
@@ -100,7 +97,7 @@ class Gallery extends React.Component {
     // Optimistic delete: don't re-fetch, just remove street from memory
     // and let the change in data store trigger a re-render
     this.setState({ selected: null, preventHide })
-    this.props.dispatch(deleteGalleryStreet(streetId))
+    this.props.deleteGalleryStreet(streetId)
   }
 
   scrollSelectedStreetIntoView = () => {
@@ -113,7 +110,7 @@ class Gallery extends React.Component {
   render () {
     let childElements
 
-    switch (this.state.mode) {
+    switch (this.props.mode) {
       case 'SIGN_IN_PROMO':
         childElements = (
           <div className="gallery-sign-in-promo">
@@ -241,4 +238,11 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(Gallery)
+function mapDispatchToProps (dispatch) {
+  return {
+    setGalleryMode: (mode) => { dispatch(setGalleryMode(mode)) },
+    deleteGalleryStreet: (streetId) => { dispatch(deleteGalleryStreet(streetId)) }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Gallery)
