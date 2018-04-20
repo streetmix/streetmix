@@ -267,7 +267,8 @@
     "delete-street-tooltip": "Delete street",
     "street-count-none": "No streets yet",
     "street-count": "{count} street",
-    "street-count_plural": "{count} streets"
+    "street-count_plural": "{count} streets",
+    "sign-in": "Sign in with Twitter for your personal street gallery"
   },
   "users": {
     "anonymous": "Anonymous",
@@ -275,7 +276,6 @@
   },
   "sign-in": {
     "link": "Sign in with Twitter",
-    "promo-1": "for nicer links to your streets and your personal street gallery",
     "promo-2": "for your personal street gallery"
   },
   "meta": {
