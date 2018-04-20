@@ -274,10 +274,6 @@
     "anonymous": "Anonymous",
     "byline": "by {user}"
   },
-  "sign-in": {
-    "link": "Sign in with Twitter",
-    "promo-2": "for your personal street gallery"
-  },
   "meta": {
     "description": "Design, remix, and share your neighborhood street – all in your browser! Add trees or bike paths, widen sidewalks or traffic lanes, learn how your decisions can impact your community."
   },
