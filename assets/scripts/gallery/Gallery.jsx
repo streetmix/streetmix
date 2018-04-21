@@ -91,8 +91,7 @@ class Gallery extends React.Component {
         childElements = (
           <div className="gallery-sign-in-promo">
             <a href="/twitter-sign-in?redirectUri=/just-signed-in">
-              <FormattedMessage id="sign-in.link" defaultMessage="Sign in with Twitter" />&nbsp;
-              <FormattedMessage id="sign-in.promo-2" defaultMessage="for your personal street gallery" />
+              <FormattedMessage id="gallery.sign-in" defaultMessage="Sign in with Twitter for your personal street gallery" />
             </a>
           </div>
         )
