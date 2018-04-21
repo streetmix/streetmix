@@ -56,9 +56,8 @@ class GalleryStreetItem extends React.Component {
   onClickDeleteGalleryStreet = (event) => {
     event.preventDefault()
     event.stopPropagation()
-    const street = this.props.street
 
-    // TODO escape name
+    const street = this.props.street
     const message = this.props.intl.formatMessage({
       id: 'prompt.delete-street',
       defaultMessage: 'Are you sure you want to permanently delete {streetName}? This cannot be undone.'
