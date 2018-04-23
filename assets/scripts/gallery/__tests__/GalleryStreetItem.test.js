@@ -33,4 +33,28 @@ describe('GalleryStreetItem', () => {
 
     expect(wrapper.exists()).toEqual(true)
   })
+
+  it('displays street owner', () => {
+    const wrapper = mountWithIntl(
+      <GalleryStreetItem
+        street={MOCK_STREET_DATA}
+        intl={mockIntl}
+      />)
+
+    expect(wrapper.find('.gallery-street-item-creator').text()).toEqual('foo')
+  })
+
+  it('does not display street owner when specified', () => {
+    const wrapper = mountWithIntl(
+      <GalleryStreetItem
+        street={MOCK_STREET_DATA}
+        intl={mockIntl}
+        showStreetOwner={false}
+      />)
+
+    expect(wrapper.find('.gallery-street-item-creator').length).toEqual(0)
+  })
+
+  it('handles select')
+  it('handles delete')
 })
