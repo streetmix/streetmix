@@ -47,10 +47,12 @@ class App extends React.PureComponent {
             key={`locale_${this.props.locale.locale}`}
             messages={this.props.locale.messages}
           >
-            <MenusContainer />
+            <React.Fragment>
+              <MenusContainer />
+              <StreetNameCanvas />
+            </React.Fragment>
           </IntlProvider>
 
-          <StreetNameCanvas />
           <InfoBubble />
           <DebugHoverPolygon />
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { FormattedMessage } from 'react-intl'
 import { needsUnicodeFont } from '../util/unicode'
-import { t } from '../app/locale'
 
 const MAX_STREET_NAME_WIDTH = 50
 
@@ -57,7 +57,7 @@ export default class StreetName extends React.PureComponent {
     if (this.props.editable && this.state.isHovered) {
       return (
         <div className="street-name-hover-prompt">
-          {t('street.rename', 'Click to rename')}
+          <FormattedMessage id="street.rename" defaultMessage="Click to rename" />
         </div>
       )
     }
@@ -66,8 +66,8 @@ export default class StreetName extends React.PureComponent {
   }
 
   render () {
-    let classString = 'street-name-text ' + (!needsUnicodeFont(this.props.name) ? '' : 'fallback-unicode-font')
-    const streetName = StreetName.normalizeStreetName(this.props.name) || t('street.default-name', 'Unnamed St')
+    const streetNameClass = 'street-name-text ' + (!needsUnicodeFont(this.props.name) ? '' : 'fallback-unicode-font')
+    const displayName = StreetName.normalizeStreetName(this.props.name) || <FormattedMessage id="street.default-name" defaultMessage="Unnamed St" />
 
     return (
       <div
@@ -79,7 +79,7 @@ export default class StreetName extends React.PureComponent {
         id={this.props.id}
       >
         {this.renderHoverPrompt()}
-        <div className={classString}>{streetName}</div>
+        <div className={streetNameClass}>{displayName}</div>
       </div>
     )
   }
