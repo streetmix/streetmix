@@ -101,6 +101,7 @@ class StreetNameCanvas extends React.Component {
     return (
       <div className={this.determineClassNames().join(' ')}>
         <StreetName
+          editable={this.props.editable}
           id="street-name"
           childRef={(ref) => { this.streetName = ref }}
           name={this.props.street.name}

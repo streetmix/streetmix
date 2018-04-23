@@ -1,25 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import { needsUnicodeFont } from '../util/unicode'
 import { t } from '../app/locale'
 
 const MAX_STREET_NAME_WIDTH = 50
 
-class StreetName extends React.PureComponent {
+export default class StreetName extends React.PureComponent {
   static propTypes = {
     id: PropTypes.string,
     name: PropTypes.string,
     childRef: PropTypes.func,
     onClick: PropTypes.func,
-    isStreetReadOnly: PropTypes.bool,
-    isHoverable: PropTypes.bool
+    editable: PropTypes.bool
   }
 
   static defaultProps = {
     name: '',
-    isStreetReadOnly: false,
-    isHoverable: false
+    editable: false
   }
 
   /**
@@ -57,8 +54,7 @@ class StreetName extends React.PureComponent {
   }
 
   renderHoverPrompt = () => {
-    if (this.props.isStreetReadOnly || !this.props.isHoverable) return null
-    if (typeof this.props.onClick === 'function' && this.state.isHovered) {
+    if (this.props.editable && this.state.isHovered) {
       return (
         <div className="street-name-hover-prompt">
           {t('street.rename', 'Click to rename')}
@@ -88,12 +84,3 @@ class StreetName extends React.PureComponent {
     )
   }
 }
-
-function mapStateToProps (state) {
-  return {
-    isStreetReadOnly: state.app.readOnly,
-    isHoverable: !state.system.touch
-  }
-}
-
-export default connect(mapStateToProps)(StreetName)
