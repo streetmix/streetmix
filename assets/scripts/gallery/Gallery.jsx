@@ -170,6 +170,7 @@ class Gallery extends React.Component {
               selected={isSelected}
               handleSelect={this.selectStreet}
               handleDelete={this.deleteStreet}
+              showStreetOwner={this.props.userId !== item.creatorId}
               allowDelete={this.props.isOwnedByCurrentUser}
             />
           )

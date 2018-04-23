@@ -20,7 +20,7 @@ export class GalleryStreetItem extends React.Component {
   static propTypes = {
     street: PropTypes.object.isRequired,
     intl: PropTypes.object.isRequired,
-    userId: PropTypes.string,
+    showStreetOwner: PropTypes.bool,
     selected: PropTypes.bool,
     allowDelete: PropTypes.bool,
     handleSelect: PropTypes.func,
@@ -29,6 +29,7 @@ export class GalleryStreetItem extends React.Component {
   }
 
   static defaultProps = {
+    showStreetOwner: true,
     selected: false,
     allowDelete: false,
     handleSelect: () => {}, // no-op
@@ -100,7 +101,7 @@ export class GalleryStreetItem extends React.Component {
           <span className="date">{formatDate(this.props.street.updatedAt)}</span>
 
           {/* Show street creator (owner) or 'Anonymous' */ }
-          {!this.props.userId &&
+          {this.props.showStreetOwner &&
             <span className="creator">
               {this.props.street.creatorId || this.props.intl.formatMessage({ id: 'users.anonymous', defaultMessage: 'Anonymous' })}
             </span>
@@ -124,7 +125,6 @@ export class GalleryStreetItem extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    userId: state.gallery.userId,
     dpi: state.system.hiDpi
   }
 }
