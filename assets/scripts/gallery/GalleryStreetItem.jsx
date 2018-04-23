@@ -98,11 +98,14 @@ export class GalleryStreetItem extends React.Component {
           />
 
           <StreetName name={this.props.street.name} />
-          <span className="date">{formatDate(this.props.street.updatedAt)}</span>
+
+          <span className="gallery-street-item-date">
+            {formatDate(this.props.street.updatedAt)}
+          </span>
 
           {/* Show street creator (owner) or 'Anonymous' */ }
           {this.props.showStreetOwner &&
-            <span className="creator">
+            <span className="gallery-street-item-creator">
               {this.props.street.creatorId || this.props.intl.formatMessage({ id: 'users.anonymous', defaultMessage: 'Anonymous' })}
             </span>
           }
@@ -110,7 +113,7 @@ export class GalleryStreetItem extends React.Component {
           {/* Only show delete button if allowed, e.g. if user is owner of the street */ }
           {this.props.allowDelete &&
             <button
-              className="remove"
+              className="gallery-street-item-delete"
               title={this.props.intl.formatMessage({ id: 'gallery.delete-street-tooltip', defaultMessage: 'Delete street' })}
               onClick={this.onClickDeleteGalleryStreet}
             >
