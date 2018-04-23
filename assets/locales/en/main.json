@@ -266,7 +266,7 @@
     "twitter-link": "Twitter profile",
     "delete-street-tooltip": "Delete street",
     "street-count-none": "No streets yet",
-    "street-count": "{count} street",
+    "street-count": "{count, plural, =0 {No streets yet} one {# street} other {# streets}}",
     "street-count_plural": "{count} streets",
     "sign-in": "Sign in with Twitter for your personal street gallery"
   },
