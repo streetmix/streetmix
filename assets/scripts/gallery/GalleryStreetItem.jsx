@@ -16,33 +16,36 @@ const THUMBNAIL_WIDTH = 180
 const THUMBNAIL_HEIGHT = 110
 const THUMBNAIL_MULTIPLIER = 0.1 * 2
 
-class GalleryStreetItem extends React.Component {
+export class GalleryStreetItem extends React.Component {
   static propTypes = {
-    userId: PropTypes.string,
-    selected: PropTypes.bool.isRequired,
     street: PropTypes.object.isRequired,
-    handleSelect: PropTypes.func.isRequired,
-    handleDelete: PropTypes.func.isRequired,
+    intl: PropTypes.object.isRequired,
+    userId: PropTypes.string,
+    selected: PropTypes.bool,
     allowDelete: PropTypes.bool,
-    dpi: PropTypes.number,
-    intl: PropTypes.object
+    handleSelect: PropTypes.func,
+    handleDelete: PropTypes.func,
+    dpi: PropTypes.number
   }
 
   static defaultProps = {
     selected: false,
+    allowDelete: false,
+    handleSelect: () => {}, // no-op
     handleDelete: () => {}, // no-op
-    allowDelete: false
+    dpi: 1
   }
 
   componentDidMount () {
+    if (!this.props.street.data) return
+
     this.drawCanvas()
   }
 
   drawCanvas = () => {
     const ctx = this.thumbnailEl.getContext('2d')
-    if (!this.props.street.data) {
-      console.log(this.props.street)
-    }
+
+    // TODO: document magic number 2
     drawStreetThumbnail(ctx, this.props.street.data.street,
       THUMBNAIL_WIDTH * 2, THUMBNAIL_HEIGHT * 2, this.props.dpi, THUMBNAIL_MULTIPLIER, true, false, true, false, false)
   }
@@ -73,6 +76,12 @@ class GalleryStreetItem extends React.Component {
   render () {
     const className = (this.props.selected) ? 'selected' : ''
 
+    // TODO: handle data errors better
+    if (!this.props.street.data) {
+      console.error('No street data!', this.props.street)
+      return null
+    }
+
     return (
       <div className="gallery-street-item">
         <a
@@ -80,6 +89,7 @@ class GalleryStreetItem extends React.Component {
           onClick={this.onClickGalleryStreet}
           className={className}
         >
+          {/* TODO: document magic number 2 */}
           <canvas
             width={THUMBNAIL_WIDTH * this.props.dpi * 2}
             height={THUMBNAIL_HEIGHT * this.props.dpi * 2}
@@ -89,13 +99,14 @@ class GalleryStreetItem extends React.Component {
           <StreetName name={this.props.street.name} />
           <span className="date">{formatDate(this.props.street.updatedAt)}</span>
 
+          {/* Show street creator (owner) or 'Anonymous' */ }
           {!this.props.userId &&
             <span className="creator">
-              {this.street.creatorId || this.props.intl.formatMessage({ id: 'users.anonymous', defaultMessage: 'Anonymous' })}
+              {this.props.street.creatorId || this.props.intl.formatMessage({ id: 'users.anonymous', defaultMessage: 'Anonymous' })}
             </span>
           }
 
-          {/* Only show delete links if you own the street */ }
+          {/* Only show delete button if allowed, e.g. if user is owner of the street */ }
           {this.props.allowDelete &&
             <button
               className="remove"

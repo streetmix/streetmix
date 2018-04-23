@@ -83,6 +83,7 @@
     "browserify": "16.1.0",
     "browserify-middleware": "8.0.0",
     "btoa": "1.1.2",
+    "canvas": "1.6.10",
     "compression": "1.7.2",
     "config": "1.30.0",
     "cookie-parser": "1.4.3",
