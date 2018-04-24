@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import DateTimeRelative from '../util/DateTimeRelative'
+import DateTimeRelative from '../app/DateTimeRelative'
 
 export class StreetMetaDate extends React.Component {
   static propTypes = {

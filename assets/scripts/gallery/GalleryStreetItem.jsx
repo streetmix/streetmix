@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { injectIntl } from 'react-intl'
 import StreetName from '../streets/StreetName'
-import DateTimeRelative from '../util/DateTimeRelative'
+import DateTimeRelative from '../app/DateTimeRelative'
 import { drawStreetThumbnail } from './thumbnail'
 import { getStreetUrl } from '../streets/data_model'
 
