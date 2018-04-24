@@ -1,25 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { FormattedMessage } from 'react-intl'
 import { needsUnicodeFont } from '../util/unicode'
-import { t } from '../app/locale'
 
 const MAX_STREET_NAME_WIDTH = 50
 
-class StreetName extends React.PureComponent {
+export default class StreetName extends React.PureComponent {
   static propTypes = {
     id: PropTypes.string,
     name: PropTypes.string,
     childRef: PropTypes.func,
     onClick: PropTypes.func,
-    isStreetReadOnly: PropTypes.bool,
-    isHoverable: PropTypes.bool
+    editable: PropTypes.bool
   }
 
   static defaultProps = {
     name: '',
-    isStreetReadOnly: false,
-    isHoverable: false
+    editable: false
   }
 
   /**
@@ -57,11 +54,10 @@ class StreetName extends React.PureComponent {
   }
 
   renderHoverPrompt = () => {
-    if (this.props.isStreetReadOnly || !this.props.isHoverable) return null
-    if (typeof this.props.onClick === 'function' && this.state.isHovered) {
+    if (this.props.editable && this.state.isHovered) {
       return (
         <div className="street-name-hover-prompt">
-          {t('street.rename', 'Click to rename')}
+          <FormattedMessage id="street.rename" defaultMessage="Click to rename" />
         </div>
       )
     }
@@ -70,8 +66,8 @@ class StreetName extends React.PureComponent {
   }
 
   render () {
-    let classString = 'street-name-text ' + (!needsUnicodeFont(this.props.name) ? '' : 'fallback-unicode-font')
-    const streetName = StreetName.normalizeStreetName(this.props.name) || t('street.default-name', 'Unnamed St')
+    const streetNameClass = 'street-name-text ' + (!needsUnicodeFont(this.props.name) ? '' : 'fallback-unicode-font')
+    const displayName = StreetName.normalizeStreetName(this.props.name) || <FormattedMessage id="street.default-name" defaultMessage="Unnamed St" />
 
     return (
       <div
@@ -83,17 +79,8 @@ class StreetName extends React.PureComponent {
         id={this.props.id}
       >
         {this.renderHoverPrompt()}
-        <div className={classString}>{streetName}</div>
+        <div className={streetNameClass}>{displayName}</div>
       </div>
     )
   }
 }
-
-function mapStateToProps (state) {
-  return {
-    isStreetReadOnly: state.app.readOnly,
-    isHoverable: !state.system.touch
-  }
-}
-
-export default connect(mapStateToProps)(StreetName)

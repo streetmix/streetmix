@@ -162,40 +162,6 @@ body:not(.safari).gallery-visible .street-section-sky {
     margin-left: 0;
   }
 
-  .creator {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 18px;
-    text-align: center;
-    display: block;
-    font-size: 11px;
-    color: black;
-  }
-
-  .date {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 5px;
-    text-align: center;
-    display: block;
-    font-size: 11px;
-    color: black;
-    font-weight: 300;
-  }
-
-  button.remove {
-    position: absolute;
-    font-size: 16px;
-    padding: 0 10px;
-    line-height: 25px;
-    top: -10px;
-    right: -5px;
-    display: none;
-    user-select: none;
-  }
-
   &:hover {
     background: fade-out($ui-colour, 0.1);
 
@@ -217,6 +183,38 @@ body:not(.safari).gallery-visible .street-section-sky {
       opacity: 1;
     }
   }
+}
+
+.gallery-street-item-creator {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 18px;
+  text-align: center;
+  display: block;
+  font-size: 11px;
+  color: black;
+}
+
+.gallery-street-item-date {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 5px;
+  text-align: center;
+  display: block;
+  font-size: 11px;
+  color: black;
+  font-weight: 300;
+}
+
+.gallery-street-item-delete {
+  position: absolute;
+  padding: 0 10px;
+  line-height: 25px;
+  top: -8px;
+  right: -5px;
+  user-select: none;
 }
 
 .gallery-user-buttons {
