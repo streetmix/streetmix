@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { FormattedMessage } from 'react-intl'
 import Triangle from './Triangle'
 import { showDescription, hideDescription } from './description'
 import { trackEvent } from '../app/event_tracking'
@@ -87,7 +88,7 @@ export default class Description extends React.Component {
     if (!description) return null
 
     // Get translated text for prompt, if it exists
-    const defaultPrompt = description.prompt || t('segments.learn-more', 'Learn more')
+    const defaultPrompt = description.prompt || <FormattedMessage id="segments.learn-more" defaultMessage="Learn more" />
     const prompt = t(`segments.${this.props.type}.description.prompt`, defaultPrompt, { ns: 'segment-info' })
 
     // TODO: add alt text and requisite a11y attributes
@@ -128,7 +129,7 @@ export default class Description extends React.Component {
             onMouseOver={this.toggleHighlightTriangle}
             onMouseOut={this.toggleHighlightTriangle}
           >
-            {t('btn.close', 'Close')}
+            <FormattedMessage id="btn.close" defaultMessage="Close" />
           </div>
           <Triangle highlight={this.state.highlightTriangle} />
         </div>

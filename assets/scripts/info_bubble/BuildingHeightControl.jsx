@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { injectIntl, intlShape } from 'react-intl'
 import { debounce } from 'lodash'
-import { t } from '../app/locale'
 import { MAX_BUILDING_HEIGHT, BUILDINGS, calculateRealHeightNumber } from '../segments/buildings'
 import { addBuildingFloor, removeBuildingFloor, setBuildingFloorValue } from '../store/actions/street'
 import { prettifyWidth } from '../util/width_units'
@@ -13,6 +13,7 @@ const WIDTH_EDIT_INPUT_DELAY = 200
 
 class BuildingHeightControl extends React.Component {
   static propTypes = {
+    intl: intlShape.isRequired,
     touch: PropTypes.bool,
     position: PropTypes.oneOf(['left', 'right']),
     variant: PropTypes.string,
@@ -215,12 +216,12 @@ class BuildingHeightControl extends React.Component {
    * @param {string} text - text string to display
    */
   prettifyHeight = (variant, position, floors) => {
-    // todo localize
-    let text = `${floors} floor`
-
-    if (floors > 1) {
-      text += 's'
-    }
+    let text = this.props.intl.formatMessage({
+      id: 'floors-count',
+      defaultMessage: '{count, plural, one {# floor} other {# floors}}'
+    }, {
+      count: floors
+    })
 
     const realHeight = calculateRealHeightNumber(variant, position, floors)
     const prettifiedHeight = prettifyWidth(realHeight, this.props.units)
@@ -239,7 +240,7 @@ class BuildingHeightControl extends React.Component {
       <input
         type="text"
         className="height"
-        title={t('tooltip.building-height', 'Change the number of floors')}
+        title={this.props.intl.formatMessage({ id: 'tooltip.building-height', defaultMessage: 'Change the number of floors' })}
         disabled={isNotFloored}
         value={isNotFloored ? '' : this.state.displayValue}
         onChange={this.onInput}
@@ -259,7 +260,7 @@ class BuildingHeightControl extends React.Component {
       <div className="non-variant building-height">
         <button
           className="increment"
-          title={t('tooltip.add-floor', 'Add floor')}
+          title={this.props.intl.formatMessage({ id: 'tooltip.add-floor', defaultMessage: 'Add floor' })}
           tabIndex={-1}
           onClick={this.onClickIncrement}
           disabled={isNotFloored || (this.props.value >= MAX_BUILDING_HEIGHT)}
@@ -269,7 +270,7 @@ class BuildingHeightControl extends React.Component {
         {inputEl}
         <button
           className="decrement"
-          title={t('tooltip.remove-floor', 'Remove floor')}
+          title={this.props.intl.formatMessage({ id: 'tooltip.remove-floor', defaultMessage: 'Remove floor' })}
           tabIndex={-1}
           onClick={this.onClickDecrement}
           disabled={isNotFloored || (this.props.value <= 1)}
@@ -308,4 +309,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BuildingHeightControl)
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(BuildingHeightControl))
