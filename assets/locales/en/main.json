@@ -235,6 +235,7 @@
     "decrease-width": "Decrease width (hold Shift for more precision)",
     "add-floor": "Add floor",
     "remove-floor": "Remove floor",
+    "floors-count": "{count, plural, one {# floor} other {# floors}}",
     "number-floor": "{number} floor",
     "number-floors": "{number} floors",
     "number-floors-large": "{number} floors"
@@ -262,9 +263,7 @@
     "all": "All streets",
     "twitter-link": "Twitter profile",
     "delete-street-tooltip": "Delete street",
-    "street-count-none": "No streets yet",
     "street-count": "{count, plural, =0 {No streets yet} one {# street} other {# streets}}",
-    "street-count_plural": "{count} streets",
     "sign-in": "Sign in with Twitter for your personal street gallery"
   },
   "users": {
