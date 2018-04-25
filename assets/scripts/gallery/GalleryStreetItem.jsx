@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { injectIntl } from 'react-intl'
 import StreetName from '../streets/StreetName'
-import { formatDate } from '../util/date_format'
+import DateTimeRelative from '../app/DateTimeRelative'
 import { drawStreetThumbnail } from './thumbnail'
 import { getStreetUrl } from '../streets/data_model'
 
@@ -100,7 +100,7 @@ export class GalleryStreetItem extends React.Component {
           <StreetName name={this.props.street.name} />
 
           <span className="gallery-street-item-date">
-            {formatDate(this.props.street.updatedAt)}
+            <DateTimeRelative value={this.props.street.updatedAt} />
           </span>
 
           {/* Show street creator (owner) or 'Anonymous' */ }

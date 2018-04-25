@@ -1,34 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { FormattedRelative } from 'react-intl'
-import moment from 'moment'
-import { formatDate } from '../util/date_format'
+import DateTimeRelative from '../app/DateTimeRelative'
 
 export class StreetMetaDate extends React.Component {
   static propTypes = {
-    street: PropTypes.any
-  }
-
-  renderDateTime = () => {
-    const ONE_DAY_AGO = 1000 * 60 * 60 * 24
-    const updatedAt = this.props.street.updatedAt
-
-    const now = moment()
-    const date = moment(updatedAt)
-    const diff = now - date
-
-    if (diff < ONE_DAY_AGO && updatedAt) {
-      return <FormattedRelative value={updatedAt} />
-    } else {
-      return formatDate(updatedAt)
-    }
+    updatedAt: PropTypes.string
   }
 
   render () {
+    if (!this.props.updatedAt) return null
+
     return (
       <span className="street-metadata-date">
-        {this.renderDateTime()}
+        <DateTimeRelative value={this.props.updatedAt} />
       </span>
     )
   }
@@ -36,7 +21,7 @@ export class StreetMetaDate extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    street: state.street
+    updatedAt: state.street.updatedAt
   }
 }
 
