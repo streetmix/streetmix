@@ -216,12 +216,12 @@ class BuildingHeightControl extends React.Component {
    * @param {string} text - text string to display
    */
   prettifyHeight = (variant, position, floors) => {
-    // todo localize
-    let text = `${floors} floor`
-
-    if (floors > 1) {
-      text += 's'
-    }
+    let text = this.props.intl.formatMessage({
+      id: 'floors-count',
+      defaultMessage: '{count, plural, one {# floor} other {# floors}}'
+    }, {
+      count: floors
+    })
 
     const realHeight = calculateRealHeightNumber(variant, position, floors)
     const prettifiedHeight = prettifyWidth(realHeight, this.props.units)
