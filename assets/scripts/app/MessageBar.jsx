@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Transition } from 'react-transition-group'
-import { injectIntl, intlShape } from 'react-intl'
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl'
 
 const TRANSITION_DURATION = 250
 const TRANSITION_BASE_STYLE = {
@@ -64,7 +64,7 @@ class MessageBar extends React.Component {
           {text && <span className="message-bar-text">{text}</span>}
           {link &&
             <a href={link} target="_blank" rel="noopener noreferrer" className="message-bar-link">
-              {linkText || link}
+              {linkText || <FormattedMessage id="msg.more-info" defaultMessage="More info" />}
             </a>
           }
 
