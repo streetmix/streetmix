@@ -36,9 +36,9 @@ class App extends React.PureComponent {
           <React.Fragment>
             <BlockingError />
             <Gallery />
+            <MessageBar />
           </React.Fragment>
         </IntlProvider>
-        <MessageBar />
         <div className="main-screen">
           <GalleryShield />
 
