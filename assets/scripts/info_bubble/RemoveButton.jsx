@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { t } from '../app/locale'
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl'
 import { trackEvent } from '../app/event_tracking'
 import { removeSegment, removeAllSegments } from '../segments/remove'
 
-export default class RemoveButton extends React.PureComponent {
+class RemoveButton extends React.PureComponent {
   static propTypes = {
+    intl: intlShape.isRequired,
     enabled: PropTypes.bool,
     segment: PropTypes.object // TODO: this is the actual DOM element; change it to a value
   }
@@ -37,11 +38,13 @@ export default class RemoveButton extends React.PureComponent {
       <button
         className="info-bubble-remove"
         tabIndex={-1}
-        title={t('tooltip.remove-segment', 'Remove segment')}
+        title={this.props.intl.formatMessage({ id: 'tooltip.remove-segment', defaultMessage: 'Remove segment' })}
         onClick={this.onClick}
       >
-        {t('btn.remove', 'Remove')}
+        <FormattedMessage id="btn.remove" defaultMessage="remove" />
       </button>
     )
   }
 }
+
+export default injectIntl(RemoveButton)
