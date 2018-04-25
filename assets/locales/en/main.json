@@ -69,7 +69,8 @@
     "trouble-loading": "We’re having trouble loading Streetmix.",
     "slow-connection-1": "Streetmix wasn’t able to connect to the Internet in awhile now.",
     "slow-connection-2": "You might want to reload the page and try again. Please note you might lose the latest change to the street. Sorry!",
-    "no-connection": "Streetmix is having trouble connecting to the Internet."
+    "no-connection": "Streetmix is having trouble connecting to the Internet.",
+    "more-info": "More info"
   },
   "error": {
     "button": {
