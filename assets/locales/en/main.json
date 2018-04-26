@@ -235,12 +235,14 @@
     "increase-width": "Increase width (hold Shift for more precision)",
     "decrease-width": "Decrease width (hold Shift for more precision)",
     "add-floor": "Add floor",
-    "remove-floor": "Remove floor",
-    "floors-count": "{count, plural, one {# floor} other {# floors}}"
+    "remove-floor": "Remove floor"
   },
   "street": {
     "default-name": "Unnamed St",
     "rename": "Click to rename"
+  },
+  "building": {
+    "floors-count": "{count, plural, one {# floor} other {# floors}}"
   },
   "segments": {
     "warnings": {
