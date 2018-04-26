@@ -217,7 +217,7 @@ class BuildingHeightControl extends React.Component {
    */
   prettifyHeight = (variant, position, floors) => {
     let text = this.props.intl.formatMessage({
-      id: 'floors-count',
+      id: 'building.floors-count',
       defaultMessage: '{count, plural, one {# floor} other {# floors}}'
     }, {
       count: floors
