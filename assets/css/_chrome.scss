@@ -63,33 +63,24 @@ body.phone #loading {
   }
 }
 
-#loading-progress {
-  @include appearance(none);
+.loading-spinner::before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  margin-top: -15px;
+  margin-left: -15px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.75);
+  border-top-color: darken($ui-colour, 20%);
+  animation: spinner 0.75s linear infinite;
+}
 
-  display: block;
-  width: 200px;
-  height: 8px;
-  padding: 0;
-  margin: 0 auto;
-  margin-top: 5px;
-  border: 0;
-  border-top: 1px solid darken($ui-colour, 20%);
-  border-bottom: 1px solid darken($ui-colour, 20%);
-  background: transparent;
-  background-size: auto;
-  color: $off-white;
-
-  &::-webkit-progress-bar {
-    background: transparent;
-  }
-
-  &::-webkit-progress-value {
-    background: $off-white;
-  }
-
-  &::-moz-progress-bar {
-    background: $off-white;
-  }
+@keyframes spinner {
+  to { transform: rotate(360deg); }
 }
 
 // --------------------------------------------------------

@@ -98,8 +98,6 @@ export async function initialize () {
     updateSettingsFromCountryCode(geo.country_code)
   }
 
-  document.querySelector('#loading-progress').value++
-
   // Sign in
   // …sign in info from our API (if not previously cached) – and subsequent
   // street data if necessary (depending on the mode)
