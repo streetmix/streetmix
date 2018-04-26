@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import EnvironmentBadge from './EnvironmentBadge'
 import { URL_SIGN_IN_REDIRECT } from '../app/routing'
 import { showGallery } from '../gallery/view'
-import { getElAbsolutePos } from '../util/helpers'
 import MenuBarItem from './MenuBarItem'
 import Avatar from '../users/Avatar'
 
@@ -62,8 +61,7 @@ class MenuBar extends React.PureComponent {
    */
   onClickMenuButton = (menu) => {
     return (event) => {
-      const buttonEl = event.target.closest('button')
-      const position = getElAbsolutePos(buttonEl)
+      const position = event.target.closest('button').getBoundingClientRect()
       this.props.onMenuDropdownClick(menu, position)
     }
   }

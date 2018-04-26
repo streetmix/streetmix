@@ -4,10 +4,17 @@ import { connect } from 'react-redux'
 
 class Menu extends React.PureComponent {
   static propTypes = {
-    // contentDirection: PropTypes.oneOf(['rtl', 'ltr']),
+    contentDirection: PropTypes.oneOf(['rtl', 'ltr']),
     className: PropTypes.string,
     isActive: PropTypes.bool.isRequired,
-    position: PropTypes.array,
+    position: PropTypes.shape({
+      left: PropTypes.number,
+      right: PropTypes.number,
+      top: PropTypes.number,
+      bottom: PropTypes.number,
+      x: PropTypes.number,
+      y: PropTypes.number
+    }),
     onShow: PropTypes.func,
     onHide: PropTypes.func,
     children: PropTypes.node
@@ -36,24 +43,41 @@ class Menu extends React.PureComponent {
   }
 
   show () {
+    if (!this.props.position) return
+
     this.el.classList.add('visible')
+
+    const LEFT_RIGHT_INSET = 50 // match $left-right-inset in CSS
 
     // Determine positioning
     // Aligns menu to the left side of the menu item, but aligns to the right side
     // of the menu bar if the menu is too wide.
     // Position is provided by the MenuBar component and passed in through props.
-    const LEFT_RIGHT_INSET = 50 // match $left-right-inset in CSS
-    const left = this.props.position[0]
-    const width = this.el.offsetWidth
-    const maxXPos = document.documentElement.clientWidth - LEFT_RIGHT_INSET
-    let renderLeft
-    if (left + width > maxXPos) {
-      renderLeft = maxXPos - width
+    // If rtl, calculate alignment position based on right edge of menu item
+    if (this.props.contentDirection === 'rtl') {
+      const right = this.props.position.right
+      const width = this.el.offsetWidth
+      const minXPos = LEFT_RIGHT_INSET
+      let xPos
+      if (right - width < minXPos) {
+        xPos = minXPos
+      } else {
+        xPos = right - width
+      }
+      this.el.style.left = xPos + 'px'
     } else {
-      renderLeft = this.props.position[0]
+      // Otherwise, assume ltr, and align to left edge of menu item
+      const left = this.props.position.left
+      const width = this.el.offsetWidth
+      const maxXPos = document.documentElement.clientWidth - LEFT_RIGHT_INSET
+      let xPos
+      if (left + width > maxXPos) {
+        xPos = maxXPos - width
+      } else {
+        xPos = left
+      }
+      this.el.style.left = xPos + 'px'
     }
-    this.el.style.left = renderLeft + 'px'
-    // if rtl, recalculate left position based on right position of menu item
 
     if (this.props.onShow) {
       this.props.onShow()
