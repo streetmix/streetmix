@@ -291,7 +291,7 @@ export function setStreetCreatorId (newId) {
 }
 
 export function setUpdateTimeToNow () {
-  const updateTime = new Date().getTime()
+  const updateTime = new Date().toISOString()
   store.dispatch(setUpdateTime(updateTime))
   unifyUndoStack()
 }
