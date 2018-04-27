@@ -1,4 +1,10 @@
-import { SET_APP_FLAGS, START_PRINTING, STOP_PRINTING, EVERYTHING_LOADED, SET_CONTENT_DIRECTION } from '../actions'
+import {
+  SET_APP_FLAGS,
+  START_PRINTING,
+  STOP_PRINTING,
+  EVERYTHING_LOADED,
+  SET_LOCALE
+} from '../actions'
 
 const initialState = {
   readOnly: false,
@@ -31,10 +37,10 @@ const app = (state = initialState, action) => {
         ...state,
         everythingLoaded: true
       }
-    case SET_CONTENT_DIRECTION:
+    case SET_LOCALE:
       return {
         ...state,
-        contentDirection: action.dir === 'rtl' ? 'rtl' : 'ltr'
+        contentDirection: (['ar', 'dv', 'fa', 'he'].indexOf(action.locale) > -1) ? 'rtl' : 'ltr'
       }
     default:
       return state

@@ -8,9 +8,7 @@ import i18next from 'i18next'
 import i18nextXhr from 'i18next-xhr-backend'
 import { supplant } from '../util/helpers'
 import { API_URL } from './config'
-import store from '../store'
-import { setLocale } from '../store/actions/locale'
-import { setContentDirection } from '../store/actions/app'
+import { observeStore } from '../store'
 
 // Add react-intl files for all the languages we support (added manually for now)
 import ar from 'react-intl/locale-data/ar'
@@ -45,14 +43,25 @@ export function initLocale (experimental) {
   }
 
   doTheI18n(locale)
+  initLocaleChangedListener()
+  initRtlChangedListener()
 }
 
-export function onNewLocaleSelected (event) {
-  doTheI18n(event.target.value)
+function initLocaleChangedListener () {
+  const select = (state) => state.locale.locale
+  const onChange = (locale) => doTheI18n
+
+  return observeStore(select, onChange)
 }
 
-export function getLocale () {
-  return store.getState().locale.locale
+// right-to-left languages support
+function initRtlChangedListener () {
+  const select = (state) => state.app.contentDirection
+  const onChange = (direction) => {
+    document.body.dir = direction
+  }
+
+  return observeStore(select, onChange)
 }
 
 function doTheI18n (locale) {
@@ -88,18 +97,6 @@ function doTheI18n (locale) {
         translation = translation || t(key, { ns: options.ns[ns] })
       }
       els[i].textContent = translation
-    }
-
-    // Set the thing in Redux
-    store.dispatch(setLocale(locale, i18next.getResourceBundle(locale, 'main')))
-
-    // right-to-left languages support
-    if (['ar', 'dv', 'fa', 'he'].indexOf(locale) > -1) {
-      document.body.dir = 'rtl'
-      store.dispatch(setContentDirection('rtl'))
-    } else {
-      document.body.dir = 'ltr'
-      store.dispatch(setContentDirection('ltr'))
     }
   }
 
