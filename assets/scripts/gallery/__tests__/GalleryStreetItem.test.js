@@ -18,7 +18,8 @@ jest.mock('../../streets/data_model', () => {
 
 const MOCK_STREET_DATA = {
   data: {},
-  creatorId: 'foo'
+  creatorId: 'foo',
+  updatedAt: '2018-04-27T20:47:03.477Z'
 }
 
 describe('GalleryStreetItem', () => {

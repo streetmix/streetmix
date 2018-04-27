@@ -76,6 +76,16 @@ export default function DateTimeRelative (props) {
 }
 
 DateTimeRelative.propTypes = {
-  value: PropTypes.string,
+  // prop should match an ISO date string, e.g. "2018-04-24T23:37:55.21Z"
+  value: (props, propName, componentName) => {
+    if (!/^\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+Z$/.test(props[propName]) &&
+      typeof props[propName] !== 'undefined') {
+      return new Error(
+        'Invalid prop `' + propName + '` supplied to' +
+        ' `' + componentName + '`. It should be an ISO date string.' +
+        ' Validation failed. Value: `' + props[propName] + '`'
+      )
+    }
+  },
   timezone: PropTypes.string
 }
