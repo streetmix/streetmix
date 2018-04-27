@@ -15,32 +15,21 @@ import { switchGalleryStreet, repeatReceiveGalleryData } from './view'
 import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/routing'
 import { sendDeleteStreetToServer } from '../streets/xhr'
 import { showError, ERRORS } from '../app/errors'
-import { deleteGalleryStreet } from '../store/actions/gallery'
-
-function getStreetCountText (count) {
-  let text
-  if (!count) {
-    text = <FormattedMessage id="gallery.street-count-none" defaultMessage="No streets yet" />
-  } else {
-    text = <FormattedMessage id="gallery.street-count" defaultMessage="{count} streets" values={{ count }} />
-  }
-  return text
-}
+import { setGalleryMode, deleteGalleryStreet } from '../store/actions/gallery'
 
 class Gallery extends React.Component {
   static propTypes = {
-    dispatch: PropTypes.func.isRequired,
+    setGalleryMode: PropTypes.func,
+    deleteGalleryStreet: PropTypes.func,
     userId: PropTypes.string,
     mode: PropTypes.string,
     streets: PropTypes.array.isRequired,
-    signInData: PropTypes.object,
-    isSignedIn: PropTypes.bool,
-    street: PropTypes.object
+    isOwnedByCurrentUser: PropTypes.bool,
+    currentStreetId: PropTypes.string
   }
 
   static defaultProps = {
-    streets: [],
-    signInData: {}
+    streets: []
   }
 
   constructor (props) {
@@ -48,9 +37,7 @@ class Gallery extends React.Component {
 
     this.state = {
       selected: null,
-      preventHide: false,
-      mode: this.props.mode,
-      isOwnedByCurrentUser: this.props.isSignedIn && (this.props.userId === this.props.signInData.userId)
+      preventHide: false
     }
   }
 
@@ -58,26 +45,12 @@ class Gallery extends React.Component {
     this.scrollSelectedStreetIntoView()
   }
 
-  componentWillReceiveProps (nextProps) {
-    if (this.state.mode !== nextProps.mode) {
-      this.setState({ mode: nextProps.mode })
-    }
-
-    // If gallery's userId changes, check state (via props) to see whether
-    // it matches current signed in user.
-    if (this.props.userId !== nextProps.userId) {
-      this.setState({
-        isOwnedByCurrentUser: nextProps.isSignedIn && (nextProps.userId === nextProps.signInData.userId)
-      })
-    }
-  }
-
   componentDidUpdate () {
     this.scrollSelectedStreetIntoView()
   }
 
   componentDidCatch () {
-    this.setState({ mode: 'ERROR' })
+    this.props.setGalleryMode('ERROR')
   }
 
   selectStreet = (streetId) => {
@@ -90,7 +63,7 @@ class Gallery extends React.Component {
 
   deleteStreet = (streetId) => {
     let preventHide = false
-    if (streetId === this.props.street.id) {
+    if (streetId === this.props.currentStreetId) {
       preventHide = true
       showError(ERRORS.NO_STREET, false)
     }
@@ -100,7 +73,7 @@ class Gallery extends React.Component {
     // Optimistic delete: don't re-fetch, just remove street from memory
     // and let the change in data store trigger a re-render
     this.setState({ selected: null, preventHide })
-    this.props.dispatch(deleteGalleryStreet(streetId))
+    this.props.deleteGalleryStreet(streetId)
   }
 
   scrollSelectedStreetIntoView = () => {
@@ -113,13 +86,12 @@ class Gallery extends React.Component {
   render () {
     let childElements
 
-    switch (this.state.mode) {
+    switch (this.props.mode) {
       case 'SIGN_IN_PROMO':
         childElements = (
           <div className="gallery-sign-in-promo">
             <a href="/twitter-sign-in?redirectUri=/just-signed-in">
-              <FormattedMessage id="sign-in.link" defaultMessage="Sign in with Twitter" />&nbsp;
-              <FormattedMessage id="sign-in.promo-2" defaultMessage="for your personal street gallery" />
+              <FormattedMessage id="gallery.sign-in" defaultMessage="Sign in with Twitter for your personal street gallery" />
             </a>
           </div>
         )
@@ -170,13 +142,13 @@ class Gallery extends React.Component {
         // (which displays all streets) or if the user ID provided is different
         // from a currently signed-in user
         let galleryClassName = 'gallery-streets-container'
-        if (!this.props.userId || !this.state.isOwnedByCurrentUser) {
+        if (!this.props.userId || !this.props.isOwnedByCurrentUser) {
           galleryClassName += ' gallery-streets-container-full'
         }
 
         // Display these buttons for a user viewing their own gallery
         let buttons
-        if (this.state.isOwnedByCurrentUser) {
+        if (this.props.isOwnedByCurrentUser) {
           buttons = (
             <div className="gallery-user-buttons">
               <a className="button-like gallery-new-street" href={`/${URL_NEW_STREET}`} target="_blank">
@@ -198,12 +170,19 @@ class Gallery extends React.Component {
               selected={isSelected}
               handleSelect={this.selectStreet}
               handleDelete={this.deleteStreet}
-              allowDelete={this.state.isOwnedByCurrentUser}
+              showStreetOwner={this.props.userId !== item.creatorId}
+              allowDelete={this.props.isOwnedByCurrentUser}
             />
           )
         })
         const streetCount = (this.props.userId) ? (
-          <div className="gallery-street-count">{getStreetCountText(this.props.streets.length)}</div>
+          <div className="gallery-street-count">
+            <FormattedMessage
+              id="gallery.street-count"
+              defaultMessage="{count, plural, =0 {No streets yet} one {# street} other {# streets}}"
+              values={{ count: this.props.streets.length }}
+            />
+          </div>
         ) : null
 
         childElements = (
@@ -235,10 +214,16 @@ function mapStateToProps (state) {
     userId: state.gallery.userId,
     mode: state.gallery.mode,
     streets: state.gallery.streets,
-    signInData: state.user.signInData,
-    isSignedIn: state.user.signedIn,
-    street: state.street
+    currentStreetId: state.street.id,
+    isOwnedByCurrentUser: state.user.signedIn && (state.gallery.userId === state.user.signInData.userId)
   }
 }
 
-export default connect(mapStateToProps)(Gallery)
+function mapDispatchToProps (dispatch) {
+  return {
+    setGalleryMode: (mode) => { dispatch(setGalleryMode(mode)) },
+    deleteGalleryStreet: (streetId) => { dispatch(deleteGalleryStreet(streetId)) }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Gallery)

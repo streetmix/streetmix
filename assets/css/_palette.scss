@@ -65,6 +65,12 @@ body.read-only .palette-container {
   // Spacing between buttons
   button + button {
     margin-left: 0.25em;
+
+    // Other way around on rtl
+    [dir='rtl'] & {
+      margin-left: 0;
+      margin-right: 0.25em;
+    }
   }
 }
 

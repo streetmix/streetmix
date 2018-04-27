@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { injectIntl, intlShape } from 'react-intl'
 import { debounce } from 'lodash'
 import { changeSegmentWidth } from '../store/actions/street'
-import { t } from '../app/locale'
 import { trackEvent } from '../app/event_tracking'
 import { KEYS } from '../app/keyboard_commands'
 
@@ -26,6 +26,7 @@ const WIDTH_EDIT_INPUT_DELAY = 200
 
 class WidthControl extends React.Component {
   static propTypes = {
+    intl: intlShape.isRequired,
     touch: PropTypes.bool,
     segment: PropTypes.object, // eslint-disable-line react/no-unused-prop-types
     segmentEl: PropTypes.object, // TODO: this is the actual DOM element; only here for legacy reasons
@@ -260,7 +261,7 @@ class WidthControl extends React.Component {
       <input
         type="text"
         className="width"
-        title={t('tooltip.segment-width', 'Change width of the segment')}
+        title={this.props.intl.formatMessage({ id: 'tooltip.segment-width', defaultMessage: 'Change width of the segment' })}
         value={this.state.displayValue}
         onChange={this.onInput}
         onClick={this.onClickInput}
@@ -279,7 +280,7 @@ class WidthControl extends React.Component {
       <div className="non-variant">
         <button
           className="decrement"
-          title={t('tooltip.decrease-width', 'Decrease width (hold Shift for more precision)')}
+          title={this.props.intl.formatMessage({ id: 'tooltip.decrease-width', defaultMessage: 'Decrease width (hold Shift for more precision)' })}
           tabIndex={-1}
           onClick={this.onClickDecrement}
           disabled={this.props.value <= MIN_SEGMENT_WIDTH}
@@ -289,7 +290,7 @@ class WidthControl extends React.Component {
         {inputEl}
         <button
           className="increment"
-          title={t('tooltip.increase-width', 'Increase width (hold Shift for more precision)')}
+          title={this.props.intl.formatMessage({ id: 'tooltip.increase-width', defaultMessage: 'Increase width (hold Shift for more precision)' })}
           tabIndex={-1}
           onClick={this.onClickIncrement}
           disabled={this.props.value >= MAX_SEGMENT_WIDTH}
@@ -317,4 +318,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(WidthControl)
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(WidthControl))

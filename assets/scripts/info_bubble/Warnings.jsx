@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { FormattedMessage } from 'react-intl'
 import {
   SEGMENT_WARNING_OUTSIDE,
   SEGMENT_WARNING_WIDTH_TOO_SMALL,
   SEGMENT_WARNING_WIDTH_TOO_LARGE
 } from '../streets/width'
-import { t } from '../app/locale'
 
 export default class Warnings extends React.Component {
   static propTypes = {
@@ -19,13 +19,13 @@ export default class Warnings extends React.Component {
     if (!segment) return null
 
     if (segment.warnings[SEGMENT_WARNING_OUTSIDE]) {
-      messages.push(t('segments.warnings.does-not-fit', 'This segment doesn’t fit within the street.'))
+      messages.push(<FormattedMessage id="segments.warnings.does-not-fit" defaultMessage="This segment doesn’t fit within the street." />)
     }
     if (segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL]) {
-      messages.push(t('segments.warnings.not-wide', 'This segment might not be wide enough.'))
+      messages.push(<FormattedMessage id="segments.warnings.not-wide" defaultMessage="This segment might not be wide enough." />)
     }
     if (segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE]) {
-      messages.push(t('segments.warnings.too-wide', 'This segment might be too wide.'))
+      messages.push(<FormattedMessage id="segments.warnings.too-wide" defaultMessage="This segment might be too wide." />)
     }
 
     if (messages.length > 0) {

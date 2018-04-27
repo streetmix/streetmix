@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { injectIntl, intlShape } from 'react-intl'
 import Autosuggest from 'react-autosuggest'
 import { throttle } from 'lodash'
 import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../app/config'
 import { setMapState } from '../store/actions/map'
-import { t } from '../app/locale'
 
 const AUTOCOMPLETE_API = `https://${PELIAS_HOST_NAME}/v1/autocomplete`
 const AUTOCOMPLETE_ENDPOINT = `${AUTOCOMPLETE_API}?api_key=${PELIAS_API_KEY}`
@@ -16,6 +16,7 @@ const MINIMUM_QUERY_LENGTH = 3
 
 export class SearchAddress extends React.Component {
   static propTypes = {
+    intl: intlShape.isRequired,
     setMapState: PropTypes.func,
     setSearchResults: PropTypes.func,
     focus: PropTypes.shape({
@@ -199,7 +200,7 @@ export class SearchAddress extends React.Component {
 
     return (
       <span
-        title={t('dialogs.geotag.clear-search', 'Clear search')}
+        title={this.props.intl.formatMessage({ id: 'dialogs.geotag.clear-search', defaultMessage: 'Clear search' })}
         className="geotag-input-clear"
         onClick={this.onClickClearSearch}
       >
@@ -210,7 +211,7 @@ export class SearchAddress extends React.Component {
 
   render () {
     const inputProps = {
-      placeholder: t('dialogs.geotag.search', 'Search for a location'),
+      placeholder: this.props.intl.formatMessage({ id: 'dialogs.geotag.search', defaultMessage: 'Search for a location' }),
       value: this.state.value,
       onChange: this.onChangeInput,
       spellCheck: false
@@ -251,4 +252,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchAddress)
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(SearchAddress))

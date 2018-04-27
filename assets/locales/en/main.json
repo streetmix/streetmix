@@ -69,7 +69,8 @@
     "trouble-loading": "We’re having trouble loading Streetmix.",
     "slow-connection-1": "Streetmix wasn’t able to connect to the Internet in awhile now.",
     "slow-connection-2": "You might want to reload the page and try again. Please note you might lose the latest change to the street. Sorry!",
-    "no-connection": "Streetmix is having trouble connecting to the Internet."
+    "no-connection": "Streetmix is having trouble connecting to the Internet.",
+    "more-info": "More info"
   },
   "error": {
     "button": {
@@ -219,10 +220,7 @@
     "minutes-ago": "A few minutes ago",
     "seconds-ago": "A few seconds ago",
     "yesterday": "Yesterday at {time}",
-    "today": "Today at {time}",
-    "format-date-no-year": "MMM D",
-    "format-date-with-year": "MMM D, YYYY",
-    "format-time": "HH:MM"
+    "today": "Today at {time}"
   },
   "key": {
     "backspace": "Backspace",
@@ -237,14 +235,14 @@
     "increase-width": "Increase width (hold Shift for more precision)",
     "decrease-width": "Decrease width (hold Shift for more precision)",
     "add-floor": "Add floor",
-    "remove-floor": "Remove floor",
-    "number-floor": "{number} floor",
-    "number-floors": "{number} floors",
-    "number-floors-large": "{number} floors"
+    "remove-floor": "Remove floor"
   },
   "street": {
     "default-name": "Unnamed St",
     "rename": "Click to rename"
+  },
+  "building": {
+    "floors-count": "{count, plural, one {# floor} other {# floors}}"
   },
   "segments": {
     "warnings": {
@@ -265,9 +263,7 @@
     "all": "All streets",
     "twitter-link": "Twitter profile",
     "delete-street-tooltip": "Delete street",
-    "street-count-none": "No streets yet",
-    "street-count": "{count} street",
-    "street-count_plural": "{count} streets",
+    "street-count": "{count, plural, =0 {No streets yet} one {# street} other {# streets}}",
     "sign-in": "Sign in with Twitter for your personal street gallery"
   },
   "users": {

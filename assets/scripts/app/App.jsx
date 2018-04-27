@@ -36,30 +36,21 @@ class App extends React.PureComponent {
           <React.Fragment>
             <BlockingError />
             <Gallery />
+            <MessageBar />
           </React.Fragment>
         </IntlProvider>
-        <MessageBar />
         <div className="main-screen">
-          <GalleryShield />
-
-          <IntlProvider
-            locale={this.props.locale.locale}
-            key={`locale_${this.props.locale.locale}`}
-            messages={this.props.locale.messages}
-          >
-            <MenusContainer />
-          </IntlProvider>
-
-          <StreetNameCanvas />
-          <InfoBubble />
-          <DebugHoverPolygon />
-
           <IntlProvider
             locale={this.props.locale.locale}
             key={this.props.locale.locale}
             messages={this.props.locale.messages}
           >
             <React.Fragment>
+              <GalleryShield />
+              <MenusContainer />
+              <StreetNameCanvas />
+              <InfoBubble />
+              <DebugHoverPolygon />
               <WelcomePanel />
               <Palette />
               <DialogRoot />

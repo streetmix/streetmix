@@ -6,9 +6,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { injectIntl, intlShape } from 'react-intl'
 import StreetName from '../streets/StreetName'
-import { t } from '../app/locale'
-import { formatDate } from '../util/date_format'
+import DateTimeRelative from '../app/DateTimeRelative'
 import { drawStreetThumbnail } from './thumbnail'
 import { getStreetUrl } from '../streets/data_model'
 
@@ -16,32 +16,37 @@ const THUMBNAIL_WIDTH = 180
 const THUMBNAIL_HEIGHT = 110
 const THUMBNAIL_MULTIPLIER = 0.1 * 2
 
-class GalleryStreetItem extends React.Component {
+export class GalleryStreetItem extends React.Component {
   static propTypes = {
-    userId: PropTypes.string,
-    selected: PropTypes.bool.isRequired,
     street: PropTypes.object.isRequired,
-    handleSelect: PropTypes.func.isRequired,
-    handleDelete: PropTypes.func.isRequired,
+    intl: intlShape.isRequired,
+    showStreetOwner: PropTypes.bool,
+    selected: PropTypes.bool,
     allowDelete: PropTypes.bool,
+    handleSelect: PropTypes.func,
+    handleDelete: PropTypes.func,
     dpi: PropTypes.number
   }
 
   static defaultProps = {
+    showStreetOwner: true,
     selected: false,
+    allowDelete: false,
+    handleSelect: () => {}, // no-op
     handleDelete: () => {}, // no-op
-    allowDelete: false
+    dpi: 1
   }
 
   componentDidMount () {
+    if (!this.props.street.data) return
+
     this.drawCanvas()
   }
 
   drawCanvas = () => {
     const ctx = this.thumbnailEl.getContext('2d')
-    if (!this.props.street.data) {
-      console.log(this.props.street)
-    }
+
+    // TODO: document magic number 2
     drawStreetThumbnail(ctx, this.props.street.data.street,
       THUMBNAIL_WIDTH * 2, THUMBNAIL_HEIGHT * 2, this.props.dpi, THUMBNAIL_MULTIPLIER, true, false, true, false, false)
   }
@@ -55,10 +60,14 @@ class GalleryStreetItem extends React.Component {
   onClickDeleteGalleryStreet = (event) => {
     event.preventDefault()
     event.stopPropagation()
-    const street = this.props.street
 
-    // TODO escape name
-    const message = t('prompt.delete-street', 'Are you sure you want to permanently delete {streetName}? This cannot be undone.', { streetName: street.name })
+    const street = this.props.street
+    const message = this.props.intl.formatMessage({
+      id: 'prompt.delete-street',
+      defaultMessage: 'Are you sure you want to permanently delete {streetName}? This cannot be undone.'
+    }, {
+      streetName: street.name || this.props.intl.formatMessage({ id: 'street.default-name', defaultMessage: 'Unnamed St' })
+    })
 
     if (window.confirm(message)) {
       this.props.handleDelete(street.id)
@@ -68,6 +77,12 @@ class GalleryStreetItem extends React.Component {
   render () {
     const className = (this.props.selected) ? 'selected' : ''
 
+    // TODO: handle data errors better
+    if (!this.props.street.data) {
+      console.error('No street data!', this.props.street)
+      return null
+    }
+
     return (
       <div className="gallery-street-item">
         <a
@@ -75,6 +90,7 @@ class GalleryStreetItem extends React.Component {
           onClick={this.onClickGalleryStreet}
           className={className}
         >
+          {/* TODO: document magic number 2 */}
           <canvas
             width={THUMBNAIL_WIDTH * this.props.dpi * 2}
             height={THUMBNAIL_HEIGHT * this.props.dpi * 2}
@@ -82,31 +98,28 @@ class GalleryStreetItem extends React.Component {
           />
 
           <StreetName name={this.props.street.name} />
-          <span className="date">{formatDate(this.props.street.updatedAt)}</span>
 
-          {(() => {
-            if (!this.props.userId) {
-              return (
-                <span className="creator">{this.street.creatorId || t('users.anonymous', 'Anonymous')}</span>
-              )
-            }
-          })()}
+          <span className="gallery-street-item-date">
+            <DateTimeRelative value={this.props.street.updatedAt} />
+          </span>
 
-          {(() => {
-            // Only show delete links if you own the street
-            if (this.props.allowDelete) {
-              return (
-                <button
-                  className="remove"
-                  title={t('gallery.delete-street-tooltip', 'Delete street')}
-                  onClick={this.onClickDeleteGalleryStreet}
-                >
-                  ×
-                </button>
-              )
-            }
-          })()}
+          {/* Show street creator (owner) or 'Anonymous' */ }
+          {this.props.showStreetOwner &&
+            <span className="gallery-street-item-creator">
+              {this.props.street.creatorId || this.props.intl.formatMessage({ id: 'users.anonymous', defaultMessage: 'Anonymous' })}
+            </span>
+          }
 
+          {/* Only show delete button if allowed, e.g. if user is owner of the street */ }
+          {this.props.allowDelete &&
+            <button
+              className="gallery-street-item-delete"
+              title={this.props.intl.formatMessage({ id: 'gallery.delete-street-tooltip', defaultMessage: 'Delete street' })}
+              onClick={this.onClickDeleteGalleryStreet}
+            >
+              ×
+            </button>
+          }
         </a>
       </div>
     )
@@ -115,9 +128,8 @@ class GalleryStreetItem extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    userId: state.gallery.userId,
     dpi: state.system.hiDpi
   }
 }
 
-export default connect(mapStateToProps)(GalleryStreetItem)
+export default injectIntl(connect(mapStateToProps)(GalleryStreetItem))

@@ -1,13 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { injectIntl, intlShape } from 'react-intl'
 import StreetName from './StreetName'
 import StreetMeta from './StreetMeta'
 import { saveStreetName } from '../store/actions/street'
-import { t } from '../app/locale'
 
 class StreetNameCanvas extends React.Component {
   static propTypes = {
+    intl: intlShape.isRequired,
     visible: PropTypes.bool,
     editable: PropTypes.bool,
     street: PropTypes.object,
@@ -88,8 +89,15 @@ class StreetNameCanvas extends React.Component {
   onClickStreetName = () => {
     if (!this.props.editable) return
 
-    const streetName = this.props.street.name || t('street.default-name', 'Unnamed St')
-    const newName = window.prompt(t('prompt.new-street', 'New street name:'), streetName)
+    const streetName = this.props.street.name ||
+      this.props.intl.formatMessage({
+        id: 'street.default-name',
+        defaultMessage: 'Unnamed St'
+      })
+    const newName = window.prompt(this.props.intl.formatMessage({
+      id: 'prompt.new-street',
+      defaultMessage: 'New street name:'
+    }), streetName)
 
     if (newName) {
       const name = StreetName.normalizeStreetName(newName)
@@ -101,6 +109,7 @@ class StreetNameCanvas extends React.Component {
     return (
       <div className={this.determineClassNames().join(' ')}>
         <StreetName
+          editable={this.props.editable}
           id="street-name"
           childRef={(ref) => { this.streetName = ref }}
           name={this.props.street.name}
@@ -126,4 +135,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(StreetNameCanvas)
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(StreetNameCanvas))

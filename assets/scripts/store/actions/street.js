@@ -24,7 +24,6 @@ import {
   SET_BUILDING_FLOOR_VALUE,
   SET_BUILDING_VARIANT
 } from './'
-import { t } from '../../app/locale'
 
 export function updateStreetData (street) {
   return {
@@ -171,7 +170,7 @@ export function addLocation (location) {
 export function clearLocation () {
   return {
     type: CLEAR_LOCATION,
-    defaultName: t('street.default-name', 'Unnamed St')
+    defaultName: null
   }
 }
 
