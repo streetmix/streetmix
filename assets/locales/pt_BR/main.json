@@ -10,11 +10,11 @@
       "sign-out": "Sair",
       "new-street": "Nova rua",
       "my-streets": "Minhas Ruas",
-      "settings": "opções",
+      "settings": "Opções",
       "share": "Compartilhar"
     },
     "help": {
-      "keyboard-label": "Teclas de Atalho:",
+      "keyboard-label": "Teclas de atalho:",
       "remove": "Remover um segmento que você está apontando para<br />(aperte <kbd class='key'>Shift</kbd> para remover tudo)",
       "move": "Movimente-se pela rua<br />(aperte <kbd class='key'>Shift</kbd> para saltar para as bordas)",
       "change": "Mudar largura desse um segmento para o qual você está apontando<br />(segure <kbd class='key'>Shift</kbd> para obter mais precisão)"
@@ -26,7 +26,15 @@
       "facebook": "Compartilhar usando Facebook",
       "print": "Imprimir…",
       "save": "Salvar como imagem…",
-      "save-byline": "Para incluir em uma reportagem, blog, etc."
+      "save-byline": "Para incluir em uma reportagem, blog, etc.",
+      "messages": {
+        "my-street": "",
+        "my-street-unnamed": "",
+        "someone-elses-street": "",
+        "someone-elses-street-unnamed": "",
+        "anonymous-creator-street": "",
+        "anonymous-creator-street-unnamed": ""
+      }
     },
     "contact": {
       "forums": "Discutir em os foros",
@@ -61,13 +69,14 @@
     "trouble-loading": "Estamos com um problema para carregar o Streetmix.",
     "slow-connection-1": "Não foi possível conectar o Streetmix a internet no momento.",
     "slow-connection-2": "Você pode querer recarregar a página e tentar novamente. Por favor fique atento, você pode perder a última mudança na rua, desculpe!",
-    "no-connection": "não estamos conseguindo conectar com a internet"
+    "no-connection": "Não estamos conseguindo conectar com a Internet.",
+    "more-info": ""
   },
   "error": {
     "button": {
       "home": "Ir á página principal",
       "sign-in": "Faça o login de novo",
-      "reload": "",
+      "reload": "Recarregue a página",
       "try-again": "Tente novamente",
       "view-example": "Ver uma rua modelo"
     },
@@ -89,11 +98,11 @@
     "twitter-access-denied-description": "",
     "auth-api-problem-title": "",
     "auth-api-problem-description": "",
-    "please-try-again": "Por favor tente novamente mais tarde ou contate-nos via <a target='_blank' href='{email}'>e-mail</a> ou <a target='_blank' href='{tweet}'>Twitter</a>.",
+    "please-try-again": "Por favor tente novamente mais tarde ou contate-nos via <a target='_blank' rel='noopener noreferrer' href='{email}'>e-mail</a> ou <a target='_blank' rel='noopener noreferrer' href='{tweet}'>Twitter</a>.",
     "unsupported-browser-title": "Streetmix não funciona no seu navegador.",
-    "unsupported-browser-description": "Desculpe. Você talvez deve tentar <a target='_blank' href='{chromeUrl}'>Chrome</a>, <a target='_blank' href='{mozillaUrl}'>Firefox</a>, <a target='_blank' href='{edgeUrl}'>Microsoft Edge</a>, ou Safari.",
-    "unsupported-browser-internet-explorer": "Você está usando o Internet Explorer? <a target='_blank' href='{readmeIEUrl}'>Descubra mais.</a>",
-    "unsupported-browser-contact-us": "Se você acha que o seu navegador deve ser suportado, por favor contate-nos via <a target='_blank' href='{email}'>e-mail</a>.",
+    "unsupported-browser-description": "Desculpe. Você talvez deve tentar <a target='_blank' rel='noopener noreferrer' href='{chromeUrl}'>Chrome</a>, <a target='_blank' rel='noopener noreferrer' href='{mozillaUrl}'>Firefox</a>, <a target='_blank' rel='noopener noreferrer' href='{edgeUrl}'>Microsoft Edge</a>, ou Safari.",
+    "unsupported-browser-internet-explorer": "Você está usando o Internet Explorer? <a target='_blank' rel='noopener noreferrer' href='{readmeIEUrl}'>Descubra mais.</a>",
+    "unsupported-browser-contact-us": "Se você acha que o seu navegador deve ser suportado, por favor contate-nos via <a target='_blank' rel='noopener noreferrer' href='{email}'>e-mail</a>.",
     "cannot-create-new-street-on-phone-title": "Streetmix só funciona em tablets e desktops.",
     "cannot-create-new-street-on-phone-description": "Se você segue outro link a uma rua específica, a pode ver no seu celular - mas aínda não pode criar ruas novas.",
     "generic-error-title": "Algo deu errado.",
@@ -115,7 +124,7 @@
   "dialogs": {
     "error": {
       "heading": "Oops!",
-      "text": "Algo inesperado aconteceu 😢. Registramos o erro, mas se você pode lembrar o que passou no camino, <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\">por favor conte-nos sobre isso</a>. Isto também poderia ser um problema temporário, então tente uma vez mais."
+      "text": "Algo inesperado aconteceu 😢. Registramos o erro, mas se você pode lembrar o que passou no camino, <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\" rel=\"noopener noreferrer\">por favor conte-nos sobre isso</a>. Isto também poderia ser um problema temporário, então tente uma vez mais."
     },
     "welcome": {
       "heading": "Bem-vindo ao Streetmix.",
@@ -211,10 +220,7 @@
     "minutes-ago": "",
     "seconds-ago": "",
     "yesterday": "Ontem ás {time}",
-    "today": "Hoje ás {time}",
-    "format-date-no-year": "",
-    "format-date-with-year": "",
-    "format-time": ""
+    "today": "Hoje ás {time}"
   },
   "key": {
     "backspace": "Apagar",
@@ -235,6 +241,9 @@
     "default-name": "Rua sem nome",
     "rename": ""
   },
+  "building": {
+    "floors-count": ""
+  },
   "segments": {
     "warnings": {
       "does-not-fit": "",
@@ -254,32 +263,26 @@
     "all": "Todas as ruas",
     "twitter-link": "",
     "delete-street-tooltip": "Deletar esta rua",
-    "street-count-none": "Ainda não tem ruas",
-    "street-count": "{count} rua",
-    "street-count_plural": "{count} ruas"
+    "street-count": "{count, plural, =0 {Ainda não tem ruas} one {# rua} other {# ruas}}",
+    "sign-in": "Entrar com Twitter para sua galeria pessoal de ruas"
   },
   "users": {
     "anonymous": "Anônimo",
     "byline": "por {user}"
   },
-  "sign-in": {
-    "link": "Entrar com Twitter",
-    "promo-1": "para links melhores para suas ruas e para sua galeria pessoal de ruas",
-    "promo-2": "para sua galeria pessoal de ruas"
-  },
   "meta": {
-    "description": "Projete, remix e compartilhe a rua de sua vizinhança - tudo em seu browser! Adicione árvores ou ciclovias, calçadas largas ou guias de tráfego, aprenda como suas decisões podem impactar sua comunidade"
+    "description": "Projete, remix e compartilhe a rua de sua vizinhança - tudo em seu browser! Adicione árvores ou ciclovias, calçadas largas ou guias de tráfego, aprenda como suas decisões podem impactar sua comunidade."
   },
   "i18n": {
     "lang": {
       "ar": "Árabe",
-      "en": "",
-      "en@pirate": "",
-      "fi": "Finlandês",
-      "fr": "Francês",
       "de": "Alemão",
+      "en": "Inglês",
       "es": "Espanhol",
       "es-mx": "Espanhol (México)",
+      "fi": "Finlandês",
+      "fr": "Francês",
+      "ja": "",
       "pl": "Polonês",
       "pt-br": "Português (Brasil)",
       "sv": "Sueco",

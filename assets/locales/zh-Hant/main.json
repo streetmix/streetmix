@@ -20,13 +20,21 @@
       "change": ""
     },
     "share": {
-      "sign-in": "登錄推特，會有連到你的街和你各自的街廊的連接",
+      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>登錄推特</a>，會有連到你的街和你各自的街廊的連接",
       "link": "複製和粘貼這個連接來分享：",
       "twitter": "用推特來分享",
       "facebook": "用臉書來分享",
       "print": "打印。。。",
       "save": "把照片存到電腦上。。。",
-      "save-byline": "用來包括在報告，博客等等"
+      "save-byline": "用來包括在報告，博客等等",
+      "messages": {
+        "my-street": "",
+        "my-street-unnamed": "",
+        "someone-elses-street": "",
+        "someone-elses-street-unnamed": "",
+        "anonymous-creator-street": "",
+        "anonymous-creator-street-unnamed": ""
+      }
     },
     "contact": {
       "forums": "",
@@ -61,7 +69,8 @@
     "trouble-loading": "",
     "slow-connection-1": "",
     "slow-connection-2": "",
-    "no-connection": ""
+    "no-connection": "",
+    "more-info": ""
   },
   "error": {
     "button": {
@@ -139,7 +148,7 @@
       "last": ""
     },
     "about": {
-      "heading": "關於Streetmix。。。",
+      "heading": "關於Streetmix。",
       "description": "",
       "thanks": "",
       "credits": "",
@@ -211,10 +220,7 @@
     "minutes-ago": "",
     "seconds-ago": "",
     "yesterday": "",
-    "today": "",
-    "format-date-no-year": "",
-    "format-date-with-year": "",
-    "format-time": ""
+    "today": ""
   },
   "key": {
     "backspace": "退位鍵",
@@ -235,6 +241,9 @@
     "default-name": "沒名街",
     "rename": ""
   },
+  "building": {
+    "floors-count": ""
+  },
   "segments": {
     "warnings": {
       "does-not-fit": "這部分在這條街放不下。",
@@ -254,18 +263,12 @@
     "all": "",
     "twitter-link": "",
     "delete-street-tooltip": "",
-    "street-count-none": "",
     "street-count": "",
-    "street-count_plural": ""
+    "sign-in": ""
   },
   "users": {
     "anonymous": "",
     "byline": ""
-  },
-  "sign-in": {
-    "link": "",
-    "promo-1": "",
-    "promo-2": ""
   },
   "meta": {
     "description": ""
@@ -273,13 +276,13 @@
   "i18n": {
     "lang": {
       "ar": "",
-      "en": "",
-      "en@pirate": "",
-      "fi": "",
-      "fr": "",
       "de": "",
+      "en": "",
       "es": "",
       "es-mx": "",
+      "fi": "",
+      "fr": "",
+      "ja": "",
       "pl": "",
       "pt-br": "",
       "sv": "",

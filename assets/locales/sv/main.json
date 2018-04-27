@@ -26,10 +26,18 @@
       "facebook": "Dela på Facebook",
       "print": "Skriv ut…",
       "save": "Spara som bild…",
-      "save-byline": "För att inkludera i en rapport, blogg etc."
+      "save-byline": "För att inkludera i en rapport, blogg etc.",
+      "messages": {
+        "my-street": "",
+        "my-street-unnamed": "",
+        "someone-elses-street": "",
+        "someone-elses-street-unnamed": "",
+        "anonymous-creator-street": "",
+        "anonymous-creator-street-unnamed": ""
+      }
     },
     "contact": {
-      "forums": "Diskutera i forumen.",
+      "forums": "Diskutera i forumen",
       "twitter": "Skicka en tweet till @streetmix",
       "email": "Skicka e-post till Streetmix-teamet",
       "github": "Visa källkod på GitHub",
@@ -61,7 +69,8 @@
     "trouble-loading": "Vi har problem att ladda Streetmix.",
     "slow-connection-1": "Streetmix har inte kunnat kontakta internet på ett tag nu.",
     "slow-connection-2": "Du kan prova att ladda om sidan och försöka igen. Vänligen notera att du kan förlora dina senaste ändringar. Ursäkta!",
-    "no-connection": "Streetmix har problem med uppkopplingen till internet."
+    "no-connection": "Streetmix har problem med uppkopplingen till internet.",
+    "more-info": ""
   },
   "error": {
     "button": {
@@ -121,15 +130,15 @@
       "heading": "Välkommen till Streetmix.",
       "new": {
         "intro": "Designa, ändra och dela din gata. Lägg till träd eller cykelbanor. Bredda gångbanor eller körbanor. Lär hur dina beslut kan påverka ditt närområde.",
-        "instruct": "",
-        "instruct-pointer-finger": "",
-        "instruct-pointer-mouse": ""
+        "instruct": "Börja genom att flytta runt några segment med {pointer}.",
+        "instruct-pointer-finger": "ditt finger",
+        "instruct-pointer-mouse": "musen"
       },
       "existing": {
-        "intro": "",
-        "intro-without-creator": "",
-        "instruct": "",
-        "instruct-start-own-street": ""
+        "intro": "Detta ör {streetName} gjord av {creator}.",
+        "intro-without-creator": "Detta ör {streetName}.",
+        "instruct": "Ändra genom att flytta runt några segment eller {startYourOwnStreet}.",
+        "instruct-start-own-street": "Gör din egen gata"
       }
     },
     "new-street": {
@@ -156,7 +165,7 @@
       "option-sky": "Transparent himmel",
       "loading": "Laddar…",
       "save-button": "Sparar till din dator…",
-      "license": "",
+      "license": "Denna av Streetmix skapade bild kan användas var som helst, oavsett syfte, i enlighet med <br><a href='{url}'>Creative Commons Attribution-ShareAlike 4.0 International License</a>.",
       "error-preview": "",
       "error-unavailable": "",
       "preview-image-alt": ""
@@ -211,10 +220,7 @@
     "minutes-ago": "",
     "seconds-ago": "",
     "yesterday": "",
-    "today": "",
-    "format-date-no-year": "",
-    "format-date-with-year": "",
-    "format-time": ""
+    "today": ""
   },
   "key": {
     "backspace": "Backsteg",
@@ -235,6 +241,9 @@
     "default-name": "Namnlös gata",
     "rename": ""
   },
+  "building": {
+    "floors-count": ""
+  },
   "segments": {
     "warnings": {
       "does-not-fit": "Segmentet passar inte inom gatubredden.",
@@ -254,18 +263,12 @@
     "all": "Alla gator",
     "twitter-link": "",
     "delete-street-tooltip": "Ta bort gata",
-    "street-count-none": "Inga gator än",
-    "street-count": "",
-    "street-count_plural": ""
+    "street-count": "{count, plural, =0 {Inga gator än} one {# gata} other {# gator}}",
+    "sign-in": "Logga in med Twitter för ditt personliga gatubibliotek"
   },
   "users": {
     "anonymous": "Anonym",
     "byline": ""
-  },
-  "sign-in": {
-    "link": "Logga in med Twitter",
-    "promo-1": "för bättre koppling till ditt personliga gatubibliotek",
-    "promo-2": "för ditt personliga gatubibliotek"
   },
   "meta": {
     "description": "Designa, ändra och dela din gata - allt i din webbläsare! Lägg till träd eller cykelbanor. Bredda gångbanor eller körbanor. Lär hur allt detta kan påverka ditt närområde."
@@ -273,13 +276,13 @@
   "i18n": {
     "lang": {
       "ar": "",
-      "en": "Engelska",
-      "en@pirate": "Engelska (pirat)",
-      "fi": "Finska",
-      "fr": "",
       "de": "Tyska",
+      "en": "Engelska",
       "es": "Spanska",
       "es-mx": "Spanska (Mexiko)",
+      "fi": "Finska",
+      "fr": "",
+      "ja": "",
       "pl": "Polska",
       "pt-br": "Portugisiska (Brasilien)",
       "sv": "Svenska",

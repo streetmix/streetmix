@@ -26,7 +26,15 @@
       "facebook": "",
       "print": "",
       "save": "Als Bild speichern…",
-      "save-byline": ""
+      "save-byline": "",
+      "messages": {
+        "my-street": "",
+        "my-street-unnamed": "",
+        "someone-elses-street": "",
+        "someone-elses-street-unnamed": "",
+        "anonymous-creator-street": "",
+        "anonymous-creator-street-unnamed": ""
+      }
     },
     "contact": {
       "forums": "",
@@ -61,7 +69,8 @@
     "trouble-loading": "",
     "slow-connection-1": "",
     "slow-connection-2": "",
-    "no-connection": ""
+    "no-connection": "",
+    "more-info": ""
   },
   "error": {
     "button": {
@@ -211,10 +220,7 @@
     "minutes-ago": "",
     "seconds-ago": "",
     "yesterday": "",
-    "today": "",
-    "format-date-no-year": "",
-    "format-date-with-year": "",
-    "format-time": ""
+    "today": ""
   },
   "key": {
     "backspace": "",
@@ -235,6 +241,9 @@
     "default-name": "",
     "rename": ""
   },
+  "building": {
+    "floors-count": ""
+  },
   "segments": {
     "warnings": {
       "does-not-fit": "",
@@ -254,18 +263,12 @@
     "all": "",
     "twitter-link": "",
     "delete-street-tooltip": "",
-    "street-count-none": "",
     "street-count": "",
-    "street-count_plural": ""
+    "sign-in": ""
   },
   "users": {
     "anonymous": "",
     "byline": ""
-  },
-  "sign-in": {
-    "link": "",
-    "promo-1": "",
-    "promo-2": ""
   },
   "meta": {
     "description": ""
@@ -273,13 +276,13 @@
   "i18n": {
     "lang": {
       "ar": "",
-      "en": "",
-      "en@pirate": "",
-      "fi": "",
-      "fr": "",
       "de": "",
+      "en": "",
       "es": "",
       "es-mx": "",
+      "fi": "",
+      "fr": "",
+      "ja": "",
       "pl": "",
       "pt-br": "",
       "sv": "",

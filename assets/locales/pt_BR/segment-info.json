@@ -7,16 +7,16 @@
       "name": "Calçada com árvore"
     },
     "sidewalk-bike-rack": {
-      "name": "Suporte de Bicicletas"
+      "name": "Suporte de bicicletas"
     },
     "sidewalk-bench": {
       "name": "Banco"
     },
     "sidewalk-wayfinding": {
-      "name": "",
+      "name": "Sinal de orientação",
       "description": {
-        "prompt": "",
-        "lede": "",
+        "prompt": "Aprenda mais sobre sinais de orientação",
+        "lede": "Sinais de orientação ajudam os pedestres a navegar para seus destinos.",
         "text": [
           "",
           "",
@@ -118,6 +118,30 @@
         },
         "sideways|right": {
           "name": ""
+        },
+        "angled-front-left|left": {
+          "name": ""
+        },
+        "angled-front-left|right": {
+          "name": ""
+        },
+        "angled-front-right|left": {
+          "name": ""
+        },
+        "angled-front-right|right": {
+          "name": ""
+        },
+        "angled-rear-left|left": {
+          "name": ""
+        },
+        "angled-rear-left|right": {
+          "name": ""
+        },
+        "angled-rear-right|left": {
+          "name": ""
+        },
+        "angled-rear-right|right": {
+          "name": ""
         }
       }
     },
@@ -171,7 +195,7 @@
       "name": "Faixa de ônibux",
       "details": {
         "inbound|shared": {
-          "name": "Compartilhado ônibus/bike"
+          "name": "Faixa compartilhada: ônibus e bicicleta"
         },
         "outbound|shared": {
           "name": "Compartilhado ônibus/bike"
@@ -223,16 +247,16 @@
   },
   "buildings": {
     "waterfront": {
-      "name": ""
+      "name": "Beira-mar"
     },
     "grass": {
       "name": "Grama"
     },
     "fence": {
-      "name": ""
+      "name": "Lote vazio"
     },
     "parking-lot": {
-      "name": ""
+      "name": "Estacionamento"
     },
     "residential": {
       "name": "Casa"
@@ -245,7 +269,7 @@
     }
   },
   "variant-icons": {
-    "orientation|left": "Esqueda",
+    "orientation|left": "Esquerda",
     "orientation|right": "Direita",
     "turn-lane-orientation|left": "Esquerda",
     "turn-lane-orientation|left-straight": "Linha reta e à esquerda",
@@ -254,23 +278,27 @@
     "turn-lane-orientation|right": "Direita",
     "turn-lane-orientation|both": "Cabine",
     "turn-lane-orientation|shared": "Compartilhar",
-    "bench-orientation|left": "Esqueda",
-    "bench-orientation|right": "Dirieta",
+    "bench-orientation|left": "Esquerda",
+    "bench-orientation|right": "Direita",
     "bench-orientation|center": "Centro",
-    "parking-lane-orientation|left": "Esqueda",
-    "parking-lane-orientation|right": "Dirieta",
+    "parking-lane-orientation|left": "Esquerda",
+    "parking-lane-orientation|right": "Direita",
     "parking-lane-direction|inbound": "",
     "parking-lane-direction|outbound": "",
     "parking-lane-direction|sideways": "Perpendicular",
+    "parking-lane-direction|angled-front-left": "",
+    "parking-lane-direction|angled-front-right": "",
+    "parking-lane-direction|angled-rear-left": "",
+    "parking-lane-direction|angled-rear-right": "",
     "direction|inbound": "",
     "direction|outbound": "",
     "sidewalk-density|empty": "",
     "sidewalk-density|sparse": "",
     "sidewalk-density|normal": "Normal",
     "sidewalk-density|dense": "Denso",
-    "lamp-orientation|left": "Esqueda",
-    "lamp-orientation|both": "Cabine",
-    "lamp-orientation|right": "Dirieta",
+    "lamp-orientation|left": "Esquerda",
+    "lamp-orientation|both": "Ambos",
+    "lamp-orientation|right": "Direita",
     "lamp-type|traditional": "Tradicional",
     "lamp-type|modern": "Moderno",
     "lamp-type|pride": "",
@@ -278,13 +306,13 @@
     "car-type|sharrow": "",
     "car-type|truck": "Caminhão",
     "public-transit-asphalt|regular": "",
-    "public-transit-asphalt|colored": "Faixa vemelha",
+    "public-transit-asphalt|colored": "Faixa vermelha",
     "bus-asphalt|regular": "",
-    "bus-asphalt|colored": "Faixa vemelha",
-    "bus-asphalt|shared": "Faixa compartilhada: Ônibus e Bicicleta",
+    "bus-asphalt|colored": "Faixa vermelha",
+    "bus-asphalt|shared": "Faixa compartilhada: ônibus e bicicleta",
     "bike-asphalt|regular": "",
     "bike-asphalt|green": "Faixa verde",
-    "bike-asphalt|red": "Faixa vemelha",
+    "bike-asphalt|red": "Faixa vermelha",
     "tree-type|big": "Árvore",
     "tree-type|palm-tree": "",
     "divider-type|median": "Médio",
@@ -302,10 +330,10 @@
     "bike-rack-elevation|sidewalk-parallel": "",
     "bike-rack-elevation|sidewalk": "",
     "bike-rack-elevation|road": "",
-    "building|waterfront": "",
+    "building|waterfront": "Beira-mar",
     "building|grass": "Grama",
-    "building|fence": "",
-    "building|parking-lot": "",
+    "building|fence": "Lote vazio",
+    "building|parking-lot": "Estacionamento",
     "building|residential": "Casa",
     "building|narrow": "",
     "building|wide": "",
