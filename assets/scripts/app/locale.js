@@ -6,7 +6,6 @@
 import { addLocaleData } from 'react-intl'
 import i18next from 'i18next'
 import i18nextXhr from 'i18next-xhr-backend'
-import { supplant } from '../util/helpers'
 import { API_URL } from './config'
 import { observeStore } from '../store'
 
@@ -108,13 +107,7 @@ function doTheI18n (locale) {
 export function t (key, fallback, options) {
   const text = i18next.t(key, options)
   if (!text || text === key) {
-    // Must manually supplant fallback strings if replacements are necessary
-    if (options) {
-      return supplant(fallback, options)
-    } else {
-      // Otherwise return as-is
-      return fallback
-    }
+    return fallback
   } else {
     return text
   }
