@@ -243,7 +243,7 @@ describe('street reducer', () => {
       expect(
         reducer({...existingStreet}, actions.clearLocation())
       ).toEqual({
-        name: 'Unnamed St',
+        name: null,
         userUpdated: false,
         location: null
       })
