@@ -3,6 +3,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { mount } from 'enzyme'
 import module, { SearchAddress } from '../SearchAddress'
+import { mockIntl } from '../../../../test/__mocks__/react-intl'
 
 import autocompleteResponse from './fixtures/autocomplete.json'
 import searchResponse from './fixtures/search.json'
@@ -35,18 +36,18 @@ describe('SearchAddress', () => {
   // import other modules with side effects.
   it('renders without crashing', () => {
     const div = document.createElement('div')
-    ReactDOM.render(<SearchAddress />, div)
+    ReactDOM.render(<SearchAddress intl={mockIntl} />, div)
   })
 
   it('focuses the input after mounting', () => {
-    const component = mount(<SearchAddress />)
+    const component = mount(<SearchAddress intl={mockIntl} />)
 
     // Not referential equality
     expect(component.find('input').instance().className).toEqual('react-autosuggest__input')
   })
 
   it('displays a "clear search" button when there is input', () => {
-    const component = mount(<SearchAddress />)
+    const component = mount(<SearchAddress intl={mockIntl} />)
     const input = component.find('input')
 
     // The close button should not render when the input is empty
@@ -71,7 +72,7 @@ describe('SearchAddress', () => {
   it('puts a title attribute on the "clear search" button', () => {
     window.fetch = mapzenSearchMock
 
-    const component = mount(<SearchAddress />)
+    const component = mount(<SearchAddress intl={mockIntl} />)
     component.find('input').simulate('change', { target: { value: 'foo' } })
 
     const el = component.find('.geotag-input-clear')
@@ -81,7 +82,7 @@ describe('SearchAddress', () => {
   it('clears and focuses input when "clear search" button is clicked', () => {
     window.fetch = mapzenSearchMock
 
-    const component = mount(<SearchAddress />)
+    const component = mount(<SearchAddress intl={mockIntl} />)
     const input = component.find('input')
 
     // Simulates input
@@ -106,7 +107,7 @@ describe('SearchAddress', () => {
     // Access a non-exported variable
     const MINIMUM_QUERY_LENGTH = module.__get__('MINIMUM_QUERY_LENGTH')
 
-    const component = mount(<SearchAddress />)
+    const component = mount(<SearchAddress intl={mockIntl} />)
     const input = component.find('input')
 
     // Spy on search
@@ -130,7 +131,7 @@ describe('SearchAddress', () => {
   it('makes a search request when the enter key is pressed', () => {
     window.fetch = mapzenSearchMock
 
-    const component = mount(<SearchAddress />)
+    const component = mount(<SearchAddress intl={mockIntl} />)
 
     // Spy on search
     component.instance().search = jest.fn(component.instance().search)
@@ -154,7 +155,7 @@ describe('SearchAddress', () => {
 
   describe('react-autosuggest integration', () => {
     it('returns feature label for getSuggestionValue()', () => {
-      const component = mount(<SearchAddress />)
+      const component = mount(<SearchAddress intl={mockIntl} />)
       const value = component.instance().getSuggestionValue({ properties: { label: 'foo' } })
       expect(value).toEqual('foo')
     })
