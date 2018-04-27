@@ -7,7 +7,7 @@ import { addLocaleData } from 'react-intl'
 import i18next from 'i18next'
 import i18nextXhr from 'i18next-xhr-backend'
 import { API_URL } from './config'
-import { observeStore } from '../store'
+import store, { observeStore } from '../store'
 
 // Add react-intl files for all the languages we support (added manually for now)
 import ar from 'react-intl/locale-data/ar'
@@ -104,11 +104,11 @@ function doTheI18n (locale) {
     .init(options, callback)
 }
 
-export function t (key, fallback, options) {
-  const text = i18next.t(key, options)
-  if (!text || text === key) {
-    return fallback
+export function t (key, fallback, options = {}) {
+  const messages = store.getState().locale.messages
+  if (options.ns === 'segment-info') {
+    return messages['segmentInfo.' + key] || fallback
   } else {
-    return text
+    return messages[key] || fallback
   }
 }
