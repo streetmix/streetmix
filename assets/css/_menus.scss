@@ -83,6 +83,10 @@ body.safari .menu {
 
 .share-via-link-container {
   margin: 0.5em 1em 0.5em 2.5em;
+
+  [dir='rtl'] & {
+    margin: 0.5em 2.5em 0.5em 1em;
+  }
 }
 
 .share-via-link {
