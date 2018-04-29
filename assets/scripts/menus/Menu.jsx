@@ -1,12 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
-export default class Menu extends React.PureComponent {
+class Menu extends React.PureComponent {
   static propTypes = {
+    contentDirection: PropTypes.oneOf(['rtl', 'ltr']),
     className: PropTypes.string,
-    alignment: PropTypes.oneOf(['left', 'right']).isRequired,
     isActive: PropTypes.bool.isRequired,
-    position: PropTypes.array,
+    position: PropTypes.shape({
+      left: PropTypes.number,
+      right: PropTypes.number,
+      top: PropTypes.number,
+      bottom: PropTypes.number,
+      x: PropTypes.number,
+      y: PropTypes.number
+    }),
     onShow: PropTypes.func,
     onHide: PropTypes.func,
     children: PropTypes.node
@@ -35,13 +43,40 @@ export default class Menu extends React.PureComponent {
   }
 
   show () {
+    if (!this.props.position) return
+
     this.el.classList.add('visible')
 
+    const LEFT_RIGHT_INSET = 50 // match $left-right-inset in CSS
+
     // Determine positioning
-    // Aligns menu to the left side of the menu item.
+    // Aligns menu to the left side of the menu item, but aligns to the right side
+    // of the menu bar if the menu is too wide.
     // Position is provided by the MenuBar component and passed in through props.
-    if (this.props.alignment === 'left') {
-      this.el.style.left = this.props.position[0] + 'px'
+    // If rtl, calculate alignment position based on right edge of menu item
+    if (this.props.contentDirection === 'rtl') {
+      const right = this.props.position.right
+      const width = this.el.offsetWidth
+      const minXPos = LEFT_RIGHT_INSET
+      let xPos
+      if (right - width < minXPos) {
+        xPos = minXPos
+      } else {
+        xPos = right - width
+      }
+      this.el.style.left = xPos + 'px'
+    } else {
+      // Otherwise, assume ltr, and align to left edge of menu item
+      const left = this.props.position.left
+      const width = this.el.offsetWidth
+      const maxXPos = document.documentElement.clientWidth - LEFT_RIGHT_INSET
+      let xPos
+      if (left + width > maxXPos) {
+        xPos = maxXPos - width
+      } else {
+        xPos = left
+      }
+      this.el.style.left = xPos + 'px'
     }
 
     if (this.props.onShow) {
@@ -64,13 +99,6 @@ export default class Menu extends React.PureComponent {
       className += ` ${this.props.className}`
     }
 
-    // Determine positioning
-    if (this.props.alignment === 'right') {
-      // Note: this aligns to right edge of menu bar,
-      // instead of the right side of the menu item.
-      className += ' align-right'
-    }
-
     return (
       <div className={className} ref={(ref) => { this.el = ref }}>
         {this.props.children}
@@ -78,3 +106,11 @@ export default class Menu extends React.PureComponent {
     )
   }
 }
+
+function mapStateToProps (state) {
+  return {
+    contentDirection: state.app.contentDirection
+  }
+}
+
+export default connect(mapStateToProps)(Menu)

@@ -10,6 +10,7 @@ import { supplant } from '../util/helpers'
 import { API_URL } from './config'
 import store from '../store'
 import { setLocale } from '../store/actions/locale'
+import { setContentDirection } from '../store/actions/app'
 
 // Add react-intl files for all the languages we support (added manually for now)
 import ar from 'react-intl/locale-data/ar'
@@ -95,8 +96,10 @@ function doTheI18n (locale) {
     // right-to-left languages support
     if (['ar', 'dv', 'fa', 'he'].indexOf(locale) > -1) {
       document.body.dir = 'rtl'
+      store.dispatch(setContentDirection('rtl'))
     } else {
       document.body.dir = 'ltr'
+      store.dispatch(setContentDirection('ltr'))
     }
   }
 

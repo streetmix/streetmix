@@ -24,10 +24,6 @@
     pointer-events: auto;
   }
 
-  &.align-right {
-    right: $left-right-inset;
-  }
-
   > a {
     display: block;
     position: relative;
@@ -87,6 +83,10 @@ body.safari .menu {
 
 .share-via-link-container {
   margin: 0.5em 1em 0.5em 2.5em;
+
+  [dir='rtl'] & {
+    margin: 0.5em 2.5em 0.5em 1em;
+  }
 }
 
 .share-via-link {
@@ -151,15 +151,8 @@ body.safari .menu {
 }
 
 [dir='rtl'] {
-  .menu {
-    &.align-right {
-      left: $left-right-inset;
-      right: auto;
-    }
-
-    .icon {
-      left: auto;
-      right: 0.75em;
-    }
+  .menu .icon {
+    left: auto;
+    right: 0.75em;
   }
 }
