@@ -57,8 +57,8 @@ export class GeotagDialog extends React.Component {
     super(props)
 
     this.state = {
-      markerLocation: null,
-      renderPopup: true,
+      bbox: null,
+      renderPopup: !!props.markerLocation,
       // Default location if geo IP not detected; this hovers over Brooklyn
       mapCenter: {
         lat: 40.645,
@@ -125,6 +125,7 @@ export class GeotagDialog extends React.Component {
 
     this.setState({
       bbox: res.bbox || null,
+      renderPopup: true,
       mapCenter: this.props.markerLocation
     })
   }
