@@ -29,8 +29,7 @@ export function setLocale (locale, messages) {
 
   return {
     type: SET_LOCALE,
-    // Converts "es_MX" to "en-MX" (and similar) for react-intl
-    locale: locale.replace('_', '-'),
+    locale,
     messages: flattenObject(messages)
   }
 }
