@@ -8,6 +8,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape } from 'react-intl'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
+import CloseButton from '../ui/CloseButton'
 
 export class Dialog extends React.PureComponent {
   static propTypes = {
@@ -75,13 +76,10 @@ export class Dialog extends React.PureComponent {
           </div>
         ) : (
           <div className="dialog-box">
-            <button
-              className="close"
+            <CloseButton
               onClick={this.props.closeDialog}
               title={closeLabel}
-            >
-              ×
-            </button>
+            />
             {React.cloneElement(this.props.children, { closeDialog: this.props.closeDialog })}
           </div>
         )}
