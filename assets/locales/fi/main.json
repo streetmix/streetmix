@@ -20,13 +20,21 @@
       "change": "Muuta osoittimen alla oleva kohteen leveyttä<br /> (lisää tarkkuutta pitämällä <kbd class='key'>Shift</kbd> pohjassa)"
     },
     "share": {
-      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Kirjaudu sisään Twitter-tunnuksilla</a>, jolloin jakaminen on helpompaa ja näet katusi näppärästi galleriassa.",
+      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Kirjaudu sisään Twitter-tunnuksilla</a>, jolloin jakaminen on helpompaa ja näet katusi näppärästi galleriassa",
       "link": "Jaa kopioimalla ja liittämällä tämä linkki:",
       "twitter": "Jaa Twitterissä",
       "facebook": "Jaa Facebookissa",
       "print": "Tulosta…",
       "save": "Tallenna kuvana…",
-      "save-byline": "Blogiin, liitteeksi raporttiin..."
+      "save-byline": "Blogiin, liitteeksi raporttiin...",
+      "messages": {
+        "my-street": "",
+        "my-street-unnamed": "",
+        "someone-elses-street": "",
+        "someone-elses-street-unnamed": "",
+        "anonymous-creator-street": "",
+        "anonymous-creator-street-unnamed": ""
+      }
     },
     "contact": {
       "forums": "Osallistu keskusteluun",
@@ -61,7 +69,8 @@
     "trouble-loading": "Streetmixin lataaminen ei nyt onnistu.",
     "slow-connection-1": "Internet-yhteyden muodostaminen epäonnistui.",
     "slow-connection-2": "Ongelma voi korjautua sivu päivittämällä, mutta huomaa, että viimeisimmät katuun tehdyt muutokset saatetaan menettää. Pahoittelut!",
-    "no-connection": "Streetmix ei pystynyt muodostamaan Internet-yhteyttä."
+    "no-connection": "Streetmix ei pystynyt muodostamaan Internet-yhteyttä.",
+    "more-info": ""
   },
   "error": {
     "button": {
@@ -89,11 +98,11 @@
     "twitter-access-denied-description": "Keskeytit Twitter-tunnistautumisen.",
     "auth-api-problem-title": "Sisäänkirjautuminen epäonnistui.",
     "auth-api-problem-description": "Twitter-tunnistautuminen epäonnistui.",
-    "please-try-again": "Yritä myöhemmin uudelleen ja tarvittaessa tee vikailmoitus <a target='_blank' href='{email}'>sähköpostitse</a> tai <a target='_blank' href='{tweet}'>Twitterissä</a>.",
+    "please-try-again": "Yritä myöhemmin uudelleen ja tarvittaessa tee vikailmoitus <a target='_blank' rel='noopener noreferrer' href='{email}'>sähköpostitse</a> tai <a target='_blank' rel='noopener noreferrer' href='{tweet}'>Twitterissä</a>.",
     "unsupported-browser-title": "Streetmix ei toimi tässä selaimessa.",
-    "unsupported-browser-description": "Pahoittelut! Suosittelemme kokeilemaan <a target='_blank' href='{chromeUrl}'>Chromea</a>, <a target='_blank' href='{mozillaUrl}'>Firefoxia</a>, <a target='_blank' href='{edgeUrl}'>Microsoft Edgeä</a> tai Safaria.",
-    "unsupported-browser-internet-explorer": "Käytätkö Internet Exploreria? <a target='_blank' href='{readmeIEUrl}'>Lue lisätietoja.</a>",
-    "unsupported-browser-contact-us": "Jos tämä ilmoitus on virheellinen, tee vikailmoitus <a target='_blank' href='{email}'>sähköpostitse</a>.",
+    "unsupported-browser-description": "Pahoittelut! Suosittelemme kokeilemaan <a target='_blank' rel='noopener noreferrer' href='{chromeUrl}'>Chromea</a>, <a target='_blank' rel='noopener noreferrer' href='{mozillaUrl}'>Firefoxia</a>, <a target='_blank' rel='noopener noreferrer' href='{edgeUrl}'>Microsoft Edgeä</a> tai Safaria.",
+    "unsupported-browser-internet-explorer": "Käytätkö Internet Exploreria? <a target='_blank' rel='noopener noreferrer' href='{readmeIEUrl}'>Lue lisätietoja.</a>",
+    "unsupported-browser-contact-us": "Jos tämä ilmoitus on virheellinen, tee vikailmoitus <a target='_blank' rel='noopener noreferrer' href='{email}'>sähköpostitse</a>.",
     "cannot-create-new-street-on-phone-title": "Streetmix toimii vain tabletilla ja tietokoneella.",
     "cannot-create-new-street-on-phone-description": "Voit tarkastella linkistä avaamasi katua, mutta et voi muokata tai luoda uusia katuja.",
     "generic-error-title": "Jokin meni vikaan.",
@@ -115,7 +124,7 @@
   "dialogs": {
     "error": {
       "heading": "Oho!",
-      "text": "Jotakin odottamatonta tapahtui 😢. Virheilmoitus on tallennettu automaattisesti, mutta <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\">voit myös kertoa siitä meille</a>. Kokeile hetken kuluttua uudelleen."
+      "text": "Jotakin odottamatonta tapahtui 😢. Virheilmoitus on tallennettu automaattisesti, mutta <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\" rel=\"noopener noreferrer\">voit myös kertoa siitä meille</a>. Kokeile hetken kuluttua uudelleen."
     },
     "welcome": {
       "heading": "Tervetuloa, tämä on Streetmix.",
@@ -157,7 +166,7 @@
       "loading": "Ladataan…",
       "save-button": "Tallenna tietokoneelle…",
       "license": "Tätä Streetmixillä luotua kuvaa saa käyttää missä tahansa mihin tahansa tarkoitukseen <br><a href='{url}'>Creative Commons Nimeä-JaaSamoin 4.0 Kansainvälinen</a> -lisenssin ehtojen mukaisesti.",
-      "error-preview": "Esikatselukuvan näyttäminen epäonnistui",
+      "error-preview": "Esikatselukuvan näyttäminen epäonnistui.",
       "error-unavailable": "Tallentaminen kuvana ei ole mahdollista tässä selaimessa.",
       "preview-image-alt": "Esikatselu"
     },
@@ -181,8 +190,8 @@
   },
   "prompt": {
     "new-street": "Kadun uusi nimi:",
-    "delete-street": "Haluatko varmasti poistaa kohteen {{streetName}} pysyvästi?",
-    "new-width": "Uusi kadunleveys ({{minWidth}-{{maxWidth}}):"
+    "delete-street": "Haluatko varmasti poistaa kohteen {streetName} pysyvästi?",
+    "new-width": "Uusi kadunleveys ({minWidth}-{maxWidth}):"
   },
   "toast": {
     "segment-deleted": "Tämä elementti on poistettu.",
@@ -211,10 +220,7 @@
     "minutes-ago": "Muutama minuutti sitten",
     "seconds-ago": "Muutama sekunti sitten",
     "yesterday": "Eilen kello {time}",
-    "today": "Tänään kello {time}",
-    "format-date-no-year": "D.M.",
-    "format-date-with-year": "D.M.YYYY",
-    "format-time": "H:MM"
+    "today": "Tänään kello {time}"
   },
   "key": {
     "backspace": "Askelpalautin",
@@ -235,11 +241,14 @@
     "default-name": "Nimetön katu",
     "rename": "Nimeä uudelleen napsauttamalla"
   },
+  "building": {
+    "floors-count": ""
+  },
   "segments": {
     "warnings": {
-      "does-not-fit": "Elementti ei mahdu kadulle",
+      "does-not-fit": "Elementti ei mahdu kadulle.",
       "not-wide": "Elementti ei ehkä ole riittävän leveä.",
-      "too-wide": "Elementti saattaa olla leveä."
+      "too-wide": "Elementti saattaa olla leveä."
     },
     "learn-more": "Lue lisää",
     "unknown": {
@@ -254,18 +263,12 @@
     "all": "Kaikki kadut",
     "twitter-link": "Twitter-profiili",
     "delete-street-tooltip": "Poista katu",
-    "street-count-none": "Ei luotuja katuja",
-    "street-count": "{count} katu",
-    "street-count_plural": "{count} katua"
+    "street-count": "{count, plural, =0 {Ei luotuja katuja} one {# katu} other {# katua}}",
+    "sign-in": "Kirjaudu Twitter-tunnuksella voit tallentaa tämän kadun omaan katugalleriaasi"
   },
   "users": {
     "anonymous": "Tuntematon",
     "byline": "käyttäjältä {user}"
-  },
-  "sign-in": {
-    "link": "Kirjaudu Twitter-tunnuksella",
-    "promo-1": "voit jakaa kadut ja oman katugalleriasi näppärämmin",
-    "promo-2": "voit tallentaa tämän kadun omaan katugalleriaasi"
   },
   "meta": {
     "description": "Suunnittele, muokkaa ja jaa kotikatusi verkkoselaimella! Lisää kadullesi kaikkea puista pyöräteihin tai levennä katusi jalkakäytäviä ja ajoratoja. Samalla näet, miten muutokset vaikuttavat liikenteeseen."
@@ -273,13 +276,13 @@
   "i18n": {
     "lang": {
       "ar": "Arabia",
-      "en": "Englanti",
-      "en@pirate": "Englanti (piraatti)",
-      "fi": "Suomi",
-      "fr": "Ranska",
       "de": "Saksa",
+      "en": "Englanti",
       "es": "Espanja",
       "es-mx": "Espanja (Meksiko)",
+      "fi": "Suomi",
+      "fr": "Ranska",
+      "ja": "",
       "pl": "Puola",
       "pt-br": "Portugali (Brasilia)",
       "sv": "Ruotsi",

@@ -40,7 +40,7 @@
       }
     },
     "divider": {
-      "name": "Zona de Amortiguación",
+      "name": "Zona de amortiguación",
       "details": {
         "planting-strip": {
           "name": ""
@@ -52,7 +52,7 @@
           "name": ""
         },
         "striped-buffer": {
-          "name": "Zona de Amortiguación"
+          "name": "Zona de amortiguación"
         },
         "bush": {
           "name": ""
@@ -114,10 +114,34 @@
       "name": "",
       "details": {
         "sideways|left": {
-          "name": "Estacionamiento Perpendicular"
+          "name": "Estacionamiento perpendicular"
         },
         "sideways|right": {
-          "name": "Estacionamiento Perpendicular"
+          "name": "Estacionamiento perpendicular"
+        },
+        "angled-front-left|left": {
+          "name": ""
+        },
+        "angled-front-left|right": {
+          "name": ""
+        },
+        "angled-front-right|left": {
+          "name": ""
+        },
+        "angled-front-right|right": {
+          "name": ""
+        },
+        "angled-rear-left|left": {
+          "name": ""
+        },
+        "angled-rear-left|right": {
+          "name": ""
+        },
+        "angled-rear-right|left": {
+          "name": ""
+        },
+        "angled-rear-right|right": {
+          "name": ""
         }
       }
     },
@@ -171,10 +195,10 @@
       "name": "Carril de bús",
       "details": {
         "inbound|shared": {
-          "name": "Carril Compartido de Bús/Bici"
+          "name": "Carril compartido de bús/bici"
         },
         "outbound|shared": {
-          "name": "Carril Compartido de Bús/Bici"
+          "name": "Carril compartido de bús/bici"
         }
       }
     },
@@ -262,6 +286,10 @@
     "parking-lane-direction|inbound": "",
     "parking-lane-direction|outbound": "",
     "parking-lane-direction|sideways": "Perpendicular",
+    "parking-lane-direction|angled-front-left": "",
+    "parking-lane-direction|angled-front-right": "",
+    "parking-lane-direction|angled-rear-left": "",
+    "parking-lane-direction|angled-rear-right": "",
     "direction|inbound": "",
     "direction|outbound": "",
     "sidewalk-density|empty": "Vacío",
@@ -281,7 +309,7 @@
     "public-transit-asphalt|colored": "Carril rojo",
     "bus-asphalt|regular": "Asfalto",
     "bus-asphalt|colored": "Carril rojo",
-    "bus-asphalt|shared": "Carril Compartido de Bús/Bici",
+    "bus-asphalt|shared": "Carril compartido de bús/bici",
     "bike-asphalt|regular": "Asfalto",
     "bike-asphalt|green": "Carril verde",
     "bike-asphalt|red": "Carril rojo",
@@ -307,8 +335,8 @@
     "building|fence": "",
     "building|parking-lot": "Estacionamiento de carro",
     "building|residential": "Casa",
-    "building|narrow": "Edificio Estrecho",
-    "building|wide": "Edificio Ancho",
+    "building|narrow": "Edificio estrecho",
+    "building|wide": "Edificio ancho",
     "wayfinding-type|large": "Grande",
     "wayfinding-type|medium": "Mediano",
     "wayfinding-type|small": "Pequeño"

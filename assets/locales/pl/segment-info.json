@@ -19,7 +19,7 @@
         "lede": "Drogowskazy pomagają pieszym dotrzeć do popularnych miejsc.",
         "text": [
           "Urbaniści i architekci spędzili dekady analizując, co dzieje się w mózgu człowieka, który usiłuje dotrzeć z punktu A do puktu B - a nawet skąd wiedzą, gdzie jest punkt A. Już w 1960 roku urbanista Kevin Lynch pisał o \"czytelności\" miasta w swojej książce <em><a href=\"http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014\">The Image of the City</a></em>, opisując odnajdywanie drogi jako “spójne zastosowanie i organizacja określonych sygnałów sensorycznych ze środowiska zewnętrznego.” Sygnały mogą być one nienamacalne - węch, dotyk, poczucie równowagi lub nawet pól elektrycznych lub magnetycznych. Mogą też pochodzić z fizycznych, stosowanych na skalę światową \"przyrządów do odnajdywania drogi\" takich jak mapy, numery ulic, znaki drogowe.",
-          "",
+          "Zaskakujące, jak powszechnie akceptowany jest fakt, że ogrom drogowskazów służy podróżującym samochodem, przy zdecydowanie mniejszej uwadze poświęconej pieszym. Może to dlatego, że jest nam dużo łatwiej zatrzymać się, określić nasze położenie i korzystać z własnych zmysłów bez obawy przed stworzeniem kolejki sześciu osób za naszymi plecami. W każdym razie urbaniści zwrócili większą uwagę na oznakowanie dla pieszych, zwłaszcza w strefach dużego ruchu pieszych, np. w okolicach handlowych i to oznakowanie, poza główną funkcją, stało się też okazją do kreowania wizerunku. I tak Nowy Jork <a href=\"https://www.pentagram.com/work/walknyc/story\">zatrudnił światowej klasy projektanta (en)</a> (a Streetmix wzorowało się na nim projektując swoje segmenty), inne miasta przyjeły tradycyjny styl staromiejski albo styl miejski formalny, jeszcze inne, z jakiegokolwiek powodu, nie posiadają w ogóle drogowskazów dla pieszych i wszelkie usprawnienia wymagają użycia <a href=\"http://walkyourcity.org/\">partyzanckich umiejętności (en)</a>.",
           "W końcu nie ma nic gorszego niż się zgubić. Jak pisał Lynch: \"Samo słowo <em>zgubić</em> w języku angielskim oznacza dużo więcej niż tylko geograficzną niepewność; zawiera w sobie całe tony doszczętnej porażki.\" A kto chce stać na ulicy czując się w ten sposób?"
         ]
       }
@@ -118,6 +118,30 @@
         },
         "sideways|right": {
           "name": "Parkowanie prostopadłe"
+        },
+        "angled-front-left|left": {
+          "name": "Parkowanie skośne"
+        },
+        "angled-front-left|right": {
+          "name": "Parkowanie skośne"
+        },
+        "angled-front-right|left": {
+          "name": "Parkowanie skośne"
+        },
+        "angled-front-right|right": {
+          "name": "Parkowanie skośne"
+        },
+        "angled-rear-left|left": {
+          "name": "Parkowanie skośne"
+        },
+        "angled-rear-left|right": {
+          "name": "Parkowanie skośne"
+        },
+        "angled-rear-right|left": {
+          "name": "Parkowanie skośne"
+        },
+        "angled-rear-right|right": {
+          "name": "Parkowanie skośne"
         }
       }
     },
@@ -214,7 +238,7 @@
     "train": {
       "name": "Pociąg z \"Incepcji\"",
       "description": {
-        "lede": "To pociąg z filmu Christophera Nolana <em>Incepcja.</em>",
+        "lede": "To pociąg z filmu Christophera Nolana <em>Incepcja</em>.",
         "text": [
           "Co jeszcze powinieneś wiedzieć?"
         ]
@@ -238,10 +262,10 @@
       "name": "Dom"
     },
     "narrow": {
-      "name": ""
+      "name": "Budynek"
     },
     "wide": {
-      "name": ""
+      "name": "Budynek"
     }
   },
   "variant-icons": {
@@ -262,6 +286,10 @@
     "parking-lane-direction|inbound": "Wlotowy",
     "parking-lane-direction|outbound": "Wylotowy",
     "parking-lane-direction|sideways": "Prostopadły",
+    "parking-lane-direction|angled-front-left": "Pod kątem",
+    "parking-lane-direction|angled-front-right": "Pod kątem",
+    "parking-lane-direction|angled-rear-left": "Pod kątem",
+    "parking-lane-direction|angled-rear-right": "Pod kątem",
     "direction|inbound": "Wlotowy",
     "direction|outbound": "Wylotowy",
     "sidewalk-density|empty": "Pusty",

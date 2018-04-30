@@ -6,7 +6,7 @@ import LocaleDropdown from './LocaleDropdown'
 export default class SettingsMenu extends React.PureComponent {
   render () {
     return (
-      <Menu alignment="right" onShow={this.onShow} {...this.props}>
+      <Menu onShow={this.onShow} {...this.props}>
         <div className="form">
           <p><FormattedMessage id="menu.language.heading" defaultMessage="Language" /></p>
           <LocaleDropdown />

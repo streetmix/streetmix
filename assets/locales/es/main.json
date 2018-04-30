@@ -8,7 +8,7 @@
       "contribute": "",
       "sign-in": "Acceder",
       "sign-out": "Desconectarse",
-      "new-street": "Nueva Calle",
+      "new-street": "Nueva calle",
       "my-streets": "Mis calles",
       "settings": "Ajustes",
       "share": "Compartir"
@@ -26,7 +26,15 @@
       "facebook": "Compartir utilizando Facebook",
       "print": "Imprimir…",
       "save": "Guardar como imagen…",
-      "save-byline": "Para incluir en un reporte, blog, etc"
+      "save-byline": "Para incluir en un reporte, blog, etc",
+      "messages": {
+        "my-street": "",
+        "my-street-unnamed": "",
+        "someone-elses-street": "",
+        "someone-elses-street-unnamed": "",
+        "anonymous-creator-street": "",
+        "anonymous-creator-street-unnamed": ""
+      }
     },
     "contact": {
       "forums": "Discutir en los foros",
@@ -61,7 +69,8 @@
     "trouble-loading": "Tenemos problemas cargando Streetmix.",
     "slow-connection-1": "Streetmix ya ha estado tratando de conectarse a internet por un rato",
     "slow-connection-2": "Probablemente necesites recargar la pagina e intentar de nuevo. Toma en cuenta que puede perder los ultimos cambios que le hiciste a la calle. ¡Disculpas!",
-    "no-connection": "Streetmix esta experimentando dificultades para conectarse a internet"
+    "no-connection": "Streetmix esta experimentando dificultades para conectarse a internet",
+    "more-info": ""
   },
   "error": {
     "button": {
@@ -211,10 +220,7 @@
     "minutes-ago": "",
     "seconds-ago": "",
     "yesterday": "",
-    "today": "",
-    "format-date-no-year": "D de MMM",
-    "format-date-with-year": "D de MMM, YYYY",
-    "format-time": "HH:MM"
+    "today": ""
   },
   "key": {
     "backspace": "Retrocerder",
@@ -235,6 +241,9 @@
     "default-name": "",
     "rename": ""
   },
+  "building": {
+    "floors-count": ""
+  },
   "segments": {
     "warnings": {
       "does-not-fit": "",
@@ -247,25 +256,19 @@
     }
   },
   "section": {
-    "empty": "Espacio Vacio"
+    "empty": "Espacio vacío"
   },
   "gallery": {
     "fail": "Fallo al cargar la galeria",
     "all": "Todas las calles",
     "twitter-link": "",
     "delete-street-tooltip": "Eliminar la calle",
-    "street-count-none": "",
     "street-count": "",
-    "street-count_plural": ""
+    "sign-in": "Registrar con Twitter para ver tu galería de calles personal"
   },
   "users": {
     "anonymous": "Anonimo",
     "byline": ""
-  },
-  "sign-in": {
-    "link": "Registrar on Twitter",
-    "promo-1": "Para vinculos mas vistosos a tus calles y galeria personal de calles",
-    "promo-2": "para tu galeria de calles personal"
   },
   "meta": {
     "description": "Diseña, mezcla y comparte la calle de tu barrio - ¡en todos los navegadores!. Agrega arboles o carriles para bicicletas, veredas mas amplias o carriles de circulacion. Analiza el impacto de tus decisiones en tu comunidad"
@@ -273,13 +276,13 @@
   "i18n": {
     "lang": {
       "ar": "",
-      "en": "Inglés",
-      "en@pirate": "Inglés (Pirata)",
-      "fi": "Finlandés",
-      "fr": "",
       "de": "Alemán",
+      "en": "Inglés",
       "es": "Español",
       "es-mx": "Español (México)",
+      "fi": "Finlandés",
+      "fr": "",
+      "ja": "",
       "pl": "Polaco",
       "pt-br": "Portugués (Brasil)",
       "sv": "",

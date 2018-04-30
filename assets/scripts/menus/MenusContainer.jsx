@@ -26,7 +26,7 @@ class MenusContainer extends React.PureComponent {
     super(props)
 
     this.state = {
-      activeMenuPos: [0, 0]
+      activeMenuPos: null
     }
   }
 
@@ -63,13 +63,13 @@ class MenusContainer extends React.PureComponent {
    * individual menus.
    *
    * @param {string} menu - name of the menu that was clicked
-   * @param {Array} position - [x, y] position to place the menu at
+   * @param {Object} position - value of getBoundingClientRect for menu button
    */
   onMenuDropdownClick = (menu, position) => {
     // If the clicked menu is already active, it's toggled off.
     const activeMenu = (this.props.activeMenu === menu) ? null : menu
     this.setState({
-      activeMenuPos: activeMenu ? position : [0, 0]
+      activeMenuPos: activeMenu ? position : null
     })
     this.props.showMenu(activeMenu)
   }
@@ -80,7 +80,7 @@ class MenusContainer extends React.PureComponent {
    */
   handleMenuClear = () => {
     this.setState({
-      activeMenuPos: [0, 0]
+      activeMenuPos: null
     })
 
     // Force document.body to become the active element.

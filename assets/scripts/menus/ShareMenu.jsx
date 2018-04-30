@@ -134,7 +134,7 @@ export class ShareMenu extends React.Component {
       ) : null
 
     return (
-      <Menu alignment="right" onShow={this.onShow} className="share-menu" {...this.props}>
+      <Menu onShow={this.onShow} className="share-menu" {...this.props}>
         {signInPromo}
         <div className="share-via-link-container">
           <FormattedMessage id="menu.share.link" defaultMessage="Copy and paste this link to share:" />

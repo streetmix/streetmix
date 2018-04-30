@@ -110,6 +110,7 @@ export function saveStreetId (id, namespacedId) {
   }
 }
 
+// TODO: validate time is a string matching ISO string format
 export function setUpdateTime (time) {
   return {
     type: SET_UPDATE_TIME,

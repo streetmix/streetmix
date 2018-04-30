@@ -118,6 +118,30 @@
         },
         "sideways|right": {
           "name": "横的停车位"
+        },
+        "angled-front-left|left": {
+          "name": ""
+        },
+        "angled-front-left|right": {
+          "name": ""
+        },
+        "angled-front-right|left": {
+          "name": ""
+        },
+        "angled-front-right|right": {
+          "name": ""
+        },
+        "angled-rear-left|left": {
+          "name": ""
+        },
+        "angled-rear-left|right": {
+          "name": ""
+        },
+        "angled-rear-right|left": {
+          "name": ""
+        },
+        "angled-rear-right|right": {
+          "name": ""
         }
       }
     },
@@ -262,6 +286,10 @@
     "parking-lane-direction|inbound": "",
     "parking-lane-direction|outbound": "",
     "parking-lane-direction|sideways": "",
+    "parking-lane-direction|angled-front-left": "",
+    "parking-lane-direction|angled-front-right": "",
+    "parking-lane-direction|angled-rear-left": "",
+    "parking-lane-direction|angled-rear-right": "",
     "direction|inbound": "",
     "direction|outbound": "",
     "sidewalk-density|empty": "",

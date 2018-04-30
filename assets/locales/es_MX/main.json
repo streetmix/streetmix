@@ -20,30 +20,38 @@
       "change": "Cambiar la anchura del segmento al que estas apuntando<br />(deja pulsado <kbd class='key'>la tecla de mayúsculas</kbd> para más precisión)"
     },
     "share": {
-      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'> Ingresar a Twitter </a> para tener mejores enlaces a tus calles y a tu galería de calles. ",
+      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'> Ingresar a Twitter</a> para tener mejores enlaces a tus calles y a tu galería de calles",
       "link": "Copiar y pegar este enlace para compartir:",
       "twitter": "Comparte usando Twitter",
       "facebook": "Comparte usando Facebook",
       "print": "Imprimir…",
-      "save": "Guarda com imagen…",
-      "save-byline": "Para incluir en un reporte, blog, etc."
+      "save": "Guarda como imagen…",
+      "save-byline": "Para incluir en un reporte, blog, etc.",
+      "messages": {
+        "my-street": "¡Mira mi calle, {streetName}, en Streetmix!",
+        "my-street-unnamed": "¡Mira mi calle en Streetmix!",
+        "someone-elses-street": "¡Mira {streetName} por {streetCreator} en Streetmix!",
+        "someone-elses-street-unnamed": "¡Mira esta calle por {streetCreator} en Streetmix!",
+        "anonymous-creator-street": "¡Mira {streetName} en Streetmix!",
+        "anonymous-creator-street-unnamed": "¡Mira esta calle en Streetmix!"
+      }
     },
     "contact": {
       "forums": "Discutir en Forums",
       "twitter": "Mandar un tweet a @streetmix",
-      "email": "Manda un correo electronico a Streetmix",
+      "email": "Manda un correo electrónico a Streetmix",
       "github": "Ver el código en GitHub",
       "blog": "Visitar el blog Streetmix",
       "slack": "Participar en la plática de Slack"
     },
     "contribute": {
       "donate": "Donar",
-      "stickers": "¡Compre pegatinas!",
+      "stickers": "¡Compra pegatinas!",
       "opensource": "Contribuir a código abierto"
     },
     "feedback": {
-      "prompt": "Mandanos un mensaje:",
-      "message-placeholder": "¿Que piensas de Streetmix?",
+      "prompt": "Mándanos un mensaje:",
+      "message-placeholder": "¿Qué piensas de Streetmix?",
       "email-placeholder": "Tu email (opcional)",
       "send": "Mandar un mensaje",
       "confirm": "Lo recibimos. ¡Gracias!",
@@ -61,7 +69,8 @@
     "trouble-loading": "Estamos teniendo problemas subiendo Streetmix.",
     "slow-connection-1": "Streetmix no se ha podido conectar a la Internet por un rato ya.",
     "slow-connection-2": "Quizás debes recargar la página y tratar de nuevo. Por favor toma nota que quizás pierdas todos los últimos cambios a la calle. ¡Perdón!",
-    "no-connection": "Streetmix esta teniendo problemas conectándose a la Internet."
+    "no-connection": "Streetmix esta teniendo problemas conectándose a la Internet.",
+    "more-info": ""
   },
   "error": {
     "button": {
@@ -74,7 +83,7 @@
     "page-not-found-title": "Página no encontrada.",
     "page-not-found-description": "¡Ayyy, no hay una página con esta dirección!",
     "street-not-found-title": "Calle no encontrada.",
-    "street-not-found-description": "¡Ayyy, no hay una calle con esta enlace!",
+    "street-not-found-description": "¡Ayyy! No hay una calle con esta enlace.",
     "street-not-found-but-user-description": "¡No hay una calle con esta enlace! Pero se puede mirar otras calles por {user}",
     "street-deleted-title": "Esta calle se ha borrado.",
     "street-deleted-description": "Ya no hay una calle con esta enlace, pero se puede mirar otras calles por {user}",
@@ -89,11 +98,11 @@
     "twitter-access-denied-description": "Cancelaste el proceso de ingresar a Twitter.",
     "auth-api-problem-title": "Hubo un problema con ingresar.",
     "auth-api-problem-description": "Hubo un problema con la autenticación de Twitter.",
-    "please-try-again": "Por favor, intenta de nuevo más tarde o cuéntanos via <a target='_blank' href='{email}'>correo electrónico</a> o <a target='_blank' href='{tweet}'>Twitter</a>.",
+    "please-try-again": "Por favor, intenta de nuevo más tarde o cuéntanos via <a target='_blank' rel='noopener noreferrer' href='{email}'>correo electrónico</a> o <a target='_blank' rel='noopener noreferrer' href='{tweet}'>Twitter</a>.",
     "unsupported-browser-title": "Streetmix no funciona en su navegador.",
-    "unsupported-browser-description": "Desculpe. Tal vez debes probar <a target='_blank' href='{chromeUrl}'>Chrome</a>, <a target='_blank' href='{mozillaUrl}'>Firefox</a>, <a target='_blank' href='{edgeUrl}'>Microsoft Edge</a>, o Safari.",
-    "unsupported-browser-internet-explorer": "¿Estás usando Internet Explorer? <a target='_blank' href='{readmeIEUrl}'>Descubre más.</a>",
-    "unsupported-browser-contact-us": "Si crees que tu navegador debe ser compatible, por favor contáctanos via <a target='_blank' href='{email}'>correo electrónico</a>.",
+    "unsupported-browser-description": "Desculpe. Tal vez debes probar <a target='_blank' rel='noopener noreferrer' href='{chromeUrl}'>Chrome</a>, <a target='_blank' rel='noopener noreferrer' href='{mozillaUrl}'>Firefox</a>, <a target='_blank' rel='noopener noreferrer' href='{edgeUrl}'>Microsoft Edge</a>, o Safari.",
+    "unsupported-browser-internet-explorer": "¿Estás usando Internet Explorer? <a target='_blank' rel='noopener noreferrer' href='{readmeIEUrl}'>Descubre más.</a>",
+    "unsupported-browser-contact-us": "Si crees que tu navegador debe ser compatible, por favor contáctanos via <a target='_blank' rel='noopener noreferrer' href='{email}'>correo electrónico</a>.",
     "cannot-create-new-street-on-phone-title": "Streetmix solamente funciona en tabletas y computadoras de escritorio.",
     "cannot-create-new-street-on-phone-description": "Si sigues un enlace a una calle específica, se la podrá ver en un celular – pero todavía no se puede crear calles nuevas.",
     "generic-error-title": "Algo salió mal.",
@@ -115,7 +124,7 @@
   "dialogs": {
     "error": {
       "heading": "¡Uy!",
-      "text": "Algo inesperado sucedió 😢. Hemos notado el error, pero si puedes recordar lo que sucedió antes de este error, <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\">cuéntanos</a>. Es posible que éste sea un problema temporal, así que por favor intenta una vez más."
+      "text": "Algo inesperado sucedió 😢. Hemos notado el error, pero si puedes recordar lo que sucedió antes de este error, <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\" rel=\"noopener noreferrer\">cuéntanos</a>. Es posible que éste sea un problema temporal, así que por favor intenta una vez más."
     },
     "welcome": {
       "heading": "Bienvenido a Streetmix.",
@@ -180,7 +189,7 @@
     }
   },
   "prompt": {
-    "new-street": "Nombre de la nueva calle:",
+    "new-street": "Nombre de la calle nueva:",
     "delete-street": "¿Está seguro que quiere borrar {streetName}? No se puede deshacer esta acción.",
     "new-width": "Nueva anchura de la calle (de {minWidth} a {maxWidth}):"
   },
@@ -211,10 +220,7 @@
     "minutes-ago": "Hace unos minutos",
     "seconds-ago": "Hace unos segundos",
     "yesterday": "Ayer a las {time}",
-    "today": "Hoy a las {time}",
-    "format-date-no-year": "D de MMM",
-    "format-date-with-year": "D de MMM, YYYY",
-    "format-time": "HH:MM"
+    "today": "Hoy a las {time}"
   },
   "key": {
     "backspace": "Tecla de retroceso",
@@ -232,8 +238,11 @@
     "remove-floor": "Remover piso"
   },
   "street": {
-    "default-name": "Calle sin nombre",
+    "default-name": "Calle nueva sin nombre",
     "rename": "Hacer clic para poner un nombre nuevo"
+  },
+  "building": {
+    "floors-count": "{count, plural, one {# piso} other {# pisos}}"
   },
   "segments": {
     "warnings": {
@@ -254,18 +263,12 @@
     "all": "Todas las calles",
     "twitter-link": "perfil de Twitter",
     "delete-street-tooltip": "Eliminar calle",
-    "street-count-none": "Todavía no hay calles",
-    "street-count": "{count} calle",
-    "street-count_plural": "{count} calles"
+    "street-count": "{count, plural, =0 {Todavía no hay calles} one {# calle} other {# calles}}",
+    "sign-in": "Ingresar con Twitter para ver tu galería de calles personal"
   },
   "users": {
     "anonymous": "Anónimo",
     "byline": "por {user}"
-  },
-  "sign-in": {
-    "link": "Ingresar con Twitter",
-    "promo-1": "para enlaces mejores a tus calles y a tu galería de calles personal",
-    "promo-2": "para tu galería de calles personal"
   },
   "meta": {
     "description": "Diseña, remezcla, y comparte la calle de tu rumbo -- ¡todo dentro de tu navegador! Adhiere arboles o líneas de bici, haz las calles o banquetas mas anchas, aprende como tus decisiones impactan a tu comunidad."
@@ -273,13 +276,13 @@
   "i18n": {
     "lang": {
       "ar": "Árabe",
-      "en": "Inglés",
-      "en@pirate": "Inglés (Pirata)",
-      "fi": "Finlandés",
-      "fr": "Francés",
       "de": "Alemán",
+      "en": "Inglés",
       "es": "Español",
       "es-mx": "Español (México)",
+      "fi": "Finlandés",
+      "fr": "Francés",
+      "ja": "Japonés",
       "pl": "Polaco",
       "pt-br": "Portugués (Brasil)",
       "sv": "Sueco",
