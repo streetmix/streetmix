@@ -2,6 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { injectIntl, intlShape } from 'react-intl'
 import { Map, TileLayer, ZoomControl, Marker, Popup } from 'react-leaflet'
 import * as sharedstreets from 'sharedstreets'
 import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../app/config'
@@ -10,7 +11,6 @@ import SearchAddress from '../streets/SearchAddress'
 import { getRemixOnFirstEdit } from '../streets/remix'
 import { setMapState } from '../store/actions/map'
 import { addLocation, clearLocation, saveStreetName } from '../store/actions/street'
-import { t } from '../app/locale'
 
 const REVERSE_GEOCODE_API = `https://${PELIAS_HOST_NAME}/v1/reverse`
 const REVERSE_GEOCODE_ENDPOINT = `${REVERSE_GEOCODE_API}?api_key=${PELIAS_API_KEY}`
@@ -29,6 +29,7 @@ L.Icon.Default.mergeOptions({
 
 class GeotagDialog extends React.Component {
   static propTypes = {
+    intl: intlShape.isRequired,
     markerLocation: PropTypes.shape({
       lat: PropTypes.number,
       lng: PropTypes.number
@@ -232,8 +233,8 @@ class GeotagDialog extends React.Component {
         onClick={isConfirmButton ? this.handleConfirm : this.handleClear}
       >
         <b>{ isConfirmButton
-          ? t('dialogs.geotag.confirm-location', 'Confirm location')
-          : t('dialogs.geotag.clear-location', 'Clear location')
+          ? this.props.intl.formatMessage({ id: 'dialogs.geotag.confirm-location', defaultMessage: 'Confirm location' })
+          : this.props.intl.formatMessage({ id: 'dialogs.geotag.clear-location', defaultMessage: 'Clear location' })
         }</b>
       </button>
     )
@@ -288,8 +289,8 @@ class GeotagDialog extends React.Component {
             url={tileUrl}
           />
           <ZoomControl
-            zoomInTitle={t('dialogs.geotag.zoom-in', 'Zoom in')}
-            zoomOutTitle={t('dialogs.geotag.zoom-out', 'Zoom out')}
+            zoomInTitle={this.props.intl.formatMessage({ id: 'dialogs.geotag.zoom-in', defaultMessage: 'Zoom in' })}
+            zoomOutTitle={this.props.intl.formatMessage({ id: 'dialogs.geotag.zoom-out', defaultMessage: 'Zoom out' })}
           />
           {popup}
           {markers}
@@ -305,7 +306,8 @@ function mapStateToProps (state) {
     addressInformationLabel: state.map.addressInformationLabel,
     addressInformation: state.map.addressInformation,
     userLocation: state.user.geolocation.data,
-    street: state.street
+    street: state.street,
+    locale: state.locale
   }
 }
 
@@ -318,4 +320,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(GeotagDialog)
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(GeotagDialog))
