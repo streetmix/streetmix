@@ -228,16 +228,14 @@ class GeotagDialog extends React.Component {
   renderLocationButton = () => {
     if (!this.canEditLocation()) return
     const isConfirmButton = (!this.canClearLocation())
-    return (
-      <button
-        className={isConfirmButton ? 'confirm-button' : 'clear-button'}
-        style={{ marginTop: '10px' }}
-        onClick={isConfirmButton ? this.handleConfirm : this.handleClear}
-      >
-        <b>{ isConfirmButton
-          ? this.props.intl.formatMessage({ id: 'dialogs.geotag.confirm-location', defaultMessage: 'Confirm location' })
-          : this.props.intl.formatMessage({ id: 'dialogs.geotag.clear-location', defaultMessage: 'Clear location' })
-        }</b>
+
+    return (isConfirmButton) ? (
+      <button className="geotag-location-button" onClick={this.handleConfirm}>
+        {this.props.intl.formatMessage({ id: 'dialogs.geotag.confirm-location', defaultMessage: 'Confirm location' })}
+      </button>
+    ) : (
+      <button className="geotag-location-button" onClick={this.handleClear}>
+        {this.props.intl.formatMessage({ id: 'dialogs.geotag.clear-location', defaultMessage: 'Clear location' })}
       </button>
     )
   }
