@@ -52,6 +52,8 @@ class GeotagDialog extends React.Component {
     super(props)
 
     this.state = {
+      markerLocation: null,
+      renderPopup: true,
       // Default location if geo IP not detected; this hovers over Brooklyn
       mapCenter: {
         lat: 40.645,
@@ -241,34 +243,6 @@ class GeotagDialog extends React.Component {
   }
 
   render () {
-    const markers = this.props.markerLocation ? (
-      <Marker
-        position={this.props.markerLocation}
-        onDragEnd={this.onDragEndMarker}
-        onDragStart={this.hidePopup}
-        draggable
-      />
-    ) : null
-
-    let popup = this.props.markerLocation ? (
-      <Popup
-        position={this.props.markerLocation}
-        maxWidth={300}
-        closeOnClick={false}
-        closeButton={false}
-        offset={[0, -30]}
-      >
-        <span>
-          {this.props.addressInformationLabel} <br />
-          {this.renderLocationButton()}
-        </span>
-      </Popup>
-    ) : null
-
-    if (this.state.renderPopup === false) {
-      popup = null
-    }
-
     const tileUrl = (window.devicePixelRatio > 1) ? MAP_TILES_2X : MAP_TILES
 
     return (
@@ -292,8 +266,30 @@ class GeotagDialog extends React.Component {
             zoomInTitle={this.props.intl.formatMessage({ id: 'dialogs.geotag.zoom-in', defaultMessage: 'Zoom in' })}
             zoomOutTitle={this.props.intl.formatMessage({ id: 'dialogs.geotag.zoom-out', defaultMessage: 'Zoom out' })}
           />
-          {popup}
-          {markers}
+
+          {(this.props.markerLocation && this.state.renderPopup) &&
+            <Popup
+              position={this.props.markerLocation}
+              maxWidth={300}
+              closeOnClick={false}
+              closeButton={false}
+              offset={[0, -30]}
+            >
+              <span>
+                {this.props.addressInformationLabel} <br />
+                {this.renderLocationButton()}
+              </span>
+            </Popup>
+          }
+
+          {this.props.markerLocation &&
+            <Marker
+              position={this.props.markerLocation}
+              onDragEnd={this.onDragEndMarker}
+              onDragStart={this.hidePopup}
+              draggable
+            />
+          }
         </Map>
       </div>
     )
