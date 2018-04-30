@@ -26,7 +26,15 @@
       "facebook": "Facebookでシェア",
       "print": "印刷",
       "save": "画像として保存",
-      "save-byline": "レポートやブログなどにお使いください"
+      "save-byline": "レポートやブログなどにお使いください",
+      "messages": {
+        "my-street": "",
+        "my-street-unnamed": "",
+        "someone-elses-street": "",
+        "someone-elses-street-unnamed": "",
+        "anonymous-creator-street": "",
+        "anonymous-creator-street-unnamed": ""
+      }
     },
     "contact": {
       "forums": "フォーラムで相談",
@@ -61,7 +69,8 @@
     "trouble-loading": "Streetmixのロードに失敗しました。",
     "slow-connection-1": "現在、Streetmixとインターネットの疎通に問題が発生しています。",
     "slow-connection-2": "ページを再度読み込んでください。最後に行った変更点は破棄されます。申し訳ありません。",
-    "no-connection": "Streetmixからインターネットへの接続に失敗しました。"
+    "no-connection": "Streetmixからインターネットへの接続に失敗しました。",
+    "more-info": ""
   },
   "error": {
     "button": {
@@ -118,7 +127,7 @@
       "text": "予期しないエラーが発生しました 😢。 発生したエラーはすでに記録されていますが、もし可能であれば <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\" rel=\"noopener noreferrer\">発生した状況を詳しくお知らせください</a>。一時的な問題である可能性もありますので、再度試してみて発生するかどうかも試していただけると助かります。"
     },
     "welcome": {
-      "heading": "Streetmixへようこそ",
+      "heading": "Streetmixへようこそ。",
       "new": {
         "intro": "あなたの身近な道路をデザインし、リミックスし、シェアしましょう。街路樹や自転車レーン、歩道や車道を追加してみて、あなたのアイデアで地域コミュニティがどう変わるのかを試してみましょう。",
         "instruct": "まずは {pointer} の近くにあるセグメントをいくつか動かしてみましょう。",
@@ -211,10 +220,7 @@
     "minutes-ago": "数分以内",
     "seconds-ago": "数秒以内",
     "yesterday": "昨日 {time}",
-    "today": "本日 {time}",
-    "format-date-no-year": "MM月 D日",
-    "format-date-with-year": "YYYY年 MM月 D日",
-    "format-time": "HH:MM"
+    "today": "本日 {time}"
   },
   "key": {
     "backspace": "Backspace",
@@ -235,6 +241,9 @@
     "default-name": "したがきストリート",
     "rename": "名称を変える"
   },
+  "building": {
+    "floors-count": ""
+  },
   "segments": {
     "warnings": {
       "does-not-fit": "このセグメントは道路からはみ出しています。",
@@ -254,18 +263,12 @@
     "all": "すべてのストリート",
     "twitter-link": "Twitterプロフィール",
     "delete-street-tooltip": "ストリート削除",
-    "street-count-none": "ストリート未作成",
-    "street-count": "{count}ストリート",
-    "street-count_plural": "{count}ストリート"
+    "street-count": "{count, plural, =0 {ストリート未作成} other {#ストリート}}",
+    "sign-in": "Twitterでログイン個人用のストリートギャラリーを作成できます"
   },
   "users": {
     "anonymous": "アノニマス",
     "byline": "{user}さん作"
-  },
-  "sign-in": {
-    "link": "Twitterでログイン",
-    "promo-1": "あなたが作成したストリートと、個人用のストリートギャラリーにリンクを生成できます",
-    "promo-2": "個人用のストリートギャラリーを作成できます"
   },
   "meta": {
     "description": "あなたの身近な道路をデザインし、リミックスし、シェアしましょう。必要なものはブラウザだけです！ 街路樹や自転車レーン、歩道や車道を追加してみて、あなたのアイデアで地域コミュニティがどう変わるのかを試してみましょう。"
@@ -273,13 +276,12 @@
   "i18n": {
     "lang": {
       "ar": "アラビア語",
-      "en": "英語",
-      "en@pirate": "英語（海賊訛り）",
-      "fi": "フィンランド語",
-      "fr": "フランス語",
       "de": "ドイツ語",
+      "en": "英語",
       "es": "スペイン語",
       "es-mx": "スペイン語（メキシコ）",
+      "fi": "フィンランド語",
+      "fr": "フランス語",
       "ja": "日本語",
       "pl": "ポーランド語",
       "pt-br": "ポルトガル語（ブラジル）",

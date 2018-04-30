@@ -11,7 +11,7 @@ if (fs.existsSync(envFile)) {
 }
 
 const resources = ['main', 'segment-info']
-const languages = ['ar', 'fi', 'fr', 'de', 'es', 'es_MX', 'pl', 'pt_BR', 'sv', 'zh-Hant']
+const languages = ['ar', 'de', 'es', 'es-MX', 'fi', 'fr', 'ja', 'pl', 'pt-BR', 'sv', 'zh-Hant']
 
 const downloadSuccess = function (locale, resource, data) {
   const localeDir = path.join(__dirname, '/../assets/locales/', locale)
