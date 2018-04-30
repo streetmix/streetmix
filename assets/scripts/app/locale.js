@@ -8,6 +8,7 @@ import i18next from 'i18next'
 import i18nextXhr from 'i18next-xhr-backend'
 import { API_URL } from './config'
 import store, { observeStore } from '../store'
+import { changeLocale } from '../store/actions/locale'
 
 // Add react-intl files for all the languages we support (added manually for now)
 import ar from 'react-intl/locale-data/ar'
@@ -41,9 +42,9 @@ export function initLocale (experimental) {
     locale = 'en'
   }
 
-  doTheI18n(locale)
   initLocaleChangedListener()
   initRtlChangedListener()
+  store.dispatch(changeLocale(locale))
 }
 
 function initLocaleChangedListener () {
