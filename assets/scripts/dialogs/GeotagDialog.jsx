@@ -27,7 +27,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: '/images/marker-shadow.png'
 })
 
-class GeotagDialog extends React.Component {
+export class GeotagDialog extends React.Component {
   static propTypes = {
     intl: intlShape.isRequired,
     markerLocation: PropTypes.shape({

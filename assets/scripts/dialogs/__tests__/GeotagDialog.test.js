@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import GeotagDialog from '../GeotagDialog'
+import { GeotagDialog } from '../GeotagDialog'
 import { shallow } from 'enzyme'
 import { getRemixOnFirstEdit } from '../../streets/remix'
 import { mockIntl } from '../../../../test/__mocks__/react-intl'
@@ -25,7 +25,7 @@ function getTestComponent (addressInformation, street) {
   }
 
   return (
-    <GeotagDialog.WrappedComponent.WrappedComponent
+    <GeotagDialog
       street={testStreet}
       addressInformation={testAddressInfo}
       markerLocation={testMarker}
@@ -47,7 +47,7 @@ function updateProps (wrapper) {
 describe('GeotagDialog', () => {
   it('renders without crashing', () => {
     const wrapper = shallow(
-      <GeotagDialog.WrappedComponent.WrappedComponent
+      <GeotagDialog
         street={{}}
         addressInformation={{}}
         intl={mockIntl}
