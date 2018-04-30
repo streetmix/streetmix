@@ -17,13 +17,7 @@ const IMAGES_TO_BE_LOADED = [
 const SVGStagingEl = document.getElementById('svg')
 let loading = []
 
-// Set loading bar
-const loadingEl = document.getElementById('loading-progress')
-loadingEl.max += 3 // Legacy; this is for other things that must load
-
 export async function loadImages () {
-  loadingEl.max += IMAGES_TO_BE_LOADED.length
-
   for (let url of IMAGES_TO_BE_LOADED) {
     loading.push(loadImage(url))
   }
@@ -74,8 +68,6 @@ async function loadImage (url) {
 
       cacheSVGObject(id, svg, svgHTML)
     }
-
-    loadingEl.value++
 
     return body
   } catch (error) {
