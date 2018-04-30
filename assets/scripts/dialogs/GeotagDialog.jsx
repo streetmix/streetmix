@@ -45,7 +45,12 @@ class GeotagDialog extends React.Component {
     addressInformationLabel: PropTypes.string,
     street: PropTypes.object,
     saveStreetName: PropTypes.func,
-    closeDialog: PropTypes.func
+    closeDialog: PropTypes.func,
+    dpi: PropTypes.number
+  }
+
+  static defaultProps = {
+    dpi: 1.0
   }
 
   constructor (props) {
@@ -241,7 +246,7 @@ class GeotagDialog extends React.Component {
   }
 
   render () {
-    const tileUrl = (window.devicePixelRatio > 1) ? MAP_TILES_2X : MAP_TILES
+    const tileUrl = (this.props.dpi > 1) ? MAP_TILES_2X : MAP_TILES
 
     return (
       <div className="geotag-dialog">
@@ -301,7 +306,7 @@ function mapStateToProps (state) {
     addressInformation: state.map.addressInformation,
     userLocation: state.user.geolocation.data,
     street: state.street,
-    locale: state.locale
+    dpi: state.system.hiDpi
   }
 }
 
