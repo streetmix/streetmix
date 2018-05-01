@@ -27,7 +27,11 @@ import {
 import { getVariantString } from '../../segments/variant_utils'
 
 const initialState = {
-  segments: []
+  segments: [],
+  userUpdated: {
+    streetName: false,
+    buildingVariant: false
+  }
 }
 
 const MAX_BUILDING_HEIGHT = 20
@@ -92,11 +96,15 @@ const street = (state = initialState, action) => {
       }
     }
     case SAVE_STREET_NAME:
-      const rename = (state.userUpdated && action.userUpdated) || (!state.userUpdated) || (action.system)
+      const rename = (state.userUpdated.streetName && action.userUpdated) || (!state.userUpdated.streetName) || (action.system)
+
       return {
         ...state,
         name: (rename) ? action.streetName : state.name,
-        userUpdated: (state.userUpdated || action.userUpdated)
+        userUpdated: {
+          ...state.userUpdated,
+          streetName: (state.userUpdated.streetName || action.userUpdated)
+        }
       }
     case SAVE_CREATOR_ID:
       return {
@@ -154,7 +162,7 @@ const street = (state = initialState, action) => {
       return {
         ...state,
         location: null,
-        name: (state.userUpdated) ? state.name : action.defaultName
+        name: (state.userUpdated.streetName) ? state.name : action.defaultName
       }
     // TODO: Move buildings logic?
     case ADD_BUILDING_FLOOR: {
@@ -215,12 +223,20 @@ const street = (state = initialState, action) => {
         case 'left':
           return {
             ...state,
-            leftBuildingVariant: action.variant
+            leftBuildingVariant: action.variant,
+            userUpdated: {
+              ...state.userUpdated,
+              buildingVariant: action.userUpdated
+            }
           }
         case 'right':
           return {
             ...state,
-            rightBuildingVariant: action.variant
+            rightBuildingVariant: action.variant,
+            userUpdated: {
+              ...state.userUpdated,
+              buildingVariant: action.userUpdated
+            }
           }
         default:
           return state

@@ -97,7 +97,7 @@ class Variants extends React.Component {
         break
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
         handler = (event) => {
-          this.props.setBuildingVariant('left', selection)
+          this.props.setBuildingVariant('left', selection, true)
 
           // TODO: remove legacy notification
           infoBubble.updateContents()
@@ -105,7 +105,7 @@ class Variants extends React.Component {
         break
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
         handler = (event) => {
-          this.props.setBuildingVariant('right', selection)
+          this.props.setBuildingVariant('right', selection, true)
 
           // TODO: remove legacy notification
           infoBubble.updateContents()

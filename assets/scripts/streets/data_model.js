@@ -447,7 +447,10 @@ export function prepareDefaultStreet () {
     units: getUnits(),
     location: null,
     name: null,
-    userUpdated: false,
+    userUpdated: {
+      streetName: false,
+      buildingVariant: false
+    },
     editCount: 0,
     leftBuildingHeight: DEFAULT_BUILDING_HEIGHT_LEFT,
     leftBuildingVariant: DEFAULT_BUILDING_VARIANT_LEFT,
@@ -473,7 +476,10 @@ export function prepareEmptyStreet () {
     units: getUnits(),
     location: null,
     name: null,
-    userUpdated: false,
+    userUpdated: {
+      streetName: false,
+      buildingVariant: false
+    },
     editCount: 0,
     leftBuildingHeight: DEFAULT_BUILDING_HEIGHT_EMPTY,
     leftBuildingVariant: DEFAULT_BUILDING_VARIANT_EMPTY,

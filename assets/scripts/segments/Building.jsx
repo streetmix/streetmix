@@ -110,11 +110,13 @@ class Building extends React.Component {
   }
 
   switchBuildings = () => {
-    this.setState({
-      switchBuildings: !(this.state.switchBuildings),
-      newBuildingEnter: !(this.state.newBuildingEnter),
-      oldBuildingEnter: !(this.state.oldBuildingEnter)
-    })
+    if (this.props.street.userUpdated.buildingVariant) {
+      this.setState({
+        switchBuildings: !(this.state.switchBuildings),
+        newBuildingEnter: !(this.state.newBuildingEnter),
+        oldBuildingEnter: !(this.state.oldBuildingEnter)
+      })
+    }
   }
 
   renderBuilding = (building) => {
