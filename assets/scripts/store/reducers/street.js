@@ -155,7 +155,7 @@ const street = (state = initialState, action) => {
       return {
         ...state,
         location: null,
-        name: (state.userUpdated.streetName) ? state.name : action.defaultName
+        name: (state.userUpdated) ? state.name : action.defaultName
       }
     // TODO: Move buildings logic?
     case ADD_BUILDING_FLOOR: {
