@@ -2,6 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { injectIntl, intlShape } from 'react-intl'
 import { Map, TileLayer, ZoomControl, Marker, Popup } from 'react-leaflet'
 import * as sharedstreets from 'sharedstreets'
 import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../app/config'
@@ -10,7 +11,6 @@ import SearchAddress from '../streets/SearchAddress'
 import { getRemixOnFirstEdit } from '../streets/remix'
 import { setMapState } from '../store/actions/map'
 import { addLocation, clearLocation, saveStreetName } from '../store/actions/street'
-import { t } from '../app/locale'
 
 const REVERSE_GEOCODE_API = `https://${PELIAS_HOST_NAME}/v1/reverse`
 const REVERSE_GEOCODE_ENDPOINT = `${REVERSE_GEOCODE_API}?api_key=${PELIAS_API_KEY}`
@@ -27,8 +27,9 @@ L.Icon.Default.mergeOptions({
   shadowUrl: '/images/marker-shadow.png'
 })
 
-class GeotagDialog extends React.Component {
+export class GeotagDialog extends React.Component {
   static propTypes = {
+    intl: intlShape.isRequired,
     markerLocation: PropTypes.shape({
       lat: PropTypes.number,
       lng: PropTypes.number
@@ -44,13 +45,20 @@ class GeotagDialog extends React.Component {
     addressInformationLabel: PropTypes.string,
     street: PropTypes.object,
     saveStreetName: PropTypes.func,
-    closeDialog: PropTypes.func
+    closeDialog: PropTypes.func,
+    dpi: PropTypes.number
+  }
+
+  static defaultProps = {
+    dpi: 1.0
   }
 
   constructor (props) {
     super(props)
 
     this.state = {
+      bbox: null,
+      renderPopup: !!props.markerLocation,
       // Default location if geo IP not detected; this hovers over Brooklyn
       mapCenter: {
         lat: 40.645,
@@ -117,6 +125,7 @@ class GeotagDialog extends React.Component {
 
     this.setState({
       bbox: res.bbox || null,
+      renderPopup: true,
       mapCenter: this.props.markerLocation
     })
   }
@@ -225,50 +234,20 @@ class GeotagDialog extends React.Component {
   renderLocationButton = () => {
     if (!this.canEditLocation()) return
     const isConfirmButton = (!this.canClearLocation())
-    return (
-      <button
-        className={isConfirmButton ? 'confirm-button' : 'clear-button'}
-        style={{ marginTop: '10px' }}
-        onClick={isConfirmButton ? this.handleConfirm : this.handleClear}
-      >
-        <b>{ isConfirmButton
-          ? t('dialogs.geotag.confirm-location', 'Confirm location')
-          : t('dialogs.geotag.clear-location', 'Clear location')
-        }</b>
+
+    return (isConfirmButton) ? (
+      <button className="geotag-location-button" onClick={this.handleConfirm}>
+        {this.props.intl.formatMessage({ id: 'dialogs.geotag.confirm-location', defaultMessage: 'Confirm location' })}
+      </button>
+    ) : (
+      <button className="geotag-location-button" onClick={this.handleClear}>
+        {this.props.intl.formatMessage({ id: 'dialogs.geotag.clear-location', defaultMessage: 'Clear location' })}
       </button>
     )
   }
 
   render () {
-    const markers = this.props.markerLocation ? (
-      <Marker
-        position={this.props.markerLocation}
-        onDragEnd={this.onDragEndMarker}
-        onDragStart={this.hidePopup}
-        draggable
-      />
-    ) : null
-
-    let popup = this.props.markerLocation ? (
-      <Popup
-        position={this.props.markerLocation}
-        maxWidth={300}
-        closeOnClick={false}
-        closeButton={false}
-        offset={[0, -30]}
-      >
-        <span>
-          {this.props.addressInformationLabel} <br />
-          {this.renderLocationButton()}
-        </span>
-      </Popup>
-    ) : null
-
-    if (this.state.renderPopup === false) {
-      popup = null
-    }
-
-    const tileUrl = (window.devicePixelRatio > 1) ? MAP_TILES_2X : MAP_TILES
+    const tileUrl = (this.props.dpi > 1) ? MAP_TILES_2X : MAP_TILES
 
     return (
       <div className="geotag-dialog">
@@ -288,11 +267,33 @@ class GeotagDialog extends React.Component {
             url={tileUrl}
           />
           <ZoomControl
-            zoomInTitle={t('dialogs.geotag.zoom-in', 'Zoom in')}
-            zoomOutTitle={t('dialogs.geotag.zoom-out', 'Zoom out')}
+            zoomInTitle={this.props.intl.formatMessage({ id: 'dialogs.geotag.zoom-in', defaultMessage: 'Zoom in' })}
+            zoomOutTitle={this.props.intl.formatMessage({ id: 'dialogs.geotag.zoom-out', defaultMessage: 'Zoom out' })}
           />
-          {popup}
-          {markers}
+
+          {(this.props.markerLocation && this.state.renderPopup) &&
+            <Popup
+              position={this.props.markerLocation}
+              maxWidth={300}
+              closeOnClick={false}
+              closeButton={false}
+              offset={[0, -30]}
+            >
+              <span>
+                {this.props.addressInformationLabel} <br />
+                {this.renderLocationButton()}
+              </span>
+            </Popup>
+          }
+
+          {this.props.markerLocation &&
+            <Marker
+              position={this.props.markerLocation}
+              onDragEnd={this.onDragEndMarker}
+              onDragStart={this.hidePopup}
+              draggable
+            />
+          }
         </Map>
       </div>
     )
@@ -305,7 +306,8 @@ function mapStateToProps (state) {
     addressInformationLabel: state.map.addressInformationLabel,
     addressInformation: state.map.addressInformation,
     userLocation: state.user.geolocation.data,
-    street: state.street
+    street: state.street,
+    dpi: state.system.hiDpi
   }
 }
 
@@ -318,4 +320,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(GeotagDialog)
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(GeotagDialog))
