@@ -113,13 +113,11 @@ class Building extends React.Component {
   }
 
   switchBuildings = () => {
-    if (this.props.street.userUpdated.buildingVariant) {
-      this.setState({
-        switchBuildings: !(this.state.switchBuildings),
-        newBuildingEnter: !(this.state.newBuildingEnter),
-        oldBuildingEnter: !(this.state.oldBuildingEnter)
-      })
-    }
+    this.setState({
+      switchBuildings: !(this.state.switchBuildings),
+      newBuildingEnter: !(this.state.newBuildingEnter),
+      oldBuildingEnter: !(this.state.oldBuildingEnter)
+    })
   }
 
   // Animate if the only changes in street object are:

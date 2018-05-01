@@ -92,14 +92,14 @@ const street = (state = initialState, action) => {
       }
     }
     case SAVE_STREET_NAME:
-      const rename = (state.userUpdated.streetName && action.userUpdated) || (!state.userUpdated.streetName) || (action.system)
+      const rename = (state.userUpdated && action.userUpdated) || (!state.userUpdated) || (action.system)
 
       return {
         ...state,
         name: (rename) ? action.streetName : state.name,
         userUpdated: {
           ...state.userUpdated,
-          streetName: (state.userUpdated.streetName || action.userUpdated)
+          streetName: (state.userUpdated || action.userUpdated)
         }
       }
     case SAVE_CREATOR_ID:

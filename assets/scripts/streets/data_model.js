@@ -476,10 +476,7 @@ export function prepareEmptyStreet () {
     units: getUnits(),
     location: null,
     name: null,
-    userUpdated: {
-      streetName: false,
-      buildingVariant: false
-    },
+    userUpdated: false,
     editCount: 0,
     leftBuildingHeight: DEFAULT_BUILDING_HEIGHT_EMPTY,
     leftBuildingVariant: DEFAULT_BUILDING_VARIANT_EMPTY,
