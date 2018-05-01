@@ -220,7 +220,6 @@ export function setBuildingFloorValue (position, value) {
  *
  * @param {string} position - must be 'left' or 'right
  * @param {string} variant - the variant to set it to
- * @param {boolean} userUpdated - whether the user updated the variant or the system
  */
 export function setBuildingVariant (position, variant) {
   return {
