@@ -114,7 +114,7 @@ export class GalleryStreetItem extends React.Component {
           {/* Only show delete button if allowed, e.g. if user is owner of the street */ }
           {this.props.allowDelete &&
             <CloseButton
-              className={'gallery-street-item-delete'}
+              className="gallery-street-item-delete"
               title={this.props.intl.formatMessage({ id: 'gallery.delete-street-tooltip', defaultMessage: 'Delete street' })}
               onClick={this.onClickDeleteGalleryStreet}
             />
