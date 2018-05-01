@@ -71,21 +71,3 @@ export function animate (el, props, duration) {
     step: (state) => Object.assign(el, state)
   })
 }
-
-/**
- * Adapted from Crockford's "Remedial Javascript"
- * http://javascript.crockford.com/remedial.html
- * Crockford's implementation recommended extending the String prototype object,
- * but much has been said about not doing that, e.g.:
- * https://www.nczonline.net/blog/2010/03/02/maintainable-javascript-dont-modify-objects-you-down-own/
- * Since it is only used for this module's purpose, it is now merely a function
- * that returns a supplanted string, rather than extending the String prototype.
- */
-export function supplant (string, data) {
-  return string.replace(/\{\{([^{}]*)\}\}/g,
-    function (a, b) {
-      var r = data[b]
-      return typeof r === 'string' || typeof r === 'number' ? r : a
-    }
-  )
-}

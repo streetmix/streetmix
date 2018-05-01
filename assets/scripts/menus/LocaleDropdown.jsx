@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { injectIntl, intlShape } from 'react-intl'
-import { onNewLocaleSelected } from '../app/locale'
+import { changeLocale } from '../store/actions/locale'
 import { trackEvent } from '../app/event_tracking'
 
 /**
@@ -69,7 +69,7 @@ const LOCALES = [
   },
   {
     label: 'Portuguese (Brazil)',
-    value: 'pt_BR',
+    value: 'pt-BR',
     key: 'i18n.lang.pt-br',
     level: 1
   },
@@ -81,7 +81,7 @@ const LOCALES = [
   },
   {
     label: 'Spanish (Mexico)',
-    value: 'es_MX',
+    value: 'es-MX',
     key: 'i18n.lang.es-mx',
     level: 2
   },
@@ -97,6 +97,7 @@ export class LocaleDropdown extends React.Component {
   static propTypes = {
     intl: intlShape.isRequired,
     locale: PropTypes.string,
+    changeLocale: PropTypes.func,
     /* eslint-disable react/no-unused-prop-types */
     // These props _are_ used but linter can't tell
     level1: PropTypes.bool.isRequired,
@@ -122,7 +123,7 @@ export class LocaleDropdown extends React.Component {
   componentDidMount () {
     // Set the dropdown to the current language.
     // If current language is not in the list, fallback to US English.
-    this.localeSelect.value = this.props.locale.replace('-', '_')
+    this.localeSelect.value = this.props.locale
     if (!this.localeSelect.value) {
       this.localeSelect.value = 'en'
     }
@@ -134,6 +135,10 @@ export class LocaleDropdown extends React.Component {
 
   onShow () {
     trackEvent('Interaction', 'Open settings menu', null, null, false)
+  }
+
+  onChange = (event) => {
+    this.props.changeLocale(event.target.value)
   }
 
   determineLevel = (props) => {
@@ -167,7 +172,7 @@ export class LocaleDropdown extends React.Component {
 
   render () {
     return (
-      <select onChange={onNewLocaleSelected} ref={(ref) => { this.localeSelect = ref }}>
+      <select onChange={this.onChange} ref={(ref) => { this.localeSelect = ref }}>
         {this.renderLocaleOptions()}
       </select>
     )
@@ -183,4 +188,10 @@ function mapStateToProps (state) {
   }
 }
 
-export default injectIntl(connect(mapStateToProps)(LocaleDropdown))
+function mapDispatchToProps (dispatch) {
+  return {
+    changeLocale: (locale) => dispatch(changeLocale(locale))
+  }
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(LocaleDropdown))
