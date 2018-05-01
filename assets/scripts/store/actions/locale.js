@@ -1,4 +1,5 @@
 import { SET_LOCALE } from './index'
+import { API_URL } from '../../app/config'
 
 // Flattens a nested object from translation response, e.g.
 // { key1: { key2: "string" }} => { "key1.key2": "string" }
@@ -28,8 +29,20 @@ export function setLocale (locale, messages) {
 
   return {
     type: SET_LOCALE,
-    // Converts "es_MX" to "en-MX" (and similar) for react-intl
-    locale: locale.replace('_', '-'),
+    locale,
     messages: flattenObject(messages)
+  }
+}
+
+export function changeLocale (locale) {
+  return (dispatch) => {
+    Promise.all([
+      window.fetch(`${API_URL}v1/translate/${locale}/main`).then((r) => r.json()),
+      window.fetch(`${API_URL}v1/translate/${locale}/segment-info`).then((r) => r.json())
+    ]).then((responses) => {
+      const messages = responses[0]
+      messages.segmentInfo = responses[1]
+      dispatch(setLocale(locale, messages))
+    })
   }
 }

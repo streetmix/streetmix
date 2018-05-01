@@ -110,7 +110,8 @@ class Segment extends React.Component {
         title={this.props.forPalette ? segmentInfo.name : null}>
         {!this.props.forPalette &&
           <React.Fragment>
-            <span className="name" data-i18n={'segment-info:segments.' + this.props.type + '.name'}>
+            <span className="name">
+              {/* TODO: localize */}
               {name}
             </span>
             <span className="width">{widthText}</span>
