@@ -2,6 +2,7 @@ import {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC
 } from '../users/localization'
+import store from '../store'
 
 const IMPERIAL_METRIC_MULTIPLIER = 30 / 100
 const METRIC_PRECISION = 3
@@ -78,46 +79,44 @@ export function processWidthInput (widthInput, units) {
  * @param {Number} width to display
  * @param {Number} units - units, either SETTINGS_UNITS_METRIC or
  *            SETTINGS_UNITS_IMPERIAL, to format width as. If undefined,
- *            temporarily run get street data from store to obtain units.
- *            Todo: refactor this so that units is a required argument.
+ *            assume metric.
  * @param {Boolean} [options.markup = false]
  *    If true, <wbr> (word break opportunity) tags are inserted into return value.
  */
 export function prettifyWidth (width, units, { markup = false } = {}) {
   let widthText = ''
+  const locale = store.getState().locale.locale
 
   switch (units) {
     case SETTINGS_UNITS_IMPERIAL:
-      widthText = width
+      widthText = new Intl.NumberFormat(locale, { style: 'decimal', maximumFractionDigits: 3 }).format(width)
 
       // Format with vulgar fractions, e.g. .5 => ½
       const remainder = width - Math.floor(width)
 
       if (IMPERIAL_VULGAR_FRACTIONS[('' + remainder).substr(1)]) {
-        widthText =
-        (Math.floor(width) ? Math.floor(width) : '') +
-          IMPERIAL_VULGAR_FRACTIONS[('' + remainder).substr(1)]
+        widthText = (Math.floor(width) ? Math.floor(width) : '') + IMPERIAL_VULGAR_FRACTIONS[('' + remainder).substr(1)]
       }
 
-      // Add word break opportunity <wbr> tags and foot mark
+      // Add word break opportunity <wbr> tags (note: may be escaped in renders)
       if (markup === true) {
-        widthText += "<wbr>'"
-      } else {
-        widthText += "'"
+        widthText += '<wbr>'
       }
+
+      widthText += "'"
 
       break
     case SETTINGS_UNITS_METRIC:
     default:
-      widthText = undecorateWidth(width)
+      widthText = undecorateWidth(width) // also does locale formatting
 
       // Add word break opportunity <wbr> tags and units, assuming
       // that the output is not used in an input tag
       if (markup === true) {
-        widthText += '<wbr> m'
-      } else {
-        widthText += ' m'
+        widthText += '<wbr> '
       }
+
+      widthText += ' m'
 
       break
   }
@@ -174,18 +173,10 @@ function convertWidthToMetric (width) {
  * @returns {String} formatted string
  */
 function stringifyMetricWidth (width) {
-  let widthText = width.toString()
+  const locale = store.getState().locale.locale
+  let widthText = new Intl.NumberFormat(locale, { style: 'decimal', maximumFractionDigits: 2 }).format(width)
 
-  if (widthText.substr(0, 2) === '0.') {
-    widthText = widthText.substr(1)
-  }
-  while (widthText.substr(widthText.length - 1) === '0') {
-    widthText = widthText.substr(0, widthText.length - 1)
-  }
-  if (widthText.substr(widthText.length - 1) === '.') {
-    widthText = widthText.substr(0, widthText.length - 1)
-  }
-  if (!widthText) {
+  if (!width) {
     widthText = '0'
   }
 
