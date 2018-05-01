@@ -7,6 +7,7 @@ import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, suppressMouseEnter } from '
 import { drawSegmentContents, getVariantInfoDimensions, segmentsChanged, TILE_SIZE } from './view'
 import { SETTINGS_UNITS_METRIC } from '../users/localization'
 import { infoBubble, INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/info_bubble'
+import { t } from '../app/locale'
 
 const WIDTH_PALETTE_MULTIPLIER = 4 // Dupe from palette.js
 const SEGMENT_Y_NORMAL = 265
@@ -75,7 +76,14 @@ class Segment extends React.Component {
   render () {
     const segmentInfo = getSegmentInfo(this.props.type)
     const variantInfo = getSegmentVariantInfo(this.props.type, this.props.variantString)
-    const name = variantInfo.name || segmentInfo.name
+    const defaultName = variantInfo.name || segmentInfo.name // the name to display if there isn't a localized version of it
+
+    // Get localized names from store, fall back to segment default names if translated
+    // text is not found. TODO: port to react-intl/formatMessage later.
+    const localizedVariantName = t(`segments.${this.props.type}.details.${this.props.variantString}.name`, null, { ns: 'segment-info' })
+    const localizedName = t(`segments.${this.props.type}.name`, defaultName, { ns: 'segment-info' })
+    const title = localizedVariantName || localizedName
+
     const width = this.calculateWidth(RESIZE_TYPE_INITIAL)
     const segmentWidth = this.props.width // may need to double check this. setSegmentContents() was called with other widths
 
@@ -106,12 +114,11 @@ class Segment extends React.Component {
         data-variant-string={this.props.variantString}
         data-rand-seed={this.props.randSeed}
         data-width={width}
-        title={this.props.forPalette ? segmentInfo.name : null}>
+        title={this.props.forPalette ? localizedName : null}>
         {!this.props.forPalette &&
           <React.Fragment>
             <span className="name">
-              {/* TODO: localize */}
-              {name}
+              {title}
             </span>
             <span className="width">
               <MeasurementText value={width} units={this.props.units} />
