@@ -26,6 +26,6 @@ describe('locale action creators', () => {
       }
     }
 
-    expect(actions.setLocale('pt_BR', translation)).toEqual(expectedAction)
+    expect(actions.setLocale('pt-BR', translation)).toEqual(expectedAction)
   })
 })
