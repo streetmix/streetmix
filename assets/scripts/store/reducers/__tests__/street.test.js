@@ -225,7 +225,9 @@ describe('street reducer', () => {
     it('sets street.location to be null and clears original street name if userUpdated was false', () => {
       const existingStreet = {
         name: 'test street',
-        userUpdated: false,
+        userUpdated: {
+          streetName: false
+        },
         location: {
           latlng: { lat: 0, lng: 0 },
           label: 'test street',
@@ -244,7 +246,9 @@ describe('street reducer', () => {
         reducer({...existingStreet}, actions.clearLocation())
       ).toEqual({
         name: null,
-        userUpdated: false,
+        userUpdated: {
+          streetName: false
+        },
         location: null
       })
     })
@@ -254,42 +258,54 @@ describe('street reducer', () => {
     it('renames street name if user updated and sets userUpdated to true', () => {
       const existingStreet = {
         name: 'street name',
-        userUpdated: false
+        userUpdated: {
+          streetName: false
+        }
       }
 
       expect(
         reducer({...existingStreet}, actions.saveStreetName('new street name', true))
       ).toEqual({
         name: 'new street name',
-        userUpdated: true
+        userUpdated: {
+          streetName: true
+        }
       })
     })
 
     it('does not rename street if not user updated and userUpdate is true', () => {
       const existingStreet = {
         name: 'street name',
-        userUpdated: true
+        userUpdated: {
+          streetName: true
+        }
       }
 
       expect(
         reducer({...existingStreet}, actions.saveStreetName('new street name', false))
       ).toEqual({
         name: 'street name',
-        userUpdated: true
+        userUpdated: {
+          streetName: true
+        }
       })
     })
 
     it('renames street if userUpdated is false', () => {
       const existingStreet = {
         name: 'street name',
-        userUpdated: false
+        userUpdated: {
+          streetName: false
+        }
       }
 
       expect(
         reducer({...existingStreet}, actions.saveStreetName('new street name', false))
       ).toEqual({
         name: 'new street name',
-        userUpdated: false
+        userUpdated: {
+          streetName: false
+        }
       })
     })
   })
@@ -574,7 +590,10 @@ describe('street reducer', () => {
         expect(
           reducer({...existingStreet}, actions.setBuildingVariant('left', 'narrow'))
         ).toEqual({
-          leftBuildingVariant: 'narrow'
+          leftBuildingVariant: 'narrow',
+          userUpdated: {
+            buildingVariant: true
+          }
         })
       })
 
@@ -586,7 +605,10 @@ describe('street reducer', () => {
         expect(
           reducer({...existingStreet}, actions.setBuildingVariant('right', 'wide'))
         ).toEqual({
-          rightBuildingVariant: 'wide'
+          rightBuildingVariant: 'wide',
+          userUpdated: {
+            buildingVariant: true
+          }
         })
       })
 
