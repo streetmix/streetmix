@@ -47,7 +47,7 @@ class Building extends React.Component {
 
     if (prevProps.street[variant] && prevProps.street[variant] !== street[variant]) {
       if (this.shouldBuildingAnimate(prevProps.street, street)) {
-        this.switchBuildings(prevProps.street, street)
+        this.switchBuildings()
       } else {
         createBuilding(this.streetSectionBuilding, street[variant], position, street[height], street)
       }
@@ -123,10 +123,11 @@ class Building extends React.Component {
   // Animate if the only changes in street object are:
   // editCount, rightBuildingVariant (or leftBuildingVariant), and updatedAt
   shouldBuildingAnimate = (oldStreet, newStreet) => {
-    let userUpdated = false
+    let userUpdated = true
     for (let key in newStreet) {
       if (oldStreet[key] !== newStreet[key]) {
         userUpdated = ['editCount', this.state.variant, 'updatedAt'].includes(key)
+        if (!userUpdated) return false
       }
     }
     return userUpdated
