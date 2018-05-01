@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import MeasurementText from '../ui/MeasurementText'
 import { getSegmentVariantInfo, getSegmentInfo } from '../segments/info'
 import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, suppressMouseEnter } from './resizing'
 import { drawSegmentContents, getVariantInfoDimensions, segmentsChanged, TILE_SIZE } from './view'
-import { prettifyWidth } from '../util/width_units'
 import { SETTINGS_UNITS_METRIC } from '../users/localization'
 import { infoBubble, INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/info_bubble'
 
@@ -77,7 +77,6 @@ class Segment extends React.Component {
     const variantInfo = getSegmentVariantInfo(this.props.type, this.props.variantString)
     const name = variantInfo.name || segmentInfo.name
     const width = this.calculateWidth(RESIZE_TYPE_INITIAL)
-    const widthText = <React.Fragment>{prettifyWidth(width, this.props.units)}<wbr />\'</React.Fragment>
     const segmentWidth = this.props.width // may need to double check this. setSegmentContents() was called with other widths
 
     const multiplier = this.props.forPalette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1
@@ -114,7 +113,9 @@ class Segment extends React.Component {
               {/* TODO: localize */}
               {name}
             </span>
-            <span className="width">{widthText}</span>
+            <span className="width">
+              <MeasurementText value={width} units={this.props.units} />
+            </span>
             <span className="drag-handle left">‹</span>
             <span className="drag-handle right">›</span>
             <span className="grid" />

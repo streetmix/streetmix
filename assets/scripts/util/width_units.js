@@ -2,9 +2,11 @@ import {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC
 } from '../users/localization'
+import store from '../store'
 
 const IMPERIAL_METRIC_MULTIPLIER = 30 / 100
 const METRIC_PRECISION = 3
+const IMPERIAL_PRECISION = 3
 
 const WIDTH_INPUT_CONVERSION = [
   { text: 'm', multiplier: 1 / IMPERIAL_METRIC_MULTIPLIER },
@@ -78,47 +80,21 @@ export function processWidthInput (widthInput, units) {
  * @param {Number} width to display
  * @param {Number} units - units, either SETTINGS_UNITS_METRIC or
  *            SETTINGS_UNITS_IMPERIAL, to format width as. If undefined,
- *            temporarily run get street data from store to obtain units.
- *            Todo: refactor this so that units is a required argument.
- * @param {Boolean} [options.markup = false]
- *    If true, <wbr> (word break opportunity) tags are inserted into return value.
+ *            assume metric.
+ * @returns {string}
  */
-export function prettifyWidth (width, units, { markup = false } = {}) {
+export function prettifyWidth (width, units) {
   let widthText = ''
 
   switch (units) {
     case SETTINGS_UNITS_IMPERIAL:
-      widthText = width
-
-      // Format with vulgar fractions, e.g. .5 => ½
-      const remainder = width - Math.floor(width)
-
-      if (IMPERIAL_VULGAR_FRACTIONS[('' + remainder).substr(1)]) {
-        widthText =
-        (Math.floor(width) ? Math.floor(width) : '') +
-          IMPERIAL_VULGAR_FRACTIONS[('' + remainder).substr(1)]
-      }
-
-      // Add word break opportunity <wbr> tags and foot mark
-      if (markup === true) {
-        widthText += "<wbr>'"
-      } else {
-        widthText += "'"
-      }
-
+      widthText = getImperialMeasurementWithVulgarFractions(width) // also converts to string and does locale formatting
+      widthText += "'"
       break
     case SETTINGS_UNITS_METRIC:
     default:
-      widthText = undecorateWidth(width)
-
-      // Add word break opportunity <wbr> tags and units, assuming
-      // that the output is not used in an input tag
-      if (markup === true) {
-        widthText += '<wbr> m'
-      } else {
-        widthText += ' m'
-      }
-
+      widthText = stringifyMeasurementValue(width, SETTINGS_UNITS_METRIC) // also does locale formatting
+      widthText += ' m'
       break
   }
 
@@ -126,70 +102,69 @@ export function prettifyWidth (width, units, { markup = false } = {}) {
 }
 
 /**
- * Returns a width as a numeral-only string without decoration, and converts
- * to the desired units, if necessary.
+ * Returns a measurement value as a locale-sensitive string without units or formatting,
+ * and converts to the desired units, if necessary.
  * Used primarily when converting input box values to a simple number format
  *
- * @param {Number} width - original display value
+ * @param {Number} value - original measurement value
  * @param {Number} units - either SETTINGS_UNITS_METRIC or SETTINGS_UNITS_IMPERIAL
  *          Defaults to metric.
- * @returns {Number|string} width - undecorated value
+ * @returns {string} string - for display
  */
-export function undecorateWidth (width, units) {
-  let widthText = ''
+export function stringifyMeasurementValue (value, units) {
+  const locale = store.getState().locale.locale
+  let string = ''
+
+  if (!value) return '0'
 
   switch (units) {
-    // Width is stored as imperial units by default, so return it as is
     case SETTINGS_UNITS_IMPERIAL:
-      widthText = width
+      string = new Intl.NumberFormat(locale, { style: 'decimal', maximumFractionDigits: IMPERIAL_PRECISION }).format(value)
       break
-    // Otherwise convert it metric
     case SETTINGS_UNITS_METRIC:
     default:
-      widthText = convertWidthToMetric(width)
-      widthText = stringifyMetricWidth(widthText)
+      const convertedValue = convertImperialMeasurementToMetric(value)
+      string = new Intl.NumberFormat(locale, { style: 'decimal', maximumFractionDigits: METRIC_PRECISION }).format(convertedValue)
       break
   }
 
-  return widthText
+  return string
 }
 
 /**
- * Given a width (stored internally in Streetmix as imperial units),
+ * Given a measurement value (stored internally in Streetmix as imperial units),
  * return a metric quantity with three decimal points.
  *
- * @param {Number} width
- * @returns {Number} width as metric quantity
+ * @param {Number} value, assuming imperial units
+ * @returns {Number} value in metric units
  */
-function convertWidthToMetric (width) {
-  return (width * IMPERIAL_METRIC_MULTIPLIER).toFixed(METRIC_PRECISION)
+function convertImperialMeasurementToMetric (value) {
+  return (value * IMPERIAL_METRIC_MULTIPLIER).toFixed(METRIC_PRECISION)
 }
 
 /**
- * Given a width in metric units, returns a value that is post-processed
- * for display. Leading and trailing zeroes are clipped, trailing decimals
- * are dropped, and null values return zero.
+ * Given a measurement value (assuming imperial units), return
+ * a string formatted to use vulgar fractions, e.g. .5 => ½
  *
- * @param {Number} width as metric quantity
- * @returns {String} formatted string
+ * @param {Number} value, assuming imperial units
+ * @returns {string} stringified value formatted with vulgar fractions
  */
-function stringifyMetricWidth (width) {
-  let widthText = width.toString()
+function getImperialMeasurementWithVulgarFractions (value) {
+  // Determine if there is a vulgar fraction to display
+  const remainder = value - Math.floor(value)
+  const fraction = IMPERIAL_VULGAR_FRACTIONS[remainder.toString().substr(1)]
 
-  if (widthText.substr(0, 2) === '0.') {
-    widthText = widthText.substr(1)
-  }
-  while (widthText.substr(widthText.length - 1) === '0') {
-    widthText = widthText.substr(0, widthText.length - 1)
-  }
-  if (widthText.substr(widthText.length - 1) === '.') {
-    widthText = widthText.substr(0, widthText.length - 1)
-  }
-  if (!widthText) {
-    widthText = '0'
+  if (fraction) {
+    // Non-zero trailing number
+    if (Math.floor(value)) {
+      return stringifyMeasurementValue(Math.floor(value), SETTINGS_UNITS_IMPERIAL) + fraction
+    } else {
+      return fraction
+    }
   }
 
-  return widthText
+  // Otherwise, just return the stringified value without fractions
+  return stringifyMeasurementValue(value, SETTINGS_UNITS_IMPERIAL)
 }
 
 /**
