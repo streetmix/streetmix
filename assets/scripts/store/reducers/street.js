@@ -97,10 +97,7 @@ const street = (state = initialState, action) => {
       return {
         ...state,
         name: (rename) ? action.streetName : state.name,
-        userUpdated: {
-          ...state.userUpdated,
-          streetName: (state.userUpdated || action.userUpdated)
-        }
+        userUpdated: (state.userUpdated || action.userUpdated)
       }
     case SAVE_CREATOR_ID:
       return {
@@ -219,20 +216,12 @@ const street = (state = initialState, action) => {
         case 'left':
           return {
             ...state,
-            leftBuildingVariant: action.variant,
-            userUpdated: {
-              ...state.userUpdated,
-              buildingVariant: action.userUpdated
-            }
+            leftBuildingVariant: action.variant
           }
         case 'right':
           return {
             ...state,
-            rightBuildingVariant: action.variant,
-            userUpdated: {
-              ...state.userUpdated,
-              buildingVariant: action.userUpdated
-            }
+            rightBuildingVariant: action.variant
           }
         default:
           return state
