@@ -40,14 +40,17 @@ class Building extends React.Component {
 
     const lastOverflow = (prevProps.street.remainingWidth < 0)
     const streetOverflow = (street.remainingWidth < 0)
-    const sameStreet = (prevProps.street.id === street.id)
 
     if (prevProps.street[height] !== street[height] || lastOverflow !== streetOverflow) {
       createBuilding(this.streetSectionBuilding, street[variant], position, street[height], street)
     }
 
-    if (sameStreet && prevProps.street[variant] && prevProps.street[variant] !== street[variant]) {
-      this.switchBuildings()
+    if (prevProps.street[variant] && prevProps.street[variant] !== street[variant]) {
+      if (this.shouldBuildingAnimate(prevProps.street, street)) {
+        this.switchBuildings(prevProps.street, street)
+      } else {
+        createBuilding(this.streetSectionBuilding, street[variant], position, street[height], street)
+      }
     }
 
     if (prevState.switchBuildings !== this.state.switchBuildings) {
@@ -117,6 +120,18 @@ class Building extends React.Component {
         oldBuildingEnter: !(this.state.oldBuildingEnter)
       })
     }
+  }
+
+  // Animate if the only changes in street object are:
+  // editCount, rightBuildingVariant (or leftBuildingVariant), and updatedAt
+  shouldBuildingAnimate = (oldStreet, newStreet) => {
+    let userUpdated = false
+    for (let key in newStreet) {
+      if (oldStreet[key] !== newStreet[key]) {
+        userUpdated = ['editCount', this.state.variant, 'updatedAt'].includes(key)
+      }
+    }
+    return userUpdated
   }
 
   renderBuilding = (building) => {
