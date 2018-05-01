@@ -18,7 +18,7 @@ import {
 } from '../segments/resizing'
 import {
   prettifyWidth,
-  undecorateWidth,
+  stringifyMeasurementValue,
   processWidthInput
 } from '../util/width_units'
 
@@ -125,7 +125,7 @@ class WidthControl extends React.Component {
 
     this.setState({
       isEditing: true,
-      displayValue: undecorateWidth(this.props.value, this.props.units)
+      displayValue: stringifyMeasurementValue(this.props.value, this.props.units)
     })
 
     if (document.activeElement !== el) {
@@ -162,7 +162,7 @@ class WidthControl extends React.Component {
   onMouseDownInput = (event) => {
     this.setState({
       isEditing: true,
-      displayValue: undecorateWidth(this.props.value, this.props.units)
+      displayValue: stringifyMeasurementValue(this.props.value, this.props.units)
     })
   }
 
@@ -174,7 +174,7 @@ class WidthControl extends React.Component {
     if (this.state.isEditing) return
 
     this.setState({
-      displayValue: undecorateWidth(this.props.value, this.props.units)
+      displayValue: stringifyMeasurementValue(this.props.value, this.props.units)
     })
 
     // Automatically select the value on hover so that it's easy to start typing new values.
