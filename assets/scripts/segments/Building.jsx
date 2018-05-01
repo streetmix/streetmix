@@ -40,12 +40,13 @@ class Building extends React.Component {
 
     const lastOverflow = (prevProps.street.remainingWidth < 0)
     const streetOverflow = (street.remainingWidth < 0)
+    const sameStreet = (prevProps.street.id === street.id)
 
     if (prevProps.street[height] !== street[height] || lastOverflow !== streetOverflow) {
       createBuilding(this.streetSectionBuilding, street[variant], position, street[height], street)
     }
 
-    if (prevProps.street[variant] && prevProps.street[variant] !== street[variant]) {
+    if (sameStreet && prevProps.street[variant] && prevProps.street[variant] !== street[variant]) {
       this.switchBuildings()
     }
 
@@ -148,7 +149,7 @@ class Building extends React.Component {
     const { newBuildingEnter, oldBuildingEnter } = this.state
 
     return (
-      <div>
+      <React.Fragment>
         <CSSTransition
           key="new-building"
           in={newBuildingEnter}
@@ -168,7 +169,7 @@ class Building extends React.Component {
         >
           { this.renderBuilding('old') }
         </CSSTransition>
-      </div>
+      </React.Fragment>
     )
   }
 }
