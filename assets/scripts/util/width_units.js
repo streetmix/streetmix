@@ -81,36 +81,20 @@ export function processWidthInput (widthInput, units) {
  * @param {Number} units - units, either SETTINGS_UNITS_METRIC or
  *            SETTINGS_UNITS_IMPERIAL, to format width as. If undefined,
  *            assume metric.
- * @param {Boolean} [options.markup = false]
- *    If true, <wbr> (word break opportunity) tags are inserted into return value.
+ * @returns {string}
  */
-export function prettifyWidth (width, units, { markup = false } = {}) {
+export function prettifyWidth (width, units) {
   let widthText = ''
 
   switch (units) {
     case SETTINGS_UNITS_IMPERIAL:
       widthText = getImperialMeasurementWithVulgarFractions(width) // also converts to string and does locale formatting
-
-      // Add word break opportunity <wbr> tags (note: may be escaped in renders)
-      if (markup === true) {
-        widthText += '<wbr>'
-      }
-
       widthText += "'"
-
       break
     case SETTINGS_UNITS_METRIC:
     default:
       widthText = stringifyMeasurementValue(width, SETTINGS_UNITS_METRIC) // also does locale formatting
-
-      // Add word break opportunity <wbr> tags and units, assuming
-      // that the output is not used in an input tag
-      if (markup === true) {
-        widthText += '<wbr> '
-      }
-
       widthText += ' m'
-
       break
   }
 
