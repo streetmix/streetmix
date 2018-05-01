@@ -19,6 +19,7 @@ import { MODES, getMode } from './mode'
 import { goNewStreet } from './routing'
 import Avatar from '../users/Avatar'
 import { showStreetNameCanvas, hideStreetNameCanvas } from '../store/actions/ui'
+import CloseButton from '../ui/CloseButton'
 
 const WELCOME_NONE = 0
 const WELCOME_NEW_STREET = 1
@@ -343,7 +344,7 @@ class WelcomePanel extends React.Component {
     return (
       <div className={classes}>
         <div className="welcome-panel">
-          <button className="close" onClick={this.hideWelcome}>×</button>
+          <CloseButton onClick={this.hideWelcome} />
           {welcomeContent}
         </div>
       </div>

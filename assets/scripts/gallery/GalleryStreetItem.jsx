@@ -9,6 +9,7 @@ import { connect } from 'react-redux'
 import { injectIntl, intlShape } from 'react-intl'
 import StreetName from '../streets/StreetName'
 import DateTimeRelative from '../app/DateTimeRelative'
+import CloseButton from '../ui/CloseButton'
 import { drawStreetThumbnail } from './thumbnail'
 import { getStreetUrl } from '../streets/data_model'
 
@@ -112,13 +113,11 @@ export class GalleryStreetItem extends React.Component {
 
           {/* Only show delete button if allowed, e.g. if user is owner of the street */ }
           {this.props.allowDelete &&
-            <button
-              className="gallery-street-item-delete"
+            <CloseButton
+              className={'gallery-street-item-delete'}
               title={this.props.intl.formatMessage({ id: 'gallery.delete-street-tooltip', defaultMessage: 'Delete street' })}
               onClick={this.onClickDeleteGalleryStreet}
-            >
-              ×
-            </button>
+            />
           }
         </a>
       </div>
