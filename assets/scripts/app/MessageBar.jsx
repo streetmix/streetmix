@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Transition } from 'react-transition-group'
-import { FormattedMessage, injectIntl, intlShape } from 'react-intl'
-
+import { FormattedMessage } from 'react-intl'
 import CloseButton from '../ui/CloseButton'
 
 const TRANSITION_DURATION = 250
@@ -12,7 +11,6 @@ const TRANSITION_BASE_STYLE = {
 
 class MessageBar extends React.Component {
   static propTypes = {
-    intl: intlShape.isRequired,
     message: PropTypes.shape({
       display: PropTypes.bool,
       lede: PropTypes.string,
@@ -71,7 +69,6 @@ class MessageBar extends React.Component {
           }
           <CloseButton
             onClick={this.onClickDismiss}
-            title={this.props.intl.formatMessage({ id: 'btn.dismiss', defaultMessage: 'Dismiss' })}
           />
         </div>
       </Transition>
@@ -79,4 +76,4 @@ class MessageBar extends React.Component {
   }
 }
 
-export default injectIntl(MessageBar)
+export default MessageBar
