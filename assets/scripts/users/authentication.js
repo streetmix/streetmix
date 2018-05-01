@@ -102,7 +102,6 @@ export async function loadSignIn () {
   }
 
   setSignInLoadedState(true)
-  document.querySelector('#loading-progress').value++
 
   _signInLoaded()
 

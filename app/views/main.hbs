@@ -56,9 +56,7 @@
 
     {{! Blocking elements pre-React }}
     <div id="loading">
-      {{! Don't show loading text because there could be a flash of untranslated text }}
-      <span data-i18n="msg.loading">&nbsp;</span>
-      <progress id="loading-progress" value="0" max="1"></progress>
+      <div class="loading-spinner"></div>
     </div>
     <div id="blocking-shield">
       <div class="message"></div>
