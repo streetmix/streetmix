@@ -27,11 +27,7 @@ import {
 import { getVariantString } from '../../segments/variant_utils'
 
 const initialState = {
-  segments: [],
-  userUpdated: {
-    streetName: false,
-    buildingVariant: false
-  }
+  segments: []
 }
 
 const MAX_BUILDING_HEIGHT = 20
