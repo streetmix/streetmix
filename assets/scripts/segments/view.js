@@ -343,8 +343,7 @@ export function createSegment (type, variantString, width, isUnmovable, palette,
 
     innerEl = document.createElement('span')
     innerEl.classList.add('name')
-    innerEl.setAttribute('data-i18n', 'segment-info:segments.' + type + '.name')
-    innerEl.innerHTML = name
+    innerEl.innerHTML = name // TODO: localize
     el.appendChild(innerEl)
 
     innerEl = document.createElement('span')
@@ -393,7 +392,6 @@ function fillEmptySegment (el) {
   innerEl = document.createElement('span')
   innerEl.classList.add('name')
   innerEl.textContent = t('section.empty', 'Empty space')
-  innerEl.setAttribute('data-i18n', 'section.empty')
   el.appendChild(innerEl)
 
   innerEl = document.createElement('span')
