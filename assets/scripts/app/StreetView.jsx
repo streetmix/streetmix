@@ -48,7 +48,8 @@ class StreetView extends React.Component {
   componentDidUpdate (prevProps) {
     const { viewportWidth, viewportHeight } = this.props.system
     if (prevProps.system.viewportWidth !== viewportWidth ||
-        prevProps.system.viewportHeight !== viewportHeight) {
+        prevProps.system.viewportHeight !== viewportHeight ||
+        prevProps.street.width !== this.props.street.width) {
       this.onResize()
       this.getBuildingWidth()
       this.calculateStreetIndicatorsPositions()
