@@ -35,13 +35,15 @@ class Building extends React.Component {
   }
 
   componentDidUpdate (prevProps, prevState) {
-    const { street, position } = this.props
+    const { street, position, buildingWidth } = this.props
     const { variant, height } = this.state
 
     const lastOverflow = (prevProps.street.remainingWidth < 0)
     const streetOverflow = (street.remainingWidth < 0)
 
-    if (prevProps.street[height] !== street[height] || lastOverflow !== streetOverflow) {
+    if (prevProps.street[height] !== street[height] ||
+        lastOverflow !== streetOverflow ||
+        (street[variant] && prevProps.buildingWidth !== buildingWidth)) {
       createBuilding(this.streetSectionBuilding, street[variant], position, street[height], street)
     }
 

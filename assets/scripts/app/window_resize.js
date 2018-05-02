@@ -1,8 +1,6 @@
 import { infoBubble } from '../info_bubble/info_bubble'
 import { app } from '../preinit/app_settings'
 import { system } from '../preinit/system_capabilities'
-import { BUILDING_SPACE } from '../segments/buildings'
-import { TILE_SIZE } from '../segments/view'
 import store from '../store'
 import { windowResize } from '../store/actions/system'
 
@@ -51,19 +49,6 @@ export function onResize () {
 
   document.querySelector('#street-section-dirt').style.height =
     streetSectionDirtPos + 'px'
-
-  const street = store.getState().street
-
-  streetSectionCanvasLeft =
-    ((system.viewportWidth - (street.width * TILE_SIZE)) / 2) - BUILDING_SPACE
-  if (streetSectionCanvasLeft < 0) {
-    streetSectionCanvasLeft = 0
-  }
-  document.querySelector('#street-section-canvas').style.left =
-    streetSectionCanvasLeft + 'px'
-
-  document.querySelector('#street-section-editable').style.width =
-    (street.width * TILE_SIZE) + 'px'
 
   infoBubble.show(true)
 }
