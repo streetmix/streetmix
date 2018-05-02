@@ -46,7 +46,11 @@ class Building extends React.Component {
     }
 
     if (prevProps.street[variant] && prevProps.street[variant] !== street[variant]) {
-      this.switchBuildings()
+      if (this.shouldBuildingAnimate(prevProps.street, street)) {
+        this.switchBuildings()
+      } else {
+        createBuilding(this.streetSectionBuilding, street[variant], position, street[height], street)
+      }
     }
 
     if (prevState.switchBuildings !== this.state.switchBuildings) {
@@ -116,6 +120,19 @@ class Building extends React.Component {
     })
   }
 
+  // Animate if the only changes in street object are:
+  // editCount, rightBuildingVariant (or leftBuildingVariant), and updatedAt
+  shouldBuildingAnimate = (oldStreet, newStreet) => {
+    let userUpdated = true
+    for (let key in newStreet) {
+      if (oldStreet[key] !== newStreet[key]) {
+        userUpdated = ['editCount', this.state.variant, 'updatedAt'].includes(key)
+        if (!userUpdated) return false
+      }
+    }
+    return userUpdated
+  }
+
   renderBuilding = (building) => {
     const isOldBuilding = (building === 'old')
 
@@ -148,7 +165,7 @@ class Building extends React.Component {
     const { newBuildingEnter, oldBuildingEnter } = this.state
 
     return (
-      <div>
+      <React.Fragment>
         <CSSTransition
           key="new-building"
           in={newBuildingEnter}
@@ -168,7 +185,7 @@ class Building extends React.Component {
         >
           { this.renderBuilding('old') }
         </CSSTransition>
-      </div>
+      </React.Fragment>
     )
   }
 }
