@@ -9,6 +9,7 @@ import { registerKeypress, deregisterKeypress } from './keypress'
 import { URL_SIGN_IN_REDIRECT } from './routing'
 import { undo } from '../streets/undo_stack'
 import { loseAnyFocus } from '../util/focus'
+import CloseButton from '../ui/CloseButton'
 
 const STATUS_MESSAGE_HIDE_DELAY = 15000
 
@@ -102,7 +103,7 @@ class StatusMessage extends React.PureComponent {
           {message}
           {undoButton}
           {signInButton}
-          <button className="close" onClick={this.onClickTheX}>×</button>
+          <CloseButton onClick={this.onClickTheX} />
         </div>
       </div>
     )
