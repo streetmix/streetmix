@@ -1,11 +1,12 @@
-import { SET_LOCALE } from '../actions'
+import { SET_LOCALE, SET_SEGMENT_TRANSLATIONS } from '../actions'
 
 const initialState = {
   // Default language is set by browser, or is English if undetermined
   // Substitute 'en' for 'en-US' locales
   // TODO: make that unnecessary
   locale: navigator.language.replace('en-US', 'en') || 'en',
-  messages: {}
+  messages: {},
+  segmentInfo: {}
 }
 
 const locale = (state = initialState, action) => {
@@ -15,6 +16,11 @@ const locale = (state = initialState, action) => {
         ...state,
         locale: action.locale,
         messages: action.messages
+      }
+    case SET_SEGMENT_TRANSLATIONS:
+      return {
+        ...state,
+        segmentInfo: action.messages
       }
     default:
       return state

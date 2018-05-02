@@ -54,10 +54,10 @@ function initRtlChangedListener () {
 }
 
 export function t (key, fallback, options = {}) {
-  const messages = store.getState().locale.messages
+  const locale = store.getState().locale
   if (options.ns === 'segment-info') {
-    return messages['segmentInfo.' + key] || fallback
+    return locale.segmentInfo[key] || fallback
   } else {
-    return messages[key] || fallback
+    return locale.messages[key] || fallback
   }
 }

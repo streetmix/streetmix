@@ -1,4 +1,4 @@
-import { SET_LOCALE } from './index'
+import { SET_LOCALE, SET_SEGMENT_TRANSLATIONS } from './index'
 import { API_URL } from '../../app/config'
 
 // Flattens a nested object from translation response, e.g.
@@ -34,6 +34,13 @@ export function setLocale (locale, messages) {
   }
 }
 
+function setSegmentInfoTranslations (messages) {
+  return {
+    type: SET_SEGMENT_TRANSLATIONS,
+    messages: flattenObject(messages)
+  }
+}
+
 export function changeLocale (locale) {
   return (dispatch) => {
     Promise.all([
@@ -41,8 +48,10 @@ export function changeLocale (locale) {
       window.fetch(`${API_URL}v1/translate/${locale}/segment-info`).then((r) => r.json())
     ]).then((responses) => {
       const messages = responses[0]
-      messages.segmentInfo = responses[1]
+      const segmentInfo = responses[1]
+
       dispatch(setLocale(locale, messages))
+      dispatch(setSegmentInfoTranslations(segmentInfo))
     })
   }
 }
