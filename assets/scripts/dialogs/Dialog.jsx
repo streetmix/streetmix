@@ -76,10 +76,7 @@ export class Dialog extends React.PureComponent {
           </div>
         ) : (
           <div className="dialog-box">
-            <CloseButton
-              onClick={this.props.closeDialog}
-              title={closeLabel}
-            />
+            <CloseButton onClick={this.props.closeDialog} title={closeLabel} />
             {React.cloneElement(this.props.children, { closeDialog: this.props.closeDialog })}
           </div>
         )}

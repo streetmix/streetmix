@@ -9,7 +9,7 @@ const TRANSITION_BASE_STYLE = {
   transition: `margin ${TRANSITION_DURATION}ms ease-out`
 }
 
-class MessageBar extends React.Component {
+export default class MessageBar extends React.Component {
   static propTypes = {
     message: PropTypes.shape({
       display: PropTypes.bool,
@@ -67,13 +67,9 @@ class MessageBar extends React.Component {
               {linkText || <FormattedMessage id="msg.more-info" defaultMessage="More info" />}
             </a>
           }
-          <CloseButton
-            onClick={this.onClickDismiss}
-          />
+          <CloseButton onClick={this.onClickDismiss} />
         </div>
       </Transition>
     )
   }
 }
-
-export default MessageBar
