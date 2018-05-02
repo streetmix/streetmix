@@ -14,6 +14,8 @@ import Building from '../segments/Building'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { animate, getElAbsolutePos } from '../util/helpers'
 import { MAX_CUSTOM_STREET_WIDTH } from '../streets/width'
+import { BUILDING_SPACE } from '../segments/buildings'
+import { TILE_SIZE } from '../segments/view'
 import { app } from '../preinit/app_settings'
 
 class StreetView extends React.Component {
@@ -48,12 +50,13 @@ class StreetView extends React.Component {
     if (prevProps.system.viewportWidth !== viewportWidth ||
         prevProps.system.viewportHeight !== viewportHeight) {
       this.onResize()
+      this.getBuildingWidth()
       this.calculateStreetIndicatorsPositions()
     }
   }
 
   onResize = () => {
-    const { viewportHeight } = this.props.system
+    const { viewportWidth, viewportHeight } = this.props.system
     let streetSectionTop
     let streetSectionHeight = this.streetSectionInner.offsetHeight
 
@@ -75,6 +78,14 @@ class StreetView extends React.Component {
       skyTop = 0
     }
 
+    let streetSectionCanvasLeft =
+      ((viewportWidth - (this.props.street.width * TILE_SIZE)) / 2) - BUILDING_SPACE
+    if (streetSectionCanvasLeft < 0) {
+      streetSectionCanvasLeft = 0
+    }
+
+    this.streetSectionCanvas.style.left = streetSectionCanvasLeft + 'px'
+    this.streetSectionEditable.style.width = (this.props.street.width * TILE_SIZE) + 'px'
     this.streetSectionInner.style.top = streetSectionTop + 'px'
 
     this.setState({
@@ -186,7 +197,7 @@ class StreetView extends React.Component {
           ref={(ref) => { this.streetSectionOuter = ref }}
         >
           <section id="street-section-inner" ref={(ref) => { this.streetSectionInner = ref }}>
-            <section id="street-section-canvas">
+            <section id="street-section-canvas" ref={(ref) => { this.streetSectionCanvas = ref }}>
               <Building
                 position="left"
                 buildingWidth={this.state.buildingWidth}
