@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <b>Streetmix is a collaborative process for communities and city planners to design public space.</b> 
+  <b>Streetmix is a collaborative process for communities and city planners to improve public spaces.</b> 
   <br>Design, remix, and share your neighborhood street at <a href="http://streetmix.net/">streetmix.net</a>.
 </p>
 
