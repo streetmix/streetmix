@@ -81,8 +81,8 @@ class Segment extends React.Component {
     // Get localized names from store, fall back to segment default names if translated
     // text is not found. TODO: port to react-intl/formatMessage later.
     const localizedVariantName = t(`segments.${this.props.type}.details.${this.props.variantString}.name`, null, { ns: 'segment-info' })
-    const localizedName = t(`segments.${this.props.type}.name`, defaultName, { ns: 'segment-info' })
-    const title = localizedVariantName || localizedName
+    const localizedSegmentName = t(`segments.${this.props.type}.name`, defaultName, { ns: 'segment-info' })
+    const displayName = localizedVariantName || localizedSegmentName
 
     const width = this.calculateWidth(RESIZE_TYPE_INITIAL)
     const segmentWidth = this.props.width // may need to double check this. setSegmentContents() was called with other widths
@@ -114,11 +114,11 @@ class Segment extends React.Component {
         data-variant-string={this.props.variantString}
         data-rand-seed={this.props.randSeed}
         data-width={width}
-        title={this.props.forPalette ? localizedName : null}>
+        title={this.props.forPalette ? localizedSegmentName : null}>
         {!this.props.forPalette &&
           <React.Fragment>
             <span className="name">
-              {title}
+              {displayName}
             </span>
             <span className="width">
               <MeasurementText value={width} units={this.props.units} />
