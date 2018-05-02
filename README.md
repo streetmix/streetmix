@@ -5,8 +5,8 @@
 </p>
 
 <p align="center">
-  <b>Design, remix, and share your neighborhood street.</b>
-  <br>Make change in your community at <a href="http://streetmix.net/">streetmix.net</a>.
+  <b>Streetmix is a collaborative process for communities and city planners to design public space.</b> 
+  <br>Design, remix, and share your neighborhood street at <a href="http://streetmix.net/">streetmix.net</a>.
 </p>
 
 <p align="center">
