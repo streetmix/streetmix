@@ -6,12 +6,6 @@ import { TILE_SIZE } from '../segments/view'
 import store from '../store'
 import { windowResize } from '../store/actions/system'
 
-let streetSectionCanvasLeft
-
-export function getStreetSectionCanvasLeft () {
-  return streetSectionCanvasLeft
-}
-
 let streetSectionTop
 
 export function getStreetSectionTop () {
