@@ -14,6 +14,7 @@ import {
   getVariantInfoDimensions,
   drawSegmentContents
 } from '../segments/view'
+import { t } from '../app/locale'
 
 const SKY_COLOUR = 'rgb(169, 204, 219)'
 // TODO: replace SKY_WIDTH with image's natural width
@@ -214,7 +215,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
   // Street name
 
   if (streetName) {
-    let text = street.name
+    let text = street.name || t('street.default-name', 'Unnamed St')
 
     ctx.textAlign = 'center'
     ctx.textBaseline = 'center'
