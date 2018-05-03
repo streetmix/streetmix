@@ -502,8 +502,8 @@ export function onBodyMouseDown (event) {
 function makeSpaceBetweenSegments (x, y) {
   let farLeft, farRight
   const street = store.getState().street
-  const streetSectionCanvasLeft = parseInt(document.querySelector('#street-section-canvas').style.left)
-  var left = x - streetSectionCanvasLeft
+  const streetSectionCanvasLeft = document.querySelector('#street-section-canvas').style.left
+  var left = x - Number.parseFloat(streetSectionCanvasLeft, 10)
 
   var selectedSegmentBefore = null
   var selectedSegmentAfter = null
