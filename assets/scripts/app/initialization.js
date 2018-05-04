@@ -76,8 +76,6 @@ export async function initialize () {
 
   window.dispatchEvent(new window.CustomEvent('stmx:init'))
 
-  // fillEmptySegments()
-
   processUrl()
   processMode()
   if (store.getState().errors.abortEverything) {
