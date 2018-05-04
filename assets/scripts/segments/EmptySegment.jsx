@@ -17,7 +17,8 @@ class EmptySegment extends React.Component {
     super(props)
 
     this.state = {
-      width: 0
+      widthValue: 0,
+      segmentWidth: 0
     }
   }
 
@@ -33,14 +34,12 @@ class EmptySegment extends React.Component {
   }
 
   showEmptySegment = (width) => {
-    this.setState({ width: width / TILE_SIZE })
-
     this.streetEmptySegment.classList.add('visible')
-    if (this.props.position === 'right') {
-      width--
-    }
 
-    this.streetEmptySegment.style.width = width + 'px'
+    this.setState({
+      widthValue: width / TILE_SIZE,
+      segmentWidth: (this.props.position === 'right') ? width - 1 : width
+    })
   }
 
   repositionEmptySegment = () => {
@@ -65,13 +64,17 @@ class EmptySegment extends React.Component {
 
   render () {
     const { position } = this.props
-    const id = 'street-section-' + position + '-empty-space'
+
+    const style = {
+      width: this.state.segmentWidth + 'px',
+      right: (position === 'right') ? '1px' : 'auto'
+    }
 
     return (
-      <div id={id} className="segment empty" ref={(ref) => { this.streetEmptySegment = ref }}>
+      <div className="segment empty" ref={(ref) => { this.streetEmptySegment = ref }} style={style}>
         <span className="name"> { t('section.empty', 'Empty space') } </span>
         <span className="width">
-          <MeasurementText value={this.state.width} units={this.props.units} />
+          <MeasurementText value={this.state.widthValue} units={this.props.units} />
         </span>
         <span className="grid" />
       </div>
