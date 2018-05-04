@@ -149,7 +149,7 @@ function convertImperialMeasurementToMetric (value) {
  * @param {Number} value, assuming imperial units
  * @returns {string} stringified value formatted with vulgar fractions
  */
-function getImperialMeasurementWithVulgarFractions (value) {
+export function getImperialMeasurementWithVulgarFractions (value) {
   // Determine if there is a vulgar fraction to display
   const remainder = value - Math.floor(value)
   const fraction = IMPERIAL_VULGAR_FRACTIONS[remainder.toString().substr(1)]
