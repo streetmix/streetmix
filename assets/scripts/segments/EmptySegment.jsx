@@ -83,7 +83,8 @@ function mapStateToProps (state) {
   return {
     remainingWidth: state.street.remainingWidth,
     occupiedWidth: state.street.occupiedWidth,
-    units: state.street.units
+    units: state.street.units,
+    locale: state.locale.locale
   }
 }
 
