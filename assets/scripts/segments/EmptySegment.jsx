@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import MeasurementText from '../ui/MeasurementText'
-import TILE_SIZE from '../segments/view'
+import { TILE_SIZE } from '../segments/view'
 
 class EmptySegment extends React.Component {
   static propTypes = {
@@ -21,9 +21,8 @@ class EmptySegment extends React.Component {
   }
 
   componentDidUpdate (prevProps) {
-    const { remainingWidth, occupiedWidth } = this.props
-    if ((remainingWidth && prevProps.remainingWidth !== remainingWidth) ||
-        (occupiedWidth && prevProps.occupiedWidth !== occupiedWidth)) {
+    const { remainingWidth } = this.props
+    if (remainingWidth && prevProps.remainingWidth !== remainingWidth) {
       this.repositionEmptySegment()
     }
   }
@@ -33,17 +32,19 @@ class EmptySegment extends React.Component {
   }
 
   showEmptySegment = (width) => {
+    this.setState({ width: width / TILE_SIZE })
+
     this.streetEmptySegment.classList.add('visible')
     if (this.props.position === 'right') {
       width--
     }
+
     this.streetEmptySegment.style.width = width + 'px'
   }
 
   repositionEmptySegment = () => {
     const { remainingWidth, occupiedWidth, position } = this.props
     let width
-
     if (remainingWidth <= 0) {
       this.hideEmptySegment()
     } else {
@@ -69,7 +70,7 @@ class EmptySegment extends React.Component {
       <div id={id} className="segment empty" ref={(ref) => { this.streetEmptySegment = ref }}>
         <span className="name" />
         <span className="width">
-          <MeasurementText width={this.state.width} units={this.props.units} />
+          <MeasurementText value={this.state.width} units={this.props.units} />
         </span>
         <span className="grid" />
       </div>
