@@ -11,6 +11,7 @@ import { connect } from 'react-redux'
 import SkyBackground from './SkyBackground'
 import ScrollIndicators from './ScrollIndicators'
 import Building from '../segments/Building'
+import EmptySegment from '../segments/EmptySegment'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { animate, getElAbsolutePos } from '../util/helpers'
 import { MAX_CUSTOM_STREET_WIDTH } from '../streets/width'
@@ -210,8 +211,8 @@ class StreetView extends React.Component {
                 calculateBuildingPerspective={this.calculateBuildingPerspective}
               />
               <div id="street-section-editable" ref={(ref) => { this.streetSectionEditable = ref }} />
-              <div id="street-section-left-empty-space" className="segment empty" />
-              <div id="street-section-right-empty-space" className="segment empty" />
+              <EmptySegment position="left" />
+              <EmptySegment position="right" />
               <section id="street-section-dirt" style={dirtStyle} />
             </section>
           </section>
