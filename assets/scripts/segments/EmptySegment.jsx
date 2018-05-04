@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import MeasurementText from '../ui/MeasurementText'
 import { TILE_SIZE } from '../segments/view'
+import { t } from '../app/locale'
 
 class EmptySegment extends React.Component {
   static propTypes = {
@@ -68,7 +69,7 @@ class EmptySegment extends React.Component {
 
     return (
       <div id={id} className="segment empty" ref={(ref) => { this.streetEmptySegment = ref }}>
-        <span className="name" />
+        <span className="name"> { t('section.empty', 'Empty space') } </span>
         <span className="width">
           <MeasurementText value={this.state.width} units={this.props.units} />
         </span>
