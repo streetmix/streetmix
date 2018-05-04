@@ -503,7 +503,7 @@ function makeSpaceBetweenSegments (x, y) {
   let farLeft, farRight
   const street = store.getState().street
   const streetSectionCanvasLeft = document.querySelector('#street-section-canvas').style.left
-  var left = x - Number.parseFloat(streetSectionCanvasLeft, 10)
+  var left = x - Number.parseFloat(streetSectionCanvasLeft)
 
   var selectedSegmentBefore = null
   var selectedSegmentAfter = null
