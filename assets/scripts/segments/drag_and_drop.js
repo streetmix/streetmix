@@ -1,9 +1,6 @@
 import { trackEvent } from '../app/event_tracking'
 import { loseAnyFocus } from '../util/focus'
-import {
-  getStreetSectionCanvasLeft,
-  getStreetSectionTop
-} from '../app/window_resize'
+import { getStreetSectionTop } from '../app/window_resize'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { app } from '../preinit/app_settings'
 import { system } from '../preinit/system_capabilities'
@@ -505,7 +502,8 @@ export function onBodyMouseDown (event) {
 function makeSpaceBetweenSegments (x, y) {
   let farLeft, farRight
   const street = store.getState().street
-  var left = x - getStreetSectionCanvasLeft()
+  const streetSectionCanvasLeft = document.querySelector('#street-section-canvas').style.left
+  var left = x - Number.parseFloat(streetSectionCanvasLeft)
 
   var selectedSegmentBefore = null
   var selectedSegmentAfter = null
