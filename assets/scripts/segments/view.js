@@ -413,7 +413,7 @@ export function repositionSegments () {
   var left = 0
   var noMoveLeft = 0
 
-  var extraWidth = 0
+  // var extraWidth = 0
 
   const street = store.getState().street
   for (let i in street.segments) {
@@ -421,11 +421,11 @@ export function repositionSegments () {
 
     if (el === draggingMove.segmentBeforeEl) {
       left += DRAGGING_MOVE_HOLE_WIDTH
-      extraWidth += DRAGGING_MOVE_HOLE_WIDTH
+      // extraWidth += DRAGGING_MOVE_HOLE_WIDTH
 
       if (!draggingMove.segmentAfterEl) {
         left += DRAGGING_MOVE_HOLE_WIDTH
-        extraWidth += DRAGGING_MOVE_HOLE_WIDTH
+        // extraWidth += DRAGGING_MOVE_HOLE_WIDTH
       }
     }
 
@@ -444,11 +444,11 @@ export function repositionSegments () {
 
     if (el === draggingMove.segmentAfterEl) {
       left += DRAGGING_MOVE_HOLE_WIDTH
-      extraWidth += DRAGGING_MOVE_HOLE_WIDTH
+      // extraWidth += DRAGGING_MOVE_HOLE_WIDTH
 
       if (!draggingMove.segmentBeforeEl) {
         left += DRAGGING_MOVE_HOLE_WIDTH
-        extraWidth += DRAGGING_MOVE_HOLE_WIDTH
+        // extraWidth += DRAGGING_MOVE_HOLE_WIDTH
       }
     }
   }
@@ -473,17 +473,17 @@ export function repositionSegments () {
     }
   }
 
-  if (system.cssTransform) {
-    document.querySelector('#street-section-left-empty-space')
-      .style[system.cssTransform] = 'translateX(' + (-extraWidth / 2) + 'px)'
-    document.querySelector('#street-section-right-empty-space')
-      .style[system.cssTransform] = 'translateX(' + (extraWidth / 2) + 'px)'
-  } else {
-    document.querySelector('#street-section-left-empty-space')
-      .style.marginLeft = -(extraWidth / 2) + 'px'
-    document.querySelector('#street-section-right-empty-space')
-      .style.marginLeft = (extraWidth / 2) + 'px'
-  }
+  // if (system.cssTransform) {
+  //   document.querySelector('#street-section-left-empty-space')
+  //     .style[system.cssTransform] = 'translateX(' + (-extraWidth / 2) + 'px)'
+  //   document.querySelector('#street-section-right-empty-space')
+  //     .style[system.cssTransform] = 'translateX(' + (extraWidth / 2) + 'px)'
+  // } else {
+  //   document.querySelector('#street-section-left-empty-space')
+  //     .style.marginLeft = -(extraWidth / 2) + 'px'
+  //   document.querySelector('#street-section-right-empty-space')
+  //     .style.marginLeft = (extraWidth / 2) + 'px'
+  // }
 }
 
 export function changeSegmentVariantLegacy (dataNo, variantName, variantChoice) {
