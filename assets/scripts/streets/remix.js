@@ -109,6 +109,10 @@ function receiveRemixedStreet (data) {
 
 export function addRemixSuffixToName () {
   const street = store.getState().street
+
+  // Bail if street is unnamed
+  if (!street.name) return
+
   if (street.name.substr(street.name.length - STREET_NAME_REMIX_SUFFIX.length,
     STREET_NAME_REMIX_SUFFIX.length) !== STREET_NAME_REMIX_SUFFIX) {
     street.name += ' ' + STREET_NAME_REMIX_SUFFIX
