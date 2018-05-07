@@ -4,11 +4,9 @@ import { system } from '../preinit/system_capabilities'
 import { saveStreetToServerIfNecessary, createDataFromDom } from '../streets/data_model'
 import { recalculateWidth } from '../streets/width'
 import { getElAbsolutePos } from '../util/helpers'
-// import { prettifyWidth } from '../util/width_units'
 import { draggingMove } from './drag_and_drop'
 import { getSegmentInfo, getSegmentVariantInfo, getSpriteDef } from './info'
 import { drawProgrammaticPeople } from './people'
-// import { t } from '../app/locale'
 import {
   RESIZE_TYPE_INITIAL,
   suppressMouseEnter,
