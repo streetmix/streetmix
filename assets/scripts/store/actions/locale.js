@@ -1,4 +1,4 @@
-import { SET_LOCALE, SET_SEGMENT_TRANSLATIONS } from './index'
+import { SET_LOCALE } from './index'
 import { API_URL } from '../../app/config'
 
 // Flattens a nested object from translation response, e.g.
@@ -23,21 +23,15 @@ function flattenObject (obj) {
   return toReturn
 }
 
-export function setLocale (locale, messages) {
+export function setLocale (locale, messages, segmentInfo = {}) {
   // Substitute 'en' for 'en-US' locales
   if (locale === 'en-US') locale = 'en'
 
   return {
     type: SET_LOCALE,
     locale,
-    messages: flattenObject(messages)
-  }
-}
-
-function setSegmentInfoTranslations (messages) {
-  return {
-    type: SET_SEGMENT_TRANSLATIONS,
-    messages: flattenObject(messages)
+    messages: flattenObject(messages),
+    segmentInfo: flattenObject(segmentInfo)
   }
 }
 
@@ -50,8 +44,7 @@ export function changeLocale (locale) {
       const messages = responses[0]
       const segmentInfo = responses[1]
 
-      dispatch(setLocale(locale, messages))
-      dispatch(setSegmentInfoTranslations(segmentInfo))
+      dispatch(setLocale(locale, messages, segmentInfo))
     })
   }
 }

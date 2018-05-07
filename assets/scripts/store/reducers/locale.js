@@ -1,4 +1,4 @@
-import { SET_LOCALE, SET_SEGMENT_TRANSLATIONS } from '../actions'
+import { SET_LOCALE } from '../actions'
 
 const initialState = {
   // Default language is set by browser, or is English if undetermined
@@ -15,12 +15,8 @@ const locale = (state = initialState, action) => {
       return {
         ...state,
         locale: action.locale,
-        messages: action.messages
-      }
-    case SET_SEGMENT_TRANSLATIONS:
-      return {
-        ...state,
-        segmentInfo: action.messages
+        messages: action.messages,
+        segmentInfo: action.segmentInfo || state.segmentInfo
       }
     default:
       return state

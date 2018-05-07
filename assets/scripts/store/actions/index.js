@@ -64,7 +64,6 @@ export const SET_INFO_BUBBLE_MOUSE_INSIDE = 'SET_INFO_BUBBLE_MOUSE_INSIDE'
 
 /* locale */
 export const SET_LOCALE = 'SET_LOCALE'
-export const SET_SEGMENT_TRANSLATIONS = 'SET_SEGMENT_TRANSLATIONS'
 
 /* map */
 export const SET_MAP_STATE = 'SET_MAP_STATE'
