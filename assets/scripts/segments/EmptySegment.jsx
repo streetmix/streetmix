@@ -5,7 +5,7 @@ import MeasurementText from '../ui/MeasurementText'
 import { TILE_SIZE } from '../segments/view'
 import { t } from '../app/locale'
 
-class EmptySegment extends React.Component {
+class EmptySegment extends React.PureComponent {
   static propTypes = {
     remainingWidth: PropTypes.number,
     occupiedWidth: PropTypes.number,
@@ -13,68 +13,42 @@ class EmptySegment extends React.Component {
     position: PropTypes.string
   }
 
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      widthValue: 0,
-      segmentWidth: 0
-    }
-  }
-
-  componentDidUpdate (prevProps) {
-    const { remainingWidth } = this.props
-    if (remainingWidth && prevProps.remainingWidth !== remainingWidth) {
-      this.repositionEmptySegment()
-    }
-  }
-
-  hideEmptySegment = () => {
-    this.streetEmptySegment.classList.remove('visible')
-  }
-
-  showEmptySegment = (width) => {
-    this.streetEmptySegment.classList.add('visible')
-
-    this.setState({
-      widthValue: width / TILE_SIZE,
-      segmentWidth: (this.props.position === 'right') ? width - 1 : width
-    })
-  }
-
   repositionEmptySegment = () => {
     const { remainingWidth, occupiedWidth, position } = this.props
-    let width
-    if (remainingWidth <= 0) {
-      this.hideEmptySegment()
-    } else {
-      if (!occupiedWidth) {
-        width = remainingWidth * TILE_SIZE
-        if (position === 'right') {
-          this.hideEmptySegment()
-        } else {
-          this.showEmptySegment(width)
-        }
+    const segmentInfo = {
+      className: 'segment empty',
+      segmentWidth: 0,
+      widthValue: 0
+    }
+
+    if (remainingWidth > 0) {
+      const width = (occupiedWidth) ? (remainingWidth / 2 * TILE_SIZE) : (remainingWidth * TILE_SIZE)
+      if (!occupiedWidth && position === 'right') {
+        return segmentInfo
       } else {
-        width = remainingWidth / 2 * TILE_SIZE
-        this.showEmptySegment(width)
+        segmentInfo.segmentWidth = (position === 'right') ? width - 1 : width
+        segmentInfo.widthValue = width / TILE_SIZE
+        segmentInfo.className += ' visible'
       }
     }
+
+    return segmentInfo
   }
 
   render () {
-    const { position } = this.props
+    const { position, units } = this.props
+    const segmentInfo = this.repositionEmptySegment()
 
     const style = {
-      width: this.state.segmentWidth + 'px',
+      width: segmentInfo.segmentWidth + 'px',
       right: (position === 'right') ? '1px' : 'auto'
     }
 
     return (
-      <div className="segment empty" ref={(ref) => { this.streetEmptySegment = ref }} style={style}>
+      <div className={segmentInfo.className} style={style}>
         <span className="name"> { t('section.empty', 'Empty space') } </span>
         <span className="width">
-          <MeasurementText value={this.state.widthValue} units={this.props.units} />
+          <MeasurementText value={segmentInfo.widthValue} units={units} />
         </span>
         <span className="grid" />
       </div>
