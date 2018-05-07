@@ -23,7 +23,8 @@ describe('locale action creators', () => {
         'foo.bar': 'baz',
         'foo.qux': 'bar',
         'qux.baz.bar': 'foo {boop}'
-      }
+      },
+      segmentInfo: {}
     }
 
     expect(actions.setLocale('pt-BR', translation)).toEqual(expectedAction)
