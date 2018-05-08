@@ -75,7 +75,8 @@ body.phone #loading {
   }
 }
 
-#loading .streetmix-logo {
+#loading .streetmix-logo,
+#error .streetmix-logo {
   top: -40%;
   width: 80%;
   height: 20%;
