@@ -13,8 +13,7 @@ class EmptySegment extends React.PureComponent {
     position: PropTypes.string
   }
 
-  repositionEmptySegment = () => {
-    const { remainingWidth, occupiedWidth, position } = this.props
+  getSegmentInfo (remainingWidth, occupiedWidth, position) {
     const segmentInfo = {
       className: 'segment empty',
       segmentWidth: 0,
@@ -22,12 +21,12 @@ class EmptySegment extends React.PureComponent {
     }
 
     if (remainingWidth > 0) {
-      const width = (occupiedWidth) ? (remainingWidth / 2 * TILE_SIZE) : (remainingWidth * TILE_SIZE)
+      const width = (occupiedWidth) ? remainingWidth / 2 : remainingWidth
       if (!occupiedWidth && position === 'right') {
         return segmentInfo
       } else {
-        segmentInfo.segmentWidth = (position === 'right') ? width - 1 : width
-        segmentInfo.widthValue = width / TILE_SIZE
+        segmentInfo.segmentWidth = (position === 'right') ? width * TILE_SIZE - 1 : width * TILE_SIZE
+        segmentInfo.widthValue = width
         segmentInfo.className += ' visible'
       }
     }
@@ -36,8 +35,8 @@ class EmptySegment extends React.PureComponent {
   }
 
   render () {
-    const { position, units } = this.props
-    const segmentInfo = this.repositionEmptySegment()
+    const { remainingWidth, occupiedWidth, position, units } = this.props
+    const segmentInfo = this.getSegmentInfo(remainingWidth, occupiedWidth, position)
 
     const style = {
       width: segmentInfo.segmentWidth + 'px',
@@ -46,7 +45,7 @@ class EmptySegment extends React.PureComponent {
 
     return (
       <div className={segmentInfo.className} style={style}>
-        <span className="name"> { t('section.empty', 'Empty space') } </span>
+        <span className="name">{t('section.empty', 'Empty space')}</span>
         <span className="width">
           <MeasurementText value={segmentInfo.widthValue} units={units} />
         </span>
