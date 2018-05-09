@@ -8,15 +8,11 @@
   touch-action: none;
 }
 
-.segment.empty {
+.segment-empty {
   position: absolute;
   pointer-events: none;
   display: none;
   z-index: -1;
-
-  &#street-section-right-empty-space {
-    right: 1px;
-  }
 
   &.visible {
     display: block;
@@ -32,7 +28,7 @@
   }
 }
 
-body.segment-move-dragging .segment.empty {
+body.segment-move-dragging .segment-empty {
   display: none;
 }
 

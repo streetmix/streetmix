@@ -13,41 +13,36 @@ class EmptySegment extends React.PureComponent {
     position: PropTypes.string
   }
 
-  getSegmentInfo (remainingWidth, occupiedWidth, position) {
-    const segmentInfo = {
-      className: 'segment empty',
-      segmentWidth: 0,
-      widthValue: 0
-    }
+  getActualWidth (occupiedWidth, remainingWidth, position) {
+    // If street is empty, only display the left side empty segment, make right side 0 width
+    if (!occupiedWidth && position === 'right') return 0
+    return (occupiedWidth) ? remainingWidth / 2 : remainingWidth
+  }
 
-    if (remainingWidth > 0) {
-      const width = (occupiedWidth) ? remainingWidth / 2 : remainingWidth
-      if (!occupiedWidth && position === 'right') {
-        return segmentInfo
-      } else {
-        segmentInfo.segmentWidth = (position === 'right') ? width * TILE_SIZE - 1 : width * TILE_SIZE
-        segmentInfo.widthValue = width
-        segmentInfo.className += ' visible'
-      }
-    }
-
-    return segmentInfo
+  getSegmentRenderWidth (width, position) {
+    return (position === 'right') ? width * TILE_SIZE - 1 : width * TILE_SIZE
   }
 
   render () {
     const { remainingWidth, occupiedWidth, position, units } = this.props
-    const segmentInfo = this.getSegmentInfo(remainingWidth, occupiedWidth, position)
+
+    const width = this.getActualWidth(occupiedWidth, remainingWidth, position)
+    const renderWidth = this.getSegmentRenderWidth(width, position)
+
+    const classNames = ['segment', 'segment-empty']
+    if (width > 0) classNames.push('visible')
 
     const style = {
-      width: segmentInfo.segmentWidth + 'px',
+      width: renderWidth + 'px',
+      // Adjust right empty segment by 1px for visual placement
       right: (position === 'right') ? '1px' : 'auto'
     }
 
     return (
-      <div className={segmentInfo.className} style={style}>
+      <div className={classNames.join(' ')} style={style}>
         <span className="name">{t('section.empty', 'Empty space')}</span>
         <span className="width">
-          <MeasurementText value={segmentInfo.widthValue} units={units} />
+          <MeasurementText value={width} units={units} />
         </span>
         <span className="grid" />
       </div>
