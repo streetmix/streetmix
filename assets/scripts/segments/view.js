@@ -1,4 +1,5 @@
 import { images } from '../app/load_resources'
+import { t } from '../app/locale'
 import { infoBubble, INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/info_bubble'
 import { system } from '../preinit/system_capabilities'
 import { saveStreetToServerIfNecessary, createDataFromDom } from '../streets/data_model'
@@ -13,6 +14,7 @@ import {
   resizeSegment,
   applyWarningsToSegments
 } from './resizing'
+import { prettifyWidth } from '../util/width_units'
 import { getVariantString } from './variant_utils'
 import store from '../store'
 
@@ -317,6 +319,45 @@ export function setSegmentContents (el, type, variantString, segmentWidth, randS
   }
 }
 
+export function localizeStreetSegments () {
+  let oldLocale = store.getState().locale.segmentInfo
+
+  store.subscribe(() => {
+    const locale = store.getState().locale.segmentInfo
+
+    if (locale !== oldLocale) {
+      oldLocale = locale
+      const { segments } = store.getState().street
+      segments.forEach((segment) => {
+        const name = getLocaleSegmentName(segment.type, segment.variantString)
+        const nameEl = segment.el.children[0]
+        const widthEl = segment.el.children[1]
+
+        nameEl.innerText = name
+        widthEl.innerHTML = prettifyWidth(segment.width, store.getState().street.units, { markup: true })
+      })
+    }
+  })
+}
+
+function getLocaleSegmentName (type, variantString) {
+  let key = 'segments.' + type
+  let name
+
+  const segmentInfo = getSegmentInfo(type)
+  const variantInfo = getSegmentVariantInfo(type, variantString)
+
+  if (variantInfo.name) {
+    key += '.details.' + variantString + '.name'
+    name = t(key, variantInfo.name, { ns: 'segment-info' })
+  } else {
+    key += '.name'
+    name = t(key, segmentInfo.name, { ns: 'segment-info' })
+  }
+
+  return name
+}
+
 export function createSegment (type, variantString, width, isUnmovable, palette, randSeed) {
   let innerEl, dragHandleEl
   var el = document.createElement('div')
@@ -336,8 +377,9 @@ export function createSegment (type, variantString, width, isUnmovable, palette,
   if (!palette) {
     el.style.zIndex = segmentInfo.zIndex
 
-    const variantInfo = getSegmentVariantInfo(type, variantString)
-    const name = variantInfo.name || segmentInfo.name
+    // const variantInfo = getSegmentVariantInfo(type, variantString)
+    // const name = variantInfo.name || segmentInfo.name
+    const name = getLocaleSegmentName(type, variantString)
 
     innerEl = document.createElement('span')
     innerEl.classList.add('name')
