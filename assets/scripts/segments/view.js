@@ -377,13 +377,11 @@ export function createSegment (type, variantString, width, isUnmovable, palette,
   if (!palette) {
     el.style.zIndex = segmentInfo.zIndex
 
-    // const variantInfo = getSegmentVariantInfo(type, variantString)
-    // const name = variantInfo.name || segmentInfo.name
     const name = getLocaleSegmentName(type, variantString)
 
     innerEl = document.createElement('span')
     innerEl.classList.add('name')
-    innerEl.innerHTML = name // TODO: localize
+    innerEl.innerHTML = name
     el.appendChild(innerEl)
 
     innerEl = document.createElement('span')
