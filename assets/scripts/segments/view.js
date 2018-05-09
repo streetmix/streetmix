@@ -4,11 +4,9 @@ import { system } from '../preinit/system_capabilities'
 import { saveStreetToServerIfNecessary, createDataFromDom } from '../streets/data_model'
 import { recalculateWidth } from '../streets/width'
 import { getElAbsolutePos } from '../util/helpers'
-import { prettifyWidth } from '../util/width_units'
 import { draggingMove } from './drag_and_drop'
 import { getSegmentInfo, getSegmentVariantInfo, getSpriteDef } from './info'
 import { drawProgrammaticPeople } from './people'
-import { t } from '../app/locale'
 import {
   RESIZE_TYPE_INITIAL,
   suppressMouseEnter,
@@ -387,33 +385,10 @@ export function createSegmentDom (segment) {
     segment.width * TILE_SIZE, segment.unmovable, false, segment.randSeed)
 }
 
-function fillEmptySegment (el) {
-  let innerEl
-  innerEl = document.createElement('span')
-  innerEl.classList.add('name')
-  innerEl.textContent = t('section.empty', 'Empty space')
-  el.appendChild(innerEl)
-
-  innerEl = document.createElement('span')
-  innerEl.classList.add('width')
-  el.appendChild(innerEl)
-
-  innerEl = document.createElement('span')
-  innerEl.classList.add('grid')
-  el.appendChild(innerEl)
-}
-
-export function fillEmptySegments () {
-  fillEmptySegment(document.querySelector('#street-section-left-empty-space'))
-  fillEmptySegment(document.querySelector('#street-section-right-empty-space'))
-}
-
 export function repositionSegments () {
   let width, el
   var left = 0
   var noMoveLeft = 0
-
-  var extraWidth = 0
 
   const street = store.getState().street
   for (let i in street.segments) {
@@ -421,11 +396,9 @@ export function repositionSegments () {
 
     if (el === draggingMove.segmentBeforeEl) {
       left += DRAGGING_MOVE_HOLE_WIDTH
-      extraWidth += DRAGGING_MOVE_HOLE_WIDTH
 
       if (!draggingMove.segmentAfterEl) {
         left += DRAGGING_MOVE_HOLE_WIDTH
-        extraWidth += DRAGGING_MOVE_HOLE_WIDTH
       }
     }
 
@@ -444,11 +417,9 @@ export function repositionSegments () {
 
     if (el === draggingMove.segmentAfterEl) {
       left += DRAGGING_MOVE_HOLE_WIDTH
-      extraWidth += DRAGGING_MOVE_HOLE_WIDTH
 
       if (!draggingMove.segmentBeforeEl) {
         left += DRAGGING_MOVE_HOLE_WIDTH
-        extraWidth += DRAGGING_MOVE_HOLE_WIDTH
       }
     }
   }
@@ -471,18 +442,6 @@ export function repositionSegments () {
     } else {
       el.style.left = el.savedLeft + 'px'
     }
-  }
-
-  if (system.cssTransform) {
-    document.querySelector('#street-section-left-empty-space')
-      .style[system.cssTransform] = 'translateX(' + (-extraWidth / 2) + 'px)'
-    document.querySelector('#street-section-right-empty-space')
-      .style[system.cssTransform] = 'translateX(' + (extraWidth / 2) + 'px)'
-  } else {
-    document.querySelector('#street-section-left-empty-space')
-      .style.marginLeft = -(extraWidth / 2) + 'px'
-    document.querySelector('#street-section-right-empty-space')
-      .style.marginLeft = (extraWidth / 2) + 'px'
   }
 }
 
@@ -573,43 +532,6 @@ export function switchSegmentElAway (el) {
   }, SEGMENT_SWITCHING_TIME)
 }
 
-function hideEmptySegment (position) {
-  document.querySelector('#street-section-' + position + '-empty-space')
-    .classList.remove('visible')
-}
-
-function showEmptySegment (position, width) {
-  document.querySelector('#street-section-' + position + '-empty-space .width').innerHTML =
-    prettifyWidth(width / TILE_SIZE, store.getState().street.units, { markup: true })
-  document.querySelector('#street-section-' + position + '-empty-space')
-    .classList.add('visible')
-
-  if (position === 'right') {
-    width-- // So that the rules align
-  }
-  document.querySelector('#street-section-' + position + '-empty-space')
-    .style.width = width + 'px'
-}
-
-function repositionEmptySegments () {
-  let width
-  const street = store.getState().street
-  if (street.remainingWidth <= 0) {
-    hideEmptySegment('left')
-    hideEmptySegment('right')
-  } else {
-    if (!street.occupiedWidth) {
-      width = street.remainingWidth * TILE_SIZE
-      showEmptySegment('left', width)
-      hideEmptySegment('right')
-    } else {
-      width = street.remainingWidth / 2 * TILE_SIZE
-      showEmptySegment('left', width)
-      showEmptySegment('right', width)
-    }
-  }
-}
-
 /**
  * Set `readDataFromDom` to false to prevent re-reading of segment
  * data from the DOM. Do this whenever we refactor code to modify
@@ -633,7 +555,6 @@ export function segmentsChanged (readDataFromDom = true, reassignElementRefs = f
   }
 
   recalculateWidth()
-  repositionEmptySegments()
   applyWarningsToSegments()
 
   for (var i in segments) {

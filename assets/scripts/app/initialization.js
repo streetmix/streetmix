@@ -6,7 +6,7 @@ import { app } from '../preinit/app_settings'
 import { debug } from '../preinit/debug_settings'
 import { system } from '../preinit/system_capabilities'
 import { initializeFlagSubscribers } from '../app/flag_utils'
-import { fillEmptySegments, segmentsChanged } from '../segments/view'
+import { segmentsChanged } from '../segments/view'
 import { onNewStreetLastClick } from '../streets/creation'
 import {
   createDomFromData,
@@ -75,8 +75,6 @@ export async function initialize () {
   }
 
   window.dispatchEvent(new window.CustomEvent('stmx:init'))
-
-  fillEmptySegments()
 
   processUrl()
   processMode()

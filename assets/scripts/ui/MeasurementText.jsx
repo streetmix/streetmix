@@ -42,7 +42,7 @@ export default class MeasurementText extends React.Component {
       <span>
         {this.getMeasurementString(value, units)}
         <wbr />&#8202;
-        {(units === SETTINGS_UNITS_METRIC) ? 'm' : 'ft'}
+        {(units === SETTINGS_UNITS_METRIC) ? 'm' : "'" }
       </span>
     )
   }
