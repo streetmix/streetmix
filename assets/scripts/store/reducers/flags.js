@@ -1,5 +1,5 @@
 import { SET_FEATURE_FLAG } from '../actions'
-import { FEATURE_FLAGS } from '../../app/flag_data'
+import FEATURE_FLAGS from '../../../../app/data/flags'
 
 function generateInitialFlags (flags) {
   const storage = JSON.parse(window.localStorage.getItem('flags'))

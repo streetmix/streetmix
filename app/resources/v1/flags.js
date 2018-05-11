@@ -5,7 +5,7 @@ const logger = require('../../../lib/logger.js')()
 
 const readFile = util.promisify(fs.readFile)
 
-async function getFlags (res) {
+async function readFlags (res) {
   const flagFile = `${process.cwd()}/app/data/flags.json`
 
   try {
@@ -32,7 +32,7 @@ function sendSuccessResponse (res, flags) {
 }
 
 exports.get = async function (req, res) {
-  let flags = await getFlags(res)
+  let flags = await readFlags(res)
 
   if (flags) {
     sendSuccessResponse(res, flags)

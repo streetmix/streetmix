@@ -7,7 +7,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { FEATURE_FLAGS } from '../app/flag_data'
+import FEATURE_FLAGS from '../../../app/data/flags'
 import { setFeatureFlag } from '../store/actions/flags'
 
 class FeatureFlagDialog extends React.Component {
