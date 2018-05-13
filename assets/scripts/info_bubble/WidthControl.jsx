@@ -66,11 +66,11 @@ class WidthControl extends React.Component {
    * If UI is going to enter user-editing mode, immediately
    * save the previous value in case editing is cancelled
    *
-   * @param {Object} nextProps
-   * @param {Object} nextState
+   * @param {Object} prevProps
+   * @param {Object} prevState
    */
-  componentWillUpdate (nextProps, nextState) {
-    if (!this.state.isEditing && nextState.isEditing) {
+  componentDidUpdate (prevProps, prevState) {
+    if (!prevState.isEditing && this.state.isEditing) {
       this.oldValue = this.props.value
     }
   }
