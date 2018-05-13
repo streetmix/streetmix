@@ -3,7 +3,7 @@ import { system } from '../preinit/system_capabilities'
 import { BUILDING_SPACE } from '../segments/buildings'
 import { getSegmentVariantInfo } from '../segments/info'
 import { getSegmentWidthResolution } from '../segments/resizing'
-import { TILE_SIZE } from '../segments/view'
+import { TILE_SIZE } from '../segments/constants'
 import store from '../store'
 import { updateOccupiedWidth, updateSegments } from '../store/actions/street'
 

@@ -9,8 +9,8 @@ import {
   drawBuilding
 } from '../segments/buildings'
 import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
+import { TILE_SIZE } from '../segments/constants'
 import {
-  TILE_SIZE,
   getVariantInfoDimensions,
   drawSegmentContents
 } from '../segments/view'

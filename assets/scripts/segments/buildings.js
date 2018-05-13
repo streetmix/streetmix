@@ -1,7 +1,7 @@
 import { RandomGenerator } from '../util/random'
 import { images } from '../app/load_resources'
-
-import { TILE_SIZE, TILESET_POINT_PER_PIXEL, drawSegmentImage } from './view'
+import { TILE_SIZE, TILESET_POINT_PER_PIXEL } from '../segments/constants'
+import { drawSegmentImage } from './view'
 import store from '../store'
 
 const MAX_CANVAS_HEIGHT = 2048

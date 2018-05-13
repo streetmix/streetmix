@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import MeasurementText from '../ui/MeasurementText'
-import { TILE_SIZE } from '../segments/view'
+import { TILE_SIZE } from '../segments/constants'
 import { t } from '../app/locale'
 
-class EmptySegment extends React.PureComponent {
+export class EmptySegment extends React.PureComponent {
   static propTypes = {
     remainingWidth: PropTypes.number,
     occupiedWidth: PropTypes.number,

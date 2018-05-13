@@ -14,7 +14,8 @@ import {
   changeDraggingType,
   removeGuides
 } from './drag_and_drop'
-import { TILE_SIZE, setSegmentContents, segmentsChanged } from './view'
+import { TILE_SIZE } from './constants'
+import { setSegmentContents, segmentsChanged } from './view'
 import store from '../store'
 import { updateSegments } from '../store/actions/street'
 

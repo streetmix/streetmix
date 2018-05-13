@@ -7,6 +7,7 @@ import { getElAbsolutePos } from '../util/helpers'
 import { draggingMove } from './drag_and_drop'
 import { getSegmentInfo, getSegmentVariantInfo, getSpriteDef } from './info'
 import { drawProgrammaticPeople } from './people'
+import { TILE_SIZE, TILESET_POINT_PER_PIXEL } from './constants'
 import {
   RESIZE_TYPE_INITIAL,
   suppressMouseEnter,
@@ -15,9 +16,6 @@ import {
 } from './resizing'
 import { getVariantString } from './variant_utils'
 import store from '../store'
-
-export const TILESET_POINT_PER_PIXEL = 2.0
-export const TILE_SIZE = 12 // pixels
 
 const CANVAS_HEIGHT = 480
 const CANVAS_GROUND = 35
