@@ -20,27 +20,17 @@ export class EmptySegment extends React.PureComponent {
     return (occupiedWidth) ? remainingWidth / 2 : remainingWidth
   }
 
-  getSegmentRenderWidth (width, position) {
-    return (position === 'right') ? width * TILE_SIZE - 1 : width * TILE_SIZE
-  }
-
   render () {
     const { remainingWidth, occupiedWidth, position, units, locale } = this.props
-
     const width = this.getActualWidth(occupiedWidth, remainingWidth, position)
-    const renderWidth = this.getSegmentRenderWidth(width, position)
-
-    const classNames = ['segment', 'segment-empty']
-    if (width > 0) classNames.push('visible')
-
     const style = {
-      width: renderWidth + 'px',
-      // Adjust right empty segment by 1px for visual placement
-      right: (position === 'right') ? '1px' : 'auto'
+      width: (width * TILE_SIZE) + 'px',
+      display: (width <= 0) ? 'none' : undefined,
+      right: (position === 'right') ? 0 : 'auto'
     }
 
     return (
-      <div className={classNames.join(' ')} style={style}>
+      <div className="segment segment-empty" style={style}>
         <span className="name">{t('section.empty', 'Empty space')}</span>
         <span className="width">
           <MeasurementText value={width} units={units} locale={locale} />
