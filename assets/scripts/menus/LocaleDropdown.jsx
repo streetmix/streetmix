@@ -115,9 +115,20 @@ export class LocaleDropdown extends React.Component {
   constructor (props) {
     super(props)
 
+    // Will be set by `getDerivedStateFromProps`
     this.state = {
-      level: this.determineLevel(props)
+      level: null
     }
+  }
+
+  static getDerivedStateFromProps (nextProps) {
+    // The lowest level marked "true" takes priority.
+    let level = 4
+    if (nextProps.level3) level = 3
+    if (nextProps.level2) level = 2
+    if (nextProps.level1) level = 1
+
+    return { level }
   }
 
   componentDidMount () {
@@ -129,24 +140,12 @@ export class LocaleDropdown extends React.Component {
     }
   }
 
-  componentWillReceiveProps (nextProps) {
-    this.setState({ level: this.determineLevel(nextProps) })
-  }
-
   onShow () {
     trackEvent('Interaction', 'Open settings menu', null, null, false)
   }
 
   onChange = (event) => {
     this.props.changeLocale(event.target.value)
-  }
-
-  determineLevel = (props) => {
-    let level = 4
-    if (props.level3) level = 3
-    if (props.level2) level = 2
-    if (props.level1) level = 1
-    return level
   }
 
   renderLocaleOptions = () => {
