@@ -30,6 +30,20 @@ class MenusContainer extends React.PureComponent {
     }
   }
 
+  static getDerivedStateFromProps (nextProps, prevState) {
+    // If menus are being cleared, handle this. Since active menu is a prop, it
+    // can be cleared from anywhere, so this handles changes in active menu state.
+    // Clear active menu state only if props have changed from an active menu
+    // state to a no-menu state, this prevents side effects from running needlessly.
+    if (prevState.activeMenuPos && !nextProps.activeMenu) {
+      return {
+        activeMenuPos: null
+      }
+    }
+
+    return null
+  }
+
   componentDidMount () {
     // Hide menus if page loses visibility.
     document.addEventListener('visibilitychange', () => {
@@ -42,13 +56,10 @@ class MenusContainer extends React.PureComponent {
     registerKeypress('esc', this.hideAllMenus)
   }
 
-  componentWillReceiveProps (nextProps) {
-    // If menus are being cleared, handle this. Since active menu is a prop, it
-    // can be cleared from anywhere, so this handles changes in active menu state.
-    // Only call `handleMenuClear` if props have changed from an active menu
-    // state to a no-menu state, this prevents side effects from running needlessly.
-    if (this.props.activeMenu && !nextProps.activeMenu) {
-      this.handleMenuClear()
+  componentDidUpdate (prevProps, prevState, snapshot) {
+    // Force document.body to become the active element when there is no longer an active menu.
+    if (prevProps.activeMenu && !this.props.activeMenu) {
+      document.body.focus()
     }
   }
 
@@ -72,22 +83,6 @@ class MenusContainer extends React.PureComponent {
       activeMenuPos: activeMenu ? position : null
     })
     this.props.showMenu(activeMenu)
-  }
-
-  /**
-   * Handles component state and DOM changes when menus are cleared. Called from
-   * `componentWillReceiveProps()` which will check if props have actually changed.
-   */
-  handleMenuClear = () => {
-    this.setState({
-      activeMenuPos: null
-    })
-
-    // Force document.body to become the active element.
-    // NOTE: prop change check is performed in `componentWillReceiveProps()`
-    // because we do not want to re-focus needlessly on document.body if there
-    // were no menus to hide.
-    document.body.focus()
   }
 
   hideAllMenus = () => {
