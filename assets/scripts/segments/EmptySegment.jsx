@@ -10,7 +10,8 @@ export class EmptySegment extends React.PureComponent {
     remainingWidth: PropTypes.number,
     occupiedWidth: PropTypes.number,
     units: PropTypes.number,
-    position: PropTypes.string
+    position: PropTypes.string,
+    locale: PropTypes.string
   }
 
   getActualWidth (occupiedWidth, remainingWidth, position) {
@@ -24,7 +25,7 @@ export class EmptySegment extends React.PureComponent {
   }
 
   render () {
-    const { remainingWidth, occupiedWidth, position, units } = this.props
+    const { remainingWidth, occupiedWidth, position, units, locale } = this.props
 
     const width = this.getActualWidth(occupiedWidth, remainingWidth, position)
     const renderWidth = this.getSegmentRenderWidth(width, position)
@@ -42,7 +43,7 @@ export class EmptySegment extends React.PureComponent {
       <div className={classNames.join(' ')} style={style}>
         <span className="name">{t('section.empty', 'Empty space')}</span>
         <span className="width">
-          <MeasurementText value={width} units={units} />
+          <MeasurementText value={width} units={units} locale={locale} />
         </span>
         <span className="grid" />
       </div>
