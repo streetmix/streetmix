@@ -320,10 +320,10 @@ export function setSegmentContents (el, type, variantString, segmentWidth, randS
 }
 
 export function localizeStreetSegments () {
-  let oldLocale = store.getState().locale.segmentInfo
+  let oldLocale = store.getState().locale.locale
 
   store.subscribe(() => {
-    const locale = store.getState().locale.segmentInfo
+    const locale = store.getState().locale.locale
 
     if (locale !== oldLocale) {
       oldLocale = locale
