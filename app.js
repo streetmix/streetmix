@@ -193,6 +193,10 @@ app.get('/assets/images/images.svg', function (req, res) {
   res.sendFile(path.join(__dirname, '/node_modules/@streetmix/illustrations/dist/images.svg'))
 })
 
+app.get('/assets/*', function (req, res) {
+  res.render('404', {})
+})
+
 // Post-deploy hook handler
 app.post(
   '/services/post-deploy',
