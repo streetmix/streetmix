@@ -10,7 +10,10 @@ import { t } from '../app/locale'
 export default class Description extends React.Component {
   static propTypes = {
     description: PropTypes.object,
-    type: PropTypes.string,
+    segment: PropTypes.shape({
+      type: PropTypes.string,
+      variantString: PropTypes.string
+    }),
     updateBubbleDimensions: PropTypes.func.isRequired,
     toggleHighlightTriangle: PropTypes.func.isRequired
   }
@@ -39,7 +42,7 @@ export default class Description extends React.Component {
     this.props.updateBubbleDimensions()
 
     registerKeypress('esc', this.onClickHide)
-    trackEvent('INTERACTION', 'LEARN_MORE', this.props.type, null, false)
+    trackEvent('INTERACTION', 'LEARN_MORE', this.props.segment.type, null, false)
   }
 
   onClickHide = () => {
@@ -89,7 +92,11 @@ export default class Description extends React.Component {
 
     // Get translated text for prompt, if it exists
     const defaultPrompt = description.prompt || <FormattedMessage id="segments.learn-more" defaultMessage="Learn more" />
-    const prompt = t(`segments.${this.props.type}.description.prompt`, defaultPrompt, { ns: 'segment-info' })
+
+    // TODO: use FormattedMessage
+    const variantPrompt = t(`segments.${this.props.segment.type}.details.${this.props.segment.variantString}.description.prompt`, null, { ns: 'segment-info' })
+    const segmentPrompt = t(`segments.${this.props.segment.type}.description.prompt`, defaultPrompt, { ns: 'segment-info' })
+    const displayPrompt = variantPrompt || segmentPrompt
 
     // TODO: add alt text and requisite a11y attributes
     const image = (description.image) ? (
@@ -114,7 +121,7 @@ export default class Description extends React.Component {
           onMouseOver={this.props.toggleHighlightTriangle}
           onMouseOut={this.props.toggleHighlightTriangle}
         >
-          {prompt}
+          {displayPrompt}
         </div>
         <div className="description-canvas" style={height}>
           <div className="description" ref={(ref) => { this.text = ref }}>
