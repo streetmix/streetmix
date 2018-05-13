@@ -291,7 +291,7 @@ class InfoBubble extends React.Component {
         <Warnings segment={this.state.segment} />
         <Description
           description={this.state.description}
-          type={this.state.segment && this.state.segment.type}
+          segment={this.state.segment}
           updateBubbleDimensions={this.updateBubbleDimensions}
           toggleHighlightTriangle={this.toggleHighlightTriangle}
         />
