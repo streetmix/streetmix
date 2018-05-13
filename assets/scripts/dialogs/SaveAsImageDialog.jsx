@@ -8,7 +8,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape } from 'react-intl'
-import { isEqual } from 'lodash'
 import { trackEvent } from '../app/event_tracking'
 import { getStreetImage } from '../streets/image'
 import { setSettings } from '../store/actions/settings'
@@ -43,17 +42,22 @@ export class SaveAsImageDialog extends React.Component {
     }
   }
 
+  static getDerivedStateFromProps (nextProps, prevState) {
+    if (prevState.isLoading === false) {
+      return { isLoading: true }
+    }
+
+    return null
+  }
+
   componentDidMount () {
     trackEvent('Sharing', 'Save as image', null, null, false)
 
     this.updatePreview()
   }
 
-  componentWillReceiveProps (nextProps) {
-    // When props change, update image.
-    if (isEqual(nextProps, this.props) === false) {
-      this.setState({ isLoading: true })
-
+  componentDidUpdate (prevProps, prevState) {
+    if (this.state.isLoading === true) {
       // Update preview when props change; make a slight delay because there is
       // a slight lag on image creation, but it's so short it feels weird.
       // Time delay makes the "Loading" feel "right."
