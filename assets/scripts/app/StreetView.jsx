@@ -16,7 +16,7 @@ import { infoBubble } from '../info_bubble/info_bubble'
 import { animate, getElAbsolutePos } from '../util/helpers'
 import { MAX_CUSTOM_STREET_WIDTH } from '../streets/width'
 import { BUILDING_SPACE } from '../segments/buildings'
-import { TILE_SIZE } from '../segments/view'
+import { TILE_SIZE } from '../segments/constants'
 import { app } from '../preinit/app_settings'
 
 class StreetView extends React.Component {

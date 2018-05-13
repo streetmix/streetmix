@@ -1,13 +1,6 @@
 /* eslint-env jest */
 import { processWidthInput } from '../width_units'
-import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from '../../users/localization'
-
-jest.mock('../../users/localization', () => {
-  return {
-    SETTINGS_UNITS_IMPERIAL: 1,
-    SETTINGS_UNITS_METRIC: 2
-  }
-})
+import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from '../../users/constants'
 
 // Use this when it doesn't matter what the unit is.
 // TODO: Switch default units to metric

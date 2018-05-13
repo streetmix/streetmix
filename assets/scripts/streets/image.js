@@ -1,6 +1,6 @@
 import { drawStreetThumbnail } from '../gallery/thumbnail'
 import { BUILDING_SPACE, getBuildingImageHeight } from '../segments/buildings'
-import { TILE_SIZE } from '../segments/view'
+import { TILE_SIZE } from '../segments/constants'
 
 // This can be adjusted to create much more hi-definition images
 const SAVE_AS_IMAGE_DPI = 2.0

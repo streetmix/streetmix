@@ -11,12 +11,7 @@
 .segment-empty {
   position: absolute;
   pointer-events: none;
-  display: none;
   z-index: -1;
-
-  &.visible {
-    display: block;
-  }
 
   .name,
   .width {

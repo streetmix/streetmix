@@ -27,8 +27,8 @@ import {
   hideControls
 } from './resizing'
 import { getVariantArray, getVariantString } from './variant_utils'
+import { TILE_SIZE } from './constants'
 import {
-  TILE_SIZE,
   setSegmentContents,
   repositionSegments,
   createSegment,

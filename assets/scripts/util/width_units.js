@@ -1,7 +1,4 @@
-import {
-  SETTINGS_UNITS_IMPERIAL,
-  SETTINGS_UNITS_METRIC
-} from '../users/localization'
+import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from '../users/constants'
 import store from '../store'
 
 const IMPERIAL_METRIC_MULTIPLIER = 30 / 100
@@ -81,19 +78,21 @@ export function processWidthInput (widthInput, units) {
  * @param {Number} units - units, either SETTINGS_UNITS_METRIC or
  *            SETTINGS_UNITS_IMPERIAL, to format width as. If undefined,
  *            assume metric.
+ * @todo pass locale code to this function
  * @returns {string}
  */
 export function prettifyWidth (width, units) {
   let widthText = ''
+  const locale = store.getState().locale.locale
 
   switch (units) {
     case SETTINGS_UNITS_IMPERIAL:
-      widthText = getImperialMeasurementWithVulgarFractions(width) // also converts to string and does locale formatting
+      widthText = getImperialMeasurementWithVulgarFractions(width, locale) // also converts to string
       widthText += "'"
       break
     case SETTINGS_UNITS_METRIC:
     default:
-      widthText = stringifyMeasurementValue(width, SETTINGS_UNITS_METRIC) // also does locale formatting
+      widthText = stringifyMeasurementValue(width, SETTINGS_UNITS_METRIC, locale)
       widthText += ' m'
       break
   }
@@ -109,10 +108,10 @@ export function prettifyWidth (width, units) {
  * @param {Number} value - original measurement value
  * @param {Number} units - either SETTINGS_UNITS_METRIC or SETTINGS_UNITS_IMPERIAL
  *          Defaults to metric.
+ * @param {string} locale - locale code
  * @returns {string} string - for display
  */
-export function stringifyMeasurementValue (value, units) {
-  const locale = store.getState().locale.locale
+export function stringifyMeasurementValue (value, units, locale) {
   let string = ''
 
   if (!value) return '0'
@@ -147,9 +146,10 @@ function convertImperialMeasurementToMetric (value) {
  * a string formatted to use vulgar fractions, e.g. .5 => ½
  *
  * @param {Number} value, assuming imperial units
+ * @param {string} locale - locale code
  * @returns {string} stringified value formatted with vulgar fractions
  */
-export function getImperialMeasurementWithVulgarFractions (value) {
+export function getImperialMeasurementWithVulgarFractions (value, locale) {
   // Determine if there is a vulgar fraction to display
   const remainder = value - Math.floor(value)
   const fraction = IMPERIAL_VULGAR_FRACTIONS[remainder.toString().substr(1)]
@@ -157,14 +157,14 @@ export function getImperialMeasurementWithVulgarFractions (value) {
   if (fraction) {
     // Non-zero trailing number
     if (Math.floor(value)) {
-      return stringifyMeasurementValue(Math.floor(value), SETTINGS_UNITS_IMPERIAL) + fraction
+      return stringifyMeasurementValue(Math.floor(value), SETTINGS_UNITS_IMPERIAL, locale) + fraction
     } else {
       return fraction
     }
   }
 
   // Otherwise, just return the stringified value without fractions
-  return stringifyMeasurementValue(value, SETTINGS_UNITS_IMPERIAL)
+  return stringifyMeasurementValue(value, SETTINGS_UNITS_IMPERIAL, locale)
 }
 
 /**

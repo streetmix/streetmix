@@ -33,7 +33,8 @@ class WidthControl extends React.Component {
     position: PropTypes.number,
     value: PropTypes.number,
     changeSegmentWidth: PropTypes.func,
-    units: PropTypes.number
+    units: PropTypes.number,
+    locale: PropTypes.string
   }
 
   constructor (props) {
@@ -125,7 +126,7 @@ class WidthControl extends React.Component {
 
     this.setState({
       isEditing: true,
-      displayValue: stringifyMeasurementValue(this.props.value, this.props.units)
+      displayValue: stringifyMeasurementValue(this.props.value, this.props.units, this.props.locale)
     })
 
     if (document.activeElement !== el) {
@@ -162,7 +163,7 @@ class WidthControl extends React.Component {
   onMouseDownInput = (event) => {
     this.setState({
       isEditing: true,
-      displayValue: stringifyMeasurementValue(this.props.value, this.props.units)
+      displayValue: stringifyMeasurementValue(this.props.value, this.props.units, this.props.locale)
     })
   }
 
@@ -174,7 +175,7 @@ class WidthControl extends React.Component {
     if (this.state.isEditing) return
 
     this.setState({
-      displayValue: stringifyMeasurementValue(this.props.value, this.props.units)
+      displayValue: stringifyMeasurementValue(this.props.value, this.props.units, this.props.locale)
     })
 
     // Automatically select the value on hover so that it's easy to start typing new values.
@@ -308,7 +309,8 @@ function mapStateToProps (state, ownProps) {
     touch: state.system.touch,
     segment: segment,
     value: (segment && segment.width) || null,
-    units: state.street.units
+    units: state.street.units,
+    locale: state.locale.locale
   }
 }
 

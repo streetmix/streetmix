@@ -1,5 +1,6 @@
 import { cloneDeep } from 'lodash'
 
+import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from './constants'
 import { debug } from '../preinit/debug_settings'
 import {
   normalizeAllSegmentWidths,
@@ -26,9 +27,6 @@ import store from '../store'
 import { setUnits, updateStreetWidth, updateStreetData } from '../store/actions/street'
 import { clearMenus } from '../store/actions/menus'
 import { setUserUnits } from '../store/actions/persistSettings'
-
-export const SETTINGS_UNITS_IMPERIAL = 1
-export const SETTINGS_UNITS_METRIC = 2
 
 export function getUnits () {
   return store.getState().persistSettings.units
