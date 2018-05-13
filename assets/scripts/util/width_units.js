@@ -1,7 +1,4 @@
-import {
-  SETTINGS_UNITS_IMPERIAL,
-  SETTINGS_UNITS_METRIC
-} from '../users/localization'
+import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from '../users/constants'
 import store from '../store'
 
 const IMPERIAL_METRIC_MULTIPLIER = 30 / 100

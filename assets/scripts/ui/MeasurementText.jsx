@@ -1,13 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from '../users/constants'
 import {
   getImperialMeasurementWithVulgarFractions,
   stringifyMeasurementValue
 } from '../util/width_units'
-
-// Dupe from '../users/localization'
-const SETTINGS_UNITS_IMPERIAL = 1
-const SETTINGS_UNITS_METRIC = 2
 
 export default class MeasurementText extends React.Component {
   static propTypes = {

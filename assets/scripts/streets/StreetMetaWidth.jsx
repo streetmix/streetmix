@@ -5,11 +5,8 @@ import { FormattedMessage, injectIntl, intlShape } from 'react-intl'
 import { processWidthInput, prettifyWidth } from '../util/width_units'
 import { getSegmentWidthResolution } from '../segments/resizing'
 import { loseAnyFocus } from '../util/focus'
-import {
-  SETTINGS_UNITS_IMPERIAL,
-  SETTINGS_UNITS_METRIC,
-  updateUnits
-} from '../users/localization'
+import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from '../users/constants'
+import { updateUnits } from '../users/localization'
 import { segmentsChanged } from '../segments/view'
 import { createDomFromData } from './data_model'
 import { resizeStreetWidth } from './width'
