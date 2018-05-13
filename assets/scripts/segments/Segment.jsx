@@ -32,23 +32,9 @@ class Segment extends React.Component {
     units: SETTINGS_UNITS_METRIC
   }
 
-  calculateWidth = (resizeType) => {
-    let width = this.props.width / TILE_SIZE
-    if (!this.props.forPalette) {
-      width = normalizeSegmentWidth(width, resizeType)
-    }
+  constructor (props) {
+    super(props)
 
-    // TODO - copied from resizeSegment. make sure we don't need
-    // document.body.classList.add('immediate-segment-resize')
-    // window.setTimeout(function () {
-    //   document.body.classList.remove('immediate-segment-resize')
-    // }, SHORT_DELAY)
-
-    width = (width * TILE_SIZE)
-    return width
-  }
-
-  componentWillMount = () => {
     this.initialRender = true
   }
 
@@ -71,6 +57,22 @@ class Segment extends React.Component {
       segmentsChanged()
       infoBubble.updateContents()
     }
+  }
+
+  calculateWidth = (resizeType) => {
+    let width = this.props.width / TILE_SIZE
+    if (!this.props.forPalette) {
+      width = normalizeSegmentWidth(width, resizeType)
+    }
+
+    // TODO - copied from resizeSegment. make sure we don't need
+    // document.body.classList.add('immediate-segment-resize')
+    // window.setTimeout(function () {
+    //   document.body.classList.remove('immediate-segment-resize')
+    // }, SHORT_DELAY)
+
+    width = (width * TILE_SIZE)
+    return width
   }
 
   render () {
