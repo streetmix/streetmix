@@ -1,4 +1,4 @@
-import { FEATURE_FLAGS } from './flag_data'
+import FEATURE_FLAGS from '../../../app/data/flags'
 import { observeStore } from '../store'
 
 // Imported to force updates when state changes

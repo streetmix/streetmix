@@ -2,17 +2,15 @@
 import reducer from '../flags'
 import * as actions from '../../actions/flags'
 
-jest.mock('../../../app/flag_data', () => {
+jest.mock('../../../../../app/data/flags', () => {
   return {
-    FEATURE_FLAGS: {
-      FOO_BAR: {
-        label: 'foo — bar',
-        defaultValue: false
-      },
-      BAZ_QUX: {
-        label: 'baz — qux',
-        defaultValue: true
-      }
+    FOO_BAR: {
+      label: 'foo — bar',
+      defaultValue: false
+    },
+    BAZ_QUX: {
+      label: 'baz — qux',
+      defaultValue: true
     }
   }
 })
@@ -43,7 +41,6 @@ describe('flags reducer', () => {
         'value': false
       }
     }
-
     expect(action).toEqual(result)
   })
 })
