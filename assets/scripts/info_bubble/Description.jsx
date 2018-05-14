@@ -74,6 +74,27 @@ export default class Description extends React.Component {
     }
   }
 
+  /**
+   * Given an array of strings, returns true if it's falsy, an empty array,
+   * or an array of empty strings.
+   *
+   * @param {Array} array
+   */
+  isEmptyText (array) {
+    if (!array) return true
+    if (Array.isArray(array)) {
+      if (array.length === 0) return true
+
+      let isEmpty = true
+      for (let i = 0; i < array.length; i++) {
+        if (array[i]) isEmpty = false
+      }
+      if (isEmpty) return true
+    }
+
+    return false
+  }
+
   renderText (text) {
     if (!text) return null
     return text.map((paragraph, index) => {
@@ -90,6 +111,12 @@ export default class Description extends React.Component {
 
     if (!description) return null
 
+    // If the description text hasn't been translated, bail.
+    const variantDescriptionText = t(`segments.${this.props.segment.type}.details.${this.props.segment.variantString}.description.text`, null, { ns: 'segment-info' })
+    const segmentDescriptionText = t(`segments.${this.props.segment.type}.description.text`, null, { ns: 'segment-info' })
+    const displayDescription = variantDescriptionText || segmentDescriptionText
+    if (!displayDescription || this.isEmptyText(displayDescription)) return null
+
     // Get translated text for prompt, if it exists
     const defaultPrompt = description.prompt || <FormattedMessage id="segments.learn-more" defaultMessage="Learn more" />
 
@@ -103,14 +130,23 @@ export default class Description extends React.Component {
       <img src={`/images/info-bubble-examples/${description.image}`} />
     ) : null
 
-    const lede = (description.lede) ? (
-      <p className="description-lede">{description.lede}</p>
+    const variantLede = t(`segments.${this.props.segment.type}.details.${this.props.segment.variantString}.description.lede`, null, { ns: 'segment-info' })
+    const segmentLede = t(`segments.${this.props.segment.type}.description.lede`, description.lede, { ns: 'segment-info' })
+    const displayLede = variantLede || segmentLede
+    const lede = (displayLede) ? (
+      <p className="description-lede">{displayLede}</p>
     ) : null
 
-    const text = this.renderText(description.text)
+    const text = this.renderText(displayDescription)
 
-    const caption = (description.imageCaption) ? (
-      <footer>Photo: {description.imageCaption}</footer>
+    const variantImageCaption = t(`segments.${this.props.segment.type}.details.${this.props.segment.variantString}.description.imageCaption`, null, { ns: 'segment-info' })
+    const segmentImageCaption = t(`segments.${this.props.segment.type}.description.imageCaption`, description.imageCaption, { ns: 'segment-info' })
+    const displayImageCaption = variantImageCaption || segmentImageCaption
+    const caption = (displayImageCaption) ? (
+      <footer>
+        <FormattedMessage id="segments.description.photo-credit" defaultMessage="Photo:" />&nbsp;
+        {displayImageCaption}
+      </footer>
     ) : null
 
     return (
