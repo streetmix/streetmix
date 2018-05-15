@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
-import Triangle from './Triangle'
+import DescriptionPanel from './DescriptionPanel'
 import { showDescription, hideDescription } from './description'
 import { trackEvent } from '../app/event_tracking'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
@@ -16,24 +16,6 @@ export default class Description extends React.Component {
     }),
     updateBubbleDimensions: PropTypes.func.isRequired,
     toggleHighlightTriangle: PropTypes.func.isRequired
-  }
-
-  constructor (props) {
-    super(props)
-
-    this.text = null
-
-    this.state = {
-      highlightTriangle: false
-    }
-  }
-
-  componentDidMount () {
-    this.retargetAnchors()
-  }
-
-  componentDidUpdate () {
-    this.retargetAnchors()
   }
 
   onClickShow = () => {
@@ -59,21 +41,6 @@ export default class Description extends React.Component {
     }, 200)
   }
 
-  toggleHighlightTriangle = () => {
-    this.setState({ highlightTriangle: !this.state.highlightTriangle })
-  }
-
-  /**
-   *  After rendering, ensure all links in description open in a new window
-   */
-  retargetAnchors = () => {
-    if (!this.text) return
-    const links = this.text.querySelectorAll('a')
-    for (let link of links) {
-      link.target = '_blank'
-    }
-  }
-
   /**
    * Given an array of strings, returns true if it's falsy, an empty array,
    * or an array of empty strings.
@@ -95,18 +62,7 @@ export default class Description extends React.Component {
     return false
   }
 
-  renderText (text) {
-    if (!text) return null
-    return text.map((paragraph, index) => {
-      const html = {
-        __html: paragraph
-      }
-      return <p key={index} dangerouslySetInnerHTML={html} />
-    })
-  }
-
   render () {
-    const height = null // height: 505px;
     const description = this.props.description
 
     if (!description) return null
@@ -125,29 +81,13 @@ export default class Description extends React.Component {
     const segmentPrompt = t(`segments.${this.props.segment.type}.description.prompt`, defaultPrompt, { ns: 'segment-info' })
     const displayPrompt = variantPrompt || segmentPrompt
 
-    // TODO: add alt text and requisite a11y attributes
-    const image = (description.image) ? (
-      <img src={`/images/info-bubble-examples/${description.image}`} />
-    ) : null
-
     const variantLede = t(`segments.${this.props.segment.type}.details.${this.props.segment.variantString}.description.lede`, null, { ns: 'segment-info' })
     const segmentLede = t(`segments.${this.props.segment.type}.description.lede`, description.lede, { ns: 'segment-info' })
     const displayLede = variantLede || segmentLede
-    const lede = (displayLede) ? (
-      <p className="description-lede">{displayLede}</p>
-    ) : null
-
-    const text = this.renderText(displayDescription)
 
     const variantImageCaption = t(`segments.${this.props.segment.type}.details.${this.props.segment.variantString}.description.imageCaption`, null, { ns: 'segment-info' })
     const segmentImageCaption = t(`segments.${this.props.segment.type}.description.imageCaption`, description.imageCaption, { ns: 'segment-info' })
     const displayImageCaption = variantImageCaption || segmentImageCaption
-    const caption = (displayImageCaption) ? (
-      <footer>
-        <FormattedMessage id="segments.description.photo-credit" defaultMessage="Photo:" />&nbsp;
-        {displayImageCaption}
-      </footer>
-    ) : null
 
     return (
       <React.Fragment>
@@ -159,23 +99,7 @@ export default class Description extends React.Component {
         >
           {displayPrompt}
         </div>
-        <div className="description-canvas" style={height}>
-          <div className="description" ref={(ref) => { this.text = ref }}>
-            {image}
-            {lede}
-            {text}
-            {caption}
-          </div>
-          <div
-            className="description-close"
-            onClick={this.onClickHide}
-            onMouseOver={this.toggleHighlightTriangle}
-            onMouseOut={this.toggleHighlightTriangle}
-          >
-            <FormattedMessage id="btn.close" defaultMessage="Close" />
-          </div>
-          <Triangle highlight={this.state.highlightTriangle} />
-        </div>
+        <DescriptionPanel image={description.image} lede={displayLede} text={displayDescription} caption={displayImageCaption} />
       </React.Fragment>
     )
   }
