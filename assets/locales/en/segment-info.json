@@ -86,7 +86,7 @@
         ]
       },
       "details": {
-        "inbound|colored": {
+        "inbound|green": {
           "description": {
             "prompt": "Learn more about colored bike lanes",
             "lede": "Colored bike lanes are more visible and safer for bicyclists.",
@@ -97,7 +97,29 @@
             ]
           }
         },
-        "outbound|colored": {
+        "outbound|green": {
+          "description": {
+            "prompt": "Learn more about colored bike lanes",
+            "lede": "Colored bike lanes are more visible and safer for bicyclists.",
+            "text": [
+              "As bicycling for day-to-day transportation becomes more widespread, planners need to ensure the safety of cyclists, eliminate collisions between bikes and cars, and prevent cars from illegally taking up space designated for bikes. The problem: motorists aren’t always completely aware of cyclists. The solution: make cyclists as visible as possible. And one strategy for this is to make bike lanes a totally different color than the rest of the asphalt.",
+              "Although the safety benefits for colored bike lanes have been proven in <a href=\"https://nacto.org/publication/urban-bikeway-design-guide/bikeway-signing-marking/colored-bike-facilities\">numerous studies</a>, everyone’s got an opinion on <em>which</em> color to use: the Netherlands uses red lanes, Denmark uses blue, and France uses green. The United Kingdom has a mixture of red and green, and most municipalities in the United States ended up going green (by accident: they all just copied each other), though Portland, one of the most bike-friendly cities in the U.S., have been using <a href=\"http://www.portlandoregon.gov/transportation/article/58842\">blue lanes since the 1990s</a>.",
+              "No matter which color you like best, the general rule of thumb is to pick something that sticks out and doesn’t look like other lane markings in your area. Beyond that, the more pressing budgetary concern for most cities is maintenance. Right now, the most commonly used type of paint dulls and wears off fairly quickly, although new improvements in paint are starting to make it more durable. But if recurring costs are a significant concern, don’t let that outweigh the safety benefits: you might want to consider an up-front cost in the form of <a href=\"http://peopleforbikes.org/green-lane-project/protected-bike-lanes-101\">protective barriers</a>, instead."
+            ]
+          }
+        },
+        "inbound|red": {
+          "description": {
+            "prompt": "Learn more about colored bike lanes",
+            "lede": "Colored bike lanes are more visible and safer for bicyclists.",
+            "text": [
+              "As bicycling for day-to-day transportation becomes more widespread, planners need to ensure the safety of cyclists, eliminate collisions between bikes and cars, and prevent cars from illegally taking up space designated for bikes. The problem: motorists aren’t always completely aware of cyclists. The solution: make cyclists as visible as possible. And one strategy for this is to make bike lanes a totally different color than the rest of the asphalt.",
+              "Although the safety benefits for colored bike lanes have been proven in <a href=\"https://nacto.org/publication/urban-bikeway-design-guide/bikeway-signing-marking/colored-bike-facilities\">numerous studies</a>, everyone’s got an opinion on <em>which</em> color to use: the Netherlands uses red lanes, Denmark uses blue, and France uses green. The United Kingdom has a mixture of red and green, and most municipalities in the United States ended up going green (by accident: they all just copied each other), though Portland, one of the most bike-friendly cities in the U.S., have been using <a href=\"http://www.portlandoregon.gov/transportation/article/58842\">blue lanes since the 1990s</a>.",
+              "No matter which color you like best, the general rule of thumb is to pick something that sticks out and doesn’t look like other lane markings in your area. Beyond that, the more pressing budgetary concern for most cities is maintenance. Right now, the most commonly used type of paint dulls and wears off fairly quickly, although new improvements in paint are starting to make it more durable. But if recurring costs are a significant concern, don’t let that outweigh the safety benefits: you might want to consider an up-front cost in the form of <a href=\"http://peopleforbikes.org/green-lane-project/protected-bike-lanes-101\">protective barriers</a>, instead."
+            ]
+          }
+        },
+        "outbound|red": {
           "description": {
             "prompt": "Learn more about colored bike lanes",
             "lede": "Colored bike lanes are more visible and safer for bicyclists.",
