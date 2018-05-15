@@ -253,6 +253,9 @@
     "learn-more": "Learn more",
     "unknown": {
       "label": "Unknown"
+    },
+    "description": {
+      "photo-credit": "Photo:"
     }
   },
   "section": {
