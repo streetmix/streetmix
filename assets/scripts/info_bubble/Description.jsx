@@ -20,7 +20,6 @@ export default class Description extends React.Component {
 
   onClickShow = () => {
     showDescription()
-    this.unhighlightTriangleDelayed()
     this.props.updateBubbleDimensions()
 
     registerKeypress('esc', this.onClickHide)
@@ -29,16 +28,9 @@ export default class Description extends React.Component {
 
   onClickHide = () => {
     hideDescription()
-    this.unhighlightTriangleDelayed()
     this.props.updateBubbleDimensions()
 
-    deregisterKeypress('esc', hideDescription)
-  }
-
-  unhighlightTriangleDelayed = () => {
-    window.setTimeout(() => {
-      this.setState({ highlightTriangle: false })
-    }, 200)
+    deregisterKeypress('esc', this.onClickHide)
   }
 
   /**
@@ -99,7 +91,7 @@ export default class Description extends React.Component {
         >
           {displayPrompt}
         </div>
-        <DescriptionPanel image={description.image} lede={displayLede} text={displayDescription} caption={displayImageCaption} />
+        <DescriptionPanel onClickHide={this.onClickHide} image={description.image} lede={displayLede} text={displayDescription} caption={displayImageCaption} />
       </React.Fragment>
     )
   }

@@ -8,7 +8,12 @@ export default class DescriptionPanel extends React.Component {
     image: PropTypes.string,
     lede: PropTypes.string,
     text: PropTypes.arrayOf(PropTypes.string),
-    caption: PropTypes.string
+    caption: PropTypes.string,
+    onClickHide: PropTypes.func
+  }
+
+  static defaultProps = {
+    onClickHide: () => {}
   }
 
   constructor (props) {
@@ -29,6 +34,12 @@ export default class DescriptionPanel extends React.Component {
     this.retargetAnchors()
   }
 
+  unhighlightTriangleDelayed = () => {
+    window.setTimeout(() => {
+      this.setState({ highlightTriangle: false })
+    }, 200)
+  }
+
   toggleHighlightTriangle = () => {
     this.setState({ highlightTriangle: !this.state.highlightTriangle })
   }
@@ -42,6 +53,11 @@ export default class DescriptionPanel extends React.Component {
     for (let link of links) {
       link.target = '_blank'
     }
+  }
+
+  onClickHide = (event) => {
+    this.props.onClickHide()
+    this.unhighlightTriangleDelayed()
   }
 
   /**
