@@ -1,5 +1,6 @@
 import { trackEvent } from '../app/event_tracking'
-import { INFO_BUBBLE_TYPE_SEGMENT, infoBubble } from '../info_bubble/info_bubble'
+import { infoBubble } from '../info_bubble/info_bubble'
+import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { system } from '../preinit/system_capabilities'
 import { setIgnoreStreetChanges } from '../streets/data_model'
 import {

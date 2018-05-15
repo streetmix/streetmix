@@ -1,5 +1,6 @@
 import { app } from '../preinit/app_settings'
 import { hideDescription } from './description'
+import { INFO_BUBBLE_TYPE_SEGMENT, INFO_BUBBLE_TYPE_LEFT_BUILDING } from './constants'
 import { DRAGGING_TYPE_NONE, draggingType } from '../segments/drag_and_drop'
 import { cancelFadeoutControls } from '../segments/resizing'
 import { getElAbsolutePos } from '../util/helpers'
@@ -11,10 +12,6 @@ import {
   setInfoBubbleSegmentDataNo,
   updateHoverPolygon
 } from '../store/actions/infoBubble'
-
-export const INFO_BUBBLE_TYPE_SEGMENT = 1
-export const INFO_BUBBLE_TYPE_LEFT_BUILDING = 2
-export const INFO_BUBBLE_TYPE_RIGHT_BUILDING = 3
 
 const INFO_BUBBLE_MARGIN_BUBBLE = 20
 const INFO_BUBBLE_MARGIN_MOUSE = 10

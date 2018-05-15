@@ -1,6 +1,7 @@
 import { images } from '../app/load_resources'
 import { t } from '../app/locale'
-import { infoBubble, INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/info_bubble'
+import { infoBubble } from '../info_bubble/info_bubble'
+import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { system } from '../preinit/system_capabilities'
 import { saveStreetToServerIfNecessary, createDataFromDom } from '../streets/data_model'
 import { recalculateWidth } from '../streets/width'

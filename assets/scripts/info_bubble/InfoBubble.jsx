@@ -9,6 +9,11 @@ import BuildingHeightControl from './BuildingHeightControl'
 import Warnings from './Warnings'
 import Description from './Description.jsx'
 import { infoBubble } from './info_bubble'
+import {
+  INFO_BUBBLE_TYPE_SEGMENT,
+  INFO_BUBBLE_TYPE_LEFT_BUILDING,
+  INFO_BUBBLE_TYPE_RIGHT_BUILDING
+} from './constants'
 import { getDescriptionData } from './description'
 import { resumeFadeoutControls } from '../segments/resizing'
 // import { trackEvent } from '../app/event_tracking'
@@ -18,10 +23,6 @@ import { loseAnyFocus } from '../util/focus'
 import { getElAbsolutePos } from '../util/helpers'
 import { setInfoBubbleMouseInside } from '../store/actions/infoBubble'
 import { t } from '../app/locale'
-
-const INFO_BUBBLE_TYPE_SEGMENT = 1
-const INFO_BUBBLE_TYPE_LEFT_BUILDING = 2
-const INFO_BUBBLE_TYPE_RIGHT_BUILDING = 3
 
 class InfoBubble extends React.Component {
   static propTypes = {
