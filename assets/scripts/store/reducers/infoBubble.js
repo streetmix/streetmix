@@ -4,13 +4,16 @@ import {
   SET_SEGMENT_DATA_NO,
   UPDATE_HOVER_POLYGON,
   SET_INFO_BUBBLE_MOUSE_INSIDE,
-  START_PRINTING
+  START_PRINTING,
+  SHOW_DESCRIPTION,
+  HIDE_DESCRIPTION
 } from '../actions'
 
 const initialState = {
   visible: false,
   mouseInside: false,
   dataNo: null,
+  descriptionVisible: false,
   hoverPolygon: []
 }
 
@@ -43,6 +46,16 @@ const infoBubble = (state = initialState, action) => {
       return {
         ...state,
         mouseInside: action.value
+      }
+    case SHOW_DESCRIPTION:
+      return {
+        ...state,
+        descriptionVisible: true
+      }
+    case HIDE_DESCRIPTION:
+      return {
+        ...state,
+        descriptionVisible: false
       }
     default:
       return state

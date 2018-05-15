@@ -7,6 +7,8 @@
 import { getStreetSectionTop } from '../app/window_resize'
 import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
 import { infoBubble } from './info_bubble'
+import store from '../store'
+import { showDescription as showDescriptionAction, hideDescription as hideDescriptionAction } from '../store/actions/infoBubble'
 
 export function getDescriptionData (segment) {
   if (!segment) return null
@@ -24,7 +26,7 @@ export function getDescriptionData (segment) {
 }
 
 export function showDescription () {
-  infoBubble.descriptionVisible = true
+  store.dispatch(showDescriptionAction())
 
   const el = infoBubble.el.querySelector('.description-canvas')
   // TODO document magic numbers
@@ -39,7 +41,7 @@ export function showDescription () {
 }
 
 export function hideDescription () {
-  infoBubble.descriptionVisible = false
+  store.dispatch(hideDescriptionAction())
 
   infoBubble.el.classList.remove('show-description')
   if (infoBubble.segmentEl) {

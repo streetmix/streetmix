@@ -31,6 +31,7 @@ class InfoBubble extends React.Component {
       PropTypes.string,
       PropTypes.number
     ]),
+    descriptionVisible: PropTypes.bool,
     setInfoBubbleMouseInside: PropTypes.func,
     street: PropTypes.object,
     system: PropTypes.object
@@ -153,7 +154,7 @@ class InfoBubble extends React.Component {
 
   updateBubbleDimensions = () => {
     let bubbleHeight
-    if (infoBubble.descriptionVisible) {
+    if (this.props.descriptionVisible) {
       const el = this.el.querySelector('.description-canvas')
       const pos = getElAbsolutePos(el)
       bubbleHeight = pos[1] + el.offsetHeight - 38
@@ -305,6 +306,7 @@ function mapStateToProps (state) {
   return {
     visible: state.infoBubble.visible,
     dataNo: state.infoBubble.dataNo,
+    descriptionVisible: state.infoBubble.descriptionVisible,
     street: state.street,
     system: state.system
   }

@@ -22,10 +22,12 @@ function isInfoBubbleVisible () {
   return store.getState().infoBubble.visible
 }
 
+export function isDescriptionVisible () {
+  return store.getState().infoBubble.descriptionVisible
+}
+
 export const infoBubble = {
   el: null,
-
-  descriptionVisible: false,
 
   startMouseX: null,
   startMouseY: null,
@@ -58,7 +60,7 @@ export const infoBubble = {
     // description is NOT visible. (If the description
     // is visible, the escape key should hide that first.)
     registerKeypress('esc', {
-      condition: function () { return isInfoBubbleVisible() && !infoBubble.descriptionVisible }
+      condition: function () { return isInfoBubbleVisible() && !isDescriptionVisible() }
     }, function () {
       infoBubble.hide()
       infoBubble.hideSegment(false)
@@ -101,7 +103,7 @@ export const infoBubble = {
 
     let marginBubble
 
-    if (infoBubble.descriptionVisible) {
+    if (isDescriptionVisible()) {
       // TODO const
       marginBubble = 200
     } else {
@@ -109,7 +111,7 @@ export const infoBubble = {
     }
 
     const mouseInside = store.getState().infoBubble.mouseInside
-    if (mouseInside && !infoBubble.descriptionVisible) {
+    if (mouseInside && !isDescriptionVisible()) {
       var pos = getElAbsolutePos(infoBubble.segmentEl)
 
       var x = pos[0] - document.querySelector('#street-section-outer').scrollLeft
@@ -140,7 +142,7 @@ export const infoBubble = {
         bottomY2 = bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE
       }
 
-      if (infoBubble.descriptionVisible) {
+      if (isDescriptionVisible()) {
         bottomY = bubbleY + bubbleHeight + marginBubble
         bottomY2 = bottomY
       }
@@ -315,7 +317,7 @@ export const infoBubble = {
     if (isInfoBubbleVisible()) {
       segmentEl.classList.add('immediate-show-drag-handles')
 
-      if (infoBubble.descriptionVisible) {
+      if (isDescriptionVisible()) {
         hideDescription()
       }
     }
