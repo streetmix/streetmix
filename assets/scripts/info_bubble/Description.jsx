@@ -3,14 +3,11 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import DescriptionPanel from './DescriptionPanel'
-import { showDescription, hideDescription } from './description'
+import { infoBubble } from './info_bubble'
 import { trackEvent } from '../app/event_tracking'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { t } from '../app/locale'
-import {
-  showDescription as showDescriptionAction,
-  hideDescription as hideDescriptionAction
-} from '../store/actions/infoBubble'
+import { showDescription, hideDescription } from '../store/actions/infoBubble'
 
 export class Description extends React.Component {
   static propTypes = {
@@ -28,8 +25,15 @@ export class Description extends React.Component {
 
   onClickShow = () => {
     this.props.showDescription()
-    showDescription()
     this.props.updateBubbleDimensions()
+
+    // TODO refactor
+    if (infoBubble.segmentEl) {
+      infoBubble.segmentEl.classList.add('hide-drag-handles-when-description-shown')
+    }
+
+    infoBubble.updateHoverPolygon()
+    // end TODO
 
     registerKeypress('esc', this.onClickHide)
     trackEvent('INTERACTION', 'LEARN_MORE', this.props.segment.type, null, false)
@@ -37,8 +41,15 @@ export class Description extends React.Component {
 
   onClickHide = () => {
     this.props.hideDescription()
-    hideDescription()
     this.props.updateBubbleDimensions()
+
+    // TODO refactor
+    if (infoBubble.segmentEl) {
+      infoBubble.segmentEl.classList.remove('hide-drag-handles-when-description-shown')
+    }
+
+    infoBubble.updateHoverPolygon()
+    // end TODO
 
     deregisterKeypress('esc', this.onClickHide)
   }
@@ -122,8 +133,8 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    showDescription: () => { dispatch(showDescriptionAction()) },
-    hideDescription: () => { dispatch(hideDescriptionAction()) }
+    showDescription: () => { dispatch(showDescription()) },
+    hideDescription: () => { dispatch(hideDescription()) }
   }
 }
 

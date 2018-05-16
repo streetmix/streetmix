@@ -22,7 +22,9 @@ const infoBubble = (state = initialState, action) => {
     case SHOW_INFO_BUBBLE:
       return {
         ...state,
-        visible: true
+        visible: true,
+        // Reset description visibility, as well
+        descriptionVisible: false
       }
     case HIDE_INFO_BUBBLE:
     case START_PRINTING: // Also hide when printing

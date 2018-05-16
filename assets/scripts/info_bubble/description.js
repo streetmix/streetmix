@@ -4,7 +4,6 @@
  * Additional descriptive text about segments.
  */
 import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
-import { infoBubble } from './info_bubble'
 
 export function getDescriptionData (segment) {
   if (!segment) return null
@@ -19,20 +18,4 @@ export function getDescriptionData (segment) {
   } else {
     return null
   }
-}
-
-export function showDescription () {
-  if (infoBubble.segmentEl) {
-    infoBubble.segmentEl.classList.add('hide-drag-handles-when-description-shown')
-  }
-
-  infoBubble.updateHoverPolygon()
-}
-
-export function hideDescription () {
-  if (infoBubble.segmentEl) {
-    infoBubble.segmentEl.classList.remove('hide-drag-handles-when-description-shown')
-  }
-
-  infoBubble.updateHoverPolygon()
 }

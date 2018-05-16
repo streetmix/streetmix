@@ -1,5 +1,4 @@
 import { app } from '../preinit/app_settings'
-import { hideDescription } from './description'
 import { INFO_BUBBLE_TYPE_SEGMENT, INFO_BUBBLE_TYPE_LEFT_BUILDING } from './constants'
 import { DRAGGING_TYPE_NONE, draggingType } from '../segments/drag_and_drop'
 import { cancelFadeoutControls } from '../segments/resizing'
@@ -223,7 +222,6 @@ export const infoBubble = {
 
   hide: function () {
     if (infoBubble.el) {
-      hideDescription()
       document.body.classList.remove('controls-fade-out')
 
       store.dispatch(hideInfoBubble())
@@ -316,10 +314,6 @@ export const infoBubble = {
     }
     if (isInfoBubbleVisible()) {
       segmentEl.classList.add('immediate-show-drag-handles')
-
-      if (isDescriptionVisible()) {
-        hideDescription()
-      }
     }
 
     infoBubble.startMouseX = mouseX

@@ -56,6 +56,32 @@ class InfoBubble extends React.Component {
     }
   }
 
+  /**
+   * Sets state when the infobubble is pointing at a building
+   *
+   * @param {Object} nextProps
+   * @param {Object} prevState
+   */
+  static getDerivedStateFromProps (nextProps, prevState) {
+    const { dataNo, street } = nextProps
+    const isBuilding = (dataNo === 'left' || dataNo === 'right')
+
+    if (isBuilding) {
+      const type = (dataNo === 'left') ? INFO_BUBBLE_TYPE_LEFT_BUILDING : INFO_BUBBLE_TYPE_RIGHT_BUILDING
+
+      if (prevState.type !== type) {
+        return {
+          type,
+          street,
+          segment: null,
+          description: null
+        }
+      }
+    }
+
+    return null
+  }
+
   componentDidMount () {
     // This listener hides the info bubble when the mouse leaves the
     // document area. Do not normalize it to a pointerleave event
@@ -66,16 +92,6 @@ class InfoBubble extends React.Component {
     window.addEventListener('stmx:force_infobubble_update', (e) => {
       this.updateInfoBubbleState()
     })
-  }
-
-  // TODO: Will be deprecated after Version 17
-  // Use getDerivedStateFromProps throughout application after updating ReactJS
-  componentWillReceiveProps (nextProps) {
-    const { dataNo, street } = nextProps
-    const isBuilding = (dataNo === 'left' || dataNo === 'right')
-    if (isBuilding) {
-      this.updateInfoBubbleForBuildings(dataNo, street)
-    }
   }
 
   componentDidUpdate () {
@@ -126,19 +142,6 @@ class InfoBubble extends React.Component {
 
   toggleHighlightTriangle = () => {
     this.setState({ highlightTriangle: !this.state.highlightTriangle })
-  }
-
-  updateInfoBubbleForBuildings = (position, street) => {
-    const type = (position === 'left') ? INFO_BUBBLE_TYPE_LEFT_BUILDING : INFO_BUBBLE_TYPE_RIGHT_BUILDING
-
-    if (this.state.type !== type) {
-      this.setState({
-        type,
-        street,
-        segment: null,
-        description: null
-      })
-    }
   }
 
   updateInfoBubbleState = () => {
