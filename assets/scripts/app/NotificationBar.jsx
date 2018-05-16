@@ -11,7 +11,7 @@ const TRANSITION_BASE_STYLE = {
 
 export default class NotificationBar extends React.Component {
   static propTypes = {
-    message: PropTypes.shape({
+    notification: PropTypes.shape({
       display: PropTypes.bool,
       lede: PropTypes.string,
       text: PropTypes.string,
@@ -21,7 +21,7 @@ export default class NotificationBar extends React.Component {
   }
 
   static defaultProps = {
-    message: {
+    notification: {
       display: false
     }
   }
@@ -45,7 +45,7 @@ export default class NotificationBar extends React.Component {
   }
 
   render () {
-    const { display, lede, text, link, linkText } = this.props.message
+    const { display, lede, text, link, linkText } = this.props.notification
 
     // If no one turns this on explicitly, don't display anything
     if (!display || (!lede && !text && !link)) return null

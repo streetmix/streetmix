@@ -4,7 +4,7 @@ import NotificationBar from '../NotificationBar'
 import { shallowWithIntl, mountWithIntl } from '../../../../test/helpers/intl-enzyme-test-helper.js'
 import { mockIntl } from '../../../../test/__mocks__/react-intl'
 
-const TEST_MESSAGE = {
+const TEST_NOTIFICATION = {
   display: true,
   lede: 'Heads up!',
   text: 'Streetmix will be offline for maintainance on January 1, 2018 at 19:00 GMT.',
@@ -14,92 +14,92 @@ const TEST_MESSAGE = {
 
 describe('NotificationBar', () => {
   it('renders without crashing', () => {
-    const wrapper = shallowWithIntl(<NotificationBar intl={mockIntl} message={TEST_MESSAGE} />)
+    const wrapper = shallowWithIntl(<NotificationBar intl={mockIntl} notification={TEST_NOTIFICATION} />)
     expect(wrapper.exists()).toEqual(true)
   })
 
   describe('conditions that render nothing', () => {
-    it('renders nothing if message is not provided', () => {
+    it('renders nothing if notification is not provided', () => {
       const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} />)
       expect(wrapper.html()).toEqual(null)
     })
 
-    it('renders nothing if message is the empty object', () => {
-      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} message={{}} />)
+    it('renders nothing if notification is the empty object', () => {
+      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} notification={{}} />)
       expect(wrapper.html()).toEqual(null)
     })
 
-    it('renders nothing if message’s display property is false', () => {
-      const message = { ...TEST_MESSAGE, display: false }
-      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} message={message} />)
+    it('renders nothing if notification’s display property is false', () => {
+      const notification = { ...TEST_NOTIFICATION, display: false }
+      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} notification={notification} />)
       expect(wrapper.html()).toEqual(null)
     })
 
-    it('renders nothing if message’s display property is true but has no other properties', () => {
-      const message = { display: true }
-      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} message={message} />)
+    it('renders nothing if notification’s display property is true but has no other properties', () => {
+      const notification = { display: true }
+      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} notification={notification} />)
       expect(wrapper.html()).toEqual(null)
     })
   })
 
   describe('conditions that render something', () => {
-    it('renders an entire message', () => {
-      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} message={TEST_MESSAGE} />)
-      expect(wrapper.find('.notification-bar-intro').text()).toEqual(TEST_MESSAGE.lede)
-      expect(wrapper.find('.notification-bar-text').text()).toEqual(TEST_MESSAGE.text)
-      expect(wrapper.find('a').prop('href')).toEqual(TEST_MESSAGE.link)
-      expect(wrapper.find('a').text()).toEqual(TEST_MESSAGE.linkText)
+    it('renders an entire notification', () => {
+      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} notification={TEST_NOTIFICATION} />)
+      expect(wrapper.find('.notification-bar-intro').text()).toEqual(TEST_NOTIFICATION.lede)
+      expect(wrapper.find('.notification-bar-text').text()).toEqual(TEST_NOTIFICATION.text)
+      expect(wrapper.find('a').prop('href')).toEqual(TEST_NOTIFICATION.link)
+      expect(wrapper.find('a').text()).toEqual(TEST_NOTIFICATION.linkText)
     })
 
     it('renders only the lede', () => {
-      const message = {
+      const notification = {
         display: true,
-        lede: TEST_MESSAGE.lede
+        lede: TEST_NOTIFICATION.lede
       }
-      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} message={message} />)
-      expect(wrapper.find('.notification-bar-intro').text()).toEqual(message.lede)
+      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} notification={notification} />)
+      expect(wrapper.find('.notification-bar-intro').text()).toEqual(notification.lede)
       expect(wrapper.find('.notification-bar-text').exists()).toEqual(false)
       expect(wrapper.find('a').exists()).toEqual(false)
     })
 
-    it('renders only the message text', () => {
-      const message = {
+    it('renders only the notification text', () => {
+      const notification = {
         display: true,
-        text: TEST_MESSAGE.text
+        text: TEST_NOTIFICATION.text
       }
-      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} message={message} />)
+      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} notification={notification} />)
       expect(wrapper.find('.notification-bar-intro').exists()).toEqual(false)
-      expect(wrapper.find('.notification-bar-text').text()).toEqual(message.text)
+      expect(wrapper.find('.notification-bar-text').text()).toEqual(notification.text)
       expect(wrapper.find('a').exists()).toEqual(false)
     })
 
     it('renders only the link', () => {
-      const message = {
+      const notification = {
         display: true,
-        link: TEST_MESSAGE.link,
-        linkText: TEST_MESSAGE.linkText
+        link: TEST_NOTIFICATION.link,
+        linkText: TEST_NOTIFICATION.linkText
       }
-      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} message={message} />)
+      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} notification={notification} />)
       expect(wrapper.find('.notification-bar-intro').exists()).toEqual(false)
       expect(wrapper.find('.notification-bar-text').exists()).toEqual(false)
-      expect(wrapper.find('a').prop('href')).toEqual(TEST_MESSAGE.link)
-      expect(wrapper.find('a').text()).toEqual(TEST_MESSAGE.linkText)
+      expect(wrapper.find('a').prop('href')).toEqual(TEST_NOTIFICATION.link)
+      expect(wrapper.find('a').text()).toEqual(TEST_NOTIFICATION.linkText)
     })
 
     it('renders placeholder link text', () => {
-      const message = {
+      const notification = {
         display: true,
-        link: TEST_MESSAGE.link
+        link: TEST_NOTIFICATION.link
       }
-      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} message={message} />)
+      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} notification={notification} />)
       expect(wrapper.find('.notification-bar-intro').exists()).toEqual(false)
       expect(wrapper.find('.notification-bar-text').exists()).toEqual(false)
-      expect(wrapper.find('a').prop('href')).toEqual(TEST_MESSAGE.link)
+      expect(wrapper.find('a').prop('href')).toEqual(TEST_NOTIFICATION.link)
       expect(wrapper.find('a').text()).toEqual('More info')
     })
 
     it('renders the close button', () => {
-      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} message={TEST_MESSAGE} />)
+      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} notification={TEST_NOTIFICATION} />)
       expect(wrapper.find('.close').exists()).toEqual(true)
     })
   })
@@ -110,7 +110,7 @@ describe('NotificationBar', () => {
       // Ongoing discussion:
       // https://github.com/airbnb/enzyme/issues/365
       const spy = NotificationBar.prototype.onClickDismiss = jest.fn()
-      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} message={TEST_MESSAGE} />)
+      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} notification={TEST_NOTIFICATION} />)
       wrapper.find('.close').simulate('click')
       expect(spy).toHaveBeenCalled()
     })
