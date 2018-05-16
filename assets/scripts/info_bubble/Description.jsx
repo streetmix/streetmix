@@ -7,7 +7,10 @@ import { showDescription, hideDescription } from './description'
 import { trackEvent } from '../app/event_tracking'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { t } from '../app/locale'
-import { showDescription as showDA, hideDescription as hideDA } from '../store/actions/infoBubble'
+import {
+  showDescription as showDescriptionAction,
+  hideDescription as hideDescriptionAction
+} from '../store/actions/infoBubble'
 
 export class Description extends React.Component {
   static propTypes = {
@@ -119,8 +122,8 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    showDescription: () => { dispatch(showDA()) },
-    hideDescription: () => { dispatch(hideDA()) }
+    showDescription: () => { dispatch(showDescriptionAction()) },
+    hideDescription: () => { dispatch(hideDescriptionAction()) }
   }
 }
 

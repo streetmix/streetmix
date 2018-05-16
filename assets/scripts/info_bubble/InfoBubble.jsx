@@ -156,6 +156,7 @@ class InfoBubble extends React.Component {
     let bubbleHeight
     if (this.props.descriptionVisible) {
       const el = this.el.querySelector('.description-canvas')
+      if (!el) return
       const pos = getElAbsolutePos(el)
       bubbleHeight = pos[1] + el.offsetHeight - 38
     } else {
