@@ -29,6 +29,8 @@ const infoBubble = (state = initialState, action) => {
       return {
         ...state,
         visible: false,
+        // Auto-hide description, as well
+        descriptionVisible: false,
         // When hidden, mouse is never considered to be "inside"
         mouseInside: false
       }
