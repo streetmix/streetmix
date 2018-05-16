@@ -90,6 +90,7 @@
     Carlos Jimenez, Portuguese (Brazil)
     Stephan Garcia, Portuguese (Brazil)
     Paco Marquez, Spanish (Mexico)
+    Patricio M. Ruiz Abrín, Spanish (Mexico)
     Jakob Fahlstedt, Swedish
 
 
