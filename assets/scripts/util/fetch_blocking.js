@@ -21,8 +21,8 @@ export function isblockingAjaxRequestInProgress () {
   return blockingAjaxRequestInProgress
 }
 
-export function newBlockingAjaxRequest (message, request, doneFunc, cancelFunc) {
-  showBlockingShield(message)
+export function newBlockingAjaxRequest (mode, request, doneFunc, cancelFunc) {
+  showBlockingShield(mode)
 
   blockingAjaxRequestInProgress = true
 
@@ -49,21 +49,12 @@ function successBlockingAjaxRequest (data) {
 }
 
 function errorBlockingAjaxRequest () {
-  if (blockingAjaxRequestCancelFunc) {
-    document.querySelector('#blocking-shield').classList.add('show-cancel')
-  }
-
-  document.querySelector('#blocking-shield').classList.add('show-try-again')
-
-  darkenBlockingShield()
+  darkenBlockingShield(!!blockingAjaxRequestCancelFunc)
 }
 
 // These export to the blocking shield to retry or cancel requests
 
 export function blockingTryAgain () {
-  document.querySelector('#blocking-shield').classList.remove('show-try-again')
-  document.querySelector('#blocking-shield').classList.remove('show-cancel')
-
   window.fetch(blockingAjaxRequest.url, blockingAjaxRequest)
     .then(response => {
       if (!response.ok) {

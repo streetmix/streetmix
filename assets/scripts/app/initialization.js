@@ -27,7 +27,6 @@ import { trackEvent } from './event_tracking'
 import { getMode, setMode, MODES, processMode } from './mode'
 import { processUrl, updatePageUrl } from './page_url'
 import { onResize } from './window_resize'
-import { attachBlockingShieldEventListeners } from './blocking_shield'
 import { startListening } from './keypress'
 import { registerKeypresses } from './keyboard_commands'
 import { infoBubble } from '../info_bubble/info_bubble'
@@ -51,7 +50,6 @@ function preInit () {
     updateSettingsFromCountryCode(language)
   }
 
-  attachBlockingShieldEventListeners()
   registerKeypresses()
   infoBubble.registerKeypresses()
 
