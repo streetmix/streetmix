@@ -1,0 +1,74 @@
+[
+  {
+    "label": "Arabic",
+    "value": "ar",
+    "key": "i18n.lang.ar",
+    "level": 2
+  },
+  {
+    "label": "Chinese (Traditional)",
+    "value": "zh-Hant",
+    "key": "i18n.lang.zh-hant",
+    "level": 1
+  },
+  {
+    "label": "English",
+    "value": "en",
+    "key": "i18n.lang.en",
+    "level": 4
+  },
+  {
+    "label": "Finnish",
+    "value": "fi",
+    "key": "i18n.lang.fi",
+    "level": 2
+  },
+  {
+    "label": "French",
+    "value": "fr",
+    "key": "i18n.lang.fr",
+    "level": 3
+  },
+  {
+    "label": "German",
+    "value": "de",
+    "key": "i18n.lang.de",
+    "level": 1
+  },
+  {
+    "label": "Japanese",
+    "value": "ja",
+    "key": "i18n.lang.ja",
+    "level": 3
+  },
+  {
+    "label": "Polish",
+    "value": "pl",
+    "key": "i18n.lang.pl",
+    "level": 2
+  },
+  {
+    "label": "Portuguese (Brazil)",
+    "value": "pt-BR",
+    "key": "i18n.lang.pt-br",
+    "level": 1
+  },
+  {
+    "label": "Spanish",
+    "value": "es",
+    "key": "i18n.lang.es",
+    "level": 1
+  },
+  {
+    "label": "Spanish (Mexico)",
+    "value": "es-MX",
+    "key": "i18n.lang.es-mx",
+    "level": 3
+  },
+  {
+    "label": "Swedish",
+    "value": "sv",
+    "key": "i18n.lang.sv",
+    "level": 1
+  }
+]

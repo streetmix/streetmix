@@ -425,7 +425,7 @@ body.segment-resize-dragging .drag-handle.floating,
 
   // Creates grid lines
   // The last value is required for IE11
-  background-image: linear-gradient(90deg, $segment-width-rule 1px, $bottom-background 1px, $bottom-background);
+  background-image: linear-gradient(90deg, $segment-width-rule 1px, transparent 1px, transparent);
   background-repeat: repeat-x;
 
   // Change background-size width to adjust spacing of grid lines
