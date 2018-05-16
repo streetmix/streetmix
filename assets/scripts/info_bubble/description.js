@@ -22,7 +22,6 @@ export function getDescriptionData (segment) {
 }
 
 export function showDescription () {
-  infoBubble.el.classList.add('show-description')
   if (infoBubble.segmentEl) {
     infoBubble.segmentEl.classList.add('hide-drag-handles-when-description-shown')
   }
@@ -31,7 +30,6 @@ export function showDescription () {
 }
 
 export function hideDescription () {
-  infoBubble.el.classList.remove('show-description')
   if (infoBubble.segmentEl) {
     infoBubble.segmentEl.classList.remove('hide-drag-handles-when-description-shown')
   }

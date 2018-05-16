@@ -241,6 +241,9 @@ class InfoBubble extends React.Component {
     if (this.props.visible) {
       classNames.push('visible')
     }
+    if (this.props.descriptionVisible) {
+      classNames.push('show-description')
+    }
 
     // Determine position
     let position
