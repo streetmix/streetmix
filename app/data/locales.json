@@ -27,7 +27,7 @@
     "label": "French",
     "value": "fr",
     "key": "i18n.lang.fr",
-    "level": 2
+    "level": 3
   },
   {
     "label": "German",
@@ -39,7 +39,7 @@
     "label": "Japanese",
     "value": "ja",
     "key": "i18n.lang.ja",
-    "level": 2
+    "level": 3
   },
   {
     "label": "Polish",
@@ -63,7 +63,7 @@
     "label": "Spanish (Mexico)",
     "value": "es-MX",
     "key": "i18n.lang.es-mx",
-    "level": 2
+    "level": 3
   },
   {
     "label": "Swedish",
