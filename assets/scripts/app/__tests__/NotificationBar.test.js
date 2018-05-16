@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import MessageBar from '../MessageBar'
+import NotificationBar from '../NotificationBar'
 import { shallowWithIntl, mountWithIntl } from '../../../../test/helpers/intl-enzyme-test-helper.js'
 import { mockIntl } from '../../../../test/__mocks__/react-intl'
 
@@ -12,41 +12,41 @@ const TEST_MESSAGE = {
   linkText: 'Follow us on Twitter for updates.'
 }
 
-describe('MessageBar', () => {
+describe('NotificationBar', () => {
   it('renders without crashing', () => {
-    const wrapper = shallowWithIntl(<MessageBar intl={mockIntl} message={TEST_MESSAGE} />)
+    const wrapper = shallowWithIntl(<NotificationBar intl={mockIntl} message={TEST_MESSAGE} />)
     expect(wrapper.exists()).toEqual(true)
   })
 
   describe('conditions that render nothing', () => {
     it('renders nothing if message is not provided', () => {
-      const wrapper = mountWithIntl(<MessageBar intl={mockIntl} />)
+      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} />)
       expect(wrapper.html()).toEqual(null)
     })
 
     it('renders nothing if message is the empty object', () => {
-      const wrapper = mountWithIntl(<MessageBar intl={mockIntl} message={{}} />)
+      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} message={{}} />)
       expect(wrapper.html()).toEqual(null)
     })
 
     it('renders nothing if message’s display property is false', () => {
       const message = { ...TEST_MESSAGE, display: false }
-      const wrapper = mountWithIntl(<MessageBar intl={mockIntl} message={message} />)
+      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} message={message} />)
       expect(wrapper.html()).toEqual(null)
     })
 
     it('renders nothing if message’s display property is true but has no other properties', () => {
       const message = { display: true }
-      const wrapper = mountWithIntl(<MessageBar intl={mockIntl} message={message} />)
+      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} message={message} />)
       expect(wrapper.html()).toEqual(null)
     })
   })
 
   describe('conditions that render something', () => {
     it('renders an entire message', () => {
-      const wrapper = mountWithIntl(<MessageBar intl={mockIntl} message={TEST_MESSAGE} />)
-      expect(wrapper.find('.message-bar-intro').text()).toEqual(TEST_MESSAGE.lede)
-      expect(wrapper.find('.message-bar-text').text()).toEqual(TEST_MESSAGE.text)
+      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} message={TEST_MESSAGE} />)
+      expect(wrapper.find('.notification-bar-intro').text()).toEqual(TEST_MESSAGE.lede)
+      expect(wrapper.find('.notification-bar-text').text()).toEqual(TEST_MESSAGE.text)
       expect(wrapper.find('a').prop('href')).toEqual(TEST_MESSAGE.link)
       expect(wrapper.find('a').text()).toEqual(TEST_MESSAGE.linkText)
     })
@@ -56,9 +56,9 @@ describe('MessageBar', () => {
         display: true,
         lede: TEST_MESSAGE.lede
       }
-      const wrapper = mountWithIntl(<MessageBar intl={mockIntl} message={message} />)
-      expect(wrapper.find('.message-bar-intro').text()).toEqual(message.lede)
-      expect(wrapper.find('.message-bar-text').exists()).toEqual(false)
+      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} message={message} />)
+      expect(wrapper.find('.notification-bar-intro').text()).toEqual(message.lede)
+      expect(wrapper.find('.notification-bar-text').exists()).toEqual(false)
       expect(wrapper.find('a').exists()).toEqual(false)
     })
 
@@ -67,9 +67,9 @@ describe('MessageBar', () => {
         display: true,
         text: TEST_MESSAGE.text
       }
-      const wrapper = mountWithIntl(<MessageBar intl={mockIntl} message={message} />)
-      expect(wrapper.find('.message-bar-intro').exists()).toEqual(false)
-      expect(wrapper.find('.message-bar-text').text()).toEqual(message.text)
+      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} message={message} />)
+      expect(wrapper.find('.notification-bar-intro').exists()).toEqual(false)
+      expect(wrapper.find('.notification-bar-text').text()).toEqual(message.text)
       expect(wrapper.find('a').exists()).toEqual(false)
     })
 
@@ -79,9 +79,9 @@ describe('MessageBar', () => {
         link: TEST_MESSAGE.link,
         linkText: TEST_MESSAGE.linkText
       }
-      const wrapper = mountWithIntl(<MessageBar intl={mockIntl} message={message} />)
-      expect(wrapper.find('.message-bar-intro').exists()).toEqual(false)
-      expect(wrapper.find('.message-bar-text').exists()).toEqual(false)
+      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} message={message} />)
+      expect(wrapper.find('.notification-bar-intro').exists()).toEqual(false)
+      expect(wrapper.find('.notification-bar-text').exists()).toEqual(false)
       expect(wrapper.find('a').prop('href')).toEqual(TEST_MESSAGE.link)
       expect(wrapper.find('a').text()).toEqual(TEST_MESSAGE.linkText)
     })
@@ -91,15 +91,15 @@ describe('MessageBar', () => {
         display: true,
         link: TEST_MESSAGE.link
       }
-      const wrapper = mountWithIntl(<MessageBar intl={mockIntl} message={message} />)
-      expect(wrapper.find('.message-bar-intro').exists()).toEqual(false)
-      expect(wrapper.find('.message-bar-text').exists()).toEqual(false)
+      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} message={message} />)
+      expect(wrapper.find('.notification-bar-intro').exists()).toEqual(false)
+      expect(wrapper.find('.notification-bar-text').exists()).toEqual(false)
       expect(wrapper.find('a').prop('href')).toEqual(TEST_MESSAGE.link)
       expect(wrapper.find('a').text()).toEqual('More info')
     })
 
     it('renders the close button', () => {
-      const wrapper = mountWithIntl(<MessageBar intl={mockIntl} message={TEST_MESSAGE} />)
+      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} message={TEST_MESSAGE} />)
       expect(wrapper.find('.close').exists()).toEqual(true)
     })
   })
@@ -109,8 +109,8 @@ describe('MessageBar', () => {
       // Apparently, you can't spy on a method declared as a class field property.
       // Ongoing discussion:
       // https://github.com/airbnb/enzyme/issues/365
-      const spy = MessageBar.prototype.onClickDismiss = jest.fn()
-      const wrapper = mountWithIntl(<MessageBar intl={mockIntl} message={TEST_MESSAGE} />)
+      const spy = NotificationBar.prototype.onClickDismiss = jest.fn()
+      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} message={TEST_MESSAGE} />)
       wrapper.find('.close').simulate('click')
       expect(spy).toHaveBeenCalled()
     })

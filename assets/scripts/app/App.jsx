@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { IntlProvider } from 'react-intl'
-import MessageBar from './MessageBar'
+import NotificationBar from './NotificationBar'
 import MenusContainer from '../menus/MenusContainer'
 import StreetNameCanvas from '../streets/StreetNameCanvas'
 import InfoBubble from '../info_bubble/InfoBubble'
@@ -36,7 +36,7 @@ class App extends React.PureComponent {
           <React.Fragment>
             <BlockingError />
             <Gallery />
-            <MessageBar />
+            <NotificationBar />
           </React.Fragment>
         </IntlProvider>
         <div className="main-screen">
