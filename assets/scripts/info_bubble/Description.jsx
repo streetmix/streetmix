@@ -1,13 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import DescriptionPanel from './DescriptionPanel'
 import { showDescription, hideDescription } from './description'
 import { trackEvent } from '../app/event_tracking'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { t } from '../app/locale'
+import { showDescription as showDA, hideDescription as hideDA } from '../store/actions/infoBubble'
 
-export default class Description extends React.Component {
+export class Description extends React.Component {
   static propTypes = {
     description: PropTypes.object,
     segment: PropTypes.shape({
@@ -15,10 +17,14 @@ export default class Description extends React.Component {
       variantString: PropTypes.string
     }),
     updateBubbleDimensions: PropTypes.func.isRequired,
-    toggleHighlightTriangle: PropTypes.func.isRequired
+    toggleHighlightTriangle: PropTypes.func.isRequired,
+    descriptionVisible: PropTypes.bool.isRequired,
+    showDescription: PropTypes.func.isRequired,
+    hideDescription: PropTypes.func.isRequired
   }
 
   onClickShow = () => {
+    this.props.showDescription()
     showDescription()
     this.props.updateBubbleDimensions()
 
@@ -27,6 +33,7 @@ export default class Description extends React.Component {
   }
 
   onClickHide = () => {
+    this.props.hideDescription()
     hideDescription()
     this.props.updateBubbleDimensions()
 
@@ -91,8 +98,30 @@ export default class Description extends React.Component {
         >
           {displayPrompt}
         </div>
-        <DescriptionPanel onClickHide={this.onClickHide} image={description.image} lede={displayLede} text={displayDescription} caption={displayImageCaption} />
+        <DescriptionPanel
+          visible={this.props.descriptionVisible}
+          onClickHide={this.onClickHide}
+          image={description.image}
+          lede={displayLede}
+          text={displayDescription}
+          caption={displayImageCaption}
+        />
       </React.Fragment>
     )
   }
 }
+
+function mapStateToProps (state) {
+  return {
+    descriptionVisible: state.infoBubble.descriptionVisible
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    showDescription: () => { dispatch(showDA()) },
+    hideDescription: () => { dispatch(hideDA()) }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Description)

@@ -2,9 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 import Triangle from './Triangle'
+import { getStreetSectionTop } from '../app/window_resize'
+import { infoBubble } from './info_bubble'
 
 export default class DescriptionPanel extends React.Component {
   static propTypes = {
+    visible: PropTypes.bool,
     image: PropTypes.string,
     lede: PropTypes.string,
     text: PropTypes.arrayOf(PropTypes.string),
@@ -13,6 +16,7 @@ export default class DescriptionPanel extends React.Component {
   }
 
   static defaultProps = {
+    visible: false,
     onClickHide: () => {}
   }
 
@@ -76,10 +80,15 @@ export default class DescriptionPanel extends React.Component {
   }
 
   render () {
-    const height = null // height: 505px;
+    let height = '0px'
+    if (this.props.visible) {
+      // TODO document magic numbers
+      height = (getStreetSectionTop() + 300 - infoBubble.bubbleY) + 'px'
+      // new bug: when hiding, visible is false, so it animates out while element has a height of 0
+    }
 
     return (
-      <div className="description-canvas" style={height}>
+      <div className="description-canvas" style={{ height }}>
         <div className="description" ref={(ref) => { this.text = ref }}>
           {/* TODO: add alt text and requisite a11y attributes */}
           {this.props.image && <img src={`/images/info-bubble-examples/${this.props.image}`} />}
