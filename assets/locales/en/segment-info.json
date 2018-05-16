@@ -167,77 +167,61 @@
         }
       }
     },
-    "flex": {
-      "flex-zone": "Flex zone",
-      "flex-zone-curb": "Pick up / drop off waiting area",
-      "taxi": {
-        "name": "Taxi pick-up / drop-off",
-        "details": {
-          "inbound|left": {
-            "name": "Taxi pick-up / drop-off"
-          },
-          "inbound|right": {
-            "name": "Taxi pick-up / drop-off"
-          },
-          "outbound|left": {
-            "name": "Taxi pick-up / drop-off"
-          },
-          "outbound|right": {
-            "name": "Taxi pick-up / drop-off"
-          }
+    "flex-zone": {
+      "name": "Flex zone",
+      "details": {
+        "taxi|inbound|left": {
+          "name": "Taxi pick-up / drop-off"
+        },
+        "taxi|inbound|right": {
+          "name": "Taxi pick-up / drop-off"
+        },
+        "taxi|outbound|left": {
+          "name": "Taxi pick-up / drop-off"
+        },
+        "taxi|outbound|right": {
+          "name": "Taxi pick-up / drop-off"
+        },
+        "rideshare|inbound|left": {
+          "name": "Rideshare pick-up / drop-off"
+        },
+        "rideshare|inbound|right": {
+          "name": "Rideshare pick-up / drop-off"
+        },
+        "rideshare|outbound|left": {
+          "name": "Rideshare pick-up / drop-off"
+        },
+        "rideshare|outbound|right": {
+          "name": "Rideshare pick-up / drop-off"
+        },
+        "bikeshare|inbound|left": {
+          "name": "Bikeshare station"
+        },
+        "bikeshare|inbound|right": {
+          "name": "Bikeshare station"
+        },
+        "bikeshare|outbound|left": {
+          "name": "Bikeshare station"
+        },
+        "bikeshare|outbound|right": {
+          "name": "Bikeshare station"
+        },
+        "foodtruck|inbound|left": {
+          "name": "Food truck"
+        },
+        "foodtruck|inbound|right": {
+          "name": "Food truck"
+        },
+        "foodtruck|outbound|left": {
+          "name": "Food truck"
+        },
+        "foodtruck|outbound|right": {
+          "name": "Food truck"
         }
       },
-      "rideshare": {
-        "name": "Rideshare pick-up / drop-off",
-        "details": {
-          "inbound|left": {
-            "name": "Rideshare pick-up / drop-off"
-          },
-          "inbound|right": {
-            "name": "Rideshare pick-up / drop-off"
-          },
-          "outbound|left": {
-            "name": "Rideshare pick-up / drop-off"
-          },
-          "outbound|right": {
-            "name": "Rideshare pick-up / drop-off"
-          }
-        }
-      },
-      "foodtruck": {
-        "name": "Food truck",
-        "details": {
-          "inbound|left": {
-            "name": "Food truck"
-          },
-          "inbound|right": {
-            "name": "Food truck"
-          },
-          "outbound|left": {
-            "name": "Food truck"
-          },
-          "outbound|right": {
-            "name": "Food truck"
-          }
-        }
-      },
-      "bikeshare": {
-        "name": "Bikeshare station",
-        "details": {
-          "inbound|left": {
-            "name": "Bikeshare station"
-          },
-          "inbound|right": {
-            "name": "Bikeshare station"
-          },
-          "outbound|left": {
-            "name": "Bikeshare station"
-          },
-          "outbound|right": {
-            "name": "Bikeshare station"
-          }
-        }
-      }
+    },
+    "flex-zone-curb": {
+      "name": "Pick up / drop off waiting area"
     },
     "drive-lane": {
       "name": "Drive lane",
