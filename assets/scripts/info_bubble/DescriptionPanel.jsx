@@ -68,13 +68,15 @@ export default class DescriptionPanel extends React.Component {
   }
 
   /**
-   *  After rendering, ensure all links in description open in a new window
+   * After rendering, modify DOM output to ensure all links inside of
+   * description text opens in a new window
    */
   retargetAnchors = () => {
     if (!this.text) return
     const links = this.text.querySelectorAll('a')
     for (let link of links) {
       link.target = '_blank'
+      link.rel = 'noopener noreferrer'
     }
   }
 
