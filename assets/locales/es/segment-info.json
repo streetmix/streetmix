@@ -86,7 +86,7 @@
         ]
       },
       "details": {
-        "inbound|colored": {
+        "inbound|green": {
           "description": {
             "prompt": "Aprender más sobre carriles de bici colorados",
             "lede": "",
@@ -97,7 +97,29 @@
             ]
           }
         },
-        "outbound|colored": {
+        "outbound|green": {
+          "description": {
+            "prompt": "Aprender más sobre carriles de bici colorados",
+            "lede": "",
+            "text": [
+              "",
+              "",
+              ""
+            ]
+          }
+        },
+        "inbound|red": {
+          "description": {
+            "prompt": "Aprender más sobre carriles de bici colorados",
+            "lede": "",
+            "text": [
+              "",
+              "",
+              ""
+            ]
+          }
+        },
+        "outbound|red": {
           "description": {
             "prompt": "Aprender más sobre carriles de bici colorados",
             "lede": "",

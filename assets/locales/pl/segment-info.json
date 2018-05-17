@@ -86,7 +86,7 @@
         ]
       },
       "details": {
-        "inbound|colored": {
+        "inbound|green": {
           "description": {
             "prompt": "Dowiedz się więcej o oznaczonych kolorami ścieżkach rowerowych",
             "lede": "Oznakowane kolorem ścieżki rowerowe są bardziej widoczne i bezpieczniejsze dla rowerzystów.",
@@ -97,7 +97,29 @@
             ]
           }
         },
-        "outbound|colored": {
+        "outbound|green": {
+          "description": {
+            "prompt": "Dowiedz się więcej o oznaczonych kolorami ścieżkach rowerowych",
+            "lede": "Oznakowane kolorem ścieżki rowerowe są bardziej widoczne i bezpieczniejsze dla rowerzystów.",
+            "text": [
+              "Ponieważ jazda na rowerze jako środek codziennego transportu staje się coraz bardziej popularne, urbaniści muszą zadbać o bezpieczeństwo rowerzystów, eliminować kolizję samochodów z rowerami i uniemożliwiać samochodom zajmowanie przestrzeni przeznaczonej dla rowerów. Problemem jest to, że zmotoryzowani nie zawsze są świadomi obecności rowerzystów. Rozwiązaniem będzie uczynienie rowerzystów jak najbardziej widocznymi. I jedną z opcji na to jest oznakowanie ścieżek rowerowych zupełnie innymi kolorem niż reszta asfaltu.",
+              "",
+              ""
+            ]
+          }
+        },
+        "inbound|red": {
+          "description": {
+            "prompt": "Dowiedz się więcej o oznaczonych kolorami ścieżkach rowerowych",
+            "lede": "Oznakowane kolorem ścieżki rowerowe są bardziej widoczne i bezpieczniejsze dla rowerzystów.",
+            "text": [
+              "Ponieważ jazda na rowerze jako środek codziennego transportu staje się coraz bardziej popularne, urbaniści muszą zadbać o bezpieczeństwo rowerzystów, eliminować kolizję samochodów z rowerami i uniemożliwiać samochodom zajmowanie przestrzeni przeznaczonej dla rowerów. Problemem jest to, że zmotoryzowani nie zawsze są świadomi obecności rowerzystów. Rozwiązaniem będzie uczynienie rowerzystów jak najbardziej widocznymi. I jedną z opcji na to jest oznakowanie ścieżek rowerowych zupełnie innymi kolorem niż reszta asfaltu.",
+              "",
+              ""
+            ]
+          }
+        },
+        "outbound|red": {
           "description": {
             "prompt": "Dowiedz się więcej o oznaczonych kolorami ścieżkach rowerowych",
             "lede": "Oznakowane kolorem ścieżki rowerowe są bardziej widoczne i bezpieczniejsze dla rowerzystów.",

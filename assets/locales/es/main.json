@@ -242,7 +242,7 @@
     "rename": ""
   },
   "building": {
-    "floors-count": ""
+    "floors-count": "{count, plural, one {# piso} other {# pisos}}"
   },
   "segments": {
     "warnings": {
@@ -263,7 +263,8 @@
     "all": "Todas las calles",
     "twitter-link": "",
     "delete-street-tooltip": "Eliminar la calle",
-    "street-count": "",
+    "street-count": "{count, plural, one {# calle} other {# calles}}",
+    "no-streets": "",
     "sign-in": "Registrar con Twitter para ver tu galería de calles personal"
   },
   "users": {

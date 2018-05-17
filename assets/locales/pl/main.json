@@ -242,7 +242,7 @@
     "rename": "Kliknij, by zmienić nazwę"
   },
   "building": {
-    "floors-count": "{count, plural, one {# piętro} other {# piętro}}"
+    "floors-count": "{count, plural, one {} few {} many {} other {}}"
   },
   "segments": {
     "warnings": {
@@ -263,7 +263,8 @@
     "all": "Wszystkie ulice",
     "twitter-link": "Profil na Twitterze",
     "delete-street-tooltip": "Usuń ulicę",
-    "street-count": "{count, plural, =0 {Jak dotąd brak ulic} one {# ulica} few {# ulice} many {# ulic}}",
+    "street-count": "{count, plural, one {} few {} many {} other {}}",
+    "no-streets": "Jak dotąd brak ulic",
     "sign-in": "Zaloguj się przez Twitter dla Twojej galerii ulicy"
   },
   "users": {

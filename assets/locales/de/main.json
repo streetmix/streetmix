@@ -242,7 +242,7 @@
     "rename": ""
   },
   "building": {
-    "floors-count": ""
+    "floors-count": "{count, plural, one {} other {}}"
   },
   "segments": {
     "warnings": {
@@ -263,7 +263,8 @@
     "all": "",
     "twitter-link": "",
     "delete-street-tooltip": "",
-    "street-count": "",
+    "street-count": "{count, plural, one {} other {}}",
+    "no-streets": "",
     "sign-in": ""
   },
   "users": {
