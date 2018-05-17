@@ -6,7 +6,6 @@ import { debounce } from 'lodash'
 import { changeSegmentWidth } from '../store/actions/street'
 import { trackEvent } from '../app/event_tracking'
 import { KEYS } from '../app/keyboard_commands'
-
 import { loseAnyFocus } from '../util/focus'
 import {
   MIN_SEGMENT_WIDTH,

@@ -49,9 +49,6 @@ class InfoBubble extends React.Component {
 
     this.state = {
       type: null,
-      street: null,
-      segment: null,
-      description: null,
       highlightTriangle: false
     }
   }
@@ -63,19 +60,14 @@ class InfoBubble extends React.Component {
    * @param {Object} prevState
    */
   static getDerivedStateFromProps (nextProps, prevState) {
-    const { dataNo, street } = nextProps
-    const isBuilding = (dataNo === 'left' || dataNo === 'right')
-
-    if (isBuilding) {
-      const type = (dataNo === 'left') ? INFO_BUBBLE_TYPE_LEFT_BUILDING : INFO_BUBBLE_TYPE_RIGHT_BUILDING
-
-      if (prevState.type !== type) {
-        return {
-          type,
-          street,
-          segment: null,
-          description: null
-        }
+    if (nextProps.dataNo === 'left') {
+      return {
+        type: INFO_BUBBLE_TYPE_LEFT_BUILDING
+      }
+    }
+    if (nextProps.dataNo === 'right') {
+      return {
+        type: INFO_BUBBLE_TYPE_RIGHT_BUILDING
       }
     }
 
@@ -196,7 +188,7 @@ class InfoBubble extends React.Component {
 
     switch (this.state.type) {
       case INFO_BUBBLE_TYPE_SEGMENT: {
-        const segment = this.state.segment
+        const segment = this.props.street.segments[this.props.dataNo]
         if (segment) {
           const segmentName = getSegmentInfo(segment.type).name
           const segmentVariantName = getSegmentVariantInfo(segment.type, segment.variantString).name
@@ -280,6 +272,8 @@ class InfoBubble extends React.Component {
         break
     }
 
+    const segment = this.props.street.segments[this.props.dataNo]
+
     return (
       <div
         className={classNames.join(' ')}
@@ -297,10 +291,10 @@ class InfoBubble extends React.Component {
           <Variants type={type} position={position} />
           {widthOrHeightControl}
         </div>
-        <Warnings segment={this.state.segment} />
+        <Warnings segment={segment} />
         <Description
-          description={this.state.description}
-          segment={this.state.segment}
+          description={getDescriptionData(segment)}
+          segment={segment}
           updateBubbleDimensions={this.updateBubbleDimensions}
           toggleHighlightTriangle={this.toggleHighlightTriangle}
         />
