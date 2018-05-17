@@ -289,11 +289,6 @@
     pointer-events: auto;
   }
 
-  .description-canvas {
-    transform: none;
-    opacity: 1;
-  }
-
   .description {
     pointer-events: auto;
   }
@@ -329,13 +324,9 @@
   left: -50px;
   top: -50px;
   right: -50px;
-  opacity: 0;
   pointer-events: none;
   border-top: 3px solid darken($ui-colour, 20%);
   border-bottom: 3px solid darken($ui-colour, 20%);
-  transform-origin: 50% 0;
-  transform: rotateX(20deg) translateY(100px);
-  transition: opacity 250ms, transform 250ms;
   background: $info-bubble-background;
 }
 

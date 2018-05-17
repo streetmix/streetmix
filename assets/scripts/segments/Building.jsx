@@ -4,10 +4,10 @@ import { connect } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
 import { createBuilding, BUILDINGS } from './buildings'
 import {
-  INFO_BUBBLE_TYPE_RIGHT_BUILDING,
   INFO_BUBBLE_TYPE_LEFT_BUILDING,
-  infoBubble
-} from '../info_bubble/info_bubble'
+  INFO_BUBBLE_TYPE_RIGHT_BUILDING
+} from '../info_bubble/constants'
+import { infoBubble } from '../info_bubble/info_bubble'
 import { resumeFadeoutControls } from './resizing'
 import { KEYS } from '../app/keyboard_commands'
 import { addBuildingFloor, removeBuildingFloor } from '../store/actions/street'

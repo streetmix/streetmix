@@ -1,7 +1,6 @@
 import { app } from '../preinit/app_settings'
-import { hideDescription } from './description'
+import { INFO_BUBBLE_TYPE_LEFT_BUILDING } from './constants'
 import { DRAGGING_TYPE_NONE, draggingType } from '../segments/drag_and_drop'
-import { cancelFadeoutControls } from '../segments/resizing'
 import { getElAbsolutePos } from '../util/helpers'
 import { registerKeypress } from '../app/keypress'
 import store from '../store'
@@ -12,10 +11,6 @@ import {
   updateHoverPolygon
 } from '../store/actions/infoBubble'
 
-export const INFO_BUBBLE_TYPE_SEGMENT = 1
-export const INFO_BUBBLE_TYPE_LEFT_BUILDING = 2
-export const INFO_BUBBLE_TYPE_RIGHT_BUILDING = 3
-
 const INFO_BUBBLE_MARGIN_BUBBLE = 20
 const INFO_BUBBLE_MARGIN_MOUSE = 10
 
@@ -25,10 +20,12 @@ function isInfoBubbleVisible () {
   return store.getState().infoBubble.visible
 }
 
+export function isDescriptionVisible () {
+  return store.getState().infoBubble.descriptionVisible
+}
+
 export const infoBubble = {
   el: null,
-
-  descriptionVisible: false,
 
   startMouseX: null,
   startMouseY: null,
@@ -61,7 +58,7 @@ export const infoBubble = {
     // description is NOT visible. (If the description
     // is visible, the escape key should hide that first.)
     registerKeypress('esc', {
-      condition: function () { return isInfoBubbleVisible() && !infoBubble.descriptionVisible }
+      condition: function () { return isInfoBubbleVisible() && !isDescriptionVisible() }
     }, function () {
       infoBubble.hide()
       infoBubble.hideSegment(false)
@@ -104,7 +101,7 @@ export const infoBubble = {
 
     let marginBubble
 
-    if (infoBubble.descriptionVisible) {
+    if (isDescriptionVisible()) {
       // TODO const
       marginBubble = 200
     } else {
@@ -112,7 +109,7 @@ export const infoBubble = {
     }
 
     const mouseInside = store.getState().infoBubble.mouseInside
-    if (mouseInside && !infoBubble.descriptionVisible) {
+    if (mouseInside && !isDescriptionVisible()) {
       var pos = getElAbsolutePos(infoBubble.segmentEl)
 
       var x = pos[0] - document.querySelector('#street-section-outer').scrollLeft
@@ -143,7 +140,7 @@ export const infoBubble = {
         bottomY2 = bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE
       }
 
-      if (infoBubble.descriptionVisible) {
+      if (isDescriptionVisible()) {
         bottomY = bubbleY + bubbleHeight + marginBubble
         bottomY2 = bottomY
       }
@@ -224,7 +221,6 @@ export const infoBubble = {
 
   hide: function () {
     if (infoBubble.el) {
-      hideDescription()
       document.body.classList.remove('controls-fade-out')
 
       store.dispatch(hideInfoBubble())
@@ -262,21 +258,6 @@ export const infoBubble = {
   dontConsiderShowing: function () {
     infoBubble.considerSegmentEl = null
     infoBubble.considerType = null
-  },
-
-  updateContents: function () {
-    const street = store.getState().street
-
-    // If info bubble changes, wake this back up if it's fading out
-    cancelFadeoutControls()
-
-    switch (infoBubble.type) {
-      case INFO_BUBBLE_TYPE_SEGMENT:
-        window.dispatchEvent(new window.CustomEvent('stmx:force_infobubble_update'))
-        var segment = street.segments[store.getState().infoBubble.dataNo]
-        infoBubble.segment = segment
-        break
-    }
   },
 
   // TODO rename
@@ -317,10 +298,6 @@ export const infoBubble = {
     }
     if (isInfoBubbleVisible()) {
       segmentEl.classList.add('immediate-show-drag-handles')
-
-      if (infoBubble.descriptionVisible) {
-        hideDescription()
-      }
     }
 
     infoBubble.startMouseX = mouseX
@@ -338,7 +315,6 @@ export const infoBubble = {
     store.dispatch(setInfoBubbleSegmentDataNo(dataNo))
 
     infoBubble.el = document.querySelector('.info-bubble')
-    infoBubble.updateContents()
 
     var bubbleWidth = infoBubble.el.offsetWidth
     var bubbleHeight = infoBubble.el.offsetHeight

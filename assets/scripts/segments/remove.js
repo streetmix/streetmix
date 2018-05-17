@@ -1,6 +1,6 @@
 import { registerKeypress } from '../app/keypress'
 import { showStatusMessage } from '../app/status_message'
-import { infoBubble } from '../info_bubble/info_bubble'
+import { infoBubble, isDescriptionVisible } from '../info_bubble/info_bubble'
 import { createDomFromData } from '../streets/data_model'
 import { getHoveredSegmentEl } from './hover'
 import { segmentsChanged, switchSegmentElAway } from './view'
@@ -52,7 +52,7 @@ export function removeAllSegments () {
 registerKeypress(['backspace', 'delete'], {
   trackAction: 'REMOVE_SEGMENT',
   // Prevent deletion from occurring of the description is visible
-  condition: function () { return !infoBubble.descriptionVisible }
+  condition: function () { return !isDescriptionVisible() }
 }, function () {
   let el = getHoveredSegmentEl()
   removeSegment(el)
@@ -67,7 +67,7 @@ registerKeypress(['shift backspace', 'shift delete'], {
   // but we should only execute this IF an segment is being hovered
   // This prevents this key command from executing anywhere
   condition: function () {
-    return !infoBubble.descriptionVisible && getHoveredSegmentEl()
+    return !isDescriptionVisible() && getHoveredSegmentEl()
   }
 }, function () {
   removeAllSegments()

@@ -9,8 +9,13 @@ import BuildingHeightControl from './BuildingHeightControl'
 import Warnings from './Warnings'
 import Description from './Description.jsx'
 import { infoBubble } from './info_bubble'
+import {
+  INFO_BUBBLE_TYPE_SEGMENT,
+  INFO_BUBBLE_TYPE_LEFT_BUILDING,
+  INFO_BUBBLE_TYPE_RIGHT_BUILDING
+} from './constants'
 import { getDescriptionData } from './description'
-import { resumeFadeoutControls } from '../segments/resizing'
+import { cancelFadeoutControls, resumeFadeoutControls } from '../segments/resizing'
 // import { trackEvent } from '../app/event_tracking'
 import { BUILDINGS } from '../segments/buildings'
 import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
@@ -19,10 +24,6 @@ import { getElAbsolutePos } from '../util/helpers'
 import { setInfoBubbleMouseInside } from '../store/actions/infoBubble'
 import { t } from '../app/locale'
 
-const INFO_BUBBLE_TYPE_SEGMENT = 1
-const INFO_BUBBLE_TYPE_LEFT_BUILDING = 2
-const INFO_BUBBLE_TYPE_RIGHT_BUILDING = 3
-
 class InfoBubble extends React.Component {
   static propTypes = {
     visible: PropTypes.bool.isRequired,
@@ -30,6 +31,7 @@ class InfoBubble extends React.Component {
       PropTypes.string,
       PropTypes.number
     ]),
+    descriptionVisible: PropTypes.bool,
     setInfoBubbleMouseInside: PropTypes.func,
     street: PropTypes.object,
     system: PropTypes.object
@@ -47,10 +49,29 @@ class InfoBubble extends React.Component {
 
     this.state = {
       type: null,
-      street: null,
-      segment: null,
-      description: null,
       highlightTriangle: false
+    }
+  }
+
+  /**
+   * Sets state when the infobubble is pointing at a building
+   *
+   * @param {Object} nextProps
+   * @param {Object} prevState
+   */
+  static getDerivedStateFromProps (nextProps, prevState) {
+    if (nextProps.dataNo === 'left') {
+      return {
+        type: INFO_BUBBLE_TYPE_LEFT_BUILDING
+      }
+    } else if (nextProps.dataNo === 'right') {
+      return {
+        type: INFO_BUBBLE_TYPE_RIGHT_BUILDING
+      }
+    } else {
+      return {
+        type: INFO_BUBBLE_TYPE_SEGMENT
+      }
     }
   }
 
@@ -59,24 +80,12 @@ class InfoBubble extends React.Component {
     // document area. Do not normalize it to a pointerleave event
     // because it doesn't make sense for other pointer types
     document.addEventListener('mouseleave', this.hide)
-
-    // Listen for external triggers to update contents here
-    window.addEventListener('stmx:force_infobubble_update', (e) => {
-      this.updateInfoBubbleState()
-    })
-  }
-
-  // TODO: Will be deprecated after Version 17
-  // Use getDerivedStateFromProps throughout application after updating ReactJS
-  componentWillReceiveProps (nextProps) {
-    const { dataNo, street } = nextProps
-    const isBuilding = (dataNo === 'left' || dataNo === 'right')
-    if (isBuilding) {
-      this.updateInfoBubbleForBuildings(dataNo, street)
-    }
   }
 
   componentDidUpdate () {
+    // If info bubble changes, wake this back up if it's fading out
+    cancelFadeoutControls()
+
     this.updateBubbleDimensions()
   }
 
@@ -126,33 +135,11 @@ class InfoBubble extends React.Component {
     this.setState({ highlightTriangle: !this.state.highlightTriangle })
   }
 
-  updateInfoBubbleForBuildings = (position, street) => {
-    const type = (position === 'left') ? INFO_BUBBLE_TYPE_LEFT_BUILDING : INFO_BUBBLE_TYPE_RIGHT_BUILDING
-
-    if (this.state.type !== type) {
-      this.setState({
-        type,
-        street,
-        segment: null,
-        description: null
-      })
-    }
-  }
-
-  updateInfoBubbleState = () => {
-    const { street } = this.props
-    const segment = street.segments[this.props.dataNo]
-    this.setState({
-      type: INFO_BUBBLE_TYPE_SEGMENT,
-      street,
-      segment,
-      description: getDescriptionData(segment)
-    })
-  }
-
   updateBubbleDimensions = () => {
     let bubbleHeight
-    if (infoBubble.descriptionVisible) {
+    if (!this.el) return
+
+    if (this.props.descriptionVisible) {
       const el = this.el.querySelector('.description-canvas')
       const pos = getElAbsolutePos(el)
       bubbleHeight = pos[1] + el.offsetHeight - 38
@@ -190,7 +177,7 @@ class InfoBubble extends React.Component {
 
     switch (this.state.type) {
       case INFO_BUBBLE_TYPE_SEGMENT: {
-        const segment = this.state.segment
+        const segment = this.props.street.segments[this.props.dataNo]
         if (segment) {
           const segmentName = getSegmentInfo(segment.type).name
           const segmentVariantName = getSegmentVariantInfo(segment.type, segment.variantString).name
@@ -238,6 +225,9 @@ class InfoBubble extends React.Component {
     if (this.props.visible) {
       classNames.push('visible')
     }
+    if (this.props.descriptionVisible) {
+      classNames.push('show-description')
+    }
 
     // Determine position
     let position
@@ -271,6 +261,8 @@ class InfoBubble extends React.Component {
         break
     }
 
+    const segment = this.props.street.segments[this.props.dataNo]
+
     return (
       <div
         className={classNames.join(' ')}
@@ -288,10 +280,10 @@ class InfoBubble extends React.Component {
           <Variants type={type} position={position} />
           {widthOrHeightControl}
         </div>
-        <Warnings segment={this.state.segment} />
+        <Warnings segment={segment} />
         <Description
-          description={this.state.description}
-          segment={this.state.segment}
+          description={getDescriptionData(segment)}
+          segment={segment}
           updateBubbleDimensions={this.updateBubbleDimensions}
           toggleHighlightTriangle={this.toggleHighlightTriangle}
         />
@@ -304,6 +296,7 @@ function mapStateToProps (state) {
   return {
     visible: state.infoBubble.visible,
     dataNo: state.infoBubble.dataNo,
+    descriptionVisible: state.infoBubble.descriptionVisible,
     street: state.street,
     system: state.system
   }

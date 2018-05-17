@@ -6,13 +6,12 @@ import { getSegmentInfo } from '../segments/info'
 import { VARIANT_ICONS } from '../segments/variant_icons'
 import { getVariantArray } from '../segments/variant_utils'
 import { changeSegmentVariantLegacy } from '../segments/view'
-import { infoBubble } from './info_bubble'
+import {
+  INFO_BUBBLE_TYPE_SEGMENT,
+  INFO_BUBBLE_TYPE_LEFT_BUILDING,
+  INFO_BUBBLE_TYPE_RIGHT_BUILDING
+} from './constants'
 import { setBuildingVariant, changeSegmentVariant } from '../store/actions/street'
-
-// Duped from InfoBubble
-const INFO_BUBBLE_TYPE_SEGMENT = 1
-const INFO_BUBBLE_TYPE_LEFT_BUILDING = 2
-const INFO_BUBBLE_TYPE_RIGHT_BUILDING = 3
 
 class Variants extends React.Component {
   static propTypes = {
@@ -98,17 +97,11 @@ class Variants extends React.Component {
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
         handler = (event) => {
           this.props.setBuildingVariant('left', selection)
-
-          // TODO: remove legacy notification
-          infoBubble.updateContents()
         }
         break
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
         handler = (event) => {
           this.props.setBuildingVariant('right', selection)
-
-          // TODO: remove legacy notification
-          infoBubble.updateContents()
         }
         break
       default:

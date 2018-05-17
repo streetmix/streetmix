@@ -16,7 +16,7 @@ export default class Warnings extends React.Component {
     const segment = this.props.segment
     const messages = []
 
-    if (!segment) return null
+    if (!segment || !segment.warnings) return null
 
     if (segment.warnings[SEGMENT_WARNING_OUTSIDE]) {
       messages.push(<FormattedMessage id="segments.warnings.does-not-fit" defaultMessage="This segment doesn’t fit within the street." />)
@@ -31,7 +31,7 @@ export default class Warnings extends React.Component {
     if (messages.length > 0) {
       return (
         <div className="info-bubble-warnings">
-          {messages.map((message) => (<p key={message}>{message}</p>))}
+          {messages.map((message) => (<p key={message.props.id}>{message}</p>))}
         </div>
       )
     }

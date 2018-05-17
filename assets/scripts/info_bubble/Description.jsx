@@ -1,13 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
-import Triangle from './Triangle'
-import { showDescription, hideDescription } from './description'
+import DescriptionPanel from './DescriptionPanel'
+import { infoBubble } from './info_bubble'
 import { trackEvent } from '../app/event_tracking'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { t } from '../app/locale'
+import { showDescription, hideDescription } from '../store/actions/infoBubble'
 
-export default class Description extends React.Component {
+export class Description extends React.Component {
   static propTypes = {
     description: PropTypes.object,
     segment: PropTypes.shape({
@@ -15,63 +17,41 @@ export default class Description extends React.Component {
       variantString: PropTypes.string
     }),
     updateBubbleDimensions: PropTypes.func.isRequired,
-    toggleHighlightTriangle: PropTypes.func.isRequired
-  }
-
-  constructor (props) {
-    super(props)
-
-    this.text = null
-
-    this.state = {
-      highlightTriangle: false
-    }
-  }
-
-  componentDidMount () {
-    this.retargetAnchors()
-  }
-
-  componentDidUpdate () {
-    this.retargetAnchors()
+    toggleHighlightTriangle: PropTypes.func.isRequired,
+    descriptionVisible: PropTypes.bool.isRequired,
+    showDescription: PropTypes.func.isRequired,
+    hideDescription: PropTypes.func.isRequired
   }
 
   onClickShow = () => {
-    showDescription()
-    this.unhighlightTriangleDelayed()
+    this.props.showDescription()
     this.props.updateBubbleDimensions()
+
+    // TODO refactor
+    if (infoBubble.segmentEl) {
+      infoBubble.segmentEl.classList.add('hide-drag-handles-when-description-shown')
+    }
+
+    infoBubble.updateHoverPolygon()
+    // end TODO
 
     registerKeypress('esc', this.onClickHide)
     trackEvent('INTERACTION', 'LEARN_MORE', this.props.segment.type, null, false)
   }
 
   onClickHide = () => {
-    hideDescription()
-    this.unhighlightTriangleDelayed()
+    this.props.hideDescription()
     this.props.updateBubbleDimensions()
 
-    deregisterKeypress('esc', hideDescription)
-  }
-
-  unhighlightTriangleDelayed = () => {
-    window.setTimeout(() => {
-      this.setState({ highlightTriangle: false })
-    }, 200)
-  }
-
-  toggleHighlightTriangle = () => {
-    this.setState({ highlightTriangle: !this.state.highlightTriangle })
-  }
-
-  /**
-   *  After rendering, ensure all links in description open in a new window
-   */
-  retargetAnchors = () => {
-    if (!this.text) return
-    const links = this.text.querySelectorAll('a')
-    for (let link of links) {
-      link.target = '_blank'
+    // TODO refactor
+    if (infoBubble.segmentEl) {
+      infoBubble.segmentEl.classList.remove('hide-drag-handles-when-description-shown')
     }
+
+    infoBubble.updateHoverPolygon()
+    // end TODO
+
+    deregisterKeypress('esc', this.onClickHide)
   }
 
   /**
@@ -95,18 +75,7 @@ export default class Description extends React.Component {
     return false
   }
 
-  renderText (text) {
-    if (!text) return null
-    return text.map((paragraph, index) => {
-      const html = {
-        __html: paragraph
-      }
-      return <p key={index} dangerouslySetInnerHTML={html} />
-    })
-  }
-
   render () {
-    const height = null // height: 505px;
     const description = this.props.description
 
     if (!description) return null
@@ -125,29 +94,13 @@ export default class Description extends React.Component {
     const segmentPrompt = t(`segments.${this.props.segment.type}.description.prompt`, defaultPrompt, { ns: 'segment-info' })
     const displayPrompt = variantPrompt || segmentPrompt
 
-    // TODO: add alt text and requisite a11y attributes
-    const image = (description.image) ? (
-      <img src={`/images/info-bubble-examples/${description.image}`} />
-    ) : null
-
     const variantLede = t(`segments.${this.props.segment.type}.details.${this.props.segment.variantString}.description.lede`, null, { ns: 'segment-info' })
     const segmentLede = t(`segments.${this.props.segment.type}.description.lede`, description.lede, { ns: 'segment-info' })
     const displayLede = variantLede || segmentLede
-    const lede = (displayLede) ? (
-      <p className="description-lede">{displayLede}</p>
-    ) : null
-
-    const text = this.renderText(displayDescription)
 
     const variantImageCaption = t(`segments.${this.props.segment.type}.details.${this.props.segment.variantString}.description.imageCaption`, null, { ns: 'segment-info' })
     const segmentImageCaption = t(`segments.${this.props.segment.type}.description.imageCaption`, description.imageCaption, { ns: 'segment-info' })
     const displayImageCaption = variantImageCaption || segmentImageCaption
-    const caption = (displayImageCaption) ? (
-      <footer>
-        <FormattedMessage id="segments.description.photo-credit" defaultMessage="Photo:" />&nbsp;
-        {displayImageCaption}
-      </footer>
-    ) : null
 
     return (
       <React.Fragment>
@@ -159,24 +112,30 @@ export default class Description extends React.Component {
         >
           {displayPrompt}
         </div>
-        <div className="description-canvas" style={height}>
-          <div className="description" ref={(ref) => { this.text = ref }}>
-            {image}
-            {lede}
-            {text}
-            {caption}
-          </div>
-          <div
-            className="description-close"
-            onClick={this.onClickHide}
-            onMouseOver={this.toggleHighlightTriangle}
-            onMouseOut={this.toggleHighlightTriangle}
-          >
-            <FormattedMessage id="btn.close" defaultMessage="Close" />
-          </div>
-          <Triangle highlight={this.state.highlightTriangle} />
-        </div>
+        <DescriptionPanel
+          visible={this.props.descriptionVisible}
+          onClickHide={this.onClickHide}
+          image={description.image}
+          lede={displayLede}
+          text={displayDescription}
+          caption={displayImageCaption}
+        />
       </React.Fragment>
     )
   }
 }
+
+function mapStateToProps (state) {
+  return {
+    descriptionVisible: state.infoBubble.descriptionVisible
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    showDescription: () => { dispatch(showDescription()) },
+    hideDescription: () => { dispatch(hideDescription()) }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Description)
