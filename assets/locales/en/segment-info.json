@@ -218,7 +218,7 @@
         "foodtruck|outbound|right": {
           "name": "Food truck"
         }
-      },
+      }
     },
     "flex-zone-curb": {
       "name": "Pick up / drop off waiting area"
