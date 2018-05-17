@@ -34,6 +34,8 @@ export default class BlockingShield extends React.Component {
 
   componentDidMount () {
     window.addEventListener('stmx:show_blocking_shield', (event) => {
+      this.clearTimers()
+
       this.setState({
         visible: true,
         mode: event.detail.mode || 'load'
@@ -49,6 +51,8 @@ export default class BlockingShield extends React.Component {
     })
 
     window.addEventListener('stmx:darken_blocking_shield', (event) => {
+      this.clearTimers()
+
       this.setState({
         visible: true,
         immediate: true,
@@ -58,6 +62,8 @@ export default class BlockingShield extends React.Component {
     })
 
     window.addEventListener('stmx:hide_blocking_shield', (event) => {
+      this.clearTimers()
+
       this.setState({
         visible: false,
         immediate: false,
@@ -65,10 +71,6 @@ export default class BlockingShield extends React.Component {
         showCancel: false
       })
     })
-  }
-
-  componentDidUpdate (prevProps, prevState) {
-    this.clearTimers()
   }
 
   clearTimers = () => {
@@ -105,9 +107,10 @@ export default class BlockingShield extends React.Component {
           {(this.state.mode === 'remix') && <FormattedMessage id="msg.remixing" defaultMessage="Remixing…" />}
         </div>
         {(this.state.errorType === 'try-again') &&
-          <div className="blocking-shield-content">
-            <FormattedMessage id="msg.no-connection" defaultMessage="Streetmix is having trouble connecting to the Internet." />
-            <br />
+          <div className="error-content">
+            <p>
+              <FormattedMessage id="msg.no-connection" defaultMessage="Streetmix is having trouble connecting to the Internet." />
+            </p>
             <button onClick={this.blockingTryAgain}>
               <FormattedMessage id="btn.try-again" defaultMessage="Try again" />
             </button>
@@ -119,11 +122,13 @@ export default class BlockingShield extends React.Component {
           </div>
         }
         {(this.state.errorType === 'too-slow') &&
-          <div className="blocking-shield-content">
-            <FormattedMessage id="msg.slow-connection-1" defaultMessage="Streetmix wasn’t able to connect to the Internet in awhile now." />
-            <br /><br />
-            <FormattedMessage id="msg.slow-connection-2" defaultMessage="You might want to reload the page and try again. Please note you might lose the latest change to the street. Sorry!" />
-            <br /><br />
+          <div className="error-content">
+            <p>
+              <FormattedMessage id="msg.slow-connection-1" defaultMessage="Streetmix wasn’t able to connect to the Internet in awhile now." />
+            </p>
+            <p>
+              <FormattedMessage id="msg.slow-connection-2" defaultMessage="You might want to reload the page and try again. Please note you might lose the latest change to the street. Sorry!" />
+            </p>
             <button onClick={goReload}>
               <FormattedMessage id="btn.reload" defaultMessage="Reload" />
             </button>

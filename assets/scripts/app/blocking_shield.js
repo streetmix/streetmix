@@ -3,7 +3,7 @@ export function showBlockingShield (mode = 'load') {
 }
 
 export function darkenBlockingShield (showCancel = false) {
-  window.dispatchEvent(new window.CustomEvent('stmx:darken_blocking_shield', { detail: { showCancel } }))
+  window.dispatchEvent(new window.CustomEvent('stmx:darken_blocking_shield', { detail: { showCancel: !!showCancel } }))
 }
 
 export function hideBlockingShield () {

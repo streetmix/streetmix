@@ -30,16 +30,7 @@ export function newBlockingAjaxRequest (mode, request, doneFunc, cancelFunc) {
   blockingAjaxRequestDoneFunc = doneFunc
   blockingAjaxRequestCancelFunc = cancelFunc
 
-  window.fetch(blockingAjaxRequest.url, blockingAjaxRequest)
-    .then(response => {
-      if (!response.ok) {
-        throw response
-      }
-
-      return response.json()
-    })
-    .then(successBlockingAjaxRequest)
-    .catch(errorBlockingAjaxRequest)
+  makeBlockingAjaxRequest()
 }
 
 function successBlockingAjaxRequest (data) {
@@ -49,12 +40,10 @@ function successBlockingAjaxRequest (data) {
 }
 
 function errorBlockingAjaxRequest () {
-  darkenBlockingShield(!!blockingAjaxRequestCancelFunc)
+  darkenBlockingShield(blockingAjaxRequestCancelFunc)
 }
 
-// These export to the blocking shield to retry or cancel requests
-
-export function blockingTryAgain () {
+function makeBlockingAjaxRequest () {
   window.fetch(blockingAjaxRequest.url, blockingAjaxRequest)
     .then(response => {
       if (!response.ok) {
@@ -65,6 +54,12 @@ export function blockingTryAgain () {
     })
     .then(successBlockingAjaxRequest)
     .catch(errorBlockingAjaxRequest)
+}
+
+// These export to the blocking shield to retry or cancel requests
+
+export function blockingTryAgain () {
+  makeBlockingAjaxRequest()
 }
 
 export function blockingCancel () {
