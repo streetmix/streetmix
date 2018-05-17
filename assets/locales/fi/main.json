@@ -242,7 +242,7 @@
     "rename": "Nimeä uudelleen napsauttamalla"
   },
   "building": {
-    "floors-count": ""
+    "floors-count": "{count, plural, one {} other {}}"
   },
   "segments": {
     "warnings": {
@@ -263,7 +263,8 @@
     "all": "Kaikki kadut",
     "twitter-link": "Twitter-profiili",
     "delete-street-tooltip": "Poista katu",
-    "street-count": "{count, plural, =0 {Ei luotuja katuja} one {# katu} other {# katua}}",
+    "street-count": "{count, plural, one {# katu} other {# katua}}",
+    "no-streets": "Ei luotuja katuja",
     "sign-in": "Kirjaudu Twitter-tunnuksella voit tallentaa tämän kadun omaan katugalleriaasi"
   },
   "users": {

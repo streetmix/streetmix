@@ -86,7 +86,7 @@
         ]
       },
       "details": {
-        "inbound|colored": {
+        "inbound|green": {
           "description": {
             "prompt": "En apprendre davantage sur les voies cyclables colorées",
             "lede": "Les voies cyclables colorées sont plus sécuritaires et offrent une meilleure visibilité pour les cyclistes.",
@@ -97,7 +97,29 @@
             ]
           }
         },
-        "outbound|colored": {
+        "outbound|green": {
+          "description": {
+            "prompt": "En apprendre davantage sur les voies cyclables colorées",
+            "lede": "Les voies cyclables colorées sont plus sécuritaires et offrent une meilleure visibilité pour les cyclistes.",
+            "text": [
+              "Plus le cyclisme sera utilisé au jour le jour comme mode de transport, les planificateurs devront s'assurer de la sécurité des cyclistes, d'éliminer les collisions avec les voitures et d'empêcher les automobilistes d'utiliser les espaces réservés aux vélos. Le problème : les automobilistes ne perçoivent pas toujours les cyclistes. La solution : rendre les cyclistes le plus visibles possible. Une piste de solution est d'utiliser une couleur d'asphalte différente du reste de la chaussée.",
+              "Bien que les bienfaits des bandes cyclables colorées aient été démontrés dans <a href=\"https://nacto.org/publication/urban-bikeway-design-guide/bikeway-signing-marking/colored-bike-facilities\">plusieurs études(en)</a>, tout le monde a une opinion sur <em>quelle</em> couleur, dois être utilisée. Les Pays-Bas mettent en place des voies rouges alors que le Danemark utilise du bleu et la France du vert. Le Royaume-Uni alterne entre le vert et le rouge et la plupart des municipalités aux États-Unis ont opté pour le vert (résultat qui n'était pas prévu, car ils se sont tous copiés mutuellement). Pour sa part, Portland dans l'état de l'Oregon, une des villes les mieux adaptées aux vélos aux États-Unis, utilise des <a href=\"http://www.portlandoregon.gov/transportation/article/58842\">voies cyclables bleues depuis les années 90(en)</a>.",
+              "Peu importe la couleur que vous préférez, si votre région ne possède pas de normes en la matière, il est préférable de mettre en place une peinture qui ressort et qui n'entre pas en conflit avec d'autres marquages. Au-delà de la couleur, le facteur le plus important pour les villes est relié aux coûts d'entretien. Actuellement, les sortes de peintures utilisées s'usent vite et deviennent ternes, malgré qu'il y a de plus en plus de solutions améliorant les caractéristiques de celle-ci. Si les coûts d'entretien récurrent sont un facteur problématique, il peut être intéressant de mettre en place un aménagement permanent <a href=\"http://peopleforbikes.org/green-lane-project/protected-bike-lanes-101\">protégeant les cyclistes</a>."
+            ]
+          }
+        },
+        "inbound|red": {
+          "description": {
+            "prompt": "En apprendre davantage sur les voies cyclables colorées",
+            "lede": "Les voies cyclables colorées sont plus sécuritaires et offrent une meilleure visibilité pour les cyclistes.",
+            "text": [
+              "Plus le cyclisme sera utilisé au jour le jour comme mode de transport, les planificateurs devront s'assurer de la sécurité des cyclistes, d'éliminer les collisions avec les voitures et d'empêcher les automobilistes d'utiliser les espaces réservés aux vélos. Le problème : les automobilistes ne perçoivent pas toujours les cyclistes. La solution : rendre les cyclistes le plus visibles possible. Une piste de solution est d'utiliser une couleur d'asphalte différente du reste de la chaussée.",
+              "Bien que les bienfaits des bandes cyclables colorées aient été démontrés dans <a href=\"https://nacto.org/publication/urban-bikeway-design-guide/bikeway-signing-marking/colored-bike-facilities\">plusieurs études(en)</a>, tout le monde a une opinion sur <em>quelle</em> couleur, dois être utilisée. Les Pays-Bas mettent en place des voies rouges alors que le Danemark utilise du bleu et la France du vert. Le Royaume-Uni alterne entre le vert et le rouge et la plupart des municipalités aux États-Unis ont opté pour le vert (résultat qui n'était pas prévu, car ils se sont tous copiés mutuellement). Pour sa part, Portland dans l'état de l'Oregon, une des villes les mieux adaptées aux vélos aux États-Unis, utilise des <a href=\"http://www.portlandoregon.gov/transportation/article/58842\">voies cyclables bleues depuis les années 90(en)</a>.",
+              "Peu importe la couleur que vous préférez, si votre région ne possède pas de normes en la matière, il est préférable de mettre en place une peinture qui ressort et qui n'entre pas en conflit avec d'autres marquages. Au-delà de la couleur, le facteur le plus important pour les villes est relié aux coûts d'entretien. Actuellement, les sortes de peintures utilisées s'usent vite et deviennent ternes, malgré qu'il y a de plus en plus de solutions améliorant les caractéristiques de celle-ci. Si les coûts d'entretien récurrent sont un facteur problématique, il peut être intéressant de mettre en place un aménagement permanent <a href=\"http://peopleforbikes.org/green-lane-project/protected-bike-lanes-101\">protégeant les cyclistes</a>."
+            ]
+          }
+        },
+        "outbound|red": {
           "description": {
             "prompt": "En apprendre davantage sur les voies cyclables colorées",
             "lede": "Les voies cyclables colorées sont plus sécuritaires et offrent une meilleure visibilité pour les cyclistes.",
@@ -120,30 +142,86 @@
           "name": "Stationnement perpendiculaire"
         },
         "angled-front-left|left": {
-          "name": ""
+          "name": "Parking incliné"
         },
         "angled-front-left|right": {
-          "name": ""
+          "name": "Parking incliné"
         },
         "angled-front-right|left": {
-          "name": ""
+          "name": "Parking incliné"
         },
         "angled-front-right|right": {
-          "name": ""
+          "name": "Parking incliné"
         },
         "angled-rear-left|left": {
-          "name": ""
+          "name": "Parking incliné"
         },
         "angled-rear-left|right": {
-          "name": ""
+          "name": "Parking incliné"
         },
         "angled-rear-right|left": {
-          "name": ""
+          "name": "Parking incliné"
         },
         "angled-rear-right|right": {
+          "name": "Parking incliné"
+        }
+      }
+    },
+    "flex-zone": {
+      "name": "",
+      "details": {
+        "taxi|inbound|left": {
+          "name": ""
+        },
+        "taxi|inbound|right": {
+          "name": ""
+        },
+        "taxi|outbound|left": {
+          "name": ""
+        },
+        "taxi|outbound|right": {
+          "name": ""
+        },
+        "rideshare|inbound|left": {
+          "name": ""
+        },
+        "rideshare|inbound|right": {
+          "name": ""
+        },
+        "rideshare|outbound|left": {
+          "name": ""
+        },
+        "rideshare|outbound|right": {
+          "name": ""
+        },
+        "bikeshare|inbound|left": {
+          "name": ""
+        },
+        "bikeshare|inbound|right": {
+          "name": ""
+        },
+        "bikeshare|outbound|left": {
+          "name": ""
+        },
+        "bikeshare|outbound|right": {
+          "name": ""
+        },
+        "foodtruck|inbound|left": {
+          "name": ""
+        },
+        "foodtruck|inbound|right": {
+          "name": ""
+        },
+        "foodtruck|outbound|left": {
+          "name": ""
+        },
+        "foodtruck|outbound|right": {
           "name": ""
         }
       }
+    },
+    "flex-zone-curb": {
+      "name": ""
     },
     "drive-lane": {
       "name": "Voie de circulation",
@@ -286,10 +364,10 @@
     "parking-lane-direction|inbound": "Entrant",
     "parking-lane-direction|outbound": "Sortant",
     "parking-lane-direction|sideways": "Perpendiculaire",
-    "parking-lane-direction|angled-front-left": "",
-    "parking-lane-direction|angled-front-right": "",
-    "parking-lane-direction|angled-rear-left": "",
-    "parking-lane-direction|angled-rear-right": "",
+    "parking-lane-direction|angled-front-left": "Incliné",
+    "parking-lane-direction|angled-front-right": "Incliné",
+    "parking-lane-direction|angled-rear-left": "Incliné",
+    "parking-lane-direction|angled-rear-right": "Incliné",
     "direction|inbound": "Entrant",
     "direction|outbound": "Sortant",
     "sidewalk-density|empty": "Vide",

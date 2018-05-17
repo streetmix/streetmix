@@ -1,13 +1,13 @@
-var fs = require('fs')
-var path = require('path')
-var envFile = path.join(__dirname, '/../.env')
+const fs = require('fs')
+const path = require('path')
+const envFile = path.join(__dirname, '/../.env')
 
 if (fs.existsSync(envFile)) {
-  var env = require('node-env-file')
+  const env = require('node-env-file')
   env(envFile)
 }
 
-var port = process.env.PORT || 8000
+const port = process.env.PORT || 8000
 process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 
 module.exports = {
@@ -47,5 +47,11 @@ module.exports = {
     feedback_sender_default: 'noreply@streetmix.net'
   },
   log_level: 'debug',
-  no_internet_mode: process.env.NO_INTERNET_MODE || false
+  no_internet_mode: process.env.NO_INTERNET_MODE || false,
+  l10n: {
+    transifex: {
+      api_token: process.env.TRANSIFEX_API_TOKEN
+    },
+    use_local: false
+  }
 }

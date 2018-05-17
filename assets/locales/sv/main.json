@@ -242,7 +242,7 @@
     "rename": ""
   },
   "building": {
-    "floors-count": ""
+    "floors-count": "{count, plural, one {} other {}}"
   },
   "segments": {
     "warnings": {
@@ -263,7 +263,8 @@
     "all": "Alla gator",
     "twitter-link": "",
     "delete-street-tooltip": "Ta bort gata",
-    "street-count": "{count, plural, =0 {Inga gator än} one {# gata} other {# gator}}",
+    "street-count": "{count, plural, one {# gata} other {# gator}}",
+    "no-streets": "Inga gator än",
     "sign-in": "Logga in med Twitter för ditt personliga gatubibliotek"
   },
   "users": {

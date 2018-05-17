@@ -19,7 +19,7 @@ async function getLocalTranslation (res, locale, resource) {
     if (err.code === 'ENOENT') {
       res.status(404).json({ status: 404, msg: 'No translation found with locale code: ' + locale })
     } else {
-      res.status(500).json({ status: 500, msg: 'Could not retrieve translation.' })
+      res.status(500).json({ status: 500, msg: 'Could not retrieve translation for locale: ' + locale })
     }
   }
 }
@@ -46,9 +46,15 @@ exports.get = async (req, res) => {
   let translation
 
   try {
-    translation = await getFromTransifex(locale, resource)
+    if (config.l10n.use_local === true) {
+      translation = await getLocalTranslation(res, locale, resource)
+    } else {
+      translation = await getFromTransifex(locale, resource, config.l10n.transifex.api_token)
+    }
   } catch (err) {
-    translation = await getLocalTranslation(res, locale, resource)
+    logger.error(err)
+
+    res.status(500).json({ status: 500, msg: 'Could not retrieve translation for locale: ' + locale })
   }
 
   if (translation) {

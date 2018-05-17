@@ -4,5 +4,8 @@ module.exports = {
   restapi: {
     baseuri: '/api'
   },
-  facebook_app_id: '175861739245183'
+  facebook_app_id: '175861739245183',
+  l10n: {
+    use_local: false
+  }
 }

@@ -86,7 +86,7 @@
         ]
       },
       "details": {
-        "inbound|colored": {
+        "inbound|green": {
           "description": {
             "prompt": "Lisätietoja värjätyistä pyöräkaistoista",
             "lede": "Värjätyt pyöräkaistat erottuvat paremmin ja ovat pyöräilijälle turvallisempia.",
@@ -97,7 +97,29 @@
             ]
           }
         },
-        "outbound|colored": {
+        "outbound|green": {
+          "description": {
+            "prompt": "Lisätietoja värjätyistä pyöräkaistoista",
+            "lede": "Värjätyt pyöräkaistat erottuvat paremmin ja ovat pyöräilijälle turvallisempia.",
+            "text": [
+              "Päivittäisen asiointipyöräilyn lisääntyessä pyöräliikenneturvallisuuden varmistaminen muuttuu yhä tärkeämmäksi. Esimerkiksi pyöräilijöiden ja autoilijoiden kohtaamistilanteet ja autoilijoiden pyöräilijöille tarkoitettujen alueiden väärinkäyttö ovat ongelmia, mikä yleensä johtuu pyöräilijöiden olemassaolon tiedostoneisuuden puutteesta. Ratkaisuna on tehdä pyöräilystä mahdollisimman näkyvää, ja yksi keino tämän tavoitteen saavuttamiseksi on värjätä pyörätiet eriväriseksi kuin muut katutilan osat.",
+              "Värjättyjen pyöräkaistojen hyödyt on todistettu <a href=\"https://nacto.org/publication/urban-bikeway-design-guide/bikeway-signing-marking/colored-bike-facilities\">lukuisissa tutkimuksissa</a>, mutta itse <em>värivalinnasta</em> on montaa mielipidettä: Suomessa ja Ruotsissa suositaan Hollannin tapaan punaista, Tanskassa sinistä ja Ranskassa vihreää. Iso-Britanniassa käytetään sekä punaista että vihreää, ja myös Yhdysvalloissa vihreä väri on noussut yleisimmäksi - tosin Yhdysvaltain pyöräilyparatiisi Portlandissa <a href=\"http://www.portlandoregon.gov/transportation/article/58842\">pyöräkaistat ovat olleet sinisiä</a> jo 1990-luvulta lähtien.",
+              "Ei värillä väliä: tärkeintä on valita mahdollisimman silmiinpistävä väri, joka erottuu ympäristöstään. Myös kustannuskysymys erityisesti ylläpidon suhteen on merkillepantava: laajimmin käytetty, edullinen maalipinta haalistuu ja lopulta kuoriutuu pois verrattain nopeasti, vaikka tekniikka sen suhteen onkin kehittynyt. Jos juoksevat ylläpitokustannukset hirvittävät, turvallisuutta voi kohentaa myös vaikkapa <a href=\"http://peopleforbikes.org/green-lane-project/protected-bike-lanes-101\">suojatolpilla</a>."
+            ]
+          }
+        },
+        "inbound|red": {
+          "description": {
+            "prompt": "Lisätietoja värjätyistä pyöräkaistoista",
+            "lede": "Värjätyt pyöräkaistat erottuvat paremmin ja ovat pyöräilijälle turvallisempia.",
+            "text": [
+              "Päivittäisen asiointipyöräilyn lisääntyessä pyöräliikenneturvallisuuden varmistaminen muuttuu yhä tärkeämmäksi. Esimerkiksi pyöräilijöiden ja autoilijoiden kohtaamistilanteet ja autoilijoiden pyöräilijöille tarkoitettujen alueiden väärinkäyttö ovat ongelmia, mikä yleensä johtuu pyöräilijöiden olemassaolon tiedostoneisuuden puutteesta. Ratkaisuna on tehdä pyöräilystä mahdollisimman näkyvää, ja yksi keino tämän tavoitteen saavuttamiseksi on värjätä pyörätiet eriväriseksi kuin muut katutilan osat.",
+              "Värjättyjen pyöräkaistojen hyödyt on todistettu <a href=\"https://nacto.org/publication/urban-bikeway-design-guide/bikeway-signing-marking/colored-bike-facilities\">lukuisissa tutkimuksissa</a>, mutta itse <em>värivalinnasta</em> on montaa mielipidettä: Suomessa ja Ruotsissa suositaan Hollannin tapaan punaista, Tanskassa sinistä ja Ranskassa vihreää. Iso-Britanniassa käytetään sekä punaista että vihreää, ja myös Yhdysvalloissa vihreä väri on noussut yleisimmäksi - tosin Yhdysvaltain pyöräilyparatiisi Portlandissa <a href=\"http://www.portlandoregon.gov/transportation/article/58842\">pyöräkaistat ovat olleet sinisiä</a> jo 1990-luvulta lähtien.",
+              "Ei värillä väliä: tärkeintä on valita mahdollisimman silmiinpistävä väri, joka erottuu ympäristöstään. Myös kustannuskysymys erityisesti ylläpidon suhteen on merkillepantava: laajimmin käytetty, edullinen maalipinta haalistuu ja lopulta kuoriutuu pois verrattain nopeasti, vaikka tekniikka sen suhteen onkin kehittynyt. Jos juoksevat ylläpitokustannukset hirvittävät, turvallisuutta voi kohentaa myös vaikkapa <a href=\"http://peopleforbikes.org/green-lane-project/protected-bike-lanes-101\">suojatolpilla</a>."
+            ]
+          }
+        },
+        "outbound|red": {
           "description": {
             "prompt": "Lisätietoja värjätyistä pyöräkaistoista",
             "lede": "Värjätyt pyöräkaistat erottuvat paremmin ja ovat pyöräilijälle turvallisempia.",
@@ -144,6 +166,62 @@
           "name": ""
         }
       }
+    },
+    "flex-zone": {
+      "name": "",
+      "details": {
+        "taxi|inbound|left": {
+          "name": ""
+        },
+        "taxi|inbound|right": {
+          "name": ""
+        },
+        "taxi|outbound|left": {
+          "name": ""
+        },
+        "taxi|outbound|right": {
+          "name": ""
+        },
+        "rideshare|inbound|left": {
+          "name": ""
+        },
+        "rideshare|inbound|right": {
+          "name": ""
+        },
+        "rideshare|outbound|left": {
+          "name": ""
+        },
+        "rideshare|outbound|right": {
+          "name": ""
+        },
+        "bikeshare|inbound|left": {
+          "name": ""
+        },
+        "bikeshare|inbound|right": {
+          "name": ""
+        },
+        "bikeshare|outbound|left": {
+          "name": ""
+        },
+        "bikeshare|outbound|right": {
+          "name": ""
+        },
+        "foodtruck|inbound|left": {
+          "name": ""
+        },
+        "foodtruck|inbound|right": {
+          "name": ""
+        },
+        "foodtruck|outbound|left": {
+          "name": ""
+        },
+        "foodtruck|outbound|right": {
+          "name": ""
+        }
+      }
+    },
+    "flex-zone-curb": {
+      "name": ""
     },
     "drive-lane": {
       "name": "Ajokaista",

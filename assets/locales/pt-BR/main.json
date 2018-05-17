@@ -66,7 +66,7 @@
     "remixing": "Remixando…",
     "having-trouble": "Tendo problemas…",
     "no-street": "Sem rua selecionada.",
-    "trouble-loading": "Estamos com um problema para carregar o Streetmix.",
+    "trouble-loading": "Estamos tendo um problema ao carregar o Streetmix",
     "slow-connection-1": "Não foi possível conectar o Streetmix a internet no momento.",
     "slow-connection-2": "Você pode querer recarregar a página e tentar novamente. Por favor fique atento, você pode perder a última mudança na rua, desculpe!",
     "no-connection": "Não estamos conseguindo conectar com a Internet.",
@@ -242,7 +242,7 @@
     "rename": ""
   },
   "building": {
-    "floors-count": ""
+    "floors-count": "{count, plural, one {} other {}}"
   },
   "segments": {
     "warnings": {
@@ -263,7 +263,8 @@
     "all": "Todas as ruas",
     "twitter-link": "",
     "delete-street-tooltip": "Deletar esta rua",
-    "street-count": "{count, plural, =0 {Ainda não tem ruas} one {# rua} other {# ruas}}",
+    "street-count": "{count, plural, one {# rua} other {# ruas}}",
+    "no-streets": "Ainda não tem ruas",
     "sign-in": "Entrar com Twitter para sua galeria pessoal de ruas"
   },
   "users": {
