@@ -1,4 +1,4 @@
-var port = 3000
+const port = 3000
 
 module.exports = {
   port: port,
@@ -13,5 +13,8 @@ module.exports = {
   },
   email: {
     feedback_recipient: 'nobody@example.com'
+  },
+  l10n: {
+    use_local: true
   }
 }

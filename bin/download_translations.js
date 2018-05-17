@@ -2,50 +2,50 @@
 
 const fs = require('fs')
 const path = require('path')
+const config = require('config')
 const getFromTransifex = require('../lib/transifex.js')
-
-const envFile = path.join(__dirname, '/../.env')
-if (fs.existsSync(envFile)) {
-  const env = require('node-env-file')
-  env(envFile)
-}
+const languages = require('../app/data/locales.json')
 
 const resources = ['main', 'segment-info']
-const languages = ['ar', 'de', 'es', 'es-MX', 'fi', 'fr', 'ja', 'pl', 'pt-BR', 'sv', 'zh-Hant']
 
-const downloadSuccess = function (locale, resource, data) {
+const downloadSuccess = function (locale, resource, label, data) {
   const localeDir = path.join(__dirname, '/../assets/locales/', locale)
   const translationFile = localeDir + '/' + resource + '.json'
   const translationText = JSON.stringify(JSON.parse(data), null, 2) + '\n' // Add trailing newline at end of file
 
   fs.stat(localeDir, function (err, stats) {
     if (err) {
-      console.log('Error accessing ' + localeDir + '.')
+      console.error(`Error accessing ${localeDir}.`)
     }
     if (!stats) {
       fs.mkdirSync(localeDir)
     }
     fs.writeFile(translationFile, translationText, function (err) {
       if (err) {
-        console.log('Error occurs during saving of ' + locale + ' translation of ' + resource + '.')
+        console.error(`Error occurred while saving ${label} (${locale}) translation of ${resource}: ${err}`)
       }
-      console.log(locale + ' translation of ' + resource + ' was successfully writen to file.')
+      console.log(`${label} (${locale}) translation of ${resource} successfully writen to ${translationFile}`)
     })
   })
 }
 
-const downloadError = function (locale, resource, error) {
-  console.log('Error occurred during downloading of ' + locale + ' translation of ' + resource + ': ' + error)
+const downloadError = function (locale, resource, label, error) {
+  console.error(`Error occurred while downloading ${label} (${locale}) translation of ${resource}: ${error}`)
 }
 
 for (let r in resources) {
   for (let l in languages) {
-    getFromTransifex(languages[l], resources[r])
+    // Skip English
+    if (languages[l].value === 'en') {
+      continue
+    }
+
+    getFromTransifex(languages[l].value, resources[r], config.l10n.transifex.api_token)
       .then((data) => {
-        downloadSuccess(languages[l], resources[r], data)
+        downloadSuccess(languages[l].value, resources[r], languages[l].label, data)
       })
       .catch((error) => {
-        downloadError(languages[l], resources[r], error)
+        downloadError(languages[l].value, resources[r], languages[l].label, error)
       })
   }
 }
