@@ -1,7 +1,6 @@
 import { app } from '../preinit/app_settings'
-import { INFO_BUBBLE_TYPE_SEGMENT, INFO_BUBBLE_TYPE_LEFT_BUILDING } from './constants'
+import { INFO_BUBBLE_TYPE_LEFT_BUILDING } from './constants'
 import { DRAGGING_TYPE_NONE, draggingType } from '../segments/drag_and_drop'
-import { cancelFadeoutControls } from '../segments/resizing'
 import { getElAbsolutePos } from '../util/helpers'
 import { registerKeypress } from '../app/keypress'
 import store from '../store'
@@ -261,21 +260,6 @@ export const infoBubble = {
     infoBubble.considerType = null
   },
 
-  updateContents: function () {
-    const street = store.getState().street
-
-    // If info bubble changes, wake this back up if it's fading out
-    cancelFadeoutControls()
-
-    switch (infoBubble.type) {
-      case INFO_BUBBLE_TYPE_SEGMENT:
-        window.dispatchEvent(new window.CustomEvent('stmx:force_infobubble_update'))
-        var segment = street.segments[store.getState().infoBubble.dataNo]
-        infoBubble.segment = segment
-        break
-    }
-  },
-
   // TODO rename
   show: function (force) {
     if (infoBubble.suppressed) {
@@ -331,7 +315,6 @@ export const infoBubble = {
     store.dispatch(setInfoBubbleSegmentDataNo(dataNo))
 
     infoBubble.el = document.querySelector('.info-bubble')
-    infoBubble.updateContents()
 
     var bubbleWidth = infoBubble.el.offsetWidth
     var bubbleHeight = infoBubble.el.offsetHeight

@@ -89,7 +89,6 @@ export function resizeSegment (el, resizeType, width, updateEdit, palette, initi
 
   if (!initial) {
     segmentsChanged()
-    infoBubble.updateContents()
   }
 
   return width

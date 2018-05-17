@@ -16,7 +16,7 @@ export default class Warnings extends React.Component {
     const segment = this.props.segment
     const messages = []
 
-    if (!segment) return null
+    if (!segment || !segment.warnings) return null
 
     if (segment.warnings[SEGMENT_WARNING_OUTSIDE]) {
       messages.push(<FormattedMessage id="segments.warnings.does-not-fit" defaultMessage="This segment doesn’t fit within the street." />)

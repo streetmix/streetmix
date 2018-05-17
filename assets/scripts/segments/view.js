@@ -509,8 +509,6 @@ export function changeSegmentVariantLegacy (dataNo, variantName, variantChoice) 
   infoBubble.segmentEl = el
   infoBubble.segment = segment
 
-  infoBubble.updateContents()
-
   repositionSegments()
   recalculateWidth()
   applyWarningsToSegments()

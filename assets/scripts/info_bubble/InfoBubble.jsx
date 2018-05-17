@@ -15,7 +15,7 @@ import {
   INFO_BUBBLE_TYPE_RIGHT_BUILDING
 } from './constants'
 import { getDescriptionData } from './description'
-import { resumeFadeoutControls } from '../segments/resizing'
+import { cancelFadeoutControls, resumeFadeoutControls } from '../segments/resizing'
 // import { trackEvent } from '../app/event_tracking'
 import { BUILDINGS } from '../segments/buildings'
 import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
@@ -64,14 +64,15 @@ class InfoBubble extends React.Component {
       return {
         type: INFO_BUBBLE_TYPE_LEFT_BUILDING
       }
-    }
-    if (nextProps.dataNo === 'right') {
+    } else if (nextProps.dataNo === 'right') {
       return {
         type: INFO_BUBBLE_TYPE_RIGHT_BUILDING
       }
+    } else {
+      return {
+        type: INFO_BUBBLE_TYPE_SEGMENT
+      }
     }
-
-    return null
   }
 
   componentDidMount () {
@@ -79,14 +80,12 @@ class InfoBubble extends React.Component {
     // document area. Do not normalize it to a pointerleave event
     // because it doesn't make sense for other pointer types
     document.addEventListener('mouseleave', this.hide)
-
-    // Listen for external triggers to update contents here
-    window.addEventListener('stmx:force_infobubble_update', (e) => {
-      this.updateInfoBubbleState()
-    })
   }
 
   componentDidUpdate () {
+    // If info bubble changes, wake this back up if it's fading out
+    cancelFadeoutControls()
+
     this.updateBubbleDimensions()
   }
 
@@ -136,22 +135,12 @@ class InfoBubble extends React.Component {
     this.setState({ highlightTriangle: !this.state.highlightTriangle })
   }
 
-  updateInfoBubbleState = () => {
-    const { street } = this.props
-    const segment = street.segments[this.props.dataNo]
-    this.setState({
-      type: INFO_BUBBLE_TYPE_SEGMENT,
-      street,
-      segment,
-      description: getDescriptionData(segment)
-    })
-  }
-
   updateBubbleDimensions = () => {
     let bubbleHeight
+    if (!this.el) return
+
     if (this.props.descriptionVisible) {
       const el = this.el.querySelector('.description-canvas')
-      if (!el) return
       const pos = getElAbsolutePos(el)
       bubbleHeight = pos[1] + el.offsetHeight - 38
     } else {

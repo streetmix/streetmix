@@ -71,7 +71,6 @@ class Segment extends React.Component {
       this.initialRender = false
     } else {
       segmentsChanged()
-      infoBubble.updateContents()
     }
   }
 
