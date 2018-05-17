@@ -167,6 +167,62 @@
         }
       }
     },
+    "flex-zone": {
+      "name": "",
+      "details": {
+        "taxi|inbound|left": {
+          "name": ""
+        },
+        "taxi|inbound|right": {
+          "name": ""
+        },
+        "taxi|outbound|left": {
+          "name": ""
+        },
+        "taxi|outbound|right": {
+          "name": ""
+        },
+        "rideshare|inbound|left": {
+          "name": ""
+        },
+        "rideshare|inbound|right": {
+          "name": ""
+        },
+        "rideshare|outbound|left": {
+          "name": ""
+        },
+        "rideshare|outbound|right": {
+          "name": ""
+        },
+        "bikeshare|inbound|left": {
+          "name": ""
+        },
+        "bikeshare|inbound|right": {
+          "name": ""
+        },
+        "bikeshare|outbound|left": {
+          "name": ""
+        },
+        "bikeshare|outbound|right": {
+          "name": ""
+        },
+        "foodtruck|inbound|left": {
+          "name": ""
+        },
+        "foodtruck|inbound|right": {
+          "name": ""
+        },
+        "foodtruck|outbound|left": {
+          "name": ""
+        },
+        "foodtruck|outbound|right": {
+          "name": ""
+        }
+      }
+    },
+    "flex-zone-curb": {
+      "name": ""
+    },
     "drive-lane": {
       "name": "",
       "details": {

@@ -3,6 +3,7 @@
 const fs = require('fs')
 const path = require('path')
 const config = require('config')
+const chalk = require('chalk')
 const getFromTransifex = require('../lib/transifex.js')
 const languages = require('../app/data/locales.json')
 
@@ -24,7 +25,8 @@ const downloadSuccess = function (locale, resource, label, data) {
       if (err) {
         console.error(`Error occurred while saving ${label} (${locale}) translation of ${resource}: ${err}`)
       }
-      console.log(`${label} (${locale}) translation of ${resource} successfully writen to ${translationFile}`)
+
+      console.log(chalk`{yellowBright ${label} (${locale})} · {magentaBright ${resource}} → {gray ${translationFile.replace(process.cwd(), '.')}}`)
     })
   })
 }

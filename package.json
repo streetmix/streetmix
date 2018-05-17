@@ -85,6 +85,7 @@
     "browserify-middleware": "8.1.0",
     "btoa": "1.2.1",
     "canvas": "1.6.10",
+    "chalk": "2.4.1",
     "compression": "1.7.2",
     "config": "1.30.0",
     "cookie-parser": "1.4.3",
