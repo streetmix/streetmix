@@ -6,3 +6,5 @@ export const ENV = process.env.ENV
 export const NO_INTERNET_MODE = process.env.NO_INTERNET_MODE
 export const PELIAS_HOST_NAME = 'api.geocode.earth'
 export const PELIAS_API_KEY = 'ge-1793afb81c0a7784'
+export const AUTH0_CLIENT_ID = process.env.AUTH0_CLIENT_ID
+export const AUTH0_DOMAIN = process.env.AUTH0_DOMAIN

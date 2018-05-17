@@ -3,10 +3,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import EnvironmentBadge from './EnvironmentBadge'
-import { URL_SIGN_IN_REDIRECT } from '../app/routing'
+import { WebAuth } from 'auth0-js'
+import { TWITTER_CALLBACK_URL } from '../app/routing'
 import { showGallery } from '../gallery/view'
 import MenuBarItem from './MenuBarItem'
 import Avatar from '../users/Avatar'
+import { AUTH0_CLIENT_ID, AUTH0_DOMAIN } from '../app/config'
 
 class MenuBar extends React.PureComponent {
   static propTypes = {
@@ -86,6 +88,20 @@ class MenuBar extends React.PureComponent {
     }}))
   }
 
+  onClickSignIn = (event) => {
+    // TODO: Abstract WebAuth to another file
+    let auth0 = new WebAuth({
+      domain: AUTH0_DOMAIN,
+      clientID: AUTH0_CLIENT_ID,
+      scope: 'openid profile screen_name offline_access'
+    })
+    auth0.authorize({
+      responseType: 'code',
+      connection: 'twitter',
+      redirectUri: TWITTER_CALLBACK_URL
+    })
+  }
+
   renderUserAvatar = (userId) => {
     return (userId)
       ? (
@@ -95,7 +111,7 @@ class MenuBar extends React.PureComponent {
         </MenuBarItem>
       ) : (
         <MenuBarItem
-          url={`/${URL_SIGN_IN_REDIRECT}`}
+          onClick={this.onClickSignIn}
           translation="menu.item.sign-in"
           label="Sign in"
           requireInternet

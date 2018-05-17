@@ -31,6 +31,8 @@ const URL_EXAMPLE_STREET = 'streetmix/7'
 export const URL_SIGN_IN_REDIRECT = URL_SIGN_IN + '?callbackUri=' +
   URL_SIGN_IN_CALLBACK_ABS + '&redirectUri=' + URL_JUST_SIGNED_IN_ABS
 
+export const TWITTER_CALLBACK_URL = URL_SIGN_IN_CALLBACK_ABS
+
 // Since URLs like “streetmix.net/new” are reserved, but we still want
 // @new to be able to use Streetmix, we prefix any reserved URLs with ~
 export const RESERVED_URLS = [
