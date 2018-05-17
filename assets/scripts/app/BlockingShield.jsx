@@ -27,6 +27,7 @@ export default class BlockingShield extends React.Component {
       visible: false,
       mode: 'load',
       errorType: null,
+      immediate: false,
       darken: false,
       showCancel: false
     }
@@ -61,16 +62,7 @@ export default class BlockingShield extends React.Component {
       })
     })
 
-    window.addEventListener('stmx:hide_blocking_shield', (event) => {
-      this.clearTimers()
-
-      this.setState({
-        visible: false,
-        immediate: false,
-        errorType: null,
-        showCancel: false
-      })
-    })
+    window.addEventListener('stmx:hide_blocking_shield', this.hide)
   }
 
   clearTimers = () => {
@@ -78,13 +70,31 @@ export default class BlockingShield extends React.Component {
     window.clearTimeout(this.blockingShieldTooSlowTimerId)
   }
 
-  blockingTryAgain = (event) => {
+  onClickTryAgain = (event) => {
     this.setState({
       errorType: null,
       showCancel: false
     })
 
     blockingTryAgain()
+  }
+
+  onClickCancel = (event) => {
+    this.hide()
+
+    blockingCancel()
+  }
+
+  hide = () => {
+    this.clearTimers()
+
+    this.setState({
+      visible: false,
+      errorType: null,
+      immediate: false,
+      darken: false,
+      showCancel: false
+    })
   }
 
   render () {
@@ -109,13 +119,16 @@ export default class BlockingShield extends React.Component {
         {(this.state.errorType === 'try-again') &&
           <div className="error-content">
             <p>
-              <FormattedMessage id="msg.no-connection" defaultMessage="Streetmix is having trouble connecting to the Internet." />
+              <FormattedMessage
+                id="msg.no-connection"
+                defaultMessage="Streetmix is having trouble connecting to the Internet."
+              />
             </p>
-            <button onClick={this.blockingTryAgain}>
+            <button onClick={this.onClickTryAgain}>
               <FormattedMessage id="btn.try-again" defaultMessage="Try again" />
             </button>
             {this.state.showCancel &&
-              <button onClick={blockingCancel}>
+              <button onClick={this.onClickCancel}>
                 <FormattedMessage id="btn.cancel" defaultMessage="Cancel" />
               </button>
             }
@@ -124,10 +137,17 @@ export default class BlockingShield extends React.Component {
         {(this.state.errorType === 'too-slow') &&
           <div className="error-content">
             <p>
-              <FormattedMessage id="msg.slow-connection-1" defaultMessage="Streetmix wasn’t able to connect to the Internet in awhile now." />
+              <FormattedMessage
+                id="msg.slow-connection-1"
+                defaultMessage="Streetmix wasn’t able to connect to the Internet in awhile now."
+              />
             </p>
             <p>
-              <FormattedMessage id="msg.slow-connection-2" defaultMessage="You might want to reload the page and try again. Please note you might lose the latest change to the street. Sorry!" />
+              <FormattedMessage
+                id="msg.slow-connection-2"
+                defaultMessage="You might want to reload the page and try again. Please note
+                  you might lose the latest change to the street. Sorry!"
+              />
             </p>
             <button onClick={goReload}>
               <FormattedMessage id="btn.reload" defaultMessage="Reload" />

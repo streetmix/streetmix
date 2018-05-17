@@ -63,7 +63,6 @@ export function blockingTryAgain () {
 }
 
 export function blockingCancel () {
-  hideBlockingShield()
   blockingAjaxRequestInProgress = false
   blockingAjaxRequestCancelFunc()
 }
