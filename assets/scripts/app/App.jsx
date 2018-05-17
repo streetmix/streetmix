@@ -17,6 +17,7 @@ import Flash from './Flash'
 import DebugInfo from './DebugInfo'
 import Gallery from '../gallery/Gallery'
 import GalleryShield from '../gallery/GalleryShield'
+import BlockingShield from './BlockingShield'
 import BlockingError from './BlockingError'
 import StreetView from './StreetView'
 import DebugHoverPolygon from '../info_bubble/DebugHoverPolygon'
@@ -36,6 +37,7 @@ class App extends React.PureComponent {
           messages={this.props.locale.messages}
         >
           <React.Fragment>
+            <BlockingShield />
             <BlockingError />
             <Gallery />
             <NotificationBar notification={NOTIFICATION} />

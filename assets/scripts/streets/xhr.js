@@ -417,7 +417,7 @@ export function scheduleSavingStreetToServer () {
 }
 
 export function fetchLastStreet () {
-  newBlockingAjaxRequest(t('msg.loading'),
+  newBlockingAjaxRequest('load',
     {
       // TODO const
       url: API_URL + 'v1/streets/' + getSettings().priorLastStreetId,

@@ -78,7 +78,7 @@ export function remixStreet () {
 
   var transmission = packServerStreetData()
 
-  newBlockingAjaxRequest(t('msg.remixing'),
+  newBlockingAjaxRequest('remix',
     {
       // TODO const
       url: API_URL + 'v1/streets',

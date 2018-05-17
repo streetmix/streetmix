@@ -21,8 +21,8 @@ export function isblockingAjaxRequestInProgress () {
   return blockingAjaxRequestInProgress
 }
 
-export function newBlockingAjaxRequest (message, request, doneFunc, cancelFunc) {
-  showBlockingShield(message)
+export function newBlockingAjaxRequest (mode, request, doneFunc, cancelFunc) {
+  showBlockingShield(mode)
 
   blockingAjaxRequestInProgress = true
 
@@ -30,16 +30,7 @@ export function newBlockingAjaxRequest (message, request, doneFunc, cancelFunc) 
   blockingAjaxRequestDoneFunc = doneFunc
   blockingAjaxRequestCancelFunc = cancelFunc
 
-  window.fetch(blockingAjaxRequest.url, blockingAjaxRequest)
-    .then(response => {
-      if (!response.ok) {
-        throw response
-      }
-
-      return response.json()
-    })
-    .then(successBlockingAjaxRequest)
-    .catch(errorBlockingAjaxRequest)
+  makeBlockingAjaxRequest()
 }
 
 function successBlockingAjaxRequest (data) {
@@ -49,21 +40,10 @@ function successBlockingAjaxRequest (data) {
 }
 
 function errorBlockingAjaxRequest () {
-  if (blockingAjaxRequestCancelFunc) {
-    document.querySelector('#blocking-shield').classList.add('show-cancel')
-  }
-
-  document.querySelector('#blocking-shield').classList.add('show-try-again')
-
-  darkenBlockingShield()
+  darkenBlockingShield(blockingAjaxRequestCancelFunc)
 }
 
-// These export to the blocking shield to retry or cancel requests
-
-export function blockingTryAgain () {
-  document.querySelector('#blocking-shield').classList.remove('show-try-again')
-  document.querySelector('#blocking-shield').classList.remove('show-cancel')
-
+function makeBlockingAjaxRequest () {
   window.fetch(blockingAjaxRequest.url, blockingAjaxRequest)
     .then(response => {
       if (!response.ok) {
@@ -76,8 +56,13 @@ export function blockingTryAgain () {
     .catch(errorBlockingAjaxRequest)
 }
 
+// These export to the blocking shield to retry or cancel requests
+
+export function blockingTryAgain () {
+  makeBlockingAjaxRequest()
+}
+
 export function blockingCancel () {
-  hideBlockingShield()
   blockingAjaxRequestInProgress = false
   blockingAjaxRequestCancelFunc()
 }

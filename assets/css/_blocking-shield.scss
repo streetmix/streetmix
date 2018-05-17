@@ -1,18 +1,19 @@
 
-#blocking-shield {
+.blocking-shield {
   @include blocking-shield;
 
   z-index: $z-09-blocking-shield;
+  display: none;
   background: transparent;
   color: transparent;
   cursor: wait;
 
-  * {
-    cursor: wait;
+  button {
+    cursor: pointer;
   }
 
-  button {
-    cursor: auto;
+  &.visible {
+    display: flex;
   }
 
   &.darken,
@@ -31,32 +32,5 @@
 
   .message {
     @include large-message-text;
-  }
-
-  .try-again,
-  .too-slow {
-    display: none;
-    position: absolute;
-    margin-top: 20px;
-    left: 0;
-    right: 0;
-    text-align: center;
-  }
-
-  &.show-try-again .try-again,
-  &.show-too-slow .too-slow {
-    display: block;
-  }
-
-  #blocking-shield-cancel {
-    display: none;
-  }
-
-  &.show-cancel #blocking-shield-cancel {
-    display: inline-block;
-  }
-
-  &:not(.visible) {
-    display: none;
   }
 }
