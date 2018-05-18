@@ -2,6 +2,8 @@ var mongoose = require('mongoose')
 
 var userSchema = new mongoose.Schema({
   id: { type: String, index: { unique: true } },
+  twitter_id: String,
+  twitter_credentials: mongoose.Schema.Types.Mixed,
   auth0_id: String,
   auth0_refesh_token: String,
   login_tokens: [ String ],
