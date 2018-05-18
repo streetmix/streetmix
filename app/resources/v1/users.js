@@ -1,13 +1,13 @@
 var config = require('config')
 var uuid = require('uuid')
+var Twitter = require('twitter')
 var User = require('../../models/user.js')
 var logger = require('../../../lib/logger.js')()
-const { Management } = require('../../../lib/auth0')
 
 exports.post = function (req, res) {
   var loginToken = null
 
-  var handleTwitterSignIn = function (credentials) {
+  var handleTwitterSignIn = function (twitterCredentials) {
     // TODO: Call Twitter API with OAuth access credentials to make sure they are valid
 
     var handleCreateUser = function (err, user) {
@@ -40,29 +40,35 @@ exports.post = function (req, res) {
     var handleFindUser = function (err, user) {
       if (err) {
         logger.error(err)
-        res.status(500).send('Error finding user with Auth0 ID.')
+        res.status(500).send('Error finding user with Twitter ID.')
         return
       }
 
       loginToken = uuid.v1()
       if (!user) {
         var u = new User({
-          id: credentials.screenName,
-          auth0_id: credentials.auth0_id,
-          auth0_refresh_token: credentials.refresh_token,
+          id: twitterCredentials.screenName,
+          twitter_id: twitterCredentials.userId,
+          twitter_credentials: {
+            access_token_key: twitterCredentials.oauthAccessTokenKey,
+            access_token_secret: twitterCredentials.oauthAccessTokenSecret
+          },
           login_tokens: [ loginToken ]
         })
         u.save(handleCreateUser)
       } else {
-        user.id = credentials.screenName
-        user.auth0_refresh_token = credentials.refresh_token
+        user.id = twitterCredentials.screenName
+        user.twitter_credentials = {
+          access_token_key: twitterCredentials.oauthAccessTokenKey,
+          access_token_secret: twitterCredentials.oauthAccessTokenSecret
+        }
         user.login_tokens.push(loginToken)
         user.save(handleUpdateUser)
       }
     } // END function - handleFindUser
 
     // Try to find user with twitter ID
-    User.findOne({ auth0_id: credentials.auth0_id }, handleFindUser)
+    User.findOne({ twitter_id: twitterCredentials.userId }, handleFindUser)
   } // END function - handleTwitterSignIn
 
   var body
@@ -73,9 +79,10 @@ exports.post = function (req, res) {
     return
   }
 
-  if (body.hasOwnProperty('auth0_twitter')) {
+  if (body.hasOwnProperty('twitter')) {
     // TODO: Validation
-    handleTwitterSignIn(body.auth0_twitter)
+
+    handleTwitterSignIn(body.twitter)
   } else {
     res.status(400).send('Unknown sign-in method used.')
   }
@@ -94,15 +101,20 @@ exports.get = function (req, res) {
       return
     }
 
-    var auth0Manage
+    var twitterApiClient
     try {
-      auth0Manage = Management()
+      twitterApiClient = new Twitter({
+        consumer_key: config.twitter.oauth_consumer_key,
+        consumer_secret: config.twitter.oauth_consumer_secret,
+        access_token_key: user.twitter_credentials.access_token_key,
+        access_token_secret: user.twitter_credentials.access_token_secret
+      })
     } catch (e) {
-      logger.error('Could not initialize Auth0 Management API client. Error:')
+      logger.error('Could not initialize Twitter API client. Error:')
       logger.error(e)
     }
 
-    var sendUserJson = function (auth0Data) {
+    var sendUserJson = function (twitterData) {
       var auth = (user.login_tokens.indexOf(req.loginToken) > 0)
 
       user.asJson({ auth: auth }, function (err, userJson) {
@@ -112,46 +124,47 @@ exports.get = function (req, res) {
           return
         }
 
-        if (auth0Data) {
-          userJson.profileImageUrl = auth0Data.picture
+        if (twitterData) {
+          userJson.profileImageUrl = twitterData.profile_image_url_https
         }
 
         res.status(200).send(userJson)
       })
     } // END function - sendUserJson
+
     var responseAlreadySent = false
-    var handleFetchUserProfileFromAuth0 = function (err, res) {
+    var handleFetchUserProfileFromTwitter = function (err, res) {
       if (err) {
-        logger.error('Auth0 Management API call getUser() returned error.')
+        logger.error('Twitter API call users/show returned error.')
         logger.error(err)
       }
 
       if (responseAlreadySent) {
-        logger.debug({ profile_image_url: res.picture }, 'Auth0 Management API getUser() call returned but response already sent!')
+        logger.debug({ profile_image_url: res.profile_image_url }, 'Twitter API users/show call returned but response already sent!')
       } else {
-        logger.debug({ profile_image_url: res.picture }, 'Auth0 Management API getUser() call returned. Sending response with Auth0 data.')
+        logger.debug({ profile_image_url: res.profile_image_url }, 'Twitter API users/show call returned. Sending response with Twitter data.')
         responseAlreadySent = true
 
         if (!res) {
-          logger.error('Auth0 Management getUser() API call did not return any data.')
+          logger.error('Twitter API call users/show did not return any data.')
         }
 
         sendUserJson(res)
       }
-    } // END function - handleFetchUserProfileFromAuth0
+    } // END function - handleFetchUserProfileFromTwitter
 
-    if (auth0Manage) {
-      logger.debug('About to call Auth0 Management API userProfile/' + user.auth0_id)
-      auth0Manage.getUser(user.auth0_id, handleFetchUserProfileFromAuth0)
+    if (twitterApiClient) {
+      logger.debug('About to call Twitter API: /users/show.json?user_id=' + user.twitter_id)
+      twitterApiClient.get('/users/show.json', { user_id: user.twitter_id }, handleFetchUserProfileFromTwitter)
       setTimeout(
         function () {
           if (!responseAlreadySent) {
-            logger.debug('Timing out Auth0 Management API call after %d milliseconds and sending partial response.', config.twitter.timeout_ms)
+            logger.debug('Timing out Twitter API call after %d milliseconds and sending partial response.', config.twitter.timeout_ms)
             responseAlreadySent = true
             sendUserJson()
           }
         },
-        config.twitter.timeout_ms)// TODO Change config.twitter to config.auth0.timeout
+        config.twitter.timeout_ms)
     } else {
       sendUserJson()
     }
