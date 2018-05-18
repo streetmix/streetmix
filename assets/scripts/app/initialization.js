@@ -2,7 +2,6 @@ import { hideLoadingScreen, loadImages } from './load_resources'
 import { initLocale } from './locale'
 import { scheduleNextLiveUpdateCheck } from './live_update'
 import { showGallery } from '../gallery/view'
-import { app } from '../preinit/app_settings'
 import { debug } from '../preinit/debug_settings'
 import { system } from '../preinit/system_capabilities'
 import { initializeFlagSubscribers } from '../app/flag_utils'
@@ -31,7 +30,7 @@ import { startListening } from './keypress'
 import { registerKeypresses } from './keyboard_commands'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { attachFetchNonBlockingEventListeners } from '../util/fetch_nonblocking'
-import store from '../store'
+import store, { observeStore } from '../store'
 import { showDialog } from '../store/actions/dialogs'
 import { everythingLoaded } from '../store/actions/app'
 
@@ -57,6 +56,7 @@ function preInit () {
   startListening()
 
   attachFetchNonBlockingEventListeners()
+  observeStoreToUpdateBodyClasses()
 }
 
 export async function initialize () {
@@ -199,46 +199,37 @@ const flags = store.getState().flags
 const enableLocales = flags.LOCALES_LEVEL_1.value || flags.LOCALES_LEVEL_2.value || flags.LOCALES_LEVEL_3.value
 initLocale(enableLocales)
 
-// Other
-addBodyClasses()
+/**
+ * Toggle features based on system state. (This allows toggling to debug things,
+ * which will allow us to remove the debug URL parameters as a future TODO)
+ */
+function observeStoreToUpdateBodyClasses () {
+  const select = (state) => ({ system: state.system, app: state.app })
+  const onChange = (state) => {
+    document.body.classList.toggle('windows', state.system.windows)
+    document.body.classList.toggle('safari', state.system.safari)
+    document.body.classList.toggle('touch-support', state.system.touch)
+    document.body.classList.toggle('phone', state.system.phone)
+    document.body.classList.toggle('no-internet', state.system.noInternet)
+    document.body.classList.toggle('read-only', state.app.readOnly)
 
-// Check if no internet mode
-if (system.noInternet === true) {
-  setupNoInternetMode()
-}
-
-function addBodyClasses () {
-  if (system.windows) {
-    document.body.classList.add('windows')
-  }
-
-  if (system.safari) {
-    document.body.classList.add('safari')
-  }
-
-  if (system.touch) {
-    document.body.classList.add('touch-support')
-  }
-
-  if (app.readOnly) {
-    document.body.classList.add('read-only')
-  }
-
-  if (system.phone) {
-    document.body.classList.add('phone')
-  }
-
-  if (system.noInternet) {
-    document.body.classList.add('no-internet')
-  }
-}
-
-function setupNoInternetMode () {
-  // Disable all external links
-  // CSS takes care of altering their appearance to resemble normal text
-  document.body.addEventListener('click', function (e) {
-    if (e.target.nodeName === 'A' && e.target.getAttribute('href').indexOf('http') === 0) {
-      e.preventDefault()
+    // Disable links in no-internet mode
+    if (state.system.noInternet === true) {
+      document.body.addEventListener('click', blockLinksOnClick)
+    } else {
+      document.body.removeEventListener('click', blockLinksOnClick)
     }
-  })
+  }
+
+  return observeStore(select, onChange)
+}
+
+/**
+ * Disable all external links
+ * CSS takes care of altering their appearance to resemble normal text
+ */
+function blockLinksOnClick (event) {
+  if (event.target.nodeName === 'A' && event.target.getAttribute('href').indexOf('http') === 0) {
+    event.preventDefault()
+  }
 }
