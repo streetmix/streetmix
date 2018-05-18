@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import EnvironmentBadge from './EnvironmentBadge'
 import { WebAuth } from 'auth0-js'
-import { TWITTER_CALLBACK_URL } from '../app/routing'
+import { TWITTER_URL_SIGN_IN_REDIRECT, AUTH0_CALLBACK_URL } from '../app/routing'
 import { showGallery } from '../gallery/view'
 import MenuBarItem from './MenuBarItem'
 import Avatar from '../users/Avatar'
@@ -98,7 +98,7 @@ class MenuBar extends React.PureComponent {
     auth0.authorize({
       responseType: 'code',
       connection: 'twitter',
-      redirectUri: TWITTER_CALLBACK_URL
+      redirectUri: AUTH0_CALLBACK_URL
     })
   }
 
@@ -112,6 +112,7 @@ class MenuBar extends React.PureComponent {
       ) : (
         <MenuBarItem
           onClick={this.onClickSignIn}
+          url={`/${TWITTER_URL_SIGN_IN_REDIRECT}`}
           translation="menu.item.sign-in"
           label="Sign in"
           requireInternet
