@@ -1,7 +1,7 @@
-var config = require('config')
-var uuid = require('uuid')
-var User = require('../../models/user.js')
-var logger = require('../../../lib/logger.js')()
+const config = require('config')
+const uuid = require('uuid')
+const User = require('../../models/user.js')
+const logger = require('../../../lib/logger.js')()
 const { Management } = require('../../../lib/auth0')
 
 exports.post = function (req, res) {
@@ -29,7 +29,6 @@ exports.post = function (req, res) {
         res.status(500).send('Could not update user.')
         return
       }
-
       var userJson = { id: user.id, loginToken: loginToken }
       logger.info({ user: userJson }, 'Existing user issued new login token.')
 
@@ -56,13 +55,13 @@ exports.post = function (req, res) {
       } else {
         user.id = credentials.screenName
         user.auth0_refresh_token = credentials.refresh_token
+        user.auth0_id = credentials.auth0_id
         user.login_tokens.push(loginToken)
         user.save(handleUpdateUser)
       }
     } // END function - handleFindUser
 
-    // Try to find user with twitter ID
-    User.findOne({ auth0_id: credentials.auth0_id }, handleFindUser)
+    User.findOne({ id: credentials.screenName }, handleFindUser)
   } // END function - handleTwitterSignIn
 
   var body

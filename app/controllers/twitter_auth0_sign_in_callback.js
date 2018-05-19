@@ -40,7 +40,7 @@ var AccessTokenHandler = function (req, res) {
           res.redirect('/error/authentication-api-problem')
           return
         }
-
+        console.log(body)
         // Redirect user
         res.cookie('user_id', body.id)
         res.cookie('login_token', body.loginToken)
