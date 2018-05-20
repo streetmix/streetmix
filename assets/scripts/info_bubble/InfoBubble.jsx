@@ -52,6 +52,8 @@ class InfoBubble extends React.Component {
       highlightTriangle: false
     }
 
+    this.hoverPolygonUpdateTimerId = -1
+
     // Register keyboard shortcuts to hide info bubble
     // Only hide if it's currently visible, and if the
     // description is NOT visible. (If the description
@@ -93,11 +95,18 @@ class InfoBubble extends React.Component {
     document.addEventListener('mouseleave', this.hide)
   }
 
-  componentDidUpdate () {
+  componentDidUpdate (prevProps, prevState) {
     // If info bubble changes, wake this back up if it's fading out
     cancelFadeoutControls()
 
     this.updateBubbleDimensions()
+
+    // Add or remove event listener based on whether infobubble was shown or hidden
+    if (prevProps.visible === false && this.props.visible === true) {
+      document.body.addEventListener('mousemove', this.onBodyMouseMove)
+    } else if (prevProps.visible === true && this.props.visible === false) {
+      document.body.removeEventListener('mousemove', this.onBodyMouseMove)
+    }
   }
 
   componentWillUnmount () {
@@ -140,6 +149,23 @@ class InfoBubble extends React.Component {
     // so that keyboard commands respond to pointer position rather than
     // any focused buttons/inputs
     loseAnyFocus()
+  }
+
+  onBodyMouseMove = (event) => {
+    const mouseX = event.pageX
+    const mouseY = event.pageY
+
+    if (this.props.visible) {
+      if (!infoBubble._withinHoverPolygon(mouseX, mouseY)) {
+        infoBubble.show(false)
+      }
+    }
+
+    window.clearTimeout(this.hoverPolygonUpdateTimerId)
+
+    this.hoverPolygonUpdateTimerId = window.setTimeout(() => {
+      infoBubble.updateHoverPolygon(mouseX, mouseY)
+    }, 50)
   }
 
   toggleHighlightTriangle = () => {

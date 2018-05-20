@@ -33,9 +33,6 @@ export const infoBubble = {
   segment: null,
   type: null,
 
-  lastMouseX: null,
-  lastMouseY: null,
-
   suppressed: false,
 
   bubbleX: null,
@@ -48,7 +45,6 @@ export const infoBubble = {
   considerSegmentEl: null,
   considerType: null,
 
-  hoverPolygonUpdateTimerId: -1,
   suppressTimerId: -1,
 
   suppress: function () {
@@ -162,30 +158,6 @@ export const infoBubble = {
     store.dispatch(updateHoverPolygon(hoverPolygon))
   },
 
-  scheduleHoverPolygonUpdate: function () {
-    window.clearTimeout(infoBubble.hoverPolygonUpdateTimerId)
-
-    infoBubble.hoverPolygonUpdateTimerId = window.setTimeout(function () {
-      infoBubble.updateHoverPolygon(infoBubble.lastMouseX, infoBubble.lastMouseY)
-    }, 50)
-  },
-
-  onBodyMouseMove: function (event) {
-    var mouseX = event.pageX
-    var mouseY = event.pageY
-
-    infoBubble.lastMouseX = mouseX
-    infoBubble.lastMouseY = mouseY
-
-    if (isInfoBubbleVisible()) {
-      if (!infoBubble._withinHoverPolygon(mouseX, mouseY)) {
-        infoBubble.show(false)
-      }
-    }
-
-    infoBubble.scheduleHoverPolygonUpdate()
-  },
-
   hideSegment: function (fast) {
     if (infoBubble.segmentEl) {
       infoBubble.segmentEl.classList.remove('hover')
@@ -211,8 +183,6 @@ export const infoBubble = {
       document.body.classList.remove('controls-fade-out')
 
       store.dispatch(hideInfoBubble())
-
-      document.body.removeEventListener('mousemove', infoBubble.onBodyMouseMove)
     }
   },
 
@@ -336,7 +306,6 @@ export const infoBubble = {
     infoBubble.bubbleHeight = bubbleHeight
 
     infoBubble.updateHoverPolygon(mouseX, mouseY)
-    document.body.addEventListener('mousemove', infoBubble.onBodyMouseMove)
   }
 }
 
