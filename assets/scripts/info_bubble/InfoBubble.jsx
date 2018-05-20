@@ -96,11 +96,23 @@ class InfoBubble extends React.Component {
     document.addEventListener('mouseleave', this.hide)
   }
 
-  componentDidUpdate (prevProps, prevState) {
+  getSnapshotBeforeUpdate (prevProps, prevState) {
+    const wasBuilding = (prevState.type !== INFO_BUBBLE_TYPE_SEGMENT)
+    const isBuilding = (this.state.type !== INFO_BUBBLE_TYPE_SEGMENT)
+
+    if (wasBuilding && !isBuilding) {
+      return Number.parseInt(this.el.style.left, 10) + (this.el.offsetWidth / 2)
+    } else if (!wasBuilding && this.props.dataNo === 'right') {
+      return this.props.system.viewportWidth - 50
+    }
+    return null
+  }
+
+  componentDidUpdate (prevProps, prevState, snapshot) {
     // If info bubble changes, wake this back up if it's fading out
     cancelFadeoutControls()
 
-    this.updateBubbleDimensions()
+    this.updateBubbleDimensions(snapshot)
 
     // Add or remove event listener based on whether infobubble was shown or hidden
     if (prevProps.visible === false && this.props.visible === true) {
@@ -173,7 +185,7 @@ class InfoBubble extends React.Component {
     this.setState({ highlightTriangle: !this.state.highlightTriangle })
   }
 
-  updateBubbleDimensions = () => {
+  updateBubbleDimensions = (snapshot) => {
     const dims = {}
 
     if (!this.el) return
@@ -192,15 +204,21 @@ class InfoBubble extends React.Component {
     this.el.style.MozTransformOrigin = '50% ' + height + 'px'
     this.el.style.transformOrigin = '50% ' + height + 'px'
 
-    // When the infoBubble needed to be shown for the right building,the offsetWidth
+    // When the infoBubble needed to be shown for the right building, the offsetWidth
     // used to calculate the left style was from the previous rendering of this component.
     // This meant that if the last time the infoBubble was shown was for a segment, then the
     // offsetWidth used to calculate the new left style would be smaller than it should be.
     // The current solution is to manually recalculate the left style and set the style
     // when hovering over the right building.
 
-    if (this.state.type === INFO_BUBBLE_TYPE_RIGHT_BUILDING) {
-      const bubbleX = this.props.system.viewportWidth - this.el.offsetWidth - 50
+    // Now that street segments are being rendered as React components as well, the same issue
+    // as above can be seen but vice versa (when switching between hovering over building to
+    // a segment). Some calculations are done by the getSnapshotBeforeUpdate function. The new
+    // offsetWidth is then added in this function.
+
+    if (snapshot) {
+      const bubbleX = (this.state.type === INFO_BUBBLE_TYPE_SEGMENT)
+        ? (snapshot - this.el.offsetWidth / 2) : (snapshot - this.el.offsetWidth)
       dims.bubbleX = bubbleX
       this.el.style.left = bubbleX + 'px'
     }
