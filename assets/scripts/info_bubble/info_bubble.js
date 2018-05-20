@@ -27,8 +27,6 @@ export function isDescriptionVisible () {
 export const infoBubble = {
   el: null,
 
-  startMouseX: null,
-  startMouseY: null,
   hoverPolygon: null,
   segmentEl: null,
   segment: null,
@@ -244,9 +242,6 @@ export const infoBubble = {
     }
     infoBubble.hideSegment(true)
 
-    var mouseX = infoBubble.considerMouseX
-    var mouseY = infoBubble.considerMouseY
-
     infoBubble.segmentEl = segmentEl
     infoBubble.type = type
 
@@ -257,9 +252,6 @@ export const infoBubble = {
     if (isInfoBubbleVisible()) {
       segmentEl.classList.add('immediate-show-drag-handles')
     }
-
-    infoBubble.startMouseX = mouseX
-    infoBubble.startMouseY = mouseY
 
     var pos = getElAbsolutePos(segmentEl)
 
@@ -305,6 +297,8 @@ export const infoBubble = {
       bubbleX, bubbleY, bubbleWidth, bubbleHeight
     }))
 
+    const mouseX = infoBubble.considerMouseX
+    const mouseY = infoBubble.considerMouseY
     infoBubble.updateHoverPolygon(mouseX, mouseY)
   }
 }
