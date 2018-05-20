@@ -15,6 +15,7 @@ import {
   INFO_BUBBLE_TYPE_RIGHT_BUILDING
 } from './constants'
 import { getDescriptionData } from './description'
+import { registerKeypress } from '../app/keypress'
 import { cancelFadeoutControls, resumeFadeoutControls } from '../segments/resizing'
 // import { trackEvent } from '../app/event_tracking'
 import { BUILDINGS } from '../segments/buildings'
@@ -51,6 +52,17 @@ class InfoBubble extends React.Component {
       type: null,
       highlightTriangle: false
     }
+
+    // Register keyboard shortcuts to hide info bubble
+    // Only hide if it's currently visible, and if the
+    // description is NOT visible. (If the description
+    // is visible, the escape key should hide that first.)
+    registerKeypress('esc', {
+      condition: () => this.props.visible && !this.props.descriptionVisible
+    }, () => {
+      infoBubble.hide()
+      infoBubble.hideSegment(false)
+    })
   }
 
   /**

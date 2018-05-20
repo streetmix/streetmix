@@ -2,7 +2,6 @@ import { app } from '../preinit/app_settings'
 import { INFO_BUBBLE_TYPE_LEFT_BUILDING } from './constants'
 import { DRAGGING_TYPE_NONE, draggingType } from '../segments/drag_and_drop'
 import { getElAbsolutePos } from '../util/helpers'
-import { registerKeypress } from '../app/keypress'
 import store from '../store'
 import {
   showInfoBubble,
@@ -52,18 +51,6 @@ export const infoBubble = {
   hoverPolygonUpdateTimerId: -1,
   suppressTimerId: -1,
 
-  registerKeypresses: function () {
-    // Register keyboard shortcuts to hide info bubble
-    // Only hide if it's currently visible, and if the
-    // description is NOT visible. (If the description
-    // is visible, the escape key should hide that first.)
-    registerKeypress('esc', {
-      condition: function () { return isInfoBubbleVisible() && !isDescriptionVisible() }
-    }, function () {
-      infoBubble.hide()
-      infoBubble.hideSegment(false)
-    })
-  },
   suppress: function () {
     if (!infoBubble.suppressed) {
       infoBubble.hide()
