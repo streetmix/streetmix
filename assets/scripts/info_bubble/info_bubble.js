@@ -7,7 +7,8 @@ import {
   showInfoBubble,
   hideInfoBubble,
   setInfoBubbleSegmentDataNo,
-  updateHoverPolygon
+  updateHoverPolygon,
+  setInfoBubbleDimensions
 } from '../store/actions/infoBubble'
 
 const INFO_BUBBLE_MARGIN_BUBBLE = 20
@@ -33,20 +34,18 @@ export const infoBubble = {
   segment: null,
   type: null,
 
-  suppressed: false,
-
-  bubbleX: null,
-  bubbleY: null,
-  bubbleWidth: null,
-  bubbleHeight: null,
-
   considerMouseX: null,
   considerMouseY: null,
   considerSegmentEl: null,
   considerType: null,
 
+  suppressed: false,
   suppressTimerId: -1,
 
+  /**
+   * Suppressing the infobubble momentarily hides it (if shown) and delays
+   * opening it again for some amount of time.
+   */
   suppress: function () {
     if (!infoBubble.suppressed) {
       infoBubble.hide()
@@ -73,26 +72,28 @@ export const infoBubble = {
   createHoverPolygon: function (mouseX, mouseY) {
     let hoverPolygon = []
 
-    if (!isInfoBubbleVisible()) {
+    const state = store.getState().infoBubble
+
+    if (!state.visible) {
       return hoverPolygon
     }
 
-    const bubbleX = infoBubble.bubbleX
-    const bubbleY = infoBubble.bubbleY
-    const bubbleWidth = infoBubble.bubbleWidth
-    const bubbleHeight = infoBubble.bubbleHeight
+    const bubbleX = state.bubbleX
+    const bubbleY = state.bubbleY
+    const bubbleWidth = state.bubbleWidth
+    const bubbleHeight = state.bubbleHeight
 
     let marginBubble
 
-    if (isDescriptionVisible()) {
+    if (state.descriptionVisible) {
       // TODO const
       marginBubble = 200
     } else {
       marginBubble = INFO_BUBBLE_MARGIN_BUBBLE
     }
 
-    const mouseInside = store.getState().infoBubble.mouseInside
-    if (mouseInside && !isDescriptionVisible()) {
+    const mouseInside = state.mouseInside
+    if (mouseInside && !state.descriptionVisible) {
       var pos = getElAbsolutePos(infoBubble.segmentEl)
 
       var x = pos[0] - document.querySelector('#street-section-outer').scrollLeft
@@ -123,7 +124,7 @@ export const infoBubble = {
         bottomY2 = bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE
       }
 
-      if (isDescriptionVisible()) {
+      if (state.descriptionVisible) {
         bottomY = bubbleY + bubbleHeight + marginBubble
         bottomY2 = bottomY
       }
@@ -300,10 +301,9 @@ export const infoBubble = {
       store.dispatch(showInfoBubble())
     }
 
-    infoBubble.bubbleX = bubbleX
-    infoBubble.bubbleY = bubbleY
-    infoBubble.bubbleWidth = bubbleWidth
-    infoBubble.bubbleHeight = bubbleHeight
+    store.dispatch(setInfoBubbleDimensions({
+      bubbleX, bubbleY, bubbleWidth, bubbleHeight
+    }))
 
     infoBubble.updateHoverPolygon(mouseX, mouseY)
   }

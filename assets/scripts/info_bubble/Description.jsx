@@ -20,7 +20,8 @@ export class Description extends React.Component {
     toggleHighlightTriangle: PropTypes.func.isRequired,
     descriptionVisible: PropTypes.bool.isRequired,
     showDescription: PropTypes.func.isRequired,
-    hideDescription: PropTypes.func.isRequired
+    hideDescription: PropTypes.func.isRequired,
+    bubbleY: PropTypes.number
   }
 
   onClickShow = () => {
@@ -134,6 +135,7 @@ export class Description extends React.Component {
           lede={displayLede}
           text={displayDescription}
           caption={displayImageCaption}
+          bubbleY={this.props.bubbleY}
         />
       </React.Fragment>
     )
@@ -142,7 +144,8 @@ export class Description extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    descriptionVisible: state.infoBubble.descriptionVisible
+    descriptionVisible: state.infoBubble.descriptionVisible,
+    bubbleY: state.infoBubble.bubbleY
   }
 }
 

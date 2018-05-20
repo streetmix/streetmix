@@ -21,7 +21,7 @@ import { BUILDINGS } from '../segments/buildings'
 import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
 import { loseAnyFocus } from '../util/focus'
 import { getElAbsolutePos } from '../util/helpers'
-import { setInfoBubbleMouseInside } from '../store/actions/infoBubble'
+import { setInfoBubbleMouseInside, setInfoBubbleDimensions } from '../store/actions/infoBubble'
 import { t } from '../app/locale'
 
 class InfoBubble extends React.Component {
@@ -33,6 +33,7 @@ class InfoBubble extends React.Component {
     ]),
     descriptionVisible: PropTypes.bool,
     setInfoBubbleMouseInside: PropTypes.func,
+    setInfoBubbleDimensions: PropTypes.func,
     street: PropTypes.object,
     system: PropTypes.object
   }
@@ -173,19 +174,19 @@ class InfoBubble extends React.Component {
   }
 
   updateBubbleDimensions = () => {
-    let bubbleHeight
+    const dims = {}
+
     if (!this.el) return
 
     if (this.props.descriptionVisible) {
       const el = this.el.querySelector('.description-canvas')
       const pos = getElAbsolutePos(el)
-      bubbleHeight = pos[1] + el.offsetHeight - 38
+      dims.bubbleHeight = pos[1] + el.offsetHeight - 38
     } else {
-      bubbleHeight = this.el.offsetHeight
+      dims.bubbleHeight = this.el.offsetHeight
     }
 
-    const height = bubbleHeight + 30
-    infoBubble.bubbleHeight = bubbleHeight
+    const height = dims.bubbleHeight + 30
 
     this.el.style.webkitTransformOrigin = '50% ' + height + 'px'
     this.el.style.MozTransformOrigin = '50% ' + height + 'px'
@@ -200,9 +201,11 @@ class InfoBubble extends React.Component {
 
     if (this.state.type === INFO_BUBBLE_TYPE_RIGHT_BUILDING) {
       const bubbleX = this.props.system.viewportWidth - this.el.offsetWidth - 50
-      infoBubble.bubbleX = bubbleX
+      dims.bubbleX = bubbleX
       this.el.style.left = bubbleX + 'px'
     }
+
+    this.props.setInfoBubbleDimensions(dims)
   }
 
   /**
@@ -340,7 +343,8 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    setInfoBubbleMouseInside: (value) => { dispatch(setInfoBubbleMouseInside(value)) }
+    setInfoBubbleMouseInside: (value) => { dispatch(setInfoBubbleMouseInside(value)) },
+    setInfoBubbleDimensions: (obj) => { dispatch(setInfoBubbleDimensions(obj)) }
   }
 }
 
