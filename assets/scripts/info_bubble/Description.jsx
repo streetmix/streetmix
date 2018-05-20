@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import DescriptionPanel from './DescriptionPanel'
 import { infoBubble } from './info_bubble'
+import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
 import { trackEvent } from '../app/event_tracking'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { t } from '../app/locale'
@@ -11,7 +12,6 @@ import { showDescription, hideDescription } from '../store/actions/infoBubble'
 
 export class Description extends React.Component {
   static propTypes = {
-    description: PropTypes.object,
     segment: PropTypes.shape({
       type: PropTypes.string,
       variantString: PropTypes.string
@@ -75,8 +75,23 @@ export class Description extends React.Component {
     return false
   }
 
+  getDescriptionData (segment) {
+    if (!segment) return null
+
+    const segmentInfo = getSegmentInfo(segment.type)
+    const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
+
+    if (variantInfo && variantInfo.description) {
+      return variantInfo.description
+    } else if (segmentInfo && segmentInfo.description) {
+      return segmentInfo.description
+    } else {
+      return null
+    }
+  }
+
   render () {
-    const description = this.props.description
+    const description = this.getDescriptionData(this.props.segment)
 
     if (!description) return null
 

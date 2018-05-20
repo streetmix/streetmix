@@ -14,7 +14,6 @@ import {
   INFO_BUBBLE_TYPE_LEFT_BUILDING,
   INFO_BUBBLE_TYPE_RIGHT_BUILDING
 } from './constants'
-import { getDescriptionData } from './description'
 import { registerKeypress } from '../app/keypress'
 import { cancelFadeoutControls, resumeFadeoutControls } from '../segments/resizing'
 // import { trackEvent } from '../app/event_tracking'
@@ -294,7 +293,6 @@ class InfoBubble extends React.Component {
         </div>
         <Warnings segment={segment} />
         <Description
-          description={getDescriptionData(segment)}
           segment={segment}
           updateBubbleDimensions={this.updateBubbleDimensions}
           toggleHighlightTriangle={this.toggleHighlightTriangle}
