@@ -7,14 +7,11 @@ import {
   showInfoBubble,
   hideInfoBubble,
   setInfoBubbleSegmentDataNo,
-  updateHoverPolygon,
-  setInfoBubbleDimensions
+  updateHoverPolygon
 } from '../store/actions/infoBubble'
 
 const INFO_BUBBLE_MARGIN_BUBBLE = 20
 const INFO_BUBBLE_MARGIN_MOUSE = 10
-
-const MIN_TOP_MARGIN_FROM_VIEWPORT = 120
 
 function isInfoBubbleVisible () {
   return store.getState().infoBubble.visible
@@ -25,8 +22,6 @@ export function isDescriptionVisible () {
 }
 
 export const infoBubble = {
-  el: null,
-
   hoverPolygon: null,
   segmentEl: null,
   type: null,
@@ -176,11 +171,9 @@ export const infoBubble = {
   },
 
   hide: function () {
-    if (infoBubble.el) {
-      document.body.classList.remove('controls-fade-out')
+    document.body.classList.remove('controls-fade-out')
 
-      store.dispatch(hideInfoBubble())
-    }
+    store.dispatch(hideInfoBubble())
   },
 
   considerShowing: function (event, segmentEl, type) {
@@ -251,49 +244,15 @@ export const infoBubble = {
       segmentEl.classList.add('immediate-show-drag-handles')
     }
 
-    var pos = getElAbsolutePos(segmentEl)
-
-    var bubbleX = pos[0] - document.querySelector('#street-section-outer').scrollLeft
-    var bubbleY = pos[1]
-
     let dataNo = segmentEl.dataNo
     if (!dataNo) {
       dataNo = (type === INFO_BUBBLE_TYPE_LEFT_BUILDING) ? 'left' : 'right'
     }
     store.dispatch(setInfoBubbleSegmentDataNo(dataNo))
 
-    infoBubble.el = document.querySelector('.info-bubble')
-
-    var bubbleWidth = infoBubble.el.offsetWidth
-    var bubbleHeight = infoBubble.el.offsetHeight
-
-    // TODO const
-    bubbleY -= bubbleHeight - 20
-    if (bubbleY < MIN_TOP_MARGIN_FROM_VIEWPORT) {
-      bubbleY = MIN_TOP_MARGIN_FROM_VIEWPORT
-    }
-
-    bubbleX += segmentEl.offsetWidth / 2
-    bubbleX -= bubbleWidth / 2
-
-    const system = store.getState().system
-    // TODO const
-    if (bubbleX < 50) {
-      bubbleX = 50
-    } else if (bubbleX > system.viewportWidth - bubbleWidth - 50) {
-      bubbleX = system.viewportWidth - bubbleWidth - 50
-    }
-
-    infoBubble.el.style.left = bubbleX + 'px'
-    infoBubble.el.style.top = bubbleY + 'px'
-
     if (!isInfoBubbleVisible()) {
       store.dispatch(showInfoBubble())
     }
-
-    store.dispatch(setInfoBubbleDimensions({
-      bubbleX, bubbleY, bubbleWidth, bubbleHeight
-    }))
 
     const mouseX = infoBubble.considerMouseX
     const mouseY = infoBubble.considerMouseY

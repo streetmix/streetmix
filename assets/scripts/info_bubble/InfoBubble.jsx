@@ -24,6 +24,9 @@ import { getElAbsolutePos } from '../util/helpers'
 import { setInfoBubbleMouseInside, setInfoBubbleDimensions } from '../store/actions/infoBubble'
 import { t } from '../app/locale'
 
+const MIN_TOP_MARGIN_FROM_VIEWPORT = 120
+const MIN_SIDE_MARGIN_FROM_VIEWPORT = 50
+
 class InfoBubble extends React.Component {
   static propTypes = {
     visible: PropTypes.bool.isRequired,
@@ -47,6 +50,8 @@ class InfoBubble extends React.Component {
 
     // Stores a ref to the element
     this.el = null
+    this.segmentEl = this.getSegmentEl(props.dataNo)
+    this.streetOuterEl = null
 
     this.state = {
       type: null,
@@ -94,6 +99,9 @@ class InfoBubble extends React.Component {
     // document area. Do not normalize it to a pointerleave event
     // because it doesn't make sense for other pointer types
     document.addEventListener('mouseleave', this.hide)
+
+    // Cache reference to this element
+    this.streetOuterEl = document.querySelector('#street-section-outer')
   }
 
   getSnapshotBeforeUpdate (prevProps, prevState) {
@@ -103,12 +111,15 @@ class InfoBubble extends React.Component {
     if (wasBuilding && !isBuilding) {
       return Number.parseInt(this.el.style.left, 10) + (this.el.offsetWidth / 2)
     } else if (!wasBuilding && this.props.dataNo === 'right') {
-      return this.props.system.viewportWidth - 50
+      return this.props.system.viewportWidth - MIN_SIDE_MARGIN_FROM_VIEWPORT
     }
     return null
   }
 
   componentDidUpdate (prevProps, prevState, snapshot) {
+    this.segmentEl = this.getSegmentEl(this.props.dataNo)
+    this.setBubbleDimensions()
+
     // If info bubble changes, wake this back up if it's fading out
     cancelFadeoutControls()
 
@@ -183,6 +194,58 @@ class InfoBubble extends React.Component {
 
   toggleHighlightTriangle = () => {
     this.setState({ highlightTriangle: !this.state.highlightTriangle })
+  }
+
+  getSegmentEl (dataNo) {
+    if (!dataNo && dataNo !== 0) return
+
+    let segmentEl
+    if (dataNo === 'left') {
+      segmentEl = document.querySelectorAll('.street-section-building')[0]
+    } else if (dataNo === 'right') {
+      segmentEl = document.querySelectorAll('.street-section-building')[1]
+    } else {
+      const segments = document.getElementById('street-section-editable').querySelectorAll('.segment')
+      segmentEl = segments[dataNo]
+    }
+    return segmentEl
+  }
+
+  /**
+   * TODO: consolidate this with the dim calc in updateBubbleDimensions? do we need snapshot here?
+   */
+  setBubbleDimensions = () => {
+    if (!this.segmentEl || !this.el) return
+
+    // Determine dimensions and X/Y layout
+    const bubbleWidth = this.el.offsetWidth
+    const bubbleHeight = this.el.offsetHeight
+    const pos = getElAbsolutePos(this.segmentEl)
+
+    let bubbleX = pos[0] - this.streetOuterEl.scrollLeft
+    let bubbleY = pos[1]
+
+    // TODO const
+    bubbleY -= bubbleHeight - 20
+    if (bubbleY < MIN_TOP_MARGIN_FROM_VIEWPORT) {
+      bubbleY = MIN_TOP_MARGIN_FROM_VIEWPORT
+    }
+
+    bubbleX += this.segmentEl.offsetWidth / 2
+    bubbleX -= bubbleWidth / 2
+
+    if (bubbleX < MIN_SIDE_MARGIN_FROM_VIEWPORT) {
+      bubbleX = MIN_SIDE_MARGIN_FROM_VIEWPORT
+    } else if (bubbleX > this.props.system.viewportWidth - bubbleWidth - MIN_SIDE_MARGIN_FROM_VIEWPORT) {
+      bubbleX = this.props.system.viewportWidth - bubbleWidth - MIN_SIDE_MARGIN_FROM_VIEWPORT
+    }
+
+    this.el.style.left = bubbleX + 'px'
+    this.el.style.top = bubbleY + 'px'
+
+    this.props.setInfoBubbleDimensions({
+      bubbleX, bubbleY, bubbleWidth, bubbleHeight
+    })
   }
 
   updateBubbleDimensions = (snapshot) => {
@@ -274,7 +337,6 @@ class InfoBubble extends React.Component {
   render () {
     const type = this.state.type
     const canBeDeleted = (type === INFO_BUBBLE_TYPE_SEGMENT)
-    const segmentEl = infoBubble.segmentEl
 
     // Set class names
     const classNames = ['info-bubble']
@@ -308,7 +370,7 @@ class InfoBubble extends React.Component {
     let widthOrHeightControl
     switch (type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
-        widthOrHeightControl = <WidthControl segmentEl={segmentEl} position={position} />
+        widthOrHeightControl = <WidthControl segmentEl={this.segmentEl} position={position} />
         break
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
@@ -332,7 +394,7 @@ class InfoBubble extends React.Component {
         <Triangle highlight={this.state.highlightTriangle} />
         <header>
           <div className="info-bubble-header-label">{this.getName()}</div>
-          <RemoveButton enabled={canBeDeleted} segment={segmentEl} />
+          <RemoveButton enabled={canBeDeleted} segment={this.segmentEl} />
         </header>
         <div className="info-bubble-controls">
           <Variants type={type} position={position} />
