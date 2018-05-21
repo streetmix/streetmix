@@ -152,8 +152,9 @@ class InfoBubble extends React.Component {
 
   // TODO: verify this continues to work with pointer / touch taps
   onMouseEnter = (event) => {
-    if (infoBubble.segmentEl) {
-      infoBubble.segmentEl.classList.add('hide-drag-handles-when-inside-info-bubble')
+    // TODO: refactor so segment element handles this
+    if (this.segmentEl) {
+      this.segmentEl.classList.add('hide-drag-handles-when-inside-info-bubble')
     }
 
     this.props.setInfoBubbleMouseInside(true)
@@ -163,8 +164,9 @@ class InfoBubble extends React.Component {
 
   onMouseLeave = (event) => {
     // TODO: Prevent pointer taps from flashing the drag handles
-    if (infoBubble.segmentEl) {
-      infoBubble.segmentEl.classList.remove('hide-drag-handles-when-inside-info-bubble')
+    // TODO: refactor so segment element handles this
+    if (this.segmentEl) {
+      this.segmentEl.classList.remove('hide-drag-handles-when-inside-info-bubble')
     }
 
     this.props.setInfoBubbleMouseInside(false)
@@ -405,6 +407,7 @@ class InfoBubble extends React.Component {
           segment={segment}
           updateBubbleDimensions={this.updateBubbleDimensions}
           toggleHighlightTriangle={this.toggleHighlightTriangle}
+          segmentEl={this.segmentEl}
         />
       </div>
     )

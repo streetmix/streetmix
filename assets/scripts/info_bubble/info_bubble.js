@@ -176,8 +176,17 @@ export const infoBubble = {
     store.dispatch(hideInfoBubble())
   },
 
+  /**
+   * Determines whether to display the info bubble for a given segment.
+   */
   considerShowing: function (event, segmentEl, type) {
+    // Bail under UI conditions where we shouldn't show the info bubble
     if (Boolean(store.getState().menus.activeMenu) === true || app.readOnly) {
+      return
+    }
+
+    // Bail if we are requesting the info bubble for the element already being displayed
+    if ((segmentEl === infoBubble.segmentEl) && (type === infoBubble.type)) {
       return
     }
 
@@ -190,12 +199,9 @@ export const infoBubble = {
       infoBubble.considerMouseX = pos[0] - document.querySelector('#street-section-outer').scrollLeft
       infoBubble.considerMouseY = pos[1]
     }
+
     infoBubble.considerSegmentEl = segmentEl
     infoBubble.considerType = type
-
-    if ((segmentEl === infoBubble.segmentEl) && (type === infoBubble.type)) {
-      return
-    }
 
     if (!isInfoBubbleVisible() || !infoBubble._withinHoverPolygon(infoBubble.considerMouseX, infoBubble.considerMouseY)) {
       infoBubble.show(false)

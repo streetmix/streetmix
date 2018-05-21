@@ -21,16 +21,17 @@ export class Description extends React.Component {
     descriptionVisible: PropTypes.bool.isRequired,
     showDescription: PropTypes.func.isRequired,
     hideDescription: PropTypes.func.isRequired,
-    bubbleY: PropTypes.number
+    bubbleY: PropTypes.number,
+    segmentEl: PropTypes.object
   }
 
   onClickShow = () => {
     this.props.showDescription()
     this.props.updateBubbleDimensions()
 
-    // TODO refactor
-    if (infoBubble.segmentEl) {
-      infoBubble.segmentEl.classList.add('hide-drag-handles-when-description-shown')
+    // TODO refactor - segment element should handle this whenever descriptionVisible is true
+    if (this.props.segmentEl) {
+      this.props.segmentEl.classList.add('hide-drag-handles-when-description-shown')
     }
 
     infoBubble.updateHoverPolygon()
@@ -45,8 +46,8 @@ export class Description extends React.Component {
     this.props.updateBubbleDimensions()
 
     // TODO refactor
-    if (infoBubble.segmentEl) {
-      infoBubble.segmentEl.classList.remove('hide-drag-handles-when-description-shown')
+    if (this.props.segmentEl) {
+      this.props.segmentEl.classList.remove('hide-drag-handles-when-description-shown')
     }
 
     infoBubble.updateHoverPolygon()
