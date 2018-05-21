@@ -29,7 +29,6 @@ export const infoBubble = {
 
   hoverPolygon: null,
   segmentEl: null,
-  segment: null,
   type: null,
 
   considerMouseX: null,
@@ -173,7 +172,6 @@ export const infoBubble = {
       infoBubble.segmentEl.classList.remove('hide-drag-handles-when-inside-info-bubble')
       infoBubble.segmentEl.classList.remove('show-drag-handles')
       infoBubble.segmentEl = null
-      infoBubble.segment = null
     }
   },
 
