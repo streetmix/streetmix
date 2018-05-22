@@ -43,6 +43,7 @@ exports.post = function (req, res) {
         res.status(500).send('Error finding user with Twitter ID.')
         return
       }
+      console.log(user)
       loginToken = uuid.v1()
       if (!user) {
         let u = new User({
