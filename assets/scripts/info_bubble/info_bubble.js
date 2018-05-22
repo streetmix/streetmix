@@ -6,12 +6,8 @@ import store from '../store'
 import {
   showInfoBubble,
   hideInfoBubble,
-  setInfoBubbleSegmentDataNo,
-  updateHoverPolygon
+  setInfoBubbleSegmentDataNo
 } from '../store/actions/infoBubble'
-
-const INFO_BUBBLE_MARGIN_BUBBLE = 20
-const INFO_BUBBLE_MARGIN_MOUSE = 10
 
 function isInfoBubbleVisible () {
   return store.getState().infoBubble.visible
@@ -58,97 +54,6 @@ export const infoBubble = {
   _withinHoverPolygon: function (x, y) {
     const hoverPolygon = store.getState().infoBubble.hoverPolygon
     return _isPointInPoly(hoverPolygon, [x, y])
-  },
-
-  // TODO: make this a pure(r) function
-  createHoverPolygon: function (mouseX, mouseY) {
-    let hoverPolygon = []
-
-    const state = store.getState().infoBubble
-
-    if (!state.visible) {
-      return hoverPolygon
-    }
-
-    const bubbleX = state.bubbleX
-    const bubbleY = state.bubbleY
-    const bubbleWidth = state.bubbleWidth
-    const bubbleHeight = state.bubbleHeight
-
-    let marginBubble
-
-    if (state.descriptionVisible) {
-      // TODO const
-      marginBubble = 200
-    } else {
-      marginBubble = INFO_BUBBLE_MARGIN_BUBBLE
-    }
-
-    const mouseInside = state.mouseInside
-    if (mouseInside && !state.descriptionVisible) {
-      var pos = getElAbsolutePos(infoBubble.segmentEl)
-
-      var x = pos[0] - document.querySelector('#street-section-outer').scrollLeft
-
-      var segmentX1 = x - INFO_BUBBLE_MARGIN_BUBBLE
-      var segmentX2 = x + infoBubble.segmentEl.offsetWidth + INFO_BUBBLE_MARGIN_BUBBLE
-
-      var segmentY = pos[1] + infoBubble.segmentEl.offsetHeight + INFO_BUBBLE_MARGIN_BUBBLE
-
-      hoverPolygon = [
-        [bubbleX - marginBubble, bubbleY - marginBubble],
-        [bubbleX - marginBubble, bubbleY + bubbleHeight + marginBubble],
-        [segmentX1, bubbleY + bubbleHeight + marginBubble + 120],
-        [segmentX1, segmentY],
-        [segmentX2, segmentY],
-        [segmentX2, bubbleY + bubbleHeight + marginBubble + 120],
-        [bubbleX + bubbleWidth + marginBubble, bubbleY + bubbleHeight + marginBubble],
-        [bubbleX + bubbleWidth + marginBubble, bubbleY - marginBubble],
-        [bubbleX - marginBubble, bubbleY - marginBubble]
-      ]
-    } else {
-      var bottomY = mouseY - INFO_BUBBLE_MARGIN_MOUSE
-      if (bottomY < bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE) {
-        bottomY = bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE
-      }
-      var bottomY2 = mouseY + INFO_BUBBLE_MARGIN_MOUSE
-      if (bottomY2 < bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE) {
-        bottomY2 = bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE
-      }
-
-      if (state.descriptionVisible) {
-        bottomY = bubbleY + bubbleHeight + marginBubble
-        bottomY2 = bottomY
-      }
-
-      var diffX = 60 - ((mouseY - bubbleY) / 5)
-      if (diffX < 0) {
-        diffX = 0
-      } else if (diffX > 50) {
-        diffX = 50
-      }
-
-      hoverPolygon = [
-        [bubbleX - marginBubble, bubbleY - marginBubble],
-        [bubbleX - marginBubble, bubbleY + bubbleHeight + marginBubble],
-        [(bubbleX - marginBubble + mouseX - INFO_BUBBLE_MARGIN_MOUSE - diffX) / 2, bottomY + ((bubbleY + bubbleHeight + marginBubble - bottomY) * 0.2)],
-        [mouseX - INFO_BUBBLE_MARGIN_MOUSE - diffX, bottomY],
-        [mouseX - INFO_BUBBLE_MARGIN_MOUSE, bottomY2],
-        [mouseX + INFO_BUBBLE_MARGIN_MOUSE, bottomY2],
-        [mouseX + INFO_BUBBLE_MARGIN_MOUSE + diffX, bottomY],
-        [(bubbleX + bubbleWidth + marginBubble + mouseX + INFO_BUBBLE_MARGIN_MOUSE + diffX) / 2, bottomY + ((bubbleY + bubbleHeight + marginBubble - bottomY) * 0.2)],
-        [bubbleX + bubbleWidth + marginBubble, bubbleY + bubbleHeight + marginBubble],
-        [bubbleX + bubbleWidth + marginBubble, bubbleY - marginBubble],
-        [bubbleX - marginBubble, bubbleY - marginBubble]
-      ]
-    }
-
-    return hoverPolygon
-  },
-
-  updateHoverPolygon: function (mouseX, mouseY) {
-    const hoverPolygon = infoBubble.createHoverPolygon(mouseX, mouseY)
-    store.dispatch(updateHoverPolygon(hoverPolygon))
   },
 
   hideSegment: function (fast) {
@@ -259,10 +164,6 @@ export const infoBubble = {
     if (!isInfoBubbleVisible()) {
       store.dispatch(showInfoBubble())
     }
-
-    const mouseX = infoBubble.considerMouseX
-    const mouseY = infoBubble.considerMouseY
-    infoBubble.updateHoverPolygon(mouseX, mouseY)
   }
 }
 
