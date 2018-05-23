@@ -25,7 +25,12 @@ class StreetEditable extends React.Component {
     }
 
     return (
-      <div id="street-section-editable" style={style} ref={(ref) => { this.streetSectionEditable = ref }} />
+      <div
+        id="street-section-editable"
+        key={this.props.street.id}
+        style={style}
+        ref={(ref) => { this.streetSectionEditable = ref }}
+      />
     )
   }
 }
