@@ -39,11 +39,7 @@ class Segment extends React.Component {
   }
 
   componentDidMount = () => {
-    const multiplier = this.props.forPalette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1
-    const segmentWidth = this.props.width // may need to double check this. setSegmentContents() was called with other widths
-    const offsetTop = this.props.forPalette ? SEGMENT_Y_PALETTE : SEGMENT_Y_NORMAL
-    const ctx = this.refs.canvas.getContext('2d')
-    drawSegmentContents(ctx, this.props.type, this.props.variantString, segmentWidth, 0, offsetTop, this.props.randSeed, multiplier, this.props.forPalette)
+    this.drawSegment()
 
     if (!this.props.forPalette) {
       this.dragHandleLeft.segmentEl = this.streetSegment
@@ -54,8 +50,17 @@ class Segment extends React.Component {
 
   componentDidUpdate () {
     if (!this.props.forPalette) {
+      this.drawSegment()
       this.props.updateSegmentData(this.streetSegment, this.props.dataNo, this.props.segmentPos)
     }
+  }
+
+  drawSegment = () => {
+    const multiplier = this.props.forPalette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1
+    const segmentWidth = this.props.width // may need to double check this. setSegmentContents() was called with other widths
+    const offsetTop = this.props.forPalette ? SEGMENT_Y_PALETTE : SEGMENT_Y_NORMAL
+    const ctx = this.refs.canvas.getContext('2d')
+    drawSegmentContents(ctx, this.props.type, this.props.variantString, segmentWidth, 0, offsetTop, this.props.randSeed, multiplier, this.props.forPalette)
   }
 
   calculateWidth = (resizeType) => {
@@ -123,9 +128,9 @@ class Segment extends React.Component {
           [this.props.cssTransform]: (this.props.forPalette) ? null : 'translateX(' + this.props.segmentPos + 'px)'
         }}
         className={'segment' + (this.props.isUnmovable ? ' unmovable' : '') + (this.props.forPalette ? ' segment-in-palette' : '')}
-        data-segment-type={this.props.type}
-        data-variant-string={this.props.variantString}
-        data-rand-seed={this.props.randSeed}
+        type={this.props.type}
+        variant-string={this.props.variantString}
+        rand-seed={this.props.randSeed}
         data-width={widthValue}
         title={this.props.forPalette ? localizedSegmentName : null}
         ref={(ref) => { this.streetSegment = ref }}
