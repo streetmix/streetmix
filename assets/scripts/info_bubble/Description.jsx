@@ -12,10 +12,8 @@ import { showDescription, hideDescription } from '../store/actions/infoBubble'
 
 export class Description extends React.Component {
   static propTypes = {
-    segment: PropTypes.shape({
-      type: PropTypes.string,
-      variantString: PropTypes.string
-    }),
+    type: PropTypes.string,
+    variantString: PropTypes.string,
     updateBubbleDimensions: PropTypes.func.isRequired,
     toggleHighlightTriangle: PropTypes.func.isRequired,
     descriptionVisible: PropTypes.bool.isRequired,
@@ -38,7 +36,7 @@ export class Description extends React.Component {
     // end TODO
 
     registerKeypress('esc', this.onClickHide)
-    trackEvent('INTERACTION', 'LEARN_MORE', this.props.segment.type, null, false)
+    trackEvent('INTERACTION', 'LEARN_MORE', this.props.type, null, false)
   }
 
   onClickHide = () => {
@@ -77,11 +75,11 @@ export class Description extends React.Component {
     return false
   }
 
-  getDescriptionData (segment) {
-    if (!segment) return null
+  getDescriptionData (type, variantString) {
+    if (!type || !variantString) return null
 
-    const segmentInfo = getSegmentInfo(segment.type)
-    const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
+    const segmentInfo = getSegmentInfo(type)
+    const variantInfo = getSegmentVariantInfo(type, variantString)
 
     if (variantInfo && variantInfo.description) {
       return variantInfo.description
@@ -93,13 +91,13 @@ export class Description extends React.Component {
   }
 
   render () {
-    const description = this.getDescriptionData(this.props.segment)
+    const description = this.getDescriptionData(this.props.type, this.props.variantString)
 
     if (!description) return null
 
     // If the description text hasn't been translated, bail.
-    const variantDescriptionText = t(`segments.${this.props.segment.type}.details.${this.props.segment.variantString}.description.text`, null, { ns: 'segment-info' })
-    const segmentDescriptionText = t(`segments.${this.props.segment.type}.description.text`, null, { ns: 'segment-info' })
+    const variantDescriptionText = t(`segments.${this.props.type}.details.${this.props.variantString}.description.text`, null, { ns: 'segment-info' })
+    const segmentDescriptionText = t(`segments.${this.props.type}.description.text`, null, { ns: 'segment-info' })
     const displayDescription = variantDescriptionText || segmentDescriptionText
     if (!displayDescription || this.isEmptyText(displayDescription)) return null
 
@@ -107,16 +105,16 @@ export class Description extends React.Component {
     const defaultPrompt = description.prompt || <FormattedMessage id="segments.learn-more" defaultMessage="Learn more" />
 
     // TODO: use FormattedMessage
-    const variantPrompt = t(`segments.${this.props.segment.type}.details.${this.props.segment.variantString}.description.prompt`, null, { ns: 'segment-info' })
-    const segmentPrompt = t(`segments.${this.props.segment.type}.description.prompt`, defaultPrompt, { ns: 'segment-info' })
+    const variantPrompt = t(`segments.${this.props.type}.details.${this.props.variantString}.description.prompt`, null, { ns: 'segment-info' })
+    const segmentPrompt = t(`segments.${this.props.type}.description.prompt`, defaultPrompt, { ns: 'segment-info' })
     const displayPrompt = variantPrompt || segmentPrompt
 
-    const variantLede = t(`segments.${this.props.segment.type}.details.${this.props.segment.variantString}.description.lede`, null, { ns: 'segment-info' })
-    const segmentLede = t(`segments.${this.props.segment.type}.description.lede`, description.lede, { ns: 'segment-info' })
+    const variantLede = t(`segments.${this.props.type}.details.${this.props.variantString}.description.lede`, null, { ns: 'segment-info' })
+    const segmentLede = t(`segments.${this.props.type}.description.lede`, description.lede, { ns: 'segment-info' })
     const displayLede = variantLede || segmentLede
 
-    const variantImageCaption = t(`segments.${this.props.segment.type}.details.${this.props.segment.variantString}.description.imageCaption`, null, { ns: 'segment-info' })
-    const segmentImageCaption = t(`segments.${this.props.segment.type}.description.imageCaption`, description.imageCaption, { ns: 'segment-info' })
+    const variantImageCaption = t(`segments.${this.props.type}.details.${this.props.variantString}.description.imageCaption`, null, { ns: 'segment-info' })
+    const segmentImageCaption = t(`segments.${this.props.type}.description.imageCaption`, description.imageCaption, { ns: 'segment-info' })
     const displayImageCaption = variantImageCaption || segmentImageCaption
 
     return (

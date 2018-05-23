@@ -385,6 +385,8 @@ class InfoBubble extends React.Component {
 
     const segment = this.props.street.segments[this.props.dataNo]
 
+    if (!segment) return null
+
     return (
       <div
         className={classNames.join(' ')}
@@ -404,7 +406,8 @@ class InfoBubble extends React.Component {
         </div>
         <Warnings segment={segment} />
         <Description
-          segment={segment}
+          type={segment.type}
+          variantString={segment.variantString}
           updateBubbleDimensions={this.updateBubbleDimensions}
           toggleHighlightTriangle={this.toggleHighlightTriangle}
           segmentEl={this.segmentEl}
