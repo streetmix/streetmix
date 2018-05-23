@@ -25,7 +25,6 @@ import {
   getSettings,
   setSettings
 } from '../users/settings'
-import { generateRandSeed } from '../util/random'
 import {
   isblockingAjaxRequestInProgress,
   newBlockingAjaxRequest
@@ -45,7 +44,8 @@ import {
   setStreetCreatorId,
   setUpdateTimeToNow,
   setLastStreet,
-  setIgnoreStreetChanges
+  setIgnoreStreetChanges,
+  addSegmentIds
 } from './data_model'
 import { updateStreetName } from './name'
 import {
@@ -295,15 +295,6 @@ function receiveStreet (transmission) {
 
   // Legacy - remove once everything is Promise-based.
   checkIfEverythingIsLoaded()
-}
-
-function addSegmentIds (street) {
-  const segments = [...street.segments]
-  for (let i = 0; i < segments.length; i++) {
-    const segment = segments[i]
-    segment.id = generateRandSeed()
-  }
-  return segments
 }
 
 function unpackStreetDataFromServerTransmission (transmission) {
