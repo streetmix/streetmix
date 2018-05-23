@@ -88,7 +88,7 @@ export function resizeSegment (el, resizeType, width, updateEdit, palette, initi
     el.getAttribute('variant-string'), width * TILE_SIZE, parseInt(el.getAttribute('rand-seed')), palette, false)
 
   if (!initial) {
-    segmentsChanged()
+    segmentsChanged(false)
   }
 
   return width
