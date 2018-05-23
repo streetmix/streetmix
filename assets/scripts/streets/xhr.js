@@ -25,6 +25,7 @@ import {
   getSettings,
   setSettings
 } from '../users/settings'
+import { generateRandSeed } from '../util/random'
 import {
   isblockingAjaxRequestInProgress,
   newBlockingAjaxRequest
@@ -296,6 +297,15 @@ function receiveStreet (transmission) {
   checkIfEverythingIsLoaded()
 }
 
+function addSegmentIds (street) {
+  const segments = [...street.segments]
+  for (let i = 0; i < segments.length; i++) {
+    const segment = segments[i]
+    segment.id = generateRandSeed()
+  }
+  return segments
+}
+
 function unpackStreetDataFromServerTransmission (transmission) {
   // Catch a data error where a user's street might be retrieved
   // without any data in it (so-called error 9B)
@@ -305,6 +315,7 @@ function unpackStreetDataFromServerTransmission (transmission) {
   }
 
   const street = cloneDeep(transmission.data.street)
+  street.segments = addSegmentIds(street)
   street.creatorId = (transmission.creator && transmission.creator.id) || null
   street.originalStreetId = transmission.originalStreetId || null
   street.updatedAt = transmission.updatedAt || null
