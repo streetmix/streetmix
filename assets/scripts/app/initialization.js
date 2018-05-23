@@ -28,7 +28,6 @@ import { processUrl, updatePageUrl } from './page_url'
 import { onResize } from './window_resize'
 import { startListening } from './keypress'
 import { registerKeypresses } from './keyboard_commands'
-import { infoBubble } from '../info_bubble/info_bubble'
 import { attachFetchNonBlockingEventListeners } from '../util/fetch_nonblocking'
 import store, { observeStore } from '../store'
 import { showDialog } from '../store/actions/dialogs'
@@ -50,7 +49,6 @@ function preInit () {
   }
 
   registerKeypresses()
-  infoBubble.registerKeypresses()
 
   // Start listening for keypresses
   startListening()

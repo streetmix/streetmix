@@ -507,7 +507,6 @@ export function changeSegmentVariantLegacy (dataNo, variantName, variantChoice) 
   el.classList.add('immediate-show-drag-handles')
   el.classList.add('hide-drag-handles-when-inside-info-bubble')
   infoBubble.segmentEl = el
-  infoBubble.segment = segment
 
   repositionSegments()
   recalculateWidth()

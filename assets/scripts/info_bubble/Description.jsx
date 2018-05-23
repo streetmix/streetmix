@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import DescriptionPanel from './DescriptionPanel'
 import { infoBubble } from './info_bubble'
+import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
 import { trackEvent } from '../app/event_tracking'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { t } from '../app/locale'
@@ -11,32 +12,32 @@ import { showDescription, hideDescription } from '../store/actions/infoBubble'
 
 export class Description extends React.Component {
   static propTypes = {
-    description: PropTypes.object,
-    segment: PropTypes.shape({
-      type: PropTypes.string,
-      variantString: PropTypes.string
-    }),
+    type: PropTypes.string,
+    variantString: PropTypes.string,
     updateBubbleDimensions: PropTypes.func.isRequired,
-    toggleHighlightTriangle: PropTypes.func.isRequired,
+    highlightTriangle: PropTypes.func.isRequired,
+    unhighlightTriangle: PropTypes.func.isRequired,
     descriptionVisible: PropTypes.bool.isRequired,
     showDescription: PropTypes.func.isRequired,
-    hideDescription: PropTypes.func.isRequired
+    hideDescription: PropTypes.func.isRequired,
+    bubbleY: PropTypes.number,
+    segmentEl: PropTypes.object
   }
 
   onClickShow = () => {
     this.props.showDescription()
     this.props.updateBubbleDimensions()
 
-    // TODO refactor
-    if (infoBubble.segmentEl) {
-      infoBubble.segmentEl.classList.add('hide-drag-handles-when-description-shown')
+    // TODO refactor - segment element should handle this whenever descriptionVisible is true
+    if (this.props.segmentEl) {
+      this.props.segmentEl.classList.add('hide-drag-handles-when-description-shown')
     }
 
     infoBubble.updateHoverPolygon()
     // end TODO
 
     registerKeypress('esc', this.onClickHide)
-    trackEvent('INTERACTION', 'LEARN_MORE', this.props.segment.type, null, false)
+    trackEvent('INTERACTION', 'LEARN_MORE', this.props.type, null, false)
   }
 
   onClickHide = () => {
@@ -44,8 +45,8 @@ export class Description extends React.Component {
     this.props.updateBubbleDimensions()
 
     // TODO refactor
-    if (infoBubble.segmentEl) {
-      infoBubble.segmentEl.classList.remove('hide-drag-handles-when-description-shown')
+    if (this.props.segmentEl) {
+      this.props.segmentEl.classList.remove('hide-drag-handles-when-description-shown')
     }
 
     infoBubble.updateHoverPolygon()
@@ -75,14 +76,29 @@ export class Description extends React.Component {
     return false
   }
 
+  getDescriptionData (type, variantString) {
+    if (!type || !variantString) return null
+
+    const segmentInfo = getSegmentInfo(type)
+    const variantInfo = getSegmentVariantInfo(type, variantString)
+
+    if (variantInfo && variantInfo.description) {
+      return variantInfo.description
+    } else if (segmentInfo && segmentInfo.description) {
+      return segmentInfo.description
+    } else {
+      return null
+    }
+  }
+
   render () {
-    const description = this.props.description
+    const description = this.getDescriptionData(this.props.type, this.props.variantString)
 
     if (!description) return null
 
     // If the description text hasn't been translated, bail.
-    const variantDescriptionText = t(`segments.${this.props.segment.type}.details.${this.props.segment.variantString}.description.text`, null, { ns: 'segment-info' })
-    const segmentDescriptionText = t(`segments.${this.props.segment.type}.description.text`, null, { ns: 'segment-info' })
+    const variantDescriptionText = t(`segments.${this.props.type}.details.${this.props.variantString}.description.text`, null, { ns: 'segment-info' })
+    const segmentDescriptionText = t(`segments.${this.props.type}.description.text`, null, { ns: 'segment-info' })
     const displayDescription = variantDescriptionText || segmentDescriptionText
     if (!displayDescription || this.isEmptyText(displayDescription)) return null
 
@@ -90,16 +106,16 @@ export class Description extends React.Component {
     const defaultPrompt = description.prompt || <FormattedMessage id="segments.learn-more" defaultMessage="Learn more" />
 
     // TODO: use FormattedMessage
-    const variantPrompt = t(`segments.${this.props.segment.type}.details.${this.props.segment.variantString}.description.prompt`, null, { ns: 'segment-info' })
-    const segmentPrompt = t(`segments.${this.props.segment.type}.description.prompt`, defaultPrompt, { ns: 'segment-info' })
+    const variantPrompt = t(`segments.${this.props.type}.details.${this.props.variantString}.description.prompt`, null, { ns: 'segment-info' })
+    const segmentPrompt = t(`segments.${this.props.type}.description.prompt`, defaultPrompt, { ns: 'segment-info' })
     const displayPrompt = variantPrompt || segmentPrompt
 
-    const variantLede = t(`segments.${this.props.segment.type}.details.${this.props.segment.variantString}.description.lede`, null, { ns: 'segment-info' })
-    const segmentLede = t(`segments.${this.props.segment.type}.description.lede`, description.lede, { ns: 'segment-info' })
+    const variantLede = t(`segments.${this.props.type}.details.${this.props.variantString}.description.lede`, null, { ns: 'segment-info' })
+    const segmentLede = t(`segments.${this.props.type}.description.lede`, description.lede, { ns: 'segment-info' })
     const displayLede = variantLede || segmentLede
 
-    const variantImageCaption = t(`segments.${this.props.segment.type}.details.${this.props.segment.variantString}.description.imageCaption`, null, { ns: 'segment-info' })
-    const segmentImageCaption = t(`segments.${this.props.segment.type}.description.imageCaption`, description.imageCaption, { ns: 'segment-info' })
+    const variantImageCaption = t(`segments.${this.props.type}.details.${this.props.variantString}.description.imageCaption`, null, { ns: 'segment-info' })
+    const segmentImageCaption = t(`segments.${this.props.type}.description.imageCaption`, description.imageCaption, { ns: 'segment-info' })
     const displayImageCaption = variantImageCaption || segmentImageCaption
 
     return (
@@ -107,8 +123,8 @@ export class Description extends React.Component {
         <div
           className="description-prompt"
           onClick={this.onClickShow}
-          onMouseOver={this.props.toggleHighlightTriangle}
-          onMouseOut={this.props.toggleHighlightTriangle}
+          onMouseOver={this.props.highlightTriangle}
+          onMouseOut={this.props.unhighlightTriangle}
         >
           {displayPrompt}
         </div>
@@ -119,6 +135,7 @@ export class Description extends React.Component {
           lede={displayLede}
           text={displayDescription}
           caption={displayImageCaption}
+          bubbleY={this.props.bubbleY}
         />
       </React.Fragment>
     )
@@ -127,7 +144,8 @@ export class Description extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    descriptionVisible: state.infoBubble.descriptionVisible
+    descriptionVisible: state.infoBubble.descriptionVisible,
+    bubbleY: state.infoBubble.bubbleY
   }
 }
 

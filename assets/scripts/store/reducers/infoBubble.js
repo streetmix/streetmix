@@ -6,7 +6,8 @@ import {
   SET_INFO_BUBBLE_MOUSE_INSIDE,
   START_PRINTING,
   SHOW_DESCRIPTION,
-  HIDE_DESCRIPTION
+  HIDE_DESCRIPTION,
+  SET_INFO_BUBBLE_DIMENSIONS
 } from '../actions'
 
 const initialState = {
@@ -14,7 +15,13 @@ const initialState = {
   mouseInside: false,
   dataNo: null,
   descriptionVisible: false,
-  hoverPolygon: []
+  hoverPolygon: [],
+
+  // Bubble dimensions
+  bubbleX: null,
+  bubbleY: null,
+  bubbleWidth: null,
+  bubbleHeight: null
 }
 
 const infoBubble = (state = initialState, action) => {
@@ -61,6 +68,15 @@ const infoBubble = (state = initialState, action) => {
         ...state,
         descriptionVisible: false
       }
+    case SET_INFO_BUBBLE_DIMENSIONS: {
+      return {
+        ...state,
+        bubbleX: Number.isFinite(action.bubbleX) ? action.bubbleX : state.bubbleX,
+        bubbleY: Number.isFinite(action.bubbleY) ? action.bubbleY : state.bubbleY,
+        bubbleWidth: Number.isFinite(action.bubbleWidth) ? action.bubbleWidth : state.bubbleWidth,
+        bubbleHeight: Number.isFinite(action.bubbleHeight) ? action.bubbleHeight : state.bubbleHeight
+      }
+    }
     default:
       return state
   }

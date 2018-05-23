@@ -2,7 +2,6 @@ import { app } from '../preinit/app_settings'
 import { INFO_BUBBLE_TYPE_LEFT_BUILDING } from './constants'
 import { DRAGGING_TYPE_NONE, draggingType } from '../segments/drag_and_drop'
 import { getElAbsolutePos } from '../util/helpers'
-import { registerKeypress } from '../app/keypress'
 import store from '../store'
 import {
   showInfoBubble,
@@ -14,8 +13,6 @@ import {
 const INFO_BUBBLE_MARGIN_BUBBLE = 20
 const INFO_BUBBLE_MARGIN_MOUSE = 10
 
-const MIN_TOP_MARGIN_FROM_VIEWPORT = 120
-
 function isInfoBubbleVisible () {
   return store.getState().infoBubble.visible
 }
@@ -25,45 +22,22 @@ export function isDescriptionVisible () {
 }
 
 export const infoBubble = {
-  el: null,
-
-  startMouseX: null,
-  startMouseY: null,
   hoverPolygon: null,
   segmentEl: null,
-  segment: null,
   type: null,
-
-  lastMouseX: null,
-  lastMouseY: null,
-
-  suppressed: false,
-
-  bubbleX: null,
-  bubbleY: null,
-  bubbleWidth: null,
-  bubbleHeight: null,
 
   considerMouseX: null,
   considerMouseY: null,
   considerSegmentEl: null,
   considerType: null,
 
-  hoverPolygonUpdateTimerId: -1,
+  suppressed: false,
   suppressTimerId: -1,
 
-  registerKeypresses: function () {
-    // Register keyboard shortcuts to hide info bubble
-    // Only hide if it's currently visible, and if the
-    // description is NOT visible. (If the description
-    // is visible, the escape key should hide that first.)
-    registerKeypress('esc', {
-      condition: function () { return isInfoBubbleVisible() && !isDescriptionVisible() }
-    }, function () {
-      infoBubble.hide()
-      infoBubble.hideSegment(false)
-    })
-  },
+  /**
+   * Suppressing the infobubble momentarily hides it (if shown) and delays
+   * opening it again for some amount of time.
+   */
   suppress: function () {
     if (!infoBubble.suppressed) {
       infoBubble.hide()
@@ -90,26 +64,28 @@ export const infoBubble = {
   createHoverPolygon: function (mouseX, mouseY) {
     let hoverPolygon = []
 
-    if (!isInfoBubbleVisible()) {
+    const state = store.getState().infoBubble
+
+    if (!state.visible) {
       return hoverPolygon
     }
 
-    const bubbleX = infoBubble.bubbleX
-    const bubbleY = infoBubble.bubbleY
-    const bubbleWidth = infoBubble.bubbleWidth
-    const bubbleHeight = infoBubble.bubbleHeight
+    const bubbleX = state.bubbleX
+    const bubbleY = state.bubbleY
+    const bubbleWidth = state.bubbleWidth
+    const bubbleHeight = state.bubbleHeight
 
     let marginBubble
 
-    if (isDescriptionVisible()) {
+    if (state.descriptionVisible) {
       // TODO const
       marginBubble = 200
     } else {
       marginBubble = INFO_BUBBLE_MARGIN_BUBBLE
     }
 
-    const mouseInside = store.getState().infoBubble.mouseInside
-    if (mouseInside && !isDescriptionVisible()) {
+    const mouseInside = state.mouseInside
+    if (mouseInside && !state.descriptionVisible) {
       var pos = getElAbsolutePos(infoBubble.segmentEl)
 
       var x = pos[0] - document.querySelector('#street-section-outer').scrollLeft
@@ -140,7 +116,7 @@ export const infoBubble = {
         bottomY2 = bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE
       }
 
-      if (isDescriptionVisible()) {
+      if (state.descriptionVisible) {
         bottomY = bubbleY + bubbleHeight + marginBubble
         bottomY2 = bottomY
       }
@@ -175,30 +151,6 @@ export const infoBubble = {
     store.dispatch(updateHoverPolygon(hoverPolygon))
   },
 
-  scheduleHoverPolygonUpdate: function () {
-    window.clearTimeout(infoBubble.hoverPolygonUpdateTimerId)
-
-    infoBubble.hoverPolygonUpdateTimerId = window.setTimeout(function () {
-      infoBubble.updateHoverPolygon(infoBubble.lastMouseX, infoBubble.lastMouseY)
-    }, 50)
-  },
-
-  onBodyMouseMove: function (event) {
-    var mouseX = event.pageX
-    var mouseY = event.pageY
-
-    infoBubble.lastMouseX = mouseX
-    infoBubble.lastMouseY = mouseY
-
-    if (isInfoBubbleVisible()) {
-      if (!infoBubble._withinHoverPolygon(mouseX, mouseY)) {
-        infoBubble.show(false)
-      }
-    }
-
-    infoBubble.scheduleHoverPolygonUpdate()
-  },
-
   hideSegment: function (fast) {
     if (infoBubble.segmentEl) {
       infoBubble.segmentEl.classList.remove('hover')
@@ -215,22 +167,26 @@ export const infoBubble = {
       infoBubble.segmentEl.classList.remove('hide-drag-handles-when-inside-info-bubble')
       infoBubble.segmentEl.classList.remove('show-drag-handles')
       infoBubble.segmentEl = null
-      infoBubble.segment = null
     }
   },
 
   hide: function () {
-    if (infoBubble.el) {
-      document.body.classList.remove('controls-fade-out')
+    document.body.classList.remove('controls-fade-out')
 
-      store.dispatch(hideInfoBubble())
-
-      document.body.removeEventListener('mousemove', infoBubble.onBodyMouseMove)
-    }
+    store.dispatch(hideInfoBubble())
   },
 
+  /**
+   * Determines whether to display the info bubble for a given segment.
+   */
   considerShowing: function (event, segmentEl, type) {
+    // Bail under UI conditions where we shouldn't show the info bubble
     if (Boolean(store.getState().menus.activeMenu) === true || app.readOnly) {
+      return
+    }
+
+    // Bail if we are requesting the info bubble for the element already being displayed
+    if ((segmentEl === infoBubble.segmentEl) && (type === infoBubble.type)) {
       return
     }
 
@@ -243,12 +199,9 @@ export const infoBubble = {
       infoBubble.considerMouseX = pos[0] - document.querySelector('#street-section-outer').scrollLeft
       infoBubble.considerMouseY = pos[1]
     }
+
     infoBubble.considerSegmentEl = segmentEl
     infoBubble.considerType = type
-
-    if ((segmentEl === infoBubble.segmentEl) && (type === infoBubble.type)) {
-      return
-    }
 
     if (!isInfoBubbleVisible() || !infoBubble._withinHoverPolygon(infoBubble.considerMouseX, infoBubble.considerMouseY)) {
       infoBubble.show(false)
@@ -286,9 +239,6 @@ export const infoBubble = {
     }
     infoBubble.hideSegment(true)
 
-    var mouseX = infoBubble.considerMouseX
-    var mouseY = infoBubble.considerMouseY
-
     infoBubble.segmentEl = segmentEl
     infoBubble.type = type
 
@@ -300,56 +250,19 @@ export const infoBubble = {
       segmentEl.classList.add('immediate-show-drag-handles')
     }
 
-    infoBubble.startMouseX = mouseX
-    infoBubble.startMouseY = mouseY
-
-    var pos = getElAbsolutePos(segmentEl)
-
-    var bubbleX = pos[0] - document.querySelector('#street-section-outer').scrollLeft
-    var bubbleY = pos[1]
-
     let dataNo = segmentEl.dataNo
     if (!dataNo) {
       dataNo = (type === INFO_BUBBLE_TYPE_LEFT_BUILDING) ? 'left' : 'right'
     }
     store.dispatch(setInfoBubbleSegmentDataNo(dataNo))
 
-    infoBubble.el = document.querySelector('.info-bubble')
-
-    var bubbleWidth = infoBubble.el.offsetWidth
-    var bubbleHeight = infoBubble.el.offsetHeight
-
-    // TODO const
-    bubbleY -= bubbleHeight - 20
-    if (bubbleY < MIN_TOP_MARGIN_FROM_VIEWPORT) {
-      bubbleY = MIN_TOP_MARGIN_FROM_VIEWPORT
-    }
-
-    bubbleX += segmentEl.offsetWidth / 2
-    bubbleX -= bubbleWidth / 2
-
-    const system = store.getState().system
-    // TODO const
-    if (bubbleX < 50) {
-      bubbleX = 50
-    } else if (bubbleX > system.viewportWidth - bubbleWidth - 50) {
-      bubbleX = system.viewportWidth - bubbleWidth - 50
-    }
-
-    infoBubble.el.style.left = bubbleX + 'px'
-    infoBubble.el.style.top = bubbleY + 'px'
-
     if (!isInfoBubbleVisible()) {
       store.dispatch(showInfoBubble())
     }
 
-    infoBubble.bubbleX = bubbleX
-    infoBubble.bubbleY = bubbleY
-    infoBubble.bubbleWidth = bubbleWidth
-    infoBubble.bubbleHeight = bubbleHeight
-
+    const mouseX = infoBubble.considerMouseX
+    const mouseY = infoBubble.considerMouseY
     infoBubble.updateHoverPolygon(mouseX, mouseY)
-    document.body.addEventListener('mousemove', infoBubble.onBodyMouseMove)
   }
 }
 

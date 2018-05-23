@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl'
 import Transition from 'react-transition-group/Transition'
 import Triangle from './Triangle'
 import { getStreetSectionTop } from '../app/window_resize'
-import { infoBubble } from './info_bubble'
 
 const TRANSITION_DURATION = 250
 const DEFAULT_STYLE = {
@@ -31,7 +30,8 @@ export default class DescriptionPanel extends React.Component {
     lede: PropTypes.string,
     text: PropTypes.arrayOf(PropTypes.string),
     caption: PropTypes.string,
-    onClickHide: PropTypes.func
+    onClickHide: PropTypes.func,
+    bubbleY: PropTypes.number
   }
 
   static defaultProps = {
@@ -102,7 +102,7 @@ export default class DescriptionPanel extends React.Component {
 
   render () {
     // TODO document magic numbers
-    const height = (getStreetSectionTop() + 300 - infoBubble.bubbleY) + 'px'
+    const height = (getStreetSectionTop() + 300 - this.props.bubbleY) + 'px'
 
     return (
       <Transition in={this.props.visible} timeout={TRANSITION_DURATION}>

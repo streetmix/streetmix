@@ -14,15 +14,18 @@ import {
   INFO_BUBBLE_TYPE_LEFT_BUILDING,
   INFO_BUBBLE_TYPE_RIGHT_BUILDING
 } from './constants'
-import { getDescriptionData } from './description'
+import { registerKeypress } from '../app/keypress'
 import { cancelFadeoutControls, resumeFadeoutControls } from '../segments/resizing'
 // import { trackEvent } from '../app/event_tracking'
 import { BUILDINGS } from '../segments/buildings'
 import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
 import { loseAnyFocus } from '../util/focus'
 import { getElAbsolutePos } from '../util/helpers'
-import { setInfoBubbleMouseInside } from '../store/actions/infoBubble'
+import { setInfoBubbleMouseInside, setInfoBubbleDimensions } from '../store/actions/infoBubble'
 import { t } from '../app/locale'
+
+const MIN_TOP_MARGIN_FROM_VIEWPORT = 120
+const MIN_SIDE_MARGIN_FROM_VIEWPORT = 50
 
 class InfoBubble extends React.Component {
   static propTypes = {
@@ -33,6 +36,7 @@ class InfoBubble extends React.Component {
     ]),
     descriptionVisible: PropTypes.bool,
     setInfoBubbleMouseInside: PropTypes.func,
+    setInfoBubbleDimensions: PropTypes.func,
     street: PropTypes.object,
     system: PropTypes.object
   }
@@ -46,11 +50,26 @@ class InfoBubble extends React.Component {
 
     // Stores a ref to the element
     this.el = null
+    this.segmentEl = this.getSegmentEl(props.dataNo)
+    this.streetOuterEl = null
 
     this.state = {
       type: null,
       highlightTriangle: false
     }
+
+    this.hoverPolygonUpdateTimerId = -1
+
+    // Register keyboard shortcuts to hide info bubble
+    // Only hide if it's currently visible, and if the
+    // description is NOT visible. (If the description
+    // is visible, the escape key should hide that first.)
+    registerKeypress('esc', {
+      condition: () => this.props.visible && !this.props.descriptionVisible
+    }, () => {
+      infoBubble.hide()
+      infoBubble.hideSegment(false)
+    })
   }
 
   /**
@@ -80,13 +99,38 @@ class InfoBubble extends React.Component {
     // document area. Do not normalize it to a pointerleave event
     // because it doesn't make sense for other pointer types
     document.addEventListener('mouseleave', this.hide)
+
+    // Cache reference to this element
+    this.streetOuterEl = document.querySelector('#street-section-outer')
   }
 
-  componentDidUpdate () {
+  getSnapshotBeforeUpdate (prevProps, prevState) {
+    const wasBuilding = (prevState.type !== INFO_BUBBLE_TYPE_SEGMENT)
+    const isBuilding = (this.state.type !== INFO_BUBBLE_TYPE_SEGMENT)
+
+    if (wasBuilding && !isBuilding) {
+      return Number.parseInt(this.el.style.left, 10) + (this.el.offsetWidth / 2)
+    } else if (!wasBuilding && this.props.dataNo === 'right') {
+      return this.props.system.viewportWidth - MIN_SIDE_MARGIN_FROM_VIEWPORT
+    }
+    return null
+  }
+
+  componentDidUpdate (prevProps, prevState, snapshot) {
+    this.segmentEl = this.getSegmentEl(this.props.dataNo)
+    this.setBubbleDimensions()
+
     // If info bubble changes, wake this back up if it's fading out
     cancelFadeoutControls()
 
-    this.updateBubbleDimensions()
+    this.updateBubbleDimensions(snapshot)
+
+    // Add or remove event listener based on whether infobubble was shown or hidden
+    if (prevProps.visible === false && this.props.visible === true) {
+      document.body.addEventListener('mousemove', this.onBodyMouseMove)
+    } else if (prevProps.visible === true && this.props.visible === false) {
+      document.body.removeEventListener('mousemove', this.onBodyMouseMove)
+    }
   }
 
   componentWillUnmount () {
@@ -108,8 +152,9 @@ class InfoBubble extends React.Component {
 
   // TODO: verify this continues to work with pointer / touch taps
   onMouseEnter = (event) => {
-    if (infoBubble.segmentEl) {
-      infoBubble.segmentEl.classList.add('hide-drag-handles-when-inside-info-bubble')
+    // TODO: refactor so segment element handles this
+    if (this.segmentEl) {
+      this.segmentEl.classList.add('hide-drag-handles-when-inside-info-bubble')
     }
 
     this.props.setInfoBubbleMouseInside(true)
@@ -119,8 +164,9 @@ class InfoBubble extends React.Component {
 
   onMouseLeave = (event) => {
     // TODO: Prevent pointer taps from flashing the drag handles
-    if (infoBubble.segmentEl) {
-      infoBubble.segmentEl.classList.remove('hide-drag-handles-when-inside-info-bubble')
+    // TODO: refactor so segment element handles this
+    if (this.segmentEl) {
+      this.segmentEl.classList.remove('hide-drag-handles-when-inside-info-bubble')
     }
 
     this.props.setInfoBubbleMouseInside(false)
@@ -131,41 +177,122 @@ class InfoBubble extends React.Component {
     loseAnyFocus()
   }
 
-  toggleHighlightTriangle = () => {
-    this.setState({ highlightTriangle: !this.state.highlightTriangle })
+  onBodyMouseMove = (event) => {
+    const mouseX = event.pageX
+    const mouseY = event.pageY
+
+    if (this.props.visible) {
+      if (!infoBubble._withinHoverPolygon(mouseX, mouseY)) {
+        infoBubble.show(false)
+      }
+    }
+
+    window.clearTimeout(this.hoverPolygonUpdateTimerId)
+
+    this.hoverPolygonUpdateTimerId = window.setTimeout(() => {
+      infoBubble.updateHoverPolygon(mouseX, mouseY)
+    }, 50)
   }
 
-  updateBubbleDimensions = () => {
-    let bubbleHeight
+  highlightTriangle = (event) => {
+    this.setState({ highlightTriangle: true })
+  }
+
+  unhighlightTriangle = (event) => {
+    this.setState({ highlightTriangle: false })
+  }
+
+  getSegmentEl (dataNo) {
+    if (!dataNo && dataNo !== 0) return
+
+    let segmentEl
+    if (dataNo === 'left') {
+      segmentEl = document.querySelectorAll('.street-section-building')[0]
+    } else if (dataNo === 'right') {
+      segmentEl = document.querySelectorAll('.street-section-building')[1]
+    } else {
+      const segments = document.getElementById('street-section-editable').querySelectorAll('.segment')
+      segmentEl = segments[dataNo]
+    }
+    return segmentEl
+  }
+
+  /**
+   * TODO: consolidate this with the dim calc in updateBubbleDimensions? do we need snapshot here?
+   */
+  setBubbleDimensions = () => {
+    if (!this.segmentEl || !this.el) return
+
+    // Determine dimensions and X/Y layout
+    const bubbleWidth = this.el.offsetWidth
+    const bubbleHeight = this.el.offsetHeight
+    const pos = getElAbsolutePos(this.segmentEl)
+
+    let bubbleX = pos[0] - this.streetOuterEl.scrollLeft
+    let bubbleY = pos[1]
+
+    // TODO const
+    bubbleY -= bubbleHeight - 20
+    if (bubbleY < MIN_TOP_MARGIN_FROM_VIEWPORT) {
+      bubbleY = MIN_TOP_MARGIN_FROM_VIEWPORT
+    }
+
+    bubbleX += this.segmentEl.offsetWidth / 2
+    bubbleX -= bubbleWidth / 2
+
+    if (bubbleX < MIN_SIDE_MARGIN_FROM_VIEWPORT) {
+      bubbleX = MIN_SIDE_MARGIN_FROM_VIEWPORT
+    } else if (bubbleX > this.props.system.viewportWidth - bubbleWidth - MIN_SIDE_MARGIN_FROM_VIEWPORT) {
+      bubbleX = this.props.system.viewportWidth - bubbleWidth - MIN_SIDE_MARGIN_FROM_VIEWPORT
+    }
+
+    this.el.style.left = bubbleX + 'px'
+    this.el.style.top = bubbleY + 'px'
+
+    this.props.setInfoBubbleDimensions({
+      bubbleX, bubbleY, bubbleWidth, bubbleHeight
+    })
+  }
+
+  updateBubbleDimensions = (snapshot) => {
+    const dims = {}
+
     if (!this.el) return
 
     if (this.props.descriptionVisible) {
       const el = this.el.querySelector('.description-canvas')
       const pos = getElAbsolutePos(el)
-      bubbleHeight = pos[1] + el.offsetHeight - 38
+      dims.bubbleHeight = pos[1] + el.offsetHeight - 38
     } else {
-      bubbleHeight = this.el.offsetHeight
+      dims.bubbleHeight = this.el.offsetHeight
     }
 
-    const height = bubbleHeight + 30
-    infoBubble.bubbleHeight = bubbleHeight
+    const height = dims.bubbleHeight + 30
 
     this.el.style.webkitTransformOrigin = '50% ' + height + 'px'
     this.el.style.MozTransformOrigin = '50% ' + height + 'px'
     this.el.style.transformOrigin = '50% ' + height + 'px'
 
-    // When the infoBubble needed to be shown for the right building,the offsetWidth
+    // When the infoBubble needed to be shown for the right building, the offsetWidth
     // used to calculate the left style was from the previous rendering of this component.
     // This meant that if the last time the infoBubble was shown was for a segment, then the
     // offsetWidth used to calculate the new left style would be smaller than it should be.
     // The current solution is to manually recalculate the left style and set the style
     // when hovering over the right building.
 
-    if (this.state.type === INFO_BUBBLE_TYPE_RIGHT_BUILDING) {
-      const bubbleX = this.props.system.viewportWidth - this.el.offsetWidth - 50
-      infoBubble.bubbleX = bubbleX
+    // Now that street segments are being rendered as React components as well, the same issue
+    // as above can be seen but vice versa (when switching between hovering over building to
+    // a segment). Some calculations are done by the getSnapshotBeforeUpdate function. The new
+    // offsetWidth is then added in this function.
+
+    if (snapshot) {
+      const bubbleX = (this.state.type === INFO_BUBBLE_TYPE_SEGMENT)
+        ? (snapshot - this.el.offsetWidth / 2) : (snapshot - this.el.offsetWidth)
+      dims.bubbleX = bubbleX
       this.el.style.left = bubbleX + 'px'
     }
+
+    this.props.setInfoBubbleDimensions(dims)
   }
 
   /**
@@ -216,7 +343,6 @@ class InfoBubble extends React.Component {
   render () {
     const type = this.state.type
     const canBeDeleted = (type === INFO_BUBBLE_TYPE_SEGMENT)
-    const segmentEl = infoBubble.segmentEl
 
     // Set class names
     const classNames = ['info-bubble']
@@ -250,7 +376,7 @@ class InfoBubble extends React.Component {
     let widthOrHeightControl
     switch (type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
-        widthOrHeightControl = <WidthControl segmentEl={segmentEl} position={position} />
+        widthOrHeightControl = <WidthControl segmentEl={this.segmentEl} position={position} />
         break
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
@@ -263,6 +389,8 @@ class InfoBubble extends React.Component {
 
     const segment = this.props.street.segments[this.props.dataNo]
 
+    if (!segment) return null
+
     return (
       <div
         className={classNames.join(' ')}
@@ -274,7 +402,7 @@ class InfoBubble extends React.Component {
         <Triangle highlight={this.state.highlightTriangle} />
         <header>
           <div className="info-bubble-header-label">{this.getName()}</div>
-          <RemoveButton enabled={canBeDeleted} segment={segmentEl} />
+          <RemoveButton enabled={canBeDeleted} segment={this.segmentEl} />
         </header>
         <div className="info-bubble-controls">
           <Variants type={type} position={position} />
@@ -282,10 +410,12 @@ class InfoBubble extends React.Component {
         </div>
         <Warnings segment={segment} />
         <Description
-          description={getDescriptionData(segment)}
-          segment={segment}
+          type={segment.type}
+          variantString={segment.variantString}
           updateBubbleDimensions={this.updateBubbleDimensions}
-          toggleHighlightTriangle={this.toggleHighlightTriangle}
+          highlightTriangle={this.highlightTriangle}
+          unhighlightTriangle={this.unhighlightTriangle}
+          segmentEl={this.segmentEl}
         />
       </div>
     )
@@ -304,7 +434,8 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    setInfoBubbleMouseInside: (value) => { dispatch(setInfoBubbleMouseInside(value)) }
+    setInfoBubbleMouseInside: (value) => { dispatch(setInfoBubbleMouseInside(value)) },
+    setInfoBubbleDimensions: (obj) => { dispatch(setInfoBubbleDimensions(obj)) }
   }
 }
 
