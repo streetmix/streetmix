@@ -194,8 +194,12 @@ class InfoBubble extends React.Component {
     }, 50)
   }
 
-  toggleHighlightTriangle = () => {
-    this.setState({ highlightTriangle: !this.state.highlightTriangle })
+  highlightTriangle = (event) => {
+    this.setState({ highlightTriangle: true })
+  }
+
+  unhighlightTriangle = (event) => {
+    this.setState({ highlightTriangle: false })
   }
 
   getSegmentEl (dataNo) {
@@ -409,7 +413,8 @@ class InfoBubble extends React.Component {
           type={segment.type}
           variantString={segment.variantString}
           updateBubbleDimensions={this.updateBubbleDimensions}
-          toggleHighlightTriangle={this.toggleHighlightTriangle}
+          highlightTriangle={this.highlightTriangle}
+          unhighlightTriangle={this.unhighlightTriangle}
           segmentEl={this.segmentEl}
         />
       </div>

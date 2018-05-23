@@ -15,7 +15,8 @@ export class Description extends React.Component {
     type: PropTypes.string,
     variantString: PropTypes.string,
     updateBubbleDimensions: PropTypes.func.isRequired,
-    toggleHighlightTriangle: PropTypes.func.isRequired,
+    highlightTriangle: PropTypes.func.isRequired,
+    unhighlightTriangle: PropTypes.func.isRequired,
     descriptionVisible: PropTypes.bool.isRequired,
     showDescription: PropTypes.func.isRequired,
     hideDescription: PropTypes.func.isRequired,
@@ -122,8 +123,8 @@ export class Description extends React.Component {
         <div
           className="description-prompt"
           onClick={this.onClickShow}
-          onMouseOver={this.props.toggleHighlightTriangle}
-          onMouseOut={this.props.toggleHighlightTriangle}
+          onMouseOver={this.props.highlightTriangle}
+          onMouseOut={this.props.unhighlightTriangle}
         >
           {displayPrompt}
         </div>
