@@ -509,7 +509,7 @@ export function updateEverything (dontScroll, save = true) {
   propagateUnits()
   // TODO Verify that we don't need to dispatch an update width event here
   createDomFromData()
-  segmentsChanged()
+  segmentsChanged(false)
   resizeStreetWidth(dontScroll)
   updateStreetName(store.getState().street)
   setIgnoreStreetChanges(false)
