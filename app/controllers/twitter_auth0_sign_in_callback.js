@@ -47,6 +47,7 @@ var AccessTokenHandler = function (req, res) {
         res.redirect('/')
       })
     }
+    console.log(body)
     auth0.getProfile(body.access_token, handleUserInfo)
   }
 }
@@ -72,5 +73,6 @@ exports.get = function (req, res) {
     },
     json: true
   }
+  console.log(options)
   request(options, AccessTokenHandler(req, res))
 }
