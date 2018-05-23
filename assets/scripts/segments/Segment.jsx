@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import MeasurementText from '../ui/MeasurementText'
 import { getSegmentVariantInfo, getSegmentInfo } from '../segments/info'
-import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, suppressMouseEnter } from './resizing'
+import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, SHORT_DELAY, suppressMouseEnter } from './resizing'
 import { TILE_SIZE } from './constants'
 import { drawSegmentContents, getVariantInfoDimensions, segmentsChanged } from './view'
 import { SETTINGS_UNITS_METRIC } from '../users/localization'
@@ -27,7 +27,9 @@ class Segment extends React.Component {
     width: PropTypes.number,
     forPalette: PropTypes.bool.isRequired,
     dpi: PropTypes.number,
-    units: PropTypes.number
+    cssTransform: PropTypes.string,
+    units: PropTypes.number,
+    segmentPos: PropTypes.number
   }
 
   static defaultProps = {
@@ -67,10 +69,10 @@ class Segment extends React.Component {
     }
 
     // TODO - copied from resizeSegment. make sure we don't need
-    // document.body.classList.add('immediate-segment-resize')
-    // window.setTimeout(function () {
-    //   document.body.classList.remove('immediate-segment-resize')
-    // }, SHORT_DELAY)
+    document.body.classList.add('immediate-segment-resize')
+    window.setTimeout(function () {
+      document.body.classList.remove('immediate-segment-resize')
+    }, SHORT_DELAY)
 
     width = (width * TILE_SIZE)
     return width
@@ -89,6 +91,7 @@ class Segment extends React.Component {
 
     const width = this.calculateWidth(RESIZE_TYPE_INITIAL)
     const segmentWidth = this.props.width // may need to double check this. setSegmentContents() was called with other widths
+    const widthValue = segmentWidth / TILE_SIZE
 
     const multiplier = this.props.forPalette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1
     const dimensions = getVariantInfoDimensions(variantInfo, segmentWidth, multiplier)
@@ -106,17 +109,18 @@ class Segment extends React.Component {
     return (
       <div
         style={{
-          width: width,
+          width: width + 'px',
           // In a street, certain segments have stacking priority over others (expressed as z-index).
           // In a palette, segments are side-by-side so they don't need stacking priority.
           // Setting a z-index here will clobber a separate z-index (applied via CSS) when hovered by mouse pointer
-          zIndex: (this.props.forPalette) ? null : segmentInfo.zIndex
+          zIndex: (this.props.forPalette) ? null : segmentInfo.zIndex,
+          [this.props.cssTransform]: (this.props.forPalette) ? null : 'translateX(' + this.props.segmentPos + 'px)'
         }}
         className={'segment' + (this.props.isUnmovable ? ' unmovable' : '') + (this.props.forPalette ? ' segment-in-palette' : '')}
         data-segment-type={this.props.type}
         data-variant-string={this.props.variantString}
         data-rand-seed={this.props.randSeed}
-        data-width={width}
+        data-width={widthValue}
         title={this.props.forPalette ? localizedSegmentName : null}>
         {!this.props.forPalette &&
           <React.Fragment>
@@ -124,7 +128,7 @@ class Segment extends React.Component {
               {displayName}
             </span>
             <span className="width">
-              <MeasurementText value={width} units={this.props.units} />
+              <MeasurementText value={widthValue} units={this.props.units} />
             </span>
             <span className="drag-handle left">‹</span>
             <span className="drag-handle right">›</span>
@@ -152,7 +156,8 @@ class Segment extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    dpi: state.system.hiDpi
+    dpi: state.system.hiDpi,
+    cssTransform: state.system.cssTransform
   }
 }
 
