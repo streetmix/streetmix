@@ -68,7 +68,7 @@ function receiveGalleryStreet (transmission) {
   resizeStreetWidth()
   updateStreetName(store.getState().street)
   createDomFromData()
-  segmentsChanged()
+  segmentsChanged(false)
 
   setIgnoreStreetChanges(false)
   setLastStreet(trimStreetData(store.getState().street))
