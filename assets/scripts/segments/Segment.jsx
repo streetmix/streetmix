@@ -5,7 +5,7 @@ import MeasurementText from '../ui/MeasurementText'
 import { getSegmentVariantInfo, getSegmentInfo } from '../segments/info'
 import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, SHORT_DELAY, suppressMouseEnter } from './resizing'
 import { TILE_SIZE } from './constants'
-import { drawSegmentContents, getVariantInfoDimensions, segmentsChanged } from './view'
+import { drawSegmentContents, getVariantInfoDimensions } from './view'
 import { SETTINGS_UNITS_METRIC } from '../users/localization'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
@@ -29,17 +29,13 @@ class Segment extends React.Component {
     dpi: PropTypes.number,
     cssTransform: PropTypes.string,
     units: PropTypes.number,
-    segmentPos: PropTypes.number
+    segmentPos: PropTypes.number,
+    dataNo: PropTypes.number,
+    updateSegmentData: PropTypes.func
   }
 
   static defaultProps = {
     units: SETTINGS_UNITS_METRIC
-  }
-
-  constructor (props) {
-    super(props)
-
-    this.initialRender = true
   }
 
   componentDidMount = () => {
@@ -49,16 +45,16 @@ class Segment extends React.Component {
     const ctx = this.refs.canvas.getContext('2d')
     drawSegmentContents(ctx, this.props.type, this.props.variantString, segmentWidth, 0, offsetTop, this.props.randSeed, multiplier, this.props.forPalette)
 
-    if (this.initialRender) {
-      if (!this.props.forPalette) {
-        // TODO pretty sure the pointer events aren't working correctly.
-        this.refs.canvas.addEventListener('pointerenter', this.onSegmentMouseEnter)
-        this.refs.canvas.addEventListener('pointerleave', this.onSegmentMouseLeave)
-      }
+    if (!this.props.forPalette) {
+      this.dragHandleLeft.segmentEl = this.streetSegment
+      this.dragHandleRight.segmentEl = this.streetSegment
+      this.props.updateSegmentData(this.streetSegment, this.props.dataNo, this.props.segmentPos)
+    }
+  }
 
-      this.initialRender = false
-    } else {
-      segmentsChanged()
+  componentDidUpdate () {
+    if (!this.props.forPalette) {
+      this.props.updateSegmentData(this.streetSegment, this.props.dataNo, this.props.segmentPos)
     }
   }
 
@@ -76,6 +72,16 @@ class Segment extends React.Component {
 
     width = (width * TILE_SIZE)
     return width
+  }
+
+  onSegmentMouseEnter = (event) => {
+    if (suppressMouseEnter() || this.props.forPalette) return
+
+    infoBubble.considerShowing(event, this.streetSegment, INFO_BUBBLE_TYPE_SEGMENT)
+  }
+
+  onSegmentMouseLeave = () => {
+    infoBubble.dontConsiderShowing()
   }
 
   render () {
@@ -121,7 +127,11 @@ class Segment extends React.Component {
         data-variant-string={this.props.variantString}
         data-rand-seed={this.props.randSeed}
         data-width={widthValue}
-        title={this.props.forPalette ? localizedSegmentName : null}>
+        title={this.props.forPalette ? localizedSegmentName : null}
+        ref={(ref) => { this.streetSegment = ref }}
+        onMouseEnter={this.onSegmentMouseEnter}
+        onMouseLeave={this.onSegmentMouseLeave}
+      >
         {!this.props.forPalette &&
           <React.Fragment>
             <span className="name">
@@ -130,8 +140,8 @@ class Segment extends React.Component {
             <span className="width">
               <MeasurementText value={widthValue} units={this.props.units} />
             </span>
-            <span className="drag-handle left">‹</span>
-            <span className="drag-handle right">›</span>
+            <span className="drag-handle left" ref={(ref) => { this.dragHandleLeft = ref }}>‹</span>
+            <span className="drag-handle right" ref={(ref) => { this.dragHandleRight = ref }}>›</span>
             <span className="grid" />
           </React.Fragment>
         }
@@ -139,18 +149,6 @@ class Segment extends React.Component {
         <div className="hover-bk" />
       </div>
     )
-  }
-
-  onSegmentMouseEnter = (event) => {
-    if (suppressMouseEnter()) {
-      return
-    }
-
-    infoBubble.considerShowing(event, this, INFO_BUBBLE_TYPE_SEGMENT)
-  }
-
-  onSegmentMouseLeave = () => {
-    infoBubble.dontConsiderShowing()
   }
 }
 
