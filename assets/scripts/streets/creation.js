@@ -25,7 +25,7 @@ export function makeDefaultStreet () {
   resizeStreetWidth()
   updateStreetName(store.getState().street)
   createDomFromData()
-  segmentsChanged()
+  segmentsChanged(false)
 
   setIgnoreStreetChanges(false)
   setLastStreet(trimStreetData(store.getState().street))
@@ -52,7 +52,7 @@ export function onNewStreetEmptyClick () {
   resizeStreetWidth()
   updateStreetName(store.getState().street)
   createDomFromData()
-  segmentsChanged()
+  segmentsChanged(false)
 
   setIgnoreStreetChanges(false)
   setLastStreet(trimStreetData(store.getState().street))
