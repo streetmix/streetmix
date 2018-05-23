@@ -44,8 +44,7 @@ import {
   setStreetCreatorId,
   setUpdateTimeToNow,
   setLastStreet,
-  setIgnoreStreetChanges,
-  addSegmentIds
+  setIgnoreStreetChanges
 } from './data_model'
 import { updateStreetName } from './name'
 import {
@@ -306,7 +305,6 @@ function unpackStreetDataFromServerTransmission (transmission) {
   }
 
   const street = cloneDeep(transmission.data.street)
-  street.segments = addSegmentIds(street)
   street.creatorId = (transmission.creator && transmission.creator.id) || null
   street.originalStreetId = transmission.originalStreetId || null
   street.updatedAt = transmission.updatedAt || null
