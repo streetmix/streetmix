@@ -156,7 +156,7 @@ export const infoBubble = {
     }
 
     let dataNo = segmentEl.dataNo
-    if (!dataNo) {
+    if (typeof dataNo === 'undefined') {
       dataNo = (type === INFO_BUBBLE_TYPE_LEFT_BUILDING) ? 'left' : 'right'
     }
     store.dispatch(setInfoBubbleSegmentDataNo(dataNo))
