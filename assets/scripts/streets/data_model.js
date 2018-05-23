@@ -4,9 +4,9 @@ import { getSegmentInfo } from '../segments/info'
 import { normalizeAllSegmentWidths } from '../segments/resizing'
 import { getVariantString, getVariantArray } from '../segments/variant_utils'
 import {
-  segmentsChanged,
-  repositionSegments,
-  createSegmentDom
+  segmentsChanged
+  // repositionSegments,
+  // createSegmentDom
 } from '../segments/view'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { getUnits, getLeftHandTraffic, propagateUnits } from '../users/localization'
@@ -262,25 +262,26 @@ export function updateToLatestSchemaVersion (street) {
 }
 
 export function createDomFromData () {
-  document.querySelector('#street-section-editable').innerHTML = ''
-  const street = store.getState().street
+  console.log('createDomFromData')
+  // document.querySelector('#street-section-editable').innerHTML = ''
+  // const street = store.getState().street
 
-  for (var i in street.segments) {
-    var segment = street.segments[i]
+  // for (var i in street.segments) {
+  //   var segment = street.segments[i]
 
-    // Add some additional data structures
-    // TODO: populate data structure elsewhere
-    segment.variant = getVariantArray(segment.type, segment.variantString)
-    segment.warnings = []
+  //   // Add some additional data structures
+  //   // TODO: populate data structure elsewhere
+  //   segment.variant = getVariantArray(segment.type, segment.variantString)
+  //   segment.warnings = []
 
-    var el = createSegmentDom(segment)
-    document.querySelector('#street-section-editable').appendChild(el)
+  //   var el = createSegmentDom(segment)
+  //   document.querySelector('#street-section-editable').appendChild(el)
 
-    segment.el = el
-    segment.el.dataNo = i
-  }
+  //   segment.el = el
+  //   segment.el.dataNo = i
+  // }
 
-  repositionSegments()
+  // repositionSegments()
 }
 
 export function setStreetCreatorId (newId) {
