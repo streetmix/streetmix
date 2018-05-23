@@ -5,6 +5,7 @@ import Segment from '../segments/Segment'
 
 import { TILE_SIZE } from '../segments/constants'
 import { getVariantArray } from '../segments/variant_utils'
+import { generateRandSeed } from '../util/random'
 
 class StreetEditable extends React.Component {
   static propTypes = {
@@ -54,8 +55,12 @@ class StreetEditable extends React.Component {
       const segmentWidth = (segment.width * TILE_SIZE)
       const segmentPos = this.calculateSegmentPos(i)
 
+      if (!segment.randSeed) {
+        segment.randSeed = generateRandSeed()
+      }
+
       const segmentEl = (<Segment
-        key={segment.id}
+        key={segment.randSeed}
         dataNo={i}
         type={segment.type}
         variantString={segment.variantString}
