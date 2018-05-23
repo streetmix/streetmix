@@ -329,6 +329,15 @@ export function saveStreetToServerIfNecessary () {
   }
 }
 
+export function addSegmentIds (street) {
+  const segments = [...street.segments]
+  for (let i = 0; i < segments.length; i++) {
+    const segment = segments[i]
+    segment.id = generateRandSeed()
+  }
+  return segments
+}
+
 // Copies only the data necessary for save/undo.
 export function trimStreetData (street) {
   var newData = {}
@@ -406,6 +415,7 @@ function fillDefaultSegments () {
     var segment = DEFAULT_SEGMENTS[leftHandTraffic][i]
     segment.warnings = []
     segment.variantString = getVariantString(segment.variant)
+    segment.id = generateRandSeed()
 
     if (getSegmentInfo(segment.type).needRandSeed) {
       segment.randSeed = generateRandSeed()
@@ -413,6 +423,7 @@ function fillDefaultSegments () {
 
     segments.push(segment)
   }
+
   store.dispatch(updateSegments(segments))
   normalizeAllSegmentWidths()
 }
