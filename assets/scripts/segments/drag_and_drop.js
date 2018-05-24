@@ -751,7 +751,7 @@ function handleSegmentMoveEnd (event) {
 
     if (draggingMove.type === DRAGGING_TYPE_MOVE_TRANSFER) {
       const oldIndex = Number.parseInt(draggingMove.originalEl.dataNo)
-      store.dispatch(moveSegment(newIndex, oldIndex))
+      store.dispatch(moveSegment(oldIndex, newIndex))
     } else {
       newSegment.randSeed = generateRandSeed()
       store.dispatch(addSegment(newIndex, newSegment))
