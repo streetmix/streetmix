@@ -86,7 +86,7 @@ your fork of the Streetmix repo, and submit a pull request to us.
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
-### Submitting a Pull Request
+### Submitting a pull request
 
 1. Fork the project.
 2. Create a topic branch.
@@ -105,11 +105,11 @@ should consider adding new elements, please follow the [instructions for
 feature requests/feedback](#feedback) above.
 
 
-## Development Setup
+## Development setup
 
 ### First-time setup
 
-#### On Mac OS X 10
+#### On Mac OS X
 
 These installation instructions assume that you have already installed the [Homebrew](http://brew.sh/) package manager.
 
