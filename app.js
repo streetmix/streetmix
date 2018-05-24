@@ -151,8 +151,6 @@ app.get('/api/v1/users/:user_id', resources.v1.users.get)
 app.put('/api/v1/users/:user_id', resources.v1.users.put)
 app.delete('/api/v1/users/:user_id/login-token', resources.v1.users.delete)
 app.get('/api/v1/users/:user_id/streets', resources.v1.users_streets.get)
-// Auth0 user endpoint
-app.get('/api/v1/auth0/users/:user_id', resources.v1.auth0_users.get)
 
 app.post('/api/v1/streets', resources.v1.streets.post)
 app.get('/api/v1/streets', resources.v1.streets.find)

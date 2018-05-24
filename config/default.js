@@ -30,6 +30,7 @@ module.exports = {
     domain: process.env.AUTH0_DOMAIN,
     client_id: process.env.AUTH0_CLIENT_ID,
     client_secret: process.env.AUTH0_CLIENT_SECRET,
+    token: process.env.AUTH0_TOKEN,
     token_api_url: 'https://streetmix.auth0.com/oauth/token',
     audience: 'https://streetmix.auth0.com/api/v2/',
     screen_name_custom_claim: 'https://twitter.com/screen_name',

@@ -11,11 +11,12 @@ var AccessTokenHandler = function (req, res) {
       res.redirect('/error/no-twitter-access-token')
       return
     }
+
     if (body.error && body.error === 'access_denied') {
-      console.error(body)
       res.redirect('/error/no-twitter-access-token')
       return
     }
+
     let auth0 = Authentication()
     function handleUserInfo (err, user) {
       if (err) {
@@ -47,7 +48,6 @@ var AccessTokenHandler = function (req, res) {
         res.redirect('/')
       })
     }
-    console.log(body)
     auth0.getProfile(body.access_token, handleUserInfo)
   }
 }

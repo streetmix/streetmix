@@ -87,6 +87,7 @@ describe('GET api/v1/users/:user_id', function () {
     return request(app)
       .get(`/api/v1/users/${user.twitter.screenName}`)
       .then((response) => {
+        console.log(response.text)
         expect(response.statusCode).toEqual(200)
       })
   })
