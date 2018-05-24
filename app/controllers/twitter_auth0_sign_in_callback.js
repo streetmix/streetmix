@@ -33,7 +33,7 @@ var AccessTokenHandler = function (req, res) {
         }
       }
       // Must be an absolute URI
-      let endpoint = config.restapi.protocol + config.app_host_port + config.restapi.baseuri + '/v1/auth0/users'
+      let endpoint = config.restapi.protocol + config.app_host_port + config.restapi.baseuri + '/v1/users'
       request.post({ url: endpoint, json: apiRequestBody }, function (err, response, body) {
         if (err) {
           logger.error('Error from API when signing in: ' + err)

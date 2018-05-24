@@ -6,37 +6,64 @@ const logger = require('../../../lib/logger.js')()
 
 exports.post = function (req, res) {
   let loginToken = null
+  const handleCreateUser = function (err, user) {
+    if (err) {
+      logger.error(err)
+      res.status(500).send('Could not create user.')
+      return
+    }
+
+    let userJson = { id: user.id, loginToken: loginToken }
+    logger.info({ user: userJson }, 'New user created.')
+    res.header('Location', config.restapi.baseuri + '/v1/users/' + user.id)
+    res.status(201).send(userJson)
+  } // END function - handleCreateUser
+
+  const handleUpdateUser = function (err, user) {
+    if (err) {
+      logger.error(err)
+      res.status(500).send('Could not update user.')
+      return
+    }
+
+    let userJson = { id: user.id, loginToken: loginToken }
+    logger.info({ user: userJson }, 'Existing user issued new login token.')
+
+    res.header('Location', config.restapi.baseuri + '/v1/users/' + user.id)
+    res.status(200).send(userJson)
+  } // END function - handleUpdateUser
+
+  const handleAuth0TwitterSignIn = function (credentials) {
+    const handleFindUser = function (err, user) {
+      if (err) {
+        logger.error(err)
+        res.status(500).send('Error finding user with Auth0 ID.')
+        return
+      }
+
+      loginToken = uuid.v1()
+      if (!user) {
+        var u = new User({
+          id: credentials.screenName,
+          auth0_id: credentials.auth0_id,
+          auth0_refresh_token: credentials.refresh_token,
+          login_tokens: [ loginToken ]
+        })
+        u.save(handleCreateUser)
+      } else {
+        user.id = credentials.screenName
+        user.auth0_refresh_token = credentials.refresh_token
+        user.auth0_id = credentials.auth0_id
+        user.login_tokens.push(loginToken)
+        user.save(handleUpdateUser)
+      }
+    } // END function - handleFindUser
+
+    User.findOne({ id: credentials.screenName }, handleFindUser)
+  } // END function - handleAuth0TwitterSignIn
 
   const handleTwitterSignIn = function (twitterCredentials) {
     // TODO: Call Twitter API with OAuth access credentials to make sure they are valid
-
-    const handleCreateUser = function (err, user) {
-      if (err) {
-        logger.error(err)
-        res.status(500).send('Could not create user.')
-        return
-      }
-
-      let userJson = { id: user.id, loginToken: loginToken }
-      logger.info({ user: userJson }, 'New user created.')
-      res.header('Location', config.restapi.baseuri + '/v1/users/' + user.id)
-      res.status(201).send(userJson)
-    } // END function - handleCreateUser
-
-    const handleUpdateUser = function (err, user) {
-      if (err) {
-        logger.error(err)
-        res.status(500).send('Could not update user.')
-        return
-      }
-
-      let userJson = { id: user.id, loginToken: loginToken }
-      logger.info({ user: userJson }, 'Existing user issued new login token.')
-
-      res.header('Location', config.restapi.baseuri + '/v1/users/' + user.id)
-      res.status(200).send(userJson)
-    } // END function - handleUpdateUser
-
     const handleFindUser = function (err, user) {
       if (err) {
         logger.error(err)
@@ -66,7 +93,6 @@ exports.post = function (req, res) {
         user.save(handleUpdateUser)
       }
     } // END function - handleFindUser
-
     // Try to find user with twitter ID
     User.findOne({ twitter_id: twitterCredentials.userId }, handleFindUser)
   } // END function - handleTwitterSignIn
@@ -81,8 +107,9 @@ exports.post = function (req, res) {
 
   if (body.hasOwnProperty('twitter')) {
     // TODO: Validation
-
     handleTwitterSignIn(body.twitter)
+  } else if (body.hasOwnProperty('auth0_twitter')) {
+    handleAuth0TwitterSignIn(body.auth0_twitter)
   } else {
     res.status(400).send('Unknown sign-in method used.')
   }
