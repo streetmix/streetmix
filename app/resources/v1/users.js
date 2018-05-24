@@ -1,52 +1,51 @@
-var config = require('config')
-var uuid = require('uuid')
-var Twitter = require('twitter')
-var User = require('../../models/user.js')
-var logger = require('../../../lib/logger.js')()
+const config = require('config')
+const uuid = require('uuid')
+const Twitter = require('twitter')
+const User = require('../../models/user.js')
+const logger = require('../../../lib/logger.js')()
 
 exports.post = function (req, res) {
-  var loginToken = null
+  let loginToken = null
 
-  var handleTwitterSignIn = function (twitterCredentials) {
+  const handleTwitterSignIn = function (twitterCredentials) {
     // TODO: Call Twitter API with OAuth access credentials to make sure they are valid
 
-    var handleCreateUser = function (err, user) {
+    const handleCreateUser = function (err, user) {
       if (err) {
         logger.error(err)
         res.status(500).send('Could not create user.')
         return
       }
 
-      var userJson = { id: user.id, loginToken: loginToken }
+      let userJson = { id: user.id, loginToken: loginToken }
       logger.info({ user: userJson }, 'New user created.')
       res.header('Location', config.restapi.baseuri + '/v1/users/' + user.id)
       res.status(201).send(userJson)
     } // END function - handleCreateUser
 
-    var handleUpdateUser = function (err, user) {
+    const handleUpdateUser = function (err, user) {
       if (err) {
         logger.error(err)
         res.status(500).send('Could not update user.')
         return
       }
 
-      var userJson = { id: user.id, loginToken: loginToken }
+      let userJson = { id: user.id, loginToken: loginToken }
       logger.info({ user: userJson }, 'Existing user issued new login token.')
 
       res.header('Location', config.restapi.baseuri + '/v1/users/' + user.id)
       res.status(200).send(userJson)
     } // END function - handleUpdateUser
 
-    var handleFindUser = function (err, user) {
+    const handleFindUser = function (err, user) {
       if (err) {
         logger.error(err)
         res.status(500).send('Error finding user with Twitter ID.')
         return
       }
-
       loginToken = uuid.v1()
       if (!user) {
-        var u = new User({
+        let u = new User({
           id: twitterCredentials.screenName,
           twitter_id: twitterCredentials.userId,
           twitter_credentials: {
@@ -58,6 +57,7 @@ exports.post = function (req, res) {
         u.save(handleCreateUser)
       } else {
         user.id = twitterCredentials.screenName
+        user.twitter_id = twitterCredentials.userId
         user.twitter_credentials = {
           access_token_key: twitterCredentials.oauthAccessTokenKey,
           access_token_secret: twitterCredentials.oauthAccessTokenSecret
@@ -71,7 +71,7 @@ exports.post = function (req, res) {
     User.findOne({ twitter_id: twitterCredentials.userId }, handleFindUser)
   } // END function - handleTwitterSignIn
 
-  var body
+  let body
   try {
     body = req.body
   } catch (e) {
@@ -89,7 +89,7 @@ exports.post = function (req, res) {
 } // END function - exports.post
 
 exports.get = function (req, res) {
-  var handleFindUserById = function (err, user) {
+  const handleFindUserById = function (err, user) {
     if (err) {
       logger.error(err)
       res.status(500).send('Error finding user.')
@@ -101,7 +101,7 @@ exports.get = function (req, res) {
       return
     }
 
-    var twitterApiClient
+    let twitterApiClient
     try {
       twitterApiClient = new Twitter({
         consumer_key: config.twitter.oauth_consumer_key,
@@ -114,8 +114,8 @@ exports.get = function (req, res) {
       logger.error(e)
     }
 
-    var sendUserJson = function (twitterData) {
-      var auth = (user.login_tokens.indexOf(req.loginToken) > 0)
+    let sendUserJson = function (twitterData) {
+      let auth = (user.login_tokens.indexOf(req.loginToken) > 0)
 
       user.asJson({ auth: auth }, function (err, userJson) {
         if (err) {
@@ -132,8 +132,8 @@ exports.get = function (req, res) {
       })
     } // END function - sendUserJson
 
-    var responseAlreadySent = false
-    var handleFetchUserProfileFromTwitter = function (err, res) {
+    let responseAlreadySent = false
+    let handleFetchUserProfileFromTwitter = function (err, res) {
       if (err) {
         logger.error('Twitter API call users/show returned error.')
         logger.error(err)
@@ -176,9 +176,9 @@ exports.get = function (req, res) {
     return
   }
 
-  var userId = req.params.user_id
+  let userId = req.params.user_id
 
-  var handleFindUserByLoginToken = function (err, user) {
+  const handleFindUserByLoginToken = function (err, user) {
     if (err) {
       logger.error(err)
       res.status(500).send('Error finding user.')
@@ -201,7 +201,7 @@ exports.get = function (req, res) {
 } // END function - exports.get
 
 exports.delete = function (req, res) {
-  var handleSaveUser = function (err, user) {
+  const handleSaveUser = function (err, user) {
     if (err) {
       logger.error(err)
       res.status(500).send('Could not sign-out user.')
@@ -210,7 +210,7 @@ exports.delete = function (req, res) {
     res.status(204).end()
   } // END function - handleSaveUser
 
-  var handleFindUser = function (err, user) {
+  const handleFindUser = function (err, user) {
     if (err) {
       logger.error(err)
       res.status(500).send('Error finding user.')
@@ -222,7 +222,7 @@ exports.delete = function (req, res) {
       return
     }
 
-    var idx = user.login_tokens.indexOf(req.loginToken)
+    let idx = user.login_tokens.indexOf(req.loginToken)
     if (idx === -1) {
       res.status(401).end()
       return
@@ -238,12 +238,12 @@ exports.delete = function (req, res) {
     return
   }
 
-  var userId = req.params.user_id
+  let userId = req.params.user_id
   User.findOne({ id: userId }, handleFindUser)
 } // END function - exports.delete
 
 exports.put = function (req, res) {
-  var body
+  let body
   try {
     body = req.body
   } catch (e) {
@@ -251,7 +251,7 @@ exports.put = function (req, res) {
     return
   }
 
-  var handleSaveUser = function (err, user) {
+  const handleSaveUser = function (err, user) {
     if (err) {
       logger.error(err)
       res.status(500).send('Could not update user information.')
@@ -260,7 +260,7 @@ exports.put = function (req, res) {
     res.status(204).end()
   } // END function - handleSaveUser
 
-  var handleFindUser = function (err, user) {
+  const handleFindUser = function (err, user) {
     if (err) {
       logger.error(err)
       res.status(500).send('Error finding user.')
@@ -287,6 +287,6 @@ exports.put = function (req, res) {
     return
   }
 
-  var userId = req.params.user_id
+  let userId = req.params.user_id
   User.findOne({ id: userId }, handleFindUser)
 } // END function - exports.put
