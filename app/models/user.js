@@ -35,5 +35,4 @@ userSchema.methods.asJson = function (options, cb) {
 
   cb(null, json)
 }
-
 module.exports = mongoose.model('User', userSchema)

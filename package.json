@@ -164,7 +164,6 @@
     "jest-fetch-mock": "1.5.0",
     "jsonlint": "1.6.3",
     "lint-staged": "7.0.4",
-    "mockingoose": "2.9.1",
     "protractor": "5.3.1",
     "react-test-renderer": "16.3.2",
     "stylelint": "9.2.0",

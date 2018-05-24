@@ -7,10 +7,10 @@ const logger = require('../../../lib/logger.js')()
 exports.post = function (req, res) {
   let loginToken = null
 
-  let handleTwitterSignIn = function (twitterCredentials) {
+  const handleTwitterSignIn = function (twitterCredentials) {
     // TODO: Call Twitter API with OAuth access credentials to make sure they are valid
 
-    let handleCreateUser = function (err, user) {
+    const handleCreateUser = function (err, user) {
       if (err) {
         logger.error(err)
         res.status(500).send('Could not create user.')
@@ -23,7 +23,7 @@ exports.post = function (req, res) {
       res.status(201).send(userJson)
     } // END function - handleCreateUser
 
-    let handleUpdateUser = function (err, user) {
+    const handleUpdateUser = function (err, user) {
       if (err) {
         logger.error(err)
         res.status(500).send('Could not update user.')
@@ -37,13 +37,12 @@ exports.post = function (req, res) {
       res.status(200).send(userJson)
     } // END function - handleUpdateUser
 
-    let handleFindUser = function (err, user) {
+    const handleFindUser = function (err, user) {
       if (err) {
         logger.error(err)
         res.status(500).send('Error finding user with Twitter ID.')
         return
       }
-      console.log(user)
       loginToken = uuid.v1()
       if (!user) {
         let u = new User({
@@ -90,7 +89,7 @@ exports.post = function (req, res) {
 } // END function - exports.post
 
 exports.get = function (req, res) {
-  let handleFindUserById = function (err, user) {
+  const handleFindUserById = function (err, user) {
     if (err) {
       logger.error(err)
       res.status(500).send('Error finding user.')
@@ -179,7 +178,7 @@ exports.get = function (req, res) {
 
   let userId = req.params.user_id
 
-  let handleFindUserByLoginToken = function (err, user) {
+  const handleFindUserByLoginToken = function (err, user) {
     if (err) {
       logger.error(err)
       res.status(500).send('Error finding user.')
@@ -202,7 +201,7 @@ exports.get = function (req, res) {
 } // END function - exports.get
 
 exports.delete = function (req, res) {
-  let handleSaveUser = function (err, user) {
+  const handleSaveUser = function (err, user) {
     if (err) {
       logger.error(err)
       res.status(500).send('Could not sign-out user.')
@@ -211,7 +210,7 @@ exports.delete = function (req, res) {
     res.status(204).end()
   } // END function - handleSaveUser
 
-  let handleFindUser = function (err, user) {
+  const handleFindUser = function (err, user) {
     if (err) {
       logger.error(err)
       res.status(500).send('Error finding user.')
@@ -252,7 +251,7 @@ exports.put = function (req, res) {
     return
   }
 
-  let handleSaveUser = function (err, user) {
+  const handleSaveUser = function (err, user) {
     if (err) {
       logger.error(err)
       res.status(500).send('Could not update user information.')
@@ -261,7 +260,7 @@ exports.put = function (req, res) {
     res.status(204).end()
   } // END function - handleSaveUser
 
-  let handleFindUser = function (err, user) {
+  const handleFindUser = function (err, user) {
     if (err) {
       logger.error(err)
       res.status(500).send('Error finding user.')
