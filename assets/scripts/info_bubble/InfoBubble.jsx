@@ -55,7 +55,7 @@ class InfoBubble extends React.Component {
     super(props)
 
     // Stores a ref to the element
-    this.el = null
+    this.el = React.createRef()
     this.segmentEl = this.getSegmentEl(props.dataNo)
     this.streetOuterEl = null
 
@@ -223,12 +223,12 @@ class InfoBubble extends React.Component {
       return hoverPolygon
     }
 
-    if (!this.el) return
+    if (!this.el || !this.el.current) return
 
-    const bubbleWidth = this.el.offsetWidth
-    const bubbleHeight = this.el.offsetHeight
-    const bubbleX = Number.parseInt(this.el.style.left)
-    const bubbleY = Number.parseInt(this.el.style.top)
+    const bubbleWidth = this.el.current.offsetWidth
+    const bubbleHeight = this.el.current.offsetHeight
+    const bubbleX = Number.parseInt(this.el.current.style.left)
+    const bubbleY = Number.parseInt(this.el.current.style.top)
 
     let marginBubble
 
@@ -331,8 +331,8 @@ class InfoBubble extends React.Component {
     if (!this.segmentEl || !this.el) return
 
     // Determine dimensions and X/Y layout
-    const bubbleWidth = this.el.offsetWidth
-    const bubbleHeight = this.el.offsetHeight
+    const bubbleWidth = this.el.current.offsetWidth
+    const bubbleHeight = this.el.current.offsetHeight
     const pos = getElAbsolutePos(this.segmentEl)
 
     let bubbleX = pos[0] - this.streetOuterEl.scrollLeft
@@ -353,28 +353,29 @@ class InfoBubble extends React.Component {
       bubbleX = this.props.system.viewportWidth - bubbleWidth - MIN_SIDE_MARGIN_FROM_VIEWPORT
     }
 
-    this.el.style.left = bubbleX + 'px'
-    this.el.style.top = bubbleY + 'px'
+    this.el.current.style.left = bubbleX + 'px'
+    this.el.current.style.top = bubbleY + 'px'
   }
 
   updateBubbleDimensions = (snapshot) => {
-    if (!this.el) return
+    if (!this.el || !this.el.current) return
 
     let bubbleHeight
 
-    if (this.props.descriptionVisible) {
-      const el = this.el.querySelector('.description-canvas')
+    const el = this.el.current.querySelector('.description-canvas')
+
+    if (this.props.descriptionVisible && el) {
       const pos = getElAbsolutePos(el)
       bubbleHeight = pos[1] + el.offsetHeight - 38
     } else {
-      bubbleHeight = this.el.offsetHeight
+      bubbleHeight = this.el.current.offsetHeight
     }
 
     const height = bubbleHeight + 30
 
-    this.el.style.webkitTransformOrigin = '50% ' + height + 'px'
-    this.el.style.MozTransformOrigin = '50% ' + height + 'px'
-    this.el.style.transformOrigin = '50% ' + height + 'px'
+    this.el.current.style.webkitTransformOrigin = '50% ' + height + 'px'
+    this.el.current.style.MozTransformOrigin = '50% ' + height + 'px'
+    this.el.current.style.transformOrigin = '50% ' + height + 'px'
 
     // When the infoBubble needed to be shown for the right building, the offsetWidth
     // used to calculate the left style was from the previous rendering of this component.
@@ -390,8 +391,8 @@ class InfoBubble extends React.Component {
 
     if (snapshot) {
       const bubbleX = (this.state.type === INFO_BUBBLE_TYPE_SEGMENT)
-        ? (snapshot - this.el.offsetWidth / 2) : (snapshot - this.el.offsetWidth)
-      this.el.style.left = bubbleX + 'px'
+        ? (snapshot - this.el.current.offsetWidth / 2) : (snapshot - this.el.current.offsetWidth)
+      this.el.current.style.left = bubbleX + 'px'
     }
   }
 
@@ -497,7 +498,7 @@ class InfoBubble extends React.Component {
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
         onTouchStart={this.onTouchStart}
-        ref={(ref) => { this.el = ref }}
+        ref={this.el}
       >
         <Triangle highlight={this.state.highlightTriangle} />
         <header>
@@ -516,6 +517,7 @@ class InfoBubble extends React.Component {
           highlightTriangle={this.highlightTriangle}
           unhighlightTriangle={this.unhighlightTriangle}
           segmentEl={this.segmentEl}
+          infoBubbleEl={this.el.current}
           updateHoverPolygon={this.updateHoverPolygon}
         />
       </div>

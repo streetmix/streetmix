@@ -20,7 +20,8 @@ export class Description extends React.Component {
     descriptionVisible: PropTypes.bool.isRequired,
     showDescription: PropTypes.func.isRequired,
     hideDescription: PropTypes.func.isRequired,
-    segmentEl: PropTypes.object
+    segmentEl: PropTypes.object,
+    infoBubbleEl: PropTypes.object
   }
 
   onClickShow = () => {
@@ -93,7 +94,7 @@ export class Description extends React.Component {
   render () {
     const description = this.getDescriptionData(this.props.type, this.props.variantString)
 
-    if (!description) return null
+    if (!description || !this.props.segmentEl || !this.props.infoBubbleEl) return null
 
     // If the description text hasn't been translated, bail.
     const variantDescriptionText = t(`segments.${this.props.type}.details.${this.props.variantString}.description.text`, null, { ns: 'segment-info' })
@@ -134,7 +135,7 @@ export class Description extends React.Component {
           lede={displayLede}
           text={displayDescription}
           caption={displayImageCaption}
-          bubbleY={Number.parseInt(document.querySelector('.info-bubble').style.top)}
+          bubbleY={Number.parseInt(this.props.infoBubbleEl.style.top)}
         />
       </React.Fragment>
     )
