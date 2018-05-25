@@ -29,8 +29,8 @@ var AccessTokenHandler = function (req, res) {
       var apiRequestBody = {
         auth0_twitter: {
           screenName: user[`${config.auth0.screen_name_custom_claim}`],
-          refresh_token: body.refresh_token,
-          auth0_id: user.sub
+          auth0_id: user.sub,
+          profile_image_url: user.picture
         }
       }
       // Must be an absolute URI

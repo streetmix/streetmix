@@ -2,7 +2,6 @@ const config = require('config')
 const uuid = require('uuid')
 const Twitter = require('twitter')
 const User = require('../../models/user.js')
-const { Management } = require('../../../lib/auth0')
 const logger = require('../../../lib/logger.js')()
 
 exports.post = function (req, res) {
@@ -47,14 +46,15 @@ exports.post = function (req, res) {
         var u = new User({
           id: credentials.screenName,
           auth0_id: credentials.auth0_id,
-          auth0_refresh_token: credentials.refresh_token,
-          login_tokens: [ loginToken ]
+          login_tokens: [ loginToken ],
+          profile_image_url: credentials.profile_image_url
         })
         u.save(handleCreateUser)
       } else {
         user.id = credentials.screenName
         user.auth0_refresh_token = credentials.refresh_token
         user.auth0_id = credentials.auth0_id
+        user.profile_image_url = credentials.profile_image_url
         user.login_tokens.push(loginToken)
         user.save(handleUpdateUser)
       }
@@ -130,18 +130,13 @@ exports.get = function (req, res) {
     }
 
     let twitterApiClient
-    let auth0Manage
     try {
-      if (user.auth0_id) {
-        auth0Manage = Management()
-      } else {
-        twitterApiClient = new Twitter({
-          consumer_key: config.twitter.oauth_consumer_key,
-          consumer_secret: config.twitter.oauth_consumer_secret,
-          access_token_key: user.twitter_credentials.access_token_key,
-          access_token_secret: user.twitter_credentials.access_token_secret
-        })
-      }
+      twitterApiClient = new Twitter({
+        consumer_key: config.twitter.oauth_consumer_key,
+        consumer_secret: config.twitter.oauth_consumer_secret,
+        access_token_key: user.twitter_credentials.access_token_key,
+        access_token_secret: user.twitter_credentials.access_token_secret
+      })
     } catch (e) {
       logger.error('Could not initialize Twitter API client. Error:')
       logger.error(e)
@@ -158,7 +153,9 @@ exports.get = function (req, res) {
         }
 
         if (data) {
-          userJson.profileImageUrl = data.auth0_twitter_profile_image_url || data.twitter_profile_image_url
+          userJson.profileImageUrl = data.twitter_profile_image_url
+        } else {
+          userJson.profileImageUrl = user.profile_image_url
         }
 
         res.status(200).send(userJson)
@@ -189,46 +186,14 @@ exports.get = function (req, res) {
       }
     } // END function - handleFetchUserProfileFromTwitter
 
-    const handleFetchUserProfileFromAuth0 = function (err, res) {
-      if (err) {
-        logger.error('Auth0 Management API call getUser() returned error.')
-        logger.error(err)
-      }
-      console.log(res)
-      if (responseAlreadySent) {
-        logger.debug({ profile_image_url: res.picture }, 'Auth0 Management API getUser() call returned but response already sent!')
-      } else {
-        logger.debug({ profile_image_url: res.picture }, 'Auth0 Management API getUser() call returned. Sending response with Auth0 data.')
-        responseAlreadySent = true
-
-        if (!res) {
-          logger.error('Auth0 Management getUser() API call did not return any data.')
-        }
-
-        sendUserJson({
-          auth0_twitter_profile_image_url: res.picture
-        })
-      }
-    } // END function - handleFetchUserProfileFromAuth0
-
-    const handleSetTimeout = function (client) {
-      return function () {
-        if (!responseAlreadySent) {
-          logger.debug(`Timing out ${client} API call after %d milliseconds and sending partial response.`, config.twitter.timeout_ms)
-          responseAlreadySent = true
-          sendUserJson()
-        }
-      }
-    } // END function - handleSetTimeout
-
-    if (auth0Manage) {
-      logger.debug('About to call Auth0 Management API userProfile/' + user.auth0_id)
-      auth0Manage.getUser({ id: user.auth0_id }, handleFetchUserProfileFromAuth0)
-      setTimeout(handleSetTimeout('Auth0'), config.twitter.timeout_ms)
-    } else if (twitterApiClient) {
+    if (twitterApiClient && !user.profile_image_url) {
       logger.debug('About to call Twitter API: /users/show.json?user_id=' + user.twitter_id)
       twitterApiClient.get('/users/show.json', { user_id: user.twitter_id }, handleFetchUserProfileFromTwitter)
-      setTimeout(handleSetTimeout('Twitter'), config.twitter.timeout_ms)
+      if (!responseAlreadySent) {
+        logger.debug(`Timing out Twitter API call after %d milliseconds and sending partial response.`, config.twitter.timeout_ms)
+        responseAlreadySent = true
+        sendUserJson()
+      }
     } else {
       sendUserJson()
     }
