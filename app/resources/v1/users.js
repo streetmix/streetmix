@@ -156,7 +156,7 @@ exports.get = function (req, res) {
           res.status(500).send('Could not render user JSON.')
           return
         }
-        console.log(data)
+
         if (data) {
           userJson.profileImageUrl = data.auth0_twitter_profile_image_url || data.twitter_profile_image_url
         }

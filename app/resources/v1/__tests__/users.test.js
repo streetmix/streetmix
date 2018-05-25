@@ -55,7 +55,7 @@ describe('POST api/v1/users', function () {
       })
   })
 
-  it('should respond with 400 Bad request when user credentials are sent', function () {
+  it('should respond with 400 Bad request when no user credentials are sent', function () {
     return request(app)
       .post('/api/v1/users/')
       .type('json')
@@ -87,7 +87,6 @@ describe('GET api/v1/users/:user_id', function () {
     return request(app)
       .get(`/api/v1/users/${user.twitter.screenName}`)
       .then((response) => {
-        console.log(response.text)
         expect(response.statusCode).toEqual(200)
       })
   })

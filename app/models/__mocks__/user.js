@@ -24,7 +24,15 @@ function Model (_doc) {
   return save
 }
 
-Model.findOne = function (id, cb) {
+Model.findOne = function (option, cb) {
+  cb(null, {
+    ...userDummy,
+    save,
+    asJson
+  })
+}
+
+Model.findByIdAndUpdate = function (option, cb) {
   cb(null, {
     ...userDummy,
     save,
