@@ -114,8 +114,10 @@ class InfoBubble extends React.Component {
     const wasBuilding = (prevState.type !== INFO_BUBBLE_TYPE_SEGMENT)
     const isBuilding = (this.state.type !== INFO_BUBBLE_TYPE_SEGMENT)
 
+    if (!this.el || !this.el.current) return null
+
     if (wasBuilding && !isBuilding) {
-      return Number.parseInt(this.el.style.left, 10) + (this.el.offsetWidth / 2)
+      return Number.parseInt(this.el.current.style.left, 10) + (this.el.current.offsetWidth / 2)
     } else if (!wasBuilding && this.props.dataNo === 'right') {
       return this.props.system.viewportWidth - MIN_SIDE_MARGIN_FROM_VIEWPORT
     }

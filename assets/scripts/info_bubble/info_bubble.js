@@ -167,7 +167,7 @@ export const infoBubble = {
   }
 }
 
-function _isPointInPoly (vs, point) {
+function _isPointInPoly (vs = [], point) {
   var x = point[0]
   var y = point[1]
 
