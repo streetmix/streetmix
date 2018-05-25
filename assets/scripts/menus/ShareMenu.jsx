@@ -49,22 +49,22 @@ export class ShareMenu extends React.Component {
     if (street.creatorId) {
       if (this.props.signedIn && street.creatorId === this.props.userId) {
         if (street.name) {
-          message = this.formatSharingMessage('share.messages.my-street', 'Check out my street, {streetName}, on Streetmix!', { streetName: street.name })
+          message = this.formatSharingMessage('menu.share.messages.my-street', 'Check out my street, {streetName}, on Streetmix!', { streetName: street.name })
         } else {
-          message = this.formatSharingMessage('share.messages.my-street-unnamed', 'Check out my street on Streetmix!')
+          message = this.formatSharingMessage('menu.share.messages.my-street-unnamed', 'Check out my street on Streetmix!')
         }
       } else {
         if (street.name) {
-          message = this.formatSharingMessage('share.messages.someone-elses-street', 'Check out {streetName} by {streetCreator} on Streetmix!', { streetName: street.name, streetCreator: `@${street.creatorId}` })
+          message = this.formatSharingMessage('menu.share.messages.someone-elses-street', 'Check out {streetName} by {streetCreator} on Streetmix!', { streetName: street.name, streetCreator: `@${street.creatorId}` })
         } else {
-          message = this.formatSharingMessage('share.messages.someone-elses-street-unnamed', 'Check out this street by {streetCreator} on Streetmix!', { streetCreator: `@${street.creatorId}` })
+          message = this.formatSharingMessage('menu.share.messages.someone-elses-street-unnamed', 'Check out this street by {streetCreator} on Streetmix!', { streetCreator: `@${street.creatorId}` })
         }
       }
     } else {
       if (street.name) {
-        message = this.formatSharingMessage('share.messages.anonymous-creator-street', 'Check out {streetName} on Streetmix!', { streetName: street.name })
+        message = this.formatSharingMessage('menu.share.messages.anonymous-creator-street', 'Check out {streetName} on Streetmix!', { streetName: street.name })
       } else {
-        message = this.formatSharingMessage('share.messages.anonymous-creator-street-unnamed', 'Check out this street on Streetmix!')
+        message = this.formatSharingMessage('menu.share.messages.anonymous-creator-street-unnamed', 'Check out this street on Streetmix!')
       }
     }
 
