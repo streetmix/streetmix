@@ -23,7 +23,7 @@ userSchema.pre('save', function (next) {
 userSchema.methods.asJson = function (options, cb) {
   options = options || {}
 
-  let json = {
+  const json = {
     id: this.id
   }
 

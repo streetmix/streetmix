@@ -13,7 +13,7 @@ exports.post = function (req, res) {
       return
     }
 
-    let userJson = { id: user.id, loginToken: loginToken }
+    const userJson = { id: user.id, loginToken: loginToken }
     logger.info({ user: userJson }, 'New user created.')
     res.header('Location', config.restapi.baseuri + '/v1/users/' + user.id)
     res.status(201).send(userJson)
@@ -26,7 +26,7 @@ exports.post = function (req, res) {
       return
     }
 
-    let userJson = { id: user.id, loginToken: loginToken }
+    const userJson = { id: user.id, loginToken: loginToken }
     logger.info({ user: userJson }, 'Existing user issued new login token.')
 
     res.header('Location', config.restapi.baseuri + '/v1/users/' + user.id)
@@ -43,7 +43,7 @@ exports.post = function (req, res) {
 
       loginToken = uuid.v1()
       if (!user) {
-        var u = new User({
+        const u = new User({
           id: credentials.screenName,
           auth0_id: credentials.auth0_id,
           login_tokens: [ loginToken ],
@@ -73,7 +73,7 @@ exports.post = function (req, res) {
       }
       loginToken = uuid.v1()
       if (!user) {
-        let u = new User({
+        const u = new User({
           id: twitterCredentials.screenName,
           twitter_id: twitterCredentials.userId,
           twitter_credentials: {
@@ -143,7 +143,7 @@ exports.get = function (req, res) {
     }
 
     const sendUserJson = function (data) {
-      let auth = (user.login_tokens.indexOf(req.loginToken) > 0)
+      const auth = (user.login_tokens.indexOf(req.loginToken) > 0)
 
       user.asJson({ auth: auth }, function (err, userJson) {
         if (err) {
@@ -207,7 +207,7 @@ exports.get = function (req, res) {
     return
   }
 
-  let userId = req.params.user_id
+  const userId = req.params.user_id
 
   const handleFindUserByLoginToken = function (err, user) {
     if (err) {
@@ -253,7 +253,7 @@ exports.delete = function (req, res) {
       return
     }
 
-    let idx = user.login_tokens.indexOf(req.loginToken)
+    const idx = user.login_tokens.indexOf(req.loginToken)
     if (idx === -1) {
       res.status(401).end()
       return
@@ -269,7 +269,7 @@ exports.delete = function (req, res) {
     return
   }
 
-  let userId = req.params.user_id
+  const userId = req.params.user_id
   User.findOne({ id: userId }, handleFindUser)
 } // END function - exports.delete
 
@@ -318,6 +318,6 @@ exports.put = function (req, res) {
     return
   }
 
-  let userId = req.params.user_id
+  const userId = req.params.user_id
   User.findOne({ id: userId }, handleFindUser)
 } // END function - exports.put

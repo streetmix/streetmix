@@ -33,7 +33,7 @@ streetSchema.pre('save', function (next) {
 })
 
 streetSchema.methods.asJson = function (cb) {
-  let json = {
+  const json = {
     id: this.id,
     namespacedId: this.namespaced_id,
     name: this.name,

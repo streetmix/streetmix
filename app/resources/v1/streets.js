@@ -9,7 +9,7 @@ const Sequence = require('../../models/sequence.js')
 const logger = require('../../../lib/logger.js')()
 
 exports.post = function (req, res) {
-  let street = new Street()
+  const street = new Street()
   let body
 
   street.id = uuid.v1()
@@ -235,10 +235,10 @@ exports.get = function (req, res) {
 } // END function - exports.get
 
 exports.find = function (req, res) {
-  let creatorId = req.query.creatorId
-  let namespacedId = req.query.namespacedId
-  let start = (req.query.start && parseInt(req.query.start, 10)) || 0
-  let count = (req.query.count && parseInt(req.query.count, 10)) || 20
+  const creatorId = req.query.creatorId
+  const namespacedId = req.query.namespacedId
+  const start = (req.query.start && parseInt(req.query.start, 10)) || 0
+  const count = (req.query.count && parseInt(req.query.count, 10)) || 20
 
   const handleFindStreet = function (err, street) {
     if (err) {
@@ -279,12 +279,12 @@ exports.find = function (req, res) {
       return
     }
 
-    let totalNumStreets = results[0]
-    let streets = results[1]
+    const totalNumStreets = results[0]
+    const streets = results[1]
 
-    let selfUri = config.restapi.baseuri + '/v1/streets?start=' + start + '&count=' + count
+    const selfUri = config.restapi.baseuri + '/v1/streets?start=' + start + '&count=' + count
 
-    let json = {
+    const json = {
       meta: {
         links: {
           self: selfUri
@@ -387,7 +387,7 @@ exports.put = function (req, res) {
       return
     }
 
-    let handleFindOriginalStreet = function (err, origStreet) {
+    const handleFindOriginalStreet = function (err, origStreet) {
       if (err || !origStreet) {
         res.status(404).send('Original street not found.')
         return
@@ -397,7 +397,7 @@ exports.put = function (req, res) {
       street.save(handleUpdateStreet)
     } // END function - handleFindOriginalStreet
 
-    let updateStreetData = function () {
+    const updateStreetData = function () {
       street.name = body.name || street.name
       street.data = body.data || street.data
 
@@ -408,7 +408,7 @@ exports.put = function (req, res) {
       }
     } // END function - updateStreetData
 
-    let handleFindUser = function (err, user) {
+    const handleFindUser = function (err, user) {
       if (err) {
         logger.error(err)
         res.status(500).send('Could not find signed-in user.')
