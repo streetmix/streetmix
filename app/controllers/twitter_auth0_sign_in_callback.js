@@ -44,7 +44,7 @@ const AccessTokenHandler = function (req, res) {
         // Redirect user
         res.cookie('user_id', body.id)
         res.cookie('login_token', body.loginToken)
-        res.redirect('/')
+        res.redirect('/just-signed-in')
       })
     }
     auth0.getProfile(body.access_token, handleUserInfo)
