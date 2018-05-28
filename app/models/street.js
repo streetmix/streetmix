@@ -26,7 +26,7 @@ streetSchema.add({
 })
 
 streetSchema.pre('save', function (next) {
-  let now = new Date()
+  const now = new Date()
   this.updated_at = now
   this.created_at = this.created_at || now
   next()
@@ -42,8 +42,8 @@ streetSchema.methods.asJson = function (cb) {
     updatedAt: this.updated_at
   }
 
-  let creatorId = this.creator_id
-  let originalStreetId = this.original_street_id
+  const creatorId = this.creator_id
+  const originalStreetId = this.original_street_id
 
   const appendCreator = function (callback) {
     if (creatorId) {
