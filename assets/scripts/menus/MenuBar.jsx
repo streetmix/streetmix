@@ -3,12 +3,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import EnvironmentBadge from './EnvironmentBadge'
-import { WebAuth } from 'auth0-js'
 import { AUTH0_CALLBACK_URL } from '../app/routing'
 import { showGallery } from '../gallery/view'
 import MenuBarItem from './MenuBarItem'
 import Avatar from '../users/Avatar'
-import { AUTH0_CLIENT_ID, AUTH0_DOMAIN } from '../app/config'
+import Authenticate from '../app/auth0'
 
 class MenuBar extends React.PureComponent {
   static propTypes = {
@@ -89,12 +88,7 @@ class MenuBar extends React.PureComponent {
   }
 
   onClickSignIn = (event) => {
-    // TODO: Abstract WebAuth to another file
-    let auth0 = new WebAuth({
-      domain: AUTH0_DOMAIN,
-      clientID: AUTH0_CLIENT_ID,
-      scope: 'openid profile screen_name offline_access'
-    })
+    const auth0 = Authenticate()
     auth0.authorize({
       responseType: 'code',
       connection: 'twitter',
