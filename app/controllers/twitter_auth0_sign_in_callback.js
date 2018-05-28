@@ -3,7 +3,7 @@ const request = require('request')
 const logger = require('../../lib/logger.js')()
 const { Authentication } = require('../../lib/auth0')
 
-var AccessTokenHandler = function (req, res) {
+const AccessTokenHandler = function (req, res) {
   return function (err, response, body) {
     if (err) {
       console.error('Error obtaining access token from Twitter:')
@@ -17,7 +17,7 @@ var AccessTokenHandler = function (req, res) {
       return
     }
 
-    let auth0 = Authentication()
+    const auth0 = Authentication()
     function handleUserInfo (err, user) {
       if (err) {
         console.error('Error obtaining access token from Twitter:')
@@ -26,7 +26,7 @@ var AccessTokenHandler = function (req, res) {
         res.redirect('/error/no-twitter-access-token')
         return
       }
-      var apiRequestBody = {
+      const apiRequestBody = {
         auth0_twitter: {
           screenName: user[`${config.auth0.screen_name_custom_claim}`],
           auth0_id: user.sub,
@@ -34,14 +34,13 @@ var AccessTokenHandler = function (req, res) {
         }
       }
       // Must be an absolute URI
-      let endpoint = config.restapi.protocol + config.app_host_port + config.restapi.baseuri + '/v1/users'
+      const endpoint = config.restapi.protocol + config.app_host_port + config.restapi.baseuri + '/v1/users'
       request.post({ url: endpoint, json: apiRequestBody }, function (err, response, body) {
         if (err) {
           logger.error('Error from API when signing in: ' + err)
           res.redirect('/error/authentication-api-problem')
           return
         }
-        console.log(body)
         // Redirect user
         res.cookie('user_id', body.id)
         res.cookie('login_token', body.loginToken)
@@ -57,10 +56,10 @@ exports.get = function (req, res) {
     res.redirect('/error/twitter-access-denied')
   }
 
-  let code = req.query.code
+  const code = req.query.code
   // TODO: Update twitter callback uri from oauth
-  let redirectUri = config.restapi.protocol + config.app_host_port + config.twitter.oauth_callback_uri
-  let options = {
+  const redirectUri = config.restapi.protocol + config.app_host_port + config.twitter.oauth_callback_uri
+  const options = {
     method: 'POST',
     url: config.auth0.token_api_url,
     headers: { 'content-type': 'application/json' },
@@ -73,6 +72,5 @@ exports.get = function (req, res) {
     },
     json: true
   }
-  console.log(options)
   request(options, AccessTokenHandler(req, res))
 }
