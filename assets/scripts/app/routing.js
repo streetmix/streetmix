@@ -16,7 +16,6 @@ export const URL_JUST_SIGNED_IN = 'just-signed-in' // TODO fix this
 export const URL_NEW_STREET = 'new'
 export const URL_NEW_STREET_COPY_LAST = 'copy-last'
 export const URL_GLOBAL_GALLERY = 'gallery'
-const URL_LOCALES = 'locales'
 export const URL_ERROR = 'error'
 export const URL_NO_USER = '-'
 export const URL_HELP = 'help'
@@ -37,7 +36,6 @@ export const RESERVED_URLS = [
   URL_SIGN_IN, URL_SIGN_IN_CALLBACK,
   URL_NEW_STREET, URL_NEW_STREET_COPY_LAST,
   URL_JUST_SIGNED_IN,
-  URL_LOCALES,
   URL_HELP, URL_GLOBAL_GALLERY, URL_ERROR, 'streets'
 ]
 export const URL_RESERVED_PREFIX = '~'
