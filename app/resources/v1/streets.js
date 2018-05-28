@@ -29,9 +29,7 @@ exports.post = function (req, res) {
       res.status(400).send('Could not parse body as JSON.')
       return
     }
-    console.log(body)
     // TODO: Validation
-
     street.name = body.name
     street.data = body.data
     street.creator_ip = requestIp(req)

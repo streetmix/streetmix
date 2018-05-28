@@ -189,11 +189,13 @@ exports.get = function (req, res) {
     if (twitterApiClient && !user.profile_image_url) {
       logger.debug('About to call Twitter API: /users/show.json?user_id=' + user.twitter_id)
       twitterApiClient.get('/users/show.json', { user_id: user.twitter_id }, handleFetchUserProfileFromTwitter)
-      if (!responseAlreadySent) {
-        logger.debug(`Timing out Twitter API call after %d milliseconds and sending partial response.`, config.twitter.timeout_ms)
-        responseAlreadySent = true
-        sendUserJson()
-      }
+      setTimeout(function () {
+        if (!responseAlreadySent) {
+          logger.debug(`Timing out Twitter API call after %d milliseconds and sending partial response.`, config.twitter.timeout_ms)
+          responseAlreadySent = true
+          sendUserJson()
+        }
+      }, config.twitter.timeout_ms)
     } else {
       sendUserJson()
     }

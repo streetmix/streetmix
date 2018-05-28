@@ -9,7 +9,6 @@ const TWITTER_URL_SIGN_IN_CALLBACK = TWITTER_URL_SIGN_IN_CALLBACK_REL.replace(/^
 
 const AUTH0_URL_SIGN_IN_CALLBACK_ABS =
 window.location.protocol + '//' + window.location.host + AUTH0_URL_SIGN_IN_CALLBACK_REL
-// const AUTH0_URL_SIGN_IN_CALLBACK = TWITTER_URL_SIGN_IN_CALLBACK_REL.replace(/^\//, '')
 
 const URL_JUST_SIGNED_IN_REL = '/just-signed-in'
 const URL_JUST_SIGNED_IN_ABS =
