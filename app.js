@@ -186,6 +186,7 @@ app.get('/assets/scripts/main.js', browserify(path.join(__dirname, '/assets/scri
     AUTH0_TWITTER_CALLBACK_URI: config.get('auth0').twitter_callback_uri,
     AUTH0_DOMAIN: config.get('auth0').domain,
     AUTH0_CLIENT_ID: config.get('auth0').client_id,
+    USE_AUTH0: config.get('auth0').use_auth0,
     ENV: config.get('env'),
     NO_INTERNET_MODE: config.get('no_internet_mode')
   })]

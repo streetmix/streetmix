@@ -9,3 +9,4 @@ export const PELIAS_API_KEY = 'ge-1793afb81c0a7784'
 export const AUTH0_CLIENT_ID = process.env.AUTH0_CLIENT_ID
 export const AUTH0_DOMAIN = process.env.AUTH0_DOMAIN
 export const AUTH0_URL_SIGN_IN_CALLBACK_REL = process.env.AUTH0_TWITTER_CALLBACK_URI
+export const USE_AUTH0 = process.env.USE_AUTH0

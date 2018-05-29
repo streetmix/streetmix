@@ -3,7 +3,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import EnvironmentBadge from './EnvironmentBadge'
-import { AUTH0_CALLBACK_URL } from '../app/routing'
+import { AUTH0_CALLBACK_URL, TWITTER_URL_SIGN_IN_REDIRECT } from '../app/routing'
+import { USE_AUTH0 } from '../app/config'
 import { showGallery } from '../gallery/view'
 import MenuBarItem from './MenuBarItem'
 import Avatar from '../users/Avatar'
@@ -96,14 +97,9 @@ class MenuBar extends React.PureComponent {
     })
   }
 
-  renderUserAvatar = (userId) => {
-    return (userId)
-      ? (
-        <MenuBarItem onClick={this.onClickMenuButton('identity')} requireInternet>
-          <Avatar userId={userId} />
-          <span className="user-id">{userId}</span>
-        </MenuBarItem>
-      ) : (
+  renderSignInMenuItem = () => {
+    if (USE_AUTH0) {
+      return (
         <MenuBarItem
           onClick={this.onClickSignIn}
           translation="menu.item.sign-in"
@@ -112,6 +108,29 @@ class MenuBar extends React.PureComponent {
           className="command"
           id="sign-in-link"
         />
+      )
+    }
+    return (
+      <MenuBarItem
+        url={`/${TWITTER_URL_SIGN_IN_REDIRECT}`}
+        translation="menu.item.sign-in"
+        label="Sign in"
+        requireInternet
+        className="command"
+        id="sign-in-link"
+      />
+    )
+  }
+
+  renderUserAvatar = (userId) => {
+    return (userId)
+      ? (
+        <MenuBarItem onClick={this.onClickMenuButton('identity')} requireInternet>
+          <Avatar userId={userId} />
+          <span className="user-id">{userId}</span>
+        </MenuBarItem>
+      ) : (
+        this.renderSignInMenuItem()
       )
   }
 

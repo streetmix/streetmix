@@ -27,6 +27,7 @@ module.exports = {
     timeout_ms: 500
   },
   auth0: {
+    use_auth0: false,
     domain: process.env.AUTH0_DOMAIN,
     client_id: process.env.AUTH0_CLIENT_ID,
     client_secret: process.env.AUTH0_CLIENT_SECRET,
