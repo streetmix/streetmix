@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import MeasurementText from '../ui/MeasurementText'
+import { CSSTransition } from 'react-transition-group'
 import { getSegmentVariantInfo, getSegmentInfo } from '../segments/info'
 import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, SHORT_DELAY, suppressMouseEnter } from './resizing'
 import { TILE_SIZE } from './constants'
@@ -38,6 +39,16 @@ class Segment extends React.Component {
     units: SETTINGS_UNITS_METRIC
   }
 
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      oldSegmentEnter: true,
+      newSegmentEnter: false,
+      switchSegments: false
+    }
+  }
+
   componentDidMount = () => {
     this.drawSegment()
 
@@ -48,10 +59,17 @@ class Segment extends React.Component {
     }
   }
 
-  componentDidUpdate () {
-    if (!this.props.forPalette) {
+  componentDidUpdate (prevProps, prevState) {
+    if (this.props.forPalette) return
+
+    this.props.updateSegmentData(this.streetSegment, this.props.dataNo, this.props.segmentPos)
+
+    if (prevProps.variantString !== this.props.variantString) {
+      this.switchSegments()
+    }
+
+    if (prevState.switchSegments !== this.state.switchSegments) {
       this.drawSegment()
-      this.props.updateSegmentData(this.streetSegment, this.props.dataNo, this.props.segmentPos)
     }
   }
 
@@ -87,6 +105,66 @@ class Segment extends React.Component {
 
   onSegmentMouseLeave = () => {
     infoBubble.dontConsiderShowing()
+  }
+
+  changeRefs = (ref, isOldSegment) => {
+    if (!this.state.switchSegments && !isOldSegment) return
+
+    if (this.state.switchSegments && isOldSegment) {
+      this.oldSegmentCanvas = ref
+    } else {
+      this.segmentCanvas = ref
+    }
+  }
+
+  switchSegments = () => {
+    this.setState({
+      switchSegments: !(this.state.switchSegments),
+      newSegmentEnter: !(this.state.newSegmentEnter),
+      oldSegmentEnter: !(this.state.oldSegmentEnter)
+    })
+  }
+
+  renderSegmentCanvas = (canvasWidth, canvasHeight, canvasStyle) => {
+    const { oldSegmentEnter, newSegmentEnter } = this.state
+    const segmentCanvas = (
+      <div>
+        <canvas className="image" ref={(ref) => { this.segmentCanvas = ref }} width={canvasWidth} height={canvasHeight} style={canvasStyle} />
+        <div className="hover-bk" />
+      </div>
+    )
+
+    if (this.props.forPalette) return segmentCanvas
+
+    return (
+      <React.Fragment>
+        <CSSTransition
+          key="old-segment"
+          in={oldSegmentEnter}
+          timeout={250}
+          classNames="switching-away"
+          unmountOnExit
+        >
+          <div>
+            <canvas className="image" ref={(ref) => { this.changeRefs(ref, true) }} width={canvasWidth} height={canvasHeight} style={canvasStyle} />
+            <div className="hover-bk" />
+          </div>
+        </CSSTransition>
+        <CSSTransition
+          key="new-segment"
+          in={newSegmentEnter}
+          timeout={250}
+          classNames="switching-in"
+          onEntered={this.switchSegments}
+          unmountOnExit
+        >
+          <div>
+            <canvas className="image" ref={(ref) => { this.changeRefs(ref, false) }} width={canvasWidth} height={canvasHeight} style={canvasStyle} />
+            <div className="hover-bk" />
+          </div>
+        </CSSTransition>
+      </React.Fragment>
+    )
   }
 
   render () {
@@ -156,8 +234,7 @@ class Segment extends React.Component {
             <span className="grid" />
           </React.Fragment>
         }
-        <canvas className="image" ref={(ref) => { this.segmentCanvas = ref }} width={canvasWidth} height={canvasHeight} style={canvasStyle} />
-        <div className="hover-bk" />
+        {this.renderSegmentCanvas(canvasWidth, canvasHeight, canvasStyle)}
       </div>
     )
   }
