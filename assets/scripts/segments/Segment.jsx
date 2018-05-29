@@ -117,21 +117,27 @@ class Segment extends React.Component {
       left: (dimensions.left * TILE_SIZE * multiplier)
     }
 
+    const segmentStyle = {
+      width: width + 'px',
+      // In a street, certain segments have stacking priority over others (expressed as z-index).
+      // In a palette, segments are side-by-side so they don't need stacking priority.
+      // Setting a z-index here will clobber a separate z-index (applied via CSS) when hovered by mouse pointer
+      zIndex: (this.props.forPalette) ? null : segmentInfo.zIndex,
+      [this.props.cssTransform]: (this.props.forPalette) ? null : 'translateX(' + this.props.segmentPos + 'px)'
+    }
+
+    const dataAttributes = {
+      type: this.props.type,
+      'variant-string': this.props.variantString,
+      'rand-seed': this.props.randSeed,
+      'data-width': widthValue
+    }
+
     return (
       <div
-        style={{
-          width: width + 'px',
-          // In a street, certain segments have stacking priority over others (expressed as z-index).
-          // In a palette, segments are side-by-side so they don't need stacking priority.
-          // Setting a z-index here will clobber a separate z-index (applied via CSS) when hovered by mouse pointer
-          zIndex: (this.props.forPalette) ? null : segmentInfo.zIndex,
-          [this.props.cssTransform]: (this.props.forPalette) ? null : 'translateX(' + this.props.segmentPos + 'px)'
-        }}
+        style={segmentStyle}
         className={'segment' + (this.props.isUnmovable ? ' unmovable' : '') + (this.props.forPalette ? ' segment-in-palette' : '')}
-        type={this.props.type}
-        variant-string={this.props.variantString}
-        rand-seed={this.props.randSeed}
-        data-width={widthValue}
+        {...dataAttributes}
         title={this.props.forPalette ? localizedSegmentName : null}
         ref={(ref) => { this.streetSegment = ref }}
         onMouseEnter={this.onSegmentMouseEnter}
