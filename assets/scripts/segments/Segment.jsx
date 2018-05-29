@@ -59,7 +59,7 @@ class Segment extends React.Component {
     const multiplier = this.props.forPalette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1
     const segmentWidth = this.props.width // may need to double check this. setSegmentContents() was called with other widths
     const offsetTop = this.props.forPalette ? SEGMENT_Y_PALETTE : SEGMENT_Y_NORMAL
-    const ctx = this.refs.canvas.getContext('2d')
+    const ctx = this.segmentCanvas.getContext('2d')
     drawSegmentContents(ctx, this.props.type, this.props.variantString, segmentWidth, 0, offsetTop, this.props.randSeed, multiplier, this.props.forPalette)
   }
 
@@ -156,7 +156,7 @@ class Segment extends React.Component {
             <span className="grid" />
           </React.Fragment>
         }
-        <canvas className="image" ref="canvas" width={canvasWidth} height={canvasHeight} style={canvasStyle} />
+        <canvas className="image" ref={(ref) => { this.segmentCanvas = ref }} width={canvasWidth} height={canvasHeight} style={canvasStyle} />
         <div className="hover-bk" />
       </div>
     )
