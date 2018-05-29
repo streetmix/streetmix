@@ -1,4 +1,4 @@
-import { TWITTER_URL_SIGN_IN_CALLBACK_REL, AUTH0_URL_SIGN_IN_CALLBACK_REL } from './config'
+import { TWITTER_URL_SIGN_IN_CALLBACK_REL, AUTH0_URL_SIGN_IN_CALLBACK_REL, USE_AUTH0 } from './config'
 import Authenicate from '../app/auth0'
 // TODO replace the URLs in index.html dynamically
 const URL_SIGN_IN = 'twitter-sign-in'
@@ -74,9 +74,13 @@ export function goCopyLastStreet () {
 
 export function goSignIn () {
   const auth0 = Authenicate()
-  auth0.authorize({
-    responseType: 'code',
-    connection: 'twitter',
-    redirectUri: AUTH0_CALLBACK_URL
-  })
+  if (USE_AUTH0) {
+    auth0.authorize({
+      responseType: 'code',
+      connection: 'twitter',
+      redirectUri: AUTH0_CALLBACK_URL
+    })
+  } else {
+    window.location.href = '/' + TWITTER_URL_SIGN_IN_REDIRECT
+  }
 }
