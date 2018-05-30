@@ -13,11 +13,19 @@ export default function DateTimeRelative (props) {
 
   if (diff >= 0) {
     if (diff < SECONDS_AGO) {
-      return <FormattedMessage id="datetime.seconds-ago" defaultMessage="A few seconds ago" />
+      return (
+        <time dateTime={props.value} title={props.value}>
+          <FormattedMessage id="datetime.seconds-ago" defaultMessage="A few seconds ago" />
+        </time>
+      )
     }
 
     if (diff < MINUTES_AGO) {
-      return <FormattedMessage id="datetime.minutes-ago" defaultMessage="A few minutes ago" />
+      return (
+        <time dateTime={props.value} title={props.value}>
+          <FormattedMessage id="datetime.minutes-ago" defaultMessage="A few minutes ago" />
+        </time>
+      )
     }
   }
 
@@ -27,12 +35,14 @@ export default function DateTimeRelative (props) {
         id="datetime.today"
         defaultMessage="Today at {time}"
         values={{
-          time: <FormattedTime
-            timeZone={props.timezone}
-            value={props.value}
-            hour="numeric"
-            minute="numeric"
-          />
+          time: <time dateTime={props.value} title={props.value}>
+            <FormattedTime
+              timeZone={props.timezone}
+              value={props.value}
+              hour="numeric"
+              minute="numeric"
+            />
+          </time>
         }}
       />
     )
