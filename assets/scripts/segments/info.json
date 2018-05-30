@@ -1,6 +1,7 @@
 {
   "sidewalk": {
     "name": "Sidewalk",
+    "nameKey": "sidewalk",
     "owner": "PEDESTRIAN",
     "zIndex": 30,
     "defaultWidth": 6,
@@ -37,6 +38,7 @@
   },
   "sidewalk-tree": {
     "name": "Sidewalk with a tree",
+    "nameKey": "sidewalk-tree",
     "owner": "NATURE",
     "zIndex": 22,
     "defaultWidth": 4,
@@ -60,6 +62,7 @@
   },
   "sidewalk-bike-rack": {
     "name": "Bike rack",
+    "nameKey": "bike-rack",
     "owner": "BIKE",
     "zIndex": 23,
     "defaultWidth": 5,
@@ -115,6 +118,7 @@
   },
   "sidewalk-bench": {
     "name": "Bench",
+    "nameKey": "bench",
     "owner": "PEDESTRIAN",
     "zIndex": 24,
     "defaultWidth": 4,
@@ -144,6 +148,7 @@
   },
   "sidewalk-wayfinding": {
     "name": "Wayfinding sign",
+    "nameKey": "wayfinding-sign",
     "owner": "PEDESTRIAN",
     "zIndex": 21,
     "defaultWidth": 4,
@@ -184,6 +189,7 @@
   },
   "sidewalk-lamp": {
     "name": "Sidewalk with a lamp",
+    "nameKey": "sidewalk-lamp",
     "owner": "PEDESTRIAN",
     "zIndex": 19,
     "defaultWidth": 4,
@@ -263,6 +269,7 @@
   },
   "parklet": {
     "name": "Parklet",
+    "nameKey": "parklet",
     "owner": "NATURE",
     "zIndex": 15,
     "defaultWidth": 8,
@@ -298,6 +305,7 @@
   },
   "divider": {
     "name": "Buffer",
+    "nameKey": "divider",
     "owner": "NATURE",
     "zIndex": 20,
     "defaultWidth": 2,
@@ -308,6 +316,7 @@
     "details": {
       "planting-strip": {
         "name": "Planting strip",
+        "nameKey": "planting-strip",
         "graphics": {
           "repeat": [
             "plants--grass",
@@ -317,6 +326,7 @@
       },
       "planter-box": {
         "name": "Planter box",
+        "nameKey": "planter-box",
         "graphics": {
           "center": "dividers--planter-box",
           "repeat": [
@@ -329,12 +339,14 @@
       },
       "median": {
         "name": "Median",
+        "nameKey": "median",
         "graphics": {
           "repeat": "ground--concrete"
         }
       },
       "striped-buffer": {
         "name": "Buffer",
+        "nameKey": "divider",
         "graphics": {
           "repeat": [
             "ground--asphalt",
@@ -346,6 +358,7 @@
       },
       "bush": {
         "name": "Planting strip",
+        "nameKey": "planting-strip",
         "graphics": {
           "center": "plants--bush",
           "repeat": [
@@ -356,6 +369,7 @@
       },
       "flowers": {
         "name": "Planting strip",
+        "nameKey": "planting-strip",
         "graphics": {
           "center": "plants--flowers",
           "repeat": [
@@ -366,6 +380,7 @@
       },
       "big-tree": {
         "name": "Planting strip",
+        "nameKey": "planting-strip",
         "graphics": {
           "center": "trees--tree",
           "repeat": [
@@ -376,6 +391,7 @@
       },
       "palm-tree": {
         "name": "Planting strip",
+        "nameKey": "planting-strip",
         "graphics": {
           "center": "trees--palm-tree",
           "repeat": [
@@ -386,6 +402,7 @@
       },
       "bollard": {
         "name": "Bollard",
+        "nameKey": "bollard",
         "graphics": {
           "center": "dividers--bollard",
           "repeat": [
@@ -398,6 +415,7 @@
       },
       "dome": {
         "name": "Traffic exclusion dome",
+        "nameKey": "dome",
         "graphics": {
           "center": "dividers--dome",
           "repeat": [
@@ -412,6 +430,7 @@
   },
   "bike-lane": {
     "name": "Bike lane",
+    "nameKey": "bike-lane",
     "owner": "BIKE",
     "zIndex": 16,
     "defaultWidth": 6,
@@ -498,6 +517,7 @@
   },
   "flex-zone": {
     "name": "Flex zone",
+    "nameKey": "flex-zone",
     "owner": "FLEX",
     "zIndex": 2,
     "defaultWidth": 7,
@@ -510,6 +530,7 @@
     "details": {
       "taxi|inbound|left": {
         "name": "Taxi pick-up / drop-off",
+        "nameKey": "taxi-pick-up",
         "minWidth": 7,
         "maxWidth": 10,
         "graphics": {
@@ -520,6 +541,7 @@
       },
       "taxi|inbound|right": {
         "name": "Taxi pick-up / drop-off",
+        "nameKey": "taxi-pick-up",
         "minWidth": 7,
         "maxWidth": 10,
         "graphics": {
@@ -530,6 +552,7 @@
       },
       "taxi|outbound|left": {
         "name": "Taxi pick-up / drop-off",
+        "nameKey": "taxi-pick-up",
         "minWidth": 7,
         "maxWidth": 10,
         "graphics": {
@@ -540,6 +563,7 @@
       },
       "taxi|outbound|right": {
         "name": "Taxi pick-up / drop-off",
+        "nameKey": "taxi-pick-up",
         "minWidth": 7,
         "maxWidth": 10,
         "graphics": {
@@ -550,6 +574,7 @@
       },
       "rideshare|inbound|left": {
         "name": "Rideshare pick-up / drop-off",
+        "nameKey": "rideshare-pick-up",
         "minWidth": 7,
         "maxWidth": 10,
         "graphics": {
@@ -560,6 +585,7 @@
       },
       "rideshare|inbound|right": {
         "name": "Rideshare pick-up / drop-off",
+        "nameKey": "rideshare-pick-up",
         "minWidth": 7,
         "maxWidth": 10,
         "graphics": {
@@ -570,6 +596,7 @@
       },
       "rideshare|outbound|left": {
         "name": "Rideshare pick-up / drop-off",
+        "nameKey": "rideshare-pick-up",
         "minWidth": 7,
         "maxWidth": 10,
         "graphics": {
@@ -580,6 +607,7 @@
       },
       "rideshare|outbound|right": {
         "name": "Rideshare pick-up / drop-off",
+        "nameKey": "rideshare-pick-up",
         "minWidth": 7,
         "maxWidth": 10,
         "graphics": {
@@ -590,6 +618,7 @@
       },
       "bikeshare|inbound|left": {
         "name": "Bikeshare station",
+        "nameKey": "bikeshare-station",
         "minWidth": 7,
         "maxWidth": 10,
         "graphics": {
@@ -603,6 +632,7 @@
       },
       "bikeshare|inbound|right": {
         "name": "Bikeshare station",
+        "nameKey": "bikeshare-station",
         "minWidth": 7,
         "maxWidth": 10,
         "graphics": {
@@ -616,6 +646,7 @@
       },
       "bikeshare|outbound|left": {
         "name": "Bikeshare station",
+        "nameKey": "bikeshare-station",
         "minWidth": 7,
         "maxWidth": 10,
         "graphics": {
@@ -626,6 +657,7 @@
       },
       "bikeshare|outbound|right": {
         "name": "Bikeshare station",
+        "nameKey": "bikeshare-station",
         "minWidth": 7,
         "maxWidth": 10,
         "graphics": {
@@ -636,6 +668,7 @@
       },
       "foodtruck|inbound|left": {
         "name": "Food truck",
+        "nameKey": "foodtruck",
         "minWidth": 7,
         "maxWidth": 10,
         "graphics": {
@@ -646,6 +679,7 @@
       },
       "foodtruck|inbound|right": {
         "name": "Food truck",
+        "nameKey": "foodtruck",
         "minWidth": 7,
         "maxWidth": 10,
         "graphics": {
@@ -656,6 +690,7 @@
       },
       "foodtruck|outbound|left": {
         "name": "Food truck",
+        "nameKey": "foodtruck",
         "minWidth": 7,
         "maxWidth": 10,
         "graphics": {
@@ -666,6 +701,7 @@
       },
       "foodtruck|outbound|right": {
         "name": "Food truck",
+        "nameKey": "foodtruck",
         "minWidth": 7,
         "maxWidth": 10,
         "graphics": {
@@ -678,6 +714,7 @@
   },
   "flex-zone-curb": {
     "name": "Pick up / drop off waiting area",
+    "nameKey": "flex-zone-curb",
     "owner": "FLEX",
     "zIndex": 3,
     "defaultWidth": 4,
@@ -900,6 +937,7 @@
   },
   "parking-lane": {
     "name": "Parking lane",
+    "nameKey": "parking-lane",
     "owner": "CAR",
     "zIndex": 13,
     "defaultWidth": 7,
@@ -952,6 +990,7 @@
       },
       "sideways|left": {
         "name": "Perpendicular parking",
+        "nameKey": "perpendicular-parking",
         "minWidth": 14,
         "maxWidth": 20,
         "graphics": {
@@ -961,6 +1000,7 @@
       },
       "sideways|right": {
         "name": "Perpendicular parking",
+        "nameKey": "perpendicular-parking",
         "minWidth": 14,
         "maxWidth": 20,
         "graphics": {
@@ -970,6 +1010,7 @@
       },
       "angled-front-left|left": {
         "name": "Angled parking",
+        "nameKey": "angled-parking",
         "minWidth": 14,
         "maxWidth": 18,
         "graphics": {
@@ -979,6 +1020,7 @@
       },
       "angled-front-right|left": {
         "name": "Angled parking",
+        "nameKey": "angled-parking",
         "minWidth": 14,
         "maxWidth": 18,
         "graphics": {
@@ -988,6 +1030,7 @@
       },
       "angled-rear-left|left": {
         "name": "Angled parking",
+        "nameKey": "angled-parking",
         "minWidth": 14,
         "maxWidth": 18,
         "graphics": {
@@ -997,6 +1040,7 @@
       },
       "angled-rear-right|left": {
         "name": "Angled parking",
+        "nameKey": "angled-parking",
         "minWidth": 14,
         "maxWidth": 18,
         "graphics": {
@@ -1006,6 +1050,7 @@
       },
       "angled-front-left|right": {
         "name": "Angled parking",
+        "nameKey": "angled-parking",
         "minWidth": 14,
         "maxWidth": 18,
         "graphics": {
@@ -1015,6 +1060,7 @@
       },
       "angled-front-right|right": {
         "name": "Angled parking",
+        "nameKey": "angled-parking",
         "minWidth": 14,
         "maxWidth": 18,
         "graphics": {
@@ -1024,6 +1070,7 @@
       },
       "angled-rear-left|right": {
         "name": "Angled parking",
+        "nameKey": "angled-parking",
         "minWidth": 14,
         "maxWidth": 18,
         "graphics": {
@@ -1033,6 +1080,7 @@
       },
       "angled-rear-right|right": {
         "name": "Angled parking",
+        "nameKey": "angled-parking",
         "minWidth": 14,
         "maxWidth": 18,
         "graphics": {
@@ -1044,6 +1092,7 @@
   },
   "drive-lane": {
     "name": "Drive lane",
+    "nameKey": "drive-lane",
     "owner": "CAR",
     "zIndex": 14,
     "defaultWidth": 10,
@@ -1076,6 +1125,7 @@
       },
       "inbound|sharrow": {
         "name": "Sharrow",
+        "nameKey": "sharrow",
         "minWidth": 12,
         "maxWidth": 14,
         "defaultWidth": 14,
@@ -1101,6 +1151,7 @@
       },
       "outbound|sharrow": {
         "name": "Sharrow",
+        "nameKey": "sharrow",
         "minWidth": 12,
         "maxWidth": 14,
         "defaultWidth": 14,
@@ -1150,6 +1201,7 @@
   },
   "turn-lane": {
     "name": "Turn lane",
+    "nameKey": "turn-lane",
     "owner": "CAR",
     "zIndex": 13,
     "defaultWidth": 10,
@@ -1182,6 +1234,7 @@
       },
       "inbound|straight": {
         "name": "No turn lane",
+        "nameKey": "turn-lane-straight",
         "minWidth": 9,
         "maxWidth": 12,
         "graphics": {
@@ -1227,6 +1280,7 @@
       },
       "inbound|shared": {
         "name": "Center turn lane",
+        "nameKey": "turn-lane-center",
         "minWidth": 9,
         "maxWidth": 12,
         "graphics": {
@@ -1260,6 +1314,7 @@
       },
       "outbound|straight": {
         "name": "No turn lane",
+        "nameKey": "turn-lane-straight",
         "minWidth": 9,
         "maxWidth": 12,
         "graphics": {
@@ -1305,6 +1360,7 @@
       },
       "outbound|shared": {
         "name": "Center turn lane",
+        "nameKey": "turn-lane-center",
         "minWidth": 10,
         "maxWidth": 16,
         "defaultWidth": 12,
@@ -1319,6 +1375,7 @@
   },
   "bus-lane": {
     "name": "Bus lane",
+    "nameKey": "bus-lane",
     "owner": "TRANSIT",
     "zIndex": 15,
     "defaultWidth": 12,
@@ -1373,6 +1430,7 @@
       },
       "inbound|shared": {
         "name": "Shared bus/bike lane",
+        "nameKey": "bus-lane-shared",
         "minWidth": 12,
         "maxWidth": 14,
         "defaultWidth": 14,
@@ -1392,6 +1450,7 @@
       },
       "outbound|shared": {
         "name": "Shared bus/bike lane",
+        "nameKey": "bus-lane-shared",
         "minWidth": 12,
         "maxWidth": 14,
         "defaultWidth": 14,
@@ -1413,6 +1472,7 @@
   },
   "streetcar": {
     "name": "Streetcar",
+    "nameKey": "streetcar",
     "owner": "TRANSIT",
     "zIndex": 15,
     "defaultWidth": 12,
@@ -1473,6 +1533,7 @@
   },
   "light-rail": {
     "name": "Light rail",
+    "nameKey": "light-rail",
     "owner": "TRANSIT",
     "zIndex": 15,
     "defaultWidth": 12,
@@ -1545,6 +1606,7 @@
   },
   "transit-shelter": {
     "name": "Transit shelter",
+    "nameKey": "transit-shelter",
     "owner": "TRANSIT",
     "zIndex": 20,
     "defaultWidth": 9,
@@ -1608,6 +1670,7 @@
   },
   "train": {
     "name": "“Inception” train",
+    "nameKey": "inception-train",
     "owner": "TRANSIT",
     "zIndex": 10,
     "defaultWidth": 14,
