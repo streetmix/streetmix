@@ -44,12 +44,14 @@ export default function DateTimeRelative (props) {
         id="datetime.yesterday"
         defaultMessage="Yesterday at {time}"
         values={{
-          time: <FormattedTime
-            timeZone={props.timezone}
-            value={props.value}
-            hour="numeric"
-            minute="numeric"
-          />
+          time: <time dateTime={props.value} title={props.value}>
+            <FormattedTime
+              timeZone={props.timezone}
+              value={props.value}
+              hour="numeric"
+              minute="numeric"
+            />
+          </time>
         }}
       />
     )
@@ -57,21 +59,25 @@ export default function DateTimeRelative (props) {
 
   if (now.isSame(date, 'year')) {
     return (
-      <FormattedDate
-        value={props.value}
-        month="long"
-        day="numeric"
-      />
+      <time dateTime={props.value} title={props.value}>
+        <FormattedDate
+          value={props.value}
+          month="long"
+          day="numeric"
+        />
+      </time>
     )
   }
 
   return (
-    <FormattedDate
-      value={props.value}
-      year="numeric"
-      month="long"
-      day="numeric"
-    />
+    <time dateTime={props.value} title={props.value}>
+      <FormattedDate
+        value={props.value}
+        year="numeric"
+        month="long"
+        day="numeric"
+      />
+    </time>
   )
 }
 
