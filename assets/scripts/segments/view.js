@@ -340,21 +340,13 @@ export function localizeStreetSegments () {
 }
 
 function getLocaleSegmentName (type, variantString) {
-  let key = 'segments.' + type
-  let name
-
   const segmentInfo = getSegmentInfo(type)
   const variantInfo = getSegmentVariantInfo(type, variantString)
+  const defaultName = variantInfo.name || segmentInfo.name
+  const nameKey = variantInfo.nameKey || segmentInfo.nameKey
+  const key = `segments.${nameKey}`
 
-  if (variantInfo.name) {
-    key += '.details.' + variantString + '.name'
-    name = t(key, variantInfo.name, { ns: 'segment-info' })
-  } else {
-    key += '.name'
-    name = t(key, segmentInfo.name, { ns: 'segment-info' })
-  }
-
-  return name
+  return t(key, defaultName, { ns: 'segment-info' })
 }
 
 export function createSegment (type, variantString, width, isUnmovable, palette, randSeed) {

@@ -80,12 +80,12 @@ class Segment extends React.Component {
     const segmentInfo = getSegmentInfo(this.props.type)
     const variantInfo = getSegmentVariantInfo(this.props.type, this.props.variantString)
     const defaultName = variantInfo.name || segmentInfo.name // the name to display if there isn't a localized version of it
+    const nameKey = variantInfo.nameKey || segmentInfo.nameKey
 
     // Get localized names from store, fall back to segment default names if translated
     // text is not found. TODO: port to react-intl/formatMessage later.
-    const localizedVariantName = t(`segments.${this.props.type}.details.${this.props.variantString}.name`, null, { ns: 'segment-info' })
-    const localizedSegmentName = t(`segments.${this.props.type}.name`, defaultName, { ns: 'segment-info' })
-    const displayName = localizedVariantName || localizedSegmentName
+    const displayName = t(`segments.${nameKey}`, defaultName, { ns: 'segment-info' })
+    const localizedSegmentName = t(`segments.${segmentInfo.nameKey}`, defaultName, { ns: 'segment-info' })
 
     const width = this.calculateWidth(RESIZE_TYPE_INITIAL)
     const segmentWidth = this.props.width // may need to double check this. setSegmentContents() was called with other widths
