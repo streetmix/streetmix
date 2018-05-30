@@ -339,7 +339,7 @@ export function localizeStreetSegments () {
   })
 }
 
-function getLocaleSegmentName (type, variantString) {
+export function getLocaleSegmentName (type, variantString) {
   const segmentInfo = getSegmentInfo(type)
   const variantInfo = getSegmentVariantInfo(type, variantString)
   const defaultName = variantInfo.name || segmentInfo.name
