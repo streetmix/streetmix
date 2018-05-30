@@ -253,6 +253,9 @@
     "learn-more": "Apprenez en davantage",
     "unknown": {
       "label": "Inconnu"
+    },
+    "description": {
+      "photo-credit": "Photo :"
     }
   },
   "section": {
@@ -265,14 +268,15 @@
     "delete-street-tooltip": "Supprimer la rue",
     "street-count": "{count, plural, one {# rue} other {# rues}}",
     "no-streets": "Aucune rue pour le moment",
-    "sign-in": "Se connecter à Twitter pour votre galerie de rues personnelle"
+    "sign-in": "Se connecter à Twitter pour avoir accès à votre galerie de rues personnelles"
   },
   "users": {
     "anonymous": "Anonyme",
     "byline": "par {user}"
   },
   "meta": {
-    "description": "Concevez, remixez et partagez la rue de votre quartier - le tout dans votre navigateur ! Ajoutez des arbres ou des pistes cyclables, élargissez des trottoirs ou des routes. Découvrez comment vos décisions peuvent impacter votre communauté."
+    "description": "Concevez, remixez et partagez la rue de votre quartier - le tout dans votre navigateur ! Ajoutez des arbres ou des pistes cyclables, élargissez des trottoirs ou des routes. Découvrez comment vos décisions peuvent impacter votre communauté.",
+    "page-title": "{streetName}(par {author})"
   },
   "i18n": {
     "lang": {

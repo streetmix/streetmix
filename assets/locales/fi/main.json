@@ -253,6 +253,9 @@
     "learn-more": "Lue lisää",
     "unknown": {
       "label": "Ei tiedossa"
+    },
+    "description": {
+      "photo-credit": ""
     }
   },
   "section": {
@@ -272,7 +275,8 @@
     "byline": "käyttäjältä {user}"
   },
   "meta": {
-    "description": "Suunnittele, muokkaa ja jaa kotikatusi verkkoselaimella! Lisää kadullesi kaikkea puista pyöräteihin tai levennä katusi jalkakäytäviä ja ajoratoja. Samalla näet, miten muutokset vaikuttavat liikenteeseen."
+    "description": "Suunnittele, muokkaa ja jaa kotikatusi verkkoselaimella! Lisää kadullesi kaikkea puista pyöräteihin tai levennä katusi jalkakäytäviä ja ajoratoja. Samalla näet, miten muutokset vaikuttavat liikenteeseen.",
+    "page-title": ""
   },
   "i18n": {
     "lang": {

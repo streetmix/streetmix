@@ -12,7 +12,8 @@ import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
 import { TILE_SIZE } from '../segments/constants'
 import {
   getVariantInfoDimensions,
-  drawSegmentContents
+  drawSegmentContents,
+  getLocaleSegmentName
 } from '../segments/view'
 import { t } from '../app/locale'
 
@@ -160,8 +161,6 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
     for (let i in street.segments) {
       const segment = street.segments[i]
-      const segmentInfo = getSegmentInfo(segment.type)
-      const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
       const availableWidth = segment.width * TILE_SIZE * multiplier
 
       let left = offsetLeft
@@ -185,7 +184,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
       ctx.fillText(text, x,
         (groundLevel + (60 * multiplier)) * dpi)
 
-      const name = variantInfo.name || segmentInfo.name
+      const name = getLocaleSegmentName(segment.type, segment.variantString)
       const nameWidth = ctx.measureText(name).width / 2
       if (nameWidth <= availableWidth - (10 * multiplier)) {
         ctx.fillText(name, x,

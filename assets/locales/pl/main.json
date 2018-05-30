@@ -20,7 +20,7 @@
       "change": "Zmień szerokość wskazanego segmentu<br />(przytrzymaj <kbd class='key'>Shift</kbd> dla zwiększenia precyzji)"
     },
     "share": {
-      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Zarejestruj się przez Twitter</a> dla lepszych linków do projektów Twoich ulic i Twojej galerii ulic",
+      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Zarejestruj się przez Twittera</a> dla lepszych linków do projektów Twoich ulic i Twojej galerii ulic",
       "link": "Skopiuj i wklej ten link, aby go udostępnić:",
       "twitter": "Udostępnij na Twitterze",
       "facebook": "Udostępnij na Facebooku",
@@ -28,12 +28,12 @@
       "save": "Zapisz jako obrazek…",
       "save-byline": "Dla włączenia do raportu, bloga itp.",
       "messages": {
-        "my-street": "",
-        "my-street-unnamed": "",
-        "someone-elses-street": "",
-        "someone-elses-street-unnamed": "",
-        "anonymous-creator-street": "",
-        "anonymous-creator-street-unnamed": ""
+        "my-street": "Sprawdź moją ulicę, {streetName}, na Streetmiksie!",
+        "my-street-unnamed": "Sprawdź moją ulicę na Streetmiksie!",
+        "someone-elses-street": "Sprawdź ulicę {streetName}stworzoną przez {streetCreator}na Streetmiksie!",
+        "someone-elses-street-unnamed": "Sprawdź tę ulicę stworzoną przez {streetCreator}na Streetmiksie!",
+        "anonymous-creator-street": "Sprawdź ulicę {streetName}na Streetmiksie!",
+        "anonymous-creator-street-unnamed": "Sprawdź to na Streetmiksie!"
       }
     },
     "contact": {
@@ -45,9 +45,9 @@
       "slack": "Dołącz do rozmów na Slacku"
     },
     "contribute": {
-      "donate": "Darowizna",
-      "stickers": "",
-      "opensource": ""
+      "donate": "Dołóż swój wkład",
+      "stickers": "Kup naklejki!",
+      "opensource": "Współtwórz otwarte oprogramowanie"
     },
     "feedback": {
       "prompt": "Napisz do nas:",
@@ -63,19 +63,19 @@
   },
   "msg": {
     "loading": "Ładuję…",
-    "remixing": "",
+    "remixing": "Zmieniam...",
     "having-trouble": "Chwilowe problemy…",
     "no-street": "Nie wybrano żadnej ulicy.",
     "trouble-loading": "Mamy chwilowy problem z załadowaniem Streetmix.",
     "slow-connection-1": "Streetmix nie był w stanie połączyć się z Internetem przez dłuższą chwilę.",
     "slow-connection-2": "Najlepiej odśwież stronę i spróbuj ponownie. Niestety możliwe, że stracisz ostatnie zmiany. Przepraszamy!",
     "no-connection": "Streetmix nie może się połączyć z Internetem.",
-    "more-info": ""
+    "more-info": "Więcej informacji"
   },
   "error": {
     "button": {
       "home": "Idź do strony głównej",
-      "sign-in": "",
+      "sign-in": "Zaloguj się ponownie",
       "reload": "Odśwież stronę",
       "try-again": "Spróbuj ponownie",
       "view-example": "Obejrzyj przykładową ulicę"
@@ -88,11 +88,11 @@
     "street-deleted-title": "Ta ulica została usunięta.",
     "street-deleted-description": "Brak ulicy z takim odnośnikiem! Możesz poszukać innych ulic użytkownika{user}",
     "sign-out-title": "Użytkownik został wylogowany.",
-    "reload-sign-out-title": "",
+    "reload-sign-out-title": "Użytkownik został wylogowany w innym oknie.",
     "gallery-street-failure-description": "Mamy problem z załadowaniem tej ulicy. ",
-    "reload-sign-in-title": "",
-    "please-reload": "",
-    "street-deleted-elsewhere-title": "",
+    "reload-sign-in-title": "Użytkownik został zalogowany w innym oknie.",
+    "please-reload": "Odśwież stronę, zanim będziesz kontynuować. ",
+    "street-deleted-elsewhere-title": "Ta ulica została usunięta w innym miejscu. ",
     "street-deleted-elsewhere-description": "Ta ulica została usunięta w innej przeglądarce.",
     "twitter-access-denied-title": "Użytkownik nie jest zalogowany.",
     "twitter-access-denied-description": "Proces rejestracji poprzez konto na Twitterze został przerwany.",
@@ -100,11 +100,11 @@
     "auth-api-problem-description": "Wystąpił problem podczas weryfikacji przy użyciu konta Twitter.",
     "please-try-again": "Spróbuj ponownie później lub daj nam znać poprzez <a target='_blank' rel='noopener noreferrer' href='{email}'>email</a> lub <a target='_blank' rel='noopener noreferrer' href='{tweet}'>Twittera</a>.",
     "unsupported-browser-title": "Streetmix nie działa na Twojej przeglądarce.",
-    "unsupported-browser-description": "",
+    "unsupported-browser-description": "Przepraszamy za to. Możesz spróbować na przeglądarce <a target='_blank' rel='noopener noreferrer' href='{chromeUrl}'>Chrome</a>, <a target='_blank' rel='noopener noreferrer' href='{mozillaUrl}'>Firefox</a>, <a target='_blank' rel='noopener noreferrer' href='{edgeUrl}'>Microsoft Edge</a> lub Safari.",
     "unsupported-browser-internet-explorer": "Używasz przeglądarki Internet Explorer? <a target='_blank' rel='noopener noreferrer' href='{readmeIEUrl}'>Dowiedz się więcej.</a>",
     "unsupported-browser-contact-us": "Jeśli uważasz, że Twoja przeglądarka powinna być wspierana, skontaktuj się z nami poprzez <a target='_blank' rel='noopener noreferrer' href='{email}'>email</a>.",
     "cannot-create-new-street-on-phone-title": "Streetmix działa tylko na tabletach oraz komputerach.",
-    "cannot-create-new-street-on-phone-description": "",
+    "cannot-create-new-street-on-phone-description": "Jeśli został otwarty inny link do określonej ulicy, możesz ją obejrzeć na telefonie, ale nie możesz tworzyć nowych ulic. ",
     "generic-error-title": "Coś poszło nie tak.",
     "generic-error-description": "Przepraszamy, coś poszło nie tak.",
     "error-code": "(Błąd {code}.)"
@@ -124,7 +124,7 @@
   "dialogs": {
     "error": {
       "heading": "Oops!",
-      "text": ""
+      "text": "Wydarzyło się coś nieprzewidzianego. Zarejestrowaliśmy błąd, lecz jeśli znasz kroki do jego reprodukcji, <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\" rel=\"noopener noreferrer\">napisz nam o tym</a>. Może to być także jednorazowy błąd, dlatego spróbuj jeszcze raz za chwilę. "
     },
     "welcome": {
       "heading": "Witaj w Streetmix.",
@@ -156,7 +156,7 @@
       "view-source": "Zobacz kod źródłowy",
       "sponsored-by": "Streetmix jest hojnie wspierany przez:",
       "donate-link": "Wesprzyj nas finansowo",
-      "github-link": ""
+      "github-link": "Współtwórz otwarte oprogramowanie"
     },
     "save": {
       "heading": "Zapisz jako obrazek",
@@ -172,7 +172,7 @@
     },
     "geotag": {
       "search": "Szukaj lokalizacji",
-      "clear-search": "",
+      "clear-search": "Wyczyść wyszukiwarkę",
       "zoom-in": "Przybliż",
       "zoom-out": "Oddal",
       "add-location": "Dodaj lokalizację",
@@ -183,7 +183,7 @@
     "donate": {
       "heading": "Streetmix potrzebuje Twojej pomocy!",
       "lede": "Streetmix jest projektem wspieranym przez społeczność. W odróżnieniu od innych, \"darmowych\" usług w internecie, nie wyświetlamy reklam oraz nie używamy kodu śledzącego, który może nadużywać Twoją prywatność. Liczymy na Twoje wsparcie, by Streetmix mógł funkcjonować.",
-      "text": "",
+      "text": "Rozważ proszę jednorazowe lub cykliczne wspieranie nas. Twoja darowizna pomoże nam na opłaty serwerowe oraz infrastruktury w chmurze, inne wydatki non-profit, grupy interesariuszy oraz studentów wspierających nasze ulice. Dodatkowo przychód będzie inwestowany w tworzenie dodatkowych funkcji. Nasze wydatki są w pełni transparentne, dlatego możesz sprawdzić, jak Twoja darowizna jest wykorzystywana przez Streetmix.",
       "button": "Przekaż darowiznę na Streetmix",
       "cancel": "Nie, dziękuję"
     }
@@ -197,19 +197,19 @@
     "segment-deleted": "Segment został usunięty.",
     "all-segments-deleted": "Wszystkie segmenty zostały usunięte.",
     "no-undo": "Nie można cofnąć.",
-    "no-redo": "",
+    "no-redo": "Nie ma nic do cofnięcia",
     "no-save": "Nie musisz sam zapisywać stanu - Streetmix zrobi to automatycznie za Ciebie!",
     "remixing": "Edytowanie nowo utworzonej kopii z oryginalnej ulicy. Duplikat został dodany do Twojej galerii.",
     "remixing-sign-in": "Edytowanie nowo utworzonej kopii z oryginalnej ulicy. Zaloguj się, by rozpocząć tworzenie własnych ulic.",
-    "reloaded": ""
+    "reloaded": "Twoja ulica została załadowana ponownie ponieważ została zmodyfikowana w innym miejscu."
   },
   "palette": {
     "remove": "Przeciągnij tutaj, aby usunąć"
   },
   "width": {
     "label": "{width}szerokość",
-    "under": "",
-    "over": "",
+    "under": "({width}pokój)",
+    "over": "({width}ponad)",
     "occupied": "Zagospodarowana szerokość:",
     "building": "Odległość między budynkami:",
     "different": "Inna szerokość…",
@@ -238,11 +238,11 @@
     "remove-floor": "Usuń piętro"
   },
   "street": {
-    "default-name": "",
+    "default-name": "Ulica bez nazwy",
     "rename": "Kliknij, by zmienić nazwę"
   },
   "building": {
-    "floors-count": "{count, plural, one {} few {} many {} other {}}"
+    "floors-count": "{count, plural, one {# piętro} few {# piętra} many {# piętra} other {# piętra}}"
   },
   "segments": {
     "warnings": {
@@ -253,6 +253,9 @@
     "learn-more": "Dowiedz się więcej",
     "unknown": {
       "label": "Nieznany"
+    },
+    "description": {
+      "photo-credit": "Zdjęcie:"
     }
   },
   "section": {
@@ -263,7 +266,7 @@
     "all": "Wszystkie ulice",
     "twitter-link": "Profil na Twitterze",
     "delete-street-tooltip": "Usuń ulicę",
-    "street-count": "{count, plural, one {} few {} many {} other {}}",
+    "street-count": "{count, plural, one {# ulica} few {# ulic} many {# ulic} other {# ulic}}",
     "no-streets": "Jak dotąd brak ulic",
     "sign-in": "Zaloguj się przez Twitter dla Twojej galerii ulicy"
   },
@@ -272,7 +275,8 @@
     "byline": "przez {user}"
   },
   "meta": {
-    "description": "Projektuj, zmieniaj i udostępniaj projekty ulic ze swojego sąsiedztwa - wszystko w przeglądarce! Sadź drzewa, dodawaj ścieżki rowerowe, poszerzaj chodniki lub jezdnie,. Zobacz, jak Twoje decyzje wpłyną na lokalną społeczność."
+    "description": "Projektuj, zmieniaj i udostępniaj projekty ulic ze swojego sąsiedztwa - wszystko w przeglądarce! Sadź drzewa, dodawaj ścieżki rowerowe, poszerzaj chodniki lub jezdnie,. Zobacz, jak Twoje decyzje wpłyną na lokalną społeczność.",
+    "page-title": "{streetName}(stworzona przez {author})"
   },
   "i18n": {
     "lang": {
@@ -283,7 +287,7 @@
       "es-mx": "Hiszpański (Meksyk)",
       "fi": "Fiński",
       "fr": "Francuski",
-      "ja": "",
+      "ja": "Japoński",
       "pl": "Polski",
       "pt-br": "Portugalski (Brazylia)",
       "sv": "Szwedzki",

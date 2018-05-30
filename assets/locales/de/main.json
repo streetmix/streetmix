@@ -253,6 +253,9 @@
     "learn-more": "",
     "unknown": {
       "label": ""
+    },
+    "description": {
+      "photo-credit": ""
     }
   },
   "section": {
@@ -272,7 +275,8 @@
     "byline": ""
   },
   "meta": {
-    "description": ""
+    "description": "",
+    "page-title": ""
   },
   "i18n": {
     "lang": {

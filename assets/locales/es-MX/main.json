@@ -21,9 +21,9 @@
     },
     "share": {
       "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'> Ingresar a Twitter</a> para tener mejores enlaces a tus calles y a tu galería de calles",
-      "link": "Copia y pega este enlace para compartir:",
-      "twitter": "Comparte usando Twitter",
-      "facebook": "Comparte usando Facebook",
+      "link": "Copiar y pegar este enlace para compartir:",
+      "twitter": "Compartir usando Twitter",
+      "facebook": "Compartir usando Facebook",
       "print": "Imprimir…",
       "save": "Guardar como imagen…",
       "save-byline": "Para incluir en un reporte, blog, etc.",
@@ -39,10 +39,10 @@
     "contact": {
       "forums": "Discutir en los foros",
       "twitter": "Mandar un tweet a @streetmix",
-      "email": "Envía un correo electrónico al equipo de Streetmix",
+      "email": "Enviar un correo electrónico al equipo de Streetmix",
       "github": "Ver el código fuente en GitHub",
-      "blog": "Visita el blog de Streetmix",
-      "slack": "Únete al chat de Slack"
+      "blog": "Visitar el blog de Streetmix",
+      "slack": "Unirte al chat de Slack"
     },
     "contribute": {
       "donate": "Donar",
@@ -50,7 +50,7 @@
       "opensource": "Contribuir al código abierto"
     },
     "feedback": {
-      "prompt": "Envíanos un mensaje:",
+      "prompt": "Enviarnos un mensaje:",
       "message-placeholder": "¿Qué opinas de Streetmix?",
       "email-placeholder": "Tu email (opcional)",
       "send": "Mandar un mensaje",
@@ -76,7 +76,7 @@
     "button": {
       "home": "Ir a la página principal",
       "sign-in": "Ingresar de nuevo",
-      "reload": "Recargar la página",
+      "reload": "Recarga la página",
       "try-again": "Intenta de nuevo",
       "view-example": "Ver una calle ejemplo"
     },
@@ -138,14 +138,14 @@
         "intro": "Esta es {streetName} hecha por {creator}.",
         "intro-without-creator": "Ésta es {streetName}.",
         "instruct": "Remézclala moviendo algunos segmentos, o {startYourOwnStreet}.",
-        "instruct-start-own-street": "Comienza tu propia calle"
+        "instruct-start-own-street": "Comenzar tu propia calle"
       }
     },
     "new-street": {
       "heading": "Aquí está tu calle nueva.",
-      "default": "Empieza con una calle ejemplo",
-      "empty": "Comienza con una calle vacía",
-      "last": "Comienza con una copia de la ultima calle"
+      "default": "Empezar con una calle ejemplo",
+      "empty": "Comenzar con una calle vacía",
+      "last": "Comenzar con una copia de la ultima calle"
     },
     "about": {
       "heading": "Acerca de Streetmix.",
@@ -164,7 +164,7 @@
       "option-name": "Nombre de la calle",
       "option-sky": "Cielo transparente",
       "loading": "Cargando…",
-      "save-button": "Guarda a tu computadora…",
+      "save-button": "Guardar a tu computadora…",
       "license": "Esta imagen-creada-por-Streetmix puede ser reusada en cualquier otra parte, por culaquier otro uso, bajo <br><a href='{url}'>la Licencia Internacional Creative Commons Attribution-ShareAlike 4.0</a>.",
       "error-preview": "Hubo un error al visualizar una imagen de vista previa.",
       "error-unavailable": "No se puede guardar imagen en este navegador de internet.",
@@ -204,7 +204,7 @@
     "reloaded": "Su calle fue recargada porque fue modificada en otro lugar."
   },
   "palette": {
-    "remove": "Jala aquí para eliminar"
+    "remove": "Jalar aquí para eliminar"
   },
   "width": {
     "label": "{width} ancho",
@@ -213,7 +213,7 @@
     "occupied": "Ancho ocupado:",
     "building": "Distancia de fachada a fachada:",
     "different": "Ancho diferente…",
-    "metric": "Cambia a unidades metricas",
+    "metric": "Cambiar a unidades métricas",
     "imperial": "Cambiar a unidades inglesas (pies)"
   },
   "datetime": {
@@ -229,11 +229,11 @@
   "tooltip": {
     "remove-segment": "Remover el segmento",
     "delete-street": "Eliminar calle",
-    "segment-width": "Cambia el ancho del segmento",
-    "building-height": "Cambia el numero de niveles",
-    "street-width": "Cambia el ancho de la calle",
-    "increase-width": "Aumenta el ancho (mantén presionada Mayús para mayor precisión)",
-    "decrease-width": "Reduce el ancho (mantén presionada Mayús para mayor precisión)",
+    "segment-width": "Cambiar el ancho del segmento",
+    "building-height": "Cambiar el numero de niveles",
+    "street-width": "Cambiar el ancho de la calle",
+    "increase-width": "Aumentar el ancho (mantén presionada Mayús para mayor precisión)",
+    "decrease-width": "Reducir el ancho (mantén presionada Mayús para mayor precisión)",
     "add-floor": "Adherir piso",
     "remove-floor": "Remover piso"
   },
@@ -253,6 +253,9 @@
     "learn-more": "Aprender más",
     "unknown": {
       "label": "Desconocido"
+    },
+    "description": {
+      "photo-credit": "Foto:"
     }
   },
   "section": {
@@ -272,7 +275,8 @@
     "byline": "por {user}"
   },
   "meta": {
-    "description": "Diseña, remezcla, y comparte la calle de tu rumbo -- ¡todo dentro de tu navegador! Adhiere arboles o líneas de bici, haz las calles o banquetas mas anchas, aprende como tus decisiones impactan a tu comunidad."
+    "description": "Diseña, remezcla, y comparte la calle de tu rumbo -- ¡todo dentro de tu navegador! Adhiere arboles o líneas de bici, haz las calles o banquetas mas anchas, aprende como tus decisiones impactan a tu comunidad.",
+    "page-title": "{streetName} (por {author})"
   },
   "i18n": {
     "lang": {
