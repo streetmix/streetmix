@@ -125,45 +125,25 @@ class Segment extends React.Component {
     })
   }
 
-  renderSegmentCanvas = (canvasWidth, canvasHeight, canvasStyle) => {
-    const { oldSegmentEnter, newSegmentEnter } = this.state
-    const segmentCanvas = (
+  renderSegmentCanvas = (width, variantInfo, segment) => {
+    const isOldSegment = (segment === 'old')
+
+    const multiplier = this.props.forPalette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1
+    const dimensions = getVariantInfoDimensions(variantInfo, this.props.width, multiplier)
+    const totalWidth = dimensions.right - dimensions.left
+    // Canvas width and height must fit the div width in the palette to prevent extra right padding
+    const canvasWidth = this.props.forPalette ? width * this.props.dpi : totalWidth * TILE_SIZE * this.props.dpi
+    const canvasHeight = CANVAS_BASELINE * this.props.dpi
+    const canvasStyle = {
+      width: this.props.forPalette ? width : totalWidth * TILE_SIZE,
+      height: CANVAS_BASELINE,
+      left: (dimensions.left * TILE_SIZE * multiplier)
+    }
+    return (
       <div>
-        <canvas className="image" ref={(ref) => { this.segmentCanvas = ref }} width={canvasWidth} height={canvasHeight} style={canvasStyle} />
+        <canvas className="image" ref={(ref) => { this.changeRefs(ref, isOldSegment) }} width={canvasWidth} height={canvasHeight} style={canvasStyle} />
         <div className="hover-bk" />
       </div>
-    )
-
-    if (this.props.forPalette) return segmentCanvas
-
-    return (
-      <React.Fragment>
-        <CSSTransition
-          key="old-segment"
-          in={oldSegmentEnter}
-          timeout={250}
-          classNames="switching-away"
-          unmountOnExit
-        >
-          <div>
-            <canvas className="image" ref={(ref) => { this.changeRefs(ref, true) }} width={canvasWidth} height={canvasHeight} style={canvasStyle} />
-            <div className="hover-bk" />
-          </div>
-        </CSSTransition>
-        <CSSTransition
-          key="new-segment"
-          in={newSegmentEnter}
-          timeout={250}
-          classNames="switching-in"
-          onEntered={this.switchSegments}
-          unmountOnExit
-        >
-          <div>
-            <canvas className="image" ref={(ref) => { this.changeRefs(ref, false) }} width={canvasWidth} height={canvasHeight} style={canvasStyle} />
-            <div className="hover-bk" />
-          </div>
-        </CSSTransition>
-      </React.Fragment>
     )
   }
 
@@ -181,19 +161,6 @@ class Segment extends React.Component {
     const width = this.calculateWidth(RESIZE_TYPE_INITIAL)
     const segmentWidth = this.props.width // may need to double check this. setSegmentContents() was called with other widths
     const widthValue = segmentWidth / TILE_SIZE
-
-    const multiplier = this.props.forPalette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1
-    const dimensions = getVariantInfoDimensions(variantInfo, segmentWidth, multiplier)
-    const totalWidth = dimensions.right - dimensions.left
-
-    // Canvas width and height must fit the div width in the palette to prevent extra right padding
-    const canvasWidth = this.props.forPalette ? width * this.props.dpi : totalWidth * TILE_SIZE * this.props.dpi
-    const canvasHeight = CANVAS_BASELINE * this.props.dpi
-    const canvasStyle = {
-      width: this.props.forPalette ? width : totalWidth * TILE_SIZE,
-      height: CANVAS_BASELINE,
-      left: (dimensions.left * TILE_SIZE * multiplier)
-    }
 
     const segmentStyle = {
       width: width + 'px',
@@ -234,7 +201,29 @@ class Segment extends React.Component {
             <span className="grid" />
           </React.Fragment>
         }
-        {this.renderSegmentCanvas(canvasWidth, canvasHeight, canvasStyle)}
+        <React.Fragment>
+          <CSSTransition
+            key="old-segment"
+            in={this.state.oldSegmentEnter}
+            timeout={250}
+            classNames="switching-away"
+            unmountOnExit
+          >
+            {this.renderSegmentCanvas(width, variantInfo, 'old')}
+          </CSSTransition>
+          {!this.props.forPalette &&
+            <CSSTransition
+              key="new-segment"
+              in={this.state.newSegmentEnter}
+              timeout={250}
+              classNames="switching-in"
+              onEntered={this.switchSegments}
+              unmountOnExit
+            >
+              {this.renderSegmentCanvas(width, variantInfo, 'new')}
+            </CSSTransition>
+          }
+        </React.Fragment>
       </div>
     )
   }
