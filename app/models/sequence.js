@@ -1,6 +1,6 @@
-var mongoose = require('mongoose')
+const mongoose = require('mongoose')
 
-var sequenceSchema = new mongoose.Schema({
+const sequenceSchema = new mongoose.Schema({
   _id: { type: String },
   seq: { type: Number, default: 1 }
 })

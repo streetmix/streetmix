@@ -1,20 +1,20 @@
-var async = require('async')
-var config = require('config')
-var uuid = require('uuid')
+const async = require('async')
+const config = require('config')
+const uuid = require('uuid')
 
 require('../../../lib/db.js')
-var Street = require('../../models/street.js')
-var User = require('../../models/user.js')
-var Sequence = require('../../models/sequence.js')
-var logger = require('../../../lib/logger.js')()
+const Street = require('../../models/street.js')
+const User = require('../../models/user.js')
+const Sequence = require('../../models/sequence.js')
+const logger = require('../../../lib/logger.js')()
 
 exports.post = function (req, res) {
-  var street = new Street()
-  var body
+  const street = new Street()
+  let body
 
   street.id = uuid.v1()
 
-  var requestIp = function (req) {
+  const requestIp = function (req) {
     if (req.headers['x-forwarded-for'] !== undefined) {
       return req.headers['x-forwarded-for'].split(', ')[0]
     } else {
@@ -29,15 +29,13 @@ exports.post = function (req, res) {
       res.status(400).send('Could not parse body as JSON.')
       return
     }
-
     // TODO: Validation
-
     street.name = body.name
     street.data = body.data
     street.creator_ip = requestIp(req)
   }
 
-  var handleCreateStreet = function (err, s) {
+  const handleCreateStreet = function (err, s) {
     if (err) {
       logger.error(err)
       res.status(500).send('Could not create street.')
@@ -57,7 +55,7 @@ exports.post = function (req, res) {
     })
   } // END function - handleCreateStreet
 
-  var handleNewStreetNamespacedId = function (err, namespacedId) {
+  const handleNewStreetNamespacedId = function (err, namespacedId) {
     if (err || !namespacedId) {
       logger.error(err)
       res.status(500).send('Could not create new street ID.')
@@ -68,7 +66,7 @@ exports.post = function (req, res) {
     street.save(handleCreateStreet)
   } // END function - handleNewStreetNamespacedId
 
-  var makeNamespacedId = function () {
+  const makeNamespacedId = function () {
     if (street.creator_id) {
       User.findByIdAndUpdate(street.creator_id,
         { $inc: { 'last_street_id': 1 } },
@@ -86,7 +84,7 @@ exports.post = function (req, res) {
     }
   } // END function - makeNamespacedId
 
-  var handleFindStreet = function (err, origStreet) {
+  const handleFindStreet = function (err, origStreet) {
     if (err || !origStreet) {
       res.status(404).send('Original street not found.')
       return
@@ -101,7 +99,7 @@ exports.post = function (req, res) {
     makeNamespacedId()
   } // END function - handleFindStreet
 
-  var saveStreet = function () {
+  const saveStreet = function () {
     if (body && body.originalStreetId) {
       Street.findOne({ id: body.originalStreetId }, handleFindStreet)
     } else {
@@ -109,7 +107,7 @@ exports.post = function (req, res) {
     }
   } // END function - saveStreet
 
-  var handleFindUser = function (err, user) {
+  const handleFindUser = function (err, user) {
     if (err || !user) {
       res.status(401).send('User with that login token not found.')
       return
@@ -127,7 +125,7 @@ exports.post = function (req, res) {
 } // END function - exports.post
 
 exports.delete = function (req, res) {
-  var handleDeleteStreet = function (err, s) {
+  const handleDeleteStreet = function (err, s) {
     if (err) {
       logger.error(err)
       res.status(500).send('Could not delete street.')
@@ -137,7 +135,7 @@ exports.delete = function (req, res) {
     res.status(204).end()
   } // END function - handleDeleteStreet
 
-  var handleFindStreet = function (err, street) {
+  const handleFindStreet = function (err, street) {
     if (err) {
       logger.error(err)
       res.status(500).send('Could not find street.')
@@ -149,7 +147,7 @@ exports.delete = function (req, res) {
       return
     }
 
-    var handleFindUser = function (err, user) {
+    const handleFindUser = function (err, user) {
       if (err) {
         logger.error(err)
         res.status(500).send('Could not find signed-in user.')
@@ -192,7 +190,7 @@ exports.delete = function (req, res) {
 } // END function - exports.delete
 
 exports.get = function (req, res) {
-  var handleFindStreet = function (err, street) {
+  const handleFindStreet = function (err, street) {
     if (err) {
       logger.error(err)
       res.status(500).send('Could not find street.')
@@ -237,12 +235,12 @@ exports.get = function (req, res) {
 } // END function - exports.get
 
 exports.find = function (req, res) {
-  var creatorId = req.query.creatorId
-  var namespacedId = req.query.namespacedId
-  var start = (req.query.start && parseInt(req.query.start, 10)) || 0
-  var count = (req.query.count && parseInt(req.query.count, 10)) || 20
+  const creatorId = req.query.creatorId
+  const namespacedId = req.query.namespacedId
+  const start = (req.query.start && parseInt(req.query.start, 10)) || 0
+  const count = (req.query.count && parseInt(req.query.count, 10)) || 20
 
-  var handleFindStreet = function (err, street) {
+  const handleFindStreet = function (err, street) {
     if (err) {
       logger.error(err)
       res.status(500).send('Could not find street.')
@@ -265,7 +263,7 @@ exports.find = function (req, res) {
     res.status(307).end()
   } // END function - handleFindStreet
 
-  var handleFindUser = function (err, user) {
+  const handleFindUser = function (err, user) {
     if (err || !user) {
       res.status(404).send('Creator not found.')
       return
@@ -274,19 +272,19 @@ exports.find = function (req, res) {
     Street.findOne({ namespaced_id: namespacedId, creator_id: user._id }, handleFindStreet)
   } // END function - handleFindUser
 
-  var handleFindStreets = function (err, results) {
+  const handleFindStreets = function (err, results) {
     if (err) {
       logger.error(err)
       res.status(500).send('Could not find streets.')
       return
     }
 
-    var totalNumStreets = results[0]
-    var streets = results[1]
+    const totalNumStreets = results[0]
+    const streets = results[1]
 
-    var selfUri = config.restapi.baseuri + '/v1/streets?start=' + start + '&count=' + count
+    const selfUri = config.restapi.baseuri + '/v1/streets?start=' + start + '&count=' + count
 
-    var json = {
+    const json = {
       meta: {
         links: {
           self: selfUri
@@ -296,7 +294,7 @@ exports.find = function (req, res) {
     }
 
     if (start > 0) {
-      var prevStart, prevCount
+      let prevStart, prevCount
       if (start >= count) {
         prevStart = start - count
         prevCount = count
@@ -308,7 +306,7 @@ exports.find = function (req, res) {
     }
 
     if (start + streets.length < totalNumStreets) {
-      var nextStart, nextCount
+      let nextStart, nextCount
       nextStart = start + count
       nextCount = Math.min(count, totalNumStreets - start - streets.length)
       json.meta.links.next = config.restapi.baseuri + '/v1/streets?start=' + nextStart + '&count=' + nextCount
@@ -348,7 +346,7 @@ exports.find = function (req, res) {
 } // END function - exports.find
 
 exports.put = function (req, res) {
-  var body
+  let body
 
   if (req.body) {
     try {
@@ -362,7 +360,7 @@ exports.put = function (req, res) {
     return
   }
 
-  var handleUpdateStreet = function (err, street) {
+  const handleUpdateStreet = function (err, street) {
     if (err) {
       logger.error(err)
       res.status(500).send('Could not update street.')
@@ -372,7 +370,7 @@ exports.put = function (req, res) {
     res.status(204).end()
   } // END function - handleUpdateStreet
 
-  var handleFindStreet = function (err, street) {
+  const handleFindStreet = function (err, street) {
     if (err) {
       logger.error(err)
       res.status(500).send('Could not find street.')
@@ -389,7 +387,7 @@ exports.put = function (req, res) {
       return
     }
 
-    var handleFindOriginalStreet = function (err, origStreet) {
+    const handleFindOriginalStreet = function (err, origStreet) {
       if (err || !origStreet) {
         res.status(404).send('Original street not found.')
         return
@@ -399,7 +397,7 @@ exports.put = function (req, res) {
       street.save(handleUpdateStreet)
     } // END function - handleFindOriginalStreet
 
-    var updateStreetData = function () {
+    const updateStreetData = function () {
       street.name = body.name || street.name
       street.data = body.data || street.data
 
@@ -410,7 +408,7 @@ exports.put = function (req, res) {
       }
     } // END function - updateStreetData
 
-    var handleFindUser = function (err, user) {
+    const handleFindUser = function (err, user) {
       if (err) {
         logger.error(err)
         res.status(500).send('Could not find signed-in user.')

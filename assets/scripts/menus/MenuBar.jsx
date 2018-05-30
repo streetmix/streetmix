@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import EnvironmentBadge from './EnvironmentBadge'
-import { URL_SIGN_IN_REDIRECT } from '../app/routing'
+import { goSignIn } from '../app/routing'
 import { showGallery } from '../gallery/view'
 import MenuBarItem from './MenuBarItem'
 import Avatar from '../users/Avatar'
@@ -86,6 +86,10 @@ class MenuBar extends React.PureComponent {
     }}))
   }
 
+  onClickSignIn = (event) => {
+    goSignIn()
+  }
+
   renderUserAvatar = (userId) => {
     return (userId)
       ? (
@@ -95,7 +99,7 @@ class MenuBar extends React.PureComponent {
         </MenuBarItem>
       ) : (
         <MenuBarItem
-          url={`/${URL_SIGN_IN_REDIRECT}`}
+          onClick={this.onClickSignIn}
           translation="menu.item.sign-in"
           label="Sign in"
           requireInternet

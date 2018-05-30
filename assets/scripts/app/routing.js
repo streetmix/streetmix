@@ -1,11 +1,14 @@
-import { URL_SIGN_IN_CALLBACK_REL } from './config'
-
+import { TWITTER_URL_SIGN_IN_CALLBACK_REL, AUTH0_URL_SIGN_IN_CALLBACK_REL, USE_AUTH0 } from './config'
+import Authenticate from '../app/auth0'
 // TODO replace the URLs in index.html dynamically
 const URL_SIGN_IN = 'twitter-sign-in'
 
-const URL_SIGN_IN_CALLBACK_ABS =
-window.location.protocol + '//' + window.location.host + URL_SIGN_IN_CALLBACK_REL
-const URL_SIGN_IN_CALLBACK = URL_SIGN_IN_CALLBACK_REL.replace(/^\//, '')
+const TWITTER_URL_SIGN_IN_CALLBACK_ABS =
+window.location.protocol + '//' + window.location.host + TWITTER_URL_SIGN_IN_CALLBACK_REL
+const TWITTER_URL_SIGN_IN_CALLBACK = TWITTER_URL_SIGN_IN_CALLBACK_REL.replace(/^\//, '')
+
+const AUTH0_URL_SIGN_IN_CALLBACK_ABS =
+window.location.protocol + '//' + window.location.host + AUTH0_URL_SIGN_IN_CALLBACK_REL
 
 const URL_JUST_SIGNED_IN_REL = '/just-signed-in'
 const URL_JUST_SIGNED_IN_ABS =
@@ -27,13 +30,15 @@ export const URL_ERROR_AUTHENTICATION_API_PROBLEM = 'authentication-api-problem'
 
 const URL_EXAMPLE_STREET = 'streetmix/7'
 
-export const URL_SIGN_IN_REDIRECT = URL_SIGN_IN + '?callbackUri=' +
-  URL_SIGN_IN_CALLBACK_ABS + '&redirectUri=' + URL_JUST_SIGNED_IN_ABS
+export const TWITTER_URL_SIGN_IN_REDIRECT = URL_SIGN_IN + '?callbackUri=' +
+  TWITTER_URL_SIGN_IN_CALLBACK_ABS + '&redirectUri=' + URL_JUST_SIGNED_IN_ABS
+
+export const AUTH0_CALLBACK_URL = AUTH0_URL_SIGN_IN_CALLBACK_ABS
 
 // Since URLs like “streetmix.net/new” are reserved, but we still want
 // @new to be able to use Streetmix, we prefix any reserved URLs with ~
 export const RESERVED_URLS = [
-  URL_SIGN_IN, URL_SIGN_IN_CALLBACK,
+  URL_SIGN_IN, TWITTER_URL_SIGN_IN_CALLBACK,
   URL_NEW_STREET, URL_NEW_STREET_COPY_LAST,
   URL_JUST_SIGNED_IN,
   URL_HELP, URL_GLOBAL_GALLERY, URL_ERROR, 'streets'
@@ -66,5 +71,14 @@ export function goCopyLastStreet () {
 }
 
 export function goSignIn () {
-  window.location.href = '/' + URL_SIGN_IN_REDIRECT
+  const auth0 = Authenticate()
+  if (USE_AUTH0) {
+    auth0.authorize({
+      responseType: 'code',
+      connection: 'twitter',
+      redirectUri: AUTH0_CALLBACK_URL
+    })
+  } else {
+    window.location.href = '/' + TWITTER_URL_SIGN_IN_REDIRECT
+  }
 }
