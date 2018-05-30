@@ -3,12 +3,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import EnvironmentBadge from './EnvironmentBadge'
-import { AUTH0_CALLBACK_URL, TWITTER_URL_SIGN_IN_REDIRECT } from '../app/routing'
-import { USE_AUTH0 } from '../app/config'
+import { goSignIn } from '../app/routing'
 import { showGallery } from '../gallery/view'
 import MenuBarItem from './MenuBarItem'
 import Avatar from '../users/Avatar'
-import Authenticate from '../app/auth0'
 
 class MenuBar extends React.PureComponent {
   static propTypes = {
@@ -89,37 +87,7 @@ class MenuBar extends React.PureComponent {
   }
 
   onClickSignIn = (event) => {
-    const auth0 = Authenticate()
-    auth0.authorize({
-      responseType: 'code',
-      connection: 'twitter',
-      redirectUri: AUTH0_CALLBACK_URL
-    })
-  }
-
-  renderSignInMenuItem = () => {
-    if (USE_AUTH0) {
-      return (
-        <MenuBarItem
-          onClick={this.onClickSignIn}
-          translation="menu.item.sign-in"
-          label="Sign in"
-          requireInternet
-          className="command"
-          id="sign-in-link"
-        />
-      )
-    }
-    return (
-      <MenuBarItem
-        url={`/${TWITTER_URL_SIGN_IN_REDIRECT}`}
-        translation="menu.item.sign-in"
-        label="Sign in"
-        requireInternet
-        className="command"
-        id="sign-in-link"
-      />
-    )
+    goSignIn()
   }
 
   renderUserAvatar = (userId) => {
@@ -130,7 +98,14 @@ class MenuBar extends React.PureComponent {
           <span className="user-id">{userId}</span>
         </MenuBarItem>
       ) : (
-        this.renderSignInMenuItem()
+        <MenuBarItem
+          onClick={this.onClickSignIn}
+          translation="menu.item.sign-in"
+          label="Sign in"
+          requireInternet
+          className="command"
+          id="sign-in-link"
+        />
       )
   }
 
