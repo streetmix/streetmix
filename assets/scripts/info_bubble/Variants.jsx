@@ -5,7 +5,6 @@ import { t } from '../app/locale'
 import { getSegmentInfo } from '../segments/info'
 import { VARIANT_ICONS } from '../segments/variant_icons'
 import { getVariantArray } from '../segments/variant_utils'
-import { changeSegmentVariantLegacy } from '../segments/view'
 import {
   INFO_BUBBLE_TYPE_SEGMENT,
   INFO_BUBBLE_TYPE_LEFT_BUILDING,
@@ -91,7 +90,6 @@ class Variants extends React.Component {
       case INFO_BUBBLE_TYPE_SEGMENT:
         handler = (event) => {
           this.props.changeSegmentVariant(this.props.position, set, selection)
-          changeSegmentVariantLegacy(this.props.position, set, selection)
         }
         break
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
