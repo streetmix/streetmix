@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import DescriptionPanel from './DescriptionPanel'
-import { infoBubble } from './info_bubble'
 import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
 import { trackEvent } from '../app/event_tracking'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
@@ -14,14 +13,15 @@ export class Description extends React.Component {
   static propTypes = {
     type: PropTypes.string,
     variantString: PropTypes.string,
+    updateHoverPolygon: PropTypes.func.isRequired,
     updateBubbleDimensions: PropTypes.func.isRequired,
     highlightTriangle: PropTypes.func.isRequired,
     unhighlightTriangle: PropTypes.func.isRequired,
     descriptionVisible: PropTypes.bool.isRequired,
     showDescription: PropTypes.func.isRequired,
     hideDescription: PropTypes.func.isRequired,
-    bubbleY: PropTypes.number,
-    segmentEl: PropTypes.object
+    segmentEl: PropTypes.object,
+    infoBubbleEl: PropTypes.object
   }
 
   onClickShow = () => {
@@ -33,7 +33,7 @@ export class Description extends React.Component {
       this.props.segmentEl.classList.add('hide-drag-handles-when-description-shown')
     }
 
-    infoBubble.updateHoverPolygon()
+    this.props.updateHoverPolygon()
     // end TODO
 
     registerKeypress('esc', this.onClickHide)
@@ -49,7 +49,7 @@ export class Description extends React.Component {
       this.props.segmentEl.classList.remove('hide-drag-handles-when-description-shown')
     }
 
-    infoBubble.updateHoverPolygon()
+    this.props.updateHoverPolygon()
     // end TODO
 
     deregisterKeypress('esc', this.onClickHide)
@@ -94,7 +94,7 @@ export class Description extends React.Component {
   render () {
     const description = this.getDescriptionData(this.props.type, this.props.variantString)
 
-    if (!description) return null
+    if (!description || !this.props.segmentEl || !this.props.infoBubbleEl) return null
 
     // If the description text hasn't been translated, bail.
     const variantDescriptionText = t(`segments.${this.props.type}.details.${this.props.variantString}.description.text`, null, { ns: 'segment-info' })
@@ -135,7 +135,7 @@ export class Description extends React.Component {
           lede={displayLede}
           text={displayDescription}
           caption={displayImageCaption}
-          bubbleY={this.props.bubbleY}
+          bubbleY={Number.parseInt(this.props.infoBubbleEl.style.top)}
         />
       </React.Fragment>
     )
@@ -144,8 +144,7 @@ export class Description extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    descriptionVisible: state.infoBubble.descriptionVisible,
-    bubbleY: state.infoBubble.bubbleY
+    descriptionVisible: state.infoBubble.descriptionVisible
   }
 }
 

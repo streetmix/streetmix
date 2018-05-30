@@ -5,8 +5,7 @@ import {
   UPDATE_HOVER_POLYGON,
   SET_INFO_BUBBLE_MOUSE_INSIDE,
   SHOW_DESCRIPTION,
-  HIDE_DESCRIPTION,
-  SET_INFO_BUBBLE_DIMENSIONS
+  HIDE_DESCRIPTION
 } from '../actions'
 
 export function showInfoBubble () {
@@ -52,12 +51,5 @@ export function showDescription () {
 export function hideDescription () {
   return {
     type: HIDE_DESCRIPTION
-  }
-}
-
-export function setInfoBubbleDimensions (dims) {
-  return {
-    type: SET_INFO_BUBBLE_DIMENSIONS,
-    ...dims
   }
 }
