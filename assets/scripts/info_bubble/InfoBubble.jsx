@@ -490,9 +490,7 @@ class InfoBubble extends React.Component {
         break
     }
 
-    const segment = this.props.street.segments[this.props.dataNo]
-
-    if (!segment) return null
+    const segment = this.props.street.segments[this.props.dataNo] || {}
 
     return (
       <div
