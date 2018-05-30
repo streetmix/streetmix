@@ -253,6 +253,9 @@
     "learn-more": "",
     "unknown": {
       "label": ""
+    },
+    "description": {
+      "photo-credit": ""
     }
   },
   "section": {
@@ -272,7 +275,8 @@
     "byline": ""
   },
   "meta": {
-    "description": "Designa, ändra och dela din gata - allt i din webbläsare! Lägg till träd eller cykelbanor. Bredda gångbanor eller körbanor. Lär hur allt detta kan påverka ditt närområde."
+    "description": "Designa, ändra och dela din gata - allt i din webbläsare! Lägg till träd eller cykelbanor. Bredda gångbanor eller körbanor. Lär hur allt detta kan påverka ditt närområde.",
+    "page-title": ""
   },
   "i18n": {
     "lang": {

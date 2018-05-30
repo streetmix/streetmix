@@ -1,326 +1,100 @@
 {
   "segments": {
-    "sidewalk": {
-      "name": "人行道"
-    },
-    "sidewalk-tree": {
-      "name": "有樹的人行道"
-    },
-    "sidewalk-bike-rack": {
-      "name": "自行車架"
-    },
-    "sidewalk-bench": {
-      "name": "長椅"
-    },
-    "sidewalk-wayfinding": {
-      "name": "尋路標誌",
-      "description": {
-        "prompt": "",
-        "lede": "",
-        "text": [
-          "",
-          "",
-          ""
-        ]
-      }
-    },
-    "sidewalk-lamp": {
-      "name": "有燈的行人道"
+    "sidewalk": "人行道",
+    "sidewalk-tree": "有樹的人行道",
+    "bike-rack": "自行車架",
+    "bench": "長椅",
+    "wayfinding-sign": "尋路標誌",
+    "sidewalk-lamp": "有燈的行人道",
+    "parklet": "停車長椅微型公園",
+    "divider": "禁停區",
+    "planting-strip": "植物",
+    "planter-box": "種花箱",
+    "median": "分隔島",
+    "bollard": "彈力護柱",
+    "dome": "",
+    "bike-lane": "自行車道",
+    "parking-lane": "停車道",
+    "perpendicular-parking": "横的停车位",
+    "angled-parking": "",
+    "flex-zone": "",
+    "taxi-pick-up": "",
+    "rideshare-pick-up": "",
+    "bikeshare-station": "",
+    "foodtruck": "",
+    "flex-zone-curb": "",
+    "drive-lane": "開車道",
+    "sharrow": "",
+    "turn-lane": "轉車道",
+    "turn-lane-straight": "不能轉車的道",
+    "turn-lane-center": "中間的轉車道",
+    "bus-lane": "巴士道",
+    "bus-lane-shared": "巴士和自行車共用的車道",
+    "streetcar": "電車",
+    "light-rail": "火車",
+    "transit-shelter": "巴士站",
+    "inception-train": ""
+  },
+  "descriptions": {
+    "wayfinding-sign": {
+      "prompt": "",
+      "lede": "",
+      "text": [
+        "",
+        "",
+        ""
+      ]
     },
     "parklet": {
-      "name": "停車長椅微型公園",
-      "description": {
-        "prompt": "",
-        "imageCaption": "",
-        "lede": "",
-        "text": [
-          "",
-          ""
-        ]
-      }
-    },
-    "divider": {
-      "name": "禁停區",
-      "details": {
-        "planting-strip": {
-          "name": ""
-        },
-        "planter-box": {
-          "name": "種花箱"
-        },
-        "median": {
-          "name": "分隔島"
-        },
-        "striped-buffer": {
-          "name": "禁停區"
-        },
-        "bush": {
-          "name": ""
-        },
-        "flowers": {
-          "name": ""
-        },
-        "big-tree": {
-          "name": ""
-        },
-        "palm-tree": {
-          "name": ""
-        },
-        "bollard": {
-          "name": "彈力護柱"
-        },
-        "dome": {
-          "name": ""
-        }
-      }
+      "prompt": "",
+      "imageCaption": "",
+      "lede": "",
+      "text": [
+        "",
+        ""
+      ]
     },
     "bike-lane": {
-      "name": "自行車道",
-      "description": {
-        "prompt": "",
-        "lede": "",
-        "text": [
-          "",
-          "",
-          ""
-        ]
-      },
-      "details": {
-        "inbound|green": {
-          "description": {
-            "prompt": "",
-            "lede": "",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        },
-        "outbound|green": {
-          "description": {
-            "prompt": "",
-            "lede": "",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        },
-        "inbound|red": {
-          "description": {
-            "prompt": "",
-            "lede": "",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        },
-        "outbound|red": {
-          "description": {
-            "prompt": "",
-            "lede": "",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        }
-      }
+      "prompt": "",
+      "lede": "",
+      "text": [
+        "",
+        "",
+        ""
+      ]
     },
-    "parking-lane": {
-      "name": "停車道",
-      "details": {
-        "sideways|left": {
-          "name": "横的停车位"
-        },
-        "sideways|right": {
-          "name": "横的停车位"
-        },
-        "angled-front-left|left": {
-          "name": ""
-        },
-        "angled-front-left|right": {
-          "name": ""
-        },
-        "angled-front-right|left": {
-          "name": ""
-        },
-        "angled-front-right|right": {
-          "name": ""
-        },
-        "angled-rear-left|left": {
-          "name": ""
-        },
-        "angled-rear-left|right": {
-          "name": ""
-        },
-        "angled-rear-right|left": {
-          "name": ""
-        },
-        "angled-rear-right|right": {
-          "name": ""
-        }
-      }
+    "colored-bike-lane": {
+      "prompt": "",
+      "lede": "",
+      "text": [
+        "",
+        "",
+        ""
+      ]
     },
-    "flex-zone": {
-      "name": "",
-      "details": {
-        "taxi|inbound|left": {
-          "name": ""
-        },
-        "taxi|inbound|right": {
-          "name": ""
-        },
-        "taxi|outbound|left": {
-          "name": ""
-        },
-        "taxi|outbound|right": {
-          "name": ""
-        },
-        "rideshare|inbound|left": {
-          "name": ""
-        },
-        "rideshare|inbound|right": {
-          "name": ""
-        },
-        "rideshare|outbound|left": {
-          "name": ""
-        },
-        "rideshare|outbound|right": {
-          "name": ""
-        },
-        "bikeshare|inbound|left": {
-          "name": ""
-        },
-        "bikeshare|inbound|right": {
-          "name": ""
-        },
-        "bikeshare|outbound|left": {
-          "name": ""
-        },
-        "bikeshare|outbound|right": {
-          "name": ""
-        },
-        "foodtruck|inbound|left": {
-          "name": ""
-        },
-        "foodtruck|inbound|right": {
-          "name": ""
-        },
-        "foodtruck|outbound|left": {
-          "name": ""
-        },
-        "foodtruck|outbound|right": {
-          "name": ""
-        }
-      }
+    "sharrow": {
+      "prompt": "",
+      "lede": "",
+      "text": [
+        "",
+        "",
+        ""
+      ]
     },
-    "flex-zone-curb": {
-      "name": ""
+    "transit-shelter-elevated": {
+      "prompt": "",
+      "lede": "",
+      "text": [
+        "",
+        "",
+        ""
+      ]
     },
-    "drive-lane": {
-      "name": "開車道",
-      "details": {
-        "inbound|sharrow": {
-          "name": "",
-          "description": {
-            "prompt": "",
-            "lede": "",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        },
-        "outbound|sharrow": {
-          "name": "",
-          "description": {
-            "prompt": "",
-            "lede": "",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        }
-      }
-    },
-    "turn-lane": {
-      "name": "轉車道",
-      "details": {
-        "inbound|straight": {
-          "name": "不能轉車的道"
-        },
-        "inbound|shared": {
-          "name": "中間的轉車道"
-        },
-        "outbound|straight": {
-          "name": "不能轉車的道"
-        },
-        "outbound|shared": {
-          "name": "中間的轉車道"
-        }
-      }
-    },
-    "bus-lane": {
-      "name": "巴士道",
-      "details": {
-        "inbound|shared": {
-          "name": "巴士和自行車共用的車道"
-        },
-        "outbound|shared": {
-          "name": "巴士和自行車共用的車道"
-        }
-      }
-    },
-    "streetcar": {
-      "name": "電車"
-    },
-    "light-rail": {
-      "name": "火車"
-    },
-    "transit-shelter": {
-      "name": "巴士站",
-      "details": {
-        "left|light-rail": {
-          "description": {
-            "prompt": "",
-            "lede": "",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        },
-        "right|light-rail": {
-          "description": {
-            "prompt": "",
-            "lede": "",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        }
-      }
-    },
-    "train": {
-      "name": "",
-      "description": {
-        "lede": "",
-        "text": [
-          ""
-        ]
-      }
+    "inception-train": {
+      "lede": "",
+      "text": [
+        ""
+      ]
     }
   },
   "buildings": {

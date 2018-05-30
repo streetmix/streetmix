@@ -253,6 +253,9 @@
     "learn-more": "",
     "unknown": {
       "label": ""
+    },
+    "description": {
+      "photo-credit": ""
     }
   },
   "section": {
@@ -272,7 +275,8 @@
     "byline": ""
   },
   "meta": {
-    "description": "Diseña, mezcla y comparte la calle de tu barrio - ¡en todos los navegadores!. Agrega arboles o carriles para bicicletas, veredas mas amplias o carriles de circulacion. Analiza el impacto de tus decisiones en tu comunidad"
+    "description": "Diseña, mezcla y comparte la calle de tu barrio - ¡en todos los navegadores!. Agrega arboles o carriles para bicicletas, veredas mas amplias o carriles de circulacion. Analiza el impacto de tus decisiones en tu comunidad",
+    "page-title": ""
   },
   "i18n": {
     "lang": {

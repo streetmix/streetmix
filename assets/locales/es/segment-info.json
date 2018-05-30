@@ -1,326 +1,100 @@
 {
   "segments": {
-    "sidewalk": {
-      "name": "Acera"
-    },
-    "sidewalk-tree": {
-      "name": "Acera con un árbol"
-    },
-    "sidewalk-bike-rack": {
-      "name": "Estacionamiento de bici"
-    },
-    "sidewalk-bench": {
-      "name": "Banco"
-    },
-    "sidewalk-wayfinding": {
-      "name": "Señal de orientación",
-      "description": {
-        "prompt": "Aprender más sobre señales de orientación",
-        "lede": "Señales de Orientación ayudan a los pedestres llegar a destinos comunes.",
-        "text": [
-          "Planificadores urbanos y arquitectos han pasado unas décadas intentando de aprender lo que pasa en los cerebros de personas cuando realizan cómo llegar de punto A a punto B - o cómo saben dónde está el punto de comenzar (punto A). Tan temprano como 1960, el planificador urbano Kevin Lynch escribió sobre el \"legibilidad\" de la ciudad en su libro <em><a href=\"http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014\">\"The Image of the City\" (La Imagen de la Ciudad\")</a></em>, describiendo la señalización de orientación como \"un uso consistente y organización de señales sensoriales definidas del ambiente external.\" Podría ser intangible - olor, tacto, un sentido de gravedad o hasta campos eléctricos o magnéticos. O podría ser mucho más físico, con \"aparatos de orientación\" diseñados intencionalmente como mapas, números de la calle, o señales de rutas.",
-          "",
-          ""
-        ]
-      }
-    },
-    "sidewalk-lamp": {
-      "name": "Acera con farola"
+    "sidewalk": "Acera",
+    "sidewalk-tree": "Acera con un árbol",
+    "bike-rack": "Estacionamiento de bici",
+    "bench": "Banco",
+    "wayfinding-sign": "Señal de orientación",
+    "sidewalk-lamp": "Acera con farola",
+    "parklet": "Parklet (Parquecito en la calle)",
+    "divider": "Zona de amortiguación",
+    "planting-strip": "",
+    "planter-box": "",
+    "median": "",
+    "bollard": "",
+    "dome": "",
+    "bike-lane": "Carril de Bici",
+    "parking-lane": "",
+    "perpendicular-parking": "Estacionamiento perpendicular",
+    "angled-parking": "",
+    "flex-zone": "",
+    "taxi-pick-up": "",
+    "rideshare-pick-up": "",
+    "bikeshare-station": "",
+    "foodtruck": "",
+    "flex-zone-curb": "",
+    "drive-lane": "",
+    "sharrow": "",
+    "turn-lane": "",
+    "turn-lane-straight": "",
+    "turn-lane-center": "",
+    "bus-lane": "Carril de bús",
+    "bus-lane-shared": "Carril compartido de bús/bici",
+    "streetcar": "",
+    "light-rail": "",
+    "transit-shelter": "",
+    "inception-train": ""
+  },
+  "descriptions": {
+    "wayfinding-sign": {
+      "prompt": "Aprender más sobre señales de orientación",
+      "lede": "Señales de Orientación ayudan a los pedestres llegar a destinos comunes.",
+      "text": [
+        "Planificadores urbanos y arquitectos han pasado unas décadas intentando de aprender lo que pasa en los cerebros de personas cuando realizan cómo llegar de punto A a punto B - o cómo saben dónde está el punto de comenzar (punto A). Tan temprano como 1960, el planificador urbano Kevin Lynch escribió sobre el \"legibilidad\" de la ciudad en su libro <em><a href=\"http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014\">\"The Image of the City\" (La Imagen de la Ciudad\")</a></em>, describiendo la señalización de orientación como \"un uso consistente y organización de señales sensoriales definidas del ambiente external.\" Podría ser intangible - olor, tacto, un sentido de gravedad o hasta campos eléctricos o magnéticos. O podría ser mucho más físico, con \"aparatos de orientación\" diseñados intencionalmente como mapas, números de la calle, o señales de rutas.",
+        "",
+        ""
+      ]
     },
     "parklet": {
-      "name": "Parklet (Parquecito en la calle)",
-      "description": {
-        "prompt": "Aprender más sobre parklets",
-        "imageCaption": "",
-        "lede": "",
-        "text": [
-          "",
-          ""
-        ]
-      }
-    },
-    "divider": {
-      "name": "Zona de amortiguación",
-      "details": {
-        "planting-strip": {
-          "name": ""
-        },
-        "planter-box": {
-          "name": ""
-        },
-        "median": {
-          "name": ""
-        },
-        "striped-buffer": {
-          "name": "Zona de amortiguación"
-        },
-        "bush": {
-          "name": ""
-        },
-        "flowers": {
-          "name": ""
-        },
-        "big-tree": {
-          "name": ""
-        },
-        "palm-tree": {
-          "name": ""
-        },
-        "bollard": {
-          "name": ""
-        },
-        "dome": {
-          "name": ""
-        }
-      }
+      "prompt": "Aprender más sobre parklets",
+      "imageCaption": "",
+      "lede": "",
+      "text": [
+        "",
+        ""
+      ]
     },
     "bike-lane": {
-      "name": "Carril de Bici",
-      "description": {
-        "prompt": "Aprender más sobre carriles de bici",
-        "lede": "",
-        "text": [
-          "",
-          "",
-          ""
-        ]
-      },
-      "details": {
-        "inbound|green": {
-          "description": {
-            "prompt": "Aprender más sobre carriles de bici colorados",
-            "lede": "",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        },
-        "outbound|green": {
-          "description": {
-            "prompt": "Aprender más sobre carriles de bici colorados",
-            "lede": "",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        },
-        "inbound|red": {
-          "description": {
-            "prompt": "Aprender más sobre carriles de bici colorados",
-            "lede": "",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        },
-        "outbound|red": {
-          "description": {
-            "prompt": "Aprender más sobre carriles de bici colorados",
-            "lede": "",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        }
-      }
+      "prompt": "Aprender más sobre carriles de bici",
+      "lede": "",
+      "text": [
+        "",
+        "",
+        ""
+      ]
     },
-    "parking-lane": {
-      "name": "",
-      "details": {
-        "sideways|left": {
-          "name": "Estacionamiento perpendicular"
-        },
-        "sideways|right": {
-          "name": "Estacionamiento perpendicular"
-        },
-        "angled-front-left|left": {
-          "name": ""
-        },
-        "angled-front-left|right": {
-          "name": ""
-        },
-        "angled-front-right|left": {
-          "name": ""
-        },
-        "angled-front-right|right": {
-          "name": ""
-        },
-        "angled-rear-left|left": {
-          "name": ""
-        },
-        "angled-rear-left|right": {
-          "name": ""
-        },
-        "angled-rear-right|left": {
-          "name": ""
-        },
-        "angled-rear-right|right": {
-          "name": ""
-        }
-      }
+    "colored-bike-lane": {
+      "prompt": "Aprender más sobre carriles de bici colorados",
+      "lede": "",
+      "text": [
+        "",
+        "",
+        ""
+      ]
     },
-    "flex-zone": {
-      "name": "",
-      "details": {
-        "taxi|inbound|left": {
-          "name": ""
-        },
-        "taxi|inbound|right": {
-          "name": ""
-        },
-        "taxi|outbound|left": {
-          "name": ""
-        },
-        "taxi|outbound|right": {
-          "name": ""
-        },
-        "rideshare|inbound|left": {
-          "name": ""
-        },
-        "rideshare|inbound|right": {
-          "name": ""
-        },
-        "rideshare|outbound|left": {
-          "name": ""
-        },
-        "rideshare|outbound|right": {
-          "name": ""
-        },
-        "bikeshare|inbound|left": {
-          "name": ""
-        },
-        "bikeshare|inbound|right": {
-          "name": ""
-        },
-        "bikeshare|outbound|left": {
-          "name": ""
-        },
-        "bikeshare|outbound|right": {
-          "name": ""
-        },
-        "foodtruck|inbound|left": {
-          "name": ""
-        },
-        "foodtruck|inbound|right": {
-          "name": ""
-        },
-        "foodtruck|outbound|left": {
-          "name": ""
-        },
-        "foodtruck|outbound|right": {
-          "name": ""
-        }
-      }
+    "sharrow": {
+      "prompt": "",
+      "lede": "",
+      "text": [
+        "",
+        "",
+        ""
+      ]
     },
-    "flex-zone-curb": {
-      "name": ""
+    "transit-shelter-elevated": {
+      "prompt": "",
+      "lede": "",
+      "text": [
+        "",
+        "",
+        ""
+      ]
     },
-    "drive-lane": {
-      "name": "",
-      "details": {
-        "inbound|sharrow": {
-          "name": "",
-          "description": {
-            "prompt": "",
-            "lede": "",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        },
-        "outbound|sharrow": {
-          "name": "",
-          "description": {
-            "prompt": "",
-            "lede": "",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        }
-      }
-    },
-    "turn-lane": {
-      "name": "",
-      "details": {
-        "inbound|straight": {
-          "name": ""
-        },
-        "inbound|shared": {
-          "name": ""
-        },
-        "outbound|straight": {
-          "name": ""
-        },
-        "outbound|shared": {
-          "name": ""
-        }
-      }
-    },
-    "bus-lane": {
-      "name": "Carril de bús",
-      "details": {
-        "inbound|shared": {
-          "name": "Carril compartido de bús/bici"
-        },
-        "outbound|shared": {
-          "name": "Carril compartido de bús/bici"
-        }
-      }
-    },
-    "streetcar": {
-      "name": ""
-    },
-    "light-rail": {
-      "name": ""
-    },
-    "transit-shelter": {
-      "name": "",
-      "details": {
-        "left|light-rail": {
-          "description": {
-            "prompt": "",
-            "lede": "",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        },
-        "right|light-rail": {
-          "description": {
-            "prompt": "",
-            "lede": "",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        }
-      }
-    },
-    "train": {
-      "name": "",
-      "description": {
-        "lede": "",
-        "text": [
-          "¿Qué más necesita saber?"
-        ]
-      }
+    "inception-train": {
+      "lede": "",
+      "text": [
+        "¿Qué más necesita saber?"
+      ]
     }
   },
   "buildings": {

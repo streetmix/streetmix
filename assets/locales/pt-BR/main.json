@@ -253,6 +253,9 @@
     "learn-more": "",
     "unknown": {
       "label": ""
+    },
+    "description": {
+      "photo-credit": ""
     }
   },
   "section": {
@@ -272,7 +275,8 @@
     "byline": "por {user}"
   },
   "meta": {
-    "description": "Projete, remix e compartilhe a rua de sua vizinhança - tudo em seu browser! Adicione árvores ou ciclovias, calçadas largas ou guias de tráfego, aprenda como suas decisões podem impactar sua comunidade."
+    "description": "Projete, remix e compartilhe a rua de sua vizinhança - tudo em seu browser! Adicione árvores ou ciclovias, calçadas largas ou guias de tráfego, aprenda como suas decisões podem impactar sua comunidade.",
+    "page-title": ""
   },
   "i18n": {
     "lang": {
