@@ -452,6 +452,10 @@
       },
       "inbound|green": {
         "minWidth": 5,
+        "description": {
+          "key": "colored-bike-lane",
+          "image": "bike-lane-colored-01.jpg"
+        },
         "graphics": {
           "center": [
             "bikes--biker-01-inbound",
@@ -462,6 +466,10 @@
       },
       "outbound|green": {
         "minWidth": 5,
+        "description": {
+          "key": "colored-bike-lane",
+          "image": "bike-lane-colored-01.jpg"
+        },
         "graphics": {
           "center": [
             "bikes--biker-01-outbound",
@@ -472,6 +480,10 @@
       },
       "inbound|red": {
         "minWidth": 5,
+        "description": {
+          "key": "colored-bike-lane",
+          "image": "bike-lane-colored-01.jpg"
+        },
         "graphics": {
           "center": [
             "bikes--biker-01-inbound",
@@ -482,6 +494,10 @@
       },
       "outbound|red": {
         "minWidth": 5,
+        "description": {
+          "key": "colored-bike-lane",
+          "image": "bike-lane-colored-01.jpg"
+        },
         "graphics": {
           "center": [
             "bikes--biker-01-outbound",
