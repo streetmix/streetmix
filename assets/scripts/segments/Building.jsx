@@ -19,7 +19,7 @@ class Building extends React.Component {
     removeBuildingFloor: PropTypes.func,
     street: PropTypes.object,
     buildingWidth: PropTypes.number,
-    calculateBuildingPerspective: PropTypes.func
+    calculatePerspective: PropTypes.func
   }
 
   constructor (props) {
@@ -56,8 +56,8 @@ class Building extends React.Component {
     }
 
     if (prevState.switchBuildings !== this.state.switchBuildings) {
-      this.props.calculateBuildingPerspective(this.oldStreetSectionBuilding)
-      this.props.calculateBuildingPerspective(this.streetSectionBuilding)
+      this.props.calculatePerspective(this.oldStreetSectionBuilding)
+      this.props.calculatePerspective(this.streetSectionBuilding)
       this.oldStreetSectionBuilding.classList.remove('hover')
       createBuilding(this.streetSectionBuilding, street[variant], position, street[height], street)
     }

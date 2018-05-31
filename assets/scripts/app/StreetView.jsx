@@ -173,7 +173,9 @@ class StreetView extends React.Component {
     })
   }
 
-  calculateBuildingPerspective = (el) => {
+  calculatePerspective = (el) => {
+    if (!el) return
+
     const pos = getElAbsolutePos(el)
     const perspective = -(pos[0] - this.streetSectionOuter.scrollLeft - (this.props.system.viewportWidth / 2))
 
@@ -200,14 +202,18 @@ class StreetView extends React.Component {
               <Building
                 position="left"
                 buildingWidth={this.state.buildingWidth}
-                calculateBuildingPerspective={this.calculateBuildingPerspective}
+                calculatePerspective={this.calculatePerspective}
               />
               <Building
                 position="right"
                 buildingWidth={this.state.buildingWidth}
-                calculateBuildingPerspective={this.calculateBuildingPerspective}
+                calculatePerspective={this.calculatePerspective}
               />
-              <StreetEditable onResized={this.state.onResized} setBuildingWidth={this.setBuildingWidth} />
+              <StreetEditable
+                onResized={this.state.onResized}
+                setBuildingWidth={this.setBuildingWidth}
+                calculatePerspective={this.calculatePerspective}
+              />
               <EmptySegment position="left" />
               <EmptySegment position="right" />
               <section id="street-section-dirt" style={dirtStyle} />
