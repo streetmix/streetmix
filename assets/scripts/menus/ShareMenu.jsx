@@ -134,7 +134,7 @@ export class ShareMenu extends React.Component {
         <div className="share-sign-in-promo">
           <a onClick={this.onClickSignIn} href="#">
             <FormattedHTMLMessage
-              id="menu.share.sign-in"
+              id="menu.share.sign-in-link"
               defaultMessage="Sign in with Twitter"
             />
           </a>
