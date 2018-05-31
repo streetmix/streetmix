@@ -10,6 +10,7 @@ import { getPageTitle } from '../app/page_title'
 import { printImage } from '../app/print'
 import { getSharingUrl } from '../util/share_url'
 import { showDialog } from '../store/actions/dialogs'
+import { goSignIn } from '../app/routing'
 
 export class ShareMenu extends React.Component {
   static propTypes = {
@@ -110,6 +111,11 @@ export class ShareMenu extends React.Component {
     this.props.showDialog()
   }
 
+  onClickSignIn = (event) => {
+    event.preventDefault()
+    goSignIn()
+  }
+
   render () {
     const shareText = this.getSharingMessage()
     const twitterLink = 'https://twitter.com/intent/tweet' +
@@ -126,9 +132,15 @@ export class ShareMenu extends React.Component {
     const signInPromo = (!this.props.signedIn)
       ? (
         <div className="share-sign-in-promo">
+          <a onClick={this.onClickSignIn} href="#">
+            <FormattedHTMLMessage
+              id="menu.share.sign-in"
+              defaultMessage="Sign in with Twitter"
+            />
+          </a>
           <FormattedHTMLMessage
             id="menu.share.sign-in"
-            defaultMessage="<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Sign in with Twitter</a> for nicer links to your streets and your personal street gallery"
+            defaultMessage=" for nicer links to your streets and your personal street gallery"
           />
         </div>
       ) : null
