@@ -12,7 +12,7 @@ import Scrollable from '../ui/Scrollable'
 import Avatar from '../users/Avatar'
 import GalleryStreetItem from './GalleryStreetItem'
 import { switchGalleryStreet, repeatReceiveGalleryData } from './view'
-import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/routing'
+import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST, goSignIn } from '../app/routing'
 import { sendDeleteStreetToServer } from '../streets/xhr'
 import { showError, ERRORS } from '../app/errors'
 import { setGalleryMode, deleteGalleryStreet } from '../store/actions/gallery'
@@ -83,6 +83,11 @@ class Gallery extends React.Component {
     }
   }
 
+  onClickSignIn = (event) => {
+    event.preventDefault()
+    goSignIn()
+  }
+
   render () {
     let childElements
 
@@ -90,7 +95,7 @@ class Gallery extends React.Component {
       case 'SIGN_IN_PROMO':
         childElements = (
           <div className="gallery-sign-in-promo">
-            <a href="/twitter-sign-in?redirectUri=/just-signed-in">
+            <a onClick={this.onClickSignIn} href="#">
               <FormattedMessage id="gallery.sign-in" defaultMessage="Sign in with Twitter for your personal street gallery" />
             </a>
           </div>
