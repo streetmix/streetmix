@@ -143,7 +143,7 @@ class Segment extends React.Component {
       left: (dimensions.left * TILE_SIZE * multiplier)
     }
     return (
-      <div>
+      <div key={this.props.variantString} >
         <canvas className="image" ref={(ref) => { this.changeRefs(ref, isOldSegment) }} width={canvasWidth} height={canvasHeight} style={canvasStyle} />
         <div className="hover-bk" />
       </div>
