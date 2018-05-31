@@ -32,7 +32,8 @@ class Segment extends React.Component {
     units: PropTypes.number,
     segmentPos: PropTypes.number,
     dataNo: PropTypes.number,
-    updateSegmentData: PropTypes.func
+    updateSegmentData: PropTypes.func,
+    calculatePerspective: PropTypes.func
   }
 
   static defaultProps = {
@@ -69,6 +70,8 @@ class Segment extends React.Component {
     }
 
     if (prevState.switchSegments !== this.state.switchSegments) {
+      this.props.calculatePerspective(this.oldSegmentCanvas)
+      this.props.calculatePerspective(this.segmentCanvas)
       this.drawSegment()
     }
   }
@@ -202,15 +205,6 @@ class Segment extends React.Component {
           </React.Fragment>
         }
         <React.Fragment>
-          <CSSTransition
-            key="old-segment"
-            in={this.state.oldSegmentEnter}
-            timeout={250}
-            classNames="switching-away"
-            unmountOnExit
-          >
-            {this.renderSegmentCanvas(width, variantInfo, 'old')}
-          </CSSTransition>
           {!this.props.forPalette &&
             <CSSTransition
               key="new-segment"
@@ -223,6 +217,15 @@ class Segment extends React.Component {
               {this.renderSegmentCanvas(width, variantInfo, 'new')}
             </CSSTransition>
           }
+          <CSSTransition
+            key="old-segment"
+            in={this.state.oldSegmentEnter}
+            timeout={250}
+            classNames="switching-away"
+            unmountOnExit
+          >
+            {this.renderSegmentCanvas(width, variantInfo, 'old')}
+          </CSSTransition>
         </React.Fragment>
       </div>
     )
