@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape } from 'react-intl'
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Menu from './Menu'
@@ -129,18 +129,22 @@ export class ShareMenu extends React.Component {
       '&name=' + encodeURIComponent(getPageTitle(this.props.street)) +
       '&description=' + encodeURIComponent(shareText)
 
+    const signInLink = <a onClick={this.onClickSignIn} href="#">
+      <FormattedMessage
+        defaultMessage="Sign In with Twitter"
+        id="menu.share.sign-in"
+      />
+    </a>
+
     const signInPromo = (!this.props.signedIn)
       ? (
         <div className="share-sign-in-promo">
-          <a onClick={this.onClickSignIn} href="#">
-            <FormattedHTMLMessage
-              id="menu.share.sign-in-link"
-              defaultMessage="Sign in with Twitter"
-            />
-          </a>
-          <FormattedHTMLMessage
+          <FormattedMessage
             id="menu.share.sign-in"
-            defaultMessage=" for nicer links to your streets and your personal street gallery"
+            defaultMessage={`{signInLink} for nicer links to your streets and your personal street gallery`}
+            values={{
+              signInLink
+            }}
           />
         </div>
       ) : null
