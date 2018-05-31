@@ -409,18 +409,14 @@ class InfoBubble extends React.Component {
       case INFO_BUBBLE_TYPE_SEGMENT: {
         const segment = this.props.street.segments[this.props.dataNo]
         if (segment) {
-          const segmentName = getSegmentInfo(segment.type).name
-          const segmentVariantName = getSegmentVariantInfo(segment.type, segment.variantString).name
-          const segmentType = segment.type
-          const segmentVariant = segment.variantString
+          const segmentInfo = getSegmentInfo(segment.type)
+          const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
+          const defaultName = variantInfo.name || segmentInfo.name
+          const nameKey = variantInfo.nameKey || segmentInfo.nameKey
 
-          // Not all variants have custom names. If the custom segment variant name doesn't exist,
-          // then it should use the default name for the segment.
-          if (segmentVariantName) {
-            name = t(`segments.${segmentType}.details.${segmentVariant}.name`, segmentVariantName, { ns: 'segment-info' })
-          } else {
-            name = t(`segments.${segmentType}.name`, segmentName, { ns: 'segment-info' })
-          }
+          // Get localized names from store, fall back to segment default names if translated
+          // text is not found. TODO: port to react-intl/formatMessage later.
+          name = t(`segments.${nameKey}`, defaultName, { ns: 'segment-info' })
         }
         break
       }
