@@ -223,7 +223,7 @@
     "today": "Aujourd'hui à {time}"
   },
   "key": {
-    "backspace": "Retour arrière",
+    "backspace": "Backspace",
     "shift": "Touche majuscule"
   },
   "tooltip": {

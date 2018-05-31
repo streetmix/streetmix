@@ -28,11 +28,11 @@
       "save": "画像として保存",
       "save-byline": "レポートやブログなどにお使いください",
       "messages": {
-        "my-street": "ストリートミックスで、私の通りをチェックしてください！",
+        "my-street": "ストリートミックスで、私の通り{streetName}をチェックしてください！",
         "my-street-unnamed": "ストリートミックスで、私の通りをチェックしてください！",
-        "someone-elses-street": "ストリートミックスのストリートクリエイターで通りの名前をチェックしてください！",
-        "someone-elses-street-unnamed": "ストリートミックスのストリートクリエイターでこの通りをチェックしてください！",
-        "anonymous-creator-street": "ストリートミックスで通りの名前をチェックしてください！",
+        "someone-elses-street": "ストリートミックスの{streetCreator}によって、{streetName}を確認してください！",
+        "someone-elses-street-unnamed": "ストリートミックスの{streetCreator}でこの通りをチェックしてください！",
+        "anonymous-creator-street": "ストリートミックスで{streetName}をチェックしてください！",
         "anonymous-creator-street-unnamed": "ストリートミックスで、この通りを確認してください！"
       }
     },
@@ -255,7 +255,7 @@
       "label": "詳細不明"
     },
     "description": {
-      "photo-credit": ""
+      "photo-credit": "写真："
     }
   },
   "section": {
@@ -276,7 +276,7 @@
   },
   "meta": {
     "description": "あなたの身近な道路をデザインし、リミックスし、シェアしましょう。必要なものはブラウザだけです！ 街路樹や自転車レーン、歩道や車道を追加してみて、あなたのアイデアで地域コミュニティがどう変わるのかを試してみましょう。",
-    "page-title": ""
+    "page-title": "{streetName}({author}によって)"
   },
   "i18n": {
     "lang": {

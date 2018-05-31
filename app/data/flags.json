@@ -24,8 +24,7 @@
   },
   "LOCALES_LEVEL_3": {
     "label": "Locales — level 3 (complete, final)",
-    "defaultValue": false,
-    "enabled": true
+    "defaultValue": true
   },
   "SEGMENT_FLEX_ZONE": {
     "label": "Segment — flex zone",
