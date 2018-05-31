@@ -27,8 +27,6 @@ class StreetEditable extends React.Component {
     const { segments } = this.props.street
     const segment = segments[dataNo]
 
-    segment.variant = getVariantArray(segment.type, segment.variantString)
-    segment.warnings = []
     segment.el = ref
     segment.el.dataNo = dataNo
     segment.el.savedLeft = Math.round(segmentPos)
@@ -55,6 +53,9 @@ class StreetEditable extends React.Component {
     segments.map((segment, i) => {
       const segmentWidth = (segment.width * TILE_SIZE)
       const segmentPos = this.calculateSegmentPos(i)
+
+      segment.variant = getVariantArray(segment.type, segment.variantString)
+      segment.warnings = []
 
       if (!segment.randSeed) {
         segment.randSeed = generateRandSeed()
