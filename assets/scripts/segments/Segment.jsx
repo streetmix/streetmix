@@ -63,18 +63,15 @@ class Segment extends React.Component {
   componentDidUpdate (prevProps, prevState) {
     if (this.props.forPalette) return
 
+    this.drawSegment()
+
     if (prevProps.variantString !== this.props.variantString) {
       this.switchSegments()
     }
 
-    if (prevProps.segmentPos !== this.props.segmentPos) {
-      this.drawSegment()
-    }
-
-    if (prevState.switchSegments !== this.state.switchSegments) {
+    if (this.state.switchSegments && prevState.switchSegments !== this.state.switchSegments) {
       this.props.calculatePerspective(this.oldSegmentCanvas)
       this.props.calculatePerspective(this.segmentCanvas)
-      this.drawSegment()
     }
 
     this.props.updateSegmentData(this.streetSegment, this.props.dataNo, this.props.segmentPos)
@@ -147,7 +144,7 @@ class Segment extends React.Component {
       left: (dimensions.left * TILE_SIZE * multiplier)
     }
     return (
-      <div key={this.props.variantString} >
+      <div>
         <canvas className="image" ref={(ref) => { this.changeRefs(ref, isOldSegment) }} width={canvasWidth} height={canvasHeight} style={canvasStyle} />
         <div className="hover-bk" />
       </div>
