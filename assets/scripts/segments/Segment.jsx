@@ -67,6 +67,10 @@ class Segment extends React.Component {
       this.switchSegments()
     }
 
+    if (prevProps.segmentPos !== this.props.segmentPos) {
+      this.drawSegment()
+    }
+
     if (prevState.switchSegments !== this.state.switchSegments) {
       this.props.calculatePerspective(this.oldSegmentCanvas)
       this.props.calculatePerspective(this.segmentCanvas)
