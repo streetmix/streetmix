@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { t } from '../app/locale'
+import { segmentsChanged } from '../segments/view'
 import { getSegmentInfo } from '../segments/info'
 import { VARIANT_ICONS } from '../segments/variant_icons'
 import { getVariantArray } from '../segments/variant_utils'
@@ -90,6 +91,7 @@ class Variants extends React.Component {
       case INFO_BUBBLE_TYPE_SEGMENT:
         handler = (event) => {
           this.props.changeSegmentVariant(this.props.position, set, selection)
+          segmentsChanged(false)
         }
         break
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
