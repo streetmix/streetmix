@@ -6,6 +6,7 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
+import { FormattedMessage } from 'react-intl'
 import { trackEvent } from '../app/event_tracking'
 
 const LOCALSTORAGE_DONATE_DISMISSED = 'settings-donate-dismissed'
@@ -43,13 +44,19 @@ export default class DonateDialog extends React.PureComponent {
   render () {
     return (
       <div className="donate-dialog">
-        <h1>Streetmix needs your help!</h1>
+        <h1><FormattedMessage id="dialogs.donate.heading" defaultMessage="Streetmix needs your help!" /></h1>
         <div className="donate-dialog-text">
           <p className="donate-dialog-lede">
-            Streetmix is a community-supported project. Unlike other “free” services on the Internet, we do not show ads or inject trackers that abuse your privacy. Instead, we depend on your support to keep Streetmix up and running.
+            <FormattedMessage id="dialogs.donate.lede" defaultMessage="Streetmix is a community-supported project.
+              Unlike other “free” services on the Internet, we do not show ads or inject trackers that abuse your
+              privacy. Instead, we depend on your support to keep Streetmix up and running." />
           </p>
           <p>
-            Please consider supporting us with a one-time or recurring contribution. Your donation will pay for our servers and cloud infrastructure, supporting other non-profits, advocacy groups, and students working to improve our streets. Additional revenue will be invested into further development of new features. Our expenses are completely transparent, so you can see exactly how your contributions are used by the Streetmix team.
+            <FormattedMessage id="dialogs.donate.text" defaultMessage="Please consider supporting us with a one-time
+              or recurring contribution. Your donation will pay for our servers and cloud infrastructure, supporting
+              other non-profits, advocacy groups, and students working to improve our streets. Additional revenue
+              will be invested into further development of new features. Our expenses are completely transparent, so
+              you can see exactly how your contributions are used by the Streetmix team." />
           </p>
         </div>
         <p>
@@ -60,11 +67,11 @@ export default class DonateDialog extends React.PureComponent {
             rel="noopener noreferrer"
             onClick={this.onClickDonateButton}
           >
-            Donate to Streetmix
+            <FormattedMessage id="dialogs.donate.button" defaultMessage="Donate to Streetmix" />
           </a>
         </p>
         <p>
-          <a href="#" onClick={this.onClickClose}>No thanks</a>
+          <a href="#" onClick={this.onClickClose}><FormattedMessage id="dialogs.donate.cancel" defaultMessage="No thanks" /></a>
         </p>
       </div>
     )
