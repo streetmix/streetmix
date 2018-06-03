@@ -746,12 +746,18 @@ function handleSegmentMoveEnd (event) {
       randSeed: draggingMove.originalRandSeed
     }
 
-    const newIndex = (draggingMove.segmentBeforeEl && Number.parseInt(draggingMove.segmentBeforeEl.dataNo)) ||
+    const oldIndex = Number.parseInt(draggingMove.originalEl.dataNo)
+    let newIndex = (draggingMove.segmentBeforeEl && Number.parseInt(draggingMove.segmentBeforeEl.dataNo)) ||
                     (draggingMove.segmentAfterEl && Number.parseInt(draggingMove.segmentAfterEl.dataNo)) || 0
 
-    if (draggingMove.type === DRAGGING_TYPE_MOVE_TRANSFER) {
-      const oldIndex = Number.parseInt(draggingMove.originalEl.dataNo)
+    const currSegment = store.getState().street.segments[oldIndex]
+
+    if (draggingMove.type === DRAGGING_TYPE_MOVE_TRANSFER && currSegment.variantString === newSegment.variantString) {
       store.dispatch(moveSegment(oldIndex, newIndex))
+    } else if (currSegment.variantString !== newSegment.variantString) {
+      newIndex = (newIndex < oldIndex) ? newIndex : newIndex - 1
+      store.dispatch(removeSegment(oldIndex))
+      store.dispatch(addSegment(newIndex, newSegment))
     } else {
       newSegment.randSeed = generateRandSeed()
       store.dispatch(addSegment(newIndex, newSegment))
