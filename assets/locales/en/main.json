@@ -20,7 +20,8 @@
       "change": "Change width of a segment you’re pointing at<br />(hold <kbd class='key'>Shift</kbd> for more precision)"
     },
     "share": {
-      "sign-in": "{signInLink} for nicer links to your streets and your personal street gallery",
+      "sign-in-twitter-link": "Sign In",
+      "sign-in-link": "{signInLink} for nicer links to your streets and your personal street gallery",
       "link": "Copy and paste this link to share:",
       "twitter": "Share using Twitter",
       "facebook": "Share using Facebook",
