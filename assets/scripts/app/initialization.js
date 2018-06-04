@@ -8,7 +8,6 @@ import { initializeFlagSubscribers } from '../app/flag_utils'
 import { segmentsChanged, localizeStreetSegments } from '../segments/view'
 import { onNewStreetLastClick } from '../streets/creation'
 import {
-  createDomFromData,
   setLastStreet,
   trimStreetData,
   setIgnoreStreetChanges
@@ -123,7 +122,6 @@ function onEverythingLoaded () {
   onResize()
   resizeStreetWidth()
   updateStreetName(store.getState().street)
-  createDomFromData()
   segmentsChanged(false)
 
   setIgnoreStreetChanges(false)

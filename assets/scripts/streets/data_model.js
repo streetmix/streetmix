@@ -3,11 +3,7 @@ import { DEFAULT_SEGMENTS } from '../segments/default'
 import { getSegmentInfo } from '../segments/info'
 import { normalizeAllSegmentWidths } from '../segments/resizing'
 import { getVariantString, getVariantArray } from '../segments/variant_utils'
-import {
-  segmentsChanged
-  // repositionSegments,
-  // createSegmentDom
-} from '../segments/view'
+import { segmentsChanged } from '../segments/view'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { getUnits, getLeftHandTraffic, propagateUnits } from '../users/localization'
 import { normalizeSlug } from '../util/helpers'
@@ -261,29 +257,6 @@ export function updateToLatestSchemaVersion (street) {
   return updated
 }
 
-export function createDomFromData () {
-  console.log('createDomFromData')
-  // document.querySelector('#street-section-editable').innerHTML = ''
-  // const street = store.getState().street
-
-  // for (var i in street.segments) {
-  //   var segment = street.segments[i]
-
-  //   // Add some additional data structures
-  //   // TODO: populate data structure elsewhere
-  //   segment.variant = getVariantArray(segment.type, segment.variantString)
-  //   segment.warnings = []
-
-  //   var el = createSegmentDom(segment)
-  //   document.querySelector('#street-section-editable').appendChild(el)
-
-  //   segment.el = el
-  //   segment.el.dataNo = i
-  // }
-
-  // repositionSegments()
-}
-
 export function setStreetCreatorId (newId) {
   store.dispatch(saveCreatorId(newId))
 
@@ -508,7 +481,6 @@ export function updateEverything (dontScroll, save = true) {
   setIgnoreStreetChanges(true)
   propagateUnits()
   // TODO Verify that we don't need to dispatch an update width event here
-  createDomFromData()
   segmentsChanged(false)
   resizeStreetWidth(dontScroll)
   updateStreetName(store.getState().street)

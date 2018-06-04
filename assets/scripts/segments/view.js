@@ -600,7 +600,6 @@ export function segmentsChanged (readDataFromDom = true, reassignElementRefs = f
   }
 
   saveStreetToServerIfNecessary()
-  // repositionSegments()
 }
 
 function onSegmentMouseEnter (event) {

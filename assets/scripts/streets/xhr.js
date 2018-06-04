@@ -39,7 +39,6 @@ import {
   prepareDefaultStreet,
   trimStreetData,
   updateEverything,
-  createDomFromData,
   updateToLatestSchemaVersion,
   setStreetCreatorId,
   setUpdateTimeToNow,
@@ -288,7 +287,6 @@ function receiveStreet (transmission) {
 
   // TODO this is stupid, only here to fill some structures
   // window.addEventListener('stmx:assets_loaded', () => {
-  createDomFromData()
 
   setServerContacted(true)
 
@@ -456,7 +454,6 @@ function receiveLastStreet (transmission) {
 
   resizeStreetWidth()
   updateStreetName(store.getState().street)
-  createDomFromData()
   segmentsChanged()
 
   setIgnoreStreetChanges(false)
