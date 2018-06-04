@@ -576,7 +576,6 @@ export function switchSegmentElAway (el) {
  * @param {boolean} readDataFromDom
  */
 export function segmentsChanged (readDataFromDom = true, reassignElementRefs = false) {
-  console.log('segmentsChanged', readDataFromDom, reassignElementRefs)
   if (readDataFromDom === true) {
     createDataFromDom()
   }
