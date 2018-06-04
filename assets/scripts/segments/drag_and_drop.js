@@ -34,7 +34,7 @@ import {
   segmentsChanged
 } from './view'
 import store from '../store'
-import { addSegment, removeSegment, moveSegment } from '../store/actions/street'
+import { addSegment, removeSegment } from '../store/actions/street'
 import { clearMenus } from '../store/actions/menus'
 
 const DRAG_OFFSET_Y_PALETTE = -340 - 150
@@ -748,14 +748,13 @@ function handleSegmentMoveEnd (event) {
 
     const oldIndex = Number.parseInt(draggingMove.originalEl.dataNo)
     let newIndex = (draggingMove.segmentBeforeEl && Number.parseInt(draggingMove.segmentBeforeEl.dataNo)) ||
-                    (draggingMove.segmentAfterEl && Number.parseInt(draggingMove.segmentAfterEl.dataNo)) || 0
+                    (draggingMove.segmentAfterEl && Number.parseInt(draggingMove.segmentAfterEl.dataNo) + 1) || 0
 
-    const currSegment = store.getState().street.segments[oldIndex]
+    if (draggingMove.segmentBeforeEl) {
+      newIndex = (newIndex > oldIndex) ? newIndex - 1 : newIndex
+    }
 
-    if (draggingMove.type === DRAGGING_TYPE_MOVE_TRANSFER && currSegment.variantString === newSegment.variantString) {
-      store.dispatch(moveSegment(oldIndex, newIndex))
-    } else if (currSegment && currSegment.variantString !== newSegment.variantString) {
-      newIndex = (newIndex < oldIndex) ? newIndex : newIndex - 1
+    if (draggingMove.type === DRAGGING_TYPE_MOVE_TRANSFER) {
       store.dispatch(removeSegment(oldIndex))
       store.dispatch(addSegment(newIndex, newSegment))
     } else {
