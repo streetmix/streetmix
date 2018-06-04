@@ -14,7 +14,7 @@ import {
   goHome,
   goNewStreet,
   goExampleStreet,
-  goSignIn
+  goTwitterSignIn
 } from './routing'
 import { goReloadClearSignIn } from '../users/authentication'
 import { ERRORS } from './errors'
@@ -38,7 +38,7 @@ export class BlockingError extends React.Component {
       return street && street.creatorId ? <a href={'/' + street.creatorId}><Avatar userId={street.creatorId} />{street.creatorId}</a> : null
     }
     const signInButton =
-      <button onClick={goSignIn}>
+      <button onClick={goTwitterSignIn}>
         <FormattedMessage id="error.button.sign-in" defaultMessage="Sign in again" />
       </button>
     const reloadButton =

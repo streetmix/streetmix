@@ -12,7 +12,7 @@ import Scrollable from '../ui/Scrollable'
 import Avatar from '../users/Avatar'
 import GalleryStreetItem from './GalleryStreetItem'
 import { switchGalleryStreet, repeatReceiveGalleryData } from './view'
-import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST, goSignIn } from '../app/routing'
+import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST, goTwitterSignIn } from '../app/routing'
 import { sendDeleteStreetToServer } from '../streets/xhr'
 import { showError, ERRORS } from '../app/errors'
 import { setGalleryMode, deleteGalleryStreet } from '../store/actions/gallery'
@@ -85,7 +85,7 @@ class Gallery extends React.Component {
 
   onClickSignIn = (event) => {
     event.preventDefault()
-    goSignIn()
+    goTwitterSignIn()
   }
 
   render () {

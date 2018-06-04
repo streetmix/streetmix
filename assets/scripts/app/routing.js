@@ -70,7 +70,7 @@ export function goCopyLastStreet () {
   window.location.href = '/' + URL_NEW_STREET_COPY_LAST
 }
 
-export function goSignIn () {
+export function goTwitterSignIn () {
   const auth0 = Authenticate()
   if (USE_AUTH0) {
     auth0.authorize({
@@ -81,4 +81,8 @@ export function goSignIn () {
   } else {
     window.location.href = '/' + TWITTER_URL_SIGN_IN_REDIRECT
   }
+}
+
+export function goEmailSignIn (email) {
+
 }
