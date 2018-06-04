@@ -754,7 +754,7 @@ function handleSegmentMoveEnd (event) {
 
     if (draggingMove.type === DRAGGING_TYPE_MOVE_TRANSFER && currSegment.variantString === newSegment.variantString) {
       store.dispatch(moveSegment(oldIndex, newIndex))
-    } else if (currSegment.variantString !== newSegment.variantString) {
+    } else if (currSegment && currSegment.variantString !== newSegment.variantString) {
       newIndex = (newIndex < oldIndex) ? newIndex : newIndex - 1
       store.dispatch(removeSegment(oldIndex))
       store.dispatch(addSegment(newIndex, newSegment))
