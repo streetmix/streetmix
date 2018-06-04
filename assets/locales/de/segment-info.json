@@ -1,326 +1,100 @@
 {
   "segments": {
-    "sidewalk": {
-      "name": ""
-    },
-    "sidewalk-tree": {
-      "name": ""
-    },
-    "sidewalk-bike-rack": {
-      "name": ""
-    },
-    "sidewalk-bench": {
-      "name": ""
-    },
-    "sidewalk-wayfinding": {
-      "name": "",
-      "description": {
-        "prompt": "",
-        "lede": "",
-        "text": [
-          "",
-          "",
-          ""
-        ]
-      }
-    },
-    "sidewalk-lamp": {
-      "name": ""
+    "sidewalk": "",
+    "sidewalk-tree": "",
+    "bike-rack": "",
+    "bench": "",
+    "wayfinding-sign": "",
+    "sidewalk-lamp": "",
+    "parklet": "",
+    "divider": "",
+    "planting-strip": "",
+    "planter-box": "",
+    "median": "",
+    "bollard": "",
+    "dome": "",
+    "bike-lane": "",
+    "parking-lane": "",
+    "perpendicular-parking": "",
+    "angled-parking": "",
+    "flex-zone": "",
+    "taxi-pick-up": "",
+    "rideshare-pick-up": "",
+    "bikeshare-station": "",
+    "foodtruck": "",
+    "flex-zone-curb": "",
+    "drive-lane": "",
+    "sharrow": "",
+    "turn-lane": "",
+    "turn-lane-straight": "",
+    "turn-lane-center": "",
+    "bus-lane": "",
+    "bus-lane-shared": "",
+    "streetcar": "",
+    "light-rail": "",
+    "transit-shelter": "",
+    "inception-train": ""
+  },
+  "descriptions": {
+    "wayfinding-sign": {
+      "prompt": "",
+      "lede": "",
+      "text": [
+        "",
+        "",
+        ""
+      ]
     },
     "parklet": {
-      "name": "",
-      "description": {
-        "prompt": "",
-        "imageCaption": "",
-        "lede": "",
-        "text": [
-          "",
-          ""
-        ]
-      }
-    },
-    "divider": {
-      "name": "",
-      "details": {
-        "planting-strip": {
-          "name": ""
-        },
-        "planter-box": {
-          "name": ""
-        },
-        "median": {
-          "name": ""
-        },
-        "striped-buffer": {
-          "name": ""
-        },
-        "bush": {
-          "name": ""
-        },
-        "flowers": {
-          "name": ""
-        },
-        "big-tree": {
-          "name": ""
-        },
-        "palm-tree": {
-          "name": ""
-        },
-        "bollard": {
-          "name": ""
-        },
-        "dome": {
-          "name": ""
-        }
-      }
+      "prompt": "",
+      "imageCaption": "",
+      "lede": "",
+      "text": [
+        "",
+        ""
+      ]
     },
     "bike-lane": {
-      "name": "",
-      "description": {
-        "prompt": "",
-        "lede": "",
-        "text": [
-          "",
-          "",
-          ""
-        ]
-      },
-      "details": {
-        "inbound|green": {
-          "description": {
-            "prompt": "",
-            "lede": "",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        },
-        "outbound|green": {
-          "description": {
-            "prompt": "",
-            "lede": "",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        },
-        "inbound|red": {
-          "description": {
-            "prompt": "",
-            "lede": "",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        },
-        "outbound|red": {
-          "description": {
-            "prompt": "",
-            "lede": "",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        }
-      }
+      "prompt": "",
+      "lede": "",
+      "text": [
+        "",
+        "",
+        ""
+      ]
     },
-    "parking-lane": {
-      "name": "",
-      "details": {
-        "sideways|left": {
-          "name": ""
-        },
-        "sideways|right": {
-          "name": ""
-        },
-        "angled-front-left|left": {
-          "name": ""
-        },
-        "angled-front-left|right": {
-          "name": ""
-        },
-        "angled-front-right|left": {
-          "name": ""
-        },
-        "angled-front-right|right": {
-          "name": ""
-        },
-        "angled-rear-left|left": {
-          "name": ""
-        },
-        "angled-rear-left|right": {
-          "name": ""
-        },
-        "angled-rear-right|left": {
-          "name": ""
-        },
-        "angled-rear-right|right": {
-          "name": ""
-        }
-      }
+    "colored-bike-lane": {
+      "prompt": "",
+      "lede": "",
+      "text": [
+        "",
+        "",
+        ""
+      ]
     },
-    "flex-zone": {
-      "name": "",
-      "details": {
-        "taxi|inbound|left": {
-          "name": ""
-        },
-        "taxi|inbound|right": {
-          "name": ""
-        },
-        "taxi|outbound|left": {
-          "name": ""
-        },
-        "taxi|outbound|right": {
-          "name": ""
-        },
-        "rideshare|inbound|left": {
-          "name": ""
-        },
-        "rideshare|inbound|right": {
-          "name": ""
-        },
-        "rideshare|outbound|left": {
-          "name": ""
-        },
-        "rideshare|outbound|right": {
-          "name": ""
-        },
-        "bikeshare|inbound|left": {
-          "name": ""
-        },
-        "bikeshare|inbound|right": {
-          "name": ""
-        },
-        "bikeshare|outbound|left": {
-          "name": ""
-        },
-        "bikeshare|outbound|right": {
-          "name": ""
-        },
-        "foodtruck|inbound|left": {
-          "name": ""
-        },
-        "foodtruck|inbound|right": {
-          "name": ""
-        },
-        "foodtruck|outbound|left": {
-          "name": ""
-        },
-        "foodtruck|outbound|right": {
-          "name": ""
-        }
-      }
+    "sharrow": {
+      "prompt": "",
+      "lede": "",
+      "text": [
+        "",
+        "",
+        ""
+      ]
     },
-    "flex-zone-curb": {
-      "name": ""
+    "transit-shelter-elevated": {
+      "prompt": "",
+      "lede": "",
+      "text": [
+        "",
+        "",
+        ""
+      ]
     },
-    "drive-lane": {
-      "name": "",
-      "details": {
-        "inbound|sharrow": {
-          "name": "",
-          "description": {
-            "prompt": "",
-            "lede": "",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        },
-        "outbound|sharrow": {
-          "name": "",
-          "description": {
-            "prompt": "",
-            "lede": "",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        }
-      }
-    },
-    "turn-lane": {
-      "name": "",
-      "details": {
-        "inbound|straight": {
-          "name": ""
-        },
-        "inbound|shared": {
-          "name": ""
-        },
-        "outbound|straight": {
-          "name": ""
-        },
-        "outbound|shared": {
-          "name": ""
-        }
-      }
-    },
-    "bus-lane": {
-      "name": "",
-      "details": {
-        "inbound|shared": {
-          "name": ""
-        },
-        "outbound|shared": {
-          "name": ""
-        }
-      }
-    },
-    "streetcar": {
-      "name": ""
-    },
-    "light-rail": {
-      "name": ""
-    },
-    "transit-shelter": {
-      "name": "",
-      "details": {
-        "left|light-rail": {
-          "description": {
-            "prompt": "",
-            "lede": "",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        },
-        "right|light-rail": {
-          "description": {
-            "prompt": "",
-            "lede": "",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        }
-      }
-    },
-    "train": {
-      "name": "",
-      "description": {
-        "lede": "",
-        "text": [
-          ""
-        ]
-      }
+    "inception-train": {
+      "lede": "",
+      "text": [
+        ""
+      ]
     }
   },
   "buildings": {

@@ -1,326 +1,100 @@
 {
   "segments": {
-    "sidewalk": {
-      "name": "歩道"
-    },
-    "sidewalk-tree": {
-      "name": "街路樹つき歩道"
-    },
-    "sidewalk-bike-rack": {
-      "name": "自転車置場"
-    },
-    "sidewalk-bench": {
-      "name": "ベンチ"
-    },
-    "sidewalk-wayfinding": {
-      "name": "道路名標識",
-      "description": {
-        "prompt": "道路名標識 (wayfinding signs)について",
-        "lede": "道路名標識があることで、歩行者にとっても目的地までの道のりがわかりやすくなります。",
-        "text": [
-          "",
-          "",
-          ""
-        ]
-      }
-    },
-    "sidewalk-lamp": {
-      "name": "街灯つき歩道"
+    "sidewalk": "歩道",
+    "sidewalk-tree": "街路樹つき歩道",
+    "bike-rack": "自転車置場",
+    "bench": "ベンチ",
+    "wayfinding-sign": "道路名標識",
+    "sidewalk-lamp": "街灯つき歩道",
+    "parklet": "パークレット",
+    "divider": "バッファーゾーン",
+    "planting-strip": "緑地・花壇",
+    "planter-box": "プランター",
+    "median": "中央分離帯",
+    "bollard": "ボラード",
+    "dome": "車両除外ドーム",
+    "bike-lane": "自転車専用レーン",
+    "parking-lane": "路上駐車スペース",
+    "perpendicular-parking": "道路に対して直角",
+    "angled-parking": "斜めに駐車",
+    "flex-zone": "伸縮性のあるゾーン",
+    "taxi-pick-up": "タクシーピックアップ/ドロップオフ",
+    "rideshare-pick-up": "ライドシェアのピックアップ/ドロップオフ",
+    "bikeshare-station": "バイクシェアステーション",
+    "foodtruck": "食品トラック",
+    "flex-zone-curb": "待機エリアをピックアップ/ドロップオフ",
+    "drive-lane": "車両用レーン",
+    "sharrow": "自転車共用",
+    "turn-lane": "方向転換レーン",
+    "turn-lane-straight": "方向転換なしレーン",
+    "turn-lane-center": "センター・ターンレーン",
+    "bus-lane": "バス専用レーン",
+    "bus-lane-shared": "バス/自転車共用レーン",
+    "streetcar": "路面電車",
+    "light-rail": "ライトレール",
+    "transit-shelter": "屋根付き停留所",
+    "inception-train": "“インセプション” 電車"
+  },
+  "descriptions": {
+    "wayfinding-sign": {
+      "prompt": "道路名標識 (wayfinding signs)について",
+      "lede": "道路名標識があることで、歩行者にとっても目的地までの道のりがわかりやすくなります。",
+      "text": [
+        "",
+        "",
+        ""
+      ]
     },
     "parklet": {
-      "name": "パークレット",
-      "description": {
-        "prompt": "パークレットについて",
-        "imageCaption": "4033 Judah Streetのパークレット, 写真提供 San Francisco Planning Department。",
-        "lede": "パークレットを設置することで、路面駐車場が一時的な公共空間に生まれ変わります。",
-        "text": [
-          "",
-          ""
-        ]
-      }
-    },
-    "divider": {
-      "name": "バッファーゾーン",
-      "details": {
-        "planting-strip": {
-          "name": "緑地・花壇"
-        },
-        "planter-box": {
-          "name": "プランター"
-        },
-        "median": {
-          "name": "中央分離帯"
-        },
-        "striped-buffer": {
-          "name": "バッファー"
-        },
-        "bush": {
-          "name": "緑地・花壇"
-        },
-        "flowers": {
-          "name": "緑地・花壇"
-        },
-        "big-tree": {
-          "name": "緑地・花壇"
-        },
-        "palm-tree": {
-          "name": "緑地・花壇"
-        },
-        "bollard": {
-          "name": "ボラード"
-        },
-        "dome": {
-          "name": "車両除外ドーム"
-        }
-      }
+      "prompt": "パークレットについて",
+      "imageCaption": "4033 Judah Streetのパークレット, 写真提供 San Francisco Planning Department。",
+      "lede": "パークレットを設置することで、路面駐車場が一時的な公共空間に生まれ変わります。",
+      "text": [
+        "2005年には、サンフランシスコに拠点を置くデザインスタジオである<a href=\"http://rebargroup.org/\">レバー</a>が、ミッションストリートのダウンタウンにある単一に測定された駐車スペースを一時的に小さな公共公園に切り替えました。最初の公園はシンプルでした：長方形の芝生の上にベンチと木があったが、それは簡単な指針と他の人が自分のことを得る料金を特徴とした。公共空間のかなりの部分が、実際に自動車を保管するために専念するという事実を認識した人として国際運動が誕生しました。そして今、毎年開催されている<a href=\"http://parkingday.org/\">公園（駐車）の日</a>は、世界中で、一時的に転換された約1000個のスポットを開催します。",
+        "良いアイデアを知ったとき、サンフランシスコは、2010年に<a href=\"http://sfpavementtoparks.sfplanning.org/\">公園の舗装計画</a>のために公園公務を作った最初の都市となりました。今日ベイによる都市には50以上の公園があり、そのうちの多くの部分が、現在レバーの適切なプロトタイプを越えてはるかに改善された建築学的に設計されたオブジェクトです。サンフランシスコで最も繁華なショッピング街の中心にある野心的な、企業が主催する2ブロックの長さの公園、そして<a href=\"http://www.ybcbd.org/\">イェルバ・ブエナのコミュニティ・ベネフィット地区</a>のために設計された移動式の明るい赤色の「パークモービル」（ストリートミックスのデフォルトデザイン）があります。公式パークレットプログラムは、現在、フィラデルフィア、オークランド、カンザスシティ、ニューヨーク、シカゴ、バンクーバーのような北米の多くの他の都市に存在し、今後より多くの都市はすぐに従うことです。"
+      ]
     },
     "bike-lane": {
-      "name": "自転車専用レーン",
-      "description": {
-        "prompt": "自転車専用レーンについて",
-        "lede": "車両用とは別に自転車専用レーンを設置することで、自転車通行の安全性が増します。",
-        "text": [
-          "",
-          "",
-          ""
-        ]
-      },
-      "details": {
-        "inbound|green": {
-          "description": {
-            "prompt": "色付き自転車専用レーンについて",
-            "lede": "自転車専用レーンを色分けすることで、自転車通行時に道路を見分けやすくなり、安全性が向上します。",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        },
-        "outbound|green": {
-          "description": {
-            "prompt": "色付き自転車専用レーンについて",
-            "lede": "自転車専用レーンを色分けすることで、自転車通行時に道路を見分けやすくなり、安全性が向上します。",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        },
-        "inbound|red": {
-          "description": {
-            "prompt": "色付き自転車専用レーンについて",
-            "lede": "自転車専用レーンを色分けすることで、自転車通行時に道路を見分けやすくなり、安全性が向上します。",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        },
-        "outbound|red": {
-          "description": {
-            "prompt": "色付き自転車専用レーンについて",
-            "lede": "自転車専用レーンを色分けすることで、自転車通行時に道路を見分けやすくなり、安全性が向上します。",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        }
-      }
+      "prompt": "自転車専用レーンについて",
+      "lede": "車両用とは別に自転車専用レーンを設置することで、自転車通行の安全性が増します。",
+      "text": [
+        "",
+        "",
+        ""
+      ]
     },
-    "parking-lane": {
-      "name": "路上駐車スペース",
-      "details": {
-        "sideways|left": {
-          "name": "道路に対して直角"
-        },
-        "sideways|right": {
-          "name": "道路に対して直角"
-        },
-        "angled-front-left|left": {
-          "name": "斜めに駐車"
-        },
-        "angled-front-left|right": {
-          "name": "斜めに駐車"
-        },
-        "angled-front-right|left": {
-          "name": "斜めに駐車"
-        },
-        "angled-front-right|right": {
-          "name": "斜めに駐車"
-        },
-        "angled-rear-left|left": {
-          "name": "斜めに駐車"
-        },
-        "angled-rear-left|right": {
-          "name": "斜めに駐車"
-        },
-        "angled-rear-right|left": {
-          "name": "斜めに駐車"
-        },
-        "angled-rear-right|right": {
-          "name": "斜めに駐車"
-        }
-      }
+    "colored-bike-lane": {
+      "prompt": "色付き自転車専用レーンについて",
+      "lede": "自転車専用レーンを色分けすることで、自転車通行時に道路を見分けやすくなり、安全性が向上します。",
+      "text": [
+        "",
+        "",
+        ""
+      ]
     },
-    "flex-zone": {
-      "name": "",
-      "details": {
-        "taxi|inbound|left": {
-          "name": ""
-        },
-        "taxi|inbound|right": {
-          "name": ""
-        },
-        "taxi|outbound|left": {
-          "name": ""
-        },
-        "taxi|outbound|right": {
-          "name": ""
-        },
-        "rideshare|inbound|left": {
-          "name": ""
-        },
-        "rideshare|inbound|right": {
-          "name": ""
-        },
-        "rideshare|outbound|left": {
-          "name": ""
-        },
-        "rideshare|outbound|right": {
-          "name": ""
-        },
-        "bikeshare|inbound|left": {
-          "name": ""
-        },
-        "bikeshare|inbound|right": {
-          "name": ""
-        },
-        "bikeshare|outbound|left": {
-          "name": ""
-        },
-        "bikeshare|outbound|right": {
-          "name": ""
-        },
-        "foodtruck|inbound|left": {
-          "name": ""
-        },
-        "foodtruck|inbound|right": {
-          "name": ""
-        },
-        "foodtruck|outbound|left": {
-          "name": ""
-        },
-        "foodtruck|outbound|right": {
-          "name": ""
-        }
-      }
+    "sharrow": {
+      "prompt": "自転車共用レーンについて",
+      "lede": "自転車共用レーンは、車両と自転車のどちらも通行可能です。",
+      "text": [
+        "",
+        "",
+        ""
+      ]
     },
-    "flex-zone-curb": {
-      "name": ""
+    "transit-shelter-elevated": {
+      "prompt": "屋根付き停留所の段差分けについて",
+      "lede": "停留所に段差をつけることで、ライトレールやバスがスムーズに停車し、運行することができます。",
+      "text": [
+        "",
+        "",
+        ""
+      ]
     },
-    "drive-lane": {
-      "name": "車両用レーン",
-      "details": {
-        "inbound|sharrow": {
-          "name": "自転車共用",
-          "description": {
-            "prompt": "自転車共用レーンについて",
-            "lede": "自転車共用レーンは、車両と自転車のどちらも通行可能です。",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        },
-        "outbound|sharrow": {
-          "name": "自転車共用",
-          "description": {
-            "prompt": "自転車共用レーンについて",
-            "lede": "自転車共用レーンは、車両と自転車のどちらも通行可能です。",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        }
-      }
-    },
-    "turn-lane": {
-      "name": "方向転換レーン",
-      "details": {
-        "inbound|straight": {
-          "name": "方向転換なしレーン"
-        },
-        "inbound|shared": {
-          "name": "センター・ターンレーン"
-        },
-        "outbound|straight": {
-          "name": "方向転換なしレーン"
-        },
-        "outbound|shared": {
-          "name": "センター・ターンレーン"
-        }
-      }
-    },
-    "bus-lane": {
-      "name": "バス専用レーン",
-      "details": {
-        "inbound|shared": {
-          "name": "バス/自転車共用レーン"
-        },
-        "outbound|shared": {
-          "name": "バス/自転車共用レーン"
-        }
-      }
-    },
-    "streetcar": {
-      "name": "路面電車"
-    },
-    "light-rail": {
-      "name": "ライトレール"
-    },
-    "transit-shelter": {
-      "name": "屋根付き停留所",
-      "details": {
-        "left|light-rail": {
-          "description": {
-            "prompt": "屋根付き停留所の段差分けについて",
-            "lede": "停留所に段差をつけることで、ライトレールやバスがスムーズに停車し、運行することができます。",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        },
-        "right|light-rail": {
-          "description": {
-            "prompt": "屋根付き停留所の段差分けについて",
-            "lede": "停留所に段差をつけることで、ライトレールやバスがスムーズに停車し、運行することができます。",
-            "text": [
-              "",
-              "",
-              ""
-            ]
-          }
-        }
-      }
-    },
-    "train": {
-      "name": "“インセプション” 電車",
-      "description": {
-        "lede": "クリストファー・ノーラン監督の映画<em>インセプション</em>に登場する電車です。",
-        "text": [
-          "説明は不要でしょ？"
-        ]
-      }
+    "inception-train": {
+      "lede": "クリストファー・ノーラン監督の映画<em>インセプション</em>に登場する電車です。",
+      "text": [
+        "説明は不要でしょ？"
+      ]
     }
   },
   "buildings": {

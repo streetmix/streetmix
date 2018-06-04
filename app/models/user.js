@@ -1,10 +1,12 @@
-var mongoose = require('mongoose')
+const mongoose = require('mongoose')
 
-var userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   id: { type: String, index: { unique: true } },
   twitter_id: String,
   twitter_credentials: mongoose.Schema.Types.Mixed,
+  auth0_id: String,
   login_tokens: [ String ],
+  profile_image_url: String,
   data: mongoose.Schema.Types.Mixed,
   created_at: Date,
   updated_at: Date,
@@ -12,7 +14,7 @@ var userSchema = new mongoose.Schema({
 })
 
 userSchema.pre('save', function (next) {
-  var now = new Date()
+  const now = new Date()
   this.updated_at = now
   this.created_at = this.created_at || now
   next()
@@ -21,7 +23,7 @@ userSchema.pre('save', function (next) {
 userSchema.methods.asJson = function (options, cb) {
   options = options || {}
 
-  var json = {
+  const json = {
     id: this.id
   }
 
@@ -33,5 +35,4 @@ userSchema.methods.asJson = function (options, cb) {
 
   cb(null, json)
 }
-
 module.exports = mongoose.model('User', userSchema)

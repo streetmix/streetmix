@@ -28,12 +28,12 @@
       "save": "画像として保存",
       "save-byline": "レポートやブログなどにお使いください",
       "messages": {
-        "my-street": "",
-        "my-street-unnamed": "",
-        "someone-elses-street": "",
-        "someone-elses-street-unnamed": "",
-        "anonymous-creator-street": "",
-        "anonymous-creator-street-unnamed": ""
+        "my-street": "ストリートミックスで、私の通り{streetName}をチェックしてください！",
+        "my-street-unnamed": "ストリートミックスで、私の通りをチェックしてください！",
+        "someone-elses-street": "ストリートミックスの{streetCreator}によって、{streetName}を確認してください！",
+        "someone-elses-street-unnamed": "ストリートミックスの{streetCreator}でこの通りをチェックしてください！",
+        "anonymous-creator-street": "ストリートミックスで{streetName}をチェックしてください！",
+        "anonymous-creator-street-unnamed": "ストリートミックスで、この通りを確認してください！"
       }
     },
     "contact": {
@@ -70,7 +70,7 @@
     "slow-connection-1": "現在、Streetmixとインターネットの疎通に問題が発生しています。",
     "slow-connection-2": "ページを再度読み込んでください。最後に行った変更点は破棄されます。申し訳ありません。",
     "no-connection": "Streetmixからインターネットへの接続に失敗しました。",
-    "more-info": ""
+    "more-info": "詳細情報"
   },
   "error": {
     "button": {
@@ -159,7 +159,7 @@
       "github-link": "オープンなソースで貢献"
     },
     "save": {
-      "heading": "画像として保存e",
+      "heading": "画像として保存",
       "option-labels": "セグメントの名称と幅",
       "option-name": "ストリートの名称",
       "option-sky": "空を透明化",
@@ -242,7 +242,7 @@
     "rename": "名称を変える"
   },
   "building": {
-    "floors-count": "{count, plural, other {}}"
+    "floors-count": "{count, plural, other {＃階}}"
   },
   "segments": {
     "warnings": {
@@ -253,6 +253,9 @@
     "learn-more": "詳細",
     "unknown": {
       "label": "詳細不明"
+    },
+    "description": {
+      "photo-credit": "写真："
     }
   },
   "section": {
@@ -263,7 +266,7 @@
     "all": "すべてのストリート",
     "twitter-link": "Twitterプロフィール",
     "delete-street-tooltip": "ストリート削除",
-    "street-count": "{count, plural, other {}}",
+    "street-count": "{count, plural, other {＃通り}}",
     "no-streets": "ストリート未作成",
     "sign-in": "Twitterでログイン個人用のストリートギャラリーを作成できます"
   },
@@ -272,7 +275,8 @@
     "byline": "{user}さん作"
   },
   "meta": {
-    "description": "あなたの身近な道路をデザインし、リミックスし、シェアしましょう。必要なものはブラウザだけです！ 街路樹や自転車レーン、歩道や車道を追加してみて、あなたのアイデアで地域コミュニティがどう変わるのかを試してみましょう。"
+    "description": "あなたの身近な道路をデザインし、リミックスし、シェアしましょう。必要なものはブラウザだけです！ 街路樹や自転車レーン、歩道や車道を追加してみて、あなたのアイデアで地域コミュニティがどう変わるのかを試してみましょう。",
+    "page-title": "{streetName}({author}によって)"
   },
   "i18n": {
     "lang": {

@@ -1,8 +1,8 @@
-var mongoose = require('mongoose')
-var async = require('async')
-var User = require('./user.js')
+const mongoose = require('mongoose')
+const async = require('async')
+const User = require('./user.js')
 
-var streetSchema = new mongoose.Schema({
+const streetSchema = new mongoose.Schema({
   id: { type: String, index: { unique: true } },
   namespaced_id: { type: Number, index: true },
   status: { type: String, enum: [ 'ACTIVE', 'DELETED' ], default: 'ACTIVE' },
@@ -26,14 +26,14 @@ streetSchema.add({
 })
 
 streetSchema.pre('save', function (next) {
-  var now = new Date()
+  const now = new Date()
   this.updated_at = now
   this.created_at = this.created_at || now
   next()
 })
 
 streetSchema.methods.asJson = function (cb) {
-  var json = {
+  const json = {
     id: this.id,
     namespacedId: this.namespaced_id,
     name: this.name,
@@ -42,10 +42,10 @@ streetSchema.methods.asJson = function (cb) {
     updatedAt: this.updated_at
   }
 
-  var creatorId = this.creator_id
-  var originalStreetId = this.original_street_id
+  const creatorId = this.creator_id
+  const originalStreetId = this.original_street_id
 
-  var appendCreator = function (callback) {
+  const appendCreator = function (callback) {
     if (creatorId) {
       User.findById(creatorId, function (err, creator) {
         if (err) {
@@ -66,7 +66,7 @@ streetSchema.methods.asJson = function (cb) {
     }
   } // END function - appendCreator
 
-  var appendOriginalStreetId = function (callback) {
+  const appendOriginalStreetId = function (callback) {
     if (originalStreetId) {
       mongoose.model('Street').findById(originalStreetId, function (err, originalStreet) {
         if (err) {

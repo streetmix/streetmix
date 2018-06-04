@@ -1,9 +1,8 @@
-/* global mixpanel */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import EnvironmentBadge from './EnvironmentBadge'
-import { URL_SIGN_IN_REDIRECT } from '../app/routing'
+import { goSignIn } from '../app/routing'
 import { showGallery } from '../gallery/view'
 import MenuBarItem from './MenuBarItem'
 import Avatar from '../users/Avatar'
@@ -22,36 +21,16 @@ class MenuBar extends React.PureComponent {
   }
 
   componentDidMount () {
-    this.attachSignInTracking()
-
     window.addEventListener('resize', this.onResize)
 
     // StreetNameCanvas needs to know the left position of the right menu bar when it's mounted
     window.addEventListener('stmx:streetnamecanvas_mounted', this.onResize)
   }
 
-  componentDidUpdate (prevProps) {
-    if (this.props.userId && !prevProps.userId) {
-      this.attachSignInTracking()
-    }
-  }
-
   componentWillUnmount () {
     // Clean up event listeners
     window.removeEventListener('resize', this.onResize)
     window.removeEventListener('stmx:streetnamecanvas_mounted', this.onResize)
-  }
-
-  /**
-   * Attaches mixpanel tracking to sign-in link, if element is present. Call
-   * only after DOM is rendered.
-   */
-  attachSignInTracking () {
-    if (window.mixpanel && document.getElementById('sign-in-link')) {
-      mixpanel.track_links('#sign-in-link', 'clicked sign in link', {
-        referrer: document.referrer
-      })
-    }
   }
 
   /**
@@ -86,6 +65,10 @@ class MenuBar extends React.PureComponent {
     }}))
   }
 
+  onClickSignIn = (event) => {
+    goSignIn()
+  }
+
   renderUserAvatar = (userId) => {
     return (userId)
       ? (
@@ -95,12 +78,10 @@ class MenuBar extends React.PureComponent {
         </MenuBarItem>
       ) : (
         <MenuBarItem
-          url={`/${URL_SIGN_IN_REDIRECT}`}
+          onClick={this.onClickSignIn}
           translation="menu.item.sign-in"
           label="Sign in"
           requireInternet
-          className="command"
-          id="sign-in-link"
         />
       )
   }

@@ -96,27 +96,16 @@ export class Description extends React.Component {
 
     if (!description || !this.props.segmentEl || !this.props.infoBubbleEl) return null
 
-    // If the description text hasn't been translated, bail.
-    const variantDescriptionText = t(`segments.${this.props.type}.details.${this.props.variantString}.description.text`, null, { ns: 'segment-info' })
-    const segmentDescriptionText = t(`segments.${this.props.type}.description.text`, null, { ns: 'segment-info' })
-    const displayDescription = variantDescriptionText || segmentDescriptionText
-    if (!displayDescription || this.isEmptyText(displayDescription)) return null
+    // If the description text doesn't exist or hasn't been translated, bail.
+    const text = t(`descriptions.${description.key}.text`, null, { ns: 'segment-info' })
+    if (!text || this.isEmptyText(text)) return null
 
-    // Get translated text for prompt, if it exists
-    const defaultPrompt = description.prompt || <FormattedMessage id="segments.learn-more" defaultMessage="Learn more" />
+    const defaultPrompt = <FormattedMessage id="segments.learn-more" defaultMessage="Learn more" />
 
     // TODO: use FormattedMessage
-    const variantPrompt = t(`segments.${this.props.type}.details.${this.props.variantString}.description.prompt`, null, { ns: 'segment-info' })
-    const segmentPrompt = t(`segments.${this.props.type}.description.prompt`, defaultPrompt, { ns: 'segment-info' })
-    const displayPrompt = variantPrompt || segmentPrompt
-
-    const variantLede = t(`segments.${this.props.type}.details.${this.props.variantString}.description.lede`, null, { ns: 'segment-info' })
-    const segmentLede = t(`segments.${this.props.type}.description.lede`, description.lede, { ns: 'segment-info' })
-    const displayLede = variantLede || segmentLede
-
-    const variantImageCaption = t(`segments.${this.props.type}.details.${this.props.variantString}.description.imageCaption`, null, { ns: 'segment-info' })
-    const segmentImageCaption = t(`segments.${this.props.type}.description.imageCaption`, description.imageCaption, { ns: 'segment-info' })
-    const displayImageCaption = variantImageCaption || segmentImageCaption
+    const prompt = t(`descriptions.${description.key}.prompt`, defaultPrompt, { ns: 'segment-info' })
+    const lede = t(`descriptions.${description.key}.lede`, null, { ns: 'segment-info' })
+    const imageCaption = t(`descriptions.${description.key}.imageCaption`, null, { ns: 'segment-info' })
 
     return (
       <React.Fragment>
@@ -126,15 +115,15 @@ export class Description extends React.Component {
           onMouseOver={this.props.highlightTriangle}
           onMouseOut={this.props.unhighlightTriangle}
         >
-          {displayPrompt}
+          {prompt}
         </div>
         <DescriptionPanel
           visible={this.props.descriptionVisible}
           onClickHide={this.onClickHide}
           image={description.image}
-          lede={displayLede}
-          text={displayDescription}
-          caption={displayImageCaption}
+          lede={lede}
+          text={text}
+          caption={imageCaption}
           bubbleY={Number.parseInt(this.props.infoBubbleEl.style.top)}
         />
       </React.Fragment>

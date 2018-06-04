@@ -1,12 +1,12 @@
-var async = require('async')
+const async = require('async')
 
 require('../../../lib/db.js')
-var User = require('../../models/user.js')
-var Street = require('../../models/street.js')
-var logger = require('../../../lib/logger.js')()
+const User = require('../../models/user.js')
+const Street = require('../../models/street.js')
+const logger = require('../../../lib/logger.js')()
 
 exports.get = function (req, res) {
-  var handleFindUser = function (err, user) {
+  const handleFindUser = function (err, user) {
     if (err) {
       logger.error(err)
       res.status(500).send('Could not find user.')
@@ -18,9 +18,9 @@ exports.get = function (req, res) {
       return
     }
 
-    var json = { streets: [] }
+    let json = { streets: [] }
 
-    var handleFindStreets = function (err, streets) {
+    const handleFindStreets = function (err, streets) {
       if (err) {
         logger.error(err)
         res.status(500).send('Could not find streets for user.')

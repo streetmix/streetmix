@@ -143,6 +143,8 @@ app.get('/map', function (req, res) {
 
 app.get('/twitter-sign-in', controllers.twitter_sign_in.get)
 app.get(config.twitter.oauth_callback_uri, controllers.twitter_sign_in_callback.get)
+// Auth0 - twitter auth
+app.get(config.auth0.twitter_callback_uri, controllers.twitter_auth0_sign_in_callback.get)
 
 app.post('/api/v1/users', resources.v1.users.post)
 app.get('/api/v1/users/:user_id', resources.v1.users.get)
@@ -181,6 +183,10 @@ app.get('/assets/scripts/main.js', browserify(path.join(__dirname, '/assets/scri
     FACEBOOK_APP_ID: config.get('facebook_app_id'),
     API_URL: config.get('restapi_proxy_baseuri_rel'),
     TWITTER_CALLBACK_URI: config.get('twitter').oauth_callback_uri,
+    AUTH0_TWITTER_CALLBACK_URI: config.get('auth0').twitter_callback_uri,
+    AUTH0_DOMAIN: config.get('auth0').domain,
+    AUTH0_CLIENT_ID: config.get('auth0').client_id,
+    USE_AUTH0: config.get('auth0').use_auth0,
     ENV: config.get('env'),
     NO_INTERNET_MODE: config.get('no_internet_mode')
   })]
