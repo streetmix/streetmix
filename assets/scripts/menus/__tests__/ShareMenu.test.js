@@ -10,6 +10,12 @@ jest.mock('../../app/page_title', () => {
   }
 })
 
+jest.mock('../../app/config', () => {
+  return {
+    TWITTER_URL_SIGN_IN_CALLBACK_REL: '/twitter-sign-in-callback'
+  }
+})
+
 describe('ShareMenu', () => {
   it('renders without crashing', () => {
     const wrapper = shallow(<ShareMenu showDialog={jest.fn()} signedIn street={{}} intl={mockIntl} />)
