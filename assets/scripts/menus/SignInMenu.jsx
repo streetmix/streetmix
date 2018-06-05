@@ -1,6 +1,6 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
-import { goTwitterSignIn } from '../app/routing'
+import { goTwitterSignIn, goEmailSignIn } from '../app/routing'
 import Menu from './Menu'
 
 export default class SignInMenu extends React.Component {
@@ -11,6 +11,7 @@ export default class SignInMenu extends React.Component {
 
   handleEmailSignIn = (event) => {
     event.preventDefault()
+    goEmailSignIn()
   }
 
   render () {

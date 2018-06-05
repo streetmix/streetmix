@@ -50,6 +50,7 @@ const csp = {
       'platform.twitter.com',
       'https://www.google-analytics.com',
       'cdn.mxpnl.com',
+      'streetmix.auth0.com',
       '*.basemaps.cartocdn.com',
       'api.geocode.earth',
       (req, res) => "'nonce-" + res.locals.nonce.google_analytics + "'",
@@ -71,7 +72,8 @@ const csp = {
       'api.geocode.earth',
       'syndication.twitter.com',
       'https://www.google-analytics.com',
-      'app.getsentry.com'
+      'app.getsentry.com',
+      'streetmix.auth0.com'
     ]
   }
 }
