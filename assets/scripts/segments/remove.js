@@ -23,9 +23,6 @@ export function removeSegment (el) {
   // don't appear briefly after animating away
   infoBubble.hideSegment()
 
-  // Animates segment away
-  // switchSegmentElAway(el)
-
   // Update the store
   store.dispatch(removeSegmentActionCreator(window.parseInt(el.dataNo, 10)))
 
