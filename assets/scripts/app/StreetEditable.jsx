@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Segment from '../segments/Segment'
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
+
 import { TILE_SIZE } from '../segments/constants'
 import { getVariantArray } from '../segments/variant_utils'
 import { generateRandSeed } from '../util/random'
@@ -61,29 +61,20 @@ class StreetEditable extends React.Component {
         segment.randSeed = generateRandSeed()
       }
 
-      const segmentEl = (
-        <CSSTransition
-          key={segment.randSeed}
-          timeout={250}
-          classNames="switching-away"
-          onExit={(el) => { this.props.calculatePerspective(el, true) }}
-        >
-          <Segment
-            key={segment.randSeed}
-            dataNo={i}
-            type={segment.type}
-            variantString={segment.variantString}
-            width={segmentWidth}
-            isUnmovable={false}
-            forPalette={false}
-            units={units}
-            randSeed={segment.randSeed}
-            segmentPos={segmentPos}
-            updateSegmentData={this.updateSegmentData}
-            calculatePerspective={this.props.calculatePerspective}
-          />
-        </CSSTransition>
-      )
+      const segmentEl = (<Segment
+        key={segment.randSeed}
+        dataNo={i}
+        type={segment.type}
+        variantString={segment.variantString}
+        width={segmentWidth}
+        isUnmovable={false}
+        forPalette={false}
+        units={units}
+        randSeed={segment.randSeed}
+        segmentPos={segmentPos}
+        updateSegmentData={this.updateSegmentData}
+        calculatePerspective={this.props.calculatePerspective}
+      />)
 
       streetSegments.push(segmentEl)
     })
@@ -103,9 +94,7 @@ class StreetEditable extends React.Component {
         style={style}
         ref={(ref) => { this.streetSectionEditable = ref }}
       >
-        <TransitionGroup enter={false}>
-          {this.renderStreetSegments()}
-        </TransitionGroup>
+        {this.renderStreetSegments()}
       </div>
     )
   }
