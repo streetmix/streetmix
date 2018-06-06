@@ -513,7 +513,12 @@ class InfoBubble extends React.Component {
           <RemoveButton enabled={canBeDeleted} segment={this.segmentEl} />
         </header>
         <div className="info-bubble-controls">
-          <Variants type={type} position={position} />
+          <IntlProvider
+            locale={this.props.locale.locale}
+            messages={this.props.locale.segmentInfo}
+          >
+            <Variants type={type} position={position} />
+          </IntlProvider>
           {widthOrHeightControl}
         </div>
         <Warnings segment={segment} />
