@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { IntlProvider, FormattedMessage } from 'react-intl'
 import Triangle from './Triangle'
 import RemoveButton from './RemoveButton'
 import Variants from './Variants'
@@ -22,7 +23,6 @@ import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
 import { loseAnyFocus } from '../util/focus'
 import { getElAbsolutePos } from '../util/helpers'
 import { setInfoBubbleMouseInside, updateHoverPolygon } from '../store/actions/infoBubble'
-import { t } from '../app/locale'
 
 const INFO_BUBBLE_MARGIN_BUBBLE = 20
 const INFO_BUBBLE_MARGIN_MOUSE = 10
@@ -44,7 +44,8 @@ class InfoBubble extends React.Component {
     setInfoBubbleMouseInside: PropTypes.func,
     updateHoverPolygon: PropTypes.func,
     street: PropTypes.object,
-    system: PropTypes.object
+    system: PropTypes.object,
+    locale: PropTypes.object
   }
 
   static defaultProps = {
@@ -403,7 +404,8 @@ class InfoBubble extends React.Component {
    * translation files if provided.
    */
   getName = () => {
-    let name
+    let id
+    let defaultMessage = ''
 
     switch (this.state.type) {
       case INFO_BUBBLE_TYPE_SEGMENT: {
@@ -411,32 +413,41 @@ class InfoBubble extends React.Component {
         if (segment) {
           const segmentInfo = getSegmentInfo(segment.type)
           const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
-          const defaultName = variantInfo.name || segmentInfo.name
-          const nameKey = variantInfo.nameKey || segmentInfo.nameKey
+          const key = variantInfo.nameKey || segmentInfo.nameKey
 
-          // Get localized names from store, fall back to segment default names if translated
-          // text is not found. TODO: port to react-intl/formatMessage later.
-          name = t(`segments.${nameKey}`, defaultName, { ns: 'segment-info' })
+          id = `segments.${key}`
+          defaultMessage = variantInfo.name || segmentInfo.name
         }
         break
       }
       case INFO_BUBBLE_TYPE_LEFT_BUILDING: {
-        const variantId = this.props.street.leftBuildingVariant
-        const backupName = BUILDINGS[variantId].label
-        name = t(`buildings.${variantId}.name`, backupName, { ns: 'segment-info' })
+        const key = this.props.street.leftBuildingVariant
+
+        id = `buildings.${key}.name`
+        defaultMessage = BUILDINGS[key].label
+
         break
       }
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING: {
-        const variantId = this.props.street.rightBuildingVariant
-        const backupName = BUILDINGS[variantId].label
-        name = t(`buildings.${variantId}.name`, backupName, { ns: 'segment-info' })
+        const key = this.props.street.rightBuildingVariant
+
+        id = `buildings.${key}.name`
+        defaultMessage = BUILDINGS[key].label
+
         break
       }
       default:
         break
     }
 
-    return name
+    return (id) ? (
+      <IntlProvider
+        locale={this.props.locale.locale}
+        messages={this.props.locale.segmentInfo}
+      >
+        <FormattedMessage id={id} defaultMessage={defaultMessage} />
+      </IntlProvider>
+    ) : null
   }
 
   render () {
@@ -528,7 +539,8 @@ function mapStateToProps (state) {
     descriptionVisible: state.infoBubble.descriptionVisible,
     mouseInside: state.infoBubble.mouseInside,
     street: state.street,
-    system: state.system
+    system: state.system,
+    locale: state.locale
   }
 }
 
