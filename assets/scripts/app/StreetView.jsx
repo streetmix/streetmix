@@ -16,6 +16,7 @@ import EmptySegment from '../segments/EmptySegment'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { animate, getElAbsolutePos } from '../util/helpers'
 import { MAX_CUSTOM_STREET_WIDTH } from '../streets/width'
+import { SHORT_DELAY } from '../segments/resizing'
 import { BUILDING_SPACE } from '../segments/buildings'
 import { TILE_SIZE } from '../segments/constants'
 import { app } from '../preinit/app_settings'
@@ -173,15 +174,25 @@ class StreetView extends React.Component {
     })
   }
 
-  calculatePerspective = (el) => {
+  calculatePerspective = (el, switchSegmentAway) => {
     if (!el) return
 
     const pos = getElAbsolutePos(el)
-    const perspective = -(pos[0] - this.streetSectionOuter.scrollLeft - (this.props.system.viewportWidth / 2))
+    const scrollPos = (this.streetSectionOuter && this.streetSectionOuter.scrollLeft) || this.state.scrollPos
+    const perspective = -(pos[0] - scrollPos - (this.props.system.viewportWidth / 2))
 
     el.style.webkitPerspectiveOrigin = (perspective / 2) + 'px 50%'
     el.style.MozPerspectiveOrigin = (perspective / 2) + 'px 50%'
     el.style.perspectiveOrigin = (perspective / 2) + 'px 50%'
+
+    if (switchSegmentAway) {
+      document.body.classList.add('immediate-segment-resize')
+      window.setTimeout(function () {
+        document.body.classList.remove('immediate-segment-resize')
+      }, SHORT_DELAY)
+
+      el.style.left = el.savedLeft + 'px'
+    }
   }
 
   render () {
