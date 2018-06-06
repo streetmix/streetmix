@@ -17,11 +17,7 @@ jest.mock('../../preinit/app_settings', () => {})
 
 describe('StreetMeta', () => {
   it('renders without crashing', () => {
-    const wrapper = shallow(
-      <StreetMeta.WrappedComponent
-        locale={{}}
-      />
-    )
+    const wrapper = shallow(<StreetMeta />)
     expect(wrapper.exists()).toEqual(true)
   })
 })

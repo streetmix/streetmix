@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { t } from '../app/locale'
 import { segmentsChanged } from '../segments/view'
+import { injectIntl, intlShape } from 'react-intl'
 import { getSegmentInfo } from '../segments/info'
 import { VARIANT_ICONS } from '../segments/variant_icons'
 import { getVariantArray } from '../segments/variant_utils'
@@ -15,6 +15,7 @@ import { setBuildingVariant, changeSegmentVariant } from '../store/actions/stree
 
 class Variants extends React.Component {
   static propTypes = {
+    intl: intlShape.isRequired,
     type: PropTypes.number,
     position: PropTypes.oneOfType([
       PropTypes.number,
@@ -117,7 +118,10 @@ class Variants extends React.Component {
 
     if (!icon) return null
 
-    const title = t(`variant-icons.${set}|${selection}`, icon.title, { ns: 'segment-info' })
+    const title = this.props.intl.formatMessage({
+      id: `variant-icons.${set}|${selection}`,
+      defaultMessage: icon.title
+    })
 
     // Segments that are only enabled with a flag checks to see if flag
     // is set to true. If not, bail.
@@ -233,4 +237,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Variants)
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Variants))

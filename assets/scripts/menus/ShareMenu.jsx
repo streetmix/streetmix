@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape } from 'react-intl'
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Menu from './Menu'
@@ -10,6 +10,7 @@ import { getPageTitle } from '../app/page_title'
 import { printImage } from '../app/print'
 import { getSharingUrl } from '../util/share_url'
 import { showDialog } from '../store/actions/dialogs'
+import { goSignIn } from '../app/routing'
 
 export class ShareMenu extends React.Component {
   static propTypes = {
@@ -110,6 +111,11 @@ export class ShareMenu extends React.Component {
     this.props.showDialog()
   }
 
+  onClickSignIn = (event) => {
+    event.preventDefault()
+    goSignIn()
+  }
+
   render () {
     const shareText = this.getSharingMessage()
     const twitterLink = 'https://twitter.com/intent/tweet' +
@@ -123,12 +129,22 @@ export class ShareMenu extends React.Component {
       '&name=' + encodeURIComponent(getPageTitle(this.props.street)) +
       '&description=' + encodeURIComponent(shareText)
 
+    const signInLink = <a onClick={this.onClickSignIn} href="#">
+      <FormattedMessage
+        defaultMessage="Sign in"
+        id="menu.share.sign-in-twitter-link"
+      />
+    </a>
+
     const signInPromo = (!this.props.signedIn)
       ? (
         <div className="share-sign-in-promo">
-          <FormattedHTMLMessage
-            id="menu.share.sign-in"
-            defaultMessage="<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Sign in with Twitter</a> for nicer links to your streets and your personal street gallery"
+          <FormattedMessage
+            id="menu.share.sign-in-link"
+            defaultMessage={`{signInLink} for nicer links to your streets and your personal street gallery`}
+            values={{
+              signInLink
+            }}
           />
         </div>
       ) : null
