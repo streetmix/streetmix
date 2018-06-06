@@ -33,17 +33,11 @@ export class Avatar extends React.PureComponent {
   componentDidMount () {
     // If a profile image had not been cached, initiate a fetch of it
     if (!this.state.image) {
-      this.fetchAvatar(this.props.userId)
-    }
-  }
-
-  componentWillReceiveProps (nextProps) {
-    if (this.props.userId !== nextProps.userId) {
-      const url = this.getCachedProfileImageUrl(nextProps.userId)
+      const url = this.getCachedProfileImageUrl(this.props.userId)
       if (url) {
         this.testImageUrl(url)
       } else {
-        this.fetchAvatar(nextProps.userId)
+        this.fetchAvatar(this.props.userId)
       }
     }
   }
