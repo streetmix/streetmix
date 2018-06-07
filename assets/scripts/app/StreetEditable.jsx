@@ -15,6 +15,29 @@ class StreetEditable extends React.Component {
     updatePerspective: PropTypes.func.isRequired
   }
 
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      segmentRemoved: false,
+      numSegments: props.street.segments.length
+    }
+  }
+
+  static getDerivedStateFromProps (nextProps, prevState) {
+    const prevNumSegments = prevState.numSegments
+    const currNumSegments = nextProps.street.segments.length
+
+    if (currNumSegments !== prevNumSegments) {
+      return {
+        numSegments: currNumSegments,
+        segmentsRemoved: (currNumSegments === prevNumSegments - 1)
+      }
+    }
+
+    return null
+  }
+
   componentDidUpdate (prevProps) {
     const { onResized } = this.props
 
