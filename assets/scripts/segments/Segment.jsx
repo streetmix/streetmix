@@ -86,6 +86,7 @@ class Segment extends React.Component {
     const offsetTop = this.props.forPalette ? SEGMENT_Y_PALETTE : SEGMENT_Y_NORMAL
     const canvas = (isOldSegment) ? this.oldSegmentCanvas : this.segmentCanvas
     const ctx = canvas.getContext('2d')
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
     drawSegmentContents(ctx, this.props.type, variantString, segmentWidth, 0, offsetTop, this.props.randSeed, multiplier, this.props.forPalette)
   }
 
