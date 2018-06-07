@@ -173,7 +173,7 @@ class StreetView extends React.Component {
     })
   }
 
-  calculatePerspective = (el) => {
+  updatePerspective = (el) => {
     if (!el) return
 
     const pos = getElAbsolutePos(el)
@@ -202,17 +202,17 @@ class StreetView extends React.Component {
               <Building
                 position="left"
                 buildingWidth={this.state.buildingWidth}
-                calculatePerspective={this.calculatePerspective}
+                updatePerspective={this.updatePerspective}
               />
               <Building
                 position="right"
                 buildingWidth={this.state.buildingWidth}
-                calculatePerspective={this.calculatePerspective}
+                updatePerspective={this.updatePerspective}
               />
               <StreetEditable
                 onResized={this.state.onResized}
                 setBuildingWidth={this.setBuildingWidth}
-                calculatePerspective={this.calculatePerspective}
+                updatePerspective={this.updatePerspective}
               />
               <EmptySegment position="left" />
               <EmptySegment position="right" />

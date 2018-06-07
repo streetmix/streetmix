@@ -12,7 +12,7 @@ class StreetEditable extends React.Component {
     onResized: PropTypes.bool.isRequired,
     setBuildingWidth: PropTypes.func.isRequired,
     street: PropTypes.object.isRequired,
-    calculatePerspective: PropTypes.func.isRequired
+    updatePerspective: PropTypes.func.isRequired
   }
 
   componentDidUpdate (prevProps) {
@@ -72,7 +72,7 @@ class StreetEditable extends React.Component {
         randSeed={segment.randSeed}
         segmentPos={segmentPos}
         updateSegmentData={this.updateSegmentData}
-        calculatePerspective={this.props.calculatePerspective}
+        updatePerspective={this.props.updatePerspective}
       />)
 
       return segmentEl
