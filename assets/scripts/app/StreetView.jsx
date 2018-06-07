@@ -177,7 +177,8 @@ class StreetView extends React.Component {
     if (!el) return
 
     const pos = getElAbsolutePos(el)
-    const perspective = -(pos[0] - this.streetSectionOuter.scrollLeft - (this.props.system.viewportWidth / 2))
+    const scrollPos = (this.streetSectionOuter && this.streetSectionOuter.scrollLeft) || this.state.scrollPos
+    const perspective = -(pos[0] - scrollPos - (this.props.system.viewportWidth / 2))
 
     el.style.webkitPerspectiveOrigin = (perspective / 2) + 'px 50%'
     el.style.MozPerspectiveOrigin = (perspective / 2) + 'px 50%'
