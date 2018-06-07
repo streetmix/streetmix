@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Segment from '../segments/Segment'
 import uuid from 'uuid'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { TILE_SIZE } from '../segments/constants'
 import { getVariantArray } from '../segments/variant_utils'
 
@@ -12,6 +13,29 @@ class StreetEditable extends React.Component {
     setBuildingWidth: PropTypes.func.isRequired,
     street: PropTypes.object.isRequired,
     updatePerspective: PropTypes.func.isRequired
+  }
+
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      segmentRemoved: false,
+      numSegments: props.street.segments.length
+    }
+  }
+
+  static getDerivedStateFromProps (nextProps, prevState) {
+    const prevNumSegments = prevState.numSegments
+    const currNumSegments = nextProps.street.segments.length
+
+    if (currNumSegments !== prevNumSegments) {
+      return {
+        numSegments: currNumSegments,
+        segmentsRemoved: (currNumSegments === prevNumSegments - 1)
+      }
+    }
+
+    return null
   }
 
   componentDidUpdate (prevProps) {
@@ -59,20 +83,29 @@ class StreetEditable extends React.Component {
         segment.id = uuid()
       }
 
-      const segmentEl = (<Segment
-        key={segment.id}
-        dataNo={i}
-        type={segment.type}
-        variantString={segment.variantString}
-        width={segmentWidth}
-        isUnmovable={false}
-        forPalette={false}
-        units={units}
-        randSeed={segment.randSeed}
-        segmentPos={segmentPos}
-        updateSegmentData={this.updateSegmentData}
-        updatePerspective={this.props.updatePerspective}
-      />)
+      const segmentEl = (
+        <CSSTransition
+          key={i}
+          timeout={250}
+          classNames="switching-away"
+          onExit={(el) => { this.props.updatePerspective(el) }}
+        >
+          <Segment
+            key={segment.id}
+            dataNo={i}
+            type={segment.type}
+            variantString={segment.variantString}
+            width={segmentWidth}
+            isUnmovable={false}
+            forPalette={false}
+            units={units}
+            randSeed={segment.randSeed}
+            segmentPos={segmentPos}
+            updateSegmentData={this.updateSegmentData}
+            updatePerspective={this.props.updatePerspective}
+          />
+        </CSSTransition>
+      )
 
       return segmentEl
     })
@@ -90,7 +123,9 @@ class StreetEditable extends React.Component {
         style={style}
         ref={(ref) => { this.streetSectionEditable = ref }}
       >
-        {this.renderStreetSegments()}
+        <TransitionGroup enter={false} exit={this.state.segmentRemoved}>
+          {this.renderStreetSegments()}
+        </TransitionGroup>
       </div>
     )
   }

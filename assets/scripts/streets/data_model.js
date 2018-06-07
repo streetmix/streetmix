@@ -371,6 +371,7 @@ export function createDataFromDom () {
     segment.el = el
     segment.warnings = []
     segment.id = originalSegmentId
+    console.log(segment.id)
     segments.push(segment)
   }
   store.dispatch(updateSegments(segments))
