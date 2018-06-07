@@ -67,9 +67,10 @@ export class LocaleDropdown extends React.Component {
       // Replace each locale with the translated label
       .map((locale) => ({
         ...locale,
-        label: this.props.intl.formatMessage({
+        label: locale.label,
+        translatedLabel: this.props.intl.formatMessage({
           id: locale.key,
-          defaultMessage: `[${locale.label}]`
+          defaultMessage: locale.name
         })
       }))
       // Sort the list of languages alphabetically
