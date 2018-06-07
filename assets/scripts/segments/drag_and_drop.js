@@ -755,6 +755,9 @@ function handleSegmentMoveEnd (event) {
     }
 
     if (draggingMove.type === DRAGGING_TYPE_MOVE_TRANSFER) {
+      const originalSegmentId = store.getState().street.segments[oldIndex].id
+      newSegment.id = originalSegmentId
+
       store.dispatch(removeSegment(oldIndex))
       store.dispatch(addSegment(newIndex, newSegment))
     } else {

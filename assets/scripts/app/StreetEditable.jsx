@@ -2,10 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Segment from '../segments/Segment'
-
+import uuid from 'uuid'
 import { TILE_SIZE } from '../segments/constants'
 import { getVariantArray } from '../segments/variant_utils'
-import { generateRandSeed } from '../util/random'
 
 class StreetEditable extends React.Component {
   static propTypes = {
@@ -56,12 +55,12 @@ class StreetEditable extends React.Component {
       segment.variant = getVariantArray(segment.type, segment.variantString)
       segment.warnings = []
 
-      if (!segment.randSeed) {
-        segment.randSeed = generateRandSeed()
+      if (!segment.id) {
+        segment.id = uuid()
       }
 
       const segmentEl = (<Segment
-        key={segment.randSeed}
+        key={segment.id}
         dataNo={i}
         type={segment.type}
         variantString={segment.variantString}

@@ -357,6 +357,10 @@ export function createDataFromDom () {
 
   for (var i = 0, el; el = els[i]; i++) { // eslint-disable-line no-cond-assign
     var segment = {}
+    // Since we are using a unique id for the segment component key which can not be found
+    // on the DOM element, get it from the store.
+    const originalSegmentId = store.getState().street.segments[i].id
+
     segment.type = el.getAttribute('type')
     if (el.getAttribute('rand-seed')) {
       segment.randSeed = parseInt(el.getAttribute('rand-seed'))
@@ -366,6 +370,7 @@ export function createDataFromDom () {
     segment.width = parseFloat(el.getAttribute('data-width'))
     segment.el = el
     segment.warnings = []
+    segment.id = originalSegmentId
     segments.push(segment)
   }
   store.dispatch(updateSegments(segments))
