@@ -253,7 +253,8 @@ function mapStateToProps (state) {
   return {
     dpi: state.system.hiDpi,
     cssTransform: state.system.cssTransform,
-    locale: state.locale.locale
+    locale: state.locale.locale,
+    redrawCanvas: state.flags.DEBUG_SEGMENT_CANVAS_RECTANGLES.value
   }
 }
 
