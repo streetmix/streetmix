@@ -48,9 +48,8 @@ class StreetEditable extends React.Component {
 
   renderStreetSegments = () => {
     const { segments, units } = this.props.street
-    const streetSegments = []
 
-    segments.map((segment, i) => {
+    return segments.map((segment, i) => {
       const segmentWidth = (segment.width * TILE_SIZE)
       const segmentPos = this.calculateSegmentPos(i)
 
@@ -76,10 +75,8 @@ class StreetEditable extends React.Component {
         calculatePerspective={this.props.calculatePerspective}
       />)
 
-      streetSegments.push(segmentEl)
+      return segmentEl
     })
-
-    return streetSegments
   }
 
   render () {
