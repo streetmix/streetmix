@@ -1,14 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { injectIntl, intlShape } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 import { changeLocale } from '../store/actions/locale'
 import { trackEvent } from '../app/event_tracking'
 import LOCALES from '../../../app/data/locales.json'
 
+const DEFAULT_LOCALE = 'en'
+
 export class LocaleDropdown extends React.Component {
   static propTypes = {
-    intl: intlShape.isRequired,
     locale: PropTypes.string,
     changeLocale: PropTypes.func,
     /* eslint-disable react/no-unused-prop-types */
@@ -28,7 +29,6 @@ export class LocaleDropdown extends React.Component {
   constructor (props) {
     super(props)
 
-    // Will be set by `getDerivedStateFromProps`
     this.state = {
       level: null
     }
@@ -63,16 +63,8 @@ export class LocaleDropdown extends React.Component {
 
   renderLocaleOptions = () => {
     return LOCALES
+      // Remove languages that aren't enabled
       .filter((item) => item.level >= this.state.level)
-      // Replace each locale with the translated label
-      .map((locale) => ({
-        ...locale,
-        label: locale.label,
-        translatedLabel: this.props.intl.formatMessage({
-          id: locale.key,
-          defaultMessage: locale.name
-        })
-      }))
       // Sort the list of languages alphabetically
       .sort((a, b) => {
         if (a.label < b.label) return -1
@@ -80,14 +72,35 @@ export class LocaleDropdown extends React.Component {
         return 0
       })
       // Render each option
-      .map((locale) => <option value={locale.value} key={locale.value}>{locale.label}</option>)
+      .map((locale) => {
+        const classNames = ['menu-item']
+        let isSelected = false
+
+        // Determine which one is the active one
+        if (locale.value === DEFAULT_LOCALE || locale.value === this.props.locale) {
+          isSelected = true
+        }
+
+        if (isSelected) {
+          classNames.push('menu-item-selected')
+        }
+
+        return (
+          <li className={classNames.join(' ')} value={locale.value} key={locale.value}>
+            <span>{locale.label}</span>
+            <span className="menu-item-subtext">
+              <FormattedMessage id="locale.key" defaultMessage={locale.name} />
+            </span>
+          </li>
+        )
+      })
   }
 
   render () {
     return (
-      <select onChange={this.onChange} ref={(ref) => { this.localeSelect = ref }}>
+      <ul className="menu-item-group" onChange={this.onChange} ref={(ref) => { this.localeSelect = ref }}>
         {this.renderLocaleOptions()}
-      </select>
+      </ul>
     )
   }
 }
@@ -107,4 +120,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(LocaleDropdown))
+export default connect(mapStateToProps, mapDispatchToProps)(LocaleDropdown)
