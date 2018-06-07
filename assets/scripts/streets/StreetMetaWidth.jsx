@@ -199,7 +199,11 @@ export class StreetMetaWidth extends React.Component {
 
     return (
       <span className="street-metadata-width">
-        <span className="street-width-read" title="Change width of the street" onClick={this.clickStreetWidth}>
+        <span
+          className="street-width-read"
+          title={this.props.intl.formatMessage({id: 'tooltip.street-width', defaultMessage: 'Change width of the street'})}
+          onClick={this.clickStreetWidth}
+        >
           <span className="street-width-read-width">
             <FormattedMessage id="width.label" defaultMessage="{width} width" values={{ width }} />
           </span>
