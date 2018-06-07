@@ -15,7 +15,6 @@ import {
   resizeSegment,
   applyWarningsToSegments
 } from './resizing'
-import { prettifyWidth } from '../util/width_units'
 import store from '../store'
 
 const CANVAS_HEIGHT = 480
@@ -312,27 +311,6 @@ export function setSegmentContents (el, type, variantString, segmentWidth, randS
     if (removeEl2) removeEl2.remove()
     el.appendChild(hoverBkEl)
   }
-}
-
-export function localizeStreetSegments () {
-  let oldLocale = store.getState().locale.locale
-
-  store.subscribe(() => {
-    const locale = store.getState().locale.locale
-
-    if (locale !== oldLocale) {
-      oldLocale = locale
-      const { segments } = store.getState().street
-      segments.forEach((segment) => {
-        const name = getLocaleSegmentName(segment.type, segment.variantString)
-        const nameEl = segment.el.children[0]
-        const widthEl = segment.el.children[1]
-
-        nameEl.innerText = name
-        widthEl.innerHTML = prettifyWidth(segment.width, store.getState().street.units, { markup: true })
-      })
-    }
-  })
 }
 
 export function getLocaleSegmentName (type, variantString) {

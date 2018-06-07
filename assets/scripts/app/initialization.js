@@ -5,7 +5,7 @@ import { showGallery } from '../gallery/view'
 import { debug } from '../preinit/debug_settings'
 import { system } from '../preinit/system_capabilities'
 import { initializeFlagSubscribers } from '../app/flag_utils'
-import { segmentsChanged, localizeStreetSegments } from '../segments/view'
+import { segmentsChanged } from '../segments/view'
 import { onNewStreetLastClick } from '../streets/creation'
 import {
   setLastStreet,
@@ -127,7 +127,6 @@ function onEverythingLoaded () {
   setIgnoreStreetChanges(false)
   setLastStreet(trimStreetData(store.getState().street))
   initStreetReduxTransitionSubscriber()
-  localizeStreetSegments()
   initializeFlagSubscribers()
   initPersistedSettingsStoreObserver()
 
