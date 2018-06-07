@@ -33,7 +33,7 @@ class Segment extends React.Component {
     segmentPos: PropTypes.number,
     dataNo: PropTypes.number,
     updateSegmentData: PropTypes.func,
-    calculatePerspective: PropTypes.func
+    updatePerspective: PropTypes.func
   }
 
   static defaultProps = {
@@ -73,8 +73,8 @@ class Segment extends React.Component {
     if (this.state.switchSegments && prevState.switchSegments !== this.state.switchSegments) {
       this.drawSegment(this.state.oldSegmentVariant, true)
       this.updateOldCanvasLeftPos(this.state.oldSegmentVariant)
-      this.props.calculatePerspective(this.oldSegmentCanvas)
-      this.props.calculatePerspective(this.segmentCanvas)
+      this.props.updatePerspective(this.oldSegmentCanvas)
+      this.props.updatePerspective(this.segmentCanvas)
     }
 
     this.props.updateSegmentData(this.streetSegment, this.props.dataNo, this.props.segmentPos)
