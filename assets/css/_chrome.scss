@@ -110,29 +110,6 @@ body.phone #loading {
 
 // --------------------------------------------------------
 
-.avatar {
-  display: inline-block;
-  background-size: 100%;
-  background-color: white;
-  width: 20px;
-  height: 20px;
-  box-sizing: border-box;
-  border: 1px solid darken($ui-colour, 30%);
-  border-radius: 50%;
-  vertical-align: middle;
-  margin-top: -1px;
-  margin-left: 3px;
-  margin-right: 5px;
-}
-
-.avatar-blank {
-  box-shadow: inset 0 0 0 1px white;
-  background-image: url('/images/avatar.png');
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-}
-
 body.controls-fade-out .info-bubble {
   transition: opacity $touch-controls-fadeout-time;
   opacity: 0.01 !important;

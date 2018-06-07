@@ -23,13 +23,10 @@ describe('Avatar', () => {
       image: imageUrl
     })
 
-    const image = component.find('div').instance()
+    const image = component.find('img').instance()
 
-    // Image element should display the URL
-    expect(image.style.backgroundImage).toEqual(`url(${imageUrl})`)
-
-    // Image element should not include a class to render placeholder image
-    expect(image.className).not.toContain('avatar-blank')
+    // Image element source should be the URL
+    expect(image.src).toEqual(imageUrl)
 
     window.fetch.resetMocks()
   })
@@ -44,9 +41,6 @@ describe('Avatar', () => {
     // Component should not store any value for the image url
     expect(component.state('image')).toEqual(null)
 
-    // Component should include a class to render placeholder image
-    expect(component.find('div').instance().className).toContain('avatar-blank')
-
     window.fetch.resetMocks()
   })
 
@@ -59,9 +53,6 @@ describe('Avatar', () => {
 
     // Component should not store any value for the image url
     expect(component.state('image')).toEqual(null)
-
-    // Component should include a class to render placeholder image
-    expect(component.find('div').instance().className).toContain('avatar-blank')
 
     window.fetch.resetMocks()
   })
