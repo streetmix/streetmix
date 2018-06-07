@@ -62,6 +62,7 @@ const csp = {
       'data:',
       'pbs.twimg.com',
       'syndication.twitter.com',
+      's.gravatar.com',
       'https://www.google-analytics.com',
       '*.basemaps.cartocdn.com'
     ],
@@ -147,6 +148,8 @@ app.get('/twitter-sign-in', controllers.twitter_sign_in.get)
 app.get(config.twitter.oauth_callback_uri, controllers.twitter_sign_in_callback.get)
 // Auth0 - twitter auth
 app.get(config.auth0.twitter_callback_uri, controllers.twitter_auth0_sign_in_callback.get)
+// Email
+app.get(config.auth0.email_callback_uri, controllers.email_sign_in.get)
 
 app.post('/api/v1/users', resources.v1.users.post)
 app.get('/api/v1/users/:user_id', resources.v1.users.get)

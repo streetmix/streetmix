@@ -1,6 +1,7 @@
 const config = require('config')
 const uuid = require('uuid')
 const Twitter = require('twitter')
+const { random } = require('lodash')
 const User = require('../../models/user.js')
 const logger = require('../../../lib/logger.js')()
 
@@ -12,7 +13,7 @@ exports.post = function (req, res) {
       res.status(500).send('Could not create user.')
       return
     }
-
+    console.log(user)
     const userJson = { id: user.id, loginToken: loginToken }
     logger.info({ user: userJson }, 'New user created.')
     res.header('Location', config.restapi.baseuri + '/v1/users/' + user.id)
@@ -52,7 +53,6 @@ exports.post = function (req, res) {
         u.save(handleCreateUser)
       } else {
         user.id = credentials.screenName
-        user.auth0_refresh_token = credentials.refresh_token
         user.auth0_id = credentials.auth0_id
         user.profile_image_url = credentials.profile_image_url
         user.login_tokens.push(loginToken)
@@ -98,6 +98,52 @@ exports.post = function (req, res) {
     User.findOne({ twitter_id: twitterCredentials.userId }, handleFindUser)
   } // END function - handleTwitterSignIn
 
+  const handleEmailSignIn = async function (credentials) {
+    function generateId (nickname) {
+      // TODO - Check if the Id generated is not existing
+      return nickname + random(0, 999)
+    }
+
+    try {
+      const user = await User.findOne({ auth0_id: credentials.auth0_id })
+      loginToken = uuid.v1()
+      if (!user) {
+        const numOfUser = await User.count({ id: credentials.nickname })
+        // Ensure there is no existing user with id same this nickname
+        if (numOfUser === 0) {
+          const u = new User({
+            id: credentials.nickname,
+            auth0_id: credentials.auth0_id,
+            email: credentials.email,
+            login_tokens: [ loginToken ],
+            profile_image_url: credentials.profile_image_url
+          })
+          u.save(handleCreateUser)
+        } else {
+          const id = generateId(credentials.nickname)
+          const u = new User({
+            id: id,
+            auth0_id: credentials.auth0_id,
+            email: credentials.email,
+            login_tokens: [ loginToken ],
+            profile_image_url: credentials.profile_image_url
+          })
+          u.save(handleCreateUser)
+        }
+      } else {
+        user.auth0_id = credentials.auth0_id
+        user.profile_image_url = credentials.profile_image_url
+        user.email = credentials.email
+        user.login_tokens.push(loginToken)
+        user.save(handleUpdateUser)
+      }
+    } catch (err) {
+      logger.error(err)
+      console.log(err)
+      res.status(500).send('Error finding user with Auth0 ID.')
+    }
+  } // END function - handleAuth0TwitterSignIn
+
   let body
   try {
     body = req.body
@@ -111,6 +157,8 @@ exports.post = function (req, res) {
     handleTwitterSignIn(body.twitter)
   } else if (body.hasOwnProperty('auth0_twitter')) {
     handleAuth0TwitterSignIn(body.auth0_twitter)
+  } else if (body.hasOwnProperty('auth0_email')) {
+    handleEmailSignIn(body.auth0_email)
   } else {
     res.status(400).send('Unknown sign-in method used.')
   }
