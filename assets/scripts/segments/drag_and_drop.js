@@ -761,7 +761,8 @@ function handleSegmentMoveEnd (event) {
       newSegment.randSeed = generateRandSeed()
       store.dispatch(addSegment(newIndex, newSegment))
     }
-    // segmentElControls = newEl
+
+    segmentElControls = store.getState().street.segments[newIndex].el
   } else {
     failedDrop = true
 
