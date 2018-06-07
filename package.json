@@ -115,7 +115,6 @@
     "newrelic": "4.1.0",
     "node-env-file": "0.1.8",
     "node-sass": "4.8.3",
-    "node-uuid": "1.4.8",
     "oauth": "0.9.15",
     "postcss": "6.0.21",
     "postcss-import": "11.1.0",

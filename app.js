@@ -16,7 +16,7 @@ const browserify = require('browserify-middleware')
 const babelify = require('babelify')
 const config = require('config')
 const path = require('path')
-const uuid = require('node-uuid')
+const uuid = require('uuid/v4')
 const controllers = require('./app/controllers')
 const resources = require('./app/resources')
 const requestHandlers = require('./lib/request_handlers')
@@ -109,8 +109,8 @@ app.use(function (req, res, next) {
 // Generate nonces for inline scripts
 app.use(function (req, res, next) {
   res.locals.nonce = {
-    google_analytics: uuid.v4(),
-    mixpanel: uuid.v4()
+    google_analytics: uuid(),
+    mixpanel: uuid()
   }
   next()
 })
