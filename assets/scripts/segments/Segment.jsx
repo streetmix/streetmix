@@ -33,7 +33,8 @@ class Segment extends React.Component {
     segmentPos: PropTypes.number,
     dataNo: PropTypes.number,
     updateSegmentData: PropTypes.func,
-    updatePerspective: PropTypes.func
+    updatePerspective: PropTypes.func,
+    locale: PropTypes.string
   }
 
   static defaultProps = {
@@ -179,8 +180,7 @@ class Segment extends React.Component {
     const localizedSegmentName = t(`segments.${segmentInfo.nameKey}`, defaultName, { ns: 'segment-info' })
 
     const width = this.calculateWidth(RESIZE_TYPE_INITIAL)
-    const segmentWidth = this.props.width // may need to double check this. setSegmentContents() was called with other widths
-    const widthValue = segmentWidth / TILE_SIZE
+    const widthValue = width / TILE_SIZE
 
     const segmentStyle = {
       width: width + 'px',
@@ -214,7 +214,7 @@ class Segment extends React.Component {
               {displayName}
             </span>
             <span className="width">
-              <MeasurementText value={widthValue} units={this.props.units} />
+              <MeasurementText value={widthValue} units={this.props.units} locale={this.props.locale} />
             </span>
             <span className="drag-handle left" ref={(ref) => { this.dragHandleLeft = ref }}>‹</span>
             <span className="drag-handle right" ref={(ref) => { this.dragHandleRight = ref }}>›</span>
@@ -252,7 +252,8 @@ class Segment extends React.Component {
 function mapStateToProps (state) {
   return {
     dpi: state.system.hiDpi,
-    cssTransform: state.system.cssTransform
+    cssTransform: state.system.cssTransform,
+    locale: state.locale.locale
   }
 }
 
