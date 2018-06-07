@@ -21,15 +21,33 @@ const asJson = function (option, cb) {
 }
 
 function Model (_doc) {
-  return save
+  this._doc = _doc
+  return {
+    save
+  }
 }
 
 Model.findOne = function (option, cb) {
-  cb(null, {
+  if (cb) {
+    cb(null, {
+      ...userDummy,
+      save,
+      asJson
+    })
+    return
+  }
+  return Promise.resolve({
     ...userDummy,
     save,
     asJson
   })
+}
+
+Model.count = function (option, cb) {
+  if (cb) {
+    cb(null, 0)
+  }
+  return Promise.resolve(0)
 }
 
 Model.findByIdAndUpdate = function (option, cb) {
