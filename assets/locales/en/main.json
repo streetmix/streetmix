@@ -63,6 +63,16 @@
       "heading": "Language"
     }
   },
+  "settings": {
+    "units": {
+      "label": "Units",
+      "metric": "Metric units (meters)",
+      "imperial": "Imperial units (feet)"
+    },
+    "language": {
+      "label": "Language"
+    }
+  },
   "msg": {
     "loading": "Loading…",
     "remixing": "Remixing…",
