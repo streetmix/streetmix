@@ -73,6 +73,7 @@ class StreetEditable extends React.Component {
           classNames="switching-away"
           exit={!(immediateRemoval)}
           onExit={(el) => { this.props.updatePerspective(el, true) }}
+          unmountOnExit
         >
           <Segment
             key={segment.id}

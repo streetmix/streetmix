@@ -38,7 +38,7 @@ export function removeSegment (el) {
  */
 export function removeAllSegments () {
   store.dispatch(clearSegments())
-  segmentsChanged()
+  segmentsChanged(false)
   infoBubble.hide()
   showStatusMessage(t('toast.all-segments-deleted'), true)
 }
