@@ -83,19 +83,17 @@ export function goTwitterSignIn () {
   }
 }
 
-export function goEmailSignIn (email) {
+export function goEmailSignIn (email, callback) {
   const auth0 = Authenticate()
   auth0.passwordlessStart({
     send: 'link',
-    email: email || 'omoyajowo2015@gmail.com',
+    email: email,
     connection: 'email',
     authParams: {
       redirectUri: 'http://localhost:8000/email-sign-in-callback',
-      responseType: 'link'
+      responseType: 'code'
     }
   }, (err, res) => {
-    if (err) {
-      console.log(err)
-    }
+    callback(err, res)
   })
 }
