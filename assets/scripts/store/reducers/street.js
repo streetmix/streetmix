@@ -72,7 +72,6 @@ const street = (state = initialState, action) => {
     }
     case UPDATE_SEGMENTS:
       const immediate = action.immediate || state.immediateRemoval
-      console.log(immediate)
       return {
         ...state,
         segments: action.segments,
