@@ -19,7 +19,7 @@ export default class LocaleDropdown extends React.Component {
   }
 
   renderLocaleOptions = () => {
-    return LOCALES
+    const filteredLocales = LOCALES
       // Remove languages that aren't enabled
       .filter((item) => item.level >= this.props.level)
       // Sort the list of languages alphabetically
@@ -28,29 +28,33 @@ export default class LocaleDropdown extends React.Component {
         if (a.label > b.label) return 1
         return 0
       })
-      // Render each option
-      .map((locale) => {
-        const classNames = ['menu-item']
-        let isSelected = false
 
-        // Determine which one is the active one
-        if (locale.value === DEFAULT_LOCALE || locale.value === this.props.locale) {
-          isSelected = true
-        }
+    // Determine which one is the active one
+    let selectedLocale = DEFAULT_LOCALE
+    for (let i = 0; i < filteredLocales.length; i++) {
+      if (this.props.locale === filteredLocales[i].value) {
+        selectedLocale = filteredLocales[i].value
+        break
+      }
+    }
 
-        if (isSelected) {
-          classNames.push('menu-item-selected')
-        }
+    // Render each option
+    return filteredLocales.map((locale) => {
+      const classNames = ['menu-item']
 
-        return (
-          <li className={classNames.join(' ')} key={locale.value} onClick={(event) => this.props.selectLocale(locale.value)}>
-            <span>{locale.label}</span>
-            <span className="menu-item-subtext">
-              <FormattedMessage id={locale.key} defaultMessage={locale.name} />
-            </span>
-          </li>
-        )
-      })
+      if (locale.value === selectedLocale) {
+        classNames.push('menu-item-selected')
+      }
+
+      return (
+        <li className={classNames.join(' ')} key={locale.value} onClick={(event) => this.props.selectLocale(locale.value)}>
+          <span>{locale.label}</span>
+          <span className="menu-item-subtext">
+            <FormattedMessage id={locale.key} defaultMessage={locale.name} />
+          </span>
+        </li>
+      )
+    })
   }
 
   render () {
