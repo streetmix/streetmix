@@ -173,7 +173,7 @@ class StreetView extends React.Component {
     })
   }
 
-  updatePerspective = (el) => {
+  updatePerspective = (el, switchSegmentAway) => {
     if (!el) return
 
     const pos = getElAbsolutePos(el)
@@ -183,6 +183,10 @@ class StreetView extends React.Component {
     el.style.webkitPerspectiveOrigin = (perspective / 2) + 'px 50%'
     el.style.MozPerspectiveOrigin = (perspective / 2) + 'px 50%'
     el.style.perspectiveOrigin = (perspective / 2) + 'px 50%'
+
+    if (switchSegmentAway) {
+      el.style.left = el.savedLeft + 'px'
+    }
   }
 
   render () {
