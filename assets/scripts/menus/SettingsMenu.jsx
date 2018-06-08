@@ -6,11 +6,31 @@ import Menu from './Menu'
 import LocaleDropdown from './LocaleDropdown'
 import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from '../users/constants'
 import { updateUnits } from '../users/localization'
+import { changeLocale } from '../store/actions/locale'
+import { clearMenus } from '../store/actions/menus'
 
 class SettingsMenu extends React.PureComponent {
   static propTypes = {
     units: PropTypes.number,
-    locale: PropTypes.string
+    locale: PropTypes.string,
+    changeLocale: PropTypes.func,
+    clearMenus: PropTypes.func,
+    level1: PropTypes.bool.isRequired,
+    level2: PropTypes.bool.isRequired,
+    level3: PropTypes.bool.isRequired
+  }
+
+  static defaultProps = {
+    level1: false,
+    level2: false,
+    level3: false
+  }
+
+  selectLocale = (locale) => {
+    if (this.props.locale === locale) return
+
+    this.props.clearMenus()
+    this.props.changeLocale(locale)
   }
 
   selectMetric = () => {
@@ -26,6 +46,12 @@ class SettingsMenu extends React.PureComponent {
   }
 
   render () {
+    // The lowest level marked "true" takes priority.
+    let level = 4
+    if (this.props.level3) level = 3
+    if (this.props.level2) level = 2
+    if (this.props.level1) level = 1
+
     return (
       <Menu onShow={this.onShow} {...this.props}>
         <h2 className="menu-header">
@@ -43,7 +69,7 @@ class SettingsMenu extends React.PureComponent {
         <h2 className="menu-header">
           <FormattedMessage id="menu.language.heading" defaultMessage="Language" />
         </h2>
-        <LocaleDropdown />
+        <LocaleDropdown locale={this.props.locale} level={level} selectLocale={this.selectLocale} />
       </Menu>
     )
   }
@@ -52,8 +78,18 @@ class SettingsMenu extends React.PureComponent {
 function mapStateToProps (state) {
   return {
     units: state.street.units,
-    locale: state.locale.locale
+    locale: state.locale.locale,
+    level1: state.flags.LOCALES_LEVEL_1.value,
+    level2: state.flags.LOCALES_LEVEL_2.value,
+    level3: state.flags.LOCALES_LEVEL_3.value
   }
 }
 
-export default connect(mapStateToProps)(SettingsMenu)
+function mapDispatchToProps (dispatch) {
+  return {
+    changeLocale: (locale) => dispatch(changeLocale(locale)),
+    clearMenus: () => dispatch(clearMenus())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SettingsMenu)
