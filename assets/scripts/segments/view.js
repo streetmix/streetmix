@@ -5,7 +5,6 @@ import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { system } from '../preinit/system_capabilities'
 import { saveStreetToServerIfNecessary, createDataFromDom } from '../streets/data_model'
 import { recalculateWidth } from '../streets/width'
-import { getElAbsolutePos } from '../util/helpers'
 import { draggingMove } from './drag_and_drop'
 import { getSegmentInfo, getSegmentVariantInfo, getSpriteDef } from './info'
 import { drawProgrammaticPeople } from './people'
@@ -16,8 +15,6 @@ import {
   resizeSegment,
   applyWarningsToSegments
 } from './resizing'
-import { prettifyWidth } from '../util/width_units'
-import { getVariantString } from './variant_utils'
 import store from '../store'
 
 const CANVAS_HEIGHT = 480
@@ -28,8 +25,6 @@ const SEGMENT_Y_NORMAL = 265
 const SEGMENT_Y_PALETTE = 20
 
 const DRAGGING_MOVE_HOLE_WIDTH = 40
-
-const SEGMENT_SWITCHING_TIME = 250
 
 /**
  * Draws SVG sprite to canvas
@@ -318,27 +313,6 @@ export function setSegmentContents (el, type, variantString, segmentWidth, randS
   }
 }
 
-export function localizeStreetSegments () {
-  let oldLocale = store.getState().locale.locale
-
-  store.subscribe(() => {
-    const locale = store.getState().locale.locale
-
-    if (locale !== oldLocale) {
-      oldLocale = locale
-      const { segments } = store.getState().street
-      segments.forEach((segment) => {
-        const name = getLocaleSegmentName(segment.type, segment.variantString)
-        const nameEl = segment.el.children[0]
-        const widthEl = segment.el.children[1]
-
-        nameEl.innerText = name
-        widthEl.innerHTML = prettifyWidth(segment.width, store.getState().street.units, { markup: true })
-      })
-    }
-  })
-}
-
 export function getLocaleSegmentName (type, variantString) {
   const segmentInfo = getSegmentInfo(type)
   const variantInfo = getSegmentVariantInfo(type, variantString)
@@ -476,90 +450,6 @@ export function repositionSegments () {
   }
 }
 
-export function changeSegmentVariantLegacy (dataNo, variantName, variantChoice) {
-  const street = store.getState().street
-  const segment = street.segments[dataNo]
-
-  segment.variant[variantName] = variantChoice
-  segment.variantString = getVariantString(segment.variant)
-
-  const el = createSegmentDom(segment)
-
-  var oldEl = segment.el
-  oldEl.parentNode.insertBefore(el, oldEl)
-  switchSegmentElAway(oldEl)
-
-  segment.el = el
-  segment.el.dataNo = oldEl.dataNo
-  street.segments[oldEl.dataNo].el = el
-
-  switchSegmentElIn(el)
-  el.classList.add('hover')
-  el.classList.add('show-drag-handles')
-  el.classList.add('immediate-show-drag-handles')
-  el.classList.add('hide-drag-handles-when-inside-info-bubble')
-  infoBubble.segmentEl = el
-
-  repositionSegments()
-  recalculateWidth()
-  applyWarningsToSegments()
-
-  saveStreetToServerIfNecessary()
-}
-
-export function switchSegmentElIn (el) {
-  el.classList.add('switching-in-enter')
-
-  window.setTimeout(function () {
-    var pos = getElAbsolutePos(el)
-    var perspective = -(pos[0] - document.querySelector('#street-section-outer').scrollLeft - (system.viewportWidth / 2))
-    // TODO const
-    // TODO cross-browser
-
-    el.style.webkitPerspectiveOrigin = (perspective / 2) + 'px 50%'
-    el.style.MozPerspectiveOrigin = (perspective / 2) + 'px 50%'
-    el.style.perspectiveOrigin = (perspective / 2) + 'px 50%'
-
-    el.classList.add('switching-in-enter-active')
-    el.classList.add('switching-in-enter-done')
-  }, SEGMENT_SWITCHING_TIME / 2)
-
-  window.setTimeout(function () {
-    el.classList.remove('switching-in-enter')
-    el.classList.remove('switching-in-enter-active')
-    el.classList.remove('switching-in-enter-done')
-  }, SEGMENT_SWITCHING_TIME * 1.5)
-}
-
-export function switchSegmentElAway (el) {
-  var pos = getElAbsolutePos(el)
-
-  // TODO func
-  var perspective = -(pos[0] - document.querySelector('#street-section-outer').scrollLeft - (system.viewportWidth / 2))
-  // TODO const
-  // TODO cross-browser
-
-  el.style.webkitPerspectiveOrigin = (perspective / 2) + 'px 50%'
-  el.style.MozPerspectiveOrigin = (perspective / 2) + 'px 50%'
-  el.style.perspectiveOrigin = (perspective / 2) + 'px 50%'
-
-  el.parentNode.removeChild(el)
-  el.classList.remove('hover')
-  el.classList.add('switching-away-exit')
-  el.style.left = (pos[0] - document.querySelector('#street-section-outer').scrollLeft) + 'px'
-  el.style.top = pos[1] + 'px'
-  document.body.appendChild(el)
-
-  window.setTimeout(function () {
-    el.classList.add('switching-away-exit-active')
-    el.classList.add('switching-away-exit-done')
-  }, 0)
-
-  window.setTimeout(function () {
-    el.remove()
-  }, SEGMENT_SWITCHING_TIME)
-}
-
 /**
  * Set `readDataFromDom` to false to prevent re-reading of segment
  * data from the DOM. Do this whenever we refactor code to modify
@@ -592,7 +482,6 @@ export function segmentsChanged (readDataFromDom = true, reassignElementRefs = f
   }
 
   saveStreetToServerIfNecessary()
-  repositionSegments()
 }
 
 function onSegmentMouseEnter (event) {

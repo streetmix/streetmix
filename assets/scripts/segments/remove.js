@@ -1,9 +1,8 @@
 import { registerKeypress } from '../app/keypress'
 import { showStatusMessage } from '../app/status_message'
 import { infoBubble, isDescriptionVisible } from '../info_bubble/info_bubble'
-import { createDomFromData } from '../streets/data_model'
 import { getHoveredSegmentEl } from './hover'
-import { segmentsChanged, switchSegmentElAway } from './view'
+import { segmentsChanged } from './view'
 import { t } from '../app/locale'
 import { removeSegment as removeSegmentActionCreator, clearSegments } from '../store/actions/street'
 import store from '../store'
@@ -24,9 +23,6 @@ export function removeSegment (el) {
   // don't appear briefly after animating away
   infoBubble.hideSegment()
 
-  // Animates segment away
-  switchSegmentElAway(el)
-
   // Update the store
   store.dispatch(removeSegmentActionCreator(window.parseInt(el.dataNo, 10)))
 
@@ -42,7 +38,6 @@ export function removeSegment (el) {
  */
 export function removeAllSegments () {
   store.dispatch(clearSegments())
-  createDomFromData()
   segmentsChanged()
   infoBubble.hide()
   showStatusMessage(t('toast.all-segments-deleted'), true)

@@ -8,7 +8,6 @@ import {
   SEGMENT_WARNING_WIDTH_TOO_SMALL,
   SEGMENT_WARNING_WIDTH_TOO_LARGE
 } from '../streets/width'
-import { prettifyWidth } from '../util/width_units'
 import {
   DRAGGING_TYPE_NONE,
   draggingResize,
@@ -16,7 +15,7 @@ import {
   removeGuides
 } from './drag_and_drop'
 import { TILE_SIZE } from './constants'
-import { setSegmentContents, segmentsChanged } from './view'
+import { segmentsChanged } from './view'
 import store from '../store'
 import { updateSegments } from '../store/actions/street'
 
@@ -69,23 +68,8 @@ export function resizeSegment (el, resizeType, width, updateEdit, palette, initi
     width = normalizeSegmentWidth(width, resizeType)
   }
 
-  document.body.classList.add('immediate-segment-resize')
-
-  window.setTimeout(function () {
-    document.body.classList.remove('immediate-segment-resize')
-  }, SHORT_DELAY)
-
   el.style.width = (width * TILE_SIZE) + 'px'
-
   el.setAttribute('data-width', width)
-
-  var widthEl = el.querySelector('span.width')
-  if (widthEl) {
-    widthEl.innerHTML = prettifyWidth(width, store.getState().street.units, { markup: true })
-  }
-
-  setSegmentContents(el, el.getAttribute('type'),
-    el.getAttribute('variant-string'), width * TILE_SIZE, parseInt(el.getAttribute('rand-seed')), palette, false)
 
   if (!initial) {
     segmentsChanged()

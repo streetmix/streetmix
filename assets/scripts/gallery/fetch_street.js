@@ -3,7 +3,6 @@ import { API_URL } from '../app/config'
 import { hideError, showError, ERRORS } from '../app/errors'
 import {
   setLastStreet,
-  createDomFromData,
   trimStreetData,
   setIgnoreStreetChanges
 } from '../streets/data_model'
@@ -67,8 +66,7 @@ function receiveGalleryStreet (transmission) {
 
   resizeStreetWidth()
   updateStreetName(store.getState().street)
-  createDomFromData()
-  segmentsChanged()
+  segmentsChanged(false)
 
   setIgnoreStreetChanges(false)
   setLastStreet(trimStreetData(store.getState().street))

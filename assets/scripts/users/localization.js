@@ -10,7 +10,6 @@ import {
 } from '../segments/resizing'
 import { segmentsChanged } from '../segments/view'
 import {
-  createDomFromData,
   saveStreetToServerIfNecessary,
   setIgnoreStreetChanges
 } from '../streets/data_model'
@@ -127,7 +126,6 @@ export function updateUnits (newUnits) {
   } else {
     store.dispatch(updateStreetData(cloneDeep(undoStack[undoPosition - 1])))
   }
-  createDomFromData()
   segmentsChanged()
   resizeStreetWidth()
 

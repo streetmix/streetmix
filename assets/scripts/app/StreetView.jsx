@@ -8,6 +8,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import StreetEditable from './StreetEditable'
 import SkyBackground from './SkyBackground'
 import ScrollIndicators from './ScrollIndicators'
 import Building from '../segments/Building'
@@ -38,12 +39,9 @@ class StreetView extends React.Component {
       scrollTop: 0,
       skyTop: 0,
 
+      onResized: false,
       buildingWidth: 0
     }
-  }
-
-  componentDidMount () {
-    this.getBuildingWidth()
   }
 
   componentDidUpdate (prevProps) {
@@ -52,7 +50,6 @@ class StreetView extends React.Component {
         prevProps.system.viewportHeight !== viewportHeight ||
         prevProps.street.width !== this.props.street.width) {
       this.onResize()
-      this.getBuildingWidth()
       this.calculateStreetIndicatorsPositions()
     }
   }
@@ -87,7 +84,6 @@ class StreetView extends React.Component {
     }
 
     this.streetSectionCanvas.style.left = streetSectionCanvasLeft + 'px'
-    this.streetSectionEditable.style.width = (this.props.street.width * TILE_SIZE) + 'px'
     this.streetSectionInner.style.top = streetSectionTop + 'px'
 
     this.setState({
@@ -137,7 +133,8 @@ class StreetView extends React.Component {
 
     this.setState({
       posLeft: posLeft,
-      posRight: posRight
+      posRight: posRight,
+      onResized: true
     })
   }
 
@@ -162,8 +159,7 @@ class StreetView extends React.Component {
     animate(el, { scrollLeft: newScrollLeft }, 300)
   }
 
-  getBuildingWidth = () => {
-    const el = this.streetSectionEditable
+  setBuildingWidth = (el) => {
     const pos = getElAbsolutePos(el)
 
     let width = pos[0] + 25
@@ -172,11 +168,14 @@ class StreetView extends React.Component {
     }
 
     this.setState({
-      buildingWidth: width
+      buildingWidth: width,
+      onResized: false
     })
   }
 
-  calculateBuildingPerspective = (el) => {
+  updatePerspective = (el) => {
+    if (!el) return
+
     const pos = getElAbsolutePos(el)
     const perspective = -(pos[0] - this.streetSectionOuter.scrollLeft - (this.props.system.viewportWidth / 2))
 
@@ -203,14 +202,18 @@ class StreetView extends React.Component {
               <Building
                 position="left"
                 buildingWidth={this.state.buildingWidth}
-                calculateBuildingPerspective={this.calculateBuildingPerspective}
+                updatePerspective={this.updatePerspective}
               />
               <Building
                 position="right"
                 buildingWidth={this.state.buildingWidth}
-                calculateBuildingPerspective={this.calculateBuildingPerspective}
+                updatePerspective={this.updatePerspective}
               />
-              <div id="street-section-editable" ref={(ref) => { this.streetSectionEditable = ref }} />
+              <StreetEditable
+                onResized={this.state.onResized}
+                setBuildingWidth={this.setBuildingWidth}
+                updatePerspective={this.updatePerspective}
+              />
               <EmptySegment position="left" />
               <EmptySegment position="right" />
               <section id="street-section-dirt" style={dirtStyle} />

@@ -113,13 +113,10 @@ class InfoBubble extends React.Component {
 
   getSnapshotBeforeUpdate (prevProps, prevState) {
     const wasBuilding = (prevState.type !== INFO_BUBBLE_TYPE_SEGMENT)
-    const isBuilding = (this.state.type !== INFO_BUBBLE_TYPE_SEGMENT)
 
     if (!this.el || !this.el.current) return null
 
-    if (wasBuilding && !isBuilding) {
-      return Number.parseInt(this.el.current.style.left, 10) + (this.el.current.offsetWidth / 2)
-    } else if (!wasBuilding && this.props.dataNo === 'right') {
+    if (!wasBuilding && this.props.dataNo === 'right') {
       return this.props.system.viewportWidth - MIN_SIDE_MARGIN_FROM_VIEWPORT
     }
     return null
@@ -387,14 +384,8 @@ class InfoBubble extends React.Component {
     // The current solution is to manually recalculate the left style and set the style
     // when hovering over the right building.
 
-    // Now that street segments are being rendered as React components as well, the same issue
-    // as above can be seen but vice versa (when switching between hovering over building to
-    // a segment). Some calculations are done by the getSnapshotBeforeUpdate function. The new
-    // offsetWidth is then added in this function.
-
     if (snapshot) {
-      const bubbleX = (this.state.type === INFO_BUBBLE_TYPE_SEGMENT)
-        ? (snapshot - this.el.current.offsetWidth / 2) : (snapshot - this.el.current.offsetWidth)
+      const bubbleX = (snapshot - this.el.current.offsetWidth)
       this.el.current.style.left = bubbleX + 'px'
     }
   }
