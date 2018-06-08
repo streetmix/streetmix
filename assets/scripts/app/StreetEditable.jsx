@@ -15,29 +15,6 @@ class StreetEditable extends React.Component {
     updatePerspective: PropTypes.func.isRequired
   }
 
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      segmentRemoved: false,
-      numSegments: props.street.segments.length
-    }
-  }
-
-  static getDerivedStateFromProps (nextProps, prevState) {
-    const prevNumSegments = prevState.numSegments
-    const currNumSegments = nextProps.street.segments.length
-
-    if (currNumSegments !== prevNumSegments) {
-      return {
-        numSegments: currNumSegments,
-        segmentsRemoved: (currNumSegments === prevNumSegments - 1)
-      }
-    }
-
-    return null
-  }
-
   componentDidUpdate (prevProps) {
     const { onResized } = this.props
 
@@ -69,8 +46,14 @@ class StreetEditable extends React.Component {
     return (currPos * TILE_SIZE)
   }
 
+  handleExitAnimations = (child) => {
+    return React.cloneElement(child, {
+      exit: !(this.props.street.immediateRemoval)
+    })
+  }
+
   renderStreetSegments = () => {
-    const { segments, units } = this.props.street
+    const { segments, units, immediateRemoval } = this.props.street
 
     return segments.map((segment, i) => {
       const segmentWidth = (segment.width * TILE_SIZE)
@@ -85,10 +68,11 @@ class StreetEditable extends React.Component {
 
       const segmentEl = (
         <CSSTransition
-          key={i}
+          key={segment.id}
           timeout={250}
           classNames="switching-away"
-          onExit={(el) => { this.props.updatePerspective(el) }}
+          exit={!(immediateRemoval)}
+          onExit={(el) => { this.props.updatePerspective(el, true) }}
         >
           <Segment
             key={segment.id}
@@ -123,7 +107,7 @@ class StreetEditable extends React.Component {
         style={style}
         ref={(ref) => { this.streetSectionEditable = ref }}
       >
-        <TransitionGroup enter={false} exit={this.state.segmentRemoved}>
+        <TransitionGroup key={this.props.street.id} component={null} childFactory={this.handleExitAnimations}>
           {this.renderStreetSegments()}
         </TransitionGroup>
       </div>
