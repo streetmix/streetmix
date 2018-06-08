@@ -48,7 +48,8 @@ export default class LocaleDropdown extends React.Component {
 
       return (
         <li className={classNames.join(' ')} key={locale.value} onClick={(event) => this.props.selectLocale(locale.value)}>
-          <span>{locale.label}</span>
+          {/* &#x200E; prevents trailing parentheses from going in the wrong place in rtl languages */}
+          <span>{locale.label}&#x200E;</span>
           <span className="menu-item-subtext">
             <FormattedMessage id={locale.key} defaultMessage={locale.name} />
           </span>
