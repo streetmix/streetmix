@@ -175,6 +175,14 @@ body.safari .menu {
     text-align: right;
     color: #1c99ce;
     font-size: 125%;
+
+    [dir='rtl'] & {
+      left: auto;
+      right: 0;
+      padding-right: auto;
+      padding-left: 3px;
+      text-align: left;
+    }
   }
 }
 
