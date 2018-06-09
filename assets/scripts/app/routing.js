@@ -24,8 +24,10 @@ export const URL_NO_USER = '-'
 export const URL_HELP = 'help'
 
 export const URL_ERROR_TWITTER_ACCESS_DENIED = 'twitter-access-denied'
+export const URL_ERROR_EMAIL_ACCESS_DENIED = 'email-access-denied'
 export const URL_ERROR_NO_TWITTER_REQUEST_TOKEN = 'no-twitter-request-token'
 export const URL_ERROR_NO_TWITTER_ACCESS_TOKEN = 'no-twitter-access-token'
+export const URL_ERROR_NO_EMAIL_ACCESS_TOKEN = 'no-email-access-token'
 export const URL_ERROR_AUTHENTICATION_API_PROBLEM = 'authentication-api-problem'
 
 const URL_EXAMPLE_STREET = 'streetmix/7'

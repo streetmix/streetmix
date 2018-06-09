@@ -213,13 +213,23 @@ export class BlockingError extends React.Component {
             {homeButton}
           </React.Fragment>
         break
+      case ERRORS.EMAIL_ACCESS_DENIED:
+        title = <FormattedMessage id="error.email-access-denied-title" defaultMessage="You are not signed in." />
+        description =
+          <React.Fragment>
+            <FormattedMessage id="error.email-access-denied-description" defaultMessage="You cancelled the Email sign in process." />
+            <br />
+            {homeButton}
+          </React.Fragment>
+        break
       case ERRORS.AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN:
       case ERRORS.AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN:
+      case ERRORS.AUTH_PROBLEM_NO_EMAIL_ACCESS_TOKEN:
       case ERRORS.AUTH_PROBLEM_API_PROBLEM:
         title = <FormattedMessage id="error.auth-api-problem-title" defaultMessage="There was a problem with signing you in." />
         description =
           <React.Fragment>
-            <FormattedMessage id="error.auth-api-problem-description" defaultMessage="There was a problem with Twitter authentication." />
+            <FormattedMessage id="error.auth-api-problem-description" defaultMessage="There was a problem with authentication." />
             {pleaseLetUsKnow}
             <br />
             {homeButton}

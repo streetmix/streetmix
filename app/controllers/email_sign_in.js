@@ -8,14 +8,12 @@ const AccessTokenHandler = function (req, res) {
     if (err) {
       console.error('Error obtaining access token from Auth0:')
       console.log(err)
-      // TODO - Change redirect endpoint to email
-      res.redirect('/error/no-twitter-access-token')
+      res.redirect('/error/no-email-access-token')
       return
     }
 
     if (body.error && body.error === 'access_denied') {
-      // TODO - Change redirect endpoint to email
-      res.redirect('/error/no-twitter-access-token')
+      res.redirect('/error/email-access-denied')
       return
     }
 
@@ -25,8 +23,7 @@ const AccessTokenHandler = function (req, res) {
       if (err) {
         console.error('Error obtaining user info from Auth0:')
         console.log(err)
-        // TODO: Redirect to error page indicating invalid access token
-        res.redirect('/error/no-twitter-access-token')
+        res.redirect('/error/no-email-access-token')
         return
       }
 
