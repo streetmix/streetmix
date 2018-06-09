@@ -6,7 +6,7 @@ const { Authentication } = require('../../lib/auth0')
 const AccessTokenHandler = function (req, res) {
   return function (err, response, body) {
     if (err) {
-      console.error('Error obtaining access token from Twitter:')
+      console.error('Error obtaining access token from Auth0:')
       console.log(err)
       res.redirect('/error/no-twitter-access-token')
       return
@@ -20,9 +20,8 @@ const AccessTokenHandler = function (req, res) {
     const auth0 = Authentication()
     function handleUserInfo (err, user) {
       if (err) {
-        console.error('Error obtaining access token from Twitter:')
+        console.error('Error obtaining access token from Auth0:')
         console.log(err)
-        // TODO: Redirect to error page indicating invalid access token
         res.redirect('/error/no-twitter-access-token')
         return
       }
@@ -57,8 +56,7 @@ exports.get = function (req, res) {
   }
 
   const code = req.query.code
-  // TODO: Update twitter callback uri from oauth
-  const redirectUri = config.restapi.protocol + config.app_host_port + config.twitter.oauth_callback_uri
+  const redirectUri = config.restapi.protocol + config.app_host_port + config.auth0.twitter_callback_uri
   const options = {
     method: 'POST',
     url: config.auth0.token_api_url,
