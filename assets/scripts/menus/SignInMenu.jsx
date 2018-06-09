@@ -6,7 +6,7 @@ import Menu from './Menu'
 import { goTwitterSignIn } from '../app/routing'
 import { showDialog } from '../store/actions/dialogs'
 
-class SignInMenu extends React.Component {
+export class SignInMenu extends React.Component {
   static propTypes = {
     showDialog: PropTypes.func.isRequired
   }

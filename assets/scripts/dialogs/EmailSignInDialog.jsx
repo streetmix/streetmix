@@ -12,6 +12,7 @@ export default class EmailSignInDialog extends React.Component {
       emailSent: false
     }
   }
+
   static propTypes = {
     closeDialog: PropTypes.func.isRequired
   }
@@ -33,7 +34,7 @@ export default class EmailSignInDialog extends React.Component {
     })
   }
 
-  handlePasswordlessEmail = (err, res) => {
+  handleGoEmailSignIn = (err, res) => {
     if (err) {
       console.log(err)
       return
@@ -48,7 +49,7 @@ export default class EmailSignInDialog extends React.Component {
     const { email } = this.state
 
     if (isEmail(email)) {
-      goEmailSignIn(email, this.handlePasswordlessEmail)
+      goEmailSignIn(email, this.handleGoEmailSignIn)
       // TODO: Add a loding sign to email
     } else {
       // Todo send a feedback
