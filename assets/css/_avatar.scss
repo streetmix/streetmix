@@ -27,7 +27,8 @@
   }
 
   /* Broken images will apply this pseudo-element, displaying a fallback image */
-  img::before {
+  /* An "after" pseudo-element overlaps alt text, which still displays on some browsers */
+  img::after {
     content: '';
     position: absolute;
     top: 0;
