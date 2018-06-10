@@ -20,6 +20,8 @@
       "change": "Zmień szerokość wskazanego segmentu<br />(przytrzymaj <kbd class='key'>Shift</kbd> dla zwiększenia precyzji)"
     },
     "share": {
+      "sign-in-twitter-link": "Zaloguj się",
+      "sign-in-link": "{signInLink} dla lepszych linków do projektów Twoich ulic i Twojej galerii ulic",
       "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Zarejestruj się przez Twittera</a> dla lepszych linków do projektów Twoich ulic i Twojej galerii ulic",
       "link": "Skopiuj i wklej ten link, aby go udostępnić:",
       "twitter": "Udostępnij na Twitterze",
@@ -59,6 +61,16 @@
     },
     "language": {
       "heading": "Język"
+    }
+  },
+  "settings": {
+    "units": {
+      "label": "",
+      "metric": "",
+      "imperial": ""
+    },
+    "language": {
+      "label": "Język"
     }
   },
   "msg": {
@@ -135,7 +147,7 @@
         "instruct-pointer-mouse": "myszką"
       },
       "existing": {
-        "intro": "To jest {streetName} utworzony przez {creator}.",
+        "intro": "To jest {streetName} utworzona przez {creator}.",
         "intro-without-creator": "To jest {streetName}.",
         "instruct": "Zmieniaj ulicę przesuwając jej wybrane segmenty lub {startYourOwnStreet}.",
         "instruct-start-own-street": "Stwórz własną ulicę"
@@ -207,9 +219,9 @@
     "remove": "Przeciągnij tutaj, aby usunąć"
   },
   "width": {
-    "label": "{width}szerokość",
-    "under": "({width}pokój)",
-    "over": "({width}ponad)",
+    "label": "{width} szerokości",
+    "under": "({width} wolnej przestrzeni)",
+    "over": "({width} ponad)",
     "occupied": "Zagospodarowana szerokość:",
     "building": "Odległość między budynkami:",
     "different": "Inna szerokość…",
@@ -223,7 +235,7 @@
     "today": "Dzisiaj o {time}"
   },
   "key": {
-    "backspace": "Cofnij",
+    "backspace": "Backspace",
     "shift": "Przesuń"
   },
   "tooltip": {
@@ -232,7 +244,7 @@
     "segment-width": "Zmień szerokość segmentu",
     "building-height": "Zmień liczbę pięter",
     "street-width": "Zmień szerokość ulicy",
-    "increase-width": "Zwiększa szerokość (przytrzymaj Shift dla zwiększonej precyzji)",
+    "increase-width": "Zwiększ szerokość (przytrzymaj Shift dla zwiększenia precyzji)",
     "decrease-width": "Zmniejsz szerokość (przytrzymaj Shift dla zwiększenia precyzji)",
     "add-floor": "Dodaj piętro",
     "remove-floor": "Usuń piętro"
@@ -242,7 +254,7 @@
     "rename": "Kliknij, by zmienić nazwę"
   },
   "building": {
-    "floors-count": "{count, plural, one {# piętro} few {# piętra} many {# piętra} other {# piętra}}"
+    "floors-count": "{count, plural, one {# piętro} few {# piętra} many {# pięter} other {# pięter}}"
   },
   "segments": {
     "warnings": {
@@ -259,7 +271,7 @@
     }
   },
   "section": {
-    "empty": "Pusta przetrzeń"
+    "empty": "Pusta przestrzeń"
   },
   "gallery": {
     "fail": "Nie udało się załadować galerii.",
@@ -268,7 +280,7 @@
     "delete-street-tooltip": "Usuń ulicę",
     "street-count": "{count, plural, one {# ulica} few {# ulic} many {# ulic} other {# ulic}}",
     "no-streets": "Jak dotąd brak ulic",
-    "sign-in": "Zaloguj się przez Twitter dla Twojej galerii ulicy"
+    "sign-in": "Zaloguj się przez Twittera, by posiadać własną galerię ulic"
   },
   "users": {
     "anonymous": "Anonim",

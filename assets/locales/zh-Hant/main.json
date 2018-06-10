@@ -20,6 +20,8 @@
       "change": ""
     },
     "share": {
+      "sign-in-twitter-link": "登錄",
+      "sign-in-link": "",
       "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>登錄推特</a>，會有連到你的街和你各自的街廊的連接",
       "link": "複製和粘貼這個連接來分享：",
       "twitter": "用推特來分享",
@@ -59,6 +61,16 @@
     },
     "language": {
       "heading": ""
+    }
+  },
+  "settings": {
+    "units": {
+      "label": "",
+      "metric": "",
+      "imperial": ""
+    },
+    "language": {
+      "label": ""
     }
   },
   "msg": {

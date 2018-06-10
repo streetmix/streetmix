@@ -20,6 +20,8 @@
       "change": "Cambiar el ancho del segmento al que estas apuntando<br />(deja pulsada <kbd class='key'>Mayús</kbd> para mayor precisión)"
     },
     "share": {
+      "sign-in-twitter-link": "Ingresar",
+      "sign-in-link": "{signInLink} para enlaces mejores a tus calles y a tu galería de calles personal",
       "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'> Ingresar a Twitter</a> para tener mejores enlaces a tus calles y a tu galería de calles",
       "link": "Copiar y pegar este enlace para compartir:",
       "twitter": "Compartir usando Twitter",
@@ -59,6 +61,16 @@
     },
     "language": {
       "heading": "Idioma"
+    }
+  },
+  "settings": {
+    "units": {
+      "label": "Unidades",
+      "metric": "Unidades métricas (metros)",
+      "imperial": "Unidades inglesas (pies)"
+    },
+    "language": {
+      "label": "Idioma"
     }
   },
   "msg": {

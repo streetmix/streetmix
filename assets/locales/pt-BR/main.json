@@ -20,6 +20,8 @@
       "change": "Mudar largura desse um segmento para o qual você está apontando<br />(segure <kbd class='key'>Shift</kbd> para obter mais precisão)"
     },
     "share": {
+      "sign-in-twitter-link": "Entrar",
+      "sign-in-link": "{signInLink} para obter melhores links para suas ruas e para sua galeria de ruas personalizada",
       "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Faça o login com o Twitter</a> para obter melhores links para suas ruas e para sua galeria de ruas personalizada",
       "link": "Copie e cole este link para compartilhar:",
       "twitter": "Compartilhar usando Twitter",
@@ -59,6 +61,16 @@
     },
     "language": {
       "heading": "Idioma"
+    }
+  },
+  "settings": {
+    "units": {
+      "label": "",
+      "metric": "",
+      "imperial": ""
+    },
+    "language": {
+      "label": "Idioma"
     }
   },
   "msg": {
