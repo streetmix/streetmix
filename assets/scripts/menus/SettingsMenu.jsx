@@ -47,7 +47,7 @@ export class SettingsMenu extends React.PureComponent {
     return (
       <Menu onShow={this.onShow} {...this.props}>
         <h2 className="menu-header">
-          <FormattedMessage id="settings.units.heading" defaultMessage="Units" />
+          <FormattedMessage id="settings.units.label" defaultMessage="Units" />
         </h2>
         <ul className="menu-item-group">
           <li className={`menu-item ${(this.props.units === SETTINGS_UNITS_METRIC) ? 'menu-item-selected' : ''}`} onClick={this.selectMetric}>
@@ -60,7 +60,7 @@ export class SettingsMenu extends React.PureComponent {
         </ul>
 
         <h2 className="menu-header">
-          <FormattedMessage id="menu.language.heading" defaultMessage="Language" />
+          <FormattedMessage id="settings.language.label" defaultMessage="Language" />
         </h2>
         <LocaleDropdown locale={this.props.locale} level={this.props.level} selectLocale={this.selectLocale} />
       </Menu>
