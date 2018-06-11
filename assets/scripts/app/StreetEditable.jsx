@@ -31,7 +31,7 @@ class StreetEditable extends React.Component {
       this.props.setBuildingWidth(this.streetSectionEditable)
     }
 
-    if (prevProps.street.id !== this.props.street.id) {
+    if (prevProps.street.id !== this.props.street.id || prevProps.street.width !== this.props.street.width) {
       document.body.classList.add('immediate-segment-resize')
       window.setTimeout(function () {
         document.body.classList.remove('immediate-segment-resize')
