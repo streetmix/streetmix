@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import MeasurementText from '../ui/MeasurementText'
 import { CSSTransition } from 'react-transition-group'
 import { getSegmentVariantInfo, getSegmentInfo } from '../segments/info'
-import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, SHORT_DELAY, suppressMouseEnter } from './resizing'
+import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, suppressMouseEnter } from './resizing'
 import { TILE_SIZE } from './constants'
 import { drawSegmentContents, getVariantInfoDimensions } from './view'
 import { SETTINGS_UNITS_METRIC } from '../users/localization'
@@ -104,10 +104,10 @@ class Segment extends React.Component {
     }
 
     // TODO - copied from resizeSegment. make sure we don't need
-    document.body.classList.add('immediate-segment-resize')
-    window.setTimeout(function () {
-      document.body.classList.remove('immediate-segment-resize')
-    }, SHORT_DELAY)
+    // document.body.classList.add('immediate-segment-resize')
+    // window.setTimeout(function () {
+    //   document.body.classList.remove('immediate-segment-resize')
+    // }, SHORT_DELAY)
 
     width = (width * TILE_SIZE)
     return width
