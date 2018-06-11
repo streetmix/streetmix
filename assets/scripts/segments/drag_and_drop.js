@@ -24,7 +24,8 @@ import {
   normalizeSegmentWidth,
   scheduleControlsFadeout,
   cancelFadeoutControls,
-  hideControls
+  hideControls,
+  cancelSegmentResizeTransitions
 } from './resizing'
 import { getVariantArray, getVariantString } from './variant_utils'
 import { TILE_SIZE } from './constants'
@@ -754,10 +755,7 @@ function handleSegmentMoveEnd (event) {
       newIndex = (newIndex > oldIndex) ? newIndex - 1 : newIndex
     }
 
-    document.body.classList.add('immediate-segment-resize')
-    window.setTimeout(function () {
-      document.body.classList.remove('immediate-segment-resize')
-    }, SHORT_DELAY)
+    cancelSegmentResizeTransitions()
 
     if (draggingMove.type === DRAGGING_TYPE_MOVE_TRANSFER) {
       const originalSegmentId = store.getState().street.segments[oldIndex].id

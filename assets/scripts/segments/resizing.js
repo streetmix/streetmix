@@ -68,10 +68,7 @@ export function resizeSegment (el, resizeType, width, updateEdit, palette, initi
     width = normalizeSegmentWidth(width, resizeType)
   }
 
-  document.body.classList.add('immediate-segment-resize')
-  window.setTimeout(function () {
-    document.body.classList.remove('immediate-segment-resize')
-  }, SHORT_DELAY)
+  cancelSegmentResizeTransitions()
 
   el.style.width = (width * TILE_SIZE) + 'px'
   el.setAttribute('data-width', width)
@@ -246,4 +243,11 @@ export function hideControls () {
       infoBubble.hideSegment(true)
     }, 0)
   }
+}
+
+export function cancelSegmentResizeTransitions () {
+  document.body.classList.add('immediate-segment-resize')
+  window.setTimeout(function () {
+    document.body.classList.remove('immediate-segment-resize')
+  }, SHORT_DELAY)
 }

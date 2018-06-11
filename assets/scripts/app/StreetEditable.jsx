@@ -6,7 +6,7 @@ import uuid from 'uuid'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { TILE_SIZE } from '../segments/constants'
 import { getVariantArray } from '../segments/variant_utils'
-import { SHORT_DELAY } from '../segments/resizing'
+import { cancelSegmentResizeTransitions } from '../segments/resizing'
 
 class StreetEditable extends React.Component {
   static propTypes = {
@@ -32,10 +32,7 @@ class StreetEditable extends React.Component {
     }
 
     if (prevProps.street.id !== this.props.street.id || prevProps.street.width !== this.props.street.width) {
-      document.body.classList.add('immediate-segment-resize')
-      window.setTimeout(function () {
-        document.body.classList.remove('immediate-segment-resize')
-      }, SHORT_DELAY)
+      cancelSegmentResizeTransitions()
     }
   }
 
