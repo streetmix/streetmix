@@ -39,7 +39,8 @@ class Segment extends React.Component {
   }
 
   static defaultProps = {
-    units: SETTINGS_UNITS_METRIC
+    units: SETTINGS_UNITS_METRIC,
+    suppressMouseEnter: false
   }
 
   constructor (props) {
