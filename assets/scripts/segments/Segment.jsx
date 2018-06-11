@@ -34,7 +34,8 @@ class Segment extends React.Component {
     dataNo: PropTypes.number,
     updateSegmentData: PropTypes.func,
     updatePerspective: PropTypes.func,
-    locale: PropTypes.string
+    locale: PropTypes.string,
+    suppressMouseEnter: PropTypes.bool.isRequired
   }
 
   static defaultProps = {
@@ -108,7 +109,7 @@ class Segment extends React.Component {
   }
 
   onSegmentMouseEnter = (event) => {
-    if (suppressMouseEnter() || this.props.forPalette) return
+    if (this.props.suppressMouseEnter || suppressMouseEnter() || this.props.forPalette) return
 
     infoBubble.considerShowing(event, this.streetSegment, INFO_BUBBLE_TYPE_SEGMENT)
   }
