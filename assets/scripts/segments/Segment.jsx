@@ -69,7 +69,8 @@ class Segment extends React.Component {
 
     this.drawSegment(this.props.variantString, false)
 
-    if (prevProps.suppressMouseEnter && !this.props.suppressMouseEnter) {
+    if (prevProps.suppressMouseEnter && !this.props.suppressMouseEnter &&
+        infoBubble.considerSegmentEl === this.streetSegment) {
       infoBubble.considerShowing(false, this.streetSegment, INFO_BUBBLE_TYPE_SEGMENT)
     }
 
