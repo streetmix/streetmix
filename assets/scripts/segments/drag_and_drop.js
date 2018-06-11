@@ -754,6 +754,11 @@ function handleSegmentMoveEnd (event) {
       newIndex = (newIndex > oldIndex) ? newIndex - 1 : newIndex
     }
 
+    document.body.classList.add('immediate-segment-resize')
+    window.setTimeout(function () {
+      document.body.classList.remove('immediate-segment-resize')
+    }, SHORT_DELAY)
+
     if (draggingMove.type === DRAGGING_TYPE_MOVE_TRANSFER) {
       const originalSegmentId = store.getState().street.segments[oldIndex].id
       newSegment.id = originalSegmentId

@@ -68,6 +68,11 @@ export function resizeSegment (el, resizeType, width, updateEdit, palette, initi
     width = normalizeSegmentWidth(width, resizeType)
   }
 
+  document.body.classList.add('immediate-segment-resize')
+  window.setTimeout(function () {
+    document.body.classList.remove('immediate-segment-resize')
+  }, SHORT_DELAY)
+
   el.style.width = (width * TILE_SIZE) + 'px'
   el.setAttribute('data-width', width)
 
