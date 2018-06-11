@@ -192,9 +192,9 @@
     "wayfinding-type|large": "Large",
     "wayfinding-type|medium": "Medium",
     "wayfinding-type|small": "Small",
-    "flex|waiting-person": "Someone",
-    "flex|waiting-empty": "No one",
-    "flex|rideshare": "Rideshare",
-    "flex|taxi": "Taxi"
+    "person|sparse": "Someone",
+    "person|empty": "No one",
+    "flex-type|rideshare": "Rideshare",
+    "flex-type|taxi": "Taxi"
   }
 }
