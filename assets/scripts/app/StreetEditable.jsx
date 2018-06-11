@@ -30,6 +30,13 @@ class StreetEditable extends React.Component {
     if (onResized && prevProps.onResized !== onResized) {
       this.props.setBuildingWidth(this.streetSectionEditable)
     }
+
+    if (prevProps.street.id !== this.props.street.id) {
+      document.body.classList.add('immediate-segment-resize')
+      window.setTimeout(function () {
+        document.body.classList.remove('immediate-segment-resize')
+      }, SHORT_DELAY)
+    }
   }
 
   updateSegmentData = (ref, dataNo, segmentPos) => {
@@ -45,10 +52,7 @@ class StreetEditable extends React.Component {
   }
 
   switchSegmentAway = (el) => {
-    document.body.classList.add('immediate-segment-resize')
-    window.setTimeout(function () {
-      document.body.classList.remove('immediate-segment-resize')
-    }, SHORT_DELAY)
+    el.classList.add('create')
     el.style.left = el.savedLeft + 'px'
 
     this.props.updatePerspective(el)
