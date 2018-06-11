@@ -5,6 +5,7 @@ import * as actions from '../../actions/street'
 describe('street reducer', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual({
+      immediateRemoval: true,
       segments: []
     })
   })
@@ -14,6 +15,7 @@ describe('street reducer', () => {
     expect(
       reducer(undefined, actions.addSegment(0, { type: 'foo' }))
     ).toEqual({
+      immediateRemoval: true,
       segments: [
         { type: 'foo' }
       ]
@@ -66,6 +68,7 @@ describe('street reducer', () => {
 
   it('should handle REMOVE_SEGMENT', () => {
     const existingStreet = {
+      immediateRemoval: true,
       segments: [
         { type: 'foo' },
         { type: 'bar' },
@@ -78,6 +81,7 @@ describe('street reducer', () => {
     expect(
       reducer({...existingStreet}, actions.removeSegment(1))
     ).toEqual({
+      immediateRemoval: true,
       segments: [
         { type: 'foo' },
         { type: 'baz' },
@@ -89,6 +93,7 @@ describe('street reducer', () => {
     expect(
       reducer({...existingStreet}, actions.removeSegment(0))
     ).toEqual({
+      immediateRemoval: true,
       segments: [
         { type: 'bar' },
         { type: 'baz' },

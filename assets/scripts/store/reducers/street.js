@@ -27,7 +27,8 @@ import {
 import { getVariantString } from '../../segments/variant_utils'
 
 const initialState = {
-  segments: []
+  segments: [],
+  immediateRemoval: true
 }
 
 const MAX_BUILDING_HEIGHT = 20
@@ -51,7 +52,8 @@ const street = (state = initialState, action) => {
     case REMOVE_SEGMENT:
       return {
         ...state,
-        segments: state.segments.filter((element, index) => index !== action.index)
+        segments: state.segments.filter((element, index) => index !== action.index),
+        immediateRemoval: action.immediate
       }
     case MOVE_SEGMENT: {
       const toMove = Object.assign({}, state.segments[action.index])
@@ -69,9 +71,11 @@ const street = (state = initialState, action) => {
       }
     }
     case UPDATE_SEGMENTS:
+      const immediate = action.immediate || state.immediateRemoval
       return {
         ...state,
-        segments: action.segments
+        segments: action.segments,
+        immediateRemoval: immediate
       }
     case CHANGE_SEGMENT_WIDTH: {
       const copy = [...state.segments]

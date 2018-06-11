@@ -40,10 +40,11 @@ export function addSegment (index, segment) {
   }
 }
 
-export function removeSegment (index) {
+export function removeSegment (index, immediate = true) {
   return {
     type: REMOVE_SEGMENT,
-    index
+    index,
+    immediate
   }
 }
 
@@ -65,7 +66,8 @@ export function updateSegments (segments) {
 export function clearSegments () {
   return {
     type: UPDATE_SEGMENTS,
-    segments: []
+    segments: [],
+    immediate: true
   }
 }
 
