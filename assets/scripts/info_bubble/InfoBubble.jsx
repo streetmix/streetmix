@@ -328,7 +328,7 @@ class InfoBubble extends React.Component {
    * TODO: consolidate this with the dim calc in updateBubbleDimensions? do we need snapshot here?
    */
   setInfoBubblePosition = () => {
-    if (!this.segmentEl || !this.el || !this.el.current) return
+    if (!this.segmentEl || !this.el || !this.el.current || !this.props.visible) return
 
     // Determine dimensions and X/Y layout
     const bubbleWidth = this.el.current.offsetWidth

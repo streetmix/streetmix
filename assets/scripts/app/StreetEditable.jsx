@@ -6,6 +6,7 @@ import uuid from 'uuid'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { TILE_SIZE } from '../segments/constants'
 import { getVariantArray } from '../segments/variant_utils'
+import { SHORT_DELAY } from '../segments/resizing'
 
 class StreetEditable extends React.Component {
   static propTypes = {
@@ -13,6 +14,14 @@ class StreetEditable extends React.Component {
     setBuildingWidth: PropTypes.func.isRequired,
     street: PropTypes.object.isRequired,
     updatePerspective: PropTypes.func.isRequired
+  }
+
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      suppressMouseEnter: false
+    }
   }
 
   componentDidUpdate (prevProps) {
@@ -33,6 +42,17 @@ class StreetEditable extends React.Component {
     segment.el.savedNoMoveLeft = Math.round(segmentPos)
     segment.el.cssTransformLeft = Math.round(segmentPos)
     segment.el.savedWidth = Math.round(segment.width * TILE_SIZE)
+  }
+
+  switchSegmentAway = (el) => {
+    document.body.classList.add('immediate-segment-resize')
+    window.setTimeout(function () {
+      document.body.classList.remove('immediate-segment-resize')
+    }, SHORT_DELAY)
+    el.style.left = el.savedLeft + 'px'
+
+    this.props.updatePerspective(el)
+    this.setState({ suppressMouseEnter: true })
   }
 
   calculateSegmentPos = (dataNo) => {
@@ -72,7 +92,8 @@ class StreetEditable extends React.Component {
           timeout={250}
           classNames="switching-away"
           exit={!(immediateRemoval)}
-          onExit={(el) => { this.props.updatePerspective(el, true) }}
+          onExit={this.switchSegmentAway}
+          onExited={() => { this.setState({ suppressMouseEnter: false }) }}
           unmountOnExit
         >
           <Segment
@@ -86,6 +107,7 @@ class StreetEditable extends React.Component {
             units={units}
             randSeed={segment.randSeed}
             segmentPos={segmentPos}
+            suppressMouseEnter={this.state.suppressMouseEnter}
             updateSegmentData={this.updateSegmentData}
             updatePerspective={this.props.updatePerspective}
           />
@@ -108,7 +130,7 @@ class StreetEditable extends React.Component {
         style={style}
         ref={(ref) => { this.streetSectionEditable = ref }}
       >
-        <TransitionGroup key={this.props.street.id} component={null} childFactory={this.handleExitAnimations}>
+        <TransitionGroup key={this.props.street.id} component={null} enter={false} childFactory={this.handleExitAnimations}>
           {this.renderStreetSegments()}
         </TransitionGroup>
       </div>

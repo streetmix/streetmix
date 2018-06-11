@@ -17,7 +17,6 @@ import { infoBubble } from '../info_bubble/info_bubble'
 import { animate, getElAbsolutePos } from '../util/helpers'
 import { MAX_CUSTOM_STREET_WIDTH } from '../streets/width'
 import { BUILDING_SPACE } from '../segments/buildings'
-import { SHORT_DELAY } from '../segments/resizing'
 import { TILE_SIZE } from '../segments/constants'
 import { app } from '../preinit/app_settings'
 
@@ -176,14 +175,6 @@ class StreetView extends React.Component {
 
   updatePerspective = (el, switchSegmentAway) => {
     if (!el) return
-
-    if (switchSegmentAway) {
-      document.body.classList.add('immediate-segment-resize')
-      window.setTimeout(function () {
-        document.body.classList.remove('immediate-segment-resize')
-      }, SHORT_DELAY)
-      el.style.left = el.savedLeft + 'px'
-    }
 
     const pos = getElAbsolutePos(el)
     const scrollPos = (this.streetSectionOuter && this.streetSectionOuter.scrollLeft) || this.state.scrollPos
