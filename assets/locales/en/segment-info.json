@@ -192,8 +192,8 @@
     "wayfinding-type|large": "Large",
     "wayfinding-type|medium": "Medium",
     "wayfinding-type|small": "Small",
-    "person|sparse": "Someone",
-    "person|empty": "No one",
+    "waiting-area|sparse": "Someone",
+    "waiting-area|empty": "No one",
     "flex-type|rideshare": "Rideshare",
     "flex-type|taxi": "Taxi"
   }
