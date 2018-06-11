@@ -345,7 +345,7 @@ export const VARIANT_ICONS = {
       'title': 'Rideshare'
     }
   },
-  'person': {
+  'waiting-area': {
     'sparse': {
       'id': 'sidewalk-density-sparse',
       'title': 'Someone'
