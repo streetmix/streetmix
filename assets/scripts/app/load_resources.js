@@ -11,8 +11,7 @@ const IMAGES_TO_BE_LOADED = [
   '/images/sky-front.svg',
   '/images/sky-rear.svg',
   '/assets/images/icons.svg',
-  '/assets/images/images.svg',
-  '/images/images.svg'
+  '/assets/images/images.svg'
 ]
 
 const SVGStagingEl = document.getElementById('svg')

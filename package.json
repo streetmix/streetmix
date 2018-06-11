@@ -69,7 +69,7 @@
   },
   "dependencies": {
     "@streetmix/icons": "0.4.3",
-    "@streetmix/illustrations": "0.3.8",
+    "@streetmix/illustrations": "0.4.1",
     "async": "2.6.0",
     "auth0": "2.9.1",
     "auth0-js": "9.5.1",

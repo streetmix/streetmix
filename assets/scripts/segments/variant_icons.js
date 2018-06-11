@@ -343,14 +343,6 @@ export const VARIANT_ICONS = {
     'rideshare': {
       'id': 'rideshare',
       'title': 'Rideshare'
-    },
-    'bikeshare': {
-      'id': 'bikeshare',
-      'title': 'Bikeshare'
-    },
-    'foodtruck': {
-      'id': 'foodtruck',
-      'title': 'Food truck'
     }
   },
   'person': {
