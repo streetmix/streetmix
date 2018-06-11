@@ -549,7 +549,7 @@
     "name": "Food truck",
     "nameKey": "food-truck",
     "owner": "FLEX",
-    "zIndex": 18,
+    "zIndex": 20,
     "defaultWidth": 10,
     "variants": [
       "orientation"
