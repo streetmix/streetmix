@@ -547,7 +547,7 @@
   },
   "food-truck": {
     "name": "Food truck",
-    "nameKey": "food-truck",
+    "nameKey": "foodtruck",
     "owner": "FLEX",
     "zIndex": 20,
     "defaultWidth": 10,
