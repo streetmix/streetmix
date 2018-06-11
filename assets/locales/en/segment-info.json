@@ -22,7 +22,7 @@
     "rideshare-pick-up": "Rideshare pick-up / drop-off",
     "bikeshare-station": "Bikeshare station",
     "foodtruck": "Food truck",
-    "flex-zone-curb": "Pick up / drop off waiting area",
+    "flex-zone-curb": "Pick-up / drop-off waiting area",
     "drive-lane": "Drive lane",
     "sharrow": "Sharrow",
     "turn-lane": "Turn lane",
@@ -191,6 +191,10 @@
     "building|wide": "Wide building",
     "wayfinding-type|large": "Large",
     "wayfinding-type|medium": "Medium",
-    "wayfinding-type|small": "Small"
+    "wayfinding-type|small": "Small",
+    "waiting-area|sparse": "Someone",
+    "waiting-area|empty": "No one",
+    "flex-type|rideshare": "Rideshare",
+    "flex-type|taxi": "Taxi"
   }
 }

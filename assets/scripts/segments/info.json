@@ -682,7 +682,7 @@
     "zIndex": 30,
     "defaultWidth": 4,
     "variants": [
-      "person",
+      "waiting-area",
       "orientation"
     ],
     "enableWithFlag": "SEGMENT_FLEX_ZONE",
