@@ -104,12 +104,6 @@ class Segment extends React.Component {
       width = normalizeSegmentWidth(width, resizeType)
     }
 
-    // TODO - copied from resizeSegment. make sure we don't need
-    // document.body.classList.add('immediate-segment-resize')
-    // window.setTimeout(function () {
-    //   document.body.classList.remove('immediate-segment-resize')
-    // }, SHORT_DELAY)
-
     width = (width * TILE_SIZE)
     return width
   }
