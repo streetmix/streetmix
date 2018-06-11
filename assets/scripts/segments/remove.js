@@ -24,7 +24,7 @@ export function removeSegment (el) {
   infoBubble.hideSegment()
 
   // Update the store
-  store.dispatch(removeSegmentActionCreator(window.parseInt(el.dataNo, 10), false))
+  store.dispatch(removeSegmentActionCreator(Number.parseInt(el.dataNo, 10), false))
 
   // update street data but do not re-read DOM
   segmentsChanged(false, true)
