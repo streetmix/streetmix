@@ -173,7 +173,7 @@ class StreetView extends React.Component {
     })
   }
 
-  updatePerspective = (el) => {
+  updatePerspective = (el, switchSegmentAway) => {
     if (!el) return
 
     const pos = getElAbsolutePos(el)
