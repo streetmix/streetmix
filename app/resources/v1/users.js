@@ -13,7 +13,6 @@ exports.post = function (req, res) {
       res.status(500).send('Could not create user.')
       return
     }
-    console.log(user)
     const userJson = { id: user.id, loginToken: loginToken }
     logger.info({ user: userJson }, 'New user created.')
     res.header('Location', config.restapi.baseuri + '/v1/users/' + user.id)
@@ -101,7 +100,7 @@ exports.post = function (req, res) {
   const handleEmailSignIn = async function (credentials) {
     function generateId (nickname) {
       // TODO - Check if the Id generated is not existing
-      return nickname + random(0, 999)
+      return nickname + '-' + random(0, 999)
     }
 
     try {
