@@ -1,7 +1,5 @@
 import { images } from '../app/load_resources'
 import { t } from '../app/locale'
-import { infoBubble } from '../info_bubble/info_bubble'
-import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { system } from '../preinit/system_capabilities'
 import { saveStreetToServerIfNecessary, createDataFromDom } from '../streets/data_model'
 import { recalculateWidth } from '../streets/width'
@@ -9,12 +7,7 @@ import { draggingMove } from './drag_and_drop'
 import { getSegmentInfo, getSegmentVariantInfo, getSpriteDef } from './info'
 import { drawProgrammaticPeople } from './people'
 import { TILE_SIZE, TILESET_POINT_PER_PIXEL } from './constants'
-import {
-  RESIZE_TYPE_INITIAL,
-  suppressMouseEnter,
-  resizeSegment,
-  applyWarningsToSegments
-} from './resizing'
+import { applyWarningsToSegments } from './resizing'
 import store from '../store'
 
 const CANVAS_HEIGHT = 480
@@ -323,73 +316,6 @@ export function getLocaleSegmentName (type, variantString) {
   return t(key, defaultName, { ns: 'segment-info' })
 }
 
-export function createSegment (type, variantString, width, isUnmovable, palette, randSeed) {
-  let innerEl, dragHandleEl
-  var el = document.createElement('div')
-  el.classList.add('segment')
-  el.setAttribute('type', type)
-  el.setAttribute('variant-string', variantString)
-  if (randSeed) {
-    el.setAttribute('rand-seed', randSeed)
-  }
-
-  if (isUnmovable) {
-    el.classList.add('unmovable')
-  }
-
-  const segmentInfo = getSegmentInfo(type)
-
-  if (!palette) {
-    el.style.zIndex = segmentInfo.zIndex
-
-    const name = getLocaleSegmentName(type, variantString)
-
-    innerEl = document.createElement('span')
-    innerEl.classList.add('name')
-    innerEl.innerHTML = name
-    el.appendChild(innerEl)
-
-    innerEl = document.createElement('span')
-    innerEl.classList.add('width')
-    el.appendChild(innerEl)
-
-    dragHandleEl = document.createElement('span')
-    dragHandleEl.classList.add('drag-handle')
-    dragHandleEl.classList.add('left')
-    dragHandleEl.segmentEl = el
-    dragHandleEl.innerHTML = '‹'
-    el.appendChild(dragHandleEl)
-
-    dragHandleEl = document.createElement('span')
-    dragHandleEl.classList.add('drag-handle')
-    dragHandleEl.classList.add('right')
-    dragHandleEl.segmentEl = el
-    dragHandleEl.innerHTML = '›'
-    el.appendChild(dragHandleEl)
-
-    innerEl = document.createElement('span')
-    innerEl.classList.add('grid')
-    el.appendChild(innerEl)
-  } else {
-    el.setAttribute('title', segmentInfo.name)
-  }
-
-  if (width) {
-    resizeSegment(el, RESIZE_TYPE_INITIAL, width / TILE_SIZE, true, palette, true)
-  }
-
-  if (!palette) {
-    el.addEventListener('pointerenter', onSegmentMouseEnter)
-    el.addEventListener('pointerleave', onSegmentMouseLeave)
-  }
-  return el
-}
-
-export function createSegmentDom (segment) {
-  return createSegment(segment.type, segment.variantString,
-    segment.width * TILE_SIZE, segment.unmovable, false, segment.randSeed)
-}
-
 export function repositionSegments () {
   let width, el
   var left = 0
@@ -482,16 +408,4 @@ export function segmentsChanged (readDataFromDom = true, reassignElementRefs = f
   }
 
   saveStreetToServerIfNecessary()
-}
-
-function onSegmentMouseEnter (event) {
-  if (suppressMouseEnter()) {
-    return
-  }
-
-  infoBubble.considerShowing(event, this, INFO_BUBBLE_TYPE_SEGMENT)
-}
-
-function onSegmentMouseLeave () {
-  infoBubble.dontConsiderShowing()
 }

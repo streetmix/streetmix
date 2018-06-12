@@ -6,7 +6,7 @@ import uuid from 'uuid'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { TILE_SIZE } from '../segments/constants'
 import { getVariantArray } from '../segments/variant_utils'
-import { SHORT_DELAY } from '../segments/resizing'
+import { cancelSegmentResizeTransitions } from '../segments/resizing'
 
 class StreetEditable extends React.Component {
   static propTypes = {
@@ -30,6 +30,10 @@ class StreetEditable extends React.Component {
     if (onResized && prevProps.onResized !== onResized) {
       this.props.setBuildingWidth(this.streetSectionEditable)
     }
+
+    if (prevProps.street.id !== this.props.street.id || prevProps.street.width !== this.props.street.width) {
+      cancelSegmentResizeTransitions()
+    }
   }
 
   updateSegmentData = (ref, dataNo, segmentPos) => {
@@ -45,10 +49,7 @@ class StreetEditable extends React.Component {
   }
 
   switchSegmentAway = (el) => {
-    document.body.classList.add('immediate-segment-resize')
-    window.setTimeout(function () {
-      document.body.classList.remove('immediate-segment-resize')
-    }, SHORT_DELAY)
+    el.classList.add('create')
     el.style.left = el.savedLeft + 'px'
 
     this.props.updatePerspective(el)

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import MeasurementText from '../ui/MeasurementText'
 import { CSSTransition } from 'react-transition-group'
 import { getSegmentVariantInfo, getSegmentInfo } from '../segments/info'
-import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, SHORT_DELAY, suppressMouseEnter } from './resizing'
+import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, suppressMouseEnter } from './resizing'
 import { TILE_SIZE } from './constants'
 import { drawSegmentContents, getVariantInfoDimensions } from './view'
 import { SETTINGS_UNITS_METRIC } from '../users/localization'
@@ -69,6 +69,11 @@ class Segment extends React.Component {
 
     this.drawSegment(this.props.variantString, false)
 
+    if (prevProps.suppressMouseEnter && !this.props.suppressMouseEnter &&
+        infoBubble.considerSegmentEl === this.streetSegment) {
+      infoBubble.considerShowing(false, this.streetSegment, INFO_BUBBLE_TYPE_SEGMENT)
+    }
+
     if (prevProps.variantString !== this.props.variantString) {
       this.switchSegments(prevProps.variantString)
     }
@@ -98,12 +103,6 @@ class Segment extends React.Component {
     if (!this.props.forPalette) {
       width = normalizeSegmentWidth(width, resizeType)
     }
-
-    // TODO - copied from resizeSegment. make sure we don't need
-    document.body.classList.add('immediate-segment-resize')
-    window.setTimeout(function () {
-      document.body.classList.remove('immediate-segment-resize')
-    }, SHORT_DELAY)
 
     width = (width * TILE_SIZE)
     return width
