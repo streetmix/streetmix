@@ -9,7 +9,7 @@
     "label": "Chinese (Traditional)",
     "value": "zh-Hant",
     "key": "i18n.lang.zh-hant",
-    "level": 1
+    "level": 2
   },
   {
     "label": "English",
@@ -51,7 +51,7 @@
     "label": "Portuguese (Brazil)",
     "value": "pt-BR",
     "key": "i18n.lang.pt-br",
-    "level": 1
+    "level": 2
   },
   {
     "label": "Spanish",
