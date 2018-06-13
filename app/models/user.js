@@ -1,11 +1,11 @@
 const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
-  id: { type: String, index: { unique: true, sparse: true } },
+  id: { type: String, index: { unique: true } },
   twitter_id: String,
   twitter_credentials: mongoose.Schema.Types.Mixed,
   auth0_id: String,
-  email: { type: String, index: { unique: true } },
+  email: { type: String, index: { unique: true, sparse: true } },
   login_tokens: [ String ],
   profile_image_url: String,
   data: mongoose.Schema.Types.Mixed,
