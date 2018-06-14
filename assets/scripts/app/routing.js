@@ -1,4 +1,4 @@
-import { TWITTER_URL_SIGN_IN_CALLBACK_REL, AUTH0_TWITTER_URL_SIGN_IN_CALLBACK_REL, EMAIL_URL_SIGN_IN_CALLBACK_REL, USE_AUTH0 } from './config'
+import { TWITTER_URL_SIGN_IN_CALLBACK_REL, AUTH0_TWITTER_URL_SIGN_IN_CALLBACK_REL, AUTH0_EMAIL_URL_SIGN_IN_CALLBACK_REL, USE_AUTH0 } from './config'
 import Authenticate from '../app/auth0'
 // TODO replace the URLs in index.html dynamically
 const URL_SIGN_IN = 'twitter-sign-in'
@@ -11,7 +11,7 @@ const AUTH0_TWITTER_URL_SIGN_IN_CALLBACK_ABS =
 window.location.protocol + '//' + window.location.host + AUTH0_TWITTER_URL_SIGN_IN_CALLBACK_REL
 
 const AUTH0_EMAIL_URL_SIGN_IN_CALLBACK_ABS =
-window.location.protocol + '//' + window.location.host + EMAIL_URL_SIGN_IN_CALLBACK_REL
+window.location.protocol + '//' + window.location.host + AUTH0_EMAIL_URL_SIGN_IN_CALLBACK_REL
 
 const URL_JUST_SIGNED_IN_REL = '/just-signed-in'
 const URL_JUST_SIGNED_IN_ABS =
