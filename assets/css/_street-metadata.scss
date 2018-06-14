@@ -33,11 +33,6 @@
   }
 }
 
-body.edit-street-width .street-width {
-  display: none;
-  pointer-events: none;
-}
-
 .street-width-over {
   color: $warning-colour;
 }
@@ -46,12 +41,8 @@ body.edit-street-width .street-width {
   color: rgb(96, 96, 96);
 }
 
-#street-width {
+.street-width-select {
   width: 150px;
-}
-
-body:not(.edit-street-width) #street-width {
-  display: none;
 }
 
 body:not(.read-only) .street-metadata-author a:hover {
