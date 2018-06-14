@@ -9,7 +9,11 @@ import store, { observeStore } from '../store'
 import { changeLocale } from '../store/actions/locale'
 import LOCALES from '../../../app/data/locales.json'
 
-// Add react-intl files for all the languages we support (added manually for now)
+// Add react-intl files for all the languages we support
+// See https://github.com/yahoo/react-intl/wiki#locale-data-in-browsers
+// We are taking a simpler approach by bundling all the locale data together
+// (they are not large -- about 2kb-4kb pre-minification/gzip). We may consider
+// dynamically loading locale data later.
 import ar from 'react-intl/locale-data/ar'
 import es from 'react-intl/locale-data/es'
 import de from 'react-intl/locale-data/de'
@@ -22,37 +26,37 @@ import sv from 'react-intl/locale-data/sv'
 import zh from 'react-intl/locale-data/zh'
 
 /**
- * Initalize i18n / localization
- * Currently experimental-only for all languages except English
+ * Initialize i18n / localization
  */
 export function initLocale () {
-  const flags = store.getState().flags
-  const experimental = flags.LOCALES_LEVEL_1.value || flags.LOCALES_LEVEL_2.value || flags.LOCALES_LEVEL_3.value
+  // Add react-intl locale data
+  addLocaleData([...ar, ...es, ...de, ...fi, ...fr, ...ja, ...pl, ...pt, ...sv, ...zh])
+
+  // Default language is set by browser, or is English if undetermined
+  const defaultLocale = navigator.language || DEFAULT_LOCALE
 
   // Current language is the one set by Streetmix or is the browser default, if unset
   let locale
 
-  if (experimental) {
-    // Add react-intl locale data
-    addLocaleData([...ar, ...es, ...de, ...fi, ...fr, ...ja, ...pl, ...pt, ...sv, ...zh])
-
-    // Default language is set by browser, or is English if undetermined
-    const defaultLocale = navigator.language || DEFAULT_LOCALE
-
-    try {
-      locale = JSON.parse(window.localStorage.getItem('locale')) || defaultLocale
-    } catch (err) {
-      locale = defaultLocale
-    }
-  } else {
-    locale = DEFAULT_LOCALE
+  // Try to read a stored value from LocalStorage; if it fails (access denied, etc)
+  // then ignore this error and go with the browser's locale or default
+  try {
+    locale = JSON.parse(window.localStorage.getItem('locale')) || defaultLocale
+  } catch (err) {
+    locale = defaultLocale
   }
 
+  // Listen for switches in language direction (right-to-left vs left-to-right)
   initRtlChangedListener()
+
+  // Change app locale
   store.dispatch(changeLocale(locale))
 }
 
-// right-to-left languages support
+/**
+ * Whenever the language changes, this listener will apply the document's text
+ * direction. Required to support right-to-left languages like Arabic, Hebrew, etc.
+ */
 function initRtlChangedListener () {
   const select = (state) => state.app.contentDirection
   const onChange = (direction) => {
@@ -62,6 +66,13 @@ function initRtlChangedListener () {
   return observeStore(select, onChange)
 }
 
+/**
+ * Port of the old i18next `t` function, still used in some legacy spot
+ *
+ * @param {string} key - translation id
+ * @param {string} fallback - fallback / reference string
+ * @param {object} options - options
+ */
 export function t (key, fallback, options = {}) {
   const locale = store.getState().locale
   if (options.ns === 'segment-info') {
@@ -71,6 +82,12 @@ export function t (key, fallback, options = {}) {
   }
 }
 
+/**
+ * Gets the current locale level. See `./constants.js` for a description
+ * of what each level is.
+ *
+ * @returns {Number} between 1-4
+ */
 function getLocaleLevel () {
   const flags = store.getState().flags
 
@@ -83,6 +100,13 @@ function getLocaleLevel () {
   return level
 }
 
+/**
+ * Given the list of all locales set by Streetmix, returns a filtered and sorted
+ * list of locales based on the current level of available locales. See
+ * `./constants.js` for a description of what each level is.
+ *
+ * @returns {Array} of locale data objects
+ */
 export function getAvailableLocales () {
   const level = getLocaleLevel()
 
