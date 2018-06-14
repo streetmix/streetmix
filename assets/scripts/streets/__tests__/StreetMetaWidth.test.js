@@ -18,7 +18,7 @@ describe('StreetMetaWidth', () => {
   })
 
   it('does not allow street width to be edited if in read only mode', () => {
-    const wrapper = shallowWithIntl(<StreetMetaWidth street={{}} readOnly />)
+    const wrapper = shallowWithIntl(<StreetMetaWidth street={{}} editable={false} />)
 
     const streetWidthMenu = wrapper.find('.street-width')
     streetWidthMenu.simulate('click')
