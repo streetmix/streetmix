@@ -586,7 +586,7 @@
     "enableWithFlag": "SEGMENT_FLEX_ZONE",
     "details": {
       "taxi|inbound|left": {
-        "name": "Taxi pick-up / drop-off",
+        "name": "Taxi loading zone",
         "nameKey": "taxi-pick-up",
         "minWidth": 7,
         "maxWidth": 10,
@@ -597,7 +597,7 @@
         }
       },
       "taxi|inbound|right": {
-        "name": "Taxi pick-up / drop-off",
+        "name": "Taxi loading zone",
         "nameKey": "taxi-pick-up",
         "minWidth": 7,
         "maxWidth": 10,
@@ -608,7 +608,7 @@
         }
       },
       "taxi|outbound|left": {
-        "name": "Taxi pick-up / drop-off",
+        "name": "Taxi loading zone",
         "nameKey": "taxi-pick-up",
         "minWidth": 7,
         "maxWidth": 10,
@@ -619,7 +619,7 @@
         }
       },
       "taxi|outbound|right": {
-        "name": "Taxi pick-up / drop-off",
+        "name": "Taxi loading zone",
         "nameKey": "taxi-pick-up",
         "minWidth": 7,
         "maxWidth": 10,
@@ -630,7 +630,7 @@
         }
       },
       "rideshare|inbound|left": {
-        "name": "Rideshare pick-up / drop-off",
+        "name": "Rideshare loading zone",
         "nameKey": "rideshare-pick-up",
         "minWidth": 7,
         "maxWidth": 10,
@@ -641,7 +641,7 @@
         }
       },
       "rideshare|inbound|right": {
-        "name": "Rideshare pick-up / drop-off",
+        "name": "Rideshare loading zone",
         "nameKey": "rideshare-pick-up",
         "minWidth": 7,
         "maxWidth": 10,
@@ -652,7 +652,7 @@
         }
       },
       "rideshare|outbound|left": {
-        "name": "Rideshare pick-up / drop-off",
+        "name": "Rideshare loading zone",
         "nameKey": "rideshare-pick-up",
         "minWidth": 7,
         "maxWidth": 10,
@@ -663,7 +663,7 @@
         }
       },
       "rideshare|outbound|right": {
-        "name": "Rideshare pick-up / drop-off",
+        "name": "Rideshare loading zone",
         "nameKey": "rideshare-pick-up",
         "minWidth": 7,
         "maxWidth": 10,
@@ -676,7 +676,7 @@
     }
   },
   "flex-zone-curb": {
-    "name": "Pick up / drop off waiting area",
+    "name": "Waiting area",
     "nameKey": "flex-zone-curb",
     "owner": "FLEX",
     "zIndex": 30,
