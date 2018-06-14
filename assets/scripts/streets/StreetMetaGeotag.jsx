@@ -64,7 +64,7 @@ function mapStateToProps (state) {
   return {
     street: state.street,
     readOnly: state.app.readOnly,
-    enableLocation: state.flags.GEOLOCATION.value
+    enableLocation: state.flags.GEOTAG.value
   }
 }
 

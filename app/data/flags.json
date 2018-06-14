@@ -1,6 +1,18 @@
 {
-  "GEOLOCATION": {
-    "label": "Geolocation",
+  "GEOTAG": {
+    "label": "Geotagging",
+    "defaultValue": true
+  },
+  "EDIT_STREET_WIDTH": {
+    "label": "Edit street width",
+    "defaultValue": true
+  },
+  "EDIT_STREET_NAME": {
+    "label": "Edit street name",
+    "defaultValue": true
+  },
+  "EDIT_BUILDINGS": {
+    "label": "Edit buildings",
     "defaultValue": true
   },
   "SAVE_UNDO": {
