@@ -18,6 +18,11 @@
   pointer-events: none;
   z-index: $z-04-menu;
 
+  /* Allows scrolling if the menu length is longer than height of viewport */
+  max-height: calc(100% - 60px);
+  overflow-x: hidden;
+  overflow-y: auto;
+
   &.visible {
     transform: rotateX(0);
     opacity: 1;
