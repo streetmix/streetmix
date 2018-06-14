@@ -1,18 +1,18 @@
 {
   "GEOTAG": {
-    "label": "Geotagging",
+    "label": "UI — Geotagging",
     "defaultValue": true
   },
   "EDIT_STREET_WIDTH": {
-    "label": "Edit street width",
+    "label": "UI — Edit street width",
     "defaultValue": true
   },
   "EDIT_STREET_NAME": {
-    "label": "Edit street name",
+    "label": "UI — Edit street name",
     "defaultValue": true
   },
   "EDIT_BUILDINGS": {
-    "label": "Edit buildings",
+    "label": "UI — Edit buildings",
     "defaultValue": true
   },
   "SAVE_UNDO": {
