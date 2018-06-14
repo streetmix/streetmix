@@ -7,7 +7,7 @@ import { SHOW_DIALOG } from '../store/actions'
 
 export class StreetMetaGeotag extends React.Component {
   static propTypes = {
-    readOnly: PropTypes.bool,
+    editable: PropTypes.bool,
     street: PropTypes.any,
     enableLocation: PropTypes.bool,
     showGeotagDialog: PropTypes.func
@@ -37,24 +37,24 @@ export class StreetMetaGeotag extends React.Component {
     return text || unknownLabel
   }
 
-  renderGeotag = (street, readOnly) => {
+  renderGeotag = (street, isEditable) => {
     const geotagText = (street.location)
       ? this.getGeotagText()
       : <FormattedMessage id="dialogs.geotag.add-location" defaultMessage="Add location" />
 
     const geolocation = (
       <span className="street-metadata-map">
-        { (readOnly) ? geotagText : (
+        { (isEditable) ? geotagText : (
           <a onClick={this.onClickGeotag}>{geotagText}</a>
         ) }
       </span>
     )
 
-    return (readOnly && !street.location) ? null : geolocation
+    return (isEditable && !street.location) ? null : geolocation
   }
 
   render () {
-    const geolocation = (this.props.enableLocation) ? this.renderGeotag(this.props.street, this.props.readOnly) : null
+    const geolocation = (this.props.enableLocation) ? this.renderGeotag(this.props.street, this.props.editable) : null
 
     return geolocation
   }
@@ -63,7 +63,7 @@ export class StreetMetaGeotag extends React.Component {
 function mapStateToProps (state) {
   return {
     street: state.street,
-    readOnly: state.app.readOnly,
+    editable: state.app.readOnly,
     enableLocation: state.flags.GEOTAG.value
   }
 }

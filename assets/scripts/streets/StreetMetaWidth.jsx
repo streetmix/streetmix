@@ -23,9 +23,13 @@ const DEFAULT_STREET_WIDTHS = [40, 60, 80]
 export class StreetMetaWidth extends React.Component {
   static propTypes = {
     intl: intlShape,
-    readOnly: PropTypes.bool,
+    editable: PropTypes.bool,
     street: PropTypes.object,
     updateStreetWidth: PropTypes.func
+  }
+
+  static defaultProps = {
+    editable: true
   }
 
   constructor (props) {
@@ -94,17 +98,17 @@ export class StreetMetaWidth extends React.Component {
     const differenceClass = `street-width-read-difference ${difference.class}`
 
     // Do not display a title when street width is not editable
-    const title = (this.props.readOnly)
-      ? null
-      : this.props.intl.formatMessage({
+    const title = (this.props.editable)
+      ? this.props.intl.formatMessage({
         id: 'tooltip.street-width',
         defaultMessage: 'Change width of the street'
       })
+      : null
 
     // Apply "-editable" class if street width is editable to give it
     // additional styling to indicate editability.
     let className = 'street-width'
-    if (!this.props.readOnly) {
+    if (this.props.editable) {
       className += ' street-width-editable'
     }
 
@@ -194,7 +198,7 @@ export class StreetMetaWidth extends React.Component {
    * width is not read-only
    */
   clickStreetWidth = (event) => {
-    if (!this.props.readOnly) {
+    if (this.props.editable) {
       this.setState({
         isEditing: true
       })
@@ -270,7 +274,7 @@ export class StreetMetaWidth extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    readOnly: state.app.readOnly || !state.flags.EDIT_STREET_WIDTH.value,
+    editable: !state.app.readOnly && state.flags.EDIT_STREET_WIDTH.value,
     street: state.street
   }
 }

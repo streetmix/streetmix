@@ -124,7 +124,7 @@ class StreetNameCanvas extends React.Component {
 function mapStateToProps (state) {
   return {
     visible: state.ui.streetNameCanvasVisible,
-    editable: !state.app.readOnly,
+    editable: !state.app.readOnly && state.flags.EDIT_STREET_NAME.value,
     street: state.street
   }
 }
