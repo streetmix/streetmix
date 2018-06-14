@@ -1,11 +1,11 @@
 import { hideLoadingScreen, loadImages } from './load_resources'
-import { initLocale } from './locale'
 import { scheduleNextLiveUpdateCheck } from './live_update'
 import { showGallery } from '../gallery/view'
 import { debug } from '../preinit/debug_settings'
 import { system } from '../preinit/system_capabilities'
 import { initializeFlagSubscribers } from '../app/flag_utils'
 import { segmentsChanged } from '../segments/view'
+import { initLocale } from '../locales/locale'
 import { onNewStreetLastClick } from '../streets/creation'
 import {
   setLastStreet,
@@ -95,6 +95,9 @@ export async function initialize () {
   // …sign in info from our API (if not previously cached) – and subsequent
   // street data if necessary (depending on the mode)
   await loadSignIn()
+
+  // At some point, initialize localization
+  initLocale()
 
   // Note that we are waiting for sign in and image info to show the page,
   // but we give up on country info if it’s more than 1000ms.
@@ -187,12 +190,6 @@ function onEverythingLoaded () {
     }
   }
 }
-
-// Initalize i18n / localization
-// Currently experimental-only for all languages except English
-const flags = store.getState().flags
-const enableLocales = flags.LOCALES_LEVEL_1.value || flags.LOCALES_LEVEL_2.value || flags.LOCALES_LEVEL_3.value
-initLocale(enableLocales)
 
 /**
  * Toggle features based on system state. (This allows toggling to debug things,

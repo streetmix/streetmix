@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import MeasurementText from '../ui/MeasurementText'
 import { TILE_SIZE } from '../segments/constants'
 import { SETTINGS_UNITS_METRIC } from '../users/constants'
-import { t } from '../app/locale'
+import { t } from '../locales/locale'
 
 export class EmptySegment extends React.PureComponent {
   static propTypes = {

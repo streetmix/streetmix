@@ -17,7 +17,7 @@ import { trackEvent } from './event_tracking'
 import { isFocusOnBody } from '../util/focus'
 import { registerKeypress } from './keypress'
 import { showStatusMessage } from './status_message'
-import { t } from './locale'
+import { t } from '../locales/locale'
 import { showDialog } from '../store/actions/dialogs'
 import store from '../store'
 

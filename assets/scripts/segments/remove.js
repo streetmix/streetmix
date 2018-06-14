@@ -3,7 +3,7 @@ import { showStatusMessage } from '../app/status_message'
 import { infoBubble, isDescriptionVisible } from '../info_bubble/info_bubble'
 import { getHoveredSegmentEl } from './hover'
 import { segmentsChanged } from './view'
-import { t } from '../app/locale'
+import { t } from '../locales/locale'
 import { removeSegment as removeSegmentActionCreator, clearSegments } from '../store/actions/street'
 import store from '../store'
 

@@ -1,5 +1,5 @@
 import { getSignInData, isSignedIn } from '../users/authentication'
-import { t } from '../app/locale'
+import { t } from '../locales/locale'
 
 /**
  * Updates page title.
