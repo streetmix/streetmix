@@ -1,33 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
-import LOCALES from '../../../app/data/locales.json'
-
-const DEFAULT_LOCALE = 'en'
+import { DEFAULT_LOCALE } from '../locales/constants'
+import { getAvailableLocales } from '../locales/locale'
 
 export default class LocaleDropdown extends React.Component {
   static propTypes = {
     locale: PropTypes.string,
-    level: PropTypes.number,
     selectLocale: PropTypes.func
   }
 
   static defaultProps = {
     locale: DEFAULT_LOCALE,
-    level: 4,
     selectLocale: () => {}
   }
 
   renderLocaleOptions = () => {
-    const filteredLocales = LOCALES
-      // Remove languages that aren't enabled
-      .filter((item) => item.level >= this.props.level)
-      // Sort the list of languages alphabetically
-      .sort((a, b) => {
-        if (a.label < b.label) return -1
-        if (a.label > b.label) return 1
-        return 0
-      })
+    const filteredLocales = getAvailableLocales()
 
     // Determine which one is the active one
     let selectedLocale = DEFAULT_LOCALE

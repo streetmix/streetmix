@@ -13,13 +13,11 @@ export class SettingsMenu extends React.PureComponent {
   static propTypes = {
     units: PropTypes.number,
     locale: PropTypes.string,
-    level: PropTypes.number,
     changeLocale: PropTypes.func,
     clearMenus: PropTypes.func
   }
 
   static defaultProps = {
-    level: 4,
     changeLocale: () => {},
     clearMenus: () => {}
   }
@@ -62,23 +60,16 @@ export class SettingsMenu extends React.PureComponent {
         <h2 className="menu-header">
           <FormattedMessage id="settings.language.label" defaultMessage="Language" />
         </h2>
-        <LocaleDropdown locale={this.props.locale} level={this.props.level} selectLocale={this.selectLocale} />
+        <LocaleDropdown locale={this.props.locale} selectLocale={this.selectLocale} />
       </Menu>
     )
   }
 }
 
 function mapStateToProps (state) {
-  // The lowest level marked "true" takes priority.
-  let level = 4
-  if (state.flags.LOCALES_LEVEL_3.value) level = 3
-  if (state.flags.LOCALES_LEVEL_2.value) level = 2
-  if (state.flags.LOCALES_LEVEL_1.value) level = 1
-
   return {
     units: state.street.units,
-    locale: state.locale.locale,
-    level
+    locale: state.locale.locale
   }
 }
 
