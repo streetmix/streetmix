@@ -23,7 +23,7 @@ const downloadSuccess = function (locale, resource, label, data) {
     }
     fs.writeFile(translationFile, translationText, function (err) {
       if (err) {
-        console.error(`Error occurred while saving ${label} (${locale}) translation of ${resource}: ${err}`)
+        console.error(chalk`{redBright Error:} {yellowBright ${label} (${locale})} · {magentaBright ${resource}} → {gray ${err}}`)
       }
 
       console.log(chalk`{yellowBright ${label} (${locale})} · {magentaBright ${resource}} → {gray ${translationFile.replace(process.cwd(), '.')}}`)
@@ -32,7 +32,7 @@ const downloadSuccess = function (locale, resource, label, data) {
 }
 
 const downloadError = function (locale, resource, label, error) {
-  console.error(`Error occurred while downloading ${label} (${locale}) translation of ${resource}: ${error}`)
+  console.error(chalk`{redBright Error:} {yellowBright ${label} (${locale})} · {magentaBright ${resource}} → {gray ${error}}`)
 }
 
 for (let r in resources) {
