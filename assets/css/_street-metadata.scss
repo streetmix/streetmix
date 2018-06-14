@@ -11,11 +11,11 @@
   }
 }
 
-.street-width-read {
+.street-width {
   padding: 5px 0;
 }
 
-body:not(.read-only) .street-width-read {
+.street-width.street-width-editable {
   cursor: pointer;
 
   &:hover,
@@ -33,7 +33,7 @@ body:not(.read-only) .street-width-read {
   }
 }
 
-body.edit-street-width .street-width-read {
+body.edit-street-width .street-width {
   display: none;
   pointer-events: none;
 }
