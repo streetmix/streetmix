@@ -120,3 +120,64 @@ export function getAvailableLocales () {
       return 0
     })
 }
+
+/**
+ * Given a proposed locale, make sure that it is a locale we support and that
+ * the user has access to use it.
+ *
+ * examples:
+ *  - if user requests locale `ja` but is not allowed to use it, return `en`
+ *  - if user requests locale `en-AU`, return the superset `en`
+ *  - if user requests locale `pt-PT` but only `pt-BR` exists, return `pt-BR`
+ *
+ * @param {string} proposedLocale - a user/client requested locale to use
+ */
+export function getActualLocaleFromProposal (proposedLocale) {
+  const locales = getAvailableLocales()
+  let locale = DEFAULT_LOCALE
+
+  // Is the proposed locale in the current list?
+  let exactFound = false
+
+  for (let i = 0; i < locales.length; i++) {
+    if (proposedLocale === locales[i].value) {
+      exactFound = true
+      locale = locales[i].value
+      break
+    }
+  }
+
+  if (exactFound) return locale
+
+  // If there is not an exact match, is the proposed locale a subset of a primary language?
+  // e.g. en-AU vs en
+  let supersetFound = false
+
+  for (let i = 0; i < locales.length; i++) {
+    if (proposedLocale.indexOf(locales[i].value) === 0) {
+      locale = locales[i].value
+      supersetFound = true
+      break
+    }
+  }
+
+  if (supersetFound) return locale
+
+  // If neither exact or subset, is there a "fuzzy" match with another region's locale?
+  // e.g. pt-PT vs pt-BR.
+  let fuzzyMatch = false
+  const primaryTag = proposedLocale.split('-')[0]
+
+  for (let i = 0; i < locales.length; i++) {
+    if (primaryTag === locales[i].value.split('-')[0]) {
+      locale = locales[i].value
+      fuzzyMatch = true
+      break
+    }
+  }
+
+  if (fuzzyMatch) return locale
+
+  // Finally, return DEFAULT_LOCALE if nothing else matches
+  return locale
+}

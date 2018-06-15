@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 import { DEFAULT_LOCALE } from '../locales/constants'
-import { getAvailableLocales } from '../locales/locale'
+import { getAvailableLocales, getActualLocaleFromProposal } from '../locales/locale'
 
 export default class LocaleSelect extends React.Component {
   static propTypes = {
@@ -17,21 +17,13 @@ export default class LocaleSelect extends React.Component {
 
   renderLocaleOptions = () => {
     const filteredLocales = getAvailableLocales()
-
-    // Determine which one is the active one
-    let selectedLocale = DEFAULT_LOCALE
-    for (let i = 0; i < filteredLocales.length; i++) {
-      if (this.props.locale === filteredLocales[i].value) {
-        selectedLocale = filteredLocales[i].value
-        break
-      }
-    }
+    const actuallySelectedLocale = getActualLocaleFromProposal(this.props.locale)
 
     // Render each option
     return filteredLocales.map((locale) => {
       const classNames = ['menu-item']
 
-      if (locale.value === selectedLocale) {
+      if (locale.value === actuallySelectedLocale) {
         classNames.push('menu-item-selected')
       }
 
