@@ -64,5 +64,11 @@ module.exports = {
       api_token: process.env.TRANSIFEX_API_TOKEN
     },
     use_local: false
+  },
+  geocode: {
+    pelias: {
+      host: 'api.geocode.earth',
+      api_key: process.env.PELIAS_API_KEY
+    }
   }
 }

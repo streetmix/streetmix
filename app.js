@@ -182,6 +182,8 @@ app.get('/assets/scripts/main.js', browserify(path.join(__dirname, '/assets/scri
     APP_HOST_PORT: config.get('app_host_port'),
     FACEBOOK_APP_ID: config.get('facebook_app_id'),
     API_URL: config.get('restapi_proxy_baseuri_rel'),
+    PELIAS_HOST_NAME: config.get('geocode.pelias.host'),
+    PELIAS_API_KEY: config.get('geocode.pelias.api_key'),
     TWITTER_CALLBACK_URI: config.get('twitter').oauth_callback_uri,
     AUTH0_TWITTER_CALLBACK_URI: config.get('auth0').twitter_callback_uri,
     AUTH0_DOMAIN: config.get('auth0').domain,

@@ -202,6 +202,7 @@ You may additionally specify the name of the directory to install to, if you wis
 | `AUTH0_CLIENT_SECRET`           | Auth0 client secret           | Yes                  |
 | `TWITTER_OAUTH_CONSUMER_KEY`    | Twitter OAuth consumer key    | Yes                  |
 | `TWITTER_OAUTH_CONSUMER_SECRET` | Twitter OAuth consumer secret | Yes                  |
+| `PELIAS_API_KEY`                | Geocoding (Pelias) API key    | Yes                  |
 | `TRANSIFEX_API_TOKEN`           | Your Transifex API token      | No                   |
 | `EMAIL_FEEDBACK_RECIPIENT`      | Your e-mail address           | No                   |
 | `CLOUDFLARE_ZONE`               | Cloudflare zone ID            | No                   |
