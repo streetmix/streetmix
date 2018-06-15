@@ -272,7 +272,6 @@ export class StreetMetaWidth extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    readOnly: state.app.readOnly,
     street: state.street,
     unitSettings: state.ui.unitSettings,
     editable: !state.app.readOnly && state.flags.EDIT_STREET_WIDTH.value
