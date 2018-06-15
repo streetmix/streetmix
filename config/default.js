@@ -29,7 +29,7 @@ module.exports = {
   auth0: {
     use_auth0: true,
     domain: 'streetmix.auth0.com',
-    client_id: process.env.AUTH0_CLIENT_ID,
+    client_id: process.env.AUTH0_CLIENT_ID || null,
     client_secret: process.env.AUTH0_CLIENT_SECRET,
     token_api_url: 'https://streetmix.auth0.com/oauth/token',
     audience: 'https://streetmix.auth0.com/api/v2/',
