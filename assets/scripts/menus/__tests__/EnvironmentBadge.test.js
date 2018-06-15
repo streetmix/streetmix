@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { shallow } from 'enzyme'
-import { EnvironmentBadge } from '../EnvironmentBadge'
+import EnvironmentBadge from '../EnvironmentBadge'
 
 describe('EnvironmentBadge', () => {
   it('renders nothing in standard conditions', () => {
