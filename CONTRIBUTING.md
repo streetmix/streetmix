@@ -197,7 +197,6 @@ You may additionally specify the name of the directory to install to, if you wis
 
 | Variable name                   | Description                   | Required?            |
 | ------------------------------- | ----------------------------- | -------------------- |
-| `AUTH0_DOMAIN`                  | Auth0 domain                  | Yes                  |
 | `AUTH0_CLIENT_ID`               | Auth0 client ID               | Yes                  |
 | `AUTH0_CLIENT_SECRET`           | Auth0 client secret           | Yes                  |
 | `TWITTER_OAUTH_CONSUMER_KEY`    | Twitter OAuth consumer key    | Yes                  |
