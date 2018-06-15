@@ -144,10 +144,8 @@ export function incrementSegmentWidth (segmentEl, add, precise, origWidth) {
   }
 
   if (precise) {
-    // increment = _segmentWidthResolution
     increment = unitSettings.resolution
   } else {
-    // increment = _segmentWidthClickIncrement
     increment = unitSettings.clickIncrement
   }
 
