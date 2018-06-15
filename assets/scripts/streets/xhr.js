@@ -301,7 +301,6 @@ function unpackStreetDataFromServerTransmission (transmission) {
   }
 
   const street = cloneDeep(transmission.data.street)
-
   street.creatorId = (transmission.creator && transmission.creator.id) || null
   street.originalStreetId = transmission.originalStreetId || null
   street.updatedAt = transmission.updatedAt || null
@@ -324,7 +323,6 @@ export function unpackServerStreetData (transmission, id, namespacedId, checkIfN
   const street = unpackStreetDataFromServerTransmission(transmission)
 
   var updatedSchema = updateToLatestSchemaVersion(street)
-
   var undoStack = getUndoStack()
   for (var i = 0; i < undoStack.length; i++) {
     if (updateToLatestSchemaVersion(undoStack[i])) {
