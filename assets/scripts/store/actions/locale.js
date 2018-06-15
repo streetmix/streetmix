@@ -1,5 +1,6 @@
 import { SET_LOCALE } from './index'
 import { API_URL } from '../../app/config'
+import { getActualLocaleFromRequested } from '../../locales/locale'
 
 // Flattens a nested object from translation response, e.g.
 // { key1: { key2: "string" }} => { "key1.key2": "string" }
@@ -35,7 +36,9 @@ export function setLocale (locale, messages, segmentInfo = {}) {
   }
 }
 
-export function changeLocale (locale) {
+export function changeLocale (requestedLocale) {
+  const locale = getActualLocaleFromRequested(requestedLocale)
+
   return (dispatch) => {
     Promise.all([
       window.fetch(`${API_URL}v1/translate/${locale}/main`).then((r) => r.json()),

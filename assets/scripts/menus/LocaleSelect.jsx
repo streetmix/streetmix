@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 import { DEFAULT_LOCALE } from '../locales/constants'
-import { getAvailableLocales, getActualLocaleFromProposal } from '../locales/locale'
+import { getAvailableLocales, getActualLocaleFromRequested } from '../locales/locale'
 
 export default class LocaleSelect extends React.Component {
   static propTypes = {
@@ -17,7 +17,7 @@ export default class LocaleSelect extends React.Component {
 
   renderLocaleOptions = () => {
     const filteredLocales = getAvailableLocales()
-    const actuallySelectedLocale = getActualLocaleFromProposal(this.props.locale)
+    const actuallySelectedLocale = getActualLocaleFromRequested(this.props.locale)
 
     // Render each option
     return filteredLocales.map((locale) => {

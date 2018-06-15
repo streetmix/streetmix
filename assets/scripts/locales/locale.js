@@ -132,7 +132,7 @@ export function getAvailableLocales () {
  *
  * @param {string} proposedLocale - a user/client requested locale to use
  */
-export function getActualLocaleFromProposal (proposedLocale) {
+export function getActualLocaleFromRequested (proposedLocale) {
   const locales = getAvailableLocales()
   let locale = DEFAULT_LOCALE
 
