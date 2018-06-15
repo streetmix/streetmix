@@ -7,7 +7,7 @@ import { getSegmentVariantInfo, getSegmentInfo } from '../segments/info'
 import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, suppressMouseEnter } from './resizing'
 import { TILE_SIZE } from './constants'
 import { drawSegmentContents, getVariantInfoDimensions } from './view'
-import { SETTINGS_UNITS_METRIC } from '../users/localization'
+import { SETTINGS_UNITS_METRIC } from '../users/constants'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { t } from '../app/locale'
@@ -219,7 +219,7 @@ class Segment extends React.Component {
             </span>
             <span className="drag-handle left" ref={(ref) => { this.dragHandleLeft = ref }}>‹</span>
             <span className="drag-handle right" ref={(ref) => { this.dragHandleRight = ref }}>›</span>
-            <span className="grid" />
+            <span className={'grid' + (this.props.units === SETTINGS_UNITS_METRIC ? ' units-metric' : ' units-imperial')} />
           </React.Fragment>
         }
         <React.Fragment>
