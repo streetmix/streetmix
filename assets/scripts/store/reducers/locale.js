@@ -1,10 +1,9 @@
 import { SET_LOCALE } from '../actions'
+import { DEFAULT_LOCALE } from '../../locales/constants'
 
 const initialState = {
   // Default language is set by browser, or is English if undetermined
-  // Substitute 'en' for 'en-US' locales
-  // TODO: make that unnecessary
-  locale: navigator.language.replace('en-US', 'en') || 'en',
+  locale: navigator.language || DEFAULT_LOCALE,
   messages: {},
   segmentInfo: {}
 }

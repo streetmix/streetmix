@@ -25,9 +25,6 @@ function flattenObject (obj) {
 }
 
 export function setLocale (locale, messages, segmentInfo = {}) {
-  // Substitute 'en' for 'en-US' locales
-  if (locale === 'en-US') locale = 'en'
-
   return {
     type: SET_LOCALE,
     locale,
