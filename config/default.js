@@ -68,7 +68,7 @@ module.exports = {
   geocode: {
     pelias: {
       host: 'api.geocode.earth',
-      api_key: process.env.PELIAS_API_KEY
+      api_key: process.env.PELIAS_API_KEY || null
     }
   }
 }
