@@ -44,17 +44,11 @@ export class StreetMetaWidth extends React.Component {
   }
 
   /**
-   * If the `isEditing` state has toggled to true, show and display the <select>
+   * If the `isEditing` state has toggled to true, focus the <select>
    */
   componentDidUpdate = (prevProps, prevState) => {
     if (this.state.isEditing === true && prevState.isEditing === false) {
       this.streetWidth.current.focus()
-
-      window.setTimeout(() => {
-        const trigger = document.createEvent('MouseEvents')
-        trigger.initEvent('mousedown', true, true, window)
-        this.streetWidth.current.dispatchEvent(trigger)
-      }, 0)
     }
   }
 
@@ -95,7 +89,7 @@ export class StreetMetaWidth extends React.Component {
     const difference = this.displayStreetWidthRemaining()
     const differenceClass = `street-width-read-difference ${difference.class}`
 
-    // Do not display a title when street width is not editable
+    // A title attribute is provided only when street width is editable
     const title = (this.props.editable)
       ? this.props.intl.formatMessage({
         id: 'tooltip.street-width',
@@ -103,8 +97,8 @@ export class StreetMetaWidth extends React.Component {
       })
       : null
 
-    // Apply "-editable" class if street width is editable to give it
-    // additional styling to indicate editability.
+    // Apply a class when street width is editable to give it additional
+    // editability styling
     let className = 'street-width'
     if (this.props.editable) {
       className += ' street-width-editable'
