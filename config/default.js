@@ -58,7 +58,7 @@ module.exports = {
     feedback_sender_default: 'noreply@streetmix.net'
   },
   log_level: 'debug',
-  no_internet_mode: process.env.NO_INTERNET_MODE || false,
+  no_internet_mode: false,
   l10n: {
     transifex: {
       api_token: process.env.TRANSIFEX_API_TOKEN

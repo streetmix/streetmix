@@ -14,12 +14,6 @@ describe('EnvironmentBadge', () => {
     expect(wrapper.text()).toEqual('foo')
   })
 
-  it('displays correctly without Internet', () => {
-    const wrapper = shallow(<EnvironmentBadge noInternet />)
-    expect(wrapper.text()).toEqual('Demo')
-    expect(wrapper.find('.environment-label-demo').length).toEqual(1)
-  })
-
   it.skip('displays correctly in development environment', () => {
     // This doesn't work
     jest.mock('../../app/config', () => ({
