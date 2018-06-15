@@ -2,8 +2,9 @@ import { SET_LOCALE } from '../actions'
 import { DEFAULT_LOCALE } from '../../locales/constants'
 
 const initialState = {
-  // Default language is set by browser, or is English if undetermined
-  locale: navigator.language || DEFAULT_LOCALE,
+  // Default language will be the app's DEFAULT_LANGUAGE (not based on browser
+  // -- this can cause unexpected behavior when the app is starting)
+  locale: DEFAULT_LOCALE,
   messages: {},
   segmentInfo: {}
 }

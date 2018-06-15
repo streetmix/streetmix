@@ -85,7 +85,7 @@ export async function initialize () {
   const geo = await detectGeolocation()
 
   // Parallel tasks
-  await Promise.all([ loadImages(), geo ])
+  await Promise.all([ loadImages(), geo, initLocale() ])
 
   if (geo && geo.country_code) {
     updateSettingsFromCountryCode(geo.country_code)
@@ -95,9 +95,6 @@ export async function initialize () {
   // …sign in info from our API (if not previously cached) – and subsequent
   // street data if necessary (depending on the mode)
   await loadSignIn()
-
-  // At some point, initialize localization
-  initLocale()
 
   // Note that we are waiting for sign in and image info to show the page,
   // but we give up on country info if it’s more than 1000ms.
