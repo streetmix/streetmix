@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl'
 import { DEFAULT_LOCALE } from '../locales/constants'
 import { getAvailableLocales } from '../locales/locale'
 
-export default class LocaleDropdown extends React.Component {
+export default class LocaleSelect extends React.Component {
   static propTypes = {
     locale: PropTypes.string,
     selectLocale: PropTypes.func

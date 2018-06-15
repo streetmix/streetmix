@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import Menu from './Menu'
-import LocaleDropdown from './LocaleDropdown'
+import LocaleSelect from './LocaleSelect'
 import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from '../users/constants'
 import { updateUnits } from '../users/localization'
 import { changeLocale } from '../store/actions/locale'
@@ -60,7 +60,7 @@ export class SettingsMenu extends React.PureComponent {
         <h2 className="menu-header">
           <FormattedMessage id="settings.language.label" defaultMessage="Language" />
         </h2>
-        <LocaleDropdown locale={this.props.locale} selectLocale={this.selectLocale} />
+        <LocaleSelect locale={this.props.locale} selectLocale={this.selectLocale} />
       </Menu>
     )
   }
