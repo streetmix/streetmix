@@ -38,8 +38,6 @@ export function normalizeStreetWidth (width) {
     width = MAX_CUSTOM_STREET_WIDTH
   }
 
-  // var resolution = getSegmentWidthResolution()
-
   width = Math.round(width / resolution) * resolution
 
   return width
