@@ -23,9 +23,39 @@ const DEFAULT_STREET_WIDTHS = [40, 60, 80]
 export class StreetMetaWidth extends React.Component {
   static propTypes = {
     intl: intlShape,
-    readOnly: PropTypes.bool,
+    editable: PropTypes.bool,
     street: PropTypes.object,
     updateStreetWidth: PropTypes.func
+  }
+
+  static defaultProps = {
+    editable: true
+  }
+
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      isEditing: false
+    }
+
+    // Stores a ref to the street width <select> element
+    this.streetWidth = React.createRef()
+  }
+
+  /**
+   * If the `isEditing` state has toggled to true, show and display the <select>
+   */
+  componentDidUpdate = (prevProps, prevState) => {
+    if (this.state.isEditing === true && prevState.isEditing === false) {
+      this.streetWidth.current.focus()
+
+      window.setTimeout(() => {
+        const trigger = document.createEvent('MouseEvents')
+        trigger.initEvent('mousedown', true, true, window)
+        this.streetWidth.current.dispatchEvent(trigger)
+      }, 0)
+    }
   }
 
   displayStreetWidthRemaining = () => {
@@ -62,8 +92,33 @@ export class StreetMetaWidth extends React.Component {
     return width
   }
 
-  createStreetWidthOption = (width) => {
-    return <option key={width} value={width}>{prettifyWidth(width, this.props.street.units)}</option>
+  renderStreetWidthLabel = () => {
+    const width = prettifyWidth(this.props.street.width, this.props.street.units)
+    const difference = this.displayStreetWidthRemaining()
+    const differenceClass = `street-width-read-difference ${difference.class}`
+
+    // Do not display a title when street width is not editable
+    const title = (this.props.editable)
+      ? this.props.intl.formatMessage({
+        id: 'tooltip.street-width',
+        defaultMessage: 'Change width of the street'
+      })
+      : null
+
+    // Apply "-editable" class if street width is editable to give it
+    // additional styling to indicate editability.
+    let className = 'street-width'
+    if (this.props.editable) {
+      className += ' street-width-editable'
+    }
+
+    return (
+      <span className={className} title={title} onClick={this.clickStreetWidth}>
+        <FormattedMessage id="width.label" defaultMessage="{width} width" values={{ width }} />
+        &nbsp;
+        <span className={differenceClass}>{difference.width}</span>
+      </span>
+    )
   }
 
   renderStreetWidthMenu = () => {
@@ -87,12 +142,24 @@ export class StreetMetaWidth extends React.Component {
     if (this.props.street.width) {
       selectedValue = this.props.street.width
     }
+
     return (
-      <select ref={(ref) => { this.streetWidth = ref }} onChange={this.changeStreetWidth} id="street-width" value={selectedValue}>
+      <select
+        ref={this.streetWidth}
+        onChange={this.changeStreetWidth}
+        value={selectedValue}
+        className="street-width-select"
+        title={this.props.intl.formatMessage({
+          id: 'tooltip.street-width',
+          defaultMessage: 'Change width of the street'
+        })}
+      >
         <option disabled="true">
           {formatMessage({ id: 'width.occupied', defaultMessage: 'Occupied width:' })}
         </option>
-        <option disabled="true">{prettifyWidth(this.props.street.occupiedWidth, this.props.street.units)}</option>
+        <option disabled="true">
+          {prettifyWidth(this.props.street.occupiedWidth, this.props.street.units)}
+        </option>
         <option disabled="true" />
         <option disabled="true">
           {formatMessage({ id: 'width.building', defaultMessage: 'Building-to-building width:' })}
@@ -122,26 +189,28 @@ export class StreetMetaWidth extends React.Component {
     )
   }
 
+  createStreetWidthOption = (width) => {
+    return <option key={width} value={width}>{prettifyWidth(width, this.props.street.units)}</option>
+  }
+
+  /**
+   * When the street width label is clicked, only allow editing if street
+   * width is not read-only
+   */
   clickStreetWidth = (event) => {
-    if (!this.props.readOnly) {
-      document.body.classList.add('edit-street-width')
-
-      this.streetWidth.focus()
-
-      window.setTimeout(() => {
-        var trigger = document.createEvent('MouseEvents')
-        trigger.initEvent('mousedown', true, true, window)
-        this.streetWidth.dispatchEvent(trigger)
-      }, 0)
+    if (this.props.editable) {
+      this.setState({
+        isEditing: true
+      })
     }
   }
 
   changeStreetWidth = () => {
-    if (this.props.readOnly) return
+    this.setState({
+      isEditing: false
+    })
 
-    let newStreetWidth = Number.parseInt(this.streetWidth.value, 10)
-
-    document.body.classList.remove('edit-street-width')
+    let newStreetWidth = Number.parseInt(this.streetWidth.current.value, 10)
 
     if (newStreetWidth === this.props.street.width) {
       return
@@ -191,24 +260,13 @@ export class StreetMetaWidth extends React.Component {
   }
 
   render () {
-    const width = prettifyWidth(this.props.street.width, this.props.street.units)
-    const difference = this.displayStreetWidthRemaining()
-    const differenceClass = `street-width-read-difference ${difference.class}`
-
     return (
       <span className="street-metadata-width">
-        <span
-          className="street-width-read"
-          title={this.props.intl.formatMessage({id: 'tooltip.street-width', defaultMessage: 'Change width of the street'})}
-          onClick={this.clickStreetWidth}
-        >
-          <span className="street-width-read-width">
-            <FormattedMessage id="width.label" defaultMessage="{width} width" values={{ width }} />
-          </span>
-          &nbsp;
-          <span className={differenceClass}>{difference.width}</span>
-        </span>
-        {this.renderStreetWidthMenu()}
+        {
+          (this.state.isEditing)
+            ? this.renderStreetWidthMenu()
+            : this.renderStreetWidthLabel()
+        }
       </span>
     )
   }
@@ -216,7 +274,7 @@ export class StreetMetaWidth extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    readOnly: state.app.readOnly,
+    editable: !state.app.readOnly && state.flags.EDIT_STREET_WIDTH.value,
     street: state.street
   }
 }

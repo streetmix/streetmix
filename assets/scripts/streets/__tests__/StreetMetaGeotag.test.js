@@ -27,7 +27,7 @@ describe('StreetMetaGeotag', () => {
       const wrapper = shallow(
         <StreetMetaGeotag.WrappedComponent
           street={testStreet}
-          readOnly
+          editable={false}
           enableLocation
           locale={{}}
         />
@@ -40,7 +40,7 @@ describe('StreetMetaGeotag', () => {
       const wrapper = shallow(
         <StreetMetaGeotag.WrappedComponent
           street={{}}
-          readOnly
+          editable={false}
           enableLocation
           locale={{}}
         />
