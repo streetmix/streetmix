@@ -64,6 +64,7 @@ import {
   updateEditCount,
   updateStreetData
 } from '../store/actions/street'
+import { setUnitSettings } from '../store/actions/ui'
 
 const SAVE_STREET_DELAY = 500
 
@@ -301,13 +302,6 @@ function unpackStreetDataFromServerTransmission (transmission) {
 
   const street = cloneDeep(transmission.data.street)
 
-  const imperial = (street.units === 1)
-  street.unitSettings = {
-    resolution: (imperial) ? 0.25 : (1 / 6),
-    clickIncrement: (imperial) ? 0.5 : (2 / 6),
-    draggingResolution: (imperial) ? 0.5 : (2 / 6)
-  }
-
   street.creatorId = (transmission.creator && transmission.creator.id) || null
   street.originalStreetId = transmission.originalStreetId || null
   street.updatedAt = transmission.updatedAt || null
@@ -338,6 +332,7 @@ export function unpackServerStreetData (transmission, id, namespacedId, checkIfN
     }
   }
 
+  store.dispatch(setUnitSettings(street.units))
   store.dispatch(updateStreetData(street))
 
   if (transmission.data.undoStack) {

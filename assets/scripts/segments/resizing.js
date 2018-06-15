@@ -106,7 +106,7 @@ export function normalizeAllSegmentWidths () {
 }
 
 export function normalizeSegmentWidth (width, resizeType) {
-  const { unitSettings } = store.getState().street
+  const { unitSettings } = store.getState().ui
   let resolution
   if (width < MIN_SEGMENT_WIDTH) {
     width = MIN_SEGMENT_WIDTH
@@ -134,7 +134,7 @@ export function normalizeSegmentWidth (width, resizeType) {
 
 // temp: add origWidth as 4th arg to pass in value from redux
 export function incrementSegmentWidth (segmentEl, add, precise, origWidth) {
-  const { unitSettings } = store.getState().street
+  const { unitSettings } = store.getState().ui
   let increment, width
 
   if (typeof origWidth === 'number') {

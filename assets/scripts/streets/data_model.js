@@ -24,10 +24,10 @@ import {
   updateSegments,
   setUpdateTime,
   saveCreatorId,
-  updateStreetData,
-  setUnits
+  updateStreetData
 } from '../store/actions/street'
 import { resetUndoStack } from '../store/actions/undo'
+import { setUnitSettings } from '../store/actions/ui'
 import store from '../store'
 
 const DEFAULT_BUILDING_HEIGHT_LEFT = 4
@@ -425,6 +425,7 @@ export function getStreetUrl (street) {
 
 export function prepareDefaultStreet () {
   const defaultStreet = {
+    units: getUnits(),
     location: null,
     name: null,
     userUpdated: false,
@@ -436,8 +437,8 @@ export function prepareDefaultStreet () {
     schemaVersion: LATEST_SCHEMA_VERSION
   }
 
+  store.dispatch(setUnitSettings(defaultStreet.units))
   store.dispatch(updateStreetData(defaultStreet))
-  store.dispatch(setUnits(getUnits()))
   store.dispatch(updateStreetWidth(normalizeStreetWidth(DEFAULT_STREET_WIDTH)))
 
   // console.log('editCount = 0 on default street')
@@ -450,6 +451,7 @@ export function prepareDefaultStreet () {
 
 export function prepareEmptyStreet () {
   const emptyStreet = {
+    units: getUnits(),
     location: null,
     name: null,
     userUpdated: false,
@@ -462,8 +464,8 @@ export function prepareEmptyStreet () {
     segments: []
   }
 
+  store.dispatch(setUnitSettings(emptyStreet.units))
   store.dispatch(updateStreetData(emptyStreet))
-  store.dispatch(setUnits(getUnits()))
   store.dispatch(updateStreetWidth(normalizeStreetWidth(DEFAULT_STREET_WIDTH)))
 
   // console.log('editCount = 0 on empty street!')

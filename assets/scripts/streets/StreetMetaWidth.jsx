@@ -24,7 +24,8 @@ export class StreetMetaWidth extends React.Component {
     intl: intlShape,
     readOnly: PropTypes.bool,
     street: PropTypes.object,
-    updateStreetWidth: PropTypes.func
+    updateStreetWidth: PropTypes.func,
+    unitSettings: PropTypes.object
   }
 
   displayStreetWidthRemaining = () => {
@@ -45,7 +46,7 @@ export class StreetMetaWidth extends React.Component {
   }
 
   normalizeStreetWidth (width) {
-    const { unitSettings } = this.props.street
+    const { unitSettings } = this.props
 
     if (width < MIN_CUSTOM_STREET_WIDTH) {
       width = MIN_CUSTOM_STREET_WIDTH
@@ -214,7 +215,8 @@ export class StreetMetaWidth extends React.Component {
 function mapStateToProps (state) {
   return {
     readOnly: state.app.readOnly,
-    street: state.street
+    street: state.street,
+    unitSettings: state.ui.unitSettings
   }
 }
 

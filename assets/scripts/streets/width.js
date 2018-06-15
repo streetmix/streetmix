@@ -30,7 +30,7 @@ export function resizeStreetWidth (dontScroll) {
 }
 
 export function normalizeStreetWidth (width) {
-  const { resolution } = store.getState().street.unitSettings
+  const { resolution } = store.getState().ui.unitSettings
 
   if (width < MIN_CUSTOM_STREET_WIDTH) {
     width = MIN_CUSTOM_STREET_WIDTH
