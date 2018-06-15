@@ -129,9 +129,16 @@ const street = (state = initialState, action) => {
         editCount: action.count
       }
     case SET_UNITS:
+      const imperial = (action.units === 1)
+      const unitSettings = {
+        resolution: (imperial) ? 0.25 : (1 / 6),
+        clickIncrement: (imperial) ? 0.5 : (2 / 6),
+        draggingResolution: (imperial) ? 0.5 : (2 / 6)
+      }
       return {
         ...state,
-        units: action.units
+        units: action.units,
+        unitSettings
       }
     case UPDATE_STREET_WIDTH:
       return {

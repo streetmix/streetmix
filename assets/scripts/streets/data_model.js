@@ -46,7 +46,7 @@ export function setLastStreet (value) {
   _lastStreet = value
 }
 
-const LATEST_SCHEMA_VERSION = 18
+const LATEST_SCHEMA_VERSION = 19
 // 1: starting point
 // 2: adding leftBuildingHeight and rightBuildingHeight
 // 3: adding leftBuildingVariant and rightBuildingVariant
@@ -65,6 +65,7 @@ const LATEST_SCHEMA_VERSION = 18
 // 16: stop saving undo stack
 // 17: alternative colors for bike lanes
 // 18: change lat/lng format from array to object
+// 19: added new unitSettings object to hold resolution constants
 
 function incrementSchemaVersion (street) {
   let segment, variant
@@ -241,6 +242,15 @@ function incrementSchemaVersion (street) {
         }
       }
       break
+    case 18:
+      if (!street.unitSettings) {
+        const imperial = (street.units === 1)
+        street.unitSettings = {
+          resolution: (imperial) ? 0.25 : (1 / 6),
+          clickIncrement: (imperial) ? 0.5 : (2 / 6),
+          draggingResolution: (imperial) ? 0.5 : (2 / 6)
+        }
+      }
   }
 
   street.schemaVersion++
