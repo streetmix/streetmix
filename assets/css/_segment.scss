@@ -429,11 +429,11 @@ body.segment-resize-dragging .drag-handle.floating,
   background-repeat: repeat-x;
 
   // Change background-size width to adjust spacing of grid lines
-  body.units-imperial & {
+  &.units-imperial {
     background-size: $tile-size 100%;
   }
 
-  body.units-metric & {
+  &.units-metric {
     background-size: ($tile-size * 100 / 30 / 2) 100%;
   }
 }
