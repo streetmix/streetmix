@@ -2,7 +2,6 @@ import { onResize } from '../app/window_resize'
 import { system } from '../preinit/system_capabilities'
 import { BUILDING_SPACE } from '../segments/buildings'
 import { getSegmentVariantInfo } from '../segments/info'
-import { getSegmentWidthResolution } from '../segments/resizing'
 import { TILE_SIZE } from '../segments/constants'
 import store from '../store'
 import { updateOccupiedWidth, updateSegments } from '../store/actions/street'
@@ -31,13 +30,16 @@ export function resizeStreetWidth (dontScroll) {
 }
 
 export function normalizeStreetWidth (width) {
+  const { resolution } = store.getState().street.unitSettings
+
   if (width < MIN_CUSTOM_STREET_WIDTH) {
     width = MIN_CUSTOM_STREET_WIDTH
   } else if (width > MAX_CUSTOM_STREET_WIDTH) {
     width = MAX_CUSTOM_STREET_WIDTH
   }
 
-  var resolution = getSegmentWidthResolution()
+  // var resolution = getSegmentWidthResolution()
+
   width = Math.round(width / resolution) * resolution
 
   return width

@@ -18,7 +18,6 @@ import {
   getSignInData,
   isSignedIn
 } from '../users/authentication'
-import { propagateUnits } from '../users/localization'
 import {
   confirmSaveStreetToServerInitial,
   saveSettingsToServer,
@@ -283,8 +282,6 @@ function errorReceiveStreetForVerification (data) {
 function receiveStreet (transmission) {
   unpackServerStreetData(transmission, null, null, true)
 
-  propagateUnits()
-
   // TODO this is stupid, only here to fill some structures
   // window.addEventListener('stmx:assets_loaded', () => {
 
@@ -303,6 +300,14 @@ function unpackStreetDataFromServerTransmission (transmission) {
   }
 
   const street = cloneDeep(transmission.data.street)
+
+  const imperial = (street.units === 1)
+  street.unitSettings = {
+    resolution: (imperial) ? 0.25 : (1 / 6),
+    clickIncrement: (imperial) ? 0.5 : (2 / 6),
+    draggingResolution: (imperial) ? 0.5 : (2 / 6)
+  }
+
   street.creatorId = (transmission.creator && transmission.creator.id) || null
   street.originalStreetId = transmission.originalStreetId || null
   street.updatedAt = transmission.updatedAt || null
@@ -325,12 +330,14 @@ export function unpackServerStreetData (transmission, id, namespacedId, checkIfN
   const street = unpackStreetDataFromServerTransmission(transmission)
 
   var updatedSchema = updateToLatestSchemaVersion(street)
+
   var undoStack = getUndoStack()
   for (var i = 0; i < undoStack.length; i++) {
     if (updateToLatestSchemaVersion(undoStack[i])) {
       updatedSchema = true
     }
   }
+
   store.dispatch(updateStreetData(street))
 
   if (transmission.data.undoStack) {
@@ -448,8 +455,6 @@ function receiveLastStreet (transmission) {
 
   // COMMENT - update street state to change originalStreetId above;
   // now have to update again to change edit count - how to fix?
-  propagateUnits()
-
   unifyUndoStack()
 
   resizeStreetWidth()

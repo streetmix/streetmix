@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl'
 import { processWidthInput, prettifyWidth } from '../util/width_units'
-import { getSegmentWidthResolution } from '../segments/resizing'
 import { loseAnyFocus } from '../util/focus'
 import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from '../users/constants'
 import { updateUnits } from '../users/localization'
@@ -46,17 +45,20 @@ export class StreetMetaWidth extends React.Component {
   }
 
   normalizeStreetWidth (width) {
+    const { unitSettings } = this.props.street
+
     if (width < MIN_CUSTOM_STREET_WIDTH) {
       width = MIN_CUSTOM_STREET_WIDTH
     } else if (width > MAX_CUSTOM_STREET_WIDTH) {
       width = MAX_CUSTOM_STREET_WIDTH
     }
 
-    var resolution = getSegmentWidthResolution()
-    if (!resolution) {
-      // TODO remove need to set a default here.
-      resolution = 0.25
-    }
+    // var resolution = getSegmentWidthResolution()
+    const resolution = (unitSettings && unitSettings.resolution) || 0.25
+    // if (!resolution) {
+    //   // TODO remove need to set a default here.
+    //   resolution = 0.25
+    // }
     width = Math.round(width / resolution) * resolution
 
     return width
