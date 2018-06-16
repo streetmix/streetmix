@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import MeasurementText from '../ui/MeasurementText'
 import { TILE_SIZE } from '../segments/constants'
+import { SETTINGS_UNITS_METRIC } from '../users/constants'
 import { t } from '../app/locale'
 
 export class EmptySegment extends React.PureComponent {
@@ -35,7 +36,7 @@ export class EmptySegment extends React.PureComponent {
         <span className="width">
           <MeasurementText value={width} units={units} locale={locale} />
         </span>
-        <span className="grid" />
+        <span className={'grid' + (this.props.units === SETTINGS_UNITS_METRIC ? ' units-metric' : ' units-imperial')} />
       </div>
     )
   }

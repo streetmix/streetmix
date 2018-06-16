@@ -35,28 +35,6 @@ const TOUCH_CONTROLS_FADEOUT_DELAY = 3000
 
 const NORMALIZE_PRECISION = 5
 
-let _segmentWidthResolution
-
-export function getSegmentWidthResolution () {
-  return _segmentWidthResolution
-}
-
-export function setSegmentWidthResolution (value) {
-  _segmentWidthResolution = value
-}
-
-let _segmentWidthClickIncrement
-
-export function setSegmentWidthClickIncrement (value) {
-  _segmentWidthClickIncrement = value
-}
-
-let _segmentWidthDraggingResolution
-
-export function setSegmentWidthDraggingResolution (value) {
-  _segmentWidthDraggingResolution = value
-}
-
 let _suppressMouseEnter = false
 
 export function suppressMouseEnter () {
@@ -128,6 +106,7 @@ export function normalizeAllSegmentWidths () {
 }
 
 export function normalizeSegmentWidth (width, resizeType) {
+  const { unitSettings } = store.getState().ui
   let resolution
   if (width < MIN_SEGMENT_WIDTH) {
     width = MIN_SEGMENT_WIDTH
@@ -140,10 +119,10 @@ export function normalizeSegmentWidth (width, resizeType) {
     case RESIZE_TYPE_TYPING:
     case RESIZE_TYPE_INCREMENT:
     case RESIZE_TYPE_PRECISE_DRAGGING:
-      resolution = _segmentWidthResolution
+      resolution = unitSettings.resolution
       break
     case RESIZE_TYPE_DRAGGING:
-      resolution = _segmentWidthDraggingResolution
+      resolution = unitSettings.draggingResolution
       break
   }
 
@@ -155,6 +134,7 @@ export function normalizeSegmentWidth (width, resizeType) {
 
 // temp: add origWidth as 4th arg to pass in value from redux
 export function incrementSegmentWidth (segmentEl, add, precise, origWidth) {
+  const { unitSettings } = store.getState().ui
   let increment, width
 
   if (typeof origWidth === 'number') {
@@ -164,9 +144,9 @@ export function incrementSegmentWidth (segmentEl, add, precise, origWidth) {
   }
 
   if (precise) {
-    increment = _segmentWidthResolution
+    increment = unitSettings.resolution
   } else {
-    increment = _segmentWidthClickIncrement
+    increment = unitSettings.clickIncrement
   }
 
   if (!add) {

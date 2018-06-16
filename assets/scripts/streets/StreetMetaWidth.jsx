@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl'
 import { processWidthInput, prettifyWidth } from '../util/width_units'
-import { getSegmentWidthResolution } from '../segments/resizing'
 import { loseAnyFocus } from '../util/focus'
 import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from '../users/constants'
 import { updateUnits } from '../users/localization'
@@ -25,7 +24,8 @@ export class StreetMetaWidth extends React.Component {
     intl: intlShape,
     editable: PropTypes.bool,
     street: PropTypes.object,
-    updateStreetWidth: PropTypes.func
+    updateStreetWidth: PropTypes.func,
+    unitSettings: PropTypes.object
   }
 
   static defaultProps = {
@@ -76,17 +76,15 @@ export class StreetMetaWidth extends React.Component {
   }
 
   normalizeStreetWidth (width) {
+    const { unitSettings } = this.props
+
     if (width < MIN_CUSTOM_STREET_WIDTH) {
       width = MIN_CUSTOM_STREET_WIDTH
     } else if (width > MAX_CUSTOM_STREET_WIDTH) {
       width = MAX_CUSTOM_STREET_WIDTH
     }
 
-    var resolution = getSegmentWidthResolution()
-    if (!resolution) {
-      // TODO remove need to set a default here.
-      resolution = 0.25
-    }
+    const resolution = (unitSettings && unitSettings.resolution)
     width = Math.round(width / resolution) * resolution
 
     return width
@@ -274,8 +272,9 @@ export class StreetMetaWidth extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    editable: !state.app.readOnly && state.flags.EDIT_STREET_WIDTH.value,
-    street: state.street
+    street: state.street,
+    unitSettings: state.ui.unitSettings,
+    editable: !state.app.readOnly && state.flags.EDIT_STREET_WIDTH.value
   }
 }
 

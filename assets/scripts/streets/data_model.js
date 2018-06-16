@@ -5,7 +5,7 @@ import { normalizeAllSegmentWidths } from '../segments/resizing'
 import { getVariantString, getVariantArray } from '../segments/variant_utils'
 import { segmentsChanged } from '../segments/view'
 import { getSignInData, isSignedIn } from '../users/authentication'
-import { getUnits, getLeftHandTraffic, propagateUnits } from '../users/localization'
+import { getUnits, getLeftHandTraffic } from '../users/localization'
 import { normalizeSlug } from '../util/helpers'
 import { generateRandSeed } from '../util/random'
 import { updateStreetName } from './name'
@@ -27,6 +27,7 @@ import {
   updateStreetData
 } from '../store/actions/street'
 import { resetUndoStack } from '../store/actions/undo'
+import { setUnitSettings } from '../store/actions/ui'
 import store from '../store'
 
 const DEFAULT_BUILDING_HEIGHT_LEFT = 4
@@ -436,8 +437,8 @@ export function prepareDefaultStreet () {
     schemaVersion: LATEST_SCHEMA_VERSION
   }
 
+  store.dispatch(setUnitSettings(defaultStreet.units))
   store.dispatch(updateStreetData(defaultStreet))
-  propagateUnits()
   store.dispatch(updateStreetWidth(normalizeStreetWidth(DEFAULT_STREET_WIDTH)))
 
   // console.log('editCount = 0 on default street')
@@ -463,8 +464,8 @@ export function prepareEmptyStreet () {
     segments: []
   }
 
+  store.dispatch(setUnitSettings(emptyStreet.units))
   store.dispatch(updateStreetData(emptyStreet))
-  propagateUnits()
   store.dispatch(updateStreetWidth(normalizeStreetWidth(DEFAULT_STREET_WIDTH)))
 
   // console.log('editCount = 0 on empty street!')
@@ -484,7 +485,6 @@ export function prepareEmptyStreet () {
  */
 export function updateEverything (dontScroll, save = true) {
   setIgnoreStreetChanges(true)
-  propagateUnits()
   // TODO Verify that we don't need to dispatch an update width event here
   segmentsChanged(false)
   resizeStreetWidth(dontScroll)

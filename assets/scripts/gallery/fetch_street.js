@@ -10,7 +10,6 @@ import { updateStreetName } from '../streets/name'
 import { unpackServerStreetData } from '../streets/xhr'
 import { resizeStreetWidth, recalculateOccupiedWidth } from '../streets/width'
 import { getAuthHeader } from '../users/authentication'
-import { propagateUnits } from '../users/localization'
 import { segmentsChanged } from '../segments/view'
 import store from '../store'
 
@@ -58,7 +57,6 @@ function receiveGalleryStreet (transmission) {
 
   hideError()
   unpackServerStreetData(transmission, null, null, true)
-  propagateUnits()
   recalculateOccupiedWidth()
 
   // Some parts of the UI need to know this happened to respond to it

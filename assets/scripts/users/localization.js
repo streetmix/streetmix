@@ -2,12 +2,7 @@ import { cloneDeep } from 'lodash'
 
 import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from './constants'
 import { debug } from '../preinit/debug_settings'
-import {
-  normalizeAllSegmentWidths,
-  setSegmentWidthResolution,
-  setSegmentWidthClickIncrement,
-  setSegmentWidthDraggingResolution
-} from '../segments/resizing'
+import { normalizeAllSegmentWidths } from '../segments/resizing'
 import { segmentsChanged } from '../segments/view'
 import {
   saveStreetToServerIfNecessary,
@@ -26,19 +21,11 @@ import store from '../store'
 import { setUnits, updateStreetWidth, updateStreetData } from '../store/actions/street'
 import { clearMenus } from '../store/actions/menus'
 import { setUserUnits } from '../store/actions/persistSettings'
+import { setUnitSettings } from '../store/actions/ui'
 
 export function getUnits () {
   return store.getState().persistSettings.units
 }
-
-const SEGMENT_WIDTH_RESOLUTION_IMPERIAL = 0.25
-const SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL = 0.5
-const SEGMENT_WIDTH_DRAGGING_RESOLUTION_IMPERIAL = 0.5
-
-// don't use const because of rounding problems
-const SEGMENT_WIDTH_RESOLUTION_METRIC = 1 / 6 // .05 / IMPERIAL_METRIC_MULTIPLER
-const SEGMENT_WIDTH_CLICK_INCREMENT_METRIC = 2 / 6 // .1 / IMPERIAL_METRIC_MULTIPLER
-const SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC = 2 / 6 // .1 / IMPERIAL_METRIC_MULTIPLER
 
 const COUNTRIES_IMPERIAL_UNITS = ['US']
 
@@ -94,6 +81,7 @@ export function updateUnits (newUnits) {
     return
   }
 
+  store.dispatch(setUnitSettings(newUnits))
   store.dispatch(setUserUnits(newUnits))
   store.dispatch(setUnits(newUnits))
 
@@ -107,8 +95,6 @@ export function updateUnits (newUnits) {
   } else {
     fromUndo = false
   }
-
-  propagateUnits()
 
   setIgnoreStreetChanges(true)
   if (!fromUndo) {
@@ -135,29 +121,4 @@ export function updateUnits (newUnits) {
 
   saveStreetToServerIfNecessary()
   saveSettingsLocally()
-}
-
-export function propagateUnits () {
-  switch (store.getState().street.units) {
-    case SETTINGS_UNITS_IMPERIAL:
-      setSegmentWidthResolution(SEGMENT_WIDTH_RESOLUTION_IMPERIAL)
-      setSegmentWidthClickIncrement(SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL)
-      setSegmentWidthDraggingResolution(
-        SEGMENT_WIDTH_DRAGGING_RESOLUTION_IMPERIAL)
-
-      document.body.classList.add('units-imperial')
-      document.body.classList.remove('units-metric')
-
-      break
-    case SETTINGS_UNITS_METRIC:
-      setSegmentWidthResolution(SEGMENT_WIDTH_RESOLUTION_METRIC)
-      setSegmentWidthClickIncrement(SEGMENT_WIDTH_CLICK_INCREMENT_METRIC)
-      setSegmentWidthDraggingResolution(
-        SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC)
-
-      document.body.classList.add('units-metric')
-      document.body.classList.remove('units-imperial')
-
-      break
-  }
 }
