@@ -191,6 +191,10 @@
     "building|wide": "",
     "wayfinding-type|large": "",
     "wayfinding-type|medium": "",
-    "wayfinding-type|small": ""
+    "wayfinding-type|small": "",
+    "waiting-area|sparse": "",
+    "waiting-area|empty": "",
+    "flex-type|rideshare": "",
+    "flex-type|taxi": ""
   }
 }

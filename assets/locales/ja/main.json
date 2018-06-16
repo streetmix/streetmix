@@ -65,9 +65,9 @@
   },
   "settings": {
     "units": {
-      "label": "",
-      "metric": "",
-      "imperial": ""
+      "label": "単位",
+      "metric": "メートル表記",
+      "imperial": "フィート表示"
     },
     "language": {
       "label": "言語設定"

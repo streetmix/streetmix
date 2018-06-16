@@ -250,7 +250,7 @@
     "remove-floor": "Usuń piętro"
   },
   "street": {
-    "default-name": "Ulica bez nazwy",
+    "default-name": "Ul. Nienazwana",
     "rename": "Kliknij, by zmienić nazwę"
   },
   "building": {

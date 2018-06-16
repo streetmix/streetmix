@@ -191,6 +191,10 @@
     "building|wide": "Leveä rakennus",
     "wayfinding-type|large": "Suuri",
     "wayfinding-type|medium": "Keskikokoinen",
-    "wayfinding-type|small": "Pieni"
+    "wayfinding-type|small": "Pieni",
+    "waiting-area|sparse": "Joku",
+    "waiting-area|empty": "Ei kukaan",
+    "flex-type|rideshare": "Kimppakyyti",
+    "flex-type|taxi": "Taks"
   }
 }

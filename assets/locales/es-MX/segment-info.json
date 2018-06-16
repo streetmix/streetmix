@@ -19,10 +19,10 @@
     "angled-parking": "Estacionamiento en ángulo",
     "flex-zone": "Zona flexible",
     "taxi-pick-up": "Zona de recogida y entrega para taxis",
-    "rideshare-pick-up": "Zona de recogida y entrega para carros compartidos",
+    "rideshare-pick-up": "Zona de recogida y entrega para vehículos compartidos",
     "bikeshare-station": "Cicloestación",
     "foodtruck": "Camión de comida",
-    "flex-zone-curb": "Zona de recogida y entrega",
+    "flex-zone-curb": "Zona de espera",
     "drive-lane": "Línea de conducir",
     "sharrow": "Biciflecha",
     "turn-lane": "Carril de giro",
@@ -191,6 +191,10 @@
     "building|wide": "Edificio ancho",
     "wayfinding-type|large": "Grande",
     "wayfinding-type|medium": "Mediano",
-    "wayfinding-type|small": "Pequeño"
+    "wayfinding-type|small": "Pequeño",
+    "waiting-area|sparse": "Alguien",
+    "waiting-area|empty": "Nadie",
+    "flex-type|rideshare": "Vehículos compartidos",
+    "flex-type|taxi": "Taxi"
   }
 }

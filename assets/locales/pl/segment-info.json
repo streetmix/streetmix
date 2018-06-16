@@ -18,11 +18,11 @@
     "perpendicular-parking": "Parkowanie prostopadłe",
     "angled-parking": "Parkowanie skośne",
     "flex-zone": "",
-    "taxi-pick-up": "Postój taksówek",
-    "rideshare-pick-up": "Wspólne przejazdy - strefa postoju",
+    "taxi-pick-up": "",
+    "rideshare-pick-up": "",
     "bikeshare-station": "Wypożyczalnia rowerów",
     "foodtruck": "Food truck",
-    "flex-zone-curb": "Strefa postoju",
+    "flex-zone-curb": "",
     "drive-lane": "Pas ruchu",
     "sharrow": "Sierżant rowerowy",
     "turn-lane": "Pas do skrętu",
@@ -40,7 +40,7 @@
       "prompt": "Dowiedz się więcej o drogowskazach",
       "lede": "Drogowskazy pomagają pieszym dotrzeć do popularnych miejsc.",
       "text": [
-        "Urbaniści i architekci spędzili dekady analizując, co dzieje się w mózgu człowieka, który usiłuje dotrzeć z punktu A do punktu B - a nawet skąd wiedzą, gdzie jest punkt A. Już w 1960 roku urbanista Kevin Lynch pisał o \"czytelności\" miasta w swojej książce <em><a href=\"http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014\">The Image of the City</a></em>, opisując odnajdywanie drogi jako “spójne zastosowanie i organizacja określonych sygnałów sensorycznych ze środowiska zewnętrznego.” Sygnały mogą być  nienamacalne - węch, dotyk, poczucie równowagi lub nawet pól elektrycznych lub magnetycznych. Mogą też pochodzić z fizycznych, stosowanych na skalę światową \"przyrządów do odnajdywania drogi\" takich jak mapy, numery ulic, znaki drogowe.",
+        "Urbaniści i architekci spędzili dekady analizując, co się dzieje w mózgach ludzi, którzy usiłują dotrzeć z punktu A do punktu B, a nawet skąd (ludzie) wiedzą, gdzie jest punkt A. Już w 1960 roku urbanista Kevin Lynch pisał o \"czytelności\" miasta w swojej książce <em><a href=\"http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014\">The Image of the City</a></em>, opisując odnajdywanie drogi jako “spójne zastosowanie i organizacja określonych sygnałów sensorycznych ze środowiska zewnętrznego.” Sygnały mogą być  nienamacalne - węch, dotyk, poczucie równowagi lub nawet pól elektrycznych lub magnetycznych. Mogą też pochodzić z fizycznych, stosowanych na skalę światową \"przyrządów do odnajdywania drogi\" takich jak mapy, numery ulic, znaki drogowe.",
         "Zaskakujące, jak powszechnie akceptowany jest fakt, że ogrom drogowskazów służy podróżującym samochodem, przy zdecydowanie mniejszej uwadze poświęconej pieszym. Może to dlatego, że jest nam dużo łatwiej zatrzymać się, określić nasze położenie i korzystać z własnych zmysłów bez obawy przed stworzeniem kolejki sześciu osób za naszymi plecami. W każdym razie urbaniści zwrócili większą uwagę na oznakowanie dla pieszych, zwłaszcza w strefach dużego ruchu pieszych, np. w okolicach handlowych i to oznakowanie, poza główną funkcją, stało się też okazją do kreowania wizerunku. I tak Nowy Jork <a href=\"https://www.pentagram.com/work/walknyc/story\">zatrudnił światowej klasy projektanta (en)</a> (a Streetmix wzorowało się na nim projektując swoje segmenty), inne miasta przyjęły tradycyjny styl staromiejski albo styl miejski formalny, jeszcze inne, z jakiegokolwiek powodu, nie posiadają w ogóle drogowskazów dla pieszych i wszelkie usprawnienia wymagają użycia <a href=\"http://walkyourcity.org/\">partyzanckich umiejętności (en)</a>.",
         "W końcu nie ma nic gorszego niż się zgubić. Jak pisał Lynch: \"Samo słowo <em>zgubić</em> w języku angielskim oznacza dużo więcej niż tylko geograficzną niepewność; zawiera w sobie całe tony doszczętnej porażki.\" A kto chce stać na ulicy czując się w ten sposób?"
       ]
@@ -191,6 +191,10 @@
     "building|wide": "Szeroki budynek",
     "wayfinding-type|large": "Wielki",
     "wayfinding-type|medium": "Średni",
-    "wayfinding-type|small": "Mały"
+    "wayfinding-type|small": "Mały",
+    "waiting-area|sparse": "",
+    "waiting-area|empty": "",
+    "flex-type|rideshare": "",
+    "flex-type|taxi": ""
   }
 }

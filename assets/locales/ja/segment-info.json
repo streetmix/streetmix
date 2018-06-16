@@ -18,11 +18,11 @@
     "perpendicular-parking": "道路に対して直角",
     "angled-parking": "斜めに駐車",
     "flex-zone": "伸縮性のあるゾーン",
-    "taxi-pick-up": "タクシーピックアップ/ドロップオフ",
-    "rideshare-pick-up": "ライドシェアのピックアップ/ドロップオフ",
+    "taxi-pick-up": "タクシー停車場",
+    "rideshare-pick-up": "ライドシェア停車場",
     "bikeshare-station": "バイクシェアステーション",
     "foodtruck": "食品トラック",
-    "flex-zone-curb": "待機エリアをピックアップ/ドロップオフ",
+    "flex-zone-curb": "待機エリア",
     "drive-lane": "車両用レーン",
     "sharrow": "自転車共用",
     "turn-lane": "方向転換レーン",
@@ -191,6 +191,10 @@
     "building|wide": "大規模な建物",
     "wayfinding-type|large": "大",
     "wayfinding-type|medium": "中",
-    "wayfinding-type|small": "小"
+    "wayfinding-type|small": "小",
+    "waiting-area|sparse": "歩行者表示",
+    "waiting-area|empty": "無人",
+    "flex-type|rideshare": "ライドシェア",
+    "flex-type|taxi": "タクシー"
   }
 }
