@@ -2,7 +2,12 @@ import { SHOW_STREET_NAME_CANVAS, HIDE_STREET_NAME_CANVAS, SET_UNIT_SETTINGS } f
 import * as constants from '../../users/constants'
 
 const initialState = {
-  streetNameCanvasVisible: true
+  streetNameCanvasVisible: true,
+  unitSettings: {
+    resolution: constants.SEGMENT_WIDTH_RESOLUTION_METRIC,
+    draggingResolution: constants.SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC,
+    clickIncrement: constants.SEGMENT_WIDTH_CLICK_INCREMENT_METRIC
+  }
 }
 
 const ui = (state = initialState, action) => {

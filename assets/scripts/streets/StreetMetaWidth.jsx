@@ -84,7 +84,7 @@ export class StreetMetaWidth extends React.Component {
       width = MAX_CUSTOM_STREET_WIDTH
     }
 
-    const resolution = (unitSettings && unitSettings.resolution) || 0.25
+    const resolution = (unitSettings && unitSettings.resolution)
     width = Math.round(width / resolution) * resolution
 
     return width
