@@ -77,11 +77,7 @@ class WidthControl extends React.Component {
     const segmentEl = this.props.segmentEl
     const precise = event.shiftKey
 
-    if (!segmentEl.dataNo) {
-      segmentEl.dataNo = this.props.position
-    }
-
-    incrementSegmentWidth(segmentEl, true, precise, this.props.value)
+    incrementSegmentWidth(this.props.position, true, precise, this.props.value)
     scheduleControlsFadeout(segmentEl)
 
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'DECREMENT_BUTTON', null, true)
@@ -91,11 +87,7 @@ class WidthControl extends React.Component {
     const segmentEl = this.props.segmentEl
     const precise = event.shiftKey
 
-    if (!segmentEl.dataNo) {
-      segmentEl.dataNo = this.props.position
-    }
-
-    incrementSegmentWidth(segmentEl, false, precise, this.props.value)
+    incrementSegmentWidth(this.props.position, false, precise, this.props.value)
     scheduleControlsFadeout(segmentEl)
 
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INCREMENT_BUTTON', null, true)
@@ -235,11 +227,7 @@ class WidthControl extends React.Component {
   updateModel = (value) => {
     const processedValue = processWidthInput(value, this.props.units)
     if (processedValue) {
-      if (!this.props.segmentEl.dataNo) {
-        this.props.segmentEl.dataNo = this.props.position
-      }
-
-      resizeSegment(this.props.segmentEl, RESIZE_TYPE_TYPING, processedValue, false, false)
+      resizeSegment(this.props.position, RESIZE_TYPE_TYPING, processedValue, false, false)
     }
   }
 

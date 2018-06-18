@@ -40,13 +40,13 @@ export function suppressMouseEnter () {
   return _suppressMouseEnter
 }
 
-export function resizeSegment (el, resizeType, width, updateEdit, palette, initial) {
+export function resizeSegment (dataNo, resizeType, width, updateEdit, palette, initial) {
   if (!palette) {
     width = normalizeSegmentWidth(width, resizeType)
   }
 
   cancelSegmentResizeTransitions()
-  store.dispatch(changeSegmentWidth(el.dataNo, width))
+  store.dispatch(changeSegmentWidth(dataNo, width))
 
   if (!initial) {
     segmentsChanged(false)
@@ -130,15 +130,9 @@ export function normalizeSegmentWidth (width, resizeType) {
 }
 
 // temp: add origWidth as 4th arg to pass in value from redux
-export function incrementSegmentWidth (segmentEl, add, precise, origWidth) {
+export function incrementSegmentWidth (dataNo, add, precise, origWidth) {
   const { unitSettings } = store.getState().ui
-  let increment, width
-
-  if (typeof origWidth === 'number') {
-    width = origWidth
-  } else {
-    width = Number.parseFloat(segmentEl.getAttribute('data-width'))
-  }
+  let increment
 
   if (precise) {
     increment = unitSettings.resolution
@@ -149,9 +143,10 @@ export function incrementSegmentWidth (segmentEl, add, precise, origWidth) {
   if (!add) {
     increment = -increment
   }
-  width = normalizeSegmentWidth(width + increment, RESIZE_TYPE_INCREMENT)
 
-  resizeSegment(segmentEl, RESIZE_TYPE_INCREMENT, width, true, false)
+  const width = normalizeSegmentWidth(origWidth + increment, RESIZE_TYPE_INCREMENT)
+
+  resizeSegment(dataNo, RESIZE_TYPE_INCREMENT, width, true, false)
 
   return width
 }
