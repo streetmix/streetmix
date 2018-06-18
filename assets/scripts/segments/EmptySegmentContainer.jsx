@@ -4,12 +4,12 @@ import { connect } from 'react-redux'
 import EmptySegment from './EmptySegment'
 
 /**
- * This is a "container" component in the React presentational/container component pattern.
- * This component determines how many <EmptySegment /> components are rendered, how
- * wide they are, and where they are positioned.
+ * This is a "container" component in the React presentational/container
+ * component pattern. This component determines how many child <EmptySegment />
+ * components are rendered, how wide they are, and where they are positioned.
  *
- * TODO: this component should also handle the dragging state, and render zero <EmptySegment />
- * components when this is happening.
+ * TODO: this component should also be aware of the dragging state, and render
+ * zero <EmptySegment /> components when this is happening.
  */
 export class EmptySegmentContainer extends React.Component {
   static propTypes = {

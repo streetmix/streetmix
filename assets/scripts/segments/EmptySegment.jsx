@@ -7,11 +7,12 @@ import { TILE_SIZE } from '../segments/constants'
 import { SETTINGS_UNITS_METRIC } from '../users/constants'
 
 /**
- * This is a "presentational" component in the React presentational/container component pattern.
- * Its "container" component, <EmptySegmentContainer />, determines the `width` and `left`
- * props of this component.
+ * This is a "presentational" component in the React presentational/container
+ * component pattern. Its "container" (parent) component, <EmptySegmentContainer />,
+ * determines and passes the `width` and `left` props to this component.
  *
- * It also connects to the store to get the correct units and locale.
+ * This component is connected to the Redux store in order to render using the
+ * correct unit and locale.
  */
 export class EmptySegment extends React.PureComponent {
   static propTypes = {
