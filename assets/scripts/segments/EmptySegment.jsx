@@ -1,38 +1,50 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { FormattedMessage } from 'react-intl'
 import MeasurementText from '../ui/MeasurementText'
 import { TILE_SIZE } from '../segments/constants'
 import { SETTINGS_UNITS_METRIC } from '../users/constants'
-import { t } from '../app/locale'
 
+/**
+ * This is a "presentational" component in the React presentational/container component pattern.
+ * Its "container" component, <EmptySegmentContainer />, determines the `width` and `left`
+ * props of this component.
+ *
+ * It also connects to the store to get the correct units and locale.
+ */
 export class EmptySegment extends React.PureComponent {
   static propTypes = {
-    remainingWidth: PropTypes.number,
-    occupiedWidth: PropTypes.number,
+    width: PropTypes.number,
+    left: PropTypes.number,
     units: PropTypes.number,
-    position: PropTypes.string,
     locale: PropTypes.string
   }
 
-  getActualWidth (occupiedWidth, remainingWidth, position) {
-    // If street is empty, only display the left side empty segment, make right side 0 width
-    if (!occupiedWidth && position === 'right') return 0
-    return (occupiedWidth) ? remainingWidth / 2 : remainingWidth
+  static defaultProps = {
+    width: 0,
+    left: 0
   }
 
   render () {
-    const { remainingWidth, occupiedWidth, position, units, locale } = this.props
-    const width = this.getActualWidth(occupiedWidth, remainingWidth, position)
+    const { width, left, units, locale } = this.props
+
+    // Do not render if width is a negative number
+    if (width <= 0) return null
+
+    // Inline style specifies size and position
+    // `width` and `left` are provided as real-world measurements. This is
+    // multiplied by TILE_SIZE to get the pixel dimension and offset.
     const style = {
       width: (width * TILE_SIZE) + 'px',
-      display: (width <= 0) ? 'none' : undefined,
-      right: (position === 'right') ? 0 : 'auto'
+      left: (left * TILE_SIZE) + 'px'
     }
 
     return (
       <div className="segment segment-empty" style={style}>
-        <span className="name">{t('section.empty', 'Empty space')}</span>
+        <span className="name">
+          <FormattedMessage id="section.empty" defaultMessage="Empty space" />
+        </span>
         <span className="width">
           <MeasurementText value={width} units={units} locale={locale} />
         </span>
@@ -44,8 +56,6 @@ export class EmptySegment extends React.PureComponent {
 
 function mapStateToProps (state) {
   return {
-    remainingWidth: state.street.remainingWidth,
-    occupiedWidth: state.street.occupiedWidth,
     units: state.street.units,
     locale: state.locale.locale
   }
