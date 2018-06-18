@@ -81,7 +81,7 @@ class StreetEditable extends React.Component {
       const segmentPos = this.calculateSegmentPos(i)
 
       segment.variant = getVariantArray(segment.type, segment.variantString)
-      segment.warnings = []
+      segment.warnings = (segment.warnings) || []
 
       if (!segment.id) {
         segment.id = uuid()
