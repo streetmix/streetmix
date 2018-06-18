@@ -8,7 +8,8 @@ import { showDialog } from '../store/actions/dialogs'
 
 export class SignInMenu extends React.Component {
   static propTypes = {
-    showDialog: PropTypes.func.isRequired
+    showDialog: PropTypes.func.isRequired,
+    emailAuthEnabled: PropTypes.bool
   }
 
   handleTwitterSignIn = (event) => {
@@ -21,6 +22,20 @@ export class SignInMenu extends React.Component {
     this.props.showDialog()
   }
 
+  renderEmailAuthLink = () => {
+    const { emailAuthEnabled } = this.props
+    if (emailAuthEnabled) {
+      return (
+        <a href="#" onClick={this.onClickEmailSignIn}>
+          <svg className="icon">
+            <use xlinkHref="#icon-forums" />
+          </svg>
+          <FormattedMessage id="menu.signin.email" defaultMessage="Sign in with Email" />
+        </a>
+      )
+    }
+  }
+
   render () {
     return (
       <Menu {...this.props}>
@@ -30,12 +45,7 @@ export class SignInMenu extends React.Component {
           </svg>
           <FormattedMessage id="menu.signin.twitter" defaultMessage="Sign in with Twitter" />
         </a>
-        <a href="#" onClick={this.onClickEmailSignIn}>
-          <svg className="icon">
-            <use xlinkHref="#icon-forums" />
-          </svg>
-          <FormattedMessage id="menu.signin.email" defaultMessage="Sign in with Email" />
-        </a>
+        {this.renderEmailAuthLink()}
       </Menu>
     )
   }
@@ -47,4 +57,10 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(null, mapDispatchToProps)(SignInMenu)
+function mapStateToProps (state) {
+  return {
+    emailAuthEnabled: state.flags.EMAIL_AUTHENTICATION.value
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignInMenu)
