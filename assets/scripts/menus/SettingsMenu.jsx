@@ -13,6 +13,7 @@ export class SettingsMenu extends React.PureComponent {
   static propTypes = {
     units: PropTypes.number,
     locale: PropTypes.string,
+    enableLocaleSettings: PropTypes.bool,
     changeLocale: PropTypes.func,
     clearMenus: PropTypes.func
   }
@@ -57,10 +58,14 @@ export class SettingsMenu extends React.PureComponent {
           </li>
         </ul>
 
-        <h2 className="menu-header">
-          <FormattedMessage id="settings.language.label" defaultMessage="Language" />
-        </h2>
-        <LocaleSelect locale={this.props.locale} selectLocale={this.selectLocale} />
+        {this.props.enableLocaleSettings && (
+          <React.Fragment>
+            <h2 className="menu-header">
+              <FormattedMessage id="settings.language.label" defaultMessage="Language" />
+            </h2>
+            <LocaleSelect locale={this.props.locale} selectLocale={this.selectLocale} />
+          </React.Fragment>
+        )}
       </Menu>
     )
   }
@@ -69,7 +74,8 @@ export class SettingsMenu extends React.PureComponent {
 function mapStateToProps (state) {
   return {
     units: state.street.units,
-    locale: state.locale.locale
+    locale: state.locale.locale,
+    enableLocaleSettings: state.flags.LOCALES_LEVEL_1.value || state.flags.LOCALES_LEVEL_2.value || state.flags.LOCALES_LEVEL_3.value
   }
 }
 

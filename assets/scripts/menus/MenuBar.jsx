@@ -10,14 +10,11 @@ import Avatar from '../users/Avatar'
 class MenuBar extends React.PureComponent {
   static propTypes = {
     onMenuDropdownClick: PropTypes.func,
-    userId: PropTypes.string,
-    enableLocaleSettings: PropTypes.bool
+    userId: PropTypes.string
   }
 
   static defaultProps = {
-    userId: '',
-    enableLocaleSettings: false,
-    noInternet: false
+    userId: ''
   }
 
   componentDidMount () {
@@ -90,13 +87,6 @@ class MenuBar extends React.PureComponent {
     const userId = this.props.userId
     const myStreetsLink = userId ? `/${userId}` : ''
 
-    const SettingsButton = this.props.enableLocaleSettings &&
-      <MenuBarItem
-        label="Settings"
-        translation="menu.item.settings"
-        onClick={this.onClickMenuButton('settings')}
-      />
-
     return (
       <nav className="menu-bar">
         <ul className="menu-bar-left">
@@ -123,7 +113,7 @@ class MenuBar extends React.PureComponent {
             onClick={this.onClickMyStreets}
             requireInternet
           />
-          {SettingsButton}
+          <MenuBarItem label="Settings" translation="menu.item.settings" onClick={this.onClickMenuButton('settings')} />
           <MenuBarItem label="Share" translation="menu.item.share" onClick={this.onClickMenuButton('share')} />
         </ul>
         <EnvironmentBadge />
@@ -134,8 +124,7 @@ class MenuBar extends React.PureComponent {
 
 function mapStateToProps (state) {
   return {
-    userId: state.user.signInData && state.user.signInData.userId,
-    enableLocaleSettings: state.flags.LOCALES_LEVEL_1.value || state.flags.LOCALES_LEVEL_2.value || state.flags.LOCALES_LEVEL_3.value
+    userId: state.user.signInData && state.user.signInData.userId
   }
 }
 
