@@ -80,11 +80,15 @@ class WidthControl extends React.Component {
     const precise = event.shiftKey
 
     // Legacy: normalize value and update DOM, then return the normalized value
-    const newWidth = incrementSegmentWidth(segmentEl, true, precise, this.props.value)
+    // const newWidth = incrementSegmentWidth(segmentEl, true, precise, this.props.value)
 
     // Set new value in Redux
-    this.props.changeSegmentWidth(this.props.position, newWidth)
+    // this.props.changeSegmentWidth(this.props.position, newWidth)
+    if (!segmentEl.dataNo) {
+      segmentEl.dataNo = this.props.position
+    }
 
+    incrementSegmentWidth(segmentEl, true, precise, this.props.value)
     scheduleControlsFadeout(segmentEl)
 
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'DECREMENT_BUTTON', null, true)
@@ -95,11 +99,15 @@ class WidthControl extends React.Component {
     const precise = event.shiftKey
 
     // Legacy: normalize value and update DOM, then return the normalized value
-    const newWidth = incrementSegmentWidth(segmentEl, false, precise, this.props.value)
+    // const newWidth = incrementSegmentWidth(segmentEl, false, precise, this.props.value)
 
     // Set new value in Redux
-    this.props.changeSegmentWidth(this.props.position, newWidth)
+    // this.props.changeSegmentWidth(this.props.position, newWidth)
+    if (!segmentEl.dataNo) {
+      segmentEl.dataNo = this.props.position
+    }
 
+    incrementSegmentWidth(segmentEl, false, precise, this.props.value)
     scheduleControlsFadeout(segmentEl)
 
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INCREMENT_BUTTON', null, true)

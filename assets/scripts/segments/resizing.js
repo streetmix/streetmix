@@ -14,10 +14,9 @@ import {
   changeDraggingType,
   removeGuides
 } from './drag_and_drop'
-import { TILE_SIZE } from './constants'
 import { segmentsChanged } from './view'
 import store from '../store'
-import { updateSegments } from '../store/actions/street'
+import { updateSegments, changeSegmentWidth } from '../store/actions/street'
 
 export const SHORT_DELAY = 100
 
@@ -47,12 +46,10 @@ export function resizeSegment (el, resizeType, width, updateEdit, palette, initi
   }
 
   cancelSegmentResizeTransitions()
-
-  el.style.width = (width * TILE_SIZE) + 'px'
-  el.setAttribute('data-width', width)
+  store.dispatch(changeSegmentWidth(el.dataNo, width))
 
   if (!initial) {
-    segmentsChanged()
+    segmentsChanged(false)
   }
 
   return width
