@@ -98,14 +98,16 @@ class Segment extends React.Component {
     drawSegmentContents(ctx, this.props.type, variantString, segmentWidth, 0, offsetTop, this.props.randSeed, multiplier, this.props.forPalette)
   }
 
-  calculateWidth = (resizeType) => {
-    let width = this.props.width / TILE_SIZE
+  calculateSegmentWidths = (resizeType) => {
+    let widthValue = this.props.width / TILE_SIZE
     if (!this.props.forPalette) {
-      width = normalizeSegmentWidth(width, resizeType)
+      widthValue = normalizeSegmentWidth(widthValue, resizeType)
     }
 
-    width = (width * TILE_SIZE)
-    return width
+    return {
+      widthValue,
+      width: widthValue * TILE_SIZE
+    }
   }
 
   onSegmentMouseEnter = (event) => {
@@ -180,8 +182,8 @@ class Segment extends React.Component {
     const displayName = t(`segments.${nameKey}`, defaultName, { ns: 'segment-info' })
     const localizedSegmentName = t(`segments.${segmentInfo.nameKey}`, defaultName, { ns: 'segment-info' })
 
-    const width = this.calculateWidth(RESIZE_TYPE_INITIAL)
-    const widthValue = width / TILE_SIZE
+    const segmentWidths = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
+    const { width, widthValue } = segmentWidths
 
     const segmentStyle = {
       width: width + 'px',
