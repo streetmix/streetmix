@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { injectIntl, intlShape } from 'react-intl'
 import { debounce } from 'lodash'
-import { changeSegmentWidth } from '../store/actions/street'
 import { trackEvent } from '../app/event_tracking'
 import { KEYS } from '../app/keyboard_commands'
 import { loseAnyFocus } from '../util/focus'
@@ -31,7 +30,6 @@ class WidthControl extends React.Component {
     segmentEl: PropTypes.object, // TODO: this is the actual DOM element; only here for legacy reasons
     position: PropTypes.number,
     value: PropTypes.number,
-    changeSegmentWidth: PropTypes.func,
     units: PropTypes.number,
     locale: PropTypes.string
   }
@@ -79,11 +77,6 @@ class WidthControl extends React.Component {
     const segmentEl = this.props.segmentEl
     const precise = event.shiftKey
 
-    // Legacy: normalize value and update DOM, then return the normalized value
-    // const newWidth = incrementSegmentWidth(segmentEl, true, precise, this.props.value)
-
-    // Set new value in Redux
-    // this.props.changeSegmentWidth(this.props.position, newWidth)
     if (!segmentEl.dataNo) {
       segmentEl.dataNo = this.props.position
     }
@@ -98,11 +91,6 @@ class WidthControl extends React.Component {
     const segmentEl = this.props.segmentEl
     const precise = event.shiftKey
 
-    // Legacy: normalize value and update DOM, then return the normalized value
-    // const newWidth = incrementSegmentWidth(segmentEl, false, precise, this.props.value)
-
-    // Set new value in Redux
-    // this.props.changeSegmentWidth(this.props.position, newWidth)
     if (!segmentEl.dataNo) {
       segmentEl.dataNo = this.props.position
     }
@@ -215,8 +203,6 @@ class WidthControl extends React.Component {
     switch (event.keyCode) {
       case KEYS.ENTER:
         this.updateModel(event.target.value)
-        // const normalizedValue = resizeSegment(this.props.segmentEl, RESIZE_TYPE_TYPING, event.target.value, false, false)
-        // this.props.changeSegmentWidth(this.props.position, normalizedValue)
 
         this.setState({
           isEditing: false
@@ -249,8 +235,11 @@ class WidthControl extends React.Component {
   updateModel = (value) => {
     const processedValue = processWidthInput(value, this.props.units)
     if (processedValue) {
-      const normalizedValue = resizeSegment(this.props.segmentEl, RESIZE_TYPE_TYPING, processedValue, false, false)
-      this.props.changeSegmentWidth(this.props.position, normalizedValue)
+      if (!this.props.segmentEl.dataNo) {
+        this.props.segmentEl.dataNo = this.props.position
+      }
+
+      resizeSegment(this.props.segmentEl, RESIZE_TYPE_TYPING, processedValue, false, false)
     }
   }
 
@@ -321,10 +310,4 @@ function mapStateToProps (state, ownProps) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    changeSegmentWidth: (position, value) => { dispatch(changeSegmentWidth(position, value)) }
-  }
-}
-
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(WidthControl))
+export default injectIntl(connect(mapStateToProps)(WidthControl))
