@@ -64,7 +64,7 @@ export function handleSegmentResizeCancel () {
 export function handleSegmentResizeEnd (event) {
   setIgnoreStreetChanges(false)
 
-  segmentsChanged()
+  segmentsChanged(false)
 
   changeDraggingType(DRAGGING_TYPE_NONE)
 
