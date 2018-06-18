@@ -1,4 +1,4 @@
-import { SET_LOCALE } from './index'
+import { LOAD_LOCALE, SET_LOCALE } from './index'
 import { getActualLocaleFromRequested, fetchTranslationMessages } from '../../locales/locale'
 
 // Flattens a nested object from translation response, e.g.
@@ -23,6 +23,13 @@ function flattenObject (obj) {
   return toReturn
 }
 
+export function setLocaleLoadingState (locale) {
+  return {
+    type: LOAD_LOCALE,
+    locale
+  }
+}
+
 export function setLocale (locale, messages, segmentInfo = {}) {
   return {
     type: SET_LOCALE,
@@ -36,8 +43,10 @@ export function changeLocale (requestedLocale) {
   const locale = getActualLocaleFromRequested(requestedLocale)
 
   return async (dispatch) => {
-    const translation = await fetchTranslationMessages(locale)
+    // Set loading state to true
+    dispatch(setLocaleLoadingState(locale))
 
+    const translation = await fetchTranslationMessages(locale)
     dispatch(setLocale(locale, translation.messages, translation.segmentInfo))
   }
 }

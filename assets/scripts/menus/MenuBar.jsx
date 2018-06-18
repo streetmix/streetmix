@@ -6,11 +6,13 @@ import { goSignIn } from '../app/routing'
 import { showGallery } from '../gallery/view'
 import MenuBarItem from './MenuBarItem'
 import Avatar from '../users/Avatar'
+import { clearMenus } from '../store/actions/menus'
 
 class MenuBar extends React.PureComponent {
   static propTypes = {
     onMenuDropdownClick: PropTypes.func,
-    userId: PropTypes.string
+    userId: PropTypes.string,
+    clearMenus: PropTypes.func
   }
 
   static defaultProps = {
@@ -22,6 +24,11 @@ class MenuBar extends React.PureComponent {
 
     // StreetNameCanvas needs to know the left position of the right menu bar when it's mounted
     window.addEventListener('stmx:streetnamecanvas_mounted', this.onResize)
+
+    // Currently, when locales are refreshed, this remounts the entire app, including
+    // this component. This "resets" all menus to its closed state, but it's still "active"
+    // in Redux. Call this as soon as component mounts to make sure menu state is reset.
+    this.props.clearMenus()
   }
 
   componentWillUnmount () {
@@ -128,4 +135,10 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(MenuBar)
+function mapDispatchToProps (dispatch) {
+  return {
+    clearMenus: () => dispatch(clearMenus())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MenuBar)

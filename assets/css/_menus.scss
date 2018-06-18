@@ -169,8 +169,7 @@ body.safari .menu {
     background: fade-out($ui-colour, 0.5);
   }
 
-  &.menu-item-selected::before {
-    content: '✓';
+  @mixin menu-item-selected {
     position: absolute;
     left: 0;
     top: 5px;
@@ -188,6 +187,32 @@ body.safari .menu {
       padding-left: 3px;
       text-align: left;
     }
+  }
+
+  &.menu-item-selected::before {
+    @include menu-item-selected;
+
+    content: '✓';
+  }
+
+  &.menu-item-loading::before {
+    @include menu-item-selected;
+    @include loading-spinner;
+
+    content: '';
+
+    // Overrides menu-item-selected
+    left: 16px;
+    top: 9px;
+    width: 13px;
+    height: 13px;
+
+    // Overrides loading-spinner
+    border-width: 2px;
+    border-top-color: #1c99ce;
+    border-left-color: rgba(223, 223, 223, 0.75);
+    border-right-color: rgba(223, 223, 223, 0.75);
+    border-bottom-color: rgba(223, 223, 223, 0.75);
   }
 }
 

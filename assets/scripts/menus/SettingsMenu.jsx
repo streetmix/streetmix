@@ -13,6 +13,8 @@ export class SettingsMenu extends React.PureComponent {
   static propTypes = {
     units: PropTypes.number,
     locale: PropTypes.string,
+    localeIsLoading: PropTypes.bool,
+    requestedLocale: PropTypes.string,
     enableLocaleSettings: PropTypes.bool,
     changeLocale: PropTypes.func,
     clearMenus: PropTypes.func
@@ -23,10 +25,21 @@ export class SettingsMenu extends React.PureComponent {
     clearMenus: () => {}
   }
 
+  componentDidUpdate (prevProps) {
+    // If there was previously a requested locale and now there isn't one, assume
+    // loading process for loading locale has completed; hide menu now.
+    // NOTE: This is how we want things to behave but this never actually works,
+    // because the menus are remounted every time the language has loaded.
+    // I'm leaving it here anyway under the hopes that this code doesn't go to
+    // waste when we figure out how to avoid this problem.
+    if (prevProps.requestedLocale && this.props.requestedLocale === null) {
+      this.props.clearMenus()
+    }
+  }
+
   selectLocale = (locale) => {
     if (this.props.locale === locale) return
 
-    this.props.clearMenus()
     this.props.changeLocale(locale)
   }
 
@@ -63,7 +76,7 @@ export class SettingsMenu extends React.PureComponent {
             <h2 className="menu-header">
               <FormattedMessage id="settings.language.label" defaultMessage="Language" />
             </h2>
-            <LocaleSelect locale={this.props.locale} selectLocale={this.selectLocale} />
+            <LocaleSelect locale={this.props.locale} requestedLocale={this.props.requestedLocale} selectLocale={this.selectLocale} />
           </React.Fragment>
         )}
       </Menu>
@@ -75,6 +88,8 @@ function mapStateToProps (state) {
   return {
     units: state.street.units,
     locale: state.locale.locale,
+    localeIsLoading: state.locale.isLoading,
+    requestedLocale: state.locale.requestedLocale,
     enableLocaleSettings: state.flags.LOCALES_LEVEL_1.value || state.flags.LOCALES_LEVEL_2.value || state.flags.LOCALES_LEVEL_3.value
   }
 }

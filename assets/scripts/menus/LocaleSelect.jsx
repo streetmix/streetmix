@@ -7,6 +7,7 @@ import { getAvailableLocales, getActualLocaleFromRequested } from '../locales/lo
 export default class LocaleSelect extends React.Component {
   static propTypes = {
     locale: PropTypes.string,
+    requestedLocale: PropTypes.string,
     selectLocale: PropTypes.func
   }
 
@@ -25,6 +26,10 @@ export default class LocaleSelect extends React.Component {
 
       if (locale.value === actuallySelectedLocale) {
         classNames.push('menu-item-selected')
+      }
+
+      if (locale.value === this.props.requestedLocale) {
+        classNames.push('menu-item-loading')
       }
 
       return (
