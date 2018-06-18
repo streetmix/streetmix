@@ -4,12 +4,14 @@ import { connect } from 'react-redux'
 import MeasurementText from '../ui/MeasurementText'
 import { CSSTransition } from 'react-transition-group'
 import { getSegmentVariantInfo, getSegmentInfo } from '../segments/info'
-import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, suppressMouseEnter } from './resizing'
+import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, suppressMouseEnter, incrementSegmentWidth } from './resizing'
 import { TILE_SIZE } from './constants'
 import { drawSegmentContents, getVariantInfoDimensions } from './view'
 import { SETTINGS_UNITS_METRIC } from '../users/constants'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
+import { KEYS } from '../app/keyboard_commands'
+import { trackEvent } from '../app/event_tracking'
 import { t } from '../app/locale'
 
 const WIDTH_PALETTE_MULTIPLIER = 4 // Dupe from palette.js
@@ -113,11 +115,24 @@ class Segment extends React.Component {
   onSegmentMouseEnter = (event) => {
     if (this.props.suppressMouseEnter || suppressMouseEnter() || this.props.forPalette) return
 
+    window.addEventListener('keydown', this.handleKeyDown)
     infoBubble.considerShowing(event, this.streetSegment, INFO_BUBBLE_TYPE_SEGMENT)
   }
 
   onSegmentMouseLeave = () => {
+    window.removeEventListener('keydown', this.handleKeyDown)
     infoBubble.dontConsiderShowing()
+  }
+
+  handleKeyDown = (event) => {
+    const negative = (event.keyCode === KEYS.MINUS) ||
+      (event.keyCode === KEYS.MINUS_ALT) ||
+      (event.keyCode === KEYS.MINUS_KEYPAD)
+
+    incrementSegmentWidth(this.streetSegment, !negative, event.shiftKey)
+    event.preventDefault()
+
+    trackEvent('INTERACTION', 'CHANGE_WIDTH', 'KEYBOARD', null, true)
   }
 
   changeRefs = (ref, isOldSegment) => {

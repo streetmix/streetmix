@@ -7,14 +7,9 @@ import {
   DRAGGING_TYPE_MOVE,
   handleSegmentMoveCancel
 } from '../segments/drag_and_drop'
-import {
-  handleSegmentResizeCancel,
-  incrementSegmentWidth
-} from '../segments/resizing'
+import { handleSegmentResizeCancel } from '../segments/resizing'
 import { undo, redo } from '../streets/undo_stack'
 import { getSignInData, isSignedIn } from '../users/authentication'
-import { trackEvent } from './event_tracking'
-import { isFocusOnBody } from '../util/focus'
 import { registerKeypress } from './keypress'
 import { showStatusMessage } from './status_message'
 import { t } from './locale'
@@ -33,10 +28,6 @@ export const KEYS = {
 }
 
 export function onGlobalKeyDown (event) {
-  if (isFocusOnBody()) {
-    onBodyKeyDown(event)
-  }
-
   switch (event.keyCode) {
     case KEYS.ESC:
       if (draggingType() === DRAGGING_TYPE_RESIZE) {
@@ -54,40 +45,6 @@ export function onGlobalKeyDown (event) {
       event.preventDefault()
       break
   }
-}
-
-function onBodyKeyDown (event) {
-  switch (event.keyCode) {
-    case KEYS.EQUAL:
-    case KEYS.EQUAL_ALT:
-    case KEYS.PLUS_KEYPAD:
-    case KEYS.MINUS:
-    case KEYS.MINUS_ALT:
-    case KEYS.MINUS_KEYPAD:
-      if (event.metaKey || event.ctrlKey || event.altKey) {
-        return
-      }
-
-      var negative = (event.keyCode === KEYS.MINUS) ||
-        (event.keyCode === KEYS.MINUS_ALT) ||
-        (event.keyCode === KEYS.MINUS_KEYPAD)
-
-      var hoveredEl = getHoveredEl()
-      if (hoveredEl) {
-        if (hoveredEl.classList.contains('segment')) {
-          incrementSegmentWidth(hoveredEl, !negative, event.shiftKey)
-        }
-        event.preventDefault()
-
-        trackEvent('INTERACTION', 'CHANGE_WIDTH', 'KEYBOARD', null, true)
-      }
-      break
-  }
-}
-
-function getHoveredEl () {
-  var el = document.querySelector('.hover')
-  return el
 }
 
 export function registerKeypresses () {
