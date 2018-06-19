@@ -19,30 +19,31 @@ export class EmptySegmentContainer extends React.Component {
 
   render () {
     const { remainingWidth, occupiedWidth } = this.props
-
     const emptySegments = []
 
     // If there is no remaining width, display nothing
-    if (remainingWidth <= 0) {
-      return null
+    if (remainingWidth > 0) {
+      // If street is not occupied by any segments, then only display one empty segment
+      // at the full width of the street (which equals `remainingWidth`)
+      if (!occupiedWidth) {
+        emptySegments.push({ width: remainingWidth })
+      } else {
+        // If the street has segments, then we display 2 segments of equal width at the
+        // left and right side of the street by splitting the remaining width in half.
+        const width = remainingWidth / 2
+
+        emptySegments.push(
+          { width, left: 0 },
+          { width, left: width + occupiedWidth }
+        )
+      }
     }
 
-    // If street is not occupied by any segments, then only display one empty segment
-    // at the full width of the street (which equals `remainingWidth`)
-    if (!occupiedWidth) {
-      emptySegments.push({ width: remainingWidth })
-    } else {
-      // If the street has segments, then we display 2 segments of equal width at the
-      // left and right side of the street by splitting the remaining width in half.
-      const width = remainingWidth / 2
-
-      emptySegments.push({ width, left: 0 })
-      emptySegments.push({ width, left: width + occupiedWidth })
-    }
-
+    // Returning a Fragment is not strictly required by React, but without it, Enzyme
+    // (tests) fail
     return (
       <React.Fragment>
-        {emptySegments.map(({width, left}) => <EmptySegment width={width} left={left} />)}
+        {emptySegments.map(({width, left}, i) => <EmptySegment key={i} width={width} left={left} />)}
       </React.Fragment>
     )
   }
