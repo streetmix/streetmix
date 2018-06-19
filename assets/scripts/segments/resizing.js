@@ -14,10 +14,9 @@ import {
   changeDraggingType,
   removeGuides
 } from './drag_and_drop'
-import { TILE_SIZE } from './constants'
 import { segmentsChanged } from './view'
 import store from '../store'
-import { updateSegments } from '../store/actions/street'
+import { updateSegments, changeSegmentWidth } from '../store/actions/street'
 
 export const SHORT_DELAY = 100
 
@@ -41,18 +40,16 @@ export function suppressMouseEnter () {
   return _suppressMouseEnter
 }
 
-export function resizeSegment (el, resizeType, width, updateEdit, palette, initial) {
+export function resizeSegment (dataNo, resizeType, width, updateEdit, palette, initial) {
   if (!palette) {
     width = normalizeSegmentWidth(width, resizeType)
   }
 
   cancelSegmentResizeTransitions()
-
-  el.style.width = (width * TILE_SIZE) + 'px'
-  el.setAttribute('data-width', width)
+  store.dispatch(changeSegmentWidth(dataNo, width))
 
   if (!initial) {
-    segmentsChanged()
+    segmentsChanged(false)
   }
 
   return width
@@ -67,7 +64,7 @@ export function handleSegmentResizeCancel () {
 export function handleSegmentResizeEnd (event) {
   setIgnoreStreetChanges(false)
 
-  segmentsChanged()
+  segmentsChanged(false)
 
   changeDraggingType(DRAGGING_TYPE_NONE)
 
@@ -133,15 +130,9 @@ export function normalizeSegmentWidth (width, resizeType) {
 }
 
 // temp: add origWidth as 4th arg to pass in value from redux
-export function incrementSegmentWidth (segmentEl, add, precise, origWidth) {
+export function incrementSegmentWidth (dataNo, add, precise, origWidth) {
   const { unitSettings } = store.getState().ui
-  let increment, width
-
-  if (typeof origWidth === 'number') {
-    width = origWidth
-  } else {
-    width = Number.parseFloat(segmentEl.getAttribute('data-width'))
-  }
+  let increment
 
   if (precise) {
     increment = unitSettings.resolution
@@ -152,9 +143,10 @@ export function incrementSegmentWidth (segmentEl, add, precise, origWidth) {
   if (!add) {
     increment = -increment
   }
-  width = normalizeSegmentWidth(width + increment, RESIZE_TYPE_INCREMENT)
 
-  resizeSegment(segmentEl, RESIZE_TYPE_INCREMENT, width, true, false)
+  const width = normalizeSegmentWidth(origWidth + increment, RESIZE_TYPE_INCREMENT)
+
+  resizeSegment(dataNo, RESIZE_TYPE_INCREMENT, width, true, false)
 
   return width
 }

@@ -231,7 +231,7 @@ function handleSegmentResizeMove (event) {
     resizeType = RESIZE_TYPE_DRAGGING
   }
 
-  resizeSegment(draggingResize.segmentEl, resizeType, draggingResize.width, true, false)
+  resizeSegment(draggingResize.segmentEl.dataNo, resizeType, draggingResize.width, true, false)
 
   draggingResize.mouseX = x
   draggingResize.mouseY = y
