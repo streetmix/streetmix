@@ -55,10 +55,10 @@ class SegmentCanvas extends React.Component {
     }
 
     return (
-      <div>
+      <React.Fragment>
         <canvas className="image" ref={(ref) => { this.canvasEl = ref }} width={canvasWidth} height={canvasHeight} style={canvasStyle} />
         <div className="hover-bk" />
-      </div>
+      </React.Fragment>
     )
   }
 }

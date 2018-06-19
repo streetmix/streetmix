@@ -3,11 +3,10 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import MeasurementText from '../ui/MeasurementText'
 import SegmentCanvas from './SegmentCanvas'
-// import { CSSTransition } from 'react-transition-group'
+import { CSSTransition } from 'react-transition-group'
 import { getSegmentVariantInfo, getSegmentInfo } from '../segments/info'
 import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, suppressMouseEnter, incrementSegmentWidth } from './resizing'
 import { TILE_SIZE } from './constants'
-import { getVariantInfoDimensions } from './view'
 import { SETTINGS_UNITS_METRIC } from '../users/constants'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
@@ -43,10 +42,8 @@ class Segment extends React.Component {
     super(props)
 
     this.state = {
-      oldSegmentEnter: true,
-      newSegmentEnter: false,
       switchSegments: false,
-      oldSegmentVariant: ''
+      oldVariant: props.variantString
     }
   }
 
@@ -66,13 +63,23 @@ class Segment extends React.Component {
       infoBubble.considerShowing(false, this.streetSegment, INFO_BUBBLE_TYPE_SEGMENT)
     }
 
-    if (prevProps.variantString !== this.props.variantString) {
+    if (prevProps.variantString && prevProps.variantString !== this.props.variantString) {
       this.switchSegments(prevProps.variantString)
+    }
+
+    if (!prevState.switchSegments && this.state.switchSegments) {
+      console.log(this.oldSegmentCanvas)
     }
 
     this.props.updateSegmentData(this.streetSegment, this.props.dataNo, this.props.segmentPos)
   }
 
+  switchSegments = (oldVariant) => {
+    this.setState({
+      switchSegments: !(this.state.switchSegments),
+      oldVariant: (this.state.switchSegments) ? this.props.variantString : oldVariant
+    })
+  }
 
   calculateSegmentWidths = (resizeType) => {
     let widthValue = this.props.width / TILE_SIZE
@@ -115,23 +122,6 @@ class Segment extends React.Component {
     event.preventDefault()
 
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'KEYBOARD', null, true)
-  }
-
-  switchSegments = (oldVariant) => {
-    this.setState({
-      switchSegments: !(this.state.switchSegments),
-      newSegmentEnter: !(this.state.newSegmentEnter),
-      oldSegmentEnter: !(this.state.oldSegmentEnter),
-      oldSegmentVariant: oldVariant
-    })
-  }
-
-  updateOldCanvasLeftPos = (oldVariant) => {
-    const variantInfo = getSegmentVariantInfo(this.props.type, oldVariant)
-    const dimensions = getVariantInfoDimensions(variantInfo, this.props.width, 1)
-    const canvasLeft = (dimensions.left * TILE_SIZE)
-
-    this.oldSegmentCanvas.style.left = canvasLeft + 'px'
   }
 
   render () {
@@ -187,13 +177,42 @@ class Segment extends React.Component {
             <span className={'grid' + (this.props.units === SETTINGS_UNITS_METRIC ? ' units-metric' : ' units-imperial')} />
           </React.Fragment>
         }
-        <SegmentCanvas
-          width={width}
-          type={this.props.type}
-          variantString={this.props.variantString}
-          forPalette={this.props.forPalette}
-          randSeed={this.props.randSeed}
-        />
+        <CSSTransition
+          key="old-variant"
+          in={!this.state.switchSegments}
+          classNames="switching-away"
+          timeout={250}
+          onExit={(node) => { console.log(node) }}
+          onExited={() => { this.switchSegments(this.props.variantString) }}
+          unmountOnExit
+        >
+          <SegmentCanvas
+            width={width}
+            type={this.props.type}
+            variantString={this.state.oldVariant}
+            forPalette={this.props.forPalette}
+            randSeed={this.props.randSeed}
+            ref={(ref) => { this.oldSegmentCanvas = ref }}
+          />
+        </CSSTransition>
+        { !this.props.forPalette &&
+          <CSSTransition
+            key="new-variant"
+            in={this.state.switchSegments}
+            classNames="switching-in"
+            timeout={250}
+            unmountOnExit
+          >
+            <SegmentCanvas
+              width={width}
+              type={this.props.type}
+              variantString={this.props.variantString}
+              forPalette={this.props.forPalette}
+              randSeed={this.props.randSeed}
+              ref={this.newSegmentCanvas}
+            />
+          </CSSTransition>
+        }
       </div>
     )
   }
