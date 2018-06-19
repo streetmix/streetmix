@@ -304,7 +304,7 @@ export function saveStreetToServerIfNecessary () {
 }
 
 // Copies only the data necessary for save/undo.
-export function trimStreetData (street) {
+export function trimStreetData (street, saveSegmentId = true) {
   var newData = {}
 
   newData.schemaVersion = street.schemaVersion
@@ -343,7 +343,9 @@ export function trimStreetData (street) {
     if (street.segments[i].randSeed) {
       segment.randSeed = street.segments[i].randSeed
     }
-
+    if (saveSegmentId) {
+      segment.id = street.segments[i].id
+    }
     newData.segments.push(segment)
   }
 
