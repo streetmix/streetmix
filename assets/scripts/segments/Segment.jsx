@@ -22,7 +22,6 @@ class Segment extends React.Component {
     isUnmovable: PropTypes.bool.isRequired,
     width: PropTypes.number,
     forPalette: PropTypes.bool.isRequired,
-    dpi: PropTypes.number,
     cssTransform: PropTypes.string,
     units: PropTypes.number,
     segmentPos: PropTypes.number,
@@ -224,10 +223,8 @@ class Segment extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    dpi: state.system.hiDpi,
     cssTransform: state.system.cssTransform,
-    locale: state.locale.locale,
-    redrawCanvas: state.flags.DEBUG_SEGMENT_CANVAS_RECTANGLES.value
+    locale: state.locale.locale
   }
 }
 

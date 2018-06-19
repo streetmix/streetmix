@@ -65,7 +65,8 @@ class SegmentCanvas extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    dpi: state.system.hiDpi
+    dpi: state.system.hiDpi,
+    redrawCanvas: state.flags.DEBUG_SEGMENT_CANVAS_RECTANGLES.value
   }
 }
 
