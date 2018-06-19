@@ -129,6 +129,12 @@ class Segment extends React.Component {
       (event.keyCode === KEYS.MINUS_ALT) ||
       (event.keyCode === KEYS.MINUS_KEYPAD)
 
+    const positive = (event.keyCode === KEYS.EQUAL) ||
+      (event.keyCode === KEYS.EQUAL_ALT) ||
+      (event.keyCode === KEYS.PLUS_KEYPAD)
+
+    if (!negative && !positive) return
+
     const { widthValue } = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
     incrementSegmentWidth(this.props.dataNo, !negative, event.shiftKey, widthValue)
     event.preventDefault()
