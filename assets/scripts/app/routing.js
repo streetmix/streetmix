@@ -1,4 +1,9 @@
-import { TWITTER_URL_SIGN_IN_CALLBACK_REL, AUTH0_TWITTER_URL_SIGN_IN_CALLBACK_REL, AUTH0_EMAIL_URL_SIGN_IN_CALLBACK_REL, USE_AUTH0 } from './config'
+import { TWITTER_URL_SIGN_IN_CALLBACK_REL,
+  AUTH0_TWITTER_URL_SIGN_IN_CALLBACK_REL,
+  AUTH0_EMAIL_URL_SIGN_IN_CALLBACK_REL,
+  AUTH0_FACEBOOK_URL_SIGN_IN_CALLBACK_REL,
+  USE_AUTH0
+} from './config'
 import Authenticate from '../app/auth0'
 // TODO replace the URLs in index.html dynamically
 const URL_SIGN_IN = 'twitter-sign-in'
@@ -12,6 +17,9 @@ window.location.protocol + '//' + window.location.host + AUTH0_TWITTER_URL_SIGN_
 
 const AUTH0_EMAIL_URL_SIGN_IN_CALLBACK_ABS =
 window.location.protocol + '//' + window.location.host + AUTH0_EMAIL_URL_SIGN_IN_CALLBACK_REL
+
+const AUTH0_FACEBOOK_URL_SIGN_IN_CALLBACK_ABS =
+window.location.protocol + '//' + window.location.host + AUTH0_FACEBOOK_URL_SIGN_IN_CALLBACK_REL
 
 const URL_JUST_SIGNED_IN_REL = '/just-signed-in'
 const URL_JUST_SIGNED_IN_ABS =
@@ -40,6 +48,7 @@ export const TWITTER_URL_SIGN_IN_REDIRECT = URL_SIGN_IN + '?callbackUri=' +
 
 export const AUTH0_TWITTER_CALLBACK_URL = AUTH0_TWITTER_URL_SIGN_IN_CALLBACK_ABS
 export const AUTH0_EMAIL_CALLBACK_URL = AUTH0_EMAIL_URL_SIGN_IN_CALLBACK_ABS
+export const AUTH0_FACEBOOK_CALLBACK_URL = AUTH0_FACEBOOK_URL_SIGN_IN_CALLBACK_ABS
 
 // Since URLs like “streetmix.net/new” are reserved, but we still want
 // @new to be able to use Streetmix, we prefix any reserved URLs with ~
@@ -87,6 +96,15 @@ export function goTwitterSignIn () {
   } else {
     window.location.href = '/' + TWITTER_URL_SIGN_IN_REDIRECT
   }
+}
+
+export function goFacebookSignIn () {
+  const auth0 = Authenticate()
+  auth0.authorize({
+    responseType: 'code',
+    connection: 'facebook',
+    redirectUri: AUTH0_FACEBOOK_CALLBACK_URL
+  })
 }
 
 export function goEmailSignIn (email, callback) {

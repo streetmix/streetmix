@@ -8,12 +8,12 @@ const AccessTokenHandler = function (req, res) {
     if (err) {
       console.error('Error obtaining access token from Auth0:')
       console.log(err)
-      res.redirect('/error/no-email-access-token')
+      res.redirect('/error/no-facebook-access-token')
       return
     }
 
     if (body.error && body.error === 'access_denied') {
-      res.redirect('/error/email-access-denied')
+      res.redirect('/error/facebook-access-denied')
       return
     }
 
@@ -26,13 +26,12 @@ const AccessTokenHandler = function (req, res) {
         res.redirect('/error/no-email-access-token')
         return
       }
-
       const apiRequestBody = {
-        auth0_email: {
+        auth0_facebook: {
           nickname: user.nickname,
           auth0_id: user.sub,
-          email: user.name,
-          profile_image_url: user.picture
+          profile_image_url: user.picture,
+          email: user.email
         }
       }
       //  Must be an absolute URI
@@ -55,7 +54,7 @@ const AccessTokenHandler = function (req, res) {
 
 exports.get = function (req, res) {
   const code = req.query.code
-  const redirectUri = config.restapi.protocol + config.app_host_port + config.auth0.email_callback_uri
+  const redirectUri = config.restapi.protocol + config.app_host_port + config.auth0.facebook_callback_uri
   const options = {
     method: 'POST',
     url: config.auth0.token_api_url,

@@ -150,6 +150,8 @@ app.get(config.twitter.oauth_callback_uri, controllers.twitter_sign_in_callback.
 app.get(config.auth0.twitter_callback_uri, controllers.twitter_auth0_sign_in_callback.get)
 // Email
 app.get(config.auth0.email_callback_uri, controllers.email_sign_in.get)
+// Facebook
+app.get(config.auth0.facebook_callback_uri, controllers.facebook_sign_in.get)
 
 app.post('/api/v1/users', resources.v1.users.post)
 app.get('/api/v1/users/:user_id', resources.v1.users.get)
@@ -192,6 +194,7 @@ app.get('/assets/scripts/main.js', browserify(path.join(__dirname, '/assets/scri
     TWITTER_CALLBACK_URI: config.get('twitter.oauth_callback_uri'),
     AUTH0_TWITTER_CALLBACK_URI: config.get('auth0.twitter_callback_uri'),
     AUTH0_EMAIL_CALLBACK_URI: config.get('auth0.email_callback_uri'),
+    AUTH0_FACEBOOK_CALLBACK_URI: config.get('auth0').facebook_callback_uri,
     AUTH0_DOMAIN: config.get('auth0.domain'),
     AUTH0_CLIENT_ID: config.get('auth0.client_id'),
     USE_AUTH0: config.get('auth0.use_auth0'),

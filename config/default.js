@@ -36,7 +36,8 @@ module.exports = {
     screen_name_custom_claim: 'https://twitter.com/screen_name',
     management_scope: 'read:users write:users',
     twitter_callback_uri: '/auth0-twitter-sign-in-callback',
-    email_callback_uri: '/email-sign-in-callback'
+    email_callback_uri: '/email-sign-in-callback',
+    facebook_callback_uri: '/facebook-sign-in-callback'
   },
   facebook_app_id: '204327799717656',
   cookie_session_secret: process.env.COOKIE_SESSION_SECRET || 'seger handrail',
