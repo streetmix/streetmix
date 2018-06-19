@@ -41,6 +41,9 @@ class Segment extends React.Component {
   constructor (props) {
     super(props)
 
+    this.oldSegmentCanvas = React.createRef()
+    this.newSegmentCanvas = React.createRef()
+
     this.state = {
       switchSegments: false,
       oldVariant: props.variantString
@@ -68,7 +71,8 @@ class Segment extends React.Component {
     }
 
     if (!prevState.switchSegments && this.state.switchSegments) {
-      console.log(this.oldSegmentCanvas)
+      this.props.updatePerspective(this.oldSegmentCanvas.firstChildElement)
+      this.props.updatePerspective(this.newSegmentCanvas.firstChildElement)
     }
 
     this.props.updateSegmentData(this.streetSegment, this.props.dataNo, this.props.segmentPos)
@@ -103,6 +107,21 @@ class Segment extends React.Component {
   onSegmentMouseLeave = () => {
     window.removeEventListener('keydown', this.handleKeyDown)
     infoBubble.dontConsiderShowing()
+  }
+
+  renderSegmentCanvas = (width, variantType) => {
+    const isOldVariant = (variantType === 'old')
+
+    return (
+      <SegmentCanvas
+        width={width}
+        type={this.props.type}
+        variantString={(isOldVariant) ? this.state.oldVariant : this.props.variantString}
+        forPalette={this.props.forPalette}
+        randSeed={this.props.randSeed}
+        ref={(isOldVariant) ? this.oldSegmentCanvas : this.newSegmentCanvas}
+      />
+    )
   }
 
   handleKeyDown = (event) => {
@@ -182,18 +201,10 @@ class Segment extends React.Component {
           in={!this.state.switchSegments}
           classNames="switching-away"
           timeout={250}
-          onExit={(node) => { console.log(node) }}
-          onExited={() => { this.switchSegments(this.props.variantString) }}
+          onExited={this.switchSegments}
           unmountOnExit
         >
-          <SegmentCanvas
-            width={width}
-            type={this.props.type}
-            variantString={this.state.oldVariant}
-            forPalette={this.props.forPalette}
-            randSeed={this.props.randSeed}
-            ref={(ref) => { this.oldSegmentCanvas = ref }}
-          />
+          {this.renderSegmentCanvas(width, 'old')}
         </CSSTransition>
         { !this.props.forPalette &&
           <CSSTransition
@@ -203,14 +214,7 @@ class Segment extends React.Component {
             timeout={250}
             unmountOnExit
           >
-            <SegmentCanvas
-              width={width}
-              type={this.props.type}
-              variantString={this.props.variantString}
-              forPalette={this.props.forPalette}
-              randSeed={this.props.randSeed}
-              ref={this.newSegmentCanvas}
-            />
+            {this.renderSegmentCanvas(width, 'new')}
           </CSSTransition>
         }
       </div>
