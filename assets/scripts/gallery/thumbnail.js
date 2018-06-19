@@ -15,7 +15,7 @@ import {
   drawSegmentContents,
   getLocaleSegmentName
 } from '../segments/view'
-import { t } from '../app/locale'
+import { t } from '../locales/locale'
 
 const SKY_COLOUR = 'rgb(169, 204, 219)'
 // TODO: replace SKY_WIDTH with image's natural width

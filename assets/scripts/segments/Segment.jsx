@@ -4,13 +4,15 @@ import { connect } from 'react-redux'
 import MeasurementText from '../ui/MeasurementText'
 import { CSSTransition } from 'react-transition-group'
 import { getSegmentVariantInfo, getSegmentInfo } from '../segments/info'
-import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, suppressMouseEnter } from './resizing'
+import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, suppressMouseEnter, incrementSegmentWidth } from './resizing'
 import { TILE_SIZE } from './constants'
 import { drawSegmentContents, getVariantInfoDimensions } from './view'
 import { SETTINGS_UNITS_METRIC } from '../users/constants'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
-import { t } from '../app/locale'
+import { KEYS } from '../app/keyboard_commands'
+import { trackEvent } from '../app/event_tracking'
+import { t } from '../locales/locale'
 
 const WIDTH_PALETTE_MULTIPLIER = 4 // Dupe from palette.js
 const SEGMENT_Y_NORMAL = 265
@@ -98,24 +100,47 @@ class Segment extends React.Component {
     drawSegmentContents(ctx, this.props.type, variantString, segmentWidth, 0, offsetTop, this.props.randSeed, multiplier, this.props.forPalette)
   }
 
-  calculateWidth = (resizeType) => {
-    let width = this.props.width / TILE_SIZE
+  calculateSegmentWidths = (resizeType) => {
+    let widthValue = this.props.width / TILE_SIZE
     if (!this.props.forPalette) {
-      width = normalizeSegmentWidth(width, resizeType)
+      widthValue = normalizeSegmentWidth(widthValue, resizeType)
     }
 
-    width = (width * TILE_SIZE)
-    return width
+    return {
+      widthValue,
+      width: widthValue * TILE_SIZE
+    }
   }
 
   onSegmentMouseEnter = (event) => {
     if (this.props.suppressMouseEnter || suppressMouseEnter() || this.props.forPalette) return
 
+    window.addEventListener('keydown', this.handleKeyDown)
     infoBubble.considerShowing(event, this.streetSegment, INFO_BUBBLE_TYPE_SEGMENT)
   }
 
   onSegmentMouseLeave = () => {
+    window.removeEventListener('keydown', this.handleKeyDown)
     infoBubble.dontConsiderShowing()
+  }
+
+  handleKeyDown = (event) => {
+    const negative = (event.keyCode === KEYS.MINUS) ||
+      (event.keyCode === KEYS.MINUS_ALT) ||
+      (event.keyCode === KEYS.MINUS_KEYPAD)
+
+    const positive = (event.keyCode === KEYS.EQUAL) ||
+      (event.keyCode === KEYS.EQUAL_ALT) ||
+      (event.keyCode === KEYS.PLUS_KEYPAD)
+
+    const metaCtrlAlt = (event.metaKey || event.ctrlKey || event.altKey)
+    if (metaCtrlAlt || (!negative && !positive)) return
+
+    const { widthValue } = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
+    incrementSegmentWidth(this.props.dataNo, !negative, event.shiftKey, widthValue)
+    event.preventDefault()
+
+    trackEvent('INTERACTION', 'CHANGE_WIDTH', 'KEYBOARD', null, true)
   }
 
   changeRefs = (ref, isOldSegment) => {
@@ -180,8 +205,8 @@ class Segment extends React.Component {
     const displayName = t(`segments.${nameKey}`, defaultName, { ns: 'segment-info' })
     const localizedSegmentName = t(`segments.${segmentInfo.nameKey}`, defaultName, { ns: 'segment-info' })
 
-    const width = this.calculateWidth(RESIZE_TYPE_INITIAL)
-    const widthValue = width / TILE_SIZE
+    const segmentWidths = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
+    const { width, widthValue } = segmentWidths
 
     const segmentStyle = {
       width: width + 'px',

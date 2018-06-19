@@ -1,5 +1,5 @@
 import { images } from '../app/load_resources'
-import { t } from '../app/locale'
+import { t } from '../locales/locale'
 import { system } from '../preinit/system_capabilities'
 import { saveStreetToServerIfNecessary, createDataFromDom } from '../streets/data_model'
 import { recalculateWidth } from '../streets/width'

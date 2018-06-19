@@ -6,7 +6,7 @@ import DescriptionPanel from './DescriptionPanel'
 import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
 import { trackEvent } from '../app/event_tracking'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
-import { t } from '../app/locale'
+import { t } from '../locales/locale'
 import { showDescription, hideDescription } from '../store/actions/infoBubble'
 
 export class Description extends React.Component {
