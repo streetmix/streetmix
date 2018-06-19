@@ -133,7 +133,8 @@ class Segment extends React.Component {
       (event.keyCode === KEYS.EQUAL_ALT) ||
       (event.keyCode === KEYS.PLUS_KEYPAD)
 
-    if (!negative && !positive) return
+    const metaCtrlAlt = (event.metaKey || event.ctrlKey || event.altKey)
+    if (metaCtrlAlt || (!negative && !positive)) return
 
     const { widthValue } = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
     incrementSegmentWidth(this.props.dataNo, !negative, event.shiftKey, widthValue)
