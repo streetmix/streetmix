@@ -1,5 +1,5 @@
-import { SET_LOCALE } from './index'
-import { API_URL } from '../../app/config'
+import { LOAD_LOCALE, SET_LOCALE } from './index'
+import { getActualLocaleFromRequested, fetchTranslationMessages } from '../../locales/locale'
 
 // Flattens a nested object from translation response, e.g.
 // { key1: { key2: "string" }} => { "key1.key2": "string" }
@@ -23,10 +23,14 @@ function flattenObject (obj) {
   return toReturn
 }
 
-export function setLocale (locale, messages, segmentInfo = {}) {
-  // Substitute 'en' for 'en-US' locales
-  if (locale === 'en-US') locale = 'en'
+export function setLocaleLoadingState (locale) {
+  return {
+    type: LOAD_LOCALE,
+    locale
+  }
+}
 
+export function setLocale (locale, messages, segmentInfo = {}) {
   return {
     type: SET_LOCALE,
     locale,
@@ -35,16 +39,14 @@ export function setLocale (locale, messages, segmentInfo = {}) {
   }
 }
 
-export function changeLocale (locale) {
-  return (dispatch) => {
-    Promise.all([
-      window.fetch(`${API_URL}v1/translate/${locale}/main`).then((r) => r.json()),
-      window.fetch(`${API_URL}v1/translate/${locale}/segment-info`).then((r) => r.json())
-    ]).then((responses) => {
-      const messages = responses[0]
-      const segmentInfo = responses[1]
+export function changeLocale (requestedLocale) {
+  const locale = getActualLocaleFromRequested(requestedLocale)
 
-      dispatch(setLocale(locale, messages, segmentInfo))
-    })
+  return async (dispatch) => {
+    // Set loading state to true
+    dispatch(setLocaleLoadingState(locale))
+
+    const translation = await fetchTranslationMessages(locale)
+    dispatch(setLocale(locale, translation.messages, translation.segmentInfo))
   }
 }

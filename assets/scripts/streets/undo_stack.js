@@ -1,7 +1,7 @@
 import { cloneDeep } from 'lodash'
 
 import { trackEvent } from '../app/event_tracking'
-import { t } from '../app/locale'
+import { t } from '../locales/locale'
 import { showStatusMessage, hideStatusMessage } from '../app/status_message'
 import { infoBubble } from '../info_bubble/info_bubble'
 import {

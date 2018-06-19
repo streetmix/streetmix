@@ -89,6 +89,8 @@ body.phone #loading {
 }
 
 .loading-spinner::before {
+  @include loading-spinner;
+
   content: '';
   box-sizing: border-box;
   position: absolute;
@@ -98,14 +100,6 @@ body.phone #loading {
   height: 30px;
   margin-top: -15px;
   margin-left: -15px;
-  border-radius: 50%;
-  border: 3px solid rgba(255, 255, 255, 0.75);
-  border-top-color: darken($ui-colour, 20%);
-  animation: spinner 0.75s linear infinite;
-}
-
-@keyframes spinner {
-  to { transform: rotate(360deg); }
 }
 
 // --------------------------------------------------------
