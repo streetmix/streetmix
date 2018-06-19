@@ -65,6 +65,7 @@ export const SHOW_DESCRIPTION = 'SHOW_DESCRIPTION'
 export const HIDE_DESCRIPTION = 'HIDE_DESCRIPTION'
 
 /* locale */
+export const LOAD_LOCALE = 'LOAD_LOCALE'
 export const SET_LOCALE = 'SET_LOCALE'
 
 /* map */

@@ -1,11 +1,11 @@
 import { hideLoadingScreen, loadImages } from './load_resources'
-import { initLocale } from './locale'
 import { scheduleNextLiveUpdateCheck } from './live_update'
 import { showGallery } from '../gallery/view'
 import { debug } from '../preinit/debug_settings'
 import { system } from '../preinit/system_capabilities'
 import { initializeFlagSubscribers } from '../app/flag_utils'
 import { segmentsChanged } from '../segments/view'
+import { initLocale } from '../locales/locale'
 import { onNewStreetLastClick } from '../streets/creation'
 import {
   setLastStreet,
@@ -85,7 +85,7 @@ export async function initialize () {
   const geo = await detectGeolocation()
 
   // Parallel tasks
-  await Promise.all([ loadImages(), geo ])
+  await Promise.all([ loadImages(), geo, initLocale() ])
 
   if (geo && geo.country_code) {
     updateSettingsFromCountryCode(geo.country_code)
@@ -187,12 +187,6 @@ function onEverythingLoaded () {
     }
   }
 }
-
-// Initalize i18n / localization
-// Currently experimental-only for all languages except English
-const flags = store.getState().flags
-const enableLocales = flags.LOCALES_LEVEL_1.value || flags.LOCALES_LEVEL_2.value || flags.LOCALES_LEVEL_3.value
-initLocale(enableLocales)
 
 /**
  * Toggle features based on system state. (This allows toggling to debug things,

@@ -6,7 +6,7 @@ import {
   checkIfEverythingIsLoaded,
   setServerContacted
 } from '../app/initialization'
-import { t } from '../app/locale'
+import { t } from '../locales/locale'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { goNewStreet } from '../app/routing'
 import { showStatusMessage } from '../app/status_message'

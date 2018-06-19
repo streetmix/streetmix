@@ -12,7 +12,7 @@ import { undo, redo } from '../streets/undo_stack'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { registerKeypress } from './keypress'
 import { showStatusMessage } from './status_message'
-import { t } from './locale'
+import { t } from '../locales/locale'
 import { showDialog } from '../store/actions/dialogs'
 import store from '../store'
 
