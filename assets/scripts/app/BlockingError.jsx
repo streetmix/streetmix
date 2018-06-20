@@ -222,9 +222,19 @@ export class BlockingError extends React.Component {
             {homeButton}
           </React.Fragment>
         break
+      case ERRORS.FACEBOOK_ACCESS_DENIED:
+        title = <FormattedMessage id="error.facebook-access-denied-title" defaultMessage="You are not signed in." />
+        description =
+          <React.Fragment>
+            <FormattedMessage id="error.facebook-access-denied-description" defaultMessage="You cancelled the Facebook sign in process." />
+            <br />
+            {homeButton}
+          </React.Fragment>
+        break
       case ERRORS.AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN:
       case ERRORS.AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN:
       case ERRORS.AUTH_PROBLEM_NO_EMAIL_ACCESS_TOKEN:
+      case ERRORS.AUTH_PROBLEM_NO_FACEBOOK_ACCESS_TOKEN:
       case ERRORS.AUTH_PROBLEM_API_PROBLEM:
         title = <FormattedMessage id="error.auth-api-problem-title" defaultMessage="There was a problem with signing you in." />
         description =

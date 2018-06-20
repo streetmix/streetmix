@@ -5,7 +5,9 @@ import {
   URL_ERROR_NO_TWITTER_ACCESS_TOKEN,
   URL_ERROR_AUTHENTICATION_API_PROBLEM,
   URL_ERROR_EMAIL_ACCESS_DENIED,
-  URL_ERROR_NO_EMAIL_ACCESS_TOKEN
+  URL_ERROR_NO_EMAIL_ACCESS_TOKEN,
+  URL_ERROR_FACEBOOK_ACCESS_DENIED,
+  URL_ERROR_NO_FACEBOOK_ACCESS_TOKEN
 } from './routing'
 import store from '../store'
 import { showError as showErrorAction, hideError as hideErrorAction } from '../store/actions/errors'
@@ -34,7 +36,9 @@ export const ERRORS = {
   STREET_DATA_FAILURE: 21,
   GALLERY_STREET_FAILURE: 22,
   EMAIL_ACCESS_DENIED: 23,
-  AUTH_PROBLEM_NO_EMAIL_ACCESS_TOKEN: 24
+  AUTH_PROBLEM_NO_EMAIL_ACCESS_TOKEN: 24,
+  FACEBOOK_ACCESS_DENIED: 25,
+  AUTH_PROBLEM_NO_FACEBOOK_ACCESS_TOKEN: 26
 }
 
 export function showError (errorType, newAbortEverything) {
@@ -66,11 +70,17 @@ export function showErrorFromUrl (errorUrl) {
     case URL_ERROR_NO_EMAIL_ACCESS_TOKEN:
       errorType = ERRORS.AUTH_PROBLEM_NO_EMAIL_ACCESS_TOKEN
       break
+    case URL_ERROR_NO_FACEBOOK_ACCESS_TOKEN:
+      errorType = ERRORS.AUTH_PROBLEM_NO_FACEBOOK_ACCESS_TOKEN
+      break
     case URL_ERROR_AUTHENTICATION_API_PROBLEM:
       errorType = ERRORS.AUTH_PROBLEM_API_PROBLEM
       break
     case URL_ERROR_EMAIL_ACCESS_DENIED:
       errorType = ERRORS.EMAIL_ACCESS_DENIED
+      break
+    case URL_ERROR_FACEBOOK_ACCESS_DENIED:
+      errorType = ERRORS.FACEBOOK_ACCESS_DENIED
       break
     default:
       errorType = ERRORS.GENERIC_ERROR
