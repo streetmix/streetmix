@@ -3,9 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getSegmentVariantInfo } from './info'
 import { drawSegmentContents, getVariantInfoDimensions } from './view'
-import { TILE_SIZE } from './constants'
+import { TILE_SIZE, WIDTH_PALETTE_MULTIPLIER } from './constants'
 
-const WIDTH_PALETTE_MULTIPLIER = 4 // Dupe from palette.js
 const SEGMENT_Y_NORMAL = 265
 const SEGMENT_Y_PALETTE = 20
 const CANVAS_HEIGHT = 480
