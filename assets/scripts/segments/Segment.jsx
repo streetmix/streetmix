@@ -296,6 +296,6 @@ function mapStateToProps (state) {
 }
 
 export default flow(
-  connect(mapStateToProps),
-  DragSource(Types.SEGMENT, segmentSource, collectDragSource)
+  DragSource(Types.SEGMENT, segmentSource, collectDragSource),
+  connect(mapStateToProps)
 )(Segment)

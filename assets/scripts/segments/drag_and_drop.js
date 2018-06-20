@@ -202,30 +202,30 @@ function handleSegmentResizeMove (event) {
   draggingResize.mouseY = y
 }
 
-function handleSegmentClickOrMoveStart (event) {
-  let x, y
-  if (app.readOnly) {
-    return
-  }
+// function handleSegmentClickOrMoveStart (event) {
+//   let x, y
+//   if (app.readOnly) {
+//     return
+//   }
 
-  setIgnoreStreetChanges(true)
+//   setIgnoreStreetChanges(true)
 
-  if (event.touches && event.touches[0]) {
-    x = event.touches[0].pageX
-    y = event.touches[0].pageY
-  } else {
-    x = event.pageX
-    y = event.pageY
-  }
+//   if (event.touches && event.touches[0]) {
+//     x = event.touches[0].pageX
+//     y = event.touches[0].pageY
+//   } else {
+//     x = event.pageX
+//     y = event.pageY
+//   }
 
-  var el = event.target
-  draggingMove.originalEl = el
+//   var el = event.target
+//   draggingMove.originalEl = el
 
-  changeDraggingType(DRAGGING_TYPE_CLICK_OR_MOVE)
+//   changeDraggingType(DRAGGING_TYPE_CLICK_OR_MOVE)
 
-  draggingMove.mouseX = x
-  draggingMove.mouseY = y
-}
+//   draggingMove.mouseX = x
+//   draggingMove.mouseY = y
+// }
 
 function handleSegmentMoveStart () {
   if (app.readOnly) {
@@ -459,7 +459,7 @@ export function onBodyMouseDown (event) {
       return
     }
 
-    handleSegmentClickOrMoveStart(event)
+    // handleSegmentClickOrMoveStart(event)
   }
 
   event.preventDefault()
@@ -783,6 +783,18 @@ export function onBodyMouseUp (event) {
   event.preventDefault()
 }
 
+function handleSegmentDragStart (segment, fromPalette) {
+  if (!fromPalette) {
+    segment.classList.remove('immediate-show-drag-handles')
+    segment.classList.remove('show-drag-handles')
+    segment.classList.remove('hover')
+  }
+
+  infoBubble.hide()
+  cancelFadeoutControls()
+  hideControls()
+}
+
 export const Types = {
   SEGMENT: 'segment'
 }
@@ -797,9 +809,15 @@ export const segmentSource = {
   },
 
   beginDrag (props, monitor, component) {
+    handleSegmentDragStart(component.streetSegment, props.forPalette)
+
     return {
       dataNo: props.dataNo,
-      variantString: props.variantString
+      variantString: props.variantString,
+      type: props.type,
+      forPalette: props.forPalette,
+      randSeed: props.number,
+      width: props.width
     }
   }
 }
