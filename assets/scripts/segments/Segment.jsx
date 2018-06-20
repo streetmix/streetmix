@@ -110,16 +110,22 @@ class Segment extends React.Component {
 
   renderSegmentCanvas = (width, variantType) => {
     const isOldVariant = (variantType === 'old')
+    const style = {
+      width: '100%',
+      height: '100%'
+    }
 
     return (
-      <SegmentCanvas
-        width={width}
-        type={this.props.type}
-        variantString={(isOldVariant) ? this.state.oldVariant : this.props.variantString}
-        forPalette={this.props.forPalette}
-        randSeed={this.props.randSeed}
-        ref={(isOldVariant) ? this.oldSegmentCanvas : this.newSegmentCanvas}
-      />
+      <div style={style}>
+        <SegmentCanvas
+          width={width}
+          type={this.props.type}
+          variantString={(isOldVariant) ? this.state.oldVariant : this.props.variantString}
+          forPalette={this.props.forPalette}
+          randSeed={this.props.randSeed}
+          ref={(isOldVariant) ? this.oldSegmentCanvas : this.newSegmentCanvas}
+        />
+      </div>
     )
   }
 
@@ -216,6 +222,7 @@ class Segment extends React.Component {
             {this.renderSegmentCanvas(width, 'new')}
           </CSSTransition>
         }
+        <div className="hover-bk" />
       </div>
     )
   }
