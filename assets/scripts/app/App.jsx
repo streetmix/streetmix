@@ -3,6 +3,9 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { IntlProvider } from 'react-intl'
 import NOTIFICATION from '../../../app/data/notification.json'
+import HTML5Backend from 'react-dnd-html5-backend'
+import { DragDropContext } from 'react-dnd'
+import flow from 'lodash/flow'
 
 import NotificationBar from './NotificationBar'
 import MenusContainer from '../menus/MenusContainer'
@@ -80,4 +83,7 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(App)
+export default flow(
+  connect(mapStateToProps),
+  DragDropContext(HTML5Backend)
+)(App)
