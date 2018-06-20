@@ -21,6 +21,14 @@ class SegmentCanvas extends React.Component {
     dpi: PropTypes.number
   }
 
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      error: null
+    }
+  }
+
   componentDidMount () {
     this.drawSegment()
   }
@@ -29,6 +37,12 @@ class SegmentCanvas extends React.Component {
     if (!this.props.forPalette) {
       this.drawSegment()
     }
+  }
+
+  componentDidCatch (error, info) {
+    this.setState({
+      error
+    })
   }
 
   drawSegment = () => {
