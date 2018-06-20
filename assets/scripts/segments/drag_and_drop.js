@@ -782,3 +782,31 @@ export function onBodyMouseUp (event) {
 
   event.preventDefault()
 }
+
+export const Types = {
+  SEGMENT: 'segment'
+}
+
+export const segmentSource = {
+  canDrag (props) {
+    return !(props.isUnmovable)
+  },
+
+  isDragging (props, monitor) {
+    return monitor.getItem().dataNo === props.dataNo
+  },
+
+  beginDrag (props, monitor, component) {
+    return {
+      dataNo: props.dataNo,
+      variantString: props.variantString
+    }
+  }
+}
+
+export function collectDragSource (connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  }
+}
