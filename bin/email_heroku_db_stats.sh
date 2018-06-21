@@ -92,6 +92,4 @@ body=${body//$'\n'/%0D%0A}
 body=${body//=/%3D}
 body=${body//#/%23}
 
-curlCall="https://sendgrid.com/api/mail.send.json?api_user=$SENDGRID_USERNAME&api_key=$SENDGRID_PASSWORD&to=hello@streetmix.net&from=shaunak@codeforamerica.org&subject=$subject&text=$body"
-
-curl -s "$curlCall" # >/dev/null
+curl -s -X "POST" "https://api.sendgrid.com/v3/mail/send" -H "Authorization: Bearer $SENDGRID_API_KEY" -H "Content-Type: application/json" -d "{\"personalizations\":[{\"to\":[{\"email\":\"hello@streetmix.net\"}],\"subject\":\"$subject\"}],\"from\":{\"email\":\"shaunak@codeforamerica.org\"},\"content\":[{\"type\":\"text/plain\",\"value\":\"$body\"}]}" # >/dev/null
