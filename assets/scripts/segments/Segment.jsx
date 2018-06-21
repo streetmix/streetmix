@@ -110,13 +110,9 @@ class Segment extends React.Component {
 
   renderSegmentCanvas = (width, variantType) => {
     const isOldVariant = (variantType === 'old')
-    const style = {
-      width: '100%',
-      height: '100%'
-    }
 
     return (
-      <div style={style}>
+      <div className="segment-canvas-container">
         <SegmentCanvas
           width={width}
           type={this.props.type}
