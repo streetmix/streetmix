@@ -788,6 +788,7 @@ function handleSegmentDragStart (segment, fromPalette) {
     segment.classList.remove('immediate-show-drag-handles')
     segment.classList.remove('show-drag-handles')
     segment.classList.remove('hover')
+    document.querySelector('.palette-trashcan').classList.add('visible')
   }
 
   infoBubble.hide()
@@ -820,6 +821,10 @@ export const segmentSource = {
       forPalette: props.forPalette,
       width: (props.forPalette) ? (segmentInfo.defaultWidth * TILE_SIZE) : props.width
     }
+  },
+
+  endDrag (props, monitor, component) {
+    document.querySelector('.palette-trashcan').classList.remove('visible')
   }
 }
 
