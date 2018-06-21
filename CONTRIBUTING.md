@@ -207,17 +207,14 @@ You may additionally specify the name of the directory to install to, if you wis
 | `CLOUDFLARE_ZONE`               | Cloudflare zone ID            | No                   |
 | `CLOUDFLARE_USER`               | Cloudflare user e-mail        | No                   |
 | `CLOUDFLARE_API_KEY`            | Cloudflare API key            | No                   |
-| `SENDGRID_USERNAME`             | Your SendGrid username        | No                   |
-| `SENDGRID_PASSWORD`             | Your SendGrid password        | No                   |
+| `SENDGRID_API_KEY`              | Your SendGrid API key         | No                   |
 
 A sample `.env` file will look like this:
 
 ```
-SENDGRID_USERNAME=username@domain.com
-SENDGRID_PASSWORD=p@$$w0rD
-TWITTER_OAUTH_CONSUMER_KEY=twitteroauthconsumerkey
-TWITTER_OAUTH_CONSUMER_SECRET=twitteroauthsecrettoken
-EMAIL_FEEDBACK_RECIPIENT=test@domain.com
+AUTH0_CLIENT_ID=1234567890
+AUTH0_CLIENT_SECRET=abcdefghij
+PELIAS_API_KEY=a2c4e6g8i
 ```
 
 *Note:* Auth0 is currently phasing out Twitter credential access. If you provide Auth0 credentials, you do not need to provide Twitter credentials.

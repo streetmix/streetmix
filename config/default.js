@@ -50,8 +50,7 @@ module.exports = {
   },
   email: {
     sendgrid: {
-      username: process.env.SENDGRID_USERNAME,
-      password: process.env.SENDGRID_PASSWORD
+      api_key: process.env.SENGRID_API_KEY
     },
     feedback_recipient: process.env.EMAIL_FEEDBACK_RECIPIENT || 'hello@streetmix.net',
     feedback_subject: 'Streetmix feedback',
