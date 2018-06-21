@@ -9,13 +9,17 @@ import { TILE_SIZE, WIDTH_PALETTE_MULTIPLIER } from '../segments/constants'
 import { getAllSegmentInfo } from '../segments/info'
 import { getVariantInfoDimensions } from '../segments/view'
 import { generateRandSeed } from '../util/random'
+import { Types, paletteTarget, collectDropTarget } from '../segments/drag_and_drop'
+import { DropTarget } from 'react-dnd'
+import flow from 'lodash/flow'
 
 const PALETTE_EXTRA_SEGMENT_PADDING = 8
 
 class Palette extends React.Component {
   static propTypes = {
     everythingLoaded: PropTypes.bool.isRequired,
-    flags: PropTypes.object.isRequired
+    flags: PropTypes.object.isRequired,
+    connectDropTarget: PropTypes.func
   }
 
   componentDidMount () {
@@ -98,7 +102,9 @@ class Palette extends React.Component {
   }
 
   render () {
-    return (
+    const { connectDropTarget } = this.props
+
+    return connectDropTarget(
       <div className="palette-container">
         <div className="palette-trashcan">
           <FormattedMessage id="palette.remove" defaultMessage="Drag here to remove" />
@@ -121,4 +127,7 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(Palette)
+export default flow(
+  DropTarget(Types.SEGMENT, paletteTarget, collectDropTarget),
+  connect(mapStateToProps)
+)(Palette)
