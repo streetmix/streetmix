@@ -38,8 +38,7 @@ module.exports = {
     twitter_callback_uri: '/auth0-twitter-sign-in-callback',
     email_callback_uri: '/email-sign-in-callback',
     facebook_callback_uri: '/facebook-sign-in-callback',
-    google_callback_uri: '/google-sign-in-callback',
-    callback_uri: '/auth0-sign-in-callback'
+    google_callback_uri: '/google-sign-in-callback'
   },
   facebook_app_id: '204327799717656',
   cookie_session_secret: process.env.COOKIE_SESSION_SECRET || 'seger handrail',

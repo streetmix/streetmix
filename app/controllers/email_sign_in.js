@@ -31,7 +31,7 @@ const AccessTokenHandler = function (req, res) {
         auth0_email: {
           nickname: user.nickname,
           auth0_id: user.sub,
-          email: user.name,
+          email: user.email,
           profile_image_url: user.picture
         }
       }
