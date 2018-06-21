@@ -492,11 +492,6 @@ body.segment-resize-dragging .drag-handle.floating,
   color: $segment-warning-text;
 }
 
-.segment.segment-in-palette .name,
-.segment.segment-in-palette .width {
-  display: none;
-}
-
 body.segment-move-dragging,
 body.segment-move-dragging * {
   cursor: move !important; // IE
@@ -522,11 +517,6 @@ body.segment-move-dragging #editable-street-section > div {
   pointer-events: none;
   transform: none !important;
   perspective: 400px;
-
-  .name,
-  .width {
-    display: none;
-  }
 }
 
 .switching-away-exit-done {
