@@ -840,8 +840,7 @@ export function collectDragSource (connect, monitor) {
 
 export const segmentTarget = {
   hover (props, monitor, component) {
-    const clientOffset = monitor.getClientOffset()
-    console.log(clientOffset)
+    // makeSpaceBetweenSegments
   }
 }
 
@@ -850,6 +849,7 @@ export const paletteTarget = {
     const draggedItem = monitor.getItem()
     if (!draggedItem.forPalette) {
       store.dispatch(removeSegment(Number.parseInt(draggedItem.dataNo, 10)))
+      segmentsChanged(false)
     }
   }
 }
