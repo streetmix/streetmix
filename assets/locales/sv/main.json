@@ -58,9 +58,6 @@
       "send": "Skicka meddelande",
       "confirm": "Vi fattar. Tack!",
       "error": "Vi ber om ursäkt, det var ett problem att skicka synpunkterna den här gången. Vänligen försök igen senare."
-    },
-    "language": {
-      "heading": "Språk"
     }
   },
   "settings": {

@@ -58,9 +58,6 @@
       "send": "Lähetä viesti",
       "confirm": "Perille tuli. Kiitos!",
       "error": "Pahoittelut, viestin lähetys ei nyt onnistunut. Yritäthän myöhemmin uudelleen."
-    },
-    "language": {
-      "heading": "Kieli"
     }
   },
   "settings": {
