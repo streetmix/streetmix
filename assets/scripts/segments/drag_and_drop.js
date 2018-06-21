@@ -818,7 +818,7 @@ export const segmentSource = {
       dataNo: props.dataNo,
       variantString: (props.forPalette) ? Object.keys(segmentInfo.details).shift() : props.variantString,
       type: props.type,
-      randSeed: props.number,
+      randSeed: (props.forPalette && segmentInfo.needRandSeed) ? generateRandSeed() : props.randSeed,
       forPalette: props.forPalette,
       width: (props.forPalette) ? (segmentInfo.defaultWidth * TILE_SIZE) : props.width
     }
@@ -840,6 +840,7 @@ export function collectDragSource (connect, monitor) {
 
 export const segmentTarget = {
   hover (props, monitor, component) {
+
     // makeSpaceBetweenSegments
   }
 }
@@ -849,6 +850,26 @@ export const paletteTarget = {
     const draggedItem = monitor.getItem()
     if (!draggedItem.forPalette) {
       store.dispatch(removeSegment(Number.parseInt(draggedItem.dataNo, 10)))
+      segmentsChanged(false)
+    }
+  }
+}
+
+export const canvasTarget = {
+  drop (props, monitor, component) {
+    const { segments } = store.getState().street
+    const draggedItem = monitor.getItem()
+
+    const newSegment = {
+      variantString: draggedItem.variantString,
+      width: draggedItem.width / TILE_SIZE,
+      type: draggedItem.type,
+      randSeed: draggedItem.randSeed
+    }
+
+    if (draggedItem.forPalette && segments.length === 0) {
+      store.dispatch(addSegment(0, newSegment))
+      cancelSegmentResizeTransitions()
       segmentsChanged(false)
     }
   }

@@ -7,13 +7,17 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { TILE_SIZE } from '../segments/constants'
 import { getVariantArray } from '../segments/variant_utils'
 import { cancelSegmentResizeTransitions } from '../segments/resizing'
+import { Types, canvasTarget, collectDropTarget } from '../segments/drag_and_drop'
+import { DropTarget } from 'react-dnd'
+import flow from 'lodash/flow'
 
 class StreetEditable extends React.Component {
   static propTypes = {
     onResized: PropTypes.bool.isRequired,
     setBuildingWidth: PropTypes.func.isRequired,
     street: PropTypes.object.isRequired,
-    updatePerspective: PropTypes.func.isRequired
+    updatePerspective: PropTypes.func.isRequired,
+    connectDropTarget: PropTypes.func
   }
 
   constructor (props) {
@@ -122,11 +126,12 @@ class StreetEditable extends React.Component {
   }
 
   render () {
+    const { connectDropTarget } = this.props
     const style = {
       width: (this.props.street.width * TILE_SIZE) + 'px'
     }
 
-    return (
+    return connectDropTarget(
       <div
         id="street-section-editable"
         key={this.props.street.id}
@@ -147,4 +152,7 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(StreetEditable)
+export default flow(
+  DropTarget(Types.SEGMENT, canvasTarget, collectDropTarget),
+  connect(mapStateToProps)
+)(StreetEditable)
