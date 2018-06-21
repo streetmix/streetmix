@@ -845,6 +845,15 @@ export const segmentTarget = {
   }
 }
 
+export const paletteTarget = {
+  drop (props, monitor, component) {
+    const draggedItem = monitor.getItem()
+    if (!draggedItem.forPalette) {
+      store.dispatch(removeSegment(Number.parseInt(draggedItem.dataNo, 10)))
+    }
+  }
+}
+
 export function collectDropTarget (connect, monitor) {
   return {
     connectDropTarget: connect.dropTarget(),
