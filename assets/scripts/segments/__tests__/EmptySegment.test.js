@@ -36,6 +36,6 @@ describe('EmptySegment', () => {
 
   it('renders text content', () => {
     const wrapper = mountWithIntl(<EmptySegment width={15} units={SETTINGS_UNITS_METRIC} locale="en" />)
-    expect(wrapper.text()).toEqual('Empty space4.5  m')
+    expect(wrapper.text()).toEqual('Empty space4.5 m')
   })
 })
