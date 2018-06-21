@@ -8,11 +8,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { IntlProvider } from 'react-intl'
 import StreetEditable from './StreetEditable'
 import SkyBackground from './SkyBackground'
 import ScrollIndicators from './ScrollIndicators'
 import Building from '../segments/Building'
-import EmptySegment from '../segments/EmptySegment'
+import EmptySegmentContainer from '../segments/EmptySegmentContainer'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { animate, getElAbsolutePos } from '../util/helpers'
 import { MAX_CUSTOM_STREET_WIDTH } from '../streets/width'
@@ -23,7 +24,8 @@ import { app } from '../preinit/app_settings'
 class StreetView extends React.Component {
   static propTypes = {
     street: PropTypes.object.isRequired,
-    system: PropTypes.object.isRequired
+    system: PropTypes.object.isRequired,
+    locale: PropTypes.object.isRequired
   }
 
   constructor (props) {
@@ -215,8 +217,13 @@ class StreetView extends React.Component {
                 setBuildingWidth={this.setBuildingWidth}
                 updatePerspective={this.updatePerspective}
               />
-              <EmptySegment position="left" />
-              <EmptySegment position="right" />
+              <IntlProvider
+                locale={this.props.locale.locale}
+                key={this.props.locale.locale}
+                messages={this.props.locale.messages}
+              >
+                <EmptySegmentContainer />
+              </IntlProvider>
               <section id="street-section-dirt" style={dirtStyle} />
             </section>
           </section>
@@ -241,7 +248,8 @@ class StreetView extends React.Component {
 function mapStateToProps (state) {
   return {
     street: state.street,
-    system: state.system
+    system: state.system,
+    locale: state.locale
   }
 }
 
