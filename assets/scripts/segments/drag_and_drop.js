@@ -810,14 +810,15 @@ export const segmentSource = {
 
   beginDrag (props, monitor, component) {
     handleSegmentDragStart(component.streetSegment, props.forPalette)
+    const segmentInfo = getSegmentInfo(props.type)
 
     return {
       dataNo: props.dataNo,
-      variantString: props.variantString,
+      variantString: (props.forPalette) ? Object.keys(segmentInfo.details).shift() : props.variantString,
       type: props.type,
-      forPalette: props.forPalette,
       randSeed: props.number,
-      width: props.width
+      forPalette: props.forPalette,
+      width: (props.forPalette) ? (segmentInfo.defaultWidth * TILE_SIZE) : props.width
     }
   }
 }
@@ -825,6 +826,7 @@ export const segmentSource = {
 export function collectDragSource (connect, monitor) {
   return {
     connectDragSource: connect.dragSource(),
+    connectDragPreview: connect.dragPreview(),
     isDragging: monitor.isDragging()
   }
 }

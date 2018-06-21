@@ -17,6 +17,7 @@ import { trackEvent } from '../app/event_tracking'
 import { t } from '../locales/locale'
 
 import { DragSource } from 'react-dnd'
+import { getEmptyImage } from 'react-dnd-html5-backend'
 import { Types, segmentSource, collectDragSource } from './drag_and_drop'
 import flow from 'lodash/flow'
 
@@ -40,7 +41,8 @@ class Segment extends React.Component {
     descriptionVisible: PropTypes.bool,
     suppressMouseEnter: PropTypes.bool.isRequired
     connectDragSource: PropTypes.func,
-    isDragging: PropTypes.bool
+    isDragging: PropTypes.bool,
+    connectDragPreview: PropTypes.func
   }
 
   static defaultProps = {
@@ -64,6 +66,8 @@ class Segment extends React.Component {
     if (!this.props.forPalette) {
       this.props.updateSegmentData(this.streetSegment, this.props.dataNo, this.props.segmentPos)
     }
+
+    this.props.connectDragPreview(getEmptyImage(), { captureDraggingState: true })
   }
 
   componentDidUpdate (prevProps, prevState) {
