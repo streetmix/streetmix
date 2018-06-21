@@ -835,3 +835,18 @@ export function collectDragSource (connect, monitor) {
     isDragging: monitor.isDragging()
   }
 }
+
+export const segmentTarget = {
+  hover (props, monitor, component) {
+    const clientOffset = monitor.getClientOffset()
+    console.log(clientOffset)
+  }
+}
+
+export function collectDropTarget (connect, monitor) {
+  return {
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver(),
+    isOverCurrent: monitor.isOver({ shallow: true })
+  }
+}
