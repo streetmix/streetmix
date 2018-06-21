@@ -58,9 +58,6 @@
       "send": "Mandar un mensaje",
       "confirm": "Lo recibimos. ¡Gracias!",
       "error": "Lo sentimos, hubo problemas mandando feedback ahora. Por favor trata de nuevo después."
-    },
-    "language": {
-      "heading": "Idioma"
     }
   },
   "settings": {

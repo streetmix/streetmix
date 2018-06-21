@@ -58,9 +58,6 @@
       "send": "Enviar mensaje",
       "confirm": "Lo hemos recibido, gracias!",
       "error": "Disculpas, hubo un problema al enviar su retroalimentacion. Por favor intente despues"
-    },
-    "language": {
-      "heading": "Idioma"
     }
   },
   "settings": {

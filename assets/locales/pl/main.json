@@ -58,16 +58,13 @@
       "send": "Wyślij wiadomość",
       "confirm": "Mamy to. Dzięki!",
       "error": "Niestety, mieliśmy problem z wysłaniem tej wiadomości. Spróbuj ponownie później."
-    },
-    "language": {
-      "heading": "Język"
     }
   },
   "settings": {
     "units": {
-      "label": "",
-      "metric": "",
-      "imperial": ""
+      "label": "Jednostki",
+      "metric": "System metryczny (metry)",
+      "imperial": "System imperialny (stopy)"
     },
     "language": {
       "label": "Język"
@@ -141,8 +138,8 @@
     "welcome": {
       "heading": "Witaj w Streetmix.",
       "new": {
-        "intro": "Projektuj, zmieniaj i udostępniaj projekty ulic ze swojego sąsiedztwa. Sadź drzewa, dodawaj ścieżki rowerowe, poszerzaj chodniki lub jezdnie,. Zobacz, jak Twoje decyzje wpłyną na lokalną społeczność.",
-        "instruct": "Zacznij od poprzestawiania wybranych segmentów w projekcie {pointer}.",
+        "intro": "Projektuj, zmieniaj i udostępniaj projekty ulic ze swojego sąsiedztwa. Sadź drzewa, dodawaj ścieżki rowerowe, poszerzaj chodniki lub jezdnie. Zobacz, jak Twoje decyzje wpłyną na lokalną społeczność.",
+        "instruct": "Zacznij od poprzestawiania {pointer} wybranych segmentów .",
         "instruct-pointer-finger": "palcem",
         "instruct-pointer-mouse": "myszką"
       },
@@ -278,7 +275,7 @@
     "all": "Wszystkie ulice",
     "twitter-link": "Profil na Twitterze",
     "delete-street-tooltip": "Usuń ulicę",
-    "street-count": "{count, plural, one {# ulica} few {# ulic} many {# ulic} other {# ulic}}",
+    "street-count": "{count, plural, one {# ulica} few {# ulice} many {# ulic} other {# ulic}}",
     "no-streets": "Jak dotąd brak ulic",
     "sign-in": "Zaloguj się przez Twittera, by posiadać własną galerię ulic"
   },
