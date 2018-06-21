@@ -8,7 +8,7 @@ const DRAG_OFFSET_Y_PALETTE = -340 - 150
 class SegmentDragLayer extends React.Component {
   static propTypes = {
     isDragging: PropTypes.bool.isRequired,
-    currentOffset: PropTypes.number,
+    currentOffset: PropTypes.object,
     item: PropTypes.object
   }
 
@@ -36,21 +36,11 @@ class SegmentDragLayer extends React.Component {
   render () {
     const { isDragging, item } = this.props
 
-    const layerStyle = {
-      position: 'fixed',
-      pointerEvents: 'none',
-      zIndex: 200,
-      left: 0,
-      top: 0,
-      width: '100%',
-      height: '100%'
-    }
-
     if (!isDragging) return null
 
     return (
-      <div style={layerStyle}>
-        <div className="floating segment first-drag-move" style={this.getSegmentStyle()}>
+      <div className="segment-drag-layer">
+        <div className="floating segment" style={this.getSegmentStyle()}>
           <SegmentCanvas {...item} forPalette={false} />
         </div>
       </div>
