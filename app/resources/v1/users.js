@@ -100,7 +100,7 @@ exports.post = function (req, res) {
     // TODO - Check if the Id generated is not existing
     return nickname + '-' + random(0, 999)
   }
-  const handleEmailSignIn = async function (credentials) {
+  const handleAuth0SignIn = async function (credentials) {
     try {
       const user = await User.findOne({ auth0_id: credentials.auth0_id })
       loginToken = uuid.v1()
@@ -139,47 +139,7 @@ exports.post = function (req, res) {
       console.log(err)
       res.status(500).send('Error finding user with Auth0 ID.')
     }
-  } // END function - handleEmailSignIn
-  const handleFacebookSignIn = async function (credentials) {
-    try {
-      const user = await User.findOne({ auth0_id: credentials.auth0_id })
-      loginToken = uuid.v1()
-      if (!user) {
-        const numOfUser = await User.count({ id: credentials.nickname })
-        // Ensure there is no existing user with id same this nickname
-        if (numOfUser === 0) {
-          const u = new User({
-            id: credentials.nickname,
-            auth0_id: credentials.auth0_id,
-            email: credentials.email,
-            login_tokens: [ loginToken ],
-            profile_image_url: credentials.profile_image_url
-          })
-          u.save(handleCreateUser)
-        } else {
-          const id = generateId(credentials.nickname)
-          const u = new User({
-            id: id,
-            auth0_id: credentials.auth0_id,
-            login_tokens: [ loginToken ],
-            email: credentials.email,
-            profile_image_url: credentials.profile_image_url
-          })
-          u.save(handleCreateUser)
-        }
-      } else {
-        user.auth0_id = credentials.auth0_id
-        user.email = credentials.email
-        user.profile_image_url = credentials.profile_image_url
-        user.login_tokens.push(loginToken)
-        user.save(handleUpdateUser)
-      }
-    } catch (err) {
-      logger.error(err)
-      console.log(err)
-      res.status(500).send('Error finding user with Auth0 ID.')
-    }
-  } // END function - handleFacebookSignIn
+  } // END function - handleAuth0SignIn
 
   let body
   try {
@@ -195,9 +155,11 @@ exports.post = function (req, res) {
   } else if (body.hasOwnProperty('auth0_twitter')) {
     handleAuth0TwitterSignIn(body.auth0_twitter)
   } else if (body.hasOwnProperty('auth0_email')) {
-    handleEmailSignIn(body.auth0_email)
+    handleAuth0SignIn(body.auth0_email)
   } else if (body.hasOwnProperty('auth0_facebook')) {
-    handleFacebookSignIn(body.auth0_facebook)
+    handleAuth0SignIn(body.auth0_facebook)
+  } else if (body.hasOwnProperty('auth0_google')) {
+    handleAuth0SignIn(body.auth0_google)
   } else {
     res.status(400).send('Unknown sign-in method used.')
   }

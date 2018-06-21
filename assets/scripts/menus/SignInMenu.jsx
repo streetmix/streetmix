@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Menu from './Menu'
-import { goTwitterSignIn, goFacebookSignIn } from '../app/routing'
+import { goTwitterSignIn, goFacebookSignIn, goGoogleSignIn } from '../app/routing'
 import { showDialog } from '../store/actions/dialogs'
 
 export class SignInMenu extends React.Component {
@@ -20,6 +20,11 @@ export class SignInMenu extends React.Component {
   handleFacebookSignIn = (event) => {
     event.preventDefault()
     goFacebookSignIn()
+  }
+
+  handleGoogleSignIn = (event) => {
+    event.preventDefault()
+    goGoogleSignIn()
   }
 
   onClickEmailSignIn = (event) => {
@@ -56,6 +61,12 @@ export class SignInMenu extends React.Component {
             <use xlinkHref="#icon-facebook" />
           </svg>
           <FormattedMessage id="menu.signin.facebook" defaultMessage="Sign in with Facebook" />
+        </a>
+        <a href="#" onClick={this.handleGoogleSignIn}>
+          <svg className="icon">
+            <use xlinkHref="#icon-google" />
+          </svg>
+          <FormattedMessage id="menu.signin.google" defaultMessage="Sign in with Google" />
         </a>
       </Menu>
     )
