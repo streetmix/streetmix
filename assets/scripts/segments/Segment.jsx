@@ -130,9 +130,9 @@ class Segment extends React.Component {
 
   renderSegmentCanvas = (width, variantType) => {
     const isOldVariant = (variantType === 'old')
-    const { connectDragSource } = this.props
+    const { connectDragSource, connectDropTarget } = this.props
 
-    return connectDragSource(
+    return connectDragSource(connectDropTarget(
       <div className="segment-canvas-container">
         <SegmentCanvas
           width={width}
@@ -143,7 +143,7 @@ class Segment extends React.Component {
           ref={(isOldVariant) ? this.oldSegmentCanvas : this.newSegmentCanvas}
         />
       </div>
-    )
+    ))
   }
 
   /**
@@ -247,7 +247,7 @@ class Segment extends React.Component {
       classNames.push('dragged-out')
     }
 
-    return this.props.connectDropTarget(
+    return (
       <div
         style={segmentStyle}
         className={classNames.join(' ')}
