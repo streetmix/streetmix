@@ -4,6 +4,7 @@ import { DragLayer } from 'react-dnd'
 import SegmentCanvas from './SegmentCanvas'
 
 const DRAG_OFFSET_Y_PALETTE = -340 - 150
+const MAX_DRAG_DEGREE = 20
 
 class SegmentDragLayer extends React.Component {
   static propTypes = {
@@ -12,8 +13,30 @@ class SegmentDragLayer extends React.Component {
     item: PropTypes.object
   }
 
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      deltaX: 0,
+      mouseX: (props.currentOffset && props.currentOffset.x)
+    }
+  }
+
+  static getDerivedStateFromProps (nextProps, prevState) {
+    if (nextProps.currentOffset && nextProps.currentOffset.x !== prevState.mouseX) {
+      const { x } = nextProps.currentOffset
+      return {
+        mouseX: x,
+        deltaX: (prevState.mouseX) ? (x - prevState.mouseX) : 0
+      }
+    }
+
+    return null
+  }
+
   getSegmentStyle = () => {
     const { currentOffset, item } = this.props
+
     if (!currentOffset) {
       return {
         display: 'none'
@@ -26,7 +49,14 @@ class SegmentDragLayer extends React.Component {
       y += DRAG_OFFSET_Y_PALETTE
     }
 
-    const transform = `translate(${x}px, ${y}px)`
+    let deg = this.state.deltaX
+    if (deg > MAX_DRAG_DEGREE) {
+      deg = MAX_DRAG_DEGREE
+    } else if (deg < -MAX_DRAG_DEGREE) {
+      deg = -MAX_DRAG_DEGREE
+    }
+
+    const transform = `translate(${x}px, ${y}px) rotateZ(${deg}deg)`
     return {
       transform: transform,
       WebkitTransform: transform
