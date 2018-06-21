@@ -3,7 +3,17 @@ import request from 'supertest'
 import express from 'express'
 import feedback from '../feedback'
 
-jest.mock('sendgrid')
+jest.mock('@sendgrid/mail', function () {
+  return {
+    // Normally, sendgrid expects an API key. We are not testing
+    // authentication here, so the stub throws credentials away.
+    setApiKey: function () {},
+    send: function (data) {
+      return Promise.resolve()
+    }
+  }
+})
+
 jest.mock('../../../../lib/logger', () => function () {
   return {
     info: function () {},
