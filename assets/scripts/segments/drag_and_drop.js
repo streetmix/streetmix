@@ -791,6 +791,7 @@ function handleSegmentDragStart (segment, fromPalette) {
     document.querySelector('.palette-trashcan').classList.add('visible')
   }
 
+  document.body.classList.add('segment-move-dragging')
   infoBubble.hide()
   cancelFadeoutControls()
   hideControls()
@@ -825,6 +826,7 @@ export const segmentSource = {
 
   endDrag (props, monitor, component) {
     document.querySelector('.palette-trashcan').classList.remove('visible')
+    document.body.classList.remove('segment-move-dragging')
   }
 }
 
