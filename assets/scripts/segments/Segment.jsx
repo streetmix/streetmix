@@ -2,24 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import MeasurementText from '../ui/MeasurementText'
+import SegmentCanvas from './SegmentCanvas'
 import { CSSTransition } from 'react-transition-group'
 import { getSegmentVariantInfo, getSegmentInfo } from '../segments/info'
 import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, suppressMouseEnter, incrementSegmentWidth } from './resizing'
 import { TILE_SIZE } from './constants'
-import { drawSegmentContents, getVariantInfoDimensions } from './view'
 import { SETTINGS_UNITS_METRIC } from '../users/constants'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { KEYS } from '../app/keyboard_commands'
 import { trackEvent } from '../app/event_tracking'
 import { t } from '../locales/locale'
-
-const WIDTH_PALETTE_MULTIPLIER = 4 // Dupe from palette.js
-const SEGMENT_Y_NORMAL = 265
-const SEGMENT_Y_PALETTE = 20
-const CANVAS_HEIGHT = 480
-const CANVAS_GROUND = 35
-const CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND
 
 class Segment extends React.Component {
   static propTypes = {
@@ -29,7 +22,6 @@ class Segment extends React.Component {
     isUnmovable: PropTypes.bool.isRequired,
     width: PropTypes.number,
     forPalette: PropTypes.bool.isRequired,
-    dpi: PropTypes.number,
     cssTransform: PropTypes.string,
     units: PropTypes.number,
     segmentPos: PropTypes.number,
@@ -48,17 +40,16 @@ class Segment extends React.Component {
   constructor (props) {
     super(props)
 
+    this.oldSegmentCanvas = React.createRef()
+    this.newSegmentCanvas = React.createRef()
+
     this.state = {
-      oldSegmentEnter: true,
-      newSegmentEnter: false,
       switchSegments: false,
-      oldSegmentVariant: ''
+      oldVariant: props.variantString
     }
   }
 
   componentDidMount = () => {
-    this.drawSegment(this.props.variantString, false)
-
     if (!this.props.forPalette) {
       this.dragHandleLeft.segmentEl = this.streetSegment
       this.dragHandleRight.segmentEl = this.streetSegment
@@ -69,35 +60,28 @@ class Segment extends React.Component {
   componentDidUpdate (prevProps, prevState) {
     if (this.props.forPalette) return
 
-    this.drawSegment(this.props.variantString, false)
-
     if (prevProps.suppressMouseEnter && !this.props.suppressMouseEnter &&
         infoBubble.considerSegmentEl === this.streetSegment) {
       infoBubble.considerShowing(false, this.streetSegment, INFO_BUBBLE_TYPE_SEGMENT)
     }
 
-    if (prevProps.variantString !== this.props.variantString) {
+    if (prevProps.variantString && prevProps.variantString !== this.props.variantString) {
       this.switchSegments(prevProps.variantString)
     }
 
-    if (this.state.switchSegments && prevState.switchSegments !== this.state.switchSegments) {
-      this.drawSegment(this.state.oldSegmentVariant, true)
-      this.updateOldCanvasLeftPos(this.state.oldSegmentVariant)
-      this.props.updatePerspective(this.oldSegmentCanvas)
-      this.props.updatePerspective(this.segmentCanvas)
+    if (!prevState.switchSegments && this.state.switchSegments) {
+      this.props.updatePerspective(this.oldSegmentCanvas.firstChildElement)
+      this.props.updatePerspective(this.newSegmentCanvas.firstChildElement)
     }
 
     this.props.updateSegmentData(this.streetSegment, this.props.dataNo, this.props.segmentPos)
   }
 
-  drawSegment = (variantString, isOldSegment) => {
-    const multiplier = this.props.forPalette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1
-    const segmentWidth = this.props.width // may need to double check this. setSegmentContents() was called with other widths
-    const offsetTop = this.props.forPalette ? SEGMENT_Y_PALETTE : SEGMENT_Y_NORMAL
-    const canvas = (isOldSegment) ? this.oldSegmentCanvas : this.segmentCanvas
-    const ctx = canvas.getContext('2d')
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-    drawSegmentContents(ctx, this.props.type, variantString, segmentWidth, 0, offsetTop, this.props.randSeed, multiplier, this.props.forPalette)
+  switchSegments = (oldVariant) => {
+    this.setState({
+      switchSegments: !(this.state.switchSegments),
+      oldVariant: (this.state.switchSegments) ? this.props.variantString : oldVariant
+    })
   }
 
   calculateSegmentWidths = (resizeType) => {
@@ -124,6 +108,23 @@ class Segment extends React.Component {
     infoBubble.dontConsiderShowing()
   }
 
+  renderSegmentCanvas = (width, variantType) => {
+    const isOldVariant = (variantType === 'old')
+
+    return (
+      <div className="segment-canvas-container">
+        <SegmentCanvas
+          width={width}
+          type={this.props.type}
+          variantString={(isOldVariant) ? this.state.oldVariant : this.props.variantString}
+          forPalette={this.props.forPalette}
+          randSeed={this.props.randSeed}
+          ref={(isOldVariant) ? this.oldSegmentCanvas : this.newSegmentCanvas}
+        />
+      </div>
+    )
+  }
+
   handleKeyDown = (event) => {
     const negative = (event.keyCode === KEYS.MINUS) ||
       (event.keyCode === KEYS.MINUS_ALT) ||
@@ -141,57 +142,6 @@ class Segment extends React.Component {
     event.preventDefault()
 
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'KEYBOARD', null, true)
-  }
-
-  changeRefs = (ref, isOldSegment) => {
-    if (!this.state.switchSegments && !isOldSegment) return
-
-    if (this.state.switchSegments && isOldSegment) {
-      this.oldSegmentCanvas = ref
-    } else {
-      this.segmentCanvas = ref
-    }
-  }
-
-  switchSegments = (oldVariant) => {
-    this.setState({
-      switchSegments: !(this.state.switchSegments),
-      newSegmentEnter: !(this.state.newSegmentEnter),
-      oldSegmentEnter: !(this.state.oldSegmentEnter),
-      oldSegmentVariant: oldVariant
-    })
-  }
-
-  updateOldCanvasLeftPos = (oldVariant) => {
-    const variantInfo = getSegmentVariantInfo(this.props.type, oldVariant)
-    const dimensions = getVariantInfoDimensions(variantInfo, this.props.width, 1)
-    const canvasLeft = (dimensions.left * TILE_SIZE)
-
-    this.oldSegmentCanvas.style.left = canvasLeft + 'px'
-  }
-
-  renderSegmentCanvas = (width, variantInfo, segment) => {
-    const isOldSegment = (segment === 'old')
-    const canvasKey = (isOldSegment) ? this.state.oldSegmentVariant : this.props.variantString
-
-    const multiplier = this.props.forPalette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1
-    const dimensions = getVariantInfoDimensions(variantInfo, this.props.width, multiplier)
-    const totalWidth = dimensions.right - dimensions.left
-    // Canvas width and height must fit the div width in the palette to prevent extra right padding
-    const canvasWidth = this.props.forPalette ? width * this.props.dpi : totalWidth * TILE_SIZE * this.props.dpi
-    const canvasHeight = CANVAS_BASELINE * this.props.dpi
-    const canvasStyle = {
-      width: this.props.forPalette ? width : totalWidth * TILE_SIZE,
-      height: CANVAS_BASELINE,
-      left: (dimensions.left * TILE_SIZE * multiplier)
-    }
-
-    return (
-      <div key={canvasKey}>
-        <canvas className="image" ref={(ref) => { this.changeRefs(ref, isOldSegment) }} width={canvasWidth} height={canvasHeight} style={canvasStyle} />
-        <div className="hover-bk" />
-      </div>
-    )
   }
 
   render () {
@@ -247,29 +197,28 @@ class Segment extends React.Component {
             <span className={'grid' + (this.props.units === SETTINGS_UNITS_METRIC ? ' units-metric' : ' units-imperial')} />
           </React.Fragment>
         }
-        <React.Fragment>
+        <CSSTransition
+          key="old-variant"
+          in={!this.state.switchSegments}
+          classNames="switching-away"
+          timeout={250}
+          onExited={this.switchSegments}
+          unmountOnExit
+        >
+          {this.renderSegmentCanvas(width, 'old')}
+        </CSSTransition>
+        { !this.props.forPalette &&
           <CSSTransition
-            key="old-segment"
-            in={this.state.oldSegmentEnter}
+            key="new-variant"
+            in={this.state.switchSegments}
+            classNames="switching-in"
             timeout={250}
-            classNames="switching-away"
             unmountOnExit
           >
-            {this.renderSegmentCanvas(width, variantInfo, 'old')}
+            {this.renderSegmentCanvas(width, 'new')}
           </CSSTransition>
-          {!this.props.forPalette &&
-            <CSSTransition
-              key="new-segment"
-              in={this.state.newSegmentEnter}
-              timeout={250}
-              classNames="switching-in"
-              onEntered={this.switchSegments}
-              unmountOnExit
-            >
-              {this.renderSegmentCanvas(width, variantInfo, 'new')}
-            </CSSTransition>
-          }
-        </React.Fragment>
+        }
+        <div className="hover-bk" />
       </div>
     )
   }
@@ -277,10 +226,8 @@ class Segment extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    dpi: state.system.hiDpi,
     cssTransform: state.system.cssTransform,
-    locale: state.locale.locale,
-    redrawCanvas: state.flags.DEBUG_SEGMENT_CANVAS_RECTANGLES.value
+    locale: state.locale.locale
   }
 }
 
