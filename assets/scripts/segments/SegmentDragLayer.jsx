@@ -18,16 +18,19 @@ class SegmentDragLayer extends React.Component {
 
     this.state = {
       deltaX: 0,
-      mouseX: (props.currentOffset && props.currentOffset.x)
+      mouseX: (props.currentOffset && props.currentOffset.x),
+      draggedItem: (props.item && props.item.dataNo)
     }
   }
 
   static getDerivedStateFromProps (nextProps, prevState) {
     if (nextProps.currentOffset && nextProps.currentOffset.x !== prevState.mouseX) {
       const { x } = nextProps.currentOffset
+
       return {
         mouseX: x,
-        deltaX: (prevState.mouseX) ? (x - prevState.mouseX) : 0
+        deltaX: (prevState.mouseX && prevState.dataNo === nextProps.dataNo) ? (x - prevState.mouseX) : 0,
+        draggedItem: (nextProps.item && nextProps.item.dataNo)
       }
     }
 
