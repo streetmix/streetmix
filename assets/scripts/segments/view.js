@@ -6,7 +6,7 @@ import { recalculateWidth } from '../streets/width'
 import { draggingMove } from './drag_and_drop'
 import { getSegmentInfo, getSegmentVariantInfo, getSpriteDef } from './info'
 import { drawProgrammaticPeople } from './people'
-import { TILE_SIZE, TILESET_POINT_PER_PIXEL } from './constants'
+import { TILE_SIZE, TILESET_POINT_PER_PIXEL, WIDTH_PALETTE_MULTIPLIER } from './constants'
 import { applyWarningsToSegments } from './resizing'
 import store from '../store'
 
@@ -264,8 +264,6 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
 export function setSegmentContents (el, type, variantString, segmentWidth, randSeed, palette, quickUpdate) {
   let canvasEl
   const variantInfo = getSegmentVariantInfo(type, variantString)
-
-  var WIDTH_PALETTE_MULTIPLIER = 4 // Dupe from palette.js
 
   var multiplier = palette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1
   var dimensions = getVariantInfoDimensions(variantInfo, segmentWidth, multiplier)

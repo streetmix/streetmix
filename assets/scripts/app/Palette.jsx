@@ -1,16 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
-import Scrollable from '../ui/Scrollable'
 import { connect } from 'react-redux'
-import { generateRandSeed } from '../util/random'
-import { getAllSegmentInfo } from '../segments/info'
-import { TILE_SIZE } from '../segments/constants'
-import { getVariantInfoDimensions } from '../segments/view'
+import Scrollable from '../ui/Scrollable'
 import Segment from '../segments/Segment'
 import UndoRedo from './UndoRedo'
+import { TILE_SIZE, WIDTH_PALETTE_MULTIPLIER } from '../segments/constants'
+import { getAllSegmentInfo } from '../segments/info'
+import { getVariantInfoDimensions } from '../segments/view'
+import { generateRandSeed } from '../util/random'
 
-const WIDTH_PALETTE_MULTIPLIER = 4
 const PALETTE_EXTRA_SEGMENT_PADDING = 8
 
 class Palette extends React.Component {
