@@ -840,7 +840,6 @@ export function collectDragSource (connect, monitor) {
 
 export const segmentTarget = {
   hover (props, monitor, component) {
-
     // makeSpaceBetweenSegments
   }
 }
@@ -848,6 +847,8 @@ export const segmentTarget = {
 export const paletteTarget = {
   drop (props, monitor, component) {
     const draggedItem = monitor.getItem()
+
+    // Existing segment dragged to palette trashcan
     if (!draggedItem.forPalette) {
       store.dispatch(removeSegment(Number.parseInt(draggedItem.dataNo, 10)))
       segmentsChanged(false)
@@ -867,6 +868,7 @@ export const canvasTarget = {
       randSeed: draggedItem.randSeed
     }
 
+    // New segment from palette dragged to empty street
     if (draggedItem.forPalette && segments.length === 0) {
       store.dispatch(addSegment(0, newSegment))
       cancelSegmentResizeTransitions()
