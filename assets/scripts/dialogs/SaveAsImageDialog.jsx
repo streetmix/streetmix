@@ -42,14 +42,6 @@ export class SaveAsImageDialog extends React.Component {
     }
   }
 
-  static getDerivedStateFromProps (nextProps, prevState) {
-    if (prevState.isLoading === false) {
-      return { isLoading: true }
-    }
-
-    return null
-  }
-
   componentDidMount () {
     trackEvent('Sharing', 'Save as image', null, null, false)
 
@@ -70,14 +62,17 @@ export class SaveAsImageDialog extends React.Component {
   // When options change, this changes props.
   onChangeOptionTransparentSky = (event) => {
     this.props.setSettings({ saveAsImageTransparentSky: event.target.checked })
+    this.setState({ isLoading: true })
   }
 
   onChangeOptionSegmentNames = (event) => {
     this.props.setSettings({ saveAsImageSegmentNamesAndWidths: event.target.checked })
+    this.setState({ isLoading: true })
   }
 
   onChangeOptionStreetName = (event) => {
     this.props.setSettings({ saveAsImageStreetName: event.target.checked })
+    this.setState({ isLoading: true })
   }
 
   onPreviewLoaded = () => {
@@ -224,36 +219,31 @@ export class SaveAsImageDialog extends React.Component {
             <FormattedMessage id="dialogs.save.option-sky" defaultMessage="Transparent sky" />
           </label>
         </p>
-        {(() => {
-          if (this.state.errorMessage) {
-            return (
-              <div className="save-as-image-preview">
-                <div className="save-as-image-preview-loading">
-                  {this.state.errorMessage}
-                </div>
+        <div className="save-as-image-preview">
+          {!this.state.errorMessage && (
+            <React.Fragment>
+              <div className="save-as-image-preview-loading" style={{display: this.state.isLoading ? 'block' : 'none'}}>
+                <FormattedMessage id="dialogs.save.loading" defaultMessage="Loading…" />
               </div>
-            )
-          } else {
-            return (
-              <div className="save-as-image-preview">
-                <div className="save-as-image-preview-loading" style={{display: this.state.isLoading ? 'block' : 'none'}}>
-                  <FormattedMessage id="dialogs.save.loading" defaultMessage="Loading…" />
-                </div>
-                <div className="save-as-image-preview-image" style={{display: this.state.isLoading ? 'none' : 'block'}}>
-                  <img
-                    src={this.state.download.dataUrl}
-                    onLoad={this.onPreviewLoaded}
-                    onError={this.onPreviewError}
-                    alt={this.props.intl.formatMessage({
-                      id: 'dialogs.save.preview-image-alt',
-                      defaultMessage: 'Preview'
-                    })}
-                  />
-                </div>
+              <div className="save-as-image-preview-image" style={{display: this.state.isLoading ? 'none' : 'block'}}>
+                <img
+                  src={this.state.download.dataUrl}
+                  onLoad={this.onPreviewLoaded}
+                  onError={this.onPreviewError}
+                  alt={this.props.intl.formatMessage({
+                    id: 'dialogs.save.preview-image-alt',
+                    defaultMessage: 'Preview'
+                  })}
+                />
               </div>
-            )
-          }
-        })()}
+            </React.Fragment>
+          )}
+          {this.state.errorMessage && (
+            <div className="save-as-image-preview-loading">
+              {this.state.errorMessage}
+            </div>
+          )}
+        </div>
         <p>
           <a
             className="button-like"
