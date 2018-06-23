@@ -161,9 +161,7 @@ export const infoBubble = {
     }
     store.dispatch(setInfoBubbleSegmentDataNo(dataNo))
 
-    if (!isInfoBubbleVisible()) {
-      store.dispatch(showInfoBubble())
-    }
+    store.dispatch(showInfoBubble())
   }
 }
 
