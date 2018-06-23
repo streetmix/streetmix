@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { FormattedMessage } from 'react-intl'
 import { undo, redo } from '../store/actions/undo'
 import { isUndoAvailable, isRedoAvailable } from '../streets/undo_stack'
@@ -57,10 +58,7 @@ function mapStateToProps (state) {
 }
 
 function mapDispatchToProps (dispatch) {
-  return {
-    undo: () => dispatch(undo()),
-    redo: () => dispatch(redo())
-  }
+  return bindActionCreators({ undo, redo }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UndoRedo)
