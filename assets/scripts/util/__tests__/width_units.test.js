@@ -272,8 +272,30 @@ describe('processWidthInput()', () => {
     expect(input2).toEqual(10)
   })
 
+  it('parses a value with a space between it and the meters unit (3 m)', () => {
+    const value = '3 m'
+
+    const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
+    expect(input1).toEqual(10)
+
+    // Even in imperial mode, the `m` causes the value to be interpreted as metric units
+    const input2 = processWidthInput(value, SETTINGS_UNITS_IMPERIAL)
+    expect(input2).toEqual(10)
+  })
+
   it('parses a decimal value with meters unit (3.0m)', () => {
     const value = '3.0m'
+
+    const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
+    expect(input1).toEqual(10)
+
+    // Even in imperial mode, the `m` causes the value to be interpreted as metric units
+    const input2 = processWidthInput(value, SETTINGS_UNITS_IMPERIAL)
+    expect(input2).toEqual(10)
+  })
+
+  it('parses a decimal value with a space between it and the meters unit (3.0 m)', () => {
+    const value = '3.0 m'
 
     const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
     expect(input1).toEqual(10)

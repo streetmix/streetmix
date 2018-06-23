@@ -8,10 +8,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { IntlProvider } from 'react-intl'
+import StreetEditable from './StreetEditable'
 import SkyBackground from './SkyBackground'
 import ScrollIndicators from './ScrollIndicators'
 import Building from '../segments/Building'
-import EmptySegment from '../segments/EmptySegment'
+import EmptySegmentContainer from '../segments/EmptySegmentContainer'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { animate, getElAbsolutePos } from '../util/helpers'
 import { MAX_CUSTOM_STREET_WIDTH } from '../streets/width'
@@ -22,7 +24,8 @@ import { app } from '../preinit/app_settings'
 class StreetView extends React.Component {
   static propTypes = {
     street: PropTypes.object.isRequired,
-    system: PropTypes.object.isRequired
+    system: PropTypes.object.isRequired,
+    locale: PropTypes.object.isRequired
   }
 
   constructor (props) {
@@ -38,12 +41,9 @@ class StreetView extends React.Component {
       scrollTop: 0,
       skyTop: 0,
 
+      onResized: false,
       buildingWidth: 0
     }
-  }
-
-  componentDidMount () {
-    this.getBuildingWidth()
   }
 
   componentDidUpdate (prevProps) {
@@ -52,7 +52,6 @@ class StreetView extends React.Component {
         prevProps.system.viewportHeight !== viewportHeight ||
         prevProps.street.width !== this.props.street.width) {
       this.onResize()
-      this.getBuildingWidth()
       this.calculateStreetIndicatorsPositions()
     }
   }
@@ -87,7 +86,6 @@ class StreetView extends React.Component {
     }
 
     this.streetSectionCanvas.style.left = streetSectionCanvasLeft + 'px'
-    this.streetSectionEditable.style.width = (this.props.street.width * TILE_SIZE) + 'px'
     this.streetSectionInner.style.top = streetSectionTop + 'px'
 
     this.setState({
@@ -137,7 +135,8 @@ class StreetView extends React.Component {
 
     this.setState({
       posLeft: posLeft,
-      posRight: posRight
+      posRight: posRight,
+      onResized: true
     })
   }
 
@@ -162,8 +161,7 @@ class StreetView extends React.Component {
     animate(el, { scrollLeft: newScrollLeft }, 300)
   }
 
-  getBuildingWidth = () => {
-    const el = this.streetSectionEditable
+  setBuildingWidth = (el) => {
     const pos = getElAbsolutePos(el)
 
     let width = pos[0] + 25
@@ -172,13 +170,17 @@ class StreetView extends React.Component {
     }
 
     this.setState({
-      buildingWidth: width
+      buildingWidth: width,
+      onResized: false
     })
   }
 
-  calculateBuildingPerspective = (el) => {
+  updatePerspective = (el) => {
+    if (!el) return
+
     const pos = getElAbsolutePos(el)
-    const perspective = -(pos[0] - this.streetSectionOuter.scrollLeft - (this.props.system.viewportWidth / 2))
+    const scrollPos = (this.streetSectionOuter && this.streetSectionOuter.scrollLeft) || this.state.scrollPos
+    const perspective = -(pos[0] - scrollPos - (this.props.system.viewportWidth / 2))
 
     el.style.webkitPerspectiveOrigin = (perspective / 2) + 'px 50%'
     el.style.MozPerspectiveOrigin = (perspective / 2) + 'px 50%'
@@ -203,16 +205,25 @@ class StreetView extends React.Component {
               <Building
                 position="left"
                 buildingWidth={this.state.buildingWidth}
-                calculateBuildingPerspective={this.calculateBuildingPerspective}
+                updatePerspective={this.updatePerspective}
               />
               <Building
                 position="right"
                 buildingWidth={this.state.buildingWidth}
-                calculateBuildingPerspective={this.calculateBuildingPerspective}
+                updatePerspective={this.updatePerspective}
               />
-              <div id="street-section-editable" ref={(ref) => { this.streetSectionEditable = ref }} />
-              <EmptySegment position="left" />
-              <EmptySegment position="right" />
+              <StreetEditable
+                onResized={this.state.onResized}
+                setBuildingWidth={this.setBuildingWidth}
+                updatePerspective={this.updatePerspective}
+              />
+              <IntlProvider
+                locale={this.props.locale.locale}
+                key={this.props.locale.locale}
+                messages={this.props.locale.messages}
+              >
+                <EmptySegmentContainer />
+              </IntlProvider>
               <section id="street-section-dirt" style={dirtStyle} />
             </section>
           </section>
@@ -237,7 +248,8 @@ class StreetView extends React.Component {
 function mapStateToProps (state) {
   return {
     street: state.street,
-    system: state.system
+    system: state.system,
+    locale: state.locale
   }
 }
 

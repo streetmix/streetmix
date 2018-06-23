@@ -1,28 +1,41 @@
 /* eslint-env jest */
 import React from 'react'
-import { shallow, mount } from 'enzyme'
+import { shallow } from 'enzyme'
+import { mountWithIntl } from '../../../../test/helpers/intl-enzyme-test-helper.js'
 import { EmptySegment } from '../EmptySegment'
+import { TILE_SIZE } from '../../segments/constants'
+import { SETTINGS_UNITS_METRIC, SETTINGS_UNITS_IMPERIAL } from '../../users/constants'
 
 describe('EmptySegment', () => {
-  it('renders without crashing with text', () => {
-    const wrapper = shallow(<EmptySegment />)
-    expect(wrapper.exists()).toEqual(true)
-    expect(wrapper.text()).toEqual('Empty space<MeasurementText />')
+  it('renders nothing when the width is 0', () => {
+    const wrapper = shallow(<EmptySegment width={0} />)
+    expect(wrapper.html()).toEqual(null)
   })
 
-  it('is half of remaining street width', () => {
-    const wrapper = mount(<EmptySegment occupiedWidth={1} remainingWidth={50} position={'left'} />)
-    expect(wrapper.find('div').getDOMNode().style.width).toEqual('300px')
+  it('renders a width, and at left position 0 by default', () => {
+    const wrapper = shallow(<EmptySegment width={12.5} units={SETTINGS_UNITS_METRIC} locale="en" />)
+    expect(wrapper.find('div').props().style.width).toEqual(`${12.5 * TILE_SIZE}px`)
+    expect(wrapper.find('div').props().style.left).toEqual('0px')
   })
 
-  it('is full street width (on the left) if street is empty', () => {
-    const wrapper = mount(<EmptySegment occupiedWidth={0} remainingWidth={50} position={'left'} />)
-    expect(wrapper.find('div').getDOMNode().style.width).toEqual('600px')
+  it('renders at width and left position given', () => {
+    const wrapper = shallow(<EmptySegment width={15} left={33} units={SETTINGS_UNITS_METRIC} locale="en" />)
+    expect(wrapper.find('div').props().style.width).toEqual(`${15 * TILE_SIZE}px`)
+    expect(wrapper.find('div').props().style.left).toEqual(`${33 * TILE_SIZE}px`)
   })
 
-  it('is not displayed (on the right) if street is empty', () => {
-    const wrapper = mount(<EmptySegment occupiedWidth={0} remainingWidth={50} position={'right'} />)
-    expect(wrapper.find('div').getDOMNode().style.width).toEqual('0px')
-    expect(wrapper.find('div').getDOMNode().style.display).toEqual('none')
+  it('renders correct grid styling in metric', () => {
+    const wrapper = shallow(<EmptySegment width={1} units={SETTINGS_UNITS_METRIC} locale="en" />)
+    expect(wrapper.find('.units-metric').length).toEqual(1)
+  })
+
+  it('renders correct grid styling in imperial', () => {
+    const wrapper = shallow(<EmptySegment width={1} units={SETTINGS_UNITS_IMPERIAL} locale="en" />)
+    expect(wrapper.find('.units-imperial').length).toEqual(1)
+  })
+
+  it('renders text content', () => {
+    const wrapper = mountWithIntl(<EmptySegment width={15} units={SETTINGS_UNITS_METRIC} locale="en" />)
+    expect(wrapper.text()).toEqual('Empty space4.5 m')
   })
 })

@@ -1,72 +1,84 @@
 [
   {
-    "label": "Arabic",
+    "label": "لغة عربية",
+    "name": "Arabic",
     "value": "ar",
     "key": "i18n.lang.ar",
     "level": 2
   },
   {
-    "label": "Chinese (Traditional)",
+    "label": "中文",
+    "name": "Chinese (Traditional)",
     "value": "zh-Hant",
     "key": "i18n.lang.zh-hant",
-    "level": 1
+    "level": 2
   },
   {
     "label": "English",
+    "name": "English",
     "value": "en",
     "key": "i18n.lang.en",
     "level": 4
   },
   {
-    "label": "Finnish",
+    "label": "Suomi",
+    "name": "Finnish",
     "value": "fi",
     "key": "i18n.lang.fi",
     "level": 2
   },
   {
-    "label": "French",
+    "label": "Français",
+    "name": "French",
     "value": "fr",
     "key": "i18n.lang.fr",
     "level": 3
   },
   {
-    "label": "German",
+    "label": "Deutsch",
+    "name": "German",
     "value": "de",
     "key": "i18n.lang.de",
     "level": 1
   },
   {
-    "label": "Japanese",
+    "label": "日本語",
+    "name": "Japanese",
     "value": "ja",
     "key": "i18n.lang.ja",
     "level": 3
   },
   {
-    "label": "Polish",
+    "label": "Polski",
+    "name": "Polish",
     "value": "pl",
     "key": "i18n.lang.pl",
     "level": 2
   },
   {
-    "label": "Portuguese (Brazil)",
+    "label": "Português (Brasil)",
+    "name": "Portuguese (Brazil)",
     "value": "pt-BR",
     "key": "i18n.lang.pt-br",
-    "level": 1
+    "level": 2
   },
   {
-    "label": "Spanish",
+    "label": "Español",
+    "name": "Spanish",
     "value": "es",
     "key": "i18n.lang.es",
     "level": 1
   },
   {
-    "label": "Spanish (Mexico)",
+    "label": "Español (México)",
+    "name": "Spanish (Mexico)",
     "value": "es-MX",
     "key": "i18n.lang.es-mx",
     "level": 3
   },
   {
-    "label": "Swedish",
+    "label": "Svenska",
+    "name": "Swedish",
     "value": "sv",
     "key": "i18n.lang.sv",
     "level": 1

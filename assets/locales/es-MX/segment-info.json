@@ -17,12 +17,12 @@
     "parking-lane": "Línea de estacionamiento",
     "perpendicular-parking": "Estacionamiento perpendicular",
     "angled-parking": "Estacionamiento en ángulo",
-    "flex-zone": "",
-    "taxi-pick-up": "",
-    "rideshare-pick-up": "",
-    "bikeshare-station": "",
-    "foodtruck": "",
-    "flex-zone-curb": "",
+    "flex-zone": "Zona flexible",
+    "taxi-pick-up": "Zona de recogida y entrega para taxis",
+    "rideshare-pick-up": "Zona de recogida y entrega para vehículos compartidos",
+    "bikeshare-station": "Cicloestación",
+    "foodtruck": "Camión de comida",
+    "flex-zone-curb": "Zona de espera",
     "drive-lane": "Línea de conducir",
     "sharrow": "Biciflecha",
     "turn-lane": "Carril de giro",
@@ -191,6 +191,10 @@
     "building|wide": "Edificio ancho",
     "wayfinding-type|large": "Grande",
     "wayfinding-type|medium": "Mediano",
-    "wayfinding-type|small": "Pequeño"
+    "wayfinding-type|small": "Pequeño",
+    "waiting-area|sparse": "Alguien",
+    "waiting-area|empty": "Nadie",
+    "flex-type|rideshare": "Vehículos compartidos",
+    "flex-type|taxi": "Taxi"
   }
 }

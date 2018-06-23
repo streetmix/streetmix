@@ -28,8 +28,8 @@ module.exports = {
   },
   auth0: {
     use_auth0: true,
-    domain: process.env.AUTH0_DOMAIN,
-    client_id: process.env.AUTH0_CLIENT_ID,
+    domain: 'streetmix.auth0.com',
+    client_id: process.env.AUTH0_CLIENT_ID || null,
     client_secret: process.env.AUTH0_CLIENT_SECRET,
     token_api_url: 'https://streetmix.auth0.com/oauth/token',
     audience: 'https://streetmix.auth0.com/api/v2/',
@@ -51,19 +51,24 @@ module.exports = {
   },
   email: {
     sendgrid: {
-      username: process.env.SENDGRID_USERNAME,
-      password: process.env.SENDGRID_PASSWORD
+      api_key: process.env.SENGRID_API_KEY
     },
     feedback_recipient: process.env.EMAIL_FEEDBACK_RECIPIENT || 'hello@streetmix.net',
     feedback_subject: 'Streetmix feedback',
     feedback_sender_default: 'noreply@streetmix.net'
   },
   log_level: 'debug',
-  no_internet_mode: process.env.NO_INTERNET_MODE || false,
+  no_internet_mode: false,
   l10n: {
     transifex: {
       api_token: process.env.TRANSIFEX_API_TOKEN
     },
     use_local: false
+  },
+  geocode: {
+    pelias: {
+      host: 'api.geocode.earth',
+      api_key: process.env.PELIAS_API_KEY || null
+    }
   }
 }

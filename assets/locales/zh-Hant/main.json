@@ -20,6 +20,8 @@
       "change": ""
     },
     "share": {
+      "sign-in-twitter-link": "登錄",
+      "sign-in-link": "",
       "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>登錄推特</a>，會有連到你的街和你各自的街廊的連接",
       "link": "複製和粘貼這個連接來分享：",
       "twitter": "用推特來分享",
@@ -56,9 +58,16 @@
       "send": "",
       "confirm": "",
       "error": ""
+    }
+  },
+  "settings": {
+    "units": {
+      "label": "",
+      "metric": "",
+      "imperial": ""
     },
     "language": {
-      "heading": ""
+      "label": ""
     }
   },
   "msg": {
@@ -77,7 +86,7 @@
       "home": "",
       "sign-in": "",
       "reload": "",
-      "try-again": "",
+      "try-again": "再嘗試",
       "view-example": ""
     },
     "page-not-found-title": "",
@@ -105,34 +114,34 @@
     "unsupported-browser-contact-us": "",
     "cannot-create-new-street-on-phone-title": "",
     "cannot-create-new-street-on-phone-description": "",
-    "generic-error-title": "",
-    "generic-error-description": "",
+    "generic-error-title": "出現問題",
+    "generic-error-description": "很抱歉，出現技術故障。",
     "error-code": ""
   },
   "btn": {
     "reload": "",
     "undo": "解開",
     "redo": "重做",
-    "try-again": "",
-    "cancel": "",
+    "try-again": "再嘗試",
+    "cancel": "取消",
     "create": "新的一條街",
-    "copy": "",
+    "copy": "複製",
     "remove": "去掉",
-    "close": "",
-    "dismiss": ""
+    "close": "關閉",
+    "dismiss": "不用了"
   },
   "dialogs": {
     "error": {
-      "heading": "",
+      "heading": "啊！",
       "text": ""
     },
     "welcome": {
-      "heading": "",
+      "heading": "歡迎來到 Streetmix",
       "new": {
         "intro": "",
         "instruct": "",
-        "instruct-pointer-finger": "",
-        "instruct-pointer-mouse": ""
+        "instruct-pointer-finger": "你的手指",
+        "instruct-pointer-mouse": "你的滑鼠"
       },
       "existing": {
         "intro": "",
@@ -152,10 +161,10 @@
       "description": "",
       "thanks": "",
       "credits": "",
-      "team-heading": "",
-      "view-source": "",
-      "sponsored-by": "",
-      "donate-link": "",
+      "team-heading": "策劃團隊及維修技術員",
+      "view-source": "查看源代碼",
+      "sponsored-by": "Streetmix 由 X Company 慷慨贊助。",
+      "donate-link": "經濟上支持",
       "github-link": ""
     },
     "save": {
@@ -166,26 +175,26 @@
       "loading": "",
       "save-button": "",
       "license": "",
-      "error-preview": "",
-      "error-unavailable": "",
+      "error-preview": "顯示預覽圖時出現了問題。",
+      "error-unavailable": "此瀏覽器不支援收藏圖片功能。",
       "preview-image-alt": ""
     },
     "geotag": {
       "search": "",
       "clear-search": "",
-      "zoom-in": "",
-      "zoom-out": "",
+      "zoom-in": "放大",
+      "zoom-out": "縮細",
       "add-location": "",
       "confirm-location": "",
       "clear-location": "",
       "unknown-location": ""
     },
     "donate": {
-      "heading": "",
+      "heading": "Streetmix 需要你的幫助！",
       "lede": "",
       "text": "",
-      "button": "",
-      "cancel": ""
+      "button": "贊助 Streetmix",
+      "cancel": "不用了，多謝"
     }
   },
   "prompt": {
@@ -196,12 +205,12 @@
   "toast": {
     "segment-deleted": "",
     "all-segments-deleted": "",
-    "no-undo": "",
-    "no-redo": "",
-    "no-save": "",
+    "no-undo": "不須修改",
+    "no-redo": "不須重複再做",
+    "no-save": "不須按儲存，Streetmix 會自動幫你儲存你的道路！",
     "remixing": "",
     "remixing-sign-in": "",
-    "reloaded": ""
+    "reloaded": "因該道路在其他地方曾經作出更改，你設計的道路已被更新。"
   },
   "palette": {
     "remove": "拉到這裡來除掉"
@@ -217,18 +226,18 @@
     "imperial": "轉換成英制單位（英尺）"
   },
   "datetime": {
-    "minutes-ago": "",
-    "seconds-ago": "",
-    "yesterday": "",
-    "today": ""
+    "minutes-ago": "幾分鍾前",
+    "seconds-ago": "幾秒前",
+    "yesterday": "昨天在{time}",
+    "today": "今天在{time}"
   },
   "key": {
     "backspace": "退位鍵",
-    "shift": ""
+    "shift": "換檔鍵"
   },
   "tooltip": {
     "remove-segment": "去掉",
-    "delete-street": "",
+    "delete-street": "刪除道路",
     "segment-width": "",
     "building-height": "",
     "street-width": "",
@@ -239,7 +248,7 @@
   },
   "street": {
     "default-name": "沒名街",
-    "rename": ""
+    "rename": "點擊此處更改名字"
   },
   "building": {
     "floors-count": "{count, plural, other {}}"
@@ -250,7 +259,7 @@
       "not-wide": "這部分有可能不夠寬。",
       "too-wide": " 這個部分有可能太寬了。"
     },
-    "learn-more": "",
+    "learn-more": "更多資訊",
     "unknown": {
       "label": ""
     },
@@ -263,15 +272,15 @@
   },
   "gallery": {
     "fail": "",
-    "all": "",
-    "twitter-link": "",
-    "delete-street-tooltip": "",
+    "all": "全部道路",
+    "twitter-link": "Twitter 個人檔案",
+    "delete-street-tooltip": "刪除道路",
     "street-count": "{count, plural, other {}}",
-    "no-streets": "",
-    "sign-in": ""
+    "no-streets": "暫時沒有道路",
+    "sign-in": "登入Twitter 帳戶查看你的個人道路收藏集"
   },
   "users": {
-    "anonymous": "",
+    "anonymous": "匿名",
     "byline": ""
   },
   "meta": {
@@ -280,17 +289,17 @@
   },
   "i18n": {
     "lang": {
-      "ar": "",
-      "de": "",
-      "en": "",
-      "es": "",
-      "es-mx": "",
-      "fi": "",
-      "fr": "",
-      "ja": "",
-      "pl": "",
-      "pt-br": "",
-      "sv": "",
+      "ar": "阿拉伯文",
+      "de": "德文",
+      "en": "英文",
+      "es": "西班牙文",
+      "es-mx": "西班牙文 (墨西哥)",
+      "fi": "芬蘭語",
+      "fr": "法文",
+      "ja": "日文",
+      "pl": "波蘭語",
+      "pt-br": "葡文 (巴西)",
+      "sv": "瑞典語",
       "zh-hant": "中文"
     }
   }

@@ -8,17 +8,15 @@ import {
   SEGMENT_WARNING_WIDTH_TOO_SMALL,
   SEGMENT_WARNING_WIDTH_TOO_LARGE
 } from '../streets/width'
-import { prettifyWidth } from '../util/width_units'
 import {
   DRAGGING_TYPE_NONE,
   draggingResize,
   changeDraggingType,
   removeGuides
 } from './drag_and_drop'
-import { TILE_SIZE } from './constants'
-import { setSegmentContents, segmentsChanged } from './view'
+import { segmentsChanged } from './view'
 import store from '../store'
-import { updateSegments } from '../store/actions/street'
+import { updateSegments, changeSegmentWidth } from '../store/actions/street'
 
 export const SHORT_DELAY = 100
 
@@ -36,59 +34,22 @@ const TOUCH_CONTROLS_FADEOUT_DELAY = 3000
 
 const NORMALIZE_PRECISION = 5
 
-let _segmentWidthResolution
-
-export function getSegmentWidthResolution () {
-  return _segmentWidthResolution
-}
-
-export function setSegmentWidthResolution (value) {
-  _segmentWidthResolution = value
-}
-
-let _segmentWidthClickIncrement
-
-export function setSegmentWidthClickIncrement (value) {
-  _segmentWidthClickIncrement = value
-}
-
-let _segmentWidthDraggingResolution
-
-export function setSegmentWidthDraggingResolution (value) {
-  _segmentWidthDraggingResolution = value
-}
-
 let _suppressMouseEnter = false
 
 export function suppressMouseEnter () {
   return _suppressMouseEnter
 }
 
-export function resizeSegment (el, resizeType, width, updateEdit, palette, initial) {
+export function resizeSegment (dataNo, resizeType, width, updateEdit, palette, initial) {
   if (!palette) {
     width = normalizeSegmentWidth(width, resizeType)
   }
 
-  document.body.classList.add('immediate-segment-resize')
-
-  window.setTimeout(function () {
-    document.body.classList.remove('immediate-segment-resize')
-  }, SHORT_DELAY)
-
-  el.style.width = (width * TILE_SIZE) + 'px'
-
-  el.setAttribute('data-width', width)
-
-  var widthEl = el.querySelector('span.width')
-  if (widthEl) {
-    widthEl.innerHTML = prettifyWidth(width, store.getState().street.units, { markup: true })
-  }
-
-  setSegmentContents(el, el.getAttribute('type'),
-    el.getAttribute('variant-string'), width * TILE_SIZE, parseInt(el.getAttribute('rand-seed')), palette, false)
+  cancelSegmentResizeTransitions()
+  store.dispatch(changeSegmentWidth(dataNo, width))
 
   if (!initial) {
-    segmentsChanged()
+    segmentsChanged(false)
   }
 
   return width
@@ -103,7 +64,7 @@ export function handleSegmentResizeCancel () {
 export function handleSegmentResizeEnd (event) {
   setIgnoreStreetChanges(false)
 
-  segmentsChanged()
+  segmentsChanged(false)
 
   changeDraggingType(DRAGGING_TYPE_NONE)
 
@@ -142,6 +103,7 @@ export function normalizeAllSegmentWidths () {
 }
 
 export function normalizeSegmentWidth (width, resizeType) {
+  const { unitSettings } = store.getState().ui
   let resolution
   if (width < MIN_SEGMENT_WIDTH) {
     width = MIN_SEGMENT_WIDTH
@@ -154,10 +116,10 @@ export function normalizeSegmentWidth (width, resizeType) {
     case RESIZE_TYPE_TYPING:
     case RESIZE_TYPE_INCREMENT:
     case RESIZE_TYPE_PRECISE_DRAGGING:
-      resolution = _segmentWidthResolution
+      resolution = unitSettings.resolution
       break
     case RESIZE_TYPE_DRAGGING:
-      resolution = _segmentWidthDraggingResolution
+      resolution = unitSettings.draggingResolution
       break
   }
 
@@ -168,27 +130,23 @@ export function normalizeSegmentWidth (width, resizeType) {
 }
 
 // temp: add origWidth as 4th arg to pass in value from redux
-export function incrementSegmentWidth (segmentEl, add, precise, origWidth) {
-  let increment, width
-
-  if (typeof origWidth === 'number') {
-    width = origWidth
-  } else {
-    width = Number.parseFloat(segmentEl.getAttribute('data-width'))
-  }
+export function incrementSegmentWidth (dataNo, add, precise, origWidth) {
+  const { unitSettings } = store.getState().ui
+  let increment
 
   if (precise) {
-    increment = _segmentWidthResolution
+    increment = unitSettings.resolution
   } else {
-    increment = _segmentWidthClickIncrement
+    increment = unitSettings.clickIncrement
   }
 
   if (!add) {
     increment = -increment
   }
-  width = normalizeSegmentWidth(width + increment, RESIZE_TYPE_INCREMENT)
 
-  resizeSegment(segmentEl, RESIZE_TYPE_INCREMENT, width, true, false)
+  const width = normalizeSegmentWidth(origWidth + increment, RESIZE_TYPE_INCREMENT)
+
+  resizeSegment(dataNo, RESIZE_TYPE_INCREMENT, width, true, false)
 
   return width
 }
@@ -257,4 +215,11 @@ export function hideControls () {
       infoBubble.hideSegment(true)
     }, 0)
   }
+}
+
+export function cancelSegmentResizeTransitions () {
+  document.body.classList.add('immediate-segment-resize')
+  window.setTimeout(function () {
+    document.body.classList.remove('immediate-segment-resize')
+  }, SHORT_DELAY)
 }

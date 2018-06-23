@@ -20,5 +20,5 @@ describe('HelpMenu', () => {
   // event is listened to on the window. It's possible this is out
   // of scope for a unit test and should be captured in the
   // end-to-end acceptance testing instead.
-  it('shows the About dialog when keyboard shortcut is pressed')
+  it('shows the About dialog when keyboard shortcut is pressed', () => {})
 })

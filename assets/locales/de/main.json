@@ -20,6 +20,8 @@
       "change": ""
     },
     "share": {
+      "sign-in-twitter-link": "",
+      "sign-in-link": "",
       "sign-in": "",
       "link": "",
       "twitter": "",
@@ -56,9 +58,16 @@
       "send": "",
       "confirm": "",
       "error": ""
+    }
+  },
+  "settings": {
+    "units": {
+      "label": "",
+      "metric": "",
+      "imperial": ""
     },
     "language": {
-      "heading": ""
+      "label": ""
     }
   },
   "msg": {

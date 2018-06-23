@@ -20,6 +20,8 @@
       "change": "Changer la largeur d'un élément de voirie pointé<br />(maintenir <kbd class='key'>Shift</kbd>pour plus de précision)"
     },
     "share": {
+      "sign-in-twitter-link": "Se connecter",
+      "sign-in-link": "{signInLink} pour accéder plus facilement à vos rues et à votre galerie personnelle de rues",
       "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'> Connectez-vous à Twitter</a> pour une obtenir un lien vers les rues et gallerie de rues vous concernant ",
       "link": "Copier et coller ce lien pour le partager :",
       "twitter": "Partager en utilisant Twitter",
@@ -56,9 +58,16 @@
       "send": "Envoyer un messager",
       "confirm": "Bien reçu. Merci !",
       "error": "Nous sommes désolés, une erreur c'est produite lors de l'envoie de votre commentaire. Veuillez ré-essayer plus tard."
+    }
+  },
+  "settings": {
+    "units": {
+      "label": "Unités",
+      "metric": "Unités métriques (mètres)",
+      "imperial": "Unités impériales (pieds)"
     },
     "language": {
-      "heading": "Langue"
+      "label": "Langue"
     }
   },
   "msg": {

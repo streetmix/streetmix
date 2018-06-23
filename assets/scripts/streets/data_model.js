@@ -3,13 +3,9 @@ import { DEFAULT_SEGMENTS } from '../segments/default'
 import { getSegmentInfo } from '../segments/info'
 import { normalizeAllSegmentWidths } from '../segments/resizing'
 import { getVariantString, getVariantArray } from '../segments/variant_utils'
-import {
-  segmentsChanged,
-  repositionSegments,
-  createSegmentDom
-} from '../segments/view'
+import { segmentsChanged } from '../segments/view'
 import { getSignInData, isSignedIn } from '../users/authentication'
-import { getUnits, getLeftHandTraffic, propagateUnits } from '../users/localization'
+import { getUnits, getLeftHandTraffic } from '../users/localization'
 import { normalizeSlug } from '../util/helpers'
 import { generateRandSeed } from '../util/random'
 import { updateStreetName } from './name'
@@ -31,6 +27,7 @@ import {
   updateStreetData
 } from '../store/actions/street'
 import { resetUndoStack } from '../store/actions/undo'
+import { setUnitSettings } from '../store/actions/ui'
 import store from '../store'
 
 const DEFAULT_BUILDING_HEIGHT_LEFT = 4
@@ -261,28 +258,6 @@ export function updateToLatestSchemaVersion (street) {
   return updated
 }
 
-export function createDomFromData () {
-  document.querySelector('#street-section-editable').innerHTML = ''
-  const street = store.getState().street
-
-  for (var i in street.segments) {
-    var segment = street.segments[i]
-
-    // Add some additional data structures
-    // TODO: populate data structure elsewhere
-    segment.variant = getVariantArray(segment.type, segment.variantString)
-    segment.warnings = []
-
-    var el = createSegmentDom(segment)
-    document.querySelector('#street-section-editable').appendChild(el)
-
-    segment.el = el
-    segment.el.dataNo = i
-  }
-
-  repositionSegments()
-}
-
 export function setStreetCreatorId (newId) {
   store.dispatch(saveCreatorId(newId))
 
@@ -383,6 +358,10 @@ export function createDataFromDom () {
 
   for (var i = 0, el; el = els[i]; i++) { // eslint-disable-line no-cond-assign
     var segment = {}
+    // Since we are using a unique id for the segment component key which can not be found
+    // on the DOM element, get it from the store.
+    const originalSegmentId = store.getState().street.segments[i].id
+
     segment.type = el.getAttribute('type')
     if (el.getAttribute('rand-seed')) {
       segment.randSeed = parseInt(el.getAttribute('rand-seed'))
@@ -392,6 +371,7 @@ export function createDataFromDom () {
     segment.width = parseFloat(el.getAttribute('data-width'))
     segment.el = el
     segment.warnings = []
+    segment.id = originalSegmentId
     segments.push(segment)
   }
   store.dispatch(updateSegments(segments))
@@ -412,6 +392,7 @@ function fillDefaultSegments () {
 
     segments.push(segment)
   }
+
   store.dispatch(updateSegments(segments))
   normalizeAllSegmentWidths()
 }
@@ -456,8 +437,8 @@ export function prepareDefaultStreet () {
     schemaVersion: LATEST_SCHEMA_VERSION
   }
 
+  store.dispatch(setUnitSettings(defaultStreet.units))
   store.dispatch(updateStreetData(defaultStreet))
-  propagateUnits()
   store.dispatch(updateStreetWidth(normalizeStreetWidth(DEFAULT_STREET_WIDTH)))
 
   // console.log('editCount = 0 on default street')
@@ -483,8 +464,8 @@ export function prepareEmptyStreet () {
     segments: []
   }
 
+  store.dispatch(setUnitSettings(emptyStreet.units))
   store.dispatch(updateStreetData(emptyStreet))
-  propagateUnits()
   store.dispatch(updateStreetWidth(normalizeStreetWidth(DEFAULT_STREET_WIDTH)))
 
   // console.log('editCount = 0 on empty street!')
@@ -504,10 +485,8 @@ export function prepareEmptyStreet () {
  */
 export function updateEverything (dontScroll, save = true) {
   setIgnoreStreetChanges(true)
-  propagateUnits()
   // TODO Verify that we don't need to dispatch an update width event here
-  createDomFromData()
-  segmentsChanged()
+  segmentsChanged(false)
   resizeStreetWidth(dontScroll)
   updateStreetName(store.getState().street)
   setIgnoreStreetChanges(false)

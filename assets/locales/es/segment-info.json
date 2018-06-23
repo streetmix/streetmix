@@ -191,6 +191,10 @@
     "building|wide": "Edificio ancho",
     "wayfinding-type|large": "Grande",
     "wayfinding-type|medium": "Mediano",
-    "wayfinding-type|small": "Pequeño"
+    "wayfinding-type|small": "Pequeño",
+    "waiting-area|sparse": "",
+    "waiting-area|empty": "",
+    "flex-type|rideshare": "",
+    "flex-type|taxi": ""
   }
 }

@@ -16,7 +16,7 @@ const browserify = require('browserify-middleware')
 const babelify = require('babelify')
 const config = require('config')
 const path = require('path')
-const uuid = require('node-uuid')
+const uuid = require('uuid/v4')
 const controllers = require('./app/controllers')
 const resources = require('./app/resources')
 const requestHandlers = require('./lib/request_handlers')
@@ -112,8 +112,8 @@ app.use(function (req, res, next) {
 // Generate nonces for inline scripts
 app.use(function (req, res, next) {
   res.locals.nonce = {
-    google_analytics: uuid.v4(),
-    mixpanel: uuid.v4()
+    google_analytics: uuid(),
+    mixpanel: uuid()
   }
   next()
 })
@@ -187,12 +187,14 @@ app.get('/assets/scripts/main.js', browserify(path.join(__dirname, '/assets/scri
     APP_HOST_PORT: config.get('app_host_port'),
     FACEBOOK_APP_ID: config.get('facebook_app_id'),
     API_URL: config.get('restapi_proxy_baseuri_rel'),
-    TWITTER_CALLBACK_URI: config.get('twitter').oauth_callback_uri,
-    AUTH0_TWITTER_CALLBACK_URI: config.get('auth0').twitter_callback_uri,
-    AUTH0_EMAIL_CALLBACK_URI: config.get('auth0').email_callback_uri,
-    AUTH0_DOMAIN: config.get('auth0').domain,
-    AUTH0_CLIENT_ID: config.get('auth0').client_id,
-    USE_AUTH0: config.get('auth0').use_auth0,
+    PELIAS_HOST_NAME: config.get('geocode.pelias.host'),
+    PELIAS_API_KEY: config.get('geocode.pelias.api_key'),
+    TWITTER_CALLBACK_URI: config.get('twitter.oauth_callback_uri'),
+    AUTH0_TWITTER_CALLBACK_URI: config.get('auth0.twitter_callback_uri'),
+    AUTH0_EMAIL_CALLBACK_URI: config.get('auth0.email_callback_uri'),
+    AUTH0_DOMAIN: config.get('auth0.domain'),
+    AUTH0_CLIENT_ID: config.get('auth0.client_id'),
+    USE_AUTH0: config.get('auth0.use_auth0'),
     ENV: config.get('env'),
     NO_INTERNET_MODE: config.get('no_internet_mode')
   })]

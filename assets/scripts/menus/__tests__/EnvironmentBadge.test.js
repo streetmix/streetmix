@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { shallow } from 'enzyme'
-import { EnvironmentBadge } from '../EnvironmentBadge'
+import EnvironmentBadge from '../EnvironmentBadge'
 
 describe('EnvironmentBadge', () => {
   it('renders nothing in standard conditions', () => {
@@ -12,12 +12,6 @@ describe('EnvironmentBadge', () => {
   it('displays a specific label if given', () => {
     const wrapper = shallow(<EnvironmentBadge label="foo" />)
     expect(wrapper.text()).toEqual('foo')
-  })
-
-  it('displays correctly without Internet', () => {
-    const wrapper = shallow(<EnvironmentBadge noInternet />)
-    expect(wrapper.text()).toEqual('Demo')
-    expect(wrapper.find('.environment-label-demo').length).toEqual(1)
   })
 
   it.skip('displays correctly in development environment', () => {

@@ -20,6 +20,8 @@
       "change": "Cambiar lo ancho de un segmento al que estés apuntando<br />(mantén presionada la tecla <kbd class='key'>Shift</kbd> para más precision)"
     },
     "share": {
+      "sign-in-twitter-link": "Acceder",
+      "sign-in-link": "{signInLink} para mejores enlaces a tus calles y a tu galería de calles personal",
       "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Ingresa a tu cuenta con Twitter</a>para mejores enlaces a tus calles y a tu galería de calles personal",
       "link": "Copiar y pegar este enlace para compartir:",
       "twitter": "Compartir utilizando Twitter",
@@ -56,9 +58,16 @@
       "send": "Enviar mensaje",
       "confirm": "Lo hemos recibido, gracias!",
       "error": "Disculpas, hubo un problema al enviar su retroalimentacion. Por favor intente despues"
+    }
+  },
+  "settings": {
+    "units": {
+      "label": "",
+      "metric": "",
+      "imperial": ""
     },
     "language": {
-      "heading": "Idioma"
+      "label": "Idioma"
     }
   },
   "msg": {

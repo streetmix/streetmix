@@ -20,6 +20,8 @@
       "change": ""
     },
     "share": {
+      "sign-in-twitter-link": "Logga in",
+      "sign-in-link": "{signInLink} för bättre koppling till ditt personliga gatubibliotek",
       "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Logga in med Twitter</a> för bättre tillgång till dina gator och ditt personliga gatubibliotek",
       "link": "Kopiera och klistra in denna länk för att dela:",
       "twitter": "Dela på Twitter",
@@ -56,9 +58,16 @@
       "send": "Skicka meddelande",
       "confirm": "Vi fattar. Tack!",
       "error": "Vi ber om ursäkt, det var ett problem att skicka synpunkterna den här gången. Vänligen försök igen senare."
+    }
+  },
+  "settings": {
+    "units": {
+      "label": "",
+      "metric": "",
+      "imperial": ""
     },
     "language": {
-      "heading": "Språk"
+      "label": "Språk"
     }
   },
   "msg": {

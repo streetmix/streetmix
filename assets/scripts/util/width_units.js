@@ -93,7 +93,7 @@ export function prettifyWidth (width, units) {
     case SETTINGS_UNITS_METRIC:
     default:
       widthText = stringifyMeasurementValue(width, SETTINGS_UNITS_METRIC, locale)
-      widthText += ' m'
+      widthText += ' m'
       break
   }
 

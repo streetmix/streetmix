@@ -6,7 +6,7 @@ import {
   checkIfEverythingIsLoaded,
   setServerContacted
 } from '../app/initialization'
-import { t } from '../app/locale'
+import { t } from '../locales/locale'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { goNewStreet } from '../app/routing'
 import { showStatusMessage } from '../app/status_message'
@@ -18,7 +18,6 @@ import {
   getSignInData,
   isSignedIn
 } from '../users/authentication'
-import { propagateUnits } from '../users/localization'
 import {
   confirmSaveStreetToServerInitial,
   saveSettingsToServer,
@@ -39,7 +38,6 @@ import {
   prepareDefaultStreet,
   trimStreetData,
   updateEverything,
-  createDomFromData,
   updateToLatestSchemaVersion,
   setStreetCreatorId,
   setUpdateTimeToNow,
@@ -66,6 +64,7 @@ import {
   updateEditCount,
   updateStreetData
 } from '../store/actions/street'
+import { setUnitSettings } from '../store/actions/ui'
 
 const SAVE_STREET_DELAY = 500
 
@@ -284,11 +283,8 @@ function errorReceiveStreetForVerification (data) {
 function receiveStreet (transmission) {
   unpackServerStreetData(transmission, null, null, true)
 
-  propagateUnits()
-
   // TODO this is stupid, only here to fill some structures
   // window.addEventListener('stmx:assets_loaded', () => {
-  createDomFromData()
 
   setServerContacted(true)
 
@@ -333,6 +329,8 @@ export function unpackServerStreetData (transmission, id, namespacedId, checkIfN
       updatedSchema = true
     }
   }
+
+  store.dispatch(setUnitSettings(street.units))
   store.dispatch(updateStreetData(street))
 
   if (transmission.data.undoStack) {
@@ -450,13 +448,10 @@ function receiveLastStreet (transmission) {
 
   // COMMENT - update street state to change originalStreetId above;
   // now have to update again to change edit count - how to fix?
-  propagateUnits()
-
   unifyUndoStack()
 
   resizeStreetWidth()
   updateStreetName(store.getState().street)
-  createDomFromData()
   segmentsChanged()
 
   setIgnoreStreetChanges(false)

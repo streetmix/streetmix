@@ -156,6 +156,7 @@ $top-menu-active-text: darken($ui-colour, 40%);
   }
 
   &.environment-label-demo {
+    display: inline-block;
     background-color: rgb(28, 189, 209);
   }
 }

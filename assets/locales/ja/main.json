@@ -20,6 +20,8 @@
       "change": "選択中のセグメントの幅を変更<br />(<kbd class='key'>Shift</kbd>を押すと微調整可能)"
     },
     "share": {
+      "sign-in-twitter-link": "サインイン",
+      "sign-in-link": "{signInLink}あなたが作成したストリートと、個人用のストリートギャラリーにリンクを生成できます",
       "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Twitterアカウントでサインイン</a>すると、作成したストリートと個人用ストリートギャラリー用にリンクが生成されます",
       "link": "共有用リンク:",
       "twitter": "Twitterでシェア",
@@ -56,9 +58,16 @@
       "send": "送付",
       "confirm": "ご意見ありがとうございます！",
       "error": "すみません、フィードバックの送付に失敗しました。時間をおいて再度お試しください。"
+    }
+  },
+  "settings": {
+    "units": {
+      "label": "単位",
+      "metric": "メートル表記",
+      "imperial": "フィート表示"
     },
     "language": {
-      "heading": "言語設定"
+      "label": "言語設定"
     }
   },
   "msg": {
@@ -242,7 +251,7 @@
     "rename": "名称を変える"
   },
   "building": {
-    "floors-count": "{count, plural, other {＃階}}"
+    "floors-count": "{count, plural, other {#階}}"
   },
   "segments": {
     "warnings": {
@@ -266,7 +275,7 @@
     "all": "すべてのストリート",
     "twitter-link": "Twitterプロフィール",
     "delete-street-tooltip": "ストリート削除",
-    "street-count": "{count, plural, other {＃通り}}",
+    "street-count": "{count, plural, other {#通り}}",
     "no-streets": "ストリート未作成",
     "sign-in": "Twitterでログイン個人用のストリートギャラリーを作成できます"
   },

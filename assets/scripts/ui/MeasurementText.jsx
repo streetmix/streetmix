@@ -40,8 +40,7 @@ export default class MeasurementText extends React.Component {
     return (
       <span>
         {this.getMeasurementString(value, units, locale)}
-        <wbr />&#8202;
-        {(units === SETTINGS_UNITS_METRIC) ? 'm' : "'" }
+        {(units === SETTINGS_UNITS_METRIC) ? ' m' : "'" }
       </span>
     )
   }

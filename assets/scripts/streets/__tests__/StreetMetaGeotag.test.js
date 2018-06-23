@@ -27,7 +27,7 @@ describe('StreetMetaGeotag', () => {
       const wrapper = shallow(
         <StreetMetaGeotag.WrappedComponent
           street={testStreet}
-          readOnly
+          editable={false}
           enableLocation
           locale={{}}
         />
@@ -40,7 +40,7 @@ describe('StreetMetaGeotag', () => {
       const wrapper = shallow(
         <StreetMetaGeotag.WrappedComponent
           street={{}}
-          readOnly
+          editable={false}
           enableLocation
           locale={{}}
         />
@@ -49,7 +49,7 @@ describe('StreetMetaGeotag', () => {
       expect(wrapper.find('.street-metadata-map').length).toEqual(0)
     })
 
-    it.skip('displays the correct label for a given location hierarchy')
-    it.skip('displays a placeholder label if location hierarchy does not exist')
+    it.skip('displays the correct label for a given location hierarchy', () => {})
+    it.skip('displays a placeholder label if location hierarchy does not exist', () => {})
   })
 })

@@ -20,6 +20,8 @@
       "change": "Mudar largura desse um segmento para o qual você está apontando<br />(segure <kbd class='key'>Shift</kbd> para obter mais precisão)"
     },
     "share": {
+      "sign-in-twitter-link": "Entrar",
+      "sign-in-link": "{signInLink} para obter melhores links para suas ruas e para sua galeria de ruas personalizada",
       "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Faça o login com o Twitter</a> para obter melhores links para suas ruas e para sua galeria de ruas personalizada",
       "link": "Copie e cole este link para compartilhar:",
       "twitter": "Compartilhar usando Twitter",
@@ -56,9 +58,16 @@
       "send": "Enviar mensagem",
       "confirm": "Recebemos. Obrigado!",
       "error": "Lamentamos, houve um problema no envio de comentários no momento. Por favor, tente novamente mais tarde."
+    }
+  },
+  "settings": {
+    "units": {
+      "label": "Unidades",
+      "metric": "",
+      "imperial": ""
     },
     "language": {
-      "heading": "Idioma"
+      "label": "Idioma"
     }
   },
   "msg": {
@@ -70,7 +79,7 @@
     "slow-connection-1": "Não foi possível conectar o Streetmix a internet no momento.",
     "slow-connection-2": "Você pode querer recarregar a página e tentar novamente. Por favor fique atento, você pode perder a última mudança na rua, desculpe!",
     "no-connection": "Não estamos conseguindo conectar com a Internet.",
-    "more-info": ""
+    "more-info": "Mais informaçao"
   },
   "error": {
     "button": {
@@ -184,7 +193,7 @@
       "heading": "",
       "lede": "",
       "text": "",
-      "button": "",
+      "button": "Doar para Streetmix",
       "cancel": ""
     }
   },
@@ -242,7 +251,7 @@
     "rename": ""
   },
   "building": {
-    "floors-count": "{count, plural, one {} other {}}"
+    "floors-count": "{count, plural, one {andar} other {# andares}}"
   },
   "segments": {
     "warnings": {
@@ -250,12 +259,12 @@
       "not-wide": "",
       "too-wide": ""
     },
-    "learn-more": "",
+    "learn-more": "Saiba mais",
     "unknown": {
       "label": ""
     },
     "description": {
-      "photo-credit": ""
+      "photo-credit": "Foto:"
     }
   },
   "section": {
@@ -264,7 +273,7 @@
   "gallery": {
     "fail": "Falha ao carregar a galeria.",
     "all": "Todas as ruas",
-    "twitter-link": "",
+    "twitter-link": "Perfil do Twitter",
     "delete-street-tooltip": "Deletar esta rua",
     "street-count": "{count, plural, one {# rua} other {# ruas}}",
     "no-streets": "Ainda não tem ruas",
@@ -276,7 +285,7 @@
   },
   "meta": {
     "description": "Projete, remix e compartilhe a rua de sua vizinhança - tudo em seu browser! Adicione árvores ou ciclovias, calçadas largas ou guias de tráfego, aprenda como suas decisões podem impactar sua comunidade.",
-    "page-title": ""
+    "page-title": "{streetName} (por {author})"
   },
   "i18n": {
     "lang": {
@@ -287,7 +296,7 @@
       "es-mx": "Espanhol (México)",
       "fi": "Finlandês",
       "fr": "Francês",
-      "ja": "",
+      "ja": "Japonês",
       "pl": "Polonês",
       "pt-br": "Português (Brasil)",
       "sv": "Sueco",

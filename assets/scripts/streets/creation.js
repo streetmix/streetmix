@@ -2,7 +2,6 @@ import { segmentsChanged } from '../segments/view'
 import { setSettings } from '../users/settings'
 import {
   setLastStreet,
-  createDomFromData,
   setUpdateTimeToNow,
   trimStreetData,
   prepareDefaultStreet,
@@ -24,8 +23,7 @@ export function makeDefaultStreet () {
 
   resizeStreetWidth()
   updateStreetName(store.getState().street)
-  createDomFromData()
-  segmentsChanged()
+  segmentsChanged(false)
 
   setIgnoreStreetChanges(false)
   setLastStreet(trimStreetData(store.getState().street))
@@ -51,8 +49,7 @@ export function onNewStreetEmptyClick () {
 
   resizeStreetWidth()
   updateStreetName(store.getState().street)
-  createDomFromData()
-  segmentsChanged()
+  segmentsChanged(false)
 
   setIgnoreStreetChanges(false)
   setLastStreet(trimStreetData(store.getState().street))

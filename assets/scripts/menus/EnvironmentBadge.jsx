@@ -1,12 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import { ENV } from '../app/config'
 
-export class EnvironmentBadge extends React.PureComponent {
+export default class EnvironmentBadge extends React.PureComponent {
   static propTypes = {
-    label: PropTypes.string,
-    noInternet: PropTypes.bool
+    label: PropTypes.string
   }
 
   getLabel = () => {
@@ -24,14 +22,12 @@ export class EnvironmentBadge extends React.PureComponent {
         case 'sandbox':
           label = 'Sandbox'
           break
+        case 'demo':
+          label = 'Demo'
+          break
         default:
           break
       }
-    }
-
-    // Check if no internet mode
-    if (this.props.noInternet === true) {
-      label = 'Demo'
     }
 
     return label
@@ -52,14 +48,12 @@ export class EnvironmentBadge extends React.PureComponent {
         case 'sandbox':
           className += ' environment-label-sandbox'
           break
+        case 'demo':
+          className += ' environment-label-demo'
+          break
         default:
           break
       }
-    }
-
-    // Check if no internet mode
-    if (this.props.noInternet === true) {
-      className += ' environment-label-demo'
     }
 
     return className
@@ -74,11 +68,3 @@ export class EnvironmentBadge extends React.PureComponent {
     )
   }
 }
-
-function mapStateToProps (state) {
-  return {
-    noInternet: state.system.noInternet
-  }
-}
-
-export default connect(mapStateToProps)(EnvironmentBadge)

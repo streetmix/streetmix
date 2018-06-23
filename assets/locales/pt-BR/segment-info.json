@@ -191,6 +191,10 @@
     "building|wide": "",
     "wayfinding-type|large": "Grande",
     "wayfinding-type|medium": "Médio",
-    "wayfinding-type|small": "Pequeno"
+    "wayfinding-type|small": "Pequeno",
+    "waiting-area|sparse": "",
+    "waiting-area|empty": "",
+    "flex-type|rideshare": "",
+    "flex-type|taxi": ""
   }
 }

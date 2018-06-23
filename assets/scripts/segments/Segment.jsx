@@ -2,21 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import MeasurementText from '../ui/MeasurementText'
+import SegmentCanvas from './SegmentCanvas'
+import { CSSTransition } from 'react-transition-group'
 import { getSegmentVariantInfo, getSegmentInfo } from '../segments/info'
-import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, suppressMouseEnter } from './resizing'
+import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, suppressMouseEnter, incrementSegmentWidth } from './resizing'
 import { TILE_SIZE } from './constants'
-import { drawSegmentContents, getVariantInfoDimensions, segmentsChanged } from './view'
-import { SETTINGS_UNITS_METRIC } from '../users/localization'
+import { SETTINGS_UNITS_METRIC } from '../users/constants'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
-import { t } from '../app/locale'
-
-const WIDTH_PALETTE_MULTIPLIER = 4 // Dupe from palette.js
-const SEGMENT_Y_NORMAL = 265
-const SEGMENT_Y_PALETTE = 20
-const CANVAS_HEIGHT = 480
-const CANVAS_GROUND = 35
-const CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND
+import { KEYS } from '../app/keyboard_commands'
+import { trackEvent } from '../app/event_tracking'
+import { t } from '../locales/locale'
 
 class Segment extends React.Component {
   static propTypes = {
@@ -26,54 +22,126 @@ class Segment extends React.Component {
     isUnmovable: PropTypes.bool.isRequired,
     width: PropTypes.number,
     forPalette: PropTypes.bool.isRequired,
-    dpi: PropTypes.number,
-    units: PropTypes.number
+    cssTransform: PropTypes.string,
+    units: PropTypes.number,
+    segmentPos: PropTypes.number,
+    dataNo: PropTypes.number,
+    updateSegmentData: PropTypes.func,
+    updatePerspective: PropTypes.func,
+    locale: PropTypes.string,
+    suppressMouseEnter: PropTypes.bool.isRequired
   }
 
   static defaultProps = {
-    units: SETTINGS_UNITS_METRIC
+    units: SETTINGS_UNITS_METRIC,
+    suppressMouseEnter: false
   }
 
   constructor (props) {
     super(props)
 
-    this.initialRender = true
+    this.oldSegmentCanvas = React.createRef()
+    this.newSegmentCanvas = React.createRef()
+
+    this.state = {
+      switchSegments: false,
+      oldVariant: props.variantString
+    }
   }
 
   componentDidMount = () => {
-    const multiplier = this.props.forPalette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1
-    const segmentWidth = this.props.width // may need to double check this. setSegmentContents() was called with other widths
-    const offsetTop = this.props.forPalette ? SEGMENT_Y_PALETTE : SEGMENT_Y_NORMAL
-    const ctx = this.refs.canvas.getContext('2d')
-    drawSegmentContents(ctx, this.props.type, this.props.variantString, segmentWidth, 0, offsetTop, this.props.randSeed, multiplier, this.props.forPalette)
-
-    if (this.initialRender) {
-      if (!this.props.forPalette) {
-        // TODO pretty sure the pointer events aren't working correctly.
-        this.refs.canvas.addEventListener('pointerenter', this.onSegmentMouseEnter)
-        this.refs.canvas.addEventListener('pointerleave', this.onSegmentMouseLeave)
-      }
-
-      this.initialRender = false
-    } else {
-      segmentsChanged()
+    if (!this.props.forPalette) {
+      this.dragHandleLeft.segmentEl = this.streetSegment
+      this.dragHandleRight.segmentEl = this.streetSegment
+      this.props.updateSegmentData(this.streetSegment, this.props.dataNo, this.props.segmentPos)
     }
   }
 
-  calculateWidth = (resizeType) => {
-    let width = this.props.width / TILE_SIZE
-    if (!this.props.forPalette) {
-      width = normalizeSegmentWidth(width, resizeType)
+  componentDidUpdate (prevProps, prevState) {
+    if (this.props.forPalette) return
+
+    if (prevProps.suppressMouseEnter && !this.props.suppressMouseEnter &&
+        infoBubble.considerSegmentEl === this.streetSegment) {
+      infoBubble.considerShowing(false, this.streetSegment, INFO_BUBBLE_TYPE_SEGMENT)
     }
 
-    // TODO - copied from resizeSegment. make sure we don't need
-    // document.body.classList.add('immediate-segment-resize')
-    // window.setTimeout(function () {
-    //   document.body.classList.remove('immediate-segment-resize')
-    // }, SHORT_DELAY)
+    if (prevProps.variantString && prevProps.variantString !== this.props.variantString) {
+      this.switchSegments(prevProps.variantString)
+    }
 
-    width = (width * TILE_SIZE)
-    return width
+    if (!prevState.switchSegments && this.state.switchSegments) {
+      this.props.updatePerspective(this.oldSegmentCanvas.firstChildElement)
+      this.props.updatePerspective(this.newSegmentCanvas.firstChildElement)
+    }
+
+    this.props.updateSegmentData(this.streetSegment, this.props.dataNo, this.props.segmentPos)
+  }
+
+  switchSegments = (oldVariant) => {
+    this.setState({
+      switchSegments: !(this.state.switchSegments),
+      oldVariant: (this.state.switchSegments) ? this.props.variantString : oldVariant
+    })
+  }
+
+  calculateSegmentWidths = (resizeType) => {
+    let widthValue = this.props.width / TILE_SIZE
+    if (!this.props.forPalette) {
+      widthValue = normalizeSegmentWidth(widthValue, resizeType)
+    }
+
+    return {
+      widthValue,
+      width: widthValue * TILE_SIZE
+    }
+  }
+
+  onSegmentMouseEnter = (event) => {
+    if (this.props.suppressMouseEnter || suppressMouseEnter() || this.props.forPalette) return
+
+    window.addEventListener('keydown', this.handleKeyDown)
+    infoBubble.considerShowing(event, this.streetSegment, INFO_BUBBLE_TYPE_SEGMENT)
+  }
+
+  onSegmentMouseLeave = () => {
+    window.removeEventListener('keydown', this.handleKeyDown)
+    infoBubble.dontConsiderShowing()
+  }
+
+  renderSegmentCanvas = (width, variantType) => {
+    const isOldVariant = (variantType === 'old')
+
+    return (
+      <div className="segment-canvas-container">
+        <SegmentCanvas
+          width={width}
+          type={this.props.type}
+          variantString={(isOldVariant) ? this.state.oldVariant : this.props.variantString}
+          forPalette={this.props.forPalette}
+          randSeed={this.props.randSeed}
+          ref={(isOldVariant) ? this.oldSegmentCanvas : this.newSegmentCanvas}
+        />
+      </div>
+    )
+  }
+
+  handleKeyDown = (event) => {
+    const negative = (event.keyCode === KEYS.MINUS) ||
+      (event.keyCode === KEYS.MINUS_ALT) ||
+      (event.keyCode === KEYS.MINUS_KEYPAD)
+
+    const positive = (event.keyCode === KEYS.EQUAL) ||
+      (event.keyCode === KEYS.EQUAL_ALT) ||
+      (event.keyCode === KEYS.PLUS_KEYPAD)
+
+    const metaCtrlAlt = (event.metaKey || event.ctrlKey || event.altKey)
+    if (metaCtrlAlt || (!negative && !positive)) return
+
+    const { widthValue } = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
+    incrementSegmentWidth(this.props.dataNo, !negative, event.shiftKey, widthValue)
+    event.preventDefault()
+
+    trackEvent('INTERACTION', 'CHANGE_WIDTH', 'KEYBOARD', null, true)
   }
 
   render () {
@@ -87,72 +155,79 @@ class Segment extends React.Component {
     const displayName = t(`segments.${nameKey}`, defaultName, { ns: 'segment-info' })
     const localizedSegmentName = t(`segments.${segmentInfo.nameKey}`, defaultName, { ns: 'segment-info' })
 
-    const width = this.calculateWidth(RESIZE_TYPE_INITIAL)
-    const segmentWidth = this.props.width // may need to double check this. setSegmentContents() was called with other widths
+    const segmentWidths = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
+    const { width, widthValue } = segmentWidths
 
-    const multiplier = this.props.forPalette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1
-    const dimensions = getVariantInfoDimensions(variantInfo, segmentWidth, multiplier)
-    const totalWidth = dimensions.right - dimensions.left
+    const segmentStyle = {
+      width: width + 'px',
+      // In a street, certain segments have stacking priority over others (expressed as z-index).
+      // In a palette, segments are side-by-side so they don't need stacking priority.
+      // Setting a z-index here will clobber a separate z-index (applied via CSS) when hovered by mouse pointer
+      zIndex: (this.props.forPalette) ? null : segmentInfo.zIndex,
+      [this.props.cssTransform]: (this.props.forPalette) ? null : 'translateX(' + this.props.segmentPos + 'px)'
+    }
 
-    // Canvas width and height must fit the div width in the palette to prevent extra right padding
-    const canvasWidth = this.props.forPalette ? width * this.props.dpi : totalWidth * TILE_SIZE * this.props.dpi
-    const canvasHeight = CANVAS_BASELINE * this.props.dpi
-    const canvasStyle = {
-      width: this.props.forPalette ? width : totalWidth * TILE_SIZE,
-      height: CANVAS_BASELINE,
-      left: (dimensions.left * TILE_SIZE * multiplier)
+    const dataAttributes = {
+      type: this.props.type,
+      'variant-string': this.props.variantString,
+      'rand-seed': this.props.randSeed,
+      'data-width': widthValue
     }
 
     return (
       <div
-        style={{
-          width: width,
-          // In a street, certain segments have stacking priority over others (expressed as z-index).
-          // In a palette, segments are side-by-side so they don't need stacking priority.
-          // Setting a z-index here will clobber a separate z-index (applied via CSS) when hovered by mouse pointer
-          zIndex: (this.props.forPalette) ? null : segmentInfo.zIndex
-        }}
+        style={segmentStyle}
         className={'segment' + (this.props.isUnmovable ? ' unmovable' : '') + (this.props.forPalette ? ' segment-in-palette' : '')}
-        data-segment-type={this.props.type}
-        data-variant-string={this.props.variantString}
-        data-rand-seed={this.props.randSeed}
-        data-width={width}
-        title={this.props.forPalette ? localizedSegmentName : null}>
+        {...dataAttributes}
+        title={this.props.forPalette ? localizedSegmentName : null}
+        ref={(ref) => { this.streetSegment = ref }}
+        onMouseEnter={this.onSegmentMouseEnter}
+        onMouseLeave={this.onSegmentMouseLeave}
+      >
         {!this.props.forPalette &&
           <React.Fragment>
             <span className="name">
               {displayName}
             </span>
             <span className="width">
-              <MeasurementText value={width} units={this.props.units} />
+              <MeasurementText value={widthValue} units={this.props.units} locale={this.props.locale} />
             </span>
-            <span className="drag-handle left">‹</span>
-            <span className="drag-handle right">›</span>
-            <span className="grid" />
+            <span className="drag-handle left" ref={(ref) => { this.dragHandleLeft = ref }}>‹</span>
+            <span className="drag-handle right" ref={(ref) => { this.dragHandleRight = ref }}>›</span>
+            <span className={'grid' + (this.props.units === SETTINGS_UNITS_METRIC ? ' units-metric' : ' units-imperial')} />
           </React.Fragment>
         }
-        <canvas className="image" ref="canvas" width={canvasWidth} height={canvasHeight} style={canvasStyle} />
+        <CSSTransition
+          key="old-variant"
+          in={!this.state.switchSegments}
+          classNames="switching-away"
+          timeout={250}
+          onExited={this.switchSegments}
+          unmountOnExit
+        >
+          {this.renderSegmentCanvas(width, 'old')}
+        </CSSTransition>
+        { !this.props.forPalette &&
+          <CSSTransition
+            key="new-variant"
+            in={this.state.switchSegments}
+            classNames="switching-in"
+            timeout={250}
+            unmountOnExit
+          >
+            {this.renderSegmentCanvas(width, 'new')}
+          </CSSTransition>
+        }
         <div className="hover-bk" />
       </div>
     )
-  }
-
-  onSegmentMouseEnter = (event) => {
-    if (suppressMouseEnter()) {
-      return
-    }
-
-    infoBubble.considerShowing(event, this, INFO_BUBBLE_TYPE_SEGMENT)
-  }
-
-  onSegmentMouseLeave = () => {
-    infoBubble.dontConsiderShowing()
   }
 }
 
 function mapStateToProps (state) {
   return {
-    dpi: state.system.hiDpi
+    cssTransform: state.system.cssTransform,
+    locale: state.locale.locale
   }
 }
 

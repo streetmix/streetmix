@@ -65,6 +65,7 @@ export const SHOW_DESCRIPTION = 'SHOW_DESCRIPTION'
 export const HIDE_DESCRIPTION = 'HIDE_DESCRIPTION'
 
 /* locale */
+export const LOAD_LOCALE = 'LOAD_LOCALE'
 export const SET_LOCALE = 'SET_LOCALE'
 
 /* map */
@@ -121,6 +122,7 @@ export const UPDATE_WINDOW_SIZE = 'UPDATE_WINDOW_SIZE'
 /* ui */
 export const SHOW_STREET_NAME_CANVAS = 'SHOW_STREET_NAME_CANVAS'
 export const HIDE_STREET_NAME_CANVAS = 'HIDE_STREET_NAME_CANVAS'
+export const SET_UNIT_SETTINGS = 'SET_UNIT_SETTINGS'
 
 /* undo */
 export const RESET_UNDO_STACK = 'RESET_UNDO_STACK'

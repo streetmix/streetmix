@@ -1,6 +1,6 @@
 import { API_URL } from '../app/config'
 import { showStatusMessage } from '../app/status_message'
-import { t } from '../app/locale'
+import { t } from '../locales/locale'
 import { app } from '../preinit/app_settings'
 import {
   getAuthHeader,

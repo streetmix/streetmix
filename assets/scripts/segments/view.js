@@ -1,23 +1,13 @@
 import { images } from '../app/load_resources'
-import { t } from '../app/locale'
-import { infoBubble } from '../info_bubble/info_bubble'
-import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
+import { t } from '../locales/locale'
 import { system } from '../preinit/system_capabilities'
 import { saveStreetToServerIfNecessary, createDataFromDom } from '../streets/data_model'
 import { recalculateWidth } from '../streets/width'
-import { getElAbsolutePos } from '../util/helpers'
 import { draggingMove } from './drag_and_drop'
 import { getSegmentInfo, getSegmentVariantInfo, getSpriteDef } from './info'
 import { drawProgrammaticPeople } from './people'
-import { TILE_SIZE, TILESET_POINT_PER_PIXEL } from './constants'
-import {
-  RESIZE_TYPE_INITIAL,
-  suppressMouseEnter,
-  resizeSegment,
-  applyWarningsToSegments
-} from './resizing'
-import { prettifyWidth } from '../util/width_units'
-import { getVariantString } from './variant_utils'
+import { TILE_SIZE, TILESET_POINT_PER_PIXEL, WIDTH_PALETTE_MULTIPLIER } from './constants'
+import { applyWarningsToSegments } from './resizing'
 import store from '../store'
 
 const CANVAS_HEIGHT = 480
@@ -28,8 +18,6 @@ const SEGMENT_Y_NORMAL = 265
 const SEGMENT_Y_PALETTE = 20
 
 const DRAGGING_MOVE_HOLE_WIDTH = 40
-
-const SEGMENT_SWITCHING_TIME = 250
 
 /**
  * Draws SVG sprite to canvas
@@ -277,8 +265,6 @@ export function setSegmentContents (el, type, variantString, segmentWidth, randS
   let canvasEl
   const variantInfo = getSegmentVariantInfo(type, variantString)
 
-  var WIDTH_PALETTE_MULTIPLIER = 4 // Dupe from palette.js
-
   var multiplier = palette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1
   var dimensions = getVariantInfoDimensions(variantInfo, segmentWidth, multiplier)
 
@@ -318,27 +304,6 @@ export function setSegmentContents (el, type, variantString, segmentWidth, randS
   }
 }
 
-export function localizeStreetSegments () {
-  let oldLocale = store.getState().locale.locale
-
-  store.subscribe(() => {
-    const locale = store.getState().locale.locale
-
-    if (locale !== oldLocale) {
-      oldLocale = locale
-      const { segments } = store.getState().street
-      segments.forEach((segment) => {
-        const name = getLocaleSegmentName(segment.type, segment.variantString)
-        const nameEl = segment.el.children[0]
-        const widthEl = segment.el.children[1]
-
-        nameEl.innerText = name
-        widthEl.innerHTML = prettifyWidth(segment.width, store.getState().street.units, { markup: true })
-      })
-    }
-  })
-}
-
 export function getLocaleSegmentName (type, variantString) {
   const segmentInfo = getSegmentInfo(type)
   const variantInfo = getSegmentVariantInfo(type, variantString)
@@ -347,73 +312,6 @@ export function getLocaleSegmentName (type, variantString) {
   const key = `segments.${nameKey}`
 
   return t(key, defaultName, { ns: 'segment-info' })
-}
-
-export function createSegment (type, variantString, width, isUnmovable, palette, randSeed) {
-  let innerEl, dragHandleEl
-  var el = document.createElement('div')
-  el.classList.add('segment')
-  el.setAttribute('type', type)
-  el.setAttribute('variant-string', variantString)
-  if (randSeed) {
-    el.setAttribute('rand-seed', randSeed)
-  }
-
-  if (isUnmovable) {
-    el.classList.add('unmovable')
-  }
-
-  const segmentInfo = getSegmentInfo(type)
-
-  if (!palette) {
-    el.style.zIndex = segmentInfo.zIndex
-
-    const name = getLocaleSegmentName(type, variantString)
-
-    innerEl = document.createElement('span')
-    innerEl.classList.add('name')
-    innerEl.innerHTML = name
-    el.appendChild(innerEl)
-
-    innerEl = document.createElement('span')
-    innerEl.classList.add('width')
-    el.appendChild(innerEl)
-
-    dragHandleEl = document.createElement('span')
-    dragHandleEl.classList.add('drag-handle')
-    dragHandleEl.classList.add('left')
-    dragHandleEl.segmentEl = el
-    dragHandleEl.innerHTML = '‹'
-    el.appendChild(dragHandleEl)
-
-    dragHandleEl = document.createElement('span')
-    dragHandleEl.classList.add('drag-handle')
-    dragHandleEl.classList.add('right')
-    dragHandleEl.segmentEl = el
-    dragHandleEl.innerHTML = '›'
-    el.appendChild(dragHandleEl)
-
-    innerEl = document.createElement('span')
-    innerEl.classList.add('grid')
-    el.appendChild(innerEl)
-  } else {
-    el.setAttribute('title', segmentInfo.name)
-  }
-
-  if (width) {
-    resizeSegment(el, RESIZE_TYPE_INITIAL, width / TILE_SIZE, true, palette, true)
-  }
-
-  if (!palette) {
-    el.addEventListener('pointerenter', onSegmentMouseEnter)
-    el.addEventListener('pointerleave', onSegmentMouseLeave)
-  }
-  return el
-}
-
-export function createSegmentDom (segment) {
-  return createSegment(segment.type, segment.variantString,
-    segment.width * TILE_SIZE, segment.unmovable, false, segment.randSeed)
 }
 
 export function repositionSegments () {
@@ -476,90 +374,6 @@ export function repositionSegments () {
   }
 }
 
-export function changeSegmentVariantLegacy (dataNo, variantName, variantChoice) {
-  const street = store.getState().street
-  const segment = street.segments[dataNo]
-
-  segment.variant[variantName] = variantChoice
-  segment.variantString = getVariantString(segment.variant)
-
-  const el = createSegmentDom(segment)
-
-  var oldEl = segment.el
-  oldEl.parentNode.insertBefore(el, oldEl)
-  switchSegmentElAway(oldEl)
-
-  segment.el = el
-  segment.el.dataNo = oldEl.dataNo
-  street.segments[oldEl.dataNo].el = el
-
-  switchSegmentElIn(el)
-  el.classList.add('hover')
-  el.classList.add('show-drag-handles')
-  el.classList.add('immediate-show-drag-handles')
-  el.classList.add('hide-drag-handles-when-inside-info-bubble')
-  infoBubble.segmentEl = el
-
-  repositionSegments()
-  recalculateWidth()
-  applyWarningsToSegments()
-
-  saveStreetToServerIfNecessary()
-}
-
-export function switchSegmentElIn (el) {
-  el.classList.add('switching-in-enter')
-
-  window.setTimeout(function () {
-    var pos = getElAbsolutePos(el)
-    var perspective = -(pos[0] - document.querySelector('#street-section-outer').scrollLeft - (system.viewportWidth / 2))
-    // TODO const
-    // TODO cross-browser
-
-    el.style.webkitPerspectiveOrigin = (perspective / 2) + 'px 50%'
-    el.style.MozPerspectiveOrigin = (perspective / 2) + 'px 50%'
-    el.style.perspectiveOrigin = (perspective / 2) + 'px 50%'
-
-    el.classList.add('switching-in-enter-active')
-    el.classList.add('switching-in-enter-done')
-  }, SEGMENT_SWITCHING_TIME / 2)
-
-  window.setTimeout(function () {
-    el.classList.remove('switching-in-enter')
-    el.classList.remove('switching-in-enter-active')
-    el.classList.remove('switching-in-enter-done')
-  }, SEGMENT_SWITCHING_TIME * 1.5)
-}
-
-export function switchSegmentElAway (el) {
-  var pos = getElAbsolutePos(el)
-
-  // TODO func
-  var perspective = -(pos[0] - document.querySelector('#street-section-outer').scrollLeft - (system.viewportWidth / 2))
-  // TODO const
-  // TODO cross-browser
-
-  el.style.webkitPerspectiveOrigin = (perspective / 2) + 'px 50%'
-  el.style.MozPerspectiveOrigin = (perspective / 2) + 'px 50%'
-  el.style.perspectiveOrigin = (perspective / 2) + 'px 50%'
-
-  el.parentNode.removeChild(el)
-  el.classList.remove('hover')
-  el.classList.add('switching-away-exit')
-  el.style.left = (pos[0] - document.querySelector('#street-section-outer').scrollLeft) + 'px'
-  el.style.top = pos[1] + 'px'
-  document.body.appendChild(el)
-
-  window.setTimeout(function () {
-    el.classList.add('switching-away-exit-active')
-    el.classList.add('switching-away-exit-done')
-  }, 0)
-
-  window.setTimeout(function () {
-    el.remove()
-  }, SEGMENT_SWITCHING_TIME)
-}
-
 /**
  * Set `readDataFromDom` to false to prevent re-reading of segment
  * data from the DOM. Do this whenever we refactor code to modify
@@ -592,17 +406,4 @@ export function segmentsChanged (readDataFromDom = true, reassignElementRefs = f
   }
 
   saveStreetToServerIfNecessary()
-  repositionSegments()
-}
-
-function onSegmentMouseEnter (event) {
-  if (suppressMouseEnter()) {
-    return
-  }
-
-  infoBubble.considerShowing(event, this, INFO_BUBBLE_TYPE_SEGMENT)
-}
-
-function onSegmentMouseLeave () {
-  infoBubble.dontConsiderShowing()
 }

@@ -24,17 +24,18 @@ import {
   normalizeSegmentWidth,
   scheduleControlsFadeout,
   cancelFadeoutControls,
-  hideControls
+  hideControls,
+  cancelSegmentResizeTransitions
 } from './resizing'
 import { getVariantArray, getVariantString } from './variant_utils'
 import { TILE_SIZE } from './constants'
 import {
   setSegmentContents,
   repositionSegments,
-  createSegment,
   segmentsChanged
 } from './view'
 import store from '../store'
+import { addSegment, removeSegment } from '../store/actions/street'
 import { clearMenus } from '../store/actions/menus'
 
 const DRAG_OFFSET_Y_PALETTE = -340 - 150
@@ -230,7 +231,7 @@ function handleSegmentResizeMove (event) {
     resizeType = RESIZE_TYPE_DRAGGING
   }
 
-  resizeSegment(draggingResize.segmentEl, resizeType, draggingResize.width, true, false)
+  resizeSegment(draggingResize.segmentEl.dataNo, resizeType, draggingResize.width, true, false)
 
   draggingResize.mouseX = x
   draggingResize.mouseY = y
@@ -269,9 +270,9 @@ function handleSegmentMoveStart () {
   changeDraggingType(DRAGGING_TYPE_MOVE)
 
   const inPalette = draggingMove.originalEl.classList.contains('segment-in-palette')
-  const originalType = inPalette ? draggingMove.originalEl.dataset.segmentType : draggingMove.originalEl.getAttribute('type')
-  const randSeed = inPalette ? draggingMove.originalEl.dataset.randSeed : draggingMove.originalEl.getAttribute('rand-seed')
-  const variantString = inPalette ? draggingMove.originalEl.dataset.variantString : draggingMove.originalEl.getAttribute('variant-string')
+  const originalType = draggingMove.originalEl.getAttribute('type')
+  const randSeed = draggingMove.originalEl.getAttribute('rand-seed')
+  const variantString = draggingMove.originalEl.getAttribute('variant-string')
 
   draggingMove.originalType = originalType
 
@@ -731,7 +732,7 @@ function handleSegmentMoveEnd (event) {
   if (!draggingMove.withinCanvas) {
     if (draggingMove.type === DRAGGING_TYPE_MOVE_TRANSFER) {
       // This deletes a segment when it's dragged out of the street
-      draggingMove.originalEl.remove()
+      store.dispatch(removeSegment(Number.parseInt(draggingMove.originalEl.dataNo)))
     }
 
     trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'DRAGGING', null, true)
@@ -739,32 +740,35 @@ function handleSegmentMoveEnd (event) {
     var smartDrop = doDropHeuristics(draggingMove.originalType,
       draggingMove.originalVariantString, draggingMove.originalWidth)
 
-    var newEl = createSegment(smartDrop.type,
-      smartDrop.variantString, smartDrop.width, false, false, draggingMove.originalRandSeed)
+    const newSegment = {
+      variantString: smartDrop.variantString,
+      width: smartDrop.width / TILE_SIZE,
+      type: smartDrop.type,
+      randSeed: draggingMove.originalRandSeed
+    }
 
-    newEl.classList.add('create')
+    const oldIndex = Number.parseInt(draggingMove.originalEl.dataNo)
+    let newIndex = (draggingMove.segmentBeforeEl && Number.parseInt(draggingMove.segmentBeforeEl.dataNo)) ||
+                    (draggingMove.segmentAfterEl && Number.parseInt(draggingMove.segmentAfterEl.dataNo) + 1) || 0
 
     if (draggingMove.segmentBeforeEl) {
-      document.querySelector('#street-section-editable')
-        .insertBefore(newEl, draggingMove.segmentBeforeEl)
-    } else if (draggingMove.segmentAfterEl) {
-      document.querySelector('#street-section-editable')
-        .insertBefore(newEl, draggingMove.segmentAfterEl.nextSibling)
-    } else {
-      // empty street
-      document.querySelector('#street-section-editable').appendChild(newEl)
+      newIndex = (newIndex > oldIndex) ? newIndex - 1 : newIndex
     }
 
-    window.setTimeout(function () {
-      newEl.classList.remove('create')
-    }, SHORT_DELAY)
+    cancelSegmentResizeTransitions()
 
     if (draggingMove.type === DRAGGING_TYPE_MOVE_TRANSFER) {
-      var draggedOutEl = document.querySelector('.segment.dragged-out')
-      draggedOutEl.remove()
+      const originalSegmentId = store.getState().street.segments[oldIndex].id
+      newSegment.id = originalSegmentId
+
+      store.dispatch(removeSegment(oldIndex))
+      store.dispatch(addSegment(newIndex, newSegment))
+    } else {
+      store.dispatch(addSegment(newIndex, newSegment))
     }
 
-    segmentElControls = newEl
+    const segment = store.getState().street.segments[newIndex]
+    segmentElControls = (segment && segment.el)
   } else {
     failedDrop = true
 
@@ -773,11 +777,12 @@ function handleSegmentMoveEnd (event) {
     segmentElControls = draggingMove.originalEl
   }
 
+  draggingMove.originalEl.classList.remove('dragged-out')
   draggingMove.segmentBeforeEl = null
   draggingMove.segmentAfterEl = null
 
   repositionSegments()
-  segmentsChanged()
+  segmentsChanged(false)
   updateWithinCanvas(true)
 
   draggingMove.floatingEl.remove()

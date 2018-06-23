@@ -197,29 +197,34 @@ You may additionally specify the name of the directory to install to, if you wis
 
 | Variable name                   | Description                   | Required?            |
 | ------------------------------- | ----------------------------- | -------------------- |
-| `SENDGRID_USERNAME`             | Your SendGrid username        | Yes                  |
-| `SENDGRID_PASSWORD`             | Your SendGrid password        | Yes                  |
+| `AUTH0_CLIENT_ID`               | Auth0 client ID               | Yes                  |
+| `AUTH0_CLIENT_SECRET`           | Auth0 client secret           | Yes                  |
 | `TWITTER_OAUTH_CONSUMER_KEY`    | Twitter OAuth consumer key    | Yes                  |
 | `TWITTER_OAUTH_CONSUMER_SECRET` | Twitter OAuth consumer secret | Yes                  |
+| `PELIAS_API_KEY`                | Geocoding (Pelias) API key    | Yes                  |
 | `TRANSIFEX_API_TOKEN`           | Your Transifex API token      | No                   |
 | `EMAIL_FEEDBACK_RECIPIENT`      | Your e-mail address           | No                   |
 | `CLOUDFLARE_ZONE`               | Cloudflare zone ID            | No                   |
 | `CLOUDFLARE_USER`               | Cloudflare user e-mail        | No                   |
 | `CLOUDFLARE_API_KEY`            | Cloudflare API key            | No                   |
-| `NO_INTERNET_MODE`              | Boolean. Set to `true` to run a local "demo" without external Internet access | No                   |
+| `SENDGRID_API_KEY`              | Your SendGrid API key         | No                   |
 
 A sample `.env` file will look like this:
 
 ```
-SENDGRID_USERNAME=username@domain.com
-SENDGRID_PASSWORD=p@$$w0rD
-TWITTER_OAUTH_CONSUMER_KEY=twitteroauthconsumerkey
-TWITTER_OAUTH_CONSUMER_SECRET=twitteroauthsecrettoken
-EMAIL_FEEDBACK_RECIPIENT=test@domain.com
-NO_INTERNET_MODE=true
+AUTH0_CLIENT_ID=1234567890
+AUTH0_CLIENT_SECRET=abcdefghij
+PELIAS_API_KEY=a2c4e6g8i
 ```
 
-*Note:* If `NO_INTERNET_MODE` is true, you do not need the Sendgrid or Twitter authentication keys, as those will be disabled due to lack of Internet.
+*Note:* Auth0 is currently phasing out Twitter credential access. If you provide Auth0 credentials, you do not need to provide Twitter credentials.
+
+
+#### Setup in a no-internet environment
+
+Set your `NODE_ENV` environment variable to `demo`.
+
+*Note:* When you are running Streetmix on a platform without Internet access, you do not need to provide authentication keys for third-party services like Twitter.
 
 
 ### HOWTO: Start the application

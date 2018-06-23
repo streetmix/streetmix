@@ -191,6 +191,10 @@
     "building|wide": "مبنى عريض",
     "wayfinding-type|large": "كبير",
     "wayfinding-type|medium": "متوسطة الحجم",
-    "wayfinding-type|small": "صغيرة"
+    "wayfinding-type|small": "صغيرة",
+    "waiting-area|sparse": "",
+    "waiting-area|empty": "",
+    "flex-type|rideshare": "",
+    "flex-type|taxi": ""
   }
 }

@@ -20,6 +20,8 @@
       "change": "Change width of a segment you’re pointing at<br />(hold <kbd class='key'>Shift</kbd> for more precision)"
     },
     "share": {
+      "sign-in-twitter-link": "Sign in",
+      "sign-in-link": "{signInLink} for nicer links to your streets and your personal street gallery",
       "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Sign in with Twitter</a> for nicer links to your streets and your personal street gallery",
       "link": "Copy and paste this link to share:",
       "twitter": "Share using Twitter",
@@ -56,9 +58,16 @@
       "send": "Send message",
       "confirm": "We got it. Thanks!",
       "error": "We’re sorry, there was a problem sending feedback at this time. Please try again later."
+    }
+  },
+  "settings": {
+    "units": {
+      "label": "Units",
+      "metric": "Metric units (meters)",
+      "imperial": "Imperial units (feet)"
     },
     "language": {
-      "heading": "Language"
+      "label": "Language"
     }
   },
   "msg": {

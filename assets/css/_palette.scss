@@ -75,6 +75,9 @@ body.read-only .palette-container {
 }
 
 .palette-trashcan {
+  // Contrast ratio of at least 3:1 compared to background
+  $palette-text-color: rgb(108, 108, 108);
+
   position: absolute;
   // This needs to stretch out to fit the width of the window
   left: -$left-right-inset;
@@ -83,9 +86,9 @@ body.read-only .palette-container {
   height: $palette-height - 2 * 8px + 5px;
   line-height: $palette-height - 2 * 8px + 5px;
   z-index: $z-07-trashcan;
-  border-top: 2px dashed rgb(150, 150, 150);
+  border-top: 2px dashed $palette-text-color;
   text-align: center;
-  color: rgb(150, 150, 150);
+  color: $palette-text-color;
   font-size: 24px;
   font-weight: 400;
   background: lighten($bottom-background, 5%);

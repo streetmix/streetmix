@@ -20,6 +20,8 @@
       "change": "Muuta osoittimen alla oleva kohteen leveyttä<br /> (lisää tarkkuutta pitämällä <kbd class='key'>Shift</kbd> pohjassa)"
     },
     "share": {
+      "sign-in-twitter-link": "Kirjaudu sisään",
+      "sign-in-link": "{signInLink} voit jakaa kadut ja oman katugalleriasi näppärämmin",
       "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Kirjaudu sisään Twitter-tunnuksilla</a>, jolloin jakaminen on helpompaa ja näet katusi näppärästi galleriassa",
       "link": "Jaa kopioimalla ja liittämällä tämä linkki:",
       "twitter": "Jaa Twitterissä",
@@ -28,12 +30,12 @@
       "save": "Tallenna kuvana…",
       "save-byline": "Blogiin, liitteeksi raporttiin...",
       "messages": {
-        "my-street": "",
-        "my-street-unnamed": "",
-        "someone-elses-street": "",
-        "someone-elses-street-unnamed": "",
-        "anonymous-creator-street": "",
-        "anonymous-creator-street-unnamed": ""
+        "my-street": "Tutustu tekemääni katuun {streetName} Streetmix-palvelussa!",
+        "my-street-unnamed": "Tutustu tekemääni katuun Streetmix-palvelussa!",
+        "someone-elses-street": "Tutustu käyttäjän {streetCreator} tekemään katuun {streetName} Streetmix-palvelussa!",
+        "someone-elses-street-unnamed": "Tutustu tähän käyttäjän {streetCreator} tekemään katuun Streetmix-palvelussa!",
+        "anonymous-creator-street": "Tutustu katuun {streetName} Streetmix-palvelussa!",
+        "anonymous-creator-street-unnamed": "Tutustu tähän katuun Streetmixissä!"
       }
     },
     "contact": {
@@ -56,9 +58,16 @@
       "send": "Lähetä viesti",
       "confirm": "Perille tuli. Kiitos!",
       "error": "Pahoittelut, viestin lähetys ei nyt onnistunut. Yritäthän myöhemmin uudelleen."
+    }
+  },
+  "settings": {
+    "units": {
+      "label": "Yksiköt",
+      "metric": "Metrit",
+      "imperial": "Jalat"
     },
     "language": {
-      "heading": "Kieli"
+      "label": "Kieli"
     }
   },
   "msg": {
@@ -70,7 +79,7 @@
     "slow-connection-1": "Internet-yhteyden muodostaminen epäonnistui.",
     "slow-connection-2": "Ongelma voi korjautua sivu päivittämällä, mutta huomaa, että viimeisimmät katuun tehdyt muutokset saatetaan menettää. Pahoittelut!",
     "no-connection": "Streetmix ei pystynyt muodostamaan Internet-yhteyttä.",
-    "more-info": ""
+    "more-info": "Lisätietoja"
   },
   "error": {
     "button": {
@@ -242,7 +251,7 @@
     "rename": "Nimeä uudelleen napsauttamalla"
   },
   "building": {
-    "floors-count": "{count, plural, one {} other {}}"
+    "floors-count": "{count, plural, one {# kerros} other {# kerrosta}}"
   },
   "segments": {
     "warnings": {
@@ -255,7 +264,7 @@
       "label": "Ei tiedossa"
     },
     "description": {
-      "photo-credit": ""
+      "photo-credit": "Kuva: "
     }
   },
   "section": {
@@ -276,7 +285,7 @@
   },
   "meta": {
     "description": "Suunnittele, muokkaa ja jaa kotikatusi verkkoselaimella! Lisää kadullesi kaikkea puista pyöräteihin tai levennä katusi jalkakäytäviä ja ajoratoja. Samalla näet, miten muutokset vaikuttavat liikenteeseen.",
-    "page-title": ""
+    "page-title": "{streetName} (suunnitellut {author})"
   },
   "i18n": {
     "lang": {
@@ -287,7 +296,7 @@
       "es-mx": "Espanja (Meksiko)",
       "fi": "Suomi",
       "fr": "Ranska",
-      "ja": "",
+      "ja": "Japani",
       "pl": "Puola",
       "pt-br": "Portugali (Brasilia)",
       "sv": "Ruotsi",
