@@ -501,7 +501,7 @@ class InfoBubble extends React.Component {
         <Triangle highlight={this.state.highlightTriangle} />
         <header>
           <div className="info-bubble-header-label">{this.getName()}</div>
-          <RemoveButton enabled={canBeDeleted} segment={this.segmentEl} />
+          {canBeDeleted && <RemoveButton segment={this.props.dataNo} />}
         </header>
         <div className="info-bubble-controls">
           <IntlProvider
