@@ -260,7 +260,7 @@ function receiveStreetForVerification (transmission) {
     console.log('-')
     console.log(transmission)
 
-    showStatusMessage(t('toast.reloaded'))
+    showStatusMessage(t('toast.reloaded', 'Your street was reloaded from the server as it was modified elsewhere.'))
 
     infoBubble.suppress()
 

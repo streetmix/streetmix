@@ -46,7 +46,7 @@ function finishUndoOrRedo () {
 
 export function undo () {
   if (!isUndoAvailable()) {
-    showStatusMessage(t('toast.no-undo'))
+    showStatusMessage(t('toast.no-undo', 'Nothing to undo.'))
     return
   }
 
@@ -58,7 +58,7 @@ export function undo () {
 
 export function redo () {
   if (!isRedoAvailable()) {
-    showStatusMessage(t('toast.no-redo'))
+    showStatusMessage(t('toast.no-redo', 'Nothing to redo.'))
     return
   }
 

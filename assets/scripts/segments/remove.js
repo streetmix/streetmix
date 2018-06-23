@@ -29,7 +29,7 @@ export function removeSegment (el) {
   // update street data but do not re-read DOM
   segmentsChanged(false, true)
 
-  showStatusMessage(t('toast.segment-deleted'), true)
+  showStatusMessage(t('toast.segment-deleted', 'The segment has been removed.'), true)
 }
 
 /**
@@ -40,7 +40,7 @@ export function removeAllSegments () {
   store.dispatch(clearSegments())
   segmentsChanged(false)
   infoBubble.hide()
-  showStatusMessage(t('toast.all-segments-deleted'), true)
+  showStatusMessage(t('toast.all-segments-deleted', 'All segments have been removed.'), true)
 }
 
 // Register keyboard shortcuts for segment removal

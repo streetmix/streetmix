@@ -95,9 +95,9 @@ export function remixStreet () {
 function receiveRemixedStreet (data) {
   if (!promoteStreet) {
     if (isSignedIn()) {
-      showStatusMessage(t('toast.remixing'))
+      showStatusMessage(t('toast.remixing', 'Now editing a freshly-made duplicate of the original street. The duplicate has been put in your gallery.'))
     } else {
-      showStatusMessage(t('toast.remixing-sign-in'), false, true)
+      showStatusMessage(t('toast.remixing-sign-in', 'Now editing a freshly-made duplicate of the original street. Sign in to start your own gallery of streets.'), false, true)
     }
   }
 

@@ -53,7 +53,7 @@ export function registerKeypresses () {
   registerKeypress('ctrl s', {
     trackAction: 'Command-S or Ctrl-S save shortcut key pressed'
   }, function () {
-    showStatusMessage(t('toast.no-save'))
+    showStatusMessage(t('toast.no-save', 'No need to save by hand; Streetmix automatically saves your street!'))
   })
 
   // Catch-all for the Ctrl-S shortcut from ever trying to
