@@ -825,6 +825,15 @@ export const segmentSource = {
   },
 
   endDrag (props, monitor, component) {
+    if (!monitor.didDrop()) {
+      // if no object returned by a drop handler, it is not within the canvas
+      console.log('here')
+      if (!props.forPalette) {
+        // if existing segment is dropped outside canvas, delete it
+        store.dispatch(removeSegment(props.dataNo))
+        segmentsChanged(false)
+      }
+    }
     document.querySelector('.palette-trashcan').classList.remove('visible')
     document.body.classList.remove('segment-move-dragging')
   }
@@ -839,20 +848,12 @@ export function collectDragSource (connect, monitor) {
 }
 
 export const segmentTarget = {
+  canDrop (props, monitor) {
+    return !(props.forPalette)
+  },
+
   hover (props, monitor, component) {
     // makeSpaceBetweenSegments
-  }
-}
-
-export const paletteTarget = {
-  drop (props, monitor, component) {
-    const draggedItem = monitor.getItem()
-
-    // Existing segment dragged to palette trashcan
-    if (!draggedItem.forPalette) {
-      store.dispatch(removeSegment(Number.parseInt(draggedItem.dataNo, 10)))
-      segmentsChanged(false)
-    }
   }
 }
 
@@ -874,6 +875,8 @@ export const canvasTarget = {
       cancelSegmentResizeTransitions()
       segmentsChanged(false)
     }
+
+    return { withinCanvas: true }
   }
 }
 
