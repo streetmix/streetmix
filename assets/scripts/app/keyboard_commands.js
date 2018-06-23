@@ -10,11 +10,11 @@ import {
   handleSegmentMoveCancel
 } from '../segments/drag_and_drop'
 import { handleSegmentResizeCancel } from '../segments/resizing'
-import { undo, redo } from '../streets/undo_stack'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { showStatusMessage } from './status_message'
 import { t } from '../locales/locale'
 import { showDialog } from '../store/actions/dialogs'
+import { undo, redo } from '../store/actions/undo'
 import store from '../store'
 
 export function onGlobalKeyDown (event) {
@@ -70,11 +70,15 @@ export function registerKeypresses () {
     preventDefault: true,
     requireFocusOnBody: true,
     shiftKey: false
-  }, undo)
+  }, () => {
+    store.dispatch(undo())
+  })
 
   // Redo
   registerKeypress(['shift ctrl z', 'ctrl y'], {
     preventDefault: true,
     requireFocusOnBody: true
-  }, redo)
+  }, () => {
+    store.dispatch(redo())
+  })
 }
