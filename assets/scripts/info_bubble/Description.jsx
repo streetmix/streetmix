@@ -27,14 +27,7 @@ export class Description extends React.Component {
   onClickShow = () => {
     this.props.showDescription()
     this.props.updateBubbleDimensions()
-
-    // TODO refactor - segment element should handle this whenever descriptionVisible is true
-    if (this.props.segmentEl) {
-      this.props.segmentEl.classList.add('hide-drag-handles-when-description-shown')
-    }
-
     this.props.updateHoverPolygon()
-    // end TODO
 
     registerKeypress('esc', this.onClickHide)
     trackEvent('INTERACTION', 'LEARN_MORE', this.props.type, null, false)
@@ -43,14 +36,7 @@ export class Description extends React.Component {
   onClickHide = () => {
     this.props.hideDescription()
     this.props.updateBubbleDimensions()
-
-    // TODO refactor
-    if (this.props.segmentEl) {
-      this.props.segmentEl.classList.remove('hide-drag-handles-when-description-shown')
-    }
-
     this.props.updateHoverPolygon()
-    // end TODO
 
     deregisterKeypress('esc', this.onClickHide)
   }

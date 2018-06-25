@@ -9,7 +9,7 @@ import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, suppressMouseEnter, increme
 import { TILE_SIZE } from './constants'
 import { removeSegment, removeAllSegments } from './remove'
 import { SETTINGS_UNITS_METRIC } from '../users/constants'
-import { infoBubble, isDescriptionVisible } from '../info_bubble/info_bubble'
+import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { KEYS } from '../app/keyboard_commands'
 import { trackEvent } from '../app/event_tracking'
@@ -31,6 +31,7 @@ class Segment extends React.Component {
     updatePerspective: PropTypes.func,
     locale: PropTypes.string,
     infoBubbleHovered: PropTypes.bool,
+    descriptionVisible: PropTypes.bool,
     suppressMouseEnter: PropTypes.bool.isRequired
   }
 
@@ -172,7 +173,7 @@ class Segment extends React.Component {
       case KEYS.BACKSPACE:
       case KEYS.DELETE:
         // Prevent deletion from occurring if the description is visible
-        if (isDescriptionVisible()) return
+        if (this.props.descriptionVisible) return
 
         // If the shift key is pressed, we remove all segments
         if (event.shiftKey === true) {
@@ -236,8 +237,8 @@ class Segment extends React.Component {
             <span className="width">
               <MeasurementText value={widthValue} units={this.props.units} locale={this.props.locale} />
             </span>
-            <span className="drag-handle left" style={{ display: (this.props.infoBubbleHovered ? 'none' : 'block') }} ref={(ref) => { this.dragHandleLeft = ref }}>‹</span>
-            <span className="drag-handle right" style={{ display: (this.props.infoBubbleHovered ? 'none' : 'block') }} ref={(ref) => { this.dragHandleRight = ref }}>›</span>
+            <span className="drag-handle left" style={{ display: ((this.props.infoBubbleHovered || this.props.descriptionVisible) ? 'none' : 'block') }} ref={(ref) => { this.dragHandleLeft = ref }}>‹</span>
+            <span className="drag-handle right" style={{ display: ((this.props.infoBubbleHovered || this.props.descriptionVisible) ? 'none' : 'block') }} ref={(ref) => { this.dragHandleRight = ref }}>›</span>
             <span className={'grid' + (this.props.units === SETTINGS_UNITS_METRIC ? ' units-metric' : ' units-imperial')} />
           </React.Fragment>
         }
@@ -272,7 +273,8 @@ function mapStateToProps (state) {
   return {
     cssTransform: state.system.cssTransform,
     locale: state.locale.locale,
-    infoBubbleHovered: state.infoBubble.mouseInside
+    infoBubbleHovered: state.infoBubble.mouseInside,
+    descriptionVisible: state.infoBubble.descriptionVisible
   }
 }
 
