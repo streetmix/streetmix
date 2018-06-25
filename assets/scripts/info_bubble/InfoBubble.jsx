@@ -189,16 +189,18 @@ class InfoBubble extends React.Component {
     const mouseX = event.pageX
     const mouseY = event.pageY
 
-    if (this.props.visible) {
-      if (!infoBubble._withinHoverPolygon(mouseX, mouseY)) {
-        infoBubble.show(false)
-      }
-    }
-
     window.clearTimeout(this.hoverPolygonUpdateTimerId)
 
     this.hoverPolygonUpdateTimerId = window.setTimeout(() => {
       this.updateHoverPolygon(mouseX, mouseY)
+
+      // After updating hover polygon, see if mouse is inside of it and hide the
+      // info bubble if it isn't.
+      if (this.props.visible) {
+        if (!infoBubble._withinHoverPolygon(mouseX, mouseY)) {
+          infoBubble.show(false)
+        }
+      }
     }, 50)
   }
 
