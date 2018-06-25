@@ -443,7 +443,7 @@ class InfoBubble extends React.Component {
 
   render () {
     const type = this.state.type
-    const canBeDeleted = (type === INFO_BUBBLE_TYPE_SEGMENT)
+    const canBeDeleted = (type === INFO_BUBBLE_TYPE_SEGMENT && this.props.dataNo !== null)
 
     // Set class names
     const classNames = ['info-bubble']
@@ -501,7 +501,7 @@ class InfoBubble extends React.Component {
         <Triangle highlight={this.state.highlightTriangle} />
         <header>
           <div className="info-bubble-header-label">{this.getName()}</div>
-          <RemoveButton enabled={canBeDeleted} segment={this.segmentEl} />
+          {canBeDeleted && <RemoveButton segment={this.props.dataNo} />}
         </header>
         <div className="info-bubble-controls">
           <IntlProvider

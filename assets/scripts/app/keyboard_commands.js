@@ -24,7 +24,9 @@ export const KEYS = {
   PLUS_KEYPAD: 107,
   MINUS: 189,
   MINUS_ALT: 173, // Firefox
-  MINUS_KEYPAD: 109
+  MINUS_KEYPAD: 109,
+  BACKSPACE: 8,
+  DELETE: 46
 }
 
 export function onGlobalKeyDown (event) {

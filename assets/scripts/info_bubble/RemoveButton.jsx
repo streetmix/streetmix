@@ -7,12 +7,10 @@ import { removeSegment, removeAllSegments } from '../segments/remove'
 class RemoveButton extends React.PureComponent {
   static propTypes = {
     intl: intlShape.isRequired,
-    enabled: PropTypes.bool,
-    segment: PropTypes.object // TODO: this is the actual DOM element; change it to a value
+    segment: PropTypes.number.isRequired
   }
 
   static defaultProps = {
-    enabled: true,
     segment: null
   }
 
@@ -23,16 +21,17 @@ class RemoveButton extends React.PureComponent {
     // Power move: a shift key will remove all segments
     if (event.shiftKey) {
       removeAllSegments()
+      trackEvent('INTERACTION', 'REMOVE_ALL_SEGMENTS', 'BUTTON', null, true)
     } else {
       // Otherwise, remove one segment
-      removeSegment(this.props.segment) // this is the reference to the actual element.
+      removeSegment(this.props.segment)
+      trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'BUTTON', null, true)
     }
-
-    trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'BUTTON', null, true)
   }
 
   render () {
-    if (!this.props.enabled) return null
+    // Bail if segment is not provided; do not check for falsy. 0 is valid value for segment
+    if (typeof this.props.segment === 'undefined' || this.props.segment === null) return null
 
     return (
       <button
@@ -41,7 +40,7 @@ class RemoveButton extends React.PureComponent {
         title={this.props.intl.formatMessage({ id: 'tooltip.remove-segment', defaultMessage: 'Remove segment' })}
         onClick={this.onClick}
       >
-        <FormattedMessage id="btn.remove" defaultMessage="remove" />
+        <FormattedMessage id="btn.remove" defaultMessage="Remove" />
       </button>
     )
   }

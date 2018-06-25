@@ -7,8 +7,9 @@ import { CSSTransition } from 'react-transition-group'
 import { getSegmentVariantInfo, getSegmentInfo } from '../segments/info'
 import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, suppressMouseEnter, incrementSegmentWidth } from './resizing'
 import { TILE_SIZE } from './constants'
+import { removeSegment, removeAllSegments } from './remove'
 import { SETTINGS_UNITS_METRIC } from '../users/constants'
-import { infoBubble } from '../info_bubble/info_bubble'
+import { infoBubble, isDescriptionVisible } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { KEYS } from '../app/keyboard_commands'
 import { trackEvent } from '../app/event_tracking'
@@ -125,23 +126,65 @@ class Segment extends React.Component {
     )
   }
 
-  handleKeyDown = (event) => {
-    const negative = (event.keyCode === KEYS.MINUS) ||
-      (event.keyCode === KEYS.MINUS_ALT) ||
-      (event.keyCode === KEYS.MINUS_KEYPAD)
-
-    const positive = (event.keyCode === KEYS.EQUAL) ||
-      (event.keyCode === KEYS.EQUAL_ALT) ||
-      (event.keyCode === KEYS.PLUS_KEYPAD)
-
-    const metaCtrlAlt = (event.metaKey || event.ctrlKey || event.altKey)
-    if (metaCtrlAlt || (!negative && !positive)) return
-
+  /**
+   * Decreases segment width
+   *
+   * @param {Number} position - segment position
+   * @param {Boolean} finetune - true if shift key is pressed
+   */
+  decrementSegmentWidth (position, finetune) {
     const { widthValue } = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
-    incrementSegmentWidth(this.props.dataNo, !negative, event.shiftKey, widthValue)
-    event.preventDefault()
+    incrementSegmentWidth(position, false, finetune, widthValue)
+  }
 
-    trackEvent('INTERACTION', 'CHANGE_WIDTH', 'KEYBOARD', null, true)
+  /**
+   * Increases segment width
+   *
+   * @param {Number} position - segment position
+   * @param {Boolean} finetune - true if shift key is pressed
+   */
+  incrementSegmentWidth (position, finetune) {
+    const { widthValue } = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
+    incrementSegmentWidth(position, true, finetune, widthValue)
+  }
+
+  handleKeyDown = (event) => {
+    switch (event.keyCode) {
+      case KEYS.MINUS:
+      case KEYS.MINUS_ALT:
+      case KEYS.MINUS_KEYPAD:
+        if (event.metaKey || event.ctrlKey || event.altKey) return
+
+        event.preventDefault()
+        this.decrementSegmentWidth(this.props.dataNo, event.shiftKey)
+        trackEvent('INTERACTION', 'CHANGE_WIDTH', 'KEYBOARD', null, true)
+        break
+      case KEYS.EQUAL:
+      case KEYS.EQUAL_ALT:
+      case KEYS.PLUS_KEYPAD:
+        if (event.metaKey || event.ctrlKey || event.altKey) return
+
+        event.preventDefault()
+        this.incrementSegmentWidth(this.props.dataNo, event.shiftKey)
+        trackEvent('INTERACTION', 'CHANGE_WIDTH', 'KEYBOARD', null, true)
+        break
+      case KEYS.BACKSPACE:
+      case KEYS.DELETE:
+        // Prevent deletion from occurring if the description is visible
+        if (isDescriptionVisible()) return
+
+        // If the shift key is pressed, we remove all segments
+        if (event.shiftKey === true) {
+          removeAllSegments()
+          trackEvent('INTERACTION', 'REMOVE_ALL_SEGMENTS', 'KEYBOARD', null, true)
+        } else {
+          removeSegment(this.props.dataNo)
+          trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'KEYBOARD', null, true)
+        }
+        break
+      default:
+        break
+    }
   }
 
   render () {
