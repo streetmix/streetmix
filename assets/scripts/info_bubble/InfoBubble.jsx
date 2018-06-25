@@ -510,7 +510,6 @@ class InfoBubble extends React.Component {
           updateBubbleDimensions={this.updateBubbleDimensions}
           highlightTriangle={this.highlightTriangle}
           unhighlightTriangle={this.unhighlightTriangle}
-          segmentEl={this.segmentEl}
           infoBubbleEl={this.el.current}
           updateHoverPolygon={this.updateHoverPolygon}
         />

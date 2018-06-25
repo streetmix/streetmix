@@ -20,7 +20,6 @@ export class Description extends React.Component {
     descriptionVisible: PropTypes.bool.isRequired,
     showDescription: PropTypes.func.isRequired,
     hideDescription: PropTypes.func.isRequired,
-    segmentEl: PropTypes.object,
     infoBubbleEl: PropTypes.object
   }
 
@@ -80,7 +79,7 @@ export class Description extends React.Component {
   render () {
     const description = this.getDescriptionData(this.props.type, this.props.variantString)
 
-    if (!description || !this.props.segmentEl || !this.props.infoBubbleEl) return null
+    if (!description || !this.props.infoBubbleEl) return null
 
     // If the description text doesn't exist or hasn't been translated, bail.
     const text = t(`descriptions.${description.key}.text`, null, { ns: 'segment-info' })
