@@ -30,6 +30,7 @@ class Segment extends React.Component {
     updateSegmentData: PropTypes.func,
     updatePerspective: PropTypes.func,
     locale: PropTypes.string,
+    infoBubbleHovered: PropTypes.bool,
     suppressMouseEnter: PropTypes.bool.isRequired
   }
 
@@ -235,8 +236,8 @@ class Segment extends React.Component {
             <span className="width">
               <MeasurementText value={widthValue} units={this.props.units} locale={this.props.locale} />
             </span>
-            <span className="drag-handle left" ref={(ref) => { this.dragHandleLeft = ref }}>‹</span>
-            <span className="drag-handle right" ref={(ref) => { this.dragHandleRight = ref }}>›</span>
+            <span className="drag-handle left" style={{ display: (this.props.infoBubbleHovered ? 'none' : 'block') }} ref={(ref) => { this.dragHandleLeft = ref }}>‹</span>
+            <span className="drag-handle right" style={{ display: (this.props.infoBubbleHovered ? 'none' : 'block') }} ref={(ref) => { this.dragHandleRight = ref }}>›</span>
             <span className={'grid' + (this.props.units === SETTINGS_UNITS_METRIC ? ' units-metric' : ' units-imperial')} />
           </React.Fragment>
         }
@@ -270,7 +271,8 @@ class Segment extends React.Component {
 function mapStateToProps (state) {
   return {
     cssTransform: state.system.cssTransform,
-    locale: state.locale.locale
+    locale: state.locale.locale,
+    infoBubbleHovered: state.infoBubble.mouseInside
   }
 }
 

@@ -69,7 +69,6 @@ export const infoBubble = {
         el.classList.remove('immediate-show-drag-handles')
       }
       infoBubble.segmentEl.classList.remove('hide-drag-handles-when-description-shown')
-      infoBubble.segmentEl.classList.remove('hide-drag-handles-when-inside-info-bubble')
       infoBubble.segmentEl.classList.remove('show-drag-handles')
       infoBubble.segmentEl = null
     }
