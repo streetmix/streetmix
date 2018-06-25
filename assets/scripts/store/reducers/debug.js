@@ -2,7 +2,6 @@ import { SET_DEBUG_FLAGS } from '../actions'
 
 const initialState = {
   forceLeftHandTraffic: false,
-  forceMetric: false,
   forceUnsupportedBrowser: false,
   forceNonRetina: false,
   forceNoInternet: false,

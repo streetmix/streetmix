@@ -14,7 +14,6 @@ import { setFeatureFlag } from '../store/actions/flags'
 
 export const debug = {
   forceLeftHandTraffic: false,
-  forceMetric: false,
   forceUnsupportedBrowser: false,
   forceNonRetina: false,
   forceNoInternet: false,
@@ -27,10 +26,6 @@ const url = window.location.search
 
 if (url.match(/[?&]debug-force-left-hand-traffic&?/)) {
   debug.forceLeftHandTraffic = true
-}
-
-if (url.match(/[?&]debug-force-metric&?/)) {
-  debug.forceMetric = true
 }
 
 if (url.match(/[?&]debug-force-unsupported-browser&?/)) {

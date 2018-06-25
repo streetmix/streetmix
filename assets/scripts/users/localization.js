@@ -63,8 +63,6 @@ export function updateUnitSettings (countryCode) {
 
   if (localStorageUnits) {
     unitType = localStorageUnits
-  } else if (debug.forceMetric) {
-    unitType = SETTINGS_UNITS_METRIC
   } else if (COUNTRIES_IMPERIAL_UNITS.indexOf(countryCode) !== -1) {
     unitType = SETTINGS_UNITS_IMPERIAL
   } else {

@@ -109,9 +109,6 @@ export function updatePageUrl (forceGalleryUrl) {
   if (debug.forceLeftHandTraffic) {
     url += '&debug-force-left-hand-traffic'
   }
-  if (debug.forceMetric) {
-    url += '&debug-force-metric'
-  }
   if (debug.forceUnsupportedBrowser) {
     url += '&debug-force-unsupported-browser'
   }
