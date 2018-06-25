@@ -3,18 +3,18 @@
     "item": {
       "help": "幫助",
       "about": "關於Streetmix。。。",
-      "contact": "",
-      "community": "",
-      "contribute": "",
+      "contact": "聯繫我們",
+      "community": "社群",
+      "contribute": "貢獻",
       "sign-in": "登錄",
-      "sign-out": "",
+      "sign-out": "登出",
       "new-street": "新的一條街",
       "my-streets": "我的街道",
-      "settings": "",
+      "settings": "設置",
       "share": "分享"
     },
     "help": {
-      "keyboard-label": "電腦鍵盤快捷鍵：",
+      "keyboard-label": "快捷鍵：",
       "remove": "",
       "move": "",
       "change": ""
@@ -22,42 +22,42 @@
     "share": {
       "sign-in-twitter-link": "登錄",
       "sign-in-link": "",
-      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>登錄推特</a>，會有連到你的街和你各自的街廊的連接",
+      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>登錄推特</a>，會有連到你所創建的街道的連接",
       "link": "複製和粘貼這個連接來分享：",
       "twitter": "用推特來分享",
       "facebook": "用臉書來分享",
-      "print": "打印。。。",
-      "save": "把照片存到電腦上。。。",
-      "save-byline": "用來包括在報告，博客等等",
+      "print": "打印",
+      "save": "存為圖片",
+      "save-byline": "將連接內嵌在報告，博客等等",
       "messages": {
-        "my-street": "",
-        "my-street-unnamed": "",
-        "someone-elses-street": "",
-        "someone-elses-street-unnamed": "",
-        "anonymous-creator-street": "",
-        "anonymous-creator-street-unnamed": ""
+        "my-street": "快來看看我在Streetmix上創建的街道, {streetName}！",
+        "my-street-unnamed": "快來看看我在Streetmix上創建的街道！",
+        "someone-elses-street": "快來看看這條由 {streetCreator}在Streetmix上創建的 {streetName}吧！",
+        "someone-elses-street-unnamed": "快來看看 {streetCreator} 在Streetmix上創建的街道吧！",
+        "anonymous-creator-street": "快來看看這條在Streetmix上創建的 {streetName} 吧！",
+        "anonymous-creator-street-unnamed": "快來看看這條在Streetmix上創建的街道吧！"
       }
     },
     "contact": {
-      "forums": "",
-      "twitter": "",
-      "email": "",
-      "github": "",
-      "blog": "",
-      "slack": ""
+      "forums": "前往論壇",
+      "twitter": "發一條推特@streetmix",
+      "email": "給Streetmix團隊發郵件",
+      "github": "在GitHub上查看源代碼",
+      "blog": "訪問Streetmix的博客",
+      "slack": "加入Slack對話"
     },
     "contribute": {
-      "donate": "",
-      "stickers": "",
-      "opensource": ""
+      "donate": "捐獻",
+      "stickers": "購買Streetmix貼紙",
+      "opensource": "貢獻源代碼"
     },
     "feedback": {
-      "prompt": "",
-      "message-placeholder": "",
-      "email-placeholder": "",
-      "send": "",
-      "confirm": "",
-      "error": ""
+      "prompt": "給我們發信息",
+      "message-placeholder": "你覺得Streetmix怎麼樣？",
+      "email-placeholder": "你的電郵（選填）",
+      "send": "發送消息",
+      "confirm": "我們已收到你的信息，謝謝！",
+      "error": "很抱歉，你的信息暫時無法發送。請稍後再試。"
     }
   },
   "settings": {
@@ -105,6 +105,8 @@
     "street-deleted-elsewhere-description": "",
     "twitter-access-denied-title": "",
     "twitter-access-denied-description": "",
+    "email-access-denied-title": "",
+    "email-access-denied-description": "",
     "auth-api-problem-title": "",
     "auth-api-problem-description": "",
     "please-try-again": "",
@@ -165,7 +167,7 @@
       "view-source": "查看源代碼",
       "sponsored-by": "Streetmix 由 X Company 慷慨贊助。",
       "donate-link": "經濟上支持",
-      "github-link": ""
+      "github-link": "貢獻源代碼"
     },
     "save": {
       "heading": "把照片存到電腦上",

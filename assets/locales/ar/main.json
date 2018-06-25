@@ -105,6 +105,8 @@
     "street-deleted-elsewhere-description": "",
     "twitter-access-denied-title": "",
     "twitter-access-denied-description": "",
+    "email-access-denied-title": "",
+    "email-access-denied-description": "",
     "auth-api-problem-title": "",
     "auth-api-problem-description": "",
     "please-try-again": "",
