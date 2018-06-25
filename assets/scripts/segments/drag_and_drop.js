@@ -797,6 +797,37 @@ function handleSegmentDragStart (segment, fromPalette) {
   hideControls()
 }
 
+// When dragging a segment, react-dnd registers when the dragged segment
+// is over another segment. However, if the dragged segment is not over
+// any segment targets, then it triggers the canvasTarget. react-dnd does
+// not allow an easy way to figure out which side of the canvas the dragged
+// segment is, so this function will compare the segment positions of the
+// first and last street segments with the calculated position of the
+// dropped segment.
+function handleSegmentCanvasDrop (deltaX, initialPos, draggedItem) {
+  const droppedPosition = initialPos + deltaX
+  const { segments } = store.getState().street
+
+  const newSegment = {
+    variantString: draggedItem.variantString,
+    width: draggedItem.width / TILE_SIZE,
+    type: draggedItem.type,
+    randSeed: draggedItem.randSeed
+  }
+
+  let index = 0
+
+  if (segments.length > 0) {
+    const leftEmptySegment = segments[0].el.getBoundingClientRect().left
+    index = (droppedPosition <= leftEmptySegment) ? 0 : segments.length
+  }
+
+  if (draggedItem.forPalette) {
+    store.dispatch(addSegment(index, newSegment))
+    segmentsChanged(false)
+  }
+}
+
 export const Types = {
   SEGMENT: 'segment'
 }
@@ -825,15 +856,19 @@ export const segmentSource = {
   },
 
   endDrag (props, monitor, component) {
+    const dropResult = monitor.getDropResult()
     if (!monitor.didDrop()) {
       // if no object returned by a drop handler, it is not within the canvas
-      console.log('here')
       if (!props.forPalette) {
         // if existing segment is dropped outside canvas, delete it
         store.dispatch(removeSegment(props.dataNo))
         segmentsChanged(false)
       }
+    } else if (dropResult && dropResult.deltaX) {
+      const initialPos = component.streetSegment.getBoundingClientRect().left
+      handleSegmentCanvasDrop(dropResult.deltaX, initialPos, monitor.getItem())
     }
+
     document.querySelector('.palette-trashcan').classList.remove('visible')
     document.body.classList.remove('segment-move-dragging')
   }
@@ -859,24 +894,10 @@ export const segmentTarget = {
 
 export const canvasTarget = {
   drop (props, monitor, component) {
-    const { segments } = store.getState().street
-    const draggedItem = monitor.getItem()
-
-    const newSegment = {
-      variantString: draggedItem.variantString,
-      width: draggedItem.width / TILE_SIZE,
-      type: draggedItem.type,
-      randSeed: draggedItem.randSeed
+    return {
+      withinCanvas: true,
+      deltaX: monitor.getDifferenceFromInitialOffset()
     }
-
-    // New segment from palette dragged to empty street
-    if (draggedItem.forPalette && segments.length === 0) {
-      store.dispatch(addSegment(0, newSegment))
-      cancelSegmentResizeTransitions()
-      segmentsChanged(false)
-    }
-
-    return { withinCanvas: true }
   }
 }
 
