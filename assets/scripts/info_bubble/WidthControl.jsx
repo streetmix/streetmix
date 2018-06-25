@@ -12,7 +12,7 @@ import {
   RESIZE_TYPE_TYPING,
   resizeSegment,
   incrementSegmentWidth,
-  scheduleControlsFadeout
+  resumeFadeoutControls
 } from '../segments/resizing'
 import {
   prettifyWidth,
@@ -27,7 +27,6 @@ class WidthControl extends React.Component {
     intl: intlShape.isRequired,
     touch: PropTypes.bool,
     segment: PropTypes.object, // eslint-disable-line react/no-unused-prop-types
-    segmentEl: PropTypes.object, // TODO: this is the actual DOM element; only here for legacy reasons
     position: PropTypes.number,
     value: PropTypes.number,
     units: PropTypes.number,
@@ -74,22 +73,18 @@ class WidthControl extends React.Component {
   }
 
   onClickIncrement = (event) => {
-    const segmentEl = this.props.segmentEl
     const precise = event.shiftKey
 
     incrementSegmentWidth(this.props.position, true, precise, this.props.value)
-    scheduleControlsFadeout(segmentEl)
-
+    resumeFadeoutControls()
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'DECREMENT_BUTTON', null, true)
   }
 
   onClickDecrement = (event) => {
-    const segmentEl = this.props.segmentEl
     const precise = event.shiftKey
 
     incrementSegmentWidth(this.props.position, false, precise, this.props.value)
-    scheduleControlsFadeout(segmentEl)
-
+    resumeFadeoutControls()
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INCREMENT_BUTTON', null, true)
   }
 
