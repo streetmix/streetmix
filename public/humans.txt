@@ -76,6 +76,8 @@
     Translators
 
     Diana M. Alhaj, Arabic
+    Crystal Xing, Chinese (Traditional)
+    Ricky Tsui, Chinese (Traditional)
     Wen Jing Jiang, Chinese (Traditional)
     Aleksi Kinnunen, Finnish
     Denis Devillé, French
