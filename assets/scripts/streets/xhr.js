@@ -248,8 +248,8 @@ export function fetchStreetForVerification () {
 }
 
 function receiveStreetForVerification (transmission) {
-  const localStreetData = trimStreetData(latestVerificationStreet)
-  const serverStreetData = trimStreetData(unpackStreetDataFromServerTransmission(transmission))
+  const localStreetData = trimStreetData(latestVerificationStreet, false)
+  const serverStreetData = trimStreetData(unpackStreetDataFromServerTransmission(transmission), false)
 
   if (JSON.stringify(localStreetData) !== JSON.stringify(serverStreetData)) {
     console.log('NOT EQUAL')
@@ -360,7 +360,7 @@ export function unpackServerStreetData (transmission, id, namespacedId, checkIfN
 
 export function packServerStreetData () {
   var data = {}
-  data.street = trimStreetData(store.getState().street)
+  data.street = trimStreetData(store.getState().street, false)
 
   // Those go above data in the structure, so they need to be cleared here
   delete data.street.name
