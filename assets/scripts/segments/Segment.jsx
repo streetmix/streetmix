@@ -170,7 +170,7 @@ class Segment extends React.Component {
         break
       case KEYS.BACKSPACE:
       case KEYS.DELETE:
-        // Prevent deletion from occurring of the description is visible
+        // Prevent deletion from occurring if the description is visible
         if (isDescriptionVisible()) return
 
         // If the shift key is pressed, we remove all segments

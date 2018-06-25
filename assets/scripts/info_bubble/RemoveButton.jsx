@@ -7,7 +7,7 @@ import { removeSegment, removeAllSegments } from '../segments/remove'
 class RemoveButton extends React.PureComponent {
   static propTypes = {
     intl: intlShape.isRequired,
-    segment: PropTypes.number
+    segment: PropTypes.number.isRequired
   }
 
   static defaultProps = {
@@ -18,23 +18,21 @@ class RemoveButton extends React.PureComponent {
     // Prevent this “leaking” to a segment below
     event.preventDefault()
 
-    const { segment } = this.props
-
-    // Bail if segment is not provided; do not check for falsy. 0 is valid value for segment
-    if (segment === undefined || segment === null) return
-
     // Power move: a shift key will remove all segments
     if (event.shiftKey) {
       removeAllSegments()
       trackEvent('INTERACTION', 'REMOVE_ALL_SEGMENTS', 'BUTTON', null, true)
     } else {
       // Otherwise, remove one segment
-      removeSegment(segment)
+      removeSegment(this.props.segment)
       trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'BUTTON', null, true)
     }
   }
 
   render () {
+    // Bail if segment is not provided; do not check for falsy. 0 is valid value for segment
+    if (typeof this.props.segment === 'undefined' || this.props.segment === null) return null
+
     return (
       <button
         className="info-bubble-remove"

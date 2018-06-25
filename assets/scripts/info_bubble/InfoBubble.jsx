@@ -443,7 +443,7 @@ class InfoBubble extends React.Component {
 
   render () {
     const type = this.state.type
-    const canBeDeleted = (type === INFO_BUBBLE_TYPE_SEGMENT)
+    const canBeDeleted = (type === INFO_BUBBLE_TYPE_SEGMENT && this.props.dataNo !== null)
 
     // Set class names
     const classNames = ['info-bubble']
