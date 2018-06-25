@@ -214,3 +214,27 @@
 .feature-flag-label-modified {
   font-weight: bold;
 }
+
+.email-sign-in-dialog {
+  text-align: center;
+  width: 500px;
+
+  form {
+    margin: 20px;
+
+    .form-control {
+      padding: 8px;
+      font-size: 13px;
+      width: 50%;
+      border: 1px solid #000;
+      border-radius: 2px;
+      outline: none;
+    }
+
+    .btn {
+      margin: 10px;
+      padding: 6px;
+      cursor: pointer;
+    }
+  }
+}

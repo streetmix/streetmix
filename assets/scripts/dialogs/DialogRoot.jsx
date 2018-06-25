@@ -10,6 +10,7 @@ import DonateDialog from './DonateDialog'
 import FeatureFlagDialog from './FeatureFlagDialog'
 import GeotagDialog from './GeotagDialog'
 import SaveAsImageDialog from './SaveAsImageDialog'
+import EmailSignInDialog from './EmailSignInDialog'
 
 const DIALOG_COMPONENTS = {
   ABOUT: {
@@ -27,6 +28,9 @@ const DIALOG_COMPONENTS = {
   },
   SAVE_AS_IMAGE: {
     contents: SaveAsImageDialog
+  },
+  EMAIL_SIGN_IN: {
+    contents: EmailSignInDialog
   }
 }
 

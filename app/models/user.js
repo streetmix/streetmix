@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema({
   twitter_id: String,
   twitter_credentials: mongoose.Schema.Types.Mixed,
   auth0_id: String,
+  email: { type: String, index: { unique: true, sparse: true } },
   login_tokens: [ String ],
   profile_image_url: String,
   data: mongoose.Schema.Types.Mixed,

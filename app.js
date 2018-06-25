@@ -50,6 +50,7 @@ const csp = {
       'platform.twitter.com',
       'https://www.google-analytics.com',
       'cdn.mxpnl.com',
+      'streetmix.auth0.com',
       '*.basemaps.cartocdn.com',
       'api.geocode.earth',
       (req, res) => "'nonce-" + res.locals.nonce.google_analytics + "'",
@@ -61,6 +62,7 @@ const csp = {
       'data:',
       'pbs.twimg.com',
       'syndication.twitter.com',
+      's.gravatar.com',
       'https://www.google-analytics.com',
       '*.basemaps.cartocdn.com'
     ],
@@ -71,7 +73,8 @@ const csp = {
       'api.geocode.earth',
       'syndication.twitter.com',
       'https://www.google-analytics.com',
-      'app.getsentry.com'
+      'app.getsentry.com',
+      'streetmix.auth0.com'
     ]
   }
 }
@@ -145,6 +148,8 @@ app.get('/twitter-sign-in', controllers.twitter_sign_in.get)
 app.get(config.twitter.oauth_callback_uri, controllers.twitter_sign_in_callback.get)
 // Auth0 - twitter auth
 app.get(config.auth0.twitter_callback_uri, controllers.twitter_auth0_sign_in_callback.get)
+// Email
+app.get(config.auth0.email_callback_uri, controllers.email_sign_in.get)
 
 app.post('/api/v1/users', resources.v1.users.post)
 app.get('/api/v1/users/:user_id', resources.v1.users.get)
@@ -186,6 +191,7 @@ app.get('/assets/scripts/main.js', browserify(path.join(__dirname, '/assets/scri
     PELIAS_API_KEY: config.get('geocode.pelias.api_key'),
     TWITTER_CALLBACK_URI: config.get('twitter.oauth_callback_uri'),
     AUTH0_TWITTER_CALLBACK_URI: config.get('auth0.twitter_callback_uri'),
+    AUTH0_EMAIL_CALLBACK_URI: config.get('auth0.email_callback_uri'),
     AUTH0_DOMAIN: config.get('auth0.domain'),
     AUTH0_CLIENT_ID: config.get('auth0.client_id'),
     USE_AUTH0: config.get('auth0.use_auth0'),

@@ -21,6 +21,14 @@ const user = {
     oauthAccessTokenSecret: 'WoZytO4kMLuafdafjdafja'
   }
 }
+const emailUser = {
+  auth0_email: {
+    nickname: 'omoyajowo2015',
+    auth0_id: 'email|9032',
+    email: 'omoyajowo2015@gmail.com',
+    profile_image_url: 'https://avatar.com/picture.png'
+  }
+}
 
 function setLoginToken (req, res, next) {
   req.loginToken = '133e5110-5d2e-11e8-a8fd-678b57961690'
@@ -45,12 +53,13 @@ function setupMockServer () {
 describe('POST api/v1/users', function () {
   const app = setupMockServer()
 
-  it('should respond with 200 Ok when user credentials are sent', function () {
+  it.only('should respond with 200 Ok when user credentials are sent', function () {
     return request(app)
       .post('/api/v1/users/')
       .type('json')
-      .send(JSON.stringify(user))
+      .send(JSON.stringify(emailUser))
       .then((response) => {
+        console.log(response.text)
         expect(response.statusCode).toEqual(200)
       })
   })

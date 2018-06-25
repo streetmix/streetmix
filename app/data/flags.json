@@ -59,5 +59,9 @@
   "DONATE_NAG_SCREEN": {
     "label": "Donation nag screen",
     "defaultValue": true
+  },
+  "EMAIL_AUTHENTICATION": {
+    "label": "Auth0 email authentication",
+    "defaultValue": false
   }
 }

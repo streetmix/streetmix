@@ -9,7 +9,7 @@ jest.mock('../routing', () => ({
   goHome: () => {},
   goNewStreet: () => {},
   goExampleStreet: () => {},
-  goSignIn: () => {}
+  goTwitterSignIn: () => {}
 }))
 jest.mock('../load_resources', () => {})
 jest.mock('../../users/authentication', () => {})

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import EnvironmentBadge from './EnvironmentBadge'
-import { goSignIn } from '../app/routing'
+import { goTwitterSignIn } from '../app/routing'
 import { showGallery } from '../gallery/view'
 import MenuBarItem from './MenuBarItem'
 import Avatar from '../users/Avatar'
@@ -70,7 +70,7 @@ class MenuBar extends React.PureComponent {
   }
 
   onClickSignIn = (event) => {
-    goSignIn()
+    goTwitterSignIn()
   }
 
   renderUserAvatar = (userId) => {
@@ -81,12 +81,7 @@ class MenuBar extends React.PureComponent {
           <span className="user-id">{userId}</span>
         </MenuBarItem>
       ) : (
-        <MenuBarItem
-          onClick={this.onClickSignIn}
-          translation="menu.item.sign-in"
-          label="Sign in"
-          requireInternet
-        />
+        <MenuBarItem label="Sign in" translation="menu.item.signin" onClick={this.onClickMenuButton('signin')} requireInternet />
       )
   }
 
