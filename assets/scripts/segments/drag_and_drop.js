@@ -797,37 +797,6 @@ function handleSegmentDragStart (segment, fromPalette) {
   hideControls()
 }
 
-// When dragging a segment, react-dnd registers when the dragged segment
-// is over another segment. However, if the dragged segment is not over
-// any segment targets, then it triggers the canvasTarget. react-dnd does
-// not allow an easy way to figure out which side of the canvas the dragged
-// segment is, so this function will compare the segment positions of the
-// first and last street segments with the calculated position of the
-// dropped segment.
-function handleSegmentCanvasDrop (deltaX, initialPos, draggedItem) {
-  const droppedPosition = initialPos + deltaX
-  const { segments } = store.getState().street
-
-  const newSegment = {
-    variantString: draggedItem.variantString,
-    width: draggedItem.width / TILE_SIZE,
-    type: draggedItem.type,
-    randSeed: draggedItem.randSeed
-  }
-
-  let index = 0
-
-  if (segments.length > 0) {
-    const leftEmptySegment = segments[0].el.getBoundingClientRect().left
-    index = (droppedPosition <= leftEmptySegment) ? 0 : segments.length
-  }
-
-  if (draggedItem.forPalette) {
-    store.dispatch(addSegment(index, newSegment))
-    segmentsChanged(false)
-  }
-}
-
 export const Types = {
   SEGMENT: 'segment'
 }
@@ -856,7 +825,6 @@ export const segmentSource = {
   },
 
   endDrag (props, monitor, component) {
-    const dropResult = monitor.getDropResult()
     if (!monitor.didDrop()) {
       // if no object returned by a drop handler, it is not within the canvas
       if (!props.forPalette) {
@@ -864,11 +832,9 @@ export const segmentSource = {
         store.dispatch(removeSegment(props.dataNo))
         segmentsChanged(false)
       }
-    } else if (dropResult && dropResult.deltaX) {
-      const initialPos = component.streetSegment.getBoundingClientRect().left
-      handleSegmentCanvasDrop(dropResult.deltaX, initialPos, monitor.getItem())
     }
 
+    infoBubble.show(true)
     document.querySelector('.palette-trashcan').classList.remove('visible')
     document.body.classList.remove('segment-move-dragging')
   }
@@ -889,15 +855,55 @@ export const segmentTarget = {
 
   hover (props, monitor, component) {
     // makeSpaceBetweenSegments
+  },
+
+  drop (props, monitor, component) {
+    return { withinCanvs: true }
+  }
+}
+
+// When dragging a segment, react-dnd registers when the dragged segment
+// is over another segment. However, if the dragged segment is not over
+// any segment targets, then it triggers the canvasTarget. react-dnd does
+// not allow an easy way to figure out which side of the canvas the dragged
+// segment is, so this function will compare the end of the left empty segment
+// and beginning of the right empty segment with the dropped position.
+function handleSegmentCanvasDrop (leftEmpty, rightEmpty, droppedPosition, draggedItem) {
+  const { segments } = store.getState().street
+  const newSegment = {
+    variantString: draggedItem.variantString,
+    width: draggedItem.width / TILE_SIZE,
+    type: draggedItem.type,
+    randSeed: draggedItem.randSeed
+  }
+
+  let index = 0
+
+  if (segments.length > 0) {
+    index = (droppedPosition < leftEmpty) ? 0 : segments.length
+  }
+
+  if (draggedItem.forPalette) {
+    store.dispatch(addSegment(index, newSegment))
+    cancelSegmentResizeTransitions()
+    segmentsChanged(false)
   }
 }
 
 export const canvasTarget = {
   drop (props, monitor, component) {
-    return {
-      withinCanvas: true,
-      deltaX: monitor.getDifferenceFromInitialOffset()
+    // If dragged segment was not handled by segmentTarget,
+    // then it was dropped over one of the empty segments.
+    if (!monitor.didDrop()) {
+      const draggedItem = monitor.getItem()
+      const { left, right } = component.streetSectionEditable.getBoundingClientRect()
+      const { x } = monitor.getClientOffset()
+      const emptySegmentWidth = (props.street.remainingWidth * TILE_SIZE / 2)
+
+      handleSegmentCanvasDrop(left + emptySegmentWidth, right - emptySegmentWidth, x, draggedItem)
     }
+
+    return { withinCanvas: true }
   }
 }
 
