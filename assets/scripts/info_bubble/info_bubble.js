@@ -13,10 +13,6 @@ function isInfoBubbleVisible () {
   return store.getState().infoBubble.visible
 }
 
-export function isDescriptionVisible () {
-  return store.getState().infoBubble.descriptionVisible
-}
-
 export const infoBubble = {
   hoverPolygon: null,
   segmentEl: null,

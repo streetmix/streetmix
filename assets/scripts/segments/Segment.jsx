@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import MeasurementText from '../ui/MeasurementText'
 import SegmentCanvas from './SegmentCanvas'
+import SegmentDragHandles from './SegmentDragHandles'
 import { CSSTransition } from 'react-transition-group'
 import { getSegmentVariantInfo, getSegmentInfo } from '../segments/info'
 import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, suppressMouseEnter, incrementSegmentWidth } from './resizing'
@@ -54,8 +55,6 @@ class Segment extends React.Component {
 
   componentDidMount = () => {
     if (!this.props.forPalette) {
-      this.dragHandleLeft.segmentEl = this.streetSegment
-      this.dragHandleRight.segmentEl = this.streetSegment
       this.props.updateSegmentData(this.streetSegment, this.props.dataNo, this.props.segmentPos)
     }
   }
@@ -237,9 +236,8 @@ class Segment extends React.Component {
             <span className="width">
               <MeasurementText value={widthValue} units={this.props.units} locale={this.props.locale} />
             </span>
-            <span className="drag-handle left" style={{ display: ((this.props.infoBubbleHovered || this.props.descriptionVisible) ? 'none' : 'block') }} ref={(ref) => { this.dragHandleLeft = ref }}>‹</span>
-            <span className="drag-handle right" style={{ display: ((this.props.infoBubbleHovered || this.props.descriptionVisible) ? 'none' : 'block') }} ref={(ref) => { this.dragHandleRight = ref }}>›</span>
             <span className={'grid' + (this.props.units === SETTINGS_UNITS_METRIC ? ' units-metric' : ' units-imperial')} />
+            <SegmentDragHandles />
           </React.Fragment>
         }
         <CSSTransition
