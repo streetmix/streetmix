@@ -67,5 +67,13 @@
   "EMAIL_AUTHENTICATION": {
     "label": "Auth0 email authentication",
     "defaultValue": false
+  },
+  "FACEBOOK_AUTHENTICATION": {
+    "label": "Auth0 Facebook authentication",
+    "defaultValue": false
+  },
+  "GOOGLE_AUTHENTICATION": {
+    "label": "Auth0 Google authentication",
+    "defaultValue": false
   }
 }
