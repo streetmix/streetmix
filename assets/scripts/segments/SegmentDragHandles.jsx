@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 
 export class SegmentDragHandles extends React.Component {
   static propTypes = {
+    width: PropTypes.number,
     infoBubbleHovered: PropTypes.bool,
     descriptionVisible: PropTypes.bool
   }
@@ -22,18 +23,20 @@ export class SegmentDragHandles extends React.Component {
   }
 
   render () {
-    const style = {
-      display: 'block'
-    }
+    const display = (this.props.infoBubbleHovered || this.props.descriptionVisible)
+      ? 'none' : 'block'
 
-    if (this.props.infoBubbleHovered || this.props.descriptionVisible) {
-      style.display = 'none'
-    }
+    // To prevent drag handles from overlapping each other when the segment widths are very small,
+    // we calculate an X-position adjustment when the value of `width` is less than 60px.
+    // The X position adjustment follows the linear equation y = 0.5x - 35 (where `x` is `width`).
+    // For example, (`width = 36`, `adjustX = -11px`), (`width = 12`, `adjustX = -29px`).
+    const adjustX = (this.props.width < 60)
+      ? `${(0.5 * this.props.width) - 35}px` : null
 
     return (
       <React.Fragment>
-        <span className="drag-handle left" style={style} ref={this.dragHandleLeft}>‹</span>
-        <span className="drag-handle right" style={style} ref={this.dragHandleRight}>›</span>
+        <span className="drag-handle left" style={{ display, left: adjustX }} ref={this.dragHandleLeft}>‹</span>
+        <span className="drag-handle right" style={{ display, right: adjustX }} ref={this.dragHandleRight}>›</span>
       </React.Fragment>
     )
   }
