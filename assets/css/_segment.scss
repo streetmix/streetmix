@@ -200,7 +200,7 @@ body.segment-resize-dragging .drag-handle.floating,
   transform: none;
 }
 
-.segment .guide {
+.segment-guide {
   position: absolute;
   z-index: $z-07-segment-guide;
   left: 50%;
@@ -209,41 +209,40 @@ body.segment-resize-dragging .drag-handle.floating,
   border-left: 1px dashed fade-out(black, 0.6);
   border-right: 1px dashed fade-out(black, 0.6);
   box-sizing: border-box;
+  pointer-events: none;
+}
 
-  &::before,
-  &::after {
-    width: 50px;
-    position: absolute;
-    box-sizing: border-box;
-    pointer-events: none;
-    bottom: 400px;
-    font-size: 11px;
-    color: fade-out(black, 0.4);
-  }
+.segment-guide-max-before,
+.segment-guide-max-after,
+.segment-guide-min-before,
+.segment-guide-min-after {
+  width: 50px;
+  position: absolute;
+  box-sizing: border-box;
+  pointer-events: none;
+  bottom: 400px;
+  font-size: 11px;
+  color: fade-out(black, 0.4);
+}
 
-  &.max::before {
-    content: 'Max »';
-    left: -55px;
-    text-align: right;
-  }
+.segment-guide-max-before {
+  left: -55px;
+  text-align: right;
+}
 
-  &.max::after {
-    content: '« Max';
-    right: -55px;
-    text-align: left;
-  }
+.segment-guide-max-after {
+  right: -55px;
+  text-align: left;
+}
 
-  &.min::before {
-    content: '« Min';
-    left: 5px;
-    text-align: left;
-  }
+.segment-guide-min-before {
+  left: 5px;
+  text-align: left;
+}
 
-  &.min::after {
-    content: 'Min »';
-    right: 5px;
-    text-align: right;
-  }
+.segment-guide-min-after {
+  right: 5px;
+  text-align: right;
 }
 
 .segment .grid {

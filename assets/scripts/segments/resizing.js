@@ -11,8 +11,7 @@ import {
 import {
   DRAGGING_TYPE_NONE,
   draggingResize,
-  changeDraggingType,
-  removeGuides
+  changeDraggingType
 } from './drag_and_drop'
 import { segmentsChanged } from './view'
 import store from '../store'
@@ -73,7 +72,8 @@ export function handleSegmentResizeEnd (event) {
 
   draggingResize.segmentEl.classList.add('immediate-show-drag-handles')
 
-  removeGuides(draggingResize.segmentEl)
+  // todo: refactor
+  window.dispatchEvent(new window.CustomEvent('stmx:hide_segment_guides'))
 
   infoBubble.considerSegmentEl = draggingResize.segmentEl
   infoBubble.show(false)

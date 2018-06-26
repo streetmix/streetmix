@@ -105,7 +105,7 @@ export function changeDraggingType (newDraggingType) {
 }
 
 function handleSegmentResizeStart (event) {
-  let x, y, guideEl, width
+  let x, y
   if (app.readOnly) {
     return
   }
@@ -149,48 +149,13 @@ function handleSegmentResizeStart (event) {
   draggingResize.elY = pos[1]
 
   draggingResize.originalX = draggingResize.elX
-  draggingResize.originalWidth = parseFloat(el.segmentEl.getAttribute('data-width'))
-  draggingResize.segmentEl = el.segmentEl
+  draggingResize.originalWidth = parseFloat(el.parentNode.getAttribute('data-width'))
+  draggingResize.segmentEl = el.parentNode
 
   draggingResize.segmentEl.classList.add('hover')
 
-  const variantInfo = getSegmentVariantInfo(el.segmentEl.getAttribute('type'), el.segmentEl.getAttribute('variant-string'))
-
-  if (variantInfo.minWidth) {
-    guideEl = document.createElement('div')
-    guideEl.classList.add('guide')
-    guideEl.classList.add('min')
-
-    width = variantInfo.minWidth * TILE_SIZE
-    guideEl.style.width = width + 'px'
-    guideEl.style.marginLeft = (-width / 2) + 'px'
-    el.segmentEl.appendChild(guideEl)
-  }
-
-  var remainingWidth =
-  store.getState().street.remainingWidth + parseFloat(el.segmentEl.getAttribute('data-width'))
-
-  if (remainingWidth &&
-    (((!variantInfo.minWidth) && (remainingWidth >= MIN_SEGMENT_WIDTH)) || (remainingWidth >= variantInfo.minWidth)) &&
-    ((!variantInfo.maxWidth) || (remainingWidth <= variantInfo.maxWidth))) {
-    guideEl = document.createElement('div')
-    guideEl.classList.add('guide')
-    guideEl.classList.add('max')
-
-    width = remainingWidth * TILE_SIZE
-    guideEl.style.width = width + 'px'
-    guideEl.style.marginLeft = (-width / 2) + 'px'
-    el.segmentEl.appendChild(guideEl)
-  } else if (variantInfo.maxWidth) {
-    guideEl = document.createElement('div')
-    guideEl.classList.add('guide')
-    guideEl.classList.add('max')
-
-    width = variantInfo.maxWidth * TILE_SIZE
-    guideEl.style.width = width + 'px'
-    guideEl.style.marginLeft = (-width / 2) + 'px'
-    el.segmentEl.appendChild(guideEl)
-  }
+  // todo: refactor
+  window.dispatchEvent(new window.CustomEvent('stmx:show_segment_guides', { detail: { dataNo: window.parseInt(draggingResize.segmentEl.dataNo, 10) } }))
 
   infoBubble.hide()
   infoBubble.hideSegment(true)
@@ -198,7 +163,7 @@ function handleSegmentResizeStart (event) {
   hideControls()
 
   window.setTimeout(function () {
-    el.segmentEl.classList.add('hover')
+    draggingResize.segmentEl.classList.add('hover')
   }, 0)
 }
 
@@ -796,14 +761,6 @@ function handleSegmentMoveEnd (event) {
 
   if (failedDrop) {
     infoBubble.show(true)
-  }
-}
-
-export function removeGuides (el) {
-  let guideEl = el.querySelector('.guide')
-  while (guideEl) {
-    guideEl.remove()
-    guideEl = el.querySelector('.guide')
   }
 }
 
