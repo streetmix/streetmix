@@ -58,6 +58,9 @@
       "send": "Lähetä viesti",
       "confirm": "Perille tuli. Kiitos!",
       "error": "Pahoittelut, viestin lähetys ei nyt onnistunut. Yritäthän myöhemmin uudelleen."
+    },
+    "sign-in": {
+      "twitter": "Kirjaudu Twitter-tunnuksella"
     }
   },
   "settings": {
@@ -267,6 +270,10 @@
     },
     "description": {
       "photo-credit": "Kuva: "
+    },
+    "resize": {
+      "min": "",
+      "max": ""
     }
   },
   "section": {

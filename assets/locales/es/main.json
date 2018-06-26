@@ -58,6 +58,9 @@
       "send": "Enviar mensaje",
       "confirm": "Lo hemos recibido, gracias!",
       "error": "Disculpas, hubo un problema al enviar su retroalimentacion. Por favor intente despues"
+    },
+    "sign-in": {
+      "twitter": "Registrar con Twitter"
     }
   },
   "settings": {
@@ -267,6 +270,10 @@
     },
     "description": {
       "photo-credit": ""
+    },
+    "resize": {
+      "min": "",
+      "max": ""
     }
   },
   "section": {

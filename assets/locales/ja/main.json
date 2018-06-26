@@ -58,6 +58,9 @@
       "send": "送付",
       "confirm": "ご意見ありがとうございます！",
       "error": "すみません、フィードバックの送付に失敗しました。時間をおいて再度お試しください。"
+    },
+    "sign-in": {
+      "twitter": "Twitterでログイン"
     }
   },
   "settings": {
@@ -267,6 +270,10 @@
     },
     "description": {
       "photo-credit": "写真："
+    },
+    "resize": {
+      "min": "",
+      "max": ""
     }
   },
   "section": {

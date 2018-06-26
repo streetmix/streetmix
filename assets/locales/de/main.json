@@ -58,6 +58,9 @@
       "send": "",
       "confirm": "",
       "error": ""
+    },
+    "sign-in": {
+      "twitter": ""
     }
   },
   "settings": {
@@ -267,6 +270,10 @@
     },
     "description": {
       "photo-credit": ""
+    },
+    "resize": {
+      "min": "",
+      "max": ""
     }
   },
   "section": {

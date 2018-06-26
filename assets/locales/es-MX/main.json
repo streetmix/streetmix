@@ -58,6 +58,9 @@
       "send": "Mandar un mensaje",
       "confirm": "Lo recibimos. ¡Gracias!",
       "error": "Lo sentimos, hubo problemas mandando feedback ahora. Por favor trata de nuevo después."
+    },
+    "sign-in": {
+      "twitter": "Ingresar con Twitter"
     }
   },
   "settings": {
@@ -267,6 +270,10 @@
     },
     "description": {
       "photo-credit": "Foto:"
+    },
+    "resize": {
+      "min": "",
+      "max": ""
     }
   },
   "section": {

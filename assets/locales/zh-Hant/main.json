@@ -58,73 +58,76 @@
       "send": "發送消息",
       "confirm": "我們已收到你的信息，謝謝！",
       "error": "很抱歉，你的信息暫時無法發送。請稍後再試。"
+    },
+    "sign-in": {
+      "twitter": ""
     }
   },
   "settings": {
     "units": {
       "label": "",
-      "metric": "",
-      "imperial": ""
+      "metric": "公制單位（米）",
+      "imperial": "英制單位（尺）"
     },
     "language": {
-      "label": ""
+      "label": "語言"
     }
   },
   "msg": {
-    "loading": "",
+    "loading": "加載中…",
     "remixing": "",
-    "having-trouble": "",
-    "no-street": "",
-    "trouble-loading": "",
-    "slow-connection-1": "",
-    "slow-connection-2": "",
-    "no-connection": "",
-    "more-info": ""
+    "having-trouble": "遇到小故障…",
+    "no-street": "未選中街道",
+    "trouble-loading": "我們在加載Streetmix中遇到一些問題。",
+    "slow-connection-1": "Streetmix現在暫時無法連接到網路。",
+    "slow-connection-2": "你可以刷新網頁再嘗試一次。很抱歉！你最後一次作出的更改有可能并未能被保存。",
+    "no-connection": "Streetmix無法連接到網路。",
+    "more-info": "更多信息"
   },
   "error": {
     "button": {
-      "home": "",
-      "sign-in": "",
-      "reload": "",
-      "try-again": "再嘗試",
-      "view-example": ""
+      "home": "回到主頁",
+      "sign-in": "再一次登入",
+      "reload": "刷新網頁",
+      "try-again": "再試一次",
+      "view-example": "查看示例街道"
     },
-    "page-not-found-title": "",
-    "page-not-found-description": "",
-    "street-not-found-title": "",
-    "street-not-found-description": "",
-    "street-not-found-but-user-description": "",
-    "street-deleted-title": "",
-    "street-deleted-description": "",
-    "sign-out-title": "",
-    "reload-sign-out-title": "",
-    "gallery-street-failure-description": "",
-    "reload-sign-in-title": "",
-    "please-reload": "",
-    "street-deleted-elsewhere-title": "",
-    "street-deleted-elsewhere-description": "",
-    "twitter-access-denied-title": "",
-    "twitter-access-denied-description": "",
-    "email-access-denied-title": "",
-    "email-access-denied-description": "",
-    "auth-api-problem-title": "",
-    "auth-api-problem-description": "",
+    "page-not-found-title": "找不到網頁。",
+    "page-not-found-description": "哎呀，這個地址不存在哦！",
+    "street-not-found-title": "找不到街道。",
+    "street-not-found-description": "哎呀，這條連接中沒有街道哦！",
+    "street-not-found-but-user-description": "這條鏈接中沒有街道哦！但你可以看看{user}所創建的其他街道。",
+    "street-deleted-title": "這條街道已經被刪除。",
+    "street-deleted-description": "這條鏈接中的街道已經不見了哦！但你可以看看{user}所創建的其他街道。",
+    "sign-out-title": "你已經登出。",
+    "reload-sign-out-title": "你在另一個窗口已經登出。",
+    "gallery-street-failure-description": "我們在加載這條街道的時候遇到一點問題。",
+    "reload-sign-in-title": "你已在另一個窗口登錄。",
+    "please-reload": "請刷新此頁再繼續。",
+    "street-deleted-elsewhere-title": "這條街道已在別處被刪除。",
+    "street-deleted-elsewhere-description": "這條街道已在別的瀏覽器中被刪除。",
+    "twitter-access-denied-title": "你還沒有登錄。",
+    "twitter-access-denied-description": "你已取消登錄推特。",
+    "email-access-denied-title": "你還沒有登錄。",
+    "email-access-denied-description": "你已取消用電郵登錄。",
+    "auth-api-problem-title": "在你登錄的過程中出了點小問題。",
+    "auth-api-problem-description": "在確認你身份的過程中出了點小問題。",
     "please-try-again": "",
-    "unsupported-browser-title": "",
+    "unsupported-browser-title": "Streetmix無法在這個瀏覽器上運行。",
     "unsupported-browser-description": "",
-    "unsupported-browser-internet-explorer": "",
+    "unsupported-browser-internet-explorer": "你在使用Internet Explorer嗎? <a target='_blank' rel='noopener noreferrer' href='{readmeIEUrl}'>知道更多</a>",
     "unsupported-browser-contact-us": "",
-    "cannot-create-new-street-on-phone-title": "",
+    "cannot-create-new-street-on-phone-title": "Streetmix只能在平板電腦和台式電腦上運行。",
     "cannot-create-new-street-on-phone-description": "",
     "generic-error-title": "出現問題",
-    "generic-error-description": "很抱歉，出現技術故障。",
+    "generic-error-description": "很抱歉，出現了一點技術故障。",
     "error-code": ""
   },
   "btn": {
-    "reload": "",
-    "undo": "解開",
+    "reload": "刷新",
+    "undo": "撤銷",
     "redo": "重做",
-    "try-again": "再嘗試",
+    "try-again": "再試一次",
     "cancel": "取消",
     "create": "新的一條街",
     "copy": "複製",
@@ -134,7 +137,7 @@
   },
   "dialogs": {
     "error": {
-      "heading": "啊！",
+      "heading": "哎呀！",
       "text": ""
     },
     "welcome": {
@@ -170,26 +173,26 @@
       "github-link": "貢獻源代碼"
     },
     "save": {
-      "heading": "把照片存到電腦上",
+      "heading": "存為圖片",
       "option-labels": "",
-      "option-name": "",
-      "option-sky": "",
-      "loading": "",
-      "save-button": "",
+      "option-name": "街道名稱",
+      "option-sky": "透明的天空",
+      "loading": "加載中…",
+      "save-button": "保存到電腦上…",
       "license": "",
       "error-preview": "顯示預覽圖時出現了問題。",
       "error-unavailable": "此瀏覽器不支援收藏圖片功能。",
-      "preview-image-alt": ""
+      "preview-image-alt": "預覽"
     },
     "geotag": {
-      "search": "",
-      "clear-search": "",
+      "search": "搜索位置",
+      "clear-search": "清空搜索",
       "zoom-in": "放大",
-      "zoom-out": "縮細",
-      "add-location": "",
-      "confirm-location": "",
-      "clear-location": "",
-      "unknown-location": ""
+      "zoom-out": "縮小",
+      "add-location": "添加位置",
+      "confirm-location": "確認位置",
+      "clear-location": "清除位置",
+      "unknown-location": "未知位置"
     },
     "donate": {
       "heading": "Streetmix 需要你的幫助！",
@@ -207,8 +210,8 @@
   "toast": {
     "segment-deleted": "",
     "all-segments-deleted": "",
-    "no-undo": "不須修改",
-    "no-redo": "不須重複再做",
+    "no-undo": "無法撤銷",
+    "no-redo": "無法重做",
     "no-save": "不須按儲存，Streetmix 會自動幫你儲存你的道路！",
     "remixing": "",
     "remixing-sign-in": "",
@@ -267,6 +270,10 @@
     },
     "description": {
       "photo-credit": ""
+    },
+    "resize": {
+      "min": "",
+      "max": ""
     }
   },
   "section": {
