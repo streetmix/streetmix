@@ -105,6 +105,8 @@
     "street-deleted-elsewhere-description": "Esta rua foi removida em outro navegador.",
     "twitter-access-denied-title": "",
     "twitter-access-denied-description": "",
+    "email-access-denied-title": "",
+    "email-access-denied-description": "",
     "auth-api-problem-title": "",
     "auth-api-problem-description": "",
     "please-try-again": "Por favor tente novamente mais tarde ou contate-nos via <a target='_blank' rel='noopener noreferrer' href='{email}'>e-mail</a> ou <a target='_blank' rel='noopener noreferrer' href='{tweet}'>Twitter</a>.",

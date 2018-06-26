@@ -18,11 +18,11 @@
     "perpendicular-parking": "Stationnement perpendiculaire",
     "angled-parking": "Parking incliné",
     "flex-zone": "Zone à usage multiple",
-    "taxi-pick-up": "",
-    "rideshare-pick-up": "",
+    "taxi-pick-up": "Zone d'embarquement de taxi",
+    "rideshare-pick-up": "Zone d'embarquement de covoiturage",
     "bikeshare-station": "Borne de vélo en libre-service",
     "foodtruck": "Camion-restaurant",
-    "flex-zone-curb": "",
+    "flex-zone-curb": "Zone d'attente",
     "drive-lane": "Voie de circulation",
     "sharrow": "Chaussée désignée",
     "turn-lane": "Voie de virage",
@@ -192,9 +192,9 @@
     "wayfinding-type|large": "Grand",
     "wayfinding-type|medium": "Moyen",
     "wayfinding-type|small": "Petit",
-    "waiting-area|sparse": "",
-    "waiting-area|empty": "",
-    "flex-type|rideshare": "",
-    "flex-type|taxi": ""
+    "waiting-area|sparse": "Quelqu'un",
+    "waiting-area|empty": "Personne",
+    "flex-type|rideshare": "Covoiturage",
+    "flex-type|taxi": "Taxi"
   }
 }
