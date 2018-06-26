@@ -160,23 +160,12 @@ class InfoBubble extends React.Component {
 
   // TODO: verify this continues to work with pointer / touch taps
   onMouseEnter = (event) => {
-    // TODO: refactor so segment element handles this
-    if (this.segmentEl) {
-      this.segmentEl.classList.add('hide-drag-handles-when-inside-info-bubble')
-    }
-
     this.props.setInfoBubbleMouseInside(true)
 
     this.updateHoverPolygon()
   }
 
   onMouseLeave = (event) => {
-    // TODO: Prevent pointer taps from flashing the drag handles
-    // TODO: refactor so segment element handles this
-    if (this.segmentEl) {
-      this.segmentEl.classList.remove('hide-drag-handles-when-inside-info-bubble')
-    }
-
     this.props.setInfoBubbleMouseInside(false)
 
     // Returns focus to body when pointer leaves the info bubble area
@@ -479,7 +468,7 @@ class InfoBubble extends React.Component {
     let widthOrHeightControl
     switch (type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
-        widthOrHeightControl = <WidthControl segmentEl={this.segmentEl} position={position} />
+        widthOrHeightControl = <WidthControl position={position} />
         break
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
@@ -521,7 +510,6 @@ class InfoBubble extends React.Component {
           updateBubbleDimensions={this.updateBubbleDimensions}
           highlightTriangle={this.highlightTriangle}
           unhighlightTriangle={this.unhighlightTriangle}
-          segmentEl={this.segmentEl}
           infoBubbleEl={this.el.current}
           updateHoverPolygon={this.updateHoverPolygon}
         />
