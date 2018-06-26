@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl'
 import { isEmail } from 'validator'
 import { goEmailSignIn } from '../app/routing'
 
-export default class EmailSignInDialog extends React.Component {
+export default class SignInDialog extends React.Component {
   constructor (props) {
     super(props)
     this.state = {

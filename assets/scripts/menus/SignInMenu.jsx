@@ -108,7 +108,7 @@ export class SignInMenu extends React.Component {
 
 function mapDispatchToProps (dispatch) {
   return {
-    showDialog: () => { dispatch(showDialog('EMAIL_SIGN_IN')) }
+    showDialog: () => { dispatch(showDialog('SIGN_IN')) }
   }
 }
 

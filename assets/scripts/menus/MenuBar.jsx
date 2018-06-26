@@ -7,12 +7,14 @@ import { showGallery } from '../gallery/view'
 import MenuBarItem from './MenuBarItem'
 import Avatar from '../users/Avatar'
 import { clearMenus } from '../store/actions/menus'
+import { showDialog } from '../store/actions/dialogs'
 
 class MenuBar extends React.PureComponent {
   static propTypes = {
     onMenuDropdownClick: PropTypes.func,
     userId: PropTypes.string,
-    clearMenus: PropTypes.func
+    clearMenus: PropTypes.func,
+    showDialog: PropTypes.func
   }
 
   static defaultProps = {
@@ -81,7 +83,7 @@ class MenuBar extends React.PureComponent {
           <span className="user-id">{userId}</span>
         </MenuBarItem>
       ) : (
-        <MenuBarItem label="Sign in" translation="menu.item.sign-in" onClick={this.onClickMenuButton('signin')} requireInternet />
+        <MenuBarItem label="Sign in" translation="menu.item.signin" onClick={this.props.showDialog()} requireInternet />
       )
   }
 
@@ -101,7 +103,6 @@ class MenuBar extends React.PureComponent {
           <MenuBarItem label="Contribute" translation="menu.item.contribute" onClick={this.onClickMenuButton('contribute')} requireInternet />
         </ul>
         <ul className="menu-bar-right" ref={(ref) => { this.menuBarRight = ref }}>
-          {this.renderUserAvatar(userId)}
           <MenuBarItem
             label="New street"
             translation="menu.item.new-street"
@@ -117,6 +118,7 @@ class MenuBar extends React.PureComponent {
           />
           <MenuBarItem label="Settings" translation="menu.item.settings" onClick={this.onClickMenuButton('settings')} />
           <MenuBarItem label="Share" translation="menu.item.share" onClick={this.onClickMenuButton('share')} />
+          {this.renderUserAvatar(userId)}
         </ul>
         <EnvironmentBadge />
       </nav>
@@ -132,7 +134,8 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    clearMenus: () => dispatch(clearMenus())
+    clearMenus: () => dispatch(clearMenus()),
+    showDialog: () => { dispatch(showDialog('SIGN_IN')) }
   }
 }
 
