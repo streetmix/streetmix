@@ -81,7 +81,7 @@ class MenuBar extends React.PureComponent {
           <span className="user-id">{userId}</span>
         </MenuBarItem>
       ) : (
-        <MenuBarItem label="Sign in" translation="menu.item.signin" onClick={this.onClickMenuButton('signin')} requireInternet />
+        <MenuBarItem label="Sign in" translation="menu.item.sign-in" onClick={this.onClickMenuButton('signin')} requireInternet />
       )
   }
 
