@@ -29,17 +29,27 @@ export class SegmentDragGuides extends React.Component {
 
   componentDidMount () {
     // Listen for events to show/hide
-    window.addEventListener('stmx:show_segment_guides', (e) => {
-      if (e.detail.dataNo === this.props.dataNo) {
-        this.setState({
-          show: true
-        })
-      }
-    })
-    window.addEventListener('stmx:hide_segment_guides', (e) => {
+    window.addEventListener('stmx:show_segment_guides', this.showGuides)
+    window.addEventListener('stmx:hide_segment_guides', this.hideGuides)
+  }
+
+  componentWillUnmount () {
+    // Clean up when unmounted
+    window.removeEventListener('stmx:show_segment_guides', this.showGuides)
+    window.removeEventListener('stmx:hide_segment_guides', this.hideGuides)
+  }
+
+  showGuides = (event) => {
+    if (event.detail.dataNo === this.props.dataNo) {
       this.setState({
-        show: false
+        show: true
       })
+    }
+  }
+
+  hideGuides = (event) => {
+    this.setState({
+      show: false
     })
   }
 
