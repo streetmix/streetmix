@@ -216,6 +216,9 @@ export class InfoBubble extends React.Component {
 
   // TODO: make this a pure(r) function
   createHoverPolygon = (mouseX, mouseY) => {
+    // `hoverPolygon` is an array of points as [x, y] values. Values should
+    // draw a shape counter-clockwise. The final value must match the first
+    // value in order to create an enclosed polygon.
     let hoverPolygon = []
 
     if (!this.props.visible) {
@@ -230,78 +233,86 @@ export class InfoBubble extends React.Component {
     const bubbleX = Number.parseInt(this.el.current.style.left)
     const bubbleY = Number.parseInt(this.el.current.style.top)
 
-    let marginBubble
-
-    if (this.props.descriptionVisible) {
-      marginBubble = DESCRIPTION_HOVER_POLYGON_MARGIN
-    } else {
-      marginBubble = INFO_BUBBLE_MARGIN_BUBBLE
-    }
-
     if (this.props.mouseInside && !this.props.descriptionVisible) {
-      var pos = getElAbsolutePos(this.segmentEl)
+      const pos = getElAbsolutePos(this.segmentEl)
 
-      var x = pos[0] - document.querySelector('#street-section-outer').scrollLeft
+      // Left X position of segment element
+      const segmentLeftX = pos[0] - document.querySelector('#street-section-outer').scrollLeft
+      // Right X position of segment element
+      const segmentRightX = segmentLeftX + this.segmentEl.offsetWidth
+      // Left X position of segment element with margin (edge of the hover polygon)
+      const hitboxLeftX = segmentLeftX - INFO_BUBBLE_MARGIN_BUBBLE
+      // Right X position of segment element with margin (edge of the hover polygon)
+      const hitboxRightX = segmentRightX + INFO_BUBBLE_MARGIN_BUBBLE
 
-      var segmentX1 = x - INFO_BUBBLE_MARGIN_BUBBLE
-      var segmentX2 = x + this.segmentEl.offsetWidth + INFO_BUBBLE_MARGIN_BUBBLE
-
-      var segmentY = pos[1] + this.segmentEl.offsetHeight + INFO_BUBBLE_MARGIN_BUBBLE
+      // Top Y position of segment element
+      const segmentTopY = pos[1]
+      // Bottom Y position of segment element
+      const segmentBottomY = segmentTopY + this.segmentEl.offsetHeight
+      // Bottom Y position of segment element with margin
+      const hitboxBottomY = segmentBottomY + INFO_BUBBLE_MARGIN_BUBBLE
 
       hoverPolygon = [
-        [bubbleX - marginBubble, bubbleY - marginBubble],
-        [bubbleX - marginBubble, bubbleY + bubbleHeight + marginBubble],
-        [segmentX1, bubbleY + bubbleHeight + marginBubble + 120],
-        [segmentX1, segmentY],
-        [segmentX2, segmentY],
-        [segmentX2, bubbleY + bubbleHeight + marginBubble + 120],
-        [bubbleX + bubbleWidth + marginBubble, bubbleY + bubbleHeight + marginBubble],
-        [bubbleX + bubbleWidth + marginBubble, bubbleY - marginBubble],
-        [bubbleX - marginBubble, bubbleY - marginBubble]
+        // Top left of infobubble
+        [bubbleX - INFO_BUBBLE_MARGIN_BUBBLE, bubbleY - INFO_BUBBLE_MARGIN_BUBBLE],
+        // Bottom left of infobubble
+        [bubbleX - INFO_BUBBLE_MARGIN_BUBBLE, bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE],
+        // Diagonal line to hit edge of segment
+        [hitboxLeftX, bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE + 120],
+        // Bottom left of segment
+        [hitboxLeftX, hitboxBottomY],
+        // Bottom right of segment
+        [hitboxRightX, hitboxBottomY],
+        // Point at which to begin diagonal line to infobubble
+        [hitboxRightX, bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE + 120],
+        // Bottom right of infobubble
+        [bubbleX + bubbleWidth + INFO_BUBBLE_MARGIN_BUBBLE, bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE],
+        // Top right of infobubble
+        [bubbleX + bubbleWidth + INFO_BUBBLE_MARGIN_BUBBLE, bubbleY - INFO_BUBBLE_MARGIN_BUBBLE],
+        // Top left of infobubble (starting point)
+        [bubbleX - INFO_BUBBLE_MARGIN_BUBBLE, bubbleY - INFO_BUBBLE_MARGIN_BUBBLE]
       ]
     } else {
-      var bottomY = mouseY - INFO_BUBBLE_MARGIN_MOUSE
+      let bottomY = mouseY - INFO_BUBBLE_MARGIN_MOUSE
       if (bottomY < bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE) {
         bottomY = bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE
       }
-      var bottomY2 = mouseY + INFO_BUBBLE_MARGIN_MOUSE
+      let bottomY2 = mouseY + INFO_BUBBLE_MARGIN_MOUSE
       if (bottomY2 < bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE) {
         bottomY2 = bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE
       }
 
       if (this.props.descriptionVisible) {
-        bottomY = bubbleY + bubbleHeight + marginBubble + 300
+        bottomY = bubbleY + bubbleHeight + DESCRIPTION_HOVER_POLYGON_MARGIN + 300
         bottomY2 = bottomY
-      }
 
-      var diffX = 60 - ((mouseY - bubbleY) / 5)
-      if (diffX < 0) {
-        diffX = 0
-      } else if (diffX > 50) {
-        diffX = 50
-      }
-
-      hoverPolygon = [
-        [bubbleX - marginBubble, bubbleY - marginBubble],
-        [bubbleX - marginBubble, bubbleY + bubbleHeight + marginBubble],
-        [(bubbleX - marginBubble + mouseX - INFO_BUBBLE_MARGIN_MOUSE - diffX) / 2, bottomY + ((bubbleY + bubbleHeight + marginBubble - bottomY) * 0.2)],
-        [mouseX - INFO_BUBBLE_MARGIN_MOUSE - diffX, bottomY],
-        [mouseX - INFO_BUBBLE_MARGIN_MOUSE, bottomY2],
-        [mouseX + INFO_BUBBLE_MARGIN_MOUSE, bottomY2],
-        [mouseX + INFO_BUBBLE_MARGIN_MOUSE + diffX, bottomY],
-        [(bubbleX + bubbleWidth + marginBubble + mouseX + INFO_BUBBLE_MARGIN_MOUSE + diffX) / 2, bottomY + ((bubbleY + bubbleHeight + marginBubble - bottomY) * 0.2)],
-        [bubbleX + bubbleWidth + marginBubble, bubbleY + bubbleHeight + marginBubble],
-        [bubbleX + bubbleWidth + marginBubble, bubbleY - marginBubble],
-        [bubbleX - marginBubble, bubbleY - marginBubble]
-      ]
-
-      if (this.props.descriptionVisible) {
         hoverPolygon = [
-          [bubbleX - marginBubble, bubbleY - marginBubble],
-          [bubbleX - marginBubble, bubbleY + bubbleHeight + marginBubble + 300],
-          [bubbleX + bubbleWidth + marginBubble, bubbleY + bubbleHeight + marginBubble + 300],
-          [bubbleX + bubbleWidth + marginBubble, bubbleY - marginBubble],
-          [bubbleX - marginBubble, bubbleY - marginBubble]
+          [bubbleX - DESCRIPTION_HOVER_POLYGON_MARGIN, bubbleY - DESCRIPTION_HOVER_POLYGON_MARGIN],
+          [bubbleX - DESCRIPTION_HOVER_POLYGON_MARGIN, bubbleY + bubbleHeight + DESCRIPTION_HOVER_POLYGON_MARGIN + 300],
+          [bubbleX + bubbleWidth + DESCRIPTION_HOVER_POLYGON_MARGIN, bubbleY + bubbleHeight + DESCRIPTION_HOVER_POLYGON_MARGIN + 300],
+          [bubbleX + bubbleWidth + DESCRIPTION_HOVER_POLYGON_MARGIN, bubbleY - DESCRIPTION_HOVER_POLYGON_MARGIN],
+          [bubbleX - DESCRIPTION_HOVER_POLYGON_MARGIN, bubbleY - DESCRIPTION_HOVER_POLYGON_MARGIN]
+        ]
+      } else {
+        let diffX = 60 - ((mouseY - bubbleY) / 5)
+        if (diffX < 0) {
+          diffX = 0
+        } else if (diffX > 50) {
+          diffX = 50
+        }
+
+        hoverPolygon = [
+          [bubbleX - INFO_BUBBLE_MARGIN_BUBBLE, bubbleY - INFO_BUBBLE_MARGIN_BUBBLE],
+          [bubbleX - INFO_BUBBLE_MARGIN_BUBBLE, bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE],
+          [(bubbleX - INFO_BUBBLE_MARGIN_BUBBLE + mouseX - INFO_BUBBLE_MARGIN_MOUSE - diffX) / 2, bottomY + ((bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE - bottomY) * 0.2)],
+          [mouseX - INFO_BUBBLE_MARGIN_MOUSE - diffX, bottomY],
+          [mouseX - INFO_BUBBLE_MARGIN_MOUSE, bottomY2],
+          [mouseX + INFO_BUBBLE_MARGIN_MOUSE, bottomY2],
+          [mouseX + INFO_BUBBLE_MARGIN_MOUSE + diffX, bottomY],
+          [(bubbleX + bubbleWidth + INFO_BUBBLE_MARGIN_BUBBLE + mouseX + INFO_BUBBLE_MARGIN_MOUSE + diffX) / 2, bottomY + ((bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE - bottomY) * 0.2)],
+          [bubbleX + bubbleWidth + INFO_BUBBLE_MARGIN_BUBBLE, bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE],
+          [bubbleX + bubbleWidth + INFO_BUBBLE_MARGIN_BUBBLE, bubbleY - INFO_BUBBLE_MARGIN_BUBBLE],
+          [bubbleX - INFO_BUBBLE_MARGIN_BUBBLE, bubbleY - INFO_BUBBLE_MARGIN_BUBBLE]
         ]
       }
     }
