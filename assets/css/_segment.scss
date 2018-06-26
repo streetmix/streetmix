@@ -209,6 +209,7 @@ body.segment-resize-dragging .drag-handle.floating,
   border-left: 1px dashed fade-out(black, 0.6);
   border-right: 1px dashed fade-out(black, 0.6);
   box-sizing: border-box;
+  pointer-events: none;
 
   &::before,
   &::after {

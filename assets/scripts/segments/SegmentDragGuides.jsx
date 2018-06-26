@@ -36,12 +36,18 @@ export class SegmentDragGuides extends React.Component {
       }
     })
     window.addEventListener('stmx:hide_segment_guides', (e) => {
-      if (e.detail.dataNo === this.props.dataNo) {
-        this.setState({
-          show: false
-        })
-      }
+      this.setState({
+        show: false
+      })
     })
+  }
+
+  getStyle = (width) => {
+    const pixelWidth = width * TILE_SIZE
+    return {
+      width: `${pixelWidth}px`,
+      marginLeft: (-pixelWidth / 2) + 'px'
+    }
   }
 
   render () {
@@ -51,35 +57,17 @@ export class SegmentDragGuides extends React.Component {
     let minGuide, maxGuide
 
     if (variantInfo.minWidth) {
-      const width = variantInfo.minWidth * TILE_SIZE
-      const style = {
-        width: `${width}px`,
-        marginLeft: (-width / 2) + 'px'
-      }
-
-      minGuide = <div className="guide min" style={style} />
+      minGuide = <div className="guide min" style={this.getStyle(variantInfo.minWidth)} />
     }
 
-    const remainingWidth = this.props.remainingWidth + this.props.width
+    const remainingWidth = this.props.remainingWidth + (this.props.width / TILE_SIZE)
 
     if (remainingWidth &&
       (((!variantInfo.minWidth) && (remainingWidth >= MIN_SEGMENT_WIDTH)) || (remainingWidth >= variantInfo.minWidth)) &&
       ((!variantInfo.maxWidth) || (remainingWidth <= variantInfo.maxWidth))) {
-      const width = remainingWidth * TILE_SIZE
-      const style = {
-        width: `${width}px`,
-        marginLeft: (-width / 2) + 'px'
-      }
-
-      maxGuide = <div className="guide max" style={style} />
+      maxGuide = <div className="guide max" style={this.getStyle(remainingWidth)} />
     } else if (variantInfo.maxWidth) {
-      const width = variantInfo.maxWidth * TILE_SIZE
-      const style = {
-        width: `${width}px`,
-        marginLeft: (-width / 2) + 'px'
-      }
-
-      maxGuide = <div className="guide max" style={style} />
+      maxGuide = <div className="guide max" style={this.getStyle(variantInfo.maxWidth)} />
     }
 
     return (
