@@ -58,6 +58,9 @@
       "send": "Send message",
       "confirm": "We got it. Thanks!",
       "error": "We’re sorry, there was a problem sending feedback at this time. Please try again later."
+    },
+    "sign-in": {
+      "twitter": "Sign in with Twitter"
     }
   },
   "settings": {

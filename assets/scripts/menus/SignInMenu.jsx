@@ -30,7 +30,7 @@ export class SignInMenu extends React.Component {
           <svg className="icon">
             <use xlinkHref="#icon-forums" />
           </svg>
-          <FormattedMessage id="menu.signin.email" defaultMessage="Sign in with Email" />
+          <FormattedMessage id="menu.sign-in.email" defaultMessage="Sign in with Email" />
         </a>
       )
     }
@@ -43,7 +43,7 @@ export class SignInMenu extends React.Component {
           <svg className="icon">
             <use xlinkHref="#icon-twitter" />
           </svg>
-          <FormattedMessage id="menu.signin.twitter" defaultMessage="Sign in with Twitter" />
+          <FormattedMessage id="menu.sign-in.twitter" defaultMessage="Sign in with Twitter" />
         </a>
         {this.renderEmailAuthLink()}
       </Menu>
