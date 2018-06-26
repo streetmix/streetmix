@@ -1,7 +1,6 @@
 import {
   SHOW_INFO_BUBBLE,
   HIDE_INFO_BUBBLE,
-  UPDATE_HOVER_POLYGON,
   SET_INFO_BUBBLE_MOUSE_INSIDE,
   SHOW_DESCRIPTION,
   HIDE_DESCRIPTION
@@ -16,13 +15,6 @@ export function showInfoBubble () {
 export function hideInfoBubble () {
   return {
     type: HIDE_INFO_BUBBLE
-  }
-}
-
-export function updateHoverPolygon (polygon) {
-  return {
-    type: UPDATE_HOVER_POLYGON,
-    hoverPolygon: polygon
   }
 }
 

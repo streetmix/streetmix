@@ -84,8 +84,7 @@ DebugHoverPolygon.defaultProps = {
 
 function mapStateToProps (state) {
   return {
-    enabled: state.flags.INFO_BUBBLE_HOVER_POLYGON.value,
-    hoverPolygon: state.infoBubble.hoverPolygon
+    enabled: state.flags.INFO_BUBBLE_HOVER_POLYGON.value
   }
 }
 

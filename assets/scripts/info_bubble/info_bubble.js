@@ -11,7 +11,7 @@ function isInfoBubbleVisible () {
 }
 
 export const infoBubble = {
-  hoverPolygon: null,
+  hoverPolygon: [],
   segmentEl: null,
   type: null,
 
@@ -45,8 +45,7 @@ export const infoBubble = {
   },
 
   _withinHoverPolygon: function (x, y) {
-    const hoverPolygon = store.getState().infoBubble.hoverPolygon
-    return _isPointInPoly(hoverPolygon, [x, y])
+    return _isPointInPoly(infoBubble.hoverPolygon, [x, y])
   },
 
   hideSegment: function (fast) {

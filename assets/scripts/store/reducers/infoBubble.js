@@ -1,7 +1,6 @@
 import {
   SHOW_INFO_BUBBLE,
   HIDE_INFO_BUBBLE,
-  UPDATE_HOVER_POLYGON,
   SET_INFO_BUBBLE_MOUSE_INSIDE,
   START_PRINTING,
   SHOW_DESCRIPTION,
@@ -12,7 +11,6 @@ const initialState = {
   visible: false,
   mouseInside: false,
   descriptionVisible: false,
-  hoverPolygon: [],
 
   // Bubble dimensions
   bubbleX: null,
@@ -39,11 +37,6 @@ const infoBubble = (state = initialState, action) => {
         descriptionVisible: false,
         // When hidden, mouse is never considered to be "inside"
         mouseInside: false
-      }
-    case UPDATE_HOVER_POLYGON:
-      return {
-        ...state,
-        hoverPolygon: action.hoverPolygon
       }
     case SET_INFO_BUBBLE_MOUSE_INSIDE:
       return {
