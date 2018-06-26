@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import MeasurementText from '../ui/MeasurementText'
 import SegmentCanvas from './SegmentCanvas'
 import SegmentDragHandles from './SegmentDragHandles'
+import SegmentDragGuides from './SegmentDragGuides'
 import { CSSTransition } from 'react-transition-group'
 import { getSegmentVariantInfo, getSegmentInfo } from '../segments/info'
 import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, suppressMouseEnter, incrementSegmentWidth } from './resizing'
@@ -238,6 +239,7 @@ class Segment extends React.Component {
             </span>
             <span className={'grid' + (this.props.units === SETTINGS_UNITS_METRIC ? ' units-metric' : ' units-imperial')} />
             <SegmentDragHandles width={width} />
+            <SegmentDragGuides width={width} type={this.props.type} variantString={this.props.variantString} dataNo={this.props.dataNo} />
           </React.Fragment>
         }
         <CSSTransition
