@@ -267,6 +267,10 @@
     },
     "description": {
       "photo-credit": "Photo:"
+    },
+    "resize": {
+      "min": "Min",
+      "max": "Max"
     }
   },
   "section": {

@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { IntlProvider } from 'react-intl'
 import MeasurementText from '../ui/MeasurementText'
 import SegmentCanvas from './SegmentCanvas'
 import SegmentDragHandles from './SegmentDragHandles'
@@ -32,6 +33,7 @@ class Segment extends React.Component {
     updateSegmentData: PropTypes.func,
     updatePerspective: PropTypes.func,
     locale: PropTypes.string,
+    localeMessages: PropTypes.object,
     infoBubbleHovered: PropTypes.bool,
     descriptionVisible: PropTypes.bool,
     suppressMouseEnter: PropTypes.bool.isRequired
@@ -239,7 +241,13 @@ class Segment extends React.Component {
             </span>
             <span className={'grid' + (this.props.units === SETTINGS_UNITS_METRIC ? ' units-metric' : ' units-imperial')} />
             <SegmentDragHandles width={width} />
-            <SegmentDragGuides width={width} type={this.props.type} variantString={this.props.variantString} dataNo={this.props.dataNo} />
+            <IntlProvider
+              locale={this.props.locale}
+              key={this.props.locale}
+              messages={this.props.localeMessages}
+            >
+              <SegmentDragGuides width={width} type={this.props.type} variantString={this.props.variantString} dataNo={this.props.dataNo} />
+            </IntlProvider>
           </React.Fragment>
         }
         <CSSTransition
@@ -273,6 +281,7 @@ function mapStateToProps (state) {
   return {
     cssTransform: state.system.cssTransform,
     locale: state.locale.locale,
+    localeMessages: state.locale.messages,
     infoBubbleHovered: state.infoBubble.mouseInside,
     descriptionVisible: state.infoBubble.descriptionVisible
   }

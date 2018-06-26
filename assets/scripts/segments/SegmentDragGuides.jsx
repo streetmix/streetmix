@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { FormattedMessage } from 'react-intl'
 import { TILE_SIZE } from './constants'
 import { getSegmentVariantInfo } from '../segments/info'
 import { MIN_SEGMENT_WIDTH } from '../segments/resizing'
@@ -57,7 +58,12 @@ export class SegmentDragGuides extends React.Component {
     let minGuide, maxGuide
 
     if (variantInfo.minWidth) {
-      minGuide = <div className="guide min" style={this.getStyle(variantInfo.minWidth)} />
+      minGuide = (
+        <div className="segment-guide segment-guide-min" style={this.getStyle(variantInfo.minWidth)}>
+          <div className="segment-guide-min-before">« <FormattedMessage id="segment.resize.min" defaultMessage="Min" /></div>
+          <div className="segment-guide-min-after"><FormattedMessage id="segment.resize.min" defaultMessage="Min" /> »</div>
+        </div>
+      )
     }
 
     const remainingWidth = this.props.remainingWidth + (this.props.width / TILE_SIZE)
@@ -65,9 +71,19 @@ export class SegmentDragGuides extends React.Component {
     if (remainingWidth &&
       (((!variantInfo.minWidth) && (remainingWidth >= MIN_SEGMENT_WIDTH)) || (remainingWidth >= variantInfo.minWidth)) &&
       ((!variantInfo.maxWidth) || (remainingWidth <= variantInfo.maxWidth))) {
-      maxGuide = <div className="guide max" style={this.getStyle(remainingWidth)} />
+      maxGuide = (
+        <div className="segment-guide segment-guide-max" style={this.getStyle(remainingWidth)}>
+          <div className="segment-guide-max-before"><FormattedMessage id="segment.resize.max" defaultMessage="Max" /> »</div>
+          <div className="segment-guide-max-after">« <FormattedMessage id="segment.resize.max" defaultMessage="Max" /></div>
+        </div>
+      )
     } else if (variantInfo.maxWidth) {
-      maxGuide = <div className="guide max" style={this.getStyle(variantInfo.maxWidth)} />
+      maxGuide = (
+        <div className="segment-guide segment-guide-max" style={this.getStyle(variantInfo.maxWidth)}>
+          <div className="segment-guide-max-before"><FormattedMessage id="segment.resize.max" defaultMessage="Max" /> »</div>
+          <div className="segment-guide-max-after">« <FormattedMessage id="segment.resize.max" defaultMessage="Max" /></div>
+        </div>
+      )
     }
 
     return (
