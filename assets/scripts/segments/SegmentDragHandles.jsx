@@ -24,7 +24,7 @@ export class SegmentDragHandles extends React.Component {
 
   render () {
     const display = (this.props.infoBubbleHovered || this.props.descriptionVisible)
-      ? 'none' : 'block'
+      ? 'none' : null
 
     // To prevent drag handles from overlapping each other when the segment widths are very small,
     // we calculate an X-position adjustment when the value of `width` is less than 60px.
@@ -35,8 +35,8 @@ export class SegmentDragHandles extends React.Component {
 
     return (
       <React.Fragment>
-        <span className="drag-handle left" style={{ display, left: adjustX }} ref={this.dragHandleLeft}>‹</span>
-        <span className="drag-handle right" style={{ display, right: adjustX }} ref={this.dragHandleRight}>›</span>
+        <span className="drag-handle drag-handle-left" style={{ display, left: adjustX }} ref={this.dragHandleLeft}>‹</span>
+        <span className="drag-handle drag-handle-right" style={{ display, right: adjustX }} ref={this.dragHandleRight}>›</span>
       </React.Fragment>
     )
   }

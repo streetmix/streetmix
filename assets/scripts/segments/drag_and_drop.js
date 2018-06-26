@@ -126,16 +126,16 @@ function handleSegmentResizeStart (event) {
 
   var pos = getElAbsolutePos(el)
 
-  draggingResize.right = el.classList.contains('right')
+  draggingResize.right = el.classList.contains('drag-handle-right')
 
   draggingResize.floatingEl = document.createElement('div')
   draggingResize.floatingEl.classList.add('drag-handle')
   draggingResize.floatingEl.classList.add('floating')
 
-  if (el.classList.contains('left')) {
-    draggingResize.floatingEl.classList.add('left')
+  if (el.classList.contains('drag-handle-left')) {
+    draggingResize.floatingEl.classList.add('drag-handle-left')
   } else {
-    draggingResize.floatingEl.classList.add('right')
+    draggingResize.floatingEl.classList.add('drag-handle-right')
   }
 
   draggingResize.floatingEl.style.left = (pos[0] - document.querySelector('#street-section-outer').scrollLeft) + 'px'

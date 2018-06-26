@@ -161,38 +161,28 @@ body.segment-resize-dragging * {
   pointer-events: none;
   background: $info-bubble-background;
   cursor: col-resize;
-
-  &.left {
-    left: -5px;
-    text-align: left;
-    text-indent: -5px;
-    transform-origin: 100% 50%;
-  }
-
-  &.right {
-    right: -5px;
-    text-align: right;
-    text-indent: -3px;
-    transform-origin: 0 50%;
-  }
-}
-
-.segment .drag-handle {
-  pointer-events: none;
   transition: transform 150ms, opacity 150ms;
   opacity: 0;
-
-  &.left {
-    transform: rotateY(90deg);
-  }
-
-  &.right {
-    transform: rotateY(-90deg);
-  }
 
   &:hover {
     color: darken($ui-colour, 10%);
   }
+}
+
+.drag-handle-left {
+  left: -5px;
+  text-align: left;
+  text-indent: -5px;
+  transform-origin: 100% 50%;
+  transform: rotateY(90deg);
+}
+
+.drag-handle-right {
+  right: -5px;
+  text-align: right;
+  text-indent: -3px;
+  transform-origin: 0 50%;
+  transform: rotateY(-90deg);
 }
 
 .segment.immediate-show-drag-handles .drag-handle {
