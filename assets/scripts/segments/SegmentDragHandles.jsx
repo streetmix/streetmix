@@ -9,19 +9,6 @@ export class SegmentDragHandles extends React.Component {
     descriptionVisible: PropTypes.bool
   }
 
-  constructor (props) {
-    super(props)
-
-    this.dragHandleLeft = React.createRef()
-    this.dragHandleRight = React.createRef()
-  }
-
-  componentDidMount () {
-    // TODO: do not store a reference to the element directly on the DOM.
-    this.dragHandleLeft.current.segmentEl = this.dragHandleLeft.current.parentNode
-    this.dragHandleRight.current.segmentEl = this.dragHandleLeft.current.parentNode
-  }
-
   render () {
     const display = (this.props.infoBubbleHovered || this.props.descriptionVisible)
       ? 'none' : null
@@ -35,8 +22,8 @@ export class SegmentDragHandles extends React.Component {
 
     return (
       <React.Fragment>
-        <span className="drag-handle drag-handle-left" style={{ display, left: adjustX }} ref={this.dragHandleLeft}>‹</span>
-        <span className="drag-handle drag-handle-right" style={{ display, right: adjustX }} ref={this.dragHandleRight}>›</span>
+        <span className="drag-handle drag-handle-left" style={{ display, left: adjustX }}>‹</span>
+        <span className="drag-handle drag-handle-right" style={{ display, right: adjustX }}>›</span>
       </React.Fragment>
     )
   }
