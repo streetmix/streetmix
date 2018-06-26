@@ -854,11 +854,34 @@ export const segmentTarget = {
   },
 
   hover (props, monitor, component) {
+    if (!monitor.canDrop()) return
+
+    const { segments } = store.getState().street
+    const hoveredSegment = component.getDecoratedComponentInstance().streetSegment
+    const { left } = hoveredSegment.getBoundingClientRect()
+    const { x } = monitor.getClientOffset()
+    const draggedItem = monitor.getItem().dataNo
+    const segmentWidth = props.width * TILE_SIZE
+
+    if (props.dataNo === draggedItem) {
+      component.props.updateDraggingState({
+        segmentBeforeEl: (draggedItem === 0) ? undefined : draggedItem - 1,
+        segmentAfterEl: (draggedItem === segments.length - 1) ? undefined : draggedItem + 1,
+        draggedItem
+      })
+    } else if (x < left + segmentWidth) {
+      component.props.updateDraggingState({
+        segmentBeforeEl: props.dataNo - 1,
+        segmentAfterEl: props.dataNo,
+        draggedItem
+      })
+    }
+    // console.log(left, right, x)
     // makeSpaceBetweenSegments
   },
 
   drop (props, monitor, component) {
-    return { withinCanvs: true }
+    return { withinCanvas: true }
   }
 }
 
@@ -868,7 +891,7 @@ export const segmentTarget = {
 // not allow an easy way to figure out which side of the canvas the dragged
 // segment is, so this function will compare the end of the left empty segment
 // and beginning of the right empty segment with the dropped position.
-function handleSegmentCanvasDrop (leftEmpty, rightEmpty, droppedPosition, draggedItem) {
+function handleSegmentCanvasDrop (position, draggedItem) {
   const { segments } = store.getState().street
   const newSegment = {
     variantString: draggedItem.variantString,
@@ -877,11 +900,7 @@ function handleSegmentCanvasDrop (leftEmpty, rightEmpty, droppedPosition, dragge
     randSeed: draggedItem.randSeed
   }
 
-  let index = 0
-
-  if (segments.length > 0) {
-    index = (droppedPosition < leftEmpty) ? 0 : segments.length
-  }
+  const index = (position && position === 'right') ? segments.length : 0
 
   if (draggedItem.forPalette) {
     store.dispatch(addSegment(index, newSegment))
@@ -890,18 +909,50 @@ function handleSegmentCanvasDrop (leftEmpty, rightEmpty, droppedPosition, dragge
   }
 }
 
+function isOverLeftOrRightCanvas (segment, droppedPosition) {
+  const { remainingWidth } = store.getState().street
+  const { left, right } = segment.getBoundingClientRect()
+  const emptySegmentWidth = (remainingWidth * TILE_SIZE) / 2
+
+  return (droppedPosition < left + emptySegmentWidth) ? 'left'
+    : (droppedPosition > right - emptySegmentWidth) ? 'right'
+      : null
+}
+
 export const canvasTarget = {
+  hover (props, monitor, component) {
+    if (!monitor.canDrop()) return
+
+    const position = isOverLeftOrRightCanvas(component.streetSectionEditable, monitor.getClientOffset().x)
+    if (position === 'left') {
+      component.setState({
+        segmentAfterEl: 0,
+        segmentBeforeEl: undefined,
+        draggedSegment: monitor.getItem().dataNo
+      })
+    } else if (position === 'right') {
+      component.setState({
+        segmentBeforeEl: props.street.segments.length - 1,
+        segmentAfterEl: undefined,
+        draggedSegment: monitor.getItem().dataNo
+      })
+    }
+  },
+
   drop (props, monitor, component) {
     // If dragged segment was not handled by segmentTarget,
     // then it was dropped over one of the empty segments.
     if (!monitor.didDrop()) {
       const draggedItem = monitor.getItem()
-      const { left, right } = component.streetSectionEditable.getBoundingClientRect()
-      const { x } = monitor.getClientOffset()
-      const emptySegmentWidth = (props.street.remainingWidth * TILE_SIZE / 2)
-
-      handleSegmentCanvasDrop(left + emptySegmentWidth, right - emptySegmentWidth, x, draggedItem)
+      const position = isOverLeftOrRightCanvas(component.streetSectionEditable, monitor.getClientOffset().x)
+      handleSegmentCanvasDrop(position, draggedItem)
     }
+
+    component.setState({
+      segmentBeforeEl: undefined,
+      segmentAfterEl: undefined,
+      draggedSegment: undefined
+    })
 
     return { withinCanvas: true }
   }

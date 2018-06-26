@@ -17,7 +17,8 @@ class StreetEditable extends React.Component {
     setBuildingWidth: PropTypes.func.isRequired,
     street: PropTypes.object.isRequired,
     updatePerspective: PropTypes.func.isRequired,
-    connectDropTarget: PropTypes.func
+    connectDropTarget: PropTypes.func,
+    isOver: PropTypes.bool
   }
 
   constructor (props) {
@@ -62,15 +63,43 @@ class StreetEditable extends React.Component {
     this.setState({ suppressMouseEnter: true })
   }
 
+  updateDraggingState = (dragState) => {
+    this.setState({...dragState})
+  }
+
   calculateSegmentPos = (dataNo) => {
     const { segments, remainingWidth } = this.props.street
-    let currPos = remainingWidth / 2
+    let currPos = (remainingWidth / 2)
+    let spaceBetweenSegments = 0
 
-    for (let i = 0; i < dataNo; i++) {
-      currPos += segments[i].width
+    if (this.props.isOver && this.state.segmentAfterEl === 0 && dataNo === 0) {
+      spaceBetweenSegments += 80
     }
 
-    return (currPos * TILE_SIZE)
+    for (let i = 0; i < dataNo; i++) {
+      if (this.props.isOver) {
+        if (i === this.state.segmentBeforeEl) {
+          spaceBetweenSegments += 40
+
+          if (this.state.segmentAfterEl === undefined) {
+            spaceBetweenSegments += 40
+          }
+        }
+
+        if (i === this.state.segmentAfterEl) {
+          spaceBetweenSegments += 40
+
+          if (this.state.segmentBeforeEl === undefined) {
+            spaceBetweenSegments += 40
+          }
+        }
+      }
+
+      const segmentWidth = (this.props.isOver && i === this.state.draggedSegment) ? 0 : segments[i].width
+      currPos += segmentWidth
+    }
+
+    return Math.round(currPos * TILE_SIZE + spaceBetweenSegments)
   }
 
   handleExitAnimations = (child) => {
@@ -115,6 +144,7 @@ class StreetEditable extends React.Component {
             randSeed={segment.randSeed}
             segmentPos={segmentPos}
             suppressMouseEnter={this.state.suppressMouseEnter}
+            updateDraggingState={this.updateDraggingState}
             updateSegmentData={this.updateSegmentData}
             updatePerspective={this.props.updatePerspective}
           />
