@@ -16,6 +16,10 @@ import { normalizeSlug } from '../util/helpers'
 // Require save-as polyfills
 import { saveAs } from 'file-saver'
 
+// Verify how this lines up with 150dpi, 300dpi, 600dpi, etc.
+const DEFAULT_IMAGE_DPI = 2
+const MAX_IMAGE_DPI = 10
+
 export class SaveAsImageDialog extends React.Component {
   static propTypes = {
     intl: intlShape,
@@ -25,6 +29,7 @@ export class SaveAsImageDialog extends React.Component {
     streetName: PropTypes.bool.isRequired,
     street: PropTypes.object.isRequired,
     name: PropTypes.string,
+    allowCustomDpi: PropTypes.bool,
     setSettings: PropTypes.func
   }
 
@@ -32,6 +37,8 @@ export class SaveAsImageDialog extends React.Component {
     super(props)
 
     this.state = {
+      dpi: DEFAULT_IMAGE_DPI,
+      dpiInputValue: DEFAULT_IMAGE_DPI,
       isLoading: true,
       isShowingPreview: false,
       errorMessage: null,
@@ -102,8 +109,19 @@ export class SaveAsImageDialog extends React.Component {
     })
   }
 
+  onChangeDpiInput = (event) => {
+    const value = event.target.value
+    const validDpi = Math.min(Math.max(DEFAULT_IMAGE_DPI, Number.parseInt(value, 10)), MAX_IMAGE_DPI) || DEFAULT_IMAGE_DPI
+
+    this.setState({
+      isLoading: (validDpi !== this.state.dpi),
+      dpiInputValue: value,
+      dpi: validDpi
+    })
+  }
+
   updatePreview = () => {
-    this.imageCanvas = getStreetImage(this.props.street, this.props.transparentSky, this.props.segmentNames, this.props.streetName)
+    this.imageCanvas = getStreetImage(this.props.street, this.props.transparentSky, this.props.segmentNames, this.props.streetName, this.state.dpi)
 
     // .toDataURL is not available on IE11 when SVGs are part of the canvas.
     // The error in catch() should not appear on any of the newer evergreen browsers.
@@ -219,6 +237,17 @@ export class SaveAsImageDialog extends React.Component {
             <FormattedMessage id="dialogs.save.option-sky" defaultMessage="Transparent sky" />
           </label>
         </p>
+        {this.props.allowCustomDpi &&
+          <p>
+            <label htmlFor="save-as-image-dpi-input">Custom DPI (min 2x, max 10x): </label>
+            <input
+              id="save-as-image-dpi-input"
+              type="text"
+              value={this.state.dpiInputValue}
+              onChange={this.onChangeDpiInput}
+            />
+          </p>
+        }
         <div className="save-as-image-preview">
           {!this.state.errorMessage && (
             <React.Fragment>
@@ -279,7 +308,8 @@ function mapStateToProps (state) {
     segmentNames: state.settings.saveAsImageSegmentNamesAndWidths,
     streetName: state.settings.saveAsImageStreetName,
     street: state.street,
-    name: state.street.name
+    name: state.street.name,
+    allowCustomDpi: state.flags.SAVE_AS_IMAGE_CUSTOM_DPI.value
   }
 }
 

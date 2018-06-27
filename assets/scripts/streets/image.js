@@ -13,7 +13,7 @@ const SAVE_AS_IMAGE_BOTTOM_PADDING = 60
 // TODO: a way to remove the circular dependency?!
 export const SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING = 65
 
-export function getStreetImage (street, transparentSky, segmentNamesAndWidths, streetName) {
+export function getStreetImage (street, transparentSky, segmentNamesAndWidths, streetName, dpi = SAVE_AS_IMAGE_DPI) {
   const width = (TILE_SIZE * street.width) + (BUILDING_SPACE * 2)
 
   const leftHeight = getBuildingImageHeight(street.leftBuildingVariant, 'left', street.leftBuildingHeight)
@@ -36,12 +36,12 @@ export function getStreetImage (street, transparentSky, segmentNamesAndWidths, s
   }
 
   const el = document.createElement('canvas')
-  el.width = width * SAVE_AS_IMAGE_DPI
-  el.height = height * SAVE_AS_IMAGE_DPI
+  el.width = width * dpi
+  el.height = height * dpi
 
   const ctx = el.getContext('2d')
 
-  drawStreetThumbnail(ctx, street, width, height, SAVE_AS_IMAGE_DPI, 1.0, false, true, transparentSky, segmentNamesAndWidths, streetName)
+  drawStreetThumbnail(ctx, street, width, height, dpi, 1.0, false, true, transparentSky, segmentNamesAndWidths, streetName)
 
   return el
 }

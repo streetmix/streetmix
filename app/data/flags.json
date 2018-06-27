@@ -56,6 +56,10 @@
     "label": "Segment — [debug] canvas rectangles",
     "defaultValue": false
   },
+  "SAVE_AS_IMAGE_CUSTOM_DPI": {
+    "label": "Save images at custom DPI",
+    "defaultValue": false
+  },
   "DONATE_NAG_SCREEN": {
     "label": "Donation nag screen",
     "defaultValue": true
