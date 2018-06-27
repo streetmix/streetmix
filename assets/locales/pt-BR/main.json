@@ -58,6 +58,9 @@
       "send": "Enviar mensagem",
       "confirm": "Recebemos. Obrigado!",
       "error": "Lamentamos, houve um problema no envio de comentários no momento. Por favor, tente novamente mais tarde."
+    },
+    "sign-in": {
+      "twitter": "Entrar com Twitter"
     }
   },
   "settings": {
@@ -267,6 +270,10 @@
     },
     "description": {
       "photo-credit": "Foto:"
+    },
+    "resize": {
+      "min": "",
+      "max": ""
     }
   },
   "section": {

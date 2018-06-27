@@ -58,6 +58,9 @@
       "send": "Skicka meddelande",
       "confirm": "Vi fattar. Tack!",
       "error": "Vi ber om ursäkt, det var ett problem att skicka synpunkterna den här gången. Vänligen försök igen senare."
+    },
+    "sign-in": {
+      "twitter": "Logga in med Twitter"
     }
   },
   "settings": {
@@ -267,6 +270,10 @@
     },
     "description": {
       "photo-credit": ""
+    },
+    "resize": {
+      "min": "",
+      "max": ""
     }
   },
   "section": {

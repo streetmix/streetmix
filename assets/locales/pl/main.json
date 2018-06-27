@@ -58,6 +58,9 @@
       "send": "Wyślij wiadomość",
       "confirm": "Mamy to. Dzięki!",
       "error": "Niestety, mieliśmy problem z wysłaniem tej wiadomości. Spróbuj ponownie później."
+    },
+    "sign-in": {
+      "twitter": "Zaloguj się przez Twitter"
     }
   },
   "settings": {
@@ -267,6 +270,10 @@
     },
     "description": {
       "photo-credit": "Zdjęcie:"
+    },
+    "resize": {
+      "min": "",
+      "max": ""
     }
   },
   "section": {

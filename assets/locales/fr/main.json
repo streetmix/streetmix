@@ -58,6 +58,9 @@
       "send": "Envoyer un messager",
       "confirm": "Bien reçu. Merci !",
       "error": "Nous sommes désolés, une erreur c'est produite lors de l'envoie de votre commentaire. Veuillez ré-essayer plus tard."
+    },
+    "sign-in": {
+      "twitter": "Se connecter à Twitter"
     }
   },
   "settings": {
@@ -267,6 +270,10 @@
     },
     "description": {
       "photo-credit": "Photo :"
+    },
+    "resize": {
+      "min": "",
+      "max": ""
     }
   },
   "section": {
