@@ -145,7 +145,7 @@
     "direction|inbound": "Wlotowy",
     "direction|outbound": "Wylotowy",
     "sidewalk-density|empty": "Pusty",
-    "sidewalk-density|sparse": "Rzadki",
+    "sidewalk-density|sparse": "Umiarkowany",
     "sidewalk-density|normal": "Normalny",
     "sidewalk-density|dense": "Zagęszczony",
     "lamp-orientation|left": "W lewo",

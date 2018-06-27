@@ -4,11 +4,11 @@
     "sidewalk-tree": "有樹的人行道",
     "bike-rack": "自行車架",
     "bench": "長椅",
-    "wayfinding-sign": "尋路標誌",
+    "wayfinding-sign": "路標",
     "sidewalk-lamp": "有燈的行人道",
     "parklet": "停車長椅微型公園",
     "divider": "禁停區",
-    "planting-strip": "植物",
+    "planting-strip": "綠化帶",
     "planter-box": "種花箱",
     "median": "分隔島",
     "bollard": "彈力護柱",
@@ -37,7 +37,7 @@
   },
   "descriptions": {
     "wayfinding-sign": {
-      "prompt": "",
+      "prompt": "了解更多關於路標的信息",
       "lede": "",
       "text": [
         "",
@@ -46,17 +46,17 @@
       ]
     },
     "parklet": {
-      "prompt": "",
-      "imageCaption": "",
-      "lede": "",
+      "prompt": "了解更多關於小公園的信息",
+      "imageCaption": "4033 Judah Street Parklet, 由舊金山規劃局提供。",
+      "lede": "小公園能夠讓現有的停車場變成臨時的公共空間",
       "text": [
         "",
         ""
       ]
     },
     "bike-lane": {
-      "prompt": "",
-      "lede": "",
+      "prompt": "了解更多關於自行車道的信息",
+      "lede": "自行車道能讓騎車人安全地與汽車分開。",
       "text": [
         "",
         "",
@@ -64,7 +64,7 @@
       ]
     },
     "colored-bike-lane": {
-      "prompt": "",
+      "prompt": "了解更多關於自行車專用道的信息",
       "lede": "",
       "text": [
         "",
@@ -73,7 +73,7 @@
       ]
     },
     "sharrow": {
-      "prompt": "",
+      "prompt": "了解更多關於混合車道標誌的信息",
       "lede": "",
       "text": [
         "",
@@ -82,7 +82,7 @@
       ]
     },
     "transit-shelter-elevated": {
-      "prompt": "",
+      "prompt": "了解更多關於公共交通站台的信息",
       "lede": "",
       "text": [
         "",
@@ -121,20 +121,20 @@
     }
   },
   "variant-icons": {
-    "orientation|left": "",
-    "orientation|right": "",
-    "turn-lane-orientation|left": "",
+    "orientation|left": "左",
+    "orientation|right": "右",
+    "turn-lane-orientation|left": "左",
     "turn-lane-orientation|left-straight": "",
     "turn-lane-orientation|straight": "",
     "turn-lane-orientation|right-straight": "",
-    "turn-lane-orientation|right": "",
+    "turn-lane-orientation|right": "右",
     "turn-lane-orientation|both": "",
     "turn-lane-orientation|shared": "",
-    "bench-orientation|left": "",
-    "bench-orientation|right": "",
+    "bench-orientation|left": "左",
+    "bench-orientation|right": "右",
     "bench-orientation|center": "",
-    "parking-lane-orientation|left": "",
-    "parking-lane-orientation|right": "",
+    "parking-lane-orientation|left": "左",
+    "parking-lane-orientation|right": "右",
     "parking-lane-direction|inbound": "",
     "parking-lane-direction|outbound": "",
     "parking-lane-direction|sideways": "",
@@ -148,9 +148,9 @@
     "sidewalk-density|sparse": "",
     "sidewalk-density|normal": "",
     "sidewalk-density|dense": "",
-    "lamp-orientation|left": "",
+    "lamp-orientation|left": "左",
     "lamp-orientation|both": "",
-    "lamp-orientation|right": "",
+    "lamp-orientation|right": "右",
     "lamp-type|traditional": "",
     "lamp-type|modern": "",
     "lamp-type|pride": "",
@@ -169,12 +169,12 @@
     "tree-type|palm-tree": "",
     "divider-type|median": "分隔島",
     "divider-type|striped-buffer": "",
-    "divider-type|planting-strip": "",
+    "divider-type|planting-strip": "綠化帶",
     "divider-type|planter-box": "種花箱",
-    "divider-type|bush": "",
-    "divider-type|flowers": "",
-    "divider-type|big-tree": "",
-    "divider-type|palm-tree": "",
+    "divider-type|bush": "有灌木的綠化帶",
+    "divider-type|flowers": "有花的綠化帶",
+    "divider-type|big-tree": "有樹的綠化帶",
+    "divider-type|palm-tree": "有棕櫚樹的綠化帶",
     "divider-type|bollard": "彈力護柱",
     "divider-type|dome": "",
     "transit-shelter-elevation|street-level": "",
