@@ -2,7 +2,8 @@ import {
   SHOW_STREET_NAME_CANVAS,
   HIDE_STREET_NAME_CANVAS,
   SET_UNIT_SETTINGS,
-  SET_ACTIVE_SEGMENT
+  SET_ACTIVE_SEGMENT,
+  UPDATE_DRAGGING_STATE
 } from '../actions'
 import * as constants from '../../users/constants'
 
@@ -42,6 +43,17 @@ const ui = (state = initialState, action) => {
       return {
         ...state,
         activeSegment: action.position
+      }
+    case UPDATE_DRAGGING_STATE:
+      const draggingState = {
+        segmentBeforeEl: action.segmentBeforeEl,
+        segmentAfterEl: action.segmentAfterEl,
+        draggedSegment: action.draggedSegment
+      }
+
+      return {
+        ...state,
+        draggingState: (!action.clearState) ? draggingState : null
       }
     default:
       return state
