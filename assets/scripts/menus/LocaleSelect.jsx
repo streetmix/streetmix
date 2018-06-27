@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FormattedMessage } from 'react-intl'
 import { DEFAULT_LOCALE } from '../locales/constants'
 import { getAvailableLocales, getActualLocaleFromRequested } from '../locales/locale'
@@ -34,6 +35,7 @@ export default class LocaleSelect extends React.Component {
 
       return (
         <li className={classNames.join(' ')} key={locale.value} onClick={(event) => this.props.selectLocale(locale.value)}>
+          <FontAwesomeIcon icon="check" />
           {/* &#x200E; prevents trailing parentheses from going in the wrong place in rtl languages */}
           <span>{locale.label}&#x200E;</span>
           <span className="menu-item-subtext">
