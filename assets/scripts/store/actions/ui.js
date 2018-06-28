@@ -25,8 +25,9 @@ export function setUnitSettings (unit) {
 }
 
 export function setActiveSegment (position) {
+  const isBuilding = (position === 'left' || position === 'right')
   return {
     type: SET_ACTIVE_SEGMENT,
-    position
+    position: (isBuilding) ? position : Number.parseInt(position, 10)
   }
 }
