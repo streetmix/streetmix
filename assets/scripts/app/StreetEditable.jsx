@@ -18,7 +18,7 @@ class StreetEditable extends React.Component {
     street: PropTypes.object.isRequired,
     updatePerspective: PropTypes.func.isRequired,
     connectDropTarget: PropTypes.func,
-    isOver: PropTypes.bool
+    draggingState: PropTypes.object
   }
 
   constructor (props) {
@@ -63,43 +63,33 @@ class StreetEditable extends React.Component {
     this.setState({ suppressMouseEnter: true })
   }
 
-  updateDraggingState = (dragState) => {
-    this.setState({...dragState})
-  }
-
   calculateSegmentPos = (dataNo) => {
     const { segments, remainingWidth } = this.props.street
-    let currPos = (remainingWidth / 2)
-    let spaceBetweenSegments = 0
+    const { draggingState } = this.props
+    const DRAGGING_MOVE_HOLE_WIDTH = 80
 
-    if (this.props.isOver && this.state.segmentAfterEl === 0 && dataNo === 0) {
-      spaceBetweenSegments += 80
-    }
+    let currPos = 0
 
     for (let i = 0; i < dataNo; i++) {
-      if (this.props.isOver) {
-        if (i === this.state.segmentBeforeEl) {
-          spaceBetweenSegments += 40
-
-          if (this.state.segmentAfterEl === undefined) {
-            spaceBetweenSegments += 40
-          }
-        }
-
-        if (i === this.state.segmentAfterEl) {
-          spaceBetweenSegments += 40
-
-          if (this.state.segmentBeforeEl === undefined) {
-            spaceBetweenSegments += 40
-          }
-        }
+      if (draggingState && draggingState.hoveredSegment === i) {
+        currPos += DRAGGING_MOVE_HOLE_WIDTH
+      } else {
+        currPos += segments[i].width * TILE_SIZE
       }
-
-      const segmentWidth = (this.props.isOver && i === this.state.draggedSegment) ? 0 : segments[i].width
-      currPos += segmentWidth
     }
 
-    return Math.round(currPos * TILE_SIZE + spaceBetweenSegments)
+    let mainLeft = remainingWidth * TILE_SIZE
+    if (draggingState) {
+      const { fromPalette, draggedSegment } = draggingState
+
+      const draggedWidth = (fromPalette) ? 0 : (segments[draggedSegment].width * TILE_SIZE)
+      mainLeft += draggedWidth
+      mainLeft -= DRAGGING_MOVE_HOLE_WIDTH
+    }
+
+    mainLeft = mainLeft / 2
+    const segmentPos = mainLeft + currPos
+    return segmentPos
   }
 
   handleExitAnimations = (child) => {
@@ -144,7 +134,6 @@ class StreetEditable extends React.Component {
             randSeed={segment.randSeed}
             segmentPos={segmentPos}
             suppressMouseEnter={this.state.suppressMouseEnter}
-            updateDraggingState={this.updateDraggingState}
             updateSegmentData={this.updateSegmentData}
             updatePerspective={this.props.updatePerspective}
           />
@@ -178,7 +167,8 @@ class StreetEditable extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    street: state.street
+    street: state.street,
+    draggingState: state.ui.draggingState
   }
 }
 
