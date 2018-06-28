@@ -33,12 +33,12 @@ export function setActiveSegment (position) {
   }
 }
 
-export function updateDraggingState (segmentBeforeEl, segmentAfterEl, draggedSegment) {
+export function updateDraggingState (hoveredSegment, draggedSegment, fromPalette) {
   return {
     type: UPDATE_DRAGGING_STATE,
-    segmentBeforeEl,
-    segmentAfterEl,
-    draggedSegment
+    hoveredSegment,
+    draggedSegment,
+    fromPalette
   }
 }
 
