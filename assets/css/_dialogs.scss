@@ -215,26 +215,147 @@
   font-weight: bold;
 }
 
-.email-sign-in-dialog {
-  text-align: center;
-  width: 500px;
+#icon-twitter path {
+  fill: white;
+}
+
+#icon-facebook path:last-child {
+  fill: white;
+}
+
+#icon-facebook path:first-child {
+  fill: #3b579d;
+}
+
+.sign-in-dialog {
+  text-align: left;
+  width: 300px;
+  min-height: 300px;
+
+  .sign-in-btn {
+    width: 100%;
+    text-align: left;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 4px !important;
+
+    .icon {
+      width: 24px;
+      height: 24px;
+      margin-left: 10px;
+    }
+
+    span {
+      padding: 15px;
+      position: relative;
+      top: -7px;
+    }
+  }
+
+  .sign-in-twitter-btn {
+    background-color: #1da1f2;
+  }
+
+  .sign-in-google-btn {
+    background-color: #fff;
+
+    span {
+      color: #000;
+    }
+  }
+
+  .sign-in-facebook-btn {
+    background-color: #3b579d;
+  }
+
+  .email-title {
+    text-align: center;
+    font-weight: 700;
+    margin-top: 30px;
+  }
+
+  .email-description {
+    text-align: center;
+    line-height: 0;
+  }
+
+  .sign-in-message {
+    text-align: center;
+    font-weight: 500;
+    font-size: 18px;
+  }
+
+  .sign-in-loading-message {
+    position: relative;
+    top: 90px;
+  }
+
+  .email-sent-block {
+    text-align: center;
+    position: relative;
+    top: 90px;
+
+    .sign-in-message {
+      margin-bottom: 40px;
+    }
+
+    .sign-in-sent-message-with-email {
+      line-height: 0;
+
+      .email {
+        font-weight: 600;
+      }
+    }
+
+    .sign-in-sent-message {
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    button {
+      padding: 10px !important;
+      text-align: center;
+
+      span {
+        padding: 5px;
+        top: 0;
+        color: #000;
+        text-align: center;
+      }
+    }
+  }
 
   form {
-    margin: 20px;
+    margin-top: 35px;
 
     .form-control {
       padding: 8px;
       font-size: 13px;
-      width: 50%;
-      border: 1px solid #000;
-      border-radius: 2px;
+      width: 94%;
+      border: 2px solid #a9ccdb;
       outline: none;
     }
 
-    .btn {
-      margin: 10px;
-      padding: 6px;
-      cursor: pointer;
+    .error-occured {
+      border: 2px solid red;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 11px;
+    }
+
+    .sign-in-email-btn {
+      padding: 10px !important;
+      text-align: center;
+
+      span {
+        padding: 5px;
+        top: 0;
+        color: #000;
+        text-align: center;
+      }
     }
   }
 }
