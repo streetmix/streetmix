@@ -8,12 +8,12 @@ const AccessTokenHandler = function (req, res) {
     if (err) {
       console.error('Error obtaining access token from Auth0:')
       console.log(err)
-      res.redirect('/error/no-google-access-token')
+      res.redirect('/error/access-token')
       return
     }
 
     if (body.error && body.error === 'access_denied') {
-      res.redirect('/error/google-access-denied')
+      res.redirect('/error/access-denied')
       return
     }
 
@@ -23,16 +23,11 @@ const AccessTokenHandler = function (req, res) {
       if (err) {
         console.error('Error obtaining user info from Auth0:')
         console.log(err)
-        res.redirect('/error/no-email-access-token')
+        res.redirect('/error/no-access-token')
         return
       }
-      const apiRequestBody = {
-        auth0_google: {
-          auth0_id: user.sub,
-          profile_image_url: user.picture,
-          email: user.email
-        }
-      }
+
+      const apiRequestBody = getUserInfo(user)
       //  Must be an absolute URI
       const endpoint = config.restapi.protocol + config.app_host_port + config.restapi.baseuri + '/v1/users'
       request.post({ url: endpoint, json: apiRequestBody }, function (err, response, body) {
@@ -51,9 +46,41 @@ const AccessTokenHandler = function (req, res) {
   }
 }
 
+const getUserInfo = function (user) {
+  // Get the platform the user is authenticating from
+  // e.g user.sub = facebook|das3fa
+  // get 'facebook' out from the user.sub
+  const platform = user.sub.split('|')[0]
+  if (platform === 'twitter') {
+    return getUserTwitterAuth0Info(user)
+  }
+  return getUserAuth0Info(user)
+}
+
+const getUserAuth0Info = function (user) {
+  return {
+    auth0: {
+      nickname: user.nickname,
+      auth0_id: user.sub,
+      email: user.email,
+      profile_image_url: user.picture
+    }
+  }
+}
+
+const getUserTwitterAuth0Info = function (user) {
+  return {
+    auth0_twitter: {
+      screenName: user[`${config.auth0.screen_name_custom_claim}`],
+      auth0_id: user.sub,
+      profile_image_url: user.picture
+    }
+  }
+}
+
 exports.get = function (req, res) {
   const code = req.query.code
-  const redirectUri = config.restapi.protocol + config.app_host_port + config.auth0.google_callback_uri
+  const redirectUri = config.restapi.protocol + config.app_host_port + config.auth0.callback_uri
   const options = {
     method: 'POST',
     url: config.auth0.token_api_url,

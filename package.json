@@ -20,7 +20,7 @@
     "test:full": "npm run jest && npm run lint && npm run protractor:local",
     "posttest:full": "npm run test:cleanup",
     "precommit": "lint-staged",
-    "mongo:start": "mongod --fork --logpath /dev/null",
+    "mongo:start": "sudo mongod --fork --logpath /dev/null",
     "mongo:stop": "mongo admin --eval 'db.shutdownServer()'",
     "app:start": "supervisor -e node,js,jsx index.js",
     "test:cleanup": "npm run test:server:close && npm run mongo:stop",

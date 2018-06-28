@@ -150,16 +150,11 @@ exports.post = function (req, res) {
   }
 
   if (body.hasOwnProperty('twitter')) {
-    // TODO: Validation
     handleTwitterSignIn(body.twitter)
   } else if (body.hasOwnProperty('auth0_twitter')) {
     handleAuth0TwitterSignIn(body.auth0_twitter)
-  } else if (body.hasOwnProperty('auth0_email')) {
-    handleAuth0SignIn(body.auth0_email)
-  } else if (body.hasOwnProperty('auth0_facebook')) {
-    handleAuth0SignIn(body.auth0_facebook)
-  } else if (body.hasOwnProperty('auth0_google')) {
-    handleAuth0SignIn(body.auth0_google)
+  } else if (body.hasOwnProperty('auth0')) {
+    handleAuth0SignIn(body.auth0)
   } else {
     res.status(400).send('Unknown sign-in method used.')
   }

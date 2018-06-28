@@ -78,7 +78,7 @@ class MenuBar extends React.PureComponent {
   renderUserAvatar = (userId) => {
     return (userId)
       ? (
-        <MenuBarItem onClick={this.onClickMenuButton('identity')} requireInternet>
+        <MenuBarItem label="avatar" onClick={this.onClickMenuButton('identity')} requireInternet>
           <Avatar userId={userId} />
           <span className="user-id">{userId}</span>
         </MenuBarItem>

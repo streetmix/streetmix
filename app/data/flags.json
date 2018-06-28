@@ -75,5 +75,9 @@
   "GOOGLE_AUTHENTICATION": {
     "label": "Auth0 Google authentication",
     "defaultValue": false
+  },
+  "TWITTER_AUTHENTICATION": {
+    "label": "Auth0 Google authentication",
+    "defaultValue": true
   }
 }

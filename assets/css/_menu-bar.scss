@@ -127,6 +127,16 @@ button.menu-sign-in {
   }
 }
 
+button.menu-avatar {
+  margin-left: 10px;
+
+  &::before {
+    content: '';
+    padding: 0;
+    font-size: 0;
+  }
+}
+
 .menu-bar-right {
   float: right;
 }
