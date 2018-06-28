@@ -35,12 +35,12 @@ const MIN_SIDE_MARGIN_FROM_VIEWPORT = 50
 class InfoBubble extends React.Component {
   static propTypes = {
     visible: PropTypes.bool.isRequired,
+    descriptionVisible: PropTypes.bool,
     mouseInside: PropTypes.bool,
-    dataNo: PropTypes.oneOfType([
+    position: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number
     ]),
-    descriptionVisible: PropTypes.bool,
     setInfoBubbleMouseInside: PropTypes.func,
     updateHoverPolygon: PropTypes.func,
     street: PropTypes.object,
@@ -57,7 +57,7 @@ class InfoBubble extends React.Component {
 
     // Stores a ref to the element
     this.el = React.createRef()
-    this.segmentEl = this.getSegmentEl(props.dataNo)
+    this.segmentEl = this.getSegmentEl(props.position)
     this.streetOuterEl = null
 
     this.state = {
@@ -86,11 +86,11 @@ class InfoBubble extends React.Component {
    * @param {Object} prevState
    */
   static getDerivedStateFromProps (nextProps, prevState) {
-    if (nextProps.dataNo === 'left') {
+    if (nextProps.position === 'left') {
       return {
         type: INFO_BUBBLE_TYPE_LEFT_BUILDING
       }
-    } else if (nextProps.dataNo === 'right') {
+    } else if (nextProps.position === 'right') {
       return {
         type: INFO_BUBBLE_TYPE_RIGHT_BUILDING
       }
@@ -116,14 +116,14 @@ class InfoBubble extends React.Component {
 
     if (!this.el || !this.el.current) return null
 
-    if (!wasBuilding && this.props.dataNo === 'right') {
+    if (!wasBuilding && this.props.position === 'right') {
       return this.props.system.viewportWidth - MIN_SIDE_MARGIN_FROM_VIEWPORT
     }
     return null
   }
 
   componentDidUpdate (prevProps, prevState, snapshot) {
-    this.segmentEl = this.getSegmentEl(this.props.dataNo)
+    this.segmentEl = this.getSegmentEl(this.props.position)
     this.setInfoBubblePosition()
 
     // If info bubble changes, wake this back up if it's fading out
@@ -298,17 +298,17 @@ class InfoBubble extends React.Component {
     return hoverPolygon
   }
 
-  getSegmentEl (dataNo) {
-    if (!dataNo && dataNo !== 0) return
+  getSegmentEl (position) {
+    if (!position && position !== 0) return
 
     let segmentEl
-    if (dataNo === 'left') {
+    if (position === 'left') {
       segmentEl = document.querySelectorAll('.street-section-building')[0]
-    } else if (dataNo === 'right') {
+    } else if (position === 'right') {
       segmentEl = document.querySelectorAll('.street-section-building')[1]
     } else {
       const segments = document.getElementById('street-section-editable').querySelectorAll('.segment')
-      segmentEl = segments[dataNo]
+      segmentEl = segments[position]
     }
     return segmentEl
   }
@@ -389,7 +389,7 @@ class InfoBubble extends React.Component {
 
     switch (this.state.type) {
       case INFO_BUBBLE_TYPE_SEGMENT: {
-        const segment = this.props.street.segments[this.props.dataNo]
+        const segment = this.props.street.segments[this.props.position]
         if (segment) {
           const segmentInfo = getSegmentInfo(segment.type)
           const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
@@ -432,7 +432,7 @@ class InfoBubble extends React.Component {
 
   render () {
     const type = this.state.type
-    const canBeDeleted = (type === INFO_BUBBLE_TYPE_SEGMENT && this.props.dataNo !== null)
+    const canBeDeleted = (type === INFO_BUBBLE_TYPE_SEGMENT && this.props.position !== null)
 
     // Set class names
     const classNames = ['info-bubble']
@@ -449,7 +449,7 @@ class InfoBubble extends React.Component {
     let position
     switch (type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
-        position = this.props.dataNo
+        position = this.props.position
         break
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
         position = 'left'
@@ -477,7 +477,7 @@ class InfoBubble extends React.Component {
         break
     }
 
-    const segment = this.props.street.segments[this.props.dataNo] || {}
+    const segment = this.props.street.segments[this.props.position] || {}
 
     return (
       <div
@@ -490,7 +490,7 @@ class InfoBubble extends React.Component {
         <Triangle highlight={this.state.highlightTriangle} />
         <header>
           <div className="info-bubble-header-label">{this.getName()}</div>
-          {canBeDeleted && <RemoveButton segment={this.props.dataNo} />}
+          {canBeDeleted && <RemoveButton segment={this.props.position} />}
         </header>
         <div className="info-bubble-controls">
           <IntlProvider
@@ -519,9 +519,9 @@ class InfoBubble extends React.Component {
 function mapStateToProps (state) {
   return {
     visible: state.infoBubble.visible,
-    dataNo: state.infoBubble.dataNo,
     descriptionVisible: state.infoBubble.descriptionVisible,
     mouseInside: state.infoBubble.mouseInside,
+    position: state.ui.activeSegment,
     street: state.street,
     system: state.system,
     locale: state.locale

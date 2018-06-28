@@ -3,11 +3,7 @@ import { INFO_BUBBLE_TYPE_LEFT_BUILDING } from './constants'
 import { DRAGGING_TYPE_NONE, draggingType } from '../segments/drag_and_drop'
 import { getElAbsolutePos } from '../util/helpers'
 import store from '../store'
-import {
-  showInfoBubble,
-  hideInfoBubble,
-  setInfoBubbleSegmentDataNo
-} from '../store/actions/infoBubble'
+import { showInfoBubble, hideInfoBubble } from '../store/actions/infoBubble'
 import { setActiveSegment } from '../store/actions/ui'
 
 function isInfoBubbleVisible () {
@@ -156,7 +152,6 @@ export const infoBubble = {
       dataNo = (type === INFO_BUBBLE_TYPE_LEFT_BUILDING) ? 'left' : 'right'
     }
     store.dispatch(setActiveSegment(dataNo))
-    store.dispatch(setInfoBubbleSegmentDataNo(dataNo))
 
     if (!isInfoBubbleVisible()) {
       store.dispatch(showInfoBubble())
