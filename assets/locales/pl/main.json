@@ -2,7 +2,7 @@
   "menu": {
     "item": {
       "help": "Pomoc",
-      "about": "O Streetmiksie",
+      "about": "O aplikacji Streetmix",
       "contact": "Kontakt",
       "community": "Społeczność",
       "contribute": "Kontrybucja",
@@ -43,7 +43,7 @@
       "twitter": "Wyślij tweeta do @streetmix",
       "email": "Wyślij maila do zespołu Streetmix",
       "github": "Obejrzyj kod źródłowy na GitHubie",
-      "blog": "Odwiedź blog Streetmixa",
+      "blog": "Odwiedź blog Streetmiksa",
       "slack": "Dołącz do rozmów na Slacku"
     },
     "contribute": {
@@ -141,7 +141,7 @@
       "text": "Wydarzyło się coś nieprzewidzianego. Zarejestrowaliśmy błąd, lecz jeśli znasz kroki do jego reprodukcji, <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\" rel=\"noopener noreferrer\">napisz nam o tym</a>. Może to być także jednorazowy błąd, dlatego spróbuj jeszcze raz za chwilę. "
     },
     "welcome": {
-      "heading": "Witaj w Streetmiksie.",
+      "heading": "Witaj w aplikacji Streetmix.",
       "new": {
         "intro": "Projektuj, zmieniaj i udostępniaj projekty ulic ze swojego sąsiedztwa. Sadź drzewa, dodawaj ścieżki rowerowe, poszerzaj chodniki lub jezdnie. Zobacz, jak Twoje decyzje wpłyną na lokalną społeczność.",
         "instruct": "Zacznij od poprzestawiania {pointer} wybranych segmentów.",
@@ -162,7 +162,7 @@
       "last": "Edytuj kopię ostatniego projektu ulicy"
     },
     "about": {
-      "heading": "O Streetmiksie.",
+      "heading": "O aplikacji Streetmix.",
       "description": "Projektuj, zmieniaj i udostępniaj projekty ulic. Dodawaj ścieżki rowerowe, poszerzaj chodniki lub jezdnie. Zobacz, jak wszystko to wpłynie na lokalną społeczność.",
       "thanks": "Serdeczne podziękowania dla zespołu i członków 2013 CfA za ich wsparcie i cierpliwość, dla zespołu Blokee, który przecierał ścieżki i dla wszystkich naszych testerów za ich czas i wkład!",
       "credits": "Projekt poboczny od {cfaLink} członków 2013:",
@@ -197,7 +197,7 @@
     "donate": {
       "heading": "Streetmix potrzebuje Twojej pomocy!",
       "lede": "Streetmix jest projektem wspieranym przez społeczność. W odróżnieniu od innych, \"darmowych\" usług w internecie, nie wyświetlamy reklam oraz nie używamy kodu śledzącego, który może nadużywać Twoją prywatność. Liczymy na Twoje wsparcie, by Streetmix mógł funkcjonować.",
-      "text": "Rozważ proszę jednorazowe lub cykliczne wspieranie nas. Twoja darowizna pomoże nam na opłaty serwerowe oraz infrastruktury w chmurze, inne wydatki non-profit, grupy interesariuszy oraz studentów wspierających nasze ulice. Dodatkowo przychód będzie inwestowany w tworzenie dodatkowych funkcji. Nasze wydatki są w pełni transparentne, dlatego możesz sprawdzić, jak Twoja darowizna jest wykorzystywana przez Streetmix.",
+      "text": "Rozważ proszę jednorazowe lub cykliczne wspieranie nas. Twoja darowizna pomoże nam na opłaty serwerowe oraz infrastruktury w chmurze, inne wydatki non-profit, grupy interesariuszy oraz studentów wspierających nasze ulice. Dodatkowo przychód będzie inwestowany w tworzenie dodatkowych funkcji. Nasze wydatki są w pełni transparentne, dlatego możesz sprawdzić, jak Twoja darowizna jest wykorzystywana przez zespół Streetmix.",
       "button": "Przekaż darowiznę na Streetmix",
       "cancel": "Nie, dziękuję"
     }
