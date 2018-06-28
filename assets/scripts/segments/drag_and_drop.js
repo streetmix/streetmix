@@ -37,6 +37,7 @@ import {
 import store from '../store'
 import { addSegment, removeSegment } from '../store/actions/street'
 import { clearMenus } from '../store/actions/menus'
+import { updateDraggingState, clearDraggingState } from '../store/actions/ui'
 
 const DRAG_OFFSET_Y_PALETTE = -340 - 150
 
@@ -834,6 +835,7 @@ export const segmentSource = {
       }
     }
 
+    store.dispatch(clearDraggingState())
     infoBubble.show(true)
     document.querySelector('.palette-trashcan').classList.remove('visible')
     document.body.classList.remove('segment-move-dragging')
@@ -856,27 +858,8 @@ export const segmentTarget = {
   hover (props, monitor, component) {
     if (!monitor.canDrop()) return
 
-    const { segments } = store.getState().street
-    const hoveredSegment = component.getDecoratedComponentInstance().streetSegment
-    const { left } = hoveredSegment.getBoundingClientRect()
-    const { x } = monitor.getClientOffset()
-    const draggedItem = monitor.getItem().dataNo
-    const segmentWidth = props.width * TILE_SIZE
-
-    if (props.dataNo === draggedItem) {
-      component.props.updateDraggingState({
-        segmentBeforeEl: (draggedItem === 0) ? undefined : draggedItem - 1,
-        segmentAfterEl: (draggedItem === segments.length - 1) ? undefined : draggedItem + 1,
-        draggedItem
-      })
-    } else if (x < left + segmentWidth) {
-      component.props.updateDraggingState({
-        segmentBeforeEl: props.dataNo - 1,
-        segmentAfterEl: props.dataNo,
-        draggedItem
-      })
-    }
-    // console.log(left, right, x)
+    const draggedSegment = monitor.getItem()
+    store.dispatch(updateDraggingState(props.dataNo, draggedSegment.dataNo, draggedSegment.forPalette))
     // makeSpaceBetweenSegments
   },
 
@@ -924,18 +907,9 @@ export const canvasTarget = {
     if (!monitor.canDrop()) return
 
     const position = isOverLeftOrRightCanvas(component.streetSectionEditable, monitor.getClientOffset().x)
-    if (position === 'left') {
-      component.setState({
-        segmentAfterEl: 0,
-        segmentBeforeEl: undefined,
-        draggedSegment: monitor.getItem().dataNo
-      })
-    } else if (position === 'right') {
-      component.setState({
-        segmentBeforeEl: props.street.segments.length - 1,
-        segmentAfterEl: undefined,
-        draggedSegment: monitor.getItem().dataNo
-      })
+    if (position) {
+      const draggedSegment = monitor.getItem()
+      store.dispatch(updateDraggingState(position, draggedSegment.dataNo, draggedSegment.forPalette))
     }
   },
 
@@ -947,12 +921,6 @@ export const canvasTarget = {
       const position = isOverLeftOrRightCanvas(component.streetSectionEditable, monitor.getClientOffset().x)
       handleSegmentCanvasDrop(position, draggedItem)
     }
-
-    component.setState({
-      segmentBeforeEl: undefined,
-      segmentAfterEl: undefined,
-      draggedSegment: undefined
-    })
 
     return { withinCanvas: true }
   }
