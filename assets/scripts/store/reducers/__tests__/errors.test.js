@@ -38,4 +38,13 @@ describe('errors reducer', () => {
     expect(reducer(undefined, actions.showError("Bad URL", 101))).
       toEqual({...initialState, errorType: "Bad URL", abortEverything: 101})
   })
+
+  it('should handle HIDE_ERROR', () => {
+    // nothing set
+    expect(reducer(undefined, actions.hideError())).toEqual(initialState);
+
+    // Non-default state set
+    expect(reducer({errorType: "Bad URL", abortEverything: true}, actions.hideError())).
+      toEqual(initialState);
+  });
 })
