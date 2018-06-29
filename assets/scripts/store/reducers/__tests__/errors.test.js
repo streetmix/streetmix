@@ -1,3 +1,4 @@
+/* eslint-env jest */
 import reducer from '../errors'
 import * as actions from '../../actions/errors'
 
