@@ -7,5 +7,5 @@ describe('errors reducer', () => {
       errorType: null,
       abortEverything: false
     })
-  });
-});
+  })
+})
