@@ -862,18 +862,26 @@ export const segmentTarget = {
     const dragIndex = monitor.getItem().dataNo
     const hoverIndex = props.dataNo
 
-    console.log(dragIndex, hoverIndex)
     const hoveredSegment = component.getDecoratedComponentInstance().streetSegment
-    const { left, right } = hoveredSegment.getBoundingClientRect()
-    const hoverMiddleX = left + (right - left) / 2
+    const { left } = hoveredSegment.getBoundingClientRect()
+    const hoverMiddleX = Math.round(left + (props.width) / 2)
     const { x } = monitor.getClientOffset()
 
-    // Dragging to the right
-    if (dragIndex < hoverIndex && x < hoverMiddleX) return
-    // Dragging to the left
-    if (dragIndex > hoverIndex && x > hoverMiddleX) return
+    if (dragIndex === hoverIndex) {
+      store.dispatch(updateDraggingState(dragIndex, undefined, dragIndex))
+    } else {
+      const { segments } = store.getState().street
 
-    store.dispatch(updateDraggingState(hoverIndex, dragIndex, monitor.getItem().forPalette))
+      const segmentBeforeEl = (x > hoverMiddleX && hoverIndex !== segments.length - 1) ? hoverIndex + 1
+        : (hoverIndex === segments.length - 1) ? undefined
+          : hoverIndex
+
+      const segmentAfterEl = (x > hoverMiddleX && hoverIndex !== 0) ? hoverIndex
+        : (hoverIndex === 0) ? undefined
+          : hoverIndex - 1
+
+      store.dispatch(updateDraggingState(segmentBeforeEl, segmentAfterEl, dragIndex))
+    }
   },
 
   drop (props, monitor, component) {
@@ -923,9 +931,10 @@ export const canvasTarget = {
     const position = isOverLeftOrRightCanvas(component.streetSectionEditable, monitor.getClientOffset().x)
     if (position) {
       const { segments } = store.getState().street
-      const draggedSegment = monitor.getItem()
-      const hoveredSegment = (position === 'left') ? 0 : segments.length - 1
-      store.dispatch(updateDraggingState(hoveredSegment, draggedSegment.dataNo, draggedSegment.forPalette))
+      const dragIndex = monitor.getItem().dataNo
+      const segmentBeforeEl = (position === 'left') ? 0 : undefined
+      const segmentAfterEl = (position === 'left') ? undefined : segments.length - 1
+      store.dispatch(updateDraggingState(segmentBeforeEl, segmentAfterEl, dragIndex))
     }
   },
 

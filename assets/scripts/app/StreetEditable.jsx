@@ -66,28 +66,47 @@ class StreetEditable extends React.Component {
   calculateSegmentPos = (dataNo) => {
     const { segments, remainingWidth } = this.props.street
     const { draggingState } = this.props
-    const DRAGGING_MOVE_HOLE_WIDTH = 80
+    const DRAGGING_MOVE_HOLE_WIDTH = 40
 
     let currPos = 0
 
     for (let i = 0; i < dataNo; i++) {
-      if (draggingState && draggingState.hoveredSegment === i) {
-        currPos += DRAGGING_MOVE_HOLE_WIDTH
-        if (draggingState.draggedSegment !== draggingState.hoveredSegment) {
-          currPos += segments[i].width * TILE_SIZE
+      if (draggingState) {
+        const { segmentBeforeEl, segmentAfterEl } = draggingState
+        if (i === segmentBeforeEl) {
+          currPos += DRAGGING_MOVE_HOLE_WIDTH
+
+          if (segmentAfterEl === undefined) {
+            currPos += DRAGGING_MOVE_HOLE_WIDTH
+          }
         }
-      } else if (!draggingState || draggingState.draggedSegment !== i) {
-        currPos += segments[i].width * TILE_SIZE
+
+        if (i === segmentAfterEl) {
+          currPos += DRAGGING_MOVE_HOLE_WIDTH
+
+          if (segmentBeforeEl === undefined) {
+            currPos += DRAGGING_MOVE_HOLE_WIDTH
+          }
+        }
       }
+
+      const width = (draggingState && draggingState.draggedSegment === i) ? 0 : segments[i].width * TILE_SIZE
+      currPos += width
     }
 
     let mainLeft = remainingWidth * TILE_SIZE
     if (draggingState) {
-      const { draggedSegment } = draggingState
+      const { draggedSegment, segmentBeforeEl, segmentAfterEl } = draggingState
 
-      const draggedWidth = (segments[draggedSegment].width * TILE_SIZE)
+      const draggedWidth = (draggedSegment) ? (segments[draggedSegment].width * TILE_SIZE) : 0
       mainLeft += draggedWidth
-      mainLeft -= DRAGGING_MOVE_HOLE_WIDTH
+      mainLeft -= DRAGGING_MOVE_HOLE_WIDTH * 2
+
+      if (segmentAfterEl === undefined && dataNo === segmentBeforeEl) {
+        currPos += 2 * DRAGGING_MOVE_HOLE_WIDTH
+      } else if (segmentAfterEl !== undefined && dataNo === segmentBeforeEl) {
+        currPos += DRAGGING_MOVE_HOLE_WIDTH
+      }
     }
 
     mainLeft = mainLeft / 2
