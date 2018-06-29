@@ -836,6 +836,7 @@ export const segmentSource = {
     }
 
     store.dispatch(clearDraggingState())
+    cancelSegmentResizeTransitions()
     infoBubble.show(true)
     document.querySelector('.palette-trashcan').classList.remove('visible')
     document.body.classList.remove('segment-move-dragging')
@@ -858,9 +859,21 @@ export const segmentTarget = {
   hover (props, monitor, component) {
     if (!monitor.canDrop()) return
 
-    const draggedSegment = monitor.getItem()
-    store.dispatch(updateDraggingState(props.dataNo, draggedSegment.dataNo, draggedSegment.forPalette))
-    // makeSpaceBetweenSegments
+    const dragIndex = monitor.getItem().dataNo
+    const hoverIndex = props.dataNo
+
+    console.log(dragIndex, hoverIndex)
+    const hoveredSegment = component.getDecoratedComponentInstance().streetSegment
+    const { left, right } = hoveredSegment.getBoundingClientRect()
+    const hoverMiddleX = left + (right - left) / 2
+    const { x } = monitor.getClientOffset()
+
+    // Dragging to the right
+    if (dragIndex < hoverIndex && x < hoverMiddleX) return
+    // Dragging to the left
+    if (dragIndex > hoverIndex && x > hoverMiddleX) return
+
+    store.dispatch(updateDraggingState(hoverIndex, dragIndex, monitor.getItem().forPalette))
   },
 
   drop (props, monitor, component) {
@@ -895,6 +908,7 @@ function handleSegmentCanvasDrop (position, draggedItem) {
 function isOverLeftOrRightCanvas (segment, droppedPosition) {
   const { remainingWidth } = store.getState().street
   const { left, right } = segment.getBoundingClientRect()
+
   const emptySegmentWidth = (remainingWidth * TILE_SIZE) / 2
 
   return (droppedPosition < left + emptySegmentWidth) ? 'left'
@@ -908,8 +922,10 @@ export const canvasTarget = {
 
     const position = isOverLeftOrRightCanvas(component.streetSectionEditable, monitor.getClientOffset().x)
     if (position) {
+      const { segments } = store.getState().street
       const draggedSegment = monitor.getItem()
-      store.dispatch(updateDraggingState(position, draggedSegment.dataNo, draggedSegment.forPalette))
+      const hoveredSegment = (position === 'left') ? 0 : segments.length - 1
+      store.dispatch(updateDraggingState(hoveredSegment, draggedSegment.dataNo, draggedSegment.forPalette))
     }
   },
 

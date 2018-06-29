@@ -73,16 +73,19 @@ class StreetEditable extends React.Component {
     for (let i = 0; i < dataNo; i++) {
       if (draggingState && draggingState.hoveredSegment === i) {
         currPos += DRAGGING_MOVE_HOLE_WIDTH
-      } else {
+        if (draggingState.draggedSegment !== draggingState.hoveredSegment) {
+          currPos += segments[i].width * TILE_SIZE
+        }
+      } else if (!draggingState || draggingState.draggedSegment !== i) {
         currPos += segments[i].width * TILE_SIZE
       }
     }
 
     let mainLeft = remainingWidth * TILE_SIZE
     if (draggingState) {
-      const { fromPalette, draggedSegment } = draggingState
+      const { draggedSegment } = draggingState
 
-      const draggedWidth = (fromPalette) ? 0 : (segments[draggedSegment].width * TILE_SIZE)
+      const draggedWidth = (segments[draggedSegment].width * TILE_SIZE)
       mainLeft += draggedWidth
       mainLeft -= DRAGGING_MOVE_HOLE_WIDTH
     }
