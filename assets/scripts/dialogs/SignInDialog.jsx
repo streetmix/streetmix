@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl'
 import { isEmail } from 'validator'
 import { goEmailSignIn, goTwitterSignIn, goFacebookSignIn, goGoogleSignIn } from '../app/routing'
 
-class SignInDialog extends React.Component {
+export class SignInDialog extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
