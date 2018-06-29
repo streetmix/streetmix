@@ -18,7 +18,8 @@ class StreetEditable extends React.Component {
     street: PropTypes.object.isRequired,
     updatePerspective: PropTypes.func.isRequired,
     connectDropTarget: PropTypes.func,
-    draggingState: PropTypes.object
+    draggingState: PropTypes.object,
+    isOver: PropTypes.bool
   }
 
   constructor (props) {
@@ -65,13 +66,13 @@ class StreetEditable extends React.Component {
 
   calculateSegmentPos = (dataNo) => {
     const { segments, remainingWidth } = this.props.street
-    const { draggingState } = this.props
+    const { draggingState, isOver } = this.props
     const DRAGGING_MOVE_HOLE_WIDTH = 40
 
     let currPos = 0
 
     for (let i = 0; i < dataNo; i++) {
-      if (draggingState) {
+      if (isOver && draggingState) {
         const { segmentBeforeEl, segmentAfterEl } = draggingState
         if (i === segmentBeforeEl) {
           currPos += DRAGGING_MOVE_HOLE_WIDTH
@@ -100,7 +101,9 @@ class StreetEditable extends React.Component {
 
       const draggedWidth = (draggedSegment) ? (segments[draggedSegment].width * TILE_SIZE) : 0
       mainLeft += draggedWidth
-      mainLeft -= DRAGGING_MOVE_HOLE_WIDTH * 2
+      if (isOver) {
+        mainLeft -= DRAGGING_MOVE_HOLE_WIDTH * 2
+      }
 
       if (segmentAfterEl === undefined && dataNo === segmentBeforeEl) {
         currPos += 2 * DRAGGING_MOVE_HOLE_WIDTH
