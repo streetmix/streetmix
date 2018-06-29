@@ -47,4 +47,13 @@ describe('errors reducer', () => {
     expect(reducer({errorType: "Bad URL", abortEverything: true}, actions.hideError())).
       toEqual(initialState);
   });
+
+  it('should handle an invalid action', () => {
+    // nothing set
+    expect(reducer(undefined, "invalid action")).toEqual(initialState);
+
+    // Non-default state
+    expect(reducer({errorType: "Bad URL", abortEverything: true}, "invalid action")).
+      toEqual({...initialState, errorType: "Bad URL", abortEverything: true});
+  });
 })
