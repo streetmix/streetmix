@@ -1,6 +1,5 @@
 import { trackEvent } from '../app/event_tracking'
 import { loseAnyFocus } from '../util/focus'
-import { getStreetSectionTop } from '../app/window_resize'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { app } from '../preinit/app_settings'
 import { system } from '../preinit/system_capabilities'
@@ -28,7 +27,7 @@ import {
   cancelSegmentResizeTransitions
 } from './resizing'
 import { getVariantArray, getVariantString } from './variant_utils'
-import { TILE_SIZE } from './constants'
+import { TILE_SIZE, DRAGGING_MOVE_HOLE_WIDTH } from './constants'
 import {
   setSegmentContents,
   repositionSegments,
@@ -466,59 +465,59 @@ export function onBodyMouseDown (event) {
   event.preventDefault()
 }
 
-function makeSpaceBetweenSegments (x, y) {
-  let farLeft, farRight
-  const street = store.getState().street
-  const streetSectionCanvasLeft = document.querySelector('#street-section-canvas').style.left
-  var left = x - Number.parseFloat(streetSectionCanvasLeft)
+// function makeSpaceBetweenSegments (x, y) {
+//   let farLeft, farRight
+//   const street = store.getState().street
+//   const streetSectionCanvasLeft = document.querySelector('#street-section-canvas').style.left
+//   var left = x - Number.parseFloat(streetSectionCanvasLeft)
 
-  var selectedSegmentBefore = null
-  var selectedSegmentAfter = null
+//   var selectedSegmentBefore = null
+//   var selectedSegmentAfter = null
 
-  if (street.segments.length) {
-    farLeft = street.segments[0].el.savedNoMoveLeft
-    farRight =
-    street.segments[street.segments.length - 1].el.savedNoMoveLeft +
-      street.segments[street.segments.length - 1].el.savedWidth
-  } else {
-    farLeft = 0
-    farRight = street.width * TILE_SIZE
-  }
-  // TODO const
-  var space = (street.width - street.occupiedWidth) * TILE_SIZE / 2
-  if (space < 100) {
-    space = 100
-  }
+//   if (street.segments.length) {
+//     farLeft = street.segments[0].el.savedNoMoveLeft
+//     farRight =
+//     street.segments[street.segments.length - 1].el.savedNoMoveLeft +
+//       street.segments[street.segments.length - 1].el.savedWidth
+//   } else {
+//     farLeft = 0
+//     farRight = street.width * TILE_SIZE
+//   }
+//   // TODO const
+//   var space = (street.width - street.occupiedWidth) * TILE_SIZE / 2
+//   if (space < 100) {
+//     space = 100
+//   }
 
-  // TODO const
-  if ((left < farLeft - space) || (left > farRight + space) ||
-    (y < getStreetSectionTop() - 100) || (y > getStreetSectionTop() + 300)) {
-    updateWithinCanvas(false)
-  } else {
-    updateWithinCanvas(true)
-    for (var i in street.segments) {
-      var segment = street.segments[i]
+//   // TODO const
+//   if ((left < farLeft - space) || (left > farRight + space) ||
+//     (y < getStreetSectionTop() - 100) || (y > getStreetSectionTop() + 300)) {
+//     updateWithinCanvas(false)
+//   } else {
+//     updateWithinCanvas(true)
+//     for (var i in street.segments) {
+//       var segment = street.segments[i]
 
-      if (!selectedSegmentBefore && ((segment.el.savedLeft + (segment.el.savedWidth / 2)) > left)) {
-        selectedSegmentBefore = segment.el
-      }
+//       if (!selectedSegmentBefore && ((segment.el.savedLeft + (segment.el.savedWidth / 2)) > left)) {
+//         selectedSegmentBefore = segment.el
+//       }
 
-      if ((segment.el.savedLeft + (segment.el.savedWidth / 2)) <= left) {
-        selectedSegmentAfter = segment.el
-      }
-    }
-  }
+//       if ((segment.el.savedLeft + (segment.el.savedWidth / 2)) <= left) {
+//         selectedSegmentAfter = segment.el
+//       }
+//     }
+//   }
 
-  if ((selectedSegmentBefore !== draggingMove.segmentBeforeEl) ||
-    (selectedSegmentAfter !== draggingMove.segmentAfterEl)) {
-    draggingMove.segmentBeforeEl = selectedSegmentBefore
-    draggingMove.segmentAfterEl = selectedSegmentAfter
-    repositionSegments()
-    return true
-  } else {
-    return false
-  }
-}
+//   if ((selectedSegmentBefore !== draggingMove.segmentBeforeEl) ||
+//     (selectedSegmentAfter !== draggingMove.segmentAfterEl)) {
+//     draggingMove.segmentBeforeEl = selectedSegmentBefore
+//     draggingMove.segmentAfterEl = selectedSegmentAfter
+//     repositionSegments()
+//     return true
+//   } else {
+//     return false
+//   }
+// }
 
 export function onBodyMouseMove (event) {
   if (_draggingType === DRAGGING_TYPE_NONE) {
@@ -849,6 +848,29 @@ export function collectDragSource (connect, monitor) {
     connectDragPreview: connect.dragPreview(),
     isDragging: monitor.isDragging()
   }
+}
+
+export function makeSpaceBetweenSegments (dataNo, draggingState) {
+  const { segmentBeforeEl, segmentAfterEl } = draggingState
+  let spaceBetweenSegments = 0
+
+  if (dataNo >= segmentBeforeEl) {
+    spaceBetweenSegments += DRAGGING_MOVE_HOLE_WIDTH
+
+    if (segmentAfterEl === undefined) {
+      spaceBetweenSegments += DRAGGING_MOVE_HOLE_WIDTH
+    }
+  }
+
+  if (dataNo > segmentAfterEl) {
+    spaceBetweenSegments += DRAGGING_MOVE_HOLE_WIDTH
+
+    if (segmentBeforeEl === undefined) {
+      spaceBetweenSegments += DRAGGING_MOVE_HOLE_WIDTH
+    }
+  }
+
+  return spaceBetweenSegments
 }
 
 export const segmentTarget = {

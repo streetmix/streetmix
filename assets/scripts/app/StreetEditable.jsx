@@ -4,10 +4,10 @@ import { connect } from 'react-redux'
 import Segment from '../segments/Segment'
 import uuid from 'uuid'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import { TILE_SIZE } from '../segments/constants'
+import { TILE_SIZE, DRAGGING_MOVE_HOLE_WIDTH } from '../segments/constants'
 import { getVariantArray } from '../segments/variant_utils'
 import { cancelSegmentResizeTransitions } from '../segments/resizing'
-import { Types, canvasTarget, collectDropTarget } from '../segments/drag_and_drop'
+import { Types, canvasTarget, collectDropTarget, makeSpaceBetweenSegments } from '../segments/drag_and_drop'
 import { DropTarget } from 'react-dnd'
 import flow from 'lodash/flow'
 
@@ -67,54 +67,26 @@ class StreetEditable extends React.Component {
   calculateSegmentPos = (dataNo) => {
     const { segments, remainingWidth } = this.props.street
     const { draggingState, isOver } = this.props
-    const DRAGGING_MOVE_HOLE_WIDTH = 40
 
     let currPos = 0
 
     for (let i = 0; i < dataNo; i++) {
-      if (isOver && draggingState) {
-        const { segmentBeforeEl, segmentAfterEl } = draggingState
-        if (i === segmentBeforeEl) {
-          currPos += DRAGGING_MOVE_HOLE_WIDTH
-
-          if (segmentAfterEl === undefined) {
-            currPos += DRAGGING_MOVE_HOLE_WIDTH
-          }
-        }
-
-        if (i === segmentAfterEl) {
-          currPos += DRAGGING_MOVE_HOLE_WIDTH
-
-          if (segmentBeforeEl === undefined) {
-            currPos += DRAGGING_MOVE_HOLE_WIDTH
-          }
-        }
-      }
-
       const width = (draggingState && draggingState.draggedSegment === i) ? 0 : segments[i].width * TILE_SIZE
       currPos += width
     }
 
-    let mainLeft = remainingWidth * TILE_SIZE
-    if (draggingState) {
-      const { draggedSegment, segmentBeforeEl, segmentAfterEl } = draggingState
+    let mainLeft = remainingWidth
+    const draggedWidth = (draggingState && draggingState.draggedSegment !== undefined) ? segments[draggingState.draggedSegment].width : 0
+    mainLeft += draggedWidth
+    mainLeft = (mainLeft * TILE_SIZE) / 2
 
-      const draggedWidth = (draggedSegment !== undefined) ? (segments[draggedSegment].width * TILE_SIZE) : 0
-      mainLeft += draggedWidth
-      if (isOver) {
-        mainLeft -= DRAGGING_MOVE_HOLE_WIDTH * 2
-      }
-
-      if (segmentAfterEl === undefined && dataNo === segmentBeforeEl) {
-        currPos += 2 * DRAGGING_MOVE_HOLE_WIDTH
-      } else if (segmentAfterEl !== undefined && dataNo === segmentBeforeEl) {
-        currPos += DRAGGING_MOVE_HOLE_WIDTH
-      }
+    if (isOver) {
+      mainLeft -= DRAGGING_MOVE_HOLE_WIDTH
+      const spaceBetweenSegments = makeSpaceBetweenSegments(dataNo, draggingState)
+      return (mainLeft + currPos + spaceBetweenSegments)
+    } else {
+      return (mainLeft + currPos)
     }
-
-    mainLeft = mainLeft / 2
-    const segmentPos = mainLeft + currPos
-    return segmentPos
   }
 
   handleExitAnimations = (child) => {
