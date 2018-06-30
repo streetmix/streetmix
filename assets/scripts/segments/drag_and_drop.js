@@ -816,7 +816,7 @@ export const segmentSource = {
     const segmentInfo = getSegmentInfo(props.type)
 
     return {
-      dataNo: props.dataNo,
+      dataNo: (props.forPalette) ? undefined : props.dataNo,
       variantString: (props.forPalette) ? Object.keys(segmentInfo.details).shift() : props.variantString,
       type: props.type,
       randSeed: (props.forPalette && segmentInfo.needRandSeed) ? generateRandSeed() : props.randSeed,
