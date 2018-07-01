@@ -22,12 +22,8 @@ import './vendor/polyfills/Element.remove'
 // Redux
 import store from './store'
 
-// Font Awesome
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCheck, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
-import { fab } from '@fortawesome/free-brands-svg-icons'
-
 // Main object
+import { initIcons } from './ui/icons'
 import { initialize } from './app/initialization'
 import App from './app/App'
 
@@ -39,8 +35,8 @@ if (window.location.hostname === 'streetmix.net' || window.location.hostname ===
   }).install()
 }
 
-// Load Font-Awesome icons
-library.add(faCheck, faMinus, faPlus, fab)
+// Initialize Font-Awesome icons (this must be done before React component mounting.)
+initIcons()
 
 // Mount React components
 ReactDOM.render(
