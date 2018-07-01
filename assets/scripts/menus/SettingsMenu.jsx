@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FormattedMessage } from 'react-intl'
 import Menu from './Menu'
 import LocaleSelect from './LocaleSelect'
@@ -63,10 +64,12 @@ export class SettingsMenu extends React.PureComponent {
         </h2>
         <ul className="menu-item-group">
           <li className={`menu-item ${(this.props.units === SETTINGS_UNITS_METRIC) ? 'menu-item-selected' : ''}`} onClick={this.selectMetric}>
+            <FontAwesomeIcon icon="check" />
             {/* &#x200E; prevents trailing parentheses from going in the wrong place in rtl languages */}
             <FormattedMessage id="settings.units.metric" defaultMessage="Metric units (meters)" />&#x200E;
           </li>
           <li className={`menu-item ${(this.props.units === SETTINGS_UNITS_IMPERIAL) ? 'menu-item-selected' : ''}`} onClick={this.selectImperial}>
+            <FontAwesomeIcon icon="check" />
             <FormattedMessage id="settings.units.imperial" defaultMessage="Imperial units (feet)" />&#x200E;
           </li>
         </ul>
