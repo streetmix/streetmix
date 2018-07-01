@@ -25,6 +25,7 @@ import store from './store'
 // Font Awesome
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { fab } from '@fortawesome/free-brands-svg-icons'
 
 // Main object
 import { initialize } from './app/initialization'
@@ -39,7 +40,7 @@ if (window.location.hostname === 'streetmix.net' || window.location.hostname ===
 }
 
 // Load Font-Awesome icons
-library.add(faCheck)
+library.add(faCheck, fab)
 
 // Mount React components
 ReactDOM.render(

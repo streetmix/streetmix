@@ -69,6 +69,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "1.2.0-14",
+    "@fortawesome/free-brands-svg-icons": "5.1.0",
     "@fortawesome/free-solid-svg-icons": "5.1.0",
     "@fortawesome/react-fontawesome": "0.1.0",
     "@sendgrid/mail": "6.3.1",
