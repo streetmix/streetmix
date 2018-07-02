@@ -102,6 +102,20 @@ body.phone #loading {
   margin-left: -15px;
 }
 
+#loading noscript {
+  width: 100%;
+  height: 60px;
+  // Position over the loading spinner
+  margin-top: -80px;
+  background-color: $sky-colour;
+  text-align: center;
+  z-index: 1;
+  // Center display if flexbox is supported
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 // --------------------------------------------------------
 
 body.controls-fade-out .info-bubble {

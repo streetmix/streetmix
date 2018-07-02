@@ -22,6 +22,10 @@ import './vendor/polyfills/Element.remove'
 // Redux
 import store from './store'
 
+// Font Awesome
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
+
 // Main object
 import { initialize } from './app/initialization'
 import App from './app/App'
@@ -33,6 +37,9 @@ if (window.location.hostname === 'streetmix.net' || window.location.hostname ===
     whitelistUrls: [/streetmix\.net/, /www\.streetmix\.net/]
   }).install()
 }
+
+// Load Font-Awesome icons
+library.add(faCheck)
 
 // Mount React components
 ReactDOM.render(
