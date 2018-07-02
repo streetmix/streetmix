@@ -57,6 +57,10 @@ a.button-like {
   text-decoration: none;
   -webkit-align-items: flex-start !important;
 
+  &:not([disabled]) .svg-inline--fa {
+    color: #231f20;
+  }
+
   &:hover {
     background-color: mix($ui-colour, white, 70%);
   }
@@ -69,6 +73,7 @@ a.button-like {
     border-top-color: desaturate($ui-colour, 100%);
     border-bottom-color: desaturate($ui-colour, 100%);
     background-color: desaturate(fade-out($ui-colour, 0.7), 100%);
+    color: #999 !important;
     cursor: auto;
 
     &:hover {
