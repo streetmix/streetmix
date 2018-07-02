@@ -2,15 +2,14 @@ import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Menu from './Menu'
+import Icon from '../ui/Icon'
 
 export default class ContactMenu extends React.PureComponent {
   render () {
     return (
       <Menu {...this.props}>
         <a href="http://forums.streetmix.net/" target="_blank">
-          <svg className="icon">
-            <use xlinkHref="#icon-forums" />
-          </svg>
+          <Icon icon="forums" />
           <FormattedMessage id="menu.contact.forums" defaultMessage="Discuss on the forums" />
         </a>
         <a href="https://twitter.com/intent/tweet?text=@streetmix" target="_blank" rel="noopener noreferrer">
@@ -18,9 +17,7 @@ export default class ContactMenu extends React.PureComponent {
           <FormattedMessage id="menu.contact.twitter" defaultMessage="Send a tweet to @streetmix" />
         </a>
         <a href="http://streetmix-slack.herokuapp.com/" target="_blank" rel="noopener noreferrer">
-          <svg className="icon">
-            <use xlinkHref="#icon-slack" />
-          </svg>
+          <Icon icon="slack" />
           <FormattedMessage id="menu.contact.slack" defaultMessage="Join Slack chat" />
         </a>
         <a href="http://blog.streetmix.net" target="_blank">
