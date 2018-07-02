@@ -59,7 +59,6 @@ describe('POST api/v1/users', function () {
       .type('json')
       .send(JSON.stringify(emailUser))
       .then((response) => {
-        console.log(response.text)
         expect(response.statusCode).toEqual(200)
       })
   })
