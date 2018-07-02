@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { injectIntl, intlShape } from 'react-intl'
 import { debounce } from 'lodash'
 import { trackEvent } from '../app/event_tracking'
@@ -265,7 +266,7 @@ class WidthControl extends React.Component {
           onClick={this.onClickDecrement}
           disabled={this.props.value <= MIN_SEGMENT_WIDTH}
         >
-          –
+          <FontAwesomeIcon icon="minus" />
         </button>
         {inputEl}
         <button
@@ -275,7 +276,7 @@ class WidthControl extends React.Component {
           onClick={this.onClickIncrement}
           disabled={this.props.value >= MAX_SEGMENT_WIDTH}
         >
-          +
+          <FontAwesomeIcon icon="plus" />
         </button>
       </div>
     )

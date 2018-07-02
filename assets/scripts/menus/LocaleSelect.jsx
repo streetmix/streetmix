@@ -35,7 +35,7 @@ export default class LocaleSelect extends React.Component {
 
       return (
         <li className={classNames.join(' ')} key={locale.value} onClick={(event) => this.props.selectLocale(locale.value)}>
-          <FontAwesomeIcon icon="check" />
+          {(locale.value === actuallySelectedLocale) && <FontAwesomeIcon icon="check" />}
           {/* &#x200E; prevents trailing parentheses from going in the wrong place in rtl languages */}
           <span>{locale.label}&#x200E;</span>
           <span className="menu-item-subtext">

@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { injectIntl, intlShape } from 'react-intl'
 import { debounce } from 'lodash'
 import { MAX_BUILDING_HEIGHT, BUILDINGS, calculateRealHeightNumber } from '../segments/buildings'
@@ -265,7 +266,7 @@ class BuildingHeightControl extends React.Component {
           onClick={this.onClickIncrement}
           disabled={isNotFloored || (this.props.value >= MAX_BUILDING_HEIGHT)}
         >
-          +
+          <FontAwesomeIcon icon="plus" />
         </button>
         {inputEl}
         <button
@@ -275,7 +276,7 @@ class BuildingHeightControl extends React.Component {
           onClick={this.onClickDecrement}
           disabled={isNotFloored || (this.props.value <= 1)}
         >
-          –
+          <FontAwesomeIcon icon="minus" />
         </button>
       </div>
     )

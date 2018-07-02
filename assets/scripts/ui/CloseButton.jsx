@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { injectIntl, intlShape } from 'react-intl'
 
 class CloseButton extends React.Component {
@@ -26,7 +27,7 @@ class CloseButton extends React.Component {
         onClick={this.props.onClick}
         title={title}
       >
-        ×
+        <FontAwesomeIcon icon={['far', 'times-circle']} />
       </button>
     )
   }

@@ -3,10 +3,15 @@ import React from 'react'
 import CloseButton from '../CloseButton'
 import { mockIntl } from '../../../../test/__mocks__/react-intl'
 import { mountWithIntl } from '../../../../test/helpers/intl-enzyme-test-helper.js'
+import { initIcons } from '../../ui/icons'
 
 const onClick = jest.fn()
 
 describe('CloseButton', () => {
+  beforeAll(() => {
+    initIcons()
+  })
+
   it('should renders without crashing', () => {
     const wrapper = mountWithIntl(<CloseButton onClick={onClick} />)
     expect(wrapper.find('button').length).toEqual(1)

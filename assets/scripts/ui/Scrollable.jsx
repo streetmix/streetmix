@@ -3,6 +3,7 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { animate } from '../util/helpers'
 
 export default class Scrollable extends React.PureComponent {
@@ -102,14 +103,14 @@ export default class Scrollable extends React.PureComponent {
           onClick={this.onClickLeft}
           ref={(ref) => { this.leftButton = ref }}
         >
-          «
+          <FontAwesomeIcon icon="chevron-left" />
         </button>
         <button
           className="scrollable scroll-right"
           onClick={this.onClickRight}
           ref={(ref) => { this.rightButton = ref }}
         >
-          »
+          <FontAwesomeIcon icon="chevron-right" />
         </button>
       </div>
     )
