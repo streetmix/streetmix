@@ -7,7 +7,7 @@ export function showError (errorType, abortEverything) {
   return {
     type: SHOW_ERROR,
     errorType,
-    abortEverything: typeof abortEverything === 'undefined' ? false : abortEverything
+    abortEverything: !!abortEverything
   }
 }
 

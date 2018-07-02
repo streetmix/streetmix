@@ -29,15 +29,19 @@ describe('errors reducer', () => {
     expect(reducer(undefined, actions.showError('Bad URL')))
       .toEqual({...initialState, errorType: 'Bad URL', abortEverything: false})
 
-    // errorType explicitly set and abortEverything set to invalid state
-    // FIXME: This shouldn't pass because abortEverything should always be a boolean
-    expect(reducer(undefined, actions.showError('Bad URL', 'true')))
-      .toEqual({...initialState, errorType: 'Bad URL', abortEverything: 'true'})
+    // NOTE: Since a null, empty or undefined value isn't provided in the tests
+    // below for the abortEverything field, the field will default to true when
+    // forced to boolean values.
+    // TODO: Implement type-checking to ensure these cases result in a visible
+    // warning and then we can remove these two test cases
 
     // errorType explicitly set and abortEverything set to invalid state
-    // FIXME: This shouldn't pass because abortEverything should always be a boolean
-    expect(reducer(undefined, actions.showError('Bad URL', 101)))
-      .toEqual({...initialState, errorType: 'Bad URL', abortEverything: 101})
+    expect(reducer(undefined, actions.showError('Bad URL', 'true')))
+      .toEqual({...initialState, errorType: 'Bad URL', abortEverything: true})
+
+    // errorType explicitly set and abortEverything set to invalid state
+    expect(reducer(undefined, actions.showError('Bad URL', -101)))
+      .toEqual({...initialState, errorType: 'Bad URL', abortEverything: true})
   })
 
   it('should handle HIDE_ERROR', () => {
