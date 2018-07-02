@@ -45,7 +45,7 @@ class Segment extends React.Component {
     localeMessages: PropTypes.object,
     infoBubbleHovered: PropTypes.bool,
     descriptionVisible: PropTypes.bool,
-    suppressMouseEnter: PropTypes.bool.isRequired
+    suppressMouseEnter: PropTypes.bool.isRequired,
     connectDragSource: PropTypes.func,
     isDragging: PropTypes.bool,
     connectDragPreview: PropTypes.func,
