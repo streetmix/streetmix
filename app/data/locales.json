@@ -25,7 +25,7 @@
     "name": "Finnish",
     "value": "fi",
     "key": "i18n.lang.fi",
-    "level": 2
+    "level": 3
   },
   {
     "label": "Français",
@@ -53,7 +53,7 @@
     "name": "Polish",
     "value": "pl",
     "key": "i18n.lang.pl",
-    "level": 2
+    "level": 3
   },
   {
     "label": "Português (Brasil)",
