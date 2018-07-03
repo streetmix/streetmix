@@ -76,8 +76,9 @@ class StreetEditable extends React.Component {
     }
 
     let mainLeft = remainingWidth
-    if (draggingState && draggingState.draggedSegment !== undefined) {
-      mainLeft += segments[draggingState.draggedSegment].width
+    if (draggingState && segments[draggingState.draggedSegment] !== undefined) {
+      const draggedWidth = segments[draggingState.draggedSegment].width || 0
+      mainLeft += draggedWidth
     }
 
     mainLeft = (mainLeft * TILE_SIZE) / 2
