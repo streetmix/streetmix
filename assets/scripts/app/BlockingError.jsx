@@ -13,17 +13,24 @@ import {
   goReload,
   goHome,
   goNewStreet,
-  goExampleStreet,
-  goTwitterSignIn
+  goExampleStreet
 } from './routing'
 import { goReloadClearSignIn } from '../users/authentication'
+import { showDialog } from '../store/actions/dialogs'
 import { ERRORS } from './errors'
 import PropTypes from 'prop-types'
 
 export class BlockingError extends React.Component {
   static propTypes = {
     errorType: PropTypes.number,
-    street: PropTypes.object
+    street: PropTypes.object,
+    showDialog: PropTypes.func
+  }
+
+  handleSignInAgain = (event) => {
+    event.preventDefault()
+    console.log('sign in again was clicked')
+    this.props.showDialog()
   }
 
   render () {
@@ -38,7 +45,7 @@ export class BlockingError extends React.Component {
       return street && street.creatorId ? <a href={'/' + street.creatorId}><Avatar userId={street.creatorId} />{street.creatorId}</a> : null
     }
     const signInButton =
-      <button onClick={goTwitterSignIn}>
+      <button onClick={this.handleSignInAgain}>
         <FormattedMessage id="error.button.sign-in" defaultMessage="Sign in again" />
       </button>
     const reloadButton =
@@ -306,4 +313,10 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(BlockingError)
+function mapDispatchToProps (dispatch) {
+  return {
+    showDialog: () => dispatch(showDialog('SIGN_IN'))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BlockingError)
