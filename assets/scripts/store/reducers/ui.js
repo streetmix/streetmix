@@ -1,4 +1,9 @@
-import { SHOW_STREET_NAME_CANVAS, HIDE_STREET_NAME_CANVAS, SET_UNIT_SETTINGS } from '../actions'
+import {
+  SHOW_STREET_NAME_CANVAS,
+  HIDE_STREET_NAME_CANVAS,
+  SET_UNIT_SETTINGS,
+  SET_ACTIVE_SEGMENT
+} from '../actions'
 import * as constants from '../../users/constants'
 
 const initialState = {
@@ -7,7 +12,8 @@ const initialState = {
     resolution: constants.SEGMENT_WIDTH_RESOLUTION_METRIC,
     draggingResolution: constants.SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC,
     clickIncrement: constants.SEGMENT_WIDTH_CLICK_INCREMENT_METRIC
-  }
+  },
+  activeSegment: null
 }
 
 const ui = (state = initialState, action) => {
@@ -31,6 +37,11 @@ const ui = (state = initialState, action) => {
           draggingResolution: (imperial) ? constants.SEGMENT_WIDTH_DRAGGING_RESOLUTION_IMPERIAL : constants.SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC,
           clickIncrement: (imperial) ? constants.SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL : constants.SEGMENT_WIDTH_CLICK_INCREMENT_METRIC
         }
+      }
+    case SET_ACTIVE_SEGMENT:
+      return {
+        ...state,
+        activeSegment: action.position
       }
     default:
       return state

@@ -3,11 +3,8 @@ import { INFO_BUBBLE_TYPE_LEFT_BUILDING } from './constants'
 import { DRAGGING_TYPE_NONE, draggingType } from '../segments/drag_and_drop'
 import { getElAbsolutePos } from '../util/helpers'
 import store from '../store'
-import {
-  showInfoBubble,
-  hideInfoBubble,
-  setInfoBubbleSegmentDataNo
-} from '../store/actions/infoBubble'
+import { showInfoBubble, hideInfoBubble } from '../store/actions/infoBubble'
+import { setActiveSegment } from '../store/actions/ui'
 
 function isInfoBubbleVisible () {
   return store.getState().infoBubble.visible
@@ -55,6 +52,7 @@ export const infoBubble = {
   hideSegment: function (fast) {
     if (infoBubble.segmentEl) {
       infoBubble.segmentEl.classList.remove('hover')
+      store.dispatch(setActiveSegment(null))
       var el = infoBubble.segmentEl
       if (fast) {
         el.classList.add('immediate-show-drag-handles')
@@ -153,7 +151,7 @@ export const infoBubble = {
     if (typeof dataNo === 'undefined') {
       dataNo = (type === INFO_BUBBLE_TYPE_LEFT_BUILDING) ? 'left' : 'right'
     }
-    store.dispatch(setInfoBubbleSegmentDataNo(dataNo))
+    store.dispatch(setActiveSegment(dataNo))
 
     if (!isInfoBubbleVisible()) {
       store.dispatch(showInfoBubble())
