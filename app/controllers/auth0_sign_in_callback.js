@@ -8,7 +8,7 @@ const AccessTokenHandler = function (req, res) {
     if (err) {
       console.error('Error obtaining access token from Auth0:')
       console.log(err)
-      res.redirect('/error/access-token')
+      res.redirect('/error/no-access-token')
       return
     }
 
@@ -79,6 +79,11 @@ const getUserTwitterAuth0Info = function (user) {
 }
 
 exports.get = function (req, res) {
+  if (req.query.error) {
+    res.redirect('/error/access-denied')
+    return
+  }
+
   const code = req.query.code
   const redirectUri = config.restapi.protocol + config.app_host_port + config.auth0.callback_uri
   const options = {
