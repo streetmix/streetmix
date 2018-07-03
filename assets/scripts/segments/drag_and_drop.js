@@ -931,13 +931,11 @@ function handleSegmentCanvasDrop (draggedItem) {
     randSeed: draggedItem.randSeed
   }
 
-  let newIndex = (segmentBeforeEl !== undefined) ? segmentBeforeEl : segmentAfterEl + 1
-  if (segmentBeforeEl !== undefined) {
-    newIndex = (newIndex > draggedSegment) ? newIndex - 1 : newIndex
-  }
+  let newIndex = (segmentAfterEl !== undefined) ? (segmentAfterEl + 1) : segmentBeforeEl
 
   if (!draggedItem.forPalette) {
     store.dispatch(removeSegment(draggedSegment))
+    newIndex = (newIndex < draggedSegment) ? newIndex : newIndex - 1
   }
 
   store.dispatch(addSegment(newIndex, newSegment))
