@@ -825,18 +825,18 @@ export const segmentSource = {
   },
 
   endDrag (props, monitor, component) {
+    store.dispatch(clearDraggingState())
     if (!monitor.didDrop()) {
       // if no object returned by a drop handler, it is not within the canvas
       if (!props.forPalette) {
         // if existing segment is dropped outside canvas, delete it
         store.dispatch(removeSegment(props.dataNo))
-        segmentsChanged(false)
+        trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'DRAGGING', null, true)
       }
     }
 
-    store.dispatch(clearDraggingState())
     cancelSegmentResizeTransitions()
-    infoBubble.show(true)
+    segmentsChanged(false)
     document.querySelector('.palette-trashcan').classList.remove('visible')
     document.body.classList.remove('segment-move-dragging')
   }
@@ -850,6 +850,16 @@ export function collectDragSource (connect, monitor) {
   }
 }
 
+/**
+ * Calculates the additional space needed before/after a segment during dragging
+ *
+ * @param {Number} dataNo - position of the current segment whose segment position
+ *    is being calculated
+ * @param {Object} draggingState - includes the positions of the segment the dragged
+ *    segment is after (segmentAfterEl) and the segment the dragged segment is before
+ *    (segmentBeforeEl), and undefined if it does not have one
+ *
+ */
 export function makeSpaceBetweenSegments (dataNo, draggingState) {
   const { segmentBeforeEl, segmentAfterEl } = draggingState
   let spaceBetweenSegments = 0
@@ -904,21 +914,16 @@ export const segmentTarget = {
 
       store.dispatch(updateDraggingState(segmentBeforeEl, segmentAfterEl, dragIndex))
     }
-  },
-
-  drop (props, monitor, component) {
-    return { withinCanvas: true }
   }
 }
 
-// When dragging a segment, react-dnd registers when the dragged segment
-// is over another segment. However, if the dragged segment is not over
-// any segment targets, then it triggers the canvasTarget. react-dnd does
-// not allow an easy way to figure out which side of the canvas the dragged
-// segment is, so this function will compare the end of the left empty segment
-// and beginning of the right empty segment with the dropped position.
-function handleSegmentCanvasDrop (position, draggedItem) {
-  const { segments } = store.getState().street
+function handleSegmentCanvasDrop (draggedItem) {
+  const { segmentBeforeEl, segmentAfterEl, draggedSegment } = store.getState().ui.draggingState
+
+  store.dispatch(clearDraggingState())
+  // If dropped in same position as dragged segment was before, return
+  if (segmentBeforeEl === draggedItem.dataNo && segmentAfterEl === undefined) return
+
   const newSegment = {
     variantString: draggedItem.variantString,
     width: draggedItem.width / TILE_SIZE,
@@ -926,15 +931,26 @@ function handleSegmentCanvasDrop (position, draggedItem) {
     randSeed: draggedItem.randSeed
   }
 
-  const index = (position && position === 'right') ? segments.length : 0
-
-  if (draggedItem.forPalette) {
-    store.dispatch(addSegment(index, newSegment))
-    cancelSegmentResizeTransitions()
-    segmentsChanged(false)
+  let newIndex = (segmentBeforeEl !== undefined) ? segmentBeforeEl : segmentAfterEl + 1
+  if (segmentBeforeEl !== undefined) {
+    newIndex = (newIndex > draggedSegment) ? newIndex - 1 : newIndex
   }
+
+  if (!draggedItem.forPalette) {
+    store.dispatch(removeSegment(draggedSegment))
+  }
+
+  store.dispatch(addSegment(newIndex, newSegment))
 }
 
+/**
+ * Determines if segment was dropped/hovered on left or right side of street
+ *
+ * @param {Node} segment - reference to StreetEditable
+ * @param {Number} droppedPosition - x position of dropped segment in reference
+ *    to StreetEditable
+ * @returns {string} - left, right, or null if dropped/hovered over a segment
+ */
 function isOverLeftOrRightCanvas (segment, droppedPosition) {
   const { remainingWidth } = store.getState().street
   const { left, right } = segment.getBoundingClientRect()
@@ -950,8 +966,11 @@ export const canvasTarget = {
   hover (props, monitor, component) {
     if (!monitor.canDrop()) return
 
-    const position = isOverLeftOrRightCanvas(component.streetSectionEditable, monitor.getClientOffset().x)
-    if (position) {
+    if (monitor.isOver({shallow: true})) {
+      const position = isOverLeftOrRightCanvas(component.streetSectionEditable, monitor.getClientOffset().x)
+
+      if (!position) return
+
       const { segments } = store.getState().street
       const dragIndex = monitor.getItem().dataNo
       const segmentBeforeEl = (position === 'left') ? 0 : undefined
@@ -961,13 +980,8 @@ export const canvasTarget = {
   },
 
   drop (props, monitor, component) {
-    // If dragged segment was not handled by segmentTarget,
-    // then it was dropped over one of the empty segments.
-    if (!monitor.didDrop()) {
-      const draggedItem = monitor.getItem()
-      const position = isOverLeftOrRightCanvas(component.streetSectionEditable, monitor.getClientOffset().x)
-      handleSegmentCanvasDrop(position, draggedItem)
-    }
+    const draggedItem = monitor.getItem()
+    handleSegmentCanvasDrop(draggedItem)
 
     return { withinCanvas: true }
   }
