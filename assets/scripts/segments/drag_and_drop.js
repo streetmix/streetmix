@@ -36,7 +36,7 @@ import {
 import store from '../store'
 import { addSegment, removeSegment } from '../store/actions/street'
 import { clearMenus } from '../store/actions/menus'
-import { updateDraggingState, clearDraggingState } from '../store/actions/ui'
+import { updateDraggingState, clearDraggingState, setActiveSegment } from '../store/actions/ui'
 
 const DRAG_OFFSET_Y_PALETTE = -340 - 150
 
@@ -939,6 +939,7 @@ function handleSegmentCanvasDrop (draggedItem) {
   }
 
   store.dispatch(addSegment(newIndex, newSegment))
+  store.dispatch(setActiveSegment(newIndex))
 }
 
 /**
