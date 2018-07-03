@@ -54,7 +54,7 @@ describe('errors reducer', () => {
   })
 
   it('should handle an invalid action', () => {
-    // nothing set
+    // Nothing set
     expect(reducer(undefined, 'invalid action')).toEqual(initialState)
 
     // Non-default state
