@@ -49,7 +49,8 @@ class Segment extends React.Component {
     connectDragSource: PropTypes.func,
     isDragging: PropTypes.bool,
     connectDragPreview: PropTypes.func,
-    connectDropTarget: PropTypes.func
+    connectDropTarget: PropTypes.func,
+    activeSegment: PropTypes.number
   }
 
   static defaultProps = {
@@ -80,8 +81,9 @@ class Segment extends React.Component {
   componentDidUpdate (prevProps, prevState) {
     if (this.props.forPalette) return
 
-    if (prevProps.suppressMouseEnter && !this.props.suppressMouseEnter &&
-        infoBubble.considerSegmentEl === this.streetSegment) {
+    if ((prevProps.suppressMouseEnter && !this.props.suppressMouseEnter &&
+        infoBubble.considerSegmentEl === this.streetSegment) ||
+        (this.props.activeSegment === this.props.dataNo)) {
       infoBubble.considerShowing(false, this.streetSegment, INFO_BUBBLE_TYPE_SEGMENT)
     }
 
@@ -302,7 +304,8 @@ function mapStateToProps (state) {
     locale: state.locale.locale,
     localeMessages: state.locale.messages,
     infoBubbleHovered: state.infoBubble.mouseInside,
-    descriptionVisible: state.infoBubble.descriptionVisible
+    descriptionVisible: state.infoBubble.descriptionVisible,
+    activeSegment: state.ui.activeSegment
   }
 }
 
