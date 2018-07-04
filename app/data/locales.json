@@ -82,5 +82,12 @@
     "value": "sv",
     "key": "i18n.lang.sv",
     "level": 1
-  }
+  },
+  {
+    "label": "Русский",
+    "name": "Russian",
+    "value": "ru",
+    "key": "i18n.lang.ru",
+    "level": 3
+  },
 ]
