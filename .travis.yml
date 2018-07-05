@@ -22,6 +22,8 @@ before_install:
   # Install dependencies for node `canvas` package
   # https://github.com/Automattic/node-canvas#compiling
   - sudo apt-get install libcairo2-dev libjpeg-dev libpango1.0-dev libgif-dev build-essential g++
+  # Install the latest npm (@6.x.x) to avoid `npm ci` errors
+  - sudo npm install -g npm@latest
 
 before_script:
   # Artificial wait before connecting to MongoDB
