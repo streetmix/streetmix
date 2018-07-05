@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import { TILE_SIZE } from './constants'
 import { getSegmentVariantInfo } from '../segments/info'
+import { getSegmentEl } from '../segments/view'
 import { MIN_SEGMENT_WIDTH } from '../segments/resizing'
 
 export class SegmentDragGuides extends React.Component {
@@ -52,11 +53,13 @@ export class SegmentDragGuides extends React.Component {
     })
   }
 
-  getStyle = (width) => {
+  getStyle = (width, centerline) => {
     const pixelWidth = width * TILE_SIZE
+
     return {
       width: `${pixelWidth}px`,
-      marginLeft: (-pixelWidth / 2) + 'px'
+      marginLeft: (-pixelWidth / 2) + 'px',
+      left: `${centerline}px`
     }
   }
 
@@ -96,11 +99,15 @@ export class SegmentDragGuides extends React.Component {
       )
     }
 
+    // Get the center of the segment (its left offset plus half its width)
+    const el = getSegmentEl(this.props.activeSegment)
+    const centerline = el.offsetLeft + (el.cssTransformLeft || 0) + (el.offsetWidth / 2)
+
     return (
-      <React.Fragment>
+      <div className="segment-guides" style={{ left: centerline }}>
         {minGuide}
         {maxGuide}
-      </React.Fragment>
+      </div>
     )
   }
 }
