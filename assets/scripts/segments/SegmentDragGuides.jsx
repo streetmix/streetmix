@@ -9,11 +9,8 @@ import { MIN_SEGMENT_WIDTH } from '../segments/resizing'
 
 export class SegmentDragGuides extends React.Component {
   static propTypes = {
-    activeSegment: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]),
-    segments: PropTypes.array,
+    activeSegment: PropTypes.number,
+    segment: PropTypes.object,
     remainingWidth: PropTypes.number
   }
 
@@ -53,20 +50,19 @@ export class SegmentDragGuides extends React.Component {
     })
   }
 
-  getStyle = (width, centerline) => {
+  getStyle = (width) => {
     const pixelWidth = width * TILE_SIZE
 
     return {
       width: `${pixelWidth}px`,
-      marginLeft: (-pixelWidth / 2) + 'px',
-      left: `${centerline}px`
+      marginLeft: (-pixelWidth / 2) + 'px'
     }
   }
 
   render () {
-    if (!this.state.show || typeof this.props.activeSegment !== 'number') return null
+    if (!this.state.show || !this.props.segment) return null
 
-    const segment = this.props.segments[this.props.activeSegment]
+    const segment = this.props.segment
     const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
     let minGuide, maxGuide
 
@@ -114,8 +110,8 @@ export class SegmentDragGuides extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    activeSegment: state.ui.activeSegment,
-    segments: state.street.segments,
+    activeSegment: (typeof state.ui.activeSegment === 'number') ? state.ui.activeSegment : null,
+    segment: state.street.segments[state.ui.activeSegment] || null,
     remainingWidth: state.street.remainingWidth
   }
 }

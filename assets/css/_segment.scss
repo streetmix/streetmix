@@ -203,8 +203,8 @@ body.segment-resize-dragging .drag-handle.floating,
 .segment-guides {
   position: absolute;
   z-index: $z-07-segment-guide;
-  top: 0;
-  bottom: 45px;
+  top: -75px;
+  bottom: 75px;
   left: 50%; /* Will be overridden by component */
   box-sizing: border-box;
   pointer-events: none;
