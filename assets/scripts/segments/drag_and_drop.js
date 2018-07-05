@@ -379,7 +379,6 @@ function handleSegmentDragStart (segment, fromPalette) {
     segment.classList.remove('immediate-show-drag-handles')
     segment.classList.remove('show-drag-handles')
     segment.classList.remove('hover')
-    document.querySelector('.palette-trashcan').classList.add('visible')
   }
 
   document.body.classList.add('segment-move-dragging')
@@ -428,7 +427,6 @@ export const segmentSource = {
 
     cancelSegmentResizeTransitions()
     segmentsChanged(false)
-    document.querySelector('.palette-trashcan').classList.remove('visible')
     document.body.classList.remove('segment-move-dragging')
   }
 }
