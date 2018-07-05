@@ -95,9 +95,10 @@ export class SegmentDragGuides extends React.Component {
       )
     }
 
-    // Get the center of the segment (its left offset plus half its width)
+    // Calculate the centerline of the segment (its left offset plus half its width)
+    // Adjusting the centerline by 1px to the left seems to "look" better
     const el = getSegmentEl(this.props.activeSegment)
-    const centerline = el.offsetLeft + (el.cssTransformLeft || 0) + (el.offsetWidth / 2)
+    const centerline = el.offsetLeft + (el.cssTransformLeft || 0) + (el.offsetWidth / 2) - 1
 
     return (
       <div className="segment-guides" style={{ left: centerline }}>
