@@ -13,38 +13,29 @@ class SegmentDragLayer extends React.Component {
     item: PropTypes.object
   }
 
-  constructor (props) {
-    super(props)
+  getSnapshotBeforeUpdate (prevProps) {
+    const { currentOffset } = this.props
+    const prevMouseX = (prevProps.currentOffset && prevProps.currentOffset.x)
 
-    this.state = {
-      deltaX: 0,
-      mouseX: null,
-      draggedItem: null
+    if (!currentOffset || !prevMouseX) return null
+
+    let deg = currentOffset.x - prevMouseX
+    if (deg > MAX_DRAG_DEGREE) {
+      deg = MAX_DRAG_DEGREE
+    } else if (deg < -MAX_DRAG_DEGREE) {
+      deg = -MAX_DRAG_DEGREE
+    }
+
+    return deg
+  }
+
+  componentDidUpdate (prevProps, prevState, snapshot) {
+    if ((!prevProps.isDragging && this.props.isDragging) || (prevProps.currentOffset !== this.props.currentOffset)) {
+      this.getSegmentStyle(snapshot)
     }
   }
 
-  static getDerivedStateFromProps (nextProps, prevState) {
-    if (!nextProps.isDragging) {
-      return {
-        deltaX: 0,
-        mouseX: null,
-        draggedItem: null
-      }
-    } else if (nextProps.currentOffset && nextProps.currentOffset.x !== prevState.mouseX) {
-      const { x } = nextProps.currentOffset
-      const currDraggedItem = nextProps.item.dataNo
-
-      return {
-        mouseX: x,
-        deltaX: (prevState.mouseX && currDraggedItem === prevState.draggedItem) ? (x - prevState.mouseX) : 0,
-        draggedItem: (nextProps.item && nextProps.item.dataNo)
-      }
-    }
-
-    return null
-  }
-
-  getSegmentStyle = () => {
+  getSegmentStyle = (deg = 0) => {
     const { currentOffset, item } = this.props
 
     if (!currentOffset) {
@@ -59,18 +50,9 @@ class SegmentDragLayer extends React.Component {
       y += DRAG_OFFSET_Y_PALETTE
     }
 
-    let deg = this.state.deltaX
-    if (deg > MAX_DRAG_DEGREE) {
-      deg = MAX_DRAG_DEGREE
-    } else if (deg < -MAX_DRAG_DEGREE) {
-      deg = -MAX_DRAG_DEGREE
-    }
-
     const transform = `translate(${x}px, ${y}px) rotateZ(${deg}deg)`
-    return {
-      transform: transform,
-      WebkitTransform: transform
-    }
+    this.floatingEl.style['transform'] = transform
+    this.floatingEl.style['-webkit-transform'] = transform
   }
 
   render () {
@@ -80,7 +62,7 @@ class SegmentDragLayer extends React.Component {
 
     return (
       <div className="segment-drag-layer">
-        <div className="floating segment" style={this.getSegmentStyle()}>
+        <div className="floating segment" ref={(ref) => { this.floatingEl = ref }}>
           <SegmentCanvas {...item} forPalette={false} />
         </div>
       </div>
