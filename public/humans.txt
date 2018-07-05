@@ -78,6 +78,7 @@
     Diana M. Alhaj, Arabic
     Crystal Xing, Chinese (Traditional)
     Ricky Tsui, Chinese (Traditional)
+    Summer Pan, Chinese (Traditional)
     Wen Jing Jiang, Chinese (Traditional)
     Aleksi Kinnunen, Finnish
     Denis Devillé, French
@@ -90,7 +91,11 @@
     Weronika Grzejszczak, Polish
     Wojciech Patelka, Polish
     Carlos Jimenez, Portuguese (Brazil)
+    Carolina Guido, Portuguese (Brazil)
+    Paulo Franco, Portuguese (Brazil)
     Stephan Garcia, Portuguese (Brazil)
+    Urb-i - Urban Ideas, Portuguese (Brazil)
+    Yuval Fogelson, Portuguese (Brazil)
     Paco Marquez, Spanish (Mexico)
     Patricio M. Ruiz Abrín, Spanish (Mexico)
     Jakob Fahlstedt, Swedish
