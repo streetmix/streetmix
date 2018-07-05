@@ -3,7 +3,6 @@ import { t } from '../locales/locale'
 import { system } from '../preinit/system_capabilities'
 import { saveStreetToServerIfNecessary } from '../streets/data_model'
 import { recalculateWidth } from '../streets/width'
-import { draggingMove } from './drag_and_drop'
 import { getSegmentInfo, getSegmentVariantInfo, getSpriteDef } from './info'
 import { drawProgrammaticPeople } from './people'
 import { TILE_SIZE, TILESET_POINT_PER_PIXEL, WIDTH_PALETTE_MULTIPLIER } from './constants'
@@ -16,8 +15,6 @@ const CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND
 
 const SEGMENT_Y_NORMAL = 265
 const SEGMENT_Y_PALETTE = 20
-
-const DRAGGING_MOVE_HOLE_WIDTH = 40
 
 /**
  * Draws SVG sprite to canvas
@@ -312,66 +309,6 @@ export function getLocaleSegmentName (type, variantString) {
   const key = `segments.${nameKey}`
 
   return t(key, defaultName, { ns: 'segment-info' })
-}
-
-export function repositionSegments () {
-  let width, el
-  var left = 0
-  var noMoveLeft = 0
-
-  const street = store.getState().street
-  for (let i in street.segments) {
-    el = street.segments[i].el
-
-    if (el === draggingMove.segmentBeforeEl) {
-      left += DRAGGING_MOVE_HOLE_WIDTH
-
-      if (!draggingMove.segmentAfterEl) {
-        left += DRAGGING_MOVE_HOLE_WIDTH
-      }
-    }
-
-    if (el.classList.contains('dragged-out')) {
-      width = 0
-    } else {
-      width = parseFloat(el.getAttribute('data-width')) * TILE_SIZE
-    }
-
-    el.savedLeft = Math.round(left) // so we don’t have to use offsetLeft
-    el.savedNoMoveLeft = Math.round(noMoveLeft) // so we don’t have to use offsetLeft
-    el.savedWidth = Math.round(width)
-
-    left += width
-    noMoveLeft += width
-
-    if (el === draggingMove.segmentAfterEl) {
-      left += DRAGGING_MOVE_HOLE_WIDTH
-
-      if (!draggingMove.segmentBeforeEl) {
-        left += DRAGGING_MOVE_HOLE_WIDTH
-      }
-    }
-  }
-
-  var occupiedWidth = left
-  var noMoveOccupiedWidth = noMoveLeft
-
-  var mainLeft = Math.round(((street.width * TILE_SIZE) - occupiedWidth) / 2)
-  var mainNoMoveLeft = Math.round(((street.width * TILE_SIZE) - noMoveOccupiedWidth) / 2)
-
-  for (let i in street.segments) {
-    el = street.segments[i].el
-
-    el.savedLeft += mainLeft
-    el.savedNoMoveLeft += mainNoMoveLeft
-
-    if (system.cssTransform) {
-      el.style[system.cssTransform] = 'translateX(' + el.savedLeft + 'px)'
-      el.cssTransformLeft = el.savedLeft
-    } else {
-      el.style.left = el.savedLeft + 'px'
-    }
-  }
 }
 
 /**
