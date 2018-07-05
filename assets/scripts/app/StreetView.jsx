@@ -13,6 +13,7 @@ import StreetEditable from './StreetEditable'
 import SkyBackground from './SkyBackground'
 import ScrollIndicators from './ScrollIndicators'
 import Building from '../segments/Building'
+import SegmentDragGuides from '../segments/SegmentDragGuides'
 import EmptySegmentContainer from '../segments/EmptySegmentContainer'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { animate, getElAbsolutePos } from '../util/helpers'
@@ -222,7 +223,10 @@ class StreetView extends React.Component {
                 key={this.props.locale.locale}
                 messages={this.props.locale.messages}
               >
-                <EmptySegmentContainer />
+                <React.Fragment>
+                  <SegmentDragGuides />
+                  <EmptySegmentContainer />
+                </React.Fragment>
               </IntlProvider>
               <section id="street-section-dirt" style={dirtStyle} />
             </section>
