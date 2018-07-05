@@ -539,29 +539,27 @@ export function onBodyMouseMove (event) {
   event.preventDefault()
 }
 
-function doDropHeuristics (type, variantString, width) {
+function doDropHeuristics (draggedItem) {
   // Automatically figure out width
   const street = store.getState().street
-
-  if (draggingMove.type === DRAGGING_TYPE_MOVE_CREATE) {
+  const { forPalette, variantString, type, width } = draggedItem
+  if (forPalette) {
     if ((street.remainingWidth > 0) &&
       (width > street.remainingWidth * TILE_SIZE)) {
       var segmentMinWidth = getSegmentVariantInfo(type, variantString).minWidth || 0
 
       if ((street.remainingWidth >= MIN_SEGMENT_WIDTH) &&
         (street.remainingWidth >= segmentMinWidth)) {
-        width = normalizeSegmentWidth(street.remainingWidth, RESIZE_TYPE_INITIAL) * TILE_SIZE
+        draggedItem.width = normalizeSegmentWidth(street.remainingWidth, RESIZE_TYPE_INITIAL) * TILE_SIZE
       }
     }
   }
 
   // Automatically figure out variants
+  const { segmentBeforeEl, segmentAfterEl } = store.getState().ui.draggingState
 
-  var leftEl = draggingMove.segmentAfterEl
-  var rightEl = draggingMove.segmentBeforeEl
-
-  var left = leftEl ? street.segments[leftEl.dataNo] : null
-  var right = rightEl ? street.segments[rightEl.dataNo] : null
+  var left = (segmentAfterEl !== undefined) ? street.segments[segmentAfterEl] : null
+  var right = (segmentBeforeEl !== undefined) ? street.segments[segmentBeforeEl] : null
 
   var leftOwner = left && SegmentTypes[getSegmentInfo(left.type).owner]
   var rightOwner = right && SegmentTypes[getSegmentInfo(right.type).owner]
@@ -667,9 +665,7 @@ function doDropHeuristics (type, variantString, width) {
     }
   }
 
-  variantString = getVariantString(variant)
-
-  return { type: type, variantString: variantString, width: width }
+  draggedItem.variantString = getVariantString(variant)
 }
 
 export function handleSegmentMoveCancel () {
@@ -914,6 +910,8 @@ export const segmentTarget = {
 
       store.dispatch(updateDraggingState(segmentBeforeEl, segmentAfterEl, dragIndex))
     }
+
+    doDropHeuristics(monitor.getItem())
   }
 }
 
@@ -975,6 +973,7 @@ export const canvasTarget = {
       const segmentBeforeEl = (position === 'left') ? 0 : undefined
       const segmentAfterEl = (position === 'left') ? undefined : segments.length - 1
       store.dispatch(updateDraggingState(segmentBeforeEl, segmentAfterEl, dragIndex))
+      doDropHeuristics(monitor.getItem())
     }
   },
 
