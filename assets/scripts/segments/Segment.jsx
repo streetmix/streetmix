@@ -50,7 +50,10 @@ class Segment extends React.Component {
     isDragging: PropTypes.bool,
     connectDragPreview: PropTypes.func,
     connectDropTarget: PropTypes.func,
-    activeSegment: PropTypes.number
+    activeSegment: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ])
   }
 
   static defaultProps = {
