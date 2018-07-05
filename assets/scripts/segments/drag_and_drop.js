@@ -211,9 +211,8 @@ export function onBodyMouseDown (event) {
 
   if (el.classList.contains('drag-handle')) {
     handleSegmentResizeStart(event)
+    event.preventDefault()
   }
-
-  event.preventDefault()
 }
 
 export function onBodyMouseMove (event) {
