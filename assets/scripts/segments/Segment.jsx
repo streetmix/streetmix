@@ -246,7 +246,7 @@ class Segment extends React.Component {
               key={this.props.locale}
               messages={this.props.localeMessages}
             >
-              <SegmentDragGuides width={width} type={this.props.type} variantString={this.props.variantString} dataNo={this.props.dataNo} />
+              <SegmentDragGuides position={this.props.dataNo} />
             </IntlProvider>
           </React.Fragment>
         }

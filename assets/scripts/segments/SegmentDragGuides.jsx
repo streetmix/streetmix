@@ -8,10 +8,8 @@ import { MIN_SEGMENT_WIDTH } from '../segments/resizing'
 
 export class SegmentDragGuides extends React.Component {
   static propTypes = {
-    type: PropTypes.string.isRequired,
-    variantString: PropTypes.string.isRequired,
-    width: PropTypes.number,
-    dataNo: PropTypes.number,
+    position: PropTypes.number,
+    segments: PropTypes.array,
     remainingWidth: PropTypes.number
   }
 
@@ -40,7 +38,7 @@ export class SegmentDragGuides extends React.Component {
   }
 
   showGuides = (event) => {
-    if (event.detail.dataNo === this.props.dataNo) {
+    if (event.detail.dataNo === this.props.position) {
       this.setState({
         show: true
       })
@@ -64,7 +62,8 @@ export class SegmentDragGuides extends React.Component {
   render () {
     if (!this.state.show) return null
 
-    const variantInfo = getSegmentVariantInfo(this.props.type, this.props.variantString)
+    const segment = this.props.segments[this.props.position]
+    const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
     let minGuide, maxGuide
 
     if (variantInfo.minWidth) {
@@ -76,7 +75,7 @@ export class SegmentDragGuides extends React.Component {
       )
     }
 
-    const remainingWidth = this.props.remainingWidth + (this.props.width / TILE_SIZE)
+    const remainingWidth = this.props.remainingWidth + segment.width
 
     if (remainingWidth &&
       (((!variantInfo.minWidth) && (remainingWidth >= MIN_SEGMENT_WIDTH)) || (remainingWidth >= variantInfo.minWidth)) &&
@@ -107,6 +106,7 @@ export class SegmentDragGuides extends React.Component {
 
 function mapStateToProps (state) {
   return {
+    segments: state.street.segments,
     remainingWidth: state.street.remainingWidth
   }
 }
