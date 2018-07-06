@@ -59,7 +59,7 @@ export function showGallery (userId, instant = false) {
   updatePageUrl(true)
 }
 
-export function hideGallery (instant) {
+export function hideGallery (instant = false) {
   // Do not hide the gallery if there is no street selected.
   if (galleryState.noStreetSelected === true) {
     return

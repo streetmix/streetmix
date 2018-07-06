@@ -12,6 +12,7 @@ import Scrollable from '../ui/Scrollable'
 import Avatar from '../users/Avatar'
 import GalleryStreetItem from './GalleryStreetItem'
 import { switchGalleryStreet, repeatReceiveGalleryData, hideGallery } from './view'
+import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { sendDeleteStreetToServer } from '../streets/xhr'
 import { showError, ERRORS } from '../app/errors'
 import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/routing'
@@ -20,6 +21,7 @@ import { showDialog } from '../store/actions/dialogs'
 
 class Gallery extends React.Component {
   static propTypes = {
+    visible: PropTypes.bool,
     setGalleryMode: PropTypes.func,
     deleteGalleryStreet: PropTypes.func,
     showDialog: PropTypes.func,
@@ -45,14 +47,26 @@ class Gallery extends React.Component {
 
   componentDidMount () {
     this.scrollSelectedStreetIntoView()
+
+    registerKeypress('esc', this.hideGallery)
   }
 
   componentDidUpdate () {
     this.scrollSelectedStreetIntoView()
   }
 
+  componentWillUnmount () {
+    deregisterKeypress('esc', this.hideGallery)
+  }
+
   componentDidCatch () {
     this.props.setGalleryMode('ERROR')
+  }
+
+  hideGallery = (event) => {
+    if (this.props.visible) {
+      hideGallery()
+    }
   }
 
   selectStreet = (streetId) => {
