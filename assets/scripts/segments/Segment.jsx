@@ -238,7 +238,7 @@ class Segment extends React.Component {
               <MeasurementText value={widthValue} units={this.props.units} locale={this.props.locale} />
             </span>
             <span className={'grid' + (this.props.units === SETTINGS_UNITS_METRIC ? ' units-metric' : ' units-imperial')} />
-            <SegmentDragHandles width={width} />
+            <SegmentDragHandles width={width} position={this.props.dataNo} />
           </React.Fragment>
         }
         <CSSTransition
