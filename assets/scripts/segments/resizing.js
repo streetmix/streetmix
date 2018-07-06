@@ -1,18 +1,11 @@
-import { trackEvent } from '../app/event_tracking'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { system } from '../preinit/system_capabilities'
-import { setIgnoreStreetChanges } from '../streets/data_model'
 import {
   SEGMENT_WARNING_OUTSIDE,
   SEGMENT_WARNING_WIDTH_TOO_SMALL,
   SEGMENT_WARNING_WIDTH_TOO_LARGE
 } from '../streets/width'
-import {
-  DRAGGING_TYPE_NONE,
-  draggingResize,
-  changeDraggingType
-} from './drag_and_drop'
 import { segmentsChanged } from './view'
 import store from '../store'
 import { updateSegments, changeSegmentWidth } from '../store/actions/street'
@@ -33,12 +26,6 @@ const TOUCH_CONTROLS_FADEOUT_DELAY = 3000
 
 const NORMALIZE_PRECISION = 5
 
-let _suppressMouseEnter = false
-
-export function suppressMouseEnter () {
-  return _suppressMouseEnter
-}
-
 export function resizeSegment (dataNo, resizeType, width, updateEdit, palette, initial) {
   if (!palette) {
     width = normalizeSegmentWidth(width, resizeType)
@@ -52,41 +39,6 @@ export function resizeSegment (dataNo, resizeType, width, updateEdit, palette, i
   }
 
   return width
-}
-
-export function handleSegmentResizeCancel () {
-  resizeSegment(draggingResize.segmentEl, RESIZE_TYPE_INITIAL, draggingResize.originalWidth, true, false)
-
-  handleSegmentResizeEnd()
-}
-
-export function handleSegmentResizeEnd (event) {
-  setIgnoreStreetChanges(false)
-
-  segmentsChanged(false)
-
-  changeDraggingType(DRAGGING_TYPE_NONE)
-
-  var el = draggingResize.floatingEl
-  el.remove()
-
-  // todo: refactor
-  window.dispatchEvent(new window.CustomEvent('stmx:hide_segment_guides'))
-
-  infoBubble.considerSegmentEl = draggingResize.segmentEl
-  infoBubble.show(false)
-
-  scheduleControlsFadeout(draggingResize.segmentEl)
-
-  _suppressMouseEnter = true
-  infoBubble.considerShowing(event, draggingResize.segmentEl, INFO_BUBBLE_TYPE_SEGMENT)
-  window.setTimeout(function () {
-    _suppressMouseEnter = false
-  }, 50)
-
-  if (draggingResize.width && (draggingResize.originalWidth !== draggingResize.width)) {
-    trackEvent('INTERACTION', 'CHANGE_WIDTH', 'DRAGGING', null, true)
-  }
 }
 
 export function normalizeAllSegmentWidths () {

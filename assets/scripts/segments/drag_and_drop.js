@@ -1,6 +1,7 @@
 import { trackEvent } from '../app/event_tracking'
 import { loseAnyFocus } from '../util/focus'
 import { getStreetSectionTop } from '../app/window_resize'
+import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { app } from '../preinit/app_settings'
 import { system } from '../preinit/system_capabilities'
@@ -20,7 +21,6 @@ import {
   RESIZE_TYPE_PRECISE_DRAGGING,
   MIN_SEGMENT_WIDTH,
   resizeSegment,
-  handleSegmentResizeEnd,
   normalizeSegmentWidth,
   scheduleControlsFadeout,
   cancelFadeoutControls,
@@ -42,8 +42,8 @@ const DRAG_OFFSET_Y_PALETTE = -340 - 150
 
 export const DRAGGING_TYPE_NONE = 0
 const DRAGGING_TYPE_CLICK_OR_MOVE = 1
-export const DRAGGING_TYPE_MOVE = 2
-export const DRAGGING_TYPE_RESIZE = 3
+const DRAGGING_TYPE_MOVE = 2
+const DRAGGING_TYPE_RESIZE = 3
 
 const DRAGGING_TYPE_MOVE_TRANSFER = 1
 const DRAGGING_TYPE_MOVE_CREATE = 2
@@ -197,6 +197,50 @@ function handleSegmentResizeMove (event) {
 
   draggingResize.mouseX = x
   draggingResize.mouseY = y
+}
+
+// TODO: This is no longer used anywhere (the keydown button that used to call this is no longer
+// set), but we should consider making it possible to cancel resizing again.
+export function handleSegmentResizeCancel () {
+  // resizeSegment(draggingResize.segmentEl, RESIZE_TYPE_INITIAL, draggingResize.originalWidth, true, false)
+
+  // handleSegmentResizeEnd()
+}
+
+// TODO: use suppressMouseEnter on <StreetEditable /> state
+let _suppressMouseEnter = false
+
+export function suppressMouseEnter () {
+  return _suppressMouseEnter
+}
+
+export function handleSegmentResizeEnd (event) {
+  setIgnoreStreetChanges(false)
+
+  segmentsChanged(false)
+
+  changeDraggingType(DRAGGING_TYPE_NONE)
+
+  var el = draggingResize.floatingEl
+  el.remove()
+
+  // todo: refactor
+  window.dispatchEvent(new window.CustomEvent('stmx:hide_segment_guides'))
+
+  infoBubble.considerSegmentEl = draggingResize.segmentEl
+  infoBubble.show(false)
+
+  scheduleControlsFadeout(draggingResize.segmentEl)
+
+  _suppressMouseEnter = true
+  infoBubble.considerShowing(event, draggingResize.segmentEl, INFO_BUBBLE_TYPE_SEGMENT)
+  window.setTimeout(function () {
+    _suppressMouseEnter = false
+  }, 50)
+
+  if (draggingResize.width && (draggingResize.originalWidth !== draggingResize.width)) {
+    trackEvent('INTERACTION', 'CHANGE_WIDTH', 'DRAGGING', null, true)
+  }
 }
 
 function handleSegmentClickOrMoveStart (event) {
@@ -664,19 +708,21 @@ function doDropHeuristics (type, variantString, width) {
   return { type: type, variantString: variantString, width: width }
 }
 
+// TODO: This is no longer used anywhere (the keydown button that used to call this is no longer
+// set), but we should consider making it possible to cancel segment moving again.
 export function handleSegmentMoveCancel () {
-  draggingMove.originalEl.classList.remove('dragged-out')
+  // draggingMove.originalEl.classList.remove('dragged-out')
 
-  draggingMove.segmentBeforeEl = null
-  draggingMove.segmentAfterEl = null
+  // draggingMove.segmentBeforeEl = null
+  // draggingMove.segmentAfterEl = null
 
-  repositionSegments()
-  updateWithinCanvas(true)
+  // repositionSegments()
+  // updateWithinCanvas(true)
 
-  draggingMove.floatingEl.remove()
-  document.querySelector('.palette-trashcan').classList.remove('visible')
+  // draggingMove.floatingEl.remove()
+  // document.querySelector('.palette-trashcan').classList.remove('visible')
 
-  changeDraggingType(DRAGGING_TYPE_NONE)
+  // changeDraggingType(DRAGGING_TYPE_NONE)
 }
 
 function handleSegmentMoveEnd (event) {

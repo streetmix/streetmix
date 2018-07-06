@@ -1,12 +1,4 @@
 import { noop } from 'lodash'
-
-import {
-  draggingType,
-  DRAGGING_TYPE_RESIZE,
-  DRAGGING_TYPE_MOVE,
-  handleSegmentMoveCancel
-} from '../segments/drag_and_drop'
-import { handleSegmentResizeCancel } from '../segments/resizing'
 import { undo, redo } from '../streets/undo_stack'
 import { registerKeypress } from './keypress'
 import { showStatusMessage } from './status_message'
@@ -25,22 +17,6 @@ export const KEYS = {
   MINUS_KEYPAD: 109,
   BACKSPACE: 8,
   DELETE: 46
-}
-
-export function onGlobalKeyDown (event) {
-  switch (event.keyCode) {
-    case KEYS.ESC:
-      if (draggingType() === DRAGGING_TYPE_RESIZE) {
-        handleSegmentResizeCancel()
-      } else if (draggingType() === DRAGGING_TYPE_MOVE) {
-        handleSegmentMoveCancel()
-      } else {
-        return
-      }
-
-      event.preventDefault()
-      break
-  }
 }
 
 export function registerKeypresses () {
