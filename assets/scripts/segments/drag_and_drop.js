@@ -295,8 +295,6 @@ function handleSegmentMoveStart () {
 
   if (draggingMove.type === DRAGGING_TYPE_MOVE_TRANSFER) {
     draggingMove.originalEl.classList.add('dragged-out')
-    draggingMove.originalEl.classList.remove('immediate-show-drag-handles')
-    draggingMove.originalEl.classList.remove('show-drag-handles')
     draggingMove.originalEl.classList.remove('hover')
   }
 
