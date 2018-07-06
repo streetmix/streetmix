@@ -104,11 +104,8 @@ export function changeDraggingType (newDraggingType) {
   }
 }
 
-function handleSegmentResizeStart (event) {
+export function handleSegmentResizeStart (event) {
   let x, y
-  if (app.readOnly) {
-    return
-  }
 
   if (event.touches && event.touches[0]) {
     x = event.touches[0].pageX
@@ -449,16 +446,13 @@ export function onBodyMouseDown (event) {
 
   store.dispatch(clearMenus())
 
-  if (el.classList.contains('drag-handle')) {
-    handleSegmentResizeStart(event)
-  } else {
-    if (!el.classList.contains('segment') ||
-      el.classList.contains('unmovable')) {
-      return
-    }
-
-    handleSegmentClickOrMoveStart(event)
+  // handle segment
+  if (!el.classList.contains('segment') || el.classList.contains('unmovable')) {
+    return
   }
+
+  handleSegmentClickOrMoveStart(event)
+  // end handle segment
 
   event.preventDefault()
 }

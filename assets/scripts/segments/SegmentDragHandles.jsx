@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { handleSegmentResizeStart } from './drag_and_drop'
 
 export class SegmentDragHandles extends React.Component {
   static propTypes = {
@@ -34,6 +35,10 @@ export class SegmentDragHandles extends React.Component {
     }
   }
 
+  onMouseDown = (event) => {
+    handleSegmentResizeStart(event)
+  }
+
   render () {
     // TODO: also hide drag handles immediately when drag motion starts.
     const display = (this.props.infoBubbleHovered || this.props.descriptionVisible)
@@ -57,8 +62,8 @@ export class SegmentDragHandles extends React.Component {
 
     return (
       <React.Fragment>
-        <span className={leftClassNames} style={{ display, left: adjustX }} ref={this.leftDragHandle}>‹</span>
-        <span className={rightClassNames} style={{ display, right: adjustX }} ref={this.rightDragHandle}>›</span>
+        <span className={leftClassNames} style={{ display, left: adjustX }} ref={this.leftDragHandle} onMouseDown={this.onMouseDown}>‹</span>
+        <span className={rightClassNames} style={{ display, right: adjustX }} ref={this.rightDragHandle} onMouseDown={this.onMouseDown}>›</span>
       </React.Fragment>
     )
   }
