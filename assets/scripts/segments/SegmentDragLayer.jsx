@@ -6,7 +6,7 @@ import SegmentCanvas from './SegmentCanvas'
 const DRAG_OFFSET_Y_PALETTE = -340 - 150
 const MAX_DRAG_DEGREE = 20
 
-class SegmentDragLayer extends React.Component {
+class SegmentDragLayer extends React.PureComponent {
   static propTypes = {
     isDragging: PropTypes.bool.isRequired,
     currentOffset: PropTypes.object,
@@ -30,7 +30,7 @@ class SegmentDragLayer extends React.Component {
   }
 
   componentDidUpdate (prevProps, prevState, snapshot) {
-    if ((!prevProps.isDragging && this.props.isDragging) || (prevProps.currentOffset !== this.props.currentOffset)) {
+    if (this.props.isDragging) {
       this.getSegmentStyle(snapshot)
     }
   }
@@ -38,11 +38,7 @@ class SegmentDragLayer extends React.Component {
   getSegmentStyle = (deg = 0) => {
     const { currentOffset, item } = this.props
 
-    if (!currentOffset) {
-      return {
-        display: 'none'
-      }
-    }
+    if (!currentOffset) return
 
     let { x, y } = currentOffset
     if (item.forPalette) {
@@ -50,7 +46,7 @@ class SegmentDragLayer extends React.Component {
       y += DRAG_OFFSET_Y_PALETTE
     }
 
-    const transform = `translate(${x}px, ${y}px) rotateZ(${deg}deg)`
+    const transform = `translate(${x}px, ${y}px)`
     this.floatingEl.style['transform'] = transform
     this.floatingEl.style['-webkit-transform'] = transform
   }
