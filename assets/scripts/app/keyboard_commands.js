@@ -1,6 +1,5 @@
 import { noop } from 'lodash'
 
-import { showGallery, hideGallery } from '../gallery/view'
 import {
   draggingType,
   DRAGGING_TYPE_RESIZE,
@@ -9,7 +8,6 @@ import {
 } from '../segments/drag_and_drop'
 import { handleSegmentResizeCancel } from '../segments/resizing'
 import { undo, redo } from '../streets/undo_stack'
-import { getSignInData, isSignedIn } from '../users/authentication'
 import { registerKeypress } from './keypress'
 import { showStatusMessage } from './status_message'
 import { t } from '../locales/locale'
@@ -36,10 +34,6 @@ export function onGlobalKeyDown (event) {
         handleSegmentResizeCancel()
       } else if (draggingType() === DRAGGING_TYPE_MOVE) {
         handleSegmentMoveCancel()
-      } else if (document.body.classList.contains('gallery-visible')) {
-        hideGallery(false)
-      } else if (isSignedIn()) {
-        showGallery(getSignInData().userId, false)
       } else {
         return
       }

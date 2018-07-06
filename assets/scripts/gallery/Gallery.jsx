@@ -11,7 +11,8 @@ import { FormattedMessage } from 'react-intl'
 import Scrollable from '../ui/Scrollable'
 import Avatar from '../users/Avatar'
 import GalleryStreetItem from './GalleryStreetItem'
-import { switchGalleryStreet, repeatReceiveGalleryData } from './view'
+import { switchGalleryStreet, repeatReceiveGalleryData, hideGallery } from './view'
+import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST, goTwitterSignIn } from '../app/routing'
 import { sendDeleteStreetToServer } from '../streets/xhr'
 import { showError, ERRORS } from '../app/errors'
@@ -19,6 +20,7 @@ import { setGalleryMode, deleteGalleryStreet } from '../store/actions/gallery'
 
 class Gallery extends React.Component {
   static propTypes = {
+    visible: PropTypes.bool,
     setGalleryMode: PropTypes.func,
     deleteGalleryStreet: PropTypes.func,
     userId: PropTypes.string,
@@ -43,14 +45,26 @@ class Gallery extends React.Component {
 
   componentDidMount () {
     this.scrollSelectedStreetIntoView()
+
+    registerKeypress('esc', this.hideGallery)
   }
 
   componentDidUpdate () {
     this.scrollSelectedStreetIntoView()
   }
 
+  componentDidUnmount () {
+    deregisterKeypress('esc', this.hideGallery)
+  }
+
   componentDidCatch () {
     this.props.setGalleryMode('ERROR')
+  }
+
+  hideGallery = (event) => {
+    if (this.props.visible) {
+      hideGallery()
+    }
   }
 
   selectStreet = (streetId) => {
