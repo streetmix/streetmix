@@ -46,7 +46,7 @@ class SegmentDragLayer extends React.PureComponent {
       y += DRAG_OFFSET_Y_PALETTE
     }
 
-    const transform = `translate(${x}px, ${y}px)`
+    const transform = `translate(${x}px, ${y}px) rotateZ(${deg}deg)`
     this.floatingEl.style['transform'] = transform
     this.floatingEl.style['-webkit-transform'] = transform
   }
