@@ -4,14 +4,13 @@ import { connect } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import { TILE_SIZE } from './constants'
 import { getSegmentVariantInfo } from '../segments/info'
+import { getSegmentEl } from '../segments/view'
 import { MIN_SEGMENT_WIDTH } from '../segments/resizing'
 
 export class SegmentDragGuides extends React.Component {
   static propTypes = {
-    type: PropTypes.string.isRequired,
-    variantString: PropTypes.string.isRequired,
-    width: PropTypes.number,
-    dataNo: PropTypes.number,
+    activeSegment: PropTypes.number,
+    segment: PropTypes.object,
     remainingWidth: PropTypes.number
   }
 
@@ -40,11 +39,9 @@ export class SegmentDragGuides extends React.Component {
   }
 
   showGuides = (event) => {
-    if (event.detail.dataNo === this.props.dataNo) {
-      this.setState({
-        show: true
-      })
-    }
+    this.setState({
+      show: true
+    })
   }
 
   hideGuides = (event) => {
@@ -55,6 +52,7 @@ export class SegmentDragGuides extends React.Component {
 
   getStyle = (width) => {
     const pixelWidth = width * TILE_SIZE
+
     return {
       width: `${pixelWidth}px`,
       marginLeft: (-pixelWidth / 2) + 'px'
@@ -62,9 +60,10 @@ export class SegmentDragGuides extends React.Component {
   }
 
   render () {
-    if (!this.state.show) return null
+    if (!this.state.show || !this.props.segment) return null
 
-    const variantInfo = getSegmentVariantInfo(this.props.type, this.props.variantString)
+    const segment = this.props.segment
+    const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
     let minGuide, maxGuide
 
     if (variantInfo.minWidth) {
@@ -76,7 +75,7 @@ export class SegmentDragGuides extends React.Component {
       )
     }
 
-    const remainingWidth = this.props.remainingWidth + (this.props.width / TILE_SIZE)
+    const remainingWidth = this.props.remainingWidth + segment.width
 
     if (remainingWidth &&
       (((!variantInfo.minWidth) && (remainingWidth >= MIN_SEGMENT_WIDTH)) || (remainingWidth >= variantInfo.minWidth)) &&
@@ -96,17 +95,24 @@ export class SegmentDragGuides extends React.Component {
       )
     }
 
+    // Calculate the centerline of the segment (its left offset plus half its width)
+    // Adjusting the centerline by 1px to the left seems to "look" better
+    const el = getSegmentEl(this.props.activeSegment)
+    const centerline = el.offsetLeft + (el.cssTransformLeft || 0) + (el.offsetWidth / 2) - 1
+
     return (
-      <React.Fragment>
+      <div className="segment-guides" style={{ left: centerline }}>
         {minGuide}
         {maxGuide}
-      </React.Fragment>
+      </div>
     )
   }
 }
 
 function mapStateToProps (state) {
   return {
+    activeSegment: (typeof state.ui.activeSegment === 'number') ? state.ui.activeSegment : null,
+    segment: state.street.segments[state.ui.activeSegment] || null,
     remainingWidth: state.street.remainingWidth
   }
 }

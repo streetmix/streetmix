@@ -407,3 +407,26 @@ export function segmentsChanged (readDataFromDom = true, reassignElementRefs = f
 
   saveStreetToServerIfNecessary()
 }
+
+/**
+ * Given the position of a segment or building, retrieve a reference to its
+ * DOM element.
+ *
+ * @param {Number|string} position - either "left" or "right" for building,
+ *              or a number for the position of the segment. Should be
+ *              the `dataNo` or `position` variables.
+ */
+export function getSegmentEl (position) {
+  if (!position && position !== 0) return
+
+  let segmentEl
+  if (position === 'left') {
+    segmentEl = document.querySelectorAll('.street-section-building')[0]
+  } else if (position === 'right') {
+    segmentEl = document.querySelectorAll('.street-section-building')[1]
+  } else {
+    const segments = document.getElementById('street-section-editable').querySelectorAll('.segment')
+    segmentEl = segments[position]
+  }
+  return segmentEl
+}

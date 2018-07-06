@@ -20,6 +20,7 @@ import { cancelFadeoutControls, resumeFadeoutControls } from '../segments/resizi
 // import { trackEvent } from '../app/event_tracking'
 import { BUILDINGS } from '../segments/buildings'
 import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
+import { getSegmentEl } from '../segments/view'
 import { loseAnyFocus } from '../util/focus'
 import { getElAbsolutePos } from '../util/helpers'
 import { setInfoBubbleMouseInside, updateHoverPolygon } from '../store/actions/infoBubble'
@@ -57,7 +58,7 @@ class InfoBubble extends React.Component {
 
     // Stores a ref to the element
     this.el = React.createRef()
-    this.segmentEl = this.getSegmentEl(props.position)
+    this.segmentEl = getSegmentEl(props.position)
     this.streetOuterEl = null
 
     this.state = {
@@ -123,7 +124,7 @@ class InfoBubble extends React.Component {
   }
 
   componentDidUpdate (prevProps, prevState, snapshot) {
-    this.segmentEl = this.getSegmentEl(this.props.position)
+    this.segmentEl = getSegmentEl(this.props.position)
     this.setInfoBubblePosition()
 
     // If info bubble changes, wake this back up if it's fading out
@@ -296,21 +297,6 @@ class InfoBubble extends React.Component {
     }
 
     return hoverPolygon
-  }
-
-  getSegmentEl (position) {
-    if (!position && position !== 0) return
-
-    let segmentEl
-    if (position === 'left') {
-      segmentEl = document.querySelectorAll('.street-section-building')[0]
-    } else if (position === 'right') {
-      segmentEl = document.querySelectorAll('.street-section-building')[1]
-    } else {
-      const segments = document.getElementById('street-section-editable').querySelectorAll('.segment')
-      segmentEl = segments[position]
-    }
-    return segmentEl
   }
 
   /**

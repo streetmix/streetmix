@@ -200,16 +200,21 @@ body.segment-resize-dragging .drag-handle.floating,
   transform: none;
 }
 
-.segment-guide {
+.segment-guides {
   position: absolute;
   z-index: $z-07-segment-guide;
-  left: 50%;
-  top: 0;
-  bottom: 45px;
-  border-left: 1px dashed fade-out(black, 0.6);
-  border-right: 1px dashed fade-out(black, 0.6);
+  top: -75px;
+  bottom: 120px;
+  left: 50%; /* Will be overridden by component */
   box-sizing: border-box;
   pointer-events: none;
+}
+
+.segment-guide {
+  position: absolute;
+  height: 100%;
+  border-left: 1px dashed fade-out(black, 0.6);
+  border-right: 1px dashed fade-out(black, 0.6);
 }
 
 .segment-guide-max-before,
@@ -218,8 +223,6 @@ body.segment-resize-dragging .drag-handle.floating,
 .segment-guide-min-after {
   width: 50px;
   position: absolute;
-  box-sizing: border-box;
-  pointer-events: none;
   bottom: 400px;
   font-size: 11px;
   color: fade-out(black, 0.4);
