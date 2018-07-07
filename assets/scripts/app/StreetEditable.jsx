@@ -86,9 +86,9 @@ class StreetEditable extends React.Component {
     if (isOver && draggingState) {
       mainLeft -= DRAGGING_MOVE_HOLE_WIDTH
       const spaceBetweenSegments = makeSpaceBetweenSegments(dataNo, draggingState)
-      return (mainLeft + currPos + spaceBetweenSegments)
+      return Math.round(mainLeft + currPos + spaceBetweenSegments)
     } else {
-      return (mainLeft + currPos)
+      return Math.round(mainLeft + currPos)
     }
   }
 
