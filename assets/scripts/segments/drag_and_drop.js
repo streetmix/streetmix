@@ -416,6 +416,8 @@ export const segmentSource = {
 
   endDrag (props, monitor, component) {
     store.dispatch(clearDraggingState())
+    oldDraggingState = null
+
     if (!monitor.didDrop()) {
       // if no object returned by a drop handler, it is not within the canvas
       if (!props.forPalette) {
@@ -472,6 +474,31 @@ export function makeSpaceBetweenSegments (dataNo, draggingState) {
   return spaceBetweenSegments
 }
 
+let oldDraggingState = store.getState().ui.draggingState
+
+function updateIfDraggingStateChanged (segmentBeforeEl, segmentAfterEl, draggedItem) {
+  let changed = false
+
+  if (oldDraggingState) {
+    changed = (segmentBeforeEl !== oldDraggingState.segmentBeforeEl ||
+      segmentAfterEl !== oldDraggingState.segmentAfterEl ||
+      draggedItem.dataNo !== oldDraggingState.draggedSegment)
+  } else {
+    changed = true
+  }
+
+  if (changed) {
+    oldDraggingState = {
+      segmentBeforeEl,
+      segmentAfterEl,
+      draggedSegment: draggedItem.dataNo
+    }
+
+    store.dispatch(updateDraggingState(segmentBeforeEl, segmentAfterEl, draggedItem.dataNo))
+    doDropHeuristics(draggedItem)
+  }
+}
+
 export const segmentTarget = {
   canDrop (props, monitor) {
     return !(props.forPalette)
@@ -489,7 +516,7 @@ export const segmentTarget = {
     const { x } = monitor.getClientOffset()
 
     if (dragIndex === hoverIndex) {
-      store.dispatch(updateDraggingState(dragIndex, undefined, dragIndex))
+      updateIfDraggingStateChanged(dragIndex, undefined, monitor.getItem())
     } else {
       const { segments } = store.getState().street
 
@@ -501,10 +528,8 @@ export const segmentTarget = {
         : (hoverIndex === 0) ? undefined
           : hoverIndex - 1
 
-      store.dispatch(updateDraggingState(segmentBeforeEl, segmentAfterEl, dragIndex))
+      updateIfDraggingStateChanged(segmentBeforeEl, segmentAfterEl, monitor.getItem())
     }
-
-    doDropHeuristics(monitor.getItem())
   }
 }
 
@@ -562,11 +587,11 @@ export const canvasTarget = {
       if (!position) return
 
       const { segments } = store.getState().street
-      const dragIndex = monitor.getItem().dataNo
+
       const segmentBeforeEl = (position === 'left') ? 0 : undefined
       const segmentAfterEl = (position === 'left') ? undefined : segments.length - 1
-      store.dispatch(updateDraggingState(segmentBeforeEl, segmentAfterEl, dragIndex))
-      doDropHeuristics(monitor.getItem())
+
+      updateIfDraggingStateChanged(segmentBeforeEl, segmentAfterEl, monitor.getItem())
     }
   },
 
