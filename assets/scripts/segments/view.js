@@ -7,7 +7,6 @@ import { draggingMove } from './drag_and_drop'
 import { getSegmentInfo, getSegmentVariantInfo, getSpriteDef } from './info'
 import { drawProgrammaticPeople } from './people'
 import { TILE_SIZE, TILESET_POINT_PER_PIXEL, WIDTH_PALETTE_MULTIPLIER } from './constants'
-import { applyWarningsToSegments } from './resizing'
 import store from '../store'
 
 const CANVAS_HEIGHT = 480
@@ -379,7 +378,6 @@ export function repositionSegments () {
  */
 export function segmentsChanged () {
   recalculateWidth()
-  applyWarningsToSegments()
   saveStreetToServerIfNecessary()
 }
 

@@ -7,7 +7,12 @@ import SegmentDragHandles from './SegmentDragHandles'
 import { CSSTransition } from 'react-transition-group'
 import { getSegmentVariantInfo, getSegmentInfo } from '../segments/info'
 import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, suppressMouseEnter, incrementSegmentWidth } from './resizing'
-import { TILE_SIZE } from './constants'
+import {
+  TILE_SIZE,
+  SEGMENT_WARNING_OUTSIDE,
+  SEGMENT_WARNING_WIDTH_TOO_SMALL,
+  SEGMENT_WARNING_WIDTH_TOO_LARGE
+} from '../segments/constants'
 import { removeSegment, removeAllSegments } from './remove'
 import { SETTINGS_UNITS_METRIC } from '../users/constants'
 import { infoBubble } from '../info_bubble/info_bubble'
@@ -20,6 +25,8 @@ class Segment extends React.Component {
   static propTypes = {
     type: PropTypes.string.isRequired,
     variantString: PropTypes.string.isRequired,
+    // TODO: consolidate props to `segment`
+    segment: PropTypes.object,
     randSeed: PropTypes.number,
     isUnmovable: PropTypes.bool.isRequired,
     width: PropTypes.number,
@@ -190,6 +197,8 @@ class Segment extends React.Component {
   }
 
   render () {
+    const { segment } = this.props
+
     const segmentInfo = getSegmentInfo(this.props.type)
     const variantInfo = getSegmentVariantInfo(this.props.type, this.props.variantString)
     const defaultName = variantInfo.name || segmentInfo.name // the name to display if there isn't a localized version of it
@@ -219,10 +228,28 @@ class Segment extends React.Component {
       'data-width': widthValue
     }
 
+    const classNames = ['segment']
+
+    if (this.props.isUnmovable) {
+      classNames.push('unmovable')
+    }
+    if (this.props.forPalette) {
+      classNames.push('segment-in-palette')
+    }
+    // Palette segments don't have `segment` defined
+    if (segment && segment.warnings) {
+      if (segment.warnings[SEGMENT_WARNING_OUTSIDE] || segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] || segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE]) {
+        classNames.push('warning')
+      }
+      if (segment.warnings[SEGMENT_WARNING_OUTSIDE]) {
+        classNames.push('outside')
+      }
+    }
+
     return (
       <div
         style={segmentStyle}
-        className={'segment' + (this.props.isUnmovable ? ' unmovable' : '') + (this.props.forPalette ? ' segment-in-palette' : '')}
+        className={classNames.join(' ')}
         {...dataAttributes}
         title={this.props.forPalette ? localizedSegmentName : null}
         ref={(ref) => { this.streetSegment = ref }}

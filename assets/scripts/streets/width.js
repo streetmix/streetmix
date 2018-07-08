@@ -2,7 +2,12 @@ import { onResize } from '../app/window_resize'
 import { system } from '../preinit/system_capabilities'
 import { BUILDING_SPACE } from '../segments/buildings'
 import { getSegmentVariantInfo } from '../segments/info'
-import { TILE_SIZE } from '../segments/constants'
+import {
+  TILE_SIZE,
+  SEGMENT_WARNING_OUTSIDE,
+  SEGMENT_WARNING_WIDTH_TOO_SMALL,
+  SEGMENT_WARNING_WIDTH_TOO_LARGE
+} from '../segments/constants'
 import store from '../store'
 import { updateOccupiedWidth, updateSegments } from '../store/actions/street'
 
@@ -12,10 +17,6 @@ const MIN_CUSTOM_STREET_WIDTH = 10
 export const MAX_CUSTOM_STREET_WIDTH = 400
 
 const WIDTH_ROUNDING = 0.01
-
-export const SEGMENT_WARNING_OUTSIDE = 1
-export const SEGMENT_WARNING_WIDTH_TOO_SMALL = 2
-export const SEGMENT_WARNING_WIDTH_TOO_LARGE = 3
 
 export function resizeStreetWidth (dontScroll) {
   var width = store.getState().street.width * TILE_SIZE
