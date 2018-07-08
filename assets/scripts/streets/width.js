@@ -9,7 +9,6 @@ import {
   SEGMENT_WARNING_WIDTH_TOO_LARGE
 } from '../segments/constants'
 import store from '../store'
-import { updateOccupiedWidth, updateSegments } from '../store/actions/street'
 
 export const DEFAULT_STREET_WIDTH = 80
 
@@ -47,10 +46,11 @@ export function normalizeStreetWidth (width) {
 /**
  * Adds up all the segment widths to get the total occupied width
  *
- * @param {Object} street
+ * @param {Array} segments
+ * @returns {Number} occupiedWidth
  */
-function calculateOccupiedWidth (street) {
-  return street.segments
+function calculateOccupiedWidth (segments) {
+  return segments
     .map((segment) => segment.width)
     .reduce((occupiedWidth, width) => occupiedWidth + width, 0)
 }
@@ -59,11 +59,12 @@ function calculateOccupiedWidth (street) {
  * Subtracts occupied width from street width to get remaining width.
  * Value returned should not dip below zero.
  *
- * @param {Object} street
+ * @param {Number} streetWidth
  * @param {Number} occupiedWidth
+ * @returns {Number} remainingWidth
  */
-function calculateRemainingWidth (street, occupiedWidth) {
-  let remainingWidth = street.width - occupiedWidth
+function calculateRemainingWidth (streetWidth, occupiedWidth) {
+  let remainingWidth = streetWidth - occupiedWidth
 
   // Rounding problems :·(
   if (Math.abs(remainingWidth) < WIDTH_ROUNDING) {
@@ -73,44 +74,59 @@ function calculateRemainingWidth (street, occupiedWidth) {
   return remainingWidth
 }
 
-export function recalculateWidth () {
-  const street = store.getState().street
+/**
+ * Given a street data object, calculate and store the following values:
+ *    - How much of the street is occupied by segments, if any
+ *    - The remaining width not occupied, if any
+ *    - Warnings for each segment, if the segment is outside the
+ *      street or is too small or too large.
+ *
+ * @param {Object} street
+ * @returns {Object} street (modified)
+ */
+export function recalculateWidth (street) {
+  const segments = street.segments || []
 
-  const occupiedWidth = calculateOccupiedWidth(street)
-  const remainingWidth = calculateRemainingWidth(street, occupiedWidth)
-  store.dispatch(updateOccupiedWidth(occupiedWidth, remainingWidth))
+  // Determine occupied and remaining width
+  street.occupiedWidth = calculateOccupiedWidth(segments)
+  street.remainingWidth = calculateRemainingWidth(street.width, street.occupiedWidth)
 
+  // Add warnings to segments, if necessary.
+  // The position is the left pixel position of each segment. This is initialized
+  // with the left pixel of the first segment and will be modified when looking at
+  // each subsequent segment.
   let position = (street.width / 2) - (street.occupiedWidth / 2)
 
-  const segments = []
-  for (let i in street.segments) {
-    const segment = street.segments[i]
+  segments.forEach((segment) => {
     const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
 
-    if (segment.el) {
-      if ((street.remainingWidth < 0) && ((position < 0) || ((position + segment.width) > street.width))) {
-        segment.warnings[SEGMENT_WARNING_OUTSIDE] = true
-      } else {
-        segment.warnings[SEGMENT_WARNING_OUTSIDE] = false
-      }
-
-      if (variantInfo.minWidth && (segment.width < variantInfo.minWidth)) {
-        segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = true
-      } else {
-        segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = false
-      }
-
-      if (variantInfo.maxWidth && (segment.width > variantInfo.maxWidth)) {
-        segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = true
-      } else {
-        segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = false
-      }
+    // If any portion of the segment will be outside the street width,
+    // apply a warning that the segment is outside the street.
+    if ((street.remainingWidth < 0) && ((position < 0) || ((position + segment.width) > street.width))) {
+      segment.warnings[SEGMENT_WARNING_OUTSIDE] = true
+    } else {
+      segment.warnings[SEGMENT_WARNING_OUTSIDE] = false
     }
 
-    segments.push(segment)
+    // If segment width is less than the minimum width set for the segment type,
+    // apply a warning.
+    if (variantInfo.minWidth && (segment.width < variantInfo.minWidth)) {
+      segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = true
+    } else {
+      segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = false
+    }
 
-    position += street.segments[i].width
-  }
+    // If segment width is greater than the maximum width set for the segment type,
+    // apply a warning.
+    if (variantInfo.maxWidth && (segment.width > variantInfo.maxWidth)) {
+      segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = true
+    } else {
+      segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = false
+    }
 
-  store.dispatch(updateSegments(segments))
+    // Increment the position counter.
+    position += segment.width
+  })
+
+  return street
 }
