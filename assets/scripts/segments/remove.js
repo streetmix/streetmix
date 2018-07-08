@@ -20,7 +20,7 @@ export function removeSegment (position) {
   // Update the store
   store.dispatch(removeSegmentActionCreator(position, false))
 
-  // update street data but do not re-read DOM
+  // update street data & reassign element refs
   segmentsChanged(true)
 
   showStatusMessage(t('toast.segment-deleted', 'The segment has been removed.'), true)
