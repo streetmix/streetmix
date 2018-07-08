@@ -32,7 +32,8 @@ import { TILE_SIZE } from './constants'
 import {
   setSegmentContents,
   repositionSegments,
-  segmentsChanged
+  segmentsChanged,
+  getSegmentEl
 } from './view'
 import store from '../store'
 import { addSegment, removeSegment } from '../store/actions/street'
@@ -147,7 +148,13 @@ export function handleSegmentResizeStart (event) {
 
   draggingResize.originalX = draggingResize.elX
   draggingResize.originalWidth = parseFloat(el.parentNode.getAttribute('data-width'))
-  draggingResize.segmentEl = el.parentNode
+
+  // Read the active segment element by looking at redux state, rather than event target
+  const activeSegment = store.getState().ui.activeSegment
+  if (typeof activeSegment !== 'number') return
+  const activeSegmentEl = getSegmentEl(activeSegment)
+
+  draggingResize.segmentEl = activeSegmentEl
 
   draggingResize.segmentEl.classList.add('hover')
 
