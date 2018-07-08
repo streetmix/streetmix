@@ -53,7 +53,7 @@ class Gallery extends React.Component {
     this.scrollSelectedStreetIntoView()
   }
 
-  componentDidUnmount () {
+  componentWillUnmount () {
     deregisterKeypress('esc', this.hideGallery)
   }
 
