@@ -21,7 +21,7 @@ export function removeSegment (position) {
   store.dispatch(removeSegmentActionCreator(position, false))
 
   // update street data but do not re-read DOM
-  segmentsChanged(false, true)
+  segmentsChanged(true)
 
   showStatusMessage(t('toast.segment-deleted', 'The segment has been removed.'), true)
 }
@@ -32,7 +32,7 @@ export function removeSegment (position) {
  */
 export function removeAllSegments () {
   store.dispatch(clearSegments())
-  segmentsChanged(false)
+  segmentsChanged()
   infoBubble.hide()
   showStatusMessage(t('toast.all-segments-deleted', 'All segments have been removed.'), true)
 }

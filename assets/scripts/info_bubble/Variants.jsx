@@ -92,7 +92,7 @@ class Variants extends React.Component {
       case INFO_BUBBLE_TYPE_SEGMENT:
         handler = (event) => {
           this.props.changeSegmentVariant(this.props.position, set, selection)
-          segmentsChanged(false)
+          segmentsChanged()
         }
         break
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:

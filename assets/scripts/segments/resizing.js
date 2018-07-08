@@ -48,7 +48,7 @@ export function resizeSegment (dataNo, resizeType, width, updateEdit, palette, i
   store.dispatch(changeSegmentWidth(dataNo, width))
 
   if (!initial) {
-    segmentsChanged(false)
+    segmentsChanged()
   }
 
   return width
@@ -63,7 +63,7 @@ export function handleSegmentResizeCancel () {
 export function handleSegmentResizeEnd (event) {
   setIgnoreStreetChanges(false)
 
-  segmentsChanged(false)
+  segmentsChanged()
 
   changeDraggingType(DRAGGING_TYPE_NONE)
 

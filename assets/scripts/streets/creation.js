@@ -23,7 +23,7 @@ export function makeDefaultStreet () {
 
   resizeStreetWidth()
   updateStreetName(store.getState().street)
-  segmentsChanged(false)
+  segmentsChanged()
 
   setIgnoreStreetChanges(false)
   setLastStreet(trimStreetData(store.getState().street))
@@ -49,7 +49,7 @@ export function onNewStreetEmptyClick () {
 
   resizeStreetWidth()
   updateStreetName(store.getState().street)
-  segmentsChanged(false)
+  segmentsChanged()
 
   setIgnoreStreetChanges(false)
   setLastStreet(trimStreetData(store.getState().street))

@@ -246,7 +246,7 @@ export class StreetMetaWidth extends React.Component {
     this.props.updateStreetWidth(this.normalizeStreetWidth(newStreetWidth))
     resizeStreetWidth()
 
-    segmentsChanged(false)
+    segmentsChanged()
 
     loseAnyFocus()
   }

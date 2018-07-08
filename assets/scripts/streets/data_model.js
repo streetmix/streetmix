@@ -352,33 +352,6 @@ export function trimStreetData (street, saveSegmentId = true) {
   return newData
 }
 
-// TODO this function should not exist; all the data should be in street.
-// object to begin with
-export function createDataFromDom () {
-  var els = document.querySelectorAll('#street-section-editable > .segment')
-  const segments = []
-
-  for (var i = 0, el; el = els[i]; i++) { // eslint-disable-line no-cond-assign
-    var segment = {}
-    // Since we are using a unique id for the segment component key which can not be found
-    // on the DOM element, get it from the store.
-    const originalSegmentId = store.getState().street.segments[i].id
-
-    segment.type = el.getAttribute('type')
-    if (el.getAttribute('rand-seed')) {
-      segment.randSeed = parseInt(el.getAttribute('rand-seed'))
-    }
-    segment.variantString = el.getAttribute('variant-string')
-    segment.variant = getVariantArray(segment.type, segment.variantString)
-    segment.width = parseFloat(el.getAttribute('data-width'))
-    segment.el = el
-    segment.warnings = []
-    segment.id = originalSegmentId
-    segments.push(segment)
-  }
-  store.dispatch(updateSegments(segments))
-}
-
 function fillDefaultSegments () {
   const segments = []
   let leftHandTraffic = getLeftHandTraffic()
@@ -488,7 +461,7 @@ export function prepareEmptyStreet () {
 export function updateEverything (dontScroll, save = true) {
   setIgnoreStreetChanges(true)
   // TODO Verify that we don't need to dispatch an update width event here
-  segmentsChanged(false)
+  segmentsChanged()
   resizeStreetWidth(dontScroll)
   updateStreetName(store.getState().street)
   setIgnoreStreetChanges(false)

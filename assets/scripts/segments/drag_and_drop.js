@@ -747,7 +747,7 @@ function handleSegmentMoveEnd (event) {
   draggingMove.segmentAfterEl = null
 
   repositionSegments()
-  segmentsChanged(false)
+  segmentsChanged()
   updateWithinCanvas(true)
 
   draggingMove.floatingEl.remove()

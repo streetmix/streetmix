@@ -1,7 +1,7 @@
 import { images } from '../app/load_resources'
 import { t } from '../locales/locale'
 import { system } from '../preinit/system_capabilities'
-import { saveStreetToServerIfNecessary, createDataFromDom } from '../streets/data_model'
+import { saveStreetToServerIfNecessary } from '../streets/data_model'
 import { recalculateWidth } from '../streets/width'
 import { draggingMove } from './drag_and_drop'
 import { getSegmentInfo, getSegmentVariantInfo, getSpriteDef } from './info'
@@ -375,17 +375,11 @@ export function repositionSegments () {
 }
 
 /**
- * Set `readDataFromDom` to false to prevent re-reading of segment
- * data from the DOM. Do this whenever we refactor code to modify
- * segments in Redux store. Also set `reassignElementRefs` to true
- * so that new element references can be made
- * @param {boolean} readDataFromDom
+ * While we are refactoring street data, we sometimes need to
+ * set `reassignElementRefs` to true so that new element references can be made
+ * @param {boolean} reassignElementRefs
  */
-export function segmentsChanged (readDataFromDom = true, reassignElementRefs = false) {
-  if (readDataFromDom === true) {
-    createDataFromDom()
-  }
-
+export function segmentsChanged (reassignElementRefs = false) {
   const street = store.getState().street
   const segments = [...street.segments]
   // When segments have chaged in Redux and we want to depend on that data,
