@@ -40,12 +40,14 @@ class StreetEditable extends React.Component {
     const { segments } = this.props.street
     const segment = segments[dataNo]
 
-    segment.el = ref
-    segment.el.dataNo = dataNo
-    segment.el.savedLeft = Math.round(segmentPos)
-    segment.el.savedNoMoveLeft = Math.round(segmentPos)
-    segment.el.cssTransformLeft = Math.round(segmentPos)
-    segment.el.savedWidth = Math.round(segment.width * TILE_SIZE)
+    if (segment) {
+      segment.el = ref
+      segment.el.dataNo = dataNo
+      segment.el.savedLeft = Math.round(segmentPos)
+      segment.el.savedNoMoveLeft = Math.round(segmentPos)
+      segment.el.cssTransformLeft = Math.round(segmentPos)
+      segment.el.savedWidth = Math.round(segment.width * TILE_SIZE)
+    }
   }
 
   switchSegmentAway = (el) => {

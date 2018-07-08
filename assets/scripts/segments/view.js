@@ -375,30 +375,11 @@ export function repositionSegments () {
 }
 
 /**
- * While we are refactoring street data, we sometimes need to
- * set `reassignElementRefs` to true so that new element references can be made
- * @param {boolean} reassignElementRefs
+ * TODO: remove this
  */
-export function segmentsChanged (reassignElementRefs = false) {
-  const street = store.getState().street
-  const segments = [...street.segments]
-  // When segments have chaged in Redux and we want to depend on that data,
-  // other parts of the app still want a reference to the element. This will
-  // update it. It only happens if you pass `true` as the second argument to this function.
-  if (reassignElementRefs === true) {
-    const els = document.querySelectorAll('#street-section-editable > .segment')
-    segments.map((item, i) => { item.el = els[i] })
-  }
-
+export function segmentsChanged () {
   recalculateWidth()
   applyWarningsToSegments()
-
-  for (var i in segments) {
-    if (segments[i].el) {
-      segments[i].el.dataNo = i
-    }
-  }
-
   saveStreetToServerIfNecessary()
 }
 

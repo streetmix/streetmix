@@ -20,8 +20,7 @@ export function removeSegment (position) {
   // Update the store
   store.dispatch(removeSegmentActionCreator(position, false))
 
-  // update street data & reassign element refs
-  segmentsChanged(true)
+  segmentsChanged()
 
   showStatusMessage(t('toast.segment-deleted', 'The segment has been removed.'), true)
 }
