@@ -44,39 +44,51 @@ export function normalizeStreetWidth (width) {
   return width
 }
 
-export function recalculateOccupiedWidth () {
-  const street = store.getState().street
-  let occupiedWidth = 0
+/**
+ * Adds up all the segment widths to get the total occupied width
+ *
+ * @param {Object} street
+ */
+function calculateOccupiedWidth (street) {
+  return street.segments
+    .map((segment) => segment.width)
+    .reduce((occupiedWidth, width) => occupiedWidth + width, 0)
+}
 
-  for (var i in street.segments) {
-    let segment = street.segments[i]
-
-    occupiedWidth += segment.width
-  }
-
+/**
+ * Subtracts occupied width from street width to get remaining width.
+ * Value returned should not dip below zero.
+ *
+ * @param {Object} street
+ * @param {Number} occupiedWidth
+ */
+function calculateRemainingWidth (street, occupiedWidth) {
   let remainingWidth = street.width - occupiedWidth
+
   // Rounding problems :·(
   if (Math.abs(remainingWidth) < WIDTH_ROUNDING) {
     remainingWidth = 0
   }
-  store.dispatch(updateOccupiedWidth(occupiedWidth, remainingWidth))
-  // updateStreetMetadata(street)
+
+  return remainingWidth
 }
 
 export function recalculateWidth () {
-  recalculateOccupiedWidth()
-
   const street = store.getState().street
-  var position = (street.width / 2) - (street.occupiedWidth / 2)
+
+  const occupiedWidth = calculateOccupiedWidth(street)
+  const remainingWidth = calculateRemainingWidth(street, occupiedWidth)
+  store.dispatch(updateOccupiedWidth(occupiedWidth, remainingWidth))
+
+  let position = (street.width / 2) - (street.occupiedWidth / 2)
 
   const segments = []
-  for (var i in street.segments) {
-    var segment = street.segments[i]
+  for (let i in street.segments) {
+    const segment = street.segments[i]
     const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
 
     if (segment.el) {
-      if ((street.remainingWidth < 0) &&
-        ((position < 0) || ((position + segment.width) > street.width))) {
+      if ((street.remainingWidth < 0) && ((position < 0) || ((position + segment.width) > street.width))) {
         segment.warnings[SEGMENT_WARNING_OUTSIDE] = true
       } else {
         segment.warnings[SEGMENT_WARNING_OUTSIDE] = false
@@ -96,6 +108,7 @@ export function recalculateWidth () {
     }
 
     segments.push(segment)
+
     position += street.segments[i].width
   }
 
