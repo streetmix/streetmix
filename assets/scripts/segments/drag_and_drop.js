@@ -452,8 +452,9 @@ export function collectDragSource (connect, monitor) {
  *
  */
 export function makeSpaceBetweenSegments (dataNo, draggingState) {
-  const { segmentBeforeEl, segmentAfterEl } = draggingState
+  const { segmentBeforeEl, segmentAfterEl, draggedSegment } = draggingState
   let spaceBetweenSegments = 0
+  let extraSpace = (dataNo === draggedSegment) ? (2 * DRAGGING_MOVE_HOLE_WIDTH) : 0
 
   if (dataNo >= segmentBeforeEl) {
     spaceBetweenSegments += DRAGGING_MOVE_HOLE_WIDTH
@@ -471,10 +472,24 @@ export function makeSpaceBetweenSegments (dataNo, draggingState) {
     }
   }
 
-  return spaceBetweenSegments
+  // Originally, the dragged segment gets moved over to the same position as the segment
+  // next to it. This causes react-dnd's hover method to assume it is hovering over the
+  // dragged segment which leads to a constant change of dragging state and the constant
+  // back and forth movement of the segment next to the dragged segment. In order to fix
+  // this problem, depending on where the user is hovering in comparison to the dragged
+  // segment, we are either moving the dragged segment more to the right or to the left.
+  if (dataNo === draggedSegment) {
+    extraSpace = (draggedSegment > segmentAfterEl) ? extraSpace : -extraSpace
+  }
+
+  return spaceBetweenSegments + extraSpace
 }
 
 let oldDraggingState = store.getState().ui.draggingState
+
+// Checks to see if Redux dragging state needs to be updated, and if so, dispatches action.
+// This prevents a constant dispatch of the updateDraggingState action which causes the
+// dragging of the segment to be laggy and choppy.
 
 function updateIfDraggingStateChanged (segmentBeforeEl, segmentAfterEl, draggedItem) {
   let changed = false
@@ -497,6 +512,8 @@ function updateIfDraggingStateChanged (segmentBeforeEl, segmentAfterEl, draggedI
     store.dispatch(updateDraggingState(segmentBeforeEl, segmentAfterEl, draggedItem.dataNo))
     doDropHeuristics(draggedItem)
   }
+
+  return changed
 }
 
 export const segmentTarget = {
@@ -516,7 +533,7 @@ export const segmentTarget = {
     const { x } = monitor.getClientOffset()
 
     if (dragIndex === hoverIndex) {
-      updateIfDraggingStateChanged(dragIndex, undefined, monitor.getItem())
+      updateIfDraggingStateChanged(undefined, dragIndex, monitor.getItem())
     } else {
       const { segments } = store.getState().street
 
