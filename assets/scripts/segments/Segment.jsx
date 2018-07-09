@@ -250,6 +250,8 @@ class Segment extends React.Component {
       classNames.push('segment-in-palette')
     } else if (this.props.isDragging) {
       classNames.push('dragged-out')
+    } else if (this.props.activeSegment === this.props.dataNo) {
+      classNames.push('hover', 'show-drag-handles')
     }
 
     return (

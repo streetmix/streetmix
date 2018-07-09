@@ -375,12 +375,6 @@ export function onBodyMouseUp (event) {
 }
 
 function handleSegmentDragStart (segment, fromPalette) {
-  if (!fromPalette) {
-    segment.classList.remove('immediate-show-drag-handles')
-    segment.classList.remove('show-drag-handles')
-    segment.classList.remove('hover')
-  }
-
   document.body.classList.add('segment-move-dragging')
   infoBubble.hide()
   cancelFadeoutControls()
@@ -393,7 +387,7 @@ export const Types = {
 
 export const segmentSource = {
   canDrag (props) {
-    return !(props.isUnmovable)
+    return !(props.isUnmovable || store.getState().app.readOnly)
   },
 
   isDragging (props, monitor) {
@@ -555,7 +549,10 @@ function handleSegmentCanvasDrop (draggedItem) {
 
   store.dispatch(clearDraggingState())
   // If dropped in same position as dragged segment was before, return
-  if (segmentBeforeEl === draggedItem.dataNo && segmentAfterEl === undefined) return
+  if (segmentBeforeEl === undefined && segmentAfterEl === draggedItem.dataNo) {
+    store.dispatch(setActiveSegment(draggedItem.dataNo))
+    return
+  }
 
   const newSegment = {
     variantString: draggedItem.variantString,
