@@ -14,6 +14,7 @@ import { addBuildingFloor, removeBuildingFloor } from '../store/actions/street'
 
 class Building extends React.Component {
   static propTypes = {
+    activeSegment: PropTypes.string,
     position: PropTypes.string.isRequired,
     addBuildingFloor: PropTypes.func,
     removeBuildingFloor: PropTypes.func,
@@ -58,7 +59,6 @@ class Building extends React.Component {
     if (prevState.switchBuildings !== this.state.switchBuildings) {
       this.props.updatePerspective(this.oldStreetSectionBuilding)
       this.props.updatePerspective(this.streetSectionBuilding)
-      this.oldStreetSectionBuilding.classList.remove('hover')
       createBuilding(this.streetSectionBuilding, street[variant], position, street[height], street)
     }
   }
@@ -150,9 +150,14 @@ class Building extends React.Component {
       hoverStyle.left = '25px'
     }
 
+    const classNames = ['street-section-building']
+    if (isOldBuilding && this.props.activeSegment === this.props.position) {
+      classNames.push('hover')
+    }
+
     return (
       <section
-        className="street-section-building"
+        className={classNames.join(' ')}
         ref={(ref) => { this.changeRefs(ref, isOldBuilding) }}
         onMouseEnter={this.onBuildingMouseEnter}
         onMouseLeave={this.onBuildingMouseLeave}
@@ -194,7 +199,8 @@ class Building extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    street: state.street
+    street: state.street,
+    activeSegment: (typeof state.ui.activeSegment === 'string') ? state.ui.activeSegment : null
   }
 }
 
