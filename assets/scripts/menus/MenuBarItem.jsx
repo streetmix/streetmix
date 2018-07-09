@@ -54,7 +54,7 @@ export class MenuBarItem extends React.PureComponent {
 
     const AvatarButton = (
       <button
-        className="menu-avatar"
+        className="menu-attached menu-avatar"
         disabled={false}
         onClick={onClick}
         {...restProps}
