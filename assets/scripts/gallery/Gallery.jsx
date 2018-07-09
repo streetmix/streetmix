@@ -128,14 +128,6 @@ class Gallery extends React.Component {
               <Avatar userId={this.props.userId} />
               <div className="gallery-user-id">
                 {this.props.userId}
-                <a
-                  href={`https://twitter.com/${this.props.userId}`}
-                  className="gallery-user-twitter"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FormattedMessage id="gallery.twitter-link" defaultMessage="Twitter profile" /> »
-                </a>
               </div>
             </div>
           )
