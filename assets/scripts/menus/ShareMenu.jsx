@@ -2,8 +2,8 @@ import React from 'react'
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Menu from './Menu'
+import Icon from '../ui/Icon'
 
 import { FACEBOOK_APP_ID } from '../app/config'
 import { trackEvent } from '../app/event_tracking'
@@ -170,7 +170,7 @@ export class ShareMenu extends React.Component {
           rel="noopener noreferrer"
           onClick={this.onClickShareViaTwitter}
         >
-          <FontAwesomeIcon icon={['fab', 'twitter']} />
+          <Icon icon="twitter" />
           <FormattedMessage id="menu.share.twitter" defaultMessage="Share using Twitter" />
         </a>
         <a
@@ -180,7 +180,7 @@ export class ShareMenu extends React.Component {
           rel="noopener noreferrer"
           onClick={this.onClickShareViaFacebook}
         >
-          <FontAwesomeIcon icon={['fab', 'facebook-square']} />
+          <Icon icon="facebook" />
           <FormattedMessage id="menu.share.facebook" defaultMessage="Share using Facebook" />
         </a>
         <a href="#" onClick={printImage}>

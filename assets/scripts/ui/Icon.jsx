@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default class Icon extends React.Component {
   static propTypes = {
@@ -8,6 +9,12 @@ export default class Icon extends React.Component {
 
   render () {
     switch (this.props.icon) {
+      case 'twitter':
+        return <FontAwesomeIcon icon={['fab', 'twitter']} />
+      case 'facebook':
+        return <FontAwesomeIcon icon={['fab', 'facebook-square']} />
+      case 'github':
+        return <FontAwesomeIcon icon={['fab', 'github']} />
       case 'slack':
         // TODO: Use Webpack SVG loader to import './icons/slack.svg' instead
         // This would make the original SVG easier to edit; plus Webpack takes
