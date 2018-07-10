@@ -225,7 +225,7 @@
     text-align: left;
     color: #fff;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 700;
     display: flex !important;
     align-items: center !important;
     padding: 2px 15px !important;
@@ -240,12 +240,12 @@
     }
   }
 
-  .sign-in-twitter-btn {
+  .sign-in-twitter-button {
     background-color: #1da1f2;
     border-color: #2f94d5;
   }
 
-  .sign-in-google-btn {
+  .sign-in-google-button {
     background-color: #fff;
     border-color: #4a8bee;
 
@@ -259,12 +259,12 @@
     }
   }
 
-  .sign-in-facebook-btn {
+  .sign-in-facebook-button {
     background-color: #3b579d;
     border-color: #1b3363;
   }
 
-  .email-title {
+  .sign-in-email-title {
     text-align: center;
     font-weight: 700;
     margin-top: 30px;
@@ -277,7 +277,7 @@
 
   .sign-in-message {
     text-align: center;
-    font-weight: 500;
+    font-weight: normal;
     font-size: 18px;
   }
 
@@ -286,7 +286,7 @@
     top: 90px;
   }
 
-  .email-sent-block {
+  .sign-in-email-sent-block {
     text-align: center;
     position: relative;
     top: 90px;
@@ -298,8 +298,8 @@
     .sign-in-sent-message-with-email {
       line-height: 0;
 
-      .email {
-        font-weight: 600;
+      .sign-in-email {
+        font-weight: 700;
       }
     }
 
@@ -327,21 +327,22 @@
     .form-control {
       padding: 8px;
       font-size: 13px;
-      width: 94%;
+      box-sizing: border-box;
+      width: 100%;
       border: 2px solid #a9ccdb;
       outline: none;
     }
 
-    .error-occured {
+    .sign-in-error-occured {
       border: 2px solid red;
     }
 
-    .error-message {
+    .sign-in-error-message {
       color: red;
       font-size: 11px;
     }
 
-    .sign-in-email-btn {
+    .sign-in-email-button {
       padding: 10px !important;
       justify-content: center;
 
