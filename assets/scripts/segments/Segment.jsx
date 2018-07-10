@@ -21,6 +21,17 @@ import { KEYS } from '../app/keyboard_commands'
 import { trackEvent } from '../app/event_tracking'
 import { t } from '../locales/locale'
 
+import { DragSource, DropTarget } from 'react-dnd'
+import { getEmptyImage } from 'react-dnd-html5-backend'
+import {
+  Types,
+  segmentSource,
+  collectDragSource,
+  segmentTarget,
+  collectDropTarget
+} from './drag_and_drop'
+import flow from 'lodash/flow'
+
 class Segment extends React.Component {
   static propTypes = {
     type: PropTypes.string.isRequired,
@@ -41,7 +52,15 @@ class Segment extends React.Component {
     localeMessages: PropTypes.object,
     infoBubbleHovered: PropTypes.bool,
     descriptionVisible: PropTypes.bool,
-    suppressMouseEnter: PropTypes.bool.isRequired
+    suppressMouseEnter: PropTypes.bool.isRequired,
+    connectDragSource: PropTypes.func,
+    isDragging: PropTypes.bool,
+    connectDragPreview: PropTypes.func,
+    connectDropTarget: PropTypes.func,
+    activeSegment: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ])
   }
 
   static defaultProps = {
@@ -65,13 +84,16 @@ class Segment extends React.Component {
     if (!this.props.forPalette) {
       this.props.updateSegmentData(this.streetSegment, this.props.dataNo, this.props.segmentPos)
     }
+
+    this.props.connectDragPreview(getEmptyImage(), { captureDraggingState: true })
   }
 
   componentDidUpdate (prevProps, prevState) {
     if (this.props.forPalette) return
 
-    if (prevProps.suppressMouseEnter && !this.props.suppressMouseEnter &&
-        infoBubble.considerSegmentEl === this.streetSegment) {
+    if ((prevProps.suppressMouseEnter && !this.props.suppressMouseEnter &&
+        infoBubble.considerSegmentEl === this.streetSegment) ||
+        (this.props.activeSegment === this.props.dataNo)) {
       infoBubble.considerShowing(false, this.streetSegment, INFO_BUBBLE_TYPE_SEGMENT)
     }
 
@@ -120,8 +142,9 @@ class Segment extends React.Component {
 
   renderSegmentCanvas = (width, variantType) => {
     const isOldVariant = (variantType === 'old')
+    const { connectDragSource, connectDropTarget } = this.props
 
-    return (
+    return connectDragSource(connectDropTarget(
       <div className="segment-canvas-container">
         <SegmentCanvas
           width={width}
@@ -132,7 +155,7 @@ class Segment extends React.Component {
           ref={(isOldVariant) ? this.oldSegmentCanvas : this.newSegmentCanvas}
         />
       </div>
-    )
+    ))
   }
 
   /**
@@ -235,7 +258,12 @@ class Segment extends React.Component {
     }
     if (this.props.forPalette) {
       classNames.push('segment-in-palette')
+    } else if (this.props.isDragging) {
+      classNames.push('dragged-out')
+    } else if (this.props.activeSegment === this.props.dataNo) {
+      classNames.push('hover', 'show-drag-handles')
     }
+
     // Palette segments don't have `segment` defined
     if (segment && segment.warnings) {
       if (segment.warnings[SEGMENT_WARNING_OUTSIDE] || segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] || segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE]) {
@@ -301,8 +329,13 @@ function mapStateToProps (state) {
     locale: state.locale.locale,
     localeMessages: state.locale.messages,
     infoBubbleHovered: state.infoBubble.mouseInside,
-    descriptionVisible: state.infoBubble.descriptionVisible
+    descriptionVisible: state.infoBubble.descriptionVisible,
+    activeSegment: state.ui.activeSegment
   }
 }
 
-export default connect(mapStateToProps)(Segment)
+export default flow(
+  DragSource(Types.SEGMENT, segmentSource, collectDragSource),
+  DropTarget(Types.SEGMENT, segmentTarget, collectDropTarget),
+  connect(mapStateToProps)
+)(Segment)

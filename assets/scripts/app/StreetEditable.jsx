@@ -4,16 +4,22 @@ import { connect } from 'react-redux'
 import Segment from '../segments/Segment'
 import uuid from 'uuid'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import { TILE_SIZE } from '../segments/constants'
+import { TILE_SIZE, DRAGGING_MOVE_HOLE_WIDTH } from '../segments/constants'
 import { getVariantArray } from '../segments/variant_utils'
 import { cancelSegmentResizeTransitions } from '../segments/resizing'
+import { Types, canvasTarget, collectDropTarget, makeSpaceBetweenSegments } from '../segments/drag_and_drop'
+import { DropTarget } from 'react-dnd'
+import flow from 'lodash/flow'
 
 class StreetEditable extends React.Component {
   static propTypes = {
     onResized: PropTypes.bool.isRequired,
     setBuildingWidth: PropTypes.func.isRequired,
     street: PropTypes.object.isRequired,
-    updatePerspective: PropTypes.func.isRequired
+    updatePerspective: PropTypes.func.isRequired,
+    connectDropTarget: PropTypes.func,
+    draggingState: PropTypes.object,
+    isOver: PropTypes.bool
   }
 
   constructor (props) {
@@ -60,13 +66,30 @@ class StreetEditable extends React.Component {
 
   calculateSegmentPos = (dataNo) => {
     const { segments, remainingWidth } = this.props.street
-    let currPos = remainingWidth / 2
+    const { draggingState, isOver } = this.props
+
+    let currPos = 0
 
     for (let i = 0; i < dataNo; i++) {
-      currPos += segments[i].width
+      const width = (draggingState && draggingState.draggedSegment === i) ? 0 : segments[i].width * TILE_SIZE
+      currPos += width
     }
 
-    return (currPos * TILE_SIZE)
+    let mainLeft = remainingWidth
+    if (draggingState && segments[draggingState.draggedSegment] !== undefined) {
+      const draggedWidth = segments[draggingState.draggedSegment].width || 0
+      mainLeft += draggedWidth
+    }
+
+    mainLeft = (mainLeft * TILE_SIZE) / 2
+
+    if (isOver && draggingState) {
+      mainLeft -= DRAGGING_MOVE_HOLE_WIDTH
+      const spaceBetweenSegments = makeSpaceBetweenSegments(dataNo, draggingState)
+      return Math.round(mainLeft + currPos + spaceBetweenSegments)
+    } else {
+      return Math.round(mainLeft + currPos)
+    }
   }
 
   handleExitAnimations = (child) => {
@@ -123,11 +146,12 @@ class StreetEditable extends React.Component {
   }
 
   render () {
+    const { connectDropTarget } = this.props
     const style = {
       width: (this.props.street.width * TILE_SIZE) + 'px'
     }
 
-    return (
+    return connectDropTarget(
       <div
         id="street-section-editable"
         key={this.props.street.id}
@@ -144,8 +168,12 @@ class StreetEditable extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    street: state.street
+    street: state.street,
+    draggingState: state.ui.draggingState
   }
 }
 
-export default connect(mapStateToProps)(StreetEditable)
+export default flow(
+  DropTarget(Types.SEGMENT, canvasTarget, collectDropTarget),
+  connect(mapStateToProps)
+)(StreetEditable)

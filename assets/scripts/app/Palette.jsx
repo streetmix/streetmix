@@ -15,7 +15,8 @@ const PALETTE_EXTRA_SEGMENT_PADDING = 8
 class Palette extends React.Component {
   static propTypes = {
     everythingLoaded: PropTypes.bool.isRequired,
-    flags: PropTypes.object.isRequired
+    flags: PropTypes.object.isRequired,
+    draggingState: PropTypes.object
   }
 
   componentDidMount () {
@@ -98,9 +99,11 @@ class Palette extends React.Component {
   }
 
   render () {
+    const { draggingState } = this.props
+
     return (
       <div className="palette-container">
-        <div className="palette-trashcan">
+        <div className={'palette-trashcan' + (draggingState && draggingState.draggedSegment !== undefined ? ' visible' : '')}>
           <FormattedMessage id="palette.remove" defaultMessage="Drag here to remove" />
         </div>
         <div className="palette-commands" ref={(ref) => { this.commandsEl = ref }}>
@@ -117,7 +120,8 @@ class Palette extends React.Component {
 function mapStateToProps (state) {
   return {
     everythingLoaded: state.app.everythingLoaded,
-    flags: state.flags
+    flags: state.flags,
+    draggingState: state.ui.draggingState
   }
 }
 
