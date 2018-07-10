@@ -5,7 +5,7 @@ import {
   SEGMENT_WARNING_OUTSIDE,
   SEGMENT_WARNING_WIDTH_TOO_SMALL,
   SEGMENT_WARNING_WIDTH_TOO_LARGE
-} from '../streets/width'
+} from '../segments/constants'
 
 export default class Warnings extends React.Component {
   static propTypes = {

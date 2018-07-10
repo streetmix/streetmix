@@ -17,7 +17,6 @@ import {
   SET_UNITS,
   UPDATE_STREET_WIDTH,
   UPDATE_SCHEMA_VERSION,
-  UPDATE_OCCUPIED_WIDTH,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
   REMOVE_BUILDING_FLOOR,
@@ -56,10 +55,12 @@ export function moveSegment (index, newIndex) {
   }
 }
 
-export function updateSegments (segments) {
+export function updateSegments (segments, occupiedWidth, remainingWidth) {
   return {
     type: UPDATE_SEGMENTS,
-    segments
+    segments,
+    occupiedWidth,
+    remainingWidth
   }
 }
 
@@ -145,14 +146,6 @@ export function updateStreetWidth (width) {
   return {
     type: UPDATE_STREET_WIDTH,
     width
-  }
-}
-
-export function updateOccupiedWidth (occupiedWidth, remainingWidth) {
-  return {
-    type: UPDATE_OCCUPIED_WIDTH,
-    occupiedWidth,
-    remainingWidth
   }
 }
 

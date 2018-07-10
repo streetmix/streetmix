@@ -17,7 +17,6 @@ import {
   SET_UNITS,
   UPDATE_STREET_WIDTH,
   UPDATE_SCHEMA_VERSION,
-  UPDATE_OCCUPIED_WIDTH,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
   REMOVE_BUILDING_FLOOR,
@@ -75,6 +74,8 @@ const street = (state = initialState, action) => {
       return {
         ...state,
         segments: action.segments,
+        occupiedWidth: action.occupiedWidth,
+        remainingWidth: action.remainingWidth,
         immediateRemoval: immediate
       }
     case CHANGE_SEGMENT_WIDTH: {
@@ -137,12 +138,6 @@ const street = (state = initialState, action) => {
       return {
         ...state,
         width: action.width
-      }
-    case UPDATE_OCCUPIED_WIDTH:
-      return {
-        ...state,
-        occupiedWidth: action.occupiedWidth,
-        remainingWidth: action.remainingWidth
       }
     case UPDATE_SCHEMA_VERSION:
       return {
