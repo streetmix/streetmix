@@ -3,13 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { DragSource, DropTarget } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
-import {
-  Types,
-  segmentSource,
-  collectDragSource,
-  segmentTarget,
-  collectDropTarget
-} from './drag_and_drop'
 import flow from 'lodash/flow'
 import MeasurementText from '../ui/MeasurementText'
 import SegmentCanvas from './SegmentCanvas'
@@ -30,6 +23,13 @@ import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { KEYS } from '../app/keyboard_commands'
 import { trackEvent } from '../app/event_tracking'
 import { t } from '../locales/locale'
+import {
+  Types,
+  segmentSource,
+  collectDragSource,
+  segmentTarget,
+  collectDropTarget
+} from './drag_and_drop'
 
 class Segment extends React.Component {
   static propTypes = {

@@ -1,15 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import Segment from '../segments/Segment'
+import { DropTarget } from 'react-dnd'
+import flow from 'lodash/flow'
 import uuid from 'uuid'
+import Segment from '../segments/Segment'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { TILE_SIZE, DRAGGING_MOVE_HOLE_WIDTH } from '../segments/constants'
 import { getVariantArray } from '../segments/variant_utils'
 import { cancelSegmentResizeTransitions } from '../segments/resizing'
 import { Types, canvasTarget, collectDropTarget, makeSpaceBetweenSegments } from '../segments/drag_and_drop'
-import { DropTarget } from 'react-dnd'
-import flow from 'lodash/flow'
 
 class StreetEditable extends React.Component {
   static propTypes = {
