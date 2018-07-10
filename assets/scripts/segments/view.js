@@ -6,8 +6,8 @@ import { recalculateWidth } from '../streets/width'
 import { getSegmentInfo, getSegmentVariantInfo, getSpriteDef } from './info'
 import { drawProgrammaticPeople } from './people'
 import { TILE_SIZE, TILESET_POINT_PER_PIXEL, WIDTH_PALETTE_MULTIPLIER } from './constants'
-import { applyWarningsToSegments } from './resizing'
 import store from '../store'
+import { updateSegments } from '../store/actions/street'
 
 const CANVAS_HEIGHT = 480
 const CANVAS_GROUND = 35
@@ -315,8 +315,11 @@ export function getLocaleSegmentName (type, variantString) {
  * TODO: remove this
  */
 export function segmentsChanged () {
-  recalculateWidth()
-  applyWarningsToSegments()
+  const street = store.getState().street
+  const updatedStreet = recalculateWidth(street)
+
+  store.dispatch(updateSegments(updatedStreet.segments, updatedStreet.occupiedWidth, updatedStreet.remainingWidth))
+
   saveStreetToServerIfNecessary()
 }
 
