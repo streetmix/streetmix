@@ -17,7 +17,7 @@ import { segmentsChanged } from './view'
 import store from '../store'
 import { updateSegments, changeSegmentWidth } from '../store/actions/street'
 
-export const SHORT_DELAY = 100
+const SHORT_DELAY = 100
 
 export const RESIZE_TYPE_INITIAL = 0
 const RESIZE_TYPE_INCREMENT = 1
@@ -177,7 +177,7 @@ export function applyWarningsToSegments () {
 let controlsFadeoutDelayTimer = -1
 let controlsFadeoutHideTimer = -1
 
-export function scheduleControlsFadeout (el) {
+function scheduleControlsFadeout (el) {
   infoBubble.considerShowing(null, el, INFO_BUBBLE_TYPE_SEGMENT)
 
   resumeFadeoutControls()
