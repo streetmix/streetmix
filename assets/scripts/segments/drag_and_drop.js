@@ -565,7 +565,7 @@ function handleSegmentCanvasDrop (draggedItem) {
 
   if (!draggedItem.forPalette) {
     store.dispatch(removeSegment(draggedSegment))
-    newIndex = (newIndex < draggedSegment) ? newIndex : newIndex - 1
+    newIndex = (newIndex <= draggedSegment) ? newIndex : newIndex - 1
   }
 
   store.dispatch(addSegment(newIndex, newSegment))
