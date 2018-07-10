@@ -529,7 +529,7 @@ export const segmentTarget = {
     const { x } = monitor.getClientOffset()
 
     if (dragIndex === hoverIndex) {
-      updateIfDraggingStateChanged(undefined, dragIndex, monitor.getItem())
+      updateIfDraggingStateChanged(dragIndex, undefined, monitor.getItem())
     } else {
       const { segments } = store.getState().street
 
@@ -551,8 +551,8 @@ function handleSegmentCanvasDrop (draggedItem) {
 
   store.dispatch(clearDraggingState())
   // If dropped in same position as dragged segment was before, return
-  if (segmentBeforeEl === undefined && segmentAfterEl === draggedItem.dataNo) {
-    store.dispatch(setActiveSegment(draggedItem.dataNo))
+  if (segmentBeforeEl === draggedSegment && segmentAfterEl === undefined) {
+    store.dispatch(setActiveSegment(draggedSegment))
     return
   }
 
