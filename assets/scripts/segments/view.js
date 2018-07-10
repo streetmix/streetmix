@@ -1,20 +1,12 @@
 import { images } from '../app/load_resources'
 import { t } from '../locales/locale'
-import { system } from '../preinit/system_capabilities'
 import { saveStreetToServerIfNecessary } from '../streets/data_model'
 import { recalculateWidth } from '../streets/width'
 import { getSegmentInfo, getSegmentVariantInfo, getSpriteDef } from './info'
 import { drawProgrammaticPeople } from './people'
-import { TILE_SIZE, TILESET_POINT_PER_PIXEL, WIDTH_PALETTE_MULTIPLIER } from './constants'
+import { TILE_SIZE, TILESET_POINT_PER_PIXEL } from './constants'
 import { applyWarningsToSegments } from './resizing'
 import store from '../store'
-
-const CANVAS_HEIGHT = 480
-const CANVAS_GROUND = 35
-const CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND
-
-const SEGMENT_Y_NORMAL = 265
-const SEGMENT_Y_PALETTE = 20
 
 /**
  * Draws SVG sprite to canvas
@@ -255,49 +247,6 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
 
   if (type === 'sidewalk') {
     drawProgrammaticPeople(ctx, segmentWidth / multiplier, offsetLeft - (left * TILE_SIZE * multiplier), offsetTop, randSeed, multiplier, variantString, dpi)
-  }
-}
-
-export function setSegmentContents (el, type, variantString, segmentWidth, randSeed, palette, quickUpdate) {
-  let canvasEl
-  const variantInfo = getSegmentVariantInfo(type, variantString)
-
-  var multiplier = palette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1
-  var dimensions = getVariantInfoDimensions(variantInfo, segmentWidth, multiplier)
-
-  var totalWidth = dimensions.right - dimensions.left
-
-  var offsetTop = palette ? SEGMENT_Y_PALETTE : SEGMENT_Y_NORMAL
-
-  if (!quickUpdate) {
-    var hoverBkEl = document.createElement('div')
-    hoverBkEl.classList.add('hover-bk')
-  }
-
-  if (!quickUpdate) {
-    canvasEl = document.createElement('canvas')
-    canvasEl.classList.add('image')
-  } else {
-    canvasEl = el.querySelector('canvas')
-  }
-  canvasEl.width = totalWidth * TILE_SIZE * system.hiDpi
-  canvasEl.height = CANVAS_BASELINE * system.hiDpi
-  canvasEl.style.width = (totalWidth * TILE_SIZE) + 'px'
-  canvasEl.style.height = CANVAS_BASELINE + 'px'
-  canvasEl.style.left = (dimensions.left * TILE_SIZE * multiplier) + 'px'
-
-  var ctx = canvasEl.getContext('2d')
-
-  drawSegmentContents(ctx, type, variantString, segmentWidth, 0, offsetTop, randSeed, multiplier, palette)
-
-  if (!quickUpdate) {
-    const removeEl = el.querySelector('canvas')
-    if (removeEl) removeEl.remove()
-    el.appendChild(canvasEl)
-
-    const removeEl2 = el.querySelector('.hover-bk')
-    if (removeEl2) removeEl2.remove()
-    el.appendChild(hoverBkEl)
   }
 }
 
