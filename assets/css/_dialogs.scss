@@ -71,7 +71,7 @@
   button:not(.close),
   a.button-like {
     margin: 0 auto;
-    display: inline-block !important;
+    display: inline-block;
     padding: 0.75em 2em;
     margin-top: 1em;
   }
@@ -215,50 +215,44 @@
   font-weight: bold;
 }
 
-#icon-twitter path {
-  fill: white;
-}
-
-#icon-facebook path:last-child {
-  fill: white;
-}
-
-#icon-facebook path:first-child {
-  fill: #3b579d;
-}
-
 .sign-in-dialog {
   text-align: left;
   width: 300px;
   min-height: 300px;
 
-  .sign-in-btn {
+  button {
     width: 100%;
     text-align: left;
     color: #fff;
     font-size: 14px;
     font-weight: 600;
-    padding: 4px !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 2px 15px !important;
 
-    .icon {
-      width: 24px;
-      height: 24px;
-      margin-left: 10px;
+    svg {
+      color: #fff !important;
+      font-size: 27px;
     }
 
     span {
-      padding: 15px;
-      position: relative;
-      top: -7px;
+      padding: 10px;
     }
   }
 
   .sign-in-twitter-btn {
     background-color: #1da1f2;
+    border-color: #2f94d5;
   }
 
   .sign-in-google-btn {
     background-color: #fff;
+    border-color: #4a8bee;
+
+    img {
+      width: 27px;
+      height: 27px;
+    }
 
     span {
       color: #000;
@@ -267,6 +261,7 @@
 
   .sign-in-facebook-btn {
     background-color: #3b579d;
+    border-color: #1b3363;
   }
 
   .email-title {
@@ -348,7 +343,7 @@
 
     .sign-in-email-btn {
       padding: 10px !important;
-      text-align: center;
+      justify-content: center;
 
       span {
         padding: 5px;

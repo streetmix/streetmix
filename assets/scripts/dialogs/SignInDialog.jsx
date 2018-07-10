@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 import { isEmail } from 'validator'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { goEmailSignIn, goTwitterSignIn, goFacebookSignIn, goGoogleSignIn } from '../app/routing'
 
 export class SignInDialog extends React.Component {
@@ -20,7 +21,8 @@ export class SignInDialog extends React.Component {
       emailSent: false,
       sendingEmail: false,
       error: false,
-      errorMesg: ''
+      errorMesg: '',
+      signingIn: false
     }
   }
 
@@ -36,16 +38,25 @@ export class SignInDialog extends React.Component {
 
   handleFacebookSignIn = (event) => {
     event.preventDefault()
+    this.setState({
+      signingIn: true
+    })
     goFacebookSignIn()
   }
 
   handleGoogleSignIn = (event) => {
     event.preventDefault()
+    this.setState({
+      signingIn: true
+    })
     goGoogleSignIn()
   }
 
   handleTwitterSignIn = (event) => {
     event.preventDefault()
+    this.setState({
+      signingIn: true
+    })
     goTwitterSignIn()
   }
 
@@ -143,9 +154,7 @@ export class SignInDialog extends React.Component {
     if (facebookAuthEnabled) {
       return (
         <button onClick={this.handleFacebookSignIn} className="sign-in-btn sign-in-facebook-btn">
-          <svg className="icon">
-            <use xlinkHref="#icon-facebook" />
-          </svg>
+          <FontAwesomeIcon icon={['fab', 'facebook-square']} />
           <FormattedMessage id="dialogs.sign-in.button.facebook" defaultMessage="Continue with Facebook" />
         </button>
       )
@@ -169,9 +178,7 @@ export class SignInDialog extends React.Component {
     if (twitterAuthEnabled) {
       return (
         <button className="sign-in-btn sign-in-twitter-btn" onClick={this.handleTwitterSignIn}>
-          <svg className="icon">
-            <use xlinkHref="#icon-twitter" />
-          </svg>
+          <FontAwesomeIcon icon={['fab', 'twitter']} />
           <FormattedMessage id="dialogs.sign-in.button.twitter" defaultMessage="Continue with Twitter" />
         </button>
       )
@@ -179,8 +186,8 @@ export class SignInDialog extends React.Component {
   }
 
   render () {
-    const { email, sendingEmail, emailSent } = this.state
-    if (sendingEmail) {
+    const { email, sendingEmail, emailSent, signingIn } = this.state
+    if (sendingEmail || signingIn) {
       return (
         <div className="sign-in-dialog">
           <p className="sign-in-message sign-in-loading-message">
@@ -221,7 +228,7 @@ export class SignInDialog extends React.Component {
     } else {
       return (
         <div className="sign-in-dialog">
-          <h1><FormattedMessage id="dialogs.sign-in.heading" defaultMessage="Sign into Streetmix" /></h1>
+          <h1><FormattedMessage id="dialogs.sign-in.heading" defaultMessage="Sign in to Streetmix" /></h1>
           <p>
             <FormattedMessage
               id="dialogs.sign-in.description"
