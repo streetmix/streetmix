@@ -1,6 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { DragSource, DropTarget } from 'react-dnd'
+import { getEmptyImage } from 'react-dnd-html5-backend'
+import {
+  Types,
+  segmentSource,
+  collectDragSource,
+  segmentTarget,
+  collectDropTarget
+} from './drag_and_drop'
+import flow from 'lodash/flow'
 import MeasurementText from '../ui/MeasurementText'
 import SegmentCanvas from './SegmentCanvas'
 import SegmentDragHandles from './SegmentDragHandles'
@@ -15,17 +25,6 @@ import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { KEYS } from '../app/keyboard_commands'
 import { trackEvent } from '../app/event_tracking'
 import { t } from '../locales/locale'
-
-import { DragSource, DropTarget } from 'react-dnd'
-import { getEmptyImage } from 'react-dnd-html5-backend'
-import {
-  Types,
-  segmentSource,
-  collectDragSource,
-  segmentTarget,
-  collectDropTarget
-} from './drag_and_drop'
-import flow from 'lodash/flow'
 
 class Segment extends React.Component {
   static propTypes = {
@@ -50,10 +49,7 @@ class Segment extends React.Component {
     isDragging: PropTypes.bool,
     connectDragPreview: PropTypes.func,
     connectDropTarget: PropTypes.func,
-    activeSegment: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ])
+    activeSegment: PropTypes.number
   }
 
   static defaultProps = {
@@ -310,7 +306,7 @@ function mapStateToProps (state) {
     localeMessages: state.locale.messages,
     infoBubbleHovered: state.infoBubble.mouseInside,
     descriptionVisible: state.infoBubble.descriptionVisible,
-    activeSegment: state.ui.activeSegment
+    activeSegment: (typeof state.ui.activeSegment === 'number') ? state.ui.activeSegment : null
   }
 }
 
