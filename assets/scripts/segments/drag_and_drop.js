@@ -447,8 +447,10 @@ export function collectDragSource (connect, monitor) {
  */
 export function makeSpaceBetweenSegments (dataNo, draggingState) {
   const { segmentBeforeEl, segmentAfterEl, draggedSegment } = draggingState
+  const { segments } = store.getState().street
+
   let spaceBetweenSegments = 0
-  let extraSpace = (dataNo === draggedSegment) ? (2 * DRAGGING_MOVE_HOLE_WIDTH) : 0
+  let extraSpace = (dataNo === draggedSegment) ? (segments[dataNo].width * TILE_SIZE) : 0
 
   if (dataNo >= segmentBeforeEl) {
     spaceBetweenSegments += DRAGGING_MOVE_HOLE_WIDTH
@@ -473,7 +475,7 @@ export function makeSpaceBetweenSegments (dataNo, draggingState) {
   // this problem, depending on where the user is hovering in comparison to the dragged
   // segment, we are either moving the dragged segment more to the right or to the left.
   if (dataNo === draggedSegment) {
-    extraSpace = (draggedSegment > segmentAfterEl) ? extraSpace : -extraSpace
+    extraSpace = (draggedSegment > segmentAfterEl || segmentAfterEl === undefined) ? extraSpace : -extraSpace
   }
 
   return spaceBetweenSegments + extraSpace
