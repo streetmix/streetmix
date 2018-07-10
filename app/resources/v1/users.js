@@ -1,7 +1,6 @@
 const config = require('config')
 const uuid = require('uuid')
 const Twitter = require('twitter')
-const { random } = require('lodash')
 const User = require('../../models/user.js')
 const logger = require('../../../lib/logger.js')()
 
@@ -98,7 +97,8 @@ exports.post = function (req, res) {
   } // END function - handleTwitterSignIn
   const generateId = function (nickname) {
     // TODO - Check if the Id generated is not existing
-    return nickname + '-' + random(0, 999)
+    const digit = Math.floor(1000 + Math.random() * 9000)
+    return nickname + '-' + digit
   }
   const handleAuth0SignIn = async function (credentials) {
     try {
