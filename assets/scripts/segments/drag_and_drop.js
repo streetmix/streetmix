@@ -600,14 +600,18 @@ export const canvasTarget = {
     if (monitor.isOver({shallow: true})) {
       const position = isOverLeftOrRightCanvas(component.streetSectionEditable, monitor.getClientOffset().x)
 
-      if (!position) return
+      if (!position && oldDraggingState) return
 
-      const { segments } = store.getState().street
+      if (position) {
+        const { segments } = store.getState().street
+        const segmentBeforeEl = (position === 'left') ? 0 : undefined
+        const segmentAfterEl = (position === 'left') ? undefined : segments.length - 1
 
-      const segmentBeforeEl = (position === 'left') ? 0 : undefined
-      const segmentAfterEl = (position === 'left') ? undefined : segments.length - 1
-
-      updateIfDraggingStateChanged(segmentBeforeEl, segmentAfterEl, monitor.getItem())
+        updateIfDraggingStateChanged(segmentBeforeEl, segmentAfterEl, monitor.getItem())
+      } else {
+        // If segment was immediately dragged below street level, update dragging state
+        updateIfDraggingStateChanged(monitor.getItem().dataNo, undefined, monitor.getItem())
+      }
     }
   },
 
