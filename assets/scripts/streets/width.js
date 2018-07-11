@@ -58,7 +58,6 @@ function calculateOccupiedWidth (segments = []) {
 
 /**
  * Subtracts occupied width from street width to get remaining width.
- * Value returned should not dip below zero.
  *
  * @param {Number} streetWidth
  * @param {Number} occupiedWidth
