@@ -3,9 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { IntlProvider } from 'react-intl'
 import NOTIFICATION from '../../../app/data/notification.json'
-// import HTML5Backend from 'react-dnd-html5-backend'
+import HTML5Backend from 'react-dnd-html5-backend'
 import { DragDropContext } from 'react-dnd'
-import { default as TouchBackend } from 'react-dnd-touch-backend'
 import flow from 'lodash/flow'
 
 import NotificationBar from './NotificationBar'
@@ -87,5 +86,5 @@ function mapStateToProps (state) {
 
 export default flow(
   connect(mapStateToProps),
-  DragDropContext(TouchBackend({enableMouseEvents: true}))
+  DragDropContext(HTML5Backend)
 )(App)
