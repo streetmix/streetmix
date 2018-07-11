@@ -31,7 +31,7 @@ class StreetEditable extends React.Component {
   }
 
   componentDidUpdate (prevProps) {
-    const { onResized } = this.props
+    const { onResized, draggingState } = this.props
 
     if (onResized && prevProps.onResized !== onResized) {
       this.props.setBuildingWidth(this.streetSectionEditable)
@@ -39,6 +39,14 @@ class StreetEditable extends React.Component {
 
     if (prevProps.street.id !== this.props.street.id || prevProps.street.width !== this.props.street.width) {
       cancelSegmentResizeTransitions()
+    }
+
+    if (draggingState && prevProps.isOver !== this.props.isOver) {
+      if (this.props.isOver) {
+        document.body.classList.remove('not-within-canvas')
+      } else {
+        document.body.classList.add('not-within-canvas')
+      }
     }
   }
 
