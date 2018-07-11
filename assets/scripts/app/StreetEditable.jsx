@@ -30,6 +30,16 @@ class StreetEditable extends React.Component {
     }
   }
 
+  static getDerivedStateFromProps (nextProps, prevState) {
+    if (nextProps.isOver !== prevState.suppressMouseEnter) {
+      return {
+        suppressMouseEnter: nextProps.isOver
+      }
+    }
+
+    return null
+  }
+
   componentDidUpdate (prevProps) {
     const { onResized } = this.props
 
