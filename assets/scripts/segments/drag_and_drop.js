@@ -374,7 +374,7 @@ export function onBodyMouseUp (event) {
   event.preventDefault()
 }
 
-function handleSegmentDragStart (segment, fromPalette) {
+function handleSegmentDragStart () {
   document.body.classList.add('segment-move-dragging')
   infoBubble.hide()
   cancelFadeoutControls()
@@ -395,7 +395,7 @@ export const segmentSource = {
   },
 
   beginDrag (props, monitor, component) {
-    handleSegmentDragStart(component.streetSegment, props.forPalette)
+    handleSegmentDragStart()
     const segmentInfo = getSegmentInfo(props.type)
 
     return {
