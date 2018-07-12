@@ -42,9 +42,7 @@ class SegmentCanvas extends React.Component {
   }
 
   componentDidUpdate (prevProps) {
-    if (!this.props.forPalette) {
-      this.drawSegment()
-    }
+    this.drawSegment()
   }
 
   componentDidCatch (error, info) {
