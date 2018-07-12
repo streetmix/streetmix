@@ -52,6 +52,7 @@ class SegmentForPalette extends React.Component {
           type={this.props.type}
           variantString={this.props.variantString}
           randSeed={generateRandSeed()}
+          multiplier={(WIDTH_PALETTE_MULTIPLIER / TILE_SIZE)}
           forPalette
         />
       </div>

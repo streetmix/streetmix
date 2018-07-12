@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getSegmentVariantInfo } from './info'
 import { drawSegmentContents, getVariantInfoDimensions } from './view'
-import { TILE_SIZE, WIDTH_PALETTE_MULTIPLIER } from './constants'
+import { TILE_SIZE } from './constants'
 
 const SEGMENT_Y_NORMAL = 265
 const SEGMENT_Y_PALETTE = 20
@@ -18,7 +18,12 @@ class SegmentCanvas extends React.Component {
     variantString: PropTypes.string.isRequired,
     forPalette: PropTypes.bool,
     randSeed: PropTypes.number,
+    multiplier: PropTypes.number,
     dpi: PropTypes.number
+  }
+
+  static defaultProps = {
+    multiplier: 1
   }
 
   constructor (props) {
@@ -46,17 +51,15 @@ class SegmentCanvas extends React.Component {
   }
 
   drawSegment = () => {
-    const multiplier = this.props.forPalette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1
     const offsetTop = this.props.forPalette ? SEGMENT_Y_PALETTE : SEGMENT_Y_NORMAL
     const ctx = this.canvasEl.getContext('2d')
     ctx.clearRect(0, 0, this.canvasEl.width, this.canvasEl.height)
-    drawSegmentContents(ctx, this.props.type, this.props.variantString, this.props.width, 0, offsetTop, this.props.randSeed, multiplier, this.props.forPalette)
+    drawSegmentContents(ctx, this.props.type, this.props.variantString, this.props.width, 0, offsetTop, this.props.randSeed, this.props.multiplier, this.props.forPalette)
   }
 
   render () {
     const variantInfo = getSegmentVariantInfo(this.props.type, this.props.variantString)
-    const multiplier = this.props.forPalette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1
-    const dimensions = getVariantInfoDimensions(variantInfo, this.props.width, multiplier)
+    const dimensions = getVariantInfoDimensions(variantInfo, this.props.width, this.props.multiplier)
     const totalWidth = dimensions.right - dimensions.left
 
     const canvasWidth = this.props.forPalette ? this.props.width * this.props.dpi : totalWidth * TILE_SIZE * this.props.dpi
@@ -64,7 +67,7 @@ class SegmentCanvas extends React.Component {
     const canvasStyle = {
       width: this.props.forPalette ? this.props.width : totalWidth * TILE_SIZE,
       height: CANVAS_BASELINE,
-      left: (dimensions.left * TILE_SIZE * multiplier)
+      left: (dimensions.left * TILE_SIZE * this.props.multiplier)
     }
 
     return (
