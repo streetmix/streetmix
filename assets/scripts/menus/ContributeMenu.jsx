@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Menu from './Menu'
+import Icon from '../ui/Icon'
 import { trackEvent } from '../app/event_tracking'
 
 export default class ContributeMenu extends React.PureComponent {
@@ -21,7 +21,7 @@ export default class ContributeMenu extends React.PureComponent {
     return (
       <Menu {...this.props}>
         <a href="https://github.com/streetmix/streetmix/" target="_blank" rel="noopener noreferrer" onClick={this.onClickGitHub}>
-          <FontAwesomeIcon icon={['fab', 'github']} />
+          <Icon icon="github" />
           <FormattedMessage id="menu.contribute.opensource" defaultMessage="Contribute to open source" />
         </a>
         <a href="https://opencollective.com/streetmix/" target="_blank" rel="noopener noreferrer" onClick={this.onClickDonate}>

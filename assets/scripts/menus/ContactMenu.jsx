@@ -1,6 +1,5 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Menu from './Menu'
 import Icon from '../ui/Icon'
 
@@ -13,7 +12,7 @@ export default class ContactMenu extends React.PureComponent {
           <FormattedMessage id="menu.contact.forums" defaultMessage="Discuss on the forums" />
         </a>
         <a href="https://twitter.com/intent/tweet?text=@streetmix" target="_blank" rel="noopener noreferrer">
-          <FontAwesomeIcon icon={['fab', 'twitter']} />
+          <Icon icon="twitter" />
           <FormattedMessage id="menu.contact.twitter" defaultMessage="Send a tweet to @streetmix" />
         </a>
         <a href="http://streetmix-slack.herokuapp.com/" target="_blank" rel="noopener noreferrer">
