@@ -424,6 +424,7 @@ export const segmentSource = {
     cancelSegmentResizeTransitions()
     segmentsChanged(false)
     document.body.classList.remove('segment-move-dragging')
+    document.body.classList.remove('not-within-canvas')
   }
 }
 
@@ -446,11 +447,9 @@ export function collectDragSource (connect, monitor) {
  *
  */
 export function makeSpaceBetweenSegments (dataNo, draggingState) {
-  const { segmentBeforeEl, segmentAfterEl, draggedSegment } = draggingState
-  const { segments } = store.getState().street
+  const { segmentBeforeEl, segmentAfterEl } = draggingState
 
   let spaceBetweenSegments = 0
-  let extraSpace = (dataNo === draggedSegment) ? (segments[dataNo].width * TILE_SIZE) : 0
 
   if (dataNo >= segmentBeforeEl) {
     spaceBetweenSegments += DRAGGING_MOVE_HOLE_WIDTH
@@ -468,17 +467,7 @@ export function makeSpaceBetweenSegments (dataNo, draggingState) {
     }
   }
 
-  // Originally, the dragged segment gets moved over to the same position as the segment
-  // next to it. This causes react-dnd's hover method to assume it is hovering over the
-  // dragged segment which leads to a constant change of dragging state and the constant
-  // back and forth movement of the segment next to the dragged segment. In order to fix
-  // this problem, depending on where the user is hovering in comparison to the dragged
-  // segment, we are either moving the dragged segment more to the right or to the left.
-  if (dataNo === draggedSegment) {
-    extraSpace = (draggedSegment > segmentAfterEl || segmentAfterEl === undefined) ? extraSpace : -extraSpace
-  }
-
-  return spaceBetweenSegments + extraSpace
+  return spaceBetweenSegments
 }
 
 let oldDraggingState = store.getState().ui.draggingState
@@ -527,6 +516,11 @@ export const segmentTarget = {
     const { left } = hoveredSegment.getBoundingClientRect()
     const hoverMiddleX = Math.round(left + (props.width) / 2)
     const { x } = monitor.getClientOffset()
+
+    // Ignore hovering over the dragged segment after dragging state is already set.
+    // This prevents react-dnd's hover method from being confused on what to update
+    // draggingState as when the dragged segment is behind another segment.
+    if (dragIndex === hoverIndex && oldDraggingState) return
 
     if (dragIndex === hoverIndex) {
       updateIfDraggingStateChanged(dragIndex, undefined, monitor.getItem())
