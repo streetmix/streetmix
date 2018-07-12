@@ -11,7 +11,6 @@ import { getPageTitle } from '../app/page_title'
 import { printImage } from '../app/print'
 import { getSharingUrl } from '../util/share_url'
 import { showDialog } from '../store/actions/dialogs'
-import { goSignIn } from '../app/routing'
 
 export class ShareMenu extends React.Component {
   static propTypes = {
@@ -109,12 +108,12 @@ export class ShareMenu extends React.Component {
 
   onClickSaveAsImage = (event) => {
     event.preventDefault()
-    this.props.showDialog()
+    this.props.showDialog('SAVE_AS_IMAGE')
   }
 
   onClickSignIn = (event) => {
     event.preventDefault()
-    goSignIn()
+    this.props.showDialog('SIGN_IN')
   }
 
   render () {
@@ -207,7 +206,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    showDialog: () => { dispatch(showDialog('SAVE_AS_IMAGE')) }
+    showDialog: (type) => { dispatch(showDialog(type)) }
   }
 }
 

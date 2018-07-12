@@ -22,7 +22,7 @@
     "share": {
       "sign-in-twitter-link": "Sign in",
       "sign-in-link": "{signInLink} for nicer links to your streets and your personal street gallery",
-      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Sign in with Twitter</a> for nicer links to your streets and your personal street gallery",
+      "sign-in": "<a href='#'>Sign in</a> for nicer links to your streets and your personal street gallery",
       "link": "Copy and paste this link to share:",
       "twitter": "Share using Twitter",
       "facebook": "Share using Facebook",
@@ -284,7 +284,7 @@
     "delete-street-tooltip": "Delete street",
     "street-count": "{count, plural, one {# street} other {# streets}}",
     "no-streets": "No streets yet",
-    "sign-in": "Sign in with Twitter for your personal street gallery"
+    "sign-in": "Sign in for your personal street gallery"
   },
   "users": {
     "anonymous": "Anonymous",
