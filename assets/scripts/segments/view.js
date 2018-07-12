@@ -77,7 +77,7 @@ export function drawSegmentImage (id, ctx, sx = 0, sy = 0, sw, sh, dx, dy, dw, d
   }
 }
 
-export function getVariantInfoDimensions (variantInfo, initialSegmentWidth, multiplier) {
+export function getVariantInfoDimensions (variantInfo, initialSegmentWidth = 0, multiplier = 1) {
   let newLeft, newRight
   var segmentWidth = initialSegmentWidth / TILE_SIZE / multiplier
 
