@@ -180,6 +180,6 @@ function mapStateToProps (state) {
 }
 
 export default flow(
-  DropTarget(Types.SEGMENT, canvasTarget, collectDropTarget),
+  DropTarget([Types.SEGMENT, Types.PALETTE_SEGMENT], canvasTarget, collectDropTarget),
   connect(mapStateToProps)
 )(StreetEditable)

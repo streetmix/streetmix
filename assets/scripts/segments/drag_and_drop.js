@@ -229,11 +229,12 @@ export function onBodyMouseMove (event) {
   event.preventDefault()
 }
 
-function doDropHeuristics (draggedItem) {
+function doDropHeuristics (draggedItem, draggedItemType) {
   // Automatically figure out width
   const street = store.getState().street
-  const { forPalette, variantString, type, width } = draggedItem
-  if (forPalette) {
+  const { variantString, type, width } = draggedItem
+
+  if (draggedItemType === Types.PALETTE_SEGMENT) {
     if ((street.remainingWidth > 0) &&
       (width > street.remainingWidth * TILE_SIZE)) {
       var segmentMinWidth = getSegmentVariantInfo(type, variantString).minWidth || 0
@@ -398,16 +399,12 @@ export const segmentSource = {
   beginDrag (props, monitor, component) {
     handleSegmentDragStart()
 
-    const segmentInfo = getSegmentInfo(props.type)
-    const type = monitor.getItemType()
-
     return {
-      dataNo: (type === Types.PALETTE_SEGMENT) ? undefined : props.dataNo,
-      variantString: (type === Types.PALETTE_SEGMENT) ? Object.keys(segmentInfo.details).shift() : props.variantString,
+      dataNo: props.dataNo,
+      variantString: props.variantString,
       type: props.type,
-      randSeed: (type === Types.PALETTE_SEGMENT && segmentInfo.needRandSeed) ? generateRandSeed() : props.randSeed,
-      forPalette: type === Types.PALETTE_SEGMENT,
-      width: (type === Types.PALETTE_SEGMENT) ? (segmentInfo.defaultWidth * TILE_SIZE) : props.width
+      randSeed: props.randSeed,
+      width: props.width
     }
   },
 
@@ -423,6 +420,35 @@ export const segmentSource = {
         trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'DRAGGING', null, true)
       }
     }
+
+    cancelSegmentResizeTransitions()
+    segmentsChanged(false)
+    document.body.classList.remove('segment-move-dragging')
+    document.body.classList.remove('not-within-canvas')
+  }
+}
+
+export const paletteSegmentSource = {
+  canDrag (props) {
+    return !store.getState().app.readOnly
+  },
+
+  beginDrag (props, monitor, component) {
+    handleSegmentDragStart()
+
+    const segmentInfo = getSegmentInfo(props.type)
+
+    return {
+      variantString: Object.keys(segmentInfo.details).shift(),
+      type: props.type,
+      randSeed: segmentInfo.needRandSeed && generateRandSeed(),
+      width: segmentInfo.defaultWidth * TILE_SIZE
+    }
+  },
+
+  endDrag (props, monitor, component) {
+    store.dispatch(clearDraggingState())
+    oldDraggingState = null
 
     cancelSegmentResizeTransitions()
     segmentsChanged(false)
@@ -479,7 +505,7 @@ let oldDraggingState = store.getState().ui.draggingState
 // This prevents a constant dispatch of the updateDraggingState action which causes the
 // dragging of the segment to be laggy and choppy.
 
-function updateIfDraggingStateChanged (segmentBeforeEl, segmentAfterEl, draggedItem) {
+function updateIfDraggingStateChanged (segmentBeforeEl, segmentAfterEl, draggedItem, draggedItemType) {
   let changed = false
 
   if (oldDraggingState) {
@@ -498,7 +524,7 @@ function updateIfDraggingStateChanged (segmentBeforeEl, segmentAfterEl, draggedI
     }
 
     store.dispatch(updateDraggingState(segmentBeforeEl, segmentAfterEl, draggedItem.dataNo))
-    doDropHeuristics(draggedItem)
+    doDropHeuristics(draggedItem, draggedItemType)
   }
 
   return changed
@@ -506,7 +532,8 @@ function updateIfDraggingStateChanged (segmentBeforeEl, segmentAfterEl, draggedI
 
 export const segmentTarget = {
   canDrop (props, monitor) {
-    return !(props.forPalette)
+    const type = monitor.getItemType()
+    return (type === Types.SEGMENT) || (type === Types.PALETTE_SEGMENT)
   },
 
   hover (props, monitor, component) {
@@ -526,7 +553,7 @@ export const segmentTarget = {
     if (dragIndex === hoverIndex && oldDraggingState) return
 
     if (dragIndex === hoverIndex) {
-      updateIfDraggingStateChanged(dragIndex, undefined, monitor.getItem())
+      updateIfDraggingStateChanged(dragIndex, undefined, monitor.getItem(), monitor.getItemType())
     } else {
       const { segments } = store.getState().street
 
@@ -538,12 +565,12 @@ export const segmentTarget = {
         : (hoverIndex === 0) ? undefined
           : hoverIndex - 1
 
-      updateIfDraggingStateChanged(segmentBeforeEl, segmentAfterEl, monitor.getItem())
+      updateIfDraggingStateChanged(segmentBeforeEl, segmentAfterEl, monitor.getItem(), monitor.getItemType())
     }
   }
 }
 
-function handleSegmentCanvasDrop (draggedItem) {
+function handleSegmentCanvasDrop (draggedItem, type) {
   const { segmentBeforeEl, segmentAfterEl, draggedSegment } = store.getState().ui.draggingState
 
   store.dispatch(clearDraggingState())
@@ -562,7 +589,7 @@ function handleSegmentCanvasDrop (draggedItem) {
 
   let newIndex = (segmentAfterEl !== undefined) ? (segmentAfterEl + 1) : segmentBeforeEl
 
-  if (!draggedItem.forPalette) {
+  if (type === Types.SEGMENT) {
     store.dispatch(removeSegment(draggedSegment))
     newIndex = (newIndex <= draggedSegment) ? newIndex : newIndex - 1
   }
@@ -603,13 +630,14 @@ export const canvasTarget = {
       const segmentBeforeEl = (position === 'left') ? 0 : undefined
       const segmentAfterEl = (position === 'left') ? undefined : segments.length - 1
 
-      updateIfDraggingStateChanged(segmentBeforeEl, segmentAfterEl, monitor.getItem())
+      updateIfDraggingStateChanged(segmentBeforeEl, segmentAfterEl, monitor.getItem(), monitor.getItemType())
     }
   },
 
   drop (props, monitor, component) {
     const draggedItem = monitor.getItem()
-    handleSegmentCanvasDrop(draggedItem)
+    const draggedItemType = monitor.getItemType()
+    handleSegmentCanvasDrop(draggedItem, draggedItemType)
 
     return { withinCanvas: true }
   }

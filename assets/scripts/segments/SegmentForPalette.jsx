@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { DragSource } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 import SegmentCanvas from './SegmentCanvas'
-import { Types, segmentSource, collectDragSource } from './drag_and_drop'
+import { Types, paletteSegmentSource, collectDragSource } from './drag_and_drop'
 import { getSegmentVariantInfo, getSegmentInfo } from './info'
 import { t } from '../locales/locale'
 
@@ -47,4 +47,4 @@ class SegmentForPalette extends React.Component {
   }
 }
 
-export default DragSource(Types.PALETTE_SEGMENT, segmentSource, collectDragSource)(SegmentForPalette)
+export default DragSource(Types.PALETTE_SEGMENT, paletteSegmentSource, collectDragSource)(SegmentForPalette)

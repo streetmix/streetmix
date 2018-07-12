@@ -310,6 +310,6 @@ function mapStateToProps (state) {
 
 export default flow(
   DragSource(Types.SEGMENT, segmentSource, collectDragSource),
-  DropTarget(Types.SEGMENT, segmentTarget, collectDropTarget),
+  DropTarget([Types.SEGMENT, Types.PALETTE_SEGMENT], segmentTarget, collectDropTarget),
   connect(mapStateToProps)
 )(Segment)
