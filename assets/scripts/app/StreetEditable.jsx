@@ -137,7 +137,6 @@ class StreetEditable extends React.Component {
             variantString={segment.variantString}
             segment={segment}
             width={segmentWidth}
-            isUnmovable={false}
             forPalette={false}
             units={units}
             randSeed={segment.randSeed}

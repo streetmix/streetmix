@@ -387,7 +387,7 @@ export const Types = {
 
 export const segmentSource = {
   canDrag (props) {
-    return !(props.isUnmovable || store.getState().app.readOnly)
+    return !store.getState().app.readOnly
   },
 
   isDragging (props, monitor) {
