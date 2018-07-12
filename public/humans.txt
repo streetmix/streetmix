@@ -85,6 +85,7 @@
     Jean-Louis Stanus, French
     Philippe Provost, French
     Max Maaß, German
+    Hitomi Narakawa, Japanese
     Satoshi IIDA, Japanese
     Honorata Grzesikowska, Polish
     Tomasz Magulski, Polish
