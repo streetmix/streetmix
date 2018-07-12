@@ -62,7 +62,7 @@ class SegmentDragLayer extends React.PureComponent {
     return (
       <div className="segment-drag-layer">
         <div className="floating segment" ref={(ref) => { this.floatingEl = ref }}>
-          <SegmentCanvas {...item} forPalette={false} />
+          <SegmentCanvas {...item} />
         </div>
       </div>
     )

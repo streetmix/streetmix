@@ -142,7 +142,6 @@ class Segment extends React.Component {
           width={width}
           type={this.props.type}
           variantString={(isOldVariant) ? this.state.oldVariant : this.props.variantString}
-          forPalette={false}
           randSeed={this.props.randSeed}
           ref={(isOldVariant) ? this.oldSegmentCanvas : this.newSegmentCanvas}
         />
