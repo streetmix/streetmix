@@ -11,6 +11,7 @@ import { getVariantInfoDimensions } from './view'
 import { generateRandSeed } from '../util/random'
 
 const PALETTE_SEGMENT_EXTRA_PADDING = 8
+const PALETTE_SEGMENT_Y_OFFSET = 20
 
 class SegmentForPalette extends React.Component {
   static propTypes = {
@@ -53,6 +54,7 @@ class SegmentForPalette extends React.Component {
           variantString={this.props.variantString}
           randSeed={generateRandSeed()}
           multiplier={(WIDTH_PALETTE_MULTIPLIER / TILE_SIZE)}
+          offsetTop={PALETTE_SEGMENT_Y_OFFSET}
           forPalette
         />
       </div>

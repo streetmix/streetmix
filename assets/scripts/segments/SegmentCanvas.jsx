@@ -5,8 +5,7 @@ import { getSegmentVariantInfo } from './info'
 import { drawSegmentContents, getVariantInfoDimensions } from './view'
 import { TILE_SIZE } from './constants'
 
-const SEGMENT_Y_NORMAL = 265
-const SEGMENT_Y_PALETTE = 20
+const SEGMENT_Y_OFFSET = 265
 const CANVAS_HEIGHT = 480
 const CANVAS_GROUND = 35
 const CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND
@@ -19,11 +18,13 @@ class SegmentCanvas extends React.Component {
     forPalette: PropTypes.bool,
     randSeed: PropTypes.number,
     multiplier: PropTypes.number,
+    offsetTop: PropTypes.number,
     dpi: PropTypes.number
   }
 
   static defaultProps = {
-    multiplier: 1
+    multiplier: 1,
+    offsetTop: SEGMENT_Y_OFFSET
   }
 
   constructor (props) {
@@ -53,11 +54,11 @@ class SegmentCanvas extends React.Component {
   }
 
   drawSegment = () => {
-    const offsetTop = this.props.forPalette ? SEGMENT_Y_PALETTE : SEGMENT_Y_NORMAL
     const canvas = this.canvasEl.current
     const ctx = canvas.getContext('2d')
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    drawSegmentContents(ctx, this.props.type, this.props.variantString, this.props.width, 0, offsetTop, this.props.randSeed, this.props.multiplier, this.props.forPalette)
+
+    drawSegmentContents(ctx, this.props.type, this.props.variantString, this.props.width, 0, this.props.offsetTop, this.props.randSeed, this.props.multiplier, this.props.forPalette)
   }
 
   render () {
