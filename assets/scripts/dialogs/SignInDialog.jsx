@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 import { isEmail } from 'validator'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { goEmailSignIn, goTwitterSignIn, goFacebookSignIn, goGoogleSignIn } from '../app/routing'
 import Icon from '../ui/Icon'
 
@@ -155,7 +154,7 @@ export class SignInDialog extends React.Component {
     if (facebookAuthEnabled) {
       return (
         <button onClick={this.handleFacebookSignIn} className="sign-in-button sign-in-facebook-button">
-          <FontAwesomeIcon icon={['fab', 'facebook-square']} />
+          <Icon icon="facebook" />
           <FormattedMessage id="dialogs.sign-in.button.facebook" defaultMessage="Continue with Facebook" />
         </button>
       )
@@ -179,7 +178,7 @@ export class SignInDialog extends React.Component {
     if (twitterAuthEnabled) {
       return (
         <button className="sign-in-button sign-in-twitter-button" onClick={this.handleTwitterSignIn}>
-          <FontAwesomeIcon icon={['fab', 'twitter']} />
+          <Icon icon="twiiter" />
           <FormattedMessage id="dialogs.sign-in.button.twitter" defaultMessage="Continue with Twitter" />
         </button>
       )
