@@ -8,7 +8,6 @@ import UndoRedo from './UndoRedo'
 import { TILE_SIZE, WIDTH_PALETTE_MULTIPLIER } from '../segments/constants'
 import { getAllSegmentInfo } from '../segments/info'
 import { getVariantInfoDimensions } from '../segments/view'
-import { generateRandSeed } from '../util/random'
 
 const PALETTE_EXTRA_SEGMENT_PADDING = 8
 
@@ -90,7 +89,6 @@ class Palette extends React.Component {
         type={id}
         variantString={variantName}
         width={width * TILE_SIZE / WIDTH_PALETTE_MULTIPLIER}
-        randSeed={generateRandSeed()}
       />)
     }
 

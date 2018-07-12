@@ -6,6 +6,7 @@ import { getEmptyImage } from 'react-dnd-html5-backend'
 import SegmentCanvas from './SegmentCanvas'
 import { Types, paletteSegmentSource, collectDragSource } from './drag_and_drop'
 import { getSegmentVariantInfo, getSegmentInfo } from './info'
+import { generateRandSeed } from '../util/random'
 
 class SegmentForPalette extends React.Component {
   static propTypes = {
@@ -13,7 +14,6 @@ class SegmentForPalette extends React.Component {
     type: PropTypes.string.isRequired,
     variantString: PropTypes.string.isRequired,
     width: PropTypes.number,
-    randSeed: PropTypes.number,
     connectDragSource: PropTypes.func,
     connectDragPreview: PropTypes.func
   }
@@ -38,7 +38,7 @@ class SegmentForPalette extends React.Component {
           width={this.props.width}
           type={this.props.type}
           variantString={this.props.variantString}
-          randSeed={this.props.randSeed}
+          randSeed={generateRandSeed()}
           forPalette
         />
       </div>
