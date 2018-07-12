@@ -5,11 +5,7 @@ import { connect } from 'react-redux'
 import Scrollable from '../ui/Scrollable'
 import SegmentForPalette from '../segments/SegmentForPalette'
 import UndoRedo from './UndoRedo'
-import { TILE_SIZE, WIDTH_PALETTE_MULTIPLIER } from '../segments/constants'
 import { getAllSegmentInfo } from '../segments/info'
-import { getVariantInfoDimensions } from '../segments/view'
-
-const PALETTE_EXTRA_SEGMENT_PADDING = 8
 
 class Palette extends React.Component {
   static propTypes = {
@@ -74,21 +70,10 @@ class Palette extends React.Component {
         variantName = Object.keys(segmentInfo.details).shift()
       }
 
-      const variantInfo = segmentInfo.details[variantName]
-
-      const dimensions = getVariantInfoDimensions(variantInfo, 0, 1)
-
-      let width = dimensions.right - dimensions.left
-      if (!width) {
-        width = segmentInfo.defaultWidth
-      }
-      width += PALETTE_EXTRA_SEGMENT_PADDING
-
       paletteItems.push(<SegmentForPalette
         key={id}
         type={id}
         variantString={variantName}
-        width={width * TILE_SIZE / WIDTH_PALETTE_MULTIPLIER}
       />)
     }
 

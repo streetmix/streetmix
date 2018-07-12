@@ -4,16 +4,19 @@ import { injectIntl, intlShape } from 'react-intl'
 import { DragSource } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 import SegmentCanvas from './SegmentCanvas'
+import { TILE_SIZE, WIDTH_PALETTE_MULTIPLIER } from './constants'
 import { Types, paletteSegmentSource, collectDragSource } from './drag_and_drop'
 import { getSegmentVariantInfo, getSegmentInfo } from './info'
+import { getVariantInfoDimensions } from './view'
 import { generateRandSeed } from '../util/random'
+
+const PALETTE_SEGMENT_EXTRA_PADDING = 8
 
 class SegmentForPalette extends React.Component {
   static propTypes = {
     intl: intlShape.isRequired,
     type: PropTypes.string.isRequired,
     variantString: PropTypes.string.isRequired,
-    width: PropTypes.number,
     connectDragSource: PropTypes.func,
     connectDragPreview: PropTypes.func
   }
@@ -28,14 +31,24 @@ class SegmentForPalette extends React.Component {
     const variantInfo = getSegmentVariantInfo(this.props.type, this.props.variantString)
     const defaultMessage = variantInfo.name || segmentInfo.name
 
+    // Determine width to render at
+    const dimensions = getVariantInfoDimensions(variantInfo, 0, 1)
+
+    let width = dimensions.right - dimensions.left
+    if (!width) {
+      width = segmentInfo.defaultWidth
+    }
+    width += PALETTE_SEGMENT_EXTRA_PADDING
+    width = width * TILE_SIZE / WIDTH_PALETTE_MULTIPLIER
+
     return this.props.connectDragSource(
       <div
-        style={{ width: this.props.width + 'px' }}
+        style={{ width: width + 'px' }}
         className="segment segment-in-palette"
         title={this.props.intl.formatMessage({ id: `segments.${segmentInfo.nameKey}`, defaultMessage })}
       >
         <SegmentCanvas
-          width={this.props.width}
+          width={width}
           type={this.props.type}
           variantString={this.props.variantString}
           randSeed={generateRandSeed()}
