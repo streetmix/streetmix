@@ -32,6 +32,8 @@ class SegmentCanvas extends React.Component {
     this.state = {
       error: null
     }
+
+    this.canvasEl = React.createRef()
   }
 
   componentDidMount () {
@@ -52,8 +54,9 @@ class SegmentCanvas extends React.Component {
 
   drawSegment = () => {
     const offsetTop = this.props.forPalette ? SEGMENT_Y_PALETTE : SEGMENT_Y_NORMAL
-    const ctx = this.canvasEl.getContext('2d')
-    ctx.clearRect(0, 0, this.canvasEl.width, this.canvasEl.height)
+    const canvas = this.canvasEl.current
+    const ctx = canvas.getContext('2d')
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
     drawSegmentContents(ctx, this.props.type, this.props.variantString, this.props.width, 0, offsetTop, this.props.randSeed, this.props.multiplier, this.props.forPalette)
   }
 
@@ -71,7 +74,7 @@ class SegmentCanvas extends React.Component {
     }
 
     return (
-      <canvas className="image" ref={(ref) => { this.canvasEl = ref }} width={canvasWidth} height={canvasHeight} style={canvasStyle} />
+      <canvas className="image" ref={this.canvasEl} width={canvasWidth} height={canvasHeight} style={canvasStyle} />
     )
   }
 }
