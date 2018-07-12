@@ -79,15 +79,10 @@ body.immediate-segment-resize .segment {
   position: absolute;
   left: 0;
   right: 0;
-  top: 0;
-  z-index: -1;
-  height: $canvas-baseline;
-  pointer-events: none;
-}
-
-.segment:not(.segment-in-palette).hover .hover-bk {
   top: 10px;
+  z-index: -1;
   height: $canvas-baseline - 10px;
+  pointer-events: none;
 }
 
 body.segment-resize-dragging .segment.hover {

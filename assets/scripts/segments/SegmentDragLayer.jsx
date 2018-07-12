@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { DragLayer } from 'react-dnd'
 import SegmentCanvas from './SegmentCanvas'
+import { Types } from './drag_and_drop'
 
 const DRAG_OFFSET_Y_PALETTE = -340 - 150
 const MAX_DRAG_DEGREE = 20
@@ -10,7 +11,8 @@ class SegmentDragLayer extends React.PureComponent {
   static propTypes = {
     isDragging: PropTypes.bool.isRequired,
     currentOffset: PropTypes.object,
-    item: PropTypes.object
+    item: PropTypes.object,
+    type: PropTypes.string
   }
 
   getSnapshotBeforeUpdate (prevProps) {
@@ -41,7 +43,8 @@ class SegmentDragLayer extends React.PureComponent {
     if (!currentOffset) return
 
     let { x, y } = currentOffset
-    if (item.forPalette) {
+
+    if (this.props.type === Types.PALETTE_SEGMENT) {
       x -= item.width / 3
       y += DRAG_OFFSET_Y_PALETTE
     }
@@ -69,6 +72,7 @@ class SegmentDragLayer extends React.PureComponent {
 function collect (monitor) {
   return {
     item: monitor.getItem(),
+    type: monitor.getItemType(),
     currentOffset: monitor.getSourceClientOffset(),
     isDragging: monitor.isDragging()
   }

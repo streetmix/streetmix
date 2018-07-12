@@ -43,7 +43,6 @@ class Segment extends React.Component {
     randSeed: PropTypes.number,
 
     width: PropTypes.number,
-    forPalette: PropTypes.bool.isRequired,
     cssTransform: PropTypes.string,
     units: PropTypes.number,
     segmentPos: PropTypes.number,
@@ -51,7 +50,6 @@ class Segment extends React.Component {
     updateSegmentData: PropTypes.func,
     updatePerspective: PropTypes.func,
     locale: PropTypes.string,
-    localeMessages: PropTypes.object,
     infoBubbleHovered: PropTypes.bool,
     descriptionVisible: PropTypes.bool,
     suppressMouseEnter: PropTypes.bool.isRequired,
@@ -80,16 +78,12 @@ class Segment extends React.Component {
   }
 
   componentDidMount = () => {
-    if (!this.props.forPalette) {
-      this.props.updateSegmentData(this.streetSegment, this.props.dataNo, this.props.segmentPos)
-    }
+    this.props.updateSegmentData(this.streetSegment, this.props.dataNo, this.props.segmentPos)
 
     this.props.connectDragPreview(getEmptyImage(), { captureDraggingState: true })
   }
 
   componentDidUpdate (prevProps, prevState) {
-    if (this.props.forPalette) return
-
     if ((prevProps.suppressMouseEnter && !this.props.suppressMouseEnter &&
         infoBubble.considerSegmentEl === this.streetSegment) ||
         (this.props.activeSegment === this.props.dataNo)) {
@@ -117,9 +111,8 @@ class Segment extends React.Component {
 
   calculateSegmentWidths = (resizeType) => {
     let widthValue = this.props.width / TILE_SIZE
-    if (!this.props.forPalette) {
-      widthValue = normalizeSegmentWidth(widthValue, resizeType)
-    }
+
+    widthValue = normalizeSegmentWidth(widthValue, resizeType)
 
     return {
       widthValue,
@@ -128,7 +121,7 @@ class Segment extends React.Component {
   }
 
   onSegmentMouseEnter = (event) => {
-    if (this.props.suppressMouseEnter || suppressMouseEnter() || this.props.forPalette) return
+    if (this.props.suppressMouseEnter || suppressMouseEnter()) return
 
     window.addEventListener('keydown', this.handleKeyDown)
     infoBubble.considerShowing(event, this.streetSegment, INFO_BUBBLE_TYPE_SEGMENT)
@@ -149,7 +142,7 @@ class Segment extends React.Component {
           width={width}
           type={this.props.type}
           variantString={(isOldVariant) ? this.state.oldVariant : this.props.variantString}
-          forPalette={this.props.forPalette}
+          forPalette={false}
           randSeed={this.props.randSeed}
           ref={(isOldVariant) ? this.oldSegmentCanvas : this.newSegmentCanvas}
         />
@@ -229,7 +222,6 @@ class Segment extends React.Component {
     // Get localized names from store, fall back to segment default names if translated
     // text is not found. TODO: port to react-intl/formatMessage later.
     const displayName = t(`segments.${nameKey}`, defaultName, { ns: 'segment-info' })
-    const localizedSegmentName = t(`segments.${segmentInfo.nameKey}`, defaultName, { ns: 'segment-info' })
 
     const segmentWidths = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
     const { width, widthValue } = segmentWidths
@@ -237,24 +229,18 @@ class Segment extends React.Component {
     const segmentStyle = {
       width: width + 'px',
       // In a street, certain segments have stacking priority over others (expressed as z-index).
-      // In a palette, segments are side-by-side so they don't need stacking priority.
       // Setting a z-index here will clobber a separate z-index (applied via CSS) when hovered by mouse pointer
-      zIndex: (this.props.forPalette) ? null : segmentInfo.zIndex,
-      [this.props.cssTransform]: (this.props.forPalette) ? null : 'translateX(' + this.props.segmentPos + 'px)'
+      zIndex: segmentInfo.zIndex,
+      [this.props.cssTransform]: 'translateX(' + this.props.segmentPos + 'px)'
     }
 
     const dataAttributes = {
-      type: this.props.type,
-      'variant-string': this.props.variantString,
-      'rand-seed': this.props.randSeed,
       'data-width': widthValue
     }
 
     const classNames = ['segment']
 
-    if (this.props.forPalette) {
-      classNames.push('segment-in-palette')
-    } else if (this.props.isDragging) {
+    if (this.props.isDragging) {
       classNames.push('dragged-out')
     } else if (this.props.activeSegment === this.props.dataNo) {
       classNames.push('hover', 'show-drag-handles')
@@ -275,23 +261,18 @@ class Segment extends React.Component {
         style={segmentStyle}
         className={classNames.join(' ')}
         {...dataAttributes}
-        title={this.props.forPalette ? localizedSegmentName : null}
         ref={(ref) => { this.streetSegment = ref }}
         onMouseEnter={this.onSegmentMouseEnter}
         onMouseLeave={this.onSegmentMouseLeave}
       >
-        {!this.props.forPalette &&
-          <React.Fragment>
-            <span className="name">
-              {displayName}
-            </span>
-            <span className="width">
-              <MeasurementText value={widthValue} units={this.props.units} locale={this.props.locale} />
-            </span>
-            <span className={'grid' + (this.props.units === SETTINGS_UNITS_METRIC ? ' units-metric' : ' units-imperial')} />
-            <SegmentDragHandles width={width} />
-          </React.Fragment>
-        }
+        <span className="name">
+          {displayName}
+        </span>
+        <span className="width">
+          <MeasurementText value={widthValue} units={this.props.units} locale={this.props.locale} />
+        </span>
+        <span className={'grid' + (this.props.units === SETTINGS_UNITS_METRIC ? ' units-metric' : ' units-imperial')} />
+        <SegmentDragHandles width={width} />
         <CSSTransition
           key="old-variant"
           in={!this.state.switchSegments}
@@ -302,17 +283,15 @@ class Segment extends React.Component {
         >
           {this.renderSegmentCanvas(width, 'old')}
         </CSSTransition>
-        { !this.props.forPalette &&
-          <CSSTransition
-            key="new-variant"
-            in={this.state.switchSegments}
-            classNames="switching-in"
-            timeout={250}
-            unmountOnExit
-          >
-            {this.renderSegmentCanvas(width, 'new')}
-          </CSSTransition>
-        }
+        <CSSTransition
+          key="new-variant"
+          in={this.state.switchSegments}
+          classNames="switching-in"
+          timeout={250}
+          unmountOnExit
+        >
+          {this.renderSegmentCanvas(width, 'new')}
+        </CSSTransition>
         <div className="hover-bk" />
       </div>
     )
@@ -323,7 +302,6 @@ function mapStateToProps (state) {
   return {
     cssTransform: state.system.cssTransform,
     locale: state.locale.locale,
-    localeMessages: state.locale.messages,
     infoBubbleHovered: state.infoBubble.mouseInside,
     descriptionVisible: state.infoBubble.descriptionVisible,
     activeSegment: (typeof state.ui.activeSegment === 'number') ? state.ui.activeSegment : null

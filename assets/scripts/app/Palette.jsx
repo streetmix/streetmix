@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 import { connect } from 'react-redux'
 import Scrollable from '../ui/Scrollable'
-import Segment from '../segments/Segment'
+import SegmentForPalette from '../segments/SegmentForPalette'
 import UndoRedo from './UndoRedo'
 import { TILE_SIZE, WIDTH_PALETTE_MULTIPLIER } from '../segments/constants'
 import { getAllSegmentInfo } from '../segments/info'
@@ -84,13 +84,11 @@ class Palette extends React.Component {
       }
       width += PALETTE_EXTRA_SEGMENT_PADDING
 
-      paletteItems.push(<Segment
+      paletteItems.push(<SegmentForPalette
         key={id}
         type={id}
         variantString={variantName}
         width={width * TILE_SIZE / WIDTH_PALETTE_MULTIPLIER}
-        isUnmovable={false}
-        forPalette
         randSeed={generateRandSeed()}
       />)
     }

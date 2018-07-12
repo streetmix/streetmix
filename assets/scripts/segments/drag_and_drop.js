@@ -382,7 +382,8 @@ function handleSegmentDragStart () {
 }
 
 export const Types = {
-  SEGMENT: 'segment'
+  SEGMENT: 'SEGMENT',
+  PALETTE_SEGMENT: 'PALETTE_SEGMENT'
 }
 
 export const segmentSource = {
@@ -396,15 +397,17 @@ export const segmentSource = {
 
   beginDrag (props, monitor, component) {
     handleSegmentDragStart()
+
     const segmentInfo = getSegmentInfo(props.type)
+    const type = monitor.getItemType()
 
     return {
-      dataNo: (props.forPalette) ? undefined : props.dataNo,
-      variantString: (props.forPalette) ? Object.keys(segmentInfo.details).shift() : props.variantString,
+      dataNo: (type === Types.PALETTE_SEGMENT) ? undefined : props.dataNo,
+      variantString: (type === Types.PALETTE_SEGMENT) ? Object.keys(segmentInfo.details).shift() : props.variantString,
       type: props.type,
-      randSeed: (props.forPalette && segmentInfo.needRandSeed) ? generateRandSeed() : props.randSeed,
-      forPalette: props.forPalette,
-      width: (props.forPalette) ? (segmentInfo.defaultWidth * TILE_SIZE) : props.width
+      randSeed: (type === Types.PALETTE_SEGMENT && segmentInfo.needRandSeed) ? generateRandSeed() : props.randSeed,
+      forPalette: type === Types.PALETTE_SEGMENT,
+      width: (type === Types.PALETTE_SEGMENT) ? (segmentInfo.defaultWidth * TILE_SIZE) : props.width
     }
   },
 
@@ -414,7 +417,7 @@ export const segmentSource = {
 
     if (!monitor.didDrop()) {
       // if no object returned by a drop handler, it is not within the canvas
-      if (!props.forPalette) {
+      if (monitor.getItemType() === Types.SEGMENT) {
         // if existing segment is dropped outside canvas, delete it
         store.dispatch(removeSegment(props.dataNo))
         trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'DRAGGING', null, true)
