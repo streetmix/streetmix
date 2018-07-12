@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { FormattedMessage } from 'react-intl'
+import { IntlProvider, FormattedMessage } from 'react-intl'
 import { connect } from 'react-redux'
 import Scrollable from '../ui/Scrollable'
 import SegmentForPalette from '../segments/SegmentForPalette'
@@ -16,7 +16,8 @@ class Palette extends React.Component {
   static propTypes = {
     everythingLoaded: PropTypes.bool.isRequired,
     flags: PropTypes.object.isRequired,
-    draggingState: PropTypes.object
+    draggingState: PropTypes.object,
+    locale: PropTypes.object
   }
 
   componentDidMount () {
@@ -108,7 +109,12 @@ class Palette extends React.Component {
           <UndoRedo />
         </div>
         <Scrollable className="palette" setRef={this.setScrollableRef} ref={(ref) => { this.scrollable = ref }}>
-          <React.Fragment>{this.props.everythingLoaded && this.renderPaletteItems()}</React.Fragment>
+          <IntlProvider
+            locale={this.props.locale.locale}
+            messages={this.props.locale.segmentInfo}
+          >
+            <React.Fragment>{this.props.everythingLoaded && this.renderPaletteItems()}</React.Fragment>
+          </IntlProvider>
         </Scrollable>
       </div>
     )
@@ -119,7 +125,8 @@ function mapStateToProps (state) {
   return {
     everythingLoaded: state.app.everythingLoaded,
     flags: state.flags,
-    draggingState: state.ui.draggingState
+    draggingState: state.ui.draggingState,
+    locale: state.locale
   }
 }
 
