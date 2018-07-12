@@ -218,7 +218,16 @@
 .sign-in-dialog {
   text-align: left;
   width: 300px;
-  min-height: 300px;
+
+  .sign-in-loading-wrapper {
+    min-height: 200px;
+
+    .sign-in-message {
+      text-align: center;
+      font-weight: normal;
+      font-size: 18px;
+    }
+  }
 
   button {
     width: 100%;
@@ -275,21 +284,9 @@
     line-height: 0;
   }
 
-  .sign-in-message {
-    text-align: center;
-    font-weight: normal;
-    font-size: 18px;
-  }
-
-  .sign-in-loading-message {
-    position: relative;
-    top: 90px;
-  }
-
   .sign-in-email-sent-block {
     text-align: center;
-    position: relative;
-    top: 90px;
+    min-height: 200px;
 
     .sign-in-message {
       margin-bottom: 40px;
@@ -310,7 +307,7 @@
 
     button {
       padding: 10px !important;
-      text-align: center;
+      justify-content: center;
 
       span {
         padding: 5px;

@@ -20,7 +20,7 @@ export class SignInDialog extends React.Component {
     this.state = {
       email: '',
       emailSent: false,
-      sendingEmail: true,
+      sendingEmail: false,
       error: false,
       errorMesg: '',
       signingIn: false
@@ -191,10 +191,12 @@ export class SignInDialog extends React.Component {
     if (sendingEmail || signingIn) {
       return (
         <div className="sign-in-dialog">
-          <p className="sign-in-message sign-in-loading-message">
-            <FormattedMessage id="dialogs.sign-in.loading-message" defaultMessage="Signing you in..." />
-          </p>
-          <div className="loading-spinner" />
+          <div className="sign-in-loading-wrapper">
+            <p className="sign-in-message sign-in-loading-message">
+              <FormattedMessage id="dialogs.sign-in.loading-message" defaultMessage="Signing you in..." />
+            </p>
+            <div className="loading-spinner" />
+          </div>
         </div>
       )
     } else if (emailSent) {
