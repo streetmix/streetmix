@@ -66,12 +66,14 @@ class SegmentCanvas extends React.Component {
     const dimensions = getVariantInfoDimensions(variantInfo, this.props.width, this.props.multiplier)
     const totalWidth = dimensions.right - dimensions.left
 
-    const canvasWidth = this.props.forPalette ? this.props.width * this.props.dpi : totalWidth * TILE_SIZE * this.props.dpi
+    const displayWidth = (this.props.forPalette ? this.props.width : totalWidth * TILE_SIZE)
+
+    const canvasWidth = displayWidth * this.props.dpi
     const canvasHeight = CANVAS_BASELINE * this.props.dpi
     const canvasStyle = {
-      width: this.props.forPalette ? this.props.width : totalWidth * TILE_SIZE,
+      width: displayWidth,
       height: CANVAS_BASELINE,
-      left: (dimensions.left * TILE_SIZE * this.props.multiplier)
+      left: dimensions.left * TILE_SIZE * this.props.multiplier
     }
 
     return (

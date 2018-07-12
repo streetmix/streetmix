@@ -4,7 +4,7 @@ import { injectIntl, intlShape } from 'react-intl'
 import { DragSource } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 import SegmentCanvas from './SegmentCanvas'
-import { TILE_SIZE, WIDTH_PALETTE_MULTIPLIER } from './constants'
+import { TILE_SIZE } from './constants'
 import { Types, paletteSegmentSource, collectDragSource } from './drag_and_drop'
 import { getSegmentVariantInfo, getSegmentInfo } from './info'
 import { getVariantInfoDimensions } from './view'
@@ -12,6 +12,7 @@ import { generateRandSeed } from '../util/random'
 
 const PALETTE_SEGMENT_EXTRA_PADDING = 8
 const PALETTE_SEGMENT_Y_OFFSET = 20
+const PALETTE_SEGMENT_MULTIPLIER = 4
 
 class SegmentForPalette extends React.Component {
   static propTypes = {
@@ -40,7 +41,7 @@ class SegmentForPalette extends React.Component {
       width = segmentInfo.defaultWidth
     }
     width += PALETTE_SEGMENT_EXTRA_PADDING
-    width = width * TILE_SIZE / WIDTH_PALETTE_MULTIPLIER
+    width = width * TILE_SIZE / PALETTE_SEGMENT_MULTIPLIER
 
     return this.props.connectDragSource(
       <div
@@ -53,7 +54,7 @@ class SegmentForPalette extends React.Component {
           type={this.props.type}
           variantString={this.props.variantString}
           randSeed={generateRandSeed()}
-          multiplier={(WIDTH_PALETTE_MULTIPLIER / TILE_SIZE)}
+          multiplier={(PALETTE_SEGMENT_MULTIPLIER / TILE_SIZE)}
           offsetTop={PALETTE_SEGMENT_Y_OFFSET}
           forPalette
         />
