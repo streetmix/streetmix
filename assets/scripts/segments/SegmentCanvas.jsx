@@ -58,7 +58,7 @@ class SegmentCanvas extends React.Component {
     const ctx = canvas.getContext('2d')
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-    drawSegmentContents(ctx, this.props.type, this.props.variantString, this.props.width, 0, this.props.offsetTop, this.props.randSeed, this.props.multiplier, this.props.forPalette)
+    drawSegmentContents(ctx, this.props.type, this.props.variantString, this.props.width, 0, this.props.offsetTop, this.props.randSeed, this.props.multiplier, this.props.dpi)
   }
 
   render () {

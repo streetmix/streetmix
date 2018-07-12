@@ -164,10 +164,9 @@ export function getVariantInfoDimensions (variantInfo, initialSegmentWidth, mult
  * @param {Number} offsetTop
  * @param {Number} randSeed
  * @param {Number} multiplier
- * @param {Boolean} palette
  * @param {Number} dpi
  */
-export function drawSegmentContents (ctx, type, variantString, segmentWidth, offsetLeft, offsetTop, randSeed, multiplier, palette, dpi) {
+export function drawSegmentContents (ctx, type, variantString, segmentWidth, offsetLeft, offsetTop, randSeed, multiplier, dpi) {
   const variantInfo = getSegmentVariantInfo(type, variantString)
   const graphics = variantInfo.graphics
   const dimensions = getVariantInfoDimensions(variantInfo, segmentWidth, multiplier)
