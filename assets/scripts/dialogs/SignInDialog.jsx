@@ -178,7 +178,7 @@ export class SignInDialog extends React.Component {
     if (twitterAuthEnabled) {
       return (
         <button className="sign-in-button sign-in-twitter-button" onClick={this.handleTwitterSignIn}>
-          <Icon icon="twiiter" />
+          <Icon icon="twitter" />
           <FormattedMessage id="dialogs.sign-in.button.twitter" defaultMessage="Continue with Twitter" />
         </button>
       )
