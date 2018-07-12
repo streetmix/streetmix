@@ -4,11 +4,6 @@ import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { system } from '../preinit/system_capabilities'
 import { setIgnoreStreetChanges } from '../streets/data_model'
 import {
-  SEGMENT_WARNING_OUTSIDE,
-  SEGMENT_WARNING_WIDTH_TOO_SMALL,
-  SEGMENT_WARNING_WIDTH_TOO_LARGE
-} from '../streets/width'
-import {
   DRAGGING_TYPE_NONE,
   draggingResize,
   changeDraggingType
@@ -17,7 +12,7 @@ import { segmentsChanged } from './view'
 import store from '../store'
 import { updateSegments, changeSegmentWidth } from '../store/actions/street'
 
-export const SHORT_DELAY = 100
+const SHORT_DELAY = 100
 
 export const RESIZE_TYPE_INITIAL = 0
 const RESIZE_TYPE_INCREMENT = 1
@@ -151,33 +146,10 @@ export function incrementSegmentWidth (dataNo, add, precise, origWidth) {
   return width
 }
 
-export function applyWarningsToSegments () {
-  const street = store.getState().street
-  for (var i in street.segments) {
-    var segment = street.segments[i]
-
-    if (segment.el) {
-      if (segment.warnings[SEGMENT_WARNING_OUTSIDE] ||
-        segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] ||
-        segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE]) {
-        segment.el.classList.add('warning')
-      } else {
-        segment.el.classList.remove('warning')
-      }
-
-      if (segment.warnings[SEGMENT_WARNING_OUTSIDE]) {
-        segment.el.classList.add('outside')
-      } else {
-        segment.el.classList.remove('outside')
-      }
-    }
-  }
-}
-
 let controlsFadeoutDelayTimer = -1
 let controlsFadeoutHideTimer = -1
 
-export function scheduleControlsFadeout (el) {
+function scheduleControlsFadeout (el) {
   infoBubble.considerShowing(null, el, INFO_BUBBLE_TYPE_SEGMENT)
 
   resumeFadeoutControls()

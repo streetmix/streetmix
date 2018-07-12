@@ -1,13 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { DragSource, DropTarget } from 'react-dnd'
+import { getEmptyImage } from 'react-dnd-html5-backend'
+import flow from 'lodash/flow'
 import MeasurementText from '../ui/MeasurementText'
 import SegmentCanvas from './SegmentCanvas'
 import SegmentDragHandles from './SegmentDragHandles'
 import { CSSTransition } from 'react-transition-group'
 import { getSegmentVariantInfo, getSegmentInfo } from '../segments/info'
 import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, suppressMouseEnter, incrementSegmentWidth } from './resizing'
-import { TILE_SIZE } from './constants'
+import {
+  TILE_SIZE,
+  SEGMENT_WARNING_OUTSIDE,
+  SEGMENT_WARNING_WIDTH_TOO_SMALL,
+  SEGMENT_WARNING_WIDTH_TOO_LARGE
+} from '../segments/constants'
 import { removeSegment, removeAllSegments } from './remove'
 import { SETTINGS_UNITS_METRIC } from '../users/constants'
 import { infoBubble } from '../info_bubble/info_bubble'
@@ -15,11 +23,20 @@ import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { KEYS } from '../app/keyboard_commands'
 import { trackEvent } from '../app/event_tracking'
 import { t } from '../locales/locale'
+import {
+  Types,
+  segmentSource,
+  collectDragSource,
+  segmentTarget,
+  collectDropTarget
+} from './drag_and_drop'
 
 class Segment extends React.Component {
   static propTypes = {
     type: PropTypes.string.isRequired,
     variantString: PropTypes.string.isRequired,
+    // TODO: consolidate props to `segment`
+    segment: PropTypes.object,
     randSeed: PropTypes.number,
     isUnmovable: PropTypes.bool.isRequired,
     width: PropTypes.number,
@@ -34,7 +51,12 @@ class Segment extends React.Component {
     localeMessages: PropTypes.object,
     infoBubbleHovered: PropTypes.bool,
     descriptionVisible: PropTypes.bool,
-    suppressMouseEnter: PropTypes.bool.isRequired
+    suppressMouseEnter: PropTypes.bool.isRequired,
+    connectDragSource: PropTypes.func,
+    isDragging: PropTypes.bool,
+    connectDragPreview: PropTypes.func,
+    connectDropTarget: PropTypes.func,
+    activeSegment: PropTypes.number
   }
 
   static defaultProps = {
@@ -58,13 +80,16 @@ class Segment extends React.Component {
     if (!this.props.forPalette) {
       this.props.updateSegmentData(this.streetSegment, this.props.dataNo, this.props.segmentPos)
     }
+
+    this.props.connectDragPreview(getEmptyImage(), { captureDraggingState: true })
   }
 
   componentDidUpdate (prevProps, prevState) {
     if (this.props.forPalette) return
 
-    if (prevProps.suppressMouseEnter && !this.props.suppressMouseEnter &&
-        infoBubble.considerSegmentEl === this.streetSegment) {
+    if ((prevProps.suppressMouseEnter && !this.props.suppressMouseEnter &&
+        infoBubble.considerSegmentEl === this.streetSegment) ||
+        (this.props.activeSegment === this.props.dataNo)) {
       infoBubble.considerShowing(false, this.streetSegment, INFO_BUBBLE_TYPE_SEGMENT)
     }
 
@@ -113,8 +138,9 @@ class Segment extends React.Component {
 
   renderSegmentCanvas = (width, variantType) => {
     const isOldVariant = (variantType === 'old')
+    const { connectDragSource, connectDropTarget } = this.props
 
-    return (
+    return connectDragSource(connectDropTarget(
       <div className="segment-canvas-container">
         <SegmentCanvas
           width={width}
@@ -125,7 +151,7 @@ class Segment extends React.Component {
           ref={(isOldVariant) ? this.oldSegmentCanvas : this.newSegmentCanvas}
         />
       </div>
-    )
+    ))
   }
 
   /**
@@ -190,6 +216,8 @@ class Segment extends React.Component {
   }
 
   render () {
+    const { segment } = this.props
+
     const segmentInfo = getSegmentInfo(this.props.type)
     const variantInfo = getSegmentVariantInfo(this.props.type, this.props.variantString)
     const defaultName = variantInfo.name || segmentInfo.name // the name to display if there isn't a localized version of it
@@ -219,10 +247,33 @@ class Segment extends React.Component {
       'data-width': widthValue
     }
 
+    const classNames = ['segment']
+
+    if (this.props.isUnmovable) {
+      classNames.push('unmovable')
+    }
+    if (this.props.forPalette) {
+      classNames.push('segment-in-palette')
+    } else if (this.props.isDragging) {
+      classNames.push('dragged-out')
+    } else if (this.props.activeSegment === this.props.dataNo) {
+      classNames.push('hover', 'show-drag-handles')
+    }
+
+    // Palette segments don't have `segment` defined
+    if (segment && segment.warnings) {
+      if (segment.warnings[SEGMENT_WARNING_OUTSIDE] || segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] || segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE]) {
+        classNames.push('warning')
+      }
+      if (segment.warnings[SEGMENT_WARNING_OUTSIDE]) {
+        classNames.push('outside')
+      }
+    }
+
     return (
       <div
         style={segmentStyle}
-        className={'segment' + (this.props.isUnmovable ? ' unmovable' : '') + (this.props.forPalette ? ' segment-in-palette' : '')}
+        className={classNames.join(' ')}
         {...dataAttributes}
         title={this.props.forPalette ? localizedSegmentName : null}
         ref={(ref) => { this.streetSegment = ref }}
@@ -274,8 +325,13 @@ function mapStateToProps (state) {
     locale: state.locale.locale,
     localeMessages: state.locale.messages,
     infoBubbleHovered: state.infoBubble.mouseInside,
-    descriptionVisible: state.infoBubble.descriptionVisible
+    descriptionVisible: state.infoBubble.descriptionVisible,
+    activeSegment: (typeof state.ui.activeSegment === 'number') ? state.ui.activeSegment : null
   }
 }
 
-export default connect(mapStateToProps)(Segment)
+export default flow(
+  DragSource(Types.SEGMENT, segmentSource, collectDragSource),
+  DropTarget(Types.SEGMENT, segmentTarget, collectDropTarget),
+  connect(mapStateToProps)
+)(Segment)

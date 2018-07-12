@@ -26,7 +26,16 @@
 .segment-canvas-container {
   width: 100%;
   height: 100%;
+}
+
+.segment-drag-layer {
+  position: fixed;
   pointer-events: none;
+  z-index: 400;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
 }
 
 body.segment-move-dragging .segment-empty {
@@ -330,12 +339,9 @@ body.not-within-canvas * {
   cursor: no-drop !important;
 }
 
-body.segment-move-dragging #editable-street-section .segment {
+body.segment-move-dragging #street-section-editable .segment {
   transition: left 100ms, transform 300ms;
-}
-
-body.segment-move-dragging #editable-street-section > div {
-  pointer-events: none;
+  height: $canvas-height + 85px + 30px + 90px;
 }
 
 .switching-away-exit {

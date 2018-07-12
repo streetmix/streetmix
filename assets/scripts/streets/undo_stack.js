@@ -4,6 +4,7 @@ import { trackEvent } from '../app/event_tracking'
 import { t } from '../locales/locale'
 import { showStatusMessage, hideStatusMessage } from '../app/status_message'
 import { infoBubble } from '../info_bubble/info_bubble'
+import { cancelSegmentResizeTransitions } from '../segments/resizing'
 import {
   trimStreetData,
   setUpdateTimeToNow,
@@ -31,6 +32,7 @@ function finishUndoOrRedo () {
   // set current street to the thing we just updated
   const state = store.getState().undo
   store.dispatch(updateStreetData(cloneDeep(state.stack[state.position])))
+  cancelSegmentResizeTransitions()
 
   setUpdateTimeToNow()
 

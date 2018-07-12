@@ -1,23 +1,12 @@
 import { images } from '../app/load_resources'
 import { t } from '../locales/locale'
-import { system } from '../preinit/system_capabilities'
 import { saveStreetToServerIfNecessary } from '../streets/data_model'
 import { recalculateWidth } from '../streets/width'
-import { draggingMove } from './drag_and_drop'
 import { getSegmentInfo, getSegmentVariantInfo, getSpriteDef } from './info'
 import { drawProgrammaticPeople } from './people'
-import { TILE_SIZE, TILESET_POINT_PER_PIXEL, WIDTH_PALETTE_MULTIPLIER } from './constants'
-import { applyWarningsToSegments } from './resizing'
+import { TILE_SIZE, TILESET_POINT_PER_PIXEL } from './constants'
 import store from '../store'
-
-const CANVAS_HEIGHT = 480
-const CANVAS_GROUND = 35
-const CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND
-
-const SEGMENT_Y_NORMAL = 265
-const SEGMENT_Y_PALETTE = 20
-
-const DRAGGING_MOVE_HOLE_WIDTH = 40
+import { updateSegments } from '../store/actions/street'
 
 /**
  * Draws SVG sprite to canvas
@@ -261,49 +250,6 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
   }
 }
 
-export function setSegmentContents (el, type, variantString, segmentWidth, randSeed, palette, quickUpdate) {
-  let canvasEl
-  const variantInfo = getSegmentVariantInfo(type, variantString)
-
-  var multiplier = palette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1
-  var dimensions = getVariantInfoDimensions(variantInfo, segmentWidth, multiplier)
-
-  var totalWidth = dimensions.right - dimensions.left
-
-  var offsetTop = palette ? SEGMENT_Y_PALETTE : SEGMENT_Y_NORMAL
-
-  if (!quickUpdate) {
-    var hoverBkEl = document.createElement('div')
-    hoverBkEl.classList.add('hover-bk')
-  }
-
-  if (!quickUpdate) {
-    canvasEl = document.createElement('canvas')
-    canvasEl.classList.add('image')
-  } else {
-    canvasEl = el.querySelector('canvas')
-  }
-  canvasEl.width = totalWidth * TILE_SIZE * system.hiDpi
-  canvasEl.height = CANVAS_BASELINE * system.hiDpi
-  canvasEl.style.width = (totalWidth * TILE_SIZE) + 'px'
-  canvasEl.style.height = CANVAS_BASELINE + 'px'
-  canvasEl.style.left = (dimensions.left * TILE_SIZE * multiplier) + 'px'
-
-  var ctx = canvasEl.getContext('2d')
-
-  drawSegmentContents(ctx, type, variantString, segmentWidth, 0, offsetTop, randSeed, multiplier, palette)
-
-  if (!quickUpdate) {
-    const removeEl = el.querySelector('canvas')
-    if (removeEl) removeEl.remove()
-    el.appendChild(canvasEl)
-
-    const removeEl2 = el.querySelector('.hover-bk')
-    if (removeEl2) removeEl2.remove()
-    el.appendChild(hoverBkEl)
-  }
-}
-
 export function getLocaleSegmentName (type, variantString) {
   const segmentInfo = getSegmentInfo(type)
   const variantInfo = getSegmentVariantInfo(type, variantString)
@@ -314,72 +260,15 @@ export function getLocaleSegmentName (type, variantString) {
   return t(key, defaultName, { ns: 'segment-info' })
 }
 
-export function repositionSegments () {
-  let width, el
-  var left = 0
-  var noMoveLeft = 0
-
-  const street = store.getState().street
-  for (let i in street.segments) {
-    el = street.segments[i].el
-
-    if (el === draggingMove.segmentBeforeEl) {
-      left += DRAGGING_MOVE_HOLE_WIDTH
-
-      if (!draggingMove.segmentAfterEl) {
-        left += DRAGGING_MOVE_HOLE_WIDTH
-      }
-    }
-
-    if (el.classList.contains('dragged-out')) {
-      width = 0
-    } else {
-      width = parseFloat(el.getAttribute('data-width')) * TILE_SIZE
-    }
-
-    el.savedLeft = Math.round(left) // so we don’t have to use offsetLeft
-    el.savedNoMoveLeft = Math.round(noMoveLeft) // so we don’t have to use offsetLeft
-    el.savedWidth = Math.round(width)
-
-    left += width
-    noMoveLeft += width
-
-    if (el === draggingMove.segmentAfterEl) {
-      left += DRAGGING_MOVE_HOLE_WIDTH
-
-      if (!draggingMove.segmentBeforeEl) {
-        left += DRAGGING_MOVE_HOLE_WIDTH
-      }
-    }
-  }
-
-  var occupiedWidth = left
-  var noMoveOccupiedWidth = noMoveLeft
-
-  var mainLeft = Math.round(((street.width * TILE_SIZE) - occupiedWidth) / 2)
-  var mainNoMoveLeft = Math.round(((street.width * TILE_SIZE) - noMoveOccupiedWidth) / 2)
-
-  for (let i in street.segments) {
-    el = street.segments[i].el
-
-    el.savedLeft += mainLeft
-    el.savedNoMoveLeft += mainNoMoveLeft
-
-    if (system.cssTransform) {
-      el.style[system.cssTransform] = 'translateX(' + el.savedLeft + 'px)'
-      el.cssTransformLeft = el.savedLeft
-    } else {
-      el.style.left = el.savedLeft + 'px'
-    }
-  }
-}
-
 /**
  * TODO: remove this
  */
 export function segmentsChanged () {
-  recalculateWidth()
-  applyWarningsToSegments()
+  const street = store.getState().street
+  const updatedStreet = recalculateWidth(street)
+
+  store.dispatch(updateSegments(updatedStreet.segments, updatedStreet.occupiedWidth, updatedStreet.remainingWidth))
+
   saveStreetToServerIfNecessary()
 }
 

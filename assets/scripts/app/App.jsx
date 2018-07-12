@@ -2,6 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { IntlProvider } from 'react-intl'
+import MultiBackend from 'react-dnd-multi-backend'
+import HTML5toTouch from 'react-dnd-multi-backend/lib/HTML5ToTouch'
+import { DragDropContext } from 'react-dnd'
+import flow from 'lodash/flow'
 import NOTIFICATION from '../../../app/data/notification.json'
 
 import NotificationBar from './NotificationBar'
@@ -20,6 +24,7 @@ import GalleryShield from '../gallery/GalleryShield'
 import BlockingShield from './BlockingShield'
 import BlockingError from './BlockingError'
 import StreetView from './StreetView'
+import SegmentDragLayer from '../segments/SegmentDragLayer'
 import DebugHoverPolygon from '../info_bubble/DebugHoverPolygon'
 import PrintContainer from './PrintContainer'
 
@@ -62,7 +67,7 @@ class App extends React.PureComponent {
               <NoConnectionMessage />
             </React.Fragment>
           </IntlProvider>
-
+          <SegmentDragLayer />
           <StreetView />
         </div>
 
@@ -80,4 +85,7 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(App)
+export default flow(
+  connect(mapStateToProps),
+  DragDropContext(MultiBackend(HTML5toTouch))
+)(App)

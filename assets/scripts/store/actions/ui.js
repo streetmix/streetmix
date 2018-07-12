@@ -2,7 +2,8 @@ import {
   SHOW_STREET_NAME_CANVAS,
   HIDE_STREET_NAME_CANVAS,
   SET_UNIT_SETTINGS,
-  SET_ACTIVE_SEGMENT
+  SET_ACTIVE_SEGMENT,
+  UPDATE_DRAGGING_STATE
 } from './index'
 
 export function showStreetNameCanvas () {
@@ -29,5 +30,21 @@ export function setActiveSegment (position) {
   return {
     type: SET_ACTIVE_SEGMENT,
     position: (isBuilding) ? position : Number.parseInt(position, 10)
+  }
+}
+
+export function updateDraggingState (segmentBeforeEl, segmentAfterEl, draggedSegment) {
+  return {
+    type: UPDATE_DRAGGING_STATE,
+    segmentBeforeEl,
+    segmentAfterEl,
+    draggedSegment
+  }
+}
+
+export function clearDraggingState () {
+  return {
+    type: UPDATE_DRAGGING_STATE,
+    clearState: true
   }
 }
