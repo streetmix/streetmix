@@ -16,11 +16,7 @@ const initialState = {
     clickIncrement: constants.SEGMENT_WIDTH_CLICK_INCREMENT_METRIC
   },
   activeSegment: null,
-  draggingState: {
-    segmentBeforeEl: null,
-    segmentAfterEl: null,
-    draggedSegment: null
-  }
+  draggingState: null
 }
 
 const ui = (state = initialState, action) => {
@@ -62,11 +58,7 @@ const ui = (state = initialState, action) => {
     case CLEAR_DRAGGING_STATE:
       return {
         ...state,
-        draggingState: {
-          segmentBeforeEl: null,
-          segmentAfterEl: null,
-          draggedSegment: null
-        }
+        draggingState: null
       }
     default:
       return state

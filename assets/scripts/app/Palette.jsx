@@ -85,7 +85,7 @@ class Palette extends React.Component {
 
     return (
       <div className="palette-container">
-        <div className={'palette-trashcan' + (draggingState && draggingState.draggedSegment ? ' visible' : '')}>
+        <div className={'palette-trashcan' + (draggingState && draggingState.draggedSegment !== undefined ? ' visible' : '')}>
           <FormattedMessage id="palette.remove" defaultMessage="Drag here to remove" />
         </div>
         <div className="palette-commands" ref={(ref) => { this.commandsEl = ref }}>
