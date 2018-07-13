@@ -1,22 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { FormattedMessage } from 'react-intl'
+import { IntlProvider, FormattedMessage } from 'react-intl'
 import { connect } from 'react-redux'
 import Scrollable from '../ui/Scrollable'
-import Segment from '../segments/Segment'
+import SegmentForPalette from '../segments/SegmentForPalette'
 import UndoRedo from './UndoRedo'
-import { TILE_SIZE, WIDTH_PALETTE_MULTIPLIER } from '../segments/constants'
 import { getAllSegmentInfo } from '../segments/info'
-import { getVariantInfoDimensions } from '../segments/view'
-import { generateRandSeed } from '../util/random'
-
-const PALETTE_EXTRA_SEGMENT_PADDING = 8
 
 class Palette extends React.Component {
   static propTypes = {
     everythingLoaded: PropTypes.bool.isRequired,
     flags: PropTypes.object.isRequired,
-    draggingState: PropTypes.object
+    draggingState: PropTypes.object,
+    locale: PropTypes.object
   }
 
   componentDidMount () {
@@ -74,24 +70,10 @@ class Palette extends React.Component {
         variantName = Object.keys(segmentInfo.details).shift()
       }
 
-      const variantInfo = segmentInfo.details[variantName]
-
-      const dimensions = getVariantInfoDimensions(variantInfo, 0, 1)
-
-      let width = dimensions.right - dimensions.left
-      if (!width) {
-        width = segmentInfo.defaultWidth
-      }
-      width += PALETTE_EXTRA_SEGMENT_PADDING
-
-      paletteItems.push(<Segment
+      paletteItems.push(<SegmentForPalette
         key={id}
         type={id}
         variantString={variantName}
-        width={width * TILE_SIZE / WIDTH_PALETTE_MULTIPLIER}
-        isUnmovable={false}
-        forPalette
-        randSeed={generateRandSeed()}
       />)
     }
 
@@ -110,7 +92,12 @@ class Palette extends React.Component {
           <UndoRedo />
         </div>
         <Scrollable className="palette" setRef={this.setScrollableRef} ref={(ref) => { this.scrollable = ref }}>
-          <React.Fragment>{this.props.everythingLoaded && this.renderPaletteItems()}</React.Fragment>
+          <IntlProvider
+            locale={this.props.locale.locale}
+            messages={this.props.locale.segmentInfo}
+          >
+            <React.Fragment>{this.props.everythingLoaded && this.renderPaletteItems()}</React.Fragment>
+          </IntlProvider>
         </Scrollable>
       </div>
     )
@@ -121,7 +108,8 @@ function mapStateToProps (state) {
   return {
     everythingLoaded: state.app.everythingLoaded,
     flags: state.flags,
-    draggingState: state.ui.draggingState
+    draggingState: state.ui.draggingState,
+    locale: state.locale
   }
 }
 

@@ -13,12 +13,17 @@ import { Types, canvasTarget, collectDropTarget, makeSpaceBetweenSegments } from
 
 class StreetEditable extends React.Component {
   static propTypes = {
+    // Provided by parent
     onResized: PropTypes.bool.isRequired,
     setBuildingWidth: PropTypes.func.isRequired,
-    street: PropTypes.object.isRequired,
     updatePerspective: PropTypes.func.isRequired,
-    connectDropTarget: PropTypes.func,
+
+    // Provided by store
+    street: PropTypes.object.isRequired,
     draggingState: PropTypes.object,
+
+    // Provided by DropTarget
+    connectDropTarget: PropTypes.func,
     isOver: PropTypes.bool
   }
 
@@ -137,8 +142,6 @@ class StreetEditable extends React.Component {
             variantString={segment.variantString}
             segment={segment}
             width={segmentWidth}
-            isUnmovable={false}
-            forPalette={false}
             units={units}
             randSeed={segment.randSeed}
             segmentPos={segmentPos}
@@ -182,6 +185,6 @@ function mapStateToProps (state) {
 }
 
 export default flow(
-  DropTarget(Types.SEGMENT, canvasTarget, collectDropTarget),
+  DropTarget([Types.SEGMENT, Types.PALETTE_SEGMENT], canvasTarget, collectDropTarget),
   connect(mapStateToProps)
 )(StreetEditable)

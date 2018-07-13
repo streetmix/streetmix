@@ -3,10 +3,9 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getSegmentVariantInfo } from './info'
 import { drawSegmentContents, getVariantInfoDimensions } from './view'
-import { TILE_SIZE, WIDTH_PALETTE_MULTIPLIER } from './constants'
+import { TILE_SIZE } from './constants'
 
-const SEGMENT_Y_NORMAL = 265
-const SEGMENT_Y_PALETTE = 20
+const SEGMENT_Y_OFFSET = 265
 const CANVAS_HEIGHT = 480
 const CANVAS_GROUND = 35
 const CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND
@@ -18,7 +17,14 @@ class SegmentCanvas extends React.Component {
     variantString: PropTypes.string.isRequired,
     forPalette: PropTypes.bool,
     randSeed: PropTypes.number,
+    multiplier: PropTypes.number,
+    offsetTop: PropTypes.number,
     dpi: PropTypes.number
+  }
+
+  static defaultProps = {
+    multiplier: 1,
+    offsetTop: SEGMENT_Y_OFFSET
   }
 
   constructor (props) {
@@ -27,6 +33,8 @@ class SegmentCanvas extends React.Component {
     this.state = {
       error: null
     }
+
+    this.canvasEl = React.createRef()
   }
 
   componentDidMount () {
@@ -34,9 +42,7 @@ class SegmentCanvas extends React.Component {
   }
 
   componentDidUpdate (prevProps) {
-    if (!this.props.forPalette) {
-      this.drawSegment()
-    }
+    this.drawSegment()
   }
 
   componentDidCatch (error, info) {
@@ -46,29 +52,30 @@ class SegmentCanvas extends React.Component {
   }
 
   drawSegment = () => {
-    const multiplier = this.props.forPalette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1
-    const offsetTop = this.props.forPalette ? SEGMENT_Y_PALETTE : SEGMENT_Y_NORMAL
-    const ctx = this.canvasEl.getContext('2d')
-    ctx.clearRect(0, 0, this.canvasEl.width, this.canvasEl.height)
-    drawSegmentContents(ctx, this.props.type, this.props.variantString, this.props.width, 0, offsetTop, this.props.randSeed, multiplier, this.props.forPalette)
+    const canvas = this.canvasEl.current
+    const ctx = canvas.getContext('2d')
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+    drawSegmentContents(ctx, this.props.type, this.props.variantString, this.props.width, 0, this.props.offsetTop, this.props.randSeed, this.props.multiplier, this.props.dpi)
   }
 
   render () {
     const variantInfo = getSegmentVariantInfo(this.props.type, this.props.variantString)
-    const multiplier = this.props.forPalette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1
-    const dimensions = getVariantInfoDimensions(variantInfo, this.props.width, multiplier)
+    const dimensions = getVariantInfoDimensions(variantInfo, this.props.width)
     const totalWidth = dimensions.right - dimensions.left
 
-    const canvasWidth = this.props.forPalette ? this.props.width * this.props.dpi : totalWidth * TILE_SIZE * this.props.dpi
+    const displayWidth = (this.props.forPalette ? this.props.width : totalWidth * TILE_SIZE)
+
+    const canvasWidth = displayWidth * this.props.dpi
     const canvasHeight = CANVAS_BASELINE * this.props.dpi
     const canvasStyle = {
-      width: this.props.forPalette ? this.props.width : totalWidth * TILE_SIZE,
+      width: displayWidth,
       height: CANVAS_BASELINE,
-      left: (dimensions.left * TILE_SIZE * multiplier)
+      left: dimensions.left * TILE_SIZE * this.props.multiplier
     }
 
     return (
-      <canvas className="image" ref={(ref) => { this.canvasEl = ref }} width={canvasWidth} height={canvasHeight} style={canvasStyle} />
+      <canvas className="image" ref={this.canvasEl} width={canvasWidth} height={canvasHeight} style={canvasStyle} />
     )
   }
 }

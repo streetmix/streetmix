@@ -128,7 +128,7 @@ body.controls-fade-out .segment .drag-handle {
   opacity: 0.01 !important;
 }
 
-body.controls-fade-out .segment:not(.unmovable).hover .hover-bk {
+body.controls-fade-out .segment.hover .hover-bk {
   transition: opacity $touch-controls-fadeout-time !important;
   opacity: 0.01 !important;
 }
