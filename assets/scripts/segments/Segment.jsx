@@ -102,6 +102,10 @@ class Segment extends React.Component {
     this.props.updateSegmentData(this.streetSegment, this.props.dataNo, this.props.segmentPos)
   }
 
+  componentWillUnmount = () => {
+    window.removeEventListener('keydown', this.handleKeyDown)
+  }
+
   switchSegments = (oldVariant) => {
     this.setState({
       switchSegments: !(this.state.switchSegments),
