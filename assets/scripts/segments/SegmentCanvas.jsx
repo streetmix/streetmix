@@ -61,7 +61,7 @@ class SegmentCanvas extends React.Component {
 
   render () {
     const variantInfo = getSegmentVariantInfo(this.props.type, this.props.variantString)
-    const dimensions = getVariantInfoDimensions(variantInfo, this.props.width, this.props.multiplier)
+    const dimensions = getVariantInfoDimensions(variantInfo, this.props.width)
     const totalWidth = dimensions.right - dimensions.left
 
     const displayWidth = (this.props.forPalette ? this.props.width : totalWidth * TILE_SIZE)
