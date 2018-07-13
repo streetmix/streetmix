@@ -13,12 +13,17 @@ import { Types, canvasTarget, collectDropTarget, makeSpaceBetweenSegments } from
 
 class StreetEditable extends React.Component {
   static propTypes = {
+    // Provided by parent
     onResized: PropTypes.bool.isRequired,
     setBuildingWidth: PropTypes.func.isRequired,
-    street: PropTypes.object.isRequired,
     updatePerspective: PropTypes.func.isRequired,
-    connectDropTarget: PropTypes.func,
+
+    // Provided by store
+    street: PropTypes.object.isRequired,
     draggingState: PropTypes.object,
+
+    // Provided by DropTarget
+    connectDropTarget: PropTypes.func,
     isOver: PropTypes.bool
   }
 
