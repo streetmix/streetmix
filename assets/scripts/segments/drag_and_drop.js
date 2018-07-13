@@ -401,10 +401,10 @@ export const segmentSource = {
 
     return {
       dataNo: props.dataNo,
-      variantString: props.variantString,
-      type: props.type,
-      randSeed: props.randSeed,
-      actualWidth: props.actualWidth
+      variantString: props.segment.variantString,
+      type: props.segment.type,
+      randSeed: props.segment.randSeed,
+      actualWidth: props.segment.width
     }
   },
 

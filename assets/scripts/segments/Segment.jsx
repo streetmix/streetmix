@@ -35,14 +35,9 @@ import { t } from '../locales/locale'
 
 class Segment extends React.Component {
   static propTypes = {
-    type: PropTypes.string.isRequired,
-    variantString: PropTypes.string.isRequired,
-    // TODO: consolidate props to `segment`
-    segment: PropTypes.object,
+    segment: PropTypes.object.isRequired,
+    actualWidth: PropTypes.number.isRequired,
 
-    randSeed: PropTypes.number,
-
-    actualWidth: PropTypes.number,
     cssTransform: PropTypes.string,
     units: PropTypes.number,
     segmentPos: PropTypes.number,
@@ -73,7 +68,7 @@ class Segment extends React.Component {
 
     this.state = {
       switchSegments: false,
-      oldVariant: props.variantString
+      oldVariant: props.segment.variantString
     }
   }
 
@@ -90,8 +85,8 @@ class Segment extends React.Component {
       infoBubble.considerShowing(false, this.streetSegment, INFO_BUBBLE_TYPE_SEGMENT)
     }
 
-    if (prevProps.variantString && prevProps.variantString !== this.props.variantString) {
-      this.switchSegments(prevProps.variantString)
+    if (prevProps.segment.variantString && prevProps.segment.variantString !== this.props.segment.variantString) {
+      this.switchSegments(prevProps.segment.variantString)
     }
 
     if (!prevState.switchSegments && this.state.switchSegments) {
@@ -105,7 +100,7 @@ class Segment extends React.Component {
   switchSegments = (oldVariant) => {
     this.setState({
       switchSegments: !(this.state.switchSegments),
-      oldVariant: (this.state.switchSegments) ? this.props.variantString : oldVariant
+      oldVariant: (this.state.switchSegments) ? this.props.segment.variantString : oldVariant
     })
   }
 
@@ -131,15 +126,15 @@ class Segment extends React.Component {
 
   renderSegmentCanvas = (variantType) => {
     const isOldVariant = (variantType === 'old')
-    const { connectDragSource, connectDropTarget } = this.props
+    const { segment, connectDragSource, connectDropTarget } = this.props
 
     return connectDragSource(connectDropTarget(
       <div className="segment-canvas-container">
         <SegmentCanvas
           actualWidth={this.props.actualWidth}
-          type={this.props.type}
-          variantString={(isOldVariant) ? this.state.oldVariant : this.props.variantString}
-          randSeed={this.props.randSeed}
+          type={segment.type}
+          variantString={(isOldVariant) ? this.state.oldVariant : segment.variantString}
+          randSeed={segment.randSeed}
           ref={(isOldVariant) ? this.oldSegmentCanvas : this.newSegmentCanvas}
         />
       </div>
@@ -210,8 +205,8 @@ class Segment extends React.Component {
   render () {
     const { segment } = this.props
 
-    const segmentInfo = getSegmentInfo(this.props.type)
-    const variantInfo = getSegmentVariantInfo(this.props.type, this.props.variantString)
+    const segmentInfo = getSegmentInfo(segment.type)
+    const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
     const defaultName = variantInfo.name || segmentInfo.name // the name to display if there isn't a localized version of it
     const nameKey = variantInfo.nameKey || segmentInfo.nameKey
 

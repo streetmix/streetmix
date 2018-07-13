@@ -137,12 +137,9 @@ class StreetEditable extends React.Component {
           <Segment
             key={segment.id}
             dataNo={i}
-            type={segment.type}
-            variantString={segment.variantString}
             segment={segment}
             actualWidth={segment.width}
             units={units}
-            randSeed={segment.randSeed}
             segmentPos={segmentPos}
             suppressMouseEnter={this.state.suppressMouseEnter}
             updateSegmentData={this.updateSegmentData}
