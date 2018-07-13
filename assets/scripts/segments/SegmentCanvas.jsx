@@ -15,7 +15,6 @@ class SegmentCanvas extends React.Component {
     actualWidth: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
     variantString: PropTypes.string.isRequired,
-    forPalette: PropTypes.bool,
     randSeed: PropTypes.number,
     multiplier: PropTypes.number,
     offsetTop: PropTypes.number,
@@ -60,13 +59,20 @@ class SegmentCanvas extends React.Component {
   }
 
   render () {
+    // Determine the maximum width of the artwork for this segment
     const variantInfo = getSegmentVariantInfo(this.props.type, this.props.variantString)
     const dimensions = getVariantInfoDimensions(variantInfo, this.props.actualWidth)
     const totalWidth = dimensions.right - dimensions.left
 
-    const elementWidth = (this.props.forPalette ? this.props.actualWidth : totalWidth) * TILE_SIZE * this.props.multiplier
+    // If the graphics are wider than the width of the segment, then we will draw
+    // our canvas a little bigger to make sure that the graphics aren't truncated.
+    const displayWidth = (totalWidth > this.props.actualWidth) ? totalWidth : this.props.actualWidth
+
+    // Determine dimensions to draw DOM element
+    const elementWidth = displayWidth * TILE_SIZE * this.props.multiplier
     const elementHeight = CANVAS_BASELINE
 
+    // Determine size of canvas
     const canvasWidth = elementWidth * this.props.dpi
     const canvasHeight = elementHeight * this.props.dpi
     const canvasStyle = {

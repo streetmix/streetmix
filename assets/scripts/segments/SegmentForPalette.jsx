@@ -55,7 +55,6 @@ class SegmentForPalette extends React.Component {
           randSeed={generateRandSeed()}
           multiplier={PALETTE_SEGMENT_MULTIPLIER}
           offsetTop={PALETTE_SEGMENT_Y_OFFSET}
-          forPalette
         />
       </div>
     )
