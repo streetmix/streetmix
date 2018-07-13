@@ -35,24 +35,28 @@ import { t } from '../locales/locale'
 
 class Segment extends React.Component {
   static propTypes = {
+    // Provided by parent
+    dataNo: PropTypes.number,
     segment: PropTypes.object.isRequired,
     actualWidth: PropTypes.number.isRequired,
-
-    cssTransform: PropTypes.string,
     units: PropTypes.number,
     segmentPos: PropTypes.number,
-    dataNo: PropTypes.number,
+    suppressMouseEnter: PropTypes.bool.isRequired,
     updateSegmentData: PropTypes.func,
     updatePerspective: PropTypes.func,
+
+    // Provided by store
+    cssTransform: PropTypes.string,
     locale: PropTypes.string,
     infoBubbleHovered: PropTypes.bool,
     descriptionVisible: PropTypes.bool,
-    suppressMouseEnter: PropTypes.bool.isRequired,
+    activeSegment: PropTypes.number,
+
+    // Provided by react-dnd DragSource and DropTarget
     connectDragSource: PropTypes.func,
-    isDragging: PropTypes.bool,
     connectDragPreview: PropTypes.func,
     connectDropTarget: PropTypes.func,
-    activeSegment: PropTypes.number
+    isDragging: PropTypes.bool
   }
 
   static defaultProps = {
