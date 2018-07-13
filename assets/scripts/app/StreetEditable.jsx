@@ -115,7 +115,6 @@ class StreetEditable extends React.Component {
     const { segments, units, immediateRemoval } = this.props.street
 
     return segments.map((segment, i) => {
-      const segmentWidth = (segment.width * TILE_SIZE)
       const segmentPos = this.calculateSegmentPos(i)
 
       segment.variant = getVariantArray(segment.type, segment.variantString)
@@ -141,7 +140,7 @@ class StreetEditable extends React.Component {
             type={segment.type}
             variantString={segment.variantString}
             segment={segment}
-            width={segmentWidth}
+            actualWidth={segment.width}
             units={units}
             randSeed={segment.randSeed}
             segmentPos={segmentPos}

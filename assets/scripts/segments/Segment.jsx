@@ -42,7 +42,7 @@ class Segment extends React.Component {
 
     randSeed: PropTypes.number,
 
-    width: PropTypes.number,
+    actualWidth: PropTypes.number,
     cssTransform: PropTypes.string,
     units: PropTypes.number,
     segmentPos: PropTypes.number,
@@ -110,14 +110,11 @@ class Segment extends React.Component {
   }
 
   calculateSegmentWidths = (resizeType) => {
-    let widthValue = this.props.width / TILE_SIZE
+    let actualWidth = this.props.actualWidth
 
-    widthValue = normalizeSegmentWidth(widthValue, resizeType)
+    actualWidth = normalizeSegmentWidth(actualWidth, resizeType)
 
-    return {
-      widthValue,
-      width: widthValue * TILE_SIZE
-    }
+    return actualWidth
   }
 
   onSegmentMouseEnter = (event) => {
@@ -132,14 +129,14 @@ class Segment extends React.Component {
     infoBubble.dontConsiderShowing()
   }
 
-  renderSegmentCanvas = (width, variantType) => {
+  renderSegmentCanvas = (variantType) => {
     const isOldVariant = (variantType === 'old')
     const { connectDragSource, connectDropTarget } = this.props
 
     return connectDragSource(connectDropTarget(
       <div className="segment-canvas-container">
         <SegmentCanvas
-          width={width}
+          actualWidth={this.props.actualWidth}
           type={this.props.type}
           variantString={(isOldVariant) ? this.state.oldVariant : this.props.variantString}
           randSeed={this.props.randSeed}
@@ -156,8 +153,8 @@ class Segment extends React.Component {
    * @param {Boolean} finetune - true if shift key is pressed
    */
   decrementSegmentWidth (position, finetune) {
-    const { widthValue } = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
-    incrementSegmentWidth(position, false, finetune, widthValue)
+    const actualWidth = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
+    incrementSegmentWidth(position, false, finetune, actualWidth)
   }
 
   /**
@@ -167,8 +164,8 @@ class Segment extends React.Component {
    * @param {Boolean} finetune - true if shift key is pressed
    */
   incrementSegmentWidth (position, finetune) {
-    const { widthValue } = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
-    incrementSegmentWidth(position, true, finetune, widthValue)
+    const actualWidth = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
+    incrementSegmentWidth(position, true, finetune, actualWidth)
   }
 
   handleKeyDown = (event) => {
@@ -222,11 +219,11 @@ class Segment extends React.Component {
     // text is not found. TODO: port to react-intl/formatMessage later.
     const displayName = t(`segments.${nameKey}`, defaultName, { ns: 'segment-info' })
 
-    const segmentWidths = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
-    const { width, widthValue } = segmentWidths
+    const actualWidth = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
+    const elementWidth = actualWidth * TILE_SIZE
 
     const segmentStyle = {
-      width: width + 'px',
+      width: elementWidth + 'px',
       // In a street, certain segments have stacking priority over others (expressed as z-index).
       // Setting a z-index here will clobber a separate z-index (applied via CSS) when hovered by mouse pointer
       zIndex: segmentInfo.zIndex,
@@ -234,7 +231,7 @@ class Segment extends React.Component {
     }
 
     const dataAttributes = {
-      'data-width': widthValue
+      'data-width': actualWidth
     }
 
     const classNames = ['segment']
@@ -268,10 +265,10 @@ class Segment extends React.Component {
           {displayName}
         </span>
         <span className="width">
-          <MeasurementText value={widthValue} units={this.props.units} locale={this.props.locale} />
+          <MeasurementText value={actualWidth} units={this.props.units} locale={this.props.locale} />
         </span>
         <span className={'grid' + (this.props.units === SETTINGS_UNITS_METRIC ? ' units-metric' : ' units-imperial')} />
-        <SegmentDragHandles width={width} />
+        <SegmentDragHandles width={elementWidth} />
         <CSSTransition
           key="old-variant"
           in={!this.state.switchSegments}
@@ -280,7 +277,7 @@ class Segment extends React.Component {
           onExited={this.switchSegments}
           unmountOnExit
         >
-          {this.renderSegmentCanvas(width, 'old')}
+          {this.renderSegmentCanvas('old')}
         </CSSTransition>
         <CSSTransition
           key="new-variant"
@@ -289,7 +286,7 @@ class Segment extends React.Component {
           timeout={250}
           unmountOnExit
         >
-          {this.renderSegmentCanvas(width, 'new')}
+          {this.renderSegmentCanvas('new')}
         </CSSTransition>
         <div className="hover-bk" />
       </div>

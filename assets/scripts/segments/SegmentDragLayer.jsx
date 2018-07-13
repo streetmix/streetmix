@@ -45,7 +45,7 @@ class SegmentDragLayer extends React.PureComponent {
     let { x, y } = currentOffset
 
     if (this.props.type === Types.PALETTE_SEGMENT) {
-      x -= item.width / 3
+      x -= item.actualWidth * 4 // TODO: document magic number, probably TILE_SIZE * PALETTE_MULTIPLIER
       y += DRAG_OFFSET_Y_PALETTE
     }
 

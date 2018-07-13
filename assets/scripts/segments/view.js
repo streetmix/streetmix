@@ -164,17 +164,20 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
  * @param {CanvasRenderingContext2D} ctx
  * @param {string} type
  * @param {string} variantString
- * @param {Number} segmentWidth - TODO refactor
+ * @param {Number} actualWidth - The actual width of a segment
  * @param {Number} offsetLeft
  * @param {Number} offsetTop
  * @param {Number} randSeed
  * @param {Number} multiplier
  * @param {Number} dpi
  */
-export function drawSegmentContents (ctx, type, variantString, segmentWidth, offsetLeft, offsetTop, randSeed, multiplier, dpi) {
+export function drawSegmentContents (ctx, type, variantString, actualWidth, offsetLeft, offsetTop, randSeed, multiplier, dpi) {
   const variantInfo = getSegmentVariantInfo(type, variantString)
   const graphics = variantInfo.graphics
-  const actualWidth = segmentWidth / TILE_SIZE / multiplier
+
+  // TODO: refactor this variable
+  const segmentWidth = actualWidth * TILE_SIZE
+
   const dimensions = getVariantInfoDimensions(variantInfo, actualWidth)
   const left = dimensions.left
 
@@ -226,7 +229,7 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
 
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
-      const x = (-left + (segmentWidth / TILE_SIZE / multiplier) - sprite.width - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
+      const x = (-left + actualWidth - sprite.width - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
 
       drawSegmentImage(sprite.id, ctx, undefined, undefined, undefined, undefined,
         offsetLeft + x,

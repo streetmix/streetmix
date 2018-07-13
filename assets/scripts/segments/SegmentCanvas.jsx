@@ -12,7 +12,7 @@ const CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND
 
 class SegmentCanvas extends React.Component {
   static propTypes = {
-    width: PropTypes.number.isRequired,
+    actualWidth: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
     variantString: PropTypes.string.isRequired,
     forPalette: PropTypes.bool,
@@ -56,21 +56,22 @@ class SegmentCanvas extends React.Component {
     const ctx = canvas.getContext('2d')
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-    drawSegmentContents(ctx, this.props.type, this.props.variantString, this.props.width, 0, this.props.offsetTop, this.props.randSeed, this.props.multiplier, this.props.dpi)
+    drawSegmentContents(ctx, this.props.type, this.props.variantString, this.props.actualWidth, 0, this.props.offsetTop, this.props.randSeed, this.props.multiplier, this.props.dpi)
   }
 
   render () {
     const variantInfo = getSegmentVariantInfo(this.props.type, this.props.variantString)
-    const dimensions = getVariantInfoDimensions(variantInfo, this.props.width)
+    const dimensions = getVariantInfoDimensions(variantInfo, this.props.actualWidth)
     const totalWidth = dimensions.right - dimensions.left
 
-    const displayWidth = (this.props.forPalette ? this.props.width : totalWidth * TILE_SIZE)
+    const elementWidth = (this.props.forPalette ? this.props.actualWidth : totalWidth) * TILE_SIZE * this.props.multiplier
+    const elementHeight = CANVAS_BASELINE
 
-    const canvasWidth = displayWidth * this.props.dpi
-    const canvasHeight = CANVAS_BASELINE * this.props.dpi
+    const canvasWidth = elementWidth * this.props.dpi
+    const canvasHeight = elementHeight * this.props.dpi
     const canvasStyle = {
-      width: displayWidth,
-      height: CANVAS_BASELINE,
+      width: elementWidth,
+      height: elementHeight,
       left: dimensions.left * TILE_SIZE * this.props.multiplier
     }
 
