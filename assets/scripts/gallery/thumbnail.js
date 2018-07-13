@@ -128,7 +128,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
       if (segmentInfo.zIndex === zIndex) {
         const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
-        const dimensions = getVariantInfoDimensions(variantInfo, segment.width * TILE_SIZE)
+        const dimensions = getVariantInfoDimensions(variantInfo, segment.width)
 
         drawSegmentContents(ctx, segment.type, segment.variantString,
           segment.width * TILE_SIZE * multiplier,

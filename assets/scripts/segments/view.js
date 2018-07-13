@@ -77,13 +77,18 @@ export function drawSegmentImage (id, ctx, sx = 0, sy = 0, sw, sh, dx, dy, dw, d
   }
 }
 
-export function getVariantInfoDimensions (variantInfo, initialSegmentWidth = 0, multiplier = 1) {
+/**
+ * TODO: Figure out what this does
+ *
+ * @param {Object} variantInfo - segment variant info
+ * @param {Number} actualWidth - segment's actual real life width
+ * @returns {Object}
+ */
+export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
+  const center = actualWidth / 2
+  let left = center
+  let right = center
   let newLeft, newRight
-  var segmentWidth = initialSegmentWidth / TILE_SIZE / multiplier
-
-  var center = segmentWidth / 2
-  var left = center
-  var right = center
 
   const graphics = variantInfo.graphics
 
@@ -127,8 +132,8 @@ export function getVariantInfoDimensions (variantInfo, initialSegmentWidth = 0, 
 
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
-      newLeft = (segmentWidth) - (sprite.offsetX || 0) - sprite.width
-      newRight = (segmentWidth) - (sprite.offsetX || 0)
+      newLeft = (actualWidth) - (sprite.offsetX || 0) - sprite.width
+      newRight = (actualWidth) - (sprite.offsetX || 0)
 
       if (newLeft < left) {
         left = newLeft
@@ -140,8 +145,8 @@ export function getVariantInfoDimensions (variantInfo, initialSegmentWidth = 0, 
   }
 
   if (graphics.repeat && graphics.repeat[0]) {
-    newLeft = center - (segmentWidth / 2)
-    newRight = center + (segmentWidth / 2)
+    newLeft = center - (actualWidth / 2)
+    newRight = center + (actualWidth / 2)
 
     if (newLeft < left) {
       left = newLeft
@@ -159,7 +164,7 @@ export function getVariantInfoDimensions (variantInfo, initialSegmentWidth = 0, 
  * @param {CanvasRenderingContext2D} ctx
  * @param {string} type
  * @param {string} variantString
- * @param {Number} segmentWidth - width in feet (not display width)
+ * @param {Number} segmentWidth - TODO refactor
  * @param {Number} offsetLeft
  * @param {Number} offsetTop
  * @param {Number} randSeed
@@ -169,7 +174,8 @@ export function getVariantInfoDimensions (variantInfo, initialSegmentWidth = 0, 
 export function drawSegmentContents (ctx, type, variantString, segmentWidth, offsetLeft, offsetTop, randSeed, multiplier, dpi) {
   const variantInfo = getSegmentVariantInfo(type, variantString)
   const graphics = variantInfo.graphics
-  const dimensions = getVariantInfoDimensions(variantInfo, segmentWidth, multiplier)
+  const actualWidth = segmentWidth / TILE_SIZE / multiplier
+  const dimensions = getVariantInfoDimensions(variantInfo, actualWidth)
   const left = dimensions.left
 
   if (graphics.repeat) {
