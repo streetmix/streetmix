@@ -4,12 +4,13 @@ import { injectIntl, intlShape } from 'react-intl'
 import { DragSource } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 import SegmentCanvas from './SegmentCanvas'
+import { TILE_SIZE } from './constants'
 import { Types, paletteSegmentSource, collectDragSource } from './drag_and_drop'
 import { getSegmentVariantInfo, getSegmentInfo } from './info'
 import { getVariantInfoDimensions } from './view'
 import { generateRandSeed } from '../util/random'
 
-const PALETTE_SEGMENT_EXTRA_PADDING = 8
+const PALETTE_SEGMENT_EXTRA_PADDING = 6
 const PALETTE_SEGMENT_Y_OFFSET = 20
 const PALETTE_SEGMENT_MULTIPLIER = 1 / 3
 
@@ -43,12 +44,12 @@ class SegmentForPalette extends React.Component {
 
     return this.props.connectDragSource(
       <div
-        style={{ width: (width / PALETTE_SEGMENT_MULTIPLIER) + 'px' }}
+        style={{ width: (width * TILE_SIZE * PALETTE_SEGMENT_MULTIPLIER) + 'px' }}
         className="segment segment-in-palette"
         title={this.props.intl.formatMessage({ id: `segments.${segmentInfo.nameKey}`, defaultMessage })}
       >
         <SegmentCanvas
-          width={width / PALETTE_SEGMENT_MULTIPLIER}
+          width={width * TILE_SIZE * PALETTE_SEGMENT_MULTIPLIER}
           type={this.props.type}
           variantString={this.props.variantString}
           randSeed={generateRandSeed()}
