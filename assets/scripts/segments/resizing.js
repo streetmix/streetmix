@@ -34,23 +34,16 @@ export function suppressMouseEnter () {
   return _suppressMouseEnter
 }
 
-export function resizeSegment (dataNo, resizeType, width, updateEdit, palette, initial) {
-  if (!palette) {
-    width = normalizeSegmentWidth(width, resizeType)
-  }
-
+export function resizeSegment (dataNo, resizeType, width) {
+  width = normalizeSegmentWidth(width, resizeType)
   cancelSegmentResizeTransitions()
   store.dispatch(changeSegmentWidth(dataNo, width))
-
-  if (!initial) {
-    segmentsChanged()
-  }
-
+  segmentsChanged()
   return width
 }
 
 export function handleSegmentResizeCancel () {
-  resizeSegment(draggingResize.segmentEl, RESIZE_TYPE_INITIAL, draggingResize.originalWidth, true, false)
+  resizeSegment(draggingResize.segmentEl.dataNo, RESIZE_TYPE_INITIAL, draggingResize.originalWidth)
 
   handleSegmentResizeEnd()
 }
@@ -141,7 +134,7 @@ export function incrementSegmentWidth (dataNo, add, precise, origWidth) {
 
   const width = normalizeSegmentWidth(origWidth + increment, RESIZE_TYPE_INCREMENT)
 
-  resizeSegment(dataNo, RESIZE_TYPE_INCREMENT, width, true, false)
+  resizeSegment(dataNo, RESIZE_TYPE_INCREMENT, width)
 
   return width
 }
