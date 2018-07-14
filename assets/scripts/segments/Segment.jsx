@@ -35,29 +35,28 @@ import { t } from '../locales/locale'
 
 class Segment extends React.Component {
   static propTypes = {
-    type: PropTypes.string.isRequired,
-    variantString: PropTypes.string.isRequired,
-    // TODO: consolidate props to `segment`
-    segment: PropTypes.object,
-
-    randSeed: PropTypes.number,
-
-    width: PropTypes.number,
-    cssTransform: PropTypes.string,
+    // Provided by parent
+    dataNo: PropTypes.number,
+    segment: PropTypes.object.isRequired,
+    actualWidth: PropTypes.number.isRequired,
     units: PropTypes.number,
     segmentPos: PropTypes.number,
-    dataNo: PropTypes.number,
+    suppressMouseEnter: PropTypes.bool.isRequired,
     updateSegmentData: PropTypes.func,
     updatePerspective: PropTypes.func,
+
+    // Provided by store
+    cssTransform: PropTypes.string,
     locale: PropTypes.string,
     infoBubbleHovered: PropTypes.bool,
     descriptionVisible: PropTypes.bool,
-    suppressMouseEnter: PropTypes.bool.isRequired,
+    activeSegment: PropTypes.number,
+
+    // Provided by react-dnd DragSource and DropTarget
     connectDragSource: PropTypes.func,
-    isDragging: PropTypes.bool,
     connectDragPreview: PropTypes.func,
     connectDropTarget: PropTypes.func,
-    activeSegment: PropTypes.number
+    isDragging: PropTypes.bool
   }
 
   static defaultProps = {
@@ -73,7 +72,7 @@ class Segment extends React.Component {
 
     this.state = {
       switchSegments: false,
-      oldVariant: props.variantString
+      oldVariant: props.segment.variantString
     }
   }
 
@@ -90,8 +89,8 @@ class Segment extends React.Component {
       infoBubble.considerShowing(false, this.streetSegment, INFO_BUBBLE_TYPE_SEGMENT)
     }
 
-    if (prevProps.variantString && prevProps.variantString !== this.props.variantString) {
-      this.switchSegments(prevProps.variantString)
+    if (prevProps.segment.variantString && prevProps.segment.variantString !== this.props.segment.variantString) {
+      this.switchSegments(prevProps.segment.variantString)
     }
 
     if (!prevState.switchSegments && this.state.switchSegments) {
@@ -109,19 +108,16 @@ class Segment extends React.Component {
   switchSegments = (oldVariant) => {
     this.setState({
       switchSegments: !(this.state.switchSegments),
-      oldVariant: (this.state.switchSegments) ? this.props.variantString : oldVariant
+      oldVariant: (this.state.switchSegments) ? this.props.segment.variantString : oldVariant
     })
   }
 
   calculateSegmentWidths = (resizeType) => {
-    let widthValue = this.props.width / TILE_SIZE
+    let actualWidth = this.props.actualWidth
 
-    widthValue = normalizeSegmentWidth(widthValue, resizeType)
+    actualWidth = normalizeSegmentWidth(actualWidth, resizeType)
 
-    return {
-      widthValue,
-      width: widthValue * TILE_SIZE
-    }
+    return actualWidth
   }
 
   onSegmentMouseEnter = (event) => {
@@ -136,17 +132,17 @@ class Segment extends React.Component {
     infoBubble.dontConsiderShowing()
   }
 
-  renderSegmentCanvas = (width, variantType) => {
+  renderSegmentCanvas = (variantType) => {
     const isOldVariant = (variantType === 'old')
-    const { connectDragSource, connectDropTarget } = this.props
+    const { segment, connectDragSource, connectDropTarget } = this.props
 
     return connectDragSource(connectDropTarget(
       <div className="segment-canvas-container">
         <SegmentCanvas
-          width={width}
-          type={this.props.type}
-          variantString={(isOldVariant) ? this.state.oldVariant : this.props.variantString}
-          randSeed={this.props.randSeed}
+          actualWidth={this.props.actualWidth}
+          type={segment.type}
+          variantString={(isOldVariant) ? this.state.oldVariant : segment.variantString}
+          randSeed={segment.randSeed}
           ref={(isOldVariant) ? this.oldSegmentCanvas : this.newSegmentCanvas}
         />
       </div>
@@ -160,8 +156,8 @@ class Segment extends React.Component {
    * @param {Boolean} finetune - true if shift key is pressed
    */
   decrementSegmentWidth (position, finetune) {
-    const { widthValue } = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
-    incrementSegmentWidth(position, false, finetune, widthValue)
+    const actualWidth = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
+    incrementSegmentWidth(position, false, finetune, actualWidth)
   }
 
   /**
@@ -171,8 +167,8 @@ class Segment extends React.Component {
    * @param {Boolean} finetune - true if shift key is pressed
    */
   incrementSegmentWidth (position, finetune) {
-    const { widthValue } = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
-    incrementSegmentWidth(position, true, finetune, widthValue)
+    const actualWidth = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
+    incrementSegmentWidth(position, true, finetune, actualWidth)
   }
 
   handleKeyDown = (event) => {
@@ -217,8 +213,8 @@ class Segment extends React.Component {
   render () {
     const { segment } = this.props
 
-    const segmentInfo = getSegmentInfo(this.props.type)
-    const variantInfo = getSegmentVariantInfo(this.props.type, this.props.variantString)
+    const segmentInfo = getSegmentInfo(segment.type)
+    const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
     const defaultName = variantInfo.name || segmentInfo.name // the name to display if there isn't a localized version of it
     const nameKey = variantInfo.nameKey || segmentInfo.nameKey
 
@@ -226,11 +222,11 @@ class Segment extends React.Component {
     // text is not found. TODO: port to react-intl/formatMessage later.
     const displayName = t(`segments.${nameKey}`, defaultName, { ns: 'segment-info' })
 
-    const segmentWidths = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
-    const { width, widthValue } = segmentWidths
+    const actualWidth = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
+    const elementWidth = actualWidth * TILE_SIZE
 
     const segmentStyle = {
-      width: width + 'px',
+      width: elementWidth + 'px',
       // In a street, certain segments have stacking priority over others (expressed as z-index).
       // Setting a z-index here will clobber a separate z-index (applied via CSS) when hovered by mouse pointer
       zIndex: segmentInfo.zIndex,
@@ -238,7 +234,7 @@ class Segment extends React.Component {
     }
 
     const dataAttributes = {
-      'data-width': widthValue
+      'data-width': actualWidth
     }
 
     const classNames = ['segment']
@@ -272,10 +268,10 @@ class Segment extends React.Component {
           {displayName}
         </span>
         <span className="width">
-          <MeasurementText value={widthValue} units={this.props.units} locale={this.props.locale} />
+          <MeasurementText value={actualWidth} units={this.props.units} locale={this.props.locale} />
         </span>
         <span className={'grid' + (this.props.units === SETTINGS_UNITS_METRIC ? ' units-metric' : ' units-imperial')} />
-        <SegmentDragHandles width={width} />
+        <SegmentDragHandles width={elementWidth} />
         <CSSTransition
           key="old-variant"
           in={!this.state.switchSegments}
@@ -284,7 +280,7 @@ class Segment extends React.Component {
           onExited={this.switchSegments}
           unmountOnExit
         >
-          {this.renderSegmentCanvas(width, 'old')}
+          {this.renderSegmentCanvas('old')}
         </CSSTransition>
         <CSSTransition
           key="new-variant"
@@ -293,7 +289,7 @@ class Segment extends React.Component {
           timeout={250}
           unmountOnExit
         >
-          {this.renderSegmentCanvas(width, 'new')}
+          {this.renderSegmentCanvas('new')}
         </CSSTransition>
         <div className="hover-bk" />
       </div>

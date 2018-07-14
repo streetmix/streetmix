@@ -232,16 +232,16 @@ export function onBodyMouseMove (event) {
 function doDropHeuristics (draggedItem, draggedItemType) {
   // Automatically figure out width
   const street = store.getState().street
-  const { variantString, type, width } = draggedItem
+  const { variantString, type, actualWidth } = draggedItem
 
   if (draggedItemType === Types.PALETTE_SEGMENT) {
     if ((street.remainingWidth > 0) &&
-      (width > street.remainingWidth * TILE_SIZE)) {
+      (actualWidth > street.remainingWidth)) {
       var segmentMinWidth = getSegmentVariantInfo(type, variantString).minWidth || 0
 
       if ((street.remainingWidth >= MIN_SEGMENT_WIDTH) &&
         (street.remainingWidth >= segmentMinWidth)) {
-        draggedItem.width = normalizeSegmentWidth(street.remainingWidth, RESIZE_TYPE_INITIAL) * TILE_SIZE
+        draggedItem.actualWidth = normalizeSegmentWidth(street.remainingWidth, RESIZE_TYPE_INITIAL)
       }
     }
   }
@@ -401,10 +401,10 @@ export const segmentSource = {
 
     return {
       dataNo: props.dataNo,
-      variantString: props.variantString,
-      type: props.type,
-      randSeed: props.randSeed,
-      width: props.width
+      variantString: props.segment.variantString,
+      type: props.segment.type,
+      randSeed: props.segment.randSeed,
+      actualWidth: props.segment.width
     }
   },
 
@@ -442,7 +442,7 @@ export const paletteSegmentSource = {
       variantString: Object.keys(segmentInfo.details).shift(),
       type: props.type,
       randSeed: segmentInfo.needRandSeed && generateRandSeed(),
-      width: segmentInfo.defaultWidth * TILE_SIZE
+      actualWidth: segmentInfo.defaultWidth
     }
   },
 
@@ -544,7 +544,7 @@ export const segmentTarget = {
 
     const hoveredSegment = component.getDecoratedComponentInstance().streetSegment
     const { left } = hoveredSegment.getBoundingClientRect()
-    const hoverMiddleX = Math.round(left + (props.width) / 2)
+    const hoverMiddleX = Math.round(left + (props.actualWidth * TILE_SIZE) / 2)
     const { x } = monitor.getClientOffset()
 
     // Ignore hovering over the dragged segment after dragging state is already set.
@@ -582,7 +582,7 @@ function handleSegmentCanvasDrop (draggedItem, type) {
 
   const newSegment = {
     variantString: draggedItem.variantString,
-    width: draggedItem.width / TILE_SIZE,
+    width: draggedItem.actualWidth,
     type: draggedItem.type,
     randSeed: draggedItem.randSeed
   }

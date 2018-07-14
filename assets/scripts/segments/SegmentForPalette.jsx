@@ -36,26 +36,25 @@ class SegmentForPalette extends React.Component {
     // Determine width to render at
     const dimensions = getVariantInfoDimensions(variantInfo)
 
-    let width = dimensions.right - dimensions.left
-    if (!width) {
-      width = segmentInfo.defaultWidth
+    let actualWidth = dimensions.right - dimensions.left
+    if (!actualWidth) {
+      actualWidth = segmentInfo.defaultWidth
     }
-    width += PALETTE_SEGMENT_EXTRA_PADDING
+    actualWidth += PALETTE_SEGMENT_EXTRA_PADDING
 
     return this.props.connectDragSource(
       <div
-        style={{ width: (width * TILE_SIZE * PALETTE_SEGMENT_MULTIPLIER) + 'px' }}
+        style={{ width: (actualWidth * TILE_SIZE * PALETTE_SEGMENT_MULTIPLIER) + 'px' }}
         className="segment segment-in-palette"
         title={this.props.intl.formatMessage({ id: `segments.${segmentInfo.nameKey}`, defaultMessage })}
       >
         <SegmentCanvas
-          width={width * TILE_SIZE * PALETTE_SEGMENT_MULTIPLIER}
+          actualWidth={actualWidth}
           type={this.props.type}
           variantString={this.props.variantString}
           randSeed={generateRandSeed()}
           multiplier={PALETTE_SEGMENT_MULTIPLIER}
           offsetTop={PALETTE_SEGMENT_Y_OFFSET}
-          forPalette
         />
       </div>
     )
