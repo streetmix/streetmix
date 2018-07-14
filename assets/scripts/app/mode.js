@@ -1,6 +1,7 @@
 import { ERRORS, showError, showErrorFromUrl } from './errors'
 import { setServerContacted } from './initialization'
 import { getErrorUrl } from './page_url'
+import { goHome } from './routing'
 
 export const MODES = {
   CONTINUE: 1,
@@ -56,7 +57,7 @@ export function processMode () {
       showError(ERRORS.STREET_410_BUT_LINK_TO_USER, true)
       break
     case MODES.SIGN_OUT:
-      showError(ERRORS.SIGN_OUT, true)
+      goHome()
       break
     case MODES.FORCE_RELOAD_SIGN_OUT:
       showError(ERRORS.FORCE_RELOAD_SIGN_OUT, true)
