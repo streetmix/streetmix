@@ -1,5 +1,4 @@
 import { onResize } from '../app/window_resize'
-import { system } from '../preinit/system_capabilities'
 import { BUILDING_SPACE } from '../segments/buildings'
 import { getSegmentVariantInfo } from '../segments/info'
 import {
@@ -19,11 +18,12 @@ const WIDTH_ROUNDING = 0.01
 
 export function resizeStreetWidth (dontScroll) {
   var width = store.getState().street.width * TILE_SIZE
+  const viewportWidth = store.getState().system.viewportWidth
 
   document.querySelector('#street-section-canvas').style.width = width + 'px'
   if (!dontScroll) {
     document.querySelector('#street-section-outer').scrollLeft =
-      (width + (BUILDING_SPACE * 2) - system.viewportWidth) / 2
+      (width + (BUILDING_SPACE * 2) - viewportWidth) / 2
   }
 
   onResize()

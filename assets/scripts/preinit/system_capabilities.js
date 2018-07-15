@@ -18,8 +18,6 @@ export const system = {
   safari: false,
   windows: false,
   noInternet: false,
-  viewportWidth: null,
-  viewportHeight: null,
   hiDpi: 1.0,
   cssTransform: false,
   pageVisibility: false,
