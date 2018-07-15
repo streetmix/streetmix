@@ -15,6 +15,13 @@ class Palette extends React.Component {
     locale: PropTypes.object
   }
 
+  constructor (props) {
+    super(props)
+
+    this.commandsEl = React.createRef()
+    this.scrollable = React.createRef()
+  }
+
   componentDidMount () {
     this.adjustPaletteLayout()
   }
@@ -28,7 +35,7 @@ class Palette extends React.Component {
   }
 
   adjustPaletteLayout = () => {
-    const commandsWidth = this.commandsEl.getBoundingClientRect().width
+    const commandsWidth = this.commandsEl.current.getBoundingClientRect().width
 
     // Only do work if palette commands has increased in width
     // TODO: don't hardcode magic number
@@ -45,7 +52,7 @@ class Palette extends React.Component {
 
     // Check button visibility state by calling this method on the Scrollable
     // component directly.
-    this.scrollable.checkButtonVisibilityState()
+    this.scrollable.current.checkButtonVisibilityState()
   }
 
   renderPaletteItems = () => {
@@ -80,10 +87,10 @@ class Palette extends React.Component {
         <div className={'palette-trashcan' + (draggingState && draggingState.draggedSegment !== undefined ? ' visible' : '')}>
           <FormattedMessage id="palette.remove" defaultMessage="Drag here to remove" />
         </div>
-        <div className="palette-commands" ref={(ref) => { this.commandsEl = ref }}>
+        <div className="palette-commands" ref={this.commandsEl}>
           <UndoRedo />
         </div>
-        <Scrollable className="palette" setRef={this.setScrollableRef} ref={(ref) => { this.scrollable = ref }}>
+        <Scrollable className="palette" setRef={this.setScrollableRef} ref={this.scrollable}>
           <IntlProvider
             locale={this.props.locale.locale}
             messages={this.props.locale.segmentInfo}
