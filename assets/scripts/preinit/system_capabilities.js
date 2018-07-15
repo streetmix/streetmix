@@ -12,37 +12,22 @@ import store from '../store'
 import { SET_SYSTEM_FLAGS } from '../store/actions'
 
 // Default settings
+// TODO: move everything to Redux store, if possible.
+// The settings remaining here ones that read from other parts of the app
 export function initSystemCapabilities () {
-  const system = {
-    touch: false,
-    phone: false,
-    safari: false,
-    windows: false,
-    noInternet: false,
-    pageVisibility: false,
-    hiddenProperty: false,
-    visibilityState: false,
-    visibilityChange: false
-  }
+  const system = {}
 
-  // NOTE:
-  // This function might be called on very old browsers. Please make
-  // sure not to use modern faculties.
+  if (debug.forceTouch) {
+    system.touch = true
+  }
 
   if (debug.forceNoInternet || NO_INTERNET_MODE === true) {
     system.noInternet = true
   }
 
-  if (debug.forceTouch) {
-    system.touch = true
-  } else {
-    system.touch = Modernizr.touch || false
-  }
-
-  // Get system prefixes for page visibility API, page hidden and visibility state
-  system.pageVisibility = Modernizr.pagevisibility
+  // Get system prefixes for page hidden and visibility state
   system.hiddenProperty = Modernizr.prefixed('hidden', document, false)
-  system.visibilityState = Modernizr.prefixed('visibilityState', document, false)
+
   if (system.hiddenProperty) {
     switch (system.hiddenProperty.toLowerCase()) {
       case 'hidden':
@@ -65,23 +50,6 @@ export function initSystemCapabilities () {
 
   if (debug.forceNonRetina) {
     system.devicePixelRatio = 1.0
-  }
-
-  if ((typeof window.matchMedia !== 'undefined') &&
-    (window.matchMedia('only screen and (max-device-width: 480px)').matches ||
-    window.matchMedia('only screen and (max-device-height: 480px)').matches)) {
-    system.phone = true
-  } else {
-    system.phone = false
-  }
-
-  if (navigator.userAgent.indexOf('Windows') !== -1) {
-    system.windows = true
-  }
-
-  if ((navigator.userAgent.indexOf('Safari') !== -1) &&
-    (navigator.userAgent.indexOf('Chrome') === -1)) {
-    system.safari = true
   }
 
   store.dispatch({
