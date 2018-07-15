@@ -13,11 +13,7 @@ const initialState = {
   viewportWidth: window.innerWidth,
   viewportHeight: window.innerHeight,
   devicePixelRatio: window.devicePixelRatio || 1.0,
-  cssTransform: (Modernizr && Modernizr.prefixed('transform')) || 'transform',
-  pageVisibility: (Modernizr && Modernizr.pagevisibility) || false,
-  hiddenProperty: false,
-  visibilityState: (Modernizr && Modernizr.prefixed('visibilityState', document, false)) || false,
-  visibilityChange: false
+  cssTransform: (Modernizr && Modernizr.prefixed('transform')) || 'transform'
 }
 
 const system = (state = initialState, action) => {
