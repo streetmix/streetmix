@@ -1,9 +1,10 @@
-import { system } from '../preinit/system_capabilities'
 import { fetchStreetForVerification } from '../streets/xhr'
 import { saveSettingsLocally } from '../users/settings'
 import store from '../store'
 
 window.addEventListener('stmx:everything_loaded', function () {
+  const system = store.getState().system
+
   if (system.pageVisibility) {
     document.addEventListener(system.visibilityChange, onVisibilityChange, false)
   } else {
@@ -26,6 +27,8 @@ export function onWindowFocus () {
 }
 
 function onVisibilityChange () {
+  const system = store.getState().system
+
   if (document[system.visibilityState] !== 'hidden') {
     onWindowFocus()
   }

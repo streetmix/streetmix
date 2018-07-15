@@ -1,7 +1,8 @@
+import { debug } from '../preinit/debug_settings'
+import { initSystemCapabilities } from '../preinit/system_capabilities'
 import { hideLoadingScreen, loadImages } from './load_resources'
 import { scheduleNextLiveUpdateCheck } from './live_update'
 import { showGallery } from '../gallery/view'
-import { debug } from '../preinit/debug_settings'
 import { initializeFlagSubscribers } from '../app/flag_utils'
 import { segmentsChanged } from '../segments/view'
 import { initLocale } from '../locales/locale'
@@ -37,6 +38,7 @@ export function setServerContacted (value) {
 }
 
 function preInit () {
+  initSystemCapabilities()
   setIgnoreStreetChanges(true)
 
   var language = window.navigator.userLanguage || window.navigator.language

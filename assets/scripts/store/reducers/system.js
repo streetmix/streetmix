@@ -1,3 +1,4 @@
+/* global Modernizr */
 import { SET_SYSTEM_FLAGS, UPDATE_WINDOW_SIZE } from '../actions'
 
 const initialState = {
@@ -9,7 +10,7 @@ const initialState = {
   viewportWidth: window.innerWidth,
   viewportHeight: window.innerHeight,
   devicePixelRatio: window.devicePixelRatio || 1.0,
-  cssTransform: false,
+  cssTransform: (Modernizr && Modernizr.prefixed('transform')) || 'transform',
   pageVisibility: false,
   hiddenProperty: false,
   visibilityState: false,

@@ -1,7 +1,6 @@
 import { trackEvent } from '../app/event_tracking'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
-import { system } from '../preinit/system_capabilities'
 import { setIgnoreStreetChanges } from '../streets/data_model'
 import {
   DRAGGING_TYPE_NONE,
@@ -149,6 +148,8 @@ function scheduleControlsFadeout (el) {
 }
 
 export function resumeFadeoutControls () {
+  const system = store.getState().system
+
   if (!system.touch) {
     return
   }
