@@ -2,7 +2,6 @@
 import { recalculateWidth } from '../width'
 
 jest.mock('../../app/window_resize', () => {})
-jest.mock('../../preinit/system_capabilities', () => {})
 jest.mock('../../segments/buildings', () => {})
 
 describe('recalculateWidth', () => {
