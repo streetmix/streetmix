@@ -45,7 +45,7 @@ class Palette extends React.Component {
     this.paletteEl.style.right = ''
 
     if (delta > 0) {
-      const paletteRightPos = window.parseInt(window.getComputedStyle(this.paletteEl).right, 10)
+      const paletteRightPos = Number.parseInt(window.getComputedStyle(this.paletteEl).right, 10)
       const newPaletteRightPos = paletteRightPos + delta
       this.paletteEl.style.right = newPaletteRightPos + 'px'
     }

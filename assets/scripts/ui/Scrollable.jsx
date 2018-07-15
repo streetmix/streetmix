@@ -6,6 +6,8 @@ import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { animate } from '../util/helpers'
 
+const SCROLL_ANIMATE_DURATION = 300 // in ms
+
 export default class Scrollable extends React.PureComponent {
   static propTypes = {
     className: PropTypes.string,
@@ -20,8 +22,6 @@ export default class Scrollable extends React.PureComponent {
   constructor (props) {
     super(props)
 
-    this.duration = 300
-
     this.scrollerEl = React.createRef()
     this.leftButtonEl = React.createRef()
     this.rightButtonEl = React.createRef()
@@ -30,6 +30,7 @@ export default class Scrollable extends React.PureComponent {
   componentDidMount () {
     window.addEventListener('resize', this.checkButtonVisibilityState)
 
+    // TODO: can this be placed in stylesheets?
     this.leftButtonEl.current.style.left = '-15px'
     this.rightButtonEl.current.style.right = '-15px'
 
@@ -44,14 +45,14 @@ export default class Scrollable extends React.PureComponent {
     const el = this.scrollerEl.current
     const position = el.scrollLeft - (el.offsetWidth - 150) // TODO: document magic number
 
-    animate(el, { scrollLeft: position }, this.duration)
+    animate(el, { scrollLeft: position }, SCROLL_ANIMATE_DURATION)
   }
 
   onClickRight = (event) => {
     const el = this.scrollerEl.current
     const position = el.scrollLeft + (el.offsetWidth - 150) // TODO: document magic number
 
-    animate(el, { scrollLeft: position }, this.duration)
+    animate(el, { scrollLeft: position }, SCROLL_ANIMATE_DURATION)
   }
 
   onScrollContainer = (event) => {
