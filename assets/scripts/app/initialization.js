@@ -2,7 +2,6 @@ import { hideLoadingScreen, loadImages } from './load_resources'
 import { scheduleNextLiveUpdateCheck } from './live_update'
 import { showGallery } from '../gallery/view'
 import { debug } from '../preinit/debug_settings'
-import { system } from '../preinit/system_capabilities'
 import { initializeFlagSubscribers } from '../app/flag_utils'
 import { segmentsChanged } from '../segments/view'
 import { initLocale } from '../locales/locale'
@@ -21,7 +20,6 @@ import { updateSettingsFromCountryCode } from '../users/localization'
 import { detectGeolocation } from '../users/geolocation'
 import { initPersistedSettingsStoreObserver } from '../users/settings'
 import { addEventListeners } from './event_listeners'
-import { trackEvent } from './event_tracking'
 import { getMode, setMode, MODES, processMode } from './mode'
 import { processUrl, updatePageUrl } from './page_url'
 import { onResize } from './window_resize'
@@ -152,11 +150,6 @@ function onEverythingLoaded () {
 
   if (getPromoteStreet()) {
     remixStreet()
-  }
-
-  // Track touch capability in Google Analytics
-  if (system.touch === true) {
-    trackEvent('SYSTEM', 'TOUCH_CAPABLE', null, null, true)
   }
 
   // Display "support Streetmix" dialog for returning users
