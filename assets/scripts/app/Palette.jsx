@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import Scrollable from '../ui/Scrollable'
 import SegmentForPalette from '../segments/SegmentForPalette'
 import UndoRedo from './UndoRedo'
-import { getAllSegmentInfo } from '../segments/info'
+import { getAllSegmentInfoArray } from '../segments/info'
 
 class Palette extends React.Component {
   static propTypes = {
@@ -49,35 +49,27 @@ class Palette extends React.Component {
   }
 
   renderPaletteItems = () => {
-    const paletteItems = []
-    const segments = getAllSegmentInfo()
+    const segments = getAllSegmentInfoArray()
 
-    for (let id in segments) {
-      const segmentInfo = segments[id]
+    // Filter out segments that are not enabled.
+    const enabledSegments = segments.filter(segment => {
+      // Accept segments that don't have the `enableWithFlag` property
+      const enabledByDefault = !segment.enableWithFlag
+      // Accept segments with the `enableWithFlag` property, but only if
+      // the flags have that value set to true.
+      const enabledByFlag = segment.enableWithFlag && this.props.flags[segment.enableWithFlag].value
 
-      // Segments that are only enabled with a flag checks to see if flag
-      // is set to true. If not, bail.
-      if (segmentInfo.enableWithFlag) {
-        const flag = this.props.flags[segmentInfo.enableWithFlag]
-        if (!flag) continue
-        if (!flag.value) continue
-      }
+      return enabledByDefault || enabledByFlag
+    })
 
-      let variantName
-      if (segmentInfo.paletteIcon) {
-        variantName = segmentInfo.paletteIcon
-      } else {
-        variantName = Object.keys(segmentInfo.details).shift()
-      }
+    // Return all enabled segments as an array of SegmentForPalette components.
+    return enabledSegments.map(segment => {
+      const variant = segment.paletteIcon
+        ? segment.paletteIcon
+        : Object.keys(segment.details).shift()
 
-      paletteItems.push(<SegmentForPalette
-        key={id}
-        type={id}
-        variantString={variantName}
-      />)
-    }
-
-    return paletteItems
+      return <SegmentForPalette key={segment.id} type={segment.id} variantString={variant} />
+    })
   }
 
   render () {
