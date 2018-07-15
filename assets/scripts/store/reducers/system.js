@@ -8,7 +8,7 @@ const initialState = {
   noInternet: false,
   viewportWidth: window.innerWidth,
   viewportHeight: window.innerHeight,
-  hiDpi: 1.0,
+  devicePixelRatio: window.devicePixelRatio || 1.0,
   cssTransform: false,
   pageVisibility: false,
   hiddenProperty: false,

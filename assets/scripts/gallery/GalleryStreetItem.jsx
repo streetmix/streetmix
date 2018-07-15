@@ -127,7 +127,7 @@ export class GalleryStreetItem extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    dpi: state.system.hiDpi
+    dpi: state.system.devicePixelRatio
   }
 }
 

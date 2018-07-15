@@ -18,7 +18,6 @@ export const system = {
   safari: false,
   windows: false,
   noInternet: false,
-  hiDpi: 1.0,
   cssTransform: false,
   pageVisibility: false,
   hiddenProperty: false,
@@ -65,9 +64,7 @@ if (system.hiddenProperty) {
 }
 
 if (debug.forceNonRetina) {
-  system.hiDpi = 1.0
-} else {
-  system.hiDpi = window.devicePixelRatio || 1.0
+  system.devicePixelRatio = 1.0
 }
 
 if ((typeof window.matchMedia !== 'undefined') &&
