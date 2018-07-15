@@ -26,7 +26,6 @@ import { processUrl, updatePageUrl } from './page_url'
 import { onResize } from './window_resize'
 import { startListening } from './keypress'
 import { registerKeypresses } from './keyboard_commands'
-import { attachFetchNonBlockingEventListeners } from '../util/fetch_nonblocking'
 import store, { observeStore } from '../store'
 import { showDialog } from '../store/actions/dialogs'
 import { everythingLoaded } from '../store/actions/app'
@@ -52,7 +51,6 @@ function preInit () {
   // Start listening for keypresses
   startListening()
 
-  attachFetchNonBlockingEventListeners()
   observeStoreToUpdateBodyClasses()
 }
 
@@ -134,8 +132,7 @@ function onEverythingLoaded () {
   addEventListeners()
 
   store.dispatch(everythingLoaded())
-  var event = new window.CustomEvent('stmx:everything_loaded')
-  window.dispatchEvent(event)
+  window.dispatchEvent(new window.CustomEvent('stmx:everything_loaded'))
 
   if (debug.forceLiveUpdate) {
     scheduleNextLiveUpdateCheck()

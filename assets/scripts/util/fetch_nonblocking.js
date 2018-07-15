@@ -19,12 +19,6 @@ function hideNoConnectionMessage () {
   store.dispatch(showNoConnectionMessage(false))
 }
 
-export function attachFetchNonBlockingEventListeners () {
-  window.addEventListener('stmx:everything_loaded', function () {
-    window.addEventListener('beforeunload', onWindowBeforeUnload)
-  })
-}
-
 export function newNonblockingAjaxRequest (url, options, allowToClosePage, doneFunc, errorFunc, maxRetries) {
   nonblockingAjaxRequestTimer = 0
 
@@ -190,8 +184,12 @@ function checkIfChangesSaved () {
   }
 }
 
-function onWindowBeforeUnload () {
+export function onWindowBeforeUnload () {
   var text = checkIfChangesSaved()
+
+  // NOTE: custom text is no longer returned as a message in many browsers,
+  // e.g. Chrome 51. see:
+  // https://developers.google.com/web/updates/2016/04/chrome-51-deprecations?hl=en#remove_custom_messages_in_onbeforeunload_dialogs
   if (text) {
     return text
   }
