@@ -17,8 +17,8 @@ import { startPrinting } from '../store/actions/app'
 export class ShareMenu extends React.Component {
   static propTypes = {
     intl: intlShape,
-    showDialog: PropTypes.func.isRequired,
-    startPrinting: PropTypes.func.isRequired,
+    showDialog: PropTypes.func,
+    startPrinting: PropTypes.func,
     signedIn: PropTypes.bool.isRequired,
     userId: PropTypes.string,
     street: PropTypes.object
