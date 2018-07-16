@@ -283,9 +283,6 @@ function errorReceiveStreetForVerification (data) {
 function receiveStreet (transmission) {
   unpackServerStreetData(transmission, null, null, true)
 
-  // TODO this is stupid, only here to fill some structures
-  // window.addEventListener('stmx:assets_loaded', () => {
-
   setServerContacted(true)
 
   // Legacy - remove once everything is Promise-based.
