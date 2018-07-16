@@ -20,18 +20,16 @@ const app = (state = initialState, action) => {
         ...state,
         ...action.flags
       }
-    case START_PRINTING: {
+    case START_PRINTING:
       return {
         ...state,
         printing: true
       }
-    }
-    case STOP_PRINTING: {
+    case STOP_PRINTING:
       return {
         ...state,
         printing: false
       }
-    }
     case EVERYTHING_LOADED:
       return {
         ...state,
