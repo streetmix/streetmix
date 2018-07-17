@@ -69,5 +69,9 @@ module.exports = {
       host: 'api.geocode.earth',
       api_key: process.env.PELIAS_API_KEY || null
     }
+  },
+  geoip: {
+    host: 'api.ipstack.com/check',
+    api_key: process.env.GEOIP_API_KEY || null
   }
 }

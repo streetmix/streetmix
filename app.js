@@ -170,6 +170,8 @@ app.put('/api/v1/streets/:street_id', resources.v1.streets.put)
 
 app.get('/api/v1/geo', cors(), resources.v1.geo.get)
 
+app.get('/services/geoip', resources.v1.geoip.get)
+
 app.post('/api/v1/feedback', resources.v1.feedback.post)
 
 app.get('/api/v1/translate/:locale_code/:resource_name', resources.v1.translate.get)
@@ -191,6 +193,8 @@ app.get('/assets/scripts/main.js', browserify(path.join(__dirname, '/assets/scri
     API_URL: config.get('restapi_proxy_baseuri_rel'),
     PELIAS_HOST_NAME: config.get('geocode.pelias.host'),
     PELIAS_API_KEY: config.get('geocode.pelias.api_key'),
+    GEOIP_HOST_NAME: config.get('geoip.host'),
+    GEOIP_API_KEY: config.get('geoip.api_key'),
     TWITTER_CALLBACK_URI: config.get('twitter.oauth_callback_uri'),
     AUTH0_CALLBACK_URI: config.get('auth0.callback_uri'),
     AUTH0_DOMAIN: config.get('auth0.domain'),
