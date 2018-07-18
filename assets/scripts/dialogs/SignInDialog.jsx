@@ -16,6 +16,7 @@ export class SignInDialog extends React.Component {
 
   constructor (props) {
     super(props)
+
     this.state = {
       email: '',
       emailSent: false,
@@ -23,6 +24,14 @@ export class SignInDialog extends React.Component {
       error: false,
       errorMesg: '',
       signingIn: false
+    }
+
+    this.emailInputEl = React.createRef()
+  }
+
+  componentDidMount = () => {
+    if (this.props.emailAuthEnabled) {
+      this.emailInputEl.current.focus()
     }
   }
 
@@ -130,6 +139,7 @@ export class SignInDialog extends React.Component {
           </p>
           <form onSubmit={this.handleSubmit}>
             <input type="email"
+              ref={this.emailInputEl}
               value={email}
               className={'form-control ' + (error ? 'sign-in-error-occured' : '')}
               name="email"
