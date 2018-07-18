@@ -153,7 +153,7 @@ export class SignInDialog extends React.Component {
 
   renderFacebookAuth () {
     return (
-      <button className="sign-in-button sign-in-facebook-button" onClick={this.handleFacebookSignIn}>
+      <button className="sign-in-button sign-in-social-button sign-in-facebook-button" onClick={this.handleFacebookSignIn}>
         <Icon icon="facebook" />
         <FormattedMessage id="dialogs.sign-in.button.facebook" defaultMessage="Continue with Facebook" />
       </button>
@@ -162,7 +162,7 @@ export class SignInDialog extends React.Component {
 
   renderGoogleAuth () {
     return (
-      <button className="sign-in-button sign-in-google-button" onClick={this.handleGoogleSignIn}>
+      <button className="sign-in-button sign-in-social-button sign-in-google-button" onClick={this.handleGoogleSignIn}>
         <Icon icon="google" />
         <FormattedMessage id="dialogs.sign-in.button.google" defaultMessage="Continue with Google" />
       </button>
@@ -171,7 +171,7 @@ export class SignInDialog extends React.Component {
 
   renderTwitterAuth () {
     return (
-      <button className="sign-in-button sign-in-twitter-button" onClick={this.handleTwitterSignIn}>
+      <button className="sign-in-button sign-in-social-button sign-in-twitter-button" onClick={this.handleTwitterSignIn}>
         <Icon icon="twitter" />
         <FormattedMessage id="dialogs.sign-in.button.twitter" defaultMessage="Continue with Twitter" />
       </button>
