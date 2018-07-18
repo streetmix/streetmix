@@ -135,7 +135,7 @@ class StreetEditable extends React.Component {
           <Segment
             key={segment.id}
             dataNo={i}
-            segment={segment}
+            segment={{...segment}}
             actualWidth={segment.width}
             units={units}
             segmentPos={segmentPos}
