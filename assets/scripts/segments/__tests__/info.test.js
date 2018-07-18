@@ -2,6 +2,7 @@
 import module, {
   getSpriteDef,
   getAllSegmentInfo,
+  getAllSegmentInfoArray,
   getSegmentInfo,
   getSegmentVariantInfo
 } from '../info'
@@ -41,6 +42,15 @@ describe('segment info', () => {
     it('returns all segment data', () => {
       const segments = getAllSegmentInfo()
       expect(segments['sidewalk'].name).toEqual('Sidewalk')
+    })
+  })
+
+  describe('getAllSegmentInfoArray()', () => {
+    it('returns all segment data in an array', () => {
+      const segments = getAllSegmentInfoArray()
+      expect(segments.length).toBeGreaterThan(0)
+      expect(segments[0].name).toEqual('Sidewalk')
+      expect(segments[0].id).toEqual('sidewalk')
     })
   })
 

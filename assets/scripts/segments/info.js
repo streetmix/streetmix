@@ -166,6 +166,20 @@ export function getAllSegmentInfo () {
 }
 
 /**
+ * Returns all segment data as an array.
+ * Object keys are converted to an `id` property for each segment.
+ *
+ * @returns {Object}
+ */
+export function getAllSegmentInfoArray () {
+  return Object.keys(SEGMENT_INFO).map(id => {
+    const segment = { ...SEGMENT_INFO[id] }
+    segment.id = id
+    return segment
+  })
+}
+
+/**
  * Gets segment data for segment `type`. Safer than reading `type` directly
  * from `SEGMENT_INFO`, because this will return the `SEGMENT_UNKNOWN`
  * placeholder if the type is not found. The unknown segment placeholder
