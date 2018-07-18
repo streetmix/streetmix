@@ -32,6 +32,7 @@ import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { KEYS } from '../app/keyboard_commands'
 import { trackEvent } from '../app/event_tracking'
 import { t } from '../locales/locale'
+import { setActiveSegment } from '../store/actions/ui'
 
 class Segment extends React.Component {
   static propTypes = {
@@ -51,6 +52,7 @@ class Segment extends React.Component {
     infoBubbleHovered: PropTypes.bool,
     descriptionVisible: PropTypes.bool,
     activeSegment: PropTypes.number,
+    setActiveSegment: PropTypes.func,
 
     // Provided by react-dnd DragSource and DropTarget
     connectDragSource: PropTypes.func,
@@ -83,9 +85,12 @@ class Segment extends React.Component {
   }
 
   componentDidUpdate (prevProps, prevState) {
-    if ((prevProps.suppressMouseEnter && !this.props.suppressMouseEnter &&
-        infoBubble.considerSegmentEl === this.streetSegment) ||
-        (this.props.activeSegment === this.props.dataNo)) {
+    // During a segment removal or a dragging action, the infoBubble temporarily does not appear
+    // for the hovered/dragged segment. Once the removal or drag action ends, the infoBubble for
+    // the active segment should be shown. The following IF statement checks to see if a removal
+    // or drag action occurred previously to this segment and displays the infoBubble for the
+    // segment if it is equal to the activeSegment and no infoBubble was shown already.
+    if (prevProps.suppressMouseEnter && !this.props.suppressMouseEnter && this.props.activeSegment === this.props.dataNo) {
       infoBubble.considerShowing(false, this.streetSegment, INFO_BUBBLE_TYPE_SEGMENT)
     }
 
@@ -121,7 +126,10 @@ class Segment extends React.Component {
   }
 
   onSegmentMouseEnter = (event) => {
-    if (this.props.suppressMouseEnter || suppressMouseEnter()) return
+    if (this.props.suppressMouseEnter || suppressMouseEnter()) {
+      this.props.setActiveSegment(this.props.dataNo)
+      return
+    }
 
     window.addEventListener('keydown', this.handleKeyDown)
     infoBubble.considerShowing(event, this.streetSegment, INFO_BUBBLE_TYPE_SEGMENT)
@@ -229,7 +237,7 @@ class Segment extends React.Component {
       width: elementWidth + 'px',
       // In a street, certain segments have stacking priority over others (expressed as z-index).
       // Setting a z-index here will clobber a separate z-index (applied via CSS) when hovered by mouse pointer
-      zIndex: segmentInfo.zIndex,
+      zIndex: (this.props.isDragging) ? 0 : segmentInfo.zIndex,
       [this.props.cssTransform]: 'translateX(' + this.props.segmentPos + 'px)'
     }
 
@@ -307,8 +315,14 @@ function mapStateToProps (state) {
   }
 }
 
+function mapDispatchToProps (dispatch) {
+  return {
+    setActiveSegment: (position) => { dispatch(setActiveSegment(position)) }
+  }
+}
+
 export default flow(
   DragSource(Types.SEGMENT, segmentSource, collectDragSource),
   DropTarget([Types.SEGMENT, Types.PALETTE_SEGMENT], segmentTarget, collectDropTarget),
-  connect(mapStateToProps)
+  connect(mapStateToProps, mapDispatchToProps)
 )(Segment)
