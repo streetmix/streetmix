@@ -1,8 +1,8 @@
+import { debug } from '../preinit/debug_settings'
+import { initSystemCapabilities } from '../preinit/system_capabilities'
 import { hideLoadingScreen, loadImages } from './load_resources'
 import { scheduleNextLiveUpdateCheck } from './live_update'
 import { showGallery } from '../gallery/view'
-import { debug } from '../preinit/debug_settings'
-import { system } from '../preinit/system_capabilities'
 import { initializeFlagSubscribers } from '../app/flag_utils'
 import { segmentsChanged } from '../segments/view'
 import { initLocale } from '../locales/locale'
@@ -21,13 +21,11 @@ import { updateSettingsFromCountryCode } from '../users/localization'
 import { detectGeolocation } from '../users/geolocation'
 import { initPersistedSettingsStoreObserver } from '../users/settings'
 import { addEventListeners } from './event_listeners'
-import { trackEvent } from './event_tracking'
 import { getMode, setMode, MODES, processMode } from './mode'
 import { processUrl, updatePageUrl } from './page_url'
 import { onResize } from './window_resize'
 import { startListening } from './keypress'
 import { registerKeypresses } from './keyboard_commands'
-import { attachFetchNonBlockingEventListeners } from '../util/fetch_nonblocking'
 import store, { observeStore } from '../store'
 import { showDialog } from '../store/actions/dialogs'
 import { everythingLoaded } from '../store/actions/app'
@@ -39,6 +37,7 @@ export function setServerContacted (value) {
 }
 
 function preInit () {
+  initSystemCapabilities()
   setIgnoreStreetChanges(true)
 
   var language = window.navigator.userLanguage || window.navigator.language
@@ -52,7 +51,6 @@ function preInit () {
   // Start listening for keypresses
   startListening()
 
-  attachFetchNonBlockingEventListeners()
   observeStoreToUpdateBodyClasses()
 }
 
@@ -134,8 +132,8 @@ function onEverythingLoaded () {
   addEventListeners()
 
   store.dispatch(everythingLoaded())
-  var event = new window.CustomEvent('stmx:everything_loaded')
-  window.dispatchEvent(event)
+  // TODO: Only the WelcomePanel needs this event; refactor it out.
+  window.dispatchEvent(new window.CustomEvent('stmx:everything_loaded'))
 
   if (debug.forceLiveUpdate) {
     scheduleNextLiveUpdateCheck()
@@ -152,11 +150,6 @@ function onEverythingLoaded () {
 
   if (getPromoteStreet()) {
     remixStreet()
-  }
-
-  // Track touch capability in Google Analytics
-  if (system.touch === true) {
-    trackEvent('SYSTEM', 'TOUCH_CAPABLE', null, null, true)
   }
 
   // Display "support Streetmix" dialog for returning users

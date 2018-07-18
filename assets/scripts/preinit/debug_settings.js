@@ -10,7 +10,6 @@
  */
 import store from '../store'
 import { SET_DEBUG_FLAGS } from '../store/actions'
-import { setFeatureFlag } from '../store/actions/flags'
 
 export const debug = {
   forceLeftHandTraffic: false,
@@ -50,11 +49,6 @@ if (url.match(/[?&]debug-force-touch&?/)) {
 
 if (url.match(/[?&]debug-force-live-update&?/)) {
   debug.forceLiveUpdate = true
-}
-
-// Activates Level 3 locales for preview. Temporary. Remove after launch (TODO)
-if (url.match(/[?&]debug-new-languages&?/)) {
-  store.dispatch(setFeatureFlag('LOCALES_LEVEL_3', true))
 }
 
 store.dispatch({

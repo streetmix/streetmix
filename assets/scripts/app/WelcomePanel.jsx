@@ -3,8 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 
-import { app } from '../preinit/app_settings'
-import { system } from '../preinit/system_capabilities'
 import {
   NEW_STREET_DEFAULT,
   NEW_STREET_EMPTY,
@@ -28,9 +26,10 @@ const WELCOME_FIRST_TIME_EXISTING_STREET = 3
 
 const LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED = 'settings-welcome-dismissed'
 
-class WelcomePanel extends React.Component {
+export class WelcomePanel extends React.Component {
   static propTypes = {
     touch: PropTypes.bool,
+    readOnly: PropTypes.bool,
     newStreetPreference: PropTypes.number,
     priorLastStreetId: PropTypes.string,
     street: PropTypes.object,
@@ -40,6 +39,7 @@ class WelcomePanel extends React.Component {
 
   static defaultProps = {
     touch: false,
+    readOnly: false,
     priorLastStreetId: null
   }
 
@@ -71,8 +71,8 @@ class WelcomePanel extends React.Component {
   }
 
   showWelcome = () => {
-    // Do not do anything in these cases
-    if (app.readOnly || system.phone) {
+    // Do not show if app is read-only
+    if (this.props.readOnly) {
       return
     }
 
@@ -355,6 +355,7 @@ class WelcomePanel extends React.Component {
 function mapStateToProps (state) {
   return {
     touch: state.system.touch,
+    readOnly: state.app.readOnly || state.system.phone,
     newStreetPreference: state.settings.newStreetPreference,
     priorLastStreetId: state.settings.priorLastStreetId,
     street: state.street

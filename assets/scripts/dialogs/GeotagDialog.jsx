@@ -307,7 +307,7 @@ function mapStateToProps (state) {
     addressInformation: state.map.addressInformation,
     userLocation: state.user.geolocation.data,
     street: state.street,
-    dpi: state.system.hiDpi
+    dpi: state.system.devicePixelRatio
   }
 }
 

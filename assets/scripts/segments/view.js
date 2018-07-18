@@ -32,7 +32,7 @@ export function drawSegmentImage (id, ctx, sx = 0, sy = 0, sw, sh, dx, dy, dw, d
 
   // Settings
   const state = store.getState()
-  dpi = dpi || state.system.hiDpi || 1
+  dpi = dpi || state.system.devicePixelRatio || 1
   const debugRect = state.flags.DEBUG_SEGMENT_CANVAS_RECTANGLES.value || false
 
   // Get image definition

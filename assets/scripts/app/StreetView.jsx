@@ -20,13 +20,17 @@ import { animate, getElAbsolutePos } from '../util/helpers'
 import { MAX_CUSTOM_STREET_WIDTH } from '../streets/width'
 import { BUILDING_SPACE } from '../segments/buildings'
 import { TILE_SIZE } from '../segments/constants'
-import { app } from '../preinit/app_settings'
 
 class StreetView extends React.Component {
   static propTypes = {
+    readOnly: PropTypes.bool,
     street: PropTypes.object.isRequired,
     system: PropTypes.object.isRequired,
     locale: PropTypes.object.isRequired
+  }
+
+  static defaultProps = {
+    readOnly: false
   }
 
   constructor (props) {
@@ -68,7 +72,7 @@ class StreetView extends React.Component {
       streetSectionTop = viewportHeight - streetSectionHeight + 70
     }
 
-    if (app.readOnly) {
+    if (this.props.readOnly) {
       streetSectionTop += 80
     }
 
@@ -251,6 +255,7 @@ class StreetView extends React.Component {
 
 function mapStateToProps (state) {
   return {
+    readOnly: state.app.readOnly,
     street: state.street,
     system: state.system,
     locale: state.locale
