@@ -141,7 +141,7 @@ class StreetEditable extends React.Component {
             actualWidth={segment.width}
             units={units}
             segmentPos={segmentPos}
-            suppressMouseEnter={this.state.suppressMouseEnter}
+            suppressMouseEnter={(this.state.suppressMouseEnter || this.props.isOver)}
             updateSegmentData={this.updateSegmentData}
             updatePerspective={this.props.updatePerspective}
           />
