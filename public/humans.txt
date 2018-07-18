@@ -92,11 +92,10 @@
     Weronika Grzejszczak, Polish
     Wojciech Patelka, Polish
     Carlos Jimenez, Portuguese (Brazil)
-    Carolina Guido, Portuguese (Brazil)
-    Paulo Franco, Portuguese (Brazil)
+    Carolina Guido (Urb-i), Portuguese (Brazil)
+    Paulo Franco (Urb-i), Portuguese (Brazil)
     Stephan Garcia, Portuguese (Brazil)
-    Urb-i - Urban Ideas, Portuguese (Brazil)
-    Yuval Fogelson, Portuguese (Brazil)
+    Yuval Fogelson (Urb-i), Portuguese (Brazil)
     Paco Marquez, Spanish (Mexico)
     Patricio M. Ruiz Abrín, Spanish (Mexico)
     Jakob Fahlstedt, Swedish
