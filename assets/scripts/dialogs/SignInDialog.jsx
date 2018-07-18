@@ -153,7 +153,7 @@ export class SignInDialog extends React.Component {
 
   renderFacebookAuth () {
     return (
-      <button onClick={this.handleFacebookSignIn} className="sign-in-button sign-in-facebook-button">
+      <button className="sign-in-button sign-in-facebook-button" onClick={this.handleFacebookSignIn}>
         <Icon icon="facebook" />
         <FormattedMessage id="dialogs.sign-in.button.facebook" defaultMessage="Continue with Facebook" />
       </button>
@@ -162,7 +162,7 @@ export class SignInDialog extends React.Component {
 
   renderGoogleAuth () {
     return (
-      <button onClick={this.handleGoogleSignIn} className="sign-in-button sign-in-google-button">
+      <button className="sign-in-button sign-in-google-button" onClick={this.handleGoogleSignIn}>
         <Icon icon="google" />
         <FormattedMessage id="dialogs.sign-in.button.google" defaultMessage="Continue with Google" />
       </button>

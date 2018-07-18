@@ -219,16 +219,6 @@
   text-align: left;
   width: 300px;
 
-  .sign-in-loading-wrapper {
-    min-height: 200px;
-
-    .sign-in-message {
-      text-align: center;
-      font-weight: normal;
-      font-size: 18px;
-    }
-  }
-
   button {
     width: 100%;
     text-align: left;
@@ -249,74 +239,6 @@
     }
   }
 
-  .sign-in-twitter-button {
-    background-color: #1da1f2;
-    border-color: #2f94d5;
-  }
-
-  .sign-in-google-button {
-    background-color: #fff;
-    border-color: #4a8bee;
-
-    .icon {
-      width: 27px;
-    }
-
-    span {
-      color: #000;
-    }
-  }
-
-  .sign-in-facebook-button {
-    background-color: #3b579d;
-    border-color: #1b3363;
-  }
-
-  .sign-in-email-title {
-    text-align: center;
-    font-weight: 700;
-    margin-top: 30px;
-  }
-
-  .email-description {
-    text-align: center;
-    line-height: 0;
-  }
-
-  .sign-in-email-sent-block {
-    text-align: center;
-    min-height: 200px;
-
-    .sign-in-message {
-      margin-bottom: 40px;
-    }
-
-    .sign-in-sent-message-with-email {
-      line-height: 0;
-
-      .sign-in-email {
-        font-weight: 700;
-      }
-    }
-
-    .sign-in-sent-message {
-      text-align: center;
-      line-height: 1.2;
-    }
-
-    button {
-      padding: 10px !important;
-      justify-content: center;
-
-      span {
-        padding: 5px;
-        top: 0;
-        color: #000;
-        text-align: center;
-      }
-    }
-  }
-
   form {
     margin-top: 35px;
 
@@ -328,26 +250,104 @@
       border: 2px solid #a9ccdb;
       outline: none;
     }
+  }
+}
 
-    .sign-in-error-occured {
-      border: 2px solid red;
+.sign-in-loading-wrapper {
+  min-height: 200px;
+
+  .sign-in-message {
+    text-align: center;
+    font-weight: normal;
+    font-size: 18px;
+  }
+}
+
+.sign-in-twitter-button {
+  background-color: #1da1f2;
+  border-color: #2f94d5;
+}
+
+.sign-in-google-button {
+  background-color: #fff;
+  border-color: #4a8bee;
+
+  .icon {
+    width: 27px;
+  }
+
+  span {
+    color: #000;
+  }
+}
+
+.sign-in-facebook-button {
+  background-color: #3b579d;
+  border-color: #1b3363;
+}
+
+.sign-in-email-title {
+  text-align: center;
+  font-weight: 700;
+  margin-top: 30px;
+}
+
+.email-description {
+  text-align: center;
+  line-height: 0;
+}
+
+.sign-in-email-sent-block {
+  text-align: center;
+  min-height: 200px;
+
+  .sign-in-message {
+    margin-bottom: 40px;
+  }
+
+  button {
+    padding: 10px !important;
+    justify-content: center;
+
+    span {
+      padding: 5px;
+      top: 0;
+      color: #000;
+      text-align: center;
     }
+  }
+}
 
-    .sign-in-error-message {
-      color: red;
-      font-size: 11px;
-    }
+.sign-in-sent-message-with-email {
+  line-height: 0;
 
-    .sign-in-email-button {
-      padding: 10px !important;
-      justify-content: center;
+  .sign-in-email {
+    font-weight: 700;
+  }
+}
 
-      span {
-        padding: 5px;
-        top: 0;
-        color: #000;
-        text-align: center;
-      }
-    }
+.sign-in-sent-message {
+  text-align: center;
+  line-height: 1.2;
+}
+
+.sign-in-error-occured {
+  border: 2px solid red;
+}
+
+.sign-in-error-message {
+  color: red;
+  font-size: 11px;
+}
+
+.sign-in-email-button {
+  padding: 10px !important;
+  justify-content: center;
+
+  span {
+    padding: 5px;
+    top: 0;
+    color: #000;
+    text-align: center;
   }
 }
