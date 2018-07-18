@@ -238,7 +238,7 @@ class Segment extends React.Component {
       width: elementWidth + 'px',
       // In a street, certain segments have stacking priority over others (expressed as z-index).
       // Setting a z-index here will clobber a separate z-index (applied via CSS) when hovered by mouse pointer
-      zIndex: segmentInfo.zIndex,
+      zIndex: (this.props.isDragging) ? 0 : segmentInfo.zIndex,
       [this.props.cssTransform]: 'translateX(' + this.props.segmentPos + 'px)'
     }
 
