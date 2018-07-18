@@ -63,9 +63,7 @@ class StreetEditable extends React.Component {
       segment.el = ref
       segment.el.dataNo = dataNo
       segment.el.savedLeft = Math.round(segmentPos)
-      segment.el.savedNoMoveLeft = Math.round(segmentPos)
       segment.el.cssTransformLeft = Math.round(segmentPos)
-      segment.el.savedWidth = Math.round(segment.width * TILE_SIZE)
     }
   }
 
