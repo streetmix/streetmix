@@ -84,3 +84,10 @@ textarea {
     border-color: desaturate($ui-colour, 100%) !important;
   }
 }
+
+hr {
+  border: 0;
+  border-top: 1px solid darken($ui-colour, 10%);
+  margin-top: 1em;
+  margin-bottom: 1em;
+}

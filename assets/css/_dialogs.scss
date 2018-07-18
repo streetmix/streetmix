@@ -219,17 +219,23 @@
   text-align: left;
   width: 300px;
 
-  form {
-    margin-top: 35px;
+  h2 {
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 0;
+  }
 
-    .form-control {
-      padding: 8px;
-      font-size: 13px;
-      box-sizing: border-box;
-      width: 100%;
-      border: 2px solid #a9ccdb;
-      outline: none;
-    }
+  small {
+    color: rgb(160, 160, 160);
+  }
+
+  .form-control {
+    padding: 8px;
+    font-size: 13px;
+    box-sizing: border-box;
+    width: 100%;
+    border: 2px solid #a9ccdb;
+    outline: none;
   }
 }
 
@@ -276,15 +282,9 @@
   font-size: 27px;
 }
 
-.sign-in-email-title {
+.sign-in-email-description {
   text-align: center;
-  font-weight: 700;
-  margin-top: 30px;
-}
-
-.email-description {
-  text-align: center;
-  line-height: 0;
+  margin-bottom: 1em;
 }
 
 .sign-in-email-sent-block {

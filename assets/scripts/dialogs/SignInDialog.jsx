@@ -118,18 +118,18 @@ export class SignInDialog extends React.Component {
   renderEmailAuth () {
     return (
       <React.Fragment>
-        <p className="sign-in-email-title">
-          <FormattedMessage
-            id="dialogs.sign-in.email-title"
-            defaultMessage="Or use your email address"
-          />
-        </p>
-        <p className="email-description">
-          <FormattedMessage
-            id="dialogs.sign-in.email-description"
-            defaultMessage="We'll send you a link. No password is required."
-          />
-        </p>
+        <div className="sign-in-email-description">
+          <h2>
+            <FormattedMessage id="dialogs.sign-in.email-heading" defaultMessage="Use your email address" />
+          </h2>
+          <small>
+            <FormattedMessage
+              id="dialogs.sign-in.email-description"
+              defaultMessage="We’ll send you a link. No password is required."
+            />
+          </small>
+        </div>
+
         <form onSubmit={this.handleSubmit}>
           <input type="email"
             ref={this.emailInputEl}
@@ -140,11 +140,8 @@ export class SignInDialog extends React.Component {
             placeholder="test@test.com"
           />
           {this.rendererrorMsg()}
-          <button type="submit"
-            disabled={this.state.email.length === 0}
-            className="sign-in-button sign-in-email-button"
-          >
-            <FormattedMessage id="dialogs.sign-in.button.email" defaultMessage="Sign in with email" />
+          <button type="submit" className="sign-in-button sign-in-email-button">
+            <FormattedMessage id="dialogs.sign-in.button.email" defaultMessage="Continue with email" />
           </button>
         </form>
       </React.Fragment>
@@ -228,13 +225,21 @@ export class SignInDialog extends React.Component {
           <p>
             <FormattedMessage
               id="dialogs.sign-in.description"
-              defaultMessage="If you don't already have a Streetmix account, we’ll make one for you."
+              defaultMessage="If you don’t already have a Streetmix account, we’ll make one for you."
             />
           </p>
+
+          <hr />
+          {this.props.emailAuthEnabled && this.renderEmailAuth()}
+
+          <hr />
+          <h2>
+            <FormattedMessage id="dialogs.sign-in.social-heading" defaultMessage="Use a social media account" />
+          </h2>
+
           {this.props.twitterAuthEnabled && this.renderTwitterAuth()}
           {this.props.googleAuthEnabled && this.renderGoogleAuth()}
           {this.props.facebookAuthEnabled && this.renderFacebookAuth()}
-          {this.props.emailAuthEnabled && this.renderEmailAuth()}
         </div>
       )
     }
