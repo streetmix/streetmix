@@ -163,19 +163,8 @@ exports.post = function (req, res) {
   }
 } // END function - exports.post
 
-exports.get = function (req, res) {
-  const handleFindUserById = function (err, user) {
-    if (err) {
-      logger.error(err)
-      res.status(500).send('Error finding user.')
-      return
-    }
-
-    if (!user) {
-      res.status(404).send('User not found.')
-      return
-    }
-
+exports.get = async function (req, res) {
+  const getUserDataTogether = async function (user) {
     let twitterApiClient
     try {
       twitterApiClient = new Twitter({
@@ -194,9 +183,7 @@ exports.get = function (req, res) {
 
       user.asJson({ auth: auth }, function (err, userJson) {
         if (err) {
-          logger.error(err)
-          res.status(500).send('Could not render user JSON.')
-          return
+          return Promise.reject(err)
         }
 
         if (data) {
@@ -204,8 +191,7 @@ exports.get = function (req, res) {
         } else {
           userJson.profileImageUrl = user.profile_image_url
         }
-
-        res.status(200).send(userJson)
+        return Promise.resolve(userJson)
       })
     } // END function - sendUserJson
 
@@ -256,11 +242,12 @@ exports.get = function (req, res) {
 
   const userId = req.params.user_id
 
-  const handleFindUserByLoginToken = function (err, user) {
-    if (err) {
-      logger.error(err)
-      res.status(500).send('Error finding user.')
-      return
+  try {
+    let user
+    if (req.loginToken) {
+      user = await User.findOne({ login_tokens: { $in: [ req.loginToken ] } })
+    } else {
+      user = await User.findOne({ id: userId })
     }
 
     if (!user) {
@@ -268,33 +255,22 @@ exports.get = function (req, res) {
       return
     }
 
-    User.findOne({ id: userId }, handleFindUserById)
-  } // END function - handleFindUserByLoginToken
-
-  if (req.loginToken) {
-    User.findOne({ login_tokens: { $in: [ req.loginToken ] } }, handleFindUserByLoginToken)
-  } else {
-    User.findOne({ id: userId }, handleFindUserById)
+    getUserDataTogether(user).then(userData => {
+      res.status(200).send(userData)
+    }).catch(err => {
+      logger.error(err)
+      res.status(500).send('Could not render user JSON')
+    })
+  } catch (err) {
+    logger.error(err)
+    res.status(500).send('Error finding user.')
   }
 } // END function - exports.get
 
-exports.delete = function (req, res) {
-  const handleSaveUser = function (err, user) {
-    if (err) {
-      logger.error(err)
-      res.status(500).send('Could not sign-out user.')
-      return
-    }
-    res.status(204).end()
-  } // END function - handleSaveUser
-
-  const handleFindUser = function (err, user) {
-    if (err) {
-      logger.error(err)
-      res.status(500).send('Error finding user.')
-      return
-    }
-
+exports.delete = async function (req, res) {
+  const userId = req.params.user_id
+  try {
+    const user = await User.findOne({ id: userId })
     if (!user) {
       res.status(404).send('User not found.')
       return
@@ -305,22 +281,20 @@ exports.delete = function (req, res) {
       res.status(401).end()
       return
     }
-
     user.login_tokens.splice(idx, 1)
-    user.save(handleSaveUser)
-  } // END function - handleFindUser
-
-  // Flag error if user ID is not provided
-  if (!req.params.user_id) {
-    res.status(400).send('Please provide user ID.')
-    return
+    user.save().then(user => {
+      res.status(204).end()
+    }).catch(err => {
+      logger.error(err)
+      res.status(500).send('Could not sign-out user.')
+    })
+  } catch (err) {
+    logger.error(err)
+    res.status(500).send('Error finding user.')
   }
-
-  const userId = req.params.user_id
-  User.findOne({ id: userId }, handleFindUser)
 } // END function - exports.delete
 
-exports.put = function (req, res) {
+exports.put = async function (req, res) {
   let body
   try {
     body = req.body
@@ -329,22 +303,9 @@ exports.put = function (req, res) {
     return
   }
 
-  const handleSaveUser = function (err, user) {
-    if (err) {
-      logger.error(err)
-      res.status(500).send('Could not update user information.')
-      return
-    }
-    res.status(204).end()
-  } // END function - handleSaveUser
-
-  const handleFindUser = function (err, user) {
-    if (err) {
-      logger.error(err)
-      res.status(500).send('Error finding user.')
-      return
-    }
-
+  const userId = req.params.user_id
+  try {
+    const user = await User.findOne({ id: userId })
     if (!user) {
       res.status(404).send('User not found.')
       return
@@ -356,15 +317,14 @@ exports.put = function (req, res) {
     }
 
     user.data = body.data || user.data
-    user.save(handleSaveUser)
-  } // END function - handleFindUser
-
-  // Flag error if user ID is not provided
-  if (!req.params.user_id) {
-    res.status(400).send('Please provide user ID.')
-    return
+    user.save().then(user => {
+      res.status(204).end()
+    }).catch(err => {
+      logger.error(err)
+      res.status(500).send('Could not update user information.')
+    })
+  } catch (err) {
+    logger.error(err)
+    res.status(500).send('Error finding user.')
   }
-
-  const userId = req.params.user_id
-  User.findOne({ id: userId }, handleFindUser)
 } // END function - exports.put
