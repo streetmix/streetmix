@@ -6,7 +6,7 @@ const IP_GEOLOCATION_TIMEOUT = 200
 
 exports.get = function (req, res) {
   if (req.headers.host !== config.app_host_port) {
-    res.status(403).send('Not allowed to access API')
+    res.status(403).json({ error: 'Not allowed to access API' })
     return
   }
 
@@ -19,10 +19,10 @@ exports.get = function (req, res) {
       // and maximum monthly API requests reached, respectively. Since ipstack already has
       // error messages included with these errors, just send the message to the front-end.
       if (error.code === 101 || error.code === 104) {
-        res.status(error.code).send(error.info)
+        res.status(error.code).json({ error: error.info })
       } else if (error.code === 'ETIMEDOUT') {
         // If request takes longer than declared IP_GEOLOCATION_TIMEOUT, return status code 408
-        res.status(408).send('Request timed out')
+        res.status(408).json({ error: 'Request timed out' })
       }
       return
     }
