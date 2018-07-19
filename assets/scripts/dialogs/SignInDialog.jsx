@@ -104,42 +104,47 @@ export class SignInDialog extends React.Component {
     }
   }
 
-  rendererrorMsg = () => {
-    if (this.state.error) {
-      return (<p className="sign-in-error-message">
+  renderErrorMsg = () => {
+    return (
+      <p className="sign-in-error-message">
         <FormattedMessage
           id="dialogs.sign-in.email-error-message"
           defaultMessage={this.state.errorMsg}
         />
-      </p>)
-    }
+      </p>
+    )
   }
 
   renderEmailAuth () {
     return (
       <React.Fragment>
-        <div className="sign-in-email-description">
-          <h2>
-            <FormattedMessage id="dialogs.sign-in.email-heading" defaultMessage="Use your email address" />
-          </h2>
-          <small>
-            <FormattedMessage
-              id="dialogs.sign-in.email-description"
-              defaultMessage="We’ll send you a link. No password is required."
-            />
-          </small>
-        </div>
-
         <form onSubmit={this.handleSubmit}>
-          <input type="email"
+          <label htmlFor="sign-in-email-input" className="sign-in-email-label">
+            <FormattedMessage id="dialogs.sign-in.email-label" defaultMessage="Email" />
+          </label>
+
+          <input
+            type="email"
+            id="sign-in-email-input"
             ref={this.emailInputEl}
             value={this.state.email}
-            className={'form-control ' + (this.state.error ? 'sign-in-error-occured' : '')}
+            className={'sign-in-input ' + (this.state.error ? 'sign-in-error-occured' : '')}
             name="email"
             onChange={this.handleChange}
             placeholder="test@test.com"
           />
-          {this.rendererrorMsg()}
+
+          {this.state.error && this.renderErrorMsg()}
+
+          <p className="sign-in-email-password-note">
+            <small>
+              <FormattedMessage
+                id="dialogs.sign-in.email-description"
+                defaultMessage="We’ll send you a link. No password is required."
+              />
+            </small>
+          </p>
+
           <button type="submit" className="sign-in-button sign-in-email-button">
             <FormattedMessage id="dialogs.sign-in.button.email" defaultMessage="Continue with email" />
           </button>
@@ -229,7 +234,6 @@ export class SignInDialog extends React.Component {
             />
           </p>
 
-          <hr />
           {this.props.emailAuthEnabled && this.renderEmailAuth()}
 
           <hr />
@@ -240,6 +244,12 @@ export class SignInDialog extends React.Component {
           {this.props.twitterAuthEnabled && this.renderTwitterAuth()}
           {this.props.googleAuthEnabled && this.renderGoogleAuth()}
           {this.props.facebookAuthEnabled && this.renderFacebookAuth()}
+
+          <p>
+            <FormattedMessage id="dialogs.sign-in.tos" defaultMessage="By clicking one of these buttons, I agree to the {tosLink}." values={{
+              tosLink: <a href="/terms-of-service" target="_blank">terms of service</a>
+            }} />
+          </p>
         </div>
       )
     }
