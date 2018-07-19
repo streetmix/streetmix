@@ -26,6 +26,9 @@ export function detectGeolocation () {
   // Reset state
   store.dispatch(setGeolocationAttempted(false))
   return fetchGeolocation()
+    .catch(() => {
+      geolocationAttempted()
+    })
 }
 
 /**
