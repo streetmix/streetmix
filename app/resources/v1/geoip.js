@@ -5,7 +5,7 @@ const logger = require('../../../lib/logger.js')()
 const IP_GEOLOCATION_TIMEOUT = 500
 
 var redis = require('redis')
-var client = redis.createClient('12000', '127.0.0.1', {no_ready_check: true})
+var client = redis.createClient(config.redis.port, config.redis.hostname, {no_ready_check: true})
 
 client.on('connect', function () {
   console.log('Connected to Redis')
@@ -13,7 +13,7 @@ client.on('connect', function () {
 
 exports.get = function (req, res) {
   if (req.headers.host !== config.app_host_port) {
-    res.status(403).json({ error: 'Not allowed to access API' })
+    res.status(403).json({ status: 403, error: 'Not allowed to access API' })
     return
   }
 
@@ -28,10 +28,10 @@ exports.get = function (req, res) {
         // and maximum monthly API requests reached, respectively. Since ipstack already has
         // error messages included with these errors, just send the message to the front-end.
         if (error.code === 101 || error.code === 104) {
-          res.status(error.code).json({ error: error.info })
+          res.status(error.code).json({ status: error.code, error: error.info })
         } else if (error.code === 'ETIMEDOUT') {
           // If request takes longer than declared IP_GEOLOCATION_TIMEOUT, return status code 408
-          res.status(408).json({ error: 'Request timed out' })
+          res.status(408).json({ status: 408, error: 'Request timed out' })
         }
         return
       }
@@ -43,7 +43,9 @@ exports.get = function (req, res) {
 
   client.get(req.ip, function (err, reply) {
     if (err) {
-      console.log(err)
+      logger.error(err)
+
+      res.status(500).json({ status: 500, error: 'Could not access Redis cache' })
       return
     }
 
