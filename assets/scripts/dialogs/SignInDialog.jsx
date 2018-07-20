@@ -128,7 +128,7 @@ export class SignInDialog extends React.Component {
             id="sign-in-email-input"
             ref={this.emailInputEl}
             value={this.state.email}
-            className={'sign-in-input ' + (this.state.error ? 'sign-in-error-occured' : '')}
+            className={'sign-in-input ' + (this.state.error ? 'sign-in-input-error' : '')}
             name="email"
             onChange={this.handleChange}
             placeholder="test@test.com"
@@ -236,18 +236,19 @@ export class SignInDialog extends React.Component {
 
           {this.props.emailAuthEnabled && this.renderEmailAuth()}
 
-          <hr />
-          <h2>
-            <FormattedMessage id="dialogs.sign-in.social-heading" defaultMessage="Use a social media account" />
-          </h2>
+          <div className="sign-in-social-heading">
+            <hr />
+            <FormattedMessage id="dialogs.sign-in.social-heading" defaultMessage="or" />
+          </div>
 
           {this.props.twitterAuthEnabled && this.renderTwitterAuth()}
           {this.props.googleAuthEnabled && this.renderGoogleAuth()}
           {this.props.facebookAuthEnabled && this.renderFacebookAuth()}
 
-          <p>
-            <FormattedMessage id="dialogs.sign-in.tos" defaultMessage="By clicking one of these buttons, I agree to the {tosLink}." values={{
-              tosLink: <a href="/terms-of-service" target="_blank">terms of service</a>
+          <p className="sign-in-disclaimer">
+            <FormattedMessage id="dialogs.sign-in.tos" defaultMessage="By clicking one of these buttons, I agree to the {tosLink} and {privacyLink}." values={{
+              tosLink: <a href="/terms-of-service" target="_blank">terms of service</a>,
+              privacyLink: <a href="/privacy-policy" target="_blank">privacy policy</a>
             }} />
           </p>
         </div>

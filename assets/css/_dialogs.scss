@@ -47,6 +47,10 @@
 
   h1 {
     @include large-message-text;
+
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    line-height: auto;
   }
 
   footer {
@@ -243,6 +247,10 @@
     outline: 0;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.07), 0 0 8px opacify(darken($button-border-colour, 10%), 0.15);
   }
+
+  &.sign-in-input-error {
+    border: 1px solid red !important;
+  }
 }
 
 .sign-in-email-password-note {
@@ -258,6 +266,27 @@
     text-align: center;
     font-weight: normal;
     font-size: 18px;
+  }
+}
+
+.sign-in-social-heading {
+  display: flex;
+  margin-top: 1em;
+  font-size: 1.25em;
+  font-weight: 700;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  span {
+    display: inline-block;
+    background-color: white;
+    position: absolute;
+    padding: 1em;
+  }
+
+  hr {
+    width: 100%;
   }
 }
 
@@ -290,8 +319,15 @@
 }
 
 .sign-in-facebook-button .fa-facebook-square {
-  color: #1b3363 !important;
+  color: #3d5b94 !important;
   font-size: 27px;
+}
+
+.sign-in-disclaimer {
+  text-align: center;
+  margin-top: 2em;
+  margin-left: 5em;
+  margin-right: 5em;
 }
 
 .sign-in-email-sent-block {
@@ -326,10 +362,6 @@
 .sign-in-sent-message {
   text-align: center;
   line-height: 1.2;
-}
-
-.sign-in-error-occured {
-  border: 2px solid red;
 }
 
 .sign-in-error-message {
