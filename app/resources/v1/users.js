@@ -95,11 +95,20 @@ exports.post = function (req, res) {
     // Try to find user with twitter ID
     User.findOne({ twitter_id: twitterCredentials.userId }, handleFindUser)
   } // END function - handleTwitterSignIn
+
+  /**
+   * Returns a randomly-generated 4-digit string of a number between 0000 and 9999
+   *
+   * @returns {string}
+   */
+  const generateRandomId = () => Math.floor(Math.random() * 10000).toString().padStart(4, '0')
+
   const generateId = function (nickname) {
     // TODO - Check if the Id generated is not existing
-    const digit = Math.floor(1000 + Math.random() * 9000)
-    return nickname + '-' + digit
+    const id = generateRandomId()
+    return nickname + '-' + id
   }
+
   const handleAuth0SignIn = async function (credentials) {
     try {
       const user = await User.findOne({ auth0_id: credentials.auth0_id })
