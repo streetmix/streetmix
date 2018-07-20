@@ -22,7 +22,6 @@ export class SignInDialog extends React.Component {
       emailSent: false,
       sendingEmail: false,
       error: false,
-      errorMsg: '',
       signingIn: false
     }
 
@@ -47,33 +46,40 @@ export class SignInDialog extends React.Component {
 
   handleFacebookSignIn = (event) => {
     event.preventDefault()
+
     this.setState({
       signingIn: true
     })
+
     goFacebookSignIn()
   }
 
   handleGoogleSignIn = (event) => {
     event.preventDefault()
+
     this.setState({
       signingIn: true
     })
+
     goGoogleSignIn()
   }
 
   handleTwitterSignIn = (event) => {
     event.preventDefault()
+
     this.setState({
       signingIn: true
     })
+
     goTwitterSignIn()
   }
 
-  handleGoEmailSignIn = (err, res) => {
-    if (err) {
-      console.log(err)
+  handleGoEmailSignIn = (error, res) => {
+    if (error) {
+      console.error(error)
       return
     }
+
     this.setState({
       sendingEmail: false,
       emailSent: true
@@ -82,6 +88,7 @@ export class SignInDialog extends React.Component {
 
   handleEmailResend = (event) => {
     event.preventDefault()
+
     this.setState({
       emailSent: false
     })
@@ -89,6 +96,7 @@ export class SignInDialog extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
+
     const { email } = this.state
 
     if (isEmail(email)) {
@@ -98,8 +106,7 @@ export class SignInDialog extends React.Component {
       goEmailSignIn(email, this.handleGoEmailSignIn)
     } else {
       this.setState({
-        error: true,
-        errorMsg: 'Oops! That didn\'t look like a valid email address. Please try again.'
+        error: true
       })
     }
   }
@@ -108,8 +115,8 @@ export class SignInDialog extends React.Component {
     return (
       <p className="sign-in-error-message">
         <FormattedMessage
-          id="dialogs.sign-in.email-error-message"
-          defaultMessage={this.state.errorMsg}
+          id="dialogs.sign-in.email-invalid"
+          defaultMessage="Oops! That didn’t look like a valid email address. Please try again."
         />
       </p>
     )
