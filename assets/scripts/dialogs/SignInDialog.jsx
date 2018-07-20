@@ -147,7 +147,7 @@ export class SignInDialog extends React.Component {
             <small>
               <FormattedMessage
                 id="dialogs.sign-in.email-description"
-                defaultMessage="We’ll send you a link. No password is required."
+                defaultMessage="We’ll send you a link to sign in. No password is required."
               />
             </small>
           </p>
@@ -230,37 +230,38 @@ export class SignInDialog extends React.Component {
           </div>
         </div>
       )
-    } else {
-      return (
-        <div className="sign-in-dialog">
-          <h1><FormattedMessage id="dialogs.sign-in.heading" defaultMessage="Sign in to Streetmix" /></h1>
-          <p>
-            <FormattedMessage
-              id="dialogs.sign-in.description"
-              defaultMessage="If you don’t already have a Streetmix account, we’ll make one for you."
-            />
-          </p>
+    }
 
-          {this.props.emailAuthEnabled && this.renderEmailAuth()}
+    return (
+      <div className="sign-in-dialog">
+        <h1><FormattedMessage id="dialogs.sign-in.heading" defaultMessage="Sign in to Streetmix" /></h1>
+        <p>
+          <FormattedMessage
+            id="dialogs.sign-in.description"
+            defaultMessage="If you don’t already have a Streetmix account, we’ll make one for you."
+          />
+        </p>
 
+        {this.props.emailAuthEnabled && this.renderEmailAuth()}
+        {this.props.emailAuthEnabled && (
           <div className="sign-in-social-heading">
             <hr />
             <FormattedMessage id="dialogs.sign-in.social-heading" defaultMessage="or" />
           </div>
+        )}
 
-          {this.props.twitterAuthEnabled && this.renderTwitterAuth()}
-          {this.props.googleAuthEnabled && this.renderGoogleAuth()}
-          {this.props.facebookAuthEnabled && this.renderFacebookAuth()}
+        {this.props.twitterAuthEnabled && this.renderTwitterAuth()}
+        {this.props.googleAuthEnabled && this.renderGoogleAuth()}
+        {this.props.facebookAuthEnabled && this.renderFacebookAuth()}
 
-          <p className="sign-in-disclaimer">
-            <FormattedMessage id="dialogs.sign-in.tos" defaultMessage="By clicking one of these buttons, I agree to the {tosLink} and {privacyLink}." values={{
-              tosLink: <a href="/terms-of-service" target="_blank">terms of service</a>,
-              privacyLink: <a href="/privacy-policy" target="_blank">privacy policy</a>
-            }} />
-          </p>
-        </div>
-      )
-    }
+        <p className="sign-in-disclaimer">
+          <FormattedMessage id="dialogs.sign-in.tos" defaultMessage="By clicking one of these buttons, I agree to the {tosLink} and {privacyLink}." values={{
+            tosLink: <a href="/terms-of-service" target="_blank">terms of service</a>,
+            privacyLink: <a href="/privacy-policy" target="_blank">privacy policy</a>
+          }} />
+        </p>
+      </div>
+    )
   }
 }
 
