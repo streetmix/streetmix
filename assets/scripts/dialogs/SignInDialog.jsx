@@ -244,6 +244,9 @@ export class SignInDialog extends React.Component {
 
         {this.props.emailAuthEnabled && this.renderEmailAuth()}
         {this.props.emailAuthEnabled && (
+          this.props.twitterAuthEnabled ||
+          this.props.googleAuthEnabled ||
+          this.props.facebookAuthEnabled) && (
           <div className="sign-in-social-heading">
             <hr />
             <FormattedMessage id="dialogs.sign-in.social-heading" defaultMessage="or" />

@@ -12,9 +12,10 @@ import { showDialog } from '../store/actions/dialogs'
 class MenuBar extends React.PureComponent {
   static propTypes = {
     onMenuDropdownClick: PropTypes.func,
+    locale: PropTypes.string,
     userId: PropTypes.string,
     clearMenus: PropTypes.func,
-    showDialog: PropTypes.func
+    showSignInDialog: PropTypes.func
   }
 
   static defaultProps = {
@@ -71,8 +72,13 @@ class MenuBar extends React.PureComponent {
     }}))
   }
 
-  onClickSignIn = (event) => {
-    goTwitterSignIn()
+  handleSignIn = (event) => {
+    // Currently, the sign in dialog is only limited to users in English.
+    if (this.props.locale === 'en') {
+      this.props.showSignInDialog()
+    } else {
+      goTwitterSignIn()
+    }
   }
 
   renderUserAvatar = (userId) => {
@@ -83,7 +89,7 @@ class MenuBar extends React.PureComponent {
           <span className="user-id">{userId}</span>
         </MenuBarItem>
       ) : (
-        <MenuBarItem label="Sign in" translation="menu.item.sign-in" onClick={this.props.showDialog} requireInternet />
+        <MenuBarItem label="Sign in" translation="menu.item.sign-in" onClick={this.handleSignIn} requireInternet />
       )
   }
 
@@ -128,6 +134,7 @@ class MenuBar extends React.PureComponent {
 
 function mapStateToProps (state) {
   return {
+    locale: state.locale.locale,
     userId: state.user.signInData && state.user.signInData.userId
   }
 }
@@ -135,7 +142,7 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
   return {
     clearMenus: () => dispatch(clearMenus()),
-    showDialog: () => dispatch(showDialog('SIGN_IN'))
+    showSignInDialog: () => dispatch(showDialog('SIGN_IN'))
   }
 }
 
