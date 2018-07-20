@@ -82,7 +82,9 @@ export class SignInDialog extends React.Component {
 
     this.setState({
       sendingEmail: false,
-      emailSent: true
+      emailSent: true,
+      // Reset error state
+      error: false
     })
   }
 
@@ -193,41 +195,33 @@ export class SignInDialog extends React.Component {
     if (sendingEmail || signingIn) {
       return (
         <div className="sign-in-dialog">
-          <div className="sign-in-loading-wrapper">
-            <p className="sign-in-message sign-in-loading-message">
-              <FormattedMessage id="dialogs.sign-in.loading-message" defaultMessage="Signing you in..." />
-            </p>
-            <div className="loading-spinner" />
-          </div>
+          <p className="sign-in-loading-message">
+            <FormattedMessage id="dialogs.sign-in.loading-message" defaultMessage="Signing you in..." />
+          </p>
+          <div className="loading-spinner" />
         </div>
       )
     } else if (emailSent) {
       return (
         <div className="sign-in-dialog">
-          <div className="sign-in-email-sent-block">
-            <p className="sign-in-message">
-              <FormattedMessage id="dialogs.sign-in.loading-message" defaultMessage="Signing you in..." />
-            </p>
-            <p className="sign-in-sent-message-with-email">
-              <FormattedMessage
-                id="dialogs.sign-in.sent-message-with-email"
-                defaultMessage="We’ve sent an email to "
-              />
-              <span className="sign-in-email">{email}.</span>
-            </p>
-            <p className="sign-in-sent-message">
-              <FormattedMessage
-                id="dialogs.sign-in.sent-message"
-                defaultMessage="Please follow the instructions in that email to continue!"
-              />
-            </p>
-            <button onClick={this.handleEmailResend} className="sign-in-button sign-in-email-button">
-              <FormattedMessage
-                id="dialogs.sign-in.button.resend"
-                defaultMessage="Didn’t receive it? Resend email"
-              />
-            </button>
-          </div>
+          <p className="sign-in-loading-message">
+            <FormattedMessage id="dialogs.sign-in.loading-message" defaultMessage="Signing you in..." />
+          </p>
+          <p className="sign-in-email-sent">
+            <FormattedMessage
+              id="dialogs.sign-in.sent-message-with-email"
+              defaultMessage="We’ve sent an email to {email}. Please follow the instructions there to continue signing in!"
+              values={{
+                email: <span className="sign-in-email">{email}</span>
+              }}
+            />
+          </p>
+          <button onClick={this.handleEmailResend} className="sign-in-button sign-in-email-button">
+            <FormattedMessage
+              id="dialogs.sign-in.button.resend"
+              defaultMessage="Didn’t receive it? Resend email"
+            />
+          </button>
         </div>
       )
     }

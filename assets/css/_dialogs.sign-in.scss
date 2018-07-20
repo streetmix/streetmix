@@ -1,6 +1,7 @@
 
 .sign-in-dialog {
   width: 400px;
+  min-height: 200px;
 }
 
 .sign-in-email-label {
@@ -39,14 +40,10 @@
   margin-bottom: 0.25em;
 }
 
-.sign-in-loading-wrapper {
-  min-height: 200px;
-
-  .sign-in-message {
-    text-align: center;
-    font-weight: normal;
-    font-size: 18px;
-  }
+.sign-in-loading-message {
+  text-align: center;
+  font-weight: normal;
+  font-size: 1.25em;
 }
 
 .sign-in-social-heading {
@@ -110,38 +107,16 @@
   margin-right: 5em;
 }
 
-.sign-in-email-sent-block {
+.sign-in-email-sent {
   text-align: center;
-  min-height: 200px;
-
-  .sign-in-message {
-    margin-bottom: 40px;
-  }
-
-  button {
-    padding: 10px !important;
-    justify-content: center;
-
-    span {
-      padding: 5px;
-      top: 0;
-      color: #000;
-      text-align: center;
-    }
-  }
+  margin-left: 2em;
+  margin-right: 2em;
+  margin-top: 2.5em;
+  margin-bottom: 2em;
 }
 
-.sign-in-sent-message-with-email {
-  line-height: 0;
-
-  .sign-in-email {
-    font-weight: 700;
-  }
-}
-
-.sign-in-sent-message {
-  text-align: center;
-  line-height: 1.2;
+.sign-in-email {
+  font-weight: 700;
 }
 
 .sign-in-error-message {
