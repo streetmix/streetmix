@@ -18,7 +18,13 @@ const dummyStreet = {
 }
 
 const save = function (cb) {
-  return cb(null, {
+  if (cb) {
+    return cb(null, {
+      ...dummySequence,
+      asJson
+    })
+  }
+  return Promise.resolve({
     ...dummySequence,
     asJson
   })
@@ -75,7 +81,14 @@ Model.findByIdAndUpdate = function (query, operation, option, cb) {
 }
 
 Model.findOne = function (query, cb) {
-  return cb(null, {
+  if (cb) {
+    return cb(null, {
+      ...dummyStreet,
+      save,
+      asJson
+    })
+  }
+  return Promise.resolve({
     ...dummyStreet,
     save,
     asJson
