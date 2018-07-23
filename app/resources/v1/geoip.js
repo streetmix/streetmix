@@ -7,17 +7,13 @@ const IP_GEOLOCATION_TIMEOUT = 500
 var redis = require('redis')
 var client = redis.createClient(config.redis.port, config.redis.hostname, {no_ready_check: true})
 
-client.on('connect', function () {
-  console.log('Connected to Redis')
-})
-
 exports.get = function (req, res) {
   if (req.headers.host !== config.app_host_port) {
     res.status(403).json({ status: 403, error: 'Not allowed to access API' })
     return
   }
 
-  const requestGeolocation = function () {
+  const requestGeolocation = function (isRedisConnected = true) {
     console.log('requesting geolocation')
     const url = `${config.geoip.protocol}${config.geoip.host}?access_key=${config.geoip.api_key}`
 
@@ -36,23 +32,39 @@ exports.get = function (req, res) {
         return
       }
 
-      client.set(req.ip, body, redis.print)
+      if (isRedisConnected && req.ip) {
+        client.set(req.ip, body, redis.print)
+      }
+
       res.status(200).send(body)
     })
   }
 
-  client.get(req.ip, function (err, reply) {
+  client.auth(config.redis.secret, function (err) {
     if (err) {
+      // If unable to connect to Redis cache, log error
+      // and request geolocation from ipstack automatically.
       logger.error(err)
-
-      res.status(500).json({ status: 500, error: 'Could not access Redis cache' })
-      return
-    }
-
-    if (!reply) {
-      requestGeolocation()
+      requestGeolocation(false)
     } else {
-      res.status(200).send(reply)
+      console.log('Connected to Redis')
+
+      client.get(req.ip, function (error, reply) {
+        if (error) {
+          // If an error occurs while trying to get key,
+          // request geolocation from ipstack automatically.
+          logger.error(error)
+          requestGeolocation()
+          return
+        }
+
+        if (!reply) {
+          // If no matching key, request geolocation from ipstack.
+          requestGeolocation()
+        } else {
+          res.status(200).send(reply)
+        }
+      })
     }
   })
 }
