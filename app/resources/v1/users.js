@@ -164,7 +164,42 @@ exports.post = function (req, res) {
 } // END function - exports.post
 
 exports.get = async function (req, res) {
-  const getUserDataTogether = async function (user) {
+  // Flag error if user ID is not provided
+  if (!req.params.user_id) {
+    res.status(400).send('Please provide user ID.')
+    return
+  }
+  const userId = req.params.user_id
+
+  const findUserById = async function (userId) {
+    try {
+      const user = await User.findOne({ id: userId })
+      if (!user) {
+        res.status(404).send('User not found.')
+        return
+      }
+      return user
+    } catch (err) {
+      logger.error(err)
+      res.status(500).send('Error finding user.')
+    }
+  }
+
+  const findUserByLoginToken = async function (loginToken) {
+    try {
+      let user = await User.findOne({ login_tokens: { $in: [ req.loginToken ] } })
+      if (!user) {
+        res.status(401).send('User with that login token not found.')
+        return
+      }
+      return user
+    } catch (err) {
+      logger.error(err)
+      res.status(500).send('Error finding user.')
+    }
+  }
+
+  const handleFindUser = function (user) {
     let twitterApiClient
     try {
       twitterApiClient = new Twitter({
@@ -183,7 +218,9 @@ exports.get = async function (req, res) {
 
       user.asJson({ auth: auth }, function (err, userJson) {
         if (err) {
-          return Promise.reject(err)
+          logger.error(err)
+          res.status(500).send('Could not render user JSON.')
+          return
         }
 
         if (data) {
@@ -191,7 +228,8 @@ exports.get = async function (req, res) {
         } else {
           userJson.profileImageUrl = user.profile_image_url
         }
-        return Promise.resolve(userJson)
+
+        res.status(200).send(userJson)
       })
     } // END function - sendUserJson
 
@@ -232,40 +270,16 @@ exports.get = async function (req, res) {
     } else {
       sendUserJson()
     }
-  } // END function - handleFindUserById
+  } // END function - handleFindUser
 
-  // Flag error if user ID is not provided
-  if (!req.params.user_id) {
-    res.status(400).send('Please provide user ID.')
-    return
+  if (req.loginToken) {
+    findUserByLoginToken(req.loginToken)
+      .then(handleFindUser)
+  } else {
+    findUserById(userId)
+      .then(handleFindUser)
   }
-
-  const userId = req.params.user_id
-
-  try {
-    let user
-    if (req.loginToken) {
-      user = await User.findOne({ login_tokens: { $in: [ req.loginToken ] } })
-    } else {
-      user = await User.findOne({ id: userId })
-    }
-
-    if (!user) {
-      res.status(401).send('User with that login token not found.')
-      return
-    }
-
-    getUserDataTogether(user).then(userData => {
-      res.status(200).send(userData)
-    }).catch(err => {
-      logger.error(err)
-      res.status(500).send('Could not render user JSON')
-    })
-  } catch (err) {
-    logger.error(err)
-    res.status(500).send('Error finding user.')
-  }
-} // END function - exports.get
+}
 
 exports.delete = async function (req, res) {
   const userId = req.params.user_id
@@ -282,6 +296,7 @@ exports.delete = async function (req, res) {
       return
     }
     user.login_tokens.splice(idx, 1)
+
     user.save().then(user => {
       res.status(204).end()
     }).catch(err => {
