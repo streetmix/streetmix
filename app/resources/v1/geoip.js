@@ -3,7 +3,6 @@ const request = require('request')
 const logger = require('../../../lib/logger.js')()
 const redis = require('redis')
 
-const client = redis.createClient(config.redis.port, config.redis.hostname, {no_ready_check: true})
 const IP_GEOLOCATION_TIMEOUT = 500
 
 exports.get = function (req, res) {
@@ -39,32 +38,43 @@ exports.get = function (req, res) {
     })
   }
 
-  client.auth(config.redis.secret, function (err) {
-    if (err) {
-      // If unable to connect to Redis cache, log error
-      // and request geolocation from ipstack automatically.
-      logger.error(err)
-      requestGeolocation(false)
-    } else {
-      console.log('Connected to Redis')
+  const client = redis.createClient(config.redis.port, config.redis.hostname)
 
-      client.get(req.ip, function (error, reply) {
-        if (error) {
-          // If an error occurs while trying to get key,
-          // request geolocation from ipstack automatically.
-          logger.error(error)
-          requestGeolocation()
-          return
-        }
+  // If Redis cache not connecting, stop trying to connect, log the error,
+  // and request geolocation from ipstack.
+  client.on('error', function (error) {
+    logger.error(error)
+    client.end(true)
+    requestGeolocation(false)
+  })
 
-        if (!reply || config.redis.hostname === 'localhost') {
-          // If no matching key or Streetmix is being run locally,
-          // request geolocation from ipstack.
-          requestGeolocation()
-        } else {
-          res.status(200).send(reply)
-        }
-      })
-    }
+  client.on('connect', function () {
+    console.log('Connected to Redis')
+    client.auth(config.redis.secret, function (err) {
+      if (err) {
+        // If unable to connect to Redis cache, log error
+        // and request geolocation from ipstack automatically.
+        logger.error(err)
+        requestGeolocation(false)
+      } else {
+        client.get(req.ip, function (error, reply) {
+          if (error) {
+            // If an error occurs while trying to get key,
+            // request geolocation from ipstack automatically.
+            logger.error(error)
+            requestGeolocation()
+            return
+          }
+
+          if (!reply || config.redis.hostname === 'localhost') {
+            // If no matching key or Streetmix is being run locally,
+            // request geolocation from ipstack.
+            requestGeolocation()
+          } else {
+            res.status(200).send(reply)
+          }
+        })
+      }
+    })
   })
 }
