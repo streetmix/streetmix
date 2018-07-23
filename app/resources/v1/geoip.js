@@ -50,31 +50,38 @@ exports.get = function (req, res) {
 
   client.on('connect', function () {
     console.log('Connected to Redis')
-    client.auth(config.redis.secret, function (err) {
-      if (err) {
-        // If unable to connect to Redis cache, log error
-        // and request geolocation from ipstack automatically.
-        logger.error(err)
-        requestGeolocation(false)
-      } else {
-        client.get(req.ip, function (error, reply) {
-          if (error) {
-            // If an error occurs while trying to get key,
-            // request geolocation from ipstack automatically.
-            logger.error(error)
-            requestGeolocation()
-            return
-          }
 
-          if (!reply || config.redis.hostname === 'localhost') {
-            // If no matching key or Streetmix is being run locally,
-            // request geolocation from ipstack.
-            requestGeolocation()
-          } else {
-            res.status(200).send(reply)
-          }
-        })
-      }
-    })
+    let authenticated = true
+    if (config.redis.secret) {
+      client.auth(config.redis.secret, function (err) {
+        if (err) {
+          // If unable to connect to Redis cache, log error
+          // and request geolocation from ipstack automatically.
+          logger.error(err)
+          authenticated = false
+          requestGeolocation(false)
+        }
+      })
+    }
+
+    if (authenticated) {
+      client.get(req.ip, function (error, reply) {
+        if (error) {
+          // If an error occurs while trying to get key,
+          // request geolocation from ipstack automatically.
+          logger.error(error)
+          requestGeolocation()
+          return
+        }
+
+        if (!reply || config.redis.hostname === 'localhost') {
+          // If no matching key or Streetmix is being run locally,
+          // request geolocation from ipstack.
+          requestGeolocation()
+        } else {
+          res.status(200).send(reply)
+        }
+      })
+    }
   })
 }
