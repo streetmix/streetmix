@@ -21,7 +21,7 @@
     },
     "share": {
       "sign-in-twitter-link": "Kirjaudu sisään",
-      "sign-in-link": "{signInLink} voit jakaa kadut ja oman katugalleriasi näppärämmin",
+      "sign-in-link": "{signInLink}: voit jakaa kadut ja oman katugalleriasi näppärämmin",
       "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Kirjaudu sisään Twitter-tunnuksilla</a>, jolloin jakaminen on helpompaa ja näet katusi näppärästi galleriassa",
       "link": "Jaa kopioimalla ja liittämällä tämä linkki:",
       "twitter": "Jaa Twitterissä",
@@ -196,8 +196,8 @@
     },
     "donate": {
       "heading": "Tarvitsemme apuasi!",
-      "lede": "Streetmix perustuu vapaaehtoisen yhteisön tekemään työhön. Muista \"ilmaisista\" verkkosivustoista poiketen emme näytä mainoksia tai tallenna yksityisyyttäsi rikkovia evästeitä tietokoneellesi. Sen sijaan olemme riippuvaisia käyttäjiemme tuesta Streetmixin kehittämiseen.",
-      "text": "Halutessasi voit tukea meitä kertaluontoisella tai kestolahjoituksella, joita käytetään palvelinkapasiteetin ylläpitämiseen, jotta voittoa tavoittelemattomat tahot voisivat osallistua liikenteen kehittämiseen. Tästä ylijäävän osuuden käytämme uusien ominaisuuksien kehittämiseen. Tilikirjamme ovat täysin julkisia, joten voit tarkistaa, miten juuri Streetmix-kehitysryhmä on käyttänyt juuri sinun lahjoituksesi.",
+      "lede": "Streetmix perustuu vapaaehtoisten yhteisön tekemään työhön. Muista \"ilmaisista\" verkkosivustoista poiketen emme näytä mainoksia tai tallenna yksityisyyttäsi rikkovia evästeitä tietokoneellesi. Sen sijaan olemme riippuvaisia käyttäjiemme tuesta Streetmixin kehittämiseen.",
+      "text": "Halutessasi voit tukea meitä kertaluontoisella tai kestolahjoituksella, joita käytetään palvelinkapasiteetin ylläpitämiseen, jotta voittoa tavoittelemattomat tahot voisivat osallistua liikenteen kehittämiseen. Tästä ylijäävän osuuden käytämme uusien ominaisuuksien kehittämiseen. Tilikirjamme ovat täysin julkisia, joten voit tarkistaa, miten Streetmix-kehitysryhmä on käyttänyt juuri sinun lahjoituksesi.",
       "button": "Lahjoita Streetmixille",
       "cancel": "Ei kiitos"
     }
@@ -286,7 +286,8 @@
     "delete-street-tooltip": "Poista katu",
     "street-count": "{count, plural, one {# katu} other {# katua}}",
     "no-streets": "Ei luotuja katuja",
-    "sign-in": "Kirjaudu Twitter-tunnuksella voit tallentaa tämän kadun omaan katugalleriaasi"
+    "sign-in": "Kirjautumalla Twitter-tunnuksella voit tallentaa tämän kadun omaan katugalleriaasi",
+    "sign-in-prompt": ""
   },
   "users": {
     "anonymous": "Tuntematon",
