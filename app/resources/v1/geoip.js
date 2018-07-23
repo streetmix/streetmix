@@ -2,6 +2,7 @@ const config = require('config')
 const request = require('request')
 const logger = require('../../../lib/logger.js')()
 const redis = require('redis')
+const url = require('url')
 
 const IP_GEOLOCATION_TIMEOUT = 500
 
@@ -38,7 +39,13 @@ exports.get = function (req, res) {
     })
   }
 
-  const client = redis.createClient(config.redis.port, config.redis.hostname)
+  let client
+  if (config.redis.redis_to_go_url) {
+    const rtg = url.parse(process.env.REDISTOGO_URL)
+    client = redis.createClient(rtg.port, rtg.hostname)
+  } else {
+    client = redis.createClient(config.redis.port, config.redis.hostname)
+  }
 
   // If Redis cache not connecting, stop trying to connect, log the error,
   // and request geolocation from ipstack.
@@ -50,8 +57,8 @@ exports.get = function (req, res) {
 
   client.on('connect', function () {
     console.log('Connected to Redis')
-
     let authenticated = true
+
     if (config.redis.secret) {
       client.auth(config.redis.secret, function (err) {
         if (err) {

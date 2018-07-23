@@ -78,6 +78,7 @@ module.exports = {
   redis: {
     port: process.env.REDIS_PORT,
     hostname: process.env.REDIS_HOSTNAME || 'localhost',
-    secret: process.env.REDIS_SECRET
+    secret: process.env.REDIS_SECRET,
+    redis_to_go_url: process.env.REDISTOGO_URL || null
   }
 }
