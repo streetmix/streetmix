@@ -1,7 +1,7 @@
 
 .sign-in-dialog {
   width: 400px;
-  min-height: 200px;
+  min-height: 250px;
 }
 
 .sign-in-email-label {
@@ -111,12 +111,16 @@
   text-align: center;
   margin-left: 2em;
   margin-right: 2em;
-  margin-top: 2.5em;
+  margin-top: 3em;
   margin-bottom: 2em;
 }
 
 .sign-in-email {
   font-weight: 700;
+}
+
+.sign-in-resend {
+  margin-top: 2em;
 }
 
 .sign-in-error-message {

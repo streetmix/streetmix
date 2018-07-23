@@ -207,21 +207,24 @@ export class SignInDialog extends React.Component {
           <p className="sign-in-loading-message">
             <FormattedMessage id="dialogs.sign-in.loading-message" defaultMessage="Signing you in..." />
           </p>
-          <p className="sign-in-email-sent">
-            <FormattedMessage
-              id="dialogs.sign-in.sent-message-with-email"
-              defaultMessage="We’ve sent an email to {email}. Please follow the instructions there to continue signing in!"
-              values={{
-                email: <span className="sign-in-email">{email}</span>
-              }}
-            />
-          </p>
-          <button onClick={this.handleEmailResend} className="sign-in-button sign-in-email-button">
-            <FormattedMessage
-              id="dialogs.sign-in.button.resend"
-              defaultMessage="Didn’t receive it? Resend email"
-            />
-          </button>
+          <div className="sign-in-email-sent">
+            <p>
+              <FormattedMessage
+                id="dialogs.sign-in.sent-message-with-email"
+                defaultMessage="We’ve sent an email to {email}. Please follow the instructions there to continue signing in!"
+                values={{
+                  email: <span className="sign-in-email">{email}</span>
+                }}
+              />
+            </p>
+            <p className="sign-in-resend">
+              <FormattedMessage id="dialogs.sign-in.email-unreceived" defaultMessage="Didn’t receive it?" />
+              <br />
+              <a onClick={this.handleEmailResend}>
+                <FormattedMessage id="dialogs.sign-in.resend-email" defaultMessage="Resend email" />
+              </a>
+            </p>
+          </div>
         </div>
       )
     }
@@ -232,7 +235,7 @@ export class SignInDialog extends React.Component {
         <p>
           <FormattedMessage
             id="dialogs.sign-in.description"
-            defaultMessage="If you don’t already have a Streetmix account, we’ll make one for you."
+            defaultMessage="Create your free Streetmix account to save your street designs, or return to an existing account and street collection."
           />
         </p>
 
