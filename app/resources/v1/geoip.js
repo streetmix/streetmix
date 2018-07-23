@@ -1,11 +1,10 @@
 const config = require('config')
 const request = require('request')
 const logger = require('../../../lib/logger.js')()
+const redis = require('redis')
 
+const client = redis.createClient(config.redis.port, config.redis.hostname, {no_ready_check: true})
 const IP_GEOLOCATION_TIMEOUT = 500
-
-var redis = require('redis')
-var client = redis.createClient(config.redis.port, config.redis.hostname, {no_ready_check: true})
 
 exports.get = function (req, res) {
   if (req.headers.host !== config.app_host_port) {
