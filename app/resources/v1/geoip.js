@@ -58,8 +58,9 @@ exports.get = function (req, res) {
           return
         }
 
-        if (!reply) {
-          // If no matching key, request geolocation from ipstack.
+        if (!reply || config.redis.hostname === 'localhost') {
+          // If no matching key or Streetmix is being run locally,
+          // request geolocation from ipstack.
           requestGeolocation()
         } else {
           res.status(200).send(reply)
