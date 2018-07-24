@@ -39,49 +39,56 @@ exports.get = function (req, res) {
     })
   }
 
+  const handleRedisErrors = function (error, isRedisConnected = true) {
+    // If any errors involving Redis, log the error and then request geolocation
+    // directly from ipstack.
+    logger.error(error)
+    if (!isRedisConnected) {
+      client.end(true)
+    }
+    requestGeolocation(isRedisConnected)
+  }
+
+  const authenticateRedis = function () {
+    return new Promise(function (resolve, reject) {
+      if (config.redis.secret) {
+        client.auth(config.redis.secret, function (err) {
+          if (err) {
+            reject(err)
+          } else {
+            resolve('success')
+          }
+        })
+      } else {
+        resolve('success')
+      }
+    })
+  }
+
   let client
   if (config.redis.redis_to_go_url) {
     const rtg = url.parse(process.env.REDISTOGO_URL)
     client = redis.createClient(rtg.port, rtg.hostname)
   } else {
-    client = redis.createClient(config.redis.port, config.redis.hostname)
+    client = redis.createClient(config.redis.port, req.hostname)
   }
 
   // If Redis cache not connecting, stop trying to connect, log the error,
   // and request geolocation from ipstack.
-  client.on('error', function (error) {
-    logger.error(error)
-    client.end(true)
-    requestGeolocation(false)
-  })
+  client.on('error', (error) => { handleRedisErrors(error, false) })
 
   client.on('connect', function () {
     console.log('Connected to Redis')
-    let authenticated = true
 
-    if (config.redis.secret) {
-      client.auth(config.redis.secret, function (err) {
-        if (err) {
-          // If unable to connect to Redis cache, log error
-          // and request geolocation from ipstack automatically.
-          logger.error(err)
-          authenticated = false
-          requestGeolocation(false)
-        }
-      })
-    }
-
-    if (authenticated) {
+    const authenticated = authenticateRedis()
+    authenticated.then(function (result) {
       client.get(req.ip, function (error, reply) {
         if (error) {
-          // If an error occurs while trying to get key,
-          // request geolocation from ipstack automatically.
-          logger.error(error)
-          requestGeolocation()
+          handleRedisErrors(error)
           return
         }
 
-        if (!reply || config.redis.hostname === 'localhost') {
+        if (!reply || req.hostname === 'localhost') {
           // If no matching key or Streetmix is being run locally,
           // request geolocation from ipstack.
           requestGeolocation()
@@ -89,6 +96,6 @@ exports.get = function (req, res) {
           res.status(200).send(reply)
         }
       })
-    }
+    }, logger.error)
   })
 }
