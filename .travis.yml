@@ -22,12 +22,10 @@ before_install:
   # Install dependencies for node `canvas` package
   # https://github.com/Automattic/node-canvas#compiling
   - sudo apt-get install libcairo2-dev libjpeg-dev libpango1.0-dev libgif-dev build-essential g++
-  # We have `npm ci` errors, so install a different package manager
-  - curl -L https://unpkg.com/@pnpm/self-installer | node
 
-# Override installation
+# We have `npm ci` errors, so force it to use `npm install`
 install:
-  - pnpm install
+  - npm install
 
 before_script:
   # Artificial wait before connecting to MongoDB

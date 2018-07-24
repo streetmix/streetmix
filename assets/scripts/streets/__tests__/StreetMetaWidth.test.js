@@ -5,7 +5,6 @@ import { shallowWithIntl } from '../../../../test/helpers/intl-enzyme-test-helpe
 
 jest.mock('../../app/load_resources', () => {})
 jest.mock('../../app/routing', () => {})
-jest.mock('../../preinit/system_capabilities', () => {})
 jest.mock('../../preinit/app_settings', () => {})
 jest.mock('../../app/initialization', () => {})
 

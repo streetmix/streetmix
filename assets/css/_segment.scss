@@ -26,7 +26,16 @@
 .segment-canvas-container {
   width: 100%;
   height: 100%;
+}
+
+.segment-drag-layer {
+  position: fixed;
   pointer-events: none;
+  z-index: 400;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
 }
 
 body.segment-move-dragging .segment-empty {
@@ -61,27 +70,22 @@ body.immediate-segment-resize .segment {
   transition: transform 50ms !important;
 }
 
-.segment:not(.unmovable).hover {
+.segment.hover {
   z-index: $z-02-segment-focused !important;
 }
 
-.segment:not(.unmovable).hover .hover-bk {
+.segment.hover .hover-bk {
   background: $segment-hover-background;
   position: absolute;
   left: 0;
   right: 0;
-  top: 0;
+  top: 10px;
   z-index: -1;
-  height: $canvas-baseline;
+  height: $canvas-baseline - 10px;
   pointer-events: none;
 }
 
-.segment:not(.segment-in-palette):not(.unmovable).hover .hover-bk {
-  top: 10px;
-  height: $canvas-baseline - 10px;
-}
-
-body.segment-resize-dragging .segment:not(.unmovable).hover {
+body.segment-resize-dragging .segment.hover {
   button.remove,
   button.increment,
   button.decrement,
@@ -90,7 +94,7 @@ body.segment-resize-dragging .segment:not(.unmovable).hover {
   }
 }
 
-body:not(.read-only) .segment:not(.unmovable) {
+body:not(.read-only) .segment {
   cursor: grab;
 }
 
@@ -330,12 +334,9 @@ body.not-within-canvas * {
   cursor: no-drop !important;
 }
 
-body.segment-move-dragging #editable-street-section .segment {
+body.segment-move-dragging #street-section-editable .segment {
   transition: left 100ms, transform 300ms;
-}
-
-body.segment-move-dragging #editable-street-section > div {
-  pointer-events: none;
+  height: $canvas-height + 85px + 30px + 90px;
 }
 
 .switching-away-exit {

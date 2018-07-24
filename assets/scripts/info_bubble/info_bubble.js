@@ -1,5 +1,5 @@
 import { app } from '../preinit/app_settings'
-import { INFO_BUBBLE_TYPE_LEFT_BUILDING } from './constants'
+import { INFO_BUBBLE_TYPE_LEFT_BUILDING, INFO_BUBBLE_TYPE_RIGHT_BUILDING } from './constants'
 import { DRAGGING_TYPE_NONE, draggingType } from '../segments/drag_and_drop'
 import { getElAbsolutePos } from '../util/helpers'
 import store from '../store'
@@ -129,8 +129,10 @@ export const infoBubble = {
     infoBubble.segmentEl = segmentEl
     infoBubble.type = type
 
-    if (segmentEl) {
-      segmentEl.classList.add('hover')
+    if (type !== INFO_BUBBLE_TYPE_LEFT_BUILDING && type !== INFO_BUBBLE_TYPE_RIGHT_BUILDING) {
+      if (segmentEl) {
+        segmentEl.classList.add('hover')
+      }
     }
 
     let dataNo = segmentEl.dataNo

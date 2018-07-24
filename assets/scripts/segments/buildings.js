@@ -302,7 +302,7 @@ export function createBuilding (el, variant, position, floors, street) {
   const height = Math.min(MAX_CANVAS_HEIGHT, buildingHeight)
   const canvasEl = document.createElement('canvas')
   const oldCanvasEl = el.querySelector('canvas')
-  const dpi = store.getState().system.hiDpi
+  const dpi = store.getState().system.devicePixelRatio
 
   canvasEl.width = totalWidth * dpi
   canvasEl.height = (height + GROUND_BASELINE_HEIGHT) * dpi

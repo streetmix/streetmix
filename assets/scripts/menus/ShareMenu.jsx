@@ -2,21 +2,23 @@ import React from 'react'
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Menu from './Menu'
+import Icon from '../ui/Icon'
 
 import { FACEBOOK_APP_ID } from '../app/config'
 import { trackEvent } from '../app/event_tracking'
 import { getPageTitle } from '../app/page_title'
-import { printImage } from '../app/print'
-import { getSharingUrl } from '../util/share_url'
-import { showDialog } from '../store/actions/dialogs'
 import { goSignIn } from '../app/routing'
+import { getSharingUrl } from '../util/share_url'
+
+import { showDialog } from '../store/actions/dialogs'
+import { startPrinting } from '../store/actions/app'
 
 export class ShareMenu extends React.Component {
   static propTypes = {
     intl: intlShape,
-    showDialog: PropTypes.func.isRequired,
+    showDialog: PropTypes.func,
+    startPrinting: PropTypes.func,
     signedIn: PropTypes.bool.isRequired,
     userId: PropTypes.string,
     street: PropTypes.object
@@ -117,6 +119,19 @@ export class ShareMenu extends React.Component {
     goSignIn()
   }
 
+  onClickPrint = (event) => {
+    event.preventDefault()
+
+    // Manually dispatch printing state here. Workaround for Chrome bug where
+    // calling window.print() programatically (even with a timeout) render a
+    // blank image instead
+    this.props.startPrinting()
+
+    window.setTimeout(function () {
+      window.print()
+    }, 0)
+  }
+
   render () {
     const shareText = this.getSharingMessage()
     const twitterLink = 'https://twitter.com/intent/tweet' +
@@ -170,7 +185,7 @@ export class ShareMenu extends React.Component {
           rel="noopener noreferrer"
           onClick={this.onClickShareViaTwitter}
         >
-          <FontAwesomeIcon icon={['fab', 'twitter']} />
+          <Icon icon="twitter" />
           <FormattedMessage id="menu.share.twitter" defaultMessage="Share using Twitter" />
         </a>
         <a
@@ -180,10 +195,10 @@ export class ShareMenu extends React.Component {
           rel="noopener noreferrer"
           onClick={this.onClickShareViaFacebook}
         >
-          <FontAwesomeIcon icon={['fab', 'facebook-square']} />
+          <Icon icon="facebook" />
           <FormattedMessage id="menu.share.facebook" defaultMessage="Share using Facebook" />
         </a>
-        <a href="#" onClick={printImage}>
+        <a href="#" onClick={this.onClickPrint}>
           <FormattedMessage id="menu.share.print" defaultMessage="Print…" />
         </a>
         <a id="save-as-image" href="#" onClick={this.onClickSaveAsImage}>
@@ -207,7 +222,8 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    showDialog: () => { dispatch(showDialog('SAVE_AS_IMAGE')) }
+    showDialog: () => { dispatch(showDialog('SAVE_AS_IMAGE')) },
+    startPrinting: () => { dispatch(startPrinting()) }
   }
 }
 

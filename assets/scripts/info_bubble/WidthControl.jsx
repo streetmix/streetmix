@@ -217,13 +217,12 @@ class WidthControl extends React.Component {
    *
    * If the input must be debounced, used the debounced function instead.
    *
-   * @todo remove legacy DOM-based update
    * @param {string} value - raw input
    */
   updateModel = (value) => {
     const processedValue = processWidthInput(value, this.props.units)
     if (processedValue) {
-      resizeSegment(this.props.position, RESIZE_TYPE_TYPING, processedValue, false, false)
+      resizeSegment(this.props.position, RESIZE_TYPE_TYPING, processedValue)
     }
   }
 

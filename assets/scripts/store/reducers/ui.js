@@ -2,7 +2,9 @@ import {
   SHOW_STREET_NAME_CANVAS,
   HIDE_STREET_NAME_CANVAS,
   SET_UNIT_SETTINGS,
-  SET_ACTIVE_SEGMENT
+  SET_ACTIVE_SEGMENT,
+  UPDATE_DRAGGING_STATE,
+  CLEAR_DRAGGING_STATE
 } from '../actions'
 import * as constants from '../../users/constants'
 
@@ -13,7 +15,8 @@ const initialState = {
     draggingResolution: constants.SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC,
     clickIncrement: constants.SEGMENT_WIDTH_CLICK_INCREMENT_METRIC
   },
-  activeSegment: null
+  activeSegment: null,
+  draggingState: null
 }
 
 const ui = (state = initialState, action) => {
@@ -42,6 +45,20 @@ const ui = (state = initialState, action) => {
       return {
         ...state,
         activeSegment: action.position
+      }
+    case UPDATE_DRAGGING_STATE:
+      return {
+        ...state,
+        draggingState: {
+          segmentBeforeEl: action.segmentBeforeEl,
+          segmentAfterEl: action.segmentAfterEl,
+          draggedSegment: action.draggedSegment
+        }
+      }
+    case CLEAR_DRAGGING_STATE:
+      return {
+        ...state,
+        draggingState: null
       }
     default:
       return state

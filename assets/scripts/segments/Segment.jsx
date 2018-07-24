@@ -1,14 +1,31 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import MeasurementText from '../ui/MeasurementText'
+import { DragSource, DropTarget } from 'react-dnd'
+import { getEmptyImage } from 'react-dnd-html5-backend'
+import flow from 'lodash/flow'
+import { CSSTransition } from 'react-transition-group'
+
 import SegmentCanvas from './SegmentCanvas'
 import SegmentDragHandles from './SegmentDragHandles'
-import { CSSTransition } from 'react-transition-group'
-import { getSegmentVariantInfo, getSegmentInfo } from '../segments/info'
+import MeasurementText from '../ui/MeasurementText'
+
+import {
+  TILE_SIZE,
+  SEGMENT_WARNING_OUTSIDE,
+  SEGMENT_WARNING_WIDTH_TOO_SMALL,
+  SEGMENT_WARNING_WIDTH_TOO_LARGE
+} from './constants'
+import {
+  suppressMouseEnter,
+  Types,
+  segmentSource,
+  collectDragSource,
+  segmentTarget,
+  collectDropTarget
+} from './drag_and_drop'
+import { getSegmentVariantInfo, getSegmentInfo } from './info'
 import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, incrementSegmentWidth } from './resizing'
-import { suppressMouseEnter } from './drag_and_drop'
-import { TILE_SIZE } from './constants'
 import { removeSegment, removeAllSegments } from './remove'
 import { SETTINGS_UNITS_METRIC } from '../users/constants'
 import { infoBubble } from '../info_bubble/info_bubble'
@@ -16,26 +33,33 @@ import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { KEYS } from '../app/keyboard_commands'
 import { trackEvent } from '../app/event_tracking'
 import { t } from '../locales/locale'
+import { setActiveSegment } from '../store/actions/ui'
 
 class Segment extends React.Component {
   static propTypes = {
-    type: PropTypes.string.isRequired,
-    variantString: PropTypes.string.isRequired,
-    randSeed: PropTypes.number,
-    isUnmovable: PropTypes.bool.isRequired,
-    width: PropTypes.number,
-    forPalette: PropTypes.bool.isRequired,
-    cssTransform: PropTypes.string,
+    // Provided by parent
+    dataNo: PropTypes.number,
+    segment: PropTypes.object.isRequired,
+    actualWidth: PropTypes.number.isRequired,
     units: PropTypes.number,
     segmentPos: PropTypes.number,
-    dataNo: PropTypes.number,
+    suppressMouseEnter: PropTypes.bool.isRequired,
     updateSegmentData: PropTypes.func,
     updatePerspective: PropTypes.func,
+
+    // Provided by store
+    cssTransform: PropTypes.string,
     locale: PropTypes.string,
-    localeMessages: PropTypes.object,
     infoBubbleHovered: PropTypes.bool,
     descriptionVisible: PropTypes.bool,
-    suppressMouseEnter: PropTypes.bool.isRequired
+    activeSegment: PropTypes.number,
+    setActiveSegment: PropTypes.func,
+
+    // Provided by react-dnd DragSource and DropTarget
+    connectDragSource: PropTypes.func,
+    connectDragPreview: PropTypes.func,
+    connectDropTarget: PropTypes.func,
+    isDragging: PropTypes.bool
   }
 
   static defaultProps = {
@@ -51,26 +75,28 @@ class Segment extends React.Component {
 
     this.state = {
       switchSegments: false,
-      oldVariant: props.variantString
+      oldVariant: props.segment.variantString
     }
   }
 
   componentDidMount = () => {
-    if (!this.props.forPalette) {
-      this.props.updateSegmentData(this.streetSegment, this.props.dataNo, this.props.segmentPos)
-    }
+    this.props.updateSegmentData(this.streetSegment, this.props.dataNo, this.props.segmentPos)
+
+    this.props.connectDragPreview(getEmptyImage(), { captureDraggingState: true })
   }
 
   componentDidUpdate (prevProps, prevState) {
-    if (this.props.forPalette) return
-
-    if (prevProps.suppressMouseEnter && !this.props.suppressMouseEnter &&
-        infoBubble.considerSegmentEl === this.streetSegment) {
+    // During a segment removal or a dragging action, the infoBubble temporarily does not appear
+    // for the hovered/dragged segment. Once the removal or drag action ends, the infoBubble for
+    // the active segment should be shown. The following IF statement checks to see if a removal
+    // or drag action occurred previously to this segment and displays the infoBubble for the
+    // segment if it is equal to the activeSegment and no infoBubble was shown already.
+    if (prevProps.suppressMouseEnter && !this.props.suppressMouseEnter && this.props.activeSegment === this.props.dataNo) {
       infoBubble.considerShowing(false, this.streetSegment, INFO_BUBBLE_TYPE_SEGMENT)
     }
 
-    if (prevProps.variantString && prevProps.variantString !== this.props.variantString) {
-      this.switchSegments(prevProps.variantString)
+    if (prevProps.segment.variantString && prevProps.segment.variantString !== this.props.segment.variantString) {
+      this.switchSegments(prevProps.segment.variantString)
     }
 
     if (!prevState.switchSegments && this.state.switchSegments) {
@@ -81,27 +107,30 @@ class Segment extends React.Component {
     this.props.updateSegmentData(this.streetSegment, this.props.dataNo, this.props.segmentPos)
   }
 
+  componentWillUnmount = () => {
+    window.removeEventListener('keydown', this.handleKeyDown)
+  }
+
   switchSegments = (oldVariant) => {
     this.setState({
       switchSegments: !(this.state.switchSegments),
-      oldVariant: (this.state.switchSegments) ? this.props.variantString : oldVariant
+      oldVariant: (this.state.switchSegments) ? this.props.segment.variantString : oldVariant
     })
   }
 
   calculateSegmentWidths = (resizeType) => {
-    let widthValue = this.props.width / TILE_SIZE
-    if (!this.props.forPalette) {
-      widthValue = normalizeSegmentWidth(widthValue, resizeType)
-    }
+    let actualWidth = this.props.actualWidth
 
-    return {
-      widthValue,
-      width: widthValue * TILE_SIZE
-    }
+    actualWidth = normalizeSegmentWidth(actualWidth, resizeType)
+
+    return actualWidth
   }
 
   onSegmentMouseEnter = (event) => {
-    if (this.props.suppressMouseEnter || suppressMouseEnter() || this.props.forPalette) return
+    if (this.props.suppressMouseEnter || suppressMouseEnter()) {
+      this.props.setActiveSegment(this.props.dataNo)
+      return
+    }
 
     window.addEventListener('keydown', this.handleKeyDown)
     infoBubble.considerShowing(event, this.streetSegment, INFO_BUBBLE_TYPE_SEGMENT)
@@ -112,21 +141,21 @@ class Segment extends React.Component {
     infoBubble.dontConsiderShowing()
   }
 
-  renderSegmentCanvas = (width, variantType) => {
+  renderSegmentCanvas = (variantType) => {
     const isOldVariant = (variantType === 'old')
+    const { segment, connectDragSource, connectDropTarget } = this.props
 
-    return (
+    return connectDragSource(connectDropTarget(
       <div className="segment-canvas-container">
         <SegmentCanvas
-          width={width}
-          type={this.props.type}
-          variantString={(isOldVariant) ? this.state.oldVariant : this.props.variantString}
-          forPalette={this.props.forPalette}
-          randSeed={this.props.randSeed}
+          actualWidth={this.props.actualWidth}
+          type={segment.type}
+          variantString={(isOldVariant) ? this.state.oldVariant : segment.variantString}
+          randSeed={segment.randSeed}
           ref={(isOldVariant) ? this.oldSegmentCanvas : this.newSegmentCanvas}
         />
       </div>
-    )
+    ))
   }
 
   /**
@@ -136,8 +165,8 @@ class Segment extends React.Component {
    * @param {Boolean} finetune - true if shift key is pressed
    */
   decrementSegmentWidth (position, finetune) {
-    const { widthValue } = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
-    incrementSegmentWidth(position, false, finetune, widthValue)
+    const actualWidth = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
+    incrementSegmentWidth(position, false, finetune, actualWidth)
   }
 
   /**
@@ -147,8 +176,8 @@ class Segment extends React.Component {
    * @param {Boolean} finetune - true if shift key is pressed
    */
   incrementSegmentWidth (position, finetune) {
-    const { widthValue } = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
-    incrementSegmentWidth(position, true, finetune, widthValue)
+    const actualWidth = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
+    incrementSegmentWidth(position, true, finetune, actualWidth)
   }
 
   handleKeyDown = (event) => {
@@ -191,57 +220,67 @@ class Segment extends React.Component {
   }
 
   render () {
-    const segmentInfo = getSegmentInfo(this.props.type)
-    const variantInfo = getSegmentVariantInfo(this.props.type, this.props.variantString)
+    const { segment } = this.props
+
+    const segmentInfo = getSegmentInfo(segment.type)
+    const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
     const defaultName = variantInfo.name || segmentInfo.name // the name to display if there isn't a localized version of it
     const nameKey = variantInfo.nameKey || segmentInfo.nameKey
 
     // Get localized names from store, fall back to segment default names if translated
     // text is not found. TODO: port to react-intl/formatMessage later.
     const displayName = t(`segments.${nameKey}`, defaultName, { ns: 'segment-info' })
-    const localizedSegmentName = t(`segments.${segmentInfo.nameKey}`, defaultName, { ns: 'segment-info' })
 
-    const segmentWidths = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
-    const { width, widthValue } = segmentWidths
+    const actualWidth = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
+    const elementWidth = actualWidth * TILE_SIZE
 
     const segmentStyle = {
-      width: width + 'px',
+      width: elementWidth + 'px',
       // In a street, certain segments have stacking priority over others (expressed as z-index).
-      // In a palette, segments are side-by-side so they don't need stacking priority.
       // Setting a z-index here will clobber a separate z-index (applied via CSS) when hovered by mouse pointer
-      zIndex: (this.props.forPalette) ? null : segmentInfo.zIndex,
-      [this.props.cssTransform]: (this.props.forPalette) ? null : 'translateX(' + this.props.segmentPos + 'px)'
+      zIndex: (this.props.isDragging) ? 0 : segmentInfo.zIndex,
+      [this.props.cssTransform]: 'translateX(' + this.props.segmentPos + 'px)'
     }
 
     const dataAttributes = {
-      type: this.props.type,
-      'variant-string': this.props.variantString,
-      'rand-seed': this.props.randSeed,
-      'data-width': widthValue
+      'data-width': actualWidth
+    }
+
+    const classNames = ['segment']
+
+    if (this.props.isDragging) {
+      classNames.push('dragged-out')
+    } else if (this.props.activeSegment === this.props.dataNo) {
+      classNames.push('hover', 'show-drag-handles')
+    }
+
+    // Palette segments don't have `segment` defined
+    if (segment && segment.warnings) {
+      if (segment.warnings[SEGMENT_WARNING_OUTSIDE] || segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] || segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE]) {
+        classNames.push('warning')
+      }
+      if (segment.warnings[SEGMENT_WARNING_OUTSIDE]) {
+        classNames.push('outside')
+      }
     }
 
     return (
       <div
         style={segmentStyle}
-        className={'segment' + (this.props.isUnmovable ? ' unmovable' : '') + (this.props.forPalette ? ' segment-in-palette' : '')}
+        className={classNames.join(' ')}
         {...dataAttributes}
-        title={this.props.forPalette ? localizedSegmentName : null}
         ref={(ref) => { this.streetSegment = ref }}
         onMouseEnter={this.onSegmentMouseEnter}
         onMouseLeave={this.onSegmentMouseLeave}
       >
-        {!this.props.forPalette &&
-          <React.Fragment>
-            <span className="name">
-              {displayName}
-            </span>
-            <span className="width">
-              <MeasurementText value={widthValue} units={this.props.units} locale={this.props.locale} />
-            </span>
-            <span className={'grid' + (this.props.units === SETTINGS_UNITS_METRIC ? ' units-metric' : ' units-imperial')} />
-            <SegmentDragHandles width={width} position={this.props.dataNo} />
-          </React.Fragment>
-        }
+        <span className="name">
+          {displayName}
+        </span>
+        <span className="width">
+          <MeasurementText value={actualWidth} units={this.props.units} locale={this.props.locale} />
+        </span>
+        <span className={'grid' + (this.props.units === SETTINGS_UNITS_METRIC ? ' units-metric' : ' units-imperial')} />
+        <SegmentDragHandles width={elementWidth} position={this.props.dataNo} />
         <CSSTransition
           key="old-variant"
           in={!this.state.switchSegments}
@@ -250,19 +289,17 @@ class Segment extends React.Component {
           onExited={this.switchSegments}
           unmountOnExit
         >
-          {this.renderSegmentCanvas(width, 'old')}
+          {this.renderSegmentCanvas('old')}
         </CSSTransition>
-        { !this.props.forPalette &&
-          <CSSTransition
-            key="new-variant"
-            in={this.state.switchSegments}
-            classNames="switching-in"
-            timeout={250}
-            unmountOnExit
-          >
-            {this.renderSegmentCanvas(width, 'new')}
-          </CSSTransition>
-        }
+        <CSSTransition
+          key="new-variant"
+          in={this.state.switchSegments}
+          classNames="switching-in"
+          timeout={250}
+          unmountOnExit
+        >
+          {this.renderSegmentCanvas('new')}
+        </CSSTransition>
         <div className="hover-bk" />
       </div>
     )
@@ -273,10 +310,20 @@ function mapStateToProps (state) {
   return {
     cssTransform: state.system.cssTransform,
     locale: state.locale.locale,
-    localeMessages: state.locale.messages,
     infoBubbleHovered: state.infoBubble.mouseInside,
-    descriptionVisible: state.infoBubble.descriptionVisible
+    descriptionVisible: state.infoBubble.descriptionVisible,
+    activeSegment: (typeof state.ui.activeSegment === 'number') ? state.ui.activeSegment : null
   }
 }
 
-export default connect(mapStateToProps)(Segment)
+function mapDispatchToProps (dispatch) {
+  return {
+    setActiveSegment: (position) => { dispatch(setActiveSegment(position)) }
+  }
+}
+
+export default flow(
+  DragSource(Types.SEGMENT, segmentSource, collectDragSource),
+  DropTarget([Types.SEGMENT, Types.PALETTE_SEGMENT], segmentTarget, collectDropTarget),
+  connect(mapStateToProps, mapDispatchToProps)
+)(Segment)
