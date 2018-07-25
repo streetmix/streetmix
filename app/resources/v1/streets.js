@@ -7,6 +7,7 @@ const Street = require('../../models/street.js')
 const User = require('../../models/user.js')
 const Sequence = require('../../models/sequence.js')
 const logger = require('../../../lib/logger.js')()
+const { ERRORS } = require('../../../lib/util')
 
 exports.post = async function (req, res) {
   const street = new Street()
@@ -42,8 +43,7 @@ exports.post = async function (req, res) {
           { new: true, upsert: true })
         const namespacedId = (row) ? row.last_street_id : null
         if (!namespacedId) {
-          res.status(500).send('Could not create new street ID.')
-          return
+          throw new Error(ERRORS.INTERNAL_ERROR)
         }
         return namespacedId
       } else {
@@ -52,14 +52,13 @@ exports.post = async function (req, res) {
           { new: true, upsert: true })
         const namespacedId = (row) ? row.seq : null
         if (!namespacedId) {
-          res.status(500).send('Could not create new street ID.')
-          return
+          throw new Error(ERRORS.INTERNAL_ERROR)
         }
         return namespacedId
       }
     } catch (err) {
       logger.error(err)
-      res.status(500).send('Could not create new street ID.')
+      throw new Error(ERRORS.INTERNAL_ERROR)
     }
   } // END function - makeNamespacedId
 
@@ -67,14 +66,8 @@ exports.post = async function (req, res) {
     try {
       if (body && body.originalStreetId) {
         const origStreet = await Street.findOne({ id: body.originalStreetId })
-        if (!origStreet) {
-          res.status(404).send('Original street not found.')
-          return
-        }
-
-        if (origStreet.status === 'DELETED') {
-          res.status(410).send('Original street not found.')
-          return
+        if (!origStreet || origStreet.status === 'DELETED') {
+          throw new Error(ERRORS.STREET_NOT_FOUND)
         }
 
         street.original_street_id = origStreet
@@ -87,7 +80,8 @@ exports.post = async function (req, res) {
         return street.save()
       }
     } catch (err) {
-      res.status(404).send('Original street not found.')
+      logger.error(err)
+      throw new Error(ERRORS.STREET_NOT_FOUND)
     }
   } // END function - saveStreet
 
@@ -104,30 +98,43 @@ exports.post = async function (req, res) {
     })
   }
 
-  const handleSaveStreetError = (err) => {
-    logger.error(err)
-    res.status(500).send('Could not create street.')
+  function handleErrors (error) {
+    switch (error) {
+      case ERRORS.USER_NOT_FOUND:
+        res.status(404).send('User not found.')
+        return
+      case ERRORS.STREET_NOT_FOUND:
+        res.status(404).send('Original street not found.')
+        return
+      case ERRORS.INTERNAL_ERROR:
+        res.status(500).send('Could not create new street ID.')
+        return
+      case ERRORS.UNAUTHORISE_ACCESS:
+        res.status(401).send('User with that login token not found.')
+        return
+      default:
+        res.status(500).end()
+    }
   }
 
   try {
     if (req.loginToken) {
       const user = await User.findOne({ login_tokens: { $in: [ req.loginToken ] } })
       if (!user) {
-        res.status(401).send('User with that login token not found.')
-        return
+        handleErrors(ERRORS.UNAUTHORISE_ACCESS)
       }
       street.creator_id = user
       saveStreet()
         .then(handleCreatedStreet)
-        .catch(handleSaveStreetError)
+        .catch(handleErrors)
     } else {
       saveStreet()
         .then(handleCreatedStreet)
-        .catch(handleSaveStreetError)
+        .catch(handleErrors)
     }
   } catch (err) {
     logger.error(err)
-    res.status(500).send('Could not create street.')
+    handleErrors(ERRORS.INTERNAL_ERROR)
   }
 } // END function - exports.post
 
@@ -146,25 +153,44 @@ exports.delete = async function (req, res) {
     try {
       const user = await User.findOne({ login_tokens: { $in: [ req.loginToken ] } })
       if (!user) {
-        res.status(401).send('User is not signed-in.')
-        return
+        throw new Error(ERRORS.UNAUTHORISE_ACCESS)
       }
 
       if (!street.creator_id) {
-        res.status(403).send('Signed-in user cannot delete this street.')
-        return
+        throw new Error(ERRORS.FORBIDDEN_REQUEST)
       }
 
       if (street.creator_id.toString() !== user._id.toString()) {
-        res.status(403).send('Signed-in user cannot delete this street.')
-        return
+        throw new Error(ERRORS.FORBIDDEN_REQUEST)
       }
 
       street.status = 'DELETED'
       return street.save()
     } catch (err) {
       logger.error(err)
-      res.status(500).send('Could not find signed-in user.')
+      throw new Error(ERRORS.USER_NOT_FOUND)
+    }
+  }
+
+  function handleErrors (error) {
+    switch (error) {
+      case ERRORS.USER_NOT_FOUND:
+        res.status(404).send('User not found.')
+        return
+      case ERRORS.STREET_NOT_FOUND:
+        res.status(404).send('Could not find street.')
+        return
+      case ERRORS.INTERNAL_ERROR:
+        res.status(500).send('Could not delete street.')
+        return
+      case ERRORS.UNAUTHORISE_ACCESS:
+        res.status(401).send('User is not signed-in.')
+        return
+      case ERRORS.FORBIDDEN_REQUEST:
+        res.status(403).send('Signed-in user cannot delete this street.')
+        return
+      default:
+        res.status(500).end()
     }
   }
 
@@ -177,13 +203,10 @@ exports.delete = async function (req, res) {
 
     deleteStreet(street)
       .then(street => { res.status(204).end() })
-      .catch(err => {
-        logger.error(err)
-        res.status(500).send('Could not delete street.')
-      })
+      .catch(handleErrors)
   } catch (err) {
     logger.error(err)
-    res.status(500).send('Could not find street.')
+    handleErrors(err)
   }
 } // END function - exports.delete
 
@@ -236,13 +259,12 @@ exports.find = function (req, res) {
     try {
       const user = await User.findOne({ id: creatorId })
       if (!user) {
-        res.status(404).send('Creator not found.')
-        return
+        throw new Error(ERRORS.USER_NOT_FOUND)
       }
       return Street.findOne({ namespaced_id: namespacedId, creator_id: user._id })
     } catch (err) {
       logger.error(err)
-      res.status(500).send('Unable to find user.')
+      handleErrors(err)
     }
   } // END function - findStreetWithCreatorId
 
@@ -263,13 +285,11 @@ exports.find = function (req, res) {
 
   const handleFindStreet = function (street) {
     if (!street) {
-      res.status(404).send('Could not find street.')
-      return
+      handleErrors(ERRORS.STREET_NOT_FOUND)
     }
 
     if (street.status === 'DELETED') {
-      res.status(410).send('Could not find street.')
-      return
+      handleErrors(ERRORS.STREET_DELETED)
     }
 
     res.set('Access-Control-Allow-Origin', '*')
@@ -327,23 +347,43 @@ exports.find = function (req, res) {
       }) // END - async.map
   } // END function - handleFindStreets
 
-  const handleFindStreetError = function (err) {
-    logger.error(err)
-    res.status(500).send('Could not find streets.')
-  } // END function - handleFindStreetError
+  function handleErrors (error) {
+    switch (error) {
+      case ERRORS.USER_NOT_FOUND:
+        res.status(404).send('Creator not found.')
+        return
+      case ERRORS.STREET_NOT_FOUND:
+        res.status(404).send('Could not find street.')
+        return
+      case ERRORS.STREET_DELETED:
+        res.status(410).send('Could not find street.')
+        return
+      case ERRORS.INTERNAL_ERROR:
+        res.status(500).send('Could not delete street.')
+        return
+      case ERRORS.UNAUTHORISE_ACCESS:
+        res.status(401).send('User is not signed-in.')
+        return
+      case ERRORS.FORBIDDEN_REQUEST:
+        res.status(403).send('Signed-in user cannot delete this street.')
+        return
+      default:
+        res.status(500).end()
+    }
+  } // END function - handleErrors
 
   if (creatorId) {
     findStreetWithCreatorId(creatorId)
       .then(handleFindStreet)
-      .catch(handleFindStreetError)
+      .catch(handleErrors)
   } else if (namespacedId) {
     findStreetWithNamespacedId(namespacedId)
       .then(handleFindStreet)
-      .catch(handleFindStreetError)
+      .catch(handleErrors)
   } else {
     findStreets(start, count)
       .then(handleFindStreets)
-      .catch(handleFindStreetError)
+      .catch(handleErrors)
   }
 } // END function - exports.find
 
@@ -374,8 +414,7 @@ exports.put = async function (req, res) {
       if (body.originalStreetId) {
         const origStreet = await Street.findOne({ id: body.originalStreetId })
         if (!origStreet) {
-          res.status(404).send('Original street not found.')
-          return
+          throw new Error(ERRORS.STREET_NOT_FOUND)
         }
         street.original_street_id = origStreet
         return street.save()
@@ -384,7 +423,7 @@ exports.put = async function (req, res) {
       }
     } catch (err) {
       logger.error(err)
-      res.status(404).send('Original street not found.')
+      handleErrors(err)
     }
   } // END function - updateStreetData
 
@@ -392,45 +431,64 @@ exports.put = async function (req, res) {
     try {
       const user = await User.findOne({ login_tokens: { $in: [ req.loginToken ] } })
       if (!user) {
-        res.status(401).send('User is not signed-in.')
-        return
+        throw new Error(ERRORS.UNAUTHORISE_ACCESS)
       }
 
       if (!street.creator_id) {
-        res.status(403).send('Signed-in user cannot update this street.')
-        return
+        throw new Error(ERRORS.FORBIDDEN_REQUEST)
       }
 
       if (street.creator_id.toString() !== user._id.toString()) {
-        res.status(403).send('Signed-in user cannot update this street.')
-        return
+        throw new Error(ERRORS.FORBIDDEN_REQUEST)
       }
       return updateStreetData(street)
     } catch (err) {
       logger.error(err)
-      res.status(500).send('Could not find signed-in user.')
+      handleErrors(err)
     }
   } // END function - updateStreetWithCreatorId
+
+  function handleErrors (error) {
+    switch (error) {
+      case ERRORS.USER_NOT_FOUND:
+        res.status(404).send('Creator not found.')
+        return
+      case ERRORS.STREET_NOT_FOUND:
+        res.status(404).send('Original street not found.')
+        return
+      case ERRORS.STREET_DELETED:
+        res.status(410).send('Could not find street.')
+        return
+      case ERRORS.INTERNAL_ERROR:
+        res.status(500).send('Could not update street.')
+        return
+      case ERRORS.UNAUTHORISE_ACCESS:
+        res.status(401).send('User is not signed-in.')
+        return
+      case ERRORS.FORBIDDEN_REQUEST:
+        res.status(403).send('Signed-in user cannot update this street.')
+        return
+      default:
+        res.status(500).end()
+    }
+  } // END function - handleErrors
 
   try {
     const street = await Street.findOne({ id: req.params.street_id })
     if (!street) {
-      res.status(404).send('Could not find street.')
+      handleErrors(ERRORS.STREET_NOT_FOUND)
       return
     }
 
     if (street.status === 'DELETED') {
-      res.status(410).send('Could not find street.')
+      handleErrors(ERRORS.STREET_DELETED)
       return
     }
 
     if (!street.creator_id) {
       updateStreetData(street)
         .then(street => { res.status(204).end() })
-        .catch(err => {
-          logger.error(err)
-          res.status(500).send('Could not update street.')
-        })
+        .catch(handleErrors)
     } else {
       if (!req.loginToken) {
         res.status(401).end()
@@ -438,13 +496,10 @@ exports.put = async function (req, res) {
       }
       updateStreetWithCreatorId(street)
         .then(street => { res.status(204).end() })
-        .catch(err => {
-          logger.error(err)
-          res.status(500).send('Could not update street.')
-        })
+        .catch(handleErrors)
     }
   } catch (err) {
     logger.error(err)
-    res.status(500).send('Could not find street.')
+    handleErrors(err)
   }
 } // END function - exports.put

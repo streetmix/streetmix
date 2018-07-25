@@ -2,6 +2,7 @@ const config = require('config')
 const uuid = require('uuid')
 const Twitter = require('twitter')
 const { random } = require('lodash')
+const { ERRORS } = require('../../../lib/util')
 const User = require('../../models/user.js')
 const logger = require('../../../lib/logger.js')()
 
@@ -175,13 +176,11 @@ exports.get = async function (req, res) {
     try {
       const user = await User.findOne({ id: userId })
       if (!user) {
-        res.status(404).send('User not found.')
-        return
+        throw new Error(ERRORS.USER_NOT_FOUND)
       }
       return user
     } catch (err) {
-      logger.error(err)
-      res.status(500).send('Error finding user.')
+      throw new Error(ERRORS.INTERNAL_ERROR)
     }
   }
 
@@ -189,13 +188,11 @@ exports.get = async function (req, res) {
     try {
       let user = await User.findOne({ login_tokens: { $in: [ req.loginToken ] } })
       if (!user) {
-        res.status(401).send('User with that login token not found.')
-        return
+        throw new Error(ERRORS.UNAUTHORISE_ACCESS)
       }
       return user
     } catch (err) {
-      logger.error(err)
-      res.status(500).send('Error finding user.')
+      throw new Error(ERRORS.INTERNAL_ERROR)
     }
   }
 
@@ -272,12 +269,31 @@ exports.get = async function (req, res) {
     }
   } // END function - handleFindUser
 
+  const handleError = function (error) {
+    switch (error) {
+      case ERRORS.USER_NOT_FOUND:
+        res.status(404).send('User not found.')
+        break
+      case ERRORS.INTERNAL_ERROR:
+        res.status(500).send('Error finding user.')
+        break
+      case ERRORS.UNAUTHORISE_ACCESS:
+        res.status(401).send('User with that login token not found.')
+        break
+      default:
+        res.status(500).end()
+    }
+    logger.errors(error)
+  }
+
   if (req.loginToken) {
     findUserByLoginToken(req.loginToken)
       .then(handleFindUser)
+      .catch(handleError)
   } else {
     findUserById(userId)
       .then(handleFindUser)
+      .catch(handleError)
   }
 }
 
