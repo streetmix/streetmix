@@ -1,8 +1,9 @@
-const config = require('config')
 const request = require('request')
-const logger = require('../../../lib/logger.js')()
 const redis = require('redis')
 const url = require('url')
+const util = require('util')
+const config = require('config')
+const logger = require('../../../lib/logger.js')()
 
 const IP_GEOLOCATION_TIMEOUT = 500
 
@@ -40,25 +41,9 @@ exports.get = function (req, res) {
     requestGeolocation(isRedisConnected)
   }
 
-  const authenticateRedis = function () {
-    return new Promise(function (resolve, reject) {
-      if (config.redis.secret) {
-        client.auth(config.redis.secret, function (err) {
-          if (err) {
-            reject(err)
-          } else {
-            resolve('success')
-          }
-        })
-      } else {
-        resolve('success')
-      }
-    })
-  }
-
   let client
-  if (config.redis.redis_to_go_url) {
-    const rtg = url.parse(process.env.REDISTOGO_URL)
+  if (config.redis.url) {
+    const rtg = url.parse(config.redis.url)
     client = redis.createClient(rtg.port, rtg.hostname)
   } else {
     client = redis.createClient(config.redis.port, req.hostname)
@@ -71,22 +56,26 @@ exports.get = function (req, res) {
   client.on('connect', function () {
     console.log('Connected to Redis')
 
-    const authenticated = authenticateRedis()
-    authenticated.then(function (result) {
-      client.get(req.ip, function (error, reply) {
-        if (error) {
-          handleRedisErrors(error)
-          return
-        }
+    const authenticateRedis = util.promisify(client.auth).bind(client)
+    authenticateRedis(config.redis.password)
+      .then((result) => {
+        client.get(req.ip, function (error, reply) {
+          if (error) {
+            handleRedisErrors(error)
+            return
+          }
 
-        if (!reply || req.hostname === 'localhost') {
-          // If no matching key or Streetmix is being run locally,
-          // request geolocation from ipstack.
-          requestGeolocation()
-        } else {
-          res.status(200).send(reply)
-        }
+          if (!reply || req.hostname === 'localhost') {
+            // If no matching key or Streetmix is being run locally,
+            // request geolocation from ipstack.
+            requestGeolocation()
+          } else {
+            res.status(200).send(reply)
+          }
+        })
       })
-    }, logger.error)
+      .catch((error) => {
+        logger.error(error)
+      })
   })
 }
