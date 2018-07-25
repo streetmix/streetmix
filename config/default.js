@@ -77,7 +77,7 @@ module.exports = {
   },
   redis: {
     port: process.env.REDIS_PORT,
-    password: process.env.REDIS_PASSWORD,
+    password: process.env.REDIS_PASSWORD || '',
     url: process.env.REDIS_URL || null
   }
 }
