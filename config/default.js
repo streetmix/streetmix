@@ -72,12 +72,12 @@ module.exports = {
   },
   geoip: {
     host: 'api.ipstack.com/check',
-    api_key: process.env.GEOIP_API_KEY || null,
+    api_key: process.env.IPSTACK_API_KEY || null,
     protocol: 'http://'
   },
   redis: {
     port: process.env.REDIS_PORT,
-    secret: process.env.REDIS_SECRET,
-    redis_to_go_url: process.env.REDISTOGO_URL || null
+    password: process.env.REDIS_PASSWORD,
+    url: process.env.REDIS_URL || null
   }
 }
