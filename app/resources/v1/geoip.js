@@ -13,21 +13,12 @@ exports.get = function (req, res) {
   }
 
   const requestGeolocation = function (isRedisConnected = true) {
-    console.log('requesting geolocation')
     const url = `${config.geoip.protocol}${config.geoip.host}?access_key=${config.geoip.api_key}`
 
     request(url, { timeout: IP_GEOLOCATION_TIMEOUT }, function (error, response, body) {
       if (error) {
         logger.error(error)
-        // Error codes 101 and 104 are provided by ipstack to specify invalid/missing api key
-        // and maximum monthly API requests reached, respectively. Since ipstack already has
-        // error messages included with these errors, just send the message to the front-end.
-        if (error.code === 101 || error.code === 104) {
-          res.status(error.code).json({ status: error.code, error: error.info })
-        } else if (error.code === 'ETIMEDOUT') {
-          // If request takes longer than declared IP_GEOLOCATION_TIMEOUT, return status code 408
-          res.status(408).json({ status: 408, error: 'Request timed out' })
-        }
+        res.status(503).json({ status: 503, error: 'Service unavailable' })
         return
       }
 
