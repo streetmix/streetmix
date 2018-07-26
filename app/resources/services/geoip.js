@@ -1,6 +1,5 @@
 const request = require('request')
 const redis = require('redis')
-const url = require('url')
 const util = require('util')
 const config = require('config')
 const logger = require('../../../lib/logger.js')()
@@ -14,7 +13,9 @@ exports.get = function (req, res) {
   }
 
   const requestGeolocation = function (isRedisConnected = true) {
-    const url = `${config.geoip.protocol}${config.geoip.host}?access_key=${config.geoip.api_key}`
+    let url = `${config.geoip.protocol}${config.geoip.host}`
+    url += (req.hostname === 'localhost') ? 'check' : req.ip
+    url += `?access_key=${config.geoip.api_key}`
 
     request(url, { timeout: IP_GEOLOCATION_TIMEOUT }, function (error, response, body) {
       if (error) {
@@ -43,8 +44,7 @@ exports.get = function (req, res) {
 
   let client
   if (config.redis.url) {
-    const rtg = url.parse(config.redis.url)
-    client = redis.createClient(rtg.port, rtg.hostname)
+    client = redis.createClient(config.redis.url)
   } else {
     client = redis.createClient(config.redis.port, req.hostname)
   }
