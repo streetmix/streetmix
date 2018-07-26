@@ -71,7 +71,7 @@ module.exports = {
     }
   },
   geoip: {
-    host: 'api.ipstack.com/check',
+    host: 'api.ipstack.com/',
     api_key: process.env.IPSTACK_API_KEY || null,
     protocol: 'http://'
   },
