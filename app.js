@@ -170,7 +170,7 @@ app.put('/api/v1/streets/:street_id', resources.v1.streets.put)
 
 app.get('/api/v1/geo', cors(), resources.v1.geo.get)
 
-app.get('/services/geoip', resources.v1.geoip.get)
+app.get('/services/geoip', resources.services.geoip.get)
 
 app.post('/api/v1/feedback', resources.v1.feedback.post)
 
