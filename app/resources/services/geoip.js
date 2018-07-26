@@ -43,10 +43,10 @@ exports.get = function (req, res) {
     requestGeolocation(isRedisConnected)
   }
 
-  let client, rtg
+  let client, redisInfo
   if (config.redis.url) {
-    rtg = url.parse(config.redis.url)
-    client = redis.createClient(rtg.port, rtg.hostname)
+    redisInfo = url.parse(config.redis.url)
+    client = redis.createClient(redisInfo.port, redisInfo.hostname)
   } else {
     client = redis.createClient(config.redis.port, req.hostname)
   }
@@ -59,7 +59,7 @@ exports.get = function (req, res) {
     console.log('Connected to Redis')
 
     const authenticateRedis = util.promisify(client.auth).bind(client)
-    const redisAuth = (config.redis.url && rtg) ? rtg.auth.split(':')[1] : config.redis.password
+    const redisAuth = (config.redis.url && redisInfo) ? redisInfo.auth.split(':')[1] : config.redis.password
 
     authenticateRedis(redisAuth)
       .then((result) => {
