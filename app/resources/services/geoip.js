@@ -1,5 +1,6 @@
 const request = require('request')
 const redis = require('redis')
+const url = require('url')
 const util = require('util')
 const config = require('config')
 const logger = require('../../../lib/logger.js')()
@@ -42,9 +43,10 @@ exports.get = function (req, res) {
     requestGeolocation(isRedisConnected)
   }
 
-  let client
+  let client, rtg
   if (config.redis.url) {
-    client = redis.createClient(config.redis.url)
+    rtg = url.parse(config.redis.url)
+    client = redis.createClient(rtg.port, rtg.hostname)
   } else {
     client = redis.createClient(config.redis.port, req.hostname)
   }
@@ -57,7 +59,9 @@ exports.get = function (req, res) {
     console.log('Connected to Redis')
 
     const authenticateRedis = util.promisify(client.auth).bind(client)
-    authenticateRedis(config.redis.password)
+    const redisAuth = (config.redis.url && rtg) ? rtg.auth.split(':')[1] : config.redis.password
+
+    authenticateRedis(redisAuth)
       .then((result) => {
         client.get(req.ip, function (error, reply) {
           if (error) {
