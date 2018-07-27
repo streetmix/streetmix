@@ -13,9 +13,17 @@ exports.get = function (req, res) {
     return
   }
 
+  const requestIp = function (req) {
+    if (req.headers['x-forwarded-for'] !== undefined) {
+      return req.headers['x-forwarded-for'].split(', ')[0]
+    } else {
+      return req.connection.remoteAddress
+    }
+  }
+
   const requestGeolocation = function (isRedisConnected = true) {
     let url = `${config.geoip.protocol}${config.geoip.host}`
-    url += (req.hostname === 'localhost') ? 'check' : req.ip
+    url += (req.hostname === 'localhost') ? 'check' : ip
     url += `?access_key=${config.geoip.api_key}`
 
     request(url, { timeout: IP_GEOLOCATION_TIMEOUT }, function (error, response, body) {
@@ -25,8 +33,8 @@ exports.get = function (req, res) {
         return
       }
 
-      if (isRedisConnected && req.ip) {
-        client.set(req.ip, body, redis.print)
+      if (isRedisConnected && ip) {
+        client.set(ip, body, redis.print)
       }
 
       res.status(200).send(body)
@@ -43,6 +51,8 @@ exports.get = function (req, res) {
     requestGeolocation(isRedisConnected)
   }
 
+  const ip = requestIp(req)
+
   let client, redisInfo
   if (config.redis.url) {
     redisInfo = url.parse(config.redis.url)
@@ -56,14 +66,14 @@ exports.get = function (req, res) {
   client.on('error', (error) => { handleRedisErrors(error, false) })
 
   client.on('connect', function () {
-    console.log('Connected to Redis')
+    console.log('Connected to Redis', ip)
 
     const authenticateRedis = util.promisify(client.auth).bind(client)
     const redisAuth = (config.redis.url && redisInfo) ? redisInfo.auth.split(':')[1] : config.redis.password
 
     authenticateRedis(redisAuth)
       .then((result) => {
-        client.get(req.ip, function (error, reply) {
+        client.get(ip, function (error, reply) {
           if (error) {
             handleRedisErrors(error)
             return
