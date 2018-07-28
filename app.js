@@ -69,7 +69,6 @@ const csp = {
     ],
     fontSrc: ["'self'", 'fonts.gstatic.com'],
     connectSrc: ["'self'",
-      `${config.app_host_port}/services/geoip`,
       'api.mixpanel.com',
       'api.geocode.earth',
       'syndication.twitter.com',
