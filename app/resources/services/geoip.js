@@ -66,7 +66,7 @@ exports.get = function (req, res) {
   client.on('error', (error) => { handleRedisErrors(error, false) })
 
   client.on('connect', function () {
-    console.log('Connected to Redis', ip)
+    console.log('Connected to Redis')
 
     const authenticateRedis = util.promisify(client.auth).bind(client)
     const redisAuth = (config.redis.url && redisInfo) ? redisInfo.auth.split(':')[1] : config.redis.password

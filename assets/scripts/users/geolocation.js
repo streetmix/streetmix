@@ -1,8 +1,5 @@
-import { SITE_URL } from '../app/config'
 import store from '../store'
 import { setGeolocationAttempted, setGeolocationData } from '../store/actions/user'
-
-const IP_GEOLOCATION_API_URL = `${SITE_URL}services/geoip`
 
 /**
  * Checks the store to see if geolocation service attempt was made. It does
@@ -38,7 +35,7 @@ export function detectGeolocation () {
  * @returns {Promise} - resolved with value of data
  */
 async function fetchGeolocation () {
-  const response = await window.fetch(IP_GEOLOCATION_API_URL)
+  const response = await window.fetch('/services/geoip')
   if (!response.ok) {
     throw new Error(response.status)
   }
