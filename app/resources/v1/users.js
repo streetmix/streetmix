@@ -173,27 +173,33 @@ exports.get = async function (req, res) {
   const userId = req.params.user_id
 
   const findUserById = async function (userId) {
+    let user
     try {
-      const user = await User.findOne({ id: userId })
-      if (!user) {
-        throw new Error(ERRORS.USER_NOT_FOUND)
-      }
-      return user
+      user = await User.findOne({ id: userId })
     } catch (err) {
-      throw new Error(ERRORS.INTERNAL_ERROR)
+      logger.error(err)
+      throw new Error(ERRORS.CANNOT_GET_USER)
     }
+
+    if (!user) {
+      throw new Error(ERRORS.USER_NOT_FOUND)
+    }
+    return user
   }
 
   const findUserByLoginToken = async function (loginToken) {
+    let user
     try {
-      let user = await User.findOne({ login_tokens: { $in: [ req.loginToken ] } })
-      if (!user) {
-        throw new Error(ERRORS.UNAUTHORISE_ACCESS)
-      }
-      return user
+      user = await User.findOne({ login_tokens: { $in: [ req.loginToken ] } })
     } catch (err) {
-      throw new Error(ERRORS.INTERNAL_ERROR)
+      logger.error(err)
+      throw new Error(ERRORS.CANNOT_GET_USER)
     }
+
+    if (!user) {
+      throw new Error(ERRORS.UNAUTHORISED_ACCESS)
+    }
+    return user
   }
 
   const handleFindUser = function (user) {
@@ -273,17 +279,16 @@ exports.get = async function (req, res) {
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
         res.status(404).send('User not found.')
-        break
-      case ERRORS.INTERNAL_ERROR:
+        return
+      case ERRORS.CANNOT_GET_USER:
         res.status(500).send('Error finding user.')
-        break
-      case ERRORS.UNAUTHORISE_ACCESS:
+        return
+      case ERRORS.UNAUTHORISED_ACCESS:
         res.status(401).send('User with that login token not found.')
-        break
+        return
       default:
         res.status(500).end()
     }
-    logger.errors(error)
   }
 
   if (req.loginToken) {
@@ -299,30 +304,32 @@ exports.get = async function (req, res) {
 
 exports.delete = async function (req, res) {
   const userId = req.params.user_id
+  let user
   try {
-    const user = await User.findOne({ id: userId })
-    if (!user) {
-      res.status(404).send('User not found.')
-      return
-    }
-
-    const idx = user.login_tokens.indexOf(req.loginToken)
-    if (idx === -1) {
-      res.status(401).end()
-      return
-    }
-    user.login_tokens.splice(idx, 1)
-
-    user.save().then(user => {
-      res.status(204).end()
-    }).catch(err => {
-      logger.error(err)
-      res.status(500).send('Could not sign-out user.')
-    })
+    user = await User.findOne({ id: userId })
   } catch (err) {
     logger.error(err)
     res.status(500).send('Error finding user.')
   }
+
+  if (!user) {
+    res.status(404).send('User not found.')
+    return
+  }
+
+  const idx = user.login_tokens.indexOf(req.loginToken)
+  if (idx === -1) {
+    res.status(401).end()
+    return
+  }
+  user.login_tokens.splice(idx, 1)
+
+  user.save().then(user => {
+    res.status(204).end()
+  }).catch(err => {
+    logger.error(err)
+    res.status(500).send('Could not sign-out user.')
+  })
 } // END function - exports.delete
 
 exports.put = async function (req, res) {
@@ -335,27 +342,30 @@ exports.put = async function (req, res) {
   }
 
   const userId = req.params.user_id
+  let user
+
   try {
-    const user = await User.findOne({ id: userId })
-    if (!user) {
-      res.status(404).send('User not found.')
-      return
-    }
-
-    if (user.login_tokens.indexOf(req.loginToken) === -1) {
-      res.status(401).end()
-      return
-    }
-
-    user.data = body.data || user.data
-    user.save().then(user => {
-      res.status(204).end()
-    }).catch(err => {
-      logger.error(err)
-      res.status(500).send('Could not update user information.')
-    })
+    user = await User.findOne({ id: userId })
   } catch (err) {
     logger.error(err)
     res.status(500).send('Error finding user.')
   }
+
+  if (!user) {
+    res.status(404).send('User not found.')
+    return
+  }
+
+  if (user.login_tokens.indexOf(req.loginToken) === -1) {
+    res.status(401).end()
+    return
+  }
+
+  user.data = body.data || user.data
+  user.save().then(user => {
+    res.status(204).end()
+  }).catch(err => {
+    logger.error(err)
+    res.status(500).send('Could not update user information.')
+  })
 } // END function - exports.put
