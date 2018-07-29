@@ -36,53 +36,53 @@ exports.post = async function (req, res) {
   }
 
   const makeNamespacedId = async function () {
+    let namespacedId
     try {
       if (street.creator_id) {
         const row = await User.findByIdAndUpdate(street.creator_id,
           { $inc: { 'last_street_id': 1 } },
           { new: true, upsert: true })
-        const namespacedId = (row) ? row.last_street_id : null
-        if (!namespacedId) {
-          throw new Error(ERRORS.INTERNAL_ERROR)
-        }
-        return namespacedId
+        namespacedId = (row) ? row.last_street_id : null
       } else {
         const row = await Sequence.findByIdAndUpdate('streets',
           { $inc: { 'seq': 1 } },
           { new: true, upsert: true })
-        const namespacedId = (row) ? row.seq : null
-        if (!namespacedId) {
-          throw new Error(ERRORS.INTERNAL_ERROR)
-        }
-        return namespacedId
+        namespacedId = (row) ? row.seq : null
       }
     } catch (err) {
       logger.error(err)
-      throw new Error(ERRORS.INTERNAL_ERROR)
+      throw new Error(ERRORS.CANNOT_CREATE_STREET)
     }
+
+    if (!namespacedId) {
+      throw new Error(ERRORS.CANNOT_CREATE_STREET)
+    }
+    return namespacedId
   } // END function - makeNamespacedId
 
   const saveStreet = async function () {
-    try {
-      if (body && body.originalStreetId) {
-        const origStreet = await Street.findOne({ id: body.originalStreetId })
-        if (!origStreet || origStreet.status === 'DELETED') {
-          throw new Error(ERRORS.STREET_NOT_FOUND)
-        }
-
-        street.original_street_id = origStreet
-        const namespacedId = await makeNamespacedId()
-        street.namespaced_id = namespacedId
-        return street.save()
-      } else {
-        const namespacedId = await makeNamespacedId()
-        street.namespaced_id = namespacedId
-        return street.save()
+    if (body && body.originalStreetId) {
+      let origStreet
+      try {
+        origStreet = await Street.findOne({ id: body.originalStreetId })
+      } catch (err) {
+        logger.error(err)
+        throw new Error(ERRORS.STREET_NOT_FOUND)
       }
-    } catch (err) {
-      logger.error(err)
-      throw new Error(ERRORS.STREET_NOT_FOUND)
+
+      if (!origStreet || origStreet.status === 'DELETED') {
+        throw new Error(ERRORS.STREET_NOT_FOUND)
+      }
+
+      street.original_street_id = origStreet
+      const namespacedId = await makeNamespacedId()
+      street.namespaced_id = namespacedId
+      return street.save()
     }
+
+    const namespacedId = await makeNamespacedId()
+    street.namespaced_id = namespacedId
+    return street.save()
   } // END function - saveStreet
 
   const handleCreatedStreet = (s) => {
@@ -106,10 +106,10 @@ exports.post = async function (req, res) {
       case ERRORS.STREET_NOT_FOUND:
         res.status(404).send('Original street not found.')
         return
-      case ERRORS.INTERNAL_ERROR:
+      case ERRORS.CANNOT_CREATE_STREET:
         res.status(500).send('Could not create new street ID.')
         return
-      case ERRORS.UNAUTHORISE_ACCESS:
+      case ERRORS.UNAUTHORISED_ACCESS:
         res.status(401).send('User with that login token not found.')
         return
       default:
@@ -117,24 +117,27 @@ exports.post = async function (req, res) {
     }
   }
 
-  try {
-    if (req.loginToken) {
-      const user = await User.findOne({ login_tokens: { $in: [ req.loginToken ] } })
-      if (!user) {
-        handleErrors(ERRORS.UNAUTHORISE_ACCESS)
-      }
-      street.creator_id = user
-      saveStreet()
-        .then(handleCreatedStreet)
-        .catch(handleErrors)
-    } else {
-      saveStreet()
-        .then(handleCreatedStreet)
-        .catch(handleErrors)
+  if (req.loginToken) {
+    let user
+    try {
+      user = await User.findOne({ login_tokens: { $in: [ req.loginToken ] } })
+    } catch (err) {
+      logger.error(err)
+      handleErrors(ERRORS.USER_NOT_FOUND)
     }
-  } catch (err) {
-    logger.error(err)
-    handleErrors(ERRORS.INTERNAL_ERROR)
+
+    if (!user) {
+      handleErrors(ERRORS.UNAUTHORISED_ACCESS)
+    }
+
+    street.creator_id = user
+    saveStreet()
+      .then(handleCreatedStreet)
+      .catch(handleErrors)
+  } else {
+    saveStreet()
+      .then(handleCreatedStreet)
+      .catch(handleErrors)
   }
 } // END function - exports.post
 
