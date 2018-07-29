@@ -13,19 +13,20 @@ exports.get = async function (req, res) {
   }
 
   const findUserStreets = async function (userId) {
+    let streets
     try {
-      const streets = await Street.find({ creator_id: userId, status: 'ACTIVE' })
+      streets = await Street.find({ creator_id: userId, status: 'ACTIVE' })
         .sort({ updated_at: 'descending' })
         .exec()
-
-      if (!streets) {
-        throw new Error(ERRORS.STREET_NOT_FOUND)
-      }
-      return streets
     } catch (err) {
       logger.error(err)
-      handleErrors(ERRORS.INTERNAL_ERROR)
+      handleErrors(ERRORS.CANNOT_GET_STREET)
     }
+
+    if (!streets) {
+      throw new Error(ERRORS.STREET_NOT_FOUND)
+    }
+    return streets
   } // END function - handleFindUserstreets
 
   const handleFindUserStreets = function (streets) {
@@ -56,10 +57,10 @@ exports.get = async function (req, res) {
       case ERRORS.STREET_DELETED:
         res.status(410).send('Could not find street.')
         return
-      case ERRORS.INTERNAL_ERROR:
+      case ERRORS.CANNOT_GET_STREET:
         res.status(500).send('Could not find streets for user.')
         return
-      case ERRORS.UNAUTHORISE_ACCESS:
+      case ERRORS.UNAUTHORISED_ACCESS:
         res.status(401).send('User is not signed-in.')
         return
       case ERRORS.FORBIDDEN_REQUEST:
@@ -70,17 +71,20 @@ exports.get = async function (req, res) {
     }
   } // END function - handleErrors
 
+  let user
   try {
-    const user = await User.findOne({ id: req.params.user_id })
-    if (!user) {
-      res.status(404).send('Could not find user.')
-      return
-    }
-    findUserStreets(user._id)
-      .then(handleFindUserStreets)
-      .catch(handleErrors)
+    user = await User.findOne({ id: req.params.user_id })
   } catch (err) {
     logger.error(err)
-    handleErrors(ERRORS.USER_NOT_FOUND)
+    handleErrors(ERRORS.CANNOT_GET_STREET)
   }
+
+  if (!user) {
+    res.status(404).send('Could not find user.')
+    return
+  }
+
+  findUserStreets(user._id)
+    .then(handleFindUserStreets)
+    .catch(handleErrors)
 }

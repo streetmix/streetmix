@@ -153,26 +153,28 @@ exports.delete = async function (req, res) {
   }
 
   async function deleteStreet (street) {
+    let user
     try {
-      const user = await User.findOne({ login_tokens: { $in: [ req.loginToken ] } })
-      if (!user) {
-        throw new Error(ERRORS.UNAUTHORISE_ACCESS)
-      }
-
-      if (!street.creator_id) {
-        throw new Error(ERRORS.FORBIDDEN_REQUEST)
-      }
-
-      if (street.creator_id.toString() !== user._id.toString()) {
-        throw new Error(ERRORS.FORBIDDEN_REQUEST)
-      }
-
-      street.status = 'DELETED'
-      return street.save()
+      user = await User.findOne({ login_tokens: { $in: [ req.loginToken ] } })
     } catch (err) {
       logger.error(err)
       throw new Error(ERRORS.USER_NOT_FOUND)
     }
+
+    if (!user) {
+      throw new Error(ERRORS.UNAUTHORISED_ACCESS)
+    }
+
+    if (!street.creator_id) {
+      throw new Error(ERRORS.FORBIDDEN_REQUEST)
+    }
+
+    if (street.creator_id.toString() !== user._id.toString()) {
+      throw new Error(ERRORS.FORBIDDEN_REQUEST)
+    }
+
+    street.status = 'DELETED'
+    return street.save()
   }
 
   function handleErrors (error) {
@@ -183,10 +185,7 @@ exports.delete = async function (req, res) {
       case ERRORS.STREET_NOT_FOUND:
         res.status(404).send('Could not find street.')
         return
-      case ERRORS.INTERNAL_ERROR:
-        res.status(500).send('Could not delete street.')
-        return
-      case ERRORS.UNAUTHORISE_ACCESS:
+      case ERRORS.UNAUTHORISED_ACCESS:
         res.status(401).send('User is not signed-in.')
         return
       case ERRORS.FORBIDDEN_REQUEST:
@@ -197,20 +196,23 @@ exports.delete = async function (req, res) {
     }
   }
 
-  try {
-    const street = await Street.findOne({ id: req.params.street_id })
-    if (!street) {
-      res.status(204).end()
-      return
-    }
+  let street
 
-    deleteStreet(street)
-      .then(street => { res.status(204).end() })
-      .catch(handleErrors)
+  try {
+    street = await Street.findOne({ id: req.params.street_id })
   } catch (err) {
     logger.error(err)
-    handleErrors(err)
+    handleErrors(ERRORS.STREET_NOT_FOUND)
   }
+
+  if (!street) {
+    res.status(204).end()
+    return
+  }
+
+  deleteStreet(street)
+    .then(street => { res.status(204).end() })
+    .catch(handleErrors)
 } // END function - exports.delete
 
 exports.get = async function (req, res) {
@@ -218,38 +220,40 @@ exports.get = async function (req, res) {
     res.status(400).send('Please provide street ID.')
     return
   }
+  let street
 
   try {
-    const street = await Street.findOne({ id: req.params.street_id })
-    if (!street) {
-      res.status(404).send('Could not find street.')
-      return
-    }
-
-    if (street.status === 'DELETED') {
-      res.status(410).send('Could not find street.')
-      return
-    }
-
-    res.header('Last-Modified', street.updated_at)
-    if (req.method === 'HEAD') {
-      res.status(204).end()
-      return
-    }
-    street.asJson(function (err, streetJson) {
-      if (err) {
-        logger.error(err)
-        res.status(500).send('Could not render street JSON.')
-        return
-      }
-      res.set('Access-Control-Allow-Origin', '*')
-      res.set('Location', config.restapi.baseuri + '/v1/streets/' + street.id)
-      res.status(200).send(streetJson)
-    })
+    street = await Street.findOne({ id: req.params.street_id })
   } catch (err) {
     logger.error(err)
     res.status(500).send('Could not find street.')
   }
+
+  if (!street) {
+    res.status(404).send('Could not find street.')
+    return
+  }
+
+  if (street.status === 'DELETED') {
+    res.status(410).send('Could not find street.')
+    return
+  }
+
+  res.header('Last-Modified', street.updated_at)
+  if (req.method === 'HEAD') {
+    res.status(204).end()
+    return
+  }
+  street.asJson(function (err, streetJson) {
+    if (err) {
+      logger.error(err)
+      res.status(500).send('Could not render street JSON.')
+      return
+    }
+    res.set('Access-Control-Allow-Origin', '*')
+    res.set('Location', config.restapi.baseuri + '/v1/streets/' + street.id)
+    res.status(200).send(streetJson)
+  })
 } // END function - exports.get
 
 exports.find = function (req, res) {
@@ -259,16 +263,18 @@ exports.find = function (req, res) {
   const count = (req.query.count && parseInt(req.query.count, 10)) || 20
 
   const findStreetWithCreatorId = async function (creatorId) {
+    let user
     try {
-      const user = await User.findOne({ id: creatorId })
-      if (!user) {
-        throw new Error(ERRORS.USER_NOT_FOUND)
-      }
-      return Street.findOne({ namespaced_id: namespacedId, creator_id: user._id })
+      user = await User.findOne({ id: creatorId })
     } catch (err) {
       logger.error(err)
-      handleErrors(err)
+      handleErrors(ERRORS.USER_NOT_FOUND)
     }
+
+    if (!user) {
+      throw new Error(ERRORS.USER_NOT_FOUND)
+    }
+    return Street.findOne({ namespaced_id: namespacedId, creator_id: user._id })
   } // END function - findStreetWithCreatorId
 
   const findStreetWithNamespacedId = async function (namespacedId) {
@@ -361,10 +367,7 @@ exports.find = function (req, res) {
       case ERRORS.STREET_DELETED:
         res.status(410).send('Could not find street.')
         return
-      case ERRORS.INTERNAL_ERROR:
-        res.status(500).send('Could not delete street.')
-        return
-      case ERRORS.UNAUTHORISE_ACCESS:
+      case ERRORS.UNAUTHORISED_ACCESS:
         res.status(401).send('User is not signed-in.')
         return
       case ERRORS.FORBIDDEN_REQUEST:
@@ -413,42 +416,47 @@ exports.put = async function (req, res) {
   async function updateStreetData (street) {
     street.name = body.name || street.name
     street.data = body.data || street.data
-    try {
-      if (body.originalStreetId) {
-        const origStreet = await Street.findOne({ id: body.originalStreetId })
-        if (!origStreet) {
-          throw new Error(ERRORS.STREET_NOT_FOUND)
-        }
-        street.original_street_id = origStreet
-        return street.save()
-      } else {
-        return street.save()
+    if (body.originalStreetId) {
+      let origStreet
+      try {
+        origStreet = await Street.findOne({ id: body.originalStreetId })
+      } catch (err) {
+        logger.error(err)
+        handleErrors(ERRORS.CANNOT_UPDATE_STREET)
       }
-    } catch (err) {
-      logger.error(err)
-      handleErrors(err)
+
+      if (!origStreet) {
+        throw new Error(ERRORS.STREET_NOT_FOUND)
+      }
+
+      street.original_street_id = origStreet
+      return street.save()
+    } else {
+      return street.save()
     }
   } // END function - updateStreetData
 
   async function updateStreetWithCreatorId (street) {
+    let user
     try {
-      const user = await User.findOne({ login_tokens: { $in: [ req.loginToken ] } })
-      if (!user) {
-        throw new Error(ERRORS.UNAUTHORISE_ACCESS)
-      }
-
-      if (!street.creator_id) {
-        throw new Error(ERRORS.FORBIDDEN_REQUEST)
-      }
-
-      if (street.creator_id.toString() !== user._id.toString()) {
-        throw new Error(ERRORS.FORBIDDEN_REQUEST)
-      }
-      return updateStreetData(street)
+      user = await User.findOne({ login_tokens: { $in: [ req.loginToken ] } })
     } catch (err) {
       logger.error(err)
-      handleErrors(err)
+      handleErrors(ERRORS.CANNOT_UPDATE_STREET)
     }
+
+    if (!user) {
+      throw new Error(ERRORS.UNAUTHORISED_ACCESS)
+    }
+
+    if (!street.creator_id) {
+      throw new Error(ERRORS.FORBIDDEN_REQUEST)
+    }
+
+    if (street.creator_id.toString() !== user._id.toString()) {
+      throw new Error(ERRORS.FORBIDDEN_REQUEST)
+    }
+    return updateStreetData(street)
   } // END function - updateStreetWithCreatorId
 
   function handleErrors (error) {
@@ -462,10 +470,10 @@ exports.put = async function (req, res) {
       case ERRORS.STREET_DELETED:
         res.status(410).send('Could not find street.')
         return
-      case ERRORS.INTERNAL_ERROR:
+      case ERRORS.CANNOT_UPDATE_STREET:
         res.status(500).send('Could not update street.')
         return
-      case ERRORS.UNAUTHORISE_ACCESS:
+      case ERRORS.UNAUTHORISED_ACCESS:
         res.status(401).send('User is not signed-in.')
         return
       case ERRORS.FORBIDDEN_REQUEST:
@@ -476,33 +484,35 @@ exports.put = async function (req, res) {
     }
   } // END function - handleErrors
 
+  let street
   try {
-    const street = await Street.findOne({ id: req.params.street_id })
-    if (!street) {
-      handleErrors(ERRORS.STREET_NOT_FOUND)
-      return
-    }
-
-    if (street.status === 'DELETED') {
-      handleErrors(ERRORS.STREET_DELETED)
-      return
-    }
-
-    if (!street.creator_id) {
-      updateStreetData(street)
-        .then(street => { res.status(204).end() })
-        .catch(handleErrors)
-    } else {
-      if (!req.loginToken) {
-        res.status(401).end()
-        return
-      }
-      updateStreetWithCreatorId(street)
-        .then(street => { res.status(204).end() })
-        .catch(handleErrors)
-    }
+    street = await Street.findOne({ id: req.params.street_id })
   } catch (err) {
     logger.error(err)
-    handleErrors(err)
+    handleErrors(ERRORS.CANNOT_UPDATE_STREET)
+  }
+
+  if (!street) {
+    handleErrors(ERRORS.STREET_NOT_FOUND)
+    return
+  }
+
+  if (street.status === 'DELETED') {
+    handleErrors(ERRORS.STREET_DELETED)
+    return
+  }
+
+  if (!street.creator_id) {
+    updateStreetData(street)
+      .then(street => { res.status(204).end() })
+      .catch(handleErrors)
+  } else {
+    if (!req.loginToken) {
+      res.status(401).end()
+      return
+    }
+    updateStreetWithCreatorId(street)
+      .then(street => { res.status(204).end() })
+      .catch(handleErrors)
   }
 } // END function - exports.put
