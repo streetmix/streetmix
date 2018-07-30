@@ -47,7 +47,13 @@ module.exports = {
     baseuri: '/api'
   },
   db: {
-    url: process.env.MONGOHQ_URL || 'mongodb://localhost/streetmix'
+    url: process.env.MONGOHQ_URL || 'mongodb://localhost/streetmix',
+    postgres: {
+      username: process.env.PG_USERNAME,
+      password: process.env.PG_PASSWORD,
+      name: 'streetmix',
+      host: '127.0.0.1'
+    }
   },
   email: {
     sendgrid: {
