@@ -28,7 +28,11 @@ import { segmentsChanged } from './view'
 import store from '../store'
 import { addSegment, removeSegment } from '../store/actions/street'
 import { clearMenus } from '../store/actions/menus'
-import { updateDraggingState, clearDraggingState, setActiveSegment } from '../store/actions/ui'
+import {
+  updateDraggingState,
+  clearDraggingState,
+  setActiveSegment
+} from '../store/actions/ui'
 
 export const DRAGGING_TYPE_NONE = 0
 const DRAGGING_TYPE_CLICK_OR_MOVE = 1
@@ -213,6 +217,30 @@ export function onBodyMouseDown (event) {
     handleSegmentResizeStart(event)
     event.preventDefault()
   }
+}
+
+export function isSegmentWithinCanvas (event, canvasEl) {
+  const { remainingWidth } = store.getState().street
+  const { x, y } = event
+  const { top, bottom, left, right } = canvasEl.getBoundingClientRect()
+
+  const withinCanvasY = (y >= top && y <= bottom)
+  let withinCanvasX = (x >= left && x <= right)
+
+  if (!withinCanvasX && remainingWidth < 0) {
+    const margin = (remainingWidth * TILE_SIZE / 2)
+    const newLeft = left + margin - DRAGGING_MOVE_HOLE_WIDTH
+    const newRight = right - margin + DRAGGING_MOVE_HOLE_WIDTH
+
+    withinCanvasX = (x >= newLeft && x <= newRight)
+  }
+
+  const withinCanvas = (withinCanvasX && withinCanvasY)
+  if (oldDraggingState) {
+    oldDraggingState.withinCanvas = withinCanvas
+  }
+
+  return withinCanvas
 }
 
 export function onBodyMouseMove (event) {
@@ -410,17 +438,20 @@ export const segmentSource = {
 
   endDrag (props, monitor, component) {
     store.dispatch(clearDraggingState())
-    oldDraggingState = null
 
     if (!monitor.didDrop()) {
-      // if no object returned by a drop handler, it is not within the canvas
-      if (monitor.getItemType() === Types.SEGMENT) {
+      // if no object returned by a drop handler, check if it is still within the canvas
+      const { withinCanvas } = oldDraggingState
+      if (withinCanvas) {
+        handleSegmentCanvasDrop(monitor.getItem(), monitor.getItemType())
+      } else if (monitor.getItemType() === Types.SEGMENT) {
         // if existing segment is dropped outside canvas, delete it
         store.dispatch(removeSegment(props.dataNo))
         trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'DRAGGING', null, true)
       }
     }
 
+    oldDraggingState = null
     cancelSegmentResizeTransitions()
     segmentsChanged(false)
     document.body.classList.remove('segment-move-dragging')
@@ -448,8 +479,13 @@ export const paletteSegmentSource = {
 
   endDrag (props, monitor, component) {
     store.dispatch(clearDraggingState())
-    oldDraggingState = null
 
+    const { withinCanvas } = oldDraggingState
+    if (!monitor.didDrop() && withinCanvas) {
+      handleSegmentCanvasDrop(monitor.getItem(), monitor.getItemType())
+    }
+
+    oldDraggingState = null
     cancelSegmentResizeTransitions()
     segmentsChanged(false)
     document.body.classList.remove('segment-move-dragging')
@@ -571,7 +607,7 @@ export const segmentTarget = {
 }
 
 function handleSegmentCanvasDrop (draggedItem, type) {
-  const { segmentBeforeEl, segmentAfterEl, draggedSegment } = store.getState().ui.draggingState
+  const { segmentBeforeEl, segmentAfterEl, draggedSegment } = oldDraggingState
 
   store.dispatch(clearDraggingState())
   // If dropped in same position as dragged segment was before, return
