@@ -421,7 +421,7 @@ export const segmentSource = {
   },
 
   isDragging (props, monitor) {
-    return monitor.getItem().dataNo === props.dataNo
+    return monitor.getItem().id === props.segment.id
   },
 
   beginDrag (props, monitor, component) {
@@ -432,7 +432,8 @@ export const segmentSource = {
       variantString: props.segment.variantString,
       type: props.segment.type,
       randSeed: props.segment.randSeed,
-      actualWidth: props.segment.width
+      actualWidth: props.segment.width,
+      id: props.segment.id
     }
   },
 
@@ -620,7 +621,8 @@ function handleSegmentCanvasDrop (draggedItem, type) {
     variantString: draggedItem.variantString,
     width: draggedItem.actualWidth,
     type: draggedItem.type,
-    randSeed: draggedItem.randSeed
+    randSeed: draggedItem.randSeed,
+    id: draggedItem.id
   }
 
   let newIndex = (segmentAfterEl !== undefined) ? (segmentAfterEl + 1) : segmentBeforeEl

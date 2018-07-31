@@ -110,7 +110,7 @@ class StreetEditable extends React.Component {
 
     mainLeft = (mainLeft * TILE_SIZE) / 2
 
-    if (this.state.withinCanvas && draggingState) {
+    if (draggingState && this.state.withinCanvas) {
       mainLeft -= DRAGGING_MOVE_HOLE_WIDTH
       const spaceBetweenSegments = makeSpaceBetweenSegments(dataNo, draggingState)
       return Math.round(mainLeft + currPos + spaceBetweenSegments)
