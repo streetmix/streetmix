@@ -63,6 +63,13 @@
     "level": 2
   },
   {
+    "label": "Русский",
+    "name": "Russian",
+    "value": "ru",
+    "key": "i18n.lang.ru",
+    "level": 2
+  },
+  {
     "label": "Español",
     "name": "Spanish",
     "value": "es",
@@ -82,12 +89,5 @@
     "value": "sv",
     "key": "i18n.lang.sv",
     "level": 1
-  },
-  {
-    "label": "Русский",
-    "name": "Russian",
-    "value": "ru",
-    "key": "i18n.lang.ru",
-    "level": 2
   }
 ]
