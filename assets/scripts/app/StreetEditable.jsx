@@ -53,8 +53,10 @@ class StreetEditable extends React.Component {
 
     if (!prevProps.draggingState && draggingState) {
       window.addEventListener('drag', this.updateWithinCanvas)
+      window.addEventListener('touchmove', this.updateWithinCanvas)
     } else if (prevProps.draggingState && !draggingState) {
       window.removeEventListener('drag', this.updateWithinCanvas)
+      window.removeEventListener('touchmove', this.updateWithinCanvas)
     }
   }
 
