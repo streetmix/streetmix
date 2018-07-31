@@ -4,7 +4,7 @@ const logger = require('../../lib/logger.js')()
 const { Authentication } = require('../../lib/auth0')
 
 const AccessTokenHandler = function (req, res) {
-  return function (err, response, body) {
+  return async function (err, response, body) {
     if (err) {
       console.error('Error obtaining access token from Auth0:')
       console.log(err)
@@ -19,14 +19,10 @@ const AccessTokenHandler = function (req, res) {
 
     const auth0 = Authentication()
 
-    function handleUserInfo (err, user) {
-      if (err) {
-        logger.error('Error obtaining user info from Auth0: ' + err)
-        res.redirect('/error/no-access-token')
-        return
-      }
-
+    try {
+      const user = await auth0.getProfile(body.access_token)
       const apiRequestBody = getUserInfo(user)
+
       //  Must be an absolute URI
       const endpoint = config.restapi.protocol + config.app_host_port + config.restapi.baseuri + '/v1/users'
 
@@ -42,9 +38,10 @@ const AccessTokenHandler = function (req, res) {
         res.cookie('login_token', body.loginToken)
         res.redirect('/just-signed-in')
       })
+    } catch (error) {
+      logger.error('Error obtaining user info from Auth0: ' + error)
+      res.redirect('/error/no-access-token')
     }
-
-    auth0.getProfile(body.access_token, handleUserInfo)
   }
 }
 
