@@ -21,8 +21,7 @@ const AccessTokenHandler = function (req, res) {
 
     function handleUserInfo (err, user) {
       if (err) {
-        console.error('Error obtaining user info from Auth0:')
-        console.log(err)
+        logger.error('Error obtaining user info from Auth0: ' + err)
         res.redirect('/error/no-access-token')
         return
       }
@@ -30,18 +29,21 @@ const AccessTokenHandler = function (req, res) {
       const apiRequestBody = getUserInfo(user)
       //  Must be an absolute URI
       const endpoint = config.restapi.protocol + config.app_host_port + config.restapi.baseuri + '/v1/users'
+
       request.post({ url: endpoint, json: apiRequestBody }, function (err, response, body) {
         if (err) {
           logger.error('Error from API when signing in: ' + err)
           res.redirect('/error/authentication-api-problem')
           return
         }
+
         // Redirect user
         res.cookie('user_id', body.id)
         res.cookie('login_token', body.loginToken)
         res.redirect('/just-signed-in')
       })
     }
+
     auth0.getProfile(body.access_token, handleUserInfo)
   }
 }
@@ -51,9 +53,11 @@ const getUserInfo = function (user) {
   // e.g user.sub = facebook|das3fa
   // get 'facebook' out from the user.sub
   const platform = user.sub.split('|')[0]
+
   if (platform === 'twitter') {
     return getUserTwitterAuth0Info(user)
   }
+
   return getUserAuth0Info(user)
 }
 
@@ -99,5 +103,6 @@ exports.get = function (req, res) {
     },
     json: true
   }
+
   request(options, AccessTokenHandler(req, res))
 }
