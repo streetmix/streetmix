@@ -14,6 +14,7 @@ class MenuBar extends React.PureComponent {
   static propTypes = {
     onMenuDropdownClick: PropTypes.func,
     locale: PropTypes.string,
+    newAuthEnabled: PropTypes.bool,
     userId: PropTypes.string,
     clearMenus: PropTypes.func,
     showSignInDialog: PropTypes.func,
@@ -21,6 +22,7 @@ class MenuBar extends React.PureComponent {
   }
 
   static defaultProps = {
+    newAuthEnabled: false,
     userId: ''
   }
 
@@ -76,7 +78,7 @@ class MenuBar extends React.PureComponent {
 
   handleSignIn = (event) => {
     // Currently, the sign in dialog is only limited to users in English.
-    if (this.props.locale === 'en') {
+    if (this.props.newAuthEnabled && this.props.locale === 'en') {
       this.props.showSignInDialog()
     } else {
       goTwitterSignIn()
@@ -138,6 +140,7 @@ class MenuBar extends React.PureComponent {
 function mapStateToProps (state) {
   return {
     locale: state.locale.locale,
+    newAuthEnabled: state.flags.AUTHENTICATION_V2.value,
     userId: state.user.signInData && state.user.signInData.userId,
     noInternet: state.system.noInternet
   }

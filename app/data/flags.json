@@ -64,20 +64,8 @@
     "label": "Donation nag screen",
     "defaultValue": true
   },
-  "EMAIL_AUTHENTICATION": {
-    "label": "Auth0 email authentication",
+  "AUTHENTICATION_V2": {
+    "label": "Authentication v2",
     "defaultValue": false
-  },
-  "FACEBOOK_AUTHENTICATION": {
-    "label": "Auth0 Facebook authentication",
-    "defaultValue": false
-  },
-  "GOOGLE_AUTHENTICATION": {
-    "label": "Auth0 Google authentication",
-    "defaultValue": false
-  },
-  "TWITTER_AUTHENTICATION": {
-    "label": "Auth0 Twitter authentication",
-    "defaultValue": true
   }
 }
