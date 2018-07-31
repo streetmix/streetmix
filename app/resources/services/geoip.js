@@ -1,9 +1,8 @@
 const request = require('request')
 const redis = require('redis')
-const url = require('url')
-const util = require('util')
 const config = require('config')
 const logger = require('../../../lib/logger.js')()
+const client = require('../../../lib/redis.js')
 
 const IP_GEOLOCATION_TIMEOUT = 500
 
@@ -41,55 +40,26 @@ exports.get = function (req, res) {
     })
   }
 
-  const handleRedisErrors = function (error, isRedisConnected = true) {
-    // If any errors involving Redis, log the error and then request geolocation
-    // directly from ipstack.
-    logger.error(error)
-    if (!isRedisConnected) {
-      client.end(true)
-    }
-    requestGeolocation(isRedisConnected)
-  }
-
   const ip = requestIp(req)
 
-  let client, redisInfo
-  if (config.redis.url) {
-    redisInfo = url.parse(config.redis.url)
-    client = redis.createClient(redisInfo.port, redisInfo.hostname)
+  // If Redis is connected and Streetmix is not being run locally, check
+  // to see if there is a matching key in Redis to the current IP address.
+  if (client.connected && req.hostname !== 'localhost') {
+    client.get(ip, function (error, reply) {
+      if (error || !reply) {
+        if (error) {
+          logger.error(error)
+        }
+        // If no matching key or Streetmix is being run locally,
+        // or an error occurred, request geolocation from ipstack.
+        requestGeolocation()
+      } else {
+        res.status(200).send(reply)
+      }
+    })
   } else {
-    client = redis.createClient(config.redis.port, req.hostname)
+    // If Redis is not connected and/or Streetmix is being run locally,
+    // automatically request geolocation from ipstack and do not save to Redis.
+    requestGeolocation(false)
   }
-
-  // If Redis cache not connecting, stop trying to connect, log the error,
-  // and request geolocation from ipstack.
-  client.on('error', (error) => { handleRedisErrors(error, false) })
-
-  client.on('connect', function () {
-    console.log('Connected to Redis')
-
-    const authenticateRedis = util.promisify(client.auth).bind(client)
-    const redisAuth = (config.redis.url && redisInfo) ? redisInfo.auth.split(':')[1] : config.redis.password
-
-    authenticateRedis(redisAuth)
-      .then((result) => {
-        client.get(ip, function (error, reply) {
-          if (error) {
-            handleRedisErrors(error)
-            return
-          }
-
-          if (!reply || req.hostname === 'localhost') {
-            // If no matching key or Streetmix is being run locally,
-            // request geolocation from ipstack.
-            requestGeolocation()
-          } else {
-            res.status(200).send(reply)
-          }
-        })
-      })
-      .catch((error) => {
-        logger.error(error)
-      })
-  })
 }
