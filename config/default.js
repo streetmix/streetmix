@@ -35,8 +35,7 @@ module.exports = {
     audience: 'https://streetmix.auth0.com/api/v2/',
     screen_name_custom_claim: 'https://twitter.com/screen_name',
     management_scope: 'read:users write:users',
-    twitter_callback_uri: '/auth0-twitter-sign-in-callback',
-    email_callback_uri: '/email-sign-in-callback'
+    callback_uri: '/sign-in-callback'
   },
   facebook_app_id: '204327799717656',
   cookie_session_secret: process.env.COOKIE_SESSION_SECRET || 'seger handrail',

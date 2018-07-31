@@ -64,8 +64,8 @@
     "label": "Donation nag screen",
     "defaultValue": true
   },
-  "EMAIL_AUTHENTICATION": {
-    "label": "Auth0 email authentication",
+  "AUTHENTICATION_V2": {
+    "label": "Authentication v2",
     "defaultValue": false
   }
 }

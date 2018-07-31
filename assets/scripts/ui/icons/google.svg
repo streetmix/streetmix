@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+    <g id="logo_googleg_48dp" transform="matrix(2.66667,0,0,2.66667,-2.97874e-15,0)">
+        <path id="Shape" d="M17.64,9.205C17.64,8.566 17.583,7.953 17.476,7.364L9,7.364L9,10.845L13.844,10.845C13.635,11.97 13.001,12.923 12.048,13.561L12.048,15.82L14.956,15.82C16.658,14.253 17.64,11.945 17.64,9.205Z" style="fill:rgb(66,133,244);"/>
+        <path id="Shape1" d="M9,18C11.43,18 13.467,17.194 14.956,15.82L12.048,13.561C11.242,14.101 10.211,14.42 9,14.42C6.656,14.42 4.672,12.837 3.964,10.71L0.957,10.71L0.957,13.042C2.438,15.983 5.482,18 9,18Z" style="fill:rgb(52,168,83);"/>
+        <path id="Shape2" d="M3.964,10.71C3.784,10.17 3.682,9.593 3.682,9C3.682,8.407 3.784,7.83 3.964,7.29L3.964,4.958L0.957,4.958C0.348,6.173 0,7.548 0,9C0,10.452 0.348,11.827 0.957,13.042L3.964,10.71Z" style="fill:rgb(251,188,5);"/>
+        <path id="Shape3" d="M9,3.58C10.321,3.58 11.508,4.034 12.44,4.925L15.022,2.344C13.463,0.892 11.426,0 9,0C5.482,0 2.438,2.017 0.957,4.958L3.964,7.29C4.672,5.163 6.656,3.58 9,3.58Z" style="fill:rgb(234,67,53);"/>
+    </g>
+</svg>

@@ -47,6 +47,10 @@
 
   h1 {
     @include large-message-text;
+
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    line-height: inherit;
   }
 
   footer {
@@ -71,7 +75,7 @@
   button:not(.close),
   a.button-like {
     margin: 0 auto;
-    display: inline-block !important;
+    display: inline-block;
     padding: 0.75em 2em;
     margin-top: 1em;
   }
@@ -213,28 +217,4 @@
 
 .feature-flag-label-modified {
   font-weight: bold;
-}
-
-.email-sign-in-dialog {
-  text-align: center;
-  width: 500px;
-
-  form {
-    margin: 20px;
-
-    .form-control {
-      padding: 8px;
-      font-size: 13px;
-      width: 50%;
-      border: 1px solid #000;
-      border-radius: 2px;
-      outline: none;
-    }
-
-    .btn {
-      margin: 10px;
-      padding: 6px;
-      cursor: pointer;
-    }
-  }
 }

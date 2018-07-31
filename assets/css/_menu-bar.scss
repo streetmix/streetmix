@@ -43,7 +43,7 @@ $top-menu-active-text: darken($ui-colour, 40%);
   }
 
   // Dot separator between menu items
-  li + li {
+  li + li:not(.menu-item-dividerless) {
     &::before {
       content: '·';
       margin-left: 0.5em;
@@ -104,6 +104,37 @@ $top-menu-active-text: darken($ui-colour, 40%);
     &[disabled] {
       color: red;
     }
+  }
+}
+
+button.menu-sign-in {
+  margin-left: 1em;
+  background-color: #61a1bd;
+  border-radius: 2px;
+  padding: 0.25em 0.75em;
+  color: #fff;
+
+  /* Remove down arrow applied by .menu-bar */
+  &::after {
+    content: '';
+    padding: 0;
+    font-size: 0;
+  }
+
+  &:hover {
+    opacity: 0.8;
+    background-color: #61a1bd;
+    color: #fff;
+  }
+}
+
+button.menu-avatar {
+  margin-left: 10px;
+
+  &::before {
+    content: '';
+    padding: 0;
+    font-size: 0;
   }
 }
 

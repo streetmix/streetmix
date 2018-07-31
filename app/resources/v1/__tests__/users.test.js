@@ -22,7 +22,7 @@ const user = {
   }
 }
 const emailUser = {
-  auth0_email: {
+  auth0: {
     nickname: 'omoyajowo2015',
     auth0_id: 'email|9032',
     email: 'omoyajowo2015@gmail.com',
