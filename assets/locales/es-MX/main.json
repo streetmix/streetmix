@@ -252,7 +252,7 @@
     "remove-floor": "Remover piso"
   },
   "street": {
-    "default-name": "Calle nueva sin nombre",
+    "default-name": "Calle desconocida",
     "rename": "Hacer clic para poner un nombre nuevo"
   },
   "building": {
@@ -286,7 +286,8 @@
     "delete-street-tooltip": "Eliminar calle",
     "street-count": "{count, plural, one {# calle} other {# calles}}",
     "no-streets": "Todavía no hay calles",
-    "sign-in": "Ingresar con Twitter para ver tu galería de calles personal"
+    "sign-in": "Ingresar con Twitter para ver tu galería de calles personal",
+    "sign-in-prompt": "Ingresar para ver tu galería de calles personal"
   },
   "users": {
     "anonymous": "Anónimo",

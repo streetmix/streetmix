@@ -286,7 +286,8 @@
     "delete-street-tooltip": "Eliminar la calle",
     "street-count": "{count, plural, one {# calle} other {# calles}}",
     "no-streets": "",
-    "sign-in": "Registrar con Twitter para ver tu galería de calles personal"
+    "sign-in": "Registrar con Twitter para ver tu galería de calles personal",
+    "sign-in-prompt": ""
   },
   "users": {
     "anonymous": "Anonimo",

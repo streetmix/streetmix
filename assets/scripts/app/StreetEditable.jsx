@@ -63,9 +63,7 @@ class StreetEditable extends React.Component {
       segment.el = ref
       segment.el.dataNo = dataNo
       segment.el.savedLeft = Math.round(segmentPos)
-      segment.el.savedNoMoveLeft = Math.round(segmentPos)
       segment.el.cssTransformLeft = Math.round(segmentPos)
-      segment.el.savedWidth = Math.round(segment.width * TILE_SIZE)
     }
   }
 
@@ -137,11 +135,11 @@ class StreetEditable extends React.Component {
           <Segment
             key={segment.id}
             dataNo={i}
-            segment={segment}
+            segment={{...segment}}
             actualWidth={segment.width}
             units={units}
             segmentPos={segmentPos}
-            suppressMouseEnter={this.state.suppressMouseEnter}
+            suppressMouseEnter={(this.state.suppressMouseEnter || this.props.isOver)}
             updateSegmentData={this.updateSegmentData}
             updatePerspective={this.props.updatePerspective}
           />
