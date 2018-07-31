@@ -183,6 +183,7 @@ exports.get = function (req, res) {
     }
 
     let twitterApiClient
+
     try {
       twitterApiClient = new Twitter({
         consumer_key: config.twitter.oauth_consumer_key,
@@ -190,9 +191,8 @@ exports.get = function (req, res) {
         access_token_key: user.twitter_credentials.access_token_key,
         access_token_secret: user.twitter_credentials.access_token_secret
       })
-    } catch (e) {
-      logger.error('Could not initialize Twitter API client. Error:')
-      logger.error(e)
+    } catch (error) {
+      logger.error('Could not initialize Twitter API client: ' + error)
     }
 
     const sendUserJson = function (data) {
