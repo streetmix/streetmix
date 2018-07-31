@@ -5,7 +5,8 @@ import EnvironmentBadge from './EnvironmentBadge'
 import { goTwitterSignIn } from '../app/routing'
 import { showGallery } from '../gallery/view'
 import MenuBarItem from './MenuBarItem'
-import Avatar from '../users/Avatar'
+import SignInButton from './SignInButton'
+import AvatarMenu from './AvatarMenu'
 import { clearMenus } from '../store/actions/menus'
 import { showDialog } from '../store/actions/dialogs'
 
@@ -15,7 +16,8 @@ class MenuBar extends React.PureComponent {
     locale: PropTypes.string,
     userId: PropTypes.string,
     clearMenus: PropTypes.func,
-    showSignInDialog: PropTypes.func
+    showSignInDialog: PropTypes.func,
+    noInternet: PropTypes.bool
   }
 
   static defaultProps = {
@@ -84,12 +86,13 @@ class MenuBar extends React.PureComponent {
   renderUserAvatar = (userId) => {
     return (userId)
       ? (
-        <MenuBarItem label="avatar" onClick={this.onClickMenuButton('identity')} requireInternet>
-          <Avatar userId={userId} />
-          <span className="user-id">{userId}</span>
-        </MenuBarItem>
+        <li className="menu-item-dividerless">
+          <AvatarMenu userId={userId} onClick={this.onClickMenuButton('identity')} />
+        </li>
       ) : (
-        <MenuBarItem label="Sign in" translation="menu.item.sign-in" onClick={this.handleSignIn} requireInternet />
+        <li className="menu-item-dividerless">
+          <SignInButton onClick={this.handleSignIn} />
+        </li>
       )
   }
 
@@ -124,7 +127,7 @@ class MenuBar extends React.PureComponent {
           />
           <MenuBarItem label="Settings" translation="menu.item.settings" onClick={this.onClickMenuButton('settings')} />
           <MenuBarItem label="Share" translation="menu.item.share" onClick={this.onClickMenuButton('share')} />
-          {this.renderUserAvatar(userId)}
+          {!this.props.noInternet && this.renderUserAvatar(userId)}
         </ul>
         <EnvironmentBadge />
       </nav>
@@ -135,7 +138,8 @@ class MenuBar extends React.PureComponent {
 function mapStateToProps (state) {
   return {
     locale: state.locale.locale,
-    userId: state.user.signInData && state.user.signInData.userId
+    userId: state.user.signInData && state.user.signInData.userId,
+    noInternet: state.system.noInternet
   }
 }
 

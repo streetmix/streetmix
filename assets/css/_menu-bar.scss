@@ -43,7 +43,7 @@ $top-menu-active-text: darken($ui-colour, 40%);
   }
 
   // Dot separator between menu items
-  li + li {
+  li + li:not(.menu-item-dividerless) {
     &::before {
       content: '·';
       margin-left: 0.5em;
@@ -108,12 +108,13 @@ $top-menu-active-text: darken($ui-colour, 40%);
 }
 
 button.menu-sign-in {
-  margin-left: 10px;
+  margin-left: 1em;
   background-color: #61a1bd;
   border-radius: 2px;
-  padding: 3.5px;
+  padding: 0.25em 0.75em;
   color: #fff;
 
+  /* Remove down arrow applied by .menu-bar */
   &::after {
     content: '';
     padding: 0;

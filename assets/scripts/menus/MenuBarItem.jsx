@@ -41,28 +41,6 @@ export class MenuBarItem extends React.PureComponent {
     const children = this.props.children ||
       <FormattedMessage id={translation} defaultMessage={label} />
 
-    const SignInButton = (
-      <button
-        className="menu-sign-in"
-        disabled={false}
-        onClick={onClick}
-        {...restProps}
-      >
-        {children}
-      </button>
-    )
-
-    const AvatarButton = (
-      <button
-        className="menu-attached menu-avatar"
-        disabled={false}
-        onClick={onClick}
-        {...restProps}
-      >
-        {children}
-      </button>
-    )
-
     if (url) {
       return (
         <li>
@@ -72,13 +50,6 @@ export class MenuBarItem extends React.PureComponent {
         </li>
       )
     } else {
-      if (label === 'Sign in') {
-        return SignInButton
-      }
-
-      if (label === 'avatar') {
-        return AvatarButton
-      }
       // Buttons have `disabled={false}` because Firefox
       // sometimes disables some buttons… unsure why
       return (
