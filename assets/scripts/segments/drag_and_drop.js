@@ -699,8 +699,6 @@ export const canvasTarget = {
 
 export function collectDropTarget (connect, monitor) {
   return {
-    connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver(),
-    isOverCurrent: monitor.isOver({ shallow: true })
+    connectDropTarget: connect.dropTarget()
   }
 }
