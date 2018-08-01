@@ -458,7 +458,7 @@ export const segmentSource = {
 
     if (!monitor.didDrop()) {
       // if no object returned by a drop handler, check if it is still within the canvas
-      const { withinCanvas } = oldDraggingState
+      const withinCanvas = oldDraggingState && oldDraggingState.withinCanvas
       if (withinCanvas) {
         handleSegmentCanvasDrop(monitor.getItem(), monitor.getItemType())
       } else if (monitor.getItemType() === Types.SEGMENT) {
@@ -497,7 +497,7 @@ export const paletteSegmentSource = {
   endDrag (props, monitor, component) {
     store.dispatch(clearDraggingState())
 
-    const { withinCanvas } = oldDraggingState
+    const withinCanvas = oldDraggingState && oldDraggingState.withinCanvas
     if (!monitor.didDrop() && withinCanvas) {
       handleSegmentCanvasDrop(monitor.getItem(), monitor.getItemType())
     }
