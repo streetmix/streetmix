@@ -14,11 +14,11 @@ import {
   TILE_SIZE,
   SEGMENT_WARNING_OUTSIDE,
   SEGMENT_WARNING_WIDTH_TOO_SMALL,
-  SEGMENT_WARNING_WIDTH_TOO_LARGE
+  SEGMENT_WARNING_WIDTH_TOO_LARGE,
+  DragTypes
 } from './constants'
 import {
   suppressMouseEnter,
-  Types,
   segmentSource,
   collectDragSource,
   segmentTarget,
@@ -323,7 +323,7 @@ function mapDispatchToProps (dispatch) {
 }
 
 export default flow(
-  DragSource(Types.SEGMENT, segmentSource, collectDragSource),
-  DropTarget([Types.SEGMENT, Types.PALETTE_SEGMENT], segmentTarget, collectDropTarget),
+  DragSource(DragTypes.SEGMENT, segmentSource, collectDragSource),
+  DropTarget([DragTypes.SEGMENT, DragTypes.PALETTE_SEGMENT], segmentTarget, collectDropTarget),
   connect(mapStateToProps, mapDispatchToProps)
 )(Segment)

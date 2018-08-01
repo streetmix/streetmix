@@ -4,8 +4,8 @@ import { injectIntl, intlShape } from 'react-intl'
 import { DragSource } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 import SegmentCanvas from './SegmentCanvas'
-import { TILE_SIZE } from './constants'
-import { Types, paletteSegmentSource, collectDragSource } from './drag_and_drop'
+import { TILE_SIZE, DragTypes } from './constants'
+import { paletteSegmentSource, collectDragSource } from './drag_and_drop'
 import { getSegmentVariantInfo, getSegmentInfo } from './info'
 import { getVariantInfoDimensions } from './view'
 import { generateRandSeed } from '../util/random'
@@ -61,4 +61,4 @@ class SegmentForPalette extends React.Component {
   }
 }
 
-export default DragSource(Types.PALETTE_SEGMENT, paletteSegmentSource, collectDragSource)(injectIntl(SegmentForPalette))
+export default DragSource(DragTypes.PALETTE_SEGMENT, paletteSegmentSource, collectDragSource)(injectIntl(SegmentForPalette))

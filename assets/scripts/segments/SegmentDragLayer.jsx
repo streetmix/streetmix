@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { DragLayer } from 'react-dnd'
 import SegmentCanvas from './SegmentCanvas'
-import { Types } from './drag_and_drop'
+import { DragTypes } from './constants'
 
 const DRAG_OFFSET_Y_PALETTE = -340 - 150
 const MAX_DRAG_DEGREE = 20
@@ -44,7 +44,7 @@ class SegmentDragLayer extends React.PureComponent {
 
     let { x, y } = currentOffset
 
-    if (this.props.type === Types.PALETTE_SEGMENT) {
+    if (this.props.type === DragTypes.PALETTE_SEGMENT) {
       x -= item.actualWidth * 4 // TODO: document magic number, probably TILE_SIZE * PALETTE_MULTIPLIER
       y += DRAG_OFFSET_Y_PALETTE
     }

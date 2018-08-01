@@ -24,7 +24,7 @@ import {
   cancelSegmentResizeTransitions
 } from './resizing'
 import { getVariantArray, getVariantString } from './variant_utils'
-import { TILE_SIZE, DRAGGING_MOVE_HOLE_WIDTH } from './constants'
+import { TILE_SIZE, DRAGGING_MOVE_HOLE_WIDTH, DragTypes } from './constants'
 import { segmentsChanged, getSegmentEl } from './view'
 import store from '../store'
 import { addSegment, removeSegment } from '../store/actions/street'
@@ -282,7 +282,7 @@ function doDropHeuristics (draggedItem, draggedItemType) {
   const street = store.getState().street
   const { variantString, type, actualWidth } = draggedItem
 
-  if (draggedItemType === Types.PALETTE_SEGMENT) {
+  if (draggedItemType === DragTypes.PALETTE_SEGMENT) {
     if ((street.remainingWidth > 0) &&
       (actualWidth > street.remainingWidth)) {
       var segmentMinWidth = getSegmentVariantInfo(type, variantString).minWidth || 0
@@ -430,11 +430,6 @@ function handleSegmentDragStart () {
   hideControls()
 }
 
-export const Types = {
-  SEGMENT: 'SEGMENT',
-  PALETTE_SEGMENT: 'PALETTE_SEGMENT'
-}
-
 // TODO: This is no longer used anywhere (the keydown button that used to call this is no longer
 // set), but we should consider making it possible to cancel segment moving again.
 export function handleSegmentMoveCancel () {
@@ -479,7 +474,7 @@ export const segmentSource = {
 
     if (!monitor.didDrop()) {
       // if no object returned by a drop handler, it is not within the canvas
-      if (monitor.getItemType() === Types.SEGMENT) {
+      if (monitor.getItemType() === DragTypes.SEGMENT) {
         // if existing segment is dropped outside canvas, delete it
         store.dispatch(removeSegment(props.dataNo))
         trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'DRAGGING', null, true)
@@ -598,7 +593,7 @@ function updateIfDraggingStateChanged (segmentBeforeEl, segmentAfterEl, draggedI
 export const segmentTarget = {
   canDrop (props, monitor) {
     const type = monitor.getItemType()
-    return (type === Types.SEGMENT) || (type === Types.PALETTE_SEGMENT)
+    return (type === DragTypes.SEGMENT) || (type === DragTypes.PALETTE_SEGMENT)
   },
 
   hover (props, monitor, component) {
@@ -654,7 +649,7 @@ function handleSegmentCanvasDrop (draggedItem, type) {
 
   let newIndex = (segmentAfterEl !== undefined) ? (segmentAfterEl + 1) : segmentBeforeEl
 
-  if (type === Types.SEGMENT) {
+  if (type === DragTypes.SEGMENT) {
     store.dispatch(removeSegment(draggedSegment))
     newIndex = (newIndex <= draggedSegment) ? newIndex : newIndex - 1
   }
