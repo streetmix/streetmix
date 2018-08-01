@@ -6,7 +6,6 @@ function AvatarMenu (props) {
   return (
     <button
       className="menu-attached menu-avatar"
-      disabled={false}
       onClick={props.onClick}
     >
       <Avatar userId={props.userId} />

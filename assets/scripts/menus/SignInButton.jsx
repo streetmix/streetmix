@@ -6,7 +6,6 @@ function SignInButton (props) {
   return (
     <button
       className="menu-sign-in"
-      disabled={false}
       onClick={props.onClick}
     >
       <FormattedMessage id="menu.item.sign-in" defaultMessage="Sign in" />

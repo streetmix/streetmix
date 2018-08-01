@@ -110,8 +110,12 @@ class MenuBar extends React.PureComponent {
             <h1>Streetmix</h1>
           </li>
           <MenuBarItem label="Help" translation="menu.item.help" onClick={this.onClickMenuButton('help')} />
-          <MenuBarItem label="Contact" translation="menu.item.contact" onClick={this.onClickMenuButton('contact')} requireInternet />
-          <MenuBarItem label="Contribute" translation="menu.item.contribute" onClick={this.onClickMenuButton('contribute')} requireInternet />
+          {!this.props.noInternet && (
+            <React.Fragment>
+              <MenuBarItem label="Contact" translation="menu.item.contact" onClick={this.onClickMenuButton('contact')} />
+              <MenuBarItem label="Contribute" translation="menu.item.contribute" onClick={this.onClickMenuButton('contribute')} />
+            </React.Fragment>
+          )}
         </ul>
         <ul className="menu-bar-right" ref={(ref) => { this.menuBarRight = ref }}>
           <MenuBarItem
@@ -120,13 +124,14 @@ class MenuBar extends React.PureComponent {
             url="/new"
             target="_blank"
           />
-          <MenuBarItem
-            label="My streets"
-            translation="menu.item.my-streets"
-            url={myStreetsLink}
-            onClick={this.onClickMyStreets}
-            requireInternet
-          />
+          {!this.props.noInternet &&
+            <MenuBarItem
+              label="My streets"
+              translation="menu.item.my-streets"
+              url={myStreetsLink}
+              onClick={this.onClickMyStreets}
+            />
+          }
           <MenuBarItem label="Settings" translation="menu.item.settings" onClick={this.onClickMenuButton('settings')} />
           <MenuBarItem label="Share" translation="menu.item.share" onClick={this.onClickMenuButton('share')} />
           {!this.props.noInternet && this.renderUserAvatar(userId)}
