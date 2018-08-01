@@ -426,6 +426,14 @@ function handleSegmentDragStart () {
   hideControls()
 }
 
+function handleSegmentDragEnd () {
+  oldDraggingState = null
+  cancelSegmentResizeTransitions()
+  segmentsChanged(false)
+  document.body.classList.remove('segment-move-dragging')
+  document.body.classList.remove('not-within-canvas')
+}
+
 export const Types = {
   SEGMENT: 'SEGMENT',
   PALETTE_SEGMENT: 'PALETTE_SEGMENT'
@@ -468,11 +476,7 @@ export const segmentSource = {
       }
     }
 
-    oldDraggingState = null
-    cancelSegmentResizeTransitions()
-    segmentsChanged(false)
-    document.body.classList.remove('segment-move-dragging')
-    document.body.classList.remove('not-within-canvas')
+    handleSegmentDragEnd()
   }
 }
 
@@ -502,11 +506,7 @@ export const paletteSegmentSource = {
       handleSegmentCanvasDrop(monitor.getItem(), monitor.getItemType())
     }
 
-    oldDraggingState = null
-    cancelSegmentResizeTransitions()
-    segmentsChanged(false)
-    document.body.classList.remove('segment-move-dragging')
-    document.body.classList.remove('not-within-canvas')
+    handleSegmentDragEnd()
   }
 }
 
