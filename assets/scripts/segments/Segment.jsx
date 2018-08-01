@@ -71,6 +71,7 @@ class Segment extends React.Component {
 
     this.oldSegmentCanvas = React.createRef()
     this.newSegmentCanvas = React.createRef()
+    this.initialRender = true
 
     this.state = {
       switchSegments: false,
@@ -90,8 +91,9 @@ class Segment extends React.Component {
     // the active segment should be shown. The following IF statement checks to see if a removal
     // or drag action occurred previously to this segment and displays the infoBubble for the
     // segment if it is equal to the activeSegment and no infoBubble was shown already.
-    const wasDragging = (prevProps.isDragging && !this.props.isDragging)
+    const wasDragging = (prevProps.isDragging && !this.props.isDragging) || (this.initialRender && this.props.activeSegment)
     const mouseEnterSuppressed = (prevProps.suppressMouseEnter && !this.props.suppressMouseEnter)
+    this.initialRender = false
 
     if ((wasDragging || mouseEnterSuppressed) && this.props.activeSegment === this.props.dataNo) {
       infoBubble.considerShowing(false, this.streetSegment, INFO_BUBBLE_TYPE_SEGMENT)
