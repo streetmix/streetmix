@@ -75,7 +75,6 @@ a.button-like {
 }
 
 input[type='text'],
-input[type='email'],
 textarea {
   padding: 3px;
 
@@ -83,4 +82,11 @@ textarea {
     background: desaturate(fade-out($ui-colour, 0.7), 100%) !important;
     border-color: desaturate($ui-colour, 100%) !important;
   }
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid $hr-colour;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }

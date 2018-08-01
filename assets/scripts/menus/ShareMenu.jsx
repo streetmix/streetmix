@@ -8,7 +8,6 @@ import Icon from '../ui/Icon'
 import { FACEBOOK_APP_ID } from '../app/config'
 import { trackEvent } from '../app/event_tracking'
 import { getPageTitle } from '../app/page_title'
-import { goSignIn } from '../app/routing'
 import { getSharingUrl } from '../util/share_url'
 
 import { showDialog } from '../store/actions/dialogs'
@@ -111,12 +110,12 @@ export class ShareMenu extends React.Component {
 
   onClickSaveAsImage = (event) => {
     event.preventDefault()
-    this.props.showDialog()
+    this.props.showDialog('SAVE_AS_IMAGE')
   }
 
   onClickSignIn = (event) => {
     event.preventDefault()
-    goSignIn()
+    this.props.showDialog('SIGN_IN')
   }
 
   onClickPrint = (event) => {
@@ -222,7 +221,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    showDialog: () => { dispatch(showDialog('SAVE_AS_IMAGE')) },
+    showDialog: (type) => { dispatch(showDialog(type)) },
     startPrinting: () => { dispatch(startPrinting()) }
   }
 }

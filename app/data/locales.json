@@ -60,6 +60,13 @@
     "name": "Portuguese (Brazil)",
     "value": "pt-BR",
     "key": "i18n.lang.pt-br",
+    "level": 3
+  },
+  {
+    "label": "Русский",
+    "name": "Russian",
+    "value": "ru",
+    "key": "i18n.lang.ru",
     "level": 2
   },
   {

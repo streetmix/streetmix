@@ -13,16 +13,18 @@ import Avatar from '../users/Avatar'
 import GalleryStreetItem from './GalleryStreetItem'
 import { switchGalleryStreet, repeatReceiveGalleryData, hideGallery } from './view'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
-import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST, goTwitterSignIn } from '../app/routing'
 import { sendDeleteStreetToServer } from '../streets/xhr'
 import { showError, ERRORS } from '../app/errors'
+import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/routing'
 import { setGalleryMode, deleteGalleryStreet } from '../store/actions/gallery'
+import { showDialog } from '../store/actions/dialogs'
 
 class Gallery extends React.Component {
   static propTypes = {
     visible: PropTypes.bool,
     setGalleryMode: PropTypes.func,
     deleteGalleryStreet: PropTypes.func,
+    showDialog: PropTypes.func,
     userId: PropTypes.string,
     mode: PropTypes.string,
     streets: PropTypes.array.isRequired,
@@ -99,7 +101,8 @@ class Gallery extends React.Component {
 
   onClickSignIn = (event) => {
     event.preventDefault()
-    goTwitterSignIn()
+    hideGallery()
+    this.props.showDialog('SIGN_IN')
   }
 
   render () {
@@ -110,7 +113,7 @@ class Gallery extends React.Component {
         childElements = (
           <div className="gallery-sign-in-promo">
             <a onClick={this.onClickSignIn} href="#">
-              <FormattedMessage id="gallery.sign-in" defaultMessage="Sign in with Twitter for your personal street gallery" />
+              <FormattedMessage id="gallery.sign-in" defaultMessage="Sign in for your personal street gallery" />
             </a>
           </div>
         )
@@ -142,14 +145,6 @@ class Gallery extends React.Component {
               <Avatar userId={this.props.userId} />
               <div className="gallery-user-id">
                 {this.props.userId}
-                <a
-                  href={`https://twitter.com/${this.props.userId}`}
-                  className="gallery-user-twitter"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FormattedMessage id="gallery.twitter-link" defaultMessage="Twitter profile" /> »
-                </a>
               </div>
             </div>
           )
@@ -241,7 +236,8 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
   return {
     setGalleryMode: (mode) => { dispatch(setGalleryMode(mode)) },
-    deleteGalleryStreet: (streetId) => { dispatch(deleteGalleryStreet(streetId)) }
+    deleteGalleryStreet: (streetId) => { dispatch(deleteGalleryStreet(streetId)) },
+    showDialog: (type) => { dispatch(showDialog(type)) }
   }
 }
 

@@ -5,6 +5,6 @@ export default function () {
   return new WebAuth({
     domain: AUTH0_DOMAIN,
     clientID: AUTH0_CLIENT_ID,
-    scope: 'openid profile screen_name offline_access'
+    scope: 'openid profile screen_name offline_access email'
   })
 }

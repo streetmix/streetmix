@@ -22,7 +22,7 @@
     "share": {
       "sign-in-twitter-link": "Sign in",
       "sign-in-link": "{signInLink} for nicer links to your streets and your personal street gallery",
-      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Sign in with Twitter</a> for nicer links to your streets and your personal street gallery",
+      "sign-in": "<a href='#'>Sign in</a> for nicer links to your streets and your personal street gallery",
       "link": "Copy and paste this link to share:",
       "twitter": "Share using Twitter",
       "facebook": "Share using Facebook",
@@ -106,10 +106,8 @@
     "please-reload": "Please reload this page before continuing.",
     "street-deleted-elsewhere-title": "This street has been deleted elsewhere.",
     "street-deleted-elsewhere-description": "This street has been deleted in another browser.",
-    "twitter-access-denied-title": "You are not signed in.",
-    "twitter-access-denied-description": "You cancelled the Twitter sign in process.",
-    "email-access-denied-title": "You are not signed in.",
-    "email-access-denied-description": "You cancelled the email sign in process.",
+    "access-denied-title": "You are not signed in.",
+    "access-denied-description": "You cancelled the sign in process.",
     "auth-api-problem-title": "There was a problem with signing you in.",
     "auth-api-problem-description": "There was a problem with authentication.",
     "please-try-again": "Please try again later or let us know via <a target='_blank' rel='noopener noreferrer' href='{email}'>email</a> or <a target='_blank' rel='noopener noreferrer' href='{tweet}'>Twitter</a>.",
@@ -309,6 +307,7 @@
       "ja": "Japanese",
       "pl": "Polish",
       "pt-br": "Portuguese (Brazil)",
+      "ru": "Russian",
       "sv": "Swedish",
       "zh-hant": "Chinese (Traditional)"
     }
