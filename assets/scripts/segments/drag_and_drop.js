@@ -218,7 +218,6 @@ export function handleSegmentResizeEnd (event) {
 
 export function onBodyMouseDown (event) {
   let topEl, withinMenu
-  var el = event.target
 
   if (app.readOnly || (event.touches && event.touches.length !== 1)) {
     return
@@ -256,11 +255,6 @@ export function onBodyMouseDown (event) {
   }
 
   store.dispatch(clearMenus())
-
-  if (el.classList.contains('drag-handle')) {
-    handleSegmentResizeStart(event)
-    event.preventDefault()
-  }
 }
 
 export function onBodyMouseMove (event) {

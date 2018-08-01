@@ -32,7 +32,7 @@ class SegmentDragLayer extends React.PureComponent {
   }
 
   componentDidUpdate (prevProps, prevState, snapshot) {
-    if (this.props.isDragging) {
+    if (this.props.isDragging && this.floatingEl) {
       this.getSegmentStyle(snapshot)
     }
   }
@@ -55,9 +55,9 @@ class SegmentDragLayer extends React.PureComponent {
   }
 
   render () {
-    const { isDragging, item } = this.props
+    const { isDragging, item, type } = this.props
 
-    if (!isDragging) return null
+    if (!isDragging || type === DragTypes.SEGMENT_DRAG_HANDLE) return null
 
     return (
       <div className="segment-drag-layer">
